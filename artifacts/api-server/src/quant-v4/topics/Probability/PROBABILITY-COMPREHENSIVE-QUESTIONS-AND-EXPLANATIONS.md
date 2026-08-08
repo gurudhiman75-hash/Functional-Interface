@@ -36,25 +36,25 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/3
-- **B.** 1/5
-- **C.** 3/5
-- **D.** 2/5
+- **A.** \(\frac{1}{3}\)
+- **B.** \(\frac{1}{5}\)
+- **C.** \(\frac{3}{5}\)
+- **D.** \(\frac{2}{5}\)
 
-**Correct answer:** D. 2/5
+**Correct answer:** D. \(\frac{2}{5}\)
 
 **Explanation:**
 
-- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+- **Method:** For one random selection, use \(P\!\left(required event\right)\) = favourable cases \(\div\) total equally likely cases.
 1. The batch has 15 bulbs, of which 6 are defective.
-2. The probability is 6/15 = 2/5.
-- **Answer:** The required probability is 2/5.
+2. The probability is \(\frac{6}{15}\) = \(\frac{2}{5}\).
+- **Answer:** The required probability is \(\frac{2}{5}\).
 
 ---
 
 #### Question 2 — PRB-QL-002 (Easy)
 
-**Question:** A company has 32 employees. If one employee is selected at random, the probability that the employee is a woman is 1/2. How many women work in the company?
+**Question:** A company has 32 employees. If one employee is selected at random, the probability that the employee is a woman is \(\frac{1}{2}\). How many women work in the company?
 
 **Options:**
 
@@ -67,16 +67,16 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. Female employees make up 1/2 of all 32 employees.
-2. Required number = 32 × 1/2 = 16.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. Female employees make up \(\frac{1}{2}\) of all 32 employees.
+2. Required number = 32 \(\times\) \(\frac{1}{2}\) = 16.
 - **Answer:** The required number is 16.
 
 ---
 
 #### Question 3 — PRB-QL-003 (Easy)
 
-**Question:** A bag contains 18 red balls. If a ball drawn at random is red with probability 1/2, how many balls are in the bag?
+**Question:** A bag contains 18 red balls. If a ball drawn at random is red with probability \(\frac{1}{2}\), how many balls are in the bag?
 
 **Options:**
 
@@ -89,9 +89,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. 18 red balls represent 1/2 of the full group.
-2. Total balls = 18 ÷ 1/2 = 36.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. 18 red balls represent \(\frac{1}{2}\) of the full group.
+2. Total balls = 18 \(\div\) \(\frac{1}{2}\) = 36.
 - **Answer:** The required number is 36.
 
 ---
@@ -104,16 +104,16 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 - **A.** 1
 - **B.** 0
-- **C.** 7/8
-- **D.** 1/2
+- **C.** \(\frac{7}{8}\)
+- **D.** \(\frac{1}{2}\)
 
 **Correct answer:** A. 1
 
 **Explanation:**
 
-- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+- **Method:** For one random selection, use \(P\!\left(required event\right)\) = favourable cases \(\div\) total equally likely cases.
 1. Every integer from 1 to 8 satisfies the condition.
-2. The probability is 8/8 = 1.
+2. The probability is \(\frac{8}{8}\) = 1.
 - **Answer:** The required probability is 1.
 
 ---
@@ -124,26 +124,26 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 10/17
-- **B.** 8/17
-- **C.** 7/17
-- **D.** 6/17
+- **A.** \(\frac{10}{17}\)
+- **B.** \(\frac{8}{17}\)
+- **C.** \(\frac{7}{17}\)
+- **D.** \(\frac{6}{17}\)
 
-**Correct answer:** C. 7/17
+**Correct answer:** C. \(\frac{7}{17}\)
 
 **Explanation:**
 
-- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+- **Method:** For one random selection, use \(P\!\left(required event\right)\) = favourable cases \(\div\) total equally likely cases.
 1. The box contains 17 pens altogether: 5 red, 7 blue and 5 green.
 2. 7 of the 17 pens are blue.
-3. The required probability is 7/17.
-- **Answer:** The required probability is 7/17.
+3. The required probability is \(\frac{7}{17}\).
+- **Answer:** The required probability is \(\frac{7}{17}\).
 
 ---
 
 #### Question 6 — PRB-QL-006 (Easy)
 
-**Question:** A box contains 40 lottery tickets. The probability of drawing a prize-winning ticket is 3/5. How many prize-winning tickets are in the box?
+**Question:** A box contains 40 lottery tickets. The probability of drawing a prize-winning ticket is \(\frac{3}{5}\). How many prize-winning tickets are in the box?
 
 **Options:**
 
@@ -156,9 +156,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. Prize-winning tickets make up 3/5 of all 40 tickets.
-2. Required number = 40 × 3/5 = 24.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. Prize-winning tickets make up \(\frac{3}{5}\) of all 40 tickets.
+2. Required number = 40 \(\times\) \(\frac{3}{5}\) = 24.
 - **Answer:** The required number is 24.
 
 ---
@@ -169,25 +169,25 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 7/12
-- **B.** 5/12
-- **C.** 2/3
-- **D.** 1/2
+- **A.** \(\frac{7}{12}\)
+- **B.** \(\frac{5}{12}\)
+- **C.** \(\frac{2}{3}\)
+- **D.** \(\frac{1}{2}\)
 
-**Correct answer:** A. 7/12
+**Correct answer:** A. \(\frac{7}{12}\)
 
 **Explanation:**
 
-- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+- **Method:** For one random selection, use \(P\!\left(required event\right)\) = favourable cases \(\div\) total equally likely cases.
 1. The bag has 24 balls, of which 14 are red.
-2. The probability is 14/24 = 7/12.
-- **Answer:** The required probability is 7/12.
+2. The probability is \(\frac{14}{24}\) = \(\frac{7}{12}\).
+- **Answer:** The required probability is \(\frac{7}{12}\).
 
 ---
 
 #### Question 8 — PRB-QL-008 (Easy)
 
-**Question:** A batch contains 18 bulbs. If one bulb is selected at random, the probability that it is defective is 1/2. How many bulbs are defective?
+**Question:** A batch contains 18 bulbs. If one bulb is selected at random, the probability that it is defective is \(\frac{1}{2}\). How many bulbs are defective?
 
 **Options:**
 
@@ -200,16 +200,16 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. Defective bulbs make up 1/2 of all 18 bulbs.
-2. Required number = 18 × 1/2 = 9.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. Defective bulbs make up \(\frac{1}{2}\) of all 18 bulbs.
+2. Required number = 18 \(\times\) \(\frac{1}{2}\) = 9.
 - **Answer:** The required number is 9.
 
 ---
 
 #### Question 9 — PRB-QL-009 (Easy)
 
-**Question:** A bag contains 16 red balls. If a ball drawn at random is red with probability 8/9, how many balls are in the bag?
+**Question:** A bag contains 16 red balls. If a ball drawn at random is red with probability \(\frac{8}{9}\), how many balls are in the bag?
 
 **Options:**
 
@@ -222,9 +222,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. 16 red balls represent 8/9 of the full group.
-2. Total balls = 16 ÷ 8/9 = 18.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. 16 red balls represent \(\frac{8}{9}\) of the full group.
+2. Total balls = 16 \(\div\) \(\frac{8}{9}\) = 18.
 - **Answer:** The required number is 18.
 
 ---
@@ -237,16 +237,16 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 - **A.** 1
 - **B.** 0
-- **C.** 20/21
-- **D.** 1/2
+- **C.** \(\frac{20}{21}\)
+- **D.** \(\frac{1}{2}\)
 
 **Correct answer:** A. 1
 
 **Explanation:**
 
-- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+- **Method:** For one random selection, use \(P\!\left(required event\right)\) = favourable cases \(\div\) total equally likely cases.
 1. Every integer from 1 to 21 satisfies the condition.
-2. The probability is 21/21 = 1.
+2. The probability is \(\frac{21}{21}\) = 1.
 - **Answer:** The required probability is 1.
 
 ---
@@ -257,26 +257,26 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 5/13
-- **B.** 8/13
-- **C.** 6/13
-- **D.** 4/13
+- **A.** \(\frac{5}{13}\)
+- **B.** \(\frac{8}{13}\)
+- **C.** \(\frac{6}{13}\)
+- **D.** \(\frac{4}{13}\)
 
-**Correct answer:** A. 5/13
+**Correct answer:** A. \(\frac{5}{13}\)
 
 **Explanation:**
 
-- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+- **Method:** For one random selection, use \(P\!\left(required event\right)\) = favourable cases \(\div\) total equally likely cases.
 1. The pouch contains 26 coloured stones altogether: 8 red, 8 blue and 10 green.
 2. 10 of the 26 coloured stones are green.
-3. The required probability is 10/26 = 5/13.
-- **Answer:** The required probability is 5/13.
+3. The required probability is \(\frac{10}{26}\) = \(\frac{5}{13}\).
+- **Answer:** The required probability is \(\frac{5}{13}\).
 
 ---
 
 #### Question 12 — PRB-QL-012 (Easy)
 
-**Question:** A box contains 72 lottery tickets. The probability of drawing a prize-winning ticket is 7/12. How many prize-winning tickets are in the box?
+**Question:** A box contains 72 lottery tickets. The probability of drawing a prize-winning ticket is \(\frac{7}{12}\). How many prize-winning tickets are in the box?
 
 **Options:**
 
@@ -289,9 +289,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. Prize-winning tickets make up 7/12 of all 72 tickets.
-2. Required number = 72 × 7/12 = 42.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. Prize-winning tickets make up \(\frac{7}{12}\) of all 72 tickets.
+2. Required number = 72 \(\times\) \(\frac{7}{12}\) = 42.
 - **Answer:** The required number is 42.
 
 ---
@@ -302,25 +302,25 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 10/11
-- **B.** 2/11
-- **C.** 1/11
+- **A.** \(\frac{10}{11}\)
+- **B.** \(\frac{2}{11}\)
+- **C.** \(\frac{1}{11}\)
 - **D.** 0
 
-**Correct answer:** C. 1/11
+**Correct answer:** C. \(\frac{1}{11}\)
 
 **Explanation:**
 
-- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+- **Method:** For one random selection, use \(P\!\left(required event\right)\) = favourable cases \(\div\) total equally likely cases.
 1. There are 22 lottery tickets in all, and 2 are prize-winning.
-2. The probability is 2/22 = 1/11.
-- **Answer:** The required probability is 1/11.
+2. The probability is \(\frac{2}{22}\) = \(\frac{1}{11}\).
+- **Answer:** The required probability is \(\frac{1}{11}\).
 
 ---
 
 #### Question 14 — PRB-QL-014 (Easy)
 
-**Question:** A company has 54 employees. If one employee is selected at random, the probability that the employee is a woman is 2/3. How many women work in the company?
+**Question:** A company has 54 employees. If one employee is selected at random, the probability that the employee is a woman is \(\frac{2}{3}\). How many women work in the company?
 
 **Options:**
 
@@ -333,16 +333,16 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. Female employees make up 2/3 of all 54 employees.
-2. Required number = 54 × 2/3 = 36.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. Female employees make up \(\frac{2}{3}\) of all 54 employees.
+2. Required number = 54 \(\times\) \(\frac{2}{3}\) = 36.
 - **Answer:** The required number is 36.
 
 ---
 
 #### Question 15 — PRB-QL-015 (Easy)
 
-**Question:** A bank approved 28 loan applications. If a randomly selected application was approved with probability 7/11, how many loan applications were received?
+**Question:** A bank approved 28 loan applications. If a randomly selected application was approved with probability \(\frac{7}{11}\), how many loan applications were received?
 
 **Options:**
 
@@ -355,9 +355,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. 28 approved applications represent 7/11 of the full group.
-2. Total applications = 28 ÷ 7/11 = 44.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. 28 approved applications represent \(\frac{7}{11}\) of the full group.
+2. Total applications = 28 \(\div\) \(\frac{7}{11}\) = 44.
 - **Answer:** The required number is 44.
 
 ---
@@ -366,23 +366,23 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 #### Question 16 — PRB-QL-101 (Easy)
 
-**Question:** The probability that a candidate qualifies is 1/13. What is the probability that the candidate does not qualify?
+**Question:** The probability that a candidate qualifies is \(\frac{1}{13}\). What is the probability that the candidate does not qualify?
 
 **Options:**
 
-- **A.** 11/13
-- **B.** 1/13
-- **C.** 12/13
+- **A.** \(\frac{11}{13}\)
+- **B.** \(\frac{1}{13}\)
+- **C.** \(\frac{12}{13}\)
 - **D.** 1
 
-**Correct answer:** C. 12/13
+**Correct answer:** C. \(\frac{12}{13}\)
 
 **Explanation:**
 
-- **Method:** The required event is the opposite of the given event, so use P(not E) = 1 − P(E).
+- **Method:** The required event is the opposite of the given event, so use \(P\!\left(not E\right)\) = 1 − \(P\!\left(E\right)\).
 1. An event and its opposite have total probability 1.
-2. Required probability = 1 - 1/13 = 12/13.
-- **Answer:** The required probability is 12/13.
+2. Required probability = 1 - \(\frac{1}{13}\) = \(\frac{12}{13}\).
+- **Answer:** The required probability is \(\frac{12}{13}\).
 
 ---
 
@@ -392,41 +392,41 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 3/4
+- **A.** \(\frac{3}{4}\)
 - **B.** 0
-- **C.** 1/2
-- **D.** 1/4
+- **C.** \(\frac{1}{2}\)
+- **D.** \(\frac{1}{4}\)
 
-**Correct answer:** D. 1/4
+**Correct answer:** D. \(\frac{1}{4}\)
 
 **Explanation:**
 
-- **Method:** With 2 fair tosses there are 2^2 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 2 fair tosses there are \(2^{2}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. No heads means every toss must be a tail. Only TT works.
-2. Out of 4 sequences, 1 works. So the probability is 1/4.
-- **Answer:** The required probability is 1/4.
+2. Out of 4 sequences, 1 works. So the probability is \(\frac{1}{4}\).
+- **Answer:** The required probability is \(\frac{1}{4}\).
 
 ---
 
 #### Question 18 — PRB-QL-108 (Easy)
 
-**Question:** The probability that a candidate qualifies is 1/3. What is the probability that the candidate does not qualify?
+**Question:** The probability that a candidate qualifies is \(\frac{1}{3}\). What is the probability that the candidate does not qualify?
 
 **Options:**
 
-- **A.** 1/3
-- **B.** 2/3
-- **C.** 1/2
+- **A.** \(\frac{1}{3}\)
+- **B.** \(\frac{2}{3}\)
+- **C.** \(\frac{1}{2}\)
 - **D.** 1
 
-**Correct answer:** B. 2/3
+**Correct answer:** B. \(\frac{2}{3}\)
 
 **Explanation:**
 
-- **Method:** The required event is the opposite of the given event, so use P(not E) = 1 − P(E).
+- **Method:** The required event is the opposite of the given event, so use \(P\!\left(not E\right)\) = 1 − \(P\!\left(E\right)\).
 1. An event and its opposite have total probability 1.
-2. Required probability = 1 - 1/3 = 2/3.
-- **Answer:** The required probability is 2/3.
+2. Required probability = 1 - \(\frac{1}{3}\) = \(\frac{2}{3}\).
+- **Answer:** The required probability is \(\frac{2}{3}\).
 
 ---
 
@@ -436,41 +436,41 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 3/8
-- **B.** 1/4
-- **C.** 7/8
-- **D.** 1/8
+- **A.** \(\frac{3}{8}\)
+- **B.** \(\frac{1}{4}\)
+- **C.** \(\frac{7}{8}\)
+- **D.** \(\frac{1}{8}\)
 
-**Correct answer:** D. 1/8
+**Correct answer:** D. \(\frac{1}{8}\)
 
 **Explanation:**
 
-- **Method:** With 3 fair tosses there are 2^3 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 3 fair tosses there are \(2^{3}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. No heads means every toss must be a tail. Only TTT works.
-2. Out of 8 sequences, 1 works. So the probability is 1/8.
-- **Answer:** The required probability is 1/8.
+2. Out of 8 sequences, 1 works. So the probability is \(\frac{1}{8}\).
+- **Answer:** The required probability is \(\frac{1}{8}\).
 
 ---
 
 #### Question 20 — PRB-QL-115 (Easy)
 
-**Question:** The probability that a train arrives on time is 5/11. What is the probability that the train does not arrive on time?
+**Question:** The probability that a train arrives on time is \(\frac{5}{11}\). What is the probability that the train does not arrive on time?
 
 **Options:**
 
-- **A.** 6/11
-- **B.** 5/11
-- **C.** 1/2
-- **D.** 7/11
+- **A.** \(\frac{6}{11}\)
+- **B.** \(\frac{5}{11}\)
+- **C.** \(\frac{1}{2}\)
+- **D.** \(\frac{7}{11}\)
 
-**Correct answer:** A. 6/11
+**Correct answer:** A. \(\frac{6}{11}\)
 
 **Explanation:**
 
-- **Method:** The required event is the opposite of the given event, so use P(not E) = 1 − P(E).
+- **Method:** The required event is the opposite of the given event, so use \(P\!\left(not E\right)\) = 1 − \(P\!\left(E\right)\).
 1. An event and its opposite have total probability 1.
-2. Required probability = 1 - 5/11 = 6/11.
-- **Answer:** The required probability is 6/11.
+2. Required probability = 1 - \(\frac{5}{11}\) = \(\frac{6}{11}\).
+- **Answer:** The required probability is \(\frac{6}{11}\).
 
 ---
 
@@ -480,20 +480,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/4
+- **A.** \(\frac{1}{4}\)
 - **B.** 1
-- **C.** 15/16
-- **D.** 1/16
+- **C.** \(\frac{15}{16}\)
+- **D.** \(\frac{1}{16}\)
 
-**Correct answer:** C. 15/16
+**Correct answer:** C. \(\frac{15}{16}\)
 
 **Explanation:**
 
-- **Method:** Use the complement. With 4 fair tosses there are 2^4 equally likely H/T sequences, and it is shorter to exclude the sequence with no head.
+- **Method:** Use the complement. With 4 fair tosses there are \(2^{4}\) equally likely H/T sequences, and it is shorter to exclude the sequence with no head.
 1. The only sequence with no head is TTTT.
-2. P(at least one head) = 1 - P(TTTT) = 1 - 1/16 = 15/16.
+2. \(P\!\left(at least one head\right)\) = 1 - \(P\!\left(TTTT\right)\) = 1 - \(\frac{1}{16}\) = \(\frac{15}{16}\).
 - **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
-- **Answer:** The required probability is 15/16.
+- **Answer:** The required probability is \(\frac{15}{16}\).
 
 ---
 
@@ -503,20 +503,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/2
-- **B.** 3/8
-- **C.** 5/8
-- **D.** 1/4
+- **A.** \(\frac{1}{2}\)
+- **B.** \(\frac{3}{8}\)
+- **C.** \(\frac{5}{8}\)
+- **D.** \(\frac{1}{4}\)
 
-**Correct answer:** B. 3/8
+**Correct answer:** B. \(\frac{3}{8}\)
 
 **Explanation:**
 
-- **Method:** With 3 fair tosses there are 2^3 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 3 fair tosses there are \(2^{3}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. For exactly one head, the favourable sequences are HTT, THT, TTH.
-2. 3 of the 8 H/T sequences work. So the probability is 3/8.
+2. 3 of the 8 H/T sequences work. So the probability is \(\frac{3}{8}\).
 - **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
-- **Answer:** The required probability is 3/8.
+- **Answer:** The required probability is \(\frac{3}{8}\).
 
 ---
 
@@ -526,20 +526,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 5/8
-- **B.** 1/4
-- **C.** 3/8
-- **D.** 1/2
+- **A.** \(\frac{5}{8}\)
+- **B.** \(\frac{1}{4}\)
+- **C.** \(\frac{3}{8}\)
+- **D.** \(\frac{1}{2}\)
 
-**Correct answer:** C. 3/8
+**Correct answer:** C. \(\frac{3}{8}\)
 
 **Explanation:**
 
-- **Method:** With 3 fair tosses there are 2^3 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 3 fair tosses there are \(2^{3}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. For exactly 2 heads, the favourable sequences are HHT, HTH, THH.
-2. 3 of the 8 H/T sequences work. So the probability is 3/8.
+2. 3 of the 8 H/T sequences work. So the probability is \(\frac{3}{8}\).
 - **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
-- **Answer:** The required probability is 3/8.
+- **Answer:** The required probability is \(\frac{3}{8}\).
 
 ---
 
@@ -549,20 +549,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 5/16
-- **B.** 11/16
-- **C.** 3/4
-- **D.** 5/8
+- **A.** \(\frac{5}{16}\)
+- **B.** \(\frac{11}{16}\)
+- **C.** \(\frac{3}{4}\)
+- **D.** \(\frac{5}{8}\)
 
-**Correct answer:** B. 11/16
+**Correct answer:** B. \(\frac{11}{16}\)
 
 **Explanation:**
 
-- **Method:** With 4 fair tosses there are 2^4 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 4 fair tosses there are \(2^{4}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. The favourable sequences are HHTT, HTHT, HTTH, HTTT, THHT, THTH, THTT, TTHH, TTHT, TTTH, TTTT.
-2. 11 of the 16 H/T sequences work. So the probability is 11/16.
+2. 11 of the 16 H/T sequences work. So the probability is \(\frac{11}{16}\).
 - **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
-- **Answer:** The required probability is 11/16.
+- **Answer:** The required probability is \(\frac{11}{16}\).
 
 ---
 
@@ -572,42 +572,42 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/8
+- **A.** \(\frac{1}{8}\)
 - **B.** 0
-- **C.** 1/4
-- **D.** 7/8
+- **C.** \(\frac{1}{4}\)
+- **D.** \(\frac{7}{8}\)
 
-**Correct answer:** A. 1/8
+**Correct answer:** A. \(\frac{1}{8}\)
 
 **Explanation:**
 
-- **Method:** With 4 fair tosses there are 2^4 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 4 fair tosses there are \(2^{4}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. All tosses show the same face only in HHHH and TTTT.
-2. The probability is 2/16 = 1/8.
+2. The probability is \(\frac{2}{16}\) = \(\frac{1}{8}\).
 - **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
-- **Answer:** The required probability is 1/8.
+- **Answer:** The required probability is \(\frac{1}{8}\).
 
 ---
 
 #### Question 26 — PRB-QL-122 (Easy)
 
-**Question:** The probability that a machine passes inspection is 6/11. What is the probability that the machine fails the inspection?
+**Question:** The probability that a machine passes inspection is \(\frac{6}{11}\). What is the probability that the machine fails the inspection?
 
 **Options:**
 
-- **A.** 5/12
-- **B.** 5/11
-- **C.** 6/11
-- **D.** 4/11
+- **A.** \(\frac{5}{12}\)
+- **B.** \(\frac{5}{11}\)
+- **C.** \(\frac{6}{11}\)
+- **D.** \(\frac{4}{11}\)
 
-**Correct answer:** B. 5/11
+**Correct answer:** B. \(\frac{5}{11}\)
 
 **Explanation:**
 
-- **Method:** The required event is the opposite of the given event, so use P(not E) = 1 − P(E).
+- **Method:** The required event is the opposite of the given event, so use \(P\!\left(not E\right)\) = 1 − \(P\!\left(E\right)\).
 1. An event and its opposite have total probability 1.
-2. Required probability = 1 - 6/11 = 5/11.
-- **Answer:** The required probability is 5/11.
+2. Required probability = 1 - \(\frac{6}{11}\) = \(\frac{5}{11}\).
+- **Answer:** The required probability is \(\frac{5}{11}\).
 
 ---
 
@@ -618,19 +618,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 1
-- **B.** 3/8
-- **C.** 7/8
-- **D.** 1/8
+- **B.** \(\frac{3}{8}\)
+- **C.** \(\frac{7}{8}\)
+- **D.** \(\frac{1}{8}\)
 
-**Correct answer:** C. 7/8
+**Correct answer:** C. \(\frac{7}{8}\)
 
 **Explanation:**
 
-- **Method:** Use the complement. With 3 fair tosses there are 2^3 equally likely H/T sequences, and it is shorter to exclude the sequence with no head.
+- **Method:** Use the complement. With 3 fair tosses there are \(2^{3}\) equally likely H/T sequences, and it is shorter to exclude the sequence with no head.
 1. The only sequence with no head is TTT.
-2. P(at least one head) = 1 - P(TTT) = 1 - 1/8 = 7/8.
+2. \(P\!\left(at least one head\right)\) = 1 - \(P\!\left(TTT\right)\) = 1 - \(\frac{1}{8}\) = \(\frac{7}{8}\).
 - **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
-- **Answer:** The required probability is 7/8.
+- **Answer:** The required probability is \(\frac{7}{8}\).
 
 ---
 
@@ -640,20 +640,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/2
+- **A.** \(\frac{1}{2}\)
 - **B.** 0
-- **C.** 1/4
-- **D.** 3/4
+- **C.** \(\frac{1}{4}\)
+- **D.** \(\frac{3}{4}\)
 
-**Correct answer:** C. 1/4
+**Correct answer:** C. \(\frac{1}{4}\)
 
 **Explanation:**
 
-- **Method:** With 4 fair tosses there are 2^4 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 4 fair tosses there are \(2^{4}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. For exactly one head, the favourable sequences are HTTT, THTT, TTHT, TTTH.
-2. 4 of the 16 H/T sequences work. So the probability is 4/16 = 1/4.
+2. 4 of the 16 H/T sequences work. So the probability is \(\frac{4}{16}\) = \(\frac{1}{4}\).
 - **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
-- **Answer:** The required probability is 1/4.
+- **Answer:** The required probability is \(\frac{1}{4}\).
 
 ---
 
@@ -663,20 +663,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/4
-- **B.** 3/4
+- **A.** \(\frac{1}{4}\)
+- **B.** \(\frac{3}{4}\)
 - **C.** 0
-- **D.** 1/2
+- **D.** \(\frac{1}{2}\)
 
-**Correct answer:** A. 1/4
+**Correct answer:** A. \(\frac{1}{4}\)
 
 **Explanation:**
 
-- **Method:** With 4 fair tosses there are 2^4 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 4 fair tosses there are \(2^{4}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. For exactly 3 heads, the favourable sequences are HHHT, HHTH, HTHH, THHH.
-2. 4 of the 16 H/T sequences work. So the probability is 4/16 = 1/4.
+2. 4 of the 16 H/T sequences work. So the probability is \(\frac{4}{16}\) = \(\frac{1}{4}\).
 - **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
-- **Answer:** The required probability is 1/4.
+- **Answer:** The required probability is \(\frac{1}{4}\).
 
 ---
 
@@ -687,19 +687,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 1
-- **B.** 7/8
-- **C.** 3/4
-- **D.** 1/8
+- **B.** \(\frac{7}{8}\)
+- **C.** \(\frac{3}{4}\)
+- **D.** \(\frac{1}{8}\)
 
-**Correct answer:** B. 7/8
+**Correct answer:** B. \(\frac{7}{8}\)
 
 **Explanation:**
 
-- **Method:** With 3 fair tosses there are 2^3 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 3 fair tosses there are \(2^{3}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. The favourable sequences are HHT, HTH, HTT, THH, THT, TTH, TTT.
-2. 7 of the 8 H/T sequences work. So the probability is 7/8.
+2. 7 of the 8 H/T sequences work. So the probability is \(\frac{7}{8}\).
 - **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
-- **Answer:** The required probability is 7/8.
+- **Answer:** The required probability is \(\frac{7}{8}\).
 
 ---
 
@@ -712,18 +712,18 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 0
-- **B.** 1/2
-- **C.** 3/4
-- **D.** 1/4
+- **B.** \(\frac{1}{2}\)
+- **C.** \(\frac{3}{4}\)
+- **D.** \(\frac{1}{4}\)
 
-**Correct answer:** D. 1/4
+**Correct answer:** D. \(\frac{1}{4}\)
 
 **Explanation:**
 
-- **Method:** With 2 fair tosses there are 2^2 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 2 fair tosses there are \(2^{2}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. The possible sequences are HH, HT, TH, TT.
-2. TT is one of these sequences. So the probability is 1/4.
-- **Answer:** The required probability is 1/4.
+2. TT is one of these sequences. So the probability is \(\frac{1}{4}\).
+- **Answer:** The required probability is \(\frac{1}{4}\).
 
 ---
 
@@ -734,18 +734,18 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 1
-- **B.** 1/2
+- **B.** \(\frac{1}{2}\)
 - **C.** 0
-- **D.** 1/3
+- **D.** \(\frac{1}{3}\)
 
-**Correct answer:** B. 1/2
+**Correct answer:** B. \(\frac{1}{2}\)
 
 **Explanation:**
 
 - **Method:** A fair die has six equally likely faces; list the faces satisfying the condition and divide their count by 6.
 1. The favourable faces are 2, 3, 5; there are 3.
-2. The probability is 3/6 = 1/2.
-- **Answer:** The required probability is 1/2.
+2. The probability is \(\frac{3}{6}\) = \(\frac{1}{2}\).
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
@@ -755,25 +755,25 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 2/3
-- **B.** 1/3
-- **C.** 1/4
+- **A.** \(\frac{2}{3}\)
+- **B.** \(\frac{1}{3}\)
+- **C.** \(\frac{1}{4}\)
 - **D.** 0
 
-**Correct answer:** B. 1/3
+**Correct answer:** B. \(\frac{1}{3}\)
 
 **Explanation:**
 
-- **Method:** The spinner sectors are equal, so probability is favourable sectors ÷ total sectors.
+- **Method:** The spinner sectors are equal, so probability is favourable sectors \(\div\) total sectors.
 1. 2 of the 6 equal sectors are shaded.
-2. The probability is 2/6 = 1/3.
-- **Answer:** The required probability is 1/3.
+2. The probability is \(\frac{2}{6}\) = \(\frac{1}{3}\).
+- **Answer:** The required probability is \(\frac{1}{3}\).
 
 ---
 
 #### Question 34 — PRB-QL-208 (Easy)
 
-**Question:** A spinner has 16 equal sectors. The probability that it stops on a marked sector is 7/8. How many sectors are marked?
+**Question:** A spinner has 16 equal sectors. The probability that it stops on a marked sector is \(\frac{7}{8}\). How many sectors are marked?
 
 **Options:**
 
@@ -786,9 +786,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. The marked part is 7/8 of all 16 sectors.
-2. Marked sectors = 16 × 7/8 = 14.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. The marked part is \(\frac{7}{8}\) of all 16 sectors.
+2. Marked sectors = 16 \(\times\) \(\frac{7}{8}\) = 14.
 - **Answer:** The required number is 14.
 
 ---
@@ -800,18 +800,18 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 0
-- **B.** 1/2
-- **C.** 3/4
-- **D.** 1/4
+- **B.** \(\frac{1}{2}\)
+- **C.** \(\frac{3}{4}\)
+- **D.** \(\frac{1}{4}\)
 
-**Correct answer:** D. 1/4
+**Correct answer:** D. \(\frac{1}{4}\)
 
 **Explanation:**
 
-- **Method:** With 2 fair tosses there are 2^2 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 2 fair tosses there are \(2^{2}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. The possible sequences are HH, HT, TH, TT.
-2. TH is one of these sequences. So the probability is 1/4.
-- **Answer:** The required probability is 1/4.
+2. TH is one of these sequences. So the probability is \(\frac{1}{4}\).
+- **Answer:** The required probability is \(\frac{1}{4}\).
 
 ---
 
@@ -823,18 +823,18 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 - **A.** 0
 - **B.** 1
-- **C.** 1/2
-- **D.** 1/3
+- **C.** \(\frac{1}{2}\)
+- **D.** \(\frac{1}{3}\)
 
-**Correct answer:** C. 1/2
+**Correct answer:** C. \(\frac{1}{2}\)
 
 **Explanation:**
 
-- **Method:** With 2 fair tosses there are 2^2 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 2 fair tosses there are \(2^{2}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. For exactly one head, the favourable sequences are HT, TH.
-2. 2 of the 4 H/T sequences work. So the probability is 2/4 = 1/2.
+2. 2 of the 4 H/T sequences work. So the probability is \(\frac{2}{4}\) = \(\frac{1}{2}\).
 - **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
-- **Answer:** The required probability is 1/2.
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
@@ -844,20 +844,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 8/9
-- **B.** 1/9
+- **A.** \(\frac{8}{9}\)
+- **B.** \(\frac{1}{9}\)
 - **C.** 0
-- **D.** 2/9
+- **D.** \(\frac{2}{9}\)
 
-**Correct answer:** B. 1/9
+**Correct answer:** B. \(\frac{1}{9}\)
 
 **Explanation:**
 
-- **Method:** Treat the outcomes as ordered pairs. Two fair dice produce 6 × 6 = 36 equally likely pairs (first die, second die).
-1. Two dice have 6 × 6 = 36 ordered outcomes. The pairs with sum 5 are (1,4), (2,3), (3,2), (4,1).
-2. The probability is 4/36 = 1/9.
+- **Method:** Treat the outcomes as ordered pairs. Two fair dice produce 6 \(\times\) 6 = 36 equally likely pairs (first die, second die).
+1. Two dice have 6 \(\times\) 6 = 36 ordered outcomes. The pairs with sum 5 are (1,4), (2,3), (3,2), (4,1).
+2. The probability is \(\frac{4}{36}\) = \(\frac{1}{9}\).
 - **Key point:** For distinguishable dice, (a,b) and (b,a) are different outcomes unless a = b.
-- **Answer:** The required probability is 1/9.
+- **Answer:** The required probability is \(\frac{1}{9}\).
 
 ---
 
@@ -868,19 +868,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 0
-- **B.** 1/3
+- **B.** \(\frac{1}{3}\)
 - **C.** 1
-- **D.** 1/2
+- **D.** \(\frac{1}{2}\)
 
-**Correct answer:** D. 1/2
+**Correct answer:** D. \(\frac{1}{2}\)
 
 **Explanation:**
 
-- **Method:** Treat the outcomes as ordered pairs. Two fair dice produce 6 × 6 = 36 equally likely pairs (first die, second die).
+- **Method:** Treat the outcomes as ordered pairs. Two fair dice produce 6 \(\times\) 6 = 36 equally likely pairs (first die, second die).
 1. Odd faces are 1, 3, 5 and even faces are 2, 4, 6. Same parity means odd-odd or even-even.
-2. Required ordered pairs = 3 × 3 + 3 × 3 = 18. So the probability is 18/36 = 1/2.
+2. Required ordered pairs = 3 \(\times\) 3 + 3 \(\times\) 3 = 18. So the probability is \(\frac{18}{36}\) = \(\frac{1}{2}\).
 - **Key point:** For distinguishable dice, (a,b) and (b,a) are different outcomes unless a = b.
-- **Answer:** The required probability is 1/2.
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
@@ -890,19 +890,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 21/32
-- **B.** 3/8
-- **C.** 5/16
-- **D.** 11/32
+- **A.** \(\frac{21}{32}\)
+- **B.** \(\frac{3}{8}\)
+- **C.** \(\frac{5}{16}\)
+- **D.** \(\frac{11}{32}\)
 
-**Correct answer:** D. 11/32
+**Correct answer:** D. \(\frac{11}{32}\)
 
 **Explanation:**
 
 - **Method:** Every integer in the stated range is equally likely; list or count those satisfying the number property.
 1. The required integers are 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31.
-2. The probability is 11/32.
-- **Answer:** The required probability is 11/32.
+2. The probability is \(\frac{11}{32}\).
+- **Answer:** The required probability is \(\frac{11}{32}\).
 
 ---
 
@@ -912,20 +912,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 3/8
-- **B.** 1/2
-- **C.** 1/4
-- **D.** 5/8
+- **A.** \(\frac{3}{8}\)
+- **B.** \(\frac{1}{2}\)
+- **C.** \(\frac{1}{4}\)
+- **D.** \(\frac{5}{8}\)
 
-**Correct answer:** A. 3/8
+**Correct answer:** A. \(\frac{3}{8}\)
 
 **Explanation:**
 
-- **Method:** With 4 fair tosses there are 2^4 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 4 fair tosses there are \(2^{4}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. For exactly 2 heads, the favourable sequences are HHTT, HTHT, HTTH, THHT, THTH, TTHH.
-2. 6 of the 16 H/T sequences work. So the probability is 6/16 = 3/8.
+2. 6 of the 16 H/T sequences work. So the probability is \(\frac{6}{16}\) = \(\frac{3}{8}\).
 - **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
-- **Answer:** The required probability is 3/8.
+- **Answer:** The required probability is \(\frac{3}{8}\).
 
 ---
 
@@ -935,19 +935,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/3
+- **A.** \(\frac{1}{3}\)
 - **B.** 0
-- **C.** 2/3
-- **D.** 1/4
+- **C.** \(\frac{2}{3}\)
+- **D.** \(\frac{1}{4}\)
 
-**Correct answer:** A. 1/3
+**Correct answer:** A. \(\frac{1}{3}\)
 
 **Explanation:**
 
 - **Method:** A fair die has six equally likely faces; list the faces satisfying the condition and divide their count by 6.
 1. The favourable faces are 5, 6; there are 2.
-2. The probability is 2/6 = 1/3.
-- **Answer:** The required probability is 1/3.
+2. The probability is \(\frac{2}{6}\) = \(\frac{1}{3}\).
+- **Answer:** The required probability is \(\frac{1}{3}\).
 
 ---
 
@@ -958,24 +958,24 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 1
-- **B.** 1/3
-- **C.** 1/2
+- **B.** \(\frac{1}{3}\)
+- **C.** \(\frac{1}{2}\)
 - **D.** 0
 
-**Correct answer:** C. 1/2
+**Correct answer:** C. \(\frac{1}{2}\)
 
 **Explanation:**
 
-- **Method:** The spinner sectors are equal, so probability is favourable sectors ÷ total sectors.
+- **Method:** The spinner sectors are equal, so probability is favourable sectors \(\div\) total sectors.
 1. 6 of the 12 equal sectors are shaded.
-2. The probability is 6/12 = 1/2.
-- **Answer:** The required probability is 1/2.
+2. The probability is \(\frac{6}{12}\) = \(\frac{1}{2}\).
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
 #### Question 43 — PRB-QL-216 (Easy)
 
-**Question:** A spinner has 12 equal sectors. The probability that it stops on a marked sector is 1/3. How many sectors are marked?
+**Question:** A spinner has 12 equal sectors. The probability that it stops on a marked sector is \(\frac{1}{3}\). How many sectors are marked?
 
 **Options:**
 
@@ -988,9 +988,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. The marked part is 1/3 of all 12 sectors.
-2. Marked sectors = 12 × 1/3 = 4.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. The marked part is \(\frac{1}{3}\) of all 12 sectors.
+2. Marked sectors = 12 \(\times\) \(\frac{1}{3}\) = 4.
 - **Answer:** The required number is 4.
 
 ---
@@ -1001,19 +1001,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/4
+- **A.** \(\frac{1}{4}\)
 - **B.** 0
-- **C.** 1/8
-- **D.** 7/8
+- **C.** \(\frac{1}{8}\)
+- **D.** \(\frac{7}{8}\)
 
-**Correct answer:** C. 1/8
+**Correct answer:** C. \(\frac{1}{8}\)
 
 **Explanation:**
 
-- **Method:** With 3 fair tosses there are 2^3 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+- **Method:** With 3 fair tosses there are \(2^{3}\) equally likely H/T sequences; count the sequences satisfying the stated head condition.
 1. The possible sequences are HHH, HHT, HTH, HTT, THH, THT, TTH, TTT.
-2. TTT is one of these sequences. So the probability is 1/8.
-- **Answer:** The required probability is 1/8.
+2. TTT is one of these sequences. So the probability is \(\frac{1}{8}\).
+- **Answer:** The required probability is \(\frac{1}{8}\).
 
 ---
 
@@ -1023,19 +1023,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/3
-- **B.** 1/2
+- **A.** \(\frac{1}{3}\)
+- **B.** \(\frac{1}{2}\)
 - **C.** 1
 - **D.** 0
 
-**Correct answer:** B. 1/2
+**Correct answer:** B. \(\frac{1}{2}\)
 
 **Explanation:**
 
 - **Method:** A fair die has six equally likely faces; list the faces satisfying the condition and divide their count by 6.
 1. The favourable faces are 2, 4, 6; there are 3.
-2. The probability is 3/6 = 1/2.
-- **Answer:** The required probability is 1/2.
+2. The probability is \(\frac{3}{6}\) = \(\frac{1}{2}\).
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
@@ -1047,19 +1047,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/13
-- **B.** 2/13
-- **C.** 12/13
+- **A.** \(\frac{1}{13}\)
+- **B.** \(\frac{2}{13}\)
+- **C.** \(\frac{12}{13}\)
 - **D.** 0
 
-**Correct answer:** A. 1/13
+**Correct answer:** A. \(\frac{1}{13}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. There are 4 queens, one in each suit.
-2. The probability is 4/52 = 1/13.
-- **Answer:** The required probability is 1/13.
+2. The probability is \(\frac{4}{52}\) = \(\frac{1}{13}\).
+- **Answer:** The required probability is \(\frac{1}{13}\).
 
 ---
 
@@ -1069,19 +1069,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 3/4
-- **B.** 1/2
-- **C.** 1/4
+- **A.** \(\frac{3}{4}\)
+- **B.** \(\frac{1}{2}\)
+- **C.** \(\frac{1}{4}\)
 - **D.** 0
 
-**Correct answer:** C. 1/4
+**Correct answer:** C. \(\frac{1}{4}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. There are 13 spades in a standard deck.
-2. The probability is 13/52 = 1/4.
-- **Answer:** The required probability is 1/4.
+2. The probability is \(\frac{13}{52}\) = \(\frac{1}{4}\).
+- **Answer:** The required probability is \(\frac{1}{4}\).
 
 ---
 
@@ -1092,18 +1092,18 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 0
-- **B.** 1/3
+- **B.** \(\frac{1}{3}\)
 - **C.** 1
-- **D.** 1/2
+- **D.** \(\frac{1}{2}\)
 
-**Correct answer:** D. 1/2
+**Correct answer:** D. \(\frac{1}{2}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. The deck has 26 red cards.
-2. The probability is 26/52 = 1/2.
-- **Answer:** The required probability is 1/2.
+2. The probability is \(\frac{26}{52}\) = \(\frac{1}{2}\).
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
@@ -1113,19 +1113,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 10/13
-- **B.** 2/13
-- **C.** 3/13
-- **D.** 4/13
+- **A.** \(\frac{10}{13}\)
+- **B.** \(\frac{2}{13}\)
+- **C.** \(\frac{3}{13}\)
+- **D.** \(\frac{4}{13}\)
 
-**Correct answer:** C. 3/13
+**Correct answer:** C. \(\frac{3}{13}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
-1. Each suit has a jack, queen and king, so there are 3 × 4 = 12 face cards.
-2. The probability is 12/52 = 3/13.
-- **Answer:** The required probability is 3/13.
+1. Each suit has a jack, queen and king, so there are 3 \(\times\) 4 = 12 face cards.
+2. The probability is \(\frac{12}{52}\) = \(\frac{3}{13}\).
+- **Answer:** The required probability is \(\frac{3}{13}\).
 
 ---
 
@@ -1135,19 +1135,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 51/52
-- **B.** 17/52
-- **C.** 1/52
-- **D.** 1/26
+- **A.** \(\frac{51}{52}\)
+- **B.** \(\frac{17}{52}\)
+- **C.** \(\frac{1}{52}\)
+- **D.** \(\frac{1}{26}\)
 
-**Correct answer:** C. 1/52
+**Correct answer:** C. \(\frac{1}{52}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. Only one card is both the jack and a club: the jack of clubs.
-2. The probability is 1/52.
-- **Answer:** The required probability is 1/52.
+2. The probability is \(\frac{1}{52}\).
+- **Answer:** The required probability is \(\frac{1}{52}\).
 
 ---
 
@@ -1157,20 +1157,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 3/13
-- **B.** 5/13
-- **C.** 9/13
-- **D.** 4/13
+- **A.** \(\frac{3}{13}\)
+- **B.** \(\frac{5}{13}\)
+- **C.** \(\frac{9}{13}\)
+- **D.** \(\frac{4}{13}\)
 
-**Correct answer:** D. 4/13
+**Correct answer:** D. \(\frac{4}{13}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. There are 4 aces and 13 hearts. The ace of hearts is counted twice, so subtract 1.
-2. Required cards = 4 + 13 - 1 = 16. So the probability is 16/52 = 4/13.
+2. Required cards = 4 + 13 - 1 = 16. So the probability is \(\frac{16}{52}\) = \(\frac{4}{13}\).
 - **Key point:** The card common to the rank and suit groups must be subtracted once after the two counts are added.
-- **Answer:** The required probability is 4/13.
+- **Answer:** The required probability is \(\frac{4}{13}\).
 
 ---
 
@@ -1180,19 +1180,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 3/4
+- **A.** \(\frac{3}{4}\)
 - **B.** 1
-- **C.** 1/4
-- **D.** 1/2
+- **C.** \(\frac{1}{4}\)
+- **D.** \(\frac{1}{2}\)
 
-**Correct answer:** A. 3/4
+**Correct answer:** A. \(\frac{3}{4}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. A deck has 13 clubs, so cards that are not clubs = 52 - 13 = 39.
-2. The probability is 39/52 = 3/4.
-- **Answer:** The required probability is 3/4.
+2. The probability is \(\frac{39}{52}\) = \(\frac{3}{4}\).
+- **Answer:** The required probability is \(\frac{3}{4}\).
 
 ---
 
@@ -1202,20 +1202,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 5/13
-- **B.** 4/13
-- **C.** 9/13
-- **D.** 3/13
+- **A.** \(\frac{5}{13}\)
+- **B.** \(\frac{4}{13}\)
+- **C.** \(\frac{9}{13}\)
+- **D.** \(\frac{3}{13}\)
 
-**Correct answer:** B. 4/13
+**Correct answer:** B. \(\frac{4}{13}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. There are 4 jacks and 13 hearts. The jack of hearts is counted twice, so subtract 1.
-2. Required cards = 4 + 13 - 1 = 16. So the probability is 16/52 = 4/13.
+2. Required cards = 4 + 13 - 1 = 16. So the probability is \(\frac{16}{52}\) = \(\frac{4}{13}\).
 - **Key point:** The card common to the rank and suit groups must be subtracted once after the two counts are added.
-- **Answer:** The required probability is 4/13.
+- **Answer:** The required probability is \(\frac{4}{13}\).
 
 ---
 
@@ -1225,19 +1225,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/4
-- **B.** 3/4
-- **C.** 1/2
+- **A.** \(\frac{1}{4}\)
+- **B.** \(\frac{3}{4}\)
+- **C.** \(\frac{1}{2}\)
 - **D.** 1
 
-**Correct answer:** B. 3/4
+**Correct answer:** B. \(\frac{3}{4}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. A deck has 13 spades, so cards that are not spades = 52 - 13 = 39.
-2. The probability is 39/52 = 3/4.
-- **Answer:** The required probability is 3/4.
+2. The probability is \(\frac{39}{52}\) = \(\frac{3}{4}\).
+- **Answer:** The required probability is \(\frac{3}{4}\).
 
 ---
 
@@ -1247,26 +1247,26 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 5/13
-- **B.** 4/13
-- **C.** 9/13
-- **D.** 3/13
+- **A.** \(\frac{5}{13}\)
+- **B.** \(\frac{4}{13}\)
+- **C.** \(\frac{9}{13}\)
+- **D.** \(\frac{3}{13}\)
 
-**Correct answer:** B. 4/13
+**Correct answer:** B. \(\frac{4}{13}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. There are 4 queens and 13 diamonds. The queen of diamonds is counted twice, so subtract 1.
-2. Required cards = 4 + 13 - 1 = 16. So the probability is 16/52 = 4/13.
+2. Required cards = 4 + 13 - 1 = 16. So the probability is \(\frac{16}{52}\) = \(\frac{4}{13}\).
 - **Key point:** The card common to the rank and suit groups must be subtracted once after the two counts are added.
-- **Answer:** The required probability is 4/13.
+- **Answer:** The required probability is \(\frac{4}{13}\).
 
 ---
 
 #### Question 56 — PRB-QL-308 (Easy)
 
-**Question:** In a standard deck, the probability of drawing an ace is 1/13. How many cards satisfy this condition?
+**Question:** In a standard deck, the probability of drawing an ace is \(\frac{1}{13}\). How many cards satisfy this condition?
 
 **Options:**
 
@@ -1279,9 +1279,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. The required cards form 1/13 of the 52-card deck.
-2. Required cards = 52 × 1/13 = 4.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. The required cards form \(\frac{1}{13}\) of the 52-card deck.
+2. Required cards = 52 \(\times\) \(\frac{1}{13}\) = 4.
 - **Answer:** The required number is 4.
 
 ---
@@ -1292,19 +1292,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 12/13
-- **B.** 1/13
-- **C.** 2/13
+- **A.** \(\frac{12}{13}\)
+- **B.** \(\frac{1}{13}\)
+- **C.** \(\frac{2}{13}\)
 - **D.** 0
 
-**Correct answer:** B. 1/13
+**Correct answer:** B. \(\frac{1}{13}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. There are 4 jacks, one in each suit.
-2. The probability is 4/52 = 1/13.
-- **Answer:** The required probability is 1/13.
+2. The probability is \(\frac{4}{52}\) = \(\frac{1}{13}\).
+- **Answer:** The required probability is \(\frac{1}{13}\).
 
 ---
 
@@ -1314,19 +1314,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 3/4
+- **A.** \(\frac{3}{4}\)
 - **B.** 0
-- **C.** 1/4
-- **D.** 1/2
+- **C.** \(\frac{1}{4}\)
+- **D.** \(\frac{1}{2}\)
 
-**Correct answer:** C. 1/4
+**Correct answer:** C. \(\frac{1}{4}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. There are 13 clubs in a standard deck.
-2. The probability is 13/52 = 1/4.
-- **Answer:** The required probability is 1/4.
+2. The probability is \(\frac{13}{52}\) = \(\frac{1}{4}\).
+- **Answer:** The required probability is \(\frac{1}{4}\).
 
 ---
 
@@ -1338,17 +1338,17 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 - **A.** 1
 - **B.** 0
-- **C.** 1/2
-- **D.** 1/3
+- **C.** \(\frac{1}{2}\)
+- **D.** \(\frac{1}{3}\)
 
-**Correct answer:** C. 1/2
+**Correct answer:** C. \(\frac{1}{2}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. The deck has 26 black cards.
-2. The probability is 26/52 = 1/2.
-- **Answer:** The required probability is 1/2.
+2. The probability is \(\frac{26}{52}\) = \(\frac{1}{2}\).
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
@@ -1358,19 +1358,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/26
-- **B.** 1/52
-- **C.** 51/52
-- **D.** 17/52
+- **A.** \(\frac{1}{26}\)
+- **B.** \(\frac{1}{52}\)
+- **C.** \(\frac{51}{52}\)
+- **D.** \(\frac{17}{52}\)
 
-**Correct answer:** B. 1/52
+**Correct answer:** B. \(\frac{1}{52}\)
 
 **Explanation:**
 
 - **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
 1. Only one card is both the jack and a heart: the jack of hearts.
-2. The probability is 1/52.
-- **Answer:** The required probability is 1/52.
+2. The probability is \(\frac{1}{52}\).
+- **Answer:** The required probability is \(\frac{1}{52}\).
 
 ---
 
@@ -1382,26 +1382,26 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/2
+- **A.** \(\frac{1}{2}\)
 - **B.** 0
 - **C.** 1
-- **D.** 1/3
+- **D.** \(\frac{1}{3}\)
 
-**Correct answer:** A. 1/2
+**Correct answer:** A. \(\frac{1}{2}\)
 
 **Explanation:**
 
-- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+- **Method:** For one random selection, use \(P\!\left(required event\right)\) = favourable cases \(\div\) total equally likely cases.
 1. The jar contains 8 marbles, of which 4 are red.
 2. Thus, 4 of the 8 equally possible marbles are favourable.
-3. The required probability is 4/8 = 1/2.
-- **Answer:** The required probability is 1/2.
+3. The required probability is \(\frac{4}{8}\) = \(\frac{1}{2}\).
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
 #### Question 62 — PRB-QL-407 (Easy)
 
-**Question:** A pouch contains 13 coloured stones. The probability of selecting a red stone is 8/13. How many red coloured stones are there?
+**Question:** A pouch contains 13 coloured stones. The probability of selecting a red stone is \(\frac{8}{13}\). How many red coloured stones are there?
 
 **Options:**
 
@@ -1414,9 +1414,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. Red coloured stones make up 8/13 of all 13 coloured stones.
-2. Required number of red coloured stones = 13 × 8/13 = 8.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. Red coloured stones make up \(\frac{8}{13}\) of all 13 coloured stones.
+2. Required number of red coloured stones = 13 \(\times\) \(\frac{8}{13}\) = 8.
 3. There are 8 red coloured stones.
 - **Answer:** The required number is 8.
 
@@ -1428,26 +1428,26 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 7/11
-- **B.** 1/2
-- **C.** 5/11
-- **D.** 6/11
+- **A.** \(\frac{7}{11}\)
+- **B.** \(\frac{1}{2}\)
+- **C.** \(\frac{5}{11}\)
+- **D.** \(\frac{6}{11}\)
 
-**Correct answer:** D. 6/11
+**Correct answer:** D. \(\frac{6}{11}\)
 
 **Explanation:**
 
-- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+- **Method:** For one random selection, use \(P\!\left(required event\right)\) = favourable cases \(\div\) total equally likely cases.
 1. The jar contains 11 marbles, of which 6 are red.
 2. Thus, 6 of the 11 equally possible marbles are favourable.
-3. The required probability is 6/11.
-- **Answer:** The required probability is 6/11.
+3. The required probability is \(\frac{6}{11}\).
+- **Answer:** The required probability is \(\frac{6}{11}\).
 
 ---
 
 #### Question 64 — PRB-QL-415 (Easy)
 
-**Question:** A pouch contains 16 coloured stones. The probability of selecting a red stone is 9/16. How many red coloured stones are there?
+**Question:** A pouch contains 16 coloured stones. The probability of selecting a red stone is \(\frac{9}{16}\). How many red coloured stones are there?
 
 **Options:**
 
@@ -1460,9 +1460,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. Red coloured stones make up 9/16 of all 16 coloured stones.
-2. Required number of red coloured stones = 16 × 9/16 = 9.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. Red coloured stones make up \(\frac{9}{16}\) of all 16 coloured stones.
+2. Required number of red coloured stones = 16 \(\times\) \(\frac{9}{16}\) = 9.
 3. There are 9 red coloured stones.
 - **Answer:** The required number is 9.
 
@@ -1474,20 +1474,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 2/3
-- **B.** 1/3
+- **A.** \(\frac{2}{3}\)
+- **B.** \(\frac{1}{3}\)
 - **C.** 1
-- **D.** 1/2
+- **D.** \(\frac{1}{2}\)
 
-**Correct answer:** A. 2/3
+**Correct answer:** A. \(\frac{2}{3}\)
 
 **Explanation:**
 
-- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+- **Method:** For one random selection, use \(P\!\left(required event\right)\) = favourable cases \(\div\) total equally likely cases.
 1. The jar contains 12 marbles, of which 8 are red.
 2. Thus, 8 of the 12 equally possible marbles are favourable.
-3. The required probability is 8/12 = 2/3.
-- **Answer:** The required probability is 2/3.
+3. The required probability is \(\frac{8}{12}\) = \(\frac{2}{3}\).
+- **Answer:** The required probability is \(\frac{2}{3}\).
 
 ---
 
@@ -1497,22 +1497,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 6/13
-- **B.** 20/39
-- **C.** 19/39
-- **D.** 14/39
+- **A.** \(\frac{6}{13}\)
+- **B.** \(\frac{20}{39}\)
+- **C.** \(\frac{19}{39}\)
+- **D.** \(\frac{14}{39}\)
 
-**Correct answer:** C. 19/39
+**Correct answer:** C. \(\frac{19}{39}\)
 
 **Explanation:**
 
 - **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
 1. Because the 2 pens are selected together, their order does not matter; use combinations.
-2. The number of possible selections of pens is C(13,2) = 78.
-3. Selections of one colour = C(8,2) + C(5,2) = 38.
-4. The required probability is 38/78 = 19/39.
+2. The number of possible selections of pens is \(\binom{13}{2}\) = 78.
+3. Selections of one colour = \(\binom{8}{2}\) + \(\binom{5}{2}\) = 38.
+4. The required probability is \(\frac{38}{78}\) = \(\frac{19}{39}\).
 - **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
-- **Answer:** The required probability is 19/39.
+- **Answer:** The required probability is \(\frac{19}{39}\).
 
 ---
 
@@ -1522,22 +1522,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 10/39
-- **B.** 7/13
-- **C.** 19/39
-- **D.** 20/39
+- **A.** \(\frac{10}{39}\)
+- **B.** \(\frac{7}{13}\)
+- **C.** \(\frac{19}{39}\)
+- **D.** \(\frac{20}{39}\)
 
-**Correct answer:** D. 20/39
+**Correct answer:** D. \(\frac{20}{39}\)
 
 **Explanation:**
 
 - **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
 1. Because the 2 coloured stones are selected together, their order does not matter; use combinations.
-2. The number of possible selections of coloured stones is C(13,2) = 78.
-3. Select one red and one blue stone: C(8,1) × C(5,1) = 40.
-4. The required probability is 40/78 = 20/39.
+2. The number of possible selections of coloured stones is \(\binom{13}{2}\) = 78.
+3. Select one red and one blue stone: \(\binom{8}{1}\) \(\times\) \(\binom{5}{1}\) = 40.
+4. The required probability is \(\frac{40}{78}\) = \(\frac{20}{39}\).
 - **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
-- **Answer:** The required probability is 20/39.
+- **Answer:** The required probability is \(\frac{20}{39}\).
 
 ---
 
@@ -1547,22 +1547,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 8/15
-- **B.** 1/15
-- **C.** 7/15
-- **D.** 3/5
+- **A.** \(\frac{8}{15}\)
+- **B.** \(\frac{1}{15}\)
+- **C.** \(\frac{7}{15}\)
+- **D.** \(\frac{3}{5}\)
 
-**Correct answer:** A. 8/15
+**Correct answer:** A. \(\frac{8}{15}\)
 
 **Explanation:**
 
 - **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
 1. Because the 2 balls are selected together, their order does not matter; use combinations.
-2. The number of possible selections of balls is C(16,2) = 120.
-3. Choose 1 red and 1 blue balls: C(8,1) × C(8,1) = 64.
-4. The required probability is 64/120 = 8/15.
+2. The number of possible selections of balls is \(\binom{16}{2}\) = 120.
+3. Choose 1 red and 1 blue balls: \(\binom{8}{1}\) \(\times\) \(\binom{8}{1}\) = 64.
+4. The required probability is \(\frac{64}{120}\) = \(\frac{8}{15}\).
 - **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
-- **Answer:** The required probability is 8/15.
+- **Answer:** The required probability is \(\frac{8}{15}\).
 
 ---
 
@@ -1572,22 +1572,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 34/55
-- **B.** 21/55
-- **C.** 2/5
-- **D.** 4/11
+- **A.** \(\frac{34}{55}\)
+- **B.** \(\frac{21}{55}\)
+- **C.** \(\frac{2}{5}\)
+- **D.** \(\frac{4}{11}\)
 
-**Correct answer:** B. 21/55
+**Correct answer:** B. \(\frac{21}{55}\)
 
 **Explanation:**
 
 - **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
 1. Because the 2 marbles are selected together, their order does not matter; use combinations.
-2. The number of possible selections of marbles is C(11,2) = 55.
-3. No red marble means all 2 selected marbles are blue: C(7,2) = 21.
-4. The required probability is 21/55.
+2. The number of possible selections of marbles is \(\binom{11}{2}\) = 55.
+3. No red marble means all 2 selected marbles are blue: \(\binom{7}{2}\) = 21.
+4. The required probability is \(\frac{21}{55}\).
 - **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
-- **Answer:** The required probability is 21/55.
+- **Answer:** The required probability is \(\frac{21}{55}\).
 
 ---
 
@@ -1597,28 +1597,28 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 23/35
-- **B.** 22/35
-- **C.** 24/35
-- **D.** 12/35
+- **A.** \(\frac{23}{35}\)
+- **B.** \(\frac{22}{35}\)
+- **C.** \(\frac{24}{35}\)
+- **D.** \(\frac{12}{35}\)
 
-**Correct answer:** A. 23/35
+**Correct answer:** A. \(\frac{23}{35}\)
 
 **Explanation:**
 
 - **Method:** The objects are selected together, so use combinations and count the required event through its shorter complement.
 1. Because the 2 pens are selected together, their order does not matter; use combinations.
-2. The number of possible selections of pens is C(15,2) = 105.
-3. Use the complement of selecting only blue pens: 105 - C(9,2) = 69.
-4. The required probability is 69/105 = 23/35.
+2. The number of possible selections of pens is \(\binom{15}{2}\) = 105.
+3. Use the complement of selecting only blue pens: 105 - \(\binom{9}{2}\) = 69.
+4. The required probability is \(\frac{69}{105}\) = \(\frac{23}{35}\).
 - **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
-- **Answer:** The required probability is 23/35.
+- **Answer:** The required probability is \(\frac{23}{35}\).
 
 ---
 
 #### Question 71 — PRB-QL-423 (Easy)
 
-**Question:** A pouch contains 15 coloured stones. The probability of selecting a red stone is 3/5. How many red coloured stones are there?
+**Question:** A pouch contains 15 coloured stones. The probability of selecting a red stone is \(\frac{3}{5}\). How many red coloured stones are there?
 
 **Options:**
 
@@ -1631,9 +1631,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. Red coloured stones make up 3/5 of all 15 coloured stones.
-2. Required number of red coloured stones = 15 × 3/5 = 9.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. Red coloured stones make up \(\frac{3}{5}\) of all 15 coloured stones.
+2. Required number of red coloured stones = 15 \(\times\) \(\frac{3}{5}\) = 9.
 3. There are 9 red coloured stones.
 - **Answer:** The required number is 9.
 
@@ -1645,20 +1645,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 3/7
-- **B.** 2/7
-- **C.** 9/14
-- **D.** 5/14
+- **A.** \(\frac{3}{7}\)
+- **B.** \(\frac{2}{7}\)
+- **C.** \(\frac{9}{14}\)
+- **D.** \(\frac{5}{14}\)
 
-**Correct answer:** D. 5/14
+**Correct answer:** D. \(\frac{5}{14}\)
 
 **Explanation:**
 
-- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+- **Method:** For one random selection, use \(P\!\left(required event\right)\) = favourable cases \(\div\) total equally likely cases.
 1. The jar contains 14 marbles, of which 5 are red.
 2. Thus, 5 of the 14 equally possible marbles are favourable.
-3. The required probability is 5/14.
-- **Answer:** The required probability is 5/14.
+3. The required probability is \(\frac{5}{14}\).
+- **Answer:** The required probability is \(\frac{5}{14}\).
 
 ---
 
@@ -1668,22 +1668,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 8/15
-- **B.** 3/5
-- **C.** 2/15
-- **D.** 7/15
+- **A.** \(\frac{8}{15}\)
+- **B.** \(\frac{3}{5}\)
+- **C.** \(\frac{2}{15}\)
+- **D.** \(\frac{7}{15}\)
 
-**Correct answer:** A. 8/15
+**Correct answer:** A. \(\frac{8}{15}\)
 
 **Explanation:**
 
 - **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
 1. Because the 2 balls are selected together, their order does not matter; use combinations.
-2. The number of possible selections of balls is C(10,2) = 45.
-3. Choose 1 red and 1 blue balls: C(6,1) × C(4,1) = 24.
-4. The required probability is 24/45 = 8/15.
+2. The number of possible selections of balls is \(\binom{10}{2}\) = 45.
+3. Choose 1 red and 1 blue balls: \(\binom{6}{1}\) \(\times\) \(\binom{4}{1}\) = 24.
+4. The required probability is \(\frac{24}{45}\) = \(\frac{8}{15}\).
 - **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
-- **Answer:** The required probability is 8/15.
+- **Answer:** The required probability is \(\frac{8}{15}\).
 
 ---
 
@@ -1693,22 +1693,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 6/11
-- **B.** 1/11
-- **C.** 16/33
-- **D.** 17/33
+- **A.** \(\frac{6}{11}\)
+- **B.** \(\frac{1}{11}\)
+- **C.** \(\frac{16}{33}\)
+- **D.** \(\frac{17}{33}\)
 
-**Correct answer:** D. 17/33
+**Correct answer:** D. \(\frac{17}{33}\)
 
 **Explanation:**
 
 - **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
 1. Because the 2 pens are selected together, their order does not matter; use combinations.
-2. The number of possible selections of pens is C(12,2) = 66.
-3. Selections of one colour = C(4,2) + C(8,2) = 34.
-4. The required probability is 34/66 = 17/33.
+2. The number of possible selections of pens is \(\binom{12}{2}\) = 66.
+3. Selections of one colour = \(\binom{4}{2}\) + \(\binom{8}{2}\) = 34.
+4. The required probability is \(\frac{34}{66}\) = \(\frac{17}{33}\).
 - **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
-- **Answer:** The required probability is 17/33.
+- **Answer:** The required probability is \(\frac{17}{33}\).
 
 ---
 
@@ -1718,22 +1718,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 29/55
-- **B.** 14/55
-- **C.** 28/55
-- **D.** 27/55
+- **A.** \(\frac{29}{55}\)
+- **B.** \(\frac{14}{55}\)
+- **C.** \(\frac{28}{55}\)
+- **D.** \(\frac{27}{55}\)
 
-**Correct answer:** C. 28/55
+**Correct answer:** C. \(\frac{28}{55}\)
 
 **Explanation:**
 
 - **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
 1. Because the 2 coloured stones are selected together, their order does not matter; use combinations.
-2. The number of possible selections of coloured stones is C(11,2) = 55.
-3. Select one red and one blue stone: C(4,1) × C(7,1) = 28.
-4. The required probability is 28/55.
+2. The number of possible selections of coloured stones is \(\binom{11}{2}\) = 55.
+3. Select one red and one blue stone: \(\binom{4}{1}\) \(\times\) \(\binom{7}{1}\) = 28.
+4. The required probability is \(\frac{28}{55}\).
 - **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
-- **Answer:** The required probability is 28/55.
+- **Answer:** The required probability is \(\frac{28}{55}\).
 
 ---
 
@@ -1749,22 +1749,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 10/49
-- **B.** 9/49
-- **C.** 40/49
-- **D.** 9/50
-- **E.** 8/49
+- **A.** \(\frac{10}{49}\)
+- **B.** \(\frac{9}{49}\)
+- **C.** \(\frac{40}{49}\)
+- **D.** \(\frac{9}{50}\)
+- **E.** \(\frac{8}{49}\)
 
-**Correct answer:** B. 9/49
+**Correct answer:** B. \(\frac{9}{49}\)
 
 **Explanation:**
 
 - **Method:** Follow the two selections in order. Replacement restores the original contents, so the second-stage probability uses the same denominator.
 1. The first marble is replaced, so the container again has 6 red and 8 blue marbles before the second selection.
-2. Thus, P(red marble on each selection) = 6/14.
-3. P(both red marbles) = 6/14 × 6/14 = 9/49.
+2. Thus, \(P\!\left(red marble on each selection\right)\) = \(\frac{6}{14}\).
+3. \(P\!\left(both red marbles\right)\) = \(\frac{6}{14}\) \(\times\) \(\frac{6}{14}\) = \(\frac{9}{49}\).
 - **Key point:** Replacement makes the two stage probabilities use the original composition each time.
-- **Answer:** The required probability is 9/49.
+- **Answer:** The required probability is \(\frac{9}{49}\).
 
 ---
 
@@ -1774,22 +1774,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 7/22
-- **B.** 15/22
-- **C.** 49/144
-- **D.** 4/11
-- **E.** 3/11
+- **A.** \(\frac{7}{22}\)
+- **B.** \(\frac{15}{22}\)
+- **C.** \(\frac{49}{144}\)
+- **D.** \(\frac{4}{11}\)
+- **E.** \(\frac{3}{11}\)
 
-**Correct answer:** A. 7/22
+**Correct answer:** A. \(\frac{7}{22}\)
 
 **Explanation:**
 
 - **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
-1. On the first selection, P(red pen) = 7/12.
+1. On the first selection, \(P\!\left(red pen\right)\) = \(\frac{7}{12}\).
 2. After one red pen is removed, 6 red pens remain among 11 pens.
-3. P(both red pens) = 7/12 × 6/11 = 7/22.
+3. \(P\!\left(both red pens\right)\) = \(\frac{7}{12}\) \(\times\) \(\frac{6}{11}\) = \(\frac{7}{22}\).
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
-- **Answer:** The required probability is 7/22.
+- **Answer:** The required probability is \(\frac{7}{22}\).
 
 ---
 
@@ -1799,22 +1799,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 82/169
-- **B.** 81/169
-- **C.** 80/169
-- **D.** 88/169
-- **E.** 81/170
+- **A.** \(\frac{82}{169}\)
+- **B.** \(\frac{81}{169}\)
+- **C.** \(\frac{80}{169}\)
+- **D.** \(\frac{88}{169}\)
+- **E.** \(\frac{81}{170}\)
 
-**Correct answer:** B. 81/169
+**Correct answer:** B. \(\frac{81}{169}\)
 
 **Explanation:**
 
 - **Method:** Follow the two selections in order. Replacement restores the original contents, so the second-stage probability uses the same denominator.
 1. The first stone is replaced, so the container again has 9 red and 4 blue coloured stones before the second selection.
-2. Thus, P(red stone on each selection) = 9/13.
-3. P(both red coloured stones) = 9/13 × 9/13 = 81/169.
+2. Thus, \(P\!\left(red stone on each selection\right)\) = \(\frac{9}{13}\).
+3. \(P\!\left(both red coloured stones\right)\) = \(\frac{9}{13}\) \(\times\) \(\frac{9}{13}\) = \(\frac{81}{169}\).
 - **Key point:** Replacement makes the two stage probabilities use the original composition each time.
-- **Answer:** The required probability is 81/169.
+- **Answer:** The required probability is \(\frac{81}{169}\).
 
 ---
 
@@ -1824,22 +1824,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 4/17
-- **B.** 3/17
-- **C.** 5/17
-- **D.** 13/17
-- **E.** 2/9
+- **A.** \(\frac{4}{17}\)
+- **B.** \(\frac{3}{17}\)
+- **C.** \(\frac{5}{17}\)
+- **D.** \(\frac{13}{17}\)
+- **E.** \(\frac{2}{9}\)
 
-**Correct answer:** A. 4/17
+**Correct answer:** A. \(\frac{4}{17}\)
 
 **Explanation:**
 
 - **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
-1. On the first selection, P(red ball) = 9/18.
+1. On the first selection, \(P\!\left(red ball\right)\) = \(\frac{9}{18}\).
 2. After one red ball is removed, 8 red balls remain among 17 balls.
-3. P(both red balls) = 9/18 × 8/17 = 4/17.
+3. \(P\!\left(both red balls\right)\) = \(\frac{9}{18}\) \(\times\) \(\frac{8}{17}\) = \(\frac{4}{17}\).
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
-- **Answer:** The required probability is 4/17.
+- **Answer:** The required probability is \(\frac{4}{17}\).
 
 ---
 
@@ -1849,22 +1849,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/4
-- **B.** 1/3
-- **C.** 4/15
-- **D.** 1/5
-- **E.** 11/15
+- **A.** \(\frac{1}{4}\)
+- **B.** \(\frac{1}{3}\)
+- **C.** \(\frac{4}{15}\)
+- **D.** \(\frac{1}{5}\)
+- **E.** \(\frac{11}{15}\)
 
-**Correct answer:** C. 4/15
+**Correct answer:** C. \(\frac{4}{15}\)
 
 **Explanation:**
 
 - **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
 1. The order is fixed: a red marble must occur first and a blue marble second.
-2. P(red first) = 8/15; after that, P(blue second) = 7/14.
-3. Required probability = 8/15 × 7/14 = 4/15.
+2. \(P\!\left(red first\right)\) = \(\frac{8}{15}\); after that, \(P\!\left(blue second\right)\) = \(\frac{7}{14}\).
+3. Required probability = \(\frac{8}{15}\) \(\times\) \(\frac{7}{14}\) = \(\frac{4}{15}\).
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
-- **Answer:** The required probability is 4/15.
+- **Answer:** The required probability is \(\frac{4}{15}\).
 
 ---
 
@@ -1874,22 +1874,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 35/66
-- **B.** 16/33
-- **C.** 25/144
-- **D.** 31/66
-- **E.** 5/11
+- **A.** \(\frac{35}{66}\)
+- **B.** \(\frac{16}{33}\)
+- **C.** \(\frac{25}{144}\)
+- **D.** \(\frac{31}{66}\)
+- **E.** \(\frac{5}{11}\)
 
-**Correct answer:** D. 31/66
+**Correct answer:** D. \(\frac{31}{66}\)
 
 **Explanation:**
 
 - **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
 1. The same colour can occur in two disjoint ways for the pens: red-red or blue-blue.
-2. P(red-red) = 5/12 × 4/11, and P(blue-blue) = 7/12 × 6/11.
-3. Adding the two cases gives 31/66.
+2. \(P\!\left(red-red\right)\) = \(\frac{5}{12}\) \(\times\) \(\frac{4}{11}\), and \(P\!\left(blue-blue\right)\) = \(\frac{7}{12}\) \(\times\) \(\frac{6}{11}\).
+3. Adding the two cases gives \(\frac{31}{66}\).
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
-- **Answer:** The required probability is 31/66.
+- **Answer:** The required probability is \(\frac{31}{66}\).
 
 ---
 
@@ -1899,22 +1899,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 10/17
-- **B.** 9/34
-- **C.** 81/289
-- **D.** 8/17
-- **E.** 9/17
+- **A.** \(\frac{10}{17}\)
+- **B.** \(\frac{9}{34}\)
+- **C.** \(\frac{81}{289}\)
+- **D.** \(\frac{8}{17}\)
+- **E.** \(\frac{9}{17}\)
 
-**Correct answer:** E. 9/17
+**Correct answer:** E. \(\frac{9}{17}\)
 
 **Explanation:**
 
 - **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
 1. Different colours can occur as red-blue or blue-red, so both orders of the coloured stones must be counted.
-2. P = 9/17 × 8/16 + 8/17 × 9/16.
-3. After simplification, the required probability is 9/17.
+2. P = \(\frac{9}{17}\) \(\times\) \(\frac{8}{16}\) + \(\frac{8}{17}\) \(\times\) \(\frac{9}{16}\).
+3. After simplification, the required probability is \(\frac{9}{17}\).
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
-- **Answer:** The required probability is 9/17.
+- **Answer:** The required probability is \(\frac{9}{17}\).
 
 ---
 
@@ -1924,22 +1924,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 25/81
-- **B.** 28/41
-- **C.** 55/81
-- **D.** 19/27
-- **E.** 56/81
+- **A.** \(\frac{25}{81}\)
+- **B.** \(\frac{28}{41}\)
+- **C.** \(\frac{55}{81}\)
+- **D.** \(\frac{19}{27}\)
+- **E.** \(\frac{56}{81}\)
 
-**Correct answer:** E. 56/81
+**Correct answer:** E. \(\frac{56}{81}\)
 
 **Explanation:**
 
 - **Method:** Follow the two selections in order. Replacement restores the original contents, so the second-stage probability uses the same denominator.
 1. Use the complement: at least one red ball fails only when both selected balls are blue.
-2. Replacement keeps P(blue ball) = 5/9 on both selections.
-3. P(at least one red ball) = 1 - (5/9 × 5/9) = 56/81.
+2. Replacement keeps \(P\!\left(blue ball\right)\) = \(\frac{5}{9}\) on both selections.
+3. \(P\!\left(at least one red ball\right)\) = 1 - (\(\frac{5}{9}\) \(\times\) \(\frac{5}{9}\)) = \(\frac{56}{81}\).
 - **Key point:** Replacement makes the two stage probabilities use the original composition each time.
-- **Answer:** The required probability is 56/81.
+- **Answer:** The required probability is \(\frac{56}{81}\).
 
 ---
 
@@ -1949,22 +1949,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 120/169
-- **B.** 49/170
-- **C.** 50/169
-- **D.** 49/169
-- **E.** 48/169
+- **A.** \(\frac{120}{169}\)
+- **B.** \(\frac{49}{170}\)
+- **C.** \(\frac{50}{169}\)
+- **D.** \(\frac{49}{169}\)
+- **E.** \(\frac{48}{169}\)
 
-**Correct answer:** D. 49/169
+**Correct answer:** D. \(\frac{49}{169}\)
 
 **Explanation:**
 
 - **Method:** Follow the two selections in order. Replacement restores the original contents, so the second-stage probability uses the same denominator.
 1. The first marble is replaced, so the container again has 7 red and 6 blue marbles before the second selection.
-2. Thus, P(red marble on each selection) = 7/13.
-3. P(both red marbles) = 7/13 × 7/13 = 49/169.
+2. Thus, \(P\!\left(red marble on each selection\right)\) = \(\frac{7}{13}\).
+3. \(P\!\left(both red marbles\right)\) = \(\frac{7}{13}\) \(\times\) \(\frac{7}{13}\) = \(\frac{49}{169}\).
 - **Key point:** Replacement makes the two stage probabilities use the original composition each time.
-- **Answer:** The required probability is 49/169.
+- **Answer:** The required probability is \(\frac{49}{169}\).
 
 ---
 
@@ -1974,22 +1974,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 6/13
-- **B.** 3/7
-- **C.** 7/13
-- **D.** 81/169
-- **E.** 5/13
+- **A.** \(\frac{6}{13}\)
+- **B.** \(\frac{3}{7}\)
+- **C.** \(\frac{7}{13}\)
+- **D.** \(\frac{81}{169}\)
+- **E.** \(\frac{5}{13}\)
 
-**Correct answer:** A. 6/13
+**Correct answer:** A. \(\frac{6}{13}\)
 
 **Explanation:**
 
 - **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
-1. On the first selection, P(red pen) = 9/13.
+1. On the first selection, \(P\!\left(red pen\right)\) = \(\frac{9}{13}\).
 2. After one red pen is removed, 8 red pens remain among 12 pens.
-3. P(both red pens) = 9/13 × 8/12 = 6/13.
+3. \(P\!\left(both red pens\right)\) = \(\frac{9}{13}\) \(\times\) \(\frac{8}{12}\) = \(\frac{6}{13}\).
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
-- **Answer:** The required probability is 6/13.
+- **Answer:** The required probability is \(\frac{6}{13}\).
 
 ---
 
@@ -1999,22 +1999,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 25/122
-- **B.** 96/121
-- **C.** 24/121
-- **D.** 25/121
-- **E.** 26/121
+- **A.** \(\frac{25}{122}\)
+- **B.** \(\frac{96}{121}\)
+- **C.** \(\frac{24}{121}\)
+- **D.** \(\frac{25}{121}\)
+- **E.** \(\frac{26}{121}\)
 
-**Correct answer:** D. 25/121
+**Correct answer:** D. \(\frac{25}{121}\)
 
 **Explanation:**
 
 - **Method:** Follow the two selections in order. Replacement restores the original contents, so the second-stage probability uses the same denominator.
 1. The first stone is replaced, so the container again has 5 red and 6 blue coloured stones before the second selection.
-2. Thus, P(red stone on each selection) = 5/11.
-3. P(both red coloured stones) = 5/11 × 5/11 = 25/121.
+2. Thus, \(P\!\left(red stone on each selection\right)\) = \(\frac{5}{11}\).
+3. \(P\!\left(both red coloured stones\right)\) = \(\frac{5}{11}\) \(\times\) \(\frac{5}{11}\) = \(\frac{25}{121}\).
 - **Key point:** Replacement makes the two stage probabilities use the original composition each time.
-- **Answer:** The required probability is 25/121.
+- **Answer:** The required probability is \(\frac{25}{121}\).
 
 ---
 
@@ -2024,22 +2024,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 34/39
-- **B.** 5/39
-- **C.** 25/169
-- **D.** 2/13
-- **E.** 4/39
+- **A.** \(\frac{34}{39}\)
+- **B.** \(\frac{5}{39}\)
+- **C.** \(\frac{25}{169}\)
+- **D.** \(\frac{2}{13}\)
+- **E.** \(\frac{4}{39}\)
 
-**Correct answer:** B. 5/39
+**Correct answer:** B. \(\frac{5}{39}\)
 
 **Explanation:**
 
 - **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
-1. On the first selection, P(red ball) = 5/13.
+1. On the first selection, \(P\!\left(red ball\right)\) = \(\frac{5}{13}\).
 2. After one red ball is removed, 4 red balls remain among 12 balls.
-3. P(both red balls) = 5/13 × 4/12 = 5/39.
+3. \(P\!\left(both red balls\right)\) = \(\frac{5}{13}\) \(\times\) \(\frac{4}{12}\) = \(\frac{5}{39}\).
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
-- **Answer:** The required probability is 5/39.
+- **Answer:** The required probability is \(\frac{5}{39}\).
 
 ---
 
@@ -2049,22 +2049,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 8/33
-- **B.** 25/33
-- **C.** 3/11
-- **D.** 7/33
-- **E.** 4/17
+- **A.** \(\frac{8}{33}\)
+- **B.** \(\frac{25}{33}\)
+- **C.** \(\frac{3}{11}\)
+- **D.** \(\frac{7}{33}\)
+- **E.** \(\frac{4}{17}\)
 
-**Correct answer:** A. 8/33
+**Correct answer:** A. \(\frac{8}{33}\)
 
 **Explanation:**
 
 - **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
 1. The order is fixed: a red marble must occur first and a blue marble second.
-2. P(red first) = 8/12; after that, P(blue second) = 4/11.
-3. Required probability = 8/12 × 4/11 = 8/33.
+2. \(P\!\left(red first\right)\) = \(\frac{8}{12}\); after that, \(P\!\left(blue second\right)\) = \(\frac{4}{11}\).
+3. Required probability = \(\frac{8}{12}\) \(\times\) \(\frac{4}{11}\) = \(\frac{8}{33}\).
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
-- **Answer:** The required probability is 8/33.
+- **Answer:** The required probability is \(\frac{8}{33}\).
 
 ---
 
@@ -2074,22 +2074,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 2/7
-- **B.** 3/8
-- **C.** 4/7
-- **D.** 3/7
-- **E.** 1/4
+- **A.** \(\frac{2}{7}\)
+- **B.** \(\frac{3}{8}\)
+- **C.** \(\frac{4}{7}\)
+- **D.** \(\frac{3}{7}\)
+- **E.** \(\frac{1}{4}\)
 
-**Correct answer:** D. 3/7
+**Correct answer:** D. \(\frac{3}{7}\)
 
 **Explanation:**
 
 - **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
 1. The same colour can occur in two disjoint ways for the pens: red-red or blue-blue.
-2. P(red-red) = 4/8 × 3/7, and P(blue-blue) = 4/8 × 3/7.
-3. Adding the two cases gives 3/7.
+2. \(P\!\left(red-red\right)\) = \(\frac{4}{8}\) \(\times\) \(\frac{3}{7}\), and \(P\!\left(blue-blue\right)\) = \(\frac{4}{8}\) \(\times\) \(\frac{3}{7}\).
+3. Adding the two cases gives \(\frac{3}{7}\).
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
-- **Answer:** The required probability is 3/7.
+- **Answer:** The required probability is \(\frac{3}{7}\).
 
 ---
 
@@ -2099,22 +2099,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 4/25
-- **B.** 9/35
-- **C.** 19/35
-- **D.** 17/35
-- **E.** 18/35
+- **A.** \(\frac{4}{25}\)
+- **B.** \(\frac{9}{35}\)
+- **C.** \(\frac{19}{35}\)
+- **D.** \(\frac{17}{35}\)
+- **E.** \(\frac{18}{35}\)
 
-**Correct answer:** E. 18/35
+**Correct answer:** E. \(\frac{18}{35}\)
 
 **Explanation:**
 
 - **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
 1. Different colours can occur as red-blue or blue-red, so both orders of the coloured stones must be counted.
-2. P = 6/15 × 9/14 + 9/15 × 6/14.
-3. After simplification, the required probability is 18/35.
+2. P = \(\frac{6}{15}\) \(\times\) \(\frac{9}{14}\) + \(\frac{9}{15}\) \(\times\) \(\frac{6}{14}\).
+3. After simplification, the required probability is \(\frac{18}{35}\).
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
-- **Answer:** The required probability is 18/35.
+- **Answer:** The required probability is \(\frac{18}{35}\).
 
 ---
 
@@ -2126,21 +2126,21 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/4
+- **A.** \(\frac{1}{4}\)
 - **B.** 0
-- **C.** 5/52
-- **D.** 1/3
-- **E.** 2/3
+- **C.** \(\frac{5}{52}\)
+- **D.** \(\frac{1}{3}\)
+- **E.** \(\frac{2}{3}\)
 
-**Correct answer:** D. 1/3
+**Correct answer:** D. \(\frac{1}{3}\)
 
 **Explanation:**
 
 - **Method:** Use only the cards allowed by the given condition as the sample space; cards outside that restricted set are no longer possible.
 1. Knowing that the card is a face card reduces the sample space to the 12 jacks, queens and kings.
 2. Exactly 4 of these 12 face cards are kings.
-3. The required probability is 4/12 = 1/3.
-- **Answer:** The required probability is 1/3.
+3. The required probability is \(\frac{4}{12}\) = \(\frac{1}{3}\).
+- **Answer:** The required probability is \(\frac{1}{3}\).
 
 ---
 
@@ -2150,20 +2150,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/2
-- **B.** 1/3
-- **C.** 1/4
+- **A.** \(\frac{1}{2}\)
+- **B.** \(\frac{1}{3}\)
+- **C.** \(\frac{1}{4}\)
 - **D.** 1
 - **E.** 0
 
-**Correct answer:** A. 1/2
+**Correct answer:** A. \(\frac{1}{2}\)
 
 **Explanation:**
 
-- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases \(\div\) restricted total.
 1. The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40.
-2. Among them, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40 are divisible by 4. So the probability is 10/20 = 1/2.
-- **Answer:** The required probability is 1/2.
+2. Among them, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40 are divisible by 4. So the probability is \(\frac{10}{20}\) = \(\frac{1}{2}\).
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
@@ -2174,19 +2174,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 1
-- **B.** 1/4
-- **C.** 1/3
-- **D.** 1/2
+- **B.** \(\frac{1}{4}\)
+- **C.** \(\frac{1}{3}\)
+- **D.** \(\frac{1}{2}\)
 - **E.** 0
 
-**Correct answer:** D. 1/2
+**Correct answer:** D. \(\frac{1}{2}\)
 
 **Explanation:**
 
-- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases \(\div\) restricted total.
 1. The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24.
-2. Among them, 4, 8, 12, 16, 20, 24 are divisible by 4. So the probability is 6/12 = 1/2.
-- **Answer:** The required probability is 1/2.
+2. Among them, 4, 8, 12, 16, 20, 24 are divisible by 4. So the probability is \(\frac{6}{12}\) = \(\frac{1}{2}\).
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
@@ -2197,19 +2197,19 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 0
-- **B.** 1/4
+- **B.** \(\frac{1}{4}\)
 - **C.** 1
-- **D.** 1/2
-- **E.** 1/3
+- **D.** \(\frac{1}{2}\)
+- **E.** \(\frac{1}{3}\)
 
-**Correct answer:** D. 1/2
+**Correct answer:** D. \(\frac{1}{2}\)
 
 **Explanation:**
 
-- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases \(\div\) restricted total.
 1. The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36.
-2. Among them, 4, 8, 12, 16, 20, 24, 28, 32, 36 are divisible by 4. So the probability is 9/18 = 1/2.
-- **Answer:** The required probability is 1/2.
+2. Among them, 4, 8, 12, 16, 20, 24, 28, 32, 36 are divisible by 4. So the probability is \(\frac{9}{18}\) = \(\frac{1}{2}\).
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
@@ -2219,20 +2219,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/3
+- **A.** \(\frac{1}{3}\)
 - **B.** 1
-- **C.** 1/2
-- **D.** 1/4
+- **C.** \(\frac{1}{2}\)
+- **D.** \(\frac{1}{4}\)
 - **E.** 0
 
-**Correct answer:** C. 1/2
+**Correct answer:** C. \(\frac{1}{2}\)
 
 **Explanation:**
 
-- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases \(\div\) restricted total.
 1. The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20.
-2. Among them, 4, 8, 12, 16, 20 are divisible by 4. So the probability is 5/10 = 1/2.
-- **Answer:** The required probability is 1/2.
+2. Among them, 4, 8, 12, 16, 20 are divisible by 4. So the probability is \(\frac{5}{10}\) = \(\frac{1}{2}\).
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
@@ -2242,22 +2242,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/4
-- **B.** 1/2
-- **C.** 1/3
-- **D.** 5/8
-- **E.** 3/8
+- **A.** \(\frac{1}{4}\)
+- **B.** \(\frac{1}{2}\)
+- **C.** \(\frac{1}{3}\)
+- **D.** \(\frac{5}{8}\)
+- **E.** \(\frac{3}{8}\)
 
-**Correct answer:** E. 3/8
+**Correct answer:** E. \(\frac{3}{8}\)
 
 **Explanation:**
 
-- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases \(\div\) restricted total.
 1. The given condition restricts the sample space to the 8 people who satisfy the first condition.
 2. 3 of these 8 people also satisfy the second condition.
-3. The required probability is 3/8.
+3. The required probability is \(\frac{3}{8}\).
 - **Key point:** The group named in the condition becomes the new sample space and therefore the new denominator.
-- **Answer:** The required probability is 3/8.
+- **Answer:** The required probability is \(\frac{3}{8}\).
 
 ---
 
@@ -2267,28 +2267,28 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 3/8
-- **B.** 3/7
-- **C.** 2/7
-- **D.** 4/7
-- **E.** 1/2
+- **A.** \(\frac{3}{8}\)
+- **B.** \(\frac{3}{7}\)
+- **C.** \(\frac{2}{7}\)
+- **D.** \(\frac{4}{7}\)
+- **E.** \(\frac{1}{2}\)
 
-**Correct answer:** B. 3/7
+**Correct answer:** B. \(\frac{3}{7}\)
 
 **Explanation:**
 
-- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases \(\div\) restricted total.
 1. The condition tells us that the first selected ball was red and was not replaced.
 2. 6 red balls remain among 14 balls for the second selection.
-3. The required probability is 6/14 = 3/7.
+3. The required probability is \(\frac{6}{14}\) = \(\frac{3}{7}\).
 - **Key point:** After the known first draw, the second draw is made only from the remaining objects, so both remaining counts must be used.
-- **Answer:** The required probability is 3/7.
+- **Answer:** The required probability is \(\frac{3}{7}\).
 
 ---
 
 #### Question 98 — PRB-QL-605 (Medium)
 
-**Question:** Among 24 shortlisted candidates, the probability that a randomly selected candidate is certified is 1/8. How many candidates are certified?
+**Question:** Among 24 shortlisted candidates, the probability that a randomly selected candidate is certified is \(\frac{1}{8}\). How many candidates are certified?
 
 **Options:**
 
@@ -2302,9 +2302,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. Because the selection is made only from the restricted group, let the required number be x. Then x/24 = 1/8.
-2. x = 24 × 1/8 = 3.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. Because the selection is made only from the restricted group, let the required number be x. Then x/24 = \(\frac{1}{8}\).
+2. x = 24 \(\times\) \(\frac{1}{8}\) = 3.
 3. 3 people satisfy the required condition.
 - **Key point:** The shortlisted group is the complete sample space here, so its size is the denominator of the probability relation.
 - **Answer:** The required number is 3.
@@ -2317,22 +2317,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 7/18
-- **B.** 10/17
-- **C.** 8/17
-- **D.** 6/17
-- **E.** 7/17
+- **A.** \(\frac{7}{18}\)
+- **B.** \(\frac{10}{17}\)
+- **C.** \(\frac{8}{17}\)
+- **D.** \(\frac{6}{17}\)
+- **E.** \(\frac{7}{17}\)
 
-**Correct answer:** E. 7/17
+**Correct answer:** E. \(\frac{7}{17}\)
 
 **Explanation:**
 
-- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases \(\div\) restricted total.
 1. The given condition restricts the sample space to the 17 people who satisfy the first condition.
 2. 7 of these 17 people also satisfy the second condition.
-3. The required probability is 7/17.
+3. The required probability is \(\frac{7}{17}\).
 - **Key point:** The group named in the condition becomes the new sample space and therefore the new denominator.
-- **Answer:** The required probability is 7/17.
+- **Answer:** The required probability is \(\frac{7}{17}\).
 
 ---
 
@@ -2343,21 +2343,21 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 1
-- **B.** 1/2
-- **C.** 1/3
+- **B.** \(\frac{1}{2}\)
+- **C.** \(\frac{1}{3}\)
 - **D.** 0
-- **E.** 4/7
+- **E.** \(\frac{4}{7}\)
 
-**Correct answer:** B. 1/2
+**Correct answer:** B. \(\frac{1}{2}\)
 
 **Explanation:**
 
-- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases \(\div\) restricted total.
 1. The given condition restricts the sample space to the 14 people who satisfy the first condition.
 2. 7 of these 14 people also satisfy the second condition.
-3. The required probability is 7/14 = 1/2.
+3. The required probability is \(\frac{7}{14}\) = \(\frac{1}{2}\).
 - **Key point:** The group named in the condition becomes the new sample space and therefore the new denominator.
-- **Answer:** The required probability is 1/2.
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
@@ -2367,28 +2367,28 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 3/4
-- **B.** 3/5
-- **C.** 4/5
-- **D.** 1/2
-- **E.** 2/5
+- **A.** \(\frac{3}{4}\)
+- **B.** \(\frac{3}{5}\)
+- **C.** \(\frac{4}{5}\)
+- **D.** \(\frac{1}{2}\)
+- **E.** \(\frac{2}{5}\)
 
-**Correct answer:** B. 3/5
+**Correct answer:** B. \(\frac{3}{5}\)
 
 **Explanation:**
 
-- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases \(\div\) restricted total.
 1. The condition tells us that the first selected ball was red and was not replaced.
 2. 6 red balls remain among 10 balls for the second selection.
-3. The required probability is 6/10 = 3/5.
+3. The required probability is \(\frac{6}{10}\) = \(\frac{3}{5}\).
 - **Key point:** After the known first draw, the second draw is made only from the remaining objects, so both remaining counts must be used.
-- **Answer:** The required probability is 3/5.
+- **Answer:** The required probability is \(\frac{3}{5}\).
 
 ---
 
 #### Question 102 — PRB-QL-611 (Medium)
 
-**Question:** Among 29 shortlisted candidates, the probability that a randomly selected candidate is certified is 16/29. How many candidates are certified?
+**Question:** Among 29 shortlisted candidates, the probability that a randomly selected candidate is certified is \(\frac{16}{29}\). How many candidates are certified?
 
 **Options:**
 
@@ -2402,9 +2402,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
-1. Because the selection is made only from the restricted group, let the required number be x. Then x/29 = 16/29.
-2. x = 29 × 16/29 = 16.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
+1. Because the selection is made only from the restricted group, let the required number be x. Then x/29 = \(\frac{16}{29}\).
+2. x = 29 \(\times\) \(\frac{16}{29}\) = 16.
 3. 16 people satisfy the required condition.
 - **Key point:** The shortlisted group is the complete sample space here, so its size is the denominator of the probability relation.
 - **Answer:** The required number is 16.
@@ -2417,22 +2417,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 4/5
-- **B.** 13/16
-- **C.** 2/15
-- **D.** 14/15
-- **E.** 13/15
+- **A.** \(\frac{4}{5}\)
+- **B.** \(\frac{13}{16}\)
+- **C.** \(\frac{2}{15}\)
+- **D.** \(\frac{14}{15}\)
+- **E.** \(\frac{13}{15}\)
 
-**Correct answer:** E. 13/15
+**Correct answer:** E. \(\frac{13}{15}\)
 
 **Explanation:**
 
-- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases \(\div\) restricted total.
 1. The given condition restricts the sample space to the 15 people who satisfy the first condition.
 2. 13 of these 15 people also satisfy the second condition.
-3. The required probability is 13/15.
+3. The required probability is \(\frac{13}{15}\).
 - **Key point:** The group named in the condition becomes the new sample space and therefore the new denominator.
-- **Answer:** The required probability is 13/15.
+- **Answer:** The required probability is \(\frac{13}{15}\).
 
 ---
 
@@ -2442,22 +2442,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/2
-- **B.** 2/3
+- **A.** \(\frac{1}{2}\)
+- **B.** \(\frac{2}{3}\)
 - **C.** 1
-- **D.** 11/15
-- **E.** 1/3
+- **D.** \(\frac{11}{15}\)
+- **E.** \(\frac{1}{3}\)
 
-**Correct answer:** B. 2/3
+**Correct answer:** B. \(\frac{2}{3}\)
 
 **Explanation:**
 
-- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases \(\div\) restricted total.
 1. The given condition restricts the sample space to the 15 people who satisfy the first condition.
 2. 10 of these 15 people also satisfy the second condition.
-3. The required probability is 10/15 = 2/3.
+3. The required probability is \(\frac{10}{15}\) = \(\frac{2}{3}\).
 - **Key point:** The group named in the condition becomes the new sample space and therefore the new denominator.
-- **Answer:** The required probability is 2/3.
+- **Answer:** The required probability is \(\frac{2}{3}\).
 
 ---
 
@@ -2467,22 +2467,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 2/3
-- **B.** 3/4
-- **C.** 1/3
+- **A.** \(\frac{2}{3}\)
+- **B.** \(\frac{3}{4}\)
+- **C.** \(\frac{1}{3}\)
 - **D.** 1
-- **E.** 1/2
+- **E.** \(\frac{1}{2}\)
 
-**Correct answer:** A. 2/3
+**Correct answer:** A. \(\frac{2}{3}\)
 
 **Explanation:**
 
-- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases \(\div\) restricted total.
 1. The condition tells us that the first selected ball was red and was not replaced.
 2. 8 red balls remain among 12 balls for the second selection.
-3. The required probability is 8/12 = 2/3.
+3. The required probability is \(\frac{8}{12}\) = \(\frac{2}{3}\).
 - **Key point:** After the known first draw, the second draw is made only from the remaining objects, so both remaining counts must be used.
-- **Answer:** The required probability is 2/3.
+- **Answer:** The required probability is \(\frac{2}{3}\).
 
 ---
 
@@ -2494,21 +2494,21 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/5
+- **A.** \(\frac{1}{5}\)
 - **B.** 0
-- **C.** 2/5
-- **D.** 1/6
-- **E.** 4/5
+- **C.** \(\frac{2}{5}\)
+- **D.** \(\frac{1}{6}\)
+- **E.** \(\frac{4}{5}\)
 
-**Correct answer:** A. 1/5
+**Correct answer:** A. \(\frac{1}{5}\)
 
 **Explanation:**
 
 - **Method:** Use symmetry: in a random queue, every candidate is equally likely to occupy the first position.
 1. Each of the 5 candidates can occupy the first position in the queue.
 2. Only one of these 5 possibilities places the specified candidate first.
-3. The required probability is 1/5.
-- **Answer:** The required probability is 1/5.
+3. The required probability is \(\frac{1}{5}\).
+- **Answer:** The required probability is \(\frac{1}{5}\).
 
 ---
 
@@ -2519,20 +2519,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 0
-- **B.** 1/8
-- **C.** 2/7
-- **D.** 6/7
-- **E.** 1/7
+- **B.** \(\frac{1}{8}\)
+- **C.** \(\frac{2}{7}\)
+- **D.** \(\frac{6}{7}\)
+- **E.** \(\frac{1}{7}\)
 
-**Correct answer:** E. 1/7
+**Correct answer:** E. \(\frac{1}{7}\)
 
 **Explanation:**
 
 - **Method:** Use symmetry: in a random queue, every candidate is equally likely to occupy the first position.
 1. Each of the 7 candidates can occupy the first position in the queue.
 2. Only one of these 7 possibilities places the specified candidate first.
-3. The required probability is 1/7.
-- **Answer:** The required probability is 1/7.
+3. The required probability is \(\frac{1}{7}\).
+- **Answer:** The required probability is \(\frac{1}{7}\).
 
 ---
 
@@ -2543,20 +2543,20 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 0
-- **B.** 1/6
-- **C.** 1/3
-- **D.** 1/7
-- **E.** 5/6
+- **B.** \(\frac{1}{6}\)
+- **C.** \(\frac{1}{3}\)
+- **D.** \(\frac{1}{7}\)
+- **E.** \(\frac{5}{6}\)
 
-**Correct answer:** B. 1/6
+**Correct answer:** B. \(\frac{1}{6}\)
 
 **Explanation:**
 
 - **Method:** Use symmetry: in a random queue, every candidate is equally likely to occupy the first position.
 1. Each of the 6 candidates can occupy the first position in the queue.
 2. Only one of these 6 possibilities places the specified candidate first.
-3. The required probability is 1/6.
-- **Answer:** The required probability is 1/6.
+3. The required probability is \(\frac{1}{6}\).
+- **Answer:** The required probability is \(\frac{1}{6}\).
 
 ---
 
@@ -2566,22 +2566,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 40/143
-- **B.** 20/429
-- **C.** 103/143
-- **D.** 41/143
-- **E.** 3/11
+- **A.** \(\frac{40}{143}\)
+- **B.** \(\frac{20}{429}\)
+- **C.** \(\frac{103}{143}\)
+- **D.** \(\frac{41}{143}\)
+- **E.** \(\frac{3}{11}\)
 
-**Correct answer:** A. 40/143
+**Correct answer:** A. \(\frac{40}{143}\)
 
 **Explanation:**
 
 - **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
-1. The total number of committees is C(13,3) = 286.
-2. For the required composition, choose 1 from 8 women and 2 from 5 men: C(8,1) × C(5,2) = 80.
-3. The required probability is 80/286 = 40/143.
+1. The total number of committees is \(\binom{13}{3}\) = 286.
+2. For the required composition, choose 1 from 8 women and 2 from 5 men: \(\binom{8}{1}\) \(\times\) \(\binom{5}{2}\) = 80.
+3. The required probability is \(\frac{80}{286}\) = \(\frac{40}{143}\).
 - **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
-- **Answer:** The required probability is 40/143.
+- **Answer:** The required probability is \(\frac{40}{143}\).
 
 ---
 
@@ -2591,22 +2591,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 3/4
-- **B.** 3/5
-- **C.** 4/5
-- **D.** 1/2
-- **E.** 2/5
+- **A.** \(\frac{3}{4}\)
+- **B.** \(\frac{3}{5}\)
+- **C.** \(\frac{4}{5}\)
+- **D.** \(\frac{1}{2}\)
+- **E.** \(\frac{2}{5}\)
 
-**Correct answer:** B. 3/5
+**Correct answer:** B. \(\frac{3}{5}\)
 
 **Explanation:**
 
 - **Method:** Count all queue arrangements, treat the two specified candidates as one block to count adjacent arrangements, and subtract from the total.
 1. There are 5! = 120 unrestricted arrangements.
-2. If the two specified candidates are treated as one block, adjacent arrangements = 2 × 4! = 48.
-3. Non-adjacent arrangements = 120 - 48 = 72, so the probability is 3/5.
+2. If the two specified candidates are treated as one block, adjacent arrangements = 2 \(\times\) 4! = 48.
+3. Non-adjacent arrangements = 120 - 48 = 72, so the probability is \(\frac{3}{5}\).
 - **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
-- **Answer:** The required probability is 3/5.
+- **Answer:** The required probability is \(\frac{3}{5}\).
 
 ---
 
@@ -2616,22 +2616,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 13/28
-- **B.** 1/2
-- **C.** 9/112
-- **D.** 27/56
-- **E.** 29/56
+- **A.** \(\frac{13}{28}\)
+- **B.** \(\frac{1}{2}\)
+- **C.** \(\frac{9}{112}\)
+- **D.** \(\frac{27}{56}\)
+- **E.** \(\frac{29}{56}\)
 
-**Correct answer:** D. 27/56
+**Correct answer:** D. \(\frac{27}{56}\)
 
 **Explanation:**
 
 - **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
-1. The total number of committees is C(16,3) = 560.
-2. For the required composition, choose 1 from 6 women and 2 from 10 men: C(6,1) × C(10,2) = 270.
-3. The required probability is 270/560 = 27/56.
+1. The total number of committees is \(\binom{16}{3}\) = 560.
+2. For the required composition, choose 1 from 6 women and 2 from 10 men: \(\binom{6}{1}\) \(\times\) \(\binom{10}{2}\) = 270.
+3. The required probability is \(\frac{270}{560}\) = \(\frac{27}{56}\).
 - **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
-- **Answer:** The required probability is 27/56.
+- **Answer:** The required probability is \(\frac{27}{56}\).
 
 ---
 
@@ -2641,22 +2641,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 5/8
-- **B.** 5/7
-- **C.** 4/7
-- **D.** 2/7
-- **E.** 6/7
+- **A.** \(\frac{5}{8}\)
+- **B.** \(\frac{5}{7}\)
+- **C.** \(\frac{4}{7}\)
+- **D.** \(\frac{2}{7}\)
+- **E.** \(\frac{6}{7}\)
 
-**Correct answer:** B. 5/7
+**Correct answer:** B. \(\frac{5}{7}\)
 
 **Explanation:**
 
 - **Method:** Count all queue arrangements, treat the two specified candidates as one block to count adjacent arrangements, and subtract from the total.
 1. There are 7! = 5040 unrestricted arrangements.
-2. If the two specified candidates are treated as one block, adjacent arrangements = 2 × 6! = 1440.
-3. Non-adjacent arrangements = 5040 - 1440 = 3600, so the probability is 5/7.
+2. If the two specified candidates are treated as one block, adjacent arrangements = 2 \(\times\) 6! = 1440.
+3. Non-adjacent arrangements = 5040 - 1440 = 3600, so the probability is \(\frac{5}{7}\).
 - **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
-- **Answer:** The required probability is 5/7.
+- **Answer:** The required probability is \(\frac{5}{7}\).
 
 ---
 
@@ -2666,22 +2666,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 15/182
-- **B.** 45/92
-- **C.** 46/91
-- **D.** 45/91
-- **E.** 44/91
+- **A.** \(\frac{15}{182}\)
+- **B.** \(\frac{45}{92}\)
+- **C.** \(\frac{46}{91}\)
+- **D.** \(\frac{45}{91}\)
+- **E.** \(\frac{44}{91}\)
 
-**Correct answer:** D. 45/91
+**Correct answer:** D. \(\frac{45}{91}\)
 
 **Explanation:**
 
 - **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
-1. The total number of committees is C(15,3) = 455.
-2. For the required composition, choose 1 from 5 women and 2 from 10 men: C(5,1) × C(10,2) = 225.
-3. The required probability is 225/455 = 45/91.
+1. The total number of committees is \(\binom{15}{3}\) = 455.
+2. For the required composition, choose 1 from 5 women and 2 from 10 men: \(\binom{5}{1}\) \(\times\) \(\binom{10}{2}\) = 225.
+3. The required probability is \(\frac{225}{455}\) = \(\frac{45}{91}\).
 - **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
-- **Answer:** The required probability is 45/91.
+- **Answer:** The required probability is \(\frac{45}{91}\).
 
 ---
 
@@ -2691,22 +2691,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 48/143
-- **B.** 95/143
-- **C.** 2/143
-- **D.** 47/143
-- **E.** 49/143
+- **A.** \(\frac{48}{143}\)
+- **B.** \(\frac{95}{143}\)
+- **C.** \(\frac{2}{143}\)
+- **D.** \(\frac{47}{143}\)
+- **E.** \(\frac{49}{143}\)
 
-**Correct answer:** A. 48/143
+**Correct answer:** A. \(\frac{48}{143}\)
 
 **Explanation:**
 
 - **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
-1. The total number of committees is C(14,4) = 1001.
-2. For the required composition, choose 1 from 6 women and 3 from 8 men: C(6,1) × C(8,3) = 336.
-3. The required probability is 336/1001 = 48/143.
+1. The total number of committees is \(\binom{14}{4}\) = 1001.
+2. For the required composition, choose 1 from 6 women and 3 from 8 men: \(\binom{6}{1}\) \(\times\) \(\binom{8}{3}\) = 336.
+3. The required probability is \(\frac{336}{1001}\) = \(\frac{48}{143}\).
 - **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
-- **Answer:** The required probability is 48/143.
+- **Answer:** The required probability is \(\frac{48}{143}\).
 
 ---
 
@@ -2716,22 +2716,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 4/7
-- **B.** 3/7
-- **C.** 3/8
-- **D.** 2/7
-- **E.** 1/2
+- **A.** \(\frac{4}{7}\)
+- **B.** \(\frac{3}{7}\)
+- **C.** \(\frac{3}{8}\)
+- **D.** \(\frac{2}{7}\)
+- **E.** \(\frac{1}{2}\)
 
-**Correct answer:** B. 3/7
+**Correct answer:** B. \(\frac{3}{7}\)
 
 **Explanation:**
 
 - **Method:** Count all arrangements first, then count the arrangements in which the specified person occupies one of the allowed positions.
 1. Any of the 14 people can receive the first post.
 2. 6 of these 14 people are women, and the remaining posts do not affect who receives the first post.
-3. The required probability is 6/14 = 3/7.
+3. The required probability is \(\frac{6}{14}\) = \(\frac{3}{7}\).
 - **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
-- **Answer:** The required probability is 3/7.
+- **Answer:** The required probability is \(\frac{3}{7}\).
 
 ---
 
@@ -2741,22 +2741,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/2
-- **B.** 841/1680
+- **A.** \(\frac{1}{2}\)
+- **B.** \(\frac{841}{1680}\)
 - **C.** 1
-- **D.** 1/3
+- **D.** \(\frac{1}{3}\)
 - **E.** 0
 
-**Correct answer:** A. 1/2
+**Correct answer:** A. \(\frac{1}{2}\)
 
 **Explanation:**
 
 - **Method:** Count all admissible digit arrangements, then count those whose final digit satisfies the required number property.
 1. Without repetition, the total number of 4-digit numbers is 8P4 = 1680.
 2. An even number must end in one of the 4 available even digits. After fixing the last digit, the remaining places can be filled in 210 ways.
-3. Thus, favourable numbers = 4 × 210 = 840, and the probability is 1/2.
+3. Thus, favourable numbers = 4 \(\times\) 210 = 840, and the probability is \(\frac{1}{2}\).
 - **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
-- **Answer:** The required probability is 1/2.
+- **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
 
@@ -2766,28 +2766,28 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 3/143
-- **B.** 141/143
-- **C.** 35/858
-- **D.** 139/143
-- **E.** 140/143
+- **A.** \(\frac{3}{143}\)
+- **B.** \(\frac{141}{143}\)
+- **C.** \(\frac{35}{858}\)
+- **D.** \(\frac{139}{143}\)
+- **E.** \(\frac{140}{143}\)
 
-**Correct answer:** E. 140/143
+**Correct answer:** E. \(\frac{140}{143}\)
 
 **Explanation:**
 
 - **Method:** A committee is unordered. Count all committees with combinations and subtract the committees excluded by the condition.
-1. There are C(13,4) = 715 possible committees.
-2. Use the complement: committees with no woman = C(6,4) = 15.
-3. Favourable committees = 715 - 15 = 700, giving probability 140/143.
+1. There are \(\binom{13}{4}\) = 715 possible committees.
+2. Use the complement: committees with no woman = \(\binom{6}{4}\) = 15.
+3. Favourable committees = 715 - 15 = 700, giving probability \(\frac{140}{143}\).
 - **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
-- **Answer:** The required probability is 140/143.
+- **Answer:** The required probability is \(\frac{140}{143}\).
 
 ---
 
 #### Question 118 — PRB-QL-708 (Hard)
 
-**Question:** A 4-member committee is chosen from 5 men and 9 women. The probability that it contains exactly 1 woman is 90/1001. How many such committees can be formed?
+**Question:** A 4-member committee is chosen from 5 men and 9 women. The probability that it contains exactly 1 woman is \(\frac{90}{1001}\). How many such committees can be formed?
 
 **Options:**
 
@@ -2801,9 +2801,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
 1. Choose 1 woman from 9 and 3 men from 5.
-2. Required committees = C(9,1) × C(5,3) = 90.
+2. Required committees = \(\binom{9}{1}\) \(\times\) \(\binom{5}{3}\) = 90.
 3. The required count is 90.
 - **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
 - **Answer:** The required number is 90.
@@ -2816,22 +2816,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 2/3
+- **A.** \(\frac{2}{3}\)
 - **B.** 0
-- **C.** 1/4
-- **D.** 1/2
-- **E.** 1/3
+- **C.** \(\frac{1}{4}\)
+- **D.** \(\frac{1}{2}\)
+- **E.** \(\frac{1}{3}\)
 
-**Correct answer:** E. 1/3
+**Correct answer:** E. \(\frac{1}{3}\)
 
 **Explanation:**
 
 - **Method:** Count all queue arrangements, treat the two specified candidates as one block to count adjacent arrangements, and subtract from the total.
 1. There are 6! = 720 unrestricted arrangements.
-2. Treat the two specified candidates as one block; the block can be internally ordered in 2 ways. Thus, adjacent arrangements = 2 × 5! = 240.
-3. The required probability is 240/720 = 1/3.
+2. Treat the two specified candidates as one block; the block can be internally ordered in 2 ways. Thus, adjacent arrangements = 2 \(\times\) 5! = 240.
+3. The required probability is \(\frac{240}{720}\) = \(\frac{1}{3}\).
 - **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
-- **Answer:** The required probability is 1/3.
+- **Answer:** The required probability is \(\frac{1}{3}\).
 
 ---
 
@@ -2841,22 +2841,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 216/455
-- **B.** 43/91
-- **C.** 239/455
-- **D.** 31/65
-- **E.** 36/455
+- **A.** \(\frac{216}{455}\)
+- **B.** \(\frac{43}{91}\)
+- **C.** \(\frac{239}{455}\)
+- **D.** \(\frac{31}{65}\)
+- **E.** \(\frac{36}{455}\)
 
-**Correct answer:** A. 216/455
+**Correct answer:** A. \(\frac{216}{455}\)
 
 **Explanation:**
 
 - **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
-1. The total number of committees is C(15,3) = 455.
-2. For the required composition, choose 1 from 6 women and 2 from 9 men: C(6,1) × C(9,2) = 216.
-3. The required probability is 216/455.
+1. The total number of committees is \(\binom{15}{3}\) = 455.
+2. For the required composition, choose 1 from 6 women and 2 from 9 men: \(\binom{6}{1}\) \(\times\) \(\binom{9}{2}\) = 216.
+3. The required probability is \(\frac{216}{455}\).
 - **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
-- **Answer:** The required probability is 216/455.
+- **Answer:** The required probability is \(\frac{216}{455}\).
 
 ---
 
@@ -2864,121 +2864,121 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 #### Question 121 — PRB-QL-805 (Easy)
 
-**Question:** A candidate can receive either Scholarship A or Scholarship B, but not both. If P(A) = 3/10 and P(B) = 1/10, what is the probability that the candidate receives a scholarship?
+**Question:** A candidate can receive either Scholarship A or Scholarship B, but not both. If \(P\!\left(A\right)\) = \(\frac{3}{10}\) and \(P\!\left(B\right)\) = \(\frac{1}{10}\), what is the probability that the candidate receives a scholarship?
 
 **Options:**
 
-- **A.** 1/5
-- **B.** 3/5
-- **C.** 2/5
-- **D.** 1/2
-- **E.** 1/3
+- **A.** \(\frac{1}{5}\)
+- **B.** \(\frac{3}{5}\)
+- **C.** \(\frac{2}{5}\)
+- **D.** \(\frac{1}{2}\)
+- **E.** \(\frac{1}{3}\)
 
-**Correct answer:** C. 2/5
+**Correct answer:** C. \(\frac{2}{5}\)
 
 **Explanation:**
 
 - **Method:** The events are mutually exclusive, so add their probabilities; there is no overlap to subtract.
 1. The two events are mutually exclusive, so they cannot happen together and there is no overlap to subtract.
-2. P(A or B) = P(A) + P(B) = 3/10 + 1/10.
-3. The required probability is 2/5.
-- **Answer:** The required probability is 2/5.
+2. \(P\!\left(A or B\right)\) = \(P\!\left(A\right)\) + \(P\!\left(B\right)\) = \(\frac{3}{10}\) + \(\frac{1}{10}\).
+3. The required probability is \(\frac{2}{5}\).
+- **Answer:** The required probability is \(\frac{2}{5}\).
 
 ---
 
 #### Question 122 — PRB-QL-806 (Easy)
 
-**Question:** The probabilities that a candidate clears Section A and Section B are 3/7 and 3/4, respectively. The results are independent. What is the probability that the candidate clears both sections?
+**Question:** The probabilities that a candidate clears Section A and Section B are \(\frac{3}{7}\) and \(\frac{3}{4}\), respectively. The results are independent. What is the probability that the candidate clears both sections?
 
 **Options:**
 
-- **A.** 9/29
-- **B.** 9/28
-- **C.** 5/14
-- **D.** 2/7
-- **E.** 19/28
+- **A.** \(\frac{9}{29}\)
+- **B.** \(\frac{9}{28}\)
+- **C.** \(\frac{5}{14}\)
+- **D.** \(\frac{2}{7}\)
+- **E.** \(\frac{19}{28}\)
 
-**Correct answer:** B. 9/28
+**Correct answer:** B. \(\frac{9}{28}\)
 
 **Explanation:**
 
 - **Method:** The events are independent, so multiply their probabilities to obtain the probability that both occur.
 1. The two results are independent, so the outcome of one does not change the probability of the other.
-2. P(both) = P(A) × P(B) = 3/7 × 3/4.
-3. The required probability is 9/28.
-- **Answer:** The required probability is 9/28.
+2. \(P\!\left(both\right)\) = \(P\!\left(A\right)\) \(\times\) \(P\!\left(B\right)\) = \(\frac{3}{7}\) \(\times\) \(\frac{3}{4}\).
+3. The required probability is \(\frac{9}{28}\).
+- **Answer:** The required probability is \(\frac{9}{28}\).
 
 ---
 
 #### Question 123 — PRB-QL-813 (Easy)
 
-**Question:** A candidate can receive either Scholarship A or Scholarship B, but not both. If P(A) = 1/10 and P(B) = 1/10, what is the probability that the candidate receives a scholarship?
+**Question:** A candidate can receive either Scholarship A or Scholarship B, but not both. If \(P\!\left(A\right)\) = \(\frac{1}{10}\) and \(P\!\left(B\right)\) = \(\frac{1}{10}\), what is the probability that the candidate receives a scholarship?
 
 **Options:**
 
-- **A.** 1/5
+- **A.** \(\frac{1}{5}\)
 - **B.** 0
-- **C.** 2/5
-- **D.** 1/6
-- **E.** 4/5
+- **C.** \(\frac{2}{5}\)
+- **D.** \(\frac{1}{6}\)
+- **E.** \(\frac{4}{5}\)
 
-**Correct answer:** A. 1/5
+**Correct answer:** A. \(\frac{1}{5}\)
 
 **Explanation:**
 
 - **Method:** The events are mutually exclusive, so add their probabilities; there is no overlap to subtract.
 1. The two events are mutually exclusive, so they cannot happen together and there is no overlap to subtract.
-2. P(A or B) = P(A) + P(B) = 1/10 + 1/10.
-3. The required probability is 1/5.
-- **Answer:** The required probability is 1/5.
+2. \(P\!\left(A or B\right)\) = \(P\!\left(A\right)\) + \(P\!\left(B\right)\) = \(\frac{1}{10}\) + \(\frac{1}{10}\).
+3. The required probability is \(\frac{1}{5}\).
+- **Answer:** The required probability is \(\frac{1}{5}\).
 
 ---
 
 #### Question 124 — PRB-QL-814 (Easy)
 
-**Question:** The probabilities that a candidate clears Section A and Section B are 6/7 and 4/5, respectively. The results are independent. What is the probability that the candidate clears both sections?
+**Question:** The probabilities that a candidate clears Section A and Section B are \(\frac{6}{7}\) and \(\frac{4}{5}\), respectively. The results are independent. What is the probability that the candidate clears both sections?
 
 **Options:**
 
-- **A.** 5/7
-- **B.** 23/35
-- **C.** 2/3
-- **D.** 24/35
-- **E.** 11/35
+- **A.** \(\frac{5}{7}\)
+- **B.** \(\frac{23}{35}\)
+- **C.** \(\frac{2}{3}\)
+- **D.** \(\frac{24}{35}\)
+- **E.** \(\frac{11}{35}\)
 
-**Correct answer:** D. 24/35
+**Correct answer:** D. \(\frac{24}{35}\)
 
 **Explanation:**
 
 - **Method:** The events are independent, so multiply their probabilities to obtain the probability that both occur.
 1. The two results are independent, so the outcome of one does not change the probability of the other.
-2. P(both) = P(A) × P(B) = 6/7 × 4/5.
-3. The required probability is 24/35.
-- **Answer:** The required probability is 24/35.
+2. \(P\!\left(both\right)\) = \(P\!\left(A\right)\) \(\times\) \(P\!\left(B\right)\) = \(\frac{6}{7}\) \(\times\) \(\frac{4}{5}\).
+3. The required probability is \(\frac{24}{35}\).
+- **Answer:** The required probability is \(\frac{24}{35}\).
 
 ---
 
 #### Question 125 — PRB-QL-821 (Easy)
 
-**Question:** A candidate can receive either Scholarship A or Scholarship B, but not both. If P(A) = 1/5 and P(B) = 1/5, what is the probability that the candidate receives a scholarship?
+**Question:** A candidate can receive either Scholarship A or Scholarship B, but not both. If \(P\!\left(A\right)\) = \(\frac{1}{5}\) and \(P\!\left(B\right)\) = \(\frac{1}{5}\), what is the probability that the candidate receives a scholarship?
 
 **Options:**
 
-- **A.** 1/2
-- **B.** 1/5
-- **C.** 3/5
-- **D.** 2/5
-- **E.** 1/3
+- **A.** \(\frac{1}{2}\)
+- **B.** \(\frac{1}{5}\)
+- **C.** \(\frac{3}{5}\)
+- **D.** \(\frac{2}{5}\)
+- **E.** \(\frac{1}{3}\)
 
-**Correct answer:** D. 2/5
+**Correct answer:** D. \(\frac{2}{5}\)
 
 **Explanation:**
 
 - **Method:** The events are mutually exclusive, so add their probabilities; there is no overlap to subtract.
 1. The two events are mutually exclusive, so they cannot happen together and there is no overlap to subtract.
-2. P(A or B) = P(A) + P(B) = 1/5 + 1/5.
-3. The required probability is 2/5.
-- **Answer:** The required probability is 2/5.
+2. \(P\!\left(A or B\right)\) = \(P\!\left(A\right)\) + \(P\!\left(B\right)\) = \(\frac{1}{5}\) + \(\frac{1}{5}\).
+3. The required probability is \(\frac{2}{5}\).
+- **Answer:** The required probability is \(\frac{2}{5}\).
 
 ---
 
@@ -2988,22 +2988,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 27/50
-- **B.** 11/25
-- **C.** 12/25
-- **D.** 13/25
-- **E.** 6/13
+- **A.** \(\frac{27}{50}\)
+- **B.** \(\frac{11}{25}\)
+- **C.** \(\frac{12}{25}\)
+- **D.** \(\frac{13}{25}\)
+- **E.** \(\frac{6}{13}\)
 
-**Correct answer:** C. 12/25
+**Correct answer:** C. \(\frac{12}{25}\)
 
 **Explanation:**
 
 - **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
-1. Use n(A ∪ B) = n(A) + n(B) - n(A ∩ B), because the 6 people in both groups would otherwise be counted twice.
+1. Use n(A \(\cup\) B) = n(A) + n(B) - n(A \(\cap\) B), because the 6 people in both groups would otherwise be counted twice.
 2. Required people = 25 + 29 - 6 = 48.
-3. The required probability is 48/100 = 12/25.
+3. The required probability is \(\frac{48}{100}\) = \(\frac{12}{25}\).
 - **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
-- **Answer:** The required probability is 12/25.
+- **Answer:** The required probability is \(\frac{12}{25}\).
 
 ---
 
@@ -3013,21 +3013,21 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 1/9
-- **B.** 2/15
-- **C.** 11/90
-- **D.** 79/90
-- **E.** 11/91
+- **A.** \(\frac{1}{9}\)
+- **B.** \(\frac{2}{15}\)
+- **C.** \(\frac{11}{90}\)
+- **D.** \(\frac{79}{90}\)
+- **E.** \(\frac{11}{91}\)
 
-**Correct answer:** C. 11/90
+**Correct answer:** C. \(\frac{11}{90}\)
 
 **Explanation:**
 
 - **Method:** The required event is the overlap of the two groups; compare that overlap with the complete group.
 1. The intersection means the people who satisfy both cricket and football.
 2. The question gives this overlap directly as 11 out of 90.
-3. The required probability is 11/90.
-- **Answer:** The required probability is 11/90.
+3. The required probability is \(\frac{11}{90}\).
+- **Answer:** The required probability is \(\frac{11}{90}\).
 
 ---
 
@@ -3037,22 +3037,22 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 68/81
-- **B.** 16/81
-- **C.** 22/27
-- **D.** 71/81
-- **E.** 65/81
+- **A.** \(\frac{68}{81}\)
+- **B.** \(\frac{16}{81}\)
+- **C.** \(\frac{22}{27}\)
+- **D.** \(\frac{71}{81}\)
+- **E.** \(\frac{65}{81}\)
 
-**Correct answer:** E. 65/81
+**Correct answer:** E. \(\frac{65}{81}\)
 
 **Explanation:**
 
 - **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
 1. For exactly one condition, remove the overlap once from each group.
-2. Required people = 38 + 33 - 2 × 3 = 65.
-3. The required probability is 65/81.
+2. Required people = 38 + 33 - 2 \(\times\) 3 = 65.
+3. The required probability is \(\frac{65}{81}\).
 - **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
-- **Answer:** The required probability is 65/81.
+- **Answer:** The required probability is \(\frac{65}{81}\).
 
 ---
 
@@ -3063,9 +3063,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 **Options:**
 
 - **A.** 1
-- **B.** 2/3
-- **C.** 3/4
-- **D.** 1/51
+- **B.** \(\frac{2}{3}\)
+- **C.** \(\frac{3}{4}\)
+- **D.** \(\frac{1}{51}\)
 - **E.** 0
 
 **Correct answer:** E. 0
@@ -3075,7 +3075,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 - **Method:** Use inclusion–exclusion to find those in at least one group, then subtract that count from the total.
 1. First find those satisfying at least one condition: 29 + 38 - 16 = 51.
 2. People satisfying neither condition = 51 - 51 = 0.
-3. The required probability is 0/51 = 0.
+3. The required probability is \(\frac{0}{51}\) = 0.
 - **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
 - **Answer:** The required probability is 0.
 
@@ -3087,47 +3087,47 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 23/32
-- **B.** 3/4
-- **C.** 17/64
-- **D.** 47/64
-- **E.** 57/64
+- **A.** \(\frac{23}{32}\)
+- **B.** \(\frac{3}{4}\)
+- **C.** \(\frac{17}{64}\)
+- **D.** \(\frac{47}{64}\)
+- **E.** \(\frac{57}{64}\)
 
-**Correct answer:** D. 47/64
+**Correct answer:** D. \(\frac{47}{64}\)
 
 **Explanation:**
 
 - **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
-1. Use n(A ∪ B) = n(A) + n(B) - n(A ∩ B), because the 10 people in both groups would otherwise be counted twice.
+1. Use n(A \(\cup\) B) = n(A) + n(B) - n(A \(\cap\) B), because the 10 people in both groups would otherwise be counted twice.
 2. Required people = 30 + 27 - 10 = 47.
-3. The required probability is 47/64.
+3. The required probability is \(\frac{47}{64}\).
 - **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
-- **Answer:** The required probability is 47/64.
+- **Answer:** The required probability is \(\frac{47}{64}\).
 
 ---
 
 #### Question 131 — PRB-QL-807 (Hard)
 
-**Question:** For a group of 70 candidates, P(Section A) = 18/35, P(Section B) = 23/70, and P(Section A or Section B) = 27/35. Find P(Section A and Section B).
+**Question:** For a group of 70 candidates, \(P\!\left(Section A\right)\) = \(\frac{18}{35}\), \(P\!\left(Section B\right)\) = \(\frac{23}{70}\), and \(P\!\left(Section A or Section B\right)\) = \(\frac{27}{35}\). Find \(P\!\left(Section A and Section B\right)\).
 
 **Options:**
 
 - **A.** 0
-- **B.** 1/7
-- **C.** 1/14
-- **D.** 13/14
-- **E.** 1/15
+- **B.** \(\frac{1}{7}\)
+- **C.** \(\frac{1}{14}\)
+- **D.** \(\frac{13}{14}\)
+- **E.** \(\frac{1}{15}\)
 
-**Correct answer:** C. 1/14
+**Correct answer:** C. \(\frac{1}{14}\)
 
 **Explanation:**
 
 - **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
-1. Apply P(A ∪ B) = P(A) + P(B) - P(A ∩ B).
+1. Apply \(P\!\left(A \cup B\right)\) = \(P\!\left(A\right)\) + \(P\!\left(B\right)\) - \(P\!\left(A \cap B\right)\).
 2. In counts, the overlap is 36 + 23 - 54 = 5.
-3. The required probability is 5/70 = 1/14.
+3. The required probability is \(\frac{5}{70}\) = \(\frac{1}{14}\).
 - **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
-- **Answer:** The required probability is 1/14.
+- **Answer:** The required probability is \(\frac{1}{14}\).
 
 ---
 
@@ -3137,47 +3137,47 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 38/59
-- **B.** 21/59
-- **C.** 39/59
-- **D.** 48/59
-- **E.** 37/59
+- **A.** \(\frac{38}{59}\)
+- **B.** \(\frac{21}{59}\)
+- **C.** \(\frac{39}{59}\)
+- **D.** \(\frac{48}{59}\)
+- **E.** \(\frac{37}{59}\)
 
-**Correct answer:** A. 38/59
+**Correct answer:** A. \(\frac{38}{59}\)
 
 **Explanation:**
 
 - **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
 1. For exactly one condition, remove the overlap once from each group.
-2. Required people = 37 + 21 - 2 × 10 = 38.
-3. The required probability is 38/59.
+2. Required people = 37 + 21 - 2 \(\times\) 10 = 38.
+3. The required probability is \(\frac{38}{59}\).
 - **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
-- **Answer:** The required probability is 38/59.
+- **Answer:** The required probability is \(\frac{38}{59}\).
 
 ---
 
 #### Question 133 — PRB-QL-815 (Hard)
 
-**Question:** For a group of 76 candidates, P(Section A) = 23/76, P(Section B) = 6/19, and P(Section A or Section B) = 1/2. Find P(Section A and Section B).
+**Question:** For a group of 76 candidates, \(P\!\left(Section A\right)\) = \(\frac{23}{76}\), \(P\!\left(Section B\right)\) = \(\frac{6}{19}\), and \(P\!\left(Section A or Section B\right)\) = \(\frac{1}{2}\). Find \(P\!\left(Section A and Section B\right)\).
 
 **Options:**
 
-- **A.** 9/77
-- **B.** 2/19
-- **C.** 5/38
-- **D.** 9/76
-- **E.** 67/76
+- **A.** \(\frac{9}{77}\)
+- **B.** \(\frac{2}{19}\)
+- **C.** \(\frac{5}{38}\)
+- **D.** \(\frac{9}{76}\)
+- **E.** \(\frac{67}{76}\)
 
-**Correct answer:** D. 9/76
+**Correct answer:** D. \(\frac{9}{76}\)
 
 **Explanation:**
 
 - **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
-1. Apply P(A ∪ B) = P(A) + P(B) - P(A ∩ B).
+1. Apply \(P\!\left(A \cup B\right)\) = \(P\!\left(A\right)\) + \(P\!\left(B\right)\) - \(P\!\left(A \cap B\right)\).
 2. In counts, the overlap is 23 + 24 - 38 = 9.
-3. The required probability is 9/76.
+3. The required probability is \(\frac{9}{76}\).
 - **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
-- **Answer:** The required probability is 9/76.
+- **Answer:** The required probability is \(\frac{9}{76}\).
 
 ---
 
@@ -3187,46 +3187,46 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Options:**
 
-- **A.** 12/41
-- **B.** 16/41
-- **C.** 14/41
-- **D.** 13/41
-- **E.** 28/41
+- **A.** \(\frac{12}{41}\)
+- **B.** \(\frac{16}{41}\)
+- **C.** \(\frac{14}{41}\)
+- **D.** \(\frac{13}{41}\)
+- **E.** \(\frac{28}{41}\)
 
-**Correct answer:** D. 13/41
+**Correct answer:** D. \(\frac{13}{41}\)
 
 **Explanation:**
 
 - **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
 1. For exactly one condition, remove the overlap once from each group.
-2. Required people = 19 + 19 - 2 × 6 = 26.
-3. The required probability is 26/82 = 13/41.
+2. Required people = 19 + 19 - 2 \(\times\) 6 = 26.
+3. The required probability is \(\frac{26}{82}\) = \(\frac{13}{41}\).
 - **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
-- **Answer:** The required probability is 13/41.
+- **Answer:** The required probability is \(\frac{13}{41}\).
 
 ---
 
 #### Question 135 — PRB-QL-823 (Hard)
 
-**Question:** For a group of 99 candidates, P(Section A) = 25/99, P(Section B) = 28/99, and P(Section A or Section B) = 43/99. Find P(Section A and Section B).
+**Question:** For a group of 99 candidates, \(P\!\left(Section A\right)\) = \(\frac{25}{99}\), \(P\!\left(Section B\right)\) = \(\frac{28}{99}\), and \(P\!\left(Section A or Section B\right)\) = \(\frac{43}{99}\). Find \(P\!\left(Section A and Section B\right)\).
 
 **Options:**
 
-- **A.** 1/9
-- **B.** 89/99
-- **C.** 10/99
-- **D.** 1/11
-- **E.** 1/10
+- **A.** \(\frac{1}{9}\)
+- **B.** \(\frac{89}{99}\)
+- **C.** \(\frac{10}{99}\)
+- **D.** \(\frac{1}{11}\)
+- **E.** \(\frac{1}{10}\)
 
-**Correct answer:** C. 10/99
+**Correct answer:** C. \(\frac{10}{99}\)
 
 **Explanation:**
 
 - **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
-1. Apply P(A ∪ B) = P(A) + P(B) - P(A ∩ B).
+1. Apply \(P\!\left(A \cup B\right)\) = \(P\!\left(A\right)\) + \(P\!\left(B\right)\) - \(P\!\left(A \cap B\right)\).
 2. In counts, the overlap is 25 + 28 - 43 = 10.
-3. The required probability is 10/99.
+3. The required probability is \(\frac{10}{99}\).
 - **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
-- **Answer:** The required probability is 10/99.
+- **Answer:** The required probability is \(\frac{10}{99}\).
 
 ---
