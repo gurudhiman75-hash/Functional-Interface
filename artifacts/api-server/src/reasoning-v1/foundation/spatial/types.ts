@@ -91,6 +91,66 @@ export interface SpatialScene {
   metadata?: SpatialSceneMetadata;
 }
 
+export type SpatialLocaleMode =
+  | "LANGUAGE_NEUTRAL"
+  | "INSTRUCTION_LOCALISED"
+  | "SCRIPT_SPECIFIC";
+
+export type SpatialScript =
+  | "LATIN"
+  | "DEVANAGARI"
+  | "GURMUKHI"
+  | "WESTERN_ARABIC_DIGIT"
+  | "SYMBOL";
+
+export interface SpatialSymmetryProfile {
+  vertical: boolean;
+  horizontal: boolean;
+  rotational180: boolean;
+}
+
+export type SpatialRequestedTransform =
+  | "REFLECT_VERTICAL"
+  | "REFLECT_HORIZONTAL"
+  | "ROTATE_180";
+
+export interface SpatialTransformCandidate {
+  label: string;
+  scene: SpatialScene;
+}
+
+export interface SpatialGlyphAuthorityEntry {
+  glyphId: string;
+  script: SpatialScript;
+  localeMode: SpatialLocaleMode;
+  canonicalScene: SpatialScene;
+  symmetry: SpatialSymmetryProfile;
+  authorityVersion: string;
+}
+
+export interface SpatialClockTime {
+  hour: number;
+  minute: number;
+}
+
+export interface SpatialClockHandAngles {
+  hourAngleDeg: number;
+  minuteAngleDeg: number;
+}
+
+export interface SpatialReviewMetadata {
+  stimulusKind: string;
+  requestedTransform: SpatialRequestedTransform;
+  localeMode: SpatialLocaleMode;
+  symmetryProfile: SpatialSymmetryProfile;
+  canonicalFingerprint: string;
+  correctTransformFingerprint: string;
+  optionTransformLabels: string[];
+  equivalentCandidateCheck: "PASS" | "FAIL";
+  clockGeometryCheck?: "PASS" | "FAIL" | "NOT_APPLICABLE";
+  clockShortcutCheck?: "PASS" | "FAIL" | "NOT_APPLICABLE";
+}
+
 export interface SpatialExplanationStep {
   id: string;
   operation: string;
