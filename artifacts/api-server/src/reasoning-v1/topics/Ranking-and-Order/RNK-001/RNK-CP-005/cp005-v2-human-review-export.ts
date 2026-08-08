@@ -98,8 +98,12 @@ function renderPassage(passage: RnkCp005ReasoningSharedPassage): string[] {
     lines.push("");
   }
 
+  const remainingClues = passage.rankRows.length > 0
+    ? passage.reasoningClues.filter((clue) => clue.kind !== "FIXED_RANK")
+    : passage.reasoningClues;
+
   lines.push("**Clues**", "");
-  passage.reasoningClues.forEach((clue, index) => {
+  remainingClues.forEach((clue, index) => {
     lines.push(`${index + 1}. ${rnkCp005ReasoningClueText(clue, passage.contextFamily)}`);
   });
   lines.push("");
