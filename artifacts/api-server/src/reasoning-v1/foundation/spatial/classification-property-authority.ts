@@ -35,6 +35,8 @@ const POLYGON_SIDE_COUNT: Partial<Record<SpatialAnalogyShape, number>> = {
   PENTAGON: 5,
 };
 
+const QUARTER_DIRECTION = ["up", "right", "down", "left"] as const;
+
 function markerOnDirectionSide(state: SpatialAnalogyFigureState): boolean {
   const marker = state.markerPosition;
   switch (state.direction) {
@@ -103,7 +105,7 @@ export function spatialClassificationPropertyDescription(
     MARKER_ON_ARROW_SIDE:
       "the black marker lies on the same side toward which the arrow points",
     ORIENTATIONS_MATCH:
-      "the outer and inner shapes have the same quarter-turn orientation",
+      "the outer and inner shapes point in the same direction",
     SHADING_MATCHES_ODD_SEGMENTS:
       "the inner shape is shaded exactly when the segment count is odd",
     MARKER_OPPOSITE_SEGMENT_ANCHOR:
@@ -126,14 +128,15 @@ export function spatialClassificationPropertyEvidence(
       return `outer ${state.outerShape.toLowerCase()}, inner ${state.innerShape.toLowerCase()}`;
     case "SEGMENT_MATCHES_INNER_SIDES_MINUS_ONE": {
       const sideCount = POLYGON_SIDE_COUNT[state.innerShape];
+      const segmentLabel = `${state.segmentCount} short segment${state.segmentCount === 1 ? "" : "s"}`;
       return sideCount === undefined
-        ? `inner circle has no polygon-side count, with ${state.segmentCount} segments`
-        : `inner ${state.innerShape.toLowerCase()} has ${sideCount} sides and the figure has ${state.segmentCount} segments`;
+        ? `inner circle has no polygon-side count, with ${segmentLabel}`
+        : `inner ${state.innerShape.toLowerCase()} has ${sideCount} sides and the figure has ${segmentLabel}`;
     }
     case "MARKER_ON_ARROW_SIDE":
       return `marker ${state.markerPosition.toLowerCase().replaceAll("_", " ")}, arrow ${state.direction.toLowerCase()}`;
     case "ORIENTATIONS_MATCH":
-      return `outer orientation Q${state.outerRotationQuarter}, inner orientation Q${state.innerRotationQuarter}`;
+      return `outer shape points ${QUARTER_DIRECTION[state.outerRotationQuarter]}, inner shape points ${QUARTER_DIRECTION[state.innerRotationQuarter]}`;
     case "SHADING_MATCHES_ODD_SEGMENTS":
       return `${state.shadedInner ? "shaded" : "open"} inner shape with ${state.segmentCount} segment${state.segmentCount === 1 ? "" : "s"}`;
     case "MARKER_OPPOSITE_SEGMENT_ANCHOR":
