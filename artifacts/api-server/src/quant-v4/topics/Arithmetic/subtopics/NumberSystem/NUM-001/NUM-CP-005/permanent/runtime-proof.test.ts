@@ -10,6 +10,7 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 const seedsPerQl = 120;
+const uniformEasyDifficultyQls = new Set(["NUM-QL-055", "NUM-QL-063"]);
 const answerPositions = new Map<string, Set<number>>();
 const difficulties = new Map<string, Set<string>>();
 const fingerprints = new Map<string, Set<string>>();
@@ -65,7 +66,14 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
   }
 
   assert(JSON.stringify([...answerPositions.get(qlId)!].sort()) === JSON.stringify([0, 1, 2, 3]), `${qlId}: answer-position reachability`);
-  assert(difficulties.get(qlId)!.size >= 2, `${qlId}: insufficient state-derived difficulty variation`);
+  if (uniformEasyDifficultyQls.has(qlId)) {
+    assert(
+      JSON.stringify([...difficulties.get(qlId)!]) === JSON.stringify(["EASY"]),
+      `${qlId}: uniform one-step family must remain EASY`,
+    );
+  } else {
+    assert(difficulties.get(qlId)!.size >= 2, `${qlId}: insufficient state-derived difficulty variation`);
+  }
   assert(fingerprints.get(qlId)!.size >= 8, `${qlId}: insufficient mathematical variation`);
   assert(
     JSON.stringify([...reachedPrototypes.get(qlId)!].sort()) === JSON.stringify([...allocation.prototypeIds].sort()),
@@ -99,6 +107,7 @@ console.log(JSON.stringify({
   difficultyBandsByQl: Object.fromEntries(
     [...difficulties.entries()].map(([qlId, values]) => [qlId, [...values].sort()]),
   ),
+  uniformEasyDifficultyQls: [...uniformEasyDifficultyQls],
   unsupportedLanguageRejected,
   reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL",
   questionStudioDiscoverableCount: 0,
