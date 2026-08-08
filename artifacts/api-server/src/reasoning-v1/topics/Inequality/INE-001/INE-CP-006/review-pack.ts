@@ -101,9 +101,7 @@ export function renderIneCp006ReviewMarkdown(
       "",
       ...row.codeKey.map((entry) => `- ${entry}`),
       "",
-      "### Statements",
-      "",
-      ...row.statements.map((entry) => `- ${entry}`),
+      `**Statements:** ${row.statements.join("; ")}`,
       ...(row.conclusions
         ? [
             "",
@@ -129,7 +127,7 @@ export function renderIneCp006ReviewMarkdown(
   return [
     "# INE-CP-006 English Prototype Review Pack",
     "",
-    "This 48-question pack gives 40 questions to exam-shaped chain solving and conclusion evaluation, and 8 to guided decoding and encoding. The exam questions come first and use three-to-eight-statement scenarios; no one- or two-step exam items are included. Exam-practice records use ASCII symbols; Unicode symbols are isolated in guided records. Every question supplies a complete five-symbol key and exactly four answer options. These are product prototypes, not previous-year questions. The current exam applicability is Banking/regulatory practice only; SSC, Railways, and Punjab labels remain disabled pending verified post-specific evidence. Permanent QLs and Question Studio visibility remain disabled.",
+    "This 48-question pack gives 40 questions to exam-shaped chain solving and conclusion evaluation, and 8 to guided decoding and encoding. The exam questions come first and use three-to-six-statement scenarios; no one- or two-step exam items are included. Multi-group questions use only necessary cross-links; redundant shortcut statements are rejected. Exam-practice records use ASCII symbols; Unicode symbols are isolated in guided records. Every question supplies a complete five-symbol key and exactly four answer options. These are product prototypes, not previous-year questions. The current exam applicability is Banking/regulatory practice only; SSC, Railways, and Punjab labels remain disabled pending verified post-specific evidence. Permanent QLs and Question Studio visibility remain disabled.",
     "",
     sections.join("\n\n"),
     "",

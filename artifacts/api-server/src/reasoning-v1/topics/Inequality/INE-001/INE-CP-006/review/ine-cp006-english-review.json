@@ -1,7 +1,7 @@
 [
   {
     "index": 1,
-    "recordId": "INE-CP006-7650000B",
+    "recordId": "INE-CP006-754FFE78",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 0,
     "difficulty": "MEDIUM",
@@ -31,7 +31,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "C ≥ Q",
-    "explanation": "Decode the statements: C ≥ R, R = D, and D ≥ Q. So C ≥ Q.",
+    "explanation": "After decoding: C ≥ R = D ≥ Q. So C ≥ Q.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -42,7 +42,7 @@
   },
   {
     "index": 2,
-    "recordId": "INE-CP006-C1ADCEE2",
+    "recordId": "INE-CP006-C2ADD075",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 0,
     "difficulty": "HARD",
@@ -76,7 +76,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "Only conclusion I follows",
-    "explanation": "Decode the statements: B ≥ R, R = C, and C ≥ Q. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
+    "explanation": "After decoding: B ≥ R = C ≥ Q. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -87,7 +87,7 @@
   },
   {
     "index": 3,
-    "recordId": "INE-CP006-CC8090E8",
+    "recordId": "INE-CP006-CD80927B",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 1,
     "difficulty": "HARD",
@@ -117,7 +117,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "R < Q",
-    "explanation": "Decode the statements: R ≤ D, D < B, B = A, and A ≤ Q. So R < Q.",
+    "explanation": "After decoding: R ≤ D < B = A ≤ Q. So R < Q.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -128,7 +128,7 @@
   },
   {
     "index": 4,
-    "recordId": "INE-CP006-3B31BB3D",
+    "recordId": "INE-CP006-3A31B9AA",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 1,
     "difficulty": "HARD",
@@ -162,7 +162,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "Only conclusion II follows",
-    "explanation": "Decode the statements: R ≥ D, D = A, A > Q, and Q ≥ P. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
+    "explanation": "After decoding: R ≥ D = A > Q ≥ P. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -173,7 +173,7 @@
   },
   {
     "index": 5,
-    "recordId": "INE-CP006-76D94C21",
+    "recordId": "INE-CP006-75D94A8E",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 2,
     "difficulty": "HARD",
@@ -203,7 +203,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "P ≤ C",
-    "explanation": "Decode the statements: C = R, R ≥ B, B = Q, and Q ≥ P. So P ≤ C.",
+    "explanation": "After decoding: C = R ≥ B = Q ≥ P. So P ≤ C.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -214,7 +214,7 @@
   },
   {
     "index": 6,
-    "recordId": "INE-CP006-87476084",
+    "recordId": "INE-CP006-88476217",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 2,
     "difficulty": "HARD",
@@ -248,7 +248,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "Both conclusions I and II follow",
-    "explanation": "Decode the statements: P ≤ D, D = A, A ≤ C, and C = R. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
+    "explanation": "After decoding: P ≤ D = A ≤ C = R. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -259,7 +259,7 @@
   },
   {
     "index": 7,
-    "recordId": "INE-CP006-0E65A766",
+    "recordId": "INE-CP006-0F65A8F9",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 3,
     "difficulty": "MEDIUM",
@@ -279,9 +279,7 @@
       "A ! B means A is less than or equal to B."
     ],
     "statements": [
-      "D ~ A",
-      "Q ? A",
-      "C ~ D"
+      "D ~ A; Q ? A; C ~ D"
     ],
     "options": [
       "D > Q",
@@ -291,7 +289,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "The relation cannot be determined",
-    "explanation": "Decode the statements: D > A, Q ≥ A, and C > D. There is no definite relation between D and Q.",
+    "explanation": "After decoding: D > A; Q ≥ A; C > D. There is no definite relation between D and Q.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -302,7 +300,7 @@
   },
   {
     "index": 8,
-    "recordId": "INE-CP006-C946F557",
+    "recordId": "INE-CP006-C846F3C4",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 3,
     "difficulty": "HARD",
@@ -322,8 +320,7 @@
       "A ! B means A is less than or equal to B."
     ],
     "statements": [
-      "D ^ P",
-      "C ! Q + R"
+      "D ^ P; C ! Q + R"
     ],
     "conclusions": [
       "R ^ C",
@@ -337,7 +334,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "Neither conclusion I nor conclusion II follows",
-    "explanation": "Decode the statements: D = P, C ≤ Q, and Q < R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
+    "explanation": "After decoding: D = P; C ≤ Q < R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -348,7 +345,7 @@
   },
   {
     "index": 9,
-    "recordId": "INE-CP006-2D88C8AF",
+    "recordId": "INE-CP006-2C88C71C",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 4,
     "difficulty": "MEDIUM",
@@ -368,8 +365,7 @@
       "A @ B means A is less than or equal to B."
     ],
     "statements": [
-      "P & D # C",
-      "Q % A"
+      "P & D # C; Q % A"
     ],
     "options": [
       "C < P",
@@ -379,7 +375,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "C < P",
-    "explanation": "Decode the statements: P > D, D ≥ C, and Q = A. So C < P.",
+    "explanation": "After decoding: P > D ≥ C; Q = A. So C < P.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -390,7 +386,7 @@
   },
   {
     "index": 10,
-    "recordId": "INE-CP006-F1DC25AE",
+    "recordId": "INE-CP006-F2DC2741",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 4,
     "difficulty": "HARD",
@@ -425,7 +421,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "Only conclusions I and III follow",
-    "explanation": "Decode the statements: Q ≥ P, P > C, C = R, R ≥ D, and D > B. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.",
+    "explanation": "After decoding: Q ≥ P > C = R ≥ D > B. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -436,7 +432,7 @@
   },
   {
     "index": 11,
-    "recordId": "INE-CP006-D3CE347C",
+    "recordId": "INE-CP006-D4CE360F",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 5,
     "difficulty": "HARD",
@@ -466,7 +462,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "P < B",
-    "explanation": "Decode the statements: P < Q, Q ≤ A, A = D, D < C, and C ≤ B. So P < B.",
+    "explanation": "After decoding: P < Q ≤ A = D < C ≤ B. So P < B.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -477,7 +473,7 @@
   },
   {
     "index": 12,
-    "recordId": "INE-CP006-AF5E4E89",
+    "recordId": "INE-CP006-AE5E4CF6",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 5,
     "difficulty": "HARD",
@@ -512,7 +508,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "Only conclusions II and III follow",
-    "explanation": "Decode the statements: R ≤ B, B < A, A ≤ Q, Q = C, C < D, and D ≤ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.",
+    "explanation": "After decoding: R ≤ B < A ≤ Q = C < D ≤ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -523,7 +519,7 @@
   },
   {
     "index": 13,
-    "recordId": "INE-CP006-AB048BB5",
+    "recordId": "INE-CP006-AA048A22",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 6,
     "difficulty": "HARD",
@@ -553,7 +549,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "C < P",
-    "explanation": "Decode the statements: P ≥ A, A > B, B = R, R ≥ Q, Q > D, and D ≥ C. So C < P.",
+    "explanation": "After decoding: P ≥ A > B = R ≥ Q > D ≥ C. So C < P.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -564,7 +560,7 @@
   },
   {
     "index": 14,
-    "recordId": "INE-CP006-FC386E50",
+    "recordId": "INE-CP006-FD386FE3",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 6,
     "difficulty": "HARD",
@@ -572,8 +568,8 @@
     "symbolProfile": "ASCII_EXAM_PROFILE",
     "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
     "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS",
-    "statementCount": 7,
+    "topologyId": "TWO_CHAINS_WITH_NECESSARY_CROSS_LINK",
+    "statementCount": 5,
     "conclusionCount": 3,
     "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
     "codeKey": [
@@ -584,24 +580,22 @@
       "A & B means A is less than or equal to B."
     ],
     "statements": [
-      "C % B @ D % P # A @ R",
-      "C @ D",
-      "P @ R"
+      "C % B @ D; P # A % R; D @ P"
     ],
     "conclusions": [
       "D @ R",
-      "B % A",
-      "B % R"
+      "B @ R",
+      "D % A"
     ],
     "options": [
       "Only conclusion I follows",
-      "Only conclusion III follows",
+      "Only conclusion II follows",
       "All three conclusions follow",
-      "Only conclusion II follows"
+      "Only conclusion III follows"
     ],
     "correctIndex": 2,
     "correctOption": "All three conclusions follow",
-    "explanation": "Decode the statements: C ≥ B, B > D, D ≥ P, P = A, A > R, C > D, and P > R. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.",
+    "explanation": "After decoding: C ≥ B > D; P = A ≥ R; D > P. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -612,7 +606,7 @@
   },
   {
     "index": 15,
-    "recordId": "INE-CP006-FBEC72DA",
+    "recordId": "INE-CP006-FCEC746D",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 7,
     "difficulty": "HARD",
@@ -620,8 +614,8 @@
     "symbolProfile": "ASCII_EXAM_PROFILE",
     "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
     "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS",
-    "statementCount": 7,
+    "topologyId": "TWO_CHAINS_WITH_NECESSARY_CROSS_LINK",
+    "statementCount": 5,
     "conclusionCount": 0,
     "stem": "After decoding the statements, what is the strongest definite relation between P and B?",
     "codeKey": [
@@ -632,19 +626,17 @@
       "A ^ B means A is less than or equal to B."
     ],
     "statements": [
-      "P ~ Q ! R ~ A + D ! B",
-      "P ! R",
-      "A ! B"
+      "P ~ Q ! R; A + D ~ B; R ! A"
     ],
     "options": [
-      "P = B",
       "P ≥ B",
-      "The relation cannot be determined",
+      "P ≤ B",
+      "P = B",
       "P > B"
     ],
     "correctIndex": 3,
     "correctOption": "P > B",
-    "explanation": "Decode the statements: P ≥ Q, Q > R, R ≥ A, A = D, D > B, P > R, and A > B. So P > B.",
+    "explanation": "After decoding: P ≥ Q > R; A = D ≥ B; R > A. So P > B.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -655,7 +647,7 @@
   },
   {
     "index": 16,
-    "recordId": "INE-CP006-262EB9F3",
+    "recordId": "INE-CP006-252EB860",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 7,
     "difficulty": "HARD",
@@ -663,8 +655,8 @@
     "symbolProfile": "ASCII_EXAM_PROFILE",
     "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
     "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS",
-    "statementCount": 8,
+    "topologyId": "TWO_LONG_CHAINS_WITH_NECESSARY_CROSS_LINK",
+    "statementCount": 6,
     "conclusionCount": 3,
     "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
     "codeKey": [
@@ -675,15 +667,12 @@
       "A ^ B means A is less than or equal to B."
     ],
     "statements": [
-      "P ! A",
-      "C ! D",
-      "Q ! R",
-      "P ! C ~ A + Q ! D ~ R"
+      "C ~ A; B ! P ~ C; A + Q ! D ~ R"
     ],
     "conclusions": [
-      "Q + C",
-      "R ! A",
-      "D ! P"
+      "A ! P",
+      "R ! Q",
+      "Q ? C"
     ],
     "options": [
       "None of the conclusions follow",
@@ -693,7 +682,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "None of the conclusions follow",
-    "explanation": "Decode the statements: P > A, C > D, Q > R, P > C, C ≥ A, A = Q, Q > D, and D ≥ R. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.",
+    "explanation": "After decoding: C ≥ A; B > P ≥ C; A = Q > D ≥ R. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -704,7 +693,7 @@
   },
   {
     "index": 17,
-    "recordId": "INE-CP006-88610ED3",
+    "recordId": "INE-CP006-87610D40",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 8,
     "difficulty": "HARD",
@@ -712,10 +701,10 @@
     "symbolProfile": "ASCII_EXAM_PROFILE",
     "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
     "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS",
-    "statementCount": 8,
+    "topologyId": "TWO_LONG_CHAINS_WITH_NECESSARY_CROSS_LINK",
+    "statementCount": 6,
     "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between C and A?",
+    "stem": "After decoding the statements, what is the strongest definite relation between C and B?",
     "codeKey": [
       "A # B means A is greater than B.",
       "A $ B means A is less than B.",
@@ -724,20 +713,17 @@
       "A % B means A is less than or equal to B."
     ],
     "statements": [
-      "C % P $ Q @ D % R $ A",
-      "C $ Q",
-      "P $ R",
-      "D $ A"
+      "C % P $ Q @ D; R % A $ B; D % R"
     ],
     "options": [
-      "C ≤ A",
-      "C < A",
-      "C ≥ A",
-      "C > A"
+      "C > B",
+      "C < B",
+      "C ≤ B",
+      "C ≥ B"
     ],
     "correctIndex": 1,
-    "correctOption": "C < A",
-    "explanation": "Decode the statements: C ≤ P, P < Q, Q = D, D ≤ R, R < A, C < Q, P < R, and D < A. So C < A.",
+    "correctOption": "C < B",
+    "explanation": "After decoding: C ≤ P < Q = D; R ≤ A < B; D ≤ R. So C < B.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -748,7 +734,7 @@
   },
   {
     "index": 18,
-    "recordId": "INE-CP006-B5E411FA",
+    "recordId": "INE-CP006-B6E4138D",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 8,
     "difficulty": "HARD",
@@ -782,7 +768,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "Only conclusion I follows",
-    "explanation": "Decode the statements: A ≥ Q, Q = B, and B ≥ R. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
+    "explanation": "After decoding: A ≥ Q = B ≥ R. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -793,7 +779,7 @@
   },
   {
     "index": 19,
-    "recordId": "INE-CP006-6E74C430",
+    "recordId": "INE-CP006-6F74C5C3",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 9,
     "difficulty": "MEDIUM",
@@ -823,7 +809,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "C ≤ R",
-    "explanation": "Decode the statements: R ≥ A, A = P, and P ≥ C. So C ≤ R.",
+    "explanation": "After decoding: R ≥ A = P ≥ C. So C ≤ R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -834,7 +820,7 @@
   },
   {
     "index": 20,
-    "recordId": "INE-CP006-082E4255",
+    "recordId": "INE-CP006-072E40C2",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 9,
     "difficulty": "HARD",
@@ -868,7 +854,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "Only conclusion II follows",
-    "explanation": "Decode the statements: P ≤ D, D < Q, Q = A, and A ≤ B. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
+    "explanation": "After decoding: P ≤ D < Q = A ≤ B. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -879,7 +865,7 @@
   },
   {
     "index": 21,
-    "recordId": "INE-CP006-A9BB36A0",
+    "recordId": "INE-CP006-AABB3833",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 10,
     "difficulty": "HARD",
@@ -909,7 +895,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "P < B",
-    "explanation": "Decode the statements: P ≤ A, A < R, R = C, and C ≤ B. So P < B.",
+    "explanation": "After decoding: P ≤ A < R = C ≤ B. So P < B.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -920,7 +906,7 @@
   },
   {
     "index": 22,
-    "recordId": "INE-CP006-D686862F",
+    "recordId": "INE-CP006-D586849C",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 10,
     "difficulty": "HARD",
@@ -954,7 +940,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "Both conclusions I and II follow",
-    "explanation": "Decode the statements: P = D, D ≥ Q, Q = R, and R ≥ C. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
+    "explanation": "After decoding: P = D ≥ Q = R ≥ C. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -965,7 +951,7 @@
   },
   {
     "index": 23,
-    "recordId": "INE-CP006-F2670AC3",
+    "recordId": "INE-CP006-F1670930",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 11,
     "difficulty": "HARD",
@@ -995,7 +981,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "C ≥ R",
-    "explanation": "Decode the statements: R ≤ P, P = Q, Q ≤ B, and B = C. So C ≥ R.",
+    "explanation": "After decoding: R ≤ P = Q ≤ B = C. So C ≥ R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -1006,7 +992,7 @@
   },
   {
     "index": 24,
-    "recordId": "INE-CP006-7CCBF1FC",
+    "recordId": "INE-CP006-7DCBF38F",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 11,
     "difficulty": "HARD",
@@ -1026,8 +1012,7 @@
       "A ? B means A is less than or equal to B."
     ],
     "statements": [
-      "D ^ B ! Q",
-      "C ~ R"
+      "D ^ B ! Q; C ~ R"
     ],
     "conclusions": [
       "D ? Q",
@@ -1041,7 +1026,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "Neither conclusion I nor conclusion II follows",
-    "explanation": "Decode the statements: D > B, B ≥ Q, and C = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
+    "explanation": "After decoding: D > B ≥ Q; C = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1052,7 +1037,7 @@
   },
   {
     "index": 25,
-    "recordId": "INE-CP006-32577ABE",
+    "recordId": "INE-CP006-33577C51",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 12,
     "difficulty": "MEDIUM",
@@ -1072,9 +1057,7 @@
       "A % B means A is less than or equal to B."
     ],
     "statements": [
-      "A # R",
-      "D % C",
-      "D # A"
+      "A # R; D % C; D # A"
     ],
     "options": [
       "A = C",
@@ -1084,7 +1067,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "The relation cannot be determined",
-    "explanation": "Decode the statements: A < R, D ≤ C, and D < A. There is no definite relation between A and C.",
+    "explanation": "After decoding: A < R; D ≤ C; D < A. There is no definite relation between A and C.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -1095,7 +1078,7 @@
   },
   {
     "index": 26,
-    "recordId": "INE-CP006-54024935",
+    "recordId": "INE-CP006-530247A2",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 12,
     "difficulty": "HARD",
@@ -1130,7 +1113,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "Only conclusions I and III follow",
-    "explanation": "Decode the statements: D ≥ B, B > P, P = R, R ≥ C, and C > A. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.",
+    "explanation": "After decoding: D ≥ B > P = R ≥ C > A. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1141,7 +1124,7 @@
   },
   {
     "index": 27,
-    "recordId": "INE-CP006-EFB3FE59",
+    "recordId": "INE-CP006-EEB3FCC6",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 13,
     "difficulty": "MEDIUM",
@@ -1161,8 +1144,7 @@
       "A ~ B means A is less than or equal to B."
     ],
     "statements": [
-      "P ? A ^ B",
-      "Q ! R"
+      "P ? A ^ B; Q ! R"
     ],
     "options": [
       "B = P",
@@ -1172,7 +1154,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "B < P",
-    "explanation": "Decode the statements: P > A, A ≥ B, and Q = R. So B < P.",
+    "explanation": "After decoding: P > A ≥ B; Q = R. So B < P.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -1183,7 +1165,7 @@
   },
   {
     "index": 28,
-    "recordId": "INE-CP006-A4EA305A",
+    "recordId": "INE-CP006-A5EA31ED",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 13,
     "difficulty": "HARD",
@@ -1218,7 +1200,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "Only conclusions II and III follow",
-    "explanation": "Decode the statements: D ≥ R, R > C, C = A, A ≥ B, B > Q, and Q ≥ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.",
+    "explanation": "After decoding: D ≥ R > C = A ≥ B > Q ≥ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1229,7 +1211,7 @@
   },
   {
     "index": 29,
-    "recordId": "INE-CP006-1D1FB094",
+    "recordId": "INE-CP006-1E1FB227",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 14,
     "difficulty": "HARD",
@@ -1259,7 +1241,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "A > Q",
-    "explanation": "Decode the statements: Q < B, B ≤ D, D = C, C < P, and P ≤ A. So A > Q.",
+    "explanation": "After decoding: Q < B ≤ D = C < P ≤ A. So A > Q.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -1270,7 +1252,7 @@
   },
   {
     "index": 30,
-    "recordId": "INE-CP006-1F4DBD8B",
+    "recordId": "INE-CP006-1E4DBBF8",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 14,
     "difficulty": "HARD",
@@ -1278,8 +1260,8 @@
     "symbolProfile": "ASCII_EXAM_PROFILE",
     "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
     "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS",
-    "statementCount": 7,
+    "topologyId": "TWO_CHAINS_WITH_NECESSARY_CROSS_LINK",
+    "statementCount": 5,
     "conclusionCount": 3,
     "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
     "codeKey": [
@@ -1290,24 +1272,22 @@
       "A & B means A is less than or equal to B."
     ],
     "statements": [
-      "P @ C $ D @ Q # B $ R",
-      "P $ D",
-      "Q $ R"
+      "P @ C $ D; Q # B @ R; D $ Q"
     ],
     "conclusions": [
-      "C @ R",
+      "D $ B",
       "P @ R",
-      "P $ Q"
+      "P $ D"
     ],
     "options": [
+      "Only conclusion II follows",
       "Only conclusion I follows",
       "Only conclusion III follows",
-      "Only conclusion II follows",
       "All three conclusions follow"
     ],
     "correctIndex": 3,
     "correctOption": "All three conclusions follow",
-    "explanation": "Decode the statements: P ≥ C, C > D, D ≥ Q, Q = B, B > R, P > D, and Q > R. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.",
+    "explanation": "After decoding: P ≥ C > D; Q = B ≥ R; D > Q. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1318,7 +1298,7 @@
   },
   {
     "index": 31,
-    "recordId": "INE-CP006-0E2B6327",
+    "recordId": "INE-CP006-0D2B6194",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 15,
     "difficulty": "HARD",
@@ -1348,7 +1328,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "A > R",
-    "explanation": "Decode the statements: A ≥ Q, Q > D, D = P, P ≥ C, C > B, and B ≥ R. So A > R.",
+    "explanation": "After decoding: A ≥ Q > D = P ≥ C > B ≥ R. So A > R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -1359,7 +1339,7 @@
   },
   {
     "index": 32,
-    "recordId": "INE-CP006-757E4E68",
+    "recordId": "INE-CP006-767E4FFB",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 15,
     "difficulty": "HARD",
@@ -1367,8 +1347,8 @@
     "symbolProfile": "ASCII_EXAM_PROFILE",
     "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
     "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS",
-    "statementCount": 8,
+    "topologyId": "TWO_LONG_CHAINS_WITH_NECESSARY_CROSS_LINK",
+    "statementCount": 6,
     "conclusionCount": 3,
     "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
     "codeKey": [
@@ -1379,25 +1359,22 @@
       "A ~ B means A is less than or equal to B."
     ],
     "statements": [
-      "B + Q",
-      "P + A",
-      "D + C",
-      "B + P ^ Q ! D + A ^ C"
+      "P ^ Q; R + B ^ P; Q ! D + A ^ C"
     ],
     "conclusions": [
-      "C ! Q",
-      "A ^ Q",
-      "D + B"
+      "C + Q",
+      "A ^ B",
+      "Q + R"
     ],
     "options": [
       "Only conclusion III follows",
       "None of the conclusions follow",
-      "Only conclusion II follows",
-      "Only conclusion I follows"
+      "Only conclusion I follows",
+      "Only conclusion II follows"
     ],
     "correctIndex": 1,
     "correctOption": "None of the conclusions follow",
-    "explanation": "Decode the statements: B > Q, P > A, D > C, B > P, P ≥ Q, Q = D, D > A, and A ≥ C. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.",
+    "explanation": "After decoding: P ≥ Q; R > B ≥ P; Q = D > A ≥ C. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1408,7 +1385,7 @@
   },
   {
     "index": 33,
-    "recordId": "INE-CP006-A4D619B2",
+    "recordId": "INE-CP006-A5D61B45",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 16,
     "difficulty": "HARD",
@@ -1416,8 +1393,8 @@
     "symbolProfile": "ASCII_EXAM_PROFILE",
     "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
     "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS",
-    "statementCount": 7,
+    "topologyId": "TWO_CHAINS_WITH_NECESSARY_CROSS_LINK",
+    "statementCount": 5,
     "conclusionCount": 0,
     "stem": "After decoding the statements, what is the strongest definite relation between D and R?",
     "codeKey": [
@@ -1428,19 +1405,17 @@
       "A % B means A is less than or equal to B."
     ],
     "statements": [
-      "D @ A",
-      "B @ R",
-      "D @ Q & A % B @ P % R"
+      "A @ B; D % Q & A; B @ P % R"
     ],
     "options": [
-      "D ≥ R",
-      "D = R",
+      "D ≤ R",
+      "D > R",
       "D < R",
-      "D > R"
+      "The relation cannot be determined"
     ],
     "correctIndex": 2,
     "correctOption": "D < R",
-    "explanation": "Decode the statements: D < A, B < R, D < Q, Q = A, A ≤ B, B < P, and P ≤ R. So D < R.",
+    "explanation": "After decoding: A < B; D ≤ Q = A; B < P ≤ R. So D < R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -1451,7 +1426,7 @@
   },
   {
     "index": 34,
-    "recordId": "INE-CP006-1FD709A1",
+    "recordId": "INE-CP006-1ED7080E",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 16,
     "difficulty": "HARD",
@@ -1485,7 +1460,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "Only conclusion I follows",
-    "explanation": "Decode the statements: A ≥ B, B = Q, and Q ≥ P. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
+    "explanation": "After decoding: A ≥ B = Q ≥ P. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1496,7 +1471,7 @@
   },
   {
     "index": 35,
-    "recordId": "INE-CP006-AAC8BB8D",
+    "recordId": "INE-CP006-A9C8B9FA",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 17,
     "difficulty": "HARD",
@@ -1504,10 +1479,10 @@
     "symbolProfile": "ASCII_EXAM_PROFILE",
     "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
     "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS",
-    "statementCount": 8,
+    "topologyId": "TWO_LONG_CHAINS_WITH_NECESSARY_CROSS_LINK",
+    "statementCount": 6,
     "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between Q and P?",
+    "stem": "After decoding the statements, what is the strongest definite relation between D and P?",
     "codeKey": [
       "A ~ B means A is greater than B.",
       "A + B means A is less than B.",
@@ -1516,20 +1491,17 @@
       "A ^ B means A is less than or equal to B."
     ],
     "statements": [
-      "Q ~ B",
-      "C ~ A",
-      "R ~ P",
-      "Q ~ C ! B ? R ~ A ! P"
+      "C ! B; D ~ Q ! C; B ? R ~ A ! P"
     ],
     "options": [
-      "Q = P",
-      "Q > P",
-      "Q < P",
-      "Q ≤ P"
+      "D = P",
+      "D > P",
+      "D < P",
+      "D ≥ P"
     ],
     "correctIndex": 1,
-    "correctOption": "Q > P",
-    "explanation": "Decode the statements: Q > B, C > A, R > P, Q > C, C ≥ B, B = R, R > A, and A ≥ P. So Q > P.",
+    "correctOption": "D > P",
+    "explanation": "After decoding: C ≥ B; D > Q ≥ C; B = R > A ≥ P. So D > P.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -1540,7 +1512,7 @@
   },
   {
     "index": 36,
-    "recordId": "INE-CP006-B76364E6",
+    "recordId": "INE-CP006-B8636679",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 17,
     "difficulty": "HARD",
@@ -1574,7 +1546,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "Only conclusion II follows",
-    "explanation": "Decode the statements: Q ≤ R, R < C, C = A, and A ≤ D. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
+    "explanation": "After decoding: Q ≤ R < C = A ≤ D. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1585,7 +1557,7 @@
   },
   {
     "index": 37,
-    "recordId": "INE-CP006-10D451D8",
+    "recordId": "INE-CP006-11D4536B",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 18,
     "difficulty": "MEDIUM",
@@ -1615,7 +1587,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "C ≥ R",
-    "explanation": "Decode the statements: C ≥ D, D = P, and P ≥ R. So C ≥ R.",
+    "explanation": "After decoding: C ≥ D = P ≥ R. So C ≥ R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -1626,7 +1598,7 @@
   },
   {
     "index": 38,
-    "recordId": "INE-CP006-5B039E37",
+    "recordId": "INE-CP006-5A039CA4",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 18,
     "difficulty": "HARD",
@@ -1660,7 +1632,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "Both conclusions I and II follow",
-    "explanation": "Decode the statements: Q = C, C ≥ R, R = P, and P ≥ D. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
+    "explanation": "After decoding: Q = C ≥ R = P ≥ D. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1671,7 +1643,7 @@
   },
   {
     "index": 39,
-    "recordId": "INE-CP006-ED686FFB",
+    "recordId": "INE-CP006-EC686E68",
     "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
     "seed": 19,
     "difficulty": "HARD",
@@ -1701,7 +1673,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "B > D",
-    "explanation": "Decode the statements: B ≥ R, R = Q, Q > A, and A ≥ D. So B > D.",
+    "explanation": "After decoding: B ≥ R = Q > A ≥ D. So B > D.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -1712,7 +1684,7 @@
   },
   {
     "index": 40,
-    "recordId": "INE-CP006-4BA9B064",
+    "recordId": "INE-CP006-4CA9B1F7",
     "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
     "seed": 19,
     "difficulty": "HARD",
@@ -1732,8 +1704,7 @@
       "A ! B means A is less than or equal to B."
     ],
     "statements": [
-      "C ? D ^ Q",
-      "B + R"
+      "C ? D ^ Q; B + R"
     ],
     "conclusions": [
       "C ~ Q",
@@ -1747,7 +1718,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "Neither conclusion I nor conclusion II follows",
-    "explanation": "Decode the statements: C > D, D ≥ Q, and B = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
+    "explanation": "After decoding: C > D ≥ Q; B = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1758,7 +1729,7 @@
   },
   {
     "index": 41,
-    "recordId": "INE-CP006-DB8A734F",
+    "recordId": "INE-CP006-DA8A71BC",
     "authorityId": "DECODE_FIXED_MAP_RELATION",
     "seed": 0,
     "difficulty": "EASY",
@@ -1798,7 +1769,7 @@
   },
   {
     "index": 42,
-    "recordId": "INE-CP006-B727BCE3",
+    "recordId": "INE-CP006-B627BB50",
     "authorityId": "ENCODE_FIXED_MAP_RELATION",
     "seed": 0,
     "difficulty": "EASY",
@@ -1838,7 +1809,7 @@
   },
   {
     "index": 43,
-    "recordId": "INE-CP006-36AC9F9C",
+    "recordId": "INE-CP006-37ACA12F",
     "authorityId": "DECODE_FIXED_MAP_RELATION",
     "seed": 1,
     "difficulty": "EASY",
@@ -1878,7 +1849,7 @@
   },
   {
     "index": 44,
-    "recordId": "INE-CP006-98832640",
+    "recordId": "INE-CP006-998327D3",
     "authorityId": "ENCODE_FIXED_MAP_RELATION",
     "seed": 1,
     "difficulty": "EASY",
@@ -1918,7 +1889,7 @@
   },
   {
     "index": 45,
-    "recordId": "INE-CP006-558A7A55",
+    "recordId": "INE-CP006-548A78C2",
     "authorityId": "DECODE_FIXED_MAP_RELATION",
     "seed": 2,
     "difficulty": "EASY",
@@ -1958,7 +1929,7 @@
   },
   {
     "index": 46,
-    "recordId": "INE-CP006-B1F00AF9",
+    "recordId": "INE-CP006-B0F00966",
     "authorityId": "ENCODE_FIXED_MAP_RELATION",
     "seed": 2,
     "difficulty": "EASY",
@@ -1998,7 +1969,7 @@
   },
   {
     "index": 47,
-    "recordId": "INE-CP006-034049FA",
+    "recordId": "INE-CP006-04404B8D",
     "authorityId": "DECODE_FIXED_MAP_RELATION",
     "seed": 3,
     "difficulty": "EASY",
@@ -2038,7 +2009,7 @@
   },
   {
     "index": 48,
-    "recordId": "INE-CP006-7219E7DE",
+    "recordId": "INE-CP006-7319E971",
     "authorityId": "ENCODE_FIXED_MAP_RELATION",
     "seed": 3,
     "difficulty": "EASY",

@@ -37,6 +37,7 @@ assert.ok(
     .every((entry) => entry.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE"),
 );
 assert.ok(rows.slice(0, 40).every((entry) => entry.statementCount >= 3));
+assert.ok(rows.slice(0, 40).every((entry) => entry.statements.length === 1));
 assert.ok(
   rows
     .filter((entry) => entry.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE")
@@ -51,7 +52,7 @@ assert.ok(
     .filter((entry) => entry.deliveryProfile === "GUIDED_CONCEPT")
     .every((entry) => entry.symbolProfile === "UNICODE_GUIDED_PROFILE"),
 );
-assert.equal(Math.max(...rows.map((entry) => entry.statementCount)), 8);
+assert.equal(Math.max(...rows.map((entry) => entry.statementCount)), 6);
 assert.ok(rows.some((entry) => entry.conclusionCount === 3));
 for (const row of rows) {
   assert.equal(row.codeKey.length, 5);
@@ -67,6 +68,7 @@ const markdown = renderIneCp006ReviewMarkdown(rows);
 assert.match(markdown, /# INE-CP-006 English Prototype Review Pack/);
 assert.match(markdown, /### Code key/);
 assert.match(markdown, /### Explanation/);
+assert.doesNotMatch(markdown, /### Statements\s+\n- /);
 assert.doesNotMatch(markdown, /### (?:Mock|Learning) solution/);
 assert.match(markdown, /40 questions to exam-shaped chain solving/);
 assert.match(markdown, /III\./);

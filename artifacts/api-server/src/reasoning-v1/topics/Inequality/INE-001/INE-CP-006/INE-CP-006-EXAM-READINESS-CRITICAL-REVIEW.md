@@ -6,7 +6,7 @@
 
 ## Overall verdict
 
-The logical and decoding layers are strong, and the v2 pack fixes the main readiness weaknesses found in the first self-review. Exam-shaped questions now dominate the pack, use ASCII symbols only, reach eight statements, and include selected three-conclusion cases. Unicode symbols are isolated in guided learning. The result is ready for manual English prototype review and credible Banking/regulatory practice, but it is still a four-option product prototype rather than a universal Banking, SSC, Railways, PSSSB, PPSC, or Punjab previous-year set.
+The logical and decoding layers are strong, and the v3 pack fixes the main readiness weaknesses found in the earlier self-reviews. Exam-shaped questions dominate the pack, use ASCII symbols only, reach six necessary statements, and include selected three-conclusion cases. Multi-group items now use non-redundant cross-links instead of derived support statements. Unicode symbols are isolated in guided learning. The result is ready for manual English prototype review and credible Banking/regulatory practice, but it is still a four-option product prototype rather than a universal Banking, SSC, Railways, PSSSB, PPSC, or Punjab previous-year set.
 
 > **Decision: READY FOR MANUAL PROTOTYPE REVIEW. Keep permanent QLs, Question Studio visibility, localization, and public release disabled.**
 
@@ -41,7 +41,7 @@ All chain-solving and conclusion-evaluation records use `ASCII_EXAM_PROFILE`. Ge
 
 ### 5. The pack is weighted toward exam-shaped work
 
-The review allocation is 20 solve, 20 evaluate, 4 decode, and 4 encode. This puts 40 of 48 records in exam practice and places them before the guided items. Exam questions contain three to eight statements; the full pack now has 8 easy, 7 medium, and 33 hard questions.
+The review allocation is 20 solve, 20 evaluate, 4 decode, and 4 encode. This puts 40 of 48 records in exam practice and places them before the guided items. Exam questions contain three to six necessary statements; redundant statements are rejected during validation. The exact difficulty distribution is reported by the generated audit.
 
 ### 6. Two- and three-conclusion logic is formally controlled
 

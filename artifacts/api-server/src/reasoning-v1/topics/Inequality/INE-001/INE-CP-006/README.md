@@ -25,7 +25,8 @@ The 48-question review export is weighted toward harder exam-shaped work: 20 cha
 - every question supplies all five mappings for `>`, `<`, `=`, `≥`, and `≤`;
 - every map is bijective and uses five distinct symbols;
 - coded text is reproduced from structured relations rather than parsed as arbitrary text;
-- direct, reversed, strict, inclusive, equality, branch, disconnected, and five-to-eight-statement cases are covered;
+- direct, reversed, strict, inclusive, equality, branch, disconnected, and three-to-six-statement cases are covered;
+- multi-group cases use necessary cross-links, and validation rejects any displayed statement already implied by the others;
 - one- and two-statement scenarios are excluded from exam practice;
 - every question has exactly four unique options;
 - conclusion questions include two-conclusion and selected hard three-conclusion forms;

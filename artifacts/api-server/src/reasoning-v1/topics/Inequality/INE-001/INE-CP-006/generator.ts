@@ -96,7 +96,7 @@ export function generateIneCp006Question(
           ? "Using the supplied code key, which conclusion or conclusions definitely follow?"
           : `After decoding the statements, what is the strongest definite relation between ${queryNames[0]} and ${queryNames[1]}?`;
   const question: GeneratedIneCp006Question = {
-    recordId: `INE-CP006-${stableHash([prototypeId, seed, "record-v2"]).toUpperCase()}`,
+    recordId: `INE-CP006-${stableHash([prototypeId, seed, "record-v3"]).toUpperCase()}`,
     packageId: "INE-001",
     checkpointId: "INE-CP-006",
     prototypeId,
@@ -125,7 +125,7 @@ export function generateIneCp006Question(
     explanation,
     solutions: { mock: mockSolution(explanation), learning: explanation },
     metadata: {
-      runtimeVersion: "ine-cp006-prototype-v2",
+      runtimeVersion: "ine-cp006-prototype-v3",
       reviewStatus: "PENDING_MANUAL_REVIEW",
       deliveryProfile: contract.deliveryProfile,
       symbolProfile: contract.symbolProfile,

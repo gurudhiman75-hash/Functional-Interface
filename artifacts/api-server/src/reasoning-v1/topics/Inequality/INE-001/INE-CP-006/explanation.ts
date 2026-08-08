@@ -4,7 +4,11 @@ import { assertSolverAgreement } from "../foundation/solver-agreement";
 import type { ComparisonRelation } from "../foundation/types";
 import { formatStatement } from "../INE-CP-001/presentation";
 import type { IneCp001Explanation } from "../INE-CP-001/types";
-import { ordinaryRelationWords, renderCodedConstraint } from "./coded-renderer";
+import {
+  ordinaryRelationSymbol,
+  ordinaryRelationWords,
+  renderCodedConstraint,
+} from "./coded-renderer";
 import { conclusionMaskLabel } from "./conclusion-masks";
 import type { IneCp006Option, IneCp006Scenario } from "./types";
 
@@ -15,10 +19,25 @@ function naturalList(values: readonly string[]): string {
 }
 
 function decodedSummary(scenario: IneCp006Scenario): string {
-  const ordinaryStatements = scenario.statements.map((entry) =>
-    formatStatement(entry, scenario.entityNames),
-  );
-  return `Decode the statements: ${naturalList(ordinaryStatements)}.`;
+  const expressions: string[] = [];
+  let index = 0;
+  while (index < scenario.statements.length) {
+    const first = scenario.statements[index]!;
+    let text = `${scenario.entityNames[first.leftId]} ${ordinaryRelationSymbol(first.relation)} ${scenario.entityNames[first.rightId]}`;
+    let rightId = first.rightId;
+    index += 1;
+    while (
+      index < scenario.statements.length &&
+      scenario.statements[index]!.leftId === rightId
+    ) {
+      const next = scenario.statements[index]!;
+      text += ` ${ordinaryRelationSymbol(next.relation)} ${scenario.entityNames[next.rightId]}`;
+      rightId = next.rightId;
+      index += 1;
+    }
+    expressions.push(text);
+  }
+  return `After decoding: ${expressions.join("; ")}.`;
 }
 
 function relationLabel(

@@ -198,33 +198,29 @@ function baseGraphFor(seed: number): BaseGraph {
       query: { leftId: "E1", rightId: "E7" },
     },
     {
-      baseId: "SEVEN_STATEMENT_NETWORK",
-      topologyId: "FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS",
+      baseId: "TWO_CHAINS_WITH_CROSS_LINK",
+      topologyId: "TWO_CHAINS_WITH_NECESSARY_CROSS_LINK",
       statements: [
         c("E1", "GREATER_THAN_OR_EQUAL", "E2", "S1"),
         c("E2", "GREATER_THAN", "E3", "S2"),
-        c("E3", "GREATER_THAN_OR_EQUAL", "E4", "S3"),
-        c("E4", "EQUAL_TO", "E5", "S4"),
-        c("E5", "GREATER_THAN", "E6", "S5"),
-        c("E1", "GREATER_THAN", "E3", "S6"),
-        c("E4", "GREATER_THAN", "E6", "S7"),
+        c("E4", "EQUAL_TO", "E5", "S3"),
+        c("E5", "GREATER_THAN_OR_EQUAL", "E6", "S4"),
+        c("E3", "GREATER_THAN", "E4", "S5"),
       ],
       query: { leftId: "E1", rightId: "E6" },
     },
     {
-      baseId: "EIGHT_STATEMENT_NETWORK",
-      topologyId: "FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS",
+      baseId: "TWO_LONG_CHAINS_WITH_CROSS_LINK",
+      topologyId: "TWO_LONG_CHAINS_WITH_NECESSARY_CROSS_LINK",
       statements: [
         c("E1", "LESS_THAN_OR_EQUAL", "E2", "S1"),
         c("E2", "LESS_THAN", "E3", "S2"),
         c("E3", "EQUAL_TO", "E4", "S3"),
-        c("E4", "LESS_THAN_OR_EQUAL", "E5", "S4"),
-        c("E5", "LESS_THAN", "E6", "S5"),
-        c("E1", "LESS_THAN", "E3", "S6"),
-        c("E2", "LESS_THAN", "E5", "S7"),
-        c("E4", "LESS_THAN", "E6", "S8"),
+        c("E5", "LESS_THAN_OR_EQUAL", "E6", "S4"),
+        c("E6", "LESS_THAN", "E7", "S5"),
+        c("E4", "LESS_THAN_OR_EQUAL", "E5", "S6"),
       ],
-      query: { leftId: "E1", rightId: "E6" },
+      query: { leftId: "E1", rightId: "E7" },
     },
   ];
   return bases[((seed % bases.length) + bases.length) % bases.length]!;
@@ -438,7 +434,7 @@ export function buildIneCp006Scenario(
   const displayedCodedStatements =
     contract.taskKind === "ENCODE_RELATION"
       ? []
-      : renderCodedExpressions(statements, codeMap, entityNames);
+      : [renderCodedExpressions(statements, codeMap, entityNames).join("; ")];
   const displayedCodedConclusions = conclusions.map((entry) =>
     renderCodedConstraint(entry, codeMap, entityNames),
   );

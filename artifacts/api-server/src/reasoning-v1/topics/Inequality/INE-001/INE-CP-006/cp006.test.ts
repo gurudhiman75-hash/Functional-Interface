@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { evaluateConclusion } from "../foundation/conclusion-evaluator";
 import { INE_CP006_PROTOTYPE_CONTRACTS } from "./contracts";
 import { generateIneCp006Question } from "./generator";
 import { validateIneCp006Question } from "./validator";
@@ -34,7 +35,7 @@ for (const contract of INE_CP006_PROTOTYPE_CONTRACTS) {
     const validation = validateIneCp006Question(question);
     assert.equal(validation.valid, true, validation.errors.join(" "));
     assert.equal(question.checkpointId, "INE-CP-006");
-    assert.equal(question.metadata.runtimeVersion, "ine-cp006-prototype-v2");
+    assert.equal(question.metadata.runtimeVersion, "ine-cp006-prototype-v3");
     assert.equal(question.displayedCodeKey.length, 5);
     assert.equal(question.structuredScenario.keyEntries.length, 5);
     assert.equal(
@@ -83,8 +84,29 @@ for (const contract of INE_CP006_PROTOTYPE_CONTRACTS) {
     }
     assert.equal(question.metadata.localeReadiness, "ENGLISH_ONLY");
     assert.equal(question.metadata.releaseGate, "MANUAL_REVIEW_REQUIRED");
-    if (question.metadata.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE")
+    if (question.metadata.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE") {
       assert.ok(question.structuredScenario.statements.length >= 3);
+      assert.equal(question.displayedStatements.length, 1);
+      assert.doesNotMatch(
+        question.metadata.topologyId,
+        /SUPPORTS|SUPPORT_EDGE/,
+      );
+      for (
+        let index = 0;
+        index < question.structuredScenario.statements.length;
+        index += 1
+      ) {
+        const statement = question.structuredScenario.statements[index]!;
+        const remaining = question.structuredScenario.statements.filter(
+          (_entry, candidateIndex) => candidateIndex !== index,
+        );
+        assert.notEqual(
+          evaluateConclusion(remaining, statement).truth,
+          "DEFINITELY_TRUE",
+          `Redundant statement in ${question.recordId}: ${index + 1}`,
+        );
+      }
+    }
     codeMapIds.add(question.structuredScenario.codeMap.mapId);
     topologies.add(question.metadata.topologyId);
     difficultyCounts[question.difficulty] += 1;
@@ -137,7 +159,7 @@ assert.equal(decodeRelations.size, 5);
 assert.equal(encodeRelations.size, 5);
 assert.ok(masks.size >= 6);
 assert.deepEqual([...conclusionCounts].sort(), [2, 3]);
-assert.equal(maximumStatementCount, 8);
+assert.equal(maximumStatementCount, 6);
 assert.ok(difficultyCounts.EASY > 0);
 assert.ok(difficultyCounts.MEDIUM > 0);
 assert.ok(difficultyCounts.HARD > 0);

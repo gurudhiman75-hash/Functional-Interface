@@ -22,7 +22,8 @@
 - complete bijective five-symbol keys;
 - separate ASCII exam and Unicode guided symbol profiles;
 - decode, solve, conclusion-evaluation, and encode tasks;
-- direct and reversed chains and networks with up to eight statements;
+- direct and reversed chains and networks with up to six necessary statements;
+- source-shaped multi-group networks with non-redundant cross-links;
 - selected hard three-conclusion questions with formally generated four-option truth subsets;
 - exactly four unique options per question;
 - balanced correct positions;

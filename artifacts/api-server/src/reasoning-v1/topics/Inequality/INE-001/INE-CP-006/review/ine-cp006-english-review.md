@@ -1,10 +1,10 @@
 # INE-CP-006 English Prototype Review Pack
 
-This 48-question pack gives 40 questions to exam-shaped chain solving and conclusion evaluation, and 8 to guided decoding and encoding. The exam questions come first and use three-to-eight-statement scenarios; no one- or two-step exam items are included. Exam-practice records use ASCII symbols; Unicode symbols are isolated in guided records. Every question supplies a complete five-symbol key and exactly four answer options. These are product prototypes, not previous-year questions. The current exam applicability is Banking/regulatory practice only; SSC, Railways, and Punjab labels remain disabled pending verified post-specific evidence. Permanent QLs and Question Studio visibility remain disabled.
+This 48-question pack gives 40 questions to exam-shaped chain solving and conclusion evaluation, and 8 to guided decoding and encoding. The exam questions come first and use three-to-six-statement scenarios; no one- or two-step exam items are included. Multi-group questions use only necessary cross-links; redundant shortcut statements are rejected. Exam-practice records use ASCII symbols; Unicode symbols are isolated in guided records. Every question supplies a complete five-symbol key and exactly four answer options. These are product prototypes, not previous-year questions. The current exam applicability is Banking/regulatory practice only; SSC, Railways, and Punjab labels remain disabled pending verified post-specific evidence. Permanent QLs and Question Studio visibility remain disabled.
 
 ## 1. SOLVE_FIXED_MAP_CODED_CHAIN — seed 0
 
-**Record:** INE-CP006-7650000B · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-754FFE78 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
 
 After decoding the statements, what is the strongest definite relation between C and Q?
 
@@ -16,9 +16,7 @@ After decoding the statements, what is the strongest definite relation between C
 - A & B means A is greater than or equal to B.
 - A # B means A is less than or equal to B.
 
-### Statements
-
-- C & R @ D & Q
+**Statements:** C & R @ D & Q
 
 ### Options
 
@@ -31,11 +29,11 @@ After decoding the statements, what is the strongest definite relation between C
 
 ### Explanation
 
-Decode the statements: C ≥ R, R = D, and D ≥ Q. So C ≥ Q.
+After decoding: C ≥ R = D ≥ Q. So C ≥ Q.
 
 ## 2. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 0
 
-**Record:** INE-CP006-C1ADCEE2 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-C2ADD075 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -47,9 +45,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A & B means A is greater than or equal to B.
 - A # B means A is less than or equal to B.
 
-### Statements
-
-- B & R @ C & Q
+**Statements:** B & R @ C & Q
 
 ### Conclusions
 
@@ -67,11 +63,11 @@ II. B % C
 
 ### Explanation
 
-Decode the statements: B ≥ R, R = C, and C ≥ Q. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.
+After decoding: B ≥ R = C ≥ Q. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.
 
 ## 3. SOLVE_FIXED_MAP_CODED_CHAIN — seed 1
 
-**Record:** INE-CP006-CC8090E8 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-CD80927B · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
 
 After decoding the statements, what is the strongest definite relation between R and Q?
 
@@ -83,9 +79,7 @@ After decoding the statements, what is the strongest definite relation between R
 - A ~ B means A is greater than or equal to B.
 - A + B means A is less than or equal to B.
 
-### Statements
-
-- R + D ? B ! A + Q
+**Statements:** R + D ? B ! A + Q
 
 ### Options
 
@@ -98,11 +92,11 @@ After decoding the statements, what is the strongest definite relation between R
 
 ### Explanation
 
-Decode the statements: R ≤ D, D < B, B = A, and A ≤ Q. So R < Q.
+After decoding: R ≤ D < B = A ≤ Q. So R < Q.
 
 ## 4. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 1
 
-**Record:** INE-CP006-3B31BB3D · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-3A31B9AA · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -114,9 +108,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A ~ B means A is greater than or equal to B.
 - A + B means A is less than or equal to B.
 
-### Statements
-
-- R ~ D ! A ^ Q ~ P
+**Statements:** R ~ D ! A ^ Q ~ P
 
 ### Conclusions
 
@@ -134,11 +126,11 @@ II. D ~ P
 
 ### Explanation
 
-Decode the statements: R ≥ D, D = A, A > Q, and Q ≥ P. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.
+After decoding: R ≥ D = A > Q ≥ P. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.
 
 ## 5. SOLVE_FIXED_MAP_CODED_CHAIN — seed 2
 
-**Record:** INE-CP006-76D94C21 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-75D94A8E · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_WEAK_CHAIN
 
 After decoding the statements, what is the strongest definite relation between P and C?
 
@@ -150,9 +142,7 @@ After decoding the statements, what is the strongest definite relation between P
 - A @ B means A is greater than or equal to B.
 - A & B means A is less than or equal to B.
 
-### Statements
-
-- C # R @ B # Q @ P
+**Statements:** C # R @ B # Q @ P
 
 ### Options
 
@@ -165,11 +155,11 @@ After decoding the statements, what is the strongest definite relation between P
 
 ### Explanation
 
-Decode the statements: C = R, R ≥ B, B = Q, and Q ≥ P. So P ≤ C.
+After decoding: C = R ≥ B = Q ≥ P. So P ≤ C.
 
 ## 6. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 2
 
-**Record:** INE-CP006-87476084 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-88476217 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_WEAK_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -181,9 +171,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A @ B means A is greater than or equal to B.
 - A & B means A is less than or equal to B.
 
-### Statements
-
-- P & D # A & C # R
+**Statements:** P & D # A & C # R
 
 ### Conclusions
 
@@ -201,11 +189,11 @@ II. P & C
 
 ### Explanation
 
-Decode the statements: P ≤ D, D = A, A ≤ C, and C = R. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.
+After decoding: P ≤ D = A ≤ C = R. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.
 
 ## 7. SOLVE_FIXED_MAP_CODED_CHAIN — seed 3
 
-**Record:** INE-CP006-0E65A766 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CONVERGING_BRANCH
+**Record:** INE-CP006-0F65A8F9 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CONVERGING_BRANCH
 
 After decoding the statements, what is the strongest definite relation between D and Q?
 
@@ -217,11 +205,7 @@ After decoding the statements, what is the strongest definite relation between D
 - A ? B means A is greater than or equal to B.
 - A ! B means A is less than or equal to B.
 
-### Statements
-
-- D ~ A
-- Q ? A
-- C ~ D
+**Statements:** D ~ A; Q ? A; C ~ D
 
 ### Options
 
@@ -234,11 +218,11 @@ After decoding the statements, what is the strongest definite relation between D
 
 ### Explanation
 
-Decode the statements: D > A, Q ≥ A, and C > D. There is no definite relation between D and Q.
+After decoding: D > A; Q ≥ A; C > D. There is no definite relation between D and Q.
 
 ## 8. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 3
 
-**Record:** INE-CP006-C946F557 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
+**Record:** INE-CP006-C846F3C4 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -250,10 +234,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A ? B means A is greater than or equal to B.
 - A ! B means A is less than or equal to B.
 
-### Statements
-
-- D ^ P
-- C ! Q + R
+**Statements:** D ^ P; C ! Q + R
 
 ### Conclusions
 
@@ -271,11 +252,11 @@ II. Q ^ P
 
 ### Explanation
 
-Decode the statements: D = P, C ≤ Q, and Q < R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.
+After decoding: D = P; C ≤ Q < R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.
 
 ## 9. SOLVE_FIXED_MAP_CODED_CHAIN — seed 4
 
-**Record:** INE-CP006-2D88C8AF · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
+**Record:** INE-CP006-2C88C71C · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
 
 After decoding the statements, what is the strongest definite relation between C and P?
 
@@ -287,10 +268,7 @@ After decoding the statements, what is the strongest definite relation between C
 - A # B means A is greater than or equal to B.
 - A @ B means A is less than or equal to B.
 
-### Statements
-
-- P & D # C
-- Q % A
+**Statements:** P & D # C; Q % A
 
 ### Options
 
@@ -303,11 +281,11 @@ After decoding the statements, what is the strongest definite relation between C
 
 ### Explanation
 
-Decode the statements: P > D, D ≥ C, and Q = A. So C < P.
+After decoding: P > D ≥ C; Q = A. So C < P.
 
 ## 10. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 4
 
-**Record:** INE-CP006-F1DC25AE · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** FIVE_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-F2DC2741 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** FIVE_EDGE_MIXED_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -319,9 +297,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A # B means A is greater than or equal to B.
 - A @ B means A is less than or equal to B.
 
-### Statements
-
-- Q # P & C % R # D & B
+**Statements:** Q # P & C % R # D & B
 
 ### Conclusions
 
@@ -340,11 +316,11 @@ III. Q & R
 
 ### Explanation
 
-Decode the statements: Q ≥ P, P > C, C = R, R ≥ D, and D > B. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.
+After decoding: Q ≥ P > C = R ≥ D > B. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.
 
 ## 11. SOLVE_FIXED_MAP_CODED_CHAIN — seed 5
 
-**Record:** INE-CP006-D3CE347C · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** FIVE_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-D4CE360F · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** FIVE_EDGE_MIXED_CHAIN
 
 After decoding the statements, what is the strongest definite relation between P and B?
 
@@ -356,9 +332,7 @@ After decoding the statements, what is the strongest definite relation between P
 - A ^ B means A is greater than or equal to B.
 - A ? B means A is less than or equal to B.
 
-### Statements
-
-- P + Q ? A ! D + C ? B
+**Statements:** P + Q ? A ! D + C ? B
 
 ### Options
 
@@ -371,11 +345,11 @@ After decoding the statements, what is the strongest definite relation between P
 
 ### Explanation
 
-Decode the statements: P < Q, Q ≤ A, A = D, D < C, and C ≤ B. So P < B.
+After decoding: P < Q ≤ A = D < C ≤ B. So P < B.
 
 ## 12. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 5
 
-**Record:** INE-CP006-AF5E4E89 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** SIX_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-AE5E4CF6 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** SIX_EDGE_MIXED_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -387,9 +361,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A ^ B means A is greater than or equal to B.
 - A ? B means A is less than or equal to B.
 
-### Statements
-
-- R ? B + A ? Q ! C + D ? P
+**Statements:** R ? B + A ? Q ! C + D ? P
 
 ### Conclusions
 
@@ -408,11 +380,11 @@ III. R + D
 
 ### Explanation
 
-Decode the statements: R ≤ B, B < A, A ≤ Q, Q = C, C < D, and D ≤ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.
+After decoding: R ≤ B < A ≤ Q = C < D ≤ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.
 
 ## 13. SOLVE_FIXED_MAP_CODED_CHAIN — seed 6
 
-**Record:** INE-CP006-AB048BB5 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** SIX_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-AA048A22 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** SIX_EDGE_MIXED_CHAIN
 
 After decoding the statements, what is the strongest definite relation between C and P?
 
@@ -424,9 +396,7 @@ After decoding the statements, what is the strongest definite relation between C
 - A % B means A is greater than or equal to B.
 - A & B means A is less than or equal to B.
 
-### Statements
-
-- P % A @ B # R % Q @ D % C
+**Statements:** P % A @ B # R % Q @ D % C
 
 ### Options
 
@@ -439,11 +409,11 @@ After decoding the statements, what is the strongest definite relation between C
 
 ### Explanation
 
-Decode the statements: P ≥ A, A > B, B = R, R ≥ Q, Q > D, and D ≥ C. So C < P.
+After decoding: P ≥ A > B = R ≥ Q > D ≥ C. So C < P.
 
 ## 14. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 6
 
-**Record:** INE-CP006-FC386E50 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 7 · **Topology:** FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS
+**Record:** INE-CP006-FD386FE3 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** TWO_CHAINS_WITH_NECESSARY_CROSS_LINK
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -455,34 +425,30 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A % B means A is greater than or equal to B.
 - A & B means A is less than or equal to B.
 
-### Statements
-
-- C % B @ D % P # A @ R
-- C @ D
-- P @ R
+**Statements:** C % B @ D; P # A % R; D @ P
 
 ### Conclusions
 
 I. D @ R
-II. B % A
-III. B % R
+II. B @ R
+III. D % A
 
 ### Options
 
 1. Only conclusion I follows
-2. Only conclusion III follows
+2. Only conclusion II follows
 3. All three conclusions follow
-4. Only conclusion II follows
+4. Only conclusion III follows
 
 **Correct:** 3. All three conclusions follow
 
 ### Explanation
 
-Decode the statements: C ≥ B, B > D, D ≥ P, P = A, A > R, C > D, and P > R. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.
+After decoding: C ≥ B > D; P = A ≥ R; D > P. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.
 
 ## 15. SOLVE_FIXED_MAP_CODED_CHAIN — seed 7
 
-**Record:** INE-CP006-FBEC72DA · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 7 · **Topology:** FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS
+**Record:** INE-CP006-FCEC746D · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** TWO_CHAINS_WITH_NECESSARY_CROSS_LINK
 
 After decoding the statements, what is the strongest definite relation between P and B?
 
@@ -494,28 +460,24 @@ After decoding the statements, what is the strongest definite relation between P
 - A ~ B means A is greater than or equal to B.
 - A ^ B means A is less than or equal to B.
 
-### Statements
-
-- P ~ Q ! R ~ A + D ! B
-- P ! R
-- A ! B
+**Statements:** P ~ Q ! R; A + D ~ B; R ! A
 
 ### Options
 
-1. P = B
-2. P ≥ B
-3. The relation cannot be determined
+1. P ≥ B
+2. P ≤ B
+3. P = B
 4. P > B
 
 **Correct:** 4. P > B
 
 ### Explanation
 
-Decode the statements: P ≥ Q, Q > R, R ≥ A, A = D, D > B, P > R, and A > B. So P > B.
+After decoding: P ≥ Q > R; A = D ≥ B; R > A. So P > B.
 
 ## 16. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 7
 
-**Record:** INE-CP006-262EB9F3 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 8 · **Topology:** FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS
+**Record:** INE-CP006-252EB860 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** TWO_LONG_CHAINS_WITH_NECESSARY_CROSS_LINK
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -527,18 +489,13 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A ~ B means A is greater than or equal to B.
 - A ^ B means A is less than or equal to B.
 
-### Statements
-
-- P ! A
-- C ! D
-- Q ! R
-- P ! C ~ A + Q ! D ~ R
+**Statements:** C ~ A; B ! P ~ C; A + Q ! D ~ R
 
 ### Conclusions
 
-I. Q + C
-II. R ! A
-III. D ! P
+I. A ! P
+II. R ! Q
+III. Q ? C
 
 ### Options
 
@@ -551,13 +508,13 @@ III. D ! P
 
 ### Explanation
 
-Decode the statements: P > A, C > D, Q > R, P > C, C ≥ A, A = Q, Q > D, and D ≥ R. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.
+After decoding: C ≥ A; B > P ≥ C; A = Q > D ≥ R. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.
 
 ## 17. SOLVE_FIXED_MAP_CODED_CHAIN — seed 8
 
-**Record:** INE-CP006-88610ED3 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 8 · **Topology:** FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS
+**Record:** INE-CP006-87610D40 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** TWO_LONG_CHAINS_WITH_NECESSARY_CROSS_LINK
 
-After decoding the statements, what is the strongest definite relation between C and A?
+After decoding the statements, what is the strongest definite relation between C and B?
 
 ### Code key
 
@@ -567,29 +524,24 @@ After decoding the statements, what is the strongest definite relation between C
 - A & B means A is greater than or equal to B.
 - A % B means A is less than or equal to B.
 
-### Statements
-
-- C % P $ Q @ D % R $ A
-- C $ Q
-- P $ R
-- D $ A
+**Statements:** C % P $ Q @ D; R % A $ B; D % R
 
 ### Options
 
-1. C ≤ A
-2. C < A
-3. C ≥ A
-4. C > A
+1. C > B
+2. C < B
+3. C ≤ B
+4. C ≥ B
 
-**Correct:** 2. C < A
+**Correct:** 2. C < B
 
 ### Explanation
 
-Decode the statements: C ≤ P, P < Q, Q = D, D ≤ R, R < A, C < Q, P < R, and D < A. So C < A.
+After decoding: C ≤ P < Q = D; R ≤ A < B; D ≤ R. So C < B.
 
 ## 18. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 8
 
-**Record:** INE-CP006-B5E411FA · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-B6E4138D · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -601,9 +553,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A & B means A is greater than or equal to B.
 - A % B means A is less than or equal to B.
 
-### Statements
-
-- A & Q @ B & R
+**Statements:** A & Q @ B & R
 
 ### Conclusions
 
@@ -621,11 +571,11 @@ II. A % R
 
 ### Explanation
 
-Decode the statements: A ≥ Q, Q = B, and B ≥ R. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.
+After decoding: A ≥ Q = B ≥ R. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.
 
 ## 19. SOLVE_FIXED_MAP_CODED_CHAIN — seed 9
 
-**Record:** INE-CP006-6E74C430 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-6F74C5C3 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
 
 After decoding the statements, what is the strongest definite relation between C and R?
 
@@ -637,9 +587,7 @@ After decoding the statements, what is the strongest definite relation between C
 - A ^ B means A is greater than or equal to B.
 - A + B means A is less than or equal to B.
 
-### Statements
-
-- R ^ A ! P ^ C
+**Statements:** R ^ A ! P ^ C
 
 ### Options
 
@@ -652,11 +600,11 @@ After decoding the statements, what is the strongest definite relation between C
 
 ### Explanation
 
-Decode the statements: R ≥ A, A = P, and P ≥ C. So C ≤ R.
+After decoding: R ≥ A = P ≥ C. So C ≤ R.
 
 ## 20. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 9
 
-**Record:** INE-CP006-082E4255 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-072E40C2 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -668,9 +616,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A ^ B means A is greater than or equal to B.
 - A + B means A is less than or equal to B.
 
-### Statements
-
-- P + D ? Q ! A + B
+**Statements:** P + D ? Q ! A + B
 
 ### Conclusions
 
@@ -688,11 +634,11 @@ II. Q ~ P
 
 ### Explanation
 
-Decode the statements: P ≤ D, D < Q, Q = A, and A ≤ B. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.
+After decoding: P ≤ D < Q = A ≤ B. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.
 
 ## 21. SOLVE_FIXED_MAP_CODED_CHAIN — seed 10
 
-**Record:** INE-CP006-A9BB36A0 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-AABB3833 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
 
 After decoding the statements, what is the strongest definite relation between P and B?
 
@@ -704,9 +650,7 @@ After decoding the statements, what is the strongest definite relation between P
 - A @ B means A is greater than or equal to B.
 - A % B means A is less than or equal to B.
 
-### Statements
-
-- P % A # R & C % B
+**Statements:** P % A # R & C % B
 
 ### Options
 
@@ -719,11 +663,11 @@ After decoding the statements, what is the strongest definite relation between P
 
 ### Explanation
 
-Decode the statements: P ≤ A, A < R, R = C, and C ≤ B. So P < B.
+After decoding: P ≤ A < R = C ≤ B. So P < B.
 
 ## 22. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 10
 
-**Record:** INE-CP006-D686862F · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-D586849C · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_WEAK_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -735,9 +679,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A @ B means A is greater than or equal to B.
 - A % B means A is less than or equal to B.
 
-### Statements
-
-- P & D @ Q & R @ C
+**Statements:** P & D @ Q & R @ C
 
 ### Conclusions
 
@@ -755,11 +697,11 @@ II. C % D
 
 ### Explanation
 
-Decode the statements: P = D, D ≥ Q, Q = R, and R ≥ C. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.
+After decoding: P = D ≥ Q = R ≥ C. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.
 
 ## 23. SOLVE_FIXED_MAP_CODED_CHAIN — seed 11
 
-**Record:** INE-CP006-F2670AC3 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-F1670930 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_WEAK_CHAIN
 
 After decoding the statements, what is the strongest definite relation between C and R?
 
@@ -771,9 +713,7 @@ After decoding the statements, what is the strongest definite relation between C
 - A ! B means A is greater than or equal to B.
 - A ? B means A is less than or equal to B.
 
-### Statements
-
-- R ? P ~ Q ? B ~ C
+**Statements:** R ? P ~ Q ? B ~ C
 
 ### Options
 
@@ -786,11 +726,11 @@ After decoding the statements, what is the strongest definite relation between C
 
 ### Explanation
 
-Decode the statements: R ≤ P, P = Q, Q ≤ B, and B = C. So C ≥ R.
+After decoding: R ≤ P = Q ≤ B = C. So C ≥ R.
 
 ## 24. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 11
 
-**Record:** INE-CP006-7CCBF1FC · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
+**Record:** INE-CP006-7DCBF38F · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -802,10 +742,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A ! B means A is greater than or equal to B.
 - A ? B means A is less than or equal to B.
 
-### Statements
-
-- D ^ B ! Q
-- C ~ R
+**Statements:** D ^ B ! Q; C ~ R
 
 ### Conclusions
 
@@ -823,11 +760,11 @@ II. Q ^ C
 
 ### Explanation
 
-Decode the statements: D > B, B ≥ Q, and C = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.
+After decoding: D > B ≥ Q; C = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.
 
 ## 25. SOLVE_FIXED_MAP_CODED_CHAIN — seed 12
 
-**Record:** INE-CP006-32577ABE · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CONVERGING_BRANCH
+**Record:** INE-CP006-33577C51 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CONVERGING_BRANCH
 
 After decoding the statements, what is the strongest definite relation between A and C?
 
@@ -839,11 +776,7 @@ After decoding the statements, what is the strongest definite relation between A
 - A @ B means A is greater than or equal to B.
 - A % B means A is less than or equal to B.
 
-### Statements
-
-- A # R
-- D % C
-- D # A
+**Statements:** A # R; D % C; D # A
 
 ### Options
 
@@ -856,11 +789,11 @@ After decoding the statements, what is the strongest definite relation between A
 
 ### Explanation
 
-Decode the statements: A < R, D ≤ C, and D < A. There is no definite relation between A and C.
+After decoding: A < R; D ≤ C; D < A. There is no definite relation between A and C.
 
 ## 26. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 12
 
-**Record:** INE-CP006-54024935 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** FIVE_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-530247A2 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** FIVE_EDGE_MIXED_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -872,9 +805,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A @ B means A is greater than or equal to B.
 - A % B means A is less than or equal to B.
 
-### Statements
-
-- D @ B $ P & R @ C $ A
+**Statements:** D @ B $ P & R @ C $ A
 
 ### Conclusions
 
@@ -893,11 +824,11 @@ III. P @ A
 
 ### Explanation
 
-Decode the statements: D ≥ B, B > P, P = R, R ≥ C, and C > A. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.
+After decoding: D ≥ B > P = R ≥ C > A. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.
 
 ## 27. SOLVE_FIXED_MAP_CODED_CHAIN — seed 13
 
-**Record:** INE-CP006-EFB3FE59 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
+**Record:** INE-CP006-EEB3FCC6 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
 
 After decoding the statements, what is the strongest definite relation between B and P?
 
@@ -909,10 +840,7 @@ After decoding the statements, what is the strongest definite relation between B
 - A ^ B means A is greater than or equal to B.
 - A ~ B means A is less than or equal to B.
 
-### Statements
-
-- P ? A ^ B
-- Q ! R
+**Statements:** P ? A ^ B; Q ! R
 
 ### Options
 
@@ -925,11 +853,11 @@ After decoding the statements, what is the strongest definite relation between B
 
 ### Explanation
 
-Decode the statements: P > A, A ≥ B, and Q = R. So B < P.
+After decoding: P > A ≥ B; Q = R. So B < P.
 
 ## 28. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 13
 
-**Record:** INE-CP006-A4EA305A · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** SIX_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-A5EA31ED · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** SIX_EDGE_MIXED_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -941,9 +869,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A ^ B means A is greater than or equal to B.
 - A ~ B means A is less than or equal to B.
 
-### Statements
-
-- D ^ R ? C ! A ^ B ? Q ^ P
+**Statements:** D ^ R ? C ! A ^ B ? Q ^ P
 
 ### Conclusions
 
@@ -962,11 +888,11 @@ III. Q + C
 
 ### Explanation
 
-Decode the statements: D ≥ R, R > C, C = A, A ≥ B, B > Q, and Q ≥ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.
+After decoding: D ≥ R > C = A ≥ B > Q ≥ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.
 
 ## 29. SOLVE_FIXED_MAP_CODED_CHAIN — seed 14
 
-**Record:** INE-CP006-1D1FB094 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** FIVE_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-1E1FB227 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** FIVE_EDGE_MIXED_CHAIN
 
 After decoding the statements, what is the strongest definite relation between A and Q?
 
@@ -978,9 +904,7 @@ After decoding the statements, what is the strongest definite relation between A
 - A @ B means A is greater than or equal to B.
 - A & B means A is less than or equal to B.
 
-### Statements
-
-- Q % B & D # C % P & A
+**Statements:** Q % B & D # C % P & A
 
 ### Options
 
@@ -993,11 +917,11 @@ After decoding the statements, what is the strongest definite relation between A
 
 ### Explanation
 
-Decode the statements: Q < B, B ≤ D, D = C, C < P, and P ≤ A. So A > Q.
+After decoding: Q < B ≤ D = C < P ≤ A. So A > Q.
 
 ## 30. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 14
 
-**Record:** INE-CP006-1F4DBD8B · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 7 · **Topology:** FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS
+**Record:** INE-CP006-1E4DBBF8 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** TWO_CHAINS_WITH_NECESSARY_CROSS_LINK
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -1009,34 +933,30 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A @ B means A is greater than or equal to B.
 - A & B means A is less than or equal to B.
 
-### Statements
-
-- P @ C $ D @ Q # B $ R
-- P $ D
-- Q $ R
+**Statements:** P @ C $ D; Q # B @ R; D $ Q
 
 ### Conclusions
 
-I. C @ R
+I. D $ B
 II. P @ R
-III. P $ Q
+III. P $ D
 
 ### Options
 
-1. Only conclusion I follows
-2. Only conclusion III follows
-3. Only conclusion II follows
+1. Only conclusion II follows
+2. Only conclusion I follows
+3. Only conclusion III follows
 4. All three conclusions follow
 
 **Correct:** 4. All three conclusions follow
 
 ### Explanation
 
-Decode the statements: P ≥ C, C > D, D ≥ Q, Q = B, B > R, P > D, and Q > R. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.
+After decoding: P ≥ C > D; Q = B ≥ R; D > Q. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.
 
 ## 31. SOLVE_FIXED_MAP_CODED_CHAIN — seed 15
 
-**Record:** INE-CP006-0E2B6327 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** SIX_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-0D2B6194 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** SIX_EDGE_MIXED_CHAIN
 
 After decoding the statements, what is the strongest definite relation between A and R?
 
@@ -1048,9 +968,7 @@ After decoding the statements, what is the strongest definite relation between A
 - A ^ B means A is greater than or equal to B.
 - A ~ B means A is less than or equal to B.
 
-### Statements
-
-- A ^ Q + D ! P ^ C + B ^ R
+**Statements:** A ^ Q + D ! P ^ C + B ^ R
 
 ### Options
 
@@ -1063,11 +981,11 @@ After decoding the statements, what is the strongest definite relation between A
 
 ### Explanation
 
-Decode the statements: A ≥ Q, Q > D, D = P, P ≥ C, C > B, and B ≥ R. So A > R.
+After decoding: A ≥ Q > D = P ≥ C > B ≥ R. So A > R.
 
 ## 32. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 15
 
-**Record:** INE-CP006-757E4E68 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 8 · **Topology:** FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS
+**Record:** INE-CP006-767E4FFB · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** TWO_LONG_CHAINS_WITH_NECESSARY_CROSS_LINK
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -1079,35 +997,30 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A ^ B means A is greater than or equal to B.
 - A ~ B means A is less than or equal to B.
 
-### Statements
-
-- B + Q
-- P + A
-- D + C
-- B + P ^ Q ! D + A ^ C
+**Statements:** P ^ Q; R + B ^ P; Q ! D + A ^ C
 
 ### Conclusions
 
-I. C ! Q
-II. A ^ Q
-III. D + B
+I. C + Q
+II. A ^ B
+III. Q + R
 
 ### Options
 
 1. Only conclusion III follows
 2. None of the conclusions follow
-3. Only conclusion II follows
-4. Only conclusion I follows
+3. Only conclusion I follows
+4. Only conclusion II follows
 
 **Correct:** 2. None of the conclusions follow
 
 ### Explanation
 
-Decode the statements: B > Q, P > A, D > C, B > P, P ≥ Q, Q = D, D > A, and A ≥ C. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.
+After decoding: P ≥ Q; R > B ≥ P; Q = D > A ≥ C. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.
 
 ## 33. SOLVE_FIXED_MAP_CODED_CHAIN — seed 16
 
-**Record:** INE-CP006-A4D619B2 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 7 · **Topology:** FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS
+**Record:** INE-CP006-A5D61B45 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** TWO_CHAINS_WITH_NECESSARY_CROSS_LINK
 
 After decoding the statements, what is the strongest definite relation between D and R?
 
@@ -1119,28 +1032,24 @@ After decoding the statements, what is the strongest definite relation between D
 - A $ B means A is greater than or equal to B.
 - A % B means A is less than or equal to B.
 
-### Statements
-
-- D @ A
-- B @ R
-- D @ Q & A % B @ P % R
+**Statements:** A @ B; D % Q & A; B @ P % R
 
 ### Options
 
-1. D ≥ R
-2. D = R
+1. D ≤ R
+2. D > R
 3. D < R
-4. D > R
+4. The relation cannot be determined
 
 **Correct:** 3. D < R
 
 ### Explanation
 
-Decode the statements: D < A, B < R, D < Q, Q = A, A ≤ B, B < P, and P ≤ R. So D < R.
+After decoding: A < B; D ≤ Q = A; B < P ≤ R. So D < R.
 
 ## 34. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 16
 
-**Record:** INE-CP006-1FD709A1 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-1ED7080E · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -1152,9 +1061,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A $ B means A is greater than or equal to B.
 - A % B means A is less than or equal to B.
 
-### Statements
-
-- A $ B & Q $ P
+**Statements:** A $ B & Q $ P
 
 ### Conclusions
 
@@ -1172,13 +1079,13 @@ II. A @ Q
 
 ### Explanation
 
-Decode the statements: A ≥ B, B = Q, and Q ≥ P. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.
+After decoding: A ≥ B = Q ≥ P. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.
 
 ## 35. SOLVE_FIXED_MAP_CODED_CHAIN — seed 17
 
-**Record:** INE-CP006-AAC8BB8D · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 8 · **Topology:** FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS
+**Record:** INE-CP006-A9C8B9FA · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** TWO_LONG_CHAINS_WITH_NECESSARY_CROSS_LINK
 
-After decoding the statements, what is the strongest definite relation between Q and P?
+After decoding the statements, what is the strongest definite relation between D and P?
 
 ### Code key
 
@@ -1188,29 +1095,24 @@ After decoding the statements, what is the strongest definite relation between Q
 - A ! B means A is greater than or equal to B.
 - A ^ B means A is less than or equal to B.
 
-### Statements
-
-- Q ~ B
-- C ~ A
-- R ~ P
-- Q ~ C ! B ? R ~ A ! P
+**Statements:** C ! B; D ~ Q ! C; B ? R ~ A ! P
 
 ### Options
 
-1. Q = P
-2. Q > P
-3. Q < P
-4. Q ≤ P
+1. D = P
+2. D > P
+3. D < P
+4. D ≥ P
 
-**Correct:** 2. Q > P
+**Correct:** 2. D > P
 
 ### Explanation
 
-Decode the statements: Q > B, C > A, R > P, Q > C, C ≥ B, B = R, R > A, and A ≥ P. So Q > P.
+After decoding: C ≥ B; D > Q ≥ C; B = R > A ≥ P. So D > P.
 
 ## 36. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 17
 
-**Record:** INE-CP006-B76364E6 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-B8636679 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -1222,9 +1124,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A ! B means A is greater than or equal to B.
 - A ^ B means A is less than or equal to B.
 
-### Statements
-
-- Q ^ R + C ? A ^ D
+**Statements:** Q ^ R + C ? A ^ D
 
 ### Conclusions
 
@@ -1242,11 +1142,11 @@ II. D ~ Q
 
 ### Explanation
 
-Decode the statements: Q ≤ R, R < C, C = A, and A ≤ D. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.
+After decoding: Q ≤ R < C = A ≤ D. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.
 
 ## 37. SOLVE_FIXED_MAP_CODED_CHAIN — seed 18
 
-**Record:** INE-CP006-10D451D8 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-11D4536B · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
 
 After decoding the statements, what is the strongest definite relation between C and R?
 
@@ -1258,9 +1158,7 @@ After decoding the statements, what is the strongest definite relation between C
 - A @ B means A is greater than or equal to B.
 - A # B means A is less than or equal to B.
 
-### Statements
-
-- C @ D % P @ R
+**Statements:** C @ D % P @ R
 
 ### Options
 
@@ -1273,11 +1171,11 @@ After decoding the statements, what is the strongest definite relation between C
 
 ### Explanation
 
-Decode the statements: C ≥ D, D = P, and P ≥ R. So C ≥ R.
+After decoding: C ≥ D = P ≥ R. So C ≥ R.
 
 ## 38. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 18
 
-**Record:** INE-CP006-5B039E37 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-5A039CA4 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_WEAK_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -1289,9 +1187,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A @ B means A is greater than or equal to B.
 - A # B means A is less than or equal to B.
 
-### Statements
-
-- Q % C @ R % P @ D
+**Statements:** Q % C @ R % P @ D
 
 ### Conclusions
 
@@ -1309,11 +1205,11 @@ II. R # Q
 
 ### Explanation
 
-Decode the statements: Q = C, C ≥ R, R = P, and P ≥ D. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.
+After decoding: Q = C ≥ R = P ≥ D. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.
 
 ## 39. SOLVE_FIXED_MAP_CODED_CHAIN — seed 19
 
-**Record:** INE-CP006-ED686FFB · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-EC686E68 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
 
 After decoding the statements, what is the strongest definite relation between B and D?
 
@@ -1325,9 +1221,7 @@ After decoding the statements, what is the strongest definite relation between B
 - A ^ B means A is greater than or equal to B.
 - A ! B means A is less than or equal to B.
 
-### Statements
-
-- B ^ R + Q ? A ^ D
+**Statements:** B ^ R + Q ? A ^ D
 
 ### Options
 
@@ -1340,11 +1234,11 @@ After decoding the statements, what is the strongest definite relation between B
 
 ### Explanation
 
-Decode the statements: B ≥ R, R = Q, Q > A, and A ≥ D. So B > D.
+After decoding: B ≥ R = Q > A ≥ D. So B > D.
 
 ## 40. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 19
 
-**Record:** INE-CP006-4BA9B064 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
+**Record:** INE-CP006-4CA9B1F7 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -1356,10 +1250,7 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 - A ^ B means A is greater than or equal to B.
 - A ! B means A is less than or equal to B.
 
-### Statements
-
-- C ? D ^ Q
-- B + R
+**Statements:** C ? D ^ Q; B + R
 
 ### Conclusions
 
@@ -1377,11 +1268,11 @@ II. C ! R
 
 ### Explanation
 
-Decode the statements: C > D, D ≥ Q, and B = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.
+After decoding: C > D ≥ Q; B = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.
 
 ## 41. DECODE_FIXED_MAP_RELATION — seed 0
 
-**Record:** INE-CP006-DB8A734F · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN
+**Record:** INE-CP006-DA8A71BC · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN
 
 According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
 
@@ -1393,9 +1284,7 @@ According to the supplied code key, which ordinary relation has exactly the same
 - A ◆ B means A is greater than or equal to B.
 - A ● B means A is less than or equal to B.
 
-### Statements
-
-- Q ▲ B
+**Statements:** Q ▲ B
 
 ### Options
 
@@ -1412,7 +1301,7 @@ According to the supplied code key, which ordinary relation has exactly the same
 
 ## 42. ENCODE_FIXED_MAP_RELATION — seed 0
 
-**Record:** INE-CP006-B727BCE3 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_LESS_THAN
+**Record:** INE-CP006-B627BB50 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_LESS_THAN
 
 According to the supplied code key, which option correctly encodes the ordinary relation?
 
@@ -1424,9 +1313,7 @@ According to the supplied code key, which option correctly encodes the ordinary 
 - A ◆ B means A is greater than or equal to B.
 - A ● B means A is less than or equal to B.
 
-### Statements
-
-- D < A
+**Statements:** D < A
 
 ### Options
 
@@ -1443,7 +1330,7 @@ According to the supplied code key, which option correctly encodes the ordinary 
 
 ## 43. DECODE_FIXED_MAP_RELATION — seed 1
 
-**Record:** INE-CP006-36AC9F9C · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN
+**Record:** INE-CP006-37ACA12F · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN
 
 According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
 
@@ -1455,9 +1342,7 @@ According to the supplied code key, which ordinary relation has exactly the same
 - A ⊙ B means A is greater than or equal to B.
 - A ⊘ B means A is less than or equal to B.
 
-### Statements
-
-- P ⊖ A
+**Statements:** P ⊖ A
 
 ### Options
 
@@ -1474,7 +1359,7 @@ According to the supplied code key, which ordinary relation has exactly the same
 
 ## 44. ENCODE_FIXED_MAP_RELATION — seed 1
 
-**Record:** INE-CP006-98832640 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN
+**Record:** INE-CP006-998327D3 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN
 
 According to the supplied code key, which option correctly encodes the ordinary relation?
 
@@ -1486,9 +1371,7 @@ According to the supplied code key, which option correctly encodes the ordinary 
 - A ⊙ B means A is greater than or equal to B.
 - A ⊘ B means A is less than or equal to B.
 
-### Statements
-
-- C > D
+**Statements:** C > D
 
 ### Options
 
@@ -1505,7 +1388,7 @@ According to the supplied code key, which option correctly encodes the ordinary 
 
 ## 45. DECODE_FIXED_MAP_RELATION — seed 2
 
-**Record:** INE-CP006-558A7A55 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_EQUAL_TO
+**Record:** INE-CP006-548A78C2 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_EQUAL_TO
 
 According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
 
@@ -1517,9 +1400,7 @@ According to the supplied code key, which ordinary relation has exactly the same
 - A ▲ B means A is greater than or equal to B.
 - A ■ B means A is less than or equal to B.
 
-### Statements
-
-- A ★ D
+**Statements:** A ★ D
 
 ### Options
 
@@ -1536,7 +1417,7 @@ According to the supplied code key, which ordinary relation has exactly the same
 
 ## 46. ENCODE_FIXED_MAP_RELATION — seed 2
 
-**Record:** INE-CP006-B1F00AF9 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_EQUAL_TO
+**Record:** INE-CP006-B0F00966 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_EQUAL_TO
 
 According to the supplied code key, which option correctly encodes the ordinary relation?
 
@@ -1548,9 +1429,7 @@ According to the supplied code key, which option correctly encodes the ordinary 
 - A ▲ B means A is greater than or equal to B.
 - A ■ B means A is less than or equal to B.
 
-### Statements
-
-- A = D
+**Statements:** A = D
 
 ### Options
 
@@ -1567,7 +1446,7 @@ According to the supplied code key, which option correctly encodes the ordinary 
 
 ## 47. DECODE_FIXED_MAP_RELATION — seed 3
 
-**Record:** INE-CP006-034049FA · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_LESS_THAN_OR_EQUAL
+**Record:** INE-CP006-04404B8D · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_LESS_THAN_OR_EQUAL
 
 According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
 
@@ -1579,9 +1458,7 @@ According to the supplied code key, which ordinary relation has exactly the same
 - A ⊖ B means A is greater than or equal to B.
 - A ⊕ B means A is less than or equal to B.
 
-### Statements
-
-- B ⊕ C
+**Statements:** B ⊕ C
 
 ### Options
 
@@ -1598,7 +1475,7 @@ According to the supplied code key, which ordinary relation has exactly the same
 
 ## 48. ENCODE_FIXED_MAP_RELATION — seed 3
 
-**Record:** INE-CP006-7219E7DE · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN_OR_EQUAL
+**Record:** INE-CP006-7319E971 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN_OR_EQUAL
 
 According to the supplied code key, which option correctly encodes the ordinary relation?
 
@@ -1610,9 +1487,7 @@ According to the supplied code key, which option correctly encodes the ordinary 
 - A ⊖ B means A is greater than or equal to B.
 - A ⊕ B means A is less than or equal to B.
 
-### Statements
-
-- P ≥ B
+**Statements:** P ≥ B
 
 ### Options
 

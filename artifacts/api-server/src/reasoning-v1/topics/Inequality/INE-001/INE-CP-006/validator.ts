@@ -83,6 +83,18 @@ export function validateIneCp006Question(
     scenario.statements.length < 3
   )
     errors.push("Exam-practice questions require at least three statements.");
+  if (question.metadata.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE") {
+    for (let index = 0; index < scenario.statements.length; index += 1) {
+      const statement = scenario.statements[index]!;
+      const remaining = scenario.statements.filter(
+        (_entry, candidateIndex) => candidateIndex !== index,
+      );
+      if (evaluateConclusion(remaining, statement).truth === "DEFINITELY_TRUE")
+        errors.push(
+          `Statement ${index + 1} is redundant because the other statements already imply it.`,
+        );
+    }
+  }
   const expectedKey = renderCodeKey(scenario.codeMap);
   if (
     JSON.stringify(expectedKey) !== JSON.stringify(scenario.keyEntries) ||
@@ -96,11 +108,13 @@ export function validateIneCp006Question(
   const expectedStatements =
     scenario.taskKind === "ENCODE_RELATION"
       ? [formatStatement(scenario.ordinaryRelation!, scenario.entityNames)]
-      : renderCodedExpressions(
-          scenario.statements,
-          scenario.codeMap,
-          scenario.entityNames,
-        );
+      : [
+          renderCodedExpressions(
+            scenario.statements,
+            scenario.codeMap,
+            scenario.entityNames,
+          ).join("; "),
+        ];
   if (
     JSON.stringify(question.displayedStatements) !==
     JSON.stringify(expectedStatements)
