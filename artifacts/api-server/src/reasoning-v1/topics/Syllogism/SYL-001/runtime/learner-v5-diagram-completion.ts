@@ -1,5 +1,8 @@
 import type { GeneratedSylQuestionV4 } from "./learner-v4-types";
 import type { TermAssignment } from "./localization";
+import {
+  exactVennHasUnauthorisedContainmentDirectionV5,
+} from "./learner-v5-directional-containment-safety";
 import { renderExactVennV5 } from "./learner-v5-exact-venn";
 import { exactVennAddsUnstatedStrongRelationV5 } from "./learner-v5-exact-venn-safety";
 import {
@@ -109,11 +112,16 @@ export function completeRequiredDiagramV5(
   if (
     !rendered.svg
     || exactVennAddsUnstatedStrongRelationV5(question, presentation, rendered.svg)
+    || exactVennHasUnauthorisedContainmentDirectionV5(
+      question,
+      presentation,
+      rendered.svg,
+    )
   ) {
     return omittedPresentation(
       presentation,
       "NO_STABLE_SIMPLE_VENN",
-      `syl-v5:exact-venn:omitted:unstated-strong-relation:${question.qlId}:${question.seed}:${question.locale}`,
+      `syl-v5:exact-venn:omitted:unsafe-strong-relation:${question.qlId}:${question.seed}:${question.locale}`,
       rendered.modelSignature,
     );
   }
