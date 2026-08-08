@@ -31,7 +31,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat .github/num-cp006-bootstrap/payload-*.b64 > /tmp/num-cp006-completion.b64
+          cat .github/num-cp006-bootstrap/payload-*.b64 \
+            | tr -cd 'A-Za-z0-9+/=' \
+            > /tmp/num-cp006-completion.b64
           base64 --decode /tmp/num-cp006-completion.b64 > /tmp/num-cp006-completion.tar.gz
           echo "4f8573a3b5b3b65524636ee08691149e9fd879f54fb4aaf2cd8bc89eae5b14fc  /tmp/num-cp006-completion.tar.gz" | sha256sum --check
           tar -xzf /tmp/num-cp006-completion.tar.gz -C .
