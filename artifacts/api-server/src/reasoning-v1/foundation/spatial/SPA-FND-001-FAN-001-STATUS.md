@@ -2,7 +2,7 @@
 
 ## Status
 
-`IMPLEMENTED_AWAITING_EXACT_HEAD_CI`
+`EXACT_HEAD_PROOF_PASSED`
 
 This proof wave is stacked on the approved Wave 03 Mirror/Water remediation head. It remains prototype evidence only and does not allocate permanent QLs.
 
@@ -52,6 +52,26 @@ The workflow generates deterministic JSON and responsive HTML containing:
 - observation, rule, application and check explanation;
 - review and solver evidence.
 
+## Validated implementation proof
+
+```text
+Head:       70c3af06157a7ef69346169dfd83997a00ccbc86
+Workflow:   Validate SPA-FND-001 FAN-001 proof
+Run:        31244965534 — PASS
+Artifact:   spa-fan-001-editorial-review
+Artifact ID: 9018191345
+Digest:     sha256:02514b89538bd89ce2b7abc1ca09b26ab0c28a8ddda1c79937e0692069c923f9
+```
+
+Passed proof layers:
+
+```text
+PASS_SPA_FND_001_FOUNDATION_RUNTIME
+PASS_SPA_FND_001_MIRROR_WATER_PROOF
+PASS_SPA_FND_001_WAVE_03_PERCEPTUAL_REMEDIATION
+PASS_SPA_FND_001_FAN_001_PROOF
+```
+
 ## Lifecycle lock
 
 ```text
@@ -61,10 +81,4 @@ Question Bank writes:         false
 Mock-test eligibility:        false
 Public publication:           false
 API/database schema changes:  none
-```
-
-## Required exact-head status
-
-```text
-PASS_SPA_FND_001_FAN_001_PROOF
 ```
