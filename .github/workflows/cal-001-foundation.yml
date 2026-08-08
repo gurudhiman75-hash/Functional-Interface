@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feat/reasoning-cal-001-end-to-end-foundation
+      - fix/cal-001-exam-readiness-remediation
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/**
       - artifacts/api-server/src/reasoning-v1/CAL-001-FAMILY-F-MANIFEST-AMENDMENT.md
@@ -56,7 +57,7 @@ jobs:
 
   exhaustive-proof:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -68,25 +69,36 @@ jobs:
         shell: bash
         run: |
           set +e
-          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/foundation-proof.test.ts 2>&1 | tee /tmp/cal-001-proof.log
-          echo "${PIPESTATUS[0]}" > /tmp/cal-001-proof-exit
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/foundation-proof.test.ts 2>&1 | tee /tmp/cal-001-foundation-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-foundation-proof-exit
+          exit 0
+      - name: Run exam-readiness remediation proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/exam-readiness-proof.test.ts 2>&1 | tee /tmp/cal-001-exam-readiness-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-exam-readiness-proof-exit
           exit 0
       - name: Publish proof diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cal-001-foundation-proof
+          name: cal-001-foundation-and-exam-readiness-proof
           path: |
-            /tmp/cal-001-proof.log
-            /tmp/cal-001-proof-exit
+            /tmp/cal-001-foundation-proof.log
+            /tmp/cal-001-foundation-proof-exit
+            /tmp/cal-001-exam-readiness-proof.log
+            /tmp/cal-001-exam-readiness-proof-exit
           if-no-files-found: error
           retention-days: 14
-      - name: Enforce proof result
-        run: test "$(cat /tmp/cal-001-proof-exit)" = "0"
+      - name: Enforce proof results
+        run: |
+          test "$(cat /tmp/cal-001-foundation-proof-exit)" = "0"
+          test "$(cat /tmp/cal-001-exam-readiness-proof-exit)" = "0"
 
   review-export:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -94,14 +106,14 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Generate 528-row English review pack
+      - name: Generate full audit and curated five-per-QL English review packs
         env:
           CAL_REVIEW_OUTPUT_DIR: /tmp/cal-001-review
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/review-export.ts
-      - name: Publish review pack
+      - name: Publish review packs
         uses: actions/upload-artifact@v4
         with:
-          name: cal-001-english-prototype-review
+          name: cal-001-english-exam-readiness-review
           path: /tmp/cal-001-review/**
           if-no-files-found: error
           retention-days: 14
