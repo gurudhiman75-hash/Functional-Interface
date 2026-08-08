@@ -101,8 +101,8 @@ export function localizedBlrCp007TargetClause(
 ): string {
   const relation = localizedBlrCp007RelationLabel(relationId, locale);
   return locale === "hi-IN"
-    ? `${subjectId} का ${referenceId} से संबंध “${relation}” सिद्ध हो`
-    : `${subjectId} ਦਾ ${referenceId} ਨਾਲ ਸੰਬੰਧ “${relation}” ਸਾਬਤ ਹੋਵੇ`;
+    ? `${subjectId} का ${referenceId} से संबंध “${relation}” हो`
+    : `${subjectId} ਦਾ ${referenceId} ਨਾਲ ਸੰਬੰਧ “${relation}” ਹੋਵੇ`;
 }
 
 export function localizedBlrCp007CodeMeaning(
