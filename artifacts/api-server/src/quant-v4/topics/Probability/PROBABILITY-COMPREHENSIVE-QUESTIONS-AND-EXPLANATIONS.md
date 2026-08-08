@@ -2225,7 +2225,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 126 — PRB-QL-801 (Medium)
 
-**Question:** In a group of 100 candidates, 25 candidates qualified in Quantitative Aptitude, 29 candidates qualified in Reasoning, and 6 candidates satisfy both conditions. What is the probability that a randomly selected candidate satisfies at least one condition?
+**Question:** In a group of 100 candidates, 25 candidates qualified in Quantitative Aptitude, 29 candidates qualified in Reasoning, and 6 candidates satisfy both conditions. What is the probability that a randomly selected candidate meets at least one condition?
 
 **Options:**
 
@@ -2297,7 +2297,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 130 — PRB-QL-809 (Medium)
 
-**Question:** In a group of 64 candidates, 30 candidates qualified in Quantitative Aptitude, 27 candidates qualified in Reasoning, and 10 candidates satisfy both conditions. What is the probability that a randomly selected candidate satisfies at least one condition?
+**Question:** In a group of 64 candidates, 30 candidates qualified in Quantitative Aptitude, 27 candidates qualified in Reasoning, and 10 candidates satisfy both conditions. What is the probability that a randomly selected candidate meets at least one condition?
 
 **Options:**
 

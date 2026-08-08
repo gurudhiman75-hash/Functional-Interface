@@ -163,7 +163,7 @@ function renderEventGroupStem(entry: ProbabilityTaskRegistryEntry, parameters: G
     : `${both} ${both === 1 ? context.groupNoun.slice(0, -1) : context.groupNoun} ${both === 1 ? "satisfies" : "satisfy"} both conditions`;
 
   if (mode === "findUnionProbability") {
-    return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} satisfies at least one condition?`;
+    return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} meets at least one condition?`;
   }
   if (mode === "findIntersectionProbability") {
     return `In a group of ${total} ${context.groupNoun}, ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} satisfies both conditions?`;
