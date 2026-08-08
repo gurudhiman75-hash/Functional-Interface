@@ -1,4 +1,4 @@
-name: Reasoning BLR-001 CP-007 Manual English Freeze Decision
+name: Reasoning BLR-001 CP-007 English Freeze
 
 on:
   push:
@@ -17,11 +17,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: blr-001-cp007-manual-english-freeze-decision-${{ github.ref }}
+  group: blr-001-cp007-english-freeze-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-manual-freeze-decision:
+  validate-english-freeze:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -45,46 +45,53 @@ jobs:
         run: |
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-english-freeze-decision-candidate.test.ts | tee manual-freeze-decision.log
 
-      - name: Export manual English-freeze decision pack
+      - name: Prove granted English freeze
         run: |
-          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-english-freeze-decision-candidate.ts blr-cp007-english-freeze-decision-output | tee manual-freeze-export.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-english-frozen.test.ts | tee english-freeze.log
 
-      - name: Verify decision-pack contracts
+      - name: Export English-freeze evidence pack
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-english-frozen.ts blr-cp007-english-frozen-output | tee english-freeze-export.log
+
+      - name: Verify English-freeze contracts
         shell: bash
         run: |
           set -euo pipefail
-          OUT=blr-cp007-english-freeze-decision-output
-          test -f "$OUT/blr-cp007-english-freeze-decision-summary.json"
-          test -f "$OUT/BLR-CP-007-MANUAL-ENGLISH-FREEZE-DECISION.md"
-          test -f "$OUT/blr-cp007-english-freeze-decision-review.html"
-          grep -q '"recordCount": 168' "$OUT/blr-cp007-english-freeze-decision-summary.json"
-          grep -q '"targetRelationCount": 27' "$OUT/blr-cp007-english-freeze-decision-summary.json"
-          grep -q '"balancedCounterpartPairCount": 13' "$OUT/blr-cp007-english-freeze-decision-summary.json"
-          grep -q '"learnerCorpusChanged": false' "$OUT/blr-cp007-english-freeze-decision-summary.json"
-          grep -q '"staleReviewNoteCount": 0' "$OUT/blr-cp007-english-freeze-decision-summary.json"
-          grep -q '"englishFreezePendingCount": 168' "$OUT/blr-cp007-english-freeze-decision-summary.json"
-          grep -q '"productDeliveryEnabledCount": 0' "$OUT/blr-cp007-english-freeze-decision-summary.json"
-          grep -q '"recommendation": "FREEZE_RECOMMENDED_PENDING_EXPLICIT_APPROVAL"' "$OUT/blr-cp007-english-freeze-decision-summary.json"
-          grep -q '"verdict": "BLR_CP007_MANUAL_ENGLISH_FREEZE_DECISION_READY"' "$OUT/blr-cp007-english-freeze-decision-summary.json"
-          grep -q '@media(max-width:800px)' "$OUT/blr-cp007-english-freeze-decision-review.html"
+          OUT=blr-cp007-english-frozen-output
+          test -f "$OUT/blr-cp007-english-freeze-summary.json"
+          test -f "$OUT/BLR-CP-007-ENGLISH-FREEZE.md"
+          test -f "$OUT/blr-cp007-english-freeze-review.html"
+          grep -q '"recordCount": 168' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"targetRelationCount": 27' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"balancedCounterpartPairCount": 13' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"learnerCorpusChanged": false' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"englishFreezePendingCount": 0' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"frozenCount": 168' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"humanReviewRequiredCount": 0' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"localisationUnlockedCount": 168' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"productDeliveryEnabledCount": 0' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"verdict": "BLR_CP007_ENGLISH_FROZEN"' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"nextPhase": "HINDI_PUNJABI_LOCALISATION_AND_PARITY_PROOF"' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '@media(max-width:800px)' "$OUT/blr-cp007-english-freeze-review.html"
 
-      - name: Upload decision logs
+      - name: Upload freeze logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: blr-001-cp007-manual-english-freeze-decision-logs
+          name: blr-001-cp007-english-freeze-logs
           path: |
             cp007-final.log
             approved-english-audit.log
             manual-freeze-decision.log
-            manual-freeze-export.log
+            english-freeze.log
+            english-freeze-export.log
           if-no-files-found: warn
           retention-days: 14
 
-      - name: Upload manual English-freeze decision pack
+      - name: Upload English-freeze evidence pack
         uses: actions/upload-artifact@v4
         with:
-          name: blr-001-cp007-manual-english-freeze-decision
-          path: blr-cp007-english-freeze-decision-output
+          name: blr-001-cp007-english-frozen
+          path: blr-cp007-english-frozen-output
           if-no-files-found: error
           retention-days: 30
