@@ -44,12 +44,12 @@ Rule coverage:
 
 ```text
 Implementation head: f4de5af835ca859f7ee3dc589dc2196736bf9d9e
-Final PR head:       37773afcd5f4653d6c54e7616c88f2bf88fe0f97
+Final PR head:       e4c30c2e3a697738f0f3f8b98163e05d2fc528c6
 Workflow:            Validate SPA-FND-001 FAN-001 proof
-Final run:           31248665424 — PASS
+Final run:           31248700365 — PASS
 Artifact:            spa-fan-001-editorial-review
-Artifact ID:         9019296540
-Digest:              sha256:a1c986dd8cdf64dc1f110bf62aa2a4adb4270f70ad83df1840b0e1c9d21a50e4
+Artifact ID:         9019307625
+Digest:              sha256:90241653b94347cc515d45be15c09349b7f05ed9c5ad55beb5d62974e4f2b7d1
 Status:              PASS_SPA_FND_001_FAN_001_VISUAL_REMEDIATION
 ```
 
