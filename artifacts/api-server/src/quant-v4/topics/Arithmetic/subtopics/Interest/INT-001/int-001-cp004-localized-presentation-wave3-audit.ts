@@ -23,7 +23,7 @@ function fail(message: string): never {
 }
 
 function completeYearsText(locale: IntCp004LocalizedLocale, years: number): string {
-  return locale === "hi-IN" ? `${years} पूर्ण वर्ष` : `${years} ਪੂਰੇ ਸਾਲ`;
+  return cp004YearsText(locale, years);
 }
 
 function requiredFacts(
