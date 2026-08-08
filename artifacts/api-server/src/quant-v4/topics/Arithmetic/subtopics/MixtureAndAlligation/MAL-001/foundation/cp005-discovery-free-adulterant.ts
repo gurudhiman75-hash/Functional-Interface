@@ -195,9 +195,10 @@ export function adulterantPercentFromProfitQuestion(seed: string): MalCp005Disco
   };
   const adulterantPercent = expectPercent(solveMalCp005(request));
   const answer = percentText(adulterantPercent);
+  const halfProfit = divideRational(targetProfit, rational(2));
   const options = buildOptions(answer, [
     { text: percentText(targetProfit), misconceptionId: "equated_profit_percent_with_final_adulterant_percent" },
-    { text: percentText(divideRational(multiplyRational(HUNDRED, targetProfit), subtractRational(HUNDRED, targetProfit))), misconceptionId: "used_wrong_total_conversion" },
+    { text: percentText(divideRational(multiplyRational(HUNDRED, targetProfit), addRational(HUNDRED, halfProfit))), misconceptionId: "added_only_half_the_free_part_to_total" },
     { text: percentText(subtractRational(HUNDRED, adulterantPercent)), misconceptionId: "reported_pure_share_of_final_mixture" },
     { text: percentText(divideRational(multiplyRational(HUNDRED, targetProfit), addRational(HUNDRED, multiplyRational(rational(2), targetProfit)))), misconceptionId: "added_profit_twice_to_total" },
   ], `${seed}:options`);
