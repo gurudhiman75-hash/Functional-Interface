@@ -22,6 +22,47 @@ function learnerText(question: TmwCp011LocalizedQuestion): string {
   ].join("\n");
 }
 
+function naturalizeSeedDependentTrap(
+  question: TmwCp011LocalizedQuestion,
+): TmwCp011LocalizedQuestion {
+  const current = question.explanation.commonTrap.explanation;
+  const explanation = question.language === "hi"
+    ? current
+        .replaceAll("AP के कुल", "समान अंतर वाली दर-श्रृंखला के कुल")
+        .replaceAll(
+          "n दिनों में दर केवल n−1 बार बदलती है",
+          "दिए दिनों में दर, दिनों की संख्या से एक कम बार बदलती है",
+        )
+        .replaceAll("r की घात", "दैनिक गुणक की घात")
+        .replaceAll(
+          "गुणक r को प्रतिदिन जोड़ने वाली निश्चित मात्रा समझ लिया गया; यहाँ दर को r से गुणा करना है",
+          "दैनिक गुणक को प्रतिदिन जोड़ने वाली निश्चित मात्रा समझ लिया गया; यहाँ हर नई दर पिछली दर को उसी गुणक से गुणा करके बनती है",
+        )
+    : current
+        .replaceAll("AP ਦੇ ਕੁੱਲ", "ਇੱਕੋ ਫਰਕ ਵਾਲੀ ਦਰ-ਲੜੀ ਦੇ ਕੁੱਲ")
+        .replaceAll(
+          "n ਦਿਨਾਂ ਵਿੱਚ ਦਰ ਕੇਵਲ n−1 ਵਾਰ ਬਦਲਦੀ ਹੈ",
+          "ਦਿੱਤੇ ਦਿਨਾਂ ਵਿੱਚ ਦਰ, ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਤੋਂ ਇੱਕ ਘੱਟ ਵਾਰ ਬਦਲਦੀ ਹੈ",
+        )
+        .replaceAll("r ਦੀ ਘਾਤ", "ਰੋਜ਼ਾਨਾ ਗੁਣਕ ਦੀ ਘਾਤ")
+        .replaceAll(
+          "ਗੁਣਕ r ਨੂੰ ਹਰ ਦਿਨ ਜੋੜੀ ਜਾਣ ਵਾਲੀ ਨਿਰਧਾਰਤ ਮਾਤਰਾ ਸਮਝ ਲਿਆ ਗਿਆ; ਇੱਥੇ ਦਰ ਨੂੰ r ਨਾਲ ਗੁਣਾ ਕਰਨਾ ਹੈ",
+          "ਰੋਜ਼ਾਨਾ ਗੁਣਕ ਨੂੰ ਹਰ ਦਿਨ ਜੋੜੀ ਜਾਣ ਵਾਲੀ ਨਿਰਧਾਰਤ ਮਾਤਰਾ ਸਮਝ ਲਿਆ ਗਿਆ; ਇੱਥੇ ਹਰ ਨਵੀਂ ਦਰ ਪਿਛਲੀ ਦਰ ਨੂੰ ਉਸੇ ਗੁਣਕ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਬਣਦੀ ਹੈ",
+        );
+
+  if (explanation === current) return question;
+  return {
+    ...question,
+    explanation: {
+      ...question.explanation,
+      commonTrap: {
+        ...question.explanation.commonTrap,
+        explanation,
+      },
+    },
+  };
+}
+
 function removePunjabiDandaFalsePositive(
   question: TmwCp011LocalizedQuestion,
 ): TmwCp011LocalizedQuestion {
@@ -56,5 +97,6 @@ export function runTmwCp011LocalizedPipeline(input: {
     remediated,
     source.questionLanguageId,
   );
-  return removePunjabiDandaFalsePositive(teachingRemediated);
+  const trapRemediated = naturalizeSeedDependentTrap(teachingRemediated);
+  return removePunjabiDandaFalsePositive(trapRemediated);
 }
