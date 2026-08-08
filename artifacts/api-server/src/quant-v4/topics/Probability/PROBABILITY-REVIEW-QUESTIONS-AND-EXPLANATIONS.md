@@ -2243,7 +2243,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 127 — PRB-QL-802 (Medium)
 
-**Question:** In a group of 90 students, 11 students play both games. What is the probability that a randomly selected student satisfies both conditions?
+**Question:** In a group of 90 students, 11 students play both games. What is the probability that a randomly selected student meets both conditions?
 
 **Options:**
 
@@ -2261,7 +2261,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 128 — PRB-QL-803 (Medium)
 
-**Question:** In a group of 81 candidates, 38 candidates cleared Section A, 33 candidates cleared Section B, and 3 candidates meet both conditions. What is the probability that a randomly selected candidate satisfies exactly one condition?
+**Question:** In a group of 81 candidates, 38 candidates cleared Section A, 33 candidates cleared Section B, and 3 candidates meet both conditions. What is the probability that a randomly selected candidate meets exactly one condition?
 
 **Options:**
 
@@ -2279,7 +2279,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 129 — PRB-QL-804 (Medium)
 
-**Question:** In a group of 51 students, 29 students passed Mathematics, 38 students passed English, and 16 students meet both conditions. What is the probability that a randomly selected student satisfies neither condition?
+**Question:** In a group of 51 students, 29 students passed Mathematics, 38 students passed English, and 16 students meet both conditions. What is the probability that a randomly selected student meets neither condition?
 
 **Options:**
 
@@ -2333,7 +2333,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 132 — PRB-QL-808 (Hard)
 
-**Question:** In a group of 59 students, 37 students passed Mathematics, 21 students passed English, and 10 students meet both conditions. What is the probability that a randomly selected student satisfies exactly one condition?
+**Question:** In a group of 59 students, 37 students passed Mathematics, 21 students passed English, and 10 students meet both conditions. What is the probability that a randomly selected student meets exactly one condition?
 
 **Options:**
 
@@ -2369,7 +2369,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 134 — PRB-QL-816 (Hard)
 
-**Question:** In a group of 82 students, 19 students passed Mathematics, 19 students passed English, and 6 students meet both conditions. What is the probability that a randomly selected student satisfies exactly one condition?
+**Question:** In a group of 82 students, 19 students passed Mathematics, 19 students passed English, and 6 students meet both conditions. What is the probability that a randomly selected student meets exactly one condition?
 
 **Options:**
 

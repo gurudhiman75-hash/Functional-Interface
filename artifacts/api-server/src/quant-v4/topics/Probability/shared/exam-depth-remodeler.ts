@@ -166,13 +166,13 @@ function renderEventGroupStem(entry: ProbabilityTaskRegistryEntry, parameters: G
     return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} meets at least one condition?`;
   }
   if (mode === "findIntersectionProbability") {
-    return `In a group of ${total} ${context.groupNoun}, ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} satisfies both conditions?`;
+    return `In a group of ${total} ${context.groupNoun}, ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} meets both conditions?`;
   }
   if (["findExactlyOneOfTwoEvents", "findMixedEventExpressionProbability"].includes(mode)) {
-    return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} satisfies exactly one condition?`;
+    return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} meets exactly one condition?`;
   }
   if (mode === "findNeitherEventProbability") {
-    return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} satisfies neither condition?`;
+    return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} meets neither condition?`;
   }
   const union = a + b - both;
   return `For a group of ${total} ${context.groupNoun}, P(${context.subjectA}) = ${fraction(a, total)}, P(${context.subjectB}) = ${fraction(b, total)}, and P(${context.subjectA} or ${context.subjectB}) = ${fraction(union, total)}. Find P(${context.subjectA} and ${context.subjectB}).`;
