@@ -45,6 +45,16 @@ function speedReason(
     return `⚠️ ${option.text}: it uses 3600 seconds per hour; the given rate is per minute, so use × 60.`;
   }
 
+  if (input.from === "M_PER_MINUTE" && input.to === "MPS") {
+    if (option.misconceptionId === "OMIT_UNIT_CONVERSION") {
+      return `⚠️ ${option.text}: it copies ${value}; m/min to m/s requires dividing by 60.`;
+    }
+    if (option.misconceptionId === "REVERSE_UNIT_CONVERSION") {
+      return `⚠️ ${option.text}: it multiplies by 60; m/min to m/s requires dividing by 60.`;
+    }
+    return `⚠️ ${option.text}: it uses 100 seconds per minute; the correct factor is 60 seconds per minute.`;
+  }
+
   if (input.from === "MPS" && input.to === "KMPH") {
     if (option.misconceptionId === "OMIT_UNIT_CONVERSION") {
       return `⚠️ ${option.text}: it copies ${value}; m/s to km/h requires multiplying by 3.6.`;
