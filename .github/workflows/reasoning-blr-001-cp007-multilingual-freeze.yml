@@ -1,0 +1,94 @@
+name: Reasoning BLR-001 CP-007 Multilingual Freeze
+
+on:
+  push:
+    branches:
+      - freeze/blr-001-cp007-multilingual
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp007-multilingual-freeze.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp007-multilingual-freeze.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp007-multilingual-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-multilingual-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove frozen English authority
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-english-frozen.test.ts | tee english-freeze.log
+
+      - name: Reprove Hindi and Punjabi review parity
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-multilingual-localisation.test.ts | tee multilingual-localisation.log
+
+      - name: Prove multilingual freeze
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-multilingual-frozen.test.ts | tee multilingual-freeze.log
+
+      - name: Export multilingual freeze evidence
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-multilingual-frozen.ts blr-cp007-multilingual-frozen-output | tee multilingual-freeze-export.log
+
+      - name: Verify freeze-pack contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=blr-cp007-multilingual-frozen-output
+          test -f "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          test -f "$OUT/blr-cp007-multilingual-frozen-bank.json"
+          test -f "$OUT/BLR-CP-007-MULTILINGUAL-FREEZE.md"
+          test -f "$OUT/blr-cp007-multilingual-freeze-review.html"
+          grep -q '"englishCount": 168' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"hindiFrozenCount": 168' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"punjabiFrozenCount": 168' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"localizedFrozenCount": 336' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"totalMultilingualRecordCount": 504' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"hindiLearnerCorpusChanged": false' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"punjabiLearnerCorpusChanged": false' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"hindiSemanticParity": true' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"punjabiSemanticParity": true' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"localisationReviewPendingCount": 0' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"humanReviewRequiredCount": 0' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"multilingualFrozenCount": 336' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"questionStudioEnabledCount": 0' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"productDeliveryEnabledCount": 0' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+          grep -q '"verdict": "BLR_CP007_MULTILINGUAL_FROZEN"' "$OUT/blr-cp007-multilingual-freeze-summary.json"
+
+      - name: Upload multilingual freeze logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-multilingual-freeze-logs
+          path: |
+            english-freeze.log
+            multilingual-localisation.log
+            multilingual-freeze.log
+            multilingual-freeze-export.log
+          retention-days: 14
+
+      - name: Upload multilingual freeze pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-multilingual-frozen
+          path: blr-cp007-multilingual-frozen-output
+          retention-days: 30

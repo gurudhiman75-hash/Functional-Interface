@@ -1,0 +1,97 @@
+name: Reasoning BLR-001 CP-007 English Freeze
+
+on:
+  push:
+    branches:
+      - review/blr-001-cp007-manual-english-freeze-decision
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp007-manual-english-freeze-decision.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp007-manual-english-freeze-decision.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp007-english-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-english-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove approved final corpus
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-wave3-final.test.ts | tee cp007-final.log
+
+      - name: Prove renewed English audit
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/blr-001-approved-english-freeze-audit-reviewed.test.ts | tee approved-english-audit.log
+
+      - name: Prove manual English-freeze decision candidate
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-english-freeze-decision-candidate.test.ts | tee manual-freeze-decision.log
+
+      - name: Prove granted English freeze
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-english-frozen.test.ts | tee english-freeze.log
+
+      - name: Export English-freeze evidence pack
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-english-frozen.ts blr-cp007-english-frozen-output | tee english-freeze-export.log
+
+      - name: Verify English-freeze contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=blr-cp007-english-frozen-output
+          test -f "$OUT/blr-cp007-english-freeze-summary.json"
+          test -f "$OUT/BLR-CP-007-ENGLISH-FREEZE.md"
+          test -f "$OUT/blr-cp007-english-freeze-review.html"
+          grep -q '"recordCount": 168' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"targetRelationCount": 27' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"balancedCounterpartPairCount": 13' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"learnerCorpusChanged": false' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"englishFreezePendingCount": 0' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"frozenCount": 168' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"humanReviewRequiredCount": 0' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"localisationUnlockedCount": 168' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"productDeliveryEnabledCount": 0' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"verdict": "BLR_CP007_ENGLISH_FROZEN"' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '"nextPhase": "HINDI_PUNJABI_LOCALISATION_AND_PARITY_PROOF"' "$OUT/blr-cp007-english-freeze-summary.json"
+          grep -q '@media(max-width:800px)' "$OUT/blr-cp007-english-freeze-review.html"
+
+      - name: Upload freeze logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-english-freeze-logs
+          path: |
+            cp007-final.log
+            approved-english-audit.log
+            manual-freeze-decision.log
+            english-freeze.log
+            english-freeze-export.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload English-freeze evidence pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-english-frozen
+          path: blr-cp007-english-frozen-output
+          if-no-files-found: error
+          retention-days: 30
