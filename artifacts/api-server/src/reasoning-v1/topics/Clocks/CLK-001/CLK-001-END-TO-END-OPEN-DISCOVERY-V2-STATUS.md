@@ -1,73 +1,76 @@
-# CLK-001 — End-to-End Open Discovery V2
+# CLK-001 — Corrective Open Discovery V2
 
 ## Authority
 
-This implementation is governed solely by:
+This work remains governed solely by:
 
 ```text
 CLK-001-CLOCKS-MASTER-END-TO-END-DESIGN-V2.md
 SHA-256: db7fcb55498201427706416ba36622718f667ee88500c8c1572f59473cff4bcc
 ```
 
-Older Clock drafts and the former branch mapping angle-at-time to `CLK-CP-001` are not implementation authorities. Under V2:
+## Corrected status
 
-- `CLK-CP-001` owns hand movement and rates;
-- `CLK-CP-002` owns angle at a stated time.
+The repository contains valuable exact Clock foundations and broad source-candidate experiments. It does **not** yet contain a frozen, exam-ready or multilingual Clock chapter.
 
-## Executable checkpoint coverage
+The design's open-discovery rows are now explicitly classified as:
 
-All 14 provisional design checkpoints have executable open-discovery coverage:
+```text
+SOURCE_AUDIT_CANDIDATES_NOT_AUTHORITIES
+```
 
-1. hand movement and rate foundations;
-2. angle at a stated time;
-3. time for an arbitrary angle;
-4. special hand events;
-5. event counts and recurrence;
-6. basic uniform gain/loss;
-7. inverse and multi-day faulty clocks;
-8. faults inferred from hand-event frequency;
-9. strike interval mechanics;
-10. hour-strike totals and schedules;
-11. vertical mirror-time arithmetic;
-12. diagram literacy;
-13. valid hand interchange;
-14. mixed synthesis.
+Their row count has no product meaning. They are not permanent QLs, quotas or proof that 100 distinct learner authorities should survive source saturation.
 
-The design's 100 seed-inventory rows are represented as executable provisional task contracts. They are not 100 permanent QLs, quotas, or a discovery freeze.
+## Remediation slice 1
 
-## Engine coverage
+This slice rebuilds `CLK-CP-003`, `CLK-CP-004` and `CLK-CP-005` because the former generic event handler could package roots or counts that did not answer the visible query.
 
-- exact reduced rational arithmetic;
-- continuous hour, minute and second-hand kinematics;
-- exact modular analytic event solving;
-- independent event-cycle enumeration;
-- exact interval and endpoint policies;
-- affine actual/displayed faulty-clock mapping and inverse proof;
-- event-frequency rate inference;
-- explicit strike-event timelines using `n−1` gaps;
-- vertical mirror arithmetic and hand-angle geometry cross-check;
-- safe deterministic analog-clock SVG rendering;
-- exact hand-interchange solving;
-- deterministic generation, named misconception distractors and Question Studio-shaped review metadata.
+Corrective controls now include:
 
-## Review and proof targets
+- dedicated task-specific stems and scenarios;
+- exact root-order contracts such as earlier, first, next, previous and all roots;
+- independent analytic-versus-cycle event answers;
+- visible stem-token parity checks;
+- answer-kind contract checks;
+- explicit interval endpoint metadata;
+- task-specific event distractors;
+- English-only review generation.
 
-The dedicated end-to-end proof validates:
+Every remediated event question must carry:
 
-- all 100 provisional task contracts;
-- all 14 checkpoints;
-- English, Hindi and Punjabi executable parity;
-- deterministic replay;
-- four semantically and visibly distinct options;
-- exactly one correct answer;
-- balanced A/B/C/D placement;
-- lifecycle locks;
-- standard 12-hour event counts derived from exact roots;
-- faulty-clock round trips;
-- strike timeline identities;
-- all 720 minute-resolution mirror positions;
-- exact hand-interchange pairs;
-- English 100-question and multilingual 300-question review exports.
+```text
+proofLevel: DUAL_ANSWER_ORACLE
+stemScenarioParity: true
+answerContractVerified: true
+contractOracle: <task-specific oracle>
+```
+
+## Remaining discovery debt
+
+The following sections still remain structural experiments and must not claim completed dual-answer proof:
+
+- parts of `CLK-CP-001` and `CLK-CP-002` needing editorial refinement;
+- `CLK-CP-006` to `CLK-CP-008` task-specific faulty-clock reconstruction;
+- `CLK-CP-011` answer-leak removal;
+- `CLK-CP-012` structured media and accessibility remediation;
+- `CLK-CP-013` interchange stem and option remediation;
+- `CLK-CP-014` mixed-synthesis reconstruction.
+
+These candidates carry:
+
+```text
+STRUCTURAL_DISCOVERY_ONLY__REMEDIATION_REQUIRED
+```
+
+## Localisation policy
+
+Hindi and Punjabi generation is blocked until:
+
+1. corrected English task authorities pass source saturation;
+2. merge/split, inverse, boundary and chapter-gap audits pass;
+3. English human freeze is approved.
+
+Script presence is not accepted as localisation proof.
 
 ## Lifecycle lock
 
@@ -75,12 +78,13 @@ The dedicated end-to-end proof validates:
 Permanent QLs:                0
 Source-saturation freeze:     false
 English human freeze:         false
-Hindi human freeze:           false
-Punjabi human freeze:         false
+Hindi/Punjabi generation:     blocked
 Question Studio discovery:    false
 Question Bank writes:         false
 Mock-test eligibility:        false
 Public publication:           false
 ```
 
-The implementation is comprehensive executable discovery. It is not a content freeze or publication approval.
+## Next remediation slice
+
+Rebuild `CLK-CP-006` to `CLK-CP-008` with separate scenario constructors and answer-type oracles for each faulty-clock candidate contract. Do not route those contracts through one generic affine example.
