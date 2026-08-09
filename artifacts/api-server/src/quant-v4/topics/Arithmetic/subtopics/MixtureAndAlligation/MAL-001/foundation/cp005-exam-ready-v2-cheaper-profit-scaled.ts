@@ -16,7 +16,6 @@ import {
   HUNDRED_V2,
   actorPhraseV2,
   buildNaturalOptionsV2,
-  cheaperCommercialStateV2,
   moneyTextV2,
   packageExamReadyQuestionV2,
   percentTextV2,
@@ -24,6 +23,7 @@ import {
   rateTextV2,
   ratioTextV2,
 } from "./cp005-exam-ready-v2-core";
+import { cheaperProfitStateFromPoolV2 } from "./cp005-exam-ready-v2-cheaper-profit-pool";
 
 function expectPercent(result: MalCp005SolveResult) {
   if (result.kind !== "PERCENT") throw new Error("Expected percent result.");
@@ -37,7 +37,7 @@ export function cheaperProfitQuestionScaledV2(input: {
 }): MalCp005ExamReadyQuestionV2 {
   const prototypeId =
     "MAL-CP005-PROT-PROFIT-FROM-CHEAPER-IMPURITY-BLEND" as const;
-  const state = cheaperCommercialStateV2(input.selectedSeed);
+  const state = cheaperProfitStateFromPoolV2(input.selectedSeed);
   const request: Extract<
     MalCp005SolveRequest,
     { mode: "CHEAPER_BLEND_PROFIT_FROM_COSTS_QUANTITIES_AND_SELLING_RATE" }
