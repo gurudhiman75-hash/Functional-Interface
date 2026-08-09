@@ -118,6 +118,7 @@ export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQ
     seed: input.seed,
     difficulty: input.difficulty ?? defaultDifficulty(input.taskId),
     stem: solved.stem,
+    media: solved.media,
     scenario: solved.scenario,
     answer: solved.answer,
     options,
