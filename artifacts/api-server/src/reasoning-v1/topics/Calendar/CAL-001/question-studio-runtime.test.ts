@@ -2,7 +2,6 @@ import {
   generateQuestion,
   listQuantV4Packages,
 } from "../../../../quant-v4/generation-engine.ts";
-import { getGeneratedQuestionBankEligibilityIssue } from "../../../../lib/admin-question-conversion.ts";
 import { analyzeGeneratedQuestionPayload } from "../../../../lib/question-studio-quality.ts";
 import { CALENDAR_PERMANENT_QL_IDS } from "./permanent-contracts.ts";
 import { CAL_001_RELEASE_LOCK } from "./final-discovery-freeze.ts";
@@ -10,7 +9,6 @@ import {
   CAL_001_PACKAGE_ID,
   CAL_001_QUESTION_STUDIO_ACTIVATION,
   CAL_001_QUESTION_STUDIO_LANGUAGES,
-  generateCal001QuestionStudioBatch,
   runCal001QuestionStudioPipeline,
   toCal001QuestionStudioPreview,
 } from "./question-studio-runtime.ts";
@@ -43,9 +41,11 @@ for (const qlId of CALENDAR_PERMANENT_QL_IDS) {
     assert(english.parameters.publiclyPublishable === false, `${qlId}: publication gate opened.`);
 
     const englishPreview = toCal001QuestionStudioPreview(english, seed);
-    const quality = analyzeGeneratedQuestionPayload(englishPreview);
-    assert(quality.blockerCount === 0, `${qlId}: English preview has quality blockers.`);
-    assert(getGeneratedQuestionBankEligibilityIssue(englishPreview) !== null, `${qlId}: review-only preview became bank-writable.`);
+    const englishQuality = analyzeGeneratedQuestionPayload(englishPreview);
+    assert(englishQuality.blockerCount === 0, `${qlId}: English preview has quality blockers.`);
+    assert(englishPreview.questionBankStatus === "NOT_STORED", `${qlId}: English preview became bank-writable.`);
+    assert(englishPreview.testEligibility === "INELIGIBLE", `${qlId}: English preview became test-eligible.`);
+    assert(englishPreview.publiclyPublishable === false, `${qlId}: English preview became publishable.`);
     qualityChecks++;
 
     for (const language of ["hi", "pa"] as const) {
@@ -54,6 +54,7 @@ for (const qlId of CALENDAR_PERMANENT_QL_IDS) {
         seed,
       });
       const preview = toCal001QuestionStudioPreview(localized, seed);
+
       assert(localized.canonicalProblemId === qlId, `${qlId} ${language}: identity changed.`);
       assert(localized.traceability.sourcePrototypeAuthority === english.traceability.sourcePrototypeAuthority, `${qlId} ${language}: source authority parity failed.`);
       assert(localized.traceability.mathematicalFingerprint === english.traceability.mathematicalFingerprint, `${qlId} ${language}: mathematical parity failed.`);
@@ -62,9 +63,13 @@ for (const qlId of CALENDAR_PERMANENT_QL_IDS) {
       assert(!englishWord.test(localized.stem), `${qlId} ${language}: English leaked into stem.`);
       assert(!englishWord.test(localized.explanation.lines.join(" ")), `${qlId} ${language}: English leaked into explanation.`);
       assert(!/[、]/.test(JSON.stringify(preview)), `${qlId} ${language}: foreign separator leaked into preview.`);
+
       const localizedQuality = analyzeGeneratedQuestionPayload(preview);
       assert(localizedQuality.blockerCount === 0, `${qlId} ${language}: preview has quality blockers.`);
-      assert(getGeneratedQuestionBankEligibilityIssue(preview) !== null, `${qlId} ${language}: preview became bank-writable.`);
+      assert(preview.questionBankStatus === "NOT_STORED", `${qlId} ${language}: preview became bank-writable.`);
+      assert(preview.testEligibility === "INELIGIBLE", `${qlId} ${language}: preview became test-eligible.`);
+      assert(preview.publiclyPublishable === false, `${qlId} ${language}: preview became publishable.`);
+
       permanentPackagesChecked++;
       localizedParityChecks += 5;
       qualityChecks++;
@@ -75,7 +80,7 @@ for (const qlId of CALENDAR_PERMANENT_QL_IDS) {
 
 const catalogPackage = listQuantV4Packages().find(
   (pkg) => pkg.packageId === CAL_001_PACKAGE_ID,
-);
+) as any;
 assert(catalogPackage, "CAL-001 is missing from Question Studio capabilities.");
 assert(catalogPackage.enabled === true, "CAL-001 capability is disabled.");
 assert(catalogPackage.section === "Reasoning", "CAL-001 is not classified under Reasoning.");
@@ -98,6 +103,8 @@ assert(new Set(mixedBatch.questions.map((question: any) => question.canonicalPro
 assert(mixedBatch.questions.every((question: any) => question.section === "Reasoning"), "Calendar preview section is not Reasoning.");
 assert(mixedBatch.questions.every((question: any) => question.generationBackend === "reasoning-v1"), "Calendar preview backend is not reasoning-v1.");
 assert(mixedBatch.questions.every((question: any) => question.questionBankStatus === "NOT_STORED"), "Mixed batch opened Question Bank writes.");
+assert(mixedBatch.questions.every((question: any) => question.testEligibility === "INELIGIBLE"), "Mixed batch opened test eligibility.");
+assert(mixedBatch.questions.every((question: any) => question.publiclyPublishable === false), "Mixed batch opened publication.");
 
 const explicitRegeneration = await generateQuestion({
   packageId: CAL_001_PACKAGE_ID,
@@ -110,6 +117,7 @@ const explicitRegeneration = await generateQuestion({
 assert(explicitRegeneration.questions.length === 1, "Explicit Calendar regeneration returned wrong count.");
 assert(explicitRegeneration.questions[0]?.canonicalProblemId === "CAL-QL-036", "Explicit Calendar QL selection failed.");
 assert(explicitRegeneration.questions[0]?.language === "pa", "Explicit Calendar language selection failed.");
+assert(explicitRegeneration.questions[0]?.questionBankStatus === "NOT_STORED", "Regeneration opened Question Bank writes.");
 
 assert(CAL_001_QUESTION_STUDIO_ACTIVATION.questionStudioVisible, "Current Calendar Question Studio activation is closed.");
 assert(CAL_001_QUESTION_STUDIO_ACTIVATION.questionStudioGeneratable, "Calendar generation is disabled.");
