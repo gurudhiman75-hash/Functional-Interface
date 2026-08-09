@@ -56,7 +56,8 @@ const bannedHindiGrammar = [
   /अवधि का गुणक लागू या उलटें/gu,
   /(?:तिमाहियाँ|छमाहियाँ|महीने) लिए गए हैं/gu,
   /कुल \d+ (?:तिमाहियाँ|छमाहियाँ|महीने|वर्ष) लेने पर/gu,
-  /\d+(?:\.\d+)?% ÷ 1/gu,
+  /\d+(?:\.\d+)?% ÷ 1(?!\d)/gu,
+  /\d+(?:\.\d+)?%\d+\s*=/gu,
   /वार्षिक दर को सीधे हर बार पर न लगाएँ; हर वर्ष की दर/gu,
   /एक राशि ₹[\d,.]+ है/gu,
   /एक निवेश ₹[\d,.]+ है/gu,
@@ -84,7 +85,8 @@ const bannedPunjabiGrammar = [
   /ਆਵ੍ਰਿਤੀ/gu,
   /(?:ਤਿਮਾਹੀਆਂ|ਛਿਮਾਹੀਆਂ|ਮਹੀਨੇ) ਲਏ ਗਏ ਹਨ/gu,
   /ਕੁੱਲ \d+ (?:ਤਿਮਾਹੀਆਂ|ਛਿਮਾਹੀਆਂ|ਮਹੀਨੇ|ਸਾਲ) ਲੈਣ ਉੱਤੇ/gu,
-  /\d+(?:\.\d+)?% ÷ 1/gu,
+  /\d+(?:\.\d+)?% ÷ 1(?!\d)/gu,
+  /\d+(?:\.\d+)?%\d+\s*=/gu,
   /ਸਾਲਾਨਾ ਦਰ ਨੂੰ ਸਿੱਧਾ ਹਰ ਵਾਰ ਉੱਤੇ ਨਾ ਲਗਾਓ; ਹਰ ਸਾਲ ਦੀ ਦਰ/gu,
   /ਇੱਕ ਰਕਮ ₹[\d,.]+ ਹੈ/gu,
   /ਇੱਕ ਨਿਵੇਸ਼ ₹[\d,.]+ ਹੈ/gu,
@@ -162,7 +164,7 @@ for (const locale of locales) {
       }
 
       if (question.mathematicalState.frequency === 1) {
-        assert(!learnerText.includes("÷ 1"), `${qlId}/${seed}/${locale}: redundant annual-rate division remains.`);
+        assert(!/÷\s*1(?!\d)/u.test(learnerText), `${qlId}/${seed}/${locale}: redundant annual-rate division remains.`);
         annualWordingChecks += 1;
       }
 
