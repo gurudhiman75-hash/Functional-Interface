@@ -86,10 +86,10 @@ export function buildSpatialFcl001ProofCorpus(): SpatialClassificationProofQuest
       propertyId: "SEGMENT_MATCHES_OUTER_SIDES_MINUS_ONE",
       expectedOddIndex: 0,
       states: [
-        figure("CIRCLE", "SQUARE", 0, 0, "TOP_LEFT", "UP", false, 1, "LEFT"),
+        figure("SQUARE", "TRIANGLE", 0, 0, "TOP_LEFT", "UP", false, 1, "LEFT"),
         figure("TRIANGLE", "SQUARE", 0, 0, "BOTTOM_RIGHT", "DOWN", false, 2, "RIGHT"),
         figure("SQUARE", "PENTAGON", 0, 0, "TOP_RIGHT", "LEFT", true, 3, "LEFT"),
-        figure("PENTAGON", "CIRCLE", 0, 0, "BOTTOM_LEFT", "RIGHT", true, 4, "RIGHT"),
+        figure("PENTAGON", "SQUARE", 0, 0, "BOTTOM_LEFT", "RIGHT", true, 4, "RIGHT"),
       ],
     }),
     generateFigureClassificationProofQuestion({
