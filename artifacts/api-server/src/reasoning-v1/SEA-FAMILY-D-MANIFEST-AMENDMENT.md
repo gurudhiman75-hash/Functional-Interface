@@ -23,9 +23,10 @@ The executable discovery implementation currently covers:
 SEA-001 / SEA-CP-001 — Single row, same facing
 SEA-001 / SEA-CP-002 — Single row, mixed facing
 SEA-001 / SEA-CP-003 — Circular seating, facing centre
+SEA-001 / SEA-CP-004 — Circular seating, facing outward
 ```
 
-`SEA-CP-004` and `SEA-CP-005` remain the unfinished Wave 5 checkpoints. Parallel-row, polygonal, multi-ring, attribute, vacancy, conditional, ranking-linked and controlled multi-model checkpoints also remain outside the active boundary.
+`SEA-CP-005 — Circular, Mixed Facing` is the only unfinished SEA-001 checkpoint. Parallel-row, polygonal, multi-ring, attribute, vacancy, conditional, ranking-linked and controlled multi-model checkpoints remain outside the active boundary.
 
 ## Authority and lifecycle
 
