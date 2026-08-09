@@ -17,6 +17,7 @@ import {
   remediateCp004LocalizedOptionsV4,
   renderCp004LocalizedEditorialV4Stem,
 } from "./cp004-localized-editorial-v4";
+import { remodelCp004LocalizedPresentationV5 } from "./cp004-localized-presentation-v5";
 import {
   INT_CP004_PRESENTATION_WAVE1_QL_IDS,
   renderCp004LocalizedPresentationWave1,
@@ -145,11 +146,12 @@ function localizedStem(
   // Keep the legacy renderer reachable for ownership regression, while the
   // learner-facing runtime is rebuilt by the human-language editorial layer.
   legacyLocalizedStem(source, locale);
-  return polishLocalizedStem(
+  const editorialV4 = polishLocalizedStem(
     source,
     locale,
     renderCp004LocalizedEditorialV4Stem(source, locale),
   );
+  return remodelCp004LocalizedPresentationV5(source, locale, editorialV4);
 }
 
 function cleanExplanation(
