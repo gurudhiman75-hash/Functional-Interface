@@ -23,6 +23,7 @@ import { buildFrequencyExamReadyProblemOverride } from "./exam-readiness-frequen
 import { applyCalendarEnglishStemSimplification } from "./english-stem-simplification.ts";
 import { finalizeCalendarEnglishStemSimplification } from "./english-stem-simplification-final.ts";
 import { applyCalendarMultilingualEditorialFreeze } from "./multilingual-editorial-freeze.ts";
+import { finalizeCalendarMultilingualEditorialFreeze } from "./multilingual-editorial-final.ts";
 
 const CLOSED_LIFECYCLE = {
   discoveryStatus: "EXECUTABLE_DISCOVERY" as const,
@@ -132,7 +133,9 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
   const simplified = finalizeCalendarEnglishStemSimplification(
     applyCalendarEnglishStemSimplification(remediated),
   );
-  const localized = applyCalendarMultilingualEditorialFreeze(simplified);
+  const localized = finalizeCalendarMultilingualEditorialFreeze(
+    applyCalendarMultilingualEditorialFreeze(simplified),
+  );
   const optionKeys = localized.options.map((option) => semanticKey(option.semanticValue));
   if (localized.options.length !== 4 || new Set(optionKeys).size !== 4) throw new Error(`${prototypeAuthority}: options are not semantically unique.`);
   if (new Set(localized.options.map((option) => option.display)).size !== 4) throw new Error(`${prototypeAuthority}: option labels are not textually unique.`);
