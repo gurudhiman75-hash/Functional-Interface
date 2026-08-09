@@ -63,6 +63,7 @@ jobs:
             pace-option-seed-sweep-proof \
             final-editorial-integrity-proof \
             final-editorial-seed-sweep-proof \
+            full-authority-generation-proof \
             english-freeze-candidate-proof \
             canonical-review-export
           do
@@ -100,6 +101,7 @@ jobs:
             pace-option-seed-sweep-proof \
             final-editorial-integrity-proof \
             final-editorial-seed-sweep-proof \
+            full-authority-generation-proof \
             english-freeze-candidate-proof \
             canonical-review-export
           do
