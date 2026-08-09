@@ -2,10 +2,16 @@ import {
   cp001AuthorityByMode,
   generateCp001Candidate,
 } from "./cp001/runtime";
+import { hasTsdCalculationEvidence } from "./cp001/exact-option-feedback";
 import type { TsdCp001DiscoverySolveMode } from "./cp001/discovery-registry";
+import { calibratedDifficultyLabel } from "./difficulty-calibration";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
+}
+
+function withoutDisplayedOption(reason: string, optionText: string): string {
+  return reason.replace(optionText, "").replace(/^[✅⚠️\s:.-]+/, "").trim();
 }
 
 const MODES = [
@@ -36,6 +42,8 @@ for (const mode of MODES) {
     assert(question.options[question.correctIndex] === question.answerText, `${question.questionLanguageId}: answer key differs`);
     assert(question.optionAudit[question.correctIndex]?.isCorrect, `${question.questionLanguageId}: correct audit is missing`);
     assert(question.explanation.optionAnalysis.length === 4, `${question.questionLanguageId}: option analysis is incomplete`);
+    assert(question.difficulty.status === "EDITORIALLY_CALIBRATED", `${question.questionLanguageId}: difficulty remains uncalibrated`);
+    assert(question.difficulty.label === calibratedDifficultyLabel(question.difficulty.featureScore), `${question.questionLanguageId}: difficulty conflicts with rubric`);
 
     question.optionAudit.forEach((audit, optionIndex) => {
       const analysis = question.explanation.optionAnalysis[optionIndex];
@@ -45,11 +53,12 @@ for (const mode of MODES) {
       assert(audit.isCorrect === analysis.isCorrect, `${question.questionLanguageId}: audit-analysis correctness mismatch`);
       if (audit.isCorrect) return;
       assert(analysis.reason.includes(audit.text), `${question.questionLanguageId}: reason does not name ${audit.text}`);
-      assert(/\d/.test(analysis.reason), `${question.questionLanguageId}: reason has no numerical evidence`);
+      assert(hasTsdCalculationEvidence(withoutDisplayedOption(analysis.reason, audit.text)), `${question.questionLanguageId}: reason lacks exact numerical evidence`);
       assert(!GENERIC.test(analysis.reason), `${question.questionLanguageId}: generic wording remains`);
       const words = analysis.reason.trim().split(/\s+/).length;
       maximumReasonWords = Math.max(maximumReasonWords, words);
-      assert(words <= 42, `${question.questionLanguageId}: reason exceeds 42 words`);
+      const maximumWords = analysis.reason.includes("Check:") ? 65 : 42;
+      assert(words <= maximumWords, `${question.questionLanguageId}: reason exceeds ${maximumWords} words`);
       wrongOptions += 1;
     });
 
@@ -91,6 +100,7 @@ console.log(JSON.stringify({
   modeCounts: Object.fromEntries(modeCounts),
   mathematicalProfiles: profileKeys.size,
   maximumReasonWords,
+  difficultyStatus: "EDITORIALLY_CALIBRATED",
   permanentQls: 0,
   englishFreezeStatus: "UNFROZEN",
 }, null, 2));
