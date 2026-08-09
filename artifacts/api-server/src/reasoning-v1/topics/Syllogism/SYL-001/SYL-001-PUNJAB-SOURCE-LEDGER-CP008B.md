@@ -35,7 +35,7 @@ Premise forms observed:
 
 ```text
 ALL:   14
-SOME:   9
+SOME:  11
 NO:     2
 ONLY:   0
 ONLY_A_FEW: 0
