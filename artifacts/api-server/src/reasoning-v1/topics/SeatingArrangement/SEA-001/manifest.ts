@@ -1,4 +1,5 @@
 import type { SeatingBlueprintId } from "./types.ts";
+import type { MixedFacingBlueprintId } from "./cp002/types.ts";
 import type { CircularBlueprintId } from "./cp003/types.ts";
 
 export const SEA_001_BLUEPRINTS: readonly SeatingBlueprintId[] = [
@@ -6,6 +7,13 @@ export const SEA_001_BLUEPRINTS: readonly SeatingBlueprintId[] = [
   "SEA-PBA-002",
   "SEA-PBA-003",
   "SEA-PBA-004",
+];
+
+export const SEA_001_CP002_BLUEPRINTS: readonly MixedFacingBlueprintId[] = [
+  "SEA-PBA-005",
+  "SEA-PBA-006",
+  "SEA-PBA-007",
+  "SEA-PBA-008",
 ];
 
 export const SEA_001_CP003_BLUEPRINTS: readonly CircularBlueprintId[] = [
@@ -37,9 +45,10 @@ export const SEA_FAMILY_MANIFEST = Object.freeze({
   family: "REAS-SEA",
   packages: ["SEA-001", "SEA-002", "SEA-003"] as const,
   activePackage: "SEA-001" as const,
-  implementedCheckpoints: ["SEA-CP-001", "SEA-CP-003"] as const,
+  implementedCheckpoints: ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003"] as const,
   completedRoadmapWaves: ["WAVE-0-GOVERNANCE", "WAVE-1-CONSTRAINT-CORE", "WAVE-2-SEA-CP-001", "WAVE-3-SEA-CP-003", "WAVE-4-VERIFICATION-HARDENING"] as const,
-  nextRoadmapWave: "WAVE-5-COMPLETE-SEA-001" as const,
-  nextCheckpointSequence: ["SEA-CP-002", "SEA-CP-004", "SEA-CP-005"] as const,
+  activeRoadmapWave: "WAVE-5-COMPLETE-SEA-001" as const,
+  completedWave5Checkpoints: ["SEA-CP-002"] as const,
+  nextCheckpointSequence: ["SEA-CP-004", "SEA-CP-005"] as const,
   permanentQlCount: 0 as const,
 });
