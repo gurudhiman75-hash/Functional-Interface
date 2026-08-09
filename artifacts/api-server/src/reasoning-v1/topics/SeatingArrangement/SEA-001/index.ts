@@ -9,6 +9,28 @@ export * from "./solver/independent-oracle.ts";
 export * from "./generation/caselet-assembler.ts";
 export * from "./packages/sea-001/cp-001.ts";
 export type {
+  MixedPersonId,
+  MixedFacingDirection,
+  MixedRelativeDirection,
+  MixedFacingBlueprintId,
+  MixedFacingQueryContractId,
+  MixedFacingConstraint,
+  MixedFacingModel,
+  MixedFacingAnswerType,
+  MixedFacingSemanticValue,
+  MixedFacingMisconceptionId,
+  MixedFacingOption,
+  MixedFacingChildQuestion,
+  MixedFacingProofEvent,
+  MixedFacingCaseletRecord,
+} from "./cp002/types.ts";
+export * from "./cp002/topology.ts";
+export * from "./cp002/constraints.ts";
+export * from "./cp002/solvers.ts";
+export * from "./cp002/questions.ts";
+export * from "./cp002/generator.ts";
+export * from "./packages/sea-001/cp-002.ts";
+export type {
   CyclicDirection,
   CircularBlueprintId,
   CircularQueryContractId,
