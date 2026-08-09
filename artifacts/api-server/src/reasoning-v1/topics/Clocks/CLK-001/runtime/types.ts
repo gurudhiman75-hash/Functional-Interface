@@ -53,6 +53,10 @@ export interface ClockSolveTrace {
   agreement: true;
   canonicalTrace: readonly string[];
   verifierTrace: readonly string[];
+  proofLevel: "DUAL_ANSWER_ORACLE" | "STRUCTURAL_DISCOVERY_ONLY";
+  contractOracle?: string;
+  stemScenarioParity?: boolean;
+  answerContractVerified?: boolean;
   endpointPolicy?: string;
   roundingPolicy?: string;
   handAngles?: Readonly<Record<string, string>>;
@@ -66,8 +70,10 @@ export interface ClockSolveTrace {
 export interface ClockQuestionLifecycle {
   discoveryStatus: "OPEN_EXECUTABLE_DISCOVERY";
   editorialStatus: "HUMAN_REVIEW_REQUIRED";
-  solverProofStatus: "DUAL_PROOF_REQUIRED_AND_PASSED";
-  localeStatus: "EXECUTABLE_PARITY__HUMAN_LANGUAGE_REVIEW_REQUIRED";
+  solverProofStatus:
+    | "DUAL_ANSWER_ORACLE_PASSED"
+    | "STRUCTURAL_DISCOVERY_ONLY__REMEDIATION_REQUIRED";
+  localeStatus: "ENGLISH_DISCOVERY__LOCALISATION_BLOCKED_UNTIL_ENGLISH_FREEZE";
   publicationStatus: "LOCKED";
   permanentQlId: null;
   questionStudioDiscoverable: false;
