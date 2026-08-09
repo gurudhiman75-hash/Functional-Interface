@@ -9,9 +9,11 @@ on:
       - fix/cal-001-simplify-english-stems
       - fix/cal-001-final-english-editorial-freeze-v2
       - feat/cal-001-multilingual-human-freeze
+      - feat/cal-001-question-studio-integration
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/**
       - artifacts/api-server/src/reasoning-v1/CAL-001-FAMILY-F-MANIFEST-AMENDMENT.md
+      - artifacts/api-server/src/quant-v4/generation-engine.ts
       - .github/workflows/cal-001-foundation.yml
   pull_request:
     branches:
@@ -20,6 +22,7 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/**
       - artifacts/api-server/src/reasoning-v1/CAL-001-FAMILY-F-MANIFEST-AMENDMENT.md
+      - artifacts/api-server/src/quant-v4/generation-engine.ts
       - .github/workflows/cal-001-foundation.yml
   workflow_dispatch:
 
@@ -61,7 +64,7 @@ jobs:
 
   exhaustive-proof:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 55
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -118,11 +121,18 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/final-discovery-freeze.test.ts 2>&1 | tee /tmp/cal-001-final-discovery-freeze.log
           echo "${PIPESTATUS[0]}" > /tmp/cal-001-final-discovery-freeze-exit
           exit 0
+      - name: Run Question Studio integration proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/question-studio-runtime.test.ts 2>&1 | tee /tmp/cal-001-question-studio.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-question-studio-exit
+          exit 0
       - name: Publish proof diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cal-001-foundation-english-and-multilingual-freeze-proof
+          name: cal-001-foundation-multilingual-and-question-studio-proof
           path: |
             /tmp/cal-001-foundation-proof.log
             /tmp/cal-001-foundation-proof-exit
@@ -138,6 +148,8 @@ jobs:
             /tmp/cal-001-multilingual-editorial-quality-exit
             /tmp/cal-001-final-discovery-freeze.log
             /tmp/cal-001-final-discovery-freeze-exit
+            /tmp/cal-001-question-studio.log
+            /tmp/cal-001-question-studio-exit
           if-no-files-found: error
           retention-days: 14
       - name: Enforce proof results
@@ -149,6 +161,7 @@ jobs:
           test "$(cat /tmp/cal-001-multilingual-freeze-exit)" = "0"
           test "$(cat /tmp/cal-001-multilingual-editorial-quality-exit)" = "0"
           test "$(cat /tmp/cal-001-final-discovery-freeze-exit)" = "0"
+          test "$(cat /tmp/cal-001-question-studio-exit)" = "0"
 
   review-export:
     runs-on: ubuntu-latest
