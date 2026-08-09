@@ -52,26 +52,64 @@ function includesQlId(ids: readonly IntCp004QlId[], qlId: IntCp004QlId): boolean
   return ids.includes(qlId);
 }
 
-function polishLocalizedText(locale: IntCp004LocalizedLocale, text: string): string {
-  if (locale === "hi-IN") {
-    return text
-      .replace(/कुल (\d+) तिमाहियाँ बाद/gu, "$1 तिमाहियों के बाद")
-      .replace(/कुल (\d+) महीने बाद/gu, "$1 महीनों के बाद")
-      .replace(/दी गई राशि या ब्याज से पूरा वृद्धि-गुणक हटाने पर/gu, "दी गई राशि या ब्याज को पूरे चक्रवृद्धि गुणक से भाग देने पर")
-      .replace(/दिए गए वृद्धि-गुणक तक पहुँचने के लिए/gu, "दी गई राशि तक पहुँचने के लिए")
-      .replace(/अलग-अलग ब्याज-नियम/gu, "ब्याज जोड़ने के अलग-अलग नियम")
-      .replace(/ब्याज-क्रम/gu, "ब्याज जोड़ने का क्रम")
-      .replace(/ब्याज-नियम/gu, "ब्याज जोड़ने का नियम")
-      .replace(/अवधियाँ = (\d+)/gu, "कुल $1 बार ब्याज जोड़ा गया")
-      .replace(/अवधियों की संख्या/gu, "ब्याज जोड़ने की कुल संख्या")
-      .replace(/हर अवधि/gu, "हर बार");
+function hindiCreditInterval(frequency: string): string {
+  switch (frequency) {
+    case "वार्षिक": return "हर वर्ष";
+    case "छमाही": return "हर छमाही";
+    case "तिमाही": return "हर तिमाही";
+    case "मासिक": return "हर महीने";
+    default: return frequency;
   }
-  return text
+}
+
+function polishHindi(text: string): string {
+  let polished = text
+    .replace(/कुल (\d+) तिमाहियाँ बाद/gu, "$1 तिमाहियों के बाद")
+    .replace(/कुल (\d+) महीने बाद/gu, "$1 महीनों के बाद")
+    .replace(/दी गई राशि या ब्याज से पूरा वृद्धि-गुणक हटाने पर/gu, "हर बार जुड़ी ब्याज-वृद्धि को उलटने पर")
+    .replace(/दिए गए वृद्धि-गुणक तक पहुँचने के लिए/gu, "दी गई राशि तक पहुँचने के लिए")
+    .replace(/अलग-अलग ब्याज-नियम/gu, "ब्याज जोड़ने के अलग-अलग नियम")
+    .replace(/ब्याज-क्रम/gu, "ब्याज जोड़ने का क्रम")
+    .replace(/ब्याज-नियम/gu, "ब्याज जोड़ने का नियम")
+    .replace(/अवधियाँ = (\d+)/gu, "कुल $1 बार ब्याज जोड़ा गया")
+    .replace(/अवधियों की संख्या/gu, "ब्याज जोड़ने की कुल संख्या")
+    .replace(/हर अवधि/gu, "हर बार");
+
+  polished = polished
+    .replace(
+      /शुरुआती (\d+) वर्ष में (वार्षिक|छमाही|तिमाही|मासिक) तथा बाद के (\d+) वर्ष में (वार्षिक|छमाही|तिमाही|मासिक) ब्याज-योग हुआ/gu,
+      (_match, firstYears: string, firstFrequency: string, secondYears: string, secondFrequency: string) =>
+        `शुरुआती ${firstYears} वर्ष में ब्याज ${hindiCreditInterval(firstFrequency)} और बाद के ${secondYears} वर्ष में ${hindiCreditInterval(secondFrequency)} जोड़ा गया`,
+    )
+    .replace(
+      /पहले चरण में (वार्षिक|छमाही|तिमाही|मासिक) और दूसरे चरण में (वार्षिक|छमाही|तिमाही|मासिक) ब्याज-योग हुआ/gu,
+      (_match, firstFrequency: string, secondFrequency: string) =>
+        `पहले चरण में ब्याज ${hindiCreditInterval(firstFrequency)} और दूसरे चरण में ${hindiCreditInterval(secondFrequency)} जोड़ा गया`,
+    )
+    .replace(/ब्याज-योग (हर (?:वर्ष|छमाही|तिमाही|महीने)) था/gu, "ब्याज $1 जोड़ा जाता था")
+    .replace(/ब्याज-योग के साथ/gu, "ब्याज जोड़ने पर")
+    .replace(
+      /(वार्षिक|छमाही|तिमाही|मासिक) ब्याज-योग होता है/gu,
+      (_match, frequency: string) => `ब्याज ${hindiCreditInterval(frequency)} जोड़ा जाता है`,
+    )
+    .replace(
+      /(वार्षिक|छमाही|तिमाही|मासिक) ब्याज-योग वाली/gu,
+      (_match, frequency: string) => `${hindiCreditInterval(frequency)} ब्याज जोड़ने वाली`,
+    )
+    .replace(/ब्याज-योग हुआ/gu, "ब्याज जोड़ा गया")
+    .replace(/ब्याज-योग/gu, "ब्याज जोड़ने की व्यवस्था");
+
+  return polished;
+}
+
+function polishPunjabi(text: string): string {
+  let polished = text
     .replace(/ਕੁੱਲ (\d+) ਤਿਮਾਹੀਆਂ ਬਾਅਦ/gu, "$1 ਤਿਮਾਹੀਆਂ ਤੋਂ ਬਾਅਦ")
     .replace(/ਕੁੱਲ (\d+) ਮਹੀਨੇ ਬਾਅਦ/gu, "$1 ਮਹੀਨਿਆਂ ਤੋਂ ਬਾਅਦ")
     .replace(/ਦੱਸੀ ਗਈ ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ/gu, "ਘੋਸ਼ਿਤ ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ")
     .replace(/ਦੋਵਾਂ ਅੰਤਿਮ ਰਕਮਾਂ/gu, "ਦੋਵੇਂ ਯੋਜਨਾਵਾਂ ਦੀਆਂ ਅੰਤਿਮ ਰਕਮਾਂ")
-    .replace(/ਦਿੱਤੀ ਰਕਮ ਜਾਂ ਵਿਆਜ ਵਿੱਚੋਂ ਪੂਰਾ ਵਾਧਾ-ਗੁਣਕ ਹਟਾਉਣ ਉੱਤੇ/gu, "ਦਿੱਤੀ ਰਕਮ ਜਾਂ ਵਿਆਜ ਨੂੰ ਪੂਰੇ ਵਿਆਜ-ਗੁਣਕ ਨਾਲ ਭਾਗ ਦੇਣ ਉੱਤੇ")
+    .replace(/ਦਿੱਤੀ ਰਕਮ ਜਾਂ ਵਿਆਜ ਵਿੱਚੋਂ ਪੂਰਾ ਵਾਧਾ-ਗੁਣਕ ਹਟਾਉਣ ਉੱਤੇ/gu, "ਹਰ ਵਾਰ ਜੋੜੇ ਗਏ ਵਿਆਜ ਦਾ ਅਸਰ ਉਲਟ ਕ੍ਰਮ ਵਿੱਚ ਹਟਾਉਣ ਉੱਤੇ")
+    .replace(/ਦਿੱਤੀ ਰਕਮ ਜਾਂ ਵਿਆਜ ਨੂੰ ਪੂਰੇ ਵਿਆਜ-ਗੁਣਕ ਨਾਲ ਭਾਗ ਦੇਣ ਉੱਤੇ/gu, "ਹਰ ਵਾਰ ਜੋੜੇ ਗਏ ਵਿਆਜ ਦਾ ਅਸਰ ਉਲਟ ਕ੍ਰਮ ਵਿੱਚ ਹਟਾਉਣ ਉੱਤੇ")
     .replace(/ਦਿੱਤੇ ਵਾਧਾ-ਗੁਣਕ ਤੱਕ ਪਹੁੰਚਣ ਲਈ/gu, "ਦਿੱਤੀ ਰਕਮ ਤੱਕ ਪਹੁੰਚਣ ਲਈ")
     .replace(/ਵੱਖ-ਵੱਖ ਵਿਆਜ-ਨਿਯਮ/gu, "ਵਿਆਜ ਜੋੜਨ ਦੇ ਵੱਖ-ਵੱਖ ਨਿਯਮ")
     .replace(/ਵਿਆਜ-ਕ੍ਰਮ/gu, "ਵਿਆਜ ਜੋੜਨ ਦਾ ਕ੍ਰਮ")
@@ -86,7 +124,49 @@ function polishLocalizedText(locale: IntCp004LocalizedLocale, text: string): str
     .replace(/ਚੱਕਰਵੱਧੀ ਦੇ ਹਰ ਪੜਾਅ/gu, "ਵਿਆਜ ਜੋੜਨ ਦੇ ਹਰ ਪੜਾਅ")
     .replace(/ਚੱਕਰਵੱਧੀ ਪੜਾਅ/gu, "ਵਿਆਜ ਜੋੜਨ ਦੇ ਪੜਾਅ")
     .replace(/ਚੱਕਰਵੱਧੀ ਨਾਲ/gu, "ਮਿਸ਼ਰਤ ਵਿਆਜ ਨਾਲ")
-    .replace(/ਚੱਕਰਵੱਧੀ/gu, "ਮਿਸ਼ਰਤ ਵਿਆਜ");
+    .replace(/ਚੱਕਰਵੱਧੀ/gu, "ਮਿਸ਼ਰਤ ਵਿਆਜ")
+    .replace(/ਵਿਆਜ-ਗੁਣਕ/gu, "ਵਿਆਜ ਜੋੜਨ ਦਾ ਅਸਰ")
+    .replace(/ਇੱਕ ਰਕਮ (₹[\d,.]+) ਨੂੰ/gu, "$1 ਦੀ ਰਕਮ ਨੂੰ")
+    .replace(/ਵਿਆਜ ਜੋੜਨ ਦੀ ਗਿਣਤੀ ਪਛਾਣੋ।/gu, "ਦੱਸੋ ਕਿ ਵਿਆਜ ਸਾਲ ਵਿੱਚ ਕਿੰਨੀ ਵਾਰ ਜੋੜਿਆ ਗਿਆ ਸੀ।");
+
+  polished = polished
+    .replace(
+      /(\d+) ਸਾਲ ਪੂਰੇ ਸਾਲ ਅਤੇ/gu,
+      (_match, rawCount: string) => Number(rawCount) === 1
+        ? "1 ਪੂਰੇ ਸਾਲ ਦੇ ਮਿਸ਼ਰਤ ਵਿਆਜ ਅਤੇ"
+        : `${rawCount} ਪੂਰੇ ਸਾਲਾਂ ਦੇ ਮਿਸ਼ਰਤ ਵਿਆਜ ਅਤੇ`,
+    )
+    .replace(
+      /(\d+) ਮਹੀਨੇ ਵਾਧੂ ਸਮੇਂ ਬਾਅਦ/gu,
+      (_match, rawCount: string) => `${rawCount} ਮਹੀਨਿਆਂ ਦੇ ਵਾਧੂ ਸਮੇਂ ਬਾਅਦ`,
+    )
+    .replace(
+      /(\d+) ਮਹੀਨੇ (ਬਾਅਦ|ਦੇ ਅੰਤ|ਵਿੱਚ|ਤੱਕ|ਲਈ|ਦਾ|ਦੀ|ਦੇ|ਉੱਤੇ)/gu,
+      (match, rawCount: string, postposition: string) => Number(rawCount) > 1
+        ? `${rawCount} ਮਹੀਨਿਆਂ ${postposition}`
+        : match,
+    )
+    .replace(
+      /1 ਮਹੀਨਾ (ਬਾਅਦ|ਦੇ ਅੰਤ|ਵਿੱਚ|ਤੱਕ|ਲਈ|ਦਾ|ਦੀ|ਦੇ|ਉੱਤੇ)/gu,
+      "1 ਮਹੀਨੇ $1",
+    )
+    .replace(
+      /(\d+) ਸਾਲ (ਬਾਅਦ|ਦੇ ਅੰਤ|ਵਿੱਚ|ਤੱਕ|ਲਈ|ਦਾ|ਦੀ|ਦੇ|ਉੱਤੇ)/gu,
+      (match, rawCount: string, postposition: string) => Number(rawCount) > 1
+        ? `${rawCount} ਸਾਲਾਂ ${postposition}`
+        : match,
+    )
+    .replace(
+      /ਦੋਵੇਂ ਪੜਾਅ ਕ੍ਰਮਵਾਰ (\d+) ਸਾਲ ਅਤੇ (\d+) ਸਾਲਾਂ ਦੇ ਹਨ/gu,
+      (_match, firstYears: string, secondYears: string) =>
+        `ਦੋਵੇਂ ਪੜਾਅ ਕ੍ਰਮਵਾਰ ${firstYears} ਅਤੇ ${secondYears} ਸਾਲਾਂ ਦੇ ਹਨ`,
+    );
+
+  return polished;
+}
+
+function polishLocalizedText(locale: IntCp004LocalizedLocale, text: string): string {
+  return locale === "hi-IN" ? polishHindi(text) : polishPunjabi(text);
 }
 
 function legacyLocalizedStem(
