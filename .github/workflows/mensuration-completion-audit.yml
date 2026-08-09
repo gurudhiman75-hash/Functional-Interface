@@ -1,0 +1,88 @@
+name: Validate Mensuration 13-CP completion audit
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-completion-audit*.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MENSURATION-13-CP-COMPLETION-AUDIT-V1.md
+      - .github/workflows/mensuration-completion-audit.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-mensuration-13-cp-completion-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mensuration-completion-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prove all 13 CP classifications and lifecycle locks
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-completion-audit.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/mensuration-completion-audit.test.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-completion-audit.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/mensuration-completion-audit.test.log
+
+      - name: Export Mensuration completion evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-completion-audit-export.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/mensuration-completion-audit-export.mjs
+          cd artifacts/api-server
+          node dist/quant-v4/mensuration-completion-audit-export.mjs \
+            2>&1 | tee dist/quant-v4/mensuration-completion-audit-export.log
+
+      - name: Build production API bundle
+        shell: bash
+        run: bash build-api.sh
+
+      - name: Upload Mensuration completion audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mensuration-13-cp-completion-audit-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/mensuration-completion-audit.test.log
+            artifacts/api-server/dist/quant-v4/mensuration-completion-audit-export.log
+            artifacts/api-server/dist/quant-v4/mensuration-13-cp-completion-audit-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-13-cp-completion-audit-v1.md
+          if-no-files-found: error
+          retention-days: 14
