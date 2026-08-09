@@ -1,4 +1,4 @@
-name: Validate CLK-001 remediation slice 1
+name: Validate CLK-001 all-checkpoint dual-oracle discovery
 
 on:
   pull_request:
@@ -11,6 +11,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Clocks/CLK-001/**
       - artifacts/api-server/src/reasoning-v1/CLK-001-FAMILY-F-MANIFEST-AMENDMENT.md
       - artifacts/api-server/src/reasoning-v1/tests/clock-end-to-end-v2.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-media-contracts.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/clock-foundation.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/spatial-foundation.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts
@@ -22,11 +23,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: clk-remediation-v2-${{ github.ref }}
+  group: clk-all-checkpoint-v2-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-clock-remediation:
+  validate-clock-discovery:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
@@ -42,7 +43,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Bundle Clock remediation and regression proofs
+      - name: Bundle Clock discovery and regression proofs
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/clock-v2
           mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
@@ -50,6 +51,10 @@ jobs:
             src/reasoning-v1/tests/clock-end-to-end-v2.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/clock-v2/clock-end-to-end-v2.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-media-contracts.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-media-contracts.test.mjs
           pnpm --dir artifacts/api-server exec esbuild \
             src/reasoning-v1/tests/clock-foundation.test.ts \
             --bundle --platform=node --format=esm \
@@ -70,10 +75,14 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/clock-v2/clock-foundation.test.mjs
-      - name: Run CLK-001 remediation proof
+      - name: Run all-checkpoint dual-oracle proof
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/clock-v2/clock-end-to-end-v2.test.mjs
+      - name: Run structured media proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-media-contracts.test.mjs
       - name: Run spatial foundation regression
         run: |
           cd artifacts/api-server
@@ -86,10 +95,10 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
-      - name: Upload CLK-001 remediation proof and English review
+      - name: Upload CLK-001 dual-oracle proof and English review
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: clk-001-remediation-slice-1
+          name: clk-001-all-14-checkpoints-dual-oracle-review
           path: artifacts/api-server/dist/reasoning-v1/clock-v2/**
           if-no-files-found: error
