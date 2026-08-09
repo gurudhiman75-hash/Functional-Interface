@@ -16,10 +16,7 @@ import {
   cheaperRatioQuestionV2,
   cheaperSellingRateQuestionV2,
 } from "./cp005-exam-ready-v2-cheaper";
-import {
-  cp005ExamReadyV2Stable,
-  selectMalCp005ExamSetV2,
-} from "./cp005-exam-ready-v2-core";
+import { selectMalCp005ExamSetV2 } from "./cp005-exam-ready-v2-core";
 import { verifyMalCp005Solution } from "./cp005-independent-verifier";
 import type { MalCp005DiscoveryPrototypeId } from "./cp005-types";
 import type {
@@ -114,4 +111,29 @@ export function selectMalCp005ExamSetForDeliveryV2(
   return selectMalCp005ExamSetV2(candidates);
 }
 
-export { cp005ExamReadyV2Stable };
+export function cp005ExamReadyV2Stable(
+  question: MalCp005ExamReadyQuestionV2,
+): string {
+  return JSON.stringify(
+    {
+      prototypeId: question.prototypeId,
+      selectedSeed: question.selectedSeed,
+      selectionAttempt: question.selectionAttempt,
+      stateKey: question.stateKey,
+      siblingStateKey: question.siblingStateKey,
+      difficulty: question.difficulty,
+      request: question.request,
+      solution: question.solution,
+      exactState: question.exactState,
+      stem: question.stem,
+      answer: question.answer,
+      options: question.options,
+      correctIndex: question.correctIndex,
+      optionAudit: question.optionAudit,
+      explanation: question.explanation,
+      numberProvenance: question.numberProvenance,
+      validation: question.validation,
+    },
+    (_key, value) => (typeof value === "bigint" ? `${value}n` : value),
+  );
+}
