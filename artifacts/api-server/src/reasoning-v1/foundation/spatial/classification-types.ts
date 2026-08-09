@@ -12,10 +12,50 @@ export type SpatialClassificationPropertyId =
   | "SEGMENT_MATCHES_INNER_SIDES_MINUS_ONE"
   | "MARKER_ON_ARROW_SIDE"
   | "ORIENTATIONS_MATCH"
-  | "SHADING_MATCHES_ODD_SEGMENTS"
+  | "SEGMENT_MATCHES_OUTER_SIDES_MINUS_ONE"
   | "MARKER_OPPOSITE_SEGMENT_ANCHOR"
-  | "INNER_NEXT_AFTER_OUTER"
+  | "INNER_HAS_ONE_MORE_SIDE_THAN_OUTER"
   | "ARROW_POINTS_TO_SEGMENT_ANCHOR";
+
+export type SpatialClassificationNuisanceFeatureId =
+  | "OUTER_SHAPE"
+  | "INNER_SHAPE"
+  | "OUTER_ORIENTATION"
+  | "INNER_ORIENTATION"
+  | "MARKER_POSITION"
+  | "ARROW_DIRECTION"
+  | "INNER_SHADING"
+  | "SEGMENT_COUNT"
+  | "SEGMENT_ANCHOR"
+  | "SHAPE_PAIR"
+  | "ORIENTATION_PAIR"
+  | "MARKER_DIRECTION_PAIR"
+  | "MARKER_SEGMENT_PAIR"
+  | "ARROW_SEGMENT_PAIR"
+  | "OUTER_INNER_SAME"
+  | "ORIENTATIONS_MATCH"
+  | "MARKER_ON_ARROW_SIDE"
+  | "MARKER_OPPOSITE_SEGMENT_ANCHOR"
+  | "MARKER_ON_SEGMENT_SIDE"
+  | "ARROW_POINTS_TO_SEGMENT_ANCHOR"
+  | "ARROW_OPPOSITE_SEGMENT_ANCHOR"
+  | "SEGMENT_COUNT_ODD"
+  | "SEGMENT_MATCHES_INNER_SIDES_MINUS_ONE"
+  | "SEGMENT_MATCHES_OUTER_SIDES_MINUS_ONE"
+  | "INNER_HAS_ONE_MORE_SIDE_THAN_OUTER"
+  | "OUTER_POLYGON"
+  | "INNER_POLYGON"
+  | "OUTER_SIDE_PARITY"
+  | "INNER_SIDE_PARITY"
+  | "SIDE_COUNT_COMPARISON"
+  | "TOTAL_POLYGON_SIDES_PARITY";
+
+export interface SpatialClassificationNuisanceDistribution {
+  featureId: SpatialClassificationNuisanceFeatureId;
+  frequencies: Record<string, number>;
+  threeToOne: boolean;
+  intendedEquivalent: boolean;
+}
 
 export interface SpatialClassificationProofOption {
   label: "COMMON_PROPERTY_MEMBER" | "ODD_FIGURE";
@@ -38,6 +78,9 @@ export interface SpatialClassificationSolverEvidence {
   propertyVector: boolean[];
   separatingPropertyIds: SpatialClassificationPropertyId[];
   ambiguityCheck: "PASS";
+  approvedPropertyAuthorityCheck: "PASS";
+  nuisanceFeatureAuditCheck: "PASS";
+  nuisanceFeatureDistributions: SpatialClassificationNuisanceDistribution[];
   optionStateFingerprints: string[];
   optionSceneFingerprints: string[];
   sceneIntegrityCheck: "PASS";
@@ -49,7 +92,10 @@ export interface SpatialClassificationReviewMetadata {
   propertyId: SpatialClassificationPropertyId;
   propertyDescription: string;
   propertyVector: boolean[];
-  uniqueSeparatingPropertyCheck: "PASS";
+  uniqueWithinApprovedPropertyAuthorityCheck: "PASS";
+  nuisanceFeatureAuditCheck: "PASS";
+  auditedNuisanceFeatureCount: number;
+  nuisanceFeatureDistributions: SpatialClassificationNuisanceDistribution[];
   optionUniquenessCheck: "PASS";
   sceneIntegrityCheck: "PASS";
   deterministicRegenerationCheck: "PASS";

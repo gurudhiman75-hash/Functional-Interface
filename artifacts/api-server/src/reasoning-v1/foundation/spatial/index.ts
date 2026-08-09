@@ -27,6 +27,7 @@ export * from "./analogy-proof-generator";
 export * from "./analogy-editorial-export";
 export * from "./classification-types";
 export * from "./classification-property-authority";
+export * from "./classification-ambiguity-validator";
 export * from "./classification-scene";
 export * from "./classification-proof-generator";
 export * from "./classification-editorial-export";

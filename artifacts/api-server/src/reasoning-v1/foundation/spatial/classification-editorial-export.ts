@@ -19,7 +19,7 @@ export interface SpatialClassificationEditorialReviewRow {
 }
 
 export interface SpatialClassificationEditorialReviewExport {
-  schemaVersion: "1.0";
+  schemaVersion: "1.1";
   familyCode: "SPA-001";
   chapterCode: "FCL-001";
   generatedFrom: "DETERMINISTIC_PROOF_CORPUS";
@@ -40,7 +40,7 @@ export function buildSpatialClassificationEditorialReviewExport(
   questions: readonly SpatialClassificationProofQuestion[],
 ): SpatialClassificationEditorialReviewExport {
   return {
-    schemaVersion: "1.0",
+    schemaVersion: "1.1",
     familyCode: "SPA-001",
     chapterCode: "FCL-001",
     generatedFrom: "DETERMINISTIC_PROOF_CORPUS",
@@ -78,6 +78,10 @@ export function buildSpatialClassificationEditorialReviewHtml(
             </div>`,
         )
         .join("");
+      const nuisanceSummary = row.reviewMetadata.nuisanceFeatureDistributions
+        .filter((item) => item.threeToOne)
+        .map((item) => `${item.featureId}${item.intendedEquivalent ? " (intended)" : ""}`)
+        .join(" · ");
 
       return `
         <article class="question">
@@ -88,14 +92,15 @@ export function buildSpatialClassificationEditorialReviewHtml(
           <p class="instruction">Select the figure that is different from the other three.</p>
           <div class="options">${options}</div>
           <details>
-            <summary>Answer, explanation and proof diagnostics</summary>
+            <summary>Answer, explanation and ambiguity diagnostics</summary>
             <p><strong>Answer:</strong> ${String.fromCharCode(65 + row.correctOptionNumber - 1)}</p>
             <p><strong>Observation:</strong> ${escapeHtml(row.learnerExplanation.observation)}</p>
             <p><strong>Rule:</strong> ${escapeHtml(row.learnerExplanation.rule)}</p>
-            <p><strong>Application:</strong> ${escapeHtml(row.learnerExplanation.application)}</p>
-            <p><strong>Check:</strong> ${escapeHtml(row.learnerExplanation.check)}</p>
+            <p><strong>Option-by-option check:</strong> ${escapeHtml(row.learnerExplanation.application)}</p>
+            <p><strong>Conclusion:</strong> ${escapeHtml(row.learnerExplanation.check)}</p>
             <p class="diagnostic"><strong>Property vector:</strong> ${row.propertyVector.map((value) => value ? "PASS" : "ODD").join(" · ")}</p>
-            <p class="diagnostic"><strong>Uniqueness:</strong> ${row.reviewMetadata.uniqueSeparatingPropertyCheck} · <strong>Scene integrity:</strong> ${row.reviewMetadata.sceneIntegrityCheck}</p>
+            <p class="diagnostic"><strong>Approved authority:</strong> ${row.reviewMetadata.uniqueWithinApprovedPropertyAuthorityCheck} · <strong>Nuisance audit:</strong> ${row.reviewMetadata.nuisanceFeatureAuditCheck} (${row.reviewMetadata.auditedNuisanceFeatureCount} features) · <strong>Scene integrity:</strong> ${row.reviewMetadata.sceneIntegrityCheck}</p>
+            <p class="diagnostic"><strong>Allowed 3-to-1 descriptor:</strong> ${escapeHtml(nuisanceSummary || "none")}</p>
           </details>
         </article>`;
     })
@@ -106,7 +111,7 @@ export function buildSpatialClassificationEditorialReviewHtml(
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FCL-001 Figure Classification Proof Review</title>
+  <title>FCL-001 Figure Classification Ambiguity-Remediation Review</title>
   <style>
     :root { font-family: Inter, system-ui, sans-serif; color: #171717; background: #f4f4f5; }
     body { margin: 0; padding: 24px; }
@@ -131,8 +136,8 @@ export function buildSpatialClassificationEditorialReviewHtml(
 <body>
   <main>
     <section class="summary">
-      <h1>FCL-001 Figure Classification Proof Review</h1>
-      <p>${review.questionCount} deterministic odd-figure questions. Answers and property diagnostics are hidden inside each question.</p>
+      <h1>FCL-001 Figure Classification Ambiguity-Remediation Review</h1>
+      <p>${review.questionCount} deterministic odd-figure questions. Every quartet passed the approved-property check, a 31-feature nuisance audit and scene-state validation.</p>
     </section>
     ${questions}
   </main>

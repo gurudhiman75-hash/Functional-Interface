@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import {
+  auditSpatialClassificationNuisanceFeatures,
   buildSpatialClassificationEditorialReviewExport,
   buildSpatialClassificationEditorialReviewHtml,
   findSpatialClassificationSeparatingProperties,
   generateFigureClassificationProofQuestion,
   renderSpatialSceneToSvg,
+  spatialClassificationPropertySatisfied,
   spatialClassificationPropertyVector,
   validateSpatialClassificationSceneAgainstState,
   validateSpatialScene,
@@ -40,18 +42,22 @@ function assertQuestion(question: SpatialClassificationProofQuestion): void {
     [question.propertyId],
   );
   assert.equal(question.solverEvidence.ambiguityCheck, "PASS");
+  assert.equal(question.solverEvidence.approvedPropertyAuthorityCheck, "PASS");
+  assert.equal(question.solverEvidence.nuisanceFeatureAuditCheck, "PASS");
   assert.equal(question.solverEvidence.sceneIntegrityCheck, "PASS");
   assert.equal(
-    question.reviewMetadata.uniqueSeparatingPropertyCheck,
+    question.reviewMetadata.uniqueWithinApprovedPropertyAuthorityCheck,
     "PASS",
   );
+  assert.equal(question.reviewMetadata.nuisanceFeatureAuditCheck, "PASS");
+  assert.equal(question.reviewMetadata.auditedNuisanceFeatureCount, 31);
   assert.equal(question.reviewMetadata.optionUniquenessCheck, "PASS");
   assert.equal(question.reviewMetadata.sceneIntegrityCheck, "PASS");
   assert.equal(question.reviewMetadata.localeMode, "LANGUAGE_NEUTRAL");
   assert.equal(question.explanationSteps.length, 4);
   assert(question.learnerExplanation.observation.length > 20);
   assert(question.learnerExplanation.rule.length > 20);
-  assert(question.learnerExplanation.application.length > 20);
+  assert.match(question.learnerExplanation.application, /A: .*B: .*C: .*D:/);
   assert(question.learnerExplanation.check.length > 20);
   assertLifecycleLocked(question);
 
@@ -66,6 +72,16 @@ function assertQuestion(question: SpatialClassificationProofQuestion): void {
   assert.deepEqual(
     findSpatialClassificationSeparatingProperties(states),
     [question.propertyId],
+  );
+  const nuisanceAudit = auditSpatialClassificationNuisanceFeatures(
+    states,
+    question.propertyId,
+  );
+  assert.equal(nuisanceAudit.ok, true, nuisanceAudit.ambiguousFeatureIds.join(", "));
+  assert.deepEqual(nuisanceAudit.ambiguousFeatureIds, []);
+  assert.deepEqual(
+    nuisanceAudit.distributions,
+    question.reviewMetadata.nuisanceFeatureDistributions,
   );
 
   assert.equal(
@@ -102,6 +118,9 @@ function figure(
   innerShape: SpatialAnalogyFigureState["innerShape"],
   markerPosition: SpatialAnalogyFigureState["markerPosition"],
   direction: SpatialAnalogyFigureState["direction"],
+  shadedInner = false,
+  segmentCount: SpatialAnalogyFigureState["segmentCount"] = 2,
+  segmentAnchor: SpatialAnalogyFigureState["segmentAnchor"] = "BOTTOM",
 ): SpatialAnalogyFigureState {
   return {
     outerShape,
@@ -110,9 +129,9 @@ function figure(
     innerRotationQuarter: 0,
     markerPosition,
     direction,
-    shadedInner: false,
-    segmentCount: 2,
-    segmentAnchor: "BOTTOM",
+    shadedInner,
+    segmentCount,
+    segmentAnchor,
   };
 }
 
@@ -130,9 +149,9 @@ assert.deepEqual(
     "SEGMENT_MATCHES_INNER_SIDES_MINUS_ONE",
     "MARKER_ON_ARROW_SIDE",
     "ORIENTATIONS_MATCH",
-    "SHADING_MATCHES_ODD_SEGMENTS",
+    "SEGMENT_MATCHES_OUTER_SIDES_MINUS_ONE",
     "MARKER_OPPOSITE_SEGMENT_ANCHOR",
-    "INNER_NEXT_AFTER_OUTER",
+    "INNER_HAS_ONE_MORE_SIDE_THAN_OUTER",
     "ARROW_POINTS_TO_SEGMENT_ANCHOR",
   ],
 );
@@ -141,9 +160,6 @@ const answerSequence = firstCorpus.map(
   (question) => question.correctOptionIndex,
 );
 assert.deepEqual(answerSequence, [0, 1, 2, 3, 0, 1, 2, 3]);
-for (let index = 1; index < answerSequence.length; index += 1) {
-  assert.notEqual(answerSequence[index], answerSequence[index - 1]);
-}
 assert.deepEqual(
   answerSequence.reduce(
     (counts, position) => {
@@ -155,25 +171,65 @@ assert.deepEqual(
   [2, 2, 2, 2],
 );
 
+const arrowTop = figure(
+  "TRIANGLE",
+  "SQUARE",
+  "TOP_LEFT",
+  "UP",
+  false,
+  2,
+  "TOP",
+);
+const arrowBottom = figure(
+  "TRIANGLE",
+  "SQUARE",
+  "BOTTOM_RIGHT",
+  "DOWN",
+  false,
+  2,
+  "BOTTOM",
+);
+assert.equal(
+  spatialClassificationPropertySatisfied(
+    arrowTop,
+    "ARROW_POINTS_TO_SEGMENT_ANCHOR",
+  ),
+  true,
+);
+assert.equal(
+  spatialClassificationPropertySatisfied(
+    arrowBottom,
+    "ARROW_POINTS_TO_SEGMENT_ANCHOR",
+  ),
+  true,
+);
+
+const nuisanceStates = [
+  figure("PENTAGON", "PENTAGON", "BOTTOM_RIGHT", "DOWN", false, 2, "RIGHT"),
+  figure("TRIANGLE", "PENTAGON", "BOTTOM_RIGHT", "UP", true, 1, "TOP"),
+  figure("TRIANGLE", "CIRCLE", "BOTTOM_RIGHT", "LEFT", false, 1, "BOTTOM"),
+  figure("PENTAGON", "CIRCLE", "TOP_LEFT", "UP", true, 2, "RIGHT"),
+] as const;
+const nuisanceAudit = auditSpatialClassificationNuisanceFeatures(
+  nuisanceStates,
+  "OUTER_INNER_DIFFERENT",
+);
+assert.equal(nuisanceAudit.ok, false);
+assert(nuisanceAudit.ambiguousFeatureIds.includes("MARKER_POSITION"));
 assert.throws(
   () =>
     generateFigureClassificationProofQuestion({
-      seed: "FCL-NEGATIVE-AMBIGUOUS",
-      prototypeId: "FCL-PROT-NEGATIVE-AMBIGUOUS",
+      seed: "FCL-NEGATIVE-NUISANCE-AMBIGUITY",
+      prototypeId: "FCL-PROT-NEGATIVE-NUISANCE",
       propertyId: "OUTER_INNER_DIFFERENT",
-      expectedOddIndex: 3,
-      states: [
-        figure("TRIANGLE", "SQUARE", "TOP_LEFT", "UP"),
-        figure("PENTAGON", "CIRCLE", "TOP_RIGHT", "RIGHT"),
-        figure("SQUARE", "TRIANGLE", "BOTTOM_RIGHT", "DOWN"),
-        figure("TRIANGLE", "TRIANGLE", "BOTTOM_LEFT", "UP"),
-      ],
+      expectedOddIndex: 0,
+      states: nuisanceStates,
     }),
-  /Ambiguous FCL classification/,
+  /Nuisance feature ambiguity/,
 );
 
 const review = buildSpatialClassificationEditorialReviewExport(firstCorpus);
-assert.equal(review.schemaVersion, "1.0");
+assert.equal(review.schemaVersion, "1.1");
 assert.equal(review.chapterCode, "FCL-001");
 assert.equal(review.questionCount, 8);
 assert.equal(review.rows.length, 8);
@@ -187,11 +243,12 @@ assert(
 
 const html = buildSpatialClassificationEditorialReviewHtml(review);
 assert.match(html, /^<!doctype html>/);
-assert.match(html, /FCL-001 Figure Classification Proof Review/);
+assert.match(html, /FCL-001 Figure Classification Ambiguity-Remediation Review/);
 assert.match(
   html,
   /Select the figure that is different from the other three/,
 );
+assert.match(html, /Nuisance audit:<\/strong> PASS \(31 features\)/);
 assert.doesNotMatch(html, /<script|javascript:/i);
 
 mkdirSync("dist/reasoning-v1/spatial", { recursive: true });
@@ -209,7 +266,7 @@ writeFileSync(
 console.log(
   JSON.stringify(
     {
-      status: "PASS_SPA_FND_001_FCL_001_PROOF",
+      status: "PASS_SPA_FND_001_FCL_001_AMBIGUITY_REMEDIATION",
       corpus: {
         total: firstCorpus.length,
         answerSequence: answerSequence.map((position) =>
@@ -219,13 +276,15 @@ console.log(
       },
       checks: {
         deterministicRegeneration: true,
-        uniqueThreeToOneProperty: true,
-        ambiguityRejection: true,
+        uniqueWithinApprovedPropertyAuthority: true,
+        nuisanceFeatureAudit: true,
+        nuisanceAmbiguityRejection: true,
+        directionAnchorMapping: true,
         semanticOptionUniqueness: true,
         renderedOptionUniqueness: true,
         sceneStateIntegrity: true,
-        balancedNonRepeatingAnswerSequence: true,
-        learnerExplanation: true,
+        balancedAnswerSequence: true,
+        optionByOptionExplanation: true,
         responsiveEditorialReview: true,
         lifecycleIsolation: true,
       },

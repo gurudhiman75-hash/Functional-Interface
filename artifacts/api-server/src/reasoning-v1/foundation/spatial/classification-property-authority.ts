@@ -2,6 +2,7 @@ import {
   normalizeSpatialAnalogyState,
 } from "./analogy-rule-authority";
 import type {
+  SpatialAnalogyDirection,
   SpatialAnalogyFigureState,
   SpatialAnalogyMarkerPosition,
   SpatialAnalogySegmentAnchor,
@@ -16,18 +17,11 @@ export const SPATIAL_CLASSIFICATION_PROPERTY_IDS: readonly SpatialClassification
   "SEGMENT_MATCHES_INNER_SIDES_MINUS_ONE",
   "MARKER_ON_ARROW_SIDE",
   "ORIENTATIONS_MATCH",
-  "SHADING_MATCHES_ODD_SEGMENTS",
+  "SEGMENT_MATCHES_OUTER_SIDES_MINUS_ONE",
   "MARKER_OPPOSITE_SEGMENT_ANCHOR",
-  "INNER_NEXT_AFTER_OUTER",
+  "INNER_HAS_ONE_MORE_SIDE_THAN_OUTER",
   "ARROW_POINTS_TO_SEGMENT_ANCHOR",
 ] as const;
-
-const SHAPE_CYCLE: Record<SpatialAnalogyShape, SpatialAnalogyShape> = {
-  TRIANGLE: "SQUARE",
-  SQUARE: "CIRCLE",
-  CIRCLE: "PENTAGON",
-  PENTAGON: "TRIANGLE",
-};
 
 const POLYGON_SIDE_COUNT: Partial<Record<SpatialAnalogyShape, number>> = {
   TRIANGLE: 3,
@@ -35,7 +29,15 @@ const POLYGON_SIDE_COUNT: Partial<Record<SpatialAnalogyShape, number>> = {
   PENTAGON: 5,
 };
 
-const QUARTER_DIRECTION = ["up", "right", "down", "left"] as const;
+const DIRECTION_TO_ANCHOR: Record<
+  SpatialAnalogyDirection,
+  SpatialAnalogySegmentAnchor
+> = {
+  UP: "TOP",
+  RIGHT: "RIGHT",
+  DOWN: "BOTTOM",
+  LEFT: "LEFT",
+};
 
 function markerOnDirectionSide(state: SpatialAnalogyFigureState): boolean {
   const marker = state.markerPosition;
@@ -67,30 +69,49 @@ function markerOppositeAnchor(
   }
 }
 
+export function spatialClassificationPolygonSideCount(
+  shape: SpatialAnalogyShape,
+): number | null {
+  return POLYGON_SIDE_COUNT[shape] ?? null;
+}
+
+export function spatialClassificationDirectionAnchor(
+  direction: SpatialAnalogyDirection,
+): SpatialAnalogySegmentAnchor {
+  return DIRECTION_TO_ANCHOR[direction];
+}
+
 export function spatialClassificationPropertySatisfied(
   stateInput: SpatialAnalogyFigureState,
   propertyId: SpatialClassificationPropertyId,
 ): boolean {
   const state = normalizeSpatialAnalogyState(stateInput);
+  const outerSides = spatialClassificationPolygonSideCount(state.outerShape);
+  const innerSides = spatialClassificationPolygonSideCount(state.innerShape);
   switch (propertyId) {
     case "OUTER_INNER_DIFFERENT":
       return state.outerShape !== state.innerShape;
-    case "SEGMENT_MATCHES_INNER_SIDES_MINUS_ONE": {
-      const sideCount = POLYGON_SIDE_COUNT[state.innerShape];
-      return sideCount !== undefined && state.segmentCount === sideCount - 1;
-    }
+    case "SEGMENT_MATCHES_INNER_SIDES_MINUS_ONE":
+      return innerSides !== null && state.segmentCount === innerSides - 1;
     case "MARKER_ON_ARROW_SIDE":
       return markerOnDirectionSide(state);
     case "ORIENTATIONS_MATCH":
       return state.outerRotationQuarter === state.innerRotationQuarter;
-    case "SHADING_MATCHES_ODD_SEGMENTS":
-      return state.shadedInner === (state.segmentCount % 2 === 1);
+    case "SEGMENT_MATCHES_OUTER_SIDES_MINUS_ONE":
+      return outerSides !== null && state.segmentCount === outerSides - 1;
     case "MARKER_OPPOSITE_SEGMENT_ANCHOR":
       return markerOppositeAnchor(state.markerPosition, state.segmentAnchor);
-    case "INNER_NEXT_AFTER_OUTER":
-      return state.innerShape === SHAPE_CYCLE[state.outerShape];
+    case "INNER_HAS_ONE_MORE_SIDE_THAN_OUTER":
+      return (
+        outerSides !== null &&
+        innerSides !== null &&
+        innerSides === outerSides + 1
+      );
     case "ARROW_POINTS_TO_SEGMENT_ANCHOR":
-      return state.direction === state.segmentAnchor;
+      return (
+        spatialClassificationDirectionAnchor(state.direction) ===
+        state.segmentAnchor
+      );
   }
 }
 
@@ -106,16 +127,20 @@ export function spatialClassificationPropertyDescription(
       "the black marker lies on the same side toward which the arrow points",
     ORIENTATIONS_MATCH:
       "the outer and inner shapes point in the same direction",
-    SHADING_MATCHES_ODD_SEGMENTS:
-      "the inner shape is shaded exactly when the segment count is odd",
+    SEGMENT_MATCHES_OUTER_SIDES_MINUS_ONE:
+      "the number of short segments is one less than the number of sides of the outer polygon",
     MARKER_OPPOSITE_SEGMENT_ANCHOR:
       "the black marker lies on the side opposite the short-segment group",
-    INNER_NEXT_AFTER_OUTER:
-      "the inner shape is the next shape after the outer shape in the triangle–square–circle–pentagon cycle",
+    INNER_HAS_ONE_MORE_SIDE_THAN_OUTER:
+      "the inner polygon has exactly one more side than the outer polygon",
     ARROW_POINTS_TO_SEGMENT_ANCHOR:
       "the arrow points toward the side containing the short-segment group",
   };
   return descriptions[propertyId];
+}
+
+function orientationName(quarter: number): string {
+  return ["up", "right", "down", "left"][quarter] ?? "unknown";
 }
 
 export function spatialClassificationPropertyEvidence(
@@ -123,28 +148,31 @@ export function spatialClassificationPropertyEvidence(
   propertyId: SpatialClassificationPropertyId,
 ): string {
   const state = normalizeSpatialAnalogyState(stateInput);
+  const outerSides = spatialClassificationPolygonSideCount(state.outerShape);
+  const innerSides = spatialClassificationPolygonSideCount(state.innerShape);
   switch (propertyId) {
     case "OUTER_INNER_DIFFERENT":
       return `outer ${state.outerShape.toLowerCase()}, inner ${state.innerShape.toLowerCase()}`;
-    case "SEGMENT_MATCHES_INNER_SIDES_MINUS_ONE": {
-      const sideCount = POLYGON_SIDE_COUNT[state.innerShape];
-      const segmentLabel = `${state.segmentCount} short segment${state.segmentCount === 1 ? "" : "s"}`;
-      return sideCount === undefined
-        ? `inner circle has no polygon-side count, with ${segmentLabel}`
-        : `inner ${state.innerShape.toLowerCase()} has ${sideCount} sides and the figure has ${segmentLabel}`;
-    }
+    case "SEGMENT_MATCHES_INNER_SIDES_MINUS_ONE":
+      return innerSides === null
+        ? `inner circle has no polygon-side count; the figure has ${state.segmentCount} segment${state.segmentCount === 1 ? "" : "s"}`
+        : `inner ${state.innerShape.toLowerCase()} has ${innerSides} sides; the figure has ${state.segmentCount} segment${state.segmentCount === 1 ? "" : "s"}`;
     case "MARKER_ON_ARROW_SIDE":
-      return `marker ${state.markerPosition.toLowerCase().replaceAll("_", " ")}, arrow ${state.direction.toLowerCase()}`;
+      return `marker at ${state.markerPosition.toLowerCase().replaceAll("_", " ")}; arrow points ${state.direction.toLowerCase()}`;
     case "ORIENTATIONS_MATCH":
-      return `outer shape points ${QUARTER_DIRECTION[state.outerRotationQuarter]}, inner shape points ${QUARTER_DIRECTION[state.innerRotationQuarter]}`;
-    case "SHADING_MATCHES_ODD_SEGMENTS":
-      return `${state.shadedInner ? "shaded" : "open"} inner shape with ${state.segmentCount} segment${state.segmentCount === 1 ? "" : "s"}`;
+      return `outer points ${orientationName(state.outerRotationQuarter)}; inner points ${orientationName(state.innerRotationQuarter)}`;
+    case "SEGMENT_MATCHES_OUTER_SIDES_MINUS_ONE":
+      return outerSides === null
+        ? `outer circle has no polygon-side count; the figure has ${state.segmentCount} segment${state.segmentCount === 1 ? "" : "s"}`
+        : `outer ${state.outerShape.toLowerCase()} has ${outerSides} sides; the figure has ${state.segmentCount} segment${state.segmentCount === 1 ? "" : "s"}`;
     case "MARKER_OPPOSITE_SEGMENT_ANCHOR":
-      return `marker ${state.markerPosition.toLowerCase().replaceAll("_", " ")}, segments on ${state.segmentAnchor.toLowerCase()}`;
-    case "INNER_NEXT_AFTER_OUTER":
-      return `outer ${state.outerShape.toLowerCase()}, inner ${state.innerShape.toLowerCase()}`;
+      return `marker at ${state.markerPosition.toLowerCase().replaceAll("_", " ")}; segments are on the ${state.segmentAnchor.toLowerCase()}`;
+    case "INNER_HAS_ONE_MORE_SIDE_THAN_OUTER":
+      return outerSides === null || innerSides === null
+        ? `outer ${state.outerShape.toLowerCase()} and inner ${state.innerShape.toLowerCase()} do not form two polygons`
+        : `outer has ${outerSides} sides; inner has ${innerSides} sides`;
     case "ARROW_POINTS_TO_SEGMENT_ANCHOR":
-      return `arrow ${state.direction.toLowerCase()}, segments on ${state.segmentAnchor.toLowerCase()}`;
+      return `arrow points ${state.direction.toLowerCase()}; segments are on the ${state.segmentAnchor.toLowerCase()}`;
   }
 }
 

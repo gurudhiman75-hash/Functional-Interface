@@ -6,6 +6,9 @@ import type {
   SpatialAnalogyFigureState,
 } from "./analogy-types";
 import {
+  auditSpatialClassificationNuisanceFeatures,
+} from "./classification-ambiguity-validator";
+import {
   findSpatialClassificationSeparatingProperties,
   spatialClassificationPropertyDescription,
   spatialClassificationPropertyEvidence,
@@ -44,14 +47,16 @@ function buildLearnerExplanation(
   oddIndex: number,
   evidence: string[],
 ): SpatialClassificationLearnerExplanation {
-  const commonLetters = propertyVector
-    .map((satisfies, index) => (satisfies ? optionLetter(index) : null))
-    .filter((value): value is string => value !== null);
+  const evaluations = evidence.map(
+    (item, index) =>
+      `${optionLetter(index)}: ${item} — ${propertyVector[index] ? "follows the rule" : "does not follow the rule"}`,
+  );
   return {
-    observation: `Figures ${commonLetters.join(", ")} share one clear relationship.`,
-    rule: `Their common property is that ${propertyDescription}.`,
-    application: `Figure ${optionLetter(oddIndex)} breaks this relationship: ${evidence[oddIndex]}.`,
-    check: `Therefore figure ${optionLetter(oddIndex)} is the odd figure; each other figure satisfies the stated property.`,
+    observation:
+      "Check the same relationship in A, B, C and D instead of comparing only one visible feature.",
+    rule: `The common property is that ${propertyDescription}.`,
+    application: evaluations.join("; "),
+    check: `Only figure ${optionLetter(oddIndex)} fails the relationship, so ${optionLetter(oddIndex)} is the odd figure.`,
   };
 }
 
@@ -76,18 +81,14 @@ function buildExplanationSteps(
       evidence: {
         propertyId,
         propertyDescription,
-        propertyVector: propertyVector.map((value) => String(value)),
+        propertyVector: propertyVector.map(String),
       },
     },
     {
-      id: "locate-violation",
-      operation: "LOCATE_SINGLE_PROPERTY_VIOLATION",
-      sourceNodeIds: [`OPTION_${optionLetter(oddIndex)}`],
-      evidence: {
-        oddOptionIndex: oddIndex,
-        oddOptionLetter: optionLetter(oddIndex),
-        oddEvidence: evidence[oddIndex]!,
-      },
+      id: "audit-nuisance-features",
+      operation: "REJECT_UNINTENDED_THREE_TO_ONE_SHORTCUTS",
+      sourceNodeIds: ["OPTION_A", "OPTION_B", "OPTION_C", "OPTION_D"],
+      evidence: { nuisanceFeatureAudit: "PASS" },
     },
     {
       id: "verify-answer",
@@ -97,6 +98,7 @@ function buildExplanationSteps(
       evidence: {
         correctOptionIndex: oddIndex,
         correctOptionNumber: oddIndex + 1,
+        oddEvidence: evidence[oddIndex]!,
       },
     },
   ];
@@ -137,7 +139,17 @@ export function generateFigureClassificationProofQuestion(
     separatingPropertyIds[0] !== input.propertyId
   ) {
     throw new Error(
-      `Ambiguous FCL classification for '${input.seed}': ${separatingPropertyIds.join(", ") || "none"}.`,
+      `Ambiguous FCL approved-property classification for '${input.seed}': ${separatingPropertyIds.join(", ") || "none"}.`,
+    );
+  }
+
+  const nuisanceAudit = auditSpatialClassificationNuisanceFeatures(
+    states,
+    input.propertyId,
+  );
+  if (!nuisanceAudit.ok) {
+    throw new Error(
+      `Nuisance feature ambiguity for '${input.seed}': ${nuisanceAudit.ambiguousFeatureIds.join(", ")}.`,
     );
   }
 
@@ -203,6 +215,9 @@ export function generateFigureClassificationProofQuestion(
       propertyVector,
       separatingPropertyIds,
       ambiguityCheck: "PASS",
+      approvedPropertyAuthorityCheck: "PASS",
+      nuisanceFeatureAuditCheck: "PASS",
+      nuisanceFeatureDistributions: nuisanceAudit.distributions,
       optionStateFingerprints: options.map(
         (option) => option.stateFingerprint,
       ),
@@ -217,7 +232,10 @@ export function generateFigureClassificationProofQuestion(
       propertyId: input.propertyId,
       propertyDescription,
       propertyVector,
-      uniqueSeparatingPropertyCheck: "PASS",
+      uniqueWithinApprovedPropertyAuthorityCheck: "PASS",
+      nuisanceFeatureAuditCheck: "PASS",
+      auditedNuisanceFeatureCount: nuisanceAudit.distributions.length,
+      nuisanceFeatureDistributions: nuisanceAudit.distributions,
       optionUniquenessCheck: "PASS",
       sceneIntegrityCheck: "PASS",
       deterministicRegenerationCheck: "PASS",

@@ -2,83 +2,54 @@
 
 ## Status
 
-`EXACT_HEAD_PROOF_PASSED`
+`AMBIGUITY_REMEDIATION_IMPLEMENTED_AWAITING_EXACT_HEAD_CI`
 
-This proof wave is stacked on the approved FAN-001 visual-remediation head. It remains prototype evidence only and does not allocate permanent QLs.
+The earlier deterministic proof was technically green but failed a second human ambiguity review. Its "unique property" check covered only the finite programmed property authority, while several quartets contained simpler raw-feature 3-to-1 shortcuts. That proof is superseded.
 
-## Proof corpus
+This remediation remains stacked on the approved FAN-001 visual-remediation head. It is prototype evidence only and allocates no permanent QLs.
+
+## Corrective architecture
+
+- audits 31 raw, paired and derived nuisance descriptors;
+- rejects any unintended 3-to-1 distribution before rendering;
+- distinguishes uniqueness inside the approved property authority from broader nuisance-feature screening;
+- fixes arrow/segment alignment by mapping `UP` to `TOP` and `DOWN` to `BOTTOM`;
+- removes the binary shading/parity rule because a four-option 3-to-1 question necessarily exposes a simpler shading or parity shortcut;
+- replaces the arbitrary four-shape cycle with the directly inferable rule that the inner polygon has exactly one more side than the outer polygon;
+- evaluates A, B, C and D explicitly in every learner explanation.
+
+## Remediated proof corpus
 
 ```text
-Chapter:        FCL-001 Figure Classification
-Questions:      8
-Correct slots:  A2 / B2 / C2 / D2
+Chapter:         FCL-001 Figure Classification
+Questions:       8
+Correct slots:   A2 / B2 / C2 / D2
 Answer sequence: A B C D A B C D
-Adjacent repeated correct slots: 0
 ```
 
-## Property coverage
+Property coverage:
 
-1. outer/inner structural relationship;
-2. segment count versus inner polygon side count;
-3. marker position relative to arrow direction;
-4. inner/outer orientation relationship;
-5. shading and odd/even count parity;
-6. marker position opposite the segment group;
-7. fixed shape-cycle relationship;
-8. arrow direction aligned with segment-group side.
+1. outer and inner shapes are different;
+2. segment count is one less than inner-polygon sides;
+3. marker lies on the arrow side;
+4. inner and outer shapes point in the same direction;
+5. segment count is one less than outer-polygon sides;
+6. marker lies opposite the segment group;
+7. inner polygon has exactly one more side than outer polygon;
+8. arrow points toward the segment group.
 
-## Ambiguity control
+## Ambiguity boundary
 
-For every question, the solver evaluates the complete approved FCL property authority. A question is accepted only when:
-
-- the intended property is satisfied by exactly three figures;
-- exactly one figure violates it;
-- no second approved property also creates a three-versus-one split;
-- all four semantic states are distinct;
-- all four rendered scenes are distinct;
-- every rendered scene matches its state metadata and visible role counts.
-
-A negative regression fixture proves that a quartet with two valid separating properties is rejected.
-
-## Visual and editorial review
-
-The complete eight-question review artifact was inspected manually. The odd figure is visually supported in every question, arrow and marker layers remain visible, count segments are legible, and no answer depends on drawing quality or accidental spacing.
-
-The shading/count question includes both valid forms of the rule—open with an even count and shaded with an odd count—so it cannot be solved by shading alone. Orientation explanations use student-facing directions instead of internal quarter-turn codes.
-
-## Validated proof
+Every quartet must pass both:
 
 ```text
-Implementation head: 253ae84c0b41a66a6dcc450f449332118cfae776
-Status head:         be28b9bd221dcc76eb596371d1d422756eb6c417
-Workflow:            Validate SPA-FND-001 FCL-001 proof
-Run:                 31251308380 — PASS
-Artifact:            spa-fcl-001-editorial-review
-Artifact ID:         9020085614
-Digest:              sha256:f1b905168554cf32c603314fb145774fded27c5365a1f1aeba04cd04fbb36187
-Status:              PASS_SPA_FND_001_FCL_001_PROOF
+UNIQUE_WITHIN_APPROVED_PROPERTY_AUTHORITY
+NO_UNINTENDED_3_TO_1_NUISANCE_FEATURE
 ```
 
-Passed proof layers:
+Audited descriptors include raw shapes, orientations, marker, arrow, shading, segment count and segment side; raw feature pairs; shape equality; orientation equality; marker/arrow and marker/segment relations; arrow/segment alignment and opposition; count parity; inner/outer polygon count relations; polygon presence; side parity; side-count comparison; and total-side parity.
 
-```text
-PASS_SPA_FND_001_FOUNDATION_RUNTIME
-PASS_SPA_FND_001_MIRROR_WATER_PROOF
-PASS_SPA_FND_001_WAVE_03_PERCEPTUAL_REMEDIATION
-PASS_SPA_FND_001_FAN_001_VISUAL_REMEDIATION
-PASS_SPA_FND_001_FCL_001_PROOF
-```
-
-## Editorial proof artifact
-
-The workflow generates deterministic JSON and responsive HTML containing:
-
-- four option scenes;
-- hidden answer;
-- common-property explanation;
-- per-question property vector;
-- uniqueness and scene-integrity diagnostics;
-- learner observation, rule, application and check.
+A negative regression fixture reproduces the former marker-position shortcut and proves it is rejected.
 
 ## Lifecycle lock
 
@@ -89,4 +60,10 @@ Question Bank writes:         false
 Mock-test eligibility:        false
 Public publication:           false
 API/database schema changes:  none
+```
+
+## Required exact-head status
+
+```text
+PASS_SPA_FND_001_FCL_001_AMBIGUITY_REMEDIATION
 ```
