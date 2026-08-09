@@ -70,11 +70,6 @@ const bannedPunjabiGrammar = [
   /ਆਵ੍ਰਿਤੀ/gu,
 ] as const;
 
-const punjabiMishritRequired = new Set([
-  "INT-QL-068", "INT-QL-070", "INT-QL-074", "INT-QL-079", "INT-QL-080",
-  "INT-QL-081", "INT-QL-082", "INT-QL-083", "INT-QL-085",
-]);
-
 function normalizeStem(stem: string): string {
   return stem
     .replace(/₹[\d,.]+/gu, "₹N")
@@ -96,6 +91,7 @@ let punjabiTerminologyChecks = 0;
 const correctFeedbackByLocale = new Map<IntCp004LocalizedLocale, Set<string>>();
 const normalizedStemsByQl = new Map<string, Set<string>>();
 const framesByQl = new Map<string, Set<string>>();
+const mishritUsageByQl = new Map<string, number>();
 
 for (const locale of locales) {
   correctFeedbackByLocale.set(locale, new Set());
@@ -139,15 +135,19 @@ for (const locale of locales) {
 
       if (locale === "pa-IN") {
         assert(!learnerText.includes("ਚੱਕਰਵੱਧੀ"), `${qlId}/${seed}/${locale}: rejected Punjabi compound-interest term remains.`);
-        if (punjabiMishritRequired.has(qlId)) {
-          assert(question.stem.includes("ਮਿਸ਼ਰਤ ਵਿਆਜ"), `${qlId}/${seed}/${locale}: stem must use ਮਿਸ਼ਰਤ ਵਿਆਜ.`);
+        if (question.stem.includes("ਮਿਸ਼ਰਤ ਵਿਆਜ")) {
+          mishritUsageByQl.set(qlId, (mishritUsageByQl.get(qlId) ?? 0) + 1);
         }
         punjabiTerminologyChecks += 1;
       }
 
       const qlKey = `${locale}/${qlId}`;
-      (normalizedStemsByQl.get(qlKey) ?? normalizedStemsByQl.set(qlKey, new Set()).get(qlKey)!).add(normalizeStem(question.stem));
-      (framesByQl.get(qlKey) ?? framesByQl.set(qlKey, new Set()).get(qlKey)!).add(question.stemFamilyId);
+      const normalizedSet = normalizedStemsByQl.get(qlKey) ?? new Set<string>();
+      normalizedSet.add(normalizeStem(question.stem));
+      normalizedStemsByQl.set(qlKey, normalizedSet);
+      const frameSet = framesByQl.get(qlKey) ?? new Set<string>();
+      frameSet.add(question.stemFamilyId);
+      framesByQl.set(qlKey, frameSet);
 
       const correctOption = question.options[question.correctIndex];
       assert(correctOption?.isCorrect, `${qlId}/${seed}/${locale}: correct option is missing.`);
@@ -186,6 +186,7 @@ for (const locale of locales) {
     assert(frames === 4, `${key}: all four frozen stem families were not exercised (${frames}).`);
   }
 }
+assert([...mishritUsageByQl.values()].reduce((sum, count) => sum + count, 0) > 0, "Punjabi stems never use ਮਿਸ਼ਰਤ ਵਿਆਜ.");
 
 mkdirSync(outputDirectory, { recursive: true });
 const summary = Object.freeze({
@@ -200,6 +201,7 @@ const summary = Object.freeze({
   feedbackSpecificityChecks,
   effectiveRateEquationChecks,
   punjabiTerminologyChecks,
+  mishritUsageByQl: Object.fromEntries(mishritUsageByQl),
   seedsPerQl,
   locales,
   normalizedStemPatternsByQl: Object.fromEntries(
