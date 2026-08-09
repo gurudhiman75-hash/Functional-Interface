@@ -5,6 +5,7 @@ import {
   type ClockTaskId,
 } from "./catalog";
 import { solveEventFamily } from "./families/events";
+import { solveFaultyClockFamily } from "./families/faulty";
 import { solveRemainingPrototype } from "./families/remaining";
 import { solveMotionOrAnglePrototype } from "./families/motion-angle";
 import { solveStrikeFamily } from "./families/strikes";
@@ -31,6 +32,7 @@ function solvePrototype(input: {
 }): SolvedClockPrototype {
   const solved =
     solveEventFamily(input) ??
+    solveFaultyClockFamily(input) ??
     solveMotionOrAnglePrototype(input) ??
     solveStrikeFamily(input) ??
     solveRemainingPrototype(input);
