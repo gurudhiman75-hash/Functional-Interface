@@ -14,12 +14,70 @@ import type {
 } from "./classification-types";
 import type {
   SpatialNode,
+  SpatialPoint,
   SpatialScene,
 } from "./types";
 
 export interface SpatialClassificationSceneIntegrityResult {
   ok: boolean;
   errors: string[];
+}
+
+const FIGURE_CENTER: SpatialPoint = { x: 50, y: 50 };
+const TRIANGLE_CONTAINER_INNER_SCALE = 0.7;
+
+function classificationInnerPresentationScale(
+  state: SpatialAnalogyFigureState,
+): number {
+  return state.outerShape === "TRIANGLE"
+    ? TRIANGLE_CONTAINER_INNER_SCALE
+    : 1;
+}
+
+function scalePointFromCenter(point: SpatialPoint, scale: number): SpatialPoint {
+  return {
+    x: FIGURE_CENTER.x + (point.x - FIGURE_CENTER.x) * scale,
+    y: FIGURE_CENTER.y + (point.y - FIGURE_CENTER.y) * scale,
+  };
+}
+
+function scaleInnerShapeNode(node: SpatialNode, scale: number): SpatialNode {
+  if (node.role !== "inner-shape" || scale === 1) return node;
+
+  switch (node.kind) {
+    case "circle":
+      return {
+        ...node,
+        center: scalePointFromCenter(node.center, scale),
+        radius: node.radius * scale,
+      };
+    case "polygon":
+      return {
+        ...node,
+        points: node.points.map((point) =>
+          scalePointFromCenter(point, scale),
+        ),
+      };
+    case "polyline":
+      return {
+        ...node,
+        points: node.points.map((point) =>
+          scalePointFromCenter(point, scale),
+        ),
+      };
+    case "line":
+      return {
+        ...node,
+        start: scalePointFromCenter(node.start, scale),
+        end: scalePointFromCenter(node.end, scale),
+      };
+    case "arc":
+      return {
+        ...node,
+        center: scalePointFromCenter(node.center, scale),
+        radius: node.radius * scale,
+      };
+  }
 }
 
 function classificationNodeVisible(
@@ -35,29 +93,35 @@ function classificationNodeVisible(
 function classificationPresentationNode(
   node: SpatialNode,
   profile: SpatialClassificationPresentationProfile,
+  innerPresentationScale: number,
 ): SpatialNode {
-  if (node.role === "inner-shape" && !profile.showShading) {
+  const scaledNode = scaleInnerShapeNode(node, innerPresentationScale);
+
+  if (scaledNode.role === "inner-shape" && !profile.showShading) {
     return {
-      ...node,
-      style: { ...node.style, fill: SPATIAL_ANALOGY_INNER_OPEN_FILL },
+      ...scaledNode,
+      style: {
+        ...scaledNode.style,
+        fill: SPATIAL_ANALOGY_INNER_OPEN_FILL,
+      },
     };
   }
-  if (node.role === "count-segment" && node.kind === "line") {
+  if (scaledNode.role === "count-segment" && scaledNode.kind === "line") {
     return {
       kind: "circle",
-      id: node.id,
-      role: node.role,
-      layer: node.layer,
+      id: scaledNode.id,
+      role: scaledNode.role,
+      layer: scaledNode.layer,
       center: {
-        x: (node.start.x + node.end.x) / 2,
-        y: (node.start.y + node.end.y) / 2,
+        x: (scaledNode.start.x + scaledNode.end.x) / 2,
+        y: (scaledNode.start.y + scaledNode.end.y) / 2,
       },
       radius: 2.7,
       style: { stroke: "#111", strokeWidth: 1, fill: "#111" },
-      explanationTags: node.explanationTags,
+      explanationTags: scaledNode.explanationTags,
     };
   }
-  return node;
+  return scaledNode;
 }
 
 export function buildSpatialClassificationFigureScene(
@@ -66,11 +130,18 @@ export function buildSpatialClassificationFigureScene(
   presentationProfile: SpatialClassificationPresentationProfile,
 ): SpatialScene {
   const scene = buildSpatialAnalogyFigureScene(state, id);
+  const innerPresentationScale = classificationInnerPresentationScale(state);
   return {
     ...scene,
     nodes: scene.nodes
       .filter((node) => classificationNodeVisible(node, presentationProfile))
-      .map((node) => classificationPresentationNode(node, presentationProfile)),
+      .map((node) =>
+        classificationPresentationNode(
+          node,
+          presentationProfile,
+          innerPresentationScale,
+        ),
+      ),
     metadata: {
       ...scene.metadata,
       chapterCode: "FCL-001",
@@ -79,6 +150,7 @@ export function buildSpatialClassificationFigureScene(
       showDirection: presentationProfile.showDirection,
       showShading: presentationProfile.showShading,
       showSegments: presentationProfile.showSegments,
+      innerPresentationScale,
     },
   };
 }
@@ -90,7 +162,8 @@ export function validateSpatialClassificationSceneAgainstState(
 ): SpatialClassificationSceneIntegrityResult {
   const state = normalizeSpatialAnalogyState(stateInput);
   const errors: string[] = [];
-  const byRole = (role: string) => scene.nodes.filter((node) => node.role === role);
+  const byRole = (role: string) =>
+    scene.nodes.filter((node) => node.role === role);
   const outer = byRole("outer-shape");
   const inner = byRole("inner-shape");
   const direction = byRole("direction-indicator");
@@ -127,7 +200,11 @@ export function validateSpatialClassificationSceneAgainstState(
   if (direction.length > 0 && directionLayer <= innerLayer) {
     errors.push("ARROW_NOT_ABOVE_INNER_SHAPE");
   }
-  if (marker.length > 0 && direction.length > 0 && markerLayer <= directionLayer) {
+  if (
+    marker.length > 0 &&
+    direction.length > 0 &&
+    markerLayer <= directionLayer
+  ) {
     errors.push("MARKER_NOT_TOPMOST");
   }
 
@@ -139,6 +216,7 @@ export function validateSpatialClassificationSceneAgainstState(
     errors.push("INNER_SHADING_MISMATCH");
   }
 
+  const innerPresentationScale = classificationInnerPresentationScale(state);
   const metadata = scene.metadata ?? {};
   const expectedMetadata: Record<string, string | number | boolean> = {
     outerShape: state.outerShape,
@@ -154,11 +232,16 @@ export function validateSpatialClassificationSceneAgainstState(
     showDirection: presentationProfile.showDirection,
     showShading: presentationProfile.showShading,
     showSegments: presentationProfile.showSegments,
+    innerPresentationScale,
   };
   for (const [key, value] of Object.entries(expectedMetadata)) {
-    if (metadata[key] !== value) errors.push(`METADATA_${key.toUpperCase()}_MISMATCH`);
+    if (metadata[key] !== value) {
+      errors.push(`METADATA_${key.toUpperCase()}_MISMATCH`);
+    }
   }
-  if (metadata.chapterCode !== "FCL-001") errors.push("CHAPTER_METADATA_MISMATCH");
+  if (metadata.chapterCode !== "FCL-001") {
+    errors.push("CHAPTER_METADATA_MISMATCH");
+  }
 
   return { ok: errors.length === 0, errors };
 }
