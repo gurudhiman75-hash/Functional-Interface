@@ -29,6 +29,9 @@ function conclusion(pkg: CalendarQuestionPackage, locale: FrozenLocale): string 
   if (pkg.outputType === "CLASSIFICATION") {
     return t(locale, { hi: `अतः सही विकल्प है: ${answer}।`, pa: `ਇਸ ਲਈ ਸਹੀ ਵਿਕਲਪ ਹੈ: ${answer}।` });
   }
+  if (pkg.outputType === "WEEKDAY_SET") {
+    return t(locale, { hi: `अतः सही उत्तर ${answer} हैं।`, pa: `ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${answer} ਹਨ।` });
+  }
   return t(locale, { hi: `अतः सही उत्तर ${answer} है।`, pa: `ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${answer} ਹੈ।` });
 }
 
@@ -124,7 +127,7 @@ export function finalizeCalendarMultilingualEditorialFreeze(
   if (pkg.prototypeAuthority === "CAL-PQL-003") return { ...pkg, explanation: recoverStart(pkg, locale) };
   if (pkg.prototypeAuthority === "CAL-PQL-004") return { ...pkg, explanation: leastPositive(pkg, locale) };
   if (pkg.prototypeAuthority === "CAL-PQL-027") return { ...pkg, explanation: centuryBoundary(pkg, locale) };
-  if (pkg.outputType === "CLASSIFICATION") {
+  if (pkg.outputType === "CLASSIFICATION" || pkg.outputType === "WEEKDAY_SET") {
     return {
       ...pkg,
       explanation: {
