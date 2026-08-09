@@ -1,4 +1,10 @@
-import { CLOCK_DESIGN_AUTHORITY, CLOCK_TASK_CATALOG, checkpointForClockTask, type ClockTaskId } from "./catalog";
+import {
+  CLOCK_DESIGN_AUTHORITY,
+  CLOCK_TASK_CATALOG,
+  checkpointForClockTask,
+  type ClockTaskId,
+} from "./catalog";
+import { solveEventFamily } from "./families/events";
 import { solveRemainingPrototype } from "./families/remaining";
 import { solveMotionOrAnglePrototype } from "./families/motion-angle";
 import { solveStrikeFamily } from "./families/strikes";
@@ -23,11 +29,11 @@ function solvePrototype(input: {
   seed: string;
   rng: ClockSeededRandom;
 }): SolvedClockPrototype {
-  const familyInput = input;
   const solved =
-    solveMotionOrAnglePrototype(familyInput) ??
-    solveStrikeFamily(familyInput) ??
-    solveRemainingPrototype(familyInput);
+    solveEventFamily(input) ??
+    solveMotionOrAnglePrototype(input) ??
+    solveStrikeFamily(input) ??
+    solveRemainingPrototype(input);
   if (!solved) {
     throw new Error(`No CLK-001 solver owns task ${input.taskId}.`);
   }
@@ -37,19 +43,51 @@ function solvePrototype(input: {
   return solved;
 }
 
+function assertContractEvidence(
+  solved: SolvedClockPrototype,
+  taskId: ClockTaskId,
+  seed: string,
+): void {
+  if (!solved.contractEvidence) return;
+  if (solved.answer.kind !== solved.contractEvidence.expectedAnswerKind) {
+    throw new Error(
+      `Answer-kind contract failed for ${taskId}/${seed}: expected ${solved.contractEvidence.expectedAnswerKind}, received ${solved.answer.kind}.`,
+    );
+  }
+  for (const token of solved.contractEvidence.visibleStemTokens) {
+    if (!solved.stem.includes(token)) {
+      throw new Error(
+        `Stem-scenario parity failed for ${taskId}/${seed}; missing visible token ${JSON.stringify(token)}.`,
+      );
+    }
+  }
+}
+
 export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQuestion {
   if (!CLOCK_TASK_CATALOG.some(([taskId]) => taskId === input.taskId)) {
-    throw new Error(`Task ${input.taskId} is not in the sole-authority CLK-001 catalog.`);
+    throw new Error(`Task ${input.taskId} is not in the sole-authority CLK-001 source-candidate catalog.`);
   }
   const locale = input.locale ?? "en-IN";
-  const rng = new ClockSeededRandom(`${input.taskId}|${input.seed}|${locale}|CLK_V2`);
+  if (locale !== "en-IN") {
+    throw new Error(
+      "CLK-001 localisation is blocked until the corrected English task authorities pass source saturation and human freeze.",
+    );
+  }
+
+  const rng = new ClockSeededRandom(`${input.taskId}|${input.seed}|${locale}|CLK_V2_REMEDIATION`);
   const solved = solvePrototype({ taskId: input.taskId, locale, seed: input.seed, rng });
+  assertContractEvidence(solved, input.taskId, input.seed);
+
   const correctOptionIndex = input.correctOptionIndex ?? (rng.int(0, 3) as 0 | 1 | 2 | 3);
   const options = makeOptions({ correct: solved.answer, distractors: solved.distractors, correctOptionIndex });
   const checkpointCode = checkpointForClockTask(input.taskId);
-  const prototypeId = `CLK-V2-${input.taskId}`;
+  const prototypeId = `CLK-V2-CANDIDATE-${input.taskId}`;
   const canonicalAnswerKey = solved.answer.semanticKey;
-  const verifierAnswerKey = solved.answer.semanticKey;
+  const verifierAnswerKey = solved.verifierAnswer?.semanticKey ?? solved.answer.semanticKey;
+  const hasDualAnswerOracle = solved.verifierAnswer !== undefined;
+  if (hasDualAnswerOracle && canonicalAnswerKey !== verifierAnswerKey) {
+    throw new Error(`Independent answer oracle disagrees for ${input.taskId}/${input.seed}/${locale}.`);
+  }
   const fingerprint = stableFingerprint([
     CLOCK_DESIGN_AUTHORITY.sha256,
     input.taskId,
@@ -85,14 +123,20 @@ export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQ
       agreement: true,
       canonicalTrace: solved.canonicalTrace,
       verifierTrace: solved.verifierTrace,
+      proofLevel: hasDualAnswerOracle ? "DUAL_ANSWER_ORACLE" : "STRUCTURAL_DISCOVERY_ONLY",
+      contractOracle: solved.contractEvidence?.oracleName,
+      stemScenarioParity: solved.contractEvidence ? true : undefined,
+      answerContractVerified: solved.contractEvidence ? true : undefined,
       ...solved.solveTraceExtras,
     },
     fingerprint,
     lifecycle: {
       discoveryStatus: "OPEN_EXECUTABLE_DISCOVERY",
       editorialStatus: "HUMAN_REVIEW_REQUIRED",
-      solverProofStatus: "DUAL_PROOF_REQUIRED_AND_PASSED",
-      localeStatus: "EXECUTABLE_PARITY__HUMAN_LANGUAGE_REVIEW_REQUIRED",
+      solverProofStatus: hasDualAnswerOracle
+        ? "DUAL_ANSWER_ORACLE_PASSED"
+        : "STRUCTURAL_DISCOVERY_ONLY__REMEDIATION_REQUIRED",
+      localeStatus: "ENGLISH_DISCOVERY__LOCALISATION_BLOCKED_UNTIL_ENGLISH_FREEZE",
       publicationStatus: "LOCKED",
       permanentQlId: null,
       questionStudioDiscoverable: false,
@@ -113,9 +157,6 @@ export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQ
   }
   if (new Set(question.options.map((option) => option.display)).size !== 4) {
     throw new Error(`Visible option uniqueness failed for ${input.taskId}/${input.seed}/${locale}.`);
-  }
-  if (question.solveTrace.canonicalAnswerKey !== question.solveTrace.verifierAnswerKey) {
-    throw new Error(`Dual solver disagreement for ${input.taskId}/${input.seed}/${locale}.`);
   }
   return question;
 }
