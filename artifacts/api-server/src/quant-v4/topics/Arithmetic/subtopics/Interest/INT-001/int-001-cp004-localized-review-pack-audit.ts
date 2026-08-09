@@ -46,6 +46,41 @@ const EXPECTED_REPRESENTATIONS = Object.freeze([
   "SCHEME_COMPARISON",
 ] as const);
 
+const machinePhrases: Readonly<Record<IntCp004LocalizedLocale, readonly string[]>> = Object.freeze({
+  "hi-IN": Object.freeze([
+    "निवेश की शर्तें नीचे दी गई हैं",
+    "खाते में दर्ज",
+    "खाता विवरण",
+    "योजना का सार",
+    "योजना/चरण का विवरण",
+    "दर्ज जानकारी के आधार पर",
+    "प्रश्न हल कीजिए",
+  ]),
+  "pa-IN": Object.freeze([
+    "ਨਿਵੇਸ਼ ਦੀਆਂ ਸ਼ਰਤਾਂ ਹੇਠਾਂ ਦਿੱਤੀਆਂ ਹਨ",
+    "ਖਾਤੇ ਵਿੱਚ ਦਰਜ",
+    "ਖਾਤਾ ਵੇਰਵਾ",
+    "ਯੋਜਨਾ ਦਾ ਸਾਰ",
+    "ਯੋਜਨਾ/ਪੜਾਅ ਦਾ ਵੇਰਵਾ",
+    "ਦਰਜ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ ਉੱਤੇ",
+    "ਪ੍ਰਸ਼ਨ ਹੱਲ ਕਰੋ",
+  ]),
+});
+
+const punjabiMishritRequired = new Set([
+  "INT-QL-068", "INT-QL-070", "INT-QL-074", "INT-QL-079", "INT-QL-080",
+  "INT-QL-081", "INT-QL-082", "INT-QL-083", "INT-QL-085",
+]);
+
+function normalizeStem(stem: string): string {
+  return stem
+    .replace(/₹[\d,.]+/gu, "₹N")
+    .replace(/\d+(?:\.\d+)?%/gu, "R%")
+    .replace(/\d+/gu, "N")
+    .replace(/\s+/gu, " ")
+    .trim();
+}
+
 const summaryText = readFileSync(
   join(OUTPUT_DIRECTORY, "int-cp004-localized-review-pack-summary.json"),
   "utf8",
@@ -70,16 +105,16 @@ let lifecycleChecks = 0;
 let deterministicChecks = 0;
 let hashChecks = 0;
 let representationChecks = 0;
-let representationShapeChecks = 0;
+let nativeStemChecks = 0;
 let stemFamilyChecks = 0;
 let answerPositionChecks = 0;
 let sharedSeedChecks = 0;
 let englishFallbackChecks = 0;
+let punjabiTerminologyChecks = 0;
 const seedsByLocale: Record<string, readonly string[]> = {};
 const answerPositionsByLocale: Record<string, readonly number[]> = {};
 const hashesByLocale: Record<string, Readonly<{ markdown: string; data: string }>> = {};
-const tableQuestionsByLocale: Record<string, number> = {};
-const nonTableQuestionsByLocale: Record<string, number> = {};
+const normalizedStemPatternsByLocaleQl: Record<string, number> = {};
 
 for (const locale of INT_CP004_LOCALIZED_LOCALES) {
   const files = FILES[locale];
@@ -120,8 +155,7 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
   const qlCounts: Record<string, number> = {};
   const representationsByQl: Record<string, Set<string>> = {};
   const familiesByQl: Record<string, Set<string>> = {};
-  let tableQuestions = 0;
-  let nonTableQuestions = 0;
+  const normalizedStemsByQl: Record<string, Set<string>> = {};
 
   for (const question of pack.questions) {
     questionChecks += 1;
@@ -129,6 +163,7 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
     qlCounts[question.qlId] = (qlCounts[question.qlId] ?? 0) + 1;
     (representationsByQl[question.qlId] ??= new Set<string>()).add(question.representation);
     (familiesByQl[question.qlId] ??= new Set<string>()).add(question.stemFamilyId);
+    (normalizedStemsByQl[question.qlId] ??= new Set<string>()).add(normalizeStem(question.stem));
 
     answerPositionChecks += 1;
     if (question.correctIndex < 0 || question.correctIndex > 3) {
@@ -156,61 +191,26 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
     }
 
     assertCp004LocalizedText(locale, question.stem, `${locale}/${question.qlId}/${question.seed}/stem`);
-    assertCp004LocalizedText(
-      locale,
-      question.explanation.whatAsked,
-      `${locale}/${question.qlId}/${question.seed}/what-asked`,
-    );
-    assertCp004LocalizedText(
-      locale,
-      question.explanation.finalAnswer,
-      `${locale}/${question.qlId}/${question.seed}/final-answer`,
-    );
-    assertCp004LocalizedText(
-      locale,
-      question.explanation.commonMistake,
-      `${locale}/${question.qlId}/${question.seed}/common-mistake`,
-    );
+    assertCp004LocalizedText(locale, question.explanation.whatAsked, `${locale}/${question.qlId}/${question.seed}/what-asked`);
+    assertCp004LocalizedText(locale, question.explanation.finalAnswer, `${locale}/${question.qlId}/${question.seed}/final-answer`);
+    assertCp004LocalizedText(locale, question.explanation.commonMistake, `${locale}/${question.qlId}/${question.seed}/common-mistake`);
     scriptChecks += 4;
 
-    const hasMarkdownTable = question.stem.includes("|---|---|");
-    if (question.representation === "TERMS_TABLE") {
-      representationShapeChecks += 1;
-      tableQuestions += 1;
-      if (!hasMarkdownTable) fail(`${locale}/${question.qlId}/${question.seed}: genuine terms table is missing.`);
-      if (question.stem.split("\n").filter((line) => line.trimStart().startsWith("|")).length < 4) {
-        fail(`${locale}/${question.qlId}/${question.seed}: genuine terms table is too shallow.`);
-      }
-    } else {
-      representationShapeChecks += 1;
-      nonTableQuestions += 1;
-      if (hasMarkdownTable) fail(`${locale}/${question.qlId}/${question.seed}: non-table representation rendered as a table.`);
-      if (question.representation === "BALANCE_RECORD") {
-        const heading = locale === "hi-IN" ? "**खाता विवरण**" : "**ਖਾਤਾ ਵੇਰਵਾ**";
-        if (!question.stem.includes(heading)) fail(`${locale}/${question.qlId}/${question.seed}: account record heading is missing.`);
-        if (question.stem.split("\n").filter((line) => /^\d+\.\s+\*\*/u.test(line)).length < 2) {
-          fail(`${locale}/${question.qlId}/${question.seed}: account record lacks numbered entries.`);
-        }
-      }
-      if (question.representation === "SCHEME_COMPARISON") {
-        const heading = locale === "hi-IN" ? "**योजना/चरण का विवरण**" : "**ਯੋਜਨਾ/ਪੜਾਅ ਦਾ ਵੇਰਵਾ**";
-        if (!question.stem.includes(heading)) fail(`${locale}/${question.qlId}/${question.seed}: scheme heading is missing.`);
-        if (question.stem.split("\n").filter((line) => line.startsWith("- **")).length < 2) {
-          fail(`${locale}/${question.qlId}/${question.seed}: scheme representation lacks bullet facts.`);
-        }
-      }
+    if (question.stem.includes("|---|")) fail(`${locale}/${question.qlId}/${question.seed}: native stem contains a table.`);
+    if (question.stem.includes("**")) fail(`${locale}/${question.qlId}/${question.seed}: native stem contains a generated heading.`);
+    if (question.stem.includes("\n- ")) fail(`${locale}/${question.qlId}/${question.seed}: native stem contains a generated fact list.`);
+    for (const phrase of machinePhrases[locale]) {
+      if (question.stem.includes(phrase)) fail(`${locale}/${question.qlId}/${question.seed}: machine-style phrase remains: ${phrase}`);
+      nativeStemChecks += 1;
     }
+    nativeStemChecks += 3;
 
     if (question.explanation.steps.length < 2) {
       fail(`${locale}/${question.qlId}/${question.seed}: insufficient worked steps.`);
     }
     for (const [stepIndex, step] of question.explanation.steps.entries()) {
       explanationChecks += 1;
-      assertCp004LocalizedText(
-        locale,
-        step,
-        `${locale}/${question.qlId}/${question.seed}/step-${stepIndex + 1}`,
-      );
+      assertCp004LocalizedText(locale, step, `${locale}/${question.qlId}/${question.seed}/step-${stepIndex + 1}`);
       scriptChecks += 1;
     }
 
@@ -228,6 +228,13 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
     }
     if (/\b(?:TODO|TBD|placeholder|translate|translation pending)\b/iu.test(learnerText)) {
       fail(`${locale}/${question.qlId}/${question.seed}: placeholder reached review pack.`);
+    }
+    if (locale === "pa-IN") {
+      if (learnerText.includes("ਚੱਕਰਵੱਧੀ")) fail(`${locale}/${question.qlId}/${question.seed}: rejected Punjabi interest term remains.`);
+      if (punjabiMishritRequired.has(question.qlId) && !question.stem.includes("ਮਿਸ਼ਰਤ ਵਿਆਜ")) {
+        fail(`${locale}/${question.qlId}/${question.seed}: required ਮਿਸ਼ਰਤ ਵਿਆਜ wording is missing.`);
+      }
+      punjabiTerminologyChecks += 1;
     }
 
     lifecycleChecks += 7;
@@ -247,14 +254,9 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
   if (seeds.size !== 76) fail(`${locale}: expected 76 unique review seeds, received ${seeds.size}.`);
   seedsByLocale[locale] = Object.freeze([...seeds]);
   answerPositionsByLocale[locale] = Object.freeze([...answerPositions]);
-  tableQuestionsByLocale[locale] = tableQuestions;
-  nonTableQuestionsByLocale[locale] = nonTableQuestions;
 
   if (answerPositions.some((count) => count !== 19)) {
     fail(`${locale}: answer positions are not balanced 19/19/19/19.`);
-  }
-  if (tableQuestions !== 19 || nonTableQuestions !== 57) {
-    fail(`${locale}: expected 19 genuine tables and 57 non-table questions, received ${tableQuestions}/${nonTableQuestions}.`);
   }
 
   for (const qlId of INT_CP004_QL_IDS) {
@@ -265,7 +267,7 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
       representations?.size !== 4
       || EXPECTED_REPRESENTATIONS.some((representation) => !representations.has(representation))
     ) {
-      fail(`${locale}/${qlId}: representation coverage is incomplete.`);
+      fail(`${locale}/${qlId}: internal representation coverage is incomplete.`);
     }
 
     const families = familiesByQl[qlId];
@@ -275,6 +277,12 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
         fail(`${locale}/${qlId}: stem family FRAME-${frame} is missing.`);
       }
     }
+
+    const nativePatterns = normalizedStemsByQl[qlId]?.size ?? 0;
+    if (nativePatterns !== 4) {
+      fail(`${locale}/${qlId}: expected four materially distinct native stems, received ${nativePatterns}.`);
+    }
+    normalizedStemPatternsByLocaleQl[`${locale}/${qlId}`] = nativePatterns;
   }
 }
 
@@ -289,8 +297,9 @@ for (let index = 0; index < hindiSeeds.length; index += 1) {
 }
 
 const summary = {
-  status: "CP004_LOCALIZED_REVIEW_PACKS_VALIDATED",
+  status: "CP004_LOCALIZED_NATIVE_REVIEW_PACKS_VALIDATED",
   reviewPackVersion: INT_CP004_LOCALIZED_REVIEW_PACK_VERSION,
+  nativeStemVersion: "INT-CP-004-HI-PA-NATIVE-STEMS-v6",
   qlRange: "INT-QL-067..INT-QL-085",
   qlCount: 19,
   locales: INT_CP004_LOCALIZED_LOCALES,
@@ -305,14 +314,14 @@ const summary = {
   deterministicChecks,
   hashChecks,
   representationChecks,
-  representationShapeChecks,
+  nativeStemChecks,
   stemFamilyChecks,
   answerPositionChecks,
   sharedSeedChecks,
   englishFallbackChecks,
+  punjabiTerminologyChecks,
   answerPositionsByLocale,
-  tableQuestionsByLocale,
-  nonTableQuestionsByLocale,
+  normalizedStemPatternsByLocaleQl,
   hashesByLocale,
   lifecycle: {
     maturity: "MULTILINGUAL_LOCALISATION_REVIEW",
