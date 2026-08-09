@@ -136,7 +136,14 @@ assert.throws(
   /blocked until the corrected English/i,
 );
 
-const remediatedCheckpoints = new Set(["CLK-CP-003", "CLK-CP-004", "CLK-CP-005"]);
+const remediatedCheckpoints = new Set([
+  "CLK-CP-003",
+  "CLK-CP-004",
+  "CLK-CP-005",
+  "CLK-CP-006",
+  "CLK-CP-007",
+  "CLK-CP-008",
+]);
 const answerPositions = [0, 0, 0, 0];
 const fingerprints = new Set<string>();
 const taskCoverage = new Set<string>();
@@ -243,7 +250,7 @@ writeFileSync(
 );
 
 const summary = {
-  status: "PASS_CLK_001_REMEDIATION_SLICE_1",
+  status: "PASS_CLK_001_REMEDIATION_SLICES_1_AND_2",
   soleAuthority: "CLK-001-CLOCKS-MASTER-END-TO-END-DESIGN-V2.md",
   authoritySha256: "db7fcb55498201427706416ba36622718f667ee88500c8c1572f59473cff4bcc",
   candidatePolicy: CLOCK_SOURCE_CANDIDATE_POLICY,
