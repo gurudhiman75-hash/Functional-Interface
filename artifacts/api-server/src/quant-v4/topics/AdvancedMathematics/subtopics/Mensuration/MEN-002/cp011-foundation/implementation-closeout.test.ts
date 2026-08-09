@@ -10,6 +10,59 @@ import {
 
 const audit = auditMenCp011ImplementationCloseout();
 
+function diagnosticLearnerText(question: any) {
+  return [
+    question.stem,
+    ...question.options.map((option: any) => option.display),
+    question.answer,
+    question.learnerSolution?.formula ?? "",
+    ...(question.learnerSolution?.steps ?? []),
+    question.learnerSolution?.finalAnswer ?? "",
+    question.learnerSolution?.shortcut ?? "",
+    ...(question.learnerSolution?.wrongOptionAnalysis ?? []),
+  ].join("\n");
+}
+
+const technicalFailures = MEN_CP011_IMPLEMENTATION_CLOSEOUT_RECORDS.flatMap(
+  (question) => {
+    const text = diagnosticLearnerText(question);
+    const reasons = [
+      text.includes("\\pih") ? "MALFORMED_PI_H" : null,
+      (text.match(/\$/g) ?? []).length % 2 !== 0
+        ? "UNBALANCED_DOLLARS"
+        : null,
+      /\$\$/.test(text) ? "DOUBLE_DOLLARS" : null,
+      /misconceptionId|prototypeId/.test(text)
+        ? "INTERNAL_FIELD_NAME"
+        : null,
+      /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(text)
+        ? "CONTROL_CHARACTER"
+        : null,
+    ].filter((reason): reason is string => reason !== null);
+    return reasons.length > 0
+      ? [{
+          prototypeId: question.prototypeId,
+          wave: question.implementationWaveId,
+          reasons,
+        }]
+      : [];
+  },
+);
+
+const technicalFailureCountsByWave: Record<string, number> = {};
+const technicalFailureCountsByPrototype: Record<string, number> = {};
+const technicalFailureReasonCounts: Record<string, number> = {};
+for (const failure of technicalFailures) {
+  technicalFailureCountsByWave[failure.wave] =
+    (technicalFailureCountsByWave[failure.wave] ?? 0) + 1;
+  technicalFailureCountsByPrototype[failure.prototypeId] =
+    (technicalFailureCountsByPrototype[failure.prototypeId] ?? 0) + 1;
+  for (const reason of failure.reasons) {
+    technicalFailureReasonCounts[reason] =
+      (technicalFailureReasonCounts[reason] ?? 0) + 1;
+  }
+}
+
 console.log(
   "MEN_CP011_CLOSEOUT_DIAGNOSTIC",
   JSON.stringify(
@@ -26,6 +79,9 @@ console.log(
       structurallyValidOptionRecordCount:
         audit.structurallyValidOptionRecordCount,
       lifecycleLockedRecordCount: audit.lifecycleLockedRecordCount,
+      technicalFailureCountsByWave,
+      technicalFailureCountsByPrototype,
+      technicalFailureReasonCounts,
       recordCountsByWave: audit.recordCountsByWave,
       answerPositionCounts: audit.answerPositionCounts,
     },
