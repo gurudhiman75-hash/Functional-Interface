@@ -1,0 +1,89 @@
+name: Validate MEN-CP-011 source AI pre-review V5
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/source-normalisation-readiness*.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/direct-source-human-review-batch*.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-011/MEN-CP-011-DIRECT-SOURCE-AI-PRE-REVIEW-V1.md
+      - .github/workflows/men-002-cp011-source-ai-pre-review-v5.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-002-cp011-source-ai-pre-review-v5-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-source-ai-pre-review-v5:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prove V5 source corrections and revised human queue
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/source-normalisation-readiness-v5.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp011-source-ai-pre-review-v5.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp011-source-ai-pre-review-v5.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp011-source-ai-pre-review-v5.test.log
+
+      - name: Export V5 source pre-review evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/source-normalisation-readiness-v5-export.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp011-source-ai-pre-review-v5-export.mjs
+          cd artifacts/api-server
+          node dist/quant-v4/men-cp011-source-ai-pre-review-v5-export.mjs \
+            2>&1 | tee dist/quant-v4/men-cp011-source-ai-pre-review-v5-export.log
+
+      - name: Build production API bundle
+        shell: bash
+        run: bash build-api.sh
+
+      - name: Upload V5 source pre-review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp011-source-ai-pre-review-v5
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp011-source-ai-pre-review-v5.test.log
+            artifacts/api-server/dist/quant-v4/men-cp011-source-ai-pre-review-v5-export.log
+            artifacts/api-server/dist/quant-v4/men-cp011-source-ai-pre-review-v5.json
+            artifacts/api-server/dist/quant-v4/men-cp011-source-ai-pre-review-v5.md
+          if-no-files-found: error
+          retention-days: 14
