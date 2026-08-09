@@ -38,7 +38,7 @@ assert.deepEqual(byYear, { "2023": 2, "2024": 4, "2025": 6 });
 assert.deepEqual(byPremiseCount, { "2": 9, "3": 3 });
 assert.deepEqual(byConclusionCount, { "2": 11, "3": 1 });
 assert.equal(forms.ALL, 14);
-assert.equal(forms.SOME, 9);
+assert.equal(forms.SOME, 11);
 assert.equal(forms.NO, 2);
 assert.equal(forms.ONLY ?? 0, 0);
 assert.equal(forms.ONLY_A_FEW ?? 0, 0);
