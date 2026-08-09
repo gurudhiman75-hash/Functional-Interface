@@ -15,6 +15,14 @@ for (const definition of CALENDAR_PROTOTYPES) {
       const text = JSON.stringify({ stem: pkg.stem, options: pkg.options, explanation: pkg.explanation });
       assert(!/है है|ਹੈ ਹੈ/.test(text), `${definition.id} seed ${seed} ${locale}: doubled copula remains.`);
       assert(!/अतः सही उत्तर .* शामिल है है|ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ .* ਸ਼ਾਮਲ ਹੈ ਹੈ/.test(text), `${definition.id} seed ${seed} ${locale}: classification conclusion is ungrammatical.`);
+      if (pkg.outputType === "WEEKDAY_SET") {
+        assert(
+          locale === "hi-IN"
+            ? pkg.explanation.conclusion.endsWith("हैं।")
+            : pkg.explanation.conclusion.endsWith("ਹਨ।"),
+          `${definition.id} seed ${seed} ${locale}: weekday-set conclusion does not use plural agreement.`,
+        );
+      }
       packagesChecked++;
     }
   }
@@ -25,4 +33,5 @@ console.log(JSON.stringify({
   locales,
   packagesChecked,
   doubledCopulaDefects: 0,
+  pluralAgreementDefects: 0,
 }, null, 2));
