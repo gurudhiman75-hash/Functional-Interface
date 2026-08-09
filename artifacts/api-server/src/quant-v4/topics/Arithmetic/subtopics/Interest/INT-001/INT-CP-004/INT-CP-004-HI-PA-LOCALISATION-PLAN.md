@@ -35,15 +35,20 @@ The v7 layer now:
 9. replaces artificial phrases such as Hindi `ब्याज-आवृत्ति`, Punjabi `ਹਰ ਸੰਭਵ ਕ੍ਰਮ`, and related calques with normal exam language;
 10. preserves all frozen mathematics, answers, option ownership and lifecycle locks.
 
-## Validated learner-content checkpoint
+## Exact-head validation
 
 ```text
+Current validated head:        25fae467e752d6801d363d3d361a8187c565c52d
 Validated learner-content head: 4fdb71391f35570a4d57cc361b4f7f220ca0053c
 Human editorial authority:      INT-CP-004-HI-PA-HUMAN-EDITORIAL-v7
-CP-004 workflow run:            31324434279 — PASS
-CP-001 isolation run:           31324434269 — PASS
-Evidence artifact:              9041120431
-Artifact digest:                sha256:9b85f021d24fb7a129ac5c424141292d33a16fb67359a7a25107d6fd2bbe1877
+Current-head CP-004 run:        31324539151 — PASS
+Current-head CP-001 run:        31324539158 — PASS
+Learner-content CP-004 run:     31324434279 — PASS
+Learner-content CP-001 run:     31324434269 — PASS
+Current-head artifact:          9041146388
+Current-head artifact digest:   sha256:7d486b99e7f3a369a1b8321d47b9e1ec0d1f93a36a4c5ad3151c5c117642b692
+Reviewed learner artifact:      9041120431
+Reviewed artifact digest:       sha256:9b85f021d24fb7a129ac5c424141292d33a16fb67359a7a25107d6fd2bbe1877
 ```
 
 Validation evidence:
