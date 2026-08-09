@@ -1,3 +1,4 @@
+import { compareRational, rational } from "./rational";
 import {
   adulterantPercentQuestionV2,
   adulterantQuantityQuestionV2,
@@ -59,6 +60,27 @@ function buildQuestion(
   }
 }
 
+function capitalizeSentence(text: string): string {
+  return text.replace(/^([a-z])/u, (_match, first: string) =>
+    first.toUpperCase(),
+  );
+}
+
+function normalizeLearnerPresentation(
+  question: MalCp005ExamReadyQuestionV2,
+): MalCp005ExamReadyQuestionV2 {
+  question.explanation.visibleLines =
+    question.explanation.visibleLines.map(capitalizeSentence);
+  if (question.explanation.optionalHelp.verification) {
+    question.explanation.optionalHelp.verification =
+      question.explanation.optionalHelp.verification.map(capitalizeSentence);
+  }
+  question.explanation.optionalHelp.commonMistake = capitalizeSentence(
+    question.explanation.optionalHelp.commonMistake,
+  );
+  return question;
+}
+
 function learnerFacingText(question: MalCp005ExamReadyQuestionV2): string {
   return JSON.stringify({
     stem: question.stem,
@@ -68,12 +90,86 @@ function learnerFacingText(question: MalCp005ExamReadyQuestionV2): string {
   });
 }
 
-function optionSurfaceIsExamNatural(question: MalCp005ExamReadyQuestionV2): boolean {
-  return question.options.every(
-    (option) =>
-      !/^\s*-/u.test(option) &&
-      !/\/(?:6|7|9|11|12|13|14|15|16|17|18|19|20)(?:\D|$)/u.test(option),
-  );
+function parseDisplayedNumber(text: string): number | null {
+  const stripped = text.trim().replace(/^₹/u, "");
+  const mixed = stripped.match(/^(-?\d+) (\d+)\/(\d+)/u);
+  if (mixed) {
+    const whole = Number(mixed[1]);
+    const fraction = Number(mixed[2]) / Number(mixed[3]);
+    return whole < 0 ? whole - fraction : whole + fraction;
+  }
+  const fraction = stripped.match(/^(-?\d+)\/(\d+)/u);
+  if (fraction) return Number(fraction[1]) / Number(fraction[2]);
+  const whole = stripped.match(/^(-?\d+(?:\.\d+)?)/u);
+  return whole ? Number(whole[1]) : null;
+}
+
+function optionSurfaceIsExamNatural(
+  question: MalCp005ExamReadyQuestionV2,
+): boolean {
+  if (
+    !question.options.every(
+      (option) =>
+        !/^\s*-/u.test(option) &&
+        !/\/(?:6|7|9|11|12|13|14|15|16|17|18|19|20)(?:\D|$)/u.test(
+          option,
+        ),
+    )
+  ) {
+    return false;
+  }
+
+  const answerValue = parseDisplayedNumber(question.answer);
+  if (!answerValue || answerValue <= 0) return true;
+  const optionValues = question.options
+    .map(parseDisplayedNumber)
+    .filter((value): value is number => value !== null && value > 0);
+  if (optionValues.length !== question.options.length) return false;
+
+  if (
+    question.answerSemantic === "ADULTERANT_QUANTITY" ||
+    question.answerSemantic === "PURE_QUANTITY"
+  ) {
+    return optionValues.every(
+      (value) => value >= answerValue / 20 && value <= answerValue * 20,
+    );
+  }
+  if (question.answerSemantic === "SELLING_RATE") {
+    return optionValues.every(
+      (value) => value >= answerValue / 2.5 && value <= answerValue * 2.5,
+    );
+  }
+  return true;
+}
+
+function directFreeStateIsExamNatural(
+  question: MalCp005ExamReadyQuestionV2,
+): boolean {
+  const hundred = rational(100);
+  switch (question.request.mode) {
+    case "FREE_ADULTERANT_PROFIT_FROM_QUANTITIES":
+      return (
+        compareRational(
+          question.request.adulterantQuantity,
+          question.request.pureQuantity,
+        ) <= 0
+      );
+    case "FREE_ADULTERANT_RATIO_FROM_TARGET_PROFIT":
+    case "ADULTERANT_PERCENT_FROM_TARGET_PROFIT":
+      return compareRational(question.request.targetProfitPercent, hundred) <= 0;
+    case "FREE_ADULTERANT_QUANTITY_FROM_PURE_AND_TARGET":
+    case "PURE_QUANTITY_FROM_FREE_ADULTERANT_AND_TARGET":
+      return compareRational(question.request.targetProfitPercent, hundred) <= 0;
+    case "TARGET_PROFIT_FROM_ADULTERANT_PERCENT":
+      return (
+        compareRational(
+          question.request.adulterantPercentOfMixture,
+          rational(50),
+        ) <= 0
+      );
+    default:
+      return true;
+  }
 }
 
 export function generateMalCp005ExamReadyV2Question(
@@ -83,24 +179,38 @@ export function generateMalCp005ExamReadyV2Question(
   const failures: string[] = [];
   for (let attempt = 0; attempt < 512; attempt += 1) {
     const selectedSeed =
-      attempt === 0 ? requestedSeed : `${requestedSeed}:exam-ready-attempt:${attempt}`;
+      attempt === 0
+        ? requestedSeed
+        : `${requestedSeed}:exam-ready-attempt:${attempt}`;
     try {
-      const question = buildQuestion(
-        prototypeId,
-        requestedSeed,
-        selectedSeed,
-        attempt,
+      const question = normalizeLearnerPresentation(
+        buildQuestion(
+          prototypeId,
+          requestedSeed,
+          selectedSeed,
+          attempt,
+        ),
       );
       if (!question.validation.ok) {
         failures.push(question.validation.errors.join("; "));
         continue;
       }
       if (/\b1 litres\b/iu.test(learnerFacingText(question))) {
-        failures.push("Learner-facing output contains the singular-unit defect '1 litres'.");
+        failures.push(
+          "Learner-facing output contains the singular-unit defect '1 litres'.",
+        );
+        continue;
+      }
+      if (!directFreeStateIsExamNatural(question)) {
+        failures.push(
+          "A direct free-adulterant state exceeds the exam-natural composition range.",
+        );
         continue;
       }
       if (!optionSurfaceIsExamNatural(question)) {
-        failures.push("A displayed option is negative or uses an awkward fraction denominator.");
+        failures.push(
+          "A displayed option is negative, extreme or uses an awkward fraction denominator.",
+        );
         continue;
       }
       const independent = verifyMalCp005Solution(
@@ -117,7 +227,9 @@ export function generateMalCp005ExamReadyV2Question(
     }
   }
   throw new Error(
-    `${prototypeId}/${requestedSeed}: failed to select an exam-ready state after 512 attempts. Last errors: ${failures.slice(-5).join(" | ")}`,
+    `${prototypeId}/${requestedSeed}: failed to select an exam-ready state after 512 attempts. Last errors: ${failures
+      .slice(-5)
+      .join(" | ")}`,
   );
 }
 
@@ -126,12 +238,24 @@ export function verifyMalCp005ExamReadyV2Question(
 ): { ok: boolean; errors: string[] } {
   const errors = [...question.validation.errors];
   if (/\b1 litres\b/iu.test(learnerFacingText(question))) {
-    errors.push("Learner-facing output contains the singular-unit defect '1 litres'.");
+    errors.push(
+      "Learner-facing output contains the singular-unit defect '1 litres'.",
+    );
+  }
+  if (!directFreeStateIsExamNatural(question)) {
+    errors.push(
+      "A direct free-adulterant state exceeds the exam-natural composition range.",
+    );
   }
   if (!optionSurfaceIsExamNatural(question)) {
-    errors.push("A displayed option is negative or uses an awkward fraction denominator.");
+    errors.push(
+      "A displayed option is negative, extreme or uses an awkward fraction denominator.",
+    );
   }
-  const independent = verifyMalCp005Solution(question.request, question.solution);
+  const independent = verifyMalCp005Solution(
+    question.request,
+    question.solution,
+  );
   errors.push(...independent.errors);
   return { ok: errors.length === 0, errors };
 }
