@@ -14,16 +14,7 @@ Locales:                 hi-IN, pa-IN
 
 ## Non-negotiable parity
 
-Hindi and Punjabi preserve the frozen English authority exactly for:
-
-- permanent QL identity;
-- mathematical state and canonical solution;
-- solve contract, answer semantic and difficulty;
-- representation and stem-family ownership metadata;
-- option values, order and misconception IDs;
-- correct option index;
-- explanation structure;
-- inactive delivery lifecycle.
+Hindi and Punjabi preserve the frozen English authority exactly for permanent QL identity, mathematical state, canonical solution, solve contract, answer semantic, difficulty, representation and stem-family ownership metadata, option values and order, misconception IDs, correct option index, explanation structure, and inactive delivery lifecycle.
 
 Only learner-facing language may change.
 
@@ -46,15 +37,16 @@ The current implementation:
 ## Exact-head validation
 
 ```text
-Validated head:          7580f66beaddb2446bc2652817b1002ca78c7c6a
-Native stem authority:   INT-CP-004-HI-PA-NATIVE-STEMS-v6
-CP-004 workflow run:     31309859596 — PASS
-CP-001 isolation run:    31309859587 — PASS
-Evidence artifact:       9037049158
-Artifact digest:         sha256:2ab6ff3ceeae76f2895c5a2938db25b71bf759cc36f76f38cece1af21693c6da
+Validated implementation head: 7580f66beaddb2446bc2652817b1002ca78c7c6a
+Documentation follow-up head:   1706cdf05a589e0b9868f6d7fa8d803a87f30b09
+Native stem authority:          INT-CP-004-HI-PA-NATIVE-STEMS-v6
+CP-004 workflow run:            31309859596 — PASS
+CP-001 isolation run:           31309859587 — PASS
+Evidence artifact:              9037049158
+Artifact digest:                sha256:2ab6ff3ceeae76f2895c5a2938db25b71bf759cc36f76f38cece1af21693c6da
 ```
 
-Validation evidence includes:
+Validation evidence:
 
 ```text
 Executable bilingual runtime cases: 3,800
@@ -79,13 +71,7 @@ Markdown stem tables:    0
 
 The implementation remains under direct Hindi and Punjabi linguistic and exam-readiness review. It is not approved for multilingual freeze or delivery.
 
-Review should inspect:
-
-- whether each stem sounds like a real SSC, banking or Punjab-state-exam question;
-- native grammar and familiar terminology;
-- option-feedback clarity;
-- concise and student-friendly worked solutions;
-- whether any remaining phrase still sounds translated or mechanically assembled.
+Review should inspect whether each stem sounds like a real SSC, banking or Punjab-state-exam question, native grammar and familiar terminology, option-feedback clarity, concise student-friendly worked solutions, and any remaining phrase that sounds translated or mechanically assembled.
 
 ## Lifecycle boundary
 
