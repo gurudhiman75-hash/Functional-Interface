@@ -59,7 +59,7 @@ function options(
     display: display(answer, type),
     isCorrect: true,
     recomputation: { method: "unique_verified_circular_model" },
-    explanation: "This follows from the independently verified unique circular solution class.",
+    explanation: "This matches the solved circular arrangement.",
   });
   return { options: output as unknown as CircularChildQuestion["options"], answerIndex };
 }
@@ -75,7 +75,7 @@ function personQuestion(seed: string, order: readonly PersonId[]): CircularChild
     queryContractId: "SEA-QC-003",
     answerType: "PERSON",
     answerDeterminingFactFingerprint: `QC003:${reference}:LEFT:${steps}`,
-    text: `Who sits ${steps} seats to the left of ${reference}?`,
+    text: `Who sits second to the left of ${reference}?`,
     ...options(seed, 1, "PERSON", answer, [
       { value: personAt(order, topology.moveRelativeCentre(referenceIndex, "RIGHT", steps)), misconceptionId: "SEA-MC-CYC-CENTRE_LEFT_RIGHT_REVERSAL", recomputation: { treatedLeftAsAnticlockwise: true }, explanation: "This reverses the centre-facing left/right rule." },
       { value: personAt(order, topology.moveCyclic(referenceIndex, "CLOCKWISE", 1)), misconceptionId: "SEA-MC-CYC-OFF_BY_ONE_STEP", recomputation: { steps: 1 }, explanation: "This stops one seat early." },
@@ -83,7 +83,7 @@ function personQuestion(seed: string, order: readonly PersonId[]): CircularChild
       { value: personAt(order, referenceIndex), misconceptionId: "SEA-MC-CYC-ENDPOINT_INCLUDED_IN_GAP", recomputation: { includedReference: true }, explanation: "This incorrectly keeps the reference person." },
     ]),
     answer,
-    explanation: `All persons face the centre, so left means clockwise. Two clockwise moves from ${reference} reach ${answer}.`,
+    explanation: `All persons face the centre, so left means clockwise. Moving two seats clockwise from ${reference} reaches ${answer}.`,
   };
 }
 
@@ -107,7 +107,7 @@ function neighbourQuestion(seed: string, order: readonly PersonId[], rng: Determ
       { value: [reference, right].sort(), misconceptionId: "SEA-MC-CYC-ENDPOINT_INCLUDED_IN_GAP", recomputation: { includedReference: true }, explanation: "This incorrectly includes the reference person." },
     ]),
     answer,
-    explanation: `${left} and ${right} occupy the two seats directly beside ${reference}.`,
+    explanation: `${answer[0]} and ${answer[1]} occupy the two seats directly beside ${reference}.`,
   };
 }
 
@@ -118,6 +118,7 @@ function countQuestion(seed: string, order: readonly PersonId[], rng: Determinis
   const second = personAt(order, firstIndex + distance);
   const answer = distance - 1;
   const reverse = order.length - distance - 1;
+  const resultPhrase = answer === 1 ? "1 person lies" : `${answer} persons lie`;
   return {
     questionOrder: 3,
     queryContractId: "SEA-QC-009",
@@ -131,7 +132,7 @@ function countQuestion(seed: string, order: readonly PersonId[], rng: Determinis
       { value: Math.max(0, answer - 1), misconceptionId: "SEA-MC-CYC-OFF_BY_ONE_STEP", recomputation: { stoppedEarly: true }, explanation: "This stops one seat early." },
     ]),
     answer,
-    explanation: `The clockwise distance is ${distance} seats, so ${distance} − 1 = ${answer} persons lie strictly between them.`,
+    explanation: `The clockwise distance is ${distance} seats, so ${distance} − 1 = ${answer}; therefore, ${resultPhrase} strictly between them.`,
   };
 }
 
@@ -151,11 +152,11 @@ function fourthQuestion(seed: string, order: readonly PersonId[], rng: Determini
       ...options(seed, 4, "PERSON", answer, [
         { value: personAt(order, index + 1), misconceptionId: "SEA-MC-CYC-ADJACENT_AS_OPPOSITE", recomputation: { neighbour: "CLOCKWISE" }, explanation: "This selects a neighbour." },
         { value: personAt(order, index - 1), misconceptionId: "SEA-MC-CYC-ADJACENT_AS_OPPOSITE", recomputation: { neighbour: "ANTICLOCKWISE" }, explanation: "This selects the other neighbour." },
-        { value: personAt(order, opposite + 1), misconceptionId: "SEA-MC-CYC-OFF_BY_ONE_STEP", recomputation: { halfTurnPlusOne: true }, explanation: "This moves one seat beyond opposite." },
-        { value: personAt(order, opposite - 1), misconceptionId: "SEA-MC-CYC-OFF_BY_ONE_STEP", recomputation: { halfTurnMinusOne: true }, explanation: "This stops one seat before opposite." },
+        { value: personAt(order, opposite + 1), misconceptionId: "SEA-MC-CYC-OFF_BY_ONE_STEP", recomputation: { halfTurnPlusOne: true }, explanation: "This moves one seat beyond the opposite seat." },
+        { value: personAt(order, opposite - 1), misconceptionId: "SEA-MC-CYC-OFF_BY_ONE_STEP", recomputation: { halfTurnMinusOne: true }, explanation: "This stops one seat before the opposite seat." },
       ]),
       answer,
-      explanation: `The opposite seat is ${order.length / 2} positions away and is occupied by ${answer}.`,
+      explanation: `In a circle of ${order.length} persons, the opposite seat is ${order.length / 2} positions away. That seat is occupied by ${answer}.`,
     };
   }
 
