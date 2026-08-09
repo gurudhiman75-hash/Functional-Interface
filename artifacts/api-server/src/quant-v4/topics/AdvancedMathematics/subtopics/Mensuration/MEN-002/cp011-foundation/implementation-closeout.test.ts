@@ -10,6 +10,30 @@ import {
 
 const audit = auditMenCp011ImplementationCloseout();
 
+console.log(
+  "MEN_CP011_CLOSEOUT_DIAGNOSTIC",
+  JSON.stringify(
+    {
+      runtimePrototypeCount: audit.runtimePrototypeCount,
+      implementationWaveCount: audit.implementationWaveCount,
+      generatedEnglishReviewRecordCount:
+        audit.generatedEnglishReviewRecordCount,
+      uniqueEnglishStemCount: audit.uniqueEnglishStemCount,
+      uniqueQuestionOptionPackageCount:
+        audit.uniqueQuestionOptionPackageCount,
+      validAndVerifiedRecordCount: audit.validAndVerifiedRecordCount,
+      technicallyCleanRecordCount: audit.technicallyCleanRecordCount,
+      structurallyValidOptionRecordCount:
+        audit.structurallyValidOptionRecordCount,
+      lifecycleLockedRecordCount: audit.lifecycleLockedRecordCount,
+      recordCountsByWave: audit.recordCountsByWave,
+      answerPositionCounts: audit.answerPositionCounts,
+    },
+    null,
+    2,
+  ),
+);
+
 assert.equal(audit.authority, MEN_CP011_IMPLEMENTATION_CLOSEOUT_AUTHORITY);
 assert.equal(
   audit.completionStatus,
