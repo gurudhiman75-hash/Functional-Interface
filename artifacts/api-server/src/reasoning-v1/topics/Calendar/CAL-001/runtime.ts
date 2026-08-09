@@ -24,6 +24,7 @@ import { applyCalendarEnglishStemSimplification } from "./english-stem-simplific
 import { finalizeCalendarEnglishStemSimplification } from "./english-stem-simplification-final.ts";
 import { applyCalendarMultilingualEditorialFreeze } from "./multilingual-editorial-freeze.ts";
 import { finalizeCalendarMultilingualEditorialFreeze } from "./multilingual-editorial-final.ts";
+import { finalizeCalendarMultilingualStemPunctuation } from "./multilingual-stem-punctuation.ts";
 
 const CLOSED_LIFECYCLE = {
   discoveryStatus: "EXECUTABLE_DISCOVERY" as const,
@@ -133,8 +134,10 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
   const simplified = finalizeCalendarEnglishStemSimplification(
     applyCalendarEnglishStemSimplification(remediated),
   );
-  const localized = finalizeCalendarMultilingualEditorialFreeze(
-    applyCalendarMultilingualEditorialFreeze(simplified),
+  const localized = finalizeCalendarMultilingualStemPunctuation(
+    finalizeCalendarMultilingualEditorialFreeze(
+      applyCalendarMultilingualEditorialFreeze(simplified),
+    ),
   );
   const optionKeys = localized.options.map((option) => semanticKey(option.semanticValue));
   if (localized.options.length !== 4 || new Set(optionKeys).size !== 4) throw new Error(`${prototypeAuthority}: options are not semantically unique.`);
