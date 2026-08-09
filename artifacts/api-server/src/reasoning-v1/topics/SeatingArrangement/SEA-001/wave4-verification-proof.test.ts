@@ -181,8 +181,8 @@ for (const blueprint of SEA_CP003_BLUEPRINTS) {
     assert.deepEqual(teachingTrace.sourceEventIds, caselet.proofTrace.map((event) => event.id));
     assert.match(teachingTrace.text, /left is clockwise and right is anticlockwise/i);
     assert.match(teachingTrace.text, /final clockwise arrangement/i);
-    assert.match(teachingTrace.text, /only valid circular solution class/i);
-    assert.doesNotMatch(teachingTrace.text, /\b(dfs|backtracking|recursive|search node)\b/i);
+    assert.match(teachingTrace.text, /satisfies every clue/i);
+    assert.doesNotMatch(teachingTrace.text, /\b(dfs|backtracking|recursive|search node|seat zero|solution class)\b/i);
     teachingTraces += 1;
 
     verifiedCaselets += 1;
