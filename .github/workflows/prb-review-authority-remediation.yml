@@ -1,0 +1,111 @@
+name: Probability review authority remediation
+
+on:
+  push:
+    branches:
+      - feat/prb-probability-end-to-end
+    paths:
+      - ".github/workflows/prb-review-authority-remediation.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  remediate-review-authority:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/prb-probability-end-to-end
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Correct the review generator authority
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/Probability/generate-exam-review.ts")
+          text = path.read_text()
+
+          def replace_once(old: str, new: str, label: str) -> None:
+              global text
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f"{label}: expected exactly one match, found {count}")
+              text = text.replace(old, new, 1)
+
+          old_row_status = "\n".join([
+              '        "AUTOMATED_PASS",',
+              '        "PENDING_HUMAN_REVIEW",',
+              '        "",',
+              '        "",',
+          ])
+          new_row_status = "\n".join([
+              '        "AUTOMATED_PASS",',
+              '        "APPROVED_EDITORIAL_ENGLISH",',
+              '        "Gurbaj Singh",',
+              '        "English mock approval recorded 2026-08-08; public publication remains disabled.",',
+          ])
+          replace_once(old_row_status, new_row_status, "Human-review CSV release metadata")
+
+          old_report = r'## Publication status\n\nThe mathematical and automated editorial gates pass, but the chapter remains non-public and ineligible for the question bank until the regenerated sheets receive human editorial sign-off.\n'
+          new_report = r'## Release status\n\nHuman English editorial approval was recorded on **2026-08-08**. The approved English questions are eligible for scored mocks and writable to the Question Bank subject to the per-family `maxPerMock: 1` policy. `PRB-QL-004` and `PRB-QL-010` remain learning-only and are not stored.\n\nPublic publication remains disabled. Hindi and Punjabi localisation, multilingual parity review and public-release approval are separate future stages.\n\nQuestion Studio package metadata and generated batch context are locked to `ENGLISH_MOCK_READY`, `APPROVED_EDITORIAL_ENGLISH`, `WRITABLE` and `ELIGIBLE_WITH_FAMILY_LIMIT`, while preserving `publiclyPublishable: false`.\n'
+          replace_once(old_report, new_report, "Generated release report")
+
+          path.write_text(text)
+          PY
+
+      - name: Regenerate and verify release evidence
+        run: |
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-exam-review.ts
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/quant-v4/topics/Probability")
+          total = 0
+          for package_id in ("PRB-001", "PRB-002"):
+              path = root / package_id / "human-review-en.csv"
+              rows = list(csv.DictReader(path.open(encoding="utf-8")))
+              total += len(rows)
+              for row in rows:
+                  if row["editorialStatus"] != "APPROVED_EDITORIAL_ENGLISH":
+                      raise SystemExit(f"{row['qlId']}: stale editorial status {row['editorialStatus']}")
+                  if row["reviewer"] != "Gurbaj Singh":
+                      raise SystemExit(f"{row['qlId']}: reviewer authority is missing")
+          if total != 135:
+              raise SystemExit(f"Expected 135 review rows, found {total}")
+
+          report = (root / "editorial-remediation-report.md").read_text()
+          required = (
+              "Human English editorial approval was recorded on **2026-08-08**",
+              "eligible for scored mocks and writable to the Question Bank",
+              "Public publication remains disabled",
+              "Hindi and Punjabi localisation",
+              "ENGLISH_MOCK_READY",
+          )
+          for phrase in required:
+              if phrase not in report:
+                  raise SystemExit(f"Generated report is missing: {phrase}")
+          if "PENDING_HUMAN_REVIEW" in report or "until the regenerated sheets receive human editorial sign-off" in report:
+              raise SystemExit("Generated report regressed to pre-approval status")
+          PY
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/question-studio-profile.test.ts
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/exam-readiness.test.ts
+          git diff --check
+
+      - name: Commit corrected authority and remove temporary workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/prb-review-authority-remediation.yml
+          git add artifacts/api-server/src/quant-v4/topics/Probability/generate-exam-review.ts
+          git add artifacts/api-server/src/quant-v4/topics/Probability/editorial-remediation-report.md
+          git add artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/human-review-en.csv
+          git add artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/human-review-en.csv
+          git diff --cached --check
+          git commit -m "fix(probability): preserve approved review authority"
+          git push
