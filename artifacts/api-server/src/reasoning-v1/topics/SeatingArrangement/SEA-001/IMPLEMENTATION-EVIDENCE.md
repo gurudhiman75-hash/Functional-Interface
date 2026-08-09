@@ -1,23 +1,24 @@
-# SEA-001 CP-001 Foundation Evidence
+# SEA-001 Implementation Evidence
 
-## Scope delivered
+## Implemented discovery checkpoints
 
-- Wave 0 governance and lifecycle locks;
-- shared finite-constraint types and deterministic PRNG;
-- `SEA-CP-001` single-row, same-facing topology;
-- four named authority blueprints `SEA-PBA-001` through `SEA-PBA-004`;
-- hidden-state-first clue derivation;
-- typed clue evaluation and semantic fingerprints;
-- production backtracking solver;
-- independently structured Heap-permutation oracle;
-- exact unique solution-class agreement;
-- removal-based clue minimality pass;
-- three-question caselets using three distinct query contracts;
-- four semantically unique options with method-derived misconception metadata;
-- proof-event compilation, shared explanation and row diagram;
-- deterministic replay, leakage audit and lifecycle proof.
+| Checkpoint | Scope | Blueprints | Automated caselets | Child questions |
+|---|---|---:|---:|---:|
+| `SEA-CP-001` | Single row, same facing | 4 | 500 | 1,500 |
+| `SEA-CP-003` | Circular, facing centre | 4 | 500 | 2,000 |
 
-## Local proof result
+## Shared guarantees
+
+- deterministic hidden-state-first construction;
+- typed constraints rather than prose authority;
+- production solver and independently structured oracle agreement;
+- unique semantic solution class for every ordinary caselet;
+- passage-first child-question generation;
+- semantic option uniqueness and exactly one correct answer;
+- learner explanation and solved diagram;
+- zero permanent QLs and complete product lifecycle lock.
+
+## CP-001 proof
 
 ```text
 PASS_SEA_001_CP001_FOUNDATION
@@ -27,11 +28,22 @@ generated child questions 1500
 permanent QLs 0
 ```
 
-The strict TypeScript pass also completed successfully against the new source set. A temporary local Node type shim was used only because the isolated validation workspace did not include repository dependencies; repository CI installs the normal locked dependencies and uses the real Node type package.
+The unresolved Wave-2 request for five CP-001 blueprints remains recorded as `SEA-AUTH-DISC-001`; only the four explicitly named authorities were implemented.
 
-## Authority discrepancy retained
+## CP-003 proof
 
-Wave 2 says to implement five provisional CP-001 blueprints, while the master blueprint inventory names only four CP-001 authorities. The implementation records this as `SEA-AUTH-DISC-001`, implements the four named contracts and does not invent a fifth.
+```text
+PASS_SEA_001_CP003_CIRCULAR_FOUNDATION
+named blueprint authorities 4
+generated deterministic caselets 500
+generated child questions 2000
+odd-seat guarded caselets 154
+landmark-anchored caselets 125
+deterministic replay checks 20
+permanent QLs 0
+```
+
+See `CP003-IMPLEMENTATION-EVIDENCE.md` for cyclic symmetry, odd/even, landmark, query-mix and diagram details.
 
 ## Closed gates
 

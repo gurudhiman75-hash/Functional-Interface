@@ -1,41 +1,56 @@
 # SEA-001 — Linear and Circular Seating Foundations
 
-Executable discovery foundation governed solely by **SEA Seating Arrangement Master End-to-End Family Design V3 (merged)**.
+Executable discovery implementation governed solely by **SEA Seating Arrangement Master End-to-End Family Design V3 (merged)**.
 
-## Implemented in this checkpoint
+## Implemented checkpoints
 
-- Wave 0 family/package/checkpoint manifest and hard lifecycle locks;
-- deterministic seeded generation with bounded derived-seed retries;
-- reusable finite-constraint types and seeded PRNG under `reasoning-v1/shared/constraint-core`;
-- `SEA-CP-001` linear topology for 5–7 persons, all facing north or all facing south;
-- typed absolute, end, middle, relative, adjacency, non-adjacency and exact-between constraints;
-- hidden-state-first clue derivation;
-- constrained clue selection and removal-based minimality pass;
-- exact unique raw/semantic model for observer-fixed linear rows;
-- production backtracking solver and independently coded Heap-permutation oracle;
-- three-child passage assembly using three distinct query contracts;
-- semantically unique four-option questions with method-derived misconceptions;
-- proof events, student-facing arrangement explanation and text diagram;
-- deterministic foundation proof and seed sweep.
+### `SEA-CP-001` — Single row, same facing
 
-## Named CP-001 blueprint authorities
+- 5–7 persons, all north or all south;
+- typed end, middle, relative, adjacency and exact-gap constraints;
+- deterministic hidden-state-first generation;
+- production solver plus independent permutation oracle;
+- three-child caselets, method-derived options, explanations and row diagrams.
 
-- `SEA-PBA-001` — end anchor plus linked consecutive block;
-- `SEA-PBA-002` — middle anchor plus exact-gap chain;
-- `SEA-PBA-003` — two-end constraints plus adjacency elimination;
-- `SEA-PBA-004` — negative adjacency plus only-remaining placement.
+Named authorities: `SEA-PBA-001` through `SEA-PBA-004`.
 
-The master roadmap says Wave 2 should implement five provisional blueprints, but its blueprint inventory lists only the four authorities above for CP-001. The code records this as `SEA-AUTH-DISC-001` and does not invent a fifth authority.
+### `SEA-CP-003` — Circular, facing centre
 
-## Run proof
+- deterministic 6–10 person centre-facing circles;
+- guarded odd 7/9 variants with no opposite clue or query;
+- clockwise/anticlockwise, centre-facing left/right, adjacency, opposite and directional-gap constraints;
+- rotational solution-class canonicalisation;
+- explicit entrance/stage/door landmark anchoring only for `SEA-PBA-012`;
+- production person-assignment solver plus independently structured seat-filling oracle;
+- four-child passages using at least four distinct query contracts;
+- child-position answer-distribution proof;
+- SVG and text cyclic diagrams;
+- 48-caselet JSON/CSV/HTML English review export.
+
+Named authorities:
+
+- `SEA-PBA-009` — centre-facing opposite-anchor cycle;
+- `SEA-PBA-010` — centre-facing linked clockwise block;
+- `SEA-PBA-011` — centre-facing gap and adjacency mix;
+- `SEA-PBA-012` — centre-facing external-landmark anchor with elimination.
+
+## Run proofs
 
 ```bash
 node --experimental-strip-types foundation-proof.test.ts
+node --experimental-strip-types cp003-proof.test.ts
+```
+
+## Generate CP-003 review evidence
+
+```bash
+SEA_CP003_REVIEW_OUTPUT_DIR=./dist/sea-cp003-review \
+  node --experimental-strip-types cp003-review-export.ts
 ```
 
 ## Lifecycle
 
-This branch is internal executable discovery only:
+This package remains internal executable discovery only:
 
 ```text
 Permanent QLs:                0
@@ -45,4 +60,4 @@ Mock-test eligibility:        false
 Public publication:           false
 ```
 
-Do not bypass `assertSea001ActivationAllowed`. Solve-inventory, query-mix, editorial, localisation and product gates must be approved separately.
+Do not bypass `assertSea001ActivationAllowed`. Wave 4 verification hardening, remaining SEA-001 checkpoints, source and gap audits, manual freezes and product approvals remain mandatory.
