@@ -1,10 +1,18 @@
 import type { SeatingBlueprintId } from "./types.ts";
+import type { CircularBlueprintId } from "./cp003/types.ts";
 
 export const SEA_001_BLUEPRINTS: readonly SeatingBlueprintId[] = [
   "SEA-PBA-001",
   "SEA-PBA-002",
   "SEA-PBA-003",
   "SEA-PBA-004",
+];
+
+export const SEA_001_CP003_BLUEPRINTS: readonly CircularBlueprintId[] = [
+  "SEA-PBA-009",
+  "SEA-PBA-010",
+  "SEA-PBA-011",
+  "SEA-PBA-012",
 ];
 
 export const SEA_001_AUTHORITY_DISCREPANCIES = [
@@ -16,10 +24,20 @@ export const SEA_001_AUTHORITY_DISCREPANCIES = [
   },
 ] as const;
 
+export const SEA_CP003_AUTHORITY_NOTES = [
+  {
+    id: "SEA-AUTH-NOTE-002",
+    status: "IMPLEMENTED_WITH_GUARD",
+    statement: "The CP-003 variant list names 6, 8 and 10 persons while the same authority separately requires odd-N variants without opposite clues.",
+    implementationDecision: "Keep SEA-PBA-009 even-only; allow guarded 7- and 9-person discovery variants in SEA-PBA-010 through SEA-PBA-012, where opposite clues and queries are structurally disabled.",
+  },
+] as const;
+
 export const SEA_FAMILY_MANIFEST = Object.freeze({
   family: "REAS-SEA",
   packages: ["SEA-001", "SEA-002", "SEA-003"] as const,
   activePackage: "SEA-001" as const,
-  activeCheckpoint: "SEA-CP-001" as const,
+  implementedCheckpoints: ["SEA-CP-001", "SEA-CP-003"] as const,
+  nextRoadmapWave: "WAVE-4-VERIFICATION-HARDENING" as const,
   permanentQlCount: 0 as const,
 });
