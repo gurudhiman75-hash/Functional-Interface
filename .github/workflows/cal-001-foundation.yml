@@ -7,6 +7,7 @@ on:
       - fix/cal-001-exam-readiness-remediation
       - feat/cal-001-final-discovery-freeze
       - fix/cal-001-simplify-english-stems
+      - fix/cal-001-final-english-editorial-freeze-v2
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/**
       - artifacts/api-server/src/reasoning-v1/CAL-001-FAMILY-F-MANIFEST-AMENDMENT.md
@@ -88,6 +89,13 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/english-stem-simplification.test.ts 2>&1 | tee /tmp/cal-001-english-stem-simplification.log
           echo "${PIPESTATUS[0]}" > /tmp/cal-001-english-stem-simplification-exit
           exit 0
+      - name: Run final English editorial freeze V2 proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/english-editorial-freeze-v2.test.ts 2>&1 | tee /tmp/cal-001-english-editorial-freeze-v2.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-english-editorial-freeze-v2-exit
+          exit 0
       - name: Run final source-gap and permanent-identity freeze proof
         shell: bash
         run: |
@@ -99,7 +107,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cal-001-foundation-exam-readiness-stem-simplification-and-final-freeze-proof
+          name: cal-001-foundation-exam-readiness-editorial-v2-and-final-freeze-proof
           path: |
             /tmp/cal-001-foundation-proof.log
             /tmp/cal-001-foundation-proof-exit
@@ -107,6 +115,8 @@ jobs:
             /tmp/cal-001-exam-readiness-proof-exit
             /tmp/cal-001-english-stem-simplification.log
             /tmp/cal-001-english-stem-simplification-exit
+            /tmp/cal-001-english-editorial-freeze-v2.log
+            /tmp/cal-001-english-editorial-freeze-v2-exit
             /tmp/cal-001-final-discovery-freeze.log
             /tmp/cal-001-final-discovery-freeze-exit
           if-no-files-found: error
@@ -116,6 +126,7 @@ jobs:
           test "$(cat /tmp/cal-001-foundation-proof-exit)" = "0"
           test "$(cat /tmp/cal-001-exam-readiness-proof-exit)" = "0"
           test "$(cat /tmp/cal-001-english-stem-simplification-exit)" = "0"
+          test "$(cat /tmp/cal-001-english-editorial-freeze-v2-exit)" = "0"
           test "$(cat /tmp/cal-001-final-discovery-freeze-exit)" = "0"
 
   review-export:
