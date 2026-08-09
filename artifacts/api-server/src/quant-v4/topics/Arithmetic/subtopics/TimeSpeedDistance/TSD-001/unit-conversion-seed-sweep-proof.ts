@@ -2,10 +2,15 @@ import {
   cp001AuthorityByMode,
   generateCp001Candidate,
 } from "./cp001/runtime";
+import { hasTsdCalculationEvidence } from "./cp001/exact-option-feedback";
 import type { TsdCp001DiscoverySolveMode } from "./cp001/discovery-registry";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
+}
+
+function withoutDisplayedOption(reason: string, optionText: string): string {
+  return reason.replace(optionText, "").replace(/^[✅⚠️\s:.-]+/, "").trim();
 }
 
 const MODES = [
@@ -18,6 +23,7 @@ const pairs = new Map<string, number>();
 let questions = 0;
 let wrongOptions = 0;
 let equivalentSpeedSets = 0;
+let maximumReasonWords = 0;
 
 for (const mode of MODES) {
   const authority = cp001AuthorityByMode(mode);
@@ -54,7 +60,12 @@ for (const mode of MODES) {
       if (audit.isCorrect) return;
       wrongOptions += 1;
       assert(analysis.reason.includes(audit.text), `${question.questionLanguageId}: wrong-option reason omits its option`);
-      assert(analysis.reason.split(/\s+/).length <= 34, `${question.questionLanguageId}: wrong-option reason exceeds 34 words`);
+      const remainder = withoutDisplayedOption(analysis.reason, audit.text);
+      assert(hasTsdCalculationEvidence(remainder), `${question.questionLanguageId}: wrong-option reason lacks exact conversion evidence`);
+      const words = analysis.reason.trim().split(/\s+/).length;
+      maximumReasonWords = Math.max(maximumReasonWords, words);
+      const maximumWords = analysis.reason.includes("Check:") ? 65 : 34;
+      assert(words <= maximumWords, `${question.questionLanguageId}: wrong-option reason exceeds ${maximumWords} words`);
       assert(
         !/different result|rules it out|does not survive|appears after|can be reached only|careful check/i.test(analysis.reason),
         `${question.questionLanguageId}: generic conversion feedback remains for ${audit.text}`,
@@ -73,5 +84,6 @@ console.log(JSON.stringify({
   questions,
   wrongOptions,
   equivalentSpeedSets,
+  maximumReasonWords,
   conversionProfiles: Object.fromEntries([...pairs.entries()].sort(([left], [right]) => left.localeCompare(right))),
 }, null, 2));
