@@ -141,8 +141,10 @@ export function circularConstraintFingerprint(constraint: CircularConstraint): s
   switch (constraint.kind) {
     case "CYCLIC_POSITION":
       return `CYC:${constraint.subjectId}:${constraint.direction}:${constraint.steps}:${constraint.referenceId}`;
-    case "RELATIVE_POSITION":
-      return `REL:${constraint.subjectId}:${constraint.direction}:${constraint.steps}:${constraint.referenceId}`;
+    case "RELATIVE_POSITION": {
+      const cyclicDirection = constraint.direction === "LEFT" ? "CLOCKWISE" : "ANTICLOCKWISE";
+      return `CYC:${constraint.subjectId}:${cyclicDirection}:${constraint.steps}:${constraint.referenceId}`;
+    }
     case "ADJACENT":
     case "NOT_ADJACENT": {
       const pair = [constraint.firstId, constraint.secondId].sort().join(":");
@@ -173,7 +175,7 @@ export function renderCircularConstraint(constraint: CircularConstraint): string
         ? `${constraint.subjectId} sits immediately ${constraint.direction.toLowerCase()} from ${constraint.referenceId}.`
         : `${constraint.subjectId} sits ${ordinal(constraint.steps)} ${constraint.direction.toLowerCase()} from ${constraint.referenceId}.`;
     case "RELATIVE_POSITION":
-      return `${constraint.subjectId} sits ${ordinal(constraint.steps)} ${constraint.steps === 1 ? "to the" : "to the"} ${constraint.direction.toLowerCase()} of ${constraint.referenceId}.`;
+      return `${constraint.subjectId} sits ${ordinal(constraint.steps)} to the ${constraint.direction.toLowerCase()} of ${constraint.referenceId}.`;
     case "ADJACENT":
       return `${constraint.firstId} sits adjacent to ${constraint.secondId}.`;
     case "NOT_ADJACENT":
