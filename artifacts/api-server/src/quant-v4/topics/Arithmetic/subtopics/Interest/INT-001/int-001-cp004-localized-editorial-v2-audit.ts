@@ -20,6 +20,29 @@ const bannedShared = [
   "सही। यह विकल्प प्रश्न की सभी ब्याज-शर्तों को पूरा करता है।",
   "ਸਹੀ। ਇਹ ਚੋਣ ਪ੍ਰਸ਼ਨ ਦੀਆਂ ਸਾਰੀਆਂ ਵਿਆਜ-ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦੀ ਹੈ।",
 ] as const;
+
+const bannedMachineHindi = [
+  "निवेश की शर्तें नीचे दी गई हैं",
+  "खाते में दर्ज",
+  "खाता विवरण",
+  "योजना का सार",
+  "योजना/चरण का विवरण",
+  "दर्ज जानकारी के आधार पर",
+  "प्रश्न हल कीजिए",
+  "आवश्यक विवरण नीचे दिया गया है",
+] as const;
+
+const bannedMachinePunjabi = [
+  "ਨਿਵੇਸ਼ ਦੀਆਂ ਸ਼ਰਤਾਂ ਹੇਠਾਂ ਦਿੱਤੀਆਂ ਹਨ",
+  "ਖਾਤੇ ਵਿੱਚ ਦਰਜ",
+  "ਖਾਤਾ ਵੇਰਵਾ",
+  "ਯੋਜਨਾ ਦਾ ਸਾਰ",
+  "ਯੋਜਨਾ/ਪੜਾਅ ਦਾ ਵੇਰਵਾ",
+  "ਦਰਜ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ ਉੱਤੇ",
+  "ਪ੍ਰਸ਼ਨ ਹੱਲ ਕਰੋ",
+  "ਲੋੜੀਂਦਾ ਵੇਰਵਾ ਹੇਠਾਂ ਦਿੱਤਾ ਹੈ",
+] as const;
+
 const bannedHindiGrammar = [
   /\d+वीं माह/gu,
   /\d+वीं वर्ष/gu,
@@ -31,6 +54,7 @@ const bannedHindiGrammar = [
   /ब्याज-नियम/gu,
   /अवधि का गुणक लागू या उलटें/gu,
 ] as const;
+
 const bannedPunjabiGrammar = [
   /\d+ਵੀਂ ਮਹੀਨਾ/gu,
   /\d+ਵੀਂ ਸਾਲ/gu,
@@ -46,27 +70,39 @@ const bannedPunjabiGrammar = [
   /ਆਵ੍ਰਿਤੀ/gu,
 ] as const;
 
+const punjabiMishritRequired = new Set([
+  "INT-QL-068", "INT-QL-070", "INT-QL-074", "INT-QL-079", "INT-QL-080",
+  "INT-QL-081", "INT-QL-082", "INT-QL-083", "INT-QL-085",
+]);
+
+function normalizeStem(stem: string): string {
+  return stem
+    .replace(/₹[\d,.]+/gu, "₹N")
+    .replace(/\d+(?:\.\d+)?%/gu, "R%")
+    .replace(/\d+/gu, "N")
+    .replace(/\s+/gu, " ")
+    .trim();
+}
+
 let questionCases = 0;
 let optionChecks = 0;
 let explanationChecks = 0;
 let learnerIdLeakChecks = 0;
-let representationChecks = 0;
-let tableShapeChecks = 0;
-let nonTableShapeChecks = 0;
+let nativeStemChecks = 0;
 let grammarChecks = 0;
 let feedbackSpecificityChecks = 0;
 let effectiveRateEquationChecks = 0;
+let punjabiTerminologyChecks = 0;
 const correctFeedbackByLocale = new Map<IntCp004LocalizedLocale, Set<string>>();
-const firstLinesByLocale = new Map<IntCp004LocalizedLocale, Set<string>>();
-const representationCounts = new Map<string, number>();
+const normalizedStemsByQl = new Map<string, Set<string>>();
+const framesByQl = new Map<string, Set<string>>();
 
 for (const locale of locales) {
   correctFeedbackByLocale.set(locale, new Set());
-  firstLinesByLocale.set(locale, new Set());
 
   for (const qlId of INT_CP004_QL_IDS) {
     for (let index = 0; index < seedsPerQl; index += 1) {
-      const seed = `int-cp004-editorial-v5-audit:${qlId}:${index}`;
+      const seed = `int-cp004-native-v6-audit:${qlId}:${index}`;
       const question = generateIntCp004LocalizedQuestion({ qlId, seed, locale });
       const learnerText = [
         question.stem,
@@ -82,50 +118,36 @@ for (const locale of locales) {
         assert(!question.stem.includes(banned), `${qlId}/${seed}/${locale}: learner-facing stem contains banned text: ${banned}`);
         learnerIdLeakChecks += 1;
       }
-      for (const pattern of locale === "hi-IN" ? bannedHindiGrammar : bannedPunjabiGrammar) {
+
+      const machinePhrases = locale === "hi-IN" ? bannedMachineHindi : bannedMachinePunjabi;
+      for (const phrase of machinePhrases) {
+        assert(!question.stem.includes(phrase), `${qlId}/${seed}/${locale}: machine-style stem phrase remains: ${phrase}`);
+        nativeStemChecks += 1;
+      }
+      assert(!question.stem.includes("|---|"), `${qlId}/${seed}/${locale}: native stem still contains a Markdown table.`);
+      assert(!question.stem.includes("**"), `${qlId}/${seed}/${locale}: native stem still exposes a generated heading.`);
+      assert(!question.stem.includes("\n- "), `${qlId}/${seed}/${locale}: native stem still exposes a generated fact list.`);
+      assert(question.stem.trim().endsWith("?") || question.stem.trim().endsWith("।"), `${qlId}/${seed}/${locale}: stem has no natural terminal punctuation.`);
+      nativeStemChecks += 4;
+
+      const grammarPatterns = locale === "hi-IN" ? bannedHindiGrammar : bannedPunjabiGrammar;
+      for (const pattern of grammarPatterns) {
         pattern.lastIndex = 0;
         assert(!pattern.test(learnerText), `${qlId}/${seed}/${locale}: banned grammar pattern ${pattern} found.`);
         grammarChecks += 1;
       }
 
-      const firstLine = question.stem.split("\n")[0]?.trim() ?? "";
-      firstLinesByLocale.get(locale)?.add(firstLine);
-      const representationKey = `${locale}:${question.representation}`;
-      representationCounts.set(representationKey, (representationCounts.get(representationKey) ?? 0) + 1);
+      if (locale === "pa-IN") {
+        assert(!learnerText.includes("ਚੱਕਰਵੱਧੀ"), `${qlId}/${seed}/${locale}: rejected Punjabi compound-interest term remains.`);
+        if (punjabiMishritRequired.has(qlId)) {
+          assert(question.stem.includes("ਮਿਸ਼ਰਤ ਵਿਆਜ"), `${qlId}/${seed}/${locale}: stem must use ਮਿਸ਼ਰਤ ਵਿਆਜ.`);
+        }
+        punjabiTerminologyChecks += 1;
+      }
 
-      const hasMarkdownTable = question.stem.includes("|---|---|");
-      const markdownRows = question.stem.split("\n").filter((line) => line.trimStart().startsWith("|")).length;
-      if (question.representation === "STANDARD_PROSE") {
-        assert(!hasMarkdownTable, `${qlId}/${seed}/${locale}: standard prose was rendered as a table.`);
-        nonTableShapeChecks += 1;
-      }
-      if (question.representation === "TERMS_TABLE") {
-        const heading = locale === "hi-IN" ? "**प्रश्न:**" : "**ਪ੍ਰਸ਼ਨ:**";
-        assert(hasMarkdownTable, `${qlId}/${seed}/${locale}: terms-table representation lost its genuine table.`);
-        assert(markdownRows >= 4, `${qlId}/${seed}/${locale}: terms table is too shallow.`);
-        assert(question.stem.includes(heading), `${qlId}/${seed}/${locale}: terms table has no direct localized question heading.`);
-        tableShapeChecks += 1;
-      }
-      if (question.representation === "BALANCE_RECORD") {
-        const accountWord = locale === "hi-IN" ? "खाते" : "ਖਾਤੇ";
-        const accountHeading = locale === "hi-IN" ? "**खाता विवरण**" : "**ਖਾਤਾ ਵੇਰਵਾ**";
-        const genericRow = locale === "hi-IN" ? "आरंभिक प्रविष्टि" : "ਸ਼ੁਰੂਆਤੀ ਦਰਜ";
-        assert(!hasMarkdownTable, `${qlId}/${seed}/${locale}: account record is still table-based.`);
-        assert(question.stem.includes(accountWord), `${qlId}/${seed}/${locale}: balance record lacks an account context.`);
-        assert(question.stem.includes(accountHeading), `${qlId}/${seed}/${locale}: account record has no distinct heading.`);
-        assert(question.stem.split("\n").filter((line) => /^\d+\.\s+\*\*/u.test(line)).length >= 2, `${qlId}/${seed}/${locale}: account record lacks readable numbered entries.`);
-        assert(!question.stem.includes(genericRow), `${qlId}/${seed}/${locale}: balance record still hides the first fact behind a generic label.`);
-        nonTableShapeChecks += 1;
-      }
-      if (question.representation === "SCHEME_COMPARISON") {
-        const schemeHeading = locale === "hi-IN" ? "**योजना/चरण का विवरण**" : "**ਯੋਜਨਾ/ਪੜਾਅ ਦਾ ਵੇਰਵਾ**";
-        assert(!hasMarkdownTable, `${qlId}/${seed}/${locale}: scheme/two-stage representation is still table-based.`);
-        assert(question.stem.includes(schemeHeading), `${qlId}/${seed}/${locale}: scheme representation lacks a distinct heading.`);
-        assert(question.stem.split("\n").filter((line) => line.startsWith("- **")).length >= 2, `${qlId}/${seed}/${locale}: scheme representation lacks readable bullet facts.`);
-        assert(locale === "hi-IN" ? question.stem.includes("योजना") : question.stem.includes("ਯੋਜਨਾ"), `${qlId}/${seed}/${locale}: scheme representation lacks a learner-facing scheme frame.`);
-        nonTableShapeChecks += 1;
-      }
-      representationChecks += 1;
+      const qlKey = `${locale}/${qlId}`;
+      (normalizedStemsByQl.get(qlKey) ?? normalizedStemsByQl.set(qlKey, new Set()).get(qlKey)!).add(normalizeStem(question.stem));
+      (framesByQl.get(qlKey) ?? framesByQl.set(qlKey, new Set()).get(qlKey)!).add(question.stemFamilyId);
 
       const correctOption = question.options[question.correctIndex];
       assert(correctOption?.isCorrect, `${qlId}/${seed}/${locale}: correct option is missing.`);
@@ -155,32 +177,37 @@ for (const locale of locales) {
 
 for (const locale of locales) {
   const correctFeedbacks = correctFeedbackByLocale.get(locale)?.size ?? 0;
-  const firstLines = firstLinesByLocale.get(locale)?.size ?? 0;
   assert(correctFeedbacks >= 80, `${locale}: correct feedback diversity is too low (${correctFeedbacks}).`);
-  assert(firstLines >= 8, `${locale}: stem framing remains too repetitive (${firstLines} first lines).`);
-  for (const representation of ["STANDARD_PROSE", "TERMS_TABLE", "BALANCE_RECORD", "SCHEME_COMPARISON"] as const) {
-    assert((representationCounts.get(`${locale}:${representation}`) ?? 0) > 0, `${locale}: ${representation} was not exercised.`);
+  for (const qlId of INT_CP004_QL_IDS) {
+    const key = `${locale}/${qlId}`;
+    const normalizedStems = normalizedStemsByQl.get(key)?.size ?? 0;
+    const frames = framesByQl.get(key)?.size ?? 0;
+    assert(normalizedStems >= 4, `${key}: fewer than four materially distinct native stem patterns (${normalizedStems}).`);
+    assert(frames === 4, `${key}: all four frozen stem families were not exercised (${frames}).`);
   }
 }
 
 mkdirSync(outputDirectory, { recursive: true });
 const summary = Object.freeze({
-  status: "CP004_LOCALIZED_EDITORIAL_V5_VALIDATED",
-  editorialVersion: "INT-CP-004-HI-PA-PRESENTATION-v5",
+  status: "CP004_LOCALIZED_NATIVE_STEMS_V6_VALIDATED",
+  editorialVersion: "INT-CP-004-HI-PA-NATIVE-STEMS-v6",
   questionCases,
   optionChecks,
   explanationChecks,
   learnerIdLeakChecks,
-  representationChecks,
-  tableShapeChecks,
-  nonTableShapeChecks,
+  nativeStemChecks,
   grammarChecks,
   feedbackSpecificityChecks,
   effectiveRateEquationChecks,
+  punjabiTerminologyChecks,
   seedsPerQl,
   locales,
-  correctFeedbackDiversity: Object.fromEntries(locales.map((locale) => [locale, correctFeedbackByLocale.get(locale)?.size ?? 0])),
-  firstLineDiversity: Object.fromEntries(locales.map((locale) => [locale, firstLinesByLocale.get(locale)?.size ?? 0])),
+  normalizedStemPatternsByQl: Object.fromEntries(
+    [...normalizedStemsByQl.entries()].map(([key, values]) => [key, values.size]),
+  ),
+  correctFeedbackDiversity: Object.fromEntries(
+    locales.map((locale) => [locale, correctFeedbackByLocale.get(locale)?.size ?? 0]),
+  ),
   lifecycle: {
     enabled: false,
     stagingStatus: "NOT_STAGED",
@@ -193,6 +220,5 @@ const summary = Object.freeze({
 });
 writeFileSync(`${outputDirectory}/int-cp004-localized-editorial-v2-summary.json`, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
 console.log(JSON.stringify(summary, null, 2));
-console.log("PASS_INT_CP004_LOCALIZED_EDITORIAL_V5");
-console.log("PASS_INT_CP004_LOCALIZED_EDITORIAL_V4");
+console.log("PASS_INT_CP004_LOCALIZED_NATIVE_STEMS_V6");
 console.log("PASS_INT_CP004_LOCALIZED_EDITORIAL_V2");
