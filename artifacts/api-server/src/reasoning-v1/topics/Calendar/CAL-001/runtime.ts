@@ -25,6 +25,7 @@ import { finalizeCalendarEnglishStemSimplification } from "./english-stem-simpli
 import { applyCalendarMultilingualEditorialFreeze } from "./multilingual-editorial-freeze.ts";
 import { finalizeCalendarMultilingualEditorialFreeze } from "./multilingual-editorial-final.ts";
 import { finalizeCalendarMultilingualStemPunctuation } from "./multilingual-stem-punctuation.ts";
+import { normalizeCalendarMultilingualConclusion } from "./multilingual-conclusion-normalization.ts";
 
 const CLOSED_LIFECYCLE = {
   discoveryStatus: "EXECUTABLE_DISCOVERY" as const,
@@ -134,9 +135,11 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
   const simplified = finalizeCalendarEnglishStemSimplification(
     applyCalendarEnglishStemSimplification(remediated),
   );
-  const localized = finalizeCalendarMultilingualStemPunctuation(
-    finalizeCalendarMultilingualEditorialFreeze(
-      applyCalendarMultilingualEditorialFreeze(simplified),
+  const localized = normalizeCalendarMultilingualConclusion(
+    finalizeCalendarMultilingualStemPunctuation(
+      finalizeCalendarMultilingualEditorialFreeze(
+        applyCalendarMultilingualEditorialFreeze(simplified),
+      ),
     ),
   );
   const optionKeys = localized.options.map((option) => semanticKey(option.semanticValue));
