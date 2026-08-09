@@ -1,3 +1,4 @@
+import { calibrateTsdDifficulty } from "../difficulty-calibration";
 import type { TsdCp001GeneratedQuestion } from "./runtime-types";
 import {
   TSD_CP001_LEARNER_AUTHORITIES,
@@ -7,6 +8,7 @@ import {
   generateCp001ReviewRows as generateCoreCp001ReviewRows,
   stableStringify,
 } from "./runtime-base";
+import { ensureCp001ExactOptionFeedback } from "./exact-option-feedback";
 import { remodelCp001FinalEditorial } from "./final-editorial-remediation";
 import { remodelFinalProportionFeedback } from "./final-proportion-feedback";
 import { remodelPaceOptionFeedback } from "./pace-option-feedback";
@@ -99,11 +101,16 @@ function remodelPaceQuestion(
 }
 
 function remodelQuestion(question: TsdCp001GeneratedQuestion): TsdCp001GeneratedQuestion {
-  return remodelFinalProportionFeedback(
+  const editorial = remodelFinalProportionFeedback(
     remodelCp001FinalEditorial(
       remodelPaceQuestion(remodelConversionQuestion(question)),
     ),
   );
+  const exactFeedback = ensureCp001ExactOptionFeedback(editorial);
+  return Object.freeze({
+    ...exactFeedback,
+    difficulty: calibrateTsdDifficulty(exactFeedback.difficulty),
+  });
 }
 
 export function generateCp001Candidate(
