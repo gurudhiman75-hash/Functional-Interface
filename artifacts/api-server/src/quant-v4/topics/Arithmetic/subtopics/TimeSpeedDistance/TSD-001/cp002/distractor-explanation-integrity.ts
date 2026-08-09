@@ -30,8 +30,20 @@ function scalarSolution(question: TsdCp002GeneratedQuestion): Fraction {
   return solution.value;
 }
 
-function value(value: Fraction): string {
-  return formatFraction(value);
+function value(number: Fraction): string {
+  return formatFraction(number);
+}
+
+function isOne(number: Fraction): boolean {
+  return number.n === number.d;
+}
+
+function hours(number: Fraction): string {
+  return `${value(number)} ${isOne(number) ? "hour" : "hours"}`;
+}
+
+function minutes(number: Fraction): string {
+  return `${value(number)} ${isOne(number) ? "minute" : "minutes"}`;
 }
 
 function planTotals(segments: readonly Segment[]): {
@@ -50,12 +62,12 @@ function definingEquation(question: TsdCp002GeneratedQuestion): string {
     case "averageSpeedFromSegments": {
       const distance = sum(input.segments.map((segment) => segment.distanceKm));
       const time = sum(input.segments.map((segment) => divide(segment.distanceKm, segment.speedKmph)));
-      return `Total distance ${value(distance)} km ÷ total time ${value(time)} hours = ${value(divide(distance, time))} km/h.`;
+      return `Total distance ${value(distance)} km ÷ total time ${hours(time)} = ${value(divide(distance, time))} km/h.`;
     }
     case "averagePaceFromSegments": {
       const distance = sum(input.segments.map((segment) => segment.distanceKm));
-      const minutes = sum(input.segments.map((segment) => multiply(segment.distanceKm, segment.paceMinutesPerKm)));
-      return `Total time ${value(minutes)} minutes ÷ total distance ${value(distance)} km = ${value(divide(minutes, distance))} minutes/km.`;
+      const totalMinutes = sum(input.segments.map((segment) => multiply(segment.distanceKm, segment.paceMinutesPerKm)));
+      return `Total time ${minutes(totalMinutes)} ÷ total distance ${value(distance)} km = ${value(divide(totalMinutes, distance))} minutes/km.`;
     }
     case "unknownSegmentSpeedFromAverage": {
       const totalDistance = add(input.knownDistanceKm, input.unknownDistanceKm);
@@ -63,13 +75,13 @@ function definingEquation(question: TsdCp002GeneratedQuestion): string {
       const knownTime = divide(input.knownDistanceKm, input.knownSpeedKmph);
       const remainingTime = subtract(allowedTime, knownTime);
       const speed = divide(input.unknownDistanceKm, remainingTime);
-      return `${value(totalDistance)} ÷ ${value(input.overallAverageKmph)} = ${value(allowedTime)} hours; ${value(allowedTime)} - ${value(knownTime)} = ${value(remainingTime)} hours; ${value(input.unknownDistanceKm)} ÷ ${value(remainingTime)} = ${value(speed)} km/h.`;
+      return `${value(totalDistance)} ÷ ${value(input.overallAverageKmph)} = ${hours(allowedTime)}; ${value(allowedTime)} - ${value(knownTime)} = ${hours(remainingTime)}; ${value(input.unknownDistanceKm)} ÷ ${value(remainingTime)} = ${value(speed)} km/h.`;
     }
     case "unknownSegmentTimeFromAverage": {
       const totalDistance = add(input.knownDistanceKm, input.unknownDistanceKm);
       const allowedTime = divide(totalDistance, input.overallAverageKmph);
       const remainingTime = subtract(allowedTime, input.knownTimeHours);
-      return `${value(totalDistance)} ÷ ${value(input.overallAverageKmph)} = ${value(allowedTime)} hours; ${value(allowedTime)} - ${value(input.knownTimeHours)} = ${value(remainingTime)} hours.`;
+      return `${value(totalDistance)} ÷ ${value(input.overallAverageKmph)} = ${hours(allowedTime)}; ${value(allowedTime)} - ${value(input.knownTimeHours)} = ${hours(remainingTime)}.`;
     }
     case "unknownSegmentDistanceFromAverage": {
       const distance = scalarSolution(question);
@@ -88,12 +100,12 @@ function definingEquation(question: TsdCp002GeneratedQuestion): string {
     }
     case "oneWayDistanceFromRoundTripData": {
       const distance = scalarSolution(question);
-      return `x ÷ ${value(input.outwardSpeedKmph)} + x ÷ ${value(input.returnSpeedKmph)} = ${value(input.totalTimeHours)}; x = ${value(distance)} km.`;
+      return `x ÷ ${value(input.outwardSpeedKmph)} + x ÷ ${value(input.returnSpeedKmph)} = ${hours(input.totalTimeHours)}; x = ${value(distance)} km.`;
     }
     case "roundTripTimeFromOneWayDistance": {
       const outward = divide(input.oneWayDistanceKm, input.outwardSpeedKmph);
       const returned = divide(input.oneWayDistanceKm, input.returnSpeedKmph);
-      return `${value(input.oneWayDistanceKm)} ÷ ${value(input.outwardSpeedKmph)} + ${value(input.oneWayDistanceKm)} ÷ ${value(input.returnSpeedKmph)} = ${value(add(outward, returned))} hours.`;
+      return `${value(input.oneWayDistanceKm)} ÷ ${value(input.outwardSpeedKmph)} + ${value(input.oneWayDistanceKm)} ÷ ${value(input.returnSpeedKmph)} = ${hours(add(outward, returned))}.`;
     }
     case "totalDistanceFromAverageAndTime":
       return `${value(input.overallAverageKmph)} × ${value(input.totalTimeHours)} = ${value(multiply(input.overallAverageKmph, input.totalTimeHours))} km.`;
@@ -108,10 +120,10 @@ function definingEquation(question: TsdCp002GeneratedQuestion): string {
       const requested = {
         FIRST_DISTANCE: `${value(firstDistance)} km`,
         SECOND_DISTANCE: `${value(secondDistance)} km`,
-        FIRST_TIME: `${value(firstTime)} hours`,
-        SECOND_TIME: `${value(secondTime)} hours`,
+        FIRST_TIME: hours(firstTime),
+        SECOND_TIME: hours(secondTime),
       }[input.requested];
-      return `${value(firstTime)} + ${value(secondTime)} = ${value(input.totalTimeHours)} hours and ${value(firstDistance)} + ${value(secondDistance)} = ${value(input.totalDistanceKm)} km; requested value = ${requested}.`;
+      return `${value(firstTime)} + ${value(secondTime)} = ${hours(input.totalTimeHours)} and ${value(firstDistance)} + ${value(secondDistance)} = ${value(input.totalDistanceKm)} km; requested value = ${requested}.`;
     }
     case "segmentRatioFromAverageAndSpeeds": {
       if (input.ratioKind === "TIME") {
@@ -132,7 +144,7 @@ function definingEquation(question: TsdCp002GeneratedQuestion): string {
       const remainingTime = subtract(allowedTime, input.completedTimeHours);
       const remainingDistance = subtract(input.totalDistanceKm, input.completedDistanceKm);
       const speed = divide(remainingDistance, remainingTime);
-      return `${value(input.totalDistanceKm)} ÷ ${value(input.targetAverageKmph)} = ${value(allowedTime)} hours; ${value(allowedTime)} - ${value(input.completedTimeHours)} = ${value(remainingTime)} hours; ${value(remainingDistance)} ÷ ${value(remainingTime)} = ${value(speed)} km/h.`;
+      return `${value(input.totalDistanceKm)} ÷ ${value(input.targetAverageKmph)} = ${hours(allowedTime)}; ${value(allowedTime)} - ${value(input.completedTimeHours)} = ${hours(remainingTime)}; ${value(remainingDistance)} ÷ ${value(remainingTime)} = ${value(speed)} km/h.`;
     }
     case "compareSegmentedJourneyPlans": {
       const planA = planTotals(input.planA);
