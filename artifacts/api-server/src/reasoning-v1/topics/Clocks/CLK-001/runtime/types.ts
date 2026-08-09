@@ -29,6 +29,24 @@ export interface ClockSemanticAnswer {
   metadata?: Readonly<Record<string, string | number | boolean>>;
 }
 
+export interface ClockMediaAsset {
+  id: string;
+  role: "PROMPT_DIAGRAM" | "OPTION_DIAGRAM";
+  mimeType: "image/svg+xml";
+  svg: string;
+  ariaLabel: string;
+  semanticKey: string;
+  fingerprint: string;
+}
+
+export interface ClockQuestionMedia {
+  prompt?: ClockMediaAsset;
+  options?: readonly {
+    semanticKey: string;
+    asset: ClockMediaAsset;
+  }[];
+}
+
 export interface ClockQuestionOption {
   display: string;
   semanticKey: string;
@@ -101,6 +119,7 @@ export interface ClockQuestion {
   seed: string;
   difficulty: ClockDifficulty;
   stem: string;
+  media?: ClockQuestionMedia;
   scenario: ClockScenario;
   answer: ClockSemanticAnswer;
   options: readonly ClockQuestionOption[];
