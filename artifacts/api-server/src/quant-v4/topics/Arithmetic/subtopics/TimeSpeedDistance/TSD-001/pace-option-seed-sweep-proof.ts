@@ -5,6 +5,7 @@ import {
   type Rational,
 } from "./foundation/rational";
 import { convertDistance, convertTime } from "./foundation/units";
+import { hasTsdCalculationEvidence } from "./cp001/exact-option-feedback";
 import type { TsdCp001GeneratedQuestion, TsdCp001MisconceptionId } from "./cp001/runtime-types";
 import {
   cp001AuthorityByMode,
@@ -12,6 +13,7 @@ import {
   stableStringify,
 } from "./cp001/runtime";
 import { formatExamNumber } from "./cp001/runtime-support";
+import { calibratedDifficultyLabel } from "./difficulty-calibration";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -25,6 +27,10 @@ const MODES: readonly PaceMode[] = [
   "paceFromSpeed",
   "distanceFromPaceAndTime",
 ];
+
+function withoutDisplayedOption(reason: string, optionText: string): string {
+  return reason.replace(optionText, "").replace(/^[✅⚠️\s:.-]+/, "").trim();
+}
 
 function formatLikeCorrect(question: TsdCp001GeneratedQuestion, value: Rational): string {
   const correctText = question.optionAudit.find((option) => option.isCorrect)?.text;
@@ -107,6 +113,8 @@ for (const mode of MODES) {
     assert(question.optionAudit[question.correctIndex]?.isCorrect, `${question.questionLanguageId}: keyed audit is not correct`);
     assert(question.options[question.correctIndex] === question.answerText, `${question.questionLanguageId}: keyed text differs from answer`);
     assert(question.representation === "STANDARD", `${question.questionLanguageId}: unexpected pace representation ${question.representation}`);
+    assert(question.difficulty.status === "EDITORIALLY_CALIBRATED", `${question.questionLanguageId}: difficulty remains uncalibrated`);
+    assert(question.difficulty.label === calibratedDifficultyLabel(question.difficulty.featureScore), `${question.questionLanguageId}: difficulty conflicts with rubric`);
 
     profiles.get(mode)?.add(stableStringify(question.input));
 
@@ -120,13 +128,12 @@ for (const mode of MODES) {
       assert(analysis, `${question.questionLanguageId}: missing analysis for ${text}`);
       assert(analysis.misconceptionId === misconceptionId, `${question.questionLanguageId}: analysis ID differs for ${text}`);
       assert(analysis.reason.includes(text), `${question.questionLanguageId}: reason does not name ${text}`);
-      const words = analysis.reason.split(/\s+/).length;
+      assert(hasTsdCalculationEvidence(withoutDisplayedOption(analysis.reason, text)), `${question.questionLanguageId}: pace reason lacks exact calculation evidence`);
+      const words = analysis.reason.trim().split(/\s+/).length;
       maximumReasonWords = Math.max(maximumReasonWords, words);
-      assert(words <= 32, `${question.questionLanguageId}: pace reason exceeds 32 words`);
-      assert(
-        !/different result|rules it out|does not survive|appears after|can be reached only|careful check|reworking/i.test(analysis.reason),
-        `${question.questionLanguageId}: generic pace rejection remains`,
-      );
+      const maximumWords = analysis.reason.includes("Check:") ? 65 : 32;
+      assert(words <= maximumWords, `${question.questionLanguageId}: pace reason exceeds ${maximumWords} words`);
+      assert(!/different result|rules it out|does not survive|appears after|can be reached only|careful check|reworking/i.test(analysis.reason), `${question.questionLanguageId}: generic pace rejection remains`);
       wrongOptions += 1;
     }
 
@@ -154,5 +161,6 @@ console.log(JSON.stringify({
   distanceFromPaceProfiles: profiles.get("distanceFromPaceAndTime")?.size,
   totalInputProfiles: [...profiles.values()].reduce((sum, values) => sum + values.size, 0),
   maximumReasonWords,
+  difficultyStatus: "EDITORIALLY_CALIBRATED",
   englishFreezeStatus: "UNFROZEN",
 }, null, 2));
