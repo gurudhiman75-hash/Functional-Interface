@@ -149,10 +149,10 @@ export function buildSpatialFcl001ProofCorpus(): SpatialClassificationProofQuest
       presentationProfile: SHAPES_ONLY,
       expectedOddIndex: 2,
       states: [
-        figure("TRIANGLE", "SQUARE", 0, 0, "TOP_LEFT", "UP", false, 1, "LEFT"),
-        figure("SQUARE", "PENTAGON", 0, 0, "BOTTOM_RIGHT", "DOWN", false, 1, "RIGHT"),
-        figure("SQUARE", "TRIANGLE", 0, 0, "TOP_RIGHT", "LEFT", true, 1, "LEFT"),
-        figure("TRIANGLE", "SQUARE", 0, 0, "BOTTOM_LEFT", "RIGHT", true, 1, "RIGHT"),
+        figure("TRIANGLE", "SQUARE", 1, 0, "TOP_LEFT", "UP", false, 1, "LEFT"),
+        figure("SQUARE", "PENTAGON", 0, 1, "BOTTOM_RIGHT", "DOWN", false, 1, "RIGHT"),
+        figure("SQUARE", "TRIANGLE", 0, 3, "TOP_RIGHT", "LEFT", true, 1, "LEFT"),
+        figure("TRIANGLE", "SQUARE", 3, 0, "BOTTOM_LEFT", "RIGHT", true, 1, "RIGHT"),
       ],
     }),
     generateFigureClassificationProofQuestion({
