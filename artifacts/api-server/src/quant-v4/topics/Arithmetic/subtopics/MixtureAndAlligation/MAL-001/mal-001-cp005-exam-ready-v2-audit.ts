@@ -71,7 +71,10 @@ for (const prototypeId of MAL_CP005_DISCOVERY_PROTOTYPE_IDS) {
     independent += 1;
     assert(first.permanentQlId === null, "Permanent QL leaked into V2 review.");
     assert(first.runtimeMode === "REVIEW_ONLY", "V2 runtime mode changed.");
-    assert(first.reviewStatus === "PENDING_PRODUCT_REVIEW", "Review status changed.");
+    assert(
+      first.reviewStatus === "PRODUCT_REVIEW_APPROVED",
+      "Recorded product approval status changed.",
+    );
     assert(first.questionStudioDiscoverable, "Review preview should remain discoverable.");
     assert(
       !first.active &&
@@ -216,7 +219,8 @@ writeFileSync(
       status: "PASS_MAL_CP005_EXAM_READY_REVIEW_V2",
       runtimeId: "MAL-CP005-EN-EXAM-READY-REVIEW-V2",
       permanentQlCount: 0,
-      reviewStatus: "PENDING_PRODUCT_REVIEW",
+      reviewStatus: "PRODUCT_REVIEW_APPROVED",
+      approvalScope: "PRODUCT_REVIEW_ONLY",
       generated,
       deterministic,
       independent,
@@ -240,7 +244,7 @@ writeFileSync(
 const markdown: string[] = [
   "# MAL-CP-005 — Exam-Ready English V2 100-Question Review",
   "",
-  "> Review-only candidate. No permanent QLs, Question Bank writes, tests or public delivery are enabled.",
+  "> Product review approved. Runtime remains review-only; no permanent QLs, Question Bank writes, tests or public delivery are enabled.",
   "",
   `Generated proof questions: **${generated}**`,
   `Distinct states: **${stateKeys.size}**`,
@@ -295,6 +299,8 @@ console.log(
   JSON.stringify(
     {
       status: "PASS_MAL_CP005_EXAM_READY_REVIEW_V2",
+      reviewStatus: "PRODUCT_REVIEW_APPROVED",
+      approvalScope: "PRODUCT_REVIEW_ONLY",
       generated,
       deterministic,
       independent,
