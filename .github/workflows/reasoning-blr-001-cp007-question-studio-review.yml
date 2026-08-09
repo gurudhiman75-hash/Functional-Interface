@@ -37,18 +37,22 @@ jobs:
 
       - name: Reprove frozen English authority
         run: |
+          set -o pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-english-frozen.test.ts | tee english-freeze.log
 
       - name: Reprove multilingual freeze
         run: |
+          set -o pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-multilingual-frozen.test.ts | tee multilingual-freeze.log
 
       - name: Prove Question Studio review adapter
         run: |
+          set -o pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/question-studio-review-adapter.test.ts | tee question-studio-review.log
 
       - name: Export Question Studio integration review pack
         run: |
+          set -o pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-question-studio-integration-review.ts blr-cp007-question-studio-review-output | tee question-studio-export.log
 
       - name: Verify review-pack contracts
@@ -66,6 +70,9 @@ jobs:
           grep -q '"validPreviewCount": 504' "$SUMMARY"
           grep -q '"validationFailureCount": 0' "$SUMMARY"
           grep -q '"rendererReadyCount": 504' "$SUMMARY"
+          grep -q '"Easy": 48' "$SUMMARY"
+          grep -q '"Medium": 104' "$SUMMARY"
+          grep -q '"Hard": 16' "$SUMMARY"
           grep -q '"questionStudioVisibleCount": 0' "$SUMMARY"
           grep -q '"persistenceAllowedCount": 0' "$SUMMARY"
           grep -q '"questionBankEligibleCount": 0' "$SUMMARY"
