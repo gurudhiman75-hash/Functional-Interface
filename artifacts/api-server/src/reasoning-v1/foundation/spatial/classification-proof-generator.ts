@@ -146,6 +146,7 @@ export function generateFigureClassificationProofQuestion(
   const nuisanceAudit = auditSpatialClassificationNuisanceFeatures(
     states,
     input.propertyId,
+    input.presentationProfile,
   );
   if (!nuisanceAudit.ok) {
     throw new Error(
@@ -158,6 +159,7 @@ export function generateFigureClassificationProofQuestion(
       const scene = buildSpatialClassificationFigureScene(
         state,
         `${input.seed}-option-${index + 1}`,
+        input.presentationProfile,
       );
       const sceneValidation = validateSpatialScene(scene);
       if (!sceneValidation.ok) {
@@ -168,6 +170,7 @@ export function generateFigureClassificationProofQuestion(
       const integrity = validateSpatialClassificationSceneAgainstState(
         scene,
         state,
+        input.presentationProfile,
       );
       if (!integrity.ok) {
         throw new Error(
@@ -200,6 +203,7 @@ export function generateFigureClassificationProofQuestion(
   const evidence = states.map((state) =>
     spatialClassificationPropertyEvidence(state, input.propertyId),
   );
+  const presentationProfile = { ...input.presentationProfile };
 
   return {
     familyCode: "SPA-001",
@@ -208,6 +212,7 @@ export function generateFigureClassificationProofQuestion(
     seed: input.seed,
     instructionKey: "FCL_SELECT_ODD_FIGURE",
     propertyId: input.propertyId,
+    presentationProfile,
     options,
     correctOptionIndex: input.expectedOddIndex,
     solverEvidence: {
@@ -218,6 +223,7 @@ export function generateFigureClassificationProofQuestion(
       approvedPropertyAuthorityCheck: "PASS",
       nuisanceFeatureAuditCheck: "PASS",
       nuisanceFeatureDistributions: nuisanceAudit.distributions,
+      presentationProfile,
       optionStateFingerprints: options.map(
         (option) => option.stateFingerprint,
       ),
@@ -236,6 +242,7 @@ export function generateFigureClassificationProofQuestion(
       nuisanceFeatureAuditCheck: "PASS",
       auditedNuisanceFeatureCount: nuisanceAudit.distributions.length,
       nuisanceFeatureDistributions: nuisanceAudit.distributions,
+      presentationProfile,
       optionUniquenessCheck: "PASS",
       sceneIntegrityCheck: "PASS",
       deterministicRegenerationCheck: "PASS",

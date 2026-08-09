@@ -19,7 +19,7 @@ export interface SpatialClassificationEditorialReviewRow {
 }
 
 export interface SpatialClassificationEditorialReviewExport {
-  schemaVersion: "1.1";
+  schemaVersion: "1.2";
   familyCode: "SPA-001";
   chapterCode: "FCL-001";
   generatedFrom: "DETERMINISTIC_PROOF_CORPUS";
@@ -36,11 +36,24 @@ function escapeHtml(value: string): string {
     .replaceAll("'", "&#039;");
 }
 
+function presentationDescription(
+  profile: SpatialClassificationProofQuestion["presentationProfile"],
+): string {
+  const visible = [
+    "outer/inner shapes",
+    profile.showMarker ? "marker" : null,
+    profile.showDirection ? "arrow" : null,
+    profile.showShading ? "shading" : null,
+    profile.showSegments ? "count dots" : null,
+  ].filter((value): value is string => value !== null);
+  return visible.join(", ");
+}
+
 export function buildSpatialClassificationEditorialReviewExport(
   questions: readonly SpatialClassificationProofQuestion[],
 ): SpatialClassificationEditorialReviewExport {
   return {
-    schemaVersion: "1.1",
+    schemaVersion: "1.2",
     familyCode: "SPA-001",
     chapterCode: "FCL-001",
     generatedFrom: "DETERMINISTIC_PROOF_CORPUS",
@@ -98,8 +111,9 @@ export function buildSpatialClassificationEditorialReviewHtml(
             <p><strong>Rule:</strong> ${escapeHtml(row.learnerExplanation.rule)}</p>
             <p><strong>Option-by-option check:</strong> ${escapeHtml(row.learnerExplanation.application)}</p>
             <p><strong>Conclusion:</strong> ${escapeHtml(row.learnerExplanation.check)}</p>
+            <p class="diagnostic"><strong>Visible controls:</strong> ${escapeHtml(presentationDescription(row.reviewMetadata.presentationProfile))}</p>
             <p class="diagnostic"><strong>Property vector:</strong> ${row.propertyVector.map((value) => value ? "PASS" : "ODD").join(" · ")}</p>
-            <p class="diagnostic"><strong>Approved authority:</strong> ${row.reviewMetadata.uniqueWithinApprovedPropertyAuthorityCheck} · <strong>Nuisance audit:</strong> ${row.reviewMetadata.nuisanceFeatureAuditCheck} (${row.reviewMetadata.auditedNuisanceFeatureCount} features) · <strong>Scene integrity:</strong> ${row.reviewMetadata.sceneIntegrityCheck}</p>
+            <p class="diagnostic"><strong>Approved authority:</strong> ${row.reviewMetadata.uniqueWithinApprovedPropertyAuthorityCheck} · <strong>Visible-feature audit:</strong> ${row.reviewMetadata.nuisanceFeatureAuditCheck} (${row.reviewMetadata.auditedNuisanceFeatureCount} descriptors) · <strong>Scene integrity:</strong> ${row.reviewMetadata.sceneIntegrityCheck}</p>
             <p class="diagnostic"><strong>Allowed 3-to-1 descriptor:</strong> ${escapeHtml(nuisanceSummary || "none")}</p>
           </details>
         </article>`;
@@ -111,7 +125,7 @@ export function buildSpatialClassificationEditorialReviewHtml(
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FCL-001 Figure Classification Ambiguity-Remediation Review</title>
+  <title>FCL-001 Figure Classification Presentation-Remediation Review</title>
   <style>
     :root { font-family: Inter, system-ui, sans-serif; color: #171717; background: #f4f4f5; }
     body { margin: 0; padding: 24px; }
@@ -136,8 +150,8 @@ export function buildSpatialClassificationEditorialReviewHtml(
 <body>
   <main>
     <section class="summary">
-      <h1>FCL-001 Figure Classification Ambiguity-Remediation Review</h1>
-      <p>${review.questionCount} deterministic odd-figure questions. Every quartet passed the approved-property check, a 31-feature nuisance audit and scene-state validation.</p>
+      <h1>FCL-001 Figure Classification Presentation-Remediation Review</h1>
+      <p>${review.questionCount} deterministic odd-figure questions. Each item exposes only rule-relevant controls, uses detached dots for counts and audits all visible nuisance descriptors.</p>
     </section>
     ${questions}
   </main>

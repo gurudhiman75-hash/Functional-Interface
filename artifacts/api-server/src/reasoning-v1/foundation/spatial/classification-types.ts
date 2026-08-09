@@ -17,16 +17,29 @@ export type SpatialClassificationPropertyId =
   | "INNER_HAS_ONE_MORE_SIDE_THAN_OUTER"
   | "ARROW_POINTS_TO_SEGMENT_ANCHOR";
 
+export interface SpatialClassificationPresentationProfile {
+  showMarker: boolean;
+  showDirection: boolean;
+  showShading: boolean;
+  showSegments: boolean;
+}
+
 export type SpatialClassificationNuisanceFeatureId =
   | "OUTER_SHAPE"
   | "INNER_SHAPE"
   | "OUTER_ORIENTATION"
   | "INNER_ORIENTATION"
   | "MARKER_POSITION"
+  | "MARKER_VERTICAL_HALF"
+  | "MARKER_HORIZONTAL_HALF"
+  | "MARKER_DIAGONAL"
   | "ARROW_DIRECTION"
+  | "ARROW_AXIS"
   | "INNER_SHADING"
   | "SEGMENT_COUNT"
+  | "SEGMENT_COUNT_BAND"
   | "SEGMENT_ANCHOR"
+  | "SEGMENT_ANCHOR_AXIS"
   | "SHAPE_PAIR"
   | "ORIENTATION_PAIR"
   | "MARKER_DIRECTION_PAIR"
@@ -34,6 +47,10 @@ export type SpatialClassificationNuisanceFeatureId =
   | "ARROW_SEGMENT_PAIR"
   | "OUTER_INNER_SAME"
   | "ORIENTATIONS_MATCH"
+  | "OUTER_ORIENTATION_AXIS"
+  | "INNER_ORIENTATION_AXIS"
+  | "OUTER_ROTATION_SENSITIVITY"
+  | "INNER_ROTATION_SENSITIVITY"
   | "MARKER_ON_ARROW_SIDE"
   | "MARKER_OPPOSITE_SEGMENT_ANCHOR"
   | "MARKER_ON_SEGMENT_SIDE"
@@ -48,6 +65,7 @@ export type SpatialClassificationNuisanceFeatureId =
   | "OUTER_SIDE_PARITY"
   | "INNER_SIDE_PARITY"
   | "SIDE_COUNT_COMPARISON"
+  | "SIGNED_SIDE_DIFFERENCE"
   | "TOTAL_POLYGON_SIDES_PARITY";
 
 export interface SpatialClassificationNuisanceDistribution {
@@ -81,6 +99,7 @@ export interface SpatialClassificationSolverEvidence {
   approvedPropertyAuthorityCheck: "PASS";
   nuisanceFeatureAuditCheck: "PASS";
   nuisanceFeatureDistributions: SpatialClassificationNuisanceDistribution[];
+  presentationProfile: SpatialClassificationPresentationProfile;
   optionStateFingerprints: string[];
   optionSceneFingerprints: string[];
   sceneIntegrityCheck: "PASS";
@@ -96,6 +115,7 @@ export interface SpatialClassificationReviewMetadata {
   nuisanceFeatureAuditCheck: "PASS";
   auditedNuisanceFeatureCount: number;
   nuisanceFeatureDistributions: SpatialClassificationNuisanceDistribution[];
+  presentationProfile: SpatialClassificationPresentationProfile;
   optionUniquenessCheck: "PASS";
   sceneIntegrityCheck: "PASS";
   deterministicRegenerationCheck: "PASS";
@@ -109,6 +129,7 @@ export interface SpatialClassificationProofQuestion {
   seed: string;
   instructionKey: "FCL_SELECT_ODD_FIGURE";
   propertyId: SpatialClassificationPropertyId;
+  presentationProfile: SpatialClassificationPresentationProfile;
   options: SpatialClassificationProofOption[];
   correctOptionIndex: number;
   solverEvidence: SpatialClassificationSolverEvidence;
@@ -128,6 +149,7 @@ export interface SpatialClassificationProofGeneratorInput {
   seed: string;
   prototypeId: string;
   propertyId: SpatialClassificationPropertyId;
+  presentationProfile: SpatialClassificationPresentationProfile;
   states: readonly [
     SpatialAnalogyFigureState,
     SpatialAnalogyFigureState,

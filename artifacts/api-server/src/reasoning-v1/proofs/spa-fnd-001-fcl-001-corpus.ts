@@ -1,10 +1,42 @@
 import type {
   SpatialAnalogyFigureState,
+  SpatialClassificationPresentationProfile,
   SpatialClassificationProofQuestion,
 } from "../foundation/spatial";
 import {
   generateFigureClassificationProofQuestion,
 } from "../topics/Non-Verbal-Reasoning/Figure-Classification/FCL-001/runtime/figure-classification-proof-generator";
+
+const SHAPES_ONLY: SpatialClassificationPresentationProfile = {
+  showMarker: false,
+  showDirection: false,
+  showShading: false,
+  showSegments: false,
+};
+const SHAPES_AND_SEGMENTS: SpatialClassificationPresentationProfile = {
+  showMarker: false,
+  showDirection: false,
+  showShading: false,
+  showSegments: true,
+};
+const SHAPES_MARKER_DIRECTION: SpatialClassificationPresentationProfile = {
+  showMarker: true,
+  showDirection: true,
+  showShading: false,
+  showSegments: false,
+};
+const SHAPES_MARKER_SEGMENTS: SpatialClassificationPresentationProfile = {
+  showMarker: true,
+  showDirection: false,
+  showShading: false,
+  showSegments: true,
+};
+const SHAPES_DIRECTION_SEGMENTS: SpatialClassificationPresentationProfile = {
+  showMarker: false,
+  showDirection: true,
+  showShading: false,
+  showSegments: true,
+};
 
 function figure(
   outerShape: SpatialAnalogyFigureState["outerShape"],
@@ -33,9 +65,10 @@ function figure(
 export function buildSpatialFcl001ProofCorpus(): SpatialClassificationProofQuestion[] {
   return [
     generateFigureClassificationProofQuestion({
-      seed: "FCL-REMEDIATED-01-STRUCTURE",
+      seed: "FCL-PRESENTATION-01-STRUCTURE",
       prototypeId: "FCL-PROT-OUTER-INNER-RELATION",
       propertyId: "OUTER_INNER_DIFFERENT",
+      presentationProfile: SHAPES_ONLY,
       expectedOddIndex: 0,
       states: [
         figure("SQUARE", "SQUARE", 0, 0, "TOP_LEFT", "DOWN", false, 1, "LEFT"),
@@ -45,9 +78,10 @@ export function buildSpatialFcl001ProofCorpus(): SpatialClassificationProofQuest
       ],
     }),
     generateFigureClassificationProofQuestion({
-      seed: "FCL-REMEDIATED-02-INNER-COUNT",
+      seed: "FCL-PRESENTATION-02-INNER-COUNT",
       prototypeId: "FCL-PROT-INNER-SIDE-COUNT-RELATION",
       propertyId: "SEGMENT_MATCHES_INNER_SIDES_MINUS_ONE",
+      presentationProfile: SHAPES_AND_SEGMENTS,
       expectedOddIndex: 1,
       states: [
         figure("CIRCLE", "TRIANGLE", 0, 0, "TOP_LEFT", "UP", false, 2, "LEFT"),
@@ -57,9 +91,10 @@ export function buildSpatialFcl001ProofCorpus(): SpatialClassificationProofQuest
       ],
     }),
     generateFigureClassificationProofQuestion({
-      seed: "FCL-REMEDIATED-03-MARKER-DIRECTION",
+      seed: "FCL-PRESENTATION-03-MARKER-DIRECTION",
       prototypeId: "FCL-PROT-MARKER-ARROW-SIDE",
       propertyId: "MARKER_ON_ARROW_SIDE",
+      presentationProfile: SHAPES_MARKER_DIRECTION,
       expectedOddIndex: 2,
       states: [
         figure("TRIANGLE", "SQUARE", 0, 0, "TOP_LEFT", "UP", false, 1, "TOP"),
@@ -69,9 +104,10 @@ export function buildSpatialFcl001ProofCorpus(): SpatialClassificationProofQuest
       ],
     }),
     generateFigureClassificationProofQuestion({
-      seed: "FCL-REMEDIATED-04-ORIENTATION",
+      seed: "FCL-PRESENTATION-04-ORIENTATION",
       prototypeId: "FCL-PROT-INNER-OUTER-ORIENTATION",
       propertyId: "ORIENTATIONS_MATCH",
+      presentationProfile: SHAPES_ONLY,
       expectedOddIndex: 3,
       states: [
         figure("TRIANGLE", "PENTAGON", 0, 0, "TOP_LEFT", "UP", false, 1, "LEFT"),
@@ -81,9 +117,10 @@ export function buildSpatialFcl001ProofCorpus(): SpatialClassificationProofQuest
       ],
     }),
     generateFigureClassificationProofQuestion({
-      seed: "FCL-REMEDIATED-05-OUTER-COUNT",
+      seed: "FCL-PRESENTATION-05-OUTER-COUNT",
       prototypeId: "FCL-PROT-OUTER-SIDE-COUNT-RELATION",
       propertyId: "SEGMENT_MATCHES_OUTER_SIDES_MINUS_ONE",
+      presentationProfile: SHAPES_AND_SEGMENTS,
       expectedOddIndex: 0,
       states: [
         figure("SQUARE", "TRIANGLE", 0, 0, "TOP_LEFT", "UP", false, 1, "LEFT"),
@@ -93,21 +130,23 @@ export function buildSpatialFcl001ProofCorpus(): SpatialClassificationProofQuest
       ],
     }),
     generateFigureClassificationProofQuestion({
-      seed: "FCL-REMEDIATED-06-MARKER-SEGMENTS",
+      seed: "FCL-PRESENTATION-06-MARKER-SEGMENTS",
       prototypeId: "FCL-PROT-MARKER-SEGMENT-OPPOSITION",
       propertyId: "MARKER_OPPOSITE_SEGMENT_ANCHOR",
+      presentationProfile: SHAPES_MARKER_SEGMENTS,
       expectedOddIndex: 1,
       states: [
         figure("TRIANGLE", "SQUARE", 0, 0, "BOTTOM_LEFT", "LEFT", false, 2, "TOP"),
-        figure("SQUARE", "TRIANGLE", 0, 0, "TOP_LEFT", "RIGHT", true, 2, "TOP"),
-        figure("TRIANGLE", "SQUARE", 0, 0, "TOP_RIGHT", "LEFT", false, 3, "BOTTOM"),
-        figure("SQUARE", "TRIANGLE", 0, 0, "TOP_RIGHT", "RIGHT", true, 3, "BOTTOM"),
+        figure("SQUARE", "TRIANGLE", 0, 0, "TOP_RIGHT", "RIGHT", true, 2, "RIGHT"),
+        figure("TRIANGLE", "SQUARE", 0, 0, "TOP_LEFT", "LEFT", false, 3, "BOTTOM"),
+        figure("SQUARE", "TRIANGLE", 0, 0, "BOTTOM_RIGHT", "RIGHT", true, 3, "LEFT"),
       ],
     }),
     generateFigureClassificationProofQuestion({
-      seed: "FCL-REMEDIATED-07-SIDE-INCREASE",
+      seed: "FCL-PRESENTATION-07-SIDE-INCREASE",
       prototypeId: "FCL-PROT-INNER-ONE-MORE-SIDE",
       propertyId: "INNER_HAS_ONE_MORE_SIDE_THAN_OUTER",
+      presentationProfile: SHAPES_ONLY,
       expectedOddIndex: 2,
       states: [
         figure("TRIANGLE", "SQUARE", 0, 0, "TOP_LEFT", "UP", false, 1, "LEFT"),
@@ -117,15 +156,16 @@ export function buildSpatialFcl001ProofCorpus(): SpatialClassificationProofQuest
       ],
     }),
     generateFigureClassificationProofQuestion({
-      seed: "FCL-REMEDIATED-08-ARROW-SEGMENTS",
+      seed: "FCL-PRESENTATION-08-ARROW-SEGMENTS",
       prototypeId: "FCL-PROT-ARROW-SEGMENT-ALIGNMENT",
       propertyId: "ARROW_POINTS_TO_SEGMENT_ANCHOR",
+      presentationProfile: SHAPES_DIRECTION_SEGMENTS,
       expectedOddIndex: 3,
       states: [
         figure("TRIANGLE", "SQUARE", 0, 0, "TOP_LEFT", "UP", false, 1, "TOP"),
         figure("SQUARE", "TRIANGLE", 0, 0, "BOTTOM_LEFT", "RIGHT", false, 2, "RIGHT"),
-        figure("TRIANGLE", "SQUARE", 0, 0, "BOTTOM_RIGHT", "DOWN", true, 1, "BOTTOM"),
-        figure("SQUARE", "TRIANGLE", 0, 0, "BOTTOM_RIGHT", "LEFT", true, 2, "TOP"),
+        figure("TRIANGLE", "SQUARE", 0, 0, "BOTTOM_RIGHT", "LEFT", true, 1, "LEFT"),
+        figure("SQUARE", "TRIANGLE", 0, 0, "TOP_RIGHT", "DOWN", true, 2, "TOP"),
       ],
     }),
   ];

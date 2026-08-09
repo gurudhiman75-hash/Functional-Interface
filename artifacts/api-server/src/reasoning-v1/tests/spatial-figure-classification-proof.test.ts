@@ -9,9 +9,11 @@ import {
   renderSpatialSceneToSvg,
   spatialClassificationPropertySatisfied,
   spatialClassificationPropertyVector,
+  SPATIAL_CLASSIFICATION_NUISANCE_FEATURE_IDS,
   validateSpatialClassificationSceneAgainstState,
   validateSpatialScene,
   type SpatialAnalogyFigureState,
+  type SpatialClassificationPresentationProfile,
   type SpatialClassificationProofQuestion,
 } from "../foundation/spatial";
 import {
@@ -45,15 +47,27 @@ function assertQuestion(question: SpatialClassificationProofQuestion): void {
   assert.equal(question.solverEvidence.approvedPropertyAuthorityCheck, "PASS");
   assert.equal(question.solverEvidence.nuisanceFeatureAuditCheck, "PASS");
   assert.equal(question.solverEvidence.sceneIntegrityCheck, "PASS");
+  assert.deepEqual(
+    question.solverEvidence.presentationProfile,
+    question.presentationProfile,
+  );
   assert.equal(
     question.reviewMetadata.uniqueWithinApprovedPropertyAuthorityCheck,
     "PASS",
   );
   assert.equal(question.reviewMetadata.nuisanceFeatureAuditCheck, "PASS");
-  assert.equal(question.reviewMetadata.auditedNuisanceFeatureCount, 31);
+  assert(
+    question.reviewMetadata.auditedNuisanceFeatureCount > 0 &&
+      question.reviewMetadata.auditedNuisanceFeatureCount <=
+        SPATIAL_CLASSIFICATION_NUISANCE_FEATURE_IDS.length,
+  );
   assert.equal(question.reviewMetadata.optionUniquenessCheck, "PASS");
   assert.equal(question.reviewMetadata.sceneIntegrityCheck, "PASS");
   assert.equal(question.reviewMetadata.localeMode, "LANGUAGE_NEUTRAL");
+  assert.deepEqual(
+    question.reviewMetadata.presentationProfile,
+    question.presentationProfile,
+  );
   assert.equal(question.explanationSteps.length, 4);
   assert(question.learnerExplanation.observation.length > 20);
   assert(question.learnerExplanation.rule.length > 20);
@@ -76,6 +90,7 @@ function assertQuestion(question: SpatialClassificationProofQuestion): void {
   const nuisanceAudit = auditSpatialClassificationNuisanceFeatures(
     states,
     question.propertyId,
+    question.presentationProfile,
   );
   assert.equal(nuisanceAudit.ok, true, nuisanceAudit.ambiguousFeatureIds.join(", "));
   assert.deepEqual(nuisanceAudit.ambiguousFeatureIds, []);
@@ -107,8 +122,29 @@ function assertQuestion(question: SpatialClassificationProofQuestion): void {
     const integrity = validateSpatialClassificationSceneAgainstState(
       option.scene,
       option.state,
+      question.presentationProfile,
     );
     assert.equal(integrity.ok, true, JSON.stringify(integrity.errors));
+    const roles = option.scene.nodes.map((node) => node.role);
+    assert.equal(
+      roles.includes("distinguishing-marker"),
+      question.presentationProfile.showMarker,
+    );
+    assert.equal(
+      roles.includes("direction-indicator"),
+      question.presentationProfile.showDirection,
+    );
+    assert.equal(
+      roles.includes("count-segment"),
+      question.presentationProfile.showSegments,
+    );
+    if (question.presentationProfile.showSegments) {
+      assert(
+        option.scene.nodes
+          .filter((node) => node.role === "count-segment")
+          .every((node) => node.kind === "circle"),
+      );
+    }
     assertSanitisedSvg(renderSpatialSceneToSvg(option.scene));
   });
 }
@@ -204,24 +240,33 @@ assert.equal(
   true,
 );
 
+const markerVisibleProfile: SpatialClassificationPresentationProfile = {
+  showMarker: true,
+  showDirection: false,
+  showShading: false,
+  showSegments: false,
+};
 const nuisanceStates = [
-  figure("PENTAGON", "PENTAGON", "BOTTOM_RIGHT", "DOWN", false, 2, "RIGHT"),
+  figure("SQUARE", "SQUARE", "BOTTOM_RIGHT", "DOWN", false, 2, "RIGHT"),
   figure("TRIANGLE", "PENTAGON", "BOTTOM_RIGHT", "UP", true, 1, "TOP"),
-  figure("TRIANGLE", "CIRCLE", "BOTTOM_RIGHT", "LEFT", false, 1, "BOTTOM"),
-  figure("PENTAGON", "CIRCLE", "TOP_LEFT", "UP", true, 2, "RIGHT"),
+  figure("TRIANGLE", "SQUARE", "BOTTOM_RIGHT", "LEFT", false, 1, "BOTTOM"),
+  figure("PENTAGON", "TRIANGLE", "TOP_LEFT", "UP", true, 2, "RIGHT"),
 ] as const;
 const nuisanceAudit = auditSpatialClassificationNuisanceFeatures(
   nuisanceStates,
   "OUTER_INNER_DIFFERENT",
+  markerVisibleProfile,
 );
 assert.equal(nuisanceAudit.ok, false);
 assert(nuisanceAudit.ambiguousFeatureIds.includes("MARKER_POSITION"));
+assert(nuisanceAudit.ambiguousFeatureIds.includes("MARKER_DIAGONAL"));
 assert.throws(
   () =>
     generateFigureClassificationProofQuestion({
-      seed: "FCL-NEGATIVE-NUISANCE-AMBIGUITY",
+      seed: "FCL-NEGATIVE-VISIBLE-NUISANCE-AMBIGUITY",
       prototypeId: "FCL-PROT-NEGATIVE-NUISANCE",
       propertyId: "OUTER_INNER_DIFFERENT",
+      presentationProfile: markerVisibleProfile,
       expectedOddIndex: 0,
       states: nuisanceStates,
     }),
@@ -229,7 +274,7 @@ assert.throws(
 );
 
 const review = buildSpatialClassificationEditorialReviewExport(firstCorpus);
-assert.equal(review.schemaVersion, "1.1");
+assert.equal(review.schemaVersion, "1.2");
 assert.equal(review.chapterCode, "FCL-001");
 assert.equal(review.questionCount, 8);
 assert.equal(review.rows.length, 8);
@@ -243,12 +288,12 @@ assert(
 
 const html = buildSpatialClassificationEditorialReviewHtml(review);
 assert.match(html, /^<!doctype html>/);
-assert.match(html, /FCL-001 Figure Classification Ambiguity-Remediation Review/);
+assert.match(html, /FCL-001 Figure Classification Presentation-Remediation Review/);
 assert.match(
   html,
   /Select the figure that is different from the other three/,
 );
-assert.match(html, /Nuisance audit:<\/strong> PASS \(31 features\)/);
+assert.match(html, /Visible-feature audit:<\/strong> PASS/);
 assert.doesNotMatch(html, /<script|javascript:/i);
 
 mkdirSync("dist/reasoning-v1/spatial", { recursive: true });
@@ -266,7 +311,7 @@ writeFileSync(
 console.log(
   JSON.stringify(
     {
-      status: "PASS_SPA_FND_001_FCL_001_AMBIGUITY_REMEDIATION",
+      status: "PASS_SPA_FND_001_FCL_001_AMBIGUITY_PRESENTATION_REMEDIATION",
       corpus: {
         total: firstCorpus.length,
         answerSequence: answerSequence.map((position) =>
@@ -277,8 +322,10 @@ console.log(
       checks: {
         deterministicRegeneration: true,
         uniqueWithinApprovedPropertyAuthority: true,
-        nuisanceFeatureAudit: true,
-        nuisanceAmbiguityRejection: true,
+        visibleNuisanceFeatureAudit: true,
+        coarseMarkerAmbiguityRejection: true,
+        propertySpecificPresentation: true,
+        detachedDotCountMarks: true,
         directionAnchorMapping: true,
         semanticOptionUniqueness: true,
         renderedOptionUniqueness: true,

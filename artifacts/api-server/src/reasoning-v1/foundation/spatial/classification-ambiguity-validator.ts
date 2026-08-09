@@ -6,6 +6,7 @@ import type {
   SpatialAnalogyFigureState,
   SpatialAnalogyMarkerPosition,
   SpatialAnalogySegmentAnchor,
+  SpatialAnalogyShape,
 } from "./analogy-types";
 import {
   spatialClassificationDirectionAnchor,
@@ -15,6 +16,7 @@ import {
 import type {
   SpatialClassificationNuisanceDistribution,
   SpatialClassificationNuisanceFeatureId,
+  SpatialClassificationPresentationProfile,
   SpatialClassificationPropertyId,
 } from "./classification-types";
 
@@ -24,16 +26,22 @@ export interface SpatialClassificationNuisanceAuditResult {
   ambiguousFeatureIds: SpatialClassificationNuisanceFeatureId[];
 }
 
-const FEATURE_IDS: readonly SpatialClassificationNuisanceFeatureId[] = [
+export const SPATIAL_CLASSIFICATION_NUISANCE_FEATURE_IDS: readonly SpatialClassificationNuisanceFeatureId[] = [
   "OUTER_SHAPE",
   "INNER_SHAPE",
   "OUTER_ORIENTATION",
   "INNER_ORIENTATION",
   "MARKER_POSITION",
+  "MARKER_VERTICAL_HALF",
+  "MARKER_HORIZONTAL_HALF",
+  "MARKER_DIAGONAL",
   "ARROW_DIRECTION",
+  "ARROW_AXIS",
   "INNER_SHADING",
   "SEGMENT_COUNT",
+  "SEGMENT_COUNT_BAND",
   "SEGMENT_ANCHOR",
+  "SEGMENT_ANCHOR_AXIS",
   "SHAPE_PAIR",
   "ORIENTATION_PAIR",
   "MARKER_DIRECTION_PAIR",
@@ -41,6 +49,10 @@ const FEATURE_IDS: readonly SpatialClassificationNuisanceFeatureId[] = [
   "ARROW_SEGMENT_PAIR",
   "OUTER_INNER_SAME",
   "ORIENTATIONS_MATCH",
+  "OUTER_ORIENTATION_AXIS",
+  "INNER_ORIENTATION_AXIS",
+  "OUTER_ROTATION_SENSITIVITY",
+  "INNER_ROTATION_SENSITIVITY",
   "MARKER_ON_ARROW_SIDE",
   "MARKER_OPPOSITE_SEGMENT_ANCHOR",
   "MARKER_ON_SEGMENT_SIDE",
@@ -55,6 +67,7 @@ const FEATURE_IDS: readonly SpatialClassificationNuisanceFeatureId[] = [
   "OUTER_SIDE_PARITY",
   "INNER_SIDE_PARITY",
   "SIDE_COUNT_COMPARISON",
+  "SIGNED_SIDE_DIFFERENCE",
   "TOTAL_POLYGON_SIDES_PARITY",
 ] as const;
 
@@ -78,9 +91,11 @@ const INTENDED_EQUIVALENT_FEATURES: Record<
   INNER_HAS_ONE_MORE_SIDE_THAN_OUTER: [
     "INNER_HAS_ONE_MORE_SIDE_THAN_OUTER",
     "SIDE_COUNT_COMPARISON",
+    "SIGNED_SIDE_DIFFERENCE",
   ],
   ARROW_POINTS_TO_SEGMENT_ANCHOR: [
     "ARROW_POINTS_TO_SEGMENT_ANCHOR",
+    "ARROW_OPPOSITE_SEGMENT_ANCHOR",
   ],
 };
 
@@ -132,6 +147,38 @@ function sideComparison(
   return "EQUAL";
 }
 
+function markerVerticalHalf(marker: SpatialAnalogyMarkerPosition): string {
+  return marker.startsWith("TOP") ? "TOP" : "BOTTOM";
+}
+
+function markerHorizontalHalf(marker: SpatialAnalogyMarkerPosition): string {
+  return marker.endsWith("LEFT") ? "LEFT" : "RIGHT";
+}
+
+function markerDiagonal(marker: SpatialAnalogyMarkerPosition): string {
+  return marker === "TOP_LEFT" || marker === "BOTTOM_RIGHT"
+    ? "MAIN"
+    : "ANTI";
+}
+
+function directionAxis(direction: SpatialAnalogyDirection): string {
+  return direction === "UP" || direction === "DOWN" ? "VERTICAL" : "HORIZONTAL";
+}
+
+function anchorAxis(anchor: SpatialAnalogySegmentAnchor): string {
+  return anchor === "TOP" || anchor === "BOTTOM" ? "VERTICAL" : "HORIZONTAL";
+}
+
+function orientationAxis(quarter: number): string {
+  return quarter % 2 === 0 ? "VERTICAL" : "HORIZONTAL";
+}
+
+function rotationSensitivity(shape: SpatialAnalogyShape): string {
+  return shape === "TRIANGLE" || shape === "PENTAGON"
+    ? "DIRECTIONAL"
+    : "ROTATION_INVARIANT";
+}
+
 function featureRecord(
   stateInput: SpatialAnalogyFigureState,
 ): Record<SpatialClassificationNuisanceFeatureId, string> {
@@ -153,10 +200,16 @@ function featureRecord(
     OUTER_ORIENTATION: `Q${state.outerRotationQuarter}`,
     INNER_ORIENTATION: `Q${state.innerRotationQuarter}`,
     MARKER_POSITION: state.markerPosition,
+    MARKER_VERTICAL_HALF: markerVerticalHalf(state.markerPosition),
+    MARKER_HORIZONTAL_HALF: markerHorizontalHalf(state.markerPosition),
+    MARKER_DIAGONAL: markerDiagonal(state.markerPosition),
     ARROW_DIRECTION: state.direction,
+    ARROW_AXIS: directionAxis(state.direction),
     INNER_SHADING: state.shadedInner ? "SHADED" : "OPEN",
     SEGMENT_COUNT: String(state.segmentCount),
+    SEGMENT_COUNT_BAND: state.segmentCount <= 2 ? "LOW" : "HIGH",
     SEGMENT_ANCHOR: state.segmentAnchor,
+    SEGMENT_ANCHOR_AXIS: anchorAxis(state.segmentAnchor),
     SHAPE_PAIR: `${state.outerShape}->${state.innerShape}`,
     ORIENTATION_PAIR: `Q${state.outerRotationQuarter}->Q${state.innerRotationQuarter}`,
     MARKER_DIRECTION_PAIR: `${state.markerPosition}|${state.direction}`,
@@ -166,6 +219,10 @@ function featureRecord(
     ORIENTATIONS_MATCH: String(
       state.outerRotationQuarter === state.innerRotationQuarter,
     ),
+    OUTER_ORIENTATION_AXIS: orientationAxis(state.outerRotationQuarter),
+    INNER_ORIENTATION_AXIS: orientationAxis(state.innerRotationQuarter),
+    OUTER_ROTATION_SENSITIVITY: rotationSensitivity(state.outerShape),
+    INNER_ROTATION_SENSITIVITY: rotationSensitivity(state.innerShape),
     MARKER_ON_ARROW_SIDE: String(
       markerOnDirectionSide(state.markerPosition, state.direction),
     ),
@@ -201,6 +258,10 @@ function featureRecord(
     OUTER_SIDE_PARITY: sideParity(outerSides),
     INNER_SIDE_PARITY: sideParity(innerSides),
     SIDE_COUNT_COMPARISON: sideComparison(outerSides, innerSides),
+    SIGNED_SIDE_DIFFERENCE:
+      outerSides === null || innerSides === null
+        ? "NON_POLYGON"
+        : String(innerSides - outerSides),
     TOTAL_POLYGON_SIDES_PARITY:
       outerSides === null || innerSides === null
         ? "NONE"
@@ -208,6 +269,45 @@ function featureRecord(
           ? "EVEN"
           : "ODD",
   };
+}
+
+function featureVisible(
+  featureId: SpatialClassificationNuisanceFeatureId,
+  profile: SpatialClassificationPresentationProfile,
+): boolean {
+  if (
+    featureId.startsWith("MARKER_") ||
+    featureId === "MARKER_POSITION"
+  ) {
+    if (featureId.includes("DIRECTION")) {
+      return profile.showMarker && profile.showDirection;
+    }
+    if (featureId.includes("SEGMENT")) {
+      return profile.showMarker && profile.showSegments;
+    }
+    return profile.showMarker;
+  }
+  if (featureId === "ARROW_DIRECTION" || featureId === "ARROW_AXIS") {
+    return profile.showDirection;
+  }
+  if (
+    featureId === "ARROW_SEGMENT_PAIR" ||
+    featureId === "ARROW_POINTS_TO_SEGMENT_ANCHOR" ||
+    featureId === "ARROW_OPPOSITE_SEGMENT_ANCHOR"
+  ) {
+    return profile.showDirection && profile.showSegments;
+  }
+  if (featureId === "INNER_SHADING") {
+    return profile.showShading;
+  }
+  if (
+    featureId.startsWith("SEGMENT_") ||
+    featureId === "SEGMENT_COUNT" ||
+    featureId === "SEGMENT_ANCHOR"
+  ) {
+    return profile.showSegments;
+  }
+  return true;
 }
 
 function frequencies(values: readonly string[]): Record<string, number> {
@@ -226,21 +326,24 @@ function isThreeToOne(counts: Record<string, number>): boolean {
 export function auditSpatialClassificationNuisanceFeatures(
   states: readonly SpatialAnalogyFigureState[],
   intendedPropertyId: SpatialClassificationPropertyId,
+  presentationProfile: SpatialClassificationPresentationProfile,
 ): SpatialClassificationNuisanceAuditResult {
   const records = states.map(featureRecord);
   const allowed = new Set(INTENDED_EQUIVALENT_FEATURES[intendedPropertyId]);
-  const distributions = FEATURE_IDS.map((featureId) => {
-    const featureFrequencies = frequencies(
-      records.map((record) => record[featureId]),
-    );
-    const intendedEquivalent = allowed.has(featureId);
-    return {
-      featureId,
-      frequencies: featureFrequencies,
-      threeToOne: isThreeToOne(featureFrequencies),
-      intendedEquivalent,
-    } satisfies SpatialClassificationNuisanceDistribution;
-  });
+  const distributions = SPATIAL_CLASSIFICATION_NUISANCE_FEATURE_IDS
+    .filter((featureId) => featureVisible(featureId, presentationProfile))
+    .map((featureId) => {
+      const featureFrequencies = frequencies(
+        records.map((record) => record[featureId]),
+      );
+      const intendedEquivalent = allowed.has(featureId);
+      return {
+        featureId,
+        frequencies: featureFrequencies,
+        threeToOne: isThreeToOne(featureFrequencies),
+        intendedEquivalent,
+      } satisfies SpatialClassificationNuisanceDistribution;
+    });
   const ambiguousFeatureIds = distributions
     .filter(
       (distribution) =>
