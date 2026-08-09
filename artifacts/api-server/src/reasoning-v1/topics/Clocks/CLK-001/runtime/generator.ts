@@ -11,6 +11,7 @@ import { solveRemainingPrototype } from "./families/remaining";
 import { solveMotionOrAnglePrototype } from "./families/motion-angle";
 import { solveRemediatedStrikeFamily } from "./families/strikes-remediated";
 import { solveStrikeFamily } from "./families/strikes";
+import { solveVisualAndSynthesisFamily } from "./families/visual-mixed";
 import type { SolvedClockPrototype } from "./solver-types";
 import type { ClockDifficulty, ClockQuestion, GenerateClockQuestionInput } from "./types";
 import { ClockSeededRandom, makeOptions, stableFingerprint } from "./utils";
@@ -39,6 +40,7 @@ function solvePrototype(input: {
     solveMotionOrAnglePrototype(input) ??
     solveRemediatedStrikeFamily(input) ??
     solveStrikeFamily(input) ??
+    solveVisualAndSynthesisFamily(input) ??
     solveRemainingPrototype(input);
   if (!solved) {
     throw new Error(`No CLK-001 solver owns task ${input.taskId}.`);
