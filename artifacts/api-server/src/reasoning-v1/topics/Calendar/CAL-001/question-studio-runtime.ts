@@ -21,6 +21,20 @@ export const CAL_001_QUESTION_STUDIO_VERSION =
   "CAL_001_QUESTION_STUDIO_V1" as const;
 export const CAL_001_PACKAGE_ID = "CAL-001" as const;
 export const CAL_001_QUESTION_STUDIO_LANGUAGES = ["en", "hi", "pa"] as const;
+export const CAL_001_PRODUCTION_RELEASE_AUTHORITY =
+  "CAL_001_PRODUCT_RELEASE_APPROVED_2026_08_09" as const;
+
+export const CAL_001_PRODUCTION_RELEASE = {
+  authority: CAL_001_PRODUCTION_RELEASE_AUTHORITY,
+  runtimeMode: "CANONICAL_REVIEW",
+  reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+  questionBankStatus: "READY_FOR_STORAGE",
+  testEligibility: "ELIGIBLE",
+  publiclyPublishable: true,
+  mockTestEligible: true,
+  manualApprovalRequired: true,
+  automaticStudentPublication: false,
+} as const;
 
 export type Cal001QuestionStudioLanguage =
   (typeof CAL_001_QUESTION_STUDIO_LANGUAGES)[number];
@@ -36,9 +50,8 @@ export const CAL_001_QUESTION_STUDIO_ACTIVATION = {
   questionStudioGeneratable: true,
   reviewAndRevisionEnabled: true,
   regenerationEnabled: true,
-  questionBankStatus: "NOT_STORED",
-  testEligibility: "INELIGIBLE",
-  publiclyPublishable: false,
+  persistenceEnabled: true,
+  ...CAL_001_PRODUCTION_RELEASE,
 } as const;
 
 export const CAL_001_QUESTION_STUDIO_PACKAGE = {
@@ -63,11 +76,16 @@ export const CAL_001_QUESTION_STUDIO_PACKAGE = {
   supportedDifficulties: ["easy", "medium", "hard"],
   supportedLanguages: [...CAL_001_QUESTION_STUDIO_LANGUAGES],
   enabled: true,
-  runtimeMode: "FROZEN_MULTILINGUAL_REVIEW",
-  reviewStatus: "APPROVED_MULTILINGUAL_FROZEN",
-  questionBankStatus: CAL_001_QUESTION_STUDIO_ACTIVATION.questionBankStatus,
-  testEligibility: CAL_001_QUESTION_STUDIO_ACTIVATION.testEligibility,
-  publiclyPublishable: CAL_001_QUESTION_STUDIO_ACTIVATION.publiclyPublishable,
+  runtimeMode: CAL_001_PRODUCTION_RELEASE.runtimeMode,
+  reviewStatus: CAL_001_PRODUCTION_RELEASE.reviewStatus,
+  questionBankStatus: CAL_001_PRODUCTION_RELEASE.questionBankStatus,
+  testEligibility: CAL_001_PRODUCTION_RELEASE.testEligibility,
+  publiclyPublishable: CAL_001_PRODUCTION_RELEASE.publiclyPublishable,
+  mockTestEligible: CAL_001_PRODUCTION_RELEASE.mockTestEligible,
+  manualApprovalRequired: CAL_001_PRODUCTION_RELEASE.manualApprovalRequired,
+  automaticStudentPublication:
+    CAL_001_PRODUCTION_RELEASE.automaticStudentPublication,
+  releaseAuthority: CAL_001_PRODUCTION_RELEASE.authority,
   freezeStatus: "ENGLISH_HINDI_PUNJABI_FROZEN",
 } as const;
 
@@ -124,7 +142,9 @@ function difficultyLabel(value: Difficulty | undefined): Cal001QuestionStudioDif
   return "Medium";
 }
 
-function normalizeDifficulty(value: unknown): Cal001QuestionStudioDifficulty | undefined {
+function normalizeDifficulty(
+  value: unknown,
+): Cal001QuestionStudioDifficulty | undefined {
   if (typeof value === "string") {
     const normalized = value.trim().toLowerCase();
     if (normalized === "easy") return "Easy";
@@ -306,17 +326,26 @@ export function runCal001QuestionStudioPipeline(
     },
     {
       name: "multilingual-human-freeze",
-      passed: CAL_001_QUESTION_STUDIO_ACTIVATION.supportedLanguages.includes(language),
+      passed:
+        CAL_001_QUESTION_STUDIO_ACTIVATION.supportedLanguages.includes(language),
       message: "Language is part of the approved multilingual freeze.",
     },
     {
-      name: "question-studio-only-boundary",
+      name: "approval-gated-production-release",
       passed:
         CAL_001_QUESTION_STUDIO_ACTIVATION.questionStudioGeneratable &&
-        CAL_001_QUESTION_STUDIO_ACTIVATION.questionBankStatus === "NOT_STORED" &&
-        CAL_001_QUESTION_STUDIO_ACTIVATION.testEligibility === "INELIGIBLE" &&
-        CAL_001_QUESTION_STUDIO_ACTIVATION.publiclyPublishable === false,
-      message: "Question Studio is active while downstream delivery remains locked.",
+        CAL_001_QUESTION_STUDIO_ACTIVATION.persistenceEnabled &&
+        CAL_001_PRODUCTION_RELEASE.runtimeMode === "CANONICAL_REVIEW" &&
+        CAL_001_PRODUCTION_RELEASE.reviewStatus ===
+          "APPROVED_EDITORIAL_CANONICAL" &&
+        CAL_001_PRODUCTION_RELEASE.questionBankStatus === "READY_FOR_STORAGE" &&
+        CAL_001_PRODUCTION_RELEASE.testEligibility === "ELIGIBLE" &&
+        CAL_001_PRODUCTION_RELEASE.publiclyPublishable === true &&
+        CAL_001_PRODUCTION_RELEASE.mockTestEligible === true &&
+        CAL_001_PRODUCTION_RELEASE.manualApprovalRequired === true &&
+        CAL_001_PRODUCTION_RELEASE.automaticStudentPublication === false,
+      message:
+        "Question is release-eligible only after manual approval; automatic student publication remains disabled.",
     },
   ];
   const validation = {
@@ -348,11 +377,17 @@ export function runCal001QuestionStudioPipeline(
     studentTask: contract.studentTask,
     mathematicalFingerprint: sourceFingerprint(selected.pkg),
     generationMode: "FROZEN_MULTILINGUAL_REVIEW",
-    reviewStatus: "APPROVED_MULTILINGUAL_FROZEN",
+    runtimeMode: CAL_001_PRODUCTION_RELEASE.runtimeMode,
+    reviewStatus: CAL_001_PRODUCTION_RELEASE.reviewStatus,
     questionStudioStatus: "ACTIVE",
-    questionBankStatus: "NOT_STORED",
-    testEligibility: "INELIGIBLE",
-    publiclyPublishable: false,
+    questionBankStatus: CAL_001_PRODUCTION_RELEASE.questionBankStatus,
+    testEligibility: CAL_001_PRODUCTION_RELEASE.testEligibility,
+    publiclyPublishable: CAL_001_PRODUCTION_RELEASE.publiclyPublishable,
+    mockTestEligible: CAL_001_PRODUCTION_RELEASE.mockTestEligible,
+    manualApprovalRequired: CAL_001_PRODUCTION_RELEASE.manualApprovalRequired,
+    automaticStudentPublication:
+      CAL_001_PRODUCTION_RELEASE.automaticStudentPublication,
+    releaseAuthority: CAL_001_PRODUCTION_RELEASE.authority,
     seed,
   } as const;
 
@@ -381,12 +416,17 @@ export function runCal001QuestionStudioPipeline(
       taskKind: contract.solveAuthority,
       answerType: contract.answerType,
       seed,
-      runtimeMode: "FROZEN_MULTILINGUAL_REVIEW",
-      reviewStatus: "APPROVED_MULTILINGUAL_FROZEN",
+      runtimeMode: CAL_001_PRODUCTION_RELEASE.runtimeMode,
+      reviewStatus: CAL_001_PRODUCTION_RELEASE.reviewStatus,
       questionStudioStatus: "ACTIVE",
-      questionBankStatus: "NOT_STORED",
-      testEligibility: "INELIGIBLE",
-      publiclyPublishable: false,
+      questionBankStatus: CAL_001_PRODUCTION_RELEASE.questionBankStatus,
+      testEligibility: CAL_001_PRODUCTION_RELEASE.testEligibility,
+      publiclyPublishable: CAL_001_PRODUCTION_RELEASE.publiclyPublishable,
+      mockTestEligible: CAL_001_PRODUCTION_RELEASE.mockTestEligible,
+      manualApprovalRequired: CAL_001_PRODUCTION_RELEASE.manualApprovalRequired,
+      automaticStudentPublication:
+        CAL_001_PRODUCTION_RELEASE.automaticStudentPublication,
+      releaseAuthority: CAL_001_PRODUCTION_RELEASE.authority,
       mathematicalFingerprint: sourceFingerprint(selected.pkg),
       facts: sourceFacts(selected.pkg),
     },
@@ -406,13 +446,17 @@ export function runCal001QuestionStudioPipeline(
     reasoningGraph: {
       graphId: `${questionId}-graph`,
       nodes: [
-        { id: "authority", label: "Solve authority", value: contract.solveAuthority },
+        {
+          id: "authority",
+          label: "Solve authority",
+          value: contract.solveAuthority,
+        },
         { id: "source", label: "Source prototype", value: sourceId },
         { id: "answer", label: "Verified answer", value: answer },
         {
           id: "delivery",
           label: "Delivery boundary",
-          value: "QUESTION_STUDIO_ONLY",
+          value: "MANUAL_APPROVAL_GATED_RELEASE",
         },
       ],
     },
@@ -435,7 +479,9 @@ export function isCal001GenerationRequest(
   if (explicit === CAL_001_PACKAGE_ID) return true;
 
   const pattern = String(request.patternId ?? "").trim().toUpperCase();
-  if (pattern === CAL_001_PACKAGE_ID || pattern.startsWith("CAL-QL-")) return true;
+  if (pattern === CAL_001_PACKAGE_ID || pattern.startsWith("CAL-QL-")) {
+    return true;
+  }
 
   const topic = normalizeSelectorText(request.topic);
   const subtopic = normalizeSelectorText(request.subtopic);
@@ -446,16 +492,16 @@ export function isCal001GenerationRequest(
   );
 }
 
-function resolveQlId(request: Cal001QuestionStudioRequest): CalendarPermanentQlId | undefined {
+function resolveQlId(
+  request: Cal001QuestionStudioRequest,
+): CalendarPermanentQlId | undefined {
   const explicit = String(
     request.canonicalProblemId ?? request.cpId ?? request.patternId ?? "",
   )
     .trim()
     .toUpperCase();
   if (!explicit || explicit === CAL_001_PACKAGE_ID) return undefined;
-  if (
-    CALENDAR_PERMANENT_QL_IDS.includes(explicit as CalendarPermanentQlId)
-  ) {
+  if (CALENDAR_PERMANENT_QL_IDS.includes(explicit as CalendarPermanentQlId)) {
     return explicit as CalendarPermanentQlId;
   }
   throw new Error(`Unknown CAL-001 permanent question language '${explicit}'.`);
@@ -507,6 +553,10 @@ export function toCal001QuestionStudioPreview(
     questionBankStatus: pkg.parameters.questionBankStatus,
     testEligibility: pkg.parameters.testEligibility,
     publiclyPublishable: pkg.parameters.publiclyPublishable,
+    mockTestEligible: pkg.parameters.mockTestEligible,
+    manualApprovalRequired: pkg.parameters.manualApprovalRequired,
+    automaticStudentPublication: pkg.parameters.automaticStudentPublication,
+    releaseAuthority: pkg.parameters.releaseAuthority,
     packageSource: "cal-001-permanent-runtime",
     packageId: CAL_001_PACKAGE_ID,
     canonicalProblemId: pkg.canonicalProblemId,
@@ -531,6 +581,10 @@ export function toCal001QuestionStudioPreview(
       questionBankStatus: pkg.parameters.questionBankStatus,
       testEligibility: pkg.parameters.testEligibility,
       publiclyPublishable: pkg.parameters.publiclyPublishable,
+      mockTestEligible: pkg.parameters.mockTestEligible,
+      manualApprovalRequired: pkg.parameters.manualApprovalRequired,
+      automaticStudentPublication: pkg.parameters.automaticStudentPublication,
+      releaseAuthority: pkg.parameters.releaseAuthority,
     },
   };
 }
@@ -542,20 +596,27 @@ export async function generateCal001QuestionStudioBatch(
   if (!CAL_001_QUESTION_STUDIO_LANGUAGES.includes(language)) {
     throw new Error(`CAL-001 does not support language '${String(language)}'.`);
   }
-  const count = Math.min(50, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
+  const count = Math.min(
+    50,
+    Math.max(1, Math.floor(Number(request.count ?? 1) || 1)),
+  );
   const requestedQlId = resolveQlId(request);
   const difficultyBand = normalizeDifficulty(request.difficulty);
-  const batchSeed = request.seed ?? [
-    CAL_001_QUESTION_STUDIO_VERSION,
-    requestedQlId ?? "mixed",
-    language,
-    Date.now(),
-    Math.random().toString(36).slice(2),
-  ].join(":");
+  const batchSeed =
+    request.seed ??
+    [
+      CAL_001_QUESTION_STUDIO_VERSION,
+      requestedQlId ?? "mixed",
+      language,
+      Date.now(),
+      Math.random().toString(36).slice(2),
+    ].join(":");
   const qlOrder = requestedQlId
     ? [requestedQlId]
     : shuffledQlIds(`${batchSeed}:ql-order`);
-  const questionPackages: Array<ReturnType<typeof runCal001QuestionStudioPipeline>> = [];
+  const questionPackages: Array<
+    ReturnType<typeof runCal001QuestionStudioPipeline>
+  > = [];
   const questions: Array<ReturnType<typeof toCal001QuestionStudioPreview>> = [];
 
   for (let index = 0; index < count; index++) {
@@ -576,12 +637,18 @@ export async function generateCal001QuestionStudioBatch(
       packageId: CAL_001_PACKAGE_ID,
       seed: batchSeed,
       timestamp: Date.now(),
-      runtimeMode: "FROZEN_MULTILINGUAL_REVIEW",
-      reviewStatus: "APPROVED_MULTILINGUAL_FROZEN",
+      generationMode: "FROZEN_MULTILINGUAL_REVIEW",
+      runtimeMode: CAL_001_PRODUCTION_RELEASE.runtimeMode,
+      reviewStatus: CAL_001_PRODUCTION_RELEASE.reviewStatus,
       questionStudioStatus: "ACTIVE",
-      questionBankStatus: "NOT_STORED",
-      testEligibility: "INELIGIBLE",
-      publiclyPublishable: false,
+      questionBankStatus: CAL_001_PRODUCTION_RELEASE.questionBankStatus,
+      testEligibility: CAL_001_PRODUCTION_RELEASE.testEligibility,
+      publiclyPublishable: CAL_001_PRODUCTION_RELEASE.publiclyPublishable,
+      mockTestEligible: CAL_001_PRODUCTION_RELEASE.mockTestEligible,
+      manualApprovalRequired: CAL_001_PRODUCTION_RELEASE.manualApprovalRequired,
+      automaticStudentPublication:
+        CAL_001_PRODUCTION_RELEASE.automaticStudentPublication,
+      releaseAuthority: CAL_001_PRODUCTION_RELEASE.authority,
       permanentQlRange: "CAL-QL-001..036",
       language,
     },
