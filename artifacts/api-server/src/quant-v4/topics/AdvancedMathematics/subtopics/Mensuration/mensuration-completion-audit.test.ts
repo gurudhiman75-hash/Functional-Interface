@@ -82,11 +82,11 @@ assert.ok(cp009);
 assert.equal(cp009.implementationStatus, "ENGLISH_IMPLEMENTATION_FROZEN_INACTIVE");
 assert.equal(cp009.engineeringImplemented, true);
 assert.equal(cp009.englishAuthorityPresent, true);
-assert.equal(cp009.permanentQlRange, "MEN-002-QL-096..MEN-002-QL-119");
-assert.equal(cp009.evidencePr, 654);
+assert.equal(cp009.permanentQlRange, "MEN-002-QL-096..MEN-002-QL-123");
+assert.equal(cp009.evidencePr, 656);
 assert.equal(
   cp009.evidenceMergeCommit,
-  "f191b3f6d5eb8f382050ded18304939851142555",
+  "5b9b0d00c0741b66fa83db1f7790e74a799274ef",
 );
 
 const cp011 = byId.get("MEN-CP-011");
