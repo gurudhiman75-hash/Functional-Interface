@@ -1,0 +1,97 @@
+name: Validate NUM-CP-007 Wave 02 remainder topology
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - ".github/workflows/num-002-cp007-wave02.yml"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp007-wave02-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp007-wave02:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 01 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/wave01/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp007-wave01-regression.mjs
+
+      - name: Run Wave 01 regression
+        run: node artifacts/api-server/dist/quant-v4/num-002-cp007-wave01-regression.mjs
+
+      - name: Bundle Wave 02 runtime authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/wave02/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp007-wave02-runtime-authority.mjs
+
+      - name: Run Wave 02 runtime authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp007-wave02-runtime-authority.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp007-wave02-runtime-authority.log
+
+      - name: Bundle Wave 02 structural audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/wave02/runtime-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp007-wave02-runtime-audit.mjs
+
+      - name: Run Wave 02 structural audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp007-wave02-runtime-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp007-wave02-runtime-audit.log
+
+      - name: Bundle Wave 02 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/wave02/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp007-wave02-review-export.mjs
+
+      - name: Generate Wave 02 English review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-002-cp007-wave02-review-export.mjs
+
+      - name: Upload Wave 02 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp007-wave02-remainder-topology
+          retention-days: 14
+          path: |
+            artifacts/api-server/dist/quant-v4/num-002-cp007-wave02-runtime-authority.log
+            artifacts/api-server/dist/quant-v4/num-002-cp007-wave02-runtime-audit.log
+            artifacts/api-server/dist/quant-v4/num-002-cp007-wave02-review.json
+            artifacts/api-server/dist/quant-v4/num-002-cp007-wave02-review.csv
+            artifacts/api-server/dist/quant-v4/num-002-cp007-wave02-review.md
