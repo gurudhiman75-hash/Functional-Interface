@@ -9,6 +9,7 @@ import { solveEventFamily } from "./families/events";
 import { solveFaultyClockFamily } from "./families/faulty";
 import { solveRemainingPrototype } from "./families/remaining";
 import { solveMotionOrAnglePrototype } from "./families/motion-angle";
+import { solveRemediatedStrikeFamily } from "./families/strikes-remediated";
 import { solveStrikeFamily } from "./families/strikes";
 import type { SolvedClockPrototype } from "./solver-types";
 import type { ClockDifficulty, ClockQuestion, GenerateClockQuestionInput } from "./types";
@@ -36,6 +37,7 @@ function solvePrototype(input: {
     solveFaultyClockFamily(input) ??
     solveDirectClockFamily(input) ??
     solveMotionOrAnglePrototype(input) ??
+    solveRemediatedStrikeFamily(input) ??
     solveStrikeFamily(input) ??
     solveRemainingPrototype(input);
   if (!solved) {
