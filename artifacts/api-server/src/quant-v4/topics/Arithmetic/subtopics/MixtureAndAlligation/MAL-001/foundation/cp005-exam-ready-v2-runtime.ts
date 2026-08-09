@@ -66,16 +66,28 @@ function capitalizeSentence(text: string): string {
   );
 }
 
+function polishLearnerText(text: string): string {
+  return capitalizeSentence(text)
+    .replace(/\bof a ([aeiou])/giu, "of an $1")
+    .replace(/× (\d+ \d+\/\d+)\/100/gu, "× ($1)/100")
+    .replace(/100\/(\d+ \d+\/\d+)/gu, "100/($1)")
+    .replace(
+      /= (\d+ \d+\/\d+)\/(\d+ \d+\/\d+) ×/gu,
+      "= ($1)/($2) ×",
+    );
+}
+
 function normalizeLearnerPresentation(
   question: MalCp005ExamReadyQuestionV2,
 ): MalCp005ExamReadyQuestionV2 {
+  question.stem = polishLearnerText(question.stem);
   question.explanation.visibleLines =
-    question.explanation.visibleLines.map(capitalizeSentence);
+    question.explanation.visibleLines.map(polishLearnerText);
   if (question.explanation.optionalHelp.verification) {
     question.explanation.optionalHelp.verification =
-      question.explanation.optionalHelp.verification.map(capitalizeSentence);
+      question.explanation.optionalHelp.verification.map(polishLearnerText);
   }
-  question.explanation.optionalHelp.commonMistake = capitalizeSentence(
+  question.explanation.optionalHelp.commonMistake = polishLearnerText(
     question.explanation.optionalHelp.commonMistake,
   );
   return question;
@@ -137,6 +149,11 @@ function optionSurfaceIsExamNatural(
   if (question.answerSemantic === "SELLING_RATE") {
     return optionValues.every(
       (value) => value >= answerValue / 2.5 && value <= answerValue * 2.5,
+    );
+  }
+  if (question.answerSemantic === "PROFIT_PERCENT") {
+    return optionValues.every(
+      (value) => value >= answerValue / 10 && value <= 200,
     );
   }
   return true;
