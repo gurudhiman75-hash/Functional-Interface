@@ -14,8 +14,50 @@ function removeRedundantDivisionByOne(text: string): string {
     .replace(/([₹\d][₹\d.,%/]*)\s*÷\s*1/gu, "$1");
 }
 
+type HindiPeriod = Readonly<{ singular: string; oblique: string }>;
+
+function hindiPeriod(raw: string): HindiPeriod {
+  switch (raw) {
+    case "तिमाहियाँ": return { singular: "तिमाही", oblique: "तिमाहियों" };
+    case "छमाहियाँ": return { singular: "छमाही", oblique: "छमाहियों" };
+    case "महीने": return { singular: "महीने", oblique: "महीनों" };
+    case "वर्ष": return { singular: "वर्ष", oblique: "वर्षों" };
+    default: return { singular: raw, oblique: raw };
+  }
+}
+
+function punjabiPeriod(raw: string): Readonly<{ oblique: string }> {
+  switch (raw) {
+    case "ਤਿਮਾਹੀਆਂ": return { oblique: "ਤਿਮਾਹੀਆਂ" };
+    case "ਛਿਮਾਹੀਆਂ": return { oblique: "ਛਿਮਾਹੀਆਂ" };
+    case "ਮਹੀਨੇ": return { oblique: "ਮਹੀਨਿਆਂ" };
+    case "ਸਾਲ": return { oblique: "ਸਾਲਾਂ" };
+    default: return { oblique: raw };
+  }
+}
+
+function fixHindiPeriodAgreement(text: string): string {
+  return text.replace(
+    /(\d+) (तिमाहियाँ|छमाहियाँ|महीने|वर्ष) लिए गए हैं/gu,
+    (_match, count: string, rawPeriod: string) => {
+      const period = hindiPeriod(rawPeriod);
+      return `${count} ${period.oblique} की गणना की गई है`;
+    },
+  );
+}
+
+function fixPunjabiPeriodAgreement(text: string): string {
+  return text.replace(
+    /(\d+) (ਤਿਮਾਹੀਆਂ|ਛਿਮਾਹੀਆਂ|ਮਹੀਨੇ|ਸਾਲ) ਲਏ ਗਏ ਹਨ/gu,
+    (_match, count: string, rawPeriod: string) => {
+      const period = punjabiPeriod(rawPeriod);
+      return `${count} ${period.oblique} ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ ਹੈ`;
+    },
+  );
+}
+
 function humanizeHindiStem(text: string): string {
-  return text
+  return fixHindiPeriodAgreement(text
     .replace(/^एक राशि (₹[\d,.]+) है। उस पर /u, "$1 पर ")
     .replace(/^एक निवेश (₹[\d,.]+) है।/u, "$1 का निवेश किया गया है।")
     .replace(/प्रत्येक ब्याज-अंतराल की दर/gu, "हर बार ब्याज जुड़ने की दर")
@@ -33,11 +75,11 @@ function humanizeHindiStem(text: string): string {
     .replace(/शुरुआती 1 वर्ष में/gu, "पहले वर्ष")
     .replace(/बाद के 1 वर्ष में/gu, "अगले वर्ष")
     .replace(/अंतिम (\d+) महीने साधारण ब्याज के हैं/gu, "अंतिम $1 महीनों के लिए साधारण ब्याज लगाया गया है")
-    .replace(/दोनों चरण क्रमशः (\d+) वर्ष और (\d+) वर्ष के हैं/gu, "पहला चरण $1 वर्ष और दूसरा $2 वर्ष का है");
+    .replace(/दोनों चरण क्रमशः (\d+) वर्ष और (\d+) वर्ष के हैं/gu, "पहला चरण $1 वर्ष और दूसरा $2 वर्ष का है"));
 }
 
 function humanizePunjabiStem(text: string): string {
-  return text
+  return fixPunjabiPeriodAgreement(text
     .replace(/^ਇੱਕ ਰਕਮ (₹[\d,.]+) ਹੈ। ਇਸ ਉੱਤੇ /u, "$1 ਦੀ ਰਕਮ ਉੱਤੇ ")
     .replace(/^ਇੱਕ ਨਿਵੇਸ਼ (₹[\d,.]+) ਹੈ।/u, "$1 ਦਾ ਨਿਵੇਸ਼ ਕੀਤਾ ਗਿਆ ਹੈ।")
     .replace(/ਹਰ ਵਿਆਜ ਅੰਤਰਾਲ ਦੀ ਦਰ/gu, "ਹਰ ਵਾਰ ਵਿਆਜ ਜੁੜਨ ਦੀ ਦਰ")
@@ -53,7 +95,7 @@ function humanizePunjabiStem(text: string): string {
     .replace(/ਸ਼ੁਰੂਆਤੀ 1 ਸਾਲ ਵਿੱਚ/gu, "ਪਹਿਲੇ ਸਾਲ")
     .replace(/ਬਾਅਦ ਦੇ 1 ਸਾਲ ਵਿੱਚ/gu, "ਅਗਲੇ ਸਾਲ")
     .replace(/ਅੰਤਿਮ (\d+) ਮਹੀਨੇ ਸਧਾਰਣ ਵਿਆਜ ਦੇ ਹਨ/gu, "ਅੰਤਿਮ $1 ਮਹੀਨਿਆਂ ਲਈ ਸਧਾਰਣ ਵਿਆਜ ਲਾਇਆ ਗਿਆ ਹੈ")
-    .replace(/ਦੋਵੇਂ ਪੜਾਅ ਕ੍ਰਮਵਾਰ (\d+) ਅਤੇ (\d+) ਸਾਲਾਂ ਦੇ ਹਨ/gu, "ਪਹਿਲਾ ਪੜਾਅ $1 ਸਾਲ ਅਤੇ ਦੂਜਾ $2 ਸਾਲ ਦਾ ਹੈ");
+    .replace(/ਦੋਵੇਂ ਪੜਾਅ ਕ੍ਰਮਵਾਰ (\d+) ਅਤੇ (\d+) ਸਾਲਾਂ ਦੇ ਹਨ/gu, "ਪਹਿਲਾ ਪੜਾਅ $1 ਸਾਲ ਅਤੇ ਦੂਜਾ $2 ਸਾਲ ਦਾ ਹੈ"));
 }
 
 export function humanizeCp004LocalizedStemV7(
@@ -62,18 +104,6 @@ export function humanizeCp004LocalizedStemV7(
   stem: string,
 ): string {
   return locale === "hi-IN" ? humanizeHindiStem(stem) : humanizePunjabiStem(stem);
-}
-
-type HindiPeriod = Readonly<{ singular: string; oblique: string }>;
-
-function hindiPeriod(raw: string): HindiPeriod {
-  switch (raw) {
-    case "तिमाहियाँ": return { singular: "तिमाही", oblique: "तिमाहियों" };
-    case "छमाहियाँ": return { singular: "छमाही", oblique: "छमाहियों" };
-    case "महीने": return { singular: "महीने", oblique: "महीनों" };
-    case "वर्ष": return { singular: "वर्ष", oblique: "वर्षों" };
-    default: return { singular: raw, oblique: raw };
-  }
 }
 
 function humanizeHindiFeedback(text: string): string {
@@ -94,23 +124,13 @@ function humanizeHindiFeedback(text: string): string {
     },
   );
 
-  return removeRedundantDivisionByOne(result
+  return fixHindiPeriodAgreement(removeRedundantDivisionByOne(result
     .replace(/कुल (\d+) तिमाहियाँ लेने पर/gu, "$1 तिमाहियों के लिए गणना करने पर")
     .replace(/कुल (\d+) छमाहियाँ लेने पर/gu, "$1 छमाहियों के लिए गणना करने पर")
     .replace(/कुल (\d+) महीने लेने पर/gu, "$1 महीनों के लिए गणना करने पर")
     .replace(/कुल (\d+) वर्ष लेने पर/gu, "$1 वर्षों के लिए गणना करने पर")
     .replace(/इस दर को प्रश्न में दिए ब्याज जोड़ने का नियम से जाँचने पर/gu, "इस दर से प्रश्न के अनुसार ब्याज जोड़ने पर")
-    .replace(/पूरे चक्रवृद्धि गुणक हटाइए/gu, "पूरे चक्रवृद्धि गुणक से भाग दीजिए"));
-}
-
-function punjabiPeriod(raw: string): Readonly<{ oblique: string }> {
-  switch (raw) {
-    case "ਤਿਮਾਹੀਆਂ": return { oblique: "ਤਿਮਾਹੀਆਂ" };
-    case "ਛਿਮਾਹੀਆਂ": return { oblique: "ਛਿਮਾਹੀਆਂ" };
-    case "ਮਹੀਨੇ": return { oblique: "ਮਹੀਨਿਆਂ" };
-    case "ਸਾਲ": return { oblique: "ਸਾਲਾਂ" };
-    default: return { oblique: raw };
-  }
+    .replace(/पूरे चक्रवृद्धि गुणक हटाइए/gu, "पूरे चक्रवृद्धि गुणक से भाग दीजिए")));
 }
 
 function humanizePunjabiFeedback(text: string): string {
@@ -131,13 +151,13 @@ function humanizePunjabiFeedback(text: string): string {
     },
   );
 
-  return removeRedundantDivisionByOne(result
+  return fixPunjabiPeriodAgreement(removeRedundantDivisionByOne(result
     .replace(/ਕੁੱਲ (\d+) ਤਿਮਾਹੀਆਂ ਲੈਣ ਉੱਤੇ/gu, "$1 ਤਿਮਾਹੀਆਂ ਲਈ ਗਿਣਤੀ ਕਰਨ ਉੱਤੇ")
     .replace(/ਕੁੱਲ (\d+) ਛਿਮਾਹੀਆਂ ਲੈਣ ਉੱਤੇ/gu, "$1 ਛਿਮਾਹੀਆਂ ਲਈ ਗਿਣਤੀ ਕਰਨ ਉੱਤੇ")
     .replace(/ਕੁੱਲ (\d+) ਮਹੀਨੇ ਲੈਣ ਉੱਤੇ/gu, "$1 ਮਹੀਨਿਆਂ ਲਈ ਗਿਣਤੀ ਕਰਨ ਉੱਤੇ")
     .replace(/ਕੁੱਲ (\d+) ਸਾਲ ਲੈਣ ਉੱਤੇ/gu, "$1 ਸਾਲਾਂ ਲਈ ਗਿਣਤੀ ਕਰਨ ਉੱਤੇ")
     .replace(/ਇਸ ਦਰ ਨੂੰ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਵਿਆਜ ਜੋੜਨ ਦਾ ਨਿਯਮ ਨਾਲ ਜਾਂਚਣ ਉੱਤੇ/gu, "ਇਸ ਦਰ ਨਾਲ ਪ੍ਰਸ਼ਨ ਅਨੁਸਾਰ ਵਿਆਜ ਜੋੜਨ ਉੱਤੇ")
-    .replace(/ਪੂਰਾ ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ ਹਟਾਓ/gu, "ਪੂਰੇ ਵਿਆਜ ਗੁਣਕ ਨਾਲ ਭਾਗ ਦਿਓ"));
+    .replace(/ਪੂਰਾ ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ ਹਟਾਓ/gu, "ਪੂਰੇ ਵਿਆਜ ਗੁਣਕ ਨਾਲ ਭਾਗ ਦਿਓ")));
 }
 
 export function humanizeCp004LocalizedOptionV7(
@@ -154,17 +174,17 @@ export function humanizeCp004LocalizedOptionV7(
 }
 
 function humanizeHindiExplanationText(text: string): string {
-  return removeRedundantDivisionByOne(text
+  return fixHindiPeriodAgreement(removeRedundantDivisionByOne(text
     .replace(/प्रत्येक संभावित ब्याज जोड़ने का क्रम से/gu, "ब्याज जोड़ने के प्रत्येक संभावित अंतराल के अनुसार")
     .replace(/ब्याज-आवृत्ति/gu, "ब्याज जोड़ने का अंतराल")
-    .replace(/इस दर को प्रश्न में दिए ब्याज जोड़ने का नियम से/gu, "इस दर से प्रश्न के अनुसार ब्याज जोड़ने पर"));
+    .replace(/इस दर को प्रश्न में दिए ब्याज जोड़ने का नियम से/gu, "इस दर से प्रश्न के अनुसार ब्याज जोड़ने पर")));
 }
 
 function humanizePunjabiExplanationText(text: string): string {
-  return removeRedundantDivisionByOne(text
+  return fixPunjabiPeriodAgreement(removeRedundantDivisionByOne(text
     .replace(/ਇੱਕ ਸਾਲ ਦੇ ਅੰਦਰ ਹੋਈਆਂ ਸਾਰੀਆਂ ਮਿਸ਼ਰਤ ਵਿਆਜਆਂ ਸ਼ਾਮਲ ਕਰੋ/gu, "ਇੱਕ ਸਾਲ ਦੇ ਅੰਦਰ ਵਿਆਜ ਜੋੜਨ ਦੇ ਸਾਰੇ ਪੜਾਅ ਸ਼ਾਮਲ ਕਰੋ")
     .replace(/ਪੂਰੇ ਇੱਕ ਸਾਲ ਦੇ ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ ਨਾਲ/gu, "ਪੂਰੇ ਇੱਕ ਸਾਲ ਦੇ ਵਿਆਜ ਗੁਣਕ ਨਾਲ")
-    .replace(/ਇਸ ਦਰ ਨੂੰ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਵਿਆਜ ਜੋੜਨ ਦਾ ਨਿਯਮ ਨਾਲ/gu, "ਇਸ ਦਰ ਨਾਲ ਪ੍ਰਸ਼ਨ ਅਨੁਸਾਰ ਵਿਆਜ ਜੋੜਨ ਉੱਤੇ"));
+    .replace(/ਇਸ ਦਰ ਨੂੰ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਵਿਆਜ ਜੋੜਨ ਦਾ ਨਿਯਮ ਨਾਲ/gu, "ਇਸ ਦਰ ਨਾਲ ਪ੍ਰਸ਼ਨ ਅਨੁਸਾਰ ਵਿਆਜ ਜੋੜਨ ਉੱਤੇ")));
 }
 
 export function humanizeCp004LocalizedExplanationV7(
@@ -207,8 +227,8 @@ export function humanizeCp004LocalizedExplanationV7(
 
   return Object.freeze({
     whatAsked: humanize(explanation.whatAsked),
-    steps: Object.freeze(steps.map((step) => removeRedundantDivisionByOne(step))),
+    steps: Object.freeze(steps.map((step) => humanize(step))),
     finalAnswer: humanize(explanation.finalAnswer),
-    commonMistake: removeRedundantDivisionByOne(commonMistake),
+    commonMistake: humanize(commonMistake),
   });
 }
