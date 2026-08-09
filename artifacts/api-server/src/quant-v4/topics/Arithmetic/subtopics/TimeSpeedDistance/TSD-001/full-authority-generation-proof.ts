@@ -3,8 +3,10 @@ import {
   TSD_CP001_LEARNER_AUTHORITIES,
 } from "./cp001/runtime";
 import { hasTsdCalculationEvidence } from "./cp001/exact-option-feedback";
+import type { TsdCp001GeneratedQuestion } from "./cp001/runtime-types";
 import { TSD_CP002_LEARNER_AUTHORITIES } from "./cp002/discovery-registry";
 import { generateCp002Candidate } from "./cp002/public-runtime";
+import type { TsdCp002GeneratedQuestion } from "./cp002/types";
 import { calibratedDifficultyLabel } from "./difficulty-calibration";
 import { TSD_FINAL_LEARNER_AUTHORITIES } from "./final-authority-registry";
 
@@ -16,7 +18,32 @@ function withoutDisplayedOption(reason: string, optionText: string): string {
   return reason.replace(optionText, "").replace(/^[✅⚠️\s:.-]+/, "").trim();
 }
 
-function assertQuestion(question: ReturnType<typeof generateCp001Candidate> | ReturnType<typeof generateCp002Candidate>): number {
+function cp001FinalAuthorityKey(question: TsdCp001GeneratedQuestion): string {
+  if (question.solveMode === "distanceByProportion") return "referenceTripDistanceAtChangedConditions";
+  if (question.solveMode === "timeByProportion") return "referenceTripTimeAtChangedConditions";
+  return question.solveMode;
+}
+
+function cp002FinalAuthorityKey(question: TsdCp002GeneratedQuestion): string {
+  switch (question.solveMode) {
+    case "totalDistanceFromAverageAndTime":
+      return "distanceFromSpeedAndTime";
+    case "unknownSegmentShareFromAverage":
+      return question.authoritySubmode === "DISTANCE_SHARE"
+        ? "unknownDistanceShareFromAverageSpeed"
+        : "unknownTimeShareFromAverageSpeed";
+    case "segmentRatioFromAverageAndSpeeds":
+      return question.authoritySubmode === "DISTANCE_RATIO"
+        ? "distanceRatioFromAverageAndSpeeds"
+        : "timeRatioFromAverageAndSpeeds";
+    case "roundTripTimeFromOneWayDistance":
+      return "roundTripLegTimeSum";
+    default:
+      return question.solveMode;
+  }
+}
+
+function assertQuestion(question: TsdCp001GeneratedQuestion | TsdCp002GeneratedQuestion): number {
   assert(question.validation.valid, `${question.questionLanguageId}: ${question.validation.errors.join("; ")}`);
   assert(question.options.length === 4 && new Set(question.options).size === 4, `${question.questionLanguageId}: options are not unique`);
   assert(question.options[question.correctIndex] === question.answerText, `${question.questionLanguageId}: answer key differs`);
@@ -43,49 +70,60 @@ function assertQuestion(question: ReturnType<typeof generateCp001Candidate> | Re
   return wrong;
 }
 
-const seedsPerAuthority = 20;
-const expectedAuthorities = TSD_CP001_LEARNER_AUTHORITIES.length + TSD_CP002_LEARNER_AUTHORITIES.length;
-assert(expectedAuthorities === TSD_FINAL_LEARNER_AUTHORITIES.length, `Discovery/final authority count differs: ${expectedAuthorities}`);
+const seedsPerDiscoveryAuthority = 20;
+const discoveryAuthorities = TSD_CP001_LEARNER_AUTHORITIES.length + TSD_CP002_LEARNER_AUTHORITIES.length;
+assert(discoveryAuthorities === 37, `Expected 37 discovery authorities, received ${discoveryAuthorities}`);
+assert(TSD_FINAL_LEARNER_AUTHORITIES.length === 38, `Expected 38 final learner authorities, received ${TSD_FINAL_LEARNER_AUTHORITIES.length}`);
 
 let cp001Questions = 0;
 let cp002Questions = 0;
 let wrongReasons = 0;
 const fingerprints = new Set<string>();
-const authorityCounts = new Map<string, number>();
+const discoveryAuthorityCounts = new Map<string, number>();
+const generatedFinalAuthorityKeys = new Set<string>();
 
 for (const authority of TSD_CP001_LEARNER_AUTHORITIES) {
-  for (let index = 0; index < seedsPerAuthority; index += 1) {
+  for (let index = 0; index < seedsPerDiscoveryAuthority; index += 1) {
     const question = generateCp001Candidate(authority.provisionalId, `full-authority:cp001:${authority.provisionalId}:${index}`);
     wrongReasons += assertQuestion(question);
     fingerprints.add(question.mathematicalFingerprint);
-    authorityCounts.set(authority.provisionalId, (authorityCounts.get(authority.provisionalId) ?? 0) + 1);
+    discoveryAuthorityCounts.set(authority.provisionalId, (discoveryAuthorityCounts.get(authority.provisionalId) ?? 0) + 1);
+    generatedFinalAuthorityKeys.add(cp001FinalAuthorityKey(question));
     cp001Questions += 1;
   }
 }
 
 for (const authority of TSD_CP002_LEARNER_AUTHORITIES) {
-  for (let index = 0; index < seedsPerAuthority; index += 1) {
+  for (let index = 0; index < seedsPerDiscoveryAuthority; index += 1) {
     const question = generateCp002Candidate(authority.provisionalId, `full-authority:cp002:${authority.provisionalId}:${index}`);
     wrongReasons += assertQuestion(question);
     fingerprints.add(question.mathematicalFingerprint);
-    authorityCounts.set(authority.provisionalId, (authorityCounts.get(authority.provisionalId) ?? 0) + 1);
+    discoveryAuthorityCounts.set(authority.provisionalId, (discoveryAuthorityCounts.get(authority.provisionalId) ?? 0) + 1);
+    generatedFinalAuthorityKeys.add(cp002FinalAuthorityKey(question));
     cp002Questions += 1;
   }
 }
 
 const questions = cp001Questions + cp002Questions;
-assert(questions === expectedAuthorities * seedsPerAuthority, `Expected ${expectedAuthorities * seedsPerAuthority} questions, received ${questions}`);
+assert(questions === discoveryAuthorities * seedsPerDiscoveryAuthority, `Expected ${discoveryAuthorities * seedsPerDiscoveryAuthority} questions, received ${questions}`);
 assert(wrongReasons === questions * 3, `Expected ${questions * 3} wrong reasons, received ${wrongReasons}`);
-assert(authorityCounts.size === expectedAuthorities, `Expected ${expectedAuthorities} authority buckets, received ${authorityCounts.size}`);
-for (const [authority, count] of authorityCounts) {
-  assert(count === seedsPerAuthority, `${authority}: expected ${seedsPerAuthority} questions, received ${count}`);
+assert(discoveryAuthorityCounts.size === discoveryAuthorities, `Expected ${discoveryAuthorities} discovery buckets, received ${discoveryAuthorityCounts.size}`);
+for (const [authority, count] of discoveryAuthorityCounts) {
+  assert(count === seedsPerDiscoveryAuthority, `${authority}: expected ${seedsPerDiscoveryAuthority} questions, received ${count}`);
 }
-assert(fingerprints.size >= expectedAuthorities * 3, `Mathematical profile diversity is too low: ${fingerprints.size}`);
+assert(fingerprints.size >= discoveryAuthorities * 3, `Mathematical profile diversity is too low: ${fingerprints.size}`);
+
+const expectedFinalAuthorityKeys = new Set(TSD_FINAL_LEARNER_AUTHORITIES.map((authority) => authority.authorityKey));
+assert(generatedFinalAuthorityKeys.size === expectedFinalAuthorityKeys.size, `Generated final-authority coverage is ${generatedFinalAuthorityKeys.size}, expected ${expectedFinalAuthorityKeys.size}`);
+for (const authorityKey of expectedFinalAuthorityKeys) {
+  assert(generatedFinalAuthorityKeys.has(authorityKey), `Public generation did not exercise final authority ${authorityKey}`);
+}
 
 console.log(JSON.stringify({
   status: "PASS",
-  learnerAuthorities: expectedAuthorities,
-  seedsPerAuthority,
+  discoveryAuthorities,
+  finalLearnerAuthorities: generatedFinalAuthorityKeys.size,
+  seedsPerDiscoveryAuthority,
   cp001Questions,
   cp002Questions,
   questions,
