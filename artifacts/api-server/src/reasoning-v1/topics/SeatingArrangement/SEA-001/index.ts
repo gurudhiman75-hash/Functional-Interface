@@ -33,4 +33,8 @@ export * from "./cp003/constraints.ts";
 export * from "./cp003/solvers.ts";
 export * from "./cp003/diagram.ts";
 export * from "./cp003/generator.ts";
+export * from "./cp003/option-recomputation.ts";
 export * from "./packages/sea-001/cp-003.ts";
+export * from "./verification/model-oracle.ts";
+export * from "./verification/question-studio-schema.ts";
+export * from "./verification/proof-trace-compiler.ts";
