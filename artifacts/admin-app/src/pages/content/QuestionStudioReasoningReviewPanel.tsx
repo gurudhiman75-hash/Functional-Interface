@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { AlertTriangle, CheckCircle2, Eye, Loader2, LockKeyhole, Network } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { CheckCircle2, Database, Eye, Loader2, Network, Upload } from 'lucide-react';
 
 import { showToast } from '@/components/shared/toast';
 import { Badge } from '@/components/ui/badge';
@@ -15,13 +15,18 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import {
+  createReasoningReviewRun,
+  getReasoningProductionStatus,
   getReasoningReviewPackages,
+  importAllReasoningQuestions,
   previewReasoningReview,
+  type ReasoningProductionStatus,
   type ReasoningReviewDifficulty,
   type ReasoningReviewLanguage,
   type ReasoningReviewPackage,
   type ReasoningReviewQuestion,
 } from '@/features/question-studio/reasoning-review-api';
+import { QUESTION_STUDIO_REFRESH_EVENT } from '@/features/question-studio/events';
 
 const ALL = 'all';
 const LANGUAGE_LABELS: Record<ReasoningReviewLanguage, string> = {
@@ -30,137 +35,94 @@ const LANGUAGE_LABELS: Record<ReasoningReviewLanguage, string> = {
   pa: 'Punjabi',
 };
 
-function readable(value: unknown) {
-  if (typeof value === 'string') return value;
-  if (value === null || value === undefined) return '—';
-  return JSON.stringify(value, null, 2);
-}
-
-function QuestionPreview({ question }: { question: ReasoningReviewQuestion }) {
+function QuestionCard({ question }: { question: ReasoningReviewQuestion }) {
   return (
-    <Card className="border-primary/15 bg-background/80">
+    <Card className="border-primary/15 bg-background">
       <CardHeader className="space-y-2 pb-3">
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap gap-2">
           <Badge variant="outline">{question.qlId}</Badge>
           <Badge variant="secondary">{question.difficultyBand}</Badge>
           <Badge variant="outline">{LANGUAGE_LABELS[question.language]}</Badge>
-          {question.validation.valid ? (
+          {question.validation.valid && (
             <Badge className="gap-1 bg-success/10 text-success hover:bg-success/10">
-              <CheckCircle2 className="h-3 w-3" /> Validated
+              <CheckCircle2 className="h-3 w-3" /> Frozen authority validated
             </Badge>
-          ) : (
-            <Badge variant="destructive">Validation failed</Badge>
           )}
         </div>
-        <p className="text-xs text-muted-foreground">
-          {question.canonicalItemId} · {question.useMode}
-        </p>
+        <p className="text-xs text-muted-foreground">{question.canonicalItemId}</p>
       </CardHeader>
-      <CardContent className="space-y-5">
+      <CardContent className="space-y-4 text-sm">
         {question.sharedPrompt && (
-          <div className="rounded-lg border bg-muted/30 p-3 text-sm whitespace-pre-wrap">
-            {question.sharedPrompt}
-          </div>
+          <div className="whitespace-pre-wrap rounded-lg border bg-muted/30 p-3">{question.sharedPrompt}</div>
         )}
-
-        <div>
-          <p className="text-sm font-semibold">Question</p>
-          <p className="mt-1 whitespace-pre-wrap text-sm leading-6">{question.stem}</p>
-        </div>
-
+        <p className="whitespace-pre-wrap font-medium leading-6">{question.stem}</p>
         <div className="grid gap-2 md:grid-cols-2">
           {question.optionDetails.map((option) => (
             <div
               key={`${question.questionId}-${option.label}`}
-              className={`rounded-lg border p-3 text-sm ${option.isCorrect ? 'border-success/40 bg-success/5' : 'bg-card'}`}
+              className={`rounded-lg border p-3 ${option.isCorrect ? 'border-success/40 bg-success/5' : ''}`}
             >
               <p className="font-medium">{option.label}. {option.text}</p>
-              <p className="mt-1 text-xs leading-5 text-muted-foreground">
-                {option.studentExplanation}
-              </p>
+              <p className="mt-1 text-xs leading-5 text-muted-foreground">{option.studentExplanation}</p>
             </div>
           ))}
         </div>
-
         <div className="rounded-lg border border-success/25 bg-success/5 p-3">
-          <p className="text-xs font-semibold uppercase tracking-wide text-success">Reviewed answer</p>
-          <p className="mt-1 text-sm font-medium">{question.answer}</p>
+          <strong>Answer:</strong> {question.answer}
         </div>
-
-        {question.decodedStatements.length > 0 && (
-          <div>
-            <p className="text-sm font-semibold">Decoded statements</p>
-            <div className="mt-2 space-y-1 text-sm text-muted-foreground">
-              {question.decodedStatements.map((statement, index) => (
-                <p key={`${question.questionId}-decoded-${index}`}>{index + 1}. {readable(statement)}</p>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div>
-          <p className="text-sm font-semibold">Step-by-step explanation</p>
-          <ol className="mt-2 space-y-2 text-sm leading-6 text-muted-foreground">
+        <details className="rounded-lg border p-3">
+          <summary className="cursor-pointer font-semibold">Full explanation and relation proof</summary>
+          <ol className="mt-3 space-y-2 leading-6 text-muted-foreground">
             {question.explanation.steps.map((step, index) => (
               <li key={`${question.questionId}-step-${index}`}>{index + 1}. {step}</li>
             ))}
           </ol>
-          <p className="mt-3 text-sm"><span className="font-semibold">Conclusion:</span> {question.explanation.conclusion}</p>
-          <p className="mt-2 text-sm"><span className="font-semibold">Shortcut:</span> {question.explanation.shortcut}</p>
-          <p className="mt-2 text-sm"><span className="font-semibold">Common trap:</span> {question.explanation.commonTrap}</p>
-        </div>
-
-        <details className="rounded-lg border bg-muted/20 p-3">
-          <summary className="cursor-pointer text-sm font-semibold">Family-tree and relation-graph proof</summary>
-          <div className="mt-3 grid gap-3 xl:grid-cols-3">
-            <ProofBlock title="Family tree" value={question.explanation.familyTree} />
-            <ProofBlock title="Diagram proof" value={question.explanation.diagramProof} />
-            <ProofBlock title="Relation graph" value={question.reasoningGraph} />
-          </div>
+          <p className="mt-3"><strong>Conclusion:</strong> {question.explanation.conclusion}</p>
+          <p className="mt-2"><strong>Shortcut:</strong> {question.explanation.shortcut}</p>
+          <p className="mt-2"><strong>Common trap:</strong> {question.explanation.commonTrap}</p>
+          <pre className="mt-3 max-h-72 overflow-auto whitespace-pre-wrap rounded-lg bg-muted/30 p-3 text-xs">
+            {JSON.stringify({
+              familyTree: question.explanation.familyTree,
+              diagramProof: question.explanation.diagramProof,
+              relationGraph: question.reasoningGraph,
+            }, null, 2)}
+          </pre>
         </details>
       </CardContent>
     </Card>
   );
 }
 
-function ProofBlock({ title, value }: { title: string; value: unknown }) {
-  return (
-    <div className="min-w-0 rounded-lg border bg-background p-3">
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{title}</p>
-      <pre className="max-h-72 overflow-auto whitespace-pre-wrap break-words text-xs leading-5">{readable(value)}</pre>
-    </div>
-  );
-}
-
 export function QuestionStudioReasoningReviewPanel() {
   const [packages, setPackages] = useState<ReasoningReviewPackage[]>([]);
+  const [status, setStatus] = useState<ReasoningProductionStatus | null>(null);
   const [packageId, setPackageId] = useState('');
   const [language, setLanguage] = useState<ReasoningReviewLanguage>('en');
   const [qlId, setQlId] = useState(ALL);
   const [difficulty, setDifficulty] = useState(ALL);
-  const [count, setCount] = useState(3);
+  const [count, setCount] = useState(5);
   const [seed, setSeed] = useState('');
   const [questions, setQuestions] = useState<ReasoningReviewQuestion[]>([]);
-  const [loadingPackages, setLoadingPackages] = useState(true);
-  const [previewing, setPreviewing] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [working, setWorking] = useState<'preview' | 'run' | 'all' | null>(null);
+
+  const refreshStatus = useCallback(async () => {
+    const next = await getReasoningProductionStatus();
+    setStatus(next);
+  }, []);
 
   useEffect(() => {
     let active = true;
-    setLoadingPackages(true);
-    void getReasoningReviewPackages()
-      .then((response) => {
+    setLoading(true);
+    void Promise.all([getReasoningReviewPackages(), getReasoningProductionStatus()])
+      .then(([packageResponse, statusResponse]) => {
         if (!active) return;
-        setPackages(response.packages.filter((entry) => entry.adminReviewVisible));
-        setPackageId(response.packages[0]?.packageId ?? '');
+        setPackages(packageResponse.packages);
+        setPackageId(packageResponse.packages[0]?.packageId ?? '');
+        setStatus(statusResponse);
       })
-      .catch((caught) => {
-        if (!active) return;
-        setError(caught instanceof Error ? caught.message : 'Unable to load Reasoning review packages.');
-      })
-      .finally(() => {
-        if (active) setLoadingPackages(false);
-      });
+      .catch((error) => showToast.error('BLR package unavailable', error instanceof Error ? error.message : 'Unable to load BLR production package.'))
+      .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, []);
 
@@ -169,46 +131,56 @@ export function QuestionStudioReasoningReviewPanel() {
     [packageId, packages],
   );
 
-  useEffect(() => {
-    if (!activePackage) return;
-    if (!activePackage.supportedLanguages.includes(language)) {
-      setLanguage(activePackage.supportedLanguages[0] ?? 'en');
-    }
-    if (qlId !== ALL && !activePackage.qlIds.includes(qlId)) setQlId(ALL);
-    if (
-      difficulty !== ALL &&
-      !activePackage.supportedDifficulties.includes(difficulty as ReasoningReviewDifficulty)
-    ) {
-      setDifficulty(ALL);
-    }
-  }, [activePackage, difficulty, language, qlId]);
+  const request = useMemo(() => ({
+    packageId,
+    language,
+    qlId: qlId === ALL ? undefined : qlId,
+    difficulty: difficulty === ALL ? undefined : difficulty as ReasoningReviewDifficulty,
+    count: Math.min(50, Math.max(1, count)),
+    seed: seed.trim() || undefined,
+  }), [count, difficulty, language, packageId, qlId, seed]);
 
   const handlePreview = async () => {
-    if (!activePackage) {
-      showToast.error('Review package required', 'Select an admin-visible Reasoning review package.');
-      return;
-    }
-    setPreviewing(true);
-    setError(null);
+    setWorking('preview');
     try {
-      const result = await previewReasoningReview({
-        packageId: activePackage.packageId,
-        language,
-        qlId: qlId === ALL ? undefined : qlId,
-        difficulty: difficulty === ALL
-          ? undefined
-          : difficulty as ReasoningReviewDifficulty,
-        count: Math.min(20, Math.max(1, count)),
-        seed: seed.trim() || undefined,
-      });
+      const result = await previewReasoningReview({ ...request, count: Math.min(20, request.count) });
       setQuestions(result.questions);
-      showToast.success('Read-only preview loaded', `${result.questions.length} frozen question(s) loaded without database writes.`);
-    } catch (caught) {
-      const message = caught instanceof Error ? caught.message : 'Unable to load the read-only preview.';
-      setError(message);
-      showToast.error('Preview failed', message);
+      showToast.success('Preview loaded', `${result.questions.length} frozen question(s) validated.`);
+    } catch (error) {
+      showToast.error('Preview failed', error instanceof Error ? error.message : 'Unable to preview BLR questions.');
     } finally {
-      setPreviewing(false);
+      setWorking(null);
+    }
+  };
+
+  const handleCreateRun = async () => {
+    setWorking('run');
+    try {
+      const result = await createReasoningReviewRun(request);
+      window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
+      await refreshStatus();
+      showToast.success('Review run created', `${result.publicCode} contains ${result.itemCount} BLR question(s).`);
+    } catch (error) {
+      showToast.error('Run creation failed', error instanceof Error ? error.message : 'Unable to create BLR run.');
+    } finally {
+      setWorking(null);
+    }
+  };
+
+  const handleImportAll = async () => {
+    setWorking('all');
+    try {
+      const result = await importAllReasoningQuestions();
+      window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
+      await refreshStatus();
+      const message = result.status === 'already_imported'
+        ? 'All 504 frozen multilingual records are already present.'
+        : `${result.itemCount} missing record(s) were added to ${result.publicCode}.`;
+      showToast.success('BLR corpus synchronized', message);
+    } catch (error) {
+      showToast.error('Corpus import failed', error instanceof Error ? error.message : 'Unable to import BLR corpus.');
+    } finally {
+      setWorking(null);
     }
   };
 
@@ -217,122 +189,83 @@ export function QuestionStudioReasoningReviewPanel() {
       <CardHeader className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <CardTitle className="flex items-center gap-2 text-base">
-            <Network className="h-4 w-4 text-info" /> Reasoning multilingual frozen review
+            <Network className="h-4 w-4 text-info" /> Blood Relations · BLR-CP-007
           </CardTitle>
           <div className="flex flex-wrap gap-2">
-            <Badge variant="outline" className="gap-1 border-info/30 bg-background text-info">
-              <Eye className="h-3 w-3" /> Admin preview
-            </Badge>
-            <Badge variant="outline" className="gap-1 border-warning/30 bg-background text-warning">
-              <LockKeyhole className="h-3 w-3" /> No persistence
-            </Badge>
+            <Badge className="gap-1 bg-success/10 text-success hover:bg-success/10"><Database className="h-3 w-3" /> Production review enabled</Badge>
+            <Badge variant="outline">504 frozen multilingual records</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Preview the frozen BLR-CP-007 English, Hindi and Punjabi corpus. This surface cannot create generation runs, write to Question Bank, enter mock tests or publish learner content.
+          Preview or persist the approved English, Hindi and Punjabi corpus. Persisted items enter the normal Question Studio review queue; approval converts them through the existing audited Question Bank workflow.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
-        {error && (
-          <div className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
-            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" /> {error}
+        {status && (
+          <div className="grid gap-3 sm:grid-cols-4">
+            <Metric label="Frozen corpus" value={status.totalFrozenRecords} />
+            <Metric label="Studio items" value={status.generationItemCount} />
+            <Metric label="Approved items" value={status.approvedItemCount} />
+            <Metric label="Question Bank" value={status.questionBankCount} />
           </div>
         )}
 
-        {loadingPackages ? (
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Loader2 className="h-4 w-4 animate-spin" /> Loading review packages…
-          </div>
+        {loading ? (
+          <div className="flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading BLR production package…</div>
         ) : (
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
-            <div className="space-y-2 xl:col-span-2">
-              <Label>Review package</Label>
+            <Field label="Package" className="xl:col-span-2">
               <Select value={packageId} onValueChange={setPackageId}>
-                <SelectTrigger><SelectValue placeholder="Select package" /></SelectTrigger>
-                <SelectContent>
-                  {packages.map((entry) => (
-                    <SelectItem key={entry.packageId} value={entry.packageId}>
-                      {entry.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>{packages.map((entry) => <SelectItem key={entry.packageId} value={entry.packageId}>{entry.label}</SelectItem>)}</SelectContent>
               </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Language</Label>
+            </Field>
+            <Field label="Language">
               <Select value={language} onValueChange={(value) => setLanguage(value as ReasoningReviewLanguage)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  {(activePackage?.supportedLanguages ?? ['en']).map((entry) => (
-                    <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry]}</SelectItem>
-                  ))}
-                </SelectContent>
+                <SelectContent>{(activePackage?.supportedLanguages ?? ['en']).map((entry) => <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry]}</SelectItem>)}</SelectContent>
               </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Question language</Label>
+            </Field>
+            <Field label="QL">
               <Select value={qlId} onValueChange={setQlId}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={ALL}>All QLs</SelectItem>
-                  {(activePackage?.qlIds ?? []).map((entry) => (
-                    <SelectItem key={entry} value={entry}>{entry}</SelectItem>
-                  ))}
-                </SelectContent>
+                <SelectContent><SelectItem value={ALL}>All QLs</SelectItem>{(activePackage?.qlIds ?? []).map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
               </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Difficulty</Label>
+            </Field>
+            <Field label="Difficulty">
               <Select value={difficulty} onValueChange={setDifficulty}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={ALL}>All difficulties</SelectItem>
-                  {(activePackage?.supportedDifficulties ?? []).map((entry) => (
-                    <SelectItem key={entry} value={entry}>{entry}</SelectItem>
-                  ))}
-                </SelectContent>
+                <SelectContent><SelectItem value={ALL}>All difficulties</SelectItem>{(activePackage?.supportedDifficulties ?? []).map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
               </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Preview count</Label>
-              <Input
-                type="number"
-                min={1}
-                max={20}
-                value={count}
-                onChange={(event) => setCount(Number(event.target.value) || 1)}
-              />
-            </div>
+            </Field>
+            <Field label="Count"><Input type="number" min={1} max={50} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
         )}
 
-        <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
-          <div className="space-y-2">
-            <Label>Optional deterministic seed</Label>
-            <Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Example: blr-review-01" />
-          </div>
-          <Button onClick={() => void handlePreview()} disabled={!activePackage || previewing || loadingPackages}>
-            {previewing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Eye className="mr-2 h-4 w-4" />}
-            Preview frozen questions
+        <Field label="Optional deterministic seed"><Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="blr-production-01" /></Field>
+
+        <div className="flex flex-wrap gap-2">
+          <Button variant="outline" onClick={() => void handlePreview()} disabled={!activePackage || working !== null}>
+            {working === 'preview' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Eye className="mr-2 h-4 w-4" />} Preview
+          </Button>
+          <Button onClick={() => void handleCreateRun()} disabled={!activePackage || working !== null}>
+            {working === 'run' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Database className="mr-2 h-4 w-4" />} Create review run
+          </Button>
+          <Button variant="secondary" onClick={() => void handleImportAll()} disabled={working !== null}>
+            {working === 'all' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />} Synchronize all 504
           </Button>
         </div>
 
-        {questions.length > 0 && (
-          <div className="space-y-4 border-t pt-5">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="text-sm font-semibold">Read-only preview results</p>
-              <p className="text-xs text-muted-foreground">{questions.length} record(s) · no database transaction</p>
-            </div>
-            {questions.map((question) => (
-              <QuestionPreview key={question.questionId} question={question} />
-            ))}
-          </div>
-        )}
+        {questions.length > 0 && <div className="space-y-4 border-t pt-5">{questions.map((question) => <QuestionCard key={question.questionId} question={question} />)}</div>}
       </CardContent>
     </Card>
   );
+}
+
+function Field({ label, className, children }: { label: string; className?: string; children: React.ReactNode }) {
+  return <div className={`space-y-2 ${className ?? ''}`}><Label>{label}</Label>{children}</div>;
+}
+
+function Metric({ label, value }: { label: string; value: number }) {
+  return <div className="rounded-lg border bg-background p-3"><p className="text-xs text-muted-foreground">{label}</p><p className="mt-1 text-xl font-semibold">{value}</p></div>;
 }
