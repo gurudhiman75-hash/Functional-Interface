@@ -1,0 +1,2 @@
+import type { EventExpression, GeneratedParameters, ProbabilityExperiment, SolvedProbability, VerificationResult } from "../../shared/types";
+export function buildReasoningEvidence(experiment:ProbabilityExperiment,event:EventExpression,parameters:GeneratedParameters,solved:SolvedProbability,verification:VerificationResult){return{experiment,event,givens:parameters,equations:[solved.equation],formulaTrace:solved.evidence.formulaTrace,decisiveCalculation:solved.equation,verification:verification.trace.join(" ")};}

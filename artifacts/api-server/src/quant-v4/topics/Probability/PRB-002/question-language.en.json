@@ -1,0 +1,1350 @@
+{
+  "packageId": "PRB-002",
+  "locale": "en",
+  "entries": [
+    {
+      "qlId": "PRB-QL-501",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-501-STEM-1",
+      "stemTemplate": "In this event-based task, a bag contains {red} red and {blue} blue balls. Two balls are drawn with replacement. Find the probability that both are red. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Successive Independent",
+      "explanationLead": "First identify the dependent numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-502",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-502-STEM-2",
+      "stemTemplate": "In this conditional task, a bag contains {red} red and {blue} blue balls. Two balls are drawn successively without replacement. Find the probability that both are red. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Successive Dependent",
+      "explanationLead": "First identify the complementary numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-503",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-503-STEM-3",
+      "stemTemplate": "In this multi-stage task, a bag contains {red} red and {blue} blue balls. A ball is drawn, replaced, and a second ball is drawn. Find the probability that both are red. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "With Replacement",
+      "explanationLead": "First identify the overlapping numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-504",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-504-STEM-4",
+      "stemTemplate": "In this outcome-based task, a bag contains {red} red and {blue} blue balls. Two balls are drawn one after another without replacement. Find the probability that both are red. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Without Replacement",
+      "explanationLead": "First identify the favourable numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-505",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-505-STEM-5",
+      "stemTemplate": "In this competitive-exam task, a bag contains {red} red and {blue} blue balls. Two balls are drawn without replacement. Find the probability of red first and blue second. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Ordered Sequence",
+      "explanationLead": "First identify the total numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-506",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-506-STEM-6",
+      "stemTemplate": "In this review task, a bag contains {red} red and {blue} blue balls. Two balls are drawn successively without replacement. Find the probability that both balls have the same colour. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Same Type Successive",
+      "explanationLead": "First identify the declared numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-507",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-507-STEM-1",
+      "stemTemplate": "In this standard setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn successively without replacement. Find the probability that the balls have different colours. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Different Types Successive",
+      "explanationLead": "First identify the complete selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-508",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-508-STEM-2",
+      "stemTemplate": "In this classical setup, a bag contains {red} red and {blue} blue balls. Two draws are made with replacement. Find the probability that at least one drawn ball is red. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "At Least One Independent",
+      "explanationLead": "First identify the relevant selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-509",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-509-STEM-3",
+      "stemTemplate": "In this finite setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn with replacement. Find the probability that both are red. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Successive Independent",
+      "explanationLead": "First identify the restricted selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-510",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-510-STEM-4",
+      "stemTemplate": "In this structured setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn successively without replacement. Find the probability that both are red. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Successive Dependent",
+      "explanationLead": "First identify the ordered selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-511",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-511-STEM-5",
+      "stemTemplate": "In this objective setup, a bag contains {red} red and {blue} blue balls. A ball is drawn, replaced, and a second ball is drawn. Find the probability that both are red. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "With Replacement",
+      "explanationLead": "First identify the unordered selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-512",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-512-STEM-6",
+      "stemTemplate": "In this exam-style setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn one after another without replacement. Find the probability that both are red. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Without Replacement",
+      "explanationLead": "First identify the conditional selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-513",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-513-STEM-1",
+      "stemTemplate": "In this practice setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn without replacement. Find the probability of red first and blue second. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Ordered Sequence",
+      "explanationLead": "First identify the finite selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-514",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-514-STEM-2",
+      "stemTemplate": "In this mock-test setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn successively without replacement. Find the probability that both balls have the same colour. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Same Type Successive",
+      "explanationLead": "First identify the exact selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-515",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-515-STEM-3",
+      "stemTemplate": "In this textbook setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn successively without replacement. Find the probability that the balls have different colours. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Different Types Successive",
+      "explanationLead": "First identify the canonical selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-516",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-516-STEM-4",
+      "stemTemplate": "In this classroom setup, a bag contains {red} red and {blue} blue balls. Two draws are made with replacement. Find the probability that at least one drawn ball is red. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "At Least One Independent",
+      "explanationLead": "First identify the successive selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-517",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-517-STEM-5",
+      "stemTemplate": "In this selection-based setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn with replacement. Find the probability that both are red. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Successive Independent",
+      "explanationLead": "First identify the simultaneous selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-518",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-518-STEM-6",
+      "stemTemplate": "In this counting-based setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn successively without replacement. Find the probability that both are red. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Successive Dependent",
+      "explanationLead": "First identify the independent selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-519",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-519-STEM-1",
+      "stemTemplate": "In this event-based setup, a bag contains {red} red and {blue} blue balls. A ball is drawn, replaced, and a second ball is drawn. Find the probability that both are red. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "With Replacement",
+      "explanationLead": "First identify the dependent selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-520",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-520-STEM-2",
+      "stemTemplate": "In this conditional setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn one after another without replacement. Find the probability that both are red. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Without Replacement",
+      "explanationLead": "First identify the complementary selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-521",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-521-STEM-3",
+      "stemTemplate": "In this multi-stage setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn without replacement. Find the probability of red first and blue second. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Ordered Sequence",
+      "explanationLead": "First identify the overlapping selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-522",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-522-STEM-4",
+      "stemTemplate": "In this outcome-based setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn successively without replacement. Find the probability that both balls have the same colour. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Same Type Successive",
+      "explanationLead": "First identify the favourable selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-523",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-523-STEM-5",
+      "stemTemplate": "In this competitive-exam setup, a bag contains {red} red and {blue} blue balls. Two balls are drawn successively without replacement. Find the probability that the balls have different colours. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "Different Types Successive",
+      "explanationLead": "First identify the total selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-524",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-524-STEM-6",
+      "stemTemplate": "In this review setup, a bag contains {red} red and {blue} blue balls. Two draws are made with replacement. Find the probability that at least one drawn ball is red. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "SUCCESSIVE_EVENTS",
+      "eventWording": "At Least One Independent",
+      "explanationLead": "First identify the declared selection.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-601",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-601-STEM-1",
+      "stemTemplate": "In this standard model, {mathTotal} students satisfy the condition “{conditionLabel}”, and {both} of them also {targetLabel}. Find the conditional probability of the target event given the condition. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_COUNTING",
+      "eventWording": "Conditional Count",
+      "explanationLead": "First identify the complete sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-602",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-602-STEM-2",
+      "stemTemplate": "In this classical model, a card drawn from a standard deck is known to be a face card. Find the probability that it is a king. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_CARD",
+      "eventWording": "Conditional Card",
+      "explanationLead": "First identify the relevant sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-603",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-603-STEM-3",
+      "stemTemplate": "In this finite model, an integer selected uniformly from 1 to {upper} is known to be divisible by {conditionDivisor}. Find the probability that it is divisible by {targetDivisor}. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_NUMBER",
+      "eventWording": "Conditional Number",
+      "explanationLead": "First identify the restricted sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-604",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-604-STEM-4",
+      "stemTemplate": "In this structured model, a bag contains {red} red and {blue} blue balls. The first draw without replacement is known to be red. Find the probability that the next ball is red. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_URN",
+      "eventWording": "Conditional Urn",
+      "explanationLead": "First identify the ordered sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-605",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-605-STEM-5",
+      "stemTemplate": "In this objective model, among {restrictedTotal} {conditionLabel} candidates, the conditional probability of being {targetLabel} is {answer}. Determine the number with the target property. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_REVERSE",
+      "eventWording": "Reverse Conditional",
+      "explanationLead": "First identify the unordered sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-606",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-606-STEM-6",
+      "stemTemplate": "In this exam-style model, {mathTotal} students passed Mathematics, and {both} of these also passed English. A student is selected from the Mathematics-pass group. Find the probability that the student passed English. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_TABLE",
+      "eventWording": "Conditional Table",
+      "explanationLead": "First identify the conditional sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-607",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-607-STEM-1",
+      "stemTemplate": "In this practice model, {mathTotal} students satisfy the condition “{conditionLabel}”, and {both} of them also {targetLabel}. Find the conditional probability of the target event given the condition. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_COUNTING",
+      "eventWording": "Conditional Count",
+      "explanationLead": "First identify the finite sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-608",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-608-STEM-2",
+      "stemTemplate": "In this mock-test model, a card drawn from a standard deck is known to be a face card. Find the probability that it is a king. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_CARD",
+      "eventWording": "Conditional Card",
+      "explanationLead": "First identify the exact sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-609",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-609-STEM-3",
+      "stemTemplate": "In this textbook model, an integer selected uniformly from 1 to {upper} is known to be divisible by {conditionDivisor}. Find the probability that it is divisible by {targetDivisor}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_NUMBER",
+      "eventWording": "Conditional Number",
+      "explanationLead": "First identify the canonical sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-610",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-610-STEM-4",
+      "stemTemplate": "In this classroom model, a bag contains {red} red and {blue} blue balls. The first draw without replacement is known to be red. Find the probability that the next ball is red. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_URN",
+      "eventWording": "Conditional Urn",
+      "explanationLead": "First identify the successive sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-611",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-611-STEM-5",
+      "stemTemplate": "In this selection-based model, among {restrictedTotal} {conditionLabel} candidates, the conditional probability of being {targetLabel} is {answer}. Determine the number with the target property. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_REVERSE",
+      "eventWording": "Reverse Conditional",
+      "explanationLead": "First identify the simultaneous sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-612",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-612-STEM-6",
+      "stemTemplate": "In this counting-based model, {mathTotal} students passed Mathematics, and {both} of these also passed English. A student is selected from the Mathematics-pass group. Find the probability that the student passed English. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_TABLE",
+      "eventWording": "Conditional Table",
+      "explanationLead": "First identify the independent sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-613",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-613-STEM-1",
+      "stemTemplate": "In this event-based model, {mathTotal} students satisfy the condition “{conditionLabel}”, and {both} of them also {targetLabel}. Find the conditional probability of the target event given the condition. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_COUNTING",
+      "eventWording": "Conditional Count",
+      "explanationLead": "First identify the dependent sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-614",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-614-STEM-2",
+      "stemTemplate": "In this conditional model, a card drawn from a standard deck is known to be a face card. Find the probability that it is a king. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_CARD",
+      "eventWording": "Conditional Card",
+      "explanationLead": "First identify the complementary sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-615",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-615-STEM-3",
+      "stemTemplate": "In this multi-stage model, an integer selected uniformly from 1 to {upper} is known to be divisible by {conditionDivisor}. Find the probability that it is divisible by {targetDivisor}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_NUMBER",
+      "eventWording": "Conditional Number",
+      "explanationLead": "First identify the overlapping sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-616",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-616-STEM-4",
+      "stemTemplate": "In this outcome-based model, a bag contains {red} red and {blue} blue balls. The first draw without replacement is known to be red. Find the probability that the next ball is red. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_URN",
+      "eventWording": "Conditional Urn",
+      "explanationLead": "First identify the favourable sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-617",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-617-STEM-5",
+      "stemTemplate": "In this competitive-exam model, among {restrictedTotal} {conditionLabel} candidates, the conditional probability of being {targetLabel} is {answer}. Determine the number with the target property. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_REVERSE",
+      "eventWording": "Reverse Conditional",
+      "explanationLead": "First identify the total sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-618",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-618-STEM-6",
+      "stemTemplate": "In this review model, {mathTotal} students passed Mathematics, and {both} of these also passed English. A student is selected from the Mathematics-pass group. Find the probability that the student passed English. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_TABLE",
+      "eventWording": "Conditional Table",
+      "explanationLead": "First identify the declared sequence.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-619",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-619-STEM-1",
+      "stemTemplate": "In this standard example, {mathTotal} students satisfy the condition “{conditionLabel}”, and {both} of them also {targetLabel}. Find the conditional probability of the target event given the condition. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_COUNTING",
+      "eventWording": "Conditional Count",
+      "explanationLead": "First identify the complete condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-620",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-620-STEM-2",
+      "stemTemplate": "In this classical example, a card drawn from a standard deck is known to be a face card. Find the probability that it is a king. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_CARD",
+      "eventWording": "Conditional Card",
+      "explanationLead": "First identify the relevant condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-621",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-621-STEM-3",
+      "stemTemplate": "In this finite example, the chosen integer is restricted to multiples of {conditionDivisor} within 1 to {upper}. Treat those multiples as the relevant conditional sample space. Determine the probability that the integer is also divisible by {targetDivisor}. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_NUMBER",
+      "eventWording": "Conditional Number",
+      "explanationLead": "First identify the restricted condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-622",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-622-STEM-4",
+      "stemTemplate": "In this structured example, a bag contains {red} red and {blue} blue balls. The first draw without replacement is known to be red. Find the probability that the next ball is red. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CONDITIONAL_URN",
+      "eventWording": "Conditional Urn",
+      "explanationLead": "First identify the ordered condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-701",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-701-STEM-1",
+      "stemTemplate": "In this objective example, a committee of {committeeSize} is selected uniformly from {men} men and {women} women. Find the probability that exactly {requiredWomen} woman is selected. {answerInstruction}",
+      "contextFamily": "COUNTING_SELECTION",
+      "eventWording": "Committee Selection",
+      "explanationLead": "First identify the unordered condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-702",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-702-STEM-2",
+      "stemTemplate": "In this exam-style example, a committee of {committeeSize} is selected uniformly from {men} men and {women} women. Find the probability that exactly {requiredWomen} women are selected. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COUNTING_SELECTION",
+      "eventWording": "Committee Composition",
+      "explanationLead": "First identify the conditional condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-703",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-703-STEM-3",
+      "stemTemplate": "In this practice example, {people} distinct people are arranged uniformly in a line. Find the probability that a specified person occupies the first position. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_ARRANGEMENT",
+      "eventWording": "Random Arrangement",
+      "explanationLead": "First identify the finite condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-704",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-704-STEM-4",
+      "stemTemplate": "In this mock-test example, {people} distinct people are arranged uniformly in a line. Find the probability that two specified people satisfy the {relation} condition. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COUNTING_ARRANGEMENT",
+      "eventWording": "Together Apart",
+      "explanationLead": "First identify the exact condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-705",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-705-STEM-5",
+      "stemTemplate": "In this textbook example, {positions} distinct offices are assigned uniformly from {men} men and {women} women. Find the probability that the first listed office is assigned to a woman. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_ASSIGNMENT",
+      "eventWording": "Position Restriction",
+      "explanationLead": "First identify the canonical condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-706",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-706-STEM-6",
+      "stemTemplate": "In this classroom example, a {length}-digit code is formed uniformly without repetition from digits {minDigit} through {maxDigit}. Find the probability that the code ends in an even digit. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_NUMBER_FORMATION",
+      "eventWording": "Number Formation",
+      "explanationLead": "First identify the successive condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-707",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-707-STEM-1",
+      "stemTemplate": "In this selection-based example, a committee of {committeeSize} is selected uniformly from {men} men and {women} women. Find the probability that at least one woman is selected. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COUNTING_SELECTION",
+      "eventWording": "Restricted Selection",
+      "explanationLead": "First identify the simultaneous condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-708",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-708-STEM-2",
+      "stemTemplate": "In this counting-based example, a {committeeSize}-member committee is selected from {men} men and {women} women. The probability of the stated composition is {probability}. Find that committee count. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COUNTING_REVERSE",
+      "eventWording": "Reverse Counting",
+      "explanationLead": "First identify the independent condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-709",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-709-STEM-3",
+      "stemTemplate": "In this event-based example, a committee of {committeeSize} is selected uniformly from {men} men and {women} women. Find the probability that exactly {requiredWomen} woman is selected. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COUNTING_SELECTION",
+      "eventWording": "Committee Selection",
+      "explanationLead": "First identify the dependent condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-710",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-710-STEM-4",
+      "stemTemplate": "In this conditional example, a committee of {committeeSize} is selected uniformly from {men} men and {women} women. Find the probability that exactly {requiredWomen} women are selected. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_SELECTION",
+      "eventWording": "Committee Composition",
+      "explanationLead": "First identify the complementary condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-711",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-711-STEM-5",
+      "stemTemplate": "In this multi-stage example, {people} distinct people are arranged uniformly in a line. Find the probability that a specified person occupies the first position. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COUNTING_ARRANGEMENT",
+      "eventWording": "Random Arrangement",
+      "explanationLead": "First identify the overlapping condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-712",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-712-STEM-6",
+      "stemTemplate": "In this outcome-based example, {people} distinct people are arranged uniformly in a line. Find the probability that two specified people satisfy the {relation} condition. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_ARRANGEMENT",
+      "eventWording": "Together Apart",
+      "explanationLead": "First identify the favourable condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-713",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-713-STEM-1",
+      "stemTemplate": "In this competitive-exam example, {positions} distinct offices are assigned uniformly from {men} men and {women} women. Find the probability that the first listed office is assigned to a woman. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_ASSIGNMENT",
+      "eventWording": "Position Restriction",
+      "explanationLead": "First identify the total condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-714",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-714-STEM-2",
+      "stemTemplate": "In this review example, a {length}-digit code is formed uniformly without repetition from digits {minDigit} through {maxDigit}. Find the probability that the code ends in an even digit. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COUNTING_NUMBER_FORMATION",
+      "eventWording": "Number Formation",
+      "explanationLead": "First identify the declared condition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-715",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-715-STEM-3",
+      "stemTemplate": "In this standard drill, a committee of {committeeSize} is selected uniformly from {men} men and {women} women. Find the probability that at least one woman is selected. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COUNTING_SELECTION",
+      "eventWording": "Restricted Selection",
+      "explanationLead": "First identify the complete arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-716",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-716-STEM-4",
+      "stemTemplate": "In this classical drill, a {committeeSize}-member committee is selected from {men} men and {women} women. The probability of the stated composition is {probability}. Find that committee count. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COUNTING_REVERSE",
+      "eventWording": "Reverse Counting",
+      "explanationLead": "First identify the relevant arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-717",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-717-STEM-5",
+      "stemTemplate": "In this finite drill, a committee of {committeeSize} is selected uniformly from {men} men and {women} women. Find the probability that exactly {requiredWomen} woman is selected. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_SELECTION",
+      "eventWording": "Committee Selection",
+      "explanationLead": "First identify the restricted arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-718",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-718-STEM-6",
+      "stemTemplate": "In this structured drill, a committee of {committeeSize} is selected uniformly from {men} men and {women} women. Find the probability that exactly {requiredWomen} women are selected. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COUNTING_SELECTION",
+      "eventWording": "Committee Composition",
+      "explanationLead": "First identify the ordered arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-719",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-719-STEM-1",
+      "stemTemplate": "In this objective drill, {people} distinct people are arranged uniformly in a line. Find the probability that a specified person occupies the first position. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_ARRANGEMENT",
+      "eventWording": "Random Arrangement",
+      "explanationLead": "First identify the unordered arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-720",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-720-STEM-2",
+      "stemTemplate": "In this exam-style drill, {people} distinct people are arranged uniformly in a line. Find the probability that two specified people satisfy the {relation} condition. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_ARRANGEMENT",
+      "eventWording": "Together Apart",
+      "explanationLead": "First identify the conditional arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-721",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-721-STEM-3",
+      "stemTemplate": "In this practice drill, {positions} distinct offices are assigned uniformly from {men} men and {women} women. Find the probability that the first listed office is assigned to a woman. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_ASSIGNMENT",
+      "eventWording": "Position Restriction",
+      "explanationLead": "First identify the finite arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-722",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-722-STEM-4",
+      "stemTemplate": "In this mock-test drill, a {length}-digit code is formed uniformly without repetition from digits {minDigit} through {maxDigit}. Find the probability that the code ends in an even digit. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_NUMBER_FORMATION",
+      "eventWording": "Number Formation",
+      "explanationLead": "First identify the exact arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-723",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-723-STEM-5",
+      "stemTemplate": "In this textbook drill, a committee of {committeeSize} is selected uniformly from {men} men and {women} women. Find the probability that at least one woman is selected. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_SELECTION",
+      "eventWording": "Restricted Selection",
+      "explanationLead": "First identify the canonical arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-724",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-724-STEM-6",
+      "stemTemplate": "In this classroom drill, a {committeeSize}-member committee is selected from {men} men and {women} women. The probability of the stated composition is {probability}. Find that committee count. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_REVERSE",
+      "eventWording": "Reverse Counting",
+      "explanationLead": "First identify the successive arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-725",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-725-STEM-1",
+      "stemTemplate": "In this selection-based drill, a committee of {committeeSize} is selected uniformly from {men} men and {women} women. Find the probability that exactly {requiredWomen} woman is selected. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_SELECTION",
+      "eventWording": "Committee Selection",
+      "explanationLead": "First identify the simultaneous arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-726",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-726-STEM-2",
+      "stemTemplate": "In this counting-based drill, a committee of {committeeSize} is selected uniformly from {men} men and {women} women. Find the probability that exactly {requiredWomen} women are selected. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COUNTING_SELECTION",
+      "eventWording": "Committee Composition",
+      "explanationLead": "First identify the independent arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-801",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-801-STEM-1",
+      "stemTemplate": "In this event-based drill, a group has {total} members; {aCount} satisfy A, {bCount} satisfy B, and {overlap} satisfy both. Find the probability that a random member satisfies A or B. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Union",
+      "explanationLead": "First identify the dependent arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-802",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-802-STEM-2",
+      "stemTemplate": "In this conditional drill, in a universe of {total} equally likely outcomes, {overlap} belong to both A and B. Find P(A ∩ B). All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Intersection",
+      "explanationLead": "First identify the complementary arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-803",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-803-STEM-3",
+      "stemTemplate": "In this multi-stage drill, P(A)={pA}, P(B)={pB}, and P(A ∩ B)={pIntersection}. Find the probability that exactly one of A and B occurs. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Exactly One Of Two",
+      "explanationLead": "First identify the overlapping arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-804",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-804-STEM-4",
+      "stemTemplate": "In this outcome-based drill, P(A)={pA}, P(B)={pB}, and P(A ∩ B)={pIntersection}. Find the probability that neither A nor B occurs. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Neither",
+      "explanationLead": "First identify the favourable arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-805",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-805-STEM-5",
+      "stemTemplate": "In this competitive-exam drill, A and B are mutually exclusive, with P(A)={pA} and P(B)={pB}. Find P(A ∪ B). {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Mutually Exclusive Union",
+      "explanationLead": "First identify the total arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-806",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-806-STEM-6",
+      "stemTemplate": "In this review drill, A and B are independent, with P(A)={pA} and P(B)={pB}. Find P(A ∩ B). All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Independent Intersection",
+      "explanationLead": "First identify the declared arrangement.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-807",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-807-STEM-1",
+      "stemTemplate": "In this standard case, P(A)={pA}, P(B)={pB}, and P(A ∪ B)={pUnion}. Find P(A ∩ B). All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Missing Intersection",
+      "explanationLead": "First identify the complete composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-808",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-808-STEM-2",
+      "stemTemplate": "In this classical case, P(A)={pA}, P(B)={pB}, and P(A ∩ B)={pIntersection}. Find the probability that A or B occurs, but not both. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Mixed Event Expression",
+      "explanationLead": "First identify the relevant composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-809",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-809-STEM-3",
+      "stemTemplate": "In this finite case, a group has {total} members; {aCount} satisfy A, {bCount} satisfy B, and {overlap} satisfy both. Find the probability that a random member satisfies A or B. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Union",
+      "explanationLead": "First identify the restricted composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-810",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-810-STEM-4",
+      "stemTemplate": "In this structured case, in a universe of {total} equally likely outcomes, {overlap} belong to both A and B. Find P(A ∩ B). All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Intersection",
+      "explanationLead": "First identify the ordered composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-811",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-811-STEM-5",
+      "stemTemplate": "In this objective case, P(A)={pA}, P(B)={pB}, and P(A ∩ B)={pIntersection}. Find the probability that exactly one of A and B occurs. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Exactly One Of Two",
+      "explanationLead": "First identify the unordered composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-812",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-812-STEM-6",
+      "stemTemplate": "In this exam-style case, P(A)={pA}, P(B)={pB}, and P(A ∩ B)={pIntersection}. Find the probability that neither A nor B occurs. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Neither",
+      "explanationLead": "First identify the conditional composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-813",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-813-STEM-1",
+      "stemTemplate": "In this practice case, A and B are mutually exclusive, with P(A)={pA} and P(B)={pB}. Find P(A ∪ B). All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Mutually Exclusive Union",
+      "explanationLead": "First identify the finite composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-814",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-814-STEM-2",
+      "stemTemplate": "In this mock-test case, A and B are independent, with P(A)={pA} and P(B)={pB}. Find P(A ∩ B). All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Independent Intersection",
+      "explanationLead": "First identify the exact composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-815",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-815-STEM-3",
+      "stemTemplate": "In this textbook case, P(A)={pA}, P(B)={pB}, and P(A ∪ B)={pUnion}. Find P(A ∩ B). All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Missing Intersection",
+      "explanationLead": "First identify the canonical composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-816",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-816-STEM-4",
+      "stemTemplate": "In this classroom case, P(A)={pA}, P(B)={pB}, and P(A ∩ B)={pIntersection}. Find the probability that A or B occurs, but not both. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Mixed Event Expression",
+      "explanationLead": "First identify the successive composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-817",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-817-STEM-5",
+      "stemTemplate": "In this selection-based case, a group has {total} members; {aCount} satisfy A, {bCount} satisfy B, and {overlap} satisfy both. Find the probability that a random member satisfies A or B. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Union",
+      "explanationLead": "First identify the simultaneous composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-818",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-818-STEM-6",
+      "stemTemplate": "In this counting-based case, in a universe of {total} equally likely outcomes, {overlap} belong to both A and B. Find P(A ∩ B). All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Intersection",
+      "explanationLead": "First identify the independent composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-819",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-819-STEM-1",
+      "stemTemplate": "In this event-based case, P(A)={pA}, P(B)={pB}, and P(A ∩ B)={pIntersection}. Find the probability that exactly one of A and B occurs. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Exactly One Of Two",
+      "explanationLead": "First identify the dependent composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-820",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-820-STEM-2",
+      "stemTemplate": "In this conditional case, P(A)={pA}, P(B)={pB}, and P(A ∩ B)={pIntersection}. Find the probability that neither A nor B occurs. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Neither",
+      "explanationLead": "First identify the complementary composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-821",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-821-STEM-3",
+      "stemTemplate": "In this multi-stage case, A and B are mutually exclusive, with P(A)={pA} and P(B)={pB}. Find P(A ∪ B). All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Mutually Exclusive Union",
+      "explanationLead": "First identify the overlapping composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-822",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-822-STEM-4",
+      "stemTemplate": "In this outcome-based case, A and B are independent, with P(A)={pA} and P(B)={pB}. Find P(A ∩ B). All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Independent Intersection",
+      "explanationLead": "First identify the favourable composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-823",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-823-STEM-5",
+      "stemTemplate": "In this competitive-exam case, P(A)={pA}, P(B)={pB}, and P(A ∪ B)={pUnion}. Find P(A ∩ B). All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Missing Intersection",
+      "explanationLead": "First identify the total composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-824",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-824-STEM-6",
+      "stemTemplate": "In this review case, P(A)={pA}, P(B)={pB}, and P(A ∩ B)={pIntersection}. Find the probability that A or B occurs, but not both. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "EVENT_ALGEBRA",
+      "eventWording": "Mixed Event Expression",
+      "explanationLead": "First identify the declared composition.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    }
+  ]
+}

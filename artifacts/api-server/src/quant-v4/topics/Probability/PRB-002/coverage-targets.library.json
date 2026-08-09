@@ -1,0 +1,14 @@
+{
+  "packageId": "PRB-002",
+  "questionCount": 96,
+  "cpTargets": {
+    "PRB-CP-006": 24,
+    "PRB-CP-007": 22,
+    "PRB-CP-008": 26,
+    "PRB-CP-009": 24
+  },
+  "forceEveryQl": true,
+  "forceEverySolveMode": true,
+  "forceEveryExperimentKind": true,
+  "forceEveryEventStrategy": true
+}

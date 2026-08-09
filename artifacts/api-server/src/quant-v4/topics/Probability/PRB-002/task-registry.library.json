@@ -1,0 +1,2749 @@
+{
+  "packageId": "PRB-002",
+  "contractVersion": "PRB-TASK-REGISTRY-V1",
+  "entries": [
+    {
+      "qlId": "PRB-QL-501",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findSuccessiveIndependentProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "SUCCESSIVE_INDEPENDENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "WITH_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SUCCESSIVE_INDEPENDENT",
+      "distractorStrategyIds": [
+        "ADD_INSTEAD_OF_MULTIPLY",
+        "FORGET_REPLACEMENT"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-502",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findSuccessiveDependentProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "SUCCESSIVE_DEPENDENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SUCCESSIVE_DEPENDENT",
+      "distractorStrategyIds": [
+        "KEEP_DENOMINATOR_UNCHANGED",
+        "ADD_INSTEAD_OF_MULTIPLY"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-503",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findWithReplacementProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "WITH_REPLACEMENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITH_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SUCCESSIVE_INDEPENDENT",
+      "distractorStrategyIds": [
+        "REMOVE_BALL_DESPITE_REPLACEMENT",
+        "ADD_INSTEAD_OF_MULTIPLY"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-504",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findWithoutReplacementProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "WITHOUT_REPLACEMENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SUCCESSIVE_DEPENDENT",
+      "distractorStrategyIds": [
+        "KEEP_DENOMINATOR_UNCHANGED",
+        "KEEP_NUMERATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-505",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findOrderedDrawSequenceProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "ORDERED_SEQUENCE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "ORDERED_SEQUENCE",
+      "distractorStrategyIds": [
+        "REVERSE_SEQUENCE_ONLY",
+        "COUNT_BOTH_ORDERS"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-506",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findSameTypeInSuccessiveDraws",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "SAME_TYPE_SUCCESSIVE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SAME_TYPE_SUCCESSIVE",
+      "distractorStrategyIds": [
+        "COUNT_ONLY_RED_CASE",
+        "KEEP_DENOMINATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-507",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findDifferentTypesInSuccessiveDraws",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "DIFFERENT_TYPES_SUCCESSIVE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "DIFFERENT_TYPES_SUCCESSIVE",
+      "distractorStrategyIds": [
+        "COUNT_ONE_ORDER_ONLY",
+        "KEEP_DENOMINATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-508",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findAtLeastOneAcrossIndependentStages",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "AT_LEAST_ONE_INDEPENDENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "WITH_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "AT_LEAST_ONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-509",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findSuccessiveIndependentProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "SUCCESSIVE_INDEPENDENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITH_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SUCCESSIVE_INDEPENDENT",
+      "distractorStrategyIds": [
+        "ADD_INSTEAD_OF_MULTIPLY",
+        "FORGET_REPLACEMENT"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-510",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findSuccessiveDependentProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "SUCCESSIVE_DEPENDENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SUCCESSIVE_DEPENDENT",
+      "distractorStrategyIds": [
+        "KEEP_DENOMINATOR_UNCHANGED",
+        "ADD_INSTEAD_OF_MULTIPLY"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-511",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findWithReplacementProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "WITH_REPLACEMENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITH_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SUCCESSIVE_INDEPENDENT",
+      "distractorStrategyIds": [
+        "REMOVE_BALL_DESPITE_REPLACEMENT",
+        "ADD_INSTEAD_OF_MULTIPLY"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-512",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findWithoutReplacementProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "WITHOUT_REPLACEMENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SUCCESSIVE_DEPENDENT",
+      "distractorStrategyIds": [
+        "KEEP_DENOMINATOR_UNCHANGED",
+        "KEEP_NUMERATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-513",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findOrderedDrawSequenceProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "ORDERED_SEQUENCE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "ORDERED_SEQUENCE",
+      "distractorStrategyIds": [
+        "REVERSE_SEQUENCE_ONLY",
+        "COUNT_BOTH_ORDERS"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-514",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findSameTypeInSuccessiveDraws",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "SAME_TYPE_SUCCESSIVE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SAME_TYPE_SUCCESSIVE",
+      "distractorStrategyIds": [
+        "COUNT_ONLY_RED_CASE",
+        "KEEP_DENOMINATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-515",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findDifferentTypesInSuccessiveDraws",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "DIFFERENT_TYPES_SUCCESSIVE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "DIFFERENT_TYPES_SUCCESSIVE",
+      "distractorStrategyIds": [
+        "COUNT_ONE_ORDER_ONLY",
+        "KEEP_DENOMINATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-516",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findAtLeastOneAcrossIndependentStages",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "AT_LEAST_ONE_INDEPENDENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITH_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "AT_LEAST_ONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-517",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findSuccessiveIndependentProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "SUCCESSIVE_INDEPENDENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITH_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SUCCESSIVE_INDEPENDENT",
+      "distractorStrategyIds": [
+        "ADD_INSTEAD_OF_MULTIPLY",
+        "FORGET_REPLACEMENT"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-518",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findSuccessiveDependentProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "SUCCESSIVE_DEPENDENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SUCCESSIVE_DEPENDENT",
+      "distractorStrategyIds": [
+        "KEEP_DENOMINATOR_UNCHANGED",
+        "ADD_INSTEAD_OF_MULTIPLY"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-519",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findWithReplacementProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "WITH_REPLACEMENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITH_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SUCCESSIVE_INDEPENDENT",
+      "distractorStrategyIds": [
+        "REMOVE_BALL_DESPITE_REPLACEMENT",
+        "ADD_INSTEAD_OF_MULTIPLY"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-520",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findWithoutReplacementProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "WITHOUT_REPLACEMENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SUCCESSIVE_DEPENDENT",
+      "distractorStrategyIds": [
+        "KEEP_DENOMINATOR_UNCHANGED",
+        "KEEP_NUMERATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-521",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findOrderedDrawSequenceProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "ORDERED_SEQUENCE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "ORDERED_SEQUENCE",
+      "distractorStrategyIds": [
+        "REVERSE_SEQUENCE_ONLY",
+        "COUNT_BOTH_ORDERS"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-522",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findSameTypeInSuccessiveDraws",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "SAME_TYPE_SUCCESSIVE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SAME_TYPE_SUCCESSIVE",
+      "distractorStrategyIds": [
+        "COUNT_ONLY_RED_CASE",
+        "KEEP_DENOMINATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-523",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findDifferentTypesInSuccessiveDraws",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "DIFFERENT_TYPES_SUCCESSIVE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "DIFFERENT_TYPES_SUCCESSIVE",
+      "distractorStrategyIds": [
+        "COUNT_ONE_ORDER_ONLY",
+        "KEEP_DENOMINATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-524",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-006",
+      "taskKind": "SUCCESSIVE_EVENTS",
+      "solveMode": "findAtLeastOneAcrossIndependentStages",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "AT_LEAST_ONE_INDEPENDENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draws",
+        "firstColour",
+        "secondColour"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITH_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "AT_LEAST_ONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-601",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_COUNTING",
+      "solveMode": "findConditionalProbabilityByCounting",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "CONDITIONAL_COUNT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "mathTotal",
+        "both",
+        "englishOnly",
+        "neither",
+        "conditionLabel",
+        "targetLabel"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_COUNT",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "REVERSE_CONDITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-602",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_CARD",
+      "solveMode": "findConditionalCardProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CONDITIONAL_CARD",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "condition",
+        "target",
+        "conditionCount",
+        "favourable"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_CARD",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "DECK_FACT_TRAP"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-603",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_NUMBER",
+      "solveMode": "findConditionalNumberProbability",
+      "experimentKinds": [
+        "NUMBER_SELECTION"
+      ],
+      "eventStrategyId": "CONDITIONAL_NUMBER",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "lower",
+        "upper",
+        "conditionDivisor",
+        "targetDivisor"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_NUMBER",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "REVERSE_CONDITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-604",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_URN",
+      "solveMode": "findConditionalUrnProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "CONDITIONAL_URN",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "knownFirstColour",
+        "targetColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "CONDITIONAL_URN",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "KEEP_NUMERATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-605",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_REVERSE",
+      "solveMode": "findReverseConditionalCount",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "REVERSE_CONDITIONAL",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "restrictedTotal",
+        "favourable",
+        "conditionLabel",
+        "targetLabel"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "USE_PROBABILITY_AS_COUNT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-606",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_TABLE",
+      "solveMode": "findConditionalFromTwoWayTable",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "CONDITIONAL_TABLE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "mathTotal",
+        "both",
+        "englishOnly",
+        "neither",
+        "conditionLabel",
+        "targetLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_TABLE",
+      "distractorStrategyIds": [
+        "USE_GRAND_TOTAL",
+        "REVERSE_CONDITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-607",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_COUNTING",
+      "solveMode": "findConditionalProbabilityByCounting",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "CONDITIONAL_COUNT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "mathTotal",
+        "both",
+        "englishOnly",
+        "neither",
+        "conditionLabel",
+        "targetLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_COUNT",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "REVERSE_CONDITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-608",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_CARD",
+      "solveMode": "findConditionalCardProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CONDITIONAL_CARD",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "condition",
+        "target",
+        "conditionCount",
+        "favourable"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_CARD",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "DECK_FACT_TRAP"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-609",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_NUMBER",
+      "solveMode": "findConditionalNumberProbability",
+      "experimentKinds": [
+        "NUMBER_SELECTION"
+      ],
+      "eventStrategyId": "CONDITIONAL_NUMBER",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "lower",
+        "upper",
+        "conditionDivisor",
+        "targetDivisor"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_NUMBER",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "REVERSE_CONDITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-610",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_URN",
+      "solveMode": "findConditionalUrnProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "CONDITIONAL_URN",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "knownFirstColour",
+        "targetColour"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "CONDITIONAL_URN",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "KEEP_NUMERATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-611",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_REVERSE",
+      "solveMode": "findReverseConditionalCount",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "REVERSE_CONDITIONAL",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "restrictedTotal",
+        "favourable",
+        "conditionLabel",
+        "targetLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "USE_PROBABILITY_AS_COUNT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-612",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_TABLE",
+      "solveMode": "findConditionalFromTwoWayTable",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "CONDITIONAL_TABLE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "mathTotal",
+        "both",
+        "englishOnly",
+        "neither",
+        "conditionLabel",
+        "targetLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_TABLE",
+      "distractorStrategyIds": [
+        "USE_GRAND_TOTAL",
+        "REVERSE_CONDITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-613",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_COUNTING",
+      "solveMode": "findConditionalProbabilityByCounting",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "CONDITIONAL_COUNT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "mathTotal",
+        "both",
+        "englishOnly",
+        "neither",
+        "conditionLabel",
+        "targetLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_COUNT",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "REVERSE_CONDITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-614",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_CARD",
+      "solveMode": "findConditionalCardProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CONDITIONAL_CARD",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "condition",
+        "target",
+        "conditionCount",
+        "favourable"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_CARD",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "DECK_FACT_TRAP"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-615",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_NUMBER",
+      "solveMode": "findConditionalNumberProbability",
+      "experimentKinds": [
+        "NUMBER_SELECTION"
+      ],
+      "eventStrategyId": "CONDITIONAL_NUMBER",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "lower",
+        "upper",
+        "conditionDivisor",
+        "targetDivisor"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_NUMBER",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "REVERSE_CONDITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-616",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_URN",
+      "solveMode": "findConditionalUrnProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "CONDITIONAL_URN",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "knownFirstColour",
+        "targetColour"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "CONDITIONAL_URN",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "KEEP_NUMERATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-617",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_REVERSE",
+      "solveMode": "findReverseConditionalCount",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "REVERSE_CONDITIONAL",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "restrictedTotal",
+        "favourable",
+        "conditionLabel",
+        "targetLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "USE_PROBABILITY_AS_COUNT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-618",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_TABLE",
+      "solveMode": "findConditionalFromTwoWayTable",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "CONDITIONAL_TABLE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "mathTotal",
+        "both",
+        "englishOnly",
+        "neither",
+        "conditionLabel",
+        "targetLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_TABLE",
+      "distractorStrategyIds": [
+        "USE_GRAND_TOTAL",
+        "REVERSE_CONDITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-619",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_COUNTING",
+      "solveMode": "findConditionalProbabilityByCounting",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "CONDITIONAL_COUNT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "mathTotal",
+        "both",
+        "englishOnly",
+        "neither",
+        "conditionLabel",
+        "targetLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_COUNT",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "REVERSE_CONDITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-620",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_CARD",
+      "solveMode": "findConditionalCardProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CONDITIONAL_CARD",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "condition",
+        "target",
+        "conditionCount",
+        "favourable"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_CARD",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "DECK_FACT_TRAP"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-621",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_NUMBER",
+      "solveMode": "findConditionalNumberProbability",
+      "experimentKinds": [
+        "NUMBER_SELECTION"
+      ],
+      "eventStrategyId": "CONDITIONAL_NUMBER",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "lower",
+        "upper",
+        "conditionDivisor",
+        "targetDivisor"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CONDITIONAL_NUMBER",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "REVERSE_CONDITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-622",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-007",
+      "taskKind": "CONDITIONAL_URN",
+      "solveMode": "findConditionalUrnProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "CONDITIONAL_URN",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "CONDITIONAL_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "knownFirstColour",
+        "targetColour"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "CONDITIONAL_URN",
+      "distractorStrategyIds": [
+        "USE_ORIGINAL_TOTAL",
+        "KEEP_NUMERATOR_UNCHANGED"
+      ],
+      "visualStrategyId": "SUCCESSIVE_DRAW_TREE"
+    },
+    {
+      "qlId": "PRB-QL-701",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_SELECTION",
+      "solveMode": "findSelectionProbabilityUsingCombination",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "COMMITTEE_SELECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "COMMITTEE_SELECTION",
+      "distractorStrategyIds": [
+        "PERMUTATION_DENOMINATOR",
+        "OMIT_ONE_COMBINATION_FACTOR"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-702",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_SELECTION",
+      "solveMode": "findCommitteeCompositionProbability",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "COMMITTEE_COMPOSITION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "COMMITTEE_COMPOSITION",
+      "distractorStrategyIds": [
+        "PERMUTATION_DENOMINATOR",
+        "USE_AT_LEAST_INSTEAD_EXACT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-703",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_ARRANGEMENT",
+      "solveMode": "findRandomArrangementPropertyProbability",
+      "experimentKinds": [
+        "RANDOM_ARRANGEMENT"
+      ],
+      "eventStrategyId": "RANDOM_ARRANGEMENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "people",
+        "relation"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "RANDOM_ARRANGEMENT",
+      "distractorStrategyIds": [
+        "USE_COMBINATION_DENOMINATOR",
+        "FIX_WRONG_POSITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-704",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_ARRANGEMENT",
+      "solveMode": "findTogetherOrApartProbability",
+      "experimentKinds": [
+        "RANDOM_ARRANGEMENT"
+      ],
+      "eventStrategyId": "TOGETHER_APART",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "people",
+        "relation"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "TOGETHER_APART",
+      "distractorStrategyIds": [
+        "FORGET_INTERNAL_PAIR_ORDER",
+        "FORGET_COMPLEMENT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-705",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_ASSIGNMENT",
+      "solveMode": "findPositionRestrictionProbability",
+      "experimentKinds": [
+        "RANDOM_ARRANGEMENT"
+      ],
+      "eventStrategyId": "POSITION_RESTRICTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "positions",
+        "fixedGroup"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "POSITION_RESTRICTION",
+      "distractorStrategyIds": [
+        "USE_COMBINATION_DENOMINATOR",
+        "IGNORE_FIXED_POSITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-706",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_NUMBER_FORMATION",
+      "solveMode": "findNumberFormationProbability",
+      "experimentKinds": [
+        "RANDOM_ARRANGEMENT"
+      ],
+      "eventStrategyId": "NUMBER_FORMATION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "minDigit",
+        "maxDigit",
+        "symbolCount",
+        "length",
+        "property"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "NUMBER_FORMATION",
+      "distractorStrategyIds": [
+        "ALLOW_REPETITION",
+        "IGNORE_TERMINAL_RESTRICTION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-707",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_SELECTION",
+      "solveMode": "findRestrictedSelectionProbability",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "RESTRICTED_SELECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "RESTRICTED_SELECTION",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "PERMUTATION_DENOMINATOR"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-708",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_REVERSE",
+      "solveMode": "findReverseCountFromProbability",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "REVERSE_COUNTING",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "PERMUTATION_DENOMINATOR"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-709",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_SELECTION",
+      "solveMode": "findSelectionProbabilityUsingCombination",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "COMMITTEE_SELECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "COMMITTEE_SELECTION",
+      "distractorStrategyIds": [
+        "PERMUTATION_DENOMINATOR",
+        "OMIT_ONE_COMBINATION_FACTOR"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-710",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_SELECTION",
+      "solveMode": "findCommitteeCompositionProbability",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "COMMITTEE_COMPOSITION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "COMMITTEE_COMPOSITION",
+      "distractorStrategyIds": [
+        "PERMUTATION_DENOMINATOR",
+        "USE_AT_LEAST_INSTEAD_EXACT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-711",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_ARRANGEMENT",
+      "solveMode": "findRandomArrangementPropertyProbability",
+      "experimentKinds": [
+        "RANDOM_ARRANGEMENT"
+      ],
+      "eventStrategyId": "RANDOM_ARRANGEMENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "people",
+        "relation"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "RANDOM_ARRANGEMENT",
+      "distractorStrategyIds": [
+        "USE_COMBINATION_DENOMINATOR",
+        "FIX_WRONG_POSITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-712",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_ARRANGEMENT",
+      "solveMode": "findTogetherOrApartProbability",
+      "experimentKinds": [
+        "RANDOM_ARRANGEMENT"
+      ],
+      "eventStrategyId": "TOGETHER_APART",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "people",
+        "relation"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "TOGETHER_APART",
+      "distractorStrategyIds": [
+        "FORGET_INTERNAL_PAIR_ORDER",
+        "FORGET_COMPLEMENT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-713",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_ASSIGNMENT",
+      "solveMode": "findPositionRestrictionProbability",
+      "experimentKinds": [
+        "RANDOM_ARRANGEMENT"
+      ],
+      "eventStrategyId": "POSITION_RESTRICTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "positions",
+        "fixedGroup"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "POSITION_RESTRICTION",
+      "distractorStrategyIds": [
+        "USE_COMBINATION_DENOMINATOR",
+        "IGNORE_FIXED_POSITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-714",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_NUMBER_FORMATION",
+      "solveMode": "findNumberFormationProbability",
+      "experimentKinds": [
+        "RANDOM_ARRANGEMENT"
+      ],
+      "eventStrategyId": "NUMBER_FORMATION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "minDigit",
+        "maxDigit",
+        "symbolCount",
+        "length",
+        "property"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "NUMBER_FORMATION",
+      "distractorStrategyIds": [
+        "ALLOW_REPETITION",
+        "IGNORE_TERMINAL_RESTRICTION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-715",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_SELECTION",
+      "solveMode": "findRestrictedSelectionProbability",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "RESTRICTED_SELECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "RESTRICTED_SELECTION",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "PERMUTATION_DENOMINATOR"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-716",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_REVERSE",
+      "solveMode": "findReverseCountFromProbability",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "REVERSE_COUNTING",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "PERMUTATION_DENOMINATOR"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-717",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_SELECTION",
+      "solveMode": "findSelectionProbabilityUsingCombination",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "COMMITTEE_SELECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "COMMITTEE_SELECTION",
+      "distractorStrategyIds": [
+        "PERMUTATION_DENOMINATOR",
+        "OMIT_ONE_COMBINATION_FACTOR"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-718",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_SELECTION",
+      "solveMode": "findCommitteeCompositionProbability",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "COMMITTEE_COMPOSITION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "COMMITTEE_COMPOSITION",
+      "distractorStrategyIds": [
+        "PERMUTATION_DENOMINATOR",
+        "USE_AT_LEAST_INSTEAD_EXACT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-719",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_ARRANGEMENT",
+      "solveMode": "findRandomArrangementPropertyProbability",
+      "experimentKinds": [
+        "RANDOM_ARRANGEMENT"
+      ],
+      "eventStrategyId": "RANDOM_ARRANGEMENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "people",
+        "relation"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "RANDOM_ARRANGEMENT",
+      "distractorStrategyIds": [
+        "USE_COMBINATION_DENOMINATOR",
+        "FIX_WRONG_POSITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-720",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_ARRANGEMENT",
+      "solveMode": "findTogetherOrApartProbability",
+      "experimentKinds": [
+        "RANDOM_ARRANGEMENT"
+      ],
+      "eventStrategyId": "TOGETHER_APART",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "people",
+        "relation"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "TOGETHER_APART",
+      "distractorStrategyIds": [
+        "FORGET_INTERNAL_PAIR_ORDER",
+        "FORGET_COMPLEMENT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-721",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_ASSIGNMENT",
+      "solveMode": "findPositionRestrictionProbability",
+      "experimentKinds": [
+        "RANDOM_ARRANGEMENT"
+      ],
+      "eventStrategyId": "POSITION_RESTRICTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "positions",
+        "fixedGroup"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "POSITION_RESTRICTION",
+      "distractorStrategyIds": [
+        "USE_COMBINATION_DENOMINATOR",
+        "IGNORE_FIXED_POSITION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-722",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_NUMBER_FORMATION",
+      "solveMode": "findNumberFormationProbability",
+      "experimentKinds": [
+        "RANDOM_ARRANGEMENT"
+      ],
+      "eventStrategyId": "NUMBER_FORMATION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "minDigit",
+        "maxDigit",
+        "symbolCount",
+        "length",
+        "property"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "NUMBER_FORMATION",
+      "distractorStrategyIds": [
+        "ALLOW_REPETITION",
+        "IGNORE_TERMINAL_RESTRICTION"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-723",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_SELECTION",
+      "solveMode": "findRestrictedSelectionProbability",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "RESTRICTED_SELECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "RESTRICTED_SELECTION",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "PERMUTATION_DENOMINATOR"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-724",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_REVERSE",
+      "solveMode": "findReverseCountFromProbability",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "REVERSE_COUNTING",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "PERMUTATION_DENOMINATOR"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-725",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_SELECTION",
+      "solveMode": "findSelectionProbabilityUsingCombination",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "COMMITTEE_SELECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "COMMITTEE_SELECTION",
+      "distractorStrategyIds": [
+        "PERMUTATION_DENOMINATOR",
+        "OMIT_ONE_COMBINATION_FACTOR"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-726",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-008",
+      "taskKind": "COUNTING_SELECTION",
+      "solveMode": "findCommitteeCompositionProbability",
+      "experimentKinds": [
+        "RANDOM_SELECTION"
+      ],
+      "eventStrategyId": "COMMITTEE_COMPOSITION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "men",
+        "women",
+        "committeeSize",
+        "requiredWomen"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "COMMITTEE_COMPOSITION",
+      "distractorStrategyIds": [
+        "PERMUTATION_DENOMINATOR",
+        "USE_AT_LEAST_INSTEAD_EXACT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-801",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findUnionProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "UNION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "UNION",
+      "distractorStrategyIds": [
+        "FAIL_SUBTRACT_OVERLAP",
+        "SUBTRACT_OVERLAP_TWICE"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-802",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findIntersectionProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "INTERSECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "INTERSECTION",
+      "distractorStrategyIds": [
+        "USE_UNION_VALUE",
+        "ASSUME_INDEPENDENCE"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-803",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findExactlyOneOfTwoEvents",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "EXACTLY_ONE_OF_TWO",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "EXACTLY_ONE_OF_TWO",
+      "distractorStrategyIds": [
+        "FAIL_SUBTRACT_OVERLAP",
+        "SUBTRACT_OVERLAP_ONCE"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-804",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findNeitherEventProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "NEITHER",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "NEITHER",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "FAIL_SUBTRACT_OVERLAP"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-805",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findMutuallyExclusiveUnion",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "MUTUALLY_EXCLUSIVE_UNION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "aNumerator",
+        "aDenominator",
+        "bNumerator",
+        "bDenominator",
+        "intersectionNumerator",
+        "intersectionDenominator",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "MUTUALLY_EXCLUSIVE_UNION",
+      "distractorStrategyIds": [
+        "MULTIPLY_INSTEAD_ADD",
+        "INVENT_OVERLAP"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-806",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findIndependentIntersection",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "INDEPENDENT_INTERSECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "aNumerator",
+        "aDenominator",
+        "bNumerator",
+        "bDenominator",
+        "independent"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "INDEPENDENT_INTERSECTION",
+      "distractorStrategyIds": [
+        "ADD_INSTEAD_OF_MULTIPLY",
+        "SUBTRACT_OVERLAP_FORMULA"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-807",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findMissingIntersectionOrUnionProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "MISSING_INTERSECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "MISSING_INTERSECTION",
+      "distractorStrategyIds": [
+        "ADD_UNION_INSTEAD_SUBTRACT",
+        "ASSUME_ZERO_INTERSECTION"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-808",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findMixedEventExpressionProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "MIXED_EVENT_EXPRESSION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "MIXED_EVENT_EXPRESSION",
+      "distractorStrategyIds": [
+        "SUBTRACT_OVERLAP_ONCE",
+        "FORGET_SECOND_REGION"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-809",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findUnionProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "UNION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "UNION",
+      "distractorStrategyIds": [
+        "FAIL_SUBTRACT_OVERLAP",
+        "SUBTRACT_OVERLAP_TWICE"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-810",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findIntersectionProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "INTERSECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "INTERSECTION",
+      "distractorStrategyIds": [
+        "USE_UNION_VALUE",
+        "ASSUME_INDEPENDENCE"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-811",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findExactlyOneOfTwoEvents",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "EXACTLY_ONE_OF_TWO",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "EXACTLY_ONE_OF_TWO",
+      "distractorStrategyIds": [
+        "FAIL_SUBTRACT_OVERLAP",
+        "SUBTRACT_OVERLAP_ONCE"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-812",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findNeitherEventProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "NEITHER",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "NEITHER",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "FAIL_SUBTRACT_OVERLAP"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-813",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findMutuallyExclusiveUnion",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "MUTUALLY_EXCLUSIVE_UNION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "aNumerator",
+        "aDenominator",
+        "bNumerator",
+        "bDenominator",
+        "intersectionNumerator",
+        "intersectionDenominator",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "MUTUALLY_EXCLUSIVE_UNION",
+      "distractorStrategyIds": [
+        "MULTIPLY_INSTEAD_ADD",
+        "INVENT_OVERLAP"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-814",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findIndependentIntersection",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "INDEPENDENT_INTERSECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "aNumerator",
+        "aDenominator",
+        "bNumerator",
+        "bDenominator",
+        "independent"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "INDEPENDENT_INTERSECTION",
+      "distractorStrategyIds": [
+        "ADD_INSTEAD_OF_MULTIPLY",
+        "SUBTRACT_OVERLAP_FORMULA"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-815",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findMissingIntersectionOrUnionProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "MISSING_INTERSECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "MISSING_INTERSECTION",
+      "distractorStrategyIds": [
+        "ADD_UNION_INSTEAD_SUBTRACT",
+        "ASSUME_ZERO_INTERSECTION"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-816",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findMixedEventExpressionProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "MIXED_EVENT_EXPRESSION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "MIXED_EVENT_EXPRESSION",
+      "distractorStrategyIds": [
+        "SUBTRACT_OVERLAP_ONCE",
+        "FORGET_SECOND_REGION"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-817",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findUnionProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "UNION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "UNION",
+      "distractorStrategyIds": [
+        "FAIL_SUBTRACT_OVERLAP",
+        "SUBTRACT_OVERLAP_TWICE"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-818",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findIntersectionProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "INTERSECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "INTERSECTION",
+      "distractorStrategyIds": [
+        "USE_UNION_VALUE",
+        "ASSUME_INDEPENDENCE"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-819",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findExactlyOneOfTwoEvents",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "EXACTLY_ONE_OF_TWO",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "EXACTLY_ONE_OF_TWO",
+      "distractorStrategyIds": [
+        "FAIL_SUBTRACT_OVERLAP",
+        "SUBTRACT_OVERLAP_ONCE"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-820",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findNeitherEventProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "NEITHER",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "NEITHER",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "FAIL_SUBTRACT_OVERLAP"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-821",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findMutuallyExclusiveUnion",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "MUTUALLY_EXCLUSIVE_UNION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "aNumerator",
+        "aDenominator",
+        "bNumerator",
+        "bDenominator",
+        "intersectionNumerator",
+        "intersectionDenominator",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "MUTUALLY_EXCLUSIVE_UNION",
+      "distractorStrategyIds": [
+        "MULTIPLY_INSTEAD_ADD",
+        "INVENT_OVERLAP"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-822",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findIndependentIntersection",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "INDEPENDENT_INTERSECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "aNumerator",
+        "aDenominator",
+        "bNumerator",
+        "bDenominator",
+        "independent"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "INDEPENDENT_INTERSECTION",
+      "distractorStrategyIds": [
+        "ADD_INSTEAD_OF_MULTIPLY",
+        "SUBTRACT_OVERLAP_FORMULA"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-823",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findMissingIntersectionOrUnionProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "MISSING_INTERSECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "MISSING_INTERSECTION",
+      "distractorStrategyIds": [
+        "ADD_UNION_INSTEAD_SUBTRACT",
+        "ASSUME_ZERO_INTERSECTION"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    },
+    {
+      "qlId": "PRB-QL-824",
+      "packageId": "PRB-002",
+      "cpId": "PRB-CP-009",
+      "taskKind": "EVENT_ALGEBRA",
+      "solveMode": "findMixedEventExpressionProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "MIXED_EVENT_EXPRESSION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "aCount",
+        "bCount",
+        "overlap",
+        "independent",
+        "mutuallyExclusive"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "MIXED_EVENT_EXPRESSION",
+      "distractorStrategyIds": [
+        "SUBTRACT_OVERLAP_ONCE",
+        "FORGET_SECOND_REGION"
+      ],
+      "visualStrategyId": "VENN_EVENT_REGIONS"
+    }
+  ]
+}

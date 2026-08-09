@@ -1,0 +1,2 @@
+import { runPrb002Pipeline, listPrb002QuestionEntries, PRB_002_LIBRARIES, PRB_002_CP_IDS } from "./index";
+const cp=PRB_002_CP_IDS[0];let blocked=0;for(const language of ["hi","pa"] as const){try{runPrb002Pipeline(cp,{language});}catch(error){if(String(error).includes("English-only"))blocked++;}}if(blocked!==2)throw new Error("Unsupported languages were exposed");console.log(JSON.stringify({packageId:"PRB-002",englishOnly:true,blockedLanguages:blocked}));

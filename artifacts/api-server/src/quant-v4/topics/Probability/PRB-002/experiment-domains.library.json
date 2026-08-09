@@ -1,0 +1,30 @@
+{
+  "packageId": "PRB-002",
+  "experimentKinds": [
+    "CARD_DRAW",
+    "COMPOUND_EXPERIMENT",
+    "NUMBER_SELECTION",
+    "RANDOM_ARRANGEMENT",
+    "RANDOM_SELECTION",
+    "URN_DRAW"
+  ],
+  "canonicalDeck": {
+    "size": 52,
+    "suits": 4,
+    "cardsPerSuit": 13,
+    "red": 26,
+    "black": 26,
+    "faceCards": 12
+  },
+  "policies": {
+    "replacement": [
+      "NOT_APPLICABLE",
+      "WITH_REPLACEMENT",
+      "WITHOUT_REPLACEMENT"
+    ],
+    "order": [
+      "ORDERED",
+      "UNORDERED"
+    ]
+  }
+}

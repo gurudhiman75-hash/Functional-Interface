@@ -34,8 +34,24 @@ import {
   getPnl001StandaloneDynamicCpIds,
   runPnl001StandaloneDynamicPipeline,
 } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-standalone-multilingual-dynamic-runtime";
+import {
+  getPrb001ActiveCanonicalProblemIds,
+  runPrb001Pipeline,
+  type Prb001CanonicalProblemId,
+} from "./topics/Probability/PRB-001";
+import {
+  getPrb002ActiveCanonicalProblemIds,
+  runPrb002Pipeline,
+  type Prb002CanonicalProblemId,
+} from "./topics/Probability/PRB-002";
+import type { ProbabilityExamProfile } from "./topics/Probability/shared";
 
-export type QuantV4PackageId = CoreQuantV4PackageId | "PNL-001";
+export type QuantV4PackageId =
+  | CoreQuantV4PackageId
+  | "PNL-001"
+  | "PRB-001"
+  | "PRB-002";
+
 export type QuantV4GenerationRequest = Omit<
   CoreQuantV4GenerationRequest,
   "packageId" | "archetypeId"
@@ -43,6 +59,7 @@ export type QuantV4GenerationRequest = Omit<
   packageId?: QuantV4PackageId;
   archetypeId?: QuantV4PackageId;
   runtimeMode?: "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
+  examProfile?: ProbabilityExamProfile;
 };
 
 export type { QuantV4Difficulty, QuantV4Language, QuantV4PackageDefinition };
@@ -50,22 +67,33 @@ export { QUANT_V4_PERCENTAGE_ALL_PATTERN_ID, toQuestionStudioPreview };
 
 const RAP_LANGUAGES: readonly QuantV4Language[] = ["en", "hi", "pa"];
 const PNL_LANGUAGES: readonly QuantV4Language[] = [...PNL_001_LANGUAGES];
+const PRB_LANGUAGES: readonly QuantV4Language[] = ["en"];
 const PNL_DYNAMIC_CP_IDS = getPnl001StandaloneDynamicCpIds();
 type Pnl001RuntimeMode = "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
 
-const normalizeSelectorText = (value: unknown) =>
-  String(value ?? "")
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
+type RuntimePackageId =
+  | "RAP-001"
+  | "RAP-002"
+  | "RAP-003"
+  | "PNL-001"
+  | "PRB-001"
+  | "PRB-002";
 
-type RapPackageId = "RAP-001" | "RAP-002" | "RAP-003";
-type RapRuntimeDefinition = QuantV4PackageDefinition & {
-  packageId: RapPackageId;
+type RuntimeDefinition = Omit<QuantV4PackageDefinition, "run"> & {
+  packageId: RuntimePackageId;
+  run: (
+    cpId: string,
+    input: {
+      difficulty?: QuantV4Difficulty;
+      language?: QuantV4Language;
+      questionLanguageId?: string;
+      seed?: string;
+      examProfile?: ProbabilityExamProfile;
+    },
+  ) => Promise<any> | any;
 };
 
-const RAP_RUNTIME_PACKAGES: readonly RapRuntimeDefinition[] = [
+const RAP_RUNTIME_PACKAGES: readonly RuntimeDefinition[] = [
   {
     packageId: "RAP-001",
     topic: "Arithmetic",
@@ -116,9 +144,7 @@ const RAP_RUNTIME_PACKAGES: readonly RapRuntimeDefinition[] = [
   },
 ];
 
-const PNL_RUNTIME_PACKAGE: QuantV4PackageDefinition & {
-  packageId: "PNL-001";
-} = {
+const PNL_RUNTIME_PACKAGE: RuntimeDefinition = {
   packageId: "PNL-001",
   topic: "Arithmetic",
   subtopic: "Profit & Loss",
@@ -134,6 +160,41 @@ const PNL_RUNTIME_PACKAGE: QuantV4PackageDefinition & {
     }),
 };
 
+const PRB_RUNTIME_PACKAGES: readonly RuntimeDefinition[] = [
+  {
+    packageId: "PRB-001",
+    topic: "Arithmetic",
+    subtopic: "Probability",
+    label: "Classical Probability & Standard Experiments",
+    cpIds: getPrb001ActiveCanonicalProblemIds(),
+    supportedLanguages: PRB_LANGUAGES,
+    run: (cpId, input) =>
+      runPrb001Pipeline(cpId as Prb001CanonicalProblemId, {
+        difficultyBand: input.difficulty,
+        language: input.language,
+        questionLanguageId: input.questionLanguageId,
+        examProfile: input.examProfile,
+        seed: input.seed,
+      }),
+  },
+  {
+    packageId: "PRB-002",
+    topic: "Arithmetic",
+    subtopic: "Probability",
+    label: "Compound, Conditional & Counting-Based Probability",
+    cpIds: getPrb002ActiveCanonicalProblemIds(),
+    supportedLanguages: PRB_LANGUAGES,
+    run: (cpId, input) =>
+      runPrb002Pipeline(cpId as Prb002CanonicalProblemId, {
+        difficultyBand: input.difficulty,
+        language: input.language,
+        questionLanguageId: input.questionLanguageId,
+        examProfile: input.examProfile,
+        seed: input.seed,
+      }),
+  },
+];
+
 class QuantV4RequestError extends Error {
   readonly statusCode = 400;
 
@@ -141,6 +202,14 @@ class QuantV4RequestError extends Error {
     super(message);
     this.name = "QuantV4RequestError";
   }
+}
+
+function normalizeSelectorText(value: unknown) {
+  return String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
 }
 
 function normalizePnlRuntimeMode(value: unknown): Pnl001RuntimeMode {
@@ -190,13 +259,14 @@ function shuffled<T>(items: readonly T[], seed: string) {
   return result;
 }
 
-function resolveRapPackage(request: QuantV4GenerationRequest) {
+function resolveByPackageOrPattern(
+  request: QuantV4GenerationRequest,
+  packages: readonly RuntimeDefinition[],
+) {
   const explicit = request.packageId ?? request.archetypeId;
-  if (explicit) {
-    return RAP_RUNTIME_PACKAGES.find((entry) => entry.packageId === explicit);
-  }
+  if (explicit) return packages.find((entry) => entry.packageId === explicit);
   const pattern = String(request.patternId ?? "").toUpperCase();
-  return RAP_RUNTIME_PACKAGES.find(
+  return packages.find(
     (entry) => pattern === entry.packageId || pattern.includes(entry.packageId),
   );
 }
@@ -227,8 +297,27 @@ function resolvePnlPackage(request: QuantV4GenerationRequest) {
   ) {
     return PNL_RUNTIME_PACKAGE;
   }
-
   return undefined;
+}
+
+function resolvePrbPackage(request: QuantV4GenerationRequest) {
+  const direct = resolveByPackageOrPattern(request, PRB_RUNTIME_PACKAGES);
+  if (direct) return direct;
+  const topic = normalizeSelectorText(request.topic);
+  const subtopic = normalizeSelectorText(request.subtopic);
+  if (
+    subtopic === "probability" ||
+    topic === "probability" ||
+    (topic === "arithmetic" && subtopic.includes("probability"))
+  ) {
+    const cpId = request.canonicalProblemId ?? request.cpId;
+    return PRB_RUNTIME_PACKAGES.find((entry) => !cpId || entry.cpIds.includes(cpId)) ?? PRB_RUNTIME_PACKAGES[0];
+  }
+  return undefined;
+}
+
+function resolveRapPackage(request: QuantV4GenerationRequest) {
+  return resolveByPackageOrPattern(request, RAP_RUNTIME_PACKAGES);
 }
 
 function resolveCpId(
@@ -266,10 +355,7 @@ function pnlPackageForQuestionStudio() {
     name: `${PNL_RUNTIME_PACKAGE.packageId} ${PNL_RUNTIME_PACKAGE.label}`,
     label: PNL_RUNTIME_PACKAGE.label,
     generationDomain: "quant-v4",
-    canonicalProblems: PNL_RUNTIME_PACKAGE.cpIds.map((cpId) => ({
-      id: cpId,
-      label: cpId,
-    })),
+    canonicalProblems: PNL_RUNTIME_PACKAGE.cpIds.map((cpId) => ({ id: cpId, label: cpId })),
     supportedDifficulties: ["easy", "medium", "hard"],
     supportedLanguages: [...PNL_LANGUAGES],
     enabled: true,
@@ -297,25 +383,56 @@ function pnlPackageForQuestionStudio() {
   };
 }
 
+function probabilityPackageForQuestionStudio(pkg: RuntimeDefinition) {
+  return {
+    id: pkg.packageId,
+    packageId: pkg.packageId,
+    type: "quant-v4",
+    section: "Quant",
+    domain: "quant",
+    topic: pkg.topic,
+    subtopic: pkg.subtopic,
+    name: `${pkg.packageId} ${pkg.label}`,
+    label: pkg.label,
+    generationDomain: "quant-v4",
+    canonicalProblems: pkg.cpIds.map((cpId) => ({ id: cpId, label: cpId })),
+    supportedDifficulties: ["easy", "medium", "hard"],
+    supportedLanguages: [...PRB_LANGUAGES],
+    supportedExamProfiles: ["SSC_CGL_CHSL", "SSC_CGL_JSO", "BANKING_PRELIMS", "BANKING_MAINS", "GENERIC_PRACTICE"],
+    optionCountByExamProfile: { SSC_CGL_CHSL: 4, SSC_CGL_JSO: 4, BANKING_PRELIMS: 5, BANKING_MAINS: 5, GENERIC_PRACTICE: 4 },
+    enabled: true,
+    runtimeMode: "ENGLISH_MOCK_READY",
+    reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+    questionBankStatus: "WRITABLE",
+    testEligibility: "ELIGIBLE_WITH_FAMILY_LIMIT",
+    publiclyPublishable: false,
+    freezeStatus: "ENGLISH_MOCK_READY",
+    itemPolicyAuthority: "QUESTION_TRACEABILITY",
+    maxPerMockPerFamily: 1,
+    exactArithmetic: "BIGINT_RATIONAL",
+  };
+}
+
 export function listQuantV4Packages() {
+  const specialIds = new Set(["PNL-001", "PRB-001", "PRB-002"]);
   const corePackages = listCorePackages()
     .filter((pkg) => !isRawPnlCheckpointPackage(pkg))
+    .filter((pkg) => !specialIds.has(pkg.packageId))
     .map((pkg) =>
       pkg.packageId.startsWith("RAP-")
         ? { ...pkg, supportedLanguages: [...RAP_LANGUAGES] }
         : pkg,
     );
 
-  const withoutDuplicatePnl = corePackages.filter(
-    (pkg) => pkg.packageId !== PNL_RUNTIME_PACKAGE.packageId,
-  );
-  return [...withoutDuplicatePnl, pnlPackageForQuestionStudio()].sort(
-    (left, right) => left.packageId.localeCompare(right.packageId),
-  );
+  return [
+    ...corePackages,
+    pnlPackageForQuestionStudio(),
+    ...PRB_RUNTIME_PACKAGES.map(probabilityPackageForQuestionStudio),
+  ].sort((left, right) => left.packageId.localeCompare(right.packageId));
 }
 
 async function generateWithRuntimePackage(
-  pkg: QuantV4PackageDefinition,
+  pkg: RuntimeDefinition,
   request: QuantV4GenerationRequest,
   language: QuantV4Language,
 ) {
@@ -327,30 +444,20 @@ async function generateWithRuntimePackage(
   }
 
   const isPnl = pkg.packageId === PNL_RUNTIME_PACKAGE.packageId;
-  const pnlRuntimeMode = isPnl
-    ? normalizePnlRuntimeMode(request.runtimeMode)
-    : undefined;
+  const isProbability = pkg.packageId === "PRB-001" || pkg.packageId === "PRB-002";
+  const pnlRuntimeMode = isPnl ? normalizePnlRuntimeMode(request.runtimeMode) : undefined;
   const runtimeCpIds =
     pnlRuntimeMode === "DYNAMIC_CANDIDATE"
       ? [...PNL_DYNAMIC_CP_IDS]
       : pkg.cpIds;
-  const runtimePackage =
-    runtimeCpIds === pkg.cpIds ? pkg : { ...pkg, cpIds: runtimeCpIds };
-
-  const count = Math.min(
-    1000,
-    Math.max(1, Math.floor(Number(request.count ?? 1) || 1)),
-  );
+  const runtimePackage = runtimeCpIds === pkg.cpIds ? pkg : { ...pkg, cpIds: runtimeCpIds };
+  const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
   const difficultyBand = normalizeDifficulty(request.difficulty);
   const batchSeed =
     request.seed ??
     [
       "quant-v4",
-      request.packageId ??
-        request.archetypeId ??
-        request.patternId ??
-        request.subtopic ??
-        pkg.packageId,
+      request.packageId ?? request.archetypeId ?? request.patternId ?? request.subtopic ?? pkg.packageId,
       request.canonicalProblemId ?? request.cpId ?? "mixed",
       pnlRuntimeMode ?? "DYNAMIC",
       Date.now(),
@@ -365,9 +472,7 @@ async function generateWithRuntimePackage(
   const results: Array<{ questionPackage: any; question: any }> = [];
 
   for (let index = 0; index < count; index += 1) {
-    if (index > 0 && index % 100 === 0) {
-      await new Promise((resolve) => setImmediate(resolve));
-    }
+    if (index > 0 && index % 100 === 0) await new Promise((resolve) => setImmediate(resolve));
     const cpId = cpOrder[index % cpOrder.length]!;
     const seed = `${batchSeed}:${cpId}:${index}`;
     const questionPackage =
@@ -383,6 +488,7 @@ async function generateWithRuntimePackage(
             difficulty: difficultyBand,
             language,
             questionLanguageId: request.questionLanguageId,
+            examProfile: request.examProfile,
             seed,
           });
     results.push({
@@ -401,22 +507,24 @@ async function generateWithRuntimePackage(
       generationDomain: "quant-v4",
       seed: batchSeed,
       timestamp: Date.now(),
-      runtimeMode: pnlRuntimeMode ?? "DYNAMIC",
+      runtimeMode: pnlRuntimeMode ?? (isProbability ? "ENGLISH_MOCK_READY" : "DYNAMIC"),
       ...(isPnl
         ? {
-            reviewStatus:
-              pnlRuntimeMode === "DYNAMIC_CANDIDATE"
-                ? "UNREVIEWED_DYNAMIC_CANDIDATE"
-                : "APPROVED_EDITORIAL_CANONICAL",
-            questionBankStatus:
-              pnlRuntimeMode === "DYNAMIC_CANDIDATE"
-                ? "NOT_STORED"
-                : "WRITABLE",
-            testEligibility:
-              pnlRuntimeMode === "DYNAMIC_CANDIDATE"
-                ? "INELIGIBLE"
-                : "ELIGIBLE",
+            reviewStatus: pnlRuntimeMode === "DYNAMIC_CANDIDATE" ? "UNREVIEWED_DYNAMIC_CANDIDATE" : "APPROVED_EDITORIAL_CANONICAL",
+            questionBankStatus: pnlRuntimeMode === "DYNAMIC_CANDIDATE" ? "NOT_STORED" : "WRITABLE",
+            testEligibility: pnlRuntimeMode === "DYNAMIC_CANDIDATE" ? "INELIGIBLE" : "ELIGIBLE",
             publiclyPublishable: pnlRuntimeMode !== "DYNAMIC_CANDIDATE",
+          }
+        : {}),
+      ...(isProbability
+        ? {
+            reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+            questionBankStatus: "WRITABLE",
+            testEligibility: "ELIGIBLE_WITH_FAMILY_LIMIT",
+            publiclyPublishable: false,
+            freezeStatus: "ENGLISH_MOCK_READY",
+            itemPolicyAuthority: "QUESTION_TRACEABILITY",
+            maxPerMockPerFamily: 1,
           }
         : {}),
     },
@@ -428,14 +536,14 @@ async function generateWithRuntimePackage(
 export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
   const language = request.language ?? "en";
   const pnlPackage = resolvePnlPackage(request);
-  if (pnlPackage) {
-    return generateWithRuntimePackage(pnlPackage, request, language);
-  }
+  if (pnlPackage) return generateWithRuntimePackage(pnlPackage, request, language);
+
+  const probabilityPackage = resolvePrbPackage(request);
+  if (probabilityPackage) return generateWithRuntimePackage(probabilityPackage, request, language);
 
   const rapPackage = resolveRapPackage(request);
   if (!rapPackage || language === "en") {
     return generateCoreQuestion(request as CoreQuantV4GenerationRequest);
   }
-
   return generateWithRuntimePackage(rapPackage, request, language);
 }
