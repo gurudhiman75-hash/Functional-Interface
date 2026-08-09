@@ -250,7 +250,7 @@ const nuisanceStates = [
   figure("SQUARE", "SQUARE", "BOTTOM_RIGHT", "DOWN", false, 2, "RIGHT"),
   figure("TRIANGLE", "PENTAGON", "BOTTOM_RIGHT", "UP", true, 1, "TOP"),
   figure("TRIANGLE", "SQUARE", "BOTTOM_RIGHT", "LEFT", false, 1, "BOTTOM"),
-  figure("PENTAGON", "TRIANGLE", "TOP_LEFT", "UP", true, 2, "RIGHT"),
+  figure("PENTAGON", "TRIANGLE", "BOTTOM_LEFT", "UP", true, 2, "RIGHT"),
 ] as const;
 const nuisanceAudit = auditSpatialClassificationNuisanceFeatures(
   nuisanceStates,
