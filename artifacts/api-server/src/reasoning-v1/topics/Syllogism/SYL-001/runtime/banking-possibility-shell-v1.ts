@@ -92,12 +92,17 @@ const TARGET_STATUSES: readonly PairSemanticStatus[] = [
   "NEITHER_FOLLOWS",
 ];
 
-const GROUPS: readonly SylScenarioGroup[] = ["CORE", "ONLY", "FEW", "MIXED"];
+const BANKING_GROUPS: readonly SylScenarioGroup[] = ["CORE", "ONLY", "FEW"];
 
 function rotated<T>(items: readonly T[], offset: number): T[] {
   if (items.length === 0) return [];
   const start = ((offset % items.length) + items.length) % items.length;
   return [...items.slice(start), ...items.slice(0, start)];
+}
+
+function bankingScenarios(group: SylScenarioGroup) {
+  return scenariosForGroup(group).filter((scenario) =>
+    scenario.sourcePatternId.startsWith("SYL-SRC-BANK-"));
 }
 
 function novelCandidates(analysis: ScenarioAnalysis): readonly EvaluatedConclusion[] {
@@ -106,8 +111,9 @@ function novelCandidates(analysis: ScenarioAnalysis): readonly EvaluatedConclusi
 }
 
 function follows(candidate: EvaluatedConclusion, mode: BankingConclusionModeV1): boolean {
-  if (mode === "POSSIBILITY") return candidate.profile.canBeTrue;
-  return candidate.profile.classification === "ENTAILED";
+  return mode === "POSSIBILITY"
+    ? candidate.profile.canBeTrue
+    : candidate.profile.classification === "ENTAILED";
 }
 
 function pairStatus(
@@ -157,20 +163,18 @@ function possibilityCandidateIsExamUseful(candidate: EvaluatedConclusion): boole
 function selectPair(seed: number): SelectedPossibilityPairV1 {
   const random = createPrng(`SYL-PROTOTYPE-BANK-POSSIBILITY-001:${seed}:selection`);
   const target = TARGET_STATUSES[Math.abs(seed) % TARGET_STATUSES.length];
-  const groups = rotated(shuffle(GROUPS, random), seed);
+  const groups = rotated(shuffle(BANKING_GROUPS, random), seed);
   const possibilityFirst = Math.abs(seed) % 2 === 0;
 
   for (const group of groups) {
-    const scenarios = rotated(shuffle(scenariosForGroup(group), random), seed);
+    const scenarios = rotated(shuffle(bankingScenarios(group), random), seed);
     for (const scenario of scenarios) {
       const analysis = analyzeScenario(scenario);
       const candidates = shuffle(novelCandidates(analysis), random);
       const possibilities = candidates.filter(possibilityCandidateIsExamUseful);
-      const definites = candidates.filter((candidate) =>
-        !possibilities.some((entry) => conclusionSemanticKey(entry) === conclusionSemanticKey(candidate)));
 
       for (const possibility of possibilities) {
-        for (const definite of definites) {
+        for (const definite of candidates) {
           if (conclusionSemanticKey(possibility) === conclusionSemanticKey(definite)) continue;
           const first = possibilityFirst ? possibility : definite;
           const firstMode: BankingConclusionModeV1 = possibilityFirst ? "POSSIBILITY" : "DEFINITE";
@@ -217,7 +221,6 @@ function renderPossibilityConclusion(
   }
   if (conclusion.form === "SOME") return `ਕੁਝ ${subject} ਦੇ ${predicate} ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ।`;
   if (conclusion.form === "SOME_NOT") return `ਕੁਝ ${subject} ਦੇ ${predicate} ਨਾ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ।`;
-
   throw new Error(`Unsupported possibility form ${conclusion.form}.`);
 }
 
@@ -247,7 +250,7 @@ function buildOptions(
   locale: SylLocale,
   seed: number,
 ): readonly GeneratedSylOption[] {
-  const raw = PAIR_OPTIONS.map((entry, index) => ({
+  const raw: readonly GeneratedSylOption[] = PAIR_OPTIONS.map((entry, index) => ({
     optionId: `RAW-${index + 1}`,
     semanticValue: entry,
     text: pairSemanticLabel(entry, locale),
