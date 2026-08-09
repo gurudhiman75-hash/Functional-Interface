@@ -21,6 +21,7 @@ import {
 } from "./exam-readiness-additional-remediation.ts";
 import { buildFrequencyExamReadyProblemOverride } from "./exam-readiness-frequency-remediation.ts";
 import { applyCalendarEnglishStemSimplification } from "./english-stem-simplification.ts";
+import { finalizeCalendarEnglishStemSimplification } from "./english-stem-simplification-final.ts";
 
 const CLOSED_LIFECYCLE = {
   discoveryStatus: "EXECUTABLE_DISCOVERY" as const,
@@ -127,7 +128,9 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
   };
 
   const remediated = applyAdditionalExamReadinessRemediation(applyExamReadinessRemediation(pkg));
-  const simplified = applyCalendarEnglishStemSimplification(remediated);
+  const simplified = finalizeCalendarEnglishStemSimplification(
+    applyCalendarEnglishStemSimplification(remediated),
+  );
   const optionKeys = simplified.options.map((option) => semanticKey(option.semanticValue));
   if (simplified.options.length !== 4 || new Set(optionKeys).size !== 4) throw new Error(`${prototypeAuthority}: options are not semantically unique.`);
   if (new Set(simplified.options.map((option) => option.display)).size !== 4) throw new Error(`${prototypeAuthority}: option labels are not textually unique.`);
