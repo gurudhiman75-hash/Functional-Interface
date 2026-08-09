@@ -55,11 +55,12 @@ Implemented:
   - `MEN-002-QL-044..MEN-002-QL-095`;
   - merged PR #397.
 - `MEN-CP-009` — Spheres & Hemispheres
-  - frozen English implementation;
-  - 24 permanent QLs;
-  - `MEN-002-QL-096..MEN-002-QL-119`;
-  - 1,920 deterministic proof packages and 96 review records;
-  - merged PR #654 at `f191b3f6d5eb8f382050ded18304939851142555`.
+  - V2 frozen English implementation;
+  - 28 permanent QLs;
+  - `MEN-002-QL-096..MEN-002-QL-123`;
+  - all eight original solve-mode groups implemented or explicitly reassigned;
+  - 2,240 deterministic proof packages and 112 balanced review records;
+  - merged PR #656 at `5b9b0d00c0741b66fa83db1f7790e74a799274ef`.
 - `MEN-CP-011` — Surface Exposure, Open/Closed & Hollow Solids
   - implementation complete and activation locked;
   - 28 runtime families;
@@ -72,7 +73,7 @@ Not implemented beyond package/design ownership authority:
 - `MEN-CP-012` — Recasting, Melting & Volume Conservation
 - `MEN-CP-013` — Composite/Inscribed Solids, Tanks & Displacement
 
-Hollow spherical shells remain under CP-011, recasting remains under CP-012, and inscribed/composite/displacement states remain under CP-013. Their presence in ownership audits does not duplicate CP-009 or prove the remaining CPs.
+Hollow spherical shells remain implemented under CP-011. Number-of-smaller-spheres tasks remain under CP-012 because their decisive rule is volume conservation. Inscribed, composite and displacement states remain under CP-013. These ownership transfers avoid duplication without leaving an original CP-009 solve-mode group unresolved.
 
 ## Canonical matrix
 
@@ -86,7 +87,7 @@ Hollow spherical shells remain under CP-011, recasting remains under CP-012, and
 | MEN-CP-006 | Boundary Conservation, Scaling & Unit Transformation | Runtime proof complete; activation locked |
 | MEN-CP-007 | Cubes, Cuboids & Prisms | English complete and approved; inactive |
 | MEN-CP-008 | Cylinders & Cones | Frozen English implementation; inactive |
-| MEN-CP-009 | Spheres & Hemispheres | Frozen English implementation; 24 permanent QLs; inactive |
+| MEN-CP-009 | Spheres & Hemispheres | V2 frozen English implementation; 28 permanent QLs; inactive |
 | MEN-CP-010 | Pyramids & Frustums | Design only; not implemented |
 | MEN-CP-011 | Surface Exposure, Open/Closed & Hollow Solids | Implementation complete; activation locked |
 | MEN-CP-012 | Recasting, Melting & Volume Conservation | Design only; not implemented |
