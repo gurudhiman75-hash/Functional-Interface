@@ -59,6 +59,15 @@ function buildQuestion(
   }
 }
 
+function learnerFacingText(question: MalCp005ExamReadyQuestionV2): string {
+  return JSON.stringify({
+    stem: question.stem,
+    answer: question.answer,
+    options: question.options,
+    explanation: question.explanation,
+  });
+}
+
 export function generateMalCp005ExamReadyV2Question(
   prototypeId: MalCp005DiscoveryPrototypeId,
   requestedSeed = `mal-cp005-exam-ready-v2:${prototypeId}:default`,
@@ -76,6 +85,10 @@ export function generateMalCp005ExamReadyV2Question(
       );
       if (!question.validation.ok) {
         failures.push(question.validation.errors.join("; "));
+        continue;
+      }
+      if (/\b1 litres\b/iu.test(learnerFacingText(question))) {
+        failures.push("Learner-facing output contains the singular-unit defect '1 litres'.");
         continue;
       }
       const independent = verifyMalCp005Solution(
@@ -100,6 +113,9 @@ export function verifyMalCp005ExamReadyV2Question(
   question: MalCp005ExamReadyQuestionV2,
 ): { ok: boolean; errors: string[] } {
   const errors = [...question.validation.errors];
+  if (/\b1 litres\b/iu.test(learnerFacingText(question))) {
+    errors.push("Learner-facing output contains the singular-unit defect '1 litres'.");
+  }
   const independent = verifyMalCp005Solution(question.request, question.solution);
   errors.push(...independent.errors);
   return { ok: errors.length === 0, errors };
