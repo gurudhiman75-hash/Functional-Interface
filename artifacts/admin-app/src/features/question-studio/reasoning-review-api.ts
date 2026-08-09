@@ -12,30 +12,14 @@ export interface ReasoningReviewPackage {
   supportedLanguages: ReasoningReviewLanguage[];
   supportedDifficulties: ReasoningReviewDifficulty[];
   runtimeMode: string;
-  reviewOnly: true;
+  enabled: true;
   adminReviewVisible: true;
-  persistenceAllowed: false;
-  databaseWriteEnabled: false;
-  questionBankEligible: false;
-  mockTestEligible: false;
-  publiclyPublishable: false;
-}
-
-export interface ReasoningReviewPackagesResponse {
-  generationSystem: 'reasoning-v1';
-  activationMode: 'ADMIN_READ_ONLY';
-  packages: ReasoningReviewPackage[];
-  maxPreviewSize: number;
-  databaseWriteEnabled: false;
-  persistenceAllowed: false;
-}
-
-export interface ReasoningReviewOptionDetail {
-  label: string;
-  text: string;
-  studentExplanation: string;
-  isCorrect: boolean;
-  semanticKey: string;
+  persistenceAllowed: true;
+  databaseWriteEnabled: true;
+  questionBankEligible: true;
+  mockTestEligible: true;
+  publiclyPublishable: true;
+  releaseAuthority: string;
 }
 
 export interface ReasoningReviewQuestion {
@@ -50,7 +34,13 @@ export interface ReasoningReviewQuestion {
   sharedPrompt: string;
   stem: string;
   options: string[];
-  optionDetails: ReasoningReviewOptionDetail[];
+  optionDetails: Array<{
+    label: string;
+    text: string;
+    studentExplanation: string;
+    isCorrect: boolean;
+    semanticKey: string;
+  }>;
   correctIndex: number;
   answer: string;
   decodedStatements: string[];
@@ -59,40 +49,31 @@ export interface ReasoningReviewQuestion {
     conclusion: string;
     shortcut: string;
     commonTrap: string;
-    optionAnalysis: unknown;
     familyTree: unknown;
     diagramProof: unknown;
   };
   reasoningGraph: unknown;
-  traceability: Record<string, unknown>;
-  safety: {
-    reviewOnly: true;
-    questionStudioVisible: false;
-    persistenceAllowed: false;
-    questionBankEligible: false;
-    mockTestEligible: false;
-    publiclyPublishable: false;
-  };
-  validation: {
-    valid: boolean;
-    checks: Array<{ name: string; passed: boolean; message: string }>;
-  };
+  validation: { valid: boolean };
 }
 
-export interface ReasoningReviewPreviewResponse {
-  generationContext: Record<string, unknown>;
-  questions: ReasoningReviewQuestion[];
-  activation: {
-    mode: 'ADMIN_READ_ONLY';
-    databaseWriteEnabled: false;
-    persistenceAllowed: false;
-    questionBankEligible: false;
-    mockTestEligible: false;
-    publiclyPublishable: false;
-  };
+export interface ReasoningRunResult {
+  id: string | null;
+  publicCode: string | null;
+  status: string;
+  itemCount: number;
+  existingCount?: number;
 }
 
-export interface ReasoningReviewPreviewInput {
+export interface ReasoningProductionStatus {
+  packageId: string;
+  totalFrozenRecords: number;
+  generationItemCount: number;
+  approvedItemCount: number;
+  questionBankCount: number;
+  releaseAuthority: string;
+}
+
+export interface ReasoningReviewInput {
   packageId: string;
   language: ReasoningReviewLanguage;
   qlId?: string;
@@ -101,15 +82,7 @@ export interface ReasoningReviewPreviewInput {
   seed?: string;
 }
 
-export function getReasoningReviewPackages() {
-  return adminRequest<ReasoningReviewPackagesResponse>(
-    '/admin/question-studio/reasoning-review/packages',
-    undefined,
-    { fallbackMessage: 'Unable to load Reasoning review packages.' },
-  );
-}
-
-export function previewReasoningReview(input: ReasoningReviewPreviewInput) {
+function paramsFor(input: ReasoningReviewInput) {
   const params = new URLSearchParams({
     packageId: input.packageId,
     language: input.language,
@@ -118,10 +91,51 @@ export function previewReasoningReview(input: ReasoningReviewPreviewInput) {
   if (input.qlId) params.set('qlId', input.qlId);
   if (input.difficulty) params.set('difficulty', input.difficulty);
   if (input.seed?.trim()) params.set('seed', input.seed.trim());
+  return params;
+}
 
-  return adminRequest<ReasoningReviewPreviewResponse>(
-    `/admin/question-studio/reasoning-review/preview?${params.toString()}`,
+export function getReasoningReviewPackages() {
+  return adminRequest<{
+    generationSystem: 'reasoning-v1';
+    activationMode: 'PRODUCTION_REVIEW';
+    packages: ReasoningReviewPackage[];
+    maxBatchSize: number;
+    totalFrozenRecords: number;
+  }>(
+    '/admin/question-studio/reasoning/packages',
+    undefined,
+    { fallbackMessage: 'Unable to load Reasoning production packages.' },
+  );
+}
+
+export function previewReasoningReview(input: ReasoningReviewInput) {
+  return adminRequest<{ questions: ReasoningReviewQuestion[]; productionEligible: true }>(
+    `/admin/question-studio/reasoning/preview?${paramsFor(input).toString()}`,
     undefined,
     { fallbackMessage: 'Unable to preview frozen Reasoning questions.' },
+  );
+}
+
+export function createReasoningReviewRun(input: ReasoningReviewInput) {
+  return adminRequest<ReasoningRunResult>(
+    '/admin/question-studio/reasoning/runs',
+    { method: 'POST', body: JSON.stringify(input) },
+    { fallbackMessage: 'Unable to create the Reasoning review run.' },
+  );
+}
+
+export function importAllReasoningQuestions() {
+  return adminRequest<ReasoningRunResult>(
+    '/admin/question-studio/reasoning/import-all',
+    { method: 'POST', body: JSON.stringify({ packageId: 'REASONING_V1_BLR_001_CP_007' }) },
+    { fallbackMessage: 'Unable to import the complete BLR corpus.' },
+  );
+}
+
+export function getReasoningProductionStatus() {
+  return adminRequest<ReasoningProductionStatus>(
+    '/admin/question-studio/reasoning/status',
+    undefined,
+    { fallbackMessage: 'Unable to load BLR production status.' },
   );
 }
