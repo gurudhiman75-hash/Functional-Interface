@@ -2,9 +2,9 @@
 
 ## Status
 
-`AMBIGUITY_AND_PRESENTATION_REMEDIATION_IMPLEMENTED_AWAITING_EXACT_HEAD_CI`
+`AMBIGUITY_AND_PRESENTATION_REMEDIATION_PROOF_PASSED`
 
-The earlier deterministic proof was technically green but failed human ambiguity review. A first nuisance audit then passed while still missing coarse marker groupings and leaving irrelevant controls visible. Both earlier proof claims are superseded.
+The earlier deterministic proof was technically green but failed human ambiguity review. A first nuisance audit then passed while still missing coarse marker groupings and leaving irrelevant controls visible. Both earlier proof claims are superseded by this implementation.
 
 This remediation remains stacked on the approved FAN-001 visual-remediation head. It is prototype evidence only and allocates no permanent QLs.
 
@@ -15,10 +15,12 @@ This remediation remains stacked on the approved FAN-001 visual-remediation head
 - rejects unintended 3-to-1 distributions before rendering;
 - uses property-specific presentation profiles, hiding irrelevant marker, arrow, shading and count controls;
 - renders count quantities as detached dots rather than minus/equality-like bars;
-- fixes arrow/segment alignment through explicit `UP→TOP`, `RIGHT→RIGHT`, `DOWN→BOTTOM`, `LEFT→LEFT` mapping;
+- maps arrow direction to diagram side explicitly through `UP→TOP`, `RIGHT→RIGHT`, `DOWN→BOTTOM`, `LEFT→LEFT`;
+- scales inner figures to 70% only inside triangular FCL containers, preventing boundary crossings without changing the FAN renderer;
 - removes the binary shading/parity rule and arbitrary shape cycle;
 - replaces them with inferable polygon-side relations;
-- evaluates A, B, C and D explicitly in every learner explanation.
+- evaluates A, B, C and D explicitly in every learner explanation;
+- uses dot terminology consistently in student-facing explanations.
 
 ## Remediated proof corpus
 
@@ -49,9 +51,41 @@ UNIQUE_WITHIN_APPROVED_PROPERTY_AUTHORITY
 NO_UNINTENDED_VISIBLE_3_TO_1_NUISANCE_FEATURE
 ```
 
-The authority covers raw values, top/bottom and left/right marker halves, marker diagonals, arrow and segment axes, orientation axes, rotation-sensitive shape families, raw pairs, shape and orientation equality, marker/arrow and marker/segment relations, arrow/segment alignment and opposition, count parity and bands, polygon presence, side parity, side comparison, signed side difference and total-side parity.
+The authority covers raw values, top/bottom and left/right marker halves, marker diagonals, arrow and dot-group axes, orientation axes, rotation-sensitive shape families, raw pairs, shape and orientation equality, marker/arrow and marker/dot relations, arrow/dot alignment and opposition, count parity and bands, polygon presence, side parity, side comparison, signed side difference and total-side parity.
 
 Negative fixtures reproduce the former exact-marker and diagonal shortcuts and prove they are rejected when the marker is visible.
+
+## Validated implementation proof
+
+```text
+Head:        8d09f54f847df976f1c9075bb62de12cce03ee93
+Workflow:    Validate SPA-FND-001 FCL-001 proof
+Run:         31303622135 — PASS
+Artifact:    spa-fcl-001-editorial-review
+Artifact ID: 9035256545
+Digest:      sha256:8ea5dcb35b29a4ae52bd77725f374af76340451983abd9d20cb64641b31f97f5
+Status:      PASS_SPA_FND_001_FCL_001_AMBIGUITY_PRESENTATION_REMEDIATION
+```
+
+Passed proof layers:
+
+```text
+PASS_SPA_FND_001_FOUNDATION_RUNTIME
+PASS_SPA_FND_001_MIRROR_WATER_PROOF
+PASS_SPA_FND_001_WAVE_03_PERCEPTUAL_REMEDIATION
+PASS_SPA_FND_001_FAN_001_VISUAL_REMEDIATION
+PASS_SPA_FND_001_FCL_001_AMBIGUITY_PRESENTATION_REMEDIATION
+```
+
+## Manual visual review
+
+The complete eight-question artifact was inspected at desktop scale and at a 180-pixel mobile-like option size. The review confirmed:
+
+- no inner figure crosses its outer boundary;
+- dots remain legible and separate from mathematical operator symbols;
+- marker, arrow and dot-group relations remain visible at mobile scale;
+- each intended odd figure is supported without a simpler competing 3-to-1 visible pattern;
+- all option-by-option explanations match the rendered figures.
 
 ## Lifecycle lock
 
@@ -64,8 +98,4 @@ Public publication:           false
 API/database schema changes:  none
 ```
 
-## Required exact-head status
-
-```text
-PASS_SPA_FND_001_FCL_001_AMBIGUITY_PRESENTATION_REMEDIATION
-```
+This proof does not authorize permanent checkpoint allocation, Question Studio activation, localisation rollout, merge or release.
