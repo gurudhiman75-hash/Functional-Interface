@@ -68,6 +68,7 @@ const bannedHindiGrammar = [
   /दिए ब्याज जोड़ने का नियम से/gu,
   /प्रत्येक संभावित ब्याज जोड़ने का क्रम से/gu,
   /ब्याज-आवृत्ति/gu,
+  /दर पहले से =/gu,
 ] as const;
 
 const bannedPunjabiGrammar = [
@@ -97,6 +98,8 @@ const bannedPunjabiGrammar = [
   /ਸਾਰੀਆਂ ਮਿਸ਼ਰਤ ਵਿਆਜਆਂ/gu,
   /ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ ਨਾਲ/gu,
   /ਦੇ ਸਧਾਰਣ ਵਿਆਜ ਬਾਅਦ/gu,
+  /ਦਰ ਪਹਿਲਾਂ ਹੀ =/gu,
+  /ਵਾਧਾ ਦਰ ਕਿੰਨਾ/gu,
 ] as const;
 
 function normalizeStem(stem: string): string {
@@ -108,11 +111,31 @@ function normalizeStem(stem: string): string {
     .trim();
 }
 
+function expectedCreditInterval(locale: IntCp004LocalizedLocale, frequency: number): string {
+  if (locale === "hi-IN") {
+    switch (frequency) {
+      case 1: return "हर वर्ष";
+      case 2: return "हर छमाही";
+      case 4: return "हर तिमाही";
+      case 12: return "हर महीने";
+      default: return "";
+    }
+  }
+  switch (frequency) {
+    case 1: return "ਹਰ ਸਾਲ";
+    case 2: return "ਹਰ ਛਿਮਾਹੀ";
+    case 4: return "ਹਰ ਤਿਮਾਹੀ";
+    case 12: return "ਹਰ ਮਹੀਨੇ";
+    default: return "";
+  }
+}
+
 let questionCases = 0;
 let optionChecks = 0;
 let explanationChecks = 0;
 let learnerIdLeakChecks = 0;
 let nativeStemChecks = 0;
+let directPeriodStemChecks = 0;
 let grammarChecks = 0;
 let feedbackSpecificityChecks = 0;
 let effectiveRateEquationChecks = 0;
@@ -155,6 +178,13 @@ for (const locale of locales) {
       assert(!question.stem.includes("\n- "), `${qlId}/${seed}/${locale}: native stem still exposes a generated fact list.`);
       assert(question.stem.trim().endsWith("?") || question.stem.trim().endsWith("।"), `${qlId}/${seed}/${locale}: stem has no natural terminal punctuation.`);
       nativeStemChecks += 4;
+
+      if (qlId === "INT-QL-073" || qlId === "INT-QL-074") {
+        const expectedInterval = expectedCreditInterval(locale, question.mathematicalState.frequency);
+        assert(expectedInterval.length > 0 && question.stem.includes(expectedInterval), `${qlId}/${seed}/${locale}: direct-period-rate stem omits the actual crediting interval.`);
+        assert(locale === "hi-IN" ? !question.stem.includes("हर बार ब्याज") : !question.stem.includes("ਹਰ ਵਾਰ ਵਿਆਜ"), `${qlId}/${seed}/${locale}: ambiguous every-time wording remains in a direct-period-rate stem.`);
+        directPeriodStemChecks += 2;
+      }
 
       const grammarPatterns = locale === "hi-IN" ? bannedHindiGrammar : bannedPunjabiGrammar;
       for (const pattern of grammarPatterns) {
@@ -233,6 +263,7 @@ const summary = Object.freeze({
   explanationChecks,
   learnerIdLeakChecks,
   nativeStemChecks,
+  directPeriodStemChecks,
   grammarChecks,
   feedbackSpecificityChecks,
   effectiveRateEquationChecks,
