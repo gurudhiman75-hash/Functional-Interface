@@ -1,5 +1,6 @@
 import type { ClockTaskId } from "./catalog";
 import type {
+  ClockAnswerKind,
   ClockLocale,
   ClockQuestionExplanation,
   ClockScenario,
@@ -14,15 +15,27 @@ export interface ClockDistractorCandidate {
   reason: string;
 }
 
+export interface ClockContractEvidence {
+  expectedAnswerKind: ClockAnswerKind;
+  oracleName: string;
+  visibleStemTokens: readonly string[];
+}
+
 export interface SolvedClockPrototype {
   taskId: ClockTaskId;
   stem: string;
   scenario: ClockScenario;
   answer: ClockSemanticAnswer;
+  /**
+   * Independently recomputed semantic answer. When absent, the item remains a
+   * structural discovery candidate and must not claim dual-answer proof.
+   */
+  verifierAnswer?: ClockSemanticAnswer;
   distractors: readonly ClockDistractorCandidate[];
   explanation: ClockQuestionExplanation;
   canonicalTrace: readonly string[];
   verifierTrace: readonly string[];
+  contractEvidence?: ClockContractEvidence;
   solveTraceExtras?: Partial<Omit<ClockSolveTrace,
     "canonicalAnswerKey" | "verifierAnswerKey" | "agreement" |
     "canonicalTrace" | "verifierTrace"
