@@ -31,7 +31,7 @@ const lines = [
   "",
   "## Verdict",
   "",
-  "Mensuration is partially implemented, not complete. Nine of thirteen canonical problems have executable English/runtime authorities. Four remain design-only. No canonical problem is activated for Question Studio, Question Bank, tests or public publication.",
+  "Mensuration is partially implemented, not complete. Ten of thirteen canonical problems have executable English/runtime authorities. Three remain design-only. No canonical problem is activated for Question Studio, Question Bank, tests or public publication.",
   "",
   "```text",
   `Authority:                         ${audit.authority}`,
@@ -59,11 +59,7 @@ for (const row of MENSURATION_CANONICAL_PROBLEM_STATUS) {
   );
 }
 
-lines.push(
-  "",
-  "## Remaining implementation order",
-  "",
-);
+lines.push("", "## Remaining implementation order", "");
 for (const cpId of audit.nextImplementationOrder) {
   const row = MENSURATION_CANONICAL_PROBLEM_STATUS.find(
     (candidate) => candidate.cpId === cpId,
