@@ -8,6 +8,12 @@ import type {
 export const INT_CP004_LOCALIZED_HUMAN_EDITORIAL_V7_VERSION =
   "INT-CP-004-HI-PA-HUMAN-EDITORIAL-v7" as const;
 
+function removeRedundantDivisionByOne(text: string): string {
+  return text
+    .replace(/([\d.]+%)\s*÷\s*1\s*=\s*([\d.]+%)/gu, "$2")
+    .replace(/([\d.]+%)\s*÷\s*1/gu, "$1");
+}
+
 function humanizeHindiStem(text: string): string {
   return text
     .replace(/^एक राशि (₹[\d,.]+) है। उस पर /u, "$1 पर ")
@@ -88,13 +94,13 @@ function humanizeHindiFeedback(text: string): string {
     },
   );
 
-  return result
+  return removeRedundantDivisionByOne(result
     .replace(/कुल (\d+) तिमाहियाँ लेने पर/gu, "$1 तिमाहियों के लिए गणना करने पर")
     .replace(/कुल (\d+) छमाहियाँ लेने पर/gu, "$1 छमाहियों के लिए गणना करने पर")
     .replace(/कुल (\d+) महीने लेने पर/gu, "$1 महीनों के लिए गणना करने पर")
     .replace(/कुल (\d+) वर्ष लेने पर/gu, "$1 वर्षों के लिए गणना करने पर")
     .replace(/इस दर को प्रश्न में दिए ब्याज जोड़ने का नियम से जाँचने पर/gu, "इस दर से प्रश्न के अनुसार ब्याज जोड़ने पर")
-    .replace(/पूरे चक्रवृद्धि गुणक हटाइए/gu, "पूरे चक्रवृद्धि गुणक से भाग दीजिए");
+    .replace(/पूरे चक्रवृद्धि गुणक हटाइए/gu, "पूरे चक्रवृद्धि गुणक से भाग दीजिए"));
 }
 
 function punjabiPeriod(raw: string): Readonly<{ oblique: string }> {
@@ -125,13 +131,13 @@ function humanizePunjabiFeedback(text: string): string {
     },
   );
 
-  return result
+  return removeRedundantDivisionByOne(result
     .replace(/ਕੁੱਲ (\d+) ਤਿਮਾਹੀਆਂ ਲੈਣ ਉੱਤੇ/gu, "$1 ਤਿਮਾਹੀਆਂ ਲਈ ਗਿਣਤੀ ਕਰਨ ਉੱਤੇ")
     .replace(/ਕੁੱਲ (\d+) ਛਿਮਾਹੀਆਂ ਲੈਣ ਉੱਤੇ/gu, "$1 ਛਿਮਾਹੀਆਂ ਲਈ ਗਿਣਤੀ ਕਰਨ ਉੱਤੇ")
     .replace(/ਕੁੱਲ (\d+) ਮਹੀਨੇ ਲੈਣ ਉੱਤੇ/gu, "$1 ਮਹੀਨਿਆਂ ਲਈ ਗਿਣਤੀ ਕਰਨ ਉੱਤੇ")
     .replace(/ਕੁੱਲ (\d+) ਸਾਲ ਲੈਣ ਉੱਤੇ/gu, "$1 ਸਾਲਾਂ ਲਈ ਗਿਣਤੀ ਕਰਨ ਉੱਤੇ")
     .replace(/ਇਸ ਦਰ ਨੂੰ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਵਿਆਜ ਜੋੜਨ ਦਾ ਨਿਯਮ ਨਾਲ ਜਾਂਚਣ ਉੱਤੇ/gu, "ਇਸ ਦਰ ਨਾਲ ਪ੍ਰਸ਼ਨ ਅਨੁਸਾਰ ਵਿਆਜ ਜੋੜਨ ਉੱਤੇ")
-    .replace(/ਪੂਰਾ ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ ਹਟਾਓ/gu, "ਪੂਰੇ ਵਿਆਜ ਗੁਣਕ ਨਾਲ ਭਾਗ ਦਿਓ");
+    .replace(/ਪੂਰਾ ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ ਹਟਾਓ/gu, "ਪੂਰੇ ਵਿਆਜ ਗੁਣਕ ਨਾਲ ਭਾਗ ਦਿਓ"));
 }
 
 export function humanizeCp004LocalizedOptionV7(
@@ -148,17 +154,17 @@ export function humanizeCp004LocalizedOptionV7(
 }
 
 function humanizeHindiExplanationText(text: string): string {
-  return text
+  return removeRedundantDivisionByOne(text
     .replace(/प्रत्येक संभावित ब्याज जोड़ने का क्रम से/gu, "ब्याज जोड़ने के प्रत्येक संभावित अंतराल के अनुसार")
     .replace(/ब्याज-आवृत्ति/gu, "ब्याज जोड़ने का अंतराल")
-    .replace(/इस दर को प्रश्न में दिए ब्याज जोड़ने का नियम से/gu, "इस दर से प्रश्न के अनुसार ब्याज जोड़ने पर");
+    .replace(/इस दर को प्रश्न में दिए ब्याज जोड़ने का नियम से/gu, "इस दर से प्रश्न के अनुसार ब्याज जोड़ने पर"));
 }
 
 function humanizePunjabiExplanationText(text: string): string {
-  return text
+  return removeRedundantDivisionByOne(text
     .replace(/ਇੱਕ ਸਾਲ ਦੇ ਅੰਦਰ ਹੋਈਆਂ ਸਾਰੀਆਂ ਮਿਸ਼ਰਤ ਵਿਆਜਆਂ ਸ਼ਾਮਲ ਕਰੋ/gu, "ਇੱਕ ਸਾਲ ਦੇ ਅੰਦਰ ਵਿਆਜ ਜੋੜਨ ਦੇ ਸਾਰੇ ਪੜਾਅ ਸ਼ਾਮਲ ਕਰੋ")
     .replace(/ਪੂਰੇ ਇੱਕ ਸਾਲ ਦੇ ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ ਨਾਲ/gu, "ਪੂਰੇ ਇੱਕ ਸਾਲ ਦੇ ਵਿਆਜ ਗੁਣਕ ਨਾਲ")
-    .replace(/ਇਸ ਦਰ ਨੂੰ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਵਿਆਜ ਜੋੜਨ ਦਾ ਨਿਯਮ ਨਾਲ/gu, "ਇਸ ਦਰ ਨਾਲ ਪ੍ਰਸ਼ਨ ਅਨੁਸਾਰ ਵਿਆਜ ਜੋੜਨ ਉੱਤੇ");
+    .replace(/ਇਸ ਦਰ ਨੂੰ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਵਿਆਜ ਜੋੜਨ ਦਾ ਨਿਯਮ ਨਾਲ/gu, "ਇਸ ਦਰ ਨਾਲ ਪ੍ਰਸ਼ਨ ਅਨੁਸਾਰ ਵਿਆਜ ਜੋੜਨ ਉੱਤੇ"));
 }
 
 export function humanizeCp004LocalizedExplanationV7(
@@ -201,8 +207,8 @@ export function humanizeCp004LocalizedExplanationV7(
 
   return Object.freeze({
     whatAsked: humanize(explanation.whatAsked),
-    steps: Object.freeze(steps),
+    steps: Object.freeze(steps.map((step) => removeRedundantDivisionByOne(step))),
     finalAnswer: humanize(explanation.finalAnswer),
-    commonMistake,
+    commonMistake: removeRedundantDivisionByOne(commonMistake),
   });
 }
