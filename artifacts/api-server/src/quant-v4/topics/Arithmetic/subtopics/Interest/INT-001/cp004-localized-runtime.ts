@@ -16,6 +16,11 @@ import {
   remediateCp004LocalizedExplanationV4,
   remediateCp004LocalizedOptionsV4,
 } from "./cp004-localized-editorial-v4";
+import {
+  humanizeCp004LocalizedExplanationV7,
+  humanizeCp004LocalizedOptionV7,
+  humanizeCp004LocalizedStemV7,
+} from "./cp004-localized-human-editorial-v7";
 import { renderCp004LocalizedNativeStemV6 } from "./cp004-localized-native-stems-v6";
 import {
   INT_CP004_PRESENTATION_WAVE1_QL_IDS,
@@ -190,9 +195,10 @@ function localizedStem(
   locale: IntCp004LocalizedLocale,
 ): string {
   // The old presentation owners stay executable for parity regression, but
-  // learner-facing wording is owned exclusively by the native v6 stem layer.
+  // learner-facing wording is owned by the native stem and human-editorial layers.
   legacyLocalizedStem(source, locale);
-  return polishLocalizedText(locale, renderCp004LocalizedNativeStemV6(source, locale));
+  const nativeStem = polishLocalizedText(locale, renderCp004LocalizedNativeStemV6(source, locale));
+  return humanizeCp004LocalizedStemV7(source, locale, nativeStem);
 }
 
 function cleanExplanation(
@@ -230,18 +236,26 @@ export function localizeIntCp004EnglishFrozenQuestion(
   const baseOptions = localizeCp004Options(source, locale);
   const editorialV3Options = remediateCp004LocalizedOptions(baseOptions, locale);
   const editorialV4Options = remediateCp004LocalizedOptionsV4(source, editorialV3Options, locale);
-  const options = Object.freeze(editorialV4Options.map((option) => Object.freeze({
-    ...option,
-    feedback: polishLocalizedText(locale, option.feedback),
-  })));
+  const options = Object.freeze(editorialV4Options.map((option) => humanizeCp004LocalizedOptionV7(
+    source,
+    locale,
+    Object.freeze({
+      ...option,
+      feedback: polishLocalizedText(locale, option.feedback),
+    }),
+  )));
   const correctAnswer = options[source.correctIndex]?.text;
   if (!correctAnswer) throw new Error(`${source.qlId}/${source.seed}/${locale}: localized correct answer is missing.`);
   const baseExplanation = localizeCp004Explanation(source, locale);
   const editorialV3Explanation = remediateCp004LocalizedExplanationV3(source, locale, baseExplanation);
-  const explanation = cleanExplanation(
+  const explanation = humanizeCp004LocalizedExplanationV7(
     source,
-    remediateCp004LocalizedExplanationV4(source, locale, editorialV3Explanation),
     locale,
+    cleanExplanation(
+      source,
+      remediateCp004LocalizedExplanationV4(source, locale, editorialV3Explanation),
+      locale,
+    ),
   );
 
   const lifecycle = {
