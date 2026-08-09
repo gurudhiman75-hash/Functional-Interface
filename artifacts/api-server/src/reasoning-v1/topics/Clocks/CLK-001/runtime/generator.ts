@@ -4,6 +4,7 @@ import {
   checkpointForClockTask,
   type ClockTaskId,
 } from "./catalog";
+import { solveDirectClockFamily } from "./families/direct";
 import { solveEventFamily } from "./families/events";
 import { solveFaultyClockFamily } from "./families/faulty";
 import { solveRemainingPrototype } from "./families/remaining";
@@ -33,6 +34,7 @@ function solvePrototype(input: {
   const solved =
     solveEventFamily(input) ??
     solveFaultyClockFamily(input) ??
+    solveDirectClockFamily(input) ??
     solveMotionOrAnglePrototype(input) ??
     solveStrikeFamily(input) ??
     solveRemainingPrototype(input);
