@@ -216,11 +216,11 @@ function renderPossibilityConclusion(
     if (conclusion.form === "SOME_NOT") return `Some ${subject} not being ${predicate} is a possibility.`;
   }
   if (locale === "hi-IN") {
-    if (conclusion.form === "SOME") return `कुछ ${subject} के ${predicate} होने की संभावना है।`;
-    if (conclusion.form === "SOME_NOT") return `कुछ ${subject} के ${predicate} न होने की संभावना है।`;
+    if (conclusion.form === "SOME") return `यह संभव है कि कुछ ${subject} ${predicate} हों।`;
+    if (conclusion.form === "SOME_NOT") return `यह संभव है कि कुछ ${subject} ${predicate} न हों।`;
   }
-  if (conclusion.form === "SOME") return `ਕੁਝ ${subject} ਦੇ ${predicate} ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ।`;
-  if (conclusion.form === "SOME_NOT") return `ਕੁਝ ${subject} ਦੇ ${predicate} ਨਾ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ।`;
+  if (conclusion.form === "SOME") return `ਇਹ ਸੰਭਵ ਹੈ ਕਿ ਕੁਝ ${subject} ${predicate} ਹੋਣ।`;
+  if (conclusion.form === "SOME_NOT") return `ਇਹ ਸੰਭਵ ਹੈ ਕਿ ਕੁਝ ${subject} ${predicate} ਨਾ ਹੋਣ।`;
   throw new Error(`Unsupported possibility form ${conclusion.form}.`);
 }
 
@@ -269,31 +269,43 @@ function explanationLine(
   if (locale === "en-IN") {
     if (conclusion.mode === "POSSIBILITY") {
       return conclusion.follows
-        ? `${label}: The possibility follows because at least one valid model makes the statement true.`
-        : `${label}: The possibility does not follow because the statement is contradicted in every valid model.`;
+        ? `${label}: This possibility follows because at least one valid arrangement allowed by the statements makes it true.`
+        : `${label}: This possibility does not follow because every valid arrangement allowed by the statements rules it out.`;
     }
-    return conclusion.follows
-      ? `${label}: The ordinary conclusion definitely follows in every valid model.`
-      : `${label}: The ordinary conclusion is not true in every valid model, so it does not follow.`;
+    if (conclusion.classification === "ENTAILED") {
+      return `${label}: This ordinary conclusion follows because the statements make it true in every valid arrangement.`;
+    }
+    if (conclusion.classification === "CONTRADICTED") {
+      return `${label}: This ordinary conclusion does not follow because the statements rule it out.`;
+    }
+    return `${label}: This ordinary conclusion does not follow because it is not guaranteed; at least one valid arrangement makes it false.`;
   }
   if (locale === "hi-IN") {
     if (conclusion.mode === "POSSIBILITY") {
       return conclusion.follows
-        ? `${label}: संभावना अनुसरण करती है क्योंकि कम-से-कम एक वैध स्थिति में यह कथन सत्य है।`
-        : `${label}: संभावना अनुसरण नहीं करती क्योंकि हर वैध स्थिति में यह कथन असंगत है।`;
+        ? `${label}: यह संभावना अनुसरण करती है क्योंकि कथनों के अनुरूप कम-से-कम एक वैध व्यवस्था में यह संबंध संभव है।`
+        : `${label}: यह संभावना अनुसरण नहीं करती क्योंकि कथनों के अनुरूप हर वैध व्यवस्था इस संबंध को असंभव बनाती है।`;
     }
-    return conclusion.follows
-      ? `${label}: सामान्य निष्कर्ष हर वैध स्थिति में सत्य है, इसलिए यह अनुसरण करता है।`
-      : `${label}: सामान्य निष्कर्ष हर वैध स्थिति में सत्य नहीं है, इसलिए यह अनुसरण नहीं करता।`;
+    if (conclusion.classification === "ENTAILED") {
+      return `${label}: यह सामान्य निष्कर्ष अनुसरण करता है क्योंकि यह हर वैध व्यवस्था में सत्य है।`;
+    }
+    if (conclusion.classification === "CONTRADICTED") {
+      return `${label}: यह सामान्य निष्कर्ष अनुसरण नहीं करता क्योंकि कथन इस संबंध को असंभव बनाते हैं।`;
+    }
+    return `${label}: यह सामान्य निष्कर्ष अनुसरण नहीं करता क्योंकि यह निश्चित नहीं है; कम-से-कम एक वैध व्यवस्था में यह असत्य है।`;
   }
   if (conclusion.mode === "POSSIBILITY") {
     return conclusion.follows
-      ? `${label}: ਸੰਭਾਵਨਾ ਸਹੀ ਹੈ ਕਿਉਂਕਿ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵੈਧ ਸਥਿਤੀ ਵਿੱਚ ਇਹ ਕਥਨ ਸੱਚ ਹੈ।`
-      : `${label}: ਸੰਭਾਵਨਾ ਸਹੀ ਨਹੀਂ ਹੈ ਕਿਉਂਕਿ ਹਰ ਵੈਧ ਸਥਿਤੀ ਵਿੱਚ ਇਹ ਕਥਨ ਵਿਰੋਧੀ ਹੈ।`;
+      ? `${label}: ਇਹ ਸੰਭਾਵਨਾ ਸਹੀ ਹੈ ਕਿਉਂਕਿ ਕਥਨਾਂ ਅਨੁਸਾਰ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵੈਧ ਬਣਤਰ ਵਿੱਚ ਇਹ ਸੰਬੰਧ ਸੰਭਵ ਹੈ।`
+      : `${label}: ਇਹ ਸੰਭਾਵਨਾ ਸਹੀ ਨਹੀਂ ਹੈ ਕਿਉਂਕਿ ਕਥਨਾਂ ਅਨੁਸਾਰ ਹਰ ਵੈਧ ਬਣਤਰ ਇਸ ਸੰਬੰਧ ਨੂੰ ਅਸੰਭਵ ਬਣਾਉਂਦੀ ਹੈ।`;
   }
-  return conclusion.follows
-    ? `${label}: ਆਮ ਨਤੀਜਾ ਹਰ ਵੈਧ ਸਥਿਤੀ ਵਿੱਚ ਸੱਚ ਹੈ, ਇਸ ਲਈ ਇਹ ਸਹੀ ਹੈ।`
-    : `${label}: ਆਮ ਨਤੀਜਾ ਹਰ ਵੈਧ ਸਥਿਤੀ ਵਿੱਚ ਸੱਚ ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਇਹ ਸਹੀ ਨਹੀਂ ਹੈ।`;
+  if (conclusion.classification === "ENTAILED") {
+    return `${label}: ਇਹ ਆਮ ਨਤੀਜਾ ਸਹੀ ਹੈ ਕਿਉਂਕਿ ਇਹ ਹਰ ਵੈਧ ਬਣਤਰ ਵਿੱਚ ਸੱਚ ਹੈ।`;
+  }
+  if (conclusion.classification === "CONTRADICTED") {
+    return `${label}: ਇਹ ਆਮ ਨਤੀਜਾ ਸਹੀ ਨਹੀਂ ਹੈ ਕਿਉਂਕਿ ਕਥਨ ਇਸ ਸੰਬੰਧ ਨੂੰ ਅਸੰਭਵ ਬਣਾਉਂਦੇ ਹਨ।`;
+  }
+  return `${label}: ਇਹ ਆਮ ਨਤੀਜਾ ਸਹੀ ਨਹੀਂ ਹੈ ਕਿਉਂਕਿ ਇਹ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੈ; ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵੈਧ ਬਣਤਰ ਵਿੱਚ ਇਹ ਝੂਠ ਹੈ।`;
 }
 
 export function generateBankingPossibilityShellV1(
