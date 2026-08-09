@@ -12,6 +12,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/source-question-ledger-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/ql-archetype-consolidation-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/ql-archetype-consolidation-v2.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/difficulty-calibration-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/profile-plan-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/source-profile-closeout-v1-audit.test.ts
@@ -19,12 +20,14 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/ql-archetype-consolidation-v1-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/profile-plan-v1-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/difficulty-calibration-v1-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/freeze-readiness-v1-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/ql-registry.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/scenarios.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-SOURCE-PROFILE-AND-QL-CLOSEOUT-V1.md
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-PUNJAB-SOURCE-LEDGER-CP008B.md
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-QL-CONSOLIDATION-CP008C.md
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-PROFILE-PLANNER-CP008D.md
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-FREEZE-READINESS-CP008E.md
       - .github/workflows/reasoning-syl-001-source-profile-closeout.yml
   workflow_dispatch:
 
@@ -119,16 +122,30 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-difficulty-calibration-v1-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-difficulty-calibration-v1-audit.log
 
+      - name: Bundle freeze-readiness audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/freeze-readiness-v1-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-freeze-readiness-v1-audit.test.mjs
+
+      - name: Run freeze-readiness audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v1-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v1-audit.log
+
       - name: Upload closeout evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: syl-001-source-profile-closeout-v4
+          name: syl-001-source-profile-closeout-v5
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-source-profile-closeout-v1-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-source-question-ledger-v1-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-ql-archetype-consolidation-v1-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-profile-plan-v1-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-difficulty-calibration-v1-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v1-audit.log
           if-no-files-found: error
           retention-days: 30
