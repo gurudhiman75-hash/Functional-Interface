@@ -134,8 +134,10 @@ assert(CAL_001_RELEASE_LOCK.nextAvailableChapterQlId === "CAL-QL-037", "Next ava
 assert(CAL_001_RELEASE_LOCK.englishEditorialReviewApproved, "English editorial approval not recorded.");
 assert(CAL_001_RELEASE_LOCK.englishIdentityFrozen, "English identity freeze not recorded.");
 assert(CAL_001_RELEASE_LOCK.finalSourceAuditPassed, "Final source audit not recorded as passed.");
-assert(!CAL_001_RELEASE_LOCK.hindiHumanFreeze && !CAL_001_RELEASE_LOCK.punjabiHumanFreeze && !CAL_001_RELEASE_LOCK.multilingualParityFreeze, "Unapproved localisation freeze opened.");
-assert(!CAL_001_RELEASE_LOCK.questionStudioAllowed && !CAL_001_RELEASE_LOCK.questionBankWriteAllowed && !CAL_001_RELEASE_LOCK.mockTestAllowed && !CAL_001_RELEASE_LOCK.publicPublicationAllowed, "Release surface opened during identity freeze.");
+assert(CAL_001_RELEASE_LOCK.hindiHumanFreeze, "Hindi human freeze not recorded.");
+assert(CAL_001_RELEASE_LOCK.punjabiHumanFreeze, "Punjabi human freeze not recorded.");
+assert(CAL_001_RELEASE_LOCK.multilingualParityFreeze, "Multilingual parity freeze not recorded.");
+assert(!CAL_001_RELEASE_LOCK.questionStudioAllowed && !CAL_001_RELEASE_LOCK.questionBankWriteAllowed && !CAL_001_RELEASE_LOCK.mockTestAllowed && !CAL_001_RELEASE_LOCK.publicPublicationAllowed, "Release surface opened during multilingual freeze.");
 
 console.log(JSON.stringify({
   status: "PASS_CAL_001_FINAL_DISCOVERY_FREEZE",
@@ -146,6 +148,9 @@ console.log(JSON.stringify({
   sourceGapPackagesChecked: generated,
   curatedSourceGapQuestionsChecked: CALENDAR_SOURCE_GAP_PROTOTYPES.length * 5,
   finalSourceAuditPassed: FINAL_CALENDAR_SOURCE_AUDIT_GATE.passed,
+  hindiHumanFreeze: CAL_001_RELEASE_LOCK.hindiHumanFreeze,
+  punjabiHumanFreeze: CAL_001_RELEASE_LOCK.punjabiHumanFreeze,
+  multilingualParityFreeze: CAL_001_RELEASE_LOCK.multilingualParityFreeze,
   questionStudioAllowed: false,
   questionBankWriteAllowed: false,
   mockTestAllowed: false,
