@@ -145,6 +145,12 @@ const remediatedCheckpoints = new Set([
   "CLK-CP-006",
   "CLK-CP-007",
   "CLK-CP-008",
+  "CLK-CP-009",
+  "CLK-CP-010",
+  "CLK-CP-011",
+  "CLK-CP-012",
+  "CLK-CP-013",
+  "CLK-CP-014",
 ]);
 const answerPositions = [0, 0, 0, 0];
 const fingerprints = new Set<string>();
@@ -153,6 +159,8 @@ const checkpointCoverage = new Set<string>();
 let generatedQuestions = 0;
 let dualAnswerOracleQuestions = 0;
 let structuralDiscoveryQuestions = 0;
+let questionsWithPromptMedia = 0;
+let questionsWithOptionMedia = 0;
 
 for (let taskIndex = 0; taskIndex < CLOCK_TASK_CATALOG.length; taskIndex += 1) {
   const [taskId, expectedCheckpoint] = CLOCK_TASK_CATALOG[taskIndex]!;
@@ -190,6 +198,29 @@ for (let taskIndex = 0; taskIndex < CLOCK_TASK_CATALOG.length; taskIndex += 1) {
     assert.equal(question.lifecycle.publiclyPublishable, false);
     assert.equal(question.lifecycle.localeStatus, "ENGLISH_DISCOVERY__LOCALISATION_BLOCKED_UNTIL_ENGLISH_FREEZE");
     assert(question.options.every((option) => option.reasonCode.length > 0 && option.reason.length > 0));
+    assert.doesNotMatch(question.stem, /<svg|<script|foreignObject|javascript:/i);
+
+    if (question.media?.prompt) {
+      assert.equal(question.media.prompt.role, "PROMPT_DIAGRAM");
+      assert.equal(question.media.prompt.mimeType, "image/svg+xml");
+      assert.match(question.media.prompt.svg, /^<svg /);
+      assert.doesNotMatch(question.media.prompt.svg, /<script|foreignObject|javascript:|on\w+\s*=/i);
+      assert(question.media.prompt.ariaLabel.length > 0);
+      assert.doesNotMatch(question.media.prompt.ariaLabel, /correct answer|shows \d{1,2}:\d{2}/i);
+      questionsWithPromptMedia += 1;
+    }
+    if (question.media?.options) {
+      assert.equal(question.media.options.length, 4);
+      assert.equal(new Set(question.media.options.map((entry) => entry.semanticKey)).size, 4);
+      for (const entry of question.media.options) {
+        assert.equal(entry.asset.role, "OPTION_DIAGRAM");
+        assert.equal(entry.asset.semanticKey, entry.semanticKey);
+        assert.match(entry.asset.svg, /^<svg /);
+        assert.doesNotMatch(entry.asset.svg, /<script|foreignObject|javascript:|on\w+\s*=/i);
+        assert.doesNotMatch(entry.asset.ariaLabel, /correct answer|shows \d{1,2}:\d{2}/i);
+      }
+      questionsWithOptionMedia += 1;
+    }
 
     if (remediatedCheckpoints.has(question.checkpointCode)) {
       assert.equal(question.solveTrace.proofLevel, "DUAL_ANSWER_ORACLE");
@@ -219,7 +250,10 @@ assert.equal(fingerprints.size, generatedQuestions);
 assert.equal(taskCoverage.size, CLOCK_TASK_CATALOG.length);
 assert.equal(checkpointCoverage.size, CLOCK_CHECKPOINTS.length);
 assert(dualAnswerOracleQuestions > 0);
-assert(structuralDiscoveryQuestions > 0);
+assert.equal(structuralDiscoveryQuestions, 0);
+assert.equal(dualAnswerOracleQuestions, generatedQuestions);
+assert(questionsWithPromptMedia > 0);
+assert(questionsWithOptionMedia > 0);
 
 const englishReview = buildClockEndToEndReview({
   seedPrefix: "CLK-V2-REMEDIATION-ENGLISH-REVIEW",
@@ -252,7 +286,7 @@ writeFileSync(
 );
 
 const summary = {
-  status: "PASS_CLK_001_REMEDIATION_SLICES_1_TO_3",
+  status: "PASS_CLK_001_ALL_14_CHECKPOINTS_DUAL_ORACLE_OPEN_DISCOVERY",
   soleAuthority: "CLK-001-CLOCKS-MASTER-END-TO-END-DESIGN-V2.md",
   authoritySha256: "db7fcb55498201427706416ba36622718f667ee88500c8c1572f59473cff4bcc",
   candidatePolicy: CLOCK_SOURCE_CANDIDATE_POLICY,
@@ -264,6 +298,8 @@ const summary = {
   remediatedCheckpoints: [...remediatedCheckpoints],
   dualAnswerOracleQuestions,
   structuralDiscoveryQuestions,
+  questionsWithPromptMedia,
+  questionsWithOptionMedia,
   standardCounts,
   kinematicsPositions,
   faultyRoundTrips,
