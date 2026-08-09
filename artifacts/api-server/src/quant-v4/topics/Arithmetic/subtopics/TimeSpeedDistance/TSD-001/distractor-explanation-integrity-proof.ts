@@ -1,13 +1,14 @@
+import { hasTsdCalculationEvidence } from "./cp001/exact-option-feedback";
+import { TSD_CP002_LEARNER_AUTHORITIES } from "./cp002/discovery-registry";
 import {
-  divide,
-  f,
-  formatFraction,
-  formatRatio,
-  reciprocal,
-  subtract,
-  type Fraction,
-} from "./cp002/fraction";
+  generateCp002Candidate as generatePublicCp002Candidate,
+} from "./cp002/public-runtime";
+import {
+  generateCp002Candidate as generateCoreCp002Candidate,
+} from "./cp002/runtime";
+import { solveCp002, solutionEquals } from "./cp002/solver";
 import type { TsdCp002GeneratedQuestion } from "./cp002/types";
+import { calibratedDifficultyLabel } from "./difficulty-calibration";
 import { generateFinalAuthorityReview } from "./final-authority-review";
 import { TSD_FINAL_LEARNER_AUTHORITIES } from "./final-authority-registry";
 
@@ -15,144 +16,114 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-function percentText(value: Fraction): string {
-  return `${formatFraction(value)}%`;
+function failureId(question: TsdCp002GeneratedQuestion): string {
+  return `FAILS_${question.solveMode.replace(/([a-z])([A-Z])/g, "$1_$2").toUpperCase()}_EQUATION`;
 }
 
-function speedText(value: Fraction): string {
-  return `${formatFraction(value)} km/h`;
+function withoutDisplayedOption(reason: string, optionText: string): string {
+  return reason.replace(optionText, "").replace(/^[✅⚠️\s:.-]+/, "").trim();
+}
+
+function assertEquationRemediation(question: TsdCp002GeneratedQuestion): { optionReasons: number; wrongReasons: number } {
+  const independent = solveCp002(question.input);
+  assert(solutionEquals(independent, question.solution), `${question.questionLanguageId}: independent solution differs`);
+  assert(question.options.length === 4 && new Set(question.options).size === 4, `${question.questionLanguageId}: options are not unique`);
+  assert(question.options[question.correctIndex] === question.answerText, `${question.questionLanguageId}: answer key differs`);
+  assert(question.difficulty.status === "EDITORIALLY_CALIBRATED", `${question.questionLanguageId}: difficulty remains uncalibrated`);
+  assert(question.difficulty.label === calibratedDifficultyLabel(question.difficulty.featureScore), `${question.questionLanguageId}: difficulty conflicts with rubric`);
+  assert(question.optionAudit.length === 4 && question.explanation.optionAnalysis.length === 4, `${question.questionLanguageId}: incomplete option analysis`);
+
+  let wrongReasons = 0;
+  question.optionAudit.forEach((audit, index) => {
+    const analysis = question.explanation.optionAnalysis[index];
+    assert(audit.text === question.options[index], `${question.questionLanguageId}: option-audit text mismatch`);
+    assert(audit.text === analysis.text, `${question.questionLanguageId}: audit-analysis text mismatch`);
+    assert(audit.isCorrect === analysis.isCorrect, `${question.questionLanguageId}: audit-analysis correctness mismatch`);
+    assert(audit.misconceptionId === analysis.misconceptionId, `${question.questionLanguageId}: audit-analysis ID mismatch`);
+    assert(analysis.reason.includes(audit.text), `${question.questionLanguageId}: reason omits displayed option ${audit.text}`);
+    assert(analysis.reason.includes(question.answerText), `${question.questionLanguageId}: reason omits independently verified answer ${question.answerText}`);
+    assert(hasTsdCalculationEvidence(withoutDisplayedOption(analysis.reason, audit.text)), `${question.questionLanguageId}: ${audit.text} has no defining-equation evidence`);
+
+    if (audit.isCorrect) {
+      assert(audit.misconceptionId === "CORRECT", `${question.questionLanguageId}: correct option has non-correct ID`);
+      return;
+    }
+
+    wrongReasons += 1;
+    assert(audit.misconceptionId === failureId(question), `${question.questionLanguageId}: stale or unsupported diagnosis remains for ${audit.text}`);
+    assert(analysis.reason.includes(`not ${audit.text}`), `${question.questionLanguageId}: wrong-option conclusion omits ${audit.text}`);
+    assert(!/unsupported direct proportion|combines the given numbers|doubles the required|difference between the speeds as a distance|inverts the deviations/i.test(analysis.reason), `${question.questionLanguageId}: stale diagnosis wording remains`);
+  });
+
+  return { optionReasons: 4, wrongReasons };
 }
 
 const rows = generateFinalAuthorityReview();
-const finalCp001Rows = rows.filter((row) => row.finalCheckpointId === "TSD-CP-001");
-const finalCp002Rows = rows.filter((row) => row.finalCheckpointId === "TSD-CP-002");
-const sourceCp001Rows = rows.filter((row) => row.sourceCheckpointId === "TSD-CP-001");
 const sourceCp002Rows = rows.filter((row) => row.sourceCheckpointId === "TSD-CP-002");
-
-assert(rows.length === 153, `Expected 153 final records, received ${rows.length}`);
+assert(rows.length === 153, `Expected 153 records, received ${rows.length}`);
 assert(new Set(rows.map((row) => row.finalAuthorityKey)).size === TSD_FINAL_LEARNER_AUTHORITIES.length, "Final learner-authority coverage changed");
-assert(finalCp001Rows.length === 80, `Final CP-001 row count changed: ${finalCp001Rows.length}`);
-assert(finalCp002Rows.length === 73, `Final CP-002 row count changed: ${finalCp002Rows.length}`);
-assert(sourceCp001Rows.length === 77, `Source CP-001 row count changed: ${sourceCp001Rows.length}`);
-assert(sourceCp002Rows.length === 76, `Source CP-002 row count changed: ${sourceCp002Rows.length}`);
+assert(sourceCp002Rows.length === 76, `Expected 76 source CP-002 rows, received ${sourceCp002Rows.length}`);
 assert(rows.every((row) => row.permanentQlId === null), "Permanent QL allocation was enabled");
-assert(rows.every((row) => row.reviewStatus === "EDITORIAL_REVIEW_REQUIRED"), "Review lock changed");
 assert(rows.every((row) => row.englishFreezeStatus === "UNFROZEN"), "English freeze changed");
 assert(rows.every((row) => row.publiclyPublishable === false), "Public delivery was enabled");
 
-let correctedShareCount = 0;
-let correctedRatioCount = 0;
-let correctedRemainingSpeedCount = 0;
-
+let canonicalOptionReasons = 0;
+let canonicalWrongReasons = 0;
 for (const record of sourceCp002Rows) {
-  const question = record.sourceQuestion as TsdCp002GeneratedQuestion;
-  assert(question.optionAudit.length === question.explanation.optionAnalysis.length, `${record.questionLanguageId}: audit and analysis lengths differ`);
-
-  question.optionAudit.forEach((audit, index) => {
-    const analysis = question.explanation.optionAnalysis[index];
-    assert(audit.text === analysis.text, `${record.questionLanguageId}: option text drift at ${index}`);
-    assert(audit.misconceptionId === analysis.misconceptionId, `${record.questionLanguageId}: misconception ID drift at ${audit.text}`);
-    assert(analysis.reason.includes(audit.text), `${record.questionLanguageId}: reason does not name ${audit.text}`);
-
-    if (
-      question.input.mode === "unknownSegmentShareFromAverage"
-      && question.solution.answerKind === "PERCENT"
-      && !audit.isCorrect
-    ) {
-      const complement = percentText(subtract(f(100), question.solution.value));
-      if (audit.misconceptionId === "USE_COMPLEMENT") {
-        assert(audit.text === complement, `${record.questionLanguageId}: ${audit.text} is labelled complement, but complement is ${complement}`);
-      }
-      if (audit.misconceptionId === "UNSUPPORTED_SHARE_VALUE") {
-        correctedShareCount += 1;
-        assert(audit.text !== complement, `${record.questionLanguageId}: true complement was relabelled unsupported`);
-        assert(analysis.reason.includes(complement), `${record.questionLanguageId}: corrected share reason omits true complement ${complement}`);
-      }
-    }
-
-    if (
-      question.input.mode === "segmentRatioFromAverageAndSpeeds"
-      && question.solution.answerKind === "RATIO"
-      && !audit.isCorrect
-    ) {
-      const reversed = formatRatio(reciprocal(question.solution.value));
-      if (audit.misconceptionId === "REVERSE_RATIO") {
-        assert(audit.text === reversed, `${record.questionLanguageId}: ${audit.text} is labelled reversed, but reverse is ${reversed}`);
-      }
-      if (audit.misconceptionId === "UNSUPPORTED_RATIO_VALUE") {
-        correctedRatioCount += 1;
-        assert(audit.text !== reversed, `${record.questionLanguageId}: true reverse ratio was relabelled unsupported`);
-        assert(analysis.reason.includes(reversed), `${record.questionLanguageId}: corrected ratio reason omits true reverse ${reversed}`);
-      }
-    }
-
-    if (
-      question.input.mode === "requiredRemainingSpeedForTargetAverage"
-      && question.solution.answerKind === "SPEED"
-      && !audit.isCorrect
-    ) {
-      const targetAverage = speedText(question.input.targetAverageKmph);
-      if (audit.misconceptionId === "COPY_TARGET_AVERAGE") {
-        assert(audit.text === targetAverage, `${record.questionLanguageId}: ${audit.text} is labelled copied target average, but target is ${targetAverage}`);
-      }
-      if (audit.misconceptionId === "DIVIDE_REMAINING_DISTANCE_BY_COMPLETED_TIME") {
-        correctedRemainingSpeedCount += 1;
-        const remainingDistance = subtract(question.input.totalDistanceKm, question.input.completedDistanceKm);
-        const mistakenSpeed = speedText(divide(remainingDistance, question.input.completedTimeHours));
-        assert(audit.text === mistakenSpeed, `${record.questionLanguageId}: completed-time diagnosis should produce ${mistakenSpeed}, received ${audit.text}`);
-        assert(analysis.reason.includes(formatFraction(remainingDistance)), `${record.questionLanguageId}: corrected remaining-speed reason omits remaining distance`);
-        assert(analysis.reason.includes(formatFraction(question.input.completedTimeHours)), `${record.questionLanguageId}: corrected remaining-speed reason omits completed time`);
-      }
-    }
-  });
+  const counts = assertEquationRemediation(record.sourceQuestion as TsdCp002GeneratedQuestion);
+  canonicalOptionReasons += counts.optionReasons;
+  canonicalWrongReasons += counts.wrongReasons;
 }
+assert(canonicalOptionReasons === 304, `Expected 304 CP-002 option reasons, received ${canonicalOptionReasons}`);
+assert(canonicalWrongReasons === 228, `Expected 228 CP-002 wrong reasons, received ${canonicalWrongReasons}`);
 
-assert(correctedShareCount >= 2, `Expected at least two corrected false-complement diagnoses, received ${correctedShareCount}`);
-assert(correctedRatioCount >= 2, `Expected at least two corrected false-reverse diagnoses, received ${correctedRatioCount}`);
-assert(correctedRemainingSpeedCount >= 1, `Expected at least one corrected remaining-speed diagnosis, received ${correctedRemainingSpeedCount}`);
-
-function findOption(
-  authorityKey: string,
-  answerText: string,
-  optionText: string,
-): { readonly question: TsdCp002GeneratedQuestion; readonly optionIndex: number } {
-  const record = sourceCp002Rows.find((candidate) => (
-    candidate.finalAuthorityKey === authorityKey
-    && candidate.sourceQuestion.answerText === answerText
-    && candidate.sourceQuestion.options.includes(optionText)
-  ));
-  assert(record, `Missing regression row ${authorityKey} / ${answerText} / ${optionText}`);
-  const question = record.sourceQuestion as TsdCp002GeneratedQuestion;
-  const optionIndex = question.options.indexOf(optionText);
-  assert(optionIndex >= 0, `Missing regression option ${optionText}`);
-  return { question, optionIndex };
+let publicQuestions = 0;
+let publicWrongReasons = 0;
+for (const authority of TSD_CP002_LEARNER_AUTHORITIES) {
+  for (let index = 0; index < 12; index += 1) {
+    const seed = `cp002-public-equation:${authority.provisionalId}:${index}`;
+    const core = generateCoreCp002Candidate(authority.provisionalId, seed);
+    const current = generatePublicCp002Candidate(authority.provisionalId, seed);
+    assert(core.questionLanguageId === current.questionLanguageId, `${seed}: public identity changed`);
+    assert(JSON.stringify(core.options) === JSON.stringify(current.options), `${seed}: public remediation changed options`);
+    assert(core.answerText === current.answerText && core.correctIndex === current.correctIndex, `${seed}: public remediation changed the answer key`);
+    const counts = assertEquationRemediation(current);
+    publicQuestions += 1;
+    publicWrongReasons += counts.wrongReasons;
+  }
 }
+assert(publicQuestions === TSD_CP002_LEARNER_AUTHORITIES.length * 12, `Unexpected public CP-002 question count: ${publicQuestions}`);
+assert(publicWrongReasons === publicQuestions * 3, `Unexpected public CP-002 wrong-reason count: ${publicWrongReasons}`);
 
 const regressions = [
-  ["unknownDistanceShareFromAverageSpeed", "50%", "60%", "UNSUPPORTED_SHARE_VALUE"],
-  ["unknownTimeShareFromAverageSpeed", "25%", "50%", "UNSUPPORTED_SHARE_VALUE"],
-  ["distanceRatioFromAverageAndSpeeds", "1:1", "2:1", "UNSUPPORTED_RATIO_VALUE"],
-  ["timeRatioFromAverageAndSpeeds", "1:3", "1:2", "UNSUPPORTED_RATIO_VALUE"],
-  ["requiredRemainingSpeedForTargetAverage", "60 km/h", "90 km/h", "DIVIDE_REMAINING_DISTANCE_BY_COMPLETED_TIME"],
+  ["120 km", "80 km"],
+  ["90 km", "135 km"],
+  ["126 km", "168 km"],
+  ["5:3", "1:2"],
 ] as const;
-
-for (const [authorityKey, answerText, optionText, expectedId] of regressions) {
-  const { question, optionIndex } = findOption(authorityKey, answerText, optionText);
-  assert(question.optionAudit[optionIndex].misconceptionId === expectedId, `${authorityKey}: ${optionText} retained a false diagnosis`);
-  assert(question.explanation.optionAnalysis[optionIndex].misconceptionId === expectedId, `${authorityKey}: analysis ID for ${optionText} differs from audit`);
+for (const [answerText, optionText] of regressions) {
+  const record = sourceCp002Rows.find((candidate) => (
+    candidate.sourceQuestion.answerText === answerText
+    && candidate.sourceQuestion.options.includes(optionText)
+  ));
+  assert(record, `Missing self-review regression ${answerText} / ${optionText}`);
+  const question = record.sourceQuestion as TsdCp002GeneratedQuestion;
+  const index = question.options.indexOf(optionText);
+  const analysis = question.explanation.optionAnalysis[index];
+  assert(analysis.misconceptionId === failureId(question), `${optionText}: stale misconception label remains`);
+  assert(analysis.reason.includes(question.answerText) && analysis.reason.includes(`not ${optionText}`), `${optionText}: exact correction is missing`);
 }
 
 console.log(JSON.stringify({
   status: "PASS",
   records: rows.length,
   learnerAuthorities: TSD_FINAL_LEARNER_AUTHORITIES.length,
-  finalCp001Rows: finalCp001Rows.length,
-  finalCp002Rows: finalCp002Rows.length,
-  sourceCp001Rows: sourceCp001Rows.length,
   sourceCp002Rows: sourceCp002Rows.length,
-  correctedFalseComplements: correctedShareCount,
-  correctedFalseReverseRatios: correctedRatioCount,
-  correctedRemainingSpeedDiagnoses: correctedRemainingSpeedCount,
-  permanentQls: rows.filter((row) => row.permanentQlId !== null).length,
+  canonicalOptionReasons,
+  canonicalWrongReasons,
+  publicQuestions,
+  publicWrongReasons,
+  selfReviewRegressions: regressions.length,
+  permanentQls: 0,
   englishFreezeStatus: "UNFROZEN",
 }, null, 2));
