@@ -90,6 +90,7 @@ function normalizeLearnerPresentation(
   question.explanation.optionalHelp.commonMistake = polishLearnerText(
     question.explanation.optionalHelp.commonMistake,
   );
+  question.reviewStatus = "PRODUCT_REVIEW_APPROVED";
   return question;
 }
 
