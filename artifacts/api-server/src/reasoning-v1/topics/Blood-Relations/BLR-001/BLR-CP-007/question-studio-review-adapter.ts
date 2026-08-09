@@ -93,6 +93,13 @@ function recordAuthority(question: FrozenQuestion) {
     : BLR_CP007_MULTILINGUAL_FREEZE_AUTHORITY;
 }
 
+function studioDifficulty(question: FrozenQuestion): BlrCp007QuestionStudioDifficulty {
+  const value = String(question.metadata.difficulty).toUpperCase();
+  if (value === "EASY") return "Easy";
+  if (value === "HARD") return "Hard";
+  return "Medium";
+}
+
 function hashSeed(value: string) {
   let hash = 2166136261;
   for (let index = 0; index < value.length; index += 1) {
@@ -131,9 +138,9 @@ function matchingQuestions(request: BlrCp007QuestionStudioReviewRequest) {
     if (request.qlId && forced.qlId !== request.qlId) {
       throw new Error(`${forced.itemId} belongs to ${forced.qlId}, not ${request.qlId}.`);
     }
-    if (request.difficulty && forced.metadata.difficulty !== request.difficulty) {
+    if (request.difficulty && studioDifficulty(forced) !== request.difficulty) {
       throw new Error(
-        `${forced.itemId} is ${forced.metadata.difficulty}, not ${request.difficulty}.`,
+        `${forced.itemId} is ${studioDifficulty(forced)}, not ${request.difficulty}.`,
       );
     }
     return [forced] as const;
@@ -141,7 +148,7 @@ function matchingQuestions(request: BlrCp007QuestionStudioReviewRequest) {
 
   const eligible = source.filter((question) =>
     (!request.qlId || question.qlId === request.qlId) &&
-    (!request.difficulty || question.metadata.difficulty === request.difficulty),
+    (!request.difficulty || studioDifficulty(question) === request.difficulty),
   );
   if (!eligible.length) {
     throw new Error("No BLR-CP-007 frozen questions match the review filters.");
@@ -194,7 +201,7 @@ export function toBlrCp007QuestionStudioReviewPreview(question: FrozenQuestion) 
     explanationId,
     language,
     locale: question.locale,
-    difficultyBand: question.metadata.difficulty,
+    difficultyBand: studioDifficulty(question),
     useMode: question.delivery.useMode,
     sharedPrompt: question.sharedPrompt,
     stem: question.stem,
