@@ -14,6 +14,25 @@ function removeRedundantDivisionByOne(text: string): string {
     .replace(/([₹\d][₹\d.,%/]*)\s*÷\s*1(?!\d)/gu, "$1");
 }
 
+function creditInterval(locale: IntCp004LocalizedLocale, frequency: number): string {
+  if (locale === "hi-IN") {
+    switch (frequency) {
+      case 1: return "हर वर्ष";
+      case 2: return "हर छमाही";
+      case 4: return "हर तिमाही";
+      case 12: return "हर महीने";
+      default: return "हर बार";
+    }
+  }
+  switch (frequency) {
+    case 1: return "ਹਰ ਸਾਲ";
+    case 2: return "ਹਰ ਛਿਮਾਹੀ";
+    case 4: return "ਹਰ ਤਿਮਾਹੀ";
+    case 12: return "ਹਰ ਮਹੀਨੇ";
+    default: return "ਹਰ ਵਾਰ";
+  }
+}
+
 type HindiPeriod = Readonly<{ singular: string; oblique: string }>;
 
 function hindiPeriod(raw: string): HindiPeriod {
@@ -61,7 +80,8 @@ function fixPunjabiEditorialGrammar(text: string): string {
     .replace(/ਅਸਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ/gu, "ਅਸਲ ਵਾਧਾ ਦਰ")
     .replace(/ਲਿਖੀ ਹੋਈ ਸਾਲਾਨਾ ਦਰ/gu, "ਘੋਸ਼ਿਤ ਸਾਲਾਨਾ ਦਰ")
     .replace(/ਵੱਧ ਰਕਮ ਕਿੰਨੀ ਵੱਧ ਹੋਵੇਗੀ/gu, "ਦੋਵੇਂ ਰਕਮਾਂ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੋਵੇਗਾ")
-    .replace(/ਹਰ ਵਿਆਜ ਅੰਤਰਾਲ/gu, "ਹਰ ਵਾਰ ਵਿਆਜ ਜੁੜਨ ਦਾ ਅੰਤਰਾਲ");
+    .replace(/ਹਰ ਵਿਆਜ ਅੰਤਰਾਲ/gu, "ਹਰ ਵਾਰ ਵਿਆਜ ਜੁੜਨ ਦਾ ਅੰਤਰਾਲ")
+    .replace(/ਵਾਧਾ ਦਰ ਕਿੰਨਾ/gu, "ਵਾਧਾ ਦਰ ਕਿੰਨੀ");
 }
 
 function humanizeHindiStem(text: string): string {
@@ -82,6 +102,7 @@ function humanizeHindiStem(text: string): string {
     .replace(/अगले 1 वर्ष के लिए/gu, "अगले वर्ष")
     .replace(/शुरुआती 1 वर्ष में/gu, "पहले वर्ष")
     .replace(/बाद के 1 वर्ष में/gu, "अगले वर्ष")
+    .replace(/पहले वर्ष ब्याज हर वर्ष/gu, "पहले वर्ष ब्याज वर्ष के अंत में")
     .replace(/अंतिम (\d+) महीने साधारण ब्याज के हैं/gu, "अंतिम $1 महीनों के लिए साधारण ब्याज लगाया गया है")
     .replace(/दोनों चरण क्रमशः (\d+) वर्ष और (\d+) वर्ष के हैं/gu, "पहला चरण $1 वर्ष और दूसरा $2 वर्ष का है"));
 }
@@ -101,16 +122,32 @@ function humanizePunjabiStem(text: string): string {
     .replace(/ਅਗਲੇ 1 ਸਾਲ ਲਈ/gu, "ਅਗਲੇ ਸਾਲ")
     .replace(/ਸ਼ੁਰੂਆਤੀ 1 ਸਾਲ ਵਿੱਚ/gu, "ਪਹਿਲੇ ਸਾਲ")
     .replace(/ਬਾਅਦ ਦੇ 1 ਸਾਲ ਵਿੱਚ/gu, "ਅਗਲੇ ਸਾਲ")
+    .replace(/ਪਹਿਲੇ ਸਾਲ ਵਿਆਜ ਹਰ ਸਾਲ/gu, "ਪਹਿਲੇ ਸਾਲ ਵਿਆਜ ਸਾਲ ਦੇ ਅੰਤ ਵਿੱਚ")
     .replace(/ਅੰਤਿਮ (\d+) ਮਹੀਨੇ ਸਧਾਰਣ ਵਿਆਜ ਦੇ ਹਨ/gu, "ਅੰਤਿਮ $1 ਮਹੀਨਿਆਂ ਲਈ ਸਧਾਰਣ ਵਿਆਜ ਲਾਇਆ ਗਿਆ ਹੈ")
     .replace(/ਦੋਵੇਂ ਪੜਾਅ ਕ੍ਰਮਵਾਰ (\d+) ਅਤੇ (\d+) ਸਾਲਾਂ ਦੇ ਹਨ/gu, "ਪਹਿਲਾ ਪੜਾਅ $1 ਸਾਲ ਅਤੇ ਦੂਜਾ $2 ਸਾਲ ਦਾ ਹੈ"));
 }
 
 export function humanizeCp004LocalizedStemV7(
-  _source: IntCp004EnglishFrozenQuestion,
+  source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
   stem: string,
 ): string {
-  return locale === "hi-IN" ? humanizeHindiStem(stem) : humanizePunjabiStem(stem);
+  let humanized = locale === "hi-IN" ? humanizeHindiStem(stem) : humanizePunjabiStem(stem);
+  if (source.qlId === "INT-QL-073" || source.qlId === "INT-QL-074") {
+    const credit = creditInterval(locale, source.mathematicalState.frequency);
+    if (locale === "hi-IN") {
+      humanized = humanized
+        .replace(/हर बार ब्याज जुड़ने पर दर/gu, `${credit} की ब्याज दर`)
+        .replace(/हर बार ब्याज जुड़ने की दर/gu, `${credit} की ब्याज दर`)
+        .replace(/हर बार ([\d.]+%) ब्याज/gu, `${credit} $1 की दर से ब्याज`);
+    } else {
+      humanized = humanized
+        .replace(/ਹਰ ਵਾਰ ਵਿਆਜ ਜੁੜਨ ਸਮੇਂ ਦਰ/gu, `${credit} ਦੀ ਵਿਆਜ ਦਰ`)
+        .replace(/ਹਰ ਵਾਰ ਵਿਆਜ ਜੁੜਨ ਦੀ ਦਰ/gu, `${credit} ਦੀ ਵਿਆਜ ਦਰ`)
+        .replace(/ਹਰ ਵਾਰ ([\d.]+%) ਵਿਆਜ/gu, `${credit} $1 ਦੀ ਦਰ ਨਾਲ ਵਿਆਜ`);
+    }
+  }
+  return humanized;
 }
 
 function humanizeHindiFeedback(text: string): string {
@@ -182,6 +219,7 @@ export function humanizeCp004LocalizedOptionV7(
 
 function humanizeHindiExplanationText(text: string): string {
   return fixHindiPeriodAgreement(removeRedundantDivisionByOne(text
+    .replace(/हर (महीने|तिमाही|छमाही|वर्ष) की दर पहले से = ([\d.]+%)।/gu, "हर $1 की ब्याज दर $2 सीधे दी गई है।")
     .replace(/प्रत्येक संभावित ब्याज जोड़ने का क्रम से/gu, "ब्याज जोड़ने के प्रत्येक संभावित अंतराल के अनुसार")
     .replace(/ब्याज-आवृत्ति/gu, "ब्याज जोड़ने का अंतराल")
     .replace(/इस दर को प्रश्न में दिए ब्याज जोड़ने का नियम से/gu, "इस दर से प्रश्न के अनुसार ब्याज जोड़ने पर")));
@@ -189,6 +227,7 @@ function humanizeHindiExplanationText(text: string): string {
 
 function humanizePunjabiExplanationText(text: string): string {
   return fixPunjabiEditorialGrammar(removeRedundantDivisionByOne(text
+    .replace(/ਹਰ (ਮਹੀਨੇ|ਤਿੰਨ ਮਹੀਨੇ|ਛੇ ਮਹੀਨੇ|ਸਾਲ) ਦੀ ਦਰ ਪਹਿਲਾਂ ਹੀ = ([\d.]+%)।/gu, "ਹਰ $1 ਦੀ ਵਿਆਜ ਦਰ $2 ਸਿੱਧੀ ਦਿੱਤੀ ਗਈ ਹੈ।")
     .replace(/ਇੱਕ ਸਾਲ ਦੇ ਅੰਦਰ ਹੋਈਆਂ ਸਾਰੀਆਂ ਮਿਸ਼ਰਤ ਵਿਆਜਆਂ ਸ਼ਾਮਲ ਕਰੋ/gu, "ਇੱਕ ਸਾਲ ਦੇ ਅੰਦਰ ਵਿਆਜ ਜੋੜਨ ਦੇ ਸਾਰੇ ਪੜਾਅ ਸ਼ਾਮਲ ਕਰੋ")
     .replace(/ਪੂਰੇ ਇੱਕ ਸਾਲ ਦੇ ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ ਨਾਲ/gu, "ਪੂਰੇ ਇੱਕ ਸਾਲ ਦੇ ਵਿਆਜ ਗੁਣਕ ਨਾਲ")
     .replace(/ਇਸ ਦਰ ਨੂੰ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਵਿਆਜ ਜੋੜਨ ਦਾ ਨਿਯਮ ਨਾਲ/gu, "ਇਸ ਦਰ ਨਾਲ ਪ੍ਰਸ਼ਨ ਅਨੁਸਾਰ ਵਿਆਜ ਜੋੜਨ ਉੱਤੇ")));
