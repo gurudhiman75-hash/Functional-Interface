@@ -22,6 +22,11 @@ export class CircularTopology {
     return this.moveCyclic(seatIndex, direction === "LEFT" ? "CLOCKWISE" : "ANTICLOCKWISE", steps);
   }
 
+  moveRelativeOutward(seatIndex: number, direction: RelativeDirection, steps: number): number {
+    // Facing outward: left is anticlockwise and right is clockwise.
+    return this.moveCyclic(seatIndex, direction === "LEFT" ? "ANTICLOCKWISE" : "CLOCKWISE", steps);
+  }
+
   adjacentSeatIndices(seatIndex: number): readonly [number, number] {
     return [this.moveCyclic(seatIndex, "ANTICLOCKWISE", 1), this.moveCyclic(seatIndex, "CLOCKWISE", 1)];
   }

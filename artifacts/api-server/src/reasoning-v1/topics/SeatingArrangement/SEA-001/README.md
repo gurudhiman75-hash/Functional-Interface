@@ -27,27 +27,37 @@ Named authorities: `SEA-PBA-001` through `SEA-PBA-004`.
 - physically valid numerical distractors and text row diagrams with facing arrows;
 - 48-caselet JSON/CSV/HTML English review export.
 
-Named authorities:
-
-- `SEA-PBA-005` — stated mixed facings plus relative chain;
-- `SEA-PBA-006` — inferred facing from directional consistency;
-- `SEA-PBA-007` — mixed-facing block placement;
-- `SEA-PBA-008` — exact-gap relations under mixed facing.
+Named authorities: `SEA-PBA-005` through `SEA-PBA-008`.
 
 ### `SEA-CP-003` — Circular, facing centre
 
 - deterministic 6–10 person centre-facing circles;
 - guarded odd 7/9 variants with no opposite clue or query;
-- clockwise/anticlockwise, centre-facing left/right, adjacency, opposite and directional-gap constraints;
-- rotational solution-class canonicalisation;
-- explicit entrance/stage/door landmark anchoring only for `SEA-PBA-012`;
-- production person-assignment solver plus independently structured seat-filling oracle;
-- four-child passages using at least four distinct query contracts;
-- child-position answer-distribution proof;
-- SVG and text cyclic diagrams;
-- 48-caselet JSON/CSV/HTML English review export.
+- centre-facing left/right, adjacency, opposite and directional-gap constraints;
+- rotational solution-class canonicalisation and explicit landmark anchoring;
+- independent production solver and oracle;
+- four-child passages, SVG/text diagrams and 48-caselet review export.
 
 Named authorities: `SEA-PBA-009` through `SEA-PBA-012`.
+
+### `SEA-CP-004` — Circular, facing outward
+
+- deterministic 6–10 person outward-facing circles;
+- outward rule encoded explicitly: left is anticlockwise and right is clockwise;
+- separate clue evaluator and independent seat-filling oracle rather than reusing centre-facing direction logic;
+- rotational solution classes, even/odd opposite guards and entrance/stage/door landmark variants;
+- all four named authorities `SEA-PBA-013` through `SEA-PBA-016`;
+- every displayed clue is sensitivity-bearing;
+- each caselet contains a child whose answer differs under the incorrect centre-facing rule;
+- wrong centre-facing result stored as a reproducible misconception counterfactual;
+- four-child passages and 48-caselet JSON/CSV/HTML English review export.
+
+Named authorities:
+
+- `SEA-PBA-013` — outward-facing opposite-anchor cycle;
+- `SEA-PBA-014` — outward left/right reversal-intensive chain;
+- `SEA-PBA-015` — outward gap and neighbour mix;
+- `SEA-PBA-016` — outward external-landmark anchor and reversal.
 
 ## Wave 4 verification hardening
 
@@ -67,6 +77,7 @@ Completed verification contracts include:
 node --experimental-strip-types foundation-proof.test.ts
 node --experimental-strip-types cp002-proof.test.ts
 node --experimental-strip-types cp003-proof.test.ts
+node --experimental-strip-types cp004-proof.test.ts
 node --experimental-strip-types wave4-verification-proof.test.ts
 ```
 
@@ -78,14 +89,16 @@ SEA_CP002_REVIEW_OUTPUT_DIR=./dist/sea-cp002-review \
 
 SEA_CP003_REVIEW_OUTPUT_DIR=./dist/sea-cp003-review \
   node --experimental-strip-types cp003-review-export.ts
+
+SEA_CP004_REVIEW_OUTPUT_DIR=./dist/sea-cp004-review \
+  node --experimental-strip-types cp004-review-export.ts
 ```
 
 ## Remaining Wave 5 implementation
 
-1. `SEA-CP-004` — circular, facing outward;
-2. `SEA-CP-005` — circular, mixed facing.
+`SEA-CP-005 — Circular, Mixed Facing` is the only unfinished SEA-001 checkpoint.
 
-Full saturation, manual English review, merge/split/inverse/gap audits, permanent allocation and English freeze remain later Wave 5 gates after both checkpoints are implemented.
+Full saturation, manual English review, merge/split/inverse/gap audits, permanent allocation and English freeze remain later Wave 5 gates after CP-005 is implemented.
 
 ## Lifecycle
 
@@ -99,4 +112,4 @@ Mock-test eligibility:        false
 Public publication:           false
 ```
 
-Do not bypass `assertSea001ActivationAllowed`. Remaining SEA-001 checkpoints, source and gap audits, manual freezes and product approvals remain mandatory.
+Do not bypass `assertSea001ActivationAllowed`. Remaining SEA-001 work, source and gap audits, manual freezes and product approvals remain mandatory.
