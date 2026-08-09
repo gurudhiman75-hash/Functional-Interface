@@ -1,0 +1,103 @@
+name: Reasoning BLR-001 CP-007 Question Studio Review
+
+on:
+  push:
+    branches:
+      - integrate/blr-001-cp007-question-studio-review
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/**"
+      - "artifacts/api-server/src/question-studio-review-registry.ts"
+      - ".github/workflows/reasoning-blr-001-cp007-question-studio-review.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/**"
+      - "artifacts/api-server/src/question-studio-review-registry.ts"
+      - ".github/workflows/reasoning-blr-001-cp007-question-studio-review.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp007-question-studio-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-question-studio-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Reprove frozen English authority
+        run: |
+          set -o pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-english-frozen.test.ts | tee english-freeze.log
+
+      - name: Reprove multilingual freeze
+        run: |
+          set -o pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-multilingual-frozen.test.ts | tee multilingual-freeze.log
+
+      - name: Prove Question Studio review adapter
+        run: |
+          set -o pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/question-studio-review-adapter.test.ts | tee question-studio-review.log
+
+      - name: Export Question Studio integration review pack
+        run: |
+          set -o pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-question-studio-integration-review.ts blr-cp007-question-studio-review-output | tee question-studio-export.log
+
+      - name: Verify review-pack contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=blr-cp007-question-studio-review-output
+          SUMMARY="$OUT/blr-cp007-question-studio-review-summary.json"
+          test -f "$SUMMARY"
+          test -f "$OUT/blr-cp007-question-studio-review-catalog.json"
+          test -f "$OUT/BLR-CP-007-QUESTION-STUDIO-INTEGRATION-REVIEW.md"
+          test -f "$OUT/blr-cp007-question-studio-integration-review.html"
+          grep -q '"previewableRecordCount": 504' "$SUMMARY"
+          grep -q '"enabledPackageCount": 0' "$SUMMARY"
+          grep -q '"validPreviewCount": 504' "$SUMMARY"
+          grep -q '"validationFailureCount": 0' "$SUMMARY"
+          grep -q '"rendererReadyCount": 504' "$SUMMARY"
+          grep -q '"Easy": 48' "$SUMMARY"
+          grep -q '"Medium": 104' "$SUMMARY"
+          grep -q '"Hard": 16' "$SUMMARY"
+          grep -q '"questionStudioVisibleCount": 0' "$SUMMARY"
+          grep -q '"persistenceAllowedCount": 0' "$SUMMARY"
+          grep -q '"questionBankEligibleCount": 0' "$SUMMARY"
+          grep -q '"mockTestEligibleCount": 0' "$SUMMARY"
+          grep -q '"publiclyPublishableCount": 0' "$SUMMARY"
+          grep -q '"liveRouteWired": false' "$SUMMARY"
+          grep -q '"databaseWriteEnabled": false' "$SUMMARY"
+          grep -q '"activationApprovalRequired": true' "$SUMMARY"
+          grep -q '"verdict": "BLR_CP007_QUESTION_STUDIO_REVIEW_ADAPTER_PROVED__ACTIVATION_LOCKED"' "$SUMMARY"
+
+      - name: Upload integration logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-question-studio-review-logs
+          path: |
+            english-freeze.log
+            multilingual-freeze.log
+            question-studio-review.log
+            question-studio-export.log
+          retention-days: 14
+
+      - name: Upload Question Studio review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-question-studio-review
+          path: blr-cp007-question-studio-review-output
+          retention-days: 30
