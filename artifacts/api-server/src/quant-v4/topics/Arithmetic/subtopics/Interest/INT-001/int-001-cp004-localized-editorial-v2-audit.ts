@@ -69,6 +69,7 @@ const bannedHindiGrammar = [
   /प्रत्येक संभावित ब्याज जोड़ने का क्रम से/gu,
   /ब्याज-आवृत्ति/gu,
   /दर पहले से =/gu,
+  /पहले से हर बार की दर/gu,
 ] as const;
 
 const bannedPunjabiGrammar = [
@@ -100,6 +101,9 @@ const bannedPunjabiGrammar = [
   /ਦੇ ਸਧਾਰਣ ਵਿਆਜ ਬਾਅਦ/gu,
   /ਦਰ ਪਹਿਲਾਂ ਹੀ =/gu,
   /ਵਾਧਾ ਦਰ ਕਿੰਨਾ/gu,
+  /ਵਾਧਾ ਦਰ ਕਿੰਨੀ ਹੋਵੇਗਾ/gu,
+  /ਪਹਿਲਾਂ ਹੀ ਹਰ ਵਾਰ ਦੀ ਦਰ/gu,
+  /ਹਰ ਸੰਭਵ ਕ੍ਰਮ/gu,
 ] as const;
 
 function normalizeStem(stem: string): string {
