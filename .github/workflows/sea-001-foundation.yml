@@ -1,0 +1,67 @@
+name: Validate SEA-001 CP-001 foundation
+
+on:
+  push:
+    branches:
+      - feat/sea-001-v3-foundation-cp001
+    paths:
+      - artifacts/api-server/src/reasoning-v1/shared/constraint-core/**
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
+      - artifacts/api-server/src/reasoning-v1/SEA-FAMILY-D-MANIFEST-AMENDMENT.md
+      - .github/workflows/sea-001-foundation.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/shared/constraint-core/**
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
+      - artifacts/api-server/src/reasoning-v1/SEA-FAMILY-D-MANIFEST-AMENDMENT.md
+      - .github/workflows/sea-001-foundation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-sea-001-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/shared/constraint-core src/reasoning-v1/topics/SeatingArrangement/SEA-001 -name '*.ts' -print)
+
+  foundation-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run deterministic CP-001 proof
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/foundation-proof.test.ts
