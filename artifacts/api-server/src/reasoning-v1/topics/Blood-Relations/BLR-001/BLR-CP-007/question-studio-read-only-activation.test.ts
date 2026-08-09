@@ -87,7 +87,7 @@ assert.throws(
   /review-only|persistence|activation/i,
 );
 
-const repoRoot = resolve(import.meta.dirname, "../../../../../../../../..");
+const repoRoot = resolve(import.meta.dirname, "../../../../../../../..");
 const routeSource = readFileSync(
   resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-reasoning-review.ts"),
   "utf8",
