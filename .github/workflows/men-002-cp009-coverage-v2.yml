@@ -1,0 +1,87 @@
+name: Validate MEN-CP-009 coverage closure V2
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/**
+      - .github/workflows/men-002-cp009-coverage-v2.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-002-cp009-coverage-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp009-coverage-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prove complete CP-009 V2 registry and runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/coverage-v2/runtime.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp009-coverage-v2.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp009-coverage-v2.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp009-coverage-v2.test.log
+
+      - name: Export complete CP-009 V2 evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/coverage-v2/review-export.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp009-coverage-v2-export.mjs
+          cd artifacts/api-server
+          node dist/quant-v4/men-cp009-coverage-v2-export.mjs \
+            2>&1 | tee dist/quant-v4/men-cp009-coverage-v2-export.log
+
+      - name: Build production API bundle
+        shell: bash
+        run: bash build-api.sh
+
+      - name: Upload CP-009 V2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp009-complete-v2
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp009-coverage-v2.test.log
+            artifacts/api-server/dist/quant-v4/men-cp009-coverage-v2-export.log
+            artifacts/api-server/dist/quant-v4/men-cp009-complete-v2.json
+            artifacts/api-server/dist/quant-v4/men-cp009-complete-v2.md
+          if-no-files-found: error
+          retention-days: 14
