@@ -60,9 +60,7 @@ for (const authority of CAL_001_SIMPLIFIED_ENGLISH_STEM_AUTHORITIES) {
     assert(requiredPattern.test(english.stem), `${authority} seed ${seed}: unexpected simplified stem '${english.stem}'.`);
     assert(english.stem.trim().endsWith("?"), `${authority} seed ${seed}: stem must end as a direct question.`);
     assert(english.stem.split(/\s+/).length <= 30, `${authority} seed ${seed}: stem is still too long (${english.stem}).`);
-    if (authority !== "CAL-PQL-002") {
-      assert(!/\bwas\b/i.test(english.stem), `${authority} seed ${seed}: future-date past tense leaked into stem.`);
-    }
+    assert(!/\bwas\b/i.test(english.stem), `${authority} seed ${seed}: future-date past tense leaked into stem.`);
     for (const banned of BANNED_HEAVY_PHRASES) {
       assert(!banned.test(english.stem), `${authority} seed ${seed}: heavy phrase '${banned}' remains in '${english.stem}'.`);
     }
