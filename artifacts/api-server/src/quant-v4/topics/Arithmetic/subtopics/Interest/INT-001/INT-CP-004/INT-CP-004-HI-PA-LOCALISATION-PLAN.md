@@ -14,64 +14,70 @@ Locales:                 hi-IN, pa-IN
 
 ## Non-negotiable parity
 
-Hindi and Punjabi preserve the frozen English authority exactly for permanent QL identity, mathematical state, canonical solution, solve contract, answer semantic, difficulty, representation and stem-family ownership metadata, option values and order, misconception IDs, correct option index, explanation structure, and inactive delivery lifecycle.
+Hindi and Punjabi preserve the frozen English authority for permanent identity, mathematical state, solution, solve contract, answer semantic, difficulty, internal representation and stem-family ownership, option values and order, misconception IDs, correct option index, explanation structure, and inactive lifecycle.
 
 Only learner-facing language may change.
 
-## Native-stem v6 remediation
+## Human editorial v7
 
-Human review found that the earlier learner-facing stems still exposed internal presentation frames and therefore felt machine generated. Native-stem v6 replaces that layer rather than lightly editing it.
+Human review after native-stem v6 found defects that structural automation alone did not catch. Human editorial v7 therefore applies to the complete learner-facing package: stems, option feedback, worked steps, final answers, and common-mistake notes.
 
-The current implementation:
+The v7 layer now:
 
-1. generates learner-facing stems directly from the frozen mathematical state;
-2. provides four separately authored Hindi and four separately authored Punjabi exam-style stem patterns for every QL;
-3. keeps representation and stem-family values only as internal frozen ownership metadata;
-4. removes displayed tables, generated headings, account-detail blocks, fact lists and scheme-summary wrappers;
-5. rejects machine leads such as “details are given below”, “account details” and “scheme summary”;
-6. uses Punjabi `ਮਿਸ਼ਰਤ ਵਿਆਜ` for compound interest and rejects learner-facing `ਚੱਕਰਵੱਧੀ`;
-7. corrects Punjabi oblique plurals such as `9 ਮਹੀਨਿਆਂ ਬਾਅਦ` and `4 ਸਾਲਾਂ ਬਾਅਦ`;
-8. removes Hindi `ब्याज-योग` and Punjabi `ਵਿਆਜ-ਗੁਣਕ` calques from learner-facing text;
-9. preserves all frozen mathematics, answers, option order, misconception ownership and lifecycle locks.
+1. removes generated headings, fact blocks, account records, scheme summaries and translated template leads;
+2. provides four materially distinct Hindi and Punjabi exam-style stems per QL;
+3. corrects Hindi and Punjabi number, gender, plural and postposition agreement;
+4. removes redundant annual expressions such as `rate ÷ 1` without damaging monthly `÷ 12` formulas;
+5. permanently rejects malformed formulas such as `36%2 = 3%`;
+6. requires every QL-073 and QL-074 stem to name its actual yearly, half-yearly, quarterly or monthly crediting interval;
+7. replaces generic direct-rate mistake notes with the actual interval name;
+8. uses Punjabi `ਮਿਸ਼ਰਤ ਵਿਆਜ` and rejects learner-facing `ਚੱਕਰਵੱਧੀ` everywhere;
+9. replaces artificial phrases such as Hindi `ब्याज-आवृत्ति`, Punjabi `ਹਰ ਸੰਭਵ ਕ੍ਰਮ`, and related calques with normal exam language;
+10. preserves all frozen mathematics, answers, option ownership and lifecycle locks.
 
-## Exact-head validation
+## Validated learner-content checkpoint
 
 ```text
-Validated implementation head: 7580f66beaddb2446bc2652817b1002ca78c7c6a
-Documentation follow-up head:   1706cdf05a589e0b9868f6d7fa8d803a87f30b09
-Native stem authority:          INT-CP-004-HI-PA-NATIVE-STEMS-v6
-CP-004 workflow run:            31309859596 — PASS
-CP-001 isolation run:           31309859587 — PASS
-Evidence artifact:              9037049158
-Artifact digest:                sha256:2ab6ff3ceeae76f2895c5a2938db25b71bf759cc36f76f38cece1af21693c6da
+Validated learner-content head: 4fdb71391f35570a4d57cc361b4f7f220ca0053c
+Human editorial authority:      INT-CP-004-HI-PA-HUMAN-EDITORIAL-v7
+CP-004 workflow run:            31324434279 — PASS
+CP-001 isolation run:           31324434269 — PASS
+Evidence artifact:              9041120431
+Artifact digest:                sha256:9b85f021d24fb7a129ac5c424141292d33a16fb67359a7a25107d6fd2bbe1877
 ```
 
 Validation evidence:
 
 ```text
-Executable bilingual runtime cases: 3,800
-Questions per review pack:              76
-Questions per QL:                        4
-Native stem patterns per QL/locale:      4
-Answer positions A/B/C/D:       19/19/19/19
-API build:                            PASS
+Executable bilingual cases:       3,800
+Option-feedback checks:           15,200
+Questions per review pack:            76
+Questions per QL:                      4
+Distinct stem patterns/QL/locale:      4
+Direct-period stem checks:           800
+Answer positions A/B/C/D:     19/19/19/19
+API build:                          PASS
 ```
 
-Direct review-pack scans:
+Direct exact-artifact scans:
 
 ```text
-Punjabi ਚੱਕਰਵੱਧੀ:       0
-Punjabi ਮਿਸ਼ਰਤ ਵਿਆਜ: 156
-Hindi ब्याज-योग:         0
-Punjabi ਵਿਆਜ-ਗੁਣਕ:      0
-Markdown stem tables:    0
+Punjabi ਚੱਕਰਵੱਧੀ:                  0
+Hindi generic “हर बार” rate note:  0
+Punjabi generic “ਹਰ ਵਾਰ” note:     0
+Punjabi ਹਰ ਸੰਭਵ ਕ੍ਰਮ:              0
+Punjabi gender defect:              0
+Malformed percentage formula:       0
+Standalone annual ÷ 1:              0
+Monthly ÷ 12 retained:              yes
+QL-073/074 explicit interval:       all reviewed cases
 ```
 
 ## Remaining gate
 
 The implementation remains under direct Hindi and Punjabi linguistic and exam-readiness review. It is not approved for multilingual freeze or delivery.
 
-Review should inspect whether each stem sounds like a real SSC, banking or Punjab-state-exam question, native grammar and familiar terminology, option-feedback clarity, concise student-friendly worked solutions, and any remaining phrase that sounds translated or mechanically assembled.
+The next decision must be an explicit human sign-off or a further defect report. No automated pass constitutes multilingual approval.
 
 ## Lifecycle boundary
 
