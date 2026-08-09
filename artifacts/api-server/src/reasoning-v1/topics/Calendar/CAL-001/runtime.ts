@@ -20,6 +20,7 @@ import {
   buildAdditionalExamReadyProblemOverride,
 } from "./exam-readiness-additional-remediation.ts";
 import { buildFrequencyExamReadyProblemOverride } from "./exam-readiness-frequency-remediation.ts";
+import { applyCalendarEnglishStemSimplification } from "./english-stem-simplification.ts";
 
 const CLOSED_LIFECYCLE = {
   discoveryStatus: "EXECUTABLE_DISCOVERY" as const,
@@ -126,10 +127,11 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
   };
 
   const remediated = applyAdditionalExamReadinessRemediation(applyExamReadinessRemediation(pkg));
-  const optionKeys = remediated.options.map((option) => semanticKey(option.semanticValue));
-  if (remediated.options.length !== 4 || new Set(optionKeys).size !== 4) throw new Error(`${prototypeAuthority}: options are not semantically unique.`);
-  if (new Set(remediated.options.map((option) => option.display)).size !== 4) throw new Error(`${prototypeAuthority}: option labels are not textually unique.`);
-  if (remediated.options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${prototypeAuthority}: expected exactly one correct option.`);
-  if (!remediated.options[remediated.answerIndex]?.isCorrect) throw new Error(`${prototypeAuthority}: answer index mismatch.`);
-  return remediated;
+  const simplified = applyCalendarEnglishStemSimplification(remediated);
+  const optionKeys = simplified.options.map((option) => semanticKey(option.semanticValue));
+  if (simplified.options.length !== 4 || new Set(optionKeys).size !== 4) throw new Error(`${prototypeAuthority}: options are not semantically unique.`);
+  if (new Set(simplified.options.map((option) => option.display)).size !== 4) throw new Error(`${prototypeAuthority}: option labels are not textually unique.`);
+  if (simplified.options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${prototypeAuthority}: expected exactly one correct option.`);
+  if (!simplified.options[simplified.answerIndex]?.isCorrect) throw new Error(`${prototypeAuthority}: answer index mismatch.`);
+  return simplified;
 }
