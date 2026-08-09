@@ -2,6 +2,10 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { CALENDAR_PROTOTYPES } from "./registry.ts";
 import { selectExamReadyReviewQuestions } from "./review-selection.ts";
+import {
+  CAL_001_MULTILINGUAL_SOURCE_GAP_PROTOTYPES,
+  selectLocalizedCalendarSourceGapReviewQuestions,
+} from "./source-gap-multilingual.ts";
 import type { Locale } from "./types.ts";
 
 const outputDir = process.env.CAL_REVIEW_OUTPUT_DIR ?? join(process.cwd(), "dist", "reasoning-v1");
@@ -26,15 +30,20 @@ for (const locale of locales) {
       lifecycle: pkg.lifecycle,
     })),
   );
+  const sourceGapRows = CAL_001_MULTILINGUAL_SOURCE_GAP_PROTOTYPES.flatMap((id) =>
+    selectLocalizedCalendarSourceGapReviewQuestions(id, locale),
+  );
 
   const language = locale === "hi-IN" ? "hindi" : "punjabi";
   const jsonPath = join(outputDir, `cal-001-${language}-curated-review-5q.json`);
   const markdownPath = join(outputDir, `cal-001-${language}-curated-review-5q.md`);
+  const gapJsonPath = join(outputDir, `cal-001-${language}-source-gap-review-5q.json`);
+  const gapMarkdownPath = join(outputDir, `cal-001-${language}-source-gap-review-5q.md`);
 
   writeFileSync(jsonPath, `${JSON.stringify({
     generatedAt: new Date().toISOString(),
     locale,
-    lifecycle: "MULTILINGUAL_HUMAN_REVIEW_NOT_FROZEN",
+    lifecycle: "MULTILINGUAL_HUMAN_REVIEW_CANDIDATE",
     prototypeCount: CALENDAR_PROTOTYPES.length,
     questionsPerPrototype: 5,
     totalQuestions: rows.length,
@@ -45,10 +54,10 @@ for (const locale of locales) {
     `# CAL-001 ${locale === "hi-IN" ? "Hindi" : "Punjabi"} Curated Review Pack`,
     "",
     `- Locale: ${locale}`,
-    `- Provisional authorities: ${CALENDAR_PROTOTYPES.length}`,
+    `- Discovery authorities: ${CALENDAR_PROTOTYPES.length}`,
     "- Questions per authority: 5",
     `- Total questions: ${rows.length}`,
-    "- Human language freeze: not yet approved",
+    "- Human language freeze: candidate under final review",
     "- Question Studio, Question Bank, mock-test and publication gates: closed",
     "",
   ];
@@ -74,12 +83,54 @@ for (const locale of locales) {
     }
   }
   writeFileSync(markdownPath, `${markdown.join("\n")}\n`);
+
+  writeFileSync(gapJsonPath, `${JSON.stringify({
+    generatedAt: new Date().toISOString(),
+    locale,
+    lifecycle: "MULTILINGUAL_HUMAN_REVIEW_CANDIDATE",
+    prototypeCount: CAL_001_MULTILINGUAL_SOURCE_GAP_PROTOTYPES.length,
+    questionsPerPrototype: 5,
+    totalQuestions: sourceGapRows.length,
+    rows: sourceGapRows,
+  }, null, 2)}\n`);
+
+  const gapMarkdown: string[] = [
+    `# CAL-001 ${locale === "hi-IN" ? "Hindi" : "Punjabi"} Source-Gap Review Pack`,
+    "",
+    `- Locale: ${locale}`,
+    `- Source-gap authorities: ${CAL_001_MULTILINGUAL_SOURCE_GAP_PROTOTYPES.length}`,
+    "- Questions per authority: 5",
+    `- Total questions: ${sourceGapRows.length}`,
+    "- Permanent identities and all release gates: unchanged and locked",
+    "",
+  ];
+  for (const id of CAL_001_MULTILINGUAL_SOURCE_GAP_PROTOTYPES) {
+    gapMarkdown.push(`## ${id}`, "");
+    for (const sample of sourceGapRows.filter((row) => row.prototypeAuthority === id)) {
+      gapMarkdown.push(`### Seed ${sample.seed}`, "", sample.stem, "");
+      sample.options.forEach((option, index) => {
+        gapMarkdown.push(`${String.fromCharCode(65 + index)}. ${option}${index === sample.answerIndex ? " **(correct)**" : ""}`);
+      });
+      gapMarkdown.push(
+        "",
+        `**Observation:** ${sample.explanation.observation}`,
+        "",
+        `**Rule:** ${sample.explanation.rule}`,
+        "",
+      );
+      sample.explanation.working.forEach((step) => gapMarkdown.push(`- ${step}`));
+      gapMarkdown.push("", `**Conclusion:** ${sample.explanation.conclusion}`, "", `**Closest trap:** ${sample.explanation.closestTrap}`, "");
+    }
+  }
+  writeFileSync(gapMarkdownPath, `${gapMarkdown.join("\n")}\n`);
 }
 
 console.log(JSON.stringify({
   status: "PASS_CAL_001_MULTILINGUAL_REVIEW_EXPORT",
   locales,
-  prototypeCount: CALENDAR_PROTOTYPES.length,
+  discoveryPrototypeCount: CALENDAR_PROTOTYPES.length,
+  sourceGapPrototypeCount: CAL_001_MULTILINGUAL_SOURCE_GAP_PROTOTYPES.length,
   questionsPerPrototype: 5,
-  totalQuestionsPerLocale: CALENDAR_PROTOTYPES.length * 5,
+  discoveryQuestionsPerLocale: CALENDAR_PROTOTYPES.length * 5,
+  sourceGapQuestionsPerLocale: CAL_001_MULTILINGUAL_SOURCE_GAP_PROTOTYPES.length * 5,
 }, null, 2));
