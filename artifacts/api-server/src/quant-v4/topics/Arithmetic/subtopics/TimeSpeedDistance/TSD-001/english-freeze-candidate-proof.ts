@@ -9,6 +9,7 @@ function assert(condition: unknown, message: string): asserts condition {
 
 const GENERIC = /different result|does not survive|rules it out|not the result|appears after|careful check|can be reached only|does not give|recomputing[^.]*rules|unsupported direct proportion|combines the given numbers|satisfies the complete/i;
 const INTERNAL = /TODO|PLACEHOLDER|\{\{[A-Z_][^}]*\}\}|provisional authority|required answer|question bank status|test eligibility/i;
+const LEADING_CHECK_OPERATOR = /Check:\s*(?:=|×|÷|\\times|\\div)/i;
 
 function withoutDisplayedOption(reason: string, optionText: string): string {
   return reason.replace(optionText, "").replace(/^[✅⚠️\s:.-]+/, "").trim();
@@ -62,6 +63,7 @@ for (const row of rows) {
     assert(audit.misconceptionId === analysis.misconceptionId, `${row.questionLanguageId}: audit-analysis ID mismatch`);
     assert(audit.isCorrect === analysis.isCorrect, `${row.questionLanguageId}: audit-analysis correctness mismatch`);
     assert(analysis.reason.includes(analysis.text), `${row.questionLanguageId}: option reason does not name ${analysis.text}`);
+    assert(!LEADING_CHECK_OPERATOR.test(analysis.reason), `${row.questionLanguageId}: calculation certificate starts with an operator`);
 
     optionReasons += 1;
     if (!analysis.isCorrect) wrongReasons += 1;
