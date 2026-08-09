@@ -1,6 +1,6 @@
 # SYL-001 — QL Consolidation CP-008C
 
-Authority: `SYL_001_QL_ARCHETYPE_CONSOLIDATION_V1`
+Authority: `SYL_001_QL_ARCHETYPE_CONSOLIDATION_V2`
 
 Status: **compatibility overlay only; current runtime is unchanged**.
 
@@ -23,7 +23,9 @@ Training-only archetypes:    3
 1. SSC single definite conclusion — canonical legacy QL `SYL-QL-001`.
 2. Four-option two-conclusion mask — canonical legacy QL `SYL-QL-003`; applicable to SSC and provisional Punjab Police profiles.
 3. Banking five-option two-conclusion/either-or — canonical legacy QL `SYL-QL-008`.
-4. Four-option three-conclusion combination — canonical legacy QL `SYL-QL-004`; applicable to cross-exam and minor Punjab Police coverage.
+4. Four-option three-conclusion combination — canonical legacy QL `SYL-QL-004`; applicable to Banking, cross-exam and minor Punjab Police coverage.
+
+The Banking authority for the three-conclusion archetype is supported by the RBI Grade B and NABARD source snapshots. This corrects the earlier V1 overlay, which omitted Banking from the profile membership even though the source evidence already included three-conclusion combinations.
 
 ### Future remodel
 
@@ -105,22 +107,23 @@ SYL-QL-018
 
 ```text
 SSC active archetypes:            2
-Banking active archetypes:        1
+Banking active archetypes:        2
 Punjab Police active archetypes:  2
 Cross-exam active archetypes:     1
 ```
 
 The Banking possibility archetype is represented in source authority but remains inactive until the answer shell is remodeled.
 
-## Next implementation
+## CP-008D handoff
 
-CP-008D should add an inactive deterministic profile planner that:
+The inactive deterministic profile planner now:
 
-- resolves an exam profile into canonical archetypes and weights;
-- resolves premise-form scenario variants within an archetype;
-- excludes compatibility aliases and diagnostics from mock selection;
-- produces deterministic seed-based plans;
-- does not yet alter public generation or release locks.
+- resolves each provisional exam profile into source-family slots;
+- maps active slots only to canonical retained QLs;
+- resolves premise-form families as scenario variants;
+- excludes compatibility aliases and diagnostics from positive mock weight;
+- exposes blocked-remodel and practice-only portions explicitly;
+- does not call or modify the public question generator.
 
 ## Locks
 
