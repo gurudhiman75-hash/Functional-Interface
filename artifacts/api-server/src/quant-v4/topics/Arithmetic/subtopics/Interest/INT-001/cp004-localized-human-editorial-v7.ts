@@ -57,7 +57,11 @@ function fixPunjabiEditorialGrammar(text: string): string {
     )
     .replace(/ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ ਨਾਲ/gu, "ਵਿਆਜ ਗੁਣਕ ਨਾਲ")
     .replace(/ਸਾਰੀਆਂ ਮਿਸ਼ਰਤ ਵਿਆਜਆਂ/gu, "ਵਿਆਜ ਜੋੜਨ ਦੇ ਸਾਰੇ ਪੜਾਅ")
-    .replace(/ਦੇ ਸਧਾਰਣ ਵਿਆਜ ਬਾਅਦ/gu, "ਦੇ ਸਧਾਰਣ ਵਿਆਜ ਤੋਂ ਬਾਅਦ");
+    .replace(/ਦੇ ਸਧਾਰਣ ਵਿਆਜ ਬਾਅਦ/gu, "ਦੇ ਸਧਾਰਣ ਵਿਆਜ ਤੋਂ ਬਾਅਦ")
+    .replace(/ਅਸਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ/gu, "ਅਸਲ ਵਾਧਾ ਦਰ")
+    .replace(/ਲਿਖੀ ਹੋਈ ਸਾਲਾਨਾ ਦਰ/gu, "ਘੋਸ਼ਿਤ ਸਾਲਾਨਾ ਦਰ")
+    .replace(/ਵੱਧ ਰਕਮ ਕਿੰਨੀ ਵੱਧ ਹੋਵੇਗੀ/gu, "ਦੋਵੇਂ ਰਕਮਾਂ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੋਵੇਗਾ")
+    .replace(/ਹਰ ਵਿਆਜ ਅੰਤਰਾਲ/gu, "ਹਰ ਵਾਰ ਵਿਆਜ ਜੁੜਨ ਦਾ ਅੰਤਰਾਲ");
 }
 
 function humanizeHindiStem(text: string): string {
