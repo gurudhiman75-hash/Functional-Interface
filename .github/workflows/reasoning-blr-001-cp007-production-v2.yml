@@ -6,6 +6,8 @@ on:
       - feat/blr-001-cp007-production-v2
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-model.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-graph.ts"
       - "artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts"
       - "artifacts/api-server/src/question-studio-review-registry.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-reasoning.ts"
@@ -19,6 +21,8 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-model.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-graph.ts"
       - "artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts"
       - "artifacts/api-server/src/question-studio-review-registry.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-reasoning.ts"
