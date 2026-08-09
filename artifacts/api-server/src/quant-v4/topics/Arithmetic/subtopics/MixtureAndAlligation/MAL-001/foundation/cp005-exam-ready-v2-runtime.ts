@@ -12,10 +12,10 @@ import {
   freeCommercialSellingRateQuestionV2,
 } from "./cp005-exam-ready-v2-commercial";
 import {
-  cheaperProfitQuestionV2,
   cheaperRatioQuestionV2,
   cheaperSellingRateQuestionV2,
 } from "./cp005-exam-ready-v2-cheaper";
+import { cheaperProfitQuestionScaledV2 } from "./cp005-exam-ready-v2-cheaper-profit-scaled";
 import { selectMalCp005ExamSetV2 } from "./cp005-exam-ready-v2-core";
 import { verifyMalCp005Solution } from "./cp005-independent-verifier";
 import type { MalCp005DiscoveryPrototypeId } from "./cp005-types";
@@ -51,7 +51,7 @@ function buildQuestion(
     case "MAL-CP005-PROT-FREE-BLEND-SELLING-RATE-FROM-RATIO-AND-TARGET-PROFIT":
       return freeCommercialSellingRateQuestionV2(input);
     case "MAL-CP005-PROT-PROFIT-FROM-CHEAPER-IMPURITY-BLEND":
-      return cheaperProfitQuestionV2(input);
+      return cheaperProfitQuestionScaledV2(input);
     case "MAL-CP005-PROT-CHEAPER-IMPURITY-RATIO-FROM-TARGET-PROFIT":
       return cheaperRatioQuestionV2(input);
     case "MAL-CP005-PROT-CHEAPER-IMPURITY-SELLING-RATE-FROM-TARGET-PROFIT":
