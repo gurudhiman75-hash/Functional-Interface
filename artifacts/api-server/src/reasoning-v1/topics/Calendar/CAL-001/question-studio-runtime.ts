@@ -217,9 +217,7 @@ function explanationLines(pkg: CalendarSourcePackage): string[] {
     pkg.explanation.rule,
     ...pkg.explanation.working,
     pkg.explanation.conclusion,
-    pkg.explanation.closestTrap
-      ? `Common trap: ${pkg.explanation.closestTrap}`
-      : "",
+    pkg.explanation.closestTrap ?? "",
     "verification" in pkg.explanation && pkg.explanation.verification
       ? pkg.explanation.verification
       : "",
