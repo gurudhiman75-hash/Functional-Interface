@@ -1,5 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { INT_CP004_QL_IDS } from "./cp004-frequency-math";
+import { INT_CP004_LOCALIZED_HUMAN_EDITORIAL_V7_VERSION } from "./cp004-localized-human-editorial-v7";
 import { generateIntCp004LocalizedQuestion } from "./cp004-localized-runtime";
 import type { IntCp004LocalizedLocale } from "./cp004-localization-types";
 
@@ -53,6 +54,19 @@ const bannedHindiGrammar = [
   /ब्याज-क्रम/gu,
   /ब्याज-नियम/gu,
   /अवधि का गुणक लागू या उलटें/gu,
+  /(?:तिमाहियाँ|छमाहियाँ|महीने) लिए गए हैं/gu,
+  /कुल \d+ (?:तिमाहियाँ|छमाहियाँ|महीने|वर्ष) लेने पर/gu,
+  /\d+(?:\.\d+)?% ÷ 1/gu,
+  /वार्षिक दर को सीधे हर बार पर न लगाएँ; हर वर्ष की दर/gu,
+  /एक राशि ₹[\d,.]+ है/gu,
+  /एक निवेश ₹[\d,.]+ है/gu,
+  /प्रत्येक ब्याज-अंतराल/gu,
+  /ब्याज जोड़ने का नियम हर/gu,
+  /1 वर्ष पूरे वर्षों/gu,
+  /अधिक राशि कितनी अधिक होगी/gu,
+  /दिए ब्याज जोड़ने का नियम से/gu,
+  /प्रत्येक संभावित ब्याज जोड़ने का क्रम से/gu,
+  /ब्याज-आवृत्ति/gu,
 ] as const;
 
 const bannedPunjabiGrammar = [
@@ -68,6 +82,19 @@ const bannedPunjabiGrammar = [
   /ਵਿਆਜ-ਨਿਯਮ/gu,
   /ਅਵਧੀ/gu,
   /ਆਵ੍ਰਿਤੀ/gu,
+  /(?:ਤਿਮਾਹੀਆਂ|ਛਿਮਾਹੀਆਂ|ਮਹੀਨੇ) ਲਏ ਗਏ ਹਨ/gu,
+  /ਕੁੱਲ \d+ (?:ਤਿਮਾਹੀਆਂ|ਛਿਮਾਹੀਆਂ|ਮਹੀਨੇ|ਸਾਲ) ਲੈਣ ਉੱਤੇ/gu,
+  /\d+(?:\.\d+)?% ÷ 1/gu,
+  /ਸਾਲਾਨਾ ਦਰ ਨੂੰ ਸਿੱਧਾ ਹਰ ਵਾਰ ਉੱਤੇ ਨਾ ਲਗਾਓ; ਹਰ ਸਾਲ ਦੀ ਦਰ/gu,
+  /ਇੱਕ ਰਕਮ ₹[\d,.]+ ਹੈ/gu,
+  /ਇੱਕ ਨਿਵੇਸ਼ ₹[\d,.]+ ਹੈ/gu,
+  /ਹਰ ਵਿਆਜ ਅੰਤਰਾਲ/gu,
+  /ਅਸਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ/gu,
+  /ਲਿਖੀ ਹੋਈ ਸਾਲਾਨਾ ਦਰ/gu,
+  /ਵੱਧ ਰਕਮ ਕਿੰਨੀ ਵੱਧ ਹੋਵੇਗੀ/gu,
+  /ਸਾਰੀਆਂ ਮਿਸ਼ਰਤ ਵਿਆਜਆਂ/gu,
+  /ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ ਨਾਲ/gu,
+  /ਦੇ ਸਧਾਰਣ ਵਿਆਜ ਬਾਅਦ/gu,
 ] as const;
 
 function normalizeStem(stem: string): string {
@@ -88,6 +115,7 @@ let grammarChecks = 0;
 let feedbackSpecificityChecks = 0;
 let effectiveRateEquationChecks = 0;
 let punjabiTerminologyChecks = 0;
+let annualWordingChecks = 0;
 const correctFeedbackByLocale = new Map<IntCp004LocalizedLocale, Set<string>>();
 const normalizedStemsByQl = new Map<string, Set<string>>();
 const framesByQl = new Map<string, Set<string>>();
@@ -98,7 +126,7 @@ for (const locale of locales) {
 
   for (const qlId of INT_CP004_QL_IDS) {
     for (let index = 0; index < seedsPerQl; index += 1) {
-      const seed = `int-cp004-native-v6-audit:${qlId}:${index}`;
+      const seed = `int-cp004-human-v7-audit:${qlId}:${index}`;
       const question = generateIntCp004LocalizedQuestion({ qlId, seed, locale });
       const learnerText = [
         question.stem,
@@ -131,6 +159,11 @@ for (const locale of locales) {
         pattern.lastIndex = 0;
         assert(!pattern.test(learnerText), `${qlId}/${seed}/${locale}: banned grammar pattern ${pattern} found.`);
         grammarChecks += 1;
+      }
+
+      if (question.mathematicalState.frequency === 1) {
+        assert(!learnerText.includes("÷ 1"), `${qlId}/${seed}/${locale}: redundant annual-rate division remains.`);
+        annualWordingChecks += 1;
       }
 
       if (locale === "pa-IN") {
@@ -192,6 +225,7 @@ mkdirSync(outputDirectory, { recursive: true });
 const summary = Object.freeze({
   status: "CP004_LOCALIZED_NATIVE_STEMS_V6_VALIDATED",
   editorialVersion: "INT-CP-004-HI-PA-NATIVE-STEMS-v6",
+  humanEditorialVersion: INT_CP004_LOCALIZED_HUMAN_EDITORIAL_V7_VERSION,
   questionCases,
   optionChecks,
   explanationChecks,
@@ -201,6 +235,7 @@ const summary = Object.freeze({
   feedbackSpecificityChecks,
   effectiveRateEquationChecks,
   punjabiTerminologyChecks,
+  annualWordingChecks,
   mishritUsageByQl: Object.fromEntries(mishritUsageByQl),
   seedsPerQl,
   locales,
@@ -222,5 +257,6 @@ const summary = Object.freeze({
 });
 writeFileSync(`${outputDirectory}/int-cp004-localized-editorial-v2-summary.json`, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
 console.log(JSON.stringify(summary, null, 2));
+console.log("PASS_INT_CP004_LOCALIZED_HUMAN_EDITORIAL_V7");
 console.log("PASS_INT_CP004_LOCALIZED_NATIVE_STEMS_V6");
 console.log("PASS_INT_CP004_LOCALIZED_EDITORIAL_V2");
