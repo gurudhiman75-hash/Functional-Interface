@@ -104,6 +104,13 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/multilingual-freeze.test.ts 2>&1 | tee /tmp/cal-001-multilingual-freeze.log
           echo "${PIPESTATUS[0]}" > /tmp/cal-001-multilingual-freeze-exit
           exit 0
+      - name: Run Hindi Punjabi grammar quality proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/multilingual-editorial-quality.test.ts 2>&1 | tee /tmp/cal-001-multilingual-editorial-quality.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-multilingual-editorial-quality-exit
+          exit 0
       - name: Run final source-gap and permanent-identity freeze proof
         shell: bash
         run: |
@@ -127,6 +134,8 @@ jobs:
             /tmp/cal-001-english-editorial-freeze-v2-exit
             /tmp/cal-001-multilingual-freeze.log
             /tmp/cal-001-multilingual-freeze-exit
+            /tmp/cal-001-multilingual-editorial-quality.log
+            /tmp/cal-001-multilingual-editorial-quality-exit
             /tmp/cal-001-final-discovery-freeze.log
             /tmp/cal-001-final-discovery-freeze-exit
           if-no-files-found: error
@@ -138,6 +147,7 @@ jobs:
           test "$(cat /tmp/cal-001-english-stem-simplification-exit)" = "0"
           test "$(cat /tmp/cal-001-english-editorial-freeze-v2-exit)" = "0"
           test "$(cat /tmp/cal-001-multilingual-freeze-exit)" = "0"
+          test "$(cat /tmp/cal-001-multilingual-editorial-quality-exit)" = "0"
           test "$(cat /tmp/cal-001-final-discovery-freeze-exit)" = "0"
 
   review-export:
