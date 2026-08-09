@@ -122,25 +122,29 @@ export function spatialClassificationPropertyDescription(
     OUTER_INNER_DIFFERENT:
       "the outer and inner shapes are different",
     SEGMENT_MATCHES_INNER_SIDES_MINUS_ONE:
-      "the number of short segments is one less than the number of sides of the inner polygon",
+      "the number of dots is one less than the number of sides of the inner polygon",
     MARKER_ON_ARROW_SIDE:
       "the black marker lies on the same side toward which the arrow points",
     ORIENTATIONS_MATCH:
       "the outer and inner shapes point in the same direction",
     SEGMENT_MATCHES_OUTER_SIDES_MINUS_ONE:
-      "the number of short segments is one less than the number of sides of the outer polygon",
+      "the number of dots is one less than the number of sides of the outer polygon",
     MARKER_OPPOSITE_SEGMENT_ANCHOR:
-      "the black marker lies on the side opposite the short-segment group",
+      "the black marker lies on the side opposite the dot group",
     INNER_HAS_ONE_MORE_SIDE_THAN_OUTER:
       "the inner polygon has exactly one more side than the outer polygon",
     ARROW_POINTS_TO_SEGMENT_ANCHOR:
-      "the arrow points toward the side containing the short-segment group",
+      "the arrow points toward the side containing the dot group",
   };
   return descriptions[propertyId];
 }
 
 function orientationName(quarter: number): string {
   return ["up", "right", "down", "left"][quarter] ?? "unknown";
+}
+
+function dotCountDescription(count: number): string {
+  return `${count} dot${count === 1 ? "" : "s"}`;
 }
 
 export function spatialClassificationPropertyEvidence(
@@ -155,24 +159,24 @@ export function spatialClassificationPropertyEvidence(
       return `outer ${state.outerShape.toLowerCase()}, inner ${state.innerShape.toLowerCase()}`;
     case "SEGMENT_MATCHES_INNER_SIDES_MINUS_ONE":
       return innerSides === null
-        ? `inner circle has no polygon-side count; the figure has ${state.segmentCount} segment${state.segmentCount === 1 ? "" : "s"}`
-        : `inner ${state.innerShape.toLowerCase()} has ${innerSides} sides; the figure has ${state.segmentCount} segment${state.segmentCount === 1 ? "" : "s"}`;
+        ? `inner circle has no polygon-side count; the figure has ${dotCountDescription(state.segmentCount)}`
+        : `inner ${state.innerShape.toLowerCase()} has ${innerSides} sides; the figure has ${dotCountDescription(state.segmentCount)}`;
     case "MARKER_ON_ARROW_SIDE":
       return `marker at ${state.markerPosition.toLowerCase().replaceAll("_", " ")}; arrow points ${state.direction.toLowerCase()}`;
     case "ORIENTATIONS_MATCH":
       return `outer points ${orientationName(state.outerRotationQuarter)}; inner points ${orientationName(state.innerRotationQuarter)}`;
     case "SEGMENT_MATCHES_OUTER_SIDES_MINUS_ONE":
       return outerSides === null
-        ? `outer circle has no polygon-side count; the figure has ${state.segmentCount} segment${state.segmentCount === 1 ? "" : "s"}`
-        : `outer ${state.outerShape.toLowerCase()} has ${outerSides} sides; the figure has ${state.segmentCount} segment${state.segmentCount === 1 ? "" : "s"}`;
+        ? `outer circle has no polygon-side count; the figure has ${dotCountDescription(state.segmentCount)}`
+        : `outer ${state.outerShape.toLowerCase()} has ${outerSides} sides; the figure has ${dotCountDescription(state.segmentCount)}`;
     case "MARKER_OPPOSITE_SEGMENT_ANCHOR":
-      return `marker at ${state.markerPosition.toLowerCase().replaceAll("_", " ")}; segments are on the ${state.segmentAnchor.toLowerCase()}`;
+      return `marker at ${state.markerPosition.toLowerCase().replaceAll("_", " ")}; dots are on the ${state.segmentAnchor.toLowerCase()}`;
     case "INNER_HAS_ONE_MORE_SIDE_THAN_OUTER":
       return outerSides === null || innerSides === null
         ? `outer ${state.outerShape.toLowerCase()} and inner ${state.innerShape.toLowerCase()} do not form two polygons`
         : `outer has ${outerSides} sides; inner has ${innerSides} sides`;
     case "ARROW_POINTS_TO_SEGMENT_ANCHOR":
-      return `arrow points ${state.direction.toLowerCase()}; segments are on the ${state.segmentAnchor.toLowerCase()}`;
+      return `arrow points ${state.direction.toLowerCase()}; dots are on the ${state.segmentAnchor.toLowerCase()}`;
   }
 }
 
