@@ -1,12 +1,15 @@
+import { calibrateTsdDifficulty } from "../difficulty-calibration";
 import {
+  add,
   compare,
   divide,
   f,
   formatFraction,
   formatRatio,
-  reciprocal,
+  multiply,
   subtract,
   sum,
+  type Fraction,
 } from "./fraction";
 import type {
   Segment,
@@ -15,196 +18,165 @@ import type {
   TsdCp002OptionAudit,
 } from "./types";
 
-interface DiagnosisCorrection {
-  readonly misconceptionId: string;
-  readonly reason: string;
-}
-
-function percentText(value: ReturnType<typeof f>): string {
-  return `${formatFraction(value)}%`;
-}
-
-function speedText(value: ReturnType<typeof f>): string {
-  return `${formatFraction(value)} km/h`;
-}
-
-function shareCorrection(
-  question: TsdCp002GeneratedQuestion,
-  option: TsdCp002OptionAudit,
-): DiagnosisCorrection | null {
+function scalarSolution(question: TsdCp002GeneratedQuestion): Fraction {
+  const solution = question.solution;
   if (
-    question.input.mode !== "unknownSegmentShareFromAverage"
-    || question.solution.answerKind !== "PERCENT"
-    || option.isCorrect
-    || option.misconceptionId !== "USE_COMPLEMENT"
-  ) return null;
-
-  const complement = percentText(subtract(f(100), question.solution.value));
-  if (option.text === complement) return null;
-
-  const relation = question.input.shareKind === "DISTANCE"
-    ? "reciprocal-speed weighting"
-    : "time-weighted speed equation";
-  return Object.freeze({
-    misconceptionId: "UNSUPPORTED_SHARE_VALUE",
-    reason: `⚠️ ${option.text}: the complementary share is ${complement}, not this value; it also fails the stated ${relation}.`,
-  });
-}
-
-function ratioCorrection(
-  question: TsdCp002GeneratedQuestion,
-  option: TsdCp002OptionAudit,
-): DiagnosisCorrection | null {
-  if (
-    question.input.mode !== "segmentRatioFromAverageAndSpeeds"
-    || question.solution.answerKind !== "RATIO"
-    || option.isCorrect
-    || option.misconceptionId !== "REVERSE_RATIO"
-  ) return null;
-
-  const reversed = formatRatio(reciprocal(question.solution.value));
-  if (option.text === reversed) return null;
-
-  const ratioType = question.input.ratioKind === "DISTANCE" ? "distance" : "time";
-  return Object.freeze({
-    misconceptionId: "UNSUPPORTED_RATIO_VALUE",
-    reason: `⚠️ ${option.text}: reversing the correct ratio gives ${reversed}, not this value; it also fails the ${ratioType}-ratio equation.`,
-  });
-}
-
-function remainingSpeedCorrection(
-  question: TsdCp002GeneratedQuestion,
-  option: TsdCp002OptionAudit,
-): DiagnosisCorrection | null {
-  if (
-    question.input.mode !== "requiredRemainingSpeedForTargetAverage"
-    || question.solution.answerKind !== "SPEED"
-    || option.isCorrect
-    || option.misconceptionId !== "COPY_TARGET_AVERAGE"
-  ) return null;
-
-  const targetAverage = speedText(question.input.targetAverageKmph);
-  if (option.text === targetAverage) return null;
-
-  const remainingDistance = subtract(
-    question.input.totalDistanceKm,
-    question.input.completedDistanceKm,
-  );
-  const dividedByCompletedTime = speedText(divide(
-    remainingDistance,
-    question.input.completedTimeHours,
-  ));
-  if (option.text === dividedByCompletedTime) {
-    return Object.freeze({
-      misconceptionId: "DIVIDE_REMAINING_DISTANCE_BY_COMPLETED_TIME",
-      reason: `⚠️ ${option.text}: this divides the remaining ${formatFraction(remainingDistance)} km by the ${formatFraction(question.input.completedTimeHours)} hours already used, not by the time left.`,
-    });
+    solution.answerKind === "CHOICE"
+    || solution.answerKind === "CLASSIFICATION"
+    || solution.answerKind === "BOOLEAN"
+  ) {
+    throw new Error(`${question.questionLanguageId}: expected a scalar solution`);
   }
+  return solution.value;
+}
 
-  const allowedTotalTime = divide(
-    question.input.totalDistanceKm,
-    question.input.targetAverageKmph,
-  );
-  const remainingTime = subtract(allowedTotalTime, question.input.completedTimeHours);
-  const requiredSpeed = divide(remainingDistance, remainingTime);
-  return Object.freeze({
-    misconceptionId: "UNSUPPORTED_REMAINING_SPEED",
-    reason: `⚠️ ${option.text}: remaining speed must be ${formatFraction(remainingDistance)} ÷ ${formatFraction(remainingTime)} = ${formatFraction(requiredSpeed)} km/h.`,
-  });
+function value(value: Fraction): string {
+  return formatFraction(value);
 }
 
 function planTotals(segments: readonly Segment[]): {
-  readonly distance: ReturnType<typeof f>;
-  readonly time: ReturnType<typeof f>;
-  readonly average: ReturnType<typeof f>;
+  readonly distance: Fraction;
+  readonly time: Fraction;
+  readonly average: Fraction;
 } {
   const distance = sum(segments.map((segment) => segment.distanceKm));
   const time = sum(segments.map((segment) => divide(segment.distanceKm, segment.speedKmph)));
   return Object.freeze({ distance, time, average: divide(distance, time) });
 }
 
-function planCorrection(
-  question: TsdCp002GeneratedQuestion,
-  option: TsdCp002OptionAudit,
-): DiagnosisCorrection | null {
-  if (
-    question.input.mode !== "compareSegmentedJourneyPlans"
-    || question.solution.answerKind !== "CHOICE"
-  ) return null;
-
-  const planA = planTotals(question.input.planA);
-  const planB = planTotals(question.input.planB);
-  const ledger = `A: ${formatFraction(planA.distance)} ÷ ${formatFraction(planA.time)} = ${formatFraction(planA.average)} km/h; B: ${formatFraction(planB.distance)} ÷ ${formatFraction(planB.time)} = ${formatFraction(planB.average)} km/h.`;
-  const comparison = compare(planA.average, planB.average);
-
-  if (option.isCorrect) {
-    const conclusion = comparison > 0
-      ? "Plan A has the higher average."
-      : comparison < 0
-        ? "Plan B has the higher average."
-        : "The averages are equal.";
-    return Object.freeze({
-      misconceptionId: "CORRECT",
-      reason: `✅ ${option.text}: ${ledger} ${conclusion}`,
-    });
+function definingEquation(question: TsdCp002GeneratedQuestion): string {
+  const input = question.input;
+  switch (input.mode) {
+    case "averageSpeedFromSegments": {
+      const distance = sum(input.segments.map((segment) => segment.distanceKm));
+      const time = sum(input.segments.map((segment) => divide(segment.distanceKm, segment.speedKmph)));
+      return `Total distance ${value(distance)} km ÷ total time ${value(time)} hours = ${value(divide(distance, time))} km/h.`;
+    }
+    case "averagePaceFromSegments": {
+      const distance = sum(input.segments.map((segment) => segment.distanceKm));
+      const minutes = sum(input.segments.map((segment) => multiply(segment.distanceKm, segment.paceMinutesPerKm)));
+      return `Total time ${value(minutes)} minutes ÷ total distance ${value(distance)} km = ${value(divide(minutes, distance))} minutes/km.`;
+    }
+    case "unknownSegmentSpeedFromAverage": {
+      const totalDistance = add(input.knownDistanceKm, input.unknownDistanceKm);
+      const allowedTime = divide(totalDistance, input.overallAverageKmph);
+      const knownTime = divide(input.knownDistanceKm, input.knownSpeedKmph);
+      const remainingTime = subtract(allowedTime, knownTime);
+      const speed = divide(input.unknownDistanceKm, remainingTime);
+      return `${value(totalDistance)} ÷ ${value(input.overallAverageKmph)} = ${value(allowedTime)} hours; ${value(allowedTime)} - ${value(knownTime)} = ${value(remainingTime)} hours; ${value(input.unknownDistanceKm)} ÷ ${value(remainingTime)} = ${value(speed)} km/h.`;
+    }
+    case "unknownSegmentTimeFromAverage": {
+      const totalDistance = add(input.knownDistanceKm, input.unknownDistanceKm);
+      const allowedTime = divide(totalDistance, input.overallAverageKmph);
+      const remainingTime = subtract(allowedTime, input.knownTimeHours);
+      return `${value(totalDistance)} ÷ ${value(input.overallAverageKmph)} = ${value(allowedTime)} hours; ${value(allowedTime)} - ${value(input.knownTimeHours)} = ${value(remainingTime)} hours.`;
+    }
+    case "unknownSegmentDistanceFromAverage": {
+      const distance = scalarSolution(question);
+      return `Let x be the second distance: (${value(input.knownDistanceKm)} + x) ÷ (${value(input.knownDistanceKm)} ÷ ${value(input.knownSpeedKmph)} + x ÷ ${value(input.unknownSpeedKmph)}) = ${value(input.overallAverageKmph)}; x = ${value(distance)} km.`;
+    }
+    case "unknownSegmentShareFromAverage": {
+      const share = scalarSolution(question);
+      if (input.shareKind === "TIME") {
+        return `Let s be the second-speed time share: ((100 - s) × ${value(input.firstSpeedKmph)} + s × ${value(input.secondSpeedKmph)}) ÷ 100 = ${value(input.overallAverageKmph)}; s = ${value(share)}%.`;
+      }
+      return `For 100 km, 100 ÷ ((100 - s) ÷ ${value(input.firstSpeedKmph)} + s ÷ ${value(input.secondSpeedKmph)}) = ${value(input.overallAverageKmph)}; s = ${value(share)}%.`;
+    }
+    case "unknownRoundTripLegSpeedFromAverage": {
+      const unknown = scalarSolution(question);
+      return `2 × ${value(input.knownLegSpeedKmph)} × x ÷ (${value(input.knownLegSpeedKmph)} + x) = ${value(input.overallAverageKmph)}; x = ${value(unknown)} km/h.`;
+    }
+    case "oneWayDistanceFromRoundTripData": {
+      const distance = scalarSolution(question);
+      return `x ÷ ${value(input.outwardSpeedKmph)} + x ÷ ${value(input.returnSpeedKmph)} = ${value(input.totalTimeHours)}; x = ${value(distance)} km.`;
+    }
+    case "roundTripTimeFromOneWayDistance": {
+      const outward = divide(input.oneWayDistanceKm, input.outwardSpeedKmph);
+      const returned = divide(input.oneWayDistanceKm, input.returnSpeedKmph);
+      return `${value(input.oneWayDistanceKm)} ÷ ${value(input.outwardSpeedKmph)} + ${value(input.oneWayDistanceKm)} ÷ ${value(input.returnSpeedKmph)} = ${value(add(outward, returned))} hours.`;
+    }
+    case "totalDistanceFromAverageAndTime":
+      return `${value(input.overallAverageKmph)} × ${value(input.totalTimeHours)} = ${value(multiply(input.overallAverageKmph, input.totalTimeHours))} km.`;
+    case "segmentAllocationFromTotalsAndSpeeds": {
+      const firstTime = divide(
+        subtract(multiply(input.secondSpeedKmph, input.totalTimeHours), input.totalDistanceKm),
+        subtract(input.secondSpeedKmph, input.firstSpeedKmph),
+      );
+      const secondTime = subtract(input.totalTimeHours, firstTime);
+      const firstDistance = multiply(input.firstSpeedKmph, firstTime);
+      const secondDistance = multiply(input.secondSpeedKmph, secondTime);
+      const requested = {
+        FIRST_DISTANCE: `${value(firstDistance)} km`,
+        SECOND_DISTANCE: `${value(secondDistance)} km`,
+        FIRST_TIME: `${value(firstTime)} hours`,
+        SECOND_TIME: `${value(secondTime)} hours`,
+      }[input.requested];
+      return `${value(firstTime)} + ${value(secondTime)} = ${value(input.totalTimeHours)} hours and ${value(firstDistance)} + ${value(secondDistance)} = ${value(input.totalDistanceKm)} km; requested value = ${requested}.`;
+    }
+    case "segmentRatioFromAverageAndSpeeds": {
+      if (input.ratioKind === "TIME") {
+        const ratio = divide(
+          subtract(input.secondSpeedKmph, input.overallAverageKmph),
+          subtract(input.overallAverageKmph, input.firstSpeedKmph),
+        );
+        return `Time ratio = (${value(input.secondSpeedKmph)} - ${value(input.overallAverageKmph)}):(${value(input.overallAverageKmph)} - ${value(input.firstSpeedKmph)}) = ${formatRatio(ratio)}.`;
+      }
+      const ratio = divide(
+        multiply(input.firstSpeedKmph, subtract(input.secondSpeedKmph, input.overallAverageKmph)),
+        multiply(input.secondSpeedKmph, subtract(input.overallAverageKmph, input.firstSpeedKmph)),
+      );
+      return `Distance ratio = ${value(input.firstSpeedKmph)} × (${value(input.secondSpeedKmph)} - ${value(input.overallAverageKmph)}):${value(input.secondSpeedKmph)} × (${value(input.overallAverageKmph)} - ${value(input.firstSpeedKmph)}) = ${formatRatio(ratio)}.`;
+    }
+    case "requiredRemainingSpeedForTargetAverage": {
+      const allowedTime = divide(input.totalDistanceKm, input.targetAverageKmph);
+      const remainingTime = subtract(allowedTime, input.completedTimeHours);
+      const remainingDistance = subtract(input.totalDistanceKm, input.completedDistanceKm);
+      const speed = divide(remainingDistance, remainingTime);
+      return `${value(input.totalDistanceKm)} ÷ ${value(input.targetAverageKmph)} = ${value(allowedTime)} hours; ${value(allowedTime)} - ${value(input.completedTimeHours)} = ${value(remainingTime)} hours; ${value(remainingDistance)} ÷ ${value(remainingTime)} = ${value(speed)} km/h.`;
+    }
+    case "compareSegmentedJourneyPlans": {
+      const planA = planTotals(input.planA);
+      const planB = planTotals(input.planB);
+      const comparison = compare(planA.average, planB.average);
+      const conclusion = comparison > 0
+        ? "Plan A has the higher average"
+        : comparison < 0
+          ? "Plan B has the higher average"
+          : "Both plans have the same average speed";
+      return `Plan A: ${value(planA.distance)} ÷ ${value(planA.time)} = ${value(planA.average)} km/h; Plan B: ${value(planB.distance)} ÷ ${value(planB.time)} = ${value(planB.average)} km/h; ${conclusion}.`;
+    }
+    case "classifyAverageSpeedState":
+    case "verifyAverageSpeedClaim":
+      throw new Error(`${question.questionLanguageId}: internal CP-002 mode reached learner remediation`);
   }
-
-  let conclusion: string;
-  if (option.text === "Plan A") {
-    conclusion = comparison === 0
-      ? `Both averages equal ${formatFraction(planA.average)} km/h, so Plan A alone is not higher.`
-      : `Plan A is not the higher-average plan.`;
-  } else if (option.text === "Plan B") {
-    conclusion = comparison === 0
-      ? `Both averages equal ${formatFraction(planA.average)} km/h, so Plan B alone is not higher.`
-      : `Plan B is not the higher-average plan.`;
-  } else if (/same average/i.test(option.text)) {
-    conclusion = `${formatFraction(planA.average)} and ${formatFraction(planB.average)} km/h are not equal.`;
-  } else {
-    conclusion = "Both complete averages are calculable from the given distances and speeds.";
-  }
-
-  return Object.freeze({
-    misconceptionId: option.misconceptionId,
-    reason: `⚠️ ${option.text}: ${ledger} ${conclusion}`,
-  });
 }
 
-function correctionFor(
-  question: TsdCp002GeneratedQuestion,
-  option: TsdCp002OptionAudit,
-): DiagnosisCorrection | null {
-  return planCorrection(question, option)
-    ?? shareCorrection(question, option)
-    ?? ratioCorrection(question, option)
-    ?? remainingSpeedCorrection(question, option);
+function failureId(question: TsdCp002GeneratedQuestion): string {
+  return `FAILS_${question.solveMode.replace(/([a-z])([A-Z])/g, "$1_$2").toUpperCase()}_EQUATION`;
 }
 
 export function remodelCp002DistractorExplanations(
   question: TsdCp002GeneratedQuestion,
 ): TsdCp002GeneratedQuestion {
-  const corrections = question.optionAudit.map((option) => correctionFor(question, option));
-  if (corrections.every((entry) => entry === null)) return question;
-
-  const optionAudit = Object.freeze(question.optionAudit.map((option, index): TsdCp002OptionAudit => {
-    const correction = corrections[index];
-    return correction
-      ? Object.freeze({ ...option, misconceptionId: correction.misconceptionId })
-      : option;
-  }));
-  const optionAnalysis = Object.freeze(question.explanation.optionAnalysis.map((option, index): TsdCp002OptionAnalysis => {
-    const correction = corrections[index];
-    return correction
-      ? Object.freeze({
-          ...option,
-          misconceptionId: correction.misconceptionId,
-          reason: correction.reason,
-        })
-      : option;
+  const equation = definingEquation(question);
+  const optionAudit = Object.freeze(question.optionAudit.map((option): TsdCp002OptionAudit => Object.freeze({
+    ...option,
+    misconceptionId: option.isCorrect ? "CORRECT" : failureId(question),
+  })));
+  const optionAnalysis = Object.freeze(question.explanation.optionAnalysis.map((option): TsdCp002OptionAnalysis => {
+    const isCorrect = option.isCorrect;
+    return Object.freeze({
+      ...option,
+      misconceptionId: isCorrect ? "CORRECT" : failureId(question),
+      reason: isCorrect
+        ? `✅ ${option.text}: ${equation}`
+        : `⚠️ ${option.text}: ${equation} The defining equation gives ${question.answerText}, not ${option.text}.`,
+    });
   }));
 
   return Object.freeze({
     ...question,
+    difficulty: calibrateTsdDifficulty(question.difficulty),
     optionAudit,
     explanation: Object.freeze({
       ...question.explanation,
