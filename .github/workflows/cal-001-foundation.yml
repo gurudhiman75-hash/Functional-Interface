@@ -8,6 +8,7 @@ on:
       - feat/cal-001-final-discovery-freeze
       - fix/cal-001-simplify-english-stems
       - fix/cal-001-final-english-editorial-freeze-v2
+      - feat/cal-001-multilingual-human-freeze
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/**
       - artifacts/api-server/src/reasoning-v1/CAL-001-FAMILY-F-MANIFEST-AMENDMENT.md
@@ -147,10 +148,14 @@ jobs:
         env:
           CAL_REVIEW_OUTPUT_DIR: /tmp/cal-001-review
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/source-gap-review-export.ts
+      - name: Generate Hindi and Punjabi review packs
+        env:
+          CAL_REVIEW_OUTPUT_DIR: /tmp/cal-001-review
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/multilingual-review-export.ts
       - name: Publish review packs
         uses: actions/upload-artifact@v4
         with:
-          name: cal-001-english-review-and-source-gap-freeze-evidence
+          name: cal-001-english-hindi-punjabi-review-evidence
           path: /tmp/cal-001-review/**
           if-no-files-found: error
           retention-days: 14
