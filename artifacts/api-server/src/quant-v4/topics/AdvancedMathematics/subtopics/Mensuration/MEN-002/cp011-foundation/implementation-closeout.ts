@@ -19,7 +19,7 @@ import {
 import {
   generateMenCp011ShellReviewBatch,
   getMenCp011ShellPrototypeIds,
-} from "./spherical-shells";
+} from "./spherical-shells-canonical";
 import {
   generateMenCp011HiddenFaceReviewBatch,
   getMenCp011HiddenFacePrototypeIds,
