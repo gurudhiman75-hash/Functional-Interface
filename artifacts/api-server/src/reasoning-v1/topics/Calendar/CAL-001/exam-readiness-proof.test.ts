@@ -16,7 +16,12 @@ function assertSetContains<T>(actual: Set<T>, expected: readonly T[], label: str
 
 function assertGeneralPackageReadiness(pkg: CalendarQuestionPackage): void {
   assertCalendarPackageIntegrity(pkg);
-  assert(!/\bwas\b/i.test(pkg.stem), `${pkg.prototypeAuthority} seed ${pkg.seed}: past-tense “was” remains in English stem.`);
+  const validPastReference = pkg.queryType === "WEEKDAY_BEFORE_DAYS";
+  if (validPastReference) {
+    assert(/^If today is .+, what day was it \d+ days ago\?$/.test(pkg.stem), `${pkg.prototypeAuthority} seed ${pkg.seed}: backward-day stem is not natural exam English.`);
+  } else {
+    assert(!/\bwas\b/i.test(pkg.stem), `${pkg.prototypeAuthority} seed ${pkg.seed}: past tense “was” is used outside a genuine past reference.`);
+  }
   assert(new Set(pkg.options.map((option) => option.display)).size === 4, `${pkg.prototypeAuthority} seed ${pkg.seed}: option labels are not unique.`);
   const explanationText = JSON.stringify(pkg.explanation);
   for (const internalLabel of ["INCLUSIVE_BOTH", "EXCLUSIVE_BOTH", "ABSOLUTE_GAP", "SIGNED_DIFFERENCE"]) {
@@ -102,6 +107,7 @@ console.log(JSON.stringify({
   runtimePackagesChecked: packagesChecked,
   curatedQuestionsChecked: curatedChecked,
   futureTenseDefects: 0,
+  validPastTenseForms: "WEEKDAY_BEFORE_DAYS_ONLY",
   internalExplanationLabels: 0,
   permanentQlCount: 0,
   lifecycle: "DISCOVERY_NOT_FROZEN",
