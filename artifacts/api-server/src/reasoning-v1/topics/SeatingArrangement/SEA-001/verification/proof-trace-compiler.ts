@@ -9,9 +9,8 @@ export interface CircularTeachingTrace {
 function eventLine(event: CircularProofEvent): string | null {
   switch (event.kind) {
     case "ROTATION_SYMMETRY_BREAK":
-      return null;
     case "LANDMARK_ABSOLUTE_ANCHOR":
-      return event.statement;
+      return null;
     case "OPPOSITE_PLACEMENT":
       return `Place the opposite pair first: ${event.statement}`;
     case "CLOCKWISE_CHAIN":
@@ -45,11 +44,15 @@ export function compileCircularTeachingTrace(caselet: CircularCaseletRecord): Ci
   }
 
   lines.push(`The final clockwise arrangement is ${caselet.diagram.text}.`);
-  lines.push("This arrangement satisfies every clue and is the only valid circular solution class.");
+  lines.push(
+    landmark
+      ? "This is the only arrangement that satisfies every clue."
+      : "This seating order satisfies every clue; rotating the complete drawing gives the same arrangement.",
+  );
 
   const text = lines.join("\n");
-  if (/\b(dfs|backtracking|recursive|search node)\b/i.test(text)) {
-    throw new Error("Raw solver language leaked into the teaching trace");
+  if (/\b(dfs|backtracking|recursive|search node|seat zero|solution class)\b/i.test(text)) {
+    throw new Error("Internal solver language leaked into the teaching trace");
   }
 
   return {
