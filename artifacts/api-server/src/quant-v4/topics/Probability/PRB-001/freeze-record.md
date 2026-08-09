@@ -22,6 +22,12 @@ PRB-001 is approved for English SSC, banking-prelims and Punjab recruitment-styl
 4. Routine questions retain their source labels for compatibility but carry an independently audited effective mock difficulty.
 5. English questions are marked `APPROVED_EDITORIAL_ENGLISH` and mock eligible according to their per-question policy.
 
+## Release-authority validation
+
+Question Studio package metadata, generated batch context and regenerated human-review evidence now preserve the approved English state: `ENGLISH_MOCK_READY`, `APPROVED_EDITORIAL_ENGLISH`, `WRITABLE` and `ELIGIBLE_WITH_FAMILY_LIMIT`. The review generator records the approved reviewer and no longer regresses regenerated rows to pending review. Public publication remains disabled.
+
+The dedicated release-authority remediation run `31302575236` passed regeneration, all 135 review-row authority checks, Question Studio profile tests and Probability exam-readiness tests.
+
 ## Remaining outside this freeze
 
 - Hindi and Punjabi localisation/parity review
