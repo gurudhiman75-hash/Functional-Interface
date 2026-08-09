@@ -13,6 +13,13 @@ async function main() {
     assert(definition.supportedExamProfiles?.includes("BANKING_MAINS"), `${packageId} is missing banking profile metadata.`);
     assert(definition.optionCountByExamProfile?.SSC_CGL_CHSL === 4, `${packageId} SSC option count is incorrect.`);
     assert(definition.optionCountByExamProfile?.BANKING_MAINS === 5, `${packageId} banking option count is incorrect.`);
+    assert(definition.runtimeMode === "ENGLISH_MOCK_READY", `${packageId} runtime mode is not English mock-ready.`);
+    assert(definition.reviewStatus === "APPROVED_EDITORIAL_ENGLISH", `${packageId} review status is not approved.`);
+    assert(definition.questionBankStatus === "WRITABLE", `${packageId} Question Bank status is not writable.`);
+    assert(definition.testEligibility === "ELIGIBLE_WITH_FAMILY_LIMIT", `${packageId} test eligibility is incorrect.`);
+    assert(definition.publiclyPublishable === false, `${packageId} must remain blocked from public publication.`);
+    assert(definition.freezeStatus === "ENGLISH_MOCK_READY", `${packageId} freeze status is incorrect.`);
+    assert(definition.maxPerMockPerFamily === 1, `${packageId} family limit is not enforced.`);
   }
 
   const ssc = await generateQuestion({
@@ -40,6 +47,16 @@ async function main() {
   assert(ssc.questionPackages.length === 3, "SSC Question Studio batch size is incorrect.");
   assert(bank.questionPackages.length === 3, "Banking Question Studio batch size is incorrect.");
   assert(bankHard.questionPackages.length === 10, "Banking Mains hard-pool batch size is incorrect.");
+  for (const [label, batch] of [["SSC", ssc], ["Banking", bank]] as const) {
+    const context = batch.generationContext as any;
+    assert(context.runtimeMode === "ENGLISH_MOCK_READY", `${label} generation context is not English mock-ready.`);
+    assert(context.reviewStatus === "APPROVED_EDITORIAL_ENGLISH", `${label} generation context is not approved.`);
+    assert(context.questionBankStatus === "WRITABLE", `${label} generation context is not writable.`);
+    assert(context.testEligibility === "ELIGIBLE_WITH_FAMILY_LIMIT", `${label} generation context eligibility is incorrect.`);
+    assert(context.publiclyPublishable === false, `${label} generation context must remain non-public.`);
+    assert(context.freezeStatus === "ENGLISH_MOCK_READY", `${label} generation context freeze status is incorrect.`);
+    assert(context.maxPerMockPerFamily === 1, `${label} generation context family limit is incorrect.`);
+  }
   assert(
     ssc.questionPackages.every(
       (item: any) =>

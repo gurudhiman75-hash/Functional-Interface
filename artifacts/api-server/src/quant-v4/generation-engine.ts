@@ -401,11 +401,14 @@ function probabilityPackageForQuestionStudio(pkg: RuntimeDefinition) {
     supportedExamProfiles: ["SSC_CGL_CHSL", "SSC_CGL_JSO", "BANKING_PRELIMS", "BANKING_MAINS", "GENERIC_PRACTICE"],
     optionCountByExamProfile: { SSC_CGL_CHSL: 4, SSC_CGL_JSO: 4, BANKING_PRELIMS: 5, BANKING_MAINS: 5, GENERIC_PRACTICE: 4 },
     enabled: true,
-    runtimeMode: "AUTOMATED_PRODUCTION_QA",
-    reviewStatus: "AUTOMATED_PRODUCTION_QA_PENDING_MANUAL_REVIEW",
-    questionBankStatus: "NOT_STORED",
-    testEligibility: "INELIGIBLE",
+    runtimeMode: "ENGLISH_MOCK_READY",
+    reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+    questionBankStatus: "WRITABLE",
+    testEligibility: "ELIGIBLE_WITH_FAMILY_LIMIT",
     publiclyPublishable: false,
+    freezeStatus: "ENGLISH_MOCK_READY",
+    itemPolicyAuthority: "QUESTION_TRACEABILITY",
+    maxPerMockPerFamily: 1,
     exactArithmetic: "BIGINT_RATIONAL",
   };
 }
@@ -504,7 +507,7 @@ async function generateWithRuntimePackage(
       generationDomain: "quant-v4",
       seed: batchSeed,
       timestamp: Date.now(),
-      runtimeMode: pnlRuntimeMode ?? (isProbability ? "AUTOMATED_PRODUCTION_QA" : "DYNAMIC"),
+      runtimeMode: pnlRuntimeMode ?? (isProbability ? "ENGLISH_MOCK_READY" : "DYNAMIC"),
       ...(isPnl
         ? {
             reviewStatus: pnlRuntimeMode === "DYNAMIC_CANDIDATE" ? "UNREVIEWED_DYNAMIC_CANDIDATE" : "APPROVED_EDITORIAL_CANONICAL",
@@ -515,10 +518,13 @@ async function generateWithRuntimePackage(
         : {}),
       ...(isProbability
         ? {
-            reviewStatus: "AUTOMATED_PRODUCTION_QA_PENDING_MANUAL_REVIEW",
-            questionBankStatus: "NOT_STORED",
-            testEligibility: "INELIGIBLE",
+            reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+            questionBankStatus: "WRITABLE",
+            testEligibility: "ELIGIBLE_WITH_FAMILY_LIMIT",
             publiclyPublishable: false,
+            freezeStatus: "ENGLISH_MOCK_READY",
+            itemPolicyAuthority: "QUESTION_TRACEABILITY",
+            maxPerMockPerFamily: 1,
           }
         : {}),
     },
