@@ -49,14 +49,28 @@ function chain(
     const referenceSeat = order.indexOf(reference);
     const clockwise = (subjectSeat - referenceSeat + order.length) % order.length;
     const anticlockwise = order.length - clockwise;
-    output.push({
-      id: nextId(),
-      kind: "CYCLIC_POSITION",
-      subjectId: subject,
-      referenceId: reference,
-      direction: clockwise <= anticlockwise ? "CLOCKWISE" : "ANTICLOCKWISE",
-      steps: Math.min(clockwise, anticlockwise),
-    });
+    const cyclicDirection = clockwise <= anticlockwise ? "CLOCKWISE" as const : "ANTICLOCKWISE" as const;
+    const steps = Math.min(clockwise, anticlockwise);
+
+    if (index % 2 === 0) {
+      output.push({
+        id: nextId(),
+        kind: "RELATIVE_POSITION",
+        subjectId: subject,
+        referenceId: reference,
+        direction: cyclicDirection === "CLOCKWISE" ? "LEFT" : "RIGHT",
+        steps,
+      });
+    } else {
+      output.push({
+        id: nextId(),
+        kind: "CYCLIC_POSITION",
+        subjectId: subject,
+        referenceId: reference,
+        direction: cyclicDirection,
+        steps,
+      });
+    }
   }
   return output;
 }
@@ -81,7 +95,9 @@ function constraintsFor(
     const firstIndex = rng.integer(0, order.length - 1);
     const secondIndex = ring.oppositeSeatIndex(firstIndex);
     if (secondIndex === null) throw new Error("Opposite blueprint requires an even circle");
-    protect({ id: nextId(), kind: "OPPOSITE", firstId: personAt(order, firstIndex), secondId: personAt(order, secondIndex) });
+    const oppositePerson = personAt(order, secondIndex);
+    protect({ id: nextId(), kind: "OPPOSITE", firstId: personAt(order, firstIndex), secondId: oppositePerson });
+    excluded = new Set([oppositePerson]);
   } else if (blueprint === "SEA-PBA-010") {
     const start = rng.integer(0, order.length - 1);
     for (let offset = 0; offset < 3; offset += 1) {
@@ -102,7 +118,7 @@ function constraintsFor(
     const landmark = topology.landmark;
     if (!landmark) throw new Error("Landmark blueprint requires an external marker");
     protect({ id: nextId(), kind: "LANDMARK_ANCHOR", personId: order[0] as PersonId, landmarkId: landmark.id, seatIndex: 0 });
-    excluded = new Set([order[order.length - 1] as PersonId]);
+    excluded = new Set([order[rng.integer(1, order.length - 1)] as PersonId]);
   }
 
   const existing = new Set(constraints.map(circularConstraintFingerprint));
@@ -118,11 +134,21 @@ function constraintsFor(
   const landmarkAnchored = topology.landmark !== undefined;
   const solve = (candidate: readonly CircularConstraint[]) => enumerateCircularProduction({ persons: order, constraints: candidate, landmarkAnchored, maxModels: 2 });
   if (solve(constraints).length !== 1) throw new Error("Candidate clue set is not unique");
+
   for (let index = constraints.length - 1; index >= 0; index -= 1) {
     const clue = constraints[index];
     if (!clue || protectedIds.has(clue.id)) continue;
     const trial = constraints.filter((_, candidateIndex) => candidateIndex !== index);
     if (solve(trial).length === 1) constraints.splice(index, 1);
+  }
+
+  for (const clue of constraints) {
+    const trial = constraints.filter((candidate) => candidate.id !== clue.id);
+    if (solve(trial).length === 1) throw new Error(`Displayed redundant clue: ${clue.id}`);
+  }
+
+  if (new Set(constraints.map(circularConstraintFingerprint)).size !== constraints.length) {
+    throw new Error("Displayed semantically duplicate clue");
   }
   return { constraints, protectedIds };
 }
@@ -169,11 +195,23 @@ function attempt(seed: string, blueprint: CircularBlueprintId): CircularCaseletR
   const clueTexts = built.constraints.map(renderCircularConstraint);
   if (seatCount % 2 !== 0 && (built.constraints.some((clue) => clue.kind === "OPPOSITE") || children.some((child) => child.queryContractId === "SEA-QC-010"))) throw new Error("Odd circle exposed opposite relation");
 
+  const landmarkLabel = topology.landmark?.id.toLowerCase();
+  const landmarkArticle = landmarkLabel === "entrance" ? "An" : "A";
   const setupText = landmarkAnchored
-    ? `${seatCount} persons—${persons.join(", ")}—sit around a circular table facing the centre. The ${topology.landmark?.id.toLowerCase()} fixes one displayed seat.`
-    : `${seatCount} persons—${persons.join(", ")}—sit around a circular table facing the centre. Rotations represent the same arrangement.`;
+    ? `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table, facing the centre, but not necessarily in the same order. ${landmarkArticle} ${landmarkLabel} is shown at the top of the diagram.`
+    : `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table, facing the centre, but not necessarily in the same order.`;
   const skills = ["ROTATION_CANONICALISATION", "CENTRE_FACING_LEFT_RIGHT", "CLOCKWISE_WRAP_AROUND", "DIRECTIONAL_ARC_COUNT", seatCount % 2 === 0 ? "EVEN_OPPOSITE_SEAT" : "ODD_OPPOSITE_GUARD"];
   if (landmarkAnchored) skills.push("EXTERNAL_LANDMARK_ANCHOR");
+
+  const sharedExplanation = [
+    landmarkAnchored
+      ? `Start with the seat nearest the ${landmarkLabel}, which is shown at the top of the diagram.`
+      : `For solving, place ${solved[0]} at any convenient seat; only relative positions matter.`,
+    "Since everyone faces the centre, left is clockwise and right is anticlockwise.",
+    "Apply the clues one by one:",
+    ...clueTexts.map((clue, index) => `${index + 1}. ${clue}`),
+    `Therefore, the clockwise arrangement is ${diagram.text}.`,
+  ].join("\n");
 
   return {
     caseletId: `SEA-CP003-${canonicalDigest({ seed, blueprint }).slice(0, 16)}`,
@@ -189,7 +227,7 @@ function attempt(seed: string, blueprint: CircularBlueprintId): CircularCaseletR
     checkpointSkillCoverage: skills,
     crossQuestionLeakagePassed: true,
     proofTrace: trace(built.constraints, landmarkAnchored),
-    sharedExplanation: [landmarkAnchored ? `Begin at the displayed ${topology.landmark?.id.toLowerCase()} seat.` : `Choose ${solved[0]} only as a temporary rotation reference.`, "Facing centre means left is clockwise and right is anticlockwise.", ...clueTexts, `Unique clockwise order: ${diagram.text}.`].join("\n"),
+    sharedExplanation,
     diagram, children, lifecycle: LIFECYCLE,
   };
 }
@@ -207,10 +245,15 @@ export function assertCircularCaseletIntegrity(caselet: CircularCaseletRecord): 
   if (caselet.checkpointId !== "SEA-CP-003" || caselet.solutionClassCount !== 1 || !caselet.solverOracleAgreement.passed) throw new Error("Circular solution policy failed");
   if (caselet.children.length !== 4 || new Set(caselet.queryFactFingerprints).size !== 4) throw new Error("Circular child mix failed");
   if (caselet.essentialConstraintIds.some((id) => caselet.blueprintCoverageConstraintIds.includes(id))) throw new Error("Constraint role overlap");
+  if (new Set(caselet.constraints.map(circularConstraintFingerprint)).size !== caselet.constraints.length) throw new Error("Circular semantic clue duplication");
+  if (caselet.setupText.includes("Rotations represent") || caselet.setupText.includes("fixes one displayed seat")) throw new Error("Internal circular terminology leaked into the student stem");
+  if (!caselet.setupText.includes("not necessarily in the same order")) throw new Error("Exam-style circular setup phrase is missing");
   const solved = caselet.solverOracleAgreement.productionKeys[0]?.split("|") ?? [];
   if (caselet.constraints.some((clue) => !constraintTrueInOrder(clue, solved))) throw new Error("Displayed false clue");
   for (const child of caselet.children) {
     if (child.options.length !== 4 || child.options.filter((option) => option.isCorrect).length !== 1 || new Set(child.options.map((option) => option.semanticFingerprint)).size !== 4 || !child.options[child.answerIndex]?.isCorrect) throw new Error("Circular option integrity failed");
+    if (child.text.includes("2 seats to the left")) throw new Error("Non-exam ordinal wording leaked into a question");
+    if (child.explanation.includes("1 persons")) throw new Error("Singular/plural error leaked into an explanation");
   }
   if (caselet.lifecycle.permanentQlCount !== 0 || caselet.lifecycle.questionBankWritable || caselet.lifecycle.testEligible || caselet.lifecycle.publiclyPublishable) throw new Error("Lifecycle lock violated");
 }
