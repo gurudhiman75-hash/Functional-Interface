@@ -24,7 +24,7 @@ export type {
   MixedFacingProofEvent,
   MixedFacingCaseletRecord,
 } from "./cp002/types.ts";
-export * from "./cp002/topology.ts";
+export { MixedFacingRowTopology, mixedFacingModelKey } from "./cp002/topology.ts";
 export * from "./cp002/constraints.ts";
 export * from "./cp002/solvers.ts";
 export * from "./cp002/questions.ts";
