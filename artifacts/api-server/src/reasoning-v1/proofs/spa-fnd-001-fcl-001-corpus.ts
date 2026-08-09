@@ -38,10 +38,10 @@ export function buildSpatialFcl001ProofCorpus(): SpatialClassificationProofQuest
       propertyId: "OUTER_INNER_DIFFERENT",
       expectedOddIndex: 0,
       states: [
-        figure("TRIANGLE", "TRIANGLE", 0, 0, "TOP_LEFT", "DOWN", false, 1, "LEFT"),
-        figure("SQUARE", "CIRCLE", 0, 0, "TOP_RIGHT", "UP", false, 1, "RIGHT"),
-        figure("PENTAGON", "SQUARE", 0, 0, "BOTTOM_LEFT", "DOWN", true, 1, "LEFT"),
-        figure("CIRCLE", "PENTAGON", 0, 0, "BOTTOM_RIGHT", "UP", true, 1, "RIGHT"),
+        figure("SQUARE", "SQUARE", 0, 0, "TOP_LEFT", "DOWN", false, 1, "LEFT"),
+        figure("SQUARE", "PENTAGON", 0, 0, "TOP_RIGHT", "UP", false, 1, "RIGHT"),
+        figure("TRIANGLE", "SQUARE", 0, 0, "BOTTOM_LEFT", "DOWN", true, 1, "LEFT"),
+        figure("PENTAGON", "TRIANGLE", 0, 0, "BOTTOM_RIGHT", "UP", true, 1, "RIGHT"),
       ],
     }),
     generateFigureClassificationProofQuestion({
