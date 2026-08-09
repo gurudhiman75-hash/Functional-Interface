@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { performance } from "node:perf_hooks";
 import { canonicalDigest } from "./canonical.ts";
+import { circularConstraintFingerprint } from "./cp003/constraints.ts";
 import { assertCircularCaseletIntegrity, generateCircularCaselet, SEA_CP003_BLUEPRINTS } from "./cp003/generator.ts";
 import { CircularTopology, circularCanonicalKey, rotateOrder } from "./cp003/topology.ts";
 import { enumerateCircularProduction } from "./cp003/solvers.ts";
@@ -34,6 +35,7 @@ let childCount = 0;
 let oddCaselets = 0;
 let landmarkCaselets = 0;
 let deterministicReplays = 0;
+let fullClueNecessityAudits = 0;
 const start = performance.now();
 
 for (const blueprint of SEA_CP003_BLUEPRINTS) {
@@ -45,6 +47,12 @@ for (const blueprint of SEA_CP003_BLUEPRINTS) {
     observedSeatCounts.add(caselet.topologySnapshot.seatCount);
     caseletCount += 1;
     childCount += caselet.children.length;
+
+    assert.match(caselet.setupText, /not necessarily in the same order/);
+    assert.doesNotMatch(caselet.setupText, /Rotations represent|fixes one displayed seat/);
+    assert.equal(new Set(caselet.constraints.map(circularConstraintFingerprint)).size, caselet.constraints.length, "semantically duplicate displayed clue");
+    assert.match(caselet.children[0]?.text ?? "", /Who sits second to the left of/);
+    assert.ok(caselet.children.every((child) => !child.explanation.includes("1 persons")), "singular/plural explanation error");
 
     if (caselet.topologySnapshot.seatCount % 2 !== 0) {
       oddCaselets += 1;
@@ -69,6 +77,7 @@ for (const blueprint of SEA_CP003_BLUEPRINTS) {
       assert.ok(caselet.topologySnapshot.landmark, "landmark blueprint lacks topology landmark");
       assert.ok(caselet.constraints.some((constraint) => constraint.kind === "LANDMARK_ANCHOR"), "landmark blueprint lacks anchor clue");
       assert.ok(caselet.diagram.landmark, "landmark blueprint lacks landmark diagram");
+      assert.match(caselet.setupText, /(An entrance|A stage|A door) is shown at the top of the diagram/);
     } else {
       assert.equal(caselet.topologySnapshot.landmark, undefined, "non-landmark blueprint gained an absolute marker");
       assert.ok(!caselet.constraints.some((constraint) => constraint.kind === "LANDMARK_ANCHOR"));
@@ -79,16 +88,17 @@ for (const blueprint of SEA_CP003_BLUEPRINTS) {
     }
 
     if (index % 10 === 0) {
-      for (const essentialId of caselet.essentialConstraintIds) {
-        const trial = caselet.constraints.filter((constraint) => constraint.id !== essentialId);
+      for (const clue of caselet.constraints) {
+        const trial = caselet.constraints.filter((constraint) => constraint.id !== clue.id);
         const models = enumerateCircularProduction({
           persons: caselet.solverOracleAgreement.productionKeys[0]?.split("|") ?? [],
           constraints: trial,
           landmarkAnchored: caselet.topologySnapshot.landmark !== undefined,
           maxModels: 2,
         });
-        assert.notEqual(models.length, 1, `essential clue ${essentialId} did not change the solution policy`);
+        assert.notEqual(models.length, 1, `displayed clue ${clue.id} was redundant`);
       }
+      fullClueNecessityAudits += 1;
     }
 
     if (index % 25 === 0) {
@@ -119,6 +129,7 @@ console.log(`generated deterministic caselets ${caseletCount}`);
 console.log(`generated child questions ${childCount}`);
 console.log(`odd-seat guarded caselets ${oddCaselets}`);
 console.log(`landmark-anchored caselets ${landmarkCaselets}`);
+console.log(`full displayed-clue necessity audits ${fullClueNecessityAudits}`);
 console.log(`deterministic replay checks ${deterministicReplays}`);
 console.log(`elapsed milliseconds ${Math.round(elapsedMs)}`);
 console.log("permanent QLs 0");
