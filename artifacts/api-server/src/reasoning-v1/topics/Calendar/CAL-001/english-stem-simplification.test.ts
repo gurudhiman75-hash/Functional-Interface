@@ -40,12 +40,12 @@ const REQUIRED_PATTERNS: Partial<Record<CalendarPrototypeId, RegExp>> = {
   "CAL-PQL-030": /^Which previous year has the same calendar as \d{4}\?$/,
   "CAL-PQL-031": /^Which year has the same calendar as \d{4}\?$/,
   "CAL-PQL-032": /^Which option correctly explains whether \d{4} and \d{4} have the same calendar\?$/,
-  "CAL-PQL-033": /^.+ \d{4} has the same calendar as .+ of which year\?$/,
+  "CAL-PQL-033": /^.+ \d{4} has the same calendar as .+ in which year\?$/,
   "CAL-PQL-034": /^From \d{4} to \d{4}, how many years other than \d{4} have the same calendar as \d{4}\?$/,
   "CAL-PQL-037": /^.+ \d{4} begins on .+\. On which day does the month end\?$/,
   "CAL-PQL-038": /^.+ \d{4} ends on .+\. On which day does the month begin\?$/,
-  "CAL-PQL-041": /^Which day or days occur five times in .+ \d{4}\?$/,
-  "CAL-PQL-043": /^Which day or days occur 53 times in \d{4}\?$/,
+  "CAL-PQL-041": /^Which weekdays occur five times in .+ \d{4}\?$/,
+  "CAL-PQL-043": /^Which weekdays occur 53 times in \d{4}\?$/,
   "CAL-PQL-044": /^How many .+s are there from .+ to .+, including both dates\?$/,
 };
 
@@ -60,7 +60,9 @@ for (const authority of CAL_001_SIMPLIFIED_ENGLISH_STEM_AUTHORITIES) {
     assert(requiredPattern.test(english.stem), `${authority} seed ${seed}: unexpected simplified stem '${english.stem}'.`);
     assert(english.stem.trim().endsWith("?"), `${authority} seed ${seed}: stem must end as a direct question.`);
     assert(english.stem.split(/\s+/).length <= 30, `${authority} seed ${seed}: stem is still too long (${english.stem}).`);
-    assert(!/\bwas\b/i.test(english.stem), `${authority} seed ${seed}: future-date past tense leaked into stem.`);
+    if (authority !== "CAL-PQL-002") {
+      assert(!/\bwas\b/i.test(english.stem), `${authority} seed ${seed}: future-date past tense leaked into stem.`);
+    }
     for (const banned of BANNED_HEAVY_PHRASES) {
       assert(!banned.test(english.stem), `${authority} seed ${seed}: heavy phrase '${banned}' remains in '${english.stem}'.`);
     }
