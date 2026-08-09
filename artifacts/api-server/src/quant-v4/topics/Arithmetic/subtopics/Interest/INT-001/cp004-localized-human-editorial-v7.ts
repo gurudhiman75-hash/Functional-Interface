@@ -46,14 +46,18 @@ function fixHindiPeriodAgreement(text: string): string {
   );
 }
 
-function fixPunjabiPeriodAgreement(text: string): string {
-  return text.replace(
-    /(\d+) (ਤਿਮਾਹੀਆਂ|ਛਿਮਾਹੀਆਂ|ਮਹੀਨੇ|ਸਾਲ) ਲਏ ਗਏ ਹਨ/gu,
-    (_match, count: string, rawPeriod: string) => {
-      const period = punjabiPeriod(rawPeriod);
-      return `${count} ${period.oblique} ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ ਹੈ`;
-    },
-  );
+function fixPunjabiEditorialGrammar(text: string): string {
+  return text
+    .replace(
+      /(\d+) (ਤਿਮਾਹੀਆਂ|ਛਿਮਾਹੀਆਂ|ਮਹੀਨੇ|ਸਾਲ) ਲਏ ਗਏ ਹਨ/gu,
+      (_match, count: string, rawPeriod: string) => {
+        const period = punjabiPeriod(rawPeriod);
+        return `${count} ${period.oblique} ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ ਹੈ`;
+      },
+    )
+    .replace(/ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ ਨਾਲ/gu, "ਵਿਆਜ ਗੁਣਕ ਨਾਲ")
+    .replace(/ਸਾਰੀਆਂ ਮਿਸ਼ਰਤ ਵਿਆਜਆਂ/gu, "ਵਿਆਜ ਜੋੜਨ ਦੇ ਸਾਰੇ ਪੜਾਅ")
+    .replace(/ਦੇ ਸਧਾਰਣ ਵਿਆਜ ਬਾਅਦ/gu, "ਦੇ ਸਧਾਰਣ ਵਿਆਜ ਤੋਂ ਬਾਅਦ");
 }
 
 function humanizeHindiStem(text: string): string {
@@ -79,7 +83,7 @@ function humanizeHindiStem(text: string): string {
 }
 
 function humanizePunjabiStem(text: string): string {
-  return fixPunjabiPeriodAgreement(text
+  return fixPunjabiEditorialGrammar(text
     .replace(/^ਇੱਕ ਰਕਮ (₹[\d,.]+) ਹੈ। ਇਸ ਉੱਤੇ /u, "$1 ਦੀ ਰਕਮ ਉੱਤੇ ")
     .replace(/^ਇੱਕ ਨਿਵੇਸ਼ (₹[\d,.]+) ਹੈ।/u, "$1 ਦਾ ਨਿਵੇਸ਼ ਕੀਤਾ ਗਿਆ ਹੈ।")
     .replace(/ਹਰ ਵਿਆਜ ਅੰਤਰਾਲ ਦੀ ਦਰ/gu, "ਹਰ ਵਾਰ ਵਿਆਜ ਜੁੜਨ ਦੀ ਦਰ")
@@ -89,7 +93,6 @@ function humanizePunjabiStem(text: string): string {
     .replace(/ਵੱਧ ਰਕਮ ਕਿੰਨੀ ਵੱਧ ਹੋਵੇਗੀ\?/gu, "ਦੋਵੇਂ ਰਕਮਾਂ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੋਵੇਗਾ?")
     .replace(/ਇੱਕੋ (₹[\d,.]+) ਰਕਮ/gu, "ਇੱਕੋ ਮੂਲਧਨ $1")
     .replace(/1 ਪੂਰੇ ਸਾਲ ਦੇ ਮਿਸ਼ਰਤ ਵਿਆਜ ਅਤੇ (\d+) ਮਹੀਨਿਆਂ ਦੇ ਵਾਧੂ ਸਮੇਂ ਬਾਅਦ/gu, "1 ਸਾਲ ਦੇ ਮਿਸ਼ਰਤ ਵਿਆਜ ਅਤੇ ਅਗਲੇ $1 ਮਹੀਨਿਆਂ ਦੇ ਸਧਾਰਣ ਵਿਆਜ ਤੋਂ ਬਾਅਦ")
-    .replace(/ਦੇ ਸਧਾਰਣ ਵਿਆਜ ਬਾਅਦ/gu, "ਦੇ ਸਧਾਰਣ ਵਿਆਜ ਤੋਂ ਬਾਅਦ")
     .replace(/ਪਹਿਲੇ 1 ਸਾਲ ਲਈ/gu, "ਪਹਿਲੇ ਸਾਲ")
     .replace(/ਅਗਲੇ 1 ਸਾਲ ਲਈ/gu, "ਅਗਲੇ ਸਾਲ")
     .replace(/ਸ਼ੁਰੂਆਤੀ 1 ਸਾਲ ਵਿੱਚ/gu, "ਪਹਿਲੇ ਸਾਲ")
@@ -151,7 +154,7 @@ function humanizePunjabiFeedback(text: string): string {
     },
   );
 
-  return fixPunjabiPeriodAgreement(removeRedundantDivisionByOne(result
+  return fixPunjabiEditorialGrammar(removeRedundantDivisionByOne(result
     .replace(/ਕੁੱਲ (\d+) ਤਿਮਾਹੀਆਂ ਲੈਣ ਉੱਤੇ/gu, "$1 ਤਿਮਾਹੀਆਂ ਲਈ ਗਿਣਤੀ ਕਰਨ ਉੱਤੇ")
     .replace(/ਕੁੱਲ (\d+) ਛਿਮਾਹੀਆਂ ਲੈਣ ਉੱਤੇ/gu, "$1 ਛਿਮਾਹੀਆਂ ਲਈ ਗਿਣਤੀ ਕਰਨ ਉੱਤੇ")
     .replace(/ਕੁੱਲ (\d+) ਮਹੀਨੇ ਲੈਣ ਉੱਤੇ/gu, "$1 ਮਹੀਨਿਆਂ ਲਈ ਗਿਣਤੀ ਕਰਨ ਉੱਤੇ")
@@ -181,7 +184,7 @@ function humanizeHindiExplanationText(text: string): string {
 }
 
 function humanizePunjabiExplanationText(text: string): string {
-  return fixPunjabiPeriodAgreement(removeRedundantDivisionByOne(text
+  return fixPunjabiEditorialGrammar(removeRedundantDivisionByOne(text
     .replace(/ਇੱਕ ਸਾਲ ਦੇ ਅੰਦਰ ਹੋਈਆਂ ਸਾਰੀਆਂ ਮਿਸ਼ਰਤ ਵਿਆਜਆਂ ਸ਼ਾਮਲ ਕਰੋ/gu, "ਇੱਕ ਸਾਲ ਦੇ ਅੰਦਰ ਵਿਆਜ ਜੋੜਨ ਦੇ ਸਾਰੇ ਪੜਾਅ ਸ਼ਾਮਲ ਕਰੋ")
     .replace(/ਪੂਰੇ ਇੱਕ ਸਾਲ ਦੇ ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ ਨਾਲ/gu, "ਪੂਰੇ ਇੱਕ ਸਾਲ ਦੇ ਵਿਆਜ ਗੁਣਕ ਨਾਲ")
     .replace(/ਇਸ ਦਰ ਨੂੰ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਵਿਆਜ ਜੋੜਨ ਦਾ ਨਿਯਮ ਨਾਲ/gu, "ਇਸ ਦਰ ਨਾਲ ਪ੍ਰਸ਼ਨ ਅਨੁਸਾਰ ਵਿਆਜ ਜੋੜਨ ਉੱਤੇ")));
