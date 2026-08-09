@@ -3,6 +3,7 @@ import type {
   ClockAnswerKind,
   ClockLocale,
   ClockQuestionExplanation,
+  ClockQuestionMedia,
   ClockScenario,
   ClockSemanticAnswer,
   ClockSolveTrace,
@@ -24,6 +25,7 @@ export interface ClockContractEvidence {
 export interface SolvedClockPrototype {
   taskId: ClockTaskId;
   stem: string;
+  media?: ClockQuestionMedia;
   scenario: ClockScenario;
   answer: ClockSemanticAnswer;
   /**
