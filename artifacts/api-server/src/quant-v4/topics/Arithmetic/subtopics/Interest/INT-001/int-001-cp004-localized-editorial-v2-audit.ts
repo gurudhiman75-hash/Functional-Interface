@@ -51,6 +51,8 @@ let optionChecks = 0;
 let explanationChecks = 0;
 let learnerIdLeakChecks = 0;
 let representationChecks = 0;
+let tableShapeChecks = 0;
+let nonTableShapeChecks = 0;
 let grammarChecks = 0;
 let feedbackSpecificityChecks = 0;
 let effectiveRateEquationChecks = 0;
@@ -64,7 +66,7 @@ for (const locale of locales) {
 
   for (const qlId of INT_CP004_QL_IDS) {
     for (let index = 0; index < seedsPerQl; index += 1) {
-      const seed = `int-cp004-editorial-v4-audit:${qlId}:${index}`;
+      const seed = `int-cp004-editorial-v5-audit:${qlId}:${index}`;
       const question = generateIntCp004LocalizedQuestion({ qlId, seed, locale });
       const learnerText = [
         question.stem,
@@ -91,22 +93,37 @@ for (const locale of locales) {
       const representationKey = `${locale}:${question.representation}`;
       representationCounts.set(representationKey, (representationCounts.get(representationKey) ?? 0) + 1);
 
-      if (question.representation !== "STANDARD_PROSE") {
-        assert(question.stem.includes("|---|---|"), `${qlId}/${seed}/${locale}: structured representation has no meaningful table.`);
-        assert(question.stem.split("\n").filter((line) => line.startsWith("|")).length >= 4, `${qlId}/${seed}/${locale}: structured table is too shallow.`);
+      const hasMarkdownTable = question.stem.includes("|---|---|");
+      const markdownRows = question.stem.split("\n").filter((line) => line.trimStart().startsWith("|")).length;
+      if (question.representation === "STANDARD_PROSE") {
+        assert(!hasMarkdownTable, `${qlId}/${seed}/${locale}: standard prose was rendered as a table.`);
+        nonTableShapeChecks += 1;
       }
       if (question.representation === "TERMS_TABLE") {
         const heading = locale === "hi-IN" ? "**प्रश्न:**" : "**ਪ੍ਰਸ਼ਨ:**";
+        assert(hasMarkdownTable, `${qlId}/${seed}/${locale}: terms-table representation lost its genuine table.`);
+        assert(markdownRows >= 4, `${qlId}/${seed}/${locale}: terms table is too shallow.`);
         assert(question.stem.includes(heading), `${qlId}/${seed}/${locale}: terms table has no direct localized question heading.`);
+        tableShapeChecks += 1;
       }
       if (question.representation === "BALANCE_RECORD") {
         const accountWord = locale === "hi-IN" ? "खाते" : "ਖਾਤੇ";
+        const accountHeading = locale === "hi-IN" ? "**खाता विवरण**" : "**ਖਾਤਾ ਵੇਰਵਾ**";
         const genericRow = locale === "hi-IN" ? "आरंभिक प्रविष्टि" : "ਸ਼ੁਰੂਆਤੀ ਦਰਜ";
+        assert(!hasMarkdownTable, `${qlId}/${seed}/${locale}: account record is still table-based.`);
         assert(question.stem.includes(accountWord), `${qlId}/${seed}/${locale}: balance record lacks an account context.`);
+        assert(question.stem.includes(accountHeading), `${qlId}/${seed}/${locale}: account record has no distinct heading.`);
+        assert(question.stem.split("\n").filter((line) => /^\d+\.\s+\*\*/u.test(line)).length >= 2, `${qlId}/${seed}/${locale}: account record lacks readable numbered entries.`);
         assert(!question.stem.includes(genericRow), `${qlId}/${seed}/${locale}: balance record still hides the first fact behind a generic label.`);
+        nonTableShapeChecks += 1;
       }
       if (question.representation === "SCHEME_COMPARISON") {
+        const schemeHeading = locale === "hi-IN" ? "**योजना/चरण का विवरण**" : "**ਯੋਜਨਾ/ਪੜਾਅ ਦਾ ਵੇਰਵਾ**";
+        assert(!hasMarkdownTable, `${qlId}/${seed}/${locale}: scheme/two-stage representation is still table-based.`);
+        assert(question.stem.includes(schemeHeading), `${qlId}/${seed}/${locale}: scheme representation lacks a distinct heading.`);
+        assert(question.stem.split("\n").filter((line) => line.startsWith("- **")).length >= 2, `${qlId}/${seed}/${locale}: scheme representation lacks readable bullet facts.`);
         assert(locale === "hi-IN" ? question.stem.includes("योजना") : question.stem.includes("ਯੋਜਨਾ"), `${qlId}/${seed}/${locale}: scheme representation lacks a learner-facing scheme frame.`);
+        nonTableShapeChecks += 1;
       }
       representationChecks += 1;
 
@@ -148,13 +165,15 @@ for (const locale of locales) {
 
 mkdirSync(outputDirectory, { recursive: true });
 const summary = Object.freeze({
-  status: "CP004_LOCALIZED_EDITORIAL_V4_VALIDATED",
-  editorialVersion: "INT-CP-004-HI-PA-EDITORIAL-v4",
+  status: "CP004_LOCALIZED_EDITORIAL_V5_VALIDATED",
+  editorialVersion: "INT-CP-004-HI-PA-PRESENTATION-v5",
   questionCases,
   optionChecks,
   explanationChecks,
   learnerIdLeakChecks,
   representationChecks,
+  tableShapeChecks,
+  nonTableShapeChecks,
   grammarChecks,
   feedbackSpecificityChecks,
   effectiveRateEquationChecks,
@@ -174,5 +193,6 @@ const summary = Object.freeze({
 });
 writeFileSync(`${outputDirectory}/int-cp004-localized-editorial-v2-summary.json`, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
 console.log(JSON.stringify(summary, null, 2));
+console.log("PASS_INT_CP004_LOCALIZED_EDITORIAL_V5");
 console.log("PASS_INT_CP004_LOCALIZED_EDITORIAL_V4");
 console.log("PASS_INT_CP004_LOCALIZED_EDITORIAL_V2");
