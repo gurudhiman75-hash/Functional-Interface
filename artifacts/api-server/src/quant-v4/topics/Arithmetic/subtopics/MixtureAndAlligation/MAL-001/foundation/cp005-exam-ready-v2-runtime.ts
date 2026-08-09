@@ -68,6 +68,14 @@ function learnerFacingText(question: MalCp005ExamReadyQuestionV2): string {
   });
 }
 
+function optionSurfaceIsExamNatural(question: MalCp005ExamReadyQuestionV2): boolean {
+  return question.options.every(
+    (option) =>
+      !/^\s*-/u.test(option) &&
+      !/\/(?:6|7|9|11|12|13|14|15|16|17|18|19|20)(?:\D|$)/u.test(option),
+  );
+}
+
 export function generateMalCp005ExamReadyV2Question(
   prototypeId: MalCp005DiscoveryPrototypeId,
   requestedSeed = `mal-cp005-exam-ready-v2:${prototypeId}:default`,
@@ -89,6 +97,10 @@ export function generateMalCp005ExamReadyV2Question(
       }
       if (/\b1 litres\b/iu.test(learnerFacingText(question))) {
         failures.push("Learner-facing output contains the singular-unit defect '1 litres'.");
+        continue;
+      }
+      if (!optionSurfaceIsExamNatural(question)) {
+        failures.push("A displayed option is negative or uses an awkward fraction denominator.");
         continue;
       }
       const independent = verifyMalCp005Solution(
@@ -115,6 +127,9 @@ export function verifyMalCp005ExamReadyV2Question(
   const errors = [...question.validation.errors];
   if (/\b1 litres\b/iu.test(learnerFacingText(question))) {
     errors.push("Learner-facing output contains the singular-unit defect '1 litres'.");
+  }
+  if (!optionSurfaceIsExamNatural(question)) {
+    errors.push("A displayed option is negative or uses an awkward fraction denominator.");
   }
   const independent = verifyMalCp005Solution(question.request, question.solution);
   errors.push(...independent.errors);
