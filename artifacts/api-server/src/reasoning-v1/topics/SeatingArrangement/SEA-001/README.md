@@ -34,11 +34,24 @@ Named authorities:
 - `SEA-PBA-011` — centre-facing gap and adjacency mix;
 - `SEA-PBA-012` — centre-facing external-landmark anchor with elimination.
 
+## Wave 4 verification hardening
+
+Completed verification contracts include:
+
+- generic production-model/independent-oracle agreement;
+- entity-renaming, clue-order, rotation and supportive-clue metamorphic proofs;
+- displayed-clue sensitivity checks;
+- independent option-misconception recomputation;
+- locked parent/child Question Studio projection;
+- proof-event-based teaching-trace compilation;
+- dedicated CI proof and evidence record.
+
 ## Run proofs
 
 ```bash
 node --experimental-strip-types foundation-proof.test.ts
 node --experimental-strip-types cp003-proof.test.ts
+node --experimental-strip-types wave4-verification-proof.test.ts
 ```
 
 ## Generate CP-003 review evidence
@@ -47,6 +60,16 @@ node --experimental-strip-types cp003-proof.test.ts
 SEA_CP003_REVIEW_OUTPUT_DIR=./dist/sea-cp003-review \
   node --experimental-strip-types cp003-review-export.ts
 ```
+
+## Next authority wave
+
+Wave 5 completes `SEA-001` in this order:
+
+1. `SEA-CP-002` — single-row mixed facing;
+2. `SEA-CP-004` — circular, facing outward;
+3. `SEA-CP-005` — circular, mixed facing.
+
+Full saturation, manual English review, merge/split/inverse/gap audits, permanent allocation and English freeze remain later Wave 5 gates.
 
 ## Lifecycle
 
@@ -60,4 +83,4 @@ Mock-test eligibility:        false
 Public publication:           false
 ```
 
-Do not bypass `assertSea001ActivationAllowed`. Wave 4 verification hardening, remaining SEA-001 checkpoints, source and gap audits, manual freezes and product approvals remain mandatory.
+Do not bypass `assertSea001ActivationAllowed`. Remaining SEA-001 checkpoints, source and gap audits, manual freezes and product approvals remain mandatory.
