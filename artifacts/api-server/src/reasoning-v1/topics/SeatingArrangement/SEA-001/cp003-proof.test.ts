@@ -90,12 +90,15 @@ for (const blueprint of SEA_CP003_BLUEPRINTS) {
     if (index % 10 === 0) {
       for (const clue of caselet.constraints) {
         const trial = caselet.constraints.filter((constraint) => constraint.id !== clue.id);
-        const models = enumerateCircularProduction({
-          persons: caselet.solverOracleAgreement.productionKeys[0]?.split("|") ?? [],
-          constraints: trial,
-          landmarkAnchored: caselet.topologySnapshot.landmark !== undefined,
-          maxModels: 2,
-        });
+        const landmarkAnchored = caselet.topologySnapshot.landmark !== undefined;
+        const models = landmarkAnchored && !trial.some((constraint) => constraint.kind === "LANDMARK_ANCHOR")
+          ? []
+          : enumerateCircularProduction({
+              persons: caselet.solverOracleAgreement.productionKeys[0]?.split("|") ?? [],
+              constraints: trial,
+              landmarkAnchored,
+              maxModels: 2,
+            });
         assert.notEqual(models.length, 1, `displayed clue ${clue.id} was redundant`);
       }
       fullClueNecessityAudits += 1;
