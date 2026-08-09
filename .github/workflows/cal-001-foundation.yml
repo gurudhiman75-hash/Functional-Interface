@@ -61,7 +61,7 @@ jobs:
 
   exhaustive-proof:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -97,6 +97,13 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/english-editorial-freeze-v2.test.ts 2>&1 | tee /tmp/cal-001-english-editorial-freeze-v2.log
           echo "${PIPESTATUS[0]}" > /tmp/cal-001-english-editorial-freeze-v2-exit
           exit 0
+      - name: Run Hindi Punjabi human-freeze and parity proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/multilingual-freeze.test.ts 2>&1 | tee /tmp/cal-001-multilingual-freeze.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-multilingual-freeze-exit
+          exit 0
       - name: Run final source-gap and permanent-identity freeze proof
         shell: bash
         run: |
@@ -108,7 +115,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cal-001-foundation-exam-readiness-editorial-v2-and-final-freeze-proof
+          name: cal-001-foundation-english-and-multilingual-freeze-proof
           path: |
             /tmp/cal-001-foundation-proof.log
             /tmp/cal-001-foundation-proof-exit
@@ -118,6 +125,8 @@ jobs:
             /tmp/cal-001-english-stem-simplification-exit
             /tmp/cal-001-english-editorial-freeze-v2.log
             /tmp/cal-001-english-editorial-freeze-v2-exit
+            /tmp/cal-001-multilingual-freeze.log
+            /tmp/cal-001-multilingual-freeze-exit
             /tmp/cal-001-final-discovery-freeze.log
             /tmp/cal-001-final-discovery-freeze-exit
           if-no-files-found: error
@@ -128,6 +137,7 @@ jobs:
           test "$(cat /tmp/cal-001-exam-readiness-proof-exit)" = "0"
           test "$(cat /tmp/cal-001-english-stem-simplification-exit)" = "0"
           test "$(cat /tmp/cal-001-english-editorial-freeze-v2-exit)" = "0"
+          test "$(cat /tmp/cal-001-multilingual-freeze-exit)" = "0"
           test "$(cat /tmp/cal-001-final-discovery-freeze-exit)" = "0"
 
   review-export:
