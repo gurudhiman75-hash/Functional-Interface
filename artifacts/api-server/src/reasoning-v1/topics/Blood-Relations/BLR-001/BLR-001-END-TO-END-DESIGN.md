@@ -1,6 +1,6 @@
 # BLR-001 — Blood Relations: End-to-End Design
 
-Status: **authoritative chapter design; implementation active; permanent QL count open**.
+Status: **authoritative chapter design; all seven planned English content checkpoints discovery-frozen; chapter-wide gap audit passed; manual English freeze pending**.
 
 ## 1. Product objective
 
@@ -16,7 +16,7 @@ construct valid family graph
   -> expose review metadata
 ```
 
-The chapter must never guess an answer from a prose template. The family graph and kinship ontology are the logic authority; student-facing text is a renderer.
+The chapter never guesses an answer from a prose template. The family graph and kinship ontology are the logic authority; student-facing text is a renderer.
 
 ## 2. Chapter identity
 
@@ -33,39 +33,39 @@ Included:
 
 - direct and reverse named-person relations;
 - multi-edge relation chains;
-- grandparents, grandchildren, uncle/aunt, nephew/niece and cousin paths;
+- grandparents, great-grandparents, grandchildren, uncle/aunt, nephew/niece and cousin paths;
 - common in-law paths;
-- pointer, photograph and conversation chains;
+- pointer, photograph, portrait and conversation chains;
 - only son, only daughter and only child constraints;
 - shared family passages;
 - gender, generation, pair, identity and count questions;
 - exact, broad, possible, impossible and indeterminate semantics;
-- coded kinship relations and coded-expression construction;
+- coded kinship decoding and coded-expression construction;
 - deterministic family-tree explanations.
 
-Excluded:
+Excluded from V1:
 
 - Data Sufficiency answer contracts;
 - family puzzles whose main burden is profession, city, colour, floor, schedule or seating assignment;
 - age arithmetic;
 - inheritance law or genetic pedigree reasoning;
 - free-form runtime parsing;
-- step, half, adoptive and foster relations in V1 unless later source evidence justifies them;
-- public publication before checkpoint freeze.
+- step, half, adoptive and foster relations unless later source evidence justifies them;
+- public publication before separate release gates.
 
-## 4. Provisional checkpoint ownership
+## 4. Frozen checkpoint ownership
 
-| Checkpoint | Ownership |
-|---|---|
-| `BLR-CP-001` | Direct named-person relation chains |
-| `BLR-CP-002` | Pointer, photograph and conversation relations |
-| `BLR-CP-003` | Family-set passages and shared graphs |
-| `BLR-CP-004` | Family counts and structural quantities |
-| `BLR-CP-005` | Determinacy, possibility and uncertainty |
-| `BLR-CP-006` | Coded relations: decode and solve |
-| `BLR-CP-007` | Coded relations: construct, complete and validate |
+| Checkpoint | Ownership | Permanent range |
+|---|---|---|
+| `BLR-CP-001` | Direct, reverse and multi-edge named-person relations; identity, pair, claim, generation and exact lineage | `BLR-QL-001..007` |
+| `BLR-CP-002` | Pointer, photograph, portrait, conversation and nested role-chain relations | `BLR-QL-008` |
+| `BLR-CP-003` | Shared family passages and set/pair/status identities | `BLR-QL-009..012` |
+| `BLR-CP-004` | Closed-universe counts and family composition | `BLR-QL-013..017` |
+| `BLR-CP-005` | Invariance, possibility, impossibility and uncertainty | `BLR-QL-018..025` |
+| `BLR-CP-006` | Coded relations: decode and solve | `BLR-QL-026..030` |
+| `BLR-CP-007` | Coded relations: construct, complete and validate | `BLR-QL-031..035` |
 
-Checkpoint ownership may freeze before QL allocation, but QL counts must be discovered exhaustively rather than chosen in advance.
+No `BLR-CP-008` is planned. `BLR-QL-036` remains technically available but unallocated.
 
 ## 5. Graph model
 
@@ -75,7 +75,8 @@ The shared family graph contains:
 - directed parent edges;
 - symmetric spouse edges;
 - symmetric sibling edges;
-- later cardinality constraints for only-child and exact-count statements.
+- cardinality constraints for only-child and exact-count statements;
+- bounded variable domains for uncertainty questions.
 
 Primitive path steps are:
 
@@ -102,11 +103,13 @@ Reject graphs containing:
 - cardinality contradictions;
 - clues whose answer depends on hidden data not entailed by displayed information.
 
+Names and letter labels provide no gender evidence. Every fixed gender used by a solver must be entailed by a displayed gender-bearing relation or explicit man/woman clue.
+
 ## 7. Solver routes
 
 ### Exact graph closure
 
-Used for direct chains and fully determined family sets. It builds the graph from structured clues, enumerates simple paths and returns the unique shortest supported kinship relation.
+Used for direct chains and fully determined family sets. It builds the graph from structured clues, enumerates supported paths and returns the unique required kinship relation.
 
 ### Role-chain reduction
 
@@ -118,23 +121,29 @@ Used for possible, impossible, broad and cannot-determine questions. A claim is 
 
 ### Coded-relation normalization
 
-Every supplied symbol is decoded to a binary family relation. Adjacent assertions are then passed to the ordinary family solver. Coded expressions are never evaluated with arithmetic precedence.
+Every supplied symbol or word token is decoded to one directed family relation. Adjacent assertions are passed to the ordinary family solver. Coded expressions are never evaluated with arithmetic precedence.
+
+### Construction verification
+
+Each completed coded expression is independently decoded and reconstructed. Missing tokens, ordered token pairs, person operands and validity claims must produce exactly one accepted option.
 
 ## 8. Query contracts
 
-Candidate query families include:
+The frozen query families include:
 
 - relation of subject to reference;
 - reverse relation;
-- identify person by relation;
-- identify pair by relation;
-- determine gender;
+- identify person by relation, gender, lineage, marital status or model status;
+- identify ordered or unordered pair by relation;
 - compare generations;
-- validate a relation claim;
-- count members under an explicit universe;
+- validate a relation or model-status claim;
+- count members, relatives, pairs and generations under an explicit universe;
+- select a family-composition profile;
+- determine count bounds and count determinacy;
+- decode a coded relation or family set;
 - complete or select a coded expression.
 
-Differences in names, path length, relation vocabulary or difficulty do not automatically create separate QLs. A split requires a materially different generator, solver, answer, ambiguity, explanation, localisation or renderer contract.
+Differences in names, path length, relation vocabulary, symbols or difficulty do not create separate QLs. A split requires a materially different generator, solver, answer, ambiguity, explanation, localisation or renderer contract.
 
 ## 9. Answer semantics
 
@@ -146,6 +155,7 @@ Differences in names, path length, relation vocabulary or difficulty do not auto
 - `IMPOSSIBLE`: true in no valid model;
 - `CANNOT_BE_DETERMINED`: materially different answers survive and no broader offered answer is entailed;
 - `NUMBER`: a count over an explicit closed universe;
+- `PERSON`, `PAIR` or `PROFILE`: a uniquely validated identity contract;
 - `CODE_TOKEN` or `CODE_EXPRESSION`: independently decoded and validated.
 
 ## 10. Distractor model
@@ -164,6 +174,7 @@ IGNORED_ONLY_CONSTRAINT
 ASSUMED_UNKNOWN_GENDER
 POSSIBLE_BUT_NOT_DEFINITE
 WRONG_TOKEN_DIRECTION
+TOKEN_ORDER_OR_MEANING_MISMATCH
 DOUBLE_COUNTED_PERSON
 ```
 
@@ -178,15 +189,16 @@ A student explanation should:
 3. trace the query in the exact requested direction;
 4. state the relation path naturally;
 5. conclude with the answer;
-6. reject the closest misconception.
+6. reject each important misconception;
+7. provide a short exam-speed rule.
 
-Family-tree SVG is initially an explanation and review renderer. It must be generated from solved structured data and must not infer or alter the answer.
+Family-tree SVG is an explanation and review renderer. It is generated from solved structured data and never infers or alters the answer.
 
 ## 12. Localisation
 
-English, Hindi and Punjabi must preserve graph, query, correct answer, difficulty and ambiguity status for the same seed.
+English, Hindi and Punjabi must preserve graph, query, variables, correct answer, difficulty and ambiguity status for the same seed.
 
-Use structurally explicit relation phrases when common kinship terms encode unstated age or lineage. Hindi and Punjabi pointer chains must be rendered naturally rather than translated word by word. Gender agreement, possessive scope and `only` constraints require dedicated audits.
+Use structurally explicit relation phrases when common kinship terms encode unstated age or lineage. Hindi and Punjabi pointer chains must be rendered naturally rather than translated word by word. Gender agreement, possessive scope, only-constraints, coded-key direction and model-status language require dedicated audits.
 
 ## 13. Question Studio metadata
 
@@ -224,25 +236,46 @@ source audit
 -> discovery freeze
 ```
 
-The current CP-001 implementation is a prototype proof and creates zero permanent QLs.
+The seven checkpoint freezes were followed by a chapter-wide executable gap audit covering 1,958 questions across all 35 permanent authorities.
 
-## 15. Current implementation slice
+Final chapter-audit result:
 
-Implemented now:
+```text
+exact cross-QL learner-surface collisions           0
+normalized cross-QL template collisions             0
+learner-text failures                               0
+gender-evidence failures                            0
+option-contract failures                            0
+lifecycle-lock failures                             0
+ownership failures                                  0
+open included source families                       0
+```
 
-- family graph types;
-- parent, spouse and sibling validity;
-- direct kinship ontology;
-- exact path solver through three edges;
-- deterministic name and scenario generation;
-- direct, reverse, two-edge and three-edge prototypes;
-- misconception distractors;
-- clue-grounded explanations;
-- 400-question repository audit and dedicated workflow.
+Verdict: `CHAPTER_ENGLISH_GAP_FREEZE_CANDIDATE`.
+
+## 15. Current implementation state
+
+Implemented and discovery-frozen:
+
+- shared family graph and validity foundation;
+- exact, broad, lineage, in-law and great-generation closure;
+- deterministic named-person, role-chain and shared-passage generation;
+- counts and composition;
+- complete bounded model enumeration;
+- coded relation decoding and construction;
+- misconception-owned options;
+- four-tier learner explanations;
+- SVG family trees with ASCII fallback;
+- independent runtime proofs for every checkpoint;
+- chapter-wide QL ownership, overlap, learner-text and gender-evidence proof.
 
 Next:
 
-- expand CP-001 into identity, pair, relation-claim, generation and branching prototypes;
-- complete source saturation and merge/split decisions;
-- freeze the actual CP-001 solve inventory;
-- allocate permanent QLs only after the freeze.
+```text
+manual English chapter review and freeze
+  -> Hindi and Punjabi localisation
+  -> multilingual parity proof and freeze
+  -> Question Studio integration
+```
+
+Question Studio, Question Bank, mock tests, publication, production staging and merge remain disabled.

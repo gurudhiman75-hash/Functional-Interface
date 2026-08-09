@@ -1,38 +1,45 @@
 # BLR-001 — Open QL Discovery Policy
 
-Status: **authoritative for unfinished BLR-001 checkpoints; CP-001 and CP-002 are frozen and allocated**.
+Status: **all seven planned content checkpoints are discovery-frozen at `BLR-QL-001..035`; chapter-wide English gap audit passed; future QL discovery remains evidence-triggered only**.
 
-No total chapter QL count is fixed by the end-to-end design. Each checkpoint discovers, audits and freezes its own solve identities before receiving the next continuous chapter range.
+No total chapter QL count was fixed in advance. Each checkpoint discovered, audited and froze its solve identities before receiving the next contiguous range.
 
 ## Required sequence
 
 ```text
 source and boundary audit
-  -> non-permanent prototype contracts
+  -> non-permanent prototypes
   -> deterministic runtime proof
   -> independent-solver proof
   -> editorial saturation
   -> merge/split audit
-  -> inverse-contract audit
+  -> inverse and cross-checkpoint overlap audit
   -> human review and remediation
-  -> second source and gap confirmation
+  -> post-review source-gap confirmation
   -> discovery freeze
   -> permanent sequential QL allocation
 ```
 
-A technical source-gap pass may be run before human review to expose missing runtime modes. It does not replace the required post-human confirmation. If human remediation changes stems, renderers, constraints, options, explanations or solve contracts, the affected deterministic gates and source-gap decision must be rerun before freeze.
+A technical source-gap pass does not replace manual review. Permanent identity does not enable delivery.
 
-## Frozen BLR-CP-001 state
-
-Freeze version: `BLR_CP001_ENGLISH_DISCOVERY_FREEZE_V1`
+## Frozen checkpoint summary
 
 ```text
-Exploratory prototypes:       11
-Frozen solve authorities:      7
-Permanent QL range:            BLR-QL-001..007
+BLR-CP-001  11 exploratory prototypes -> 7 authorities -> BLR-QL-001..007
+BLR-CP-002   6 exploratory prototypes -> 1 authority  -> BLR-QL-008
+BLR-CP-003  29 source prototypes       -> 4 authorities -> BLR-QL-009..012
+BLR-CP-004  13 source prototypes       -> 5 authorities -> BLR-QL-013..017
+BLR-CP-005  23 source prototypes       -> 8 authorities -> BLR-QL-018..025
+BLR-CP-006  19 source prototypes       -> 5 authorities -> BLR-QL-026..030
+BLR-CP-007  21 source prototypes       -> 5 authorities -> BLR-QL-031..035
 ```
 
-The seven permanent authorities are:
+Total planned content checkpoints: `7`.  
+Total permanent English solve authorities: `35`.
+
+## Permanent authority inventory
+
+### CP-001
 
 ```text
 RESOLVE_NAMED_PERSON_RELATION
@@ -44,54 +51,116 @@ COMPARE_GENERATIONS
 RESOLVE_EXACT_LINEAGE_RELATION
 ```
 
-Great-grandfather, great-grandmother, great-grandson and great-granddaughter remain outputs inside `BLR-QL-001`.
-
-## Frozen BLR-CP-002 state
-
-Freeze version: `BLR_CP002_ENGLISH_DISCOVERY_FREEZE_V1`
-
-```text
-Positive canonical scenarios: 45
-Exploratory prototypes:         6
-Frozen solve authorities:       1
-Permanent QL range:             BLR-QL-008
-```
-
-The permanent authority is:
+### CP-002
 
 ```text
 RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
 ```
 
-The following are frozen instance properties, not separate identities:
+### CP-003
 
-- presentation and question renderer;
-- one-, two- or three-anchor structure;
-- direct, reverse, one-derived or both-derived endpoints;
-- one- through four-step role depth;
-- broad or gendered roles;
-- `ONLY` and zero-cardinality constraints;
-- blood or affinal output;
-- relation value or `SELF`;
-- names, clue wording and difficulty.
+```text
+SELECT_UNORDERED_FAMILY_PAIR
+IDENTIFY_ALL_MEMBERS_BY_RELATION
+IDENTIFY_MEMBER_BY_MARITAL_STATUS
+IDENTIFY_PERSON_BY_EXACT_LINEAGE
+```
+
+### CP-004
+
+```text
+COUNT_MEMBERS_BY_FILTER
+COUNT_RELATIVES_OF_REFERENCE
+COUNT_RELATION_PAIRS
+COUNT_GENERATIONS
+SELECT_FAMILY_COMPOSITION_PROFILE
+```
+
+### CP-005
+
+```text
+RESOLVE_INVARIANT_RELATION
+RESOLVE_RELATION_UNCERTAINTY
+SELECT_CLAIM_BY_MODEL_STATUS
+IDENTIFY_PERSON_BY_MODEL_STATUS
+RESOLVE_PERSON_IDENTITY_UNCERTAINTY
+DETERMINE_COUNT_BOUND
+SELECT_COUNT_BY_MODEL_STATUS
+RESOLVE_COUNT_DETERMINACY
+```
+
+### CP-006
+
+```text
+RESOLVE_CODED_RELATION
+IDENTIFY_PERSON_FROM_CODED_GRAPH
+DETERMINE_GENDER_FROM_CODED_GRAPH
+SELECT_CODED_RELATION_PAIR
+RESOLVE_CODED_FAMILY_SET_RELATION
+```
+
+### CP-007
+
+```text
+SELECT_CODED_EXPRESSION
+COMPLETE_MISSING_CODE_TOKEN
+COMPLETE_ORDERED_CODE_TOKEN_PAIR
+COMPLETE_MISSING_PERSON
+SELECT_CODED_STATEMENT_BY_VALIDITY
+```
+
+## Chapter-wide audit result
+
+The executable English gap audit covers `1,958` questions and proves:
+
+```text
+permanent QL range                         BLR-QL-001..035
+solve authorities                                      35
+exact cross-QL learner-surface collisions               0
+normalized cross-QL template collisions                 0
+learner-text failures                                   0
+gender-evidence failures                                0
+option-contract failures                                0
+lifecycle-lock failures                                 0
+ownership failures                                      0
+open included source families                           0
+```
+
+Verdict: `CHAPTER_ENGLISH_GAP_FREEZE_CANDIDATE`.
 
 ## Current ownership boundary
 
-- CP-001: direct declarative named-person relations — frozen;
-- CP-002: pointer, photograph, portrait, conversation and nested self-reference — frozen;
-- CP-003: shared passages — open;
-- CP-004: counts and family composition — open;
-- CP-005: possible, impossible, one-of-two and indeterminate semantics — open;
-- CP-006: coded relation decoding — open;
-- CP-007: coded expression construction and validation — open;
-- family-plus-profession/height/colour puzzles and Data Sufficiency — outside checkpoint ownership.
+- CP-001: direct declarative named-person relations;
+- CP-002: pointer, photograph, portrait, conversation and nested self-reference;
+- CP-003: shared family passages;
+- CP-004: definite counts and family composition;
+- CP-005: invariant, possible, impossible, one-of-two and indeterminate semantics;
+- CP-006: coded relation decoding;
+- CP-007: coded expression construction, completion and validation;
+- family-plus-profession/height/colour puzzles and Data Sufficiency: outside BLR-001 V1 ownership.
 
-## Identity sequencing rule
+## Future identity rule
 
-Later BLR-001 checkpoints must not use `BLR-QL-001..008`. The next checkpoint to complete exhaustive discovery starts from `BLR-QL-009` and reserves only the exact number of solve identities justified by its own final freeze.
+The next technically available identity is:
 
-The final BLR-001 chapter total remains open until every checkpoint completes this process.
+```text
+BLR-QL-036
+```
+
+It remains **unallocated**. There is no planned `BLR-CP-008`.
+
+A later QL may be added only after new source evidence completes the full discovery sequence and proves a materially different generator, solver, answer, ambiguity, explanation, localisation or renderer contract. Mere changes in names, path length, relation vocabulary, symbols, difficulty or presentation do not justify a new QL.
+
+## Next phase
+
+```text
+manual English chapter review and freeze
+  -> Hindi and Punjabi localisation
+  -> multilingual parity proof
+  -> multilingual manual freeze
+  -> Question Studio integration
+```
 
 ## Release rule
 
-Permanent identity is not production approval. All currently frozen BLR QLs remain English review-only with Question Studio, Question Bank, mock tests, localisation and public publication disabled until separate explicit release gates pass.
+All BLR QLs remain English review-only. Question Studio, Question Bank, mock tests, localisation, production staging, public publication and merge remain disabled until separate explicit gates pass.
