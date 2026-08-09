@@ -8,7 +8,26 @@ export * from "./solver/production-solver.ts";
 export * from "./solver/independent-oracle.ts";
 export * from "./generation/caselet-assembler.ts";
 export * from "./packages/sea-001/cp-001.ts";
-export * from "./cp003/types.ts";
+export type {
+  CyclicDirection,
+  CircularBlueprintId,
+  CircularQueryContractId,
+  CircularConstraint,
+  CircularCandidateClue,
+  CircularTopologySnapshot,
+  CircularHiddenState,
+  CircularSolverModel,
+  CircularSolverAgreement,
+  CircularAnswerType,
+  CircularSemanticValue,
+  CircularMisconceptionId,
+  CircularOption,
+  CircularChildQuestion,
+  CircularDiagramSeat,
+  CircularDiagramScene,
+  CircularProofEvent,
+  CircularCaseletRecord,
+} from "./cp003/types.ts";
 export * from "./cp003/topology.ts";
 export * from "./cp003/constraints.ts";
 export * from "./cp003/solvers.ts";
