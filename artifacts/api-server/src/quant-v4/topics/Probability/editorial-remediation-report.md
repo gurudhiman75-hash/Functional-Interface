@@ -30,10 +30,6 @@ Combination questions explain what is being chosen; replacement, order, overlap 
 - **Banking Prelims:** selected direct probability pool, five options.
 - **Banking Mains:** full probability and counting pool, five options.
 
-## Release status
+## Publication status
 
-Human English editorial approval was recorded on **2026-08-08**. The approved English questions are eligible for scored mocks and writable to the Question Bank subject to the per-family `maxPerMock: 1` policy. `PRB-QL-004` and `PRB-QL-010` remain learning-only and are not stored.
-
-Public publication remains disabled. Hindi and Punjabi localisation, multilingual parity review and public-release approval are separate future stages.
-
-Question Studio package metadata and generated batch context are locked to `ENGLISH_MOCK_READY`, `APPROVED_EDITORIAL_ENGLISH`, `WRITABLE` and `ELIGIBLE_WITH_FAMILY_LIMIT`, while preserving `publiclyPublishable: false`.
+The mathematical and automated editorial gates pass, but the chapter remains non-public and ineligible for the question bank until the regenerated sheets receive human editorial sign-off.
