@@ -91,7 +91,7 @@ export interface MalCp005ExamReadyQuestionV2 {
   };
   maturity: "EXAM_READY_REVIEW_CANDIDATE";
   allocationStatus: "UNALLOCATED_OPEN_DISCOVERY";
-  reviewStatus: "PENDING_PRODUCT_REVIEW";
+  reviewStatus: "PENDING_PRODUCT_REVIEW" | "PRODUCT_REVIEW_APPROVED";
   runtimeMode: "REVIEW_ONLY";
   active: false;
   publiclyPublishable: false;
