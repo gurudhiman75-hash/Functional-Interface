@@ -40,12 +40,12 @@ const REQUIRED_PATTERNS: Partial<Record<CalendarPrototypeId, RegExp>> = {
   "CAL-PQL-030": /^Which previous year has the same calendar as \d{4}\?$/,
   "CAL-PQL-031": /^Which year has the same calendar as \d{4}\?$/,
   "CAL-PQL-032": /^Which option correctly explains whether \d{4} and \d{4} have the same calendar\?$/,
-  "CAL-PQL-033": /^.+ \d{4} has the same calendar as .+ of which year\?$/,
+  "CAL-PQL-033": /^.+ \d{4} has the same calendar as .+ in which year\?$/,
   "CAL-PQL-034": /^From \d{4} to \d{4}, how many years other than \d{4} have the same calendar as \d{4}\?$/,
   "CAL-PQL-037": /^.+ \d{4} begins on .+\. On which day does the month end\?$/,
   "CAL-PQL-038": /^.+ \d{4} ends on .+\. On which day does the month begin\?$/,
-  "CAL-PQL-041": /^Which day or days occur five times in .+ \d{4}\?$/,
-  "CAL-PQL-043": /^Which day or days occur 53 times in \d{4}\?$/,
+  "CAL-PQL-041": /^Which weekdays occur five times in .+ \d{4}\?$/,
+  "CAL-PQL-043": /^Which weekdays occur 53 times in \d{4}\?$/,
   "CAL-PQL-044": /^How many .+s are there from .+ to .+, including both dates\?$/,
 };
 
