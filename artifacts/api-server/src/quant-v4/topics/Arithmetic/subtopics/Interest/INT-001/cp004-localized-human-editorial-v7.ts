@@ -10,8 +10,8 @@ export const INT_CP004_LOCALIZED_HUMAN_EDITORIAL_V7_VERSION =
 
 function removeRedundantDivisionByOne(text: string): string {
   return text
-    .replace(/([\d.]+%)\s*÷\s*1\s*=\s*([\d.]+%)/gu, "$2")
-    .replace(/([\d.]+%)\s*÷\s*1/gu, "$1");
+    .replace(/([₹\d][₹\d.,%/]*)\s*÷\s*1\s*=\s*([₹\d][₹\d.,%/]*)/gu, "$2")
+    .replace(/([₹\d][₹\d.,%/]*)\s*÷\s*1/gu, "$1");
 }
 
 function humanizeHindiStem(text: string): string {
