@@ -76,6 +76,16 @@ for (let seed = 0; seed < 80; seed += 1) {
     if (possibility.follows) assert.equal(possibility.classification, "UNDETERMINED");
     else assert.equal(possibility.classification, "CONTRADICTED");
 
+    if (question.locale === "en-IN") {
+      assert.match(possibility.text, /^Some .+ is a possibility\.$/u);
+    } else if (question.locale === "hi-IN") {
+      assert.match(possibility.text, /^यह संभव है कि कुछ /u);
+      assert.doesNotMatch(possibility.text, / के .* होने की संभावना/u);
+    } else {
+      assert.match(possibility.text, /^ਇਹ ਸੰਭਵ ਹੈ ਕਿ ਕੁਝ /u);
+      assert.doesNotMatch(possibility.text, / ਦੇ .* ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ/u);
+    }
+
     assert.ok(question.explanation.length === 2);
     assert.ok(question.explanation.every((line) => line.trim().length > 30));
     assert.ok(question.statements.every((line) => line.trim().length > 4));
@@ -178,6 +188,12 @@ console.log(JSON.stringify({
   possibilityClassifications,
   possibilityPositions,
   correctOptionPositions,
+  localizationContract: {
+    English: "exam-style possibility wording",
+    Hindi: "यह संभव है कि कुछ ...",
+    Punjabi: "ਇਹ ਸੰਭਵ ਹੈ ਕਿ ਕੁਝ ...",
+    rejectedGenitiveConstruction: true,
+  },
   semantics: {
     possibilityFollowsWhen: "canBeTrue === true",
     definiteFollowsWhen: "classification === ENTAILED",
