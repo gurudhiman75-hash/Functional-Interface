@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 import {
   assertGeneratedQuestionBankEligible,
   normalizeGeneratedQuestionPayload,
-} from "../../../../../../lib/admin-question-conversion";
+} from "../../../../../lib/admin-question-conversion";
 import {
   BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
   listBlrCp007QuestionStudioReviewEntries,
