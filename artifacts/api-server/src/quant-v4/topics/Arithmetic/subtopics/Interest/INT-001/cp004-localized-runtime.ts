@@ -15,9 +15,8 @@ import { remediateCp004LocalizedOptions } from "./cp004-localized-editorial-v3";
 import {
   remediateCp004LocalizedExplanationV4,
   remediateCp004LocalizedOptionsV4,
-  renderCp004LocalizedEditorialV4Stem,
 } from "./cp004-localized-editorial-v4";
-import { remodelCp004LocalizedPresentationV5 } from "./cp004-localized-presentation-v5";
+import { renderCp004LocalizedNativeStemV6 } from "./cp004-localized-native-stems-v6";
 import {
   INT_CP004_PRESENTATION_WAVE1_QL_IDS,
   renderCp004LocalizedPresentationWave1,
@@ -72,14 +71,22 @@ function polishLocalizedText(locale: IntCp004LocalizedLocale, text: string): str
     .replace(/ਕੁੱਲ (\d+) ਮਹੀਨੇ ਬਾਅਦ/gu, "$1 ਮਹੀਨਿਆਂ ਤੋਂ ਬਾਅਦ")
     .replace(/ਦੱਸੀ ਗਈ ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ/gu, "ਘੋਸ਼ਿਤ ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ")
     .replace(/ਦੋਵਾਂ ਅੰਤਿਮ ਰਕਮਾਂ/gu, "ਦੋਵੇਂ ਯੋਜਨਾਵਾਂ ਦੀਆਂ ਅੰਤਿਮ ਰਕਮਾਂ")
-    .replace(/ਦਿੱਤੀ ਰਕਮ ਜਾਂ ਵਿਆਜ ਵਿੱਚੋਂ ਪੂਰਾ ਵਾਧਾ-ਗੁਣਕ ਹਟਾਉਣ ਉੱਤੇ/gu, "ਦਿੱਤੀ ਰਕਮ ਜਾਂ ਵਿਆਜ ਨੂੰ ਪੂਰੇ ਚੱਕਰਵੱਧੀ ਗੁਣਕ ਨਾਲ ਭਾਗ ਦੇਣ ਉੱਤੇ")
+    .replace(/ਦਿੱਤੀ ਰਕਮ ਜਾਂ ਵਿਆਜ ਵਿੱਚੋਂ ਪੂਰਾ ਵਾਧਾ-ਗੁਣਕ ਹਟਾਉਣ ਉੱਤੇ/gu, "ਦਿੱਤੀ ਰਕਮ ਜਾਂ ਵਿਆਜ ਨੂੰ ਪੂਰੇ ਵਿਆਜ-ਗੁਣਕ ਨਾਲ ਭਾਗ ਦੇਣ ਉੱਤੇ")
     .replace(/ਦਿੱਤੇ ਵਾਧਾ-ਗੁਣਕ ਤੱਕ ਪਹੁੰਚਣ ਲਈ/gu, "ਦਿੱਤੀ ਰਕਮ ਤੱਕ ਪਹੁੰਚਣ ਲਈ")
     .replace(/ਵੱਖ-ਵੱਖ ਵਿਆਜ-ਨਿਯਮ/gu, "ਵਿਆਜ ਜੋੜਨ ਦੇ ਵੱਖ-ਵੱਖ ਨਿਯਮ")
     .replace(/ਵਿਆਜ-ਕ੍ਰਮ/gu, "ਵਿਆਜ ਜੋੜਨ ਦਾ ਕ੍ਰਮ")
     .replace(/ਵਿਆਜ-ਨਿਯਮ/gu, "ਵਿਆਜ ਜੋੜਨ ਦਾ ਨਿਯਮ")
     .replace(/ਮਿਆਦਾਂ = (\d+)/gu, "ਕੁੱਲ $1 ਵਾਰ ਵਿਆਜ ਜੋੜਿਆ ਗਿਆ")
     .replace(/ਮਿਆਦਾਂ ਦੀ ਗਿਣਤੀ/gu, "ਵਿਆਜ ਜੋੜਨ ਦੀ ਕੁੱਲ ਗਿਣਤੀ")
-    .replace(/ਹਰ ਮਿਆਦ/gu, "ਹਰ ਵਾਰ");
+    .replace(/ਹਰ ਮਿਆਦ/gu, "ਹਰ ਵਾਰ")
+    .replace(/ਚੱਕਰਵੱਧੀ ਵਿਆਜ/gu, "ਮਿਸ਼ਰਤ ਵਿਆਜ")
+    .replace(/ਚੱਕਰਵੱਧੀ ਰਕਮ/gu, "ਮਿਸ਼ਰਤ ਵਿਆਜ ਨਾਲ ਬਣੀ ਰਕਮ")
+    .replace(/ਚੱਕਰਵੱਧੀ ਗੁਣਕ/gu, "ਵਿਆਜ ਜੋੜਨ ਦਾ ਗੁਣਕ")
+    .replace(/ਚੱਕਰਵੱਧੀ ਕਰਨੀ ਹੈ/gu, "ਵਿਆਜ ਮੂਲਧਨ ਵਿੱਚ ਜੋੜਨਾ ਹੈ")
+    .replace(/ਚੱਕਰਵੱਧੀ ਦੇ ਹਰ ਪੜਾਅ/gu, "ਵਿਆਜ ਜੋੜਨ ਦੇ ਹਰ ਪੜਾਅ")
+    .replace(/ਚੱਕਰਵੱਧੀ ਪੜਾਅ/gu, "ਵਿਆਜ ਜੋੜਨ ਦੇ ਪੜਾਅ")
+    .replace(/ਚੱਕਰਵੱਧੀ ਨਾਲ/gu, "ਮਿਸ਼ਰਤ ਵਿਆਜ ਨਾਲ")
+    .replace(/ਚੱਕਰਵੱਧੀ/gu, "ਮਿਸ਼ਰਤ ਵਿਆਜ");
 }
 
 function legacyLocalizedStem(
@@ -98,60 +105,14 @@ function legacyLocalizedStem(
   throw new Error(`${source.qlId}: no CP-004 localized presentation owner.`);
 }
 
-function balanceRecordFirstLabel(
-  source: IntCp004EnglishFrozenQuestion,
-  locale: IntCp004LocalizedLocale,
-): string {
-  if (locale === "hi-IN") {
-    switch (source.qlId) {
-      case "INT-QL-069": return "अंतिम राशि";
-      case "INT-QL-070": return "दिया गया चक्रवृद्धि ब्याज";
-      case "INT-QL-077": return "प्रभावी वार्षिक दर";
-      case "INT-QL-081": return "वार्षिक ब्याज दर";
-      default: return "मूलधन";
-    }
-  }
-  switch (source.qlId) {
-    case "INT-QL-069": return "ਅੰਤਿਮ ਰਕਮ";
-    case "INT-QL-070": return "ਦਿੱਤਾ ਚੱਕਰਵੱਧੀ ਵਿਆਜ";
-    case "INT-QL-077": return "ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ";
-    case "INT-QL-081": return "ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ";
-    default: return "ਮੂਲਧਨ";
-  }
-}
-
-function polishLocalizedStem(
-  source: IntCp004EnglishFrozenQuestion,
-  locale: IntCp004LocalizedLocale,
-  stem: string,
-): string {
-  let polished = locale === "hi-IN"
-    ? stem.replace("**ज्ञात कीजिए:**", "**प्रश्न:**")
-    : stem.replace("**ਪਤਾ ਲਗਾਓ:**", "**ਪ੍ਰਸ਼ਨ:**");
-
-  if (source.representation === "BALANCE_RECORD") {
-    const genericLabel = locale === "hi-IN" ? "| आरंभिक प्रविष्टि |" : "| ਸ਼ੁਰੂਆਤੀ ਦਰਜ |";
-    polished = polished.replace(
-      genericLabel,
-      `| ${balanceRecordFirstLabel(source, locale)} |`,
-    );
-  }
-  return polishLocalizedText(locale, polished);
-}
-
 function localizedStem(
   source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
 ): string {
-  // Keep the legacy renderer reachable for ownership regression, while the
-  // learner-facing runtime is rebuilt by the human-language editorial layer.
+  // The old presentation owners stay executable for parity regression, but
+  // learner-facing wording is owned exclusively by the native v6 stem layer.
   legacyLocalizedStem(source, locale);
-  const editorialV4 = polishLocalizedStem(
-    source,
-    locale,
-    renderCp004LocalizedEditorialV4Stem(source, locale),
-  );
-  return remodelCp004LocalizedPresentationV5(source, locale, editorialV4);
+  return polishLocalizedText(locale, renderCp004LocalizedNativeStemV6(source, locale));
 }
 
 function cleanExplanation(
