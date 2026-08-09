@@ -1,4 +1,4 @@
-name: Validate CLK-001 end-to-end open discovery V2
+name: Validate CLK-001 remediation slice 1
 
 on:
   pull_request:
@@ -22,11 +22,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: clk-e2e-v2-${{ github.ref }}
+  group: clk-remediation-v2-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-clock-v2:
+  validate-clock-remediation:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
@@ -42,7 +42,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Bundle Clock V2 and regression proofs
+      - name: Bundle Clock remediation and regression proofs
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/clock-v2
           mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
@@ -70,7 +70,7 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/clock-v2/clock-foundation.test.mjs
-      - name: Run CLK-001 end-to-end V2 proof
+      - name: Run CLK-001 remediation proof
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/clock-v2/clock-end-to-end-v2.test.mjs
@@ -86,10 +86,10 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
-      - name: Upload CLK-001 V2 proof and review artifacts
+      - name: Upload CLK-001 remediation proof and English review
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: clk-001-end-to-end-v2-proof-and-review
+          name: clk-001-remediation-slice-1
           path: artifacts/api-server/dist/reasoning-v1/clock-v2/**
           if-no-files-found: error
