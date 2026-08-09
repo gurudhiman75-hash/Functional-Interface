@@ -40,26 +40,26 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Validate partial-order discovery
+      - name: Validate raw partial-order discovery
         run: |
           set -o pipefail
           pnpm dlx tsx \
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-discovery.test.ts \
             | tee rnk-cp005-partial-order-discovery.log
 
-      - name: Validate editorial candidates
+      - name: Validate editorial V2 candidates
         run: |
           set -o pipefail
           pnpm dlx tsx \
-            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial.test.ts \
-            | tee rnk-cp005-partial-order-editorial.log
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial-v2.test.ts \
+            | tee rnk-cp005-partial-order-editorial-v2.log
 
-      - name: Generate editorial review pack
+      - name: Generate editorial V2 review pack
         run: |
           set -o pipefail
           pnpm dlx tsx \
-            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial-review-export.ts \
-            | tee rnk-cp005-editorial-review-export.log
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial-v2-review-export.ts \
+            | tee rnk-cp005-editorial-v2-review-export.log
 
       - name: Validate ownership reset remains intact
         run: |
@@ -85,22 +85,22 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp005-partial-order-discovery-evidence
+          name: rnk-001-cp005-partial-order-editorial-v2-evidence
           path: |
             rnk-cp005-partial-order-discovery.log
-            rnk-cp005-partial-order-editorial.log
-            rnk-cp005-editorial-review-export.log
+            rnk-cp005-partial-order-editorial-v2.log
+            rnk-cp005-editorial-v2-review-export.log
             rnk-book-ownership-reset.log
             rnk-question-studio-registry.log
             rnk-cp005-api-build.log
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Upload editorial review pack
+      - name: Upload editorial V2 review pack
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp005-partial-order-editorial-review-28q
-          path: artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/generated/RNK-CP-005-PARTIAL-ORDER-EDITORIAL-REVIEW-28Q.md
+          name: rnk-001-cp005-partial-order-editorial-v2-review-28q
+          path: artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/generated/RNK-CP-005-PARTIAL-ORDER-EDITORIAL-V2-REVIEW-28Q.md
           if-no-files-found: error
           retention-days: 14
