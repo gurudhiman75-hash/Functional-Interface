@@ -33,6 +33,25 @@ function creditInterval(locale: IntCp004LocalizedLocale, frequency: number): str
   }
 }
 
+function periodicRateName(locale: IntCp004LocalizedLocale, frequency: number): string {
+  if (locale === "hi-IN") {
+    switch (frequency) {
+      case 1: return "वार्षिक";
+      case 2: return "छमाही";
+      case 4: return "तिमाही";
+      case 12: return "मासिक";
+      default: return "प्रति-अंतराल";
+    }
+  }
+  switch (frequency) {
+    case 1: return "ਸਾਲਾਨਾ";
+    case 2: return "ਛਿਮਾਹੀ";
+    case 4: return "ਤਿਮਾਹੀ";
+    case 12: return "ਮਾਸਿਕ";
+    default: return "ਹਰ ਅੰਤਰਾਲ ਦੀ";
+  }
+}
+
 type HindiPeriod = Readonly<{ singular: string; oblique: string }>;
 
 function hindiPeriod(raw: string): HindiPeriod {
@@ -81,7 +100,9 @@ function fixPunjabiEditorialGrammar(text: string): string {
     .replace(/ਲਿਖੀ ਹੋਈ ਸਾਲਾਨਾ ਦਰ/gu, "ਘੋਸ਼ਿਤ ਸਾਲਾਨਾ ਦਰ")
     .replace(/ਵੱਧ ਰਕਮ ਕਿੰਨੀ ਵੱਧ ਹੋਵੇਗੀ/gu, "ਦੋਵੇਂ ਰਕਮਾਂ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੋਵੇਗਾ")
     .replace(/ਹਰ ਵਿਆਜ ਅੰਤਰਾਲ/gu, "ਹਰ ਵਾਰ ਵਿਆਜ ਜੁੜਨ ਦਾ ਅੰਤਰਾਲ")
-    .replace(/ਵਾਧਾ ਦਰ ਕਿੰਨਾ/gu, "ਵਾਧਾ ਦਰ ਕਿੰਨੀ");
+    .replace(/ਵਾਧਾ ਦਰ ਕਿੰਨਾ/gu, "ਵਾਧਾ ਦਰ ਕਿੰਨੀ")
+    .replace(/ਵਾਧਾ ਦਰ ਕਿੰਨੀ ਹੋਵੇਗਾ/gu, "ਵਾਧਾ ਦਰ ਕਿੰਨੀ ਹੋਵੇਗੀ")
+    .replace(/ਹਰ ਸੰਭਵ ਕ੍ਰਮ/gu, "ਵਿਆਜ ਜੋੜਨ ਦੇ ਹਰ ਸੰਭਵ ਅੰਤਰਾਲ");
 }
 
 function humanizeHindiStem(text: string): string {
@@ -244,6 +265,21 @@ export function humanizeCp004LocalizedExplanationV7(
 
   let steps = explanation.steps.map((step) => humanize(step));
   let commonMistake = humanize(explanation.commonMistake);
+
+  if (source.qlId === "INT-QL-073" || source.qlId === "INT-QL-074") {
+    const rateName = periodicRateName(locale, source.mathematicalState.frequency);
+    if (locale === "hi-IN") {
+      commonMistake = commonMistake.replace(
+        /([\d.]+%) पहले से हर बार की दर है; इसे (\d+) से दोबारा न बाँटें।/gu,
+        `$1 सीधे ${rateName} ब्याज दर है; इसे $2 से दोबारा न बाँटें।`,
+      );
+    } else {
+      commonMistake = commonMistake.replace(
+        /([\d.]+%) ਪਹਿਲਾਂ ਹੀ ਹਰ ਵਾਰ ਦੀ ਦਰ ਹੈ; ਇਸ ਨੂੰ (\d+) ਨਾਲ ਦੁਬਾਰਾ ਨਾ ਵੰਡੋ।/gu,
+        `$1 ਸਿੱਧੀ ${rateName} ਵਿਆਜ ਦਰ ਹੈ; ਇਸ ਨੂੰ $2 ਨਾਲ ਦੁਬਾਰਾ ਨਾ ਵੰਡੋ।`,
+      );
+    }
+  }
 
   if (source.mathematicalState.frequency === 1) {
     if (locale === "hi-IN") {
