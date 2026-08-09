@@ -185,11 +185,12 @@ function countBetweenQuestion(seed: string, model: MixedFacingModel, rng: Determ
   const answer = secondIndex - firstIndex - 1;
   const candidateCounts = Array.from({ length: model.seatOrder.length - 1 }, (_, value) => value).filter((value) => value !== answer);
   const maximumValidCount = model.seatOrder.length - 2;
-  const traps: Trap[] = [
+  const countTraps: Trap[] = [
     { value: answer + 1, misconceptionId: "SEA-MC-MIX-ENDPOINT_INCLUDED", recomputation: { includedOneEndpoint: true }, explanation: "This includes one endpoint in the count." },
     { value: answer + 2, misconceptionId: "SEA-MC-MIX-ENDPOINT_INCLUDED", recomputation: { includedBothEndpoints: true }, explanation: "This includes both named persons." },
     { value: Math.max(0, answer - 1), misconceptionId: "SEA-MC-MIX-OFF_BY_ONE_SEAT", recomputation: { stoppedEarly: true }, explanation: "This misses one person between the endpoints." },
-  ].filter((trap) => typeof trap.value === "number" && trap.value >= 0 && trap.value <= maximumValidCount);
+  ];
+  const traps = countTraps.filter((trap) => typeof trap.value === "number" && trap.value >= 0 && trap.value <= maximumValidCount);
   return {
     questionOrder: 4,
     queryContractId: "SEA-QC-008",
