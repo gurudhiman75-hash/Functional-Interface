@@ -7,6 +7,7 @@ import {
   subtract,
   type Rational,
 } from "./foundation/rational";
+import { hasTsdCalculationEvidence } from "./cp001/exact-option-feedback";
 import { formatExamNumber } from "./cp001/runtime-support";
 import type {
   TsdCp001GeneratedQuestion,
@@ -20,6 +21,10 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 type ExpectedWrong = readonly [Rational, TsdCp001MisconceptionId];
+
+function withoutDisplayedOption(reason: string, optionText: string): string {
+  return reason.replace(optionText, "").replace(/^[✅⚠️\s:.-]+/, "").trim();
+}
 
 function scalarAnswer(question: TsdCp001GeneratedQuestion): Rational {
   const solution = question.solution;
@@ -130,7 +135,11 @@ function assertExpectedOptions(
     assert(analysis, `${question.questionLanguageId}: missing analysis for ${text}`);
     assert(analysis.misconceptionId === misconceptionId, `${question.questionLanguageId}: analysis ID differs for ${text}`);
     assert(analysis.reason.includes(text), `${question.questionLanguageId}: reason does not name ${text}`);
-    assert(analysis.reason.split(/\s+/).length <= 35, `${question.questionLanguageId}: reason is too long for ${text}`);
+    const remainder = withoutDisplayedOption(analysis.reason, text);
+    assert(hasTsdCalculationEvidence(remainder), `${question.questionLanguageId}: reason lacks exact calculation evidence for ${text}`);
+    const words = analysis.reason.trim().split(/\s+/).length;
+    const maximumWords = analysis.reason.includes("Check:") ? 65 : 35;
+    assert(words <= maximumWords, `${question.questionLanguageId}: reason is too long for ${text} (${words} > ${maximumWords})`);
     assert(!/arithmetic offset|nearby value|different result|does not survive/i.test(analysis.reason), `${question.questionLanguageId}: generic rejection remains for ${text}`);
   }
 
