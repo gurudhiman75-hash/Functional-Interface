@@ -3,6 +3,7 @@ import {
   divideRational,
   formatRational,
   multiplyRational,
+  rational,
   subtractRational,
 } from "./rational";
 import { solveMalCp005 } from "./cp005-solver";
@@ -199,7 +200,7 @@ export function freeCommercialRatioQuestionV2(input: {
   );
   const alternativeMethod = alligationHelpV2({
     lowerLabel: state.context.adulterant,
-    lowerValue: divideRational(HUNDRED_V2, HUNDRED_V2),
+    lowerValue: rational(0),
     higherLabel: `Pure ${state.context.product}`,
     higherValue: state.pureUnitCost,
     targetValue: state.averageCost,
@@ -210,11 +211,6 @@ export function freeCommercialRatioQuestionV2(input: {
     result: `The required pure ${state.context.product} : ${state.context.adulterant} ratio is ${answer}.`,
     unit: state.context.unit,
   });
-  alternativeMethod.visual.lower.value = rateTextV2(
-    divideRational(HUNDRED_V2, HUNDRED_V2),
-    state.context.unit,
-  ).replace("₹1", "₹0");
-  alternativeMethod.visual.lowerPart.expression = `${formatRational(state.pureUnitCost)} − ${formatRational(state.averageCost)}`;
   return packageExamReadyQuestionV2({
     prototypeId,
     requestedSeed: input.requestedSeed,
