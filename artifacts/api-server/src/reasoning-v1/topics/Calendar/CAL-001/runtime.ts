@@ -22,6 +22,10 @@ import {
 import { buildFrequencyExamReadyProblemOverride } from "./exam-readiness-frequency-remediation.ts";
 import { applyCalendarEnglishStemSimplification } from "./english-stem-simplification.ts";
 import { finalizeCalendarEnglishStemSimplification } from "./english-stem-simplification-final.ts";
+import { applyCalendarMultilingualEditorialFreeze } from "./multilingual-editorial-freeze.ts";
+import { finalizeCalendarMultilingualEditorialFreeze } from "./multilingual-editorial-final.ts";
+import { finalizeCalendarMultilingualStemPunctuation } from "./multilingual-stem-punctuation.ts";
+import { normalizeCalendarMultilingualConclusion } from "./multilingual-conclusion-normalization.ts";
 
 const CLOSED_LIFECYCLE = {
   discoveryStatus: "EXECUTABLE_DISCOVERY" as const,
@@ -131,10 +135,17 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
   const simplified = finalizeCalendarEnglishStemSimplification(
     applyCalendarEnglishStemSimplification(remediated),
   );
-  const optionKeys = simplified.options.map((option) => semanticKey(option.semanticValue));
-  if (simplified.options.length !== 4 || new Set(optionKeys).size !== 4) throw new Error(`${prototypeAuthority}: options are not semantically unique.`);
-  if (new Set(simplified.options.map((option) => option.display)).size !== 4) throw new Error(`${prototypeAuthority}: option labels are not textually unique.`);
-  if (simplified.options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${prototypeAuthority}: expected exactly one correct option.`);
-  if (!simplified.options[simplified.answerIndex]?.isCorrect) throw new Error(`${prototypeAuthority}: answer index mismatch.`);
-  return simplified;
+  const localized = normalizeCalendarMultilingualConclusion(
+    finalizeCalendarMultilingualStemPunctuation(
+      finalizeCalendarMultilingualEditorialFreeze(
+        applyCalendarMultilingualEditorialFreeze(simplified),
+      ),
+    ),
+  );
+  const optionKeys = localized.options.map((option) => semanticKey(option.semanticValue));
+  if (localized.options.length !== 4 || new Set(optionKeys).size !== 4) throw new Error(`${prototypeAuthority}: options are not semantically unique.`);
+  if (new Set(localized.options.map((option) => option.display)).size !== 4) throw new Error(`${prototypeAuthority}: option labels are not textually unique.`);
+  if (localized.options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${prototypeAuthority}: expected exactly one correct option.`);
+  if (!localized.options[localized.answerIndex]?.isCorrect) throw new Error(`${prototypeAuthority}: answer index mismatch.`);
+  return localized;
 }
