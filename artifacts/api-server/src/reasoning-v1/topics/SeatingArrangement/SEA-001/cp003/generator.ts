@@ -133,18 +133,22 @@ function constraintsFor(
   if (constraints.some((constraint) => !constraintTrueInOrder(constraint, order))) throw new Error("Derived false clue");
   const landmarkAnchored = topology.landmark !== undefined;
   const solve = (candidate: readonly CircularConstraint[]) => enumerateCircularProduction({ persons: order, constraints: candidate, landmarkAnchored, maxModels: 2 });
-  if (solve(constraints).length !== 1) throw new Error("Candidate clue set is not unique");
+  const modelCount = (candidate: readonly CircularConstraint[]): number => {
+    if (landmarkAnchored && !candidate.some((constraint) => constraint.kind === "LANDMARK_ANCHOR")) return 0;
+    return solve(candidate).length;
+  };
+  if (modelCount(constraints) !== 1) throw new Error("Candidate clue set is not unique");
 
   for (let index = constraints.length - 1; index >= 0; index -= 1) {
     const clue = constraints[index];
     if (!clue || protectedIds.has(clue.id)) continue;
     const trial = constraints.filter((_, candidateIndex) => candidateIndex !== index);
-    if (solve(trial).length === 1) constraints.splice(index, 1);
+    if (modelCount(trial) === 1) constraints.splice(index, 1);
   }
 
   for (const clue of constraints) {
     const trial = constraints.filter((candidate) => candidate.id !== clue.id);
-    if (solve(trial).length === 1) throw new Error(`Displayed redundant clue: ${clue.id}`);
+    if (modelCount(trial) === 1) throw new Error(`Displayed redundant clue: ${clue.id}`);
   }
 
   if (new Set(constraints.map(circularConstraintFingerprint)).size !== constraints.length) {
