@@ -26,6 +26,9 @@ function weekdayFact(value: unknown, label: string): Weekday {
 
 function conclusion(pkg: CalendarQuestionPackage, locale: FrozenLocale): string {
   const answer = displaySemantic(pkg.canonicalAnswer, pkg.outputType, locale);
+  if (pkg.outputType === "CLASSIFICATION") {
+    return t(locale, { hi: `अतः सही विकल्प है: ${answer}।`, pa: `ਇਸ ਲਈ ਸਹੀ ਵਿਕਲਪ ਹੈ: ${answer}।` });
+  }
   return t(locale, { hi: `अतः सही उत्तर ${answer} है।`, pa: `ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${answer} ਹੈ।` });
 }
 
@@ -121,5 +124,14 @@ export function finalizeCalendarMultilingualEditorialFreeze(
   if (pkg.prototypeAuthority === "CAL-PQL-003") return { ...pkg, explanation: recoverStart(pkg, locale) };
   if (pkg.prototypeAuthority === "CAL-PQL-004") return { ...pkg, explanation: leastPositive(pkg, locale) };
   if (pkg.prototypeAuthority === "CAL-PQL-027") return { ...pkg, explanation: centuryBoundary(pkg, locale) };
+  if (pkg.outputType === "CLASSIFICATION") {
+    return {
+      ...pkg,
+      explanation: {
+        ...pkg.explanation,
+        conclusion: conclusion(pkg, locale),
+      },
+    };
+  }
   return pkg;
 }
