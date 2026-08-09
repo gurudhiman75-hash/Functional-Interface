@@ -137,6 +137,8 @@ assert.throws(
 );
 
 const remediatedCheckpoints = new Set([
+  "CLK-CP-001",
+  "CLK-CP-002",
   "CLK-CP-003",
   "CLK-CP-004",
   "CLK-CP-005",
@@ -250,7 +252,7 @@ writeFileSync(
 );
 
 const summary = {
-  status: "PASS_CLK_001_REMEDIATION_SLICES_1_AND_2",
+  status: "PASS_CLK_001_REMEDIATION_SLICES_1_TO_3",
   soleAuthority: "CLK-001-CLOCKS-MASTER-END-TO-END-DESIGN-V2.md",
   authoritySha256: "db7fcb55498201427706416ba36622718f667ee88500c8c1572f59473cff4bcc",
   candidatePolicy: CLOCK_SOURCE_CANDIDATE_POLICY,
