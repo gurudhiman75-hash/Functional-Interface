@@ -5,6 +5,7 @@ on:
     branches:
       - feat/sea-001-v3-foundation-cp001
       - feat/sea-001-cp003-circular-centre
+      - feat/sea-001-wave4-verification-hardening
     paths:
       - artifacts/api-server/src/reasoning-v1/shared/constraint-core/**
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
@@ -77,6 +78,17 @@ jobs:
           node-version: 22
       - name: Run circular topology and caselet proof
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/cp003-proof.test.ts
+
+  wave4-verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run Wave 4 metamorphic, schema and explanation proof
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/wave4-verification-proof.test.ts
 
   cp003-review-export:
     runs-on: ubuntu-latest

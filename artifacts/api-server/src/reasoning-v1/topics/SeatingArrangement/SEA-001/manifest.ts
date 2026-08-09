@@ -38,6 +38,8 @@ export const SEA_FAMILY_MANIFEST = Object.freeze({
   packages: ["SEA-001", "SEA-002", "SEA-003"] as const,
   activePackage: "SEA-001" as const,
   implementedCheckpoints: ["SEA-CP-001", "SEA-CP-003"] as const,
-  nextRoadmapWave: "WAVE-4-VERIFICATION-HARDENING" as const,
+  completedRoadmapWaves: ["WAVE-0-GOVERNANCE", "WAVE-1-CONSTRAINT-CORE", "WAVE-2-SEA-CP-001", "WAVE-3-SEA-CP-003", "WAVE-4-VERIFICATION-HARDENING"] as const,
+  nextRoadmapWave: "WAVE-5-COMPLETE-SEA-001" as const,
+  nextCheckpointSequence: ["SEA-CP-002", "SEA-CP-004", "SEA-CP-005"] as const,
   permanentQlCount: 0 as const,
 });
