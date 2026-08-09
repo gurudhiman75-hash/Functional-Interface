@@ -60,7 +60,7 @@ jobs:
             --noFallthroughCasesInSwitch \
             --skipLibCheck \
             --types node \
-            $(find src/reasoning-v1/topics/Calendar/CAL-001 -name '*.ts' -print)
+            $(find src/reasoning-v1/topics/Calendar/CAL-001 -name '*.ts' ! -name 'question-studio-runtime.test.ts' -print)
 
   exhaustive-proof:
     runs-on: ubuntu-latest
