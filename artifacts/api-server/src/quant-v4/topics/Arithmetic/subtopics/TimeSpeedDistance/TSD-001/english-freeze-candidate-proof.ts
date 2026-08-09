@@ -1,3 +1,5 @@
+import { hasTsdCalculationEvidence } from "./cp001/exact-option-feedback";
+import { calibratedDifficultyLabel } from "./difficulty-calibration";
 import { generateFinalAuthorityReview } from "./final-authority-review";
 import { TSD_FINAL_LEARNER_AUTHORITIES } from "./final-authority-registry";
 
@@ -5,8 +7,12 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-const GENERIC = /different result|does not survive|rules it out|not the result|appears after|careful check|can be reached only|does not give|recomputing[^.]*rules/i;
+const GENERIC = /different result|does not survive|rules it out|not the result|appears after|careful check|can be reached only|does not give|recomputing[^.]*rules|unsupported direct proportion|combines the given numbers|satisfies the complete/i;
 const INTERNAL = /TODO|PLACEHOLDER|\{\{[A-Z_][^}]*\}\}|provisional authority|required answer|question bank status|test eligibility/i;
+
+function withoutDisplayedOption(reason: string, optionText: string): string {
+  return reason.replace(optionText, "").replace(/^[✅⚠️\s:.-]+/, "").trim();
+}
 
 const rows = generateFinalAuthorityReview();
 assert(rows.length === 153, `Expected 153 records, received ${rows.length}`);
@@ -16,10 +22,11 @@ assert(rows.filter((row) => row.finalCheckpointId === "TSD-CP-002").length === 7
 assert(rows.filter((row) => row.sourceCheckpointId === "TSD-CP-001").length === 77, "Source CP-001 count changed");
 assert(rows.filter((row) => row.sourceCheckpointId === "TSD-CP-002").length === 76, "Source CP-002 count changed");
 
+let optionReasons = 0;
 let wrongReasons = 0;
 let genericReasons = 0;
 let calculationFreeReasons = 0;
-let maximumWrongReasonWords = 0;
+let maximumReasonWords = 0;
 const difficultyCounts = new Map<string, number>();
 
 for (const row of rows) {
@@ -37,6 +44,9 @@ for (const row of rows) {
   assert(question.lifecycle.publiclyPublishable === false && question.publiclyPublishable === false, `${row.questionLanguageId}: source publication was enabled`);
   assert(question.validation.valid, `${row.questionLanguageId}: ${question.validation.errors.join("; ")}`);
 
+  assert(question.difficulty.status === "EDITORIALLY_CALIBRATED", `${row.questionLanguageId}: difficulty is not calibrated`);
+  assert(question.difficulty.label === calibratedDifficultyLabel(question.difficulty.featureScore), `${row.questionLanguageId}: difficulty label conflicts with feature-score rubric`);
+
   assert(question.stem.trim().endsWith("?") || question.stem.trim().endsWith("."), `${row.questionLanguageId}: stem punctuation is missing`);
   assert(question.stemMathJax.includes("\\("), `${row.questionLanguageId}: MathJax quantity is missing`);
   assert(question.options.length === 4 && new Set(question.options).size === 4, `${row.questionLanguageId}: options are not unique`);
@@ -52,14 +62,15 @@ for (const row of rows) {
     assert(audit.misconceptionId === analysis.misconceptionId, `${row.questionLanguageId}: audit-analysis ID mismatch`);
     assert(audit.isCorrect === analysis.isCorrect, `${row.questionLanguageId}: audit-analysis correctness mismatch`);
     assert(analysis.reason.includes(analysis.text), `${row.questionLanguageId}: option reason does not name ${analysis.text}`);
-    if (analysis.isCorrect) return;
 
-    wrongReasons += 1;
+    optionReasons += 1;
+    if (!analysis.isCorrect) wrongReasons += 1;
     if (GENERIC.test(analysis.reason)) genericReasons += 1;
-    if (!/\d/.test(analysis.reason)) calculationFreeReasons += 1;
+    const remainder = withoutDisplayedOption(analysis.reason, analysis.text);
+    if (!hasTsdCalculationEvidence(remainder)) calculationFreeReasons += 1;
     const words = analysis.reason.trim().split(/\s+/).length;
-    maximumWrongReasonWords = Math.max(maximumWrongReasonWords, words);
-    assert(words <= 65, `${row.questionLanguageId}: wrong-option reason exceeds 65 words`);
+    maximumReasonWords = Math.max(maximumReasonWords, words);
+    assert(words <= 95, `${row.questionLanguageId}: option reason exceeds 95 words`);
   });
 
   const learnerText = [
@@ -77,9 +88,10 @@ for (const row of rows) {
   difficultyCounts.set(question.difficulty.label, (difficultyCounts.get(question.difficulty.label) ?? 0) + 1);
 }
 
+assert(optionReasons === 612, `Expected 612 option reasons, received ${optionReasons}`);
 assert(wrongReasons === 459, `Expected 459 wrong-option reasons, received ${wrongReasons}`);
-assert(genericReasons === 0, `Generic wrong-option reasons remain: ${genericReasons}`);
-assert(calculationFreeReasons === 0, `Calculation-free wrong-option reasons remain: ${calculationFreeReasons}`);
+assert(genericReasons === 0, `Generic option reasons remain: ${genericReasons}`);
+assert(calculationFreeReasons === 0, `Option reasons without calculation evidence remain: ${calculationFreeReasons}`);
 assert(difficultyCounts.get("Easy") === 28, `Easy count changed: ${difficultyCounts.get("Easy")}`);
 assert(difficultyCounts.get("Medium") === 100, `Medium count changed: ${difficultyCounts.get("Medium")}`);
 assert(difficultyCounts.get("Hard") === 25, `Hard count changed: ${difficultyCounts.get("Hard")}`);
@@ -88,15 +100,16 @@ const correctPositions = [0, 1, 2, 3].map((index) => rows.filter((row) => row.so
 assert(correctPositions.join(",") === "37,37,41,38", `Correct-position distribution changed: ${correctPositions.join(",")}`);
 
 console.log(JSON.stringify({
-  status: "READY_FOR_ENGLISH_FREEZE_REVIEW",
+  status: "READY_FOR_BLIND_EDITORIAL_REVIEW",
   records: rows.length,
   learnerAuthorities: TSD_FINAL_LEARNER_AUTHORITIES.length,
   finalCheckpointCounts: { cp001: 80, cp002: 73 },
   sourceCheckpointCounts: { cp001: 77, cp002: 76 },
+  optionReasons,
   wrongReasons,
   genericReasons,
   calculationFreeReasons,
-  maximumWrongReasonWords,
+  maximumReasonWords,
   difficultyCounts: Object.fromEntries(difficultyCounts),
   correctPositions,
   permanentQls: 0,
