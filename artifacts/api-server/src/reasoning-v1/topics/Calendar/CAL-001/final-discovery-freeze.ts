@@ -2,6 +2,8 @@ import { CALENDAR_PROTOTYPE_IDS } from "./registry.ts";
 import { CALENDAR_SOURCE_GAP_PROTOTYPES } from "./source-gap-runtime.ts";
 import { FINAL_CALENDAR_SOURCE_AUDIT_GATE } from "./final-source-audit-gate.ts";
 import { CALENDAR_PERMANENT_CONTRACTS, CALENDAR_PERMANENT_QL_IDS } from "./permanent-contracts.ts";
+import { CAL_001_MULTILINGUAL_EDITORIAL_FREEZE_VERSION } from "./multilingual-editorial-freeze.ts";
+import { CAL_001_MULTILINGUAL_SOURCE_GAP_VERSION } from "./source-gap-multilingual.ts";
 
 export const CAL_001_ENGLISH_DISCOVERY_FREEZE_VERSION = "CAL_001_ENGLISH_DISCOVERY_FREEZE_V1" as const;
 
@@ -51,14 +53,21 @@ export const CAL_001_SOURCE_EVIDENCE_LEDGER = [
     supports: ["FORTY_FOUR_DISCOVERY_PROTOTYPES", "EXAM_NATURAL_STEMS", "DISTRACTOR_QUALITY", "STUDENT_EXPLANATIONS"],
   },
   {
-    source: "Executable Gregorian, source-gap and permanent-identity proofs",
+    source: "Approved CAL-001 Hindi and Punjabi review evidence",
+    strength: "HUMAN_REVIEW",
+    supports: ["HINDI_EDITORIAL_FREEZE", "PUNJABI_EDITORIAL_FREEZE", "MULTILINGUAL_SEMANTIC_PARITY", "SOURCE_GAP_LOCALISATION"],
+  },
+  {
+    source: "Executable Gregorian, source-gap, multilingual and permanent-identity proofs",
     strength: "EXECUTABLE",
-    supports: ["FORTY_SEVEN_SOURCE_PROTOTYPES", "THIRTY_SIX_PERMANENT_IDENTITIES", "INDEPENDENT_SOLVER_PARITY", "RELEASE_LOCKS"],
+    supports: ["FORTY_SEVEN_SOURCE_PROTOTYPES", "THIRTY_SIX_PERMANENT_IDENTITIES", "INDEPENDENT_SOLVER_PARITY", "LANGUAGE_PARITY", "RELEASE_LOCKS"],
   },
 ] as const;
 
 export const CAL_001_RELEASE_LOCK = {
   freezeVersion: CAL_001_ENGLISH_DISCOVERY_FREEZE_VERSION,
+  multilingualEditorialFreezeVersion: CAL_001_MULTILINGUAL_EDITORIAL_FREEZE_VERSION,
+  multilingualSourceGapVersion: CAL_001_MULTILINGUAL_SOURCE_GAP_VERSION,
   permanentQlRange: "CAL-QL-001..036",
   permanentQlCount: CALENDAR_PERMANENT_QL_IDS.length,
   nextAvailableChapterQlId: "CAL-QL-037",
@@ -69,9 +78,9 @@ export const CAL_001_RELEASE_LOCK = {
   englishIdentityFrozen: true,
   finalSourceAuditPassed: FINAL_CALENDAR_SOURCE_AUDIT_GATE.passed,
   reviewOnly: true,
-  hindiHumanFreeze: false,
-  punjabiHumanFreeze: false,
-  multilingualParityFreeze: false,
+  hindiHumanFreeze: true,
+  punjabiHumanFreeze: true,
+  multilingualParityFreeze: true,
   questionStudioAllowed: false,
   questionBankWriteAllowed: false,
   mockTestAllowed: false,
@@ -80,6 +89,8 @@ export const CAL_001_RELEASE_LOCK = {
 
 export const CAL_001_FINAL_DISCOVERY_FREEZE = {
   version: CAL_001_ENGLISH_DISCOVERY_FREEZE_VERSION,
+  multilingualEditorialVersion: CAL_001_MULTILINGUAL_EDITORIAL_FREEZE_VERSION,
+  multilingualSourceGapVersion: CAL_001_MULTILINGUAL_SOURCE_GAP_VERSION,
   sourceAudit: FINAL_CALENDAR_SOURCE_AUDIT_GATE,
   frozenSourcePrototypeIds: CAL_001_FROZEN_SOURCE_PROTOTYPE_IDS,
   permanentContracts: CALENDAR_PERMANENT_CONTRACTS,
