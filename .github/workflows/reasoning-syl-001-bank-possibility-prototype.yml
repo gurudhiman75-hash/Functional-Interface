@@ -10,6 +10,7 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v1-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-review-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/analysis.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/scenarios.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/localization.ts
@@ -57,11 +58,23 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-shell-v1-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-shell-v1-audit.log
 
+      - name: Bundle prototype review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-review-v1.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/export-syl-001-bank-possibility-review-v1.mjs
+
+      - name: Generate multilingual prototype review pack
+        run: node artifacts/api-server/dist/reasoning-v1/export-syl-001-bank-possibility-review-v1.mjs
+
       - name: Upload prototype evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: syl-001-bank-possibility-shell-v1
-          path: artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-shell-v1-audit.log
+          path: |
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-shell-v1-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-review-v1/**
           if-no-files-found: error
           retention-days: 30
