@@ -6,6 +6,7 @@ on:
       - feat/sea-001-v3-foundation-cp001
       - feat/sea-001-cp003-circular-centre
       - feat/sea-001-wave4-verification-hardening
+      - feat/sea-001-cp002-mixed-facing
     paths:
       - artifacts/api-server/src/reasoning-v1/shared/constraint-core/**
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
@@ -68,6 +69,17 @@ jobs:
       - name: Run deterministic CP-001 proof
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/foundation-proof.test.ts
 
+  cp002-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run 400-caselet CP-002 mixed-facing proof
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/cp002-proof.test.ts
+
   cp003-proof:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -89,6 +101,26 @@ jobs:
           node-version: 22
       - name: Run Wave 4 metamorphic, schema and explanation proof
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/wave4-verification-proof.test.ts
+
+  cp002-review-export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generate 48-caselet CP-002 English review pack
+        env:
+          SEA_CP002_REVIEW_OUTPUT_DIR: /tmp/sea-cp002-review
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/cp002-review-export.ts
+      - name: Upload CP-002 review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-cp002-english-review
+          path: /tmp/sea-cp002-review/**
+          if-no-files-found: error
+          retention-days: 14
 
   cp003-review-export:
     runs-on: ubuntu-latest
