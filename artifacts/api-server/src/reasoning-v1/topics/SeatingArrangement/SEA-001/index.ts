@@ -57,6 +57,27 @@ export * from "./cp003/diagram.ts";
 export * from "./cp003/generator.ts";
 export * from "./cp003/option-recomputation.ts";
 export * from "./packages/sea-001/cp-003.ts";
+export type {
+  OutwardPersonId,
+  OutwardCyclicDirection,
+  OutwardRelativeDirection,
+  OutwardBlueprintId,
+  OutwardQueryContractId,
+  OutwardConstraint,
+  OutwardSolverModel,
+  OutwardSemanticValue,
+  OutwardAnswerType,
+  OutwardMisconceptionId,
+  OutwardOption,
+  OutwardChildQuestion,
+  OutwardTopologySnapshot,
+  OutwardCaseletRecord,
+} from "./cp004/types.ts";
+export * from "./cp004/constraints.ts";
+export * from "./cp004/solvers.ts";
+export * from "./cp004/questions.ts";
+export * from "./cp004/generator.ts";
+export * from "./packages/sea-001/cp-004.ts";
 export * from "./verification/model-oracle.ts";
 export * from "./verification/question-studio-schema.ts";
 export * from "./verification/proof-trace-compiler.ts";
