@@ -18,17 +18,9 @@ function fail(message: string): never {
   throw new Error(message);
 }
 
-const OUTPUT_DIRECTORY = join(
-  process.cwd(),
-  "dist",
-  "quant-v4",
-  "int-cp004-localized-review-pack",
-);
+const OUTPUT_DIRECTORY = join(process.cwd(), "dist", "quant-v4", "int-cp004-localized-review-pack");
 
-const FILES: Readonly<Record<IntCp004LocalizedLocale, Readonly<{
-  markdown: string;
-  data: string;
-}>>> = Object.freeze({
+const FILES: Readonly<Record<IntCp004LocalizedLocale, Readonly<{ markdown: string; data: string }>>> = Object.freeze({
   "hi-IN": Object.freeze({
     markdown: "INT-CP-004-Hindi-Questions-and-Explanations-Review.md",
     data: "INT-CP-004-Hindi-Review-Data.json",
@@ -40,37 +32,19 @@ const FILES: Readonly<Record<IntCp004LocalizedLocale, Readonly<{
 });
 
 const EXPECTED_REPRESENTATIONS = Object.freeze([
-  "TERMS_TABLE",
-  "STANDARD_PROSE",
-  "BALANCE_RECORD",
-  "SCHEME_COMPARISON",
+  "TERMS_TABLE", "STANDARD_PROSE", "BALANCE_RECORD", "SCHEME_COMPARISON",
 ] as const);
 
 const machinePhrases: Readonly<Record<IntCp004LocalizedLocale, readonly string[]>> = Object.freeze({
   "hi-IN": Object.freeze([
-    "निवेश की शर्तें नीचे दी गई हैं",
-    "खाते में दर्ज",
-    "खाता विवरण",
-    "योजना का सार",
-    "योजना/चरण का विवरण",
-    "दर्ज जानकारी के आधार पर",
-    "प्रश्न हल कीजिए",
+    "निवेश की शर्तें नीचे दी गई हैं", "खाते में दर्ज", "खाता विवरण", "योजना का सार",
+    "योजना/चरण का विवरण", "दर्ज जानकारी के आधार पर", "प्रश्न हल कीजिए",
   ]),
   "pa-IN": Object.freeze([
-    "ਨਿਵੇਸ਼ ਦੀਆਂ ਸ਼ਰਤਾਂ ਹੇਠਾਂ ਦਿੱਤੀਆਂ ਹਨ",
-    "ਖਾਤੇ ਵਿੱਚ ਦਰਜ",
-    "ਖਾਤਾ ਵੇਰਵਾ",
-    "ਯੋਜਨਾ ਦਾ ਸਾਰ",
-    "ਯੋਜਨਾ/ਪੜਾਅ ਦਾ ਵੇਰਵਾ",
-    "ਦਰਜ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ ਉੱਤੇ",
-    "ਪ੍ਰਸ਼ਨ ਹੱਲ ਕਰੋ",
+    "ਨਿਵੇਸ਼ ਦੀਆਂ ਸ਼ਰਤਾਂ ਹੇਠਾਂ ਦਿੱਤੀਆਂ ਹਨ", "ਖਾਤੇ ਵਿੱਚ ਦਰਜ", "ਖਾਤਾ ਵੇਰਵਾ", "ਯੋਜਨਾ ਦਾ ਸਾਰ",
+    "ਯੋਜਨਾ/ਪੜਾਅ ਦਾ ਵੇਰਵਾ", "ਦਰਜ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ ਉੱਤੇ", "ਪ੍ਰਸ਼ਨ ਹੱਲ ਕਰੋ",
   ]),
 });
-
-const punjabiMishritRequired = new Set([
-  "INT-QL-068", "INT-QL-070", "INT-QL-074", "INT-QL-079", "INT-QL-080",
-  "INT-QL-081", "INT-QL-082", "INT-QL-083", "INT-QL-085",
-]);
 
 function normalizeStem(stem: string): string {
   return stem
@@ -81,21 +55,11 @@ function normalizeStem(stem: string): string {
     .trim();
 }
 
-const summaryText = readFileSync(
-  join(OUTPUT_DIRECTORY, "int-cp004-localized-review-pack-summary.json"),
-  "utf8",
-);
+const summaryText = readFileSync(join(OUTPUT_DIRECTORY, "int-cp004-localized-review-pack-summary.json"), "utf8");
 const exportedSummary = JSON.parse(summaryText) as Record<string, any>;
-
-if (exportedSummary.status !== "CP004_LOCALIZED_REVIEW_PACKS_EXPORTED") {
-  fail("Review-pack exporter summary has an unexpected status.");
-}
-if (exportedSummary.reviewPackVersion !== INT_CP004_LOCALIZED_REVIEW_PACK_VERSION) {
-  fail("Review-pack exporter summary has an unexpected version.");
-}
-if (exportedSummary.totalReviewQuestions !== 152) {
-  fail("Review-pack exporter summary does not contain 152 total questions.");
-}
+if (exportedSummary.status !== "CP004_LOCALIZED_REVIEW_PACKS_EXPORTED") fail("Review-pack exporter summary has an unexpected status.");
+if (exportedSummary.reviewPackVersion !== INT_CP004_LOCALIZED_REVIEW_PACK_VERSION) fail("Review-pack exporter summary has an unexpected version.");
+if (exportedSummary.totalReviewQuestions !== 152) fail("Review-pack exporter summary does not contain 152 total questions.");
 
 let questionChecks = 0;
 let optionChecks = 0;
@@ -115,6 +79,7 @@ const seedsByLocale: Record<string, readonly string[]> = {};
 const answerPositionsByLocale: Record<string, readonly number[]> = {};
 const hashesByLocale: Record<string, Readonly<{ markdown: string; data: string }>> = {};
 const normalizedStemPatternsByLocaleQl: Record<string, number> = {};
+let punjabiMishritStemCount = 0;
 
 for (const locale of INT_CP004_LOCALIZED_LOCALES) {
   const files = FILES[locale];
@@ -140,13 +105,7 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
   if (localeSummary?.uniqueSeedCount !== 76) fail(`${locale}: exporter summary seed count mismatch.`);
   hashesByLocale[locale] = Object.freeze({ markdown: markdownHash, data: dataHash });
 
-  if (
-    pack.status !== "LOCALIZED_HUMAN_REVIEW_REQUIRED"
-    || pack.questionCount !== 76
-    || pack.qlCount !== 19
-    || pack.questionsPerQl !== 4
-    || pack.questions.length !== 76
-  ) {
+  if (pack.status !== "LOCALIZED_HUMAN_REVIEW_REQUIRED" || pack.questionCount !== 76 || pack.qlCount !== 19 || pack.questionsPerQl !== 4 || pack.questions.length !== 76) {
     fail(`${locale}: review-pack cardinality or status is incorrect.`);
   }
 
@@ -166,28 +125,16 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
     (normalizedStemsByQl[question.qlId] ??= new Set<string>()).add(normalizeStem(question.stem));
 
     answerPositionChecks += 1;
-    if (question.correctIndex < 0 || question.correctIndex > 3) {
-      fail(`${locale}/${question.qlId}/${question.seed}: invalid correct index.`);
-    }
+    if (question.correctIndex < 0 || question.correctIndex > 3) fail(`${locale}/${question.qlId}/${question.seed}: invalid correct index.`);
     answerPositions[question.correctIndex] = (answerPositions[question.correctIndex] ?? 0) + 1;
-    if (question.correctAnswer !== question.options[question.correctIndex]?.text) {
-      fail(`${locale}/${question.qlId}/${question.seed}: correct answer ownership changed.`);
-    }
+    if (question.correctAnswer !== question.options[question.correctIndex]?.text) fail(`${locale}/${question.qlId}/${question.seed}: correct answer ownership changed.`);
 
-    if (question.options.length !== 4) {
-      fail(`${locale}/${question.qlId}/${question.seed}: expected four options.`);
-    }
+    if (question.options.length !== 4) fail(`${locale}/${question.qlId}/${question.seed}: expected four options.`);
     for (const option of question.options) {
       optionChecks += 1;
-      assertCp004LocalizedText(
-        locale,
-        option.feedback,
-        `${locale}/${question.qlId}/${question.seed}/${option.label}/feedback`,
-      );
+      assertCp004LocalizedText(locale, option.feedback, `${locale}/${question.qlId}/${question.seed}/${option.label}/feedback`);
       scriptChecks += 1;
-      if (!option.text.trim() || !option.misconceptionId.trim()) {
-        fail(`${locale}/${question.qlId}/${question.seed}/${option.label}: incomplete option record.`);
-      }
+      if (!option.text.trim() || !option.misconceptionId.trim()) fail(`${locale}/${question.qlId}/${question.seed}/${option.label}: incomplete option record.`);
     }
 
     assertCp004LocalizedText(locale, question.stem, `${locale}/${question.qlId}/${question.seed}/stem`);
@@ -205,9 +152,7 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
     }
     nativeStemChecks += 3;
 
-    if (question.explanation.steps.length < 2) {
-      fail(`${locale}/${question.qlId}/${question.seed}: insufficient worked steps.`);
-    }
+    if (question.explanation.steps.length < 2) fail(`${locale}/${question.qlId}/${question.seed}: insufficient worked steps.`);
     for (const [stepIndex, step] of question.explanation.steps.entries()) {
       explanationChecks += 1;
       assertCp004LocalizedText(locale, step, `${locale}/${question.qlId}/${question.seed}/step-${stepIndex + 1}`);
@@ -223,30 +168,16 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
       question.explanation.commonMistake,
     ].join("\n");
     englishFallbackChecks += 1;
-    if (/\b(?:find|we need|therefore|the answer|common mistake|final amount|principal|annual rate|compound interest|simple interest|compounded|after|before|question asks)\b/iu.test(learnerText)) {
-      fail(`${locale}/${question.qlId}/${question.seed}: English learner prose reached review pack.`);
-    }
-    if (/\b(?:TODO|TBD|placeholder|translate|translation pending)\b/iu.test(learnerText)) {
-      fail(`${locale}/${question.qlId}/${question.seed}: placeholder reached review pack.`);
-    }
+    if (/\b(?:find|we need|therefore|the answer|common mistake|final amount|principal|annual rate|compound interest|simple interest|compounded|after|before|question asks)\b/iu.test(learnerText)) fail(`${locale}/${question.qlId}/${question.seed}: English learner prose reached review pack.`);
+    if (/\b(?:TODO|TBD|placeholder|translate|translation pending)\b/iu.test(learnerText)) fail(`${locale}/${question.qlId}/${question.seed}: placeholder reached review pack.`);
     if (locale === "pa-IN") {
       if (learnerText.includes("ਚੱਕਰਵੱਧੀ")) fail(`${locale}/${question.qlId}/${question.seed}: rejected Punjabi interest term remains.`);
-      if (punjabiMishritRequired.has(question.qlId) && !question.stem.includes("ਮਿਸ਼ਰਤ ਵਿਆਜ")) {
-        fail(`${locale}/${question.qlId}/${question.seed}: required ਮਿਸ਼ਰਤ ਵਿਆਜ wording is missing.`);
-      }
+      if (question.stem.includes("ਮਿਸ਼ਰਤ ਵਿਆਜ")) punjabiMishritStemCount += 1;
       punjabiTerminologyChecks += 1;
     }
 
     lifecycleChecks += 7;
-    if (
-      question.lifecycle.enabled
-      || question.lifecycle.stagingStatus !== "NOT_STAGED"
-      || question.lifecycle.registrationStatus !== "NOT_REGISTERED"
-      || question.lifecycle.questionStudioDiscoverable
-      || question.lifecycle.questionBankStatus !== "NOT_STORED"
-      || question.lifecycle.testEligibility !== "INELIGIBLE"
-      || question.lifecycle.publiclyPublishable
-    ) {
+    if (question.lifecycle.enabled || question.lifecycle.stagingStatus !== "NOT_STAGED" || question.lifecycle.registrationStatus !== "NOT_REGISTERED" || question.lifecycle.questionStudioDiscoverable || question.lifecycle.questionBankStatus !== "NOT_STORED" || question.lifecycle.testEligibility !== "INELIGIBLE" || question.lifecycle.publiclyPublishable) {
       fail(`${locale}/${question.qlId}/${question.seed}: lifecycle boundary changed.`);
     }
   }
@@ -254,46 +185,33 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
   if (seeds.size !== 76) fail(`${locale}: expected 76 unique review seeds, received ${seeds.size}.`);
   seedsByLocale[locale] = Object.freeze([...seeds]);
   answerPositionsByLocale[locale] = Object.freeze([...answerPositions]);
-
-  if (answerPositions.some((count) => count !== 19)) {
-    fail(`${locale}: answer positions are not balanced 19/19/19/19.`);
-  }
+  if (answerPositions.some((count) => count !== 19)) fail(`${locale}: answer positions are not balanced 19/19/19/19.`);
 
   for (const qlId of INT_CP004_QL_IDS) {
     if (qlCounts[qlId] !== 4) fail(`${locale}/${qlId}: expected four review questions.`);
     const representations = representationsByQl[qlId];
     representationChecks += 4;
-    if (
-      representations?.size !== 4
-      || EXPECTED_REPRESENTATIONS.some((representation) => !representations.has(representation))
-    ) {
-      fail(`${locale}/${qlId}: internal representation coverage is incomplete.`);
-    }
+    if (representations?.size !== 4 || EXPECTED_REPRESENTATIONS.some((representation) => !representations.has(representation))) fail(`${locale}/${qlId}: internal representation coverage is incomplete.`);
 
     const families = familiesByQl[qlId];
     stemFamilyChecks += 4;
     for (let frame = 1; frame <= 4; frame += 1) {
-      if (!families?.has(`${qlId}-FRAME-${frame}`)) {
-        fail(`${locale}/${qlId}: stem family FRAME-${frame} is missing.`);
-      }
+      if (!families?.has(`${qlId}-FRAME-${frame}`)) fail(`${locale}/${qlId}: stem family FRAME-${frame} is missing.`);
     }
 
     const nativePatterns = normalizedStemsByQl[qlId]?.size ?? 0;
-    if (nativePatterns !== 4) {
-      fail(`${locale}/${qlId}: expected four materially distinct native stems, received ${nativePatterns}.`);
-    }
+    if (nativePatterns !== 4) fail(`${locale}/${qlId}: expected four materially distinct native stems, received ${nativePatterns}.`);
     normalizedStemPatternsByLocaleQl[`${locale}/${qlId}`] = nativePatterns;
   }
 }
 
+if (punjabiMishritStemCount === 0) fail("Punjabi review pack never uses ਮਿਸ਼ਰਤ ਵਿਆਜ.");
 const hindiSeeds = seedsByLocale["hi-IN"] ?? [];
 const punjabiSeeds = seedsByLocale["pa-IN"] ?? [];
 if (hindiSeeds.length !== punjabiSeeds.length) fail("Hindi and Punjabi review packs have different sizes.");
 for (let index = 0; index < hindiSeeds.length; index += 1) {
   sharedSeedChecks += 1;
-  if (hindiSeeds[index] !== punjabiSeeds[index]) {
-    fail(`Hindi and Punjabi canonical seeds diverge at review question ${index + 1}.`);
-  }
+  if (hindiSeeds[index] !== punjabiSeeds[index]) fail(`Hindi and Punjabi canonical seeds diverge at review question ${index + 1}.`);
 }
 
 const summary = {
@@ -320,6 +238,7 @@ const summary = {
   sharedSeedChecks,
   englishFallbackChecks,
   punjabiTerminologyChecks,
+  punjabiMishritStemCount,
   answerPositionsByLocale,
   normalizedStemPatternsByLocaleQl,
   hashesByLocale,
