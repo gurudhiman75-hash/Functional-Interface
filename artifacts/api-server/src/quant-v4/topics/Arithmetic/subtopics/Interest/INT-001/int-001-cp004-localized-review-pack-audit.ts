@@ -70,6 +70,7 @@ let lifecycleChecks = 0;
 let deterministicChecks = 0;
 let hashChecks = 0;
 let representationChecks = 0;
+let representationShapeChecks = 0;
 let stemFamilyChecks = 0;
 let answerPositionChecks = 0;
 let sharedSeedChecks = 0;
@@ -77,6 +78,8 @@ let englishFallbackChecks = 0;
 const seedsByLocale: Record<string, readonly string[]> = {};
 const answerPositionsByLocale: Record<string, readonly number[]> = {};
 const hashesByLocale: Record<string, Readonly<{ markdown: string; data: string }>> = {};
+const tableQuestionsByLocale: Record<string, number> = {};
+const nonTableQuestionsByLocale: Record<string, number> = {};
 
 for (const locale of INT_CP004_LOCALIZED_LOCALES) {
   const files = FILES[locale];
@@ -117,6 +120,8 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
   const qlCounts: Record<string, number> = {};
   const representationsByQl: Record<string, Set<string>> = {};
   const familiesByQl: Record<string, Set<string>> = {};
+  let tableQuestions = 0;
+  let nonTableQuestions = 0;
 
   for (const question of pack.questions) {
     questionChecks += 1;
@@ -168,6 +173,34 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
     );
     scriptChecks += 4;
 
+    const hasMarkdownTable = question.stem.includes("|---|---|");
+    if (question.representation === "TERMS_TABLE") {
+      representationShapeChecks += 1;
+      tableQuestions += 1;
+      if (!hasMarkdownTable) fail(`${locale}/${question.qlId}/${question.seed}: genuine terms table is missing.`);
+      if (question.stem.split("\n").filter((line) => line.trimStart().startsWith("|")).length < 4) {
+        fail(`${locale}/${question.qlId}/${question.seed}: genuine terms table is too shallow.`);
+      }
+    } else {
+      representationShapeChecks += 1;
+      nonTableQuestions += 1;
+      if (hasMarkdownTable) fail(`${locale}/${question.qlId}/${question.seed}: non-table representation rendered as a table.`);
+      if (question.representation === "BALANCE_RECORD") {
+        const heading = locale === "hi-IN" ? "**खाता विवरण**" : "**ਖਾਤਾ ਵੇਰਵਾ**";
+        if (!question.stem.includes(heading)) fail(`${locale}/${question.qlId}/${question.seed}: account record heading is missing.`);
+        if (question.stem.split("\n").filter((line) => /^\d+\.\s+\*\*/u.test(line)).length < 2) {
+          fail(`${locale}/${question.qlId}/${question.seed}: account record lacks numbered entries.`);
+        }
+      }
+      if (question.representation === "SCHEME_COMPARISON") {
+        const heading = locale === "hi-IN" ? "**योजना/चरण का विवरण**" : "**ਯੋਜਨਾ/ਪੜਾਅ ਦਾ ਵੇਰਵਾ**";
+        if (!question.stem.includes(heading)) fail(`${locale}/${question.qlId}/${question.seed}: scheme heading is missing.`);
+        if (question.stem.split("\n").filter((line) => line.startsWith("- **")).length < 2) {
+          fail(`${locale}/${question.qlId}/${question.seed}: scheme representation lacks bullet facts.`);
+        }
+      }
+    }
+
     if (question.explanation.steps.length < 2) {
       fail(`${locale}/${question.qlId}/${question.seed}: insufficient worked steps.`);
     }
@@ -214,9 +247,14 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
   if (seeds.size !== 76) fail(`${locale}: expected 76 unique review seeds, received ${seeds.size}.`);
   seedsByLocale[locale] = Object.freeze([...seeds]);
   answerPositionsByLocale[locale] = Object.freeze([...answerPositions]);
+  tableQuestionsByLocale[locale] = tableQuestions;
+  nonTableQuestionsByLocale[locale] = nonTableQuestions;
 
   if (answerPositions.some((count) => count !== 19)) {
     fail(`${locale}: answer positions are not balanced 19/19/19/19.`);
+  }
+  if (tableQuestions !== 19 || nonTableQuestions !== 57) {
+    fail(`${locale}: expected 19 genuine tables and 57 non-table questions, received ${tableQuestions}/${nonTableQuestions}.`);
   }
 
   for (const qlId of INT_CP004_QL_IDS) {
@@ -267,11 +305,14 @@ const summary = {
   deterministicChecks,
   hashChecks,
   representationChecks,
+  representationShapeChecks,
   stemFamilyChecks,
   answerPositionChecks,
   sharedSeedChecks,
   englishFallbackChecks,
   answerPositionsByLocale,
+  tableQuestionsByLocale,
+  nonTableQuestionsByLocale,
   hashesByLocale,
   lifecycle: {
     maturity: "MULTILINGUAL_LOCALISATION_REVIEW",
