@@ -32,7 +32,7 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle CP-003 discovery and exact solver proofs
+      - name: Bundle CP-003 discovery, solver and runtime proofs
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
           OUT=dist/quant-v4/tsd-001/cp003
@@ -40,6 +40,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/discovery-registry-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/discovery-registry-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/solver-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/solver-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/runtime-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/runtime-proof.mjs"
 
       - name: Run CP-003 proof suites
         run: |
@@ -47,6 +48,7 @@ jobs:
           cd artifacts/api-server
           node dist/quant-v4/tsd-001/cp003/discovery-registry-proof.mjs | tee dist/quant-v4/tsd-001/cp003/discovery-registry-proof.log
           node dist/quant-v4/tsd-001/cp003/solver-proof.mjs | tee dist/quant-v4/tsd-001/cp003/solver-proof.log
+          node dist/quant-v4/tsd-001/cp003/runtime-proof.mjs | tee dist/quant-v4/tsd-001/cp003/runtime-proof.log
 
       - name: Upload CP-003 proof logs
         if: always()
