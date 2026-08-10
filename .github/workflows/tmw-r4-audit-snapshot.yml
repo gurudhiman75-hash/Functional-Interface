@@ -39,6 +39,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tmw-001-r4-blind-audit-snapshot
-          path: artifacts/api-server/dist/quant-v4/tmw-001-r4-audit-snapshot.json
+          path: dist/quant-v4/tmw-001-r4-audit-snapshot.json
           if-no-files-found: error
           retention-days: 14
