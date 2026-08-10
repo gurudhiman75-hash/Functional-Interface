@@ -27,6 +27,7 @@ export type MalCp005Wave03ProductReadyQuestionV2 = Omit<
     explicitSellingPriceBase: true;
     canonicalSiblingKey: true;
     fastMethodVerification: true;
+    naturalPurchaseRatePhrasing: true;
   };
 };
 
@@ -39,7 +40,8 @@ function explicitPriceBaseStem(stem: string): string {
     .replace(
       /then increases the selling rate by (\d+%)/u,
       "then sells the mixture at a rate $1 above the purchase rate per unit",
-    );
+    )
+    .replace(/ for ₹/gu, " at ₹");
 }
 
 function canonicalCommercialSiblingKey(
@@ -88,6 +90,9 @@ export function generateMalCp005Wave03ProductReadyV2(
   if (!/above (?:his buying|the purchase) rate/iu.test(stem)) {
     throw new Error("Wave 03 product stem does not explicitly state the price-increase base.");
   }
+  if (/ for ₹/u.test(stem)) {
+    throw new Error("Unnatural purchase-rate wording survived Wave 03 product remediation.");
+  }
 
   return {
     ...base,
@@ -108,6 +113,7 @@ export function generateMalCp005Wave03ProductReadyV2(
       explicitSellingPriceBase: true,
       canonicalSiblingKey: true,
       fastMethodVerification: true,
+      naturalPurchaseRatePhrasing: true,
     },
   };
 }
