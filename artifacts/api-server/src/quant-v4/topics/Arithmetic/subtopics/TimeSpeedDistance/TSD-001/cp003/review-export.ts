@@ -48,13 +48,14 @@ const htmlRows = rows.map((row, index) => {
 const authorityTargets = new Set(rows.map((row) => row.authorityKey));
 const newAuthorityTargets = new Set(rows.filter((row) => row.authorityOwnerCheckpointId === "TSD-CP-003").map((row) => row.authorityKey));
 const priorAuthorityTargets = new Set(rows.filter((row) => row.authorityOwnerCheckpointId !== "TSD-CP-003").map((row) => row.authorityKey));
+const priorRepresentationFamilies = new Set(rows.filter((row) => row.ownershipDisposition === "PRIOR_CHECKPOINT_REPRESENTATION").map((row) => row.solveMode));
 
 const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TSD-CP-003 Post-Overlap Editorial Review</title>
 <style>body{font-family:Arial,sans-serif;max-width:1050px;margin:32px auto;padding:0 20px;line-height:1.45}article{border:1px solid #ddd;border-radius:8px;padding:18px;margin:0 0 22px}small{color:#444}h1{margin-bottom:4px}.meta{color:#555}li{margin:6px 0}</style></head><body>
 <h1>TSD-CP-003 — Post-Overlap Editorial Review</h1>
-<p class="meta">66 learner rows · 20 represented authority targets · 11 new CP-003 authority candidates · 9 prior-authority representation extensions · English UNFROZEN · permanent QLs 0</p>
+<p class="meta">66 learner rows · 19 represented authority targets · 11 new CP-003 authority candidates · 9 prior-authority representation families across 8 existing targets · English UNFROZEN · permanent QLs 0</p>
 ${htmlRows}
 </body></html>`;
 writeFileSync(resolve(outputDir, "tsd-cp003-review.html"), html, "utf8");
@@ -66,7 +67,8 @@ console.log(JSON.stringify({
   discoverySolveModes: new Set(rows.map((row) => row.solveMode)).size,
   representedAuthorityTargets: authorityTargets.size,
   newCp003AuthorityTargets: newAuthorityTargets.size,
-  priorAuthorityTargets: priorAuthorityTargets.size,
+  priorRepresentationFamilies: priorRepresentationFamilies.size,
+  distinctPriorAuthorityTargets: priorAuthorityTargets.size,
   validRows: rows.filter((row) => row.validation.valid).length,
   permanentQlCount: rows.filter((row) => row.permanentQlId !== null).length,
   englishFreezeStatus: "UNFROZEN",
