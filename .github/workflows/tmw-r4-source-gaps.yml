@@ -58,8 +58,11 @@ jobs:
           --types node
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/source-gap-r4-registry.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/source-gap-r4-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/source-gap-r4-safe-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/source-gap-r4-student-polish.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-source-gap.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-student-polish.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-expanded-chapter.test.ts
       - name: Bundle R4 source-gap proof
         run: >-
@@ -72,6 +75,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-r4-source-gap.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-r4-source-gap-proof.log
+      - name: Bundle R4 student polish proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-student-polish.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-r4-student-polish.test.mjs
+      - name: Run R4 student polish proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-r4-student-polish.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-r4-student-polish-proof.log
       - name: Bundle expanded 229-QL regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -134,6 +148,7 @@ jobs:
           name: tmw-001-r4-source-gaps
           path: |
             artifacts/api-server/dist/quant-v4/tmw-001-r4-source-gap-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-r4-student-polish-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-r4-expanded-chapter-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-critical-remediation-r1-r4-regression.log
             artifacts/api-server/dist/quant-v4/tmw-001-r2-learner-explanation-r4-regression.log
