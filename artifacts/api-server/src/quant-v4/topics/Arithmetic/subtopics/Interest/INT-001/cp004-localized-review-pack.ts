@@ -10,6 +10,7 @@ import {
   languageForCp004Locale,
 } from "./cp004-localization-language-pack";
 import { buildCp004LocalizedFormulaExplanationV9 } from "./cp004-localized-formula-explanations-v9";
+import { adaptIntCp004ExamFriendlyOptionsV9 } from "./cp004-localized-exam-friendly-options-v9";
 import { localizeIntCp004EnglishFrozenQuestion } from "./cp004-localized-runtime";
 import type {
   IntCp004LocalizedLocale,
@@ -153,7 +154,10 @@ function toReviewQuestion(
 ): IntCp004LocalizedReviewQuestion {
   const correctLabel = OPTION_LABELS[localized.correctIndex];
   if (!correctLabel) throw new Error(`${localized.qlId}/${localized.seed}: invalid correct index.`);
-  const explanation = buildCp004LocalizedFormulaExplanationV9(source, localized.locale, localized.correctAnswer);
+  const displayOptions = adaptIntCp004ExamFriendlyOptionsV9(localized, localized.locale);
+  const correctAnswer = displayOptions[localized.correctIndex]?.text;
+  if (!correctAnswer) throw new Error(`${localized.qlId}/${localized.seed}: v9 correct answer is missing.`);
+  const explanation = buildCp004LocalizedFormulaExplanationV9(source, localized.locale, correctAnswer);
 
   return deepFreeze({
     number,
@@ -165,7 +169,7 @@ function toReviewQuestion(
     difficulty: localized.difficulty,
     answerSemantic: localized.answerSemantic,
     stem: localized.stem,
-    options: localized.options.map((option, index) => ({
+    options: displayOptions.map((option, index) => ({
       label: OPTION_LABELS[index]!,
       id: option.id,
       text: option.text,
@@ -175,7 +179,7 @@ function toReviewQuestion(
     })),
     correctIndex: localized.correctIndex,
     correctLabel,
-    correctAnswer: localized.correctAnswer,
+    correctAnswer,
     explanation,
     lifecycle: {
       enabled: false,
