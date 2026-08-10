@@ -63,6 +63,13 @@ export type SpatialPrimitiveIdV2 =
   | "SMALL_CROSS"
   | "FOUR_POINT_STAR";
 
+export interface SpatialPrimitiveConnectivityV2 {
+  /** Distinct interior points where two or more strokes meet. */
+  junctionCount: number;
+  /** Junctions where at least two strokes continue through the meeting point. */
+  crossingCount: number;
+}
+
 export interface SpatialPrimitiveAuthorityEntryV2 {
   primitiveId: SpatialPrimitiveIdV2;
   label: string;
@@ -70,8 +77,14 @@ export interface SpatialPrimitiveAuthorityEntryV2 {
   topology: SpatialPrimitiveTopology;
   polygonSideCount: number | null;
   enclosedRegionCount: number;
+  /**
+   * Legacy proof field retained inside V2 entries for compatibility.
+   * It represents interior meeting points and must not be used to distinguish
+   * true crossings from T/Y/arrow junctions. Use getSpatialPrimitiveConnectivityV2.
+   */
   interiorIntersectionCount: number;
   orientationSensitive: boolean;
+  /** Standard-axis (vertical/horizontal) reflection sensitivity. */
   reflectionSensitive: boolean;
   rotationPeriodQuarterTurns: SpatialPrimitiveQuarterTurnPeriod;
   symmetry: SpatialSymmetryProfile;
