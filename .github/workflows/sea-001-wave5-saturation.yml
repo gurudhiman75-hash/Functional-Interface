@@ -66,6 +66,17 @@ jobs:
       - name: Run 1,600-caselet SEA-001 production saturation proof
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-saturation-proof.test.ts
 
+  teaching-explanations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prove student-facing case formation and elimination
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-teaching-explanation-proof.test.ts
+
   authority-audits:
     runs-on: ubuntu-latest
     timeout-minutes: 35
