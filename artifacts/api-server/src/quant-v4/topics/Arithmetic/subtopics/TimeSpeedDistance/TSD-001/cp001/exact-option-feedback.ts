@@ -31,6 +31,20 @@ function cleanLine(line: string): string {
     .trim();
 }
 
+function directCalculationCertificate(question: TsdCp001GeneratedQuestion): string | null {
+  const input = question.input;
+  if (input.solveMode === "distanceFromSpeedAndTime") {
+    return `${formatExamNumber(input.speedMps)} × ${formatExamNumber(input.durationSeconds)} = ${question.answerText}`;
+  }
+  if (input.solveMode === "speedFromDistanceAndTime") {
+    return `${formatExamNumber(input.distanceMetres)} ÷ ${formatExamNumber(input.durationSeconds)} = ${question.answerText}`;
+  }
+  if (input.solveMode === "timeFromDistanceAndSpeed") {
+    return `${formatExamNumber(input.distanceMetres)} ÷ ${formatExamNumber(input.speedMps)} = ${question.answerText}`;
+  }
+  return null;
+}
+
 function unitLabel(unit: string): string {
   const labels: Record<string, string> = {
     KMPH: "km/h",
@@ -107,6 +121,9 @@ function joinAsEquation(operationLine: string | undefined, finalLine: string): s
 }
 
 function calculationCertificate(question: TsdCp001GeneratedQuestion): string {
+  const directCertificate = directCalculationCertificate(question);
+  if (directCertificate) return directCertificate;
+
   const conversionCertificate = conversionCalculationCertificate(question);
   if (conversionCertificate) return conversionCertificate;
 
