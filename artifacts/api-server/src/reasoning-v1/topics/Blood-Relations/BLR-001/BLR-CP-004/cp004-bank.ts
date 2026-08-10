@@ -576,9 +576,10 @@ function cousinPairKeys(graph: FamilyGraph): string[] {
 function pairQuestion(
   source: BlrCp003FinalApprovedRecord,
   groupIndex: number,
+  modeOverride?: number,
 ): GeneratedBlrCp004Question {
   const graph = diagramGraph(source);
-  const mode = groupIndex % 4;
+  const mode = modeOverride ?? groupIndex % 4;
   let keys: string[];
   let prototypeId: BlrCp004PrototypeId;
   let noun: string;
@@ -695,7 +696,23 @@ let cache: readonly GeneratedBlrCp004Question[] | null = null;
 
 export function generateBlrCp004FrozenBank(): readonly GeneratedBlrCp004Question[] {
   if (cache) return cache;
-  const bank = uniqueGroupSources().flatMap(questionsForGroup);
+  const sources = uniqueGroupSources();
+  const zeroCousinGroupIndex = sources.findIndex(
+    (source) => cousinPairKeys(diagramGraph(source)).length === 0,
+  );
+  if (zeroCousinGroupIndex < 0) {
+    throw new Error("CP-004 source bank has no graph suitable for an explicit zero cousin-pair count.");
+  }
+  const bank = sources.flatMap((source, groupIndex) => {
+    const questions = questionsForGroup(source, groupIndex);
+    if (groupIndex === zeroCousinGroupIndex && groupIndex % 4 !== 3) {
+      questions[3] = pairQuestion(source, groupIndex, 3);
+    }
+    return questions;
+  });
+  if (!bank.some((question) => question.answer.kind === "NUMBER" && question.answer.value === 0)) {
+    throw new Error("CP-004 zero-count recovery failed to produce an explicit zero answer.");
+  }
   const itemIds = new Set<string>();
   const fingerprints = new Set<string>();
   for (const question of bank) {
