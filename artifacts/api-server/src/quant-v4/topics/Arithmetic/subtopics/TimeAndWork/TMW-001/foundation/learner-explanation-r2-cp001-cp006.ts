@@ -78,6 +78,12 @@ function learnerAnswerText(question: R2LearnerQuestion): string {
   return normalizeTmwLearnerDisplayTextR2(answerText(question));
 }
 
+function hasUnsafeLearnerNotation(value: string): boolean {
+  return /_\{[^}]*[A-Za-z\u0900-\u097F\u0A00-\u0A7F][^}]*\}/u.test(value)
+    || /_[A-Za-z\u0900-\u097F\u0A00-\u0A7F]+/u.test(value)
+    || /\\text\{/u.test(value);
+}
+
 function methodLead(question: R2LearnerQuestion, language: TmwR2LearnerLanguage): string {
   const cp = question.canonicalProblemId ?? "";
   const mode = question.solveMode ?? "";
@@ -294,15 +300,9 @@ function methodLead(question: R2LearnerQuestion, language: TmwR2LearnerLanguage)
 function methodText(question: R2LearnerQuestion, language: TmwR2LearnerLanguage): string {
   const lead = methodLead(question, language);
   const opening = firstSentence(question.explanation?.opening ?? "");
-  if (!opening) return `${lead}.`;
+  if (!opening || hasUnsafeLearnerNotation(opening)) return `${lead}.`;
   const clause = language === "en" ? lowerInitialEnglish(opening) : opening;
   return `${lead}: ${clause}.`;
-}
-
-function hasUnsafeLearnerNotation(value: string): boolean {
-  return /_\{[^}]*[A-Za-z\u0900-\u097F\u0A00-\u0A7F][^}]*\}/u.test(value)
-    || /_[A-Za-z\u0900-\u097F\u0A00-\u0A7F]+/u.test(value)
-    || /\\text\{/u.test(value);
 }
 
 function unwrapInlineMath(value: string): string {
