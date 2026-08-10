@@ -74,7 +74,8 @@ export function contextualizeLearnerStem(
     return Object.freeze({ stem, stemMathJax, object: "unchanged" });
   }
   const pool = poolForMode(solveMode, stem);
-  const object = pool[hashText(`${solveMode}|${seed}|${stem}`) % pool.length];
+  // Seed + mode only: repeated editorial passes choose the same object.
+  const object = pool[hashText(`${solveMode}|${seed}`) % pool.length];
   return Object.freeze({
     stem: replaceActor(stem, object),
     stemMathJax: replaceActor(stemMathJax, object),
