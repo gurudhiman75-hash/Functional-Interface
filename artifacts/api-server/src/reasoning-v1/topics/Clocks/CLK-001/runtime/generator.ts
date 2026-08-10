@@ -4,6 +4,7 @@ import {
   checkpointForClockTask,
   type ClockTaskId,
 } from "./catalog";
+import { difficultyForClockTask } from "./difficulty-governance";
 import {
   CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION,
   CLOCK_EFFECTIVE_SOURCE_AUDIT,
@@ -21,19 +22,8 @@ import { solveStrikeFamily } from "./families/strikes";
 import { solveVisualAndSynthesisFamily } from "./families/visual-mixed";
 import { normalizeSolvedClockPresentation } from "./presentation";
 import type { SolvedClockPrototype } from "./solver-types";
-import type { ClockDifficulty, ClockQuestion, GenerateClockQuestionInput } from "./types";
+import type { ClockQuestion, GenerateClockQuestionInput } from "./types";
 import { ClockSeededRandom, makeOptions, stableFingerprint } from "./utils";
-
-function defaultDifficulty(taskId: ClockTaskId): ClockDifficulty {
-  const checkpoint = checkpointForClockTask(taskId);
-  if (["CLK-CP-001", "CLK-CP-002", "CLK-CP-009", "CLK-CP-010", "CLK-CP-011"].includes(checkpoint)) {
-    return "FOUNDATION";
-  }
-  if (["CLK-CP-003", "CLK-CP-004", "CLK-CP-005", "CLK-CP-006", "CLK-CP-012"].includes(checkpoint)) {
-    return "STANDARD";
-  }
-  return "ADVANCED";
-}
 
 function solvePrototype(input: {
   taskId: ClockTaskId;
@@ -131,7 +121,7 @@ export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQ
     prototypeId,
     locale,
     seed: input.seed,
-    difficulty: input.difficulty ?? defaultDifficulty(input.taskId),
+    difficulty: input.difficulty ?? difficultyForClockTask(input.taskId),
     stem: solved.stem,
     media: solved.media,
     scenario: solved.scenario,
@@ -157,7 +147,7 @@ export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQ
       sourceAuditFlags: sourceAudit.flags,
       candidateDisposition: disposition.disposition,
       semanticCluster: disposition.cluster,
-      sourceSaturationComplete: false,
+      sourceSaturationComplete: true,
       authorityFrozen: false,
       permanentQlEligible: false,
     },
