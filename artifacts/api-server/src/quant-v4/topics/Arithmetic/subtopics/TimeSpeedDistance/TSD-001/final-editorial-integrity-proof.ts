@@ -26,10 +26,7 @@ function formatLikeCorrect(question: TsdCp001GeneratedQuestion, value: Rational)
   return `${formatExamNumber(value)}${match[1]}`;
 }
 
-function uniqueExpected(
-  correct: Rational,
-  candidates: readonly ExpectedWrong[],
-): readonly ExpectedWrong[] {
+function uniqueExpected(correct: Rational, candidates: readonly ExpectedWrong[]): readonly ExpectedWrong[] {
   const result: ExpectedWrong[] = [];
   for (const candidate of candidates) {
     if (!isPositive(candidate[0]) || equals(candidate[0], correct)) continue;
@@ -117,12 +114,8 @@ assert(rows.every((row) => row.reviewStatus === "EDITORIAL_REVIEW_REQUIRED"), "R
 assert(rows.every((row) => row.englishFreezeStatus === "UNFROZEN"), "English was frozen prematurely");
 assert(rows.every((row) => row.publiclyPublishable === false), "Publication was enabled");
 
-const cp001 = rows
-  .filter((row) => row.sourceCheckpointId === "TSD-CP-001")
-  .map((row) => row.sourceQuestion as TsdCp001GeneratedQuestion);
-const cp002 = rows
-  .filter((row) => row.sourceCheckpointId === "TSD-CP-002")
-  .map((row) => row.sourceQuestion as TsdCp002GeneratedQuestion);
+const cp001 = rows.filter((row) => row.sourceCheckpointId === "TSD-CP-001").map((row) => row.sourceQuestion as TsdCp001GeneratedQuestion);
+const cp002 = rows.filter((row) => row.sourceCheckpointId === "TSD-CP-002").map((row) => row.sourceQuestion as TsdCp002GeneratedQuestion);
 
 const distanceRows = cp001.filter((question) => question.input.solveMode === "distanceByProportion");
 const timeRows = cp001.filter((question) => question.input.solveMode === "timeByProportion");
@@ -139,9 +132,7 @@ assert(departureRows.length === 3, `Expected 3 departure-clock rows, received ${
 assert(planRows.length === 4, `Expected 4 plan-comparison rows, received ${planRows.length}`);
 
 let verifiedProportionWrongOptions = 0;
-for (const question of [...distanceRows, ...timeRows, ...speedRows]) {
-  verifiedProportionWrongOptions += assertProportion(question);
-}
+for (const question of [...distanceRows, ...timeRows, ...speedRows]) verifiedProportionWrongOptions += assertProportion(question);
 assert(verifiedProportionWrongOptions === 39, `Expected 39 verified proportion distractors, received ${verifiedProportionWrongOptions}`);
 
 let verifiedClockWrongOptions = 0;
@@ -160,9 +151,10 @@ let verifiedPlanOptions = 0;
 for (const question of planRows) {
   for (const analysis of question.explanation.optionAnalysis) {
     assert(analysis.reason.includes(analysis.text), `${question.questionLanguageId}: plan reason does not name option`);
-    assert(/A:\s*\d/.test(analysis.reason) && /B:\s*\d/.test(analysis.reason), `${question.questionLanguageId}: plan ledger is incomplete`);
+    assert(/Plan A\s*=\s*\d/i.test(analysis.reason) && /Plan B\s*=\s*\d/i.test(analysis.reason), `${question.questionLanguageId}: both plan calculations are not shown`);
     assert((analysis.reason.match(/km\/h/g) ?? []).length >= 2, `${question.questionLanguageId}: both plan averages are not shown`);
     assert(!GENERIC.test(analysis.reason), `${question.questionLanguageId}: generic plan wording remains`);
+    assert(analysis.reason.trim().split(/\s+/).length <= 70, `${question.questionLanguageId}: plan feedback is too long`);
     verifiedPlanOptions += 1;
   }
 }
