@@ -16,11 +16,14 @@ function ordinal(position: number): string {
 export function renderConstraint(constraint: LinearConstraint, persons: readonly SeatingPerson[], seatCount: number): string {
   switch (constraint.kind) {
     case "ABSOLUTE_SEAT": {
+      const person = nameOf(constraint.personId, persons);
+      if (constraint.seatIndex === 0) return `${person} sits at the left end.`;
+      if (constraint.seatIndex === seatCount - 1) return `${person} sits at the right end.`;
       const fromLeft = constraint.seatIndex + 1;
       const fromRight = seatCount - constraint.seatIndex;
       return fromLeft <= fromRight
-        ? `${nameOf(constraint.personId, persons)} sits ${ordinal(fromLeft)} from the left end.`
-        : `${nameOf(constraint.personId, persons)} sits ${ordinal(fromRight)} from the right end.`;
+        ? `${person} sits ${ordinal(fromLeft)} from the left end.`
+        : `${person} sits ${ordinal(fromRight)} from the right end.`;
     }
     case "AT_END":
       return `${nameOf(constraint.personId, persons)} sits at one of the extreme ends.`;
