@@ -28,7 +28,7 @@ import { applyTmw001EditorialRemediationR2Cp001To006 } from "./editorial-remedia
 import { applyTmw001LearnerExplanationR2Cp001To006 } from "./learner-explanation-r2-cp001-cp006";
 import { applyTmw001EditorialRemediationR3Cp007To011 } from "./editorial-remediation-r3-cp007-cp011";
 import { applyTmw001LearnerExplanationR3Cp007To011 } from "./learner-explanation-r3-cp007-cp011";
-import { runTmwR4SourceGapPipeline } from "./source-gap-r4-runtime";
+import { runTmwR4SafeSourceGapPipeline } from "./source-gap-r4-safe-runtime";
 import { TMW_R4_SOURCE_GAP_IDS } from "./source-gap-r4-registry";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
@@ -151,7 +151,7 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   const base = { questionLanguageId: input.questionLanguageId, seed: input.seed };
 
   if (TMW_R4_SOURCE_GAP_IDS.has(input.questionLanguageId)) {
-    return runTmwR4SourceGapPipeline(input);
+    return runTmwR4SafeSourceGapPipeline(input);
   }
 
   if (ordinal <= 20) {
