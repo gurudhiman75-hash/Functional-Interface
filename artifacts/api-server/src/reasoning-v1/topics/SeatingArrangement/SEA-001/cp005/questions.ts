@@ -51,7 +51,7 @@ function buildOptions(
     if (key === answerKey || unique.has(key)) continue;
     unique.set(key, {
       value,
-      misconceptionId: "SEA-MC-MC-OFF_BY_ONE",
+      misconceptionId: "SEA-MC-OFF_BY_ONE",
       recomputation: { fallbackVerifiedValue: value },
       explanation: "This does not match the uniquely solved mixed-facing circle.",
     });
@@ -126,7 +126,7 @@ function secondLeftQuestion(
     ...buildOptions(seed, 1, "PERSON", answer, [
       {
         value: counterfactual,
-        misconceptionId: "SEA-MC-MC-CENTER_OUTWARD_SWAPPED",
+        misconceptionId: "SEA-MC-CENTER_OUTWARD_SWAPPED",
         recomputation: { usedFacing: wrongFacing },
         explanation: `This treats ${reference} as facing ${facingText(wrongFacing)} instead of ${facingText(facing)}.`,
       },
@@ -135,7 +135,7 @@ function secondLeftQuestion(
           model.clockwiseOrder,
           moveRelative(topology, referenceIndex, facing, "LEFT", 1),
         ),
-        misconceptionId: "SEA-MC-MC-OFF_BY_ONE",
+        misconceptionId: "SEA-MC-OFF_BY_ONE",
         recomputation: { steps: 1 },
         explanation: "This stops after one seat.",
       },
@@ -144,7 +144,7 @@ function secondLeftQuestion(
           model.clockwiseOrder,
           moveRelative(topology, referenceIndex, facing, "LEFT", 3),
         ),
-        misconceptionId: "SEA-MC-MC-OFF_BY_ONE",
+        misconceptionId: "SEA-MC-OFF_BY_ONE",
         recomputation: { steps: 3 },
         explanation: "This moves one seat too far.",
       },
@@ -193,7 +193,7 @@ function immediateRightQuestion(
     ...buildOptions(seed, 2, "PERSON", answer, [
       {
         value: counterfactual,
-        misconceptionId: "SEA-MC-MC-CENTER_OUTWARD_SWAPPED",
+        misconceptionId: "SEA-MC-CENTER_OUTWARD_SWAPPED",
         recomputation: { usedFacing: wrongFacing },
         explanation: `This uses the wrong facing for ${reference}.`,
       },
@@ -202,13 +202,13 @@ function immediateRightQuestion(
           model.clockwiseOrder,
           moveRelative(topology, referenceIndex, facing, "LEFT", 1),
         ),
-        misconceptionId: "SEA-MC-MC-LEFT_RIGHT_REVERSED",
+        misconceptionId: "SEA-MC-LEFT_RIGHT_REVERSED",
         recomputation: { direction: "LEFT" },
         explanation: "This follows the left side instead.",
       },
       {
         value: reference,
-        misconceptionId: "SEA-MC-MC-ENDPOINT_INCLUDED",
+        misconceptionId: "SEA-MC-ENDPOINT_INCLUDED",
         recomputation: { includedReference: true },
         explanation: "The reference person cannot be their own neighbour.",
       },
@@ -252,7 +252,7 @@ function neighboursQuestion(
           personAt(model.clockwiseOrder, referenceIndex + 1),
           personAt(model.clockwiseOrder, referenceIndex + 2),
         ].sort(),
-        misconceptionId: "SEA-MC-MC-WRONG_NEIGHBOUR",
+        misconceptionId: "SEA-MC-WRONG_NEIGHBOUR",
         recomputation: { sameArc: "CLOCKWISE" },
         explanation: "Both persons were selected from one side.",
       },
@@ -261,13 +261,13 @@ function neighboursQuestion(
           personAt(model.clockwiseOrder, referenceIndex - 1),
           personAt(model.clockwiseOrder, referenceIndex - 2),
         ].sort(),
-        misconceptionId: "SEA-MC-MC-WRONG_NEIGHBOUR",
+        misconceptionId: "SEA-MC-WRONG_NEIGHBOUR",
         recomputation: { sameArc: "ANTICLOCKWISE" },
         explanation: "Both persons were selected from one side.",
       },
       {
         value: [reference, personAt(model.clockwiseOrder, referenceIndex + 1)].sort(),
-        misconceptionId: "SEA-MC-MC-ENDPOINT_INCLUDED",
+        misconceptionId: "SEA-MC-ENDPOINT_INCLUDED",
         recomputation: { includedReference: true },
         explanation: "This incorrectly includes the reference person.",
       },
@@ -299,19 +299,19 @@ function fourthQuestion(
       ...buildOptions(seed, 4, "PERSON", answer, [
         {
           value: personAt(model.clockwiseOrder, referenceIndex + 1),
-          misconceptionId: "SEA-MC-MC-WRONG_NEIGHBOUR",
+          misconceptionId: "SEA-MC-WRONG_NEIGHBOUR",
           recomputation: { neighbour: "CLOCKWISE" },
           explanation: "This selects a neighbour.",
         },
         {
           value: personAt(model.clockwiseOrder, referenceIndex - 1),
-          misconceptionId: "SEA-MC-MC-WRONG_NEIGHBOUR",
+          misconceptionId: "SEA-MC-WRONG_NEIGHBOUR",
           recomputation: { neighbour: "ANTICLOCKWISE" },
           explanation: "This selects the other neighbour.",
         },
         {
           value: personAt(model.clockwiseOrder, oppositeIndex + 1),
-          misconceptionId: "SEA-MC-MC-OFF_BY_ONE",
+          misconceptionId: "SEA-MC-OFF_BY_ONE",
           recomputation: { halfTurnPlusOne: true },
           explanation: "This moves one seat beyond the opposite position.",
         },
@@ -341,7 +341,7 @@ function fourthQuestion(
     ...buildOptions(seed, 4, "PERSON", answer, [
       {
         value: unchangedAnswer,
-        misconceptionId: "SEA-MC-MC-REFERENCE_FACING_IGNORED",
+        misconceptionId: "SEA-MC-REFERENCE_FACING_IGNORED",
         recomputation: { facingNotChanged: true },
         explanation: `This keeps ${reference}'s original facing instead of changing it.`,
       },
@@ -350,7 +350,7 @@ function fourthQuestion(
           model.clockwiseOrder,
           moveRelative(topology, referenceIndex, changedFacing, "LEFT", 1),
         ),
-        misconceptionId: "SEA-MC-MC-OFF_BY_ONE",
+        misconceptionId: "SEA-MC-OFF_BY_ONE",
         recomputation: { steps: 1 },
         explanation: "This stops after one seat.",
       },
@@ -359,7 +359,7 @@ function fourthQuestion(
           model.clockwiseOrder,
           moveRelative(topology, referenceIndex, changedFacing, "RIGHT", 2),
         ),
-        misconceptionId: "SEA-MC-MC-LEFT_RIGHT_REVERSED",
+        misconceptionId: "SEA-MC-LEFT_RIGHT_REVERSED",
         recomputation: { direction: "RIGHT" },
         explanation: "This follows the right side after the facing change.",
       },
