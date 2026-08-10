@@ -3,6 +3,7 @@ import {
   CLOCK_DIFFICULTY_AUDIT,
   CLOCK_DIFFICULTY_POLICY,
   CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION,
+  CLOCK_ITEM_DIFFICULTY_POLICY,
   CLOCK_TASK_CATALOG,
   clockDifficultyAuditSummary,
   difficultyForClockTask,
@@ -32,7 +33,7 @@ for (const taskId of taskIds) {
   }
 }
 
-// High-signal calibration vectors: these must not regress back to checkpoint-order labels.
+// Baseline task calibration must not regress to checkpoint-order labels.
 assert.equal(difficultyForClockTask("HAND_HOUR_ROTATION"), "FOUNDATION");
 assert.equal(difficultyForClockTask("SMALLER_ANGLE_AT_TIME"), "FOUNDATION");
 assert.equal(difficultyForClockTask("DIRECTED_CLOCKWISE_SEPARATION"), "STANDARD");
@@ -52,7 +53,14 @@ assert.equal(difficultyForClockTask("READ_TIME_FROM_DIAGRAM"), "FOUNDATION");
 assert.equal(difficultyForClockTask("TIME_AFTER_HANDS_INTERCHANGED"), "STANDARD");
 assert.equal(difficultyForClockTask("PIECEWISE_RATE"), "ADVANCED");
 
-// Runtime must consume the semantic model when no explicit reviewer override is supplied.
+function expectedBand(score: number) {
+  if (score <= 2) return "FOUNDATION";
+  if (score <= 4) return "STANDARD";
+  return "ADVANCED";
+}
+
+// Generated items add actual item features (fractions, day offsets, diagrams, etc.)
+// on top of the semantic baseline. Human calibration remains required.
 for (const taskId of [
   "HAND_HOUR_ROTATION",
   "DIRECTED_CLOCKWISE_SEPARATION",
@@ -63,9 +71,27 @@ for (const taskId of [
   "TIME_AFTER_HANDS_INTERCHANGED",
 ] as const) {
   const question = generateClockQuestion({ taskId, seed: `CLK-DIFFICULTY-${taskId}`, correctOptionIndex: 1 });
-  assert.equal(question.difficulty, difficultyForClockTask(taskId));
-  assert.equal(question.discoveryAudit.sourceSaturationComplete, true);
+  assert.equal(question.discoveryAudit.difficultyModel, "ITEM_LEVEL_V1");
+  assert.equal(question.discoveryAudit.difficultyBaselineScore, CLOCK_DIFFICULTY_AUDIT[taskId].semanticScore);
+  assert(question.discoveryAudit.difficultyItemScore >= question.discoveryAudit.difficultyBaselineScore);
+  assert(question.discoveryAudit.difficultyFactors.length > 0);
+  assert.equal(question.discoveryAudit.difficultyHumanCalibrationRequired, true);
+  assert.equal(question.difficulty, expectedBand(question.discoveryAudit.difficultyItemScore));
+  assert.equal(question.discoveryAudit.declaredSourceRegistrySaturationComplete, true);
+  assert.equal(question.discoveryAudit.sourceSaturationComplete, false);
 }
+
+// The source-natural interchange baseline is Standard, but its exact 720/13 answer
+// can legitimately make an individual generated item Advanced.
+const interchange = generateClockQuestion({
+  taskId: "TIME_AFTER_HANDS_INTERCHANGED",
+  seed: "CLK-DIFFICULTY-INTERCHANGE-EXACT",
+  correctOptionIndex: 0,
+});
+assert.equal(CLOCK_DIFFICULTY_AUDIT.TIME_AFTER_HANDS_INTERCHANGED.difficulty, "STANDARD");
+assert.equal(interchange.difficulty, "ADVANCED");
+assert(interchange.discoveryAudit.difficultyFactors.includes("FRACTIONAL_ANSWER"));
+assert(interchange.discoveryAudit.difficultyFactors.includes("HIGH_DENOMINATOR_FRACTION"));
 
 const summary = clockDifficultyAuditSummary();
 assert.equal(summary.totalCandidateRows, 100);
@@ -81,9 +107,14 @@ assert.equal(CLOCK_DIFFICULTY_POLICY.checkpointOrderUsedAsDifficultyProxy, false
 assert.equal(CLOCK_DIFFICULTY_POLICY.difficultyAuditComplete, true);
 assert.equal(CLOCK_DIFFICULTY_POLICY.itemLevelHumanCalibrationStillRequired, true);
 assert.equal(CLOCK_DIFFICULTY_POLICY.permanentQlAllocationAllowed, false);
+assert.equal(CLOCK_ITEM_DIFFICULTY_POLICY.status, "PROVISIONAL_ITEM_LEVEL_DIFFICULTY_CALIBRATION");
+assert.equal(CLOCK_ITEM_DIFFICULTY_POLICY.generatedItemFeaturesRequired, true);
+assert.equal(CLOCK_ITEM_DIFFICULTY_POLICY.humanCalibrationRequired, true);
+assert.equal(CLOCK_ITEM_DIFFICULTY_POLICY.permanentQlAllocationAllowed, false);
 
 console.log(JSON.stringify({
-  status: "PASS_CLK_001_SEMANTIC_DIFFICULTY_AUDIT",
+  status: "PASS_CLK_001_SEMANTIC_PLUS_ITEM_LEVEL_DIFFICULTY_AUDIT",
   ...summary,
-  policy: CLOCK_DIFFICULTY_POLICY,
+  itemPolicy: CLOCK_ITEM_DIFFICULTY_POLICY,
+  semanticPolicy: CLOCK_DIFFICULTY_POLICY,
 }, null, 2));
