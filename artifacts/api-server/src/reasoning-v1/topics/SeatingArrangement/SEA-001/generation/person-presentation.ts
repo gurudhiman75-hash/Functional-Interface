@@ -1,4 +1,3 @@
-import { balancedSea001AnswerIndex } from "./answer-position.ts";
 import { selectSea001Names } from "./name-pool.ts";
 
 export function sea001PersonIds(count: number): string[] {
@@ -50,18 +49,15 @@ export function presentSea001Children<T extends {
   readonly questionOrder: number;
   readonly queryContractId: string;
   readonly answerDeterminingFactFingerprint: string;
-  readonly answerIndex: number;
   readonly text: string;
   readonly explanation: string;
   readonly options: readonly {
     readonly display: string;
     readonly explanation: string;
-    readonly isCorrect: boolean;
   }[];
 }>(
   children: readonly T[],
   displayNames: Readonly<Record<string, string>>,
-  seed: string,
 ): T[] {
   const presented = children.map((child) => ({
     ...child,
@@ -85,30 +81,8 @@ export function presentSea001Children<T extends {
     return leftKey - rightKey || left.queryContractId.localeCompare(right.queryContractId);
   });
 
-  return [...fixed, ...varied].map((child, index) => {
-    const questionOrder = index + 1;
-
-    // The CP003/CP004 Q1 detector was neither moved nor semantically changed.
-    // Preserve the option order already balanced by its native generator.
-    if (preserveFirst && index === 0) {
-      return {
-        ...child,
-        questionOrder,
-      };
-    }
-
-    const correct = child.options.find((option) => option.isCorrect);
-    if (!correct) throw new Error(`SEA-001 child ${child.queryContractId} has no correct option`);
-    const wrong = child.options.filter((option) => !option.isCorrect);
-    if (wrong.length !== child.options.length - 1) throw new Error(`SEA-001 child ${child.queryContractId} has invalid correct-option count`);
-    const answerIndex = balancedSea001AnswerIndex(seed, questionOrder);
-    const options = [...wrong];
-    options.splice(answerIndex, 0, correct);
-    return {
-      ...child,
-      questionOrder,
-      options,
-      answerIndex,
-    };
-  }) as T[];
+  return [...fixed, ...varied].map((child, index) => ({
+    ...child,
+    questionOrder: index + 1,
+  })) as T[];
 }
