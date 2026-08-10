@@ -12,8 +12,7 @@ import { runTmwCp009Pipeline } from "./cp009-runtime";
 import { runTmwCp009LocalizedPipeline } from "./cp009-localized-runtime";
 import { runTmwCp010Pipeline } from "./cp010-runtime";
 import { runTmwCp010LocalizedPipeline } from "./cp010-localized-runtime";
-import { runTmwCp011Pipeline } from "./cp011-runtime";
-import { runTmwCp011LocalizedPipeline } from "./cp011-localized-runtime";
+import { runTmwCp011ChapterSafePipeline } from "./cp011-chapter-safe-runtime";
 import { applyTmw001MultilingualStemRemediation } from "./chapter-editorial-remediation";
 import { applyTmw001MultilingualStemRemediationWave02 } from "./chapter-editorial-remediation-wave02";
 import { sanitizeTmw001LocalizedPresentation } from "./chapter-presentation-sanitizer";
@@ -157,101 +156,58 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   if (ordinal <= 20) {
     return input.language === "en"
       ? finishEnglish(runTmwCp001Pipeline({ ...base, language: "en" }), input.questionLanguageId)
-      : finishLocalized(
-        runTmwCp001Pipeline({ ...base, language: input.language }),
-        input.questionLanguageId,
-        input.language,
-      );
+      : finishLocalized(runTmwCp001Pipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
   }
   if (ordinal <= 34) {
     return input.language === "en"
       ? finishEnglish(runTmwCp002Pipeline(base), input.questionLanguageId)
-      : finishLocalized(
-        runTmwCp002Pipeline({ ...base, language: input.language }),
-        input.questionLanguageId,
-        input.language,
-      );
+      : finishLocalized(runTmwCp002Pipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
   }
   if (ordinal <= 57) {
     return input.language === "en"
       ? finishEnglish(runTmwCp003Pipeline(base), input.questionLanguageId)
-      : finishLocalized(
-        runTmwCp003Pipeline({ ...base, language: input.language }),
-        input.questionLanguageId,
-        input.language,
-      );
+      : finishLocalized(runTmwCp003Pipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
   }
   if (ordinal <= 81) {
     return input.language === "en"
       ? finishEnglish(runTmwCp004Pipeline(base), input.questionLanguageId)
-      : finishLocalized(
-        runTmwCp004Pipeline({ ...base, language: input.language }),
-        input.questionLanguageId,
-        input.language,
-      );
+      : finishLocalized(runTmwCp004Pipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
   }
   if (ordinal <= 105) {
     return input.language === "en"
       ? finishEnglish(runTmwCp005Pipeline(base), input.questionLanguageId)
-      : finishLocalized(
-        runTmwCp005Pipeline({ ...base, language: input.language }),
-        input.questionLanguageId,
-        input.language,
-      );
+      : finishLocalized(runTmwCp005Pipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
   }
   if (ordinal <= 127) {
     return input.language === "en"
       ? finishEnglish(runTmwCp006Pipeline(base), input.questionLanguageId)
-      : finishLocalized(
-        runTmwCp006Pipeline({ ...base, language: input.language }),
-        input.questionLanguageId,
-        input.language,
-      );
+      : finishLocalized(runTmwCp006Pipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
   }
   if (ordinal <= 143) {
     return input.language === "en"
       ? finishEnglish(runTmwCp007Pipeline(base), input.questionLanguageId)
-      : finishLocalized(
-        runTmwCp007LocalizedPipeline({ ...base, language: input.language }),
-        input.questionLanguageId,
-        input.language,
-      );
+      : finishLocalized(runTmwCp007LocalizedPipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
   }
   if (ordinal <= 156) {
     return input.language === "en"
       ? finishEnglish(runTmwCp008Pipeline(base), input.questionLanguageId)
-      : finishLocalized(
-        runTmwCp008LocalizedPipeline({ ...base, language: input.language }),
-        input.questionLanguageId,
-        input.language,
-      );
+      : finishLocalized(runTmwCp008LocalizedPipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
   }
   if (ordinal <= 174) {
     return input.language === "en"
       ? finishEnglish(runTmwCp009Pipeline(base), input.questionLanguageId)
-      : finishLocalized(
-        runTmwCp009LocalizedPipeline({ ...base, language: input.language }),
-        input.questionLanguageId,
-        input.language,
-      );
+      : finishLocalized(runTmwCp009LocalizedPipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
   }
   if (ordinal <= 192) {
     return input.language === "en"
       ? finishEnglish(runTmwCp010Pipeline(base), input.questionLanguageId)
-      : finishLocalized(
-        runTmwCp010LocalizedPipeline({ ...base, language: input.language }),
-        input.questionLanguageId,
-        input.language,
-      );
+      : finishLocalized(runTmwCp010LocalizedPipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
   }
   if (ordinal <= 211) {
+    const safe = runTmwCp011ChapterSafePipeline(input);
     return input.language === "en"
-      ? finishEnglish(runTmwCp011Pipeline(input.questionLanguageId, input.seed), input.questionLanguageId)
-      : finishLocalized(
-        runTmwCp011LocalizedPipeline({ ...base, language: input.language }),
-        input.questionLanguageId,
-        input.language,
-      );
+      ? finishEnglish(safe, input.questionLanguageId)
+      : finishLocalized(safe, input.questionLanguageId, input.language);
   }
 
   throw new Error(`TMW-001 R4 extension routing is incomplete for ${input.questionLanguageId}`);
