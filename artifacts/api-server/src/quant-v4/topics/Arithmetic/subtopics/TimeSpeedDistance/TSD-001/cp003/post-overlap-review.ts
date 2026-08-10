@@ -1,5 +1,6 @@
 import { finalAuthorityByKey } from "../final-authority-registry";
 import { TSD_CP003_LEARNER_AUTHORITIES } from "./discovery-registry";
+import { calibrateCp003Difficulty } from "./difficulty-calibration";
 import type { TsdCp003GeneratedQuestion } from "./runtime-types";
 import { generateCp003Candidate } from "./runtime";
 import {
@@ -55,6 +56,7 @@ export function remapCp003ReviewRow(row: TsdCp003GeneratedQuestion): TsdCp003Pos
 
   return Object.freeze({
     ...row,
+    difficulty: calibrateCp003Difficulty(row.solveMode),
     authorityKey: ownership.targetAuthority,
     authorityOwnerCheckpointId: ownerCheckpoint(ownership.targetAuthority, ownership.disposition),
     ownershipDisposition: ownership.disposition,
