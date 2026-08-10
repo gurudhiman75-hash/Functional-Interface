@@ -12,6 +12,7 @@ import {
   runTmwR4SourceGapPipeline as runCandidate,
   type TmwR4GeneratedQuestion,
 } from "./source-gap-r4-runtime";
+import { polishTmwR4StudentPackage } from "./source-gap-r4-student-polish";
 
 const ZERO = rational(0);
 const TWO = rational(2);
@@ -83,10 +84,14 @@ export function runTmwR4SafeSourceGapPipeline(input: {
         lastError = new Error("Overlapping pipe state is not physically admissible for four positive inlets");
         continue;
       }
-      return {
+      const polished = polishTmwR4StudentPackage({
         ...question,
         seed: input.seed,
-      };
+      });
+      if (!polished.validation.valid) {
+        throw new Error(`${input.questionLanguageId}: polished learner package is invalid: ${polished.validation.errors.join(" | ")}`);
+      }
+      return polished;
     } catch (error) {
       lastError = error;
       if (input.questionLanguageId !== "TMW-QL-225" && input.questionLanguageId !== "TMW-QL-221") {
