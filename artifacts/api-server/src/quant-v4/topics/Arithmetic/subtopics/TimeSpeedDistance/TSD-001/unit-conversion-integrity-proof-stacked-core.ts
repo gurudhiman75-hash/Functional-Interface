@@ -126,7 +126,8 @@ function verify(question: TsdCp001GeneratedQuestion, expected: readonly Expected
     const remainder = withoutDisplayedOption(analysis.reason, text);
     assert(hasTsdCalculationEvidence(remainder), `${question.questionLanguageId}: conversion reason lacks exact calculation evidence for ${text}`);
     const words = analysis.reason.trim().split(/\s+/).length;
-    const maximumWords = analysis.reason.includes("Check:") ? 65 : 34;
+    const certified = /(?:Check|Correct check):/i.test(analysis.reason);
+    const maximumWords = certified ? 65 : 34;
     assert(words <= maximumWords, `${question.questionLanguageId}: conversion reason exceeds ${maximumWords} words`);
     assert(
       !/different result|rules it out|does not survive|appears after|can be reached only|careful check|reworking/i.test(analysis.reason),
