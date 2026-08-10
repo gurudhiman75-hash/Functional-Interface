@@ -1,0 +1,120 @@
+name: Validate TMW-001 remediation R2 CP001-CP006
+
+on:
+  push:
+    branches:
+      - fix/tmw-001-remediation-r2-cp001-cp006
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-r2-cp001-cp006.yml
+      - package.json
+      - pnpm-lock.yaml
+  pull_request:
+    branches:
+      - fix/tmw-001-remediation-r1-multilingual
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-r2-cp001-cp006.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tmw-r2-cp001-cp006-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-r2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec tsc
+          --noEmit
+          --target es2022
+          --module esnext
+          --moduleResolution bundler
+          --strictNullChecks
+          --noImplicitAny
+          --noImplicitReturns
+          --noFallthroughCasesInSwitch
+          --skipLibCheck
+          --types node
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/editorial-remediation-r2-cp001-cp006.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/learner-explanation-contract.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/learner-explanation-r2-cp001-cp006.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/editorial-remediation-r2-cp001-cp006.proof.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r2-learner-explanation.test.ts
+      - name: Bundle seven-finding R2 proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/editorial-remediation-r2-cp001-cp006.proof.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-r2-seven-findings-proof.mjs
+      - name: Run seven-finding R2 proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node --input-type=module -e "import('./artifacts/api-server/dist/quant-v4/tmw-001-r2-seven-findings-proof.mjs').then(m => console.log(JSON.stringify(m.runTmw001R2Cp001To006Proof(), null, 2)))" 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-r2-seven-findings-proof.log
+      - name: Bundle R2 learner V2 proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r2-learner-explanation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-r2-learner-explanation.test.mjs
+      - name: Run R2 learner V2 proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-r2-learner-explanation.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-r2-learner-explanation-proof.log
+      - name: Bundle R1 critical regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-critical-remediation-r1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-critical-remediation-r1-r2-regression.test.mjs
+      - name: Run R1 critical regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-critical-remediation-r1-r2-regression.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-critical-remediation-r1-r2-regression.log
+      - name: Bundle complete multilingual parity regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-chapter-parity.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-multilingual-chapter-parity-r2.test.mjs
+      - name: Run complete multilingual parity regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-parity-r2.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-parity-r2-proof.log
+      - name: Upload R2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-001-remediation-r2-cp001-cp006
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-r2-seven-findings-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-r2-learner-explanation-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-critical-remediation-r1-r2-regression.log
+            artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-parity-r2-proof.log
+          if-no-files-found: error
+          retention-days: 14
