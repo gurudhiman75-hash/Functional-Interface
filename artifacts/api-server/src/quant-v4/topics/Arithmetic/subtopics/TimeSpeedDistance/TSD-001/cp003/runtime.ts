@@ -1,5 +1,5 @@
 import { reopenedEditorialLifecycle } from "../editorial-contract";
-import type { Rational } from "../foundation/rational";
+import { divide, type Rational } from "../foundation/rational";
 import {
   TSD_CP003_LEARNER_AUTHORITIES,
   cp003AuthorityByProvisionalId,
@@ -9,6 +9,8 @@ import { deriveSaturatedCp003WrongWorkings } from "./distractor-saturation";
 import {
   SeededRng,
   fingerprint,
+  formatClockMinute,
+  formatDurationHours,
   formatSolvedValue,
   hashSeed,
 } from "./generation-support";
@@ -23,6 +25,7 @@ import type {
 import { generateSaturatedCp003State } from "./source-saturation";
 import { remediateCp003Stem } from "./stem-remediation";
 import { solveCp003 } from "./solver";
+import type { TsdCp003SolveInput } from "./types";
 import { verifyCp003 } from "./verifier";
 
 const OPTION_LABELS = ["A", "B", "C", "D"] as const;
@@ -70,6 +73,41 @@ interface RuntimeOption {
   readonly misconceptionId: TsdCp003MisconceptionId;
   readonly isCorrect: boolean;
   readonly wrongWorking: TsdCp003WrongWorking | null;
+}
+
+function learnerFacingWrongWorkings(
+  input: TsdCp003SolveInput,
+  wrongWorkings: readonly TsdCp003WrongWorking[],
+): readonly TsdCp003WrongWorking[] {
+  if (input.solveMode !== "scheduledArrivalTimeFromActualSpeed") return wrongWorkings;
+
+  const departureClock = formatClockMinute(input.departureMinuteFromDayZero);
+  const travelDuration = formatDurationHours(divide(input.distance, input.actualSpeed));
+
+  return Object.freeze(wrongWorkings.map((working) => {
+    if (working.misconceptionId === "COPY_DEPARTURE_CLOCK") {
+      return Object.freeze({
+        ...working,
+        calculation: `copy ${departureClock}`,
+        diagnosis: `This simply copies the departure time. The journey lasts ${travelDuration}, so that duration must be added to the departure clock.`,
+      });
+    }
+    if (working.misconceptionId === "SUBTRACT_TRAVEL_TIME_FROM_CLOCK") {
+      return Object.freeze({
+        ...working,
+        calculation: `${departureClock} − ${travelDuration}`,
+        diagnosis: "This moves the clock backward by the journey duration. Arrival time is found by moving forward from departure.",
+      });
+    }
+    if (working.misconceptionId === "DOUBLE_TRAVEL_TIME_ON_CLOCK") {
+      return Object.freeze({
+        ...working,
+        calculation: `${departureClock} + 2 × ${travelDuration}`,
+        diagnosis: "This adds the journey duration twice. Add the journey duration only once to the departure time.",
+      });
+    }
+    return working;
+  }));
 }
 
 function buildOptions(
@@ -160,7 +198,7 @@ export function generateCp003Candidate(provisionalAuthorityId: string, seed: str
   const solution = solveCp003(state.input);
   const independent = verifyCp003(state.input, solution);
   if (!independent.valid) throw new Error(`${authority.solveMode}: generated state failed independent verification: ${independent.errors.join("; ")}`);
-  const wrongWorkings = deriveSaturatedCp003WrongWorkings(state.input, solution);
+  const wrongWorkings = learnerFacingWrongWorkings(state.input, deriveSaturatedCp003WrongWorkings(state.input, solution));
   const options = buildOptions(authority, seed, solution, wrongWorkings);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   const teaching = cp003Teaching(state.input, solution);
