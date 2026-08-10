@@ -60,7 +60,7 @@ function arrivalWorking(
     `After adding ${hours} ${hours === 1n ? "hour" : "hours"}: ${absoluteClock(start)} → ${absoluteClock(afterHours)}`,
     `After adding the remaining ${minutes} ${minutes === 1n ? "minute" : "minutes"}: ${absoluteClock(afterHours)} → ${absoluteClock(absoluteArrival)}`,
     boundaryExplanation(absoluteArrival),
-    `Therefore, the bus reaches its destination at ${answer}.`,
+    `Therefore, the arrival time is ${answer}.`,
   ];
 }
 
@@ -86,7 +86,7 @@ function departureWorking(
     `After subtracting ${hours} ${hours === 1n ? "hour" : "hours"}: ${absoluteClock(absoluteArrival)} → ${absoluteClock(afterHours)}`,
     `After subtracting the remaining ${minutes} ${minutes === 1n ? "minute" : "minutes"}: ${absoluteClock(afterHours)} → ${absoluteClock(departure)}`,
     boundaryLine,
-    `Therefore, the bus started at ${answer}.`,
+    `Therefore, the departure time is ${answer}.`,
   ];
 }
 
