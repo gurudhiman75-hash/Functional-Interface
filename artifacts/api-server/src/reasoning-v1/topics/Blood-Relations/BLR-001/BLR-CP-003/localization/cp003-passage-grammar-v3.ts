@@ -1,0 +1,71 @@
+import type { BlrCp003FinalApprovedRecord } from "../cp003-final-approved-bank";
+import type { BlrCp003TranslatedLocale } from "./cp003-language-pack";
+import { localizedBlrCp003SharedPromptFinal } from "./cp003-passage-grammar-v2";
+
+function protectNames(
+  record: BlrCp003FinalApprovedRecord,
+  text: string,
+): { protectedText: string; restore: (value: string) => string } {
+  const entries = [...record.proceduralLogic.nodes]
+    .filter((node) => node.label)
+    .sort((a, b) => b.label.length - a.label.length)
+    .map((node) => ({ token: `⟦${node.id}⟧`, label: node.label }));
+  let protectedText = text;
+  for (const { token, label } of entries) protectedText = protectedText.split(label).join(token);
+  return {
+    protectedText,
+    restore(value: string): string {
+      let restored = value;
+      for (const { token, label } of entries) restored = restored.split(token).join(label);
+      return restored;
+    },
+  };
+}
+
+function lastHindi(text: string): string {
+  return text
+    .replace(/^(.+) is (.+)'s husband\.$/, "$1, $2 का पति है।")
+    .replace(/^(.+) and (.+) are parents of (.+) and (.+); (.+) and (.+) are parents of (.+) and (.+)\.$/, "$1 और $2, $3 और $4 के माता-पिता हैं; $5 और $6, $7 और $8 के माता-पिता हैं।")
+    .replace(/^(.+), (.+) and (.+) belong respectively to the three branches of (.+), (.+) and (.+)\.$/, "$1, $2 और $3 क्रमशः $4, $5 और $6 की तीन शाखाओं से संबंधित हैं।");
+}
+
+function lastPunjabi(text: string): string {
+  return text
+    .replace(/^(.+) is (.+)'s husband\.$/, "$1, $2 ਦਾ ਪਤੀ ਹੈ।")
+    .replace(/^(.+) and (.+) are parents of (.+) and (.+); (.+) and (.+) are parents of (.+) and (.+)\.$/, "$1 ਅਤੇ $2, $3 ਅਤੇ $4 ਦੇ ਮਾਤਾ-ਪਿਤਾ ਹਨ; $5 ਅਤੇ $6, $7 ਅਤੇ $8 ਦੇ ਮਾਤਾ-ਪਿਤਾ ਹਨ।")
+    .replace(/^(.+), (.+) and (.+) belong respectively to the three branches of (.+), (.+) and (.+)\.$/, "$1, $2 ਅਤੇ $3 ਕ੍ਰਮਵਾਰ $4, $5 ਅਤੇ $6 ਦੀਆਂ ਤਿੰਨ ਸ਼ਾਖਾਵਾਂ ਨਾਲ ਸੰਬੰਧਿਤ ਹਨ।");
+}
+
+function splitSentences(text: string): string[] {
+  return text
+    .replace(/\n+/g, " ")
+    .split(/(?<=\.)\s+/)
+    .map((value) => value.trim())
+    .filter(Boolean);
+}
+
+function localizeLastSentence(
+  record: BlrCp003FinalApprovedRecord,
+  sentence: string,
+  locale: BlrCp003TranslatedLocale,
+): string {
+  try {
+    return localizedBlrCp003SharedPromptFinal({ ...record, sharedPrompt: sentence }, locale);
+  } catch {
+    const { protectedText, restore } = protectNames(record, sentence);
+    const translated = locale === "hi-IN" ? lastHindi(protectedText) : lastPunjabi(protectedText);
+    if (translated === protectedText) {
+      throw new Error(`Untranslated CP-003 ${locale} passage sentence: ${sentence}`);
+    }
+    return restore(translated);
+  }
+}
+
+export function localizedBlrCp003SharedPromptCompleteV3(
+  record: BlrCp003FinalApprovedRecord,
+  locale: BlrCp003TranslatedLocale,
+): string {
+  return splitSentences(record.sharedPrompt)
+    .map((sentence) => localizeLastSentence(record, sentence, locale))
+    .join(" ");
+}
