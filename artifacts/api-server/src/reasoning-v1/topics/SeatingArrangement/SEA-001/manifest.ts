@@ -42,9 +42,9 @@ export const SEA_001_CP005_BLUEPRINTS: readonly MixedCircleBlueprintId[] = [
 export const SEA_001_AUTHORITY_DISCREPANCIES = [
   {
     id: "SEA-AUTH-DISC-001",
-    status: "OPEN",
-    statement: "Wave 2 requests five provisional CP-001 blueprints, while the authoritative blueprint inventory enumerates only SEA-PBA-001 through SEA-PBA-004 for CP-001.",
-    implementationDecision: "Implement the four named authorities and do not invent a fifth authority before governance review.",
+    status: "RESOLVED_BY_NAMED_INVENTORY_PRECEDENCE",
+    statement: "Wave 2 requests five provisional CP-001 blueprints, while the explicit authoritative blueprint inventory enumerates only SEA-PBA-001 through SEA-PBA-004 for CP-001.",
+    implementationDecision: "Treat the explicit named inventory as controlling: retain SEA-PBA-001 through SEA-PBA-004 and do not invent an unnamed fifth blueprint. Preserve this record so the roadmap-count discrepancy remains visible rather than silently reconciled.",
   },
 ] as const;
 
@@ -72,6 +72,7 @@ export const SEA_FAMILY_MANIFEST = Object.freeze({
     "MERGE_SPLIT_AUDIT",
     "INVERSE_AUDIT",
     "GAP_AUDIT",
+    "SOURCE_AUDIT",
     "PERMANENT_QL_ALLOCATION",
     "SOLVE_INVENTORY_FREEZE",
     "QUERY_MIX_FREEZE",
