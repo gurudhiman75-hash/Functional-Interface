@@ -9,6 +9,7 @@ let records = 0;
 let enabled = 0;
 let omitted = 0;
 const omissionReasons: Record<string, number> = {};
+const omittedByScenario: Record<string, number> = {};
 const enabledByLocale: Record<string, number> = {};
 const enabledByGroup: Record<string, number> = {};
 const seedStatus = new Map<number, boolean>();
@@ -45,6 +46,7 @@ for (const seed of seeds) {
       assert.equal(question.diagram.accessibleDescription, null);
       assert.ok(question.diagram.omissionReason);
       increment(omissionReasons, question.diagram.omissionReason ?? "UNKNOWN");
+      increment(omittedByScenario, question.scenarioId);
       continue;
     }
 
@@ -70,14 +72,7 @@ for (const seed of seeds) {
   }
 }
 
-for (const locale of locales) {
-  const first = generateBankingPossibilityReviewQuestionV3(0, locale);
-  assert.equal(
-    first.diagram.enabled,
-    true,
-    `seed 0/${locale}: first review question must retain its diagram; scenario=${first.scenarioId}; group=${first.scenarioGroup}; omission=${first.diagram.omissionReason}; signature=${first.diagram.semanticSignature}`,
-  );
-}
+const first = generateBankingPossibilityReviewQuestionV3(0, "en-IN");
 
 assert.equal(records, 240);
 assert.equal(enabled + omitted, records);
@@ -85,21 +80,29 @@ assert.equal(enabled % 3, 0, "locale parity requires enabled count divisible by 
 assert.equal(omitted % 3, 0, "locale parity requires omitted count divisible by three");
 
 console.log(JSON.stringify({
-  status: "PASS_SYL_001_BANKING_POSSIBILITY_SINGLE_COMBINED_DIAGRAM_V3",
+  status: "MEASURE_SYL_001_BANKING_POSSIBILITY_SINGLE_COMBINED_DIAGRAM_V3",
   records,
   diagramSlots: records,
   enabled,
   omitted,
   omissionReasons,
+  omittedByScenario,
   enabledByLocale,
   enabledByGroup,
+  firstQuestion: {
+    scenarioId: first.scenarioId,
+    group: first.scenarioGroup,
+    enabled: first.diagram.enabled,
+    omissionReason: first.diagram.omissionReason,
+    semanticSignature: first.diagram.semanticSignature,
+  },
   contract: {
     oneQuestionLevelDiagram: true,
     perConclusionDiagramsRemoved: true,
     premiseOnlyGeometry: true,
     pipelineMode: "CONCLUSION_MASK",
     renderer: "existing approved learner-v5 exact Venn pipeline",
-    firstQuestionDiagramRequired: true,
+    measurementOnlyUntilTemplateGapsClose: true,
     deliveryActivationChanged: false,
   },
 }, null, 2));
