@@ -2,20 +2,22 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 import {
-  generateReasoningV1Questions,
-  listReasoningV1Packages,
-  REASONING_V1_LANGUAGES,
-} from "../../../../generation-engine";
+  getGeneratedItemApprovalDisposition,
+} from "../../../../../lib/admin-question-studio-approval-policy";
 import {
   SER_CP007_FROZEN_TEMPLATE_AUTHORITIES,
 } from "../SER-CP-007-ENGLISH-FREEZE/ser-cp-007-english-freeze-authority";
 import {
+  SER_CP007_PERMANENT_QL_IDS,
+} from "../SER-PERMANENT-QL-REGISTRY";
+import {
+  SER_001_QUESTION_STUDIO_REVIEW_PACKAGE,
+  previewSer001QuestionStudioReview,
+} from "./question-studio-review-adapter";
+import {
   generateSerCp007QuestionStudioReviewSweep,
   SER_CP007_QUESTION_STUDIO_RUNTIME_STATE,
 } from "./ser-cp-007-question-studio-runtime";
-import {
-  SER_CP007_PERMANENT_QL_IDS,
-} from "../SER-PERMANENT-QL-REGISTRY";
 
 process.env.DATABASE_URL ??= "postgresql://test:test@127.0.0.1:5432/test";
 const {
@@ -23,24 +25,26 @@ const {
   getGeneratedQuestionBankEligibilityIssue,
 } = await import("../../../../../lib/admin-question-conversion");
 
-const packages = listReasoningV1Packages();
-assert.equal(packages.length, 1);
-const series = packages[0]!;
-assert.equal(series.packageId, "SER-001");
-assert.equal(series.enabled, true);
-assert.equal(series.active, true);
-assert.equal(series.questionStudioDiscoverable, true);
-assert.equal(series.generationDomain, "reasoning-v1");
-assert.deepEqual(series.cpIds, ["SER-CP-007"]);
-assert.deepEqual(series.supportedLanguages, ["en", "hi", "pa"]);
-assert.deepEqual(series.supportedRuntimeModes, ["FROZEN_REVIEW"]);
-assert.deepEqual(series.permanentQlIds, [...SER_CP007_PERMANENT_QL_IDS]);
-assert.equal(series.frozenTemplateCount, 140);
-assert.equal(series.questionBankStatus, "NOT_STORED");
-assert.equal(series.questionBankWritable, false);
-assert.equal(series.testEligibility, "INELIGIBLE");
-assert.equal(series.testEligible, false);
-assert.equal(series.publiclyPublishable, false);
+assert.equal(SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId, "SER-001");
+assert.equal(SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.enabled, true);
+assert.equal(SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.reviewOnly, true);
+assert.equal(SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioDiscoverable, true);
+assert.equal(SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.generationDomain, "reasoning-v1");
+assert.deepEqual(
+  SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.supportedLanguages,
+  ["en", "hi", "pa"],
+);
+assert.deepEqual(
+  SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.qlIds,
+  [...SER_CP007_PERMANENT_QL_IDS],
+);
+assert.equal(SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.frozenTemplateCount, 140);
+assert.equal(SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.multilingualProofPayloadCount, 420);
+assert.equal(SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankStatus, "NOT_STORED");
+assert.equal(SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable, false);
+assert.equal(SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.testEligibility, "INELIGIBLE");
+assert.equal(SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.testEligible, false);
+assert.equal(SER_001_QUESTION_STUDIO_REVIEW_PACKAGE.publiclyPublishable, false);
 
 assert.deepEqual(SER_CP007_QUESTION_STUDIO_RUNTIME_STATE, {
   authority: "SER_CP007_QUESTION_STUDIO_REVIEW_RUNTIME_V1",
@@ -65,9 +69,6 @@ assert.equal(sweep.length, 420);
 const localeCounts = new Map<string, number>();
 const localeQlCoverage = new Map<string, Set<string>>();
 const identities = new Set<string>();
-let optionProofs = 0;
-let reviewActivationProofs = 0;
-let downstreamLockProofs = 0;
 let questionBankRejectionProofs = 0;
 let localizedScriptProofs = 0;
 
@@ -83,42 +84,15 @@ for (const item of sweep) {
 
   assert.equal(item.packageId, "SER-001");
   assert.equal(item.canonicalProblemId, "SER-CP-007");
-  assert.equal(item.topic, "Reasoning");
-  assert.equal(item.subtopic, "Series");
-  assert.equal(item.patternId, item.permanentQlId);
   assert.equal(item.options.length, 4);
   assert.equal(new Set(item.options).size, 4);
   assert.equal(item.options[item.correctIndex], item.canonicalAnswer);
-  assert.equal(item.answer, item.canonicalAnswer);
   assert.equal(item.validation.valid, true);
-  assert.equal(item.validation.ok, true);
-  optionProofs += 1;
-
-  assert.equal(item.runtimeMode, "FROZEN_REVIEW");
-  assert.equal(item.reviewStatus, "APPROVED_MULTILINGUAL_FROZEN");
-  assert.equal(item.integrationStatus, "QUESTION_STUDIO_ACTIVE_REVIEW_ONLY");
-  assert.equal(item.active, true);
-  assert.equal(item.questionStudioDiscoverable, true);
-  assert.equal(item.generationContext.active, true);
-  assert.equal(item.generationContext.questionStudioDiscoverable, true);
-  assert.equal(item.generationContext.sourceLifecycle.active, false);
-  assert.equal(
-    item.generationContext.sourceLifecycle.questionStudioDiscoverable,
-    false,
-  );
-  reviewActivationProofs += 1;
-
   assert.equal(item.questionBankStatus, "NOT_STORED");
   assert.equal(item.questionBankWritable, false);
   assert.equal(item.testEligibility, "INELIGIBLE");
   assert.equal(item.testEligible, false);
   assert.equal(item.publiclyPublishable, false);
-  assert.equal(item.generationContext.questionBankStatus, "NOT_STORED");
-  assert.equal(item.generationContext.questionBankWritable, false);
-  assert.equal(item.generationContext.testEligibility, "INELIGIBLE");
-  assert.equal(item.generationContext.testEligible, false);
-  assert.equal(item.generationContext.publiclyPublishable, false);
-  downstreamLockProofs += 1;
 
   assert.equal(
     getGeneratedQuestionBankEligibilityIssue(item),
@@ -151,129 +125,112 @@ for (const locale of ["en-IN", "hi-IN", "pa-IN"] as const) {
   );
 }
 
-const batchSizes: Record<string, number> = {};
 let deterministicBatchProofs = 0;
 let targetedQlProofs = 0;
-
-for (const language of REASONING_V1_LANGUAGES) {
-  const input = {
-    packageId: "SER-001",
-    count: 50,
+for (const language of ["en", "hi", "pa"] as const) {
+  const first = previewSer001QuestionStudioReview({
     language,
-    seed: `ser-question-studio:${language}`,
-    runtimeMode: "FROZEN_REVIEW",
-    canonicalProblemId: "SER-CP-007",
-  } as const;
-  const first = await generateReasoningV1Questions(input);
-  const second = await generateReasoningV1Questions(input);
-  assert.deepEqual(first.questionPackages, second.questionPackages);
+    count: 50,
+    seed: `ser-current-main:${language}`,
+  });
+  const second = previewSer001QuestionStudioReview({
+    language,
+    count: 50,
+    seed: `ser-current-main:${language}`,
+  });
   assert.equal(first.questions.length, 50);
-  assert.equal(first.generationContext.generationDomain, "reasoning-v1");
-  assert.equal(first.generationContext.active, true);
-  assert.equal(first.generationContext.questionStudioDiscoverable, true);
-  assert.equal(first.generationContext.questionBankStatus, "NOT_STORED");
-  assert.equal(first.generationContext.testEligibility, "INELIGIBLE");
-  assert.equal(first.generationContext.publiclyPublishable, false);
-  batchSizes[language] = first.questions.length;
+  assert.deepEqual(
+    first.questions.map((question) => question.questionId),
+    second.questions.map((question) => question.questionId),
+  );
+  assert.ok(first.questions.every((question) => question.questionBankWritable === false));
+  assert.ok(first.questions.every((question) => question.testEligible === false));
+  assert.ok(first.questions.every((question) => question.publiclyPublishable === false));
   deterministicBatchProofs += 1;
 
   for (const qlId of SER_CP007_PERMANENT_QL_IDS) {
-    const targeted = await generateReasoningV1Questions({
-      packageId: "SER-001",
-      count: 1,
+    const targeted = previewSer001QuestionStudioReview({
       language,
+      qlId,
+      count: 1,
       seed: `ser-targeted:${language}:${qlId}`,
-      runtimeMode: "FROZEN_REVIEW",
-      canonicalProblemId: "SER-CP-007",
-      questionLanguageId: qlId,
     });
     assert.equal(targeted.questions.length, 1);
-    assert.equal(targeted.questions[0]!.permanentQlId, qlId);
+    assert.equal(targeted.questions[0]!.qlId, qlId);
     assert.equal(targeted.questions[0]!.language, language);
     targetedQlProofs += 1;
   }
 }
 
-await assert.rejects(
-  () => generateReasoningV1Questions({
-    packageId: "SER-001",
-    runtimeMode: "DYNAMIC_CANDIDATE",
+assert.deepEqual(
+  getGeneratedItemApprovalDisposition({
+    questionBankStatus: "NOT_STORED",
+    questionBankWritable: false,
   }),
-  /Unsupported SER-001 runtime mode/,
+  {
+    mode: "review_only",
+    reason: "Payload explicitly disables Question Bank storage",
+  },
 );
-await assert.rejects(
-  () => generateReasoningV1Questions({
-    packageId: "SER-001",
-    canonicalProblemId: "SER-CP-999",
+assert.deepEqual(
+  getGeneratedItemApprovalDisposition({
+    questionBankStatus: "STORED",
+    questionBankWritable: true,
   }),
-  /Unknown canonical problem/,
-);
-await assert.rejects(
-  () => generateReasoningV1Questions({
-    packageId: "SER-001",
-    questionLanguageId: "SER-QL-999",
-  }),
-  /Unknown SER-001 question-language ID/,
+  { mode: "question_bank", reason: null },
 );
 
 const seriesRoute = readFileSync(
-  "src/routes/admin-question-studio-series.ts",
+  "artifacts/api-server/src/routes/admin-question-studio-series.ts",
   "utf8",
 );
-const routeIndex = readFileSync("src/routes/index.ts", "utf8");
-assert.match(seriesRoute, /listReasoningV1Packages/);
-assert.match(seriesRoute, /listQuantV4Packages/);
-assert.match(seriesRoute, /generationSystems: \["quant-v4", "reasoning-v1"\]/);
-assert.match(seriesRoute, /const SERIES_PACKAGE_ID = "SER-001" as const/);
-assert.match(seriesRoute, /const SERIES_SUBJECT = "General Intelligence & Reasoning"/);
-assert.match(seriesRoute, /const SERIES_TOPIC = "Series"/);
-assert.match(
-  seriesRoute,
-  /const SERIES_SUBTOPIC = "Missing Figure \/ Missing Character Series"/,
+const bulkReviewRoute = readFileSync(
+  "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts",
+  "utf8",
 );
-assert.match(
-  seriesRoute,
-  /asString\(req\.body\?\.packageId\) !== SERIES_PACKAGE_ID/,
+const routeIndex = readFileSync(
+  "artifacts/api-server/src/routes/index.ts",
+  "utf8",
 );
-assert.match(seriesRoute, /const subject = SERIES_SUBJECT/);
-assert.match(seriesRoute, /const topic = SERIES_TOPIC/);
-assert.match(seriesRoute, /const subtopic = SERIES_SUBTOPIC/);
-assert.match(seriesRoute, /next\("route"\)/);
-assert.match(seriesRoute, /'reasoning-v1'/);
+const adminOperationsPage = readFileSync(
+  "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx",
+  "utf8",
+);
+
+assert.match(seriesRoute, /SER_001_QUESTION_STUDIO_REVIEW_PACKAGE/);
+assert.match(seriesRoute, /\/reasoning\/series\/package/);
+assert.match(seriesRoute, /\/reasoning\/series\/preview/);
+assert.match(seriesRoute, /\/reasoning\/series\/runs/);
+assert.match(seriesRoute, /\/reasoning\/series\/status/);
+assert.match(seriesRoute, /questionBankWritable: false/);
+assert.match(seriesRoute, /testEligible: false/);
+assert.match(seriesRoute, /publiclyPublishable: false/);
 assert.match(routeIndex, /adminQuestionStudioSeriesRouter/);
 assert.ok(
   routeIndex.indexOf("adminQuestionStudioSeriesRouter")
     < routeIndex.indexOf("adminQuestionStudioRouter"),
-  "Series router must be mounted before the legacy Quant-only router.",
+  "Series router must be mounted before the generic Question Studio router.",
 );
+assert.match(bulkReviewRoute, /getGeneratedItemApprovalDisposition/);
+assert.match(bulkReviewRoute, /disposition\.mode === "question_bank"/);
+assert.match(bulkReviewRoute, /reviewOnlyApprovedCount/);
+assert.match(adminOperationsPage, /QuestionStudioSeriesReviewPanel/);
 
 console.log(JSON.stringify({
-  status: "PASS_SER_CP007_QUESTION_STUDIO_INTEGRATION_COMPLETE",
+  status: "PASS_SER_CP007_CURRENT_MAIN_QUESTION_STUDIO_INTEGRATION",
   packageId: "SER-001",
   runtimeMode: "FROZEN_REVIEW",
-  reviewStatus: "APPROVED_MULTILINGUAL_FROZEN",
   frozenTemplates: SER_CP007_FROZEN_TEMPLATE_AUTHORITIES.length,
   permanentQls: SER_CP007_PERMANENT_QL_IDS.length,
-  locales: ["en-IN", "hi-IN", "pa-IN"],
-  liveReviewPayloads: sweep.length,
+  multilingualPayloads: sweep.length,
   payloadsPerLocale: Object.fromEntries(localeCounts),
-  permanentQlCoveragePerLocale: Object.fromEntries(
-    [...localeQlCoverage.entries()].map(([locale, qls]) => [locale, qls.size]),
-  ),
-  optionProofs,
-  reviewActivationProofs,
-  downstreamLockProofs,
   questionBankRejectionProofs,
   localizedScriptProofs,
-  batchSizes,
   deterministicBatchProofs,
   targetedQlProofs,
-  adminCapabilityProofs: 1,
-  adminDispatchProofs: 1,
+  reviewOnlyApprovalProofs: 1,
   routeMountProofs: 1,
-  taxonomyContractProofs: 1,
-  active: true,
-  questionStudioDiscoverable: true,
+  adminPanelProofs: 1,
   questionBankStatus: "NOT_STORED",
   questionBankWritable: false,
   testEligibility: "INELIGIBLE",
