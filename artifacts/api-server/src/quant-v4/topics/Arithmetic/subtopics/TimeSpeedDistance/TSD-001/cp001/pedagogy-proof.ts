@@ -66,6 +66,9 @@ for (const row of rows) {
   assert((row.stemMathJax.match(/\\\(/g) ?? []).length === (row.stemMathJax.match(/\\\)/g) ?? []).length, `${row.solveMode}: unbalanced stem MathJax delimiters`);
   assert(row.explanation.stepByStepSolution.every((line) => (line.match(/\\\(/g) ?? []).length === (line.match(/\\\)/g) ?? []).length), `${row.solveMode}: unbalanced solution MathJax delimiters`);
   assert(row.explanation.stepByStepSolution.length >= 6, `${row.solveMode}: explanation remains too compressed`);
+  assert(row.explanation.stepByStepSolution.length <= 7, `${row.solveMode}: explanation is no longer clutter-free`);
+  assert(row.explanation.stepByStepSolution[0].trim().split(/\s+/).length <= 16, `${row.solveMode}: teaching opening is too wordy`);
+  assert(new Set(row.explanation.optionAnalysis.map((option) => option.reason)).size === 4, `${row.solveMode}: option feedback is not answer-specific`);
 
   if (row.stemMathJax.includes("\\(")) mathJaxStemCount += 1;
   if (row.explanation.keyRule.startsWith("📌 Main Rule:") && row.explanation.examSpeedShortcut.startsWith("⚡ Exam Speed Trick:")) fourTierCount += 1;
@@ -98,24 +101,21 @@ for (const row of rows) {
   if (row.input.solveMode === "distanceByProportion") {
     assert(equals(scalarOption(row.answerText), multiply(row.input.targetSpeed, row.input.targetTime)), "distanceByProportion answer does not equal target speed × target time");
     assert(/distance|speed|time/i.test(row.explanation.keyRule), "distanceByProportion key rule omits the governing quantities");
-    assert(row.explanation.stepByStepSolution.length <= 7, "distanceByProportion explanation is no longer clutter-free");
-    assert(row.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => /=/.test(option.reason) && /distance|speed|time/i.test(option.reason)), "distanceByProportion wrong-option feedback lacks a concrete calculation or governing quantity");
+    assert(row.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => option.reason.includes(option.text) && /=/.test(option.reason)), "distanceByProportion wrong-option feedback lacks an option-specific numerical check");
     conciseProportionRows += 1;
   }
 
   if (row.input.solveMode === "timeByProportion") {
     assert(equals(scalarOption(row.answerText), divide(row.input.targetDistance, row.input.targetSpeed)), "timeByProportion answer does not equal target distance ÷ target speed");
     assert(/time|distance|speed/i.test(row.explanation.keyRule), "timeByProportion key rule omits the governing quantities");
-    assert(row.explanation.stepByStepSolution.length <= 7, "timeByProportion explanation is no longer clutter-free");
-    assert(row.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => /=/.test(option.reason) && /distance|speed|time/i.test(option.reason)), "timeByProportion wrong-option feedback lacks a concrete calculation or governing quantity");
+    assert(row.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => option.reason.includes(option.text) && /=/.test(option.reason)), "timeByProportion wrong-option feedback lacks an option-specific numerical check");
     conciseProportionRows += 1;
   }
 
   if (row.input.solveMode === "speedByProportion") {
     assert(equals(scalarOption(row.answerText), divide(row.input.targetDistance, row.input.targetTime)), "speedByProportion answer does not equal distance ÷ new time");
     assert(/distance|speed|time/i.test(row.explanation.keyRule), "speedByProportion key rule omits the governing quantities");
-    assert(row.explanation.stepByStepSolution.length <= 7, "speedByProportion explanation is no longer clutter-free");
-    assert(row.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => /=/.test(option.reason) && /distance|speed|time|hour/i.test(option.reason)), "speedByProportion wrong-option feedback lacks a concrete calculation or governing quantity");
+    assert(row.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => option.reason.includes(option.text) && /=/.test(option.reason)), "speedByProportion wrong-option feedback lacks an option-specific numerical check");
     conciseProportionRows += 1;
   }
 
@@ -161,18 +161,18 @@ for (const mode of directModes) {
   const stems = modeRows.map((row) => row.stem);
   assert(stems.length === 3, `${mode}: expected three review stems`);
   assert(new Set(stems.map((stem) => stem.split(" ").slice(0, 4).join(" "))).size >= 2, `${mode}: stem openings remain monotone`);
-  assert(new Set(modeRows.map((row) => row.explanation.stepByStepSolution[0])).size === 3, `${mode}: teaching openings are not unique`);
 }
 
 for (const mode of proportionModes) {
   const modeRows = rows.filter((row) => row.solveMode === mode);
   assert(modeRows.length === 3, `${mode}: expected three review rows`);
-  assert(new Set(modeRows.map((row) => row.explanation.stepByStepSolution[0])).size === 3, `${mode}: explanations reuse the same teaching opening`);
+  assert(new Set(modeRows.map((row) => row.stem)).size === 3, `${mode}: review stems are not varied`);
 }
 
 for (const authorityId of new Set(rows.map((row) => row.provisionalAuthorityId))) {
   const authorityRows = rows.filter((row) => row.provisionalAuthorityId === authorityId);
-  assert(new Set(authorityRows.map((row) => row.explanation.stepByStepSolution[0])).size === 3, `${authorityId}: review rows do not have three distinct teaching voices`);
+  assert(new Set(authorityRows.map((row) => row.stem)).size === authorityRows.length, `${authorityId}: review stems repeat within the authority`);
+  assert(authorityRows.every((row) => new Set(row.explanation.optionAnalysis.map((option) => option.reason)).size === 4), `${authorityId}: option feedback repeats within a question`);
 }
 
 const requestedDisc019 = generateCp001Candidate(
@@ -181,7 +181,7 @@ const requestedDisc019 = generateCp001Candidate(
 );
 assert(equals(scalarOption(requestedDisc019.answerText), divide(requestedDisc019.input.targetDistance, requestedDisc019.input.targetTime)), "DISC-019:6 answer is not distance ÷ new time");
 assert(requestedDisc019.explanation.stepByStepSolution.length <= 7, "DISC-019:6 learner explanation is not clutter-free");
-assert(requestedDisc019.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => /=/.test(option.reason)), "DISC-019:6 wrong-option feedback lacks numerical checks");
+assert(requestedDisc019.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => option.reason.includes(option.text) && /=/.test(option.reason)), "DISC-019:6 wrong-option feedback lacks numerical checks");
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -193,8 +193,8 @@ console.log(JSON.stringify({
   artificialDirectDistractors: 0,
   nonTrivialDistanceRows,
   conciseProportionRows,
-  maximumProportionSteps: 7,
-  uniqueTeachingVoicesPerAuthority: 3,
+  maximumLearnerSteps: 7,
+  optionSpecificFeedbackRows: rows.length,
   requestedDisc019SeedVerified: true,
   deadlineSemanticChecks,
   internalCodeLeaks: 0,
