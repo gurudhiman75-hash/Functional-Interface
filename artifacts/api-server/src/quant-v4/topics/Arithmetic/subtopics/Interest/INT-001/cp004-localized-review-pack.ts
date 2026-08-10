@@ -3,21 +3,20 @@ import {
   INT_CP004_QL_IDS,
   type IntCp004QlId,
 } from "./cp004-frequency-math";
-import {
-  generateIntCp004EnglishFrozenQuestion,
-  type IntCp004EnglishFrozenQuestion,
-} from "./cp004-english-frozen-runtime";
+import type { IntCp004EnglishFrozenQuestion } from "./cp004-english-frozen-runtime";
+import { selectIntCp004ExamFriendlyFrozenSourceV9 } from "./cp004-exam-friendly-source-v9";
 import {
   INT_CP004_LOCALIZATION_VERSION,
   languageForCp004Locale,
 } from "./cp004-localization-language-pack";
+import { buildCp004LocalizedFormulaExplanationV9 } from "./cp004-localized-formula-explanations-v9";
 import { localizeIntCp004EnglishFrozenQuestion } from "./cp004-localized-runtime";
 import type {
   IntCp004LocalizedLocale,
   IntCp004LocalizedQuestion,
 } from "./cp004-localization-types";
 
-export const INT_CP004_LOCALIZED_REVIEW_PACK_VERSION = "INT-CP-004-HI-PA-REVIEW-PACK-v1" as const;
+export const INT_CP004_LOCALIZED_REVIEW_PACK_VERSION = "INT-CP-004-HI-PA-REVIEW-PACK-v9" as const;
 export const INT_CP004_REVIEW_QUESTIONS_PER_QL = 4 as const;
 export const INT_CP004_REVIEW_QUESTION_COUNT = 76 as const;
 
@@ -89,6 +88,8 @@ export interface IntCp004LocalizedReviewPack {
     answerPositionBalanced: true;
     deterministicSeeds: true;
     sharedCanonicalSeedsAcrossLocales: true;
+    examFriendlyIntegerWorking: true;
+    formulaFirstCompleteSolution: true;
   }>;
   readonly questions: readonly IntCp004LocalizedReviewQuestion[];
   readonly lifecycle: Readonly<{
@@ -128,8 +129,8 @@ function selectEnglishReviewSource(
   const desiredCorrectIndex = (frameIndex + 1) % 4;
 
   for (let candidate = 0; candidate < 10_000; candidate += 1) {
-    const seed = `int-cp004-hi-pa-review:${qlId}:frame-${frameIndex + 1}:candidate-${candidate}`;
-    const source = generateIntCp004EnglishFrozenQuestion(qlId, seed);
+    const seed = `int-cp004-hi-pa-v9-review:${qlId}:frame-${frameIndex + 1}:candidate-${candidate}`;
+    const source = selectIntCp004ExamFriendlyFrozenSourceV9(qlId, seed);
     if (
       source.stemFamilyId === expectedFamily
       && source.representation === expectedRepresentation
@@ -140,17 +141,19 @@ function selectEnglishReviewSource(
   }
 
   throw new Error(
-    `${qlId}: unable to select frame ${frameIndex + 1} with correct index ${desiredCorrectIndex}.`,
+    `${qlId}: unable to select exam-friendly frame ${frameIndex + 1} with correct index ${desiredCorrectIndex}.`,
   );
 }
 
 function toReviewQuestion(
+  source: IntCp004EnglishFrozenQuestion,
   localized: IntCp004LocalizedQuestion,
   number: number,
   questionWithinQl: number,
 ): IntCp004LocalizedReviewQuestion {
   const correctLabel = OPTION_LABELS[localized.correctIndex];
   if (!correctLabel) throw new Error(`${localized.qlId}/${localized.seed}: invalid correct index.`);
+  const explanation = buildCp004LocalizedFormulaExplanationV9(source, localized.locale, localized.correctAnswer);
 
   return deepFreeze({
     number,
@@ -166,19 +169,14 @@ function toReviewQuestion(
       label: OPTION_LABELS[index]!,
       id: option.id,
       text: option.text,
-      feedback: option.feedback,
+      feedback: "",
       misconceptionId: option.misconceptionId,
       isCorrect: option.isCorrect,
     })),
     correctIndex: localized.correctIndex,
     correctLabel,
     correctAnswer: localized.correctAnswer,
-    explanation: {
-      whatAsked: localized.explanation.whatAsked,
-      steps: localized.explanation.steps,
-      finalAnswer: localized.explanation.finalAnswer,
-      commonMistake: localized.explanation.commonMistake,
-    },
+    explanation,
     lifecycle: {
       enabled: false,
       stagingStatus: "NOT_STAGED",
@@ -200,7 +198,7 @@ export function buildIntCp004LocalizedReviewPack(
     for (let frameIndex = 0; frameIndex < INT_CP004_REVIEW_QUESTIONS_PER_QL; frameIndex += 1) {
       const source = selectEnglishReviewSource(qlId, frameIndex);
       const localized = localizeIntCp004EnglishFrozenQuestion(source, locale);
-      questions.push(toReviewQuestion(localized, questions.length + 1, frameIndex + 1));
+      questions.push(toReviewQuestion(source, localized, questions.length + 1, frameIndex + 1));
     }
   }
 
@@ -225,6 +223,8 @@ export function buildIntCp004LocalizedReviewPack(
       answerPositionBalanced: true,
       deterministicSeeds: true,
       sharedCanonicalSeedsAcrossLocales: true,
+      examFriendlyIntegerWorking: true,
+      formulaFirstCompleteSolution: true,
     },
     questions,
     lifecycle: {
@@ -255,29 +255,29 @@ function labels(locale: IntCp004LocalizedLocale): Readonly<{
 }> {
   if (locale === "hi-IN") {
     return Object.freeze({
-      title: "INT-CP-004 हिंदी प्रश्न एवं समाधान समीक्षा",
-      notice: "यह मानव भाषाई और परीक्षा-तैयारी समीक्षा हेतु मसौदा है। इसे परीक्षण या प्रकाशन में उपयोग न करें।",
+      title: "INT-CP-004 हिंदी प्रश्न एवं समाधान समीक्षा — Exam-Friendly v9",
+      notice: "यह मानव भाषाई और परीक्षा-तैयारी समीक्षा हेतु मसौदा है। सभी दिखाए गए प्रश्न दशमलव-मुक्त गणना और सूत्र-आधारित पूर्ण हल के लिए चुने गए हैं। इसे अभी परीक्षण या प्रकाशन में उपयोग न करें।",
       question: "प्रश्न",
       options: "विकल्प",
       correctAnswer: "सही उत्तर",
       explanation: "समाधान",
       whatAsked: "क्या ज्ञात करना है",
-      steps: "क्रमबद्ध हल",
+      steps: "सूत्र और पूर्ण गणना",
       finalAnswer: "अंतिम उत्तर",
-      commonMistake: "सामान्य गलती",
+      commonMistake: "ध्यान रखें",
     });
   }
   return Object.freeze({
-    title: "INT-CP-004 ਪੰਜਾਬੀ ਪ੍ਰਸ਼ਨ ਅਤੇ ਹੱਲ ਸਮੀਖਿਆ",
-    notice: "ਇਹ ਮਨੁੱਖੀ ਭਾਸ਼ਾਈ ਅਤੇ ਪ੍ਰੀਖਿਆ-ਤਿਆਰੀ ਸਮੀਖਿਆ ਲਈ ਮਸੌਦਾ ਹੈ। ਇਸ ਨੂੰ ਟੈਸਟ ਜਾਂ ਪ੍ਰਕਾਸ਼ਨ ਵਿੱਚ ਨਾ ਵਰਤੋ।",
+    title: "INT-CP-004 ਪੰਜਾਬੀ ਪ੍ਰਸ਼ਨ ਅਤੇ ਹੱਲ ਸਮੀਖਿਆ — Exam-Friendly v9",
+    notice: "ਇਹ ਮਨੁੱਖੀ ਭਾਸ਼ਾਈ ਅਤੇ ਪ੍ਰੀਖਿਆ-ਤਿਆਰੀ ਸਮੀਖਿਆ ਲਈ ਮਸੌਦਾ ਹੈ। ਸਾਰੇ ਦਿਖਾਏ ਗਏ ਪ੍ਰਸ਼ਨ ਦਸ਼ਮਲਵ-ਰਹਿਤ ਗਣਨਾ ਅਤੇ ਸੂਤਰ-ਆਧਾਰਿਤ ਪੂਰੇ ਹੱਲ ਲਈ ਚੁਣੇ ਗਏ ਹਨ। ਇਸ ਨੂੰ ਹਾਲੇ ਟੈਸਟ ਜਾਂ ਪ੍ਰਕਾਸ਼ਨ ਵਿੱਚ ਨਾ ਵਰਤੋ।",
     question: "ਪ੍ਰਸ਼ਨ",
     options: "ਵਿਕਲਪ",
     correctAnswer: "ਸਹੀ ਉੱਤਰ",
     explanation: "ਹੱਲ",
     whatAsked: "ਕੀ ਪਤਾ ਕਰਨਾ ਹੈ",
-    steps: "ਕ੍ਰਮਵਾਰ ਹੱਲ",
+    steps: "ਸੂਤਰ ਅਤੇ ਪੂਰੀ ਗਣਨਾ",
     finalAnswer: "ਅੰਤਿਮ ਉੱਤਰ",
-    commonMistake: "ਆਮ ਗਲਤੀ",
+    commonMistake: "ਧਿਆਨ ਰੱਖੋ",
   });
 }
 
@@ -318,10 +318,7 @@ export function renderIntCp004LocalizedReviewMarkdown(
     );
 
     for (const option of question.options) {
-      lines.push(
-        `**${option.label}. ${option.text}**`,
-        "",
-      );
+      lines.push(`**${option.label}. ${option.text}**`, "");
     }
 
     lines.push(
