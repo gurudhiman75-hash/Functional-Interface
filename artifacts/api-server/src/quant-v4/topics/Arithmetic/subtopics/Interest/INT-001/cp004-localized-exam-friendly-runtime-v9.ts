@@ -1,5 +1,6 @@
 import { selectIntCp004ExamFriendlyFrozenSourceV9 } from "./cp004-exam-friendly-source-v9";
 import { buildCp004LocalizedFormulaExplanationV9 } from "./cp004-localized-formula-explanations-v9";
+import { adaptIntCp004ExamFriendlyOptionsV9 } from "./cp004-localized-exam-friendly-options-v9";
 import { localizeIntCp004EnglishFrozenQuestion } from "./cp004-localized-runtime";
 import type {
   IntCp004LocalizedQuestion,
@@ -25,14 +26,21 @@ export function generateIntCp004ExamFriendlyLocalizedQuestionV9(
 ): IntCp004LocalizedQuestion {
   const source = selectIntCp004ExamFriendlyFrozenSourceV9(input.qlId, input.seed);
   const localized = localizeIntCp004EnglishFrozenQuestion(source, input.locale);
+  const options = adaptIntCp004ExamFriendlyOptionsV9(localized, input.locale);
+  const correctAnswer = options[localized.correctIndex]?.text;
+  if (!correctAnswer) {
+    throw new Error(`${input.qlId}/${input.seed}/${input.locale}: v9 correct option is missing.`);
+  }
   const explanation = buildCp004LocalizedFormulaExplanationV9(
     source,
     input.locale,
-    localized.correctAnswer,
+    correctAnswer,
   );
 
   return deepFreeze({
     ...localized,
+    options,
+    correctAnswer,
     explanation,
   });
 }
