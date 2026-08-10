@@ -32,6 +32,18 @@ function cleanLine(line: string): string {
 
 function clockCalculationCertificate(question: TsdCp001GeneratedQuestion): string | null {
   const input = question.input;
+  if (input.solveMode === "arrivalClockTime") {
+    const absoluteArrival = add(input.departureMinuteOfDay, input.durationMinutes);
+    return `Using minutes from midnight: ${formatExamNumber(input.departureMinuteOfDay)} + ${formatExamNumber(input.durationMinutes)} = ${formatExamNumber(absoluteArrival)} minutes = ${question.answerText}`;
+  }
+  if (input.solveMode === "departureClockTime") {
+    const absoluteArrival = add(
+      input.arrivalMinuteOfDay,
+      multiply(rational(input.arrivalDayOffset), rational(1440)),
+    );
+    const departure = subtract(absoluteArrival, input.durationMinutes);
+    return `Using minutes from midnight: ${formatExamNumber(absoluteArrival)} − ${formatExamNumber(input.durationMinutes)} = ${formatExamNumber(departure)} minutes = ${question.answerText}`;
+  }
   if (input.solveMode === "elapsedClockTime") {
     const absoluteArrival = add(
       input.arrivalMinuteOfDay,
