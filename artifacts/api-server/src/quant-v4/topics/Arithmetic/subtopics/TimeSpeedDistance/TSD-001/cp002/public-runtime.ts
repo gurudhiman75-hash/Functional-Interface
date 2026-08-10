@@ -1,5 +1,6 @@
 import { remodelTsdContext } from "../context-plausibility";
 import { remodelCp002DistractorExplanations } from "./distractor-explanation-integrity";
+import { makeCp002FinalStudentFeedback } from "./final-student-feedback";
 import {
   cp002SolutionsMatch,
   formatCp002Solution,
@@ -14,7 +15,9 @@ import type { TsdCp002GeneratedQuestion } from "./types";
 export function remodelCp002LearnerQuestion(
   question: TsdCp002GeneratedQuestion,
 ): TsdCp002GeneratedQuestion {
-  return remodelCp002DistractorExplanations(remodelTsdContext(question));
+  return makeCp002FinalStudentFeedback(
+    remodelCp002DistractorExplanations(remodelTsdContext(question)),
+  );
 }
 
 export function generateCp002Candidate(
