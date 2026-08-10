@@ -4,6 +4,8 @@ import {
   checkpointForClockTask,
   type ClockTaskId,
 } from "./catalog";
+import { CLOCK_CANDIDATE_DISPOSITION } from "./candidate-disposition";
+import { CLOCK_SOURCE_AUDIT } from "./source-audit";
 import { solveDirectClockFamily } from "./families/direct";
 import { solveEventFamily } from "./families/events";
 import { solveExamNaturalFaultyEventFamily } from "./families/faulty-events-exam-natural";
@@ -107,6 +109,8 @@ export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQ
     solved.answer.semanticKey,
     JSON.stringify(solved.scenario),
   ]);
+  const sourceAudit = CLOCK_SOURCE_AUDIT[input.taskId];
+  const disposition = CLOCK_CANDIDATE_DISPOSITION[input.taskId];
 
   const question: ClockQuestion = {
     schemaVersion: "CLK_OPEN_DISCOVERY_V2",
@@ -141,6 +145,16 @@ export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQ
       answerContractVerified: solved.contractEvidence ? true : undefined,
       ...solved.solveTraceExtras,
     },
+    discoveryAudit: {
+      sourceEvidenceLevel: sourceAudit.evidenceLevel,
+      sourceEvidenceRefs: sourceAudit.evidenceRefs,
+      sourceAuditFlags: sourceAudit.flags,
+      candidateDisposition: disposition.disposition,
+      semanticCluster: disposition.cluster,
+      sourceSaturationComplete: false,
+      authorityFrozen: false,
+      permanentQlEligible: false,
+    },
     fingerprint,
     lifecycle: {
       discoveryStatus: "OPEN_EXECUTABLE_DISCOVERY",
@@ -169,6 +183,10 @@ export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQ
   }
   if (new Set(question.options.map((option) => option.display)).size !== 4) {
     throw new Error(`Visible option uniqueness failed for ${input.taskId}/${input.seed}/${locale}.`);
+  }
+  if (question.discoveryAudit.candidateDisposition === "INTERNAL_VERIFICATION_ONLY" &&
+      !question.discoveryAudit.sourceAuditFlags.includes("DO_NOT_PROMOTE_TO_LEARNER_QL")) {
+    throw new Error(`Internal-only candidate ${input.taskId} is missing its do-not-promote guard.`);
   }
   return question;
 }
