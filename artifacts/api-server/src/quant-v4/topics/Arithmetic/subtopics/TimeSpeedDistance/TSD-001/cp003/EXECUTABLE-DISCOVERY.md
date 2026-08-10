@@ -91,6 +91,8 @@ The nine prior-authority representations are:
 - `fractionOfRouteAtChangedSpeed` → `unknownDistanceShareFromAverageSpeed`;
 - `walkingRidingAllocation` → `segmentAllocationFromTotalsAndSpeeds`.
 
+The nine representation families map to eight distinct prior authority targets because both speed-change-point and walking/riding allocation belong to `segmentAllocationFromTotalsAndSpeeds`.
+
 This produces a candidate authority count through CP-003 of:
 
 - 38 finalized prior learner authorities;
@@ -107,12 +109,18 @@ The 66 generated learner rows are preserved unchanged and remapped to their true
 
 The remapped review therefore represents:
 
-- 20 authority targets in total;
+- **19 authority targets in total**;
 - 11 new CP-003 authority targets;
-- 9 existing CP-001/002 authority targets receiving CP-003 representation-extension content;
+- 9 prior-authority representation families mapped to 8 distinct CP-001/002 authority targets;
 - 33 rows generated directly from the 11 retained CP-003 modes;
 - 6 rows from the two merged CP-003 discovery modes;
 - 27 rows representing existing CP-001/002 authorities.
+
+Three authority targets intentionally own six CP-003 review rows because they absorb a second discovery mode or representation family:
+
+- `timeGainLossFromSpeedChange`;
+- `distanceFromSpeedTimeDifference`;
+- `segmentAllocationFromTotalsAndSpeeds`.
 
 The remap changes ownership metadata only. It does not change stems, options, answer keys, explanations, fingerprints or the approved CP-001/002 frozen English corpus.
 
@@ -135,5 +143,5 @@ Before final merge/split approval or QL allocation:
 1. calibrate difficulty against SSC, Banking and Punjab-state exam expectations;
 2. blind-review the 66-row post-overlap corpus for exam realism, explanation clarity and distractor quality;
 3. make an explicit editorial decision on whether `scheduleBuffer` is strong enough to remain a standalone learner authority;
-4. approve or reject the nine prior-authority representation extensions without mutating the existing frozen CP-001/002 inventory;
+4. approve or reject the nine prior-authority representation families across eight existing authority targets without mutating the existing frozen CP-001/002 inventory;
 5. only then finalize CP-003 authority ownership and allocate permanent QLs.
