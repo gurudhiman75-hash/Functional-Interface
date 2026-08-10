@@ -1,6 +1,12 @@
 import { canonicalDigest } from "../canonical.ts";
 import { DeterministicRandom } from "../../../../shared/constraint-core/random.ts";
-import { selectSea001Names } from "../generation/name-pool.ts";
+import {
+  presentSea001Children,
+  presentSea001Text,
+  sea001DisplayName,
+  sea001DisplayNameMap,
+  sea001PersonIds,
+} from "../generation/person-presentation.ts";
 import { circularConstraintFingerprint, constraintTrueInOrder, renderCircularConstraint } from "./constraints.ts";
 import { buildCircularDiagram } from "./diagram.ts";
 import { buildCircularChildren } from "./questions.ts";
@@ -178,7 +184,8 @@ function trace(constraints: readonly CircularConstraint[], landmark: boolean): r
 function attempt(seed: string, blueprint: CircularBlueprintId): CircularCaseletRecord {
   const rng = new DeterministicRandom(seed);
   const seatCount = countFor(blueprint, rng);
-  const persons = selectSea001Names(seed, seatCount, `${blueprint}:cp003`) as PersonId[];
+  const persons = sea001PersonIds(seatCount) as PersonId[];
+  const displayNames = sea001DisplayNameMap(seed, persons, `${blueprint}:cp003`);
   const shuffled = rng.shuffle(persons);
   const landmarkAnchored = blueprint === "SEA-PBA-012";
   const order = landmarkAnchored ? shuffled : canonicalCircularOrder(shuffled, false);
@@ -194,24 +201,26 @@ function attempt(seed: string, blueprint: CircularBlueprintId): CircularCaseletR
   if (productionKeys.length !== 1 || JSON.stringify(productionKeys) !== JSON.stringify(oracleKeys)) throw new Error("Solver/oracle disagreement");
   const solved = production[0]?.clockwiseOrder;
   if (!solved) throw new Error("No solved order");
-  const children = buildCircularChildren(seed, solved, rng);
+  const children = presentSea001Children(buildCircularChildren(seed, solved, rng), displayNames);
   const displayOrder = landmarkAnchored ? solved : rotateOrder(solved, rng.integer(0, solved.length - 1));
-  const diagram = buildCircularDiagram(displayOrder, topology);
-  const clueTexts = built.constraints.map(renderCircularConstraint);
+  const displayedNames = displayOrder.map((personId) => sea001DisplayName(personId, displayNames));
+  const diagram = buildCircularDiagram(displayedNames, topology);
+  const clueTexts = built.constraints.map((constraint) => presentSea001Text(renderCircularConstraint(constraint), displayNames));
   if (seatCount % 2 !== 0 && (built.constraints.some((clue) => clue.kind === "OPPOSITE") || children.some((child) => child.queryContractId === "SEA-QC-010"))) throw new Error("Odd circle exposed opposite relation");
 
   const landmarkLabel = topology.landmark?.id.toLowerCase();
   const landmarkArticle = landmarkLabel === "entrance" ? "An" : "A";
+  const listedNames = persons.map((personId) => sea001DisplayName(personId, displayNames));
   const setupText = landmarkAnchored
-    ? `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table, facing the centre, but not necessarily in the same order. ${landmarkArticle} ${landmarkLabel} is shown at the top of the diagram.`
-    : `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table, facing the centre, but not necessarily in the same order.`;
+    ? `${seatCount} persons—${listedNames.join(", ")}—are sitting around a circular table, facing the centre, but not necessarily in the same order. ${landmarkArticle} ${landmarkLabel} is shown at the top of the diagram.`
+    : `${seatCount} persons—${listedNames.join(", ")}—are sitting around a circular table, facing the centre, but not necessarily in the same order.`;
   const skills = ["ROTATION_CANONICALISATION", "CENTRE_FACING_LEFT_RIGHT", "CLOCKWISE_WRAP_AROUND", "DIRECTIONAL_ARC_COUNT", seatCount % 2 === 0 ? "EVEN_OPPOSITE_SEAT" : "ODD_OPPOSITE_GUARD"];
   if (landmarkAnchored) skills.push("EXTERNAL_LANDMARK_ANCHOR");
 
   const sharedExplanation = [
     landmarkAnchored
       ? `Start with the seat nearest the ${landmarkLabel}, which is shown at the top of the diagram.`
-      : `For drawing, start from ${displayOrder[0]} at any convenient point; rotating the whole arrangement does not change any relative position.`,
+      : `For drawing, start from ${displayedNames[0]} at any convenient point; rotating the whole arrangement does not change any relative position.`,
     "Since everyone faces the centre, left is clockwise and right is anticlockwise.",
     "Apply the clues one by one:",
     ...clueTexts.map((clue, index) => `${index + 1}. ${clue}`),
