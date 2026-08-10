@@ -1,0 +1,118 @@
+name: Validate TSD Pace Option Integrity
+
+on:
+  pull_request:
+    branches:
+      - fix/tsd-unit-conversion-integrity
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**
+      - .github/workflows/tsd-pace-option-integrity-proof.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-pace-option-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle TSD regressions and pace proofs
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/pace-option-integrity
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+          for proof in \
+            canonical-review-proof \
+            p1-diversity-batch-01-proof \
+            p1-diversity-batch-02-proof \
+            p1-diversity-batch-03-proof \
+            p1-diversity-batch-04-proof \
+            p2-diversity-batch-01-proof \
+            p2-diversity-batch-02-proof \
+            p2-diversity-batch-03-proof \
+            proportion-explanation-integrity-proof \
+            distractor-explanation-integrity-proof \
+            context-plausibility-proof \
+            direct-option-feedback-proof \
+            proportion-option-label-integrity-proof \
+            deadline-option-feedback-proof \
+            mixed-unit-option-feedback-proof \
+            clock-option-label-integrity-proof \
+            direct-option-label-integrity-proof \
+            method-derived-distractor-proof \
+            ratio-option-integrity-proof \
+            unit-conversion-integrity-proof \
+            unit-conversion-seed-sweep-proof \
+            pace-option-integrity-proof \
+            pace-option-seed-sweep-proof \
+            canonical-review-export
+          do
+            pnpm --dir artifacts/api-server exec esbuild "$ROOT/$proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/$proof.mjs"
+          done
+
+      - name: Run full TSD regression suite
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/pace-option-integrity
+          for proof in \
+            canonical-review-proof \
+            p1-diversity-batch-01-proof \
+            p1-diversity-batch-02-proof \
+            p1-diversity-batch-03-proof \
+            p1-diversity-batch-04-proof \
+            p2-diversity-batch-01-proof \
+            p2-diversity-batch-02-proof \
+            p2-diversity-batch-03-proof \
+            proportion-explanation-integrity-proof \
+            distractor-explanation-integrity-proof \
+            context-plausibility-proof \
+            direct-option-feedback-proof \
+            proportion-option-label-integrity-proof \
+            deadline-option-feedback-proof \
+            mixed-unit-option-feedback-proof \
+            clock-option-label-integrity-proof \
+            direct-option-label-integrity-proof \
+            method-derived-distractor-proof \
+            ratio-option-integrity-proof \
+            unit-conversion-integrity-proof \
+            unit-conversion-seed-sweep-proof \
+            pace-option-integrity-proof \
+            pace-option-seed-sweep-proof \
+            canonical-review-export
+          do
+            node "$OUT/$proof.mjs" | tee "$OUT/$proof.log"
+          done
+
+      - name: Upload pace proof logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-pace-option-integrity-proof
+          path: artifacts/api-server/dist/quant-v4/tsd-001/pace-option-integrity/*.log
+          if-no-files-found: error
+
+      - name: Upload pace review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-pace-option-integrity-review
+          path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/pace-option-integrity
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review
+          if-no-files-found: error

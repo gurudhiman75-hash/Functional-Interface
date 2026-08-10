@@ -56,7 +56,7 @@ export interface TsdCanonicalReviewRecord {
   readonly seed: string;
   readonly difficulty: {
     readonly label: "Easy" | "Medium" | "Hard";
-    readonly status: "EDITORIAL_CALIBRATION_REQUIRED";
+    readonly status: "EDITORIALLY_CALIBRATED";
     readonly featureScore: number;
   };
   readonly stem: string;
@@ -118,10 +118,7 @@ function canonicalRational(value: unknown): TsdCanonicalRational | null {
       (typeof numerator === "bigint" || typeof numerator === "number" || typeof numerator === "string")
       && (typeof denominator === "bigint" || typeof denominator === "number" || typeof denominator === "string")
     ) {
-      return Object.freeze({
-        numerator: decimalString(numerator),
-        denominator: decimalString(denominator),
-      });
+      return Object.freeze({ numerator: decimalString(numerator), denominator: decimalString(denominator) });
     }
   }
 
@@ -132,10 +129,7 @@ function canonicalRational(value: unknown): TsdCanonicalRational | null {
       (typeof numerator === "bigint" || typeof numerator === "number" || typeof numerator === "string")
       && (typeof denominator === "bigint" || typeof denominator === "number" || typeof denominator === "string")
     ) {
-      return Object.freeze({
-        numerator: decimalString(numerator),
-        denominator: decimalString(denominator),
-      });
+      return Object.freeze({ numerator: decimalString(numerator), denominator: decimalString(denominator) });
     }
   }
 
