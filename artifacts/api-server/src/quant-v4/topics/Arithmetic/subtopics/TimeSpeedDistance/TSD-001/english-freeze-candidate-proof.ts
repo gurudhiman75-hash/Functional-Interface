@@ -10,7 +10,7 @@ function assert(condition: unknown, message: string): asserts condition {
 const GENERIC = /different result|does not survive|rules it out|not the result|appears after|careful check|can be reached only|recomputing[^.]*rules|unsupported direct proportion|combines the given numbers|satisfies the complete|the defining equation gives/i;
 const INTERNAL = /TODO|PLACEHOLDER|\{\{[A-Z_][^}]*\}\}|provisional authority|required answer|question bank status|test eligibility/i;
 const LEADING_CHECK_OPERATOR = /(?:Check|Correct check):\s*(?:=|×|÷|\+|−|-|\\times|\\div)/i;
-const MALFORMED_OPERATION = /(?:×|÷|\\times|\\div)\s*-?\d+(?:\.\d+)?(?:\/\d+)?\s+-?\d+(?:\.\d+)?(?:\/\d+)?/;
+const MALFORMED_OPERATION = /(?:×|÷|\\times|\\div)\s*-?\d+(?:\.\d+)?(?:\s+\d+\/\d+|\/\d+)?\s+(?!\d+\/\d+)-?\d+(?:\.\d+)?(?:\/\d+)?/;
 
 function withoutDisplayedOption(reason: string, optionText: string): string {
   return reason.replace(optionText, "").replace(/^[✅⚠️\s:.-]+/, "").trim();
