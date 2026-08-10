@@ -11,11 +11,11 @@ export type SpatialPrimitiveClassificationPropertyIdV2 =
   | "HORIZONTAL_SYMMETRY"
   | "HALF_TURN_SYMMETRY"
   | "QUARTER_TURN_SYMMETRY"
-  | "HAS_JUNCTION"
+  | "HAS_BRANCH_JUNCTION"
   | "HAS_TRUE_CROSSING"
   | "PARTITIONED_FIGURE"
-  | "LINE_STRUCTURE"
-  | "OPEN_FIGURE"
+  | "HALF_TURN_ONLY"
+  | "TWO_FREE_TERMINALS"
   | "CLOSED_SHAPE"
   | "POLYGON";
 
@@ -28,6 +28,7 @@ export type SpatialPrimitiveClassificationDescriptorIdV2 =
   | "ENCLOSED_REGION_COUNT"
   | "JUNCTION_COUNT"
   | "TRUE_CROSSING_COUNT"
+  | "FREE_TERMINAL_COUNT"
   | "ROTATION_PERIOD"
   | "VERTICAL_SYMMETRY"
   | "HORIZONTAL_SYMMETRY"
@@ -77,11 +78,11 @@ export const SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2: readonly SpatialP
   "HORIZONTAL_SYMMETRY",
   "HALF_TURN_SYMMETRY",
   "QUARTER_TURN_SYMMETRY",
-  "HAS_JUNCTION",
+  "HAS_BRANCH_JUNCTION",
   "HAS_TRUE_CROSSING",
   "PARTITIONED_FIGURE",
-  "LINE_STRUCTURE",
-  "OPEN_FIGURE",
+  "HALF_TURN_ONLY",
+  "TWO_FREE_TERMINALS",
   "CLOSED_SHAPE",
   "POLYGON",
 ] as const;
@@ -92,12 +93,12 @@ const PROPERTY_DESCRIPTION: Record<SpatialPrimitiveClassificationPropertyIdV2, s
   HORIZONTAL_SYMMETRY: "the figure has horizontal mirror symmetry",
   HALF_TURN_SYMMETRY: "the figure looks unchanged after a 180° rotation",
   QUARTER_TURN_SYMMETRY: "the figure looks unchanged after a 90° rotation",
-  HAS_JUNCTION: "the figure contains a point where strokes meet",
-  HAS_TRUE_CROSSING: "the figure contains a true crossing where strokes continue through the meeting point",
+  HAS_BRANCH_JUNCTION: "three or more line branches meet at one point",
+  HAS_TRUE_CROSSING: "the figure contains a true crossing where lines continue through the meeting point",
   PARTITIONED_FIGURE: "the figure is divided into internal regions",
-  LINE_STRUCTURE: "the figure is built as a line structure rather than a closed or partitioned shape",
-  OPEN_FIGURE: "the figure is an open directional figure",
-  CLOSED_SHAPE: "the figure is a closed basic shape",
+  HALF_TURN_ONLY: "the figure looks unchanged after 180° but changes after 90°",
+  TWO_FREE_TERMINALS: "the open figure has exactly two free line ends",
+  CLOSED_SHAPE: "the figure forms one closed basic shape",
   POLYGON: "the figure is a polygon made only of straight sides",
 };
 
@@ -109,13 +110,13 @@ function propertySatisfied(entry: SpatialPrimitiveAuthorityEntryV2, propertyId: 
     case "HORIZONTAL_SYMMETRY": return entry.symmetry.horizontal;
     case "HALF_TURN_SYMMETRY": return entry.symmetry.rotational180;
     case "QUARTER_TURN_SYMMETRY": return entry.rotationPeriodQuarterTurns === 1;
-    case "HAS_JUNCTION": return connectivity.junctionCount > 0;
+    case "HAS_BRANCH_JUNCTION": return connectivity.junctionCount > 0;
     case "HAS_TRUE_CROSSING": return connectivity.crossingCount > 0;
     case "PARTITIONED_FIGURE": return entry.category === "PARTITIONED_FIGURE";
-    case "LINE_STRUCTURE": return entry.category === "LINE_STRUCTURE";
-    case "OPEN_FIGURE": return entry.category === "OPEN_FIGURE";
-    case "CLOSED_SHAPE": return entry.category === "CLOSED_SHAPE";
-    case "POLYGON": return entry.polygonSideCount !== null && entry.category === "CLOSED_SHAPE";
+    case "HALF_TURN_ONLY": return entry.symmetry.rotational180 && entry.rotationPeriodQuarterTurns === 2;
+    case "TWO_FREE_TERMINALS": return connectivity.terminalCount === 2;
+    case "CLOSED_SHAPE": return entry.topology === "CLOSED" && entry.enclosedRegionCount === 1;
+    case "POLYGON": return entry.polygonSideCount !== null && entry.topology === "CLOSED";
   }
 }
 
@@ -130,6 +131,7 @@ function descriptorValue(entry: SpatialPrimitiveAuthorityEntryV2, descriptorId: 
     case "ENCLOSED_REGION_COUNT": return String(entry.enclosedRegionCount);
     case "JUNCTION_COUNT": return String(connectivity.junctionCount);
     case "TRUE_CROSSING_COUNT": return String(connectivity.crossingCount);
+    case "FREE_TERMINAL_COUNT": return String(connectivity.terminalCount);
     case "ROTATION_PERIOD": return String(entry.rotationPeriodQuarterTurns);
     case "VERTICAL_SYMMETRY": return String(entry.symmetry.vertical);
     case "HORIZONTAL_SYMMETRY": return String(entry.symmetry.horizontal);
@@ -143,7 +145,7 @@ function descriptorValue(entry: SpatialPrimitiveAuthorityEntryV2, descriptorId: 
 
 const DESCRIPTOR_IDS: readonly SpatialPrimitiveClassificationDescriptorIdV2[] = [
   "CATEGORY", "TOPOLOGY", "POLYGON_PRESENCE", "SIDE_COUNT_EXACT", "SIDE_PARITY",
-  "ENCLOSED_REGION_COUNT", "JUNCTION_COUNT", "TRUE_CROSSING_COUNT", "ROTATION_PERIOD",
+  "ENCLOSED_REGION_COUNT", "JUNCTION_COUNT", "TRUE_CROSSING_COUNT", "FREE_TERMINAL_COUNT", "ROTATION_PERIOD",
   "VERTICAL_SYMMETRY", "HORIZONTAL_SYMMETRY", "HALF_TURN_SYMMETRY",
   "ORIENTATION_SENSITIVE", "REFLECTION_SENSITIVE", "CAN_CONTAIN_INNER", "SUPPORTS_FILL",
 ] as const;
@@ -183,13 +185,13 @@ function evidence(entry: SpatialPrimitiveAuthorityEntryV2, propertyId: SpatialPr
     case "HORIZONTAL_SYMMETRY": return `${entry.label}: horizontal symmetry ${entry.symmetry.horizontal ? "present" : "absent"}`;
     case "HALF_TURN_SYMMETRY": return `${entry.label}: 180° symmetry ${entry.symmetry.rotational180 ? "present" : "absent"}`;
     case "QUARTER_TURN_SYMMETRY": return `${entry.label}: repeats after ${entry.rotationPeriodQuarterTurns * 90}°`;
-    case "HAS_JUNCTION": return `${entry.label}: ${connectivity.junctionCount} stroke junction${connectivity.junctionCount === 1 ? "" : "s"}`;
+    case "HAS_BRANCH_JUNCTION": return `${entry.label}: ${connectivity.junctionCount} branch junction${connectivity.junctionCount === 1 ? "" : "s"}`;
     case "HAS_TRUE_CROSSING": return `${entry.label}: ${connectivity.crossingCount} true crossing${connectivity.crossingCount === 1 ? "" : "s"}`;
-    case "PARTITIONED_FIGURE": return `${entry.label}: ${entry.category === "PARTITIONED_FIGURE" ? `${entry.enclosedRegionCount} internal regions` : "not a partitioned figure"}`;
-    case "LINE_STRUCTURE": return `${entry.label}: category ${entry.category.toLowerCase().replaceAll("_", " ")}`;
-    case "OPEN_FIGURE": return `${entry.label}: category ${entry.category.toLowerCase().replaceAll("_", " ")}`;
-    case "CLOSED_SHAPE": return `${entry.label}: category ${entry.category.toLowerCase().replaceAll("_", " ")}`;
-    case "POLYGON": return entry.polygonSideCount === null ? `${entry.label}: no polygon side count` : `${entry.label}: polygon with ${entry.polygonSideCount} sides`;
+    case "PARTITIONED_FIGURE": return `${entry.label}: ${entry.category === "PARTITIONED_FIGURE" ? `${entry.enclosedRegionCount} internal regions` : "not divided into internal regions"}`;
+    case "HALF_TURN_ONLY": return `${entry.label}: repeats after ${entry.rotationPeriodQuarterTurns * 90}°`;
+    case "TWO_FREE_TERMINALS": return `${entry.label}: ${connectivity.terminalCount} free line end${connectivity.terminalCount === 1 ? "" : "s"}`;
+    case "CLOSED_SHAPE": return `${entry.label}: ${entry.topology === "CLOSED" ? "closed" : "open"}`;
+    case "POLYGON": return entry.polygonSideCount === null ? `${entry.label}: not a straight-sided polygon` : `${entry.label}: polygon with ${entry.polygonSideCount} sides`;
   }
 }
 
@@ -202,11 +204,11 @@ const BASE_QUARTETS: readonly {
   { propertyId: "HORIZONTAL_SYMMETRY", primitiveIds: ["PLUS", "X_CROSS", "SIX_SPOKE", "THREE_SPOKE"] },
   { propertyId: "HALF_TURN_SYMMETRY", primitiveIds: ["Z_SHAPE", "TICK_DIAGONAL", "SQUARE_DIAGONAL_DIVIDED", "TRIANGLE_MEDIAN_DIVIDED"] },
   { propertyId: "QUARTER_TURN_SYMMETRY", primitiveIds: ["CIRCLE", "SQUARE", "DIAMOND", "SEMICIRCLE"] },
-  { propertyId: "HAS_JUNCTION", primitiveIds: ["T_SHAPE", "THREE_SPOKE", "ARROW_RIGHT", "CHEVRON_RIGHT"] },
+  { propertyId: "HAS_BRANCH_JUNCTION", primitiveIds: ["T_SHAPE", "THREE_SPOKE", "ARROW_RIGHT", "CHEVRON_RIGHT"] },
   { propertyId: "HAS_TRUE_CROSSING", primitiveIds: ["PLUS", "X_CROSS", "SIX_SPOKE", "ARROW_RIGHT"] },
   { propertyId: "PARTITIONED_FIGURE", primitiveIds: ["SQUARE_CROSS_DIVIDED", "CIRCLE_CROSS_DIVIDED", "CIRCLE_DIAMETER", "RECTANGLE"] },
-  { propertyId: "LINE_STRUCTURE", primitiveIds: ["PLUS", "X_CROSS", "SIX_SPOKE", "T_SHAPE"] },
-  { propertyId: "OPEN_FIGURE", primitiveIds: ["T_SHAPE", "V_SHAPE", "U_SHAPE", "THREE_SPOKE"] },
+  { propertyId: "HALF_TURN_ONLY", primitiveIds: ["RECTANGLE", "HEXAGON", "PARALLEL_PAIR", "PLUS"] },
+  { propertyId: "TWO_FREE_TERMINALS", primitiveIds: ["L_SHAPE", "Z_SHAPE", "ZIGZAG", "T_SHAPE"] },
   { propertyId: "CLOSED_SHAPE", primitiveIds: ["TRIANGLE", "PENTAGON", "SEMICIRCLE", "V_SHAPE"] },
   { propertyId: "POLYGON", primitiveIds: ["TRIANGLE", "PENTAGON", "TRAPEZIUM", "SEMICIRCLE"] },
 ] as const;
@@ -257,7 +259,7 @@ export function buildSpatialPrimitiveClassificationProofV2(): SpatialPrimitiveCl
         observation: `Compare the visible structure of ${labels.join(", ")}.`,
         rule: `Three figures share this relationship: ${PROPERTY_DESCRIPTION[base.propertyId]}.`,
         application,
-        check: `Only option ${String.fromCharCode(65 + correctOptionIndex)} breaks the relationship. The broad nuisance-feature audit found no 3-to-1 visible feature pointing to a different option.`,
+        check: `Only option ${String.fromCharCode(65 + correctOptionIndex)} breaks the relationship. The broad visible-feature audit found no 3-to-1 feature pointing to a different option.`,
       },
       lifecycle: {
         permanentQlId: null,
