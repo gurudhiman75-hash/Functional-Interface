@@ -6,7 +6,7 @@ import {
   CLOCK_TASK_CATALOG,
   buildClockAuthorityAnchorReview,
   buildClockEndToEndReview,
-  clockCandidateDispositionSummary,
+  effectiveClockDispositionSummary,
   generateClockQuestion,
   renderClockReviewHtml,
 } from "../topics/Clocks/CLK-001/runtime";
@@ -287,7 +287,7 @@ assert.equal(englishReview.localeCounts["hi-IN"], 0);
 assert.equal(englishReview.localeCounts["pa-IN"], 0);
 assert.equal(englishReview.candidatePolicy.rowCountHasProductMeaning, false);
 
-const dispositionCounts = clockCandidateDispositionSummary();
+const dispositionCounts = effectiveClockDispositionSummary();
 const anchorReview = buildClockAuthorityAnchorReview({
   seedPrefix: "CLK-V2-AUTHORITY-ANCHOR-ENGLISH-REVIEW",
   locales: ["en-IN"],
@@ -298,6 +298,7 @@ assert.equal(anchorReview.questionCount, dispositionCounts.PROVISIONAL_AUTHORITY
 assert(anchorReview.questions.every((question) =>
   question.discoveryAudit.candidateDisposition === "PROVISIONAL_AUTHORITY_ANCHOR"
 ));
+assert(anchorReview.questions.some((question) => question.taskId === "TIME_AFTER_HANDS_INTERCHANGED"));
 assert(anchorReview.questions.every((question) => question.discoveryAudit.permanentQlEligible === false));
 
 const englishHtml = renderClockReviewHtml(englishReview);
@@ -351,7 +352,7 @@ const summary = {
   questionsWithOptionMedia,
   internalOnlyQuestions,
   advancedHoldQuestions,
-  dispositionCounts,
+  effectiveDispositionCounts: dispositionCounts,
   standardCounts,
   kinematicsPositions,
   faultyRoundTrips,
@@ -360,7 +361,7 @@ const summary = {
   exactInterchangePairs: interchangePairs.length,
   reviewQuestions: {
     fullEnglish: englishReview.questionCount,
-    authorityAnchorEnglish: anchorReview.questionCount,
+    effectiveAuthorityAnchorEnglish: anchorReview.questionCount,
     hindi: 0,
     punjabi: 0,
   },
