@@ -50,6 +50,8 @@ export interface MalCp005Wave02GapDecisionEntry {
   decision: MalCp005Wave02GapDecision;
   normalizedSourceIds: readonly string[];
   proposedContractId: string | null;
+  candidateAnswerSemantic: "PROFIT_AMOUNT" | null;
+  sharedCoreFamily: MalCp005Wave02CoreFamily | null;
   reason: string;
 }
 
@@ -59,14 +61,18 @@ export const MAL_CP005_WAVE02_GAP_DECISIONS = [
     decision: "SPLIT_NEW_CP005_CANDIDATE",
     normalizedSourceIds: ["RS-AGGARWAL-QA-2017-P388-Q111"],
     proposedContractId: "MAL-CP005-CAND-PROFIT-AFTER-FREE-ADULTERATION-AND-PRICE-CHANGE",
+    candidateAnswerSemantic: "PROFIT_AMOUNT",
+    sharedCoreFamily: "FREE_ADULTERANT_COMMERCIAL_RATE",
     reason:
-      "The source explicitly combines free adulteration with a changed selling price. Neither ingredient composition nor the price multiplier is decorative, so a distinct CP-005 candidate is justified. The commercial multiplier may reuse Profit-and-Loss arithmetic without transferring ownership.",
+      "The direct source combines free adulteration with a selling-price increase and asks for total monetary profit. Wave 03 proves that its composition/rate arithmetic canonicalizes to the existing free-adulterant commercial core, so it does not create a fourth core. It remains a distinct task-contract candidate because the existing approved forward contract answers profit percentage whereas this source requires profit amount; scaling the paid quantity leaves the percentage unchanged but changes the monetary answer.",
   },
   {
     gapId: "PAID_BLEND_UNKNOWN_QUANTITY_FROM_KNOWN_QUANTITY_AND_TARGET_PROFIT",
     decision: "REASSIGN_MAL_CP001",
     normalizedSourceIds: ["ARUN-SHARMA-QA-2018-II40-SOL5", "ARUN-SHARMA-QA-2018-II40-SOL7"],
     proposedContractId: null,
+    candidateAnswerSemantic: null,
+    sharedCoreFamily: null,
     reason:
       "The source cases are neutral blends of two paid qualities. Once target average cost is derived, the remaining task is ordinary alligation quantity allocation already owned by CP-001; creating a CP-005 duplicate would be quota inflation.",
   },
@@ -75,6 +81,8 @@ export const MAL_CP005_WAVE02_GAP_DECISIONS = [
     decision: "REASSIGN_MAL_CP001",
     normalizedSourceIds: ["RS-AGGARWAL-QA-2017-P387-Q102", "RS-AGGARWAL-QA-2017-P387-Q109"],
     proposedContractId: null,
+    candidateAnswerSemantic: null,
+    sharedCoreFamily: null,
     reason:
       "The sale/profit condition determines a target mean cost, after which the missing source price is a weighted-blend reconstruction. The cited questions are legitimate paid blends, not adulteration.",
   },
@@ -83,6 +91,8 @@ export const MAL_CP005_WAVE02_GAP_DECISIONS = [
     decision: "REASSIGN_MAL_CP001",
     normalizedSourceIds: ["RS-AGGARWAL-QA-2017-P387-Q104"],
     proposedContractId: null,
+    candidateAnswerSemantic: null,
+    sharedCoreFamily: null,
     reason:
       "Three legitimate paid varieties with a sale objective do not become dishonest mixing merely because profit is asked. Preserve the weighted-mixture ownership boundary and let PNL consume the resulting cost if needed.",
   },
@@ -91,6 +101,8 @@ export const MAL_CP005_WAVE02_GAP_DECISIONS = [
     decision: "REASSIGN_PNL_CP005",
     normalizedSourceIds: ["RS-AGGARWAL-QA-2017-P393-Q191"],
     proposedContractId: null,
+    candidateAnswerSemantic: null,
+    sharedCoreFamily: null,
     reason:
       "The false 800 ml measure is indispensable to the outcome. Profit and Loss owns false weight/measure/short delivery, even when adulteration is also present.",
   },
@@ -99,6 +111,8 @@ export const MAL_CP005_WAVE02_GAP_DECISIONS = [
     decision: "REASSIGN_MAL_CP003",
     normalizedSourceIds: [],
     proposedContractId: null,
+    candidateAnswerSemantic: null,
+    sharedCoreFamily: null,
     reason:
       "The governing state transition is repeated sampling and refill. No normalized Wave-02 source establishes a distinct commercial contract that should override CP-003 ownership.",
   },
@@ -107,6 +121,8 @@ export const MAL_CP005_WAVE02_GAP_DECISIONS = [
     decision: "HOLD_NO_DIRECT_SOURCE",
     normalizedSourceIds: [],
     proposedContractId: null,
+    candidateAnswerSemantic: null,
+    sharedCoreFamily: null,
     reason:
       "A mathematically possible loss direction is not promoted merely for symmetry. No normalized Wave-02 reference fixture directly establishes it as an exam family.",
   },
@@ -115,8 +131,10 @@ export const MAL_CP005_WAVE02_GAP_DECISIONS = [
     decision: "HOLD_NO_DIRECT_SOURCE",
     normalizedSourceIds: ["RS-AGGARWAL-QA-2017-P388-Q111"],
     proposedContractId: null,
+    candidateAnswerSemantic: null,
+    sharedCoreFamily: null,
     reason:
-      "Q111 directly supports a price increase after adulteration, already captured by the new price-change candidate. It does not justify a broader markup-plus-discount family without further source authority.",
+      "Q111 directly supports one price-increase-plus-adulteration monetary-profit form, already captured by the Wave 03 candidate. It does not justify a broader markup-plus-discount family without further source authority.",
   },
 ] as const satisfies readonly MalCp005Wave02GapDecisionEntry[];
 
@@ -125,9 +143,10 @@ export const MAL_CP005_WAVE02_FREEZE_RECOMMENDATION = {
   retainedExistingPrototypeCount: 12,
   newCp005CandidateCount: 1,
   futureCandidateContractCount: 13,
+  sharedMathematicalCoreCount: 3,
   permanentQlCount: 0,
   permanentSolveModeCount: 0,
   allocationStatus: "UNALLOCATED_PENDING_PERMANENT_REVIEW",
   note:
-    "Wave 02 normalizes evidence and recommends task contracts only. Permanent MAL-QL identities and permanent solve modes require a later explicit allocation checkpoint.",
+    "Wave 02 normalizes evidence and recommends task contracts only. Wave 03 confirms that the thirteenth candidate shares the existing free-adulterant commercial core but has a distinct PROFIT_AMOUNT answer semantic. Permanent MAL-QL identities and permanent solve modes require a later explicit allocation checkpoint.",
 } as const;
