@@ -8,7 +8,7 @@ import {
 } from "./cp002/runtime";
 import { solveCp002, solutionEquals } from "./cp002/solver";
 import type { TsdCp002GeneratedQuestion } from "./cp002/types";
-import { calibratedDifficultyLabel } from "./difficulty-calibration";
+import { examDifficultyLabel } from "./difficulty-calibration";
 import { generateFinalAuthorityReview } from "./final-authority-review";
 import { TSD_FINAL_LEARNER_AUTHORITIES } from "./final-authority-registry";
 
@@ -16,24 +16,29 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-function failureId(question: TsdCp002GeneratedQuestion): string {
-  return `FAILS_${question.solveMode.replace(/([a-z])([A-Z])/g, "$1_$2").toUpperCase()}_EQUATION`;
-}
-
 function withoutDisplayedOption(reason: string, optionText: string): string {
   return reason.replace(optionText, "").replace(/^[✅⚠️\s:.-]+/, "").trim();
 }
 
-function assertEquationRemediation(question: TsdCp002GeneratedQuestion): { optionReasons: number; wrongReasons: number } {
+function semanticReason(reason: string): string {
+  return reason
+    .toLowerCase()
+    .replace(/-?\d+(?:\.\d+)?(?:\/\d+)?/g, "<n>")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function assertRealisticRemediation(question: TsdCp002GeneratedQuestion): { optionReasons: number; wrongReasons: number } {
   const independent = solveCp002(question.input);
   assert(solutionEquals(independent, question.solution), `${question.questionLanguageId}: independent solution differs`);
   assert(question.options.length === 4 && new Set(question.options).size === 4, `${question.questionLanguageId}: options are not unique`);
   assert(question.options[question.correctIndex] === question.answerText, `${question.questionLanguageId}: answer key differs`);
   assert(question.difficulty.status === "EDITORIALLY_CALIBRATED", `${question.questionLanguageId}: difficulty remains uncalibrated`);
-  assert(question.difficulty.label === calibratedDifficultyLabel(question.difficulty.featureScore), `${question.questionLanguageId}: difficulty conflicts with rubric`);
+  assert(question.difficulty.label === examDifficultyLabel(question.solveMode, question.input), `${question.questionLanguageId}: difficulty conflicts with exam-family rubric`);
   assert(question.optionAudit.length === 4 && question.explanation.optionAnalysis.length === 4, `${question.questionLanguageId}: incomplete option analysis`);
 
   let wrongReasons = 0;
+  const wrongTemplates = new Set<string>();
   question.optionAudit.forEach((audit, index) => {
     const analysis = question.explanation.optionAnalysis[index];
     assert(audit.text === question.options[index], `${question.questionLanguageId}: option-audit text mismatch`);
@@ -41,8 +46,10 @@ function assertEquationRemediation(question: TsdCp002GeneratedQuestion): { optio
     assert(audit.isCorrect === analysis.isCorrect, `${question.questionLanguageId}: audit-analysis correctness mismatch`);
     assert(audit.misconceptionId === analysis.misconceptionId, `${question.questionLanguageId}: audit-analysis ID mismatch`);
     assert(analysis.reason.includes(audit.text), `${question.questionLanguageId}: reason omits displayed option ${audit.text}`);
-    assert(analysis.reason.includes(question.answerText), `${question.questionLanguageId}: reason omits independently verified answer ${question.answerText}`);
-    assert(hasTsdCalculationEvidence(withoutDisplayedOption(analysis.reason, audit.text)), `${question.questionLanguageId}: ${audit.text} has no defining-equation evidence`);
+    assert(analysis.reason.includes(question.answerText), `${question.questionLanguageId}: reason omits verified answer ${question.answerText}`);
+    assert(hasTsdCalculationEvidence(withoutDisplayedOption(analysis.reason, audit.text)), `${question.questionLanguageId}: ${audit.text} has no numerical check`);
+    assert(!/^FAILS_.*_EQUATION$/.test(audit.misconceptionId), `${question.questionLanguageId}: generic FAILS_* ID remains`);
+    assert(!/The defining equation gives/i.test(analysis.reason), `${question.questionLanguageId}: generic defining-equation template remains`);
 
     if (audit.isCorrect) {
       assert(audit.misconceptionId === "CORRECT", `${question.questionLanguageId}: correct option has non-correct ID`);
@@ -50,9 +57,10 @@ function assertEquationRemediation(question: TsdCp002GeneratedQuestion): { optio
     }
 
     wrongReasons += 1;
-    assert(audit.misconceptionId === failureId(question), `${question.questionLanguageId}: stale or unsupported diagnosis remains for ${audit.text}`);
-    assert(analysis.reason.includes(`not ${audit.text}`), `${question.questionLanguageId}: wrong-option conclusion omits ${audit.text}`);
-    assert(!/unsupported direct proportion|combines the given numbers|doubles the required|difference between the speeds as a distance|inverts the deviations/i.test(analysis.reason), `${question.questionLanguageId}: stale diagnosis wording remains`);
+    const template = semanticReason(analysis.reason);
+    assert(!wrongTemplates.has(template), `${question.questionLanguageId}: two wrong options use the same feedback template`);
+    wrongTemplates.add(template);
+    assert(analysis.reason.includes("Check:"), `${question.questionLanguageId}: wrong option lacks a short check`);
   });
 
   return { optionReasons: 4, wrongReasons };
@@ -70,7 +78,7 @@ assert(rows.every((row) => row.publiclyPublishable === false), "Public delivery 
 let canonicalOptionReasons = 0;
 let canonicalWrongReasons = 0;
 for (const record of sourceCp002Rows) {
-  const counts = assertEquationRemediation(record.sourceQuestion as TsdCp002GeneratedQuestion);
+  const counts = assertRealisticRemediation(record.sourceQuestion as TsdCp002GeneratedQuestion);
   canonicalOptionReasons += counts.optionReasons;
   canonicalWrongReasons += counts.wrongReasons;
 }
@@ -81,13 +89,13 @@ let publicQuestions = 0;
 let publicWrongReasons = 0;
 for (const authority of TSD_CP002_LEARNER_AUTHORITIES) {
   for (let index = 0; index < 12; index += 1) {
-    const seed = `cp002-public-equation:${authority.provisionalId}:${index}`;
+    const seed = `cp002-public-realism:${authority.provisionalId}:${index}`;
     const core = generateCoreCp002Candidate(authority.provisionalId, seed);
     const current = generatePublicCp002Candidate(authority.provisionalId, seed);
     assert(core.questionLanguageId === current.questionLanguageId, `${seed}: public identity changed`);
-    assert(JSON.stringify(core.options) === JSON.stringify(current.options), `${seed}: public remediation changed options`);
-    assert(core.answerText === current.answerText && core.correctIndex === current.correctIndex, `${seed}: public remediation changed the answer key`);
-    const counts = assertEquationRemediation(current);
+    assert(JSON.stringify(core.options) === JSON.stringify(current.options), `${seed}: remediation changed CP-002 option values`);
+    assert(core.answerText === current.answerText && core.correctIndex === current.correctIndex, `${seed}: remediation changed the answer key`);
+    const counts = assertRealisticRemediation(current);
     publicQuestions += 1;
     publicWrongReasons += counts.wrongReasons;
   }
@@ -110,8 +118,8 @@ for (const [answerText, optionText] of regressions) {
   const question = record.sourceQuestion as TsdCp002GeneratedQuestion;
   const index = question.options.indexOf(optionText);
   const analysis = question.explanation.optionAnalysis[index];
-  assert(analysis.misconceptionId === failureId(question), `${optionText}: stale misconception label remains`);
-  assert(analysis.reason.includes(question.answerText) && analysis.reason.includes(`not ${optionText}`), `${optionText}: exact correction is missing`);
+  assert(!/^FAILS_/.test(analysis.misconceptionId), `${optionText}: generic misconception label remains`);
+  assert(analysis.reason.includes("Check:") && analysis.reason.includes(question.answerText), `${optionText}: option-specific correction is missing`);
 }
 
 console.log(JSON.stringify({
@@ -124,6 +132,7 @@ console.log(JSON.stringify({
   publicQuestions,
   publicWrongReasons,
   selfReviewRegressions: regressions.length,
+  genericFailsIds: 0,
   permanentQls: 0,
   englishFreezeStatus: "UNFROZEN",
 }, null, 2));
