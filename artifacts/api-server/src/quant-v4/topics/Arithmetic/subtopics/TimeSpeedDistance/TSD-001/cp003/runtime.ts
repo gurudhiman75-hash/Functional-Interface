@@ -110,10 +110,15 @@ function optionAudit(options: readonly RuntimeOption[]): readonly TsdCp003Option
   })));
 }
 
-function optionAnalysis(options: readonly RuntimeOption[], solution: ReturnType<typeof solveCp003>): readonly TsdCp003OptionAnalysis[] {
+function optionAnalysis(
+  options: readonly RuntimeOption[],
+  solution: ReturnType<typeof solveCp003>,
+  correctCheckLine: string,
+): readonly TsdCp003OptionAnalysis[] {
+  const numericalCheck = correctCheckLine.replace(/^5\.\s*/, "");
   return Object.freeze(options.map((option, index) => {
     const reason = option.isCorrect
-      ? `✅ ${option.text}: the reconstructed quantities satisfy ${solution.governingEquation}, giving exactly ${option.text}.`
+      ? `✅ ${option.text}: ${numericalCheck}`
       : `⚠️ ${option.text}: ${option.wrongWorking!.calculation} = ${option.text}. ${option.wrongWorking!.diagnosis}`;
     return Object.freeze({
       option: OPTION_LABELS[index],
@@ -186,7 +191,7 @@ export function generateCp003Candidate(provisionalAuthorityId: string, seed: str
       keyRule: teaching.keyRule,
       stepByStepSolution: teaching.steps,
       examSpeedShortcut: teaching.shortcut,
-      optionAnalysis: optionAnalysis(options, solution),
+      optionAnalysis: optionAnalysis(options, solution, teaching.steps[4]),
       conclusion: teaching.conclusion,
     }),
     mathematicalFingerprint: `${authority.solveMode}|${state.representation}|${fingerprint(inputValues, [stableSerialize(state.input)])}`,
