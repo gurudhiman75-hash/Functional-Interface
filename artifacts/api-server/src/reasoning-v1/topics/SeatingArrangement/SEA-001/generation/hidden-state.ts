@@ -2,7 +2,13 @@ import { DeterministicRandom } from "../../../../shared/constraint-core/random.t
 import { LinearTopology } from "../topology/linear.ts";
 import type { LinearSeatingState, SeatingPerson, SeatingBlueprintId } from "../types.ts";
 
-const NAME_POOL = ["Aman", "Bina", "Charan", "Diya", "Eshan", "Farah", "Gagan", "Heena"] as const;
+const NAME_POOL = [
+  "Aditi", "Aman", "Bhavna", "Charan", "Deepak", "Diya", "Farah", "Gauri",
+  "Gurleen", "Harjit", "Hema", "Ishaan", "Jaspreet", "Jaya", "Karan", "Kavya",
+  "Kriti", "Lakshya", "Manav", "Manvi", "Mehak", "Navdeep", "Neha", "Pooja",
+  "Riya", "Rohit", "Sahil", "Sana", "Shruti", "Simran", "Tanvi", "Uday",
+  "Varun", "Vikas", "Yash", "Zoya",
+] as const;
 
 export function generateHiddenLinearState(seed: string, blueprintId: SeatingBlueprintId): LinearSeatingState {
   const random = new DeterministicRandom(`${seed}:${blueprintId}:state`);
