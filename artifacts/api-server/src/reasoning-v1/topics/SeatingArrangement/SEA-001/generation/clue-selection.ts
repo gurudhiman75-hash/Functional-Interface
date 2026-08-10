@@ -40,9 +40,10 @@ function seedRequiredPba004Clues(
   const absolute = random.shuffle(candidates.filter((clue) => clue.constraint.kind === "ABSOLUTE_SEAT"))
     .sort((left, right) => right.informationGain - left.informationGain)[0];
   if (!absolute || absolute.constraint.kind !== "ABSOLUTE_SEAT") throw new Error("PBA-004 has no absolute-seat candidate");
+  const absolutePersonId = absolute.constraint.personId;
 
   const negativeCandidates = candidates.filter((clue) => clue.constraint.kind === "NOT_ADJACENT");
-  const touchingAnchor = negativeCandidates.filter((clue) => clue.entitiesMentioned.includes(absolute.constraint.personId));
+  const touchingAnchor = negativeCandidates.filter((clue) => clue.entitiesMentioned.includes(absolutePersonId));
   const negative = random.shuffle(touchingAnchor.length > 0 ? touchingAnchor : negativeCandidates)
     .sort((left, right) => right.naturalnessScore - left.naturalnessScore)[0];
   if (!negative || negative.constraint.kind !== "NOT_ADJACENT") throw new Error("PBA-004 has no negative-adjacency candidate");
