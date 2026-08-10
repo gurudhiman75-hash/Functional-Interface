@@ -222,6 +222,8 @@ export function deriveExamReadyCp003WrongWorkings(
       const speedChange = multiply(divide(subtract(input.changedSpeed, input.originalSpeed), input.originalSpeed), rational(100));
       const changedTime = divide(changedDistance, input.changedSpeed);
       const changedTimeShare = multiply(divide(changedTime, input.totalTravelTime), rational(100));
+      const speedRatioShare = multiply(divide(input.changedSpeed, add(input.originalSpeed, input.changedSpeed)), rational(100));
+      const inverseSpeedRatioShare = multiply(divide(input.originalSpeed, add(input.originalSpeed, input.changedSpeed)), rational(100));
       return choose(answer, [
         wrong(
           "USE_COMPLEMENT_ROUTE_FRACTION",
@@ -240,6 +242,18 @@ export function deriveExamReadyCp003WrongWorkings(
           changedTimeShare,
           `${f(changedTime)} ÷ ${f(input.totalTravelTime)} × 100`,
           "It uses the share of journey time spent at the changed speed instead of the share of route distance.",
+        ),
+        wrong(
+          "SPLIT_DISTANCE_IN_SPEED_RATIO",
+          speedRatioShare,
+          `${f(input.changedSpeed)} ÷ (${f(input.originalSpeed)} + ${f(input.changedSpeed)}) × 100`,
+          "It incorrectly splits the route in the ratio of the two speeds.",
+        ),
+        wrong(
+          "SPLIT_DISTANCE_IN_SPEED_RATIO",
+          inverseSpeedRatioShare,
+          `${f(input.originalSpeed)} ÷ (${f(input.originalSpeed)} + ${f(input.changedSpeed)}) × 100`,
+          "It incorrectly uses the opposite share from a speed-ratio split of the route.",
         ),
       ]);
     }
