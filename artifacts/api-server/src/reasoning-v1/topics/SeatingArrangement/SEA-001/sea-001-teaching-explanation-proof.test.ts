@@ -1,5 +1,5 @@
 import { compileSea001TeachingExplanationFromUnknown } from "./explanation/checkpoint-teaching.ts";
-import { buildSea001SaturationCorpus } from "./saturation/corpus.ts";
+import { buildSea001SaturationCorpus, type AuditCaselet } from "./saturation/corpus.ts";
 
 const corpus = buildSea001SaturationCorpus(2);
 if (corpus.caselets.length !== 40) throw new Error(`Expected 40 teaching-proof caselets, got ${corpus.caselets.length}`);
@@ -14,6 +14,21 @@ let caseAnalysisCount = 0;
 let eliminationCount = 0;
 let cp001PartialCaseCount = 0;
 const checkpointCounts = new Map<string, number>();
+
+function personOrdinal(personId: string): number {
+  const match = personId.match(/^P(\d+)$/);
+  return match?.[1] ? Number(match[1]) : Number.POSITIVE_INFINITY;
+}
+
+function displayNamesFor(caselet: AuditCaselet): Readonly<Record<string, string>> {
+  const names = caselet.setupText.match(/persons—(.+?)—are sitting/i)?.[1]
+    ?.split(",")
+    .map((name) => name.trim())
+    .filter(Boolean) ?? [];
+  const ids = [...new Set((JSON.stringify(caselet.constraints ?? []).match(/\bP\d+\b/g) ?? []))]
+    .sort((left, right) => personOrdinal(left) - personOrdinal(right) || left.localeCompare(right));
+  return Object.fromEntries(ids.map((personId, index) => [personId, names[index] ?? personId]));
+}
 
 for (const caselet of corpus.caselets) {
   const explanation = compileSea001TeachingExplanationFromUnknown(caselet);
@@ -55,6 +70,25 @@ for (const caselet of corpus.caselets) {
   if (arbitraryCaseLanguage.test(explanation)) throw new Error(`Arbitrary representative-case language leaked into ${caselet.caseletId}`);
   if (!/final (?:row|clockwise arrangement|clockwise arrangement and facings)|therefore/i.test(explanation)) {
     throw new Error(`Final arrangement conclusion is missing: ${caselet.caseletId}`);
+  }
+
+  if (caselet.checkpointId === "SEA-CP-002" && caselet.diagramText && !explanation.includes(caselet.diagramText)) {
+    throw new Error(`CP002 teaching final row does not match the displayed solved row: ${caselet.caseletId}`);
+  }
+
+  if ((caselet.checkpointId === "SEA-CP-003" || caselet.checkpointId === "SEA-CP-004")
+    && /this adjacency gives two orientations/i.test(explanation)) {
+    const adjacency = caselet.constraints?.find((constraint) => constraint.kind === "ADJACENT");
+    if (!adjacency || typeof adjacency.firstId !== "string" || typeof adjacency.secondId !== "string") {
+      throw new Error(`Missing typed adjacency behind case explanation: ${caselet.caseletId}`);
+    }
+    const displayNames = displayNamesFor(caselet);
+    const first = displayNames[adjacency.firstId];
+    const second = displayNames[adjacency.secondId];
+    if (!first || !second || !explanation.includes(`Case 1: ${first} → ${second} clockwise.`)
+      || !explanation.includes(`Case 2: ${second} → ${first} clockwise.`)) {
+      throw new Error(`Circular adjacency cases use names inconsistent with the displayed clue: ${caselet.caseletId}`);
+    }
   }
 
   const caseNumbers = [...explanation.matchAll(/Case (\d+)/g)].map((match) => Number(match[1]));
