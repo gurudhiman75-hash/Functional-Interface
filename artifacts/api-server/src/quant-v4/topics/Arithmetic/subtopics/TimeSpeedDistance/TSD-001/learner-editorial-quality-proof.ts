@@ -22,7 +22,9 @@ const FORBIDDEN_DIRECT_IDS = new Set([
   "MISREAD_DISTANCE",
   "ARITHMETIC_OFFSET",
 ]);
-const MALFORMED_OPERATION = /(?:×|÷|\\times|\\div)\s*-?\d+(?:\.\d+)?(?:\/\d+)?\s+-?\d+(?:\.\d+)?(?:\/\d+)?/;
+// A mixed number such as 67 1/2 is one valid operand and must not be mistaken
+// for two adjacent operands. This catches forms such as "10 × 90 900".
+const MALFORMED_OPERATION = /(?:×|÷|\\times|\\div)\s*-?\d+(?:\.\d+)?(?:\s+\d+\/\d+|\/\d+)?\s+(?!\d+\/\d+)-?\d+(?:\.\d+)?(?:\/\d+)?/;
 
 function words(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
