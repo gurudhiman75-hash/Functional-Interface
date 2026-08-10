@@ -1,3 +1,4 @@
+import { convertSpeed } from "../foundation/units";
 import { TSD_CP001_DISCOVERY_AUTHORITIES } from "./discovery-registry";
 import {
   EQUIVALENT_SPEED_FINGERPRINT,
@@ -9,6 +10,7 @@ import {
   generateCp001Candidate,
   generateCp001ReviewRows,
 } from "./runtime";
+import { formatExamNumber } from "./runtime-support";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -37,10 +39,17 @@ assert(reviewEquivalent.validation.valid, `Equivalent review row is invalid: ${r
 assert(reviewEquivalent.answerText === reviewEquivalent.options[reviewEquivalent.correctIndex], "Equivalent answer key is misaligned");
 assert(reviewEquivalent.options.every((option) => /m\/s/.test(option) && /km\/h/.test(option) && /m\/min/.test(option)), "Equivalent options do not compare all three required units");
 assert(reviewEquivalent.answerText.split(" = ").length === 3, "Correct equivalent option is not a three-unit equality");
-assert(reviewEquivalent.explanation.working.some((line) => /18\/5/.test(line)), "Equivalent working omits the m/s to km/h factor");
-assert(reviewEquivalent.explanation.working.some((line) => /× 60/.test(line)), "Equivalent working omits the m/s to m/min factor");
+
+const metresPerSecond = convertSpeed(reviewEquivalent.input.value, reviewEquivalent.input.from, "MPS");
+const kilometresPerHour = convertSpeed(reviewEquivalent.input.value, reviewEquivalent.input.from, "KMPH");
+const metresPerMinute = convertSpeed(reviewEquivalent.input.value, reviewEquivalent.input.from, "M_PER_MINUTE");
+const expectedTriplet = `${formatExamNumber(metresPerSecond)} m/s = ${formatExamNumber(kilometresPerHour)} km/h = ${formatExamNumber(metresPerMinute)} m/min`;
+assert(reviewEquivalent.answerText === expectedTriplet, `Equivalent answer is mathematically wrong: expected ${expectedTriplet}, received ${reviewEquivalent.answerText}`);
+assert(reviewEquivalent.explanation.stepByStepSolution.length >= 6 && reviewEquivalent.explanation.stepByStepSolution.length <= 7, "Equivalent explanation is not concise");
 assert(reviewEquivalent.explanation.optionAnalysis.length === 4, "Equivalent row does not analyse all four options");
 assert(reviewEquivalent.explanation.optionAnalysis.every((option) => option.reason.includes(option.text)), "Equivalent option analysis is not value-specific");
+assert(reviewEquivalent.explanation.optionAnalysis.every((option) => /=/.test(option.reason)), "Equivalent option analysis lacks a numerical equality/check");
+
 const mixedScaleTrap = reviewEquivalent.explanation.optionAnalysis.find(
   (option) => option.misconceptionId === "MIX_UNCONVERTED_UNITS",
 );
@@ -62,6 +71,12 @@ for (let index = 0; index < 600; index += 1) {
   assert(candidate.validation.valid, `Speed representation candidate ${index} is invalid: ${candidate.validation.errors.join("; ")}`);
   if (isEquivalentSpeedFingerprint(candidate.mathematicalFingerprint)) {
     equivalentCandidateCount += 1;
+    assert(candidate.input.solveMode === "convertSpeedUnit", `Equivalent candidate ${index} has wrong input mode`);
+    const expectedMps = convertSpeed(candidate.input.value, candidate.input.from, "MPS");
+    const expectedKmph = convertSpeed(candidate.input.value, candidate.input.from, "KMPH");
+    const expectedMpm = convertSpeed(candidate.input.value, candidate.input.from, "M_PER_MINUTE");
+    const expected = `${formatExamNumber(expectedMps)} m/s = ${formatExamNumber(expectedKmph)} km/h = ${formatExamNumber(expectedMpm)} m/min`;
+    assert(candidate.answerText === expected, `Equivalent candidate ${index} has an incorrect triplet`);
     if (candidate.answerText === "25 m/s = 90 km/h = 1500 m/min") exactTripletSeen = true;
   } else {
     scalarCandidateCount += 1;
