@@ -1,10 +1,11 @@
 import { canonicalDigest } from "../canonical.ts";
 import { DeterministicRandom } from "../../../../shared/constraint-core/random.ts";
+import { selectSea001Names } from "../generation/name-pool.ts";
 import { circularConstraintFingerprint, constraintTrueInOrder, renderCircularConstraint } from "./constraints.ts";
 import { buildCircularDiagram } from "./diagram.ts";
 import { buildCircularChildren } from "./questions.ts";
 import { enumerateCircularOracle, enumerateCircularProduction } from "./solvers.ts";
-import { CircularTopology, canonicalCircularOrder, circularCanonicalKey, personAt } from "./topology.ts";
+import { CircularTopology, canonicalCircularOrder, circularCanonicalKey, personAt, rotateOrder } from "./topology.ts";
 import type {
   CircularBlueprintId,
   CircularCaseletRecord,
@@ -14,7 +15,6 @@ import type {
   PersonId,
 } from "./types.ts";
 
-const NAMES = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"] as const;
 export const SEA_CP003_BLUEPRINTS: readonly CircularBlueprintId[] = ["SEA-PBA-009", "SEA-PBA-010", "SEA-PBA-011", "SEA-PBA-012"];
 const LIFECYCLE = Object.freeze({
   discoveryStatus: "EXECUTABLE_FOUNDATION" as const,
@@ -178,7 +178,7 @@ function trace(constraints: readonly CircularConstraint[], landmark: boolean): r
 function attempt(seed: string, blueprint: CircularBlueprintId): CircularCaseletRecord {
   const rng = new DeterministicRandom(seed);
   const seatCount = countFor(blueprint, rng);
-  const persons = NAMES.slice(0, seatCount);
+  const persons = selectSea001Names(seed, seatCount, `${blueprint}:cp003`) as PersonId[];
   const shuffled = rng.shuffle(persons);
   const landmarkAnchored = blueprint === "SEA-PBA-012";
   const order = landmarkAnchored ? shuffled : canonicalCircularOrder(shuffled, false);
@@ -195,7 +195,8 @@ function attempt(seed: string, blueprint: CircularBlueprintId): CircularCaseletR
   const solved = production[0]?.clockwiseOrder;
   if (!solved) throw new Error("No solved order");
   const children = buildCircularChildren(seed, solved, rng);
-  const diagram = buildCircularDiagram(solved, topology);
+  const displayOrder = landmarkAnchored ? solved : rotateOrder(solved, rng.integer(0, solved.length - 1));
+  const diagram = buildCircularDiagram(displayOrder, topology);
   const clueTexts = built.constraints.map(renderCircularConstraint);
   if (seatCount % 2 !== 0 && (built.constraints.some((clue) => clue.kind === "OPPOSITE") || children.some((child) => child.queryContractId === "SEA-QC-010"))) throw new Error("Odd circle exposed opposite relation");
 
@@ -210,7 +211,7 @@ function attempt(seed: string, blueprint: CircularBlueprintId): CircularCaseletR
   const sharedExplanation = [
     landmarkAnchored
       ? `Start with the seat nearest the ${landmarkLabel}, which is shown at the top of the diagram.`
-      : `For solving, place ${solved[0]} at any convenient seat; only relative positions matter.`,
+      : `For drawing, start from ${displayOrder[0]} at any convenient point; rotating the whole arrangement does not change any relative position.`,
     "Since everyone faces the centre, left is clockwise and right is anticlockwise.",
     "Apply the clues one by one:",
     ...clueTexts.map((clue, index) => `${index + 1}. ${clue}`),
