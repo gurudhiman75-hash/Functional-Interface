@@ -12,6 +12,7 @@ import { solveMotionOrAnglePrototype } from "./families/motion-angle";
 import { solveRemediatedStrikeFamily } from "./families/strikes-remediated";
 import { solveStrikeFamily } from "./families/strikes";
 import { solveVisualAndSynthesisFamily } from "./families/visual-mixed";
+import { normalizeSolvedClockPresentation } from "./presentation";
 import type { SolvedClockPrototype } from "./solver-types";
 import type { ClockDifficulty, ClockQuestion, GenerateClockQuestionInput } from "./types";
 import { ClockSeededRandom, makeOptions, stableFingerprint } from "./utils";
@@ -48,7 +49,7 @@ function solvePrototype(input: {
   if (solved.taskId !== input.taskId) {
     throw new Error(`CLK-001 solver returned mismatched task ${solved.taskId} for ${input.taskId}.`);
   }
-  return solved;
+  return normalizeSolvedClockPresentation(solved);
 }
 
 function assertContractEvidence(
