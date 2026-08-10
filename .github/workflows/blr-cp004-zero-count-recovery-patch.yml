@@ -1,0 +1,82 @@
+name: Apply BLR CP-004 zero-count recovery patch
+
+on:
+  push:
+    branches:
+      - recovery/blr-001-cp003-cp006-current-main
+    paths:
+      - ".github/workflows/blr-cp004-zero-count-recovery-patch.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out recovery branch
+        uses: actions/checkout@v4
+        with:
+          ref: recovery/blr-001-cp003-cp006-current-main
+
+      - name: Apply exact guarded remediation
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/cp004-bank.ts')
+          text = path.read_text()
+
+          old_signature = '''function pairQuestion(
+            source: BlrCp003FinalApprovedRecord,
+            groupIndex: number,
+          ): GeneratedBlrCp004Question {
+            const graph = diagramGraph(source);
+            const mode = groupIndex % 4;'''
+          new_signature = '''function pairQuestion(
+            source: BlrCp003FinalApprovedRecord,
+            groupIndex: number,
+            modeOverride?: number,
+          ): GeneratedBlrCp004Question {
+            const graph = diagramGraph(source);
+            const mode = modeOverride ?? groupIndex % 4;'''
+
+          old_generation = '''  const bank = uniqueGroupSources().flatMap(questionsForGroup);'''
+          new_generation = '''  const sources = uniqueGroupSources();
+            const zeroCousinGroupIndex = sources.findIndex(
+              (source) => cousinPairKeys(diagramGraph(source)).length === 0,
+            );
+            if (zeroCousinGroupIndex < 0) {
+              throw new Error("CP-004 source bank has no graph suitable for an explicit zero cousin-pair count.");
+            }
+            const bank = sources.flatMap((source, groupIndex) => {
+              const questions = questionsForGroup(source, groupIndex);
+              if (groupIndex === zeroCousinGroupIndex && groupIndex % 4 !== 3) {
+                questions[3] = pairQuestion(source, groupIndex, 3);
+              }
+              return questions;
+            });
+            if (!bank.some((question) => question.answer.kind === "NUMBER" && question.answer.value === 0)) {
+              throw new Error("CP-004 zero-count recovery failed to produce an explicit zero answer.");
+            }'''
+
+          if text.count(old_signature) != 1:
+              raise SystemExit(f'expected one pairQuestion signature target, found {text.count(old_signature)}')
+          if text.count(old_generation) != 1:
+              raise SystemExit(f'expected one bank-generation target, found {text.count(old_generation)}')
+
+          text = text.replace(old_signature, new_signature).replace(old_generation, new_generation)
+          path.write_text(text)
+          PY
+          git diff --check
+          git diff -- artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/cp004-bank.ts
+
+      - name: Commit remediation
+        shell: bash
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/cp004-bank.ts
+          git commit -m "fix(reasoning): restore CP004 explicit zero-count coverage"
+          git push origin HEAD:recovery/blr-001-cp003-cp006-current-main
