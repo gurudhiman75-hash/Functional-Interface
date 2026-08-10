@@ -2,12 +2,14 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import {
   buildSea001SaturationCorpus,
-  exactCaseletContentFingerprint,
   selectManualReviewCorpus,
   structuralVariantFingerprint,
 } from "./saturation/corpus.ts";
 import { auditSea001Corpus } from "./saturation/residual-audit.ts";
-import { buildPendingSea001ManualReviewLedger } from "./review/manual-review.ts";
+import {
+  buildPendingSea001ManualReviewLedger,
+  sea001ReviewContentFingerprint,
+} from "./review/manual-review.ts";
 import { compileSea001TeachingExplanationFromUnknown } from "./explanation/checkpoint-teaching.ts";
 
 function escapeHtml(value: unknown): string {
@@ -42,7 +44,7 @@ const records = review.map((caselet, index) => ({
   blueprintAuthorityId: caselet.blueprintAuthorityId,
   structuralVariantFingerprint: structuralVariantFingerprint(caselet),
   caseletId: caselet.caseletId,
-  contentFingerprint: exactCaseletContentFingerprint(caselet),
+  contentFingerprint: sea001ReviewContentFingerprint(caselet),
   seed: caselet.seed,
   setup: caselet.setupText,
   clues: caselet.clueTexts,
@@ -62,7 +64,7 @@ const records = review.map((caselet, index) => ({
       explanation: option.explanation,
     })),
     answerIndex: child.answerIndex,
-    answer: child.answer,
+    answer: child.options[child.answerIndex]?.display ?? String(child.answer),
     explanation: child.explanation,
   })),
   review: {
