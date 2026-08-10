@@ -4,7 +4,7 @@ import {
   checkpointForClockTask,
   type ClockTaskId,
 } from "./catalog";
-import { difficultyForClockTask } from "./difficulty-governance";
+import { auditClockItemDifficulty } from "./difficulty-item";
 import {
   CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION,
   CLOCK_EFFECTIVE_SOURCE_AUDIT,
@@ -107,6 +107,8 @@ export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQ
   ]);
   const sourceAudit = CLOCK_EFFECTIVE_SOURCE_AUDIT[input.taskId];
   const disposition = CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION[input.taskId];
+  const difficultyAudit = auditClockItemDifficulty(input.taskId, solved);
+  const difficulty = input.difficulty ?? difficultyAudit.difficulty;
 
   const question: ClockQuestion = {
     schemaVersion: "CLK_OPEN_DISCOVERY_V2",
@@ -121,7 +123,7 @@ export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQ
     prototypeId,
     locale,
     seed: input.seed,
-    difficulty: input.difficulty ?? difficultyForClockTask(input.taskId),
+    difficulty,
     stem: solved.stem,
     media: solved.media,
     scenario: solved.scenario,
@@ -147,9 +149,15 @@ export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQ
       sourceAuditFlags: sourceAudit.flags,
       candidateDisposition: disposition.disposition,
       semanticCluster: disposition.cluster,
-      sourceSaturationComplete: true,
+      declaredSourceRegistrySaturationComplete: true,
+      sourceSaturationComplete: false,
       authorityFrozen: false,
       permanentQlEligible: false,
+      difficultyModel: "ITEM_LEVEL_V1",
+      difficultyBaselineScore: difficultyAudit.baselineScore,
+      difficultyItemScore: difficultyAudit.itemScore,
+      difficultyFactors: difficultyAudit.factors,
+      difficultyHumanCalibrationRequired: true,
     },
     fingerprint,
     lifecycle: {
