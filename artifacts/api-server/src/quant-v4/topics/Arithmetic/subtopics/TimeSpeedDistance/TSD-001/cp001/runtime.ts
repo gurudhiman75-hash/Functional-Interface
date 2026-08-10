@@ -1,3 +1,4 @@
+import { remodelTsdContext } from "../context-plausibility";
 import { calibrateTsdDifficulty } from "../difficulty-calibration";
 import type { TsdCp001GeneratedQuestion } from "./runtime-types";
 import {
@@ -116,7 +117,8 @@ export function remodelCp001LearnerQuestion(
     ),
   );
   const realistic = remodelRealisticDirectOptions(familySpecific);
-  const studentFriendly = makeCp001StudentFriendly(realistic);
+  const plausibleContext = remodelTsdContext(realistic);
+  const studentFriendly = makeCp001StudentFriendly(plausibleContext);
   const exactFeedback = ensureCp001ExactOptionFeedback(studentFriendly);
   return Object.freeze({
     ...exactFeedback,
