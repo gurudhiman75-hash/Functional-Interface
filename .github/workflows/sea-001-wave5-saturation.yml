@@ -88,6 +88,17 @@ jobs:
       - name: Validate SSC, Banking, Railway and Punjab source evidence coverage
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-source-audit-proof.test.ts
 
+  review-readiness-lock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prove permanent allocation remains locked before signed review
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-review-readiness-proof.test.ts
+
   english-review-candidate:
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -96,7 +107,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Generate 100-caselet English manual-review candidate
+      - name: Generate 100-caselet English manual-review candidate and ledger template
         env:
           SEA_001_REVIEW_OUTPUT_DIR: /tmp/sea-001-review
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-review-export.ts
