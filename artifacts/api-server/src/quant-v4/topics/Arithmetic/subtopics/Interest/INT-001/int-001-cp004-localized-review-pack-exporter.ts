@@ -2,11 +2,11 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import {
   INT_CP004_LOCALIZED_REVIEW_PACK_VERSION,
-  buildIntCp004LocalizedReviewPack,
+  buildIntCp004LocalizedReviewPackV9Safe,
   renderIntCp004LocalizedReviewMarkdown,
   serializeIntCp004LocalizedReviewPack,
   sha256Text,
-} from "./cp004-localized-review-pack";
+} from "./cp004-localized-review-pack-v9-safe";
 import { INT_CP004_LOCALIZED_LOCALES } from "./cp004-localization-language-pack";
 import type { IntCp004LocalizedLocale } from "./cp004-localization-types";
 
@@ -36,7 +36,7 @@ mkdirSync(OUTPUT_DIRECTORY, { recursive: true });
 const localeSummaries: Record<string, unknown> = {};
 
 for (const locale of INT_CP004_LOCALIZED_LOCALES) {
-  const pack = buildIntCp004LocalizedReviewPack(locale);
+  const pack = buildIntCp004LocalizedReviewPackV9Safe(locale);
   const markdown = renderIntCp004LocalizedReviewMarkdown(pack);
   const data = serializeIntCp004LocalizedReviewPack(pack);
   const files = FILES[locale];
