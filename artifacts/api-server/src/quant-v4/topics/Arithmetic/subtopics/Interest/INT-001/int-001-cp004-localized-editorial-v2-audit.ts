@@ -1,6 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { INT_CP004_QL_IDS } from "./cp004-frequency-math";
 import { INT_CP004_LOCALIZED_HUMAN_EDITORIAL_V7_VERSION } from "./cp004-localized-human-editorial-v7";
+import { INT_CP004_LOCALIZED_SIMPLE_EXPLANATION_V8_VERSION } from "./cp004-localized-simple-explanations-v8";
 import { generateIntCp004LocalizedQuestion } from "./cp004-localized-runtime";
 import type { IntCp004LocalizedLocale } from "./cp004-localization-types";
 
@@ -56,7 +57,7 @@ const bannedHindiGrammar = [
   /अवधि का गुणक लागू या उलटें/gu,
   /(?:तिमाहियाँ|छमाहियाँ|महीने) लिए गए हैं/gu,
   /कुल \d+ (?:तिमाहियाँ|छमाहियाँ|महीने|वर्ष) लेने पर/gu,
-  /\d+(?:\.\d+)?% ÷ 1(?!\d)/gu,
+  /\d+(?:\.\d+)?% ÷ 1(?![\d.])/gu,
   /\d+(?:\.\d+)?%\d+\s*=/gu,
   /वार्षिक दर को सीधे हर बार पर न लगाएँ; हर वर्ष की दर/gu,
   /एक राशि ₹[\d,.]+ है/gu,
@@ -87,7 +88,7 @@ const bannedPunjabiGrammar = [
   /ਆਵ੍ਰਿਤੀ/gu,
   /(?:ਤਿਮਾਹੀਆਂ|ਛਿਮਾਹੀਆਂ|ਮਹੀਨੇ) ਲਏ ਗਏ ਹਨ/gu,
   /ਕੁੱਲ \d+ (?:ਤਿਮਾਹੀਆਂ|ਛਿਮਾਹੀਆਂ|ਮਹੀਨੇ|ਸਾਲ) ਲੈਣ ਉੱਤੇ/gu,
-  /\d+(?:\.\d+)?% ÷ 1(?!\d)/gu,
+  /\d+(?:\.\d+)?% ÷ 1(?![\d.])/gu,
   /\d+(?:\.\d+)?%\d+\s*=/gu,
   /ਸਾਲਾਨਾ ਦਰ ਨੂੰ ਸਿੱਧਾ ਹਰ ਵਾਰ ਉੱਤੇ ਨਾ ਲਗਾਓ; ਹਰ ਸਾਲ ਦੀ ਦਰ/gu,
   /ਇੱਕ ਰਕਮ ₹[\d,.]+ ਹੈ/gu,
@@ -104,6 +105,28 @@ const bannedPunjabiGrammar = [
   /ਵਾਧਾ ਦਰ ਕਿੰਨੀ ਹੋਵੇਗਾ/gu,
   /ਪਹਿਲਾਂ ਹੀ ਹਰ ਵਾਰ ਦੀ ਦਰ/gu,
   /ਹਰ ਸੰਭਵ ਕ੍ਰਮ/gu,
+] as const;
+
+const bannedHindiExplanation = [
+  /\bA\s*=/u,
+  /\bCI\s*=/u,
+  /\bP\s*=/u,
+  /चक्रवृद्धि गुणक/u,
+  /संयुक्त गुणक/u,
+  /ब्याज गुणक/u,
+  /विकल्प\s+[ABCD]/u,
+  /हमें\s/u,
+  /अतः/u,
+] as const;
+
+const bannedPunjabiExplanation = [
+  /\bA\s*=/u,
+  /\bCI\s*=/u,
+  /\bP\s*=/u,
+  /ਗੁਣਕ/u,
+  /ਚੋਣ\s+[ABCD]/u,
+  /ਸਾਨੂੰ\s/u,
+  /ਚੱਕਰਵੱਧੀ/u,
 ] as const;
 
 function normalizeStem(stem: string): string {
@@ -137,6 +160,9 @@ function expectedCreditInterval(locale: IntCp004LocalizedLocale, frequency: numb
 let questionCases = 0;
 let optionChecks = 0;
 let explanationChecks = 0;
+let simpleExplanationChecks = 0;
+let conciseStepChecks = 0;
+let plainLanguageChecks = 0;
 let learnerIdLeakChecks = 0;
 let nativeStemChecks = 0;
 let directPeriodStemChecks = 0;
@@ -155,15 +181,18 @@ for (const locale of locales) {
 
   for (const qlId of INT_CP004_QL_IDS) {
     for (let index = 0; index < seedsPerQl; index += 1) {
-      const seed = `int-cp004-human-v7-audit:${qlId}:${index}`;
+      const seed = `int-cp004-human-v8-audit:${qlId}:${index}`;
       const question = generateIntCp004LocalizedQuestion({ qlId, seed, locale });
-      const learnerText = [
-        question.stem,
-        ...question.options.flatMap((option) => [option.text, option.feedback]),
+      const explanationText = [
         question.explanation.whatAsked,
         ...question.explanation.steps,
         question.explanation.finalAnswer,
         question.explanation.commonMistake,
+      ].join("\n");
+      const learnerText = [
+        question.stem,
+        ...question.options.flatMap((option) => [option.text, option.feedback]),
+        explanationText,
       ].join("\n");
       questionCases += 1;
 
@@ -198,7 +227,7 @@ for (const locale of locales) {
       }
 
       if (question.mathematicalState.frequency === 1) {
-        assert(!/÷\s*1(?!\d)/u.test(learnerText), `${qlId}/${seed}/${locale}: redundant annual-rate division remains.`);
+        assert(!/÷\s*1(?![\d.])/u.test(learnerText), `${qlId}/${seed}/${locale}: redundant annual-rate division remains.`);
         annualWordingChecks += 1;
       }
 
@@ -229,15 +258,34 @@ for (const locale of locales) {
       correctFeedbackByLocale.get(locale)?.add(correctOption.feedback);
       feedbackSpecificityChecks += 1;
 
+      assert(question.explanation.steps.length >= 2 && question.explanation.steps.length <= 4, `${qlId}/${seed}/${locale}: simple explanation must use 2-4 steps.`);
+      assert(question.explanation.whatAsked.length <= 60, `${qlId}/${seed}/${locale}: task line is too long.`);
+      assert(question.explanation.finalAnswer.length <= 90, `${qlId}/${seed}/${locale}: final answer is too long.`);
+      assert(question.explanation.commonMistake.length >= 35 && question.explanation.commonMistake.length <= 170, `${qlId}/${seed}/${locale}: mistake note is not concise.`);
+      assert(question.explanation.finalAnswer.includes(question.correctAnswer), `${qlId}/${seed}/${locale}: final answer does not state the verified answer.`);
+      simpleExplanationChecks += 5;
+
+      for (const [stepIndex, step] of question.explanation.steps.entries()) {
+        assert(step.length <= 180, `${qlId}/${seed}/${locale}/step-${stepIndex + 1}: explanation step is too long (${step.length}).`);
+        assert(/[₹%0-9×÷=+−^-]/u.test(step), `${qlId}/${seed}/${locale}/step-${stepIndex + 1}: explanation step lacks concrete calculation evidence.`);
+        conciseStepChecks += 2;
+      }
+
+      const bannedExplanation = locale === "hi-IN" ? bannedHindiExplanation : bannedPunjabiExplanation;
+      for (const pattern of bannedExplanation) {
+        pattern.lastIndex = 0;
+        assert(!pattern.test(explanationText), `${qlId}/${seed}/${locale}: solver-style explanation pattern ${pattern} remains.`);
+        plainLanguageChecks += 1;
+      }
+
       assert(!question.explanation.finalAnswer.startsWith("अतः सही उत्तर"), `${qlId}/${seed}/${locale}: mechanical Hindi final-answer wrapper remains.`);
       assert(!question.explanation.finalAnswer.startsWith("ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ"), `${qlId}/${seed}/${locale}: mechanical Punjabi final-answer wrapper remains.`);
-      assert(question.explanation.commonMistake.length >= 45, `${qlId}/${seed}/${locale}: common-mistake note is not specific enough.`);
       explanationChecks += 1;
 
       if (qlId === "INT-QL-076") {
-        const explanationText = question.explanation.steps.join("\n");
-        assert(!/₹100[^\n]*=[^\n]*%/u.test(explanationText), `${qlId}/${seed}/${locale}: money and percentage are equated in one malformed expression.`);
-        assert(locale === "hi-IN" ? explanationText.includes("प्रभावी वार्षिक दर") : explanationText.includes("ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ"), `${qlId}/${seed}/${locale}: effective-rate conclusion is missing.`);
+        const stepsText = question.explanation.steps.join("\n");
+        assert(!/₹100[^\n]*=[^\n]*%/u.test(stepsText), `${qlId}/${seed}/${locale}: money and percentage are equated in one malformed expression.`);
+        assert(locale === "hi-IN" ? stepsText.includes("प्रभावी वार्षिक दर") : stepsText.includes("ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ"), `${qlId}/${seed}/${locale}: effective-rate conclusion is missing.`);
         effectiveRateEquationChecks += 1;
       }
     }
@@ -259,12 +307,16 @@ assert([...mishritUsageByQl.values()].reduce((sum, count) => sum + count, 0) > 0
 
 mkdirSync(outputDirectory, { recursive: true });
 const summary = Object.freeze({
-  status: "CP004_LOCALIZED_NATIVE_STEMS_V6_VALIDATED",
+  status: "CP004_LOCALIZED_SIMPLE_EXPLANATIONS_V8_VALIDATED",
   editorialVersion: "INT-CP-004-HI-PA-NATIVE-STEMS-v6",
   humanEditorialVersion: INT_CP004_LOCALIZED_HUMAN_EDITORIAL_V7_VERSION,
+  simpleExplanationVersion: INT_CP004_LOCALIZED_SIMPLE_EXPLANATION_V8_VERSION,
   questionCases,
   optionChecks,
   explanationChecks,
+  simpleExplanationChecks,
+  conciseStepChecks,
+  plainLanguageChecks,
   learnerIdLeakChecks,
   nativeStemChecks,
   directPeriodStemChecks,
@@ -294,6 +346,7 @@ const summary = Object.freeze({
 });
 writeFileSync(`${outputDirectory}/int-cp004-localized-editorial-v2-summary.json`, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
 console.log(JSON.stringify(summary, null, 2));
+console.log("PASS_INT_CP004_LOCALIZED_SIMPLE_EXPLANATIONS_V8");
 console.log("PASS_INT_CP004_LOCALIZED_HUMAN_EDITORIAL_V7");
 console.log("PASS_INT_CP004_LOCALIZED_NATIVE_STEMS_V6");
 console.log("PASS_INT_CP004_LOCALIZED_EDITORIAL_V2");
