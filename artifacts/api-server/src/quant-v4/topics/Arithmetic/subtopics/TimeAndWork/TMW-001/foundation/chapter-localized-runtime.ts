@@ -26,6 +26,8 @@ import { applyTmwCp003EditorialFieldCleanup } from "./cp003-editorial-field-clea
 import { applyTmw001CriticalLocalizedRemediationR1 } from "./critical-remediation-r1";
 import { applyTmw001EditorialRemediationR2Cp001To006 } from "./editorial-remediation-r2-cp001-cp006";
 import { applyTmw001LearnerExplanationR2Cp001To006 } from "./learner-explanation-r2-cp001-cp006";
+import { applyTmw001EditorialRemediationR3Cp007To011 } from "./editorial-remediation-r3-cp007-cp011";
+import { applyTmw001LearnerExplanationR3Cp007To011 } from "./learner-explanation-r3-cp007-cp011";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -47,13 +49,23 @@ function qlOrdinal(questionLanguageId: string): number {
 }
 
 function finishEnglish(question: any, questionLanguageId: string): any {
-  const remediated = applyTmw001EditorialRemediationR2Cp001To006(
+  const r2Remediated = applyTmw001EditorialRemediationR2Cp001To006(
     question,
     questionLanguageId,
     "en",
   );
-  return applyTmw001LearnerExplanationR2Cp001To006(
-    remediated,
+  const r3Remediated = applyTmw001EditorialRemediationR3Cp007To011(
+    r2Remediated,
+    questionLanguageId,
+    "en",
+  );
+  const r2Learner = applyTmw001LearnerExplanationR2Cp001To006(
+    r3Remediated,
+    questionLanguageId,
+    "en",
+  );
+  return applyTmw001LearnerExplanationR3Cp007To011(
+    r2Learner,
     questionLanguageId,
     "en",
   );
@@ -115,8 +127,18 @@ function finishLocalized(
     questionLanguageId,
     language,
   );
-  return applyTmw001LearnerExplanationR2Cp001To006(
+  const r3Remediated = applyTmw001EditorialRemediationR3Cp007To011(
     r2Remediated,
+    questionLanguageId,
+    language,
+  );
+  const r2Learner = applyTmw001LearnerExplanationR2Cp001To006(
+    r3Remediated,
+    questionLanguageId,
+    language,
+  );
+  return applyTmw001LearnerExplanationR3Cp007To011(
+    r2Learner,
     questionLanguageId,
     language,
   );
@@ -182,7 +204,7 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   }
   if (ordinal <= 143) {
     return input.language === "en"
-      ? runTmwCp007Pipeline(base)
+      ? finishEnglish(runTmwCp007Pipeline(base), input.questionLanguageId)
       : finishLocalized(
         runTmwCp007LocalizedPipeline({ ...base, language: input.language }),
         input.questionLanguageId,
@@ -191,7 +213,7 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   }
   if (ordinal <= 156) {
     return input.language === "en"
-      ? runTmwCp008Pipeline(base)
+      ? finishEnglish(runTmwCp008Pipeline(base), input.questionLanguageId)
       : finishLocalized(
         runTmwCp008LocalizedPipeline({ ...base, language: input.language }),
         input.questionLanguageId,
@@ -200,7 +222,7 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   }
   if (ordinal <= 174) {
     return input.language === "en"
-      ? runTmwCp009Pipeline(base)
+      ? finishEnglish(runTmwCp009Pipeline(base), input.questionLanguageId)
       : finishLocalized(
         runTmwCp009LocalizedPipeline({ ...base, language: input.language }),
         input.questionLanguageId,
@@ -209,7 +231,7 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   }
   if (ordinal <= 192) {
     return input.language === "en"
-      ? runTmwCp010Pipeline(base)
+      ? finishEnglish(runTmwCp010Pipeline(base), input.questionLanguageId)
       : finishLocalized(
         runTmwCp010LocalizedPipeline({ ...base, language: input.language }),
         input.questionLanguageId,
@@ -217,7 +239,7 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
       );
   }
   return input.language === "en"
-    ? runTmwCp011Pipeline(input.questionLanguageId, input.seed)
+    ? finishEnglish(runTmwCp011Pipeline(input.questionLanguageId, input.seed), input.questionLanguageId)
     : finishLocalized(
       runTmwCp011LocalizedPipeline({ ...base, language: input.language }),
       input.questionLanguageId,
