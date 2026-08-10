@@ -69,7 +69,7 @@ for (const row of clockRows) {
 const hardOperationEvidence: Readonly<Record<string, readonly string[]>> = Object.freeze({
   usualSpeedFromEarlyLatePair: ["route distance", "Scheduled travel time", "Usual speed"],
   speedChangePointDistance: ["Let the first segment", "Total-time equation", "Solving the linear equation"],
-  fractionOfRouteAtChangedSpeed: ["original-speed distance", "changed-speed distance", "Route percentage"],
+  fractionOfRouteAtChangedSpeed: ["original-speed distance", "changed-speed distance", "Changed-route percentage"],
   walkingRidingAllocation: ["Let walking distance", "Set their sum", "Walking distance"],
 });
 
