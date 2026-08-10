@@ -42,7 +42,7 @@ for (let index = 0; index < rows.length; index += 1) {
 }
 
 const authorityKeys = new Set(rows.map((row) => row.authorityKey));
-assert(authorityKeys.size === 20, `Expected 20 authority targets represented by CP-003 content, received ${authorityKeys.size}`);
+assert(authorityKeys.size === 19, `Expected 19 authority targets represented by CP-003 content, received ${authorityKeys.size}`);
 
 const newRows = rows.filter((row) => row.ownershipDisposition === "NEW_CP003_AUTHORITY");
 const mergedRows = rows.filter((row) => row.ownershipDisposition === "MERGED_INTO_NEW_CP003_AUTHORITY");
@@ -55,15 +55,20 @@ const targetCounts = new Map<string, number>();
 for (const row of rows) targetCounts.set(row.authorityKey, (targetCounts.get(row.authorityKey) ?? 0) + 1);
 assert(targetCounts.get("timeGainLossFromSpeedChange") === 6, "timeGainLossFromSpeedChange must own both native and same-arrival shift rows");
 assert(targetCounts.get("distanceFromSpeedTimeDifference") === 6, "distanceFromSpeedTimeDifference must own both native and early/late distance rows");
+assert(targetCounts.get("segmentAllocationFromTotalsAndSpeeds") === 6, "segmentAllocationFromTotalsAndSpeeds must own both change-point and walking/riding rows");
 for (const [authorityKey, count] of targetCounts) {
-  if (authorityKey === "timeGainLossFromSpeedChange" || authorityKey === "distanceFromSpeedTimeDifference") continue;
+  if (
+    authorityKey === "timeGainLossFromSpeedChange"
+    || authorityKey === "distanceFromSpeedTimeDifference"
+    || authorityKey === "segmentAllocationFromTotalsAndSpeeds"
+  ) continue;
   assert(count === 3, `${authorityKey}: expected three CP-003 review rows, received ${count}`);
 }
 
 const newAuthorityTargets = new Set(rows.filter((row) => row.authorityOwnerCheckpointId === "TSD-CP-003").map((row) => row.authorityKey));
 const priorAuthorityTargets = new Set(rows.filter((row) => row.authorityOwnerCheckpointId !== "TSD-CP-003").map((row) => row.authorityKey));
 assert(newAuthorityTargets.size === 11, `Expected 11 new CP-003 owner targets, received ${newAuthorityTargets.size}`);
-assert(priorAuthorityTargets.size === 9, `Expected 9 prior-checkpoint owner targets, received ${priorAuthorityTargets.size}`);
+assert(priorAuthorityTargets.size === 8, `Expected 8 distinct prior-checkpoint owner targets, received ${priorAuthorityTargets.size}`);
 assert(rows.filter((row) => row.authorityOwnerCheckpointId === "TSD-CP-001").length > 0, "No CP-001 representation extension rows found");
 assert(rows.filter((row) => row.authorityOwnerCheckpointId === "TSD-CP-002").length > 0, "No CP-002 representation extension rows found");
 
@@ -76,7 +81,8 @@ console.log(JSON.stringify({
   withinCp003MergedRows: mergedRows.length,
   priorRepresentationRows: priorRows.length,
   newCp003AuthorityTargets: newAuthorityTargets.size,
-  priorAuthorityTargets: priorAuthorityTargets.size,
+  priorRepresentationFamilies: 9,
+  distinctPriorAuthorityTargets: priorAuthorityTargets.size,
   learnerProjectionChangedRows: 0,
   permanentQlCount: 0,
   englishFreezeStatus: "UNFROZEN",
