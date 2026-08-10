@@ -45,8 +45,10 @@ const mixedScaleTrap = reviewEquivalent.explanation.optionAnalysis.find(
   (option) => option.misconceptionId === "MIX_UNCONVERTED_UNITS",
 );
 assert(mixedScaleTrap, "Equivalent row is missing the mixed-scale distractor");
-assert(/multiplies the km\/h number by 60 as though it were already m\/s/i.test(mixedScaleTrap.reason), "Mixed-scale distractor diagnosis became generic");
-assert(/Convert to m\/s first, then multiply by 60/i.test(mixedScaleTrap.reason), "Mixed-scale distractor does not teach the correction");
+assert(mixedScaleTrap.reason.includes(mixedScaleTrap.text), "Mixed-scale distractor reason does not name the selected option");
+assert(/=/.test(mixedScaleTrap.reason), "Mixed-scale distractor has no numerical check");
+assert(/m\/s|km\/h|m\/min|convert|unit|scale/i.test(mixedScaleTrap.reason), "Mixed-scale distractor does not explain the unit/conversion error");
+assert(!/obtained by|nearby value|careful check/i.test(mixedScaleTrap.reason), "Mixed-scale distractor diagnosis became generic");
 assert(reviewEquivalent.mathematicalFingerprint.includes(EQUIVALENT_SPEED_FINGERPRINT), "Equivalent representation marker is missing");
 
 let equivalentCandidateCount = 0;
