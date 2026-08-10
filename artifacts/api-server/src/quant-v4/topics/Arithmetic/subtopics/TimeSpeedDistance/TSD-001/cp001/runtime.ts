@@ -102,7 +102,14 @@ function remodelPaceQuestion(
   });
 }
 
-function remodelQuestion(question: TsdCp001GeneratedQuestion): TsdCp001GeneratedQuestion {
+/**
+ * Single learner-output pipeline for CP-001.
+ * Use this for generated rows, review supplements and canonical assembly so
+ * Question Studio and editorial review cannot drift apart.
+ */
+export function remodelCp001LearnerQuestion(
+  question: TsdCp001GeneratedQuestion,
+): TsdCp001GeneratedQuestion {
   const familySpecific = remodelFinalProportionFeedback(
     remodelCp001FinalEditorial(
       remodelPaceQuestion(remodelConversionQuestion(question)),
@@ -124,13 +131,13 @@ function remodelQuestion(question: TsdCp001GeneratedQuestion): TsdCp001Generated
 export function generateCp001Candidate(
   ...args: Parameters<typeof generateCoreCp001Candidate>
 ): TsdCp001GeneratedQuestion {
-  return remodelQuestion(generateCoreCp001Candidate(...args));
+  return remodelCp001LearnerQuestion(generateCoreCp001Candidate(...args));
 }
 
 export function generateCp001ReviewRows(
   ...args: Parameters<typeof generateCoreCp001ReviewRows>
 ): TsdCp001GeneratedQuestion[] {
-  return generateCoreCp001ReviewRows(...args).map(remodelQuestion);
+  return generateCoreCp001ReviewRows(...args).map(remodelCp001LearnerQuestion);
 }
 
 export {
