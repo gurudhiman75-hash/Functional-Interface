@@ -1,0 +1,194 @@
+name: Validate CLK-001 all-checkpoint dual-oracle discovery
+
+on:
+  pull_request:
+    branches:
+      - feat/clk-001-foundation-exact-kinematics
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/temporal/**
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/clock.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Clocks/CLK-001/**
+      - artifacts/api-server/src/reasoning-v1/CLK-001-FAMILY-F-MANIFEST-AMENDMENT.md
+      - artifacts/api-server/src/reasoning-v1/tests/clock-end-to-end-v2.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-media-contracts.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-presentation-contracts.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-source-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-source-saturation-v2.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-merge-split-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-inverse-boundary-gap-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-difficulty-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-item-difficulty.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-cp008-exam-natural.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-cp013-exam-natural.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-faulty-core-exam-natural.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-foundation.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-foundation.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-glyph-digit-clock-proof.test.ts
+      - .github/workflows/clk-001-end-to-end-v2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clk-all-checkpoint-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-clock-discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle Clock discovery and regression proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/clock-v2
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-end-to-end-v2.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-end-to-end-v2.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-media-contracts.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-media-contracts.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-presentation-contracts.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-presentation-contracts.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-source-audit.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-source-audit.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-source-saturation-v2.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-source-saturation-v2.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-merge-split-audit.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-merge-split-audit.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-inverse-boundary-gap-audit.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-inverse-boundary-gap-audit.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-difficulty-audit.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-difficulty-audit.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-item-difficulty.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-item-difficulty.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-cp008-exam-natural.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-cp008-exam-natural.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-cp013-exam-natural.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-cp013-exam-natural.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-faulty-core-exam-natural.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-faulty-core-exam-natural.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-foundation.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-glyph-digit-clock-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
+      - name: Run exact clock foundation regression
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-foundation.test.mjs
+      - name: Run all-checkpoint dual-oracle proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-end-to-end-v2.test.mjs
+      - name: Run structured media proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-media-contracts.test.mjs
+      - name: Run learner presentation proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-presentation-contracts.test.mjs
+      - name: Run provisional source-audit proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-source-audit.test.mjs
+      - name: Run source-saturation proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-source-saturation-v2.test.mjs
+      - name: Run provisional merge-split audit proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-merge-split-audit.test.mjs
+      - name: Run post-saturation inverse-boundary-gap audit proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-inverse-boundary-gap-audit.test.mjs
+      - name: Run semantic difficulty audit proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-difficulty-audit.test.mjs
+      - name: Run item-level difficulty calibration proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-item-difficulty.test.mjs
+      - name: Run CP008 source-natural calibration proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-cp008-exam-natural.test.mjs
+      - name: Run CP013 source-natural calibration proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-cp013-exam-natural.test.mjs
+      - name: Run core faulty-clock exam-natural calibration proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-faulty-core-exam-natural.test.mjs
+      - name: Run spatial foundation regression
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+      - name: Run Mirror and Water regression
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
+      - name: Run clock renderer regression corpus
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
+      - name: Upload CLK-001 dual-oracle proof and English review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clk-001-all-14-checkpoints-dual-oracle-review
+          path: artifacts/api-server/dist/reasoning-v1/clock-v2/**
+          if-no-files-found: error

@@ -1,0 +1,35 @@
+name: Validate CLK-001 anchor distractor quality
+
+on:
+  pull_request:
+    branches:
+      - feat/clk-001-foundation-exact-kinematics
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Clocks/CLK-001/**
+      - artifacts/api-server/src/reasoning-v1/tests/clock-anchor-distractor-quality.test.ts
+      - .github/workflows/clk-001-anchor-distractor-quality.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-anchor-distractors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle anchor distractor proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/clock-v2
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/clock-anchor-distractor-quality.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/clock-v2/clock-anchor-distractor-quality.test.mjs
+      - name: Run 2,300-question anchor distractor proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/clock-v2/clock-anchor-distractor-quality.test.mjs

@@ -1,0 +1,65 @@
+name: Validate CLK-001 discovery readiness
+
+on:
+  pull_request:
+    branches:
+      - feat/clk-001-foundation-exact-kinematics
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Clocks/CLK-001/**
+      - artifacts/api-server/src/reasoning-v1/tests/clock-difficulty-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-item-difficulty.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-multilingual-risk-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-inverse-boundary-gap-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-discovery-freeze-review.test.ts
+      - .github/workflows/clk-001-discovery-readiness.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clk-discovery-readiness-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle discovery readiness proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/clock-v2
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/clock-difficulty-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/clock-v2/clock-difficulty-audit.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/clock-item-difficulty.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/clock-v2/clock-item-difficulty.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/clock-multilingual-risk-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/clock-v2/clock-multilingual-risk-audit.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/clock-inverse-boundary-gap-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/clock-v2/clock-inverse-boundary-gap-audit.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/clock-discovery-freeze-review.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/clock-v2/clock-discovery-freeze-review.test.mjs
+      - name: Run semantic difficulty proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/clock-v2/clock-difficulty-audit.test.mjs
+      - name: Run 5,000-item difficulty proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/clock-v2/clock-item-difficulty.test.mjs
+      - name: Run multilingual risk proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/clock-v2/clock-multilingual-risk-audit.test.mjs
+      - name: Run conservative discovery gate proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/clock-v2/clock-inverse-boundary-gap-audit.test.mjs
+      - name: Generate discovery freeze human review packet
+        run: cd artifacts/api-server && node dist/reasoning-v1/clock-v2/clock-discovery-freeze-review.test.mjs
+      - name: Upload discovery freeze review packet
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clk-001-discovery-freeze-human-review
+          path: |
+            artifacts/api-server/dist/reasoning-v1/clock-v2/clk-001-source-saturation-human-review.html
+            artifacts/api-server/dist/reasoning-v1/clock-v2/clk-001-item-difficulty-human-review.html
+            artifacts/api-server/dist/reasoning-v1/clock-v2/clk-001-discovery-freeze-review-manifest.json
+          if-no-files-found: error
