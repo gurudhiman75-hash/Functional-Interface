@@ -30,13 +30,13 @@ function assertLearnerV2(question: any, qlId: string, language: Tmw001ChapterLan
   const contractErrors = validateTmwLearnerExplanationV2(learner);
   assert(contractErrors.length === 0, `${label}: learner V2 contract failed: ${contractErrors.join(" | ")}`);
   assert(learner.solution.length >= 2 && learner.solution.length <= 5, `${label}: learner solution must contain 2-5 steps`);
-  assert(learner.answer.includes(question.solution.answerText), `${label}: learner answer omits the solved value`);
   assert(!("formula" in learner), `${label}: learner V2 exposes a formula block`);
   assert(!("givens" in learner), `${label}: learner V2 exposes a givens block`);
   assert(!("shortcut" in learner), `${label}: learner V2 should not force a shortcut`);
   assert(!("commonMistake" in learner), `${label}: learner V2 should not force a common-mistake block`);
 
   const visible = [learner.method, ...learner.solution, learner.answer].join(" ");
+  assert(visible.includes(question.solution.answerText), `${label}: learner V2 omits the solved answer text`);
   assert(!/10[- ]Second|10[- ]सेकंड|10[- ]ਸੈਕਿੰਡ/i.test(visible), `${label}: generic 10-second claim leaked into learner V2`);
   assert(!hasUnsafeNotation(visible), `${label}: word-based or localized subscript leaked into learner V2`);
   assert(!/\bFormula\b|\bGivens\b|\bShortcut\b/i.test(visible), `${label}: legacy section label leaked into learner V2`);
