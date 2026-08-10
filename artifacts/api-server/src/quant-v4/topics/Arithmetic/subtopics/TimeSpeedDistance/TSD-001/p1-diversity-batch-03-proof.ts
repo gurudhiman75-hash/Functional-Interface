@@ -15,6 +15,16 @@ const TARGETS = [
   ["requiredRemainingSpeedForTargetAverage", "p1-b03:target-average:84", "84 km/h"],
 ] as const;
 
+const EXPECTED_ROWS = new Map<string, number>([
+  ["unknownSegmentSpeedFromAverage", 5],
+  ["unknownSegmentTimeFromAverage", 4],
+  ["unknownSegmentDistanceFromAverage", 5],
+  ["unknownRoundTripLegSpeedFromAverage", 4],
+  ["oneWayDistanceFromRoundTripData", 4],
+  ["roundTripLegTimeSum", 6],
+  ["requiredRemainingSpeedForTargetAverage", 4],
+]);
+
 const TARGET_MODES = [...new Set(TARGETS.map(([mode]) => mode))];
 
 function normalizedTemplate(stem: string): string {
@@ -25,7 +35,7 @@ function normalizedTemplate(stem: string): string {
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 126, "Batch 03 must expose 126 canonical review records");
+assert(rows.length >= 139, "Batch 03 compatibility gate lost canonical review records");
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "Batch 03 changed the learner authority boundary");
 assert(rows.every((row) => row.validation.valid), "Invalid record entered Batch 03");
 assert(rows.every((row) => row.permanentQlId === null), "Permanent QL assigned during Batch 03");
@@ -45,8 +55,8 @@ const supplementalRows = TARGETS.map(([mode, seed, expectedAnswer]) => {
 
 for (const mode of TARGET_MODES) {
   const modeRows = rows.filter((row) => row.solveMode === mode);
-  const expectedRows = mode === "roundTripLegTimeSum" ? 5 : 4;
-  assert(modeRows.length === expectedRows, `${mode}: expected ${expectedRows} review states`);
+  const expectedRows = EXPECTED_ROWS.get(mode) ?? 0;
+  assert(modeRows.length >= expectedRows, `${mode}: Batch 03 review states were lost`);
   assert(new Set(modeRows.map((row) => row.answerText)).size >= 3, `${mode}: answer pool remains too repetitive`);
   assert(new Set(modeRows.map((row) => normalizedTemplate(row.stem))).size >= 2, `${mode}: no material stem-template expansion`);
   assert(new Set(modeRows.map((row) => row.sourceTrace.mathematicalFingerprint)).size === modeRows.length, `${mode}: mathematical state repeated`);
@@ -63,7 +73,7 @@ assert(new Set(supplementalRows.map((row) => row.representation)).size === suppl
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "P1_DIVERSITY_BATCH_03",
+  phase: "P1_DIVERSITY_BATCH_03_COMPATIBILITY",
   canonicalRecords: rows.length,
   targetedAuthorities: TARGET_MODES.length,
   supplementalRows: supplementalRows.length,

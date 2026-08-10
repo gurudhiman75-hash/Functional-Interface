@@ -15,6 +15,17 @@ function scalarValue(solution: TsdCp001Solution): Rational | null {
   return "value" in solution && typeof solution.value !== "boolean" ? solution.value : null;
 }
 
+function absolute(value: Rational): Rational {
+  return value.numerator < 0n ? rational(-value.numerator, value.denominator) : value;
+}
+
+function componentWiseRatioSum(first: Rational, second: Rational): Rational {
+  return rational(
+    first.numerator + second.numerator,
+    first.denominator + second.denominator,
+  );
+}
+
 function buildScalarSet(
   solution: TsdCp001Solution,
   display: DisplayContract,
@@ -48,6 +59,11 @@ function buildScalarSet(
   return { options: optionAudit.map((option) => option.text), optionAudit, correctIndex };
 }
 
+function floorToWholeHour(minutes: Rational): Rational {
+  if (minutes.denominator !== 1n) throw new Error("Clock inputs must use whole minutes");
+  return rational((minutes.numerator / 60n) * 60n);
+}
+
 export function examOptionPackage(
   input: TsdCp001SolveInput,
   solution: TsdCp001Solution,
@@ -73,16 +89,16 @@ export function examOptionPackage(
       break;
     case "speedFromDistanceAndTime":
       candidates = [
-        [subtract(correct, r(1)), "MISREAD_TIME"],
-        [add(correct, r(1)), "MISREAD_DISTANCE"],
-        [add(correct, r(2)), "DIVISION_ERROR"],
+        [divide(add(input.distanceMetres, input.durationSeconds), input.durationSeconds), "ADD_GIVENS_BEFORE_DIVIDING"],
+        [divide(subtract(input.distanceMetres, input.durationSeconds), input.durationSeconds), "SUBTRACT_GIVENS_BEFORE_DIVIDING"],
+        [divide(input.distanceMetres, divide(input.durationSeconds, r(60))), "TREAT_SECONDS_AS_MINUTES"],
       ];
       break;
     case "timeFromDistanceAndSpeed":
       candidates = [
-        [subtract(correct, r(5)), "MISREAD_SPEED"],
-        [add(correct, r(5)), "MISREAD_DISTANCE"],
-        [add(correct, r(10)), "DIVISION_ERROR"],
+        [divide(add(input.distanceMetres, input.speedMps), input.speedMps), "ADD_GIVENS_BEFORE_DIVIDING"],
+        [divide(subtract(input.distanceMetres, input.speedMps), input.speedMps), "SUBTRACT_GIVENS_BEFORE_DIVIDING"],
+        [divide(input.distanceMetres, multiply(input.speedMps, r(60))), "TREAT_SECONDS_AS_MINUTES"],
       ];
       break;
     case "convertSpeedUnit":
@@ -104,11 +120,84 @@ export function examOptionPackage(
     case "convertTimeUnit":
       candidates = [[input.value, "OMIT_UNIT_CONVERSION"], [multiply(correct, r(2)), "USE_WRONG_CONVERSION_FACTOR"], [divide(correct, r(2)), "USE_WRONG_CONVERSION_FACTOR"]];
       break;
-    case "speedFromMixedUnits":
-      candidates = [[multiply(correct, r(3, 4)), "MISREAD_TIME"], [multiply(correct, r(5, 4)), "MISREAD_TIME"], [multiply(correct, r(3, 2)), "MISREAD_DISTANCE"]];
+    case "speedFromMixedUnits": {
+      if (input.outputUnit === "KMPH") {
+        const metresPerSecond = multiply(correct, r(5, 18));
+        candidates = [
+          [metresPerSecond, "OMIT_UNIT_CONVERSION"],
+          [multiply(metresPerSecond, r(3)), "USE_WRONG_CONVERSION_FACTOR"],
+          [multiply(metresPerSecond, r(4)), "USE_WRONG_CONVERSION_FACTOR"],
+        ];
+      } else if (input.outputUnit === "MPS") {
+        const kilometresPerHour = multiply(correct, r(18, 5));
+        candidates = [
+          [kilometresPerHour, "OMIT_UNIT_CONVERSION"],
+          [divide(kilometresPerHour, r(3)), "USE_WRONG_CONVERSION_FACTOR"],
+          [divide(kilometresPerHour, r(4)), "USE_WRONG_CONVERSION_FACTOR"],
+        ];
+      } else if (input.outputUnit === "M_PER_MINUTE") {
+        candidates = [
+          [divide(input.distance, input.duration), "OMIT_UNIT_CONVERSION"],
+          [divide(correct, r(10)), "USE_WRONG_CONVERSION_FACTOR"],
+          [multiply(correct, r(10)), "USE_WRONG_CONVERSION_FACTOR"],
+        ];
+      } else {
+        return fallback;
+      }
       break;
-    case "elapsedClockTime":
-      candidates = [[subtract(correct, r(60)), "DROP_ONE_HOUR_FROM_INTERVAL"], [add(correct, r(60)), "ADD_ONE_HOUR_TO_INTERVAL"], [add(correct, r(30)), "MISREAD_TIME"]];
+    }
+    case "elapsedClockTime": {
+      const absoluteArrival = add(
+        input.arrivalMinuteOfDay,
+        multiply(rational(input.arrivalDayOffset), r(1440)),
+      );
+      const wholeHourInterval = subtract(
+        floorToWholeHour(absoluteArrival),
+        floorToWholeHour(input.departureMinuteOfDay),
+      );
+      candidates = [
+        [subtract(correct, r(60)), "DROP_ONE_HOUR_FROM_INTERVAL"],
+        [add(correct, r(60)), "ADD_ONE_HOUR_TO_INTERVAL"],
+        [wholeHourInterval, "IGNORE_MINUTE_COMPONENTS"],
+      ];
+      break;
+    }
+    case "compareDistancesAtEqualTime":
+    case "compareTimesAtEqualDistance":
+    case "compareSpeedsAtEqualTime": {
+      const first = input.solveMode === "compareSpeedsAtEqualTime" ? input.firstDistance : input.firstSpeed;
+      const second = input.solveMode === "compareSpeedsAtEqualTime" ? input.secondDistance : input.secondSpeed;
+      candidates = [
+        [divide(r(1), correct), "INVERT_REQUIRED_RATIO"],
+        [divide(add(first, second), second), "USE_SUM_INSTEAD_OF_RATIO"],
+        [divide(absolute(subtract(first, second)), second), "USE_DIFFERENCE_INSTEAD_OF_RATIO"],
+        [first, "USE_FIRST_QUANTITY_ONLY"],
+      ];
+      break;
+    }
+    case "distanceRatioFromSpeedAndTimeRatios":
+      candidates = [
+        [input.speedRatio, "USE_FIRST_QUANTITY_ONLY"],
+        [input.timeRatio, "USE_SECOND_QUANTITY_ONLY"],
+        [componentWiseRatioSum(input.speedRatio, input.timeRatio), "ADD_RATIOS_INSTEAD_OF_MULTIPLYING"],
+        [divide(r(1), correct), "INVERT_REQUIRED_RATIO"],
+      ];
+      break;
+    case "speedRatioFromDistanceAndTimeRatios":
+      candidates = [
+        [input.distanceRatio, "USE_FIRST_QUANTITY_ONLY"],
+        [input.timeRatio, "USE_SECOND_QUANTITY_ONLY"],
+        [multiply(input.distanceRatio, input.timeRatio), "MULTIPLY_INSTEAD_OF_DIVIDE"],
+        [divide(input.timeRatio, input.distanceRatio), "INVERT_REQUIRED_RATIO"],
+      ];
+      break;
+    case "timeRatioFromDistanceAndSpeedRatios":
+      candidates = [
+        [input.distanceRatio, "USE_FIRST_QUANTITY_ONLY"],
+        [input.speedRatio, "USE_SECOND_QUANTITY_ONLY"],
+        [multiply(input.distanceRatio, input.speedRatio), "MULTIPLY_INSTEAD_OF_DIVIDE"],
+        [divide(input.speedRatio, input.distanceRatio), "INVERT_REQUIRED_RATIO"],
+      ];
       break;
     case "distanceByProportion":
       candidates = [
@@ -145,9 +234,7 @@ export function examOptionPackage(
       candidates = [
         [divide(input.distance, add(availableHours, r(1))), "ADD_ONE_HOUR_TO_INTERVAL"],
         [divide(input.distance, subtract(availableHours, r(1))), "DROP_ONE_HOUR_FROM_INTERVAL"],
-        [add(correct, r(10)), "DIVISION_ERROR"],
-        [subtract(correct, r(10)), "DIVISION_ERROR"],
-        [add(correct, r(20)), "DIVISION_ERROR"],
+        [multiply(input.distance, availableHours), "MULTIPLY_INSTEAD_OF_DIVIDE"],
       ];
       break;
     }
