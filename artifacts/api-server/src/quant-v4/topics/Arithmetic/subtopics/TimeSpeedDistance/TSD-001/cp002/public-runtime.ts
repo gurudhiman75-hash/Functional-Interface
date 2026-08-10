@@ -1,3 +1,4 @@
+import { remodelTsdContext } from "../context-plausibility";
 import { remodelCp002DistractorExplanations } from "./distractor-explanation-integrity";
 import {
   cp002SolutionsMatch,
@@ -9,18 +10,21 @@ import {
 } from "./runtime";
 import type { TsdCp002GeneratedQuestion } from "./types";
 
-function remodel(question: TsdCp002GeneratedQuestion): TsdCp002GeneratedQuestion {
-  return remodelCp002DistractorExplanations(question);
+/** Single learner-output pipeline for CP-002. */
+export function remodelCp002LearnerQuestion(
+  question: TsdCp002GeneratedQuestion,
+): TsdCp002GeneratedQuestion {
+  return remodelCp002DistractorExplanations(remodelTsdContext(question));
 }
 
 export function generateCp002Candidate(
   ...args: Parameters<typeof generateCoreCp002Candidate>
 ): TsdCp002GeneratedQuestion {
-  return remodel(generateCoreCp002Candidate(...args));
+  return remodelCp002LearnerQuestion(generateCoreCp002Candidate(...args));
 }
 
 export function generateCp002ReviewRows(): readonly TsdCp002GeneratedQuestion[] {
-  return Object.freeze(generateCoreCp002ReviewRows().map(remodel));
+  return Object.freeze(generateCoreCp002ReviewRows().map(remodelCp002LearnerQuestion));
 }
 
 export {
