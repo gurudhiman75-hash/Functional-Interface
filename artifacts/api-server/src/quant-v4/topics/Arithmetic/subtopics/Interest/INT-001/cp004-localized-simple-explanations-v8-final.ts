@@ -97,7 +97,16 @@ function naturalTaskLine(
   if (locale === "hi-IN") {
     return task.startsWith("हमें ") ? task : `हमें ${task}`;
   }
-  return task.startsWith("ਸਾਨੂੰ ") ? task : `ਸਾਨੂੰ ${task}`;
+
+  if (task === "ਵਿਆਜ ਕਿੰਨੀ ਵਾਰ ਜੁੜਦਾ ਹੈ, ਇਹ ਪਤਾ ਕਰਨਾ ਹੈ।") {
+    return "ਆਓ ਪਤਾ ਕਰੀਏ ਕਿ ਵਿਆਜ ਕਿੰਨੀ ਵਾਰ ਜੁੜਦਾ ਹੈ।";
+  }
+
+  const natural = task
+    .replace(/ ਕੱਢਣੀ ਹੈ।$/u, " ਕੱਢੀਏ।")
+    .replace(/ ਕੱਢਣਾ ਹੈ।$/u, " ਕੱਢੀਏ।")
+    .replace(/ ਪਤਾ ਕਰਨਾ ਹੈ।$/u, " ਪਤਾ ਕਰੀਏ।");
+  return natural.startsWith("ਆਓ ") ? natural : `ਆਓ ${natural}`;
 }
 
 function finalizeSteps(
