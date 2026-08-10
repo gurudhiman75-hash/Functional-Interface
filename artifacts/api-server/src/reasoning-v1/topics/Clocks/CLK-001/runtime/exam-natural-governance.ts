@@ -9,16 +9,16 @@ import {
 import type { ClockTaskId } from "./catalog";
 
 const SOURCE_NATURAL_INTERCHANGE_AUDIT: ClockSourceAuditRecord = {
-  evidenceLevel: "DIRECT_SOURCE",
-  evidenceRefs: ["DISHA_SSC_CLOCKS"],
+  evidenceLevel: "DIRECT_MULTI_SOURCE",
+  evidenceRefs: ["RS_AGGARWAL_CLOCKS", "DISHA_SSC_CLOCKS"],
   flags: ["MERGE_SPLIT_REVIEW_REQUIRED"],
-  note: "Disha directly sources the elapsed-duration form: the hands are interchanged between departure and return, so their combined angular movement is 360 degrees and (6 + 0.5)t = 360. The source-natural answer is 720/13 minutes (about 55.4 minutes), not an arbitrary denominator-143 exact time pair.",
+  note: "R.S. Aggarwal and Disha both directly source the elapsed-duration interchange rule: when the two hands exchange positions, their combined angular movement is 360 degrees, so (6 + 0.5)t = 360 and t = 720/13 minutes = 55 5/13 minutes. This is the source-natural learner authority; arbitrary denominator-143 exact time-pair reconstruction remains an advanced held variant.",
 };
 
 const SOURCE_NATURAL_INTERCHANGE_DISPOSITION: ClockCandidateDispositionRecord = {
   disposition: "PROVISIONAL_AUTHORITY_ANCHOR",
   cluster: "HAND_INTERCHANGE",
-  rationale: "Promote only the directly sourced elapsed-duration interchange authority. Exact pair reconstruction, reverse reconstruction and pair validation remain advanced held variants until stronger exam-frequency evidence exists.",
+  rationale: "Promote only the directly multi-sourced elapsed-duration interchange authority. Exact pair reconstruction, reverse reconstruction and pair validation remain advanced held variants until stronger exam-frequency evidence exists.",
 };
 
 /**
