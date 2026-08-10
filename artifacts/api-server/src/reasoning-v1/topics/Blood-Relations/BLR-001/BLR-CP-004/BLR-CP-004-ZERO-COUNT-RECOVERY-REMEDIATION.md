@@ -10,13 +10,15 @@ The original CP-004 workflow still appeared green because the runtime command wa
 
 ## Correction
 
-The recovery keeps the existing checkpoint structure and solve authorities intact while making one deterministic `COUNT_RELATION_PAIRS` record exercise a legitimate zero case:
+The recovery keeps the existing checkpoint structure and solve authorities intact while making one deterministic `COUNT_MEMBERS_BY_FILTER` record exercise a legitimate zero case:
 
 - the source family graph is selected from the existing 102 frozen family groups;
-- the selected graph has no cousin pair;
-- its pair-count slot asks for the number of cousin pairs;
-- the correct answer is therefore `0`, independently derived from the existing family graph;
-- no person, relation edge, checkpoint identity or solve-authority definition is invented for the correction.
+- the selected graph has an empty learner-visible marital-status category, such as no member explicitly established as unmarried or no member whose marital status is explicitly marked unstated;
+- its member-count slot asks for that exact status category;
+- the correct answer is therefore `0`, independently recomputed from the existing family-tree role labels;
+- no person, relationship edge, checkpoint identity or solve-authority definition is invented for the correction.
+
+An earlier recovery attempt considered a zero cousin-pair case, but the source audit proved every frozen family group already contains at least one cousin pair. That attempt was rejected and removed before recovery approval.
 
 ## Invariants preserved
 
@@ -32,7 +34,7 @@ mock-test eligibility          disabled
 public publication             disabled
 ```
 
-The remaining CP-004 records and all QL meanings remain unchanged. The correction is a coverage remediation inside the existing `COUNT_RELATION_PAIRS` authority, not a new QL or a new checkpoint.
+The remaining CP-004 records and all QL meanings remain unchanged. The correction is a coverage remediation inside the existing `COUNT_MEMBERS_BY_FILTER` authority, not a new QL or a new checkpoint.
 
 ## Evidence boundary
 
