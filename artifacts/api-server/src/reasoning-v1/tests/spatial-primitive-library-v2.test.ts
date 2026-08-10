@@ -53,6 +53,7 @@ for (const entry of SPATIAL_PRIMITIVE_AUTHORITY_V2) {
   const connectivity = getSpatialPrimitiveConnectivityV2(entry.primitiveId);
   assert(connectivity.junctionCount >= 0, entry.primitiveId);
   assert(connectivity.crossingCount >= 0, entry.primitiveId);
+  assert(connectivity.terminalCount >= 0, entry.primitiveId);
   assert(connectivity.crossingCount <= connectivity.junctionCount, entry.primitiveId);
   assert.equal(entry.interiorIntersectionCount, connectivity.junctionCount, entry.primitiveId);
 
@@ -76,38 +77,51 @@ assert.equal(getSpatialPrimitiveV2("ARROW_RIGHT").symmetry.vertical, false);
 assert.deepEqual(getSpatialPrimitiveConnectivityV2("T_SHAPE"), {
   junctionCount: 1,
   crossingCount: 0,
+  terminalCount: 3,
 });
 assert.deepEqual(getSpatialPrimitiveConnectivityV2("THREE_SPOKE"), {
   junctionCount: 1,
   crossingCount: 0,
+  terminalCount: 3,
 });
 assert.deepEqual(getSpatialPrimitiveConnectivityV2("ARROW_RIGHT"), {
   junctionCount: 1,
   crossingCount: 0,
+  terminalCount: 3,
 });
 assert.deepEqual(getSpatialPrimitiveConnectivityV2("PLUS"), {
   junctionCount: 1,
   crossingCount: 1,
+  terminalCount: 4,
 });
 assert.deepEqual(getSpatialPrimitiveConnectivityV2("X_CROSS"), {
   junctionCount: 1,
   crossingCount: 1,
+  terminalCount: 4,
 });
 assert.deepEqual(getSpatialPrimitiveConnectivityV2("SIX_SPOKE"), {
   junctionCount: 1,
   crossingCount: 1,
+  terminalCount: 6,
 });
 assert.deepEqual(getSpatialPrimitiveConnectivityV2("SQUARE_CROSS_DIVIDED"), {
   junctionCount: 1,
   crossingCount: 1,
+  terminalCount: 0,
 });
 assert.deepEqual(getSpatialPrimitiveConnectivityV2("CIRCLE_CROSS_DIVIDED"), {
   junctionCount: 1,
   crossingCount: 1,
+  terminalCount: 0,
+});
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("CHEVRON_RIGHT"), {
+  junctionCount: 0,
+  crossingCount: 0,
+  terminalCount: 2,
 });
 
 const review = buildSpatialPrimitiveLibraryV2ReviewExport();
-assert.equal(review.schemaVersion, "1.1");
+assert.equal(review.schemaVersion, "1.2");
 assert.equal(review.primitiveCount, 33);
 assert.equal(review.validation.status, "PASS");
 assert.equal(review.rows.length, 33);
@@ -117,6 +131,7 @@ assert(
     (row) =>
       row.junctionCount >= 0 &&
       row.crossingCount >= 0 &&
+      row.terminalCount >= 0 &&
       row.crossingCount <= row.junctionCount,
   ),
 );
@@ -124,6 +139,7 @@ const html = buildSpatialPrimitiveLibraryV2ReviewHtml(review);
 assert.match(html, /^<!doctype html>/);
 assert.match(html, /Spatial Primitive Library V2/);
 assert.match(html, /True crossings/);
+assert.match(html, /Free terminals/);
 assert.doesNotMatch(html, /<script|javascript:/i);
 
 mkdirSync("dist/reasoning-v1/spatial", { recursive: true });
@@ -149,7 +165,7 @@ console.log(JSON.stringify({
     quarterTurnPeriodMatchesGeometry: true,
     orientationSensitivityMatchesGeometry: true,
     standardAxisReflectionSensitivityMatchesGeometry: true,
-    junctionVsCrossingSemantics: true,
+    junctionCrossingTerminalSemantics: true,
     uniqueCanonicalScenes: true,
     deterministicSvg: true,
     responsiveEditorialReview: true,
