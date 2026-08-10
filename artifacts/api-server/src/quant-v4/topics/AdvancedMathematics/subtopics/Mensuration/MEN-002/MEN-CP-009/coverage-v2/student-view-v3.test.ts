@@ -21,7 +21,14 @@ assert.equal(
 );
 
 const rawLatex = /\$|\\(?:pi|frac|text|times|sqrt)/;
-const disallowedStemLanguage = /leave the answer in terms|in the simplest form/i;
+const genericTrailer = /calculate carefully|(?:choose|select) the correct (?:answer|option)|determine the required value|find the requested measure/i;
+const disallowedStemLanguage = /leave the answer in terms|in the simplest form|calculate carefully|(?:choose|select) the correct (?:answer|option)|determine the required value|find the requested measure/i;
+
+const sourceTrailerCount = review.rows.filter((question) => genericTrailer.test(question.stem)).length;
+assert.ok(
+  sourceTrailerCount > 0,
+  "Frozen source batch should exercise the generic trailer-removal boundary.",
+);
 
 for (let index = 0; index < views.length; index += 1) {
   const view = views[index]!;
@@ -42,6 +49,10 @@ for (let index = 0; index < views.length; index += 1) {
   assert.ok(
     !disallowedStemLanguage.test(view.stem),
     `${view.permanentQlId} contains generator-style stem language: ${view.stem}`,
+  );
+  assert.ok(
+    !genericTrailer.test(view.stem),
+    `${view.permanentQlId} contains a generic answer-selection trailer: ${view.stem}`,
   );
 
   for (const option of view.options) {
@@ -106,6 +117,8 @@ console.log(
       reviewQuestions: views.length,
       permanentQls: new Set(views.map((view) => view.permanentQlId)).size,
       uniqueLearnerStems: new Set(views.map((view) => view.stem)).size,
+      sourceGenericTrailersExercised: sourceTrailerCount,
+      learnerGenericTrailers: 0,
       rawLatexLeaks: 0,
       genericDiagramsShown: 0,
       explanationLineRange: "2-4",
