@@ -6,6 +6,7 @@ interface R3Question {
   stem?: string;
   options?: string[];
   optionAudit?: Array<{ text?: string; [key: string]: unknown }>;
+  answerText?: string;
   solution?: { answerText?: string; [key: string]: unknown };
   explanation?: {
     conclusion?: string;
@@ -15,7 +16,9 @@ interface R3Question {
 }
 
 function answerText(question: R3Question): string {
-  return question.solution?.answerText?.trim() || "the stated answer";
+  return question.solution?.answerText?.trim()
+    || question.answerText?.trim()
+    || "the stated answer";
 }
 
 function replaceConclusion<T extends R3Question>(question: T, conclusion: string): T {
@@ -51,6 +54,7 @@ function mapQuestionText<T extends R3Question>(question: T, mapper: (value: stri
       ...option,
       text: option.text === undefined ? undefined : mapper(option.text),
     })),
+    answerText: question.answerText === undefined ? undefined : mapper(question.answerText),
     solution: question.solution
       ? {
         ...question.solution,
