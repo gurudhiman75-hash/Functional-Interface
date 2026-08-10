@@ -9,16 +9,19 @@ import {
 
 const OWNED_SEA001_QUERY_CONTRACTS = new Set([
   "SEA-QC-001",
+  "SEA-QC-002",
   "SEA-QC-003",
   "SEA-QC-004",
   "SEA-QC-005",
   "SEA-QC-006",
+  "SEA-QC-007",
   "SEA-QC-008",
   "SEA-QC-009",
   "SEA-QC-010",
   "SEA-QC-014",
   "SEA-QC-015",
   "SEA-QC-020",
+  "SEA-QC-021",
   "SEA-QC-022",
 ]);
 
