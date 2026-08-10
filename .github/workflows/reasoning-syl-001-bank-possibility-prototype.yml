@@ -10,13 +10,16 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v1-audit.test.ts
-      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-diagram-v1.ts
-      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-review-question-v1.ts
-      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-diagram-v1-audit.test.ts
-      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-review-v1.ts
-      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-review-v2.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-combined-diagram-v3.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-review-question-v3.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-combined-diagram-v3-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-completion.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-exact-venn.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-witness-proof.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-existential-completeness.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-witness-closure-finalizer.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-exact-venn-safety.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-directional-containment-safety.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/analysis.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/scenarios.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/localization.ts
@@ -64,37 +67,41 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-shell-v1-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-shell-v1-audit.log
 
-      - name: Bundle restored-diagram audit
+      - name: Bundle single combined-diagram audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-diagram-v1-audit.test.ts
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-combined-diagram-v3-audit.test.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/syl-001-bank-possibility-diagram-v1-audit.test.mjs
+          --outfile=dist/reasoning-v1/syl-001-bank-possibility-combined-diagram-v3-audit.test.mjs
 
-      - name: Run restored-diagram audit
+      - name: Run single combined-diagram audit
         shell: bash
         run: |
           set -o pipefail
-          node artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-diagram-v1-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-diagram-v1-audit.log
+          node artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-combined-diagram-v3-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-combined-diagram-v3-audit.log
 
-      - name: Bundle diagram-restored review exporter
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-review-v2.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/export-syl-001-bank-possibility-review-v2.mjs
-
-      - name: Generate multilingual diagram-restored review pack
-        run: node artifacts/api-server/dist/reasoning-v1/export-syl-001-bank-possibility-review-v2.mjs
+      - name: Reject legacy split-diagram bridge in active V3 path
+        run: |
+          if grep -R "renderBankingPossibilityDiagramsV1" \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-review-question-v3.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-combined-diagram-v3.ts; then
+            echo "Legacy per-conclusion diagram bridge is referenced by V3." >&2
+            exit 1
+          fi
+          if grep -R "as unknown as" \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-review-question-v3.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-combined-diagram-v3.ts; then
+            echo "Unsafe compatibility cast found in V3 combined diagram path." >&2
+            exit 1
+          fi
 
       - name: Upload prototype evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: syl-001-bank-possibility-shell-v1
+          name: syl-001-bank-possibility-shell-v3-combined-diagram
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-shell-v1-audit.log
-            artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-diagram-v1-audit.log
-            artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-review-v2/**
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-combined-diagram-v3-audit.log
           if-no-files-found: error
           retention-days: 30
