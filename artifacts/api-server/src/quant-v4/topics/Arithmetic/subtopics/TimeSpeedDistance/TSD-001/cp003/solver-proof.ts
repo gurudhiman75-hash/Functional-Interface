@@ -30,6 +30,31 @@ const cases: readonly { input: TsdCp003SolveInput; expected: ReturnType<typeof r
   },
   {
     input: {
+      solveMode: "speedFromFixedRouteTimeDifference",
+      representation: "KNOWN_OTHER_SPEED",
+      distance: rational(120),
+      timeDifference: rational(1),
+      knownSpeed: rational(40),
+      unknownRole: "FASTER",
+    },
+    expected: rational(60),
+    unit: "KMPH",
+  },
+  {
+    input: {
+      solveMode: "speedFromFixedRouteTimeDifference",
+      representation: "KNOWN_SPEED_RATIO",
+      distance: rational(200),
+      timeDifference: rational(1),
+      slowerRatio: rational(4),
+      fasterRatio: rational(5),
+      target: "FASTER",
+    },
+    expected: rational(50),
+    unit: "KMPH",
+  },
+  {
+    input: {
       solveMode: "usualSpeedFromEarlyLatePair",
       slowerTrialSpeed: rational(40),
       fasterTrialSpeed: rational(60),
@@ -49,6 +74,16 @@ const cases: readonly { input: TsdCp003SolveInput; expected: ReturnType<typeof r
     },
     expected: rational(240),
     unit: "KM",
+  },
+  {
+    input: {
+      solveMode: "scheduledArrivalTimeFromActualSpeed",
+      departureMinuteFromDayZero: rational(480),
+      distance: rational(120),
+      actualSpeed: rational(60),
+    },
+    expected: rational(600),
+    unit: "CLOCK_MINUTE",
   },
   {
     input: {
@@ -139,6 +174,93 @@ const cases: readonly { input: TsdCp003SolveInput; expected: ReturnType<typeof r
     expected: rational(7, 2),
     unit: "HOUR",
   },
+  {
+    input: {
+      solveMode: "speedChangePointDistance",
+      totalDistance: rational(120),
+      totalTravelTime: rational(3),
+      firstSpeed: rational(30),
+      secondSpeed: rational(60),
+    },
+    expected: rational(60),
+    unit: "KM",
+  },
+  {
+    input: {
+      solveMode: "fractionOfRouteAtChangedSpeed",
+      totalDistance: rational(120),
+      totalTravelTime: rational(3),
+      originalSpeed: rational(30),
+      changedSpeed: rational(60),
+    },
+    expected: rational(50),
+    unit: "PERCENT",
+  },
+  {
+    input: {
+      solveMode: "lostTimeDurationFromScheduleRecovery",
+      remainingDistance: rational(120),
+      usualSpeed: rational(60),
+      recoverySpeed: rational(80),
+      finalArrivalDelay: rational(1, 4),
+    },
+    expected: rational(3, 4),
+    unit: "HOUR",
+  },
+  {
+    input: {
+      solveMode: "startTimeShiftForSameArrival",
+      distance: rational(120),
+      originalSpeed: rational(40),
+      newSpeed: rational(60),
+    },
+    expected: rational(1),
+    unit: "HOUR",
+  },
+  {
+    input: {
+      solveMode: "arrivalShiftFromDepartureAndSpeedChanges",
+      distance: rational(120),
+      originalSpeed: rational(60),
+      newSpeed: rational(40),
+      departureShift: rational(-1, 2),
+    },
+    expected: rational(1, 2),
+    unit: "HOUR",
+  },
+  {
+    input: {
+      solveMode: "walkingRidingAllocation",
+      totalDistance: rational(30),
+      totalTime: rational(2),
+      walkingSpeed: rational(5),
+      ridingSpeed: rational(20),
+      target: "WALKING_DISTANCE",
+    },
+    expected: rational(10, 3),
+    unit: "KM",
+  },
+  {
+    input: {
+      solveMode: "walkingRidingAllocation",
+      totalDistance: rational(30),
+      totalTime: rational(2),
+      walkingSpeed: rational(5),
+      ridingSpeed: rational(20),
+      target: "RIDING_TIME",
+    },
+    expected: rational(4, 3),
+    unit: "HOUR",
+  },
+  {
+    input: {
+      solveMode: "scheduleBuffer",
+      scheduledDuration: rational(4),
+      plannedTravelDuration: rational(7, 2),
+    },
+    expected: rational(1, 2),
+    unit: "HOUR",
+  },
 ];
 
 let tamperRejections = 0;
@@ -155,6 +277,9 @@ for (const testCase of cases) {
   tamperRejections += 1;
 }
 
+const exercisedModes = new Set(cases.map((testCase) => testCase.input.solveMode));
+assert(exercisedModes.size === 22, `Expected all 22 learner solve modes, exercised ${exercisedModes.size}`);
+
 let invalidInputRejections = 0;
 for (const invalidInput of [
   {
@@ -168,6 +293,20 @@ for (const invalidInput of [
     slowerSpeed: rational(60),
     fasterSpeed: rational(40),
     timeDifference: rational(1),
+  },
+  {
+    solveMode: "speedFromFixedRouteTimeDifference",
+    representation: "KNOWN_OTHER_SPEED",
+    distance: rational(100),
+    timeDifference: rational(3),
+    knownSpeed: rational(40),
+    unknownRole: "FASTER",
+  },
+  {
+    solveMode: "scheduledArrivalTimeFromActualSpeed",
+    departureMinuteFromDayZero: rational(-1),
+    distance: rational(60),
+    actualSpeed: rational(60),
   },
   {
     solveMode: "requiredRemainingSpeedAfterPartialRoute",
@@ -194,6 +333,53 @@ for (const invalidInput of [
     restEvents: rational(1),
     totalElapsedTime: rational(3, 2),
   },
+  {
+    solveMode: "speedChangePointDistance",
+    totalDistance: rational(100),
+    totalTravelTime: rational(1),
+    firstSpeed: rational(30),
+    secondSpeed: rational(60),
+  },
+  {
+    solveMode: "fractionOfRouteAtChangedSpeed",
+    totalDistance: rational(100),
+    totalTravelTime: rational(2),
+    originalSpeed: rational(50),
+    changedSpeed: rational(50),
+  },
+  {
+    solveMode: "lostTimeDurationFromScheduleRecovery",
+    remainingDistance: rational(100),
+    usualSpeed: rational(60),
+    recoverySpeed: rational(50),
+    finalArrivalDelay: rational(0),
+  },
+  {
+    solveMode: "startTimeShiftForSameArrival",
+    distance: rational(100),
+    originalSpeed: rational(50),
+    newSpeed: rational(50),
+  },
+  {
+    solveMode: "arrivalShiftFromDepartureAndSpeedChanges",
+    distance: rational(120),
+    originalSpeed: rational(60),
+    newSpeed: rational(40),
+    departureShift: rational(-1),
+  },
+  {
+    solveMode: "walkingRidingAllocation",
+    totalDistance: rational(30),
+    totalTime: rational(1),
+    walkingSpeed: rational(5),
+    ridingSpeed: rational(20),
+    target: "WALKING_DISTANCE",
+  },
+  {
+    solveMode: "scheduleBuffer",
+    scheduledDuration: rational(3),
+    plannedTravelDuration: rational(4),
+  },
 ] as const) {
   try {
     solveCp003(invalidInput as TsdCp003SolveInput);
@@ -201,13 +387,14 @@ for (const invalidInput of [
     invalidInputRejections += 1;
   }
 }
-assert(invalidInputRejections === 6, "CP-003 solver did not reject all invalid boundary states");
+assert(invalidInputRejections === 15, "CP-003 solver did not reject all invalid boundary states");
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "TSD_CP003_SCHEDULE_AND_STOPPAGE_EXACT_SOLVER",
-  executableSolveModes: cases.length,
+  phase: "TSD_CP003_ALL_LEARNER_AUTHORITIES_EXACT_SOLVER",
+  learnerSolveModes: exercisedModes.size,
   exactCases: cases.length,
+  representationVariants: cases.length - exercisedModes.size,
   tamperRejections,
   invalidInputRejections,
   permanentQlCount: 0,
