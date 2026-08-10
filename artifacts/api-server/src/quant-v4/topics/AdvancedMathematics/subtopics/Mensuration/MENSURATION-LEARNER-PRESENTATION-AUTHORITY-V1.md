@@ -10,15 +10,19 @@ This authority separates mathematical/runtime correctness from the student-facin
 
 ## Stem standard
 
-Student stems must read like normal SSC/banking/state-exam MCQs. They must not expose generator instructions or implementation language.
+Student stems must read like normal SSC/banking/state-exam MCQs. They must not expose generator instructions, answer-selection filler, coaching chatter, or implementation language.
 
 Disallowed by default:
 
 - “Leave the answer in terms of …”
 - “in the simplest form” when the options already make the required form clear
 - “first to second” when a natural “in the order given” or ordinary ratio wording is sufficient
+- generic answer-selection trailers such as “Choose the correct option”, “Select the correct answer”, or equivalent wording
+- coaching/filler trailers such as “Calculate carefully”, “Determine the required value”, or “Find the requested measure” when the preceding sentence already asks the question
 - formula-selection hints such as “use the diameter form directly”
 - internal policy names, solve modes, family IDs, validation language, or source notes
+
+The stem should end when the actual mathematical question has been asked. In an MCQ, the existence of the options already tells the student to choose an answer.
 
 A numerical pi convention may be stated only when it is mathematically required to disambiguate a numerical option set, using normal exam wording such as `Take π = 22/7.` or `Take π = 3.14.` Exact-pi MCQs should let the options express the expected symbolic form rather than telling the student to “leave the answer in terms of π”.
 
@@ -65,7 +69,7 @@ A shortcut or mistake note may be shown only when it adds genuine teaching value
 
 ## MCQ answer-form rule
 
-Where possible, the four options should communicate the expected answer form. Do not add stem instructions solely to tell students how to format an answer in a multiple-choice question.
+Where possible, the four options should communicate the expected answer form. Do not add stem instructions solely to tell students how to format or select an answer in a multiple-choice question.
 
 ## Review gate
 
@@ -73,7 +77,7 @@ Engineering proof, option uniqueness, answer-position balance, and deterministic
 
 Before learner activation, the review surface must separately pass:
 
-- exam-natural stem review;
+- exam-natural stem review, including a zero-generic-trailer check;
 - displayed-math review;
 - diagram usefulness/correctness review;
 - concise-explanation review;
@@ -83,7 +87,7 @@ Before learner activation, the review surface must separately pass:
 
 MEN-CP-009 V3 uses this authority as a student-view layer over the frozen mathematical runtime. It deliberately preserves the existing QL identities, deterministic values, answers, options, misconception metadata, and product locks while changing only learner-facing presentation.
 
-For CP-009, direct sphere/hemisphere questions do not require diagrams, so the V3 learner review omits them rather than displaying generic geometry.
+For CP-009, direct sphere/hemisphere questions do not require diagrams, so the V3 learner review omits them rather than displaying generic geometry. Generic runtime stem trailers are also removed at the learner boundary and are forbidden by the presentation gate.
 
 ## Forward rule
 

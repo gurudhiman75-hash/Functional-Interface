@@ -1,12 +1,12 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import { buildMenCp009V2ReviewBatch } from "./review-batch";
+import { buildMenCp009V3StudentReviewBatch } from "./student-review-batch-v3";
 import {
   MEN_CP_009_STUDENT_VIEW_AUTHORITY,
   buildMenCp009StudentView,
 } from "./student-view-v3";
 
-const review = buildMenCp009V2ReviewBatch();
+const review = buildMenCp009V3StudentReviewBatch();
 const rows = review.rows.map(buildMenCp009StudentView);
 const outputPath = resolve(
   process.cwd(),
@@ -89,12 +89,12 @@ const html = `<!doctype html>
 <section class="hero"><div class="wrap">
   <h1>MEN-CP-009 — Spheres & Hemispheres</h1>
   <p><strong>Learner Review V3</strong> · authority ${escapeHtml(MEN_CP_009_STUDENT_VIEW_AUTHORITY)}</p>
-  <p>This review keeps the verified mathematics and options, but removes generator-style wording, raw LaTeX, unnecessary diagrams, and explanation clutter.</p>
-  <div class="standards"><strong>Presentation rule:</strong> natural MCQ stem → four options → short solution. No generic diagram is shown for these direct sphere/hemisphere items because it adds no information.</div>
+  <p>This review keeps the verified mathematics and options, but removes generator-style wording, generic answer-selection trailers, raw LaTeX, unnecessary diagrams, and explanation clutter.</p>
+  <div class="standards"><strong>Presentation rule:</strong> natural MCQ stem → four options → short solution. The stem ends when the mathematical question has been asked; no “choose the correct option” or “calculate carefully” filler is appended.</div>
   <div class="stats">
     <div class="stat"><b>${rows.length}</b><span>review questions</span></div>
     <div class="stat"><b>${new Set(rows.map((row) => row.permanentQlId)).size}</b><span>permanent QLs</span></div>
-    <div class="stat"><b>0</b><span>raw-LaTeX fields</span></div>
+    <div class="stat"><b>0</b><span>generic stem trailers</span></div>
     <div class="stat"><b>0</b><span>generic diagrams shown</span></div>
   </div>
 </div></section>

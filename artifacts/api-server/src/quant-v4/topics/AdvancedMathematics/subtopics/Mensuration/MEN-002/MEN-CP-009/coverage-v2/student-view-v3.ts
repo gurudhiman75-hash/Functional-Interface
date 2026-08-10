@@ -62,6 +62,18 @@ export function toPlainStudentMath(value: unknown): string {
   return text;
 }
 
+function stripGenericTrailer(value: string): string {
+  const trailer = /\s*(?:calculate carefully(?:\s+and\s+(?:select|choose)\s+the\s+correct\s+(?:answer|option))?|(?:choose|select)\s+the\s+correct\s+(?:answer|option)|determine\s+the\s+required\s+value|find\s+the\s+requested\s+measure)\.?\s*$/i;
+  let stem = value.trim();
+
+  // Strip repeatedly so stacked generic trailers cannot survive.
+  while (trailer.test(stem)) {
+    stem = stem.replace(trailer, "").trim();
+  }
+
+  return stem;
+}
+
 function naturaliseStem(rawStem: string): string {
   let stem = toPlainStudentMath(rawStem);
 
@@ -77,7 +89,7 @@ function naturaliseStem(rawStem: string): string {
     .replace(/\s+/g, " ")
     .trim();
 
-  return stem;
+  return stripGenericTrailer(stem);
 }
 
 function formulaForFamily(familyId: string): string {

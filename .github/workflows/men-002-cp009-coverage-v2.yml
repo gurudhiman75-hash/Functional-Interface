@@ -116,8 +116,13 @@ jobs:
           test -s dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html
           grep -q "Spheres & Hemispheres — Learner Review V3" dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html
           grep -q "MEN-002-QL-123" dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html
-          test "$(grep -o 'class=\"question-card\"' dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html | wc -l)" -eq 112
-          ! grep -Fq 'Leave the answer in terms' dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html
+          test "$(grep -o 'class=\"question-card\"' dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html | wc -l)" -eq 110
+          ! grep -Fqi 'Leave the answer in terms' dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html
+          ! grep -Fqi 'Calculate carefully' dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html
+          ! grep -Fqi 'Choose the correct option' dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html
+          ! grep -Fqi 'Select the correct answer' dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html
+          ! grep -Fqi 'Determine the required value' dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html
+          ! grep -Fqi 'Find the requested measure' dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html
           ! grep -Fq '\\frac' dist/quant-v4/MEN-CP-009-ENGLISH-REVIEW-V3.html
 
       - name: Build production API bundle
