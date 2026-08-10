@@ -16,7 +16,8 @@ This checkpoint does **not** declare the full chapter exam-ready. CP-007 through
 - R2 checkpoints: `TMW-CP-001..TMW-CP-006`
 - R2 branch: `fix/tmw-001-remediation-r2-cp001-cp006`
 - R2 base: `fix/tmw-001-remediation-r1-multilingual`
-- R2 proof head: `556ef9912eaed7749eeee331a4bb5ffb72f938c0`
+- Strengthened implementation proof head: `556ef9912eaed7749eeee331a4bb5ffb72f938c0`
+- Status-record head: `bcc5027c47d5d6f3398b4c903bcbc295b6315c50`
 - Draft PR: `#664`
 
 ## Seven MAJOR findings remediated
@@ -70,12 +71,19 @@ The R2 learner method layer selects the natural exam approach rather than one ge
 
 Workflow: `Validate TMW-001 remediation R2 CP001-CP006`
 
-Strengthened proof head:
+Strengthened implementation proof:
 
 - head: `556ef9912eaed7749eeee331a4bb5ffb72f938c0`
 - run: `31365050400` — **PASS**
 - evidence artifact: `9053810306`
 - artifact digest: `sha256:e4d3afc978d026c1708b0138bdc1f061c7cdbbff4ead82a84cf4655e76c3be46`
+
+Exact status-record head regression:
+
+- head: `bcc5027c47d5d6f3398b4c903bcbc295b6315c50`
+- run: `31365208972` — **PASS**
+- evidence artifact: `9053869567`
+- artifact digest: `sha256:1d9358d6e29ff74d0acbf220e0c5b6acd582a2749181d27a1c3255ceb78728d5`
 
 ### Seven-finding proof
 
@@ -137,7 +145,7 @@ The R2 gate was deliberately strengthened while implementation was in progress. 
 5. QL-106 exposed unsafe `\\text{constant}` in a legacy method opening; unsafe inherited openings are now excluded;
 6. a stronger requirement for a real calculation exposed QL-019 as `setup + answer` only; the extractor was upgraded to recover safe numeric-only arithmetic without reintroducing named subscripts.
 
-The final strengthened run passed after these corrections.
+The final strengthened implementation run and the subsequent exact-head regression both passed after these corrections.
 
 ## Remaining gate — R3
 
