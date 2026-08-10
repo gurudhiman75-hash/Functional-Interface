@@ -48,6 +48,7 @@ function solverFixtureProof(): void {
 function generatedCaseletProof(): void {
   let generated = 0;
   const observedFourthContracts = new Set<string>();
+  const observedAllContracts = new Set<string>();
   const observedPersonCounts = new Set<number>();
   for (const blueprintId of SEA_001_BLUEPRINTS) {
     for (let seedIndex = 0; seedIndex < 125; seedIndex += 1) {
@@ -64,6 +65,7 @@ function generatedCaseletProof(): void {
       assert.equal(first.lifecycle.permanentQlCount, 0);
       assert.equal(first.lifecycle.questionBankWritable, false);
       observedFourthContracts.add(first.children[3]?.queryContractId ?? "");
+      for (const child of first.children) observedAllContracts.add(child.queryContractId);
       const personCount = Number(first.setupText.match(/^(\d+)\s+persons/)?.[1] ?? 0);
       observedPersonCounts.add(personCount);
       for (const child of first.children) {
@@ -76,7 +78,27 @@ function generatedCaseletProof(): void {
     }
   }
   assert.equal(generated, 500);
-  assert.deepEqual([...observedFourthContracts].sort(), ["SEA-QC-014", "SEA-QC-015", "SEA-QC-020"]);
+  assert.deepEqual([...observedFourthContracts].sort(), [
+    "SEA-QC-002",
+    "SEA-QC-005",
+    "SEA-QC-007",
+    "SEA-QC-014",
+    "SEA-QC-015",
+    "SEA-QC-020",
+    "SEA-QC-021",
+  ]);
+  assert.deepEqual([...observedAllContracts].sort(), [
+    "SEA-QC-001",
+    "SEA-QC-002",
+    "SEA-QC-003",
+    "SEA-QC-005",
+    "SEA-QC-007",
+    "SEA-QC-008",
+    "SEA-QC-014",
+    "SEA-QC-015",
+    "SEA-QC-020",
+    "SEA-QC-021",
+  ]);
   assert.deepEqual([...observedPersonCounts].sort((left, right) => left - right), [5, 6, 7, 8]);
 }
 
@@ -93,4 +115,5 @@ console.log("PASS_SEA_001_CP001_FOUNDATION");
 console.log("named blueprint authorities", SEA_001_BLUEPRINTS.length);
 console.log("generated deterministic caselets", SEA_001_BLUEPRINTS.length * 125);
 console.log("generated child questions", SEA_001_BLUEPRINTS.length * 125 * 4);
+console.log("query contract families", 10);
 console.log("permanent QLs", 0);
