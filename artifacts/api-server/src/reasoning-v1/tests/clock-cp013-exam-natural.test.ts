@@ -15,7 +15,11 @@ assert.equal(
   CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION.TIME_AFTER_HANDS_INTERCHANGED.cluster,
   "HAND_INTERCHANGE",
 );
-assert.equal(CLOCK_EFFECTIVE_SOURCE_AUDIT.TIME_AFTER_HANDS_INTERCHANGED.evidenceLevel, "DIRECT_SOURCE");
+assert.equal(CLOCK_EFFECTIVE_SOURCE_AUDIT.TIME_AFTER_HANDS_INTERCHANGED.evidenceLevel, "DIRECT_MULTI_SOURCE");
+assert.deepEqual(
+  CLOCK_EFFECTIVE_SOURCE_AUDIT.TIME_AFTER_HANDS_INTERCHANGED.evidenceRefs,
+  ["RS_AGGARWAL_CLOCKS", "DISHA_SSC_CLOCKS"],
+);
 
 for (let seedIndex = 0; seedIndex < 40; seedIndex += 1) {
   const question = generateClockQuestion({
@@ -30,6 +34,7 @@ for (let seedIndex = 0; seedIndex < 40; seedIndex += 1) {
   assert.equal(question.solveTrace.verifierAnswerKey, "DURATION:43200/13");
   assert.equal(question.solveTrace.agreement, true);
   assert.equal(question.solveTrace.contractOracle, "CP013_SOURCE_NATURAL_INTERCHANGE_DURATION_ORACLE");
+  assert.equal(question.discoveryAudit.sourceEvidenceLevel, "DIRECT_MULTI_SOURCE");
   assert.equal(question.discoveryAudit.candidateDisposition, "PROVISIONAL_AUTHORITY_ANCHOR");
   assert.equal(question.discoveryAudit.semanticCluster, "HAND_INTERCHANGE");
   assert.equal(question.lifecycle.permanentQlId, null);
@@ -54,6 +59,7 @@ for (let seedIndex = 0; seedIndex < 40; seedIndex += 1) {
 console.log(JSON.stringify({
   status: "PASS_CLK_001_CP013_SOURCE_NATURAL_HAND_INTERCHANGE",
   calibratedTask: "TIME_AFTER_HANDS_INTERCHANGED",
+  evidenceLevel: "DIRECT_MULTI_SOURCE",
   exactDurationMinutes: "720/13",
   exactDurationDisplay: "55 5/13 minutes",
   seedsChecked: 40,
