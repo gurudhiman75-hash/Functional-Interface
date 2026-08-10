@@ -23,9 +23,28 @@ function priority(blueprintId: SeatingBlueprintId, clue: CandidateClue): number 
     "SEA-PBA-001": ["AT_END", "RELATIVE_POSITION", "ADJACENT", "EXACT_COUNT_BETWEEN", "ABSOLUTE_SEAT", "NOT_ADJACENT", "AT_MIDDLE"],
     "SEA-PBA-002": ["AT_MIDDLE", "EXACT_COUNT_BETWEEN", "RELATIVE_POSITION", "ADJACENT", "ABSOLUTE_SEAT", "AT_END", "NOT_ADJACENT"],
     "SEA-PBA-003": ["AT_END", "ADJACENT", "RELATIVE_POSITION", "EXACT_COUNT_BETWEEN", "ABSOLUTE_SEAT", "NOT_ADJACENT", "AT_MIDDLE"],
-    "SEA-PBA-004": ["NOT_ADJACENT", "ABSOLUTE_SEAT", "RELATIVE_POSITION", "EXACT_COUNT_BETWEEN", "ADJACENT", "AT_END", "AT_MIDDLE"],
+    // PBA-004 needs one negative-adjacency fact, not a wall of negative facts. The required
+    // negative clue and anchor are seeded explicitly; subsequent clues should maximise
+    // readable placement information before another negative or absolute clue is considered.
+    "SEA-PBA-004": ["RELATIVE_POSITION", "EXACT_COUNT_BETWEEN", "ADJACENT", "AT_END", "AT_MIDDLE", "NOT_ADJACENT", "ABSOLUTE_SEAT"],
   };
   return preferred[blueprintId].indexOf(kind);
+}
+
+function seedRequiredPba004Clues(
+  candidates: readonly CandidateClue[],
+  random: DeterministicRandom,
+): CandidateClue[] {
+  const absolute = random.shuffle(candidates.filter((clue) => clue.constraint.kind === "ABSOLUTE_SEAT"))
+    .sort((left, right) => right.informationGain - left.informationGain || left.semanticFingerprint.localeCompare(right.semanticFingerprint))[0];
+  if (!absolute || absolute.constraint.kind !== "ABSOLUTE_SEAT") throw new Error("PBA-004 has no absolute-seat candidate");
+
+  const negativeCandidates = candidates.filter((clue) => clue.constraint.kind === "NOT_ADJACENT");
+  const touchingAnchor = negativeCandidates.filter((clue) => clue.entitiesMentioned.includes(absolute.constraint.personId));
+  const negative = random.shuffle(touchingAnchor.length > 0 ? touchingAnchor : negativeCandidates)
+    .sort((left, right) => right.naturalnessScore - left.naturalnessScore || left.semanticFingerprint.localeCompare(right.semanticFingerprint))[0];
+  if (!negative || negative.constraint.kind !== "NOT_ADJACENT") throw new Error("PBA-004 has no negative-adjacency candidate");
+  return [absolute, negative];
 }
 
 export function selectUniqueClueSet(input: {
@@ -42,14 +61,25 @@ export function selectUniqueClueSet(input: {
   const facing = input.state.assignments[0]?.facing;
   if (!facing) throw new Error("Cannot select clues for an empty state");
   const random = new DeterministicRandom(`${input.seed}:${input.blueprintId}:clues`);
-  const ordered = random.shuffle(input.candidates).sort((left, right) => {
+  const seeded = input.blueprintId === "SEA-PBA-004"
+    ? seedRequiredPba004Clues(input.candidates, random)
+    : [];
+  const seededFingerprints = new Set(seeded.map((clue) => clue.semanticFingerprint));
+  const ordered = random.shuffle(input.candidates.filter((clue) => !seededFingerprints.has(clue.semanticFingerprint))).sort((left, right) => {
     const byBlueprint = priority(input.blueprintId, left) - priority(input.blueprintId, right);
     if (byBlueprint !== 0) return byBlueprint;
-    return right.informationGain - left.informationGain || left.semanticFingerprint.localeCompare(right.semanticFingerprint);
+    return right.informationGain - left.informationGain
+      || right.naturalnessScore - left.naturalnessScore
+      || left.semanticFingerprint.localeCompare(right.semanticFingerprint);
   });
 
-  const selected: CandidateClue[] = [];
+  const selected: CandidateClue[] = [...seeded];
   let productionKeys: string[] = [];
+  if (selected.length > 0) {
+    const initial = solveLinear({ personIds, facing, constraints: selected.map((item) => item.constraint), maxModels: 2 });
+    productionKeys = initial.models.map((model) => model.canonicalKey).sort();
+  }
+
   for (const clue of ordered) {
     if (selected.some((existing) => existing.semanticFingerprint === clue.semanticFingerprint)) continue;
     selected.push(clue);
@@ -68,6 +98,12 @@ export function selectUniqueClueSet(input: {
     if (!requirementsMet(input.blueprintId, trial)) continue;
     const result = solveLinear({ personIds, facing, constraints: trial.map((item) => item.constraint), maxModels: 2 });
     if (!result.truncated && result.models.length === 1) selected.splice(index, 1);
+  }
+
+  if (input.blueprintId === "SEA-PBA-004") {
+    const negativeCount = selected.filter((clue) => clue.constraint.kind === "NOT_ADJACENT").length;
+    if (negativeCount !== 1) throw new Error(`PBA-004 must display exactly one negative-adjacency clue, observed ${negativeCount}`);
+    if (selected.length > 7) throw new Error(`PBA-004 clue set is editorially too long: ${selected.length}`);
   }
 
   const finalProduction = solveLinear({ personIds, facing, constraints: selected.map((item) => item.constraint) });
