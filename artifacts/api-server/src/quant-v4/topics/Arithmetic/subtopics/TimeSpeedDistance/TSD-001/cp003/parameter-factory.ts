@@ -126,7 +126,7 @@ export function generateCp003State(authority: TsdCp003DiscoveryAuthority, seed: 
 
     case "requiredRemainingSpeedAfterPartialRoute": {
       const [totalD, scheduleT, completedD, completedSpeed] = profile(rng, [
-        [240, 4, 60, 30], [180, 3, 60, 40], [300, 5, 100, 40], [200, 4, 80, 40],
+        [180, 3, 90, 40], [300, 4, 150, 50], [180, 4, 90, 30], [240, 4, 120, 40],
       ] as const);
       return state({ solveMode: "requiredRemainingSpeedAfterPartialRoute", totalDistance: r(totalD), scheduledTotalTime: r(scheduleT), completedDistance: r(completedD), completedSpeed: r(completedSpeed) }, completedSpeed < totalD / scheduleT ? "SLOW_INITIAL_SEGMENT" : "FAST_INITIAL_SEGMENT", rng);
     }
@@ -165,7 +165,7 @@ export function generateCp003State(authority: TsdCp003DiscoveryAuthority, seed: 
 
     case "restTimeInRepeatedTravelRestCycle": {
       const [travelN, travelD, cycles, rests, restN, restD] = profile(rng, [
-        [1, 2, 4, 3, 1, 4], [3, 4, 3, 2, 1, 4], [2, 3, 3, 2, 1, 6], [1, 2, 5, 4, 1, 8],
+        [1, 2, 4, 3, 1, 4], [3, 4, 3, 2, 1, 4], [2, 3, 3, 2, 1, 6], [1, 2, 5, 4, 1, 5],
       ] as const);
       const travelPerCycle = r(travelN, travelD);
       const restPerEvent = r(restN, restD);
@@ -190,7 +190,7 @@ export function generateCp003State(authority: TsdCp003DiscoveryAuthority, seed: 
 
     case "fractionOfRouteAtChangedSpeed": {
       const [totalD, changedD, originalSpeed, changedSpeed] = profile(rng, [
-        [120, 48, 30, 60], [180, 90, 45, 60], [150, 50, 50, 75], [200, 120, 40, 80],
+        [120, 48, 30, 60], [180, 90, 45, 60], [160, 40, 40, 80], [200, 120, 40, 80],
       ] as const);
       const originalD = r(totalD - changedD);
       const totalTime = add(travelTime(originalD, r(originalSpeed)), travelTime(r(changedD), r(changedSpeed)));
