@@ -9,7 +9,7 @@ SHA-256: db7fcb55498201427706416ba36622718f667ee88500c8c1572f59473cff4bcc
 
 The V2 design remains the only chapter-design authority. Uploaded books are evidence for source frequency, value pools and learner wording; they do not override the design architecture.
 
-## Current exact status
+## Current governance status
 
 CLK-001 is **not** a frozen, exam-ready or multilingual chapter.
 
@@ -24,17 +24,19 @@ authority count frozen: false
 English human freeze: false
 ```
 
-## Current exact-head proof
+## Recorded green proof baseline
+
+The following is the most recent green implementation proof captured before this status-file refresh. Exact current-head evidence is maintained in PR #627 / GitHub Actions because updating this document itself creates a new commit.
 
 ```text
-Head:       0c6d8d90ee1419b1c9818fe3b58aff2578587a77
-Workflow:   Validate CLK-001 all-checkpoint dual-oracle discovery
-Run:        31363904880 — PASS
-Artifact:   9053409958
-Digest:     sha256:f56f31c4f344810b346910f561ef961a312ee36f0cfa1c81fee2c2035d7ef0dd
+Implementation head: 0c6d8d90ee1419b1c9818fe3b58aff2578587a77
+Workflow:            Validate CLK-001 all-checkpoint dual-oracle discovery
+Run:                 31363904880 — PASS
+Artifact:            9053409958
+Digest:              sha256:f56f31c4f344810b346910f561ef961a312ee36f0cfa1c81fee2c2035d7ef0dd
 ```
 
-All workflow stages pass:
+That proof passed:
 
 - exact clock foundation regression;
 - all 14 checkpoint contract proof;
@@ -68,7 +70,7 @@ The phrase `dual-answer oracle` in code means that a separately recomputed seman
 
 ## Presentation remediation
 
-The shared formatter and presentation normalizer now enforce learner-facing time/grammar rules before the question contract is packaged.
+The shared formatter and presentation normalizer enforce learner-facing time/grammar rules before the question contract is packaged.
 
 ```text
 Presentation questions tested:        5,000
@@ -84,7 +86,7 @@ Structured diagrams remain separate media objects rather than raw SVG inside ste
 
 ## Provisional source-frequency audit
 
-All 100 source candidates now carry an evidence classification and evidence references.
+All 100 source candidates carry an evidence classification and evidence references.
 
 ```text
 DIRECT_MULTI_SOURCE:                28
@@ -142,7 +144,7 @@ This is **not** a frozen 22-QL chapter. Source saturation and human review may s
 
 ## Provisional inverse, boundary and gap audit
 
-The 22 provisional anchor clusters now have explicit inverse and boundary decisions.
+The 22 provisional anchor clusters have explicit inverse and boundary decisions.
 
 ```text
 Inverse-audited clusters:              22 / 22
@@ -184,7 +186,7 @@ The standard 64-minute source-style replica now asks how much a fast clock gains
 
 ## Question-level audit metadata
 
-Every generated Clock question now carries discovery metadata for:
+Every generated Clock question carries discovery metadata for:
 
 - source evidence level and evidence references;
 - source-audit flags;
