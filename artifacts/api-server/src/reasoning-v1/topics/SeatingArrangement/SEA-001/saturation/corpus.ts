@@ -71,6 +71,10 @@ export interface AuditCaselet {
   readonly clueTexts: readonly string[];
   readonly constraints?: readonly AuditConstraint[];
   readonly clueSetFingerprint?: string;
+  readonly solutionPolicy?: string;
+  readonly solutionClassCount?: number;
+  readonly solutionStateClassCount?: number;
+  readonly proofTrace?: readonly unknown[];
   readonly solverOracleAgreement: {
     readonly productionKeys: readonly string[];
     readonly oracleKeys: readonly string[];
