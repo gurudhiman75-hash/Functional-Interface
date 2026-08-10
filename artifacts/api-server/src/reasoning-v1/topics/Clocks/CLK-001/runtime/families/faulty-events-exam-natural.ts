@@ -1,7 +1,6 @@
 import {
   absoluteRational,
   addRationals,
-  affineFaultyClockModel,
   classifyFaultyClockRate,
   compareRationals,
   divideRationals,
@@ -13,8 +12,8 @@ import {
 } from "../../../../../foundation/temporal";
 import type { ClockTaskId } from "../catalog";
 import type { ClockFamilySolverInput, SolvedClockPrototype } from "../solver-types";
+import type { ClockSemanticAnswer } from "../types";
 import {
-  formatClockTimeFromSeconds,
   formatDurationSeconds,
   formatOrdinal,
   rationalAnswer,
@@ -32,6 +31,7 @@ const CP008_TASKS = new Set<ClockTaskId>([
 ]);
 
 const DAY_SECONDS = 86_400;
+const NOON_SECONDS = exactRational(43_200);
 const DISPLAYED_COINCIDENCE_INTERVAL = exactRational(43_200, 11);
 const DISPLAYED_RIGHT_ANGLE_INTERVAL = exactRational(21_600, 11);
 const SOURCE_FAST_RATE = exactRational(45, 44); // 64 actual min -> 65 5/11 displayed min.
@@ -52,13 +52,17 @@ function rateDisplay(rate: { numerator: bigint; denominator: bigint }): string {
 function dailyErrorAnswer(
   direction: "GAIN" | "LOSS",
   seconds: { numerator: bigint; denominator: bigint },
-) {
-  return rationalAnswer(
+): ClockSemanticAnswer {
+  const base = rationalAnswer(
     "DURATION",
     seconds,
     `${direction === "GAIN" ? "gain" : "loss"} of ${formatDurationSeconds(seconds)} per day`,
     "DAILY_CLOCK_ERROR",
   );
+  return {
+    ...base,
+    semanticKey: `DURATION:DAILY_${direction}:${seconds.numerator}/${seconds.denominator}`,
+  };
 }
 
 function eventErrorDistractors(
@@ -143,7 +147,7 @@ function solveGainOrLoss(input: ClockFamilySolverInput): SolvedClockPrototype {
       rule: "Compare the normal displayed coincidence interval with the observed actual interval, then use direct proportion to scale the gain or loss to 24 hours.",
       working: [
         `Clock rate = ${normalText} : ${observedText} = ${rateDisplay(inferredRate)}.`,
-        `Error fraction per actual minute = |rate − 1|.`,
+        "Error fraction per actual minute = |rate − 1|.",
         `${direction === "GAIN" ? "Gain" : "Loss"} in 24 hours = ${formatDurationSeconds(magnitude)}.`,
       ],
       validityCheck: `At rate ${rateDisplay(inferredRate)}, ${observedText} of actual time advances the clock display by exactly ${normalText}.`,
@@ -327,12 +331,14 @@ function solveNthDisplayedCoincidence(input: ClockFamilySolverInput): SolvedCloc
   const occurrence = input.rng.int(2, 6);
   const displayedElapsed = multiplyRationals(DISPLAYED_COINCIDENCE_INTERVAL, occurrence);
   const actualElapsed = divideRationals(displayedElapsed, SOURCE_FAST_RATE);
-  const expectedActual = exactRational(occurrence * 64 * 60);
-  if (!rationalsEqual(actualElapsed, expectedActual)) {
+  const expectedElapsed = exactRational(occurrence * 64 * 60);
+  if (!rationalsEqual(actualElapsed, expectedElapsed)) {
     throw new Error("Source-natural 64-minute coincidence calibration drifted.");
   }
-  const answer = timeAnswer(actualElapsed, { absolute: true, includeDayOffset: true, includeSeconds: false });
-  const verifierAnswer = timeAnswer(expectedActual, { absolute: true, includeDayOffset: true, includeSeconds: false });
+  const actualTimestamp = addRationals(NOON_SECONDS, actualElapsed);
+  const expectedTimestamp = addRationals(NOON_SECONDS, expectedElapsed);
+  const answer = timeAnswer(actualTimestamp, { absolute: true, includeDayOffset: true, includeSeconds: false });
+  const verifierAnswer = timeAnswer(expectedTimestamp, { absolute: true, includeDayOffset: true, includeSeconds: false });
   const dailyGainText = formatDurationSeconds(SOURCE_FAST_DAILY_GAIN);
   const occurrenceText = formatOrdinal(occurrence);
   return {
@@ -348,35 +354,35 @@ function solveNthDisplayedCoincidence(input: ClockFamilySolverInput): SolvedCloc
     verifierAnswer,
     distractors: [
       {
-        answer: timeAnswer(multiplyRationals(DISPLAYED_COINCIDENCE_INTERVAL, occurrence), { absolute: true, includeDayOffset: true, includeSeconds: true }),
+        answer: timeAnswer(addRationals(NOON_SECONDS, multiplyRationals(DISPLAYED_COINCIDENCE_INTERVAL, occurrence)), { absolute: true, includeDayOffset: true, includeSeconds: true }),
         reasonCode: "DISPLAYED_RECURRENCE_USED_AS_ACTUAL",
         reason: "This counts the normal clock-time recurrence directly as actual elapsed time and ignores that the clock is fast.",
       },
       {
-        answer: timeAnswer(exactRational((occurrence - 1) * 64 * 60), { absolute: true, includeDayOffset: true }),
+        answer: timeAnswer(addRationals(NOON_SECONDS, exactRational((occurrence - 1) * 64 * 60)), { absolute: true, includeDayOffset: true }),
         reasonCode: "PREVIOUS_COINCIDENCE_SELECTED",
         reason: "This gives the preceding post-noon coincidence rather than the stated occurrence.",
       },
       {
-        answer: timeAnswer(exactRational((occurrence + 1) * 64 * 60), { absolute: true, includeDayOffset: true }),
+        answer: timeAnswer(addRationals(NOON_SECONDS, exactRational((occurrence + 1) * 64 * 60)), { absolute: true, includeDayOffset: true }),
         reasonCode: "NEXT_COINCIDENCE_SELECTED",
         reason: "This gives the next post-noon coincidence rather than the stated occurrence.",
       },
     ],
     explanation: {
-      given: `The clock gains ${dailyGainText} per day and therefore runs at ${rateDisplay(SOURCE_FAST_RATE)} of correct speed.`,
+      given: `The clock is correct at 12 noon and gains ${dailyGainText} per day, so it runs at ${rateDisplay(SOURCE_FAST_RATE)} of correct speed.`,
       rule: "On this calibrated fast clock, one displayed coincidence interval of 65 5/11 clock-minutes takes exactly 64 actual minutes.",
       working: [
-        `Actual time to one post-noon coincidence = 64 minutes.`,
+        "Actual elapsed time to one post-noon coincidence = 64 minutes.",
         `Actual elapsed time to the ${occurrenceText} post-noon coincidence = ${occurrence} × 64 = ${occurrence * 64} minutes.`,
-        `Actual clock time = ${answer.display}.`,
+        `Adding that elapsed time to 12 noon gives ${answer.display}.`,
       ],
       validityCheck: `At ${answer.display}, the faulty display has advanced by exactly ${formatDurationSeconds(displayedElapsed)}, which is ${occurrence} coincidence intervals.`,
       closestTrap: "Do not count the 12-noon starting coincidence as the first post-noon occurrence; the question says after 12 noon.",
       answer: answer.display,
     },
-    canonicalTrace: [`n×displayedInterval/rate=${actualElapsed.numerator}/${actualElapsed.denominator}`],
-    verifierTrace: [`n×64min=${expectedActual.numerator}/${expectedActual.denominator}`],
+    canonicalTrace: [`12noon+n×displayedInterval/rate=${actualTimestamp.numerator}/${actualTimestamp.denominator}`],
+    verifierTrace: [`12noon+n×64min=${expectedTimestamp.numerator}/${expectedTimestamp.denominator}`],
     solveTraceExtras: { rateRatio: rateDisplay(SOURCE_FAST_RATE) },
     contractEvidence: {
       expectedAnswerKind: "ABSOLUTE_TIME",
