@@ -54,10 +54,6 @@ function allInteger(values: readonly Rational[]): boolean {
 }
 
 function noDisplayedDecimalsInProblem(question: IntCp004EnglishFrozenQuestion): boolean {
-  // Wrong-option values are legacy diagnostic outputs and may be fractional even
-  // when the actual exam problem has clean integer working. V9 remaps only their
-  // learner-facing display; source selection is governed by the stem, verified
-  // correct answer and complete canonical working.
   return !DECIMAL_TOKEN.test([
     question.stem,
     question.correctAnswer,
@@ -134,25 +130,20 @@ function moneyWorkingIsInteger(state: Cp004MathematicalState): boolean {
       const rate = periodicRate(state.nominalAnnualRatePercent, state.frequency);
       return allInteger(compoundSequence(principal, rate, state.periods));
     }
-
     case "INT-QL-073":
     case "INT-QL-074":
       return allInteger(compoundSequence(principal, state.periodicRatePercent, state.periods));
-
     case "INT-QL-075": {
       const firstRate = periodicRate(state.nominalAnnualRatePercent, state.frequency);
       const secondRate = periodicRate(state.nominalAnnualRatePercent, state.comparisonFrequency);
-      const first = compoundSequence(principal, firstRate, state.frequency * state.years);
-      const second = compoundSequence(principal, secondRate, state.comparisonFrequency * state.years);
-      return allInteger(first) && allInteger(second);
+      return allInteger(compoundSequence(principal, firstRate, state.frequency * state.years))
+        && allInteger(compoundSequence(principal, secondRate, state.comparisonFrequency * state.years));
     }
-
     case "INT-QL-076":
     case "INT-QL-077": {
       const rate = periodicRate(state.nominalAnnualRatePercent, state.frequency);
       return allInteger(compoundSequence(rat(100), rate, state.frequency));
     }
-
     case "INT-QL-079":
     case "INT-QL-080":
     case "INT-QL-081":
@@ -163,30 +154,17 @@ function moneyWorkingIsInteger(state: Cp004MathematicalState): boolean {
       const afterWholeYears = wholeYears.at(-1)!;
       const tailInterest = mul(
         afterWholeYears,
-        mul(
-          div(state.nominalAnnualRatePercent, rat(100)),
-          rat(state.tailMonths, 12),
-        ),
+        mul(div(state.nominalAnnualRatePercent, rat(100)), rat(state.tailMonths, 12)),
       );
       return isInteger(tailInterest) && isInteger(add(afterWholeYears, tailInterest));
     }
-
     case "INT-QL-084":
     case "INT-QL-085": {
       const firstRate = periodicRate(state.nominalAnnualRatePercent, state.firstFrequency);
       const secondRate = periodicRate(state.nominalAnnualRatePercent, state.secondFrequency);
-      const first = compoundSequence(
-        principal,
-        firstRate,
-        state.firstFrequency * state.firstYears,
-      );
+      const first = compoundSequence(principal, firstRate, state.firstFrequency * state.firstYears);
       if (!allInteger(first) || first.length === 0) return false;
-      const second = compoundSequence(
-        first.at(-1)!,
-        secondRate,
-        state.secondFrequency * state.secondYears,
-      );
-      return allInteger(second);
+      return allInteger(compoundSequence(first.at(-1)!, secondRate, state.secondFrequency * state.secondYears));
     }
   }
 }
@@ -200,28 +178,16 @@ function reviewRequest(seed: string): Readonly<{
   if (!match) return null;
   const frame = Number(match[2]);
   const startCandidate = Number(match[3]);
-  if (
-    !Number.isInteger(frame)
-    || frame < 1
-    || frame > 4
-    || !Number.isInteger(startCandidate)
-    || startCandidate < 0
-  ) return null;
+  if (!Number.isInteger(frame) || frame < 1 || frame > 4 || !Number.isInteger(startCandidate) || startCandidate < 0) return null;
   return Object.freeze({ prefix: match[1]!, startCandidate, frame });
 }
 
-function matchesReviewShape(
-  question: IntCp004EnglishFrozenQuestion,
-  frame: number,
-): boolean {
+function matchesReviewShape(question: IntCp004EnglishFrozenQuestion, frame: number): boolean {
   return question.stemFamilyId === `${question.qlId}-FRAME-${frame}`
-    && question.representation === REVIEW_REPRESENTATIONS[frame - 1]
-    && question.correctIndex === frame % 4;
+    && question.representation === REVIEW_REPRESENTATIONS[frame - 1];
 }
 
-export function isIntCp004ExamFriendlyFrozenSourceV9(
-  question: IntCp004EnglishFrozenQuestion,
-): boolean {
+export function isIntCp004ExamFriendlyFrozenSourceV9(question: IntCp004EnglishFrozenQuestion): boolean {
   return noDisplayedDecimalsInProblem(question)
     && simpleRatesAreInteger(question.mathematicalState)
     && calculationDepthIsFriendly(question.mathematicalState)
@@ -238,28 +204,15 @@ export function selectIntCp004ExamFriendlyFrozenSourceV9(
   const review = reviewRequest(seed);
   if (review) {
     for (let offset = 0; offset < REVIEW_SEARCH_ATTEMPTS; offset += 1) {
-      const candidate = generateIntCp004EnglishFrozenQuestion(
-        qlId,
-        `${review.prefix}${review.startCandidate + offset}`,
-      );
-      if (
-        isIntCp004ExamFriendlyFrozenSourceV9(candidate)
-        && matchesReviewShape(candidate, review.frame)
-      ) return candidate;
+      const candidate = generateIntCp004EnglishFrozenQuestion(qlId, `${review.prefix}${review.startCandidate + offset}`);
+      if (isIntCp004ExamFriendlyFrozenSourceV9(candidate) && matchesReviewShape(candidate, review.frame)) return candidate;
     }
-    throw new Error(
-      `${qlId}/${seed}: unable to find an exam-friendly review source in ${REVIEW_SEARCH_ATTEMPTS} direct candidates.`,
-    );
+    throw new Error(`${qlId}/${seed}: unable to find an exam-friendly review source in ${REVIEW_SEARCH_ATTEMPTS} direct candidates.`);
   }
 
   for (let attempt = 0; attempt < MAX_SEARCH_ATTEMPTS; attempt += 1) {
-    const candidate = generateIntCp004EnglishFrozenQuestion(
-      qlId,
-      `${seed}:exam-friendly-v9:${attempt}`,
-    );
+    const candidate = generateIntCp004EnglishFrozenQuestion(qlId, `${seed}:exam-friendly-v9:${attempt}`);
     if (isIntCp004ExamFriendlyFrozenSourceV9(candidate)) return candidate;
   }
-  throw new Error(
-    `${qlId}/${seed}: unable to find an exam-friendly integer-working source in ${MAX_SEARCH_ATTEMPTS} attempts.`,
-  );
+  throw new Error(`${qlId}/${seed}: unable to find an exam-friendly integer-working source in ${MAX_SEARCH_ATTEMPTS} attempts.`);
 }
