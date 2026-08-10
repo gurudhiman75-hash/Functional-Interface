@@ -8,6 +8,7 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Clocks/CLK-001/**
       - artifacts/api-server/src/reasoning-v1/tests/clock-difficulty-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-item-difficulty.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/clock-multilingual-risk-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/clock-inverse-boundary-gap-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/clock-discovery-freeze-review.test.ts
@@ -38,11 +39,14 @@ jobs:
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/clock-v2
           pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/clock-difficulty-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/clock-v2/clock-difficulty-audit.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/clock-item-difficulty.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/clock-v2/clock-item-difficulty.test.mjs
           pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/clock-multilingual-risk-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/clock-v2/clock-multilingual-risk-audit.test.mjs
           pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/clock-inverse-boundary-gap-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/clock-v2/clock-inverse-boundary-gap-audit.test.mjs
           pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/clock-discovery-freeze-review.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/clock-v2/clock-discovery-freeze-review.test.mjs
-      - name: Run semantic plus item-level difficulty proof
+      - name: Run semantic difficulty proof
         run: cd artifacts/api-server && node dist/reasoning-v1/clock-v2/clock-difficulty-audit.test.mjs
+      - name: Run 5,000-item difficulty proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/clock-v2/clock-item-difficulty.test.mjs
       - name: Run multilingual risk proof
         run: cd artifacts/api-server && node dist/reasoning-v1/clock-v2/clock-multilingual-risk-audit.test.mjs
       - name: Run conservative discovery gate proof
