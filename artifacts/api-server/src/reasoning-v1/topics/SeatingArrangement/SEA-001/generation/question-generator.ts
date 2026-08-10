@@ -77,7 +77,7 @@ function buildSemanticOptions(input: {
     recomputation: { method: "DIRECT_VERIFIED_HIDDEN_STATE_PROJECTION" },
     explanation: "This matches the uniquely solved row.",
   });
-  return { options: options as SeatingChildQuestion["options"], answerIndex };
+  return { options: options as unknown as SeatingChildQuestion["options"], answerIndex };
 }
 
 function fourthQuestion(
