@@ -56,21 +56,10 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-final-discovery-freeze.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-permanent-runtime.test.ts
 
-      - name: Diagnose CP-004 historical zero-count coverage and prove freeze
-        shell: bash
+      - name: Prove CP-004 frozen runtime
         run: |
-          set -euo pipefail
-          ROOT=artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004
-          set +e
-          pnpm dlx tsx@4.20.6 "$ROOT/cp004-runtime.test.ts" > cp004-runtime-diagnostic.log 2>&1
-          runtime_status=$?
-          set -e
-          cat cp004-runtime-diagnostic.log
-          if [ "$runtime_status" -ne 0 ]; then
-            grep -q 'telemetry.zeroAnswerCount > 0' cp004-runtime-diagnostic.log || exit "$runtime_status"
-            echo 'KNOWN_RECOVERY_DIAGNOSTIC: CP-004 frozen bank has zeroAnswerCount=0; historical workflow masked this exact assertion through tee without pipefail.'
-          fi
-          pnpm dlx tsx@4.20.6 "$ROOT/cp004-final-freeze.test.ts"
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/cp004-runtime.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/cp004-final-freeze.test.ts
 
       - name: Prove CP-005 frozen runtime
         run: |
