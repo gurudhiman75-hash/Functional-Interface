@@ -142,6 +142,18 @@ function collisionFallback(input: TsdCp003SolveInput, solution: TsdCp003SolveCer
       ]);
     }
 
+    case "startTimeShiftForSameArrival": {
+      const oldTime = divide(input.distance, input.originalSpeed);
+      const newTime = divide(input.distance, input.newSpeed);
+      const averageTime = divide(add(oldTime, newTime), rational(2));
+      return choose(answer, [
+        wrong("USE_OLD_TRAVEL_TIME", oldTime, `${f(input.distance)} ÷ ${f(input.originalSpeed)}`, "It gives the old journey time instead of the required departure shift."),
+        wrong("USE_NEW_TRAVEL_TIME", newTime, `${f(input.distance)} ÷ ${f(input.newSpeed)}`, "It gives the new journey time instead of the difference between the two journey times."),
+        wrong("ADD_TRAVEL_TIMES_FOR_SHIFT", add(oldTime, newTime), `${f(oldTime)} + ${f(newTime)}`, "It adds the two journey times instead of taking their difference."),
+        wrong("AVERAGE_TRAVEL_TIMES_FOR_SHIFT", averageTime, `(${f(oldTime)} + ${f(newTime)}) ÷ 2`, "It averages the old and new journey times instead of subtracting them to find the departure shift."),
+      ]);
+    }
+
     case "arrivalShiftFromDepartureAndSpeedChanges": {
       const oldTime = divide(input.distance, input.originalSpeed);
       const newTime = divide(input.distance, input.newSpeed);
