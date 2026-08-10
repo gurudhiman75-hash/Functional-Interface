@@ -66,11 +66,12 @@ export function validateSpatialPrimitiveV2(
   const connectivity = getSpatialPrimitiveConnectivityV2(entry.primitiveId);
   if (connectivity.junctionCount < 0) add("JUNCTION_COUNT", "Junction count cannot be negative.");
   if (connectivity.crossingCount < 0) add("CROSSING_COUNT", "Crossing count cannot be negative.");
+  if (connectivity.terminalCount < 0) add("TERMINAL_COUNT", "Free-terminal count cannot be negative.");
   if (connectivity.crossingCount > connectivity.junctionCount) add("CONNECTIVITY_ORDER", "Crossing count cannot exceed junction count.");
   if (entry.interiorIntersectionCount !== connectivity.junctionCount) {
     add(
       "LEGACY_MEETING_POINT_COUNT",
-      "Legacy interiorIntersectionCount must equal the authoritative junction count until V3 removes the compatibility field.",
+      "Legacy interiorIntersectionCount must equal the authoritative branch-junction count until V3 removes the compatibility field.",
     );
   }
 
