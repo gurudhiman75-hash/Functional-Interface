@@ -66,10 +66,11 @@ for (const qlId of CALENDAR_PERMANENT_QL_IDS) {
       itemId: `calendar-production-${previewChecks}`,
       generationRunCode: "CAL-PRODUCTION-INTEGRATION",
     });
+    const answerModel = normalized.answerModel as any;
     assert.equal(normalized.options.length, 4);
     assert.equal(normalized.correctIndex, question.correctIndex);
-    assert.equal(normalized.answerModel.generation.packageId, CAL_001_PACKAGE_ID);
-    assert.equal(normalized.answerModel.generation.language, language);
+    assert.equal(answerModel.generation.packageId, CAL_001_PACKAGE_ID);
+    assert.equal(answerModel.generation.language, language);
 
     previewChecks += 1;
     conversionChecks += 1;
