@@ -171,7 +171,10 @@ const EXACT_TEXTUAL_OPTIONS: Readonly<Record<string, NativePair>> = {
   "both are equally likely": pair("दोनों की प्रायिकता समान है", "ਦੋਵਾਂ ਦੀ ਸੰਭਾਵਨਾ ਇੱਕੋ ਹੈ"),
 };
 
-const DEVANAGARI = /[\u0900-\u097F]/u;
+// U+0964/U+0965 (danda/double danda) are shared Indic punctuation and are
+// intentionally excluded from the Devanagari script detector so Punjabi prose
+// ending in "।" is not falsely classified as mixed Hindi/Punjabi script.
+const DEVANAGARI = /[\u0900-\u0963\u0966-\u097F]/u;
 const GURMUKHI = /[\u0A00-\u0A7F]/u;
 const LATIN_TOKEN = /\b[A-Za-z][A-Za-z0-9_-]*\b/g;
 
