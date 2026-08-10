@@ -170,12 +170,26 @@ function quantityText(value: Rational, unit: "litres" | "kg"): string {
   return `${formatRational(value)} ${displayUnit}`;
 }
 
+function currencyValueText(value: Rational): string {
+  const scaledHundred = value.numerator * 100n;
+  if (scaledHundred % value.denominator === 0n) {
+    const paise = scaledHundred / value.denominator;
+    const sign = paise < 0n ? "-" : "";
+    const absolutePaise = paise < 0n ? -paise : paise;
+    const rupees = absolutePaise / 100n;
+    const remainder = absolutePaise % 100n;
+    if (remainder === 0n) return `${sign}${rupees}`;
+    return `${sign}${rupees}.${remainder.toString().padStart(2, "0")}`;
+  }
+  return formatRational(value);
+}
+
 function rateText(value: Rational, unit: "litres" | "kg"): string {
-  return `₹${formatRational(value)} per ${unit === "kg" ? "kg" : "litre"}`;
+  return `₹${currencyValueText(value)} per ${unit === "kg" ? "kg" : "litre"}`;
 }
 
 function moneyText(value: Rational): string {
-  return `₹${formatRational(value)}`;
+  return `₹${currencyValueText(value)}`;
 }
 
 function isWholePositive(value: Rational): boolean {
