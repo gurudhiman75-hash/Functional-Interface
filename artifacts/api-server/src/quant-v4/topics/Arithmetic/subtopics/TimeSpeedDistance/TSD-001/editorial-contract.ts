@@ -1,8 +1,9 @@
 export type TsdDifficultyLabel = "Easy" | "Medium" | "Hard";
+export type TsdDifficultyStatus = "EDITORIAL_CALIBRATION_REQUIRED" | "EDITORIALLY_CALIBRATED";
 
 export interface TsdEditorialDifficulty {
   readonly label: TsdDifficultyLabel;
-  readonly status: "EDITORIAL_CALIBRATION_REQUIRED";
+  readonly status: TsdDifficultyStatus;
   readonly featureScore: number;
 }
 
