@@ -12,6 +12,7 @@ import {
   buildSpatialPrimitiveRetrofitFclV2ReviewExport,
   buildSpatialPrimitiveRetrofitFclV2ReviewHtml,
   buildSpatialPrimitiveInstanceSceneV2,
+  getSpatialPrimitiveConnectivityV2,
   spatialSceneSemanticFingerprint,
   validateSpatialChapterPrimitivePoolsV2,
   validateSpatialScene,
@@ -22,12 +23,38 @@ assert.ok(SPATIAL_MIRROR_WATER_PRIMITIVE_POOL_V2.length >= 12);
 assert.ok(SPATIAL_FAN_PRIMITIVE_POOL_V2.length >= 12);
 assert.equal(SPATIAL_FCL_PRIMITIVE_POOL_V2.length, 33);
 
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("CHEVRON_RIGHT"), {
+  junctionCount: 0,
+  crossingCount: 0,
+  terminalCount: 2,
+});
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("ARROW_RIGHT"), {
+  junctionCount: 1,
+  crossingCount: 0,
+  terminalCount: 3,
+});
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("PLUS"), {
+  junctionCount: 1,
+  crossingCount: 1,
+  terminalCount: 4,
+});
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("SIX_SPOKE"), {
+  junctionCount: 1,
+  crossingCount: 1,
+  terminalCount: 6,
+});
+
 for (const primitiveId of SPATIAL_FCL_PRIMITIVE_POOL_V2) {
   const scene = buildSpatialPrimitiveInstanceSceneV2(primitiveId, `INSTANCE-TEST-${primitiveId}`, {
     scale: 0.73,
     rotationQuarterTurns: 1,
   });
   assert.equal(validateSpatialScene(scene).ok, true, primitiveId);
+  const connectivity = getSpatialPrimitiveConnectivityV2(primitiveId);
+  assert.ok(connectivity.junctionCount >= 0, primitiveId);
+  assert.ok(connectivity.crossingCount >= 0, primitiveId);
+  assert.ok(connectivity.terminalCount >= 0, primitiveId);
+  assert.ok(connectivity.crossingCount <= connectivity.junctionCount, primitiveId);
 }
 
 const mirrorWater = buildSpatialPrimitiveMirrorWaterRetrofitProofV2();
@@ -86,6 +113,9 @@ assert.deepEqual(
   fcl.map((question) => question.propertyId),
   [...SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2],
 );
+assert.ok(fcl.some((question) => question.propertyId === "HAS_BRANCH_JUNCTION"));
+assert.ok(fcl.some((question) => question.propertyId === "TWO_FREE_TERMINALS"));
+assert.ok(fcl.some((question) => question.propertyId === "HALF_TURN_ONLY"));
 const slotCounts = [0, 0, 0, 0];
 for (const question of fcl) {
   slotCounts[question.correctOptionIndex] += 1;
@@ -99,6 +129,7 @@ for (const question of fcl) {
     false,
     question.prototypeId,
   );
+  assert.ok(question.descriptorAudits.some((audit) => audit.descriptorId === "FREE_TERMINAL_COUNT"));
   assert.equal(question.lifecycle.permanentQlId, null);
   assert.equal(question.lifecycle.questionStudioDiscoverable, false);
   assert.equal(question.lifecycle.questionBankWritable, false);
@@ -142,8 +173,10 @@ console.log(JSON.stringify({
   fcl: { legacyFamilies: 8, primitiveFamilies: 12, totalPrototypeFamilies: 20, correctSlotCounts: slotCounts },
   checks: {
     reusablePrimitiveInstantiation: true,
+    connectivitySemantics: true,
     mirrorWaterTransformIndependence: true,
     fanTransformIndependence: true,
+    freeTerminalAmbiguityAudit: true,
     noCompetingFclThreeToOneMinority: true,
     fclOptionUniqueness: true,
     lifecycleLocked: true,
