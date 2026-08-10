@@ -4,6 +4,7 @@ import {
   CLOCK_EFFECTIVE_SOURCE_AUDIT,
   effectiveClockAuthorityClusters,
 } from "./exam-natural-governance";
+import { CLOCK_SOURCE_SATURATION_POLICY } from "./source-saturation";
 import type { ClockTaskId } from "./catalog";
 
 export const CLOCK_EFFECTIVE_INVERSE_AUDIT = {
@@ -11,7 +12,7 @@ export const CLOCK_EFFECTIVE_INVERSE_AUDIT = {
   HAND_INTERCHANGE: {
     status: "ADVANCED_INVERSE_HELD" as const,
     evidenceTaskIds: ["TIME_AFTER_HANDS_INTERCHANGED", "ORIGINAL_FROM_INTERCHANGED"] as const,
-    note: "The directly sourced elapsed-duration interchange authority is retained. Exact original-time reconstruction remains an advanced inverse variant until stronger exam-frequency evidence supports promotion.",
+    note: "The directly multi-sourced elapsed-duration interchange authority is retained. Exact original-time reconstruction remains an advanced inverse variant until stronger exam-frequency evidence supports promotion.",
   },
 };
 
@@ -61,13 +62,13 @@ export const CLOCK_EFFECTIVE_GAP_AUDIT = Object.fromEntries(
 }>;
 
 export const CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY = {
-  status: "POST_CALIBRATION_INVERSE_BOUNDARY_GAP_AUDIT",
+  status: "POST_SATURATION_INVERSE_BOUNDARY_GAP_AUDIT",
   permanentQlAllocationAllowed: false,
   inverseAuditComplete: true,
   boundaryAuditComplete: true,
   gapAuditComplete: true,
   unresolvedSourceBackedHoldsResolved: true,
-  sourceSaturationComplete: false,
+  sourceSaturationComplete: CLOCK_SOURCE_SATURATION_POLICY.sourceSaturationComplete,
   difficultyAuditComplete: false,
   multilingualRiskAuditComplete: false,
   humanEditorialFreezeComplete: false,
@@ -92,6 +93,7 @@ export function clockEffectiveDiscoveryAuditSummary() {
     boundaryClusters,
     unresolvedSourceBackedHolds,
     intentionalAdvancedHolds,
+    sourceSaturationComplete: CLOCK_SOURCE_SATURATION_POLICY.sourceSaturationComplete,
     discoveryFreezeEligible: false,
   } as const;
 }
