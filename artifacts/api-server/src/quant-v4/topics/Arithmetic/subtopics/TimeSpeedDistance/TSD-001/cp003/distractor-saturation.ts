@@ -39,6 +39,38 @@ function choose(answer: Rational, methods: readonly TsdCp003WrongWorking[]): rea
   throw new Error(`Collision-safe CP-003 distractor pool still has fewer than three unique wrong methods for answer ${f(answer)}`);
 }
 
+function arrivalClockDistractors(
+  input: Extract<TsdCp003SolveInput, { solveMode: "scheduledArrivalTimeFromActualSpeed" }>,
+  solution: TsdCp003SolveCertificate,
+): readonly TsdCp003WrongWorking[] {
+  const travelHours = divide(input.distance, input.actualSpeed);
+  const travelMinutes = multiply(travelHours, rational(60));
+  const copiedDeparture = input.departureMinuteFromDayZero;
+  const backwardsClock = subtract(input.departureMinuteFromDayZero, travelMinutes);
+  const doubledTravel = add(input.departureMinuteFromDayZero, multiply(travelMinutes, rational(2)));
+
+  return choose(solution.answer, [
+    wrong(
+      "COPY_DEPARTURE_CLOCK",
+      copiedDeparture,
+      `${f(input.departureMinuteFromDayZero)}`,
+      "It copies the departure clock and ignores the journey duration.",
+    ),
+    wrong(
+      "SUBTRACT_TRAVEL_TIME_FROM_CLOCK",
+      backwardsClock,
+      `${f(input.departureMinuteFromDayZero)} − ${f(travelMinutes)}`,
+      "It moves the clock backward by the journey time instead of forward.",
+    ),
+    wrong(
+      "DOUBLE_TRAVEL_TIME_ON_CLOCK",
+      doubledTravel,
+      `${f(input.departureMinuteFromDayZero)} + 2 × ${f(travelMinutes)}`,
+      "It adds the journey duration twice.",
+    ),
+  ]);
+}
+
 function collisionFallback(input: TsdCp003SolveInput, solution: TsdCp003SolveCertificate): readonly TsdCp003WrongWorking[] {
   const answer = solution.answer;
 
@@ -205,6 +237,10 @@ export function deriveSaturatedCp003WrongWorkings(
   input: TsdCp003SolveInput,
   solution: TsdCp003SolveCertificate,
 ): readonly TsdCp003WrongWorking[] {
+  if (input.solveMode === "scheduledArrivalTimeFromActualSpeed") {
+    return arrivalClockDistractors(input, solution);
+  }
+
   try {
     return deriveCp003WrongWorkings(input, solution);
   } catch (error) {
