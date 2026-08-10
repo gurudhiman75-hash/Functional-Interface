@@ -86,11 +86,12 @@ for (const row of rows) {
 
   if (row.input.solveMode === "distanceFromSpeedAndTime") {
     assert(/km\/h/i.test(row.stem), "A trivial matching-unit distance question leaked into the learner review");
-    const conversionIndex = row.explanation.stepByStepSolution.findIndex((line) => /convert|matching units|5\/18|m\/s|seconds/i.test(line));
-    const multiplicationIndex = row.explanation.stepByStepSolution.findIndex((line) => /distance.*(?:×|\\times)|speed.*(?:×|\\times).*time/i.test(line));
-    assert(conversionIndex >= 0, "Distance question does not show the required unit conversion");
-    assert(multiplicationIndex > conversionIndex, "Distance multiplication appears before the unit conversion");
-    assert(row.explanation.working.length >= 4, "Distance question has no visible conversion before multiplication");
+    const workingLines = row.explanation.working;
+    const conversionIndex = workingLines.findIndex((line) => /convert|matching units|5\/18|m\/s|seconds/i.test(line) && /=/.test(line));
+    const multiplicationIndex = workingLines.findIndex((line) => /distance.*(?:×|\\times)|speed.*(?:×|\\times).*time/i.test(line) && /=/.test(line));
+    assert(conversionIndex >= 0, "Distance question does not show the required unit-conversion calculation");
+    assert(multiplicationIndex > conversionIndex, "Distance calculation multiplies before converting units");
+    assert(workingLines.length >= 4, "Distance question has no visible conversion before multiplication");
     nonTrivialDistanceRows += 1;
   }
 
