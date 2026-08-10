@@ -16,10 +16,24 @@ export type Sea001TeachingCaselet =
   | OutwardCaseletRecord
   | MixedCircleCaseletRecord;
 
+type DisplayNames = Readonly<Record<string, string>>;
+
 function seedIndex(seed: string, count: number): number {
   let hash = 0x811c9dc5;
   for (const character of seed) hash = Math.imul(hash ^ character.charCodeAt(0), 0x01000193);
   return count === 0 ? 0 : (hash >>> 0) % count;
+}
+
+function displayNameMap(setupText: string, personIds: readonly string[]): DisplayNames {
+  const names = setupText.match(/persons—(.+?)—are sitting/i)?.[1]
+    ?.split(",")
+    .map((name) => name.trim())
+    .filter(Boolean) ?? [];
+  return Object.fromEntries(personIds.map((personId, index) => [personId, names[index] ?? personId]));
+}
+
+function shown(personId: string, displayNames: DisplayNames): string {
+  return displayNames[personId] ?? personId;
 }
 
 function rotateToAnchor<T extends string>(order: readonly T[], anchor?: T): T[] {
@@ -29,41 +43,53 @@ function rotateToAnchor<T extends string>(order: readonly T[], anchor?: T): T[] 
   return [...order.slice(index), ...order.slice(0, index)];
 }
 
-function mixedRowModel(model: MixedFacingModel): TeachingCaseModel {
+function mixedRowModel(model: MixedFacingModel, displayNames: DisplayNames): TeachingCaseModel {
   return {
     key: model.canonicalKey,
     display: model.seatOrder
-      .map((personId, index) => `${index + 1}:${personId}${model.facings[personId] === "NORTH" ? "↑" : "↓"}`)
+      .map((personId, index) => `${index + 1}:${shown(personId, displayNames)}${model.facings[personId] === "NORTH" ? "↑" : "↓"}`)
       .join(" | "),
   };
 }
 
-function centreCircleModel(model: CircularSolverModel, drawingAnchor?: PersonId): TeachingCaseModel {
+function centreCircleModel(
+  model: CircularSolverModel,
+  displayNames: DisplayNames,
+  drawingAnchor?: PersonId,
+): TeachingCaseModel {
   const displayed = rotateToAnchor(model.clockwiseOrder, drawingAnchor);
-  const start = displayed[0] ?? "?";
+  const start = displayed[0];
   return {
     key: model.canonicalKey,
-    display: `${displayed.join(" → ")} → ${start} (clockwise)`,
+    display: `${displayed.map((personId) => shown(personId, displayNames)).join(" → ")} → ${start ? shown(start, displayNames) : "?"} (clockwise)`,
   };
 }
 
-function outwardCircleModel(model: OutwardSolverModel, drawingAnchor?: OutwardPersonId): TeachingCaseModel {
+function outwardCircleModel(
+  model: OutwardSolverModel,
+  displayNames: DisplayNames,
+  drawingAnchor?: OutwardPersonId,
+): TeachingCaseModel {
   const displayed = rotateToAnchor(model.clockwiseOrder, drawingAnchor);
-  const start = displayed[0] ?? "?";
+  const start = displayed[0];
   return {
     key: model.canonicalKey,
-    display: `${displayed.join(" → ")} → ${start} (clockwise, all facing outward)`,
+    display: `${displayed.map((personId) => shown(personId, displayNames)).join(" → ")} → ${start ? shown(start, displayNames) : "?"} (clockwise, all facing outward)`,
   };
 }
 
-function mixedCircleModel(model: MixedCircleModel, drawingAnchor?: MixedCirclePersonId): TeachingCaseModel {
+function mixedCircleModel(
+  model: MixedCircleModel,
+  displayNames: DisplayNames,
+  drawingAnchor?: MixedCirclePersonId,
+): TeachingCaseModel {
   const displayed = rotateToAnchor(model.clockwiseOrder, drawingAnchor);
-  const start = displayed[0] ?? "?";
+  const start = displayed[0];
   return {
     key: model.canonicalKey,
     display: `${displayed
-      .map((personId) => `${personId}${model.facings[personId] === "CENTER" ? "↘" : "↗"}`)
-      .join(" → ")} → ${start} (clockwise; ↘ centre, ↗ outward)`,
+      .map((personId) => `${shown(personId, displayNames)}${model.facings[personId] === "CENTER" ? "↘" : "↗"}`)
+      .join(" → ")} → ${start ? shown(start, displayNames) : "?"} (clockwise; ↘ centre, ↗ outward)`,
   };
 }
 
@@ -89,6 +115,7 @@ function compileCp002(caselet: MixedFacingCaseletRecord): string {
   const finalKey = caselet.solverOracleAgreement.productionKeys[0];
   if (!finalKey) return caselet.sharedExplanation;
   const persons = personsFromMixedKey(finalKey);
+  const displayNames = displayNameMap(caselet.setupText, persons);
   const finalModel = enumerateMixedFacingProduction({ persons, constraints: caselet.constraints, maxModels: 2 })[0];
   if (!finalModel) return caselet.sharedExplanation;
 
@@ -103,8 +130,8 @@ function compileCp002(caselet: MixedFacingCaseletRecord): string {
       persons,
       constraints: caselet.constraints.slice(0, clueCount),
       maxModels,
-    }).map(mixedRowModel),
-    finalModel: mixedRowModel(finalModel),
+    }).map((model) => mixedRowModel(model, displayNames)),
+    finalModel: mixedRowModel(finalModel, displayNames),
     finalHeading: "Therefore, the final row and facing pattern are:",
   });
 }
@@ -112,6 +139,7 @@ function compileCp002(caselet: MixedFacingCaseletRecord): string {
 function compileCentreAdjacencyCases(
   caselet: CircularCaseletRecord,
   persons: readonly PersonId[],
+  displayNames: DisplayNames,
   landmarkAnchored: boolean,
   finalModel: CircularSolverModel,
   drawingAnchor: PersonId,
@@ -142,11 +170,13 @@ function compileCentreAdjacencyCases(
     }
     if (active.length !== 1 || steps.length === 0) continue;
 
+    const first = shown(branch.firstId, displayNames);
+    const second = shown(branch.secondId, displayNames);
     const lines = [...intro];
     lines.push(`Start with clue ${branchIndex + 1}: ${caselet.clueTexts[branchIndex]}`);
     lines.push("With the first person used only as a drawing reference, this adjacency gives two orientations:");
-    lines.push(`Case 1: ${branch.firstId} → ${branch.secondId} clockwise.`);
-    lines.push(`Case 2: ${branch.secondId} → ${branch.firstId} clockwise.`);
+    lines.push(`Case 1: ${first} → ${second} clockwise.`);
+    lines.push(`Case 2: ${second} → ${first} clockwise.`);
     let live = new Set([0, 1]);
     for (const step of steps) {
       const next = new Set(step.active.map((entry) => entry.originalIndex));
@@ -160,7 +190,7 @@ function compileCentreAdjacencyCases(
     }
     lines.push(`Only Case ${[...live][0]! + 1} remains. Use the remaining clues to fill the other seats.`);
     lines.push("Therefore, the final clockwise arrangement is:");
-    lines.push(centreCircleModel(finalModel, drawingAnchor).display);
+    lines.push(centreCircleModel(finalModel, displayNames, drawingAnchor).display);
     return lines.join("\n\n");
   }
   return null;
@@ -170,6 +200,7 @@ function compileCp003(caselet: CircularCaseletRecord): string {
   const finalKey = caselet.solverOracleAgreement.productionKeys[0];
   if (!finalKey) return caselet.sharedExplanation;
   const persons = personsFromCircularKey(finalKey);
+  const displayNames = displayNameMap(caselet.setupText, persons);
   const landmarkAnchored = caselet.topologySnapshot.landmark !== undefined;
   const finalModel = enumerateCircularProduction({ persons, constraints: caselet.constraints, landmarkAnchored, maxModels: 2 })[0];
   if (!finalModel) return caselet.sharedExplanation;
@@ -180,12 +211,12 @@ function compileCp003(caselet: CircularCaseletRecord): string {
   const intro = [
     landmark
       ? `Use the displayed ${landmark} as the fixed drawing reference.`
-      : `Use ${drawingAnchor} as a convenient drawing reference only. Rotating the complete arrangement does not create a different case.`,
+      : `Use ${shown(drawingAnchor, displayNames)} as a convenient drawing reference only. Rotating the complete arrangement does not create a different case.`,
     "Since everyone faces the centre, left is clockwise and right is anticlockwise.",
     "Keep two or three meaningful cases only when a clue genuinely leaves those alternatives open.",
   ];
 
-  const adjacencyTeaching = compileCentreAdjacencyCases(caselet, persons, landmarkAnchored, finalModel, drawingAnchor, intro);
+  const adjacencyTeaching = compileCentreAdjacencyCases(caselet, persons, displayNames, landmarkAnchored, finalModel, drawingAnchor, intro);
   if (adjacencyTeaching) return adjacencyTeaching;
 
   return compileCaseEliminationExplanation({
@@ -196,8 +227,8 @@ function compileCp003(caselet: CircularCaseletRecord): string {
       constraints: caselet.constraints.slice(0, clueCount),
       landmarkAnchored,
       maxModels,
-    }).map((model) => centreCircleModel(model, drawingAnchor)),
-    finalModel: centreCircleModel(finalModel, drawingAnchor),
+    }).map((model) => centreCircleModel(model, displayNames, drawingAnchor)),
+    finalModel: centreCircleModel(finalModel, displayNames, drawingAnchor),
     finalHeading: "Therefore, the final clockwise arrangement is:",
   });
 }
@@ -205,6 +236,7 @@ function compileCp003(caselet: CircularCaseletRecord): string {
 function compileOutwardAdjacencyCases(
   caselet: OutwardCaseletRecord,
   persons: readonly OutwardPersonId[],
+  displayNames: DisplayNames,
   landmarkAnchored: boolean,
   finalModel: OutwardSolverModel,
   drawingAnchor: OutwardPersonId,
@@ -235,11 +267,13 @@ function compileOutwardAdjacencyCases(
     }
     if (active.length !== 1 || steps.length === 0) continue;
 
+    const first = shown(branch.firstId, displayNames);
+    const second = shown(branch.secondId, displayNames);
     const lines = [...intro];
     lines.push(`Start with clue ${branchIndex + 1}: ${caselet.clueTexts[branchIndex]}`);
     lines.push("With the first person used only as a drawing reference, this adjacency gives two orientations:");
-    lines.push(`Case 1: ${branch.firstId} → ${branch.secondId} clockwise.`);
-    lines.push(`Case 2: ${branch.secondId} → ${branch.firstId} clockwise.`);
+    lines.push(`Case 1: ${first} → ${second} clockwise.`);
+    lines.push(`Case 2: ${second} → ${first} clockwise.`);
     let live = new Set([0, 1]);
     for (const step of steps) {
       const next = new Set(step.active.map((entry) => entry.originalIndex));
@@ -253,7 +287,7 @@ function compileOutwardAdjacencyCases(
     }
     lines.push(`Only Case ${[...live][0]! + 1} remains. Use the remaining clues to fill the other seats.`);
     lines.push("Therefore, the final clockwise arrangement is:");
-    lines.push(outwardCircleModel(finalModel, drawingAnchor).display);
+    lines.push(outwardCircleModel(finalModel, displayNames, drawingAnchor).display);
     return lines.join("\n\n");
   }
   return null;
@@ -263,6 +297,7 @@ function compileCp004(caselet: OutwardCaseletRecord): string {
   const finalKey = caselet.solverOracleAgreement.productionKeys[0];
   if (!finalKey) return caselet.sharedExplanation;
   const persons = personsFromOutwardKey(finalKey);
+  const displayNames = displayNameMap(caselet.setupText, persons);
   const landmarkAnchored = caselet.topologySnapshot.landmark !== undefined;
   const finalModel = enumerateOutwardProduction({ persons, constraints: caselet.constraints, landmarkAnchored, maxModels: 2 })[0];
   if (!finalModel) return caselet.sharedExplanation;
@@ -273,12 +308,12 @@ function compileCp004(caselet: OutwardCaseletRecord): string {
   const intro = [
     landmark
       ? `Use the displayed ${landmark} as the fixed drawing reference.`
-      : `Use ${drawingAnchor} as a convenient drawing reference only. Rotating the complete arrangement does not create a different case.`,
+      : `Use ${shown(drawingAnchor, displayNames)} as a convenient drawing reference only. Rotating the complete arrangement does not create a different case.`,
     "Since everyone faces outward, left is anticlockwise and right is clockwise.",
     "Keep the small number of meaningful cases open until a later clue rules one out.",
   ];
 
-  const adjacencyTeaching = compileOutwardAdjacencyCases(caselet, persons, landmarkAnchored, finalModel, drawingAnchor, intro);
+  const adjacencyTeaching = compileOutwardAdjacencyCases(caselet, persons, displayNames, landmarkAnchored, finalModel, drawingAnchor, intro);
   if (adjacencyTeaching) return adjacencyTeaching;
 
   return compileCaseEliminationExplanation({
@@ -289,8 +324,8 @@ function compileCp004(caselet: OutwardCaseletRecord): string {
       constraints: caselet.constraints.slice(0, clueCount),
       landmarkAnchored,
       maxModels,
-    }).map((model) => outwardCircleModel(model, drawingAnchor)),
-    finalModel: outwardCircleModel(finalModel, drawingAnchor),
+    }).map((model) => outwardCircleModel(model, displayNames, drawingAnchor)),
+    finalModel: outwardCircleModel(finalModel, displayNames, drawingAnchor),
     finalHeading: "Therefore, the final clockwise arrangement is:",
   });
 }
@@ -311,13 +346,14 @@ function compileCp005(caselet: MixedCircleCaseletRecord): string {
   const finalKey = caselet.solverOracleAgreement.productionKeys[0];
   if (!finalKey) return caselet.sharedExplanation;
   const persons = personsFromMixedCircleKey(finalKey);
+  const displayNames = displayNameMap(caselet.setupText, persons);
   const finalModel = enumerateMixedCircleProduction({ persons, constraints: caselet.constraints, maxModels: 2 })[0];
   if (!finalModel) return caselet.sharedExplanation;
   const drawingAnchor = finalModel.clockwiseOrder[seedIndex(caselet.seed, finalModel.clockwiseOrder.length)] as MixedCirclePersonId;
 
   return compileCaseEliminationExplanation({
     intro: [
-      `Use ${drawingAnchor} as a convenient drawing reference only. Rotating the complete arrangement does not create a different case.`,
+      `Use ${shown(drawingAnchor, displayNames)} as a convenient drawing reference only. Rotating the complete arrangement does not create a different case.`,
       "Before using a left/right clue, resolve the reference person's facing. For a centre-facing person, left is clockwise; for an outward-facing person, left is anticlockwise.",
       caselet.blueprintAuthorityId === "SEA-PBA-020"
         ? "For an if-then facing clue, keep both meaningful possibilities open only until another clue decides which condition is true."
@@ -328,8 +364,8 @@ function compileCp005(caselet: MixedCircleCaseletRecord): string {
       persons,
       constraints: cp005ConstraintsForVisiblePrefix(caselet, clueCount),
       maxModels,
-    }).map((model) => mixedCircleModel(model, drawingAnchor)),
-    finalModel: mixedCircleModel(finalModel, drawingAnchor),
+    }).map((model) => mixedCircleModel(model, displayNames, drawingAnchor)),
+    finalModel: mixedCircleModel(finalModel, displayNames, drawingAnchor),
     finalHeading: "Therefore, the final clockwise arrangement and facings are:",
   });
 }
