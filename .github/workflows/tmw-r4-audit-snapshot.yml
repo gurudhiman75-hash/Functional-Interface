@@ -1,0 +1,44 @@
+name: Export TMW-001 R4 blind audit snapshot
+
+on:
+  push:
+    branches:
+      - fix/tmw-001-remediation-r4-source-gaps
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-r4-audit-snapshot.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle snapshot exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-audit-snapshot.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-r4-audit-snapshot.mjs
+      - name: Generate snapshot
+        run: node artifacts/api-server/dist/quant-v4/tmw-001-r4-audit-snapshot.mjs
+      - name: Upload snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-001-r4-blind-audit-snapshot
+          path: artifacts/api-server/dist/quant-v4/tmw-001-r4-audit-snapshot.json
+          if-no-files-found: error
+          retention-days: 14
