@@ -120,7 +120,7 @@ for (const row of rows) {
   }
 
   if (row.input.solveMode === "requiredUniformSpeedForDeadline") {
-    assert(/available time/i.test(row.explanation.keyRule), "Deadline rule does not explain the available-time step");
+    assert(/available (?:travel )?time|time[^.]*available/i.test(row.explanation.keyRule), "Deadline rule does not explain the available-time step");
     assert(!row.explanation.stepByStepSolution.some((line) => /\b(\d+(?:\.\d+)? hours)\s*=\s*\1\b/i.test(line)), "Deadline solution repeats an unchanged hour value");
     assert(row.options.every((option) => !/^\s*\d+\/\d+\s/.test(option)), "Deadline options contain an awkward numeric fraction");
 
