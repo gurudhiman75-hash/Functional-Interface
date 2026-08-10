@@ -8,6 +8,7 @@ import { enumerateTrueCandidateClues } from "./candidate-clues.ts";
 import { selectUniqueClueSet } from "./clue-selection.ts";
 import { generateHiddenLinearState } from "./hidden-state.ts";
 import { generateCp001Questions } from "./question-generator.ts";
+import { expandCp001QueryMix } from "./cp001-query-expansion.ts";
 
 function auditCrossQuestionLeakage(children: SeatingCaseletRecord["children"]): boolean {
   const facts = children.map((child) => child.answerDeterminingFactFingerprint);
@@ -48,7 +49,7 @@ export function generateSeaCp001Caselet(input: {
       const candidates = enumerateTrueCandidateClues(state);
       const selection = selectUniqueClueSet({ state, blueprintId: input.blueprintId, candidates, seed: derivedSeed });
       const clueTexts = selection.selected.map((clue) => renderConstraint(clue.constraint, state.persons, state.seats.length));
-      const children = generateCp001Questions(state, derivedSeed);
+      const children = expandCp001QueryMix(state, derivedSeed, generateCp001Questions(state, derivedSeed));
       assertQueryMix(children);
       const crossQuestionLeakagePassed = auditCrossQuestionLeakage(children);
       if (!crossQuestionLeakagePassed) throw new Error("Cross-question answer leakage audit failed");
