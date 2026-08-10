@@ -5,7 +5,7 @@ import {
   cp003AuthorityByProvisionalId,
   type TsdCp003DiscoveryAuthority,
 } from "./discovery-registry";
-import { deriveSaturatedCp003WrongWorkings } from "./distractor-saturation";
+import { deriveExamReadyCp003WrongWorkings } from "./exam-distractors";
 import {
   SeededRng,
   fingerprint,
@@ -198,7 +198,7 @@ export function generateCp003Candidate(provisionalAuthorityId: string, seed: str
   const solution = solveCp003(state.input);
   const independent = verifyCp003(state.input, solution);
   if (!independent.valid) throw new Error(`${authority.solveMode}: generated state failed independent verification: ${independent.errors.join("; ")}`);
-  const wrongWorkings = learnerFacingWrongWorkings(state.input, deriveSaturatedCp003WrongWorkings(state.input, solution));
+  const wrongWorkings = learnerFacingWrongWorkings(state.input, deriveExamReadyCp003WrongWorkings(state.input, solution));
   const options = buildOptions(authority, seed, solution, wrongWorkings);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   const teaching = cp003Teaching(state.input, solution);
