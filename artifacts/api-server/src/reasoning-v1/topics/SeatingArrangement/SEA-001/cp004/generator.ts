@@ -1,6 +1,12 @@
 import { DeterministicRandom } from "../../../../shared/constraint-core/random.ts";
 import { canonicalDigest } from "../canonical.ts";
-import { selectSea001Names } from "../generation/name-pool.ts";
+import {
+  presentSea001Children,
+  presentSea001Text,
+  sea001DisplayName,
+  sea001DisplayNameMap,
+  sea001PersonIds,
+} from "../generation/person-presentation.ts";
 import { canonicalCircularOrder, CircularTopology, personAt, rotateOrder } from "../cp003/topology.ts";
 import {
   outwardConstraintFingerprint,
@@ -193,7 +199,8 @@ function attempt(seed: string, blueprint: OutwardBlueprintId): OutwardCaseletRec
   const seatCount = blueprint === "SEA-PBA-013"
     ? random.pick([6, 8, 10])
     : random.pick([6, 7, 8, 9, 10]);
-  const persons = selectSea001Names(seed, seatCount, `${blueprint}:cp004`) as OutwardPersonId[];
+  const persons = sea001PersonIds(seatCount) as OutwardPersonId[];
+  const displayNames = sea001DisplayNameMap(seed, persons, `${blueprint}:cp004`);
   const landmarkAnchored = blueprint === "SEA-PBA-016";
   const shuffled = random.shuffle(persons);
   const order = landmarkAnchored ? shuffled : canonicalCircularOrder(shuffled, false);
@@ -225,22 +232,24 @@ function attempt(seed: string, blueprint: OutwardBlueprintId): OutwardCaseletRec
   }
   const model = production[0];
   if (!model) throw new Error("Missing outward solution model");
-  const children = buildOutwardChildren(seed, model, random);
-  const clueTexts = constraints.map(renderOutwardConstraint);
+  const children = presentSea001Children(buildOutwardChildren(seed, model, random), displayNames);
+  const clueTexts = constraints.map((constraint) => presentSea001Text(renderOutwardConstraint(constraint), displayNames));
   const landmarkLabel = topology.landmark?.id.toLowerCase();
+  const listedNames = persons.map((personId) => sea001DisplayName(personId, displayNames));
   const setupText = landmarkAnchored
-    ? `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table, facing outward, but not necessarily in the same order. ${landmarkLabel === "entrance" ? "An" : "A"} ${landmarkLabel} is shown at the top of the diagram.`
-    : `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table, facing outward, but not necessarily in the same order.`;
+    ? `${seatCount} persons—${listedNames.join(", ")}—are sitting around a circular table, facing outward, but not necessarily in the same order. ${landmarkLabel === "entrance" ? "An" : "A"} ${landmarkLabel} is shown at the top of the diagram.`
+    : `${seatCount} persons—${listedNames.join(", ")}—are sitting around a circular table, facing outward, but not necessarily in the same order.`;
   const displayOrder = landmarkAnchored
     ? model.clockwiseOrder
     : rotateOrder(model.clockwiseOrder, random.integer(0, model.clockwiseOrder.length - 1));
+  const displayedNames = displayOrder.map((personId) => sea001DisplayName(personId, displayNames));
   const diagramText = `Clockwise${landmarkAnchored
     ? ` from the seat nearest the ${landmarkLabel}`
-    : ` from ${displayOrder[0]} (chosen only as a drawing reference)`}: ${displayOrder.join(" → ")} → ${displayOrder[0]}`;
+    : ` from ${displayedNames[0]} (chosen only as a drawing reference)`}: ${displayedNames.join(" → ")} → ${displayedNames[0]}`;
   const sharedExplanation = [
     landmarkAnchored
       ? `Start with the seat nearest the ${landmarkLabel}, which is shown at the top of the diagram.`
-      : `For drawing, start from ${displayOrder[0]} at any convenient point; rotating the whole arrangement does not change any relative position.`,
+      : `For drawing, start from ${displayedNames[0]} at any convenient point; rotating the whole arrangement does not change any relative position.`,
     "Since everyone faces outward, left is anticlockwise and right is clockwise.",
     "Apply the clues one by one:",
     ...clueTexts.map((clue, index) => `${index + 1}. ${clue}`),
