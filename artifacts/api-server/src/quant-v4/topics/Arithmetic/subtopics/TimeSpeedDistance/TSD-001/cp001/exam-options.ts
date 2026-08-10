@@ -15,6 +15,17 @@ function scalarValue(solution: TsdCp001Solution): Rational | null {
   return "value" in solution && typeof solution.value !== "boolean" ? solution.value : null;
 }
 
+function absolute(value: Rational): Rational {
+  return value.numerator < 0n ? rational(-value.numerator, value.denominator) : value;
+}
+
+function componentWiseRatioSum(first: Rational, second: Rational): Rational {
+  return rational(
+    first.numerator + second.numerator,
+    first.denominator + second.denominator,
+  );
+}
+
 function buildScalarSet(
   solution: TsdCp001Solution,
   display: DisplayContract,
@@ -151,6 +162,43 @@ export function examOptionPackage(
       ];
       break;
     }
+    case "compareDistancesAtEqualTime":
+    case "compareTimesAtEqualDistance":
+    case "compareSpeedsAtEqualTime": {
+      const first = input.solveMode === "compareSpeedsAtEqualTime" ? input.firstDistance : input.firstSpeed;
+      const second = input.solveMode === "compareSpeedsAtEqualTime" ? input.secondDistance : input.secondSpeed;
+      candidates = [
+        [divide(r(1), correct), "INVERT_REQUIRED_RATIO"],
+        [divide(add(first, second), second), "USE_SUM_INSTEAD_OF_RATIO"],
+        [divide(absolute(subtract(first, second)), second), "USE_DIFFERENCE_INSTEAD_OF_RATIO"],
+        [first, "USE_FIRST_QUANTITY_ONLY"],
+      ];
+      break;
+    }
+    case "distanceRatioFromSpeedAndTimeRatios":
+      candidates = [
+        [input.speedRatio, "USE_FIRST_QUANTITY_ONLY"],
+        [input.timeRatio, "USE_SECOND_QUANTITY_ONLY"],
+        [componentWiseRatioSum(input.speedRatio, input.timeRatio), "ADD_RATIOS_INSTEAD_OF_MULTIPLYING"],
+        [divide(r(1), correct), "INVERT_REQUIRED_RATIO"],
+      ];
+      break;
+    case "speedRatioFromDistanceAndTimeRatios":
+      candidates = [
+        [input.distanceRatio, "USE_FIRST_QUANTITY_ONLY"],
+        [input.timeRatio, "USE_SECOND_QUANTITY_ONLY"],
+        [multiply(input.distanceRatio, input.timeRatio), "MULTIPLY_INSTEAD_OF_DIVIDE"],
+        [divide(input.timeRatio, input.distanceRatio), "INVERT_REQUIRED_RATIO"],
+      ];
+      break;
+    case "timeRatioFromDistanceAndSpeedRatios":
+      candidates = [
+        [input.distanceRatio, "USE_FIRST_QUANTITY_ONLY"],
+        [input.speedRatio, "USE_SECOND_QUANTITY_ONLY"],
+        [multiply(input.distanceRatio, input.speedRatio), "MULTIPLY_INSTEAD_OF_DIVIDE"],
+        [divide(input.speedRatio, input.distanceRatio), "INVERT_REQUIRED_RATIO"],
+      ];
+      break;
     case "distanceByProportion":
       candidates = [
         [input.knownDistance, "IGNORE_TIME_CHANGE"],

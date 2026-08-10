@@ -9,10 +9,21 @@ import {
 } from "../foundation/rational";
 import type { TsdCp001Solution, TsdCp001SolveInput } from "./canonical-solver";
 import type { TsdCp001Explanation, TsdCp001OptionAnalysis } from "./runtime-types";
-import { formatExamNumber } from "./runtime-support";
+import { formatExamNumber, ratioText } from "./runtime-support";
 
 function scalarValue(solution: TsdCp001Solution): Rational | null {
   return "value" in solution && typeof solution.value !== "boolean" ? solution.value : null;
+}
+
+function absolute(value: Rational): Rational {
+  return value.numerator < 0n ? rational(-value.numerator, value.denominator) : value;
+}
+
+function componentWiseRatioSum(first: Rational, second: Rational): Rational {
+  return rational(
+    first.numerator + second.numerator,
+    first.denominator + second.denominator,
+  );
 }
 
 function optionText(value: Rational, unit: string): string {
@@ -21,6 +32,12 @@ function optionText(value: Rational, unit: string): string {
 
 function hourText(value: Rational): string {
   return equals(value, rational(1)) ? "1 hour" : `${formatExamNumber(value)} hours`;
+}
+
+function ratioWorking(first: Rational, second: Rational): string {
+  const raw = `${formatExamNumber(first)}:${formatExamNumber(second)}`;
+  const reduced = ratioText(divide(first, second));
+  return raw === reduced ? reduced : `${raw} = ${reduced}`;
 }
 
 function directReason(
@@ -125,6 +142,91 @@ function deadlineReason(
   return `⚠️ ${option.text}: this multiplies distance by available time; speed is distance ÷ time.`;
 }
 
+function comparisonReason(
+  input: Extract<TsdCp001SolveInput, {
+    solveMode: "compareDistancesAtEqualTime" | "compareTimesAtEqualDistance" | "compareSpeedsAtEqualTime";
+  }>,
+  option: TsdCp001OptionAnalysis,
+): string {
+  const first = input.solveMode === "compareSpeedsAtEqualTime" ? input.firstDistance : input.firstSpeed;
+  const second = input.solveMode === "compareSpeedsAtEqualTime" ? input.secondDistance : input.secondSpeed;
+  const firstText = formatExamNumber(first);
+  const secondText = formatExamNumber(second);
+  const correct = input.solveMode === "compareTimesAtEqualDistance"
+    ? divide(second, first)
+    : divide(first, second);
+  const correctWorking = input.solveMode === "compareTimesAtEqualDistance"
+    ? ratioWorking(second, first)
+    : ratioWorking(first, second);
+  const rule = input.solveMode === "compareTimesAtEqualDistance"
+    ? `Equal-distance time ratio is inverse speed ratio, ${correctWorking}.`
+    : input.solveMode === "compareDistancesAtEqualTime"
+      ? `Equal-time distance ratio equals speed ratio, ${correctWorking}.`
+      : `Equal-time speed ratio equals distance ratio, ${correctWorking}.`;
+
+  if (option.misconceptionId === "INVERT_REQUIRED_RATIO") {
+    if (input.solveMode === "compareTimesAtEqualDistance") {
+      return `⚠️ ${option.text}: this copies speed ratio A:B. ${rule}`;
+    }
+    return `⚠️ ${option.text}: this reverses A:B. ${rule}`;
+  }
+
+  if (option.misconceptionId === "USE_SUM_INSTEAD_OF_RATIO") {
+    const summed = add(first, second);
+    return `⚠️ ${option.text}: this forms (${firstText}+${secondText}):${secondText} = ${formatExamNumber(summed)}:${secondText}. Required A:B is ${ratioText(correct)}.`;
+  }
+
+  const difference = absolute(subtract(first, second));
+  return `⚠️ ${option.text}: this forms |${firstText}−${secondText}|:${secondText} = ${formatExamNumber(difference)}:${secondText}. Required A:B is ${ratioText(correct)}.`;
+}
+
+function ratioFormulaReason(
+  input: Extract<TsdCp001SolveInput, {
+    solveMode: "distanceRatioFromSpeedAndTimeRatios" | "speedRatioFromDistanceAndTimeRatios" | "timeRatioFromDistanceAndSpeedRatios";
+  }>,
+  option: TsdCp001OptionAnalysis,
+): string {
+  if (input.solveMode === "distanceRatioFromSpeedAndTimeRatios") {
+    const speed = input.speedRatio;
+    const time = input.timeRatio;
+    const correct = multiply(speed, time);
+    if (option.misconceptionId === "USE_FIRST_QUANTITY_ONLY") {
+      return `⚠️ ${option.text}: this copies the speed ratio only. Distance ratio needs (${speed.numerator}×${time.numerator}):(${speed.denominator}×${time.denominator}) = ${ratioText(correct)}.`;
+    }
+    if (option.misconceptionId === "USE_SECOND_QUANTITY_ONLY") {
+      return `⚠️ ${option.text}: this copies the time ratio only. Distance ratio needs (${speed.numerator}×${time.numerator}):(${speed.denominator}×${time.denominator}) = ${ratioText(correct)}.`;
+    }
+    const added = componentWiseRatioSum(speed, time);
+    return `⚠️ ${option.text}: this adds corresponding terms, (${speed.numerator}+${time.numerator}):(${speed.denominator}+${time.denominator}) = ${ratioText(added)}. Multiply the terms to get ${ratioText(correct)}.`;
+  }
+
+  if (input.solveMode === "speedRatioFromDistanceAndTimeRatios") {
+    const distance = input.distanceRatio;
+    const time = input.timeRatio;
+    const correct = divide(distance, time);
+    if (option.misconceptionId === "USE_FIRST_QUANTITY_ONLY") {
+      return `⚠️ ${option.text}: this copies the distance ratio only. Speed ratio needs (${distance.numerator}×${time.denominator}):(${distance.denominator}×${time.numerator}) = ${ratioText(correct)}.`;
+    }
+    if (option.misconceptionId === "USE_SECOND_QUANTITY_ONLY") {
+      return `⚠️ ${option.text}: this copies the time ratio only. Speed ratio needs (${distance.numerator}×${time.denominator}):(${distance.denominator}×${time.numerator}) = ${ratioText(correct)}.`;
+    }
+    const multiplied = multiply(distance, time);
+    return `⚠️ ${option.text}: this multiplies corresponding terms to get ${ratioText(multiplied)}. Dividing ratios requires cross-multiplication, giving ${ratioText(correct)}.`;
+  }
+
+  const distance = input.distanceRatio;
+  const speed = input.speedRatio;
+  const correct = divide(distance, speed);
+  if (option.misconceptionId === "USE_FIRST_QUANTITY_ONLY") {
+    return `⚠️ ${option.text}: this copies the distance ratio only. Time ratio needs (${distance.numerator}×${speed.denominator}):(${distance.denominator}×${speed.numerator}) = ${ratioText(correct)}.`;
+  }
+  if (option.misconceptionId === "USE_SECOND_QUANTITY_ONLY") {
+    return `⚠️ ${option.text}: this copies the speed ratio only. Time ratio needs (${distance.numerator}×${speed.denominator}):(${distance.denominator}×${speed.numerator}) = ${ratioText(correct)}.`;
+  }
+  const multiplied = multiply(distance, speed);
+  return `⚠️ ${option.text}: this multiplies corresponding terms to get ${ratioText(multiplied)}. Dividing ratios requires cross-multiplication, giving ${ratioText(correct)}.`;
+}
+
 function revisedReason(
   input: TsdCp001SolveInput,
   solution: TsdCp001Solution,
@@ -140,6 +242,16 @@ function revisedReason(
   }
   if (input.solveMode === "elapsedClockTime") return elapsedReason(input, option);
   if (input.solveMode === "requiredUniformSpeedForDeadline") return deadlineReason(input, option);
+  if (
+    input.solveMode === "compareDistancesAtEqualTime"
+    || input.solveMode === "compareTimesAtEqualDistance"
+    || input.solveMode === "compareSpeedsAtEqualTime"
+  ) return comparisonReason(input, option);
+  if (
+    input.solveMode === "distanceRatioFromSpeedAndTimeRatios"
+    || input.solveMode === "speedRatioFromDistanceAndTimeRatios"
+    || input.solveMode === "timeRatioFromDistanceAndSpeedRatios"
+  ) return ratioFormulaReason(input, option);
   return option.reason;
 }
 
@@ -152,7 +264,13 @@ export function remodelMethodDerivedOptionFeedback(
     || input.solveMode === "timeFromDistanceAndSpeed"
     || input.solveMode === "speedFromMixedUnits"
     || input.solveMode === "elapsedClockTime"
-    || input.solveMode === "requiredUniformSpeedForDeadline";
+    || input.solveMode === "requiredUniformSpeedForDeadline"
+    || input.solveMode === "compareDistancesAtEqualTime"
+    || input.solveMode === "compareTimesAtEqualDistance"
+    || input.solveMode === "compareSpeedsAtEqualTime"
+    || input.solveMode === "distanceRatioFromSpeedAndTimeRatios"
+    || input.solveMode === "speedRatioFromDistanceAndTimeRatios"
+    || input.solveMode === "timeRatioFromDistanceAndSpeedRatios";
   if (!targeted) return explanation;
 
   return Object.freeze({
