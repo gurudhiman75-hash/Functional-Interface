@@ -73,23 +73,26 @@ for (let index = 0; index < views.length; index += 1) {
   assert.equal(view.sourceVerificationPassed, true);
 }
 
-const numericPiViews = review.rows
+// A numerical pi instruction is required only when the original mathematical stem
+// actually requested that convention. Ratio/percentage families may carry a piPolicy
+// internally even though pi cancels and no instruction belongs in the question.
+const conventionDependent = review.rows
   .map((question, index) => ({ question, view: views[index]! }))
-  .filter(({ question }) => "piPolicy" in question && question.piPolicy !== "EXACT_PI");
-assert.ok(numericPiViews.length > 0, "Review batch should exercise numerical pi conventions.");
-for (const { question, view } of numericPiViews) {
-  if (!("piPolicy" in question)) continue;
-  const expected = question.piPolicy === "PI_22_OVER_7" ? "Take π = 22/7." : "Take π = 3.14.";
+  .filter(({ question }) => /Use \$\\pi=/.test(question.stem));
+assert.ok(conventionDependent.length > 0, "Review batch should exercise explicit numerical pi conventions.");
+for (const { question, view } of conventionDependent) {
+  const expected = question.stem.includes("22}{7") ? "Take π = 22/7." : "Take π = 3.14.";
   assert.ok(
     view.stem.includes(expected),
-    `${view.permanentQlId} must state the numerical pi convention when it affects the option set.`,
+    `${view.permanentQlId} must preserve a required numerical pi convention in normal exam wording.`,
   );
 }
 
-const exactPiViews = review.rows
+const exactPiDependent = review.rows
   .map((question, index) => ({ question, view: views[index]! }))
-  .filter(({ question }) => "piPolicy" in question && question.piPolicy === "EXACT_PI");
-for (const { view } of exactPiViews) {
+  .filter(({ question }) => /Leave the answer in terms/.test(question.stem));
+assert.ok(exactPiDependent.length > 0, "Review batch should exercise exact-pi source wording.");
+for (const { view } of exactPiDependent) {
   assert.ok(
     !/leave the answer|take π/i.test(view.stem),
     `${view.permanentQlId} exact-pi MCQ should let the options communicate answer form.`,
