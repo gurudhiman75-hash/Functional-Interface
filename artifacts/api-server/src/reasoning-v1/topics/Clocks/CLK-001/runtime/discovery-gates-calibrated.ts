@@ -1,5 +1,6 @@
 import type { ClockTaskId } from "./catalog";
 import { CLOCK_DIFFICULTY_POLICY } from "./difficulty-governance";
+import { CLOCK_ITEM_DIFFICULTY_POLICY } from "./difficulty-item";
 import { CLOCK_BOUNDARY_AUDIT, CLOCK_INVERSE_AUDIT } from "./discovery-gates";
 import {
   CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION,
@@ -66,8 +67,15 @@ export const CLOCK_EFFECTIVE_GAP_AUDIT = Object.fromEntries(
 const unresolvedSourceBackedHoldCount = Object.values(CLOCK_EFFECTIVE_GAP_AUDIT)
   .filter((record) => record.status === "UNRESOLVED_SOURCE_BACKED_HOLD").length;
 
+/**
+ * Registry/source decisions, semantic difficulty and multilingual-risk discovery
+ * are automated prerequisites. They are deliberately distinct from final source
+ * saturation sign-off and human item-level difficulty calibration. Those two
+ * human gates remain open, so discovery freeze and permanent QL allocation stay
+ * blocked even though the technical audit infrastructure is complete.
+ */
 export const CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY = {
-  status: "TECHNICAL_DISCOVERY_GATES_COMPLETE__FREEZE_REVIEW_REQUIRED",
+  status: "TECHNICAL_DISCOVERY_AUDITS_COMPLETE__HUMAN_GATES_OPEN",
   prototypeExecutionComplete: true,
   solverVerifierAgreementComplete: true,
   mergeSplitAuditComplete: true,
@@ -75,15 +83,20 @@ export const CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY = {
   boundaryAuditComplete: true,
   gapAuditComplete: true,
   unresolvedSourceBackedHoldsResolved: unresolvedSourceBackedHoldCount === 0,
-  sourceSaturationComplete: CLOCK_SOURCE_SATURATION_POLICY.sourceSaturationComplete,
-  difficultyAuditComplete: CLOCK_DIFFICULTY_POLICY.difficultyAuditComplete,
+  declaredSourceRegistrySaturationComplete: CLOCK_SOURCE_SATURATION_POLICY.sourceSaturationComplete,
+  sourceSaturationComplete: false,
+  semanticDifficultyAuditComplete: CLOCK_DIFFICULTY_POLICY.difficultyAuditComplete,
+  itemLevelDifficultyModelImplemented: CLOCK_ITEM_DIFFICULTY_POLICY.semanticBaselineRequired && CLOCK_ITEM_DIFFICULTY_POLICY.generatedItemFeaturesRequired,
+  difficultyHumanCalibrationRequired: CLOCK_ITEM_DIFFICULTY_POLICY.humanCalibrationRequired,
+  difficultyAuditComplete: false,
   multilingualRiskAuditComplete: CLOCK_MULTILINGUAL_RISK_POLICY.riskAuditComplete,
-  noUnexplainedSourceFamily: unresolvedSourceBackedHoldCount === 0,
-  discoveryFreezeEligible: true,
+  noUnexplainedDeclaredSourceFamily: unresolvedSourceBackedHoldCount === 0,
+  discoveryFreezeEligible: false,
   discoveryFrozen: false,
   authorityCountFrozen: false,
   humanEditorialFreezeComplete: false,
   permanentQlAllocationAllowed: false,
+  blockingGates: ["SOURCE_SATURATION_SIGN_OFF", "ITEM_LEVEL_DIFFICULTY_HUMAN_CALIBRATION"] as const,
 } as const;
 
 export function clockEffectiveDiscoveryAuditSummary() {
@@ -104,9 +117,13 @@ export function clockEffectiveDiscoveryAuditSummary() {
     boundaryClusters,
     unresolvedSourceBackedHolds,
     intentionalAdvancedHolds,
-    sourceSaturationComplete: CLOCK_SOURCE_SATURATION_POLICY.sourceSaturationComplete,
-    difficultyAuditComplete: CLOCK_DIFFICULTY_POLICY.difficultyAuditComplete,
-    multilingualRiskAuditComplete: CLOCK_MULTILINGUAL_RISK_POLICY.riskAuditComplete,
+    declaredSourceRegistrySaturationComplete: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.declaredSourceRegistrySaturationComplete,
+    sourceSaturationComplete: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.sourceSaturationComplete,
+    semanticDifficultyAuditComplete: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.semanticDifficultyAuditComplete,
+    itemLevelDifficultyModelImplemented: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.itemLevelDifficultyModelImplemented,
+    difficultyAuditComplete: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.difficultyAuditComplete,
+    multilingualRiskAuditComplete: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.multilingualRiskAuditComplete,
+    blockingGates: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.blockingGates,
     discoveryFreezeEligible: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.discoveryFreezeEligible,
     discoveryFrozen: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.discoveryFrozen,
   } as const;
