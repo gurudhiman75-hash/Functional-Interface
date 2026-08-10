@@ -51,7 +51,7 @@ export function generateCp003State(authority: TsdCp003DiscoveryAuthority, seed: 
   switch (authority.solveMode) {
     case "timeGainLossFromSpeedChange": {
       const [distance, originalSpeed, changedSpeed] = profile(rng, [
-        [120, 40, 60], [180, 45, 60], [300, 50, 75], [240, 48, 60],
+        [120, 40, 60], [180, 45, 60], [300, 50, 75], [360, 40, 60],
       ] as const);
       return state({ solveMode: "timeGainLossFromSpeedChange", distance: r(distance), originalSpeed: r(originalSpeed), changedSpeed: r(changedSpeed) }, changedSpeed > originalSpeed ? "FASTER_TIME_SAVED" : "SLOWER_DELAY", rng);
     }
@@ -133,7 +133,7 @@ export function generateCp003State(authority: TsdCp003DiscoveryAuthority, seed: 
 
     case "stoppageDurationFromRunningAndOverallSpeed": {
       const [distance, running, overall] = profile(rng, [
-        [120, 60, 48], [180, 72, 60], [150, 75, 60], [240, 80, 64],
+        [120, 60, 48], [180, 72, 60], [180, 60, 45], [240, 80, 64],
       ] as const);
       return state({ solveMode: "stoppageDurationFromRunningAndOverallSpeed", distance: r(distance), runningSpeed: r(running), overallSpeed: r(overall) }, "RUNNING_VS_OVERALL_SPEED", rng);
     }
@@ -213,7 +213,7 @@ export function generateCp003State(authority: TsdCp003DiscoveryAuthority, seed: 
 
     case "arrivalShiftFromDepartureAndSpeedChanges": {
       const [distance, oldSpeed, newSpeed, shiftN, shiftD] = profile(rng, [
-        [120, 60, 40, -1, 2], [180, 60, 90, 1, 2], [150, 50, 75, 1, 4], [100, 40, 50, 1, 1],
+        [120, 60, 40, -1, 2], [180, 60, 90, 1, 2], [150, 50, 75, 1, 4], [180, 60, 90, -1, 4],
       ] as const);
       return state({ solveMode: "arrivalShiftFromDepartureAndSpeedChanges", distance: r(distance), originalSpeed: r(oldSpeed), newSpeed: r(newSpeed), departureShift: r(shiftN, shiftD) }, "COMBINED_DEPARTURE_SPEED_SHIFT", rng);
     }
