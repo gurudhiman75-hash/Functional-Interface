@@ -46,8 +46,11 @@ function diagnosisFor(
       return "This uses the difference between two speeds as a distance. Speed difference is not distance.";
     case "DIRECT_SPEED_DISTANCE_PROPORTION":
       return "This scales distance only by the speed ratio. It ignores that the two parts take different times.";
+    // Keep the original wrong-method wording for the fallback. Different
+    // fallback distractors can come from different source mistakes, and a
+    // single sentence here would make their teaching feedback identical.
     case "WRONG_DISTANCE_BALANCE":
-      return "With this distance, total distance ÷ total time gives the wrong average speed.";
+      return null;
     default:
       return null;
   }
@@ -79,11 +82,11 @@ function rewriteWrongReason(
   }
 
   let reason = removeOldResultEnding(entry.reason)
-    .replace(/This forces an unsupported direct proportion between speed and distance\.?/gi, "This scales distance only by the speed ratio and ignores the different travel times.")
-    .replace(/This combines the given numbers without satisfying the average-speed equation\.?/gi, "With this value, total distance ÷ total time gives the wrong average speed.")
-    .replace(/unsupported direct proportion/gi, "wrong speed-only shortcut")
-    .replace(/combines the given numbers/gi, "uses the given numbers in the wrong way")
-    .replace(/without satisfying the average-speed equation/gi, "but gives the wrong whole-trip average")
+    .replace(/This forces an unsupported direct proportion between speed and distance\.?/gi, "This scales distance only by the speed ratio. It ignores the different travel times.")
+    .replace(/This combines the given numbers without satisfying the average-speed equation\.?/gi, "This combines the given numbers directly and skips the travel-time calculation needed for average speed.")
+    .replace(/unsupported direct proportion/gi, "speed-only shortcut")
+    .replace(/combines the given numbers/gi, "combines the given numbers directly")
+    .replace(/without satisfying the average-speed equation/gi, "without first checking the whole-trip travel time")
     .replace(/\s+/g, " ")
     .trim();
 
