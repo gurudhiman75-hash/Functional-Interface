@@ -1,0 +1,71 @@
+name: Validate INT-CP-004 multilingual freeze v9
+
+on:
+  pull_request:
+    branches:
+      - freeze/int-cp004-approved-english-v1
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp004-multilingual-freeze-v9.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-multilingual-freeze-v9-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp004-exam-friendly-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp004-localized-exam-friendly-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp004-localized-formula-explanations-v9*.ts"
+      - ".github/workflows/int-cp004-multilingual-freeze-v9.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp004-multilingual-freeze-v9:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle multilingual freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-multilingual-freeze-v9-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-multilingual-freeze-v9-audit.mjs
+
+      - name: Run 3,800-case multilingual freeze audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-multilingual-freeze-v9-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-multilingual-freeze-v9-audit.log
+
+      - name: Verify freeze evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          grep -q 'PASS_INT_CP004_MULTILINGUAL_FREEZE_V9' artifacts/api-server/dist/quant-v4/int-001-cp004-multilingual-freeze-v9-audit.log
+          grep -q '"status": "INT_CP004_MULTILINGUAL_V9_FROZEN"' artifacts/api-server/dist/quant-v4/int-cp004-multilingual-freeze-v9/int-cp004-multilingual-freeze-v9-summary.json
+          grep -q '"frozenQuestions": 3800' artifacts/api-server/dist/quant-v4/int-cp004-multilingual-freeze-v9/int-cp004-multilingual-freeze-v9-summary.json
+          grep -q '"contentIdentityChecks": 3800' artifacts/api-server/dist/quant-v4/int-cp004-multilingual-freeze-v9/int-cp004-multilingual-freeze-v9-summary.json
+          grep -q '"decimalFreeChecks": 3800' artifacts/api-server/dist/quant-v4/int-cp004-multilingual-freeze-v9/int-cp004-multilingual-freeze-v9-summary.json
+          grep -q '"formulaFirstChecks": 3800' artifacts/api-server/dist/quant-v4/int-cp004-multilingual-freeze-v9/int-cp004-multilingual-freeze-v9-summary.json
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload multilingual freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp004-multilingual-freeze-v9-evidence
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp004-multilingual-freeze-v9-audit.log
+            artifacts/api-server/dist/quant-v4/int-cp004-multilingual-freeze-v9/**
