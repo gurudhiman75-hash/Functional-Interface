@@ -7,6 +7,7 @@ export interface Sea001SourceEvidence {
   readonly examLabel: string;
   readonly evidenceTier: Sea001SourceEvidenceTier;
   readonly sourceUrl: string;
+  readonly verifiedOn: "2026-08-10";
   readonly observedTopology: string;
   readonly observedFacingPolicy: string;
   readonly observedFeatures: readonly string[];
@@ -17,7 +18,7 @@ export interface Sea001SourceEvidence {
 /**
  * External exam evidence only. These records validate that the V3-designed SEA-001
  * contracts are exam-relevant; they do not override, expand, or redefine the V3 authority.
- * URLs are public source-index pages captured during the 2026-08-10 source audit.
+ * URLs are public question/paper index pages manually verified during the 2026-08-10 source audit.
  */
 export const SEA001_EXTERNAL_SOURCE_EVIDENCE: readonly Sea001SourceEvidence[] = [
   {
@@ -26,6 +27,7 @@ export const SEA001_EXTERNAL_SOURCE_EVIDENCE: readonly Sea001SourceEvidence[] = 
     examLabel: "SSC CGL 2024 Tier-II Official Paper-I (20 Jan 2025)",
     evidenceTier: "OFFICIAL_PAPER_INDEX",
     sourceUrl: "https://testbook.com/question-answer/m-n-o-x-y-and-z-are-sitting-around-a-circular--679757d4e06459b23ddc2e0f",
+    verifiedOn: "2026-08-10",
     observedTopology: "CIRCULAR_TABLE",
     observedFacingPolicy: "ALL_FACE_CENTRE",
     observedFeatures: ["IMMEDIATE_NEIGHBOUR", "SECOND_RIGHT", "NEGATIVE_ADJACENCY", "IMMEDIATE_LEFT_QUERY"],
@@ -38,6 +40,7 @@ export const SEA001_EXTERNAL_SOURCE_EVIDENCE: readonly Sea001SourceEvidence[] = 
     examLabel: "SSC CGL 2021 Tier-I Official Paper (11 Apr 2022 Shift 2)",
     evidenceTier: "OFFICIAL_PAPER_INDEX",
     sourceUrl: "https://testbook.com/question-answer/five-persons-are-sitting-in-a-row-facing-the-north--6276bd4805c9ee2bf71fa7da",
+    verifiedOn: "2026-08-10",
     observedTopology: "SINGLE_LINEAR_ROW",
     observedFacingPolicy: "ALL_FACE_NORTH",
     observedFeatures: ["EXTREME_ENDS", "MIDDLE", "IMMEDIATE_LEFT_RIGHT", "ATTRIBUTE_FREE_POSITION_LOGIC"],
@@ -50,6 +53,7 @@ export const SEA001_EXTERNAL_SOURCE_EVIDENCE: readonly Sea001SourceEvidence[] = 
     examLabel: "SSC CGL 2022 Tier-II Official Paper (7 Mar 2023)",
     evidenceTier: "OFFICIAL_PAPER_INDEX",
     sourceUrl: "https://testbook.com/question-answer/seven-persons-are-sitting-around-a-circular-dining--6410a12ae7f116c4147b4692",
+    verifiedOn: "2026-08-10",
     observedTopology: "CIRCULAR_TABLE",
     observedFacingPolicy: "ALL_FACE_CENTRE",
     observedFeatures: ["LEFT_RIGHT", "SEAT_EXCHANGE_HYPOTHETICAL", "POST_SWAP_QUERY"],
@@ -62,6 +66,7 @@ export const SEA001_EXTERNAL_SOURCE_EVIDENCE: readonly Sea001SourceEvidence[] = 
     examLabel: "SBI PO Prelims Memory Based Paper (1 Nov 2023 Shift 1)",
     evidenceTier: "MEMORY_BASED_PAPER",
     sourceUrl: "https://testbook.com/question-answer/which-of-the-following-is-false--63c8c908e47423efab2735aa",
+    verifiedOn: "2026-08-10",
     observedTopology: "SINGLE_LINEAR_ROW",
     observedFacingPolicy: "MIXED_NORTH_SOUTH",
     observedFeatures: ["REFERENCE_PERSON_FACING", "INFERRED_FACING", "EXTREME_END", "KTH_LEFT_RIGHT", "NEIGHBOUR_FACING"],
@@ -74,6 +79,7 @@ export const SEA001_EXTERNAL_SOURCE_EVIDENCE: readonly Sea001SourceEvidence[] = 
     examLabel: "SBI PO Prelims Memory Based Paper (21 Nov 2021 Shift 3)",
     evidenceTier: "MEMORY_BASED_PAPER",
     sourceUrl: "https://testbook.com/question-answer/how-many-people-facing-outside--608a9bad1eacceff651758ae",
+    verifiedOn: "2026-08-10",
     observedTopology: "CIRCULAR_TABLE",
     observedFacingPolicy: "MIXED_CENTRE_OUTWARD",
     observedFeatures: ["MIXED_FACING_STATE", "OPPOSITE_FACING_RELATION", "KTH_RIGHT", "DIRECTIONAL_GAP", "FACING_COUNT_QUERY"],
@@ -83,36 +89,39 @@ export const SEA001_EXTERNAL_SOURCE_EVIDENCE: readonly Sea001SourceEvidence[] = 
   {
     id: "SEA-SRC-BANK-003",
     examFamily: "BANKING",
-    examLabel: "SBI PO Prelims Memory Based Paper (17 Dec 2022 Shift 2)",
+    examLabel: "SBI PO Prelims Memory Based Paper (21 Nov 2021 Shift 3)",
     evidenceTier: "MEMORY_BASED_PAPER",
-    sourceUrl: "https://testbook.com/question-answer/who-sits-to-the-immediate-right-of-the-person-who--6094060f6201fe4acdc1d150",
+    sourceUrl: "https://testbook.com/question-answer/what-is-the-position-of-q-with-respective-t--608a97c01eacceff65172526",
+    verifiedOn: "2026-08-10",
     observedTopology: "CIRCULAR_TABLE",
     observedFacingPolicy: "MIXED_CENTRE_OUTWARD",
-    observedFeatures: ["INFERRED_FACING", "LEFT_RIGHT_BY_REFERENCE_FACING", "DIRECTIONAL_COUNT", "NEIGHBOUR_FACING_RELATION"],
+    observedFeatures: ["REFERENCE_PERSON_FACING", "LEFT_RIGHT_BY_RESOLVED_FACING", "POSITION_QUERY"],
     supportsCheckpoints: ["SEA-CP-005"],
-    note: "Confirms mixed-facing circular left/right inference at banking prelims level.",
+    note: "A second indexed question from the same mixed-facing banking puzzle confirms person-relative directional queries.",
   },
   {
     id: "SEA-SRC-BANK-004",
     examFamily: "BANKING",
-    examLabel: "Oliveboard 2026 Bank Exams Seating Arrangement Practice",
+    examLabel: "Oliveboard Bank Exams Seating Arrangement Practice (2026)",
     evidenceTier: "CURRENT_EXAM_PREP_PATTERN",
     sourceUrl: "https://www.oliveboard.in/blog/seating-arrangement-questions-for-bank-exams/",
+    verifiedOn: "2026-08-10",
     observedTopology: "LINEAR_AND_CIRCULAR",
     observedFacingPolicy: "SAME_AND_MIXED_FACING",
     observedFeatures: ["LINEAR", "CIRCULAR", "MIXED_FACING", "POSITION_FROM_END", "COUNT_BETWEEN", "IMMEDIATE_NEIGHBOURS"],
     supportsCheckpoints: ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-005"],
-    note: "Current competitor-pattern corroboration only; exact historical paper evidence above remains the stronger source lane.",
+    note: "Current competitor-pattern corroboration only; the historical memory-paper evidence above remains the stronger banking evidence lane.",
   },
   {
     id: "SEA-SRC-RAIL-001",
     examFamily: "RAILWAY",
-    examLabel: "RRB NTPC UG CBT-I Official Paper (18 Aug 2025 Shift 1)",
+    examLabel: "RRB NTPC (UG) CBT-I Official Paper (8 Aug 2025 Shift 2)",
     evidenceTier: "OFFICIAL_PAPER_INDEX",
-    sourceUrl: "https://testbook.com/question-answer/six-passengers-l-m-n-p-q-and-r-are-sitting-on--68de4501f418ba2e1bd515f0",
+    sourceUrl: "https://testbook.com/question-answer/five-people-a-b-c-d-and-e-are-sitting-in-a-st--68c928feb26f6102fc825224",
+    verifiedOn: "2026-08-10",
     observedTopology: "SINGLE_LINEAR_ROW",
     observedFacingPolicy: "ALL_FACE_NORTH",
-    observedFeatures: ["EXTREME_END", "IMMEDIATE_BETWEEN", "SECOND_LEFT", "NEGATIVE_ADJACENCY", "IMMEDIATE_LEFT_QUERY"],
+    observedFeatures: ["EXTREME_END", "IMMEDIATE_BETWEEN", "THIRD_LEFT", "SECOND_RIGHT"],
     supportsCheckpoints: ["SEA-CP-001"],
     note: "Indexed as an RRB NTPC 2025 official-paper question.",
   },
@@ -122,6 +131,7 @@ export const SEA001_EXTERNAL_SOURCE_EVIDENCE: readonly Sea001SourceEvidence[] = 
     examLabel: "RRB Group D Official Paper (6 Sep 2022 Shift 2)",
     evidenceTier: "OFFICIAL_PAPER_INDEX",
     sourceUrl: "https://testbook.com/question-answer/six-friends-u-v-w-x-y-and-z-are-sitting-in-a--6371f92619b34b941d97796d",
+    verifiedOn: "2026-08-10",
     observedTopology: "CIRCULAR_TABLE",
     observedFacingPolicy: "ALL_FACE_OUTWARD",
     observedFeatures: ["IMMEDIATE_LEFT", "SECOND_RIGHT", "NEGATIVE_ADJACENCY", "OUTWARD_LEFT_RIGHT_REVERSAL"],
@@ -131,50 +141,54 @@ export const SEA001_EXTERNAL_SOURCE_EVIDENCE: readonly Sea001SourceEvidence[] = 
   {
     id: "SEA-SRC-RAIL-003",
     examFamily: "RAILWAY",
-    examLabel: "RRB NTPC 2022 CBT-2 Official Paper (17 Jun 2022 Shift 2)",
+    examLabel: "RRB NTPC Graduate Level CBT-I Official Paper (5 Jun 2025 Shift 2)",
     evidenceTier: "OFFICIAL_PAPER_INDEX",
-    sourceUrl: "https://testbook.com/question-answer/five-people-a-b-c-d-and-e-are-sitting-around--62b9cc78c86a71be1a3f6cba",
+    sourceUrl: "https://testbook.com/question-answer/a-b-c-d-g-h-and-i-are-sitting-around-a--68677ca4327ea802db606a17",
+    verifiedOn: "2026-08-10",
     observedTopology: "CIRCULAR_TABLE",
     observedFacingPolicy: "ALL_FACE_CENTRE",
-    observedFeatures: ["IMMEDIATE_NEIGHBOUR", "SECOND_LEFT_RIGHT", "NEIGHBOUR_QUERY"],
+    observedFeatures: ["DIRECTIONAL_COUNT_BETWEEN", "IMMEDIATE_LEFT", "KTH_LEFT_QUERY"],
     supportsCheckpoints: ["SEA-CP-003"],
-    note: "Railway centre-facing circular corroboration.",
+    note: "Railway centre-facing circular corroboration from an indexed official paper.",
   },
   {
     id: "SEA-SRC-PUNJAB-001",
     examFamily: "PUNJAB_STATE",
-    examLabel: "Punjab Police Constable Official Paper-I & II (12 May 2025 Shift 2)",
+    examLabel: "Punjab Police Constable Official Paper-I & II (31 May 2025 Shift 2)",
     evidenceTier: "OFFICIAL_PAPER_INDEX",
-    sourceUrl: "https://testbook.com/question-answer/how-many-people-sit-between-c-and-e--68f8a40ac91c5f84e02f8d40",
+    sourceUrl: "https://testbook.com/question-answer/how-many-people-are-sitting-between-c-and-d--68fb11e4bdef234e42815c0f",
+    verifiedOn: "2026-08-10",
     observedTopology: "SINGLE_LINEAR_ROW",
     observedFacingPolicy: "ALL_FACE_NORTH",
-    observedFeatures: ["END", "MIDDLE", "THIRD_RIGHT", "EXACT_COUNT_BETWEEN", "COUNT_QUERY"],
+    observedFeatures: ["LEFT_END", "POSITION_FROM_LEFT", "IMMEDIATE_LEFT", "COUNT_BETWEEN_QUERY"],
     supportsCheckpoints: ["SEA-CP-001"],
     note: "Direct Punjab-state official-paper index evidence for the CP-001 core.",
   },
   {
     id: "SEA-SRC-PUNJAB-002",
     examFamily: "PUNJAB_STATE",
-    examLabel: "Punjab Police Constable Official Paper-I & II (5 Sep 2023 Shift 1)",
+    examLabel: "Punjab Police Constable Official Paper-I & II (6 Aug 2023 Shift 2)",
     evidenceTier: "OFFICIAL_PAPER_INDEX",
-    sourceUrl: "https://testbook.com/question-answer/six-friends-p-q-r-s-t-u-are-sitting-around-a--667c12a7ac7559b423d15313",
+    sourceUrl: "https://testbook.com/question-answer/six-people-a-b-c-d-e-and-f-are-sitting-around--69e0ca9a9d8bf7f5ca3fc8dd",
+    verifiedOn: "2026-08-10",
     observedTopology: "CIRCULAR_TABLE",
     observedFacingPolicy: "ALL_FACE_CENTRE",
-    observedFeatures: ["IMMEDIATE_LEFT_RIGHT", "ADJACENCY", "NEIGHBOUR_QUERY"],
+    observedFeatures: ["THIRD_RIGHT", "SECOND_LEFT", "IMMEDIATE_LEFT", "KTH_LEFT_QUERY"],
     supportsCheckpoints: ["SEA-CP-003"],
     note: "Direct Punjab-state official-paper index evidence for centre-facing circular seating.",
   },
   {
     id: "SEA-SRC-PUNJAB-003",
     examFamily: "PUNJAB_STATE",
-    examLabel: "Punjab Police Constable Official Paper-I & II (6 Aug 2023 Shift 2)",
+    examLabel: "Punjab Police Constable Official Paper-I & II (5 Jun 2025 Shift 2)",
     evidenceTier: "OFFICIAL_PAPER_INDEX",
-    sourceUrl: "https://testbook.com/question-answer/six-people-a-b-c-d-e-and-f-are-sitting-around--69e0ca9a9d8bf7f5ca3fc8dd",
+    sourceUrl: "https://testbook.com/question-answer/who-sits-second-to-the-left-of-n--68f9d35b8d5df91854552eac",
+    verifiedOn: "2026-08-10",
     observedTopology: "CIRCULAR_TABLE",
     observedFacingPolicy: "ALL_FACE_CENTRE",
-    observedFeatures: ["THIRD_RIGHT", "SECOND_LEFT", "IMMEDIATE_LEFT", "KTH_LEFT_QUERY"],
+    observedFeatures: ["IMMEDIATE_RIGHT", "ADJACENCY", "SECOND_LEFT_QUERY"],
     supportsCheckpoints: ["SEA-CP-003"],
-    note: "Additional Punjab-state evidence for centre-facing k-th left/right semantics.",
+    note: "Additional Punjab-state indexed official-paper evidence for centre-facing left/right semantics.",
   },
 ] as const;
 
@@ -202,6 +216,7 @@ export function runSea001ExternalSourceAudit(): Sea001SourceAuditResult {
   const missingCheckpoints = expectedCheckpoints.filter((checkpoint) => !checkpointsCovered.includes(checkpoint));
   const invalidEvidenceCount = SEA001_EXTERNAL_SOURCE_EVIDENCE.filter((evidence) =>
     !/^https:\/\//.test(evidence.sourceUrl)
+    || evidence.verifiedOn !== "2026-08-10"
     || evidence.observedFeatures.length === 0
     || evidence.supportsCheckpoints.length === 0).length;
 
@@ -214,6 +229,6 @@ export function runSea001ExternalSourceAudit(): Sea001SourceAuditResult {
     missingCheckpoints,
     invalidEvidenceCount,
     passed: missingExamFamilies.length === 0 && missingCheckpoints.length === 0 && invalidEvidenceCount === 0,
-    limitation: "Bank-exam evidence includes memory-based paper indexes because many banking bodies do not publish reusable full question papers. External evidence validates exam relevance only; V3 remains the sole design authority.",
+    limitation: "Bank-exam evidence includes memory-based paper indexes because many banking bodies do not publish reusable full question papers. Testbook pages are secondary indexes even when they label a question as from an official paper. External evidence validates exam relevance only; V3 remains the sole design authority.",
   };
 }
