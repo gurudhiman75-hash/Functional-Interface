@@ -1,5 +1,6 @@
 import {
   CLOCK_CANDIDATE_DISPOSITION,
+  type ClockCandidateDisposition,
   type ClockCandidateDispositionRecord,
 } from "./candidate-disposition";
 import {
@@ -47,6 +48,19 @@ export const CLOCK_EXAM_NATURAL_CALIBRATION_POLICY = {
   sourceSaturationComplete: false,
   humanEditorialFreezeComplete: false,
 } as const;
+
+export function effectiveClockDispositionSummary(): Readonly<Record<ClockCandidateDisposition, number>> {
+  const summary: Record<ClockCandidateDisposition, number> = {
+    PROVISIONAL_AUTHORITY_ANCHOR: 0,
+    MERGE_AS_QUERY_OR_RENDERER_VARIANT: 0,
+    HOLD_FOR_ADVANCED_SOURCE_CONFIRMATION: 0,
+    INTERNAL_VERIFICATION_ONLY: 0,
+  };
+  for (const value of Object.values(CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION)) {
+    summary[value.disposition] += 1;
+  }
+  return summary;
+}
 
 export function effectiveClockAuthorityClusters(): readonly string[] {
   return [...new Set(
