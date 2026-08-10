@@ -158,26 +158,24 @@ function expectedCreditInterval(locale: IntCp004LocalizedLocale, frequency: numb
 
 let questionCases = 0;
 let optionChecks = 0;
+let suppressedOptionFeedbackChecks = 0;
 let explanationChecks = 0;
 let simpleExplanationChecks = 0;
 let conciseStepChecks = 0;
 let plainLanguageChecks = 0;
+let readableDecimalChecks = 0;
 let learnerIdLeakChecks = 0;
 let nativeStemChecks = 0;
 let directPeriodStemChecks = 0;
 let grammarChecks = 0;
-let feedbackSpecificityChecks = 0;
 let effectiveRateEquationChecks = 0;
 let punjabiTerminologyChecks = 0;
 let annualWordingChecks = 0;
-const correctFeedbackByLocale = new Map<IntCp004LocalizedLocale, Set<string>>();
 const normalizedStemsByQl = new Map<string, Set<string>>();
 const framesByQl = new Map<string, Set<string>>();
 const mishritUsageByQl = new Map<string, number>();
 
 for (const locale of locales) {
-  correctFeedbackByLocale.set(locale, new Set());
-
   for (const qlId of INT_CP004_QL_IDS) {
     for (let index = 0; index < seedsPerQl; index += 1) {
       const seed = `int-cp004-human-v8-audit:${qlId}:${index}`;
@@ -249,13 +247,10 @@ for (const locale of locales) {
       const correctOption = question.options[question.correctIndex];
       assert(correctOption?.isCorrect, `${qlId}/${seed}/${locale}: correct option is missing.`);
       for (const option of question.options) {
-        assert(option.feedback.trim().length >= 35, `${qlId}/${seed}/${locale}/${option.id}: feedback is too generic.`);
-        assert(!option.feedback.includes("सभी ब्याज-शर्तों") && !option.feedback.includes("ਸਾਰੀਆਂ ਵਿਆਜ-ਸ਼ਰਤਾਂ"), `${qlId}/${seed}/${locale}/${option.id}: legacy generic feedback remains.`);
         optionChecks += 1;
+        suppressedOptionFeedbackChecks += 1;
+        assert(option.feedback === "", `${qlId}/${seed}/${locale}/${option.id}: learner option feedback was not suppressed.`);
       }
-      assert(correctOption.feedback.includes(correctOption.text), `${qlId}/${seed}/${locale}: correct feedback does not state the verified answer.`);
-      correctFeedbackByLocale.get(locale)?.add(correctOption.feedback);
-      feedbackSpecificityChecks += 1;
 
       assert(question.explanation.steps.length >= 2 && question.explanation.steps.length <= 4, `${qlId}/${seed}/${locale}: simple explanation must use 2-4 steps.`);
       assert(question.explanation.whatAsked.length <= 60, `${qlId}/${seed}/${locale}: task line is too long.`);
@@ -269,6 +264,9 @@ for (const locale of locales) {
       assert(question.explanation.commonMistake.length >= 35 && question.explanation.commonMistake.length <= 170, `${qlId}/${seed}/${locale}: mistake note is not concise.`);
       assert(question.explanation.finalAnswer.includes(question.correctAnswer), `${qlId}/${seed}/${locale}: final answer does not state the verified answer.`);
       simpleExplanationChecks += 6;
+
+      readableDecimalChecks += 1;
+      assert(!/\d+\.\d{3,}/u.test(explanationText), `${qlId}/${seed}/${locale}: ugly decimal with more than two places remains in learner explanation.`);
 
       for (const [stepIndex, step] of question.explanation.steps.entries()) {
         assert(step.length <= 180, `${qlId}/${seed}/${locale}/step-${stepIndex + 1}: explanation step is too long (${step.length}).`);
@@ -298,8 +296,6 @@ for (const locale of locales) {
 }
 
 for (const locale of locales) {
-  const correctFeedbacks = correctFeedbackByLocale.get(locale)?.size ?? 0;
-  assert(correctFeedbacks >= 80, `${locale}: correct feedback diversity is too low (${correctFeedbacks}).`);
   for (const qlId of INT_CP004_QL_IDS) {
     const key = `${locale}/${qlId}`;
     const normalizedStems = normalizedStemsByQl.get(key)?.size ?? 0;
@@ -318,15 +314,16 @@ const summary = Object.freeze({
   simpleExplanationVersion: INT_CP004_LOCALIZED_SIMPLE_EXPLANATION_V8_VERSION,
   questionCases,
   optionChecks,
+  suppressedOptionFeedbackChecks,
   explanationChecks,
   simpleExplanationChecks,
   conciseStepChecks,
   plainLanguageChecks,
+  readableDecimalChecks,
   learnerIdLeakChecks,
   nativeStemChecks,
   directPeriodStemChecks,
   grammarChecks,
-  feedbackSpecificityChecks,
   effectiveRateEquationChecks,
   punjabiTerminologyChecks,
   annualWordingChecks,
@@ -335,9 +332,6 @@ const summary = Object.freeze({
   locales,
   normalizedStemPatternsByQl: Object.fromEntries(
     [...normalizedStemsByQl.entries()].map(([key, values]) => [key, values.size]),
-  ),
-  correctFeedbackDiversity: Object.fromEntries(
-    locales.map((locale) => [locale, correctFeedbackByLocale.get(locale)?.size ?? 0]),
   ),
   lifecycle: {
     enabled: false,
