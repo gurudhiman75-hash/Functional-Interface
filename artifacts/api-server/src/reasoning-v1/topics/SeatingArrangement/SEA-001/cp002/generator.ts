@@ -1,6 +1,12 @@
 import { canonicalDigest } from "../canonical.ts";
 import { DeterministicRandom } from "../../../../shared/constraint-core/random.ts";
-import { selectSea001Names } from "../generation/name-pool.ts";
+import {
+  presentSea001Children,
+  presentSea001Text,
+  sea001DisplayName,
+  sea001DisplayNameMap,
+  sea001PersonIds,
+} from "../generation/person-presentation.ts";
 import { constraintTrueInMixedState, mixedConstraintFingerprint, renderMixedConstraint } from "./constraints.ts";
 import { buildMixedFacingChildren } from "./questions.ts";
 import { enumerateMixedFacingOracle, enumerateMixedFacingProduction } from "./solvers.ts";
@@ -144,7 +150,8 @@ function proofTrace(constraints: readonly MixedFacingConstraint[]): readonly Mix
 function attempt(seed: string, blueprint: MixedFacingBlueprintId): MixedFacingCaseletRecord {
   const rng = new DeterministicRandom(seed);
   const seatCount = rng.integer(6, 8);
-  const persons = selectSea001Names(seed, seatCount, `${blueprint}:cp002`) as MixedPersonId[];
+  const persons = sea001PersonIds(seatCount) as MixedPersonId[];
+  const displayNames = sea001DisplayNameMap(seed, persons, `${blueprint}:cp002`);
   const order = rng.shuffle(persons);
   const facings = controlledFacings(order, rng);
   const candidates = candidateConstraints(blueprint, order, facings, rng);
@@ -157,10 +164,12 @@ function attempt(seed: string, blueprint: MixedFacingBlueprintId): MixedFacingCa
   if (productionKeys.length !== 1 || JSON.stringify(productionKeys) !== JSON.stringify(oracleKeys)) throw new Error("CP-002 production/oracle disagreement");
   const model = production[0];
   if (!model) throw new Error("Missing CP-002 model");
-  const children = buildMixedFacingChildren(seed, model, rng);
-  const clueTexts = constraints.map(renderMixedConstraint);
-  const diagramText = model.seatOrder.map((personId, index) => `${index + 1}:${personId}${model.facings[personId] === "NORTH" ? "↑" : "↓"}`).join(" | ");
-  const facingLines = model.seatOrder.map((personId) => `${personId} faces ${model.facings[personId]?.toLowerCase()}.`);
+  const children = presentSea001Children(buildMixedFacingChildren(seed, model, rng), displayNames);
+  const clueTexts = constraints.map((constraint) => presentSea001Text(renderMixedConstraint(constraint), displayNames));
+  const diagramText = model.seatOrder
+    .map((personId, index) => `${index + 1}:${sea001DisplayName(personId, displayNames)}${model.facings[personId] === "NORTH" ? "↑" : "↓"}`)
+    .join(" | ");
+  const facingLines = model.seatOrder.map((personId) => `${sea001DisplayName(personId, displayNames)} faces ${model.facings[personId]?.toLowerCase()}.`);
   const sharedExplanation = [
     "Number the seats from left to right.",
     "For every left/right clue, first note the facing of the reference person: north-facing persons use the observer's left/right, while south-facing persons reverse it.",
@@ -169,6 +178,7 @@ function attempt(seed: string, blueprint: MixedFacingBlueprintId): MixedFacingCa
     `The final row is ${diagramText}.`,
     `Facing pattern: ${facingLines.join(" ")}`,
   ].join("\n");
+  const listedNames = persons.map((personId) => sea001DisplayName(personId, displayNames));
 
   return {
     caseletId: `SEA-CP002-${canonicalDigest({ seed, blueprint }).slice(0, 16)}`,
@@ -178,7 +188,7 @@ function attempt(seed: string, blueprint: MixedFacingBlueprintId): MixedFacingCa
     blueprintAuthorityId: blueprint,
     seed,
     locale: "en-IN",
-    setupText: `${seatCount} persons—${persons.join(", ")}—are sitting in a straight row. Some face north and the others face south. They are not necessarily seated in the same order as listed.`,
+    setupText: `${seatCount} persons—${listedNames.join(", ")}—are sitting in a straight row. Some face north and the others face south. They are not necessarily seated in the same order as listed.`,
     clueTexts,
     constraints,
     hiddenStateFingerprint: canonicalDigest({ order, facings }),
