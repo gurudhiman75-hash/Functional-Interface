@@ -2,7 +2,7 @@
 
 ## Decision
 
-Probability remains **English mock-ready only**. Hindi and Punjabi are represented by a complete, auditable and fail-closed foundation, shared native-language primitives, and a draft PRB-001 native editorial library. They are not exposed in Question Studio and are not publicly publishable.
+Probability remains **English mock-ready only**. Hindi and Punjabi now have complete draft editorial coverage for both PRB-001 and PRB-002, but they are not exposed in Question Studio and are not publicly publishable.
 
 ## Authority model
 
@@ -11,7 +11,7 @@ The English Probability runtime remains the sole mathematical authority for:
 - parameter generation;
 - exact rational arithmetic;
 - solver output;
-- correct-option index;
+- options and correct-option index;
 - mock-family policy;
 - difficulty and exam-profile routing;
 - traceability IDs.
@@ -23,10 +23,10 @@ Hindi and Punjabi replace only student-facing language through native editorial 
 | Package | English QLs | Hindi editorial state | Punjabi editorial state |
 |---|---:|---:|---:|
 | PRB-001 | 120 | 120 draft entries | 120 draft entries |
-| PRB-002 | 96 | 96 pending slots | 96 pending slots |
-| **Total** | **216** | **216 tracked** | **216 tracked** |
+| PRB-002 | 96 | 96 draft entries | 96 draft entries |
+| **Total** | **216** | **216 draft entries** | **216 draft entries** |
 
-The release manifest still contains **648 language records**: 216 English, 216 Hindi and 216 Punjabi. Hindi/Punjabi manifest status remains `PENDING_NATIVE_EDITORIAL` until the later human-review and parity freeze.
+The release manifest still contains **648 language records**: 216 English, 216 Hindi and 216 Punjabi. Hindi/Punjabi manifest status remains `PENDING_NATIVE_EDITORIAL` until the later runtime-parity and human-review freeze.
 
 ## Foundation guarantees
 
@@ -46,15 +46,11 @@ It provides:
 
 - native labels for probability concepts such as event, outcome, favourable outcome, sample space, complement, conditional probability and independence;
 - experiment-object vocabulary for coins, dice, cards, deck, bag/urn, balls, spinner and numbers;
-- colour vocabulary;
-- card-suit and card-rank vocabulary;
-- cricket/football labels used by overlap questions;
+- colour, card-suit and card-rank vocabulary;
 - counting vocabulary for selection, arrangement, permutation, combination and committee questions;
-- learner-facing explanation labels for method, working, simplification, key point and final answer;
-- a closed primitive-token localizer;
-- a closed textual-option localizer;
-- native-script validation;
-- wrong-script detection;
+- learner-facing explanation labels;
+- closed primitive-token and textual-option localisation;
+- native-script and wrong-script validation;
 - unresolved prose-placeholder detection that ignores MathJax braces;
 - English-fallback detection through Latin prose auditing.
 
@@ -63,10 +59,7 @@ It provides:
 Probability mathematics remains language-neutral. Hindi and Punjabi therefore use an exam-safe display policy:
 
 - ASCII digits `0-9` are preserved;
-- integer options are preserved byte-for-byte;
-- fractions such as `1/3` are preserved byte-for-byte;
-- percentages such as `25%` are preserved byte-for-byte;
-- ratios such as `2:3` are preserved byte-for-byte;
+- integers, fractions, percentages and ratios are preserved byte-for-byte;
 - MathJax is preserved byte-for-byte;
 - known textual options may be translated only through the closed shared dictionary;
 - unknown prose options throw rather than silently falling back to English.
@@ -75,56 +68,58 @@ This policy keeps the English solver and correct-option index authoritative whil
 
 ## ML-03 PRB-001 draft editorial authority
 
-`PRB-001/native-editorial.ts` now provides the draft native editorial layer for all **120 PRB-001 English QLs**.
+`PRB-001/native-editorial.ts` provides the draft native editorial layer for all **120 PRB-001 English QLs**.
 
 Inventory:
 
 - 120 Hindi draft editorial entries;
 - 120 Punjabi draft editorial entries;
 - 240 native entries total;
-- 37 hand-curated wording families covering classical probability, complements, coins, dice, spinners, number selection, cards and urn selections.
+- 37 curated wording families covering classical probability, complements, coins, dice, spinners, number selection, cards and urn selections.
 
-Each native entry preserves:
+Each native entry preserves the English QL identity, source stem-template ID, context family and exact placeholder contract. Dynamic English string bindings are closed/fail-closed, and `PRB-QL-004` plus `PRB-QL-010` remain learning-only.
 
-- the English `qlId`;
-- the English source stem-template ID;
-- the English context-family authority;
-- the exact stem placeholder contract;
-- learner-friendly native approach, working lead and key-point guidance;
+ML-03 was merged through PR #669. Its native entries remain draft-only and release-gated.
+
+## ML-04 PRB-002 draft editorial authority
+
+`PRB-002/native-editorial.ts` provides the draft native editorial layer for all **96 PRB-002 English QLs**.
+
+Inventory:
+
+- 96 Hindi draft editorial entries;
+- 96 Punjabi draft editorial entries;
+- 192 native entries total;
+- 30 curated wording families.
+
+The 30 families cover:
+
+- 8 successive-draw / replacement families;
+- 6 conditional-probability families;
+- 8 counting, committee, arrangement and number-formation families;
+- 8 event-algebra families.
+
+Every PRB-002 native entry explicitly records:
+
+- `answerKeyAuthority: ENGLISH_RUNTIME`;
+- `optionPolicy: PRESERVE_ENGLISH_OPTIONS_AND_CORRECT_INDEX`;
 - `questionStudioEnabled: false`;
 - `publiclyPublishable: false`.
 
-The native binding layer is closed/fail-closed for all currently generated PRB-001 string values, including:
+ML-04 preserves advanced Probability semantics including:
 
-- tickets, bulbs, balls, books and candidate/application contexts;
-- dynamic certain/impossible/possible event labels;
-- red/blue/green/black values;
-- coin H/T patterns;
-- die and number properties;
-- dice product/parity event types;
-- card ranks and suits;
-- probability/count answer instructions.
+- independent vs dependent successive draws;
+- with/without-replacement conditions;
+- restricted conditional sample spaces;
+- committee/combination and arrangement/permutation reasoning;
+- event-algebra notation and formulas;
+- all English-generated numerical values, options and the correct index.
 
-Unknown string bindings throw instead of leaking English prose into a native question.
+Its closed native binding layer covers currently generated conditional labels and together/apart relations. Unknown prose bindings throw instead of leaking English.
 
-`PRB-QL-004` and `PRB-QL-010` remain learning-only in every native entry.
+Probability multilingual workflow run `31411657904` passed ML-01, ML-02, ML-03, ML-04 and the unchanged English readiness suites.
 
-### ML-03 validation
-
-Workflow run `31372735056` passed:
-
-- ML-01 648-record fail-closed manifest validation;
-- ML-02 shared primitive validation;
-- ML-03 120/120 Hindi coverage;
-- ML-03 120/120 Punjabi coverage;
-- exact placeholder parity against every English PRB-001 stem;
-- native-script validation for stems, event wording and explanation guidance;
-- closed dynamic binding samples;
-- zero Hindi/Punjabi Question Studio exposure;
-- zero native public publication exposure;
-- unchanged English Probability Question Studio and exam-readiness suites.
-
-These 240 entries are **draft editorial content, not human-approved content**. Their release manifest status intentionally remains `PENDING_NATIVE_EDITORIAL`.
+These 192 entries are **draft editorial content, not human-approved content**. Their release-manifest status intentionally remains `PENDING_NATIVE_EDITORIAL`.
 
 ## Implementation checkpoints
 
@@ -139,7 +134,7 @@ These 240 entries are **draft editorial content, not human-approved content**. T
 
 ### Checkpoint ML-02 — Shared native language primitives
 
-- Native labels for probability terms, objects, colours, suits, games and counting vocabulary.
+- Native labels for Probability vocabulary and experiment objects.
 - Hindi/Punjabi number, fraction and option localisation rules.
 - Script validation and unresolved-placeholder detection.
 - No question exposure.
@@ -151,31 +146,34 @@ These 240 entries are **draft editorial content, not human-approved content**. T
 - Draft Hindi and Punjabi stems and explanation guidance for all 120 QLs.
 - Context binding against English-generated variables.
 - Placeholder and mathematical authority preservation.
-- PRB-QL-004 and PRB-QL-010 remain learning-only in every language.
-- No native runtime exposure before full parity and human review.
+- PRB-QL-004 and PRB-QL-010 remain learning-only.
 
-**Status:** implemented on `feat/prb-probability-ml03-prb001-native-editorial`; branch validation passed in workflow `31372735056`.
+**Status:** implemented and merged through PR #669.
 
 ### Checkpoint ML-04 — PRB-002 native editorial library
 
-- Hindi and Punjabi draft stems and explanations for all 96 QLs.
-- Five-option banking profile preservation.
-- Combination/permutation notation and conditional wording parity.
-- Banking Mains challenge families remain English-only until separately translated and reviewed.
+- Draft Hindi and Punjabi stems and explanation guidance for all 96 QLs.
+- Advanced conditional/counting/event-algebra wording parity.
+- English option/correct-index authority explicitly preserved.
+- No native runtime exposure.
 
-### Checkpoint ML-05 — Multilingual runtime and Question Studio routing
+**Status:** implemented on `feat/prb-probability-ml04-prb002-native-editorial`; branch workflow `31411657904` passed.
+
+### Checkpoint ML-05 — Multilingual runtime and parity harness
 
 - English-first generation followed by native rendering.
+- Bind generated values through the closed PRB-001/PRB-002 native binding layers.
 - Script, placeholder, option uniqueness and answer-key validation.
-- Language-specific question and explanation IDs.
-- Enable Hindi/Punjabi only after 216/216 parity proof for that language.
+- Deterministic cross-language replay and solver parity evidence.
+- Language-specific question/explanation IDs.
+- Keep Hindi/Punjabi Question Studio disabled until the full 216/216 parity suite passes.
 
-### Checkpoint ML-06 — Human review and freeze
+### Checkpoint ML-06 — Human review and multilingual freeze
 
-- Regenerate review sheets for each native language.
+- Regenerate native review sheets.
 - Human editorial sign-off with reviewer/date evidence.
 - Cross-language mathematics and answer-key parity audit.
-- Separate multilingual mock freeze.
+- Separate Hindi/Punjabi scored-mock approval.
 
 ### Checkpoint ML-07 — Public release
 
@@ -187,9 +185,8 @@ These 240 entries are **draft editorial content, not human-approved content**. T
 ## Non-negotiable safety rules
 
 - Draft native prose cannot be treated as approved editorial content without human review.
-- Shared ML-02 vocabulary is reusable infrastructure, not QL-level editorial approval.
 - Missing native entries or bindings must throw; English fallback must not silently appear in a Hindi/Punjabi request.
-- Native text cannot change generated values, solver evidence, correct index or mock eligibility.
+- Native text cannot change generated values, solver evidence, options, correct index or mock eligibility.
 - Numeric/fraction/ratio/percent/MathJax options remain mathematically identical across languages.
-- A language may be enabled only when its full required QL set passes parity and human review.
+- A language may be enabled only when its full 216-QL set passes runtime parity and human review.
 - The current English freeze must remain unchanged throughout multilingual implementation.
