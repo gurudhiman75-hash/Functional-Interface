@@ -44,11 +44,13 @@ export function presentSea001Children<T extends {
   readonly questionOrder: number;
   readonly queryContractId: string;
   readonly answerDeterminingFactFingerprint: string;
+  readonly answerIndex: number;
   readonly text: string;
   readonly explanation: string;
   readonly options: readonly {
     readonly display: string;
     readonly explanation: string;
+    readonly isCorrect: boolean;
   }[];
 }>(
   children: readonly T[],
@@ -75,9 +77,27 @@ export function presentSea001Children<T extends {
     const rightKey = stableNumber(`${right.queryContractId}|${right.answerDeterminingFactFingerprint}`);
     return leftKey - rightKey || left.queryContractId.localeCompare(right.queryContractId);
   });
+  const presentationSeed = Object.entries(displayNames)
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([personId, name]) => `${personId}:${name}`)
+    .join("|");
 
-  return [...fixed, ...varied].map((child, index) => ({
-    ...child,
-    questionOrder: index + 1,
-  })) as T[];
+  return [...fixed, ...varied].map((child, index) => {
+    const questionOrder = index + 1;
+    const correct = child.options.find((option) => option.isCorrect);
+    if (!correct) throw new Error(`SEA-001 child ${child.queryContractId} has no correct option`);
+    const wrong = child.options.filter((option) => !option.isCorrect);
+    if (wrong.length !== child.options.length - 1) throw new Error(`SEA-001 child ${child.queryContractId} has invalid correct-option count`);
+    const answerIndex = stableNumber(
+      `${presentationSeed}|${child.queryContractId}|${child.answerDeterminingFactFingerprint}|Q${questionOrder}`,
+    ) % child.options.length;
+    const options = [...wrong];
+    options.splice(answerIndex, 0, correct);
+    return {
+      ...child,
+      questionOrder,
+      options,
+      answerIndex,
+    };
+  }) as T[];
 }
