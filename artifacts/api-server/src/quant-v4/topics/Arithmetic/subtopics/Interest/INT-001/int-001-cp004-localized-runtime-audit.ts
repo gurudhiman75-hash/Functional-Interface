@@ -39,6 +39,7 @@ let solutionChecks = 0;
 let registryChecks = 0;
 let presentationParityChecks = 0;
 let optionParityChecks = 0;
+let suppressedOptionFeedbackChecks = 0;
 let correctIndexChecks = 0;
 let explanationChecks = 0;
 let localizationMetadataChecks = 0;
@@ -121,6 +122,10 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
         ) {
           fail(`${qlId}/${seed}/${locale}/${option.id}: option parity changed.`);
         }
+        suppressedOptionFeedbackChecks += 1;
+        if (option.feedback !== "") {
+          fail(`${qlId}/${seed}/${locale}/${option.id}: learner option feedback was not suppressed.`);
+        }
       }
 
       correctIndexChecks += 2;
@@ -179,11 +184,8 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
         fail(`${qlId}/${seed}/${locale}: inactive lifecycle boundary changed.`);
       }
 
-      scriptChecks += 4 + localized.options.length + localized.explanation.steps.length;
+      scriptChecks += 4 + localized.explanation.steps.length;
       assertCp004LocalizedText(locale, localized.stem, `${qlId}/${seed}/${locale}/stem`);
-      for (const option of localized.options) {
-        assertCp004LocalizedText(locale, option.feedback, `${qlId}/${seed}/${locale}/${option.id}/feedback`);
-      }
       assertCp004LocalizedText(locale, localized.explanation.whatAsked, `${qlId}/${seed}/${locale}/what-asked`);
       for (const [stepIndex, step] of localized.explanation.steps.entries()) {
         assertCp004LocalizedText(locale, step, `${qlId}/${seed}/${locale}/step-${stepIndex + 1}`);
@@ -221,6 +223,7 @@ const summary = {
   registryChecks,
   presentationParityChecks,
   optionParityChecks,
+  suppressedOptionFeedbackChecks,
   correctIndexChecks,
   explanationChecks,
   localizationMetadataChecks,
