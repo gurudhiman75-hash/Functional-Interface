@@ -3,7 +3,7 @@ import {
   INT_CP004_REVIEW_QUESTION_COUNT,
   INT_CP004_REVIEW_QUESTIONS_PER_QL,
   buildIntCp004LocalizedReviewPack,
-  renderIntCp004LocalizedReviewMarkdown,
+  renderIntCp004LocalizedReviewMarkdown as renderBaseMarkdown,
   serializeIntCp004LocalizedReviewPack,
   sha256Text,
   type IntCp004LocalizedReviewPack,
@@ -16,7 +16,6 @@ export {
   INT_CP004_LOCALIZED_REVIEW_PACK_VERSION,
   INT_CP004_REVIEW_QUESTION_COUNT,
   INT_CP004_REVIEW_QUESTIONS_PER_QL,
-  renderIntCp004LocalizedReviewMarkdown,
   serializeIntCp004LocalizedReviewPack,
   sha256Text,
 };
@@ -56,4 +55,26 @@ export function buildIntCp004LocalizedReviewPackV9Safe(
     ...base,
     questions: Object.freeze(questions),
   });
+}
+
+function reviewFinalAnswer(locale: IntCp004LocalizedLocale, text: string): string {
+  return locale === "hi-IN"
+    ? text.replace(/^उत्तर:\s*/u, "")
+    : text.replace(/^ਉੱਤਰ:\s*/u, "");
+}
+
+export function renderIntCp004LocalizedReviewMarkdown(
+  pack: IntCp004LocalizedReviewPack,
+): string {
+  const renderPack = {
+    ...pack,
+    questions: pack.questions.map((question) => ({
+      ...question,
+      explanation: {
+        ...question.explanation,
+        finalAnswer: reviewFinalAnswer(pack.locale, question.explanation.finalAnswer),
+      },
+    })),
+  } as IntCp004LocalizedReviewPack;
+  return renderBaseMarkdown(renderPack);
 }
