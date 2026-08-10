@@ -1,5 +1,6 @@
 import { runTmw001ChapterPipeline, type Tmw001ChapterLanguage } from "./foundation/chapter-localized-runtime";
 import { validateTmwLearnerExplanationV2 } from "./foundation/learner-explanation-contract";
+import { normalizeTmwLearnerDisplayTextR2 } from "./foundation/learner-explanation-r2-cp001-cp006";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -37,7 +38,8 @@ function assertLearnerV2(question: any, qlId: string, language: Tmw001ChapterLan
   assert(!("commonMistake" in learner), `${label}: learner V2 should not force a common-mistake block`);
 
   const visible = [learner.method, ...learner.solution, learner.answer].join(" ");
-  assert(visible.includes(question.solution.answerText), `${label}: learner V2 omits the solved answer text`);
+  const normalizedAnswer = normalizeTmwLearnerDisplayTextR2(question.solution.answerText);
+  assert(visible.includes(normalizedAnswer), `${label}: learner V2 omits the normalized solved answer text ${normalizedAnswer}`);
   assert(!/10[- ]Second|10[- ]सेकंड|10[- ]ਸੈਕਿੰਡ/i.test(visible), `${label}: generic 10-second claim leaked into learner V2`);
   assert(!hasUnsafeNotation(visible), `${label}: word-based or localized subscript leaked into learner V2: ${visible}`);
   assert(!/\bFormula\b|\bGivens\b|\bShortcut\b/i.test(visible), `${label}: legacy section label leaked into learner V2`);
