@@ -14,11 +14,26 @@ for (const row of rows) {
   assert(row.contentCheckpointId === "TSD-CP-003", `${row.solveMode}: content checkpoint changed during remap`);
   assert(row.permanentQlId === null, `${row.solveMode}: permanent QL allocated during post-overlap review`);
   assert(row.lifecycle.englishFreezeStatus === "UNFROZEN", `${row.solveMode}: English frozen during post-overlap review`);
+
   if (row.solveMode === "timeGainLossFromSpeedChange" && row.representation === "SLOWER_DELAY") {
     assert(!row.stem.includes("speed increases from"), `${row.questionLanguageId}: slower-speed stem falsely says speed increases`);
     assert(!row.stem.includes("time is saved"), `${row.questionLanguageId}: slower-speed stem falsely says time is saved`);
     assert(!row.stem.includes("reduction in journey time"), `${row.questionLanguageId}: slower-speed stem falsely asks for a reduction`);
     assert(!row.stem.includes("journey time decrease"), `${row.questionLanguageId}: slower-speed stem falsely asks for a decrease`);
+  }
+
+  if (row.solveMode === "startTimeShiftForSameArrival") {
+    assert(!row.stem.includes("earlier or later"), `${row.questionLanguageId}: same-arrival stem leaves the shift direction ambiguous`);
+    if (row.representation === "LATER_START_SAME_ARRIVAL") {
+      assert(row.stem.toLowerCase().includes("later"), `${row.questionLanguageId}: faster same-arrival state must ask how much later to start`);
+    }
+    if (row.representation === "EARLIER_START_SAME_ARRIVAL") {
+      assert(row.stem.toLowerCase().includes("earlier"), `${row.questionLanguageId}: slower same-arrival state must ask how much earlier to start`);
+    }
+  }
+
+  if (row.solveMode === "arrivalShiftFromDepartureAndSpeedChanges") {
+    assert(row.stem.toLowerCase().includes("magnitude"), `${row.questionLanguageId}: arrival-shift stem must explicitly ask for magnitude because the answer contract is unsigned duration`);
   }
 }
 
@@ -81,6 +96,9 @@ console.log(JSON.stringify({
   distinctPriorAuthorityTargets: priorAuthorityTargets.size,
   rejectedScheduleBufferRows: 3,
   answerDiversityPerAcceptedSolveMode: 3,
+  contradictorySlowerSpeedStems: 0,
+  ambiguousSameArrivalShiftStems: 0,
+  unsignedArrivalShiftStemsWithoutMagnitude: 0,
   permanentQlCount: 0,
   englishFreezeStatus: "UNFROZEN",
 }, null, 2));
