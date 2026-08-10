@@ -73,14 +73,15 @@ assert.deepEqual(summary.authorityClusters, authorityClusters);
 assert.deepEqual(summary.inverseClusters, [...authorityClusters].sort());
 assert.deepEqual(summary.boundaryClusters, [...authorityClusters].sort());
 assert.equal(summary.unresolvedSourceBackedHolds.length, 0);
+assert.equal(summary.sourceSaturationComplete, true);
 assert.equal(CLOCK_EFFECTIVE_GAP_AUDIT.MIRROR_GEOMETRIC_VERIFICATION.status, "INTERNAL_ONLY");
 
-assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.status, "POST_CALIBRATION_INVERSE_BOUNDARY_GAP_AUDIT");
+assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.status, "POST_SATURATION_INVERSE_BOUNDARY_GAP_AUDIT");
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.inverseAuditComplete, true);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.boundaryAuditComplete, true);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.gapAuditComplete, true);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.unresolvedSourceBackedHoldsResolved, true);
-assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.sourceSaturationComplete, false);
+assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.sourceSaturationComplete, true);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.difficultyAuditComplete, false);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.multilingualRiskAuditComplete, false);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.humanEditorialFreezeComplete, false);
@@ -89,11 +90,12 @@ assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.discoveryFreezeEligible, fals
 assert.equal(summary.discoveryFreezeEligible, false);
 
 console.log(JSON.stringify({
-  status: "PASS_CLK_001_POST_CALIBRATION_INVERSE_BOUNDARY_GAP_AUDIT",
+  status: "PASS_CLK_001_POST_SATURATION_INVERSE_BOUNDARY_GAP_AUDIT",
   sourceCandidateRows: taskIds.length,
   effectiveAuthorityClusters: authorityClusters.length,
   inverseAuditClusters: inverseClusters.length,
   boundaryAuditClusters: boundaryClusters.length,
+  sourceSaturationComplete: summary.sourceSaturationComplete,
   unresolvedSourceBackedHolds: summary.unresolvedSourceBackedHolds,
   intentionalAdvancedHolds: summary.intentionalAdvancedHolds.length,
   policy: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY,
