@@ -90,6 +90,16 @@ function confirmationAmount(
     : `${moneyText(amount)} ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੀ ਰਕਮ ਨਾਲ ਮਿਲਦੀ ਹੈ।`;
 }
 
+function naturalTaskLine(
+  locale: IntCp004LocalizedLocale,
+  task: string,
+): string {
+  if (locale === "hi-IN") {
+    return task.startsWith("हमें ") ? task : `हमें ${task}`;
+  }
+  return task.startsWith("ਸਾਨੂੰ ") ? task : `ਸਾਨੂੰ ${task}`;
+}
+
 function finalizeSteps(
   source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
@@ -186,6 +196,7 @@ export function simplifyCp004LocalizedExplanationV8Final(
   const base = simplifyCp004LocalizedExplanationV8(source, locale, correctAnswer);
   return Object.freeze({
     ...base,
+    whatAsked: naturalTaskLine(locale, base.whatAsked),
     steps: finalizeSteps(source, locale, base),
   });
 }
