@@ -18,13 +18,6 @@ export const INT_CP004_EXAM_FRIENDLY_SOURCE_V9_VERSION =
 
 const DECIMAL_TOKEN = /\d+\.\d+/u;
 const MAX_SEARCH_ATTEMPTS = 5_000;
-const REVIEW_SEARCH_ATTEMPTS = 50_000;
-const REVIEW_REPRESENTATIONS = Object.freeze([
-  "TERMS_TABLE",
-  "STANDARD_PROSE",
-  "BALANCE_RECORD",
-  "SCHEME_COMPARISON",
-] as const);
 
 function isInteger(value: Rational): boolean {
   return value.denominator === 1n;
@@ -191,24 +184,6 @@ function moneyWorkingIsInteger(state: Cp004MathematicalState): boolean {
   }
 }
 
-function requestedReviewFrame(seed: string): number | null {
-  const match = seed.match(/:frame-(\d+):/u);
-  if (!match) return null;
-  const frame = Number(match[1]);
-  return Number.isInteger(frame) && frame >= 1 && frame <= 4 ? frame : null;
-}
-
-function matchesRequestedReviewShape(
-  question: IntCp004EnglishFrozenQuestion,
-  seed: string,
-): boolean {
-  const frame = requestedReviewFrame(seed);
-  if (frame === null) return true;
-  return question.stemFamilyId === `${question.qlId}-FRAME-${frame}`
-    && question.representation === REVIEW_REPRESENTATIONS[frame - 1]
-    && question.correctIndex === frame % 4;
-}
-
 export function isIntCp004ExamFriendlyFrozenSourceV9(
   question: IntCp004EnglishFrozenQuestion,
 ): boolean {
@@ -225,16 +200,14 @@ export function selectIntCp004ExamFriendlyFrozenSourceV9(
   qlId: IntCp004QlId,
   seed: string,
 ): IntCp004EnglishFrozenQuestion {
-  const maxAttempts = requestedReviewFrame(seed) === null
-    ? MAX_SEARCH_ATTEMPTS
-    : REVIEW_SEARCH_ATTEMPTS;
-  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
-    const candidateSeed = `${seed}:exam-friendly-v9:${attempt}`;
-    const candidate = generateIntCp004EnglishFrozenQuestion(qlId, candidateSeed);
-    if (
-      isIntCp004ExamFriendlyFrozenSourceV9(candidate)
-      && matchesRequestedReviewShape(candidate, seed)
-    ) return candidate;
+  for (let attempt = 0; attempt < MAX_SEARCH_ATTEMPTS; attempt += 1) {
+    const candidate = generateIntCp004EnglishFrozenQuestion(
+      qlId,
+      `${seed}:exam-friendly-v9:${attempt}`,
+    );
+    if (isIntCp004ExamFriendlyFrozenSourceV9(candidate)) return candidate;
   }
-  throw new Error(`${qlId}/${seed}: unable to find an exam-friendly integer-working source in ${maxAttempts} attempts.`);
+  throw new Error(
+    `${qlId}/${seed}: unable to find an exam-friendly integer-working source in ${MAX_SEARCH_ATTEMPTS} attempts.`,
+  );
 }
