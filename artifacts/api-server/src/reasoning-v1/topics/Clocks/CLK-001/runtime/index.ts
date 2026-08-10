@@ -2,6 +2,7 @@ export * from "./catalog";
 export * from "./catalog-governance";
 export * from "./source-audit";
 export * from "./candidate-disposition";
+export * from "./discovery-gates";
 export * from "./types";
 export * from "./generator";
 export * from "./review";
