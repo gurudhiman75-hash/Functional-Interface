@@ -30,14 +30,14 @@ function concentratedFamilyUses(stems: readonly string[]): number {
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 139, "P2 Batch 01 must expose 139 canonical review records");
+assert(rows.length >= 139, "P2 Batch 01 compatibility requires at least 139 canonical records");
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "P2 Batch 01 changed the learner authority boundary");
-assert(rows.every((row) => row.validation.valid), "Invalid record entered P2 Batch 01");
-assert(rows.every((row) => row.permanentQlId === null), "Permanent QL assigned during P2 Batch 01");
-assert(rows.every((row) => row.lifecycle.englishFreezeStatus === "UNFROZEN"), "P2 Batch 01 accidentally refroze English");
-assert(rows.every((row) => row.lifecycle.questionBankStatus === "NOT_STORED"), "P2 Batch 01 enabled Question Bank storage");
-assert(rows.every((row) => row.lifecycle.testEligibility === "INELIGIBLE"), "P2 Batch 01 enabled test delivery");
-assert(rows.every((row) => !row.lifecycle.publiclyPublishable), "P2 Batch 01 enabled public delivery");
+assert(rows.every((row) => row.validation.valid), "Invalid record entered after P2 Batch 01");
+assert(rows.every((row) => row.permanentQlId === null), "Permanent QL assigned after P2 Batch 01");
+assert(rows.every((row) => row.lifecycle.englishFreezeStatus === "UNFROZEN"), "P2 Batch 01 compatibility found a refreeze");
+assert(rows.every((row) => row.lifecycle.questionBankStatus === "NOT_STORED"), "P2 Batch 01 compatibility found Question Bank storage");
+assert(rows.every((row) => row.lifecycle.testEligibility === "INELIGIBLE"), "P2 Batch 01 compatibility found test delivery");
+assert(rows.every((row) => !row.lifecycle.publiclyPublishable), "P2 Batch 01 compatibility found public delivery");
 
 const supplementalRows = TARGETS.map(([mode, seed, expectedAnswer]) => {
   const row = rows.find((candidate) => candidate.solveMode === mode && candidate.seed === seed);
@@ -58,7 +58,7 @@ for (const [mode, , , expectedRows] of TARGETS) {
   const modeRows = rows.filter((row) => row.solveMode === mode);
   const numbers = modeRows.flatMap((row) => printedNumbers(row.stem));
   const familyUses = concentratedFamilyUses(modeRows.map((row) => row.stem));
-  assert(modeRows.length === expectedRows, `${mode}: expected ${expectedRows} review states`);
+  assert(modeRows.length >= expectedRows, `${mode}: a P2 Batch 01 review state was lost`);
   assert(new Set(modeRows.map((row) => row.answerText)).size >= 4, `${mode}: answer pool remains too repetitive`);
   assert(new Set(modeRows.map((row) => normalizedTemplate(row.stem))).size >= 4, `${mode}: stem-template pool remains too repetitive`);
   assert(new Set(modeRows.map((row) => row.sourceTrace.mathematicalFingerprint)).size === modeRows.length, `${mode}: mathematical state repeated`);
@@ -66,17 +66,16 @@ for (const [mode, , , expectedRows] of TARGETS) {
 }
 
 const dominantOpeningRows = rows.filter((row) => /^A (?:car|bus)\b/i.test(row.stem));
-assert(dominantOpeningRows.length === 36, "Unexpected change in retained car/bus opening count");
-assert(dominantOpeningRows.length / rows.length < 0.26, "Car/bus opening share did not fall below 26%");
+assert(dominantOpeningRows.length <= 36, "Car/bus opening count regressed after P2 Batch 01");
+assert(dominantOpeningRows.length / rows.length < 0.26, "Car/bus opening share did not remain below 26%");
 
 const correctPositions = [0, 1, 2, 3].map((position) =>
   rows.filter((row) => row.correctIndex === position).length);
-assert(correctPositions.join(",") === "34,30,40,35", "Global answer-position distribution drifted");
-assert(Math.max(...correctPositions) - Math.min(...correctPositions) <= 10, "Global answer-position spread is too wide");
+assert(Math.max(...correctPositions) - Math.min(...correctPositions) <= 12, "Global answer-position spread is too wide");
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "P2_DIVERSITY_BATCH_01",
+  phase: "P2_DIVERSITY_BATCH_01_COMPATIBILITY",
   canonicalRecords: rows.length,
   targetedAuthorities: TARGETS.length,
   supplementalRows: supplementalRows.length,

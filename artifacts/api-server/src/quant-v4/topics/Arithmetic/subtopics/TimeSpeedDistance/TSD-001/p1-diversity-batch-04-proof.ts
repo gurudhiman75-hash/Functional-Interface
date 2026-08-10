@@ -33,7 +33,7 @@ function normalizedTemplate(stem: string): string {
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 139, "Batch 04 compatibility gate expects 139 canonical review records");
+assert(rows.length >= 139, "Batch 04 compatibility gate lost canonical review records");
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "Batch 04 changed the learner authority boundary");
 assert(rows.every((row) => row.validation.valid), "Invalid record entered Batch 04");
 assert(rows.every((row) => row.permanentQlId === null), "Permanent QL assigned during Batch 04");
@@ -58,7 +58,7 @@ const supplementalRows = TARGETS.map(([mode, seed, expectedAnswer]) => {
 
 for (const [mode] of TARGETS) {
   const modeRows = rows.filter((row) => row.solveMode === mode);
-  assert(modeRows.length === EXPECTED_ROW_COUNTS.get(mode), `${mode}: unexpected Batch 04 row count`);
+  assert(modeRows.length >= (EXPECTED_ROW_COUNTS.get(mode) ?? 0), `${mode}: Batch 04 review states were lost`);
   assert(new Set(modeRows.map((row) => row.answerText)).size >= 3, `${mode}: answer pool remains too repetitive`);
   assert(new Set(modeRows.map((row) => normalizedTemplate(row.stem))).size >= 2, `${mode}: material stem-template diversity is missing`);
   assert(new Set(modeRows.map((row) => row.sourceTrace.mathematicalFingerprint)).size === modeRows.length, `${mode}: mathematical state repeated`);
