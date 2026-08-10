@@ -14,69 +14,102 @@ function paceTimeUnit(input: Extract<TsdCp001SolveInput, { solveMode: "distanceF
   return input.paceUnit === "SECOND_PER_KM" ? "SECOND" : "MINUTE";
 }
 
-function wrongValues(
-  input: Extract<TsdCp001SolveInput, { solveMode: "speedFromPace" | "paceFromSpeed" | "distanceFromPaceAndTime" }>,
+function speedFromPaceWrongValues(
+  input: Extract<TsdCp001SolveInput, { solveMode: "speedFromPace" }>,
 ): readonly WrongValue[] {
-  if (input.solveMode === "speedFromPace") {
-    if (input.outputUnit === "KMPH" && input.paceUnit === "MINUTE_PER_KM") {
-      return [
-        { value: input.pace, misconceptionId: "FAIL_TO_INVERT_PACE" },
-        { value: multiply(rational(60), input.pace), misconceptionId: "MULTIPLY_INSTEAD_OF_DIVIDE" },
-        { value: divide(input.pace, rational(60)), misconceptionId: "APPLY_SIXTY_IN_WRONG_DIRECTION" },
-      ];
-    }
-    if (input.outputUnit === "MPS" && input.paceUnit === "SECOND_PER_KM") {
-      return [
-        { value: input.pace, misconceptionId: "FAIL_TO_INVERT_PACE" },
-        { value: divide(rational(60), input.pace), misconceptionId: "USE_WRONG_CONVERSION_FACTOR" },
-        { value: divide(rational(1000), multiply(input.pace, rational(60))), misconceptionId: "TREAT_SECONDS_AS_MINUTES" },
-      ];
-    }
-    if (input.outputUnit === "KMPH") {
-      return [
-        { value: input.pace, misconceptionId: "FAIL_TO_INVERT_PACE" },
-        { value: divide(rational(1000), input.pace), misconceptionId: "OMIT_UNIT_CONVERSION" },
-        { value: divide(rational(60), input.pace), misconceptionId: "USE_WRONG_CONVERSION_FACTOR" },
-      ];
-    }
+  if (input.outputUnit === "KMPH" && input.paceUnit === "MINUTE_PER_KM") {
     return [
       { value: input.pace, misconceptionId: "FAIL_TO_INVERT_PACE" },
-      { value: divide(rational(1000), input.pace), misconceptionId: "IGNORE_MINUTE_CONVERSION" },
+      { value: multiply(rational(60), input.pace), misconceptionId: "MULTIPLY_INSTEAD_OF_DIVIDE" },
+      { value: divide(rational(1), input.pace), misconceptionId: "OMIT_UNIT_CONVERSION" },
+    ];
+  }
+  if (input.outputUnit === "MPS" && input.paceUnit === "SECOND_PER_KM") {
+    return [
+      { value: input.pace, misconceptionId: "FAIL_TO_INVERT_PACE" },
+      { value: divide(input.pace, rational(1000)), misconceptionId: "REVERSE_DIVISION" },
+      { value: divide(rational(1000), multiply(input.pace, rational(60))), misconceptionId: "TREAT_SECONDS_AS_MINUTES" },
+    ];
+  }
+  if (input.outputUnit === "KMPH") {
+    return [
+      { value: input.pace, misconceptionId: "FAIL_TO_INVERT_PACE" },
+      { value: divide(rational(1000), input.pace), misconceptionId: "OMIT_UNIT_CONVERSION" },
       { value: divide(rational(60), input.pace), misconceptionId: "USE_WRONG_CONVERSION_FACTOR" },
     ];
   }
+  return [
+    { value: input.pace, misconceptionId: "FAIL_TO_INVERT_PACE" },
+    { value: divide(rational(1000), input.pace), misconceptionId: "OMIT_UNIT_CONVERSION" },
+    { value: divide(rational(60), input.pace), misconceptionId: "USE_WRONG_CONVERSION_FACTOR" },
+  ];
+}
 
-  if (input.solveMode === "paceFromSpeed") {
-    if (input.outputUnit === "MINUTE_PER_KM" && input.speedUnit === "KMPH") {
-      return [
-        { value: input.speed, misconceptionId: "FAIL_TO_INVERT_PACE" },
-        { value: divide(rational(100), input.speed), misconceptionId: "USE_WRONG_CONVERSION_FACTOR" },
-        { value: divide(rational(1), input.speed), misconceptionId: "USE_MINUTES_AS_HOURS" },
-      ];
-    }
+function paceFromSpeedWrongValues(
+  input: Extract<TsdCp001SolveInput, { solveMode: "paceFromSpeed" }>,
+): readonly WrongValue[] {
+  if (input.outputUnit === "MINUTE_PER_KM" && input.speedUnit === "KMPH") {
     return [
       { value: input.speed, misconceptionId: "FAIL_TO_INVERT_PACE" },
-      { value: divide(rational(100), input.speed), misconceptionId: "OMIT_UNIT_CONVERSION" },
+      { value: multiply(rational(60), input.speed), misconceptionId: "MULTIPLY_INSTEAD_OF_DIVIDE" },
+      { value: divide(rational(1), input.speed), misconceptionId: "OMIT_UNIT_CONVERSION" },
+    ];
+  }
+  if (input.outputUnit === "SECOND_PER_KM" && input.speedUnit === "MPS") {
+    return [
+      { value: input.speed, misconceptionId: "FAIL_TO_INVERT_PACE" },
+      { value: divide(rational(100), input.speed), misconceptionId: "USE_WRONG_CONVERSION_FACTOR" },
       { value: divide(rational(1000), multiply(input.speed, rational(60))), misconceptionId: "TREAT_SECONDS_AS_MINUTES" },
     ];
   }
-
-  const matchingDuration = convertTime(input.duration, input.timeUnit, paceTimeUnit(input));
-  const distanceKm = divide(matchingDuration, input.pace);
-  const multiplied = multiply(matchingDuration, input.pace);
-  const reversed = divide(input.pace, matchingDuration);
-  if (input.outputUnit === "M") {
+  if (input.outputUnit === "MINUTE_PER_KM") {
     return [
-      { value: distanceKm, misconceptionId: "OMIT_UNIT_CONVERSION" },
-      { value: multiplied, misconceptionId: "MULTIPLY_PACE_AND_TIME" },
-      { value: reversed, misconceptionId: "REVERSE_DIVISION" },
+      { value: input.speed, misconceptionId: "FAIL_TO_INVERT_PACE" },
+      { value: divide(rational(1000), input.speed), misconceptionId: "OMIT_UNIT_CONVERSION" },
+      { value: divide(rational(60), input.speed), misconceptionId: "USE_WRONG_CONVERSION_FACTOR" },
     ];
   }
   return [
-    { value: multiplied, misconceptionId: "MULTIPLY_PACE_AND_TIME" },
-    { value: reversed, misconceptionId: "REVERSE_DIVISION" },
-    { value: convertDistance(input.duration, "KM", input.outputUnit), misconceptionId: "USE_SECOND_QUANTITY_ONLY" },
+    { value: input.speed, misconceptionId: "FAIL_TO_INVERT_PACE" },
+    { value: divide(rational(60), input.speed), misconceptionId: "OMIT_UNIT_CONVERSION" },
+    { value: divide(rational(1000), input.speed), misconceptionId: "USE_WRONG_CONVERSION_FACTOR" },
   ];
+}
+
+function distanceFromPaceWrongValues(
+  input: Extract<TsdCp001SolveInput, { solveMode: "distanceFromPaceAndTime" }>,
+): readonly WrongValue[] {
+  const matchingDuration = convertTime(input.duration, input.timeUnit, paceTimeUnit(input));
+  const distanceKm = divide(matchingDuration, input.pace);
+  const reversedKm = divide(input.pace, matchingDuration);
+
+  if (input.outputUnit === "M") {
+    return [
+      { value: distanceKm, misconceptionId: "OMIT_UNIT_CONVERSION" },
+      { value: convertDistance(reversedKm, "KM", "M"), misconceptionId: "REVERSE_DIVISION" },
+      { value: input.duration, misconceptionId: "USE_SECOND_QUANTITY_ONLY" },
+    ];
+  }
+  if (input.outputUnit === "KM") {
+    return [
+      { value: input.pace, misconceptionId: "USE_FIRST_QUANTITY_ONLY" },
+      { value: input.duration, misconceptionId: "USE_SECOND_QUANTITY_ONLY" },
+      { value: reversedKm, misconceptionId: "REVERSE_DIVISION" },
+    ];
+  }
+  return [
+    { value: convertDistance(input.pace, "KM", input.outputUnit), misconceptionId: "USE_FIRST_QUANTITY_ONLY" },
+    { value: convertDistance(input.duration, "KM", input.outputUnit), misconceptionId: "USE_SECOND_QUANTITY_ONLY" },
+    { value: convertDistance(reversedKm, "KM", input.outputUnit), misconceptionId: "REVERSE_DIVISION" },
+  ];
+}
+
+function wrongValues(
+  input: Extract<TsdCp001SolveInput, { solveMode: "speedFromPace" | "paceFromSpeed" | "distanceFromPaceAndTime" }>,
+): readonly WrongValue[] {
+  if (input.solveMode === "speedFromPace") return speedFromPaceWrongValues(input);
+  if (input.solveMode === "paceFromSpeed") return paceFromSpeedWrongValues(input);
+  return distanceFromPaceWrongValues(input);
 }
 
 export function paceOptionPackage(

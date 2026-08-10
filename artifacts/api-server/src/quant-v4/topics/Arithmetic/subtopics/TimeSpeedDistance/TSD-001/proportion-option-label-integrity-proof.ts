@@ -35,8 +35,9 @@ const changedDistance = questions.filter((question) => (
 assert(sameDistance.length === 3, `Expected three same-distance rows, received ${sameDistance.length}`);
 assert(changedDistance.length === 2, `Expected two changed-distance rows, received ${changedDistance.length}`);
 
-let correctedSpeedChangeOptions = 0;
-let retainedDistanceChangeOptions = 0;
+let sameDistanceSpeedChangeOptions = 0;
+let changedDistanceSpeedChangeOptions = 0;
+let trueDistanceChangeOptions = 0;
 
 for (const question of questions) {
   assert(question.input.solveMode === "timeByProportion", `${question.questionLanguageId}: mode narrowing failed`);
@@ -48,31 +49,41 @@ for (const question of questions) {
     assert(audit.misconceptionId === analysis.misconceptionId, `${question.questionLanguageId}: misconception ID mismatch for ${audit.text}`);
 
     if (audit.misconceptionId === "IGNORE_DISTANCE_CHANGE") {
-      retainedDistanceChangeOptions += 1;
+      trueDistanceChangeOptions += 1;
       assert(!equals(question.input.knownDistance, question.input.targetDistance), `${question.questionLanguageId}: IGNORE_DISTANCE_CHANGE used although distance is unchanged`);
       assert(analysis.reason.includes(toMixedString(question.input.targetDistance)), `${question.questionLanguageId}: distance-change reason omits target distance`);
     }
 
     if (audit.misconceptionId === "IGNORE_SPEED_CHANGE") {
-      correctedSpeedChangeOptions += 1;
-      assert(equals(question.input.knownDistance, question.input.targetDistance), `${question.questionLanguageId}: same-distance correction used on changed distance`);
       assert(!equals(question.input.knownSpeed, question.input.targetSpeed), `${question.questionLanguageId}: speed-change label used without a speed change`);
-      const requiredFragments = [
-        "keeps the reference time",
-        `${toMixedString(question.input.knownSpeed)} km/h`,
-        `${toMixedString(question.input.targetSpeed)} km/h`,
-        `same ${toMixedString(question.input.targetDistance)} km`,
-        `${toMixedString(question.input.targetDistance)} ÷ ${toMixedString(question.input.targetSpeed)} = ${question.answerText}`,
+      const requiredNumbers = [
+        toMixedString(question.input.knownSpeed),
+        toMixedString(question.input.targetSpeed),
+        toMixedString(question.input.targetDistance),
+        question.answerText,
       ];
-      for (const fragment of requiredFragments) {
+      for (const fragment of requiredNumbers) {
         assert(analysis.reason.includes(fragment), `${question.questionLanguageId}: speed-change reason omits ${fragment}`);
       }
+
+      if (equals(question.input.knownDistance, question.input.targetDistance)) {
+        sameDistanceSpeedChangeOptions += 1;
+        assert(analysis.reason.includes("keeps the reference time"), `${question.questionLanguageId}: retained-time mistake is not named`);
+        assert(analysis.reason.includes(`same ${toMixedString(question.input.targetDistance)} km`), `${question.questionLanguageId}: same-distance condition is not named`);
+      } else {
+        changedDistanceSpeedChangeOptions += 1;
+        assert(analysis.reason.includes("uses the reference speed"), `${question.questionLanguageId}: changed-distance old-speed calculation is not named`);
+      }
+
+      const targetOperation = `${toMixedString(question.input.targetDistance)} ÷ ${toMixedString(question.input.targetSpeed)} = ${question.answerText}`;
+      assert(analysis.reason.includes(targetOperation), `${question.questionLanguageId}: speed-change reason omits ${targetOperation}`);
     }
   });
 }
 
-assert(correctedSpeedChangeOptions === 3, `Expected three corrected speed-change options, received ${correctedSpeedChangeOptions}`);
-assert(retainedDistanceChangeOptions === 2, `Expected two true distance-change options, received ${retainedDistanceChangeOptions}`);
+assert(sameDistanceSpeedChangeOptions === 3, `Expected three same-distance speed-change options, received ${sameDistanceSpeedChangeOptions}`);
+assert(changedDistanceSpeedChangeOptions === 1, `Expected one changed-distance old-speed option, received ${changedDistanceSpeedChangeOptions}`);
+assert(trueDistanceChangeOptions === 1, `Expected one retained distance-change option, received ${trueDistanceChangeOptions}`);
 
 const regressions = [
   { answer: "4 hours", option: "6 hours", knownSpeed: "45 km/h", targetSpeed: "67 1/2 km/h" },
@@ -99,8 +110,9 @@ console.log(JSON.stringify({
   timeByProportionRows: questions.length,
   sameDistanceRows: sameDistance.length,
   changedDistanceRows: changedDistance.length,
-  correctedSpeedChangeOptions,
-  retainedDistanceChangeOptions,
+  sameDistanceSpeedChangeOptions,
+  changedDistanceSpeedChangeOptions,
+  trueDistanceChangeOptions,
   permanentQls: rows.filter((row) => row.permanentQlId !== null).length,
   englishFreezeStatus: "UNFROZEN",
 }, null, 2));
