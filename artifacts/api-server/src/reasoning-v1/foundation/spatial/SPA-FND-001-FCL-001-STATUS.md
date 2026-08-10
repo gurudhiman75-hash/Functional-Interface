@@ -87,6 +87,28 @@ The complete eight-question artifact was inspected at desktop scale and at a 180
 - each intended odd figure is supported without a simpler competing 3-to-1 visible pattern;
 - all option-by-option explanations match the rendered figures.
 
+## Additive Primitive Library V2 expansion
+
+A later descendant branch keeps these eight remediated families intact and adds twelve primitive-native families, bringing the controlled FCL prototype authority to **20 families**.
+
+Added learner-visible relationships cover:
+
+- even-sided polygons;
+- vertical, horizontal, 180° and 90° symmetry;
+- branch junctions;
+- true crossings;
+- partitioned figures;
+- 180°-but-not-90° rotational symmetry;
+- exactly two free line ends;
+- closed shapes;
+- straight-sided polygons.
+
+The descendant ambiguity audit adds primitive topology, side count/parity, region count, branch-junction count, true-crossing count, free-terminal count, rotation period and symmetry properties. As with this remediation, an unintended 3-to-1 visual feature pointing to a **different** option rejects the quartet.
+
+Manual descendant review explicitly rejected the first-pass internal-category rules `LINE_STRUCTURE` and `OPEN_FIGURE`; they are superseded by visible geometric rules and are not part of the accepted V2 prototype set.
+
+The additive evidence is recorded in `SPA-FND-001-PRIMITIVE-RETROFIT-FCL-V2-STATUS.md`. This does not change the historical status or approval meaning of the eight-question remediation above.
+
 ## Lifecycle lock
 
 ```text
