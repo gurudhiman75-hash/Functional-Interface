@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { CheckCircle2, Database, Eye, Loader2, Network, Upload } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Database, Eye, Loader2, Network, RefreshCcw, Upload } from 'lucide-react';
 
 import { showToast } from '@/components/shared/toast';
 import { Badge } from '@/components/ui/badge';
@@ -16,10 +16,12 @@ import {
 } from '@/components/ui/select';
 import {
   createReasoningReviewRun,
+  getReasoningImportPlan,
   getReasoningProductionStatus,
   getReasoningReviewPackages,
   importAllReasoningQuestions,
   previewReasoningReview,
+  type ReasoningImportPlan,
   type ReasoningProductionStatus,
   type ReasoningReviewDifficulty,
   type ReasoningReviewLanguage,
@@ -96,6 +98,7 @@ function QuestionCard({ question }: { question: ReasoningReviewQuestion }) {
 export function QuestionStudioReasoningReviewPanel() {
   const [packages, setPackages] = useState<ReasoningReviewPackage[]>([]);
   const [status, setStatus] = useState<ReasoningProductionStatus | null>(null);
+  const [importPlan, setImportPlan] = useState<ReasoningImportPlan | null>(null);
   const [packageId, setPackageId] = useState('');
   const [language, setLanguage] = useState<ReasoningReviewLanguage>('en');
   const [qlId, setQlId] = useState(ALL);
@@ -104,22 +107,32 @@ export function QuestionStudioReasoningReviewPanel() {
   const [seed, setSeed] = useState('');
   const [questions, setQuestions] = useState<ReasoningReviewQuestion[]>([]);
   const [loading, setLoading] = useState(true);
-  const [working, setWorking] = useState<'preview' | 'run' | 'all' | null>(null);
+  const [working, setWorking] = useState<'preview' | 'run' | 'plan' | 'all' | null>(null);
 
-  const refreshStatus = useCallback(async () => {
-    const next = await getReasoningProductionStatus();
-    setStatus(next);
+  const refreshOperationalState = useCallback(async () => {
+    const [nextStatus, nextPlan] = await Promise.all([
+      getReasoningProductionStatus(),
+      getReasoningImportPlan(),
+    ]);
+    setStatus(nextStatus);
+    setImportPlan(nextPlan);
+    return nextPlan;
   }, []);
 
   useEffect(() => {
     let active = true;
     setLoading(true);
-    void Promise.all([getReasoningReviewPackages(), getReasoningProductionStatus()])
-      .then(([packageResponse, statusResponse]) => {
+    void Promise.all([
+      getReasoningReviewPackages(),
+      getReasoningProductionStatus(),
+      getReasoningImportPlan(),
+    ])
+      .then(([packageResponse, statusResponse, planResponse]) => {
         if (!active) return;
         setPackages(packageResponse.packages);
         setPackageId(packageResponse.packages[0]?.packageId ?? '');
         setStatus(statusResponse);
+        setImportPlan(planResponse);
       })
       .catch((error) => showToast.error('BLR package unavailable', error instanceof Error ? error.message : 'Unable to load BLR production package.'))
       .finally(() => { if (active) setLoading(false); });
@@ -158,7 +171,7 @@ export function QuestionStudioReasoningReviewPanel() {
     try {
       const result = await createReasoningReviewRun(request);
       window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
-      await refreshStatus();
+      await refreshOperationalState();
       showToast.success('Review run created', `${result.publicCode} contains ${result.itemCount} BLR question(s).`);
     } catch (error) {
       showToast.error('Run creation failed', error instanceof Error ? error.message : 'Unable to create BLR run.');
@@ -167,12 +180,49 @@ export function QuestionStudioReasoningReviewPanel() {
     }
   };
 
+  const handleRefreshPlan = async () => {
+    setWorking('plan');
+    try {
+      const plan = await refreshOperationalState();
+      const message = plan.driftDetected
+        ? `Synchronization is blocked: ${plan.duplicateQuestionLanguageIds.length} duplicate and ${plan.unexpectedQuestionLanguageIds.length} unexpected ID(s).`
+        : `${plan.existingCount} present; ${plan.missingCount} of ${plan.totalFrozenRecords} still missing.`;
+      if (plan.driftDetected) showToast.error('BLR drift detected', message);
+      else showToast.success('Synchronization plan refreshed', message);
+    } catch (error) {
+      showToast.error('Preflight failed', error instanceof Error ? error.message : 'Unable to calculate the BLR synchronization plan.');
+    } finally {
+      setWorking(null);
+    }
+  };
+
   const handleImportAll = async () => {
     setWorking('all');
     try {
-      const result = await importAllReasoningQuestions();
+      const plan = await getReasoningImportPlan();
+      setImportPlan(plan);
+
+      if (plan.driftDetected) {
+        showToast.error(
+          'Synchronization blocked',
+          `Resolve ${plan.duplicateQuestionLanguageIds.length} duplicate and ${plan.unexpectedQuestionLanguageIds.length} unexpected question-language ID(s) first.`,
+        );
+        return;
+      }
+      if (plan.alreadyImported) {
+        showToast.success('BLR corpus already synchronized', 'All 504 frozen multilingual records are already present.');
+        return;
+      }
+
+      const confirmed = window.confirm(
+        `Synchronize ${plan.missingCount} missing BLR-CP-007 record(s)?\n\n` +
+        'They will be inserted as unreviewed Question Studio items. Nothing will be automatically approved or published.',
+      );
+      if (!confirmed) return;
+
+      const result = await importAllReasoningQuestions(plan.requiredConfirmation);
       window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
-      await refreshStatus();
+      await refreshOperationalState();
       const message = result.status === 'already_imported'
         ? 'All 504 frozen multilingual records are already present.'
         : `${result.itemCount} missing record(s) were added to ${result.publicCode}.`;
@@ -202,11 +252,35 @@ export function QuestionStudioReasoningReviewPanel() {
       </CardHeader>
       <CardContent className="space-y-5">
         {status && (
-          <div className="grid gap-3 sm:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
             <Metric label="Frozen corpus" value={status.totalFrozenRecords} />
             <Metric label="Studio items" value={status.generationItemCount} />
             <Metric label="Approved items" value={status.approvedItemCount} />
             <Metric label="Question Bank" value={status.questionBankCount} />
+            <Metric label="Missing frozen IDs" value={importPlan?.missingCount ?? '—'} />
+          </div>
+        )}
+
+        {importPlan && (
+          <div className={`rounded-lg border p-3 text-sm ${importPlan.driftDetected ? 'border-destructive/30 bg-destructive/5' : 'border-success/25 bg-success/5'}`}>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2 font-medium">
+                {importPlan.driftDetected
+                  ? <AlertTriangle className="h-4 w-4 text-destructive" />
+                  : <CheckCircle2 className="h-4 w-4 text-success" />}
+                Synchronization preflight
+              </div>
+              <Badge variant="outline">{importPlan.existingCount} present · {importPlan.missingCount} missing</Badge>
+            </div>
+            {importPlan.driftDetected ? (
+              <p className="mt-2 text-xs leading-5 text-destructive">
+                Write blocked: {importPlan.duplicateQuestionLanguageIds.length} duplicate ID(s) and {importPlan.unexpectedQuestionLanguageIds.length} unexpected ID(s) must be resolved first.
+              </p>
+            ) : (
+              <p className="mt-2 text-xs leading-5 text-muted-foreground">
+                Frozen-ID alignment is clean. Bulk synchronization will add only the missing records and will keep every inserted item unreviewed.
+              </p>
+            )}
           </div>
         )}
 
@@ -251,8 +325,16 @@ export function QuestionStudioReasoningReviewPanel() {
           <Button onClick={() => void handleCreateRun()} disabled={!activePackage || working !== null}>
             {working === 'run' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Database className="mr-2 h-4 w-4" />} Create review run
           </Button>
-          <Button variant="secondary" onClick={() => void handleImportAll()} disabled={working !== null}>
-            {working === 'all' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />} Synchronize all 504
+          <Button variant="outline" onClick={() => void handleRefreshPlan()} disabled={working !== null}>
+            {working === 'plan' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RefreshCcw className="mr-2 h-4 w-4" />} Refresh sync plan
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={() => void handleImportAll()}
+            disabled={working !== null || importPlan?.driftDetected === true || importPlan?.alreadyImported === true}
+          >
+            {working === 'all' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
+            Synchronize all 504{importPlan ? ` (${importPlan.missingCount} missing)` : ''}
           </Button>
         </div>
 
@@ -266,6 +348,6 @@ function Field({ label, className, children }: { label: string; className?: stri
   return <div className={`space-y-2 ${className ?? ''}`}><Label>{label}</Label>{children}</div>;
 }
 
-function Metric({ label, value }: { label: string; value: number }) {
+function Metric({ label, value }: { label: string; value: number | string }) {
   return <div className="rounded-lg border bg-background p-3"><p className="text-xs text-muted-foreground">{label}</p><p className="mt-1 text-xl font-semibold">{value}</p></div>;
 }

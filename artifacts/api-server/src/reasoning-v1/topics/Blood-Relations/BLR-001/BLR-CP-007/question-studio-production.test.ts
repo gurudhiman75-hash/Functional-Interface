@@ -53,6 +53,7 @@ const api = readFileSync(resolve(repoRoot, "artifacts/admin-app/src/features/que
 const operationsPage = readFileSync(resolve(repoRoot, "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"), "utf8");
 
 assert.match(route, /reasoning\/runs/);
+assert.match(route, /reasoning\/import-plan/);
 assert.match(route, /reasoning\/import-all/);
 assert.match(route, /reasoning\/status/);
 assert.match(route, /content\.generation\.run/);
@@ -68,11 +69,23 @@ assert.match(route, /testEligibility:\s*"ELIGIBLE"/);
 assert.match(route, /publiclyPublishable:\s*true/);
 assert.match(route, /mockTestEligible:\s*true/);
 assert.match(route, /'unreviewed'::generation_item_status/);
+assert.match(route, /SYNCHRONIZE_504_BLR_CP007/);
+assert.match(route, /duplicateQuestionLanguageIds/);
+assert.match(route, /unexpectedQuestionLanguageIds/);
+assert.match(route, /driftDetected/);
+assert.match(route, /res\.status\(409\)/);
+assert.match(route, /current_version_number/);
 assert.doesNotMatch(route, /INSERT INTO content\.questions/);
 assert.doesNotMatch(route, /'approved'::generation_item_status/);
 assert.match(routeIndex, /adminQuestionStudioReasoningRouter/);
+assert.match(panel, /Synchronization preflight/);
+assert.match(panel, /Refresh sync plan/);
 assert.match(panel, /Synchronize all 504/);
+assert.match(panel, /window\.confirm/);
+assert.match(panel, /Nothing will be automatically approved or published/);
 assert.match(panel, /Create review run/);
+assert.match(api, /getReasoningImportPlan/);
+assert.match(api, /requiredConfirmation/);
 assert.match(api, /method: 'POST'/);
 assert.match(operationsPage, /QuestionStudioReasoningReviewPanel/);
 
@@ -82,6 +95,9 @@ console.log(JSON.stringify({
   uniqueQuestionLanguageIdCount: new Set(entries.map((entry) => entry.questionLanguageId)).size,
   generationPersistenceEnabled: true,
   approvalGatePreserved: true,
+  bulkImportPreflightRequired: true,
+  bulkImportDriftGateEnabled: true,
+  bulkImportExplicitConfirmationRequired: true,
   questionBankConversionEligibleAfterApproval: true,
   mockTestEligibleAfterApproval: true,
   publicationWorkflowEligibleAfterApproval: true,
