@@ -9,6 +9,13 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function sameRational(
+  first: { readonly numerator: bigint; readonly denominator: bigint },
+  second: { readonly numerator: bigint; readonly denominator: bigint },
+): boolean {
+  return first.numerator === second.numerator && first.denominator === second.denominator;
+}
+
 assert(TSD_CP001_LEARNER_AUTHORITIES.length === 23, "Expected 23 learner-facing authorities after source saturation");
 assert(TSD_CP001_NON_LEARNER_MODES.size === 2, "Only the two internal QA modes may remain non-learner");
 
@@ -64,19 +71,51 @@ assert(mixedOutputUnits.has("KMPH"), "Mixed-unit speed did not cover km/h output
 assert(mixedOutputUnits.has("MPS"), "Mixed-unit speed did not cover m/s output");
 assert(mixedOutputUnits.has("M_PER_MINUTE"), "Mixed-unit speed did not cover m/min output");
 
+let distanceSameSpeedSeen = false;
+let distanceChangedSpeedSeen = false;
+let timeSameSpeedSeen = false;
+let timeChangedSpeedSameDistanceSeen = false;
+let timeChangedSpeedAndDistanceSeen = false;
+
 for (const mode of ["distanceByProportion", "timeByProportion", "speedByProportion"] as const) {
   const authority = cp001AuthorityByMode(mode);
   for (let index = 0; index < 120; index += 1) {
     const candidate = generateCp001Candidate(authority.provisionalId, `proportion-saturation:${mode}:${index}`);
     assert(candidate.validation.valid, `${mode}: invalid restored proportionality candidate at ${index}`);
-    if (mode === "distanceByProportion" || mode === "timeByProportion") {
-      assert(/same speed/i.test(candidate.stem), `${mode}: same-speed condition is missing`);
-      assert(!/ at \d+(?:\.\d+)? km\/h/i.test(candidate.stem), `${mode}: derived speed leaked as a redundant given`);
+
+    if (candidate.input.solveMode === "distanceByProportion") {
+      const sameSpeed = sameRational(candidate.input.knownSpeed, candidate.input.targetSpeed);
+      if (sameSpeed) {
+        distanceSameSpeedSeen = true;
+        assert(/same speed/i.test(candidate.stem), "distanceByProportion: same-speed representation is not explicit");
+      } else {
+        distanceChangedSpeedSeen = true;
+        assert(/target speed|at the (?:higher|lower) speed|at \d+(?:\.\d+)? km\/h/i.test(`${candidate.stem} ${candidate.explanation.givens.join(" ")}`), "distanceByProportion: changed target speed is not explicit");
+      }
+    } else if (candidate.input.solveMode === "timeByProportion") {
+      const sameSpeed = sameRational(candidate.input.knownSpeed, candidate.input.targetSpeed);
+      const sameDistance = sameRational(candidate.input.knownDistance, candidate.input.targetDistance);
+      if (sameSpeed) {
+        timeSameSpeedSeen = true;
+        assert(/same speed/i.test(candidate.stem), "timeByProportion: same-speed representation is not explicit");
+      } else if (sameDistance) {
+        timeChangedSpeedSameDistanceSeen = true;
+        assert(/same distance/i.test(candidate.stem), "timeByProportion: changed-speed same-distance condition is not explicit");
+      } else {
+        timeChangedSpeedAndDistanceSeen = true;
+        assert(/at \d+(?:\.\d+)? km\/h/i.test(candidate.stem), "timeByProportion: combined changed-condition speed is not explicit");
+      }
     } else {
       assert(/same distance/i.test(candidate.stem), "speedByProportion: same-distance condition is missing");
     }
   }
 }
+
+assert(distanceSameSpeedSeen, "distanceByProportion: same-speed representation was not generated");
+assert(distanceChangedSpeedSeen, "distanceByProportion: changed-speed representation was not generated");
+assert(timeSameSpeedSeen, "timeByProportion: same-speed representation was not generated");
+assert(timeChangedSpeedSameDistanceSeen, "timeByProportion: changed-speed same-distance representation was not generated");
+assert(timeChangedSpeedAndDistanceSeen, "timeByProportion: combined changed-distance and changed-speed representation was not generated");
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -89,5 +128,12 @@ console.log(JSON.stringify({
   decimalKilometreCompositionSeen,
   standardMpsToKmphWorkingSeen,
   mixedOutputUnits: [...mixedOutputUnits].sort(),
+  proportionRepresentations: {
+    distanceSameSpeedSeen,
+    distanceChangedSpeedSeen,
+    timeSameSpeedSeen,
+    timeChangedSpeedSameDistanceSeen,
+    timeChangedSpeedAndDistanceSeen,
+  },
   permanentQlCount: 0,
 }, null, 2));

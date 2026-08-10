@@ -33,27 +33,29 @@ function clockParts(absoluteMinute: Rational): { minuteOfDay: Rational; dayOffse
   return { minuteOfDay, dayOffset };
 }
 
+function oppositeAmPmAbsolute(solution: ClockSolution): Rational {
+  const shiftedMinute = solution.minuteOfDay.numerator >= 720n
+    ? subtract(solution.minuteOfDay, r(720))
+    : add(solution.minuteOfDay, r(720));
+  return add(shiftedMinute, multiply(rational(solution.dayOffset), r(1440)));
+}
+
 function wrongBoundaryAbsolute(input: ClockInput, solution: ClockSolution): Rational {
   const correctAbsolute = absoluteSolution(solution);
 
   if (input.solveMode === "arrivalClockTime") {
-    if (solution.dayOffset > 0n) {
-      // Keep the correct clock reading but wrongly place it on the starting day.
-      return solution.minuteOfDay;
-    }
-    // Same-day noon boundary: keep the minute but use the opposite AM/PM half-day.
-    return solution.minuteOfDay.numerator >= 720n
-      ? subtract(solution.minuteOfDay, r(720))
-      : add(solution.minuteOfDay, r(720));
+    // Never offer the same clock digits with only “next day” removed. In a journey that
+    // necessarily crosses midnight, that wording can describe the same instant.
+    // The boundary distractor instead keeps the minute reading and flips AM/PM.
+    return oppositeAmPmAbsolute(solution);
   }
 
   if (input.arrivalDayOffset > 0n && correctAbsolute.numerator < 1440n) {
-    // The true departure is on the previous evening; this wrong option attaches it to the next day.
+    // The true departure is on the previous day. Put the same clock reading on the
+    // following day to create a genuinely different calendar instant.
     return add(correctAbsolute, r(1440));
   }
-  return solution.minuteOfDay.numerator >= 720n
-    ? subtract(solution.minuteOfDay, r(720))
-    : add(solution.minuteOfDay, r(720));
+  return oppositeAmPmAbsolute(solution);
 }
 
 function wrongCandidates(input: ClockInput, solution: ClockSolution): readonly ClockCandidate[] {
