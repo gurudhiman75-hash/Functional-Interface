@@ -27,6 +27,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/localization.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/term-assignment.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-BANKING-POSSIBILITY-SHELL-PROTOTYPE-V1.md
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-BANKING-POSSIBILITY-DIAGRAM-V3-SELF-REVIEW.md
       - .github/workflows/reasoning-syl-001-bank-possibility-prototype.yml
   workflow_dispatch:
 
@@ -55,6 +56,22 @@ jobs:
 
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Reject obsolete V1/V2 diagram review files
+        run: |
+          obsolete=(
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-diagram-v1.ts
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-review-question-v1.ts
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-diagram-v1-audit.test.ts
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-review-v1.ts
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-review-v2.ts
+          )
+          for path in "${obsolete[@]}"; do
+            if [ -e "$path" ]; then
+              echo "Obsolete Banking diagram review path exists: $path" >&2
+              exit 1
+            fi
+          done
 
       - name: Bundle Banking possibility-shell audit
         run: >-
