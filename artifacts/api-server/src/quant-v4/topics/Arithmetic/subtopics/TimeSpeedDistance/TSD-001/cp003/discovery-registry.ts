@@ -126,7 +126,6 @@ export const TSD_CP003_DISCOVERY_AUTHORITIES: readonly TsdCp003DiscoveryAuthorit
   authority(7, "requiredRecoverySpeedAfterLostTime", "SPEED", "SCHEDULE_RECOVERY", [
     "findRequiredSpeedAfterLateStart",
     "findRequiredSpeedAfterUnplannedStop",
-    "findRepairTimeFromRequiredRecoverySpeed",
   ]),
   authority(8, "requiredRemainingSpeedAfterPartialRoute", "SPEED", "SCHEDULE_RECOVERY", [
     "findRequiredRemainingSpeedAfterSlowInitialSegment",
@@ -161,8 +160,9 @@ export const TSD_CP003_DISCOVERY_AUTHORITIES: readonly TsdCp003DiscoveryAuthorit
   authority(17, "fractionOfRouteAtChangedSpeed", "PERCENT", "CHANGE_POINT_SYSTEM", [
     "findFractionOfRouteAtChangedSpeed",
   ]),
-  authority(18, "breakdownDurationFromArrivalDelay", "TIME", "SCHEDULE_RECOVERY", [
+  authority(18, "lostTimeDurationFromScheduleRecovery", "TIME", "SCHEDULE_RECOVERY", [
     "findBreakdownDurationFromArrivalDelay",
+    "findRepairTimeFromRequiredRecoverySpeed",
   ]),
   authority(19, "startTimeShiftForSameArrival", "TIME", "DEPARTURE_ARRIVAL_SHIFT", [
     "findStartTimeShiftForSameArrival",
