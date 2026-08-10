@@ -8,6 +8,7 @@ const unpaddedFractionalSecond = /:\d \d+\/\d+/;
 const singularPluralMismatch = /\b1 (?:seconds|minutes|hours)\b/;
 const internalZeroDayLabel = /\(day \+0\)/;
 const awkwardAllTimesPhrase = /\b(?:At|at|What|what) what? all times\b|\b(?:At|at|What|what) all times\b/;
+const duplicateAmPmPunctuation = /\b[ap]\.m\.\.+/i;
 
 function expectedOrdinalSuffix(value: number): "st" | "nd" | "rd" | "th" {
   const lastTwo = Math.abs(value) % 100;
@@ -58,6 +59,7 @@ for (let taskIndex = 0; taskIndex < CLOCK_TASK_CATALOG.length; taskIndex += 1) {
     assert.doesNotMatch(visibleText, singularPluralMismatch);
     assert.doesNotMatch(visibleText, internalZeroDayLabel);
     assert.doesNotMatch(visibleText, awkwardAllTimesPhrase);
+    assert.doesNotMatch(visibleText, duplicateAmPmPunctuation);
     assert.doesNotMatch(question.stem, /<svg|<script|foreignObject|javascript:/i);
     generated += 1;
   }
@@ -72,4 +74,5 @@ console.log(JSON.stringify({
   singularPluralMismatches: 0,
   internalZeroDayLabels: 0,
   awkwardAllTimesPhrases: 0,
+  duplicateAmPmPunctuation: 0,
 }, null, 2));
