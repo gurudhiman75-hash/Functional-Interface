@@ -12,7 +12,9 @@ const omissionReasons: Record<string, number> = {};
 const omittedByScenario: Record<string, number> = {};
 const enabledByLocale: Record<string, number> = {};
 const enabledByGroup: Record<string, number> = {};
+const geometrySources: Record<string, number> = {};
 const seedStatus = new Map<number, boolean>();
+const seedGeometrySource = new Map<number, string>();
 
 function increment(target: Record<string, number>, key: string): void {
   target[key] = (target[key] ?? 0) + 1;
@@ -24,11 +26,12 @@ for (const seed of seeds) {
     records += 1;
 
     assert.equal(question.diagram.schemaVersion, "banking-possibility-combined-diagram-v3");
-    assert.equal(question.diagram.renderer, "EXISTING_APPROVED_V5_EXACT_VENN_PIPELINE");
+    assert.equal(question.diagram.renderer, "V5_EXACT_WITH_SAFETY_GATED_SUPPLEMENTAL_TEMPLATES");
     assert.equal(question.diagram.pipelineMode, "CONCLUSION_MASK");
     assert.equal(question.diagram.premiseOnly, true);
     assert.ok(!("diagrams" in question), `${seed}/${locale}: legacy two-diagram field must not exist`);
     assert.ok(question.diagram.diagramCount === 0 || question.diagram.diagramCount === 1);
+    increment(geometrySources, question.diagram.geometrySource);
 
     const priorSeedStatus = seedStatus.get(seed);
     if (priorSeedStatus === undefined) seedStatus.set(seed, question.diagram.enabled);
@@ -37,9 +40,17 @@ for (const seed of seeds) {
       priorSeedStatus,
       `${seed}: diagram enablement must be locale-invariant`,
     );
+    const priorSource = seedGeometrySource.get(seed);
+    if (priorSource === undefined) seedGeometrySource.set(seed, question.diagram.geometrySource);
+    else assert.equal(
+      question.diagram.geometrySource,
+      priorSource,
+      `${seed}: geometry source must be locale-invariant`,
+    );
 
     if (!question.diagram.enabled) {
       omitted += 1;
+      assert.equal(question.diagram.geometrySource, "OMITTED");
       assert.equal(question.diagram.diagramCount, 0);
       assert.equal(question.diagram.svg, null);
       assert.equal(question.diagram.caption, null);
@@ -51,6 +62,10 @@ for (const seed of seeds) {
     }
 
     enabled += 1;
+    assert.ok(
+      question.diagram.geometrySource === "APPROVED_V5_EXACT"
+      || question.diagram.geometrySource === "SAFETY_GATED_SUPPLEMENTAL_TEMPLATE",
+    );
     increment(enabledByLocale, locale);
     increment(enabledByGroup, question.scenarioGroup);
     assert.equal(question.diagram.diagramCount, 1);
@@ -85,6 +100,7 @@ console.log(JSON.stringify({
   diagramSlots: records,
   enabled,
   omitted,
+  geometrySources,
   omissionReasons,
   omittedByScenario,
   enabledByLocale,
@@ -93,6 +109,7 @@ console.log(JSON.stringify({
     scenarioId: first.scenarioId,
     group: first.scenarioGroup,
     enabled: first.diagram.enabled,
+    geometrySource: first.diagram.geometrySource,
     omissionReason: first.diagram.omissionReason,
     semanticSignature: first.diagram.semanticSignature,
   },
@@ -101,7 +118,9 @@ console.log(JSON.stringify({
     perConclusionDiagramsRemoved: true,
     premiseOnlyGeometry: true,
     pipelineMode: "CONCLUSION_MASK",
-    renderer: "existing approved learner-v5 exact Venn pipeline",
+    primaryRenderer: "existing approved learner-v5 exact Venn pipeline",
+    supplementalRenderer: "narrow finite templates with existing V5 witness and strong-relation safety gates",
+    supplementalIsProductApproved: false,
     measurementOnlyUntilTemplateGapsClose: true,
     deliveryActivationChanged: false,
   },
