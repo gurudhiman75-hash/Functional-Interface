@@ -1,6 +1,6 @@
 # BLR-001 — Blood Relations
 
-Status: **BLR-CP-001 and BLR-CP-002 English discovery frozen; stable range `BLR-QL-001..008`**.
+Status: **all seven designed checkpoints implemented; permanent QL range `BLR-QL-001..035`; CP-007 multilingual production-review lifecycle enabled**.
 
 Student-facing chapter: **Blood Relations**  
 Reasoning V1 package: `BLR-001`  
@@ -11,117 +11,173 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BL
 1. `../../../REASONING-V1-MASTER-BLUEPRINT.md`;
 2. `../../../REASONING-V1-ARCHITECTURE.md`;
 3. `BLR-001-END-TO-END-DESIGN.md`;
-4. `blr-001-open-ql-discovery.md`;
-5. checkpoint-specific source, merge/split, freeze, implementation and review records;
-6. `BLR-001-MANIFEST-AMENDMENT-CP001.md` and `BLR-001-MANIFEST-AMENDMENT-CP002.md` for permanent identity.
+4. checkpoint-specific source, merge/split, freeze, implementation, remediation and review records;
+5. permanent checkpoint runtime contracts and recovery evidence;
+6. manifest amendments where present.
 
-## Shared implemented foundation
+## Checkpoint ledger
 
-- typed family graph with parent, spouse and sibling edges;
-- family validity and ancestry-cycle rejection;
-- graph reconstruction from displayed relation clues;
-- inferred sibling closure for children sharing a modelled parent;
-- deterministic seeded Indian names;
-- broad kinship and in-law closure;
-- generation propagation and comparison;
-- exact paternal/maternal lineage resolution;
-- great-generation relation closure;
-- blood and affinal uncle/aunt with inverse nephew/niece closure;
-- broad role vocabulary for parent, child, sibling and spouse;
-- union-cardinality semantics for exact `ONLY_CHILD`;
-- zero-cardinality validation for negative relation facts;
-- independent clue-only solvers;
-- misconception-labelled four-option construction;
-- four-tier learner-facing editorial layer;
-- structured speaker/listener/pointed-person anchors;
-- one-, two- and three-anchor dialogue contexts;
-- nested role-chain reduction with formal `ONLY` checks;
-- direct, reverse and both-derived query endpoints;
-- pictured and derived self-identity resolution;
-- semantic and possessive photograph/portrait option rendering.
+| Checkpoint | Ownership | Permanent QLs | Current state |
+|---|---|---|---|
+| `BLR-CP-001` | direct declarative named-person relations | `BLR-QL-001..007` | English discovery frozen; review runtime available |
+| `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | `BLR-QL-008` | English discovery frozen; review runtime available |
+| `BLR-CP-003` | shared family passages and shared graphs | `BLR-QL-009..012` | English discovery frozen; review runtime available |
+| `BLR-CP-004` | counts and family composition | `BLR-QL-013..017` | English discovery frozen; review runtime available; zero-count recovery remediation applied |
+| `BLR-CP-005` | determinacy, possibility and uncertainty | `BLR-QL-018..025` | English discovery frozen; exam-grade review runtime available |
+| `BLR-CP-006` | coded relation decoding | `BLR-QL-026..030` | English discovery frozen; review runtime available |
+| `BLR-CP-007` | coded relation construction, completion and validation | `BLR-QL-031..035` | English/Hindi/Punjabi frozen; production Question Studio review lifecycle enabled |
 
-## Frozen permanent range
+The current design contains **seven checkpoints only**. There is no planned `BLR-CP-008` in the authoritative end-to-end design.
+
+`BLR-QL-036` is the next unused Blood Relations identity. It is **unallocated** and must not be interpreted as evidence that another checkpoint is required.
+
+## Permanent QL inventory
 
 ```text
-BLR-QL-001  resolve named-person relation
-BLR-QL-002  identify person by relation
-BLR-QL-003  identify person by gender
-BLR-QL-004  identify ordered relation pair
-BLR-QL-005  select relation claim
-BLR-QL-006  compare generations
-BLR-QL-007  resolve exact maternal/paternal relation
-BLR-QL-008  resolve anchored pointer/photo/conversation role-chain relation
+BLR-QL-001  RESOLVE_NAMED_PERSON_RELATION
+BLR-QL-002  IDENTIFY_PERSON_BY_RELATION
+BLR-QL-003  IDENTIFY_PERSON_BY_GENDER
+BLR-QL-004  IDENTIFY_ORDERED_RELATION_PAIR
+BLR-QL-005  SELECT_RELATION_CLAIM
+BLR-QL-006  COMPARE_GENERATIONS
+BLR-QL-007  RESOLVE_EXACT_LINEAGE_RELATION
+BLR-QL-008  RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
+
+BLR-QL-009  SELECT_UNORDERED_FAMILY_PAIR
+BLR-QL-010  IDENTIFY_ALL_MEMBERS_BY_RELATION
+BLR-QL-011  IDENTIFY_MEMBER_BY_MARITAL_STATUS
+BLR-QL-012  IDENTIFY_PERSON_BY_EXACT_LINEAGE
+
+BLR-QL-013  COUNT_MEMBERS_BY_FILTER
+BLR-QL-014  COUNT_RELATIVES_OF_REFERENCE
+BLR-QL-015  COUNT_RELATION_PAIRS
+BLR-QL-016  COUNT_GENERATIONS
+BLR-QL-017  SELECT_FAMILY_COMPOSITION_PROFILE
+
+BLR-QL-018  RESOLVE_INVARIANT_RELATION
+BLR-QL-019  RESOLVE_RELATION_UNCERTAINTY
+BLR-QL-020  SELECT_CLAIM_BY_MODEL_STATUS
+BLR-QL-021  IDENTIFY_PERSON_BY_MODEL_STATUS
+BLR-QL-022  RESOLVE_PERSON_IDENTITY_UNCERTAINTY
+BLR-QL-023  DETERMINE_COUNT_BOUND
+BLR-QL-024  SELECT_COUNT_BY_MODEL_STATUS
+BLR-QL-025  RESOLVE_COUNT_DETERMINACY
+
+BLR-QL-026  RESOLVE_CODED_RELATION
+BLR-QL-027  IDENTIFY_PERSON_FROM_CODED_GRAPH
+BLR-QL-028  DETERMINE_GENDER_FROM_CODED_GRAPH
+BLR-QL-029  SELECT_CODED_RELATION_PAIR
+BLR-QL-030  RESOLVE_CODED_FAMILY_SET_RELATION
+
+BLR-QL-031  SELECT_CODED_EXPRESSION
+BLR-QL-032  COMPLETE_MISSING_CODE_TOKEN
+BLR-QL-033  COMPLETE_ORDERED_CODE_TOKEN_PAIR
+BLR-QL-034  COMPLETE_MISSING_PERSON
+BLR-QL-035  SELECT_CODED_STATEMENT_BY_VALIDITY
 ```
 
-Freeze versions:
+## Frozen checkpoint inventories
+
+### CP-003
 
 ```text
-BLR_CP001_ENGLISH_DISCOVERY_FREEZE_V1
-BLR_CP002_ENGLISH_DISCOVERY_FREEZE_V1
+approved English records       298
+shared-passage groups          102
+permanent QLs                    4
+range                BLR-QL-009..012
 ```
 
-## CP-002 freeze result
-
-Six exploratory prototypes and forty-five canonical source scenarios were compressed into:
+### CP-004
 
 ```text
-RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
+approved English records       612
+shared-passage groups          102
+permanent QLs                    5
+range                BLR-QL-013..017
+independently verified         612
+explicit zero-answer cases       1
 ```
 
-Presentation context, question renderer, anchor count, direct/reverse direction, one or both derived endpoints, one- through four-step depth, broad roles, `ONLY` and `NONE` constraints, blood/affinal output, relation value, `SELF`, names and difficulty remain instance properties of `BLR-QL-008`.
+During current-main recovery, strict CI exposed a historical false-green in CP-004: the runtime required a zero-answer example, but the old workflow masked the failed process through `tee` without `pipefail`. `BLR-CP-004-ZERO-COUNT-RECOVERY-REMEDIATION.md` records the correction. The checkpoint remains 612 records / 102 groups / five QLs.
 
-## Current executable proof
+### CP-005
 
 ```text
-BLR-CP-001 frozen workflow                    3,556 questions
-BLR-CP-002 technical pre-freeze proof          3,492 questions
-BLR-CP-002 permanent runtime audit                900 questions
------------------------------------------------------------
-current deterministic chapter proof            7,948 questions
+approved English records       184
+shared model-space groups       80
+permanent QLs                    8
+range                BLR-QL-018..025
+enumerated models              432
 ```
 
-CP-002 proves five presentation contexts, three question forms, up to three anchors, one- through four-step role chains, both-derived endpoints, broad only-child cardinality, negative sibling facts, blood and affinal outputs, pictured and derived self identity, possessive photograph/portrait options and complete release locks.
+### CP-006
 
-## Checkpoint state
+```text
+approved English records       152
+permanent QLs                    5
+range                BLR-QL-026..030
+decoded statement instances    440
+```
 
-| Checkpoint | Ownership | State |
-|---|---|---|
-| `BLR-CP-001` | direct declarative named-person relations | frozen; `BLR-QL-001..007` |
-| `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | frozen; `BLR-QL-008` |
-| `BLR-CP-003` | shared family passages | open |
-| `BLR-CP-004` | counts and family composition | open |
-| `BLR-CP-005` | possible/impossible/one-of-two/indeterminate semantics | open |
-| `BLR-CP-006` | coded relation decoding | open |
-| `BLR-CP-007` | coded construction and validation | open |
+### CP-007
 
-The next available chapter identity is `BLR-QL-009`. The final chapter total remains open.
+```text
+English frozen records         168
+Hindi frozen records           168
+Punjabi frozen records         168
+total multilingual records     504
+permanent QLs                    5
+range                BLR-QL-031..035
+```
 
-## Authoritative freeze records
+CP-007 production persistence remains approval-gated: synchronized records enter Question Studio as `unreviewed`; admin approval is required before existing Question Bank conversion and downstream publication workflows. There is no automatic student publication.
 
-### CP-001
+## Recovery history
 
-- `BLR-CP-001/BLR-CP-001-FINAL-DISCOVERY-FREEZE.md`;
-- `BLR-001-MANIFEST-AMENDMENT-CP001.md`;
-- `BLR-CP-001/cp001-final-discovery-freeze.ts`;
-- `BLR-CP-001/cp001-runtime.ts`.
+CP-003 through CP-006 were originally completed on historical stacked branches but were not merged into `New-main`. Clean recovery PR `#666` transplanted only their authoritative checkpoint runtime trees and direct manifests onto the then-current `New-main`, preserving current CP-006 compatibility files required by CP-007.
 
-### CP-002
+The historical stacked PRs `#308`, `#427`, `#432` and `#443` are closed as superseded and must not be merged.
 
-- `BLR-CP-002/BLR-CP-002-SECOND-SOURCE-GAP-AUDIT.md`;
-- `BLR-CP-002/BLR-CP-002-HUMAN-REVIEW-APPROVAL.md`;
-- `BLR-CP-002/BLR-CP-002-POST-HUMAN-GAP-CONFIRMATION.md`;
-- `BLR-CP-002/BLR-CP-002-FINAL-DISCOVERY-FREEZE.md`;
-- `BLR-001-MANIFEST-AMENDMENT-CP002.md`;
-- `BLR-CP-002/cp002-final-discovery-freeze.ts`;
-- `BLR-CP-002/cp002-runtime.ts`.
+Merged recovery commit:
+
+```text
+42726658c2b0bea80bde1adc2dfc3544251ad3d3
+```
+
+The merged `New-main` recovery workflow proves CP-003, CP-004, CP-005, CP-006 and CP-007 together, plus admin TypeScript and the API build. The exact Render production build also passes on the recovered merge commit.
+
+## Shared reasoning foundation
+
+The chapter shares a typed family graph and relation ontology with:
+
+- parent, child, spouse and sibling primitives;
+- ancestry-cycle and structural validity checks;
+- deterministic graph reconstruction from learner-visible clues;
+- broad, exact-lineage and common in-law kinship closure;
+- role-chain and pointer/photo/conversation resolution;
+- shared-passage family graphs;
+- member, relative, pair, generation and composition counting;
+- bounded model enumeration for definite/possible/impossible/indeterminate semantics;
+- coded-relation normalization and decoding;
+- coded-expression construction and validation;
+- deterministic options, misconception diagnostics and graph-derived explanations.
+
+## Authoritative checkpoint records
+
+- `BLR-CP-001/BLR-CP-001-FINAL-DISCOVERY-FREEZE.md`
+- `BLR-CP-002/BLR-CP-002-FINAL-DISCOVERY-FREEZE.md`
+- `BLR-CP-003/BLR-CP-003-FINAL-DISCOVERY-FREEZE.md`
+- `BLR-CP-004/BLR-CP-004-FINAL-DISCOVERY-FREEZE.md`
+- `BLR-CP-004/BLR-CP-004-ZERO-COUNT-RECOVERY-REMEDIATION.md`
+- `BLR-CP-005/BLR-CP-005-FINAL-DISCOVERY-FREEZE.md`
+- `BLR-CP-006/BLR-CP-006-FINAL-DISCOVERY-FREEZE.md`
+- `BLR-CP-007/` frozen English, multilingual and production-lifecycle records
 
 ## Release boundary
 
-Permanent identity does not enable delivery:
+Checkpoint implementation/freeze state and product delivery state are separate:
 
-- English review-only: true;
-- Question Studio: disabled;
-- Question Bank: disabled;
-- mock-test eligibility: disabled;
-- Hindi and Punjabi: not started;
-- public publication: disabled.
+- CP-001 through CP-006 remain English review-runtime authorities unless a later explicit product-release gate changes them;
+- CP-003 through CP-006 are **not** automatically added to Question Studio, Question Bank, mock tests or public delivery by the recovery merge;
+- CP-007 alone currently has the multilingual production-review integration described above;
+- production publication still follows the existing audited admin approval workflow.
