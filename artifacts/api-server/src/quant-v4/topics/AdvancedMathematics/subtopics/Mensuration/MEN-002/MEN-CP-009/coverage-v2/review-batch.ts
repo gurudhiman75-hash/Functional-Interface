@@ -11,15 +11,6 @@ export interface MenCp009V2ReviewBatch {
   uniqueStemOptionPackages: number;
 }
 
-function meaningfulStem(rawStem: string): string {
-  return rawStem
-    .replace(
-      /\s*(?:calculate carefully(?:\s+and\s+(?:select|choose)\s+the\s+correct\s+(?:answer|option))?|(?:choose|select)\s+the\s+correct\s+(?:answer|option)|determine\s+the\s+required\s+value|find\s+the\s+requested\s+measure)\.?\s*$/i,
-      "",
-    )
-    .trim();
-}
-
 export function buildMenCp009V2ReviewBatch(): MenCp009V2ReviewBatch {
   const rows: MenCp009QuestionV2[] = [];
 
@@ -33,19 +24,18 @@ export function buildMenCp009V2ReviewBatch(): MenCp009V2ReviewBatch {
         definition.qlId,
         `balanced-review-${candidate}`,
       );
-      const stemKey = meaningfulStem(question.stem);
-      const packageKey = `${stemKey}|${question.options
+      const packageKey = `${question.stem}|${question.options
         .map((option) => option.display)
         .join("|")}`;
       if (
         selected.has(question.correctIndex) ||
-        stems.has(stemKey) ||
+        stems.has(question.stem) ||
         packages.has(packageKey)
       ) {
         continue;
       }
       selected.set(question.correctIndex, question);
-      stems.add(stemKey);
+      stems.add(question.stem);
       packages.add(packageKey);
     }
 
