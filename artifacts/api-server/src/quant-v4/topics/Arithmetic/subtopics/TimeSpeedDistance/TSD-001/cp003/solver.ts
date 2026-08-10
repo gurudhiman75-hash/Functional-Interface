@@ -1,10 +1,12 @@
 import {
+  RATIONAL_ZERO,
   absRational,
   add,
   compare,
   divide,
   isPositive,
   multiply,
+  rational,
   reciprocal,
   subtract,
   type Rational,
@@ -13,6 +15,10 @@ import type { TsdCp003SolveCertificate, TsdCp003SolveInput } from "./types";
 
 function requirePositive(value: Rational, label: string): void {
   if (!isPositive(value)) throw new Error(`${label} must be positive`);
+}
+
+function requireNonNegative(value: Rational, label: string): void {
+  if (compare(value, RATIONAL_ZERO) < 0) throw new Error(`${label} must be non-negative`);
 }
 
 function requireWholePositive(value: Rational, label: string): void {
@@ -63,6 +69,42 @@ export function solveCp003(input: TsdCp003SolveInput): TsdCp003SolveCertificate 
       });
     }
 
+    case "speedFromFixedRouteTimeDifference": {
+      requirePositive(input.distance, "distance");
+      requirePositive(input.timeDifference, "time difference");
+      if (input.representation === "KNOWN_OTHER_SPEED") {
+        requirePositive(input.knownSpeed, "known speed");
+        const reciprocalDifference = divide(input.timeDifference, input.distance);
+        const unknownReciprocal = input.unknownRole === "FASTER"
+          ? subtract(reciprocal(input.knownSpeed), reciprocalDifference)
+          : add(reciprocal(input.knownSpeed), reciprocalDifference);
+        requirePositive(unknownReciprocal, "unknown reciprocal speed");
+        const unknownSpeed = reciprocal(unknownReciprocal);
+        if (input.unknownRole === "FASTER" && compare(unknownSpeed, input.knownSpeed) <= 0) throw new Error("solved faster speed must exceed known speed");
+        if (input.unknownRole === "SLOWER" && compare(unknownSpeed, input.knownSpeed) >= 0) throw new Error("solved slower speed must be below known speed");
+        return Object.freeze({
+          solveMode: input.solveMode,
+          answer: unknownSpeed,
+          unit: "KMPH",
+          governingEquation: "time difference = distance × |1/slower speed - 1/faster speed|",
+          intermediate: Object.freeze({ reciprocalDifference }),
+        });
+      }
+      requireFaster(input.slowerRatio, input.fasterRatio);
+      const ratioReciprocalGap = reciprocalGap(input.slowerRatio, input.fasterRatio);
+      const scale = divide(multiply(input.distance, ratioReciprocalGap), input.timeDifference);
+      requirePositive(scale, "speed-ratio scale");
+      const slowerSpeed = multiply(scale, input.slowerRatio);
+      const fasterSpeed = multiply(scale, input.fasterRatio);
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: input.target === "SLOWER" ? slowerSpeed : fasterSpeed,
+        unit: "KMPH",
+        governingEquation: "speed pair = common scale × stated speed ratio, fitted to the fixed-route time difference",
+        intermediate: Object.freeze({ scale, slowerSpeed, fasterSpeed }),
+      });
+    }
+
     case "usualSpeedFromEarlyLatePair": {
       requireFaster(input.slowerTrialSpeed, input.fasterTrialSpeed);
       requirePositive(input.lateBy, "late-by time");
@@ -94,6 +136,21 @@ export function solveCp003(input: TsdCp003SolveInput): TsdCp003SolveCertificate 
         unit: "KM",
         governingEquation: "late + early = distance(1/slower speed - 1/faster speed)",
         intermediate: Object.freeze({ scheduleGap }),
+      });
+    }
+
+    case "scheduledArrivalTimeFromActualSpeed": {
+      requireNonNegative(input.departureMinuteFromDayZero, "departure clock minute");
+      requirePositive(input.distance, "distance");
+      requirePositive(input.actualSpeed, "actual speed");
+      const travelHours = divide(input.distance, input.actualSpeed);
+      const travelMinutes = multiply(travelHours, rational(60));
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: add(input.departureMinuteFromDayZero, travelMinutes),
+        unit: "CLOCK_MINUTE",
+        governingEquation: "arrival clock minute = departure clock minute + 60 × distance/speed",
+        intermediate: Object.freeze({ travelHours, travelMinutes }),
       });
     }
 
@@ -231,6 +288,143 @@ export function solveCp003(input: TsdCp003SolveInput): TsdCp003SolveCertificate 
         unit: "HOUR",
         governingEquation: "total elapsed time = running time + number of stops × stop duration",
         intermediate: Object.freeze({ totalStopTime }),
+      });
+    }
+
+    case "speedChangePointDistance": {
+      requirePositive(input.totalDistance, "total distance");
+      requirePositive(input.totalTravelTime, "total travel time");
+      requirePositive(input.firstSpeed, "first speed");
+      requirePositive(input.secondSpeed, "second speed");
+      if (compare(input.firstSpeed, input.secondSpeed) === 0) throw new Error("speed-change point requires two different speeds");
+      const numerator = subtract(input.totalTravelTime, divide(input.totalDistance, input.secondSpeed));
+      const denominator = subtract(reciprocal(input.firstSpeed), reciprocal(input.secondSpeed));
+      const firstSegmentDistance = divide(numerator, denominator);
+      requirePositive(firstSegmentDistance, "first-segment distance");
+      if (compare(firstSegmentDistance, input.totalDistance) >= 0) throw new Error("speed-change point must lie inside the route");
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: firstSegmentDistance,
+        unit: "KM",
+        governingEquation: "x/first speed + (total distance - x)/second speed = total travel time",
+        intermediate: Object.freeze({ numerator, denominator }),
+      });
+    }
+
+    case "fractionOfRouteAtChangedSpeed": {
+      requirePositive(input.totalDistance, "total distance");
+      requirePositive(input.totalTravelTime, "total travel time");
+      requirePositive(input.originalSpeed, "original speed");
+      requirePositive(input.changedSpeed, "changed speed");
+      if (compare(input.originalSpeed, input.changedSpeed) === 0) throw new Error("changed speed must differ from original speed");
+      const numerator = subtract(input.totalTravelTime, divide(input.totalDistance, input.changedSpeed));
+      const denominator = subtract(reciprocal(input.originalSpeed), reciprocal(input.changedSpeed));
+      const originalDistance = divide(numerator, denominator);
+      requirePositive(originalDistance, "original-speed distance");
+      if (compare(originalDistance, input.totalDistance) >= 0) throw new Error("changed-speed segment must be non-empty");
+      const changedDistance = subtract(input.totalDistance, originalDistance);
+      const changedPercent = multiply(divide(changedDistance, input.totalDistance), rational(100));
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: changedPercent,
+        unit: "PERCENT",
+        governingEquation: "route time = original-distance/original-speed + changed-distance/changed-speed",
+        intermediate: Object.freeze({ originalDistance, changedDistance }),
+      });
+    }
+
+    case "lostTimeDurationFromScheduleRecovery": {
+      requirePositive(input.remainingDistance, "remaining distance");
+      requirePositive(input.usualSpeed, "usual speed");
+      requirePositive(input.recoverySpeed, "recovery speed");
+      requireNonNegative(input.finalArrivalDelay, "final arrival delay");
+      if (compare(input.recoverySpeed, input.usualSpeed) < 0) throw new Error("recovery speed cannot be below usual speed");
+      const usualRemainingTime = divide(input.remainingDistance, input.usualSpeed);
+      const recoveryRemainingTime = divide(input.remainingDistance, input.recoverySpeed);
+      const timeRecovered = subtract(usualRemainingTime, recoveryRemainingTime);
+      const lostTime = add(timeRecovered, input.finalArrivalDelay);
+      requirePositive(lostTime, "lost time duration");
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: lostTime,
+        unit: "HOUR",
+        governingEquation: "lost time = time recovered by higher speed + final arrival delay",
+        intermediate: Object.freeze({ usualRemainingTime, recoveryRemainingTime, timeRecovered }),
+      });
+    }
+
+    case "startTimeShiftForSameArrival": {
+      requirePositive(input.distance, "distance");
+      requirePositive(input.originalSpeed, "original speed");
+      requirePositive(input.newSpeed, "new speed");
+      if (compare(input.originalSpeed, input.newSpeed) === 0) throw new Error("new speed must differ from original speed");
+      const originalTravelTime = divide(input.distance, input.originalSpeed);
+      const newTravelTime = divide(input.distance, input.newSpeed);
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: absRational(subtract(originalTravelTime, newTravelTime)),
+        unit: "HOUR",
+        governingEquation: "departure shift for same arrival = |old travel time - new travel time|",
+        intermediate: Object.freeze({ originalTravelTime, newTravelTime }),
+      });
+    }
+
+    case "arrivalShiftFromDepartureAndSpeedChanges": {
+      requirePositive(input.distance, "distance");
+      requirePositive(input.originalSpeed, "original speed");
+      requirePositive(input.newSpeed, "new speed");
+      const originalTravelTime = divide(input.distance, input.originalSpeed);
+      const newTravelTime = divide(input.distance, input.newSpeed);
+      const signedArrivalShift = add(input.departureShift, subtract(newTravelTime, originalTravelTime));
+      if (compare(signedArrivalShift, RATIONAL_ZERO) === 0) throw new Error("combined changes produce no arrival shift");
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: absRational(signedArrivalShift),
+        unit: "HOUR",
+        governingEquation: "arrival shift = departure shift + new travel time - original travel time",
+        intermediate: Object.freeze({ originalTravelTime, newTravelTime, signedArrivalShift }),
+      });
+    }
+
+    case "walkingRidingAllocation": {
+      requirePositive(input.totalDistance, "total distance");
+      requirePositive(input.totalTime, "total time");
+      requireFaster(input.walkingSpeed, input.ridingSpeed);
+      const numerator = subtract(input.totalTime, divide(input.totalDistance, input.ridingSpeed));
+      const denominator = subtract(reciprocal(input.walkingSpeed), reciprocal(input.ridingSpeed));
+      const walkingDistance = divide(numerator, denominator);
+      requirePositive(walkingDistance, "walking distance");
+      if (compare(walkingDistance, input.totalDistance) >= 0) throw new Error("riding distance must be positive");
+      const ridingDistance = subtract(input.totalDistance, walkingDistance);
+      const walkingTime = divide(walkingDistance, input.walkingSpeed);
+      const ridingTime = divide(ridingDistance, input.ridingSpeed);
+      const answer = input.target === "WALKING_TIME"
+        ? walkingTime
+        : input.target === "RIDING_TIME"
+          ? ridingTime
+          : input.target === "WALKING_DISTANCE"
+            ? walkingDistance
+            : ridingDistance;
+      const unit = input.target.endsWith("TIME") ? "HOUR" : "KM";
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer,
+        unit,
+        governingEquation: "walking distance/walking speed + riding distance/riding speed = total time",
+        intermediate: Object.freeze({ walkingDistance, ridingDistance, walkingTime, ridingTime }),
+      });
+    }
+
+    case "scheduleBuffer": {
+      requirePositive(input.scheduledDuration, "scheduled duration");
+      requirePositive(input.plannedTravelDuration, "planned travel duration");
+      if (compare(input.scheduledDuration, input.plannedTravelDuration) <= 0) throw new Error("scheduled duration must exceed planned travel duration for positive buffer");
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: subtract(input.scheduledDuration, input.plannedTravelDuration),
+        unit: "HOUR",
+        governingEquation: "schedule buffer = scheduled duration - planned travel duration",
+        intermediate: Object.freeze({}),
       });
     }
   }
