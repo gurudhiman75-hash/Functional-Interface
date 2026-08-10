@@ -1,0 +1,44 @@
+name: Restore Question Analytics publication linkage
+
+on:
+  push:
+    branches:
+      - fix/question-analytics-publication-freeze
+    paths:
+      - '.github/workflows/apply-question-analytics-publication-freeze.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/question-analytics-publication-freeze
+      - name: Add canonical publication join
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('artifacts/api-server/src/routes/admin-question-analytics.ts')
+          text = path.read_text()
+          old = '''        FROM learning.attempts a
+        WHERE a.started_at >= now() - make_interval(days => ${days})
+'''
+          new = '''        FROM learning.attempts a
+        JOIN assessment.test_publications p ON p.id = a.test_publication_id
+        WHERE a.started_at >= now() - make_interval(days => ${days})
+'''
+          if text.count(old) != 1:
+              raise SystemExit(f'expected one attempt-query anchor, found {text.count(old)}')
+          path.write_text(text.replace(old, new, 1))
+          PY
+          rm .github/workflows/apply-question-analytics-publication-freeze.yml
+      - name: Commit source-only fix
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add artifacts/api-server/src/routes/admin-question-analytics.ts .github/workflows/apply-question-analytics-publication-freeze.yml
+          git commit -m 'fix(analytics): restore canonical publication join'
+          git push origin HEAD:fix/question-analytics-publication-freeze
