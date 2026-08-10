@@ -16,6 +16,7 @@ export interface AttemptDraftState {
   originalAttemptId?: string;
   sectionCompletionTimes?: Record<string, number>;
   visitedQuestionIds?: number[];
+  questionTimeSecondsById: Record<string, number>;
 }
 
 export interface AttemptSessionSnapshot {
@@ -118,6 +119,7 @@ export function normalizeAttemptDraftState(value: unknown, expectedTestId: strin
     originalAttemptId: stringValue(input.originalAttemptId, 120) || undefined,
     sectionCompletionTimes: numberMap(input.sectionCompletionTimes, 200, 0, 604_800),
     visitedQuestionIds: visitedQuestionIds ? Array.from(new Set(visitedQuestionIds)) : undefined,
+    questionTimeSecondsById: numberMap(input.questionTimeSecondsById, 2_000, 0, 604_800),
   };
 }
 
