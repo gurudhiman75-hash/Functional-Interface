@@ -11,10 +11,16 @@ on:
       - feat/cal-001-multilingual-human-freeze
       - feat/cal-001-question-studio-integration
       - feat/cal-001-production-lifecycle
+      - feat/cal-001-finish-production-integration
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/**
       - artifacts/api-server/src/reasoning-v1/CAL-001-FAMILY-F-MANIFEST-AMENDMENT.md
       - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/api-server/src/routes/admin-question-studio-calendar.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/question-studio/calendar-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioCalendarReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
       - .github/workflows/cal-001-foundation.yml
   pull_request:
     branches:
@@ -24,6 +30,11 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/**
       - artifacts/api-server/src/reasoning-v1/CAL-001-FAMILY-F-MANIFEST-AMENDMENT.md
       - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/api-server/src/routes/admin-question-studio-calendar.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/question-studio/calendar-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioCalendarReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
       - .github/workflows/cal-001-foundation.yml
   workflow_dispatch:
 
@@ -61,7 +72,7 @@ jobs:
             --noFallthroughCasesInSwitch \
             --skipLibCheck \
             --types node \
-            $(find src/reasoning-v1/topics/Calendar/CAL-001 -name '*.ts' ! -name 'question-studio-runtime.test.ts' -print)
+            $(find src/reasoning-v1/topics/Calendar/CAL-001 -name '*.ts' ! -name 'question-studio-runtime.test.ts' ! -name 'question-studio-production-integration.test.ts' -print)
 
   exhaustive-proof:
     runs-on: ubuntu-latest
@@ -129,6 +140,13 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/question-studio-runtime.test.ts 2>&1 | tee /tmp/cal-001-question-studio-production.log
           echo "${PIPESTATUS[0]}" > /tmp/cal-001-question-studio-production-exit
           exit 0
+      - name: Run finished production integration proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/question-studio-production-integration.test.ts 2>&1 | tee /tmp/cal-001-finished-production-integration.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-finished-production-integration-exit
+          exit 0
       - name: Publish proof diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -151,6 +169,8 @@ jobs:
             /tmp/cal-001-final-discovery-freeze-exit
             /tmp/cal-001-question-studio-production.log
             /tmp/cal-001-question-studio-production-exit
+            /tmp/cal-001-finished-production-integration.log
+            /tmp/cal-001-finished-production-integration-exit
           if-no-files-found: error
           retention-days: 14
       - name: Enforce proof results
@@ -163,6 +183,7 @@ jobs:
           test "$(cat /tmp/cal-001-multilingual-editorial-quality-exit)" = "0"
           test "$(cat /tmp/cal-001-final-discovery-freeze-exit)" = "0"
           test "$(cat /tmp/cal-001-question-studio-production-exit)" = "0"
+          test "$(cat /tmp/cal-001-finished-production-integration-exit)" = "0"
 
   review-export:
     runs-on: ubuntu-latest
