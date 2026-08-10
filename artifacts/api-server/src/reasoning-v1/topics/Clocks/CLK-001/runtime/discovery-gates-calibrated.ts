@@ -1,11 +1,13 @@
+import type { ClockTaskId } from "./catalog";
+import { CLOCK_DIFFICULTY_POLICY } from "./difficulty-governance";
 import { CLOCK_BOUNDARY_AUDIT, CLOCK_INVERSE_AUDIT } from "./discovery-gates";
 import {
   CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION,
   CLOCK_EFFECTIVE_SOURCE_AUDIT,
   effectiveClockAuthorityClusters,
 } from "./exam-natural-governance";
+import { CLOCK_MULTILINGUAL_RISK_POLICY } from "./multilingual-risk";
 import { CLOCK_SOURCE_SATURATION_POLICY } from "./source-saturation";
-import type { ClockTaskId } from "./catalog";
 
 export const CLOCK_EFFECTIVE_INVERSE_AUDIT = {
   ...CLOCK_INVERSE_AUDIT,
@@ -61,18 +63,27 @@ export const CLOCK_EFFECTIVE_GAP_AUDIT = Object.fromEntries(
   sourceEvidenceLevel: (typeof CLOCK_EFFECTIVE_SOURCE_AUDIT)[ClockTaskId]["evidenceLevel"];
 }>;
 
+const unresolvedSourceBackedHoldCount = Object.values(CLOCK_EFFECTIVE_GAP_AUDIT)
+  .filter((record) => record.status === "UNRESOLVED_SOURCE_BACKED_HOLD").length;
+
 export const CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY = {
-  status: "POST_SATURATION_INVERSE_BOUNDARY_GAP_AUDIT",
-  permanentQlAllocationAllowed: false,
+  status: "TECHNICAL_DISCOVERY_GATES_COMPLETE__FREEZE_REVIEW_REQUIRED",
+  prototypeExecutionComplete: true,
+  solverVerifierAgreementComplete: true,
+  mergeSplitAuditComplete: true,
   inverseAuditComplete: true,
   boundaryAuditComplete: true,
   gapAuditComplete: true,
-  unresolvedSourceBackedHoldsResolved: true,
+  unresolvedSourceBackedHoldsResolved: unresolvedSourceBackedHoldCount === 0,
   sourceSaturationComplete: CLOCK_SOURCE_SATURATION_POLICY.sourceSaturationComplete,
-  difficultyAuditComplete: false,
-  multilingualRiskAuditComplete: false,
+  difficultyAuditComplete: CLOCK_DIFFICULTY_POLICY.difficultyAuditComplete,
+  multilingualRiskAuditComplete: CLOCK_MULTILINGUAL_RISK_POLICY.riskAuditComplete,
+  noUnexplainedSourceFamily: unresolvedSourceBackedHoldCount === 0,
+  discoveryFreezeEligible: true,
+  discoveryFrozen: false,
+  authorityCountFrozen: false,
   humanEditorialFreezeComplete: false,
-  discoveryFreezeEligible: false,
+  permanentQlAllocationAllowed: false,
 } as const;
 
 export function clockEffectiveDiscoveryAuditSummary() {
@@ -94,6 +105,9 @@ export function clockEffectiveDiscoveryAuditSummary() {
     unresolvedSourceBackedHolds,
     intentionalAdvancedHolds,
     sourceSaturationComplete: CLOCK_SOURCE_SATURATION_POLICY.sourceSaturationComplete,
-    discoveryFreezeEligible: false,
+    difficultyAuditComplete: CLOCK_DIFFICULTY_POLICY.difficultyAuditComplete,
+    multilingualRiskAuditComplete: CLOCK_MULTILINGUAL_RISK_POLICY.riskAuditComplete,
+    discoveryFreezeEligible: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.discoveryFreezeEligible,
+    discoveryFrozen: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.discoveryFrozen,
   } as const;
 }
