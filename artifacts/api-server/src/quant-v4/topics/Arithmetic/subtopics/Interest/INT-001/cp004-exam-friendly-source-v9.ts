@@ -18,6 +18,13 @@ export const INT_CP004_EXAM_FRIENDLY_SOURCE_V9_VERSION =
 
 const DECIMAL_TOKEN = /\d+\.\d+/u;
 const MAX_SEARCH_ATTEMPTS = 5_000;
+const REVIEW_SEARCH_ATTEMPTS = 100_000;
+const REVIEW_REPRESENTATIONS = Object.freeze([
+  "TERMS_TABLE",
+  "STANDARD_PROSE",
+  "BALANCE_RECORD",
+  "SCHEME_COMPARISON",
+] as const);
 
 function isInteger(value: Rational): boolean {
   return value.denominator === 1n;
@@ -184,6 +191,34 @@ function moneyWorkingIsInteger(state: Cp004MathematicalState): boolean {
   }
 }
 
+function reviewRequest(seed: string): Readonly<{
+  prefix: string;
+  startCandidate: number;
+  frame: number;
+}> | null {
+  const match = seed.match(/^(.*:frame-(\d+):candidate-)(\d+)$/u);
+  if (!match) return null;
+  const frame = Number(match[2]);
+  const startCandidate = Number(match[3]);
+  if (
+    !Number.isInteger(frame)
+    || frame < 1
+    || frame > 4
+    || !Number.isInteger(startCandidate)
+    || startCandidate < 0
+  ) return null;
+  return Object.freeze({ prefix: match[1]!, startCandidate, frame });
+}
+
+function matchesReviewShape(
+  question: IntCp004EnglishFrozenQuestion,
+  frame: number,
+): boolean {
+  return question.stemFamilyId === `${question.qlId}-FRAME-${frame}`
+    && question.representation === REVIEW_REPRESENTATIONS[frame - 1]
+    && question.correctIndex === frame % 4;
+}
+
 export function isIntCp004ExamFriendlyFrozenSourceV9(
   question: IntCp004EnglishFrozenQuestion,
 ): boolean {
@@ -200,6 +235,23 @@ export function selectIntCp004ExamFriendlyFrozenSourceV9(
   qlId: IntCp004QlId,
   seed: string,
 ): IntCp004EnglishFrozenQuestion {
+  const review = reviewRequest(seed);
+  if (review) {
+    for (let offset = 0; offset < REVIEW_SEARCH_ATTEMPTS; offset += 1) {
+      const candidate = generateIntCp004EnglishFrozenQuestion(
+        qlId,
+        `${review.prefix}${review.startCandidate + offset}`,
+      );
+      if (
+        isIntCp004ExamFriendlyFrozenSourceV9(candidate)
+        && matchesReviewShape(candidate, review.frame)
+      ) return candidate;
+    }
+    throw new Error(
+      `${qlId}/${seed}: unable to find an exam-friendly review source in ${REVIEW_SEARCH_ATTEMPTS} direct candidates.`,
+    );
+  }
+
   for (let attempt = 0; attempt < MAX_SEARCH_ATTEMPTS; attempt += 1) {
     const candidate = generateIntCp004EnglishFrozenQuestion(
       qlId,
