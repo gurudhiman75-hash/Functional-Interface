@@ -101,12 +101,27 @@ function ordinal(steps: number): string {
   return `${steps}th`;
 }
 
+function positionOrdinal(position: number): string {
+  const remainder100 = position % 100;
+  if (remainder100 >= 11 && remainder100 <= 13) return `${position}th`;
+  switch (position % 10) {
+    case 1: return `${position}st`;
+    case 2: return `${position}nd`;
+    case 3: return `${position}rd`;
+    default: return `${position}th`;
+  }
+}
+
 export function renderMixedConstraint(constraint: MixedFacingConstraint): string {
   switch (constraint.kind) {
-    case "ABSOLUTE_SEAT":
-      return `${constraint.personId} sits at position ${constraint.seatIndex + 1} from the left end.`;
+    case "ABSOLUTE_SEAT": {
+      const position = constraint.seatIndex + 1;
+      return position === 1
+        ? `${constraint.personId} sits at the extreme left end.`
+        : `${constraint.personId} sits ${positionOrdinal(position)} from the left end.`;
+    }
     case "AT_END":
-      return `${constraint.personId} sits at one of the ends.`;
+      return `${constraint.personId} sits at one of the extreme ends.`;
     case "FACING":
       return `${constraint.personId} faces ${constraint.facing.toLowerCase()}.`;
     case "SAME_FACING":
@@ -116,9 +131,9 @@ export function renderMixedConstraint(constraint: MixedFacingConstraint): string
     case "RELATIVE_POSITION":
       return `${constraint.subjectId} sits ${ordinal(constraint.steps)} to the ${constraint.direction.toLowerCase()} of ${constraint.referenceId}.`;
     case "ADJACENT":
-      return `${constraint.firstId} sits adjacent to ${constraint.secondId}.`;
+      return `${constraint.firstId} sits next to ${constraint.secondId}.`;
     case "NOT_ADJACENT":
-      return `${constraint.firstId} does not sit adjacent to ${constraint.secondId}.`;
+      return `${constraint.firstId} does not sit next to ${constraint.secondId}.`;
     case "EXACT_COUNT_BETWEEN":
       return `Exactly ${constraint.count} ${constraint.count === 1 ? "person sits" : "persons sit"} between ${constraint.firstId} and ${constraint.secondId}.`;
   }
