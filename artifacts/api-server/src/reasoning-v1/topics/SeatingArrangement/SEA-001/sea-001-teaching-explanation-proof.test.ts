@@ -15,18 +15,12 @@ let eliminationCount = 0;
 let cp001PartialCaseCount = 0;
 const checkpointCounts = new Map<string, number>();
 
-function personOrdinal(personId: string): number {
-  const match = personId.match(/^P(\d+)$/);
-  return match?.[1] ? Number(match[1]) : Number.POSITIVE_INFINITY;
-}
-
 function displayNamesFor(caselet: AuditCaselet): Readonly<Record<string, string>> {
   const names = caselet.setupText.match(/persons—(.+?)—are sitting/i)?.[1]
     ?.split(",")
     .map((name) => name.trim())
     .filter(Boolean) ?? [];
-  const ids = [...new Set((JSON.stringify(caselet.constraints ?? []).match(/\bP\d+\b/g) ?? []))]
-    .sort((left, right) => personOrdinal(left) - personOrdinal(right) || left.localeCompare(right));
+  const ids = Array.from({ length: names.length }, (_, index) => `P${index + 1}`);
   return Object.fromEntries(ids.map((personId, index) => [personId, names[index] ?? personId]));
 }
 
