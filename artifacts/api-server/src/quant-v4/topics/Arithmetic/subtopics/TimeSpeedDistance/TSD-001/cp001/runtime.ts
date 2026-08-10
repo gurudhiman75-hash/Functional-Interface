@@ -1,3 +1,5 @@
+import { remodelTsdContext } from "../context-plausibility";
+import { calibrateTsdDifficulty } from "../difficulty-calibration";
 import type { TsdCp001GeneratedQuestion } from "./runtime-types";
 import {
   TSD_CP001_LEARNER_AUTHORITIES,
@@ -7,6 +9,12 @@ import {
   generateCp001ReviewRows as generateCoreCp001ReviewRows,
   stableStringify,
 } from "./runtime-base";
+import { ensureCp001ExactOptionFeedback } from "./exact-option-feedback";
+import { remodelCp001FinalEditorial } from "./final-editorial-remediation";
+import { remodelFinalProportionFeedback } from "./final-proportion-feedback";
+import { remodelPaceOptionFeedback } from "./pace-option-feedback";
+import { remodelRealisticDirectOptions } from "./realistic-direct-options";
+import { makeCp001StudentFriendly } from "./student-friendly-explanation";
 import { unitConversionOptionPackage } from "./unit-conversion-options";
 import { remodelUnitConversionOptionFeedback } from "./unit-conversion-option-feedback";
 
@@ -76,16 +84,62 @@ function remodelConversionQuestion(
   });
 }
 
+function remodelPaceQuestion(
+  question: TsdCp001GeneratedQuestion,
+): TsdCp001GeneratedQuestion {
+  if (
+    question.input.solveMode !== "speedFromPace"
+    && question.input.solveMode !== "paceFromSpeed"
+    && question.input.solveMode !== "distanceFromPaceAndTime"
+  ) return question;
+
+  return Object.freeze({
+    ...question,
+    explanation: remodelPaceOptionFeedback(
+      question.input,
+      question.answerText,
+      question.explanation,
+    ),
+  });
+}
+
+/**
+ * Single learner-output pipeline for CP-001.
+ * Use this for generated rows, review supplements and canonical assembly so
+ * Question Studio and editorial review cannot drift apart.
+ */
+export function remodelCp001LearnerQuestion(
+  question: TsdCp001GeneratedQuestion,
+): TsdCp001GeneratedQuestion {
+  const familySpecific = remodelFinalProportionFeedback(
+    remodelCp001FinalEditorial(
+      remodelPaceQuestion(remodelConversionQuestion(question)),
+    ),
+  );
+  const realistic = remodelRealisticDirectOptions(familySpecific);
+  const plausibleContext = remodelTsdContext(realistic);
+  const studentFriendly = makeCp001StudentFriendly(plausibleContext);
+  const exactFeedback = ensureCp001ExactOptionFeedback(studentFriendly);
+  return Object.freeze({
+    ...exactFeedback,
+    difficulty: calibrateTsdDifficulty(
+      exactFeedback.difficulty,
+      exactFeedback.solveMode,
+      exactFeedback.input,
+    ),
+  });
+}
+
 export function generateCp001Candidate(
   ...args: Parameters<typeof generateCoreCp001Candidate>
 ): TsdCp001GeneratedQuestion {
-  return remodelConversionQuestion(generateCoreCp001Candidate(...args));
+  return remodelCp001LearnerQuestion(generateCoreCp001Candidate(...args));
 }
 
 export function generateCp001ReviewRows(
   ...args: Parameters<typeof generateCoreCp001ReviewRows>
 ): TsdCp001GeneratedQuestion[] {
-  return generateCoreCp001ReviewRows(...args).map(remodelConversionQuestion);
+  return generateCoreCp001ReviewRows(...args).map(remodelCp001LearnerQuestion);
 }
 
 export {
