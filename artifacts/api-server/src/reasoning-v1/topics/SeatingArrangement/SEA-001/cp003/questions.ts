@@ -111,6 +111,31 @@ function neighbourQuestion(seed: string, order: readonly PersonId[], rng: Determ
   };
 }
 
+function cyclicPersonQuestion(seed: string, order: readonly PersonId[], rng: DeterministicRandom): CircularChildQuestion {
+  const topology = new CircularTopology(order.length);
+  const index = rng.integer(0, order.length - 1);
+  const reference = personAt(order, index);
+  const direction: CyclicDirection = hash(`${seed}:qc004-direction`) % 2 === 0 ? "CLOCKWISE" : "ANTICLOCKWISE";
+  const reverse: CyclicDirection = direction === "CLOCKWISE" ? "ANTICLOCKWISE" : "CLOCKWISE";
+  const steps = 2;
+  const answer = personAt(order, topology.moveCyclic(index, direction, steps));
+  return {
+    questionOrder: 2,
+    queryContractId: "SEA-QC-004",
+    answerType: "PERSON",
+    answerDeterminingFactFingerprint: `QC004:${reference}:${direction}:${steps}`,
+    text: `Who sits second ${direction.toLowerCase()} from ${reference}?`,
+    ...options(seed, 2, "PERSON", answer, [
+      { value: personAt(order, topology.moveCyclic(index, reverse, steps)), misconceptionId: "SEA-MC-CYC-CLOCKWISE_ANTICLOCKWISE_REVERSAL", recomputation: { usedDirection: reverse }, explanation: `This moves ${reverse.toLowerCase()} instead of ${direction.toLowerCase()}.` },
+      { value: personAt(order, topology.moveCyclic(index, direction, 1)), misconceptionId: "SEA-MC-CYC-OFF_BY_ONE_STEP", recomputation: { steps: 1 }, explanation: "This stops after the immediate seat." },
+      { value: personAt(order, topology.moveCyclic(index, direction, 3)), misconceptionId: "SEA-MC-CYC-OFF_BY_ONE_STEP", recomputation: { steps: 3 }, explanation: "This moves one seat too far." },
+      { value: reference, misconceptionId: "SEA-MC-CYC-ENDPOINT_INCLUDED_IN_GAP", recomputation: { includedReference: true }, explanation: "This incorrectly counts the reference person as a moved position." },
+    ]),
+    answer,
+    explanation: `Starting from ${reference} and moving two seats ${direction.toLowerCase()} reaches ${answer}. This question uses the physical circular direction directly, independent of facing.`,
+  };
+}
+
 function countQuestion(seed: string, order: readonly PersonId[], rng: DeterministicRandom): CircularChildQuestion {
   const firstIndex = rng.integer(0, order.length - 1);
   const distance = rng.integer(2, order.length - 2);
@@ -181,5 +206,8 @@ function fourthQuestion(seed: string, order: readonly PersonId[], rng: Determini
 }
 
 export function buildCircularChildren(seed: string, order: readonly PersonId[], rng: DeterministicRandom): readonly CircularChildQuestion[] {
-  return [personQuestion(seed, order), neighbourQuestion(seed, order, rng), countQuestion(seed, order, rng), fourthQuestion(seed, order, rng)];
+  const second = hash(`${seed}:cp003:second-query`) % 2 === 0
+    ? neighbourQuestion(seed, order, rng)
+    : cyclicPersonQuestion(seed, order, rng);
+  return [personQuestion(seed, order), second, countQuestion(seed, order, rng), fourthQuestion(seed, order, rng)];
 }
