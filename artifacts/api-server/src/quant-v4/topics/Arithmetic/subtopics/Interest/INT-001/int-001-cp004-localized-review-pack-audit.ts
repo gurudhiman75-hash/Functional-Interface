@@ -19,21 +19,13 @@ function fail(message: string): never {
 }
 
 const DECIMAL_TOKEN = /\d+\.\d+/u;
+const DEVANAGARI_CONTENT = /[\u0900-\u0963\u0966-\u097F]/u;
 const OUTPUT_DIRECTORY = join(process.cwd(), "dist", "quant-v4", "int-cp004-localized-review-pack");
 const FILES: Readonly<Record<IntCp004LocalizedLocale, Readonly<{ markdown: string; data: string }>>> = Object.freeze({
-  "hi-IN": Object.freeze({
-    markdown: "INT-CP-004-Hindi-Questions-and-Explanations-Review.md",
-    data: "INT-CP-004-Hindi-Review-Data.json",
-  }),
-  "pa-IN": Object.freeze({
-    markdown: "INT-CP-004-Punjabi-Questions-and-Explanations-Review.md",
-    data: "INT-CP-004-Punjabi-Review-Data.json",
-  }),
+  "hi-IN": Object.freeze({ markdown: "INT-CP-004-Hindi-Questions-and-Explanations-Review.md", data: "INT-CP-004-Hindi-Review-Data.json" }),
+  "pa-IN": Object.freeze({ markdown: "INT-CP-004-Punjabi-Questions-and-Explanations-Review.md", data: "INT-CP-004-Punjabi-Review-Data.json" }),
 });
-
-const EXPECTED_REPRESENTATIONS = Object.freeze([
-  "TERMS_TABLE", "STANDARD_PROSE", "BALANCE_RECORD", "SCHEME_COMPARISON",
-] as const);
+const EXPECTED_REPRESENTATIONS = Object.freeze(["TERMS_TABLE", "STANDARD_PROSE", "BALANCE_RECORD", "SCHEME_COMPARISON"] as const);
 
 const summaryText = readFileSync(join(OUTPUT_DIRECTORY, "int-cp004-localized-review-pack-summary.json"), "utf8");
 const exportedSummary = JSON.parse(summaryText) as Record<string, any>;
@@ -83,25 +75,13 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
   hashesByLocale[locale] = Object.freeze({ markdown: markdownHash, data: dataHash });
 
   markdownClutterChecks += 4;
-  if (exportedMarkdown.includes("विकल्प प्रतिक्रिया") || exportedMarkdown.includes("ਵਿਕਲਪ ਪ੍ਰਤੀਕਿਰਿਆ")) {
-    fail(`${locale}: option feedback label remains in learner review Markdown.`);
-  }
-  if (exportedMarkdown.includes("Misconception ID")) {
-    fail(`${locale}: misconception IDs remain in learner review Markdown.`);
-  }
-  if (DECIMAL_TOKEN.test(exportedMarkdown)) {
-    fail(`${locale}: a decimal token remains anywhere in learner review Markdown.`);
-  }
-  if (locale === "hi-IN" ? !exportedMarkdown.includes("सूत्र:") : !exportedMarkdown.includes("ਸੂਤਰ:")) {
-    fail(`${locale}: formula-led explanation marker is absent from review Markdown.`);
-  }
+  if (exportedMarkdown.includes("विकल्प प्रतिक्रिया") || exportedMarkdown.includes("ਵਿਕਲਪ ਪ੍ਰਤੀਕਿਰਿਆ")) fail(`${locale}: option feedback label remains in learner review Markdown.`);
+  if (exportedMarkdown.includes("Misconception ID")) fail(`${locale}: misconception IDs remain in learner review Markdown.`);
+  if (DECIMAL_TOKEN.test(exportedMarkdown)) fail(`${locale}: a decimal token remains anywhere in learner review Markdown.`);
+  if (locale === "hi-IN" ? !exportedMarkdown.includes("सूत्र:") : !exportedMarkdown.includes("ਸੂਤਰ:")) fail(`${locale}: formula-led explanation marker is absent from review Markdown.`);
 
-  if (pack.status !== "LOCALIZED_HUMAN_REVIEW_REQUIRED" || pack.questionCount !== 76 || pack.qlCount !== 19 || pack.questionsPerQl !== 4 || pack.questions.length !== 76) {
-    fail(`${locale}: review-pack cardinality or status is incorrect.`);
-  }
-  if (!pack.selectionContract.examFriendlyIntegerWorking || !pack.selectionContract.formulaFirstCompleteSolution) {
-    fail(`${locale}: v9 exam-friendly review selection contract is missing.`);
-  }
+  if (pack.status !== "LOCALIZED_HUMAN_REVIEW_REQUIRED" || pack.questionCount !== 76 || pack.qlCount !== 19 || pack.questionsPerQl !== 4 || pack.questions.length !== 76) fail(`${locale}: review-pack cardinality or status is incorrect.`);
+  if (!pack.selectionContract.examFriendlyIntegerWorking || !pack.selectionContract.formulaFirstCompleteSolution) fail(`${locale}: v9 exam-friendly review selection contract is missing.`);
 
   const seeds = new Set<string>();
   const answerPositions = [0, 0, 0, 0];
@@ -135,55 +115,35 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
     assertCp004LocalizedText(locale, question.explanation.commonMistake, `${locale}/${question.qlId}/${question.seed}/common-mistake`);
     scriptChecks += 4;
 
-    if (question.explanation.steps.length < 3 || question.explanation.steps.length > 18) {
-      fail(`${locale}/${question.qlId}/${question.seed}: complete v9 explanation must use 3-18 steps.`);
-    }
+    if (question.explanation.steps.length < 3 || question.explanation.steps.length > 18) fail(`${locale}/${question.qlId}/${question.seed}: complete v9 explanation must use 3-18 steps.`);
     const firstStep = question.explanation.steps[0] ?? "";
     formulaFirstChecks += 1;
-    if (locale === "hi-IN" ? !firstStep.startsWith("सूत्र:") : !firstStep.startsWith("ਸੂਤਰ:")) {
-      fail(`${locale}/${question.qlId}/${question.seed}: solution does not begin with the formula.`);
-    }
+    if (locale === "hi-IN" ? !firstStep.startsWith("सूत्र:") : !firstStep.startsWith("ਸੂਤਰ:")) fail(`${locale}/${question.qlId}/${question.seed}: solution does not begin with the formula.`);
 
-    const learnerText = [
-      question.stem,
-      ...question.options.map((option) => option.text),
-      question.correctAnswer,
-      question.explanation.whatAsked,
-      ...question.explanation.steps,
-      question.explanation.finalAnswer,
-      question.explanation.commonMistake,
-    ].join("\n");
+    const learnerText = [question.stem, ...question.options.map((option) => option.text), question.correctAnswer, question.explanation.whatAsked, ...question.explanation.steps, question.explanation.finalAnswer, question.explanation.commonMistake].join("\n");
     decimalFreeChecks += 1;
-    if (DECIMAL_TOKEN.test(learnerText)) {
-      fail(`${locale}/${question.qlId}/${question.seed}: decimal token remains in learner-facing question or solution.`);
-    }
+    if (DECIMAL_TOKEN.test(learnerText)) fail(`${locale}/${question.qlId}/${question.seed}: decimal token remains in learner-facing question or solution.`);
 
     const calculationSteps = question.explanation.steps.slice(1);
     completeCalculationChecks += 1;
-    if (!calculationSteps.some((step) => /[=×÷+−^/]/u.test(step))) {
-      fail(`${locale}/${question.qlId}/${question.seed}: formula is present but complete substitution/calculation is missing.`);
-    }
+    if (!calculationSteps.some((step) => /[=×÷+−^/]/u.test(step))) fail(`${locale}/${question.qlId}/${question.seed}: formula is present but complete substitution/calculation is missing.`);
     for (const [stepIndex, step] of question.explanation.steps.entries()) {
       explanationChecks += 1;
       assertCp004LocalizedText(locale, step, `${locale}/${question.qlId}/${question.seed}/step-${stepIndex + 1}`);
       scriptChecks += 1;
     }
 
-    if (locale === "hi-IN" && !question.explanation.whatAsked.startsWith("हमें ")) {
-      fail(`${locale}/${question.qlId}/${question.seed}: Hindi task opening regressed.`);
-    }
+    if (locale === "hi-IN" && !question.explanation.whatAsked.startsWith("हमें ")) fail(`${locale}/${question.qlId}/${question.seed}: Hindi task opening regressed.`);
     if (locale === "pa-IN") {
       if (!question.explanation.whatAsked.startsWith("ਆਓ ")) fail(`${locale}/${question.qlId}/${question.seed}: Punjabi task opening regressed.`);
       if (learnerText.includes("ਸਾਨੂੰ") || learnerText.includes("ਚੱਕਰਵੱਧੀ")) fail(`${locale}/${question.qlId}/${question.seed}: rejected Punjabi wording remains.`);
-      if (/[\u0900-\u097F]/u.test(learnerText)) fail(`${locale}/${question.qlId}/${question.seed}: Hindi-script text leaked into Punjabi learner content.`);
+      if (DEVANAGARI_CONTENT.test(learnerText)) fail(`${locale}/${question.qlId}/${question.seed}: Hindi-script text leaked into Punjabi learner content.`);
       if (question.stem.includes("ਮਿਸ਼ਰਤ ਵਿਆਜ")) punjabiMishritStemCount += 1;
       punjabiTerminologyChecks += 1;
     }
 
     lifecycleChecks += 7;
-    if (question.lifecycle.enabled || question.lifecycle.stagingStatus !== "NOT_STAGED" || question.lifecycle.registrationStatus !== "NOT_REGISTERED" || question.lifecycle.questionStudioDiscoverable || question.lifecycle.questionBankStatus !== "NOT_STORED" || question.lifecycle.testEligibility !== "INELIGIBLE" || question.lifecycle.publiclyPublishable) {
-      fail(`${locale}/${question.qlId}/${question.seed}: lifecycle boundary changed.`);
-    }
+    if (question.lifecycle.enabled || question.lifecycle.stagingStatus !== "NOT_STAGED" || question.lifecycle.registrationStatus !== "NOT_REGISTERED" || question.lifecycle.questionStudioDiscoverable || question.lifecycle.questionBankStatus !== "NOT_STORED" || question.lifecycle.testEligibility !== "INELIGIBLE" || question.lifecycle.publiclyPublishable) fail(`${locale}/${question.qlId}/${question.seed}: lifecycle boundary changed.`);
   }
 
   if (seeds.size !== 76) fail(`${locale}: expected 76 unique review seeds, received ${seeds.size}.`);
@@ -194,14 +154,10 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
     if (qlCounts[qlId] !== 4) fail(`${locale}/${qlId}: expected four review questions.`);
     const representations = representationsByQl[qlId];
     representationChecks += 4;
-    if (representations?.size !== 4 || EXPECTED_REPRESENTATIONS.some((representation) => !representations.has(representation))) {
-      fail(`${locale}/${qlId}: internal representation coverage is incomplete.`);
-    }
+    if (representations?.size !== 4 || EXPECTED_REPRESENTATIONS.some((representation) => !representations.has(representation))) fail(`${locale}/${qlId}: internal representation coverage is incomplete.`);
     const families = familiesByQl[qlId];
     stemFamilyChecks += 4;
-    for (let frame = 1; frame <= 4; frame += 1) {
-      if (!families?.has(`${qlId}-FRAME-${frame}`)) fail(`${locale}/${qlId}: stem family FRAME-${frame} is missing.`);
-    }
+    for (let frame = 1; frame <= 4; frame += 1) if (!families?.has(`${qlId}-FRAME-${frame}`)) fail(`${locale}/${qlId}: stem family FRAME-${frame} is missing.`);
   }
 }
 
