@@ -6,8 +6,10 @@ if (corpus.caselets.length !== 40) throw new Error(`Expected 40 teaching-proof c
 
 const bannedInternalTerms = /\b(?:solver|oracle|canonical|model class|search branch|seat zero)\b/i;
 const arbitraryCaseLanguage = /several arrangements are still possible|three useful cases/i;
+const internalPersonId = /\bP\d+\b/;
 const participantNames = new Set<string>();
 const pbaCaseCounts = new Map<string, number>();
+const contractsByCheckpointPosition = new Map<string, Set<string>>();
 let caseAnalysisCount = 0;
 let eliminationCount = 0;
 let cp001PartialCaseCount = 0;
@@ -17,9 +19,27 @@ for (const caselet of corpus.caselets) {
   const explanation = compileSea001TeachingExplanationFromUnknown(caselet);
   checkpointCounts.set(caselet.checkpointId, (checkpointCounts.get(caselet.checkpointId) ?? 0) + 1);
 
-  const visibleText = [caselet.setupText, ...caselet.clueTexts, explanation, ...caselet.children.map((child) => child.text)].join("\n");
+  for (const child of caselet.children) {
+    const key = `${caselet.checkpointId}:Q${child.questionOrder}`;
+    const contracts = contractsByCheckpointPosition.get(key) ?? new Set<string>();
+    contracts.add(child.queryContractId);
+    contractsByCheckpointPosition.set(key, contracts);
+  }
+
+  const visibleText = [
+    caselet.setupText,
+    ...caselet.clueTexts,
+    caselet.diagramText ?? caselet.diagram?.text ?? "",
+    explanation,
+    ...caselet.children.flatMap((child) => [
+      child.text,
+      child.explanation,
+      ...child.options.flatMap((option) => [option.display, option.explanation]),
+    ]),
+  ].join("\n");
   if (/position 1 from the left end/i.test(visibleText)) throw new Error(`Awkward left-end wording leaked into ${caselet.caseletId}`);
   if (/not necessarily seated in alphabetical order/i.test(visibleText)) throw new Error(`Alphabetical-order filler leaked into ${caselet.caseletId}`);
+  if (internalPersonId.test(visibleText)) throw new Error(`Internal person ID leaked into student-facing content: ${caselet.caseletId}`);
 
   const setupNames = caselet.setupText.match(/persons—(.+?)—are sitting/i)?.[1]
     ?.split(",")
@@ -95,6 +115,18 @@ for (const blueprintId of ["SEA-PBA-003", "SEA-PBA-011", "SEA-PBA-015"]) {
 for (const checkpointId of ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-004", "SEA-CP-005"]) {
   if ((checkpointCounts.get(checkpointId) ?? 0) !== 8) {
     throw new Error(`Teaching proof did not cover all four PBAs in ${checkpointId}`);
+  }
+}
+
+// Q1 is intentionally fixed for the all-centre/all-outward direction detector.
+// All other visible slots must show more than one query family across this corpus.
+for (const checkpointId of ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-004", "SEA-CP-005"]) {
+  for (const questionOrder of [1, 2, 3, 4]) {
+    if ((checkpointId === "SEA-CP-003" || checkpointId === "SEA-CP-004") && questionOrder === 1) continue;
+    const contracts = contractsByCheckpointPosition.get(`${checkpointId}:Q${questionOrder}`) ?? new Set<string>();
+    if (contracts.size < 2) {
+      throw new Error(`Visible query order is still deterministic at ${checkpointId} Q${questionOrder}: ${[...contracts].join(",")}`);
+    }
   }
 }
 
