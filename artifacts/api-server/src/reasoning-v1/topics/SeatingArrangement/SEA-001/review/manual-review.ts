@@ -1,3 +1,5 @@
+import { canonicalDigest } from "../canonical.ts";
+import { compileSea001TeachingExplanationFromUnknown } from "../explanation/checkpoint-teaching.ts";
 import { exactCaseletContentFingerprint, type AuditCaselet } from "../saturation/corpus.ts";
 
 export type Sea001ManualReviewDecision = "PENDING" | "ACCEPT" | "REWRITE" | "REJECT";
@@ -31,6 +33,13 @@ export interface Sea001ManualReviewAudit {
   readonly freezeEligible: boolean;
 }
 
+export function sea001ReviewContentFingerprint(caselet: AuditCaselet): string {
+  return canonicalDigest({
+    generatedContent: exactCaseletContentFingerprint(caselet),
+    teachingExplanation: compileSea001TeachingExplanationFromUnknown(caselet),
+  });
+}
+
 function countByCheckpoint(caselets: readonly AuditCaselet[]): Readonly<Record<string, number>> {
   const counts = new Map<string, number>();
   for (const caselet of caselets) counts.set(caselet.checkpointId, (counts.get(caselet.checkpointId) ?? 0) + 1);
@@ -44,7 +53,7 @@ export function buildPendingSea001ManualReviewLedger(
     caseletId: caselet.caseletId,
     checkpointId: caselet.checkpointId,
     blueprintAuthorityId: caselet.blueprintAuthorityId,
-    contentFingerprint: exactCaseletContentFingerprint(caselet),
+    contentFingerprint: sea001ReviewContentFingerprint(caselet),
     decision: "PENDING",
     notes: "",
   }));
@@ -81,7 +90,7 @@ export function auditSea001ManualReviewLedger(
     matchedEntries += 1;
     if (entry.checkpointId !== caselet.checkpointId
       || entry.blueprintAuthorityId !== caselet.blueprintAuthorityId
-      || entry.contentFingerprint !== exactCaseletContentFingerprint(caselet)) {
+      || entry.contentFingerprint !== sea001ReviewContentFingerprint(caselet)) {
       contentMismatchCount += 1;
     }
     if (entry.decision === "PENDING") pendingCount += 1;
