@@ -1,4 +1,4 @@
-import { add, formatRational, rational } from "./rational";
+import { add, formatRational, multiply, rational } from "./rational";
 import type { TmwCp005Parameters, TmwCp005RegistryEntry } from "./cp005-types";
 import type { TmwCp010Parameters, TmwCp010RegistryEntry } from "./cp010-types";
 import type { TmwLocalizedLanguage } from "./localization-types";
@@ -14,8 +14,10 @@ function seedIndex(seed: string, length: number): number {
 
 /**
  * R1 source remediation for TMW-QL-102.
- * Exact-boundary questions must be generated only from states in which one whole
- * unit of work is an integral number of complete two-turn cycles.
+ * Exact-boundary questions are generated only from states in which one whole
+ * unit of work is an integral number of complete two-turn cycles. The solo-time
+ * fields printed in the stem and the segment rates consumed by the solver are
+ * updated together from this single authority.
  */
 export function remediateTmwCp005CriticalParameters(
   entry: TmwCp005RegistryEntry,
@@ -32,20 +34,27 @@ export function remediateTmwCp005CriticalParameters(
     [30, 15],
   ] as const;
   const [firstSoloTime, secondSoloTime] = soloTimes[seedIndex(seed, soloTimes.length)];
+  const timeA = rational(firstSoloTime);
+  const timeB = rational(secondSoloTime);
   const cycle = parameters.cycle.map((segment, index) => ({
     ...segment,
     rate: rational(1, index === 0 ? firstSoloTime : secondSoloTime),
   }));
   const cycleWork = cycle.reduce(
-    (total, segment) => add(total, rational(segment.rate.numerator * segment.duration.numerator, segment.rate.denominator * segment.duration.denominator)),
+    (total, segment) => add(total, multiply(segment.rate, segment.duration)),
     rational(0),
   );
   if (cycleWork.numerator !== 1) throw new Error("TMW-QL-102 remediation must yield reciprocal whole-cycle work");
   const exactCycles = cycleWork.denominator;
   if (!Number.isInteger(exactCycles) || exactCycles <= 0) throw new Error("TMW-QL-102 exact cycle count is invalid");
+  if (cycle[0].rate.denominator !== timeA.numerator || cycle[1].rate.denominator !== timeB.numerator) {
+    throw new Error("TMW-QL-102 stem solo times and cycle rates diverged");
+  }
 
   return {
     ...parameters,
+    timeA,
+    timeB,
     cycle,
     targetWork: rational(1),
   };
@@ -55,7 +64,7 @@ export function remediateTmwCp005CriticalParameters(
  * R1 source remediation for TMW-QL-187.
  * The controller has two exclusive phases: outlet-only down to the lower mark,
  * then inlet-only back to the upper mark. Keeping the outlet active during the
- * refill phase caused the audited 16-hour answer instead of the correct cycle.
+ * refill phase caused the audited incorrect controller answer.
  */
 export function remediateTmwCp010CriticalParameters(
   entry: TmwCp010RegistryEntry,
@@ -157,7 +166,7 @@ function ql187Stem(question: any, language: TmwLocalizedLanguage): string {
     : `${setting} ਵਿੱਚ ਆਟੋਮੈਟਿਕ ਕੰਟਰੋਲਰ ${tank} ਦਾ ਪੱਧਰ ${lower} ਅਤੇ ${upper} ਦੇ ਵਿਚਕਾਰ ਰੱਖਦਾ ਹੈ। ਆਉਟਲੈਟ A ਇਕੱਲੀ ਭਰੀ ${tank} ਨੂੰ ${outletTime} ਵਿੱਚ ਖਾਲੀ ਕਰ ਸਕਦੀ ਹੈ ਅਤੇ ਇਨਲੈਟ B ਇਕੱਲੀ ${tank} ਨੂੰ ${inletTime} ਵਿੱਚ ਭਰ ਸਕਦੀ ਹੈ। ਉੱਪਰਲੇ ਪੱਧਰ ਤੋਂ ਆਉਟਲੈਟ A ਇਕੱਲੀ ਚਲਦੀ ਹੈ ਜਦ ਤੱਕ ਹੇਠਲਾ ਪੱਧਰ ਨਾ ਆ ਜਾਵੇ; ਫਿਰ ਆਉਟਲੈਟ ਬੰਦ ਹੋ ਕੇ ਇਨਲੈਟ B ਇਕੱਲੀ ਚਲਦੀ ਹੈ ਜਦ ਤੱਕ ਉੱਪਰਲਾ ਪੱਧਰ ਮੁੜ ਨਾ ਆ ਜਾਵੇ। ਉੱਪਰਲੇ ਪੱਧਰ ਤੇ ਅਗਲੀ ${hit}ਵੀਂ ਵਾਪਸੀ ਤੱਕ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
 }
 
-/** Apply the seven blocker fixes after all legacy multilingual polish waves. */
+/** Apply the audited localized blocker fixes after all legacy polish waves. */
 export function applyTmw001CriticalLocalizedRemediationR1(
   question: any,
   questionLanguageId: string,
