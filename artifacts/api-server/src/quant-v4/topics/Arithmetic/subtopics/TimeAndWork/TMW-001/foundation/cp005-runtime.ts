@@ -15,6 +15,7 @@ import { solveTmwCp005, verifyTmwCp005 } from "./cp005-solver";
 import { rationalKey } from "./rational";
 import { polishTmwEnglishQuestionForManualReview } from "./english-manual-polish";
 import { localizeTmwCp005Question } from "./localization-cp005";
+import { remediateTmwCp005CriticalParameters } from "./critical-remediation-r1";
 import type { Rational } from "./types";
 import type {
   TmwLocalizedLanguage,
@@ -58,7 +59,8 @@ function outsideInlineMath(value: string): string {
 
 function buildEnglishQuestion(input: { questionLanguageId: string; seed: string }): TmwCp005GeneratedQuestion {
   const entry = getTmwCp005Entry(input.questionLanguageId);
-  const parameters = buildTmwCp005Parameters(entry, input.seed);
+  const rawParameters = buildTmwCp005Parameters(entry, input.seed);
+  const parameters = remediateTmwCp005CriticalParameters(entry, rawParameters, input.seed);
   const solution = solveTmwCp005(entry, parameters);
   const optionSet = buildTmwCp005Options(entry, parameters, solution, input.seed);
   const stem = renderTmwCp005Stem(entry, parameters);
