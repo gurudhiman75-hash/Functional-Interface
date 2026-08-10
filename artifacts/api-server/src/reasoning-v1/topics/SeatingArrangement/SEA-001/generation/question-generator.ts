@@ -1,5 +1,13 @@
+import { canonicalDigest } from "../canonical.ts";
 import { LinearTopology } from "../topology/linear.ts";
-import type { LinearSeatingState, SeatingChildQuestion, SeatingPerson } from "../types.ts";
+import type {
+  LinearSeatingState,
+  SeatingChildQuestion,
+  SeatingMisconceptionId,
+  SeatingOption,
+  SeatingPerson,
+  SeatingSemanticValue,
+} from "../types.ts";
 import { buildCountOptions, buildPersonOptions } from "./option-generator.ts";
 
 function nameOf(personId: string, persons: readonly SeatingPerson[]): string {
@@ -14,6 +22,168 @@ function occupantByIndex(state: LinearSeatingState): string[] {
   for (const assignment of state.assignments) result[topology.indexOf(assignment.seatId)] = assignment.personId;
   if (result.some((personId) => !personId)) throw new Error("Hidden state contains an unoccupied seat");
   return result;
+}
+
+function stableNumber(value: string): number {
+  let hash = 0x811c9dc5;
+  for (const character of value) hash = Math.imul(hash ^ character.charCodeAt(0), 0x01000193);
+  return hash >>> 0;
+}
+
+function semanticDisplay(value: SeatingSemanticValue, persons: readonly SeatingPerson[]): string {
+  if (Array.isArray(value)) return value.map((personId) => nameOf(String(personId), persons)).join(" and ");
+  return String(value);
+}
+
+function buildSemanticOptions(input: {
+  readonly seed: string;
+  readonly questionOrder: number;
+  readonly correct: SeatingSemanticValue;
+  readonly persons: readonly SeatingPerson[];
+  readonly traps: readonly {
+    readonly value: SeatingSemanticValue;
+    readonly misconceptionId: SeatingMisconceptionId;
+    readonly recomputation: Readonly<Record<string, unknown>>;
+    readonly explanation: string;
+    readonly display?: string;
+  }[];
+  readonly correctDisplay?: string;
+}): Pick<SeatingChildQuestion, "options" | "answerIndex"> {
+  const correctFingerprint = canonicalDigest(input.correct);
+  const seen = new Set([correctFingerprint]);
+  const wrong: SeatingOption[] = [];
+  for (const trap of input.traps) {
+    const fingerprint = canonicalDigest(trap.value);
+    if (seen.has(fingerprint)) continue;
+    seen.add(fingerprint);
+    wrong.push({
+      semanticValue: trap.value,
+      semanticFingerprint: fingerprint,
+      display: trap.display ?? semanticDisplay(trap.value, input.persons),
+      isCorrect: false,
+      misconceptionId: trap.misconceptionId,
+      recomputation: trap.recomputation,
+      explanation: trap.explanation,
+    });
+  }
+  if (wrong.length !== 3) throw new Error("CP-001 semantic option builder requires three unique traps");
+  const answerIndex = (stableNumber(`${input.seed}|${input.questionOrder}`) % 4) as 0 | 1 | 2 | 3;
+  const options: SeatingOption[] = [...wrong];
+  options.splice(answerIndex, 0, {
+    semanticValue: input.correct,
+    semanticFingerprint: correctFingerprint,
+    display: input.correctDisplay ?? semanticDisplay(input.correct, input.persons),
+    isCorrect: true,
+    recomputation: { method: "DIRECT_VERIFIED_HIDDEN_STATE_PROJECTION" },
+    explanation: "This matches the uniquely solved row.",
+  });
+  return { options: options as SeatingChildQuestion["options"], answerIndex };
+}
+
+function fourthQuestion(
+  state: LinearSeatingState,
+  seatOrder: readonly string[],
+  facing: "NORTH" | "SOUTH",
+  seed: string,
+): SeatingChildQuestion {
+  const selector = stableNumber(`${seed}:cp001:q4`) % 3;
+  const leftEnd = seatOrder[0] as string;
+  const rightEnd = seatOrder[seatOrder.length - 1] as string;
+
+  if (selector === 0) {
+    const answer = [leftEnd, rightEnd].sort();
+    const traps = [
+      [leftEnd, seatOrder[seatOrder.length - 2] as string].sort(),
+      [seatOrder[1] as string, rightEnd].sort(),
+      [seatOrder[1] as string, seatOrder[seatOrder.length - 2] as string].sort(),
+    ];
+    return {
+      questionOrder: 4,
+      queryContractId: "SEA-QC-014",
+      answerType: "PAIR",
+      answerDeterminingFactFingerprint: "PAIR:ROW_ENDS",
+      text: "Which pair occupies the two ends of the row?",
+      ...buildSemanticOptions({
+        seed,
+        questionOrder: 4,
+        correct: answer,
+        persons: state.persons,
+        traps: [
+          { value: traps[0] as readonly string[], misconceptionId: "SEA-MC-LIN-OFF_BY_ONE_SEAT", recomputation: { movedRightEndInward: 1 }, explanation: "This moves one seat inward from the right end." },
+          { value: traps[1] as readonly string[], misconceptionId: "SEA-MC-LIN-OFF_BY_ONE_SEAT", recomputation: { movedLeftEndInward: 1 }, explanation: "This moves one seat inward from the left end." },
+          { value: traps[2] as readonly string[], misconceptionId: "SEA-MC-LIN-MIRROR_POSITION", recomputation: { selectedNearEnds: true }, explanation: "This selects the two near-end seats rather than the actual ends." },
+        ],
+      }),
+      answer,
+      explanation: `${nameOf(leftEnd, state.persons)} is at the left end and ${nameOf(rightEnd, state.persons)} is at the right end, so they form the required pair.`,
+    };
+  }
+
+  if (selector === 1) {
+    const referenceIndex = 1;
+    const subjectIndex = 3;
+    const reference = seatOrder[referenceIndex] as string;
+    const subject = seatOrder[subjectIndex] as string;
+    const physicalRight = subjectIndex > referenceIndex;
+    const personRight = facing === "NORTH" ? physicalRight : !physicalRight;
+    const answer = personRight ? "SECOND_RIGHT" : "SECOND_LEFT";
+    const answerDisplay = personRight ? "Second to the right" : "Second to the left";
+    const opposite = personRight ? "SECOND_LEFT" : "SECOND_RIGHT";
+    const oppositeDisplay = personRight ? "Second to the left" : "Second to the right";
+    const immediate = personRight ? "IMMEDIATE_RIGHT" : "IMMEDIATE_LEFT";
+    const immediateDisplay = personRight ? "Immediately to the right" : "Immediately to the left";
+    const third = personRight ? "THIRD_RIGHT" : "THIRD_LEFT";
+    const thirdDisplay = personRight ? "Third to the right" : "Third to the left";
+    return {
+      questionOrder: 4,
+      queryContractId: "SEA-QC-015",
+      answerType: "RELATION",
+      answerDeterminingFactFingerprint: `RELATION:${subject}:WRT:${reference}`,
+      text: `What is the position of ${nameOf(subject, state.persons)} with respect to ${nameOf(reference, state.persons)}?`,
+      ...buildSemanticOptions({
+        seed,
+        questionOrder: 4,
+        correct: answer,
+        correctDisplay: answerDisplay,
+        persons: state.persons,
+        traps: [
+          { value: opposite, display: oppositeDisplay, misconceptionId: "SEA-MC-LIN-LEFT_RIGHT_REVERSAL", recomputation: { reversedDirection: true }, explanation: "This reverses left and right for the reference person's facing." },
+          { value: immediate, display: immediateDisplay, misconceptionId: "SEA-MC-LIN-IMMEDIATE_VS_KTH", recomputation: { usedSteps: 1 }, explanation: "This treats a two-seat relation as an immediate relation." },
+          { value: third, display: thirdDisplay, misconceptionId: "SEA-MC-LIN-OFF_BY_ONE_SEAT", recomputation: { usedSteps: 3 }, explanation: "This moves one seat farther than the actual relation." },
+        ],
+      }),
+      answer,
+      explanation: `${nameOf(reference, state.persons)} faces ${facing.toLowerCase()}. From that person's perspective, ${nameOf(subject, state.persons)} is ${answerDisplay.toLowerCase()}.`,
+    };
+  }
+
+  const answer = seatOrder.slice(0, 3);
+  const reversed = [...answer].reverse();
+  const shifted = seatOrder.slice(1, 4);
+  const swapped = [answer[0] as string, answer[2] as string, answer[1] as string];
+  const displaySequence = (sequence: SeatingSemanticValue): string =>
+    (sequence as readonly string[]).map((personId) => nameOf(personId, state.persons)).join(" → ");
+  return {
+    questionOrder: 4,
+    queryContractId: "SEA-QC-020",
+    answerType: "SEQUENCE",
+    answerDeterminingFactFingerprint: "SEQUENCE:LEFT_TO_RIGHT:FIRST_THREE",
+    text: "Which of the following shows the first three persons from the left end in the correct order?",
+    ...buildSemanticOptions({
+      seed,
+      questionOrder: 4,
+      correct: answer,
+      correctDisplay: displaySequence(answer),
+      persons: state.persons,
+      traps: [
+        { value: reversed, display: displaySequence(reversed), misconceptionId: "SEA-MC-LIN-MIRROR_POSITION", recomputation: { reversedSequence: true }, explanation: "This reads the same three seats in the reverse order." },
+        { value: shifted, display: displaySequence(shifted), misconceptionId: "SEA-MC-LIN-OFF_BY_ONE_SEAT", recomputation: { startSeat: 2 }, explanation: "This starts one seat after the left end." },
+        { value: swapped, display: displaySequence(swapped), misconceptionId: "SEA-MC-LIN-SUBJECT_REFERENCE_SWAPPED", recomputation: { swappedSecondAndThird: true }, explanation: "This interchanges the second and third occupants." },
+      ],
+    }),
+    answer,
+    explanation: `Reading the solved row from the left end, the first three occupants are ${displaySequence(answer)}.`,
+  };
 }
 
 export function generateCp001Questions(state: LinearSeatingState, seed: string): readonly SeatingChildQuestion[] {
@@ -131,5 +301,6 @@ export function generateCp001Questions(state: LinearSeatingState, seed: string):
       answer: betweenCount,
       explanation: `Count only the seats strictly between ${nameOf(firstBetween, state.persons)} and ${nameOf(secondBetween, state.persons)}. The count is ${betweenCount}.`,
     },
+    fourthQuestion(state, seatOrder, facing, seed),
   ];
 }
