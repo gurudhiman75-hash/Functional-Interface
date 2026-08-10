@@ -4,7 +4,9 @@ import {
   CLOCK_CHECKPOINTS,
   CLOCK_SOURCE_CANDIDATE_POLICY,
   CLOCK_TASK_CATALOG,
+  buildClockAuthorityAnchorReview,
   buildClockEndToEndReview,
+  clockCandidateDispositionSummary,
   generateClockQuestion,
   renderClockReviewHtml,
 } from "../topics/Clocks/CLK-001/runtime";
@@ -161,6 +163,8 @@ let dualAnswerOracleQuestions = 0;
 let structuralDiscoveryQuestions = 0;
 let questionsWithPromptMedia = 0;
 let questionsWithOptionMedia = 0;
+let internalOnlyQuestions = 0;
+let advancedHoldQuestions = 0;
 
 for (let taskIndex = 0; taskIndex < CLOCK_TASK_CATALOG.length; taskIndex += 1) {
   const [taskId, expectedCheckpoint] = CLOCK_TASK_CATALOG[taskIndex]!;
@@ -191,6 +195,11 @@ for (let taskIndex = 0; taskIndex < CLOCK_TASK_CATALOG.length; taskIndex += 1) {
     assert(question.explanation.closestTrap.length > 0);
     assert(question.explanation.answer.length > 0);
     assert.doesNotMatch(question.stem, /prototype|solver|metadata|generator/i);
+    assert.equal(question.discoveryAudit.sourceSaturationComplete, false);
+    assert.equal(question.discoveryAudit.authorityFrozen, false);
+    assert.equal(question.discoveryAudit.permanentQlEligible, false);
+    assert(question.discoveryAudit.sourceEvidenceRefs.length > 0);
+    assert(question.discoveryAudit.semanticCluster.length > 0);
     assert.equal(question.lifecycle.permanentQlId, null);
     assert.equal(question.lifecycle.questionStudioDiscoverable, false);
     assert.equal(question.lifecycle.questionBankWritable, false);
@@ -199,6 +208,14 @@ for (let taskIndex = 0; taskIndex < CLOCK_TASK_CATALOG.length; taskIndex += 1) {
     assert.equal(question.lifecycle.localeStatus, "ENGLISH_DISCOVERY__LOCALISATION_BLOCKED_UNTIL_ENGLISH_FREEZE");
     assert(question.options.every((option) => option.reasonCode.length > 0 && option.reason.length > 0));
     assert.doesNotMatch(question.stem, /<svg|<script|foreignObject|javascript:/i);
+
+    if (question.discoveryAudit.candidateDisposition === "INTERNAL_VERIFICATION_ONLY") {
+      assert(question.discoveryAudit.sourceAuditFlags.includes("DO_NOT_PROMOTE_TO_LEARNER_QL"));
+      internalOnlyQuestions += 1;
+    }
+    if (question.discoveryAudit.candidateDisposition === "HOLD_FOR_ADVANCED_SOURCE_CONFIRMATION") {
+      advancedHoldQuestions += 1;
+    }
 
     if (question.media?.prompt) {
       assert.equal(question.media.prompt.role, "PROMPT_DIAGRAM");
@@ -254,22 +271,44 @@ assert.equal(structuralDiscoveryQuestions, 0);
 assert.equal(dualAnswerOracleQuestions, generatedQuestions);
 assert(questionsWithPromptMedia > 0);
 assert(questionsWithOptionMedia > 0);
+assert.equal(internalOnlyQuestions, 10);
+assert(advancedHoldQuestions > 0);
 
 const englishReview = buildClockEndToEndReview({
   seedPrefix: "CLK-V2-REMEDIATION-ENGLISH-REVIEW",
   locales: ["en-IN"],
 });
+assert.equal(englishReview.reviewScope, "ALL_SOURCE_CANDIDATES");
 assert.equal(englishReview.questionCount, CLOCK_TASK_CATALOG.length);
+assert.equal(englishReview.selectedCandidateCount, CLOCK_TASK_CATALOG.length);
 assert.equal(englishReview.sourceCandidateCount, CLOCK_TASK_CATALOG.length);
 assert.equal(englishReview.localeCounts["en-IN"], CLOCK_TASK_CATALOG.length);
 assert.equal(englishReview.localeCounts["hi-IN"], 0);
 assert.equal(englishReview.localeCounts["pa-IN"], 0);
 assert.equal(englishReview.candidatePolicy.rowCountHasProductMeaning, false);
 
+const dispositionCounts = clockCandidateDispositionSummary();
+const anchorReview = buildClockAuthorityAnchorReview({
+  seedPrefix: "CLK-V2-AUTHORITY-ANCHOR-ENGLISH-REVIEW",
+  locales: ["en-IN"],
+});
+assert.equal(anchorReview.reviewScope, "PROVISIONAL_AUTHORITY_ANCHORS");
+assert.equal(anchorReview.selectedCandidateCount, dispositionCounts.PROVISIONAL_AUTHORITY_ANCHOR);
+assert.equal(anchorReview.questionCount, dispositionCounts.PROVISIONAL_AUTHORITY_ANCHOR);
+assert(anchorReview.questions.every((question) =>
+  question.discoveryAudit.candidateDisposition === "PROVISIONAL_AUTHORITY_ANCHOR"
+));
+assert(anchorReview.questions.every((question) => question.discoveryAudit.permanentQlEligible === false));
+
 const englishHtml = renderClockReviewHtml(englishReview);
+const anchorHtml = renderClockReviewHtml(anchorReview);
 assert.equal((englishHtml.match(/class="question"/g) ?? []).length, CLOCK_TASK_CATALOG.length);
+assert.equal((anchorHtml.match(/class="question"/g) ?? []).length, dispositionCounts.PROVISIONAL_AUTHORITY_ANCHOR);
 assert.doesNotMatch(englishHtml, /<script|javascript:/i);
-assert.match(englishHtml, /source-audit candidate rows/i);
+assert.doesNotMatch(anchorHtml, /<script|javascript:/i);
+assert.match(englishHtml, /ALL_SOURCE_CANDIDATES/);
+assert.match(anchorHtml, /PROVISIONAL_AUTHORITY_ANCHORS/);
+assert.match(anchorHtml, /AUTHORITY ANCHOR/);
 assert.match(englishHtml, /Hindi and Punjabi generation is blocked/i);
 
 const outputDirectory = "dist/reasoning-v1/clock-v2";
@@ -282,6 +321,16 @@ writeFileSync(
 writeFileSync(
   `${outputDirectory}/clk-001-v2-remediation-english-review.html`,
   englishHtml,
+  "utf8",
+);
+writeFileSync(
+  `${outputDirectory}/clk-001-v2-authority-anchor-english-review.json`,
+  `${JSON.stringify(anchorReview, null, 2)}\n`,
+  "utf8",
+);
+writeFileSync(
+  `${outputDirectory}/clk-001-v2-authority-anchor-english-review.html`,
+  anchorHtml,
   "utf8",
 );
 
@@ -300,15 +349,25 @@ const summary = {
   structuralDiscoveryQuestions,
   questionsWithPromptMedia,
   questionsWithOptionMedia,
+  internalOnlyQuestions,
+  advancedHoldQuestions,
+  dispositionCounts,
   standardCounts,
   kinematicsPositions,
   faultyRoundTrips,
   strikeProofs,
   mirrorPositions,
   exactInterchangePairs: interchangePairs.length,
-  reviewQuestions: { english: englishReview.questionCount, hindi: 0, punjabi: 0 },
+  reviewQuestions: {
+    fullEnglish: englishReview.questionCount,
+    authorityAnchorEnglish: anchorReview.questionCount,
+    hindi: 0,
+    punjabi: 0,
+  },
   lifecycle: {
     permanentQlCount: 0,
+    sourceSaturationComplete: false,
+    authorityFrozen: false,
     questionStudioDiscoverable: false,
     questionBankWritable: false,
     testEligible: false,
