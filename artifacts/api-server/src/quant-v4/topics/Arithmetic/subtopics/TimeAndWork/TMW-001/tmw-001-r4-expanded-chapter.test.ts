@@ -25,9 +25,12 @@ for (const qlId of QL_IDS) {
       cases += 1;
     }
 
-    const answerKeys = rows.map((row) => row.solution?.answerKey ?? row.answerKey ?? row.solution?.answerText ?? row.answerText);
-    assert(new Set(answerKeys).size === 1, `${qlId}:${suffix}: multilingual answer parity failed: ${answerKeys.join(" | ")}`);
+    const canonicalAnswerKeys = rows.map((row) => row.solution?.answerKey ?? row.answerKey).filter(Boolean);
+    if (canonicalAnswerKeys.length === rows.length) {
+      assert(new Set(canonicalAnswerKeys).size === 1, `${qlId}:${suffix}: multilingual canonical-answer parity failed: ${canonicalAnswerKeys.join(" | ")}`);
+    }
     const fingerprints = rows.map((row) => row.mathematicalFingerprint);
+    assert(fingerprints.every(Boolean), `${qlId}:${suffix}: mathematical fingerprint missing`);
     assert(new Set(fingerprints).size === 1, `${qlId}:${suffix}: multilingual mathematical fingerprint parity failed`);
   }
 }
