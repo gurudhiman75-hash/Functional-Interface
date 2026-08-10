@@ -25,6 +25,8 @@ jobs:
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/multilingual-foundation.test.ts
       - name: Validate ML-02 native language primitives
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/native-language-primitives.test.ts
+      - name: Validate ML-03 PRB-001 native editorial draft
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/native-editorial.test.ts
       - name: Preserve English Probability readiness
         run: |
           npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/question-studio-profile.test.ts
