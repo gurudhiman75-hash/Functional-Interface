@@ -28,6 +28,7 @@ function state(updatedAt = 1000) {
     lockedSections: [0, 0],
     sectionCompletionTimes: { English: 420 },
     visitedQuestionIds: [101, 102, 101],
+    questionTimeSecondsById: { 101: 37, 102: 12 },
   };
 }
 
@@ -48,7 +49,20 @@ test("draft normalization preserves runner state and removes duplicate indexes",
   assert.deepEqual(normalized.answers, { 101: 2, 102: null });
   assert.deepEqual(normalized.lockedSections, [0]);
   assert.deepEqual(normalized.visitedQuestionIds, [101, 102]);
+  assert.deepEqual(normalized.questionTimeSecondsById, { 101: 37, 102: 12 });
   assert.equal(normalized.attemptType, "REAL");
+});
+
+test("question timing is bounded and malformed values are normalized", () => {
+  const normalized = normalizeAttemptDraftState({
+    ...state(),
+    questionTimeSecondsById: { 101: -10, 102: 12.7, 103: 9999999 },
+  }, testId);
+  assert.deepEqual(normalized.questionTimeSecondsById, {
+    101: 0,
+    102: 13,
+    103: 604800,
+  });
 });
 
 test("a draft cannot be attached to another test", () => {
@@ -68,6 +82,7 @@ test("revision advances exactly once for a matching writer", () => {
   });
   assert.equal(next.revision, 1);
   assert.equal(next.state?.updatedAt, 2000);
+  assert.equal(next.state?.questionTimeSecondsById["101"], 37);
 });
 
 test("stale tabs receive a deterministic conflict", () => {
