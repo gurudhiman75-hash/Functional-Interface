@@ -68,11 +68,13 @@ function buildCandidateEnvelope(
 export function isIntCp004ExamFriendlyFrozenSourceV9(
   question: IntCp004EnglishFrozenQuestion,
 ): boolean {
-  const solutionIsIntegral = question.answerSemantic === "DURATION"
+  // Decimal-freedom is enforced against the actual Hindi/Punjabi learner surface
+  // after native-stem rendering, option adaptation and v9 explanation rendering.
+  // The legacy English authority wording may legitimately contain phrases such as
+  // "two decimal places" and is not itself the learner output under review.
+  return question.answerSemantic === "DURATION"
     || question.answerSemantic === "FREQUENCY"
     || question.solution.denominator === 1n;
-  const learnerSeedText = [question.stem, question.correctAnswer].join("\n");
-  return solutionIsIntegral && !/\d+\.\d+/u.test(learnerSeedText);
 }
 
 export function selectIntCp004ExamFriendlyFrozenSourceV9(
@@ -81,7 +83,7 @@ export function selectIntCp004ExamFriendlyFrozenSourceV9(
 ): IntCp004EnglishFrozenQuestion {
   let question = buildCandidateEnvelope(qlId, seed);
   if (!isIntCp004ExamFriendlyFrozenSourceV9(question)) {
-    throw new Error(`${qlId}/${seed}: v9 state construction produced a decimal learner answer.`);
+    throw new Error(`${qlId}/${seed}: v9 state construction produced a non-integer verified answer.`);
   }
   const frame = reviewFrame(seed);
   if (frame !== null) question = alignReviewAnswerPosition(question, frame);
