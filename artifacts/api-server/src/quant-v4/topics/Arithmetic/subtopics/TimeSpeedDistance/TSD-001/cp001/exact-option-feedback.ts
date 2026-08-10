@@ -11,6 +11,7 @@ import type {
 import { formatExamNumber } from "./runtime-support";
 
 const EQUATION = /(?:\d|\b[A-D]\b)[^.!?]{0,120}(?:=|×|÷|\+|−|-|\\times|\\div)[^.!?]{0,120}\d/;
+const LEADING_OPERATOR = /^(?:=|×|÷|\+|−|-|\\times|\\div)\s*/;
 
 export function hasTsdCalculationEvidence(value: string): boolean {
   return EQUATION.test(value.replace(/\s+/g, " "));
@@ -28,6 +29,34 @@ function cleanLine(line: string): string {
     .replace(/^So,?\s*/i, "")
     .replace(/[.\s]+$/, "")
     .trim();
+}
+
+function unitLabel(unit: string): string {
+  const labels: Record<string, string> = {
+    KMPH: "km/h",
+    MPS: "m/s",
+    M_PER_MINUTE: "m/min",
+    KM_PER_MINUTE: "km/min",
+    KM: "km",
+    M: "m",
+    CM: "cm",
+    MM: "mm",
+    HOUR: "hours",
+    MINUTE: "minutes",
+    SECOND: "seconds",
+    DAY: "days",
+  };
+  return labels[unit] ?? unit.toLowerCase();
+}
+
+function conversionCalculationCertificate(question: TsdCp001GeneratedQuestion): string | null {
+  const input = question.input;
+  if (
+    input.solveMode !== "convertSpeedUnit"
+    && input.solveMode !== "convertDistanceUnit"
+    && input.solveMode !== "convertTimeUnit"
+  ) return null;
+  return `${formatExamNumber(input.value)} ${unitLabel(input.from)} = ${question.answerText}`;
 }
 
 function clockCalculationCertificate(question: TsdCp001GeneratedQuestion): string | null {
@@ -78,6 +107,9 @@ function joinAsEquation(operationLine: string | undefined, finalLine: string): s
 }
 
 function calculationCertificate(question: TsdCp001GeneratedQuestion): string {
+  const conversionCertificate = conversionCalculationCertificate(question);
+  if (conversionCertificate) return conversionCertificate;
+
   const clockCertificate = clockCalculationCertificate(question);
   if (clockCertificate) return clockCertificate;
 
@@ -102,7 +134,7 @@ function calculationCertificate(question: TsdCp001GeneratedQuestion): string {
     .replace(/\s+/g, " ")
     .trim();
 
-  if (/^(?:=|×|÷|\+|−|-|\\times|\\div)\b/.test(certificate)) {
+  if (LEADING_OPERATOR.test(certificate)) {
     throw new Error(`${question.questionLanguageId}: calculation certificate starts with an operator`);
   }
   if (/(?:×|÷|\+|−|-|\\times|\\div)/.test(certificate) && !/=/.test(certificate)) {
