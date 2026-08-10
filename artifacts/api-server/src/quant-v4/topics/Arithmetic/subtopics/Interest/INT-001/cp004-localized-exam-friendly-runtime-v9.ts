@@ -1,5 +1,5 @@
 import { selectIntCp004ExamFriendlyFrozenSourceV9 } from "./cp004-exam-friendly-source-v9";
-import { buildCp004LocalizedFormulaExplanationV9 } from "./cp004-localized-formula-explanations-v9";
+import { buildCp004LocalizedFormulaExplanationV9Safe } from "./cp004-localized-formula-explanations-v9-safe";
 import { adaptIntCp004ExamFriendlyOptionsV9 } from "./cp004-localized-exam-friendly-options-v9";
 import { localizeIntCp004EnglishFrozenQuestion } from "./cp004-localized-runtime";
 import type {
@@ -31,7 +31,7 @@ export function generateIntCp004ExamFriendlyLocalizedQuestionV9(
   if (!correctAnswer) {
     throw new Error(`${input.qlId}/${input.seed}/${input.locale}: v9 correct option is missing.`);
   }
-  const explanation = buildCp004LocalizedFormulaExplanationV9(
+  const explanation = buildCp004LocalizedFormulaExplanationV9Safe(
     source,
     input.locale,
     correctAnswer,
