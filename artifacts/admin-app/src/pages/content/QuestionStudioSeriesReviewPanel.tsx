@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { CheckCircle2, Database, Eye, Loader2, ShieldAlert, Waypoints } from 'lucide-react';
 
 import { showToast } from '@/components/shared/toast';
@@ -45,7 +45,7 @@ function Metric({ label, value }: { label: string; value: number | string }) {
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({ label, children }: { label: string; children: ReactNode }) {
   return <div className="space-y-2"><Label>{label}</Label>{children}</div>;
 }
 
