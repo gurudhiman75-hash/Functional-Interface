@@ -1,4 +1,5 @@
 import { renderSpatialSceneToSvg } from "./svg-renderer";
+import { getSpatialPrimitiveConnectivityV2 } from "./primitive-connectivity-v2";
 import { SPATIAL_PRIMITIVE_AUTHORITY_V2 } from "./primitive-library-v2";
 import { deriveSpatialPrimitiveQuarterTurnPeriodV2, validateSpatialPrimitiveLibraryV2 } from "./primitive-validator";
 
@@ -9,7 +10,7 @@ function escapeHtml(value: string): string {
 export function buildSpatialPrimitiveLibraryV2ReviewExport() {
   const validation = validateSpatialPrimitiveLibraryV2();
   return {
-    schemaVersion: "1.0",
+    schemaVersion: "1.1",
     familyCode: "SPA-001",
     foundationCode: "SPA-FND-001",
     authorityVersion: "2.0",
@@ -26,26 +27,30 @@ export function buildSpatialPrimitiveLibraryV2ReviewExport() {
         SPATIAL_PRIMITIVE_AUTHORITY_V2.filter((entry) => entry.category === category).length,
       ]),
     ),
-    rows: SPATIAL_PRIMITIVE_AUTHORITY_V2.map((entry) => ({
-      primitiveId: entry.primitiveId,
-      label: entry.label,
-      category: entry.category,
-      topology: entry.topology,
-      polygonSideCount: entry.polygonSideCount,
-      enclosedRegionCount: entry.enclosedRegionCount,
-      interiorIntersectionCount: entry.interiorIntersectionCount,
-      orientationSensitive: entry.orientationSensitive,
-      reflectionSensitive: entry.reflectionSensitive,
-      rotationPeriodQuarterTurns: deriveSpatialPrimitiveQuarterTurnPeriodV2(entry),
-      symmetry: entry.symmetry,
-      canContainInner: entry.canContainInner,
-      supportsFill: entry.supportsFill,
-      usageRoles: entry.usageRoles,
-      examTags: entry.examTags,
-      svg: renderSpatialSceneToSvg(entry.canonicalScene, {
-        ariaLabel: `${entry.label} spatial primitive`,
-      }),
-    })),
+    rows: SPATIAL_PRIMITIVE_AUTHORITY_V2.map((entry) => {
+      const connectivity = getSpatialPrimitiveConnectivityV2(entry.primitiveId);
+      return {
+        primitiveId: entry.primitiveId,
+        label: entry.label,
+        category: entry.category,
+        topology: entry.topology,
+        polygonSideCount: entry.polygonSideCount,
+        enclosedRegionCount: entry.enclosedRegionCount,
+        junctionCount: connectivity.junctionCount,
+        crossingCount: connectivity.crossingCount,
+        orientationSensitive: entry.orientationSensitive,
+        standardAxisReflectionSensitive: entry.reflectionSensitive,
+        rotationPeriodQuarterTurns: deriveSpatialPrimitiveQuarterTurnPeriodV2(entry),
+        symmetry: entry.symmetry,
+        canContainInner: entry.canContainInner,
+        supportsFill: entry.supportsFill,
+        usageRoles: entry.usageRoles,
+        examTags: entry.examTags,
+        svg: renderSpatialSceneToSvg(entry.canonicalScene, {
+          ariaLabel: `${entry.label} spatial primitive`,
+        }),
+      };
+    }),
   };
 }
 
@@ -62,7 +67,8 @@ export function buildSpatialPrimitiveLibraryV2ReviewHtml(
         <dt>Topology</dt><dd>${escapeHtml(row.topology)}</dd>
         <dt>Sides</dt><dd>${row.polygonSideCount ?? "—"}</dd>
         <dt>Regions</dt><dd>${row.enclosedRegionCount}</dd>
-        <dt>Intersections</dt><dd>${row.interiorIntersectionCount}</dd>
+        <dt>Junctions</dt><dd>${row.junctionCount}</dd>
+        <dt>True crossings</dt><dd>${row.crossingCount}</dd>
         <dt>Quarter-turn period</dt><dd>${row.rotationPeriodQuarterTurns}</dd>
         <dt>Symmetry</dt><dd>V:${row.symmetry.vertical ? "Y" : "N"} H:${row.symmetry.horizontal ? "Y" : "N"} 180:${row.symmetry.rotational180 ? "Y" : "N"}</dd>
       </dl>
