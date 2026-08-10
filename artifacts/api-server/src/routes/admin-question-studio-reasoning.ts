@@ -22,6 +22,7 @@ const router = Router();
 const RELEASE_AUTHORITY = "BLR_CP007_PRODUCT_RELEASE_APPROVED_2026_08_09" as const;
 const RELEASE_RUNTIME_MODE = "CANONICAL_REVIEW" as const;
 const RELEASE_REVIEW_STATUS = "APPROVED_EDITORIAL_CANONICAL" as const;
+const FULL_IMPORT_CONFIRMATION = "SYNCHRONIZE_504_BLR_CP007" as const;
 const LANGUAGES = new Set(["en", "hi", "pa"]);
 const DIFFICULTIES = new Set(["Easy", "Medium", "Hard"]);
 const QL_IDS = new Set(["BLR-QL-031", "BLR-QL-032", "BLR-QL-033", "BLR-QL-034", "BLR-QL-035"]);
@@ -108,6 +109,55 @@ function productionPayload(question: PreviewQuestion) {
       releaseAuthority: RELEASE_AUTHORITY,
       corpusAuthority: question.parameters.corpusAuthority,
       recordAuthority: question.parameters.recordAuthority,
+    },
+  };
+}
+
+async function loadImportPlan() {
+  const allQuestions = listBlrCp007QuestionStudioReviewEntries();
+  const corpusIds = new Set(allQuestions.map((question) => question.questionLanguageId));
+  const rows = await sqlClient`
+    SELECT
+      v.payload ->> 'questionLanguageId' AS "questionLanguageId",
+      count(*)::int AS "occurrences"
+    FROM content.generation_run_items i
+    INNER JOIN content.generation_item_versions v
+      ON v.generation_item_id = i.id AND v.version_number = i.current_version_number
+    WHERE v.payload ->> 'packageId' = ${BLR_CP007_QUESTION_STUDIO_PACKAGE_ID}
+      AND v.payload ->> 'releaseAuthority' = ${RELEASE_AUTHORITY}
+      AND COALESCE(v.payload ->> 'questionLanguageId', '') <> ''
+    GROUP BY v.payload ->> 'questionLanguageId'
+  `;
+
+  const existingIds = new Set(rows.map((row) => String(row.questionLanguageId ?? "")).filter(Boolean));
+  const duplicateQuestionLanguageIds = rows
+    .filter((row) => Number(row.occurrences ?? 0) > 1)
+    .map((row) => String(row.questionLanguageId ?? ""))
+    .filter(Boolean)
+    .sort();
+  const unexpectedQuestionLanguageIds = [...existingIds]
+    .filter((questionLanguageId) => !corpusIds.has(questionLanguageId))
+    .sort();
+  const missing = allQuestions.filter((question) => !existingIds.has(question.questionLanguageId));
+  const existingCount = allQuestions.length - missing.length;
+  const driftDetected = duplicateQuestionLanguageIds.length > 0 || unexpectedQuestionLanguageIds.length > 0;
+
+  return {
+    allQuestions,
+    missing,
+    plan: {
+      packageId: BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
+      releaseAuthority: RELEASE_AUTHORITY,
+      totalFrozenRecords: allQuestions.length,
+      existingCount,
+      missingCount: missing.length,
+      duplicateQuestionLanguageIds,
+      unexpectedQuestionLanguageIds,
+      driftDetected,
+      alreadyImported: missing.length === 0 && !driftDetected,
+      readyToImport: missing.length > 0 && !driftDetected,
+      confirmationRequired: missing.length > 0,
+      requiredConfirmation: FULL_IMPORT_CONFIRMATION,
     },
   };
 }
@@ -282,37 +332,74 @@ router.post("/reasoning/runs", requireAdminPermission("content.generation.run"),
   }
 });
 
+router.get("/reasoning/import-plan", requireAdminPermission("content.generation.read"), async (_req, res) => {
+  try {
+    const { plan } = await loadImportPlan();
+    res.json(plan);
+  } catch (error) {
+    console.error("BLR import preflight failed", error);
+    res.status(500).json({ error: "Unable to calculate BLR synchronization plan." });
+  }
+});
+
 router.post("/reasoning/import-all", requireAdminPermission("content.generation.run"), async (req, res) => {
   const actorUserId = req.adminSession?.user.id;
   if (!actorUserId) {
     res.status(403).json({ error: "Administrator session required." });
     return;
   }
+
+  const packageId = asString(req.body?.packageId);
+  const confirmation = asString(req.body?.confirmation);
+  if (packageId !== BLR_CP007_QUESTION_STUDIO_PACKAGE_ID) {
+    res.status(400).json({ error: "Unknown BLR production package." });
+    return;
+  }
+  if (confirmation !== FULL_IMPORT_CONFIRMATION) {
+    res.status(400).json({ error: "Explicit BLR full-corpus synchronization confirmation is required." });
+    return;
+  }
+
   try {
-    const allQuestions = listBlrCp007QuestionStudioReviewEntries();
-    const existing = await sqlClient`
-      SELECT DISTINCT v.payload ->> 'questionLanguageId' AS "questionLanguageId"
-      FROM content.generation_item_versions v
-      WHERE v.payload ->> 'packageId' = ${BLR_CP007_QUESTION_STUDIO_PACKAGE_ID}
-        AND v.payload ->> 'releaseAuthority' = ${RELEASE_AUTHORITY}
-    `;
-    const existingIds = new Set(existing.map((row) => String(row.questionLanguageId ?? "")).filter(Boolean));
-    const missing = allQuestions.filter((question) => !existingIds.has(question.questionLanguageId));
+    const { plan, missing } = await loadImportPlan();
+    if (plan.driftDetected) {
+      res.status(409).json({
+        error: "BLR synchronization blocked because current production records do not match the frozen corpus authority.",
+        plan,
+      });
+      return;
+    }
 
     if (missing.length === 0) {
-      res.json({ id: null, publicCode: null, status: "already_imported", itemCount: 0, existingCount: existingIds.size });
+      res.json({
+        id: null,
+        publicCode: null,
+        status: "already_imported",
+        itemCount: 0,
+        existingCount: plan.existingCount,
+        importPlan: plan,
+      });
       return;
     }
 
     const persisted = await persistRun(missing, {
       packageId: BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
       importMode: "ALL_FROZEN_RECORDS",
-      requestedCount: allQuestions.length,
-      missingCount: missing.length,
+      requestedCount: plan.totalFrozenRecords,
+      existingCount: plan.existingCount,
+      missingCount: plan.missingCount,
+      duplicateQuestionLanguageIds: plan.duplicateQuestionLanguageIds,
+      unexpectedQuestionLanguageIds: plan.unexpectedQuestionLanguageIds,
       releaseAuthority: RELEASE_AUTHORITY,
       requestedByFirebaseUid: req.user?.id,
+      explicitConfirmation: true,
     }, actorUserId);
-    res.status(201).json({ ...persisted, existingCount: existingIds.size, generationSystem: "reasoning-v1" });
+    res.status(201).json({
+      ...persisted,
+      existingCount: plan.existingCount,
+      generationSystem: "reasoning-v1",
+      preflightMissingCount: plan.missingCount,
+    });
   } catch (error) {
     console.error("BLR full import failed", error);
     res.status(500).json({ error: error instanceof Error ? error.message : "Unable to import BLR frozen corpus." });
