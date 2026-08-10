@@ -77,7 +77,6 @@ let timeSameSpeedSeen = false;
 let timeChangedSpeedSameDistanceSeen = false;
 let timeChangedSpeedAndDistanceSeen = false;
 let speedSameDistanceSeen = false;
-let speedChangedDistanceSeen = false;
 
 for (const mode of ["distanceByProportion", "timeByProportion", "speedByProportion"] as const) {
   const authority = cp001AuthorityByMode(mode);
@@ -109,13 +108,12 @@ for (const mode of ["distanceByProportion", "timeByProportion", "speedByProporti
       }
     } else {
       const sameDistance = sameRational(candidate.input.knownDistance, candidate.input.targetDistance);
-      if (sameDistance) {
-        speedSameDistanceSeen = true;
-        assert(/same distance/i.test(`${candidate.stem} ${candidate.explanation.givens.join(" ")}`), "speedByProportion: same-distance representation is not explicit");
-      } else {
-        speedChangedDistanceSeen = true;
-        assert(/target distance|new distance|distance/i.test(`${candidate.stem} ${candidate.explanation.givens.join(" ")}`), "speedByProportion: changed-distance representation does not state the distance condition");
-      }
+      assert(sameDistance, "speedByProportion: same-distance mathematical invariant changed");
+      speedSameDistanceSeen = true;
+      assert(
+        /same (?:distance|journey|route)|identical distance|fixed (?:distance|route)/i.test(`${candidate.stem} ${candidate.explanation.givens.join(" ")}`),
+        "speedByProportion: fixed-distance condition is not explicit",
+      );
     }
   }
 }
@@ -125,8 +123,7 @@ assert(distanceChangedSpeedSeen, "distanceByProportion: changed-speed representa
 assert(timeSameSpeedSeen, "timeByProportion: same-speed representation was not generated");
 assert(timeChangedSpeedSameDistanceSeen, "timeByProportion: changed-speed same-distance representation was not generated");
 assert(timeChangedSpeedAndDistanceSeen, "timeByProportion: combined changed-distance and changed-speed representation was not generated");
-assert(speedSameDistanceSeen, "speedByProportion: same-distance representation was not generated");
-assert(speedChangedDistanceSeen, "speedByProportion: changed-distance representation was not generated");
+assert(speedSameDistanceSeen, "speedByProportion: fixed-distance representation was not generated");
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -146,7 +143,6 @@ console.log(JSON.stringify({
     timeChangedSpeedSameDistanceSeen,
     timeChangedSpeedAndDistanceSeen,
     speedSameDistanceSeen,
-    speedChangedDistanceSeen,
   },
   permanentQlCount: 0,
 }, null, 2));
