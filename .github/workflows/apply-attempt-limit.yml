@@ -1,0 +1,33 @@
+name: Apply canonical attempt limit enforcement
+
+on:
+  push:
+    branches:
+      - feat/attempt-question-timing-persistence
+    paths:
+      - '.github/workflows/apply-attempt-limit.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/attempt-question-timing-persistence
+      - name: Apply attempt limit patch
+        run: python tool/attempt_limit_patch.py
+      - name: Commit source changes
+        run: |
+          rm tool/attempt_limit_patch.py .github/workflows/apply-attempt-limit.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add artifacts/api-server/src/lib/attempt-reliability.ts \
+                  artifacts/api-server/src/lib/attempt-reliability.test.ts \
+                  artifacts/api-server/src/routes/attempt-reliability.ts \
+                  artifacts/api-server/src/routes/published-test-runner.ts \
+                  tool/attempt_limit_patch.py .github/workflows/apply-attempt-limit.yml
+          git commit -m 'feat(attempt): enforce canonical attempt limits'
+          git push origin HEAD:feat/attempt-question-timing-persistence
