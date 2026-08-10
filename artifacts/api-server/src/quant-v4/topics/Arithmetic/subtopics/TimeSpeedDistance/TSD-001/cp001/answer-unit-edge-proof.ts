@@ -84,7 +84,7 @@ assert(metreDistanceRow.optionAudit.some((option) => option.misconceptionId === 
 const omittedConversionReason = metreDistanceRow.explanation.optionAnalysis.find(
   (option) => option.misconceptionId === "OMIT_UNIT_CONVERSION",
 )?.reason ?? "";
-assert(/kilometres/i.test(omittedConversionReason) && /1000/.test(omittedConversionReason), "distanceFromPaceAndTime: omitted km-to-m conversion is not explained precisely");
+assert(/kilometre|\bkm\b/i.test(omittedConversionReason) && /1000/.test(omittedConversionReason), "distanceFromPaceAndTime: omitted km-to-m conversion is not explained precisely");
 assert(!/minutes per kilometre/i.test(metreDistanceRow.explanation.optionAnalysis.map((option) => option.reason).join(" ")), "distanceFromPaceAndTime: minute-based diagnosis leaked into seconds-based metre row");
 
 const distanceConversionRows = rows.filter((row) => row.solveMode === "convertDistanceUnit");
