@@ -1,0 +1,143 @@
+name: Validate TMW-001 R4 source-gap extension
+
+on:
+  push:
+    branches:
+      - fix/tmw-001-remediation-r4-source-gaps
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-r4-source-gaps.yml
+      - package.json
+      - pnpm-lock.yaml
+  pull_request:
+    branches:
+      - fix/tmw-001-remediation-r3-cp007-cp011
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-r4-source-gaps.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tmw-r4-source-gaps-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-r4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec tsc
+          --noEmit
+          --target es2022
+          --module esnext
+          --moduleResolution bundler
+          --strictNullChecks
+          --noImplicitAny
+          --noImplicitReturns
+          --noFallthroughCasesInSwitch
+          --skipLibCheck
+          --types node
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/source-gap-r4-registry.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/source-gap-r4-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-source-gap.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-expanded-chapter.test.ts
+      - name: Bundle R4 source-gap proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-source-gap.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-r4-source-gap.test.mjs
+      - name: Run R4 source-gap proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-r4-source-gap.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-r4-source-gap-proof.log
+      - name: Bundle expanded 229-QL regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-expanded-chapter.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-r4-expanded-chapter.test.mjs
+      - name: Run expanded 229-QL regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-r4-expanded-chapter.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-r4-expanded-chapter-proof.log
+      - name: Bundle R1 critical regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-critical-remediation-r1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-critical-remediation-r1-r4-regression.test.mjs
+      - name: Run R1 critical regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-critical-remediation-r1-r4-regression.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-critical-remediation-r1-r4-regression.log
+      - name: Bundle R2 learner regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r2-learner-explanation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-r2-learner-explanation-r4-regression.test.mjs
+      - name: Run R2 learner regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-r2-learner-explanation-r4-regression.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-r2-learner-explanation-r4-regression.log
+      - name: Bundle R3 learner regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r3-learner-explanation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-r3-learner-explanation-r4-regression.test.mjs
+      - name: Run R3 learner regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-r3-learner-explanation-r4-regression.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-r3-learner-explanation-r4-regression.log
+      - name: Bundle original 211-QL multilingual parity regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-chapter-parity.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-multilingual-chapter-parity-r4.test.mjs
+      - name: Run original 211-QL multilingual parity regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-parity-r4.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-parity-r4-proof.log
+      - name: Upload R4 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-001-r4-source-gaps
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-r4-source-gap-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-r4-expanded-chapter-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-critical-remediation-r1-r4-regression.log
+            artifacts/api-server/dist/quant-v4/tmw-001-r2-learner-explanation-r4-regression.log
+            artifacts/api-server/dist/quant-v4/tmw-001-r3-learner-explanation-r4-regression.log
+            artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-parity-r4-proof.log
+          if-no-files-found: warn
+          retention-days: 14
