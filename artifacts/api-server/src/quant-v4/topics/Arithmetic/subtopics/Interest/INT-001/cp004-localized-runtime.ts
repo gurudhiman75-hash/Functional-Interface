@@ -22,7 +22,7 @@ import {
   humanizeCp004LocalizedStemV7,
 } from "./cp004-localized-human-editorial-v7";
 import { renderCp004LocalizedNativeStemV6 } from "./cp004-localized-native-stems-v6";
-import { simplifyCp004LocalizedExplanationV8 } from "./cp004-localized-simple-explanations-v8";
+import { simplifyCp004LocalizedExplanationV8Final } from "./cp004-localized-simple-explanations-v8-final";
 import {
   INT_CP004_PRESENTATION_WAVE1_QL_IDS,
   renderCp004LocalizedPresentationWave1,
@@ -258,7 +258,7 @@ export function localizeIntCp004EnglishFrozenQuestion(
       locale,
     ),
   );
-  const explanation = simplifyCp004LocalizedExplanationV8(source, locale, correctAnswer);
+  const explanation = simplifyCp004LocalizedExplanationV8Final(source, locale, correctAnswer);
 
   const lifecycle = {
     permanentQlId: source.qlId,
