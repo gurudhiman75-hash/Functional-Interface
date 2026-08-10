@@ -29,12 +29,8 @@ for (const cluster of authorityClusters) {
   assert(boundary.evidenceTaskIds.length > 0, `${cluster} boundary evidence is empty.`);
   assert(boundary.obligations.length > 0, `${cluster} has no boundary obligations.`);
 
-  for (const taskId of inverse.evidenceTaskIds) {
-    assert(taskIds.includes(taskId), `${cluster} inverse audit references unknown task ${taskId}.`);
-  }
-  for (const taskId of boundary.evidenceTaskIds) {
-    assert(taskIds.includes(taskId), `${cluster} boundary audit references unknown task ${taskId}.`);
-  }
+  for (const taskId of inverse.evidenceTaskIds) assert(taskIds.includes(taskId), `${cluster} inverse audit references unknown task ${taskId}.`);
+  for (const taskId of boundary.evidenceTaskIds) assert(taskIds.includes(taskId), `${cluster} boundary audit references unknown task ${taskId}.`);
 }
 
 for (const taskId of taskIds) {
@@ -44,9 +40,7 @@ for (const taskId of taskIds) {
   assert.equal(gap.cluster, disposition.cluster);
   assert.equal(gap.sourceEvidenceLevel, source.evidenceLevel);
 
-  if (disposition.disposition === "INTERNAL_VERIFICATION_ONLY") {
-    assert.equal(gap.status, "INTERNAL_ONLY");
-  }
+  if (disposition.disposition === "INTERNAL_VERIFICATION_ONLY") assert.equal(gap.status, "INTERNAL_ONLY");
   if (disposition.disposition === "HOLD_FOR_ADVANCED_SOURCE_CONFIRMATION") {
     if (source.evidenceLevel === "DIRECT_SOURCE" || source.evidenceLevel === "DIRECT_MULTI_SOURCE") {
       assert.equal(gap.status, "UNRESOLVED_SOURCE_BACKED_HOLD");
@@ -74,29 +68,42 @@ assert.deepEqual(summary.inverseClusters, [...authorityClusters].sort());
 assert.deepEqual(summary.boundaryClusters, [...authorityClusters].sort());
 assert.equal(summary.unresolvedSourceBackedHolds.length, 0);
 assert.equal(summary.sourceSaturationComplete, true);
+assert.equal(summary.difficultyAuditComplete, true);
+assert.equal(summary.multilingualRiskAuditComplete, true);
 assert.equal(CLOCK_EFFECTIVE_GAP_AUDIT.MIRROR_GEOMETRIC_VERIFICATION.status, "INTERNAL_ONLY");
 
-assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.status, "POST_SATURATION_INVERSE_BOUNDARY_GAP_AUDIT");
+assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.status, "TECHNICAL_DISCOVERY_GATES_COMPLETE__FREEZE_REVIEW_REQUIRED");
+assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.prototypeExecutionComplete, true);
+assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.solverVerifierAgreementComplete, true);
+assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.mergeSplitAuditComplete, true);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.inverseAuditComplete, true);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.boundaryAuditComplete, true);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.gapAuditComplete, true);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.unresolvedSourceBackedHoldsResolved, true);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.sourceSaturationComplete, true);
-assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.difficultyAuditComplete, false);
-assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.multilingualRiskAuditComplete, false);
+assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.difficultyAuditComplete, true);
+assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.multilingualRiskAuditComplete, true);
+assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.noUnexplainedSourceFamily, true);
+assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.discoveryFreezeEligible, true);
+assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.discoveryFrozen, false);
+assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.authorityCountFrozen, false);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.humanEditorialFreezeComplete, false);
 assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.permanentQlAllocationAllowed, false);
-assert.equal(CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.discoveryFreezeEligible, false);
-assert.equal(summary.discoveryFreezeEligible, false);
+assert.equal(summary.discoveryFreezeEligible, true);
+assert.equal(summary.discoveryFrozen, false);
 
 console.log(JSON.stringify({
-  status: "PASS_CLK_001_POST_SATURATION_INVERSE_BOUNDARY_GAP_AUDIT",
+  status: "PASS_CLK_001_TECHNICAL_DISCOVERY_GATES_COMPLETE",
   sourceCandidateRows: taskIds.length,
   effectiveAuthorityClusters: authorityClusters.length,
   inverseAuditClusters: inverseClusters.length,
   boundaryAuditClusters: boundaryClusters.length,
   sourceSaturationComplete: summary.sourceSaturationComplete,
+  difficultyAuditComplete: summary.difficultyAuditComplete,
+  multilingualRiskAuditComplete: summary.multilingualRiskAuditComplete,
   unresolvedSourceBackedHolds: summary.unresolvedSourceBackedHolds,
   intentionalAdvancedHolds: summary.intentionalAdvancedHolds.length,
+  discoveryFreezeEligible: summary.discoveryFreezeEligible,
+  discoveryFrozen: summary.discoveryFrozen,
   policy: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY,
 }, null, 2));
