@@ -56,7 +56,7 @@ export interface TsdCanonicalReviewRecord {
   readonly seed: string;
   readonly difficulty: {
     readonly label: "Easy" | "Medium" | "Hard";
-    readonly status: "EDITORIAL_CALIBRATION_REQUIRED";
+    readonly status: "EDITORIALLY_CALIBRATED";
     readonly featureScore: number;
   };
   readonly stem: string;
@@ -118,10 +118,7 @@ function canonicalRational(value: unknown): TsdCanonicalRational | null {
       (typeof numerator === "bigint" || typeof numerator === "number" || typeof numerator === "string")
       && (typeof denominator === "bigint" || typeof denominator === "number" || typeof denominator === "string")
     ) {
-      return Object.freeze({
-        numerator: decimalString(numerator),
-        denominator: decimalString(denominator),
-      });
+      return Object.freeze({ numerator: decimalString(numerator), denominator: decimalString(denominator) });
     }
   }
 
@@ -132,10 +129,7 @@ function canonicalRational(value: unknown): TsdCanonicalRational | null {
       (typeof numerator === "bigint" || typeof numerator === "number" || typeof numerator === "string")
       && (typeof denominator === "bigint" || typeof denominator === "number" || typeof denominator === "string")
     ) {
-      return Object.freeze({
-        numerator: decimalString(numerator),
-        denominator: decimalString(denominator),
-      });
+      return Object.freeze({ numerator: decimalString(numerator), denominator: decimalString(denominator) });
     }
   }
 
@@ -222,12 +216,12 @@ export function canonicalReviewRecord(record: TsdFinalReviewRecord): TsdCanonica
     chapterArchetypeId: "TSD-001",
     permanentQlId: null,
     solveMode: record.finalAuthorityKey,
-    representation: record.finalRepresentation,
-    provisionalAuthorityId: sourceQuestion.provisionalAuthorityId,
+    representation: sourceQuestion.representation,
+    provisionalAuthorityId: record.provisionalAuthorityId,
     questionLanguageId: record.questionLanguageId,
     language: "en",
     seed: sourceQuestion.seed,
-    difficulty: Object.freeze({ ...sourceQuestion.difficulty }),
+    difficulty: sourceQuestion.difficulty,
     stem: sourceQuestion.stem,
     stemMathJax: sourceQuestion.stemMathJax,
     input: canonicalInput(sourceQuestion),
@@ -237,12 +231,8 @@ export function canonicalReviewRecord(record: TsdFinalReviewRecord): TsdCanonica
     correctIndex: sourceQuestion.correctIndex,
     optionAudit: canonicalOptionAudit(sourceQuestion),
     explanation: canonicalExplanation(sourceQuestion),
-    lifecycle: Object.freeze({ ...sourceQuestion.lifecycle }),
-    validation: Object.freeze({
-      valid: sourceQuestion.validation.valid,
-      errors: Object.freeze([...sourceQuestion.validation.errors]),
-      warnings: Object.freeze([...sourceQuestion.validation.warnings]),
-    }),
+    lifecycle: sourceQuestion.lifecycle,
+    validation: sourceQuestion.validation,
     sourceTrace: Object.freeze({
       sourceCheckpointId: record.sourceCheckpointId,
       legacyReviewQlId: record.legacyReviewQlId,
@@ -254,8 +244,4 @@ export function canonicalReviewRecord(record: TsdFinalReviewRecord): TsdCanonica
 
 export function generateCanonicalReviewRecords(): readonly TsdCanonicalReviewRecord[] {
   return Object.freeze(generateFinalAuthorityReview().map(canonicalReviewRecord));
-}
-
-export function stableCanonicalJson(value: unknown): string {
-  return JSON.stringify(value);
 }
