@@ -205,6 +205,9 @@ export const CLOCK_ITEM_DIFFICULTY_POLICY = {
   semanticBaselineRequired: true,
   generatedItemFeaturesRequired: true,
   checkpointOrderUsedAsDifficultyProxy: false,
+  technicalAuditComplete: true,
+  technicalCorpusSize: 5_000,
   humanCalibrationRequired: true,
+  humanCalibrationComplete: false,
   permanentQlAllocationAllowed: false,
 } as const;
