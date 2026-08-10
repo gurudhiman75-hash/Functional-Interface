@@ -216,12 +216,12 @@ export function canonicalReviewRecord(record: TsdFinalReviewRecord): TsdCanonica
     chapterArchetypeId: "TSD-001",
     permanentQlId: null,
     solveMode: record.finalAuthorityKey,
-    representation: sourceQuestion.representation,
-    provisionalAuthorityId: record.provisionalAuthorityId,
+    representation: record.finalRepresentation,
+    provisionalAuthorityId: sourceQuestion.provisionalAuthorityId,
     questionLanguageId: record.questionLanguageId,
     language: "en",
     seed: sourceQuestion.seed,
-    difficulty: sourceQuestion.difficulty,
+    difficulty: Object.freeze({ ...sourceQuestion.difficulty }),
     stem: sourceQuestion.stem,
     stemMathJax: sourceQuestion.stemMathJax,
     input: canonicalInput(sourceQuestion),
@@ -231,8 +231,12 @@ export function canonicalReviewRecord(record: TsdFinalReviewRecord): TsdCanonica
     correctIndex: sourceQuestion.correctIndex,
     optionAudit: canonicalOptionAudit(sourceQuestion),
     explanation: canonicalExplanation(sourceQuestion),
-    lifecycle: sourceQuestion.lifecycle,
-    validation: sourceQuestion.validation,
+    lifecycle: Object.freeze({ ...sourceQuestion.lifecycle }),
+    validation: Object.freeze({
+      valid: sourceQuestion.validation.valid,
+      errors: Object.freeze([...sourceQuestion.validation.errors]),
+      warnings: Object.freeze([...sourceQuestion.validation.warnings]),
+    }),
     sourceTrace: Object.freeze({
       sourceCheckpointId: record.sourceCheckpointId,
       legacyReviewQlId: record.legacyReviewQlId,
@@ -244,4 +248,8 @@ export function canonicalReviewRecord(record: TsdFinalReviewRecord): TsdCanonica
 
 export function generateCanonicalReviewRecords(): readonly TsdCanonicalReviewRecord[] {
   return Object.freeze(generateFinalAuthorityReview().map(canonicalReviewRecord));
+}
+
+export function stableCanonicalJson(value: unknown): string {
+  return JSON.stringify(value);
 }
