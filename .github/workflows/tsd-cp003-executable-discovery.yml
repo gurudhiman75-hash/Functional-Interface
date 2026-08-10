@@ -51,14 +51,14 @@ jobs:
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/quant-v4/tsd-001/cp003/discovery-registry-proof.mjs | tee dist/quant-v4/tsd-001/cp003/discovery-registry-proof.log
-          node dist/quant-v4/tsd-001/cp003/solver-proof.mjs | tee dist/quant-v4/tsd-001/cp003/solver-proof.log
-          node dist/quant-v4/tsd-001/cp003/runtime-proof.mjs | tee dist/quant-v4/tsd-001/cp003/runtime-proof.log
-          node dist/quant-v4/tsd-001/cp003/editorial-proof.mjs | tee dist/quant-v4/tsd-001/cp003/editorial-proof.log
-          node dist/quant-v4/tsd-001/cp003/cross-checkpoint-overlap-audit.mjs | tee dist/quant-v4/tsd-001/cp003/cross-checkpoint-overlap-audit.log
-          node dist/quant-v4/tsd-001/cp003/post-overlap-authority-proof.mjs | tee dist/quant-v4/tsd-001/cp003/post-overlap-authority-proof.log
-          node dist/quant-v4/tsd-001/cp003/post-overlap-review-proof.mjs | tee dist/quant-v4/tsd-001/cp003/post-overlap-review-proof.log
-          node dist/quant-v4/tsd-001/cp003/review-export.mjs | tee dist/quant-v4/tsd-001/cp003/review-export.log
+          node dist/quant-v4/tsd-001/cp003/discovery-registry-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/discovery-registry-proof.log
+          node dist/quant-v4/tsd-001/cp003/solver-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/solver-proof.log
+          node dist/quant-v4/tsd-001/cp003/runtime-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/runtime-proof.log
+          node dist/quant-v4/tsd-001/cp003/editorial-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/editorial-proof.log
+          node dist/quant-v4/tsd-001/cp003/cross-checkpoint-overlap-audit.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/cross-checkpoint-overlap-audit.log
+          node dist/quant-v4/tsd-001/cp003/post-overlap-authority-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/post-overlap-authority-proof.log
+          node dist/quant-v4/tsd-001/cp003/post-overlap-review-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/post-overlap-review-proof.log
+          node dist/quant-v4/tsd-001/cp003/review-export.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/review-export.log
 
       - name: Upload CP-003 proof logs
         if: always()
