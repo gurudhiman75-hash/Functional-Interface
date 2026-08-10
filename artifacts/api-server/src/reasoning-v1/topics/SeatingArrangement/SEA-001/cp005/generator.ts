@@ -1,6 +1,7 @@
 import { canonicalDigest } from "../canonical.ts";
 import { DeterministicRandom } from "../../../../shared/constraint-core/random.ts";
-import { canonicalCircularOrder, personAt } from "../cp003/topology.ts";
+import { selectSea001Names } from "../generation/name-pool.ts";
+import { canonicalCircularOrder, personAt, rotateOrder } from "../cp003/topology.ts";
 import {
   mixedCircleConstraintFingerprint,
   mixedCircleConstraintTrue,
@@ -19,7 +20,6 @@ import type {
   MixedCircleFacing,
 } from "./types.ts";
 
-const NAMES = ["A", "B", "C", "D", "E", "F", "G"] as const;
 export const SEA_CP005_BLUEPRINTS: readonly MixedCircleBlueprintId[] = [
   "SEA-PBA-017",
   "SEA-PBA-018",
@@ -302,7 +302,7 @@ function attempt(
   const seatCount = blueprint === "SEA-PBA-019"
     ? random.pick([6] as const)
     : random.pick([6, 7] as const);
-  const persons = NAMES.slice(0, seatCount);
+  const persons = selectSea001Names(seed, seatCount, `${blueprint}:cp005`);
   const clockwiseOrder = canonicalCircularOrder(random.shuffle(persons));
   const facings = controlledFacings(clockwiseOrder, random);
   const candidates = buildCandidateConstraints(blueprint, clockwiseOrder, facings);
@@ -334,11 +334,12 @@ function attempt(
 
   const children = buildMixedCircleChildren(seed, blueprint, model, random);
   const clueTexts = renderMixedCircleClueTexts(constraints);
-  const diagramText = `Clockwise from ${model.clockwiseOrder[0]} (chosen only as a rotation reference): ${model.clockwiseOrder
+  const displayOrder = rotateOrder(model.clockwiseOrder, random.integer(0, model.clockwiseOrder.length - 1));
+  const diagramText = `Clockwise from ${displayOrder[0]} (chosen only as a drawing reference): ${displayOrder
     .map((personId) => `${personId}${model.facings[personId] === "CENTER" ? "↘ centre" : "↗ outward"}`)
-    .join(" → ")} → ${model.clockwiseOrder[0]}`;
+    .join(" → ")} → ${displayOrder[0]}`;
   const sharedExplanation = [
-    `Place ${model.clockwiseOrder[0]} at any convenient seat; rotating the complete arrangement does not change the answer.`,
+    `For drawing, start from ${displayOrder[0]} at any convenient point; rotating the complete arrangement does not change any relative position.`,
     "Resolve every facing before applying a left/right clue. For centre-facing persons, left is clockwise; for outward-facing persons, left is anticlockwise.",
     "Apply the clues one by one:",
     ...clueTexts.map((clue, index) => `${index + 1}. ${clue}`),
@@ -353,7 +354,7 @@ function attempt(
     blueprintAuthorityId: blueprint,
     seed,
     locale: "en-IN",
-    setupText: `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table. Some face the centre and the others face outward. They are not necessarily seated in alphabetical order.`,
+    setupText: `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table. Some face the centre and the others face outward. They are not necessarily seated in the same order as listed.`,
     clueTexts,
     constraints,
     solutionPolicy: "UNIQUE_STATE_CLASS",
