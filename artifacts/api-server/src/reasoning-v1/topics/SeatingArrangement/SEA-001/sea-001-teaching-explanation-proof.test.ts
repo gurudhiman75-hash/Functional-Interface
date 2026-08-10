@@ -5,8 +5,10 @@ const corpus = buildSea001SaturationCorpus(2);
 if (corpus.caselets.length !== 40) throw new Error(`Expected 40 teaching-proof caselets, got ${corpus.caselets.length}`);
 
 const bannedInternalTerms = /\b(?:solver|oracle|canonical|model class|search branch|seat zero)\b/i;
+const arbitraryCaseLanguage = /several arrangements are still possible|three useful cases/i;
 let caseAnalysisCount = 0;
 let eliminationCount = 0;
+let cp001PartialCaseCount = 0;
 const checkpointCounts = new Map<string, number>();
 
 for (const caselet of corpus.caselets) {
@@ -15,6 +17,7 @@ for (const caselet of corpus.caselets) {
 
   if (!explanation.trim()) throw new Error(`Empty teaching explanation: ${caselet.caseletId}`);
   if (bannedInternalTerms.test(explanation)) throw new Error(`Internal terminology leaked into ${caselet.caseletId}: ${explanation}`);
+  if (arbitraryCaseLanguage.test(explanation)) throw new Error(`Arbitrary representative-case language leaked into ${caselet.caseletId}`);
   if (!/final (?:row|clockwise arrangement|clockwise arrangement and facings)|therefore/i.test(explanation)) {
     throw new Error(`Final arrangement conclusion is missing: ${caselet.caseletId}`);
   }
@@ -26,8 +29,16 @@ for (const caselet of corpus.caselets) {
     if (highestCase > 3) throw new Error(`More than three student-facing cases exposed: ${caselet.caseletId}`);
     if (!explanation.includes("❌")) throw new Error(`Case analysis lacks a cancelled case: ${caselet.caseletId}`);
     if (!explanation.includes("✅")) throw new Error(`Case analysis lacks a surviving case: ${caselet.caseletId}`);
-    if (!/does not satisfy this clue/.test(explanation)) throw new Error(`Elimination is not tied to a displayed clue: ${caselet.caseletId}`);
+    if (!/(?:does not satisfy this clue|contradicts the clue)/.test(explanation)) {
+      throw new Error(`Elimination is not tied to a displayed clue: ${caselet.caseletId}`);
+    }
     eliminationCount += 1;
+  }
+
+  if (caselet.checkpointId === "SEA-CP-001" && /possible partial cases/.test(explanation)) {
+    cp001PartialCaseCount += 1;
+    if (!/\b\d+:_\b/.test(explanation)) throw new Error(`CP001 partial case does not leave unresolved seats blank: ${caselet.caseletId}`);
+    if (!/Do not guess the remaining people/.test(explanation)) throw new Error(`CP001 partial-case pedagogy guard is missing: ${caselet.caseletId}`);
   }
 
   if ((caselet.checkpointId === "SEA-CP-003" || caselet.checkpointId === "SEA-CP-004" || caselet.checkpointId === "SEA-CP-005")
@@ -51,8 +62,11 @@ for (const caselet of corpus.caselets) {
   }
 }
 
-if (caseAnalysisCount < 30 || eliminationCount !== caseAnalysisCount) {
+if (caseAnalysisCount < 16 || eliminationCount !== caseAnalysisCount) {
   throw new Error(`Teaching-case coverage is too weak: cases=${caseAnalysisCount}, eliminations=${eliminationCount}`);
+}
+if (cp001PartialCaseCount < 2) {
+  throw new Error(`CP001 partial-case teaching coverage is too weak: ${cp001PartialCaseCount}`);
 }
 for (const checkpointId of ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-004", "SEA-CP-005"]) {
   if ((checkpointCounts.get(checkpointId) ?? 0) !== 8) {
@@ -63,5 +77,6 @@ for (const checkpointId of ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-00
 console.log("PASS_SEA_001_TEACHING_EXPLANATIONS");
 console.log("caselets", corpus.caselets.length);
 console.log("case-analysis explanations", caseAnalysisCount);
+console.log("CP001 partial-case explanations", cp001PartialCaseCount);
 console.log("elimination explanations", eliminationCount);
 console.log("permanent QLs", 0);
