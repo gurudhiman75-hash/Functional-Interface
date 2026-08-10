@@ -1,103 +1,139 @@
-# TSD-CP-003 — Executable Discovery Checkpoint
+# TSD-CP-003 — Executable Discovery and Post-Overlap Candidate
 
 **Checkpoint:** `TSD-CP-003 — Speed Changes, Schedules, Early-Late Arrival and Stops`  
 **Package:** `TSD-001`  
 **Blueprint authority:** `TSD-END-TO-END-DESIGN-BLUEPRINT.md`  
 **Source inventory:** `TSD-001-CORE-MOTION-SOLVE-MODE-INVENTORY.md`  
-**Status:** `EXECUTABLE_DISCOVERY_IN_PROGRESS`  
+**Current status:** `POST_OVERLAP_AUTHORITY_CANDIDATE_REVIEW`  
 **Permanent QLs:** `0`  
 **English freeze:** `UNFROZEN`  
 **Question Studio / Question Bank / tests / public delivery:** locked
 
-## Discovery result
+## 1. Discovery boundary retained for source coverage
 
-The 35 source candidates are mapped exactly once into 24 provisional mathematical authorities:
+The authoritative CP-003 inventory contains 35 source candidates. Executable discovery deliberately keeps a broad runtime surface so no source-backed representation disappears before ownership review:
 
-- 22 learner-facing authorities;
+- 24 provisional mathematical discovery authorities;
+- 22 learner-facing discovery modes;
 - 2 internal QA authorities;
-- no permanent QL allocation;
-- no cross-CP relative-motion, train, circular or medium-motion authority leakage.
+- exact source ownership of all 35 candidates;
+- no permanent QL allocation.
 
-This count is provisional and may change after source saturation, full executable generation, merge/split review and cross-CP collision review.
+The broad discovery registry is not the final QL boundary.
 
-## Important merge decisions
+## 2. Exact learner foundation complete
 
-Merged as one provisional authority where the hidden state and governing operation are genuinely shared:
+All 22 learner discovery modes have exact rational solving and materially independent verification. Coverage includes:
 
-- faster/slower fixed-route time gain or loss;
-- direct/original/hidden distance reconstructed from two speeds and a time gap;
-- original/changed/hidden speed reconstructed from a fixed-route time difference;
-- late-start and unplanned-stop recovery-speed representations;
-- slow/fast initial-segment remaining-speed representations;
-- fixed-distance/fixed-time regular-stop total-time representations;
-- walking/riding time and distance allocation representations.
+- fixed-route speed/time gain-loss and inverse reconstruction;
+- early/late schedule pairs;
+- scheduled arrival and recovery speed;
+- remaining speed after a partial route;
+- stoppage/running/overall-speed systems;
+- regular-stop count, delay and travel-rest cycles;
+- speed-change-point distance and route fraction;
+- lost-time/repair recovery duration;
+- departure/arrival shifts and schedule buffer;
+- walking/riding time-distance allocation.
 
-## Important split decisions
+The solver proof covers 24 exact cases across the 22 learner modes, with additional representation/target variants, tampered-answer rejection, impossible-state rejection and recovery-time/recovery-speed contract guards.
 
-Kept distinct because the answer contract or inverse problem changes materially:
+## 3. Deterministic learner generation complete
 
-- usual speed from an early/late pair vs route distance from an early/late pair;
-- recovery speed after lost time vs lost-time/repair duration from recovery evidence;
-- stop count from total delay vs delay from regular stops;
-- stoppage duration vs overall speed vs running speed;
-- speed-change point distance vs fraction of route at changed speed;
-- start-time shift vs combined arrival shift vs schedule buffer.
+The runtime now provides, for every learner discovery mode:
 
-A self-review caught `findRepairTimeFromRequiredRecoverySpeed` initially grouped under the speed-answer recovery authority. It is now correctly owned by `lostTimeDurationFromScheduleRecovery`, whose answer kind is `TIME`. The registry proof explicitly guards this boundary.
+- deterministic parameter factories;
+- exam-natural English stems;
+- exact four-option construction;
+- three method-derived wrong answers with structured wrong-working provenance;
+- option-specific learner feedback;
+- six-step worked explanations;
+- context and representation saturation;
+- provisional difficulty labels;
+- stable language IDs and mathematical fingerprints.
 
-## Exact learner foundation complete
+The runtime proof exercises 40 seeds per learner discovery mode:
 
-All 22 learner-facing provisional authorities now have exact rational solving and independent verification:
+- `22 × 40 = 880` generated learner questions;
+- all four answer positions reached for every mode;
+- exactly balanced answer positions across the sweep;
+- at least three stem states and three mathematical states per mode;
+- exact wrong-working recomputation for every distractor;
+- lifecycle locks retained.
 
-1. `timeGainLossFromSpeedChange`
-2. `distanceFromSpeedTimeDifference`
-3. `speedFromFixedRouteTimeDifference`
-4. `usualSpeedFromEarlyLatePair`
-5. `distanceFromEarlyLatePair`
-6. `scheduledArrivalTimeFromActualSpeed`
-7. `requiredRecoverySpeedAfterLostTime`
-8. `requiredRemainingSpeedAfterPartialRoute`
-9. `stoppageDurationFromRunningAndOverallSpeed`
-10. `overallSpeedIncludingStops`
-11. `runningSpeedFromOverallSpeedAndStops`
-12. `numberOfStopsFromOverallDelay`
-13. `delayFromRegularStops`
-14. `restTimeInRepeatedTravelRestCycle`
-15. `totalTimeWithRegularStops`
-16. `speedChangePointDistance`
-17. `fractionOfRouteAtChangedSpeed`
-18. `lostTimeDurationFromScheduleRecovery`
-19. `startTimeShiftForSameArrival`
-20. `arrivalShiftFromDepartureAndSpeedChanges`
-21. `walkingRidingAllocation`
-22. `scheduleBuffer`
+The editorial sample contains 66 rows: three distinct questions for each of the 22 discovery modes.
 
-The exact proof exercises 24 cases across the 22 learner modes, including additional representation coverage for fixed-route speed reconstruction and walking/riding allocation. It also requires:
+## 4. Cross-checkpoint overlap audit complete
 
-- 24 tampered-answer rejections;
-- 15 impossible or invalid-state rejections;
-- exact source ownership of all 35 discovery candidates;
-- answer-contract guards for the recovery-time/recovery-speed split;
-- zero permanent QLs;
-- English `UNFROZEN`;
-- Question Bank `NOT_STORED`;
-- tests `INELIGIBLE`;
-- public delivery disabled.
+After generation, every learner discovery mode was compared against the finalized CP-001/002 authority registry.
 
-Latest dedicated CI status: `PASS` on exact head `bb8fbfd9ed1fd6d6a74217ba5c8f210e1fc44f4a`.
+Result:
 
-## Next implementation phase
+- **11** genuinely new CP-003 learner authority candidates retained;
+- **2** discovery modes merged into another new CP-003 authority;
+- **9** discovery modes absorbed as CP-003 representation extensions of existing CP-001/002 authorities;
+- **0** learner source candidates dropped.
 
-The next phase is deterministic learner-generation and source saturation, not QL freezing:
+The two within-CP003 merges are:
 
-1. parameter factories for all 22 learner authorities;
-2. deterministic seeded generation with realistic SSC/banking/Punjab-exam values;
-3. concise exam-like English stems;
-4. four unique options with method-derived distractors;
-5. independent misconception/option recomputation;
-6. student-friendly 6–7-step explanations with option-specific feedback;
-7. difficulty calibration and context plausibility;
-8. multi-seed diversity/source-saturation proofs;
-9. cross-CP collision review and final merge/split review.
+- `distanceFromEarlyLatePair` → `distanceFromSpeedTimeDifference`;
+- `startTimeShiftForSameArrival` → `timeGainLossFromSpeedChange`.
 
-Only after those gates pass may CP-003 authority counts or English-freeze status be considered for approval.
+The nine prior-authority representations are:
+
+- `scheduledArrivalTimeFromActualSpeed` → `arrivalClockTime`;
+- `requiredRecoverySpeedAfterLostTime` → `requiredUniformSpeedForDeadline`;
+- `requiredRemainingSpeedAfterPartialRoute` → `requiredRemainingSpeedForTargetAverage`;
+- `stoppageDurationFromRunningAndOverallSpeed` → `unknownSegmentTimeFromAverage`;
+- `overallSpeedIncludingStops` → `averageSpeedFromSegments`;
+- `runningSpeedFromOverallSpeedAndStops` → `unknownSegmentSpeedFromAverage`;
+- `speedChangePointDistance` → `segmentAllocationFromTotalsAndSpeeds`;
+- `fractionOfRouteAtChangedSpeed` → `unknownDistanceShareFromAverageSpeed`;
+- `walkingRidingAllocation` → `segmentAllocationFromTotalsAndSpeeds`.
+
+This produces a candidate authority count through CP-003 of:
+
+- 38 finalized prior learner authorities;
+- 11 new CP-003 learner authority candidates;
+- **49 learner authority candidates total**;
+- 4 prior internal authorities + 2 CP-003 internal authorities = 6 internal;
+- **55 mathematical authority candidates total**.
+
+These are authority counts, not permanent QL allocations.
+
+## 5. Post-overlap editorial review mapping
+
+The 66 generated learner rows are preserved unchanged and remapped to their true mathematical authority owner.
+
+The remapped review therefore represents:
+
+- 20 authority targets in total;
+- 11 new CP-003 authority targets;
+- 9 existing CP-001/002 authority targets receiving CP-003 representation-extension content;
+- 33 rows generated directly from the 11 retained CP-003 modes;
+- 6 rows from the two merged CP-003 discovery modes;
+- 27 rows representing existing CP-001/002 authorities.
+
+The remap changes ownership metadata only. It does not change stems, options, answer keys, explanations, fingerprints or the approved CP-001/002 frozen English corpus.
+
+## 6. Lifecycle locks
+
+The checkpoint deliberately remains non-releasable:
+
+- permanent QLs: `0`;
+- English: `UNFROZEN`;
+- difficulty: `EDITORIAL_CALIBRATION_REQUIRED`;
+- Question Studio: locked;
+- Question Bank: `NOT_STORED`;
+- tests: `INELIGIBLE`;
+- public delivery: `false`.
+
+## 7. Next gate
+
+Before final merge/split approval or QL allocation:
+
+1. calibrate difficulty against SSC, Banking and Punjab-state exam expectations;
+2. blind-review the 66-row post-overlap corpus for exam realism, explanation clarity and distractor quality;
+3. make an explicit editorial decision on whether `scheduleBuffer` is strong enough to remain a standalone learner authority;
+4. approve or reject the nine prior-authority representation extensions without mutating the existing frozen CP-001/002 inventory;
+5. only then finalize CP-003 authority ownership and allocate permanent QLs.
