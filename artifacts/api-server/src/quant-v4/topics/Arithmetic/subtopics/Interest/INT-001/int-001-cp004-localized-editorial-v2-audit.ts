@@ -124,6 +124,7 @@ const bannedPunjabiExplanation = [
   /\bP\s*=/u,
   /ਗੁਣਕ/u,
   /ਚੋਣ\s+[ABCD]/u,
+  /ਸਾਨੂੰ\s/u,
   /ਚੱਕਰਵੱਧੀ/u,
 ] as const;
 
@@ -261,7 +262,7 @@ for (const locale of locales) {
       assert(
         locale === "hi-IN"
           ? question.explanation.whatAsked.startsWith("हमें ")
-          : question.explanation.whatAsked.startsWith("ਸਾਨੂੰ "),
+          : question.explanation.whatAsked.startsWith("ਆਓ "),
         `${qlId}/${seed}/${locale}: task line does not use the natural learner-facing opening.`,
       );
       assert(question.explanation.finalAnswer.length <= 90, `${qlId}/${seed}/${locale}: final answer is too long.`);
