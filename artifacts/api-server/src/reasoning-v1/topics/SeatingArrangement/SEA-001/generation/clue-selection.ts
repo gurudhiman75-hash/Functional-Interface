@@ -35,14 +35,16 @@ function seedRequiredPba004Clues(
   candidates: readonly CandidateClue[],
   random: DeterministicRandom,
 ): CandidateClue[] {
+  // The deterministic shuffle is intentionally left as the tie-breaker. Stable sorting only by
+  // pedagogical score preserves seed-driven variety among equally useful anchors/clues.
   const absolute = random.shuffle(candidates.filter((clue) => clue.constraint.kind === "ABSOLUTE_SEAT"))
-    .sort((left, right) => right.informationGain - left.informationGain || left.semanticFingerprint.localeCompare(right.semanticFingerprint))[0];
+    .sort((left, right) => right.informationGain - left.informationGain)[0];
   if (!absolute || absolute.constraint.kind !== "ABSOLUTE_SEAT") throw new Error("PBA-004 has no absolute-seat candidate");
 
   const negativeCandidates = candidates.filter((clue) => clue.constraint.kind === "NOT_ADJACENT");
   const touchingAnchor = negativeCandidates.filter((clue) => clue.entitiesMentioned.includes(absolute.constraint.personId));
   const negative = random.shuffle(touchingAnchor.length > 0 ? touchingAnchor : negativeCandidates)
-    .sort((left, right) => right.naturalnessScore - left.naturalnessScore || left.semanticFingerprint.localeCompare(right.semanticFingerprint))[0];
+    .sort((left, right) => right.naturalnessScore - left.naturalnessScore)[0];
   if (!negative || negative.constraint.kind !== "NOT_ADJACENT") throw new Error("PBA-004 has no negative-adjacency candidate");
   return [absolute, negative];
 }
@@ -69,8 +71,7 @@ export function selectUniqueClueSet(input: {
     const byBlueprint = priority(input.blueprintId, left) - priority(input.blueprintId, right);
     if (byBlueprint !== 0) return byBlueprint;
     return right.informationGain - left.informationGain
-      || right.naturalnessScore - left.naturalnessScore
-      || left.semanticFingerprint.localeCompare(right.semanticFingerprint);
+      || right.naturalnessScore - left.naturalnessScore;
   });
 
   const selected: CandidateClue[] = [...seeded];
