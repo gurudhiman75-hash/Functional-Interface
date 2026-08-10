@@ -96,6 +96,21 @@ function collisionFallback(input: TsdCp003SolveInput, solution: TsdCp003SolveCer
       ]);
     }
 
+    case "speedChangePointDistance": {
+      const halfRoute = divide(input.totalDistance, rational(2));
+      const firstWholeTimeDistance = multiply(input.totalTravelTime, input.firstSpeed);
+      const secondWholeTimeDistance = multiply(input.totalTravelTime, input.secondSpeed);
+      const speedGapDistance = multiply(input.totalTravelTime, absRational(subtract(input.secondSpeed, input.firstSpeed)));
+      const speedRatioSplit = multiply(input.totalDistance, divide(input.firstSpeed, add(input.firstSpeed, input.secondSpeed)));
+      return choose(answer, [
+        wrong("HALVE_ROUTE_BY_DEFAULT", halfRoute, `${f(input.totalDistance)} ÷ 2`, "It assumes the speed changes exactly halfway without using the total-time condition."),
+        wrong("USE_FIRST_SPEED_FOR_WHOLE_TIME", firstWholeTimeDistance, `${f(input.totalTravelTime)} × ${f(input.firstSpeed)}`, "It assumes the first speed is used throughout the full journey time."),
+        wrong("USE_SECOND_SPEED_FOR_WHOLE_TIME", secondWholeTimeDistance, `${f(input.totalTravelTime)} × ${f(input.secondSpeed)}`, "It assumes the second speed is used throughout the full journey time."),
+        wrong("TREAT_SPEED_DIFFERENCE_AS_SPEED", speedGapDistance, `${f(input.totalTravelTime)} × |${f(input.secondSpeed)} − ${f(input.firstSpeed)}|`, "It treats the speed difference as an effective travel speed for the whole elapsed time."),
+        wrong("SPLIT_DISTANCE_IN_SPEED_RATIO", speedRatioSplit, `${f(input.totalDistance)} × ${f(input.firstSpeed)} ÷ (${f(input.firstSpeed)} + ${f(input.secondSpeed)})`, "It splits route distance in the ratio of speeds, which ignores the stated total journey time."),
+      ]);
+    }
+
     case "fractionOfRouteAtChangedSpeed": {
       const originalDistance = solution.intermediate.originalDistance!;
       const complement = multiply(divide(originalDistance, input.totalDistance), rational(100));
