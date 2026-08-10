@@ -2,7 +2,7 @@
 
 ## Status
 
-`IMPLEMENTED_AWAITING_EXACT_HEAD_PROOF`
+`PRIMITIVE_LIBRARY_V2_IMPLEMENTATION_PROOF_PASSED`
 
 This foundation slice expands the spatial visual vocabulary before FSR-001 and before production-scale FCL synthesis.
 
@@ -21,22 +21,86 @@ The authority contains exam-usable closed shapes, open directional figures, line
 
 ## Semantic contract
 
-Every primitive declares and proves:
+Every primitive provides machine-readable semantics for:
 
 - stable primitive ID and category;
 - open/closed/composite/point topology;
 - polygon side count where applicable;
 - enclosed-region count;
-- interior-intersection count;
+- junction count;
+- true crossing count, separately from T/Y/arrow junctions;
 - quarter-turn rotation period;
 - vertical, horizontal and 180-degree symmetry;
-- orientation and reflection sensitivity;
+- orientation sensitivity;
+- standard-axis (vertical/horizontal) reflection sensitivity;
 - safe inner-container capability;
 - fill capability;
 - intended usage roles and exam tags;
 - a canonical language-neutral `SpatialScene`.
 
+The old `interiorIntersectionCount` member is retained only as a V2 compatibility field and is validated against junction count. Production reasoning must use the explicit connectivity authority so a T-junction, Y-junction or arrow junction is never mistaken for a true crossing.
+
 Declared symmetry and quarter-turn period are recomputed from canonical geometry by the existing spatial transform/equivalence engine. Canonical scene fingerprints must be unique across all 33 primitive IDs.
+
+## Primitive inventory
+
+Closed shapes:
+
+`CIRCLE`, `TRIANGLE`, `SQUARE`, `RECTANGLE`, `DIAMOND`, `PENTAGON`, `HEXAGON`, `TRAPEZIUM`, `SEMICIRCLE`.
+
+Open figures:
+
+`L_SHAPE`, `T_SHAPE`, `V_SHAPE`, `U_SHAPE`, `Z_SHAPE`, `CHEVRON_RIGHT`, `ZIGZAG`.
+
+Line structures:
+
+`PLUS`, `X_CROSS`, `PARALLEL_PAIR`, `TRIPLE_PARALLEL`, `THREE_SPOKE`, `SIX_SPOKE`, `ARROW_RIGHT`.
+
+Partitioned figures:
+
+`SQUARE_DIAGONAL_DIVIDED`, `SQUARE_CROSS_DIVIDED`, `CIRCLE_DIAMETER`, `CIRCLE_CROSS_DIVIDED`, `TRIANGLE_MEDIAN_DIVIDED`.
+
+Internal symbols:
+
+`DOT`, `RING`, `TICK_DIAGONAL`, `SMALL_CROSS`, `FOUR_POINT_STAR`.
+
+## Validated implementation proof
+
+```text
+Head:        9fbb72d45bb1b3af390d8bbe15cde60a26916a77
+Workflow:    Validate SPA-FND-001 Primitive Library V2
+Run:         31373245829 — PASS
+Artifact:    spa-fnd-001-primitive-library-v2-review
+Artifact ID: 9056910653
+Digest:      sha256:6efe41f78f3f209de9693d2a68faf731d39ade052eff29af9ae96c51325d9551
+Status:      PASS_SPA_FND_001_PRIMITIVE_LIBRARY_V2
+```
+
+Passed regression layers:
+
+```text
+PASS_SPA_FND_001_FOUNDATION_RUNTIME
+PASS_SPA_FND_001_MIRROR_WATER_PROOF
+PASS_SPA_FND_001_WAVE_03_PERCEPTUAL_REMEDIATION
+PASS_SPA_FND_001_FAN_001_VISUAL_REMEDIATION
+PASS_SPA_FND_001_FCL_001_AMBIGUITY_PRESENTATION_REMEDIATION
+PASS_SPA_FND_001_PRIMITIVE_LIBRARY_V2
+```
+
+## Manual visual review
+
+All 33 canonical primitives were inspected as rendered figures by category and again at approximately 100-pixel mobile scale.
+
+Confirmed:
+
+- closed shapes remain distinct and recognizable;
+- open figures retain their intended orientation cues;
+- line/spoke structures remain legible at mobile scale;
+- partition lines terminate cleanly at their containing boundaries;
+- dot, ring, tick, cross and star symbols remain usable as small internal marks;
+- square/diamond and full-size/internal-symbol pairs remain intentionally distinguishable by geometry/usage role;
+- no primitive requires a new renderer node kind;
+- the connectivity refinement changed semantic metadata only and did not alter reviewed geometry.
 
 ## Architectural boundary
 
@@ -55,6 +119,4 @@ Public publication:           false
 API/database schema changes:  none
 ```
 
-## Required proof status
-
-`PASS_SPA_FND_001_PRIMITIVE_LIBRARY_V2`
+The final documentation-only branch head must also pass the same workflow before this slice is presented as exact-head complete. Merge, Question Studio activation, production synthesis and release remain unauthorized.
