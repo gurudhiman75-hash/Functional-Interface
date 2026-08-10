@@ -22,51 +22,82 @@ This count is provisional and may change after source saturation, full executabl
 
 ## Important merge decisions
 
-Merged as one provisional authority:
+Merged as one provisional authority where the hidden state and governing operation are genuinely shared:
 
 - faster/slower fixed-route time gain or loss;
 - direct/original/hidden distance reconstructed from two speeds and a time gap;
 - original/changed/hidden speed reconstructed from a fixed-route time difference;
-- late-start, unplanned-stop and repair/recovery-speed representations;
+- late-start and unplanned-stop recovery-speed representations;
 - slow/fast initial-segment remaining-speed representations;
 - fixed-distance/fixed-time regular-stop total-time representations;
 - walking/riding time and distance allocation representations.
-
-These share the same hidden state, governing equation and learner operation.
 
 ## Important split decisions
 
 Kept distinct because the answer contract or inverse problem changes materially:
 
 - usual speed from an early/late pair vs route distance from an early/late pair;
+- recovery speed after lost time vs lost-time/repair duration from recovery evidence;
 - stop count from total delay vs delay from regular stops;
 - stoppage duration vs overall speed vs running speed;
 - speed-change point distance vs fraction of route at changed speed;
-- start-time shift vs combined arrival shift vs schedule buffer;
-- breakdown duration vs general recovery speed.
+- start-time shift vs combined arrival shift vs schedule buffer.
 
-## First executable solver slice
+A self-review caught `findRepairTimeFromRequiredRecoverySpeed` initially grouped under the speed-answer recovery authority. It is now correctly owned by `lostTimeDurationFromScheduleRecovery`, whose answer kind is `TIME`. The registry proof explicitly guards this boundary.
 
-Six high-frequency authorities are already implemented with exact rational solving and independent verification:
+## Exact learner foundation complete
+
+All 22 learner-facing provisional authorities now have exact rational solving and independent verification:
 
 1. `timeGainLossFromSpeedChange`
 2. `distanceFromSpeedTimeDifference`
-3. `usualSpeedFromEarlyLatePair`
-4. `distanceFromEarlyLatePair`
-5. `requiredRecoverySpeedAfterLostTime`
-6. `requiredRemainingSpeedAfterPartialRoute`
+3. `speedFromFixedRouteTimeDifference`
+4. `usualSpeedFromEarlyLatePair`
+5. `distanceFromEarlyLatePair`
+6. `scheduledArrivalTimeFromActualSpeed`
+7. `requiredRecoverySpeedAfterLostTime`
+8. `requiredRemainingSpeedAfterPartialRoute`
+9. `stoppageDurationFromRunningAndOverallSpeed`
+10. `overallSpeedIncludingStops`
+11. `runningSpeedFromOverallSpeedAndStops`
+12. `numberOfStopsFromOverallDelay`
+13. `delayFromRegularStops`
+14. `restTimeInRepeatedTravelRestCycle`
+15. `totalTimeWithRegularStops`
+16. `speedChangePointDistance`
+17. `fractionOfRouteAtChangedSpeed`
+18. `lostTimeDurationFromScheduleRecovery`
+19. `startTimeShiftForSameArrival`
+20. `arrivalShiftFromDepartureAndSpeedChanges`
+21. `walkingRidingAllocation`
+22. `scheduleBuffer`
 
-The proof suite checks known exact cases, unit contracts, impossible states and tamper rejection.
+The exact proof exercises 24 cases across the 22 learner modes, including additional representation coverage for fixed-route speed reconstruction and walking/riding allocation. It also requires:
 
-## Next executable slice
+- 24 tampered-answer rejections;
+- 15 impossible or invalid-state rejections;
+- exact source ownership of all 35 discovery candidates;
+- answer-contract guards for the recovery-time/recovery-speed split;
+- zero permanent QLs;
+- English `UNFROZEN`;
+- Question Bank `NOT_STORED`;
+- tests `INELIGIBLE`;
+- public delivery disabled.
 
-The next implementation should cover the stoppage/schedule cluster:
+Latest dedicated CI status: `PASS` on exact head `bb8fbfd9ed1fd6d6a74217ba5c8f210e1fc44f4a`.
 
-- stoppage duration from running and overall speed;
-- overall speed including stops;
-- running speed from overall speed and stops;
-- stop count/delay;
-- repeated travel-rest cycles;
-- total time with regular stops.
+## Next implementation phase
 
-After that, implement speed-change-point, departure/arrival-shift and walking/riding allocation authorities, followed by generation/editorial layers and only then merge/split freeze review.
+The next phase is deterministic learner-generation and source saturation, not QL freezing:
+
+1. parameter factories for all 22 learner authorities;
+2. deterministic seeded generation with realistic SSC/banking/Punjab-exam values;
+3. concise exam-like English stems;
+4. four unique options with method-derived distractors;
+5. independent misconception/option recomputation;
+6. student-friendly 6–7-step explanations with option-specific feedback;
+7. difficulty calibration and context plausibility;
+8. multi-seed diversity/source-saturation proofs;
+9. cross-CP collision review and final merge/split review.
+
+Only after those gates pass may CP-003 authority counts or English-freeze status be considered for approval.
