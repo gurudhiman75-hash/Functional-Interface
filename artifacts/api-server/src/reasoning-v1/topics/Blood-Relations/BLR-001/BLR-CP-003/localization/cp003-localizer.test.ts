@@ -3,12 +3,32 @@ import { generateBlrCp003FinalApprovedBank } from "../cp003-final-approved-bank"
 import {
   BLR_CP003_HUMAN_REVIEW_BLOCKER,
   blrCp003CanonicalParityProjection,
-  generateBlrCp003LocalizedBank,
+  localizeBlrCp003Question,
+  type GeneratedBlrCp003LocalizedQuestion,
 } from "./cp003-localizer";
+import type { BlrCp003TranslatedLocale } from "./cp003-language-pack";
 
 const canonical = generateBlrCp003FinalApprovedBank();
-const hindi = generateBlrCp003LocalizedBank("hi-IN");
-const punjabi = generateBlrCp003LocalizedBank("pa-IN");
+
+function buildLocale(locale: BlrCp003TranslatedLocale): readonly GeneratedBlrCp003LocalizedQuestion[] {
+  const built: GeneratedBlrCp003LocalizedQuestion[] = [];
+  const gaps = new Set<string>();
+  for (const source of canonical) {
+    try {
+      built.push(localizeBlrCp003Question(source, locale));
+    } catch (error) {
+      gaps.add(error instanceof Error ? error.message : String(error));
+    }
+  }
+  if (gaps.size > 0) {
+    console.error(JSON.stringify({ locale, localizationCoverageGaps: [...gaps].sort() }, null, 2));
+    assert.fail(`${locale}: ${gaps.size} localization coverage gaps remain.`);
+  }
+  return built;
+}
+
+const hindi = buildLocale("hi-IN");
+const punjabi = buildLocale("pa-IN");
 
 assert.equal(canonical.length, 298);
 assert.equal(hindi.length, 298);
