@@ -6,9 +6,9 @@ import {
 } from "./catalog";
 import { CLOCK_SOURCE_CANDIDATE_POLICY } from "./catalog-governance";
 import {
-  CLOCK_CANDIDATE_DISPOSITION,
-  clockCandidateDispositionSummary,
-} from "./candidate-disposition";
+  CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION,
+  effectiveClockDispositionSummary,
+} from "./exam-natural-governance";
 import { generateClockQuestion } from "./generator";
 import type {
   ClockLocale,
@@ -27,7 +27,7 @@ export interface ClockReviewBundle {
   sourceCandidateCount: number;
   selectedCandidateCount: number;
   localeCounts: Readonly<Record<ClockLocale, number>>;
-  dispositionCounts: ReturnType<typeof clockCandidateDispositionSummary>;
+  dispositionCounts: ReturnType<typeof effectiveClockDispositionSummary>;
   questions: readonly ClockQuestion[];
 }
 
@@ -79,7 +79,7 @@ function buildClockReviewForTaskIds(input: {
     sourceCandidateCount: CLOCK_TASK_CATALOG.length,
     selectedCandidateCount: input.taskIds.length,
     localeCounts,
-    dispositionCounts: clockCandidateDispositionSummary(),
+    dispositionCounts: effectiveClockDispositionSummary(),
     questions,
   };
 }
@@ -106,7 +106,7 @@ export function buildClockAuthorityAnchorReview(input: {
   const anchorIds = CLOCK_TASK_CATALOG
     .map(([taskId]) => taskId)
     .filter((taskId) =>
-      CLOCK_CANDIDATE_DISPOSITION[taskId].disposition === "PROVISIONAL_AUTHORITY_ANCHOR",
+      CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION[taskId].disposition === "PROVISIONAL_AUTHORITY_ANCHOR",
     );
   return buildClockReviewForTaskIds({
     taskIds: anchorIds,
@@ -265,7 +265,7 @@ export function renderClockReviewHtml(bundle: ClockReviewBundle): string {
       <p><strong>Sole design authority:</strong> ${escapeHtml(bundle.designAuthority.file)}</p>
       <p><strong>Authority SHA-256:</strong> <code>${bundle.designAuthority.sha256}</code></p>
       <p><strong>Review scope:</strong> ${escapeHtml(bundle.reviewScope)} · ${bundle.questionCount} questions from ${bundle.selectedCandidateCount} selected rows out of ${bundle.sourceCandidateCount} source-audit candidates.</p>
-      <p><strong>Current provisional dispositions:</strong> ${escapeHtml(JSON.stringify(bundle.dispositionCounts))}</p>
+      <p><strong>Current effective dispositions:</strong> ${escapeHtml(JSON.stringify(bundle.dispositionCounts))}</p>
       <p><strong>Important:</strong> candidate row count and provisional anchor count have no frozen product meaning. These are not permanent QLs.</p>
       <p>Hindi and Punjabi generation is blocked until corrected English content passes source saturation and human freeze.</p>
       <p>Lifecycle remains locked: no permanent QLs, Question Studio registration, Question Bank writes, test eligibility or publication.</p>
