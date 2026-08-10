@@ -27,6 +27,7 @@ assert(rows.filter((row) => row.sourceCheckpointId === "TSD-CP-002").length === 
 let optionReasons = 0;
 let wrongReasons = 0;
 let genericReasons = 0;
+const genericExamples: string[] = [];
 let calculationFreeReasons = 0;
 let malformedOperations = 0;
 let genericFailsIds = 0;
@@ -70,7 +71,12 @@ for (const row of rows) {
 
     optionReasons += 1;
     if (!analysis.isCorrect) wrongReasons += 1;
-    if (GENERIC.test(analysis.reason)) genericReasons += 1;
+    if (GENERIC.test(analysis.reason)) {
+      genericReasons += 1;
+      if (genericExamples.length < 12) {
+        genericExamples.push(`${row.questionLanguageId} | ${analysis.option} | ${analysis.reason}`);
+      }
+    }
     if (MALFORMED_OPERATION.test(analysis.reason)) malformedOperations += 1;
     if (/^FAILS_.*_EQUATION$/.test(audit.misconceptionId)) genericFailsIds += 1;
     const remainder = withoutDisplayedOption(analysis.reason, analysis.text);
@@ -97,7 +103,7 @@ for (const row of rows) {
 
 assert(optionReasons === 612, `Expected 612 option reasons, received ${optionReasons}`);
 assert(wrongReasons === 459, `Expected 459 wrong-option reasons, received ${wrongReasons}`);
-assert(genericReasons === 0, `Generic option reasons remain: ${genericReasons}`);
+assert(genericReasons === 0, `Generic option reasons remain: ${genericReasons}\n${genericExamples.join("\n")}`);
 assert(calculationFreeReasons === 0, `Option reasons without calculation evidence remain: ${calculationFreeReasons}`);
 assert(malformedOperations === 0, `Malformed arithmetic expressions remain: ${malformedOperations}`);
 assert(genericFailsIds === 0, `Generic FAILS_* misconception IDs remain: ${genericFailsIds}`);
