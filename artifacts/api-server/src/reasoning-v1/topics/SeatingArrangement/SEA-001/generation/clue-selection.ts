@@ -71,6 +71,13 @@ export function selectUniqueClueSet(input: {
   const ordered = random.shuffle(input.candidates.filter((clue) => !seededFingerprints.has(clue.semanticFingerprint))).sort((left, right) => {
     const byBlueprint = priority(input.blueprintId, left) - priority(input.blueprintId, right);
     if (byBlueprint !== 0) return byBlueprint;
+    if (input.blueprintId === "SEA-PBA-004"
+      && left.constraint.kind === "RELATIVE_POSITION"
+      && right.constraint.kind === "RELATIVE_POSITION") {
+      // Distance is deliberately not used as a score here. The deterministic pre-sort shuffle
+      // supplies reproducible variety across immediate, second and third left/right relations.
+      return 0;
+    }
     return right.informationGain - left.informationGain
       || right.naturalnessScore - left.naturalnessScore;
   });
