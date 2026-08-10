@@ -64,6 +64,10 @@ function generatedCaseletProof(): void {
       assert.equal(first.crossQuestionLeakagePassed, true);
       assert.equal(first.lifecycle.permanentQlCount, 0);
       assert.equal(first.lifecycle.questionBankWritable, false);
+      if (blueprintId === "SEA-PBA-004") {
+        assert.ok(first.clueTexts.length <= 7, `PBA-004 clue set is too long: ${first.clueTexts.length}`);
+        assert.equal(first.clueTexts.filter((clue) => /does not sit next to/i.test(clue)).length, 1);
+      }
       observedFourthContracts.add(first.children[3]?.queryContractId ?? "");
       for (const child of first.children) observedAllContracts.add(child.queryContractId);
       const personCount = Number(first.setupText.match(/^(\d+)\s+persons/)?.[1] ?? 0);
@@ -104,6 +108,7 @@ function generatedCaseletProof(): void {
 
 function lifecycleProof(): void {
   assert.equal(SEA_001_AUTHORITY_DISCREPANCIES.length, 1);
+  assert.equal(SEA_001_AUTHORITY_DISCREPANCIES[0]?.status, "RESOLVED_BY_NAMED_INVENTORY_PRECEDENCE");
   assert.throws(() => assertSea001ActivationAllowed(), /discovery foundation only/);
 }
 
@@ -116,4 +121,6 @@ console.log("named blueprint authorities", SEA_001_BLUEPRINTS.length);
 console.log("generated deterministic caselets", SEA_001_BLUEPRINTS.length * 125);
 console.log("generated child questions", SEA_001_BLUEPRINTS.length * 125 * 4);
 console.log("query contract families", 10);
+console.log("PBA-004 maximum clue count", 7);
+console.log("PBA-004 negative clues per caselet", 1);
 console.log("permanent QLs", 0);
