@@ -1,14 +1,14 @@
-# SER-CP-007 — Question Studio Integration Closure
+# SER-CP-007 — Current-Main Question Studio Integration Closure
 
-Status: `COMPLETE_QUESTION_STUDIO_REVIEW_INTEGRATION`
+Status: `COMPLETE_REVIEW_ONLY_CURRENT_MAIN_INTEGRATION`
 
 Authority: `SER_CP007_QUESTION_STUDIO_REVIEW_RUNTIME_V1`
 
+Integration PR: `#671`
+
 ## Final result
 
-`SER-001` is now an active, discoverable Question Studio package for multilingual editorial review.
-
-The package is available through the existing admin Question Studio capability and generation surfaces with:
+`SER-001` is integrated with the current ExamTree Question Studio architecture as a dedicated multilingual **review-only** Series package.
 
 ```text
 Package:                     SER-001
@@ -19,53 +19,67 @@ Languages:                   en, hi, pa
 Locales:                     en-IN, hi-IN, pa-IN
 Frozen templates:            140
 Permanent QLs:               SER-QL-001..SER-QL-013
-Maximum admin batch size:    50
-Generation domain:           reasoning-v1
+Multilingual frozen payloads: 420
+Maximum admin batch size:     50
+Generation domain:            reasoning-v1
 ```
 
-## Implemented surfaces
+## Current-main integration surfaces
 
-### Runtime activation
+### Frozen review adapter
 
-The Question Studio runtime wraps the already approved inactive readiness projection. It activates only the admin review surface:
+`question-studio-review-adapter.ts` projects the frozen SER-001 authority into the current Question Studio review contract with deterministic seed support and optional filtering by:
+
+- language;
+- permanent QL;
+- difficulty;
+- batch count.
+
+It never upgrades the underlying Series lifecycle.
+
+### Dedicated admin API
+
+`admin-question-studio-series.ts` exposes:
+
+- `GET /admin/question-studio/reasoning/series/package`;
+- `GET /admin/question-studio/reasoning/series/preview`;
+- `POST /admin/question-studio/reasoning/series/runs`;
+- `GET /admin/question-studio/reasoning/series/status`.
+
+Created runs use the normal Question Studio generation/review tables. Persistence therefore means **review-queue persistence only**, not Question Bank storage.
+
+### Dedicated admin panel
+
+`QuestionStudioSeriesReviewPanel` is mounted in Question Studio Operations independently of the production-enabled BLR panel. It provides:
+
+- English, Hindi and Punjabi selection;
+- all 13 permanent QLs;
+- Easy / Medium / Hard filtering;
+- batch-size control;
+- deterministic seed control;
+- frozen-question preview;
+- review-run creation;
+- explicit review-only lifecycle warnings and status metrics.
+
+## Why Series is not in the shared BLR production registry
+
+Current `New-main` intentionally gives the shared BLR Reasoning package surface production semantics. Registering SER-001 there would incorrectly advertise Series as Question Bank writable, test eligible and publishable.
+
+The current-main integration therefore keeps Series on a dedicated review-only surface. This is an intentional safety boundary, not missing integration.
+
+## Editorial approval behavior
+
+The generated-item approval policy now distinguishes explicit review-only payloads narrowly:
 
 ```text
-active:                      true
-questionStudioDiscoverable:  true
+questionBankStatus == NOT_STORED
+AND
+questionBankWritable == false
 ```
 
-The frozen source authority and permanent registry remain unchanged and inactive. Their original lifecycle state is retained in each generated payload as source provenance.
-
-### Reasoning V1 generation engine
-
-`reasoning-v1/generation-engine.ts` provides:
-
-- one discoverable `SER-001` package;
-- deterministic seeded generation;
-- English, Hindi and Punjabi selection;
-- permanent QL targeting through `questionLanguageId`;
-- canonical-problem validation;
-- frozen runtime-mode validation;
-- bounded batches;
-- reviewed stems, options, answers and explanations.
-
-### Admin Question Studio integration
-
-`admin-question-studio-series.ts`:
-
-- combines Quant V4 and Reasoning V1 capabilities;
-- exposes `SER-001` without removing existing Quant packages;
-- dispatches only `SER-001` generation to Reasoning V1;
-- delegates all non-Series runs to the existing Quant router;
-- stores generated Series items in the existing review-run tables;
-- preserves authority, subtype, task and rendering metadata;
-- records audit and outbox events under the existing Question Studio workflow.
-
-The Series router is mounted before the legacy Quant-only router so the combined capability response is authoritative while legacy Quant generation remains unchanged.
+Only when both are present is an item allowed to become editorially `approved` without Question Bank conversion. All other payloads continue through the established conversion/eligibility path.
 
 ## Downstream safety boundary
-
-Question Studio review activation does not authorize release.
 
 Every Series review payload remains:
 
@@ -74,48 +88,36 @@ questionBankStatus:          NOT_STORED
 questionBankWritable:        false
 testEligibility:             INELIGIBLE
 testEligible:                false
+mockTestEligible:            false
 publiclyPublishable:         false
+automaticStudentPublication: false
 ```
 
-The shared Question Bank converter independently rejects every Series review payload because `questionBankStatus` is `NOT_STORED`.
-
-No Series item can enter the Question Bank, test assembly or public delivery through this integration.
+The Question Bank converter independently rejects Series payloads because they are explicitly `NOT_STORED`.
 
 ## Executable proof
 
-The protected workflow proved:
+The protected workflow `Reasoning SER-001 Current-Main Review Integration` verifies:
 
-```text
-Frozen templates:                         140
-Permanent QLs:                             13
-Live multilingual review payloads:        420
-Payloads per locale:                      140
-Permanent QL coverage per locale:          13
-Option-integrity proofs:                  420
-Review-activation proofs:                 420
-Downstream-lock proofs:                   420
-Question Bank rejection proofs:          420
-Targeted QL generation proofs:             39
-Deterministic multilingual batch proofs:    3
-Admin capability proofs:                    1
-Admin dispatch proofs:                      1
-Route-mount proofs:                         1
-```
+- all 140 frozen templates;
+- all 13 permanent QLs;
+- all 420 multilingual payloads;
+- 140 payloads for each locale;
+- permanent-Ql coverage in every locale;
+- option/answer validity and localization script presence;
+- deterministic 50-question generation for every language;
+- targeted generation for all 13 QLs × 3 languages;
+- Question Bank rejection of every frozen review payload;
+- narrow editorial-review-only approval disposition;
+- Series API route mounting;
+- Series admin panel mounting;
+- complete admin application TypeScript check;
+- complete API server build.
 
-It also built the complete API server successfully and uploaded permanent workflow evidence.
-
-## Workflow evidence
-
-```text
-Workflow: Validate SER-001 Question Studio integration
-Run:      31245183631
-Head:     a026d02e62846f106ddfe5bf159e97dc349bbafa
-Job:      validate-review-only-integration
-Result:   SUCCESS
-```
+The same PR also triggers the existing BLR, Calendar and integrated-admin regression workflows because shared route/page surfaces are touched.
 
 ## Completion boundary
 
-The Series chapter is complete for Question Studio review integration.
+SER-001 is complete for current-main Question Studio editorial review integration.
 
-Any future change that makes Series Question Bank writable, test eligible or publicly publishable is a separate release decision. It must receive independent approval and must not be inferred from this closure.
+This closure does **not** authorize Question Bank storage, mock-test/test assembly, student delivery or public publication. Any such Series release is a separate lifecycle checkpoint requiring explicit implementation and approval.
