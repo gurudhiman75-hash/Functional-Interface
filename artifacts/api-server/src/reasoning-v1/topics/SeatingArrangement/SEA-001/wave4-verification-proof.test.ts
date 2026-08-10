@@ -111,10 +111,12 @@ for (const blueprint of SEA_CP003_BLUEPRINTS) {
       constraints: renamedConstraints,
       landmarkAnchored,
     });
-    const expectedRenamedKey = caselet.solverOracleAgreement.productionKeys[0]
+    const renamedSolvedOrder = caselet.solverOracleAgreement.productionKeys[0]
       ?.split("|")
-      .map((personId) => renamePerson(personId, mapping))
-      .join("|");
+      .map((personId) => renamePerson(personId, mapping));
+    const expectedRenamedKey = renamedSolvedOrder
+      ? circularCanonicalKey(renamedSolvedOrder, landmarkAnchored)
+      : undefined;
     assert.deepEqual(keys(renamedModels), expectedRenamedKey ? [expectedRenamedKey] : []);
     assert.deepEqual(
       keys(enumerateCircularOracle({ persons: renamedPersons, constraints: renamedConstraints, landmarkAnchored })),
