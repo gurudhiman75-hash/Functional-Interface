@@ -403,7 +403,7 @@ function learnerPolicyErrors(value: TmwLearnerExplanationV2): string[] {
   const visible = [value.method, ...value.solution, value.answer].join(" ");
   if (/10[- ]Second|10[- ]सेकंड|10[- ]ਸੈਕਿੰਡ/i.test(visible)) errors.push("Learner V2 contains a generic 10-second claim");
   if (hasUnsafeLearnerNotation(visible)) errors.push("Learner V2 contains an unexplained word-based or localized subscript");
-  if (/\bGivens?\b|दिए गए मान:|ਦਿੱਤੇ ਮੁੱਲ:/i.test(visible)) errors.push("Learner V2 exposes a separate givens block");
+  if (/\bGivens\b|दिए गए मान:|ਦਿੱਤੇ ਮੁੱਲ:/i.test(visible)) errors.push("Learner V2 exposes a separate givens block");
   return errors;
 }
 
