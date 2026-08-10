@@ -29,6 +29,8 @@ jobs:
         run: |
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-final-discovery-freeze.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-permanent-runtime.test.ts
+      - name: Audit learner language leakage
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/localization/cp003-language-leak-audit.ts
       - name: Prove Hindi Punjabi semantic parity
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/localization/cp003-localizer.test.ts
       - name: Typecheck admin application
