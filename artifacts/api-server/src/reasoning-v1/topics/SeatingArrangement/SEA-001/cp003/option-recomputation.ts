@@ -44,6 +44,26 @@ export function recomputeCircularOptionValue(
       if (requireMetadataFlag(option, "includedReference")) return reference;
       break;
     }
+    case "SEA-QC-004": {
+      const reference = parts[1];
+      const direction = parts[2];
+      const steps = Number(parts[3]);
+      if (!reference
+        || (direction !== "CLOCKWISE" && direction !== "ANTICLOCKWISE")
+        || !Number.isInteger(steps)) {
+        throw new Error(`Invalid QC004 fingerprint: ${question.answerDeterminingFactFingerprint}`);
+      }
+      const referenceIndex = seatIndexOf(clockwiseOrder, reference);
+      const usedDirection = option.recomputation.usedDirection;
+      if (usedDirection === "CLOCKWISE" || usedDirection === "ANTICLOCKWISE") {
+        return personAt(clockwiseOrder, topology.moveCyclic(referenceIndex, usedDirection, steps));
+      }
+      if (typeof option.recomputation.steps === "number") {
+        return personAt(clockwiseOrder, topology.moveCyclic(referenceIndex, direction, option.recomputation.steps));
+      }
+      if (requireMetadataFlag(option, "includedReference")) return reference;
+      break;
+    }
     case "SEA-QC-006": {
       const reference = parts[1];
       if (!reference) throw new Error(`Invalid QC006 fingerprint: ${question.answerDeterminingFactFingerprint}`);
