@@ -56,12 +56,34 @@ function firstSentence(value: string): string {
   return stripTerminalPunctuation(match?.[1] ?? trimmed);
 }
 
+export function normalizeTmwLearnerDisplayTextR2(value: string): string {
+  let normalized = value.trim();
+  let previous = "";
+  while (normalized !== previous) {
+    previous = normalized;
+    normalized = normalized.replace(
+      /\\\(([\s\S]*?)\\(?:;|,|quad|qquad)?\\text\{([^{}]+)\}([\s\S]*?)\\\)/g,
+      (_full, before: string, label: string, after: string) => {
+        const math = `${before}${after}`.trim().replace(/\\[;,]\s*$/u, "");
+        const text = label.trim();
+        if (!math) return text;
+        return `\\(${math}\\) ${text}`;
+      },
+    );
+  }
+  return normalized.replace(/\s{2,}/g, " ").trim();
+}
+
+function learnerAnswerText(question: R2LearnerQuestion): string {
+  return normalizeTmwLearnerDisplayTextR2(answerText(question));
+}
+
 function methodLead(question: R2LearnerQuestion, language: TmwR2LearnerLanguage): string {
   const cp = question.canonicalProblemId ?? "";
   const mode = question.solveMode ?? "";
 
   if (cp === "TMW-CP-001") {
-    if (/Delay|TimeSaved|Percent/i.test(mode)) {
+    if (/Delay|TimeSaved/i.test(mode)) {
       return language === "hi"
         ? "दर और समय के व्युत्क्रम संबंध का उपयोग करें"
         : language === "pa"
@@ -75,7 +97,7 @@ function methodLead(question: R2LearnerQuestion, language: TmwR2LearnerLanguage)
           ? "ਦੋਵੇਂ ਹਾਲਤਾਂ ਦੀ ਇੱਕੋ ਅਧਾਰ ਉੱਤੇ ਸਿੱਧੀ ਤੁਲਨਾ ਕਰੋ"
           : "Compare the two cases on the same rate-time basis";
     }
-    if (/Fraction|Whole|Part/i.test(mode)) {
+    if (/Fraction|Whole|Part|TimeForGivenPercent/i.test(mode)) {
       return language === "hi"
         ? "पूरे काम को 1 मानकर दर–समय संबंध लगाएँ"
         : language === "pa"
@@ -316,6 +338,7 @@ function learnerCalculations(question: R2LearnerQuestion): string[] {
     : question.solution?.workedLatex ?? [];
   const calculations: string[] = [];
   for (const step of source) {
+    if (hasUnsafeLearnerNotation(step)) continue;
     const recovered = safeMathFragment(step) ?? recoverSafeEqualityFragment(step);
     if (recovered && !calculations.includes(recovered)) calculations.push(recovered);
     if (calculations.length === 3) break;
@@ -360,7 +383,7 @@ function finalSentence(answer: string, language: TmwR2LearnerLanguage): string {
 
 function solutionSteps(question: R2LearnerQuestion, language: TmwR2LearnerLanguage): string[] {
   const calculations = learnerCalculations(question);
-  const answer = answerText(question);
+  const answer = learnerAnswerText(question);
   const result: string[] = [];
 
   if (calculations.length > 0) {
@@ -378,8 +401,8 @@ function solutionSteps(question: R2LearnerQuestion, language: TmwR2LearnerLangua
 
 function answerSentence(question: R2LearnerQuestion, language: TmwR2LearnerLanguage): string {
   const conclusion = question.explanation?.conclusion?.trim();
-  if (conclusion) return conclusion;
-  const answer = answerText(question);
+  if (conclusion) return normalizeTmwLearnerDisplayTextR2(conclusion);
+  const answer = learnerAnswerText(question);
   return language === "hi"
     ? `अतः उत्तर ${answer} है।`
     : language === "pa"
