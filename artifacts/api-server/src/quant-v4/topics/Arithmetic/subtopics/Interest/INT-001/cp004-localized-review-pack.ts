@@ -252,7 +252,6 @@ function labels(locale: IntCp004LocalizedLocale): Readonly<{
   steps: string;
   finalAnswer: string;
   commonMistake: string;
-  optionFeedback: string;
 }> {
   if (locale === "hi-IN") {
     return Object.freeze({
@@ -266,7 +265,6 @@ function labels(locale: IntCp004LocalizedLocale): Readonly<{
       steps: "क्रमबद्ध हल",
       finalAnswer: "अंतिम उत्तर",
       commonMistake: "सामान्य गलती",
-      optionFeedback: "विकल्प प्रतिक्रिया",
     });
   }
   return Object.freeze({
@@ -280,7 +278,6 @@ function labels(locale: IntCp004LocalizedLocale): Readonly<{
     steps: "ਕ੍ਰਮਵਾਰ ਹੱਲ",
     finalAnswer: "ਅੰਤਿਮ ਉੱਤਰ",
     commonMistake: "ਆਮ ਗਲਤੀ",
-    optionFeedback: "ਵਿਕਲਪ ਪ੍ਰਤੀਕਿਰਿਆ",
   });
 }
 
@@ -323,9 +320,6 @@ export function renderIntCp004LocalizedReviewMarkdown(
     for (const option of question.options) {
       lines.push(
         `**${option.label}. ${option.text}**`,
-        "",
-        `- ${text.optionFeedback}: ${option.feedback}`,
-        `- Misconception ID: \`${option.misconceptionId}\``,
         "",
       );
     }
