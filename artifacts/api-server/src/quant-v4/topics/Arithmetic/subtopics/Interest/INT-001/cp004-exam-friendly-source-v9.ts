@@ -53,18 +53,15 @@ function allInteger(values: readonly Rational[]): boolean {
   return values.every(isInteger);
 }
 
-function noDisplayedDecimals(question: IntCp004EnglishFrozenQuestion): boolean {
-  const learnerSurface = [
+function noDisplayedDecimalsInProblem(question: IntCp004EnglishFrozenQuestion): boolean {
+  // Wrong-option values are legacy diagnostic outputs and may be fractional even
+  // when the actual exam problem has clean integer working. V9 remaps only their
+  // learner-facing display; source selection is governed by the stem, verified
+  // correct answer and complete canonical working.
+  return !DECIMAL_TOKEN.test([
     question.stem,
-    ...question.options.map((option) => option.text),
     question.correctAnswer,
-  ].join("\n");
-  return !DECIMAL_TOKEN.test(learnerSurface);
-}
-
-function optionValuesAreFriendly(question: IntCp004EnglishFrozenQuestion): boolean {
-  if (question.answerSemantic !== "MONEY" && question.answerSemantic !== "RATE_PERCENT") return true;
-  return question.options.every((option) => isInteger(option.value));
+  ].join("\n"));
 }
 
 function simpleRatesAreInteger(state: Cp004MathematicalState): boolean {
@@ -215,8 +212,7 @@ function matchesRequestedReviewShape(
 export function isIntCp004ExamFriendlyFrozenSourceV9(
   question: IntCp004EnglishFrozenQuestion,
 ): boolean {
-  return noDisplayedDecimals(question)
-    && optionValuesAreFriendly(question)
+  return noDisplayedDecimalsInProblem(question)
     && simpleRatesAreInteger(question.mathematicalState)
     && calculationDepthIsFriendly(question.mathematicalState)
     && moneyWorkingIsInteger(question.mathematicalState)
