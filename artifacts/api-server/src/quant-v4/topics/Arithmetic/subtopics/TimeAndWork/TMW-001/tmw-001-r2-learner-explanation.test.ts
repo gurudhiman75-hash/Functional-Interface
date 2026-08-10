@@ -46,6 +46,12 @@ function assertLearnerV2(question: any, qlId: string, language: Tmw001ChapterLan
   assert(learner.method.length <= 280, `${label}: method is too long for the learner view`);
   for (const step of learner.solution) assert(step.length <= 320, `${label}: learner solution step is too long`);
 
+  const workingSteps = learner.solution.slice(0, -1);
+  assert(
+    workingSteps.some((step: string) => /\\\([\s\S]*\d[\s\S]*\\\)/.test(step)),
+    `${label}: learner solution has no concrete calculation before the final answer | learner=${learnerSnapshot}`,
+  );
+
   if (language === "hi") assert(/[\u0900-\u097F]/.test(visible), `${label}: Hindi learner explanation has no Devanagari text`);
   if (language === "pa") assert(/[\u0A00-\u0A7F]/.test(visible), `${label}: Punjabi learner explanation has no Gurmukhi text`);
 }
