@@ -4,12 +4,15 @@ import {
   checkpointForClockTask,
   type ClockTaskId,
 } from "./catalog";
-import { CLOCK_CANDIDATE_DISPOSITION } from "./candidate-disposition";
-import { CLOCK_SOURCE_AUDIT } from "./source-audit";
+import {
+  CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION,
+  CLOCK_EFFECTIVE_SOURCE_AUDIT,
+} from "./exam-natural-governance";
 import { solveDirectClockFamily } from "./families/direct";
 import { solveEventFamily } from "./families/events";
 import { solveExamNaturalFaultyEventFamily } from "./families/faulty-events-exam-natural";
 import { solveFaultyClockFamily } from "./families/faulty";
+import { solveExamNaturalHandInterchangeFamily } from "./families/hand-interchange-exam-natural";
 import { solveRemainingPrototype } from "./families/remaining";
 import { solveMotionOrAnglePrototype } from "./families/motion-angle";
 import { solveRemediatedStrikeFamily } from "./families/strikes-remediated";
@@ -45,6 +48,7 @@ function solvePrototype(input: {
     solveMotionOrAnglePrototype(input) ??
     solveRemediatedStrikeFamily(input) ??
     solveStrikeFamily(input) ??
+    solveExamNaturalHandInterchangeFamily(input) ??
     solveVisualAndSynthesisFamily(input) ??
     solveRemainingPrototype(input);
   if (!solved) {
@@ -109,8 +113,8 @@ export function generateClockQuestion(input: GenerateClockQuestionInput): ClockQ
     solved.answer.semanticKey,
     JSON.stringify(solved.scenario),
   ]);
-  const sourceAudit = CLOCK_SOURCE_AUDIT[input.taskId];
-  const disposition = CLOCK_CANDIDATE_DISPOSITION[input.taskId];
+  const sourceAudit = CLOCK_EFFECTIVE_SOURCE_AUDIT[input.taskId];
+  const disposition = CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION[input.taskId];
 
   const question: ClockQuestion = {
     schemaVersion: "CLK_OPEN_DISCOVERY_V2",
