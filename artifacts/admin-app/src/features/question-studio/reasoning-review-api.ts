@@ -62,6 +62,7 @@ export interface ReasoningRunResult {
   status: string;
   itemCount: number;
   existingCount?: number;
+  preflightMissingCount?: number;
 }
 
 export interface ReasoningProductionStatus {
@@ -71,6 +72,21 @@ export interface ReasoningProductionStatus {
   approvedItemCount: number;
   questionBankCount: number;
   releaseAuthority: string;
+}
+
+export interface ReasoningImportPlan {
+  packageId: string;
+  releaseAuthority: string;
+  totalFrozenRecords: number;
+  existingCount: number;
+  missingCount: number;
+  duplicateQuestionLanguageIds: string[];
+  unexpectedQuestionLanguageIds: string[];
+  driftDetected: boolean;
+  alreadyImported: boolean;
+  readyToImport: boolean;
+  confirmationRequired: boolean;
+  requiredConfirmation: string;
 }
 
 export interface ReasoningReviewInput {
@@ -124,10 +140,24 @@ export function createReasoningReviewRun(input: ReasoningReviewInput) {
   );
 }
 
-export function importAllReasoningQuestions() {
+export function getReasoningImportPlan() {
+  return adminRequest<ReasoningImportPlan>(
+    '/admin/question-studio/reasoning/import-plan',
+    undefined,
+    { fallbackMessage: 'Unable to calculate the BLR synchronization plan.' },
+  );
+}
+
+export function importAllReasoningQuestions(confirmation: string) {
   return adminRequest<ReasoningRunResult>(
     '/admin/question-studio/reasoning/import-all',
-    { method: 'POST', body: JSON.stringify({ packageId: 'REASONING_V1_BLR_001_CP_007' }) },
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        packageId: 'REASONING_V1_BLR_001_CP_007',
+        confirmation,
+      }),
+    },
     { fallbackMessage: 'Unable to import the complete BLR corpus.' },
   );
 }
