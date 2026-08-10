@@ -47,8 +47,9 @@ function solverFixtureProof(): void {
 
 function generatedCaseletProof(): void {
   let generated = 0;
-  const observedFourthContracts = new Set<string>();
   const observedAllContracts = new Set<string>();
+  const observedContractsByPosition = Array.from({ length: 4 }, () => new Set<string>());
+  const answerPositions = Array.from({ length: 4 }, () => [0, 0, 0, 0]);
   const observedPersonCounts = new Set<number>();
   for (const blueprintId of SEA_001_BLUEPRINTS) {
     for (let seedIndex = 0; seedIndex < 125; seedIndex += 1) {
@@ -68,8 +69,12 @@ function generatedCaseletProof(): void {
         assert.ok(first.clueTexts.length <= 7, `PBA-004 clue set is too long: ${first.clueTexts.length}`);
         assert.equal(first.clueTexts.filter((clue) => /does not sit next to/i.test(clue)).length, 1);
       }
-      observedFourthContracts.add(first.children[3]?.queryContractId ?? "");
-      for (const child of first.children) observedAllContracts.add(child.queryContractId);
+      for (const child of first.children) {
+        observedAllContracts.add(child.queryContractId);
+        observedContractsByPosition[child.questionOrder - 1]?.add(child.queryContractId);
+        const answerBucket = answerPositions[child.questionOrder - 1];
+        if (answerBucket) answerBucket[child.answerIndex] = (answerBucket[child.answerIndex] ?? 0) + 1;
+      }
       const personCount = Number(first.setupText.match(/^(\d+)\s+persons/)?.[1] ?? 0);
       observedPersonCounts.add(personCount);
       for (const child of first.children) {
@@ -82,15 +87,6 @@ function generatedCaseletProof(): void {
     }
   }
   assert.equal(generated, 500);
-  assert.deepEqual([...observedFourthContracts].sort(), [
-    "SEA-QC-002",
-    "SEA-QC-005",
-    "SEA-QC-007",
-    "SEA-QC-014",
-    "SEA-QC-015",
-    "SEA-QC-020",
-    "SEA-QC-021",
-  ]);
   assert.deepEqual([...observedAllContracts].sort(), [
     "SEA-QC-001",
     "SEA-QC-002",
@@ -103,6 +99,15 @@ function generatedCaseletProof(): void {
     "SEA-QC-020",
     "SEA-QC-021",
   ]);
+  for (let position = 0; position < observedContractsByPosition.length; position += 1) {
+    assert.ok(
+      (observedContractsByPosition[position]?.size ?? 0) >= 6,
+      `CP001 visible Q${position + 1} still has insufficient query variety: ${[...(observedContractsByPosition[position] ?? [])].join(",")}`,
+    );
+    const counts = answerPositions[position] as number[];
+    assert.ok(counts.every((count) => count > 0), `CP001 Q${position + 1} misses a correct-option position: ${counts.join(",")}`);
+    assert.ok(Math.max(...counts) - Math.min(...counts) <= 30, `CP001 Q${position + 1} answer positions are imbalanced: ${counts.join(",")}`);
+  }
   assert.deepEqual([...observedPersonCounts].sort((left, right) => left - right), [5, 6, 7, 8]);
 }
 
@@ -121,6 +126,8 @@ console.log("named blueprint authorities", SEA_001_BLUEPRINTS.length);
 console.log("generated deterministic caselets", SEA_001_BLUEPRINTS.length * 125);
 console.log("generated child questions", SEA_001_BLUEPRINTS.length * 125 * 4);
 console.log("query contract families", 10);
+console.log("visible query-order variation", "ENFORCED");
+console.log("visible answer-position balance", "ENFORCED");
 console.log("PBA-004 maximum clue count", 7);
 console.log("PBA-004 negative clues per caselet", 1);
 console.log("permanent QLs", 0);
