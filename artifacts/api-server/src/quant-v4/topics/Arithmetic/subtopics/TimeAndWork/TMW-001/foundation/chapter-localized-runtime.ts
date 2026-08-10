@@ -25,6 +25,7 @@ import { applyTmwCp003EditorialReviewRemediation } from "./cp003-editorial-revie
 import { applyTmwCp003EditorialFieldCleanup } from "./cp003-editorial-field-cleanup";
 import { applyTmw001CriticalLocalizedRemediationR1 } from "./critical-remediation-r1";
 import { applyTmw001EditorialRemediationR2Cp001To006 } from "./editorial-remediation-r2-cp001-cp006";
+import { applyTmw001LearnerExplanationR2Cp001To006 } from "./learner-explanation-r2-cp001-cp006";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -46,8 +47,13 @@ function qlOrdinal(questionLanguageId: string): number {
 }
 
 function finishEnglish(question: any, questionLanguageId: string): any {
-  return applyTmw001EditorialRemediationR2Cp001To006(
+  const remediated = applyTmw001EditorialRemediationR2Cp001To006(
     question,
+    questionLanguageId,
+    "en",
+  );
+  return applyTmw001LearnerExplanationR2Cp001To006(
+    remediated,
     questionLanguageId,
     "en",
   );
@@ -104,8 +110,13 @@ function finishLocalized(
     questionLanguageId,
     language,
   );
-  return applyTmw001EditorialRemediationR2Cp001To006(
+  const r2Remediated = applyTmw001EditorialRemediationR2Cp001To006(
     r1Remediated,
+    questionLanguageId,
+    language,
+  );
+  return applyTmw001LearnerExplanationR2Cp001To006(
+    r2Remediated,
     questionLanguageId,
     language,
   );
