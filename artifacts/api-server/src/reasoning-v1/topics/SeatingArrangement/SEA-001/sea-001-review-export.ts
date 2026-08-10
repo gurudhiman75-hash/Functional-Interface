@@ -8,6 +8,7 @@ import {
 } from "./saturation/corpus.ts";
 import { auditSea001Corpus } from "./saturation/residual-audit.ts";
 import { buildPendingSea001ManualReviewLedger } from "./review/manual-review.ts";
+import { compileSea001TeachingExplanationFromUnknown } from "./explanation/checkpoint-teaching.ts";
 
 function escapeHtml(value: unknown): string {
   return String(value)
@@ -46,7 +47,7 @@ const records = review.map((caselet, index) => ({
   setup: caselet.setupText,
   clues: caselet.clueTexts,
   arrangement: caselet.diagramText ?? caselet.diagram?.text ?? "",
-  sharedExplanation: caselet.sharedExplanation,
+  sharedExplanation: compileSea001TeachingExplanationFromUnknown(caselet),
   children: caselet.children.map((child) => ({
     questionOrder: child.questionOrder,
     queryContractId: child.queryContractId,
