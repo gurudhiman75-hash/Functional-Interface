@@ -64,6 +64,7 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-source-gap.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-student-polish.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-expanded-chapter.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-answer-position-governance.test.ts
       - name: Bundle R4 source-gap proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -97,6 +98,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-r4-expanded-chapter.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-r4-expanded-chapter-proof.log
+      - name: Bundle answer-position governance proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-answer-position-governance.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-answer-position-governance.test.mjs
+      - name: Run answer-position governance proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-answer-position-governance.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-answer-position-governance-proof.log
       - name: Bundle R1 critical regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -150,6 +162,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/tmw-001-r4-source-gap-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-r4-student-polish-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-r4-expanded-chapter-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-answer-position-governance-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-critical-remediation-r1-r4-regression.log
             artifacts/api-server/dist/quant-v4/tmw-001-r2-learner-explanation-r4-regression.log
             artifacts/api-server/dist/quant-v4/tmw-001-r3-learner-explanation-r4-regression.log
