@@ -265,6 +265,35 @@ function minimiseConstraints(
   return constraints;
 }
 
+function naturalPersonList(personIds: readonly string[]): string {
+  if (personIds.length === 0) return "";
+  if (personIds.length === 1) return personIds[0] as string;
+  if (personIds.length === 2) return `${personIds[0]} and ${personIds[1]}`;
+  return `${personIds.slice(0, -1).join(", ")} and ${personIds[personIds.length - 1]}`;
+}
+
+function renderMixedCircleClueTexts(
+  constraints: readonly MixedCircleConstraint[],
+): readonly string[] {
+  const facingConstraints = constraints.filter((constraint) => constraint.kind === "FACING");
+  if (facingConstraints.length <= 1) return constraints.map(renderMixedCircleConstraint);
+
+  const centre = facingConstraints
+    .filter((constraint) => constraint.kind === "FACING" && constraint.facing === "CENTER")
+    .map((constraint) => constraint.personId);
+  const outward = facingConstraints
+    .filter((constraint) => constraint.kind === "FACING" && constraint.facing === "OUTWARD")
+    .map((constraint) => constraint.personId);
+  const facingParts: string[] = [];
+  if (centre.length > 0) facingParts.push(`${naturalPersonList(centre)} ${centre.length === 1 ? "faces" : "face"} the centre`);
+  if (outward.length > 0) facingParts.push(`${naturalPersonList(outward)} ${outward.length === 1 ? "faces" : "face"} outward`);
+  const groupedFacing = `${facingParts.join("; ")}.`;
+  return [
+    groupedFacing,
+    ...constraints.filter((constraint) => constraint.kind !== "FACING").map(renderMixedCircleConstraint),
+  ];
+}
+
 function attempt(
   seed: string,
   blueprint: MixedCircleBlueprintId,
@@ -304,7 +333,7 @@ function attempt(
   }
 
   const children = buildMixedCircleChildren(seed, blueprint, model, random);
-  const clueTexts = constraints.map(renderMixedCircleConstraint);
+  const clueTexts = renderMixedCircleClueTexts(constraints);
   const diagramText = `Clockwise from ${model.clockwiseOrder[0]} (chosen only as a rotation reference): ${model.clockwiseOrder
     .map((personId) => `${personId}${model.facings[personId] === "CENTER" ? "↘ centre" : "↗ outward"}`)
     .join(" → ")} → ${model.clockwiseOrder[0]}`;
