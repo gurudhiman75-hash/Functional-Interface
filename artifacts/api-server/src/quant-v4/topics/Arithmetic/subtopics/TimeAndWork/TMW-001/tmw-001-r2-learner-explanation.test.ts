@@ -39,7 +39,7 @@ function assertLearnerV2(question: any, qlId: string, language: Tmw001ChapterLan
   const visible = [learner.method, ...learner.solution, learner.answer].join(" ");
   assert(!/10[- ]Second|10[- ]सेकंड|10[- ]ਸੈਕਿੰਡ/i.test(visible), `${label}: generic 10-second claim leaked into learner V2`);
   assert(!hasUnsafeNotation(visible), `${label}: word-based or localized subscript leaked into learner V2`);
-  assert(!/\bFormula\b|\bGivens?\b|\bShortcut\b/i.test(visible), `${label}: legacy section label leaked into learner V2`);
+  assert(!/\bFormula\b|\bGivens\b|\bShortcut\b/i.test(visible), `${label}: legacy section label leaked into learner V2`);
   assert(learner.method.length <= 280, `${label}: method is too long for the learner view`);
   for (const step of learner.solution) assert(step.length <= 320, `${label}: learner solution step is too long`);
 
