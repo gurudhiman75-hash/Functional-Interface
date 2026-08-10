@@ -52,7 +52,7 @@ export function rotateOrder<T>(order: readonly T[], offset: number): T[] {
 
 export function canonicalCircularOrder(
   clockwiseOrder: readonly PersonId[],
-  landmarkAnchored: boolean,
+  landmarkAnchored = false,
 ): readonly PersonId[] {
   if (clockwiseOrder.length === 0) throw new Error("Cannot canonicalise an empty circle");
   if (landmarkAnchored) return [...clockwiseOrder];
