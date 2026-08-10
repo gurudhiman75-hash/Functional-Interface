@@ -1,4 +1,4 @@
-import { canonicalCp004Answer, deepFreeze, registryEntry, verifyCp004Answer, type IntCp004QlId, type IntCp004Question } from "./cp004-frequency-math";
+import { canonicalCp004Answer, deepFreeze, registryEntry, verifyCp004Answer, type Cp004MathematicalState, type IntCp004QlId, type IntCp004Question } from "./cp004-frequency-math";
 import { generateCp004State } from "./cp004-frequency-generation";
 import { optionsFor } from "./cp004-frequency-options";
 import { explanationFor } from "./cp004-frequency-explanations";
@@ -14,9 +14,15 @@ import {
 export * from "./cp004-frequency-math";
 export { generateCp004State } from "./cp004-frequency-generation";
 
-export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-default"): IntCp004Question {
+export function generateIntCp004QuestionFromState(
+  qlId: IntCp004QlId,
+  seed: string,
+  mathematicalState: Cp004MathematicalState,
+): IntCp004Question {
+  if (mathematicalState.qlId !== qlId) {
+    throw new Error(`${qlId}/${seed}: explicit mathematical state belongs to ${mathematicalState.qlId}.`);
+  }
   const entry = registryEntry(qlId);
-  const mathematicalState = generateCp004State(qlId, seed);
   const solution = canonicalCp004Answer(mathematicalState);
   if (!verifyCp004Answer(mathematicalState, solution)) throw new Error(`${qlId}/${seed}: canonical answer failed independent verification.`);
   const hardenedPresentation = hardenCp004Presentation(mathematicalState, stemFor(mathematicalState, seed));
@@ -47,4 +53,8 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
     verifierVersion: "INT-CP-004-RELATION-VERIFIER-v1", editorialStatus: "ENGLISH_REVIEW_CANDIDATE",
     approvalStatus: "NOT_APPROVED", enabled: false, stagingStatus: "NOT_STAGED", registrationStatus: "NOT_REGISTERED",
     questionStudioDiscoverable: false, questionBankStatus: "NOT_STORED", testEligibility: "INELIGIBLE", publiclyPublishable: false });
+}
+
+export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-default"): IntCp004Question {
+  return generateIntCp004QuestionFromState(qlId, seed, generateCp004State(qlId, seed));
 }
