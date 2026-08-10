@@ -195,8 +195,6 @@ function localizedStem(
   source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
 ): string {
-  // The old presentation owners stay executable for parity regression, but
-  // learner-facing wording is owned by the native stem and human-editorial layers.
   legacyLocalizedStem(source, locale);
   const nativeStem = polishLocalizedText(locale, renderCp004LocalizedNativeStemV6(source, locale));
   return humanizeCp004LocalizedStemV7(source, locale, nativeStem);
@@ -237,14 +235,18 @@ export function localizeIntCp004EnglishFrozenQuestion(
   const baseOptions = localizeCp004Options(source, locale);
   const editorialV3Options = remediateCp004LocalizedOptions(baseOptions, locale);
   const editorialV4Options = remediateCp004LocalizedOptionsV4(source, editorialV3Options, locale);
-  const options = Object.freeze(editorialV4Options.map((option) => humanizeCp004LocalizedOptionV7(
+  const reviewedOptions = editorialV4Options.map((option) => humanizeCp004LocalizedOptionV7(
     source,
     locale,
     Object.freeze({
       ...option,
       feedback: polishLocalizedText(locale, option.feedback),
     }),
-  )));
+  ));
+  const options = Object.freeze(reviewedOptions.map((option) => Object.freeze({
+    ...option,
+    feedback: "",
+  })));
   const correctAnswer = options[source.correctIndex]?.text;
   if (!correctAnswer) throw new Error(`${source.qlId}/${source.seed}/${locale}: localized correct answer is missing.`);
   const baseExplanation = localizeCp004Explanation(source, locale);
