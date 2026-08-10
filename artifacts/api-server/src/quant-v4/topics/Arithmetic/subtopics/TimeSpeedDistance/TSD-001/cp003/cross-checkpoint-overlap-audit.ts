@@ -4,7 +4,8 @@ import { TSD_CP003_LEARNER_AUTHORITIES } from "./discovery-registry";
 export type TsdCp003OverlapDecision =
   | "KEEP_AS_NEW_CP003_AUTHORITY"
   | "MERGE_INTO_CP003_AUTHORITY"
-  | "ABSORB_AS_PRIOR_CHECKPOINT_REPRESENTATION";
+  | "ABSORB_AS_PRIOR_CHECKPOINT_REPRESENTATION"
+  | "REJECT_AS_STANDALONE_LEARNER_AUTHORITY";
 
 export interface TsdCp003OverlapAuditEntry {
   readonly solveMode: string;
@@ -142,9 +143,9 @@ export const TSD_CP003_CROSS_CHECKPOINT_OVERLAP_AUDIT: readonly TsdCp003OverlapA
   },
   {
     solveMode: "scheduleBuffer",
-    decision: "KEEP_AS_NEW_CP003_AUTHORITY",
+    decision: "REJECT_AS_STANDALONE_LEARNER_AUTHORITY",
     targetAuthority: "scheduleBuffer",
-    reason: "It directly asks for timetable margin rather than a motion variable. Keep provisional for editorial-value review because the operation is simple but the schedule answer contract is distinct.",
+    reason: "The generated task is only scheduled duration minus planned duration. It adds no distinct motion equation, is substantially below SSC/banking TSD depth, and should remain discovery evidence rather than consume a learner authority or permanent QL.",
   },
 ]);
 
@@ -172,10 +173,12 @@ const counts = {
   keep: TSD_CP003_CROSS_CHECKPOINT_OVERLAP_AUDIT.filter((entry) => entry.decision === "KEEP_AS_NEW_CP003_AUTHORITY").length,
   mergeWithinCp003: TSD_CP003_CROSS_CHECKPOINT_OVERLAP_AUDIT.filter((entry) => entry.decision === "MERGE_INTO_CP003_AUTHORITY").length,
   absorbPrior: TSD_CP003_CROSS_CHECKPOINT_OVERLAP_AUDIT.filter((entry) => entry.decision === "ABSORB_AS_PRIOR_CHECKPOINT_REPRESENTATION").length,
+  rejectStandalone: TSD_CP003_CROSS_CHECKPOINT_OVERLAP_AUDIT.filter((entry) => entry.decision === "REJECT_AS_STANDALONE_LEARNER_AUTHORITY").length,
 };
-assert(counts.keep === 11, `Expected 11 provisional new CP-003 learner authorities after overlap audit, received ${counts.keep}`);
+assert(counts.keep === 10, `Expected 10 new CP-003 learner authorities after overlap/editorial audit, received ${counts.keep}`);
 assert(counts.mergeWithinCp003 === 2, `Expected two within-CP003 merges, received ${counts.mergeWithinCp003}`);
 assert(counts.absorbPrior === 9, `Expected nine prior-checkpoint absorptions, received ${counts.absorbPrior}`);
+assert(counts.rejectStandalone === 1, `Expected one rejected standalone learner authority, received ${counts.rejectStandalone}`);
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -184,6 +187,7 @@ console.log(JSON.stringify({
   proposedNewCp003LearnerAuthorities: counts.keep,
   mergedIntoAnotherCp003Authority: counts.mergeWithinCp003,
   absorbedAsPriorCheckpointRepresentations: counts.absorbPrior,
+  rejectedStandaloneLearnerAuthorities: counts.rejectStandalone,
   permanentQlCount: 0,
   englishFreezeStatus: "UNFROZEN",
 }, null, 2));
