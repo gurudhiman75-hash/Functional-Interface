@@ -10,10 +10,18 @@ const TASKS = [
   "ACTUAL_TIME_OF_NTH_DISPLAYED_EVENT",
 ] as const satisfies readonly ClockTaskId[];
 
+type FractionViolation = {
+  taskId: ClockTaskId;
+  seedIndex: number;
+  denominator: number;
+  line: string;
+};
+
 let generated = 0;
 let maxVisibleFractionDenominator = 1;
 const observedIntervals = new Set<string>();
 const oracleNames = new Set<string>();
+const fractionViolations: FractionViolation[] = [];
 
 for (const taskId of TASKS) {
   for (let seedIndex = 0; seedIndex < 100; seedIndex += 1) {
@@ -30,7 +38,7 @@ for (const taskId of TASKS) {
     assert(question.solveTrace.contractOracle?.includes("CP008_"));
     oracleNames.add(question.solveTrace.contractOracle!);
 
-    const visible = [
+    const visibleParts = [
       question.stem,
       question.answer.display,
       ...question.options.map((option) => option.display),
@@ -40,14 +48,21 @@ for (const taskId of TASKS) {
       question.explanation.validityCheck,
       question.explanation.closestTrap,
       question.explanation.answer,
-    ].join("\n");
+    ];
+    const visible = visibleParts.join("\n");
 
     assert.doesNotMatch(visible, /displayed\s*:\s*actual/i);
     assert.doesNotMatch(visible, /day \+0/i);
     assert.doesNotMatch(visible, /\/(?:319|517|737|803|1309|1969)\b/);
 
-    for (const match of visible.matchAll(/\b\d+\s+(\d+)\/(\d+)\b/g)) {
-      maxVisibleFractionDenominator = Math.max(maxVisibleFractionDenominator, Number(match[2]));
+    for (const line of visibleParts) {
+      for (const match of line.matchAll(/\b\d+[ \t]+(\d+)\/(\d+)\b/g)) {
+        const denominator = Number(match[2]);
+        maxVisibleFractionDenominator = Math.max(maxVisibleFractionDenominator, denominator);
+        if (denominator > 121) {
+          fractionViolations.push({ taskId, seedIndex, denominator, line });
+        }
+      }
     }
     if (typeof question.scenario.observedActualInterval === "string") {
       observedIntervals.add(question.scenario.observedActualInterval);
@@ -57,6 +72,7 @@ for (const taskId of TASKS) {
 }
 
 assert.equal(generated, TASKS.length * 100);
+assert.deepEqual(fractionViolations, [], `Unexpected CP008 learner fractions:\n${JSON.stringify(fractionViolations.slice(0, 20), null, 2)}`);
 assert(maxVisibleFractionDenominator <= 121, `Unexpected CP008 learner fraction denominator ${maxVisibleFractionDenominator}.`);
 assert(observedIntervals.has("64 minutes"));
 assert(observedIntervals.has("66 minutes"));
@@ -71,6 +87,15 @@ const sourceReplicaGain = generateClockQuestion({
 assert.match(sourceReplicaGain.stem, /coincide every 64 minutes/i);
 assert.match(sourceReplicaGain.answer.display, /gain of 32 8\/11 minutes per day/i);
 
+const noonAnchoredNth = generateClockQuestion({
+  taskId: "ACTUAL_TIME_OF_NTH_DISPLAYED_EVENT",
+  seed: "CLK-CP008-NOON-ANCHOR-PROOF",
+  locale: "en-IN",
+  correctOptionIndex: 0,
+});
+assert.match(noonAnchoredNth.stem, /set right at 12 noon/i);
+assert.match(noonAnchoredNth.answer.display, /p\.m\./i);
+
 console.log(JSON.stringify({
   status: "PASS_CLK_CP008_SOURCE_NATURAL_VALUE_CALIBRATION",
   generated,
@@ -78,8 +103,13 @@ console.log(JSON.stringify({
   maxVisibleFractionDenominator,
   observedIntervals: [...observedIntervals].sort(),
   oracleCount: oracleNames.size,
+  fractionViolations: fractionViolations.length,
   sourceReplica: {
     stem: sourceReplicaGain.stem,
     answer: sourceReplicaGain.answer.display,
+  },
+  noonAnchor: {
+    stem: noonAnchoredNth.stem,
+    answer: noonAnchoredNth.answer.display,
   },
 }, null, 2));
