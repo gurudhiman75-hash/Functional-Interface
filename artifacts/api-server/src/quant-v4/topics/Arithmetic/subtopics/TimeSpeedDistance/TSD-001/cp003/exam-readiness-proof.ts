@@ -11,6 +11,8 @@ assert(rows.length === 63, `Expected 63 accepted CP-003 rows, received ${rows.le
 const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };
 const byMode = new Map<string, typeof rows[number][]>();
 for (const row of rows) {
+  assert(/^[A-Z0-9]/.test(row.stem), `${row.questionLanguageId}: learner stem does not start with a capital letter`);
+  assert(!/\bhours? schedule\b/i.test(row.stem), `${row.questionLanguageId}: awkward '<duration> schedule' grammar remains in learner stem`);
   assert(row.difficulty.status === "EDITORIALLY_CALIBRATED", `${row.solveMode}: accepted review difficulty is not calibrated`);
   difficultyCounts[row.difficulty.label] += 1;
   const group = byMode.get(row.solveMode) ?? [];
@@ -104,6 +106,8 @@ console.log(JSON.stringify({
   solveModes: byMode.size,
   difficultyCounts,
   difficultyStatus: "EDITORIALLY_CALIBRATED",
+  learnerStemsCapitalized: rows.length,
+  awkwardDurationScheduleGrammar: 0,
   clockRowsWithLearnerFacingFeedback: clockRows.length,
   rawClockMinuteOffsetsInFeedback: 0,
   hardModesWithOperationEvidence: Object.keys(hardOperationEvidence).length,
