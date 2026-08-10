@@ -116,7 +116,10 @@ function finalizeSteps(
       const second = base[1]
         ? markRoundedRate(base[1], locale, s.nominalAnnualRatePercent, s.comparisonFrequency)
         : "";
-      return Object.freeze([first, second, base[2] ?? ""]);
+      const difference = locale === "hi-IN"
+        ? `अंतर लगभग ${moneyText(source.solution)} है।`
+        : `ਅੰਤਰ ਲਗਭਗ ${moneyText(source.solution)} ਹੈ।`;
+      return Object.freeze([first, second, difference]);
     }
 
     case "INT-QL-076": {
