@@ -11,8 +11,10 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v1-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-combined-diagram-v3.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-supplemental-venn-v3.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-review-question-v3.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-combined-diagram-v3-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-review-v3.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-completion.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-exact-venn.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-witness-proof.ts
@@ -95,6 +97,16 @@ jobs:
             exit 1
           fi
 
+      - name: Bundle V3 human-review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-review-v3.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/export-syl-001-bank-possibility-review-v3.mjs
+
+      - name: Generate V3 multilingual single-diagram review pack
+        run: node artifacts/api-server/dist/reasoning-v1/export-syl-001-bank-possibility-review-v3.mjs
+
       - name: Upload prototype evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -103,5 +115,6 @@ jobs:
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-shell-v1-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-combined-diagram-v3-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-review-v3/**
           if-no-files-found: error
           retention-days: 30
