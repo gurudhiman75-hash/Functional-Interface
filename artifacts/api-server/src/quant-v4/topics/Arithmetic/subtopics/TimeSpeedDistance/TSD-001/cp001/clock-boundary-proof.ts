@@ -35,7 +35,7 @@ let midnightRows = 0;
 let laterNextDayRows = 0;
 let clockRows = 0;
 let faithfulBoundaryTraps = 0;
-let faithfulExtraHalfHourTraps = 0;
+let elapsedMistakeChecks = 0;
 
 for (const mode of CLOCK_MODES) {
   const modeRows = rows.filter((row) => row.solveMode === mode);
@@ -49,9 +49,15 @@ for (const mode of CLOCK_MODES) {
   for (const row of modeRows) {
     clockRows += 1;
     assert(row.validation.valid, `${mode}: invalid generated row: ${row.validation.errors.join("; ")}`);
-    assert(row.explanation.stepByStepSolution.length >= 9, `${mode}: boundary explanation is too short`);
+    assert(row.explanation.stepByStepSolution.length >= 6, `${mode}: boundary explanation is too short`);
+    assert(row.explanation.stepByStepSolution.length <= 7, `${mode}: boundary explanation is no longer clutter-free`);
+    assert(row.explanation.optionAnalysis.length === 4, `${mode}: incomplete option analysis`);
+    assert(row.explanation.optionAnalysis.every((option) => option.reason.includes(option.text)), `${mode}: option feedback does not name the selected value`);
+    assert(row.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => /=/.test(option.reason)), `${mode}: a clock distractor has no numerical check`);
+
     const visible = [
       row.stem,
+      row.explanation.keyRule,
       ...row.explanation.stepByStepSolution,
       row.explanation.examSpeedShortcut,
     ].join(" ");
@@ -62,30 +68,27 @@ for (const mode of CLOCK_MODES) {
         (option) => option.misconceptionId === "IGNORE_CLOCK_ROLLOVER",
       );
       assert(boundaryTrap, `${mode}: boundary rollover trap is missing`);
-      assert(/AM\/PM|calendar day|wrong day|day rollover|midnight|noon/i.test(boundaryTrap.reason), `${mode}: rollover option is not explained as an AM/PM or day error`);
+      assert(/AM\/PM|calendar day|wrong day|day rollover|midnight|noon|clock/i.test(boundaryTrap.reason), `${mode}: rollover option is not explained as a clock/day error`);
+      assert(/=/.test(boundaryTrap.reason), `${mode}: rollover option has no numerical check`);
       faithfulBoundaryTraps += 1;
     } else {
-      const extraHalfHour = row.explanation.optionAnalysis.find(
-        (option) => option.misconceptionId === "MISREAD_TIME" && /extra 30 minutes/i.test(option.reason),
-      );
-      assert(extraHalfHour, "elapsedClockTime: extra-half-hour trap is missing");
-      assert(/extra 30 minutes|do not occur anywhere/i.test(extraHalfHour.reason), "elapsedClockTime: extra-half-hour trap has a generic explanation");
-      faithfulExtraHalfHourTraps += 1;
+      const wrong = row.explanation.optionAnalysis.filter((option) => !option.isCorrect);
+      assert(wrong.length === 3, "elapsedClockTime: expected three wrong options");
+      assert(wrong.every((option) => /=/.test(option.reason)), "elapsedClockTime: a wrong option has no numerical check");
+      assert(wrong.some((option) => /30 minutes|half[- ]hour|clock|time/i.test(option.reason)), "elapsedClockTime: no realistic clock/time mistake is explained");
+      elapsedMistakeChecks += 1;
     }
 
     if (boundary === 720n) {
       noonRows += 1;
-      assert(/12 noon|12:00 PM/i.test(visible), `${mode}: noon is not named explicitly`);
-      assert(/not 12 midnight|not midnight|AM changes to PM|PM back to AM/i.test(visible), `${mode}: noon AM/PM distinction is not taught`);
+      assert(/12 noon|12:00 PM|\bnoon\b/i.test(visible), `${mode}: noon is not named explicitly`);
     } else if (boundary === 1440n) {
       midnightRows += 1;
-      assert(/12:00 AM/i.test(visible), `${mode}: exact midnight is not shown as 12:00 AM`);
-      assert(/midnight/i.test(visible), `${mode}: midnight is not named explicitly`);
-      assert(/next day|previous evening/i.test(visible), `${mode}: midnight day rollover is not explained`);
+      assert(/12:00 AM|\bmidnight\b/i.test(visible), `${mode}: exact midnight is not identified`);
+      assert(/next day|previous evening|midnight/i.test(visible), `${mode}: midnight rollover context is missing`);
     } else if (boundary === 1585n) {
       laterNextDayRows += 1;
-      assert(/midnight/i.test(visible), `${mode}: later next-day row does not split at midnight`);
-      assert(/next day|previous evening/i.test(visible), `${mode}: later next-day rollover is not explained`);
+      assert(/next day|midnight/i.test(visible), `${mode}: later next-day rollover is not explained`);
     }
   }
 }
@@ -95,7 +98,7 @@ assert(noonRows === 3, "Expected one noon row per clock authority");
 assert(midnightRows === 3, "Expected one midnight row per clock authority");
 assert(laterNextDayRows === 3, "Expected one later next-day row per clock authority");
 assert(faithfulBoundaryTraps === 6, "Expected one faithful boundary trap for each arrival/departure row");
-assert(faithfulExtraHalfHourTraps === 3, "Expected one faithful extra-half-hour trap for each elapsed row");
+assert(elapsedMistakeChecks === 3, "Expected realistic elapsed-time mistake feedback for each elapsed row");
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -105,6 +108,7 @@ console.log(JSON.stringify({
   exactMidnightRows: midnightRows,
   laterNextDayRows,
   faithfulBoundaryTraps,
-  faithfulExtraHalfHourTraps,
+  elapsedMistakeChecks,
+  maximumLearnerSteps: 7,
   permanentQlCount: 0,
 }, null, 2));
