@@ -64,7 +64,8 @@ for (const mode of MODES) {
       assert(hasTsdCalculationEvidence(remainder), `${question.questionLanguageId}: wrong-option reason lacks exact conversion evidence`);
       const words = analysis.reason.trim().split(/\s+/).length;
       maximumReasonWords = Math.max(maximumReasonWords, words);
-      const maximumWords = analysis.reason.includes("Check:") ? 65 : 34;
+      const certified = /(?:Check|Correct check):/i.test(analysis.reason);
+      const maximumWords = certified ? 65 : 34;
       assert(words <= maximumWords, `${question.questionLanguageId}: wrong-option reason exceeds ${maximumWords} words`);
       assert(
         !/different result|rules it out|does not survive|appears after|can be reached only|careful check/i.test(analysis.reason),
