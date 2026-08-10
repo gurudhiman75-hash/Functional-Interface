@@ -2,7 +2,10 @@ import { buildSea001SaturationCorpus, selectManualReviewCorpus } from "./saturat
 import { auditSea001Corpus, assertSea001ProductionCandidateTargets } from "./saturation/residual-audit.ts";
 
 const startedAt = Date.now();
-const corpus = buildSea001SaturationCorpus(75);
+// CP-001 intentionally uses three children while CP-002..005 use four. Eighty accepted
+// caselets per provisional PBA yields 1,600 caselets and at least 6,000 genuine children
+// without padding a passage merely to satisfy a corpus counter.
+const corpus = buildSea001SaturationCorpus(80);
 const audit = auditSea001Corpus(
   corpus.caselets,
   corpus.rejectedExactDuplicateCandidates,
