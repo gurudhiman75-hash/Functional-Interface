@@ -1,4 +1,5 @@
 import { toMixedString } from "./foundation/rational";
+import { formatExamNumber } from "./cp001/runtime-support";
 import { generateFinalAuthorityReview } from "./final-authority-review";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -49,13 +50,15 @@ for (const question of questions) {
   const working = question.explanation.working.join(" ");
   const steps = question.explanation.stepByStepSolution.join(" ");
   const correctReason = question.explanation.optionAnalysis.find((entry) => entry.isCorrect)?.reason ?? "";
+  const targetSpeedShown = correctReason.includes(toMixedString(input.targetSpeed))
+    || correctReason.includes(formatExamNumber(input.targetSpeed));
 
   if (input.solveMode === "distanceByProportion") {
     const operation = `${toMixedString(input.targetSpeed)} × ${toMixedString(input.targetTime)}`;
     assert(working.includes(operation), `${question.seed}: working does not use target speed × target time (${operation})`);
     assert(working.includes(question.answerText), `${question.seed}: working does not reach ${question.answerText}`);
     assert(steps.includes(toMixedString(input.targetSpeed)), `${question.seed}: learner steps omit the target speed`);
-    assert(correctReason.includes(toMixedString(input.targetSpeed)) && correctReason.includes(question.answerText), `${question.seed}: correct-option reason does not prove the target-speed result`);
+    assert(targetSpeedShown && correctReason.includes(question.answerText), `${question.seed}: correct-option reason does not prove the target-speed result`);
     verifiedOperations.push(`${question.seed}: ${operation} = ${question.answerText}`);
     continue;
   }
@@ -64,7 +67,7 @@ for (const question of questions) {
   assert(working.includes(operation), `${question.seed}: working does not use target distance ÷ target speed (${operation})`);
   assert(working.includes(question.answerText), `${question.seed}: working does not reach ${question.answerText}`);
   assert(steps.includes(toMixedString(input.targetSpeed)), `${question.seed}: learner steps omit the target speed`);
-  assert(correctReason.includes(toMixedString(input.targetSpeed)) && correctReason.includes(question.answerText), `${question.seed}: correct-option reason does not prove the target-speed result`);
+  assert(targetSpeedShown && correctReason.includes(question.answerText), `${question.seed}: correct-option reason does not prove the target-speed result`);
   verifiedOperations.push(`${question.seed}: ${operation} = ${question.answerText}`);
 }
 
