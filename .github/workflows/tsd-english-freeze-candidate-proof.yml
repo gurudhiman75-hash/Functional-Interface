@@ -64,6 +64,7 @@ jobs:
             final-editorial-integrity-proof \
             final-editorial-seed-sweep-proof \
             full-authority-generation-proof \
+            learner-editorial-quality-proof \
             english-freeze-candidate-proof \
             canonical-review-export
           do
@@ -102,6 +103,7 @@ jobs:
             final-editorial-integrity-proof \
             final-editorial-seed-sweep-proof \
             full-authority-generation-proof \
+            learner-editorial-quality-proof \
             english-freeze-candidate-proof \
             canonical-review-export
           do
