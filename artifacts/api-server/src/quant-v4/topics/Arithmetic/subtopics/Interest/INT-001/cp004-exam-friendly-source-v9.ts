@@ -26,6 +26,17 @@ const REVIEW_REPRESENTATIONS = Object.freeze([
   "SCHEME_COMPARISON",
 ] as const);
 
+function deepFreeze<T>(value: T, seen = new WeakSet<object>()): T {
+  if (typeof value !== "object" || value === null) return value;
+  const objectValue = value as object;
+  if (seen.has(objectValue)) return value;
+  seen.add(objectValue);
+  for (const key of Reflect.ownKeys(objectValue)) {
+    deepFreeze((objectValue as Record<PropertyKey, unknown>)[key], seen);
+  }
+  return Object.freeze(value);
+}
+
 function isInteger(value: Rational): boolean {
   return value.denominator === 1n;
 }
@@ -187,6 +198,25 @@ function matchesReviewShape(question: IntCp004EnglishFrozenQuestion, frame: numb
     && question.representation === REVIEW_REPRESENTATIONS[frame - 1];
 }
 
+function alignReviewAnswerPosition(
+  question: IntCp004EnglishFrozenQuestion,
+  frame: number,
+): IntCp004EnglishFrozenQuestion {
+  const desiredCorrectIndex = frame % 4;
+  if (question.correctIndex === desiredCorrectIndex) return question;
+  const options = [...question.options];
+  const [correct] = options.splice(question.correctIndex, 1);
+  if (!correct) throw new Error(`${question.qlId}/${question.seed}: missing correct option during v9 review alignment.`);
+  options.splice(desiredCorrectIndex, 0, correct);
+  const aligned = {
+    ...question,
+    options: Object.freeze(options),
+    correctIndex: desiredCorrectIndex,
+    correctAnswer: correct.text,
+  } as IntCp004EnglishFrozenQuestion;
+  return deepFreeze(aligned);
+}
+
 export function isIntCp004ExamFriendlyFrozenSourceV9(question: IntCp004EnglishFrozenQuestion): boolean {
   return noDisplayedDecimalsInProblem(question)
     && simpleRatesAreInteger(question.mathematicalState)
@@ -205,7 +235,9 @@ export function selectIntCp004ExamFriendlyFrozenSourceV9(
   if (review) {
     for (let offset = 0; offset < REVIEW_SEARCH_ATTEMPTS; offset += 1) {
       const candidate = generateIntCp004EnglishFrozenQuestion(qlId, `${review.prefix}${review.startCandidate + offset}`);
-      if (isIntCp004ExamFriendlyFrozenSourceV9(candidate) && matchesReviewShape(candidate, review.frame)) return candidate;
+      if (isIntCp004ExamFriendlyFrozenSourceV9(candidate) && matchesReviewShape(candidate, review.frame)) {
+        return alignReviewAnswerPosition(candidate, review.frame);
+      }
     }
     throw new Error(`${qlId}/${seed}: unable to find an exam-friendly review source in ${REVIEW_SEARCH_ATTEMPTS} direct candidates.`);
   }
