@@ -84,6 +84,18 @@ function collisionFallback(input: TsdCp003SolveInput, solution: TsdCp003SolveCer
       ]);
     }
 
+    case "requiredRemainingSpeedAfterPartialRoute": {
+      const completedTime = divide(input.completedDistance, input.completedSpeed);
+      const remainingTime = subtract(input.scheduledTotalTime, completedTime);
+      const remainingDistance = subtract(input.totalDistance, input.completedDistance);
+      return choose(answer, [
+        wrong("USE_OVERALL_AVERAGE_SPEED", divide(input.totalDistance, input.scheduledTotalTime), `${f(input.totalDistance)} ÷ ${f(input.scheduledTotalTime)}`, "It uses the planned whole-route average and ignores how the first segment changed the schedule."),
+        wrong("IGNORE_TIME_ALREADY_SPENT", divide(remainingDistance, input.scheduledTotalTime), `${f(remainingDistance)} ÷ ${f(input.scheduledTotalTime)}`, "It subtracts distance already covered but gives the remainder the full scheduled time."),
+        wrong("IGNORE_DISTANCE_ALREADY_COVERED", divide(input.totalDistance, remainingTime), `${f(input.totalDistance)} ÷ (${f(input.scheduledTotalTime)} − ${f(completedTime)})`, "It subtracts the time already spent but still uses the full route distance instead of only the remaining distance."),
+        wrong("CONTINUE_AT_INITIAL_SPEED", input.completedSpeed, `${f(input.completedSpeed)}`, "It simply continues at the first-segment speed without checking the remaining distance and deadline."),
+      ]);
+    }
+
     case "fractionOfRouteAtChangedSpeed": {
       const originalDistance = solution.intermediate.originalDistance!;
       const complement = multiply(divide(originalDistance, input.totalDistance), rational(100));
