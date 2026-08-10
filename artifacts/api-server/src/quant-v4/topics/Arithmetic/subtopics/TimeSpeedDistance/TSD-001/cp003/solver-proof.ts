@@ -1,13 +1,13 @@
 import { add, equals, rational } from "../foundation/rational";
 import { solveCp003 } from "./solver";
-import type { TsdCp003SolveInput } from "./types";
+import type { TsdCp003SolveInput, TsdCp003SolvedUnit } from "./types";
 import { verifyCp003 } from "./verifier";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-const cases: readonly { input: TsdCp003SolveInput; expected: ReturnType<typeof rational>; unit: "HOUR" | "KM" | "KMPH" }[] = [
+const cases: readonly { input: TsdCp003SolveInput; expected: ReturnType<typeof rational>; unit: TsdCp003SolvedUnit }[] = [
   {
     input: {
       solveMode: "timeGainLossFromSpeedChange",
@@ -70,6 +70,75 @@ const cases: readonly { input: TsdCp003SolveInput; expected: ReturnType<typeof r
     expected: rational(90),
     unit: "KMPH",
   },
+  {
+    input: {
+      solveMode: "stoppageDurationFromRunningAndOverallSpeed",
+      distance: rational(120),
+      runningSpeed: rational(60),
+      overallSpeed: rational(48),
+    },
+    expected: rational(1, 2),
+    unit: "HOUR",
+  },
+  {
+    input: {
+      solveMode: "overallSpeedIncludingStops",
+      distance: rational(120),
+      runningSpeed: rational(60),
+      totalStopTime: rational(1, 2),
+    },
+    expected: rational(48),
+    unit: "KMPH",
+  },
+  {
+    input: {
+      solveMode: "runningSpeedFromOverallSpeedAndStops",
+      distance: rational(120),
+      overallSpeed: rational(48),
+      totalStopTime: rational(1, 2),
+    },
+    expected: rational(60),
+    unit: "KMPH",
+  },
+  {
+    input: {
+      solveMode: "numberOfStopsFromOverallDelay",
+      totalDelay: rational(1, 2),
+      stopDuration: rational(1, 12),
+    },
+    expected: rational(6),
+    unit: "COUNT",
+  },
+  {
+    input: {
+      solveMode: "delayFromRegularStops",
+      stopCount: rational(6),
+      stopDuration: rational(1, 12),
+    },
+    expected: rational(1, 2),
+    unit: "HOUR",
+  },
+  {
+    input: {
+      solveMode: "restTimeInRepeatedTravelRestCycle",
+      travelTimePerCycle: rational(1, 2),
+      cycleCount: rational(4),
+      restEvents: rational(3),
+      totalElapsedTime: rational(11, 4),
+    },
+    expected: rational(1, 4),
+    unit: "HOUR",
+  },
+  {
+    input: {
+      solveMode: "totalTimeWithRegularStops",
+      runningTime: rational(3),
+      stopCount: rational(4),
+      stopDuration: rational(1, 8),
+    },
+    expected: rational(7, 2),
+    unit: "HOUR",
+  },
 ];
 
 let tamperRejections = 0;
@@ -107,6 +176,24 @@ for (const invalidInput of [
     completedDistance: rational(100),
     completedSpeed: rational(50),
   },
+  {
+    solveMode: "stoppageDurationFromRunningAndOverallSpeed",
+    distance: rational(100),
+    runningSpeed: rational(40),
+    overallSpeed: rational(50),
+  },
+  {
+    solveMode: "numberOfStopsFromOverallDelay",
+    totalDelay: rational(1),
+    stopDuration: rational(3, 10),
+  },
+  {
+    solveMode: "restTimeInRepeatedTravelRestCycle",
+    travelTimePerCycle: rational(1),
+    cycleCount: rational(2),
+    restEvents: rational(1),
+    totalElapsedTime: rational(3, 2),
+  },
 ] as const) {
   try {
     solveCp003(invalidInput as TsdCp003SolveInput);
@@ -114,11 +201,11 @@ for (const invalidInput of [
     invalidInputRejections += 1;
   }
 }
-assert(invalidInputRejections === 3, "CP-003 solver did not reject all invalid boundary states");
+assert(invalidInputRejections === 6, "CP-003 solver did not reject all invalid boundary states");
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "TSD_CP003_SCHEDULE_CORE_EXACT_SOLVER",
+  phase: "TSD_CP003_SCHEDULE_AND_STOPPAGE_EXACT_SOLVER",
   executableSolveModes: cases.length,
   exactCases: cases.length,
   tamperRejections,
