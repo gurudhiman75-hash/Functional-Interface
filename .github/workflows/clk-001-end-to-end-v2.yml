@@ -14,6 +14,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/tests/clock-media-contracts.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/clock-presentation-contracts.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/clock-source-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-merge-split-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/clock-cp008-exam-natural.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/clock-foundation.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/spatial-foundation.test.ts
@@ -67,6 +68,10 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/clock-v2/clock-source-audit.test.mjs
           pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-merge-split-audit.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-merge-split-audit.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
             src/reasoning-v1/tests/clock-cp008-exam-natural.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/clock-v2/clock-cp008-exam-natural.test.mjs
@@ -106,6 +111,10 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/clock-v2/clock-source-audit.test.mjs
+      - name: Run provisional merge-split audit proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-merge-split-audit.test.mjs
       - name: Run CP008 source-natural calibration proof
         run: |
           cd artifacts/api-server
