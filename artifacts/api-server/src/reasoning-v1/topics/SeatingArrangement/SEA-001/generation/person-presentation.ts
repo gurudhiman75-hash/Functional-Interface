@@ -1,3 +1,4 @@
+import { balancedSea001AnswerIndex } from "./answer-position.ts";
 import { selectSea001Names } from "./name-pool.ts";
 
 export function sea001PersonIds(count: number): string[] {
@@ -60,6 +61,7 @@ export function presentSea001Children<T extends {
 }>(
   children: readonly T[],
   displayNames: Readonly<Record<string, string>>,
+  seed: string,
 ): T[] {
   const presented = children.map((child) => ({
     ...child,
@@ -82,10 +84,6 @@ export function presentSea001Children<T extends {
     const rightKey = stableNumber(`${right.queryContractId}|${right.answerDeterminingFactFingerprint}`);
     return leftKey - rightKey || left.queryContractId.localeCompare(right.queryContractId);
   });
-  const presentationSeed = Object.entries(displayNames)
-    .sort(([left], [right]) => left.localeCompare(right))
-    .map(([personId, name]) => `${personId}:${name}`)
-    .join("|");
 
   return [...fixed, ...varied].map((child, index) => {
     const questionOrder = index + 1;
@@ -103,9 +101,7 @@ export function presentSea001Children<T extends {
     if (!correct) throw new Error(`SEA-001 child ${child.queryContractId} has no correct option`);
     const wrong = child.options.filter((option) => !option.isCorrect);
     if (wrong.length !== child.options.length - 1) throw new Error(`SEA-001 child ${child.queryContractId} has invalid correct-option count`);
-    const answerIndex = stableNumber(
-      `${presentationSeed}|${child.queryContractId}|${child.answerDeterminingFactFingerprint}|Q${questionOrder}`,
-    ) % child.options.length;
+    const answerIndex = balancedSea001AnswerIndex(seed, questionOrder);
     const options = [...wrong];
     options.splice(answerIndex, 0, correct);
     return {
