@@ -1,0 +1,97 @@
+name: Validate TMW-001 critical remediation R1
+
+on:
+  push:
+    branches:
+      - fix/tmw-001-remediation-r1-multilingual
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-critical-remediation-r1.yml
+      - package.json
+      - pnpm-lock.yaml
+  pull_request:
+    branches:
+      - feat/tmw-001-hi-pa-localisation
+      - design/tmw-001-blueprint
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-critical-remediation-r1.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tmw-r1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-r1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec tsc
+          --noEmit
+          --target es2022
+          --module esnext
+          --moduleResolution bundler
+          --strictNullChecks
+          --noImplicitAny
+          --noImplicitReturns
+          --noFallthroughCasesInSwitch
+          --skipLibCheck
+          --types node
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/critical-remediation-r1.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/learner-explanation-contract.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp005-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp010-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-critical-remediation-r1.test.ts
+      - name: Bundle R1 critical proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-critical-remediation-r1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-critical-remediation-r1.test.mjs
+      - name: Run R1 critical proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-critical-remediation-r1.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-critical-remediation-r1-proof.log
+      - name: Bundle complete multilingual parity regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-chapter-parity.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-multilingual-chapter-parity-r1.test.mjs
+      - name: Run complete multilingual parity regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-parity-r1.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-parity-r1-proof.log
+      - name: Upload R1 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-001-critical-remediation-r1
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-critical-remediation-r1-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-parity-r1-proof.log
+          if-no-files-found: error
+          retention-days: 14
