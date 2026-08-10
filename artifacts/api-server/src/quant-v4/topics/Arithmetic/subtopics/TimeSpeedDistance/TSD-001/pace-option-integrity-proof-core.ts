@@ -13,7 +13,7 @@ import {
   generateCp001ReviewRows as generateCoreCp001ReviewRows,
   stableStringify,
 } from "./cp001/runtime-base";
-import { calibratedDifficultyLabel } from "./difficulty-calibration";
+import { examDifficultyLabel } from "./difficulty-calibration";
 import { generateFinalAuthorityReview } from "./final-authority-review";
 import { TSD_FINAL_LEARNER_AUTHORITIES } from "./final-authority-registry";
 
@@ -22,6 +22,15 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 type ExpectedWrong = readonly [string, TsdCp001MisconceptionId];
+
+const FORBIDDEN_DIRECT_IDS = new Set([
+  "ADD_GIVENS_BEFORE_DIVIDING",
+  "SUBTRACT_GIVENS_BEFORE_DIVIDING",
+  "MISREAD_SPEED",
+  "MISREAD_TIME",
+  "MISREAD_DISTANCE",
+  "ARITHMETIC_OFFSET",
+]);
 
 function withoutDisplayedOption(reason: string, optionText: string): string {
   return reason.replace(optionText, "").replace(/^[✅⚠️\s:.-]+/, "").trim();
@@ -101,7 +110,7 @@ function assertExpectedOptions(question: TsdCp001GeneratedQuestion): number {
     assert(analysis.reason.includes(text), `${question.questionLanguageId}: reason does not name ${text}`);
     assert(hasTsdCalculationEvidence(withoutDisplayedOption(analysis.reason, text)), `${question.questionLanguageId}: pace reason lacks exact calculation evidence for ${text}`);
     const words = analysis.reason.trim().split(/\s+/).length;
-    const maximumWords = analysis.reason.includes("Check:") ? 65 : 32;
+    const maximumWords = analysis.reason.includes("Check:") ? 65 : 42;
     assert(words <= maximumWords, `${question.questionLanguageId}: pace reason exceeds ${maximumWords} words`);
     assert(!/different result|rules it out|does not survive|appears after|can be reached only|careful check|reworking/i.test(analysis.reason), `${question.questionLanguageId}: generic pace rejection remains`);
   }
@@ -115,6 +124,7 @@ assert(coreRows.length === publicRows.length, "CP-001 core and public review cou
 let paceFeedbackRows = 0;
 let conversionRows = 0;
 let finalEditorialRows = 0;
+let directRealismRows = 0;
 let globallyCalibratedRows = 0;
 for (let index = 0; index < coreRows.length; index += 1) {
   const core = coreRows[index];
@@ -125,7 +135,7 @@ for (let index = 0; index < coreRows.length; index += 1) {
   assert(core.correctIndex === current.correctIndex, `${current.questionLanguageId}: public runtime changed key`);
   assert(core.mathematicalFingerprint === current.mathematicalFingerprint, `${current.questionLanguageId}: mathematical fingerprint changed`);
   assert(current.difficulty.status === "EDITORIALLY_CALIBRATED", `${current.questionLanguageId}: public difficulty remains uncalibrated`);
-  assert(current.difficulty.label === calibratedDifficultyLabel(current.difficulty.featureScore), `${current.questionLanguageId}: public difficulty conflicts with rubric`);
+  assert(current.difficulty.label === examDifficultyLabel(current.solveMode, current.input), `${current.questionLanguageId}: public difficulty conflicts with exam-family rubric`);
   globallyCalibratedRows += 1;
 
   const pace = current.solveMode === "speedFromPace"
@@ -139,6 +149,9 @@ for (let index = 0; index < coreRows.length; index += 1) {
     || current.solveMode === "speedByProportion"
     || current.solveMode === "arrivalClockTime"
     || current.solveMode === "departureClockTime";
+  const directRealism = current.solveMode === "distanceFromSpeedAndTime"
+    || current.solveMode === "speedFromDistanceAndTime"
+    || current.solveMode === "timeFromDistanceAndSpeed";
 
   if (pace) {
     assert(stableStringify(core.options) === stableStringify(current.options), `${current.questionLanguageId}: public wrapper changed pace options`);
@@ -148,6 +161,13 @@ for (let index = 0; index < coreRows.length; index += 1) {
     conversionRows += 1;
   } else if (finalEditorial) {
     finalEditorialRows += 1;
+  } else if (directRealism) {
+    assert(current.options.length === 4 && new Set(current.options).size === 4, `${current.questionLanguageId}: realistic direct options are not four unique choices`);
+    assert(current.options[current.correctIndex] === current.answerText, `${current.questionLanguageId}: realistic direct answer key changed`);
+    for (const audit of current.optionAudit.filter((entry) => !entry.isCorrect)) {
+      assert(!FORBIDDEN_DIRECT_IDS.has(audit.misconceptionId), `${current.questionLanguageId}: artificial direct misconception remains: ${audit.misconceptionId}`);
+    }
+    directRealismRows += 1;
   } else {
     assert(stableStringify(core.options) === stableStringify(current.options), `${current.questionLanguageId}: unrelated public-runtime options changed`);
     assert(stableStringify(core.optionAudit) === stableStringify(current.optionAudit), `${current.questionLanguageId}: unrelated public-runtime audit changed`);
@@ -156,6 +176,7 @@ for (let index = 0; index < coreRows.length; index += 1) {
 assert(paceFeedbackRows === 9, `Expected nine pace rows, received ${paceFeedbackRows}`);
 assert(conversionRows === 9, `Expected nine conversion rows, received ${conversionRows}`);
 assert(finalEditorialRows === 15, `Expected fifteen final-editorial rows, received ${finalEditorialRows}`);
+assert(directRealismRows === 10, `Expected ten direct-realism rows, received ${directRealismRows}`);
 assert(globallyCalibratedRows === publicRows.length, "Not every CP-001 public row was calibrated");
 
 const rows = generateFinalAuthorityReview();
@@ -202,6 +223,7 @@ console.log(JSON.stringify({
   paceFeedbackRows,
   inheritedConversionRows: conversionRows,
   finalEditorialRows,
+  directRealismRows,
   globallyCalibratedRows,
   verifiedWrongOptions,
   correctPositions,
