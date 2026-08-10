@@ -4,6 +4,7 @@ export * from "./source-audit";
 export * from "./candidate-disposition";
 export * from "./exam-natural-governance";
 export * from "./source-saturation";
+export * from "./difficulty-governance";
 export * from "./discovery-gates";
 export * from "./discovery-gates-calibrated";
 export * from "./types";
