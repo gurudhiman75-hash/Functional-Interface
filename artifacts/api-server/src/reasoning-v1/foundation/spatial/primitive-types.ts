@@ -64,10 +64,19 @@ export type SpatialPrimitiveIdV2 =
   | "FOUR_POINT_STAR";
 
 export interface SpatialPrimitiveConnectivityV2 {
-  /** Distinct interior points where two or more strokes meet. */
+  /**
+   * Branch/junction points where separate stroke paths meet.
+   * A bend inside one continuous polyline (for example a V or chevron) is not
+   * a junction for classification purposes.
+   */
   junctionCount: number;
-  /** Junctions where at least two strokes continue through the meeting point. */
+  /** Junctions where at least two stroke paths continue through the meeting point. */
   crossingCount: number;
+  /**
+   * Visible free ends of open stroke paths. Ends attached to a closed boundary
+   * in a partitioned figure are not counted as free terminals.
+   */
+  terminalCount: number;
 }
 
 export interface SpatialPrimitiveAuthorityEntryV2 {
@@ -79,8 +88,9 @@ export interface SpatialPrimitiveAuthorityEntryV2 {
   enclosedRegionCount: number;
   /**
    * Legacy proof field retained inside V2 entries for compatibility.
-   * It represents interior meeting points and must not be used to distinguish
-   * true crossings from T/Y/arrow junctions. Use getSpatialPrimitiveConnectivityV2.
+   * It represents branch/junction meeting points and must not be used to
+   * distinguish true crossings or free terminals. Use
+   * getSpatialPrimitiveConnectivityV2 for production reasoning.
    */
   interiorIntersectionCount: number;
   orientationSensitive: boolean;
