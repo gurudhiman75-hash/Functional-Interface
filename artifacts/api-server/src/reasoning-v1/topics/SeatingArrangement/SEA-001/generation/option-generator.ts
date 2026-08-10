@@ -15,6 +15,12 @@ function asTuple(options: readonly SeatingOption[]): [SeatingOption, SeatingOpti
   return [options[0] as SeatingOption, options[1] as SeatingOption, options[2] as SeatingOption, options[3] as SeatingOption];
 }
 
+function betweenCountExplanation(count: number): string {
+  return count === 1
+    ? "1 person lies strictly between the two endpoints."
+    : `${count} persons lie strictly between the two endpoints.`;
+}
+
 export function buildPersonOptions(input: {
   readonly correctPersonId: string;
   readonly persons: readonly SeatingPerson[];
@@ -94,7 +100,7 @@ export function buildCountOptions(input: {
     explanation: string;
     method: string;
   }> = [
-    { value: input.correctCount, explanation: `${input.correctCount} persons lie strictly between the two endpoints.`, method: "GROUND_TRUTH" },
+    { value: input.correctCount, explanation: betweenCountExplanation(input.correctCount), method: "GROUND_TRUTH" },
     { value: input.correctCount + 2, misconceptionId: "SEA-MC-LIN-COUNT_ENDPOINT_INCLUDED", explanation: "This counts both named endpoints as well as the persons between them.", method: "INCLUDE_BOTH_ENDPOINTS" },
     { value: input.correctCount + 1, misconceptionId: "SEA-MC-LIN-OFF_BY_ONE_SEAT", explanation: "This is one more than the number of intervening persons.", method: "ADD_ONE" },
     { value: Math.max(0, input.correctCount - 1), misconceptionId: "SEA-MC-LIN-OFF_BY_ONE_SEAT", explanation: "This is one less than the number of intervening persons.", method: "SUBTRACT_ONE" },
