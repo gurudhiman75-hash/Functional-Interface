@@ -72,7 +72,11 @@ for (const seed of seeds) {
 
 for (const locale of locales) {
   const first = generateBankingPossibilityReviewQuestionV3(0, locale);
-  assert.equal(first.diagram.enabled, true, `seed 0/${locale}: first review question must retain its diagram`);
+  assert.equal(
+    first.diagram.enabled,
+    true,
+    `seed 0/${locale}: first review question must retain its diagram; scenario=${first.scenarioId}; group=${first.scenarioGroup}; omission=${first.diagram.omissionReason}; signature=${first.diagram.semanticSignature}`,
+  );
 }
 
 assert.equal(records, 240);
