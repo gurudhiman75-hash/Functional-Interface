@@ -7,7 +7,7 @@ import type { TsdCp001GeneratedQuestion } from "./cp001/runtime-types";
 import { TSD_CP002_LEARNER_AUTHORITIES } from "./cp002/discovery-registry";
 import { generateCp002Candidate } from "./cp002/public-runtime";
 import type { TsdCp002GeneratedQuestion } from "./cp002/types";
-import { calibratedDifficultyLabel } from "./difficulty-calibration";
+import { examDifficultyLabel } from "./difficulty-calibration";
 import { TSD_FINAL_LEARNER_AUTHORITIES } from "./final-authority-registry";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -26,8 +26,7 @@ function cp001FinalAuthorityKey(question: TsdCp001GeneratedQuestion): string {
 
 function cp002FinalAuthorityKey(question: TsdCp002GeneratedQuestion): string {
   switch (question.solveMode) {
-    case "totalDistanceFromAverageAndTime":
-      return "distanceFromSpeedAndTime";
+    case "totalDistanceFromAverageAndTime": return "distanceFromSpeedAndTime";
     case "unknownSegmentShareFromAverage":
       return question.authoritySubmode === "DISTANCE_SHARE"
         ? "unknownDistanceShareFromAverageSpeed"
@@ -36,10 +35,8 @@ function cp002FinalAuthorityKey(question: TsdCp002GeneratedQuestion): string {
       return question.authoritySubmode === "DISTANCE_RATIO"
         ? "distanceRatioFromAverageAndSpeeds"
         : "timeRatioFromAverageAndSpeeds";
-    case "roundTripTimeFromOneWayDistance":
-      return "roundTripLegTimeSum";
-    default:
-      return question.solveMode;
+    case "roundTripTimeFromOneWayDistance": return "roundTripLegTimeSum";
+    default: return question.solveMode;
   }
 }
 
@@ -50,7 +47,7 @@ function assertQuestion(question: TsdCp001GeneratedQuestion | TsdCp002GeneratedQ
   assert(question.optionAudit.filter((option) => option.isCorrect).length === 1, `${question.questionLanguageId}: option audit has the wrong correct count`);
   assert(question.explanation.optionAnalysis.length === 4, `${question.questionLanguageId}: option analysis is incomplete`);
   assert(question.difficulty.status === "EDITORIALLY_CALIBRATED", `${question.questionLanguageId}: difficulty remains uncalibrated`);
-  assert(question.difficulty.label === calibratedDifficultyLabel(question.difficulty.featureScore), `${question.questionLanguageId}: difficulty conflicts with rubric`);
+  assert(question.difficulty.label === examDifficultyLabel(question.solveMode, question.input), `${question.questionLanguageId}: difficulty conflicts with exam-family rubric`);
   assert(question.lifecycle.englishFreezeStatus === "UNFROZEN", `${question.questionLanguageId}: English was frozen`);
   assert(question.lifecycle.questionBankStatus === "NOT_STORED", `${question.questionLanguageId}: Question Bank storage was enabled`);
   assert(question.lifecycle.testEligibility === "INELIGIBLE", `${question.questionLanguageId}: test delivery was enabled`);
