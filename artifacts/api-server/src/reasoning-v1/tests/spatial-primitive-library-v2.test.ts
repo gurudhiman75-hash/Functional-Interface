@@ -7,6 +7,7 @@ import {
   buildSpatialPrimitiveLibraryV2ReviewHtml,
   classifySpatialSceneSymmetry,
   deriveSpatialPrimitiveQuarterTurnPeriodV2,
+  getSpatialPrimitiveConnectivityV2,
   getSpatialPrimitiveV2,
   renderSpatialSceneToSvg,
   spatialSceneSemanticFingerprint,
@@ -48,6 +49,13 @@ for (const entry of SPATIAL_PRIMITIVE_AUTHORITY_V2) {
   assert.equal(deriveSpatialPrimitiveQuarterTurnPeriodV2(entry), entry.rotationPeriodQuarterTurns, entry.primitiveId);
   assert.equal(entry.orientationSensitive, entry.rotationPeriodQuarterTurns !== 1, entry.primitiveId);
   assert.equal(entry.reflectionSensitive, !(entry.symmetry.vertical && entry.symmetry.horizontal), entry.primitiveId);
+
+  const connectivity = getSpatialPrimitiveConnectivityV2(entry.primitiveId);
+  assert(connectivity.junctionCount >= 0, entry.primitiveId);
+  assert(connectivity.crossingCount >= 0, entry.primitiveId);
+  assert(connectivity.crossingCount <= connectivity.junctionCount, entry.primitiveId);
+  assert.equal(entry.interiorIntersectionCount, connectivity.junctionCount, entry.primitiveId);
+
   const fingerprint = spatialSceneSemanticFingerprint(entry.canonicalScene);
   assert.equal(sceneFingerprints.has(fingerprint), false, entry.primitiveId);
   sceneFingerprints.add(fingerprint);
@@ -65,14 +73,57 @@ assert.equal(getSpatialPrimitiveV2("SQUARE_DIAGONAL_DIVIDED").symmetry.rotationa
 assert.equal(getSpatialPrimitiveV2("ARROW_RIGHT").symmetry.horizontal, true);
 assert.equal(getSpatialPrimitiveV2("ARROW_RIGHT").symmetry.vertical, false);
 
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("T_SHAPE"), {
+  junctionCount: 1,
+  crossingCount: 0,
+});
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("THREE_SPOKE"), {
+  junctionCount: 1,
+  crossingCount: 0,
+});
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("ARROW_RIGHT"), {
+  junctionCount: 1,
+  crossingCount: 0,
+});
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("PLUS"), {
+  junctionCount: 1,
+  crossingCount: 1,
+});
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("X_CROSS"), {
+  junctionCount: 1,
+  crossingCount: 1,
+});
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("SIX_SPOKE"), {
+  junctionCount: 1,
+  crossingCount: 1,
+});
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("SQUARE_CROSS_DIVIDED"), {
+  junctionCount: 1,
+  crossingCount: 1,
+});
+assert.deepEqual(getSpatialPrimitiveConnectivityV2("CIRCLE_CROSS_DIVIDED"), {
+  junctionCount: 1,
+  crossingCount: 1,
+});
+
 const review = buildSpatialPrimitiveLibraryV2ReviewExport();
+assert.equal(review.schemaVersion, "1.1");
 assert.equal(review.primitiveCount, 33);
 assert.equal(review.validation.status, "PASS");
 assert.equal(review.rows.length, 33);
 assert.equal(new Set(review.rows.map((row) => row.primitiveId)).size, 33);
+assert(
+  review.rows.every(
+    (row) =>
+      row.junctionCount >= 0 &&
+      row.crossingCount >= 0 &&
+      row.crossingCount <= row.junctionCount,
+  ),
+);
 const html = buildSpatialPrimitiveLibraryV2ReviewHtml(review);
 assert.match(html, /^<!doctype html>/);
 assert.match(html, /Spatial Primitive Library V2/);
+assert.match(html, /True crossings/);
 assert.doesNotMatch(html, /<script|javascript:/i);
 
 mkdirSync("dist/reasoning-v1/spatial", { recursive: true });
@@ -97,7 +148,8 @@ console.log(JSON.stringify({
     declaredSymmetryMatchesGeometry: true,
     quarterTurnPeriodMatchesGeometry: true,
     orientationSensitivityMatchesGeometry: true,
-    reflectionSensitivityMatchesGeometry: true,
+    standardAxisReflectionSensitivityMatchesGeometry: true,
+    junctionVsCrossingSemantics: true,
     uniqueCanonicalScenes: true,
     deterministicSvg: true,
     responsiveEditorialReview: true,
