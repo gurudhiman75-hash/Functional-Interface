@@ -28,6 +28,8 @@ import { applyTmw001EditorialRemediationR2Cp001To006 } from "./editorial-remedia
 import { applyTmw001LearnerExplanationR2Cp001To006 } from "./learner-explanation-r2-cp001-cp006";
 import { applyTmw001EditorialRemediationR3Cp007To011 } from "./editorial-remediation-r3-cp007-cp011";
 import { applyTmw001LearnerExplanationR3Cp007To011 } from "./learner-explanation-r3-cp007-cp011";
+import { runTmwR4SourceGapPipeline } from "./source-gap-r4-runtime";
+import { TMW_R4_SOURCE_GAP_IDS } from "./source-gap-r4-registry";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -42,8 +44,8 @@ function qlOrdinal(questionLanguageId: string): number {
   const match = /^TMW-QL-(\d{3})$/.exec(questionLanguageId);
   if (!match) throw new Error(`Unknown TMW-001 question-language ID: ${questionLanguageId}`);
   const ordinal = Number(match[1]);
-  if (!Number.isInteger(ordinal) || ordinal < 1 || ordinal > 211) {
-    throw new Error(`TMW-001 question-language ID is outside the frozen range: ${questionLanguageId}`);
+  if (!Number.isInteger(ordinal) || ordinal < 1 || ordinal > 229) {
+    throw new Error(`TMW-001 question-language ID is outside the retained and R4 extension range: ${questionLanguageId}`);
   }
   return ordinal;
 }
@@ -148,6 +150,10 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   const ordinal = qlOrdinal(input.questionLanguageId);
   const base = { questionLanguageId: input.questionLanguageId, seed: input.seed };
 
+  if (TMW_R4_SOURCE_GAP_IDS.has(input.questionLanguageId)) {
+    return runTmwR4SourceGapPipeline(input);
+  }
+
   if (ordinal <= 20) {
     return input.language === "en"
       ? finishEnglish(runTmwCp001Pipeline({ ...base, language: "en" }), input.questionLanguageId)
@@ -238,11 +244,15 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
         input.language,
       );
   }
-  return input.language === "en"
-    ? finishEnglish(runTmwCp011Pipeline(input.questionLanguageId, input.seed), input.questionLanguageId)
-    : finishLocalized(
-      runTmwCp011LocalizedPipeline({ ...base, language: input.language }),
-      input.questionLanguageId,
-      input.language,
-    );
+  if (ordinal <= 211) {
+    return input.language === "en"
+      ? finishEnglish(runTmwCp011Pipeline(input.questionLanguageId, input.seed), input.questionLanguageId)
+      : finishLocalized(
+        runTmwCp011LocalizedPipeline({ ...base, language: input.language }),
+        input.questionLanguageId,
+        input.language,
+      );
+  }
+
+  throw new Error(`TMW-001 R4 extension routing is incomplete for ${input.questionLanguageId}`);
 }
