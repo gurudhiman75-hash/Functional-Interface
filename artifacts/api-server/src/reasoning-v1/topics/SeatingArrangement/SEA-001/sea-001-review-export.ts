@@ -1,7 +1,13 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { buildSea001SaturationCorpus, selectManualReviewCorpus, structuralVariantFingerprint } from "./saturation/corpus.ts";
+import {
+  buildSea001SaturationCorpus,
+  exactCaseletContentFingerprint,
+  selectManualReviewCorpus,
+  structuralVariantFingerprint,
+} from "./saturation/corpus.ts";
 import { auditSea001Corpus } from "./saturation/residual-audit.ts";
+import { buildPendingSea001ManualReviewLedger } from "./review/manual-review.ts";
 
 function escapeHtml(value: unknown): string {
   return String(value)
@@ -21,6 +27,7 @@ await mkdir(outputDir, { recursive: true });
 
 const smallCorpus = buildSea001SaturationCorpus(5);
 const review = selectManualReviewCorpus(smallCorpus.caselets, 5);
+const pendingLedger = buildPendingSea001ManualReviewLedger(review);
 const audit = auditSea001Corpus(
   review,
   smallCorpus.rejectedExactDuplicateCandidates,
@@ -34,6 +41,7 @@ const records = review.map((caselet, index) => ({
   blueprintAuthorityId: caselet.blueprintAuthorityId,
   structuralVariantFingerprint: structuralVariantFingerprint(caselet),
   caseletId: caselet.caseletId,
+  contentFingerprint: exactCaseletContentFingerprint(caselet),
   seed: caselet.seed,
   setup: caselet.setupText,
   clues: caselet.clueTexts,
@@ -77,7 +85,7 @@ const records = review.map((caselet, index) => ({
 const jsonPayload = {
   authority: "SEA Seating Arrangement Master End-to-End Family Design V3 merged",
   status: "HUMAN_REVIEW_CANDIDATE_NOT_FROZEN",
-  reviewPolicy: "20 caselets per checkpoint; REWRITE and REJECT must be zero before freeze",
+  reviewPolicy: "20 caselets per checkpoint; all 100 ledger entries must be signed ACCEPT and REWRITE/REJECT must be zero before permanent allocation or freeze",
   counts: {
     caselets: records.length,
     children: records.reduce((sum, record) => sum + record.children.length, 0),
@@ -87,8 +95,21 @@ const jsonPayload = {
   records,
 };
 
+const ledgerPayload = {
+  packageId: "SEA-001",
+  authority: "SEA V3 merged",
+  status: "PENDING_HUMAN_REVIEW",
+  instructions: [
+    "Review each caselet against the HTML/JSON evidence using its caseletId and contentFingerprint.",
+    "Set decision to ACCEPT, REWRITE, or REJECT.",
+    "For every non-PENDING decision, set reviewerId and reviewedAt.",
+    "Permanent allocation remains locked unless all 100 entries are signed ACCEPT with zero REWRITE and zero REJECT.",
+  ],
+  entries: pendingLedger,
+};
+
 const csvHeader = [
-  "reviewNo", "checkpointId", "blueprintAuthorityId", "structuralVariantFingerprint", "caseletId", "seed",
+  "reviewNo", "checkpointId", "blueprintAuthorityId", "structuralVariantFingerprint", "caseletId", "contentFingerprint", "seed",
   "setup", "clues", "arrangement", "sharedExplanation", "childrenJson", "editorialDecision", "reviewNotes",
 ].join(",");
 const csvRows = records.map((record) => [
@@ -97,6 +118,7 @@ const csvRows = records.map((record) => [
   record.blueprintAuthorityId,
   record.structuralVariantFingerprint,
   record.caseletId,
+  record.contentFingerprint,
   record.seed,
   record.setup,
   record.clues,
@@ -111,6 +133,7 @@ const htmlSections = records.map((record) => `
 <section class="caselet">
   <h2>${record.reviewNo}. ${escapeHtml(record.checkpointId)} · ${escapeHtml(record.blueprintAuthorityId)}</h2>
   <p><strong>Caselet:</strong> ${escapeHtml(record.caseletId)}</p>
+  <p><strong>Content fingerprint:</strong> <code>${escapeHtml(record.contentFingerprint)}</code></p>
   <p><strong>Structural variant:</strong> <code>${escapeHtml(record.structuralVariantFingerprint)}</code></p>
   <h3>Directions</h3><p>${escapeHtml(record.setup)}</p>
   <ol>${record.clues.map((clue) => `<li>${escapeHtml(clue)}</li>`).join("")}</ol>
@@ -132,10 +155,12 @@ const htmlSections = records.map((record) => `
 
 const html = `<!doctype html><html><head><meta charset="utf-8"><title>SEA-001 100-caselet English review</title><style>
 body{font-family:system-ui,sans-serif;max-width:1100px;margin:0 auto;padding:24px;line-height:1.45} .caselet{border:1px solid #bbb;border-radius:12px;padding:20px;margin:24px 0}.child{border-top:1px solid #ddd;padding-top:10px;margin-top:14px}pre{white-space:pre-wrap;background:#f6f6f6;padding:12px;border-radius:8px}code{overflow-wrap:anywhere}small{opacity:.8}
-</style></head><body><h1>SEA-001 — 100-caselet English manual-review candidate</h1><p>This is review evidence, not an English freeze. Exactly 20 caselets are included per checkpoint.</p>${htmlSections}</body></html>`;
+</style></head><body><h1>SEA-001 — 100-caselet English manual-review candidate</h1><p>This is review evidence, not an English freeze. Exactly 20 caselets are included per checkpoint. Use the companion ledger template to record signed decisions.</p>${htmlSections}</body></html>`;
 
 await writeFile(join(outputDir, "sea-001-review-100.json"), `${JSON.stringify(jsonPayload, null, 2)}\n`, "utf8");
 await writeFile(join(outputDir, "sea-001-review-100.csv"), `${csvHeader}\n${csvRows.join("\n")}\n`, "utf8");
 await writeFile(join(outputDir, "sea-001-review-100.html"), html, "utf8");
+await writeFile(join(outputDir, "sea-001-review-ledger-template.json"), `${JSON.stringify(ledgerPayload, null, 2)}\n`, "utf8");
 
 console.log("WROTE_SEA_001_REVIEW", records.length, outputDir);
+console.log("WROTE_SEA_001_REVIEW_LEDGER", pendingLedger.length, outputDir);
