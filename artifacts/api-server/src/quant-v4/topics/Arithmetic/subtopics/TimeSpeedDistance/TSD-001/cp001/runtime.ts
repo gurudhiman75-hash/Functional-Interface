@@ -12,6 +12,8 @@ import { ensureCp001ExactOptionFeedback } from "./exact-option-feedback";
 import { remodelCp001FinalEditorial } from "./final-editorial-remediation";
 import { remodelFinalProportionFeedback } from "./final-proportion-feedback";
 import { remodelPaceOptionFeedback } from "./pace-option-feedback";
+import { remodelRealisticDirectOptions } from "./realistic-direct-options";
+import { makeCp001StudentFriendly } from "./student-friendly-explanation";
 import { unitConversionOptionPackage } from "./unit-conversion-options";
 import { remodelUnitConversionOptionFeedback } from "./unit-conversion-option-feedback";
 
@@ -101,15 +103,21 @@ function remodelPaceQuestion(
 }
 
 function remodelQuestion(question: TsdCp001GeneratedQuestion): TsdCp001GeneratedQuestion {
-  const editorial = remodelFinalProportionFeedback(
+  const familySpecific = remodelFinalProportionFeedback(
     remodelCp001FinalEditorial(
       remodelPaceQuestion(remodelConversionQuestion(question)),
     ),
   );
-  const exactFeedback = ensureCp001ExactOptionFeedback(editorial);
+  const realistic = remodelRealisticDirectOptions(familySpecific);
+  const studentFriendly = makeCp001StudentFriendly(realistic);
+  const exactFeedback = ensureCp001ExactOptionFeedback(studentFriendly);
   return Object.freeze({
     ...exactFeedback,
-    difficulty: calibrateTsdDifficulty(exactFeedback.difficulty),
+    difficulty: calibrateTsdDifficulty(
+      exactFeedback.difficulty,
+      exactFeedback.solveMode,
+      exactFeedback.input,
+    ),
   });
 }
 
