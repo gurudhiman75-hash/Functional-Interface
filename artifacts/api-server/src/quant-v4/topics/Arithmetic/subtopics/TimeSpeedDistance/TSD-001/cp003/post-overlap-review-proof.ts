@@ -11,7 +11,18 @@ function representationBucket(solveMode: string, representation: string): string
   return representation;
 }
 
-const rows = generateCp003PostOverlapReviewRows(3);
+let rows: ReturnType<typeof generateCp003PostOverlapReviewRows>;
+try {
+  rows = generateCp003PostOverlapReviewRows(3);
+} catch (error) {
+  console.log(JSON.stringify({
+    status: "FAIL",
+    phase: "TSD_CP003_POST_OVERLAP_REVIEW_SELECTION",
+    error: error instanceof Error ? error.message : String(error),
+  }, null, 2));
+  throw error;
+}
+
 assert(rows.length === 63, `Expected 63 accepted post-overlap review rows, received ${rows.length}`);
 assert(!rows.some((row) => row.solveMode === "scheduleBuffer"), "Rejected scheduleBuffer rows leaked into the accepted CP-003 editorial review");
 assert(!rows.some((row) => row.ownershipDisposition === "REJECTED_AS_STANDALONE_LEARNER_AUTHORITY"), "Rejected authority disposition leaked into accepted review rows");
