@@ -4,13 +4,15 @@ import type {
   ClockSemanticAnswer,
 } from "./types";
 import type { SolvedClockPrototype } from "./solver-types";
+import { formatOrdinal } from "./utils";
 
 export function normalizeClockPresentationText(value: string): string {
   return value
-    .replace(/\b1th\b/g, "1st")
-    .replace(/\b2th\b/g, "2nd")
-    .replace(/\b3th\b/g, "3rd")
-    .replace(/:(\d) (?=\d+\/\d+)/g, ":0$1 ")
+    .replace(/\b(\d+)(?:st|nd|rd|th)\b/g, (_match, rawValue: string) => formatOrdinal(Number(rawValue)))
+    .replace(/\bAt what all times\b/g, "At what times")
+    .replace(/\bat what all times\b/g, "at what times")
+    .replace(/\bWhat all times\b/g, "What times")
+    .replace(/\bwhat all times\b/g, "what times")
     .replace(/\b1 seconds\b/g, "1 second")
     .replace(/\b1 minutes\b/g, "1 minute")
     .replace(/\b1 hours\b/g, "1 hour");
