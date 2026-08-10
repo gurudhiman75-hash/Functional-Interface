@@ -14,6 +14,15 @@ on:
       - feat/tsd-p2-diversity-batch-02
       - feat/tsd-p2-diversity-batch-03
       - fix/tsd-proportion-explanation-integrity
+      - fix/tsd-distractor-explanation-integrity
+      - fix/tsd-context-plausibility
+      - fix/tsd-direct-option-feedback
+      - fix/tsd-proportion-option-labels
+      - fix/tsd-deadline-option-feedback
+      - fix/tsd-mixed-unit-option-feedback
+      - fix/tsd-clock-option-labels
+      - fix/tsd-direct-option-labels
+      - remodel/tsd-method-derived-distractors
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**
@@ -57,6 +66,15 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/p2-diversity-batch-03-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/p2-diversity-batch-03-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/proportion-explanation-integrity-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/proportion-explanation-integrity-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/distractor-explanation-integrity-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/distractor-explanation-integrity-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/context-plausibility-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/context-plausibility-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/direct-option-feedback-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/direct-option-feedback-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/proportion-option-label-integrity-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/proportion-option-label-integrity-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/deadline-option-feedback-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/deadline-option-feedback-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/mixed-unit-option-feedback-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/mixed-unit-option-feedback-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/clock-option-label-integrity-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/clock-option-label-integrity-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/direct-option-label-integrity-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/direct-option-label-integrity-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/method-derived-distractor-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/method-derived-distractor-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/ratio-option-integrity-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/ratio-option-integrity-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/canonical-review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/canonical-review-export.mjs"
 
       - name: Run canonical schema and diversity proofs
@@ -73,13 +91,22 @@ jobs:
           node dist/quant-v4/tsd-001/canonical-review/p2-diversity-batch-03-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/p2-diversity-batch-03-proof.log
           node dist/quant-v4/tsd-001/canonical-review/proportion-explanation-integrity-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/proportion-explanation-integrity-proof.log
           node dist/quant-v4/tsd-001/canonical-review/distractor-explanation-integrity-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/distractor-explanation-integrity-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/context-plausibility-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/context-plausibility-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/direct-option-feedback-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/direct-option-feedback-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/proportion-option-label-integrity-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/proportion-option-label-integrity-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/deadline-option-feedback-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/deadline-option-feedback-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/mixed-unit-option-feedback-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/mixed-unit-option-feedback-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/clock-option-label-integrity-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/clock-option-label-integrity-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/direct-option-label-integrity-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/direct-option-label-integrity-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/method-derived-distractor-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/method-derived-distractor-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/ratio-option-integrity-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/ratio-option-integrity-proof.log
           node dist/quant-v4/tsd-001/canonical-review/canonical-review-export.mjs | tee dist/quant-v4/tsd-001/canonical-review/canonical-review-export.log
 
       - name: Upload canonical and diversity proof logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-distractor-explanation-integrity-proof
+          name: tsd-ratio-option-integrity-proof
           path: |
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/canonical-review-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-01-proof.log
@@ -91,12 +118,21 @@ jobs:
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/p2-diversity-batch-03-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/proportion-explanation-integrity-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/distractor-explanation-integrity-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/context-plausibility-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/direct-option-feedback-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/proportion-option-label-integrity-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/deadline-option-feedback-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/mixed-unit-option-feedback-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/clock-option-label-integrity-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/direct-option-label-integrity-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/method-derived-distractor-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/ratio-option-integrity-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/canonical-review-export.log
           if-no-files-found: error
 
       - name: Upload corrected canonical review package
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-distractor-explanation-integrity-review
+          name: tsd-ratio-option-integrity-review
           path: artifacts/api-server/dist/quant-v4/tsd-001/canonical-review
           if-no-files-found: error
