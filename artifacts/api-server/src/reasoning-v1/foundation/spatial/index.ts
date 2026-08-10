@@ -31,4 +31,8 @@ export * from "./classification-ambiguity-validator";
 export * from "./classification-scene";
 export * from "./classification-proof-generator";
 export * from "./classification-editorial-export";
+export * from "./primitive-types";
+export * from "./primitive-library-v2";
+export * from "./primitive-validator";
+export * from "./primitive-editorial-export";
 export * from "./svg-renderer";
