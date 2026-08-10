@@ -1,5 +1,6 @@
 import { canonicalDigest } from "../canonical.ts";
 import { DeterministicRandom } from "../../../../shared/constraint-core/random.ts";
+import { selectSea001Names } from "../generation/name-pool.ts";
 import { constraintTrueInMixedState, mixedConstraintFingerprint, renderMixedConstraint } from "./constraints.ts";
 import { buildMixedFacingChildren } from "./questions.ts";
 import { enumerateMixedFacingOracle, enumerateMixedFacingProduction } from "./solvers.ts";
@@ -12,7 +13,6 @@ import type {
   MixedPersonId,
 } from "./types.ts";
 
-const NAMES = ["A", "B", "C", "D", "E", "F", "G", "H"] as const;
 export const SEA_CP002_BLUEPRINTS: readonly MixedFacingBlueprintId[] = ["SEA-PBA-005", "SEA-PBA-006", "SEA-PBA-007", "SEA-PBA-008"];
 const LIFECYCLE = Object.freeze({
   discoveryStatus: "EXECUTABLE_FOUNDATION" as const,
@@ -144,7 +144,7 @@ function proofTrace(constraints: readonly MixedFacingConstraint[]): readonly Mix
 function attempt(seed: string, blueprint: MixedFacingBlueprintId): MixedFacingCaseletRecord {
   const rng = new DeterministicRandom(seed);
   const seatCount = rng.integer(6, 8);
-  const persons = NAMES.slice(0, seatCount);
+  const persons = selectSea001Names(seed, seatCount, `${blueprint}:cp002`) as MixedPersonId[];
   const order = rng.shuffle(persons);
   const facings = controlledFacings(order, rng);
   const candidates = candidateConstraints(blueprint, order, facings, rng);
@@ -178,7 +178,7 @@ function attempt(seed: string, blueprint: MixedFacingBlueprintId): MixedFacingCa
     blueprintAuthorityId: blueprint,
     seed,
     locale: "en-IN",
-    setupText: `${seatCount} persons—${persons.join(", ")}—are sitting in a straight row. Some face north and the others face south. They are not necessarily seated in alphabetical order.`,
+    setupText: `${seatCount} persons—${persons.join(", ")}—are sitting in a straight row. Some face north and the others face south. They are not necessarily seated in the same order as listed.`,
     clueTexts,
     constraints,
     hiddenStateFingerprint: canonicalDigest({ order, facings }),
