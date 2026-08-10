@@ -6,6 +6,8 @@ if (corpus.caselets.length !== 40) throw new Error(`Expected 40 teaching-proof c
 
 const bannedInternalTerms = /\b(?:solver|oracle|canonical|model class|search branch|seat zero)\b/i;
 const arbitraryCaseLanguage = /several arrangements are still possible|three useful cases/i;
+const participantNames = new Set<string>();
+const pbaCaseCounts = new Map<string, number>();
 let caseAnalysisCount = 0;
 let eliminationCount = 0;
 let cp001PartialCaseCount = 0;
@@ -14,6 +16,19 @@ const checkpointCounts = new Map<string, number>();
 for (const caselet of corpus.caselets) {
   const explanation = compileSea001TeachingExplanationFromUnknown(caselet);
   checkpointCounts.set(caselet.checkpointId, (checkpointCounts.get(caselet.checkpointId) ?? 0) + 1);
+
+  const visibleText = [caselet.setupText, ...caselet.clueTexts, explanation, ...caselet.children.map((child) => child.text)].join("\n");
+  if (/position 1 from the left end/i.test(visibleText)) throw new Error(`Awkward left-end wording leaked into ${caselet.caseletId}`);
+  if (/not necessarily seated in alphabetical order/i.test(visibleText)) throw new Error(`Alphabetical-order filler leaked into ${caselet.caseletId}`);
+
+  const setupNames = caselet.setupText.match(/persons—(.+?)—are sitting/i)?.[1]
+    ?.split(",")
+    .map((name) => name.trim())
+    .filter(Boolean) ?? [];
+  for (const name of setupNames) participantNames.add(name);
+  if (caselet.checkpointId !== "SEA-CP-001" && setupNames.some((name) => /^[A-J]$/.test(name))) {
+    throw new Error(`Single-letter participant pool leaked into ${caselet.caseletId}`);
+  }
 
   if (!explanation.trim()) throw new Error(`Empty teaching explanation: ${caselet.caseletId}`);
   if (bannedInternalTerms.test(explanation)) throw new Error(`Internal terminology leaked into ${caselet.caseletId}: ${explanation}`);
@@ -25,12 +40,13 @@ for (const caselet of corpus.caselets) {
   const caseNumbers = [...explanation.matchAll(/Case (\d+)/g)].map((match) => Number(match[1]));
   if (caseNumbers.length > 0) {
     caseAnalysisCount += 1;
+    pbaCaseCounts.set(caselet.blueprintAuthorityId, (pbaCaseCounts.get(caselet.blueprintAuthorityId) ?? 0) + 1);
     const highestCase = Math.max(...caseNumbers);
     if (highestCase > 3) throw new Error(`More than three student-facing cases exposed: ${caselet.caseletId}`);
     if (!explanation.includes("❌")) throw new Error(`Case analysis lacks a cancelled case: ${caselet.caseletId}`);
     if (!explanation.includes("✅")) throw new Error(`Case analysis lacks a surviving case: ${caselet.caseletId}`);
-    if (!/(?:does not satisfy this clue|contradicts the clue)/.test(explanation)) {
-      throw new Error(`Elimination is not tied to a displayed clue: ${caselet.caseletId}`);
+    if (!/cancel it because/i.test(explanation)) {
+      throw new Error(`Elimination is not explicitly justified: ${caselet.caseletId}`);
     }
     eliminationCount += 1;
   }
@@ -38,7 +54,7 @@ for (const caselet of corpus.caselets) {
   if (caselet.checkpointId === "SEA-CP-001" && /possible partial cases/.test(explanation)) {
     cp001PartialCaseCount += 1;
     if (!/\b\d+:_\b/.test(explanation)) throw new Error(`CP001 partial case does not leave unresolved seats blank: ${caselet.caseletId}`);
-    if (!/Do not guess the remaining people/.test(explanation)) throw new Error(`CP001 partial-case pedagogy guard is missing: ${caselet.caseletId}`);
+    if (!/leave the rest blank/i.test(explanation)) throw new Error(`CP001 partial-case pedagogy guard is missing: ${caselet.caseletId}`);
   }
 
   if ((caselet.checkpointId === "SEA-CP-003" || caselet.checkpointId === "SEA-CP-004" || caselet.checkpointId === "SEA-CP-005")
@@ -62,11 +78,19 @@ for (const caselet of corpus.caselets) {
   }
 }
 
+if (participantNames.size < 28) {
+  throw new Error(`SEA-001 participant pool is still too narrow in the proof corpus: ${participantNames.size}`);
+}
 if (caseAnalysisCount < 16 || eliminationCount !== caseAnalysisCount) {
   throw new Error(`Teaching-case coverage is too weak: cases=${caseAnalysisCount}, eliminations=${eliminationCount}`);
 }
 if (cp001PartialCaseCount < 2) {
   throw new Error(`CP001 partial-case teaching coverage is too weak: ${cp001PartialCaseCount}`);
+}
+for (const blueprintId of ["SEA-PBA-003", "SEA-PBA-011", "SEA-PBA-015"]) {
+  if ((pbaCaseCounts.get(blueprintId) ?? 0) < 1) {
+    throw new Error(`Expected at least one explicit case-analysis proof for ${blueprintId}`);
+  }
 }
 for (const checkpointId of ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-004", "SEA-CP-005"]) {
   if ((checkpointCounts.get(checkpointId) ?? 0) !== 8) {
@@ -76,7 +100,11 @@ for (const checkpointId of ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-00
 
 console.log("PASS_SEA_001_TEACHING_EXPLANATIONS");
 console.log("caselets", corpus.caselets.length);
+console.log("distinct participant names", participantNames.size);
 console.log("case-analysis explanations", caseAnalysisCount);
 console.log("CP001 partial-case explanations", cp001PartialCaseCount);
+console.log("PBA003 cases", pbaCaseCounts.get("SEA-PBA-003") ?? 0);
+console.log("PBA011 cases", pbaCaseCounts.get("SEA-PBA-011") ?? 0);
+console.log("PBA015 cases", pbaCaseCounts.get("SEA-PBA-015") ?? 0);
 console.log("elimination explanations", eliminationCount);
 console.log("permanent QLs", 0);
