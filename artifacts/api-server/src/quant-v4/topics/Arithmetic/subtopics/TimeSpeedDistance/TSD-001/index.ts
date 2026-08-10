@@ -16,6 +16,8 @@ export * from "./cp003/discovery-registry";
 export * from "./cp003/types";
 export * from "./cp003/solver";
 export * from "./cp003/verifier";
+export * from "./cp003/runtime-types";
+export * from "./cp003/runtime";
 export * from "./authority-overlap-audit";
 export * from "./final-authority-registry";
 export * from "./final-authority-review";
