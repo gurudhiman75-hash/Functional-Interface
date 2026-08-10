@@ -1,6 +1,12 @@
 import { canonicalDigest } from "../canonical.ts";
 import { DeterministicRandom } from "../../../../shared/constraint-core/random.ts";
-import { selectSea001Names } from "../generation/name-pool.ts";
+import {
+  presentSea001Children,
+  presentSea001Text,
+  sea001DisplayName,
+  sea001DisplayNameMap,
+  sea001PersonIds,
+} from "../generation/person-presentation.ts";
 import { canonicalCircularOrder, personAt, rotateOrder } from "../cp003/topology.ts";
 import {
   mixedCircleConstraintFingerprint,
@@ -274,23 +280,28 @@ function naturalPersonList(personIds: readonly string[]): string {
 
 function renderMixedCircleClueTexts(
   constraints: readonly MixedCircleConstraint[],
+  displayNames: Readonly<Record<string, string>>,
 ): readonly string[] {
   const facingConstraints = constraints.filter((constraint) => constraint.kind === "FACING");
-  if (facingConstraints.length <= 1) return constraints.map(renderMixedCircleConstraint);
+  if (facingConstraints.length <= 1) {
+    return constraints.map((constraint) => presentSea001Text(renderMixedCircleConstraint(constraint), displayNames));
+  }
 
   const centre = facingConstraints
     .filter((constraint) => constraint.kind === "FACING" && constraint.facing === "CENTER")
-    .map((constraint) => constraint.personId);
+    .map((constraint) => sea001DisplayName(constraint.personId, displayNames));
   const outward = facingConstraints
     .filter((constraint) => constraint.kind === "FACING" && constraint.facing === "OUTWARD")
-    .map((constraint) => constraint.personId);
+    .map((constraint) => sea001DisplayName(constraint.personId, displayNames));
   const facingParts: string[] = [];
   if (centre.length > 0) facingParts.push(`${naturalPersonList(centre)} ${centre.length === 1 ? "faces" : "face"} the centre`);
   if (outward.length > 0) facingParts.push(`${naturalPersonList(outward)} ${outward.length === 1 ? "faces" : "face"} outward`);
   const groupedFacing = `${facingParts.join("; ")}.`;
   return [
     groupedFacing,
-    ...constraints.filter((constraint) => constraint.kind !== "FACING").map(renderMixedCircleConstraint),
+    ...constraints
+      .filter((constraint) => constraint.kind !== "FACING")
+      .map((constraint) => presentSea001Text(renderMixedCircleConstraint(constraint), displayNames)),
   ];
 }
 
@@ -302,7 +313,8 @@ function attempt(
   const seatCount = blueprint === "SEA-PBA-019"
     ? random.pick([6] as const)
     : random.pick([6, 7] as const);
-  const persons = selectSea001Names(seed, seatCount, `${blueprint}:cp005`);
+  const persons = sea001PersonIds(seatCount);
+  const displayNames = sea001DisplayNameMap(seed, persons, `${blueprint}:cp005`);
   const clockwiseOrder = canonicalCircularOrder(random.shuffle(persons));
   const facings = controlledFacings(clockwiseOrder, random);
   const candidates = buildCandidateConstraints(blueprint, clockwiseOrder, facings);
@@ -332,19 +344,21 @@ function attempt(
     }
   }
 
-  const children = buildMixedCircleChildren(seed, blueprint, model, random);
-  const clueTexts = renderMixedCircleClueTexts(constraints);
+  const children = presentSea001Children(buildMixedCircleChildren(seed, blueprint, model, random), displayNames);
+  const clueTexts = renderMixedCircleClueTexts(constraints, displayNames);
   const displayOrder = rotateOrder(model.clockwiseOrder, random.integer(0, model.clockwiseOrder.length - 1));
-  const diagramText = `Clockwise from ${displayOrder[0]} (chosen only as a drawing reference): ${displayOrder
-    .map((personId) => `${personId}${model.facings[personId] === "CENTER" ? "↘ centre" : "↗ outward"}`)
-    .join(" → ")} → ${displayOrder[0]}`;
+  const displayedNames = displayOrder.map((personId) => sea001DisplayName(personId, displayNames));
+  const diagramText = `Clockwise from ${displayedNames[0]} (chosen only as a drawing reference): ${displayOrder
+    .map((personId) => `${sea001DisplayName(personId, displayNames)}${model.facings[personId] === "CENTER" ? "↘ centre" : "↗ outward"}`)
+    .join(" → ")} → ${displayedNames[0]}`;
   const sharedExplanation = [
-    `For drawing, start from ${displayOrder[0]} at any convenient point; rotating the complete arrangement does not change any relative position.`,
+    `For drawing, start from ${displayedNames[0]} at any convenient point; rotating the complete arrangement does not change any relative position.`,
     "Resolve every facing before applying a left/right clue. For centre-facing persons, left is clockwise; for outward-facing persons, left is anticlockwise.",
     "Apply the clues one by one:",
     ...clueTexts.map((clue, index) => `${index + 1}. ${clue}`),
     `Final arrangement: ${diagramText}.`,
   ].join("\n");
+  const listedNames = persons.map((personId) => sea001DisplayName(personId, displayNames));
 
   return {
     caseletId: `SEA-CP005-${canonicalDigest({ seed, blueprint }).slice(0, 16)}`,
@@ -354,7 +368,7 @@ function attempt(
     blueprintAuthorityId: blueprint,
     seed,
     locale: "en-IN",
-    setupText: `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table. Some face the centre and the others face outward. They are not necessarily seated in the same order as listed.`,
+    setupText: `${seatCount} persons—${listedNames.join(", ")}—are sitting around a circular table. Some face the centre and the others face outward. They are not necessarily seated in the same order as listed.`,
     clueTexts,
     constraints,
     solutionPolicy: "UNIQUE_STATE_CLASS",
