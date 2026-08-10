@@ -1,3 +1,4 @@
+import { examDifficultyLabel } from "../difficulty-calibration";
 import { TSD_CP001_DISCOVERY_AUTHORITIES } from "./discovery-registry";
 import {
   TSD_CP001_LEARNER_AUTHORITIES,
@@ -42,10 +43,11 @@ for (const authority of TSD_CP001_DISCOVERY_AUTHORITIES) {
 
     assert(first.chapterId === "TSD-001" && first.checkpointId === "TSD-CP-001", `${authority.solveMode}:${index}: canonical IDs missing`);
     assert(first.questionLanguageId.length > 10, `${authority.solveMode}:${index}: questionLanguageId missing`);
-    assert(first.difficulty.status === "EDITORIAL_CALIBRATION_REQUIRED", `${authority.solveMode}:${index}: difficulty is not provisional`);
-    assert(first.lifecycle.reviewStatus === "EDITORIAL_REVIEW_REQUIRED", `${authority.solveMode}:${index}: review was not reopened`);
-    assert(first.lifecycle.englishDecision === "NEEDS_REVISION", `${authority.solveMode}:${index}: English decision is not reopened`);
-    assert(first.lifecycle.englishFreezeStatus === "UNFROZEN", `${authority.solveMode}:${index}: stale freeze status leaked`);
+    assert(first.difficulty.status === "EDITORIALLY_CALIBRATED", `${authority.solveMode}:${index}: difficulty is not calibrated`);
+    assert(first.difficulty.label === examDifficultyLabel(first.solveMode, first.input), `${authority.solveMode}:${index}: difficulty label conflicts with exam-family rubric`);
+    assert(first.lifecycle.reviewStatus === "EDITORIAL_REVIEW_REQUIRED", `${authority.solveMode}:${index}: review source lifecycle changed`);
+    assert(first.lifecycle.englishDecision === "NEEDS_REVISION", `${authority.solveMode}:${index}: source English decision changed`);
+    assert(first.lifecycle.englishFreezeStatus === "UNFROZEN", `${authority.solveMode}:${index}: source runtime was mutated instead of wrapped by English freeze`);
     assert(first.lifecycle.questionBankStatus === "NOT_STORED" && first.lifecycle.testEligibility === "INELIGIBLE", `${authority.solveMode}:${index}: delivery lock failed`);
     assert(!first.publiclyPublishable, `${authority.solveMode}:${index}: publication lock failed`);
 
@@ -76,8 +78,9 @@ assert(candidateCount === TSD_CP001_DISCOVERY_AUTHORITIES.length * seedsPerAutho
 assert(TSD_CP001_LEARNER_AUTHORITIES.length === 23, "Unexpected CP-001 learner authority count during P0 remodel");
 assert(TSD_CP001_NON_LEARNER_MODES.size === 2, "Unexpected CP-001 internal authority count");
 assert(reviewRows.length === 69, "Unexpected CP-001 review-row count");
-assert(reviewRows.every((row) => row.lifecycle.englishFreezeStatus === "UNFROZEN"), "A CP-001 review row remains frozen");
-assert(reviewRows.every((row) => row.difficulty.status === "EDITORIAL_CALIBRATION_REQUIRED"), "A CP-001 review row lacks provisional difficulty");
+assert(reviewRows.every((row) => row.lifecycle.englishFreezeStatus === "UNFROZEN"), "A CP-001 source review row was mutated instead of frozen through the wrapper");
+assert(reviewRows.every((row) => row.difficulty.status === "EDITORIALLY_CALIBRATED"), "A CP-001 review row lacks calibrated difficulty");
+assert(reviewRows.every((row) => row.difficulty.label === examDifficultyLabel(row.solveMode, row.input)), "A CP-001 review-row difficulty label conflicts with the exam-family rubric");
 assert(reviewRows.every((row) => row.questionLanguageId.length > 10), "A CP-001 review row lacks questionLanguageId");
 
 const nextDayArrivalRows = reviewRows.filter((row) => row.solveMode === "arrivalClockTime" && row.answerText.includes(" next day"));
@@ -88,7 +91,7 @@ assert(paceRows.every((row) => /pace in (seconds|minutes) per kilometre/i.test(r
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "P0_EDITORIAL_REMODEL",
+  phase: "P0_EDITORIAL_REMODEL_COMPATIBILITY",
   provisionalAuthorityCount: TSD_CP001_DISCOVERY_AUTHORITIES.length,
   learnerAuthorityCount: TSD_CP001_LEARNER_AUTHORITIES.length,
   internalQaAuthorityCount: TSD_CP001_NON_LEARNER_MODES.size,
@@ -97,8 +100,9 @@ console.log(JSON.stringify({
   answerPositionDistribution,
   reviewRows: reviewRows.length,
   nextDayArrivalRows: nextDayArrivalRows.length,
-  reviewStatus: "EDITORIAL_REVIEW_REQUIRED",
-  englishFreezeStatus: "UNFROZEN",
+  difficultyStatus: "EDITORIALLY_CALIBRATED",
+  sourceReviewStatus: "EDITORIAL_REVIEW_REQUIRED",
+  sourceEnglishFreezeStatus: "UNFROZEN",
   questionBankStored: 0,
   testEligible: 0,
   publiclyPublishable: 0,
