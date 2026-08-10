@@ -16,6 +16,7 @@ export interface AttemptDraftState {
   originalAttemptId?: string;
   sectionCompletionTimes?: Record<string, number>;
   visitedQuestionIds?: number[];
+  questionTimeSecondsById: Record<string, number>;
 }
 
 export interface AttemptSessionSnapshot {
@@ -63,6 +64,13 @@ function numberMap(value: unknown, maximumEntries: number, minimum: number, maxi
       .slice(0, maximumEntries)
       .map(([key, raw]) => [key.slice(0, 160), finiteInteger(raw, minimum, maximum)]),
   );
+}
+
+export function resolveAttemptLimit(settings: unknown, fallback = 99): number {
+  const input = asRecord(settings);
+  const parsed = Number(input.maxAttempts ?? input.max_attempts);
+  if (!Number.isInteger(parsed) || parsed <= 0) return fallback;
+  return Math.min(parsed, 999);
 }
 
 export function normalizeAttemptDraftState(value: unknown, expectedTestId: string): AttemptDraftState {
@@ -118,6 +126,7 @@ export function normalizeAttemptDraftState(value: unknown, expectedTestId: strin
     originalAttemptId: stringValue(input.originalAttemptId, 120) || undefined,
     sectionCompletionTimes: numberMap(input.sectionCompletionTimes, 200, 0, 604_800),
     visitedQuestionIds: visitedQuestionIds ? Array.from(new Set(visitedQuestionIds)) : undefined,
+    questionTimeSecondsById: numberMap(input.questionTimeSecondsById, 2_000, 0, 604_800),
   };
 }
 

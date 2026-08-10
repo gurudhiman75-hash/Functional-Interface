@@ -7,6 +7,7 @@ import {
   createAttemptSessionSnapshot,
   normalizeAttemptDraftState,
   readAttemptSessionSnapshot,
+  resolveAttemptLimit,
 } from "./attempt-reliability";
 
 const testId = "11111111-1111-4111-8111-111111111111";
@@ -28,8 +29,17 @@ function state(updatedAt = 1000) {
     lockedSections: [0, 0],
     sectionCompletionTimes: { English: 420 },
     visitedQuestionIds: [101, 102, 101],
+    questionTimeSecondsById: { 101: 37, 102: 12 },
   };
 }
+
+test("attempt limit resolves from canonical settings with a safe fallback", () => {
+  assert.equal(resolveAttemptLimit({ maxAttempts: 3 }), 3);
+  assert.equal(resolveAttemptLimit({ max_attempts: 5 }), 5);
+  assert.equal(resolveAttemptLimit({ maxAttempts: 0 }), 99);
+  assert.equal(resolveAttemptLimit({ maxAttempts: 4000 }), 999);
+  assert.equal(resolveAttemptLimit(null), 99);
+});
 
 test("new sessions begin at revision zero without draft state", () => {
   const snapshot = createAttemptSessionSnapshot({
@@ -48,7 +58,20 @@ test("draft normalization preserves runner state and removes duplicate indexes",
   assert.deepEqual(normalized.answers, { 101: 2, 102: null });
   assert.deepEqual(normalized.lockedSections, [0]);
   assert.deepEqual(normalized.visitedQuestionIds, [101, 102]);
+  assert.deepEqual(normalized.questionTimeSecondsById, { 101: 37, 102: 12 });
   assert.equal(normalized.attemptType, "REAL");
+});
+
+test("question timing is bounded and malformed values are normalized", () => {
+  const normalized = normalizeAttemptDraftState({
+    ...state(),
+    questionTimeSecondsById: { 101: -10, 102: 12.7, 103: 9999999 },
+  }, testId);
+  assert.deepEqual(normalized.questionTimeSecondsById, {
+    101: 0,
+    102: 13,
+    103: 604800,
+  });
 });
 
 test("a draft cannot be attached to another test", () => {
@@ -68,6 +91,7 @@ test("revision advances exactly once for a matching writer", () => {
   });
   assert.equal(next.revision, 1);
   assert.equal(next.state?.updatedAt, 2000);
+  assert.equal(next.state?.questionTimeSecondsById["101"], 37);
 });
 
 test("stale tabs receive a deterministic conflict", () => {
