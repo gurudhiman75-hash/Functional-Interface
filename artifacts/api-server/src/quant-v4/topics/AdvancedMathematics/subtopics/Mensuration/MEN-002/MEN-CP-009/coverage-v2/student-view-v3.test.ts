@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
-import { buildMenCp009V2ReviewBatch } from "./review-batch";
+import { buildMenCp009V3StudentReviewBatch } from "./student-review-batch-v3";
 import {
   MEN_CP_009_STUDENT_VIEW_AUTHORITY,
   buildMenCp009StudentView,
 } from "./student-view-v3";
 
-const review = buildMenCp009V2ReviewBatch();
+const review = buildMenCp009V3StudentReviewBatch();
 const views = review.rows.map(buildMenCp009StudentView);
 
 assert.equal(views.length, 112, "V3 must preserve all 112 CP-009 review questions.");
@@ -17,7 +17,12 @@ assert.equal(
 assert.equal(
   new Set(views.map((view) => view.stem)).size,
   112,
-  "Learner-facing stems must remain unique after naturalisation.",
+  "Learner-facing stems must remain genuinely unique after naturalisation.",
+);
+assert.deepEqual(
+  review.answerPositions,
+  { A: 28, B: 28, C: 28, D: 28 },
+  "V3 learner review must preserve balanced answer positions.",
 );
 
 const rawLatex = /\$|\\(?:pi|frac|text|times|sqrt)/;
@@ -119,6 +124,7 @@ console.log(
       uniqueLearnerStems: new Set(views.map((view) => view.stem)).size,
       sourceGenericTrailersExercised: sourceTrailerCount,
       learnerGenericTrailers: 0,
+      answerPositions: review.answerPositions,
       rawLatexLeaks: 0,
       genericDiagramsShown: 0,
       explanationLineRange: "2-4",
