@@ -17,7 +17,8 @@ function hasUnsafeNotation(value: string): boolean {
 
 function assertLearnerV2(question: any, qlId: string, language: Tmw001ChapterLanguage, seed: string): void {
   const label = `${qlId}:${language}:${seed}`;
-  assert(question.validation?.valid, `${label}: source validation failed: ${(question.validation?.errors ?? []).join(" | ")}`);
+  const learnerSnapshot = JSON.stringify(question.learnerExplanation ?? null);
+  assert(question.validation?.valid, `${label}: source validation failed: ${(question.validation?.errors ?? []).join(" | ")} | learner=${learnerSnapshot}`);
   assert(question.publiclyPublishable === false, `${label}: publication lock changed`);
   assert(question.options?.length === 4, `${label}: expected four options`);
   assert(new Set(question.options).size === 4, `${label}: options are not unique`);
@@ -38,7 +39,7 @@ function assertLearnerV2(question: any, qlId: string, language: Tmw001ChapterLan
   const visible = [learner.method, ...learner.solution, learner.answer].join(" ");
   assert(visible.includes(question.solution.answerText), `${label}: learner V2 omits the solved answer text`);
   assert(!/10[- ]Second|10[- ]सेकंड|10[- ]ਸੈਕਿੰਡ/i.test(visible), `${label}: generic 10-second claim leaked into learner V2`);
-  assert(!hasUnsafeNotation(visible), `${label}: word-based or localized subscript leaked into learner V2`);
+  assert(!hasUnsafeNotation(visible), `${label}: word-based or localized subscript leaked into learner V2: ${visible}`);
   assert(!/\bFormula\b|\bGivens\b|\bShortcut\b/i.test(visible), `${label}: legacy section label leaked into learner V2`);
   assert(learner.method.length <= 280, `${label}: method is too long for the learner view`);
   for (const step of learner.solution) assert(step.length <= 320, `${label}: learner solution step is too long`);
