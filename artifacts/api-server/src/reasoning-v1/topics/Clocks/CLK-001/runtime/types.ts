@@ -108,9 +108,15 @@ export interface ClockDiscoveryAudit {
   sourceAuditFlags: readonly ClockSourceAuditFlag[];
   candidateDisposition: ClockCandidateDisposition;
   semanticCluster: string;
+  declaredSourceRegistrySaturationComplete: true;
   sourceSaturationComplete: false;
   authorityFrozen: false;
   permanentQlEligible: false;
+  difficultyModel: "ITEM_LEVEL_V1";
+  difficultyBaselineScore: number;
+  difficultyItemScore: number;
+  difficultyFactors: readonly string[];
+  difficultyHumanCalibrationRequired: true;
 }
 
 export interface ClockScenario {
