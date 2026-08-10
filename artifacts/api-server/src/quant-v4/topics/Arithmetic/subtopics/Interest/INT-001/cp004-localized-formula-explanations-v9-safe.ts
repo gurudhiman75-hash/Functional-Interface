@@ -33,6 +33,24 @@ function localeSafeCalculationStep(
     : `ਗਣਨਾ: ${text}`;
 }
 
+function cleanFinalAnswer(
+  locale: IntCp004LocalizedLocale,
+  text: string,
+): string {
+  return locale === "hi-IN"
+    ? text.replace(/^अंतिम उत्तर:\s*/u, "")
+    : text.replace(/^ਅੰਤਿਮ ਉੱਤਰ:\s*/u, "");
+}
+
+function cleanCommonMistake(
+  locale: IntCp004LocalizedLocale,
+  text: string,
+): string {
+  return locale === "hi-IN"
+    ? text.replace(/^ध्यान रखें:\s*/u, "")
+    : text.replace(/^ਧਿਆਨ ਰੱਖੋ:\s*/u, "");
+}
+
 export function buildCp004LocalizedFormulaExplanationV9Safe(
   source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
@@ -49,5 +67,7 @@ export function buildCp004LocalizedFormulaExplanationV9Safe(
     steps: Object.freeze(
       explanation.steps.map((step) => localeSafeCalculationStep(locale, step)),
     ),
+    finalAnswer: cleanFinalAnswer(locale, explanation.finalAnswer),
+    commonMistake: cleanCommonMistake(locale, explanation.commonMistake),
   });
 }
