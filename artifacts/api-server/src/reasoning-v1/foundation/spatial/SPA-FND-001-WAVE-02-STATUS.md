@@ -66,13 +66,25 @@ PASS_SPA_FND_001_MIRROR_WATER_PROOF
 
 The workflow built the API server, reran the complete foundation regression proof, bundled the seeded corpus proof and executed all 20 questions successfully.
 
+## Additive Primitive Library V2 enhancement
+
+A later descendant branch does **not** replace this approved 20-question baseline. It adds a reusable canonical-primitive instance layer and exposes a 17-primitive MIR/WAT eligibility pool.
+
+Controlled descendant proof adds:
+
+```text
+MIR-001 V2 examples: 4
+WAT-001 V2 examples: 4
+```
+
+The examples include open figures, polygons, an arrow, a semicircle and a spoke structure. Correct Mirror and Water scenes are independently recomputed from the canonical primitive geometry, and every four-option set is semantic-fingerprint unique.
+
+The validated descendant implementation proof is recorded in `SPA-FND-001-PRIMITIVE-RETROFIT-FCL-V2-STATUS.md`. This note is additive historical linkage only; the original Wave 02 status above remains unchanged.
+
 ## Explicitly deferred
 
 - production exam checkpoint design;
-- glyph and digit question corpora;
-- analog-clock proof questions;
 - learner-facing final English explanation rendering;
 - Hindi/Punjabi content;
 - Question Studio integration;
-- remaining Figure Analogy, Classification and Series proof questions;
-- full 48-question cross-chapter runtime proof.
+- full production-scale spatial synthesis.
