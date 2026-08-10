@@ -15,6 +15,7 @@ let inferredFacingCases = 0;
 let conditionalOrientationCases = 0;
 let oppositeGapCases = 0;
 let facingCounterfactualQuestions = 0;
+let groupedFacingPresentationCases = 0;
 const observedSeatCounts = new Set<number>();
 const startedAt = performance.now();
 
@@ -34,6 +35,18 @@ for (const blueprint of SEA_CP005_BLUEPRINTS) {
     facingCounterfactualQuestions += caselet.children.filter((child) =>
       child.oppositeFacingCounterfactual !== undefined
         && JSON.stringify(child.oppositeFacingCounterfactual) !== JSON.stringify(child.answer)).length;
+
+    if (blueprint === "SEA-PBA-017" || blueprint === "SEA-PBA-019") {
+      assert.equal(
+        caselet.constraints.filter((constraint) => constraint.kind === "FACING").length,
+        persons.length,
+      );
+      const displayedFacingClues = caselet.clueTexts.filter((clue) => /\bface(?:s)? (?:the centre|outward)\b/i.test(clue));
+      assert.equal(displayedFacingClues.length, 1, `${blueprint}/${seed} did not group explicit facing facts`);
+      assert.match(displayedFacingClues[0] ?? "", /;/, `${blueprint}/${seed} grouped facing clue did not show both facing groups`);
+      assert.ok(caselet.clueTexts.length <= 7, `${blueprint}/${seed} has an editorially long displayed clue list: ${caselet.clueTexts.length}`);
+      groupedFacingPresentationCases += 1;
+    }
 
     if (blueprint === "SEA-PBA-018") {
       inferredFacingCases += 1;
@@ -72,6 +85,7 @@ assert.ok(observedSeatCounts.has(6) && observedSeatCounts.has(7));
 assert.equal(inferredFacingCases, casesPerBlueprint);
 assert.equal(oppositeGapCases, casesPerBlueprint);
 assert.equal(conditionalOrientationCases, casesPerBlueprint);
+assert.equal(groupedFacingPresentationCases, casesPerBlueprint * 2);
 assert.ok(facingCounterfactualQuestions >= generatedCaselets * 2);
 
 console.log("PASS_SEA_001_CP005_MIXED_CIRCLE");
@@ -79,6 +93,7 @@ console.log(`named blueprint authorities ${SEA_CP005_BLUEPRINTS.length}`);
 console.log(`generated deterministic caselets ${generatedCaselets}`);
 console.log(`generated child questions ${generatedQuestions}`);
 console.log(`facing-counterfactual questions ${facingCounterfactualQuestions}`);
+console.log(`grouped-facing presentation cases ${groupedFacingPresentationCases}`);
 console.log(`displayed-clue necessity audits ${displayedClueNecessityAudits}`);
 console.log(`elapsed milliseconds ${Math.round(performance.now() - startedAt)}`);
 console.log("permanent QLs 0");
