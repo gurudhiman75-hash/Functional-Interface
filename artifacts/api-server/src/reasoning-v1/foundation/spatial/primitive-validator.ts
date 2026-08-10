@@ -2,6 +2,7 @@ import { areSpatialScenesEquivalent, spatialSceneSemanticFingerprint } from "./n
 import { classifySpatialSceneSymmetry } from "./symmetry";
 import { rotateScene } from "./transform";
 import { validateSpatialScene } from "./validator";
+import { getSpatialPrimitiveConnectivityV2 } from "./primitive-connectivity-v2";
 import { SPATIAL_PRIMITIVE_AUTHORITY_V2 } from "./primitive-library-v2";
 import type {
   SpatialPrimitiveAuthorityEntryV2,
@@ -61,7 +62,18 @@ export function validateSpatialPrimitiveV2(
 
   if (entry.polygonSideCount !== null && entry.polygonSideCount < 3) add("POLYGON_SIDE_COUNT", "Polygon side count must be at least three.");
   if (entry.enclosedRegionCount < 0) add("ENCLOSED_REGION_COUNT", "Enclosed-region count cannot be negative.");
-  if (entry.interiorIntersectionCount < 0) add("INTERSECTION_COUNT", "Interior-intersection count cannot be negative.");
+
+  const connectivity = getSpatialPrimitiveConnectivityV2(entry.primitiveId);
+  if (connectivity.junctionCount < 0) add("JUNCTION_COUNT", "Junction count cannot be negative.");
+  if (connectivity.crossingCount < 0) add("CROSSING_COUNT", "Crossing count cannot be negative.");
+  if (connectivity.crossingCount > connectivity.junctionCount) add("CONNECTIVITY_ORDER", "Crossing count cannot exceed junction count.");
+  if (entry.interiorIntersectionCount !== connectivity.junctionCount) {
+    add(
+      "LEGACY_MEETING_POINT_COUNT",
+      "Legacy interiorIntersectionCount must equal the authoritative junction count until V3 removes the compatibility field.",
+    );
+  }
+
   if (entry.canContainInner && (entry.category !== "CLOSED_SHAPE" || entry.topology !== "CLOSED")) add("CONTAINMENT_CONTRACT", "Only closed-shape primitives may advertise inner containment.");
   if (new Set(entry.usageRoles).size !== entry.usageRoles.length) add("DUPLICATE_USAGE_ROLE", "Primitive usage roles must be unique.");
   if (new Set(entry.examTags).size !== entry.examTags.length) add("DUPLICATE_EXAM_TAG", "Primitive exam tags must be unique.");
