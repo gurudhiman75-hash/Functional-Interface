@@ -1,3 +1,4 @@
+import { DeterministicRandom } from "../../../../shared/constraint-core/random.ts";
 import { selectSea001Names } from "./name-pool.ts";
 
 export function sea001PersonIds(count: number): string[] {
@@ -49,11 +50,13 @@ export function presentSea001Children<T extends {
   readonly questionOrder: number;
   readonly queryContractId: string;
   readonly answerDeterminingFactFingerprint: string;
+  readonly answerIndex: number;
   readonly text: string;
   readonly explanation: string;
   readonly options: readonly {
     readonly display: string;
     readonly explanation: string;
+    readonly isCorrect: boolean;
   }[];
 }>(
   children: readonly T[],
@@ -80,9 +83,31 @@ export function presentSea001Children<T extends {
     const rightKey = stableNumber(`${right.queryContractId}|${right.answerDeterminingFactFingerprint}`);
     return leftKey - rightKey || left.queryContractId.localeCompare(right.queryContractId);
   });
+  const presentationSeed = Object.entries(displayNames)
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([personId, name]) => `${personId}:${name}`)
+    .join("|");
 
-  return [...fixed, ...varied].map((child, index) => ({
-    ...child,
-    questionOrder: index + 1,
-  })) as T[];
+  return [...fixed, ...varied].map((child, index) => {
+    const questionOrder = index + 1;
+    if (preserveFirst && index === 0) {
+      return {
+        ...child,
+        questionOrder,
+      };
+    }
+
+    const random = new DeterministicRandom(
+      `${presentationSeed}:visible-options:${child.queryContractId}:${child.answerDeterminingFactFingerprint}:Q${questionOrder}`,
+    );
+    const options = random.shuffle(child.options);
+    const answerIndex = options.findIndex((option) => option.isCorrect);
+    if (answerIndex < 0) throw new Error(`SEA-001 child ${child.queryContractId} lost its correct option`);
+    return {
+      ...child,
+      questionOrder,
+      options,
+      answerIndex,
+    };
+  }) as T[];
 }
