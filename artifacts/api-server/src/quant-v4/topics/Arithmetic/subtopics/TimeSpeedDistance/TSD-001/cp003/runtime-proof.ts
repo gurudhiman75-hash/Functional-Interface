@@ -1,11 +1,28 @@
 import { equals } from "../foundation/rational";
-import { TSD_CP003_LEARNER_AUTHORITIES } from "./discovery-registry";
+import { TSD_CP003_LEARNER_AUTHORITIES, type TsdCp003DiscoveryAuthority } from "./discovery-registry";
 import { formatSolvedValue } from "./generation-support";
 import { generateCp003Candidate, stableCp003Stringify } from "./runtime";
 import { verifyCp003 } from "./verifier";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
+}
+
+function generateWithFailureContext(authority: TsdCp003DiscoveryAuthority, seed: string, index: number) {
+  try {
+    return generateCp003Candidate(authority.provisionalId, seed);
+  } catch (error) {
+    console.log(JSON.stringify({
+      status: "FAIL",
+      phase: "TSD_CP003_DETERMINISTIC_LEARNER_RUNTIME",
+      solveMode: authority.solveMode,
+      provisionalId: authority.provisionalId,
+      seedIndex: index,
+      seed,
+      error: error instanceof Error ? error.message : String(error),
+    }, null, 2));
+    throw error;
+  }
 }
 
 const seedsPerAuthority = 40;
@@ -22,8 +39,8 @@ for (const authority of TSD_CP003_LEARNER_AUTHORITIES) {
 
   for (let index = 0; index < seedsPerAuthority; index += 1) {
     const seed = `runtime-proof:${authority.provisionalId}:${index}`;
-    const first = generateCp003Candidate(authority.provisionalId, seed);
-    const second = generateCp003Candidate(authority.provisionalId, seed);
+    const first = generateWithFailureContext(authority, seed, index);
+    const second = generateWithFailureContext(authority, seed, index);
 
     assert(stableCp003Stringify(first) === stableCp003Stringify(second), `${authority.solveMode}:${index}: deterministic replay failed`);
     assert(first.validation.valid, `${authority.solveMode}:${index}: ${first.validation.errors.join("; ")}`);
