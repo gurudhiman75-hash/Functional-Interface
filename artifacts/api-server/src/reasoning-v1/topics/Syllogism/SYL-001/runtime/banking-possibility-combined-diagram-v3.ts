@@ -1,5 +1,5 @@
 import { normalizePremises } from "../foundation/normalization";
-import type { CanonicalConclusion, SylLocale, TermId } from "../foundation/types";
+import type { SylLocale, TermId } from "../foundation/types";
 import { analyzeScenario, conclusionSemanticKey } from "./analysis";
 import type { GeneratedSylQuestionV4 } from "./learner-v4-types";
 import { buildLearnerPresentationV4 } from "./learner-v4";
@@ -18,10 +18,17 @@ import type {
   BankingPossibilityConclusionV1,
   BankingPossibilityShellQuestionV1,
 } from "./banking-possibility-shell-v1";
+import { renderBankingSupplementalPremiseVennV3 } from "./banking-possibility-supplemental-venn-v3";
+
+export type BankingCombinedGeometrySourceV3 =
+  | "APPROVED_V5_EXACT"
+  | "SAFETY_GATED_SUPPLEMENTAL_TEMPLATE"
+  | "OMITTED";
 
 export interface BankingPossibilityCombinedDiagramV3 {
   schemaVersion: "banking-possibility-combined-diagram-v3";
-  renderer: "EXISTING_APPROVED_V5_EXACT_VENN_PIPELINE";
+  renderer: "V5_EXACT_WITH_SAFETY_GATED_SUPPLEMENTAL_TEMPLATES";
+  geometrySource: BankingCombinedGeometrySourceV3;
   pipelineMode: "CONCLUSION_MASK";
   premiseOnly: true;
   enabled: boolean;
@@ -48,7 +55,7 @@ function neutralDiagramCopy(locale: SylLocale): { caption: string; description: 
   if (locale === "hi-IN") {
     return {
       caption: "कथनों का संयुक्त वेन आरेख। निष्कर्ष I और II दोनों को इसी एक व्यवस्था पर जाँचें।",
-      description: "यह एक संयुक्त वेन व्यवस्था केवल दिए गए कथनों और उनसे अनिवार्य सदस्यता को दिखाती है। नीला × कथन से आवश्यक सदस्य को दर्शाता है। किसी अनकहे संबंध को अतिरिक्त निष्कर्ष न मानें।",
+      description: "यह संयुक्त वेन व्यवस्था केवल दिए गए कथनों और उनसे अनिवार्य सदस्यता को दिखाती है। नीला × कथन से आवश्यक सदस्य को दर्शाता है। किसी अनकहे संबंध को अतिरिक्त निष्कर्ष न मानें।",
     };
   }
   if (locale === "pa-IN") {
@@ -67,7 +74,10 @@ function retitleSvg(svg: string, caption: string, description: string): string {
   return svg
     .replace(/(<title\b[^>]*>)[\s\S]*?(<\/title>)/u, `$1${esc(caption)}$2`)
     .replace(/(<desc\b[^>]*>)[\s\S]*?(<\/desc>)/u, `$1${esc(description)}$2`)
-    .replace("<svg ", '<svg data-banking-combined-venn="true" data-premise-only="true" ');
+    .replace(
+      "<svg ",
+      '<svg data-banking-combined-venn="true" data-premise-only="true" ',
+    );
 }
 
 function statusStep(
@@ -304,25 +314,37 @@ export function renderBankingPossibilityCombinedDiagramV3(
     throw new Error(`${question.seed}/${question.locale}: combined diagram must remain premise-only CONCLUSION_MASK.`);
   }
 
-  const completed = completeRequiredDiagramV5(carrier, v5, assignment).diagram;
+  const primary = completeRequiredDiagramV5(carrier, v5, assignment).diagram;
+  const supplemental = primary.enabled
+    ? null
+    : renderBankingSupplementalPremiseVennV3(carrier, v5, assignment);
+  const completed = primary.enabled ? primary : supplemental ?? primary;
+  const geometrySource: BankingCombinedGeometrySourceV3 = primary.enabled
+    ? "APPROVED_V5_EXACT"
+    : supplemental?.enabled
+      ? "SAFETY_GATED_SUPPLEMENTAL_TEMPLATE"
+      : "OMITTED";
+
   const copy = neutralDiagramCopy(question.locale);
   const svg = completed.enabled && completed.svg
     ? retitleSvg(completed.svg, copy.caption, copy.description)
     : null;
+  const enabled = completed.enabled && Boolean(svg);
 
   return {
     schemaVersion: "banking-possibility-combined-diagram-v3",
-    renderer: "EXISTING_APPROVED_V5_EXACT_VENN_PIPELINE",
+    renderer: "V5_EXACT_WITH_SAFETY_GATED_SUPPLEMENTAL_TEMPLATES",
+    geometrySource: enabled ? geometrySource : "OMITTED",
     pipelineMode: "CONCLUSION_MASK",
     premiseOnly: true,
-    enabled: completed.enabled && Boolean(svg),
-    omissionReason: completed.enabled && svg ? null : completed.omissionReason,
+    enabled,
+    omissionReason: enabled ? null : completed.omissionReason,
     svg,
-    caption: completed.enabled && svg ? copy.caption : null,
-    accessibleDescription: completed.enabled && svg ? copy.description : null,
-    semanticSignature: `${completed.semanticSignature}:banking-combined-v3`,
+    caption: enabled ? copy.caption : null,
+    accessibleDescription: enabled ? copy.description : null,
+    semanticSignature: `${completed.semanticSignature}:banking-combined-v3:${geometrySource}`,
     modelSignature: completed.modelSignature,
     mobileViewBoxWidth: 340,
-    diagramCount: completed.enabled && svg ? 1 : 0,
+    diagramCount: enabled ? 1 : 0,
   };
 }
