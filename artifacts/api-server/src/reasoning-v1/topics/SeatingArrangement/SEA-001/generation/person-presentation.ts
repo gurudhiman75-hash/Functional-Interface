@@ -84,6 +84,16 @@ export function presentSea001Children<T extends {
 
   return [...fixed, ...varied].map((child, index) => {
     const questionOrder = index + 1;
+
+    // The CP003/CP004 Q1 detector was neither moved nor semantically changed.
+    // Preserve the option order already balanced by its native generator.
+    if (preserveFirst && index === 0) {
+      return {
+        ...child,
+        questionOrder,
+      };
+    }
+
     const correct = child.options.find((option) => option.isCorrect);
     if (!correct) throw new Error(`SEA-001 child ${child.queryContractId} has no correct option`);
     const wrong = child.options.filter((option) => !option.isCorrect);
