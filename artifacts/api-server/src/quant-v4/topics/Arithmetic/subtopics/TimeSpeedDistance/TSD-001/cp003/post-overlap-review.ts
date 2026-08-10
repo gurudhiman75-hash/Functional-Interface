@@ -27,6 +27,28 @@ function ownerCheckpoint(
   return prior.checkpointId;
 }
 
+function representationBucket(solveMode: string, representation: string): string {
+  if (solveMode === "speedFromFixedRouteTimeDifference") {
+    return representation.startsWith("KNOWN_OTHER_SPEED") ? "KNOWN_OTHER_SPEED" : "KNOWN_SPEED_RATIO";
+  }
+  return representation;
+}
+
+function requiredRepresentationDiversity(solveMode: string, rowsPerDiscoveryAuthority: number): number {
+  const twoFormModes = new Set([
+    "timeGainLossFromSpeedChange",
+    "speedFromFixedRouteTimeDifference",
+    "scheduledArrivalTimeFromActualSpeed",
+    "requiredRemainingSpeedAfterPartialRoute",
+    "totalTimeWithRegularStops",
+    "lostTimeDurationFromScheduleRecovery",
+    "startTimeShiftForSameArrival",
+  ]);
+  if (solveMode === "walkingRidingAllocation") return Math.min(3, rowsPerDiscoveryAuthority);
+  if (twoFormModes.has(solveMode)) return Math.min(2, rowsPerDiscoveryAuthority);
+  return 1;
+}
+
 export function remapCp003ReviewRow(row: TsdCp003GeneratedQuestion): TsdCp003PostOverlapReviewRow {
   const ownership = ownershipByMode.get(row.solveMode);
   if (!ownership) throw new Error(`${row.solveMode}: post-overlap ownership is missing`);
@@ -55,19 +77,28 @@ export function generateCp003PostOverlapReviewRows(rowsPerDiscoveryAuthority = 3
     const stems = new Set<string>();
     const fingerprints = new Set<string>();
     const answers = new Set<string>();
+    const representationBuckets = new Set<string>();
+    const requiredBuckets = requiredRepresentationDiversity(authority.solveMode, rowsPerDiscoveryAuthority);
 
-    for (let candidateIndex = 0; candidateIndex < 240 && selected.length < rowsPerDiscoveryAuthority; candidateIndex += 1) {
+    for (let candidateIndex = 0; candidateIndex < 320 && selected.length < rowsPerDiscoveryAuthority; candidateIndex += 1) {
       const candidate = generateCp003Candidate(authority.provisionalId, `post-overlap-review:${authority.provisionalId}:${candidateIndex}`);
+      const bucket = representationBucket(candidate.solveMode, candidate.representation);
       if (stems.has(candidate.stem) || fingerprints.has(candidate.mathematicalFingerprint) || answers.has(candidate.answerText)) continue;
+      if (representationBuckets.size < requiredBuckets && representationBuckets.has(bucket)) continue;
+
       const mapped = remapCp003ReviewRow(candidate);
       selected.push(mapped);
       stems.add(candidate.stem);
       fingerprints.add(candidate.mathematicalFingerprint);
       answers.add(candidate.answerText);
+      representationBuckets.add(bucket);
     }
 
     if (selected.length !== rowsPerDiscoveryAuthority) {
-      throw new Error(`${authority.solveMode}: could not select ${rowsPerDiscoveryAuthority} rows with distinct stems, mathematical states and answers from the deterministic review pool`);
+      throw new Error(`${authority.solveMode}: could not select ${rowsPerDiscoveryAuthority} rows with required stem, mathematical, answer and representation diversity from the deterministic review pool`);
+    }
+    if (representationBuckets.size < requiredBuckets) {
+      throw new Error(`${authority.solveMode}: selected review rows reached only ${representationBuckets.size} material representations; required ${requiredBuckets}`);
     }
     rows.push(...selected);
   }
