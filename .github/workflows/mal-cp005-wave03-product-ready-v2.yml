@@ -1,0 +1,60 @@
+name: Validate MAL-CP-005 Wave 03 product-ready V2
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp005-wave03-**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp005-wave03-product-ready-v2-audit.ts
+      - .github/workflows/mal-cp005-wave03-product-ready-v2.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-mal-cp005-wave03-product-ready-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mal-cp005-wave03-product-ready-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle MAL-CP-005 Wave 03 product-ready V2 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp005-wave03-product-ready-v2-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp005-wave03-product-ready-v2-audit.mjs
+      - name: Run MAL-CP-005 Wave 03 product-ready V2 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp005-wave03-product-ready-v2-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp005-wave03-product-ready-v2-audit.log
+      - name: Upload MAL-CP-005 Wave 03 product-ready V2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp005-wave03-product-ready-v2-review
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp005-wave03-product-ready-v2-audit.log
+            artifacts/api-server/dist/quant-v4/mal-cp005-wave03-product-ready-v2-review.json
+            artifacts/api-server/dist/quant-v4/MAL-CP-005-WAVE-03-PRODUCT-READY-V2-40Q-REVIEW.md
+          if-no-files-found: error
+          retention-days: 14
