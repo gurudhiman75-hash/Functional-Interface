@@ -15,7 +15,8 @@ export function normalizeClockPresentationText(value: string): string {
     .replace(/\bwhat all times\b/g, "what times")
     .replace(/\b1 seconds\b/g, "1 second")
     .replace(/\b1 minutes\b/g, "1 minute")
-    .replace(/\b1 hours\b/g, "1 hour");
+    .replace(/\b1 hours\b/g, "1 hour")
+    .replace(/\b([ap]\.m\.)\.+/gi, "$1");
 }
 
 function normalizeAnswer(answer: ClockSemanticAnswer): ClockSemanticAnswer {
