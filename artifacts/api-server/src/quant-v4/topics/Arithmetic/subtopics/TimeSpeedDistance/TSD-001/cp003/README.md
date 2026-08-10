@@ -26,10 +26,11 @@ The post-generation overlap audit now separates mathematical authority ownership
 - **11** genuinely new CP-003 learner authority candidates;
 - **2** discovery modes merged into another new CP-003 authority;
 - **9** discovery modes retained as CP-003 representation extensions of already-finalized CP-001/002 authorities;
+- those 9 representation families map to **8 distinct prior authority targets** because both speed-change-point and walking/riding allocation belong to `segmentAllocationFromTotalsAndSpeeds`;
 - **0** source candidates dropped;
 - **0** permanent QLs allocated.
 
-The 66-row learner review is preserved unchanged and remapped to **20 represented authority targets**: 11 new CP-003 targets plus 9 prior-authority targets. This remap does not mutate the approved CP-001/002 English-frozen inventory; it records ownership for the new CP-003 content separately.
+The 66-row learner review is preserved unchanged and remapped to **19 represented authority targets**: 11 new CP-003 targets plus 8 existing CP-001/002 targets. This remap does not mutate the approved CP-001/002 English-frozen inventory; it records ownership for the new CP-003 content separately.
 
 ## Next gate
 
@@ -38,7 +39,7 @@ The next work is chapter-quality closure for this post-overlap pool:
 1. difficulty calibration against SSC/banking/Punjab exam expectations;
 2. blind editorial review of the 66-row remapped corpus;
 3. final decision on whether `scheduleBuffer` is sufficiently exam-authentic to remain a standalone learner authority;
-4. representation-extension approval for the nine prior-authority targets without reopening or mutating their frozen English corpus;
+4. representation-extension approval for the nine representation families across eight prior-authority targets without reopening or mutating their frozen English corpus;
 5. final merge/split approval and permanent QL allocation only after those gates pass.
 
-`EXECUTABLE-DISCOVERY.md` retains the original discovery history. The post-overlap authority registry and proofs are the current ownership authority for CP-003.
+`EXECUTABLE-DISCOVERY.md` retains the discovery history. The post-overlap authority registry and proofs are the current ownership authority for CP-003.
