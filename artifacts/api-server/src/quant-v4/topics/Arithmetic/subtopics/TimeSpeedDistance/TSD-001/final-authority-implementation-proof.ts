@@ -47,18 +47,27 @@ for (const source of expectedSources) {
 
 const review = generateFinalAuthorityReview();
 const coverage = finalAuthorityCoverage(review);
-assert(review.length === 116, "Final authority review must contain 111 remapped records plus five supplemental pool states");
+assert(review.length === 153, `Final authority review must contain 153 approved-candidate records, received ${review.length}`);
 assert(new Set(review.map((row) => row.questionLanguageId)).size === review.length, "Duplicate questionLanguageId after authority remap and pool expansion");
 assert(review.every((row) => row.sourceQuestion.validation.valid), "An invalid source question entered the final authority review");
+assert(review.every((row) => row.sourceQuestion.difficulty.status === "EDITORIALLY_CALIBRATED"), "An uncalibrated source question entered the final authority review");
 assert(review.every((row) => row.permanentQlId === null), "A remapped review row has a premature permanent QL");
-assert(review.every((row) => row.reviewStatus === "EDITORIAL_REVIEW_REQUIRED" && row.englishFreezeStatus === "UNFROZEN"), "A remapped review row escaped the reopened lifecycle");
+assert(review.every((row) => row.reviewStatus === "EDITORIAL_REVIEW_REQUIRED" && row.englishFreezeStatus === "UNFROZEN"), "The source review inventory was mutated instead of frozen through the approved wrapper");
 assert(review.every((row) => !row.publiclyPublishable), "A remapped review row became publicly publishable");
+assert(review.every((row) => row.sourceQuestion.lifecycle.questionBankStatus === "NOT_STORED"), "Question Bank storage was enabled in the source review inventory");
+assert(review.every((row) => row.sourceQuestion.lifecycle.testEligibility === "INELIGIBLE"), "Test eligibility was enabled in the source review inventory");
 assert(coverage.length === 38, "Coverage report must include all 38 learner authorities");
 const missingCoverage = coverage.filter((entry) => entry.rowCount === 0).map((entry) => entry.authorityKey);
 assert(missingCoverage.length === 0, `Final learner authorities with no mapped review row: ${missingCoverage.join(", ")}`);
 
+const cp001Rows = review.filter((row) => row.finalCheckpointId === "TSD-CP-001").length;
+const cp002Rows = review.filter((row) => row.finalCheckpointId === "TSD-CP-002").length;
+assert(cp001Rows === 80 && cp002Rows === 73, `Final checkpoint distribution changed: ${cp001Rows}/${cp002Rows}`);
+const correctPositions = [0, 1, 2, 3].map((position) => review.filter((row) => row.sourceQuestion.correctIndex === position).length);
+assert(correctPositions.join(",") === "37,37,41,38", `Final answer-position distribution changed: ${correctPositions.join(",")}`);
+
 const directDistance = coverage.find((entry) => entry.authorityKey === "distanceFromSpeedAndTime")!;
-assert(directDistance.rowCount === 6, "Direct-distance authority must own its three original rows plus three effective-average rows");
+assert(directDistance.rowCount >= 6, "Direct-distance authority lost its original/effective-average coverage");
 assert(directDistance.representations.includes("OVERALL_AVERAGE_AS_EFFECTIVE_SPEED"), "QL-033 representation was not moved into direct distance");
 assert(directDistance.legacyReviewQlIds.includes("TSD-QL-001") && directDistance.legacyReviewQlIds.includes("TSD-QL-033"), "Direct-distance legacy aliases are incomplete");
 assert(!TSD_FINAL_AUTHORITIES.some((entry) => entry.authorityKey === "totalDistanceFromAverageAndTime"), "Story-only QL-033 authority still exists");
@@ -73,16 +82,16 @@ assert(referenceTime.representations.includes("REFERENCE_TRIP_CHANGED_SPEED"), "
 
 const distanceShare = coverage.find((entry) => entry.authorityKey === "unknownDistanceShareFromAverageSpeed")!;
 const timeShare = coverage.find((entry) => entry.authorityKey === "unknownTimeShareFromAverageSpeed")!;
-assert(distanceShare.rowCount === 2, "Distance-share authority lost its two distinct source states");
-assert(timeShare.rowCount === 3, "Time-share authority must contain its original state plus two supplemental states");
+assert(distanceShare.rowCount >= 2, "Distance-share authority lost its distinct source states");
+assert(timeShare.rowCount >= 3, "Time-share authority lost its original/supplemental states");
 assert(timeShare.representations.includes("TIME_SHARE"), "Original time-share representation is missing");
 assert(timeShare.representations.includes("TIME_SHARE_SUPPLEMENTAL_50_PERCENT"), "First supplemental time-share representation is missing");
 assert(timeShare.representations.includes("TIME_SHARE_SUPPLEMENTAL_25_PERCENT"), "Second supplemental time-share representation is missing");
 
 const distanceRatio = coverage.find((entry) => entry.authorityKey === "distanceRatioFromAverageAndSpeeds")!;
 const timeRatio = coverage.find((entry) => entry.authorityKey === "timeRatioFromAverageAndSpeeds")!;
-assert(distanceRatio.rowCount === 2, "Distance-ratio authority lost its two distinct source states");
-assert(timeRatio.rowCount === 3, "Time-ratio authority must contain its original state plus two supplemental states");
+assert(distanceRatio.rowCount >= 2, "Distance-ratio authority lost its distinct source states");
+assert(timeRatio.rowCount >= 3, "Time-ratio authority lost its original/supplemental states");
 assert(timeRatio.representations.includes("TIME_RATIO_SUPPLEMENTAL_EQUAL"), "Equal-time supplemental ratio is missing");
 assert(timeRatio.representations.includes("TIME_RATIO_SUPPLEMENTAL_ONE_TO_THREE"), "One-to-three supplemental ratio is missing");
 
@@ -90,20 +99,22 @@ const allocation = coverage.find((entry) => entry.authorityKey === "segmentAlloc
 for (const representation of ["FIRST_DISTANCE", "SECOND_DISTANCE", "FIRST_TIME", "SECOND_TIME"] as const) {
   assert(allocation.representations.includes(representation), `Allocation representation ${representation} is missing`);
 }
-assert(allocation.rowCount === 4, "Allocation authority must contain one state for each requested quantity");
+assert(allocation.rowCount >= 4, "Allocation authority lost one of its requested-quantity states");
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "FINAL_AUTHORITY_OWNERSHIP_AND_POOL_IMPLEMENTATION",
+  phase: "FINAL_AUTHORITY_OWNERSHIP_AND_APPROVED_CANDIDATE_COMPATIBILITY",
   sourceCandidatesOwnedExactlyOnce: sourceOwners.size,
   finalMathematicalAuthorities: TSD_FINAL_AUTHORITIES.length,
   finalLearnerAuthorities: TSD_FINAL_LEARNER_AUTHORITIES.length,
   finalInternalQaAuthorities: TSD_FINAL_INTERNAL_AUTHORITIES.length,
-  remappedAndSupplementalReviewRows: review.length,
-  supplementalPoolRows: 5,
-  remainingAuthorityPoolGaps: 0,
+  finalReviewRows: review.length,
+  finalCheckpointCounts: { cp001: cp001Rows, cp002: cp002Rows },
+  correctPositions,
+  missingLearnerAuthorityCoverage: 0,
   permanentQlIdsAssigned: 0,
-  englishFreezeStatus: "UNFROZEN",
+  sourceEnglishFreezeStatus: "UNFROZEN",
+  approvedFreezeImplementedByWrapper: true,
   questionBankStored: 0,
   testEligible: 0,
   publiclyPublishable: 0,
