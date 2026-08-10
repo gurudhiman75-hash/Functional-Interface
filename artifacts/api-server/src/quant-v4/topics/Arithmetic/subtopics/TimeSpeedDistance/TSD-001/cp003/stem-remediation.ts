@@ -9,6 +9,10 @@ export function remediateCp003Stem(state: TsdCp003GeneratedState, stem: string):
       .replace("By how much does the journey time decrease?", "By how much does the journey time increase?");
   }
 
+  if (state.input.solveMode === "requiredRemainingSpeedAfterPartialRoute") {
+    return stem.replace(/has a (.+?) schedule for/, "has $1 available for");
+  }
+
   if (state.input.solveMode === "startTimeShiftForSameArrival") {
     const direction = state.representation === "EARLIER_START_SAME_ARRIVAL" ? "earlier" : "later";
     return stem
