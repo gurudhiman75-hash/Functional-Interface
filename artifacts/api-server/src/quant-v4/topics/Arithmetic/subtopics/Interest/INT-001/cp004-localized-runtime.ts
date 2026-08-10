@@ -22,6 +22,7 @@ import {
   humanizeCp004LocalizedStemV7,
 } from "./cp004-localized-human-editorial-v7";
 import { renderCp004LocalizedNativeStemV6 } from "./cp004-localized-native-stems-v6";
+import { simplifyCp004LocalizedExplanationV8 } from "./cp004-localized-simple-explanations-v8";
 import {
   INT_CP004_PRESENTATION_WAVE1_QL_IDS,
   renderCp004LocalizedPresentationWave1,
@@ -248,7 +249,7 @@ export function localizeIntCp004EnglishFrozenQuestion(
   if (!correctAnswer) throw new Error(`${source.qlId}/${source.seed}/${locale}: localized correct answer is missing.`);
   const baseExplanation = localizeCp004Explanation(source, locale);
   const editorialV3Explanation = remediateCp004LocalizedExplanationV3(source, locale, baseExplanation);
-  const explanation = humanizeCp004LocalizedExplanationV7(
+  humanizeCp004LocalizedExplanationV7(
     source,
     locale,
     cleanExplanation(
@@ -257,6 +258,7 @@ export function localizeIntCp004EnglishFrozenQuestion(
       locale,
     ),
   );
+  const explanation = simplifyCp004LocalizedExplanationV8(source, locale, correctAnswer);
 
   const lifecycle = {
     permanentQlId: source.qlId,
