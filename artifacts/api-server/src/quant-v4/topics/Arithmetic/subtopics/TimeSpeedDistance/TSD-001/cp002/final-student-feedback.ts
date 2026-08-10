@@ -55,8 +55,8 @@ function diagnosisFor(
 
 function removeOldResultEnding(reason: string): string {
   return reason
-    .replace(/;\s*required average\/result is [^.]+\.?$/i, "")
-    .replace(/;\s*required result is [^.]+\.?$/i, "")
+    .replace(/;\s*required average\/result is .+?\.?$/i, "")
+    .replace(/;\s*required result is .+?\.?$/i, "")
     .replace(/\s+/g, " ")
     .trim()
     .replace(/[.\s]+$/, "");
@@ -65,6 +65,14 @@ function removeOldResultEnding(reason: string): string {
 function checkPart(reason: string): string {
   const match = reason.match(/\bCheck:\s*(.+?)(?:;\s*required average\/result is|;\s*required result is|$)/i);
   return match?.[1]?.trim().replace(/[.\s]+$/, "") ?? "";
+}
+
+function removeRepeatedOptionPrefix(reason: string, optionText: string): string {
+  const escaped = optionText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return reason.replace(
+    new RegExp(`^(⚠️\\s*${escaped}:\\s*)${escaped}:\\s*`, "i"),
+    `$1`,
+  );
 }
 
 function rewriteWrongReason(
@@ -78,7 +86,7 @@ function rewriteWrongReason(
     return `⚠️ ${entry.text}: ${diagnosis} Check: ${check}. ${resultSentence(question)}`;
   }
 
-  let reason = removeOldResultEnding(entry.reason)
+  let reason = removeRepeatedOptionPrefix(removeOldResultEnding(entry.reason), entry.text)
     .replace(/This forces an unsupported direct proportion between speed and distance\.?/gi, "This scales distance only by the speed ratio. It ignores the different travel times.")
     .replace(/This combines the given numbers without satisfying the average-speed equation\.?/gi, "This mixes the values without first finding the travel time needed for the average speed.")
     .replace(/unsupported direct proportion/gi, "speed-only shortcut")
