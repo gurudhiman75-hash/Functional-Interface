@@ -16,8 +16,11 @@ const seedsPerAuthority = 60;
 const answerPositionDistribution = [0, 0, 0, 0];
 let candidateCount = 0;
 const optionLabels = ["A", "B", "C", "D"] as const;
+const learnerDiscoveryAuthorities = TSD_CP001_DISCOVERY_AUTHORITIES.filter(
+  (authority) => !TSD_CP001_NON_LEARNER_MODES.has(authority.solveMode),
+);
 
-for (const authority of TSD_CP001_DISCOVERY_AUTHORITIES) {
+for (const authority of learnerDiscoveryAuthorities) {
   const stems = new Set<string>();
   const fingerprints = new Set<string>();
   const positions = new Set<number>();
@@ -74,7 +77,8 @@ for (const authority of TSD_CP001_DISCOVERY_AUTHORITIES) {
 }
 
 const reviewRows = generateCp001ReviewRows(3);
-assert(candidateCount === TSD_CP001_DISCOVERY_AUTHORITIES.length * seedsPerAuthority, "Unexpected CP-001 candidate count");
+assert(learnerDiscoveryAuthorities.length === TSD_CP001_LEARNER_AUTHORITIES.length, "Learner discovery/runtime authority boundary changed");
+assert(candidateCount === learnerDiscoveryAuthorities.length * seedsPerAuthority, "Unexpected CP-001 learner candidate count");
 assert(TSD_CP001_LEARNER_AUTHORITIES.length === 23, "Unexpected CP-001 learner authority count during P0 remodel");
 assert(TSD_CP001_NON_LEARNER_MODES.size === 2, "Unexpected CP-001 internal authority count");
 assert(reviewRows.length === 69, "Unexpected CP-001 review-row count");
@@ -92,8 +96,8 @@ assert(paceRows.every((row) => /pace in (seconds|minutes) per kilometre/i.test(r
 console.log(JSON.stringify({
   status: "PASS",
   phase: "P0_EDITORIAL_REMODEL_COMPATIBILITY",
-  provisionalAuthorityCount: TSD_CP001_DISCOVERY_AUTHORITIES.length,
-  learnerAuthorityCount: TSD_CP001_LEARNER_AUTHORITIES.length,
+  discoveryAuthorityCount: TSD_CP001_DISCOVERY_AUTHORITIES.length,
+  learnerAuthorityCount: learnerDiscoveryAuthorities.length,
   internalQaAuthorityCount: TSD_CP001_NON_LEARNER_MODES.size,
   seedsPerAuthority,
   candidateCount,
