@@ -27,8 +27,9 @@ Every primitive provides machine-readable semantics for:
 - open/closed/composite/point topology;
 - polygon side count where applicable;
 - enclosed-region count;
-- junction count;
-- true crossing count, separately from T/Y/arrow junctions;
+- branch-junction count;
+- true-crossing count, separately from T/Y/arrow junctions;
+- free-terminal count on open stroke paths;
 - quarter-turn rotation period;
 - vertical, horizontal and 180-degree symmetry;
 - orientation sensitivity;
@@ -38,7 +39,9 @@ Every primitive provides machine-readable semantics for:
 - intended usage roles and exam tags;
 - a canonical language-neutral `SpatialScene`.
 
-The old `interiorIntersectionCount` member is retained only as a V2 compatibility field and is validated against junction count. Production reasoning must use the explicit connectivity authority so a T-junction, Y-junction or arrow junction is never mistaken for a true crossing.
+The old `interiorIntersectionCount` member is retained only as a V2 compatibility field and is validated against branch-junction count. Production reasoning must use the explicit connectivity authority so a T/Y/arrow branch junction, a true crossing and a two-arm polyline bend cannot be conflated.
+
+In the descendant retrofit proof, a continuous V/chevron bend has zero branch junctions and two free terminals; arrow/T/Y figures have one branch junction and three free terminals. This refinement changes semantic authority only and does not alter the 33 reviewed canonical geometries.
 
 Declared symmetry and quarter-turn period are recomputed from canonical geometry by the existing spatial transform/equivalence engine. Canonical scene fingerprints must be unique across all 33 primitive IDs.
 
@@ -100,11 +103,21 @@ Confirmed:
 - dot, ring, tick, cross and star symbols remain usable as small internal marks;
 - square/diamond and full-size/internal-symbol pairs remain intentionally distinguishable by geometry/usage role;
 - no primitive requires a new renderer node kind;
-- the connectivity refinement changed semantic metadata only and did not alter reviewed geometry.
+- the descendant connectivity refinement changes semantics only, not canonical geometry.
+
+## Descendant chapter consumption
+
+`SPA-FND-001-PRIMITIVE-RETROFIT-FCL-V2-STATUS.md` proves that the same authority is consumable by earlier chapters through reusable primitive instantiation:
+
+```text
+MIR/WAT V2 pool: 17
+FAN V2 pool:     18
+FCL V2 pool:     33
+```
+
+It also extends FCL to 20 controlled prototype families while preserving all earlier regression proofs.
 
 ## Architectural boundary
-
-This slice does **not** yet expand the FCL property authority or generate new permanent questions. It establishes reusable visual vocabulary for later FCL, FAN, FSR and other non-verbal chapters.
 
 Existing `SpatialNode` kinds remain unchanged: line, circle, polygon, polyline and arc are sufficient to compose V2. This avoids a rendering-schema migration.
 
@@ -119,4 +132,4 @@ Public publication:           false
 API/database schema changes:  none
 ```
 
-The final documentation-only branch head must also pass the same workflow before this slice is presented as exact-head complete. Merge, Question Studio activation, production synthesis and release remain unauthorized.
+The historical Primitive Library V2 proof remains valid; the descendant retrofit branch reruns it with the additional terminal semantics. Merge, Question Studio activation, production synthesis and release remain unauthorized.
