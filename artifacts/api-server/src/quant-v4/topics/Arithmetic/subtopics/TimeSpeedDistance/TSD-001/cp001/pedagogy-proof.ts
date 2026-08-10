@@ -48,7 +48,7 @@ let fullOptionAnalysisCount = 0;
 let variedDirectStemCount = 0;
 let deadlineSemanticChecks = 0;
 let nonTrivialDistanceRows = 0;
-let expandedProportionRows = 0;
+let conciseProportionRows = 0;
 
 for (const row of rows) {
   const visible = [
@@ -96,28 +96,27 @@ for (const row of rows) {
   }
 
   if (row.input.solveMode === "distanceByProportion") {
-    const working = row.explanation.working.join(" ");
-    assert(/Original speed/i.test(working), "distanceByProportion does not first recover the original speed");
-    assert(/Required distance/i.test(working), "distanceByProportion does not apply the recovered speed to the new time");
-    assert(row.explanation.stepByStepSolution.length >= 9, "distanceByProportion explanation is still compressed");
-    expandedProportionRows += 1;
+    assert(equals(scalarOption(row.answerText), multiply(row.input.targetSpeed, row.input.targetTime)), "distanceByProportion answer does not equal target speed × target time");
+    assert(/distance|speed|time/i.test(row.explanation.keyRule), "distanceByProportion key rule omits the governing quantities");
+    assert(row.explanation.stepByStepSolution.length <= 7, "distanceByProportion explanation is no longer clutter-free");
+    assert(row.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => /=/.test(option.reason) && /distance|speed|time/i.test(option.reason)), "distanceByProportion wrong-option feedback lacks a concrete calculation or governing quantity");
+    conciseProportionRows += 1;
   }
 
   if (row.input.solveMode === "timeByProportion") {
-    const working = row.explanation.working.join(" ");
-    assert(/Original speed/i.test(working), "timeByProportion does not first recover the original speed");
-    assert(/Required time/i.test(working), "timeByProportion does not divide the new distance by the recovered speed");
-    assert(row.explanation.stepByStepSolution.length >= 9, "timeByProportion explanation is still compressed");
-    expandedProportionRows += 1;
+    assert(equals(scalarOption(row.answerText), divide(row.input.targetDistance, row.input.targetSpeed)), "timeByProportion answer does not equal target distance ÷ target speed");
+    assert(/time|distance|speed/i.test(row.explanation.keyRule), "timeByProportion key rule omits the governing quantities");
+    assert(row.explanation.stepByStepSolution.length <= 7, "timeByProportion explanation is no longer clutter-free");
+    assert(row.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => /=/.test(option.reason) && /distance|speed|time/i.test(option.reason)), "timeByProportion wrong-option feedback lacks a concrete calculation or governing quantity");
+    conciseProportionRows += 1;
   }
 
   if (row.input.solveMode === "speedByProportion") {
-    const working = row.explanation.working.join(" ");
-    assert(/Original distance/i.test(working), "speedByProportion does not first reconstruct the old journey distance");
-    assert(/Required speed/i.test(working), "speedByProportion does not divide the common distance by the new time");
-    assert(row.explanation.stepByStepSolution.length >= 9, "speedByProportion explanation is still compressed");
-    assert(row.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => /distance|speed|time|hour/i.test(option.reason)), "speedByProportion has a generic option reason");
-    expandedProportionRows += 1;
+    assert(equals(scalarOption(row.answerText), divide(row.input.targetDistance, row.input.targetTime)), "speedByProportion answer does not equal distance ÷ new time");
+    assert(/distance|speed|time/i.test(row.explanation.keyRule), "speedByProportion key rule omits the governing quantities");
+    assert(row.explanation.stepByStepSolution.length <= 7, "speedByProportion explanation is no longer clutter-free");
+    assert(row.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => /=/.test(option.reason) && /distance|speed|time|hour/i.test(option.reason)), "speedByProportion wrong-option feedback lacks a concrete calculation or governing quantity");
+    conciseProportionRows += 1;
   }
 
   if (row.input.solveMode === "requiredUniformSpeedForDeadline") {
@@ -154,7 +153,7 @@ assert(fourTierCount === rows.length, "Not every row has the four-tier headers")
 assert(fullOptionAnalysisCount === rows.length, "Not every row analyses all four options");
 assert(variedDirectStemCount === 9, "Expected three review stems for each of the three direct modes");
 assert(nonTrivialDistanceRows === 3, "Expected three non-trivial distance review rows");
-assert(expandedProportionRows === 9, "Expected three expanded rows for each proportionality authority");
+assert(conciseProportionRows === 9, "Expected three concise rows for each proportionality authority");
 assert(deadlineSemanticChecks === 6, "Expected two semantic deadline checks for each of three review rows");
 
 for (const mode of directModes) {
@@ -180,11 +179,9 @@ const requestedDisc019 = generateCp001Candidate(
   "TSD-CP001-DISC-019",
   "review:TSD-CP001-DISC-019:6",
 );
-const requestedWorking = requestedDisc019.explanation.working.join(" ");
-assert(/Original distance = 40 × 6/i.test(requestedWorking), "DISC-019:6 does not show old speed × old time");
-assert(/= 240 km/i.test(requestedWorking), "DISC-019:6 does not show the reconstructed 240 km distance");
-assert(/Required speed = 240 ÷ 4/i.test(requestedWorking), "DISC-019:6 does not divide the common distance by the new time");
-assert(/= 60 km\/h/i.test(requestedWorking), "DISC-019:6 does not finish with 60 km/h");
+assert(equals(scalarOption(requestedDisc019.answerText), divide(requestedDisc019.input.targetDistance, requestedDisc019.input.targetTime)), "DISC-019:6 answer is not distance ÷ new time");
+assert(requestedDisc019.explanation.stepByStepSolution.length <= 7, "DISC-019:6 learner explanation is not clutter-free");
+assert(requestedDisc019.explanation.optionAnalysis.filter((option) => !option.isCorrect).every((option) => /=/.test(option.reason)), "DISC-019:6 wrong-option feedback lacks numerical checks");
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -195,7 +192,8 @@ console.log(JSON.stringify({
   directRowsWithRealisticOptionReasons: variedDirectStemCount,
   artificialDirectDistractors: 0,
   nonTrivialDistanceRows,
-  expandedProportionRows,
+  conciseProportionRows,
+  maximumProportionSteps: 7,
   uniqueTeachingVoicesPerAuthority: 3,
   requestedDisc019SeedVerified: true,
   deadlineSemanticChecks,
