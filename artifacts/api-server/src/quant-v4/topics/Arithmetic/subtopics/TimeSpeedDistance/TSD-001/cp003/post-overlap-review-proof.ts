@@ -4,6 +4,13 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function representationBucket(solveMode: string, representation: string): string {
+  if (solveMode === "speedFromFixedRouteTimeDifference") {
+    return representation.startsWith("KNOWN_OTHER_SPEED") ? "KNOWN_OTHER_SPEED" : "KNOWN_SPEED_RATIO";
+  }
+  return representation;
+}
+
 const rows = generateCp003PostOverlapReviewRows(3);
 assert(rows.length === 63, `Expected 63 accepted post-overlap review rows, received ${rows.length}`);
 assert(!rows.some((row) => row.solveMode === "scheduleBuffer"), "Rejected scheduleBuffer rows leaked into the accepted CP-003 editorial review");
@@ -35,6 +42,23 @@ for (const row of rows) {
   if (row.solveMode === "arrivalShiftFromDepartureAndSpeedChanges") {
     assert(row.stem.toLowerCase().includes("magnitude"), `${row.questionLanguageId}: arrival-shift stem must explicitly ask for magnitude because the answer contract is unsigned duration`);
   }
+
+  if (row.solveMode === "scheduledArrivalTimeFromActualSpeed") {
+    const wrongIds = new Set(row.optionAudit.filter((option) => !option.isCorrect).map((option) => option.misconceptionId));
+    assert(wrongIds.size === 3, `${row.questionLanguageId}: arrival-clock review row must expose three distinct wrong methods`);
+    for (const expected of ["COPY_DEPARTURE_CLOCK", "SUBTRACT_TRAVEL_TIME_FROM_CLOCK", "DOUBLE_TRAVEL_TIME_ON_CLOCK"] as const) {
+      assert(wrongIds.has(expected), `${row.questionLanguageId}: missing exam-realistic arrival-clock misconception ${expected}`);
+    }
+    for (const forbidden of ["TREAT_HOURS_AS_MINUTES", "ADD_DISTANCE_TO_CLOCK", "ADD_SPEED_TO_CLOCK"] as const) {
+      assert(!wrongIds.has(forbidden), `${row.questionLanguageId}: synthetic arrival-clock misconception ${forbidden} returned`);
+    }
+    assert(!row.options.some((option) => option.includes("minutes from day zero")), `${row.questionLanguageId}: internal minute-offset clock text leaked into learner options`);
+    assert(!row.options.some((option) => /\bday\s+[2-9]\b/i.test(option)), `${row.questionLanguageId}: implausible multi-day clock option leaked into a short journey question`);
+  }
+
+  if (["requiredRemainingSpeedAfterPartialRoute", "restTimeInRepeatedTravelRestCycle", "fractionOfRouteAtChangedSpeed"].includes(row.solveMode)) {
+    assert(!row.answerText.includes("/"), `${row.questionLanguageId}: accepted review answer remains an awkward raw fraction: ${row.answerText}`);
+  }
 }
 
 const bySolveMode = new Map<string, typeof rows[number][]>();
@@ -44,11 +68,27 @@ for (const row of rows) {
   bySolveMode.set(row.solveMode, group);
 }
 assert(bySolveMode.size === 21, `Expected 21 accepted discovery solve modes, received ${bySolveMode.size}`);
+
+const requiredRepresentationBuckets = new Map<string, number>([
+  ["timeGainLossFromSpeedChange", 2],
+  ["speedFromFixedRouteTimeDifference", 2],
+  ["scheduledArrivalTimeFromActualSpeed", 2],
+  ["requiredRemainingSpeedAfterPartialRoute", 2],
+  ["totalTimeWithRegularStops", 2],
+  ["lostTimeDurationFromScheduleRecovery", 2],
+  ["startTimeShiftForSameArrival", 2],
+  ["walkingRidingAllocation", 3],
+]);
+
 for (const [solveMode, group] of bySolveMode) {
   assert(group.length === 3, `${solveMode}: expected three accepted review rows, received ${group.length}`);
   assert(new Set(group.map((row) => row.stem)).size === 3, `${solveMode}: review stems are not all distinct`);
   assert(new Set(group.map((row) => row.mathematicalFingerprint)).size === 3, `${solveMode}: mathematical fingerprints are not all distinct`);
   assert(new Set(group.map((row) => row.answerText)).size === 3, `${solveMode}: answers are not all distinct`);
+
+  const required = requiredRepresentationBuckets.get(solveMode) ?? 1;
+  const buckets = new Set(group.map((row) => representationBucket(row.solveMode, row.representation)));
+  assert(buckets.size >= required, `${solveMode}: accepted review has ${buckets.size} material representation buckets; required ${required}`);
 }
 
 const authorityKeys = new Set(rows.map((row) => row.authorityKey));
@@ -96,9 +136,12 @@ console.log(JSON.stringify({
   distinctPriorAuthorityTargets: priorAuthorityTargets.size,
   rejectedScheduleBufferRows: 3,
   answerDiversityPerAcceptedSolveMode: 3,
+  materialRepresentationDiversityGates: requiredRepresentationBuckets.size,
   contradictorySlowerSpeedStems: 0,
   ambiguousSameArrivalShiftStems: 0,
   unsignedArrivalShiftStemsWithoutMagnitude: 0,
+  syntheticArrivalClockDistractors: 0,
+  awkwardAcceptedRawFractionAnswers: 0,
   permanentQlCount: 0,
   englishFreezeStatus: "UNFROZEN",
 }, null, 2));
