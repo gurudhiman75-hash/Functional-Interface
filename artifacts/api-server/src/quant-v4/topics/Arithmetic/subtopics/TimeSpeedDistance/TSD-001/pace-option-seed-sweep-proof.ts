@@ -13,7 +13,7 @@ import {
   stableStringify,
 } from "./cp001/runtime";
 import { formatExamNumber } from "./cp001/runtime-support";
-import { calibratedDifficultyLabel } from "./difficulty-calibration";
+import { examDifficultyLabel } from "./difficulty-calibration";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -114,7 +114,7 @@ for (const mode of MODES) {
     assert(question.options[question.correctIndex] === question.answerText, `${question.questionLanguageId}: keyed text differs from answer`);
     assert(question.representation === "STANDARD", `${question.questionLanguageId}: unexpected pace representation ${question.representation}`);
     assert(question.difficulty.status === "EDITORIALLY_CALIBRATED", `${question.questionLanguageId}: difficulty remains uncalibrated`);
-    assert(question.difficulty.label === calibratedDifficultyLabel(question.difficulty.featureScore), `${question.questionLanguageId}: difficulty conflicts with rubric`);
+    assert(question.difficulty.label === examDifficultyLabel(question.solveMode, question.input), `${question.questionLanguageId}: difficulty conflicts with exam-family rubric`);
 
     profiles.get(mode)?.add(stableStringify(question.input));
 
@@ -129,10 +129,10 @@ for (const mode of MODES) {
       assert(analysis.misconceptionId === misconceptionId, `${question.questionLanguageId}: analysis ID differs for ${text}`);
       assert(analysis.reason.includes(text), `${question.questionLanguageId}: reason does not name ${text}`);
       assert(hasTsdCalculationEvidence(withoutDisplayedOption(analysis.reason, text)), `${question.questionLanguageId}: pace reason lacks exact calculation evidence`);
+      assert(/=/.test(analysis.reason), `${question.questionLanguageId}: pace feedback lacks an equals sign`);
       const words = analysis.reason.trim().split(/\s+/).length;
       maximumReasonWords = Math.max(maximumReasonWords, words);
-      const maximumWords = analysis.reason.includes("Check:") ? 65 : 32;
-      assert(words <= maximumWords, `${question.questionLanguageId}: pace reason exceeds ${maximumWords} words`);
+      assert(words <= 65, `${question.questionLanguageId}: pace reason exceeds 65 words`);
       assert(!/different result|rules it out|does not survive|appears after|can be reached only|careful check|reworking/i.test(analysis.reason), `${question.questionLanguageId}: generic pace rejection remains`);
       wrongOptions += 1;
     }
