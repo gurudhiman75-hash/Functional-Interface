@@ -16,7 +16,7 @@ const CONTEXTS = [
   "a car on a highway trip",
   "a delivery van on a fixed route",
   "a school bus on its usual route",
-  "a commuter travelling to work",
+  "a coach on a regional route",
   "a taxi on a scheduled trip",
 ] as const;
 
@@ -119,7 +119,7 @@ export function generateCp003State(authority: TsdCp003DiscoveryAuthority, seed: 
 
     case "requiredRecoverySpeedAfterLostTime": {
       const [distance, timeN, timeD] = profile(rng, [
-        [90, 3, 2], [120, 2, 1], [150, 5, 2], [84, 7, 5],
+        [90, 3, 2], [126, 2, 1], [150, 2, 1], [98, 7, 5],
       ] as const);
       return state({ solveMode: "requiredRecoverySpeedAfterLostTime", remainingDistance: r(distance), remainingAvailableTime: r(timeN, timeD) }, "LOST_TIME_RECOVERY_SPEED", rng);
     }
@@ -175,7 +175,7 @@ export function generateCp003State(authority: TsdCp003DiscoveryAuthority, seed: 
 
     case "totalTimeWithRegularStops": {
       const [runN, runD, count, stopN, stopD] = profile(rng, [
-        [3, 1, 4, 1, 8], [5, 2, 3, 1, 6], [4, 1, 5, 1, 10], [7, 2, 6, 1, 12],
+        [3, 1, 4, 1, 6], [5, 2, 3, 1, 6], [4, 1, 5, 1, 10], [7, 2, 6, 1, 12],
       ] as const);
       return state({ solveMode: "totalTimeWithRegularStops", runningTime: r(runN, runD), stopCount: r(count), stopDuration: r(stopN, stopD) }, rng.int(0, 1) === 0 ? "FIXED_DISTANCE_STOP_PATTERN" : "FIXED_TIME_STOP_PATTERN", rng);
     }
@@ -190,7 +190,7 @@ export function generateCp003State(authority: TsdCp003DiscoveryAuthority, seed: 
 
     case "fractionOfRouteAtChangedSpeed": {
       const [totalD, changedD, originalSpeed, changedSpeed] = profile(rng, [
-        [120, 60, 30, 60], [180, 90, 45, 60], [150, 50, 50, 75], [200, 100, 40, 80],
+        [120, 48, 30, 60], [180, 90, 45, 60], [150, 50, 50, 75], [200, 120, 40, 80],
       ] as const);
       const originalD = r(totalD - changedD);
       const totalTime = add(travelTime(originalD, r(originalSpeed)), travelTime(r(changedD), r(changedSpeed)));
@@ -199,13 +199,15 @@ export function generateCp003State(authority: TsdCp003DiscoveryAuthority, seed: 
 
     case "lostTimeDurationFromScheduleRecovery": {
       const [distance, usual, recovery, delayN, delayD] = profile(rng, [
-        [120, 60, 80, 1, 4], [90, 45, 60, 1, 4], [150, 50, 75, 1, 2], [100, 40, 50, 1, 4],
+        [120, 60, 80, 1, 4], [90, 45, 90, 1, 4], [150, 50, 75, 1, 2], [100, 40, 50, 1, 2],
       ] as const);
       return state({ solveMode: "lostTimeDurationFromScheduleRecovery", remainingDistance: r(distance), usualSpeed: r(usual), recoverySpeed: r(recovery), finalArrivalDelay: r(delayN, delayD) }, rng.int(0, 1) === 0 ? "BREAKDOWN_DELAY" : "REPAIR_TIME_FROM_RECOVERY", rng);
     }
 
     case "startTimeShiftForSameArrival": {
-      const [distance, oldSpeed, newSpeed] = profile(rng, [[120, 40, 60], [180, 45, 60], [240, 60, 80], [150, 50, 75]] as const);
+      const [distance, oldSpeed, newSpeed] = profile(rng, [
+        [120, 40, 60], [240, 48, 80], [180, 60, 120], [180, 60, 80],
+      ] as const);
       return state({ solveMode: "startTimeShiftForSameArrival", distance: r(distance), originalSpeed: r(oldSpeed), newSpeed: r(newSpeed) }, newSpeed > oldSpeed ? "LATER_START_SAME_ARRIVAL" : "EARLIER_START_SAME_ARRIVAL", rng);
     }
 
