@@ -17,7 +17,7 @@ function normalizeNames(text: string, source: (typeof canonical)[number]): strin
 function splitSentences(text: string): string[] {
   return text
     .replace(/\n+/g, " ")
-    .split(/(?<=\.)\s+/)
+    .split(/(?<=[.।])\s+/u)
     .map((value) => value.trim())
     .filter(Boolean);
 }
