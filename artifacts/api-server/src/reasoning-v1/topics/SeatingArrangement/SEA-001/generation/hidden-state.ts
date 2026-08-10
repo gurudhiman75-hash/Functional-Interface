@@ -6,7 +6,7 @@ const NAME_POOL = ["Aman", "Bina", "Charan", "Diya", "Eshan", "Farah", "Gagan", 
 
 export function generateHiddenLinearState(seed: string, blueprintId: SeatingBlueprintId): LinearSeatingState {
   const random = new DeterministicRandom(`${seed}:${blueprintId}:state`);
-  const seatCount = random.integer(5, 7);
+  const seatCount = random.integer(5, 8);
   const topology = new LinearTopology(seatCount);
   const selectedNames = random.shuffle(NAME_POOL).slice(0, seatCount);
   const persons: SeatingPerson[] = selectedNames.map((displayName, index) => ({ id: `P${index + 1}`, displayName }));
