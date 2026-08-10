@@ -11,6 +11,7 @@ import {
   TSD_CP003_NEW_AUTHORITY_CANDIDATES,
   TSD_CP003_POST_OVERLAP_OWNERSHIP,
   TSD_CP003_PRIOR_REPRESENTATIONS,
+  TSD_CP003_REJECTED_LEARNER_AUTHORITIES,
   TSD_POST_CP003_CANDIDATE_COUNTS,
 } from "./post-overlap-authority-registry";
 
@@ -24,12 +25,17 @@ assert(new Set(TSD_CP003_POST_OVERLAP_OWNERSHIP.map((entry) => entry.solveMode))
 const newRows = TSD_CP003_POST_OVERLAP_OWNERSHIP.filter((entry) => entry.disposition === "NEW_CP003_AUTHORITY");
 const mergedRows = TSD_CP003_POST_OVERLAP_OWNERSHIP.filter((entry) => entry.disposition === "MERGED_INTO_NEW_CP003_AUTHORITY");
 const priorRows = TSD_CP003_POST_OVERLAP_OWNERSHIP.filter((entry) => entry.disposition === "PRIOR_CHECKPOINT_REPRESENTATION");
-assert(newRows.length === 11, `Expected 11 retained CP-003 authorities, received ${newRows.length}`);
+const rejectedRows = TSD_CP003_POST_OVERLAP_OWNERSHIP.filter((entry) => entry.disposition === "REJECTED_AS_STANDALONE_LEARNER_AUTHORITY");
+assert(newRows.length === 10, `Expected 10 retained CP-003 authorities, received ${newRows.length}`);
 assert(mergedRows.length === 2, `Expected 2 within-CP003 merges, received ${mergedRows.length}`);
 assert(priorRows.length === 9, `Expected 9 prior-checkpoint representations, received ${priorRows.length}`);
+assert(rejectedRows.length === 1, `Expected 1 rejected standalone learner authority, received ${rejectedRows.length}`);
+assert(rejectedRows[0]?.solveMode === "scheduleBuffer", `Expected scheduleBuffer to be rejected, received ${rejectedRows[0]?.solveMode ?? "none"}`);
+assert(TSD_CP003_REJECTED_LEARNER_AUTHORITIES.length === 1, "Rejected learner registry must contain exactly one authority");
 
-assert(TSD_CP003_NEW_AUTHORITY_CANDIDATES.length === 11, "Post-overlap candidate registry must contain exactly 11 new learner authorities");
-assert(new Set(TSD_CP003_NEW_AUTHORITY_CANDIDATES.map((entry) => entry.authorityKey)).size === 11, "Duplicate new CP-003 authority key");
+assert(TSD_CP003_NEW_AUTHORITY_CANDIDATES.length === 10, "Post-overlap candidate registry must contain exactly 10 new learner authorities");
+assert(new Set(TSD_CP003_NEW_AUTHORITY_CANDIDATES.map((entry) => entry.authorityKey)).size === 10, "Duplicate new CP-003 authority key");
+assert(!TSD_CP003_NEW_AUTHORITY_CANDIDATES.some((entry) => entry.authorityKey === "scheduleBuffer"), "scheduleBuffer leaked into the CP-003 learner authority candidate registry");
 
 const priorKeys = new Set(TSD_FINAL_LEARNER_AUTHORITIES.map((entry) => entry.authorityKey));
 for (const candidate of TSD_CP003_NEW_AUTHORITY_CANDIDATES) {
@@ -59,31 +65,35 @@ for (const [solveMode, target] of expectedMerges) {
 const learnerSourceCandidates = new Set(
   TSD_CP003_LEARNER_AUTHORITIES.flatMap((entry) => entry.sourceCandidates),
 );
-const postOverlapLearnerSources = new Set([
+const acceptedLearnerSources = new Set([
   ...TSD_CP003_NEW_AUTHORITY_CANDIDATES.flatMap((entry) => entry.sourceCandidates),
   ...TSD_CP003_PRIOR_REPRESENTATIONS.flatMap((entry) => entry.sourceCandidates),
 ]);
+const rejectedLearnerSources = new Set(TSD_CP003_REJECTED_LEARNER_AUTHORITIES.flatMap((entry) => entry.sourceCandidates));
 assert(learnerSourceCandidates.size === 33, `Expected 33 learner source candidates, received ${learnerSourceCandidates.size}`);
-assert(postOverlapLearnerSources.size === learnerSourceCandidates.size, "Post-overlap learner source coverage changed");
-for (const source of learnerSourceCandidates) {
-  assert(postOverlapLearnerSources.has(source), `${source}: lost during post-overlap ownership consolidation`);
+assert(acceptedLearnerSources.size === 32, `Expected 32 accepted learner source candidates, received ${acceptedLearnerSources.size}`);
+assert(rejectedLearnerSources.size === 1, `Expected one rejected learner source candidate, received ${rejectedLearnerSources.size}`);
+assert(rejectedLearnerSources.has("findScheduleBuffer"), "findScheduleBuffer must remain recorded as rejected discovery evidence");
+for (const source of acceptedLearnerSources) {
+  assert(!rejectedLearnerSources.has(source), `${source}: source cannot be both accepted and rejected`);
 }
 
 const internalSources = new Set(TSD_CP003_INTERNAL_AUTHORITIES.flatMap((entry) => entry.sourceCandidates));
 assert(internalSources.size === 2, `Expected two CP-003 internal QA source candidates, received ${internalSources.size}`);
-const allOwnedSources = new Set([...postOverlapLearnerSources, ...internalSources]);
-assert(allOwnedSources.size === TSD_CP003_SOURCE_CANDIDATES.length, "Not all 35 CP-003 source candidates remain owned after consolidation");
+const allDiscoverySources = new Set([...acceptedLearnerSources, ...rejectedLearnerSources, ...internalSources]);
+assert(allDiscoverySources.size === TSD_CP003_SOURCE_CANDIDATES.length, "Not all 35 CP-003 discovery source candidates remain accounted for after consolidation");
 for (const source of TSD_CP003_SOURCE_CANDIDATES) {
-  assert(allOwnedSources.has(source), `${source}: unowned after consolidation`);
+  assert(allDiscoverySources.has(source), `${source}: unaccounted for after consolidation`);
 }
 
 assert(TSD_POST_CP003_CANDIDATE_COUNTS.priorLearnerAuthorities === 38, `Expected 38 finalized prior learner authorities, received ${TSD_POST_CP003_CANDIDATE_COUNTS.priorLearnerAuthorities}`);
-assert(TSD_POST_CP003_CANDIDATE_COUNTS.newCp003LearnerAuthorities === 11, "Expected 11 new CP-003 learner authorities");
-assert(TSD_POST_CP003_CANDIDATE_COUNTS.totalLearnerAuthorities === 49, `Expected 49 learner authority candidates through CP-003, received ${TSD_POST_CP003_CANDIDATE_COUNTS.totalLearnerAuthorities}`);
+assert(TSD_POST_CP003_CANDIDATE_COUNTS.newCp003LearnerAuthorities === 10, "Expected 10 new CP-003 learner authorities");
+assert(TSD_POST_CP003_CANDIDATE_COUNTS.totalLearnerAuthorities === 48, `Expected 48 learner authority candidates through CP-003, received ${TSD_POST_CP003_CANDIDATE_COUNTS.totalLearnerAuthorities}`);
+assert(TSD_POST_CP003_CANDIDATE_COUNTS.rejectedCp003LearnerAuthorities === 1, "Expected one rejected CP-003 learner authority");
 assert(TSD_POST_CP003_CANDIDATE_COUNTS.priorInternalAuthorities === TSD_FINAL_INTERNAL_AUTHORITIES.length, "Prior internal-authority count mismatch");
 assert(TSD_POST_CP003_CANDIDATE_COUNTS.cp003InternalAuthorities === 2, "Expected two CP-003 internal QA authorities");
 assert(TSD_POST_CP003_CANDIDATE_COUNTS.totalInternalAuthorities === 6, `Expected six internal authorities through CP-003, received ${TSD_POST_CP003_CANDIDATE_COUNTS.totalInternalAuthorities}`);
-assert(TSD_POST_CP003_CANDIDATE_COUNTS.totalMathematicalAuthorities === 55, `Expected 55 total mathematical authority candidates through CP-003, received ${TSD_POST_CP003_CANDIDATE_COUNTS.totalMathematicalAuthorities}`);
+assert(TSD_POST_CP003_CANDIDATE_COUNTS.totalMathematicalAuthorities === 54, `Expected 54 accepted mathematical authority candidates through CP-003, received ${TSD_POST_CP003_CANDIDATE_COUNTS.totalMathematicalAuthorities}`);
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -92,12 +102,14 @@ console.log(JSON.stringify({
   retainedNewCp003Authorities: newRows.length,
   mergedWithinCp003: mergedRows.length,
   absorbedAsPriorRepresentations: priorRows.length,
-  learnerSourceCandidates: learnerSourceCandidates.size,
+  rejectedStandaloneLearnerAuthorities: rejectedRows.length,
+  acceptedLearnerSourceCandidates: acceptedLearnerSources.size,
+  rejectedLearnerSourceCandidates: rejectedLearnerSources.size,
   internalSourceCandidates: internalSources.size,
-  totalSourceCandidates: allOwnedSources.size,
+  accountedDiscoverySourceCandidates: allDiscoverySources.size,
   learnerAuthorityCandidatesThroughCp003: TSD_POST_CP003_CANDIDATE_COUNTS.totalLearnerAuthorities,
   internalAuthorityCandidatesThroughCp003: TSD_POST_CP003_CANDIDATE_COUNTS.totalInternalAuthorities,
-  totalMathematicalAuthorityCandidatesThroughCp003: TSD_POST_CP003_CANDIDATE_COUNTS.totalMathematicalAuthorities,
+  acceptedMathematicalAuthorityCandidatesThroughCp003: TSD_POST_CP003_CANDIDATE_COUNTS.totalMathematicalAuthorities,
   permanentQlCount: 0,
   englishFreezeStatus: "UNFROZEN",
 }, null, 2));
