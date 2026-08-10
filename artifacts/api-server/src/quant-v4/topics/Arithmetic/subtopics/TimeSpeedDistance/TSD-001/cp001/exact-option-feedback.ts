@@ -1,7 +1,14 @@
+import {
+  add,
+  multiply,
+  rational,
+  subtract,
+} from "../foundation/rational";
 import type {
   TsdCp001GeneratedQuestion,
   TsdCp001OptionAnalysis,
 } from "./runtime-types";
+import { formatExamNumber } from "./runtime-support";
 
 const EQUATION = /(?:\d|\b[A-D]\b)[^.!?]{0,120}(?:=|×|÷|\+|−|-|\\times|\\div)[^.!?]{0,120}\d/;
 
@@ -21,6 +28,19 @@ function cleanLine(line: string): string {
     .replace(/^So,?\s*/i, "")
     .replace(/[.\s]+$/, "")
     .trim();
+}
+
+function clockCalculationCertificate(question: TsdCp001GeneratedQuestion): string | null {
+  const input = question.input;
+  if (input.solveMode === "elapsedClockTime") {
+    const absoluteArrival = add(
+      input.arrivalMinuteOfDay,
+      multiply(rational(input.arrivalDayOffset), rational(1440)),
+    );
+    const elapsed = subtract(absoluteArrival, input.departureMinuteOfDay);
+    return `Using minutes from midnight: ${formatExamNumber(absoluteArrival)} − ${formatExamNumber(input.departureMinuteOfDay)} = ${formatExamNumber(elapsed)} minutes = ${question.answerText}`;
+  }
+  return null;
 }
 
 function joinAsEquation(operationLine: string | undefined, finalLine: string): string {
@@ -46,20 +66,26 @@ function joinAsEquation(operationLine: string | undefined, finalLine: string): s
 }
 
 function calculationCertificate(question: TsdCp001GeneratedQuestion): string {
+  const clockCertificate = clockCalculationCertificate(question);
+  if (clockCertificate) return clockCertificate;
+
   const candidates = [
     ...question.explanation.stepByStepSolution,
     ...question.explanation.working,
   ].filter((line) => /(?:=|×|÷|\+|−|-|\\times|\\div)/.test(line));
 
-  const finalLine = [...candidates].reverse().find((line) => line.includes(question.answerText))
+  const numericalCandidates = candidates.filter((line) => hasTsdCalculationEvidence(line));
+  const finalLine = [...numericalCandidates].reverse().find((line) => line.includes(question.answerText))
+    ?? [...candidates].reverse().find((line) => line.includes(question.answerText))
+    ?? numericalCandidates[numericalCandidates.length - 1]
     ?? candidates[candidates.length - 1];
   if (!finalLine) {
     throw new Error(`${question.questionLanguageId}: no exact calculation line is available`);
   }
 
-  const operationLine = [...candidates]
+  const operationLine = [...numericalCandidates]
     .reverse()
-    .find((line) => line !== finalLine && /(?:×|÷|\+|−|-|\\times|\\div|=)/.test(line));
+    .find((line) => line !== finalLine);
   const certificate = joinAsEquation(operationLine, finalLine)
     .replace(/\s+/g, " ")
     .trim();
@@ -69,6 +95,9 @@ function calculationCertificate(question: TsdCp001GeneratedQuestion): string {
   }
   if (/(?:×|÷|\+|−|-|\\times|\\div)/.test(certificate) && !/=/.test(certificate)) {
     throw new Error(`${question.questionLanguageId}: calculation certificate has an operation but no equals sign`);
+  }
+  if (!hasTsdCalculationEvidence(certificate)) {
+    throw new Error(`${question.questionLanguageId}: calculation certificate is not numerical`);
   }
   return certificate;
 }
