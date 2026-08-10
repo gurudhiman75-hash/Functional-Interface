@@ -10,6 +10,7 @@ import {
 } from "./exam-natural-governance";
 import { solveDirectClockFamily } from "./families/direct";
 import { solveEventFamily } from "./families/events";
+import { solveExamNaturalFaultyCoreFamily } from "./families/faulty-core-exam-natural";
 import { solveExamNaturalFaultyEventFamily } from "./families/faulty-events-exam-natural";
 import { solveFaultyClockFamily } from "./families/faulty";
 import { solveExamNaturalHandInterchangeFamily } from "./families/hand-interchange-exam-natural";
@@ -43,6 +44,7 @@ function solvePrototype(input: {
   const solved =
     solveEventFamily(input) ??
     solveExamNaturalFaultyEventFamily(input) ??
+    solveExamNaturalFaultyCoreFamily(input) ??
     solveFaultyClockFamily(input) ??
     solveDirectClockFamily(input) ??
     solveMotionOrAnglePrototype(input) ??
