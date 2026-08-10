@@ -32,6 +32,7 @@ function assertFrozen(value: unknown, label: string, seen = new WeakSet<object>(
 }
 
 const DECIMAL_TOKEN = /\d+\.\d+/u;
+const DEVANAGARI_CONTENT = /[\u0900-\u0963\u0966-\u097F]/u;
 let questionCases = 0;
 let deterministicChecks = 0;
 let decimalFreeChecks = 0;
@@ -121,7 +122,7 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
         punjabiTerminologyChecks += 1;
         if (!question.explanation.whatAsked.startsWith("ਆਓ ")) fail(`${locale}/${qlId}/${seed}: Punjabi task opening regressed.`);
         if (learnerText.includes("ਸਾਨੂੰ") || learnerText.includes("ਚੱਕਰਵੱਧੀ")) fail(`${locale}/${qlId}/${seed}: rejected Punjabi wording remains.`);
-        if (/[\u0900-\u097F]/u.test(learnerText)) fail(`${locale}/${qlId}/${seed}: Hindi script leaked into Punjabi learner content.`);
+        if (DEVANAGARI_CONTENT.test(learnerText)) fail(`${locale}/${qlId}/${seed}: Hindi-script text leaked into Punjabi learner content.`);
       }
 
       lifecycleChecks += 7;
