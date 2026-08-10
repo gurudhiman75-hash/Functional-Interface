@@ -1,5 +1,7 @@
 import type { SerializedExactRational } from "../../../../foundation/temporal";
 import type { ClockCheckpointCode, ClockTaskId } from "./catalog";
+import type { ClockCandidateDisposition } from "./candidate-disposition";
+import type { ClockSourceAuditFlag, ClockSourceEvidenceLevel } from "./source-audit";
 
 export type ClockLocale = "en-IN" | "hi-IN" | "pa-IN";
 export type ClockDifficulty = "FOUNDATION" | "STANDARD" | "ADVANCED";
@@ -100,6 +102,17 @@ export interface ClockQuestionLifecycle {
   publiclyPublishable: false;
 }
 
+export interface ClockDiscoveryAudit {
+  sourceEvidenceLevel: ClockSourceEvidenceLevel;
+  sourceEvidenceRefs: readonly string[];
+  sourceAuditFlags: readonly ClockSourceAuditFlag[];
+  candidateDisposition: ClockCandidateDisposition;
+  semanticCluster: string;
+  sourceSaturationComplete: false;
+  authorityFrozen: false;
+  permanentQlEligible: false;
+}
+
 export interface ClockScenario {
   [key: string]: string | number | boolean | null | readonly string[] | readonly number[];
 }
@@ -126,6 +139,7 @@ export interface ClockQuestion {
   correctOptionIndex: number;
   explanation: ClockQuestionExplanation;
   solveTrace: ClockSolveTrace;
+  discoveryAudit: ClockDiscoveryAudit;
   fingerprint: string;
   lifecycle: ClockQuestionLifecycle;
 }
