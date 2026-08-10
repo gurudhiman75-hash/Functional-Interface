@@ -30,6 +30,11 @@ for (let seedIndex = 0; seedIndex < 20; seedIndex += 1) {
 
   const q102 = runTmw001ChapterPipeline({ questionLanguageId: "TMW-QL-102", seed, language: "en" });
   assertValid(q102, `QL102:${seed}`);
+  assert(q102.parameters.timeA && q102.parameters.timeB, `QL102:${seed}: stem solo times are missing`);
+  assert(equals(reciprocal(q102.parameters.cycle[0].rate), q102.parameters.timeA), `QL102:${seed}: first printed solo time diverges from cycle rate`);
+  assert(equals(reciprocal(q102.parameters.cycle[1].rate), q102.parameters.timeB), `QL102:${seed}: second printed solo time diverges from cycle rate`);
+  assert(q102.stem.includes(`${formatRational(q102.parameters.timeA)} days`), `QL102:${seed}: first solo time is not visible in the stem`);
+  assert(q102.stem.includes(`${formatRational(q102.parameters.timeB)} days`), `QL102:${seed}: second solo time is not visible in the stem`);
   const cycleWork = q102.parameters.cycle.reduce(
     (total: any, segment: any) => add(total, multiply(segment.rate, segment.duration)),
     rational(0),
@@ -64,6 +69,11 @@ for (let seedIndex = 0; seedIndex < 20; seedIndex += 1) {
       const contractErrors = validateTmwLearnerExplanationV2(projected);
       assert(contractErrors.length === 0, `${qlId}:${language}:${seed}: V2 explanation projection invalid: ${contractErrors.join(" | ")}`);
 
+      if (qlId === "TMW-QL-102") {
+        assert(question.parameters.timeA && question.parameters.timeB, `${qlId}:${language}:${seed}: solo times missing`);
+        assert(equals(reciprocal(question.parameters.cycle[0].rate), question.parameters.timeA), `${qlId}:${language}:${seed}: first solo time/rate mismatch`);
+        assert(equals(reciprocal(question.parameters.cycle[1].rate), question.parameters.timeB), `${qlId}:${language}:${seed}: second solo time/rate mismatch`);
+      }
       if (qlId === "TMW-QL-131") {
         const p = question.parameters;
         const target = p.targetCategoryIndex ?? p.replacementCategoryIndex ?? 0;
