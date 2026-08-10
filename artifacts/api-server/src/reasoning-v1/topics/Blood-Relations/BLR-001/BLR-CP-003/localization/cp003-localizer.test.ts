@@ -3,10 +3,10 @@ import { generateBlrCp003FinalApprovedBank } from "../cp003-final-approved-bank"
 import {
   BLR_CP003_HUMAN_REVIEW_BLOCKER,
   blrCp003CanonicalParityProjection,
-  localizeBlrCp003Question,
   type GeneratedBlrCp003LocalizedQuestion,
 } from "./cp003-localizer";
 import type { BlrCp003TranslatedLocale } from "./cp003-language-pack";
+import { localizeBlrCp003QuestionComplete } from "./cp003-localized-review-runtime";
 
 const canonical = generateBlrCp003FinalApprovedBank();
 
@@ -15,7 +15,7 @@ function buildLocale(locale: BlrCp003TranslatedLocale): readonly GeneratedBlrCp0
   const gaps = new Set<string>();
   for (const source of canonical) {
     try {
-      built.push(localizeBlrCp003Question(source, locale));
+      built.push(localizeBlrCp003QuestionComplete(source, locale));
     } catch (error) {
       gaps.add(error instanceof Error ? error.message : String(error));
     }
