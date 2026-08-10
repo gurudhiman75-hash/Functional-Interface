@@ -3,13 +3,38 @@ import type {
   TsdEditorialDifficulty,
 } from "./editorial-contract";
 
+const EASY_MODES = new Set([
+  "distanceFromSpeedAndTime",
+  "speedFromDistanceAndTime",
+  "timeFromDistanceAndSpeed",
+  "convertSpeedUnit",
+  "convertDistanceUnit",
+  "convertTimeUnit",
+  "arrivalClockTime",
+  "departureClockTime",
+  "compareDistancesAtEqualTime",
+  "compareTimesAtEqualDistance",
+  "compareSpeedsAtEqualTime",
+  "distanceByProportion",
+  "timeByProportion",
+  "speedByProportion",
+  "speedFromPace",
+  "paceFromSpeed",
+  "roundTripTimeFromOneWayDistance",
+  "totalDistanceFromAverageAndTime",
+]);
+
+const HARD_MODES = new Set([
+  "unknownSegmentDistanceFromAverage",
+  "segmentAllocationFromTotalsAndSpeeds",
+  "segmentRatioFromAverageAndSpeeds",
+  "requiredRemainingSpeedForTargetAverage",
+]);
+
 /**
- * Chapter-wide difficulty rubric.
- *
- * 1 = direct one-relation recall/application -> Easy
- * 2 = one conversion or two linked operations -> Medium
- * 3 = multi-step weighted/clock/remaining-time application -> Medium
- * 4+ = inverse weighting, coupled equations or allocation/ratio reasoning -> Hard
+ * Legacy score-only helper kept for compatibility with old proof code.
+ * New learner output must use examDifficultyLabel(), which considers the
+ * actual question family rather than counting operations alone.
  */
 export function calibratedDifficultyLabel(featureScore: number): TsdDifficultyLabel {
   if (!Number.isInteger(featureScore) || featureScore < 1) {
@@ -20,11 +45,40 @@ export function calibratedDifficultyLabel(featureScore: number): TsdDifficultyLa
   return "Hard";
 }
 
+export function examDifficultyLabel(
+  solveMode: string,
+  input?: unknown,
+): TsdDifficultyLabel {
+  if (EASY_MODES.has(solveMode)) return "Easy";
+
+  if (solveMode === "unknownSegmentShareFromAverage") {
+    const shareKind = (input as { readonly shareKind?: string } | undefined)?.shareKind;
+    return shareKind === "DISTANCE" ? "Hard" : "Medium";
+  }
+
+  if (solveMode === "compareSegmentedJourneyPlans") {
+    const candidate = input as {
+      readonly planA?: readonly unknown[];
+      readonly planB?: readonly unknown[];
+    } | undefined;
+    const legs = (candidate?.planA?.length ?? 0) + (candidate?.planB?.length ?? 0);
+    return legs >= 6 ? "Hard" : "Medium";
+  }
+
+  if (HARD_MODES.has(solveMode)) return "Hard";
+  return "Medium";
+}
+
 export function calibrateTsdDifficulty(
   difficulty: TsdEditorialDifficulty,
+  solveMode?: string,
+  input?: unknown,
 ): TsdEditorialDifficulty {
+  const label = solveMode
+    ? examDifficultyLabel(solveMode, input)
+    : calibratedDifficultyLabel(difficulty.featureScore);
   return Object.freeze({
-    label: calibratedDifficultyLabel(difficulty.featureScore),
+    label,
     status: "EDITORIALLY_CALIBRATED" as const,
     featureScore: difficulty.featureScore,
   });
