@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { generateCp003ReviewRows } from "./runtime";
+import { generateCp003PostOverlapReviewRows } from "./post-overlap-review";
 
 function json(value: unknown, spacing = 2): string {
   return JSON.stringify(value, (_key, item) => typeof item === "bigint" ? item.toString() : item, spacing);
@@ -14,7 +14,7 @@ function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
-const rows = generateCp003ReviewRows(3);
+const rows = generateCp003PostOverlapReviewRows(3);
 const outputDir = resolve(process.cwd(), "dist/quant-v4/tsd-001/cp003-review");
 mkdirSync(outputDir, { recursive: true });
 
@@ -33,7 +33,8 @@ const htmlRows = rows.map((row, index) => {
   }).join("");
   const steps = row.explanation.stepByStepSolution.map((step) => `<li>${escapeHtml(step)}</li>`).join("");
   return `<article>
-<h2>${index + 1}. ${escapeHtml(row.provisionalAuthorityId)} · ${escapeHtml(row.solveMode)}</h2>
+<h2>${index + 1}. ${escapeHtml(row.authorityKey)} · source mode ${escapeHtml(row.solveMode)}</h2>
+<p><strong>Ownership:</strong> ${escapeHtml(row.ownershipDisposition)} · <strong>Authority owner:</strong> ${escapeHtml(row.authorityOwnerCheckpointId)} · <strong>Content checkpoint:</strong> ${escapeHtml(row.contentCheckpointId)}</p>
 <p><strong>Representation:</strong> ${escapeHtml(row.representation)} · <strong>Difficulty:</strong> ${escapeHtml(row.difficulty.label)} / ${escapeHtml(row.difficulty.status)}</p>
 <p><strong>Stem:</strong> ${escapeHtml(row.stem)}</p>
 <ol type="A">${options}</ol>
@@ -44,21 +45,28 @@ const htmlRows = rows.map((row, index) => {
 </article>`;
 }).join("\n");
 
+const authorityTargets = new Set(rows.map((row) => row.authorityKey));
+const newAuthorityTargets = new Set(rows.filter((row) => row.authorityOwnerCheckpointId === "TSD-CP-003").map((row) => row.authorityKey));
+const priorAuthorityTargets = new Set(rows.filter((row) => row.authorityOwnerCheckpointId !== "TSD-CP-003").map((row) => row.authorityKey));
+
 const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TSD-CP-003 Editorial Review</title>
+<title>TSD-CP-003 Post-Overlap Editorial Review</title>
 <style>body{font-family:Arial,sans-serif;max-width:1050px;margin:32px auto;padding:0 20px;line-height:1.45}article{border:1px solid #ddd;border-radius:8px;padding:18px;margin:0 0 22px}small{color:#444}h1{margin-bottom:4px}.meta{color:#555}li{margin:6px 0}</style></head><body>
-<h1>TSD-CP-003 — Editorial Review</h1>
-<p class="meta">66 provisional learner rows · 22 authorities × 3 rows · English UNFROZEN · permanent QLs 0</p>
+<h1>TSD-CP-003 — Post-Overlap Editorial Review</h1>
+<p class="meta">66 learner rows · 20 represented authority targets · 11 new CP-003 authority candidates · 9 prior-authority representation extensions · English UNFROZEN · permanent QLs 0</p>
 ${htmlRows}
 </body></html>`;
 writeFileSync(resolve(outputDir, "tsd-cp003-review.html"), html, "utf8");
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "TSD_CP003_EDITORIAL_REVIEW_EXPORT",
+  phase: "TSD_CP003_POST_OVERLAP_EDITORIAL_REVIEW_EXPORT",
   rows: rows.length,
-  learnerAuthorities: new Set(rows.map((row) => row.solveMode)).size,
+  discoverySolveModes: new Set(rows.map((row) => row.solveMode)).size,
+  representedAuthorityTargets: authorityTargets.size,
+  newCp003AuthorityTargets: newAuthorityTargets.size,
+  priorAuthorityTargets: priorAuthorityTargets.size,
   validRows: rows.filter((row) => row.validation.valid).length,
   permanentQlCount: rows.filter((row) => row.permanentQlId !== null).length,
   englishFreezeStatus: "UNFROZEN",
