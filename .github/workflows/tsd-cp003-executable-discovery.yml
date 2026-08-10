@@ -1,0 +1,57 @@
+name: Validate TSD CP-003 Executable Discovery
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp003/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
+      - .github/workflows/tsd-cp003-executable-discovery.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cp003-discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP-003 discovery and exact solver proofs
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/cp003
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/discovery-registry-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/discovery-registry-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/solver-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/solver-proof.mjs"
+
+      - name: Run CP-003 proof suites
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/tsd-001/cp003/discovery-registry-proof.mjs | tee dist/quant-v4/tsd-001/cp003/discovery-registry-proof.log
+          node dist/quant-v4/tsd-001/cp003/solver-proof.mjs | tee dist/quant-v4/tsd-001/cp003/solver-proof.log
+
+      - name: Upload CP-003 proof logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp003-executable-discovery-proof
+          path: artifacts/api-server/dist/quant-v4/tsd-001/cp003/*.log
+          if-no-files-found: error
