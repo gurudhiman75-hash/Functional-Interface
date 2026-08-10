@@ -176,7 +176,7 @@ for (let index = 0; index < coreRows.length; index += 1) {
 assert(paceFeedbackRows === 9, `Expected nine pace rows, received ${paceFeedbackRows}`);
 assert(conversionRows === 9, `Expected nine conversion rows, received ${conversionRows}`);
 assert(finalEditorialRows === 15, `Expected fifteen final-editorial rows, received ${finalEditorialRows}`);
-assert(directRealismRows === 10, `Expected ten direct-realism rows, received ${directRealismRows}`);
+assert(directRealismRows === 9, `Expected nine public direct-realism rows, received ${directRealismRows}`);
 assert(globallyCalibratedRows === publicRows.length, "Not every CP-001 public row was calibrated");
 
 const rows = generateFinalAuthorityReview();
