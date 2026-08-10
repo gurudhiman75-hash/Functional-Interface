@@ -24,6 +24,7 @@ import { applyTmwCp002EditorialReviewRemediation } from "./cp002-editorial-revie
 import { applyTmwCp003EditorialReviewRemediation } from "./cp003-editorial-review-remediation";
 import { applyTmwCp003EditorialFieldCleanup } from "./cp003-editorial-field-cleanup";
 import { applyTmw001CriticalLocalizedRemediationR1 } from "./critical-remediation-r1";
+import { applyTmw001EditorialRemediationR2Cp001To006 } from "./editorial-remediation-r2-cp001-cp006";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -42,6 +43,14 @@ function qlOrdinal(questionLanguageId: string): number {
     throw new Error(`TMW-001 question-language ID is outside the frozen range: ${questionLanguageId}`);
   }
   return ordinal;
+}
+
+function finishEnglish(question: any, questionLanguageId: string): any {
+  return applyTmw001EditorialRemediationR2Cp001To006(
+    question,
+    questionLanguageId,
+    "en",
+  );
 }
 
 function finishLocalized(
@@ -90,8 +99,13 @@ function finishLocalized(
     questionLanguageId,
     language,
   );
-  return applyTmw001CriticalLocalizedRemediationR1(
+  const r1Remediated = applyTmw001CriticalLocalizedRemediationR1(
     cp003Cleaned,
+    questionLanguageId,
+    language,
+  );
+  return applyTmw001EditorialRemediationR2Cp001To006(
+    r1Remediated,
     questionLanguageId,
     language,
   );
@@ -103,7 +117,7 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
 
   if (ordinal <= 20) {
     return input.language === "en"
-      ? runTmwCp001Pipeline({ ...base, language: "en" })
+      ? finishEnglish(runTmwCp001Pipeline({ ...base, language: "en" }), input.questionLanguageId)
       : finishLocalized(
         runTmwCp001Pipeline({ ...base, language: input.language }),
         input.questionLanguageId,
@@ -112,7 +126,7 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   }
   if (ordinal <= 34) {
     return input.language === "en"
-      ? runTmwCp002Pipeline(base)
+      ? finishEnglish(runTmwCp002Pipeline(base), input.questionLanguageId)
       : finishLocalized(
         runTmwCp002Pipeline({ ...base, language: input.language }),
         input.questionLanguageId,
@@ -121,7 +135,7 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   }
   if (ordinal <= 57) {
     return input.language === "en"
-      ? runTmwCp003Pipeline(base)
+      ? finishEnglish(runTmwCp003Pipeline(base), input.questionLanguageId)
       : finishLocalized(
         runTmwCp003Pipeline({ ...base, language: input.language }),
         input.questionLanguageId,
@@ -130,7 +144,7 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   }
   if (ordinal <= 81) {
     return input.language === "en"
-      ? runTmwCp004Pipeline(base)
+      ? finishEnglish(runTmwCp004Pipeline(base), input.questionLanguageId)
       : finishLocalized(
         runTmwCp004Pipeline({ ...base, language: input.language }),
         input.questionLanguageId,
@@ -139,7 +153,7 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   }
   if (ordinal <= 105) {
     return input.language === "en"
-      ? runTmwCp005Pipeline(base)
+      ? finishEnglish(runTmwCp005Pipeline(base), input.questionLanguageId)
       : finishLocalized(
         runTmwCp005Pipeline({ ...base, language: input.language }),
         input.questionLanguageId,
@@ -148,7 +162,7 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   }
   if (ordinal <= 127) {
     return input.language === "en"
-      ? runTmwCp006Pipeline(base)
+      ? finishEnglish(runTmwCp006Pipeline(base), input.questionLanguageId)
       : finishLocalized(
         runTmwCp006Pipeline({ ...base, language: input.language }),
         input.questionLanguageId,
