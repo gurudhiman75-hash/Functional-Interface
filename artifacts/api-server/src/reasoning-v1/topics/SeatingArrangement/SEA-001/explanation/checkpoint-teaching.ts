@@ -24,12 +24,21 @@ function seedIndex(seed: string, count: number): number {
   return count === 0 ? 0 : (hash >>> 0) % count;
 }
 
+function personIdOrdinal(personId: string): number {
+  const match = personId.match(/^P(\d+)$/);
+  return match?.[1] ? Number(match[1]) : Number.POSITIVE_INFINITY;
+}
+
 function displayNameMap(setupText: string, personIds: readonly string[]): DisplayNames {
   const names = setupText.match(/persons—(.+?)—are sitting/i)?.[1]
     ?.split(",")
     .map((name) => name.trim())
     .filter(Boolean) ?? [];
-  return Object.fromEntries(personIds.map((personId, index) => [personId, names[index] ?? personId]));
+  const identityOrder = [...new Set(personIds)].sort((left, right) => {
+    const numeric = personIdOrdinal(left) - personIdOrdinal(right);
+    return numeric !== 0 ? numeric : left.localeCompare(right);
+  });
+  return Object.fromEntries(identityOrder.map((personId, index) => [personId, names[index] ?? personId]));
 }
 
 function shown(personId: string, displayNames: DisplayNames): string {
