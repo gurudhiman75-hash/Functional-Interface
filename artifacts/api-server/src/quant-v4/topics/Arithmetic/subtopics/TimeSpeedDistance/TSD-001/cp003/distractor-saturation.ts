@@ -155,6 +155,35 @@ function collisionFallback(input: TsdCp003SolveInput, solution: TsdCp003SolveCer
       ]);
     }
 
+    case "walkingRidingAllocation": {
+      const walkingDistance = solution.intermediate.walkingDistance!;
+      const ridingDistance = solution.intermediate.ridingDistance!;
+      const walkingTime = solution.intermediate.walkingTime!;
+      const ridingTime = solution.intermediate.ridingTime!;
+      const isTimeTarget = input.target.endsWith("TIME");
+      const otherComponent = input.target === "WALKING_TIME" ? ridingTime
+        : input.target === "RIDING_TIME" ? walkingTime
+          : input.target === "WALKING_DISTANCE" ? ridingDistance
+            : walkingDistance;
+      const totalQuantity = isTimeTarget ? input.totalTime : input.totalDistance;
+      const wholeTargetMode = input.target === "WALKING_TIME" ? divide(input.totalDistance, input.walkingSpeed)
+        : input.target === "RIDING_TIME" ? divide(input.totalDistance, input.ridingSpeed)
+          : input.target === "WALKING_DISTANCE" ? multiply(input.totalTime, input.walkingSpeed)
+            : multiply(input.totalTime, input.ridingSpeed);
+      const equalSplit = divide(totalQuantity, rational(2));
+      const wrongPairing = input.target === "WALKING_TIME" ? divide(walkingDistance, input.ridingSpeed)
+        : input.target === "RIDING_TIME" ? divide(ridingDistance, input.walkingSpeed)
+          : input.target === "WALKING_DISTANCE" ? multiply(walkingTime, input.ridingSpeed)
+            : multiply(ridingTime, input.walkingSpeed);
+      return choose(answer, [
+        wrong("USE_OTHER_MODE_COMPONENT", otherComponent, `${f(otherComponent)}`, "It reports the other travel mode's component instead of the requested one."),
+        wrong("USE_TOTAL_QUANTITY", totalQuantity, `${f(totalQuantity)}`, "It reports the full journey quantity instead of the requested walking/riding share."),
+        wrong("ASSUME_WHOLE_ROUTE_IN_TARGET_MODE", wholeTargetMode, isTimeTarget ? `${f(input.totalDistance)} ÷ target speed` : `${f(input.totalTime)} × target speed`, "It assumes the entire route or time belongs to only the requested mode."),
+        wrong("ASSUME_EQUAL_MODE_SPLIT", equalSplit, `${f(totalQuantity)} ÷ 2`, "It assumes walking and riding split the requested quantity equally without using the two speeds."),
+        wrong("PAIR_DISTANCE_WITH_WRONG_SPEED", wrongPairing, input.target.endsWith("TIME") ? `target distance ÷ other-mode speed` : `target time × other-mode speed`, "It pairs a segment from one mode with the other mode's speed."),
+      ]);
+    }
+
     default:
       throw new Error(`No collision fallback defined for ${input.solveMode}`);
   }
