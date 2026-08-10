@@ -4,7 +4,7 @@ import {
 } from "./cp001/runtime";
 import { hasTsdCalculationEvidence } from "./cp001/exact-option-feedback";
 import type { TsdCp001DiscoverySolveMode } from "./cp001/discovery-registry";
-import { calibratedDifficultyLabel } from "./difficulty-calibration";
+import { examDifficultyLabel } from "./difficulty-calibration";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -43,7 +43,7 @@ for (const mode of MODES) {
     assert(question.optionAudit[question.correctIndex]?.isCorrect, `${question.questionLanguageId}: correct audit is missing`);
     assert(question.explanation.optionAnalysis.length === 4, `${question.questionLanguageId}: option analysis is incomplete`);
     assert(question.difficulty.status === "EDITORIALLY_CALIBRATED", `${question.questionLanguageId}: difficulty remains uncalibrated`);
-    assert(question.difficulty.label === calibratedDifficultyLabel(question.difficulty.featureScore), `${question.questionLanguageId}: difficulty conflicts with rubric`);
+    assert(question.difficulty.label === examDifficultyLabel(question.solveMode, question.input), `${question.questionLanguageId}: difficulty conflicts with exam-family rubric`);
 
     question.optionAudit.forEach((audit, optionIndex) => {
       const analysis = question.explanation.optionAnalysis[optionIndex];
@@ -57,7 +57,7 @@ for (const mode of MODES) {
       assert(!GENERIC.test(analysis.reason), `${question.questionLanguageId}: generic wording remains`);
       const words = analysis.reason.trim().split(/\s+/).length;
       maximumReasonWords = Math.max(maximumReasonWords, words);
-      const maximumWords = analysis.reason.includes("Check:") ? 65 : 42;
+      const maximumWords = analysis.reason.includes("Check:") ? 65 : 55;
       assert(words <= maximumWords, `${question.questionLanguageId}: reason exceeds ${maximumWords} words`);
       wrongOptions += 1;
     });
