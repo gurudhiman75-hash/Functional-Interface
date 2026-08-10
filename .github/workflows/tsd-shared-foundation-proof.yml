@@ -1,9 +1,13 @@
-name: Validate TSD Foundation and Frozen CP-001
+name: Validate TSD Authority Ownership Implementation
 
 on:
   pull_request:
     branches:
       - New-main
+      - feat/tsd-001-cp001-foundation
+      - feat/tsd-001-cp002-segmented-average
+      - feat/tsd-cp001-cp002-editorial-remodel-p0
+      - audit/tsd-cp001-cp002-authority-overlap
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**
@@ -31,11 +35,11 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle TSD foundation and CP-001
+      - name: Bundle TSD remodel, audit and ownership implementation
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
           OUT=dist/quant-v4/tsd-001
-          mkdir -p artifacts/api-server/$OUT/foundation artifacts/api-server/$OUT/cp001
+          mkdir -p artifacts/api-server/$OUT/foundation artifacts/api-server/$OUT/cp001 artifacts/api-server/$OUT/cp002 artifacts/api-server/$OUT/audit artifacts/api-server/$OUT/final-authority
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="$OUT/index.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/foundation/foundation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/foundation/foundation-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/discovery-registry-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/discovery-registry-proof.mjs"
@@ -48,8 +52,14 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/clock-boundary-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/clock-boundary-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/equivalent-speed-representation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/equivalent-speed-representation-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/answer-unit-edge-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/answer-unit-edge-proof.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/freeze-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/freeze-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/review-export.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp002/discovery-registry-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp002/discovery-registry-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp002/solver-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp002/solver-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp002/runtime-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp002/runtime-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp002/review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp002/review-export.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/authority-overlap-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/audit/authority-overlap-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/final-authority-implementation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/final-authority/final-authority-implementation-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/final-authority-review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/final-authority/final-authority-review-export.mjs"
 
       - name: Run exact proof suites
         run: |
@@ -66,14 +76,20 @@ jobs:
           node dist/quant-v4/tsd-001/cp001/clock-boundary-proof.mjs | tee dist/quant-v4/tsd-001/cp001/clock-boundary-proof.log
           node dist/quant-v4/tsd-001/cp001/equivalent-speed-representation-proof.mjs | tee dist/quant-v4/tsd-001/cp001/equivalent-speed-representation-proof.log
           node dist/quant-v4/tsd-001/cp001/answer-unit-edge-proof.mjs | tee dist/quant-v4/tsd-001/cp001/answer-unit-edge-proof.log
-          node dist/quant-v4/tsd-001/cp001/freeze-proof.mjs | tee dist/quant-v4/tsd-001/cp001/freeze-proof.log
           node dist/quant-v4/tsd-001/cp001/review-export.mjs | tee dist/quant-v4/tsd-001/cp001/review-export.log
+          node dist/quant-v4/tsd-001/cp002/discovery-registry-proof.mjs | tee dist/quant-v4/tsd-001/cp002/discovery-registry-proof.log
+          node dist/quant-v4/tsd-001/cp002/solver-proof.mjs | tee dist/quant-v4/tsd-001/cp002/solver-proof.log
+          node dist/quant-v4/tsd-001/cp002/runtime-proof.mjs | tee dist/quant-v4/tsd-001/cp002/runtime-proof.log
+          node dist/quant-v4/tsd-001/cp002/review-export.mjs | tee dist/quant-v4/tsd-001/cp002/review-export.log
+          node dist/quant-v4/tsd-001/audit/authority-overlap-proof.mjs | tee dist/quant-v4/tsd-001/audit/authority-overlap-proof.log
+          node dist/quant-v4/tsd-001/final-authority/final-authority-implementation-proof.mjs | tee dist/quant-v4/tsd-001/final-authority/final-authority-implementation-proof.log
+          node dist/quant-v4/tsd-001/final-authority/final-authority-review-export.mjs | tee dist/quant-v4/tsd-001/final-authority/final-authority-review-export.log
 
-      - name: Upload proof logs
+      - name: Upload implementation proof logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-foundation-cp001-frozen-runtime-proof
+          name: tsd-final-authority-ownership-implementation-proof
           path: |
             artifacts/api-server/dist/quant-v4/tsd-001/foundation/foundation-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/discovery-registry-proof.log
@@ -86,13 +102,33 @@ jobs:
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/clock-boundary-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/equivalent-speed-representation-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/answer-unit-edge-proof.log
-            artifacts/api-server/dist/quant-v4/tsd-001/cp001/freeze-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/review-export.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp002/discovery-registry-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp002/solver-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp002/runtime-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp002/review-export.log
+            artifacts/api-server/dist/quant-v4/tsd-001/audit/authority-overlap-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/final-authority/final-authority-implementation-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/final-authority/final-authority-review-export.log
           if-no-files-found: error
 
-      - name: Upload CP-001 frozen English review
+      - name: Upload final authority ownership review
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp001-frozen-english-review
+          name: tsd-final-authority-ownership-review
+          path: artifacts/api-server/dist/quant-v4/tsd-001/final-authority-review
+          if-no-files-found: error
+
+      - name: Upload CP-001 P0 editorial review
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp001-p0-editorial-review
           path: artifacts/api-server/dist/quant-v4/tsd-001/cp001-review
+          if-no-files-found: error
+
+      - name: Upload CP-002 P0 editorial review
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp002-p0-editorial-review
+          path: artifacts/api-server/dist/quant-v4/tsd-001/cp002-review
           if-no-files-found: error

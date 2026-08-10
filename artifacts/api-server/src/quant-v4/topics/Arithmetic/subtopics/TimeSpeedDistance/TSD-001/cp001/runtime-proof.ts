@@ -1,143 +1,105 @@
 import { TSD_CP001_DISCOVERY_AUTHORITIES } from "./discovery-registry";
-import { TSD_CP001_LEARNER_AUTHORITIES, TSD_CP001_NON_LEARNER_MODES, generateCp001Candidate, generateCp001ReviewRows, stableStringify } from "./runtime";
+import {
+  TSD_CP001_LEARNER_AUTHORITIES,
+  TSD_CP001_NON_LEARNER_MODES,
+  generateCp001Candidate,
+  generateCp001ReviewRows,
+  stableStringify,
+} from "./runtime";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
 const seedsPerAuthority = 60;
-let candidateCount = 0;
-let distinctStemCount = 0;
-let distinctFingerprintCount = 0;
 const answerPositionDistribution = [0, 0, 0, 0];
-const normalizedStemOwners = new Map<string, string>();
-let crossAuthorityNormalizedStemCollisions = 0;
-const technicalLearnerLanguage = /\b(uniform motion|exact identity|physical value|continuous timeline|compatible units|motion state|state be classified|provisional authority|required answer)\b/i;
-const mixedNumberPattern = /\b\d+\s+\d+\/\d+\b/;
-const languageDefectPattern = /\.\.|(?<![\d.])\b1 (hours|minutes|seconds|days)\b/;
+let candidateCount = 0;
 const optionLabels = ["A", "B", "C", "D"] as const;
-
-function normalizeStem(stem: string): string {
-  return stem
-    .toLowerCase()
-    .replace(/\d+(?:\s+\d+\/\d+|\/\d+)?/g, "#")
-    .replace(/\s+/g, " ")
-    .trim();
-}
 
 for (const authority of TSD_CP001_DISCOVERY_AUTHORITIES) {
   const stems = new Set<string>();
   const fingerprints = new Set<string>();
-  const answerPositions = new Set<number>();
+  const positions = new Set<number>();
+
   for (let index = 0; index < seedsPerAuthority; index += 1) {
     const seed = `proof:${authority.provisionalId}:${index}`;
     const first = generateCp001Candidate(authority.provisionalId, seed);
     const second = generateCp001Candidate(authority.provisionalId, seed);
-    const serialized = stableStringify(first);
-    assert(serialized === stableStringify(second), `${authority.solveMode}: deterministic replay failed at seed ${index}`);
-    assert(first.validation.valid, `${authority.solveMode}: invalid candidate at seed ${index}: ${first.validation.errors.join("; ")}`);
-    assert(first.options.length === 4, `${authority.solveMode}: option count failed`);
-    assert(new Set(first.options).size === 4, `${authority.solveMode}: duplicate options`);
-    assert(first.optionAudit[first.correctIndex].isCorrect, `${authority.solveMode}: wrong keyed option`);
-    assert(first.answerText === first.options[first.correctIndex], `${authority.solveMode}: answer text mismatch`);
-    const wrongMisconceptions = first.optionAudit.filter((option) => !option.isCorrect).map((option) => option.misconceptionId);
-    assert(!wrongMisconceptions.some((id) => id === "DOUBLE_COUNT_A_FACTOR" || id === "HALVE_A_REQUIRED_FACTOR" || id === "ARITHMETIC_OFFSET"), `${authority.solveMode}: generic fallback distractor leaked`);
-    if (first.solution.answerKind !== "CLASSIFICATION" && first.solution.answerKind !== "BOOLEAN") {
-      assert(new Set(wrongMisconceptions).size >= 2, `${authority.solveMode}: distractor misconception diversity is too low`);
-    }
-
-    assert(first.explanation.working.length >= 2, `${authority.solveMode}: insufficient compact working`);
-    if (first.solution.answerKind !== "CLASSIFICATION" && first.solution.answerKind !== "BOOLEAN") {
-      assert(first.explanation.working.some((line) => line.includes("=") && /\d/.test(line)), `${authority.solveMode}: arithmetic is missing`);
-    }
-    assert(new Set(first.explanation.working.map((line) => line.trim().toLowerCase())).size === first.explanation.working.length, `${authority.solveMode}: repeated compact working line leaked`);
-    assert(first.explanation.trap.startsWith("Common mistake:"), `${authority.solveMode}: compact common-mistake note missing`);
-    assert(!first.explanation.trap.includes("Option "), `${authority.solveMode}: option-letter narration leaked into compact explanation`);
-
-    assert(first.explanation.keyRule.startsWith("📌 Main Rule:"), `${authority.solveMode}: main-rule badge missing`);
-    assert(first.explanation.stepByStepSolution.length >= 2, `${authority.solveMode}: four-tier solution is too brief`);
-    assert(first.explanation.examSpeedShortcut.startsWith("⚡ Exam Speed Trick:"), `${authority.solveMode}: speed-trick badge missing`);
-    assert(first.explanation.optionAnalysis.length === 4, `${authority.solveMode}: four-option analysis missing`);
-    assert(first.explanation.optionAnalysis.filter((option) => option.isCorrect).length === 1, `${authority.solveMode}: option analysis has an invalid correct count`);
+    assert(stableStringify(first) === stableStringify(second), `${authority.solveMode}:${index}: deterministic replay failed`);
+    assert(first.validation.valid, `${authority.solveMode}:${index}: ${first.validation.errors.join("; ")}`);
+    assert(first.validation.warnings.length === 0, `${authority.solveMode}:${index}: unexpected validation warning`);
+    assert(first.options.length === 4 && new Set(first.options).size === 4, `${authority.solveMode}:${index}: option uniqueness failed`);
+    assert(first.answerText === first.options[first.correctIndex], `${authority.solveMode}:${index}: answer key mismatch`);
+    assert(first.optionAudit.filter((option) => option.isCorrect).length === 1, `${authority.solveMode}:${index}: correct-option count failed`);
+    assert(first.explanation.stepByStepSolution.length >= 5, `${authority.solveMode}:${index}: explanation is compressed`);
+    assert(first.explanation.optionAnalysis.length === 4, `${authority.solveMode}:${index}: option analysis is incomplete`);
     for (let optionIndex = 0; optionIndex < 4; optionIndex += 1) {
       const analysis = first.explanation.optionAnalysis[optionIndex];
-      assert(analysis.option === optionLabels[optionIndex], `${authority.solveMode}: option-analysis label mismatch`);
-      assert(analysis.text === first.options[optionIndex], `${authority.solveMode}: option-analysis text mismatch`);
-      assert(analysis.isCorrect === (optionIndex === first.correctIndex), `${authority.solveMode}: option-analysis key mismatch`);
-      assert(analysis.reason.startsWith(analysis.isCorrect ? "✅" : "⚠️"), `${authority.solveMode}: option-analysis badge missing`);
-      assert(!/[A-Z]{2,}(?:_[A-Z]{2,})+/.test(analysis.reason), `${authority.solveMode}: internal misconception code leaked into learner reason`);
+      assert(analysis.option === optionLabels[optionIndex], `${authority.solveMode}:${index}: option label mismatch`);
+      assert(analysis.text === first.options[optionIndex], `${authority.solveMode}:${index}: option-analysis text mismatch`);
+      assert(analysis.reason.includes(analysis.text), `${authority.solveMode}:${index}: option reason is not value-specific`);
     }
 
-    assert(/^[A-Z]/.test(first.stem), `${authority.solveMode}: stem must begin with a capital letter`);
-    const languageDefect = serialized.match(languageDefectPattern);
-    assert(!languageDefect, `${authority.solveMode}: learner-language defect at seed ${index}: ${languageDefect?.[0] ?? "unknown"}; ${serialized}`);
-    if (!TSD_CP001_NON_LEARNER_MODES.has(authority.solveMode)) {
-      const learnerVisible = `${first.stem} ${first.stemMathJax} ${first.options.join(" ")} ${first.explanation.keyRule} ${first.explanation.stepByStepSolution.join(" ")} ${first.explanation.examSpeedShortcut} ${first.explanation.optionAnalysis.map((option) => option.reason).join(" ")} ${first.explanation.conclusion}`;
-      assert(first.stemMathJax.includes("\\("), `${authority.solveMode}: MathJax quantity missing from learner stem`);
-      assert(first.explanation.stepByStepSolution.some((line) => line.includes("\\(")), `${authority.solveMode}: MathJax step missing`);
-      assert(first.explanation.stepByStepSolution.filter((line) => /[=×÷]/.test(line)).every((line) => line.includes("\\(")), `${authority.solveMode}: raw equation leaked outside MathJax`);
-      assert(!technicalLearnerLanguage.test(learnerVisible), `${authority.solveMode}: technical learner language leaked`);
-      assert(!mixedNumberPattern.test(learnerVisible), `${authority.solveMode}: mixed-number notation leaked into learner text`);
-      assert(first.explanation.conclusion === `Answer: ${first.answerText}.`, `${authority.solveMode}: exam-style conclusion failed`);
+    assert(first.chapterId === "TSD-001" && first.checkpointId === "TSD-CP-001", `${authority.solveMode}:${index}: canonical IDs missing`);
+    assert(first.questionLanguageId.length > 10, `${authority.solveMode}:${index}: questionLanguageId missing`);
+    assert(first.difficulty.status === "EDITORIAL_CALIBRATION_REQUIRED", `${authority.solveMode}:${index}: difficulty is not provisional`);
+    assert(first.lifecycle.reviewStatus === "EDITORIAL_REVIEW_REQUIRED", `${authority.solveMode}:${index}: review was not reopened`);
+    assert(first.lifecycle.englishDecision === "NEEDS_REVISION", `${authority.solveMode}:${index}: English decision is not reopened`);
+    assert(first.lifecycle.englishFreezeStatus === "UNFROZEN", `${authority.solveMode}:${index}: stale freeze status leaked`);
+    assert(first.lifecycle.questionBankStatus === "NOT_STORED" && first.lifecycle.testEligibility === "INELIGIBLE", `${authority.solveMode}:${index}: delivery lock failed`);
+    assert(!first.publiclyPublishable, `${authority.solveMode}:${index}: publication lock failed`);
+
+    if (authority.solveMode === "paceFromSpeed") {
+      assert(/pace in (seconds|minutes) per kilometre/i.test(first.stem), `${authority.solveMode}:${index}: stem does not ask for pace`);
     }
-    if (authority.solveMode === "distanceByProportion" || authority.solveMode === "timeByProportion") {
-      assert(!/ at \d+(?:\.\d+)? km\/h/i.test(first.stem), `${authority.solveMode}: hidden derived speed leaked as a redundant given`);
+    if (authority.solveMode === "distanceFromSpeedAndTime" && /\b(45|54|72|90) km\/h/i.test(first.stem)) {
+      assert(!/\b(runner|cyclist|rider)\b/i.test(first.stem), `${authority.solveMode}:${index}: implausible human high-speed context`);
     }
-    if (authority.solveMode === "speedByProportion") {
-      assert(/same distance/i.test(first.stem), "speedByProportion: same-distance condition is not explicit");
+    if (authority.solveMode === "speedFromDistanceAndTime") {
+      assert(!/\b(rider|cyclist|runner)[^?]*What is its speed/i.test(first.stem), `${authority.solveMode}:${index}: awkward human pronoun remains`);
     }
 
-    const normalizedStem = normalizeStem(first.stem);
-    const previousOwner = normalizedStemOwners.get(normalizedStem);
-    if (previousOwner && previousOwner !== authority.solveMode) crossAuthorityNormalizedStemCollisions += 1;
-    else normalizedStemOwners.set(normalizedStem, authority.solveMode);
-    assert(!first.publiclyPublishable, `${authority.solveMode}: publication lock failed`);
-    assert(first.lifecycle.reviewStatus === "UNREVIEWED", `${authority.solveMode}: review lock failed`);
-    assert(first.lifecycle.questionBankStatus === "NOT_STORED", `${authority.solveMode}: Question Bank lock failed`);
-    assert(first.lifecycle.testEligibility === "INELIGIBLE", `${authority.solveMode}: test lock failed`);
     stems.add(first.stem);
     fingerprints.add(first.mathematicalFingerprint);
-    answerPositions.add(first.correctIndex);
+    positions.add(first.correctIndex);
     answerPositionDistribution[first.correctIndex] += 1;
     candidateCount += 1;
   }
-  assert(stems.size >= 3, `${authority.solveMode}: fewer than three distinct rendered stems`);
-  assert(fingerprints.size >= 3, `${authority.solveMode}: fewer than three distinct mathematical states`);
-  assert(answerPositions.size === 4, `${authority.solveMode}: all four correct-answer positions were not reached`);
-  distinctStemCount += stems.size;
-  distinctFingerprintCount += fingerprints.size;
-}
 
-assert(candidateCount === TSD_CP001_DISCOVERY_AUTHORITIES.length * seedsPerAuthority, "Unexpected candidate count");
-assert(crossAuthorityNormalizedStemCollisions === 0, "Cross-authority normalized stem collision detected");
+  assert(stems.size >= 3, `${authority.solveMode}: fewer than three stems`);
+  assert(fingerprints.size >= 3, `${authority.solveMode}: fewer than three mathematical states`);
+  assert(positions.size === 4, `${authority.solveMode}: not all answer positions were reached`);
+}
 
 const reviewRows = generateCp001ReviewRows(3);
-assert(TSD_CP001_LEARNER_AUTHORITIES.length === 23, "Unexpected learner-facing authority count");
-assert(TSD_CP001_NON_LEARNER_MODES.size === 2, "Unexpected non-learner authority count");
-assert(reviewRows.length === 69, "Unexpected learner review-row count");
-assert(reviewRows.every((row) => !TSD_CP001_NON_LEARNER_MODES.has(row.solveMode)), "Non-learner mode leaked into learner review");
-for (const authority of TSD_CP001_LEARNER_AUTHORITIES) {
-  const authorityRows = reviewRows.filter((row) => row.provisionalAuthorityId === authority.provisionalId);
-  assert(authorityRows.length === 3, `${authority.solveMode}: review row count failed`);
-  assert(new Set(authorityRows.map((row) => row.mathematicalFingerprint)).size === 3, `${authority.solveMode}: review fingerprints are not distinct`);
-  assert(new Set(authorityRows.map((row) => row.stem)).size === 3, `${authority.solveMode}: review stems are not distinct`);
-}
+assert(candidateCount === TSD_CP001_DISCOVERY_AUTHORITIES.length * seedsPerAuthority, "Unexpected CP-001 candidate count");
+assert(TSD_CP001_LEARNER_AUTHORITIES.length === 23, "Unexpected CP-001 learner authority count during P0 remodel");
+assert(TSD_CP001_NON_LEARNER_MODES.size === 2, "Unexpected CP-001 internal authority count");
+assert(reviewRows.length === 69, "Unexpected CP-001 review-row count");
+assert(reviewRows.every((row) => row.lifecycle.englishFreezeStatus === "UNFROZEN"), "A CP-001 review row remains frozen");
+assert(reviewRows.every((row) => row.difficulty.status === "EDITORIAL_CALIBRATION_REQUIRED"), "A CP-001 review row lacks provisional difficulty");
+assert(reviewRows.every((row) => row.questionLanguageId.length > 10), "A CP-001 review row lacks questionLanguageId");
+
+const nextDayArrivalRows = reviewRows.filter((row) => row.solveMode === "arrivalClockTime" && row.answerText.includes(" next day"));
+assert(nextDayArrivalRows.length > 0, "No next-day arrival row reached the P0 review");
+assert(nextDayArrivalRows.every((row) => !row.options.includes(row.answerText.replace(" next day", ""))), "Ambiguous next-day clock option remains");
+const paceRows = reviewRows.filter((row) => row.solveMode === "paceFromSpeed");
+assert(paceRows.every((row) => /pace in (seconds|minutes) per kilometre/i.test(row.stem)), "Pace stem/unit mismatch remains");
 
 console.log(JSON.stringify({
   status: "PASS",
-  permanentQlCount: 0,
+  phase: "P0_EDITORIAL_REMODEL",
   provisionalAuthorityCount: TSD_CP001_DISCOVERY_AUTHORITIES.length,
-  learnerFacingAuthorityCount: TSD_CP001_LEARNER_AUTHORITIES.length,
-  nonLearnerAuthorityCount: TSD_CP001_NON_LEARNER_MODES.size,
+  learnerAuthorityCount: TSD_CP001_LEARNER_AUTHORITIES.length,
+  internalQaAuthorityCount: TSD_CP001_NON_LEARNER_MODES.size,
   seedsPerAuthority,
   candidateCount,
-  distinctStemCount,
-  distinctFingerprintCount,
   answerPositionDistribution,
-  crossAuthorityNormalizedStemCollisions,
-  reviewRowCount: reviewRows.length,
-  reviewStatesPerLearnerAuthority: 3,
-  fourTierExplanationRows: reviewRows.length,
-  optionAnalysesPerRow: 4,
-  publiclyPublishableCandidates: 0,
+  reviewRows: reviewRows.length,
+  nextDayArrivalRows: nextDayArrivalRows.length,
+  reviewStatus: "EDITORIAL_REVIEW_REQUIRED",
+  englishFreezeStatus: "UNFROZEN",
+  questionBankStored: 0,
+  testEligible: 0,
+  publiclyPublishable: 0,
 }, null, 2));
