@@ -25,12 +25,12 @@ export interface MixedCircleModel {
 export type MixedCircleSemanticValue = string | readonly string[];
 export type MixedCircleAnswerType = "PERSON" | "PAIR" | "SEQUENCE";
 export type MixedCircleMisconceptionId =
-  | "SEA-MC-MC-REFERENCE_FACING_IGNORED"
-  | "SEA-MC-MC-CENTER_OUTWARD_SWAPPED"
-  | "SEA-MC-MC-LEFT_RIGHT_REVERSED"
-  | "SEA-MC-MC-OFF_BY_ONE"
-  | "SEA-MC-MC-ENDPOINT_INCLUDED"
-  | "SEA-MC-MC-WRONG_NEIGHBOUR";
+  | "SEA-MC-REFERENCE_FACING_IGNORED"
+  | "SEA-MC-CENTER_OUTWARD_SWAPPED"
+  | "SEA-MC-LEFT_RIGHT_REVERSED"
+  | "SEA-MC-OFF_BY_ONE"
+  | "SEA-MC-ENDPOINT_INCLUDED"
+  | "SEA-MC-WRONG_NEIGHBOUR";
 
 export interface MixedCircleOption {
   readonly semanticValue: MixedCircleSemanticValue;
