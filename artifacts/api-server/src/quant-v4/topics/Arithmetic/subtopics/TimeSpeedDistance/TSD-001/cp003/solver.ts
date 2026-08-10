@@ -15,6 +15,11 @@ function requirePositive(value: Rational, label: string): void {
   if (!isPositive(value)) throw new Error(`${label} must be positive`);
 }
 
+function requireWholePositive(value: Rational, label: string): void {
+  requirePositive(value, label);
+  if (value.denominator !== 1n) throw new Error(`${label} must be a whole positive count`);
+}
+
 function requireFaster(slower: Rational, faster: Rational): void {
   requirePositive(slower, "slower speed");
   requirePositive(faster, "faster speed");
@@ -120,6 +125,112 @@ export function solveCp003(input: TsdCp003SolveInput): TsdCp003SolveCertificate 
         unit: "KMPH",
         governingEquation: "completed time + remaining distance/required speed = scheduled total time",
         intermediate: Object.freeze({ completedTime, remainingTime, remainingDistance }),
+      });
+    }
+
+    case "stoppageDurationFromRunningAndOverallSpeed": {
+      requirePositive(input.distance, "distance");
+      requirePositive(input.runningSpeed, "running speed");
+      requirePositive(input.overallSpeed, "overall speed");
+      if (compare(input.runningSpeed, input.overallSpeed) <= 0) throw new Error("running speed must exceed overall speed when stoppage is positive");
+      const runningTime = divide(input.distance, input.runningSpeed);
+      const overallTime = divide(input.distance, input.overallSpeed);
+      const stoppageTime = subtract(overallTime, runningTime);
+      requirePositive(stoppageTime, "stoppage duration");
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: stoppageTime,
+        unit: "HOUR",
+        governingEquation: "stoppage time = distance/overall speed - distance/running speed",
+        intermediate: Object.freeze({ runningTime, overallTime }),
+      });
+    }
+
+    case "overallSpeedIncludingStops": {
+      requirePositive(input.distance, "distance");
+      requirePositive(input.runningSpeed, "running speed");
+      requirePositive(input.totalStopTime, "total stop time");
+      const runningTime = divide(input.distance, input.runningSpeed);
+      const totalElapsedTime = add(runningTime, input.totalStopTime);
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: divide(input.distance, totalElapsedTime),
+        unit: "KMPH",
+        governingEquation: "overall speed = distance/(running time + stoppage time)",
+        intermediate: Object.freeze({ runningTime, totalElapsedTime }),
+      });
+    }
+
+    case "runningSpeedFromOverallSpeedAndStops": {
+      requirePositive(input.distance, "distance");
+      requirePositive(input.overallSpeed, "overall speed");
+      requirePositive(input.totalStopTime, "total stop time");
+      const totalElapsedTime = divide(input.distance, input.overallSpeed);
+      const runningTime = subtract(totalElapsedTime, input.totalStopTime);
+      requirePositive(runningTime, "running time");
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: divide(input.distance, runningTime),
+        unit: "KMPH",
+        governingEquation: "running speed = distance/(distance/overall speed - stoppage time)",
+        intermediate: Object.freeze({ totalElapsedTime, runningTime }),
+      });
+    }
+
+    case "numberOfStopsFromOverallDelay": {
+      requirePositive(input.totalDelay, "total delay");
+      requirePositive(input.stopDuration, "stop duration");
+      const count = divide(input.totalDelay, input.stopDuration);
+      requireWholePositive(count, "number of stops");
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: count,
+        unit: "COUNT",
+        governingEquation: "number of stops = total stop delay / duration of each stop",
+        intermediate: Object.freeze({}),
+      });
+    }
+
+    case "delayFromRegularStops": {
+      requireWholePositive(input.stopCount, "stop count");
+      requirePositive(input.stopDuration, "stop duration");
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: multiply(input.stopCount, input.stopDuration),
+        unit: "HOUR",
+        governingEquation: "total delay = number of stops × duration of each stop",
+        intermediate: Object.freeze({}),
+      });
+    }
+
+    case "restTimeInRepeatedTravelRestCycle": {
+      requirePositive(input.travelTimePerCycle, "travel time per cycle");
+      requireWholePositive(input.cycleCount, "cycle count");
+      requireWholePositive(input.restEvents, "rest-event count");
+      requirePositive(input.totalElapsedTime, "total elapsed time");
+      const totalTravelTime = multiply(input.travelTimePerCycle, input.cycleCount);
+      const totalRestTime = subtract(input.totalElapsedTime, totalTravelTime);
+      requirePositive(totalRestTime, "total rest time");
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: divide(totalRestTime, input.restEvents),
+        unit: "HOUR",
+        governingEquation: "rest per event = (total elapsed - total travel time)/number of rests",
+        intermediate: Object.freeze({ totalTravelTime, totalRestTime }),
+      });
+    }
+
+    case "totalTimeWithRegularStops": {
+      requirePositive(input.runningTime, "running time");
+      requireWholePositive(input.stopCount, "stop count");
+      requirePositive(input.stopDuration, "stop duration");
+      const totalStopTime = multiply(input.stopCount, input.stopDuration);
+      return Object.freeze({
+        solveMode: input.solveMode,
+        answer: add(input.runningTime, totalStopTime),
+        unit: "HOUR",
+        governingEquation: "total elapsed time = running time + number of stops × stop duration",
+        intermediate: Object.freeze({ totalStopTime }),
       });
     }
   }
