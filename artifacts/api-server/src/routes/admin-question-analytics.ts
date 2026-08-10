@@ -29,6 +29,7 @@ router.get('/questions', requireAdminPermission('users.students.read'), async (r
         SELECT a.id::text AS "attemptId", a.test_publication_id::text AS "publicationId",
           a.final_score AS "finalScore", a.result_snapshot AS "resultSnapshot"
         FROM learning.attempts a
+        JOIN assessment.test_publications p ON p.id = a.test_publication_id
         WHERE a.started_at >= now() - make_interval(days => ${days})
           AND a.status::text IN ('evaluated', 'practice_evaluated')
           AND a.result_snapshot IS NOT NULL
