@@ -78,6 +78,29 @@ export * from "./cp004/solvers.ts";
 export * from "./cp004/questions.ts";
 export * from "./cp004/generator.ts";
 export * from "./packages/sea-001/cp-004.ts";
+export type {
+  MixedCirclePersonId,
+  MixedCircleFacing,
+  MixedCircleDirection,
+  MixedCircleCyclicDirection,
+  MixedCircleBlueprintId,
+  MixedCircleQueryContractId,
+  MixedCircleConstraint,
+  MixedCircleModel,
+  MixedCircleSemanticValue,
+  MixedCircleAnswerType,
+  MixedCircleMisconceptionId,
+  MixedCircleOption,
+  MixedCircleChildQuestion,
+  MixedCircleCaseletRecord,
+} from "./cp005/types.ts";
+export * from "./cp005/constraints.ts";
+export * from "./cp005/solvers.ts";
+export * from "./cp005/questions.ts";
+export * from "./cp005/generator.ts";
+export * from "./packages/sea-001/cp-005.ts";
 export * from "./verification/model-oracle.ts";
 export * from "./verification/question-studio-schema.ts";
 export * from "./verification/proof-trace-compiler.ts";
+export * from "./saturation/corpus.ts";
+export * from "./saturation/residual-audit.ts";
