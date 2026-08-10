@@ -69,11 +69,15 @@ export interface CandidateClue {
 export type SeatingBlueprintId = "SEA-PBA-001" | "SEA-PBA-002" | "SEA-PBA-003" | "SEA-PBA-004";
 export type SeatingQueryContractId =
   | "SEA-QC-001"
+  | "SEA-QC-002"
   | "SEA-QC-003"
+  | "SEA-QC-005"
+  | "SEA-QC-007"
   | "SEA-QC-008"
   | "SEA-QC-014"
   | "SEA-QC-015"
-  | "SEA-QC-020";
+  | "SEA-QC-020"
+  | "SEA-QC-021";
 
 export type SeatingMisconceptionId =
   | "SEA-MC-LIN-LEFT_RIGHT_REVERSAL"
