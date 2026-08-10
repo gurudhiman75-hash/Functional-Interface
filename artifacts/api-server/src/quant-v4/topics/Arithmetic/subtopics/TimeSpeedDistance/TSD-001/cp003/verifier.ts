@@ -1,4 +1,5 @@
 import {
+  RATIONAL_ZERO,
   absRational,
   add,
   compare,
@@ -6,6 +7,7 @@ import {
   equals,
   isPositive,
   multiply,
+  rational,
   subtract,
   type Rational,
 } from "../foundation/rational";
@@ -55,6 +57,28 @@ export function verifyCp003(
       break;
     }
 
+    case "speedFromFixedRouteTimeDifference": {
+      let slowerSpeed: Rational;
+      let fasterSpeed: Rational;
+      if (input.representation === "KNOWN_OTHER_SPEED") {
+        slowerSpeed = input.unknownRole === "SLOWER" ? certificate.answer : input.knownSpeed;
+        fasterSpeed = input.unknownRole === "FASTER" ? certificate.answer : input.knownSpeed;
+      } else {
+        const targetRatio = input.target === "SLOWER" ? input.slowerRatio : input.fasterRatio;
+        const scale = divide(certificate.answer, targetRatio);
+        slowerSpeed = multiply(scale, input.slowerRatio);
+        fasterSpeed = multiply(scale, input.fasterRatio);
+      }
+      if (compare(fasterSpeed, slowerSpeed) <= 0) errors.push("reconstructed faster speed must exceed slower speed");
+      const reconstructedDifference = subtract(
+        divide(input.distance, slowerSpeed),
+        divide(input.distance, fasterSpeed),
+      );
+      if (!equals(reconstructedDifference, input.timeDifference)) errors.push("candidate speed does not reproduce the fixed-route time difference");
+      if (certificate.unit !== "KMPH") errors.push("fixed-route speed unit must be KMPH");
+      break;
+    }
+
     case "usualSpeedFromEarlyLatePair": {
       if (compare(input.fasterTrialSpeed, input.slowerTrialSpeed) <= 0) errors.push("faster trial speed must exceed slower trial speed");
       const one: Rational = { numerator: 1n, denominator: 1n };
@@ -78,6 +102,16 @@ export function verifyCp003(
       const fastScheduledTime = add(divide(certificate.answer, input.fasterTrialSpeed), input.earlyBy);
       if (!equals(slowScheduledTime, fastScheduledTime)) errors.push("candidate distance does not reconcile early and late arrivals");
       if (certificate.unit !== "KM") errors.push("distance unit must be KM");
+      break;
+    }
+
+    case "scheduledArrivalTimeFromActualSpeed": {
+      const expected = add(
+        input.departureMinuteFromDayZero,
+        multiply(divide(input.distance, input.actualSpeed), rational(60)),
+      );
+      if (!equals(certificate.answer, expected)) errors.push("arrival clock minute does not match departure plus exact travel time");
+      if (certificate.unit !== "CLOCK_MINUTE") errors.push("scheduled-arrival unit must be CLOCK_MINUTE");
       break;
     }
 
@@ -158,6 +192,93 @@ export function verifyCp003(
       const expected = add(input.runningTime, multiply(input.stopCount, input.stopDuration));
       if (!equals(certificate.answer, expected)) errors.push("total elapsed time omits or miscounts stoppage time");
       if (certificate.unit !== "HOUR") errors.push("total elapsed-time unit must be HOUR");
+      break;
+    }
+
+    case "speedChangePointDistance": {
+      if (compare(certificate.answer, RATIONAL_ZERO) <= 0 || compare(certificate.answer, input.totalDistance) >= 0) errors.push("speed-change point must lie inside the route");
+      const firstTime = divide(certificate.answer, input.firstSpeed);
+      const secondTime = divide(subtract(input.totalDistance, certificate.answer), input.secondSpeed);
+      if (!equals(add(firstTime, secondTime), input.totalTravelTime)) errors.push("speed-change point does not reconstruct total travel time");
+      if (certificate.unit !== "KM") errors.push("speed-change point unit must be KM");
+      break;
+    }
+
+    case "fractionOfRouteAtChangedSpeed": {
+      if (compare(certificate.answer, RATIONAL_ZERO) <= 0 || compare(certificate.answer, rational(100)) >= 0) errors.push("changed-route percentage must lie between 0 and 100");
+      const changedDistance = multiply(input.totalDistance, divide(certificate.answer, rational(100)));
+      const originalDistance = subtract(input.totalDistance, changedDistance);
+      const reconstructedTime = add(
+        divide(originalDistance, input.originalSpeed),
+        divide(changedDistance, input.changedSpeed),
+      );
+      if (!equals(reconstructedTime, input.totalTravelTime)) errors.push("route percentage does not reconstruct total travel time");
+      if (certificate.unit !== "PERCENT") errors.push("changed-route fraction unit must be PERCENT");
+      break;
+    }
+
+    case "lostTimeDurationFromScheduleRecovery": {
+      if (compare(input.recoverySpeed, input.usualSpeed) < 0) errors.push("recovery speed cannot be below usual speed");
+      if (compare(input.finalArrivalDelay, RATIONAL_ZERO) < 0) errors.push("final arrival delay cannot be negative");
+      const expected = add(
+        subtract(divide(input.remainingDistance, input.usualSpeed), divide(input.remainingDistance, input.recoverySpeed)),
+        input.finalArrivalDelay,
+      );
+      if (!equals(certificate.answer, expected)) errors.push("lost-time duration does not match recovery gain plus final delay");
+      if (certificate.unit !== "HOUR") errors.push("lost-time duration unit must be HOUR");
+      break;
+    }
+
+    case "startTimeShiftForSameArrival": {
+      const expected = absRational(subtract(
+        divide(input.distance, input.originalSpeed),
+        divide(input.distance, input.newSpeed),
+      ));
+      if (!equals(certificate.answer, expected)) errors.push("start-time shift does not offset the travel-time change");
+      if (certificate.unit !== "HOUR") errors.push("start-time shift unit must be HOUR");
+      break;
+    }
+
+    case "arrivalShiftFromDepartureAndSpeedChanges": {
+      const signedShift = add(
+        input.departureShift,
+        subtract(divide(input.distance, input.newSpeed), divide(input.distance, input.originalSpeed)),
+      );
+      if (compare(signedShift, RATIONAL_ZERO) === 0) errors.push("combined changes produce no arrival shift");
+      if (!equals(certificate.answer, absRational(signedShift))) errors.push("arrival-shift magnitude does not match departure plus travel-time changes");
+      if (certificate.unit !== "HOUR") errors.push("arrival-shift unit must be HOUR");
+      break;
+    }
+
+    case "walkingRidingAllocation": {
+      let walkingDistance: Rational;
+      if (input.target === "WALKING_DISTANCE") {
+        walkingDistance = certificate.answer;
+        if (certificate.unit !== "KM") errors.push("walking-distance allocation unit must be KM");
+      } else if (input.target === "RIDING_DISTANCE") {
+        walkingDistance = subtract(input.totalDistance, certificate.answer);
+        if (certificate.unit !== "KM") errors.push("riding-distance allocation unit must be KM");
+      } else if (input.target === "WALKING_TIME") {
+        walkingDistance = multiply(certificate.answer, input.walkingSpeed);
+        if (certificate.unit !== "HOUR") errors.push("walking-time allocation unit must be HOUR");
+      } else {
+        const ridingDistance = multiply(certificate.answer, input.ridingSpeed);
+        walkingDistance = subtract(input.totalDistance, ridingDistance);
+        if (certificate.unit !== "HOUR") errors.push("riding-time allocation unit must be HOUR");
+      }
+      if (compare(walkingDistance, RATIONAL_ZERO) <= 0 || compare(walkingDistance, input.totalDistance) >= 0) errors.push("walking/riding allocation must keep both modes non-empty");
+      const ridingDistance = subtract(input.totalDistance, walkingDistance);
+      const reconstructedTime = add(
+        divide(walkingDistance, input.walkingSpeed),
+        divide(ridingDistance, input.ridingSpeed),
+      );
+      if (!equals(reconstructedTime, input.totalTime)) errors.push("walking/riding allocation does not reconstruct total time");
+      break;
+    }
+
+    case "scheduleBuffer": {
+      if (!equals(add(certificate.answer, input.plannedTravelDuration), input.scheduledDuration)) errors.push("schedule buffer does not bridge planned and scheduled durations");
+      if (certificate.unit !== "HOUR") errors.push("schedule-buffer unit must be HOUR");
       break;
     }
   }
