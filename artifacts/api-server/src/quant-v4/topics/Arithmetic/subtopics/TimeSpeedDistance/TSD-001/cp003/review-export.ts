@@ -54,21 +54,23 @@ const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TSD-CP-003 Post-Overlap Editorial Review</title>
 <style>body{font-family:Arial,sans-serif;max-width:1050px;margin:32px auto;padding:0 20px;line-height:1.45}article{border:1px solid #ddd;border-radius:8px;padding:18px;margin:0 0 22px}small{color:#444}h1{margin-bottom:4px}.meta{color:#555}li{margin:6px 0}</style></head><body>
-<h1>TSD-CP-003 — Post-Overlap Editorial Review</h1>
-<p class="meta">66 learner rows · 19 represented authority targets · 11 new CP-003 authority candidates · 9 prior-authority representation families across 8 existing targets · English UNFROZEN · permanent QLs 0</p>
+<h1>TSD-CP-003 — Accepted Post-Overlap Editorial Review</h1>
+<p class="meta">63 learner rows · 21 accepted discovery families × 3 answer-diverse rows · 18 represented authority targets · 10 new CP-003 authority candidates · 9 prior-authority representation families across 8 existing targets · scheduleBuffer rejected · English UNFROZEN · permanent QLs 0</p>
 ${htmlRows}
 </body></html>`;
 writeFileSync(resolve(outputDir, "tsd-cp003-review.html"), html, "utf8");
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "TSD_CP003_POST_OVERLAP_EDITORIAL_REVIEW_EXPORT",
+  phase: "TSD_CP003_ACCEPTED_POST_OVERLAP_EDITORIAL_REVIEW_EXPORT",
   rows: rows.length,
-  discoverySolveModes: new Set(rows.map((row) => row.solveMode)).size,
+  acceptedDiscoverySolveModes: new Set(rows.map((row) => row.solveMode)).size,
   representedAuthorityTargets: authorityTargets.size,
   newCp003AuthorityTargets: newAuthorityTargets.size,
   priorRepresentationFamilies: priorRepresentationFamilies.size,
   distinctPriorAuthorityTargets: priorAuthorityTargets.size,
+  rejectedStandaloneLearnerAuthorities: 1,
+  rejectedSolveModes: ["scheduleBuffer"],
   validRows: rows.filter((row) => row.validation.valid).length,
   permanentQlCount: rows.filter((row) => row.permanentQlId !== null).length,
   englishFreezeStatus: "UNFROZEN",
