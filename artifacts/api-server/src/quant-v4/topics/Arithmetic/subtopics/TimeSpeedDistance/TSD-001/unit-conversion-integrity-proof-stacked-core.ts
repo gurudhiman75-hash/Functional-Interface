@@ -5,6 +5,7 @@ import {
   type Rational,
 } from "./foundation/rational";
 import { convertSpeed } from "./foundation/units";
+import { hasTsdCalculationEvidence } from "./cp001/exact-option-feedback";
 import type { TsdCp001GeneratedQuestion, TsdCp001MisconceptionId } from "./cp001/runtime-types";
 import { formatExamNumber } from "./cp001/runtime-support";
 import { generateFinalAuthorityReview } from "./final-authority-review";
@@ -15,6 +16,10 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 type ExpectedWrong = readonly [string, TsdCp001MisconceptionId];
+
+function withoutDisplayedOption(reason: string, optionText: string): string {
+  return reason.replace(optionText, "").replace(/^[✅⚠️\s:.-]+/, "").trim();
+}
 
 function formatLikeCorrect(question: TsdCp001GeneratedQuestion, value: Rational): string {
   const correctText = question.optionAudit.find((option) => option.isCorrect)?.text;
@@ -118,7 +123,12 @@ function verify(question: TsdCp001GeneratedQuestion, expected: readonly Expected
     assert(analysis, `${question.questionLanguageId}: missing analysis for ${text}`);
     assert(analysis.misconceptionId === misconceptionId, `${question.questionLanguageId}: analysis ID differs for ${text}`);
     assert(analysis.reason.includes(text), `${question.questionLanguageId}: reason does not name ${text}`);
-    assert(analysis.reason.split(/\s+/).length <= 34, `${question.questionLanguageId}: conversion reason exceeds 34 words`);
+    const remainder = withoutDisplayedOption(analysis.reason, text);
+    assert(hasTsdCalculationEvidence(remainder), `${question.questionLanguageId}: conversion reason lacks exact calculation evidence for ${text}`);
+    const words = analysis.reason.trim().split(/\s+/).length;
+    const certified = /(?:Check|Correct check):/i.test(analysis.reason);
+    const maximumWords = certified ? 65 : 34;
+    assert(words <= maximumWords, `${question.questionLanguageId}: conversion reason exceeds ${maximumWords} words`);
     assert(
       !/different result|rules it out|does not survive|appears after|can be reached only|careful check|reworking/i.test(analysis.reason),
       `${question.questionLanguageId}: generic conversion rejection remains`,
