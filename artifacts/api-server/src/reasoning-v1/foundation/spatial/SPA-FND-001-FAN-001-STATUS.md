@@ -64,6 +64,21 @@ PASS_SPA_FND_001_FAN_001_VISUAL_REMEDIATION
 
 The regenerated HTML was manually inspected as a 10-question contact sheet. All ten A→B transformations and correct C→answer applications were visually consistent. The earlier malformed rotation pattern no longer appears.
 
+## Additive Primitive Library V2 enhancement
+
+A later descendant branch preserves this approved 10-question FAN baseline and adds an 18-primitive eligibility pool plus six controlled primitive-native analogy examples.
+
+The six examples exercise complete:
+
+- 90° rotation;
+- 180° rotation;
+- vertical reflection;
+- horizontal reflection;
+
+across open figures, arrows, partitioned figures and polygons. For every example, A→B and C→correct-answer are independently recomputed using the shared affine geometry engine and all four answer scenes must remain semantically unique.
+
+The descendant enhancement is proof of reusable visual vocabulary, not a replacement for the approved FAN corpus. Its evidence is recorded in `SPA-FND-001-PRIMITIVE-RETROFIT-FCL-V2-STATUS.md`.
+
 ## Lifecycle lock
 
 ```text
