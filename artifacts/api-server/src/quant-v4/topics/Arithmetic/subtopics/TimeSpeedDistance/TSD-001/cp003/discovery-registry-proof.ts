@@ -48,6 +48,14 @@ const earlyLateDistance = byMode.get("distanceFromEarlyLatePair")!;
 assert(earlyLateSpeed.provisionalId !== earlyLateDistance.provisionalId, "Early/late speed and distance tasks were incorrectly merged");
 assert(earlyLateSpeed.answerKind === "SPEED" && earlyLateDistance.answerKind === "DISTANCE", "Early/late inverse answer contracts changed");
 
+const recoverySpeed = byMode.get("requiredRecoverySpeedAfterLostTime")!;
+const lostTimeDuration = byMode.get("lostTimeDurationFromScheduleRecovery")!;
+assert(recoverySpeed.answerKind === "SPEED", "Recovery-speed authority must answer SPEED");
+assert(lostTimeDuration.answerKind === "TIME", "Lost-time recovery authority must answer TIME");
+assert(!recoverySpeed.sourceCandidates.includes("findRepairTimeFromRequiredRecoverySpeed"), "Repair-time source leaked into a speed-answer authority");
+assert(lostTimeDuration.sourceCandidates.includes("findRepairTimeFromRequiredRecoverySpeed"), "Repair-time source is not owned by the time-answer recovery authority");
+assert(lostTimeDuration.sourceCandidates.includes("findBreakdownDurationFromArrivalDelay"), "Breakdown-duration source is missing from the lost-time recovery authority");
+
 const stopCount = byMode.get("numberOfStopsFromOverallDelay")!;
 const stopDelay = byMode.get("delayFromRegularStops")!;
 assert(stopCount.provisionalId !== stopDelay.provisionalId, "Stop-count and stop-delay tasks were incorrectly merged");
@@ -74,6 +82,7 @@ console.log(JSON.stringify({
   learnerAuthorities: TSD_CP003_LEARNER_AUTHORITIES.length,
   internalQaAuthorities: TSD_CP003_INTERNAL_AUTHORITIES.length,
   sourceCandidatesOwnedExactlyOnce: sourceOwners.size,
+  answerContractGuards: true,
   permanentQlCount: 0,
   englishFreezeStatus: "UNFROZEN",
   questionBankStatus: "NOT_STORED",
