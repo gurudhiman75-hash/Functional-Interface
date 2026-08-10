@@ -113,6 +113,8 @@ requireRepresentation("totalTimeWithRegularStops", "FIXED_DISTANCE_STOP_PATTERN"
 requireRepresentation("totalTimeWithRegularStops", "FIXED_TIME_STOP_PATTERN");
 requireRepresentation("lostTimeDurationFromScheduleRecovery", "BREAKDOWN_DELAY");
 requireRepresentation("lostTimeDurationFromScheduleRecovery", "REPAIR_TIME_FROM_RECOVERY");
+requireRepresentation("startTimeShiftForSameArrival", "LATER_START_SAME_ARRIVAL");
+requireRepresentation("startTimeShiftForSameArrival", "EARLIER_START_SAME_ARRIVAL");
 for (const target of ["WALKING_TIME", "RIDING_TIME", "WALKING_DISTANCE", "RIDING_DISTANCE"] as const) {
   requireRepresentation("walkingRidingAllocation", `WALK_RIDE_${target}`);
 }
@@ -125,7 +127,7 @@ console.log(JSON.stringify({
   candidateCount,
   wrongWorkingsChecked,
   answerPositions,
-  sourceRepresentationGuards: 18,
+  sourceRepresentationGuards: 20,
   permanentQlCount: 0,
   englishFreezeStatus: "UNFROZEN",
   difficultyStatus: "EDITORIAL_CALIBRATION_REQUIRED",
