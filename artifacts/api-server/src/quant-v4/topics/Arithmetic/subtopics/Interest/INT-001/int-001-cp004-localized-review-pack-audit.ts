@@ -7,11 +7,11 @@ import {
 } from "./cp004-localization-language-pack";
 import {
   INT_CP004_LOCALIZED_REVIEW_PACK_VERSION,
-  buildIntCp004LocalizedReviewPack,
+  buildIntCp004LocalizedReviewPackV9Safe,
   renderIntCp004LocalizedReviewMarkdown,
   serializeIntCp004LocalizedReviewPack,
   sha256Text,
-} from "./cp004-localized-review-pack";
+} from "./cp004-localized-review-pack-v9-safe";
 import type { IntCp004LocalizedLocale } from "./cp004-localization-types";
 
 function fail(message: string): never {
@@ -66,7 +66,7 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
   const files = FILES[locale];
   const exportedMarkdown = readFileSync(join(OUTPUT_DIRECTORY, files.markdown), "utf8");
   const exportedData = readFileSync(join(OUTPUT_DIRECTORY, files.data), "utf8");
-  const pack = buildIntCp004LocalizedReviewPack(locale);
+  const pack = buildIntCp004LocalizedReviewPackV9Safe(locale);
   const expectedMarkdown = renderIntCp004LocalizedReviewMarkdown(pack);
   const expectedData = serializeIntCp004LocalizedReviewPack(pack);
 
@@ -175,6 +175,7 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
     if (locale === "pa-IN") {
       if (!question.explanation.whatAsked.startsWith("ਆਓ ")) fail(`${locale}/${question.qlId}/${question.seed}: Punjabi task opening regressed.`);
       if (learnerText.includes("ਸਾਨੂੰ") || learnerText.includes("ਚੱਕਰਵੱਧੀ")) fail(`${locale}/${question.qlId}/${question.seed}: rejected Punjabi wording remains.`);
+      if (/[\u0900-\u097F]/u.test(learnerText)) fail(`${locale}/${question.qlId}/${question.seed}: Hindi-script text leaked into Punjabi learner content.`);
       if (question.stem.includes("ਮਿਸ਼ਰਤ ਵਿਆਜ")) punjabiMishritStemCount += 1;
       punjabiTerminologyChecks += 1;
     }
