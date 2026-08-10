@@ -1,14 +1,17 @@
 import {
+  add,
   brokenAmountForState,
   completeAmountForState,
+  div,
   effectiveAnnualRate,
   mul,
   periodicRate,
   rat,
+  sub,
   type Cp004Frequency,
   type Rational,
 } from "./cp004-frequency-math";
-import { moneyText, percentText } from "./cp004-frequency-options";
+import { decimal, moneyText, percentText } from "./cp004-frequency-options";
 import {
   cp004FrequencyIntervalText,
   cp004FrequencyLabel,
@@ -23,8 +26,41 @@ import type {
 export const INT_CP004_LOCALIZED_SIMPLE_EXPLANATION_V8_FINAL_VERSION =
   "INT-CP-004-HI-PA-SIMPLE-EXPLANATIONS-v8-final" as const;
 
-function needsApproximation(rate: Rational): boolean {
-  return mul(rate, rat(100)).denominator !== 1n;
+function compactTwo(value: Rational): string {
+  return decimal(value, 2).replace(/\.?0+$/u, "");
+}
+
+function cleanPercent(value: Rational): string {
+  return `${compactTwo(value)}%`;
+}
+
+function needsApproximation(value: Rational): boolean {
+  return mul(value, rat(100)).denominator !== 1n;
+}
+
+function powerExpression(base: string, periods: number): string {
+  return periods === 1 ? base : `${base}^${periods}`;
+}
+
+function nominalGrowthExpression(annualRate: Rational, frequency: Cp004Frequency): string {
+  const annual = compactTwo(annualRate);
+  return frequency === 1
+    ? `(1 + ${annual}/100)`
+    : `(1 + ${annual}/(${frequency} × 100))`;
+}
+
+function periodicGrowthExpression(rate: Rational): string {
+  if (needsApproximation(rate)) {
+    return `(1 + ${rate.numerator.toString()}/(${rate.denominator.toString()} × 100))`;
+  }
+  return `(1 + ${compactTwo(rate)}/100)`;
+}
+
+function replaceGrowthFactor(text: string, expression: string): string {
+  return text.replace(
+    /×\s*\d+(?:\.\d+)?(\^\d+)?\s*=/u,
+    (_match, power: string | undefined) => `× ${expression}${power ?? ""} =`,
+  );
 }
 
 function rateCalculation(
@@ -35,14 +71,14 @@ function rateCalculation(
   const periodRate = periodicRate(s.nominalAnnualRatePercent, s.frequency);
   if (s.frequency === 1) {
     return locale === "hi-IN"
-      ? `सालाना दर = ${percentText(s.nominalAnnualRatePercent)}।`
-      : `ਸਾਲਾਨਾ ਦਰ = ${percentText(s.nominalAnnualRatePercent)}।`;
+      ? `सालाना दर = ${cleanPercent(s.nominalAnnualRatePercent)}।`
+      : `ਸਾਲਾਨਾ ਦਰ = ${cleanPercent(s.nominalAnnualRatePercent)}।`;
   }
   const sign = needsApproximation(periodRate) ? "≈" : "=";
   const label = cp004FrequencyLabel(locale, s.frequency);
   return locale === "hi-IN"
-    ? `${label} दर = ${percentText(s.nominalAnnualRatePercent)} ÷ ${s.frequency} ${sign} ${percentText(periodRate)}।`
-    : `${label} ਦਰ = ${percentText(s.nominalAnnualRatePercent)} ÷ ${s.frequency} ${sign} ${percentText(periodRate)}।`;
+    ? `${label} दर = ${cleanPercent(s.nominalAnnualRatePercent)} ÷ ${s.frequency} ${sign} ${cleanPercent(periodRate)}।`
+    : `${label} ਦਰ = ${cleanPercent(s.nominalAnnualRatePercent)} ÷ ${s.frequency} ${sign} ${cleanPercent(periodRate)}।`;
 }
 
 function markRoundedRate(
@@ -52,11 +88,12 @@ function markRoundedRate(
   frequency: Cp004Frequency,
 ): string {
   const rate = periodicRate(annualRate, frequency);
-  if (!needsApproximation(rate)) return text;
   const displayed = percentText(rate);
+  const clean = cleanPercent(rate);
+  const prefix = needsApproximation(rate) ? "≈ " : "";
   return locale === "hi-IN"
-    ? text.replace(`दर ${displayed}`, `दर ≈ ${displayed}`)
-    : text.replace(`ਦਰ ${displayed}`, `ਦਰ ≈ ${displayed}`);
+    ? text.replace(`दर ${displayed}`, `दर ${prefix}${clean}`)
+    : text.replace(`ਦਰ ${displayed}`, `ਦਰ ${prefix}${clean}`);
 }
 
 function polishRateFormula(
@@ -66,16 +103,19 @@ function polishRateFormula(
   const s = source.mathematicalState;
   if (s.frequency === 1) return text;
   const rate = periodicRate(s.nominalAnnualRatePercent, s.frequency);
-  if (!needsApproximation(rate)) return text;
   const exactLead = `${percentText(s.nominalAnnualRatePercent)} ÷ ${s.frequency} = ${percentText(rate)}`;
-  return text.replace(exactLead, `${percentText(s.nominalAnnualRatePercent)} ÷ ${s.frequency} ≈ ${percentText(rate)}`);
+  const sign = needsApproximation(rate) ? "≈" : "=";
+  return text.replace(
+    exactLead,
+    `${cleanPercent(s.nominalAnnualRatePercent)} ÷ ${s.frequency} ${sign} ${cleanPercent(rate)}`,
+  );
 }
 
 function annualHypothesis(
   locale: IntCp004LocalizedLocale,
   source: IntCp004EnglishFrozenQuestion,
 ): string {
-  const rate = percentText(source.mathematicalState.nominalAnnualRatePercent);
+  const rate = cleanPercent(source.mathematicalState.nominalAnnualRatePercent);
   return locale === "hi-IN"
     ? `${rate} वार्षिक दर मानें।`
     : `${rate} ਸਾਲਾਨਾ ਦਰ ਮੰਨੋ।`;
@@ -109,6 +149,21 @@ function naturalTaskLine(
   return natural.startsWith("ਆਓ ") ? natural : `ਆਓ ${natural}`;
 }
 
+function cleanNominalAmountStep(
+  source: IntCp004EnglishFrozenQuestion,
+  step: string,
+): string {
+  const s = source.mathematicalState;
+  return replaceGrowthFactor(step, nominalGrowthExpression(s.nominalAnnualRatePercent, s.frequency));
+}
+
+function cleanDirectAmountStep(
+  source: IntCp004EnglishFrozenQuestion,
+  step: string,
+): string {
+  return replaceGrowthFactor(step, periodicGrowthExpression(source.mathematicalState.periodicRatePercent));
+}
+
 function finalizeSteps(
   source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
@@ -118,14 +173,57 @@ function finalizeSteps(
   const base = explanation.steps.map((step) => polishRateFormula(step, source));
 
   switch (source.qlId) {
+    case "INT-QL-067":
+    case "INT-QL-068":
+    case "INT-QL-072": {
+      const steps = [...base];
+      const amountIndex = source.qlId === "INT-QL-068" ? 1 : source.qlId === "INT-QL-072" ? 1 : 2;
+      if (steps[amountIndex]) steps[amountIndex] = cleanNominalAmountStep(source, steps[amountIndex]!);
+      return Object.freeze(steps);
+    }
+
+    case "INT-QL-069": {
+      const amount = completeAmountForState(s);
+      const growth = powerExpression(nominalGrowthExpression(s.nominalAnnualRatePercent, s.frequency), s.periods);
+      return Object.freeze([
+        rateCalculation(locale, source),
+        locale === "hi-IN" ? `${s.periods} बार ब्याज जुड़ेगा।` : `${s.periods} ਵਾਰ ਵਿਆਜ ਜੁੜੇਗਾ।`,
+        locale === "hi-IN"
+          ? `मूलधन = ${moneyText(amount)} ÷ ${growth} = ${moneyText(s.principal)}।`
+          : `ਮੂਲਧਨ = ${moneyText(amount)} ÷ ${growth} = ${moneyText(s.principal)}।`,
+      ]);
+    }
+
+    case "INT-QL-070": {
+      const amount = completeAmountForState(s);
+      const interest = sub(amount, s.principal);
+      const growth = powerExpression(nominalGrowthExpression(s.nominalAnnualRatePercent, s.frequency), s.periods);
+      return Object.freeze([
+        rateCalculation(locale, source),
+        locale === "hi-IN" ? `${s.periods} बार ब्याज जुड़ेगा।` : `${s.periods} ਵਾਰ ਵਿਆਜ ਜੁੜੇਗਾ।`,
+        locale === "hi-IN"
+          ? `मूलधन = ${moneyText(interest)} ÷ [${growth} − 1] = ${moneyText(s.principal)}।`
+          : `ਮੂਲਧਨ = ${moneyText(interest)} ÷ [${growth} − 1] = ${moneyText(s.principal)}।`,
+      ]);
+    }
+
     case "INT-QL-071": {
       const amount = completeAmountForState(s);
+      const calculation = cleanNominalAmountStep(source, base[1] ?? "");
       return Object.freeze([
         annualHypothesis(locale, source),
         rateCalculation(locale, source),
-        base[1] ?? "",
+        calculation,
         confirmationAmount(locale, amount),
       ]);
+    }
+
+    case "INT-QL-073":
+    case "INT-QL-074": {
+      const steps = [...base];
+      const amountIndex = source.qlId === "INT-QL-073" ? 2 : 1;
+      if (steps[amountIndex]) steps[amountIndex] = cleanDirectAmountStep(source, steps[amountIndex]!);
+      return Object.freeze(steps);
     }
 
     case "INT-QL-075": {
@@ -143,39 +241,79 @@ function finalizeSteps(
 
     case "INT-QL-076": {
       const effective = effectiveAnnualRate(s.nominalAnnualRatePercent, s.frequency);
+      const amountStep = cleanNominalAmountStep(source, base[1] ?? "");
+      const approx = needsApproximation(effective) ? "लगभग " : "";
+      const approxPa = needsApproximation(effective) ? "ਲਗਭਗ " : "";
       return Object.freeze([
-        base[0] ?? "",
-        base[1] ?? "",
+        rateCalculation(locale, source),
+        amountStep,
         locale === "hi-IN"
           ? `₹100 पर बढ़ोतरी ${moneyText(effective)} है।`
           : `₹100 ਉੱਤੇ ਵਾਧਾ ${moneyText(effective)} ਹੈ।`,
         locale === "hi-IN"
-          ? `इसलिए प्रभावी वार्षिक दर ${percentText(effective)} है।`
-          : `ਇਸ ਲਈ ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ ${percentText(effective)} ਹੈ।`,
+          ? `इसलिए प्रभावी वार्षिक दर ${approx}${cleanPercent(effective)} है।`
+          : `ਇਸ ਲਈ ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ ${approxPa}${cleanPercent(effective)} ਹੈ।`,
       ]);
     }
 
     case "INT-QL-077": {
       const effective = effectiveAnnualRate(s.nominalAnnualRatePercent, s.frequency);
+      const amountStep = cleanNominalAmountStep(source, base[1] ?? "");
+      const approx = needsApproximation(effective) ? "लगभग " : "";
+      const approxPa = needsApproximation(effective) ? "ਲਗਭਗ " : "";
       return Object.freeze([
         annualHypothesis(locale, source),
         rateCalculation(locale, source),
-        base[1] ?? "",
+        amountStep,
         locale === "hi-IN"
-          ? `बढ़ोतरी ${percentText(effective)} है, जो प्रश्न की प्रभावी दर से मिलती है।`
-          : `ਵਾਧਾ ${percentText(effective)} ਹੈ, ਜੋ ਪ੍ਰਸ਼ਨ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਨਾਲ ਮਿਲਦਾ ਹੈ।`,
+          ? `बढ़ोतरी ${approx}${cleanPercent(effective)} है, जो प्रश्न की प्रभावी दर से मिलती है।`
+          : `ਵਾਧਾ ${approxPa}${cleanPercent(effective)} ਹੈ, ਜੋ ਪ੍ਰਸ਼ਨ ਦੀ ਪ੍ਰਭਾਵੀ ਦਰ ਨਾਲ ਮਿਲਦਾ ਹੈ।`,
       ]);
     }
 
     case "INT-QL-078": {
       const amount = completeAmountForState(s);
       return Object.freeze([
-        base[0] ?? "",
-        base[1] ?? "",
+        markRoundedRate(base[0] ?? "", locale, s.nominalAnnualRatePercent, s.frequency),
+        cleanNominalAmountStep(source, base[1] ?? ""),
         confirmationAmount(locale, amount),
         locale === "hi-IN"
           ? `इसलिए 1 वर्ष में ब्याज ${s.frequency} बार, यानी ${cp004FrequencyIntervalText(locale, s.frequency)} जुड़ता है।`
           : `ਇਸ ਲਈ 1 ਸਾਲ ਵਿੱਚ ਵਿਆਜ ${s.frequency} ਵਾਰ, ਅਰਥਾਤ ${cp004FrequencyIntervalText(locale, s.frequency)} ਜੁੜਦਾ ਹੈ।`,
+      ]);
+    }
+
+    case "INT-QL-079":
+    case "INT-QL-080": {
+      const steps = [...base];
+      if (steps[0]) {
+        steps[0] = replaceGrowthFactor(
+          steps[0],
+          nominalGrowthExpression(s.nominalAnnualRatePercent, 1),
+        );
+      }
+      return Object.freeze(steps);
+    }
+
+    case "INT-QL-081": {
+      const brokenAmount = brokenAmountForState(s);
+      const tailRate = mul(s.nominalAnnualRatePercent, rat(s.tailMonths, 12));
+      const tailMultiplier = add(rat(1), div(tailRate, rat(100)));
+      const beforeTail = div(brokenAmount, tailMultiplier);
+      const tailBase = add(rat(100), tailRate);
+      const annualBase = add(rat(100), s.nominalAnnualRatePercent);
+      const annualPower = s.fullYears === 1 ? compactTwo(annualBase) : `${compactTwo(annualBase)}^${s.fullYears}`;
+      const hundredPower = s.fullYears === 1 ? "100" : `100^${s.fullYears}`;
+      return Object.freeze([
+        locale === "hi-IN"
+          ? `अंतिम ${s.tailMonths} महीनों में साधारण ब्याज ${cleanPercent(tailRate)} लगा।`
+          : `ਅੰਤਿਮ ${s.tailMonths} ਮਹੀਨਿਆਂ ਵਿੱਚ ਸਧਾਰਣ ਵਿਆਜ ${cleanPercent(tailRate)} ਲੱਗਿਆ।`,
+        locale === "hi-IN"
+          ? `उससे पहले की राशि = ${moneyText(brokenAmount)} × 100 ÷ ${compactTwo(tailBase)} = ${moneyText(beforeTail)}।`
+          : `ਉਸ ਤੋਂ ਪਹਿਲਾਂ ਦੀ ਰਕਮ = ${moneyText(brokenAmount)} × 100 ÷ ${compactTwo(tailBase)} = ${moneyText(beforeTail)}।`,
+        locale === "hi-IN"
+          ? `मूलधन = ${moneyText(beforeTail)} × ${hundredPower} ÷ ${annualPower} = ${moneyText(s.principal)}।`
+          : `ਮੂਲਧਨ = ${moneyText(beforeTail)} × ${hundredPower} ÷ ${annualPower} = ${moneyText(s.principal)}।`,
       ]);
     }
 
@@ -192,9 +330,26 @@ function finalizeSteps(
       ]);
     }
 
-    default:
-      return Object.freeze(base);
+    case "INT-QL-084":
+    case "INT-QL-085": {
+      const steps = [...base];
+      if (steps[0]) {
+        steps[0] = replaceGrowthFactor(
+          steps[0],
+          nominalGrowthExpression(s.nominalAnnualRatePercent, s.firstFrequency),
+        );
+      }
+      if (steps[1]) {
+        steps[1] = replaceGrowthFactor(
+          steps[1],
+          nominalGrowthExpression(s.nominalAnnualRatePercent, s.secondFrequency),
+        );
+      }
+      return Object.freeze(steps);
+    }
   }
+
+  return Object.freeze(base);
 }
 
 export function simplifyCp004LocalizedExplanationV8Final(
