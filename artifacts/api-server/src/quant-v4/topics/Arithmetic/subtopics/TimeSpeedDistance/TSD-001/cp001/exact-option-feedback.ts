@@ -3,7 +3,7 @@ import type {
   TsdCp001OptionAnalysis,
 } from "./runtime-types";
 
-const EQUATION = /(?:\d|\b[A-D]\b)[^.!?]{0,120}(?:=|×|÷|\\times|\\div)[^.!?]{0,120}\d/;
+const EQUATION = /(?:\d|\b[A-D]\b)[^.!?]{0,120}(?:=|×|÷|\+|−|-|\\times|\\div)[^.!?]{0,120}\d/;
 
 export function hasTsdCalculationEvidence(value: string): boolean {
   return EQUATION.test(value.replace(/\s+/g, " "));
@@ -33,7 +33,7 @@ function joinAsEquation(operationLine: string | undefined, finalLine: string): s
     return operation.endsWith("=") ? `${operation} ${result}` : `${operation} = ${result}`;
   }
 
-  if (/(?:=|×|÷|\\times|\\div)/.test(final) && /=/.test(final)) {
+  if (/(?:=|×|÷|\+|−|-|\\times|\\div)/.test(final) && /=/.test(final)) {
     return final;
   }
 
@@ -49,7 +49,7 @@ function calculationCertificate(question: TsdCp001GeneratedQuestion): string {
   const candidates = [
     ...question.explanation.stepByStepSolution,
     ...question.explanation.working,
-  ].filter((line) => /(?:=|×|÷|\\times|\\div)/.test(line));
+  ].filter((line) => /(?:=|×|÷|\+|−|-|\\times|\\div)/.test(line));
 
   const finalLine = [...candidates].reverse().find((line) => line.includes(question.answerText))
     ?? candidates[candidates.length - 1];
@@ -59,15 +59,15 @@ function calculationCertificate(question: TsdCp001GeneratedQuestion): string {
 
   const operationLine = [...candidates]
     .reverse()
-    .find((line) => line !== finalLine && /(?:×|÷|\\times|\\div|=)/.test(line));
+    .find((line) => line !== finalLine && /(?:×|÷|\+|−|-|\\times|\\div|=)/.test(line));
   const certificate = joinAsEquation(operationLine, finalLine)
     .replace(/\s+/g, " ")
     .trim();
 
-  if (/^(?:=|×|÷|\\times|\\div)\b/.test(certificate)) {
+  if (/^(?:=|×|÷|\+|−|-|\\times|\\div)\b/.test(certificate)) {
     throw new Error(`${question.questionLanguageId}: calculation certificate starts with an operator`);
   }
-  if (/(?:×|÷|\\times|\\div)/.test(certificate) && !/=/.test(certificate)) {
+  if (/(?:×|÷|\+|−|-|\\times|\\div)/.test(certificate) && !/=/.test(certificate)) {
     throw new Error(`${question.questionLanguageId}: calculation certificate has an operation but no equals sign`);
   }
   return certificate;
@@ -80,10 +80,9 @@ export function ensureCp001ExactOptionFeedback(
   const optionAnalysis = Object.freeze(question.explanation.optionAnalysis.map((entry): TsdCp001OptionAnalysis => {
     const remainder = withoutDisplayedOption(entry.reason, entry.text);
     if (hasTsdCalculationEvidence(remainder) && /=/.test(remainder)) return entry;
-    const prefix = entry.isCorrect ? "Correct check" : "Correct check";
     return Object.freeze({
       ...entry,
-      reason: `${entry.reason.replace(/[.\s]+$/, "")}. ${prefix}: ${certificate}.`,
+      reason: `${entry.reason.replace(/[.\s]+$/, "")}. Correct check: ${certificate}.`,
     });
   }));
 
