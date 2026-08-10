@@ -1,9 +1,7 @@
 import {
   FRIENDLY_BASES,
-  add,
   brokenPeriodAmount,
   deepFreeze,
-  div,
   gcdForCp004,
   mixedFrequencyAmount,
   mul,
@@ -24,9 +22,9 @@ export const INT_CP004_EXAM_FRIENDLY_STATE_V9_VERSION =
 
 const COMPLETE_RATE_POOLS: Readonly<Record<Cp004Frequency, readonly Rational[]>> = Object.freeze({
   1: Object.freeze([rat(10), rat(20), rat(25)]),
-  2: Object.freeze([rat(10), rat(20), rat(30), rat(40)]),
+  2: Object.freeze([rat(10), rat(20), rat(30)]),
   4: Object.freeze([rat(20), rat(40)]),
-  12: Object.freeze([rat(24), rat(60)]),
+  12: Object.freeze([rat(24), rat(48)]),
 });
 
 const COMPLETE_PERIOD_POOLS: Readonly<Record<Cp004Frequency, readonly number[]>> = Object.freeze({
@@ -51,10 +49,6 @@ const MIXED_PAIRS = Object.freeze([
 
 function lcm(left: bigint, right: bigint): bigint {
   return left / gcdForCp004(left, right) * right;
-}
-
-function requiredPrincipalUnit(multiplier: Rational): bigint {
-  return multiplier.denominator;
 }
 
 function principalForUnit(seed: string, label: string, unit: bigint): Rational {
@@ -87,10 +81,6 @@ function directMultiplier(rate: Rational, periods: number): Rational {
   return pow(periodMultiplierFromPeriodicRate(rate), periods);
 }
 
-function chooseCompleteFrequency(base: Cp004MathematicalState): Cp004Frequency {
-  return base.frequency;
-}
-
 function chooseCompleteRate(
   seed: string,
   qlId: IntCp004QlId,
@@ -112,11 +102,11 @@ function completeState(
   seed: string,
   base: Cp004MathematicalState,
 ): Cp004MathematicalState {
-  const frequency = chooseCompleteFrequency(base);
+  const frequency = base.frequency;
   const nominalAnnualRatePercent = chooseCompleteRate(seed, qlId, frequency);
   const periods = chooseCompletePeriods(seed, qlId, frequency);
   const multiplier = amountMultiplier(nominalAnnualRatePercent, frequency, periods);
-  const principal = principalForUnit(seed, qlId, requiredPrincipalUnit(multiplier));
+  const principal = principalForUnit(seed, qlId, multiplier.denominator);
   return deepFreeze({
     ...base,
     qlId,
@@ -136,13 +126,13 @@ function directPeriodicState(
 ): Cp004MathematicalState {
   const frequency = base.frequency;
   const periodicRatePercent = pick(
-    frequency === 12 ? [rat(2), rat(5)] : [rat(5), rat(10), rat(20), rat(25)],
+    frequency === 12 ? [rat(2), rat(4)] : [rat(5), rat(10), rat(20), rat(25)],
     seed,
     `${qlId}:v9-period-rate`,
   );
   const periods = chooseCompletePeriods(seed, qlId, frequency);
   const multiplier = directMultiplier(periodicRatePercent, periods);
-  const principal = principalForUnit(seed, qlId, requiredPrincipalUnit(multiplier));
+  const principal = principalForUnit(seed, qlId, multiplier.denominator);
   return deepFreeze({
     ...base,
     qlId,
@@ -160,7 +150,7 @@ function comparisonState(
   base: Cp004MathematicalState,
 ): Cp004MathematicalState {
   const [frequency, comparisonFrequency] = pick(COMPARISON_PAIRS, seed, "INT-QL-075:v9-pair");
-  const nominalAnnualRatePercent = frequency === 4 || comparisonFrequency === 4 ? rat(40) : pick([rat(20), rat(40)], seed, "INT-QL-075:v9-rate");
+  const nominalAnnualRatePercent = rat(20);
   const years = 1;
   const first = amountMultiplier(nominalAnnualRatePercent, frequency, frequency * years);
   const second = amountMultiplier(nominalAnnualRatePercent, comparisonFrequency, comparisonFrequency * years);
@@ -180,11 +170,10 @@ function comparisonState(
 
 function effectiveState(
   qlId: "INT-QL-076" | "INT-QL-077",
-  seed: string,
   base: Cp004MathematicalState,
 ): Cp004MathematicalState {
   const frequency: Cp004Frequency = 2;
-  const nominalAnnualRatePercent = pick([rat(20), rat(40), rat(60), rat(80)], seed, `${qlId}:v9-rate`);
+  const nominalAnnualRatePercent = rat(20);
   return deepFreeze({
     ...base,
     qlId,
@@ -298,7 +287,7 @@ export function generateIntCp004ExamFriendlyStateV9(
       return comparisonState(seed, base);
     case "INT-QL-076":
     case "INT-QL-077":
-      return effectiveState(qlId, seed, base);
+      return effectiveState(qlId, base);
     case "INT-QL-078":
       return frequencyIdentificationState(seed, base);
     case "INT-QL-079":
