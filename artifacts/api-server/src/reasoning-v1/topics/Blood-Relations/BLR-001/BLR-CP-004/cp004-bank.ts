@@ -576,10 +576,9 @@ function cousinPairKeys(graph: FamilyGraph): string[] {
 function pairQuestion(
   source: BlrCp003FinalApprovedRecord,
   groupIndex: number,
-  modeOverride?: number,
 ): GeneratedBlrCp004Question {
   const graph = diagramGraph(source);
-  const mode = modeOverride ?? groupIndex % 4;
+  const mode = groupIndex % 4;
   let keys: string[];
   let prototypeId: BlrCp004PrototypeId;
   let noun: string;
@@ -697,16 +696,55 @@ let cache: readonly GeneratedBlrCp004Question[] | null = null;
 export function generateBlrCp004FrozenBank(): readonly GeneratedBlrCp004Question[] {
   if (cache) return cache;
   const sources = uniqueGroupSources();
-  const zeroCousinGroupIndex = sources.findIndex(
-    (source) => cousinPairKeys(diagramGraph(source)).length === 0,
-  );
-  if (zeroCousinGroupIndex < 0) {
-    throw new Error("CP-004 source bank has no graph suitable for an explicit zero cousin-pair count.");
+  const zeroStatusGroupIndex = sources.findIndex((source) => {
+    const nodes = source.proceduralLogic.nodes;
+    const hasExplicitUnmarried = nodes.some((node) =>
+      /explicitly unmarried/i.test(node.roleLabel ?? ""),
+    );
+    const hasUnresolvedStatus = nodes.some((node) =>
+      /marital status unstated/i.test(node.roleLabel ?? ""),
+    );
+    return !hasExplicitUnmarried || !hasUnresolvedStatus;
+  });
+  if (zeroStatusGroupIndex < 0) {
+    throw new Error("CP-004 source bank has no graph suitable for an explicit zero status count.");
   }
   const bank = sources.flatMap((source, groupIndex) => {
     const questions = questionsForGroup(source, groupIndex);
-    if (groupIndex === zeroCousinGroupIndex && groupIndex % 4 !== 3) {
-      questions[3] = pairQuestion(source, groupIndex, 3);
+    if (groupIndex === zeroStatusGroupIndex) {
+      const nodes = source.proceduralLogic.nodes;
+      const explicit = nodes
+        .filter((node) => /explicitly unmarried/i.test(node.roleLabel ?? ""))
+        .map((node) => node.id);
+      const unresolved = nodes
+        .filter((node) => /marital status unstated/i.test(node.roleLabel ?? ""))
+        .map((node) => node.id);
+      const useExplicit = explicit.length === 0;
+      const ids = useExplicit ? explicit : unresolved;
+      const label = useExplicit
+        ? "explicitly unmarried members"
+        : "members whose marital status is unstated";
+      questions[0] = buildNumberQuestion({
+        source,
+        groupIndex,
+        slot: useExplicit ? "STATUS-ZERO-EXPLICIT" : "STATUS-ZERO-UNRESOLVED",
+        authority: "COUNT_MEMBERS_BY_FILTER",
+        prototypeId: "BLR-CP004-PROT-COUNT-MARITAL-STATUS-MEMBERS",
+        stem: `How many ${label} are there?`,
+        value: ids.length,
+        countedMemberIds: ids,
+        coreConcept: [
+          "Named spouse, explicit unmarried status and unstated status are separate evidence states.",
+          "A zero count is valid when the passage establishes no member in the requested status category.",
+        ],
+        working: [
+          `${label}: none.`,
+          "Count = 0.",
+        ],
+        conclusion: `The required status count is ${ids.length}.`,
+        shortcut: "Count only direct status evidence; an empty category gives zero.",
+        advanced: true,
+      });
     }
     return questions;
   });
