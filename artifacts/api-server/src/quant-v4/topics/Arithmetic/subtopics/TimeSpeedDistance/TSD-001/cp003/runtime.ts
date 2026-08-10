@@ -12,7 +12,6 @@ import {
   formatSolvedValue,
   hashSeed,
 } from "./generation-support";
-import { generateCp003State } from "./parameter-factory";
 import { cp003Difficulty, cp003Teaching, renderCp003Stem } from "./render";
 import type {
   TsdCp003GeneratedQuestion,
@@ -21,6 +20,8 @@ import type {
   TsdCp003OptionAudit,
   TsdCp003WrongWorking,
 } from "./runtime-types";
+import { generateSaturatedCp003State } from "./source-saturation";
+import { remediateCp003Stem } from "./stem-remediation";
 import { solveCp003 } from "./solver";
 import { verifyCp003 } from "./verifier";
 
@@ -150,7 +151,7 @@ function validateQuestion(question: Omit<TsdCp003GeneratedQuestion, "validation"
 export function generateCp003Candidate(provisionalAuthorityId: string, seed: string): TsdCp003GeneratedQuestion {
   const authority = cp003AuthorityByProvisionalId(provisionalAuthorityId);
   if (!authority.learnerFacing) throw new Error(`${provisionalAuthorityId}: internal QA authority cannot generate a learner question`);
-  const state = generateCp003State(authority, seed);
+  const state = generateSaturatedCp003State(authority, seed);
   const solution = solveCp003(state.input);
   const independent = verifyCp003(state.input, solution);
   if (!independent.valid) throw new Error(`${authority.solveMode}: generated state failed independent verification: ${independent.errors.join("; ")}`);
@@ -160,6 +161,7 @@ export function generateCp003Candidate(provisionalAuthorityId: string, seed: str
   const teaching = cp003Teaching(state.input, solution);
   const lifecycle = reopenedEditorialLifecycle();
   const inputValues = rationalValues(state.input);
+  const rawStem = renderCp003Stem(state);
   const draft = {
     chapterId: "TSD-001" as const,
     checkpointId: "TSD-CP-003" as const,
@@ -173,7 +175,7 @@ export function generateCp003Candidate(provisionalAuthorityId: string, seed: str
     language: "en" as const,
     seed,
     difficulty: cp003Difficulty(state.input),
-    stem: renderCp003Stem(state),
+    stem: remediateCp003Stem(state, rawStem),
     input: state.input,
     solution,
     answerText: options[correctIndex].text,
