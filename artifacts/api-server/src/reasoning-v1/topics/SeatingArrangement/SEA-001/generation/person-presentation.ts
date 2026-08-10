@@ -37,6 +37,11 @@ export function presentSea001Text(
 function stableNumber(value: string): number {
   let hash = 0x811c9dc5;
   for (const character of value) hash = Math.imul(hash ^ character.charCodeAt(0), 0x01000193);
+  hash ^= hash >>> 16;
+  hash = Math.imul(hash, 0x85ebca6b);
+  hash ^= hash >>> 13;
+  hash = Math.imul(hash, 0xc2b2ae35);
+  hash ^= hash >>> 16;
   return hash >>> 0;
 }
 
