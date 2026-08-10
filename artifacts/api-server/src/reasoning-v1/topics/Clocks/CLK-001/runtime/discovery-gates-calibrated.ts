@@ -68,9 +68,9 @@ const unresolvedSourceBackedHoldCount = Object.values(CLOCK_EFFECTIVE_GAP_AUDIT)
   .filter((record) => record.status === "UNRESOLVED_SOURCE_BACKED_HOLD").length;
 
 /**
- * Registry/source decisions, semantic difficulty and multilingual-risk discovery
- * are automated prerequisites. They are deliberately distinct from final source
- * saturation sign-off and human item-level difficulty calibration. Those two
+ * Registry/source decisions, semantic difficulty, item-level difficulty and
+ * multilingual-risk discovery are automated prerequisites. They are distinct
+ * from final human source sign-off and human item-difficulty calibration. Those
  * human gates remain open, so discovery freeze and permanent QL allocation stay
  * blocked even though the technical audit infrastructure is complete.
  */
@@ -87,8 +87,11 @@ export const CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY = {
   sourceSaturationComplete: false,
   semanticDifficultyAuditComplete: CLOCK_DIFFICULTY_POLICY.difficultyAuditComplete,
   itemLevelDifficultyModelImplemented: CLOCK_ITEM_DIFFICULTY_POLICY.semanticBaselineRequired && CLOCK_ITEM_DIFFICULTY_POLICY.generatedItemFeaturesRequired,
+  itemLevelDifficultyTechnicalAuditComplete: CLOCK_ITEM_DIFFICULTY_POLICY.technicalAuditComplete,
+  itemLevelDifficultyTechnicalCorpusSize: CLOCK_ITEM_DIFFICULTY_POLICY.technicalCorpusSize,
   difficultyHumanCalibrationRequired: CLOCK_ITEM_DIFFICULTY_POLICY.humanCalibrationRequired,
-  difficultyAuditComplete: false,
+  difficultyHumanCalibrationComplete: CLOCK_ITEM_DIFFICULTY_POLICY.humanCalibrationComplete,
+  difficultyAuditComplete: CLOCK_ITEM_DIFFICULTY_POLICY.technicalAuditComplete && CLOCK_ITEM_DIFFICULTY_POLICY.humanCalibrationComplete,
   multilingualRiskAuditComplete: CLOCK_MULTILINGUAL_RISK_POLICY.riskAuditComplete,
   noUnexplainedDeclaredSourceFamily: unresolvedSourceBackedHoldCount === 0,
   discoveryFreezeEligible: false,
@@ -121,6 +124,9 @@ export function clockEffectiveDiscoveryAuditSummary() {
     sourceSaturationComplete: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.sourceSaturationComplete,
     semanticDifficultyAuditComplete: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.semanticDifficultyAuditComplete,
     itemLevelDifficultyModelImplemented: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.itemLevelDifficultyModelImplemented,
+    itemLevelDifficultyTechnicalAuditComplete: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.itemLevelDifficultyTechnicalAuditComplete,
+    itemLevelDifficultyTechnicalCorpusSize: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.itemLevelDifficultyTechnicalCorpusSize,
+    difficultyHumanCalibrationComplete: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.difficultyHumanCalibrationComplete,
     difficultyAuditComplete: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.difficultyAuditComplete,
     multilingualRiskAuditComplete: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.multilingualRiskAuditComplete,
     blockingGates: CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.blockingGates,
