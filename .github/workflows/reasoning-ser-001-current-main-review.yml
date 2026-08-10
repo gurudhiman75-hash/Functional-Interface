@@ -66,6 +66,12 @@ jobs:
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/question-studio-review-adapter.test.ts | tee ser-review-adapter.log
 
+      - name: Prove current-main Series Question Studio integration
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/ser-cp-007-question-studio-integration.test.ts | tee ser-current-main-integration.log
+
       - name: Prove narrow review-only approval policy
         shell: bash
         run: |
@@ -85,5 +91,6 @@ jobs:
           name: ser-001-current-main-review-logs
           path: |
             ser-review-adapter.log
+            ser-current-main-integration.log
             ser-approval-policy.log
           retention-days: 14
