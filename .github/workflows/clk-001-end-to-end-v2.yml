@@ -12,6 +12,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/CLK-001-FAMILY-F-MANIFEST-AMENDMENT.md
       - artifacts/api-server/src/reasoning-v1/tests/clock-end-to-end-v2.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/clock-media-contracts.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-presentation-contracts.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/clock-foundation.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/spatial-foundation.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts
@@ -56,6 +57,10 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/clock-v2/clock-media-contracts.test.mjs
           pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-presentation-contracts.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-presentation-contracts.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
             src/reasoning-v1/tests/clock-foundation.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/clock-v2/clock-foundation.test.mjs
@@ -83,6 +88,10 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/clock-v2/clock-media-contracts.test.mjs
+      - name: Run learner presentation proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-presentation-contracts.test.mjs
       - name: Run spatial foundation regression
         run: |
           cd artifacts/api-server
