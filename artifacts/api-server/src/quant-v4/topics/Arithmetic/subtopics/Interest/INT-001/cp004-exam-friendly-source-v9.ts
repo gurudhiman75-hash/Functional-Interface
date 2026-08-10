@@ -1,0 +1,213 @@
+import {
+  add,
+  div,
+  mul,
+  periodicRate,
+  rat,
+  type Cp004MathematicalState,
+  type IntCp004QlId,
+  type Rational,
+} from "./cp004-frequency-math";
+import {
+  generateIntCp004EnglishFrozenQuestion,
+  type IntCp004EnglishFrozenQuestion,
+} from "./cp004-english-frozen-runtime";
+
+export const INT_CP004_EXAM_FRIENDLY_SOURCE_V9_VERSION =
+  "INT-CP-004-EXAM-FRIENDLY-SOURCE-v9" as const;
+
+const DECIMAL_TOKEN = /\d+\.\d+/u;
+const MAX_SEARCH_ATTEMPTS = 5_000;
+
+function isInteger(value: Rational): boolean {
+  return value.denominator === 1n;
+}
+
+function periodMultiplier(ratePercent: Rational): Rational {
+  return add(rat(1), div(ratePercent, rat(100)));
+}
+
+function compoundSequence(
+  principal: Rational,
+  ratePercent: Rational,
+  periods: number,
+): readonly Rational[] {
+  const multiplier = periodMultiplier(ratePercent);
+  const values: Rational[] = [];
+  let balance = principal;
+  for (let index = 0; index < periods; index += 1) {
+    balance = mul(balance, multiplier);
+    values.push(balance);
+  }
+  return Object.freeze(values);
+}
+
+function allInteger(values: readonly Rational[]): boolean {
+  return values.every(isInteger);
+}
+
+function noDisplayedDecimals(question: IntCp004EnglishFrozenQuestion): boolean {
+  const learnerSurface = [
+    question.stem,
+    ...question.options.map((option) => option.text),
+    question.correctAnswer,
+  ].join("\n");
+  return !DECIMAL_TOKEN.test(learnerSurface);
+}
+
+function optionValuesAreFriendly(question: IntCp004EnglishFrozenQuestion): boolean {
+  if (question.answerSemantic !== "MONEY" && question.answerSemantic !== "RATE_PERCENT") return true;
+  return question.options.every((option) => isInteger(option.value));
+}
+
+function simpleRatesAreInteger(state: Cp004MathematicalState): boolean {
+  switch (state.qlId) {
+    case "INT-QL-073":
+    case "INT-QL-074":
+      return isInteger(state.periodicRatePercent);
+    case "INT-QL-075":
+      return isInteger(periodicRate(state.nominalAnnualRatePercent, state.frequency))
+        && isInteger(periodicRate(state.nominalAnnualRatePercent, state.comparisonFrequency));
+    case "INT-QL-079":
+    case "INT-QL-080":
+    case "INT-QL-081":
+    case "INT-QL-082":
+    case "INT-QL-083":
+      return isInteger(state.nominalAnnualRatePercent);
+    case "INT-QL-084":
+    case "INT-QL-085":
+      return isInteger(periodicRate(state.nominalAnnualRatePercent, state.firstFrequency))
+        && isInteger(periodicRate(state.nominalAnnualRatePercent, state.secondFrequency));
+    default:
+      return isInteger(periodicRate(state.nominalAnnualRatePercent, state.frequency));
+  }
+}
+
+function calculationDepthIsFriendly(state: Cp004MathematicalState): boolean {
+  switch (state.qlId) {
+    case "INT-QL-067":
+    case "INT-QL-068":
+    case "INT-QL-069":
+    case "INT-QL-070":
+    case "INT-QL-071":
+    case "INT-QL-072":
+    case "INT-QL-073":
+    case "INT-QL-074":
+      return state.periods <= 6;
+    case "INT-QL-075":
+      return state.frequency * state.years <= 6
+        && state.comparisonFrequency * state.years <= 6;
+    case "INT-QL-076":
+    case "INT-QL-077":
+      return state.frequency <= 4;
+    case "INT-QL-078":
+      return state.frequency * state.years <= 6;
+    case "INT-QL-079":
+    case "INT-QL-080":
+    case "INT-QL-081":
+    case "INT-QL-082":
+    case "INT-QL-083":
+      return state.fullYears <= 3;
+    case "INT-QL-084":
+    case "INT-QL-085":
+      return state.firstFrequency * state.firstYears
+        + state.secondFrequency * state.secondYears <= 8;
+  }
+}
+
+function moneyWorkingIsInteger(state: Cp004MathematicalState): boolean {
+  const principal = state.principal;
+  if (!isInteger(principal)) return false;
+
+  switch (state.qlId) {
+    case "INT-QL-067":
+    case "INT-QL-068":
+    case "INT-QL-069":
+    case "INT-QL-070":
+    case "INT-QL-071":
+    case "INT-QL-072":
+    case "INT-QL-078": {
+      const rate = periodicRate(state.nominalAnnualRatePercent, state.frequency);
+      return allInteger(compoundSequence(principal, rate, state.periods));
+    }
+
+    case "INT-QL-073":
+    case "INT-QL-074":
+      return allInteger(compoundSequence(principal, state.periodicRatePercent, state.periods));
+
+    case "INT-QL-075": {
+      const firstRate = periodicRate(state.nominalAnnualRatePercent, state.frequency);
+      const secondRate = periodicRate(state.nominalAnnualRatePercent, state.comparisonFrequency);
+      const first = compoundSequence(principal, firstRate, state.frequency * state.years);
+      const second = compoundSequence(principal, secondRate, state.comparisonFrequency * state.years);
+      return allInteger(first) && allInteger(second);
+    }
+
+    case "INT-QL-076":
+    case "INT-QL-077": {
+      const rate = periodicRate(state.nominalAnnualRatePercent, state.frequency);
+      return allInteger(compoundSequence(rat(100), rate, state.frequency));
+    }
+
+    case "INT-QL-079":
+    case "INT-QL-080":
+    case "INT-QL-081":
+    case "INT-QL-082":
+    case "INT-QL-083": {
+      const wholeYears = compoundSequence(principal, state.nominalAnnualRatePercent, state.fullYears);
+      if (!allInteger(wholeYears) || wholeYears.length === 0) return false;
+      const afterWholeYears = wholeYears.at(-1)!;
+      const tailInterest = mul(
+        afterWholeYears,
+        mul(
+          div(state.nominalAnnualRatePercent, rat(100)),
+          rat(state.tailMonths, 12),
+        ),
+      );
+      return isInteger(tailInterest) && isInteger(add(afterWholeYears, tailInterest));
+    }
+
+    case "INT-QL-084":
+    case "INT-QL-085": {
+      const firstRate = periodicRate(state.nominalAnnualRatePercent, state.firstFrequency);
+      const secondRate = periodicRate(state.nominalAnnualRatePercent, state.secondFrequency);
+      const first = compoundSequence(
+        principal,
+        firstRate,
+        state.firstFrequency * state.firstYears,
+      );
+      if (!allInteger(first) || first.length === 0) return false;
+      const second = compoundSequence(
+        first.at(-1)!,
+        secondRate,
+        state.secondFrequency * state.secondYears,
+      );
+      return allInteger(second);
+    }
+  }
+}
+
+export function isIntCp004ExamFriendlyFrozenSourceV9(
+  question: IntCp004EnglishFrozenQuestion,
+): boolean {
+  return noDisplayedDecimals(question)
+    && optionValuesAreFriendly(question)
+    && simpleRatesAreInteger(question.mathematicalState)
+    && calculationDepthIsFriendly(question.mathematicalState)
+    && moneyWorkingIsInteger(question.mathematicalState)
+    && (question.answerSemantic === "DURATION"
+      || question.answerSemantic === "FREQUENCY"
+      || isInteger(question.solution));
+}
+
+export function selectIntCp004ExamFriendlyFrozenSourceV9(
+  qlId: IntCp004QlId,
+  seed: string,
+): IntCp004EnglishFrozenQuestion {
+  for (let attempt = 0; attempt < MAX_SEARCH_ATTEMPTS; attempt += 1) {
+    const candidateSeed = `${seed}:exam-friendly-v9:${attempt}`;
+    const candidate = generateIntCp004EnglishFrozenQuestion(qlId, candidateSeed);
+    if (isIntCp004ExamFriendlyFrozenSourceV9(candidate)) return candidate;
+  }
+  throw new Error(`${qlId}/${seed}: unable to find an exam-friendly integer-working source in ${MAX_SEARCH_ATTEMPTS} attempts.`);
+}
