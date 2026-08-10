@@ -10,7 +10,7 @@ function escapeHtml(value: string): string {
 export function buildSpatialPrimitiveLibraryV2ReviewExport() {
   const validation = validateSpatialPrimitiveLibraryV2();
   return {
-    schemaVersion: "1.1",
+    schemaVersion: "1.2",
     familyCode: "SPA-001",
     foundationCode: "SPA-FND-001",
     authorityVersion: "2.0",
@@ -38,6 +38,7 @@ export function buildSpatialPrimitiveLibraryV2ReviewExport() {
         enclosedRegionCount: entry.enclosedRegionCount,
         junctionCount: connectivity.junctionCount,
         crossingCount: connectivity.crossingCount,
+        terminalCount: connectivity.terminalCount,
         orientationSensitive: entry.orientationSensitive,
         standardAxisReflectionSensitive: entry.reflectionSensitive,
         rotationPeriodQuarterTurns: deriveSpatialPrimitiveQuarterTurnPeriodV2(entry),
@@ -67,8 +68,9 @@ export function buildSpatialPrimitiveLibraryV2ReviewHtml(
         <dt>Topology</dt><dd>${escapeHtml(row.topology)}</dd>
         <dt>Sides</dt><dd>${row.polygonSideCount ?? "—"}</dd>
         <dt>Regions</dt><dd>${row.enclosedRegionCount}</dd>
-        <dt>Junctions</dt><dd>${row.junctionCount}</dd>
+        <dt>Branch junctions</dt><dd>${row.junctionCount}</dd>
         <dt>True crossings</dt><dd>${row.crossingCount}</dd>
+        <dt>Free terminals</dt><dd>${row.terminalCount}</dd>
         <dt>Quarter-turn period</dt><dd>${row.rotationPeriodQuarterTurns}</dd>
         <dt>Symmetry</dt><dd>V:${row.symmetry.vertical ? "Y" : "N"} H:${row.symmetry.horizontal ? "Y" : "N"} 180:${row.symmetry.rotational180 ? "Y" : "N"}</dd>
       </dl>
