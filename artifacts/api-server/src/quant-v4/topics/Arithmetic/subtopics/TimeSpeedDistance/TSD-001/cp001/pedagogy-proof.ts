@@ -23,6 +23,19 @@ const directModes = new Set([
   "speedFromDistanceAndTime",
   "timeFromDistanceAndSpeed",
 ]);
+const realisticDirectIds = new Set([
+  "MIX_UNCONVERTED_UNITS",
+  "TREAT_SECONDS_AS_MINUTES",
+  "REVERSE_UNIT_CONVERSION",
+]);
+const forbiddenArtificialDirectIds = new Set([
+  "MISREAD_SPEED",
+  "MISREAD_TIME",
+  "MISREAD_DISTANCE",
+  "ADD_GIVENS_BEFORE_DIVIDING",
+  "SUBTRACT_GIVENS_BEFORE_DIVIDING",
+  "ARITHMETIC_OFFSET",
+]);
 const proportionModes = new Set([
   "distanceByProportion",
   "timeByProportion",
@@ -59,12 +72,15 @@ for (const row of rows) {
   if (row.explanation.optionAnalysis.length === 4 && row.explanation.optionAnalysis.filter((option) => option.isCorrect).length === 1) fullOptionAnalysisCount += 1;
 
   if (directModes.has(row.solveMode)) {
-    const misreadReasons = row.explanation.optionAnalysis
-      .filter((option) => !option.isCorrect && option.misconceptionId.startsWith("MISREAD_"))
-      .map((option) => option.reason);
-    assert(misreadReasons.length > 0, `${row.solveMode}: no direct-question misread analysis found`);
-    assert(misreadReasons.every((reason) => !/nearby value/i.test(reason)), `${row.solveMode}: generic nearby-value reason survived`);
-    assert(misreadReasons.every((reason) => /instead of|stated|given|converted/i.test(reason)), `${row.solveMode}: direct-option reason does not compare with the actual value`);
+    const wrong = row.explanation.optionAnalysis.filter((option) => !option.isCorrect);
+    assert(wrong.length === 3, `${row.solveMode}: expected three wrong direct options`);
+    assert(wrong.every((option) => realisticDirectIds.has(option.misconceptionId)), `${row.solveMode}: non-realistic direct misconception remains`);
+    assert(new Set(wrong.map((option) => option.misconceptionId)).size === 3, `${row.solveMode}: direct distractors do not teach three distinct mistakes`);
+    assert(wrong.every((option) => !forbiddenArtificialDirectIds.has(option.misconceptionId)), `${row.solveMode}: artificial direct distractor remains`);
+    assert(wrong.every((option) => option.reason.includes(option.text)), `${row.solveMode}: direct-option reason does not name the selected value`);
+    assert(wrong.every((option) => /=/.test(option.reason)), `${row.solveMode}: direct-option reason lacks a numerical check`);
+    assert(wrong.every((option) => /convert|unit|seconds|minutes|km\/h|m\/s/i.test(option.reason)), `${row.solveMode}: direct-option reason does not explain the actual unit/conversion mistake`);
+    assert(wrong.every((option) => !/nearby value|misread/i.test(option.reason)), `${row.solveMode}: artificial misread wording survived`);
     variedDirectStemCount += 1;
   }
 
@@ -175,7 +191,8 @@ console.log(JSON.stringify({
   mathJaxStemCount,
   fourTierCount,
   fullOptionAnalysisCount,
-  directRowsWithSpecificOptionReasons: variedDirectStemCount,
+  directRowsWithRealisticOptionReasons: variedDirectStemCount,
+  artificialDirectDistractors: 0,
   nonTrivialDistanceRows,
   expandedProportionRows,
   uniqueTeachingVoicesPerAuthority: 3,
