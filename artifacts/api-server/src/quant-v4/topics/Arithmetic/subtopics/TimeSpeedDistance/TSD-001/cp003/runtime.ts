@@ -205,9 +205,20 @@ export function generateCp003ReviewRows(rowsPerAuthority = 3): readonly TsdCp003
   if (!Number.isInteger(rowsPerAuthority) || rowsPerAuthority < 1) throw new Error("rowsPerAuthority must be a positive integer");
   const rows: TsdCp003GeneratedQuestion[] = [];
   for (const authority of TSD_CP003_LEARNER_AUTHORITIES) {
-    for (let index = 0; index < rowsPerAuthority; index += 1) {
-      rows.push(generateCp003Candidate(authority.provisionalId, `review:${authority.provisionalId}:${index}`));
+    const selected: TsdCp003GeneratedQuestion[] = [];
+    const stems = new Set<string>();
+    const fingerprints = new Set<string>();
+    for (let candidateIndex = 0; candidateIndex < 120 && selected.length < rowsPerAuthority; candidateIndex += 1) {
+      const candidate = generateCp003Candidate(authority.provisionalId, `review-pool:${authority.provisionalId}:${candidateIndex}`);
+      if (stems.has(candidate.stem) || fingerprints.has(candidate.mathematicalFingerprint)) continue;
+      selected.push(candidate);
+      stems.add(candidate.stem);
+      fingerprints.add(candidate.mathematicalFingerprint);
     }
+    if (selected.length !== rowsPerAuthority) {
+      throw new Error(`${authority.solveMode}: could not select ${rowsPerAuthority} distinct editorial rows from the deterministic review pool`);
+    }
+    rows.push(...selected);
   }
   return Object.freeze(rows);
 }
