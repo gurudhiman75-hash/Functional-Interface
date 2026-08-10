@@ -28,9 +28,9 @@ function caseLines(models: readonly TeachingCaseModel[]): string[] {
 function directExplanation(input: TeachingTraceInput): string {
   return [
     ...input.intro,
-    "Use the clues in this order:",
+    "Build the arrangement by joining the clues in this order:",
     ...input.clues.map((clue, index) => `${index + 1}. ${clue.text}`),
-    "These deductions leave only one arrangement. There is no need to invent extra cases when the clues already fix the layout directly.",
+    "Here the linked clues fix the arrangement directly, so a separate case split is not required.",
     input.finalHeading ?? "Final arrangement:",
     input.finalModel.display,
   ].join("\n\n");
