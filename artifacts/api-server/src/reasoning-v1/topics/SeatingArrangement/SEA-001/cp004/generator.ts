@@ -1,6 +1,7 @@
 import { DeterministicRandom } from "../../../../shared/constraint-core/random.ts";
 import { canonicalDigest } from "../canonical.ts";
-import { canonicalCircularOrder, CircularTopology, personAt } from "../cp003/topology.ts";
+import { selectSea001Names } from "../generation/name-pool.ts";
+import { canonicalCircularOrder, CircularTopology, personAt, rotateOrder } from "../cp003/topology.ts";
 import {
   outwardConstraintFingerprint,
   outwardConstraintTrue,
@@ -16,7 +17,6 @@ import type {
   OutwardTopologySnapshot,
 } from "./types.ts";
 
-const NAMES = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"] as const;
 export const SEA_CP004_BLUEPRINTS: readonly OutwardBlueprintId[] = [
   "SEA-PBA-013",
   "SEA-PBA-014",
@@ -193,7 +193,7 @@ function attempt(seed: string, blueprint: OutwardBlueprintId): OutwardCaseletRec
   const seatCount = blueprint === "SEA-PBA-013"
     ? random.pick([6, 8, 10])
     : random.pick([6, 7, 8, 9, 10]);
-  const persons = NAMES.slice(0, seatCount);
+  const persons = selectSea001Names(seed, seatCount, `${blueprint}:cp004`) as OutwardPersonId[];
   const landmarkAnchored = blueprint === "SEA-PBA-016";
   const shuffled = random.shuffle(persons);
   const order = landmarkAnchored ? shuffled : canonicalCircularOrder(shuffled, false);
@@ -231,13 +231,16 @@ function attempt(seed: string, blueprint: OutwardBlueprintId): OutwardCaseletRec
   const setupText = landmarkAnchored
     ? `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table, facing outward, but not necessarily in the same order. ${landmarkLabel === "entrance" ? "An" : "A"} ${landmarkLabel} is shown at the top of the diagram.`
     : `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table, facing outward, but not necessarily in the same order.`;
+  const displayOrder = landmarkAnchored
+    ? model.clockwiseOrder
+    : rotateOrder(model.clockwiseOrder, random.integer(0, model.clockwiseOrder.length - 1));
   const diagramText = `Clockwise${landmarkAnchored
     ? ` from the seat nearest the ${landmarkLabel}`
-    : ` from ${model.clockwiseOrder[0]} (chosen only as a rotation reference)`}: ${model.clockwiseOrder.join(" → ")} → ${model.clockwiseOrder[0]}`;
+    : ` from ${displayOrder[0]} (chosen only as a drawing reference)`}: ${displayOrder.join(" → ")} → ${displayOrder[0]}`;
   const sharedExplanation = [
     landmarkAnchored
       ? `Start with the seat nearest the ${landmarkLabel}, which is shown at the top of the diagram.`
-      : `Place ${model.clockwiseOrder[0]} at any convenient seat; rotating the complete arrangement does not change the seating order.`,
+      : `For drawing, start from ${displayOrder[0]} at any convenient point; rotating the whole arrangement does not change any relative position.`,
     "Since everyone faces outward, left is anticlockwise and right is clockwise.",
     "Apply the clues one by one:",
     ...clueTexts.map((clue, index) => `${index + 1}. ${clue}`),
