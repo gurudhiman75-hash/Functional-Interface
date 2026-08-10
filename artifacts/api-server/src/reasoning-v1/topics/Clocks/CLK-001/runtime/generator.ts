@@ -6,6 +6,7 @@ import {
 } from "./catalog";
 import { solveDirectClockFamily } from "./families/direct";
 import { solveEventFamily } from "./families/events";
+import { solveExamNaturalFaultyEventFamily } from "./families/faulty-events-exam-natural";
 import { solveFaultyClockFamily } from "./families/faulty";
 import { solveRemainingPrototype } from "./families/remaining";
 import { solveMotionOrAnglePrototype } from "./families/motion-angle";
@@ -36,6 +37,7 @@ function solvePrototype(input: {
 }): SolvedClockPrototype {
   const solved =
     solveEventFamily(input) ??
+    solveExamNaturalFaultyEventFamily(input) ??
     solveFaultyClockFamily(input) ??
     solveDirectClockFamily(input) ??
     solveMotionOrAnglePrototype(input) ??
