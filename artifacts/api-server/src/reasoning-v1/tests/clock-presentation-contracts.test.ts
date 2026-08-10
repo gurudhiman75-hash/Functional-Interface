@@ -4,14 +4,37 @@ import {
   generateClockQuestion,
 } from "../topics/Clocks/CLK-001/runtime";
 
-const malformedOrdinal = /\b(?:1th|2th|3th)\b/;
 const unpaddedFractionalSecond = /:\d \d+\/\d+/;
 const singularPluralMismatch = /\b1 (?:seconds|minutes|hours)\b/;
+const internalZeroDayLabel = /\(day \+0\)/;
+const awkwardAllTimesPhrase = /\b(?:At|at|What|what) what? all times\b|\b(?:At|at|What|what) all times\b/;
+
+function expectedOrdinalSuffix(value: number): "st" | "nd" | "rd" | "th" {
+  const lastTwo = Math.abs(value) % 100;
+  if (lastTwo >= 11 && lastTwo <= 13) return "th";
+  switch (Math.abs(value) % 10) {
+    case 1: return "st";
+    case 2: return "nd";
+    case 3: return "rd";
+    default: return "th";
+  }
+}
+
+function assertOrdinalsAreWellFormed(visibleText: string): void {
+  for (const match of visibleText.matchAll(/\b(\d+)(st|nd|rd|th)\b/g)) {
+    const value = Number(match[1]);
+    assert.equal(
+      match[2],
+      expectedOrdinalSuffix(value),
+      `Malformed ordinal ${match[0]}.`,
+    );
+  }
+}
 
 let generated = 0;
 for (let taskIndex = 0; taskIndex < CLOCK_TASK_CATALOG.length; taskIndex += 1) {
   const [taskId] = CLOCK_TASK_CATALOG[taskIndex]!;
-  for (let seedIndex = 0; seedIndex < 20; seedIndex += 1) {
+  for (let seedIndex = 0; seedIndex < 50; seedIndex += 1) {
     const question = generateClockQuestion({
       taskId,
       seed: `CLK-PRESENTATION-${taskIndex}-${seedIndex}`,
@@ -30,19 +53,23 @@ for (let taskIndex = 0; taskIndex < CLOCK_TASK_CATALOG.length; taskIndex += 1) {
       question.explanation.answer,
     ].join("\n");
 
-    assert.doesNotMatch(visibleText, malformedOrdinal);
+    assertOrdinalsAreWellFormed(visibleText);
     assert.doesNotMatch(visibleText, unpaddedFractionalSecond);
     assert.doesNotMatch(visibleText, singularPluralMismatch);
+    assert.doesNotMatch(visibleText, internalZeroDayLabel);
+    assert.doesNotMatch(visibleText, awkwardAllTimesPhrase);
     assert.doesNotMatch(question.stem, /<svg|<script|foreignObject|javascript:/i);
     generated += 1;
   }
 }
 
-assert.equal(generated, CLOCK_TASK_CATALOG.length * 20);
+assert.equal(generated, CLOCK_TASK_CATALOG.length * 50);
 console.log(JSON.stringify({
   status: "PASS_CLK_001_PRESENTATION_CONTRACTS",
   generated,
   malformedOrdinals: 0,
   unpaddedFractionalSeconds: 0,
   singularPluralMismatches: 0,
+  internalZeroDayLabels: 0,
+  awkwardAllTimesPhrases: 0,
 }, null, 2));
