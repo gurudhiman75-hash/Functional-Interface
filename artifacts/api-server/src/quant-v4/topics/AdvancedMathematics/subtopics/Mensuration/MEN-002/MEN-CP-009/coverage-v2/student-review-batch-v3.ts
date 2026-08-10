@@ -10,17 +10,24 @@ export interface MenCp009V3StudentReviewBatch {
   answerPositions: Record<"A" | "B" | "C" | "D", number>;
   uniqueLearnerStems: number;
   uniqueLearnerPackages: number;
+  semanticReviewCountByQl: Record<string, number>;
 }
 
 export function buildMenCp009V3StudentReviewBatch(): MenCp009V3StudentReviewBatch {
   const rows: MenCp009QuestionV2[] = [];
   const globalStems = new Set<string>();
   const globalPackages = new Set<string>();
+  const semanticReviewCountByQl: Record<string, number> = {};
 
   for (const definition of MEN_CP_009_FROZEN_QLS_V2) {
-    const selected = new Map<number, MenCp009QuestionV2>();
+    // QL-119 has exactly two real prompts in the frozen family: volume ratio
+    // and surface-area ratio. The old four-record review only appeared unique
+    // because of generic suffixes and option-position changes.
+    const targetCount = definition.qlId === "MEN-002-QL-119" ? 2 : 4;
+    const selected: MenCp009QuestionV2[] = [];
+    const selectedPositions = new Set<number>();
 
-    for (let candidate = 1; candidate <= 5000 && selected.size < 4; candidate += 1) {
+    for (let candidate = 1; candidate <= 5000 && selected.length < targetCount; candidate += 1) {
       const question = generateMenCp009QuestionV2(
         definition.qlId,
         `learner-review-${definition.qlId}-${candidate}`,
@@ -31,25 +38,31 @@ export function buildMenCp009V3StudentReviewBatch(): MenCp009V3StudentReviewBatc
         .join("|")}`;
 
       if (
-        selected.has(question.correctIndex) ||
+        (targetCount === 4 && selectedPositions.has(question.correctIndex)) ||
         globalStems.has(view.stem) ||
         globalPackages.has(packageKey)
       ) {
         continue;
       }
 
-      selected.set(question.correctIndex, question);
+      selected.push(question);
+      selectedPositions.add(question.correctIndex);
       globalStems.add(view.stem);
       globalPackages.add(packageKey);
     }
 
-    if (selected.size !== 4) {
+    if (selected.length !== targetCount) {
       throw new Error(
-        `Could not build four distinct learner-facing MEN-CP-009 review questions for ${definition.qlId}.`,
+        `Could not build ${targetCount} distinct learner-facing MEN-CP-009 review questions for ${definition.qlId}.`,
       );
     }
 
-    rows.push(...[0, 1, 2, 3].map((index) => selected.get(index)!));
+    if (targetCount === 4) {
+      selected.sort((left, right) => left.correctIndex - right.correctIndex);
+    }
+
+    semanticReviewCountByQl[definition.qlId] = selected.length;
+    rows.push(...selected);
   }
 
   const answerPositions = rows.reduce(
@@ -66,5 +79,6 @@ export function buildMenCp009V3StudentReviewBatch(): MenCp009V3StudentReviewBatc
     answerPositions,
     uniqueLearnerStems: globalStems.size,
     uniqueLearnerPackages: globalPackages.size,
+    semanticReviewCountByQl,
   };
 }
