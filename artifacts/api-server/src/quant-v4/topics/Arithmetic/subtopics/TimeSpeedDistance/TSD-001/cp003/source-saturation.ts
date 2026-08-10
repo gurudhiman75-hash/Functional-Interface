@@ -30,5 +30,17 @@ export function generateSaturatedCp003State(authority: TsdCp003DiscoveryAuthorit
     });
   }
 
+  if (base.input.solveMode === "startTimeShiftForSameArrival" && branch === 1) {
+    return Object.freeze({
+      ...base,
+      input: Object.freeze({
+        ...base.input,
+        originalSpeed: base.input.newSpeed,
+        newSpeed: base.input.originalSpeed,
+      }),
+      representation: "EARLIER_START_SAME_ARRIVAL",
+    });
+  }
+
   return base;
 }
