@@ -6,6 +6,7 @@ import {
   advanceAttemptSessionSnapshot,
   createAttemptSessionSnapshot,
   readAttemptSessionSnapshot,
+  resolveAttemptLimit,
   type AttemptSessionSnapshot,
 } from "../lib/attempt-reliability";
 import { authenticate } from "../middlewares/auth";
@@ -45,6 +46,7 @@ async function loadActivePublication(identifier: string) {
       test.published_version_id::text AS "testVersionId",
       version.title,
       version.duration_seconds AS "durationSeconds",
+      version.settings,
       publication.id::text AS "publicationId",
       publication.published_at AS "publishedAt",
       publication.closes_at AS "closesAt"
@@ -164,6 +166,15 @@ router.post("/attempt-sessions", authenticate, async (req, res) => {
           AND attempt.test_publication_id = ${publicationId}::uuid
       `;
       const attemptNumber = Number(sequenceRows[0]?.attemptNumber ?? 1);
+      const maxAttempts = resolveAttemptLimit(publication.settings);
+      if (attemptNumber > maxAttempts) {
+        throw new AttemptReliabilityError(
+          "ATTEMPT_LIMIT_REACHED",
+          `You have reached the ${maxAttempts}-attempt limit for this test`,
+          409,
+          { maxAttempts },
+        );
+      }
       const snapshot = createAttemptSessionSnapshot({ testId, testVersionId, seriesId });
       const inserted = await sql`
         INSERT INTO learning.attempts (
@@ -205,6 +216,13 @@ router.post("/attempt-sessions", authenticate, async (req, res) => {
 
     res.status(201).json(result);
   } catch (error) {
+    if (error instanceof AttemptReliabilityError) {
+      const details = error.details && typeof error.details === "object" && !Array.isArray(error.details)
+        ? error.details as Record<string, unknown>
+        : {};
+      res.status(error.statusCode).json({ error: error.message, code: error.code, ...details });
+      return;
+    }
     console.error("Unable to start canonical attempt session", error);
     res.status(500).json({ error: "Unable to start this test safely", code: "ATTEMPT_SESSION_START_FAILED" });
   }

@@ -7,6 +7,7 @@ import {
   createAttemptSessionSnapshot,
   normalizeAttemptDraftState,
   readAttemptSessionSnapshot,
+  resolveAttemptLimit,
 } from "./attempt-reliability";
 
 const testId = "11111111-1111-4111-8111-111111111111";
@@ -31,6 +32,14 @@ function state(updatedAt = 1000) {
     questionTimeSecondsById: { 101: 37, 102: 12 },
   };
 }
+
+test("attempt limit resolves from canonical settings with a safe fallback", () => {
+  assert.equal(resolveAttemptLimit({ maxAttempts: 3 }), 3);
+  assert.equal(resolveAttemptLimit({ max_attempts: 5 }), 5);
+  assert.equal(resolveAttemptLimit({ maxAttempts: 0 }), 99);
+  assert.equal(resolveAttemptLimit({ maxAttempts: 4000 }), 999);
+  assert.equal(resolveAttemptLimit(null), 99);
+});
 
 test("new sessions begin at revision zero without draft state", () => {
   const snapshot = createAttemptSessionSnapshot({

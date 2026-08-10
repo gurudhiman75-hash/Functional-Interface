@@ -66,6 +66,13 @@ function numberMap(value: unknown, maximumEntries: number, minimum: number, maxi
   );
 }
 
+export function resolveAttemptLimit(settings: unknown, fallback = 99): number {
+  const input = asRecord(settings);
+  const parsed = Number(input.maxAttempts ?? input.max_attempts);
+  if (!Number.isInteger(parsed) || parsed <= 0) return fallback;
+  return Math.min(parsed, 999);
+}
+
 export function normalizeAttemptDraftState(value: unknown, expectedTestId: string): AttemptDraftState {
   const serialized = JSON.stringify(value ?? null);
   if (serialized.length > 512_000) {

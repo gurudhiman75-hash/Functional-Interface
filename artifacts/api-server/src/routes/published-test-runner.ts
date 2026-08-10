@@ -1,7 +1,7 @@
 import { Router, type IRouter } from "express";
 
 import { sqlClient } from "../lib/db";
-import { AttemptReliabilityError } from "../lib/attempt-reliability";
+import { AttemptReliabilityError, resolveAttemptLimit } from "../lib/attempt-reliability";
 import { authenticate } from "../middlewares/auth";
 
 const router: IRouter = Router();
@@ -129,6 +129,7 @@ router.get("/tests/:id", async (req, res, next) => {
       priceCents: null, kind: String(settings.testType ?? "full_mock") === "sectional" ? "sectional" : "full-length",
       duration: Math.max(1, Math.round(Number(test.durationSeconds) / 60)), totalQuestions: questionRows.length,
       attempts: 0, avgScore: 0, difficulty,
+      maxAttempts: resolveAttemptLimit(test.settings),
       sectionTimingMode: sectionTimings.length > 0 ? "fixed" : "none", sectionTimings,
       sectionSettings: sections.map((section) => ({ name: String(section.name), locked: false })),
       sections: sections.map((section) => ({ id: String(section.id), name: String(section.name), questions: questionsBySection.get(String(section.id)) ?? [] })),
