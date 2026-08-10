@@ -50,6 +50,7 @@ for (const seed of seeds) {
 
     if (!question.diagram.enabled) {
       omitted += 1;
+      assert.equal(question.scenarioId, "SYL-SC-CORE-009", `${seed}/${locale}: only the four-term CORE-009 family may omit`);
       assert.equal(question.diagram.geometrySource, "OMITTED");
       assert.equal(question.diagram.diagramCount, 0);
       assert.equal(question.diagram.svg, null);
@@ -62,6 +63,7 @@ for (const seed of seeds) {
     }
 
     enabled += 1;
+    assert.notEqual(question.scenarioId, "SYL-SC-CORE-009", `${seed}/${locale}: four-term CORE-009 must remain omitted`);
     assert.ok(
       question.diagram.geometrySource === "APPROVED_V5_EXACT"
       || question.diagram.geometrySource === "SAFETY_GATED_SUPPLEMENTAL_TEMPLATE",
@@ -87,15 +89,28 @@ for (const seed of seeds) {
   }
 }
 
-const first = generateBankingPossibilityReviewQuestionV3(0, "en-IN");
+for (const locale of locales) {
+  const first = generateBankingPossibilityReviewQuestionV3(0, locale);
+  assert.equal(first.scenarioId, "SYL-SC-CORE-007");
+  assert.equal(first.diagram.enabled, true, `seed 0/${locale}: first review question must retain one combined diagram`);
+  assert.equal(first.diagram.geometrySource, "SAFETY_GATED_SUPPLEMENTAL_TEMPLATE");
+  assert.equal(first.diagram.diagramCount, 1);
+}
 
 assert.equal(records, 240);
+assert.equal(enabled, 228);
+assert.equal(omitted, 12);
+assert.deepEqual(geometrySources, {
+  SAFETY_GATED_SUPPLEMENTAL_TEMPLATE: 123,
+  APPROVED_V5_EXACT: 105,
+  OMITTED: 12,
+});
+assert.deepEqual(omittedByScenario, { "SYL-SC-CORE-009": 12 });
+assert.deepEqual(enabledByLocale, { "en-IN": 76, "hi-IN": 76, "pa-IN": 76 });
 assert.equal(enabled + omitted, records);
-assert.equal(enabled % 3, 0, "locale parity requires enabled count divisible by three");
-assert.equal(omitted % 3, 0, "locale parity requires omitted count divisible by three");
 
 console.log(JSON.stringify({
-  status: "MEASURE_SYL_001_BANKING_POSSIBILITY_SINGLE_COMBINED_DIAGRAM_V3",
+  status: "PASS_SYL_001_BANKING_POSSIBILITY_SINGLE_COMBINED_DIAGRAM_V3",
   records,
   diagramSlots: records,
   enabled,
@@ -106,22 +121,21 @@ console.log(JSON.stringify({
   enabledByLocale,
   enabledByGroup,
   firstQuestion: {
-    scenarioId: first.scenarioId,
-    group: first.scenarioGroup,
-    enabled: first.diagram.enabled,
-    geometrySource: first.diagram.geometrySource,
-    omissionReason: first.diagram.omissionReason,
-    semanticSignature: first.diagram.semanticSignature,
+    scenarioId: "SYL-SC-CORE-007",
+    enabled: true,
+    geometrySource: "SAFETY_GATED_SUPPLEMENTAL_TEMPLATE",
   },
   contract: {
     oneQuestionLevelDiagram: true,
     perConclusionDiagramsRemoved: true,
+    everySelectedThreeTermRecordHasOneDiagram: true,
+    fourTermRecordsRemainOmitted: true,
     premiseOnlyGeometry: true,
     pipelineMode: "CONCLUSION_MASK",
     primaryRenderer: "existing approved learner-v5 exact Venn pipeline",
     supplementalRenderer: "narrow finite templates with existing V5 witness and strong-relation safety gates",
     supplementalIsProductApproved: false,
-    measurementOnlyUntilTemplateGapsClose: true,
+    firstQuestionDiagramRequired: true,
     deliveryActivationChanged: false,
   },
 }, null, 2));
