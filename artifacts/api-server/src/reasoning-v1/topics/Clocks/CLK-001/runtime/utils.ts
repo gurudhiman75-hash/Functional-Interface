@@ -76,23 +76,52 @@ export function localized(
   return locale === "hi-IN" ? values.hi : locale === "pa-IN" ? values.pa : values.en;
 }
 
+export function formatOrdinal(value: number): string {
+  if (!Number.isInteger(value)) {
+    throw new Error("Ordinal formatting requires an integer.");
+  }
+  const absolute = Math.abs(value);
+  const lastTwo = absolute % 100;
+  if (lastTwo >= 11 && lastTwo <= 13) return `${value}th`;
+  switch (absolute % 10) {
+    case 1: return `${value}st`;
+    case 2: return `${value}nd`;
+    case 3: return `${value}rd`;
+    default: return `${value}th`;
+  }
+}
+
+function padClockSecondText(secondText: string): string {
+  const match = secondText.match(/^(\d+)(.*)$/);
+  if (!match) return secondText;
+  return `${match[1]!.padStart(2, "0")}${match[2] ?? ""}`;
+}
+
+function absoluteDayQualifier(dayOffset: bigint): string {
+  if (dayOffset === 0n) return "";
+  const magnitude = dayOffset < 0n ? -dayOffset : dayOffset;
+  const unit = magnitude === 1n ? "day" : "days";
+  return dayOffset > 0n
+    ? ` (${magnitude} ${unit} later)`
+    : ` (${magnitude} ${unit} earlier)`;
+}
+
 export function formatClockTimeFromSeconds(
   totalSeconds: ExactRationalInput,
   options: { includeSeconds?: boolean; includeDayOffset?: boolean } = {},
 ): string {
   const buildTime = (value: ExactRationalInput) => {
     const normalized = totalSecondsToClockTimeExact(value);
-    const secondText = formatExactRational(normalized.second, { mixed: true });
+    const secondText = padClockSecondText(formatExactRational(normalized.second, { mixed: true }));
     const hasSecond = compareRationals(normalized.second, 0) !== 0;
     const base = `${normalized.hour}:${normalized.minute.toString().padStart(2, "0")}`;
-    return options.includeSeconds || hasSecond ? `${base}:${secondText.padStart(2, "0")}` : base;
+    return options.includeSeconds || hasSecond ? `${base}:${secondText}` : base;
   };
   if (!options.includeDayOffset) return buildTime(totalSeconds);
   const absolute = totalSecondsToClockTimeDayOffset(totalSeconds);
   const isPm = compareRationals(absolute.dialSeconds, 43_200) >= 0;
   const timeWithinHalfDay = moduloRational(absolute.dialSeconds, 43_200);
-  const day = Number(absolute.dayOffset);
-  return `${buildTime(timeWithinHalfDay)} ${isPm ? "p.m." : "a.m."} (day ${day >= 0 ? `+${day}` : day})`;
+  return `${buildTime(timeWithinHalfDay)} ${isPm ? "p.m." : "a.m."}${absoluteDayQualifier(absolute.dayOffset)}`;
 }
 
 export function totalSecondsToClockTimeDayOffset(
@@ -124,12 +153,17 @@ export function formatDurationSeconds(
     : exactRational(seconds);
   if (compareRationals(value, 3_600) >= 0 &&
       compareRationals(moduloRational(value, 3_600), 0) === 0) {
-    return `${formatExactRational(divideRationals(value, 3_600), { mixed: true })} hours`;
+    const hours = divideRationals(value, 3_600);
+    const unit = compareRationals(hours, 1) === 0 ? "hour" : "hours";
+    return `${formatExactRational(hours, { mixed: true })} ${unit}`;
   }
   if (compareRationals(value, 60) >= 0) {
-    return `${formatExactRational(divideRationals(value, 60), { mixed: true })} minutes`;
+    const minutes = divideRationals(value, 60);
+    const unit = compareRationals(minutes, 1) === 0 ? "minute" : "minutes";
+    return `${formatExactRational(minutes, { mixed: true })} ${unit}`;
   }
-  return `${formatExactRational(value, { mixed: true })} seconds`;
+  const unit = compareRationals(value, 1) === 0 ? "second" : "seconds";
+  return `${formatExactRational(value, { mixed: true })} ${unit}`;
 }
 
 export function formatAngle(value: ExactRationalInput): string {
