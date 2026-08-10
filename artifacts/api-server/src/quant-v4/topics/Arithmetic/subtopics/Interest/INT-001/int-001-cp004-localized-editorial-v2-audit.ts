@@ -115,7 +115,6 @@ const bannedHindiExplanation = [
   /संयुक्त गुणक/u,
   /ब्याज गुणक/u,
   /विकल्प\s+[ABCD]/u,
-  /हमें\s/u,
   /अतः/u,
 ] as const;
 
@@ -125,7 +124,6 @@ const bannedPunjabiExplanation = [
   /\bP\s*=/u,
   /ਗੁਣਕ/u,
   /ਚੋਣ\s+[ABCD]/u,
-  /ਸਾਨੂੰ\s/u,
   /ਚੱਕਰਵੱਧੀ/u,
 ] as const;
 
@@ -260,10 +258,16 @@ for (const locale of locales) {
 
       assert(question.explanation.steps.length >= 2 && question.explanation.steps.length <= 4, `${qlId}/${seed}/${locale}: simple explanation must use 2-4 steps.`);
       assert(question.explanation.whatAsked.length <= 60, `${qlId}/${seed}/${locale}: task line is too long.`);
+      assert(
+        locale === "hi-IN"
+          ? question.explanation.whatAsked.startsWith("हमें ")
+          : question.explanation.whatAsked.startsWith("ਸਾਨੂੰ "),
+        `${qlId}/${seed}/${locale}: task line does not use the natural learner-facing opening.`,
+      );
       assert(question.explanation.finalAnswer.length <= 90, `${qlId}/${seed}/${locale}: final answer is too long.`);
       assert(question.explanation.commonMistake.length >= 35 && question.explanation.commonMistake.length <= 170, `${qlId}/${seed}/${locale}: mistake note is not concise.`);
       assert(question.explanation.finalAnswer.includes(question.correctAnswer), `${qlId}/${seed}/${locale}: final answer does not state the verified answer.`);
-      simpleExplanationChecks += 5;
+      simpleExplanationChecks += 6;
 
       for (const [stepIndex, step] of question.explanation.steps.entries()) {
         assert(step.length <= 180, `${qlId}/${seed}/${locale}/step-${stepIndex + 1}: explanation step is too long (${step.length}).`);
