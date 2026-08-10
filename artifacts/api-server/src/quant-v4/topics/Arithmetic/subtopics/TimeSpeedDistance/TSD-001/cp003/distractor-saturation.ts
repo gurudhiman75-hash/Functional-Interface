@@ -113,15 +113,19 @@ function collisionFallback(input: TsdCp003SolveInput, solution: TsdCp003SolveCer
 
     case "fractionOfRouteAtChangedSpeed": {
       const originalDistance = solution.intermediate.originalDistance!;
+      const changedDistance = solution.intermediate.changedDistance!;
       const complement = multiply(divide(originalDistance, input.totalDistance), rational(100));
       const changePercent = multiply(divide(absRational(subtract(input.changedSpeed, input.originalSpeed)), input.originalSpeed), rational(100));
       const forwardRatio = multiply(divide(input.changedSpeed, input.originalSpeed), rational(100));
       const inverseRatio = multiply(divide(input.originalSpeed, input.changedSpeed), rational(100));
+      const changedTime = divide(changedDistance, input.changedSpeed);
+      const changedTimePercent = multiply(divide(changedTime, input.totalTravelTime), rational(100));
       return choose(answer, [
         wrong("USE_COMPLEMENT_ROUTE_FRACTION", complement, `${f(originalDistance)} ÷ ${f(input.totalDistance)} × 100`, "It gives the original-speed route share rather than the changed-speed share."),
         wrong("USE_SPEED_CHANGE_PERCENT", changePercent, `|${f(input.changedSpeed)} − ${f(input.originalSpeed)}| ÷ ${f(input.originalSpeed)} × 100`, "It finds percentage change in speed rather than route percentage."),
         wrong("USE_SPEED_RATIO_AS_PERCENT", forwardRatio, `${f(input.changedSpeed)} ÷ ${f(input.originalSpeed)} × 100`, "It converts the speed ratio into a percentage."),
         wrong("USE_SPEED_RATIO_AS_PERCENT", inverseRatio, `${f(input.originalSpeed)} ÷ ${f(input.changedSpeed)} × 100`, "It converts the inverse speed ratio into a route percentage."),
+        wrong("USE_TIME_SHARE_AS_ROUTE_PERCENT", changedTimePercent, `${f(changedTime)} ÷ ${f(input.totalTravelTime)} × 100`, "It uses the percentage of journey time spent at the changed speed instead of the percentage of route distance."),
       ]);
     }
 
