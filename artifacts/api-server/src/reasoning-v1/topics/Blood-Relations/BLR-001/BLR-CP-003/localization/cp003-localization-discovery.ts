@@ -23,15 +23,33 @@ function patterns(values: readonly { text: string; record: (typeof bank)[number]
 }
 
 const sharedPromptPatterns = patterns(bank.map((record) => ({ text: record.sharedPrompt, record })));
+const sharedSentencePatterns = patterns(bank.flatMap((record) =>
+  record.sharedPrompt
+    .split(/(?<=\.)\s+/)
+    .filter(Boolean)
+    .map((text) => ({ text, record })),
+));
 const stemPatterns = patterns(bank.map((record) => ({ text: record.stem, record })));
 const optionPatterns = patterns(bank.flatMap((record) => record.options.map((option) => ({ text: option.text, record }))));
 
+const prototypeSamples = [...new Set(bank.map((record) => record.sourcePrototypeId))]
+  .sort()
+  .map((sourcePrototypeId) => {
+    const records = bank.filter((record) => record.sourcePrototypeId === sourcePrototypeId);
+    const first = records[0]!;
+    return {
+      sourcePrototypeId,
+      qlId: first.qlId,
+      finalAuthority: first.finalAuthority,
+      originalAuthority: first.originalAuthority,
+      recordCount: records.length,
+      answerType: first.answerType,
+      answerSemanticKeys: [...new Set(records.map((record) => record.answerSemanticKey))].slice(0, 8),
+      stemPatterns: patterns(records.map((record) => ({ text: record.stem, record }))),
+    };
+  });
+
 const editorialKeys = [...new Set(bank.flatMap((record) => Object.keys(record.editorial as object)))].sort();
-const editorialSamples = bank.slice(0, 4).map((record) => ({
-  itemId: record.itemId,
-  qlId: record.qlId,
-  editorial: record.editorial,
-}));
 
 console.log(JSON.stringify({
   recordCount: bank.length,
@@ -40,11 +58,12 @@ console.log(JSON.stringify({
     bank.filter((record) => record.qlId === qlId).length,
   ])),
   sharedPromptPatternCount: sharedPromptPatterns.length,
-  sharedPromptPatterns,
+  sharedSentencePatternCount: sharedSentencePatterns.length,
+  sharedSentencePatterns,
   stemPatternCount: stemPatterns.length,
-  stemPatterns,
   optionPatternCount: optionPatterns.length,
   optionPatterns,
+  prototypeCount: prototypeSamples.length,
+  prototypeSamples,
   editorialKeys,
-  editorialSamples,
 }, null, 2));
