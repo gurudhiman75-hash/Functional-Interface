@@ -5,10 +5,12 @@ import { QuestionStudioExamProfileSummary } from './QuestionStudioExamProfileSum
 import { QuestionStudioProfileCalibration } from './QuestionStudioProfileCalibration';
 import { QuestionStudioReasoningReviewPanel } from './QuestionStudioReasoningReviewPanel';
 import { QuestionStudioRecoveryDock } from './QuestionStudioRecoveryDock';
+import { QuestionStudioSeriesReviewPanel } from './QuestionStudioSeriesReviewPanel';
 
 export function QuestionStudioOperationsPage() {
   return (
     <>
+      <QuestionStudioSeriesReviewPanel />
       <QuestionStudioCalendarReviewPanel />
       <QuestionStudioReasoningReviewPanel />
       <QuestionStudioExamProfileSummary />
