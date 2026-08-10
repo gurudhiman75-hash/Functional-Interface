@@ -1,0 +1,29 @@
+name: Reasoning BLR-001 CP-003 Localization Discovery
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp003-multilingual
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/**"
+      - ".github/workflows/reasoning-blr-001-cp003-localization-discovery.yml"
+  workflow_dispatch:
+
+jobs:
+  inspect-localization-surface:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Inspect CP-003 localization surface
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/localization/cp003-localization-discovery.ts
