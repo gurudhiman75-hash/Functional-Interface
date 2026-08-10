@@ -47,6 +47,8 @@ function solverFixtureProof(): void {
 
 function generatedCaseletProof(): void {
   let generated = 0;
+  const observedFourthContracts = new Set<string>();
+  const observedPersonCounts = new Set<number>();
   for (const blueprintId of SEA_001_BLUEPRINTS) {
     for (let seedIndex = 0; seedIndex < 125; seedIndex += 1) {
       const seed = `sea-foundation-${seedIndex}`;
@@ -55,12 +57,15 @@ function generatedCaseletProof(): void {
       assert.deepEqual(first, replay, `${blueprintId}/${seed} was not deterministic`);
       assert.equal(first.solutionClassCount, 1);
       assert.equal(first.solverOracleAgreement.passed, true);
-      assert.equal(first.children.length, 3);
-      assert.equal(new Set(first.children.map((child) => child.queryContractId)).size, 3);
+      assert.equal(first.children.length, 4);
+      assert.equal(new Set(first.children.map((child) => child.queryContractId)).size, 4);
       assert.equal(new Set(first.queryFactFingerprints).size, first.children.length);
       assert.equal(first.crossQuestionLeakagePassed, true);
       assert.equal(first.lifecycle.permanentQlCount, 0);
       assert.equal(first.lifecycle.questionBankWritable, false);
+      observedFourthContracts.add(first.children[3]?.queryContractId ?? "");
+      const personCount = Number(first.setupText.match(/^(\d+)\s+persons/)?.[1] ?? 0);
+      observedPersonCounts.add(personCount);
       for (const child of first.children) {
         assert.equal(child.options.length, 4);
         assert.equal(new Set(child.options.map((option) => option.semanticFingerprint)).size, 4);
@@ -71,6 +76,8 @@ function generatedCaseletProof(): void {
     }
   }
   assert.equal(generated, 500);
+  assert.deepEqual([...observedFourthContracts].sort(), ["SEA-QC-014", "SEA-QC-015", "SEA-QC-020"]);
+  assert.deepEqual([...observedPersonCounts].sort((left, right) => left - right), [5, 6, 7, 8]);
 }
 
 function lifecycleProof(): void {
@@ -85,5 +92,5 @@ lifecycleProof();
 console.log("PASS_SEA_001_CP001_FOUNDATION");
 console.log("named blueprint authorities", SEA_001_BLUEPRINTS.length);
 console.log("generated deterministic caselets", SEA_001_BLUEPRINTS.length * 125);
-console.log("generated child questions", SEA_001_BLUEPRINTS.length * 125 * 3);
+console.log("generated child questions", SEA_001_BLUEPRINTS.length * 125 * 4);
 console.log("permanent QLs", 0);
