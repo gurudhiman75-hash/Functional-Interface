@@ -311,10 +311,15 @@ function unwrapInlineMath(value: string): string {
   return trimmed;
 }
 
+function isSafeNumericMathCandidate(value: string): boolean {
+  if (!/\d/.test(value) || hasUnsafeLearnerNotation(value)) return false;
+  const withoutCommands = value.replace(/\\[A-Za-z]+/g, "");
+  return !/[A-Za-z\u0900-\u097F\u0A00-\u0A7F]/u.test(withoutCommands);
+}
+
 function safeMathFragment(value: string): string | null {
   const raw = unwrapInlineMath(value);
-  if (!raw || hasUnsafeLearnerNotation(raw)) return null;
-  if (!/\d/.test(raw)) return null;
+  if (!isSafeNumericMathCandidate(raw)) return null;
   return `\\(${raw}\\)`;
 }
 
@@ -323,11 +328,11 @@ function recoverSafeEqualityFragment(value: string): string | null {
   const segments = raw.split("=").map((segment) => segment.trim()).filter(Boolean);
   for (let index = 1; index < segments.length; index += 1) {
     const candidate = segments[index];
-    if (/\d/.test(candidate) && !hasUnsafeLearnerNotation(candidate)) return `\\(${candidate}\\)`;
+    if (isSafeNumericMathCandidate(candidate)) return `\\(${candidate}\\)`;
   }
   for (let index = segments.length - 1; index >= 0; index -= 1) {
     const candidate = segments[index];
-    if (/\d/.test(candidate) && !hasUnsafeLearnerNotation(candidate)) return `\\(${candidate}\\)`;
+    if (isSafeNumericMathCandidate(candidate)) return `\\(${candidate}\\)`;
   }
   return null;
 }
@@ -338,7 +343,6 @@ function learnerCalculations(question: R2LearnerQuestion): string[] {
     : question.solution?.workedLatex ?? [];
   const calculations: string[] = [];
   for (const step of source) {
-    if (hasUnsafeLearnerNotation(step)) continue;
     const recovered = safeMathFragment(step) ?? recoverSafeEqualityFragment(step);
     if (recovered && !calculations.includes(recovered)) calculations.push(recovered);
     if (calculations.length === 3) break;
