@@ -33,6 +33,29 @@ function localeSafeCalculationStep(
     : `ਗਣਨਾ: ${text}`;
 }
 
+function completeSteps(
+  source: IntCp004EnglishFrozenQuestion,
+  locale: IntCp004LocalizedLocale,
+  steps: readonly string[],
+): readonly string[] {
+  const localized = steps.map((step) => localeSafeCalculationStep(locale, step));
+  if (source.qlId !== "INT-QL-076") return Object.freeze(localized);
+  if (source.solution.denominator !== 1n) {
+    throw new Error(`${source.qlId}/${source.seed}: v9 effective rate must be integer.`);
+  }
+  const effective = source.solution.numerator;
+  const amountOnHundred = 100n + effective;
+  return Object.freeze([
+    ...localized.slice(0, -1),
+    locale === "hi-IN"
+      ? `वृद्धि = ₹${amountOnHundred} − ₹100 = ₹${effective}।`
+      : `ਵਾਧਾ = ₹${amountOnHundred} − ₹100 = ₹${effective}।`,
+    locale === "hi-IN"
+      ? `प्रभावी वार्षिक दर = ${effective}/100 × 100 = ${effective}%।`
+      : `ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ = ${effective}/100 × 100 = ${effective}%।`,
+  ]);
+}
+
 function cleanRuntimeFinalAnswer(
   locale: IntCp004LocalizedLocale,
   text: string,
@@ -67,9 +90,7 @@ export function buildCp004LocalizedFormulaExplanationV9Safe(
 
   return Object.freeze({
     ...explanation,
-    steps: Object.freeze(
-      explanation.steps.map((step) => localeSafeCalculationStep(locale, step)),
-    ),
+    steps: completeSteps(source, locale, explanation.steps),
     finalAnswer: cleanRuntimeFinalAnswer(locale, explanation.finalAnswer),
     commonMistake: cleanCommonMistake(locale, explanation.commonMistake),
   });
