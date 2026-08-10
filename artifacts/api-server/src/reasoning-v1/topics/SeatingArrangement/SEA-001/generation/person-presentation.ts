@@ -34,7 +34,16 @@ export function presentSea001Text(
   return output;
 }
 
+function stableNumber(value: string): number {
+  let hash = 0x811c9dc5;
+  for (const character of value) hash = Math.imul(hash ^ character.charCodeAt(0), 0x01000193);
+  return hash >>> 0;
+}
+
 export function presentSea001Children<T extends {
+  readonly questionOrder: number;
+  readonly queryContractId: string;
+  readonly answerDeterminingFactFingerprint: string;
   readonly text: string;
   readonly explanation: string;
   readonly options: readonly {
@@ -45,7 +54,7 @@ export function presentSea001Children<T extends {
   children: readonly T[],
   displayNames: Readonly<Record<string, string>>,
 ): T[] {
-  return children.map((child) => ({
+  const presented = children.map((child) => ({
     ...child,
     text: presentSea001Text(child.text, displayNames),
     explanation: presentSea001Text(child.explanation, displayNames),
@@ -55,4 +64,20 @@ export function presentSea001Children<T extends {
       explanation: presentSea001Text(option.explanation, displayNames),
     })),
   })) as unknown as T[];
+
+  // CP003/CP004 deliberately use QC009 in their four-question mix and keep
+  // the facing-rule detector at Q1. Other checkpoints may vary all children.
+  const preserveFirst = presented.some((child) => child.queryContractId === "SEA-QC-009");
+  const fixed = preserveFirst ? presented.slice(0, 1) : [];
+  const variable = preserveFirst ? presented.slice(1) : presented;
+  const varied = [...variable].sort((left, right) => {
+    const leftKey = stableNumber(`${left.queryContractId}|${left.answerDeterminingFactFingerprint}`);
+    const rightKey = stableNumber(`${right.queryContractId}|${right.answerDeterminingFactFingerprint}`);
+    return leftKey - rightKey || left.queryContractId.localeCompare(right.queryContractId);
+  });
+
+  return [...fixed, ...varied].map((child, index) => ({
+    ...child,
+    questionOrder: index + 1,
+  })) as T[];
 }
