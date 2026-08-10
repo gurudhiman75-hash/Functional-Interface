@@ -11,6 +11,10 @@ function representationBucket(solveMode: string, representation: string): string
   return representation;
 }
 
+function containsRawNumericFraction(value: string): boolean {
+  return /\b\d+\s*\/\s*\d+\b/.test(value);
+}
+
 let rows: ReturnType<typeof generateCp003PostOverlapReviewRows>;
 try {
   rows = generateCp003PostOverlapReviewRows(3);
@@ -68,7 +72,7 @@ for (const row of rows) {
   }
 
   if (["requiredRemainingSpeedAfterPartialRoute", "restTimeInRepeatedTravelRestCycle", "fractionOfRouteAtChangedSpeed"].includes(row.solveMode)) {
-    assert(!row.answerText.includes("/"), `${row.questionLanguageId}: accepted review answer remains an awkward raw fraction: ${row.answerText}`);
+    assert(!containsRawNumericFraction(row.answerText), `${row.questionLanguageId}: accepted review answer remains an awkward raw fraction: ${row.answerText}`);
   }
 }
 
