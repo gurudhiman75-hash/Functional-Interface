@@ -43,6 +43,15 @@ function replaceOnce(value, from, to, label) {
   );
 
   value = value.replace(
+    'case "findCoinPatternProbability": return `एक निष्पक्ष सिक्के को ${num(source, "tosses")} बार उछाला जाता है। क्रम ${text(source, "pattern")} प्राप्त होने की प्रायिकता क्या है?`;',
+    'case "findCoinPatternProbability": { const pattern = [...text(source, "pattern")].map((token) => token === "H" ? "चित" : "पट").join("-"); return `एक निष्पक्ष सिक्के को ${num(source, "tosses")} बार उछाला जाता है। क्रम ${pattern} प्राप्त होने की प्रायिकता क्या है?`; }',
+  );
+  value = value.replace(
+    'case "findCoinPatternProbability": return `ਇੱਕ ਨਿਰਪੱਖ ਸਿੱਕੇ ਨੂੰ ${num(source, "tosses")} ਵਾਰ ਉਛਾਲਿਆ ਜਾਂਦਾ ਹੈ। ਕ੍ਰਮ ${text(source, "pattern")} ਪ੍ਰਾਪਤ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;',
+    'case "findCoinPatternProbability": { const pattern = [...text(source, "pattern")].map((token) => token === "H" ? "ਚਿੱਤ" : "ਪੱਟ").join("-"); return `ਇੱਕ ਨਿਰਪੱਖ ਸਿੱਕੇ ਨੂੰ ${num(source, "tosses")} ਵਾਰ ਉਛਾਲਿਆ ਜਾਂਦਾ ਹੈ। ਕ੍ਰਮ ${pattern} ਪ੍ਰਾਪਤ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`; }',
+  );
+
+  value = value.replace(
     'case "findReverseConditionalCount": return `${num(source, "restrictedTotal")} शॉर्टलिस्ट किए गए अभ्यर्थियों में से यादृच्छिक रूप से चुने गए अभ्यर्थी के ${text(source, "targetLabel", "certified")} होने की प्रायिकता ${frac(num(source, "favourable"), num(source, "restrictedTotal", 1))} है। ऐसे कितने अभ्यर्थी हैं?`;',
     'case "findReverseConditionalCount": { const status = text(source, "targetLabel", "certified") === "certified" ? "प्रमाणित" : "शॉर्टलिस्ट"; return `${num(source, "restrictedTotal")} शॉर्टलिस्ट किए गए अभ्यर्थियों में से यादृच्छिक रूप से चुने गए अभ्यर्थी के ${status} होने की प्रायिकता ${frac(num(source, "favourable"), num(source, "restrictedTotal", 1))} है। ऐसे कितने अभ्यर्थी हैं?`; }',
   );
