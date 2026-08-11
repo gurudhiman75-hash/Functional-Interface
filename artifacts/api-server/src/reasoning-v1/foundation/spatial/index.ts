@@ -58,6 +58,7 @@ export * from "./fcl-safe-quartet-catalog-v1";
 export * from "./production-synthesis-engine-v1";
 export * from "./synthesis-editorial-export-v1";
 export * from "./synthesis-types-v2";
+export * from "./perceptual-scene-similarity-v2";
 export * from "./fcl-instance-catalog-v2";
 export * from "./fsr-safe-state-catalog-v2";
 export * from "./production-scale-engine-v2";
