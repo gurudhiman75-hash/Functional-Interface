@@ -25,6 +25,8 @@ import { renderProbabilityMathText } from "./shared/math-text";
 import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
 import { polishNativeExplanationLines, polishNativeVisual } from "./shared/native-final-explanation-renderer";
 import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
+import { polishNativeExplanationLines, polishNativeVisual } from "./shared/native-final-explanation-renderer";
+import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
 import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
 import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
 import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
