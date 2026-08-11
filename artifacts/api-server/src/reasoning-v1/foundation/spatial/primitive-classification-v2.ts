@@ -87,7 +87,27 @@ export const SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2: readonly SpatialP
   "POLYGON",
 ] as const;
 
-const PROPERTY_DESCRIPTION: Record<SpatialPrimitiveClassificationPropertyIdV2, string> = {
+export const SPATIAL_PRIMITIVE_CLASSIFICATION_DESCRIPTOR_IDS_V2: readonly SpatialPrimitiveClassificationDescriptorIdV2[] = [
+  "CATEGORY",
+  "TOPOLOGY",
+  "POLYGON_PRESENCE",
+  "SIDE_COUNT_EXACT",
+  "SIDE_PARITY",
+  "ENCLOSED_REGION_COUNT",
+  "JUNCTION_COUNT",
+  "TRUE_CROSSING_COUNT",
+  "FREE_TERMINAL_COUNT",
+  "ROTATION_PERIOD",
+  "VERTICAL_SYMMETRY",
+  "HORIZONTAL_SYMMETRY",
+  "HALF_TURN_SYMMETRY",
+  "ORIENTATION_SENSITIVE",
+  "REFLECTION_SENSITIVE",
+  "CAN_CONTAIN_INNER",
+  "SUPPORTS_FILL",
+] as const;
+
+export const SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_DESCRIPTION_V2: Record<SpatialPrimitiveClassificationPropertyIdV2, string> = {
   EVEN_SIDED_POLYGON: "the figure is a polygon with an even number of sides",
   VERTICAL_SYMMETRY: "the figure has vertical mirror symmetry",
   HORIZONTAL_SYMMETRY: "the figure has horizontal mirror symmetry",
@@ -102,7 +122,10 @@ const PROPERTY_DESCRIPTION: Record<SpatialPrimitiveClassificationPropertyIdV2, s
   POLYGON: "the figure is a polygon made only of straight sides",
 };
 
-function propertySatisfied(entry: SpatialPrimitiveAuthorityEntryV2, propertyId: SpatialPrimitiveClassificationPropertyIdV2): boolean {
+function propertySatisfied(
+  entry: SpatialPrimitiveAuthorityEntryV2,
+  propertyId: SpatialPrimitiveClassificationPropertyIdV2,
+): boolean {
   const connectivity = getSpatialPrimitiveConnectivityV2(entry.primitiveId);
   switch (propertyId) {
     case "EVEN_SIDED_POLYGON": return entry.polygonSideCount !== null && entry.polygonSideCount % 2 === 0;
@@ -120,7 +143,17 @@ function propertySatisfied(entry: SpatialPrimitiveAuthorityEntryV2, propertyId: 
   }
 }
 
-function descriptorValue(entry: SpatialPrimitiveAuthorityEntryV2, descriptorId: SpatialPrimitiveClassificationDescriptorIdV2): string {
+export function spatialPrimitiveClassificationPropertySatisfiedV2(
+  primitiveId: SpatialPrimitiveIdV2,
+  propertyId: SpatialPrimitiveClassificationPropertyIdV2,
+): boolean {
+  return propertySatisfied(getSpatialPrimitiveV2(primitiveId), propertyId);
+}
+
+function descriptorValue(
+  entry: SpatialPrimitiveAuthorityEntryV2,
+  descriptorId: SpatialPrimitiveClassificationDescriptorIdV2,
+): string {
   const connectivity = getSpatialPrimitiveConnectivityV2(entry.primitiveId);
   switch (descriptorId) {
     case "CATEGORY": return entry.category;
@@ -143,14 +176,7 @@ function descriptorValue(entry: SpatialPrimitiveAuthorityEntryV2, descriptorId: 
   }
 }
 
-const DESCRIPTOR_IDS: readonly SpatialPrimitiveClassificationDescriptorIdV2[] = [
-  "CATEGORY", "TOPOLOGY", "POLYGON_PRESENCE", "SIDE_COUNT_EXACT", "SIDE_PARITY",
-  "ENCLOSED_REGION_COUNT", "JUNCTION_COUNT", "TRUE_CROSSING_COUNT", "FREE_TERMINAL_COUNT", "ROTATION_PERIOD",
-  "VERTICAL_SYMMETRY", "HORIZONTAL_SYMMETRY", "HALF_TURN_SYMMETRY",
-  "ORIENTATION_SENSITIVE", "REFLECTION_SENSITIVE", "CAN_CONTAIN_INNER", "SUPPORTS_FILL",
-] as const;
-
-function auditDescriptor(
+export function auditSpatialPrimitiveClassificationDescriptorV2(
   entries: readonly SpatialPrimitiveAuthorityEntryV2[],
   descriptorId: SpatialPrimitiveClassificationDescriptorIdV2,
   correctOddIndex: number,
@@ -177,7 +203,10 @@ function auditDescriptor(
   };
 }
 
-function evidence(entry: SpatialPrimitiveAuthorityEntryV2, propertyId: SpatialPrimitiveClassificationPropertyIdV2): string {
+function evidence(
+  entry: SpatialPrimitiveAuthorityEntryV2,
+  propertyId: SpatialPrimitiveClassificationPropertyIdV2,
+): string {
   const connectivity = getSpatialPrimitiveConnectivityV2(entry.primitiveId);
   switch (propertyId) {
     case "EVEN_SIDED_POLYGON": return entry.polygonSideCount === null ? `${entry.label}: not a polygon` : `${entry.label}: ${entry.polygonSideCount} sides`;
@@ -193,6 +222,88 @@ function evidence(entry: SpatialPrimitiveAuthorityEntryV2, propertyId: SpatialPr
     case "CLOSED_SHAPE": return `${entry.label}: ${entry.topology === "CLOSED" ? "closed" : "open"}`;
     case "POLYGON": return entry.polygonSideCount === null ? `${entry.label}: not a straight-sided polygon` : `${entry.label}: polygon with ${entry.polygonSideCount} sides`;
   }
+}
+
+export interface BuildSpatialPrimitiveClassificationQuestionV2Input {
+  prototypeId: string;
+  propertyId: SpatialPrimitiveClassificationPropertyIdV2;
+  primitiveIds: readonly [SpatialPrimitiveIdV2, SpatialPrimitiveIdV2, SpatialPrimitiveIdV2, SpatialPrimitiveIdV2];
+  correctOptionIndex: number;
+}
+
+export function buildSpatialPrimitiveClassificationQuestionFromIdsV2(
+  input: BuildSpatialPrimitiveClassificationQuestionV2Input,
+): SpatialPrimitiveClassificationQuestionV2 {
+  const { prototypeId, propertyId, primitiveIds, correctOptionIndex } = input;
+  if (!Number.isInteger(correctOptionIndex) || correctOptionIndex < 0 || correctOptionIndex > 3) {
+    throw new Error(`${prototypeId}: correct option index must be in the range 0..3.`);
+  }
+  if (new Set(primitiveIds).size !== 4) {
+    throw new Error(`${prototypeId}: classification options must use four distinct primitive IDs.`);
+  }
+
+  const entries = primitiveIds.map(getSpatialPrimitiveV2);
+  const propertyVector = entries.map((entry) => propertySatisfied(entry, propertyId));
+  if (propertyVector.filter(Boolean).length !== 3 || propertyVector[correctOptionIndex] !== false) {
+    throw new Error(`${propertyId}: property vector does not produce exactly three common figures and one intended odd figure.`);
+  }
+
+  const descriptorAudits = SPATIAL_PRIMITIVE_CLASSIFICATION_DESCRIPTOR_IDS_V2.map((descriptorId) =>
+    auditSpatialPrimitiveClassificationDescriptorV2(entries, descriptorId, correctOptionIndex),
+  );
+  const competing = descriptorAudits.filter((audit) => audit.threeToOne && !audit.supportsCorrectOdd);
+  if (competing.length > 0) {
+    throw new Error(
+      `${propertyId}: competing visible 3-to-1 descriptor(s): ${competing.map((entry) => `${entry.descriptorId}->${entry.minorityIndex}`).join(", ")}`,
+    );
+  }
+
+  const optionScenes = primitiveIds.map((primitiveId, optionIndex) =>
+    buildSpatialPrimitiveInstanceSceneV2(
+      primitiveId,
+      `${prototypeId}-OPTION-${optionIndex + 1}`,
+      { scale: 0.9, idPrefix: `${prototypeId.toLowerCase()}-${optionIndex + 1}` },
+    ),
+  );
+  const sceneFingerprints = optionScenes.map(spatialSceneSemanticFingerprint);
+  if (new Set(sceneFingerprints).size !== 4) {
+    throw new Error(`${propertyId}: option scenes are not unique.`);
+  }
+
+  const labels = entries.map((entry) => entry.label);
+  const application = entries
+    .map(
+      (entry, optionIndex) =>
+        `${String.fromCharCode(65 + optionIndex)}. ${evidence(entry, propertyId)} ${propertyVector[optionIndex] ? "✓" : "✗"}`,
+    )
+    .join("  ");
+
+  return {
+    prototypeId,
+    propertyId,
+    propertyDescription: SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_DESCRIPTION_V2[propertyId],
+    primitiveIds: [...primitiveIds],
+    optionScenes,
+    propertyVector,
+    correctOptionIndex,
+    descriptorAudits,
+    reinforcingDescriptorIds: descriptorAudits
+      .filter((audit) => audit.threeToOne && audit.supportsCorrectOdd)
+      .map((audit) => audit.descriptorId),
+    learnerExplanation: {
+      observation: `Compare the visible structure of ${labels.join(", ")}.`,
+      rule: `Three figures share this relationship: ${SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_DESCRIPTION_V2[propertyId]}.`,
+      application,
+      check: `Only option ${String.fromCharCode(65 + correctOptionIndex)} breaks the relationship. The broad visible-feature audit found no 3-to-1 feature pointing to a different option.`,
+    },
+    lifecycle: {
+      permanentQlId: null,
+      questionStudioDiscoverable: false,
+      questionBankWritable: false,
+      testEligible: false,
+      publiclyPublishable: false,
+    },
+  };
 }
 
 const BASE_QUARTETS: readonly {
@@ -213,7 +324,10 @@ const BASE_QUARTETS: readonly {
   { propertyId: "POLYGON", primitiveIds: ["TRIANGLE", "PENTAGON", "TRAPEZIUM", "SEMICIRCLE"] },
 ] as const;
 
-function rotateForOddSlot<T>(items: readonly [T, T, T, T], desiredOddIndex: number): [T, T, T, T] {
+function rotateForOddSlot<T>(
+  items: readonly [T, T, T, T],
+  desiredOddIndex: number,
+): [T, T, T, T] {
   const offset = (3 - desiredOddIndex + 4) % 4;
   return [0, 1, 2, 3].map((index) => items[(index + offset) % 4]!) as [T, T, T, T];
 }
@@ -222,52 +336,11 @@ export function buildSpatialPrimitiveClassificationProofV2(): SpatialPrimitiveCl
   return BASE_QUARTETS.map((base, index) => {
     const correctOptionIndex = index % 4;
     const primitiveIds = rotateForOddSlot(base.primitiveIds, correctOptionIndex);
-    const entries = primitiveIds.map(getSpatialPrimitiveV2);
-    const propertyVector = entries.map((entry) => propertySatisfied(entry, base.propertyId));
-    if (propertyVector.filter(Boolean).length !== 3 || propertyVector[correctOptionIndex] !== false) {
-      throw new Error(`${base.propertyId}: property vector does not produce exactly three common figures and one intended odd figure.`);
-    }
-    const descriptorAudits = DESCRIPTOR_IDS.map((descriptorId) => auditDescriptor(entries, descriptorId, correctOptionIndex));
-    const competing = descriptorAudits.filter((audit) => audit.threeToOne && !audit.supportsCorrectOdd);
-    if (competing.length > 0) {
-      throw new Error(`${base.propertyId}: competing visible 3-to-1 descriptor(s): ${competing.map((entry) => `${entry.descriptorId}->${entry.minorityIndex}`).join(", ")}`);
-    }
-    const optionScenes = primitiveIds.map((primitiveId, optionIndex) =>
-      buildSpatialPrimitiveInstanceSceneV2(
-        primitiveId,
-        `FCL-001-V2-${String(index + 1).padStart(2, "0")}-OPTION-${optionIndex + 1}`,
-        { scale: 0.9, idPrefix: `fcl-v2-${index + 1}-${optionIndex + 1}` },
-      ),
-    );
-    const sceneFingerprints = optionScenes.map(spatialSceneSemanticFingerprint);
-    if (new Set(sceneFingerprints).size !== 4) throw new Error(`${base.propertyId}: option scenes are not unique.`);
-    const labels = entries.map((entry) => entry.label);
-    const application = entries.map((entry, optionIndex) =>
-      `${String.fromCharCode(65 + optionIndex)}. ${evidence(entry, base.propertyId)} ${propertyVector[optionIndex] ? "✓" : "✗"}`,
-    ).join("  ");
-    return {
+    return buildSpatialPrimitiveClassificationQuestionFromIdsV2({
       prototypeId: `FCL-001-V2-${String(index + 1).padStart(2, "0")}`,
       propertyId: base.propertyId,
-      propertyDescription: PROPERTY_DESCRIPTION[base.propertyId],
-      primitiveIds: [...primitiveIds],
-      optionScenes,
-      propertyVector,
+      primitiveIds,
       correctOptionIndex,
-      descriptorAudits,
-      reinforcingDescriptorIds: descriptorAudits.filter((audit) => audit.threeToOne && audit.supportsCorrectOdd).map((audit) => audit.descriptorId),
-      learnerExplanation: {
-        observation: `Compare the visible structure of ${labels.join(", ")}.`,
-        rule: `Three figures share this relationship: ${PROPERTY_DESCRIPTION[base.propertyId]}.`,
-        application,
-        check: `Only option ${String.fromCharCode(65 + correctOptionIndex)} breaks the relationship. The broad visible-feature audit found no 3-to-1 feature pointing to a different option.`,
-      },
-      lifecycle: {
-        permanentQlId: null,
-        questionStudioDiscoverable: false,
-        questionBankWritable: false,
-        testEligible: false,
-        publiclyPublishable: false,
-      },
-    };
+    });
   });
 }
