@@ -1,6 +1,6 @@
 # BLR-001 — Blood Relations
 
-Status: **all seven designed checkpoints implemented; permanent QL range `BLR-QL-001..035`; CP-007 multilingual production-review lifecycle enabled**.
+Status: **all seven designed checkpoints implemented; permanent QL range `BLR-QL-001..035`; CP-003 Hindi/Punjabi machine-proved review candidates complete; CP-007 multilingual production-review lifecycle enabled**.
 
 Student-facing chapter: **Blood Relations**  
 Reasoning V1 package: `BLR-001`  
@@ -21,7 +21,7 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BL
 |---|---|---|---|
 | `BLR-CP-001` | direct declarative named-person relations | `BLR-QL-001..007` | English discovery frozen; review runtime available |
 | `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | `BLR-QL-008` | English discovery frozen; review runtime available |
-| `BLR-CP-003` | shared family passages and shared graphs | `BLR-QL-009..012` | English discovery frozen; review runtime available |
+| `BLR-CP-003` | shared family passages and shared graphs | `BLR-QL-009..012` | English discovery frozen; review runtime available; Hindi/Punjabi machine-proved review candidates complete and product-locked pending human language review |
 | `BLR-CP-004` | counts and family composition | `BLR-QL-013..017` | English discovery frozen; review runtime available; zero-count recovery remediation applied |
 | `BLR-CP-005` | determinacy, possibility and uncertainty | `BLR-QL-018..025` | English discovery frozen; exam-grade review runtime available |
 | `BLR-CP-006` | coded relation decoding | `BLR-QL-026..030` | English discovery frozen; review runtime available |
@@ -81,11 +81,20 @@ BLR-QL-035  SELECT_CODED_STATEMENT_BY_VALIDITY
 ### CP-003
 
 ```text
-approved English records       298
-shared-passage groups          102
-permanent QLs                    4
-range                BLR-QL-009..012
+approved English records                  298
+shared-passage groups                     102
+permanent QLs                               4
+range                           BLR-QL-009..012
+Hindi machine review candidates           298
+Punjabi machine review candidates         298
+total localized review candidates         596
+localized semantic parity              proved
+localized learner-language leak audit  proved
+localized human language review        required
+localized product delivery              locked
 ```
+
+The CP-003 localized candidates preserve the frozen English QL ownership, answer positions, answer semantic keys and canonical semantic fingerprints. They are not production-approved variants: Question Studio, Question Bank, mock-test and public-delivery eligibility remain disabled until explicit human Hindi/Punjabi review and a later approval/freeze step.
 
 ### CP-004
 
@@ -167,6 +176,7 @@ The chapter shares a typed family graph and relation ontology with:
 - `BLR-CP-001/BLR-CP-001-FINAL-DISCOVERY-FREEZE.md`
 - `BLR-CP-002/BLR-CP-002-FINAL-DISCOVERY-FREEZE.md`
 - `BLR-CP-003/BLR-CP-003-FINAL-DISCOVERY-FREEZE.md`
+- `BLR-CP-003/README.md` for the current multilingual review-candidate boundary
 - `BLR-CP-004/BLR-CP-004-FINAL-DISCOVERY-FREEZE.md`
 - `BLR-CP-004/BLR-CP-004-ZERO-COUNT-RECOVERY-REMEDIATION.md`
 - `BLR-CP-005/BLR-CP-005-FINAL-DISCOVERY-FREEZE.md`
@@ -177,7 +187,8 @@ The chapter shares a typed family graph and relation ontology with:
 
 Checkpoint implementation/freeze state and product delivery state are separate:
 
-- CP-001 through CP-006 remain English review-runtime authorities unless a later explicit product-release gate changes them;
-- CP-003 through CP-006 are **not** automatically added to Question Studio, Question Bank, mock tests or public delivery by the recovery merge;
+- CP-001 and CP-002 remain English review-runtime authorities unless a later explicit product-release gate changes them;
+- CP-003 now has machine-proved Hindi/Punjabi review candidates, but they remain human-review-blocked and product-locked;
+- CP-004 through CP-006 remain English review-runtime authorities and are not automatically added to Question Studio, Question Bank, mock tests or public delivery;
 - CP-007 alone currently has the multilingual production-review integration described above;
 - production publication still follows the existing audited admin approval workflow.
