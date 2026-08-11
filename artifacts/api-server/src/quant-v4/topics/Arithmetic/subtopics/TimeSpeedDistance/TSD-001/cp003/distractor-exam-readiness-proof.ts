@@ -24,14 +24,15 @@ const targetedModes = new Set([
   "totalTimeWithRegularStops",
   "speedChangePointDistance",
   "fractionOfRouteAtChangedSpeed",
+  "walkingRidingAllocation",
 ]);
 const targeted = rows.filter((row) => targetedModes.has(row.solveMode));
-assert(targeted.length === 39, `Expected 39 targeted distractor-remediation rows, received ${targeted.length}`);
+assert(targeted.length === 42, `Expected 42 targeted distractor-remediation rows, received ${targeted.length}`);
 
 const forbiddenByMode: Readonly<Record<string, readonly string[]>> = Object.freeze({
   timeGainLossFromSpeedChange: ["TREAT_SPEED_DIFFERENCE_AS_SPEED"],
   usualSpeedFromEarlyLatePair: ["USE_EARLY_LATE_GAP_AS_TOTAL_TIME"],
-  requiredRecoverySpeedAfterLostTime: ["REVERSE_DIVISION"],
+  requiredRecoverySpeedAfterLostTime: ["REVERSE_DIVISION", "ADD_INSTEAD_OF_DIVIDE"],
   stoppageDurationFromRunningAndOverallSpeed: ["ADD_RUNNING_AND_TOTAL_TIME"],
   overallSpeedIncludingStops: ["USE_STOP_TIME_AS_TOTAL_TIME", "DOUBLE_COUNT_STOP_TIME"],
   runningSpeedFromOverallSpeedAndStops: ["REVERSE_DIVISION", "ADD_STOP_TIME_TO_TOTAL_TIME"],
@@ -66,6 +67,7 @@ for (const row of targeted) {
 
   if (row.solveMode === "requiredRecoverySpeedAfterLostTime") {
     assert(!row.options.some(hasAwkwardRawFraction), `${row.questionLanguageId}: reciprocal/raw-fraction recovery-speed option remains`);
+    assert(!ids.has("ADD_INSTEAD_OF_DIVIDE"), `${row.questionLanguageId}: mixed-unit distance-plus-time recovery distractor remains`);
     for (const option of wrongOptions) {
       const ratio = divide(option.wrongWorking!.value, row.solution.answer);
       assert(compare(ratio, rational(1, 4)) >= 0, `${row.questionLanguageId}: recovery-speed distractor is implausibly tiny`);
@@ -109,7 +111,7 @@ for (const row of targeted) {
     for (const option of row.optionAudit) {
       const value = option.isCorrect ? row.solution.answer : option.wrongWorking!.value;
       assert(compare(value, rational(0)) > 0, `${row.questionLanguageId}: route-percentage option is not positive`);
-      assert(compare(value, rational(100)) <= 0, `${row.questionLanguageId}: route-percentage option exceeds 100%`);
+      assert(compare(value, rational(100)) < 0, `${row.questionLanguageId}: route-percentage option must be below 100% because both speed segments are non-zero`);
     }
   }
 
@@ -129,6 +131,15 @@ for (const row of targeted) {
     }
   }
 
+  if (row.solveMode === "walkingRidingAllocation") {
+    const maximum = row.input.target.endsWith("TIME") ? row.input.totalTime : row.input.totalDistance;
+    for (const option of row.optionAudit) {
+      const value = option.isCorrect ? row.solution.answer : option.wrongWorking!.value;
+      assert(compare(value, rational(0)) > 0, `${row.questionLanguageId}: walking/riding option is not positive`);
+      assert(compare(value, maximum) <= 0, `${row.questionLanguageId}: walking/riding option exceeds the total journey quantity`);
+    }
+  }
+
   for (const option of wrongOptions) {
     assert(option.wrongWorking !== null, `${row.questionLanguageId}: wrong option lacks wrong-working provenance`);
     assert(row.explanation.optionAnalysis.some((analysis) => analysis.misconceptionId === option.misconceptionId && analysis.reason.includes(option.wrongWorking!.calculation)), `${row.questionLanguageId}: learner feedback does not expose the exact wrong calculation for ${option.misconceptionId}`);
@@ -143,11 +154,13 @@ console.log(JSON.stringify({
   wrongOptionsAudited: targeted.length * 3,
   legacyWeakDistractorsPresent: 0,
   reciprocalRecoverySpeeds: 0,
+  mixedUnitRecoveryDistractors: 0,
   rawFractionalRestOptions: 0,
   impossibleChangePointDistances: 0,
-  routePercentageOptionsAbove100: 0,
+  routePercentageOptionsAtOrAbove100: 0,
   rawFractionalRoutePercentages: 0,
   rawFractionalOverallRunningSpeeds: 0,
+  walkingRidingOptionsBeyondJourneyTotal: 0,
   permanentQlCount: 0,
   englishFreezeStatus: "UNFROZEN",
 }, null, 2));
