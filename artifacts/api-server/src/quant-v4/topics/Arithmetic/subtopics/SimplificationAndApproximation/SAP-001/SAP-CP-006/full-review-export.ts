@@ -4,7 +4,7 @@ import {
   type SapCp006Package,
   type SapCp006PrototypeId,
 } from "./runtime";
-import { generateSapCp006Editorial } from "./editorial-runtime-v2";
+import { generateSapCp006Editorial } from "./editorial-runtime-v3";
 import {
   SAP_CP006_WAVE2_CATALOGUE,
   SAP_CP006_WAVE2_PROTOTYPE_IDS,
@@ -12,22 +12,47 @@ import {
   type SapCp006Wave2PrototypeId,
 } from "./runtime-wave2";
 import { generateSapCp006Wave2Editorial } from "./wave2-editorial";
+import {
+  SAP_CP006_WAVE3_PROTOTYPE_IDS,
+  generateSapCp006Wave3,
+  type SapCp006Wave3Package,
+  type SapCp006Wave3PrototypeId,
+} from "./runtime-wave3";
 
-export type SapCp006FullReviewPrototypeId = SapCp006PrototypeId | SapCp006Wave2PrototypeId;
-export type SapCp006FullReviewBasePackage = SapCp006Package | SapCp006Wave2Package;
+export type SapCp006FullReviewPrototypeId = SapCp006PrototypeId | SapCp006Wave2PrototypeId | SapCp006Wave3PrototypeId;
+export type SapCp006FullReviewBasePackage = SapCp006Package | SapCp006Wave2Package | SapCp006Wave3Package;
 export type SapCp006FullReviewRecord = SapCp006FullReviewBasePackage & { readonly questionId: string };
+
+const SAP_CP006_WAVE3_CATALOGUE = Object.freeze([
+  Object.freeze({
+    prototypeId: "SAP-CP006-PROT-EXACT-ARITHMETIC-DATA-SUFFICIENCY" as const,
+    proposedPermanentQlId: "SAP-QL-112",
+    title: "Exact arithmetic data sufficiency",
+    difficulty: "HARD" as const,
+    taskDirection: "DATA_SUFFICIENCY" as const,
+    authorityScope: "four-class data sufficiency over a bounded exact mixed-arithmetic domain",
+  }),
+]);
 
 export const SAP_CP006_FULL_REVIEW_PROTOTYPE_IDS: readonly SapCp006FullReviewPrototypeId[] = Object.freeze([
   ...SAP_CP006_PROTOTYPE_IDS,
   ...SAP_CP006_WAVE2_PROTOTYPE_IDS,
+  ...SAP_CP006_WAVE3_PROTOTYPE_IDS,
 ]);
 
 export const SAP_CP006_FULL_REVIEW_CATALOGUE = Object.freeze([
   ...SAP_CP006_CATALOGUE,
   ...SAP_CP006_WAVE2_CATALOGUE,
+  ...SAP_CP006_WAVE3_CATALOGUE,
 ]);
 
-export const SAP_CP006_FULL_REVIEW_COUNT_PER_PROTOTYPE = 15;
+export const SAP_CP006_FULL_REVIEW_TOTAL = 300;
+
+export function sapCp006FullReviewCountForPrototype(prototypeId: SapCp006FullReviewPrototypeId): number {
+  const index = SAP_CP006_FULL_REVIEW_PROTOTYPE_IDS.indexOf(prototypeId);
+  if (index < 0) throw new Error(`Unknown CP-006 review prototype ${prototypeId}.`);
+  return index < 6 ? 15 : 14;
+}
 
 function nextState(value: number): number {
   let state = value >>> 0;
@@ -70,17 +95,29 @@ function targetPositions(): readonly number[] {
 }
 
 const COMPARISON_SEQUENCE = ["A < B", "A = B", "A > B"] as const;
+const DS_SEQUENCE = [
+  "I alone is sufficient",
+  "II alone is sufficient",
+  "Both together are sufficient",
+  "Even together are insufficient",
+] as const;
 
 function generatePackage(prototypeId: SapCp006FullReviewPrototypeId, seed: number): SapCp006FullReviewBasePackage {
   if ((SAP_CP006_PROTOTYPE_IDS as readonly string[]).includes(prototypeId)) {
     return generateSapCp006Editorial(prototypeId as SapCp006PrototypeId, seed);
   }
-  return generateSapCp006Wave2Editorial(prototypeId as SapCp006Wave2PrototypeId, seed);
+  if ((SAP_CP006_WAVE2_PROTOTYPE_IDS as readonly string[]).includes(prototypeId)) {
+    return generateSapCp006Wave2Editorial(prototypeId as SapCp006Wave2PrototypeId, seed);
+  }
+  return generateSapCp006Wave3(prototypeId as SapCp006Wave3PrototypeId, seed);
 }
 
 function passesVarietyTarget(prototypeId: SapCp006FullReviewPrototypeId, accepted: number, pkg: SapCp006FullReviewBasePackage): boolean {
   if (prototypeId === "SAP-CP006-PROT-COMPARE-EXACT-EXPRESSIONS") {
     return pkg.canonicalAnswer === COMPARISON_SEQUENCE[accepted % COMPARISON_SEQUENCE.length];
+  }
+  if (prototypeId === "SAP-CP006-PROT-EXACT-ARITHMETIC-DATA-SUFFICIENCY") {
+    return pkg.canonicalAnswer === DS_SEQUENCE[accepted % DS_SEQUENCE.length];
   }
   return true;
 }
@@ -92,9 +129,10 @@ export function generateSapCp006FullReviewRecords(): readonly SapCp006FullReview
   let reviewIndex = 0;
 
   for (const prototypeId of SAP_CP006_FULL_REVIEW_PROTOTYPE_IDS) {
+    const targetCount = sapCp006FullReviewCountForPrototype(prototypeId);
     let accepted = 0;
     let seed = 1;
-    while (accepted < SAP_CP006_FULL_REVIEW_COUNT_PER_PROTOTYPE) {
+    while (accepted < targetCount) {
       if (seed > 100_000) throw new Error(`${prototypeId}: unable to find balanced diverse review records.`);
       const pkg = generatePackage(prototypeId, seed);
       seed += 1;
@@ -112,6 +150,6 @@ export function generateSapCp006FullReviewRecords(): readonly SapCp006FullReview
     }
   }
 
-  if (records.length !== 300) throw new Error(`Expected 300 full-review records, received ${records.length}.`);
+  if (records.length !== SAP_CP006_FULL_REVIEW_TOTAL) throw new Error(`Expected ${SAP_CP006_FULL_REVIEW_TOTAL} full-review records, received ${records.length}.`);
   return Object.freeze(records);
 }
