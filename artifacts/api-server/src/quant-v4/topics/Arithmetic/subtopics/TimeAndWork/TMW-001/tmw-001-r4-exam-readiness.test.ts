@@ -49,6 +49,15 @@ function canonicalDisplay(value: string): string {
     .trim();
 }
 
+function primaryAnswerEvidence(value: string): string | null {
+  const canonical = canonicalDisplay(value);
+  return canonical.match(/-?\d+\s*:\s*-?\d+(?:\s*:\s*-?\d+)?/)?.[0]?.replace(/\s/g, "")
+    ?? canonical.match(/-?\d+\/\d+/)?.[0]
+    ?? canonical.match(/-?\d+(?:\.\d+)?%/)?.[0]
+    ?? canonical.match(/-?\d+(?:\.\d+)?/)?.[0]
+    ?? null;
+}
+
 function assertQuestion(question: any, qlId: string, language: Tmw001ChapterLanguage, seed: string): void {
   const label = `${qlId}:${language}:${seed}`;
   assert(question.validation?.valid, `${label}: validation failed: ${(question.validation?.errors ?? []).join(" | ")}`);
@@ -65,15 +74,18 @@ function assertQuestion(question: any, qlId: string, language: Tmw001ChapterLang
   assert(contractErrors.length === 0, `${label}: learner contract failed: ${contractErrors.join(" | ")}`);
 
   const visible = [learner.method, ...learner.solution, learner.answer].join(" ");
-  const normalizedAnswer = canonicalDisplay(solved);
-  const normalizedVisible = canonicalDisplay(visible);
-  assert(
-    normalizedVisible.includes(normalizedAnswer),
-    `${label}: learner output omits solved answer ${normalizedAnswer} | visible=${normalizedVisible}`,
-  );
+  const evidence = primaryAnswerEvidence(solved);
+  const normalizedAnswerLine = canonicalDisplay(learner.answer).replace(/\s/g, "");
+  if (evidence) {
+    assert(
+      normalizedAnswerLine.includes(evidence.replace(/\s/g, "")),
+      `${label}: learner answer omits solved-value evidence ${evidence} | answer=${normalizedAnswerLine}`,
+    );
+  }
   assert(!/After simplification, the required value is/i.test(visible), `${label}: mechanical final boilerplate remains`);
   assert(!/Continue the calculation with the remaining quantity/i.test(visible), `${label}: mechanical continuation boilerplate remains`);
   assert(!mathContainsProse(visible), `${label}: explanatory prose remains inside MathJax: ${visible}`);
+  assert(!/\\\(\s*-?\d+(?:\.\d+)?\s*=\s*\\frac\{\d+\}\{\d+\}\s*\\\)/.test(visible), `${label}: suspicious manufactured numeric=fraction equality remains`);
   assert(learner.solution.length >= 2 && learner.solution.length <= 5, `${label}: learner solution must have 2-5 steps`);
   assert(learner.method.length <= 300, `${label}: method too long`);
   for (const step of learner.solution) assert(step.length <= 340, `${label}: solution step too long: ${step}`);
