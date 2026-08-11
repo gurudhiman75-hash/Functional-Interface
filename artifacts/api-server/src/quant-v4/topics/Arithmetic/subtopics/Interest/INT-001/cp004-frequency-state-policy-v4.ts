@@ -46,6 +46,30 @@ function nearestCompatiblePrincipal(multiplier: Rational, target: bigint): Ratio
   return rat(candidates[0]!);
 }
 
+function generateDirectMonthlyState(qlId: "INT-QL-067" | "INT-QL-068", seed: string): Cp004MathematicalState {
+  for (let attempt = 0; attempt < 1024; attempt += 1) {
+    const effectiveSeed = `${seed}:${qlId}:direct-monthly-v4:${attempt}`;
+    let raw: Cp004MathematicalState;
+    try {
+      raw = generateCp004State(qlId, effectiveSeed);
+    } catch {
+      continue;
+    }
+    if (raw.frequency !== 12 || raw.periods > 6) continue;
+    if (raw.nominalAnnualRatePercent.numerator > 24n * raw.nominalAnnualRatePercent.denominator) continue;
+    const multiplier = completeAmountFromNominal(rat(1), raw.nominalAnnualRatePercent, 12, raw.periods);
+    const targetPrincipal = FRIENDLY_BASES[hash(`${seed}:${qlId}:direct-monthly-principal-v4`) % FRIENDLY_BASES.length]!;
+    const principal = nearestCompatiblePrincipal(multiplier, targetPrincipal);
+    if (!principal) continue;
+    const state = deepFreeze({ ...raw, principal, frequency: 12 as const });
+    const amount = completeAmountFromNominal(principal, state.nominalAnnualRatePercent, state.frequency, state.periods);
+    const answer = canonicalCp004Answer(state);
+    if (!exactToPaise(amount) || !exactToPaise(answer)) continue;
+    return state;
+  }
+  throw new Error(`${qlId}/${seed}: could not construct an exam-ready direct monthly state.`);
+}
+
 function generateMixedExamReadyState(qlId: IntCp004QlId, seed: string): Cp004MathematicalState {
   const desiredPairs = ["1-2", "1-4"] as const;
   const desiredPair = desiredPairs[hash(`${seed}:${qlId}:mixed-pair-target-v4`) % desiredPairs.length]!;
@@ -107,6 +131,9 @@ function generateRestrictedComparisonState(seed: string): Cp004MathematicalState
 }
 
 export function generateCp004ExamReadyStateV4(qlId: IntCp004QlId, seed: string): Cp004MathematicalState {
+  if ((qlId === "INT-QL-067" || qlId === "INT-QL-068") && hash(`${seed}:${qlId}:direct-frequency-policy-v4`) % 4 === 0) {
+    return generateDirectMonthlyState(qlId, seed);
+  }
   if (isMixedQl(qlId)) return generateMixedExamReadyState(qlId, seed);
   if (qlId === "INT-QL-078") return generateFrequencyRecoveryState(seed);
   if (qlId === "INT-QL-075") return generateRestrictedComparisonState(seed);
