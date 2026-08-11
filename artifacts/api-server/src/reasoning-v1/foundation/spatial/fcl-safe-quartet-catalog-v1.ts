@@ -39,21 +39,41 @@ export interface SpatialFclQuartetCapacityDiagnosticV1 {
   disallowedShortcutSignatures: Record<string, number>;
 }
 
+// Only properties a learner can inspect or count from one static rendered option
+// are eligible to be treated as same-answer shortcuts. Internal capabilities such
+// as supportsFill/canContainInner and transform-sensitivity metadata remain part of
+// the broad different-minority audit, but they cannot reject a question merely by
+// reinforcing the intended odd option.
+const STUDENT_VISIBLE_SHORTCUT_DESCRIPTOR_IDS = new Set<SpatialPrimitiveClassificationDescriptorIdV2>([
+  "TOPOLOGY",
+  "POLYGON_PRESENCE",
+  "SIDE_COUNT_EXACT",
+  "SIDE_PARITY",
+  "ENCLOSED_REGION_COUNT",
+  "JUNCTION_COUNT",
+  "TRUE_CROSSING_COUNT",
+  "FREE_TERMINAL_COUNT",
+  "ROTATION_PERIOD",
+  "VERTICAL_SYMMETRY",
+  "HORIZONTAL_SYMMETRY",
+  "HALF_TURN_SYMMETRY",
+]);
+
 const ALLOWED_REINFORCING_DESCRIPTORS: Record<
   SpatialPrimitiveClassificationPropertyIdV2,
   readonly SpatialPrimitiveClassificationDescriptorIdV2[]
 > = {
-  EVEN_SIDED_POLYGON: ["SIDE_PARITY", "SIDE_COUNT_EXACT"],
+  EVEN_SIDED_POLYGON: ["SIDE_PARITY"],
   VERTICAL_SYMMETRY: ["VERTICAL_SYMMETRY"],
   HORIZONTAL_SYMMETRY: ["HORIZONTAL_SYMMETRY"],
   HALF_TURN_SYMMETRY: ["HALF_TURN_SYMMETRY"],
   QUARTER_TURN_SYMMETRY: ["ROTATION_PERIOD"],
   HAS_BRANCH_JUNCTION: ["JUNCTION_COUNT"],
   HAS_TRUE_CROSSING: ["TRUE_CROSSING_COUNT"],
-  PARTITIONED_FIGURE: ["CATEGORY", "TOPOLOGY", "ENCLOSED_REGION_COUNT"],
+  PARTITIONED_FIGURE: ["TOPOLOGY", "ENCLOSED_REGION_COUNT"],
   HALF_TURN_ONLY: ["ROTATION_PERIOD"],
   TWO_FREE_TERMINALS: ["FREE_TERMINAL_COUNT"],
-  CLOSED_SHAPE: ["CATEGORY", "TOPOLOGY", "ENCLOSED_REGION_COUNT"],
+  CLOSED_SHAPE: ["TOPOLOGY", "ENCLOSED_REGION_COUNT", "FREE_TERMINAL_COUNT"],
   POLYGON: ["POLYGON_PRESENCE"],
 };
 
@@ -69,9 +89,8 @@ function productionDomainEligible(
 
   switch (propertyId) {
     case "EVEN_SIDED_POLYGON":
-      // A divided polygon still has an unambiguous outer side count. Keeping
-      // partitioned polygons available increases legitimate visual breadth while
-      // every option must still have a polygon side-count authority.
+      // A divided polygon still has an unambiguous outer side count. Every option
+      // must expose a polygon side-count authority, eliminating polygon-vs-line shortcuts.
       return entry.polygonSideCount !== null;
     case "POLYGON":
       // A divided square still looks like a polygon to a learner. Restrict this
@@ -117,7 +136,9 @@ export function auditSpatialFclQuartetV1(
     .map((audit) => audit.descriptorId);
   const allowedReinforcing = new Set(ALLOWED_REINFORCING_DESCRIPTORS[propertyId]);
   const disallowedShortcutDescriptorIds = reinforcingDescriptorIds.filter(
-    (descriptorId) => !allowedReinforcing.has(descriptorId),
+    (descriptorId) =>
+      STUDENT_VISIBLE_SHORTCUT_DESCRIPTOR_IDS.has(descriptorId) &&
+      !allowedReinforcing.has(descriptorId),
   );
   const domainEligible = primitiveIds.every((primitiveId) =>
     productionDomainEligible(primitiveId, propertyId),
