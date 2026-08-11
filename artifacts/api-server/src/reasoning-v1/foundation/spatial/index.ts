@@ -48,4 +48,7 @@ export * from "./series-visual-validator";
 export * from "./series-proof-generator";
 export * from "./series-editorial-export";
 export * from "./proofs/spa-fnd-001-fsr-001-corpus";
+export * from "./synthesis-types-v1";
+export * from "./production-synthesis-v1";
+export * from "./synthesis-editorial-export-v1";
 export * from "./svg-renderer";
