@@ -35,6 +35,7 @@ jobs:
             spatial-primitive-library-v2 \
             spatial-primitive-retrofit-fcl-v2 \
             spatial-figure-series-proof \
+            spatial-fcl-catalog-diagnostics-v1 \
             spatial-production-synthesis-v1
           do
             pnpm --dir artifacts/api-server exec esbuild \
@@ -58,6 +59,8 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-primitive-retrofit-fcl-v2.test.mjs
       - name: Run FSR-001 proof
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-series-proof.test.mjs
+      - name: Report strict FCL catalog capacity
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-fcl-catalog-diagnostics-v1.test.mjs
       - name: Run Production Synthesis V1 stress proof
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-production-synthesis-v1.test.mjs
       - name: Upload Production Synthesis V1 review
