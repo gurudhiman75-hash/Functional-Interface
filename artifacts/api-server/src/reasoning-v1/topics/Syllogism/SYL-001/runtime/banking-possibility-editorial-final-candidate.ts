@@ -4,6 +4,7 @@ import {
   type BankingPossibilityEditorialCandidate,
 } from "./banking-possibility-editorial-candidate";
 
+// Final candidate is presentation-only: semantics and V4 diagrams remain immutable.
 export type BankingPossibilityEditorialFinalCandidate = BankingPossibilityEditorialCandidate;
 
 function polish(line: string, locale: SylLocale): string {
