@@ -1,6 +1,6 @@
 # RNK-001 — Ranking and Order
 
-Status: **CP-001 through CP-004 frozen at `RNK-QL-001..035`; CP-005 V3 editorial and QL-034 ownership audits passed with three provisional authorities and zero permanent QLs.**
+Status: **CP-001 through CP-004 frozen at `RNK-QL-001..035`; CP-005 has a pinned 576-question permanent-runtime candidate and is awaiting final manual English freeze approval. No CP-005 QL is allocated.**
 
 Student-facing chapter: **Ranking and Order**  
 Reasoning V1 package: `RNK-001`  
@@ -23,7 +23,7 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 | `RNK-CP-002` | two-person positions, separation, comparison, mixed-end totals | frozen `RNK-QL-010..017` |
 | `RNK-CP-003` | interchange, movement, overtaking, insertion/removal | frozen `RNK-QL-018..026` |
 | `RNK-CP-004` | unique multi-entity strict-order reasoning | frozen `RNK-QL-027..035` |
-| `RNK-CP-005` | partial order, relation truth status, possible-rank bounds, exact-rank determinacy | V3 editorial + ownership audit passed; 3 provisional authorities; 0 QLs |
+| `RNK-CP-005` | partial order, relation truth status, possible-rank bounds, exact-rank determinacy | 576-question candidate pinned; final manual freeze review pending; 0 QLs |
 | `RNK-CP-006` | non-strict/tied-ranking audit | unallocated; source evidence required |
 | `RNK-CP-007` | advanced mixed transformations | unallocated; later gap audit |
 | `RNK-CP-008` | reserved | shared-set assembly is infrastructure, not QL ownership |
@@ -65,8 +65,6 @@ It also fixed these boundaries:
 - arithmetic-heavy marks/age/speed/score → relevant Quant chapter;
 - incomplete comparison information with several valid strict rankings → CP-005.
 
-The rejected presentation-led/shared-set CP-005 proposal allocated no QLs. See `RNK-001-BOOK-TO-QL-AUDIT-2026-08-08.md`.
-
 ## CP-004 freeze summary
 
 ```text
@@ -79,27 +77,25 @@ projection: sha256:39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a
 
 CP-004 assumes the evidence forces one unique complete strict order.
 
-## CP-005 V3 Release summary
+## CP-005 ownership and V3 editorial result
 
 CP-005 deliberately retains **multiple valid complete rankings** and asks what remains definite, possible, impossible, bounded or indeterminate across them.
 
 ```text
-raw:                 8 prototypes / 256 questions
-V3 release:          7 source forms / 168 checked questions
-answer positions:    42 / 42 / 42 / 42
+raw discovery:        8 prototypes / 256 questions
+V3 release:           7 source forms / 168 checked questions
+V3 answer positions:  42 / 42 / 42 / 42
 unique release states: 168
-V3 graph families:   8
+V3 graph families:    8
 
 Easy:      0
 Medium:  156
 Hard:     12
-
-permanent QLs: 0
 ```
 
 The rejected form remains `ORDER_UNIQUENESS_STATUS`.
 
-### Three provisional CP-005 authorities
+Three authority candidates survived consolidation:
 
 ```text
 RELATION_TRUTH_STATUS
@@ -113,11 +109,6 @@ EXACT_RANK_DETERMINACY
 ```
 
 `PAIR_RELATION_CANNOT_BE_DETERMINED` is retained only as a legacy discovery ID; learner-facing `PAIR_STATUS` contains first-above, second-above and indeterminate outcomes.
-
-See:
-- `RNK-CP-005/RNK-CP-005-EDITORIAL-V3-CONSOLIDATION.md`
-- `RNK-CP-005/RNK-CP-005-QL034-OWNERSHIP-AUDIT.md`
-- `RNK-CP-005/RNK-CP-005-PARTIAL-ORDER-DISCOVERY-STATUS-V1.md`
 
 ### QL-034 ownership resolution
 
@@ -133,10 +124,6 @@ CP-005 / RELATION_TRUTH_STATUS
   queries: MUST / COULD / CANNOT / PAIR_STATUS
 ```
 
-CP-004's solver explicitly rejects a non-unique evidence graph before answering its relation query. CP-005 instead quantifies the relation over every valid order. The solver state and answer contract therefore differ materially.
-
-Primary Ranking-source evidence also contains incomplete comparison tables with incomparable people and nevertheless asks which conclusions can or cannot be determined. This supports partial-order uncertainty as Ranking ownership.
-
 Audit decision:
 
 ```text
@@ -145,33 +132,88 @@ KEEP_SEPARATE_PROVISIONAL_AUTHORITY
 
 No permanent ID is allocated by this decision.
 
-### V3 semantic safeguards
+## CP-005 permanent-runtime candidate
 
-- four distinct comparison pairs in generic relation options;
-- at least four people represented and maximum two appearances/person;
-- MUST uses possible-but-not-compulsory distractors;
-- COULD bans direct clue reversals and requires multi-step contradiction for wrong options;
-- CANNOT uses possible-but-not-compulsory wrong options;
-- eight graph topologies prevent repeated diamond-only structure;
-- possible-rank bounds require at least three compulsory people, branch integration and a transitive compulsory relation;
-- definite exact ranks require transitive structural evidence;
-- indeterminate exact ranks use two witness rankings;
-- difficulty is based on proof burden, not number of names.
-
-## V3 evidence
-
-Final V3 Release exact-head proof before the ownership branch:
+The production-scale English candidate is now built from the approved V3 solver/editorial contracts:
 
 ```text
-workflow run: 31473422220
-head:         c4fcb1a53b310aae9e4c24e55d3fa3b4f895a15a
-result:       PASS
+candidate runtime version: RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_V1
+candidate questions:       576
+candidate authorities:       3
+questions/authority:        192
 
-evidence artifact: 9094288269
-review artifact:   9094288765
+RELATION_TRUTH_STATUS:      192
+POSSIBLE_RANK_BOUND:        192
+EXACT_RANK_DETERMINACY:     192
 ```
 
-The ownership-audit branch must independently pass its own exact-head workflow.
+Mode distribution:
+
+```text
+MUST:                       48
+COULD:                      48
+CANNOT:                     48
+PAIR_FIRST_ABOVE:           16
+PAIR_SECOND_ABOVE:          16
+PAIR_INDETERMINATE:         16
+HIGHEST_POSSIBLE:           96
+LOWEST_POSSIBLE:            96
+EXACT_DEFINITE:             96
+EXACT_INDETERMINATE:        96
+```
+
+Every authority is independently answer-position balanced at `48 / 48 / 48 / 48`.
+
+The exact-rank source intentionally splits `EXACT_DEFINITE` as `48/0/48/0` and `EXACT_INDETERMINATE` as `0/48/0/48`; the combined authority remains perfectly balanced.
+
+All five approved presentation contexts occur within every authority. Context rendering is decoupled from the mathematical state, so wording diversity does not alter solver logic.
+
+Quality-filtered topology baselines are preserved:
+
+```text
+RELATION_TRUTH_STATUS:    8 graph families
+POSSIBLE_RANK_BOUND:      7 graph families
+EXACT_RANK_DETERMINACY:   6 graph families
+```
+
+Runtime evidence:
+
+```text
+Easy:       0
+Medium:   496
+Hard:      80
+
+normalized learner surfaces: 576
+selected state keys:          576
+runtime fingerprints:         576
+```
+
+Every selected state retains at least two valid complete rankings.
+
+### Pinned candidate projection
+
+```text
+sha256:c45517d1d8bf4283d38eb4b62d1c9e2f90c5ec58593e2c400a59b2a26fb6e71e
+```
+
+This pin protects the candidate against silent drift. It does **not** allocate `RNK-QL-036..038` and does **not** approve English freeze.
+
+### Final manual freeze-review pack
+
+A deterministic 36-question pack is generated from the pinned candidate:
+
+```text
+questions:                36
+questions/authority:      12
+answer positions:    9 / 9 / 9 / 9
+```
+
+It includes all relation-status modes, both possible-rank directions, and both exact-rank outcomes while preferring context/topology diversity.
+
+See:
+- `RNK-CP-005/RNK-CP-005-EDITORIAL-V3-CONSOLIDATION.md`
+- `RNK-CP-005/RNK-CP-005-QL034-OWNERSHIP-AUDIT.md`
+- `RNK-CP-005/RNK-CP-005-PERMANENT-RUNTIME-CANDIDATE-V1.md`
 
 ## Proof summary
 
@@ -180,7 +222,7 @@ CP-001: 13 prototypes / 3,120 discovery / 54 approved / 9 frozen authorities
 CP-002: 13 prototypes / 3,120 discovery / 48 approved / 8 frozen authorities
 CP-003: 13 prototypes / 3,120 discovery / 78 approved / 9 frozen authorities
 CP-004: 11 forms / 2,640 discovery / 132 approved / 9 frozen authorities / 1,728 permanent
-CP-005: 8 raw / 256 raw / 7 release forms / 168 checked / 3 provisional authorities / 0 permanent
+CP-005: 8 raw / 256 raw / 7 V3 forms / 168 V3 checked / 3 authorities / 576 candidate / 0 permanent
 ```
 
 ## Ownership boundaries
@@ -201,9 +243,10 @@ CP-005: 8 raw / 256 raw / 7 release forms / 168 checked / 3 provisional authorit
 
 ```text
 ownership resolved
--> construct permanent English runtime for 3 provisional authorities
--> validate full corpus, projection, deduplication, difficulty and contexts
--> final manual English freeze approval
+-> 576-question candidate built
+-> projection pinned
+-> final 36-question manual English freeze review
+-> explicit freeze approval
 -> only then allocate CP-005 permanent QL IDs
 ```
 
@@ -218,6 +261,8 @@ CP-003 frozen:              true
 CP-004 frozen:              true
 CP-005 editorial review:    passed
 CP-005 ownership audit:     passed
+CP-005 candidate runtime:   built + pinned
+CP-005 English freeze:      false
 CP-005 permanent QLs:       0
 chapter-wide freeze:        false
 Hindi/Punjabi:              NOT_STARTED
