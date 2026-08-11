@@ -1,0 +1,115 @@
+name: Validate TMW-001 CP-012 coverage closure
+
+on:
+  push:
+    branches:
+      - feat/tmw-001-cp012-coverage-closure
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-cp012-coverage-closure.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tmw-cp012-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp012:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec tsc
+          --noEmit
+          --target es2022
+          --module esnext
+          --moduleResolution bundler
+          --strictNullChecks
+          --noImplicitAny
+          --noImplicitReturns
+          --noFallthroughCasesInSwitch
+          --skipLibCheck
+          --types node
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp012-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp012-coverage-closure.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-exam-readiness.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-cp001-cp006-source-regression.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-cp007-cp011-source-regression.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-stem-readiness.test.ts
+
+      - name: Bundle CP-012 independent proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp012-coverage-closure.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp012-coverage-closure.test.mjs
+      - name: Run CP-012 independent proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp012-coverage-closure.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp012-coverage-closure.log
+
+      - name: Bundle R4 frozen-211 learner proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-exam-readiness.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-r4-on-cp012.test.mjs
+      - name: Run R4 frozen-211 learner proof
+        run: node artifacts/api-server/dist/quant-v4/tmw-001-r4-on-cp012.test.mjs
+
+      - name: Bundle CP001-CP006 source regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-cp001-cp006-source-regression.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp001-cp006-on-cp012.test.mjs
+      - name: Run CP001-CP006 source regression
+        run: node artifacts/api-server/dist/quant-v4/tmw-001-cp001-cp006-on-cp012.test.mjs
+
+      - name: Bundle CP007-CP011 source regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-cp007-cp011-source-regression.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp007-cp011-on-cp012.test.mjs
+      - name: Run CP007-CP011 source regression
+        run: node artifacts/api-server/dist/quant-v4/tmw-001-cp007-cp011-on-cp012.test.mjs
+
+      - name: Bundle CP010 stem-readiness proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-stem-readiness.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp010-stems-on-cp012.test.mjs
+      - name: Run CP010 stem-readiness proof
+        run: node artifacts/api-server/dist/quant-v4/tmw-001-cp010-stems-on-cp012.test.mjs
+
+      - name: Upload CP-012 proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-001-cp012-coverage-closure
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-cp012-coverage-closure.log
+          if-no-files-found: warn
+          retention-days: 14
