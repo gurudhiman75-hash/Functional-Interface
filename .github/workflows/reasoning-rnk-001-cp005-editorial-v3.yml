@@ -1,0 +1,114 @@
+name: Validate RNK-001 CP-005 Editorial V3
+
+on:
+  push:
+    branches:
+      - feat/rnk-001-cp005-editorial-v3
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/**
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/README.md
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-open-ql-discovery.md
+      - artifacts/api-server/src/reasoning-v1/question-studio-registry.ts
+      - artifacts/api-server/src/reasoning-v1/question-studio-registry.test.ts
+      - .github/workflows/reasoning-rnk-001-cp005-editorial-v3.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rnk-cp005-editorial-v3-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-editorial-v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate raw partial-order discovery
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-discovery.test.ts \
+            | tee rnk-cp005-partial-order-discovery.log
+
+      - name: Validate editorial V2 remains intact
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial-v2.test.ts \
+            | tee rnk-cp005-partial-order-editorial-v2.log
+
+      - name: Validate editorial V3 semantics
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial-v3.test.ts \
+            | tee rnk-cp005-partial-order-editorial-v3.log
+
+      - name: Generate editorial V3 review pack
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial-v3-review-export.ts \
+            | tee rnk-cp005-editorial-v3-review-export.log
+
+      - name: Validate ownership reset remains intact
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-book-ownership-reset.test.ts \
+            | tee rnk-book-ownership-reset.log
+
+      - name: Validate discovery-only Question Studio registry
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/question-studio-registry.test.ts \
+            | tee rnk-question-studio-registry.log
+
+      - name: Build API server
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server build \
+            | tee rnk-cp005-api-build.log
+
+      - name: Upload V3 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp005-editorial-v3-evidence
+          path: |
+            rnk-cp005-partial-order-discovery.log
+            rnk-cp005-partial-order-editorial-v2.log
+            rnk-cp005-partial-order-editorial-v3.log
+            rnk-cp005-editorial-v3-review-export.log
+            rnk-book-ownership-reset.log
+            rnk-question-studio-registry.log
+            rnk-cp005-api-build.log
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload editorial V3 review pack
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp005-partial-order-editorial-v3-review-28q
+          path: artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/generated/RNK-CP-005-PARTIAL-ORDER-EDITORIAL-V3-REVIEW-28Q.md
+          if-no-files-found: error
+          retention-days: 14
