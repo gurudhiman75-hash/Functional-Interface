@@ -1,4 +1,4 @@
-# SAP-CP-005 — Structural Cancellation Foundation
+# SAP-CP-005 — Structural Cancellation Candidate
 
 **Branch:** `feat/sap-cp005-structural-cancellation-foundation`  
 **Base:** SAP-CP-004 English candidate `87fbcfab53df2c3143fa092a6e323f6ccf0e3ad2`  
@@ -6,11 +6,11 @@
 
 ## Purpose
 
-This checkpoint begins the executable implementation of SAP-CP-005 from the frozen scope authority. CP-005 owns cases where recognising a cancellation map, telescoping pattern, reciprocal structure or legal factorisation is the intended exam advantage.
+This checkpoint implements SAP-CP-005 from the frozen scope authority. CP-005 owns cases where recognising a cancellation map, repeated factor/block, telescoping pattern, reciprocal structure or legal factorisation is the intended exam advantage.
 
-This foundation deliberately does **not** activate Question Studio exposure or write any permanent QL registry entry while SAP-CP-004 remains a draft human-review candidate.
+The candidate deliberately does **not** activate Question Studio exposure or write any permanent QL registry entry while SAP-CP-004 remains a draft human-review candidate.
 
-## Executable solve modes in this slice
+## Wave 1 — executable structural foundation
 
 1. multi-fraction product-chain cancellation;
 2. numeric factor extraction followed by cancellation;
@@ -27,47 +27,65 @@ This foundation deliberately does **not** activate Question Studio exposure or w
 13. missing factor recoverable from a cancellation state;
 14. illegal cancellation across addition/subtraction diagnosis.
 
-Proposed IDs `SAP-QL-072..SAP-QL-085` are **candidate coordinates only**. `lifecycle.permanentQlId` remains `null`.
+Candidate coordinates: `SAP-QL-072..SAP-QL-085`.
 
-## Authority guarantees
+`authority.test.ts` executes 100 deterministic seeds for each solve mode: **1,400 packages**.
 
-`authority.test.ts` executes 100 deterministic seeds for each solve mode (1,400 generated packages) and independently reconstructs the unsimplified exact value.
+GitHub Actions proof:
 
-The authority checks:
+```text
+SAP-CP-005 foundation authority passed: 1400 deterministic cases across 14 solve modes.
+```
+
+## Wave 2 — structural strategy and compression
+
+15. common-factor cancellation before multiplication;
+16. repeated common-factor blocks;
+17. symmetric fraction-pair expressions;
+18. repeated-block compression after legal factor extraction;
+19. selecting the best first cancellation step;
+20. comparing raw and structurally simplified routes.
+
+Candidate coordinates: `SAP-QL-086..SAP-QL-091`.
+
+`authority-wave2.test.ts` executes 100 deterministic seeds for each solve mode: **600 packages**.
+
+The strategy modes prove that:
+
+- the nominated first reduction is a genuine complete common factor;
+- raw exact evaluation and the structural route preserve the same value;
+- efficiency claims are about smaller intermediate arithmetic, not a different mathematical result.
+
+## Combined authority guarantees
+
+Across both waves the candidate provides:
 
 - exact `bigint` rational arithmetic;
 - deterministic generation;
 - four unique options with one correct answer;
 - misconception-linked wrong options;
-- explicit cancellation/structure maps;
-- independent direct evaluation versus the structural route;
+- explicit learner-visible cancellation/structure maps;
+- independent unsimplified exact verification;
 - non-collapsed variable pools;
+- forward, inverse, diagnosis and strategy task directions;
 - no internal/runtime vocabulary in learner-facing text;
 - inactive candidate lifecycle;
 - no Question Studio, bank, test or publish exposure.
 
-## Local proof
+## Source-guarded hold
 
-At foundation creation:
+One frozen CP-005 family remains intentionally **unimplemented**:
 
-```text
-SAP-CP-005 foundation authority passed:
-1400 deterministic cases across 14 solve modes.
-```
+- source-backed numeric partial-fraction telescoping.
 
-The TypeScript runtime also passes strict compilation under TypeScript 5.8.3 / ES2022.
+The source/ownership audit permits telescoping numeric forms only when source-backed. A verified source fixture for this specific partial-fraction subfamily has not yet been registered in the executable evidence available to this checkpoint. It must not be invented merely to claim scope completion.
 
-## Still intentionally deferred
+## Still deferred before release
 
-The following CP-005 authority families are not yet claimed complete by this foundation:
+- verified source fixture + implementation for numeric partial-fraction telescoping;
+- full editorial/remediation pass;
+- 300-question human review export across the final admitted CP-005 set;
+- permanent QL allocation;
+- Question Studio activation.
 
-- repeated common-factor blocks as their own solve identity;
-- source-backed numeric partial-fraction telescoping;
-- symmetric fraction-pair expressions;
-- repeated-block compression;
-- selecting the best first cancellation step;
-- comparing raw and structurally simplified routes;
-- full editorial/remediation and 300-question human review export;
-- permanent QL allocation and Question Studio activation.
-
-These remain the next CP-005 implementation wave. No deferred family should be silently absorbed into one of the current prototypes without a merge/split review.
+Proposed IDs `SAP-QL-072..SAP-QL-091` remain **candidate coordinates only**. Every lifecycle object keeps `permanentQlId: null`.
