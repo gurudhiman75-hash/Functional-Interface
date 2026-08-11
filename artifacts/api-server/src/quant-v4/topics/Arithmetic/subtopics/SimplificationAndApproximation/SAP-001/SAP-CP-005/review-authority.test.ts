@@ -105,6 +105,19 @@ for (const [index, record] of records.entries()) {
     assert.ok(d.left! !== d.p! && d.right! !== d.q!, `${record.questionId}: factor extraction was not actually hidden inside composite numbers.`);
   }
 
+  if (record.prototypeId === "SAP-CP005-PROT-PRODUCT-OF-RECIPROCALS") {
+    const d = record.oracle.data;
+    assert.equal(d.editorialMode, 2, `${record.questionId}: bounded reciprocal-chain editorial fixture missing.`);
+    assert.ok(d.start! >= 1 && d.start! <= 9, `${record.questionId}: reciprocal-chain start is outside the bounded pool.`);
+    assert.ok(d.span! >= 4 && d.span! <= 7, `${record.questionId}: reciprocal-chain span is outside the exam-sized pool.`);
+    assert.equal(d.terminal, d.start! + d.span!, `${record.questionId}: reciprocal-chain terminal does not match start + span.`);
+    let direct = rat(1);
+    for (let value = d.start!; value < d.terminal!; value += 1) {
+      direct = rat(direct.n * BigInt(value), direct.d * BigInt(value + 1));
+    }
+    assert.equal(format(direct), record.canonicalAnswer, `${record.questionId}: bounded reciprocal-chain displayed expression changed value.`);
+  }
+
   if (record.prototypeId === "SAP-CP005-PROT-SYMMETRIC-FRACTION-PAIR") {
     const d = record.oracle.data;
     assert.equal(d.editorialMode, 1, `${record.questionId}: symmetric-pair editorial fixture missing.`);
@@ -159,4 +172,4 @@ assert.deepEqual([...qlIds].sort(), Array.from({ length: 20 }, (_, index) => `SA
 assert.deepEqual([...directions].sort(), ["DIAGNOSIS", "FORWARD", "INVERSE", "STRATEGY"]);
 assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
 
-console.log("SAP-CP-005 editorial review authority passed: 300 unique records, 20 modes, bounded exam-sized stems, no impossible negative distractors, distinct core concepts, balanced A/B/C/D positions.");
+console.log("SAP-CP-005 editorial review authority passed: 300 unique records, 20 modes, bounded exam-sized stems, independently verified reciprocal chains, no impossible negative distractors, distinct core concepts, balanced A/B/C/D positions.");
