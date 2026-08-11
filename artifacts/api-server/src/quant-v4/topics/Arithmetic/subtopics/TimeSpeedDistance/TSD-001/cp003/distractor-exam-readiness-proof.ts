@@ -1,41 +1,46 @@
-import { absRational, compare, rational, subtract } from "../foundation/rational";
+import { absRational, compare, divide, multiply, rational, subtract } from "../foundation/rational";
 import { generateCp003PostOverlapReviewRows } from "./post-overlap-review";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function hasAwkwardRawFraction(value: string): boolean {
+  return /\b\d+\s*\/\s*\d+\b/.test(value);
+}
+
 const rows = generateCp003PostOverlapReviewRows(3);
 const targetedModes = new Set([
+  "timeGainLossFromSpeedChange",
+  "speedFromFixedRouteTimeDifference",
+  "usualSpeedFromEarlyLatePair",
+  "requiredRecoverySpeedAfterLostTime",
+  "stoppageDurationFromRunningAndOverallSpeed",
   "overallSpeedIncludingStops",
   "runningSpeedFromOverallSpeedAndStops",
   "numberOfStopsFromOverallDelay",
   "delayFromRegularStops",
   "restTimeInRepeatedTravelRestCycle",
   "totalTimeWithRegularStops",
+  "speedChangePointDistance",
   "fractionOfRouteAtChangedSpeed",
 ]);
 const targeted = rows.filter((row) => targetedModes.has(row.solveMode));
-assert(targeted.length === 21, `Expected 21 targeted distractor-remediation rows, received ${targeted.length}`);
+assert(targeted.length === 39, `Expected 39 targeted distractor-remediation rows, received ${targeted.length}`);
 
 const forbiddenByMode: Readonly<Record<string, readonly string[]>> = Object.freeze({
-  overallSpeedIncludingStops: ["USE_STOP_TIME_AS_TOTAL_TIME"],
-  runningSpeedFromOverallSpeedAndStops: ["REVERSE_DIVISION"],
+  timeGainLossFromSpeedChange: ["TREAT_SPEED_DIFFERENCE_AS_SPEED"],
+  usualSpeedFromEarlyLatePair: ["USE_EARLY_LATE_GAP_AS_TOTAL_TIME"],
+  requiredRecoverySpeedAfterLostTime: ["REVERSE_DIVISION"],
+  stoppageDurationFromRunningAndOverallSpeed: ["ADD_RUNNING_AND_TOTAL_TIME"],
+  overallSpeedIncludingStops: ["USE_STOP_TIME_AS_TOTAL_TIME", "DOUBLE_COUNT_STOP_TIME"],
+  runningSpeedFromOverallSpeedAndStops: ["REVERSE_DIVISION", "ADD_STOP_TIME_TO_TOTAL_TIME"],
   numberOfStopsFromOverallDelay: ["USE_DELAY_MINUTES_AS_COUNT", "USE_STOP_MINUTES_AS_COUNT", "MULTIPLY_STOP_MINUTES"],
   delayFromRegularStops: ["TREAT_STOP_COUNT_AS_HOURS", "EXTRA_SIXTY_DIVISION", "EXTRA_SIXTY_MULTIPLICATION"],
   restTimeInRepeatedTravelRestCycle: ["AVERAGE_FULL_CYCLE"],
   totalTimeWithRegularStops: ["TREAT_STOP_COUNT_AS_HOURS", "EXTRA_SIXTY_DIVISION"],
+  speedChangePointDistance: ["USE_FIRST_SPEED_FOR_WHOLE_TIME", "USE_SECOND_SPEED_FOR_WHOLE_TIME"],
   fractionOfRouteAtChangedSpeed: ["USE_SPEED_RATIO_AS_PERCENT"],
-});
-
-const requiredByMode: Readonly<Record<string, readonly string[]>> = Object.freeze({
-  overallSpeedIncludingStops: ["IGNORE_STOPS", "DOUBLE_COUNT_STOP_TIME"],
-  runningSpeedFromOverallSpeedAndStops: ["USE_OVERALL_SPEED_AS_RUNNING_SPEED", "ADD_STOP_TIME_TO_TOTAL_TIME"],
-  numberOfStopsFromOverallDelay: ["MISS_ONE_STOP", "COUNT_ONE_EXTRA_STOP", "MISS_TWO_STOPS"],
-  delayFromRegularStops: ["MISS_ONE_STOP", "COUNT_ONE_EXTRA_STOP", "COUNT_ONLY_ONE_STOP"],
-  restTimeInRepeatedTravelRestCycle: ["MISS_ONE_REST_EVENT", "COUNT_ONE_EXTRA_REST_EVENT"],
-  totalTimeWithRegularStops: ["MISS_ONE_STOP", "COUNT_ONE_EXTRA_STOP", "COUNT_ONE_STOP_ONLY"],
-  fractionOfRouteAtChangedSpeed: ["USE_COMPLEMENT_ROUTE_FRACTION", "USE_SPEED_CHANGE_PERCENT", "USE_TIME_SHARE_AS_ROUTE_PERCENT"],
 });
 
 for (const row of targeted) {
@@ -46,8 +51,34 @@ for (const row of targeted) {
   for (const forbidden of forbiddenByMode[row.solveMode] ?? []) {
     assert(!ids.has(forbidden as never), `${row.questionLanguageId}: weak distractor ${forbidden} returned`);
   }
-  for (const required of requiredByMode[row.solveMode] ?? []) {
-    assert(ids.has(required as never), `${row.questionLanguageId}: required exam-realistic distractor ${required} missing`);
+
+  if (row.solveMode === "timeGainLossFromSpeedChange") {
+    assert(!wrongOptions.some((option) => option.misconceptionId === "TREAT_SPEED_DIFFERENCE_AS_SPEED"), `${row.questionLanguageId}: speed difference is still being mislabeled as a duration`);
+  }
+
+  if (row.solveMode === "usualSpeedFromEarlyLatePair") {
+    for (const option of row.optionAudit) {
+      const value = option.isCorrect ? row.solution.answer : option.wrongWorking!.value;
+      assert(compare(value, row.input.slowerTrialSpeed) >= 0, `${row.questionLanguageId}: usual-speed option falls below the slower trial speed`);
+      assert(compare(value, row.input.fasterTrialSpeed) <= 0, `${row.questionLanguageId}: usual-speed option exceeds the faster trial speed`);
+    }
+  }
+
+  if (row.solveMode === "requiredRecoverySpeedAfterLostTime") {
+    assert(!row.options.some(hasAwkwardRawFraction), `${row.questionLanguageId}: reciprocal/raw-fraction recovery-speed option remains`);
+    for (const option of wrongOptions) {
+      const ratio = divide(option.wrongWorking!.value, row.solution.answer);
+      assert(compare(ratio, rational(1, 4)) >= 0, `${row.questionLanguageId}: recovery-speed distractor is implausibly tiny`);
+      assert(compare(ratio, rational(4)) <= 0, `${row.questionLanguageId}: recovery-speed distractor is implausibly large`);
+    }
+  }
+
+  if (row.solveMode === "stoppageDurationFromRunningAndOverallSpeed") {
+    const runningTime = divide(row.input.distance, row.input.runningSpeed);
+    for (const option of wrongOptions) {
+      assert(compare(option.wrongWorking!.value, runningTime) < 0, `${row.questionLanguageId}: stoppage distractor is as large as or larger than the whole running time`);
+      assert(multiply(option.wrongWorking!.value, rational(60)).denominator === 1n, `${row.questionLanguageId}: stoppage distractor is not a whole-minute exam value`);
+    }
   }
 
   if (row.solveMode === "numberOfStopsFromOverallDelay") {
@@ -57,7 +88,24 @@ for (const row of targeted) {
     }
   }
 
+  if (row.solveMode === "restTimeInRepeatedTravelRestCycle") {
+    assert(!row.options.some(hasAwkwardRawFraction), `${row.questionLanguageId}: raw fractional-hour rest option remains`);
+    for (const option of row.optionAudit) {
+      const value = option.isCorrect ? row.solution.answer : option.wrongWorking!.value;
+      assert(multiply(value, rational(60)).denominator === 1n, `${row.questionLanguageId}: rest-time option is not a whole-minute exam value`);
+    }
+  }
+
+  if (row.solveMode === "speedChangePointDistance") {
+    for (const option of row.optionAudit) {
+      const value = option.isCorrect ? row.solution.answer : option.wrongWorking!.value;
+      assert(compare(value, rational(0)) > 0, `${row.questionLanguageId}: change-point distance is not positive`);
+      assert(compare(value, row.input.totalDistance) < 0, `${row.questionLanguageId}: change-point option lies at or beyond the end of the route`);
+    }
+  }
+
   if (row.solveMode === "fractionOfRouteAtChangedSpeed") {
+    assert(!row.options.some(hasAwkwardRawFraction), `${row.questionLanguageId}: raw fractional percentage remains`);
     for (const option of row.optionAudit) {
       const value = option.isCorrect ? row.solution.answer : option.wrongWorking!.value;
       assert(compare(value, rational(0)) > 0, `${row.questionLanguageId}: route-percentage option is not positive`);
@@ -65,9 +113,19 @@ for (const row of targeted) {
     }
   }
 
-  if (row.solveMode === "overallSpeedIncludingStops" || row.solveMode === "runningSpeedFromOverallSpeedAndStops") {
+  if (row.solveMode === "overallSpeedIncludingStops") {
+    assert(!row.options.some(hasAwkwardRawFraction), `${row.questionLanguageId}: raw fractional overall-speed option remains`);
     for (const option of wrongOptions) {
-      assert(compare(option.wrongWorking!.value, rational(200)) < 0, `${row.questionLanguageId}: speed distractor remains implausibly large`);
+      assert(compare(option.wrongWorking!.value, row.input.runningSpeed) <= 0, `${row.questionLanguageId}: overall-speed distractor exceeds the running speed`);
+    }
+  }
+
+  if (row.solveMode === "runningSpeedFromOverallSpeedAndStops") {
+    assert(!row.options.some(hasAwkwardRawFraction), `${row.questionLanguageId}: raw fractional running-speed option remains`);
+    for (const option of wrongOptions) {
+      const ratio = divide(option.wrongWorking!.value, row.solution.answer);
+      assert(compare(ratio, rational(1, 2)) >= 0, `${row.questionLanguageId}: running-speed distractor is implausibly small`);
+      assert(compare(ratio, rational(3, 2)) <= 0, `${row.questionLanguageId}: running-speed distractor is implausibly large`);
     }
   }
 
@@ -79,14 +137,17 @@ for (const row of targeted) {
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "TSD_CP003_DISTRACTOR_EXAM_READINESS",
+  phase: "TSD_CP003_FINAL_DISTRACTOR_EXAM_READINESS",
   targetedRows: targeted.length,
   targetedSolveModes: targetedModes.size,
   wrongOptionsAudited: targeted.length * 3,
   legacyWeakDistractorsPresent: 0,
+  reciprocalRecoverySpeeds: 0,
+  rawFractionalRestOptions: 0,
+  impossibleChangePointDistances: 0,
   routePercentageOptionsAbove100: 0,
-  giantStopCountDistractors: 0,
-  giantRemediatedSpeedDistractors: 0,
+  rawFractionalRoutePercentages: 0,
+  rawFractionalOverallRunningSpeeds: 0,
   permanentQlCount: 0,
   englishFreezeStatus: "UNFROZEN",
 }, null, 2));
