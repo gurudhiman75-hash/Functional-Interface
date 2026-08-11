@@ -76,8 +76,14 @@ function replaceOnce(value, from, to, label) {
   value = replaceOnce(
     value,
     'import { renderProbabilityMathText } from "./shared/math-text";',
+    'import { renderProbabilityMathText } from "./shared/math-text";\nimport { polishNativeExplanationLines, polishNativeVisual } from "./shared/native-final-explanation-renderer";',
+    "native explanation renderer import",
+  );
+  value = replaceOnce(
+    value,
+    'import { renderProbabilityMathText } from "./shared/math-text";',
     'import { renderProbabilityMathText } from "./shared/math-text";\nimport { renderNativeStudentFacingStem } from "./shared/native-student-facing-renderer";',
-    "native renderer import",
+    "native stem renderer import",
   );
   value = value.replace(
     'from "./shared/native-student-facing-renderer";',
@@ -93,7 +99,26 @@ function replaceOnce(value, from, to, label) {
   value = value.replace('const stem = renderNativeStem(source, language, editorial, localizeBinding);', 'const stem = renderNativeStem(source, language);');
   value = value.replace('title = language === "hi" ? "थैले में गेंदों की संरचना" : "ਥੈਲੇ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ";', 'title = language === "hi" ? "बैग में गेंदों की संरचना" : "ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ";');
 
+  value = replaceOnce(
+    value,
+    '  const lines = [',
+    '  const lines = polishNativeExplanationLines(source, language, [',
+    "native explanation line polishing",
+  );
+  value = replaceOnce(
+    value,
+    '  ].map(renderProbabilityMathText);\n\n  for (const line of lines)',
+    '  ].map(renderProbabilityMathText));\n\n  for (const line of lines)',
+    "native explanation line polishing close",
+  );
+  value = replaceOnce(
+    value,
+    '  const visuals = source.explanation.visuals.map((visual) =>\n    localizeNativeVisual(visual, source, language, editorial.eventWording));',
+    '  const visuals = source.explanation.visuals.map((visual) =>\n    polishNativeVisual(source, language, localizeNativeVisual(visual, source, language, editorial.eventWording)));',
+    "native visual context polishing",
+  );
+
   fs.writeFileSync(path, value);
 }
 
-console.log("Applied context-preserving, exam-style Hindi/Punjabi Probability stem renderer.");
+console.log("Applied context-preserving, exam-style Hindi/Punjabi Probability stems, explanations and visuals.");
