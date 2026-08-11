@@ -54,8 +54,8 @@ function periodsForFrequency(seed: string, frequency: Cp004Frequency): number {
   const pools: Readonly<Record<Cp004Frequency, readonly number[]>> = {
     1: [2, 3, 4],
     2: [2, 3, 4, 5, 6],
-    4: [2, 3, 4, 6, 8],
-    12: [3, 6, 9, 12, 18],
+    4: [2, 3, 4, 6],
+    12: [3, 6],
   };
   return pick(pools[frequency], seed, "periods");
 }
@@ -65,7 +65,10 @@ function chooseFrequency(seed: string, qlId: IntCp004QlId): Cp004Frequency {
     return pick([2, 4] as const, seed, `${qlId}:frequency`);
   }
   if (qlId === "INT-QL-077") return pick([2, 4] as const, seed, `${qlId}:frequency`);
-  if (["INT-QL-075", "INT-QL-076", "INT-QL-078"].includes(qlId)) {
+  if (qlId === "INT-QL-075" || qlId === "INT-QL-078") {
+    return pick([1, 2, 4, 12] as const, seed, `${qlId}:frequency`);
+  }
+  if (qlId === "INT-QL-076") {
     return pick([2, 4, 12] as const, seed, `${qlId}:frequency`);
   }
   if (["INT-QL-079", "INT-QL-080", "INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(qlId)) return 1;
@@ -74,7 +77,7 @@ function chooseFrequency(seed: string, qlId: IntCp004QlId): Cp004Frequency {
 
 function inverseRatePool(frequency: Cp004Frequency): readonly Rational[] {
   if (frequency === 2) return Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24), rat(30)]);
-  return Object.freeze([rat(8), rat(16), rat(20), rat(24), rat(32), rat(40)]);
+  return Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24)]);
 }
 
 function nominalRatePoolFor(
@@ -84,7 +87,9 @@ function nominalRatePoolFor(
   secondFrequency: Cp004Frequency,
 ): readonly Rational[] {
   if (["INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072"].includes(qlId)) return inverseRatePool(frequency);
-  if (qlId === "INT-QL-077") return inverseRatePool(frequency);
+  if (qlId === "INT-QL-077") {
+    return frequency === 4 ? Object.freeze([rat(40)]) : inverseRatePool(frequency);
+  }
   if (["INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(qlId)) return Object.freeze([rat(10), rat(20), rat(25)]);
   if (["INT-QL-084", "INT-QL-085"].includes(qlId)) {
     return firstFrequency === 12 || secondFrequency === 12
