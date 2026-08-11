@@ -17,6 +17,7 @@ import {
 } from "./cp004-frequency-exam-readiness-v4";
 import { ensureCp004InverseExplanationDepthV4 } from "./cp004-frequency-explanation-depth-v4";
 import { assertCp004VisibleGivensExamReadyV4 } from "./cp004-frequency-visible-givens-v4";
+import { polishCp004TargetWordingV4 } from "./cp004-frequency-wording-v4";
 
 export * from "./cp004-frequency-math";
 export { generateCp004State } from "./cp004-frequency-generation";
@@ -48,7 +49,8 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
   const correctAnswer = options[correctIndex]!.text;
   const v3Explanation = hardenCp004ExplanationV3(mathematicalState, explanationFor(mathematicalState, correctAnswer));
   const v4Explanation = hardenCp004ExplanationV4(mathematicalState, v3Explanation);
-  const explanation = ensureCp004InverseExplanationDepthV4(mathematicalState, v4Explanation);
+  const depthReadyExplanation = ensureCp004InverseExplanationDepthV4(mathematicalState, v4Explanation);
+  const explanation = polishCp004TargetWordingV4(mathematicalState, depthReadyExplanation);
   assertCp004ReviewV3(mathematicalState, presentation, options, explanation);
   assertCp004ExamReadinessV4(mathematicalState, explanation);
   return deepFreeze({ packageId: "INT-001", canonicalProblemId: "INT-CP-004", permanentQlId: qlId, qlId,
