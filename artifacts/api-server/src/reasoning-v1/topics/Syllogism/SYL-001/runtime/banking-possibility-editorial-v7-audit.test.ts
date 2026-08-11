@@ -12,6 +12,8 @@ const locales: readonly SylLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 let records = 0;
 let lines = 0;
 let existentialTruthChecks = 0;
+let visibleExistentialWitnesses = 0;
+let existenceOnlyExistentials = 0;
 let universalTeachingChecks = 0;
 
 function witnesses(svg: string): readonly Witness[] {
@@ -30,10 +32,6 @@ function witnessSatisfies(entry: Witness, conclusion: CanonicalConclusion): bool
     return entry.inside.has(conclusion.subject) && entry.outside.has(conclusion.predicate);
   }
   return false;
-}
-
-function witnessDebug(entries: readonly Witness[]): string {
-  return entries.map((entry) => `inside=[${[...entry.inside].join(",")}],outside=[${[...entry.outside].join(",")}]`).join(";") || "none";
 }
 
 for (let seed = 0; seed < 80; seed += 1) {
@@ -68,18 +66,26 @@ for (let seed = 0; seed < 80; seed += 1) {
         && (record.canonicalConclusion.form === "SOME" || record.canonicalConclusion.form === "SOME_NOT")
       ) {
         existentialTruthChecks += 1;
-        assert.ok(
-          diagramWitnesses.some((entry) => witnessSatisfies(entry, record.canonicalConclusion)),
-          [
-            `${seed}/${locale}/${index}: explanation claims an entailed existential witness not present in diagram`,
-            `scenario=${question.scenarioId}`,
-            `statements=${JSON.stringify(question.statements)}`,
-            `conclusion=${JSON.stringify(record)}`,
-            `explanation=${JSON.stringify(line)}`,
-            `witnesses=${witnessDebug(diagramWitnesses)}`,
-            `geometrySource=${question.diagram.geometrySource}`,
-          ].join(" | "),
-        );
+        const visible = diagramWitnesses.some((entry) => witnessSatisfies(entry, record.canonicalConclusion));
+        if (visible) {
+          visibleExistentialWitnesses += 1;
+          if (locale === "en-IN") assert.match(line, /blue ×/u);
+          else if (locale === "hi-IN") assert.match(line, /नीला ×/u);
+          else assert.match(line, /ਨੀਲਾ ×/u);
+        } else {
+          existenceOnlyExistentials += 1;
+          assert.doesNotMatch(line, /blue ×|नीला ×|ਨੀਲਾ ×/u);
+          if (locale === "en-IN") {
+            assert.match(line, /does not add an extra × merely to repeat existence implied by the statement wording/u);
+            assert.match(line, /absence of a visible × here does not cancel the logical result/u);
+          } else if (locale === "hi-IN") {
+            assert.match(line, /अतिरिक्त × नहीं जोड़ता/u);
+            assert.match(line, /× न दिखने से यह निष्कर्ष गलत नहीं होता/u);
+          } else {
+            assert.match(line, /ਵਾਧੂ × ਨਹੀਂ ਜੋੜਦਾ/u);
+            assert.match(line, /× ਨਾ ਦਿਖਣ ਨਾਲ ਨਤੀਜਾ ਗਲਤ ਨਹੀਂ ਹੁੰਦਾ/u);
+          }
+        }
       }
 
       if (
@@ -142,6 +148,8 @@ for (let seed = 0; seed < 80; seed += 1) {
 assert.equal(records, 240);
 assert.equal(lines, 480);
 assert.ok(existentialTruthChecks > 0);
+assert.ok(visibleExistentialWitnesses > 0);
+assert.ok(existenceOnlyExistentials > 0);
 assert.ok(universalTeachingChecks > 0);
 
 console.log(JSON.stringify({
@@ -149,11 +157,14 @@ console.log(JSON.stringify({
   records,
   explanationLines: lines,
   existentialTruthChecks,
+  visibleExistentialWitnesses,
+  existenceOnlyExistentials,
   universalTeachingChecks,
   contract: {
     semanticsUnchangedFromV4: true,
     diagramsUnchangedFromV4: true,
     visibleWitnessClaimsMatchSvg: true,
+    existenceOnlyEntailmentDoesNotInventVisibleWitness: true,
     undeterminedExistentialsDoNotInventWitnesses: true,
     universalUndeterminedUsesContainmentOrDisjointness: true,
     contradictedAllDoesNotInventWitness: true,
