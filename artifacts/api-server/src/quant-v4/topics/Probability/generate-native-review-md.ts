@@ -22,6 +22,55 @@ const LANGUAGE_META: Record<ProbabilityNativeLanguage, Readonly<{ label: string;
   pa: { label: "Punjabi", filenameLabel: "PUNJABI" },
 };
 
+type SemanticMarker = Readonly<{
+  label: string;
+  source: RegExp;
+  hi: readonly string[];
+  pa: readonly string[];
+}>;
+
+const SEMANTIC_MARKERS: readonly SemanticMarker[] = [
+  { label: "bag", source: /\bbag\b/iu, hi: ["बैग"], pa: ["ਬੈਗ"] },
+  { label: "jar", source: /\bjar\b/iu, hi: ["जार"], pa: ["ਜਾਰ"] },
+  { label: "marble", source: /\bmarbles?\b/iu, hi: ["कंच"], pa: ["ਕੰਚ"] },
+  { label: "box", source: /\bbox\b/iu, hi: ["बॉक्स"], pa: ["ਬਾਕਸ"] },
+  { label: "pen", source: /\bpens?\b/iu, hi: ["पेन"], pa: ["ਪੈਨ"] },
+  { label: "pouch", source: /\bpouch\b/iu, hi: ["पाउच"], pa: ["ਪਾਊਚ"] },
+  { label: "coloured stone", source: /\bcolou?red stones?\b/iu, hi: ["रंगीन पत्थर"], pa: ["ਰੰਗੀਨ ਪੱਥਰ"] },
+  { label: "bulb", source: /\bbulbs?\b/iu, hi: ["बल्ब"], pa: ["ਬਲਬ"] },
+  { label: "lottery ticket", source: /\blottery tickets?\b/iu, hi: ["लॉटरी टिकट"], pa: ["ਲਾਟਰੀ ਟਿਕਟ"] },
+  { label: "book", source: /\bbooks?\b/iu, hi: ["पुस्तक"], pa: ["ਕਿਤਾਬ"] },
+  { label: "ticket-number context", source: /Tickets numbered/iu, hi: ["क्रमांकित टिकट"], pa: ["ਨੰਬਰ ਲੱਗੇ ਟਿਕਟ"] },
+  { label: "Mathematics", source: /\bMathematics\b/u, hi: ["गणित"], pa: ["ਗਣਿਤ"] },
+  { label: "English subject", source: /\bEnglish\b/u, hi: ["अंग्रेज़ी"], pa: ["ਅੰਗਰੇਜ਼ੀ"] },
+  { label: "Quantitative Aptitude", source: /Quantitative Aptitude/u, hi: ["क्वांटिटेटिव एप्टीट्यूड"], pa: ["ਕੁਆਂਟੀਟੇਟਿਵ ਐਪਟੀਟਿਊਡ"] },
+  { label: "Reasoning", source: /\bReasoning\b/u, hi: ["रीजनिंग"], pa: ["ਰੀਜ਼ਨਿੰਗ"] },
+  { label: "cricket", source: /\bcricket\b/iu, hi: ["क्रिकेट"], pa: ["ਕ੍ਰਿਕਟ"] },
+  { label: "football", source: /\bfootball\b/iu, hi: ["फुटबॉल"], pa: ["ਫੁੱਟਬਾਲ"] },
+  { label: "Section A", source: /Section A/u, hi: ["सेक्शन A"], pa: ["ਸੈਕਸ਼ਨ A"] },
+  { label: "Section B", source: /Section B/u, hi: ["सेक्शन B"], pa: ["ਸੈਕਸ਼ਨ B"] },
+  { label: "scholarship", source: /\bScholarship\b/iu, hi: ["छात्रवृत्ति"], pa: ["ਸਕਾਲਰਸ਼ਿਪ"] },
+  { label: "award", source: /\bAward\b/u, hi: ["पुरस्कार"], pa: ["ਇਨਾਮ"] },
+  { label: "machine", source: /\bmachine\b/iu, hi: ["मशीन"], pa: ["ਮਸ਼ੀਨ"] },
+  { label: "mechanical test", source: /mechanical test/iu, hi: ["यांत्रिक परीक्षण"], pa: ["ਮਕੈਨਿਕਲ ਟੈਸਟ"] },
+  { label: "electrical test", source: /electrical test/iu, hi: ["विद्युत परीक्षण"], pa: ["ਇਲੈਕਟ੍ਰਿਕਲ ਟੈਸਟ"] },
+  { label: "queue", source: /\bqueue\b/iu, hi: ["पंक्ति"], pa: ["ਕਤਾਰ"] },
+];
+
+const OBJECT_CONTEXTS = [
+  { source: /\bbag\b/iu, hiRequire: "बैग", paRequire: "ਬੈਗ", hiForbid: ["जार", "बॉक्स", "पाउच"], paForbid: ["ਜਾਰ", "ਬਾਕਸ", "ਪਾਊਚ"] },
+  { source: /\bjar\b/iu, hiRequire: "जार", paRequire: "ਜਾਰ", hiForbid: ["बैग", "बॉक्स", "पाउच"], paForbid: ["ਬੈਗ", "ਬਾਕਸ", "ਪਾਊਚ"] },
+  { source: /\bbox\b/iu, hiRequire: "बॉक्स", paRequire: "ਬਾਕਸ", hiForbid: ["बैग", "जार", "पाउच"], paForbid: ["ਬੈਗ", "ਜਾਰ", "ਪਾਊਚ"] },
+  { source: /\bpouch\b/iu, hiRequire: "पाउच", paRequire: "ਪਾਊਚ", hiForbid: ["बैग", "जार", "बॉक्स"], paForbid: ["ਬੈਗ", "ਜਾਰ", "ਬਾਕਸ"] },
+] as const;
+
+const OBJECT_NOUNS = [
+  { source: /\bballs?\b/iu, hiRequire: "गेंद", paRequire: "ਗੇਂਦ", hiForbid: ["कंच", "पेन", "पत्थर"], paForbid: ["ਕੰਚ", "ਪੈਨ", "ਪੱਥਰ"] },
+  { source: /\bmarbles?\b/iu, hiRequire: "कंच", paRequire: "ਕੰਚ", hiForbid: ["गेंद", "पेन", "पत्थर"], paForbid: ["ਗੇਂਦ", "ਪੈਨ", "ਪੱਥਰ"] },
+  { source: /\bpens?\b/iu, hiRequire: "पेन", paRequire: "ਪੈਨ", hiForbid: ["गेंद", "कंच", "पत्थर"], paForbid: ["ਗੇਂਦ", "ਕੰਚ", "ਪੱਥਰ"] },
+  { source: /\bcolou?red stones?\b/iu, hiRequire: "पत्थर", paRequire: "ਪੱਥਰ", hiForbid: ["गेंद", "कंच", "पेन"], paForbid: ["ਗੇਂਦ", "ਕੰਚ", "ਪੈਨ"] },
+] as const;
+
 function optionLabel(index: number): string {
   return String.fromCharCode(65 + index);
 }
@@ -35,6 +84,7 @@ function reviewChecklist(language: ProbabilityNativeLanguage): string[] {
   return [
     `- [ ] ${nativeLabel} stem is natural, concise and exam-like.`,
     "- [ ] Mathematical meaning matches the English authority exactly.",
+    "- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.",
     "- [ ] Options are logically correct and the marked answer is unambiguous.",
     `- [ ] ${nativeLabel} explanation is easy for a student to understand.`,
     "- [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.",
@@ -157,7 +207,7 @@ function renderFile(
     "",
     "## Review method",
     "",
-    "Review the native question against the English authority immediately above it. Focus on natural exam wording, exact mathematical meaning, correct terminology, option logic, and student-friendly explanation quality. Do not approve merely because automated parity passed.",
+    "Review the native question against the English authority immediately above it. Focus on natural exam wording, exact mathematical meaning, exact scenario/context preservation, correct terminology, option logic, and student-friendly explanation quality. Do not approve merely because automated parity passed.",
     "",
     "---",
     "",
@@ -165,6 +215,46 @@ function renderFile(
 
   previews.forEach((preview, index) => lines.push(renderQuestion(preview, index + 1)));
   return lines.join("\n");
+}
+
+function assertSemanticStemParity(preview: ProbabilityMultilingualPreview): void {
+  const source = cleanLine(preview.source.stem);
+  const native = cleanLine(preview.presentation.stem);
+  const language = preview.presentation.language;
+  const qlId = preview.source.questionLanguageId;
+
+  for (const marker of SEMANTIC_MARKERS) {
+    if (!marker.source.test(source)) continue;
+    const expected = language === "hi" ? marker.hi : marker.pa;
+    if (!expected.some((token) => native.includes(token))) {
+      throw new Error(`${qlId}/${language}: native stem lost English semantic marker ${marker.label}.`);
+    }
+  }
+
+  for (const context of OBJECT_CONTEXTS) {
+    if (!context.source.test(source)) continue;
+    const required = language === "hi" ? context.hiRequire : context.paRequire;
+    const forbidden = language === "hi" ? context.hiForbid : context.paForbid;
+    if (!native.includes(required)) throw new Error(`${qlId}/${language}: expected container ${required}.`);
+    const drift = forbidden.find((token) => native.includes(token));
+    if (drift) throw new Error(`${qlId}/${language}: container drift detected (${required} -> ${drift}).`);
+  }
+
+  for (const object of OBJECT_NOUNS) {
+    if (!object.source.test(source)) continue;
+    const required = language === "hi" ? object.hiRequire : object.paRequire;
+    const forbidden = language === "hi" ? object.hiForbid : object.paForbid;
+    if (!native.includes(required)) throw new Error(`${qlId}/${language}: expected object noun ${required}.`);
+    const drift = forbidden.find((token) => native.includes(token));
+    if (drift) throw new Error(`${qlId}/${language}: object drift detected (${required} -> ${drift}).`);
+  }
+
+  const sourceNumbers = [...new Set(source.match(/\d+(?:\.\d+)?/gu) ?? [])];
+  for (const number of sourceNumbers) {
+    if (!native.includes(number)) {
+      throw new Error(`${qlId}/${language}: native stem lost source numeric token ${number}.`);
+    }
+  }
 }
 
 function assertPreview(preview: ProbabilityMultilingualPreview): void {
@@ -181,6 +271,7 @@ function assertPreview(preview: ProbabilityMultilingualPreview): void {
   if (source.options.some((option, index) => option !== presentation.options[index])) {
     throw new Error(`${source.questionLanguageId}/${presentation.language}: option byte parity drift.`);
   }
+  assertSemanticStemParity(preview);
 }
 
 mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -225,4 +316,4 @@ if (totalGenerated !== 432) {
   throw new Error(`Expected 432 native review surfaces, generated ${totalGenerated}.`);
 }
 
-console.log(`Probability ML-06 review Markdown generation complete: ${totalGenerated}/432 native surfaces.`);
+console.log(`Probability ML-06 review Markdown generation complete: ${totalGenerated}/432 native surfaces with semantic-context parity.`);
