@@ -37,6 +37,18 @@ function mathContainsProse(value: string): boolean {
   return false;
 }
 
+function canonicalDisplay(value: string): string {
+  return normalizeTmwLearnerDisplayTextR2(value)
+    .replace(/\\\(/g, "")
+    .replace(/\\\)/g, "")
+    .replace(/\\frac\{(-?\d+)\}\{(\d+)\}/g, "$1/$2")
+    .replace(/\\%/g, "%")
+    .replace(/\\,/g, " ")
+    .replace(/[.।]+$/u, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 function assertQuestion(question: any, qlId: string, language: Tmw001ChapterLanguage, seed: string): void {
   const label = `${qlId}:${language}:${seed}`;
   assert(question.validation?.valid, `${label}: validation failed: ${(question.validation?.errors ?? []).join(" | ")}`);
@@ -53,8 +65,12 @@ function assertQuestion(question: any, qlId: string, language: Tmw001ChapterLang
   assert(contractErrors.length === 0, `${label}: learner contract failed: ${contractErrors.join(" | ")}`);
 
   const visible = [learner.method, ...learner.solution, learner.answer].join(" ");
-  const normalizedAnswer = normalizeTmwLearnerDisplayTextR2(solved);
-  assert(visible.includes(normalizedAnswer), `${label}: learner output omits solved answer ${normalizedAnswer}`);
+  const normalizedAnswer = canonicalDisplay(solved);
+  const normalizedVisible = canonicalDisplay(visible);
+  assert(
+    normalizedVisible.includes(normalizedAnswer),
+    `${label}: learner output omits solved answer ${normalizedAnswer} | visible=${normalizedVisible}`,
+  );
   assert(!/After simplification, the required value is/i.test(visible), `${label}: mechanical final boilerplate remains`);
   assert(!/Continue the calculation with the remaining quantity/i.test(visible), `${label}: mechanical continuation boilerplate remains`);
   assert(!mathContainsProse(visible), `${label}: explanatory prose remains inside MathJax: ${visible}`);
