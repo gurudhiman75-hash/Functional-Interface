@@ -46,6 +46,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/post-overlap-authority-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/post-overlap-authority-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/post-overlap-review-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/post-overlap-review-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/exam-readiness-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/exam-readiness-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/distractor-exam-readiness-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/distractor-exam-readiness-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/review-export.mjs"
 
       - name: Run CP-003 proof suites and export review package
@@ -60,6 +61,7 @@ jobs:
           node dist/quant-v4/tsd-001/cp003/post-overlap-authority-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/post-overlap-authority-proof.log
           node dist/quant-v4/tsd-001/cp003/post-overlap-review-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/post-overlap-review-proof.log
           node dist/quant-v4/tsd-001/cp003/exam-readiness-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/exam-readiness-proof.log
+          node dist/quant-v4/tsd-001/cp003/distractor-exam-readiness-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/distractor-exam-readiness-proof.log
           node dist/quant-v4/tsd-001/cp003/review-export.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/review-export.log
 
       - name: Upload CP-003 proof logs
