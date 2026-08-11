@@ -5,7 +5,6 @@ type ObjectContext = "BALLS" | "MARBLES" | "PENS" | "STONES" | "NONE";
 
 type ObjectWords = Readonly<{
   plural: string;
-  selectedPlural: string;
 }>;
 
 function objectContext(source: ProbabilityQuestion): ObjectContext {
@@ -24,15 +23,15 @@ function numberParameter(source: ProbabilityQuestion, key: string, fallback = 0)
 
 function wordsFor(context: ObjectContext, language: ProbabilityNativeLanguage): ObjectWords {
   if (language === "hi") {
-    if (context === "MARBLES") return { plural: "कंचे", selectedPlural: "चुने जाने वाले कंचे" };
-    if (context === "PENS") return { plural: "पेन", selectedPlural: "चुने जाने वाले पेन" };
-    if (context === "STONES") return { plural: "रंगीन पत्थर", selectedPlural: "चुने जाने वाले रंगीन पत्थर" };
-    return { plural: "गेंदें", selectedPlural: "चुनी जाने वाली गेंदें" };
+    if (context === "MARBLES") return { plural: "कंचे" };
+    if (context === "PENS") return { plural: "पेन" };
+    if (context === "STONES") return { plural: "रंगीन पत्थर" };
+    return { plural: "गेंदें" };
   }
-  if (context === "MARBLES") return { plural: "ਕੰਚੇ", selectedPlural: "ਚੁਣੇ ਜਾਣ ਵਾਲੇ ਕੰਚੇ" };
-  if (context === "PENS") return { plural: "ਪੈਨ", selectedPlural: "ਚੁਣੇ ਜਾਣ ਵਾਲੇ ਪੈਨ" };
-  if (context === "STONES") return { plural: "ਰੰਗੀਨ ਪੱਥਰ", selectedPlural: "ਚੁਣੇ ਜਾਣ ਵਾਲੇ ਰੰਗੀਨ ਪੱਥਰ" };
-  return { plural: "ਗੇਂਦਾਂ", selectedPlural: "ਚੁਣੀਆਂ ਜਾਣ ਵਾਲੀਆਂ ਗੇਂਦਾਂ" };
+  if (context === "MARBLES") return { plural: "ਕੰਚੇ" };
+  if (context === "PENS") return { plural: "ਪੈਨ" };
+  if (context === "STONES") return { plural: "ਰੰਗੀਨ ਪੱਥਰ" };
+  return { plural: "ਗੇਂਦਾਂ" };
 }
 
 function polishHindiLine(line: string, context: ObjectContext): string {
@@ -145,6 +144,8 @@ function overrideDirectCommitteeCount(
     /probability/iu.test(source.stem)
   ) return lines;
 
+  const men = numberParameter(source, "men");
+  const women = numberParameter(source, "women");
   const requiredWomen = numberParameter(source, "requiredWomen", 1);
   const committeeSize = numberParameter(source, "committeeSize");
   const requiredMen = committeeSize - requiredWomen;
@@ -152,14 +153,45 @@ function overrideDirectCommitteeCount(
 
   if (language === "hi") {
     next[0] = "विधि: समिति में क्रम महत्वपूर्ण नहीं होता, इसलिए संयोजन का उपयोग करें।";
-    next[1] = `गणना: ठीक ${requiredWomen} महिला चुनें और शेष ${requiredMen} सदस्य पुरुषों में से चुनें।`;
-    next[3] = "मुख्य बिंदु: महिलाओं और पुरुषों के चयन की संख्याओं को गुणा करें।";
+    next[1] = `गणना: C(${women},${requiredWomen}) × C(${men},${requiredMen}) = आवश्यक समितियों की संख्या।`;
+    next[3] = `मुख्य बिंदु: ठीक ${requiredWomen} महिला और ${requiredMen} पुरुष चुनने के तरीकों को गुणा करें।`;
   } else {
     next[0] = "ਵਿਧੀ: ਕਮੇਟੀ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ ਹੁੰਦਾ, ਇਸ ਲਈ ਸੰਚਯ ਵਰਤੋ।";
-    next[1] = `ਗਣਨਾ: ਠੀਕ ${requiredWomen} ਔਰਤ ਚੁਣੋ ਅਤੇ ਬਾਕੀ ${requiredMen} ਮੈਂਬਰ ਮਰਦਾਂ ਵਿੱਚੋਂ ਚੁਣੋ।`;
-    next[3] = "ਮੁੱਖ ਬਿੰਦੂ: ਔਰਤਾਂ ਅਤੇ ਮਰਦਾਂ ਦੀਆਂ ਚੋਣਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।";
+    next[1] = `ਗਣਨਾ: C(${women},${requiredWomen}) × C(${men},${requiredMen}) = ਲੋੜੀਂਦੀਆਂ ਕਮੇਟੀਆਂ ਦੀ ਗਿਣਤੀ।`;
+    next[3] = `ਮੁੱਖ ਬਿੰਦੂ: ਠੀਕ ${requiredWomen} ਔਰਤ ਅਤੇ ${requiredMen} ਮਰਦ ਚੁਣਨ ਦੇ ਤਰੀਕਿਆਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।`;
   }
   return next;
+}
+
+function simultaneousWorking(
+  source: ProbabilityQuestion,
+  language: ProbabilityNativeLanguage,
+): string {
+  const red = numberParameter(source, "red");
+  const blue = numberParameter(source, "blue");
+  const total = red + blue;
+  const draw = numberParameter(source, "draw", 1);
+  const exactRed = numberParameter(source, "exactRed", 1);
+  const exactBlue = draw - exactRed;
+  const prefix = language === "hi" ? "गणना: " : "ਗਣਨਾ: ";
+
+  if (source.solveMode === "findSimultaneousSameTypeProbability") {
+    return `${prefix}कुल चयन = C(${total},${draw}); अनुकूल चयन = C(${red},${draw}) + C(${blue},${draw}).`;
+  }
+  if (source.solveMode === "findSimultaneousDifferentTypeProbability") {
+    if (draw === 2) return `${prefix}कुल चयन = C(${total},2); अनुकूल चयन = C(${red},1) × C(${blue},1).`;
+    return `${prefix}कुल चयन = C(${total},${draw}); अनुकूल चयन = C(${total},${draw}) − C(${red},${draw}) − C(${blue},${draw}).`;
+  }
+  if (["findExactCompositionProbability", "findSelectionProbabilityUsingCombination"].includes(source.solveMode)) {
+    return `${prefix}कुल चयन = C(${total},${draw}); अनुकूल चयन = C(${red},${exactRed}) × C(${blue},${exactBlue}).`;
+  }
+  if (source.solveMode === "findNoObjectOfTypeProbability") {
+    return `${prefix}कुल चयन = C(${total},${draw}); अनुकूल चयन = C(${blue},${draw}).`;
+  }
+  if (source.solveMode === "findAtLeastOneObjectOfType") {
+    return `${prefix}कुल चयन = C(${total},${draw}); अनुकूल चयन = C(${total},${draw}) − C(${blue},${draw}).`;
+  }
+  return prefix;
 }
 
 function overrideSimultaneousObjectExplanation(
@@ -169,19 +201,59 @@ function overrideSimultaneousObjectExplanation(
   lines: string[],
 ): string[] {
   if (!isObjectSimultaneousMode(source, context)) return lines;
-  const words = wordsFor(context, language);
   const next = [...lines];
 
   if (language === "hi") {
     next[0] = "विधि: चयन एक साथ और बिना वापस रखे है, इसलिए कुल और अनुकूल चयनों को संयोजन से गिनें।";
-    next[1] = `गणना: कुल चयन = C(कुल ${words.plural}, ${words.selectedPlural}); अनुकूल चयन प्रश्न की रंग-शर्त के अनुसार गिनें।`;
+    next[1] = simultaneousWorking(source, language)
+      .replace(/ਕੁੱਲ ਚੋਣ/gu, "कुल चयन")
+      .replace(/ਅਨੁਕੂਲ ਚੋਣ/gu, "अनुकूल चयन");
     next[3] = "मुख्य बिंदु: एक साथ चयन में क्रम महत्वपूर्ण नहीं होता।";
   } else {
     next[0] = "ਵਿਧੀ: ਚੋਣ ਇਕੱਠੇ ਅਤੇ ਵਾਪਸ ਰੱਖੇ ਬਿਨਾਂ ਹੈ, ਇਸ ਲਈ ਕੁੱਲ ਅਤੇ ਅਨੁਕੂਲ ਚੋਣਾਂ ਨੂੰ ਸੰਚਯ ਨਾਲ ਗਿਣੋ।";
-    next[1] = `ਗਣਨਾ: ਕੁੱਲ ਚੋਣ = C(ਕੁੱਲ ${words.plural}, ${words.selectedPlural}); ਅਨੁਕੂਲ ਚੋਣ ਪ੍ਰਸ਼ਨ ਦੀ ਰੰਗ-ਸ਼ਰਤ ਅਨੁਸਾਰ ਗਿਣੋ।`;
+    next[1] = simultaneousWorking(source, language)
+      .replace(/कुल चयन/gu, "ਕੁੱਲ ਚੋਣ")
+      .replace(/अनुकूल चयन/gu, "ਅਨੁਕੂਲ ਚੋਣ");
     next[3] = "ਮੁੱਖ ਬਿੰਦੂ: ਇਕੱਠੀ ਚੋਣ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ ਹੁੰਦਾ।";
   }
   return next;
+}
+
+function successiveWorking(source: ProbabilityQuestion, language: ProbabilityNativeLanguage): string {
+  const red = numberParameter(source, "red");
+  const blue = numberParameter(source, "blue");
+  const total = red + blue;
+  const prefix = language === "hi" ? "गणना: " : "ਗਣਨਾ: ";
+
+  if (["findSuccessiveIndependentProbability", "findWithReplacementProbability"].includes(source.solveMode)) {
+    return `${prefix}P(दोनों लाल) = ${red}/${total} × ${red}/${total}.`;
+  }
+  if (["findSuccessiveDependentProbability", "findWithoutReplacementProbability"].includes(source.solveMode)) {
+    return `${prefix}P(दोनों लाल) = ${red}/${total} × ${Math.max(red - 1, 0)}/${Math.max(total - 1, 1)}.`;
+  }
+  if (source.solveMode === "findOrderedDrawSequenceProbability") {
+    return `${prefix}P(पहले लाल, फिर नीला) = ${red}/${total} × ${blue}/${Math.max(total - 1, 1)}.`;
+  }
+  if (source.solveMode === "findSameTypeInSuccessiveDraws") {
+    return `${prefix}P(एक ही रंग) = ${red}/${total} × ${Math.max(red - 1, 0)}/${Math.max(total - 1, 1)} + ${blue}/${total} × ${Math.max(blue - 1, 0)}/${Math.max(total - 1, 1)}.`;
+  }
+  if (source.solveMode === "findDifferentTypesInSuccessiveDraws") {
+    return `${prefix}P(अलग रंग) = ${red}/${total} × ${blue}/${Math.max(total - 1, 1)} + ${blue}/${total} × ${red}/${Math.max(total - 1, 1)}.`;
+  }
+  if (source.solveMode === "findAtLeastOneAcrossIndependentStages") {
+    return `${prefix}P(कम-से-कम एक लाल) = 1 − (${blue}/${total})².`;
+  }
+  return prefix;
+}
+
+function localizeSuccessiveFormula(value: string, language: ProbabilityNativeLanguage): string {
+  if (language === "hi") return value;
+  return value
+    .replace(/दोनों लाल/gu, "ਦੋਵੇਂ ਲਾਲ")
+    .replace(/पहले लाल, फिर नीला/gu, "ਪਹਿਲਾਂ ਲਾਲ, ਫਿਰ ਨੀਲਾ")
+    .replace(/एक ही रंग/gu, "ਇੱਕੋ ਰੰਗ")
+    .replace(/अलग रंग/gu, "ਵੱਖ-ਵੱਖ ਰੰਗ")
+    .replace(/कम-से-कम एक लाल/gu, "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਲਾਲ");
 }
 
 function overrideSuccessiveObjectExplanation(
@@ -196,14 +268,25 @@ function overrideSuccessiveObjectExplanation(
 
   if (language === "hi") {
     next[0] = `विधि: हर चयन की प्रायिकता उस समय उपलब्ध ${words.plural} और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।`;
-    next[1] = "गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।";
+    next[1] = localizeSuccessiveFormula(successiveWorking(source, language), language);
     next[3] = "मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।";
   } else {
     next[0] = `ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ${words.plural} ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।`;
-    next[1] = "ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।";
+    next[1] = localizeSuccessiveFormula(successiveWorking(source, language), language);
     next[3] = "ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।";
   }
   return next;
+}
+
+function isConditionalMode(source: ProbabilityQuestion): boolean {
+  return [
+    "findConditionalProbabilityByCounting",
+    "findConditionalCardProbability",
+    "findConditionalNumberProbability",
+    "findConditionalUrnProbability",
+    "findReverseConditionalCount",
+    "findConditionalFromTwoWayTable",
+  ].includes(source.solveMode);
 }
 
 function overrideConditionalExplanation(
@@ -277,6 +360,24 @@ export function polishNativeVisual(
   language: ProbabilityNativeLanguage,
   visual: ProbabilityVisual,
 ): ProbabilityVisual {
+  if (visual.strategyId === "SUCCESSIVE_DRAW_TREE") {
+    const withReplacement = source.experiment.replacementPolicy === "WITH_REPLACEMENT";
+    if (language === "hi") return {
+      ...visual,
+      title: "दो चरणों का प्रायिकता वृक्ष",
+      altText: withReplacement
+        ? "दो चरणों का चयन-वृक्ष; हर चयन के बाद वस्तु वापस रखी जाती है।"
+        : "दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।",
+    };
+    return {
+      ...visual,
+      title: "ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ",
+      altText: withReplacement
+        ? "ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਹਰ ਚੋਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।"
+        : "ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।",
+    };
+  }
+
   if (visual.strategyId !== "URN_COMPOSITION_DISPLAY") return visual;
   const context = objectContext(source);
   if (context === "NONE" || context === "BALLS") return visual;
