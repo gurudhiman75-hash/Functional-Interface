@@ -15,7 +15,8 @@ export type MixedCircularQueryContractId =
   | "SEA-QC-006"
   | "SEA-QC-009"
   | "SEA-QC-010"
-  | "SEA-QC-020";
+  | "SEA-QC-020"
+  | "SEA-QC-022";
 
 export type MixedCircularConstraint =
   | {

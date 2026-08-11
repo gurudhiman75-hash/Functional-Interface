@@ -16,6 +16,7 @@ let oddGuardedCaselets = 0;
 let facingSensitiveQuestions = 0;
 let displayedClueNecessityAudits = 0;
 let conditionalCaselets = 0;
+let allChangeFacingQuestions = 0;
 const startedAt = performance.now();
 
 for (const blueprint of SEA_CP005_BLUEPRINTS) {
@@ -56,8 +57,11 @@ for (const blueprint of SEA_CP005_BLUEPRINTS) {
       assert.ok(caselet.constraints.some((constraint) => constraint.kind === "RELATIVE_POSITION"));
     }
     if (blueprint === "SEA-PBA-018") {
-      assert.ok(caselet.constraints.some((constraint) => constraint.kind === "FACING"));
-      assert.ok(caselet.constraints.some((constraint) => constraint.kind === "SAME_FACING" || constraint.kind === "OPPOSITE_FACING"));
+      assert.equal(caselet.constraints.filter((constraint) => constraint.kind === "FACING").length, 0);
+      assert.equal(
+        caselet.constraints.filter((constraint) => constraint.kind === "RELATIVE_POSITION").length,
+        caselet.topologySnapshot.seatCount,
+      );
     }
     if (blueprint === "SEA-PBA-019") {
       assert.equal(caselet.topologySnapshot.seatCount % 2, 0);
@@ -68,6 +72,14 @@ for (const blueprint of SEA_CP005_BLUEPRINTS) {
       conditionalCaselets += 1;
       assert.ok(caselet.constraints.some((constraint) => constraint.kind === "FACING_CONDITIONAL_RELATION"));
       assert.ok(caselet.clueTexts.some((clue) => /^If .* faces the centre, .*; if .* faces outward,/i.test(clue)));
+    }
+
+    if (blueprint === "SEA-PBA-019") {
+      assert.equal(caselet.children[3]?.queryContractId, "SEA-QC-010");
+    } else {
+      assert.equal(caselet.children[3]?.queryContractId, "SEA-QC-022");
+      assert.notDeepEqual(caselet.children[3]?.answer, caselet.children[3]?.oppositeFacingCounterfactual);
+      allChangeFacingQuestions += 1;
     }
 
     for (const clue of caselet.constraints) {
@@ -89,6 +101,7 @@ for (const blueprint of SEA_CP005_BLUEPRINTS) {
 assert.equal(generatedCaselets, SEA_CP005_BLUEPRINTS.length * casesPerBlueprint);
 assert.equal(generatedQuestions, generatedCaselets * 4);
 assert.equal(conditionalCaselets, casesPerBlueprint);
+assert.equal(allChangeFacingQuestions, casesPerBlueprint * 3);
 assert.equal(facingSensitiveQuestions, generatedCaselets * 2);
 assert.ok(oddGuardedCaselets > 0);
 assert.ok(observedSeatCounts.has(6) && observedSeatCounts.has(7) && observedSeatCounts.has(8));
@@ -103,6 +116,7 @@ console.log(`generated child questions ${generatedQuestions}`);
 console.log(`facing-sensitive child questions ${facingSensitiveQuestions}`);
 console.log(`odd-seat guarded caselets ${oddGuardedCaselets}`);
 console.log(`conditional-orientation caselets ${conditionalCaselets}`);
+console.log(`all-change-facing QC-022 questions ${allChangeFacingQuestions}`);
 console.log(`displayed-clue necessity audits ${displayedClueNecessityAudits}`);
 console.log(`elapsed milliseconds ${Math.round(performance.now() - startedAt)}`);
 console.log("permanent QLs 0");

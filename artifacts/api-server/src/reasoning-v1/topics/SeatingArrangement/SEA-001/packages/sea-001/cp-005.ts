@@ -1,4 +1,4 @@
-import { generateMixedCircularCaselet } from "../../cp005/generator.ts";
+import { generateMixedCircleCaselet, generateMixedCircularCaselet } from "../../cp005/generator.ts";
 import type { MixedCircularBlueprintId } from "../../cp005/types.ts";
 
 export const SEA_CP005_BLUEPRINT_CONTRACTS: Readonly<Record<MixedCircularBlueprintId, string>> = Object.freeze({
@@ -8,4 +8,4 @@ export const SEA_CP005_BLUEPRINT_CONTRACTS: Readonly<Record<MixedCircularBluepri
   "SEA-PBA-020": "mixed-facing conditional orientation",
 });
 
-export { generateMixedCircularCaselet };
+export { generateMixedCircleCaselet, generateMixedCircularCaselet };

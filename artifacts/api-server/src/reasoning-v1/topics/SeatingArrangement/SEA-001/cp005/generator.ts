@@ -163,8 +163,13 @@ function buildConstraints(
     constraints.push(...cyclicChain(order, included, nextId));
     constraints.push(relativeConstraint(order, facings, 0, 1, nextId()));
   } else if (blueprint === "SEA-PBA-018") {
-    constraints.push(...facingChain(order, facings, nextId, true));
+    // Inferred-direction ring. The circular positions are fixed by cyclic clues,
+    // but no facing is stated directly. Each reference person's own relative
+    // clue determines whether that person faces the centre or outward.
     constraints.push(...cyclicChain(order, order, nextId));
+    for (let index = 0; index < order.length; index += 1) {
+      constraints.push(relativeConstraint(order, facings, index, index + 2, nextId()));
+    }
   } else if (blueprint === "SEA-PBA-019") {
     if (order.length % 2 !== 0) throw new Error("SEA-PBA-019 requires an even ring");
     constraints.push(...facingChain(order, facings, nextId, true));
@@ -252,9 +257,9 @@ function assertBlueprintSignature(
     throw new Error("SEA-PBA-017 lost its known-facing relative-ring signature");
   }
   if (blueprint === "SEA-PBA-018"
-    && (!constraints.some((constraint) => constraint.kind === "FACING")
-      || !constraints.some((constraint) => constraint.kind === "SAME_FACING" || constraint.kind === "OPPOSITE_FACING"))) {
-    throw new Error("SEA-PBA-018 lost its inferred-facing signature");
+    && (constraints.some((constraint) => constraint.kind === "FACING")
+      || !constraints.some((constraint) => constraint.kind === "RELATIVE_POSITION"))) {
+    throw new Error("SEA-PBA-018 lost its no-direct-facing inferred-direction signature");
   }
   if (blueprint === "SEA-PBA-019"
     && (!constraints.some((constraint) => constraint.kind === "OPPOSITE")
@@ -304,7 +309,7 @@ function attempt(
   }
   const model = production[0];
   if (!model) throw new Error("Missing mixed-circle solution model");
-  const children = buildMixedCircularChildren(seed, model, random);
+  const children = buildMixedCircularChildren(seed, blueprint, model, random);
   const clueTexts = constraints.map(renderMixedCircularConstraint);
 
   const setupText = `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table, but not necessarily in the same order. Some face the centre and the others face outward. Their facing directions and positions satisfy the following conditions.`;
@@ -428,3 +433,7 @@ export function assertMixedCircularCaseletIntegrity(caselet: MixedCircularCasele
     throw new Error("CP-005 lifecycle lock violated");
   }
 }
+
+// Backward-compatible discovery names retained from the earlier CP-005 surface.
+export const generateMixedCircleCaselet = generateMixedCircularCaselet;
+export const assertMixedCircleCaseletIntegrity = assertMixedCircularCaseletIntegrity;

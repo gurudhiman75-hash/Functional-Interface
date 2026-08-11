@@ -15,7 +15,7 @@ Lifecycle:           internal executable discovery only
 Named provisional blueprint authorities implemented:
 
 - `SEA-PBA-017` — mixed-facing known-direction ring;
-- `SEA-PBA-018` — mixed-facing inferred-direction ring;
+- `SEA-PBA-018` — mixed-facing inferred-direction ring with no direct facing clue;
 - `SEA-PBA-019` — mixed-facing opposite and gap chain;
 - `SEA-PBA-020` — mixed-facing conditional orientation.
 
@@ -39,9 +39,10 @@ Each generated passage contains four children across distinct answer-determining
 - `SEA-QC-003` — second left of a named reference person;
 - `SEA-QC-005` — immediate right of a named reference person;
 - `SEA-QC-006` — immediate neighbours;
-- `SEA-QC-010` — opposite occupant on even circles, or `SEA-QC-020` clockwise sequence on odd circles.
+- `SEA-QC-010` — opposite occupant for the opposite/gap blueprint;
+- `SEA-QC-022` — transformed left/right answer after everyone changes facing for the other mixed-facing blueprints.
 
-The first two questions store and verify an explicit **opposite-facing counterfactual**. The counterfactual must differ from the correct answer, proving that the question genuinely tests the reference person's facing rather than a facing-insensitive fact.
+The first two questions store and verify an explicit **opposite-facing counterfactual**. Non-PBA-019 caselets also exercise `SEA-QC-022`, the authoritative all-change-facing transformation query. The counterfactual must differ from the correct answer, proving that the question genuinely tests the reference person's facing rather than a facing-insensitive fact.
 
 All options are semantically fingerprinted, exactly one is correct, and distractors are derived from reproducible misconception recomputations.
 
@@ -62,6 +63,7 @@ Total deterministic caselets:     400
 Child questions per caselet:        4
 Total child questions:            1600
 Facing-sensitive child questions:  800
+All-change-facing QC-022:          300
 ```
 
 The proof also replays every seed deterministically, checks every displayed clue for necessity, audits odd-seat opposite guards, checks blueprint signatures, and requires all four answer positions to be reachable independently at each child position.
