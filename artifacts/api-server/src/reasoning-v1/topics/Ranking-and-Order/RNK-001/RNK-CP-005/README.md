@@ -1,6 +1,6 @@
 # RNK-CP-005 — Partial Order and Ranking Uncertainty
 
-Status: **EDITORIAL V3 RELEASE PASSED — QL-034 OWNERSHIP AUDIT PASSED — no permanent QL allocated**
+Status: **PERMANENT RUNTIME CANDIDATE BUILT — PROJECTION PINNED — FINAL MANUAL ENGLISH FREEZE REVIEW PENDING — no permanent QL allocated**
 
 This checkpoint covers ranking questions in which the displayed comparisons intentionally permit more than one complete ranking. Answers are proved across all valid orders rather than by forcing one arrangement.
 
@@ -55,6 +55,7 @@ See:
 
 - `RNK-CP-005-EDITORIAL-V3-CONSOLIDATION.md`
 - `RNK-CP-005-QL034-OWNERSHIP-AUDIT.md`
+- `RNK-CP-005-PERMANENT-RUNTIME-CANDIDATE-V1.md`
 
 ## V3 Release evidence
 
@@ -122,7 +123,7 @@ Query-specific rules:
 - **MUST:** correct relation is transitively derived; at least two wrong options are possible but not compulsory.
 - **COULD:** correct relation is variable; every wrong option is impossible only through multi-step inference; direct clue reversal is prohibited.
 - **CANNOT:** correct relation is transitively impossible; every wrong option is possible but not compulsory.
-- **PAIR_STATUS:** 24-question evidence is balanced `8 FIRST_ABOVE / 8 SECOND_ABOVE / 8 INDETERMINATE`; the fourth distractor varies across exact-gap claims.
+- **PAIR_STATUS:** first-above, second-above and indeterminate outcomes are all represented; exact-gap distractors vary.
 
 ## Rank-bound and exact-rank gates
 
@@ -135,28 +136,6 @@ Possible-rank bounds require:
 - a valid witness ranking showing the boundary is attainable.
 
 Definite exact-rank questions require transitive structural evidence and accounting for all other entities. Indeterminate exact-rank questions require two valid rankings that place the target at different ranks.
-
-## Difficulty calibration
-
-```text
-Medium: 156
-Hard:    12
-Easy:     0
-```
-
-Difficulty follows proof burden rather than entity count.
-
-## Manual review result
-
-```text
-wrong answer keys:                  0
-contradictions:                     0
-one-person option fixation:         0
-direct-reversal COULD shortcuts:    0
-pair outcome monotony:              0
-rank-bound direct-count-only cases: 0
-Seating Arrangement geometry:       0
-```
 
 ## QL-034 ownership decision
 
@@ -173,17 +152,102 @@ CP-005 / RELATION_TRUTH_STATUS
   modes: MUST / COULD / CANNOT / PAIR_STATUS
 ```
 
-The overlap in wording is therefore superficial. Merging CP-005 into QL-034 would silently broaden both the frozen solver contract and answer space.
-
-Primary Ranking-source evidence also includes incomplete comparison tables where named people remain incomparable while some conclusions are still determinable. That supports partial-order uncertainty as Ranking ownership rather than Seating Arrangement geometry.
-
 Decision:
 
 ```text
 KEEP_SEPARATE_PROVISIONAL_AUTHORITY
 ```
 
-This decision **does not allocate `RNK-QL-036`**. It only resolves the merge/split question.
+This decision does **not** allocate `RNK-QL-036`.
+
+## Production-scale permanent runtime candidate
+
+The three authorities now have a deterministic freeze-review candidate runtime:
+
+```text
+runtime version: RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_V1
+candidate questions: 576
+questions/authority: 192
+
+RELATION_TRUTH_STATUS:    192
+POSSIBLE_RANK_BOUND:      192
+EXACT_RANK_DETERMINACY:   192
+```
+
+Mode quotas:
+
+```text
+MUST:                       48
+COULD:                      48
+CANNOT:                     48
+PAIR_FIRST_ABOVE:           16
+PAIR_SECOND_ABOVE:          16
+PAIR_INDETERMINATE:         16
+
+HIGHEST_POSSIBLE:           96
+LOWEST_POSSIBLE:            96
+
+EXACT_DEFINITE:             96
+EXACT_INDETERMINATE:        96
+```
+
+Every authority is answer-position balanced:
+
+```text
+48 / 48 / 48 / 48
+```
+
+The exact-rank modes intentionally split as `48/0/48/0` definite and `0/48/0/48` indeterminate; together the authority remains `48/48/48/48`.
+
+All five presentation contexts occur within every authority. Context rendering is decoupled from the mathematical state so context diversity cannot alter the solver.
+
+Quality-filtered topology baselines are preserved:
+
+```text
+RELATION_TRUTH_STATUS:    8 families
+POSSIBLE_RANK_BOUND:      7 families
+EXACT_RANK_DETERMINACY:   6 families
+```
+
+Runtime difficulty:
+
+```text
+Easy:       0
+Medium:   496
+Hard:      80
+```
+
+Uniqueness proof:
+
+```text
+normalized learner surfaces: 576
+selected state keys:          576
+runtime fingerprints:         576
+```
+
+Every selected state still has at least two valid complete rankings.
+
+### Pinned candidate projection
+
+```text
+sha256:c45517d1d8bf4283d38eb4b62d1c9e2f90c5ec58593e2c400a59b2a26fb6e71e
+```
+
+The pin is a freeze-review guard only; it is not permanent QL allocation or English freeze approval.
+
+## Final manual freeze-review pack
+
+A deterministic 36-question pack is generated from the pinned runtime:
+
+```text
+questions:                36
+questions/authority:      12
+answer positions:    9 / 9 / 9 / 9
+```
+
+It covers all relation-status modes, both rank-bound directions, and both exact-rank outcomes while preferring context/topology diversity.
+
+English freeze remains **NOT APPROVED** until that pack receives explicit manual signoff.
 
 ## Protected exclusions
 
@@ -198,9 +262,10 @@ This decision **does not allocate `RNK-QL-036`**. It only resolves the merge/spl
 
 ```text
 ownership resolved
--> construct permanent English runtime for the three provisional authorities
--> validate projection, deduplication, difficulty and context balance
--> final manual English freeze approval
+-> production-scale candidate built
+-> projection pinned
+-> final 36-question manual English freeze review
+-> explicit freeze approval
 -> only then allocate permanent QL identities
 ```
 
@@ -210,6 +275,7 @@ ownership resolved
 frozen permanent range: RNK-QL-001..035
 next available QL:      RNK-QL-036
 CP-005 permanent QLs:   0
+expected future IDs:    NOT ALLOCATED
 English freeze:         false
 ownership signoff:      PASSED_BY_AUDIT
 Question Studio:        DISABLED
