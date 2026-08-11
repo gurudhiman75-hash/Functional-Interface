@@ -1,1 +1,1 @@
-export { renderNativeExamStyleStem as renderNativeStudentFacingStem } from "./native-exam-style-renderer";
+export { renderNativeFinalStem as renderNativeStudentFacingStem } from "./native-final-stem-renderer";
