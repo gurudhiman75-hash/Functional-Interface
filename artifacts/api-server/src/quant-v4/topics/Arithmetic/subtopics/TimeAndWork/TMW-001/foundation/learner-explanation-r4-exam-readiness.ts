@@ -64,9 +64,10 @@ function firstMath(value: string): string | null {
   return /\\\(([\s\S]*?)\\\)/.exec(value)?.[1]?.trim() ?? null;
 }
 
-function bareGiven(inner: string): boolean {
+function usefulCalculation(inner: string): boolean {
   const clean = inner.replace(/\\(?:%|,|;)/g, "").trim();
-  return /^[-+]?\d+(?:\.\d+)?(?:\\%)?$/.test(clean) || /^\\frac\{\d+\}\{\d+\}$/.test(clean);
+  if (/^[-+]?\d+(?:\.\d+)?$/.test(clean)) return false;
+  return /[=+\-*/:]|\\frac|\\times|\\div|\\cdot/.test(inner) || /\d/.test(inner);
 }
 
 function answerScalar(answer: string): string | null {
@@ -83,7 +84,7 @@ function answerScalar(answer: string): string | null {
 
 function familyLeads(problemId: string, language: R4Language): readonly string[] {
   const sets: Record<string, [string[], string[], string[]]> = {
-    "TMW-CP-001": [["Substitute the given values", "Simplify the calculation", "Compare with the original case"], ["दिए गए मान रखें", "गणना सरल करें", "मूल स्थिति से तुलना करें"], ["ਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ", "ਗਣਨਾ ਸੌਖੀ ਕਰੋ", "ਮੂਲ ਹਾਲਤ ਨਾਲ ਤੁਲਨਾ ਕਰੋ"]],
+    "TMW-CP-001": [["Substitute the given values", "Simplify the calculation", "Use the result for the asked quantity"], ["दिए गए मान रखें", "गणना सरल करें", "परिणाम से पूछी गई राशि निकालें"], ["ਦਿੱਤੇ ਮੁੱਲ ਰੱਖੋ", "ਗਣਨਾ ਸੌਖੀ ਕਰੋ", "ਨਤੀਜੇ ਤੋਂ ਪੁੱਛੀ ਗਈ ਮਾਤਰਾ ਕੱਢੋ"]],
     "TMW-CP-002": [["Convert the relevant times to rates", "Combine the rates as required", "Convert the result to the asked quantity"], ["संबंधित समयों को दरों में बदलें", "आवश्यकतानुसार दरें जोड़ें या घटाएँ", "परिणाम को पूछी गई राशि में बदलें"], ["ਸੰਬੰਧਿਤ ਸਮਿਆਂ ਨੂੰ ਦਰਾਂ ਵਿੱਚ ਬਦਲੋ", "ਲੋੜ ਅਨੁਸਾਰ ਦਰਾਂ ਜੋੜੋ ਜਾਂ ਘਟਾਓ", "ਨਤੀਜੇ ਨੂੰ ਪੁੱਛੀ ਗਈ ਮਾਤਰਾ ਵਿੱਚ ਬਦਲੋ"]],
     "TMW-CP-003": [["Write the efficiency-time comparison", "Simplify the required ratio", "Convert it to the asked value"], ["दक्षता-समय की तुलना लिखें", "आवश्यक अनुपात सरल करें", "इसे पूछे गए मान में बदलें"], ["ਦੱਖਤਾ-ਸਮਾਂ ਤੁਲਨਾ ਲਿਖੋ", "ਲੋੜੀਂਦਾ ਅਨੁਪਾਤ ਸੌਖਾ ਕਰੋ", "ਇਸ ਨੂੰ ਪੁੱਛੇ ਗਏ ਮੁੱਲ ਵਿੱਚ ਬਦਲੋ"]],
     "TMW-CP-004": [["Calculate the work in the first stage", "Find the work left after the event", "Use the next-stage rate on the remainder"], ["पहले चरण का काम निकालें", "घटना के बाद बचा काम निकालें", "बचे काम पर अगले चरण की दर लगाएँ"], ["ਪਹਿਲੇ ਪੜਾਅ ਦਾ ਕੰਮ ਕੱਢੋ", "ਘਟਨਾ ਤੋਂ ਬਾਅਦ ਬਚਿਆ ਕੰਮ ਕੱਢੋ", "ਬਚੇ ਕੰਮ ਉੱਤੇ ਅਗਲੇ ਪੜਾਅ ਦੀ ਦਰ ਲਗਾਓ"]],
@@ -96,16 +97,14 @@ function familyLeads(problemId: string, language: R4Language): readonly string[]
 
 function r2Working(question: R4Question, language: R4Language, answer: string): string[] {
   const source = question.learnerExplanation?.solution?.slice(0, -1) ?? [];
-  const expressions = source.map((step) => firstMath(step.replace(BOILERPLATE, ""))).filter((x): x is string => Boolean(x));
-  const useful = expressions.filter((x) => !bareGiven(x));
-  const chosen = (useful.length ? useful : expressions).slice(-3);
+  const expressions = source
+    .map((step) => firstMath(step.replace(BOILERPLATE, "")))
+    .filter((x): x is string => Boolean(x));
+  const calculated = expressions.filter(usefulCalculation);
+  const chosen = (calculated.length ? calculated : expressions.slice(-1)).slice(-3);
   const leads = familyLeads(cp(question), language);
   if (!chosen.length) return [`${leads[0]}: ${mj(answerScalar(answer) ?? "0")}.`];
-  return chosen.map((expr, index) => {
-    const scalar = index === chosen.length - 1 ? answerScalar(answer) : null;
-    const shown = scalar && !/=/.test(expr) && expr.trim() !== scalar.trim() ? `${expr}=${scalar}` : expr;
-    return `${leads[Math.min(index, leads.length - 1)]}: ${mj(shown)}.`;
-  });
+  return chosen.map((expr, index) => `${leads[Math.min(index, leads.length - 1)]}: ${mj(expr)}.`);
 }
 
 function symbolLabel(symbol: string, problemId: string, language: R4Language): string {
@@ -145,10 +144,18 @@ function refinedMethod(question: R4Question, language: R4Language): string {
   const current = normalizeTmwR4MixedMath(question.learnerExplanation?.method ?? "");
   const mode = question.solveMode ?? "";
   if (/findTwoCategoryEfficiencyRatio|findThreeCategoryEfficiencyRatio/.test(mode)) {
-    return language === "hi" ? "समान काम और समान समय के लिए दोनों दलों की कुल क्षमता बराबर होती है; संख्या × व्यक्तिगत दक्षता की तुलना करें।" : language === "pa" ? "ਇੱਕੋ ਕੰਮ ਅਤੇ ਇੱਕੋ ਸਮੇਂ ਲਈ ਦੋਵੇਂ ਟੋਲੀਆਂ ਦੀ ਕੁੱਲ ਸਮਰੱਥਾ ਬਰਾਬਰ ਹੁੰਦੀ ਹੈ; ਗਿਣਤੀ × ਵਿਅਕਤੀਗਤ ਦੱਖਤਾ ਦੀ ਤੁਲਨਾ ਕਰੋ।" : "For the same work completed in the same time, the two crew capacities are equal; compare count × individual efficiency.";
+    return language === "hi"
+      ? "समान काम और समान समय के लिए दोनों दलों की कुल क्षमता बराबर होती है; संख्या × व्यक्तिगत दक्षता की तुलना करें।"
+      : language === "pa"
+        ? "ਇੱਕੋ ਕੰਮ ਅਤੇ ਇੱਕੋ ਸਮੇਂ ਲਈ ਦੋਵੇਂ ਟੋਲੀਆਂ ਦੀ ਕੁੱਲ ਸਮਰੱਥਾ ਬਰਾਬਰ ਹੁੰਦੀ ਹੈ; ਗਿਣਤੀ × ਵਿਅਕਤੀਗਤ ਦੱਖਤਾ ਦੀ ਤੁਲਨਾ ਕਰੋ।"
+        : "For the same work completed in the same time, the two crew capacities are equal; compare count × individual efficiency.";
   }
   if (mode === "findFillTimeFromPositiveInlets") {
-    return language === "hi" ? "इनलेट की दरें जोड़ें और संयुक्त दर का व्युत्क्रम लेकर भरने का समय निकालें।" : language === "pa" ? "ਇਨਲੈੱਟ ਦਰਾਂ ਜੋੜੋ ਅਤੇ ਮਿਲੀ ਦਰ ਦਾ ਉਲਟ ਲੈ ਕੇ ਭਰਨ ਦਾ ਸਮਾਂ ਕੱਢੋ।" : "Add the inlet rates, then take the reciprocal of the combined rate to get the filling time.";
+    return language === "hi"
+      ? "इनलेट की दरें जोड़ें और संयुक्त दर का व्युत्क्रम लेकर भरने का समय निकालें।"
+      : language === "pa"
+        ? "ਇਨਲੈੱਟ ਦਰਾਂ ਜੋੜੋ ਅਤੇ ਮਿਲੀ ਦਰ ਦਾ ਉਲਟ ਲੈ ਕੇ ਭਰਨ ਦਾ ਸਮਾਂ ਕੱਢੋ।"
+        : "Add the inlet rates, then take the reciprocal of the combined rate to get the filling time.";
   }
   return current;
 }
@@ -156,7 +163,25 @@ function refinedMethod(question: R4Question, language: R4Language): string {
 function cp011Answer(question: R4Question, language: R4Language, answer: string): string | null {
   if (cp(question) !== "TMW-CP-011") return null;
   const labels: Record<string, [string, string, string]> = {
-    findOutputFromArithmeticDailyRates: ["total output", "कुल उत्पादन", "ਕੁੱਲ ਉਤਪਾਦਨ"], findCompletionTimeFromArithmeticDailyRates: ["completion time", "पूरा होने का समय", "ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ"], findInitialRateFromArithmeticTotal: ["first-day output", "पहले दिन का उत्पादन", "ਪਹਿਲੇ ਦਿਨ ਦਾ ਉਤਪਾਦਨ"], findDailyChangeFromArithmeticTotal: ["daily change", "दैनिक बदलाव", "ਰੋਜ਼ਾਨਾ ਬਦਲਾਅ"], findOutputFromGeometricDailyRates: ["total output", "कुल उत्पादन", "ਕੁੱਲ ਉਤਪਾਦਨ"], findCompletionTimeFromGeometricDailyRates: ["completion time", "पूरा होने का समय", "ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ"], findInitialRateFromGeometricTotal: ["first-day output", "पहले दिन का उत्पादन", "ਪਹਿਲੇ ਦਿਨ ਦਾ ਉਤਪਾਦਨ"], findMultiplierFromGeometricTotal: ["daily multiplier", "दैनिक गुणक", "ਰੋਜ਼ਾਨਾ ਗੁਣਕ"], findCompletionTimeAfterThresholdRateSwitch: ["completion time", "पूरा होने का समय", "ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ"], findUnknownThresholdDay: ["switch day", "दर बदलने का दिन", "ਦਰ ਬਦਲਣ ਦਾ ਦਿਨ"], findUnknownPostThresholdRate: ["post-switch rate", "बदलाव के बाद की दर", "ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਦੀ ਦਰ"], findOutputWithVaryingCrewByDay: ["total output", "कुल उत्पादन", "ਕੁੱਲ ਉਤਪਾਦਨ"], findCombinedVariableAgentOutput: ["total output", "कुल उत्पादन", "ਕੁੱਲ ਉਤਪਾਦਨ"], findSignedNetVariableOutput: ["net output", "शुद्ध उत्पादन", "ਸ਼ੁੱਧ ਉਤਪਾਦਨ"], findCompletionTimeFromExplicitRateTable: ["completion time", "पूरा होने का समय", "ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ"], findRequiredDailyAdjustmentForDeadline: ["additional daily rate required", "आवश्यक अतिरिक्त दैनिक दर", "ਲੋੜੀਂਦੀ ਵਾਧੂ ਰੋਜ਼ਾਨਾ ਦਰ"], findOutputAfterThresholdRateSwitch: ["total output", "कुल उत्पादन", "ਕੁੱਲ ਉਤਪਾਦਨ"], findCompletionTimeWithVaryingCrewByDay: ["completion time", "पूरा होने का समय", "ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ"], findPostThresholdRateChange: ["daily rate change", "दैनिक दर में बदलाव", "ਰੋਜ਼ਾਨਾ ਦਰ ਵਿੱਚ ਬਦਲਾਅ"],
+    findOutputFromArithmeticDailyRates: ["total output", "कुल उत्पादन", "ਕੁੱਲ ਉਤਪਾਦਨ"],
+    findCompletionTimeFromArithmeticDailyRates: ["completion time", "पूरा होने का समय", "ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ"],
+    findInitialRateFromArithmeticTotal: ["first-day output", "पहले दिन का उत्पादन", "ਪਹਿਲੇ ਦਿਨ ਦਾ ਉਤਪਾਦਨ"],
+    findDailyChangeFromArithmeticTotal: ["daily change", "दैनिक बदलाव", "ਰੋਜ਼ਾਨਾ ਬਦਲਾਅ"],
+    findOutputFromGeometricDailyRates: ["total output", "कुल उत्पादन", "ਕੁੱਲ ਉਤਪਾਦਨ"],
+    findCompletionTimeFromGeometricDailyRates: ["completion time", "पूरा होने का समय", "ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ"],
+    findInitialRateFromGeometricTotal: ["first-day output", "पहले दिन का उत्पादन", "ਪਹਿਲੇ ਦਿਨ ਦਾ ਉਤਪਾਦਨ"],
+    findMultiplierFromGeometricTotal: ["daily multiplier", "दैनिक गुणक", "ਰੋਜ਼ਾਨਾ ਗੁਣਕ"],
+    findCompletionTimeAfterThresholdRateSwitch: ["completion time", "पूरा होने का समय", "ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ"],
+    findUnknownThresholdDay: ["switch day", "दर बदलने का दिन", "ਦਰ ਬਦਲਣ ਦਾ ਦਿਨ"],
+    findUnknownPostThresholdRate: ["post-switch rate", "बदलाव के बाद की दर", "ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ਦੀ ਦਰ"],
+    findOutputWithVaryingCrewByDay: ["total output", "कुल उत्पादन", "ਕੁੱਲ ਉਤਪਾਦਨ"],
+    findCombinedVariableAgentOutput: ["total output", "कुल उत्पादन", "ਕੁੱਲ ਉਤਪਾਦਨ"],
+    findSignedNetVariableOutput: ["net output", "शुद्ध उत्पादन", "ਸ਼ੁੱਧ ਉਤਪਾਦਨ"],
+    findCompletionTimeFromExplicitRateTable: ["completion time", "पूरा होने का समय", "ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ"],
+    findRequiredDailyAdjustmentForDeadline: ["additional daily rate required", "आवश्यक अतिरिक्त दैनिक दर", "ਲੋੜੀਂਦੀ ਵਾਧੂ ਰੋਜ਼ਾਨਾ ਦਰ"],
+    findOutputAfterThresholdRateSwitch: ["total output", "कुल उत्पादन", "ਕੁੱਲ ਉਤਪਾਦਨ"],
+    findCompletionTimeWithVaryingCrewByDay: ["completion time", "पूरा होने का समय", "ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ"],
+    findPostThresholdRateChange: ["daily rate change", "दैनिक दर में बदलाव", "ਰੋਜ਼ਾਨਾ ਦਰ ਵਿੱਚ ਬਦਲਾਅ"],
   };
   const label = labels[question.solveMode ?? ""];
   if (!label) return null;
@@ -171,7 +196,11 @@ function fixedStem(question: R4Question, language: R4Language): string | undefin
   return question.stem.replace(/\bcompletes 1 components per hour\b/g, "completes 1 component per hour");
 }
 
-export function applyTmw001LearnerExplanationR4ExamReadiness<T extends R4Question>(question: T, qlId: string, language: R4Language): T {
+export function applyTmw001LearnerExplanationR4ExamReadiness<T extends R4Question>(
+  question: T,
+  qlId: string,
+  language: R4Language,
+): T {
   const current = question.learnerExplanation;
   const ordinal = Number(/^TMW-QL-(\d{3})$/.exec(qlId)?.[1] ?? 0);
   if (!current || !ordinal || ordinal > 211) return question;
@@ -187,7 +216,9 @@ export function applyTmw001LearnerExplanationR4ExamReadiness<T extends R4Questio
 
   const r4Errors = validateTmwLearnerExplanationV2(learnerExplanation);
   const visible = [learnerExplanation.method, ...learnerExplanation.solution, learnerExplanation.answer].join(" ");
-  if (/After simplification, the required value is|Continue the calculation with the remaining quantity/i.test(visible)) r4Errors.push("R4 learner explanation contains mechanical boilerplate");
+  if (/After simplification, the required value is|Continue the calculation with the remaining quantity/i.test(visible)) {
+    r4Errors.push("R4 learner explanation contains mechanical boilerplate");
+  }
   const errors = [...(question.validation?.errors ?? []), ...r4Errors];
 
   return {
