@@ -207,8 +207,11 @@ function generateStrengthenedCoreQuestion(
     prototypeId === "MAXIMUM_POSSIBLE_RANK" ||
     prototypeId === "DEFINITE_RANK_OR_INDETERMINATE";
 
+  // Each ordinal owns a disjoint search lane. This prevents editorial fallback
+  // from selecting the same mathematical question for two corpus slots while
+  // preserving the requested answer position (96 is divisible by four).
   for (let attempt = 0; attempt < 32; attempt += 1) {
-    const candidateOrdinal = ordinal + attempt * 4;
+    const candidateOrdinal = ordinal + attempt * 96;
     const question = generateCoreV3Question(prototypeId, candidateOrdinal);
     if (requiresDerivedProof && !hasDerivedCompulsoryRelation(question)) continue;
     return question;
