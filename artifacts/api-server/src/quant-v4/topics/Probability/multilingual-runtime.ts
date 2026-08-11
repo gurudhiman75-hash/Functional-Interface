@@ -23,6 +23,8 @@ import {
 } from "./native-language-primitives";
 import { renderProbabilityMathText } from "./shared/math-text";
 import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
+import { polishNativeExplanationLines, polishNativeVisual } from "./shared/native-final-explanation-renderer";
+import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
 import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
 import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
 import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
@@ -303,17 +305,17 @@ function renderNativeExplanation(
   const workingLabel = getProbabilityNativeTerm("WORKING", language);
   const keyPointLabel = getProbabilityNativeTerm("KEY_POINT", language);
   const finalAnswerLabel = getProbabilityNativeTerm("FINAL_ANSWER", language);
-  const lines = [
+  const lines = polishNativeExplanationLines(source, language, [
     `${approachLabel}: ${editorial.explanation.approach}`,
     `${workingLabel}: ${editorial.explanation.workingLead}`,
     `${workingLabel}: ${localizedEquation(source)}`,
     `${keyPointLabel}: ${editorial.explanation.keyPoint}`,
     `${finalAnswerLabel}: ${source.answer}`,
-  ].map(renderProbabilityMathText);
+  ].map(renderProbabilityMathText));
 
   for (const line of lines) assertProbabilityNativeTextValid(line, language);
   const visuals = source.explanation.visuals.map((visual) =>
-    localizeNativeVisual(visual, source, language, editorial.eventWording));
+    polishNativeVisual(source, language, localizeNativeVisual(visual, source, language, editorial.eventWording)));
   return { lines, wordCount: explanationWordCount(lines), visuals };
 }
 

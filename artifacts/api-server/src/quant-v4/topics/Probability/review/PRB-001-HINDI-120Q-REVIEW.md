@@ -7164,8 +7164,8 @@ A jar contains 5 red and 5 blue marbles. One marble is selected at random. What 
 5. Answer — The required probability is \(\frac{1}{2}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 5 लाल और 5 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — जार में कंचों की संरचना
+  - Alt: 5 लाल और 5 नीले कंचों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -7227,7 +7227,7 @@ A box contains 7 red and 5 blue pens. 2 pens are selected together without repla
 ### Native explanation to review
 
 1. विधि: चयन एक साथ और बिना पुनःस्थापन के है, इसलिए संयोजन आधारित नमूना-स्थान बनाएं।
-2. गणना: कुल चयन C(कुल गेंदें, चुनी गेंदें) और अनुकूल चयन घटना की संरचना से गिनें।
+2. गणना: कुल चयन C(कुल पेन, चुनी पेन) और अनुकूल चयन घटना की संरचना से गिनें।
 3. गणना: \(31/66=31/66\)
 4. मुख्य बिंदु: एक साथ चयन में क्रम महत्वपूर्ण नहीं है; लाल-नीली संरचना को संयोजन से गिनें।
 5. अंतिम उत्तर: \(\frac{31}{66}\)
@@ -7245,8 +7245,8 @@ A box contains 7 red and 5 blue pens. 2 pens are selected together without repla
 9. Answer — The required probability is \(\frac{31}{66}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 7 लाल और 5 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — बॉक्स में पेनों की संरचना
+  - Alt: 7 लाल और 5 नीले पेनों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -7308,7 +7308,7 @@ A pouch contains 7 red and 4 blue coloured stones. Two coloured stones are selec
 ### Native explanation to review
 
 1. विधि: चयन एक साथ और बिना पुनःस्थापन के है, इसलिए संयोजन आधारित नमूना-स्थान बनाएं।
-2. गणना: कुल चयन C(कुल गेंदें, चुनी गेंदें) और अनुकूल चयन घटना की संरचना से गिनें।
+2. गणना: कुल चयन C(कुल रंगीन पत्थर, चुनी रंगीन पत्थर) और अनुकूल चयन घटना की संरचना से गिनें।
 3. गणना: \(28/55=28/55\)
 4. मुख्य बिंदु: एक साथ चयन में क्रम महत्वपूर्ण नहीं है; लाल-नीली संरचना को संयोजन से गिनें।
 5. अंतिम उत्तर: \(\frac{28}{55}\)
@@ -7324,8 +7324,8 @@ A pouch contains 7 red and 4 blue coloured stones. Two coloured stones are selec
 7. Answer — The required probability is \(\frac{28}{55}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 7 लाल और 4 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — पाउच में रंगीन पत्थरों की संरचना
+  - Alt: 7 लाल और 4 नीले रंगीन पत्थरों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -7469,7 +7469,7 @@ A jar contains 5 red and 5 blue marbles. 2 marbles are selected together without
 ### Native explanation to review
 
 1. विधि: चयन एक साथ और बिना पुनःस्थापन के है, इसलिए संयोजन आधारित नमूना-स्थान बनाएं।
-2. गणना: कुल चयन C(कुल गेंदें, चुनी गेंदें) और अनुकूल चयन घटना की संरचना से गिनें।
+2. गणना: कुल चयन C(कुल कंचे, चुनी कंचे) और अनुकूल चयन घटना की संरचना से गिनें।
 3. गणना: \(10/45=2/9\)
 4. मुख्य बिंदु: एक साथ चयन में क्रम महत्वपूर्ण नहीं है; लाल-नीली संरचना को संयोजन से गिनें।
 5. अंतिम उत्तर: \(\frac{2}{9}\)
@@ -7486,8 +7486,8 @@ A jar contains 5 red and 5 blue marbles. 2 marbles are selected together without
 8. Answer — The required probability is \(\frac{2}{9}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 5 लाल और 5 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — जार में कंचों की संरचना
+  - Alt: 5 लाल और 5 नीले कंचों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -7567,8 +7567,8 @@ A box contains 4 red and 8 blue pens. 2 pens are selected together without repla
 9. Answer — The required probability is \(\frac{19}{33}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 4 लाल और 8 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — बॉक्स में पेनों की संरचना
+  - Alt: 4 लाल और 8 नीले पेनों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -7644,8 +7644,8 @@ A pouch contains 12 coloured stones. The probability of selecting a red stone is
 5. Answer — The required number is 7.
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 7 लाल और 5 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — पाउच में रंगीन पत्थरों की संरचना
+  - Alt: 7 लाल और 5 नीले रंगीन पत्थरों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -7803,8 +7803,8 @@ A jar contains 8 red and 7 blue marbles. One marble is selected at random. What 
 5. Answer — The required probability is \(\frac{8}{15}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 8 लाल और 7 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — जार में कंचों की संरचना
+  - Alt: 8 लाल और 7 नीले कंचों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -7866,7 +7866,7 @@ A box contains 7 red and 4 blue pens. 2 pens are selected together without repla
 ### Native explanation to review
 
 1. विधि: चयन एक साथ और बिना पुनःस्थापन के है, इसलिए संयोजन आधारित नमूना-स्थान बनाएं।
-2. गणना: कुल चयन C(कुल गेंदें, चुनी गेंदें) और अनुकूल चयन घटना की संरचना से गिनें।
+2. गणना: कुल चयन C(कुल पेन, चुनी पेन) और अनुकूल चयन घटना की संरचना से गिनें।
 3. गणना: \(27/55=27/55\)
 4. मुख्य बिंदु: एक साथ चयन में क्रम महत्वपूर्ण नहीं है; लाल-नीली संरचना को संयोजन से गिनें।
 5. अंतिम उत्तर: \(\frac{27}{55}\)
@@ -7884,8 +7884,8 @@ A box contains 7 red and 4 blue pens. 2 pens are selected together without repla
 9. Answer — The required probability is \(\frac{27}{55}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 7 लाल और 4 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — बॉक्स में पेनों की संरचना
+  - Alt: 7 लाल और 4 नीले पेनों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -7947,7 +7947,7 @@ A pouch contains 7 red and 4 blue coloured stones. Two coloured stones are selec
 ### Native explanation to review
 
 1. विधि: चयन एक साथ और बिना पुनःस्थापन के है, इसलिए संयोजन आधारित नमूना-स्थान बनाएं।
-2. गणना: कुल चयन C(कुल गेंदें, चुनी गेंदें) और अनुकूल चयन घटना की संरचना से गिनें।
+2. गणना: कुल चयन C(कुल रंगीन पत्थर, चुनी रंगीन पत्थर) और अनुकूल चयन घटना की संरचना से गिनें।
 3. गणना: \(28/55=28/55\)
 4. मुख्य बिंदु: एक साथ चयन में क्रम महत्वपूर्ण नहीं है; लाल-नीली संरचना को संयोजन से गिनें।
 5. अंतिम उत्तर: \(\frac{28}{55}\)
@@ -7963,8 +7963,8 @@ A pouch contains 7 red and 4 blue coloured stones. Two coloured stones are selec
 7. Answer — The required probability is \(\frac{28}{55}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 7 लाल और 4 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — पाउच में रंगीन पत्थरों की संरचना
+  - Alt: 7 लाल और 4 नीले रंगीन पत्थरों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -8107,7 +8107,7 @@ A jar contains 6 red and 6 blue marbles. 2 marbles are selected together without
 ### Native explanation to review
 
 1. विधि: चयन एक साथ और बिना पुनःस्थापन के है, इसलिए संयोजन आधारित नमूना-स्थान बनाएं।
-2. गणना: कुल चयन C(कुल गेंदें, चुनी गेंदें) और अनुकूल चयन घटना की संरचना से गिनें।
+2. गणना: कुल चयन C(कुल कंचे, चुनी कंचे) और अनुकूल चयन घटना की संरचना से गिनें।
 3. गणना: \(15/66=5/22\)
 4. मुख्य बिंदु: एक साथ चयन में क्रम महत्वपूर्ण नहीं है; लाल-नीली संरचना को संयोजन से गिनें।
 5. अंतिम उत्तर: \(\frac{5}{22}\)
@@ -8124,8 +8124,8 @@ A jar contains 6 red and 6 blue marbles. 2 marbles are selected together without
 8. Answer — The required probability is \(\frac{5}{22}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 6 लाल और 6 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — जार में कंचों की संरचना
+  - Alt: 6 लाल और 6 नीले कंचों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -8205,8 +8205,8 @@ A box contains 7 red and 9 blue pens. 2 pens are selected together without repla
 9. Answer — The required probability is \(\frac{7}{10}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 7 लाल और 9 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — बॉक्स में पेनों की संरचना
+  - Alt: 7 लाल और 9 नीले पेनों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -8282,8 +8282,8 @@ A pouch contains 14 coloured stones. The probability of selecting a red stone is
 5. Answer — The required number is 7.
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 7 लाल और 7 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — पाउच में रंगीन पत्थरों की संरचना
+  - Alt: 7 लाल और 7 नीले रंगीन पत्थरों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -8441,8 +8441,8 @@ A jar contains 7 red and 8 blue marbles. One marble is selected at random. What 
 5. Answer — The required probability is \(\frac{7}{15}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 7 लाल और 8 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — जार में कंचों की संरचना
+  - Alt: 7 लाल और 8 नीले कंचों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -8504,7 +8504,7 @@ A box contains 4 red and 8 blue pens. 2 pens are selected together without repla
 ### Native explanation to review
 
 1. विधि: चयन एक साथ और बिना पुनःस्थापन के है, इसलिए संयोजन आधारित नमूना-स्थान बनाएं।
-2. गणना: कुल चयन C(कुल गेंदें, चुनी गेंदें) और अनुकूल चयन घटना की संरचना से गिनें।
+2. गणना: कुल चयन C(कुल पेन, चुनी पेन) और अनुकूल चयन घटना की संरचना से गिनें।
 3. गणना: \(34/66=17/33\)
 4. मुख्य बिंदु: एक साथ चयन में क्रम महत्वपूर्ण नहीं है; लाल-नीली संरचना को संयोजन से गिनें।
 5. अंतिम उत्तर: \(\frac{17}{33}\)
@@ -8523,8 +8523,8 @@ A box contains 4 red and 8 blue pens. 2 pens are selected together without repla
 10. Answer — The required probability is \(\frac{17}{33}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 4 लाल और 8 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — बॉक्स में पेनों की संरचना
+  - Alt: 4 लाल और 8 नीले पेनों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -8586,7 +8586,7 @@ A pouch contains 5 red and 7 blue coloured stones. Two coloured stones are selec
 ### Native explanation to review
 
 1. विधि: चयन एक साथ और बिना पुनःस्थापन के है, इसलिए संयोजन आधारित नमूना-स्थान बनाएं।
-2. गणना: कुल चयन C(कुल गेंदें, चुनी गेंदें) और अनुकूल चयन घटना की संरचना से गिनें।
+2. गणना: कुल चयन C(कुल रंगीन पत्थर, चुनी रंगीन पत्थर) और अनुकूल चयन घटना की संरचना से गिनें।
 3. गणना: \(35/66=35/66\)
 4. मुख्य बिंदु: एक साथ चयन में क्रम महत्वपूर्ण नहीं है; लाल-नीली संरचना को संयोजन से गिनें।
 5. अंतिम उत्तर: \(\frac{35}{66}\)
@@ -8602,8 +8602,8 @@ A pouch contains 5 red and 7 blue coloured stones. Two coloured stones are selec
 7. Answer — The required probability is \(\frac{35}{66}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 5 लाल और 7 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — पाउच में रंगीन पत्थरों की संरचना
+  - Alt: 5 लाल और 7 नीले रंगीन पत्थरों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -8746,7 +8746,7 @@ A jar contains 9 red and 6 blue marbles. 2 marbles are selected together without
 ### Native explanation to review
 
 1. विधि: चयन एक साथ और बिना पुनःस्थापन के है, इसलिए संयोजन आधारित नमूना-स्थान बनाएं।
-2. गणना: कुल चयन C(कुल गेंदें, चुनी गेंदें) और अनुकूल चयन घटना की संरचना से गिनें।
+2. गणना: कुल चयन C(कुल कंचे, चुनी कंचे) और अनुकूल चयन घटना की संरचना से गिनें।
 3. गणना: \(15/105=1/7\)
 4. मुख्य बिंदु: एक साथ चयन में क्रम महत्वपूर्ण नहीं है; लाल-नीली संरचना को संयोजन से गिनें।
 5. अंतिम उत्तर: \(\frac{1}{7}\)
@@ -8763,8 +8763,8 @@ A jar contains 9 red and 6 blue marbles. 2 marbles are selected together without
 8. Answer — The required probability is \(\frac{1}{7}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 9 लाल और 6 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — जार में कंचों की संरचना
+  - Alt: 9 लाल और 6 नीले कंचों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -8844,8 +8844,8 @@ A box contains 7 red and 9 blue pens. 2 pens are selected together without repla
 9. Answer — The required probability is \(\frac{7}{10}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 7 लाल और 9 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — बॉक्स में पेनों की संरचना
+  - Alt: 7 लाल और 9 नीले पेनों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -8921,8 +8921,8 @@ A pouch contains 18 coloured stones. The probability of selecting a red stone is
 5. Answer — The required number is 9.
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 9 लाल और 9 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — पाउच में रंगीन पत्थरों की संरचना
+  - Alt: 9 लाल और 9 नीले रंगीन पत्थरों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -9080,8 +9080,8 @@ A jar contains 9 red and 9 blue marbles. One marble is selected at random. What 
 5. Answer — The required probability is \(\frac{1}{2}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 9 लाल और 9 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — जार में कंचों की संरचना
+  - Alt: 9 लाल और 9 नीले कंचों वाला चयन-चित्र।
 
 ### Parity evidence
 
@@ -9143,7 +9143,7 @@ A box contains 4 red and 6 blue pens. 2 pens are selected together without repla
 ### Native explanation to review
 
 1. विधि: चयन एक साथ और बिना पुनःस्थापन के है, इसलिए संयोजन आधारित नमूना-स्थान बनाएं।
-2. गणना: कुल चयन C(कुल गेंदें, चुनी गेंदें) और अनुकूल चयन घटना की संरचना से गिनें।
+2. गणना: कुल चयन C(कुल पेन, चुनी पेन) और अनुकूल चयन घटना की संरचना से गिनें।
 3. गणना: \(21/45=7/15\)
 4. मुख्य बिंदु: एक साथ चयन में क्रम महत्वपूर्ण नहीं है; लाल-नीली संरचना को संयोजन से गिनें।
 5. अंतिम उत्तर: \(\frac{7}{15}\)
@@ -9162,8 +9162,8 @@ A box contains 4 red and 6 blue pens. 2 pens are selected together without repla
 10. Answer — The required probability is \(\frac{7}{15}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — बैग में गेंदों की संरचना
-  - Alt: 4 लाल और 6 नीली गेंदों वाला चयन-चित्र।
+- **URN_COMPOSITION_DISPLAY** — बॉक्स में पेनों की संरचना
+  - Alt: 4 लाल और 6 नीले पेनों वाला चयन-चित्र।
 
 ### Parity evidence
 

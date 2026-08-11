@@ -7164,8 +7164,8 @@ A jar contains 5 red and 5 blue marbles. One marble is selected at random. What 
 5. Answer — The required probability is \(\frac{1}{2}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 5 ਲਾਲ ਅਤੇ 5 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਜਾਰ ਵਿੱਚ ਕੰਚਿਆਂ ਦੀ ਬਣਤਰ
+  - Alt: 5 ਲਾਲ ਅਤੇ 5 ਨੀਲੇ ਕੰਚਿਆਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -7227,7 +7227,7 @@ A box contains 7 red and 5 blue pens. 2 pens are selected together without repla
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਚੋਣ ਇਕੱਠੇ ਅਤੇ ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਸੰਚਯ-ਆਧਾਰਿਤ ਨਮੂਨਾ ਅਵਕਾਸ ਬਣਾਓ।
-2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਗੇਂਦਾਂ, ਚੁਣੀਆਂ ਗੇਂਦਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
+2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਪੈਨਾਂ, ਚੁਣੀਆਂ ਪੈਨਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
 3. ਗਣਨਾ: \(31/66=31/66\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਇਕੱਠੀ ਚੋਣ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ; ਲਾਲ-ਨੀਲੀ ਬਣਤਰ ਨੂੰ ਸੰਚਯ ਨਾਲ ਗਿਣੋ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{31}{66}\)
@@ -7245,8 +7245,8 @@ A box contains 7 red and 5 blue pens. 2 pens are selected together without repla
 9. Answer — The required probability is \(\frac{31}{66}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 7 ਲਾਲ ਅਤੇ 5 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਬਾਕਸ ਵਿੱਚ ਪੈਨਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 7 ਲਾਲ ਅਤੇ 5 ਨੀਲੇ ਪੈਨਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -7308,7 +7308,7 @@ A pouch contains 7 red and 4 blue coloured stones. Two coloured stones are selec
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਚੋਣ ਇਕੱਠੇ ਅਤੇ ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਸੰਚਯ-ਆਧਾਰਿਤ ਨਮੂਨਾ ਅਵਕਾਸ ਬਣਾਓ।
-2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਗੇਂਦਾਂ, ਚੁਣੀਆਂ ਗੇਂਦਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
+2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਰੰਗੀਨ ਪੱਥਰਾਂ, ਚੁਣੀਆਂ ਰੰਗੀਨ ਪੱਥਰਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
 3. ਗਣਨਾ: \(28/55=28/55\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਇਕੱਠੀ ਚੋਣ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ; ਲਾਲ-ਨੀਲੀ ਬਣਤਰ ਨੂੰ ਸੰਚਯ ਨਾਲ ਗਿਣੋ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{28}{55}\)
@@ -7324,8 +7324,8 @@ A pouch contains 7 red and 4 blue coloured stones. Two coloured stones are selec
 7. Answer — The required probability is \(\frac{28}{55}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 7 ਲਾਲ ਅਤੇ 4 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਪਾਊਚ ਵਿੱਚ ਰੰਗੀਨ ਪੱਥਰਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 7 ਲਾਲ ਅਤੇ 4 ਨੀਲੇ ਰੰਗੀਨ ਪੱਥਰਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -7469,7 +7469,7 @@ A jar contains 5 red and 5 blue marbles. 2 marbles are selected together without
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਚੋਣ ਇਕੱਠੇ ਅਤੇ ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਸੰਚਯ-ਆਧਾਰਿਤ ਨਮੂਨਾ ਅਵਕਾਸ ਬਣਾਓ।
-2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਗੇਂਦਾਂ, ਚੁਣੀਆਂ ਗੇਂਦਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
+2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਕੰਚਿਆਂ, ਚੁਣੀਆਂ ਕੰਚਿਆਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
 3. ਗਣਨਾ: \(10/45=2/9\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਇਕੱਠੀ ਚੋਣ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ; ਲਾਲ-ਨੀਲੀ ਬਣਤਰ ਨੂੰ ਸੰਚਯ ਨਾਲ ਗਿਣੋ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{2}{9}\)
@@ -7486,8 +7486,8 @@ A jar contains 5 red and 5 blue marbles. 2 marbles are selected together without
 8. Answer — The required probability is \(\frac{2}{9}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 5 ਲਾਲ ਅਤੇ 5 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਜਾਰ ਵਿੱਚ ਕੰਚਿਆਂ ਦੀ ਬਣਤਰ
+  - Alt: 5 ਲਾਲ ਅਤੇ 5 ਨੀਲੇ ਕੰਚਿਆਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -7567,8 +7567,8 @@ A box contains 4 red and 8 blue pens. 2 pens are selected together without repla
 9. Answer — The required probability is \(\frac{19}{33}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 4 ਲਾਲ ਅਤੇ 8 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਬਾਕਸ ਵਿੱਚ ਪੈਨਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 4 ਲਾਲ ਅਤੇ 8 ਨੀਲੇ ਪੈਨਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -7644,8 +7644,8 @@ A pouch contains 12 coloured stones. The probability of selecting a red stone is
 5. Answer — The required number is 7.
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 7 ਲਾਲ ਅਤੇ 5 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਪਾਊਚ ਵਿੱਚ ਰੰਗੀਨ ਪੱਥਰਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 7 ਲਾਲ ਅਤੇ 5 ਨੀਲੇ ਰੰਗੀਨ ਪੱਥਰਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -7803,8 +7803,8 @@ A jar contains 8 red and 7 blue marbles. One marble is selected at random. What 
 5. Answer — The required probability is \(\frac{8}{15}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 8 ਲਾਲ ਅਤੇ 7 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਜਾਰ ਵਿੱਚ ਕੰਚਿਆਂ ਦੀ ਬਣਤਰ
+  - Alt: 8 ਲਾਲ ਅਤੇ 7 ਨੀਲੇ ਕੰਚਿਆਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -7866,7 +7866,7 @@ A box contains 7 red and 4 blue pens. 2 pens are selected together without repla
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਚੋਣ ਇਕੱਠੇ ਅਤੇ ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਸੰਚਯ-ਆਧਾਰਿਤ ਨਮੂਨਾ ਅਵਕਾਸ ਬਣਾਓ।
-2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਗੇਂਦਾਂ, ਚੁਣੀਆਂ ਗੇਂਦਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
+2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਪੈਨਾਂ, ਚੁਣੀਆਂ ਪੈਨਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
 3. ਗਣਨਾ: \(27/55=27/55\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਇਕੱਠੀ ਚੋਣ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ; ਲਾਲ-ਨੀਲੀ ਬਣਤਰ ਨੂੰ ਸੰਚਯ ਨਾਲ ਗਿਣੋ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{27}{55}\)
@@ -7884,8 +7884,8 @@ A box contains 7 red and 4 blue pens. 2 pens are selected together without repla
 9. Answer — The required probability is \(\frac{27}{55}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 7 ਲਾਲ ਅਤੇ 4 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਬਾਕਸ ਵਿੱਚ ਪੈਨਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 7 ਲਾਲ ਅਤੇ 4 ਨੀਲੇ ਪੈਨਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -7947,7 +7947,7 @@ A pouch contains 7 red and 4 blue coloured stones. Two coloured stones are selec
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਚੋਣ ਇਕੱਠੇ ਅਤੇ ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਸੰਚਯ-ਆਧਾਰਿਤ ਨਮੂਨਾ ਅਵਕਾਸ ਬਣਾਓ।
-2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਗੇਂਦਾਂ, ਚੁਣੀਆਂ ਗੇਂਦਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
+2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਰੰਗੀਨ ਪੱਥਰਾਂ, ਚੁਣੀਆਂ ਰੰਗੀਨ ਪੱਥਰਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
 3. ਗਣਨਾ: \(28/55=28/55\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਇਕੱਠੀ ਚੋਣ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ; ਲਾਲ-ਨੀਲੀ ਬਣਤਰ ਨੂੰ ਸੰਚਯ ਨਾਲ ਗਿਣੋ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{28}{55}\)
@@ -7963,8 +7963,8 @@ A pouch contains 7 red and 4 blue coloured stones. Two coloured stones are selec
 7. Answer — The required probability is \(\frac{28}{55}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 7 ਲਾਲ ਅਤੇ 4 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਪਾਊਚ ਵਿੱਚ ਰੰਗੀਨ ਪੱਥਰਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 7 ਲਾਲ ਅਤੇ 4 ਨੀਲੇ ਰੰਗੀਨ ਪੱਥਰਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -8107,7 +8107,7 @@ A jar contains 6 red and 6 blue marbles. 2 marbles are selected together without
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਚੋਣ ਇਕੱਠੇ ਅਤੇ ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਸੰਚਯ-ਆਧਾਰਿਤ ਨਮੂਨਾ ਅਵਕਾਸ ਬਣਾਓ।
-2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਗੇਂਦਾਂ, ਚੁਣੀਆਂ ਗੇਂਦਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
+2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਕੰਚਿਆਂ, ਚੁਣੀਆਂ ਕੰਚਿਆਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
 3. ਗਣਨਾ: \(15/66=5/22\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਇਕੱਠੀ ਚੋਣ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ; ਲਾਲ-ਨੀਲੀ ਬਣਤਰ ਨੂੰ ਸੰਚਯ ਨਾਲ ਗਿਣੋ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{5}{22}\)
@@ -8124,8 +8124,8 @@ A jar contains 6 red and 6 blue marbles. 2 marbles are selected together without
 8. Answer — The required probability is \(\frac{5}{22}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 6 ਲਾਲ ਅਤੇ 6 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਜਾਰ ਵਿੱਚ ਕੰਚਿਆਂ ਦੀ ਬਣਤਰ
+  - Alt: 6 ਲਾਲ ਅਤੇ 6 ਨੀਲੇ ਕੰਚਿਆਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -8205,8 +8205,8 @@ A box contains 7 red and 9 blue pens. 2 pens are selected together without repla
 9. Answer — The required probability is \(\frac{7}{10}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 7 ਲਾਲ ਅਤੇ 9 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਬਾਕਸ ਵਿੱਚ ਪੈਨਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 7 ਲਾਲ ਅਤੇ 9 ਨੀਲੇ ਪੈਨਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -8282,8 +8282,8 @@ A pouch contains 14 coloured stones. The probability of selecting a red stone is
 5. Answer — The required number is 7.
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 7 ਲਾਲ ਅਤੇ 7 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਪਾਊਚ ਵਿੱਚ ਰੰਗੀਨ ਪੱਥਰਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 7 ਲਾਲ ਅਤੇ 7 ਨੀਲੇ ਰੰਗੀਨ ਪੱਥਰਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -8441,8 +8441,8 @@ A jar contains 7 red and 8 blue marbles. One marble is selected at random. What 
 5. Answer — The required probability is \(\frac{7}{15}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 7 ਲਾਲ ਅਤੇ 8 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਜਾਰ ਵਿੱਚ ਕੰਚਿਆਂ ਦੀ ਬਣਤਰ
+  - Alt: 7 ਲਾਲ ਅਤੇ 8 ਨੀਲੇ ਕੰਚਿਆਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -8504,7 +8504,7 @@ A box contains 4 red and 8 blue pens. 2 pens are selected together without repla
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਚੋਣ ਇਕੱਠੇ ਅਤੇ ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਸੰਚਯ-ਆਧਾਰਿਤ ਨਮੂਨਾ ਅਵਕਾਸ ਬਣਾਓ।
-2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਗੇਂਦਾਂ, ਚੁਣੀਆਂ ਗੇਂਦਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
+2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਪੈਨਾਂ, ਚੁਣੀਆਂ ਪੈਨਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
 3. ਗਣਨਾ: \(34/66=17/33\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਇਕੱਠੀ ਚੋਣ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ; ਲਾਲ-ਨੀਲੀ ਬਣਤਰ ਨੂੰ ਸੰਚਯ ਨਾਲ ਗਿਣੋ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{17}{33}\)
@@ -8523,8 +8523,8 @@ A box contains 4 red and 8 blue pens. 2 pens are selected together without repla
 10. Answer — The required probability is \(\frac{17}{33}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 4 ਲਾਲ ਅਤੇ 8 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਬਾਕਸ ਵਿੱਚ ਪੈਨਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 4 ਲਾਲ ਅਤੇ 8 ਨੀਲੇ ਪੈਨਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -8586,7 +8586,7 @@ A pouch contains 5 red and 7 blue coloured stones. Two coloured stones are selec
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਚੋਣ ਇਕੱਠੇ ਅਤੇ ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਸੰਚਯ-ਆਧਾਰਿਤ ਨਮੂਨਾ ਅਵਕਾਸ ਬਣਾਓ।
-2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਗੇਂਦਾਂ, ਚੁਣੀਆਂ ਗੇਂਦਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
+2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਰੰਗੀਨ ਪੱਥਰਾਂ, ਚੁਣੀਆਂ ਰੰਗੀਨ ਪੱਥਰਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
 3. ਗਣਨਾ: \(35/66=35/66\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਇਕੱਠੀ ਚੋਣ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ; ਲਾਲ-ਨੀਲੀ ਬਣਤਰ ਨੂੰ ਸੰਚਯ ਨਾਲ ਗਿਣੋ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{35}{66}\)
@@ -8602,8 +8602,8 @@ A pouch contains 5 red and 7 blue coloured stones. Two coloured stones are selec
 7. Answer — The required probability is \(\frac{35}{66}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 5 ਲਾਲ ਅਤੇ 7 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਪਾਊਚ ਵਿੱਚ ਰੰਗੀਨ ਪੱਥਰਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 5 ਲਾਲ ਅਤੇ 7 ਨੀਲੇ ਰੰਗੀਨ ਪੱਥਰਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -8746,7 +8746,7 @@ A jar contains 9 red and 6 blue marbles. 2 marbles are selected together without
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਚੋਣ ਇਕੱਠੇ ਅਤੇ ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਸੰਚਯ-ਆਧਾਰਿਤ ਨਮੂਨਾ ਅਵਕਾਸ ਬਣਾਓ।
-2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਗੇਂਦਾਂ, ਚੁਣੀਆਂ ਗੇਂਦਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
+2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਕੰਚਿਆਂ, ਚੁਣੀਆਂ ਕੰਚਿਆਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
 3. ਗਣਨਾ: \(15/105=1/7\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਇਕੱਠੀ ਚੋਣ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ; ਲਾਲ-ਨੀਲੀ ਬਣਤਰ ਨੂੰ ਸੰਚਯ ਨਾਲ ਗਿਣੋ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{1}{7}\)
@@ -8763,8 +8763,8 @@ A jar contains 9 red and 6 blue marbles. 2 marbles are selected together without
 8. Answer — The required probability is \(\frac{1}{7}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 9 ਲਾਲ ਅਤੇ 6 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਜਾਰ ਵਿੱਚ ਕੰਚਿਆਂ ਦੀ ਬਣਤਰ
+  - Alt: 9 ਲਾਲ ਅਤੇ 6 ਨੀਲੇ ਕੰਚਿਆਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -8844,8 +8844,8 @@ A box contains 7 red and 9 blue pens. 2 pens are selected together without repla
 9. Answer — The required probability is \(\frac{7}{10}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 7 ਲਾਲ ਅਤੇ 9 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਬਾਕਸ ਵਿੱਚ ਪੈਨਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 7 ਲਾਲ ਅਤੇ 9 ਨੀਲੇ ਪੈਨਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -8921,8 +8921,8 @@ A pouch contains 18 coloured stones. The probability of selecting a red stone is
 5. Answer — The required number is 9.
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 9 ਲਾਲ ਅਤੇ 9 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਪਾਊਚ ਵਿੱਚ ਰੰਗੀਨ ਪੱਥਰਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 9 ਲਾਲ ਅਤੇ 9 ਨੀਲੇ ਰੰਗੀਨ ਪੱਥਰਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -9080,8 +9080,8 @@ A jar contains 9 red and 9 blue marbles. One marble is selected at random. What 
 5. Answer — The required probability is \(\frac{1}{2}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 9 ਲਾਲ ਅਤੇ 9 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਜਾਰ ਵਿੱਚ ਕੰਚਿਆਂ ਦੀ ਬਣਤਰ
+  - Alt: 9 ਲਾਲ ਅਤੇ 9 ਨੀਲੇ ਕੰਚਿਆਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
@@ -9143,7 +9143,7 @@ A box contains 4 red and 6 blue pens. 2 pens are selected together without repla
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਚੋਣ ਇਕੱਠੇ ਅਤੇ ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਸੰਚਯ-ਆਧਾਰਿਤ ਨਮੂਨਾ ਅਵਕਾਸ ਬਣਾਓ।
-2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਗੇਂਦਾਂ, ਚੁਣੀਆਂ ਗੇਂਦਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
+2. ਗਣਨਾ: ਕੁੱਲ ਚੋਣ C(ਕੁੱਲ ਪੈਨਾਂ, ਚੁਣੀਆਂ ਪੈਨਾਂ) ਅਤੇ ਅਨੁਕੂਲ ਚੋਣ ਘਟਨਾ ਦੀ ਬਣਤਰ ਤੋਂ ਗਿਣੋ।
 3. ਗਣਨਾ: \(21/45=7/15\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਇਕੱਠੀ ਚੋਣ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ; ਲਾਲ-ਨੀਲੀ ਬਣਤਰ ਨੂੰ ਸੰਚਯ ਨਾਲ ਗਿਣੋ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{7}{15}\)
@@ -9162,8 +9162,8 @@ A box contains 4 red and 6 blue pens. 2 pens are selected together without repla
 10. Answer — The required probability is \(\frac{7}{15}\).
 
 **Native visuals:**
-- **URN_COMPOSITION_DISPLAY** — ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ
-  - Alt: 4 ਲਾਲ ਅਤੇ 6 ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
+- **URN_COMPOSITION_DISPLAY** — ਬਾਕਸ ਵਿੱਚ ਪੈਨਾਂ ਦੀ ਬਣਤਰ
+  - Alt: 4 ਲਾਲ ਅਤੇ 6 ਨੀਲੇ ਪੈਨਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।
 
 ### Parity evidence
 
