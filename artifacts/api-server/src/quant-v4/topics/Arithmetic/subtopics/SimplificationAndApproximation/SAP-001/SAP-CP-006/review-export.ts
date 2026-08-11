@@ -4,7 +4,7 @@ import {
   type SapCp006Package,
   type SapCp006PrototypeId,
 } from "./runtime";
-import { generateSapCp006Editorial } from "./editorial-runtime";
+import { generateSapCp006Editorial } from "./editorial-runtime-v2";
 
 export type SapCp006ReviewRecord = SapCp006Package & { readonly questionId: string };
 
