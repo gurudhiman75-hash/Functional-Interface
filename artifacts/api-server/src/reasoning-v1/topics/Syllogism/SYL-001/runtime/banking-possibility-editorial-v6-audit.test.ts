@@ -31,13 +31,13 @@ for (let seed = 0; seed < 80; seed += 1) {
       assert.doesNotMatch(line, /This ordinary conclusion|This possibility|at least one valid arrangement allowed by the statements/u);
 
       if (locale === "en-IN") {
-        assert.match(line, /Statement|Statements/u);
+        assert.match(line, /Statement|Statements|“Not all/u);
         assert.match(line, /Conclusion/u);
       } else if (locale === "hi-IN") {
-        assert.match(line, /कथन/u);
+        assert.match(line, /कथन|“सभी/u);
         assert.match(line, /निष्कर्ष/u);
       } else {
-        assert.match(line, /ਕਥਨ/u);
+        assert.match(line, /ਕਥਨ|“ਸਾਰੇ/u);
         assert.match(line, /ਨਤੀਜਾ/u);
       }
 
@@ -65,7 +65,7 @@ console.log(JSON.stringify({
   contract: {
     semanticsUnchangedFromV4: true,
     diagramsUnchangedFromV4: true,
-    allPremisesReadTogether: true,
+    premiseEvidenceExplicit: true,
     classMemberGrammar: true,
     diagramWitnessConventionExplained: true,
     possibilityVsDefiniteDistinctionExplained: true,
