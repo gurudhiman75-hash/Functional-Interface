@@ -24,6 +24,13 @@ interface Core009Roles {
   d: TermId;
 }
 
+interface LocalizedRoles {
+  a: string;
+  b: string;
+  c: string;
+  d: string;
+}
+
 export interface BankingFourTermDiagramV4 {
   schemaVersion: "banking-possibility-four-term-diagram-v4";
   renderer: "SAFETY_GATED_FOUR_TERM_EXAM_VENN";
@@ -87,22 +94,25 @@ function pointOutside(point: Point, shape: Shape, margin = 5): boolean {
   return Math.hypot(point.x - shape.cx, point.y - shape.cy) >= shape.r + margin;
 }
 
-function copy(locale: SylLocale): { caption: string; description: string } {
+function copy(
+  locale: SylLocale,
+  labels: LocalizedRoles,
+): { caption: string; description: string } {
   if (locale === "hi-IN") {
     return {
       caption: "चार पदों वाले कथनों का संयुक्त वेन आरेख। निष्कर्ष I और II दोनों को इसी एक व्यवस्था पर जाँचें।",
-      description: "A और B वाले वर्ग अलग हैं। C वाला वर्ग D के अंदर है और A तथा B दोनों से केवल संभावित रूप से काटता है। नीला × C और A के साझा भाग में है, इसलिए वह D के अंदर और B के बाहर भी है। अनकहे प्रतिच्छेद अपने-आप अस्तित्व सिद्ध नहीं करते।",
+      description: `${labels.a} और ${labels.b} वाले वर्ग अलग हैं। ${labels.c} वाला वर्ग ${labels.d} के अंदर है और ${labels.a} तथा ${labels.b} दोनों से केवल संभावित रूप से काटता है। नीला × ${labels.c} और ${labels.a} के साझा भाग में है, इसलिए वह ${labels.d} के अंदर और ${labels.b} के बाहर भी है। बिना × वाला प्रतिच्छेद अपने-आप अस्तित्व सिद्ध नहीं करता।`,
     };
   }
   if (locale === "pa-IN") {
     return {
       caption: "ਚਾਰ ਪਦਾਂ ਵਾਲੇ ਕਥਨਾਂ ਦਾ ਇਕੱਠਾ ਵੇਨ ਚਿੱਤਰ। ਨਤੀਜਾ I ਅਤੇ II ਦੋਵੇਂ ਨੂੰ ਇਸੇ ਇਕ ਬਣਤਰ ਉੱਤੇ ਜਾਂਚੋ।",
-      description: "A ਅਤੇ B ਵਾਲੇ ਵਰਗ ਵੱਖ ਹਨ। C ਵਾਲਾ ਵਰਗ D ਦੇ ਅੰਦਰ ਹੈ ਅਤੇ A ਤੇ B ਦੋਵਾਂ ਨਾਲ ਸਿਰਫ਼ ਸੰਭਵ ਓਵਰਲੈਪ ਰੱਖਦਾ ਹੈ। ਨੀਲਾ × C ਅਤੇ A ਦੇ ਸਾਂਝੇ ਹਿੱਸੇ ਵਿੱਚ ਹੈ, ਇਸ ਲਈ ਉਹ D ਦੇ ਅੰਦਰ ਅਤੇ B ਤੋਂ ਬਾਹਰ ਵੀ ਹੈ। ਨਾ-ਕਹੇ ਓਵਰਲੈਪ ਆਪਣੇ ਆਪ ਅਸਤਿਤਵ ਸਾਬਤ ਨਹੀਂ ਕਰਦੇ।",
+      description: `${labels.a} ਅਤੇ ${labels.b} ਵਾਲੇ ਵਰਗ ਵੱਖ ਹਨ। ${labels.c} ਵਾਲਾ ਵਰਗ ${labels.d} ਦੇ ਅੰਦਰ ਹੈ ਅਤੇ ${labels.a} ਤੇ ${labels.b} ਦੋਵਾਂ ਨਾਲ ਸਿਰਫ਼ ਸੰਭਵ ਓਵਰਲੈਪ ਰੱਖਦਾ ਹੈ। ਨੀਲਾ × ${labels.c} ਅਤੇ ${labels.a} ਦੇ ਸਾਂਝੇ ਹਿੱਸੇ ਵਿੱਚ ਹੈ, ਇਸ ਲਈ ਉਹ ${labels.d} ਦੇ ਅੰਦਰ ਅਤੇ ${labels.b} ਤੋਂ ਬਾਹਰ ਵੀ ਹੈ। × ਤੋਂ ਬਿਨਾਂ ਓਵਰਲੈਪ ਆਪਣੇ ਆਪ ਅਸਤਿਤਵ ਸਾਬਤ ਨਹੀਂ ਕਰਦਾ।`,
     };
   }
   return {
     caption: "Combined four-term Venn diagram of the statements. Check Conclusions I and II on this same arrangement.",
-    description: "The A and B classes are disjoint. C lies inside D and properly overlaps both A and B so unstated relations stay open. The blue × lies in C and A, therefore also inside D and outside B. Unmarked overlaps do not assert existence.",
+    description: `The ${labels.a} and ${labels.b} classes are disjoint. The ${labels.c} class lies inside ${labels.d} and properly overlaps both ${labels.a} and ${labels.b} so unstated relations stay open. The blue × lies in ${labels.c} and ${labels.a}, therefore also inside ${labels.d} and outside ${labels.b}. An unmarked overlap does not assert existence.`,
   };
 }
 
@@ -183,7 +193,13 @@ export function renderBankingFourTermPremiseVennV4(
     labels.push(`<text x="${shape.cx}" y="${shape.labelY}" text-anchor="middle" class="set-label">${lines.map((line, lineIndex) => `<tspan x="${shape.cx}" dy="${lineIndex === 0 ? 0 : 14}">${esc(line)}</tspan>`).join("")}</text>`);
   });
 
-  const text = copy(question.locale);
+  const localizedRoles: LocalizedRoles = {
+    a: assignment[roles.a]?.labels[question.locale] ?? roles.a,
+    b: assignment[roles.b]?.labels[question.locale] ?? roles.b,
+    c: assignment[roles.c]?.labels[question.locale] ?? roles.c,
+    d: assignment[roles.d]?.labels[question.locale] ?? roles.d,
+  };
+  const text = copy(question.locale, localizedRoles);
   const id = `bank-four-v4-${question.seed}-${question.locale}`.replace(/[^a-zA-Z0-9_-]/gu, "-");
   const inside = [roles.a, roles.c, roles.d].join(",");
   const outside = roles.b;
