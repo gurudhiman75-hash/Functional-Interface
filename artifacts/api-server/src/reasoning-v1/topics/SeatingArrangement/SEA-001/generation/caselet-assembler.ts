@@ -67,6 +67,7 @@ export function generateSeaCp001Caselet(input: {
         facing,
       });
       const clueSetFingerprint = canonicalDigest(selection.selected.map((clue) => clue.semanticFingerprint).sort());
+      const listedNames = state.persons.map((person) => person.displayName);
       return {
         caseletId: `SEA-CP001-${input.blueprintId}-${canonicalDigest({ seed: input.seed }).slice(0, 12)}`,
         chapterId: "REAS-SEA",
@@ -75,7 +76,7 @@ export function generateSeaCp001Caselet(input: {
         blueprintAuthorityId: input.blueprintId,
         seed: input.seed,
         locale: "en-IN",
-        setupText: `${state.persons.length} persons sit in a straight row, all facing ${facing.toLowerCase()}. Their positions are determined by the following clues.`,
+        setupText: `${state.persons.length} persons—${listedNames.join(", ")}—are sitting in a straight row, all facing ${facing.toLowerCase()}. They are not necessarily seated in the same order as listed.`,
         clueTexts,
         hiddenStateFingerprint,
         clueSetFingerprint,
