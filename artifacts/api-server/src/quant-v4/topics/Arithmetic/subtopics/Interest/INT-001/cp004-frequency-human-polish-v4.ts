@@ -1,4 +1,16 @@
-import { deepFreeze, type Cp004Explanation, type Cp004MathematicalState, type Cp004Representation } from "./cp004-frequency-math";
+import {
+  FREQUENCIES,
+  absRational,
+  completeAmountFromNominal,
+  deepFreeze,
+  div,
+  rat,
+  sub,
+  type Cp004Explanation,
+  type Cp004MathematicalState,
+  type Cp004Representation,
+} from "./cp004-frequency-math";
+import { decimal, frequencyScheduleLabel, moneyText } from "./cp004-frequency-options";
 
 type Presentation = Readonly<{ representation: Cp004Representation; stemFamilyId: string; stem: string }>;
 
@@ -44,14 +56,62 @@ function plainLanguage(text: string): string {
     .replace(/amount ratio/giu, "comparison between the final amount and the original sum");
 }
 
+function comparisonSteps(state: Cp004MathematicalState, existing: readonly string[]): readonly string[] {
+  if (state.qlId !== "INT-QL-075") return existing;
+  const firstPeriods = state.frequency * state.years;
+  const secondPeriods = state.comparisonFrequency * state.years;
+  const firstAmount = completeAmountFromNominal(state.principal, state.nominalAnnualRatePercent, state.frequency, firstPeriods);
+  const secondAmount = completeAmountFromNominal(state.principal, state.nominalAnnualRatePercent, state.comparisonFrequency, secondPeriods);
+  const difference = absRational(sub(firstAmount, secondAmount));
+  const larger = firstAmount.numerator * secondAmount.denominator >= secondAmount.numerator * firstAmount.denominator ? firstAmount : secondAmount;
+  const smaller = larger === firstAmount ? secondAmount : firstAmount;
+  return Object.freeze([
+    ...existing.slice(0, 2),
+    `Difference = ${moneyText(larger)} − ${moneyText(smaller)} = ${moneyText(difference)}.`,
+    ...existing.slice(3),
+  ]);
+}
+
+function effectiveRateSteps(state: Cp004MathematicalState, existing: readonly string[]): readonly string[] {
+  if (state.qlId !== "INT-QL-076") return existing;
+  return Object.freeze(existing.map((step, index) => {
+    if (index === 1) return step.replace(/ = (₹[0-9,.]+)\.$/u, " ≈ $1 (rounded to two decimal places).");
+    if (index === 2) return step.replace(/^Actual increase = /u, "Actual increase ≈ ");
+    return step;
+  }));
+}
+
+function frequencyIdentificationSteps(state: Cp004MathematicalState, existing: readonly string[]): readonly string[] {
+  if (state.qlId !== "INT-QL-078") return existing;
+  const target = completeAmountFromNominal(state.principal, state.nominalAnnualRatePercent, state.frequency, state.frequency * state.years);
+  const targetRatio = div(target, state.principal);
+  const comparisons = FREQUENCIES.map((frequency) => {
+    const amountOn100 = completeAmountFromNominal(rat(100), state.nominalAnnualRatePercent, frequency, frequency * state.years);
+    const parts = frequency === 1 ? "once in the year"
+      : frequency === 2 ? "into 2 equal half-yearly parts and apply it twice"
+        : frequency === 4 ? "into 4 equal quarterly parts and apply it four times"
+          : "into 12 equal monthly parts and apply it twelve times";
+    return `${frequencyScheduleLabel(frequency)} compounding: split the annual rate ${parts}. ₹100 becomes about ${moneyText(amountOn100)}.`;
+  });
+  return Object.freeze([
+    `First compare the final amount with the original sum: ${moneyText(target)} ÷ ${moneyText(state.principal)} = ${decimal(targetRatio, 6)}. This shows how much the money grows over the stated time.`,
+    ...comparisons,
+    existing[existing.length - 1]!,
+  ]);
+}
+
 export function polishCp004ExplanationHumanV4(
-  _state: Cp004MathematicalState,
+  state: Cp004MathematicalState,
   explanation: Cp004Explanation,
 ): Cp004Explanation {
+  const plainSteps = explanation.steps.map(plainLanguage);
+  const compared = comparisonSteps(state, plainSteps);
+  const effective = effectiveRateSteps(state, compared);
+  const steps = frequencyIdentificationSteps(state, effective);
   return deepFreeze({
     ...explanation,
     whatAsked: plainLanguage(explanation.whatAsked),
-    steps: Object.freeze(explanation.steps.map(plainLanguage)),
+    steps,
     finalAnswer: plainLanguage(explanation.finalAnswer),
     commonMistake: plainLanguage(explanation.commonMistake),
   });
