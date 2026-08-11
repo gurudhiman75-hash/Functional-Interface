@@ -36,6 +36,78 @@ function directExplanation(input: TeachingTraceInput): string {
   ].join("\n\n");
 }
 
+function physicalDirection(relative: "left" | "right", facing: "north" | "south"): "left" | "right" {
+  if (facing === "north") return relative;
+  return relative === "left" ? "right" : "left";
+}
+
+/**
+ * Mixed-facing exam questions often infer an unstated facing from an end seat.
+ * Example: X is at the extreme left; Y is immediately left of X. If X faced
+ * north, Y would fall outside the row, so X must face south. A complete-model
+ * enumerator can miss this as a useful teaching branch because many other seats
+ * are still free. Detect and explain this local two-case inference explicitly.
+ */
+function compileEndFacingInference(input: TeachingTraceInput): string | null {
+  if (!input.intro.some((line) => /reference person's facing/i.test(line))) return null;
+
+  for (let endIndex = 0; endIndex < input.clues.length; endIndex += 1) {
+    const endText = input.clues[endIndex]?.text ?? "";
+    const endMatch = endText.match(/^(.+?) sits at the extreme (left|right) end\.$/i);
+    if (!endMatch) continue;
+    const reference = endMatch[1]?.trim();
+    const end = endMatch[2]?.toLowerCase() as "left" | "right" | undefined;
+    if (!reference || !end) continue;
+
+    const facingAlreadyStated = input.clues.some((clue, index) =>
+      index <= endIndex && new RegExp(`^${reference.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")} faces (?:north|south)\\.$`, "i").test(clue.text));
+    if (facingAlreadyStated) continue;
+
+    for (let relativeIndex = endIndex + 1; relativeIndex < input.clues.length; relativeIndex += 1) {
+      const relativeText = input.clues[relativeIndex]?.text ?? "";
+      const relativeMatch = relativeText.match(/^(.+?) sits immediately to the (left|right) of (.+?)\.$/i);
+      if (!relativeMatch) continue;
+      const subject = relativeMatch[1]?.trim();
+      const relative = relativeMatch[2]?.toLowerCase() as "left" | "right" | undefined;
+      const relativeReference = relativeMatch[3]?.trim();
+      if (!subject || !relative || relativeReference !== reference) continue;
+
+      const northPhysical = physicalDirection(relative, "north");
+      const southPhysical = physicalDirection(relative, "south");
+      const northImpossible = (end === "left" && northPhysical === "left") || (end === "right" && northPhysical === "right");
+      const southImpossible = (end === "left" && southPhysical === "left") || (end === "right" && southPhysical === "right");
+      if (northImpossible === southImpossible) continue;
+
+      const impossibleFacing = northImpossible ? "north" : "south";
+      const possibleFacing = northImpossible ? "south" : "north";
+      const impossiblePhysical = northImpossible ? northPhysical : southPhysical;
+      const possiblePhysical = northImpossible ? southPhysical : northPhysical;
+      const impossibleCase = northImpossible ? 1 : 2;
+      const possibleCase = northImpossible ? 2 : 1;
+      const lines = [...input.intro];
+      lines.push(`Start with clue ${endIndex + 1}: ${endText}`);
+      lines.push(`${reference}'s facing is not stated yet, so keep both facing cases open:`);
+      lines.push(`Case 1: ${reference} faces north.`);
+      lines.push(`Case 2: ${reference} faces south.`);
+      lines.push(`Now use clue ${relativeIndex + 1}: ${relativeText}`);
+      lines.push(`Case ${impossibleCase} ❌ — if ${reference} faces ${impossibleFacing}, ${reference}'s ${relative} is physically to our ${impossiblePhysical}. From the extreme ${end} end, that would place ${subject} outside the row.`);
+      lines.push(`Case ${possibleCase} ✅ — if ${reference} faces ${possibleFacing}, ${reference}'s ${relative} is physically to our ${possiblePhysical}, so ${subject} can occupy the adjacent seat inside the row.`);
+      lines.push(`Therefore, ${reference} must face ${possibleFacing}. Keep this facing fixed while applying the remaining clues.`);
+      const remaining = input.clues
+        .map((clue, index) => ({ clue, index }))
+        .filter(({ index }) => index !== endIndex && index !== relativeIndex);
+      if (remaining.length > 0) {
+        lines.push("Use the remaining clues to complete and cross-check the row:");
+        lines.push(remaining.map(({ clue, index }) => `${index + 1}. ${clue.text}`).join("\n"));
+      }
+      lines.push(input.finalHeading ?? "Final arrangement:");
+      lines.push(input.finalModel.display);
+      return lines.join("\n\n");
+    }
+  }
+  return null;
+}
+
 /**
  * Compile verified prefix narrowing into a student-facing case/elimination trace.
  * Cases are exposed only when the enumerator proves that exactly two or three
@@ -46,6 +118,9 @@ export function compileCaseEliminationExplanation(input: TeachingTraceInput): st
   if (input.clues.length === 0) {
     return [...input.intro, input.finalHeading ?? "Final arrangement:", input.finalModel.display].join("\n\n");
   }
+
+  const inferredFacing = compileEndFacingInference(input);
+  if (inferredFacing) return inferredFacing;
 
   const lastBranchablePrefix = Math.max(1, input.clues.length - 1);
   let branchPrefix = 0;
