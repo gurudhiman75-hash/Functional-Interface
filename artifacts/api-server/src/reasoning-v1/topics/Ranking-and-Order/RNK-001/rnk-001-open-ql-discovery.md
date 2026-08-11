@@ -1,76 +1,52 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 through CP-004 are frozen at `RNK-QL-001..035`; CP-005 editorial discovery is ready and `RNK-QL-036` remains unallocated.**
+Status: **CP-001 through CP-004 frozen at `RNK-QL-001..035`; CP-005 V3 editorial review passed, final ownership is pending, and `RNK-QL-036` remains unallocated.**
 
-This register prevents premature chapter sizing. Counts are discovery evidence, never quotas.
+Counts in this register are evidence, never chapter-size quotas.
 
-## 1. Frozen checkpoint — RNK-CP-001
+## 1. Frozen RNK-CP-001
 
 ```text
-combined discovery:             13 prototypes / 3,120 questions
-approved English review corpus: 54 questions
-frozen authorities:              9
-permanent range:                 RNK-QL-001..009
-freeze version:                  RNK_CP001_ENGLISH_DISCOVERY_FREEZE_V1
+13 prototypes / 3,120 discovery
+54 approved English review questions
+9 frozen authorities
+RNK-QL-001..009
 ```
 
-## 2. Frozen checkpoint — RNK-CP-002
+## 2. Frozen RNK-CP-002
 
 ```text
-combined discovery:             13 prototypes / 3,120 questions
-approved English review corpus: 48 questions
-frozen authorities:              8
-permanent runtime:               1,536 questions
-permanent range:                 RNK-QL-010..017
-freeze version:                  RNK_CP002_ENGLISH_DISCOVERY_FREEZE_V1
+13 prototypes / 3,120 discovery
+48 approved English review questions
+8 frozen authorities
+1,536 permanent questions
+RNK-QL-010..017
 projection: sha256:e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
 ```
 
-Open CP-002 source dimensions: `0`.
-
-## 3. Frozen checkpoint — RNK-CP-003
+## 3. Frozen RNK-CP-003
 
 ```text
-combined discovery:             13 prototypes / 3,120 questions
-approved English review corpus: 78 questions
-frozen authorities:              9
-permanent runtime:               1,728 questions
-permanent range:                 RNK-QL-018..026
-freeze version:                  RNK_CP003_ENGLISH_DISCOVERY_FREEZE_V1
+13 prototypes / 3,120 discovery
+78 approved English review questions
+9 frozen authorities
+1,728 permanent questions
+RNK-QL-018..026
 projection: sha256:6457a50fdde7673f9e66fe607a47a5c38a4c921489ed387b72c87ef8a22947d5
 ```
 
-```text
-RNK-QL-018  INTERCHANGE_RANKS_DIRECT_OR_INVERSE
-RNK-QL-019  TOTAL_FROM_INTERCHANGE_RANK_CHANGE
-RNK-QL-020  OWN_RANK_BEFORE_OR_AFTER_SINGLE_MOVEMENT
-RNK-QL-021  PEOPLE_PASSED_FROM_RANK_CHANGE
-RNK-QL-022  TARGET_RANK_AFTER_INSERTION
-RNK-QL-023  TARGET_RANK_AFTER_REMOVAL
-RNK-QL-024  OWN_RANK_AFTER_SEQUENTIAL_MOVES
-RNK-QL-025  TARGET_RANK_EFFECT_OF_ANOTHER_PERSON_MOVE
-RNK-QL-026  OWN_RANK_WITH_MOVEMENT_AND_MEMBERSHIP_CHANGE
-```
-
-Open CP-003 source dimensions: `0`.
-
-## 4. Frozen checkpoint — RNK-CP-004
-
-### Freeze summary
+## 4. Frozen RNK-CP-004
 
 ```text
-approved English review corpus: 132 questions
-source prototypes/forms:          11
-frozen authorities:                9
-permanent runtime:             1,728 questions
-questions per authority:          192
-permanent range:            RNK-QL-027..035
-freeze version:             RNK_CP004_ENGLISH_DISCOVERY_FREEZE_V1
-runtime version:            RNK_CP004_PERMANENT_RUNTIME_V1
+11 source forms
+132 approved English review questions
+9 frozen authorities
+1,728 permanent questions
+RNK-QL-027..035
 projection: sha256:39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
 ```
 
-### Frozen authorities
+Frozen authorities:
 
 ```text
 RNK-QL-027  ENDPOINT_ENTITY
@@ -84,166 +60,183 @@ RNK-QL-034  DEFINITELY_TRUE_RELATION
 RNK-QL-035  MISSING_COMPARISON
 ```
 
-### Consolidation record
+CP-004 owns evidence that forces one unique complete strict order.
+
+## 5. Book-to-QL reset
+
+`RNK-001-BOOK-TO-QL-AUDIT-2026-08-08.md` confirmed:
+
+- ordinary rank arithmetic, two-position relations, interchange/movement and unique strict comparison ranking are already covered;
+- left/right placement, facing and neighbour geometry belong to Seating Arrangement;
+- shared passages/caselets are delivery infrastructure;
+- context words do not create QLs;
+- the genuine remaining ranking gap is incomplete strict comparison information with several valid total orders.
+
+The rejected presentation-led/shared-set proposal allocated no QLs.
+
+## 6. RNK-CP-005 — Partial Order and Ranking Uncertainty
+
+### Current state
 
 ```text
-HIGHEST_ENTITY + LOWEST_ENTITY
-  -> ENDPOINT_ENTITY
+raw prototypes:                 8
+raw questions:                256
+raw answer balance:    64 / 64 / 64 / 64
 
-ENTITY_AT_EXACT_RANK + MIDDLE_ENTITY
-  -> ENTITY_AT_POSITION
+V3 release source forms:        7
+release questions:            168
+questions/source form:         24
+release answer balance: 42 / 42 / 42 / 42
+unique release states:        168
+provisional authorities:        3
+permanent QLs:                  0
 ```
 
-Endpoint direction and explicit-versus-derived position are parameters, not separate QLs. Named rank, complete order, pair direction, exact distance, immediate neighbour, definitely-true relation and missing comparison retain distinct proof or answer contracts.
-
-### Permanent runtime evidence
+Release difficulty:
 
 ```text
-Easy:       470
-Medium:   1,106
-Hard:       152
-
-six context families: 288 each
-answer positions per QL: 48 / 48 / 48 / 48
-normalised semantic duplicates: 0
+Easy:      0
+Medium:  156
+Hard:     12
 ```
 
-### Corrected ownership boundary
-
-```text
-exact unique multi-entity strict order                -> RNK-CP-004
-partial order / possible / impossible / indeterminate -> RNK-CP-005
-shared passage or linked-question structure            -> assembly infrastructure
-height/age/marks/performance comparison wording        -> CP-004 surface parameter
-clue-heavy left/right adjacency and facing              -> Seating Arrangement
-statement I/II sufficiency labels                       -> Data Sufficiency
-```
-
-Open CP-004 English discovery dimensions: `0`.
-
-Question Studio disclosure/mobile/accessibility integration and Hindi/Punjabi localisation remain downstream product work, not open English authority discovery.
-
-## 5. Book-to-QL audit
-
-The audit in `RNK-001-BOOK-TO-QL-AUDIT-2026-08-08.md` maps standard competitive-exam ranking forms to `RNK-QL-001..035`.
-
-Audit conclusions:
-
-- ordinary rank arithmetic, two-position relations, interchange/movement and strict comparison ranking are already covered;
-- row, queue, merit-list, race and attribute wording are presentation or context parameters unless their solver changes;
-- shared passages are not permanent authority identities;
-- immediate left/right placement, neighbours, facing and extreme-seat reconstruction belong to Seating Arrangement;
-- the remaining genuine ranking gap is incomplete comparison information and uncertainty across multiple valid orders.
-
-## 6. Active checkpoint — RNK-CP-005
-
-### Ownership
-
-```text
-PARTIAL_ORDER_AND_RANKING_UNCERTAINTY
-```
-
-### Executable discovery
-
-```text
-raw prototypes:                    8
-questions per raw prototype:      32
-raw discovery questions:         256
-raw answer positions:      64 / 64 / 64 / 64
-valid complete orders/question:  >=2
-permanent QLs:                     0
-```
-
-All answers are independently evaluated against every complete ranking compatible with the learner-visible comparisons and any fixed-rank anchor.
-
-### Editorial candidates
+### Seven discovery source forms
 
 ```text
 DEFINITELY_TRUE_RELATION
 POSSIBLE_RELATION
 IMPOSSIBLE_RELATION
-PAIR_RELATION_CANNOT_BE_DETERMINED
+PAIR_RELATION_CANNOT_BE_DETERMINED   # legacy ID; learner form = PAIR_RELATION_STATUS
 MINIMUM_POSSIBLE_RANK
 MAXIMUM_POSSIBLE_RANK
 DEFINITE_RANK_OR_INDETERMINATE
 ```
 
-Editorial evidence:
-
-```text
-candidate families:               7
-questions per candidate:         24
-questions checked:              168
-answer positions:       42 / 42 / 42 / 42
-permanent QLs:                    0
-```
-
-### Rejected source form
+Rejected:
 
 ```text
 ORDER_UNIQUENESS_STATUS
 ```
 
-It always produced the same multiple-ranking answer inside this checkpoint and overlapped existing strict-order uniqueness ownership.
-
-### Editorial protections
-
-- correct must-be-true relations must be derived through at least two comparisons;
-- correct cannot-be-true relations cannot be only a reversed direct clue;
-- definite ranks cannot be copied from a fixed-rank statement;
-- possible answers require a valid witness ranking;
-- indeterminate relations require two valid rankings with opposite pair orders;
-- explanations avoid raw permutation counts;
-- Seating Arrangement vocabulary and geometry are rejected.
-
-### Merge/split questions still open
+### V3 consolidation proposal
 
 ```text
-partial-order definite relation vs RNK-QL-034
-possible + impossible + pair-indeterminate relation classification
-minimum + maximum possible rank as one direction-parameter authority
-definite rank vs exact-rank indeterminacy
+RELATION_TRUTH_STATUS
+  MUST
+  COULD
+  CANNOT
+  PAIR_STATUS
+
+POSSIBLE_RANK_BOUND
+  HIGHEST
+  LOWEST
+
+EXACT_RANK_DETERMINACY
+  DEFINITE
+  INDETERMINATE
 ```
 
-The seven source forms are not seven presumed QLs.
-
-### Entry gates before `RNK-QL-036`
+The legacy pair source is not a separate authority. Its corpus contains:
 
 ```text
-human review of editorial pack
--> exam-frequency evidence
--> ownership proof against CP-004 and Data Sufficiency
--> merge/split audit
--> difficulty and distractor calibration
--> manual English approval
+FIRST_ABOVE:      8
+SECOND_ABOVE:     8
+INDETERMINATE:    8
 ```
 
-### Explicit exclusions
+### V3 semantic gates
+
+Generic relation options:
 
 ```text
-shared-set-only variants
-complete rank tables followed by lookup questions
-linear seating or row reconstruction from adjacency
-facing and neighbour geometry
-strict total orders already owned by CP-004
-attribute vocabulary without a new solver contract
+4 distinct ordered pairs
+4 distinct unordered pairs
+>=4 people represented
+<=2 option appearances/person
 ```
 
-See `RNK-CP-005/RNK-CP-005-PARTIAL-ORDER-DISCOVERY-STATUS-V1.md`.
+- MUST: correct answer is transitive; at least two distractors are possible but not compulsory.
+- COULD: wrong options are impossible through multi-step inference; direct clue reversal is prohibited.
+- CANNOT: every distractor is possible but not compulsory.
+- PAIR_STATUS: first-above, second-above and indeterminate all occur; exact-gap distractors vary.
+- rank bounds: >=3 compulsory people, branch integration, >=1 transitively derived compulsory relation, boundary impossibility proof and attainable witness.
+- definite exact rank: transitive structural evidence and full accounting.
+- indeterminate exact rank: two witness rankings with different target ranks.
 
-## 7. Later checkpoints remain unallocated
+Eight V3 topology families are used. Every release source form spans at least six, and the 28-question review pack has four distinct topologies/source form.
 
-### RNK-CP-006 — Non-strict or tied-ranking source audit
+### Editorial review result
 
-No implementation or permanent QL allocation without strong exam evidence. Attribute words alone do not create this checkpoint.
+```text
+28-question human pack reviewed
+answer balance: 7 / 7 / 7 / 7
+wrong answer keys: 0
+contradictions: 0
+one-person fixation: 0
+COULD direct-reversal shortcuts: 0
+rank-bound direct-count-only cases: 0
+```
 
-### RNK-CP-007 — Advanced mixed ranking transformations
+Editorial review is passed. Final source-backed permanent ownership remains pending.
 
-Open only after CP-005 and a fresh chapter-gap audit.
+### CP-004 overlap still open
 
-### RNK-CP-008 — Reserved
+`RNK-QL-034` and CP-005 `RELATION_TRUTH_STATUS-MUST` have different current proof contracts:
 
-Shared passages and linked-question assembly are infrastructure and may reuse existing authorities without new QLs.
+```text
+RNK-QL-034:
+  one unique total order is forced
+
+CP-005 MUST:
+  multiple total orders remain valid
+  relation holds across all of them
+```
+
+Before `RNK-QL-036` is allocated, exam-source evidence and manual ownership signoff must decide whether this warrants a new permanent QL or parameterised extension of existing ownership.
+
+### Evidence
+
+Validated implementation before final documentation cleanup:
+
+```text
+workflow run: 31472607624
+head:         bf268249e9daf24273da2ecf081f674ea4e42642
+result:       PASS
+
+evidence artifact: 9093964523
+review artifact:   9093964870
+```
+
+See:
+
+- `RNK-CP-005/RNK-CP-005-EDITORIAL-V3-CONSOLIDATION.md`
+- `RNK-CP-005/RNK-CP-005-PARTIAL-ORDER-DISCOVERY-STATUS-V1.md`
+
+### Remaining entry gates before permanent QLs
+
+```text
+exam-source frequency evidence
+-> final CP-004 overlap decision
+-> manual English ownership approval
+-> permanent QL allocation
+-> permanent runtime / freeze evidence
+```
+
+`RNK-QL-036` is still available.
+
+## 7. Later checkpoints
+
+### RNK-CP-006 — tied/non-strict ranking
+
+Unallocated. Implement only after strong exam-source evidence.
+
+### RNK-CP-007 — advanced mixed ranking transformations
+
+Unallocated. Open only after CP-005 final ownership and a fresh chapter-gap audit.
+
+### RNK-CP-008 — reserved
+
+Shared passages/linked-question assembly remain infrastructure rather than authority identities.
 
 ## 8. Protected exclusions
 
@@ -251,27 +244,24 @@ Shared passages and linked-question assembly are infrastructure and may reuse ex
 lexicographic/dictionary position              -> Word and Dictionary Order
 seating adjacency/facing/geometry              -> Seating Arrangement
 multi-attribute assignment                     -> Logic Puzzles
-league points, brackets and tournament scoring -> Games and Tournament
-statement I/II sufficiency labels              -> Data Sufficiency
-alphabet position without a ranked group       -> Alphabet Test
-age/speed/marks arithmetic as main burden       -> relevant Quant chapter
+league/tournament scoring                      -> Games and Tournament
+statement I/II sufficiency                     -> Data Sufficiency
+alphabet position without ranked group         -> Alphabet Test
+age/speed/marks arithmetic as main burden      -> Quant
 ```
 
-## 9. Current lifecycle
+## 9. Lifecycle
 
 ```text
-cumulative permanent range:   RNK-QL-001..035
-next available RNK ID:        RNK-QL-036
-CP-005 editorial discovery:   ready
-CP-005 permanent QLs:         0
-CP-001 discovery frozen:      true
-CP-002 discovery frozen:      true
-CP-003 discovery frozen:      true
-CP-004 discovery frozen:      true
-chapter-wide freeze:          false
-Hindi/Punjabi:                not started
-Question Studio:              disabled
-Question Bank:                NOT_STORED
-test eligibility:             INELIGIBLE
-public publication:           false
+cumulative permanent range: RNK-QL-001..035
+next available RNK ID:      RNK-QL-036
+CP-005 editorial review:    passed
+CP-005 final ownership:     pending
+CP-005 permanent QLs:       0
+chapter-wide freeze:        false
+Hindi/Punjabi:              NOT_STARTED
+Question Studio:            DISABLED
+Question Bank:              NOT_STORED
+test eligibility:           INELIGIBLE
+public publication:         false
 ```
