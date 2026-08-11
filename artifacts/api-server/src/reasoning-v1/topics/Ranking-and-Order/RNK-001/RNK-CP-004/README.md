@@ -55,18 +55,29 @@ complete order from lowest to highest:            96
 
 Highest/lowest, immediate above/below and pair-input orientation are covered by existing parameters or paired source forms.
 
-## Boundary
+## Corrected ownership boundary
+
+The later book-to-QL reset supersedes the early provisional checkpoint labels that appeared in CP-004 discovery notes.
 
 ```text
-strict unique multi-entity order                  -> RNK-CP-004
-row/queue/merit/race presentation-led forms       -> RNK-CP-005
-height/age/marks/weight attribute-led forms       -> RNK-CP-006
-possible/impossible/cannot-determine partial order -> RNK-CP-007
-shared multi-question ranking sets                 -> RNK-CP-008
-statement I/II sufficiency labels                  -> Data Sufficiency
+strict unique multi-entity order                         -> RNK-CP-004
+incomplete comparison graph / multiple valid rankings   -> RNK-CP-005
+tied or non-strict ranking                              -> RNK-CP-006 only after source evidence
+advanced mixed ranking transformations                  -> RNK-CP-007 after fresh gap audit
+shared multi-question ranking sets                      -> assembly infrastructure
+left/right adjacency, facing and seat geometry          -> Seating Arrangement
+statement I/II sufficiency labels                       -> Data Sufficiency
 ```
 
-Ties, genuine uncertainty and possible-order questions are not forced into CP-004.
+Context words such as row, queue, merit, race, height, age, marks or performance do not change ownership by themselves. The solver contract decides ownership.
+
+### QL-034 boundary
+
+`RNK-QL-034 — DEFINITELY_TRUE_RELATION` remains frozen inside CP-004's unique-order state contract. CP-004 reconstructs one unique complete order before solving its `VALID_RANK_STATEMENT` query.
+
+CP-005 `RELATION_TRUTH_STATUS` is not an extension silently inserted into QL-034: it intentionally retains at least two valid complete rankings and classifies relations across the valid-order set. The dedicated CP-005 ownership audit records that distinction.
+
+No CP-004 permanent identity, runtime question or projection digest is changed by that audit.
 
 ## Approved English evidence
 
