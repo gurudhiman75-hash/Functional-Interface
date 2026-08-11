@@ -1,10 +1,31 @@
-import { deepFreeze, periodicRate, type Cp004Explanation, type Cp004MathematicalState } from "./cp004-frequency-math";
-import { durationText, frequencyNoun, percentText } from "./cp004-frequency-options";
+import {
+  deepFreeze,
+  mixedAmountForState,
+  periodicRate,
+  type Cp004Explanation,
+  type Cp004MathematicalState,
+} from "./cp004-frequency-math";
+import { durationText, frequencyNoun, moneyText, percentText } from "./cp004-frequency-options";
 
 export function ensureCp004InverseExplanationDepthV4(
   state: Cp004MathematicalState,
   explanation: Cp004Explanation,
 ): Cp004Explanation {
+  if (state.qlId === "INT-QL-084" && explanation.steps.length < 3) {
+    const firstRate = periodicRate(state.nominalAnnualRatePercent, state.firstFrequency);
+    const secondRate = periodicRate(state.nominalAnnualRatePercent, state.secondFrequency);
+    const firstPeriods = state.firstFrequency * state.firstYears;
+    const secondPeriods = state.secondFrequency * state.secondYears;
+    const finalAmount = mixedAmountForState(state);
+    return deepFreeze({
+      ...explanation,
+      steps: Object.freeze([
+        ...explanation.steps,
+        `Combined check: ${moneyText(state.principal)} × (1 + ${percentText(firstRate)})^${firstPeriods} × (1 + ${percentText(secondRate)})^${secondPeriods} = ${moneyText(finalAmount)}.`,
+      ]),
+    });
+  }
+
   if (explanation.steps.length >= 5) return explanation;
 
   let extraStep: string | undefined;
