@@ -160,7 +160,7 @@ assert.equal(prb001NativeCount, 240);
 assert.equal(prb002NativeCount, 192);
 assert.equal(localizedQuestionIds.size, 432);
 assert.equal(localizedExplanationIds.size, 432);
-assert(visualCount >= 0);
+assert(visualCount > 0, "ML-05 parity suite must exercise at least one native visual path");
 
 const first001 = listPrb001QuestionEntries()[0]!;
 const routed001 = runProbabilityNativePreview(
