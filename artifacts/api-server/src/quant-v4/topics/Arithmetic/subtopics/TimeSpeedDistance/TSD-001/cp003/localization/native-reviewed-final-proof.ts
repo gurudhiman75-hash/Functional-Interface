@@ -22,6 +22,7 @@ assert(hi.length === 63 && pa.length === 63 && all.length === 126, "Native revie
 assert(stableCp003Stringify(generateCp003EnglishFrozenRecords()) === frozenIdentity, "Frozen English corpus changed during native self-review");
 assert(new Set(all.map((row) => row.presentation.questionLanguageId)).size === 126, "Native reviewed IDs are not unique");
 
+const rawFractionalHour = /\d+\/\d+\s*(?:घंटा|घंटे|ਘੰਟਾ|ਘੰਟੇ)/u;
 const forbidden = {
   hi: [
     /एक (?:स्कूल बस|टैक्सी|कार|बस)\b/u,
@@ -31,7 +32,6 @@ const forbidden = {
     /कितने समय (?:बाद|पहले)/u,
     /मांगी/u,
     /ठहरावों/u,
-    /\b\d+\/\d+\s*(?:घंटा|घंटे)\b/u,
     /प्रत्येक यात्रा-खंड में .* लगता है/u,
     /कुल बदलाव का परिमाण/u,
     /अतः परिमाण/u,
@@ -43,7 +43,6 @@ const forbidden = {
     /ਕਿੰਨਾ ਸਮਾਂ (?:ਬਾਅਦ|ਪਹਿਲਾਂ)/u,
     /ਠਹਿਰਾਅਾਂ/u,
     /ਪਰਿਮਾਣ/u,
-    /\b\d+\/\d+\s*(?:ਘੰਟਾ|ਘੰਟੇ)\b/u,
     /ਹਰ ਸਫ਼ਰ-ਭਾਗ ਵਿੱਚ .* ਲੱਗਦਾ ਹੈ/u,
     /ਬਦਲਾਅ ਦਾ ਬਦਲਾਅ ਦੀ ਮਾਤਰਾ/u,
   ],
@@ -78,6 +77,7 @@ for (const row of all) {
   assertTsdCp003NativeText(presentation.explanation.answer, presentation.language, `${presentation.questionLanguageId}/answer`);
 
   const prose = [presentation.stem, presentation.explanation.method, ...presentation.explanation.steps, presentation.explanation.answer].join(" ");
+  assert(!rawFractionalHour.test(prose), `${presentation.questionLanguageId}: raw fractional-hour learner prose remains`);
   for (const pattern of forbidden[presentation.language]) {
     assert(!pattern.test(prose), `${presentation.questionLanguageId}: editorial blocker ${String(pattern)} remains`);
   }
@@ -93,7 +93,7 @@ for (const row of all) {
     assert(!presentation.explanation.steps.some((step) => /(?:^|\s)-\d/u.test(step)), `${presentation.questionLanguageId}: signed negative duration is exposed to the learner instead of direction wording`);
   }
   if (canonical.solveMode === "requiredRemainingSpeedAfterPartialRoute") {
-    assert(!/\b\d+\/\d+\s*(?:घंटा|घंटे|ਘੰਟਾ|ਘੰਟੇ)\b/u.test(prose), `${presentation.questionLanguageId}: raw fractional-hour explanation remains`);
+    assert(!rawFractionalHour.test(prose), `${presentation.questionLanguageId}: raw fractional-hour partial-route explanation remains`);
   }
   assert(canonical.solveMode !== "scheduleBuffer", `${presentation.questionLanguageId}: rejected scheduleBuffer entered native candidate`);
 
@@ -146,6 +146,7 @@ console.log(JSON.stringify({
   priorRepresentationRowsPerLanguage: hi.length - newRows,
   stemWordRange: [Math.min(...stemWords), Math.max(...stemWords)],
   explanationWordRange: [Math.min(...explanationWords), Math.max(...explanationWords)],
+  rawFractionalHourLearnerProse: 0,
   selfReviewBlockers: 0,
   frozenEnglishCorpusChanged: false,
   productOwnerApprovalRecorded: false,
