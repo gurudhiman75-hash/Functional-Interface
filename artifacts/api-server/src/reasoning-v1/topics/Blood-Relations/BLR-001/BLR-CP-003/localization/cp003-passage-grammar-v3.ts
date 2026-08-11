@@ -24,6 +24,9 @@ function protectNames(
 
 function lastHindi(text: string): string {
   return text
+    .replace(/^(.+) and (.+) are married and have three children\.$/, "$1 और $2 विवाहित हैं और उनकी तीन संतानें हैं।")
+    .replace(/^(.+) is (.+)'s daughter, and (.+) is unmarried\.$/, "$1, $2 की पुत्री है और $3 अविवाहित है।")
+    .replace(/^(.+) is (.+)'s father, whereas (.+) is unmarried\.$/, "$1, $2 के पिता हैं, जबकि $3 अविवाहित है।")
     .replace(/^(.+) is (.+)'s husband\.$/, "$1, $2 का पति है।")
     .replace(/^(.+) and (.+) are parents of (.+) and (.+); (.+) and (.+) are parents of (.+) and (.+)\.$/, "$1 और $2, $3 और $4 के माता-पिता हैं; $5 और $6, $7 और $8 के माता-पिता हैं।")
     .replace(/^(.+), (.+) and (.+) belong respectively to the three branches of (.+), (.+) and (.+)\.$/, "$1, $2 और $3 क्रमशः $4, $5 और $6 की तीन शाखाओं से संबंधित हैं।");
@@ -31,6 +34,9 @@ function lastHindi(text: string): string {
 
 function lastPunjabi(text: string): string {
   return text
+    .replace(/^(.+) and (.+) are married and have three children\.$/, "$1 ਅਤੇ $2 ਵਿਆਹੇ ਹੋਏ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਤਿੰਨ ਸੰਤਾਨਾਂ ਹਨ।")
+    .replace(/^(.+) is (.+)'s daughter, and (.+) is unmarried\.$/, "$1, $2 ਦੀ ਧੀ ਹੈ ਅਤੇ $3 ਅਵਿਵਾਹਿਤ ਹੈ।")
+    .replace(/^(.+) is (.+)'s father, whereas (.+) is unmarried\.$/, "$1, $2 ਦੇ ਪਿਤਾ ਹਨ, ਜਦਕਿ $3 ਅਵਿਵਾਹਿਤ ਹੈ।")
     .replace(/^(.+) is (.+)'s husband\.$/, "$1, $2 ਦਾ ਪਤੀ ਹੈ।")
     .replace(/^(.+) and (.+) are parents of (.+) and (.+); (.+) and (.+) are parents of (.+) and (.+)\.$/, "$1 ਅਤੇ $2, $3 ਅਤੇ $4 ਦੇ ਮਾਤਾ-ਪਿਤਾ ਹਨ; $5 ਅਤੇ $6, $7 ਅਤੇ $8 ਦੇ ਮਾਤਾ-ਪਿਤਾ ਹਨ।")
     .replace(/^(.+), (.+) and (.+) belong respectively to the three branches of (.+), (.+) and (.+)\.$/, "$1, $2 ਅਤੇ $3 ਕ੍ਰਮਵਾਰ $4, $5 ਅਤੇ $6 ਦੀਆਂ ਤਿੰਨ ਸ਼ਾਖਾਵਾਂ ਨਾਲ ਸੰਬੰਧਿਤ ਹਨ।");
