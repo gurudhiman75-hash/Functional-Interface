@@ -32,6 +32,7 @@ import adminQuestionStudioCalibrationRouter from "./admin-question-studio-calibr
 import adminQuestionStudioMixedDifficultyRouter from "./admin-question-studio-mixed-difficulty";
 import adminQuestionStudioReasoningRouter from "./admin-question-studio-reasoning";
 import adminQuestionStudioSeriesRouter from "./admin-question-studio-series";
+import adminQuestionStudioInterestRouter from "./admin-question-studio-interest";
 import adminQuestionStudioCalendarRouter from "./admin-question-studio-calendar";
 import adminQuestionStudioRouter from "./admin-question-studio";
 import adminQuestionBulkWorkflowRouter from "./admin-question-bulk-workflow";
@@ -135,6 +136,7 @@ router.use("/admin/question-studio", adminQuestionStudioCalibrationRouter);
 router.use("/admin/question-studio", adminQuestionStudioMixedDifficultyRouter);
 router.use("/admin/question-studio", adminQuestionStudioReasoningRouter);
 router.use("/admin/question-studio", adminQuestionStudioSeriesRouter);
+router.use("/admin/question-studio", adminQuestionStudioInterestRouter);
 router.use("/admin/question-studio", adminQuestionStudioCalendarRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/admin/questions", adminQuestionBulkWorkflowRouter);
