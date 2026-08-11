@@ -9,6 +9,7 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-four-term-venn-v4.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-four-term-accessibility-v4-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-review-question-v4.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-complete-diagram-v4-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-review-v4.ts
@@ -60,6 +61,19 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-complete-diagram-v4-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-complete-diagram-v4-audit.log
 
+      - name: Bundle four-term accessibility audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-four-term-accessibility-v4-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-bank-possibility-four-term-accessibility-v4-audit.test.mjs
+
+      - name: Run four-term accessibility audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-four-term-accessibility-v4-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-four-term-accessibility-v4-audit.log
+
       - name: Bundle V4 human-review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -77,6 +91,7 @@ jobs:
           name: syl-001-bank-possibility-v4-complete-diagrams
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-complete-diagram-v4-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-four-term-accessibility-v4-audit.log
             dist/reasoning-v1/syl-001-bank-possibility-review-v4/**
           if-no-files-found: error
           retention-days: 30
