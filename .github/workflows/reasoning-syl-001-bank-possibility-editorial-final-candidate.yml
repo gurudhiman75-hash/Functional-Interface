@@ -1,0 +1,49 @@
+name: Validate SYL-001 Banking possibility polished editorial candidate
+on:
+  pull_request:
+    branches: [audit/syl-001-source-profile-freeze, feat/syl-001-learner-v4, New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-editorial-final-candidate.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-editorial-final-candidate-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-editorial-final-candidate.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-editorial-candidate.ts
+      - .github/workflows/reasoning-syl-001-bank-possibility-editorial-final-candidate.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: validate-syl-001-bank-possibility-editorial-final-candidate-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate-final-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle final candidate audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-editorial-final-candidate-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-possibility-editorial-final-candidate-audit.test.mjs
+      - name: Run final candidate audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-editorial-final-candidate-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-editorial-final-candidate-audit.log
+      - name: Bundle full final candidate exporter
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-editorial-final-candidate.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/export-syl-001-bank-possibility-editorial-final-candidate.mjs
+      - name: Generate full multilingual final candidate review pack
+        run: node artifacts/api-server/dist/reasoning-v1/export-syl-001-bank-possibility-editorial-final-candidate.mjs
+      - name: Upload final candidate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: syl-001-bank-possibility-editorial-final-candidate
+          path: |
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-editorial-final-candidate-audit.log
+            dist/reasoning-v1/syl-001-bank-possibility-editorial-final-candidate/**
+          if-no-files-found: error
+          retention-days: 30
