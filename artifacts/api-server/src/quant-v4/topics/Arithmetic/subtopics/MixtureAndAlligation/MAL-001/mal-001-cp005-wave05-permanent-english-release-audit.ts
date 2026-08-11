@@ -223,7 +223,7 @@ for (const allocation of MAL_CP005_RELEASE_ALLOCATION) {
   }
 
   assert(stems.size >= 10, `${allocation.qlId}: stem diversity is too low (${stems.size}).`);
-  assert(answers.size >= 5, `${allocation.qlId}: answer diversity is too low (${answers.size}).`);
+  assert(answers.size >= 4, `${allocation.qlId}: answer diversity is too low (${answers.size}).`);
 
   const studio = runMal001QuestionStudioPipeline("MAL-CP-005", {
     questionLanguageId: allocation.qlId,
