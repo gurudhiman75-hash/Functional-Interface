@@ -60,11 +60,10 @@ const STUDENT_VISIBLE_SHORTCUT_DESCRIPTOR_IDS = new Set<SpatialPrimitiveClassifi
   "HALF_TURN_SYMMETRY",
 ]);
 
-// HAS_TRUE_CROSSING uses a production presentation that shortens one free arm on
-// every option. That physical rendering step removes whole-figure vertical,
-// horizontal and 180° symmetry from all four options without changing junction or
-// crossing topology. Those three metadata descriptors may therefore reinforce the
-// raw primitive quartet but cannot remain a student-visible shortcut in delivery.
+// HAS_TRUE_CROSSING uses a production presentation that shortens one or more free
+// arms on every option until whole-figure vertical, horizontal and 180° symmetry
+// are all absent. That physical rendering step removes those symmetry shortcuts
+// without changing junction/crossing topology.
 const CROSSING_PRESENTATION_NEUTRALIZED_DESCRIPTORS: readonly SpatialPrimitiveClassificationDescriptorIdV2[] = [
   "VERTICAL_SYMMETRY",
   "HORIZONTAL_SYMMETRY",
@@ -104,6 +103,11 @@ function productionDomainEligible(
       // A divided polygon still has an unambiguous outer side count. Every option
       // must expose a polygon side-count authority, eliminating polygon-vs-line shortcuts.
       return entry.polygonSideCount !== null;
+    case "HAS_BRANCH_JUNCTION":
+      // Keep all four options in the open-line domain. This avoids semantic
+      // near-misses where a learner reasonably counts a polygon boundary plus an
+      // internal divider as three strokes meeting at a vertex.
+      return entry.topology === "OPEN";
     case "HAS_TRUE_CROSSING":
       // Keep all four options inside the same open junction-bearing domain. The
       // three common figures contain true crossings; the odd figure still has a
