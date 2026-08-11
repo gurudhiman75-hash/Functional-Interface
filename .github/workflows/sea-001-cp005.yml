@@ -1,4 +1,4 @@
-name: Validate SEA-001 CP-005 completion
+name: Validate SEA-001 closure
 
 on:
   push:
@@ -22,7 +22,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: validate-sea-001-cp005-${{ github.ref }}
+  group: validate-sea-001-closure-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -113,6 +113,29 @@ jobs:
         with:
           node-version: 22
       - run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/wave4-verification-proof.test.ts
+
+  saturation-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run SEA-001 1,600-caselet production-candidate saturation proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea001-saturation-audit.test.ts \
+            2>&1 | tee /tmp/sea001-saturation-audit.log
+      - name: Upload saturation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-001-saturation-audit
+          path: /tmp/sea001-saturation-audit.log
+          if-no-files-found: error
+          retention-days: 14
 
   cp005-review-export:
     runs-on: ubuntu-latest

@@ -44,6 +44,24 @@ export function recomputeCircularOptionValue(
       if (requireMetadataFlag(option, "includedReference")) return reference;
       break;
     }
+    case "SEA-QC-004": {
+      const reference = parts[1];
+      const direction = parts[2];
+      const steps = Number(parts[3]);
+      if (!reference || (direction !== "CLOCKWISE" && direction !== "ANTICLOCKWISE") || !Number.isInteger(steps)) {
+        throw new Error(`Invalid QC004 fingerprint: ${question.answerDeterminingFactFingerprint}`);
+      }
+      const index = seatIndexOf(clockwiseOrder, reference);
+      if (option.recomputation.direction === "CLOCKWISE" || option.recomputation.direction === "ANTICLOCKWISE") {
+        const recomputedSteps = typeof option.recomputation.steps === "number" ? option.recomputation.steps : steps;
+        return personAt(clockwiseOrder, topology.moveCyclic(index, option.recomputation.direction, recomputedSteps));
+      }
+      if (typeof option.recomputation.steps === "number") {
+        return personAt(clockwiseOrder, topology.moveCyclic(index, direction, option.recomputation.steps));
+      }
+      if (requireMetadataFlag(option, "includedReference")) return reference;
+      break;
+    }
     case "SEA-QC-006": {
       const reference = parts[1];
       if (!reference) throw new Error(`Invalid QC006 fingerprint: ${question.answerDeterminingFactFingerprint}`);
@@ -83,6 +101,20 @@ export function recomputeCircularOptionValue(
       if (option.recomputation.neighbour === "ANTICLOCKWISE") return personAt(clockwiseOrder, index - 1);
       if (requireMetadataFlag(option, "halfTurnPlusOne")) return personAt(clockwiseOrder, opposite + 1);
       if (requireMetadataFlag(option, "halfTurnMinusOne")) return personAt(clockwiseOrder, opposite - 1);
+      break;
+    }
+    case "SEA-QC-015": {
+      const correctDirection = parts[4];
+      if (correctDirection !== "LEFT" && correctDirection !== "RIGHT") {
+        throw new Error(`Invalid QC015 fingerprint: ${question.answerDeterminingFactFingerprint}`);
+      }
+      if ((option.recomputation.direction === "LEFT" || option.recomputation.direction === "RIGHT")
+        && typeof option.recomputation.steps === "number") {
+        return `${option.recomputation.direction}:${option.recomputation.steps}`;
+      }
+      if (requireMetadataFlag(option, "reversedAndImmediate")) {
+        return `${correctDirection === "LEFT" ? "RIGHT" : "LEFT"}:1`;
+      }
       break;
     }
     case "SEA-QC-020": {
