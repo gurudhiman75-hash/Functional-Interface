@@ -137,6 +137,35 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  english-review-baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generate 100-caselet SEA-001 English review baseline
+        env:
+          SEA_001_REVIEW_OUTPUT_DIR: /tmp/sea-001-review-baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea001-review-baseline-export.ts \
+            2>&1 | tee /tmp/sea001-review-baseline-export.log
+          test -s /tmp/sea-001-review-baseline/sea-001-english-review-baseline.html
+          test -s /tmp/sea-001-review-baseline/sea-001-english-review-baseline.json
+          test -s /tmp/sea-001-review-baseline/sea-001-english-review-baseline.csv
+      - name: Upload English review baseline
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-001-english-review-baseline
+          path: |
+            /tmp/sea-001-review-baseline/**
+            /tmp/sea001-review-baseline-export.log
+          if-no-files-found: error
+          retention-days: 14
+
   cp005-review-export:
     runs-on: ubuntu-latest
     timeout-minutes: 20

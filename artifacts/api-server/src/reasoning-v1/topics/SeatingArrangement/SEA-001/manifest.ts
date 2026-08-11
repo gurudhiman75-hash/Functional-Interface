@@ -57,6 +57,19 @@ export const SEA_CP003_AUTHORITY_NOTES = [
   },
 ] as const;
 
+export const SEA_001_SATURATION_EVIDENCE = Object.freeze({
+  status: "PASSED" as const,
+  validatedHead: "1010c4e160a3d2c3fbbea55187b0bcfb63d511f2" as const,
+  workflowRun: 31509143349 as const,
+  artifactId: 9108311489 as const,
+  caseletCount: 1600 as const,
+  childQuestionCount: 6080 as const,
+  blueprintAuthorityCount: 20 as const,
+  structuralBlueprintVariantCount: 291 as const,
+  queryTemplateSurfaceCount: 34 as const,
+  zeroBlockingResiduals: true as const,
+});
+
 export const SEA_FAMILY_MANIFEST = Object.freeze({
   family: "REAS-SEA",
   packages: ["SEA-001", "SEA-002", "SEA-003"] as const,
@@ -65,9 +78,10 @@ export const SEA_FAMILY_MANIFEST = Object.freeze({
   completedRoadmapWaves: ["WAVE-0-GOVERNANCE", "WAVE-1-CONSTRAINT-CORE", "WAVE-2-SEA-CP-001", "WAVE-3-SEA-CP-003", "WAVE-4-VERIFICATION-HARDENING"] as const,
   activeRoadmapWave: "WAVE-5-COMPLETE-SEA-001" as const,
   completedWave5Checkpoints: ["SEA-CP-002", "SEA-CP-004", "SEA-CP-005"] as const,
+  completedWave5Gates: ["FULL_SATURATION"] as const,
+  activeWave5Gate: "ENGLISH_MANUAL_REVIEW" as const,
   nextCheckpointSequence: [] as const,
   remainingWave5Gates: [
-    "FULL_SATURATION",
     "ENGLISH_MANUAL_REVIEW",
     "MERGE_SPLIT_INVERSE_GAP_AUDITS",
     "PERMANENT_QL_ALLOCATION",
