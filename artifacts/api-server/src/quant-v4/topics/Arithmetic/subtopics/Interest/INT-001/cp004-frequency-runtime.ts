@@ -18,7 +18,11 @@ import { generateCp004ExamReadyStateV4 } from "./cp004-frequency-state-policy-v4
 import { ensureCp004InverseExplanationDepthV4 } from "./cp004-frequency-explanation-depth-v4";
 import { assertCp004VisibleGivensExamReadyV4 } from "./cp004-frequency-visible-givens-v4";
 import { polishCp004TargetWordingV4 } from "./cp004-frequency-wording-v4";
-import { polishCp004ExplanationHumanV4, polishCp004PresentationHumanV4 } from "./cp004-frequency-human-polish-v4";
+import {
+  assertCp004HumanPolishV4,
+  polishCp004ExplanationHumanV4,
+  polishCp004PresentationHumanV4,
+} from "./cp004-frequency-human-polish-v4";
 
 export * from "./cp004-frequency-math";
 export { generateCp004State } from "./cp004-frequency-generation";
@@ -56,6 +60,7 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
   const explanation = polishCp004ExplanationHumanV4(mathematicalState, targetReadyExplanation);
   assertCp004ReviewV3(mathematicalState, presentation, options, explanation);
   assertCp004ExamReadinessV4(mathematicalState, explanation);
+  assertCp004HumanPolishV4(mathematicalState, presentation, explanation);
   return deepFreeze({ packageId: "INT-001", canonicalProblemId: "INT-CP-004", permanentQlId: qlId, qlId,
     solveContract: entry.solveContract, answerSemantic: entry.answerSemantic, difficulty: entry.difficulty, seed, mathematicalState,
     representation: presentation.representation, stemFamilyId: presentation.stemFamilyId, stem: presentation.stem, options,
