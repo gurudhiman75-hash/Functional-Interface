@@ -7,12 +7,21 @@ import {
   type RnkCp005EditorialV3Question,
   type RnkCp005EditorialV3SourceForm,
 } from "./cp005-partial-order-editorial-v3-release";
+import type { RnkCp005Context } from "./cp005-partial-order-runtime";
 
 export const RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_VERSION =
   "RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_V1" as const;
 
 export const RNK_CP005_EXPECTED_PERMANENT_RUNTIME_CANDIDATE_PROJECTION_SHA256 =
   "UNPINNED" as const;
+
+export const RNK_CP005_PERMANENT_RUNTIME_CONTEXTS = [
+  "MERIT_LIST",
+  "INTERVIEW_SHORTLIST",
+  "PERFORMANCE_REVIEW",
+  "RACE_RESULT",
+  "EXAM_SCORE_ORDER",
+] as const satisfies readonly RnkCp005Context[];
 
 export type RnkCp005PermanentRuntimeCandidateAuthorityId =
   (typeof RNK_CP005_V3_AUTHORITY_CANDIDATE_IDS)[number];
@@ -149,6 +158,74 @@ function answerPositionTargets(group: CandidateGroup): readonly [number, number,
   return [target, target, target, target];
 }
 
+function contextInstruction(context: RnkCp005Context, count: number): string {
+  switch (context) {
+    case "MERIT_LIST":
+      return `${count} candidates are ranked in a merit list from highest rank to lowest rank.`;
+    case "INTERVIEW_SHORTLIST":
+      return `${count} applicants are ranked in an interview shortlist from highest rank to lowest rank.`;
+    case "PERFORMANCE_REVIEW":
+      return `${count} employees are ranked from best performance to lowest performance.`;
+    case "RACE_RESULT":
+      return `${count} runners are ranked from first finisher to last finisher.`;
+    case "EXAM_SCORE_ORDER":
+      return `${count} students are ranked from highest score to lowest score.`;
+  }
+}
+
+function contextComparison(
+  higher: string,
+  lower: string,
+  context: RnkCp005Context,
+  variant: number,
+): string {
+  const alternate = variant % 2 === 1;
+  switch (context) {
+    case "MERIT_LIST":
+      return alternate
+        ? `${higher} appears before ${lower} in the merit list.`
+        : `${higher} is ranked above ${lower}.`;
+    case "INTERVIEW_SHORTLIST":
+      return alternate
+        ? `${higher} has a better interview rank than ${lower}.`
+        : `${higher} is placed above ${lower} in the shortlist.`;
+    case "PERFORMANCE_REVIEW":
+      return alternate
+        ? `${higher} performed better than ${lower}.`
+        : `${higher} is ranked above ${lower} for performance.`;
+    case "RACE_RESULT":
+      return alternate
+        ? `${lower} finished after ${higher}.`
+        : `${higher} finished before ${lower}.`;
+    case "EXAM_SCORE_ORDER":
+      return alternate
+        ? `${higher} scored higher than ${lower}.`
+        : `${higher} is ranked above ${lower} based on score.`;
+  }
+}
+
+function renderQuestionContext(
+  question: RnkCp005EditorialV3Question,
+  context: RnkCp005Context,
+  variantOffset: number,
+): RnkCp005EditorialV3Question {
+  const state = buildRnkCp005EditorialV3State(question.seed, question.v3Topology);
+  if (!state) throw new Error(`${question.discoveryId}: missing V3 state for context render`);
+  return {
+    ...question,
+    context,
+    instruction: contextInstruction(context, state.entities.length),
+    clues: state.edges.map((edge, index) =>
+      contextComparison(
+        edge.higher,
+        edge.lower,
+        context,
+        variantOffset + index,
+      ),
+    ),
+  };
+}
+
 function normalizeLearnerText(question: RnkCp005EditorialV3Question): string {
   return [
     question.instruction,
@@ -185,6 +262,9 @@ function candidateRuntimeFingerprint(
     sourceForm: group.sourceForm,
     sourceOrdinal,
     ordinalWithinMode,
+    context: question.context,
+    instruction: question.instruction,
+    clues: question.clues,
   });
 }
 
@@ -276,7 +356,10 @@ export function buildRnkCp005PermanentRuntimeCandidate(): readonly RnkCp005Perma
     );
   }
 
-  return RNK_CP005_V3_AUTHORITY_CANDIDATE_IDS.flatMap((authorityCandidateId) => {
+  const finalLearnerFingerprints = new Set<string>();
+  const finalRuntimeFingerprints = new Set<string>();
+
+  return RNK_CP005_V3_AUTHORITY_CANDIDATE_IDS.flatMap((authorityCandidateId, authorityIndex) => {
     const authorityQuestions = grouped.get(authorityCandidateId)!;
     if (authorityQuestions.length !== 192) {
       throw new Error(
@@ -288,12 +371,45 @@ export function buildRnkCp005PermanentRuntimeCandidate(): readonly RnkCp005Perma
       const {
         selectedMode,
         selectedSourceOrdinal,
-        ...question
+        ...genericQuestion
       } = selected;
       const ordinalWithinMode = (modeOrdinals.get(selectedMode) ?? 0) + 1;
       modeOrdinals.set(selectedMode, ordinalWithinMode);
+      const context = RNK_CP005_PERMANENT_RUNTIME_CONTEXTS[
+        (index + authorityIndex * 2) % RNK_CP005_PERMANENT_RUNTIME_CONTEXTS.length
+      ]!;
+      const rendered = renderQuestionContext(
+        genericQuestion,
+        context,
+        selectedSourceOrdinal + index,
+      );
+      const normalizedLearnerFingerprint = sha256(normalizeLearnerText(rendered));
+      if (finalLearnerFingerprints.has(normalizedLearnerFingerprint)) {
+        throw new Error(`${rendered.discoveryId}: duplicate final learner surface`);
+      }
+      finalLearnerFingerprints.add(normalizedLearnerFingerprint);
+
+      const group = RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_GROUPS.find(
+        (candidate) =>
+          candidate.authorityCandidateId === authorityCandidateId &&
+          candidate.mode === selectedMode,
+      );
+      if (!group) throw new Error(`${rendered.discoveryId}: candidate group missing`);
+      const runtimeFingerprint = candidateRuntimeFingerprint(
+        rendered,
+        group,
+        selectedSourceOrdinal,
+        ordinalWithinMode,
+      );
+      if (finalRuntimeFingerprints.has(runtimeFingerprint)) {
+        throw new Error(`${rendered.discoveryId}: duplicate final runtime fingerprint`);
+      }
+      finalRuntimeFingerprints.add(runtimeFingerprint);
+
       return {
-        ...question,
+        ...rendered,
+        normalizedLearnerFingerprint,
+        candidateRuntimeFingerprint: runtimeFingerprint,
         candidateRuntimeProfile: {
           version: RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_VERSION,
           authorityCandidateId,
