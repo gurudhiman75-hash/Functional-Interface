@@ -5,6 +5,11 @@ import { LinearTopology } from "./topology/linear.ts";
 import { enumerateLinearOracle } from "./solver/independent-oracle.ts";
 import { solveLinear } from "./solver/production-solver.ts";
 import { generateSeaCp001Caselet } from "./generation/caselet-assembler.ts";
+import {
+  cp001QuerySurfaceId,
+  SEA_CP001_ACCEPTED_QUERY_CONTRACTS,
+  SEA_CP001_QUERY_SURFACE_IDS,
+} from "./generation/question-generator.ts";
 import type { LinearConstraint } from "./types.ts";
 
 function topologyProof(): void {
@@ -42,11 +47,19 @@ function solverFixtureProof(): void {
     { id: "S4", kind: "RELATIVE_POSITION", subjectId: "D", referenceId: "C", direction: "RIGHT", steps: 1 },
     { id: "S5", kind: "RELATIVE_POSITION", subjectId: "E", referenceId: "D", direction: "RIGHT", steps: 1 },
   ];
-  assert.deepEqual(solveLinear({ personIds, facing: "SOUTH", constraints: southConstraints }).models.map((model) => model.canonicalKey), ["SOUTH|E>D>C>B>A"]);
+  assert.deepEqual(
+    solveLinear({ personIds, facing: "SOUTH", constraints: southConstraints }).models.map((model) => model.canonicalKey),
+    ["SOUTH|E>D>C>B>A"],
+  );
 }
 
 function generatedCaseletProof(): void {
   let generated = 0;
+  const observedSeatCounts = new Set<number>();
+  const observedContracts = new Set<string>();
+  const observedSurfaces = new Set<string>();
+  const answerPositions = Array.from({ length: 3 }, () => [0, 0, 0, 0]);
+
   for (const blueprintId of SEA_001_BLUEPRINTS) {
     for (let seedIndex = 0; seedIndex < 125; seedIndex += 1) {
       const seed = `sea-foundation-${seedIndex}`;
@@ -61,7 +74,15 @@ function generatedCaseletProof(): void {
       assert.equal(first.crossQuestionLeakagePassed, true);
       assert.equal(first.lifecycle.permanentQlCount, 0);
       assert.equal(first.lifecycle.questionBankWritable, false);
+
+      const seatCount = Number(first.setupText.match(/^(\d+) persons/)?.[1]);
+      assert.ok(Number.isInteger(seatCount));
+      observedSeatCounts.add(seatCount);
+
       for (const child of first.children) {
+        observedContracts.add(child.queryContractId);
+        observedSurfaces.add(cp001QuerySurfaceId(child));
+        answerPositions[child.questionOrder - 1]![child.answerIndex] += 1;
         assert.equal(child.options.length, 4);
         assert.equal(new Set(child.options.map((option) => option.semanticFingerprint)).size, 4);
         assert.equal(child.options.filter((option) => option.isCorrect).length, 1);
@@ -70,7 +91,14 @@ function generatedCaseletProof(): void {
       generated += 1;
     }
   }
+
   assert.equal(generated, 500);
+  assert.deepEqual([...observedSeatCounts].sort((a, b) => a - b), [5, 6, 7, 8]);
+  assert.deepEqual([...observedContracts].sort(), [...SEA_CP001_ACCEPTED_QUERY_CONTRACTS].sort());
+  assert.deepEqual([...observedSurfaces].sort(), [...SEA_CP001_QUERY_SURFACE_IDS].sort());
+  for (const counts of answerPositions) {
+    assert.ok(counts.every((count) => count > 0), `Missing CP-001 child-position answer slot: ${counts.join(",")}`);
+  }
 }
 
 function lifecycleProof(): void {
@@ -86,4 +114,7 @@ console.log("PASS_SEA_001_CP001_FOUNDATION");
 console.log("named blueprint authorities", SEA_001_BLUEPRINTS.length);
 console.log("generated deterministic caselets", SEA_001_BLUEPRINTS.length * 125);
 console.log("generated child questions", SEA_001_BLUEPRINTS.length * 125 * 3);
+console.log("accepted CP-001 query contracts", SEA_CP001_ACCEPTED_QUERY_CONTRACTS.length);
+console.log("reachable CP-001 query surfaces", SEA_CP001_QUERY_SURFACE_IDS.length);
+console.log("supported seat counts", "5,6,7,8");
 console.log("permanent QLs", 0);
