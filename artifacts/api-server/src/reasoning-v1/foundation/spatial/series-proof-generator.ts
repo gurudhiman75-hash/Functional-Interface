@@ -63,6 +63,29 @@ function optionLabel(ruleId: SpatialSeriesRuleId, intended: SpatialSeriesRuleId)
   return "PARTIAL_COMPOUND_RULE_TRAP";
 }
 
+function observationForRule(ruleId: SpatialSeriesRuleId): string {
+  switch (ruleId) {
+    case "ROTATE_90_CW":
+    case "ROTATE_90_CCW":
+    case "ROTATE_180":
+      return "The same main figure changes orientation by the same amount from one frame to the next; no marker or dot group is present.";
+    case "MOVE_MARKER_CW":
+    case "MOVE_MARKER_CCW":
+      return "The main figure stays fixed while the black marker changes side in a regular direction from one frame to the next.";
+    case "MOVE_DOTS_CW":
+    case "MOVE_DOTS_CCW":
+      return "The main figure and the number of dots stay fixed while the complete dot group changes side in a regular direction.";
+    case "INCREASE_DOTS":
+      return "The main figure and dot position stay fixed while the visible dot count rises 1, 2, 3, 4 across the four frames.";
+    case "ROTATE_90_CW_MOVE_MARKER_CCW":
+      return "Two visible changes happen together in every step: the main figure turns and the black marker moves to a new side.";
+    case "ROTATE_90_CCW_MOVE_DOTS_CW":
+      return "Two visible changes happen together in every step: the main figure turns and the dot group moves to a new side.";
+    default:
+      return "Compare each consecutive figure and track only the visible features that change.";
+  }
+}
+
 export function generateSpatialSeriesProofQuestion(
   definition: SpatialSeriesProofDefinition,
 ): SpatialSeriesProofQuestion {
@@ -161,6 +184,16 @@ export function generateSpatialSeriesProofQuestion(
   else if (definition.ruleId === "MOVE_DOTS_CCW") applicationBits.push("move the dot group one side anticlockwise");
   if (definition.ruleId === "INCREASE_DOTS") applicationBits.push("add one dot");
 
+  const optionReview = options
+    .map((option, index) => {
+      const letter = String.fromCharCode(65 + index);
+      if (index === definition.desiredCorrectOptionIndex) {
+        return `${letter} matches the required next step.`;
+      }
+      return `${letter} would instead follow this different step: ${spatialSeriesRuleDescription(option.appliedRuleId)}.`;
+    })
+    .join(" ");
+
   return {
     familyCode: "SPA-001",
     chapterCode: "FSR-001",
@@ -181,10 +214,10 @@ export function generateSpatialSeriesProofQuestion(
       correctOptionIndex: definition.desiredCorrectOptionIndex,
     },
     learnerExplanation: {
-      observation: "Compare each consecutive figure and track only the visible features that change.",
+      observation: observationForRule(definition.ruleId),
       rule: `The repeating rule is: ${spatialSeriesRuleDescription(definition.ruleId)}.`,
       application: `From the fourth figure, ${applicationBits.join(" and ")}.`,
-      check: `That gives option ${String.fromCharCode(65 + definition.desiredCorrectOptionIndex)}; the other options represent wrong direction, wrong amount, no change, or a partial compound rule.`,
+      check: optionReview,
     },
     lifecycle: {
       permanentQlId: null,
