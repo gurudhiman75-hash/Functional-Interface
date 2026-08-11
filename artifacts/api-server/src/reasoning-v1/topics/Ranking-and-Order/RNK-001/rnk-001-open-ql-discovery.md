@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 through CP-004 frozen at `RNK-QL-001..035`; CP-005 V3 editorial review passed, final ownership is pending, and `RNK-QL-036` remains unallocated.**
+Status: **CP-001 through CP-004 frozen at `RNK-QL-001..035`; CP-005 V3 editorial and QL-034 ownership audits passed, permanent runtime/freeze remains open, and `RNK-QL-036` is unallocated.**
 
 Counts in this register are evidence, never chapter-size quotas.
 
@@ -60,7 +60,7 @@ RNK-QL-034  DEFINITELY_TRUE_RELATION
 RNK-QL-035  MISSING_COMPARISON
 ```
 
-CP-004 owns evidence that forces one unique complete strict order.
+CP-004 owns comparison evidence that forces one unique complete strict order.
 
 ## 5. Book-to-QL reset
 
@@ -76,7 +76,7 @@ The rejected presentation-led/shared-set proposal allocated no QLs.
 
 ## 6. RNK-CP-005 — Partial Order and Ranking Uncertainty
 
-### Current state
+### Validated discovery state
 
 ```text
 raw prototypes:                 8
@@ -90,17 +90,13 @@ release answer balance: 42 / 42 / 42 / 42
 unique release states:        168
 provisional authorities:        3
 permanent QLs:                  0
+
+Easy:                           0
+Medium:                       156
+Hard:                          12
 ```
 
-Release difficulty:
-
-```text
-Easy:      0
-Medium:  156
-Hard:     12
-```
-
-### Seven discovery source forms
+Seven discovery source forms:
 
 ```text
 DEFINITELY_TRUE_RELATION
@@ -112,63 +108,79 @@ MAXIMUM_POSSIBLE_RANK
 DEFINITE_RANK_OR_INDETERMINATE
 ```
 
-Rejected:
+Rejected: `ORDER_UNIQUENESS_STATUS`.
 
-```text
-ORDER_UNIQUENESS_STATUS
-```
-
-### V3 consolidation proposal
+### Consolidation after ownership audit
 
 ```text
 RELATION_TRUTH_STATUS
-  MUST
-  COULD
-  CANNOT
-  PAIR_STATUS
+  MUST / COULD / CANNOT / PAIR_STATUS
 
 POSSIBLE_RANK_BOUND
-  HIGHEST
-  LOWEST
+  HIGHEST / LOWEST
 
 EXACT_RANK_DETERMINACY
-  DEFINITE
-  INDETERMINATE
+  DEFINITE / INDETERMINATE
 ```
 
-The legacy pair source is not a separate authority. Its corpus contains:
+These are still provisional authorities, not permanent QLs.
+
+### QL-034 overlap — resolved
+
+Decision:
 
 ```text
-FIRST_ABOVE:      8
-SECOND_ABOVE:     8
-INDETERMINATE:    8
+KEEP_SEPARATE_PROVISIONAL_AUTHORITY
 ```
+
+Reason:
+
+```text
+RNK-QL-034 / CP-004
+  exactly one total order is valid
+  solver reconstructs that unique order
+  asks for a definitely-true relation
+
+CP-005 RELATION_TRUTH_STATUS
+  at least two total orders remain valid
+  solver quantifies relations over all valid orders
+  supports MUST / COULD / CANNOT / PAIR_STATUS
+```
+
+The shared surface wording does not make these the same authority. Merging would change the frozen QL-034 state contract and answer space.
+
+Executable audit coverage:
+
+```text
+QL-034 frozen questions checked:       192
+CP-005 relation questions checked:      96
+CP-005 MUST:                            24
+CP-005 COULD:                           24
+CP-005 CANNOT:                          24
+CP-005 PAIR_STATUS:                     24
+PAIR first/second/indeterminate:    8 / 8 / 8
+```
+
+Primary Ranking-source evidence also contains incomplete comparison tables where some people remain incomparable while other conclusions are determinable. This supports CP-005 partial-order ownership inside Ranking.
+
+See `RNK-CP-005/RNK-CP-005-QL034-OWNERSHIP-AUDIT.md`.
 
 ### V3 semantic gates
 
-Generic relation options:
+- generic relation options use four distinct person-pairs, at least four people and no more than two appearances/person;
+- MUST uses possible-but-not-compulsory distractors;
+- COULD bans direct clue reversals and requires multi-step contradiction for wrong options;
+- CANNOT uses possible-but-not-compulsory distractors;
+- PAIR_STATUS includes first-above, second-above and indeterminate results;
+- rank bounds require at least three compulsory people, branch integration, a transitive compulsory relation, boundary proof and attainable witness;
+- definite exact ranks require transitive structural evidence;
+- indeterminate exact ranks use two witness rankings;
+- eight graph topology families are represented.
+
+### Editorial evidence
 
 ```text
-4 distinct ordered pairs
-4 distinct unordered pairs
->=4 people represented
-<=2 option appearances/person
-```
-
-- MUST: correct answer is transitive; at least two distractors are possible but not compulsory.
-- COULD: wrong options are impossible through multi-step inference; direct clue reversal is prohibited.
-- CANNOT: every distractor is possible but not compulsory.
-- PAIR_STATUS: first-above, second-above and indeterminate all occur; exact-gap distractors vary.
-- rank bounds: >=3 compulsory people, branch integration, >=1 transitively derived compulsory relation, boundary impossibility proof and attainable witness.
-- definite exact rank: transitive structural evidence and full accounting.
-- indeterminate exact rank: two witness rankings with different target ranks.
-
-Eight V3 topology families are used. Every release source form spans at least six, and the 28-question review pack has four distinct topologies/source form.
-
-### Editorial review result
-
-```text
-28-question human pack reviewed
+28-question V3 human review pack
 answer balance: 7 / 7 / 7 / 7
 wrong answer keys: 0
 contradictions: 0
@@ -177,52 +189,30 @@ COULD direct-reversal shortcuts: 0
 rank-bound direct-count-only cases: 0
 ```
 
-Editorial review is passed. Final source-backed permanent ownership remains pending.
-
-### CP-004 overlap still open
-
-`RNK-QL-034` and CP-005 `RELATION_TRUTH_STATUS-MUST` have different current proof contracts:
+Final V3 release proof before the ownership branch:
 
 ```text
-RNK-QL-034:
-  one unique total order is forced
-
-CP-005 MUST:
-  multiple total orders remain valid
-  relation holds across all of them
-```
-
-Before `RNK-QL-036` is allocated, exam-source evidence and manual ownership signoff must decide whether this warrants a new permanent QL or parameterised extension of existing ownership.
-
-### Evidence
-
-Validated implementation before final documentation cleanup:
-
-```text
-workflow run: 31472607624
-head:         bf268249e9daf24273da2ecf081f674ea4e42642
+workflow run: 31473422220
+head:         c4fcb1a53b310aae9e4c24e55d3fa3b4f895a15a
 result:       PASS
-
-evidence artifact: 9093964523
-review artifact:   9093964870
 ```
 
-See:
-
-- `RNK-CP-005/RNK-CP-005-EDITORIAL-V3-CONSOLIDATION.md`
-- `RNK-CP-005/RNK-CP-005-PARTIAL-ORDER-DISCOVERY-STATUS-V1.md`
-
-### Remaining entry gates before permanent QLs
+### Remaining gate before permanent allocation
 
 ```text
-exam-source frequency evidence
--> final CP-004 overlap decision
--> manual English ownership approval
--> permanent QL allocation
--> permanent runtime / freeze evidence
+ownership audit: passed
+editorial review: passed
+
+next:
+  construct permanent English runtime for all 3 provisional authorities
+  -> validate full corpus/projection/dedup/difficulty/context balance
+  -> final manual English freeze approval
+  -> allocate permanent identities only after that approval
 ```
 
-`RNK-QL-036` is still available.
+If all three later pass freeze, the available contiguous range would be `RNK-QL-036..038`; this statement is a reservation forecast, not an allocation.
+
+`RNK-QL-036` remains available.
 
 ## 7. Later checkpoints
 
@@ -232,7 +222,7 @@ Unallocated. Implement only after strong exam-source evidence.
 
 ### RNK-CP-007 — advanced mixed ranking transformations
 
-Unallocated. Open only after CP-005 final ownership and a fresh chapter-gap audit.
+Unallocated. Open only after CP-005 freeze and a fresh chapter-gap audit.
 
 ### RNK-CP-008 — reserved
 
@@ -256,7 +246,7 @@ age/speed/marks arithmetic as main burden      -> Quant
 cumulative permanent range: RNK-QL-001..035
 next available RNK ID:      RNK-QL-036
 CP-005 editorial review:    passed
-CP-005 final ownership:     pending
+CP-005 ownership audit:     passed
 CP-005 permanent QLs:       0
 chapter-wide freeze:        false
 Hindi/Punjabi:              NOT_STARTED
