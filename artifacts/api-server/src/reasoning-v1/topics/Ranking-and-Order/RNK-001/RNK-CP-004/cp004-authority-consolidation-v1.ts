@@ -196,18 +196,25 @@ export function generateRnkCp004ConsolidatedQuestion(
   };
 }
 
+/**
+ * Ownership boundary corrected by the later RNK-001 book-to-QL reset and the
+ * CP-005 QL-034 ownership audit. The original discovery-era CP-005..008 labels
+ * were provisional and are not permanent chapter ownership.
+ */
 export const RNK_CP004_OWNERSHIP_BOUNDARY = {
   exactUniqueMultiEntityOrder: 'RNK-CP-004',
-  presentationLedRowQueueMeritRace: 'RNK-CP-005',
-  attributeLedHeightAgeMarksWeight: 'RNK-CP-006',
-  partialOrderPossibleImpossibleCannotDetermine: 'RNK-CP-007',
-  sharedMultiQuestionRankingSets: 'RNK-CP-008',
+  presentationLedRowQueueMeritRace: 'CONTEXT_ONLY_SOLVER_DECIDES',
+  attributeLedHeightAgeMarksWeight: 'CONTEXT_ONLY_SOLVER_DECIDES',
+  partialOrderPossibleImpossibleCannotDetermine: 'RNK-CP-005',
+  tiedOrNonStrictRanking: 'RNK-CP-006_SOURCE_AUDIT',
+  advancedMixedRankingTransformations: 'RNK-CP-007_FRESH_GAP_AUDIT',
+  sharedMultiQuestionRankingSets: 'ASSEMBLY_INFRASTRUCTURE',
   statementDataSufficiencyLabels: 'DATA_SUFFICIENCY',
 } as const;
 
 export const RNK_CP004_OPEN_AUTHORITY_CANDIDATES = {
-  definitelyFalseRelation: 'REQUIRES_ADDITIONAL_SOURCE_PROOF',
-  cannotDetermineRelation: 'EXCLUDED_TO_RNK_CP007',
-  possibleOrImpossibleRelation: 'EXCLUDED_TO_RNK_CP007',
-  minimumOrMaximumPossibleRank: 'EXCLUDED_TO_RNK_CP007',
+  definitelyFalseRelation: 'COVERED_BY_RNK_CP005_RELATION_TRUTH_STATUS_CANNOT',
+  cannotDetermineRelation: 'COVERED_BY_RNK_CP005_RELATION_TRUTH_STATUS_PAIR_STATUS',
+  possibleOrImpossibleRelation: 'COVERED_BY_RNK_CP005_RELATION_TRUTH_STATUS',
+  minimumOrMaximumPossibleRank: 'COVERED_BY_RNK_CP005_POSSIBLE_RANK_BOUND',
 } as const;
