@@ -79,6 +79,10 @@ function replaceOnce(value, from, to, label) {
     'import { renderProbabilityMathText } from "./shared/math-text";\nimport { renderNativeStudentFacingStem } from "./shared/native-student-facing-renderer";',
     "native renderer import",
   );
+  value = value.replace(
+    'from "./shared/native-student-facing-renderer";',
+    'from "./shared/native-exam-style-bridge";',
+  );
 
   const start = value.indexOf("function renderNativeStem(");
   const end = value.indexOf("function localizedEquation", start);
@@ -92,4 +96,4 @@ function replaceOnce(value, from, to, label) {
   fs.writeFileSync(path, value);
 }
 
-console.log("Applied scenario-aware, exam-style Hindi/Punjabi Probability stem renderer.");
+console.log("Applied context-preserving, exam-style Hindi/Punjabi Probability stem renderer.");
