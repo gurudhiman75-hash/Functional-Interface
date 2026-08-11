@@ -18,6 +18,7 @@ import { generateCp004ExamReadyStateV4 } from "./cp004-frequency-state-policy-v4
 import { ensureCp004InverseExplanationDepthV4 } from "./cp004-frequency-explanation-depth-v4";
 import { assertCp004VisibleGivensExamReadyV4 } from "./cp004-frequency-visible-givens-v4";
 import { polishCp004TargetWordingV4 } from "./cp004-frequency-wording-v4";
+import { polishCp004ExplanationHumanV4, polishCp004PresentationHumanV4 } from "./cp004-frequency-human-polish-v4";
 
 export * from "./cp004-frequency-math";
 export { generateCp004State } from "./cp004-frequency-generation";
@@ -41,7 +42,8 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
       .replace(/\ba annual compounding scheme\b/gu, "an annual compounding scheme")
       .replace(/At ([0-9.]+%) per annum on (₹[0-9,.]+)\. Find only the interest in the maturity value\./gu, "Find only the interest in the maturity value on $2 at $1 per annum."),
   });
-  const presentation = hardenCp004PresentationV3(cleanedPresentation);
+  const v3Presentation = hardenCp004PresentationV3(cleanedPresentation);
+  const presentation = polishCp004PresentationHumanV4(mathematicalState, v3Presentation);
   assertCp004VisibleGivensExamReadyV4(mathematicalState, presentation.stem);
   const options = hardenCp004OptionsV3(mathematicalState, optionsFor(mathematicalState, seed));
   const correctIndex = options.findIndex((option) => option.isCorrect);
@@ -50,7 +52,8 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
   const v3Explanation = hardenCp004ExplanationV3(mathematicalState, explanationFor(mathematicalState, correctAnswer));
   const v4Explanation = hardenCp004ExplanationV4(mathematicalState, v3Explanation);
   const depthReadyExplanation = ensureCp004InverseExplanationDepthV4(mathematicalState, v4Explanation);
-  const explanation = polishCp004TargetWordingV4(mathematicalState, depthReadyExplanation);
+  const targetReadyExplanation = polishCp004TargetWordingV4(mathematicalState, depthReadyExplanation);
+  const explanation = polishCp004ExplanationHumanV4(mathematicalState, targetReadyExplanation);
   assertCp004ReviewV3(mathematicalState, presentation, options, explanation);
   assertCp004ExamReadinessV4(mathematicalState, explanation);
   return deepFreeze({ packageId: "INT-001", canonicalProblemId: "INT-CP-004", permanentQlId: qlId, qlId,
