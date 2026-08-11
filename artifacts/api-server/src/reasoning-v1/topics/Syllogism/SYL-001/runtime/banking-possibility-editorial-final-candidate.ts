@@ -10,6 +10,7 @@ export type BankingPossibilityEditorialFinalCandidate = BankingPossibilityEditor
 function polish(line: string, locale: SylLocale): string {
   if (locale === "hi-IN") {
     return line
+      .replace("कथन 1 और 2 और 3 को साथ पढ़ें", "कथन 1, 2 और 3 को साथ पढ़ें")
       .replace("यही containment दिखता है", "यही अंदर-होने का संबंध दिखता है")
       .replace("आरेख में भी दोनों वर्ग अलग हैं, इसलिए एक ही × दोनों में नहीं रखा जा सकता। इसलिए निष्कर्ष",
         "आरेख में भी दोनों वर्ग अलग हैं; एक ही × दोनों में नहीं रखा जा सकता। इसलिए निष्कर्ष")
@@ -22,6 +23,7 @@ function polish(line: string, locale: SylLocale): string {
   }
   if (locale === "pa-IN") {
     return line
+      .replace("ਕਥਨ 1 ਅਤੇ 2 ਅਤੇ 3 ਨੂੰ ਇਕੱਠੇ ਪੜ੍ਹੋ", "ਕਥਨ 1, 2 ਅਤੇ 3 ਨੂੰ ਇਕੱਠੇ ਪੜ੍ਹੋ")
       .replace("ਇਹੀ containment ਦਿਖਦਾ ਹੈ", "ਇਹੀ ਅੰਦਰ-ਹੋਣ ਵਾਲਾ ਸੰਬੰਧ ਦਿਖਦਾ ਹੈ")
       .replace("ਚਿੱਤਰ ਵਿੱਚ ਵੀ ਦੋਵੇਂ ਵਰਗ ਵੱਖ ਹਨ, ਇਸ ਲਈ ਇੱਕੋ × ਦੋਵਾਂ ਵਿੱਚ ਨਹੀਂ ਰੱਖਿਆ ਜਾ ਸਕਦਾ। ਇਸ ਲਈ ਨਤੀਜਾ",
         "ਚਿੱਤਰ ਵਿੱਚ ਵੀ ਦੋਵੇਂ ਵਰਗ ਵੱਖ ਹਨ; ਇੱਕੋ × ਦੋਵਾਂ ਵਿੱਚ ਨਹੀਂ ਰੱਖਿਆ ਜਾ ਸਕਦਾ। ਇਸ ਲਈ ਨਤੀਜਾ")
@@ -33,6 +35,7 @@ function polish(line: string, locale: SylLocale): string {
         "। ਇਸ ਹਾਲਤ ਵਿੱਚ “$1” ਦਾ ਕੋਈ ਲੋੜੀਂਦਾ ਮੈਂਬਰ “$2” ਤੋਂ ਬਾਹਰ ਨਹੀਂ ਹੋ ਸਕਦਾ। ਇਸ ਲਈ ਨਤੀਜਾ");
   }
   return line
+    .replace("Read Statements 1 and 2 and 3 together", "Read Statements 1, 2 and 3 together")
     .replace(/\. Therefore an × for “([^”]+)” cannot be placed outside “([^”]+)”\. Therefore Conclusion/gu,
       ". So no witness for the “$1” class can lie outside the “$2” class. Therefore Conclusion")
     .replace(/\. Therefore the whole “([^”]+)” class cannot be inside “([^”]+)”\. Therefore Conclusion/gu,
