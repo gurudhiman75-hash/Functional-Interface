@@ -77,6 +77,6 @@ jobs:
           name: syl-001-bank-possibility-v4-complete-diagrams
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-complete-diagram-v4-audit.log
-            artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-review-v4/**
+            dist/reasoning-v1/syl-001-bank-possibility-review-v4/**
           if-no-files-found: error
           retention-days: 30
