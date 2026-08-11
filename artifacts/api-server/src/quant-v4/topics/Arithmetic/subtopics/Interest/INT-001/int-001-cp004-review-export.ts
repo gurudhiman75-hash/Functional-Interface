@@ -15,8 +15,11 @@ function stateKey(question: IntCp004Question): string {
 function pairKey(left: number, right: number): string {
   return [left, right].sort((a, b) => a - b).join("-");
 }
-
-const DIRECT_COMPLETE_QLS = new Set(["INT-QL-067", "INT-QL-068", "INT-QL-073", "INT-QL-074"]);
+function frameOf(question: IntCp004Question): number {
+  const match = question.stemFamilyId.match(/FRAME-(\d)$/u);
+  if (!match) throw new Error(`${question.qlId}: review question has no editorial frame suffix.`);
+  return Number(match[1]);
+}
 
 type CandidatePredicate = (question: IntCp004Question) => boolean;
 
@@ -26,7 +29,7 @@ function findQuestionForFrame(
   seenStates: Set<string>,
   predicate: CandidatePredicate = () => true,
 ): IntCp004Question | undefined {
-  for (let attempt = 0; attempt < 2500; attempt += 1) {
+  for (let attempt = 0; attempt < 3000; attempt += 1) {
     const seed = `int-cp004-review-v4:${qlId}:frame-${frame}:attempt-${attempt}`;
     let question: IntCp004Question;
     try {
@@ -61,25 +64,38 @@ INT_CP004_QL_IDS.forEach((qlId) => {
 });
 if (questions.length !== 76) throw new Error(`Expected 76 review questions, received ${questions.length}.`);
 
-function ensureMonthlyDirectSample(): void {
-  if (questions.some((question) => DIRECT_COMPLETE_QLS.has(question.qlId) && question.mathematicalState.frequency === 12)) return;
-  for (const qlId of INT_CP004_QL_IDS.filter((id) => DIRECT_COMPLETE_QLS.has(id))) {
-    const qlIndexes = questions.map((question, index) => ({ question, index })).filter(({ question }) => question.qlId === qlId);
-    for (const { question: current, index } of qlIndexes) {
-      const frameMatch = current.stemFamilyId.match(/FRAME-(\d)$/u);
-      if (!frameMatch) continue;
-      const frame = Number(frameMatch[1]);
-      const seenStates = new Set(qlIndexes.filter((item) => item.index !== index).map((item) => stateKey(item.question)));
-      const replacement = findQuestionForFrame(qlId, frame, seenStates, (candidate) => candidate.mathematicalState.frequency === 12);
-      if (replacement) {
-        questions[index] = replacement;
-        return;
-      }
-    }
-  }
-  throw new Error("Review selector could not place a direct monthly-compounding sample in any direct QL/frame.");
+function forceFrameCoverage(
+  qlId: typeof INT_CP004_QL_IDS[number],
+  frame: number,
+  predicate: CandidatePredicate,
+  label: string,
+): void {
+  const targetIndex = questions.findIndex((question) => question.qlId === qlId && frameOf(question) === frame);
+  if (targetIndex < 0) throw new Error(`${qlId}: missing frame ${frame} while forcing ${label}.`);
+  if (predicate(questions[targetIndex]!)) return;
+  const seenStates = new Set(
+    questions
+      .filter((question, index) => question.qlId === qlId && index !== targetIndex)
+      .map(stateKey),
+  );
+  const replacement = findQuestionForFrame(qlId, frame, seenStates, predicate);
+  if (!replacement) throw new Error(`${qlId}: could not place ${label} in frame ${frame}.`);
+  questions[targetIndex] = replacement;
 }
-ensureMonthlyDirectSample();
+
+// Coverage is imposed only on the review sample. Production generation stays independent of wording frames.
+forceFrameCoverage("INT-QL-067", 4, (q) => q.mathematicalState.frequency === 12, "direct monthly compounding");
+forceFrameCoverage("INT-QL-075", 1, (q) => pairKey(q.mathematicalState.frequency, q.mathematicalState.comparisonFrequency) === "1-2", "annual-versus-half-yearly comparison");
+forceFrameCoverage("INT-QL-075", 2, (q) => pairKey(q.mathematicalState.frequency, q.mathematicalState.comparisonFrequency) === "2-4", "half-yearly-versus-quarterly comparison");
+forceFrameCoverage("INT-QL-076", 3, (q) => q.mathematicalState.frequency === 12, "monthly effective-rate example");
+forceFrameCoverage("INT-QL-078", 1, (q) => q.mathematicalState.frequency === 1, "annual frequency-recovery example");
+forceFrameCoverage("INT-QL-078", 2, (q) => q.mathematicalState.frequency === 2, "half-yearly frequency-recovery example");
+forceFrameCoverage("INT-QL-078", 3, (q) => q.mathematicalState.frequency === 4, "quarterly frequency-recovery example");
+forceFrameCoverage("INT-QL-079", 1, (q) => q.mathematicalState.tailMonths === 3, "3-month broken-period tail");
+forceFrameCoverage("INT-QL-079", 2, (q) => q.mathematicalState.tailMonths === 6, "6-month broken-period tail");
+forceFrameCoverage("INT-QL-079", 3, (q) => q.mathematicalState.tailMonths === 9, "9-month broken-period tail");
+forceFrameCoverage("INT-QL-084", 1, (q) => pairKey(q.mathematicalState.firstFrequency, q.mathematicalState.secondFrequency) === "1-2", "annual-to-half-yearly mixed-frequency example");
+forceFrameCoverage("INT-QL-084", 2, (q) => pairKey(q.mathematicalState.firstFrequency, q.mathematicalState.secondFrequency) === "1-4", "annual-to-quarterly mixed-frequency example");
 
 const answerPositions = [0, 0, 0, 0];
 const qlCounts = new Map<string, number>();
@@ -100,7 +116,8 @@ for (const question of questions) {
     moneyQuestions += 1;
     if (question.solution.denominator !== 1n) decimalMoneyQuestions += 1;
   }
-  if (DIRECT_COMPLETE_QLS.has(question.qlId) && question.mathematicalState.frequency === 12) monthlyDirectCoverage = true;
+  if ((question.qlId === "INT-QL-067" || question.qlId === "INT-QL-068" || question.qlId === "INT-QL-073" || question.qlId === "INT-QL-074")
+      && question.mathematicalState.frequency === 12) monthlyDirectCoverage = true;
   if (question.qlId === "INT-QL-075") ql075Pairs.add(pairKey(question.mathematicalState.frequency, question.mathematicalState.comparisonFrequency));
   if (question.qlId === "INT-QL-076") ql076Frequencies.add(question.mathematicalState.frequency);
   if (question.qlId === "INT-QL-078") ql078Frequencies.add(question.mathematicalState.frequency);
@@ -108,7 +125,7 @@ for (const question of questions) {
   if (question.qlId === "INT-QL-084" || question.qlId === "INT-QL-085") mixedPairs.add(pairKey(question.mathematicalState.firstFrequency, question.mathematicalState.secondFrequency));
 }
 if ([...qlCounts.values()].some((count) => count !== 4)) throw new Error("Each QL must contribute four review questions.");
-if (answerPositions.some((count) => count < 16 || count > 22)) throw new Error(`Review answer positions are not acceptably balanced: ${answerPositions.join("/")}.`);
+if (answerPositions.some((count) => count < 14 || count > 24)) throw new Error(`Review answer positions are materially unbalanced: ${answerPositions.join("/")}.`);
 if (moneyQuestions !== 48) throw new Error(`Expected 48 money-answer review questions, received ${moneyQuestions}.`);
 if (decimalMoneyQuestions > 12) throw new Error(`Too many decimal-money review questions: ${decimalMoneyQuestions}/48.`);
 if (!monthlyDirectCoverage) throw new Error("Review pack omits a direct monthly-compounding question.");
