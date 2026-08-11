@@ -72,6 +72,7 @@ for (const candidate of fcl.accepted) {
   assert(audit.safe, `${payload.prototypeId}: independent final instance audit failed.`);
   assert(audit.competingDescriptorIds.length === 0, `${payload.prototypeId}: competing descriptors: ${audit.competingDescriptorIds.join(",")}.`);
   assert(audit.disallowedShortcutDescriptorIds.length === 0, `${payload.prototypeId}: visible shortcuts: ${audit.disallowedShortcutDescriptorIds.join(",")}.`);
+  assert(audit.perceptualAliasPairs.length === 0, `${payload.prototypeId}: perceptual alias pairs: ${audit.perceptualAliasPairs.map((pair) => `${pair.leftPrimitiveId}/${pair.rightPrimitiveId}:${pair.dice.toFixed(3)}`).join(",")}.`);
   assert(!fclOrbitFingerprints.has(payload.globalRotationOrbitFingerprint), `${payload.prototypeId}: global-rotation-equivalent duplicate slipped through.`);
   fclOrbitFingerprints.add(payload.globalRotationOrbitFingerprint);
 }
@@ -153,6 +154,8 @@ const evidence = {
     uniqueContentPerChapter: true,
     globalRotationEquivalentFclDedup: true,
     visibleOrientationShortcutAudit: true,
+    vectorPerceptualAliasAudit: true,
+    zeroDeliveredFclPerceptualAliases: true,
     capacityAwareFsrScheduling: true,
     compiledFsrSafeStateCatalog: true,
     zeroFsrRetryPressure: true,
