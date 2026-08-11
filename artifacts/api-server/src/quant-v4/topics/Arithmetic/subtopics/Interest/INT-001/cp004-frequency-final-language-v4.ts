@@ -9,8 +9,7 @@ function naturalDurationAnswer(text: string): string {
     .replace(/\b(\d+) full years\b/gu, "$1 years")
     .replace(/\b(\d+) full year\b/gu, "$1 year")
     .replace(/number of complete compound-interest years before the stated simple-interest tail/gu, "number of years for which interest was compounded annually before the final simple-interest months")
-    .replace(/^After period (\d+):/gu, "After year $1:")
-    .replace(/so the number of years is (\d+)\./gu, "so interest was compounded annually for $1 year$1.");
+    .replace(/^After period (\d+):/gu, "After year $1:");
 }
 
 function naturalAnnualYearConclusion(text: string): string {
