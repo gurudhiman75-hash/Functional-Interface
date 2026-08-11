@@ -1,6 +1,6 @@
 # RNK-CP-005 — Partial Order and Ranking Uncertainty
 
-Status: **EDITORIAL V3 RELEASE REVIEW PASSED — FINAL OWNERSHIP REVIEW PENDING — no permanent QL allocated**
+Status: **EDITORIAL V3 RELEASE PASSED — QL-034 OWNERSHIP AUDIT PASSED — no permanent QL allocated**
 
 This checkpoint covers ranking questions in which the displayed comparisons intentionally permit more than one complete ranking. Answers are proved across all valid orders rather than by forcing one arrangement.
 
@@ -15,8 +15,6 @@ answer positions:      64 / 64 / 64 / 64
 unique fingerprints:          256
 ```
 
-Raw discovery included optional fixed-rank anchors and four original graph shapes. Editorial V3 no longer depends on endpoint anchors and uses a broader graph pool.
-
 ## V3 Release source forms
 
 ```text
@@ -29,17 +27,11 @@ MAXIMUM_POSSIBLE_RANK
 DEFINITE_RANK_OR_INDETERMINATE
 ```
 
-Rejected:
-
-```text
-ORDER_UNIQUENESS_STATUS
-```
-
-The rejected form repeatedly projected the same multiple-order conclusion and overlapped existing uniqueness ownership.
+Rejected: `ORDER_UNIQUENESS_STATUS`.
 
 ## Three provisional authorities
 
-V3 consolidates the seven surviving source forms into **three**, not seven, authority candidates:
+The seven surviving source forms consolidate into **three**, not seven, authority candidates:
 
 ```text
 RELATION_TRUTH_STATUS
@@ -57,9 +49,12 @@ EXACT_RANK_DETERMINACY
   indeterminate exact rank
 ```
 
-These are provisional authorities, **not permanent QLs**.
+These remain provisional authorities, **not permanent QLs**.
 
-See `RNK-CP-005-EDITORIAL-V3-CONSOLIDATION.md`.
+See:
+
+- `RNK-CP-005-EDITORIAL-V3-CONSOLIDATION.md`
+- `RNK-CP-005-QL034-OWNERSHIP-AUDIT.md`
 
 ## V3 Release evidence
 
@@ -78,7 +73,7 @@ Hard:                          12
 permanent QLs:                  0
 ```
 
-Eight V3 graph families are represented:
+Eight graph families are represented:
 
 ```text
 DIAMOND_TAIL
@@ -93,22 +88,22 @@ CROSS_LINKED
 
 Each source form spans at least six graph families in the release corpus; the 28-question review pack uses four distinct topologies within every source form.
 
-Implementation proof before this documentation pass:
+Final V3 exact-head proof before the ownership-audit branch:
 
 ```text
-workflow run: 31472607624
-head:         bf268249e9daf24273da2ecf081f674ea4e42642
+workflow run: 31473422220
+head:         c4fcb1a53b310aae9e4c24e55d3fa3b4f895a15a
 result:       PASS
 ```
 
 Artifacts:
 
 ```text
-evidence: 9093964523
-sha256:079dc2d8df6ecd2ae4f3941ee752395c55f2f4e9f96be0f1bb6f0987abbd3b63
+evidence: 9094288269
+sha256:2a301854046a54a6053af34791034bcde79cfaad729e548f535fa60824f1cbc5
 
-review:   9093964870
-sha256:8293fc3810c9d8d111e2c9a4ce3eb2634927fdbdf331566881eea57989b0af6b
+review:   9094288765
+sha256:6fbee29941e0aa9753dbfeee0e1ec33064f947cacdbbf699cd5251b0af9742ab
 ```
 
 ## Semantic option gates
@@ -127,7 +122,7 @@ Query-specific rules:
 - **MUST:** correct relation is transitively derived; at least two wrong options are possible but not compulsory.
 - **COULD:** correct relation is variable; every wrong option is impossible only through multi-step inference; direct clue reversal is prohibited.
 - **CANNOT:** correct relation is transitively impossible; every wrong option is possible but not compulsory.
-- **PAIR_STATUS:** 24-question evidence is balanced `8 FIRST_ABOVE / 8 SECOND_ABOVE / 8 INDETERMINATE`; the fourth distractor varies across several exact-gap claims.
+- **PAIR_STATUS:** 24-question evidence is balanced `8 FIRST_ABOVE / 8 SECOND_ABOVE / 8 INDETERMINATE`; the fourth distractor varies across exact-gap claims.
 
 ## Rank-bound and exact-rank gates
 
@@ -135,15 +130,13 @@ Possible-rank bounds require:
 
 - at least three compulsory predecessors/successors;
 - branch integration;
-- at least one compulsory relation obtained transitively, not by a displayed direct comparison;
-- a proof that a better boundary is impossible;
+- at least one compulsory relation obtained transitively;
+- proof that a better boundary is impossible;
 - a valid witness ranking showing the boundary is attainable.
 
 Definite exact-rank questions require transitive structural evidence and accounting for all other entities. Indeterminate exact-rank questions require two valid rankings that place the target at different ranks.
 
 ## Difficulty calibration
-
-V3 intentionally moved away from “more names = Hard”.
 
 ```text
 Medium: 156
@@ -151,11 +144,9 @@ Hard:    12
 Easy:     0
 ```
 
-Hard is reserved for deeper proof burden; most partial-order questions remain Medium even with six or seven names.
+Difficulty follows proof burden rather than entity count.
 
 ## Manual review result
-
-The final 28-question release pack was manually inspected after executable validation.
 
 ```text
 wrong answer keys:                  0
@@ -167,22 +158,32 @@ rank-bound direct-count-only cases: 0
 Seating Arrangement geometry:       0
 ```
 
-Editorial review is therefore passed. Permanent ownership/source review is still pending.
+## QL-034 ownership decision
 
-## CP-004 boundary
-
-CP-004 `RNK-QL-034` and CP-005 `MUST` may share surface language but not the same proof contract:
+The ownership audit keeps `RELATION_TRUTH_STATUS` separate from frozen `RNK-QL-034`.
 
 ```text
-CP-004 / RNK-QL-034
-  one unique complete strict order is forced
+RNK-QL-034 / DEFINITELY_TRUE_RELATION
+  state contract: exactly one complete strict order
+  solver reconstructs that unique order before answering
 
-CP-005 / RELATION_TRUTH_STATUS-MUST
-  several complete rankings remain valid
-  the conclusion must hold across all of them
+CP-005 / RELATION_TRUTH_STATUS
+  state contract: at least two complete strict orders remain valid
+  solver classifies a relation over the entire valid-order set
+  modes: MUST / COULD / CANNOT / PAIR_STATUS
 ```
 
-Final source-backed ownership review must still decide whether partial-order truth status becomes a new permanent QL or a parameterised extension of existing ownership.
+The overlap in wording is therefore superficial. Merging CP-005 into QL-034 would silently broaden both the frozen solver contract and answer space.
+
+Primary Ranking-source evidence also includes incomplete comparison tables where named people remain incomparable while some conclusions are still determinable. That supports partial-order uncertainty as Ranking ownership rather than Seating Arrangement geometry.
+
+Decision:
+
+```text
+KEEP_SEPARATE_PROVISIONAL_AUTHORITY
+```
+
+This decision **does not allocate `RNK-QL-036`**. It only resolves the merge/split question.
 
 ## Protected exclusions
 
@@ -193,6 +194,16 @@ Final source-backed ownership review must still decide whether partial-order tru
 - statement-wise sufficiency labels;
 - context words such as merit, race or performance as separate QLs.
 
+## Next gate
+
+```text
+ownership resolved
+-> construct permanent English runtime for the three provisional authorities
+-> validate projection, deduplication, difficulty and context balance
+-> final manual English freeze approval
+-> only then allocate permanent QL identities
+```
+
 ## Lifecycle
 
 ```text
@@ -200,7 +211,7 @@ frozen permanent range: RNK-QL-001..035
 next available QL:      RNK-QL-036
 CP-005 permanent QLs:   0
 English freeze:         false
-final ownership signoff: pending
+ownership signoff:      PASSED_BY_AUDIT
 Question Studio:        DISABLED
 persistence:            DISABLED
 Question Bank:          NOT_STORED
