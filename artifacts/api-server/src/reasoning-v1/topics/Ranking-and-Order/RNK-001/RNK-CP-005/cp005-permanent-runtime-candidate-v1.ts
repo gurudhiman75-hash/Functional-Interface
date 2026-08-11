@@ -41,7 +41,7 @@ export interface RnkCp005PermanentRuntimeCandidateProfile {
   readonly finalOwnershipApproved: false;
   readonly permanentQlId: null;
   readonly englishFreezeApproved: false;
-  readonly projectionDigestPinned: false;
+  readonly projectionDigestPinned: boolean;
 }
 
 export type RnkCp005PermanentRuntimeCandidateQuestion =
@@ -57,6 +57,13 @@ interface CandidateGroup {
   readonly sourceForm: RnkCp005EditorialV3SourceForm;
   readonly count: number;
   readonly matches: (question: RnkCp005EditorialV3Question) => boolean;
+}
+
+interface SelectedCandidate extends RnkCp005EditorialV3Question {
+  readonly selectedMode: RnkCp005PermanentRuntimeCandidateMode;
+  readonly selectedSourceOrdinal: number;
+  readonly candidateRuntimeFingerprint: string;
+  readonly normalizedLearnerFingerprint: string;
 }
 
 export const RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_GROUPS: readonly CandidateGroup[] = [
@@ -132,6 +139,16 @@ export const RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_GROUPS: readonly CandidateGro
   },
 ] as const;
 
+function answerPositionTargets(group: CandidateGroup): readonly [number, number, number, number] {
+  if (group.mode === "EXACT_DEFINITE") return [48, 0, 48, 0];
+  if (group.mode === "EXACT_INDETERMINATE") return [0, 48, 0, 48];
+  if (group.count % 4 !== 0) {
+    throw new Error(`${group.mode}: count ${group.count} is not divisible by four`);
+  }
+  const target = group.count / 4;
+  return [target, target, target, target];
+}
+
 function normalizeLearnerText(question: RnkCp005EditorialV3Question): string {
   return [
     question.instruction,
@@ -156,15 +173,18 @@ function sha256(value: unknown): string {
 
 function candidateRuntimeFingerprint(
   question: RnkCp005EditorialV3Question,
-  profile: Omit<
-    RnkCp005PermanentRuntimeCandidateProfile,
-    "version" | "questionsWithinAuthority" | "finalOwnershipApproved" | "permanentQlId" | "englishFreezeApproved" | "projectionDigestPinned"
-  >,
+  group: CandidateGroup,
+  sourceOrdinal: number,
+  ordinalWithinMode: number,
 ): string {
   return sha256({
     version: RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_VERSION,
     baseFingerprint: question.mathematicalFingerprint,
-    ...profile,
+    authorityCandidateId: group.authorityCandidateId,
+    mode: group.mode,
+    sourceForm: group.sourceForm,
+    sourceOrdinal,
+    ordinalWithinMode,
   });
 }
 
@@ -173,19 +193,10 @@ function buildGroup(
   seenLearnerFingerprints: Set<string>,
   seenRuntimeFingerprints: Set<string>,
   seenStateKeys: Set<string>,
-): readonly Omit<
-  RnkCp005PermanentRuntimeCandidateQuestion,
-  "candidateRuntimeProfile"
->[] {
-  if (group.count % 4 !== 0) {
-    throw new Error(`${group.mode}: count ${group.count} is not divisible by four`);
-  }
-  const targetPerAnswerPosition = group.count / 4;
+): readonly SelectedCandidate[] {
+  const answerTargets = answerPositionTargets(group);
   const answerCounts = [0, 0, 0, 0];
-  const output: Omit<
-    RnkCp005PermanentRuntimeCandidateQuestion,
-    "candidateRuntimeProfile"
-  >[] = [];
+  const output: SelectedCandidate[] = [];
 
   for (let sourceOrdinal = 0; sourceOrdinal < 20_000 && output.length < group.count; sourceOrdinal += 1) {
     const question = generateRnkCp005EditorialV3ReleaseQuestion(
@@ -193,7 +204,7 @@ function buildGroup(
       sourceOrdinal,
     );
     if (!group.matches(question)) continue;
-    if (answerCounts[question.correctIndex]! >= targetPerAnswerPosition) continue;
+    if (answerCounts[question.correctIndex]! >= answerTargets[question.correctIndex]!) continue;
 
     const state = buildRnkCp005EditorialV3State(question.seed, question.v3Topology);
     if (!state || state.validOrders.length < 2) continue;
@@ -204,18 +215,18 @@ function buildGroup(
     const stateKey = `${question.prototypeId}:${question.seed}:${question.v3Topology}:${question.pairStatusMode ?? "NONE"}`;
     if (seenStateKeys.has(stateKey)) continue;
 
-    const runtimeFingerprint = candidateRuntimeFingerprint(question, {
-      authorityCandidateId: group.authorityCandidateId,
-      mode: group.mode,
-      sourceForm: group.sourceForm,
+    const runtimeFingerprint = candidateRuntimeFingerprint(
+      question,
+      group,
       sourceOrdinal,
-      ordinalWithinMode: output.length + 1,
-      ordinalWithinAuthority: 0,
-    });
+      output.length + 1,
+    );
     if (seenRuntimeFingerprints.has(runtimeFingerprint)) continue;
 
     output.push({
       ...question,
+      selectedMode: group.mode,
+      selectedSourceOrdinal: sourceOrdinal,
       candidateRuntimeFingerprint: runtimeFingerprint,
       normalizedLearnerFingerprint,
     });
@@ -230,8 +241,10 @@ function buildGroup(
       `${group.mode}: produced ${output.length}/${group.count} candidates after bounded search`,
     );
   }
-  if (answerCounts.some((count) => count !== targetPerAnswerPosition)) {
-    throw new Error(`${group.mode}: answer-position balance failed: ${answerCounts.join("/")}`);
+  if (answerCounts.some((count, index) => count !== answerTargets[index])) {
+    throw new Error(
+      `${group.mode}: answer-position target failed: ${answerCounts.join("/")} vs ${answerTargets.join("/")}`,
+    );
   }
   return output;
 }
@@ -242,7 +255,7 @@ export function buildRnkCp005PermanentRuntimeCandidate(): readonly RnkCp005Perma
   const seenStateKeys = new Set<string>();
   const grouped = new Map<
     RnkCp005PermanentRuntimeCandidateAuthorityId,
-    Omit<RnkCp005PermanentRuntimeCandidateQuestion, "candidateRuntimeProfile">[]
+    SelectedCandidate[]
   >(
     RNK_CP005_V3_AUTHORITY_CANDIDATE_IDS.map((authority) => [authority, []]),
   );
@@ -266,37 +279,30 @@ export function buildRnkCp005PermanentRuntimeCandidate(): readonly RnkCp005Perma
       );
     }
     const modeOrdinals = new Map<RnkCp005PermanentRuntimeCandidateMode, number>();
-    return authorityQuestions.map((question, index) => {
-      const group = RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_GROUPS.find(
-        (candidate) =>
-          candidate.authorityCandidateId === authorityCandidateId &&
-          candidate.sourceForm === question.prototypeId &&
-          candidate.matches(question),
-      );
-      if (!group) throw new Error(`${question.discoveryId}: no candidate group`);
-      const ordinalWithinMode = (modeOrdinals.get(group.mode) ?? 0) + 1;
-      modeOrdinals.set(group.mode, ordinalWithinMode);
-      const sourceOrdinal = Number(
-        question.candidateRuntimeFingerprint.length > 0
-          ? question.candidateRuntimeFingerprint.length
-          : 0,
-      );
-      void sourceOrdinal;
+    return authorityQuestions.map((selected, index) => {
+      const {
+        selectedMode,
+        selectedSourceOrdinal,
+        ...question
+      } = selected;
+      const ordinalWithinMode = (modeOrdinals.get(selectedMode) ?? 0) + 1;
+      modeOrdinals.set(selectedMode, ordinalWithinMode);
       return {
         ...question,
         candidateRuntimeProfile: {
           version: RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_VERSION,
           authorityCandidateId,
-          mode: group.mode,
-          sourceForm: group.sourceForm,
-          sourceOrdinal: -1,
+          mode: selectedMode,
+          sourceForm: selected.prototypeId as RnkCp005EditorialV3SourceForm,
+          sourceOrdinal: selectedSourceOrdinal,
           ordinalWithinMode,
           ordinalWithinAuthority: index + 1,
           questionsWithinAuthority: 192,
           finalOwnershipApproved: false,
           permanentQlId: null,
           englishFreezeApproved: false,
-          projectionDigestPinned: false,
+          projectionDigestPinned:
+            RNK_CP005_EXPECTED_PERMANENT_RUNTIME_CANDIDATE_PROJECTION_SHA256 !== "UNPINNED",
         },
       };
     });
@@ -307,8 +313,9 @@ function projectionRecord(question: RnkCp005PermanentRuntimeCandidateQuestion): 
   return {
     authorityCandidateId: question.candidateRuntimeProfile.authorityCandidateId,
     mode: question.candidateRuntimeProfile.mode,
+    sourceForm: question.candidateRuntimeProfile.sourceForm,
+    sourceOrdinal: question.candidateRuntimeProfile.sourceOrdinal,
     ordinalWithinAuthority: question.candidateRuntimeProfile.ordinalWithinAuthority,
-    sourceForm: question.prototypeId,
     seed: question.seed,
     context: question.context,
     topology: question.v3Topology,
