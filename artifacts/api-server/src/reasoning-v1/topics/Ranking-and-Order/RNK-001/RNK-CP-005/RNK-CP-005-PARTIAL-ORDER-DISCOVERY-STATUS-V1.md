@@ -1,10 +1,10 @@
 # RNK-CP-005 — Partial-Order Discovery Status
 
-Status: **EDITORIAL V3 RELEASE REVIEW PASSED — NOT FROZEN**
+Status: **EDITORIAL V3 RELEASE PASSED — QL-034 OWNERSHIP AUDIT PASSED — NOT FROZEN**
 
 ## Purpose
 
-This record tracks the executable discovery and editorial maturation of `PARTIAL_ORDER_AND_RANKING_UNCERTAINTY` after the ownership audit rejected presentation-led shared sets and Seating Arrangement overlap.
+This record tracks executable discovery and editorial maturation of `PARTIAL_ORDER_AND_RANKING_UNCERTAINTY` after the book-to-QL audit rejected presentation-led shared sets and Seating Arrangement overlap.
 
 No permanent identity is allocated here.
 
@@ -14,6 +14,7 @@ No permanent identity is allocated here.
 checkpoint:             RNK-CP-005
 raw discovery version:  RNK_CP005_PARTIAL_ORDER_DISCOVERY_V1
 release version:        RNK_CP005_PARTIAL_ORDER_EDITORIAL_V3_RELEASE
+ownership audit:        RNK_CP005_QL034_OWNERSHIP_AUDIT_V1
 next available QL:      RNK-QL-036
 permanent QLs:          0
 permanent runtime:      none
@@ -45,13 +46,7 @@ MAXIMUM_POSSIBLE_RANK
 DEFINITE_RANK_OR_INDETERMINATE
 ```
 
-One remains rejected:
-
-```text
-ORDER_UNIQUENESS_STATUS
-```
-
-Release corpus:
+Rejected: `ORDER_UNIQUENESS_STATUS`.
 
 ```text
 questions/source form:        24
@@ -69,8 +64,6 @@ Eight graph families are represented, with 6–8 distinct families per source fo
 
 ## Consolidation
 
-The seven source forms collapse to three provisional authorities:
-
 ```text
 RELATION_TRUTH_STATUS
   MUST / COULD / CANNOT / PAIR_STATUS
@@ -82,9 +75,34 @@ EXACT_RANK_DETERMINACY
   DEFINITE / INDETERMINATE
 ```
 
-`PAIR_RELATION_CANNOT_BE_DETERMINED` is now only a legacy discovery ID. Its actual answer contract includes first-above, second-above and indeterminate outcomes, so it does not justify a standalone authority.
+The seven discovery forms therefore remain three provisional authorities.
 
-See `RNK-CP-005-EDITORIAL-V3-CONSOLIDATION.md`.
+## QL-034 ownership audit
+
+Decision:
+
+```text
+KEEP_SEPARATE_PROVISIONAL_AUTHORITY
+```
+
+The executable distinction is:
+
+```text
+RNK-QL-034 / CP-004
+  exactly one complete strict order
+  192/192 frozen QL-034 records satisfy unique-order reconstruction
+
+CP-005 RELATION_TRUTH_STATUS
+  at least two valid complete strict orders
+  96/96 V3 relation records preserve multiple valid orders
+  modes: MUST / COULD / CANNOT / PAIR_STATUS
+```
+
+A merge would broaden a frozen QL's state contract and answer semantics, so CP-005 truth status remains separate provisionally.
+
+Primary Ranking-source evidence contains incomplete comparison tables with explicitly incomparable people while other conclusions remain determinable. That is source support for partial-order uncertainty within Ranking.
+
+See `RNK-CP-005-QL034-OWNERSHIP-AUDIT.md`.
 
 ## Quality protections
 
@@ -106,8 +124,6 @@ V3 Release enforces:
 
 ## Human review
 
-Final 28-question release pack:
-
 ```text
 questions:                        28
 answer positions:          7 / 7 / 7 / 7
@@ -116,35 +132,41 @@ wrong answer keys found:           0
 contradictory questions found:     0
 ```
 
-Manual editorial review passed. Final source-backed ownership approval remains pending.
+Manual editorial review passed.
 
-## Evidence
-
-Implementation proof before the final documentation pass:
+## V3 evidence
 
 ```text
-workflow run: 31472607624
-head:         bf268249e9daf24273da2ecf081f674ea4e42642
+workflow run: 31473422220
+head:         c4fcb1a53b310aae9e4c24e55d3fa3b4f895a15a
 result:       PASS
 
-evidence artifact: 9093964523
-review artifact:   9093964870
+evidence artifact: 9094288269
+review artifact:   9094288765
 ```
 
-A final exact-head workflow after documentation/cleanup must also remain green.
+The ownership branch must also pass exact-head CI before this audit is considered executable evidence.
 
-## Remaining decision before `RNK-QL-036`
+## Remaining work before permanent QLs
 
-1. confirm exam-source frequency for the three proposed authorities;
-2. resolve permanent ownership of `RELATION_TRUTH_STATUS-MUST` against CP-004 `RNK-QL-034`;
-3. manually approve the final English ownership map;
-4. only then assign permanent QL IDs and build permanent runtime.
+```text
+ownership map: resolved
+editorial review: passed
+
+next:
+  permanent English runtime construction
+  -> full corpus / projection / dedup / difficulty / context validation
+  -> final manual English freeze approval
+  -> permanent identity allocation
+```
+
+If all three provisional authorities pass final freeze, `RNK-QL-036..038` is the contiguous available range. It is **not allocated yet**.
 
 ## Lifecycle
 
 ```text
 English freeze:          false
-final ownership signoff: pending
+ownership audit:         passed
 permanent QL:            none
 Question Studio:         DISABLED
 persistence:             DISABLED
