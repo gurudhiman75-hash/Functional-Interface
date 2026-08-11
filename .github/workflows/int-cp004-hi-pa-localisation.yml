@@ -1,0 +1,250 @@
+name: Validate INT-CP-004 Hindi Punjabi localisation
+
+on:
+  pull_request:
+    branches:
+      - freeze/int-cp004-approved-english-v1
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp004-localization-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp004-localized-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localiz*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-004/INT-CP-004-HI-PA-LOCALISATION-PLAN.md"
+      - ".github/workflows/int-cp004-hi-pa-localisation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp004-hi-pa-localisation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle inherited CP-004 approved English freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-english-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-english-freeze-audit.mjs
+
+      - name: Run inherited CP-004 approved English freeze audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-english-freeze-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-english-freeze-audit.log
+
+      - name: Bundle localisation foundation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localization-foundation-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localization-foundation-audit.mjs
+
+      - name: Run localisation foundation audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localization-foundation-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localization-foundation-audit.log
+
+      - name: Bundle localised presentation Wave 1 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localized-presentation-wave1-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localized-presentation-wave1-audit.mjs
+
+      - name: Run localised presentation Wave 1 audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localized-presentation-wave1-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-presentation-wave1-audit.log
+
+      - name: Bundle localised presentation Wave 2 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localized-presentation-wave2-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localized-presentation-wave2-audit.mjs
+
+      - name: Run localised presentation Wave 2 audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localized-presentation-wave2-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-presentation-wave2-audit.log
+
+      - name: Bundle localised presentation Wave 3 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localized-presentation-wave3-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localized-presentation-wave3-audit.mjs
+
+      - name: Run localised presentation Wave 3 audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localized-presentation-wave3-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-presentation-wave3-audit.log
+
+      - name: Bundle localised options audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localized-options-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localized-options-audit.mjs
+
+      - name: Run localised options audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localized-options-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-options-audit.log
+
+      - name: Bundle localised explanations audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localized-explanations-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localized-explanations-audit.mjs
+
+      - name: Run localised explanations audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localized-explanations-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-explanations-audit.log
+
+      - name: Bundle multilingual editorial v2 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localized-editorial-v2-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localized-editorial-v2-audit.mjs
+
+      - name: Run multilingual editorial v2 audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localized-editorial-v2-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-editorial-v2-audit.log
+
+      - name: Bundle executable localised runtime audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localized-runtime-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localized-runtime-audit.mjs
+
+      - name: Run executable localised runtime audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localized-runtime-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-runtime-audit.log
+
+      - name: Bundle localized review-pack exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localized-review-pack-exporter.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localized-review-pack-exporter.mjs
+
+      - name: Export Hindi and Punjabi human review packs
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localized-review-pack-exporter.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-review-pack-exporter.log
+
+      - name: Bundle localized review-pack audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localized-review-pack-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localized-review-pack-audit.mjs
+
+      - name: Audit Hindi and Punjabi human review packs
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localized-review-pack-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-review-pack-audit.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify localisation evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          grep -q 'PASS_INT_CP004_APPROVED_ENGLISH_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-audit.log
+          grep -q 'PASS_INT_CP004_LOCALIZATION_FOUNDATION' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-foundation-audit.log
+          grep -q 'PASS_INT_CP004_LOCALIZED_PRESENTATION_WAVE1' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave1-audit.log
+          grep -q 'PASS_INT_CP004_LOCALIZED_PRESENTATION_WAVE2' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave2-audit.log
+          grep -q 'PASS_INT_CP004_LOCALIZED_PRESENTATION_WAVE3' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave3-audit.log
+          grep -q 'PASS_INT_CP004_LOCALIZED_OPTIONS' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-options-audit.log
+          grep -q 'PASS_INT_CP004_LOCALIZED_EXPLANATIONS' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-explanations-audit.log
+          grep -q 'PASS_INT_CP004_LOCALIZED_EDITORIAL_V2' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-editorial-v2-audit.log
+          grep -q 'PASS_INT_CP004_EXECUTABLE_LOCALIZED_RUNTIME' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-runtime-audit.log
+          grep -q 'PASS_INT_CP004_LOCALIZED_REVIEW_PACK_EXPORTER' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-review-pack-exporter.log
+          grep -q 'PASS_INT_CP004_LOCALIZED_REVIEW_PACK_AUDIT' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-review-pack-audit.log
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-editorial-v2/int-cp004-localized-editorial-v2-summary.json
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-review-pack/INT-CP-004-Hindi-Questions-and-Explanations-Review.md
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-review-pack/INT-CP-004-Punjabi-Questions-and-Explanations-Review.md
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-review-pack/INT-CP-004-Hindi-Review-Data.json
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-review-pack/INT-CP-004-Punjabi-Review-Data.json
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-review-pack/int-cp004-localized-review-pack-summary.json
+          grep -q '"questionCases": 3800' artifacts/api-server/dist/quant-v4/int-cp004-localized-options/int-cp004-localized-options-summary.json
+          grep -q '"optionChecks": 15200' artifacts/api-server/dist/quant-v4/int-cp004-localized-options/int-cp004-localized-options-summary.json
+          grep -q '"questionCases": 3800' artifacts/api-server/dist/quant-v4/int-cp004-localized-explanations/int-cp004-localized-explanations-summary.json
+          grep -q '"questionCases": 3800' artifacts/api-server/dist/quant-v4/int-cp004-localized-editorial-v2/int-cp004-localized-editorial-v2-summary.json
+          grep -q '"questionCases": 3800' artifacts/api-server/dist/quant-v4/int-cp004-localized-runtime/int-cp004-localized-runtime-summary.json
+          grep -q '"questionCountPerLocale": 76' artifacts/api-server/dist/quant-v4/int-cp004-localized-review-pack/int-cp004-localized-review-pack-summary.json
+          grep -q '"totalReviewQuestions": 152' artifacts/api-server/dist/quant-v4/int-cp004-localized-review-pack/int-cp004-localized-review-pack-summary.json
+          grep -q '"publiclyPublishable": false' artifacts/api-server/dist/quant-v4/int-cp004-localized-review-pack/int-cp004-localized-review-pack-summary.json
+
+      - name: Upload CP-004 localisation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp004-hi-pa-localisation-human-review-packs-v2
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localization-foundation-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave1-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave2-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave3-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localized-options-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localized-explanations-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localized-editorial-v2-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localized-runtime-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localized-review-pack-exporter.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localized-review-pack-audit.log
+            artifacts/api-server/dist/quant-v4/int-cp004-localization-foundation/**
+            artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave1/**
+            artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave2/**
+            artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave3/**
+            artifacts/api-server/dist/quant-v4/int-cp004-localized-options/**
+            artifacts/api-server/dist/quant-v4/int-cp004-localized-explanations/**
+            artifacts/api-server/dist/quant-v4/int-cp004-localized-editorial-v2/**
+            artifacts/api-server/dist/quant-v4/int-cp004-localized-runtime/**
+            artifacts/api-server/dist/quant-v4/int-cp004-localized-review-pack/**
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-004/INT-CP-004-HI-PA-LOCALISATION-PLAN.md
+          if-no-files-found: error
+          retention-days: 30
