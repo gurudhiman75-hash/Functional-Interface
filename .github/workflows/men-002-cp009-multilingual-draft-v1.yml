@@ -1,0 +1,104 @@
+name: Validate MEN-CP-009 multilingual draft V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/**
+      - .github/workflows/men-002-cp009-multilingual-draft-v1.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-002-cp009-multilingual-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp009-multilingual-draft-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prove approved English V3 regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/approved/english.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp009-approved-english-v3-regression.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp009-approved-english-v3-regression.mjs
+
+      - name: Prove Hindi Punjabi deterministic parity
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/native/runtime.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp009-multilingual-draft-v1.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp009-multilingual-draft-v1.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp009-multilingual-draft-v1.test.log
+
+      - name: Export Hindi Punjabi review HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/native/review-export.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp009-multilingual-review-export-v1.mjs
+          cd artifacts/api-server
+          node dist/quant-v4/men-cp009-multilingual-review-export-v1.mjs \
+            2>&1 | tee dist/quant-v4/men-cp009-multilingual-review-export-v1.log
+          test -s dist/quant-v4/MEN-CP-009-HI-PA-REVIEW-V1.html
+          test "$(grep -o 'class=\"question-card\"' dist/quant-v4/MEN-CP-009-HI-PA-REVIEW-V1.html | wc -l)" -eq 220
+          grep -q "Hindi — हिन्दी" dist/quant-v4/MEN-CP-009-HI-PA-REVIEW-V1.html
+          grep -q "Punjabi — ਪੰਜਾਬੀ" dist/quant-v4/MEN-CP-009-HI-PA-REVIEW-V1.html
+          grep -q "MEN-002-QL-123" dist/quant-v4/MEN-CP-009-HI-PA-REVIEW-V1.html
+
+      - name: Build production API bundle
+        shell: bash
+        run: bash build-api.sh
+
+      - name: Upload CP-009 multilingual draft evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp009-hi-pa-review-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp009-multilingual-draft-v1.test.log
+            artifacts/api-server/dist/quant-v4/men-cp009-multilingual-review-export-v1.log
+            artifacts/api-server/dist/quant-v4/MEN-CP-009-HI-PA-REVIEW-V1.html
+          if-no-files-found: error
+          retention-days: 14
