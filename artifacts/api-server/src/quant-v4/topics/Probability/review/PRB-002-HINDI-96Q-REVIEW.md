@@ -50,7 +50,7 @@ A jar contains 8 red and 6 blue marbles. One marble is selected and replaced bef
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध कंचे और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(दोनों लाल) = 8/14 × 8/14.
 3. गणना: \(64/196=16/49\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{16}{49}\)
@@ -65,8 +65,8 @@ A jar contains 8 red and 6 blue marbles. One marble is selected and replaced bef
 6. Answer — The required probability is \(\frac{16}{49}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन सहित।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; हर चयन के बाद वस्तु वापस रखी जाती है।
 
 ### Parity evidence
 
@@ -129,7 +129,7 @@ A box contains 7 red and 8 blue pens. Two pens are selected one after another wi
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध पेन और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(दोनों लाल) = 7/15 × 6/14.
 3. गणना: \(42/210=1/5\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{1}{5}\)
@@ -144,8 +144,8 @@ A box contains 7 red and 8 blue pens. Two pens are selected one after another wi
 6. Answer — The required probability is \(\frac{1}{5}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -208,7 +208,7 @@ A pouch contains 6 red and 8 blue coloured stones. One stone is drawn and replac
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध रंगीन पत्थर और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(दोनों लाल) = 6/14 × 6/14.
 3. गणना: \(36/196=9/49\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{9}{49}\)
@@ -223,8 +223,8 @@ A pouch contains 6 red and 8 blue coloured stones. One stone is drawn and replac
 6. Answer — The required probability is \(\frac{9}{49}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन सहित।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; हर चयन के बाद वस्तु वापस रखी जाती है।
 
 ### Parity evidence
 
@@ -287,7 +287,7 @@ A bag contains 8 red and 7 blue balls. Two balls are selected one after another 
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध गेंदें और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(दोनों लाल) = 8/15 × 7/14.
 3. गणना: \(56/210=4/15\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{4}{15}\)
@@ -302,8 +302,8 @@ A bag contains 8 red and 7 blue balls. Two balls are selected one after another 
 6. Answer — The required probability is \(\frac{4}{15}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -366,7 +366,7 @@ A jar contains 7 red and 6 blue marbles. Two marbles are selected one after anot
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध कंचे और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(पहले लाल, फिर नीला) = 7/13 × 6/12.
 3. गणना: \(42/156=7/26\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{7}{26}\)
@@ -381,8 +381,8 @@ A jar contains 7 red and 6 blue marbles. Two marbles are selected one after anot
 6. Answer — The required probability is \(\frac{7}{26}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -445,7 +445,7 @@ A box contains 7 red and 9 blue pens. Two pens are selected one after another wi
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध पेन और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(एक ही रंग) = 7/16 × 6/15 + 9/16 × 8/15.
 3. गणना: \(114/240=19/40\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{19}{40}\)
@@ -461,8 +461,8 @@ A box contains 7 red and 9 blue pens. Two pens are selected one after another wi
 7. Answer — The required probability is \(\frac{19}{40}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -525,7 +525,7 @@ A pouch contains 5 red and 9 blue coloured stones. Two coloured stones are selec
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध रंगीन पत्थर और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(अलग रंग) = 5/14 × 9/13 + 9/14 × 5/13.
 3. गणना: \(90/182=45/91\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{45}{91}\)
@@ -541,8 +541,8 @@ A pouch contains 5 red and 9 blue coloured stones. Two coloured stones are selec
 7. Answer — The required probability is \(\frac{45}{91}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -605,7 +605,7 @@ A bag contains 7 red and 9 blue balls. Two selections are made with replacement.
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध गेंदें और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(कम-से-कम एक लाल) = 1 − (9/16)².
 3. गणना: \(175/256=175/256\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{175}{256}\)
@@ -620,8 +620,8 @@ A bag contains 7 red and 9 blue balls. Two selections are made with replacement.
 6. Answer — The required probability is \(\frac{175}{256}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन सहित।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; हर चयन के बाद वस्तु वापस रखी जाती है।
 
 ### Parity evidence
 
@@ -684,7 +684,7 @@ A jar contains 8 red and 9 blue marbles. One marble is selected and replaced bef
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध कंचे और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(दोनों लाल) = 8/17 × 8/17.
 3. गणना: \(64/289=64/289\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{64}{289}\)
@@ -699,8 +699,8 @@ A jar contains 8 red and 9 blue marbles. One marble is selected and replaced bef
 6. Answer — The required probability is \(\frac{64}{289}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन सहित।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; हर चयन के बाद वस्तु वापस रखी जाती है।
 
 ### Parity evidence
 
@@ -763,7 +763,7 @@ A box contains 7 red and 6 blue pens. Two pens are selected one after another wi
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध पेन और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(दोनों लाल) = 7/13 × 6/12.
 3. गणना: \(42/156=7/26\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{7}{26}\)
@@ -778,8 +778,8 @@ A box contains 7 red and 6 blue pens. Two pens are selected one after another wi
 6. Answer — The required probability is \(\frac{7}{26}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -842,7 +842,7 @@ A pouch contains 5 red and 4 blue coloured stones. One stone is drawn and replac
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध रंगीन पत्थर और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(दोनों लाल) = 5/9 × 5/9.
 3. गणना: \(25/81=25/81\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{25}{81}\)
@@ -857,8 +857,8 @@ A pouch contains 5 red and 4 blue coloured stones. One stone is drawn and replac
 6. Answer — The required probability is \(\frac{25}{81}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन सहित।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; हर चयन के बाद वस्तु वापस रखी जाती है।
 
 ### Parity evidence
 
@@ -921,7 +921,7 @@ A bag contains 6 red and 9 blue balls. Two balls are selected one after another 
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध गेंदें और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(दोनों लाल) = 6/15 × 5/14.
 3. गणना: \(30/210=1/7\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{1}{7}\)
@@ -936,8 +936,8 @@ A bag contains 6 red and 9 blue balls. Two balls are selected one after another 
 6. Answer — The required probability is \(\frac{1}{7}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -1000,7 +1000,7 @@ A jar contains 9 red and 8 blue marbles. Two marbles are selected one after anot
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध कंचे और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(पहले लाल, फिर नीला) = 9/17 × 8/16.
 3. गणना: \(72/272=9/34\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{9}{34}\)
@@ -1015,8 +1015,8 @@ A jar contains 9 red and 8 blue marbles. Two marbles are selected one after anot
 6. Answer — The required probability is \(\frac{9}{34}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -1079,7 +1079,7 @@ A box contains 9 red and 6 blue pens. Two pens are selected one after another wi
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध पेन और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(एक ही रंग) = 9/15 × 8/14 + 6/15 × 5/14.
 3. गणना: \(102/210=17/35\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{17}{35}\)
@@ -1095,8 +1095,8 @@ A box contains 9 red and 6 blue pens. Two pens are selected one after another wi
 7. Answer — The required probability is \(\frac{17}{35}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -1159,7 +1159,7 @@ A pouch contains 6 red and 5 blue coloured stones. Two coloured stones are selec
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध रंगीन पत्थर और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(अलग रंग) = 6/11 × 5/10 + 5/11 × 6/10.
 3. गणना: \(60/110=6/11\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{6}{11}\)
@@ -1175,8 +1175,8 @@ A pouch contains 6 red and 5 blue coloured stones. Two coloured stones are selec
 7. Answer — The required probability is \(\frac{6}{11}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -1239,7 +1239,7 @@ A bag contains 9 red and 6 blue balls. Two selections are made with replacement.
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध गेंदें और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(कम-से-कम एक लाल) = 1 − (6/15)².
 3. गणना: \(189/225=21/25\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{21}{25}\)
@@ -1254,8 +1254,8 @@ A bag contains 9 red and 6 blue balls. Two selections are made with replacement.
 6. Answer — The required probability is \(\frac{21}{25}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन सहित।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; हर चयन के बाद वस्तु वापस रखी जाती है।
 
 ### Parity evidence
 
@@ -1318,7 +1318,7 @@ A jar contains 7 red and 4 blue marbles. One marble is selected and replaced bef
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध कंचे और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(दोनों लाल) = 7/11 × 7/11.
 3. गणना: \(49/121=49/121\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{49}{121}\)
@@ -1333,8 +1333,8 @@ A jar contains 7 red and 4 blue marbles. One marble is selected and replaced bef
 6. Answer — The required probability is \(\frac{49}{121}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन सहित।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; हर चयन के बाद वस्तु वापस रखी जाती है।
 
 ### Parity evidence
 
@@ -1397,7 +1397,7 @@ A box contains 9 red and 9 blue pens. Two pens are selected one after another wi
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध पेन और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(दोनों लाल) = 9/18 × 8/17.
 3. गणना: \(72/306=4/17\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{4}{17}\)
@@ -1412,8 +1412,8 @@ A box contains 9 red and 9 blue pens. Two pens are selected one after another wi
 6. Answer — The required probability is \(\frac{4}{17}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -1476,7 +1476,7 @@ A pouch contains 4 red and 5 blue coloured stones. One stone is drawn and replac
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध रंगीन पत्थर और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(दोनों लाल) = 4/9 × 4/9.
 3. गणना: \(16/81=16/81\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{16}{81}\)
@@ -1491,8 +1491,8 @@ A pouch contains 4 red and 5 blue coloured stones. One stone is drawn and replac
 6. Answer — The required probability is \(\frac{16}{81}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन सहित।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; हर चयन के बाद वस्तु वापस रखी जाती है।
 
 ### Parity evidence
 
@@ -1555,7 +1555,7 @@ A bag contains 6 red and 6 blue balls. Two balls are selected one after another 
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध गेंदें और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(दोनों लाल) = 6/12 × 5/11.
 3. गणना: \(30/132=5/22\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{5}{22}\)
@@ -1570,8 +1570,8 @@ A bag contains 6 red and 6 blue balls. Two balls are selected one after another 
 6. Answer — The required probability is \(\frac{5}{22}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -1634,7 +1634,7 @@ A jar contains 8 red and 4 blue marbles. Two marbles are selected one after anot
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध कंचे और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(पहले लाल, फिर नीला) = 8/12 × 4/11.
 3. गणना: \(32/132=8/33\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{8}{33}\)
@@ -1649,8 +1649,8 @@ A jar contains 8 red and 4 blue marbles. Two marbles are selected one after anot
 6. Answer — The required probability is \(\frac{8}{33}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -1713,7 +1713,7 @@ A box contains 8 red and 6 blue pens. Two pens are selected one after another wi
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध पेन और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(एक ही रंग) = 8/14 × 7/13 + 6/14 × 5/13.
 3. गणना: \(86/182=43/91\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{43}{91}\)
@@ -1729,8 +1729,8 @@ A box contains 8 red and 6 blue pens. Two pens are selected one after another wi
 7. Answer — The required probability is \(\frac{43}{91}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -1793,7 +1793,7 @@ A pouch contains 6 red and 7 blue coloured stones. Two coloured stones are selec
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध रंगीन पत्थर और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(अलग रंग) = 6/13 × 7/12 + 7/13 × 6/12.
 3. गणना: \(84/156=7/13\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{7}{13}\)
@@ -1809,8 +1809,8 @@ A pouch contains 6 red and 7 blue coloured stones. Two coloured stones are selec
 7. Answer — The required probability is \(\frac{7}{13}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -1873,7 +1873,7 @@ A bag contains 9 red and 4 blue balls. Two selections are made with replacement.
 ### Native explanation to review
 
 1. विधि: हर चयन की प्रायिकता उस समय उपलब्ध गेंदें और वस्तु वापस रखी गई है या नहीं, इस पर तय करें।
-2. गणना: प्रत्येक चरण की आवश्यक प्रायिकता लिखें और क्रम के अनुसार उन्हें गुणा करें।
+2. गणना: P(कम-से-कम एक लाल) = 1 − (4/13)².
 3. गणना: \(153/169=153/169\)
 4. मुख्य बिंदु: वस्तु वापस रखने पर दोनों चयन स्वतंत्र रहते हैं; वापस न रखने पर दूसरा चयन पहले पर निर्भर करता है।
 5. अंतिम उत्तर: \(\frac{153}{169}\)
@@ -1888,8 +1888,8 @@ A bag contains 9 red and 4 blue balls. Two selections are made with replacement.
 6. Answer — The required probability is \(\frac{153}{169}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन सहित।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; हर चयन के बाद वस्तु वापस रखी जाती है।
 
 ### Parity evidence
 
@@ -2197,8 +2197,8 @@ A bag contains 9 red and 8 blue balls. Two balls are drawn without replacement. 
 6. Answer — The required probability is \(\frac{1}{2}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -2660,8 +2660,8 @@ A bag contains 9 red and 7 blue balls. Two balls are drawn without replacement. 
 6. Answer — The required probability is \(\frac{8}{15}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -3123,8 +3123,8 @@ A bag contains 8 red and 8 blue balls. Two balls are drawn without replacement. 
 6. Answer — The required probability is \(\frac{7}{15}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -3586,8 +3586,8 @@ A bag contains 10 red and 4 blue balls. Two balls are drawn without replacement.
 6. Answer — The required probability is \(\frac{9}{13}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — क्रमिक ड्रॉ प्रायिकता वृक्ष
-  - Alt: दो चरणों का ड्रॉ-वृक्ष; शर्त: पुनःस्थापन के बिना।
+- **SUCCESSIVE_DRAW_TREE** — दो चरणों का प्रायिकता वृक्ष
+  - Alt: दो चरणों का चयन-वृक्ष; चुनी गई वस्तु वापस नहीं रखी जाती।
 
 ### Parity evidence
 
@@ -4202,9 +4202,9 @@ A 4-member committee is formed from 6 men and 9 women. How many committees conta
 ### Native explanation to review
 
 1. विधि: समिति में क्रम महत्वपूर्ण नहीं होता, इसलिए संयोजन का उपयोग करें।
-2. गणना: ठीक 1 महिला चुनें और शेष 3 सदस्य पुरुषों में से चुनें।
+2. गणना: C(9,1) × C(6,3) = आवश्यक समितियों की संख्या।
 3. गणना: \(1365\times\frac{12}{91}=180\)
-4. मुख्य बिंदु: महिलाओं और पुरुषों के चयन की संख्याओं को गुणा करें।
+4. मुख्य बिंदु: ठीक 1 महिला और 3 पुरुष चुनने के तरीकों को गुणा करें।
 5. अंतिम उत्तर: 180
 
 ### English explanation authority

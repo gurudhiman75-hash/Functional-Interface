@@ -50,7 +50,7 @@ A jar contains 8 red and 6 blue marbles. One marble is selected and replaced bef
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਕੰਚੇ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਦੋਵੇਂ ਲਾਲ) = 8/14 × 8/14.
 3. ਗਣਨਾ: \(64/196=16/49\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{16}{49}\)
@@ -65,8 +65,8 @@ A jar contains 8 red and 6 blue marbles. One marble is selected and replaced bef
 6. Answer — The required probability is \(\frac{16}{49}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਹਰ ਚੋਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।
 
 ### Parity evidence
 
@@ -129,7 +129,7 @@ A box contains 7 red and 8 blue pens. Two pens are selected one after another wi
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਪੈਨ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਦੋਵੇਂ ਲਾਲ) = 7/15 × 6/14.
 3. ਗਣਨਾ: \(42/210=1/5\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{1}{5}\)
@@ -144,8 +144,8 @@ A box contains 7 red and 8 blue pens. Two pens are selected one after another wi
 6. Answer — The required probability is \(\frac{1}{5}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -208,7 +208,7 @@ A pouch contains 6 red and 8 blue coloured stones. One stone is drawn and replac
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਰੰਗੀਨ ਪੱਥਰ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਦੋਵੇਂ ਲਾਲ) = 6/14 × 6/14.
 3. ਗਣਨਾ: \(36/196=9/49\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{9}{49}\)
@@ -223,8 +223,8 @@ A pouch contains 6 red and 8 blue coloured stones. One stone is drawn and replac
 6. Answer — The required probability is \(\frac{9}{49}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਹਰ ਚੋਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।
 
 ### Parity evidence
 
@@ -287,7 +287,7 @@ A bag contains 8 red and 7 blue balls. Two balls are selected one after another 
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਗੇਂਦਾਂ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਦੋਵੇਂ ਲਾਲ) = 8/15 × 7/14.
 3. ਗਣਨਾ: \(56/210=4/15\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{4}{15}\)
@@ -302,8 +302,8 @@ A bag contains 8 red and 7 blue balls. Two balls are selected one after another 
 6. Answer — The required probability is \(\frac{4}{15}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -366,7 +366,7 @@ A jar contains 7 red and 6 blue marbles. Two marbles are selected one after anot
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਕੰਚੇ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਪਹਿਲਾਂ ਲਾਲ, ਫਿਰ ਨੀਲਾ) = 7/13 × 6/12.
 3. ਗਣਨਾ: \(42/156=7/26\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{7}{26}\)
@@ -381,8 +381,8 @@ A jar contains 7 red and 6 blue marbles. Two marbles are selected one after anot
 6. Answer — The required probability is \(\frac{7}{26}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -445,7 +445,7 @@ A box contains 7 red and 9 blue pens. Two pens are selected one after another wi
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਪੈਨ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਇੱਕੋ ਰੰਗ) = 7/16 × 6/15 + 9/16 × 8/15.
 3. ਗਣਨਾ: \(114/240=19/40\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{19}{40}\)
@@ -461,8 +461,8 @@ A box contains 7 red and 9 blue pens. Two pens are selected one after another wi
 7. Answer — The required probability is \(\frac{19}{40}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -525,7 +525,7 @@ A pouch contains 5 red and 9 blue coloured stones. Two coloured stones are selec
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਰੰਗੀਨ ਪੱਥਰ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਵੱਖ-ਵੱਖ ਰੰਗ) = 5/14 × 9/13 + 9/14 × 5/13.
 3. ਗਣਨਾ: \(90/182=45/91\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{45}{91}\)
@@ -541,8 +541,8 @@ A pouch contains 5 red and 9 blue coloured stones. Two coloured stones are selec
 7. Answer — The required probability is \(\frac{45}{91}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -605,7 +605,7 @@ A bag contains 7 red and 9 blue balls. Two selections are made with replacement.
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਗੇਂਦਾਂ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਘੱਟੋ-ਘੱਟ ਇੱਕ ਲਾਲ) = 1 − (9/16)².
 3. ਗਣਨਾ: \(175/256=175/256\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{175}{256}\)
@@ -620,8 +620,8 @@ A bag contains 7 red and 9 blue balls. Two selections are made with replacement.
 6. Answer — The required probability is \(\frac{175}{256}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਹਰ ਚੋਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।
 
 ### Parity evidence
 
@@ -684,7 +684,7 @@ A jar contains 8 red and 9 blue marbles. One marble is selected and replaced bef
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਕੰਚੇ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਦੋਵੇਂ ਲਾਲ) = 8/17 × 8/17.
 3. ਗਣਨਾ: \(64/289=64/289\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{64}{289}\)
@@ -699,8 +699,8 @@ A jar contains 8 red and 9 blue marbles. One marble is selected and replaced bef
 6. Answer — The required probability is \(\frac{64}{289}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਹਰ ਚੋਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।
 
 ### Parity evidence
 
@@ -763,7 +763,7 @@ A box contains 7 red and 6 blue pens. Two pens are selected one after another wi
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਪੈਨ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਦੋਵੇਂ ਲਾਲ) = 7/13 × 6/12.
 3. ਗਣਨਾ: \(42/156=7/26\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{7}{26}\)
@@ -778,8 +778,8 @@ A box contains 7 red and 6 blue pens. Two pens are selected one after another wi
 6. Answer — The required probability is \(\frac{7}{26}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -842,7 +842,7 @@ A pouch contains 5 red and 4 blue coloured stones. One stone is drawn and replac
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਰੰਗੀਨ ਪੱਥਰ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਦੋਵੇਂ ਲਾਲ) = 5/9 × 5/9.
 3. ਗਣਨਾ: \(25/81=25/81\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{25}{81}\)
@@ -857,8 +857,8 @@ A pouch contains 5 red and 4 blue coloured stones. One stone is drawn and replac
 6. Answer — The required probability is \(\frac{25}{81}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਹਰ ਚੋਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।
 
 ### Parity evidence
 
@@ -921,7 +921,7 @@ A bag contains 6 red and 9 blue balls. Two balls are selected one after another 
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਗੇਂਦਾਂ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਦੋਵੇਂ ਲਾਲ) = 6/15 × 5/14.
 3. ਗਣਨਾ: \(30/210=1/7\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{1}{7}\)
@@ -936,8 +936,8 @@ A bag contains 6 red and 9 blue balls. Two balls are selected one after another 
 6. Answer — The required probability is \(\frac{1}{7}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -1000,7 +1000,7 @@ A jar contains 9 red and 8 blue marbles. Two marbles are selected one after anot
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਕੰਚੇ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਪਹਿਲਾਂ ਲਾਲ, ਫਿਰ ਨੀਲਾ) = 9/17 × 8/16.
 3. ਗਣਨਾ: \(72/272=9/34\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{9}{34}\)
@@ -1015,8 +1015,8 @@ A jar contains 9 red and 8 blue marbles. Two marbles are selected one after anot
 6. Answer — The required probability is \(\frac{9}{34}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -1079,7 +1079,7 @@ A box contains 9 red and 6 blue pens. Two pens are selected one after another wi
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਪੈਨ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਇੱਕੋ ਰੰਗ) = 9/15 × 8/14 + 6/15 × 5/14.
 3. ਗਣਨਾ: \(102/210=17/35\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{17}{35}\)
@@ -1095,8 +1095,8 @@ A box contains 9 red and 6 blue pens. Two pens are selected one after another wi
 7. Answer — The required probability is \(\frac{17}{35}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -1159,7 +1159,7 @@ A pouch contains 6 red and 5 blue coloured stones. Two coloured stones are selec
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਰੰਗੀਨ ਪੱਥਰ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਵੱਖ-ਵੱਖ ਰੰਗ) = 6/11 × 5/10 + 5/11 × 6/10.
 3. ਗਣਨਾ: \(60/110=6/11\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{6}{11}\)
@@ -1175,8 +1175,8 @@ A pouch contains 6 red and 5 blue coloured stones. Two coloured stones are selec
 7. Answer — The required probability is \(\frac{6}{11}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -1239,7 +1239,7 @@ A bag contains 9 red and 6 blue balls. Two selections are made with replacement.
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਗੇਂਦਾਂ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਘੱਟੋ-ਘੱਟ ਇੱਕ ਲਾਲ) = 1 − (6/15)².
 3. ਗਣਨਾ: \(189/225=21/25\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{21}{25}\)
@@ -1254,8 +1254,8 @@ A bag contains 9 red and 6 blue balls. Two selections are made with replacement.
 6. Answer — The required probability is \(\frac{21}{25}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਹਰ ਚੋਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।
 
 ### Parity evidence
 
@@ -1318,7 +1318,7 @@ A jar contains 7 red and 4 blue marbles. One marble is selected and replaced bef
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਕੰਚੇ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਦੋਵੇਂ ਲਾਲ) = 7/11 × 7/11.
 3. ਗਣਨਾ: \(49/121=49/121\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{49}{121}\)
@@ -1333,8 +1333,8 @@ A jar contains 7 red and 4 blue marbles. One marble is selected and replaced bef
 6. Answer — The required probability is \(\frac{49}{121}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਹਰ ਚੋਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।
 
 ### Parity evidence
 
@@ -1397,7 +1397,7 @@ A box contains 9 red and 9 blue pens. Two pens are selected one after another wi
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਪੈਨ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਦੋਵੇਂ ਲਾਲ) = 9/18 × 8/17.
 3. ਗਣਨਾ: \(72/306=4/17\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{4}{17}\)
@@ -1412,8 +1412,8 @@ A box contains 9 red and 9 blue pens. Two pens are selected one after another wi
 6. Answer — The required probability is \(\frac{4}{17}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -1476,7 +1476,7 @@ A pouch contains 4 red and 5 blue coloured stones. One stone is drawn and replac
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਰੰਗੀਨ ਪੱਥਰ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਦੋਵੇਂ ਲਾਲ) = 4/9 × 4/9.
 3. ਗਣਨਾ: \(16/81=16/81\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{16}{81}\)
@@ -1491,8 +1491,8 @@ A pouch contains 4 red and 5 blue coloured stones. One stone is drawn and replac
 6. Answer — The required probability is \(\frac{16}{81}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਹਰ ਚੋਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।
 
 ### Parity evidence
 
@@ -1555,7 +1555,7 @@ A bag contains 6 red and 6 blue balls. Two balls are selected one after another 
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਗੇਂਦਾਂ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਦੋਵੇਂ ਲਾਲ) = 6/12 × 5/11.
 3. ਗਣਨਾ: \(30/132=5/22\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{5}{22}\)
@@ -1570,8 +1570,8 @@ A bag contains 6 red and 6 blue balls. Two balls are selected one after another 
 6. Answer — The required probability is \(\frac{5}{22}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -1634,7 +1634,7 @@ A jar contains 8 red and 4 blue marbles. Two marbles are selected one after anot
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਕੰਚੇ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਪਹਿਲਾਂ ਲਾਲ, ਫਿਰ ਨੀਲਾ) = 8/12 × 4/11.
 3. ਗਣਨਾ: \(32/132=8/33\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{8}{33}\)
@@ -1649,8 +1649,8 @@ A jar contains 8 red and 4 blue marbles. Two marbles are selected one after anot
 6. Answer — The required probability is \(\frac{8}{33}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -1713,7 +1713,7 @@ A box contains 8 red and 6 blue pens. Two pens are selected one after another wi
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਪੈਨ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਇੱਕੋ ਰੰਗ) = 8/14 × 7/13 + 6/14 × 5/13.
 3. ਗਣਨਾ: \(86/182=43/91\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{43}{91}\)
@@ -1729,8 +1729,8 @@ A box contains 8 red and 6 blue pens. Two pens are selected one after another wi
 7. Answer — The required probability is \(\frac{43}{91}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -1793,7 +1793,7 @@ A pouch contains 6 red and 7 blue coloured stones. Two coloured stones are selec
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਰੰਗੀਨ ਪੱਥਰ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਵੱਖ-ਵੱਖ ਰੰਗ) = 6/13 × 7/12 + 7/13 × 6/12.
 3. ਗਣਨਾ: \(84/156=7/13\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{7}{13}\)
@@ -1809,8 +1809,8 @@ A pouch contains 6 red and 7 blue coloured stones. Two coloured stones are selec
 7. Answer — The required probability is \(\frac{7}{13}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -1873,7 +1873,7 @@ A bag contains 9 red and 4 blue balls. Two selections are made with replacement.
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਹਰ ਚੋਣ ਦੀ ਸੰਭਾਵਨਾ ਉਸ ਵੇਲੇ ਮੌਜੂਦ ਗੇਂਦਾਂ ਅਤੇ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਗਈ ਹੈ ਜਾਂ ਨਹੀਂ, ਇਸ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ।
-2. ਗਣਨਾ: ਹਰ ਪੜਾਅ ਦੀ ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ਲਿਖੋ ਅਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+2. ਗਣਨਾ: P(ਘੱਟੋ-ਘੱਟ ਇੱਕ ਲਾਲ) = 1 − (4/13)².
 3. ਗਣਨਾ: \(153/169=153/169\)
 4. ਮੁੱਖ ਬਿੰਦੂ: ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਤੇ ਦੋਵੇਂ ਚੋਣਾਂ ਸੁਤੰਤਰ ਰਹਿੰਦੀਆਂ ਹਨ; ਵਾਪਸ ਨਾ ਰੱਖਣ ਤੇ ਦੂਜੀ ਚੋਣ ਪਹਿਲੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 5. ਅੰਤਿਮ ਉੱਤਰ: \(\frac{153}{169}\)
@@ -1888,8 +1888,8 @@ A bag contains 9 red and 4 blue balls. Two selections are made with replacement.
 6. Answer — The required probability is \(\frac{153}{169}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਹਰ ਚੋਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।
 
 ### Parity evidence
 
@@ -2197,8 +2197,8 @@ A bag contains 9 red and 8 blue balls. Two balls are drawn without replacement. 
 6. Answer — The required probability is \(\frac{1}{2}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -2660,8 +2660,8 @@ A bag contains 9 red and 7 blue balls. Two balls are drawn without replacement. 
 6. Answer — The required probability is \(\frac{8}{15}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -3123,8 +3123,8 @@ A bag contains 8 red and 8 blue balls. Two balls are drawn without replacement. 
 6. Answer — The required probability is \(\frac{7}{15}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -3586,8 +3586,8 @@ A bag contains 10 red and 4 blue balls. Two balls are drawn without replacement.
 6. Answer — The required probability is \(\frac{9}{13}\).
 
 **Native visuals:**
-- **SUCCESSIVE_DRAW_TREE** — ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
-  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ਵਾਪਸ ਨਾ ਰੱਖ ਕੇ।
+- **SUCCESSIVE_DRAW_TREE** — ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ
+  - Alt: ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।
 
 ### Parity evidence
 
@@ -4202,9 +4202,9 @@ A 4-member committee is formed from 6 men and 9 women. How many committees conta
 ### Native explanation to review
 
 1. ਵਿਧੀ: ਕਮੇਟੀ ਵਿੱਚ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ ਹੁੰਦਾ, ਇਸ ਲਈ ਸੰਚਯ ਵਰਤੋ।
-2. ਗਣਨਾ: ਠੀਕ 1 ਔਰਤ ਚੁਣੋ ਅਤੇ ਬਾਕੀ 3 ਮੈਂਬਰ ਮਰਦਾਂ ਵਿੱਚੋਂ ਚੁਣੋ।
+2. ਗਣਨਾ: C(9,1) × C(6,3) = ਲੋੜੀਂਦੀਆਂ ਕਮੇਟੀਆਂ ਦੀ ਗਿਣਤੀ।
 3. ਗਣਨਾ: \(1365\times\frac{12}{91}=180\)
-4. ਮੁੱਖ ਬਿੰਦੂ: ਔਰਤਾਂ ਅਤੇ ਮਰਦਾਂ ਦੀਆਂ ਚੋਣਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
+4. ਮੁੱਖ ਬਿੰਦੂ: ਠੀਕ 1 ਔਰਤ ਅਤੇ 3 ਮਰਦ ਚੁਣਨ ਦੇ ਤਰੀਕਿਆਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।
 5. ਅੰਤਿਮ ਉੱਤਰ: 180
 
 ### English explanation authority
