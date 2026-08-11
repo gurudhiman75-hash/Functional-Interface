@@ -45,7 +45,8 @@ type CaseletLike = {
   readonly seed: string;
   readonly setupText: string;
   readonly clueTexts: readonly string[];
-  readonly diagramText: string;
+  readonly diagramText?: string;
+  readonly diagram?: { readonly text: string };
   readonly sharedExplanation: string;
   readonly children: readonly {
     readonly questionOrder: number;
@@ -58,6 +59,8 @@ type CaseletLike = {
 };
 
 function normaliseCaselet(caselet: CaseletLike, reviewOrdinal: number): ReviewCaselet {
+  const diagramText = caselet.diagramText ?? caselet.diagram?.text;
+  if (diagramText === undefined) throw new Error(`${caselet.checkpointId}/${caselet.caseletId} has no reviewable diagram representation`);
   return {
     reviewOrdinal,
     checkpointId: caselet.checkpointId,
@@ -66,7 +69,7 @@ function normaliseCaselet(caselet: CaseletLike, reviewOrdinal: number): ReviewCa
     seed: caselet.seed,
     setupText: caselet.setupText,
     clueTexts: caselet.clueTexts,
-    diagramText: caselet.diagramText,
+    diagramText,
     sharedExplanation: caselet.sharedExplanation,
     children: caselet.children.map((child) => ({
       questionOrder: child.questionOrder,
