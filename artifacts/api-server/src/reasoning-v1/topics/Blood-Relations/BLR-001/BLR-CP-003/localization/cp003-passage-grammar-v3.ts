@@ -2,6 +2,8 @@ import type { BlrCp003FinalApprovedRecord } from "../cp003-final-approved-bank";
 import type { BlrCp003TranslatedLocale } from "./cp003-language-pack";
 import { localizedBlrCp003SharedPromptFinal } from "./cp003-passage-grammar-v2";
 
+const residualEnglishFamilyVocabulary = /\b(?:married|unmarried|mother|father|son|daughter|children|child|siblings?|spouse|wife|husband|parents?|brother|sister|cousins?)\b/i;
+
 function protectNames(
   record: BlrCp003FinalApprovedRecord,
   text: string,
@@ -56,15 +58,19 @@ function localizeLastSentence(
   locale: BlrCp003TranslatedLocale,
 ): string {
   try {
-    return localizedBlrCp003SharedPromptFinal({ ...record, sharedPrompt: sentence }, locale);
+    const translated = localizedBlrCp003SharedPromptFinal({ ...record, sharedPrompt: sentence }, locale);
+    const protectedTranslated = protectNames(record, translated).protectedText;
+    if (!residualEnglishFamilyVocabulary.test(protectedTranslated)) return translated;
   } catch {
-    const { protectedText, restore } = protectNames(record, sentence);
-    const translated = locale === "hi-IN" ? lastHindi(protectedText) : lastPunjabi(protectedText);
-    if (translated === protectedText) {
-      throw new Error(`Untranslated CP-003 ${locale} passage sentence: ${sentence}`);
-    }
-    return restore(translated);
+    // Exact V3 fallback below handles sentences not covered by earlier grammar waves.
   }
+
+  const { protectedText, restore } = protectNames(record, sentence);
+  const translated = locale === "hi-IN" ? lastHindi(protectedText) : lastPunjabi(protectedText);
+  if (translated === protectedText || residualEnglishFamilyVocabulary.test(translated)) {
+    throw new Error(`Untranslated CP-003 ${locale} passage sentence: ${sentence}`);
+  }
+  return restore(translated);
 }
 
 export function localizedBlrCp003SharedPromptCompleteV3(
