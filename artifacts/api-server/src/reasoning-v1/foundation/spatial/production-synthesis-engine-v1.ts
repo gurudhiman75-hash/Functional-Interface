@@ -14,6 +14,7 @@ import type { SpatialPrimitiveRetrofitTransformV2 } from "./primitive-retrofit-p
 import { spatialSceneSemanticFingerprint } from "./normalize";
 import { DeterministicSpatialRng } from "./seed";
 import type { SpatialSeriesRuleId } from "./series-types";
+import { classifySpatialSceneSymmetry } from "./symmetry";
 import type { SpatialLineNode, SpatialScene } from "./types";
 import { validateSpatialScene } from "./validator";
 import {
@@ -86,40 +87,121 @@ interface LineEndpointCandidate {
   endpoint: "start" | "end";
   x: number;
   y: number;
+  distanceSquared: number;
+  key: string;
 }
 
-function shortenOneOuterArm(scene: SpatialScene): SpatialScene {
+function collectOuterLineEndpoints(
+  scene: SpatialScene,
+  usedKeys: ReadonlySet<string>,
+): LineEndpointCandidate[] {
   const candidates: LineEndpointCandidate[] = [];
   scene.nodes.forEach((node, nodeIndex) => {
     if (node.kind !== "line") return;
-    candidates.push({ nodeIndex, endpoint: "start", x: node.start.x, y: node.start.y });
-    candidates.push({ nodeIndex, endpoint: "end", x: node.end.x, y: node.end.y });
+    for (const endpoint of ["start", "end"] as const) {
+      const point = node[endpoint];
+      const dx = point.x - 50;
+      const dy = point.y - 50;
+      const key = `${nodeIndex}:${endpoint}`;
+      if (usedKeys.has(key)) continue;
+      if (dx * dx + dy * dy < 100) continue;
+      candidates.push({
+        nodeIndex,
+        endpoint,
+        x: point.x,
+        y: point.y,
+        distanceSquared: dx * dx + dy * dy,
+        key,
+      });
+    }
   });
-  const selected = candidates.sort((left, right) => left.y - right.y || left.x - right.x)[0];
-  if (!selected) {
-    throw new Error(`${scene.id}: crossing presentation requires at least one line node.`);
-  }
+  return candidates;
+}
 
+function shortenEndpoint(
+  scene: SpatialScene,
+  selected: LineEndpointCandidate,
+): SpatialScene {
   const nodes = scene.nodes.map((node, nodeIndex) => {
     if (nodeIndex !== selected.nodeIndex || node.kind !== "line") return node;
     const line = node as SpatialLineNode;
     const moving = selected.endpoint === "start" ? line.start : line.end;
     const fixed = selected.endpoint === "start" ? line.end : line.start;
     const shortened = {
-      x: moving.x + (fixed.x - moving.x) * 0.2,
-      y: moving.y + (fixed.y - moving.y) * 0.2,
+      x: moving.x + (fixed.x - moving.x) * 0.18,
+      y: moving.y + (fixed.y - moving.y) * 0.18,
     };
     return selected.endpoint === "start"
       ? { ...line, start: shortened }
       : { ...line, end: shortened };
   });
+  return { ...scene, nodes };
+}
 
+function selectEndpointForSurvivingSymmetry(
+  candidates: readonly LineEndpointCandidate[],
+  symmetry: ReturnType<typeof classifySpatialSceneSymmetry>,
+): LineEndpointCandidate | undefined {
+  let targeted: LineEndpointCandidate[] = [];
+  if (symmetry.vertical) {
+    targeted = candidates.filter((candidate) => Math.abs(candidate.x - 50) > 5);
+  } else if (symmetry.horizontal) {
+    targeted = candidates.filter((candidate) => Math.abs(candidate.y - 50) > 5);
+  } else if (symmetry.rotational180) {
+    targeted = [...candidates];
+  }
+  const pool = targeted.length > 0 ? targeted : [...candidates];
+  return pool.sort((left, right) => {
+    if (symmetry.vertical) {
+      const horizontalReach = Math.abs(right.x - 50) - Math.abs(left.x - 50);
+      if (horizontalReach !== 0) return horizontalReach;
+    }
+    if (symmetry.horizontal) {
+      const verticalReach = Math.abs(right.y - 50) - Math.abs(left.y - 50);
+      if (verticalReach !== 0) return verticalReach;
+    }
+    return right.distanceSquared - left.distanceSquared || left.y - right.y || left.x - right.x;
+  })[0];
+}
+
+function applyAsymmetricCrossingPresentation(scene: SpatialScene): SpatialScene {
+  let current: SpatialScene = scene;
+  const usedKeys = new Set<string>();
+
+  for (let pass = 0; pass < 4; pass += 1) {
+    const symmetry = classifySpatialSceneSymmetry(current);
+    if (!symmetry.vertical && !symmetry.horizontal && !symmetry.rotational180) {
+      return {
+        ...current,
+        metadata: {
+          ...(current.metadata ?? {}),
+          productionPresentation: "FCL_TRUE_CROSSING_ASYMMETRIC_ARM_V1",
+          productionPresentationArmShortenings: usedKeys.size,
+        },
+      };
+    }
+
+    const candidates = collectOuterLineEndpoints(current, usedKeys);
+    const selected = selectEndpointForSurvivingSymmetry(candidates, symmetry);
+    if (!selected) {
+      throw new Error(`${scene.id}: unable to find a safe outer line endpoint to neutralize remaining symmetry.`);
+    }
+    usedKeys.add(selected.key);
+    current = shortenEndpoint(current, selected);
+  }
+
+  const remaining = classifySpatialSceneSymmetry(current);
+  if (remaining.vertical || remaining.horizontal || remaining.rotational180) {
+    throw new Error(
+      `${scene.id}: crossing presentation still has symmetry after ${usedKeys.size} arm shortenings: ${JSON.stringify(remaining)}.`,
+    );
+  }
   return {
-    ...scene,
-    nodes,
+    ...current,
     metadata: {
-      ...(scene.metadata ?? {}),
+      ...(current.metadata ?? {}),
       productionPresentation: "FCL_TRUE_CROSSING_ASYMMETRIC_ARM_V1",
+      productionPresentationArmShortenings: usedKeys.size,
     },
   };
 }
@@ -129,7 +211,7 @@ function applyFclProductionPresentation(
   propertyId: SpatialPrimitiveClassificationPropertyIdV2,
 ): SpatialScene[] {
   if (propertyId !== "HAS_TRUE_CROSSING") return scenes.map((scene) => scene);
-  return scenes.map(shortenOneOuterArm);
+  return scenes.map(applyAsymmetricCrossingPresentation);
 }
 
 export function buildSpatialFclFamilyScheduleV1(
