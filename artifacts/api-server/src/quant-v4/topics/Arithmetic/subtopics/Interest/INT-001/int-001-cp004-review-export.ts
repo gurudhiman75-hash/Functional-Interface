@@ -47,7 +47,12 @@ function findQuestionForFrame(
 ): IntCp004Question | undefined {
   for (let attempt = 0; attempt < 8000; attempt += 1) {
     const seed = `int-cp004-review-v4:${qlId}:frame-${frame}:attempt-${attempt}`;
-    const question = generateIntCp004Question(qlId, seed);
+    let question: IntCp004Question;
+    try {
+      question = generateIntCp004Question(qlId, seed);
+    } catch {
+      continue;
+    }
     if (!question.stemFamilyId.endsWith(`FRAME-${frame}`)) continue;
     if (!matchesReviewCoverage(question, frame)) continue;
     if (requireWholeMoney && question.answerSemantic === "MONEY" && question.solution.denominator !== 1n) continue;
