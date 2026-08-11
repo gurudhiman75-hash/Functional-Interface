@@ -212,6 +212,12 @@ export function deriveExamReadyCp003WrongWorkings(
           "It uses only half of the available time, making the required speed too high.",
         ),
         wrong(
+          "USE_TWO_THIRDS_AVAILABLE_TIME",
+          divide(input.remainingDistance, multiply(input.remainingAvailableTime, rational(2, 3))),
+          `${f(input.remainingDistance)} ÷ (2 × ${f(input.remainingAvailableTime)} ÷ 3)`,
+          "It uses only two-thirds of the available time, so the required speed is overstated.",
+        ),
+        wrong(
           "ADD_INSTEAD_OF_DIVIDE",
           add(input.remainingDistance, input.remainingAvailableTime),
           `${f(input.remainingDistance)} + ${f(input.remainingAvailableTime)}`,
@@ -527,6 +533,18 @@ export function deriveExamReadyCp003WrongWorkings(
           "It assumes the two speeds are used over equal halves of the route.",
         ),
         wrong(
+          "ASSUME_FIXED_ROUTE_FRACTION",
+          rational(20),
+          `100 ÷ 5`,
+          "It assumes the changed-speed segment is one-fifth of the route without using the time equation.",
+        ),
+        wrong(
+          "ASSUME_FIXED_ROUTE_FRACTION",
+          rational(80),
+          `4 × 100 ÷ 5`,
+          "It assumes the changed-speed segment is four-fifths of the route without using the time equation.",
+        ),
+        wrong(
           "USE_TIME_SHARE_AS_ROUTE_PERCENT",
           changedTimeShare,
           `${f(changedTime)} ÷ ${f(input.totalTravelTime)} × 100`,
@@ -544,7 +562,62 @@ export function deriveExamReadyCp003WrongWorkings(
           `${f(input.originalSpeed)} ÷ (${f(input.originalSpeed)} + ${f(input.changedSpeed)}) × 100`,
           "It incorrectly uses the opposite share from a speed-ratio split of the route.",
         ),
-      ]);
+      ], (value) => compare(value, rational(100)) < 0);
+    }
+
+    case "walkingRidingAllocation": {
+      const walkingDistance = solution.intermediate.walkingDistance;
+      const ridingDistance = solution.intermediate.ridingDistance;
+      const walkingTime = solution.intermediate.walkingTime;
+      const ridingTime = solution.intermediate.ridingTime;
+      if (!walkingDistance || !ridingDistance || !walkingTime || !ridingTime) throw new Error("Walking/riding solution did not expose its allocation components");
+      const isTimeTarget = input.target.endsWith("TIME");
+      const otherComponent = input.target === "WALKING_TIME" ? ridingTime
+        : input.target === "RIDING_TIME" ? walkingTime
+          : input.target === "WALKING_DISTANCE" ? ridingDistance
+            : walkingDistance;
+      const totalQuantity = isTimeTarget ? input.totalTime : input.totalDistance;
+      const equalSplit = divide(totalQuantity, rational(2));
+      const wrongPairing = input.target === "WALKING_TIME" ? divide(walkingDistance, input.ridingSpeed)
+        : input.target === "RIDING_TIME" ? divide(ridingDistance, input.walkingSpeed)
+          : input.target === "WALKING_DISTANCE" ? multiply(walkingTime, input.ridingSpeed)
+            : multiply(ridingTime, input.walkingSpeed);
+      const wholeTargetMode = input.target === "WALKING_TIME" ? divide(input.totalDistance, input.walkingSpeed)
+        : input.target === "RIDING_TIME" ? divide(input.totalDistance, input.ridingSpeed)
+          : input.target === "WALKING_DISTANCE" ? multiply(input.totalTime, input.walkingSpeed)
+            : multiply(input.totalTime, input.ridingSpeed);
+      return choose(answer, [
+        wrong(
+          "USE_OTHER_MODE_COMPONENT",
+          otherComponent,
+          `${f(otherComponent)}`,
+          "It reports the other travel mode's component instead of the requested one.",
+        ),
+        wrong(
+          "ASSUME_EQUAL_MODE_SPLIT",
+          equalSplit,
+          `${f(totalQuantity)} ÷ 2`,
+          "It assumes walking and riding split the requested quantity equally without using the two speeds.",
+        ),
+        wrong(
+          "USE_TOTAL_QUANTITY",
+          totalQuantity,
+          `${f(totalQuantity)}`,
+          "It reports the full journey quantity instead of the requested walking/riding share.",
+        ),
+        wrong(
+          "PAIR_DISTANCE_WITH_WRONG_SPEED",
+          wrongPairing,
+          isTimeTarget ? `target distance ÷ other-mode speed` : `target time × other-mode speed`,
+          "It pairs a segment from one mode with the other mode's speed.",
+        ),
+        wrong(
+          "ASSUME_WHOLE_ROUTE_IN_TARGET_MODE",
+          wholeTargetMode,
+          isTimeTarget ? `${f(input.totalDistance)} ÷ target speed` : `${f(input.totalTime)} × target speed`,
+          "It assumes the entire route or time belongs to only the requested mode.",
+        ),
+      ], (value) => compare(value, totalQuantity) <= 0);
     }
 
     default:
