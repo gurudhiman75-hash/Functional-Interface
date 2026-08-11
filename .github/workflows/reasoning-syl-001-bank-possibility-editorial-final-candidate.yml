@@ -8,6 +8,9 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-editorial-final-candidate-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-editorial-final-candidate.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-editorial-candidate.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-editorial-v*.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-possibility-editorial-v*.ts
+      - .github/workflows/reasoning-syl-001-bank-possibility-editorial-v*.yml
       - .github/workflows/reasoning-syl-001-bank-possibility-editorial-final-candidate.yml
   workflow_dispatch:
 permissions:
@@ -26,6 +29,35 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
+      - name: Reject superseded V5-V8 editorial implementations
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime"
+          obsolete=(
+            "$root/banking-possibility-editorial-v5.ts"
+            "$root/banking-possibility-editorial-v5-audit.test.ts"
+            "$root/export-banking-possibility-editorial-v5.ts"
+            "$root/banking-possibility-editorial-v6.ts"
+            "$root/banking-possibility-editorial-v6-audit.test.ts"
+            "$root/export-banking-possibility-editorial-v6.ts"
+            "$root/banking-possibility-editorial-v7.ts"
+            "$root/banking-possibility-editorial-v7-audit.test.ts"
+            "$root/export-banking-possibility-editorial-v7.ts"
+            "$root/banking-possibility-editorial-v8.ts"
+            "$root/banking-possibility-editorial-v8-audit.test.ts"
+            "$root/export-banking-possibility-editorial-v8.ts"
+            ".github/workflows/reasoning-syl-001-bank-possibility-editorial-v5.yml"
+            ".github/workflows/reasoning-syl-001-bank-possibility-editorial-v6.yml"
+            ".github/workflows/reasoning-syl-001-bank-possibility-editorial-v7.yml"
+            ".github/workflows/reasoning-syl-001-bank-possibility-editorial-v8.yml"
+          )
+          for file in "${obsolete[@]}"; do
+            if [[ -e "$file" ]]; then
+              echo "Superseded Banking editorial file must remain deleted: $file" >&2
+              exit 1
+            fi
+          done
       - name: Bundle final candidate audit
         run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-editorial-final-candidate-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-possibility-editorial-final-candidate-audit.test.mjs
       - name: Run final candidate audit
