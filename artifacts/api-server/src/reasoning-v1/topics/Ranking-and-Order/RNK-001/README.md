@@ -1,6 +1,6 @@
 # RNK-001 — Ranking and Order
 
-Status: **CP-001 through CP-004 frozen at `RNK-QL-001..035`; CP-005 Editorial V3 Release review passed with three provisional authorities and zero permanent QLs.**
+Status: **CP-001 through CP-004 frozen at `RNK-QL-001..035`; CP-005 V3 editorial and QL-034 ownership audits passed with three provisional authorities and zero permanent QLs.**
 
 Student-facing chapter: **Ranking and Order**  
 Reasoning V1 package: `RNK-001`  
@@ -23,7 +23,7 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 | `RNK-CP-002` | two-person positions, separation, comparison, mixed-end totals | frozen `RNK-QL-010..017` |
 | `RNK-CP-003` | interchange, movement, overtaking, insertion/removal | frozen `RNK-QL-018..026` |
 | `RNK-CP-004` | unique multi-entity strict-order reasoning | frozen `RNK-QL-027..035` |
-| `RNK-CP-005` | partial order, relation truth status, possible-rank bounds, exact-rank determinacy | V3 editorial release passed; 3 provisional authorities; 0 QLs |
+| `RNK-CP-005` | partial order, relation truth status, possible-rank bounds, exact-rank determinacy | V3 editorial + ownership audit passed; 3 provisional authorities; 0 QLs |
 | `RNK-CP-006` | non-strict/tied-ranking audit | unallocated; source evidence required |
 | `RNK-CP-007` | advanced mixed transformations | unallocated; later gap audit |
 | `RNK-CP-008` | reserved | shared-set assembly is infrastructure, not QL ownership |
@@ -83,23 +83,12 @@ CP-004 assumes the evidence forces one unique complete strict order.
 
 CP-005 deliberately retains **multiple valid complete rankings** and asks what remains definite, possible, impossible, bounded or indeterminate across them.
 
-Raw discovery:
-
 ```text
-8 prototypes
-256 questions
-64 / 64 / 64 / 64 answer balance
-```
-
-V3 Release:
-
-```text
-7 surviving source forms
-168 checked questions
-24/source form
-42 / 42 / 42 / 42 answer balance
-168 unique release states
-8 graph topology families
+raw:                 8 prototypes / 256 questions
+V3 release:          7 source forms / 168 checked questions
+answer positions:    42 / 42 / 42 / 42
+unique release states: 168
+V3 graph families:   8
 
 Easy:      0
 Medium:  156
@@ -123,17 +112,44 @@ EXACT_RANK_DETERMINACY
   DEFINITE / INDETERMINATE
 ```
 
-`PAIR_RELATION_CANNOT_BE_DETERMINED` is retained only as a legacy discovery ID; its learner-facing form is `PAIR_RELATION_STATUS` and its corpus contains `8 FIRST_ABOVE / 8 SECOND_ABOVE / 8 INDETERMINATE`.
+`PAIR_RELATION_CANNOT_BE_DETERMINED` is retained only as a legacy discovery ID; learner-facing `PAIR_STATUS` contains first-above, second-above and indeterminate outcomes.
 
 See:
 - `RNK-CP-005/RNK-CP-005-EDITORIAL-V3-CONSOLIDATION.md`
+- `RNK-CP-005/RNK-CP-005-QL034-OWNERSHIP-AUDIT.md`
 - `RNK-CP-005/RNK-CP-005-PARTIAL-ORDER-DISCOVERY-STATUS-V1.md`
+
+### QL-034 ownership resolution
+
+The final ownership audit retains CP-005 `RELATION_TRUTH_STATUS` as a **separate provisional authority** rather than widening frozen `RNK-QL-034`.
+
+```text
+RNK-QL-034 / CP-004
+  state contract: exactly one complete strict order
+  query: definitely-true relation
+
+CP-005 / RELATION_TRUTH_STATUS
+  state contract: at least two complete strict orders remain valid
+  queries: MUST / COULD / CANNOT / PAIR_STATUS
+```
+
+CP-004's solver explicitly rejects a non-unique evidence graph before answering its relation query. CP-005 instead quantifies the relation over every valid order. The solver state and answer contract therefore differ materially.
+
+Primary Ranking-source evidence also contains incomplete comparison tables with incomparable people and nevertheless asks which conclusions can or cannot be determined. This supports partial-order uncertainty as Ranking ownership.
+
+Audit decision:
+
+```text
+KEEP_SEPARATE_PROVISIONAL_AUTHORITY
+```
+
+No permanent ID is allocated by this decision.
 
 ### V3 semantic safeguards
 
 - four distinct comparison pairs in generic relation options;
 - at least four people represented and maximum two appearances/person;
-- MUST uses plausible possible-but-not-compulsory distractors;
+- MUST uses possible-but-not-compulsory distractors;
 - COULD bans direct clue reversals and requires multi-step contradiction for wrong options;
 - CANNOT uses possible-but-not-compulsory wrong options;
 - eight graph topologies prevent repeated diamond-only structure;
@@ -142,35 +158,20 @@ See:
 - indeterminate exact ranks use two witness rankings;
 - difficulty is based on proof burden, not number of names.
 
-### CP-004 overlap still requires final ownership signoff
+## V3 evidence
 
-`RNK-QL-034` and CP-005 `MUST` share surface wording but currently have different proof contracts:
-
-```text
-CP-004 QL034:
-  one unique complete order is forced
-
-CP-005 MUST:
-  several complete orders remain valid
-  the relation must hold across all valid orders
-```
-
-This difference justifies retaining CP-005 truth status as a **candidate** authority, but does not yet authorize a new permanent QL. Final exam-source evidence and manual ownership approval remain required.
-
-## Evidence
-
-V3 Release implementation proof before documentation cleanup:
+Final V3 Release exact-head proof before the ownership branch:
 
 ```text
-workflow run: 31472607624
-head:         bf268249e9daf24273da2ecf081f674ea4e42642
+workflow run: 31473422220
+head:         c4fcb1a53b310aae9e4c24e55d3fa3b4f895a15a
 result:       PASS
 
-evidence artifact: 9093964523
-review artifact:   9093964870
+evidence artifact: 9094288269
+review artifact:   9094288765
 ```
 
-The final exact-head workflow after documentation/cleanup must also pass.
+The ownership-audit branch must independently pass its own exact-head workflow.
 
 ## Proof summary
 
@@ -179,7 +180,7 @@ CP-001: 13 prototypes / 3,120 discovery / 54 approved / 9 frozen authorities
 CP-002: 13 prototypes / 3,120 discovery / 48 approved / 8 frozen authorities
 CP-003: 13 prototypes / 3,120 discovery / 78 approved / 9 frozen authorities
 CP-004: 11 forms / 2,640 discovery / 132 approved / 9 frozen authorities / 1,728 permanent
-CP-005: 8 raw prototypes / 256 raw / 7 release forms / 168 checked / 3 provisional authorities / 0 permanent
+CP-005: 8 raw / 256 raw / 7 release forms / 168 checked / 3 provisional authorities / 0 permanent
 ```
 
 ## Ownership boundaries
@@ -196,6 +197,16 @@ CP-005: 8 raw prototypes / 256 raw / 7 release forms / 168 checked / 3 provision
 - statement-wise sufficiency → Data Sufficiency;
 - arithmetic-heavy marks/ages/speeds/scores → Quant.
 
+## Next CP-005 gate
+
+```text
+ownership resolved
+-> construct permanent English runtime for 3 provisional authorities
+-> validate full corpus, projection, deduplication, difficulty and contexts
+-> final manual English freeze approval
+-> only then allocate CP-005 permanent QL IDs
+```
+
 ## Current lifecycle
 
 ```text
@@ -206,7 +217,7 @@ CP-002 frozen:              true
 CP-003 frozen:              true
 CP-004 frozen:              true
 CP-005 editorial review:    passed
-CP-005 final ownership:     pending
+CP-005 ownership audit:     passed
 CP-005 permanent QLs:       0
 chapter-wide freeze:        false
 Hindi/Punjabi:              NOT_STARTED
