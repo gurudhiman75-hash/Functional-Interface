@@ -63,6 +63,7 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/editorial-remediation-r3-cp007-cp011.proof.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r3-learner-explanation.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-post-r3-audit-export.ts
       - name: Bundle eleven-finding R3 proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -118,6 +119,16 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-parity-r3.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-parity-r3-proof.log
+      - name: Bundle post-R3 audit export
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-post-r3-audit-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-post-r3-audit-export.mjs
+      - name: Export 211-QL multilingual audit sample
+        run: >-
+          node artifacts/api-server/dist/quant-v4/tmw-001-post-r3-audit-export.mjs
+          artifacts/api-server/dist/quant-v4/tmw-001-post-r3-audit-samples.json
       - name: Upload R3 evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -129,5 +140,6 @@ jobs:
             artifacts/api-server/dist/quant-v4/tmw-001-critical-remediation-r1-r3-regression.log
             artifacts/api-server/dist/quant-v4/tmw-001-r2-learner-explanation-r3-regression.log
             artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-parity-r3-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-post-r3-audit-samples.json
           if-no-files-found: warn
           retention-days: 14
