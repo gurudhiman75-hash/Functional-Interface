@@ -18,12 +18,15 @@ function pairKey(left: number, right: number): string {
 
 const DIRECT_COMPLETE_QLS = new Set(["INT-QL-067", "INT-QL-068", "INT-QL-073", "INT-QL-074"]);
 
-function questionForFrame(
+type CandidatePredicate = (question: IntCp004Question) => boolean;
+
+function findQuestionForFrame(
   qlId: typeof INT_CP004_QL_IDS[number],
   frame: number,
   seenStates: Set<string>,
-): IntCp004Question {
-  for (let attempt = 0; attempt < 2000; attempt += 1) {
+  predicate: CandidatePredicate = () => true,
+): IntCp004Question | undefined {
+  for (let attempt = 0; attempt < 2500; attempt += 1) {
     const seed = `int-cp004-review-v4:${qlId}:frame-${frame}:attempt-${attempt}`;
     let question: IntCp004Question;
     try {
@@ -32,12 +35,23 @@ function questionForFrame(
       continue;
     }
     if (!question.stemFamilyId.endsWith(`FRAME-${frame}`)) continue;
+    if (!predicate(question)) continue;
     const key = stateKey(question);
     if (seenStates.has(key)) continue;
-    seenStates.add(key);
     return question;
   }
-  throw new Error(`${qlId}: could not generate editorial frame ${frame} under exam-readiness review constraints.`);
+  return undefined;
+}
+
+function questionForFrame(
+  qlId: typeof INT_CP004_QL_IDS[number],
+  frame: number,
+  seenStates: Set<string>,
+): IntCp004Question {
+  const question = findQuestionForFrame(qlId, frame, seenStates);
+  if (!question) throw new Error(`${qlId}: could not generate editorial frame ${frame} under exam-readiness review constraints.`);
+  seenStates.add(stateKey(question));
+  return question;
 }
 
 const questions: IntCp004Question[] = [];
@@ -46,6 +60,26 @@ INT_CP004_QL_IDS.forEach((qlId) => {
   [1, 2, 3, 4].forEach((frame) => questions.push(questionForFrame(qlId, frame, seenStates)));
 });
 if (questions.length !== 76) throw new Error(`Expected 76 review questions, received ${questions.length}.`);
+
+function ensureMonthlyDirectSample(): void {
+  if (questions.some((question) => DIRECT_COMPLETE_QLS.has(question.qlId) && question.mathematicalState.frequency === 12)) return;
+  for (const qlId of INT_CP004_QL_IDS.filter((id) => DIRECT_COMPLETE_QLS.has(id))) {
+    const qlIndexes = questions.map((question, index) => ({ question, index })).filter(({ question }) => question.qlId === qlId);
+    for (const { question: current, index } of qlIndexes) {
+      const frameMatch = current.stemFamilyId.match(/FRAME-(\d)$/u);
+      if (!frameMatch) continue;
+      const frame = Number(frameMatch[1]);
+      const seenStates = new Set(qlIndexes.filter((item) => item.index !== index).map((item) => stateKey(item.question)));
+      const replacement = findQuestionForFrame(qlId, frame, seenStates, (candidate) => candidate.mathematicalState.frequency === 12);
+      if (replacement) {
+        questions[index] = replacement;
+        return;
+      }
+    }
+  }
+  throw new Error("Review selector could not place a direct monthly-compounding sample in any direct QL/frame.");
+}
+ensureMonthlyDirectSample();
 
 const answerPositions = [0, 0, 0, 0];
 const qlCounts = new Map<string, number>();
@@ -71,9 +105,7 @@ for (const question of questions) {
   if (question.qlId === "INT-QL-076") ql076Frequencies.add(question.mathematicalState.frequency);
   if (question.qlId === "INT-QL-078") ql078Frequencies.add(question.mathematicalState.frequency);
   if (["INT-QL-079", "INT-QL-080", "INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(question.qlId)) brokenTailMonths.add(question.mathematicalState.tailMonths);
-  if (question.qlId === "INT-QL-084" || question.qlId === "INT-QL-085") {
-    mixedPairs.add(pairKey(question.mathematicalState.firstFrequency, question.mathematicalState.secondFrequency));
-  }
+  if (question.qlId === "INT-QL-084" || question.qlId === "INT-QL-085") mixedPairs.add(pairKey(question.mathematicalState.firstFrequency, question.mathematicalState.secondFrequency));
 }
 if ([...qlCounts.values()].some((count) => count !== 4)) throw new Error("Each QL must contribute four review questions.");
 if (answerPositions.some((count) => count < 16 || count > 22)) throw new Error(`Review answer positions are not acceptably balanced: ${answerPositions.join("/")}.`);
