@@ -6,10 +6,31 @@ import type {
   CircularChildQuestion,
   CircularMisconceptionId,
   CircularOption,
+  CircularQueryContractId,
   CircularSemanticValue,
   CyclicDirection,
   PersonId,
 } from "./types.ts";
+
+export const SEA_CP003_ACCEPTED_QUERY_CONTRACTS: readonly CircularQueryContractId[] = [
+  "SEA-QC-003",
+  "SEA-QC-004",
+  "SEA-QC-006",
+  "SEA-QC-009",
+  "SEA-QC-010",
+  "SEA-QC-015",
+  "SEA-QC-020",
+];
+
+export const SEA_CP003_QUERY_SURFACE_IDS = [
+  "SEA-CP003-QS-001-SECOND-LEFT",
+  "SEA-CP003-QS-002-NEIGHBOURS",
+  "SEA-CP003-QS-003-KTH-CYCLIC",
+  "SEA-CP003-QS-004-RELATIVE-PHRASE",
+  "SEA-CP003-QS-005-DIRECTIONAL-GAP",
+  "SEA-CP003-QS-006-OPPOSITE",
+  "SEA-CP003-QS-007-CLOCKWISE-SEQUENCE",
+] as const;
 
 type Trap = {
   readonly value: CircularSemanticValue;
@@ -24,7 +45,15 @@ function hash(value: string): number {
   return output >>> 0;
 }
 
+function relationLabel(value: string): string {
+  const [direction, stepsText] = value.split(":");
+  const steps = Number(stepsText);
+  const ordinal = steps === 1 ? "Immediately" : steps === 2 ? "Second" : steps === 3 ? "Third" : `${steps}th`;
+  return `${ordinal} to the ${direction?.toLowerCase()}`;
+}
+
 function display(value: CircularSemanticValue, type: CircularAnswerType): string {
+  if (type === "RELATION") return relationLabel(String(value));
   if (!Array.isArray(value)) return String(value);
   return value.join(type === "SEQUENCE" ? " → " : " and ");
 }
@@ -74,7 +103,7 @@ function personQuestion(seed: string, order: readonly PersonId[]): CircularChild
     questionOrder: 1,
     queryContractId: "SEA-QC-003",
     answerType: "PERSON",
-    answerDeterminingFactFingerprint: `QC003:${reference}:LEFT:${steps}`,
+    answerDeterminingFactFingerprint: `SEA-CP003-QS-001-SECOND-LEFT|QC003:${reference}:LEFT:${steps}`,
     text: `Who sits second to the left of ${reference}?`,
     ...options(seed, 1, "PERSON", answer, [
       { value: personAt(order, topology.moveRelativeCentre(referenceIndex, "RIGHT", steps)), misconceptionId: "SEA-MC-CYC-CENTRE_LEFT_RIGHT_REVERSAL", recomputation: { treatedLeftAsAnticlockwise: true }, explanation: "This reverses the centre-facing left/right rule." },
@@ -98,7 +127,7 @@ function neighbourQuestion(seed: string, order: readonly PersonId[], rng: Determ
     questionOrder: 2,
     queryContractId: "SEA-QC-006",
     answerType: "PAIR",
-    answerDeterminingFactFingerprint: `QC006:${reference}:NEIGHBOURS`,
+    answerDeterminingFactFingerprint: `SEA-CP003-QS-002-NEIGHBOURS|QC006:${reference}:NEIGHBOURS`,
     text: `Who are the immediate neighbours of ${reference}?`,
     ...options(seed, 2, "PAIR", answer, [
       { value: [right, personAt(order, topology.moveCyclic(index, "CLOCKWISE", 2))].sort(), misconceptionId: "SEA-MC-CYC-OFF_BY_ONE_STEP", recomputation: { sameArc: "CLOCKWISE" }, explanation: "Both persons were selected from the clockwise side." },
@@ -108,6 +137,54 @@ function neighbourQuestion(seed: string, order: readonly PersonId[], rng: Determ
     ]),
     answer,
     explanation: `${answer[0]} and ${answer[1]} occupy the two seats directly beside ${reference}.`,
+  };
+}
+
+function cyclicPersonQuestion(seed: string, order: readonly PersonId[], rng: DeterministicRandom): CircularChildQuestion {
+  const topology = new CircularTopology(order.length);
+  const index = rng.integer(0, order.length - 1);
+  const reference = personAt(order, index);
+  const direction = rng.pick(["CLOCKWISE", "ANTICLOCKWISE"] as const);
+  const reverse: CyclicDirection = direction === "CLOCKWISE" ? "ANTICLOCKWISE" : "CLOCKWISE";
+  const answer = personAt(order, topology.moveCyclic(index, direction, 2));
+  return {
+    questionOrder: 2,
+    queryContractId: "SEA-QC-004",
+    answerType: "PERSON",
+    answerDeterminingFactFingerprint: `SEA-CP003-QS-003-KTH-CYCLIC|QC004:${reference}:${direction}:2`,
+    text: `Who sits second ${direction.toLowerCase()} from ${reference}?`,
+    ...options(seed, 2, "PERSON", answer, [
+      { value: personAt(order, topology.moveCyclic(index, reverse, 2)), misconceptionId: "SEA-MC-CYC-CLOCKWISE_ANTICLOCKWISE_REVERSAL", recomputation: { direction: reverse, steps: 2 }, explanation: "This follows the opposite cyclic direction." },
+      { value: personAt(order, topology.moveCyclic(index, direction, 1)), misconceptionId: "SEA-MC-CYC-OFF_BY_ONE_STEP", recomputation: { direction, steps: 1 }, explanation: "This stops after one position." },
+      { value: personAt(order, topology.moveCyclic(index, direction, 3)), misconceptionId: "SEA-MC-CYC-OFF_BY_ONE_STEP", recomputation: { direction, steps: 3 }, explanation: "This moves one position too far." },
+      { value: reference, misconceptionId: "SEA-MC-CYC-ENDPOINT_INCLUDED_IN_GAP", recomputation: { includedReference: true }, explanation: "This incorrectly includes the reference person." },
+    ]),
+    answer,
+    explanation: `Moving two positions ${direction.toLowerCase()} from ${reference} reaches ${answer}. Clockwise/anticlockwise is an observer direction and does not change with facing.`,
+  };
+}
+
+function relativePhraseQuestion(seed: string, order: readonly PersonId[], rng: DeterministicRandom): CircularChildQuestion {
+  const topology = new CircularTopology(order.length);
+  const index = rng.integer(0, order.length - 1);
+  const reference = personAt(order, index);
+  const direction = rng.pick(["LEFT", "RIGHT"] as const);
+  const subject = personAt(order, topology.moveRelativeCentre(index, direction, 2));
+  const reverse = direction === "LEFT" ? "RIGHT" : "LEFT";
+  const answer = `${direction}:2`;
+  return {
+    questionOrder: 2,
+    queryContractId: "SEA-QC-015",
+    answerType: "RELATION",
+    answerDeterminingFactFingerprint: `SEA-CP003-QS-004-RELATIVE-PHRASE|QC015:${subject}:WRT:${reference}:${answer}`,
+    text: `What is the position of ${subject} with respect to ${reference}?`,
+    ...options(seed, 2, "RELATION", answer, [
+      { value: `${reverse}:2`, misconceptionId: "SEA-MC-CYC-CENTRE_LEFT_RIGHT_REVERSAL", recomputation: { direction: reverse, steps: 2 }, explanation: "This reverses left and right for a centre-facing reference person." },
+      { value: `${direction}:1`, misconceptionId: "SEA-MC-CYC-OFF_BY_ONE_STEP", recomputation: { direction, steps: 1 }, explanation: "This treats the second position as immediate." },
+      { value: `${reverse}:1`, misconceptionId: "SEA-MC-CYC-CENTRE_LEFT_RIGHT_REVERSAL", recomputation: { reversedAndImmediate: true }, explanation: "This reverses direction and also uses the wrong distance." },
+    ]),
+    answer,
+    explanation: `Everyone faces the centre. ${subject} is ${relationLabel(answer).toLowerCase()} of ${reference}; for a centre-facing person, left is clockwise and right is anticlockwise.`,
   };
 }
 
@@ -123,7 +200,7 @@ function countQuestion(seed: string, order: readonly PersonId[], rng: Determinis
     questionOrder: 3,
     queryContractId: "SEA-QC-009",
     answerType: "COUNT",
-    answerDeterminingFactFingerprint: `QC009:${first}:CW:${second}`,
+    answerDeterminingFactFingerprint: `SEA-CP003-QS-005-DIRECTIONAL-GAP|QC009:${first}:CW:${second}`,
     text: `How many persons sit between ${first} and ${second} when counted clockwise from ${first}?`,
     ...options(seed, 3, "COUNT", answer, [
       { value: reverse, misconceptionId: "SEA-MC-CYC-WRONG_ARC", recomputation: { direction: "ANTICLOCKWISE" }, explanation: "This counts the other arc." },
@@ -147,7 +224,7 @@ function fourthQuestion(seed: string, order: readonly PersonId[], rng: Determini
       questionOrder: 4,
       queryContractId: "SEA-QC-010",
       answerType: "PERSON",
-      answerDeterminingFactFingerprint: `QC010:${reference}:OPPOSITE`,
+      answerDeterminingFactFingerprint: `SEA-CP003-QS-006-OPPOSITE|QC010:${reference}:OPPOSITE`,
       text: `Who sits opposite ${reference}?`,
       ...options(seed, 4, "PERSON", answer, [
         { value: personAt(order, index + 1), misconceptionId: "SEA-MC-CYC-ADJACENT_AS_OPPOSITE", recomputation: { neighbour: "CLOCKWISE" }, explanation: "This selects a neighbour." },
@@ -167,7 +244,7 @@ function fourthQuestion(seed: string, order: readonly PersonId[], rng: Determini
     questionOrder: 4,
     queryContractId: "SEA-QC-020",
     answerType: "SEQUENCE",
-    answerDeterminingFactFingerprint: `QC020:${reference}:NEXT3CW`,
+    answerDeterminingFactFingerprint: `SEA-CP003-QS-007-CLOCKWISE-SEQUENCE|QC020:${reference}:NEXT3CW`,
     text: `Which sequence lists the next three persons clockwise from ${reference}?`,
     ...options(seed, 4, "SEQUENCE", answer, [
       { value: sequence("ANTICLOCKWISE"), misconceptionId: "SEA-MC-CYC-CLOCKWISE_ANTICLOCKWISE_REVERSAL", recomputation: { direction: "ANTICLOCKWISE" }, explanation: "This follows the reverse arc." },
@@ -181,5 +258,11 @@ function fourthQuestion(seed: string, order: readonly PersonId[], rng: Determini
 }
 
 export function buildCircularChildren(seed: string, order: readonly PersonId[], rng: DeterministicRandom): readonly CircularChildQuestion[] {
-  return [personQuestion(seed, order), neighbourQuestion(seed, order, rng), countQuestion(seed, order, rng), fourthQuestion(seed, order, rng)];
+  const secondMode = hash(`${seed}:cp003-second-contract`) % 3;
+  const second = secondMode === 0
+    ? neighbourQuestion(seed, order, rng)
+    : secondMode === 1
+      ? cyclicPersonQuestion(seed, order, rng)
+      : relativePhraseQuestion(seed, order, rng);
+  return [personQuestion(seed, order), second, countQuestion(seed, order, rng), fourthQuestion(seed, order, rng)];
 }

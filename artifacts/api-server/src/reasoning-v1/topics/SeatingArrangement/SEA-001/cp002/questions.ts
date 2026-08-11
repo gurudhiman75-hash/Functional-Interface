@@ -8,9 +8,26 @@ import type {
   MixedFacingMisconceptionId,
   MixedFacingModel,
   MixedFacingOption,
+  MixedFacingQueryContractId,
   MixedFacingSemanticValue,
   MixedPersonId,
 } from "./types.ts";
+
+export const SEA_CP002_ACCEPTED_QUERY_CONTRACTS: readonly MixedFacingQueryContractId[] = [
+  "SEA-QC-003",
+  "SEA-QC-005",
+  "SEA-QC-006",
+  "SEA-QC-008",
+  "SEA-QC-015",
+];
+
+export const SEA_CP002_QUERY_SURFACE_IDS = [
+  "SEA-CP002-QS-001-SECOND-LEFT",
+  "SEA-CP002-QS-002-IMMEDIATE-RIGHT",
+  "SEA-CP002-QS-003-NEIGHBOURS",
+  "SEA-CP002-QS-004-COUNT-BETWEEN",
+  "SEA-CP002-QS-005-RELATIVE-PHRASE",
+] as const;
 
 type Trap = {
   readonly value: MixedFacingSemanticValue;
@@ -25,7 +42,15 @@ function stableNumber(value: string): number {
   return hash >>> 0;
 }
 
+function relationLabel(value: string): string {
+  const [direction, stepsText] = value.split(":");
+  const steps = Number(stepsText);
+  const ordinal = steps === 1 ? "Immediately" : steps === 2 ? "Second" : steps === 3 ? "Third" : `${steps}th`;
+  return `${ordinal} to the ${direction?.toLowerCase()}`;
+}
+
 function display(value: MixedFacingSemanticValue, type: MixedFacingAnswerType): string {
+  if (type === "RELATION") return relationLabel(String(value));
   return Array.isArray(value) ? value.join(type === "PAIR" ? " and " : " → ") : String(value);
 }
 
@@ -50,7 +75,7 @@ function buildOptions(
       value,
       misconceptionId: "SEA-MC-MIX-OFF_BY_ONE_SEAT",
       recomputation: { fallbackVerifiedValue: value },
-      explanation: "This is another occupied position, but it does not follow the stated relation.",
+      explanation: "This is a plausible row value, but it does not match the requested relation.",
     });
   }
   if (unique.size < 3) throw new Error(`Insufficient ${answerType} distractors`);
@@ -75,7 +100,9 @@ function buildOptions(
   return { options: options as unknown as MixedFacingChildQuestion["options"], answerIndex };
 }
 
-function facingWord(facing: MixedFacingDirection): string { return facing === "NORTH" ? "north" : "south"; }
+function facingWord(facing: MixedFacingDirection): string {
+  return facing === "NORTH" ? "north" : "south";
+}
 
 function relativeTarget(
   model: MixedFacingModel,
@@ -84,7 +111,12 @@ function relativeTarget(
   steps: number,
 ): number | null {
   const topology = new MixedFacingRowTopology(model.seatOrder.length);
-  return topology.moveRelative(seatIndexOf(model.seatOrder, referenceId), model.facings[referenceId] as MixedFacingDirection, direction, steps);
+  return topology.moveRelative(
+    seatIndexOf(model.seatOrder, referenceId),
+    model.facings[referenceId] as MixedFacingDirection,
+    direction,
+    steps,
+  );
 }
 
 function secondLeftQuestion(seed: string, model: MixedFacingModel, rng: DeterministicRandom): MixedFacingChildQuestion {
@@ -110,7 +142,7 @@ function secondLeftQuestion(seed: string, model: MixedFacingModel, rng: Determin
     questionOrder: 1,
     queryContractId: "SEA-QC-003",
     answerType: "PERSON",
-    answerDeterminingFactFingerprint: `QC003:${reference}:LEFT:2:${referenceFacing}`,
+    answerDeterminingFactFingerprint: `SEA-CP002-QS-001-SECOND-LEFT|QC003:${reference}:LEFT:2:${referenceFacing}`,
     text: `Who sits second to the left of ${reference}?`,
     ...buildOptions(seed, 1, "PERSON", answer, traps, model.seatOrder),
     answer,
@@ -144,7 +176,7 @@ function immediateRightQuestion(
     questionOrder: 2,
     queryContractId: "SEA-QC-005",
     answerType: "PERSON",
-    answerDeterminingFactFingerprint: `QC005:${reference}:RIGHT:1:${referenceFacing}`,
+    answerDeterminingFactFingerprint: `SEA-CP002-QS-002-IMMEDIATE-RIGHT|QC005:${reference}:RIGHT:1:${referenceFacing}`,
     text: `Who sits immediately to the right of ${reference}?`,
     ...buildOptions(seed, 2, "PERSON", answer, traps, model.seatOrder),
     answer,
@@ -169,7 +201,7 @@ function neighboursQuestion(seed: string, model: MixedFacingModel, rng: Determin
     questionOrder: 3,
     queryContractId: "SEA-QC-006",
     answerType: "PAIR",
-    answerDeterminingFactFingerprint: `QC006:${reference}:NEIGHBOURS`,
+    answerDeterminingFactFingerprint: `SEA-CP002-QS-003-NEIGHBOURS|QC006:${reference}:NEIGHBOURS`,
     text: `Who are the immediate neighbours of ${reference}?`,
     ...buildOptions(seed, 3, "PAIR", answer, traps, fallbackPairs),
     answer,
@@ -195,7 +227,7 @@ function countBetweenQuestion(seed: string, model: MixedFacingModel, rng: Determ
     questionOrder: 4,
     queryContractId: "SEA-QC-008",
     answerType: "COUNT",
-    answerDeterminingFactFingerprint: `QC008:${first}:${second}`,
+    answerDeterminingFactFingerprint: `SEA-CP002-QS-004-COUNT-BETWEEN|QC008:${first}:${second}`,
     text: `How many persons sit between ${first} and ${second}?`,
     ...buildOptions(seed, 4, "COUNT", answer, traps, candidateCounts),
     answer,
@@ -203,13 +235,40 @@ function countBetweenQuestion(seed: string, model: MixedFacingModel, rng: Determ
   };
 }
 
+function relativePhraseQuestion(seed: string, model: MixedFacingModel, rng: DeterministicRandom): MixedFacingChildQuestion {
+  const candidates: Array<{ reference: MixedPersonId; direction: "LEFT" | "RIGHT"; target: number }> = [];
+  for (const reference of model.seatOrder) {
+    for (const direction of ["LEFT", "RIGHT"] as const) {
+      const target = relativeTarget(model, reference, direction, 2);
+      if (target !== null) candidates.push({ reference, direction, target });
+    }
+  }
+  const selected = rng.pick(candidates);
+  const subject = personAt(model.seatOrder, selected.target);
+  const referenceFacing = model.facings[selected.reference] as MixedFacingDirection;
+  const answer = `${selected.direction}:2`;
+  const reverse = selected.direction === "LEFT" ? "RIGHT" : "LEFT";
+  return {
+    questionOrder: 4,
+    queryContractId: "SEA-QC-015",
+    answerType: "RELATION",
+    answerDeterminingFactFingerprint: `SEA-CP002-QS-005-RELATIVE-PHRASE|QC015:${subject}:WRT:${selected.reference}:${answer}:${referenceFacing}`,
+    text: `What is the position of ${subject} with respect to ${selected.reference}?`,
+    ...buildOptions(seed, 4, "RELATION", answer, [
+      { value: `${reverse}:2`, misconceptionId: "SEA-MC-MIX-LEFT_RIGHT_REVERSED", recomputation: { direction: reverse, steps: 2 }, explanation: "This reverses left and right for the reference person's facing." },
+      { value: `${selected.direction}:1`, misconceptionId: "SEA-MC-MIX-OFF_BY_ONE_SEAT", recomputation: { direction: selected.direction, steps: 1 }, explanation: "This treats the second position as immediate." },
+      { value: `${reverse}:1`, misconceptionId: "SEA-MC-MIX-SUBJECT_FACING_USED", recomputation: { swappedReferenceInterpretation: true }, explanation: "This reads the relation from the wrong reference orientation." },
+    ], [`${selected.direction}:3`, `${reverse}:3`]),
+    answer,
+    explanation: `${selected.reference} faces ${facingWord(referenceFacing)}. Reading left/right from ${selected.reference}'s facing, ${subject} is ${relationLabel(answer).toLowerCase()} of ${selected.reference}.`,
+  };
+}
+
 export function buildMixedFacingChildren(seed: string, model: MixedFacingModel, rng: DeterministicRandom): readonly MixedFacingChildQuestion[] {
   const first = secondLeftQuestion(seed, model, rng);
   const second = immediateRightQuestion(seed, model, rng, new Set([String(first.answer)]));
-  return [
-    first,
-    second,
-    neighboursQuestion(seed, model, rng),
-    countBetweenQuestion(seed, model, rng),
-  ];
+  const fourth = stableNumber(`${seed}:cp002-fourth-contract`) % 2 === 0
+    ? countBetweenQuestion(seed, model, rng)
+    : relativePhraseQuestion(seed, model, rng);
+  return [first, second, neighboursQuestion(seed, model, rng), fourth];
 }
