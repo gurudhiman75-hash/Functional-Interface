@@ -75,11 +75,28 @@ function diagnosisPackage(seed: number): SapCp005Package {
   });
 }
 
+function normaliseStem<T extends SapCp005Package | SapCp005Wave2Package>(pkg: T): T {
+  if (pkg.stem.length >= 20) return pkg;
+  const compact = pkg.stem.replace(/^Simplify\s*/i, "").replace(/^Evaluate\s*/i, "");
+  const stem = `Find the value of ${compact}`;
+  return Object.freeze({
+    ...pkg,
+    stem,
+    canonicalPayloadKey: JSON.stringify({
+      prototypeId: pkg.prototypeId,
+      stem,
+      answer: pkg.canonicalAnswer,
+      oracle: pkg.oracle,
+    }),
+    generationIdentity: `${pkg.generationIdentity}:EXAM-STEM`,
+  }) as T;
+}
+
 export function generateSapCp005Editorial(prototypeId: SapCp005PrototypeId, seed: number): SapCp005Package {
   if (prototypeId === "SAP-CP005-PROT-ILLEGAL-CANCELLATION-DIAGNOSIS") return diagnosisPackage(seed);
-  return generateWave1V1(prototypeId, seed);
+  return normaliseStem(generateWave1V1(prototypeId, seed));
 }
 
 export function generateSapCp005Wave2EditorialV2(prototypeId: SapCp005Wave2PrototypeId, seed: number): SapCp005Wave2Package {
-  return generateSapCp005Wave2Editorial(prototypeId, seed);
+  return normaliseStem(generateSapCp005Wave2Editorial(prototypeId, seed));
 }
