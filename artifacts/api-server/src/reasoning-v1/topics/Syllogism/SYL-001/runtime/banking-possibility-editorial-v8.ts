@@ -36,11 +36,17 @@ function oppositeExistential(conclusion: CanonicalConclusion): CanonicalConclusi
   return null;
 }
 
-function cleanEnglish(line: string, locale: SylLocale): string {
-  if (locale !== "en-IN") return line;
+function cleanVisibleWitnessLine(line: string, locale: SylLocale): string {
+  if (locale === "hi-IN") {
+    return line.replace("एक आवश्यक ×", "नीला ×");
+  }
+  if (locale === "pa-IN") {
+    return line.replace("ਇੱਕ ਲਾਜ਼ਮੀ ×", "ਨੀਲਾ ×");
+  }
   return line
     .replace(". the part of the ", ". The part of the ")
     .replace(". the shared region of the ", ". The shared region of the ")
+    .replaceAll("a required ×", "the blue ×")
     .replace(/an “([^”]+)” × cannot lie outside “([^”]+)”/gu, "a witness for the “$1” class cannot lie outside the “$2” class");
 }
 
@@ -63,7 +69,7 @@ export function generateBankingPossibilityEditorialQuestionV8(
     if (!visible) return line;
     // V6's contradicted ALL/NO explanation is witness-based. Reuse it only when
     // the actual V4 learner SVG contains the decisive opposite witness.
-    return cleanEnglish(v6.explanation[index], locale);
+    return cleanVisibleWitnessLine(v6.explanation[index], locale);
   }) as [string, string];
 
   return { ...v7, explanation };
