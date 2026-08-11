@@ -2,9 +2,18 @@
 
 ## Decision
 
-Probability remains **English mock-ready only**. Hindi and Punjabi now have complete draft editorial coverage for PRB-001 and PRB-002 **and complete automated ML-05 runtime parity**, but they are still not exposed in Question Studio and are not publicly publishable.
+Probability remains **English scored-mock ready**. Hindi and Punjabi have complete draft editorial coverage, complete ML-05 automated runtime parity, and now an **ML-06 Question Studio review-only surface** for human editorial inspection.
 
-ML-05 proves that native presentation can be rendered from the frozen English source without changing mathematics. It does **not** replace the human native-editorial review required at ML-06.
+This review-only exposure is deliberately different from normal native generation:
+
+- reviewers may preview Hindi/Punjabi Probability items and persist them to the Question Studio review queue;
+- the multilingual release manifest still keeps native `questionStudioEnabled: false`;
+- native Question Bank writing remains disabled;
+- native scored mocks remain disabled;
+- public/student publication remains disabled;
+- committed human approval evidence is currently **0/432**.
+
+ML-05 proves mathematical/runtime parity. ML-06 makes those exact rendered native surfaces reviewable without pretending that automated parity is human editorial approval.
 
 ## Authority model
 
@@ -20,252 +29,231 @@ The English Probability runtime remains the sole mathematical authority for:
 - difficulty and exam-profile routing;
 - parameter and mathematical fingerprints.
 
-Hindi and Punjabi replace only student-facing presentation through native editorial entries and the ML-05 presentation overlay. Native rendering must never recompute mathematics or alter the answer key.
+Hindi and Punjabi replace only student-facing presentation. Native review cannot recompute mathematics or alter the English answer key.
 
 ## Current inventory
 
-| Package | English QLs | Hindi editorial state | Punjabi editorial state | ML-05 runtime parity |
-|---|---:|---:|---:|---:|
-| PRB-001 | 120 | 120 draft entries | 120 draft entries | 240/240 native presentations pass |
-| PRB-002 | 96 | 96 draft entries | 96 draft entries | 192/192 native presentations pass |
-| **Total** | **216** | **216 draft entries** | **216 draft entries** | **432/432 native presentations pass** |
+| Package | English QLs | Hindi draft | Punjabi draft | ML-05 parity | ML-06 review surfaces |
+|---|---:|---:|---:|---:|---:|
+| PRB-001 | 120 | 120 | 120 | 240/240 pass | 240 |
+| PRB-002 | 96 | 96 | 96 | 192/192 pass | 192 |
+| **Total** | **216** | **216** | **216** | **432/432 pass** | **432** |
 
-The release manifest still contains **648 language records**: 216 English, 216 Hindi and 216 Punjabi. Hindi/Punjabi manifest status remains `PENDING_NATIVE_EDITORIAL` until ML-06 human review and multilingual freeze.
+The release manifest still contains **648 language records**: 216 English, 216 Hindi and 216 Punjabi. Hindi/Punjabi remain `PENDING_NATIVE_EDITORIAL` until real human review evidence is complete and a separate multilingual freeze is explicitly granted.
 
 ## Foundation guarantees
 
-1. English remains `APPROVED_EDITORIAL_ENGLISH` and Question Studio-enabled.
-2. Every Hindi and Punjabi QL remains release-gated as `PENDING_NATIVE_EDITORIAL`.
-3. Hindi and Punjabi Question Studio requests fail closed.
-4. No language is publicly publishable.
-5. Every manifest record preserves `sourceLanguage: en`.
-6. Duplicate package/CP/QL/language records are rejected by regression tests.
-7. Public release remains a separate freeze after multilingual parity and human review.
+1. English remains `APPROVED_EDITORIAL_ENGLISH` and normal Question Studio generation remains English-authoritative.
+2. Every Hindi and Punjabi release-manifest QL remains `PENDING_NATIVE_EDITORIAL`.
+3. The ordinary native generation guard remains closed.
+4. ML-06 review-only preview/persistence cannot write to Question Bank or enable tests.
+5. No language becomes publicly publishable through editorial review alone.
+6. Every native review item retains its English source IDs, seed and fingerprints.
+7. Public release remains a separate checkpoint after human review and explicit freeze.
 
 ## ML-02 shared native primitive authority
 
-`native-language-primitives.ts` is the shared vocabulary/primitive authority introduced at ML-02. It does **not** approve any Hindi or Punjabi QL.
+`native-language-primitives.ts` is the shared Hindi/Punjabi Probability vocabulary and validation authority. It provides:
 
-It provides:
+- probability/event/outcome/sample-space terminology;
+- coins, dice, cards, bag/urn, spinner and number vocabulary;
+- colours, suits and card ranks;
+- selection/arrangement/permutation/combination terminology;
+- explanation labels;
+- closed primitive and textual-option localisation;
+- script validation;
+- unresolved-placeholder detection;
+- fail-closed English-prose leakage detection.
 
-- native labels for Probability concepts and experiment objects;
-- colour, card-suit and card-rank vocabulary;
-- counting vocabulary for selection, arrangement, permutation, combination and committee questions;
-- learner-facing explanation labels;
-- closed primitive-token and textual-option localisation;
-- native-script and wrong-script validation;
-- unresolved prose-placeholder detection that ignores MathJax braces;
-- English-fallback detection through Latin prose auditing.
-
-### Number, fraction and option policy
-
-Probability mathematics remains language-neutral. Hindi and Punjabi therefore use an exam-safe display policy:
+Probability mathematics remains language-neutral:
 
 - ASCII digits `0-9` are preserved;
-- integers, fractions, percentages and ratios are preserved byte-for-byte;
-- MathJax is preserved byte-for-byte;
-- known textual options may be translated only through the closed shared dictionary;
-- unknown prose options throw rather than silently falling back to English.
-
-For the current Probability runtime, ML-05 preserves the complete English option array byte-for-byte, including its correct index.
+- integers, fractions, percentages and ratios are preserved;
+- MathJax is preserved;
+- unknown prose bindings throw rather than silently falling back to English.
 
 ## ML-03 PRB-001 draft editorial authority
 
-`PRB-001/native-editorial.ts` provides the draft native editorial layer for all **120 PRB-001 English QLs**.
+`PRB-001/native-editorial.ts` contains draft Hindi/Punjabi editorial content for all **120 PRB-001 QLs**:
 
-Inventory:
+- 120 Hindi entries;
+- 120 Punjabi entries;
+- 240 native entries;
+- 37 curated wording families.
 
-- 120 Hindi draft editorial entries;
-- 120 Punjabi draft editorial entries;
-- 240 native entries total;
-- 37 curated wording families covering classical probability, complements, coins, dice, spinners, number selection, cards and urn selections.
-
-Each native entry preserves the English QL identity, source stem-template ID, context family and exact placeholder contract. Dynamic English string bindings are closed/fail-closed, and `PRB-QL-004` plus `PRB-QL-010` remain learning-only.
+The entries preserve English QL identity, stem-template contract and generated-value bindings. `PRB-QL-004` and `PRB-QL-010` remain learning-only.
 
 **Status:** merged through PR #669.
 
 ## ML-04 PRB-002 draft editorial authority
 
-`PRB-002/native-editorial.ts` provides the draft native editorial layer for all **96 PRB-002 English QLs**.
+`PRB-002/native-editorial.ts` contains draft Hindi/Punjabi editorial content for all **96 PRB-002 QLs**:
 
-Inventory:
-
-- 96 Hindi draft editorial entries;
-- 96 Punjabi draft editorial entries;
-- 192 native entries total;
+- 96 Hindi entries;
+- 96 Punjabi entries;
+- 192 native entries;
 - 30 curated wording families covering successive draws, conditional probability, counting/arrangement and event algebra.
 
-Every PRB-002 native entry explicitly records:
-
-- `answerKeyAuthority: ENGLISH_RUNTIME`;
-- `optionPolicy: PRESERVE_ENGLISH_OPTIONS_AND_CORRECT_INDEX`;
-- `questionStudioEnabled: false`;
-- `publiclyPublishable: false`.
-
-Unknown prose bindings throw instead of leaking English.
+Every entry preserves English option/correct-index authority and remains non-publishable.
 
 **Status:** merged through PR #675.
 
 ## ML-05 multilingual runtime and parity authority
 
-`multilingual-runtime.ts` implements an **English-first presentation-overlay runtime**.
+`multilingual-runtime.ts` implements the English-first presentation overlay.
 
-A native preview is not a second generated question. The runtime:
+A native presentation is not a second mathematical question. The runtime:
 
-1. obtains a valid English `ProbabilityQuestion` from the existing PRB-001/PRB-002 pipeline;
-2. resolves the exact Hindi/Punjabi draft editorial entry for that QL;
-3. reconstructs the English render context from the frozen generated parameters and solver result;
-4. sends every dynamic prose placeholder through the package-native fail-closed binding layer;
-5. renders native stem, explanation guidance and learner-facing visual text;
-6. preserves the English options, correct index and answer exactly;
-7. returns a native presentation overlay plus explicit parity evidence.
+1. generates/obtains the valid English Probability question;
+2. resolves the exact native editorial entry;
+3. binds the English-generated values through the closed native binding layer;
+4. renders native stem, explanation and learner-facing visual text;
+5. preserves options, correct index and answer exactly;
+6. returns explicit parity evidence.
 
-### Fields that remain English-runtime authoritative
+English remains authoritative for seed, parameters, experiment/event AST, solver, verification, options, answer, fingerprints and mock policy.
 
-- seed;
-- package/CP/QL identity;
-- exam profile;
+Native-only fields are stem, event wording, explanation prose, learner-facing visual labels and language-specific presentation IDs.
+
+The complete harness validates all **216 QLs × 2 native languages = 432 presentations**, including deterministic replay, option/answer/correct-index parity, fingerprint parity, native scripts, visual localization and source non-mutation.
+
+**Status:** merged through PR #681, merge commit `7818281e9f8975f6012c5b34beb149a292f90e63`.
+
+## ML-06 human-review readiness authority
+
+ML-06 adds a dedicated review boundary around the ML-05 presentation layer.
+
+### Review adapter
+
+`native-review-adapter.ts` exposes a deterministic catalog of all 216 English QLs and their 432 Hindi/Punjabi review surfaces.
+
+Review filters include:
+
+- language;
+- PRB-001 / PRB-002;
+- QL;
 - difficulty;
-- generated parameters;
-- experiment;
-- event AST;
-- solver and solver evidence;
-- independent verification;
-- reasoning evidence;
-- options;
-- correct index;
-- answer;
-- parameter fingerprint;
-- mathematical fingerprint;
-- mock policy and eligibility.
+- deterministic seed;
+- batch count.
 
-### Native-only presentation fields
+Before a review item is returned, the adapter rechecks:
 
-- stem;
-- event wording;
-- explanation prose/guidance;
-- learner-facing visual labels/title/alt text;
-- language-specific question ID;
-- language-specific explanation ID.
+- valid English source;
+- valid native ML-05 presentation;
+- option-array parity;
+- correct-index parity;
+- answer parity.
 
-### Native presentation IDs
+### Question Studio review-only integration
 
-ML-05 keeps the English source IDs separately and derives deterministic language IDs:
+ML-06 mounts dedicated admin endpoints under:
 
-- `<english-question-id>-hi` / `<english-question-id>-pa`;
-- `<english-explanation-id>-hi` / `<english-explanation-id>-pa`.
+`/admin/question-studio/quant/probability/native-review`
 
-### Visual safety
+The admin panel can preview native questions and create normal Question Studio **review runs**. Persisted payloads are intentionally stamped:
 
-The currently supported Probability visuals are localized fail-closed:
+- `reviewOnly: true`;
+- `questionBankStatus: NOT_STORED`;
+- `questionBankWritable: false`;
+- `testEligibility: INELIGIBLE`;
+- `testEligible: false`;
+- `mockTestEligible: false`;
+- `publiclyPublishable: false`;
+- `automaticStudentPublication: false`;
+- `releaseFreezeStatus: PENDING_HUMAN_REVIEW`.
 
-- two-dice outcome grid;
-- coin outcome tree;
-- successive-draw probability tree;
-- Venn event regions;
-- standard card-deck summary;
-- bag/urn composition display.
+Review-queue approval therefore does not equal product release.
 
-Native titles, alt text, event labels, replacement labels and coin-tree H/T leaves are localized. Unknown future visual strategies throw rather than silently exposing English learner-facing text.
+### Human-review freeze ledger
 
-### ML-05 parity proof
+`native-review-freeze.ts` is the committed ML-06 freeze authority.
 
-Workflow run `31449831894` passed on head `a336525762b4d641da0a408f8a3ded2c87735d5e`.
+It deliberately starts with **zero fabricated decisions**. A real review decision must record:
 
-The harness validates all **216 English QLs × 2 native languages = 432 native presentations** and proves:
+- QL ID;
+- language;
+- reviewer;
+- review timestamp;
+- `APPROVED` or `CHANGES_REQUIRED`;
+- notes.
 
-- 216/216 Hindi QL render coverage;
-- 216/216 Punjabi QL render coverage;
-- native-script and unresolved-placeholder safety;
-- no silent English stem fallback;
-- exact option-array parity;
-- exact answer parity;
-- exact correct-index parity;
-- parameter-fingerprint parity;
-- mathematical-fingerprint parity;
-- unchanged solver authority;
-- unchanged mock-policy authority;
-- language-specific question/explanation ID uniqueness;
-- native visual learner-text safety;
-- renderer non-mutation of the English mathematical snapshot;
-- deterministic seeded replay of parameters, mathematics, options, answer and correct index;
-- unchanged English Probability readiness suites.
+A complete editorial review requires **432 unique approvals**:
 
-ML-05 therefore establishes **automated technical parity** for the complete Hindi/Punjabi draft layer.
+- 216 Hindi;
+- 216 Punjabi.
 
-It intentionally does not change the release manifest or Question Studio readiness guard.
+Current committed evidence:
+
+- recorded decisions: **0/432**;
+- Hindi approvals: **0/216**;
+- Punjabi approvals: **0/216**;
+- freeze status: `PENDING_HUMAN_REVIEW`.
+
+Even when 432/432 approvals exist, the ledger only becomes `HUMAN_REVIEW_COMPLETE_AWAITING_EXPLICIT_FREEZE`. Student delivery still requires a separate explicit freeze/release change.
+
+### ML-06 regression boundary
+
+`native-review-adapter.test.ts` regenerates all **432 review surfaces** and proves:
+
+- 216 Hindi and 216 Punjabi surfaces are reachable for review;
+- source/native validity is preserved;
+- option, correct-index and answer parity remains intact;
+- review-only lifecycle flags remain locked;
+- release manifest remains unchanged;
+- human approval count remains truthful;
+- freeze and student-delivery guards remain closed without evidence.
+
+See `ML-06-NATIVE-REVIEW-READY.md` for the human editorial review checklist and evidence contract.
 
 ## Implementation checkpoints
 
-### Checkpoint ML-01 — Foundation and inventory
+### ML-01 — Foundation and inventory
+**Status:** merged through PR #646.
 
-- Complete 216-QL language manifest.
-- Fail-closed Hindi/Punjabi readiness guards.
-- Public-publication guard for all languages.
-- Count, uniqueness and authority regression tests.
+### ML-02 — Shared native language primitives
+**Status:** merged through PR #658.
 
-**Status:** implemented and merged through PR #646.
+### ML-03 — PRB-001 native editorial library
+**Status:** merged through PR #669.
 
-### Checkpoint ML-02 — Shared native language primitives
+### ML-04 — PRB-002 native editorial library
+**Status:** merged through PR #675.
 
-- Native labels for Probability vocabulary and experiment objects.
-- Hindi/Punjabi number, fraction and option localisation rules.
-- Script validation and unresolved-placeholder detection.
-- No question exposure.
+### ML-05 — Multilingual runtime and full parity harness
+**Status:** merged through PR #681.
 
-**Status:** implemented and merged through PR #658.
+### ML-06 — Human review and multilingual freeze
 
-### Checkpoint ML-03 — PRB-001 native editorial library
+Implemented review-ready infrastructure:
 
-- Draft Hindi and Punjabi stems and explanation guidance for all 120 QLs.
-- Context binding against English-generated variables.
-- Placeholder and mathematical authority preservation.
-- PRB-QL-004 and PRB-QL-010 remain learning-only.
+- 432 parity-backed review surfaces;
+- Question Studio review-only preview;
+- review-queue persistence;
+- review status metrics;
+- explicit human-decision ledger;
+- fail-closed freeze guard;
+- no automatic Question Bank/test/public release.
 
-**Status:** implemented and merged through PR #669.
+**Current state:** `ML-06-REVIEW-READY`; human editorial approvals are still **0/432**.
 
-### Checkpoint ML-04 — PRB-002 native editorial library
+ML-06 is not complete as a human-review checkpoint until real reviewers inspect the surfaces, necessary wording corrections are made, full parity is rerun, and explicit decision evidence is committed.
 
-- Draft Hindi and Punjabi stems and explanation guidance for all 96 QLs.
-- Advanced conditional/counting/event-algebra wording parity.
-- English option/correct-index authority explicitly preserved.
+### ML-07 — Public release
 
-**Status:** implemented and merged through PR #675.
+Only after ML-06 human approval and explicit native scored-mock freeze:
 
-### Checkpoint ML-05 — Multilingual runtime and parity harness
-
-- English-first generation followed by native presentation rendering.
-- Closed generated-value binding for PRB-001 and PRB-002.
-- Script, placeholder, visual-text and answer-key validation.
-- Deterministic cross-language replay and solver/fingerprint parity evidence.
-- Language-specific question/explanation IDs.
-- Full 216/216 parity proof for Hindi and Punjabi.
-- Native Question Studio exposure remains disabled pending ML-06 human approval.
-
-**Status:** implemented on `feat/prb-probability-ml05-multilingual-runtime`; branch workflow `31449831894` passed the complete ML-01 through ML-05 suite plus English readiness.
-
-### Checkpoint ML-06 — Human review and multilingual freeze
-
-- Generate review sheets from the ML-05 native runtime, not from static templates alone.
-- Review real rendered stems, options, answers, explanations and visuals in Hindi and Punjabi.
-- Record human editorial sign-off with reviewer/date evidence.
-- Reconfirm cross-language mathematics and answer-key parity after any editorial corrections.
-- Apply a separate Hindi/Punjabi scored-mock freeze.
-- Only after the relevant language is approved may its Question Studio gate be enabled.
-
-### Checkpoint ML-07 — Public release
-
-- Public-surface rendering review.
-- Search/filter/test-series integration.
-- Final publication approval.
-- Only then may `publiclyPublishable` become true.
+- enable intended native generation/test routing;
+- review public rendering/search/filter/test-series integration;
+- grant final publication approval;
+- only then may `publiclyPublishable` become true.
 
 ## Non-negotiable safety rules
 
-- Draft native prose cannot be treated as approved editorial content without human review.
-- Missing native entries, bindings or visual strategies must throw; English fallback must not silently appear in a Hindi/Punjabi request.
-- Native text cannot change generated values, solver evidence, options, correct index or mock eligibility.
-- Numeric/fraction/ratio/percent/MathJax options remain mathematically identical across languages.
-- Automated ML-05 parity is necessary but not sufficient for scored native mocks.
-- A native language may be Question Studio-enabled only after ML-06 human review and multilingual freeze.
-- The current English freeze must remain unchanged throughout multilingual implementation.
+- Automated parity is not human editorial approval.
+- Missing native entries, bindings or visual strategies must throw.
+- Native prose cannot change parameters, solver evidence, options, correct index or mock policy.
+- Review-queue persistence cannot imply Question Bank eligibility.
+- A database review approval alone cannot unlock scored native mocks.
+- Native student delivery requires explicit committed human-review evidence plus a later release freeze.
+- Public publication remains independently locked.
+- The English mathematical/runtime authority remains unchanged throughout multilingual implementation.

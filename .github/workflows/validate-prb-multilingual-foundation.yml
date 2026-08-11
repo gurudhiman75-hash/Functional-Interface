@@ -4,6 +4,10 @@ on:
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Probability/**"
+      - "artifacts/api-server/src/routes/admin-question-studio-probability.ts"
+      - "artifacts/admin-app/src/features/question-studio/probability-review-api.ts"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioProbabilityReviewPanel.tsx"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
       - ".github/workflows/validate-prb-multilingual-foundation.yml"
   push:
     branches:
@@ -11,6 +15,10 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Probability/**"
+      - "artifacts/api-server/src/routes/admin-question-studio-probability.ts"
+      - "artifacts/admin-app/src/features/question-studio/probability-review-api.ts"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioProbabilityReviewPanel.tsx"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
       - ".github/workflows/validate-prb-multilingual-foundation.yml"
 
 jobs:
@@ -31,6 +39,8 @@ jobs:
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/native-editorial.test.ts
       - name: Validate ML-05 multilingual runtime parity
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/multilingual-runtime.test.ts
+      - name: Validate ML-06 native human-review boundary
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/native-review-adapter.test.ts
       - name: Preserve English Probability readiness
         run: |
           npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/question-studio-profile.test.ts

@@ -3,6 +3,7 @@ import { QuestionStudioCockpitPage } from './QuestionStudioCockpitPage';
 import { QuestionStudioDifficultyMixControls } from './QuestionStudioDifficultyMixControls';
 import { QuestionStudioExamProfileSummary } from './QuestionStudioExamProfileSummary';
 import { QuestionStudioInterestReviewPanel } from './QuestionStudioInterestReviewPanel';
+import { QuestionStudioProbabilityReviewPanel } from './QuestionStudioProbabilityReviewPanel';
 import { QuestionStudioProfileCalibration } from './QuestionStudioProfileCalibration';
 import { QuestionStudioReasoningReviewPanel } from './QuestionStudioReasoningReviewPanel';
 import { QuestionStudioRecoveryDock } from './QuestionStudioRecoveryDock';
@@ -11,6 +12,7 @@ import { QuestionStudioSeriesReviewPanel } from './QuestionStudioSeriesReviewPan
 export function QuestionStudioOperationsPage() {
   return (
     <>
+      <QuestionStudioProbabilityReviewPanel />
       <QuestionStudioInterestReviewPanel />
       <QuestionStudioSeriesReviewPanel />
       <QuestionStudioCalendarReviewPanel />
