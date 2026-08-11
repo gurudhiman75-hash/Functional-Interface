@@ -1,7 +1,7 @@
 import { validateTmwLearnerExplanationV2, type TmwLearnerExplanationV2 } from "./learner-explanation-contract";
-import type { Tmw001ChapterLanguage } from "./chapter-localized-runtime";
 
 export const TMW_CP_012_ID = "TMW-CP-012" as const;
+export type TmwCp012Language = "en" | "hi" | "pa";
 
 export const TMW_CP_012_QLS = [
   { qlId: "TMW-QL-212", solveMode: "findExcludedAgentTimeFromAllTogetherAndSubgroup", answerType: "TIME", difficulty: "Easy" },
@@ -12,16 +12,8 @@ export const TMW_CP_012_QLS = [
 type Cp012Entry = typeof TMW_CP_012_QLS[number];
 type ChangeDirection = "INCREASE" | "DECREASE";
 
-interface Rational {
-  n: number;
-  d: number;
-}
-
-interface ExcludedAgentCase {
-  allTime: number;
-  subgroupTime: number;
-}
-
+interface Rational { n: number; d: number; }
+interface ExcludedAgentCase { allTime: number; subgroupTime: number; }
 interface EfficiencyChangeCase {
   a: number;
   b: number;
@@ -59,6 +51,7 @@ function gcd(a: number, b: number): number {
 }
 
 function rational(n: number, d = 1): Rational {
+  if (!Number.isInteger(n) || !Number.isInteger(d)) throw new Error("CP-012 rational inputs must be integers");
   if (d === 0) throw new Error("Zero denominator in CP-012 rational");
   const sign = d < 0 ? -1 : 1;
   const g = gcd(n, d);
@@ -71,6 +64,18 @@ function subtract(a: Rational, b: Rational): Rational {
 
 function absRational(value: Rational): Rational {
   return { n: Math.abs(value.n), d: value.d };
+}
+
+function latexRational(value: Rational): string {
+  return value.d === 1 ? String(value.n) : `\\frac{${value.n}}{${value.d}}`;
+}
+
+function displayRational(value: Rational): string {
+  if (value.d === 1) return String(value.n);
+  const whole = Math.trunc(value.n / value.d);
+  const remainder = Math.abs(value.n % value.d);
+  if (whole !== 0 && remainder !== 0) return `${whole} \\(\\frac{${remainder}}{${value.d}}\\)`;
+  return `\\(${latexRational(value)}\\)`;
 }
 
 function hashSeed(value: string): number {
@@ -103,25 +108,17 @@ function getEntry(qlId: string): Cp012Entry {
   return entry;
 }
 
-function dayWord(language: Tmw001ChapterLanguage, value: Rational): string {
+function dayWord(language: TmwCp012Language, value: Rational): string {
   if (language === "hi") return "दिन";
   if (language === "pa") return "ਦਿਨ";
-  return value.n === value.d ? "day" : "days";
+  return value.n === 1 && value.d === 1 ? "day" : "days";
 }
 
-function displayRational(value: Rational): string {
-  if (value.d === 1) return String(value.n);
-  const whole = Math.trunc(value.n / value.d);
-  const remainder = Math.abs(value.n % value.d);
-  if (whole !== 0 && remainder !== 0) return `${whole} \\(\\frac{${remainder}}{${value.d}}\\)`;
-  return `\\(\\frac{${value.n}}{${value.d}}\\)`;
-}
-
-function displayDays(value: Rational, language: Tmw001ChapterLanguage): string {
+function displayDays(value: Rational, language: TmwCp012Language): string {
   return `${displayRational(value)} ${dayWord(language, value)}`;
 }
 
-function percentPhrase(direction: ChangeDirection, percent: number, language: Tmw001ChapterLanguage): string {
+function percentPhrase(direction: ChangeDirection, percent: number, language: TmwCp012Language): string {
   if (language === "hi") return direction === "INCREASE" ? `${percent}% अधिक कुशल` : `${percent}% कम कुशल`;
   if (language === "pa") return direction === "INCREASE" ? `${percent}% ਵੱਧ ਕੁਸ਼ਲ` : `${percent}% ਘੱਟ ਕੁਸ਼ਲ`;
   return direction === "INCREASE" ? `${percent}% more efficient` : `${percent}% less efficient`;
@@ -137,7 +134,8 @@ function newTeamTime(c: EfficiencyChangeCase): Rational {
 function optionValues(correct: Rational, anchors: readonly number[]): Rational[] {
   const values: Rational[] = [correct];
   const keys = new Set([`${correct.n}/${correct.d}`]);
-  for (const anchor of anchors) {
+  for (const rawAnchor of anchors) {
+    const anchor = Math.round(rawAnchor);
     if (anchor <= 0) continue;
     const candidate = rational(anchor);
     const key = `${candidate.n}/${candidate.d}`;
@@ -161,13 +159,13 @@ function optionValues(correct: Rational, anchors: readonly number[]): Rational[]
   return values;
 }
 
-function optionPackage(correct: Rational, anchors: readonly number[], language: Tmw001ChapterLanguage, seed: string) {
+function optionPackage(correct: Rational, anchors: readonly number[], language: TmwCp012Language, seed: string) {
   const answerText = displayDays(correct, language);
   const options = shuffled(optionValues(correct, anchors).map((value) => displayDays(value, language)), `${seed}:options`);
   return { answerText, options, correctIndex: options.indexOf(answerText) };
 }
 
-function buildExcludedAgentQuestion(entry: Cp012Entry, seed: string, language: Tmw001ChapterLanguage) {
+function buildExcludedAgentQuestion(entry: Cp012Entry, seed: string, language: TmwCp012Language) {
   const c = pick(EXCLUDED_AGENT_CASES, `${seed}:${entry.qlId}`);
   const allRate = rational(1, c.allTime);
   const subgroupRate = rational(1, c.subgroupTime);
@@ -187,8 +185,8 @@ function buildExcludedAgentQuestion(entry: Cp012Entry, seed: string, language: T
     solution: [
       `A+B+C की एक दिन की दर \\(\\frac{1}{${c.allTime}}\\) है।`,
       `A+B की एक दिन की दर \\(\\frac{1}{${c.subgroupTime}}\\) है।`,
-      `इसलिए C की दर \\(\\frac{1}{${c.allTime}}-\\frac{1}{${c.subgroupTime}}=\\frac{${cRate.n}}{${cRate.d}}\\) काम प्रति दिन है।`,
-      `अतः C का अकेले समय \\(\\frac{${cRate.d}}{${cRate.n}}=${displayRational(answer)}\\) दिन है।`,
+      `इसलिए C की दर \\(\\frac{1}{${c.allTime}}-\\frac{1}{${c.subgroupTime}}=${latexRational(cRate)}\\) काम प्रति दिन है।`,
+      `अतः C का अकेले समय \\(\\frac{${cRate.d}}{${cRate.n}}=${latexRational(answer)}\\) दिन है।`,
     ],
     answer: `अतः C अकेला काम ${optionSet.answerText} में पूरा करेगा।`,
   } : language === "pa" ? {
@@ -196,8 +194,8 @@ function buildExcludedAgentQuestion(entry: Cp012Entry, seed: string, language: T
     solution: [
       `A+B+C ਦੀ ਇੱਕ ਦਿਨ ਦੀ ਦਰ \\(\\frac{1}{${c.allTime}}\\) ਹੈ।`,
       `A+B ਦੀ ਇੱਕ ਦਿਨ ਦੀ ਦਰ \\(\\frac{1}{${c.subgroupTime}}\\) ਹੈ।`,
-      `ਇਸ ਲਈ C ਦੀ ਦਰ \\(\\frac{1}{${c.allTime}}-\\frac{1}{${c.subgroupTime}}=\\frac{${cRate.n}}{${cRate.d}}\\) ਕੰਮ ਪ੍ਰਤੀ ਦਿਨ ਹੈ।`,
-      `ਇਸ ਕਰਕੇ C ਦਾ ਇਕੱਲੇ ਸਮਾਂ \\(\\frac{${cRate.d}}{${cRate.n}}=${displayRational(answer)}\\) ਦਿਨ ਹੈ।`,
+      `ਇਸ ਲਈ C ਦੀ ਦਰ \\(\\frac{1}{${c.allTime}}-\\frac{1}{${c.subgroupTime}}=${latexRational(cRate)}\\) ਕੰਮ ਪ੍ਰਤੀ ਦਿਨ ਹੈ।`,
+      `ਇਸ ਕਰਕੇ C ਦਾ ਇਕੱਲੇ ਸਮਾਂ \\(\\frac{${cRate.d}}{${cRate.n}}=${latexRational(answer)}\\) ਦਿਨ ਹੈ।`,
     ],
     answer: `ਇਸ ਲਈ C ਇਕੱਲਾ ਕੰਮ ${optionSet.answerText} ਵਿੱਚ ਪੂਰਾ ਕਰੇਗਾ।`,
   } : {
@@ -205,8 +203,8 @@ function buildExcludedAgentQuestion(entry: Cp012Entry, seed: string, language: T
     solution: [
       `A+B+C complete \\(\\frac{1}{${c.allTime}}\\) of the work per day.`,
       `A+B complete \\(\\frac{1}{${c.subgroupTime}}\\) of the work per day.`,
-      `So C's rate is \\(\\frac{1}{${c.allTime}}-\\frac{1}{${c.subgroupTime}}=\\frac{${cRate.n}}{${cRate.d}}\\) of the work per day.`,
-      `Hence C's time is the reciprocal: \\(\\frac{${cRate.d}}{${cRate.n}}=${displayRational(answer)}\\) days.`,
+      `So C's rate is \\(\\frac{1}{${c.allTime}}-\\frac{1}{${c.subgroupTime}}=${latexRational(cRate)}\\) of the work per day.`,
+      `Hence C's time is the reciprocal: \\(\\frac{${cRate.d}}{${cRate.n}}=${latexRational(answer)}\\) days.`,
     ],
     answer: `Therefore, C alone completes the work in ${optionSet.answerText}.`,
   };
@@ -214,7 +212,7 @@ function buildExcludedAgentQuestion(entry: Cp012Entry, seed: string, language: T
   return { stem, learner, optionSet, parameters: c, answer };
 }
 
-function buildEfficiencyQuestion(entry: Cp012Entry, seed: string, language: Tmw001ChapterLanguage) {
+function buildEfficiencyQuestion(entry: Cp012Entry, seed: string, language: TmwCp012Language) {
   const c = pick(EFFICIENCY_CHANGE_CASES, `${seed}:${entry.qlId}`);
   const changedTime = newTeamTime(c);
   const oldTime = rational(c.oldTime);
@@ -226,7 +224,6 @@ function buildEfficiencyQuestion(entry: Cp012Entry, seed: string, language: Tmw0
     : [c.oldTime, Math.ceil(changedTime.n / changedTime.d) + 1, Math.max(1, Math.floor(changedTime.n / changedTime.d) - 1), c.oldTime + 2], language, seed);
 
   const change = percentPhrase(c.direction, c.percent, language);
-  const impactNoun = c.direction === "INCREASE" ? "saved" : "delayed";
   const stem = language === "hi"
     ? `A और B की कार्यक्षमताओं का अनुपात ${c.a}:${c.b} है और वे मिलकर काम ${c.oldTime} दिन में पूरा करते हैं। यदि शुरू से A ${change} हो जाए, तो ${asksImpact ? "काम पूरा होने के समय में कितने दिन की बचत या देरी होगी" : "दोनों मिलकर काम कितने दिन में पूरा करेंगे"}?`
     : language === "pa"
@@ -234,47 +231,55 @@ function buildEfficiencyQuestion(entry: Cp012Entry, seed: string, language: Tmw0
       : `The efficiencies of A and B are in the ratio ${c.a}:${c.b}, and together they complete a work in ${c.oldTime} days. If A becomes ${change} from the start, ${asksImpact ? "by how many days is completion time saved or delayed" : "how long will A and B now take to complete the work"}?`;
 
   const multiplierNum = c.direction === "INCREASE" ? 100 + c.percent : 100 - c.percent;
-  const newRateNum = c.a * multiplierNum + c.b * 100;
-  const newRateDen = 100;
-  const workUnits = (c.a + c.b) * c.oldTime;
   const changedA = rational(c.a * multiplierNum, 100);
-  const changedTeam = rational(newRateNum, newRateDen);
+  const changedTeam = rational(c.a * multiplierNum + c.b * 100, 100);
+  const workUnits = (c.a + c.b) * c.oldTime;
+
+  if (c.direction === "INCREASE" && !(changedTime.n * oldTime.d < oldTime.n * changedTime.d)) throw new Error("Efficiency increase did not reduce team time");
+  if (c.direction === "DECREASE" && !(changedTime.n * oldTime.d > oldTime.n * changedTime.d)) throw new Error("Efficiency decrease did not increase team time");
 
   const answerLineEn = asksImpact
-    ? `Therefore, the completion time is ${impactNoun} by ${optionSet.answerText}.`
+    ? `Therefore, the completion time is ${c.direction === "INCREASE" ? "saved" : "delayed"} by ${optionSet.answerText}.`
     : `Therefore, the new team completion time is ${optionSet.answerText}.`;
   const answerLineHi = asksImpact
-    ? `अतः काम पूरा होने का समय ${c.direction === "INCREASE" ? "कम" : "बढ़"} कर ${optionSet.answerText} का अंतर देता है।`
+    ? `अतः काम पूरा होने के समय में ${c.direction === "INCREASE" ? "बचत" : "देरी"} ${optionSet.answerText} है।`
     : `अतः नई संयुक्त पूर्णता अवधि ${optionSet.answerText} है।`;
   const answerLinePa = asksImpact
     ? `ਇਸ ਲਈ ਕੰਮ ਪੂਰਾ ਹੋਣ ਦੇ ਸਮੇਂ ਵਿੱਚ ${c.direction === "INCREASE" ? "ਬਚਤ" : "ਦੇਰੀ"} ${optionSet.answerText} ਹੈ।`
     : `ਇਸ ਲਈ ਨਵਾਂ ਮਿਲਿਆ-ਜੁਲਿਆ ਪੂਰਾ ਕਰਨ ਦਾ ਸਮਾਂ ${optionSet.answerText} ਹੈ।`;
 
+  const oldRateMath = `\\(${c.a}+${c.b}=${c.a + c.b}\\)`;
+  const workMath = `\\(${c.a + c.b}\\times${c.oldTime}=${workUnits}\\)`;
+  const changedAMath = `\\(${c.a}\\times\\frac{${multiplierNum}}{100}=${latexRational(changedA)}\\)`;
+  const changedTeamMath = `\\(${latexRational(changedA)}+${c.b}=${latexRational(changedTeam)}\\)`;
+  const newTimeMath = `\\(${workUnits}\\div ${latexRational(changedTeam)}=${latexRational(changedTime)}\\)`;
+  const impactMath = `\\(|${c.oldTime}-${latexRational(changedTime)}|=${latexRational(impact)}\\)`;
+
   const learner: TmwLearnerExplanationV2 = language === "hi" ? {
     method: "कार्यक्षमता अनुपात को दैनिक इकाइयों की दर मानें, पुराने समय से कुल काम निकालें, फिर केवल A की दर बदलकर नई संयुक्त दर बनाएँ।",
     solution: [
-      `पुरानी संयुक्त दर \\(${c.a}+${c.b}=${c.a + c.b}\\) इकाई/दिन है, इसलिए कुल काम \\(${c.a + c.b}\\times${c.oldTime}=${workUnits}\\) इकाई है।`,
-      `बदलाव के बाद A की दर \\(${c.a}\\times\\frac{${multiplierNum}}{100}=${displayRational(changedA)}\\) इकाई/दिन है।`,
-      `नई संयुक्त दर \\(${displayRational(changedA)}+${c.b}=${displayRational(changedTeam)}\\) इकाई/दिन है, इसलिए नया समय \\(\\frac{${workUnits}}{${displayRational(changedTeam)}}=${displayRational(changedTime)}\\) दिन है।`,
-      ...(asksImpact ? [`समय का अंतर \\(|${c.oldTime}-${displayRational(changedTime)}|=${displayRational(impact)}\\) दिन है।`] : []),
+      `पुरानी संयुक्त दर ${oldRateMath} इकाई/दिन है, इसलिए कुल काम ${workMath} इकाई है।`,
+      `बदलाव के बाद A की दर ${changedAMath} इकाई/दिन है।`,
+      `नई संयुक्त दर ${changedTeamMath} इकाई/दिन है, इसलिए नया समय ${newTimeMath} दिन है।`,
+      ...(asksImpact ? [`समय का अंतर ${impactMath} दिन है।`] : []),
     ],
     answer: answerLineHi,
   } : language === "pa" ? {
     method: "ਕੁਸ਼ਲਤਾ ਅਨੁਪਾਤ ਨੂੰ ਰੋਜ਼ਾਨਾ ਇਕਾਈਆਂ ਦੀ ਦਰ ਮੰਨੋ, ਪੁਰਾਣੇ ਸਮੇਂ ਤੋਂ ਕੁੱਲ ਕੰਮ ਕੱਢੋ, ਫਿਰ ਸਿਰਫ਼ A ਦੀ ਦਰ ਬਦਲ ਕੇ ਨਵੀਂ ਮਿਲੀ-ਜੁਲੀ ਦਰ ਬਣਾਓ।",
     solution: [
-      `ਪੁਰਾਣੀ ਮਿਲੀ-ਜੁਲੀ ਦਰ \\(${c.a}+${c.b}=${c.a + c.b}\\) ਇਕਾਈ/ਦਿਨ ਹੈ, ਇਸ ਲਈ ਕੁੱਲ ਕੰਮ \\(${c.a + c.b}\\times${c.oldTime}=${workUnits}\\) ਇਕਾਈ ਹੈ।`,
-      `ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ A ਦੀ ਦਰ \\(${c.a}\\times\\frac{${multiplierNum}}{100}=${displayRational(changedA)}\\) ਇਕਾਈ/ਦਿਨ ਹੈ।`,
-      `ਨਵੀਂ ਮਿਲੀ-ਜੁਲੀ ਦਰ \\(${displayRational(changedA)}+${c.b}=${displayRational(changedTeam)}\\) ਇਕਾਈ/ਦਿਨ ਹੈ, ਇਸ ਲਈ ਨਵਾਂ ਸਮਾਂ \\(\\frac{${workUnits}}{${displayRational(changedTeam)}}=${displayRational(changedTime)}\\) ਦਿਨ ਹੈ।`,
-      ...(asksImpact ? [`ਸਮੇਂ ਦਾ ਅੰਤਰ \\(|${c.oldTime}-${displayRational(changedTime)}|=${displayRational(impact)}\\) ਦਿਨ ਹੈ।`] : []),
+      `ਪੁਰਾਣੀ ਮਿਲੀ-ਜੁਲੀ ਦਰ ${oldRateMath} ਇਕਾਈ/ਦਿਨ ਹੈ, ਇਸ ਲਈ ਕੁੱਲ ਕੰਮ ${workMath} ਇਕਾਈ ਹੈ।`,
+      `ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ A ਦੀ ਦਰ ${changedAMath} ਇਕਾਈ/ਦਿਨ ਹੈ।`,
+      `ਨਵੀਂ ਮਿਲੀ-ਜੁਲੀ ਦਰ ${changedTeamMath} ਇਕਾਈ/ਦਿਨ ਹੈ, ਇਸ ਲਈ ਨਵਾਂ ਸਮਾਂ ${newTimeMath} ਦਿਨ ਹੈ।`,
+      ...(asksImpact ? [`ਸਮੇਂ ਦਾ ਅੰਤਰ ${impactMath} ਦਿਨ ਹੈ।`] : []),
     ],
     answer: answerLinePa,
   } : {
     method: "Treat the efficiency ratio as daily work units, find total work from the old team time, then change only A's rate and recompute the team time.",
     solution: [
-      `The old team rate is \\(${c.a}+${c.b}=${c.a + c.b}\\) units/day, so total work is \\(${c.a + c.b}\\times${c.oldTime}=${workUnits}\\) units.`,
-      `After the change, A's rate becomes \\(${c.a}\\times\\frac{${multiplierNum}}{100}=${displayRational(changedA)}\\) units/day.`,
-      `The new team rate is \\(${displayRational(changedA)}+${c.b}=${displayRational(changedTeam)}\\) units/day, so new time is \\(\\frac{${workUnits}}{${displayRational(changedTeam)}}=${displayRational(changedTime)}\\) days.`,
-      ...(asksImpact ? [`The schedule impact is \\(|${c.oldTime}-${displayRational(changedTime)}|=${displayRational(impact)}\\) days.`] : []),
+      `The old team rate is ${oldRateMath} units/day, so total work is ${workMath} units.`,
+      `After the change, A's rate becomes ${changedAMath} units/day.`,
+      `The new team rate is ${changedTeamMath} units/day, so new time is ${newTimeMath} days.`,
+      ...(asksImpact ? [`The schedule impact is ${impactMath} days.`] : []),
     ],
     answer: answerLineEn,
   };
@@ -282,13 +287,12 @@ function buildEfficiencyQuestion(entry: Cp012Entry, seed: string, language: Tmw0
   return { stem, learner, optionSet, parameters: c, answer: correct, changedTime, impact };
 }
 
-export function runTmwCp012Pipeline(input: { questionLanguageId: string; seed: string; language: Tmw001ChapterLanguage }): any {
+export function runTmwCp012Pipeline(input: { questionLanguageId: string; seed: string; language: TmwCp012Language }): any {
   const entry = getEntry(input.questionLanguageId);
   const built = entry.solveMode === "findExcludedAgentTimeFromAllTogetherAndSubgroup"
     ? buildExcludedAgentQuestion(entry, input.seed, input.language)
     : buildEfficiencyQuestion(entry, input.seed, input.language);
-  const learnerErrors = validateTmwLearnerExplanationV2(built.learner);
-  const errors: string[] = [...learnerErrors];
+  const errors = [...validateTmwLearnerExplanationV2(built.learner)];
   if (!built.stem.trim() || !built.stem.includes("?")) errors.push("Stem is not a complete exam question");
   if (built.optionSet.options.length !== 4 || new Set(built.optionSet.options).size !== 4) errors.push("Options are not four unique choices");
   if (built.optionSet.correctIndex < 0 || built.optionSet.options[built.optionSet.correctIndex] !== built.optionSet.answerText) errors.push("Correct option is not answer-aligned");
