@@ -14,6 +14,15 @@ function targetPositions(): readonly number[] {
   return Object.freeze(Array.from({ length: 120 }, (_, index) => index % 4));
 }
 
+const COMPARISON_REVIEW_SEQUENCE = ["A < B", "A = B", "A > B"] as const;
+
+function passesReviewVarietyTarget(prototypeId: SapCp006PrototypeId, accepted: number, pkg: SapCp006Package): boolean {
+  if (prototypeId === "SAP-CP006-PROT-COMPARE-EXACT-EXPRESSIONS") {
+    return pkg.canonicalAnswer === COMPARISON_REVIEW_SEQUENCE[accepted % COMPARISON_REVIEW_SEQUENCE.length];
+  }
+  return true;
+}
+
 export function generateSapCp006ReviewRecords(): readonly SapCp006ReviewRecord[] {
   const targets = targetPositions();
   const records: SapCp006ReviewRecord[] = [];
@@ -24,11 +33,12 @@ export function generateSapCp006ReviewRecords(): readonly SapCp006ReviewRecord[]
     let accepted = 0;
     let seed = 1;
     while (accepted < SAP_CP006_REVIEW_COUNT_PER_PROTOTYPE) {
-      if (seed > 50_000) throw new Error(`${prototypeId}: unable to find balanced unique review records.`);
+      if (seed > 50_000) throw new Error(`${prototypeId}: unable to find balanced, diverse, unique review records.`);
       const pkg = generateSapCp006(prototypeId as SapCp006PrototypeId, seed);
       seed += 1;
       if (!pkg.validation.ok) continue;
       if (pkg.correctIndex !== targets[reviewIndex]) continue;
+      if (!passesReviewVarietyTarget(prototypeId, accepted, pkg)) continue;
       if (payloads.has(pkg.canonicalPayloadKey)) continue;
       payloads.add(pkg.canonicalPayloadKey);
       records.push(Object.freeze({
