@@ -22,6 +22,10 @@ function splitSentences(text: string): string[] {
     .filter(Boolean);
 }
 
+function annotationSafe(value: string): string {
+  return value.replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
+}
+
 for (const locale of ["hi-IN", "pa-IN"] as const) {
   const leakingRecords: string[] = [];
   const forms = new Map<string, { count: number; localized: string; words: readonly string[] }>();
@@ -67,13 +71,21 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
     if (recordLeaks) leakingRecords.push(source.itemId);
   }
 
+  const orderedForms = [...forms.entries()]
+    .map(([canonical, value]) => ({ canonical, count: value.count, localized: value.localized, words: value.words }))
+    .sort((left, right) => right.count - left.count || left.canonical.localeCompare(right.canonical));
+
   console.log(JSON.stringify({
     locale,
     leakingRecordCount: leakingRecords.length,
     placeholderLeakCount,
     uniqueLeakFormCount: forms.size,
-    leakForms: [...forms.entries()]
-      .map(([canonical, value]) => ({ canonical, count: value.count, localized: value.localized, words: value.words }))
-      .sort((left, right) => right.count - left.count || left.canonical.localeCompare(right.canonical)),
+    leakForms: orderedForms,
   }, null, 2));
+
+  for (const [index, form] of orderedForms.slice(0, 5).entries()) {
+    console.error(
+      `::warning title=${annotationSafe(`CP003 ${locale} residual form ${index + 1}/${Math.min(orderedForms.length, 5)}`)}::${annotationSafe(`count=${form.count} | words=${form.words.join(",")} | canonical=${form.canonical} | localized=${form.localized}`)}`,
+    );
+  }
 }
