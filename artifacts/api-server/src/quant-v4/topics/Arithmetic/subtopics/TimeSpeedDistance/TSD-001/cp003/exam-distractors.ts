@@ -477,7 +477,19 @@ export function deriveExamReadyCp003WrongWorkings(
           "It assumes the speed changes after one-quarter of the route without using the time equation.",
         ),
         wrong(
-          "HALVE_ROUTE_BY_DEFAULT",
+          "ASSUME_FIXED_ROUTE_FRACTION",
+          divide(input.totalDistance, rational(3)),
+          `${f(input.totalDistance)} ÷ 3`,
+          "It assumes the speed changes after one-third of the route without using the time equation.",
+        ),
+        wrong(
+          "ASSUME_FIXED_ROUTE_FRACTION",
+          multiply(input.totalDistance, rational(2, 3)),
+          `2 × ${f(input.totalDistance)} ÷ 3`,
+          "It assumes the speed changes after two-thirds of the route without using the time equation.",
+        ),
+        wrong(
+          "ASSUME_FIXED_ROUTE_FRACTION",
           multiply(input.totalDistance, rational(3, 4)),
           `3 × ${f(input.totalDistance)} ÷ 4`,
           "It assumes the speed changes after three-quarters of the route without using the time equation.",
