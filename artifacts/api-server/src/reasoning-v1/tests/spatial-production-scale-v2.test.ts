@@ -8,6 +8,7 @@ import {
   buildSpatialScaleEditorialReviewHtmlV2,
   buildSpatialScaleEditorialReviewV2,
   spatialFclInstanceCatalogCapacityV2,
+  spatialFsrSafeStateCapacityV2,
   synthesizeSpatialProductionScaleBatchV2,
   type SpatialFclInstanceQuestionV2,
   type SpatialFclInstanceQuartetV2,
@@ -29,6 +30,7 @@ assert(batch.totalAccepted === 1_500, `Expected 1500 total candidates, got ${bat
 assert(batch.fclCanonicalCatalogCapacity > 0, "Canonical FCL capacity must be positive.");
 assert(batch.fclInstanceCatalogCapacity >= REQUESTED_PER_CHAPTER, `Instance FCL capacity ${batch.fclInstanceCatalogCapacity} is below scale target ${REQUESTED_PER_CHAPTER}.`);
 assert(batch.fclInstanceCatalogCapacity > batch.fclCanonicalCatalogCapacity, "Instance FCL catalog did not expand beyond canonical capacity.");
+assert(batch.fsrSafeStateTotalCapacity >= REQUESTED_PER_CHAPTER, `FSR safe-state capacity ${batch.fsrSafeStateTotalCapacity} is below scale target ${REQUESTED_PER_CHAPTER}.`);
 
 const expectedFamilies = {
   "FAN-001": SPATIAL_FAN_SYNTHESIS_TRANSFORM_IDS_V1,
@@ -55,6 +57,9 @@ for (const chapterCode of ["FAN-001", "FCL-001", "FSR-001"] as const) {
 
 const fclCapacity = spatialFclInstanceCatalogCapacityV2();
 assert(Object.values(fclCapacity).every((capacity) => capacity > 0), `At least one FCL family has zero V2 capacity: ${JSON.stringify(fclCapacity)}.`);
+const fsrCapacity = spatialFsrSafeStateCapacityV2();
+assert(Object.values(fsrCapacity).every((capacity) => capacity > 0), `At least one FSR family has zero V2 capacity: ${JSON.stringify(fsrCapacity)}.`);
+assert(Object.values(fsrCapacity).some((capacity) => capacity < 50), "FSR scale proof no longer demonstrates the saturated-family condition that motivated capacity-aware scheduling.");
 
 const fcl = batch.chapters["FCL-001"];
 const fclOrbitFingerprints = new Set<string>();
@@ -70,6 +75,10 @@ for (const candidate of fcl.accepted) {
   assert(!fclOrbitFingerprints.has(payload.globalRotationOrbitFingerprint), `${payload.prototypeId}: global-rotation-equivalent duplicate slipped through.`);
   fclOrbitFingerprints.add(payload.globalRotationOrbitFingerprint);
 }
+
+assert(batch.chapters["FSR-001"].attempts === REQUESTED_PER_CHAPTER, `FSR compiled catalog should accept without retries; got ${batch.chapters["FSR-001"].attempts} attempts.`);
+assert(batch.chapters["FSR-001"].duplicateRejects === 0, "FSR compiled catalog produced duplicate retry pressure.");
+assert(batch.chapters["FSR-001"].generatorRejects === 0, "FSR compiled catalog produced generator retry pressure.");
 
 const replay = synthesizeSpatialProductionScaleBatchV2({
   seedPrefix,
@@ -134,6 +143,9 @@ const evidence = {
   fclInstanceCatalogCapacity: batch.fclInstanceCatalogCapacity,
   fclFamilyCapacities: fclCapacity,
   fclFamilyCounts: batch.chapters["FCL-001"].familyCounts,
+  fsrSafeStateTotalCapacity: batch.fsrSafeStateTotalCapacity,
+  fsrFamilyCapacities: fsrCapacity,
+  fsrFamilyCounts: batch.chapters["FSR-001"].familyCounts,
   reviewSamples: review.sampleCount,
   checks: {
     deterministicReplay: true,
@@ -141,6 +153,9 @@ const evidence = {
     uniqueContentPerChapter: true,
     globalRotationEquivalentFclDedup: true,
     visibleOrientationShortcutAudit: true,
+    capacityAwareFsrScheduling: true,
+    compiledFsrSafeStateCatalog: true,
+    zeroFsrRetryPressure: true,
     fullTwentySixFamilyCoverage: true,
     balancedCorrectSlots: true,
     representativeResponsiveReview: true,
