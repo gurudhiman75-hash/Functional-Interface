@@ -21,9 +21,9 @@ export const TSD_CP003_NATIVE_TERMS = Object.freeze({
   SCHEDULE: pair("निर्धारित समय", "ਨਿਰਧਾਰਤ ਸਮਾਂ"),
   DELAY: pair("देरी", "ਦੇਰੀ"),
   EARLY: pair("पहले", "ਪਹਿਲਾਂ"),
-  STOP: pair("ठहराव", "ਠਹਿਰਾਅ"),
+  STOP: pair("रुकना", "ਰੁਕਣਾ"),
   REST: pair("विश्राम", "ਆਰਾਮ"),
-  OVERALL_SPEED: pair("ठहराव सहित औसत गति", "ਠਹਿਰਾਅ ਸਮੇਤ ਔਸਤ ਰਫ਼ਤਾਰ"),
+  OVERALL_SPEED: pair("रुकने सहित औसत गति", "ਰੁਕਣ ਸਮੇਤ ਔਸਤ ਰਫ਼ਤਾਰ"),
   RUNNING_SPEED: pair("चलते समय की गति", "ਚੱਲਣ ਸਮੇਂ ਦੀ ਰਫ਼ਤਾਰ"),
   REMAINING_DISTANCE: pair("शेष दूरी", "ਬਾਕੀ ਦੂਰੀ"),
   REMAINING_TIME: pair("शेष समय", "ਬਾਕੀ ਸਮਾਂ"),
@@ -48,6 +48,11 @@ export const TSD_CP003_NATIVE_NUMBER_POLICY = Object.freeze({
   fractionStyle: "SOURCE_EXAM_NUMBER",
 } as const);
 
+function nativeHourUnit(hours: number, language: TsdCp003NativeLanguage): string {
+  if (language === "hi") return hours === 1 ? "घंटा" : "घंटे";
+  return hours === 1 ? "ਘੰਟਾ" : "ਘੰਟੇ";
+}
+
 export function formatNativeDuration(value: Rational, language: TsdCp003NativeLanguage): string {
   const minutes = multiply(value, rational(60));
   if (minutes.denominator !== 1n) {
@@ -60,13 +65,8 @@ export function formatNativeDuration(value: Rational, language: TsdCp003NativeLa
   const hours = Math.floor(absolute / 60);
   const remainder = absolute % 60;
   if (hours === 0) return `${sign}${remainder} ${language === "hi" ? "मिनट" : "ਮਿੰਟ"}`;
-  if (remainder === 0) {
-    const unit = language === "hi"
-      ? (hours === 1 ? "घंटा" : "घंटे")
-      : (hours === 1 ? "ਘੰਟਾ" : "ਘੰਟੇ");
-    return `${sign}${hours} ${unit}`;
-  }
-  return `${sign}${hours} ${language === "hi" ? "घंटे" : "ਘੰਟੇ"} ${remainder} ${language === "hi" ? "मिनट" : "ਮਿੰਟ"}`;
+  if (remainder === 0) return `${sign}${hours} ${nativeHourUnit(hours, language)}`;
+  return `${sign}${hours} ${nativeHourUnit(hours, language)} ${remainder} ${language === "hi" ? "मिनट" : "ਮਿੰਟ"}`;
 }
 
 export function formatNativeClock(value: Rational, language: TsdCp003NativeLanguage): string {
