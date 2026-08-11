@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 through CP-004 frozen at `RNK-QL-001..035`; CP-005 V3 editorial and QL-034 ownership audits passed, permanent runtime/freeze remains open, and `RNK-QL-036` is unallocated.**
+Status: **CP-001 through CP-004 frozen at `RNK-QL-001..035`; CP-005 has a pinned 576-question permanent-runtime candidate, final manual English freeze review remains open, and `RNK-QL-036` is unallocated.**
 
 Counts in this register are evidence, never chapter-size quotas.
 
@@ -91,9 +91,9 @@ unique release states:        168
 provisional authorities:        3
 permanent QLs:                  0
 
-Easy:                           0
-Medium:                       156
-Hard:                          12
+V3 Easy:                        0
+V3 Medium:                    156
+V3 Hard:                       12
 ```
 
 Seven discovery source forms:
@@ -161,58 +161,129 @@ CP-005 PAIR_STATUS:                     24
 PAIR first/second/indeterminate:    8 / 8 / 8
 ```
 
-Primary Ranking-source evidence also contains incomplete comparison tables where some people remain incomparable while other conclusions are determinable. This supports CP-005 partial-order ownership inside Ranking.
+### Permanent-runtime candidate
 
-See `RNK-CP-005/RNK-CP-005-QL034-OWNERSHIP-AUDIT.md`.
-
-### V3 semantic gates
-
-- generic relation options use four distinct person-pairs, at least four people and no more than two appearances/person;
-- MUST uses possible-but-not-compulsory distractors;
-- COULD bans direct clue reversals and requires multi-step contradiction for wrong options;
-- CANNOT uses possible-but-not-compulsory distractors;
-- PAIR_STATUS includes first-above, second-above and indeterminate results;
-- rank bounds require at least three compulsory people, branch integration, a transitive compulsory relation, boundary proof and attainable witness;
-- definite exact ranks require transitive structural evidence;
-- indeterminate exact ranks use two witness rankings;
-- eight graph topology families are represented.
-
-### Editorial evidence
+The three authority candidates have now been expanded to a production-scale, projection-pinned English candidate:
 
 ```text
-28-question V3 human review pack
-answer balance: 7 / 7 / 7 / 7
-wrong answer keys: 0
-contradictions: 0
-one-person fixation: 0
-COULD direct-reversal shortcuts: 0
-rank-bound direct-count-only cases: 0
+candidate runtime version: RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_V1
+candidate questions:       576
+questions/authority:        192
+permanent QLs:                0
 ```
 
-Final V3 release proof before the ownership branch:
+Authority counts:
 
 ```text
-workflow run: 31473422220
-head:         c4fcb1a53b310aae9e4c24e55d3fa3b4f895a15a
-result:       PASS
+RELATION_TRUTH_STATUS:      192
+POSSIBLE_RANK_BOUND:        192
+EXACT_RANK_DETERMINACY:     192
 ```
+
+Mode counts:
+
+```text
+MUST:                       48
+COULD:                      48
+CANNOT:                     48
+PAIR_FIRST_ABOVE:           16
+PAIR_SECOND_ABOVE:          16
+PAIR_INDETERMINATE:         16
+HIGHEST_POSSIBLE:           96
+LOWEST_POSSIBLE:            96
+EXACT_DEFINITE:             96
+EXACT_INDETERMINATE:        96
+```
+
+Each authority has exact answer-position balance:
+
+```text
+48 / 48 / 48 / 48
+```
+
+All five approved contexts occur inside every authority. Context rendering is independent of mathematical state selection.
+
+Quality-filtered topology coverage:
+
+```text
+RELATION_TRUTH_STATUS:    8 families
+POSSIBLE_RANK_BOUND:      7 families
+EXACT_RANK_DETERMINACY:   6 families
+```
+
+Candidate difficulty and uniqueness:
+
+```text
+Easy:       0
+Medium:   496
+Hard:      80
+
+normalized learner surfaces: 576
+selected state keys:          576
+runtime fingerprints:         576
+```
+
+Every selected state still has at least two valid complete rankings.
+
+Pinned candidate projection:
+
+```text
+sha256:c45517d1d8bf4283d38eb4b62d1c9e2f90c5ec58593e2c400a59b2a26fb6e71e
+```
+
+This is a freeze-review pin, not a permanent allocation.
+
+### Final manual freeze review
+
+A deterministic 36-question review pack is generated from the pinned runtime:
+
+```text
+questions:                36
+questions/authority:      12
+answer positions:    9 / 9 / 9 / 9
+```
+
+Composition:
+
+```text
+RELATION_TRUTH_STATUS
+  2 MUST
+  2 COULD
+  2 CANNOT
+  2 PAIR_FIRST_ABOVE
+  2 PAIR_SECOND_ABOVE
+  2 PAIR_INDETERMINATE
+
+POSSIBLE_RANK_BOUND
+  6 HIGHEST_POSSIBLE
+  6 LOWEST_POSSIBLE
+
+EXACT_RANK_DETERMINACY
+  6 EXACT_DEFINITE
+  6 EXACT_INDETERMINATE
+```
+
+English freeze is still **NOT APPROVED**. The review pack is the final manual gate.
 
 ### Remaining gate before permanent allocation
 
 ```text
-ownership audit: passed
-editorial review: passed
-
-next:
-  construct permanent English runtime for all 3 provisional authorities
-  -> validate full corpus/projection/dedup/difficulty/context balance
-  -> final manual English freeze approval
-  -> allocate permanent identities only after that approval
+ownership audit:         passed
+editorial review:        passed
+runtime candidate:       built
+projection:              pinned
+manual freeze review:    pending
+permanent QL allocation: prohibited until explicit approval
 ```
 
-If all three later pass freeze, the available contiguous range would be `RNK-QL-036..038`; this statement is a reservation forecast, not an allocation.
+If all three later pass freeze, the available contiguous range would be `RNK-QL-036..038`; this statement is a forecast, not an allocation.
 
 `RNK-QL-036` remains available.
+
+See:
+
+- `RNK-CP-005/RNK-CP-005-QL034-OWNERSHIP-AUDIT.md`
+- `RNK-CP-005/RNK-CP-005-PERMANENT-RUNTIME-CANDIDATE-V1.md`
 
 ## 7. Later checkpoints
 
@@ -247,6 +318,8 @@ cumulative permanent range: RNK-QL-001..035
 next available RNK ID:      RNK-QL-036
 CP-005 editorial review:    passed
 CP-005 ownership audit:     passed
+CP-005 runtime candidate:   built + pinned
+CP-005 English freeze:      false
 CP-005 permanent QLs:       0
 chapter-wide freeze:        false
 Hindi/Punjabi:              NOT_STARTED
