@@ -14,6 +14,7 @@ import type { SpatialPrimitiveRetrofitTransformV2 } from "./primitive-retrofit-p
 import { spatialSceneSemanticFingerprint } from "./normalize";
 import { DeterministicSpatialRng } from "./seed";
 import type { SpatialSeriesRuleId } from "./series-types";
+import type { SpatialLineNode, SpatialScene } from "./types";
 import { validateSpatialScene } from "./validator";
 import {
   SPATIAL_SYNTHESIS_LIFECYCLE_LOCK_V1,
@@ -80,6 +81,101 @@ function validateCorrectSlot(index: number): void {
   }
 }
 
+interface LineEndpointCandidate {
+  nodeIndex: number;
+  endpoint: "start" | "end";
+  x: number;
+  y: number;
+}
+
+function shortenOneOuterArm(scene: SpatialScene): SpatialScene {
+  const candidates: LineEndpointCandidate[] = [];
+  scene.nodes.forEach((node, nodeIndex) => {
+    if (node.kind !== "line") return;
+    candidates.push({ nodeIndex, endpoint: "start", x: node.start.x, y: node.start.y });
+    candidates.push({ nodeIndex, endpoint: "end", x: node.end.x, y: node.end.y });
+  });
+  const selected = candidates.sort((left, right) => left.y - right.y || left.x - right.x)[0];
+  if (!selected) {
+    throw new Error(`${scene.id}: crossing presentation requires at least one line node.`);
+  }
+
+  const nodes = scene.nodes.map((node, nodeIndex) => {
+    if (nodeIndex !== selected.nodeIndex || node.kind !== "line") return node;
+    const line = node as SpatialLineNode;
+    const moving = selected.endpoint === "start" ? line.start : line.end;
+    const fixed = selected.endpoint === "start" ? line.end : line.start;
+    const shortened = {
+      x: moving.x + (fixed.x - moving.x) * 0.2,
+      y: moving.y + (fixed.y - moving.y) * 0.2,
+    };
+    return selected.endpoint === "start"
+      ? { ...line, start: shortened }
+      : { ...line, end: shortened };
+  });
+
+  return {
+    ...scene,
+    nodes,
+    metadata: {
+      ...(scene.metadata ?? {}),
+      productionPresentation: "FCL_TRUE_CROSSING_ASYMMETRIC_ARM_V1",
+    },
+  };
+}
+
+function applyFclProductionPresentation(
+  scenes: readonly SpatialScene[],
+  propertyId: SpatialPrimitiveClassificationPropertyIdV2,
+): SpatialScene[] {
+  if (propertyId !== "HAS_TRUE_CROSSING") return scenes.map((scene) => scene);
+  return scenes.map(shortenOneOuterArm);
+}
+
+export function buildSpatialFclFamilyScheduleV1(
+  requested: number,
+): SpatialPrimitiveClassificationPropertyIdV2[] {
+  if (!Number.isInteger(requested) || requested <= 0) {
+    throw new Error("FCL synthesis schedule requires a positive integer request size.");
+  }
+  const capacities = new Map(
+    SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2.map((propertyId) => [
+      propertyId,
+      buildSpatialFclSafeQuartetCatalogV1(propertyId).length,
+    ]),
+  );
+  const zeroCapacity = SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2.filter(
+    (propertyId) => (capacities.get(propertyId) ?? 0) === 0,
+  );
+  if (zeroCapacity.length > 0) {
+    throw new Error(`FCL production families with zero strict capacity: ${zeroCapacity.join(", ")}.`);
+  }
+  const totalCapacity = [...capacities.values()].reduce((sum, capacity) => sum + capacity, 0);
+  if (requested > totalCapacity) {
+    throw new Error(`FCL requested ${requested} unique contents but strict catalog capacity is ${totalCapacity}.`);
+  }
+
+  const used = new Map<SpatialPrimitiveClassificationPropertyIdV2, number>();
+  const schedule: SpatialPrimitiveClassificationPropertyIdV2[] = [];
+  while (schedule.length < requested) {
+    let progressed = false;
+    for (const propertyId of SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2) {
+      if (schedule.length >= requested) break;
+      const count = used.get(propertyId) ?? 0;
+      const capacity = capacities.get(propertyId) ?? 0;
+      if (count >= capacity) continue;
+      schedule.push(propertyId);
+      used.set(propertyId, count + 1);
+      progressed = true;
+    }
+    if (!progressed) break;
+  }
+  if (schedule.length !== requested) {
+    throw new Error(`FCL capacity-aware scheduler produced ${schedule.length}/${requested} slots.`);
+  }
+  return schedule;
+}
+
 export function synthesizeSpatialFclAttemptV1(input: {
   seed: string;
   familyId: SpatialPrimitiveClassificationPropertyIdV2;
@@ -136,6 +232,7 @@ export function synthesizeSpatialFclAttemptV1(input: {
         primitiveIds,
         correctOptionIndex: input.desiredCorrectOptionIndex,
       });
+      payload.optionScenes = applyFclProductionPresentation(payload.optionScenes, input.familyId);
       if (!payload.optionScenes.every((scene) => validateSpatialScene(scene).ok)) {
         return rejectedAttempt(
           chapterCode,
@@ -144,11 +241,22 @@ export function synthesizeSpatialFclAttemptV1(input: {
           attemptIndex,
           input.desiredCorrectOptionIndex,
           "SCENE_VALIDATION_FAILED",
-          "At least one catalog-selected FCL scene failed spatial scene validation.",
+          "At least one catalog-selected FCL scene failed spatial scene validation after production presentation.",
         );
       }
 
       const optionFingerprints = payload.optionScenes.map(spatialSceneSemanticFingerprint);
+      if (new Set(optionFingerprints).size !== 4) {
+        return rejectedAttempt(
+          chapterCode,
+          input.seed,
+          input.familyId,
+          attemptIndex,
+          input.desiredCorrectOptionIndex,
+          "INVALID_REQUEST",
+          "FCL production presentation collapsed two option scenes to the same semantic fingerprint.",
+        );
+      }
       const contentFingerprint = [
         chapterCode,
         input.familyId,
@@ -257,10 +365,13 @@ function synthesizeChapterBatch(
   const correctSlotCounts: [number, number, number, number] = [0, 0, 0, 0];
   const familyCounts: Record<string, number> = {};
   const families = chapterFamilies(chapterCode);
+  const fclSchedule = chapterCode === "FCL-001" ? buildSpatialFclFamilyScheduleV1(requested) : null;
 
   for (let attemptIndex = 0; accepted.length < requested && attemptIndex < maxAttempts; attemptIndex += 1) {
     const acceptedIndex = accepted.length;
-    const familyId = families[acceptedIndex % families.length]!;
+    const familyId = fclSchedule
+      ? fclSchedule[acceptedIndex]!
+      : families[acceptedIndex % families.length]!;
     const desiredCorrectOptionIndex = acceptedIndex % 4;
     const seed = `${seedPrefix}:${chapterCode}:${familyId}:${desiredCorrectOptionIndex}:${attemptIndex}`;
     const attempt = synthesizeAttemptForChapter(
