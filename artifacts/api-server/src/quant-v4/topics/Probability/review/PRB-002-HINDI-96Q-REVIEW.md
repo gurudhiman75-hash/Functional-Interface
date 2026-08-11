@@ -15,7 +15,7 @@
 
 ## Review method
 
-Review the native question against the English authority immediately above it. Focus on natural exam wording, exact mathematical meaning, correct terminology, option logic, and student-friendly explanation quality. Do not approve merely because automated parity passed.
+Review the native question against the English authority immediately above it. Focus on natural exam wording, exact mathematical meaning, exact scenario/context preservation, correct terminology, option logic, and student-friendly explanation quality. Do not approve merely because automated parity passed.
 
 ---
 
@@ -80,6 +80,7 @@ A jar contains 8 red and 6 blue marbles. One marble is selected and replaced bef
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -158,6 +159,7 @@ A box contains 7 red and 8 blue pens. Two pens are selected one after another wi
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -236,6 +238,7 @@ A pouch contains 6 red and 8 blue coloured stones. One stone is drawn and replac
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -314,6 +317,7 @@ A bag contains 8 red and 7 blue balls. Two balls are selected one after another 
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -392,6 +396,7 @@ A jar contains 7 red and 6 blue marbles. Two marbles are selected one after anot
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -471,6 +476,7 @@ A box contains 7 red and 9 blue pens. Two pens are selected one after another wi
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -550,6 +556,7 @@ A pouch contains 5 red and 9 blue coloured stones. Two coloured stones are selec
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -628,6 +635,7 @@ A bag contains 7 red and 9 blue balls. Two selections are made with replacement.
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -706,6 +714,7 @@ A jar contains 8 red and 9 blue marbles. One marble is selected and replaced bef
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -784,6 +793,7 @@ A box contains 7 red and 6 blue pens. Two pens are selected one after another wi
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -862,6 +872,7 @@ A pouch contains 5 red and 4 blue coloured stones. One stone is drawn and replac
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -940,6 +951,7 @@ A bag contains 6 red and 9 blue balls. Two balls are selected one after another 
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1018,6 +1030,7 @@ A jar contains 9 red and 8 blue marbles. Two marbles are selected one after anot
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1097,6 +1110,7 @@ A box contains 9 red and 6 blue pens. Two pens are selected one after another wi
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1176,6 +1190,7 @@ A pouch contains 6 red and 5 blue coloured stones. Two coloured stones are selec
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1254,6 +1269,7 @@ A bag contains 9 red and 6 blue balls. Two selections are made with replacement.
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1332,6 +1348,7 @@ A jar contains 7 red and 4 blue marbles. One marble is selected and replaced bef
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1410,6 +1427,7 @@ A box contains 9 red and 9 blue pens. Two pens are selected one after another wi
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1488,6 +1506,7 @@ A pouch contains 4 red and 5 blue coloured stones. One stone is drawn and replac
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1566,6 +1585,7 @@ A bag contains 6 red and 6 blue balls. Two balls are selected one after another 
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1644,6 +1664,7 @@ A jar contains 8 red and 4 blue marbles. Two marbles are selected one after anot
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1723,6 +1744,7 @@ A box contains 8 red and 6 blue pens. Two pens are selected one after another wi
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1802,6 +1824,7 @@ A pouch contains 6 red and 7 blue coloured stones. Two coloured stones are selec
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1880,6 +1903,7 @@ A bag contains 9 red and 4 blue balls. Two selections are made with replacement.
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -1956,6 +1980,7 @@ Of the 14 candidates who cleared Quantitative Aptitude, 5 also cleared Reasoning
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2033,6 +2058,7 @@ A card is drawn from a standard deck and is known to be a face card. What is the
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2107,6 +2133,7 @@ An integer selected from 1 to 30 is known to be divisible by 2. What is the prob
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2185,6 +2212,7 @@ A bag contains 9 red and 8 blue balls. Two balls are drawn without replacement. 
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2261,6 +2289,7 @@ Among 18 shortlisted candidates, the probability that a randomly selected candid
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2337,6 +2366,7 @@ Of the 13 students who cleared Mathematics, 5 also cleared English. One of these
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2413,6 +2443,7 @@ Of the 12 candidates who cleared Quantitative Aptitude, 8 also cleared Reasoning
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2490,6 +2521,7 @@ A card is drawn from a standard deck and is known to be a face card. What is the
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2564,6 +2596,7 @@ An integer selected from 1 to 30 is known to be divisible by 2. What is the prob
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2642,6 +2675,7 @@ A bag contains 9 red and 7 blue balls. Two balls are drawn without replacement. 
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2718,6 +2752,7 @@ Among 23 shortlisted candidates, the probability that a randomly selected candid
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2794,6 +2829,7 @@ Of the 12 students who cleared Mathematics, 3 also cleared English. One of these
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2870,6 +2906,7 @@ Of the 18 candidates who cleared Quantitative Aptitude, 5 also cleared Reasoning
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -2947,6 +2984,7 @@ A card is drawn from a standard deck and is known to be a face card. What is the
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3021,6 +3059,7 @@ An integer selected from 1 to 40 is known to be divisible by 2. What is the prob
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3099,6 +3138,7 @@ A bag contains 8 red and 8 blue balls. Two balls are drawn without replacement. 
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3175,6 +3215,7 @@ Among 20 shortlisted candidates, the probability that a randomly selected candid
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3251,6 +3292,7 @@ Of the 18 students who cleared Mathematics, 8 also cleared English. One of these
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3327,6 +3369,7 @@ Of the 15 candidates who cleared Quantitative Aptitude, 4 also cleared Reasoning
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3404,6 +3447,7 @@ A card is drawn from a standard deck and is known to be a face card. What is the
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3478,6 +3522,7 @@ An integer selected from 1 to 30 is known to be divisible by 2. What is the prob
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3556,6 +3601,7 @@ A bag contains 10 red and 4 blue balls. Two balls are drawn without replacement.
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3636,6 +3682,7 @@ A 3-member committee is chosen at random from 7 men and 6 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3716,6 +3763,7 @@ A 4-member committee is chosen at random from 8 men and 6 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3791,6 +3839,7 @@ A 4-member committee is chosen at random from 8 men and 6 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3868,6 +3917,7 @@ A 4-member committee is chosen at random from 8 men and 6 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -3944,6 +3994,7 @@ A 4-member committee is chosen at random from 8 men and 6 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4022,6 +4073,7 @@ A 4-digit number is formed without repetition using the digits 1 to 5. What is t
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4101,6 +4153,7 @@ A 4-member committee is chosen at random from 5 men and 6 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4177,6 +4230,7 @@ A 4-member committee is formed from 6 men and 9 women. How many committees conta
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4257,6 +4311,7 @@ A 3-member committee is chosen at random from 9 men and 9 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4337,6 +4392,7 @@ A 4-member committee is chosen at random from 5 men and 5 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4412,6 +4468,7 @@ A 4-member committee is chosen at random from 5 men and 5 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4490,6 +4547,7 @@ A 4-member committee is chosen at random from 5 men and 5 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4566,6 +4624,7 @@ A 4-member committee is chosen at random from 5 men and 5 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4644,6 +4703,7 @@ A 4-digit number is formed without repetition using the digits 1 to 9. What is t
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4722,6 +4782,7 @@ A 4-member committee is chosen at random from 5 men and 9 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4798,6 +4859,7 @@ A 4-member committee is chosen from 7 men and 6 women. The probability that it c
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4877,6 +4939,7 @@ A 3-member committee is chosen at random from 6 men and 7 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -4957,6 +5020,7 @@ A 4-member committee is chosen at random from 6 men and 9 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5032,6 +5096,7 @@ A 4-member committee is chosen at random from 6 men and 9 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5110,6 +5175,7 @@ A 4-member committee is chosen at random from 6 men and 9 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5186,6 +5252,7 @@ A 4-member committee is chosen at random from 6 men and 9 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5264,6 +5331,7 @@ A 4-digit number is formed without repetition using the digits 1 to 8. What is t
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5343,6 +5411,7 @@ A 4-member committee is chosen at random from 10 men and 9 women. What is the pr
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5419,6 +5488,7 @@ A 4-member committee is chosen from 7 men and 4 women. The probability that it c
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5499,6 +5569,7 @@ A 3-member committee is chosen at random from 7 men and 6 women. What is the pro
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5579,6 +5650,7 @@ A 4-member committee is chosen at random from 10 men and 5 women. What is the pr
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5657,6 +5729,7 @@ In a group of 100 candidates, 31 candidates qualified in Quantitative Aptitude, 
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5734,6 +5807,7 @@ In a group of 84 students, 10 students play both cricket and football. What is t
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5812,6 +5886,7 @@ In a group of 61 candidates, 31 candidates cleared Section A, 34 candidates clea
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5890,6 +5965,7 @@ In a group of 77 students, 32 students passed Mathematics, 36 students passed En
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -5965,6 +6041,7 @@ A candidate can receive either Scholarship A or Scholarship B, but not both. If 
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6040,6 +6117,7 @@ The probabilities that a candidate clears Section A and Section B are \(\frac{5}
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6118,6 +6196,7 @@ For a group of 51 candidates, \(P\!\left(Section A\right)\) = \(\frac{35}{51}\),
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6196,6 +6275,7 @@ In a group of 88 students, 24 students passed Mathematics, 30 students passed En
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6274,6 +6354,7 @@ In a group of 69 candidates, 31 candidates qualified in Quantitative Aptitude, 3
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6351,6 +6432,7 @@ In a group of 77 students, 6 students play both games. What is the probability t
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6429,6 +6511,7 @@ In a group of 96 candidates, 34 candidates cleared Section A, 22 candidates clea
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6507,6 +6590,7 @@ In a group of 57 students, 23 students passed Mathematics, 30 students passed En
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6582,6 +6666,7 @@ A candidate can receive either Scholarship A or Scholarship B, but not both. If 
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6657,6 +6742,7 @@ The probabilities that a candidate clears Section A and Section B are \(\frac{5}
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6735,6 +6821,7 @@ For a group of 62 candidates, \(P\!\left(Section A\right)\) = \(\frac{29}{62}\),
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6813,6 +6900,7 @@ In a group of 67 students, 19 students passed Mathematics, 34 students passed En
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6891,6 +6979,7 @@ In a group of 73 candidates, 22 candidates qualified in Quantitative Aptitude, 2
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -6968,6 +7057,7 @@ In a group of 57 students, 4 students play both games. What is the probability t
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -7046,6 +7136,7 @@ In a group of 52 candidates, 20 candidates cleared Section A, 27 candidates clea
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -7124,6 +7215,7 @@ In a group of 59 students, 37 students passed Mathematics, 21 students passed En
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -7199,6 +7291,7 @@ A candidate can receive either Scholarship A or Scholarship B, but not both. If 
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -7274,6 +7367,7 @@ The probabilities that a candidate clears Section A and Section B are \(\frac{1}
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -7352,6 +7446,7 @@ For a group of 55 candidates, \(P\!\left(Section A\right)\) = \(\frac{38}{55}\),
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
@@ -7430,6 +7525,7 @@ In a group of 66 students, 31 students passed Mathematics, 28 students passed En
 
 - [ ] Hindi stem is natural, concise and exam-like.
 - [ ] Mathematical meaning matches the English authority exactly.
+- [ ] Scenario nouns and conditions match the English authority; no bag/jar/box/pouch or object substitution.
 - [ ] Options are logically correct and the marked answer is unambiguous.
 - [ ] Hindi explanation is easy for a student to understand.
 - [ ] No awkward literal translation, wrong terminology or unintended English prose leakage.
