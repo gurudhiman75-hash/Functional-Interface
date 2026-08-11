@@ -114,12 +114,6 @@ export function QuestionStudioProbabilityReviewPanel() {
     seed: seed.trim() || undefined,
   }), [count, difficulty, language, packageId, qlId, seed]);
 
-  const visibleQls = useMemo(() => {
-    if (!pkg) return [];
-    if (packageId === ALL) return pkg.qlIds;
-    return pkg.qlIds.filter((entry) => packageId === 'PRB-001' ? !/^PRB-QL-[5-8]/.test(entry) : /^PRB-QL-[5-8]/.test(entry));
-  }, [packageId, pkg]);
-
   const handlePreview = async () => {
     setWorking('preview');
     try {
@@ -176,7 +170,7 @@ export function QuestionStudioProbabilityReviewPanel() {
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
             <Field label="Language"><Select value={language} onValueChange={(value) => setLanguage(value as ProbabilityReviewLanguage)}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{(pkg?.supportedLanguages ?? ['hi', 'pa']).map((entry) => <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry]}</SelectItem>)}</SelectContent></Select></Field>
             <Field label="Package"><Select value={packageId} onValueChange={(value) => { setPackageId(value); setQlId(ALL); }}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>Both</SelectItem>{(pkg?.packageIds ?? ['PRB-001', 'PRB-002']).map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent></Select></Field>
-            <Field label="QL"><Select value={qlId} onValueChange={setQlId}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>All QLs</SelectItem>{visibleQls.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent></Select></Field>
+            <Field label="QL"><Select value={qlId} onValueChange={setQlId}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>All QLs</SelectItem>{(pkg?.qlIds ?? []).map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent></Select></Field>
             <Field label="Difficulty"><Select value={difficulty} onValueChange={setDifficulty}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>All difficulties</SelectItem>{(pkg?.supportedDifficulties ?? []).map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent></Select></Field>
             <Field label="Count"><Input type="number" min={1} max={50} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
             <Field label="Optional deterministic seed"><Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="probability-ml06-review-01" /></Field>
