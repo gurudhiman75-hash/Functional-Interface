@@ -57,4 +57,8 @@ export {
 export * from "./fcl-safe-quartet-catalog-v1";
 export * from "./production-synthesis-engine-v1";
 export * from "./synthesis-editorial-export-v1";
+export * from "./synthesis-types-v2";
+export * from "./fcl-instance-catalog-v2";
+export * from "./production-scale-engine-v2";
+export * from "./synthesis-scale-editorial-export-v2";
 export * from "./svg-renderer";
