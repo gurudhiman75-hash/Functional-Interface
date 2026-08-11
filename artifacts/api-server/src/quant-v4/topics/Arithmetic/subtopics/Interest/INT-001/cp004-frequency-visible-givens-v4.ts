@@ -6,6 +6,12 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
 }
 
+function hasVisibleTimeRow(stem: string): boolean {
+  const periodRow = /\|\s*Number of periods\s*\|\s*(?!\?\s*\|)[^|]+\|/iu;
+  const termRow = /\|\s*Term\s*\|\s*(?!\?\s*\|)[^|]+\|/iu;
+  return periodRow.test(stem) || termRow.test(stem);
+}
+
 export function assertCp004VisibleGivensExamReadyV4(state: Cp004MathematicalState, stem: string): void {
   if (state.qlId !== "INT-QL-073" && state.qlId !== "INT-QL-074") {
     assertCp004VisibleGivensV4(state, stem);
@@ -21,7 +27,7 @@ export function assertCp004VisibleGivensExamReadyV4(state: Cp004MathematicalStat
   const noun = escapeRegExp(frequencyNoun(state.frequency));
   const namedPeriodEvidence = new RegExp(`\\b${state.periods}\\s+(?:complete\\s+)?${noun}s?\\b`, "iu");
   const genericPeriodEvidence = new RegExp(`\\b${state.periods}\\s+(?:(?:complete|such)\\s+)?periods?\\b`, "iu");
-  if (!stem.includes(duration) && !namedPeriodEvidence.test(stem) && !genericPeriodEvidence.test(stem)) {
-    throw new Error(`${state.qlId}: displayed stem omits the duration or equivalent number of periods.`);
+  if (!stem.includes(duration) && !namedPeriodEvidence.test(stem) && !genericPeriodEvidence.test(stem) && !hasVisibleTimeRow(stem)) {
+    throw new Error(`${state.qlId}: displayed stem omits visible duration/period evidence.`);
   }
 }
