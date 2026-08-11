@@ -66,3 +66,46 @@ export class SpatialSeededRandom {
     return shuffled;
   }
 }
+
+/**
+ * Convenience adapter for synthesis/search code. It delegates all entropy to
+ * SpatialSeededRandom so the project continues to have one deterministic RNG
+ * authority while exposing max-exclusive integer and sampling helpers.
+ */
+export class DeterministicSpatialRng {
+  private readonly random: SpatialSeededRandom;
+
+  constructor(seed: string | number) {
+    this.random = new SpatialSeededRandom(seed);
+  }
+
+  next(): number {
+    return this.random.nextFloat();
+  }
+
+  int(maxExclusive: number): number {
+    if (!Number.isInteger(maxExclusive) || maxExclusive <= 0) {
+      throw new Error("Spatial synthesis maxExclusive must be a positive integer.");
+    }
+    return this.random.int(0, maxExclusive - 1);
+  }
+
+  bool(): boolean {
+    return this.int(2) === 1;
+  }
+
+  pick<T>(items: readonly T[]): T {
+    return this.random.pick(items);
+  }
+
+  shuffle<T>(items: readonly T[]): T[] {
+    return this.random.shuffle(items);
+  }
+
+  sampleWithoutReplacement<T>(items: readonly T[], count: number): T[] {
+    if (!Number.isInteger(count) || count < 0 || count > items.length) {
+      throw new Error("Spatial synthesis sample count must be between zero and the pool size.");
+    }
+    return this.random.shuffle(items).slice(0, count);
+  }
+}
