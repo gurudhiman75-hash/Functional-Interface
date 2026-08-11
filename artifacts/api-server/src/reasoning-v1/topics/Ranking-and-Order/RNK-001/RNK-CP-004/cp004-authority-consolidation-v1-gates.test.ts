@@ -102,12 +102,14 @@ for (const authority of RNK_CP004_CONSOLIDATED_AUTHORITY_IDS.filter((item) =>
 }
 
 assert(RNK_CP004_OWNERSHIP_BOUNDARY.exactUniqueMultiEntityOrder === 'RNK-CP-004', 'CP-004 ownership boundary changed');
-assert(RNK_CP004_OWNERSHIP_BOUNDARY.presentationLedRowQueueMeritRace === 'RNK-CP-005', 'CP-005 ownership boundary changed');
-assert(RNK_CP004_OWNERSHIP_BOUNDARY.attributeLedHeightAgeMarksWeight === 'RNK-CP-006', 'CP-006 ownership boundary changed');
-assert(RNK_CP004_OWNERSHIP_BOUNDARY.partialOrderPossibleImpossibleCannotDetermine === 'RNK-CP-007', 'CP-007 ownership boundary changed');
-assert(RNK_CP004_OWNERSHIP_BOUNDARY.sharedMultiQuestionRankingSets === 'RNK-CP-008', 'CP-008 ownership boundary changed');
-assert(RNK_CP004_OPEN_AUTHORITY_CANDIDATES.definitelyFalseRelation === 'REQUIRES_ADDITIONAL_SOURCE_PROOF', 'Definitely-false candidate was prematurely admitted');
-assert(RNK_CP004_OPEN_AUTHORITY_CANDIDATES.cannotDetermineRelation === 'EXCLUDED_TO_RNK_CP007', 'Cannot-determine ownership changed');
+assert(RNK_CP004_OWNERSHIP_BOUNDARY.presentationLedRowQueueMeritRace === 'CONTEXT_ONLY_SOLVER_DECIDES', 'Presentation contexts must not own a checkpoint');
+assert(RNK_CP004_OWNERSHIP_BOUNDARY.attributeLedHeightAgeMarksWeight === 'CONTEXT_ONLY_SOLVER_DECIDES', 'Attribute words must not own a checkpoint');
+assert(RNK_CP004_OWNERSHIP_BOUNDARY.partialOrderPossibleImpossibleCannotDetermine === 'RNK-CP-005', 'Partial-order ownership must remain CP-005');
+assert(RNK_CP004_OWNERSHIP_BOUNDARY.sharedMultiQuestionRankingSets === 'ASSEMBLY_INFRASTRUCTURE', 'Shared sets must remain infrastructure');
+assert(RNK_CP004_OPEN_AUTHORITY_CANDIDATES.definitelyFalseRelation === 'COVERED_BY_RNK_CP005_RELATION_TRUTH_STATUS_CANNOT', 'Definitely-false relation must map to CP-005 truth status');
+assert(RNK_CP004_OPEN_AUTHORITY_CANDIDATES.cannotDetermineRelation === 'COVERED_BY_RNK_CP005_RELATION_TRUTH_STATUS_PAIR_STATUS', 'Cannot-determine relation must map to CP-005 pair status');
+assert(RNK_CP004_OPEN_AUTHORITY_CANDIDATES.possibleOrImpossibleRelation === 'COVERED_BY_RNK_CP005_RELATION_TRUTH_STATUS', 'Possible/impossible relation must map to CP-005 truth status');
+assert(RNK_CP004_OPEN_AUTHORITY_CANDIDATES.minimumOrMaximumPossibleRank === 'COVERED_BY_RNK_CP005_POSSIBLE_RANK_BOUND', 'Possible rank bounds must map to CP-005');
 
 const matrix = RNK_CP004_CONSOLIDATED_AUTHORITY_IDS.map((authority) => ({
   authority,
@@ -163,7 +165,7 @@ const report = {
 const markdown = [
   '# RNK-CP-004 Authority Consolidation V1',
   '',
-  '> English V7 is manually approved. This is a candidate-authority consolidation, not permanent QL allocation or discovery freeze.',
+  '> English V7 is manually approved. The later book-to-QL reset supersedes the original provisional checkpoint labels in this historical consolidation evidence.',
   '',
   `Source forms: **${report.sourcePrototypeCount}**  `,
   `Consolidated candidates: **${report.consolidatedAuthorityCandidateCount}**  `,
@@ -179,17 +181,18 @@ const markdown = [
   '- `ENTITY_AT_EXACT_RANK` and `MIDDLE_ENTITY` merge into `ENTITY_AT_POSITION`; explicit versus derived-middle position is a parameter.',
   '- Rank lookup, complete order, pair direction, exact distance, immediate neighbour, definitely-true relation and missing comparison retain distinct proof or output contracts.',
   '',
-  '## Ownership boundary',
+  '## Corrected ownership boundary',
   '',
   '- CP-004: exact unique multi-entity order from comparison clues.',
-  '- CP-005: row, queue, merit and race presentation-led forms.',
-  '- CP-006: attribute-led height, age, marks and weight forms.',
-  '- CP-007: possible, impossible, cannot-determine and minimum/maximum possible rank.',
-  '- CP-008: shared multi-question ranking sets.',
+  '- CP-005: incomplete comparison graphs with multiple valid rankings, including truth status and possible-rank bounds.',
+  '- CP-006: tied/non-strict ranking only after source evidence.',
+  '- CP-007: advanced mixed transformations after a fresh gap audit.',
+  '- Shared multi-question sets: assembly infrastructure, not checkpoint ownership.',
+  '- Row/queue/merit/race and height/age/marks/weight words: context only; solver contract decides ownership.',
   '',
-  '## Remaining gate',
+  '## Historical note',
   '',
-  'Permanent runtime projection and freeze proof must pass before `RNK-QL-027..035` can be allocated.',
+  'The original CP-005..008 labels in this discovery-era audit were provisional and are superseded by the RNK-001 book-to-QL reset and CP-005 QL-034 ownership audit.',
   '',
 ].join('\n');
 
