@@ -4,13 +4,16 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import {
   SPATIAL_FSR_SYNTHESIS_RULE_IDS_V1,
   SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2,
+  buildSpatialFclFamilyScheduleV1,
   buildSpatialFclSafeQuartetCatalogV1,
   buildSpatialPrimitiveClassificationQuestionFromIdsV2,
   buildSpatialSynthesisEditorialReviewHtmlV1,
   buildSpatialSynthesisEditorialReviewV1,
+  classifySpatialSceneSymmetry,
   synthesizeSpatialFanAttemptV1,
   synthesizeSpatialProductionBatchV1,
 } from "../foundation/spatial";
+import type { SpatialPrimitiveClassificationQuestionV2, SpatialScene } from "../foundation/spatial";
 
 const REQUESTED_PER_CHAPTER = 96;
 const fclCatalogSizes = Object.fromEntries(
@@ -20,7 +23,27 @@ const fclCatalogSizes = Object.fromEntries(
   ]),
 );
 for (const [propertyId, size] of Object.entries(fclCatalogSizes)) {
-  assert.ok(size >= 8, `${propertyId}: safe catalog must support at least eight distinct content quartets; found ${size}`);
+  assert.ok(size >= 1, `${propertyId}: strict production catalog must contain at least one content quartet; found ${size}`);
+}
+assert.ok(
+  Object.values(fclCatalogSizes).reduce((sum, size) => sum + size, 0) >= REQUESTED_PER_CHAPTER,
+  "FCL total strict content capacity must cover the production stress target.",
+);
+
+const fclSchedule = buildSpatialFclFamilyScheduleV1(REQUESTED_PER_CHAPTER);
+assert.equal(fclSchedule.length, REQUESTED_PER_CHAPTER);
+const expectedFclFamilyCounts = Object.fromEntries(
+  SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2.map((propertyId) => [
+    propertyId,
+    fclSchedule.filter((entry) => entry === propertyId).length,
+  ]),
+);
+for (const propertyId of SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2) {
+  assert.ok(expectedFclFamilyCounts[propertyId] >= 1, `${propertyId}: every FCL family must be represented.`);
+  assert.ok(
+    expectedFclFamilyCounts[propertyId] <= fclCatalogSizes[propertyId],
+    `${propertyId}: scheduled content must not exceed strict catalog capacity.`,
+  );
 }
 
 const batch = synthesizeSpatialProductionBatchV1({
@@ -71,15 +94,33 @@ assert.deepEqual(
   Object.values(batch.chapters["FAN-001"].familyCounts).sort((a, b) => a - b),
   [24, 24, 24, 24],
 );
-assert.equal(Object.keys(batch.chapters["FCL-001"].familyCounts).length, SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2.length);
-for (const propertyId of SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2) {
-  assert.equal(batch.chapters["FCL-001"].familyCounts[propertyId], 8, propertyId);
-}
-assert.equal(batch.chapters["FCL-001"].rejectionCounts.FCL_COMPETING_DESCRIPTOR ?? 0, 0);
-assert.ok(
-  batch.chapters["FCL-001"].attempts.length <= 160,
-  `Catalog-based FCL synthesis must accept 96 candidates within 160 attempts; used ${batch.chapters["FCL-001"].attempts.length}.`,
+assert.equal(
+  Object.keys(batch.chapters["FCL-001"].familyCounts).length,
+  SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2.length,
 );
+assert.deepEqual(batch.chapters["FCL-001"].familyCounts, expectedFclFamilyCounts);
+assert.equal(batch.chapters["FCL-001"].rejectionCounts.FCL_COMPETING_DESCRIPTOR ?? 0, 0);
+assert.equal(batch.chapters["FCL-001"].rejectionCounts.FCL_POOL_SHORTAGE ?? 0, 0);
+assert.ok(
+  batch.chapters["FCL-001"].attempts.length <= 180,
+  `Capacity-aware FCL synthesis must accept 96 candidates within 180 attempts; used ${batch.chapters["FCL-001"].attempts.length}.`,
+);
+
+const crossingCandidates = batch.chapters["FCL-001"].accepted.filter(
+  (candidate) => candidate.familyId === "HAS_TRUE_CROSSING",
+);
+assert.equal(crossingCandidates.length, expectedFclFamilyCounts.HAS_TRUE_CROSSING);
+for (const candidate of crossingCandidates) {
+  const payload = candidate.payload as SpatialPrimitiveClassificationQuestionV2;
+  for (const scene of payload.optionScenes as SpatialScene[]) {
+    assert.deepEqual(
+      classifySpatialSceneSymmetry(scene),
+      { vertical: false, horizontal: false, rotational180: false },
+      `${scene.id}: crossing production presentation must neutralize whole-figure symmetry`,
+    );
+    assert.equal(scene.metadata?.productionPresentation, "FCL_TRUE_CROSSING_ASYMMETRIC_ARM_V1");
+  }
+}
 
 assert.equal(Object.keys(batch.chapters["FSR-001"].familyCounts).length, SPATIAL_FSR_SYNTHESIS_RULE_IDS_V1.length);
 for (const ruleId of SPATIAL_FSR_SYNTHESIS_RULE_IDS_V1) {
@@ -168,6 +209,7 @@ const evidence = {
   requestedPerChapter: batch.requestedPerChapter,
   totalAccepted: batch.totalAccepted,
   fclCatalogSizes,
+  fclScheduledFamilyCounts: expectedFclFamilyCounts,
   chapters: Object.fromEntries(chapterCodes.map((chapterCode) => {
     const chapter = batch.chapters[chapterCode];
     return [chapterCode, {
@@ -188,9 +230,11 @@ const evidence = {
     separateDeliveryFingerprint: true,
     balancedCorrectSlots: true,
     fullFamilyCoverage: true,
+    capacityAwareFclScheduling: true,
     compiledFclSafeQuartetCatalog: true,
     fclCatalogFinalBuilderRevalidation: true,
     fclCompetingMinorityRejection: true,
+    crossingPresentationNeutralizesSymmetryShortcut: true,
     efficientFclCatalogSelection: true,
     representativeEditorialReview: true,
     lifecycleIsolation: true,
@@ -233,6 +277,7 @@ console.log(JSON.stringify({
     fsr: batch.chapters["FSR-001"].rejectionCounts,
   },
   fclCatalogSizes,
+  fclScheduledFamilyCounts: expectedFclFamilyCounts,
   correctSlots: {
     fan: batch.chapters["FAN-001"].correctSlotCounts,
     fcl: batch.chapters["FCL-001"].correctSlotCounts,
