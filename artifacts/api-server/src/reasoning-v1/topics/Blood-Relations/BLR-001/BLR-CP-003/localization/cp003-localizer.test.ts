@@ -10,6 +10,17 @@ import { localizeBlrCp003QuestionComplete } from "./cp003-localized-review-runti
 
 const canonical = generateBlrCp003FinalApprovedBank();
 
+function annotationSafe(value: string): string {
+  return value
+    .replace(/%/g, "%25")
+    .replace(/\r/g, "%0D")
+    .replace(/\n/g, "%0A");
+}
+
+function emitFailureAnnotation(title: string, message: string): void {
+  console.error(`::error title=${annotationSafe(title)}::${annotationSafe(message)}`);
+}
+
 function buildLocale(locale: BlrCp003TranslatedLocale): readonly GeneratedBlrCp003LocalizedQuestion[] {
   const built: GeneratedBlrCp003LocalizedQuestion[] = [];
   const gaps = new Set<string>();
@@ -21,7 +32,11 @@ function buildLocale(locale: BlrCp003TranslatedLocale): readonly GeneratedBlrCp0
     }
   }
   if (gaps.size > 0) {
-    console.error(JSON.stringify({ locale, localizationCoverageGaps: [...gaps].sort() }, null, 2));
+    const ordered = [...gaps].sort();
+    console.error(JSON.stringify({ locale, localizationCoverageGaps: ordered }, null, 2));
+    for (const [index, gap] of ordered.entries()) {
+      emitFailureAnnotation(`CP003 ${locale} localization gap ${index + 1}/${ordered.length}`, gap);
+    }
     assert.fail(`${locale}: ${gaps.size} localization coverage gaps remain.`);
   }
   return built;
@@ -108,10 +123,17 @@ for (let index = 0; index < canonical.length; index += 1) {
 }
 
 if (leakageForms.size > 0) {
+  const leaks = [...leakageForms.values()];
   console.error(JSON.stringify({
     forbiddenEnglishLeakFormCount: leakageForms.size,
-    leakForms: [...leakageForms.values()],
+    leakForms: leaks,
   }, null, 2));
+  for (const [index, leak] of leaks.entries()) {
+    emitFailureAnnotation(
+      `CP003 ${leak.locale} English leak ${index + 1}/${leaks.length}`,
+      `${leak.itemId} | canonical: ${leak.canonical} | localized: ${leak.localized}`,
+    );
+  }
   assert.fail(`${leakageForms.size} forbidden-English localization forms remain.`);
 }
 
