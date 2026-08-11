@@ -27,6 +27,18 @@ export interface SpatialFclQuartetAuditV1 {
   safe: boolean;
 }
 
+export interface SpatialFclQuartetCapacityDiagnosticV1 {
+  propertyId: SpatialPrimitiveClassificationPropertyIdV2;
+  eligiblePoolSize: number;
+  commonPoolSize: number;
+  oddPoolSize: number;
+  rawQuartetCount: number;
+  noCompetingMinorityCount: number;
+  strictSafeCount: number;
+  disallowedShortcutFrequency: Record<string, number>;
+  disallowedShortcutSignatures: Record<string, number>;
+}
+
 const ALLOWED_REINFORCING_DESCRIPTORS: Record<
   SpatialPrimitiveClassificationPropertyIdV2,
   readonly SpatialPrimitiveClassificationDescriptorIdV2[]
@@ -126,40 +138,97 @@ export function auditSpatialFclQuartetV1(
   };
 }
 
+function eligiblePools(propertyId: SpatialPrimitiveClassificationPropertyIdV2) {
+  const eligiblePool = SPATIAL_FCL_PRIMITIVE_POOL_V2.filter((primitiveId) =>
+    productionDomainEligible(primitiveId, propertyId),
+  );
+  return {
+    eligiblePool,
+    commonPool: eligiblePool.filter((primitiveId) =>
+      spatialPrimitiveClassificationPropertySatisfiedV2(primitiveId, propertyId),
+    ),
+    oddPool: eligiblePool.filter((primitiveId) =>
+      !spatialPrimitiveClassificationPropertySatisfiedV2(primitiveId, propertyId),
+    ),
+  };
+}
+
+function forEachPropertyQuartet(
+  propertyId: SpatialPrimitiveClassificationPropertyIdV2,
+  visit: (quartet: SpatialFclSafeQuartetV1) => void,
+): { eligiblePoolSize: number; commonPoolSize: number; oddPoolSize: number } {
+  const { eligiblePool, commonPool, oddPool } = eligiblePools(propertyId);
+  for (let first = 0; first < commonPool.length - 2; first += 1) {
+    for (let second = first + 1; second < commonPool.length - 1; second += 1) {
+      for (let third = second + 1; third < commonPool.length; third += 1) {
+        for (const odd of oddPool) {
+          visit([
+            commonPool[first]!,
+            commonPool[second]!,
+            commonPool[third]!,
+            odd,
+          ]);
+        }
+      }
+    }
+  }
+  return {
+    eligiblePoolSize: eligiblePool.length,
+    commonPoolSize: commonPool.length,
+    oddPoolSize: oddPool.length,
+  };
+}
+
+export function diagnoseSpatialFclQuartetCapacityV1(
+  propertyId: SpatialPrimitiveClassificationPropertyIdV2,
+): SpatialFclQuartetCapacityDiagnosticV1 {
+  let rawQuartetCount = 0;
+  let noCompetingMinorityCount = 0;
+  let strictSafeCount = 0;
+  const disallowedShortcutFrequency: Record<string, number> = {};
+  const disallowedShortcutSignatures: Record<string, number> = {};
+  const poolSizes = forEachPropertyQuartet(propertyId, (quartet) => {
+    rawQuartetCount += 1;
+    const audit = auditSpatialFclQuartetV1(quartet, propertyId, 3);
+    if (audit.competingDescriptorIds.length === 0) {
+      noCompetingMinorityCount += 1;
+      if (audit.disallowedShortcutDescriptorIds.length === 0) {
+        strictSafeCount += 1;
+      } else {
+        for (const descriptorId of audit.disallowedShortcutDescriptorIds) {
+          disallowedShortcutFrequency[descriptorId] =
+            (disallowedShortcutFrequency[descriptorId] ?? 0) + 1;
+        }
+        const signature = [...audit.disallowedShortcutDescriptorIds].sort().join("+");
+        disallowedShortcutSignatures[signature] =
+          (disallowedShortcutSignatures[signature] ?? 0) + 1;
+      }
+    }
+  });
+
+  return {
+    propertyId,
+    ...poolSizes,
+    rawQuartetCount,
+    noCompetingMinorityCount,
+    strictSafeCount,
+    disallowedShortcutFrequency,
+    disallowedShortcutSignatures,
+  };
+}
+
 export function buildSpatialFclSafeQuartetCatalogV1(
   propertyId: SpatialPrimitiveClassificationPropertyIdV2,
 ): readonly SpatialFclSafeQuartetV1[] {
   const cached = cache.get(propertyId);
   if (cached) return cached;
 
-  const eligiblePool = SPATIAL_FCL_PRIMITIVE_POOL_V2.filter((primitiveId) =>
-    productionDomainEligible(primitiveId, propertyId),
-  );
-  const commonPool = eligiblePool.filter((primitiveId) =>
-    spatialPrimitiveClassificationPropertySatisfiedV2(primitiveId, propertyId),
-  );
-  const oddPool = eligiblePool.filter((primitiveId) =>
-    !spatialPrimitiveClassificationPropertySatisfiedV2(primitiveId, propertyId),
-  );
   const safe: SpatialFclSafeQuartetV1[] = [];
-
-  for (let first = 0; first < commonPool.length - 2; first += 1) {
-    for (let second = first + 1; second < commonPool.length - 1; second += 1) {
-      for (let third = second + 1; third < commonPool.length; third += 1) {
-        for (const odd of oddPool) {
-          const quartet: SpatialFclSafeQuartetV1 = [
-            commonPool[first]!,
-            commonPool[second]!,
-            commonPool[third]!,
-            odd,
-          ];
-          if (auditSpatialFclQuartetV1(quartet, propertyId, 3).safe) {
-            safe.push(quartet);
-          }
-        }
-      }
+  forEachPropertyQuartet(propertyId, (quartet) => {
+    if (auditSpatialFclQuartetV1(quartet, propertyId, 3).safe) {
+      safe.push(quartet);
     }
-  }
+  });
 
   const frozen = Object.freeze(
     safe.map((quartet) => Object.freeze([...quartet]) as SpatialFclSafeQuartetV1),
