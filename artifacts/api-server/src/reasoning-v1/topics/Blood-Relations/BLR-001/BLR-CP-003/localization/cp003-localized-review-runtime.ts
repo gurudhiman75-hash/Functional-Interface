@@ -5,7 +5,7 @@ import {
   type GeneratedBlrCp003LocalizedQuestion,
 } from "./cp003-localizer";
 import type { BlrCp003TranslatedLocale } from "./cp003-language-pack";
-import { localizedBlrCp003SharedPromptCompleteV4 } from "./cp003-passage-grammar-v4";
+import { localizedBlrCp003SharedPromptCompleteV5 } from "./cp003-passage-grammar-v5";
 
 function canonicalStemWithReferenceFallback(record: BlrCp003FinalApprovedRecord): string {
   const hasNamedPerson = record.proceduralLogic.nodes.some((node) =>
@@ -29,7 +29,7 @@ export function localizeBlrCp003QuestionComplete(
     stem: canonicalStemWithReferenceFallback(record),
   };
   const base = localizeBlrCp003Question(safeRecord, locale);
-  const sharedPrompt = localizedBlrCp003SharedPromptCompleteV4(record, locale);
+  const sharedPrompt = localizedBlrCp003SharedPromptCompleteV5(record, locale);
   const localizedSemanticFingerprint = stableHash([
     record.metadata.semanticFingerprint,
     locale,
