@@ -12,8 +12,8 @@ import {
 } from "./runtime-wave2";
 import {
   generateSapCp005Editorial,
-  generateSapCp005Wave2Editorial,
-} from "./editorial-runtime";
+  generateSapCp005Wave2EditorialV2,
+} from "./editorial-runtime-v2";
 
 export type SapCp005ReviewPrototypeId = SapCp005PrototypeId | SapCp005Wave2PrototypeId;
 export type SapCp005ReviewBasePackage = SapCp005Package | SapCp005Wave2Package;
@@ -77,7 +77,7 @@ function generatePackage(prototypeId: SapCp005ReviewPrototypeId, seed: number): 
   if ((SAP_CP005_PROTOTYPE_IDS as readonly string[]).includes(prototypeId)) {
     return generateSapCp005Editorial(prototypeId as SapCp005PrototypeId, seed);
   }
-  return generateSapCp005Wave2Editorial(prototypeId as SapCp005Wave2PrototypeId, seed);
+  return generateSapCp005Wave2EditorialV2(prototypeId as SapCp005Wave2PrototypeId, seed);
 }
 
 export function generateSapCp005ReviewRecords(): readonly SapCp005ReviewRecord[] {
