@@ -47,27 +47,27 @@ function nearestCompatiblePrincipal(multiplier: Rational, target: bigint): Ratio
 }
 
 function generateDirectMonthlyState(qlId: "INT-QL-067" | "INT-QL-068", seed: string): Cp004MathematicalState {
-  for (let attempt = 0; attempt < 1024; attempt += 1) {
-    const effectiveSeed = `${seed}:${qlId}:direct-monthly-v4:${attempt}`;
-    let raw: Cp004MathematicalState;
-    try {
-      raw = generateCp004State(qlId, effectiveSeed);
-    } catch {
-      continue;
-    }
-    if (raw.frequency !== 12 || raw.periods > 6) continue;
-    if (raw.nominalAnnualRatePercent.numerator > 24n * raw.nominalAnnualRatePercent.denominator) continue;
-    const multiplier = completeAmountFromNominal(rat(1), raw.nominalAnnualRatePercent, 12, raw.periods);
-    const targetPrincipal = FRIENDLY_BASES[hash(`${seed}:${qlId}:direct-monthly-principal-v4`) % FRIENDLY_BASES.length]!;
-    const principal = nearestCompatiblePrincipal(multiplier, targetPrincipal);
-    if (!principal) continue;
-    const state = deepFreeze({ ...raw, principal, frequency: 12 as const });
-    const amount = completeAmountFromNominal(principal, state.nominalAnnualRatePercent, state.frequency, state.periods);
-    const answer = canonicalCp004Answer(state);
-    if (!exactToPaise(amount) || !exactToPaise(answer)) continue;
-    return state;
+  const raw = generateCp004State(qlId, `${seed}:${qlId}:direct-monthly-base-v4`);
+  const nominalAnnualRatePercent = hash(`${seed}:${qlId}:direct-monthly-rate-v4`) % 2 === 0 ? rat(12) : rat(24);
+  const periods = 3;
+  const multiplier = completeAmountFromNominal(rat(1), nominalAnnualRatePercent, 12, periods);
+  const targetPrincipal = FRIENDLY_BASES[hash(`${seed}:${qlId}:direct-monthly-principal-v4`) % FRIENDLY_BASES.length]!;
+  const principal = nearestCompatiblePrincipal(multiplier, targetPrincipal);
+  if (!principal) throw new Error(`${qlId}/${seed}: no realistic principal for the three-month direct monthly state.`);
+  const state = deepFreeze({
+    ...raw,
+    principal,
+    nominalAnnualRatePercent,
+    frequency: 12 as const,
+    periods,
+    years: 1,
+  });
+  const amount = completeAmountFromNominal(principal, nominalAnnualRatePercent, 12, periods);
+  const answer = canonicalCp004Answer(state);
+  if (!exactToPaise(amount) || !exactToPaise(answer)) {
+    throw new Error(`${qlId}/${seed}: direct monthly state is not exact to paise.`);
   }
-  throw new Error(`${qlId}/${seed}: could not construct an exam-ready direct monthly state.`);
+  return state;
 }
 
 function generateMixedExamReadyState(qlId: IntCp004QlId, seed: string): Cp004MathematicalState {
