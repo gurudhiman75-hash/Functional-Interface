@@ -16,28 +16,7 @@ function pairKey(left: number, right: number): string {
   return [left, right].sort((a, b) => a - b).join("-");
 }
 
-const desiredComparisonPairs: Readonly<Record<number, string>> = Object.freeze({
-  1: "1-2",
-  2: "2-4",
-  3: "1-2",
-  4: "2-4",
-});
-const desiredEffectiveFrequencies: Readonly<Record<number, number>> = Object.freeze({ 1: 2, 2: 4, 3: 12, 4: 2 });
-const desiredIdentificationFrequencies: Readonly<Record<number, number>> = Object.freeze({ 1: 1, 2: 2, 3: 4, 4: 1 });
-const desiredTailMonths: Readonly<Record<number, number>> = Object.freeze({ 1: 3, 2: 6, 3: 9, 4: 6 });
 const DIRECT_COMPLETE_QLS = new Set(["INT-QL-067", "INT-QL-068", "INT-QL-073", "INT-QL-074"]);
-
-function matchesReviewCoverage(question: IntCp004Question, frame: number): boolean {
-  if (question.qlId === "INT-QL-075") {
-    return pairKey(question.mathematicalState.frequency, question.mathematicalState.comparisonFrequency) === desiredComparisonPairs[frame];
-  }
-  if (question.qlId === "INT-QL-076") return question.mathematicalState.frequency === desiredEffectiveFrequencies[frame];
-  if (question.qlId === "INT-QL-078") return question.mathematicalState.frequency === desiredIdentificationFrequencies[frame];
-  if (["INT-QL-079", "INT-QL-080", "INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(question.qlId)) {
-    return question.mathematicalState.tailMonths === desiredTailMonths[frame];
-  }
-  return true;
-}
 
 function findQuestionForFrame(
   qlId: typeof INT_CP004_QL_IDS[number],
@@ -54,7 +33,6 @@ function findQuestionForFrame(
       continue;
     }
     if (!question.stemFamilyId.endsWith(`FRAME-${frame}`)) continue;
-    if (!matchesReviewCoverage(question, frame)) continue;
     if (requireWholeMoney && question.answerSemantic === "MONEY" && question.solution.denominator !== 1n) continue;
     const key = stateKey(question);
     if (seenStates.has(key)) continue;
@@ -89,6 +67,7 @@ const ql075Pairs = new Set<string>();
 const ql076Frequencies = new Set<number>();
 const ql078Frequencies = new Set<number>();
 const brokenTailMonths = new Set<number>();
+const mixedPairs = new Set<string>();
 let moneyQuestions = 0;
 let decimalMoneyQuestions = 0;
 let monthlyDirectCoverage = false;
@@ -105,20 +84,28 @@ for (const question of questions) {
   if (question.qlId === "INT-QL-076") ql076Frequencies.add(question.mathematicalState.frequency);
   if (question.qlId === "INT-QL-078") ql078Frequencies.add(question.mathematicalState.frequency);
   if (["INT-QL-079", "INT-QL-080", "INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(question.qlId)) brokenTailMonths.add(question.mathematicalState.tailMonths);
+  if (question.qlId === "INT-QL-084" || question.qlId === "INT-QL-085") {
+    mixedPairs.add(pairKey(question.mathematicalState.firstFrequency, question.mathematicalState.secondFrequency));
+  }
 }
 if ([...qlCounts.values()].some((count) => count !== 4)) throw new Error("Each QL must contribute four review questions.");
 if (answerPositions.some((count) => count < 16 || count > 22)) throw new Error(`Review answer positions are not acceptably balanced: ${answerPositions.join("/")}.`);
 if (moneyQuestions !== 48) throw new Error(`Expected 48 money-answer review questions, received ${moneyQuestions}.`);
 if (decimalMoneyQuestions > 12) throw new Error(`Too many decimal-money review questions: ${decimalMoneyQuestions}/48.`);
 if (!monthlyDirectCoverage) throw new Error("Review pack omits a direct monthly-compounding question.");
-if (!ql075Pairs.has("1-2")) throw new Error("Review pack omits the standard annual-versus-half-yearly comparison.");
-if (!ql075Pairs.has("2-4")) throw new Error("Review pack omits a half-yearly-versus-quarterly comparison.");
+if (!ql075Pairs.has("1-2")) throw new Error(`Review pack omits the standard annual-versus-half-yearly comparison: ${[...ql075Pairs].join(",")}.`);
+if (!ql075Pairs.has("2-4")) throw new Error(`Review pack omits a half-yearly-versus-quarterly comparison: ${[...ql075Pairs].join(",")}.`);
 if ([...ql075Pairs].some((pair) => pair.includes("12"))) throw new Error("Review pack contains a calculator-heavy monthly frequency-comparison question.");
-if (!ql076Frequencies.has(12)) throw new Error("Review pack omits monthly effective-rate coverage.");
-if (ql078Frequencies.size !== 3 || !ql078Frequencies.has(1) || !ql078Frequencies.has(2) || !ql078Frequencies.has(4) || ql078Frequencies.has(12)) {
-  throw new Error(`Frequency-identification review coverage must be annual/half-yearly/quarterly only: ${[...ql078Frequencies].join(",")}.`);
+if (!ql076Frequencies.has(12)) throw new Error(`Review pack omits monthly effective-rate coverage: ${[...ql076Frequencies].join(",")}.`);
+if (!ql078Frequencies.has(1) || !ql078Frequencies.has(2) || !ql078Frequencies.has(4) || ql078Frequencies.has(12)) {
+  throw new Error(`Frequency-identification review coverage must include annual/half-yearly/quarterly only: ${[...ql078Frequencies].join(",")}.`);
 }
-if (brokenTailMonths.size !== 3) throw new Error(`Broken-period review does not cover 3, 6 and 9 month tails.`);
+if (!brokenTailMonths.has(3) || !brokenTailMonths.has(6) || !brokenTailMonths.has(9)) {
+  throw new Error(`Broken-period review does not cover 3, 6 and 9 month tails: ${[...brokenTailMonths].join(",")}.`);
+}
+if (!mixedPairs.has("1-2") || !mixedPairs.has("1-4") || [...mixedPairs].some((pair) => pair.includes("12"))) {
+  throw new Error(`Mixed-frequency review must cover annual↔half-yearly and annual↔quarterly only: ${[...mixedPairs].join(",")}.`);
+}
 
 const lines: string[] = [
   "# INT-CP-004 — Questions and Explanations",
@@ -158,6 +145,7 @@ const summary = {
   monthlyEffectiveRateCoverage: ql076Frequencies.has(12),
   frequencyIdentificationCoverage: [...ql078Frequencies].sort((a, b) => a - b),
   brokenTailMonthCoverage: [...brokenTailMonths].sort((a, b) => a - b),
+  mixedFrequencyPairs: [...mixedPairs].sort(),
   lifecycle: {
     approvalStatus: "NOT_APPROVED",
     enabled: false,
