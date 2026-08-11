@@ -28,6 +28,7 @@ import { applyTmw001EditorialRemediationR2Cp001To006 } from "./editorial-remedia
 import { applyTmw001LearnerExplanationR2Cp001To006 } from "./learner-explanation-r2-cp001-cp006";
 import { applyTmw001EditorialRemediationR3Cp007To011 } from "./editorial-remediation-r3-cp007-cp011";
 import { applyTmw001LearnerExplanationR3Cp007To011 } from "./learner-explanation-r3-cp007-cp011";
+import { applyTmw001LearnerExplanationR4ExamReadiness } from "./learner-explanation-r4-exam-readiness";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -64,8 +65,13 @@ function finishEnglish(question: any, questionLanguageId: string): any {
     questionLanguageId,
     "en",
   );
-  return applyTmw001LearnerExplanationR3Cp007To011(
+  const r3Learner = applyTmw001LearnerExplanationR3Cp007To011(
     r2Learner,
+    questionLanguageId,
+    "en",
+  );
+  return applyTmw001LearnerExplanationR4ExamReadiness(
+    r3Learner,
     questionLanguageId,
     "en",
   );
@@ -137,8 +143,13 @@ function finishLocalized(
     questionLanguageId,
     language,
   );
-  return applyTmw001LearnerExplanationR3Cp007To011(
+  const r3Learner = applyTmw001LearnerExplanationR3Cp007To011(
     r2Learner,
+    questionLanguageId,
+    language,
+  );
+  return applyTmw001LearnerExplanationR4ExamReadiness(
+    r3Learner,
     questionLanguageId,
     language,
   );
