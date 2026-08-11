@@ -14,6 +14,7 @@ import { runTmwCp010Pipeline } from "./cp010-runtime";
 import { runTmwCp010LocalizedPipeline } from "./cp010-localized-runtime";
 import { runTmwCp011Pipeline } from "./cp011-runtime";
 import { runTmwCp011LocalizedPipeline } from "./cp011-localized-runtime";
+import { runTmwCp012Pipeline } from "./cp012-runtime";
 import { applyTmw001MultilingualStemRemediation } from "./chapter-editorial-remediation";
 import { applyTmw001MultilingualStemRemediationWave02 } from "./chapter-editorial-remediation-wave02";
 import { sanitizeTmw001LocalizedPresentation } from "./chapter-presentation-sanitizer";
@@ -43,8 +44,8 @@ function qlOrdinal(questionLanguageId: string): number {
   const match = /^TMW-QL-(\d{3})$/.exec(questionLanguageId);
   if (!match) throw new Error(`Unknown TMW-001 question-language ID: ${questionLanguageId}`);
   const ordinal = Number(match[1]);
-  if (!Number.isInteger(ordinal) || ordinal < 1 || ordinal > 211) {
-    throw new Error(`TMW-001 question-language ID is outside the frozen range: ${questionLanguageId}`);
+  if (!Number.isInteger(ordinal) || ordinal < 1 || ordinal > 214) {
+    throw new Error(`TMW-001 question-language ID is outside the active chapter range: ${questionLanguageId}`);
   }
   return ordinal;
 }
@@ -249,11 +250,18 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
         input.language,
       );
   }
-  return input.language === "en"
-    ? finishEnglish(runTmwCp011Pipeline(input.questionLanguageId, input.seed), input.questionLanguageId)
-    : finishLocalized(
-      runTmwCp011LocalizedPipeline({ ...base, language: input.language }),
-      input.questionLanguageId,
-      input.language,
-    );
+  if (ordinal <= 211) {
+    return input.language === "en"
+      ? finishEnglish(runTmwCp011Pipeline(input.questionLanguageId, input.seed), input.questionLanguageId)
+      : finishLocalized(
+        runTmwCp011LocalizedPipeline({ ...base, language: input.language }),
+        input.questionLanguageId,
+        input.language,
+      );
+  }
+  return runTmwCp012Pipeline({
+    questionLanguageId: input.questionLanguageId,
+    seed: input.seed,
+    language: input.language,
+  });
 }
