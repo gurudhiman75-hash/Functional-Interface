@@ -3,6 +3,7 @@ import {
   auditSpatialPrimitiveClassificationDescriptorV2,
   spatialPrimitiveClassificationPropertySatisfiedV2,
   type SpatialPrimitiveClassificationDescriptorAuditV2,
+  type SpatialPrimitiveClassificationDescriptorIdV2,
   type SpatialPrimitiveClassificationPropertyIdV2,
 } from "./primitive-classification-v2";
 import { SPATIAL_FCL_PRIMITIVE_POOL_V2 } from "./primitive-chapter-pools-v2";
@@ -20,7 +21,63 @@ export interface SpatialFclQuartetAuditV1 {
   propertyVector: readonly boolean[];
   descriptorAudits: readonly SpatialPrimitiveClassificationDescriptorAuditV2[];
   competingDescriptorIds: readonly string[];
+  reinforcingDescriptorIds: readonly string[];
+  disallowedShortcutDescriptorIds: readonly string[];
+  productionDomainEligible: boolean;
   safe: boolean;
+}
+
+const ALLOWED_REINFORCING_DESCRIPTORS: Record<
+  SpatialPrimitiveClassificationPropertyIdV2,
+  readonly SpatialPrimitiveClassificationDescriptorIdV2[]
+> = {
+  EVEN_SIDED_POLYGON: ["SIDE_PARITY", "SIDE_COUNT_EXACT"],
+  VERTICAL_SYMMETRY: ["VERTICAL_SYMMETRY"],
+  HORIZONTAL_SYMMETRY: ["HORIZONTAL_SYMMETRY"],
+  HALF_TURN_SYMMETRY: ["HALF_TURN_SYMMETRY"],
+  QUARTER_TURN_SYMMETRY: ["ROTATION_PERIOD"],
+  HAS_BRANCH_JUNCTION: ["JUNCTION_COUNT"],
+  HAS_TRUE_CROSSING: ["TRUE_CROSSING_COUNT"],
+  PARTITIONED_FIGURE: ["CATEGORY", "TOPOLOGY", "ENCLOSED_REGION_COUNT"],
+  HALF_TURN_ONLY: ["ROTATION_PERIOD"],
+  TWO_FREE_TERMINALS: ["FREE_TERMINAL_COUNT"],
+  CLOSED_SHAPE: ["CATEGORY", "TOPOLOGY", "ENCLOSED_REGION_COUNT"],
+  POLYGON: ["POLYGON_PRESENCE"],
+};
+
+function productionDomainEligible(
+  primitiveId: SpatialPrimitiveIdV2,
+  propertyId: SpatialPrimitiveClassificationPropertyIdV2,
+): boolean {
+  const entry = getSpatialPrimitiveV2(primitiveId);
+
+  // Internal symbols are useful inside figures, but a lone dot/star/tick is not
+  // used as a full production classification option in this chapter.
+  if (entry.category === "INTERNAL_SYMBOL") return false;
+
+  switch (propertyId) {
+    case "EVEN_SIDED_POLYGON":
+      // Keep all four options in the same simple-polygon visual domain so the
+      // learner must inspect side parity instead of spotting "polygon vs line".
+      return entry.category === "CLOSED_SHAPE" && entry.polygonSideCount !== null;
+    case "POLYGON":
+      // A divided square still looks like a polygon to a learner. Restrict this
+      // family to simple closed figures so only the outer-boundary question is asked.
+      return entry.category === "CLOSED_SHAPE";
+    case "TWO_FREE_TERMINALS":
+      // Prevent the trivial three-open-vs-one-closed shortcut.
+      return entry.topology === "OPEN";
+    case "PARTITIONED_FIGURE":
+      // Compare divided figures against an undivided closed figure, not an
+      // unrelated open stroke such as Z/V/chevron.
+      return entry.category === "PARTITIONED_FIGURE" || entry.category === "CLOSED_SHAPE";
+    case "CLOSED_SHAPE":
+      // Partitioned containers remain visibly closed to humans even when their
+      // machine topology is COMPOSITE, so exclude that semantic near-miss.
+      return entry.category !== "PARTITIONED_FIGURE";
+    default:
+      return true;
+  }
 }
 
 const cache = new Map<SpatialPrimitiveClassificationPropertyIdV2, readonly SpatialFclSafeQuartetV1[]>();
@@ -42,11 +99,29 @@ export function auditSpatialFclQuartetV1(
   const competingDescriptorIds = descriptorAudits
     .filter((audit) => audit.threeToOne && !audit.supportsCorrectOdd)
     .map((audit) => audit.descriptorId);
+  const reinforcingDescriptorIds = descriptorAudits
+    .filter((audit) => audit.threeToOne && audit.supportsCorrectOdd)
+    .map((audit) => audit.descriptorId);
+  const allowedReinforcing = new Set(ALLOWED_REINFORCING_DESCRIPTORS[propertyId]);
+  const disallowedShortcutDescriptorIds = reinforcingDescriptorIds.filter(
+    (descriptorId) => !allowedReinforcing.has(descriptorId),
+  );
+  const domainEligible = primitiveIds.every((primitiveId) =>
+    productionDomainEligible(primitiveId, propertyId),
+  );
+
   return {
     propertyVector,
     descriptorAudits,
     competingDescriptorIds,
-    safe: propertyIsValid && competingDescriptorIds.length === 0,
+    reinforcingDescriptorIds,
+    disallowedShortcutDescriptorIds,
+    productionDomainEligible: domainEligible,
+    safe:
+      propertyIsValid &&
+      domainEligible &&
+      competingDescriptorIds.length === 0 &&
+      disallowedShortcutDescriptorIds.length === 0,
   };
 }
 
@@ -56,10 +131,13 @@ export function buildSpatialFclSafeQuartetCatalogV1(
   const cached = cache.get(propertyId);
   if (cached) return cached;
 
-  const commonPool = SPATIAL_FCL_PRIMITIVE_POOL_V2.filter((primitiveId) =>
+  const eligiblePool = SPATIAL_FCL_PRIMITIVE_POOL_V2.filter((primitiveId) =>
+    productionDomainEligible(primitiveId, propertyId),
+  );
+  const commonPool = eligiblePool.filter((primitiveId) =>
     spatialPrimitiveClassificationPropertySatisfiedV2(primitiveId, propertyId),
   );
-  const oddPool = SPATIAL_FCL_PRIMITIVE_POOL_V2.filter((primitiveId) =>
+  const oddPool = eligiblePool.filter((primitiveId) =>
     !spatialPrimitiveClassificationPropertySatisfiedV2(primitiveId, propertyId),
   );
   const safe: SpatialFclSafeQuartetV1[] = [];
@@ -82,7 +160,9 @@ export function buildSpatialFclSafeQuartetCatalogV1(
     }
   }
 
-  const frozen = Object.freeze(safe.map((quartet) => Object.freeze([...quartet]) as SpatialFclSafeQuartetV1));
+  const frozen = Object.freeze(
+    safe.map((quartet) => Object.freeze([...quartet]) as SpatialFclSafeQuartetV1),
+  );
   cache.set(propertyId, frozen);
   return frozen;
 }
