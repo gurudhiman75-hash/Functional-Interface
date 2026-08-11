@@ -1,9 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { equalsRational, formatRational, rational } from "./foundation/rational";
-import {
-  sourceWitnessMalCp005Wave03,
-} from "./foundation/cp005-wave03-price-change-candidate";
+import { sourceWitnessMalCp005Wave03 } from "./foundation/cp005-wave03-price-change-candidate";
 import {
   MAL_CP005_WAVE03_PRODUCT_READY_V2_RUNTIME_ID,
   generateMalCp005Wave03ProductReadyV2,
@@ -33,7 +31,7 @@ const generatedCount = 2000;
 let deterministic = 0;
 let canonicalEquivalence = 0;
 let scalingDistinctness = 0;
-let explicitPriceBase = 0;
+let costPriceTerminology = 0;
 let fastMethodChecks = 0;
 let reselections = 0;
 const answerPositions = [0, 0, 0, 0];
@@ -44,46 +42,52 @@ const answers = new Set<string>();
 const contexts = new Set<string>();
 
 for (let index = 0; index < generatedCount; index += 1) {
-  const seed = `cp005-wave03-product-ready-v2:${index}`;
+  const seed = `cp005-wave03-product-approved-v2:${index}`;
   const first = generateMalCp005Wave03ProductReadyV2(seed);
   const second = generateMalCp005Wave03ProductReadyV2(seed);
+
   assert(
     malCp005Wave03ProductReadyV2Stable(first) ===
       malCp005Wave03ProductReadyV2Stable(second),
-    `${seed}: product-ready generation is not deterministic.`,
+    `${seed}: product-approved generation is not deterministic.`,
   );
   deterministic += 1;
 
   assert(
     first.runtimeId === MAL_CP005_WAVE03_PRODUCT_READY_V2_RUNTIME_ID,
-    `${seed}: wrong product-ready runtime ID.`,
+    `${seed}: wrong product-review runtime ID.`,
   );
-  assert(first.permanentQlId === null, `${seed}: permanent QL leaked into review.`);
-  assert(
-    first.permanentSolveModeId === null,
-    `${seed}: permanent solve mode leaked into review.`,
-  );
-  assert(first.reviewStatus === "PENDING_PRODUCT_REVIEW", `${seed}: approval was invented.`);
+  assert(first.reviewStatus === "PRODUCT_REVIEW_APPROVED", `${seed}: product approval missing.`);
+  assert(first.approvalScope === "PRODUCT_REVIEW_ONLY", `${seed}: approval scope changed.`);
+  assert(first.permanentQlId === null, `${seed}: permanent QL leaked into approval.`);
+  assert(first.permanentSolveModeId === null, `${seed}: permanent solve mode leaked into approval.`);
   assert(first.runtimeMode === "REVIEW_ONLY", `${seed}: runtime mode changed.`);
   assert(
     !first.active &&
       !first.publiclyPublishable &&
       !first.questionBankWritable &&
       !first.testEligible,
-    `${seed}: delivery flag became enabled.`,
+    `${seed}: product approval incorrectly enabled delivery.`,
   );
-  assert(first.questionStudioDiscoverable, `${seed}: review preview is not discoverable.`);
+  assert(first.questionStudioDiscoverable, `${seed}: approved review preview is not discoverable.`);
   assert(first.answerSemantic === "PROFIT_AMOUNT", `${seed}: answer semantic changed.`);
 
+  const learnerText = `${first.stem}\n${JSON.stringify(first.explanation)}`;
+  assert(
+    /above the cost price per unit/iu.test(first.stem),
+    `${seed}: selling-price increase is not explicitly based on cost price.`,
+  );
+  assert(
+    !/\b(?:buying|purchase) rate\b/iu.test(learnerText),
+    `${seed}: buying/purchase rate terminology survived the approved cost-price wording pass.`,
+  );
   assert(
     !/raises the selling price per unit by|increases the selling rate by/iu.test(first.stem),
     `${seed}: ambiguous selling-price base remains in the stem.`,
   );
-  assert(
-    /above (?:his buying|the purchase) rate/iu.test(first.stem),
-    `${seed}: selling-price increase is not tied to the purchase/buying rate.`,
-  );
-  explicitPriceBase += 1;
+  assert(!/ for ₹/u.test(first.stem), `${seed}: unnatural cost-price wording remains.`);
+  assert(first.editorialReview.costPriceTerminology, `${seed}: cost-price editorial proof missing.`);
+  costPriceTerminology += 1;
 
   assert(
     first.siblingStateKey.startsWith("FREE-COMMERCIAL|"),
@@ -98,10 +102,7 @@ for (let index = 0; index < generatedCount; index += 1) {
   );
   fastMethodChecks += 1;
 
-  assert(
-    first.equivalence.percentMatchesExistingSolver,
-    `${seed}: canonical percentage equivalence failed.`,
-  );
+  assert(first.equivalence.percentMatchesExistingSolver, `${seed}: canonical equivalence failed.`);
   canonicalEquivalence += 1;
   assert(
     first.equivalence.distinctAnswerSemantic &&
@@ -116,19 +117,17 @@ for (let index = 0; index < generatedCount; index += 1) {
   assert(first.options[first.correctIndex] === first.answer, `${seed}: answer/index mismatch.`);
   assert(
     first.optionAudit.filter((item) => item.isCorrect).length === 1,
-    `${seed}: option audit must have exactly one correct option.`,
+    `${seed}: option audit must have exactly one correct answer.`,
   );
   assert(
     first.optionAudit.filter((item) => !item.isCorrect).every((item) => item.misconceptionId !== "correct"),
-    `${seed}: distractor without misconception authority.`,
+    `${seed}: distractor lacks misconception authority.`,
   );
   assert(first.explanation.visibleLines.length === 3, `${seed}: visible solution is crowded.`);
-  assert(!/\b1 litres\b/iu.test(first.stem + JSON.stringify(first.explanation)), `${seed}: litre grammar regressed.`);
-  assert(!/₹\d+ \d+\/\d+ per/gu.test(first.stem + JSON.stringify(first.explanation)), `${seed}: mixed-fraction currency rate regressed.`);
+  assert(!/\b1 litres\b/iu.test(learnerText), `${seed}: litre grammar regressed.`);
+  assert(!/₹\d+ \d+\/\d+ per/gu.test(learnerText), `${seed}: mixed-fraction currency rate regressed.`);
   assert(
-    !/false weight|false measure|short delivery|800 ml/iu.test(
-      JSON.stringify({ stem: first.stem, explanation: first.explanation }),
-    ),
+    !/false weight|false measure|short delivery|800 ml/iu.test(learnerText),
     `${seed}: PNL false-quantity language leaked into MAL-CP-005.`,
   );
 
@@ -147,13 +146,10 @@ for (let index = 0; index < generatedCount; index += 1) {
 assert(deterministic === generatedCount, "Determinism count changed.");
 assert(canonicalEquivalence === generatedCount, "Canonical-equivalence count changed.");
 assert(scalingDistinctness === generatedCount, "Scaling-distinctness count changed.");
-assert(explicitPriceBase === generatedCount, "Explicit price-base coverage changed.");
+assert(costPriceTerminology === generatedCount, "Cost-price terminology coverage changed.");
 assert(fastMethodChecks === generatedCount, "Fast-method coverage changed.");
 assert(stateKeys.size >= 1200, `Exact-state diversity is too low: ${stateKeys.size}.`);
-assert(
-  siblingStateKeys.size >= 1000,
-  `Canonical sibling-state diversity is too low: ${siblingStateKeys.size}.`,
-);
+assert(siblingStateKeys.size >= 1000, `Canonical sibling diversity is too low: ${siblingStateKeys.size}.`);
 assert(stems.size >= 1000, `Stem diversity is too low: ${stems.size}.`);
 assert(answers.size >= 150, `Answer diversity is too low: ${answers.size}.`);
 assert(contexts.size >= 5, `Context diversity is too low: ${contexts.size}.`);
@@ -169,7 +165,7 @@ const reviewAnswerPositions = [0, 0, 0, 0];
 for (let index = 0; review.length < 40 && index < 50000; index += 1) {
   const desiredPosition = review.length % 4;
   const candidate = generateMalCp005Wave03ProductReadyV2(
-    `cp005-wave03-product-review-v2:${index}`,
+    `cp005-wave03-product-approved-review-v2:${index}`,
   );
   if (candidate.correctIndex !== desiredPosition) continue;
   if (reviewStates.has(candidate.stateKey)) continue;
@@ -179,20 +175,29 @@ for (let index = 0; review.length < 40 && index < 50000; index += 1) {
   reviewSiblingStates.add(candidate.siblingStateKey);
   reviewAnswerPositions[candidate.correctIndex] += 1;
 }
-assert(review.length === 40, `Expected 40 product-review questions, received ${review.length}.`);
-assert(reviewStates.size === 40, "Product-review set repeats an exact state.");
-assert(reviewSiblingStates.size === 40, "Product-review set repeats a canonical sibling state.");
+
+assert(review.length === 40, `Expected 40 product-approved review questions, received ${review.length}.`);
+assert(reviewStates.size === 40, "Product-approved review repeats an exact state.");
+assert(reviewSiblingStates.size === 40, "Product-approved review repeats a canonical sibling state.");
 assert(
   reviewAnswerPositions.every((count) => count === 10),
-  `Product-review answer positions are not 10/10/10/10: ${reviewAnswerPositions.join("/")}.`,
+  `Product-approved review positions are not 10/10/10/10: ${reviewAnswerPositions.join("/")}.`,
 );
+for (const [index, question] of review.entries()) {
+  const learnerText = `${question.stem}\n${JSON.stringify(question.explanation)}`;
+  assert(
+    !/\b(?:buying|purchase) rate\b/iu.test(learnerText),
+    `Review ${index + 1}: forbidden buying/purchase rate wording survived.`,
+  );
+  assert(
+    /above the cost price per unit/iu.test(question.stem),
+    `Review ${index + 1}: cost-price base is missing.`,
+  );
+}
 
 const outputDirectory = resolve(process.cwd(), "dist/quant-v4");
 mkdirSync(outputDirectory, { recursive: true });
-const jsonPath = resolve(
-  outputDirectory,
-  "mal-cp005-wave03-product-ready-v2-review.json",
-);
+const jsonPath = resolve(outputDirectory, "mal-cp005-wave03-product-ready-v2-review.json");
 const markdownPath = resolve(
   outputDirectory,
   "MAL-CP-005-WAVE-03-PRODUCT-READY-V2-40Q-REVIEW.md",
@@ -202,16 +207,18 @@ writeFileSync(
   jsonPath,
   `${JSON.stringify(
     {
-      status: "PASS_MAL_CP005_WAVE03_PRODUCT_READY_V2",
+      status: "PASS_MAL_CP005_WAVE03_PRODUCT_APPROVED_V2",
       runtimeId: MAL_CP005_WAVE03_PRODUCT_READY_V2_RUNTIME_ID,
-      reviewStatus: "PENDING_PRODUCT_REVIEW",
+      reviewStatus: "PRODUCT_REVIEW_APPROVED",
+      approvalScope: "PRODUCT_REVIEW_ONLY",
+      terminologyPolicy: "COST_PRICE",
       permanentQlCount: 0,
       permanentSolveModeCount: 0,
       generatedCount,
       deterministic,
       canonicalEquivalence,
       scalingDistinctness,
-      explicitPriceBase,
+      costPriceTerminology,
       fastMethodChecks,
       reselections,
       distinctStateKeys: stateKeys.size,
@@ -236,18 +243,19 @@ writeFileSync(
 );
 
 const markdown: string[] = [
-  "# MAL-CP-005 Wave 03 — Product-Ready V2 40Q Review",
+  "# MAL-CP-005 Wave 03 — Product-Approved V2 40Q Review",
   "",
-  "> Review-only candidate. No permanent QL, permanent solve mode or delivery activation is authorized.",
+  "> Product-review approved only. No permanent QL, permanent solve mode or delivery activation is authorized.",
   "",
   `Runtime: \`${MAL_CP005_WAVE03_PRODUCT_READY_V2_RUNTIME_ID}\``,
   "",
-  "## Product-readiness remediation",
+  "## Approved terminology and product controls",
   "",
-  "- All selling-price increases now explicitly state the purchase/buying-rate base.",
-  "- The review selector rejects both exact-state and canonical sibling-state repetition.",
+  "- Learner-facing price-base wording uses **cost price**, not buying rate or purchase rate.",
+  "- Every selling-price increase is explicitly stated relative to cost price per unit.",
+  "- The review selector rejects exact-state and canonical sibling-state repetition.",
   "- Optional verification includes the exam shortcut: combined profit % = adulteration % + price increase % + interaction term.",
-  "- The visible solution remains the three-step quantity/rate/cost-revenue method for student clarity.",
+  "- The visible solution remains the three-step quantity/rate/cost-revenue method.",
   "",
   `Proof questions: **${generatedCount}**`,
   `Distinct exact states: **${stateKeys.size}**`,
@@ -256,7 +264,7 @@ const markdown: string[] = [
   `Distinct answers: **${answers.size}**`,
   `Answer positions: **${answerPositions.join("/")}**`,
   "",
-  "## 40-question product review",
+  "## 40-question approved product review",
   "",
 ];
 
@@ -292,12 +300,15 @@ writeFileSync(markdownPath, `${markdown.join("\n")}\n`, "utf8");
 console.log(
   JSON.stringify(
     {
-      status: "PASS_MAL_CP005_WAVE03_PRODUCT_READY_V2",
+      status: "PASS_MAL_CP005_WAVE03_PRODUCT_APPROVED_V2",
+      reviewStatus: "PRODUCT_REVIEW_APPROVED",
+      approvalScope: "PRODUCT_REVIEW_ONLY",
+      terminologyPolicy: "COST_PRICE",
       generatedCount,
       deterministic,
       canonicalEquivalence,
       scalingDistinctness,
-      explicitPriceBase,
+      costPriceTerminology,
       fastMethodChecks,
       reselections,
       distinctStateKeys: stateKeys.size,
