@@ -24,12 +24,19 @@ import {
 } from "./foundation/cp004-permanent-runtime";
 import type { MalCp004ProductReviewQuestion } from "./foundation/cp004-product-review-remediation-v3";
 import { runMalCp004EnglishProductReviewV7Pipeline } from "./foundation/cp004-product-review-runtime-v7";
+import type { MalCp005PermanentQlId } from "./foundation/cp005-permanent-allocation-v1";
+import {
+  MAL_CP005_RELEASE_ALLOCATION,
+  runMalCp005EnglishReleasePipeline,
+  type MalCp005ReleasedQuestion,
+} from "./foundation/cp005-permanent-runtime-v1";
 
 export const MAL_001_QUESTION_STUDIO_CP_IDS = [
   "MAL-CP-001",
   "MAL-CP-002",
   "MAL-CP-003",
   "MAL-CP-004",
+  "MAL-CP-005",
 ] as const;
 
 export type Mal001QuestionStudioCpId =
@@ -39,13 +46,15 @@ export type Mal001QuestionStudioQlId =
   | MalCp001PermanentQlId
   | MalCp002PermanentQlId
   | MalCp003PermanentQlId
-  | MalCp004PermanentQlId;
+  | MalCp004PermanentQlId
+  | MalCp005PermanentQlId;
 
 export type Mal001QuestionStudioQuestion =
   | MalCp001ReleasedQuestion
   | MalCp002ReleasedQuestion
   | MalCp003ReleasedQuestion
-  | MalCp004ProductReviewQuestion;
+  | MalCp004ProductReviewQuestion
+  | MalCp005ReleasedQuestion;
 
 type Difficulty = "Easy" | "Medium" | "Hard";
 
@@ -158,12 +167,25 @@ export function runMal001QuestionStudioPipeline(
     });
   }
 
+  if (cpId === "MAL-CP-004") {
+    const questionLanguageId = chooseQl(
+      cpId,
+      MAL_CP004_PERMANENT_ALLOCATION,
+      input,
+    ) as MalCp004PermanentQlId;
+    return runMalCp004EnglishProductReviewV7Pipeline({
+      questionLanguageId,
+      seed: input.seed,
+      language: "en",
+    });
+  }
+
   const questionLanguageId = chooseQl(
     cpId,
-    MAL_CP004_PERMANENT_ALLOCATION,
+    MAL_CP005_RELEASE_ALLOCATION,
     input,
-  ) as MalCp004PermanentQlId;
-  return runMalCp004EnglishProductReviewV7Pipeline({
+  ) as MalCp005PermanentQlId;
+  return runMalCp005EnglishReleasePipeline({
     questionLanguageId,
     seed: input.seed,
     language: "en",
