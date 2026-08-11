@@ -1,4 +1,4 @@
-import type { CanonicalConclusion, SylLocale } from "../foundation/types";
+import type { CanonicalConclusion, SylLocale, TermId } from "../foundation/types";
 import { analyzeScenario } from "./analysis";
 import {
   generateBankingPossibilityEditorialQuestionV6,
@@ -9,11 +9,74 @@ import { assignTerms } from "./term-assignment";
 
 export type BankingPossibilityEditorialQuestionV7 = BankingPossibilityEditorialQuestionV6;
 
+interface DiagramWitness {
+  inside: ReadonlySet<TermId>;
+  outside: ReadonlySet<TermId>;
+}
+
 function premiseLead(locale: SylLocale, count: number): string {
   const numbers = Array.from({ length: count }, (_, index) => String(index + 1));
   if (locale === "hi-IN") return count === 1 ? "कथन 1 को पढ़ें" : `कथन ${numbers.join(" और ")} को साथ पढ़ें`;
   if (locale === "pa-IN") return count === 1 ? "ਕਥਨ 1 ਨੂੰ ਪੜ੍ਹੋ" : `ਕਥਨ ${numbers.join(" ਅਤੇ ")} ਨੂੰ ਇਕੱਠੇ ਪੜ੍ਹੋ`;
   return count === 1 ? "Read Statement 1" : `Read Statements ${numbers.join(" and ")} together`;
+}
+
+function diagramWitnesses(svg: string): readonly DiagramWitness[] {
+  return [...svg.matchAll(/<g data-witness="decisive"[^>]*data-inside="([^"]*)"[^>]*data-outside="([^"]*)"/gu)]
+    .map((match) => ({
+      inside: new Set(match[1].split(",").filter(Boolean)),
+      outside: new Set(match[2].split(",").filter(Boolean)),
+    }));
+}
+
+function witnessSatisfies(entry: DiagramWitness, conclusion: CanonicalConclusion): boolean {
+  if (conclusion.form === "SOME") {
+    return entry.inside.has(conclusion.subject) && entry.inside.has(conclusion.predicate);
+  }
+  if (conclusion.form === "SOME_NOT") {
+    return entry.inside.has(conclusion.subject) && entry.outside.has(conclusion.predicate);
+  }
+  return false;
+}
+
+function hasVisibleWitness(svg: string, conclusion: CanonicalConclusion): boolean {
+  return diagramWitnesses(svg).some((entry) => witnessSatisfies(entry, conclusion));
+}
+
+function safeEntailedExistentialWithoutVisibleWitness(
+  locale: SylLocale,
+  conclusionLabel: "I" | "II",
+  conclusion: CanonicalConclusion,
+  subject: string,
+  predicate: string,
+  statementCount: number,
+): string {
+  const lead = premiseLead(locale, statementCount);
+  if (locale === "hi-IN") {
+    const forced = conclusion.form === "SOME"
+      ? `कथनों से कम-से-कम एक सदस्य “${subject}” और “${predicate}” दोनों वर्गों में होना निश्चित है`
+      : `कथनों से “${subject}” वर्ग का कम-से-कम एक सदस्य “${predicate}” वर्ग के बाहर होना निश्चित है`;
+    const relation = conclusion.form === "SOME"
+      ? `कुछ ${subject} ${predicate} हैं`
+      : `कुछ ${subject} ${predicate} नहीं हैं`;
+    return `${conclusionLabel}: ${lead}। ${forced}। संक्षिप्त विद्यार्थी आरेख केवल कथन के शब्दों से मिलने वाले अस्तित्व को दोहराने के लिए अतिरिक्त × नहीं जोड़ता; इसलिए × न दिखने से यह निष्कर्ष गलत नहीं होता। अतः “${relation}” निश्चित रूप से अनुसरण करता है।`;
+  }
+  if (locale === "pa-IN") {
+    const forced = conclusion.form === "SOME"
+      ? `ਕਥਨਾਂ ਤੋਂ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ “${subject}” ਅਤੇ “${predicate}” ਦੋਵਾਂ ਵਰਗਾਂ ਵਿੱਚ ਹੋਣਾ ਨਿਸ਼ਚਿਤ ਹੈ`
+      : `ਕਥਨਾਂ ਤੋਂ “${subject}” ਵਰਗ ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ “${predicate}” ਵਰਗ ਤੋਂ ਬਾਹਰ ਹੋਣਾ ਨਿਸ਼ਚਿਤ ਹੈ`;
+    const relation = conclusion.form === "SOME"
+      ? `ਕੁਝ ${subject} ${predicate} ਹਨ`
+      : `ਕੁਝ ${subject} ${predicate} ਨਹੀਂ ਹਨ`;
+    return `${conclusionLabel}: ${lead}। ${forced}। ਸੰਖੇਪ ਵਿਦਿਆਰਥੀ ਚਿੱਤਰ ਸਿਰਫ਼ ਕਥਨ ਦੇ ਸ਼ਬਦਾਂ ਤੋਂ ਮਿਲਦੇ ਅਸਤਿਤਵ ਨੂੰ ਦੁਹਰਾਉਣ ਲਈ ਵਾਧੂ × ਨਹੀਂ ਜੋੜਦਾ; ਇਸ ਲਈ × ਨਾ ਦਿਖਣ ਨਾਲ ਨਤੀਜਾ ਗਲਤ ਨਹੀਂ ਹੁੰਦਾ। ਇਸ ਕਰਕੇ “${relation}” ਪੱਕੇ ਤੌਰ ਤੇ ਸਹੀ ਹੈ।`;
+  }
+  const forced = conclusion.form === "SOME"
+    ? `the statements guarantee at least one member common to the “${subject}” and “${predicate}” classes`
+    : `the statements guarantee at least one member of the “${subject}” class outside the “${predicate}” class`;
+  const relation = conclusion.form === "SOME"
+    ? `some ${subject} are ${predicate}`
+    : `some ${subject} are not ${predicate}`;
+  return `${conclusionLabel}: ${lead}. ${forced}. The compact learner diagram does not add an extra × merely to repeat existence implied by the statement wording, so the absence of a visible × here does not cancel the logical result. Therefore “${relation}” definitely follows.`;
 }
 
 function safeContradictedAll(
@@ -101,6 +164,21 @@ export function generateBankingPossibilityEditorialQuestionV7(
     const predicate = assignment[record.canonicalConclusion.predicate].labels[locale];
     const conclusionLabel = index === 0 ? "I" : "II";
 
+    if (
+      record.mode === "DEFINITE"
+      && record.classification === "ENTAILED"
+      && (record.canonicalConclusion.form === "SOME" || record.canonicalConclusion.form === "SOME_NOT")
+      && !hasVisibleWitness(question.diagram.svg, record.canonicalConclusion)
+    ) {
+      return safeEntailedExistentialWithoutVisibleWitness(
+        locale,
+        conclusionLabel,
+        record.canonicalConclusion,
+        subject,
+        predicate,
+        question.statements.length,
+      );
+    }
     if (record.mode === "DEFINITE" && record.classification === "CONTRADICTED" && record.canonicalConclusion.form === "ALL") {
       return safeContradictedAll(locale, conclusionLabel, subject, predicate, question.statements.length);
     }
