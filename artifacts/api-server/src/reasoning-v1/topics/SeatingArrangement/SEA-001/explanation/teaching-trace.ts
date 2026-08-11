@@ -90,8 +90,8 @@ function compileEndFacingInference(input: TeachingTraceInput): string | null {
       lines.push(`Case 1: ${reference} faces north.`);
       lines.push(`Case 2: ${reference} faces south.`);
       lines.push(`Now use clue ${relativeIndex + 1}: ${relativeText}`);
-      lines.push(`Case ${impossibleCase} ❌ — if ${reference} faces ${impossibleFacing}, ${reference}'s ${relative} is physically to our ${impossiblePhysical}. From the extreme ${end} end, that would place ${subject} outside the row.`);
-      lines.push(`Case ${possibleCase} ✅ — if ${reference} faces ${possibleFacing}, ${reference}'s ${relative} is physically to our ${possiblePhysical}, so ${subject} can occupy the adjacent seat inside the row.`);
+      lines.push(`Case ${impossibleCase} ❌ — cancel it because if ${reference} faces ${impossibleFacing}, ${reference}'s ${relative} is physically to our ${impossiblePhysical}. From the extreme ${end} end, that would place ${subject} outside the row.`);
+      lines.push(`Case ${possibleCase} ✅ — keep it because if ${reference} faces ${possibleFacing}, ${reference}'s ${relative} is physically to our ${possiblePhysical}, so ${subject} can occupy the adjacent seat inside the row.`);
       lines.push(`Therefore, ${reference} must face ${possibleFacing}. Keep this facing fixed while applying the remaining clues.`);
       const remaining = input.clues
         .map((clue, index) => ({ clue, index }))
@@ -128,8 +128,6 @@ export function compileCaseEliminationExplanation(input: TeachingTraceInput): st
 
   for (let clueCount = 1; clueCount <= lastBranchablePrefix; clueCount += 1) {
     const models = uniqueModels(input.enumeratePrefix(clueCount, 4));
-    // maxModels=4 acts as an exhaustiveness guard: a result of four means
-    // there may be more, so it must not be presented as a closed case set.
     if (models.length >= 2 && models.length <= 3) {
       branchPrefix = clueCount;
       branchModels = models;
