@@ -25,6 +25,9 @@ const OBSERVED_VALUE_LABEL: Readonly<Partial<Record<Cp004MathematicalState["qlId
   "INT-QL-074": "Compound interest",
 });
 
+const FORBIDDEN_LEARNER_SHORTHAND = /(?:\bA\/P ratio\b|\bCI\/P ratio\b|\breference principal\b|\bexact two-stage rule\b|\bObserved \/ required value\b)/iu;
+const MISLEADING_MONTHLY_EQUALITY = /monthly compounding:.*?rate per period\s*=\s*[0-9.]+%/iu;
+
 export function polishCp004PresentationHumanV4(
   state: Cp004MathematicalState,
   presentation: Presentation,
@@ -63,8 +66,9 @@ function comparisonSteps(state: Cp004MathematicalState, existing: readonly strin
   const firstAmount = completeAmountFromNominal(state.principal, state.nominalAnnualRatePercent, state.frequency, firstPeriods);
   const secondAmount = completeAmountFromNominal(state.principal, state.nominalAnnualRatePercent, state.comparisonFrequency, secondPeriods);
   const difference = absRational(sub(firstAmount, secondAmount));
-  const larger = firstAmount.numerator * secondAmount.denominator >= secondAmount.numerator * firstAmount.denominator ? firstAmount : secondAmount;
-  const smaller = larger === firstAmount ? secondAmount : firstAmount;
+  const firstIsLarger = firstAmount.numerator * secondAmount.denominator >= secondAmount.numerator * firstAmount.denominator;
+  const larger = firstIsLarger ? firstAmount : secondAmount;
+  const smaller = firstIsLarger ? secondAmount : firstAmount;
   return Object.freeze([
     ...existing.slice(0, 2),
     `Difference = ${moneyText(larger)} − ${moneyText(smaller)} = ${moneyText(difference)}.`,
@@ -115,4 +119,24 @@ export function polishCp004ExplanationHumanV4(
     finalAnswer: plainLanguage(explanation.finalAnswer),
     commonMistake: plainLanguage(explanation.commonMistake),
   });
+}
+
+export function assertCp004HumanPolishV4(
+  state: Cp004MathematicalState,
+  presentation: Presentation,
+  explanation: Cp004Explanation,
+): void {
+  const learnerText = [presentation.stem, explanation.whatAsked, ...explanation.steps, explanation.finalAnswer, explanation.commonMistake].join("\n");
+  if (FORBIDDEN_LEARNER_SHORTHAND.test(learnerText)) {
+    throw new Error(`${state.qlId}: technical or ambiguous learner-facing shorthand survived the human-polish layer.`);
+  }
+  if (state.qlId === "INT-QL-078" && MISLEADING_MONTHLY_EQUALITY.test(learnerText)) {
+    throw new Error(`${state.qlId}: rounded monthly rate is presented as an exact equality.`);
+  }
+  if (state.qlId === "INT-QL-075" && /Difference = .*? and .*? compared =/u.test(learnerText)) {
+    throw new Error(`${state.qlId}: awkward comparison wording survived the human-polish layer.`);
+  }
+  if (state.qlId === "INT-QL-076" && explanation.steps.some((step) => /^After one year:.* = ₹/u.test(step))) {
+    throw new Error(`${state.qlId}: rounded effective-rate amount is presented with exact equality.`);
+  }
 }
