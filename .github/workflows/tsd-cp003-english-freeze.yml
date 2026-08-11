@@ -1,0 +1,57 @@
+name: Validate TSD CP-003 English Freeze
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp003/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp001/freeze-registry.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp002/freeze-registry.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/english-frozen.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/english-frozen-proof.ts
+      - .github/workflows/tsd-cp003-english-freeze.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cp003-english-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP-003 English-freeze proof
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/cp003
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/english-frozen-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-frozen-proof.mjs"
+
+      - name: Run CP-003 English-freeze proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/tsd-001/cp003/english-frozen-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/english-frozen-proof.log
+
+      - name: Upload CP-003 English-freeze proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp003-english-freeze-proof
+          path: artifacts/api-server/dist/quant-v4/tsd-001/cp003/english-frozen-proof.log
+          if-no-files-found: error
