@@ -13,13 +13,13 @@ function assert(condition: unknown, message: string): asserts condition {
 
 function runSource(qlId: string, seed: string, language: Language): any {
   const ordinal = Number(qlId.slice(-3));
-  const input = { questionLanguageId: qlId, seed, language };
-  if (ordinal <= 20) return runTmwCp001Pipeline(input);
-  if (ordinal <= 34) return runTmwCp002Pipeline(input);
-  if (ordinal <= 57) return runTmwCp003Pipeline(input);
-  if (ordinal <= 81) return runTmwCp004Pipeline(input);
-  if (ordinal <= 105) return runTmwCp005Pipeline(input);
-  return runTmwCp006Pipeline(input);
+  const base = { questionLanguageId: qlId, seed };
+  if (ordinal <= 20) return language === "en" ? runTmwCp001Pipeline({ ...base, language: "en" }) : runTmwCp001Pipeline({ ...base, language });
+  if (ordinal <= 34) return language === "en" ? runTmwCp002Pipeline({ ...base, language: "en" }) : runTmwCp002Pipeline({ ...base, language });
+  if (ordinal <= 57) return language === "en" ? runTmwCp003Pipeline({ ...base, language: "en" }) : runTmwCp003Pipeline({ ...base, language });
+  if (ordinal <= 81) return language === "en" ? runTmwCp004Pipeline({ ...base, language: "en" }) : runTmwCp004Pipeline({ ...base, language });
+  if (ordinal <= 105) return language === "en" ? runTmwCp005Pipeline({ ...base, language: "en" }) : runTmwCp005Pipeline({ ...base, language });
+  return language === "en" ? runTmwCp006Pipeline({ ...base, language: "en" }) : runTmwCp006Pipeline({ ...base, language });
 }
 
 function solvedAnswer(question: any): string {
