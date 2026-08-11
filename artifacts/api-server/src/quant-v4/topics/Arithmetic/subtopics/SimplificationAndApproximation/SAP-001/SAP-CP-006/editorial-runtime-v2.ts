@@ -61,7 +61,7 @@ export function generateSapCp006Editorial(prototypeId: SapCp006PrototypeId, seed
       const d = pkg.oracle.data;
       const steps = [
         `${d.a}/${d.b} of ${d.fractionBase} = ${d.fractionValue}, and ${d.p}% of ${d.percentBase} = ${d.percentValue}.`,
-        `So ${d.fractionValue} ÷ ? = ${d.target! - d.percentValue!}; hence ? = ${d.fractionValue}/${d.quotientValue} = ${pkg.canonicalAnswer}.`,
+        `So ${d.fractionValue} ÷ ? = ${d.target! - d.percentValue!}. Divide ${d.fractionValue} by ${d.quotientValue}; this gives ? = ${pkg.canonicalAnswer}.`,
       ];
       return withOptions(pkg, options, steps);
     }
