@@ -8,10 +8,10 @@ import { generateSapCp006Editorial } from "./editorial-runtime-v2";
 import {
   SAP_CP006_WAVE2_CATALOGUE,
   SAP_CP006_WAVE2_PROTOTYPE_IDS,
-  generateSapCp006Wave2,
   type SapCp006Wave2Package,
   type SapCp006Wave2PrototypeId,
 } from "./runtime-wave2";
+import { generateSapCp006Wave2Editorial } from "./wave2-editorial";
 
 export type SapCp006FullReviewPrototypeId = SapCp006PrototypeId | SapCp006Wave2PrototypeId;
 export type SapCp006FullReviewBasePackage = SapCp006Package | SapCp006Wave2Package;
@@ -75,7 +75,7 @@ function generatePackage(prototypeId: SapCp006FullReviewPrototypeId, seed: numbe
   if ((SAP_CP006_PROTOTYPE_IDS as readonly string[]).includes(prototypeId)) {
     return generateSapCp006Editorial(prototypeId as SapCp006PrototypeId, seed);
   }
-  return generateSapCp006Wave2(prototypeId as SapCp006Wave2PrototypeId, seed);
+  return generateSapCp006Wave2Editorial(prototypeId as SapCp006Wave2PrototypeId, seed);
 }
 
 function passesVarietyTarget(prototypeId: SapCp006FullReviewPrototypeId, accepted: number, pkg: SapCp006FullReviewBasePackage): boolean {
