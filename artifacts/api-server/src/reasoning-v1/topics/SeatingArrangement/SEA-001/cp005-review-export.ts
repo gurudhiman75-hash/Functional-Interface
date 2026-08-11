@@ -1,17 +1,13 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import {
-  generateMixedCircleCaselet,
-  SEA_CP005_BLUEPRINTS,
-} from "./cp005/generator.ts";
-import type { MixedCircleCaseletRecord } from "./cp005/types.ts";
+import { generateMixedCircularCaselet, SEA_CP005_BLUEPRINTS } from "./cp005/generator.ts";
+import type { MixedCircularCaseletRecord } from "./cp005/types.ts";
 
-const outputDirectory = process.env.SEA_CP005_REVIEW_OUTPUT_DIR
-  ?? "./dist/sea-cp005-review";
-const caselets: MixedCircleCaseletRecord[] = [];
+const outputDirectory = process.env.SEA_CP005_REVIEW_OUTPUT_DIR ?? "./dist/sea-cp005-review";
+const caselets: MixedCircularCaseletRecord[] = [];
 for (const blueprint of SEA_CP005_BLUEPRINTS) {
   for (let index = 0; index < 12; index += 1) {
-    caselets.push(generateMixedCircleCaselet(
+    caselets.push(generateMixedCircularCaselet(
       `SEA-CP005-REVIEW-${blueprint}-${String(index).padStart(2, "0")}`,
       blueprint,
     ));
@@ -40,7 +36,8 @@ const rows = [[
   "diagram",
   "questions",
   "answers",
-  "facingCounterfactuals",
+  "referenceFacings",
+  "oppositeFacingCounterfactuals",
 ]];
 for (const caselet of caselets) {
   rows.push([
@@ -52,8 +49,8 @@ for (const caselet of caselets) {
     caselet.diagramText,
     caselet.children.map((child) => child.text).join("\n"),
     caselet.children.map((child) => child.answer).join(" | "),
-    caselet.children.map((child) =>
-      child.oppositeFacingCounterfactual ?? "").join(" | "),
+    caselet.children.map((child) => child.referenceFacing ?? "").join(" | "),
+    caselet.children.map((child) => child.oppositeFacingCounterfactual ?? "").join(" | "),
   ]);
 }
 const csv = rows.map((row) => row.map(csvCell).join(",")).join("\n");
@@ -71,9 +68,8 @@ const cards = caselets.map((caselet, caseletIndex) => `
       <details><summary>Answer and explanation</summary>
         <p><strong>Answer:</strong> ${escapeHtml(child.answer)}</p>
         <p>${escapeHtml(child.explanation)}</p>
-        ${child.oppositeFacingCounterfactual === undefined
-          ? ""
-          : `<p><strong>Wrong-facing counterfactual:</strong> ${escapeHtml(child.oppositeFacingCounterfactual)}</p>`}
+        ${child.referenceFacing === undefined ? "" : `<p><strong>Reference facing:</strong> ${escapeHtml(child.referenceFacing)}</p>`}
+        ${child.oppositeFacingCounterfactual === undefined ? "" : `<p><strong>Wrong opposite-facing result:</strong> ${escapeHtml(child.oppositeFacingCounterfactual)}</p>`}
       </details>
     </section>`).join("")}
   <details><summary>Shared solution</summary><pre>${escapeHtml(caselet.sharedExplanation)}</pre></details>
@@ -82,13 +78,10 @@ const cards = caselets.map((caselet, caseletIndex) => `
 </article>`).join("\n");
 
 const html = `<!doctype html><html><head><meta charset="utf-8"><title>SEA-CP-005 English Review</title><style>
-body{font-family:Arial,sans-serif;max-width:1000px;margin:20px auto;padding:0 16px;line-height:1.5}.caselet{border:1px solid #ccc;border-radius:12px;padding:18px;margin:20px 0}.diagram{font-family:monospace;background:#f5f5f5;padding:12px;overflow:auto}.question{border-top:1px solid #ddd;margin-top:14px}.correct{font-weight:700}textarea{display:block;width:100%;margin-top:8px}pre{white-space:pre-wrap}</style></head><body><h1>SEA-CP-005 Mixed-Facing Circular English Review — 48 Caselets</h1>${cards}</body></html>`;
+body{font-family:Arial,sans-serif;max-width:1000px;margin:20px auto;padding:0 16px;line-height:1.5}.caselet{border:1px solid #ccc;border-radius:12px;padding:18px;margin:20px 0}.diagram{font-family:monospace;background:#f5f5f5;padding:12px;overflow:auto}.question{border-top:1px solid #ddd;margin-top:14px}.correct{font-weight:700}textarea{display:block;width:100%;margin-top:8px}pre{white-space:pre-wrap}</style></head><body><h1>SEA-CP-005 Circular Mixed-Facing English Review — 48 Caselets</h1><p>C = faces centre; O = faces outward. Relative left/right questions must use the reference person's solved facing.</p>${cards}</body></html>`;
 
 await mkdir(outputDirectory, { recursive: true });
-await writeFile(
-  join(outputDirectory, "sea-cp005-review.json"),
-  `${JSON.stringify(caselets, null, 2)}\n`,
-);
+await writeFile(join(outputDirectory, "sea-cp005-review.json"), `${JSON.stringify(caselets, null, 2)}\n`);
 await writeFile(join(outputDirectory, "sea-cp005-review.csv"), `${csv}\n`);
 await writeFile(join(outputDirectory, "sea-cp005-review.html"), html);
 console.log("PASS_SEA_CP005_REVIEW_EXPORT");

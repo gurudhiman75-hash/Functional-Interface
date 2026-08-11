@@ -2,6 +2,7 @@ import type { SeatingBlueprintId } from "./types.ts";
 import type { MixedFacingBlueprintId } from "./cp002/types.ts";
 import type { CircularBlueprintId } from "./cp003/types.ts";
 import type { OutwardBlueprintId } from "./cp004/types.ts";
+import type { MixedCircularBlueprintId } from "./cp005/types.ts";
 
 export const SEA_001_BLUEPRINTS: readonly SeatingBlueprintId[] = [
   "SEA-PBA-001",
@@ -31,6 +32,13 @@ export const SEA_001_CP004_BLUEPRINTS: readonly OutwardBlueprintId[] = [
   "SEA-PBA-016",
 ];
 
+export const SEA_001_CP005_BLUEPRINTS: readonly MixedCircularBlueprintId[] = [
+  "SEA-PBA-017",
+  "SEA-PBA-018",
+  "SEA-PBA-019",
+  "SEA-PBA-020",
+];
+
 export const SEA_001_AUTHORITY_DISCREPANCIES = [
   {
     id: "SEA-AUTH-DISC-001",
@@ -53,10 +61,17 @@ export const SEA_FAMILY_MANIFEST = Object.freeze({
   family: "REAS-SEA",
   packages: ["SEA-001", "SEA-002", "SEA-003"] as const,
   activePackage: "SEA-001" as const,
-  implementedCheckpoints: ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-004"] as const,
+  implementedCheckpoints: ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-004", "SEA-CP-005"] as const,
   completedRoadmapWaves: ["WAVE-0-GOVERNANCE", "WAVE-1-CONSTRAINT-CORE", "WAVE-2-SEA-CP-001", "WAVE-3-SEA-CP-003", "WAVE-4-VERIFICATION-HARDENING"] as const,
   activeRoadmapWave: "WAVE-5-COMPLETE-SEA-001" as const,
-  completedWave5Checkpoints: ["SEA-CP-002", "SEA-CP-004"] as const,
-  nextCheckpointSequence: ["SEA-CP-005"] as const,
+  completedWave5Checkpoints: ["SEA-CP-002", "SEA-CP-004", "SEA-CP-005"] as const,
+  nextCheckpointSequence: [] as const,
+  remainingWave5Gates: [
+    "FULL_SATURATION",
+    "ENGLISH_MANUAL_REVIEW",
+    "MERGE_SPLIT_INVERSE_GAP_AUDITS",
+    "PERMANENT_QL_ALLOCATION",
+    "ENGLISH_FREEZE",
+  ] as const,
   permanentQlCount: 0 as const,
 });

@@ -1,26 +1,25 @@
-import { canonicalDigest } from "../canonical.ts";
 import { DeterministicRandom } from "../../../../shared/constraint-core/random.ts";
-import { canonicalCircularOrder, personAt } from "../cp003/topology.ts";
+import { canonicalDigest } from "../canonical.ts";
+import { canonicalCircularOrder, CircularTopology, personAt, seatIndexOf } from "../cp003/topology.ts";
 import {
-  mixedCircleConstraintFingerprint,
-  mixedCircleConstraintTrue,
-  oppositeFacing,
-  renderMixedCircleConstraint,
+  mixedCircularConstraintFingerprint,
+  mixedCircularConstraintTrue,
+  moveMixedCircularRelative,
+  renderMixedCircularConstraint,
 } from "./constraints.ts";
-import { buildMixedCircleChildren } from "./questions.ts";
-import {
-  enumerateMixedCircleOracle,
-  enumerateMixedCircleProduction,
-} from "./solvers.ts";
+import { buildMixedCircularChildren } from "./questions.ts";
+import { enumerateMixedCircularOracle, enumerateMixedCircularProduction } from "./solvers.ts";
 import type {
-  MixedCircleBlueprintId,
-  MixedCircleCaseletRecord,
-  MixedCircleConstraint,
-  MixedCircleFacing,
+  MixedCircularBlueprintId,
+  MixedCircularCaseletRecord,
+  MixedCircularConstraint,
+  MixedCircularFacing,
+  MixedCircularPersonId,
 } from "./types.ts";
 
-const NAMES = ["A", "B", "C", "D", "E", "F", "G"] as const;
-export const SEA_CP005_BLUEPRINTS: readonly MixedCircleBlueprintId[] = [
+const NAMES = ["A", "B", "C", "D", "E", "F", "G", "H"] as const;
+
+export const SEA_CP005_BLUEPRINTS: readonly MixedCircularBlueprintId[] = [
   "SEA-PBA-017",
   "SEA-PBA-018",
   "SEA-PBA-019",
@@ -41,279 +40,285 @@ function nextIdFactory(): () => string {
   return () => `SEA-CP005-CL-${String(++serial).padStart(3, "0")}`;
 }
 
-function controlledFacings(
-  clockwiseOrder: readonly string[],
+function deriveFacings(
+  persons: readonly MixedCircularPersonId[],
   random: DeterministicRandom,
-): Readonly<Record<string, MixedCircleFacing>> {
-  const centreCount = random.integer(2, clockwiseOrder.length - 2);
-  const centreFacing = new Set(random.shuffle(clockwiseOrder).slice(0, centreCount));
-  return Object.fromEntries(clockwiseOrder.map((personId) => [
-    personId,
-    centreFacing.has(personId) ? "CENTER" : "OUTWARD",
-  ])) as Readonly<Record<string, MixedCircleFacing>>;
+): Readonly<Record<MixedCircularPersonId, MixedCircularFacing>> {
+  for (let retry = 0; retry < 24; retry += 1) {
+    const record: Record<MixedCircularPersonId, MixedCircularFacing> = {};
+    let centre = 0;
+    let outward = 0;
+    for (const personId of persons) {
+      const facing = random.pick(["CENTRE", "OUTWARD"] as const);
+      record[personId] = facing;
+      if (facing === "CENTRE") centre += 1;
+      else outward += 1;
+    }
+    if (centre >= 2 && outward >= 2) return record;
+  }
+  const fallback: Record<MixedCircularPersonId, MixedCircularFacing> = {};
+  persons.forEach((personId, index) => {
+    fallback[personId] = index % 2 === 0 ? "CENTRE" : "OUTWARD";
+  });
+  return fallback;
 }
 
-function cyclicRelation(
-  clockwiseOrder: readonly string[],
-  referenceId: string,
-  subjectId: string,
+function relativeConstraint(
+  order: readonly MixedCircularPersonId[],
+  facings: Readonly<Record<MixedCircularPersonId, MixedCircularFacing>>,
+  referenceIndex: number,
+  subjectIndex: number,
   id: string,
-): MixedCircleConstraint {
-  const seatCount = clockwiseOrder.length;
-  const referenceIndex = clockwiseOrder.indexOf(referenceId);
-  const subjectIndex = clockwiseOrder.indexOf(subjectId);
-  const clockwiseSteps = (subjectIndex - referenceIndex + seatCount) % seatCount;
-  const anticlockwiseSteps = seatCount - clockwiseSteps;
-  return {
-    id,
-    kind: "CYCLIC_POSITION",
-    referenceId,
-    subjectId,
-    direction: clockwiseSteps <= anticlockwiseSteps ? "CLOCKWISE" : "ANTICLOCKWISE",
-    steps: Math.min(clockwiseSteps, anticlockwiseSteps),
-  };
+): MixedCircularConstraint {
+  const topology = new CircularTopology(order.length);
+  const referenceId = personAt(order, referenceIndex);
+  const subjectId = personAt(order, subjectIndex);
+  const facing = facings[referenceId];
+  if (!facing) throw new Error(`Missing hidden facing for ${referenceId}`);
+  const clockwiseSteps = (subjectIndex - referenceIndex + order.length) % order.length;
+  const anticlockwiseSteps = order.length - clockwiseSteps;
+  const useClockwise = clockwiseSteps <= anticlockwiseSteps;
+  const steps = Math.min(clockwiseSteps, anticlockwiseSteps);
+  const direction = facing === "CENTRE"
+    ? useClockwise ? "LEFT" : "RIGHT"
+    : useClockwise ? "RIGHT" : "LEFT";
+  const target = moveMixedCircularRelative(topology, referenceIndex, facing, direction, steps);
+  if (target !== ((subjectIndex % order.length) + order.length) % order.length) {
+    throw new Error("Failed to derive mixed-circle relative clue");
+  }
+  return { id, kind: "RELATIVE_POSITION", subjectId, referenceId, direction, steps };
 }
 
 function cyclicChain(
-  clockwiseOrder: readonly string[],
-  selectedPersons: readonly string[],
+  order: readonly MixedCircularPersonId[],
+  included: readonly MixedCircularPersonId[],
   nextId: () => string,
-): MixedCircleConstraint[] {
-  const constraints: MixedCircleConstraint[] = [];
-  for (let index = 1; index < selectedPersons.length; index += 1) {
-    const referenceId = selectedPersons[index - 1];
-    const subjectId = selectedPersons[index];
-    if (referenceId && subjectId) {
-      constraints.push(cyclicRelation(clockwiseOrder, referenceId, subjectId, nextId()));
-    }
+): MixedCircularConstraint[] {
+  const constraints: MixedCircularConstraint[] = [];
+  for (let index = 1; index < included.length; index += 1) {
+    const referenceId = included[index - 1];
+    const subjectId = included[index];
+    if (!referenceId || !subjectId) continue;
+    const referenceIndex = seatIndexOf(order, referenceId);
+    const subjectIndex = seatIndexOf(order, subjectId);
+    const steps = (subjectIndex - referenceIndex + order.length) % order.length;
+    constraints.push({
+      id: nextId(),
+      kind: "CYCLIC_POSITION",
+      subjectId,
+      referenceId,
+      direction: "CLOCKWISE",
+      steps,
+    });
   }
   return constraints;
 }
 
-function facingRelativeConstraint(
-  clockwiseOrder: readonly string[],
-  facings: Readonly<Record<string, MixedCircleFacing>>,
-  referenceIndex: number,
-  subjectIndex: number,
-  id: string,
-): MixedCircleConstraint {
-  const referenceId = personAt(clockwiseOrder, referenceIndex);
-  const subjectId = personAt(clockwiseOrder, subjectIndex);
-  const facing = facings[referenceId] as MixedCircleFacing;
-  const seatCount = clockwiseOrder.length;
-  const clockwiseSteps = (subjectIndex - referenceIndex + seatCount) % seatCount;
-  const anticlockwiseSteps = seatCount - clockwiseSteps;
-  const physicalDirection = clockwiseSteps <= anticlockwiseSteps
-    ? "CLOCKWISE"
-    : "ANTICLOCKWISE";
-  const direction = facing === "CENTER"
-    ? physicalDirection === "CLOCKWISE" ? "LEFT" : "RIGHT"
-    : physicalDirection === "CLOCKWISE" ? "RIGHT" : "LEFT";
-  return {
-    id,
-    kind: "RELATIVE_POSITION",
-    referenceId,
-    subjectId,
-    direction,
-    steps: Math.min(clockwiseSteps, anticlockwiseSteps),
-  };
+function facingChain(
+  order: readonly MixedCircularPersonId[],
+  facings: Readonly<Record<MixedCircularPersonId, MixedCircularFacing>>,
+  nextId: () => string,
+  includeDirectAnchor: boolean,
+): MixedCircularConstraint[] {
+  const constraints: MixedCircularConstraint[] = [];
+  if (includeDirectAnchor) {
+    const first = order[0];
+    if (!first) throw new Error("Missing facing-chain anchor");
+    constraints.push({ id: nextId(), kind: "FACING", personId: first, facing: facings[first]! });
+  }
+  for (let index = 1; index < order.length; index += 1) {
+    const firstId = order[index - 1];
+    const secondId = order[index];
+    if (!firstId || !secondId) continue;
+    constraints.push({
+      id: nextId(),
+      kind: facings[firstId] === facings[secondId] ? "SAME_FACING" : "OPPOSITE_FACING",
+      firstId,
+      secondId,
+    });
+  }
+  return constraints;
 }
 
-function buildCandidateConstraints(
-  blueprint: MixedCircleBlueprintId,
-  clockwiseOrder: readonly string[],
-  facings: Readonly<Record<string, MixedCircleFacing>>,
-): MixedCircleConstraint[] {
+function buildConstraints(
+  blueprint: MixedCircularBlueprintId,
+  order: readonly MixedCircularPersonId[],
+  facings: Readonly<Record<MixedCircularPersonId, MixedCircularFacing>>,
+): readonly MixedCircularConstraint[] {
   const nextId = nextIdFactory();
-  const constraints: MixedCircleConstraint[] = [];
+  const constraints: MixedCircularConstraint[] = [];
 
   if (blueprint === "SEA-PBA-017") {
-    for (const personId of clockwiseOrder) {
-      constraints.push({
-        id: nextId(),
-        kind: "FACING",
-        personId,
-        facing: facings[personId] as MixedCircleFacing,
-      });
+    // Known-direction ring. Every facing is stated. Two seats immediately on
+    // either side of A are deliberately left unresolved by the absolute
+    // clockwise chain; A's stated facing plus one relative clue selects which
+    // of those two seats contains the target. Removing A's facing therefore
+    // creates a genuine alternate-facing/alternate-placement model.
+    for (const personId of order) {
+      constraints.push({ id: nextId(), kind: "FACING", personId, facing: facings[personId]! });
     }
-    constraints.push(...cyclicChain(clockwiseOrder, clockwiseOrder, nextId));
+    const clockwiseLeaf = personAt(order, 1);
+    const anticlockwiseLeaf = personAt(order, -1);
+    const included = order.filter((personId) => personId !== clockwiseLeaf && personId !== anticlockwiseLeaf);
+    constraints.push(...cyclicChain(order, included, nextId));
+    constraints.push(relativeConstraint(order, facings, 0, 1, nextId()));
   } else if (blueprint === "SEA-PBA-018") {
-    constraints.push(...cyclicChain(clockwiseOrder, clockwiseOrder, nextId));
-    for (let index = 0; index < clockwiseOrder.length; index += 1) {
-      constraints.push(facingRelativeConstraint(
-        clockwiseOrder,
-        facings,
-        index,
-        (index + 2) % clockwiseOrder.length,
-        nextId(),
-      ));
-    }
+    constraints.push(...facingChain(order, facings, nextId, true));
+    constraints.push(...cyclicChain(order, order, nextId));
   } else if (blueprint === "SEA-PBA-019") {
-    for (const personId of clockwiseOrder) {
-      constraints.push({
-        id: nextId(),
-        kind: "FACING",
-        personId,
-        facing: facings[personId] as MixedCircleFacing,
-      });
-    }
-    const oppositePerson = personAt(clockwiseOrder, clockwiseOrder.length / 2);
-    const gapPerson = personAt(clockwiseOrder, 2);
+    if (order.length % 2 !== 0) throw new Error("SEA-PBA-019 requires an even ring");
+    constraints.push(...facingChain(order, facings, nextId, true));
+    const oppositeLeaf = order[order.length / 2]!;
+    const gapLeaf = order[2]!;
+    const freeLeaf = order[order.length - 1]!;
     constraints.push({
       id: nextId(),
       kind: "OPPOSITE",
-      firstId: clockwiseOrder[0] as string,
-      secondId: oppositePerson,
+      firstId: order[0]!,
+      secondId: oppositeLeaf,
     });
     constraints.push({
       id: nextId(),
       kind: "DIRECTIONAL_COUNT_BETWEEN",
-      firstId: clockwiseOrder[0] as string,
-      secondId: gapPerson,
+      firstId: order[0]!,
+      secondId: gapLeaf,
       direction: "CLOCKWISE",
       count: 1,
     });
-    constraints.push(...cyclicChain(
-      clockwiseOrder,
-      clockwiseOrder.filter((personId) =>
-        personId !== oppositePerson && personId !== gapPerson),
-      nextId,
-    ));
+    const excluded = new Set([oppositeLeaf, gapLeaf, freeLeaf]);
+    constraints.push(...cyclicChain(order, order.filter((personId) => !excluded.has(personId)), nextId));
   } else {
-    const firstPerson = clockwiseOrder[0] as string;
+    const referenceId = order[0]!;
+    const referenceFacing = facings[referenceId]!;
+    const topology = new CircularTopology(order.length);
+    const subjectSeat = referenceFacing === "CENTRE"
+      ? moveMixedCircularRelative(topology, 0, "CENTRE", "LEFT", 1)
+      : moveMixedCircularRelative(topology, 0, "OUTWARD", "LEFT", 2);
+    const subjectId = personAt(order, subjectSeat);
+    const spareId = order[order.length - 1]!;
+    if (subjectId === spareId) throw new Error("Conditional subject collided with spare person");
+
+    constraints.push(...facingChain(order, facings, nextId, false));
     constraints.push({
       id: nextId(),
-      kind: "FACING",
-      personId: firstPerson,
-      facing: facings[firstPerson] as MixedCircleFacing,
+      kind: "FACING_CONDITIONAL_RELATION",
+      subjectId,
+      referenceId,
+      centreDirection: "LEFT",
+      centreSteps: 1,
+      outwardDirection: "LEFT",
+      outwardSteps: 2,
     });
-    constraints.push(...cyclicChain(clockwiseOrder, clockwiseOrder, nextId));
-    for (let index = 1; index < clockwiseOrder.length; index += 1) {
-      const previousPerson = clockwiseOrder[index - 1] as string;
-      const targetPerson = clockwiseOrder[index] as string;
-      const previousFacing = facings[previousPerson] as MixedCircleFacing;
-      const targetFacing = facings[targetPerson] as MixedCircleFacing;
-      constraints.push({
-        id: nextId(),
-        kind: "CONDITIONAL_FACING",
-        conditionPersonId: previousPerson,
-        conditionFacing: previousFacing,
-        targetPersonId: targetPerson,
-        thenFacing: targetFacing,
-        elseFacing: oppositeFacing(targetFacing),
-      });
-    }
+    const excluded = new Set([subjectId, spareId]);
+    constraints.push(...cyclicChain(order, order.filter((personId) => !excluded.has(personId)), nextId));
   }
 
-  if (constraints.some((constraint) =>
-    !mixedCircleConstraintTrue(constraint, clockwiseOrder, facings))) {
-    throw new Error("Derived a false CP-005 clue");
+  if (constraints.some((constraint) => !mixedCircularConstraintTrue(constraint, order, facings))) {
+    throw new Error("Derived a false mixed-circle clue");
   }
-  if (new Set(constraints.map(mixedCircleConstraintFingerprint)).size !== constraints.length) {
-    throw new Error("Derived semantically duplicate CP-005 clues");
+  if (new Set(constraints.map(mixedCircularConstraintFingerprint)).size !== constraints.length) {
+    throw new Error("Derived duplicate mixed-circle clue semantics");
   }
   return constraints;
 }
 
-function requirementSatisfied(
-  blueprint: MixedCircleBlueprintId,
-  constraints: readonly MixedCircleConstraint[],
-  seatCount: number,
-): boolean {
-  const count = (kind: MixedCircleConstraint["kind"]): number =>
-    constraints.filter((constraint) => constraint.kind === kind).length;
-  if (blueprint === "SEA-PBA-017") {
-    return count("FACING") === seatCount && count("CYCLIC_POSITION") >= 1;
-  }
-  if (blueprint === "SEA-PBA-018") {
-    return count("FACING") === 0
-      && count("RELATIVE_POSITION") === seatCount
-      && count("CYCLIC_POSITION") >= 1;
-  }
-  if (blueprint === "SEA-PBA-019") {
-    return count("OPPOSITE") >= 1
-      && count("DIRECTIONAL_COUNT_BETWEEN") >= 1
-      && count("FACING") === seatCount;
-  }
-  return count("CONDITIONAL_FACING") === seatCount - 1
-    && count("FACING") === 1
-    && count("CYCLIC_POSITION") >= 1;
+function modelCount(
+  persons: readonly MixedCircularPersonId[],
+  constraints: readonly MixedCircularConstraint[],
+): number {
+  return enumerateMixedCircularProduction({ persons, constraints, maxModels: 2 }).length;
 }
 
 function minimiseConstraints(
-  blueprint: MixedCircleBlueprintId,
-  persons: readonly string[],
-  candidates: readonly MixedCircleConstraint[],
-): MixedCircleConstraint[] {
-  const constraints = [...candidates];
-  const modelCount = (trial: readonly MixedCircleConstraint[]): number =>
-    enumerateMixedCircleProduction({ persons, constraints: trial, maxModels: 2 }).length;
-  if (modelCount(constraints) !== 1) {
-    throw new Error("Candidate CP-005 clue set is not uniquely solvable");
-  }
-
+  persons: readonly MixedCircularPersonId[],
+  candidate: readonly MixedCircularConstraint[],
+): readonly MixedCircularConstraint[] {
+  const constraints = [...candidate];
+  if (modelCount(persons, constraints) !== 1) throw new Error("Candidate mixed-circle clue set is not unique");
   for (let index = constraints.length - 1; index >= 0; index -= 1) {
     const trial = constraints.filter((_, candidateIndex) => candidateIndex !== index);
-    if (requirementSatisfied(blueprint, trial, persons.length)
-      && modelCount(trial) === 1) {
-      constraints.splice(index, 1);
-    }
-  }
-  if (!requirementSatisfied(blueprint, constraints, persons.length)) {
-    throw new Error("CP-005 blueprint requirement was lost");
+    if (modelCount(persons, trial) === 1) constraints.splice(index, 1);
   }
   return constraints;
+}
+
+function assertBlueprintSignature(
+  blueprint: MixedCircularBlueprintId,
+  constraints: readonly MixedCircularConstraint[],
+): void {
+  if (blueprint === "SEA-PBA-017"
+    && (!constraints.some((constraint) => constraint.kind === "FACING")
+      || !constraints.some((constraint) => constraint.kind === "RELATIVE_POSITION"))) {
+    throw new Error("SEA-PBA-017 lost its known-facing relative-ring signature");
+  }
+  if (blueprint === "SEA-PBA-018"
+    && (!constraints.some((constraint) => constraint.kind === "FACING")
+      || !constraints.some((constraint) => constraint.kind === "SAME_FACING" || constraint.kind === "OPPOSITE_FACING"))) {
+    throw new Error("SEA-PBA-018 lost its inferred-facing signature");
+  }
+  if (blueprint === "SEA-PBA-019"
+    && (!constraints.some((constraint) => constraint.kind === "OPPOSITE")
+      || !constraints.some((constraint) => constraint.kind === "DIRECTIONAL_COUNT_BETWEEN"))) {
+    throw new Error("SEA-PBA-019 lost its opposite/gap signature");
+  }
+  if (blueprint === "SEA-PBA-020"
+    && !constraints.some((constraint) => constraint.kind === "FACING_CONDITIONAL_RELATION")) {
+    throw new Error("SEA-PBA-020 lost its conditional-orientation signature");
+  }
+}
+
+function assertDisplayedClueSensitivity(
+  persons: readonly MixedCircularPersonId[],
+  constraints: readonly MixedCircularConstraint[],
+): void {
+  if (modelCount(persons, constraints) !== 1) throw new Error("Mixed-circle clue set is not unique");
+  for (const clue of constraints) {
+    const trial = constraints.filter((candidate) => candidate.id !== clue.id);
+    if (modelCount(persons, trial) === 1) {
+      throw new Error(`Displayed redundant mixed-circle clue: ${clue.id}`);
+    }
+  }
 }
 
 function attempt(
   seed: string,
-  blueprint: MixedCircleBlueprintId,
-): MixedCircleCaseletRecord {
+  blueprint: MixedCircularBlueprintId,
+): MixedCircularCaseletRecord {
   const random = new DeterministicRandom(seed);
   const seatCount = blueprint === "SEA-PBA-019"
-    ? random.pick([6] as const)
-    : random.pick([6, 7] as const);
+    ? random.pick([6, 8])
+    : random.pick([6, 7, 8]);
   const persons = NAMES.slice(0, seatCount);
-  const clockwiseOrder = canonicalCircularOrder(random.shuffle(persons));
-  const facings = controlledFacings(clockwiseOrder, random);
-  const candidates = buildCandidateConstraints(blueprint, clockwiseOrder, facings);
-  const constraints = minimiseConstraints(blueprint, persons, candidates);
+  const order = canonicalCircularOrder(random.shuffle(persons), false);
+  const facings = deriveFacings(persons, random);
+  const constraints = minimiseConstraints(persons, buildConstraints(blueprint, order, facings));
+  assertBlueprintSignature(blueprint, constraints);
+  assertDisplayedClueSensitivity(persons, constraints);
 
-  const production = enumerateMixedCircleProduction({ persons, constraints });
-  const oracle = enumerateMixedCircleOracle({ persons, constraints });
+  const production = enumerateMixedCircularProduction({ persons, constraints });
+  const oracle = enumerateMixedCircularOracle({ persons, constraints });
   const productionKeys = production.map((model) => model.canonicalKey);
   const oracleKeys = oracle.map((model) => model.canonicalKey);
-  if (productionKeys.length !== 1
-    || JSON.stringify(productionKeys) !== JSON.stringify(oracleKeys)) {
-    throw new Error(
-      `CP-005 solver/oracle disagreement: production=${productionKeys.length}, oracle=${oracleKeys.length}`,
-    );
+  if (productionKeys.length !== 1 || JSON.stringify(productionKeys) !== JSON.stringify(oracleKeys)) {
+    throw new Error("Mixed-circle production/oracle disagreement");
   }
   const model = production[0];
-  if (!model) throw new Error("Missing CP-005 model");
+  if (!model) throw new Error("Missing mixed-circle solution model");
+  const children = buildMixedCircularChildren(seed, model, random);
+  const clueTexts = constraints.map(renderMixedCircularConstraint);
 
-  for (const clue of constraints) {
-    const trial = constraints.filter((candidate) => candidate.id !== clue.id);
-    if (enumerateMixedCircleProduction({
-      persons,
-      constraints: trial,
-      maxModels: 2,
-    }).length === 1) {
-      throw new Error(`Displayed redundant CP-005 clue: ${clue.id}`);
-    }
-  }
-
-  const children = buildMixedCircleChildren(seed, blueprint, model, random);
-  const clueTexts = constraints.map(renderMixedCircleConstraint);
-  const diagramText = `Clockwise from ${model.clockwiseOrder[0]} (chosen only as a rotation reference): ${model.clockwiseOrder
-    .map((personId) => `${personId}${model.facings[personId] === "CENTER" ? "↘ centre" : "↗ outward"}`)
-    .join(" → ")} → ${model.clockwiseOrder[0]}`;
+  const setupText = `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table, but not necessarily in the same order. Some face the centre and the others face outward. Their facing directions and positions satisfy the following conditions.`;
+  const facingSummary = model.clockwiseOrder
+    .map((personId) => `${personId}[${model.facings[personId] === "CENTRE" ? "C" : "O"}]`)
+    .join(" → ");
+  const diagramText = `Clockwise from ${model.clockwiseOrder[0]} (rotation reference): ${facingSummary} → ${model.clockwiseOrder[0]}[${model.facings[model.clockwiseOrder[0]!] === "CENTRE" ? "C" : "O"}]. C = faces centre; O = faces outward.`;
   const sharedExplanation = [
-    `Place ${model.clockwiseOrder[0]} at any convenient seat; rotating the complete arrangement does not change the answer.`,
-    "Resolve every facing before applying a left/right clue. For centre-facing persons, left is clockwise; for outward-facing persons, left is anticlockwise.",
-    "Apply the clues one by one:",
+    `Resolve both position and facing; the solved state must be unique up to rotation.`,
+    `Facing rules: centre-facing left = clockwise and right = anticlockwise; outward-facing left = anticlockwise and right = clockwise.`,
+    `The verified facing state is ${model.clockwiseOrder.map((personId) => `${personId}: ${model.facings[personId]!.toLowerCase()}`).join(", ")}.`,
+    `Apply the seating clues with each reference person's own facing:`,
     ...clueTexts.map((clue, index) => `${index + 1}. ${clue}`),
-    `Final arrangement: ${diagramText}.`,
+    `Therefore, ${diagramText}`,
   ].join("\n");
 
   return {
@@ -324,33 +329,30 @@ function attempt(
     blueprintAuthorityId: blueprint,
     seed,
     locale: "en-IN",
-    setupText: `${seatCount} persons—${persons.join(", ")}—are sitting around a circular table. Some face the centre and the others face outward. They are not necessarily seated in alphabetical order.`,
+    difficultyFloor: "MEDIUM",
+    setupText,
     clueTexts,
     constraints,
-    solutionPolicy: "UNIQUE_STATE_CLASS",
-    solutionStateClassCount: 1,
-    solverOracleAgreement: {
-      productionKeys,
-      oracleKeys,
-      passed: true,
+    topologySnapshot: {
+      kind: "CIRCULAR_RING",
+      seatCount,
+      seatIndicesIncrease: "CLOCKWISE",
+      facingMode: "MIXED",
     },
+    solutionPolicy: "UNIQUE_CLASS_AND_FACING_STATE",
+    solutionClassCount: 1,
+    solverOracleAgreement: { productionKeys, oracleKeys, passed: true },
+    queryFactFingerprints: children.map((child) => child.answerDeterminingFactFingerprint),
     checkpointSkillCoverage: [
-      "MIXED_CIRCULAR_FACING_STATE",
-      "REFERENCE_PERSON_FACING",
+      "MIXED_FACING_STATE_RESOLUTION",
+      "REFERENCE_PERSON_FACING_FOR_LEFT_RIGHT",
       "ROTATION_CANONICALISATION",
-      blueprint === "SEA-PBA-018"
-        ? "INFERRED_FACING"
-        : blueprint === "SEA-PBA-020"
-          ? "CONDITIONAL_ORIENTATION"
-          : blueprint === "SEA-PBA-019"
-            ? "OPPOSITE_AND_GAP"
-            : "KNOWN_FACING",
+      "CLOCKWISE_WRAP_AROUND",
+      seatCount % 2 === 0 ? "EVEN_OPPOSITE_SEAT" : "ODD_OPPOSITE_GUARD",
+      ...(blueprint === "SEA-PBA-020" ? ["FACING_CONDITIONAL_ORIENTATION"] : []),
     ],
-    queryFactFingerprints: children.map((child) =>
-      child.answerDeterminingFactFingerprint),
-    crossQuestionLeakagePassed: new Set(
-      children.map((child) => child.answerDeterminingFactFingerprint),
-    ).size === children.length,
+    crossQuestionLeakagePassed:
+      new Set(children.map((child) => child.answerDeterminingFactFingerprint)).size === children.length,
     children,
     diagramText,
     sharedExplanation,
@@ -358,15 +360,15 @@ function attempt(
   };
 }
 
-export function generateMixedCircleCaselet(
+export function generateMixedCircularCaselet(
   seed: string,
-  blueprint: MixedCircleBlueprintId,
-): MixedCircleCaseletRecord {
+  blueprint: MixedCircularBlueprintId,
+): MixedCircularCaseletRecord {
   if (!SEA_CP005_BLUEPRINTS.includes(blueprint)) {
     throw new Error(`Unsupported CP-005 blueprint: ${blueprint}`);
   }
   let lastError: unknown;
-  for (let retry = 0; retry < 24; retry += 1) {
+  for (let retry = 0; retry < 64; retry += 1) {
     try {
       return attempt(`${seed}::attempt-${retry}`, blueprint);
     } catch (error) {
@@ -376,38 +378,23 @@ export function generateMixedCircleCaselet(
   throw new Error(`Failed to generate ${blueprint}: ${String(lastError)}`);
 }
 
-export function assertMixedCircleCaseletIntegrity(
-  caselet: MixedCircleCaseletRecord,
-): void {
-  if (caselet.solutionStateClassCount !== 1
-    || !caselet.solverOracleAgreement.passed) {
+export function assertMixedCircularCaseletIntegrity(caselet: MixedCircularCaseletRecord): void {
+  if (caselet.difficultyFloor !== "MEDIUM") throw new Error("CP-005 must begin at Medium");
+  if (caselet.solutionClassCount !== 1 || !caselet.solverOracleAgreement.passed) {
     throw new Error("CP-005 solution policy failed");
   }
-  if (caselet.children.length !== 4
-    || new Set(caselet.queryFactFingerprints).size !== 4
-    || !caselet.crossQuestionLeakagePassed) {
+  if (caselet.children.length !== 4 || !caselet.crossQuestionLeakagePassed) {
     throw new Error("CP-005 child mix failed");
   }
-  if (new Set(caselet.constraints.map(mixedCircleConstraintFingerprint)).size
-    !== caselet.constraints.length) {
+  if (!caselet.children.slice(0, 2).every((child) =>
+    child.referenceFacing !== undefined
+      && child.oppositeFacingCounterfactual !== undefined
+      && JSON.stringify(child.oppositeFacingCounterfactual) !== JSON.stringify(child.answer))) {
+    throw new Error("CP-005 lacks facing-sensitive query counterfactuals");
+  }
+  if (new Set(caselet.constraints.map(mixedCircularConstraintFingerprint)).size !== caselet.constraints.length) {
     throw new Error("CP-005 semantic clue duplication");
   }
-
-  const modelKey = caselet.solverOracleAgreement.productionKeys[0];
-  if (!modelKey) throw new Error("CP-005 model key missing");
-  const [orderText, facingText] = modelKey.split("|");
-  const clockwiseOrder = orderText?.split(">") ?? [];
-  const facingRecord = Object.fromEntries(
-    (facingText?.split(",") ?? []).map((entry) => entry.split(":")),
-  ) as Readonly<Record<string, MixedCircleFacing>>;
-  if (new Set(Object.values(facingRecord)).size !== 2) {
-    throw new Error("CP-005 state is not genuinely mixed-facing");
-  }
-  if (caselet.constraints.some((constraint) =>
-    !mixedCircleConstraintTrue(constraint, clockwiseOrder, facingRecord))) {
-    throw new Error("CP-005 displayed false clue");
-  }
-
   for (const child of caselet.children) {
     if (child.options.length !== 4
       || child.options.filter((option) => option.isCorrect).length !== 1
@@ -415,14 +402,25 @@ export function assertMixedCircleCaseletIntegrity(
       || !child.options[child.answerIndex]?.isCorrect) {
       throw new Error("CP-005 option integrity failed");
     }
-    if ((child.queryContractId === "SEA-QC-003"
-      || child.queryContractId === "SEA-QC-005"
-      || child.queryContractId === "SEA-QC-022")
-      && !/faces (the centre|outward)/i.test(child.explanation)) {
-      throw new Error("CP-005 directional explanation did not resolve the reference facing");
+    if ((child.queryContractId === "SEA-QC-003" || child.queryContractId === "SEA-QC-005")
+      && !/(faces the centre|faces outward)/i.test(child.explanation)) {
+      throw new Error("CP-005 relative explanation omitted the reference facing");
     }
   }
-
+  const key = caselet.solverOracleAgreement.productionKeys[0] ?? "";
+  const facingMarkers = key.split("|").map((part) => part.split(":")[1]);
+  if (!facingMarkers.includes("C") || !facingMarkers.includes("O")) {
+    throw new Error("CP-005 accidentally produced uniform facing");
+  }
+  if (caselet.topologySnapshot.seatCount % 2 !== 0
+    && (caselet.constraints.some((constraint) => constraint.kind === "OPPOSITE")
+      || caselet.children.some((child) => child.queryContractId === "SEA-QC-010"))) {
+    throw new Error("Odd mixed circle exposed an opposite relation");
+  }
+  if (caselet.blueprintAuthorityId === "SEA-PBA-020"
+    && !caselet.constraints.some((constraint) => constraint.kind === "FACING_CONDITIONAL_RELATION")) {
+    throw new Error("SEA-PBA-020 omitted conditional orientation");
+  }
   if (caselet.lifecycle.permanentQlCount !== 0
     || caselet.lifecycle.questionBankWritable
     || caselet.lifecycle.testEligible

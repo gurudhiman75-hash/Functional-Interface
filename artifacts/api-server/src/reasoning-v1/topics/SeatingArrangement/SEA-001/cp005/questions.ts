@@ -1,21 +1,20 @@
-import { canonicalDigest } from "../canonical.ts";
 import { DeterministicRandom } from "../../../../shared/constraint-core/random.ts";
+import { canonicalDigest } from "../canonical.ts";
 import { CircularTopology, personAt, seatIndexOf } from "../cp003/topology.ts";
-import { oppositeFacing } from "./constraints.ts";
+import { moveMixedCircularRelative } from "./constraints.ts";
 import type {
-  MixedCircleAnswerType,
-  MixedCircleBlueprintId,
-  MixedCircleChildQuestion,
-  MixedCircleFacing,
-  MixedCircleMisconceptionId,
-  MixedCircleModel,
-  MixedCircleOption,
-  MixedCircleSemanticValue,
+  MixedCircularAnswerType,
+  MixedCircularChildQuestion,
+  MixedCircularFacing,
+  MixedCircularMisconceptionId,
+  MixedCircularModel,
+  MixedCircularOption,
+  MixedCircularSemanticValue,
 } from "./types.ts";
 
 type Trap = {
-  readonly value: MixedCircleSemanticValue;
-  readonly misconceptionId: MixedCircleMisconceptionId;
+  readonly value: MixedCircularSemanticValue;
+  readonly misconceptionId: MixedCircularMisconceptionId;
   readonly recomputation: Readonly<Record<string, unknown>>;
   readonly explanation: string;
 };
@@ -26,20 +25,18 @@ function stableNumber(value: string): number {
   return hash >>> 0;
 }
 
-function display(value: MixedCircleSemanticValue, answerType: MixedCircleAnswerType): string {
-  return Array.isArray(value)
-    ? value.join(answerType === "SEQUENCE" ? " → " : " and ")
-    : String(value);
+function display(value: MixedCircularSemanticValue, answerType: MixedCircularAnswerType): string {
+  return Array.isArray(value) ? value.join(answerType === "SEQUENCE" ? " → " : " and ") : String(value);
 }
 
 function buildOptions(
   seed: string,
   questionOrder: 1 | 2 | 3 | 4,
-  answerType: MixedCircleAnswerType,
-  answer: MixedCircleSemanticValue,
+  answerType: MixedCircularAnswerType,
+  answer: MixedCircularSemanticValue,
   traps: readonly Trap[],
-  fallbackValues: readonly MixedCircleSemanticValue[],
-): Pick<MixedCircleChildQuestion, "options" | "answerIndex"> {
+  fallbackValues: readonly MixedCircularSemanticValue[],
+): Pick<MixedCircularChildQuestion, "options" | "answerIndex"> {
   const answerKey = canonicalDigest(answer);
   const unique = new Map<string, Trap>();
   for (const trap of traps) {
@@ -51,14 +48,14 @@ function buildOptions(
     if (key === answerKey || unique.has(key)) continue;
     unique.set(key, {
       value,
-      misconceptionId: "SEA-MC-OFF_BY_ONE",
+      misconceptionId: "SEA-MC-MCIRC-OFF_BY_ONE",
       recomputation: { fallbackVerifiedValue: value },
-      explanation: "This does not match the uniquely solved mixed-facing circle.",
+      explanation: "This does not match the verified mixed-facing circular arrangement.",
     });
   }
-  if (unique.size < 3) throw new Error(`Insufficient ${answerType} distractors`);
+  if (unique.size < 3) throw new Error(`Insufficient mixed-circle ${answerType} distractors`);
 
-  const options: MixedCircleOption[] = [...unique.values()].slice(0, 3).map((trap) => ({
+  const options: MixedCircularOption[] = [...unique.values()].slice(0, 3).map((trap) => ({
     semanticValue: trap.value,
     semanticFingerprint: canonicalDigest(trap.value),
     display: display(trap.value, answerType),
@@ -73,173 +70,107 @@ function buildOptions(
     semanticFingerprint: answerKey,
     display: display(answer, answerType),
     isCorrect: true,
-    recomputation: { method: "unique_verified_mixed_circle_state" },
-    explanation: "This matches the uniquely solved circular order and facing pattern.",
+    recomputation: { method: "unique_verified_mixed_circle_model" },
+    explanation: "This matches the verified mixed-facing circular arrangement.",
   });
-  return {
-    options: options as unknown as MixedCircleChildQuestion["options"],
-    answerIndex,
-  };
+  return { options: options as unknown as MixedCircularChildQuestion["options"], answerIndex };
 }
 
-function moveRelative(
-  topology: CircularTopology,
-  seatIndex: number,
-  facing: MixedCircleFacing,
-  direction: "LEFT" | "RIGHT",
-  steps: number,
-): number {
-  return facing === "CENTER"
-    ? topology.moveRelativeCentre(seatIndex, direction, steps)
-    : topology.moveRelativeOutward(seatIndex, direction, steps);
+function oppositeFacing(facing: MixedCircularFacing): MixedCircularFacing {
+  return facing === "CENTRE" ? "OUTWARD" : "CENTRE";
 }
 
-function facingText(facing: MixedCircleFacing): string {
-  return facing === "CENTER" ? "the centre" : "outward";
+function facingRule(facing: MixedCircularFacing, direction: "LEFT" | "RIGHT"): string {
+  const cyclic = facing === "CENTRE"
+    ? direction === "LEFT" ? "clockwise" : "anticlockwise"
+    : direction === "LEFT" ? "anticlockwise" : "clockwise";
+  return `${facing === "CENTRE" ? "the centre" : "outward"}, so ${direction.toLowerCase()} means ${cyclic}`;
 }
 
-function secondLeftQuestion(
+function relativeQuestion(
   seed: string,
-  model: MixedCircleModel,
+  questionOrder: 1 | 2,
+  model: MixedCircularModel,
   random: DeterministicRandom,
-): MixedCircleChildQuestion {
+): MixedCircularChildQuestion {
   const topology = new CircularTopology(model.clockwiseOrder.length);
   const reference = random.pick(model.clockwiseOrder);
   const referenceIndex = seatIndexOf(model.clockwiseOrder, reference);
-  const facing = model.facings[reference] as MixedCircleFacing;
+  const facing = model.facings[reference];
+  if (!facing) throw new Error(`Missing facing for ${reference}`);
+  const direction = questionOrder === 1 ? "LEFT" as const : "RIGHT" as const;
+  const steps = questionOrder === 1 ? 2 : 1;
   const answer = personAt(
     model.clockwiseOrder,
-    moveRelative(topology, referenceIndex, facing, "LEFT", 2),
+    moveMixedCircularRelative(topology, referenceIndex, facing, direction, steps),
   );
   const wrongFacing = oppositeFacing(facing);
   const counterfactual = personAt(
     model.clockwiseOrder,
-    moveRelative(topology, referenceIndex, wrongFacing, "LEFT", 2),
+    moveMixedCircularRelative(topology, referenceIndex, wrongFacing, direction, steps),
   );
+  const oneStep = personAt(
+    model.clockwiseOrder,
+    moveMixedCircularRelative(topology, referenceIndex, facing, direction, Math.max(1, steps - 1)),
+  );
+  const extraStep = personAt(
+    model.clockwiseOrder,
+    moveMixedCircularRelative(topology, referenceIndex, facing, direction, steps + 1),
+  );
+  const queryContractId = questionOrder === 1 ? "SEA-QC-003" as const : "SEA-QC-005" as const;
+  const text = questionOrder === 1
+    ? `Who sits second to the left of ${reference}?`
+    : `Who sits immediately to the right of ${reference}?`;
+  const assumedMisconception = wrongFacing === "CENTRE"
+    ? "SEA-MC-MCIRC-ASSUMED_CENTRE" as const
+    : "SEA-MC-MCIRC-ASSUMED_OUTWARD" as const;
 
   return {
-    questionOrder: 1,
-    queryContractId: "SEA-QC-003",
+    questionOrder,
+    queryContractId,
     answerType: "PERSON",
-    answerDeterminingFactFingerprint: `QC003:${reference}:${facing}:LEFT:2`,
-    text: `Who sits second to the left of ${reference}?`,
-    ...buildOptions(seed, 1, "PERSON", answer, [
+    answerDeterminingFactFingerprint: `${queryContractId}:${reference}:${facing}:${direction}:${steps}`,
+    text,
+    ...buildOptions(seed, questionOrder, "PERSON", answer, [
       {
         value: counterfactual,
-        misconceptionId: "SEA-MC-CENTER_OUTWARD_SWAPPED",
-        recomputation: { usedFacing: wrongFacing },
-        explanation: `This treats ${reference} as facing ${facingText(wrongFacing)} instead of ${facingText(facing)}.`,
+        misconceptionId: assumedMisconception,
+        recomputation: { reference, incorrectlyUsedFacing: wrongFacing, direction, steps },
+        explanation: `This uses ${wrongFacing.toLowerCase()}-facing direction for ${reference}, although ${reference} faces ${facing.toLowerCase()}.`,
       },
       {
-        value: personAt(
-          model.clockwiseOrder,
-          moveRelative(topology, referenceIndex, facing, "LEFT", 1),
-        ),
-        misconceptionId: "SEA-MC-OFF_BY_ONE",
-        recomputation: { steps: 1 },
-        explanation: "This stops after one seat.",
+        value: oneStep,
+        misconceptionId: "SEA-MC-MCIRC-OFF_BY_ONE",
+        recomputation: { reference, facing, direction, steps: Math.max(1, steps - 1) },
+        explanation: "This stops at the wrong distance from the reference person.",
       },
       {
-        value: personAt(
-          model.clockwiseOrder,
-          moveRelative(topology, referenceIndex, facing, "LEFT", 3),
-        ),
-        misconceptionId: "SEA-MC-OFF_BY_ONE",
-        recomputation: { steps: 3 },
+        value: extraStep,
+        misconceptionId: "SEA-MC-MCIRC-OFF_BY_ONE",
+        recomputation: { reference, facing, direction, steps: steps + 1 },
         explanation: "This moves one seat too far.",
       },
     ], model.clockwiseOrder),
     answer,
+    explanation: `${reference} faces ${facingRule(facing, direction)}. Moving ${steps === 1 ? "one seat" : `${steps} seats`} in that direction reaches ${answer}.`,
+    referencePersonId: reference,
+    referenceFacing: facing,
     oppositeFacingCounterfactual: counterfactual,
-    explanation: `${reference} faces ${facingText(facing)}. Therefore, ${reference}'s left is ${facing === "CENTER" ? "clockwise" : "anticlockwise"}. Moving two seats in that direction reaches ${answer}.`,
   };
 }
 
-function immediateRightQuestion(
+function neighbourQuestion(
   seed: string,
-  model: MixedCircleModel,
+  model: MixedCircularModel,
   random: DeterministicRandom,
-  excludedAnswers: ReadonlySet<string>,
-): MixedCircleChildQuestion {
+): MixedCircularChildQuestion {
   const topology = new CircularTopology(model.clockwiseOrder.length);
-  const candidates = model.clockwiseOrder.filter((personId) => {
-    const index = seatIndexOf(model.clockwiseOrder, personId);
-    const facing = model.facings[personId] as MixedCircleFacing;
-    const answer = personAt(
-      model.clockwiseOrder,
-      moveRelative(topology, index, facing, "RIGHT", 1),
-    );
-    return !excludedAnswers.has(answer);
-  });
-  const reference = random.pick(candidates.length > 0 ? candidates : model.clockwiseOrder);
-  const referenceIndex = seatIndexOf(model.clockwiseOrder, reference);
-  const facing = model.facings[reference] as MixedCircleFacing;
-  const answer = personAt(
-    model.clockwiseOrder,
-    moveRelative(topology, referenceIndex, facing, "RIGHT", 1),
-  );
-  const wrongFacing = oppositeFacing(facing);
-  const counterfactual = personAt(
-    model.clockwiseOrder,
-    moveRelative(topology, referenceIndex, wrongFacing, "RIGHT", 1),
-  );
-
-  return {
-    questionOrder: 2,
-    queryContractId: "SEA-QC-005",
-    answerType: "PERSON",
-    answerDeterminingFactFingerprint: `QC005:${reference}:${facing}:RIGHT:1`,
-    text: `Who sits immediately to the right of ${reference}?`,
-    ...buildOptions(seed, 2, "PERSON", answer, [
-      {
-        value: counterfactual,
-        misconceptionId: "SEA-MC-CENTER_OUTWARD_SWAPPED",
-        recomputation: { usedFacing: wrongFacing },
-        explanation: `This uses the wrong facing for ${reference}.`,
-      },
-      {
-        value: personAt(
-          model.clockwiseOrder,
-          moveRelative(topology, referenceIndex, facing, "LEFT", 1),
-        ),
-        misconceptionId: "SEA-MC-LEFT_RIGHT_REVERSED",
-        recomputation: { direction: "LEFT" },
-        explanation: "This follows the left side instead.",
-      },
-      {
-        value: reference,
-        misconceptionId: "SEA-MC-ENDPOINT_INCLUDED",
-        recomputation: { includedReference: true },
-        explanation: "The reference person cannot be their own neighbour.",
-      },
-    ], model.clockwiseOrder),
-    answer,
-    oppositeFacingCounterfactual: counterfactual,
-    explanation: `${reference} faces ${facingText(facing)}. Hence, ${reference}'s right is ${facing === "CENTER" ? "anticlockwise" : "clockwise"}, where ${answer} is seated.`,
-  };
-}
-
-function neighboursQuestion(
-  seed: string,
-  model: MixedCircleModel,
-  random: DeterministicRandom,
-): MixedCircleChildQuestion {
   const referenceIndex = random.integer(0, model.clockwiseOrder.length - 1);
   const reference = personAt(model.clockwiseOrder, referenceIndex);
   const answer = [
-    personAt(model.clockwiseOrder, referenceIndex - 1),
-    personAt(model.clockwiseOrder, referenceIndex + 1),
+    personAt(model.clockwiseOrder, topology.moveCyclic(referenceIndex, "ANTICLOCKWISE", 1)),
+    personAt(model.clockwiseOrder, topology.moveCyclic(referenceIndex, "CLOCKWISE", 1)),
   ].sort();
-  const fallbackPairs: MixedCircleSemanticValue[] = [];
-  for (let first = 0; first < model.clockwiseOrder.length; first += 1) {
-    for (let second = first + 1; second < model.clockwiseOrder.length; second += 1) {
-      fallbackPairs.push([
-        model.clockwiseOrder[first] as string,
-        model.clockwiseOrder[second] as string,
-      ].sort());
-    }
-  }
-
   return {
     questionOrder: 3,
     queryContractId: "SEA-QC-006",
@@ -248,48 +179,40 @@ function neighboursQuestion(
     text: `Who are the immediate neighbours of ${reference}?`,
     ...buildOptions(seed, 3, "PAIR", answer, [
       {
-        value: [
-          personAt(model.clockwiseOrder, referenceIndex + 1),
-          personAt(model.clockwiseOrder, referenceIndex + 2),
-        ].sort(),
-        misconceptionId: "SEA-MC-WRONG_NEIGHBOUR",
+        value: [personAt(model.clockwiseOrder, referenceIndex + 1), personAt(model.clockwiseOrder, referenceIndex + 2)].sort(),
+        misconceptionId: "SEA-MC-MCIRC-OFF_BY_ONE",
         recomputation: { sameArc: "CLOCKWISE" },
-        explanation: "Both persons were selected from one side.",
+        explanation: "Both persons were selected from the same side of the circle.",
       },
       {
-        value: [
-          personAt(model.clockwiseOrder, referenceIndex - 1),
-          personAt(model.clockwiseOrder, referenceIndex - 2),
-        ].sort(),
-        misconceptionId: "SEA-MC-WRONG_NEIGHBOUR",
+        value: [personAt(model.clockwiseOrder, referenceIndex - 1), personAt(model.clockwiseOrder, referenceIndex - 2)].sort(),
+        misconceptionId: "SEA-MC-MCIRC-OFF_BY_ONE",
         recomputation: { sameArc: "ANTICLOCKWISE" },
-        explanation: "Both persons were selected from one side.",
+        explanation: "Both persons were selected from the same side of the circle.",
       },
       {
         value: [reference, personAt(model.clockwiseOrder, referenceIndex + 1)].sort(),
-        misconceptionId: "SEA-MC-ENDPOINT_INCLUDED",
+        misconceptionId: "SEA-MC-MCIRC-ENDPOINT_INCLUDED",
         recomputation: { includedReference: true },
         explanation: "This incorrectly includes the reference person.",
       },
-    ], fallbackPairs),
+    ], []),
     answer,
-    explanation: `${answer[0]} and ${answer[1]} occupy the two seats directly beside ${reference}. Facing does not change physical adjacency.`,
+    explanation: `${answer[0]} and ${answer[1]} occupy the two seats directly beside ${reference}. Facing does not change adjacency.`,
   };
 }
 
 function fourthQuestion(
   seed: string,
-  blueprint: MixedCircleBlueprintId,
-  model: MixedCircleModel,
+  model: MixedCircularModel,
   random: DeterministicRandom,
-): MixedCircleChildQuestion {
+): MixedCircularChildQuestion {
   const topology = new CircularTopology(model.clockwiseOrder.length);
   const referenceIndex = random.integer(0, model.clockwiseOrder.length - 1);
   const reference = personAt(model.clockwiseOrder, referenceIndex);
-
-  if (blueprint === "SEA-PBA-019" && model.clockwiseOrder.length % 2 === 0) {
-    const oppositeIndex = topology.oppositeSeatIndex(referenceIndex) as number;
-    const answer = personAt(model.clockwiseOrder, oppositeIndex);
+  const opposite = topology.oppositeSeatIndex(referenceIndex);
+  if (opposite !== null) {
+    const answer = personAt(model.clockwiseOrder, opposite);
     return {
       questionOrder: 4,
       queryContractId: "SEA-QC-010",
@@ -299,94 +222,71 @@ function fourthQuestion(
       ...buildOptions(seed, 4, "PERSON", answer, [
         {
           value: personAt(model.clockwiseOrder, referenceIndex + 1),
-          misconceptionId: "SEA-MC-WRONG_NEIGHBOUR",
+          misconceptionId: "SEA-MC-MCIRC-ADJACENT_AS_OPPOSITE",
           recomputation: { neighbour: "CLOCKWISE" },
-          explanation: "This selects a neighbour.",
+          explanation: "This selects a neighbour instead of the diametrically opposite seat.",
         },
         {
           value: personAt(model.clockwiseOrder, referenceIndex - 1),
-          misconceptionId: "SEA-MC-WRONG_NEIGHBOUR",
+          misconceptionId: "SEA-MC-MCIRC-ADJACENT_AS_OPPOSITE",
           recomputation: { neighbour: "ANTICLOCKWISE" },
           explanation: "This selects the other neighbour.",
         },
         {
-          value: personAt(model.clockwiseOrder, oppositeIndex + 1),
-          misconceptionId: "SEA-MC-OFF_BY_ONE",
+          value: personAt(model.clockwiseOrder, opposite + 1),
+          misconceptionId: "SEA-MC-MCIRC-OFF_BY_ONE",
           recomputation: { halfTurnPlusOne: true },
-          explanation: "This moves one seat beyond the opposite position.",
+          explanation: "This moves one seat beyond the opposite seat.",
         },
       ], model.clockwiseOrder),
       answer,
-      explanation: `In a circle of ${model.clockwiseOrder.length} persons, the opposite seat is ${model.clockwiseOrder.length / 2} positions away. ${answer} occupies that seat.`,
+      explanation: `With ${model.clockwiseOrder.length} seats, the opposite seat is ${model.clockwiseOrder.length / 2} positions away. ${answer} occupies that seat; facing does not change opposition.`,
     };
   }
 
-  const facing = model.facings[reference] as MixedCircleFacing;
-  const changedFacing = oppositeFacing(facing);
-  const answer = personAt(
-    model.clockwiseOrder,
-    moveRelative(topology, referenceIndex, changedFacing, "LEFT", 2),
-  );
-  const unchangedAnswer = personAt(
-    model.clockwiseOrder,
-    moveRelative(topology, referenceIndex, facing, "LEFT", 2),
-  );
-
+  const sequence = (direction: "CLOCKWISE" | "ANTICLOCKWISE"): readonly string[] =>
+    [1, 2, 3].map((steps) => personAt(model.clockwiseOrder, topology.moveCyclic(referenceIndex, direction, steps)));
+  const answer = sequence("CLOCKWISE");
   return {
     questionOrder: 4,
-    queryContractId: "SEA-QC-022",
-    answerType: "PERSON",
-    answerDeterminingFactFingerprint: `QC022:${reference}:ALL_CHANGE_FACING:LEFT:2`,
-    text: `If everyone changes their facing direction, who will sit second to the left of ${reference}?`,
-    ...buildOptions(seed, 4, "PERSON", answer, [
+    queryContractId: "SEA-QC-020",
+    answerType: "SEQUENCE",
+    answerDeterminingFactFingerprint: `QC020:${reference}:NEXT3CW`,
+    text: `Which sequence lists the next three persons clockwise from ${reference}?`,
+    ...buildOptions(seed, 4, "SEQUENCE", answer, [
       {
-        value: unchangedAnswer,
-        misconceptionId: "SEA-MC-REFERENCE_FACING_IGNORED",
-        recomputation: { facingNotChanged: true },
-        explanation: `This keeps ${reference}'s original facing instead of changing it.`,
+        value: sequence("ANTICLOCKWISE"),
+        misconceptionId: "SEA-MC-MCIRC-CLOCKWISE_REVERSAL",
+        recomputation: { direction: "ANTICLOCKWISE" },
+        explanation: "This follows the reverse arc.",
       },
       {
-        value: personAt(
-          model.clockwiseOrder,
-          moveRelative(topology, referenceIndex, changedFacing, "LEFT", 1),
-        ),
-        misconceptionId: "SEA-MC-OFF_BY_ONE",
-        recomputation: { steps: 1 },
-        explanation: "This stops after one seat.",
+        value: [reference, ...answer.slice(0, 2)],
+        misconceptionId: "SEA-MC-MCIRC-ENDPOINT_INCLUDED",
+        recomputation: { includedReference: true },
+        explanation: "This incorrectly includes the reference person.",
       },
       {
-        value: personAt(
-          model.clockwiseOrder,
-          moveRelative(topology, referenceIndex, changedFacing, "RIGHT", 2),
-        ),
-        misconceptionId: "SEA-MC-LEFT_RIGHT_REVERSED",
-        recomputation: { direction: "RIGHT" },
-        explanation: "This follows the right side after the facing change.",
+        value: [...answer].reverse(),
+        misconceptionId: "SEA-MC-MCIRC-CLOCKWISE_REVERSAL",
+        recomputation: { reversedSequence: true },
+        explanation: "This reverses the correct clockwise sequence.",
       },
-    ], model.clockwiseOrder),
+    ], []),
     answer,
-    oppositeFacingCounterfactual: unchangedAnswer,
-    explanation: `${reference} originally faces ${facingText(facing)}; after everyone changes facing, ${reference} faces ${facingText(changedFacing)}. Under that new facing, left is ${changedFacing === "CENTER" ? "clockwise" : "anticlockwise"}, so the second person to the left is ${answer}.`,
+    explanation: `Starting immediately clockwise from ${reference}, the next three persons are ${answer.join(", ")}. This query uses the circle's clockwise order, not anyone's facing.`,
   };
 }
 
-export function buildMixedCircleChildren(
+export function buildMixedCircularChildren(
   seed: string,
-  blueprint: MixedCircleBlueprintId,
-  model: MixedCircleModel,
+  model: MixedCircularModel,
   random: DeterministicRandom,
-): readonly MixedCircleChildQuestion[] {
-  const first = secondLeftQuestion(seed, model, random);
-  const second = immediateRightQuestion(
-    seed,
-    model,
-    random,
-    new Set([String(first.answer)]),
-  );
+): readonly MixedCircularChildQuestion[] {
   return [
-    first,
-    second,
-    neighboursQuestion(seed, model, random),
-    fourthQuestion(seed, blueprint, model, random),
+    relativeQuestion(seed, 1, model, random),
+    relativeQuestion(seed, 2, model, random),
+    neighbourQuestion(seed, model, random),
+    fourthQuestion(seed, model, random),
   ];
 }

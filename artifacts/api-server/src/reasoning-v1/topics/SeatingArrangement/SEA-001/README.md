@@ -59,6 +59,26 @@ Named authorities:
 - `SEA-PBA-015` — outward gap and neighbour mix;
 - `SEA-PBA-016` — outward external-landmark anchor and reversal.
 
+### `SEA-CP-005` — Circular, mixed facing
+
+- deterministic 6–8 person circles with both centre-facing and outward-facing occupants;
+- complete solution state includes rotational seating class plus every person's facing;
+- person-relative left/right always uses the reference person's solved facing;
+- four named authorities `SEA-PBA-017` through `SEA-PBA-020` covering stated facing, inferred facing, opposite/gap and conditional-orientation rings;
+- production facing-plus-placement solver and an independently structured seat-filling oracle;
+- strict rejection of accidental alternate-facing models;
+- every displayed clue is sensitivity-bearing after generator-level clue minimisation;
+- odd circles structurally prohibit opposite clues and opposite-seat child queries;
+- facing-sensitive child questions store a reproducible opposite-facing counterfactual that must change the answer;
+- four-child passages and 48-caselet JSON/CSV/HTML English review export.
+
+Named authorities:
+
+- `SEA-PBA-017` — mixed-facing known-direction ring;
+- `SEA-PBA-018` — mixed-facing inferred-direction ring;
+- `SEA-PBA-019` — mixed-facing opposite and gap chain;
+- `SEA-PBA-020` — mixed-facing conditional orientation.
+
 ## Wave 4 verification hardening
 
 Completed verification contracts include:
@@ -78,6 +98,7 @@ node --experimental-strip-types foundation-proof.test.ts
 node --experimental-strip-types cp002-proof.test.ts
 node --experimental-strip-types cp003-proof.test.ts
 node --experimental-strip-types cp004-proof.test.ts
+node --experimental-strip-types cp005-proof.test.ts
 node --experimental-strip-types wave4-verification-proof.test.ts
 ```
 
@@ -92,13 +113,24 @@ SEA_CP003_REVIEW_OUTPUT_DIR=./dist/sea-cp003-review \
 
 SEA_CP004_REVIEW_OUTPUT_DIR=./dist/sea-cp004-review \
   node --experimental-strip-types cp004-review-export.ts
+
+SEA_CP005_REVIEW_OUTPUT_DIR=./dist/sea-cp005-review \
+  node --experimental-strip-types cp005-review-export.ts
 ```
 
-## Remaining Wave 5 implementation
+## Remaining Wave 5 closure
 
-`SEA-CP-005 — Circular, Mixed Facing` is the only unfinished SEA-001 checkpoint.
+All five executable SEA-001 checkpoints are now implemented. The package is **not yet frozen or product-active**.
 
-Full saturation, manual English review, merge/split/inverse/gap audits, permanent allocation and English freeze remain later Wave 5 gates after CP-005 is implemented.
+Remaining Wave 5 gates are:
+
+- full blueprint/query saturation and residual coverage audit;
+- manual English review of the generated caselet corpus;
+- merge/split, inverse and gap audits;
+- permanent QL allocation only after discovery freeze;
+- English freeze records.
+
+Only after those gates pass can SEA-001 be considered technically/editorially frozen under the master authority.
 
 ## Lifecycle
 
@@ -112,4 +144,4 @@ Mock-test eligibility:        false
 Public publication:           false
 ```
 
-Do not bypass `assertSea001ActivationAllowed`. Remaining SEA-001 work, source and gap audits, manual freezes and product approvals remain mandatory.
+Do not bypass `assertSea001ActivationAllowed`. Remaining SEA-001 saturation, source/gap audits, manual freezes and product approvals remain mandatory.

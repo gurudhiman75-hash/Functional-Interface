@@ -1,57 +1,83 @@
 import { CircularTopology } from "../cp003/topology.ts";
 import type {
-  MixedCircleConstraint,
-  MixedCircleFacing,
-  MixedCirclePersonId,
+  MixedCircularConstraint,
+  MixedCircularFacing,
+  MixedCircularPersonId,
+  MixedCircularRelativeDirection,
 } from "./types.ts";
 
-export type MixedCircleVerdict = "SATISFIED" | "VIOLATED" | "UNDECIDED";
-export type MixedCirclePlacement = ReadonlyMap<MixedCirclePersonId, number>;
-export type MixedCircleFacingMap = ReadonlyMap<MixedCirclePersonId, MixedCircleFacing>;
-
-export function oppositeFacing(facing: MixedCircleFacing): MixedCircleFacing {
-  return facing === "CENTER" ? "OUTWARD" : "CENTER";
-}
+export type MixedCircularConstraintVerdict = "SATISFIED" | "VIOLATED" | "UNDECIDED";
+export type MixedCircularPlacement = ReadonlyMap<MixedCircularPersonId, number>;
+export type MixedCircularFacings = ReadonlyMap<MixedCircularPersonId, MixedCircularFacing>;
 
 function occupantAt(
-  placement: MixedCirclePlacement,
+  placement: MixedCircularPlacement,
   seatIndex: number,
-): MixedCirclePersonId | undefined {
+): MixedCircularPersonId | undefined {
   for (const [personId, assignedSeat] of placement) {
     if (assignedSeat === seatIndex) return personId;
   }
   return undefined;
 }
 
-function fixedTarget(
-  placement: MixedCirclePlacement,
-  personId: MixedCirclePersonId,
-  targetSeat: number,
-): MixedCircleVerdict {
-  const assigned = placement.get(personId);
-  if (assigned !== undefined) return assigned === targetSeat ? "SATISFIED" : "VIOLATED";
+function fixedTargetVerdict(
+  placement: MixedCircularPlacement,
+  personId: MixedCircularPersonId,
+  targetSeat: number | undefined,
+): MixedCircularConstraintVerdict {
+  if (targetSeat === undefined) return "UNDECIDED";
+  const assignedSeat = placement.get(personId);
+  if (assignedSeat !== undefined) return assignedSeat === targetSeat ? "SATISFIED" : "VIOLATED";
   const occupant = occupantAt(placement, targetSeat);
   return occupant === undefined || occupant === personId ? "UNDECIDED" : "VIOLATED";
 }
 
-function moveRelative(
+export function moveMixedCircularRelative(
   topology: CircularTopology,
   seatIndex: number,
-  facing: MixedCircleFacing,
-  direction: "LEFT" | "RIGHT",
+  facing: MixedCircularFacing,
+  direction: MixedCircularRelativeDirection,
   steps: number,
 ): number {
-  return facing === "CENTER"
+  return facing === "CENTRE"
     ? topology.moveRelativeCentre(seatIndex, direction, steps)
     : topology.moveRelativeOutward(seatIndex, direction, steps);
 }
 
-export function evaluateMixedCircleConstraint(
-  constraint: MixedCircleConstraint,
-  placement: MixedCirclePlacement,
-  facings: MixedCircleFacingMap,
+function evaluateConditionalRelation(
+  constraint: Extract<MixedCircularConstraint, { kind: "FACING_CONDITIONAL_RELATION" }>,
+  placement: MixedCircularPlacement,
+  facings: MixedCircularFacings,
   topology: CircularTopology,
-): MixedCircleVerdict {
+): MixedCircularConstraintVerdict {
+  const referenceSeat = placement.get(constraint.referenceId);
+  const subjectSeat = placement.get(constraint.subjectId);
+  const referenceFacing = facings.get(constraint.referenceId);
+
+  const targetFor = (facing: MixedCircularFacing): number => moveMixedCircularRelative(
+    topology,
+    referenceSeat as number,
+    facing,
+    facing === "CENTRE" ? constraint.centreDirection : constraint.outwardDirection,
+    facing === "CENTRE" ? constraint.centreSteps : constraint.outwardSteps,
+  );
+
+  if (referenceSeat !== undefined && referenceFacing !== undefined) {
+    return fixedTargetVerdict(placement, constraint.subjectId, targetFor(referenceFacing));
+  }
+  if (referenceSeat !== undefined && subjectSeat !== undefined) {
+    const possible = (["CENTRE", "OUTWARD"] as const).some((facing) => targetFor(facing) === subjectSeat);
+    return possible ? "UNDECIDED" : "VIOLATED";
+  }
+  return "UNDECIDED";
+}
+
+export function evaluateMixedCircularConstraint(
+  constraint: MixedCircularConstraint,
+  placement: MixedCircularPlacement,
+  facings: MixedCircularFacings,
+  topology: CircularTopology,
+): MixedCircularConstraintVerdict {
   switch (constraint.kind) {
     case "FACING": {
       const facing = facings.get(constraint.personId);
@@ -60,130 +86,99 @@ export function evaluateMixedCircleConstraint(
     case "SAME_FACING": {
       const first = facings.get(constraint.firstId);
       const second = facings.get(constraint.secondId);
-      return first === undefined || second === undefined
-        ? "UNDECIDED"
-        : first === second ? "SATISFIED" : "VIOLATED";
+      return first === undefined || second === undefined ? "UNDECIDED" : first === second ? "SATISFIED" : "VIOLATED";
     }
     case "OPPOSITE_FACING": {
       const first = facings.get(constraint.firstId);
       const second = facings.get(constraint.secondId);
-      return first === undefined || second === undefined
-        ? "UNDECIDED"
-        : first !== second ? "SATISFIED" : "VIOLATED";
-    }
-    case "CONDITIONAL_FACING": {
-      const condition = facings.get(constraint.conditionPersonId);
-      const target = facings.get(constraint.targetPersonId);
-      if (condition === undefined || target === undefined) return "UNDECIDED";
-      const expected = condition === constraint.conditionFacing
-        ? constraint.thenFacing
-        : constraint.elseFacing;
-      return target === expected ? "SATISFIED" : "VIOLATED";
+      return first === undefined || second === undefined ? "UNDECIDED" : first !== second ? "SATISFIED" : "VIOLATED";
     }
     case "CYCLIC_POSITION": {
-      const reference = placement.get(constraint.referenceId);
-      const subject = placement.get(constraint.subjectId);
-      if (reference !== undefined) {
-        return fixedTarget(
+      const referenceSeat = placement.get(constraint.referenceId);
+      if (referenceSeat !== undefined) {
+        return fixedTargetVerdict(
           placement,
           constraint.subjectId,
-          topology.moveCyclic(reference, constraint.direction, constraint.steps),
+          topology.moveCyclic(referenceSeat, constraint.direction, constraint.steps),
         );
       }
-      if (subject !== undefined) {
-        return fixedTarget(
-          placement,
-          constraint.referenceId,
-          topology.moveCyclic(
-            subject,
-            constraint.direction === "CLOCKWISE" ? "ANTICLOCKWISE" : "CLOCKWISE",
-            constraint.steps,
-          ),
-        );
-      }
-      return "UNDECIDED";
+      const subjectSeat = placement.get(constraint.subjectId);
+      if (subjectSeat === undefined) return "UNDECIDED";
+      return fixedTargetVerdict(
+        placement,
+        constraint.referenceId,
+        topology.moveCyclic(
+          subjectSeat,
+          constraint.direction === "CLOCKWISE" ? "ANTICLOCKWISE" : "CLOCKWISE",
+          constraint.steps,
+        ),
+      );
     }
     case "RELATIVE_POSITION": {
-      const reference = placement.get(constraint.referenceId);
-      const subject = placement.get(constraint.subjectId);
-      const facing = facings.get(constraint.referenceId);
-      if (reference !== undefined && facing !== undefined) {
-        return fixedTarget(
+      const referenceSeat = placement.get(constraint.referenceId);
+      const subjectSeat = placement.get(constraint.subjectId);
+      const referenceFacing = facings.get(constraint.referenceId);
+      if (referenceSeat !== undefined && referenceFacing !== undefined) {
+        return fixedTargetVerdict(
           placement,
           constraint.subjectId,
-          moveRelative(topology, reference, facing, constraint.direction, constraint.steps),
-        );
-      }
-      if (reference !== undefined && subject !== undefined && facing === undefined) {
-        const possible = (["CENTER", "OUTWARD"] as const).some((candidateFacing) =>
-          moveRelative(
+          moveMixedCircularRelative(
             topology,
-            reference,
-            candidateFacing,
+            referenceSeat,
+            referenceFacing,
             constraint.direction,
-            constraint.steps,
-          ) === subject);
-        return possible ? "UNDECIDED" : "VIOLATED";
-      }
-      if (subject !== undefined && facing !== undefined) {
-        return fixedTarget(
-          placement,
-          constraint.referenceId,
-          moveRelative(
-            topology,
-            subject,
-            facing,
-            constraint.direction === "LEFT" ? "RIGHT" : "LEFT",
             constraint.steps,
           ),
         );
+      }
+      if (referenceSeat !== undefined && subjectSeat !== undefined) {
+        const possible = (["CENTRE", "OUTWARD"] as const).some((facing) =>
+          moveMixedCircularRelative(topology, referenceSeat, facing, constraint.direction, constraint.steps) === subjectSeat);
+        return possible ? "UNDECIDED" : "VIOLATED";
       }
       return "UNDECIDED";
     }
     case "ADJACENT": {
-      const first = placement.get(constraint.firstId);
-      const second = placement.get(constraint.secondId);
-      return first === undefined || second === undefined
-        ? "UNDECIDED"
-        : topology.adjacentSeatIndices(first).includes(second) ? "SATISFIED" : "VIOLATED";
+      const firstSeat = placement.get(constraint.firstId);
+      const secondSeat = placement.get(constraint.secondId);
+      if (firstSeat === undefined || secondSeat === undefined) return "UNDECIDED";
+      return topology.adjacentSeatIndices(firstSeat).includes(secondSeat) ? "SATISFIED" : "VIOLATED";
+    }
+    case "NOT_ADJACENT": {
+      const firstSeat = placement.get(constraint.firstId);
+      const secondSeat = placement.get(constraint.secondId);
+      if (firstSeat === undefined || secondSeat === undefined) return "UNDECIDED";
+      return topology.adjacentSeatIndices(firstSeat).includes(secondSeat) ? "VIOLATED" : "SATISFIED";
     }
     case "OPPOSITE": {
       if (topology.seatCount % 2 !== 0) return "VIOLATED";
-      const first = placement.get(constraint.firstId);
-      const second = placement.get(constraint.secondId);
-      if (first !== undefined) {
-        return fixedTarget(
-          placement,
-          constraint.secondId,
-          topology.oppositeSeatIndex(first) as number,
-        );
+      const firstSeat = placement.get(constraint.firstId);
+      const secondSeat = placement.get(constraint.secondId);
+      if (firstSeat !== undefined) {
+        return fixedTargetVerdict(placement, constraint.secondId, topology.oppositeSeatIndex(firstSeat) ?? undefined);
       }
-      if (second !== undefined) {
-        return fixedTarget(
-          placement,
-          constraint.firstId,
-          topology.oppositeSeatIndex(second) as number,
-        );
+      if (secondSeat !== undefined) {
+        return fixedTargetVerdict(placement, constraint.firstId, topology.oppositeSeatIndex(secondSeat) ?? undefined);
       }
       return "UNDECIDED";
     }
     case "DIRECTIONAL_COUNT_BETWEEN": {
-      const first = placement.get(constraint.firstId);
-      const second = placement.get(constraint.secondId);
+      const firstSeat = placement.get(constraint.firstId);
+      const secondSeat = placement.get(constraint.secondId);
       const steps = constraint.count + 1;
-      if (first !== undefined) {
-        return fixedTarget(
+      if (firstSeat !== undefined) {
+        return fixedTargetVerdict(
           placement,
           constraint.secondId,
-          topology.moveCyclic(first, constraint.direction, steps),
+          topology.moveCyclic(firstSeat, constraint.direction, steps),
         );
       }
-      if (second !== undefined) {
-        return fixedTarget(
+      if (secondSeat !== undefined) {
+        return fixedTargetVerdict(
           placement,
           constraint.firstId,
           topology.moveCyclic(
-            second,
+            secondSeat,
             constraint.direction === "CLOCKWISE" ? "ANTICLOCKWISE" : "CLOCKWISE",
             steps,
           ),
@@ -191,19 +186,19 @@ export function evaluateMixedCircleConstraint(
       }
       return "UNDECIDED";
     }
+    case "FACING_CONDITIONAL_RELATION":
+      return evaluateConditionalRelation(constraint, placement, facings, topology);
   }
 }
 
-export function mixedCircleConstraintTrue(
-  constraint: MixedCircleConstraint,
-  clockwiseOrder: readonly MixedCirclePersonId[],
-  facings: Readonly<Record<MixedCirclePersonId, MixedCircleFacing>>,
+export function mixedCircularConstraintTrue(
+  constraint: MixedCircularConstraint,
+  clockwiseOrder: readonly MixedCircularPersonId[],
+  facings: Readonly<Record<MixedCircularPersonId, MixedCircularFacing>>,
 ): boolean {
   const placement = new Map(clockwiseOrder.map((personId, seatIndex) => [personId, seatIndex]));
-  const facingMap = new Map(
-    Object.entries(facings) as [MixedCirclePersonId, MixedCircleFacing][],
-  );
-  return evaluateMixedCircleConstraint(
+  const facingMap = new Map(Object.entries(facings) as [MixedCircularPersonId, MixedCircularFacing][]);
+  return evaluateMixedCircularConstraint(
     constraint,
     placement,
     facingMap,
@@ -211,26 +206,33 @@ export function mixedCircleConstraintTrue(
   ) === "SATISFIED";
 }
 
-export function mixedCircleConstraintFingerprint(constraint: MixedCircleConstraint): string {
+export function mixedCircularConstraintFingerprint(constraint: MixedCircularConstraint): string {
   switch (constraint.kind) {
     case "FACING":
       return `FACE:${constraint.personId}:${constraint.facing}`;
     case "SAME_FACING":
-      return `SAME:${[constraint.firstId, constraint.secondId].sort().join(":")}`;
+      return `SAME_FACE:${[constraint.firstId, constraint.secondId].sort().join(":")}`;
     case "OPPOSITE_FACING":
-      return `OPPF:${[constraint.firstId, constraint.secondId].sort().join(":")}`;
-    case "CONDITIONAL_FACING":
-      return `COND:${constraint.conditionPersonId}:${constraint.conditionFacing}:${constraint.targetPersonId}:${constraint.thenFacing}:${constraint.elseFacing}`;
+      return `OPP_FACE:${[constraint.firstId, constraint.secondId].sort().join(":")}`;
     case "CYCLIC_POSITION":
       return `CYC:${constraint.subjectId}:${constraint.direction}:${constraint.steps}:${constraint.referenceId}`;
     case "RELATIVE_POSITION":
       return `REL:${constraint.subjectId}:${constraint.direction}:${constraint.steps}:${constraint.referenceId}`;
     case "ADJACENT":
-      return `ADJ:${[constraint.firstId, constraint.secondId].sort().join(":")}`;
+    case "NOT_ADJACENT":
+      return `${constraint.kind}:${[constraint.firstId, constraint.secondId].sort().join(":")}`;
     case "OPPOSITE":
       return `OPP:${[constraint.firstId, constraint.secondId].sort().join(":")}`;
     case "DIRECTIONAL_COUNT_BETWEEN":
       return `BET:${constraint.firstId}:${constraint.direction}:${constraint.count}:${constraint.secondId}`;
+    case "FACING_CONDITIONAL_RELATION":
+      return [
+        "COND_REL",
+        constraint.subjectId,
+        constraint.referenceId,
+        `C:${constraint.centreDirection}:${constraint.centreSteps}`,
+        `O:${constraint.outwardDirection}:${constraint.outwardSteps}`,
+      ].join(":");
   }
 }
 
@@ -241,25 +243,33 @@ function ordinal(value: number): string {
   return `${value}th`;
 }
 
-export function renderMixedCircleConstraint(constraint: MixedCircleConstraint): string {
+function relativePhrase(direction: MixedCircularRelativeDirection, steps: number): string {
+  return `${ordinal(steps)} to the ${direction.toLowerCase()}`;
+}
+
+export function renderMixedCircularConstraint(constraint: MixedCircularConstraint): string {
   switch (constraint.kind) {
     case "FACING":
-      return `${constraint.personId} faces ${constraint.facing === "CENTER" ? "the centre" : "outward"}.`;
+      return `${constraint.personId} faces ${constraint.facing === "CENTRE" ? "the centre" : "outward"}.`;
     case "SAME_FACING":
       return `${constraint.firstId} and ${constraint.secondId} face the same direction.`;
     case "OPPOSITE_FACING":
       return `${constraint.firstId} and ${constraint.secondId} face opposite directions.`;
-    case "CONDITIONAL_FACING":
-      return `If ${constraint.conditionPersonId} faces ${constraint.conditionFacing === "CENTER" ? "the centre" : "outward"}, ${constraint.targetPersonId} faces ${constraint.thenFacing === "CENTER" ? "the centre" : "outward"}; otherwise, ${constraint.targetPersonId} faces ${constraint.elseFacing === "CENTER" ? "the centre" : "outward"}.`;
     case "CYCLIC_POSITION":
-      return `${constraint.subjectId} sits ${ordinal(constraint.steps)} ${constraint.direction.toLowerCase()} from ${constraint.referenceId}.`;
+      return constraint.steps === 1
+        ? `${constraint.subjectId} sits immediately ${constraint.direction.toLowerCase()} from ${constraint.referenceId}.`
+        : `${constraint.subjectId} sits ${ordinal(constraint.steps)} ${constraint.direction.toLowerCase()} from ${constraint.referenceId}.`;
     case "RELATIVE_POSITION":
-      return `${constraint.subjectId} sits ${ordinal(constraint.steps)} to the ${constraint.direction.toLowerCase()} of ${constraint.referenceId}.`;
+      return `${constraint.subjectId} sits ${relativePhrase(constraint.direction, constraint.steps)} of ${constraint.referenceId}.`;
     case "ADJACENT":
       return `${constraint.firstId} sits adjacent to ${constraint.secondId}.`;
+    case "NOT_ADJACENT":
+      return `${constraint.firstId} does not sit adjacent to ${constraint.secondId}.`;
     case "OPPOSITE":
       return `${constraint.firstId} sits opposite ${constraint.secondId}.`;
     case "DIRECTIONAL_COUNT_BETWEEN":
       return `Exactly ${constraint.count} ${constraint.count === 1 ? "person sits" : "persons sit"} between ${constraint.firstId} and ${constraint.secondId} when counted ${constraint.direction.toLowerCase()} from ${constraint.firstId}.`;
+    case "FACING_CONDITIONAL_RELATION":
+      return `If ${constraint.referenceId} faces the centre, ${constraint.subjectId} sits ${relativePhrase(constraint.centreDirection, constraint.centreSteps)} of ${constraint.referenceId}; if ${constraint.referenceId} faces outward, ${constraint.subjectId} sits ${relativePhrase(constraint.outwardDirection, constraint.outwardSteps)} of ${constraint.referenceId}.`;
   }
 }
