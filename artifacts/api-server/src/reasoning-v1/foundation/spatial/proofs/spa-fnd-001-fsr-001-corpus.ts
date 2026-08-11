@@ -52,7 +52,7 @@ const DEFINITIONS: readonly SpatialSeriesProofDefinition[] = [
   {
     prototypeId: "FSR-001-PROTOTYPE-05",
     ruleId: "MOVE_MARKER_CCW",
-    initialState: state("SQUARE", 0, "TOP"),
+    initialState: state("PENTAGON", 0, "TOP"),
     presentationProfile: spatialSeriesPresentationForRule("MOVE_MARKER_CCW"),
     distractorRuleIds: ["MOVE_MARKER_CW", "MOVE_MARKER_180", "NO_CHANGE"],
     desiredCorrectOptionIndex: 0,
@@ -60,7 +60,7 @@ const DEFINITIONS: readonly SpatialSeriesProofDefinition[] = [
   {
     prototypeId: "FSR-001-PROTOTYPE-06",
     ruleId: "MOVE_DOTS_CW",
-    initialState: state("CIRCLE", 0, "TOP", "TOP", 3),
+    initialState: state("V_SHAPE", 0, "TOP", "TOP", 3),
     presentationProfile: spatialSeriesPresentationForRule("MOVE_DOTS_CW"),
     distractorRuleIds: ["MOVE_DOTS_CCW", "MOVE_DOTS_180", "NO_CHANGE"],
     desiredCorrectOptionIndex: 1,
