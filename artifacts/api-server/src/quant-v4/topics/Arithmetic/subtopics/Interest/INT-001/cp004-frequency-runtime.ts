@@ -23,6 +23,7 @@ import { polishCp004OptionsHumanV4 } from "./cp004-frequency-option-polish-v4";
 import { finalizeCp004ExplanationLanguageV4 } from "./cp004-frequency-final-language-v4";
 import { finalizeCp004TableLanguageV5 } from "./cp004-frequency-table-language-v5";
 import { finalizeCp004PresentationLanguageV5 } from "./cp004-frequency-final-presentation-v5";
+import { assertCp004FormulaStepV6, ensureCp004FormulaStepV6 } from "./cp004-frequency-formula-explanation-v6";
 
 export * from "./cp004-frequency-math";
 export { generateCp004State } from "./cp004-frequency-generation";
@@ -61,7 +62,9 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
   const depthReadyExplanation = ensureCp004InverseExplanationDepthV4(mathematicalState, v4Explanation);
   const targetReadyExplanation = polishCp004TargetWordingV4(mathematicalState, depthReadyExplanation);
   const humanExplanation = polishCp004ExplanationHumanV4(mathematicalState, targetReadyExplanation);
-  const explanation = finalizeCp004ExplanationLanguageV4(mathematicalState, humanExplanation);
+  const languageReadyExplanation = finalizeCp004ExplanationLanguageV4(mathematicalState, humanExplanation);
+  const explanation = ensureCp004FormulaStepV6(mathematicalState, languageReadyExplanation);
+  assertCp004FormulaStepV6(mathematicalState, explanation);
   assertCp004ReviewV3(mathematicalState, presentation, options, explanation);
   assertCp004ExamReadinessV4(mathematicalState, explanation);
   assertCp004HumanPolishV4(mathematicalState, presentation, explanation);
