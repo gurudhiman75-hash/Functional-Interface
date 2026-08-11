@@ -75,6 +75,8 @@ interface SelectedCandidate extends RnkCp005EditorialV3Question {
   readonly normalizedLearnerFingerprint: string;
 }
 
+type GenerationCache = Map<string, RnkCp005EditorialV3Question | null>;
+
 export const RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_GROUPS: readonly CandidateGroup[] = [
   {
     authorityCandidateId: "RELATION_TRUTH_STATUS",
@@ -268,8 +270,26 @@ function candidateRuntimeFingerprint(
   });
 }
 
+function generateCached(
+  cache: GenerationCache,
+  sourceForm: RnkCp005EditorialV3SourceForm,
+  sourceOrdinal: number,
+): RnkCp005EditorialV3Question | null {
+  const key = `${sourceForm}:${sourceOrdinal}`;
+  if (cache.has(key)) return cache.get(key) ?? null;
+  try {
+    const question = generateRnkCp005EditorialV3ReleaseQuestion(sourceForm, sourceOrdinal);
+    cache.set(key, question);
+    return question;
+  } catch {
+    cache.set(key, null);
+    return null;
+  }
+}
+
 function buildGroup(
   group: CandidateGroup,
+  generationCache: GenerationCache,
   seenLearnerFingerprints: Set<string>,
   seenRuntimeFingerprints: Set<string>,
   seenStateKeys: Set<string>,
@@ -279,15 +299,8 @@ function buildGroup(
   const output: SelectedCandidate[] = [];
 
   for (let sourceOrdinal = 0; sourceOrdinal < 20_000 && output.length < group.count; sourceOrdinal += 1) {
-    let question: RnkCp005EditorialV3Question;
-    try {
-      question = generateRnkCp005EditorialV3ReleaseQuestion(
-        group.sourceForm,
-        sourceOrdinal,
-      );
-    } catch {
-      continue;
-    }
+    const question = generateCached(generationCache, group.sourceForm, sourceOrdinal);
+    if (!question) continue;
     if (!group.matches(question)) continue;
     if (answerCounts[question.correctIndex]! >= answerTargets[question.correctIndex]!) continue;
 
@@ -335,6 +348,7 @@ function buildGroup(
 }
 
 export function buildRnkCp005PermanentRuntimeCandidate(): readonly RnkCp005PermanentRuntimeCandidateQuestion[] {
+  const generationCache: GenerationCache = new Map();
   const seenLearnerFingerprints = new Set<string>();
   const seenRuntimeFingerprints = new Set<string>();
   const seenStateKeys = new Set<string>();
@@ -349,6 +363,7 @@ export function buildRnkCp005PermanentRuntimeCandidate(): readonly RnkCp005Perma
     grouped.get(group.authorityCandidateId)!.push(
       ...buildGroup(
         group,
+        generationCache,
         seenLearnerFingerprints,
         seenRuntimeFingerprints,
         seenStateKeys,
