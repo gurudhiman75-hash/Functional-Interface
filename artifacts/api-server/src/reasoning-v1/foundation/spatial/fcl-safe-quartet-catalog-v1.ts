@@ -60,6 +60,17 @@ const STUDENT_VISIBLE_SHORTCUT_DESCRIPTOR_IDS = new Set<SpatialPrimitiveClassifi
   "HALF_TURN_SYMMETRY",
 ]);
 
+// HAS_TRUE_CROSSING uses a production presentation that shortens one free arm on
+// every option. That physical rendering step removes whole-figure vertical,
+// horizontal and 180° symmetry from all four options without changing junction or
+// crossing topology. Those three metadata descriptors may therefore reinforce the
+// raw primitive quartet but cannot remain a student-visible shortcut in delivery.
+const CROSSING_PRESENTATION_NEUTRALIZED_DESCRIPTORS: readonly SpatialPrimitiveClassificationDescriptorIdV2[] = [
+  "VERTICAL_SYMMETRY",
+  "HORIZONTAL_SYMMETRY",
+  "HALF_TURN_SYMMETRY",
+];
+
 const ALLOWED_REINFORCING_DESCRIPTORS: Record<
   SpatialPrimitiveClassificationPropertyIdV2,
   readonly SpatialPrimitiveClassificationDescriptorIdV2[]
@@ -70,7 +81,7 @@ const ALLOWED_REINFORCING_DESCRIPTORS: Record<
   HALF_TURN_SYMMETRY: ["HALF_TURN_SYMMETRY"],
   QUARTER_TURN_SYMMETRY: ["ROTATION_PERIOD"],
   HAS_BRANCH_JUNCTION: ["JUNCTION_COUNT"],
-  HAS_TRUE_CROSSING: ["TRUE_CROSSING_COUNT"],
+  HAS_TRUE_CROSSING: ["TRUE_CROSSING_COUNT", ...CROSSING_PRESENTATION_NEUTRALIZED_DESCRIPTORS],
   PARTITIONED_FIGURE: ["TOPOLOGY", "ENCLOSED_REGION_COUNT"],
   HALF_TURN_ONLY: ["ROTATION_PERIOD"],
   TWO_FREE_TERMINALS: ["FREE_TERMINAL_COUNT"],
@@ -94,11 +105,10 @@ function productionDomainEligible(
       // must expose a polygon side-count authority, eliminating polygon-vs-line shortcuts.
       return entry.polygonSideCount !== null;
     case "HAS_TRUE_CROSSING":
-      // A true crossing is necessarily also a multi-line junction. Require all
-      // four options to contain a junction so the learner must distinguish
-      // "branches meet" from "lines continue through the meeting point" rather
-      // than solving the item through junction presence alone.
-      return getSpatialPrimitiveConnectivityV2(primitiveId).junctionCount > 0;
+      // Keep all four options inside the same open junction-bearing domain. The
+      // three common figures contain true crossings; the odd figure still has a
+      // junction but its branches terminate at that meeting point.
+      return entry.topology === "OPEN" && getSpatialPrimitiveConnectivityV2(primitiveId).junctionCount > 0;
     case "POLYGON":
       // A divided square still looks like a polygon to a learner. Restrict this
       // family to simple closed figures so only the outer-boundary question is asked.
