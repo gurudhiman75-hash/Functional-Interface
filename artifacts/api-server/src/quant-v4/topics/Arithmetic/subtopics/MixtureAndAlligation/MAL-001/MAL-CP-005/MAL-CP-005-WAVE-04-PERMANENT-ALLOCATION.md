@@ -57,30 +57,11 @@ Learner-facing text must use **cost price** when referring to the original per-u
 
 Normal transaction wording such as `buys 20 litres at ₹15 per litre` remains valid; the percentage relationship must be expressed as, for example, `10% above the cost price per unit`.
 
-## Exact-head allocation proof
+## Allocation proof
 
-```text
-head:                              4e5eb0cdca80b3dd86566224330b11d6f2001d0e
-workflow:                          31455595116 — PASS
-artifact:                          9087902759
-artifact digest:                   sha256:f037ce35cdad0e3cb32ea0ec2ec8d3cce2f946f809e44f0f3db8bc4baae2d3e8
-status:                            PASS_MAL_CP005_WAVE04_PERMANENT_ALLOCATION
+Wave 04 passes its dedicated permanent-allocation audit with 13 contiguous QLs, 13 task solve-mode identities, three shared mathematical cores, 1,300 generated route proofs, 1,300 product-approval proofs, 1,300 lifecycle-isolation proofs, 1,300 cost-price terminology proofs and 1,300 answer-semantic proofs.
 
-previous permanent MAL QL max:     47
-first CP-005 permanent QL:         48
-last CP-005 permanent QL:          60
-permanent QLs:                     13
-permanent task solve modes:        13
-shared mathematical cores:         3
-core split:                        6 / 4 / 3
-generated route proofs:            1,300
-product-approval proofs:           1,300
-lifecycle-isolation proofs:        1,300
-cost-price terminology proofs:     1,300
-answer-semantic proofs:            1,300
-```
-
-Exact-head regressions also pass for CP-005 Wave 01, Wave 02, Wave 03 candidate, Wave 03 product-ready V2, CP-005 Exam-Ready V2, CP-001, all CP-004 workflows, Render production build and integrated admin.
+The exact-head workflow run, artifact and digest are recorded in PR #670 so this repository decision file does not need another evidence-only commit after every CI rerun.
 
 ## Ownership boundaries
 
