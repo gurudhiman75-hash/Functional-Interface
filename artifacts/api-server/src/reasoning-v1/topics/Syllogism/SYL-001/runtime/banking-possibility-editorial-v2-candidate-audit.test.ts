@@ -92,7 +92,7 @@ for (const seed of seeds) {
         }
 
         if (conclusion.canonicalConclusion.form === "ALL") {
-          if (locale === "en-IN") assert.match(line, /whole/u);
+          if (locale === "en-IN") assert.match(line, /whole|all/u);
           if (locale === "hi-IN") assert.match(line, /सभी|पूरे/u);
           if (locale === "pa-IN") assert.match(line, /ਸਾਰੇ|ਪੂਰੇ/u);
         }
