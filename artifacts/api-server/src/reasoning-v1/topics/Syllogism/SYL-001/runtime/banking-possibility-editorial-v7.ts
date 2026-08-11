@@ -33,6 +33,23 @@ function safeContradictedAll(
   return `${conclusionLabel}: ${lead}. The whole “${subject}” class cannot be placed inside the “${predicate}” class without violating the statements. Therefore “all ${subject} are ${predicate}” is not a valid definite conclusion and Conclusion ${conclusionLabel} does not follow.`;
 }
 
+function safeContradictedNo(
+  locale: SylLocale,
+  conclusionLabel: "I" | "II",
+  subject: string,
+  predicate: string,
+  statementCount: number,
+): string {
+  const lead = premiseLead(locale, statementCount);
+  if (locale === "hi-IN") {
+    return `${conclusionLabel}: ${lead}। इन कथनों में “${subject}” और “${predicate}” वर्गों को पूरी तरह अलग रखना संभव नहीं है; कथनों से उनके बीच आवश्यक साझा सदस्यता बनती है, भले ही आरेख केवल इस कारण अतिरिक्त × न दिखाए। इसलिए “कोई भी ${subject} ${predicate} नहीं है” कथनों के विरुद्ध है और निष्कर्ष ${conclusionLabel} अनुसरण नहीं करता।`;
+  }
+  if (locale === "pa-IN") {
+    return `${conclusionLabel}: ${lead}। ਇਨ੍ਹਾਂ ਕਥਨਾਂ ਵਿੱਚ “${subject}” ਅਤੇ “${predicate}” ਵਰਗਾਂ ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਵੱਖ ਰੱਖਣਾ ਸੰਭਵ ਨਹੀਂ ਹੈ; ਕਥਨਾਂ ਤੋਂ ਉਨ੍ਹਾਂ ਵਿਚ ਲਾਜ਼ਮੀ ਸਾਂਝੀ ਮੈਂਬਰਸ਼ਿਪ ਬਣਦੀ ਹੈ, ਭਾਵੇਂ ਚਿੱਤਰ ਸਿਰਫ਼ ਇਸ ਕਾਰਨ ਵਾਧੂ × ਨਾ ਦਿਖਾਏ। ਇਸ ਲਈ “ਕੋਈ ਵੀ ${subject} ${predicate} ਨਹੀਂ ਹੈ” ਕਥਨਾਂ ਦੇ ਵਿਰੁੱਧ ਹੈ ਅਤੇ ਨਤੀਜਾ ${conclusionLabel} ਸਹੀ ਨਹੀਂ ਹੈ।`;
+  }
+  return `${conclusionLabel}: ${lead}. The statements do not allow the “${subject}” and “${predicate}” classes to be completely disjoint; their relationship forces common membership even when the learner diagram does not add an extra × merely for that existence. Therefore “no ${subject} are ${predicate}” conflicts with the statements and Conclusion ${conclusionLabel} does not follow.`;
+}
+
 function safeUndeterminedUniversal(
   locale: SylLocale,
   conclusionLabel: "I" | "II",
@@ -86,6 +103,9 @@ export function generateBankingPossibilityEditorialQuestionV7(
 
     if (record.mode === "DEFINITE" && record.classification === "CONTRADICTED" && record.canonicalConclusion.form === "ALL") {
       return safeContradictedAll(locale, conclusionLabel, subject, predicate, question.statements.length);
+    }
+    if (record.mode === "DEFINITE" && record.classification === "CONTRADICTED" && record.canonicalConclusion.form === "NO") {
+      return safeContradictedNo(locale, conclusionLabel, subject, predicate, question.statements.length);
     }
     if (
       record.mode === "DEFINITE"
