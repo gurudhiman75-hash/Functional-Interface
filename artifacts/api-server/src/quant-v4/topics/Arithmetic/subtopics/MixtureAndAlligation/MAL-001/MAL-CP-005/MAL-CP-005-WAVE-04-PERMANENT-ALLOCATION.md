@@ -57,11 +57,9 @@ Learner-facing text must use **cost price** when referring to the original per-u
 
 Normal transaction wording such as `buys 20 litres at ₹15 per litre` remains valid; the percentage relationship must be expressed as, for example, `10% above the cost price per unit`.
 
-## Allocation proof
+## Allocation proof policy
 
-Wave 04 passes its dedicated permanent-allocation audit with 13 contiguous QLs, 13 task solve-mode identities, three shared mathematical cores, 1,300 generated route proofs, 1,300 product-approval proofs, 1,300 lifecycle-isolation proofs, 1,300 cost-price terminology proofs and 1,300 answer-semantic proofs.
-
-The exact-head workflow run, artifact and digest are recorded in PR #670 so this repository decision file does not need another evidence-only commit after every CI rerun.
+The dedicated Wave 04 audit proves QL contiguity, solve-mode uniqueness, source normalization, shared-core counts, product approval, answer-semantic parity, cost-price terminology and lifecycle isolation across generated routes. Exact workflow-run evidence is recorded on PR #670.
 
 ## Ownership boundaries
 
