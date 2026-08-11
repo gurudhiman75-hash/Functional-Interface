@@ -22,6 +22,7 @@ import { assertCp004HumanPolishV4, polishCp004ExplanationHumanV4, polishCp004Pre
 import { polishCp004OptionsHumanV4 } from "./cp004-frequency-option-polish-v4";
 import { finalizeCp004ExplanationLanguageV4 } from "./cp004-frequency-final-language-v4";
 import { finalizeCp004TableLanguageV5 } from "./cp004-frequency-table-language-v5";
+import { finalizeCp004PresentationLanguageV5 } from "./cp004-frequency-final-presentation-v5";
 
 export * from "./cp004-frequency-math";
 export { generateCp004State } from "./cp004-frequency-generation";
@@ -47,7 +48,8 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
   });
   const v3Presentation = hardenCp004PresentationV3(cleanedPresentation);
   const humanPresentation = polishCp004PresentationHumanV4(mathematicalState, v3Presentation);
-  const presentation = finalizeCp004TableLanguageV5(mathematicalState, humanPresentation);
+  const tableReadyPresentation = finalizeCp004TableLanguageV5(mathematicalState, humanPresentation);
+  const presentation = finalizeCp004PresentationLanguageV5(mathematicalState, tableReadyPresentation);
   assertCp004VisibleGivensExamReadyV4(mathematicalState, presentation.stem);
   const v3Options = hardenCp004OptionsV3(mathematicalState, optionsFor(mathematicalState, seed));
   const options = polishCp004OptionsHumanV4(mathematicalState, v3Options);
