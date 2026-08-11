@@ -1,29 +1,29 @@
 # RNK-CP-005 — Partial Order and Ranking Uncertainty
 
-Status: **EDITORIAL V2 REVIEW READY — no permanent QL allocated**
+Status: **EDITORIAL V3 RELEASE REVIEW PASSED — FINAL OWNERSHIP REVIEW PENDING — no permanent QL allocated**
 
-This checkpoint studies ranking questions in which the displayed comparisons permit more than one complete ranking. The learner must reason across all valid rankings instead of forcing one arrangement.
+This checkpoint covers ranking questions in which the displayed comparisons intentionally permit more than one complete ranking. Answers are proved across all valid orders rather than by forcing one arrangement.
 
 ## Raw discovery
 
 ```text
 raw prototypes:                 8
-questions per prototype:       32
-raw discovery questions:      256
+questions/prototype:           32
+raw questions:                256
 valid rankings/question:      >=2
-answer positions:       64 / 64 / 64 / 64
-unique fingerprints:           256
+answer positions:      64 / 64 / 64 / 64
+unique fingerprints:          256
 ```
 
-Every answer is independently replayed from the learner-visible comparison graph and optional fixed-rank anchor.
+Raw discovery included optional fixed-rank anchors and four original graph shapes. Editorial V3 no longer depends on endpoint anchors and uses a broader graph pool.
 
-## Editorial V2 source forms
+## V3 Release source forms
 
 ```text
 DEFINITELY_TRUE_RELATION
 POSSIBLE_RELATION
 IMPOSSIBLE_RELATION
-PAIR_RELATION_CANNOT_BE_DETERMINED
+PAIR_RELATION_CANNOT_BE_DETERMINED   # legacy discovery ID; learner form = PAIR_RELATION_STATUS
 MINIMUM_POSSIBLE_RANK
 MAXIMUM_POSSIBLE_RANK
 DEFINITE_RANK_OR_INDETERMINATE
@@ -35,134 +35,176 @@ Rejected:
 ORDER_UNIQUENESS_STATUS
 ```
 
-It repeatedly produced the same multiple-order conclusion and did not justify a separate authority.
+The rejected form repeatedly projected the same multiple-order conclusion and overlapped existing uniqueness ownership.
 
-## Provisional authority consolidation
+## Three provisional authorities
 
-Seven source forms are consolidated into four authority candidates:
+V3 consolidates the seven surviving source forms into **three**, not seven, authority candidates:
 
 ```text
 RELATION_TRUTH_STATUS
-  must be true
-  could be true
-  cannot be true
-
-RELATIVE_RANK_DETERMINACY
-  named pair cannot be determined uniquely
+  MUST
+  COULD
+  CANNOT
+  PAIR_STATUS: first above / second above / indeterminate
 
 POSSIBLE_RANK_BOUND
   highest possible rank
   lowest possible rank
 
 EXACT_RANK_DETERMINACY
-  exact rank or cannot be determined uniquely
+  definite exact rank
+  indeterminate exact rank
 ```
 
-These are provisional authority candidates, not allocated QLs.
+These are provisional authorities, **not permanent QLs**.
 
-See `RNK-CP-005-EDITORIAL-V2-MERGE-SPLIT-AUDIT.md`.
+See `RNK-CP-005-EDITORIAL-V3-CONSOLIDATION.md`.
 
-## Editorial V2 evidence
+## V3 Release evidence
 
 ```text
-source forms:                    7
-questions per source form:      24
-questions checked:             168
-provisional authorities:         4
-answer positions:       42 / 42 / 42 / 42
+editorial version:             RNK_CP005_PARTIAL_ORDER_EDITORIAL_V3_RELEASE
+questions checked:            168
+questions/source form:         24
+provisional authorities:        3
+answer positions:      42 / 42 / 42 / 42
+unique release states:        168
 
-Easy:                           12
-Medium:                         84
-Hard:                           72
+Easy:                           0
+Medium:                       156
+Hard:                          12
 
-permanent QLs allocated:         0
+permanent QLs:                  0
 ```
 
-Exact-head proof:
+Eight V3 graph families are represented:
 
 ```text
-workflow run: 31309207564
-head:         434c950620262d3b2297cc81d72b5ece7d2de036
+DIAMOND_TAIL
+TWO_CHAINS_BRIDGE
+ASYMMETRIC_FORK
+STAGGERED_MERGE
+CHAIN_PLUS_BRANCH
+DOUBLE_FORK
+WIDE_MERGE
+CROSS_LINKED
+```
+
+Each source form spans at least six graph families in the release corpus; the 28-question review pack uses four distinct topologies within every source form.
+
+Implementation proof before this documentation pass:
+
+```text
+workflow run: 31472607624
+head:         bf268249e9daf24273da2ecf081f674ea4e42642
 result:       PASS
 ```
 
-## V2 option-design correction
-
-The previous pack repeatedly fixed one person in three or four options. V2 prohibits that pattern in generic relation questions.
+Artifacts:
 
 ```text
-comparison options:            4
-ordered pairs represented:     4
-unordered pairs represented:   4
-minimum distinct people:       4
-maximum appearances/person:    2
+evidence: 9093964523
+sha256:079dc2d8df6ecd2ae4f3941ee752395c55f2f4e9f96be0f1bb6f0987abbd3b63
+
+review:   9093964870
+sha256:8293fc3810c9d8d111e2c9a4ce3eb2634927fdbdf331566881eea57989b0af6b
 ```
 
-A named pair may repeat across options only when the stem explicitly asks about that pair's relative ranks.
+## Semantic option gates
 
-## Other V2 gates
+Generic relation questions enforce:
 
-- a must-be-true answer cannot merely repeat a displayed clue;
-- a cannot-be-true answer cannot merely reverse a displayed clue;
-- an endpoint fixed-rank anchor cannot independently reveal the correct relation;
-- rank-bound targets require at least two compulsory predecessors or successors;
-- rank-bound explanations prove both the limit and attainability;
-- definite exact ranks use structural universal proof, not two examples;
-- indeterminate answers use two valid witness orders;
-- learner explanations do not expose permutation counts;
-- ambiguous phrases such as “lower merit rank” and “lower score rank” are prohibited;
-- difficulty is based on the required proof, not merely the number of names;
-- Seating Arrangement vocabulary and geometry remain prohibited.
+```text
+four distinct ordered pairs
+four distinct unordered pairs
+at least four people represented
+no person appears in more than two options
+```
 
-## Core proof rule
+Query-specific rules:
 
-For every displayed clue set:
+- **MUST:** correct relation is transitively derived; at least two wrong options are possible but not compulsory.
+- **COULD:** correct relation is variable; every wrong option is impossible only through multi-step inference; direct clue reversal is prohibited.
+- **CANNOT:** correct relation is transitively impossible; every wrong option is possible but not compulsory.
+- **PAIR_STATUS:** 24-question evidence is balanced `8 FIRST_ABOVE / 8 SECOND_ABOVE / 8 INDETERMINATE`; the fourth distractor varies across several exact-gap claims.
 
-1. enumerate every strict ranking satisfying all comparisons and fixed-rank anchors;
-2. reject contradictory states with zero valid rankings;
-3. retain at least two valid rankings for uncertainty discovery;
-4. evaluate every option against the complete valid-order set;
-5. mark a relation definite only when true in every valid ranking;
-6. mark it possible when true in at least one valid ranking;
-7. mark it impossible when true in none;
-8. prove bounds with a compulsory-count limit and an attainable witness;
-9. prove indeterminacy with two valid rankings giving different conclusions.
+## Rank-bound and exact-rank gates
 
-## Ownership boundary
+Possible-rank bounds require:
 
-Included:
+- at least three compulsory predecessors/successors;
+- branch integration;
+- at least one compulsory relation obtained transitively, not by a displayed direct comparison;
+- a proof that a better boundary is impossible;
+- a valid witness ranking showing the boundary is attainable.
 
-- incomplete strict-comparison graphs;
-- truth status across several valid rankings;
-- named-pair determinacy;
-- possible rank bounds;
-- exact-rank invariance or indeterminacy.
+Definite exact-rank questions require transitive structural evidence and accounting for all other entities. Indeterminate exact-rank questions require two valid rankings that place the target at different ranks.
 
-Excluded:
+## Difficulty calibration
 
-- unique complete strict-order reconstruction, owned by CP-004;
-- left/right placement, facing, adjacency and neighbours, owned by Seating Arrangement;
-- shared-passage delivery as a standalone QL;
-- arithmetic-heavy marks, ages, speeds or scores;
-- statement-wise sufficiency labels, owned by Data Sufficiency.
+V3 intentionally moved away from “more names = Hard”.
 
-## Decision still required
+```text
+Medium: 156
+Hard:    12
+Easy:     0
+```
 
-Before allocating `RNK-QL-036`, human review and exam-source evidence must decide whether:
+Hard is reserved for deeper proof burden; most partial-order questions remain Medium even with six or seven names.
 
-- all four provisional authorities remain separate;
-- relative-rank determinacy merges into relation truth status;
-- partial definite-relation mode extends CP-004 `RNK-QL-034` rather than creating a new authority.
+## Manual review result
+
+The final 28-question release pack was manually inspected after executable validation.
+
+```text
+wrong answer keys:                  0
+contradictions:                     0
+one-person option fixation:         0
+direct-reversal COULD shortcuts:    0
+pair outcome monotony:              0
+rank-bound direct-count-only cases: 0
+Seating Arrangement geometry:       0
+```
+
+Editorial review is therefore passed. Permanent ownership/source review is still pending.
+
+## CP-004 boundary
+
+CP-004 `RNK-QL-034` and CP-005 `MUST` may share surface language but not the same proof contract:
+
+```text
+CP-004 / RNK-QL-034
+  one unique complete strict order is forced
+
+CP-005 / RELATION_TRUTH_STATUS-MUST
+  several complete rankings remain valid
+  the conclusion must hold across all of them
+```
+
+Final source-backed ownership review must still decide whether partial-order truth status becomes a new permanent QL or a parameterised extension of existing ownership.
+
+## Protected exclusions
+
+- seating/facing/left-right adjacency/neighbour geometry;
+- unique complete-order reconstruction already owned by CP-004;
+- shared passage delivery as a standalone authority;
+- arithmetic-heavy age/marks/speed/score questions;
+- statement-wise sufficiency labels;
+- context words such as merit, race or performance as separate QLs.
 
 ## Lifecycle
 
 ```text
-permanent QLs:        0
-next available QL:    RNK-QL-036
-English freeze:       false
-Question Studio:      DISABLED
-Question Bank:        NOT_STORED
-test eligibility:     INELIGIBLE
-public publication:   false
-Hindi/Punjabi:        NOT_STARTED
+frozen permanent range: RNK-QL-001..035
+next available QL:      RNK-QL-036
+CP-005 permanent QLs:   0
+English freeze:         false
+final ownership signoff: pending
+Question Studio:        DISABLED
+persistence:            DISABLED
+Question Bank:          NOT_STORED
+test eligibility:       INELIGIBLE
+public publication:     false
+Hindi/Punjabi:          NOT_STARTED
 ```
