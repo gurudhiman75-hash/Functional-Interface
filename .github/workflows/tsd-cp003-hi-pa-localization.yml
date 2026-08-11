@@ -32,21 +32,25 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle native parity proof and review export
+      - name: Bundle native parity and editorial review proofs
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
           OUT=dist/quant-v4/tsd-001/cp003-localization
           mkdir -p artifacts/api-server/$OUT
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-runtime-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-runtime-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-reviewed-final-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-reviewed-final-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-review-export.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-reviewed-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-reviewed-export.mjs"
 
-      - name: Run native parity proof and export review package
+      - name: Run native parity and editorial review proofs
         run: |
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/tsd-001/cp003-localization/native-runtime-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003-localization/native-runtime-proof.log
+          node dist/quant-v4/tsd-001/cp003-localization/native-reviewed-final-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003-localization/native-reviewed-final-proof.log
           node dist/quant-v4/tsd-001/cp003-localization/native-review-export.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003-localization/native-review-export.log
+          node dist/quant-v4/tsd-001/cp003-localization/native-reviewed-export.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003-localization/native-reviewed-export.log
 
       - name: Upload localization proof logs
         if: always()
@@ -56,13 +60,24 @@ jobs:
           path: artifacts/api-server/dist/quant-v4/tsd-001/cp003-localization/*.log
           if-no-files-found: error
 
-      - name: Upload Hindi Punjabi human-review package
+      - name: Upload raw Hindi Punjabi parity package
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp003-hi-pa-human-review
+          name: tsd-cp003-hi-pa-raw-parity-review
           path: |
             artifacts/api-server/dist/quant-v4/tsd-001/cp003-localization-review/tsd-cp003-hi-pa-review.json
             artifacts/api-server/dist/quant-v4/tsd-001/cp003-localization-review/tsd-cp003-hi-pa-review.jsonl
             artifacts/api-server/dist/quant-v4/tsd-001/cp003-localization-review/tsd-cp003-hi-pa-review.html
+          if-no-files-found: error
+
+      - name: Upload reviewed Hindi Punjabi candidate
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp003-hi-pa-reviewed-candidate
+          path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/cp003-native-reviewed-candidate/tsd-cp003-hi-pa-reviewed-candidate.json
+            artifacts/api-server/dist/quant-v4/tsd-001/cp003-native-reviewed-candidate/tsd-cp003-hi-pa-reviewed-candidate.jsonl
+            artifacts/api-server/dist/quant-v4/tsd-001/cp003-native-reviewed-candidate/tsd-cp003-hi-pa-reviewed-candidate.html
           if-no-files-found: error
