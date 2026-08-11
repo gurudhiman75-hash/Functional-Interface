@@ -108,8 +108,9 @@ function diagnosisPackage(seed: number): SapCp005Package {
 function reciprocalChainPackage(seed: number): SapCp005Package {
   const prototypeId = "SAP-CP005-PROT-PRODUCT-OF-RECIPROCALS" as const;
   const pkg = generateSapCp005(prototypeId, seed);
-  const start = 1 + ((seed * 7 + Math.floor(seed / 4) * 5) % 9);
-  const span = 4 + ((seed * 11 + Math.floor(seed / 9) * 3) % 4);
+  const pairIndex = (seed - 1) % 36;
+  const start = 1 + (pairIndex % 9);
+  const span = 4 + Math.floor(pairIndex / 9);
   const terminal = start + span;
   const answer = rat(start, terminal);
   const canonicalAnswer = format(answer);
