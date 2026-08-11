@@ -8,29 +8,31 @@ import {
 } from "./fcl-instance-catalog-v2";
 import { buildSpatialFclSafeQuartetCatalogV1 } from "./fcl-safe-quartet-catalog-v1";
 import {
+  buildSpatialFsrContentFromStateV2,
+  buildSpatialFsrSafeStateCatalogV2,
+  spatialFsrSafeStateCapacityV2,
+  spatialFsrSafeStateTotalCapacityV2,
+  type SpatialFsrSafeStateCatalogEntryV2,
+} from "./fsr-safe-state-catalog-v2";
+import {
   SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_DESCRIPTION_V2,
   SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2,
   type SpatialPrimitiveClassificationPropertyIdV2,
 } from "./primitive-classification-v2";
 import { getSpatialPrimitiveConnectivityV2 } from "./primitive-connectivity-v2";
 import { getSpatialPrimitiveV2 } from "./primitive-library-v2";
-import {
-  SPATIAL_FAN_SYNTHESIS_TRANSFORM_IDS_V1,
-} from "./production-synthesis-engine-v1";
+import { SPATIAL_FAN_SYNTHESIS_TRANSFORM_IDS_V1 } from "./production-synthesis-engine-v1";
 import {
   SPATIAL_FSR_SYNTHESIS_RULE_IDS_V1,
   synthesizeSpatialFanAttemptV1,
-  synthesizeSpatialFsrAttemptV1,
 } from "./production-synthesis-v1";
 import { spatialSceneSemanticFingerprint } from "./normalize";
 import { DeterministicSpatialRng } from "./seed";
 import { classifySpatialSceneSymmetry } from "./symmetry";
+import type { SpatialSeriesRuleId } from "./series-types";
 import type { SpatialLineNode, SpatialScene } from "./types";
 import { validateSpatialScene } from "./validator";
-import {
-  SPATIAL_SYNTHESIS_LIFECYCLE_LOCK_V1,
-  type SpatialSynthesisChapterV1,
-} from "./synthesis-types-v1";
+import { SPATIAL_SYNTHESIS_LIFECYCLE_LOCK_V1 } from "./synthesis-types-v1";
 import type {
   SpatialFclInstanceQuestionV2,
   SpatialProductionScaleBatchRequestV2,
@@ -161,9 +163,7 @@ function buildFclInstanceQuestion(
   prototypeId: string,
 ): SpatialFclInstanceQuestionV2 {
   const audit = auditSpatialFclInstanceQuartetV2(quartet, propertyId, correctOptionIndex);
-  if (!audit.safe) {
-    throw new Error(`${prototypeId}: final instance quartet audit failed for ${propertyId}.`);
-  }
+  if (!audit.safe) throw new Error(`${prototypeId}: final instance quartet audit failed for ${propertyId}.`);
   const optionScenes = quartet.map((instance, index) =>
     presentedFclScene(instance.scene, propertyId, `${prototypeId}-OPTION-${index + 1}`),
   );
@@ -275,7 +275,6 @@ function fclScaleBatch(seedPrefix: string, requested: number): SpatialProduction
   if (new Set(accepted.map((candidate) => candidate.contentFingerprint)).size !== accepted.length) {
     throw new Error("FCL V2 batch contains duplicate global-rotation-normalized content.");
   }
-
   return {
     chapterCode: "FCL-001",
     requested,
@@ -288,15 +287,11 @@ function fclScaleBatch(seedPrefix: string, requested: number): SpatialProduction
   };
 }
 
-function legacyScaleBatch(
-  chapterCode: Exclude<SpatialSynthesisChapterV1, "FCL-001">,
+function fanScaleBatch(
   seedPrefix: string,
   requested: number,
   maxAttempts: number,
 ): SpatialProductionScaleChapterResultV2 {
-  const families = chapterCode === "FAN-001"
-    ? SPATIAL_FAN_SYNTHESIS_TRANSFORM_IDS_V1
-    : SPATIAL_FSR_SYNTHESIS_RULE_IDS_V1;
   const accepted: SpatialProductionScaleCandidateV2[] = [];
   const seen = new Set<string>();
   const correctSlotCounts: [number, number, number, number] = [0, 0, 0, 0];
@@ -304,16 +299,13 @@ function legacyScaleBatch(
   let duplicateRejects = 0;
   let generatorRejects = 0;
   let attempts = 0;
-
   for (let attemptIndex = 0; accepted.length < requested && attemptIndex < maxAttempts; attemptIndex += 1) {
     attempts += 1;
     const acceptedIndex = accepted.length;
-    const familyId = families[acceptedIndex % families.length]!;
+    const familyId = SPATIAL_FAN_SYNTHESIS_TRANSFORM_IDS_V1[acceptedIndex % SPATIAL_FAN_SYNTHESIS_TRANSFORM_IDS_V1.length]!;
     const desiredCorrectOptionIndex = acceptedIndex % 4;
-    const seed = `${seedPrefix}:${chapterCode}:${familyId}:${desiredCorrectOptionIndex}:${attemptIndex}`;
-    const attempt = chapterCode === "FAN-001"
-      ? synthesizeSpatialFanAttemptV1({ seed, familyId: familyId as typeof SPATIAL_FAN_SYNTHESIS_TRANSFORM_IDS_V1[number], desiredCorrectOptionIndex, attemptIndex })
-      : synthesizeSpatialFsrAttemptV1({ seed, familyId: familyId as typeof SPATIAL_FSR_SYNTHESIS_RULE_IDS_V1[number], desiredCorrectOptionIndex, attemptIndex });
+    const seed = `${seedPrefix}:FAN-001:${familyId}:${desiredCorrectOptionIndex}:${attemptIndex}`;
+    const attempt = synthesizeSpatialFanAttemptV1({ seed, familyId, desiredCorrectOptionIndex, attemptIndex });
     if (attempt.status === "REJECTED") {
       generatorRejects += 1;
       continue;
@@ -328,9 +320,98 @@ function legacyScaleBatch(
     familyCounts[familyId] = (familyCounts[familyId] ?? 0) + 1;
   }
   if (accepted.length !== requested) {
-    throw new Error(`${chapterCode}: V2 scale proof exhausted ${maxAttempts} attempts at ${accepted.length}/${requested}.`);
+    throw new Error(`FAN-001: V2 scale proof exhausted ${maxAttempts} attempts at ${accepted.length}/${requested}.`);
   }
-  return { chapterCode, requested, accepted, attempts, duplicateRejects, generatorRejects, correctSlotCounts, familyCounts };
+  return {
+    chapterCode: "FAN-001",
+    requested,
+    accepted,
+    attempts,
+    duplicateRejects,
+    generatorRejects,
+    correctSlotCounts,
+    familyCounts,
+  };
+}
+
+function buildFsrSchedule(requested: number): SpatialSeriesRuleId[] {
+  const capacities = spatialFsrSafeStateCapacityV2();
+  const total = Object.values(capacities).reduce((sum, value) => sum + value, 0);
+  if (requested > total) throw new Error(`FSR V2 requested ${requested} contents but safe-state capacity is ${total}.`);
+  const used = new Map<SpatialSeriesRuleId, number>();
+  const schedule: SpatialSeriesRuleId[] = [];
+  while (schedule.length < requested) {
+    let progressed = false;
+    for (const ruleId of SPATIAL_FSR_SYNTHESIS_RULE_IDS_V1) {
+      if (schedule.length >= requested) break;
+      const count = used.get(ruleId) ?? 0;
+      if (count >= (capacities[ruleId] ?? 0)) continue;
+      schedule.push(ruleId);
+      used.set(ruleId, count + 1);
+      progressed = true;
+    }
+    if (!progressed) break;
+  }
+  if (schedule.length !== requested) throw new Error(`FSR V2 scheduler produced ${schedule.length}/${requested}.`);
+  return schedule;
+}
+
+function fsrScaleBatch(seedPrefix: string, requested: number): SpatialProductionScaleChapterResultV2 {
+  const schedule = buildFsrSchedule(requested);
+  const queues = new Map<SpatialSeriesRuleId, SpatialFsrSafeStateCatalogEntryV2[]>();
+  for (const ruleId of SPATIAL_FSR_SYNTHESIS_RULE_IDS_V1) {
+    const rng = new DeterministicSpatialRng(`${seedPrefix}:FSR-QUEUE:${ruleId}`);
+    queues.set(ruleId, rng.shuffle(buildSpatialFsrSafeStateCatalogV2(ruleId)));
+  }
+  const consumed = new Map<SpatialSeriesRuleId, number>();
+  const accepted: SpatialProductionScaleCandidateV2[] = [];
+  const correctSlotCounts: [number, number, number, number] = [0, 0, 0, 0];
+  const familyCounts: Record<string, number> = {};
+
+  schedule.forEach((ruleId, acceptedIndex) => {
+    const queue = queues.get(ruleId)!;
+    const offset = consumed.get(ruleId) ?? 0;
+    const selected = queue[offset];
+    if (!selected) throw new Error(`FSR V2 queue exhausted unexpectedly for ${ruleId}.`);
+    consumed.set(ruleId, offset + 1);
+    const correctOptionIndex = acceptedIndex % 4;
+    const prototypeId = `FSR-SCALE-V2-${String(acceptedIndex + 1).padStart(4, "0")}`;
+    const built = buildSpatialFsrContentFromStateV2({
+      ruleId,
+      initialState: selected.initialState,
+      correctOptionIndex,
+      prototypeId,
+    });
+    if (built.contentFingerprint !== selected.contentFingerprint) {
+      throw new Error(`${prototypeId}: answer delivery changed FSR content identity.`);
+    }
+    accepted.push({
+      chapterCode: "FSR-001",
+      seed: `${seedPrefix}:FSR:${ruleId}:${acceptedIndex}`,
+      familyId: ruleId,
+      correctOptionIndex,
+      contentFingerprint: built.contentFingerprint,
+      deliveryFingerprint: built.deliveryFingerprint,
+      payload: built.payload,
+      lifecycle: lifecycleLock(),
+    });
+    correctSlotCounts[correctOptionIndex] += 1;
+    familyCounts[ruleId] = (familyCounts[ruleId] ?? 0) + 1;
+  });
+
+  if (new Set(accepted.map((candidate) => candidate.contentFingerprint)).size !== accepted.length) {
+    throw new Error("FSR V2 batch contains duplicate safe-state content.");
+  }
+  return {
+    chapterCode: "FSR-001",
+    requested,
+    accepted,
+    attempts: requested,
+    duplicateRejects: 0,
+    generatorRejects: 0,
+    correctSlotCounts,
+    familyCounts,
+  };
 }
 
 export function synthesizeSpatialProductionScaleBatchV2(
@@ -341,9 +422,9 @@ export function synthesizeSpatialProductionScaleBatchV2(
     throw new Error("Production Scale V2 requestedPerChapter must be a positive integer.");
   }
   const maxAttempts = request.maxAttemptsPerChapter ?? Math.max(5_000, request.requestedPerChapter * 20);
-  const fan = legacyScaleBatch("FAN-001", request.seedPrefix, request.requestedPerChapter, maxAttempts);
+  const fan = fanScaleBatch(request.seedPrefix, request.requestedPerChapter, maxAttempts);
   const fcl = fclScaleBatch(request.seedPrefix, request.requestedPerChapter);
-  const fsr = legacyScaleBatch("FSR-001", request.seedPrefix, request.requestedPerChapter, maxAttempts);
+  const fsr = fsrScaleBatch(request.seedPrefix, request.requestedPerChapter);
   const fclCanonicalCatalogCapacity = SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2.reduce(
     (sum, propertyId) => sum + buildSpatialFclSafeQuartetCatalogV1(propertyId).length,
     0,
@@ -355,6 +436,7 @@ export function synthesizeSpatialProductionScaleBatchV2(
     totalAccepted: fan.accepted.length + fcl.accepted.length + fsr.accepted.length,
     fclInstanceCatalogCapacity: spatialFclInstanceTotalCapacityV2(),
     fclCanonicalCatalogCapacity,
+    fsrSafeStateTotalCapacity: spatialFsrSafeStateTotalCapacityV2(),
     chapters: { "FAN-001": fan, "FCL-001": fcl, "FSR-001": fsr },
     lifecycle: lifecycleLock(),
   };
