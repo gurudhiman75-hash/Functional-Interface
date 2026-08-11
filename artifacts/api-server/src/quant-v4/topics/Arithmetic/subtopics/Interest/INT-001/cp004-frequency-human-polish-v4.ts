@@ -25,7 +25,7 @@ const OBSERVED_VALUE_LABEL: Readonly<Partial<Record<Cp004MathematicalState["qlId
   "INT-QL-074": "Compound interest",
 });
 
-const FORBIDDEN_LEARNER_SHORTHAND = /(?:\bA\/P ratio\b|\bCI\/P ratio\b|\breference principal\b|\bexact two-stage rule\b|\bObserved \/ required value\b)/iu;
+const FORBIDDEN_LEARNER_SHORTHAND = /(?:\bA\/P ratio\b|\bCI\/P ratio\b|\breference principal\b|\bexact two-stage rule\b|\bObserved \/ required value\b|₹100 example such as ₹100)/iu;
 const MISLEADING_MONTHLY_EQUALITY = /monthly compounding:.*?rate per period\s*=\s*[0-9.]+%/iu;
 
 export function polishCp004PresentationHumanV4(
@@ -33,11 +33,10 @@ export function polishCp004PresentationHumanV4(
   presentation: Presentation,
 ): Presentation {
   const label = OBSERVED_VALUE_LABEL[state.qlId];
-  if (!label || !presentation.stem.includes("Observed / required value")) return presentation;
-  return deepFreeze({
-    ...presentation,
-    stem: presentation.stem.replace(/Observed \/ required value/gu, label),
-  });
+  let stem = presentation.stem;
+  if (label) stem = stem.replace(/Observed \/ required value/gu, label);
+  stem = stem.replace(/^an illustrative compound-growth plan/u, "An illustrative compound-growth plan");
+  return stem === presentation.stem ? presentation : deepFreeze({ ...presentation, stem });
 }
 
 function plainLanguage(text: string): string {
@@ -55,6 +54,8 @@ function plainLanguage(text: string): string {
       /Do not use the unknown principal to manufacture the amount ratio\./gu,
       "Do not guess the original sum from the final amount. First see what ₹100 would become, then scale back to the given final amount.",
     )
+    .replace(/Do not divide the final amount by an assumed principal\. First derive the amount produced by a ₹100 example such as ₹100\./gu,
+      "Do not guess the original sum from the final amount. First see what ₹100 would become, then scale the given final amount back to the original sum.")
     .replace(/exact amount ratio/giu, "exact comparison between the final amount and the original sum")
     .replace(/amount ratio/giu, "comparison between the final amount and the original sum");
 }
@@ -85,6 +86,10 @@ function effectiveRateSteps(state: Cp004MathematicalState, existing: readonly st
   }));
 }
 
+function capitalize(value: string): string {
+  return value.length === 0 ? value : `${value[0]!.toUpperCase()}${value.slice(1)}`;
+}
+
 function frequencyIdentificationSteps(state: Cp004MathematicalState, existing: readonly string[]): readonly string[] {
   if (state.qlId !== "INT-QL-078") return existing;
   const target = completeAmountFromNominal(state.principal, state.nominalAnnualRatePercent, state.frequency, state.frequency * state.years);
@@ -95,10 +100,10 @@ function frequencyIdentificationSteps(state: Cp004MathematicalState, existing: r
       : frequency === 2 ? "into 2 equal half-yearly parts and apply it twice"
         : frequency === 4 ? "into 4 equal quarterly parts and apply it four times"
           : "into 12 equal monthly parts and apply it twelve times";
-    return `${frequencyScheduleLabel(frequency)} compounding: split the annual rate ${parts}. ₹100 becomes about ${moneyText(amountOn100)}.`;
+    return `${capitalize(frequencyScheduleLabel(frequency))} compounding: split the annual rate ${parts}. ₹100 becomes about ${moneyText(amountOn100)}.`;
   });
   return Object.freeze([
-    `First compare the final amount with the original sum: ${moneyText(target)} ÷ ${moneyText(state.principal)} = ${decimal(targetRatio, 6)}. This shows how much the money grows over the stated time.`,
+    `First compare the final amount with the original sum: ${moneyText(target)} ÷ ${moneyText(state.principal)} ≈ ${decimal(targetRatio, 6)}. This shows how much the money grows over the stated time.`,
     ...comparisons,
     existing[existing.length - 1]!,
   ]);
@@ -129,6 +134,9 @@ export function assertCp004HumanPolishV4(
   const learnerText = [presentation.stem, explanation.whatAsked, ...explanation.steps, explanation.finalAnswer, explanation.commonMistake].join("\n");
   if (FORBIDDEN_LEARNER_SHORTHAND.test(learnerText)) {
     throw new Error(`${state.qlId}: technical or ambiguous learner-facing shorthand survived the human-polish layer.`);
+  }
+  if (/^an [a-z]/u.test(presentation.stem)) {
+    throw new Error(`${state.qlId}: learner-facing stem begins with a lowercase article.`);
   }
   if (state.qlId === "INT-QL-078" && MISLEADING_MONTHLY_EQUALITY.test(learnerText)) {
     throw new Error(`${state.qlId}: rounded monthly rate is presented as an exact equality.`);
