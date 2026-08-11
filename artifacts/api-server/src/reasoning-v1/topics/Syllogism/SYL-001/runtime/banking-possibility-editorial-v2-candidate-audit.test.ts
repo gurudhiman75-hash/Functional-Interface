@@ -1,11 +1,7 @@
 import assert from "node:assert/strict";
 import type { SylLocale } from "../foundation/types";
-import {
-  generateBankingPossibilityEditorialV2Candidate,
-} from "./banking-possibility-editorial-v2-candidate";
-import {
-  generateBankingPossibilityReviewQuestionV2Corrected,
-} from "./banking-possibility-review-question-v2-corrected";
+import { generateBankingPossibilityEditorialV2Candidate } from "./banking-possibility-editorial-v2-candidate";
+import { generateBankingPossibilityReviewQuestionV2Corrected } from "./banking-possibility-review-question-v2-corrected";
 
 const locales: readonly SylLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const seeds = Array.from({ length: 80 }, (_, index) => index);
@@ -38,7 +34,7 @@ for (const seed of seeds) {
     const { explanation: baseExplanation, ...baseInvariant } = base;
     const { explanation: candidateExplanation, ...candidateInvariant } = candidate;
 
-    // Editorial V2 may change learner explanation only.
+    // Editorial V2 is presentation-only: everything except explanation is immutable.
     assert.deepEqual(candidateInvariant, baseInvariant);
     assert.notDeepEqual(candidateExplanation, baseExplanation);
     changedExplanationRecords += 1;
@@ -68,7 +64,7 @@ for (const seed of seeds) {
       if (locale === "en-IN") {
         assert.match(line, /Conclusion (I|II) (follows|does not follow)\.$/u);
       } else if (locale === "hi-IN") {
-        assert.match(line, /इसलिए निष्कर्ष (I|II) (अनुसरण करता है|अनुसरण नहीं करता है)।$/u);
+        assert.match(line, /इसलिए निष्कर्ष (I|II) (अनुसरण करता है|अनुसरण नहीं करता)।$/u);
       } else {
         assert.match(line, /ਇਸ ਲਈ ਨਤੀਜਾ (I|II) (ਸਹੀ ਹੈ|ਸਹੀ ਨਹੀਂ ਹੈ)।$/u);
       }
