@@ -1,41 +1,49 @@
 import { required } from "./cp001-helpers";
-import type { TmwCp010GeneratedQuestion } from "./cp010-types";
+import type {
+  TmwCp010CycleSegment,
+  TmwCp010GeneratedQuestion,
+  TmwCp010Stage,
+} from "./cp010-types";
 import type { TmwLocalizedLanguage } from "./localization-types";
-import { cp009Time } from "./localization-cp009-language";
+import { cp009PipeLabel, cp009Time } from "./localization-cp009-language";
 import {
   cp010Arrangement,
   cp010Boundary,
-  cp010Capabilities,
   cp010Context,
   cp010Label,
   cp010Level,
-  cp010NumberedSegments,
-  cp010StageText,
   cp010UniquePipes,
 } from "./localization-cp010-language";
 
-function sentenceList(items: string[]): string {
-  return items.join(" ");
+function compactPipeTimes(
+  pipes: ReturnType<typeof cp010UniquePipes>,
+  language: TmwLocalizedLanguage,
+): string {
+  const facts = pipes.map((pipe) => `${cp009PipeLabel(pipe, language)}—${cp009Time(pipe.soloTime, language)}`).join("; ");
+  return language === "hi" ? `अकेले समय: ${facts}।` : `ਇਕੱਲੇ ਸਮੇਂ: ${facts}।`;
 }
 
 function stageCapabilities(source: TmwCp010GeneratedQuestion, language: TmwLocalizedLanguage): string {
-  const p = source.parameters;
-  const { tank } = cp010Context(p, language);
-  return cp010Capabilities(cp010UniquePipes((p.stages ?? []).map((stage) => stage.pipes)), tank, language);
+  return compactPipeTimes(cp010UniquePipes((source.parameters.stages ?? []).map((stage) => stage.pipes)), language);
 }
 
 function cycleCapabilities(source: TmwCp010GeneratedQuestion, language: TmwLocalizedLanguage): string {
-  const p = source.parameters;
-  const { tank } = cp010Context(p, language);
-  return cp010Capabilities(cp010UniquePipes((p.cycle ?? []).map((segment) => segment.pipes)), tank, language);
+  return compactPipeTimes(cp010UniquePipes((source.parameters.cycle ?? []).map((segment) => segment.pipes)), language);
 }
 
-function stageSequence(source: TmwCp010GeneratedQuestion, language: TmwLocalizedLanguage): string {
-  return sentenceList(required(source.parameters.stages, "stages").map((stage) => `${cp010StageText(stage, language)}।`));
+function compactStages(stages: readonly TmwCp010Stage[], language: TmwLocalizedLanguage): string {
+  return stages.map((stage, index) => {
+    const duration = stage.duration ? `—${cp009Time(stage.duration, language)}` : "";
+    return `${index + 1}) ${cp010Arrangement(stage.pipes, language)}${duration}`;
+  }).join("; ");
 }
 
-function targetNoun(source: TmwCp010GeneratedQuestion, language: TmwLocalizedLanguage): string {
-  return cp010Boundary(source.parameters, language);
+function compactCycle(cycle: readonly TmwCp010CycleSegment[], language: TmwLocalizedLanguage): string {
+  return cycle.map((segment, index) => `${index + 1}) ${cp010Arrangement(segment.pipes, language)}—${cp009Time(segment.duration, language)}`).join("; ");
+}
+
+function formatPhysical(value: number): string {
+  return new Intl.NumberFormat("en-IN", { maximumFractionDigits: 2 }).format(value);
 }
 
 export function renderTmwCp010LocalizedStem(
@@ -45,95 +53,93 @@ export function renderTmwCp010LocalizedStem(
   const p = source.parameters;
   const stages = p.stages ?? [];
   const cycle = p.cycle ?? [];
-  const { setting, tank } = cp010Context(p, language);
+  const { tank } = cp010Context(p, language);
   const initial = cp010Level(p.initialLevel, language);
-  const target = targetNoun(source, language);
+  const target = cp010Boundary(p, language);
 
   if (language === "hi") {
     switch (source.solveMode) {
       case "findCompletionAfterDelayedActivation":
-        return `${setting} में ${tank} शुरू में ${initial} है। ${stageCapabilities(source, language)} पहले ${cp009Time(required(stages[0].duration, "delay"), language)} तक ${cp010Arrangement(stages[0].pipes, language)}। इसके बाद दूसरी व्यवस्था लागू होकर ${cp010Arrangement(stages[1].pipes, language)} और टंकी ${target} होने तक यही व्यवस्था चलती रहती है। शुरू से कुल कितना समय लगेगा?`;
+        return `${tank} शुरू में ${initial} है। ${stageCapabilities(source, language)} पहले ${cp010Arrangement(stages[0].pipes, language)} ${cp009Time(required(stages[0].duration, "delay"), language)} तक चलता है; फिर ${cp010Arrangement(stages[1].pipes, language)} ${tank} के ${target} होने तक चलता है। शुरू से कितना समय लगेगा?`;
       case "findCompletionAfterDelayedDeactivation":
-        return `${setting} में ${tank} शुरू में ${initial} है। ${stageCapabilities(source, language)} पहले ${cp009Time(required(stages[0].duration, "delay"), language)} तक ${cp010Arrangement(stages[0].pipes, language)}। फिर एक पाइप बंद या रिसाव ठीक होने के बाद ${cp010Arrangement(stages[1].pipes, language)}। टंकी ${target} होने तक शुरू से कुल कितना समय लगेगा?`;
+        return `${tank} शुरू में ${initial} है। ${stageCapabilities(source, language)} पहले ${cp010Arrangement(stages[0].pipes, language)} ${cp009Time(required(stages[0].duration, "delay"), language)} तक चलता है; फिर ${cp010Arrangement(stages[1].pipes, language)} ${tank} के ${target} होने तक चलता है। शुरू से कितना समय लगेगा?`;
       case "findCompletionWithMultipleStaggeredEvents":
-        return `${setting} में ${tank} शुरू में पूरी तरह खाली है। ${stageCapabilities(source, language)} चरणबद्ध कार्यक्रम इस प्रकार है: ${stageSequence(source, language)} अंतिम व्यवस्था टंकी पूरी भरने तक चलती है। पूरा कार्यक्रम कितने समय में समाप्त होगा?`;
+        return `${tank} शुरू में खाली है। ${stageCapabilities(source, language)} समय-सारणी: ${compactStages(stages, language)}। अंतिम व्यवस्था पूरी भरने तक चलती है। कुल समय कितना है?`;
       case "findCompletionWithInterruptedFlow":
-        return `${setting} में ${tank} शुरू में पूरी तरह खाली है। ${stageCapabilities(source, language)} ${cp010Arrangement(stages[0].pipes, language)} पहले ${cp009Time(required(stages[0].duration, "first duration"), language)} तक चलती है। फिर ${cp009Time(required(stages[1].duration, "idle duration"), language)} तक सारा प्रवाह बंद रहता है। उसके बाद ${cp010Arrangement(stages[2].pipes, language)} और टंकी पूरी भरने तक चलती रहती है। शुरू से कितना समय लगेगा?`;
+        return `${tank} शुरू में खाली है। ${stageCapabilities(source, language)} ${cp010Arrangement(stages[0].pipes, language)} ${cp009Time(required(stages[0].duration, "first duration"), language)} तक चलता है; फिर ${cp009Time(required(stages[1].duration, "idle duration"), language)} कोई प्रवाह नहीं; उसके बाद ${cp010Arrangement(stages[2].pipes, language)} पूरी भरने तक चलता है। कुल समय कितना है?`;
       case "findCompletionFromPartialLevelAndStages":
-        return `${setting} में ${tank} शुरू में ${initial} है। ${stageCapabilities(source, language)} पहले ${cp009Time(required(stages[0].duration, "duration"), language)} तक ${cp010Arrangement(stages[0].pipes, language)}। इसके बाद ${cp010Arrangement(stages[1].pipes, language)} और टंकी पूरी भरने तक चलती रहती है। कुल समय कितना होगा?`;
+        return `${tank} शुरू में ${initial} है। ${stageCapabilities(source, language)} पहले ${cp010Arrangement(stages[0].pipes, language)} ${cp009Time(required(stages[0].duration, "duration"), language)} तक; फिर ${cp010Arrangement(stages[1].pipes, language)} पूरी भरने तक चलता है। कुल समय कितना है?`;
       case "findFinalLevelAfterStagedSchedule":
-        return `${setting} में ${tank} शुरू में ${initial} है। ${stageCapabilities(source, language)} पूरा चरणबद्ध कार्यक्रम: ${stageSequence(source, language)} कार्यक्रम के अंत में टंकी का कितना भाग भरा होगा?`;
+        return `${tank} शुरू में ${initial} है। ${stageCapabilities(source, language)} समय-सारणी: ${compactStages(stages, language)}। अंत में टंकी का कितना भाग भरा होगा?`;
       case "findCompletionAfterThresholdSwitch":
-        return `${setting} में ${tank} शुरू में पूरी तरह खाली है। ${stageCapabilities(source, language)} ${cp010Arrangement(stages[0].pipes, language)} तब तक चलती है जब तक स्तर ${cp010Level(required(p.thresholdLevel, "threshold"), language)} न हो जाए। सेंसर फिर व्यवस्था बदलकर ${cp010Arrangement(stages[1].pipes, language)}। शुरू से टंकी पूरी भरने में कितना समय लगेगा?`;
+        return `${tank} शुरू में खाली है। ${stageCapabilities(source, language)} ${cp010Arrangement(stages[0].pipes, language)} स्तर ${cp010Level(required(p.thresholdLevel, "threshold"), language)} तक चलता है; फिर सेंसर ${cp010Arrangement(stages[1].pipes, language)} चालू करता है। पूरी भरने में कुल कितना समय लगेगा?`;
       case "findEventTimeFromKnownCompletion":
-        return `${setting} में ${tank} शुरू में ${initial} है। ${stageCapabilities(source, language)} पहले ${cp010Arrangement(stages[0].pipes, language)}। किसी अज्ञात समय पर व्यवस्था बदलती है और फिर ${cp010Arrangement(stages[1].pipes, language)}। टंकी शुरू से ठीक ${cp009Time(required(p.knownCompletionTime, "completion time"), language)} में पूरी भर जाती है। व्यवस्था कितने घंटे बाद बदली?`;
+        return `${tank} शुरू में ${initial} है। ${stageCapabilities(source, language)} पहले ${cp010Arrangement(stages[0].pipes, language)} चलता है; अज्ञात समय पर व्यवस्था ${cp010Arrangement(stages[1].pipes, language)} हो जाती है। टंकी ${cp009Time(required(p.knownCompletionTime, "completion time"), language)} में भरती है। बदलाव कब हुआ?`;
       case "findRequiredFinalStageRate":
-        return `${setting} में शुरू में खाली ${tank} को ${cp009Time(required(p.knownCompletionTime, "completion time"), language)} में पूरा भरना है। पहले ${cp009Time(required(stages[0].duration, "first duration"), language)} तक ${cp010Arrangement(stages[0].pipes, language)}। शेष समय अंतिम पाइप अकेली चलती है। उसे प्रति घंटा टंकी का कितना भाग भरना चाहिए?`;
+        return `${tank} शुरू में खाली है और ${cp009Time(required(p.knownCompletionTime, "completion time"), language)} में भरनी है। ${compactPipeTimes(cp010UniquePipes([stages[0].pipes]), language)} पहले ${cp010Arrangement(stages[0].pipes, language)} ${cp009Time(required(stages[0].duration, "first duration"), language)} तक चलता है; फिर अज्ञात-दर वाला अंतिम भराव अकेला चलता है। उसकी प्रति घंटा दर क्या होनी चाहिए?`;
       case "findCapacityFromStagedPhysicalFlows":
-        return `${setting} में शुरू में खाली ${tank} को चरणबद्ध भौतिक प्रवाह से भरा जाता है। ${required(p.physicalStages, "physical stages").map((stage, index) => `${index + 1}. ${cp010Label(stage.label, language)}: ${formatPhysical(stage.netFlowLitresPerHour.numerator / stage.netFlowLitresPerHour.denominator)} लीटर प्रति घंटा, अवधि ${cp009Time(stage.duration, language)}।`).join(" ")} अंत में टंकी पूरी भर जाती है। उसकी क्षमता कितनी है?`;
+        return `${tank} शुरू में खाली है। प्रवाह-सारणी: ${required(p.physicalStages, "physical stages").map((stage, index) => `${index + 1}) ${cp010Label(stage.label, language)}—${formatPhysical(stage.netFlowLitresPerHour.numerator / stage.netFlowLitresPerHour.denominator)} लीटर/घंटा, ${cp009Time(stage.duration, language)}`).join("; ")}। अंत में टंकी पूरी भरती है। क्षमता कितनी है?`;
       case "findCompletionWithAlternatingPipes":
-        return `${setting} में ${tank} शुरू में पूरी तरह खाली है। ${cycleCapabilities(source, language)} दो-खंड वाला कार्यक्रम भाग 1 से शुरू होकर लगातार दोहरता है: ${cp010NumberedSegments(cycle, language)} टंकी पूरी भरने में कुल कितना समय लगेगा?`;
+        return `${tank} शुरू में खाली है। ${cycleCapabilities(source, language)} दोहराव चक्र: ${compactCycle(cycle, language)}। भाग 1 से शुरू करें। टंकी भरने में कितना समय लगेगा?`;
       case "findCompletionWithPeriodicSchedule":
-        return `${setting} में शुरू में खाली ${tank} के लिए यह क्रमबद्ध चक्र बिना अंतराल दोहरता है। ${cycleCapabilities(source, language)} ${cp010NumberedSegments(cycle, language)} टंकी पूरी भरने में कितना समय लगेगा?`;
+        return `${tank} शुरू में खाली है। ${cycleCapabilities(source, language)} बिना विराम दोहराव चक्र: ${compactCycle(cycle, language)}। टंकी भरने में कितना समय लगेगा?`;
       case "findAutomaticLevelControlCompletion": {
         const control = required(p.levelControl, "level control");
-        return `${setting} में स्वचालित नियंत्रक ${tank} का स्तर ${cp010Level(control.lower, language)} और ${cp010Level(control.upper, language)} के बीच रखता है। ${cp010Capabilities(cp010UniquePipes([control.offPipes, control.onPipes]), tank, language)} ऊपरी स्तर से निकासी चरण शुरू होता है; निचले स्तर पर पहुँचने पर भराव चरण चालू होकर ऊपरी स्तर वापस लाता है। ऊपरी स्तर पर अगली ${control.targetUpperHits}वीं वापसी तक कितना समय लगेगा?`;
+        const pipes = cp010UniquePipes([control.offPipes, control.onPipes]);
+        return `${tank} का नियंत्रक स्तर ${cp010Level(control.lower, language)} और ${cp010Level(control.upper, language)} के बीच रखता है। ${compactPipeTimes(pipes, language)} ऊपरी स्तर से ${cp010Arrangement(control.offPipes, language)} निचले स्तर तक; फिर ${cp010Arrangement(control.onPipes, language)} वापस ऊपरी स्तर तक चलता है। ऊपरी स्तर की अगली ${control.targetUpperHits}वीं प्राप्ति तक कितना समय लगेगा?`;
       }
       case "findCompletionFromArbitraryCyclePhase":
-        return `${setting} में ${tank} शुरू में ${initial} है। ${cycleCapabilities(source, language)} दोहराव चक्र: ${cp010NumberedSegments(cycle, language)} कार्यक्रम भाग ${(p.startingCycleIndex ?? 0) + 1} से शुरू होकर फिर सामान्य क्रम में चलता है। टंकी पूरी भरने में कितना समय लगेगा?`;
+        return `${tank} शुरू में ${initial} है। ${cycleCapabilities(source, language)} चक्र: ${compactCycle(cycle, language)}। शुरुआत भाग ${(p.startingCycleIndex ?? 0) + 1} से है, फिर सामान्य क्रम चलता है। भरने में कितना समय लगेगा?`;
       case "findFullCycleCountToBoundary":
-        return `${setting} में शुरू में खाली ${tank} यह चक्र दोहराती है। ${cycleCapabilities(source, language)} ${cp010NumberedSegments(cycle, language)} अंतिम अपूर्ण चक्र में टंकी भरने से पहले कितने पूरे चक्र समाप्त होंगे?`;
+        return `${tank} शुरू में खाली है। ${cycleCapabilities(source, language)} चक्र: ${compactCycle(cycle, language)}। अंतिम अपूर्ण चक्र से पहले कितने पूरे चक्र समाप्त होंगे?`;
       case "findTerminalActiveSegment":
-        return `${setting} में ${tank} शुरू में ${initial} है। ${cycleCapabilities(source, language)} दोहराव कार्यक्रम: ${cp010NumberedSegments(cycle, language)} टंकी पहली बार किस खंड में पूरी भरेगी?`;
+        return `${tank} शुरू में ${initial} है। ${cycleCapabilities(source, language)} चक्र: ${compactCycle(cycle, language)}। टंकी पहली बार किस भाग में पूरी भरेगी?`;
       case "findBoundaryEventTimeUnderSchedule":
-        return `${setting} में ${tank} शुरू में ${initial} है। ${cycleCapabilities(source, language)} यह कार्यक्रम इसी क्रम में लगातार दोहरता है: ${cp010NumberedSegments(cycle, language)} टंकी पहली बार ${target} कब होगी?`;
+        return `${tank} शुरू में ${initial} है। ${cycleCapabilities(source, language)} चक्र: ${compactCycle(cycle, language)}। टंकी पहली बार ${target} कब होगी?`;
       case "findScheduleAdjustmentForDeadline":
-        return `${setting} में ${tank} शुरू में ${initial} है। ${stageCapabilities(source, language)} बदलाव से पहले ${cp010Arrangement(stages[0].pipes, language)} और बदलाव के बाद ${cp010Arrangement(stages[1].pipes, language)}। मूल योजना में बदलाव ${cp009Time(required(p.adjustmentBaseDuration, "baseline"), language)} बाद होता है। टंकी को ठीक ${cp009Time(required(p.requiredDeadline, "deadline"), language)} तक भरने के लिए बदलाव को कितने घंटे ${p.adjustmentDirection === "EARLIER" ? "पहले" : "बाद में"} करना होगा?`;
+        return `${tank} शुरू में ${initial} है। ${stageCapabilities(source, language)} बदलाव से पहले ${cp010Arrangement(stages[0].pipes, language)}, बाद में ${cp010Arrangement(stages[1].pipes, language)}। बदलाव मूलतः ${cp009Time(required(p.adjustmentBaseDuration, "baseline"), language)} बाद है। ${cp009Time(required(p.requiredDeadline, "deadline"), language)} की समय-सीमा के लिए इसे कितने घंटे ${p.adjustmentDirection === "EARLIER" ? "पहले" : "बाद"} करना होगा?`;
     }
   }
 
   switch (source.solveMode) {
     case "findCompletionAfterDelayedActivation":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${stageCapabilities(source, language)} ਪਹਿਲਾਂ ${cp009Time(required(stages[0].duration, "delay"), language)} ਲਈ ${cp010Arrangement(stages[0].pipes, language)}। ਇਸ ਤੋਂ ਬਾਅਦ ਦੂਜੀ ਵਿਵਸਥਾ ਲਾਗੂ ਹੋ ਕੇ ${cp010Arrangement(stages[1].pipes, language)} ਅਤੇ ਟੈਂਕੀ ${target} ਹੋਣ ਤੱਕ ਇਹੀ ਵਿਵਸਥਾ ਚੱਲਦੀ ਰਹਿੰਦੀ ਹੈ। ਸ਼ੁਰੂ ਤੋਂ ਕੁੱਲ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${stageCapabilities(source, language)} ਪਹਿਲਾਂ ${cp010Arrangement(stages[0].pipes, language)} ${cp009Time(required(stages[0].duration, "delay"), language)} ਲਈ ਚੱਲਦਾ ਹੈ; ਫਿਰ ${cp010Arrangement(stages[1].pipes, language)} ${tank} ਦੇ ${target} ਹੋਣ ਤੱਕ ਚੱਲਦਾ ਹੈ। ਸ਼ੁਰੂ ਤੋਂ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
     case "findCompletionAfterDelayedDeactivation":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${stageCapabilities(source, language)} ਪਹਿਲਾਂ ${cp009Time(required(stages[0].duration, "delay"), language)} ਲਈ ${cp010Arrangement(stages[0].pipes, language)}। ਫਿਰ ਇੱਕ ਪਾਈਪ ਬੰਦ ਜਾਂ ਰਿਸਾਅ ਠੀਕ ਹੋਣ ਤੋਂ ਬਾਅਦ ${cp010Arrangement(stages[1].pipes, language)}। ਟੈਂਕੀ ${target} ਹੋਣ ਤੱਕ ਸ਼ੁਰੂ ਤੋਂ ਕੁੱਲ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${stageCapabilities(source, language)} ਪਹਿਲਾਂ ${cp010Arrangement(stages[0].pipes, language)} ${cp009Time(required(stages[0].duration, "delay"), language)} ਲਈ ਚੱਲਦਾ ਹੈ; ਫਿਰ ${cp010Arrangement(stages[1].pipes, language)} ${tank} ਦੇ ${target} ਹੋਣ ਤੱਕ ਚੱਲਦਾ ਹੈ। ਸ਼ੁਰੂ ਤੋਂ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
     case "findCompletionWithMultipleStaggeredEvents":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ ਹੈ। ${stageCapabilities(source, language)} ਪੜਾਅਵਾਰ ਕਾਰਜਕ੍ਰਮ: ${stageSequence(source, language)} ਅੰਤਿਮ ਵਿਵਸਥਾ ਟੈਂਕੀ ਪੂਰੀ ਭਰਨ ਤੱਕ ਚੱਲਦੀ ਹੈ। ਪੂਰਾ ਕਾਰਜਕ੍ਰਮ ਕਿੰਨੇ ਸਮੇਂ ਵਿੱਚ ਮੁਕੰਮਲ ਹੋਵੇਗਾ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ਖਾਲੀ ਹੈ। ${stageCapabilities(source, language)} ਸਮਾਂ-ਸਾਰਣੀ: ${compactStages(stages, language)}। ਅੰਤਿਮ ਵਿਵਸਥਾ ਪੂਰੀ ਭਰਨ ਤੱਕ ਚੱਲਦੀ ਹੈ। ਕੁੱਲ ਸਮਾਂ ਕਿੰਨਾ ਹੈ?`;
     case "findCompletionWithInterruptedFlow":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ ਹੈ। ${stageCapabilities(source, language)} ${cp010Arrangement(stages[0].pipes, language)} ਪਹਿਲਾਂ ${cp009Time(required(stages[0].duration, "first duration"), language)} ਲਈ ਚੱਲਦੀ ਹੈ। ਫਿਰ ${cp009Time(required(stages[1].duration, "idle duration"), language)} ਲਈ ਸਾਰਾ ਪ੍ਰਵਾਹ ਬੰਦ ਰਹਿੰਦਾ ਹੈ। ਉਸ ਤੋਂ ਬਾਅਦ ${cp010Arrangement(stages[2].pipes, language)} ਅਤੇ ਟੈਂਕੀ ਪੂਰੀ ਭਰਨ ਤੱਕ ਚੱਲਦੀ ਰਹਿੰਦੀ ਹੈ। ਸ਼ੁਰੂ ਤੋਂ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ਖਾਲੀ ਹੈ। ${stageCapabilities(source, language)} ${cp010Arrangement(stages[0].pipes, language)} ${cp009Time(required(stages[0].duration, "first duration"), language)} ਲਈ ਚੱਲਦਾ ਹੈ; ਫਿਰ ${cp009Time(required(stages[1].duration, "idle duration"), language)} ਕੋਈ ਪ੍ਰਵਾਹ ਨਹੀਂ; ਉਸ ਤੋਂ ਬਾਅਦ ${cp010Arrangement(stages[2].pipes, language)} ਪੂਰੀ ਭਰਨ ਤੱਕ ਚੱਲਦਾ ਹੈ। ਕੁੱਲ ਸਮਾਂ ਕਿੰਨਾ ਹੈ?`;
     case "findCompletionFromPartialLevelAndStages":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${stageCapabilities(source, language)} ਪਹਿਲਾਂ ${cp009Time(required(stages[0].duration, "duration"), language)} ਲਈ ${cp010Arrangement(stages[0].pipes, language)}। ਇਸ ਤੋਂ ਬਾਅਦ ${cp010Arrangement(stages[1].pipes, language)} ਅਤੇ ਟੈਂਕੀ ਪੂਰੀ ਭਰਨ ਤੱਕ ਚੱਲਦੀ ਰਹਿੰਦੀ ਹੈ। ਕੁੱਲ ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${stageCapabilities(source, language)} ਪਹਿਲਾਂ ${cp010Arrangement(stages[0].pipes, language)} ${cp009Time(required(stages[0].duration, "duration"), language)} ਲਈ; ਫਿਰ ${cp010Arrangement(stages[1].pipes, language)} ਪੂਰੀ ਭਰਨ ਤੱਕ ਚੱਲਦਾ ਹੈ। ਕੁੱਲ ਸਮਾਂ ਕਿੰਨਾ ਹੈ?`;
     case "findFinalLevelAfterStagedSchedule":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${stageCapabilities(source, language)} ਪੂਰਾ ਪੜਾਅਵਾਰ ਕਾਰਜਕ੍ਰਮ: ${stageSequence(source, language)} ਕਾਰਜਕ੍ਰਮ ਦੇ ਅੰਤ ਵਿੱਚ ਟੈਂਕੀ ਦਾ ਕਿੰਨਾ ਹਿੱਸਾ ਭਰਿਆ ਹੋਵੇਗਾ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${stageCapabilities(source, language)} ਸਮਾਂ-ਸਾਰਣੀ: ${compactStages(stages, language)}। ਅੰਤ ਵਿੱਚ ਟੈਂਕੀ ਦਾ ਕਿੰਨਾ ਹਿੱਸਾ ਭਰਿਆ ਹੋਵੇਗਾ?`;
     case "findCompletionAfterThresholdSwitch":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ ਹੈ। ${stageCapabilities(source, language)} ${cp010Arrangement(stages[0].pipes, language)} ਤਦ ਤੱਕ ਚੱਲਦੀ ਹੈ ਜਦੋਂ ਤੱਕ ਪੱਧਰ ${cp010Level(required(p.thresholdLevel, "threshold"), language)} ਨਾ ਹੋ ਜਾਵੇ। ਸੈਂਸਰ ਫਿਰ ਵਿਵਸਥਾ ਬਦਲ ਕੇ ${cp010Arrangement(stages[1].pipes, language)}। ਸ਼ੁਰੂ ਤੋਂ ਟੈਂਕੀ ਪੂਰੀ ਭਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ਖਾਲੀ ਹੈ। ${stageCapabilities(source, language)} ${cp010Arrangement(stages[0].pipes, language)} ਪੱਧਰ ${cp010Level(required(p.thresholdLevel, "threshold"), language)} ਤੱਕ ਚੱਲਦਾ ਹੈ; ਫਿਰ ਸੈਂਸਰ ${cp010Arrangement(stages[1].pipes, language)} ਚਾਲੂ ਕਰਦਾ ਹੈ। ਪੂਰੀ ਭਰਨ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
     case "findEventTimeFromKnownCompletion":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${stageCapabilities(source, language)} ਪਹਿਲਾਂ ${cp010Arrangement(stages[0].pipes, language)}। ਕਿਸੇ ਅਣਜਾਣ ਸਮੇਂ ਉੱਤੇ ਵਿਵਸਥਾ ਬਦਲਦੀ ਹੈ ਅਤੇ ਫਿਰ ${cp010Arrangement(stages[1].pipes, language)}। ਟੈਂਕੀ ਸ਼ੁਰੂ ਤੋਂ ਠੀਕ ${cp009Time(required(p.knownCompletionTime, "completion time"), language)} ਵਿੱਚ ਪੂਰੀ ਭਰ ਜਾਂਦੀ ਹੈ। ਵਿਵਸਥਾ ਕਿੰਨੇ ਘੰਟਿਆਂ ਬਾਅਦ ਬਦਲੀ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${stageCapabilities(source, language)} ਪਹਿਲਾਂ ${cp010Arrangement(stages[0].pipes, language)} ਚੱਲਦਾ ਹੈ; ਅਣਜਾਣ ਸਮੇਂ ਉੱਤੇ ਵਿਵਸਥਾ ${cp010Arrangement(stages[1].pipes, language)} ਹੋ ਜਾਂਦੀ ਹੈ। ਟੈਂਕੀ ${cp009Time(required(p.knownCompletionTime, "completion time"), language)} ਵਿੱਚ ਭਰਦੀ ਹੈ। ਬਦਲਾਅ ਕਦੋਂ ਹੋਇਆ?`;
     case "findRequiredFinalStageRate":
-      return `${setting} ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਖਾਲੀ ${tank} ਨੂੰ ${cp009Time(required(p.knownCompletionTime, "completion time"), language)} ਵਿੱਚ ਪੂਰਾ ਭਰਨਾ ਹੈ। ਪਹਿਲਾਂ ${cp009Time(required(stages[0].duration, "first duration"), language)} ਲਈ ${cp010Arrangement(stages[0].pipes, language)}। ਬਾਕੀ ਸਮੇਂ ਅੰਤਿਮ ਪਾਈਪ ਇਕੱਲੀ ਚੱਲਦੀ ਹੈ। ਉਸ ਨੂੰ ਪ੍ਰਤੀ ਘੰਟਾ ਟੈਂਕੀ ਦਾ ਕਿੰਨਾ ਹਿੱਸਾ ਭਰਨਾ ਚਾਹੀਦਾ ਹੈ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ਖਾਲੀ ਹੈ ਅਤੇ ${cp009Time(required(p.knownCompletionTime, "completion time"), language)} ਵਿੱਚ ਭਰਨੀ ਹੈ। ${compactPipeTimes(cp010UniquePipes([stages[0].pipes]), language)} ਪਹਿਲਾਂ ${cp010Arrangement(stages[0].pipes, language)} ${cp009Time(required(stages[0].duration, "first duration"), language)} ਲਈ ਚੱਲਦਾ ਹੈ; ਫਿਰ ਅਣਜਾਣ ਦਰ ਵਾਲਾ ਅੰਤਿਮ ਭਰਾਅ ਇਕੱਲਾ ਚੱਲਦਾ ਹੈ। ਉਸ ਦੀ ਪ੍ਰਤੀ ਘੰਟਾ ਦਰ ਕੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ?`;
     case "findCapacityFromStagedPhysicalFlows":
-      return `${setting} ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਖਾਲੀ ${tank} ਨੂੰ ਪੜਾਅਵਾਰ ਭੌਤਿਕ ਪ੍ਰਵਾਹ ਨਾਲ ਭਰਿਆ ਜਾਂਦਾ ਹੈ। ${required(p.physicalStages, "physical stages").map((stage, index) => `${index + 1}. ${cp010Label(stage.label, language)}: ${formatPhysical(stage.netFlowLitresPerHour.numerator / stage.netFlowLitresPerHour.denominator)} ਲੀਟਰ ਪ੍ਰਤੀ ਘੰਟਾ, ਮਿਆਦ ${cp009Time(stage.duration, language)}।`).join(" ")} ਅੰਤ ਵਿੱਚ ਟੈਂਕੀ ਪੂਰੀ ਭਰ ਜਾਂਦੀ ਹੈ। ਇਸ ਦੀ ਸਮਰੱਥਾ ਕਿੰਨੀ ਹੈ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ਖਾਲੀ ਹੈ। ਪ੍ਰਵਾਹ-ਸਾਰਣੀ: ${required(p.physicalStages, "physical stages").map((stage, index) => `${index + 1}) ${cp010Label(stage.label, language)}—${formatPhysical(stage.netFlowLitresPerHour.numerator / stage.netFlowLitresPerHour.denominator)} ਲੀਟਰ/ਘੰਟਾ, ${cp009Time(stage.duration, language)}`).join("; ")}। ਅੰਤ ਵਿੱਚ ਟੈਂਕੀ ਪੂਰੀ ਭਰਦੀ ਹੈ। ਸਮਰੱਥਾ ਕਿੰਨੀ ਹੈ?`;
     case "findCompletionWithAlternatingPipes":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ ਹੈ। ${cycleCapabilities(source, language)} ਦੋ-ਖੰਡ ਵਾਲਾ ਕਾਰਜਕ੍ਰਮ ਭਾਗ 1 ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ ਲਗਾਤਾਰ ਦੁਹਰਦਾ ਹੈ: ${cp010NumberedSegments(cycle, language)} ਟੈਂਕੀ ਪੂਰੀ ਭਰਨ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ਖਾਲੀ ਹੈ। ${cycleCapabilities(source, language)} ਦੁਹਰਾਅ ਚੱਕਰ: ${compactCycle(cycle, language)}। ਭਾਗ 1 ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ। ਟੈਂਕੀ ਭਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
     case "findCompletionWithPeriodicSchedule":
-      return `${setting} ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਖਾਲੀ ${tank} ਲਈ ਇਹ ਕ੍ਰਮਬੱਧ ਚੱਕਰ ਬਿਨਾਂ ਵਿਰਾਮ ਦੁਹਰਦਾ ਹੈ। ${cycleCapabilities(source, language)} ${cp010NumberedSegments(cycle, language)} ਟੈਂਕੀ ਪੂਰੀ ਭਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ਖਾਲੀ ਹੈ। ${cycleCapabilities(source, language)} ਬਿਨਾਂ ਵਿਰਾਮ ਦੁਹਰਾਅ ਚੱਕਰ: ${compactCycle(cycle, language)}। ਟੈਂਕੀ ਭਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
     case "findAutomaticLevelControlCompletion": {
       const control = required(p.levelControl, "level control");
-      return `${setting} ਵਿੱਚ ਆਟੋਮੈਟਿਕ ਕੰਟਰੋਲਰ ${tank} ਦਾ ਪੱਧਰ ${cp010Level(control.lower, language)} ਅਤੇ ${cp010Level(control.upper, language)} ਦੇ ਵਿਚਕਾਰ ਰੱਖਦਾ ਹੈ। ${cp010Capabilities(cp010UniquePipes([control.offPipes, control.onPipes]), tank, language)} ਉੱਪਰਲੇ ਪੱਧਰ ਤੋਂ ਨਿਕਾਸੀ ਪੜਾਅ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ; ਹੇਠਲੇ ਪੱਧਰ ਉੱਤੇ ਭਰਾਅ ਪੜਾਅ ਚਾਲੂ ਹੋ ਕੇ ਉੱਪਰਲਾ ਪੱਧਰ ਵਾਪਸ ਲਿਆਉਂਦਾ ਹੈ। ਉੱਪਰਲੇ ਪੱਧਰ ਉੱਤੇ ਅਗਲੀ ${control.targetUpperHits}ਵੀਂ ਵਾਪਸੀ ਤੱਕ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+      const pipes = cp010UniquePipes([control.offPipes, control.onPipes]);
+      return `${tank} ਦਾ ਕੰਟਰੋਲਰ ਪੱਧਰ ${cp010Level(control.lower, language)} ਅਤੇ ${cp010Level(control.upper, language)} ਵਿਚਕਾਰ ਰੱਖਦਾ ਹੈ। ${compactPipeTimes(pipes, language)} ਉੱਪਰਲੇ ਪੱਧਰ ਤੋਂ ${cp010Arrangement(control.offPipes, language)} ਹੇਠਲੇ ਪੱਧਰ ਤੱਕ; ਫਿਰ ${cp010Arrangement(control.onPipes, language)} ਵਾਪਸ ਉੱਪਰਲੇ ਪੱਧਰ ਤੱਕ ਚੱਲਦਾ ਹੈ। ਉੱਪਰਲੇ ਪੱਧਰ ਦੀ ਅਗਲੀ ${control.targetUpperHits}ਵੀਂ ਪ੍ਰਾਪਤੀ ਤੱਕ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
     }
     case "findCompletionFromArbitraryCyclePhase":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${cycleCapabilities(source, language)} ਦੁਹਰਾਅ ਚੱਕਰ: ${cp010NumberedSegments(cycle, language)} ਕਾਰਜਕ੍ਰਮ ਭਾਗ ${(p.startingCycleIndex ?? 0) + 1} ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ ਫਿਰ ਆਮ ਕ੍ਰਮ ਵਿੱਚ ਚੱਲਦਾ ਹੈ। ਟੈਂਕੀ ਪੂਰੀ ਭਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${cycleCapabilities(source, language)} ਚੱਕਰ: ${compactCycle(cycle, language)}। ਸ਼ੁਰੂਆਤ ਭਾਗ ${(p.startingCycleIndex ?? 0) + 1} ਤੋਂ ਹੈ, ਫਿਰ ਆਮ ਕ੍ਰਮ ਚੱਲਦਾ ਹੈ। ਭਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
     case "findFullCycleCountToBoundary":
-      return `${setting} ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਖਾਲੀ ${tank} ਇਹ ਚੱਕਰ ਦੁਹਰਾਉਂਦੀ ਹੈ। ${cycleCapabilities(source, language)} ${cp010NumberedSegments(cycle, language)} ਅੰਤਿਮ ਅਧੂਰੇ ਚੱਕਰ ਵਿੱਚ ਟੈਂਕੀ ਭਰਨ ਤੋਂ ਪਹਿਲਾਂ ਕਿੰਨੇ ਪੂਰੇ ਚੱਕਰ ਮੁਕੰਮਲ ਹੋਣਗੇ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ਖਾਲੀ ਹੈ। ${cycleCapabilities(source, language)} ਚੱਕਰ: ${compactCycle(cycle, language)}। ਅੰਤਿਮ ਅਧੂਰੇ ਚੱਕਰ ਤੋਂ ਪਹਿਲਾਂ ਕਿੰਨੇ ਪੂਰੇ ਚੱਕਰ ਮੁਕੰਮਲ ਹੋਣਗੇ?`;
     case "findTerminalActiveSegment":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${cycleCapabilities(source, language)} ਦੁਹਰਾਅ ਕਾਰਜਕ੍ਰਮ: ${cp010NumberedSegments(cycle, language)} ਟੈਂਕੀ ਪਹਿਲੀ ਵਾਰ ਕਿਹੜੇ ਖੰਡ ਵਿੱਚ ਪੂਰੀ ਭਰੇਗੀ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${cycleCapabilities(source, language)} ਚੱਕਰ: ${compactCycle(cycle, language)}। ਟੈਂਕੀ ਪਹਿਲੀ ਵਾਰ ਕਿਹੜੇ ਭਾਗ ਵਿੱਚ ਪੂਰੀ ਭਰੇਗੀ?`;
     case "findBoundaryEventTimeUnderSchedule":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${cycleCapabilities(source, language)} ਇਹ ਕਾਰਜਕ੍ਰਮ ਇਸੇ ਕ੍ਰਮ ਵਿੱਚ ਲਗਾਤਾਰ ਦੁਹਰਦਾ ਹੈ: ${cp010NumberedSegments(cycle, language)} ਟੈਂਕੀ ਪਹਿਲੀ ਵਾਰ ${target} ਕਦੋਂ ਹੋਵੇਗੀ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${cycleCapabilities(source, language)} ਚੱਕਰ: ${compactCycle(cycle, language)}। ਟੈਂਕੀ ਪਹਿਲੀ ਵਾਰ ${target} ਕਦੋਂ ਹੋਵੇਗੀ?`;
     case "findScheduleAdjustmentForDeadline":
-      return `${setting} ਵਿੱਚ ${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${stageCapabilities(source, language)} ਬਦਲਾਅ ਤੋਂ ਪਹਿਲਾਂ ${cp010Arrangement(stages[0].pipes, language)} ਅਤੇ ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ${cp010Arrangement(stages[1].pipes, language)}। ਮੂਲ ਯੋਜਨਾ ਵਿੱਚ ਬਦਲਾਅ ${cp009Time(required(p.adjustmentBaseDuration, "baseline"), language)} ਬਾਅਦ ਹੁੰਦਾ ਹੈ। ਟੈਂਕੀ ਨੂੰ ਠੀਕ ${cp009Time(required(p.requiredDeadline, "deadline"), language)} ਤੱਕ ਭਰਨ ਲਈ ਬਦਲਾਅ ਕਿੰਨੇ ਘੰਟੇ ${p.adjustmentDirection === "EARLIER" ? "ਪਹਿਲਾਂ" : "ਬਾਅਦ"} ਕਰਨਾ ਹੋਵੇਗਾ?`;
+      return `${tank} ਸ਼ੁਰੂ ਵਿੱਚ ${initial} ਹੈ। ${stageCapabilities(source, language)} ਬਦਲਾਅ ਤੋਂ ਪਹਿਲਾਂ ${cp010Arrangement(stages[0].pipes, language)}, ਬਾਅਦ ਵਿੱਚ ${cp010Arrangement(stages[1].pipes, language)}। ਬਦਲਾਅ ਮੂਲ ਰੂਪ ਵਿੱਚ ${cp009Time(required(p.adjustmentBaseDuration, "baseline"), language)} ਬਾਅਦ ਹੈ। ${cp009Time(required(p.requiredDeadline, "deadline"), language)} ਦੀ ਸਮਾਂ-ਸੀਮਾ ਲਈ ਇਸ ਨੂੰ ਕਿੰਨੇ ਘੰਟੇ ${p.adjustmentDirection === "EARLIER" ? "ਪਹਿਲਾਂ" : "ਬਾਅਦ"} ਕਰਨਾ ਹੋਵੇਗਾ?`;
   }
-}
-
-function formatPhysical(value: number): string {
-  return new Intl.NumberFormat("en-IN", { maximumFractionDigits: 2 }).format(value);
 }
