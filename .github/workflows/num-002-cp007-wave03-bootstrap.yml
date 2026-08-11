@@ -1,0 +1,53 @@
+name: Materialize NUM-CP-007 Wave 03 source
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/num-002-cp007-wave03-bootstrap.yml
+      - .github/num-cp007-wave03/num-cp007-wave03-source.tar.gz
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: materialize-num-cp007-wave03-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  materialize:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Verify and extract tested source
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "11c7c2a473e167b301bde19c3da1037c0013cd60d1781bb84c4b5d77a69956e1  .github/num-cp007-wave03/num-cp007-wave03-source.tar.gz" | sha256sum --check
+          tar -xzf .github/num-cp007-wave03/num-cp007-wave03-source.tar.gz -C .
+          rm -f .github/num-cp007-wave03/num-cp007-wave03-source.tar.gz
+          rmdir .github/num-cp007-wave03 || true
+          rm -f .github/workflows/num-002-cp007-wave03-bootstrap.yml
+
+      - name: Commit materialized source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "NUM-CP-007 Wave 03 source is already materialized."
+            exit 0
+          fi
+          git commit -m "feat(num-cp007): materialize Wave 03 exam forms"
+          git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
