@@ -47,6 +47,7 @@
     "strictTypeScriptCompile": "PASS",
     "standardValueVerifierCases": 102,
     "deterministicReciprocalStressCases": 149,
+    "directRadianInputCases": 4,
     "foundationTests": "PASS"
   },
   "next": "TRG-001_RUNTIME_PROOF"
