@@ -47,7 +47,7 @@ function nearestCompatiblePrincipal(multiplier: Rational, target: bigint): Ratio
 }
 
 function generateMixedExamReadyState(qlId: IntCp004QlId, seed: string): Cp004MathematicalState {
-  const desiredPairs = ["1-2", "1-4", "2-4"] as const;
+  const desiredPairs = ["1-2", "1-4"] as const;
   const desiredPair = desiredPairs[hash(`${seed}:${qlId}:mixed-pair-target-v4`) % desiredPairs.length]!;
   let exactFallback: Cp004MathematicalState | undefined;
   for (let attempt = 0; attempt < 1024; attempt += 1) {
