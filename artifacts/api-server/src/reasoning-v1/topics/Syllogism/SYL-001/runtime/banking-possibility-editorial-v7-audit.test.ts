@@ -32,11 +32,6 @@ function witnessSatisfies(entry: Witness, conclusion: CanonicalConclusion): bool
   return false;
 }
 
-function witnessDebug(entries: readonly Witness[]): string {
-  return entries.map((entry) =>
-    `inside=[${[...entry.inside].join(",")}],outside=[${[...entry.outside].join(",")}]`).join(";") || "none";
-}
-
 for (let seed = 0; seed < 80; seed += 1) {
   for (const locale of locales) {
     const prior = generateBankingPossibilityReviewQuestionV4(seed, locale);
@@ -115,20 +110,18 @@ for (let seed = 0; seed < 80; seed += 1) {
         && record.classification === "CONTRADICTED"
         && record.canonicalConclusion.form === "NO"
       ) {
-        existentialTruthChecks += 1;
-        const overlapConclusion: CanonicalConclusion = { ...record.canonicalConclusion, form: "SOME" };
-        assert.ok(
-          diagramWitnesses.some((entry) => witnessSatisfies(entry, overlapConclusion)),
-          [
-            `${seed}/${locale}/${index}: contradicted NO must have a premise-required overlap witness before explanation may cite it`,
-            `scenario=${question.scenarioId}`,
-            `statements=${JSON.stringify(question.statements)}`,
-            `conclusion=${JSON.stringify(record)}`,
-            `explanation=${JSON.stringify(line)}`,
-            `witnesses=${witnessDebug(diagramWitnesses)}`,
-            `geometrySource=${question.diagram.geometrySource}`,
-          ].join(" | "),
-        );
+        universalTeachingChecks += 1;
+        assert.doesNotMatch(line, /required ×|blue ×|आवश्यक ×|नीला ×|ਲਾਜ਼ਮੀ ×|ਨੀਲਾ ×/u);
+        if (locale === "en-IN") {
+          assert.match(line, /do not allow .*completely disjoint/u);
+          assert.match(line, /does not add an extra × merely for that existence/u);
+        } else if (locale === "hi-IN") {
+          assert.match(line, /पूरी तरह अलग रखना संभव नहीं/u);
+          assert.match(line, /अतिरिक्त × न दिखाए/u);
+        } else {
+          assert.match(line, /ਪੂਰੀ ਤਰ੍ਹਾਂ ਵੱਖ ਰੱਖਣਾ ਸੰਭਵ ਨਹੀਂ/u);
+          assert.match(line, /ਵਾਧੂ × ਨਾ ਦਿਖਾਏ/u);
+        }
       }
     });
   }
@@ -152,6 +145,8 @@ console.log(JSON.stringify({
     undeterminedExistentialsDoNotInventWitnesses: true,
     universalUndeterminedUsesContainmentOrDisjointness: true,
     contradictedAllDoesNotInventWitness: true,
+    contradictedNoDoesNotInventWitness: true,
+    learnerDiagramMayOmitExistenceOnlyWitness: true,
     englishGrammarRegressionGuard: true,
     registrationChanged: false,
     deliveryActivationChanged: false,
