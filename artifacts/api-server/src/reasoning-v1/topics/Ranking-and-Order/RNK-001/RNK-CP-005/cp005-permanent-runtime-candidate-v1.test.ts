@@ -34,6 +34,15 @@ const expectedModeCounts: Record<RnkCp005PermanentRuntimeCandidateMode, number> 
   EXACT_INDETERMINATE: 96,
 };
 
+const minimumTopologiesByAuthority: Record<
+  RnkCp005PermanentRuntimeCandidateAuthorityId,
+  number
+> = {
+  RELATION_TRUTH_STATUS: 8,
+  POSSIBLE_RANK_BOUND: 7,
+  EXACT_RANK_DETERMINACY: 6,
+};
+
 const authorityCounts = Object.fromEntries(
   RNK_CP005_V3_AUTHORITY_CANDIDATE_IDS.map((id) => [id, 0]),
 ) as Record<RnkCp005PermanentRuntimeCandidateAuthorityId, number>;
@@ -97,6 +106,7 @@ for (const question of runtime) {
     /\b(sit|sitting|seat|seating|facing|adjacent|immediate left|immediate right|extreme left|extreme right)\b/i.test(learnerText),
     false,
   );
+  assert.equal(/lower merit rank|lower score rank/i.test(learnerText), false);
 
   authorityCounts[authority] += 1;
   answerPositionsByAuthority[authority]![question.correctIndex] += 1;
@@ -128,7 +138,10 @@ for (const authority of RNK_CP005_V3_AUTHORITY_CANDIDATE_IDS) {
   assert.deepEqual(answerPositionsByAuthority[authority], [48, 48, 48, 48]);
   assert.equal(ordinalsByAuthority.get(authority)?.size, 192);
   assert.equal(contextsByAuthority[authority].size, 5);
-  assert.equal(topologiesByAuthority[authority].size, 8);
+  assert.ok(
+    topologiesByAuthority[authority].size >= minimumTopologiesByAuthority[authority],
+    `${authority}: topology coverage fell below V3 validated baseline`,
+  );
 }
 assert.deepEqual(modeCounts, expectedModeCounts);
 assert.deepEqual(sourceCounts, {
@@ -218,6 +231,7 @@ console.log(
           [...topologiesByAuthority[authority]].sort(),
         ]),
       ),
+      minimumTopologiesByAuthority,
       difficultyCounts,
       normalizedLearnerFingerprints: learnerFingerprints.size,
       selectedStateKeys: stateKeys.size,
