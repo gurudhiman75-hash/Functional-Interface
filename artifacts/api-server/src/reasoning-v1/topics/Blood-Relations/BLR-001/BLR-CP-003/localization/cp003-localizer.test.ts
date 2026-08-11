@@ -69,6 +69,21 @@ function stripNames(text: string, source: (typeof canonical)[number]): string {
 }
 
 const forbiddenEnglish = /\b(?:study|following|married|unmarried|mother|father|son|daughter|children|child|siblings?|spouse|wife|husband|parents?|brother|sister|cousins?|which|select|option)\b/i;
+const leakageForms = new Map<string, { locale: BlrCp003TranslatedLocale; itemId: string; canonical: string; localized: string }>();
+
+function recordLeak(
+  locale: BlrCp003TranslatedLocale,
+  source: (typeof canonical)[number],
+  localized: GeneratedBlrCp003LocalizedQuestion,
+): void {
+  const learnerText = stripNames(`${localized.sharedPrompt} ${localized.stem}`, source).replace(/\s+/g, " ").trim();
+  if (!forbiddenEnglish.test(learnerText)) return;
+  const canonicalText = stripNames(`${source.sharedPrompt} ${source.stem}`, source).replace(/\s+/g, " ").trim();
+  const key = `${locale}|${canonicalText}|${learnerText}`;
+  if (!leakageForms.has(key)) {
+    leakageForms.set(key, { locale, itemId: source.itemId, canonical: canonicalText, localized: learnerText });
+  }
+}
 
 for (let index = 0; index < canonical.length; index += 1) {
   const source = canonical[index]!;
@@ -82,14 +97,22 @@ for (let index = 0; index < canonical.length; index += 1) {
   assert.equal(pa.answerSemanticKey, source.answerSemanticKey);
   assert.ok(/[\u0900-\u097F]/u.test(stripNames(`${hi.sharedPrompt} ${hi.stem}`, source)), `${source.itemId}: Hindi script missing`);
   assert.ok(/[\u0A00-\u0A7F]/u.test(stripNames(`${pa.sharedPrompt} ${pa.stem}`, source)), `${source.itemId}: Punjabi script missing`);
-  assert.ok(!forbiddenEnglish.test(stripNames(`${hi.sharedPrompt} ${hi.stem}`, source)), `${source.itemId}: English leaked into Hindi learner text`);
-  assert.ok(!forbiddenEnglish.test(stripNames(`${pa.sharedPrompt} ${pa.stem}`, source)), `${source.itemId}: English leaked into Punjabi learner text`);
+  recordLeak("hi-IN", source, hi);
+  recordLeak("pa-IN", source, pa);
   assert.equal(hi.metadata.canonicalSemanticFingerprint, source.metadata.semanticFingerprint);
   assert.equal(pa.metadata.canonicalSemanticFingerprint, source.metadata.semanticFingerprint);
   assert.equal(hi.options.length, 4);
   assert.equal(pa.options.length, 4);
   assert.equal(hi.editorial.optionAnalysis.length, 4);
   assert.equal(pa.editorial.optionAnalysis.length, 4);
+}
+
+if (leakageForms.size > 0) {
+  console.error(JSON.stringify({
+    forbiddenEnglishLeakFormCount: leakageForms.size,
+    leakForms: [...leakageForms.values()],
+  }, null, 2));
+  assert.fail(`${leakageForms.size} forbidden-English localization forms remain.`);
 }
 
 console.log(JSON.stringify({
