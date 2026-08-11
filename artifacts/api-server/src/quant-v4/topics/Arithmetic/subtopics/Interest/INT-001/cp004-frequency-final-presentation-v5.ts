@@ -66,17 +66,17 @@ function proseInsteadOfTable(state: Cp004MathematicalState): string {
 
   switch (state.qlId) {
     case "INT-QL-067":
-      return `Calculate the amount on ${principal} after ${duration} at ${rate} per annum when interest is compounded ${schedule}.`;
+      return `Find the amount on ${principal} after ${duration} at ${rate} per annum when interest is compounded ${schedule}.`;
     case "INT-QL-068":
-      return `Calculate the compound interest on ${principal} after ${duration} at ${rate} per annum when interest is compounded ${schedule}.`;
+      return `Find the compound interest on ${principal} after ${duration} at ${rate} per annum when interest is compounded ${schedule}.`;
     case "INT-QL-070":
       return `A sum earns ${interestText} as compound interest in ${duration} at ${rate} per annum, compounded ${schedule}. Find the original sum.`;
     case "INT-QL-072":
       return `${principal} amounts to ${amountText} at ${rate} per annum with ${schedule} compounding. Find the time required.`;
     case "INT-QL-073":
-      return `${principal} is compounded at ${percentText(state.periodicRatePercent)} per ${frequencyNoun(state.frequency)} for ${duration}. Calculate the amount.`;
+      return `${principal} is compounded at ${percentText(state.periodicRatePercent)} per ${frequencyNoun(state.frequency)} for ${duration}. Find the amount.`;
     case "INT-QL-074":
-      return `${principal} is compounded at ${percentText(state.periodicRatePercent)} per ${frequencyNoun(state.frequency)} for ${duration}. Calculate the compound interest.`;
+      return `${principal} is compounded at ${percentText(state.periodicRatePercent)} per ${frequencyNoun(state.frequency)} for ${duration}. Find the compound interest.`;
     case "INT-QL-077":
       return `The effective annual rate is ${percentText(effectiveAnnualRate(state.nominalAnnualRatePercent, state.frequency))} with ${schedule} compounding. Find the nominal annual rate.`;
     case "INT-QL-079":
