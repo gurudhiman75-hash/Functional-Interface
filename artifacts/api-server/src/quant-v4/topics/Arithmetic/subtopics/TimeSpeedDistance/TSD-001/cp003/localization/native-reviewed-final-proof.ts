@@ -31,6 +31,10 @@ const forbidden = {
     /कितने समय (?:बाद|पहले)/u,
     /मांगी/u,
     /ठहरावों/u,
+    /\b\d+\/\d+\s*(?:घंटा|घंटे)\b/u,
+    /प्रत्येक यात्रा-खंड में .* लगता है/u,
+    /कुल बदलाव का परिमाण/u,
+    /अतः परिमाण/u,
   ],
   pa: [
     /ਇੱਕ (?:ਸਕੂਲ ਬੱਸ|ਟੈਕਸੀ|ਕਾਰ|ਬੱਸ)\b/u,
@@ -39,6 +43,9 @@ const forbidden = {
     /ਕਿੰਨਾ ਸਮਾਂ (?:ਬਾਅਦ|ਪਹਿਲਾਂ)/u,
     /ਠਹਿਰਾਅਾਂ/u,
     /ਪਰਿਮਾਣ/u,
+    /\b\d+\/\d+\s*(?:ਘੰਟਾ|ਘੰਟੇ)\b/u,
+    /ਹਰ ਸਫ਼ਰ-ਭਾਗ ਵਿੱਚ .* ਲੱਗਦਾ ਹੈ/u,
+    /ਬਦਲਾਅ ਦਾ ਬਦਲਾਅ ਦੀ ਮਾਤਰਾ/u,
   ],
 } as const;
 
@@ -77,6 +84,16 @@ for (const row of all) {
 
   if (canonical.solveMode === "distanceFromSpeedTimeDifference") {
     assert(!presentation.stem.includes(presentation.answerText), `${presentation.questionLanguageId}: solved distance leaked into stem`);
+  }
+  if (canonical.solveMode === "restTimeInRepeatedTravelRestCycle") {
+    assert(presentation.language === "hi" ? presentation.stem.includes("लगते हैं") : presentation.stem.includes("ਲੱਗਦੇ ਹਨ"), `${presentation.questionLanguageId}: repeated-travel duration agreement is not natural`);
+  }
+  if (canonical.solveMode === "arrivalShiftFromDepartureAndSpeedChanges") {
+    assert(presentation.language === "hi" ? presentation.explanation.method.includes("कुल बदलाव की मात्रा") : presentation.explanation.method.includes("ਕੁੱਲ ਬਦਲਾਅ ਦੀ ਮਾਤਰਾ"), `${presentation.questionLanguageId}: arrival-shift magnitude wording is unclear`);
+    assert(!presentation.explanation.steps.some((step) => /(?:^|\s)-\d/u.test(step)), `${presentation.questionLanguageId}: signed negative duration is exposed to the learner instead of direction wording`);
+  }
+  if (canonical.solveMode === "requiredRemainingSpeedAfterPartialRoute") {
+    assert(!/\b\d+\/\d+\s*(?:घंटा|घंटे|ਘੰਟਾ|ਘੰਟੇ)\b/u.test(prose), `${presentation.questionLanguageId}: raw fractional-hour explanation remains`);
   }
   assert(canonical.solveMode !== "scheduleBuffer", `${presentation.questionLanguageId}: rejected scheduleBuffer entered native candidate`);
 
