@@ -141,7 +141,11 @@ for (const checkpointId of ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-00
 }
 
 function csvCell(value: unknown): string {
-  const text = typeof value === "string" ? value : JSON.stringify(value);
+  const text = value === undefined
+    ? ""
+    : typeof value === "string"
+      ? value
+      : JSON.stringify(value) ?? "";
   return `"${text.replaceAll('"', '""')}"`;
 }
 
