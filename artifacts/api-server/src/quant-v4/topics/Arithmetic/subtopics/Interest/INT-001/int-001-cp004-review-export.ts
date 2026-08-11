@@ -19,15 +19,14 @@ function pairKey(left: number, right: number): string {
 const desiredComparisonPairs: Readonly<Record<number, string>> = Object.freeze({
   1: "1-2",
   2: "2-4",
-  3: "1-4",
-  4: "1-2",
+  3: "1-2",
+  4: "2-4",
 });
 const desiredEffectiveFrequencies: Readonly<Record<number, number>> = Object.freeze({ 1: 2, 2: 4, 3: 12, 4: 2 });
 const desiredIdentificationFrequencies: Readonly<Record<number, number>> = Object.freeze({ 1: 1, 2: 2, 3: 4, 4: 1 });
 const desiredTailMonths: Readonly<Record<number, number>> = Object.freeze({ 1: 3, 2: 6, 3: 9, 4: 6 });
 
 function matchesReviewCoverage(question: IntCp004Question, frame: number): boolean {
-  if (question.answerSemantic === "MONEY" && frame <= 3 && question.solution.denominator !== 1n) return false;
   if (question.qlId === "INT-QL-067" && frame === 4) return question.mathematicalState.frequency === 12;
   if (question.qlId === "INT-QL-075") {
     return pairKey(question.mathematicalState.frequency, question.mathematicalState.comparisonFrequency) === desiredComparisonPairs[frame];
@@ -40,24 +39,38 @@ function matchesReviewCoverage(question: IntCp004Question, frame: number): boole
   return true;
 }
 
+function findQuestionForFrame(
+  qlId: typeof INT_CP004_QL_IDS[number],
+  frame: number,
+  desiredCorrectIndex: number,
+  seenStates: Set<string>,
+  requireWholeMoney: boolean,
+): IntCp004Question | undefined {
+  for (let attempt = 0; attempt < 8000; attempt += 1) {
+    const seed = `int-cp004-review-v4:${qlId}:frame-${frame}:attempt-${attempt}`;
+    const question = generateIntCp004Question(qlId, seed);
+    if (!question.stemFamilyId.endsWith(`FRAME-${frame}`)) continue;
+    if (question.correctIndex !== desiredCorrectIndex) continue;
+    if (!matchesReviewCoverage(question, frame)) continue;
+    if (requireWholeMoney && question.answerSemantic === "MONEY" && question.solution.denominator !== 1n) continue;
+    const key = stateKey(question);
+    if (seenStates.has(key)) continue;
+    return question;
+  }
+  return undefined;
+}
+
 function questionForFrame(
   qlId: typeof INT_CP004_QL_IDS[number],
   frame: number,
   desiredCorrectIndex: number,
   seenStates: Set<string>,
 ): IntCp004Question {
-  for (let attempt = 0; attempt < 5000; attempt += 1) {
-    const seed = `int-cp004-review-v4:${qlId}:frame-${frame}:attempt-${attempt}`;
-    const question = generateIntCp004Question(qlId, seed);
-    if (!question.stemFamilyId.endsWith(`FRAME-${frame}`)) continue;
-    if (question.correctIndex !== desiredCorrectIndex) continue;
-    if (!matchesReviewCoverage(question, frame)) continue;
-    const key = stateKey(question);
-    if (seenStates.has(key)) continue;
-    seenStates.add(key);
-    return question;
-  }
-  throw new Error(`${qlId}: could not generate editorial frame ${frame} under exam-readiness review constraints.`);
+  const preferWhole = findQuestionForFrame(qlId, frame, desiredCorrectIndex, seenStates, true);
+  const question = preferWhole ?? findQuestionForFrame(qlId, frame, desiredCorrectIndex, seenStates, false);
+  if (!question) throw new Error(`${qlId}: could not generate editorial frame ${frame} under exam-readiness review constraints.`);
+  seenStates.add(stateKey(question));
+  return question;
 }
 
 const questions: IntCp004Question[] = [];
@@ -100,7 +113,8 @@ if (moneyQuestions !== 48) throw new Error(`Expected 48 money-answer review ques
 if (decimalMoneyQuestions > 12) throw new Error(`Too many decimal-money review questions: ${decimalMoneyQuestions}/48.`);
 if (!monthlyDirectCoverage) throw new Error("Review pack omits a direct monthly-compounding question.");
 if (!ql075Pairs.has("1-2")) throw new Error("Review pack omits the standard annual-versus-half-yearly comparison.");
-if (ql075Pairs.has("1-12") || ql075Pairs.has("2-12") || ql075Pairs.has("4-12")) throw new Error("Review pack contains a calculator-heavy monthly frequency-comparison question.");
+if (!ql075Pairs.has("2-4")) throw new Error("Review pack omits a half-yearly-versus-quarterly comparison.");
+if ([...ql075Pairs].some((pair) => pair.includes("12"))) throw new Error("Review pack contains a calculator-heavy monthly frequency-comparison question.");
 if (!ql076Frequencies.has(12)) throw new Error("Review pack omits monthly effective-rate coverage.");
 if (ql078Frequencies.size !== 3 || !ql078Frequencies.has(1) || !ql078Frequencies.has(2) || !ql078Frequencies.has(4) || ql078Frequencies.has(12)) {
   throw new Error(`Frequency-identification review coverage must be annual/half-yearly/quarterly only: ${[...ql078Frequencies].join(",")}.`);
@@ -141,6 +155,7 @@ const summary = {
   decimalMoneyShare: Number((decimalMoneyQuestions / moneyQuestions).toFixed(4)),
   monthlyDirectCoverage,
   annualVsHalfYearlyComparison: ql075Pairs.has("1-2"),
+  halfYearlyVsQuarterlyComparison: ql075Pairs.has("2-4"),
   monthlyEffectiveRateCoverage: ql076Frequencies.has(12),
   frequencyIdentificationCoverage: [...ql078Frequencies].sort((a, b) => a - b),
   brokenTailMonthCoverage: [...brokenTailMonths].sort((a, b) => a - b),
