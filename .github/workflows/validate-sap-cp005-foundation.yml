@@ -1,0 +1,62 @@
+name: Validate SAP-CP-005 structural cancellation foundation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feat/sap-cp004-complete-english-candidate
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-005/**
+      - .github/workflows/validate-sap-cp005-foundation.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-sap-cp005-foundation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sap-cp005-foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP-005 authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-005/authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp005-foundation-authority.test.mjs
+
+      - name: Run CP-005 authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp005-foundation-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp005-foundation-authority.log
+
+      - name: Upload authority evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp005-foundation-authority
+          path: artifacts/api-server/dist/quant-v4/sap-cp005-foundation-authority.log
+          if-no-files-found: error
+          retention-days: 30
