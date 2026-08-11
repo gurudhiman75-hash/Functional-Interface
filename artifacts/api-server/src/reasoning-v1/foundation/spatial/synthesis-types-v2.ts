@@ -83,6 +83,7 @@ export interface SpatialProductionScaleBatchResultV2 {
   totalAccepted: number;
   fclInstanceCatalogCapacity: number;
   fclCanonicalCatalogCapacity: number;
+  fsrSafeStateTotalCapacity: number;
   chapters: Record<SpatialSynthesisChapterV1, SpatialProductionScaleChapterResultV2>;
   lifecycle: SpatialSynthesisLifecycleLockV1;
 }
