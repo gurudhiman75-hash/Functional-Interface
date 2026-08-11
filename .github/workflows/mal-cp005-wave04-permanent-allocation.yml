@@ -6,6 +6,7 @@ on:
       - New-main
     types: [opened, reopened, synchronize]
     paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/MAL-CP-005/MAL-CP-005-WAVE-04-PERMANENT-ALLOCATION.md
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp005-permanent-allocation-v1.ts
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp005-wave02-**
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp005-wave03-**
