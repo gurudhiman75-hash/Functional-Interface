@@ -12,9 +12,9 @@ import {
 } from "./cp004-frequency-review-v3";
 import {
   assertCp004ExamReadinessV4,
-  generateExamReadyCp004State,
   hardenCp004ExplanationV4,
 } from "./cp004-frequency-exam-readiness-v4";
+import { generateCp004ExamReadyStateV4 } from "./cp004-frequency-state-policy-v4";
 import { ensureCp004InverseExplanationDepthV4 } from "./cp004-frequency-explanation-depth-v4";
 import { assertCp004VisibleGivensExamReadyV4 } from "./cp004-frequency-visible-givens-v4";
 import { polishCp004TargetWordingV4 } from "./cp004-frequency-wording-v4";
@@ -25,7 +25,7 @@ export { INT_CP004_EDITORIAL_REMEDIATION_VERSION } from "./cp004-frequency-exam-
 
 export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-default"): IntCp004Question {
   const entry = registryEntry(qlId);
-  const mathematicalState = generateExamReadyCp004State(qlId, seed);
+  const mathematicalState = generateCp004ExamReadyStateV4(qlId, seed);
   const solution = canonicalCp004Answer(mathematicalState);
   if (!verifyCp004Answer(mathematicalState, solution)) throw new Error(`${qlId}/${seed}: canonical answer failed independent verification.`);
   const hardenedPresentation = hardenCp004Presentation(mathematicalState, stemFor(mathematicalState, seed));
