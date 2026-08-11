@@ -166,3 +166,11 @@ export function spatialSeriesPresentationForRule(
       return { showMarker: false, showDots: false };
   }
 }
+
+export function spatialSeriesRuleCompatibleWithPresentation(
+  ruleId: SpatialSeriesRuleId,
+  profile: SpatialSeriesPresentationProfile,
+): boolean {
+  const required = spatialSeriesPresentationForRule(ruleId);
+  return (!required.showMarker || profile.showMarker) && (!required.showDots || profile.showDots);
+}
