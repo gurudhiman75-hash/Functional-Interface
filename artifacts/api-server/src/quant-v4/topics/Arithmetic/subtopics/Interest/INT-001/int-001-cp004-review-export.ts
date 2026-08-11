@@ -9,27 +9,97 @@ import {
 function serializable(value: unknown): unknown {
   return JSON.parse(JSON.stringify(value, (_key, item) => typeof item === "bigint" ? item.toString() : item));
 }
-function questionForFrame(qlId: typeof INT_CP004_QL_IDS[number], frame: number): IntCp004Question {
-  for (let attempt = 0; attempt < 500; attempt += 1) {
-    const seed = `int-cp004-review:${qlId}:frame-${frame}:attempt-${attempt}`;
-    const question = generateIntCp004Question(qlId, seed);
-    if (question.stemFamilyId.endsWith(`FRAME-${frame}`)) return question;
-  }
-  throw new Error(`${qlId}: could not generate editorial frame ${frame}.`);
+function stateKey(question: IntCp004Question): string {
+  return JSON.stringify(question.mathematicalState, (_key, item) => typeof item === "bigint" ? item.toString() : item);
+}
+function pairKey(left: number, right: number): string {
+  return [left, right].sort((a, b) => a - b).join("-");
 }
 
-const questions = INT_CP004_QL_IDS.flatMap((qlId) => [1, 2, 3, 4].map((frame) => questionForFrame(qlId, frame)));
+const desiredComparisonPairs: Readonly<Record<number, string>> = Object.freeze({
+  1: "1-2",
+  2: "2-4",
+  3: "1-4",
+  4: "4-12",
+});
+const desiredEffectiveFrequencies: Readonly<Record<number, number>> = Object.freeze({ 1: 2, 2: 4, 3: 12, 4: 2 });
+const desiredIdentificationFrequencies: Readonly<Record<number, number>> = Object.freeze({ 1: 1, 2: 2, 3: 4, 4: 12 });
+const desiredTailMonths: Readonly<Record<number, number>> = Object.freeze({ 1: 3, 2: 6, 3: 9, 4: 6 });
+
+function matchesReviewCoverage(question: IntCp004Question, frame: number): boolean {
+  if (question.answerSemantic === "MONEY" && frame <= 3 && question.solution.denominator !== 1n) return false;
+  if (question.qlId === "INT-QL-075") {
+    return pairKey(question.mathematicalState.frequency, question.mathematicalState.comparisonFrequency) === desiredComparisonPairs[frame];
+  }
+  if (question.qlId === "INT-QL-076") return question.mathematicalState.frequency === desiredEffectiveFrequencies[frame];
+  if (question.qlId === "INT-QL-078") return question.mathematicalState.frequency === desiredIdentificationFrequencies[frame];
+  if (["INT-QL-079", "INT-QL-080", "INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(question.qlId)) {
+    return question.mathematicalState.tailMonths === desiredTailMonths[frame];
+  }
+  return true;
+}
+
+function questionForFrame(
+  qlId: typeof INT_CP004_QL_IDS[number],
+  frame: number,
+  desiredCorrectIndex: number,
+  seenStates: Set<string>,
+): IntCp004Question {
+  for (let attempt = 0; attempt < 5000; attempt += 1) {
+    const seed = `int-cp004-review-v4:${qlId}:frame-${frame}:attempt-${attempt}`;
+    const question = generateIntCp004Question(qlId, seed);
+    if (!question.stemFamilyId.endsWith(`FRAME-${frame}`)) continue;
+    if (question.correctIndex !== desiredCorrectIndex) continue;
+    if (!matchesReviewCoverage(question, frame)) continue;
+    const key = stateKey(question);
+    if (seenStates.has(key)) continue;
+    seenStates.add(key);
+    return question;
+  }
+  throw new Error(`${qlId}: could not generate editorial frame ${frame} under exam-readiness review constraints.`);
+}
+
+const questions: IntCp004Question[] = [];
+INT_CP004_QL_IDS.forEach((qlId, qlIndex) => {
+  const seenStates = new Set<string>();
+  [1, 2, 3, 4].forEach((frame) => {
+    const desiredCorrectIndex = (qlIndex * 4 + frame - 1) % 4;
+    questions.push(questionForFrame(qlId, frame, desiredCorrectIndex, seenStates));
+  });
+});
 if (questions.length !== 76) throw new Error(`Expected 76 review questions, received ${questions.length}.`);
 
 const answerPositions = [0, 0, 0, 0];
 const qlCounts = new Map<string, number>();
 const representations = new Set<string>();
+const ql075Pairs = new Set<string>();
+const ql076Frequencies = new Set<number>();
+const ql078Frequencies = new Set<number>();
+const brokenTailMonths = new Set<number>();
+let moneyQuestions = 0;
+let decimalMoneyQuestions = 0;
 for (const question of questions) {
   answerPositions[question.correctIndex] += 1;
   qlCounts.set(question.qlId, (qlCounts.get(question.qlId) ?? 0) + 1);
   representations.add(question.representation);
+  if (question.answerSemantic === "MONEY") {
+    moneyQuestions += 1;
+    if (question.solution.denominator !== 1n) decimalMoneyQuestions += 1;
+  }
+  if (question.qlId === "INT-QL-075") ql075Pairs.add(pairKey(question.mathematicalState.frequency, question.mathematicalState.comparisonFrequency));
+  if (question.qlId === "INT-QL-076") ql076Frequencies.add(question.mathematicalState.frequency);
+  if (question.qlId === "INT-QL-078") ql078Frequencies.add(question.mathematicalState.frequency);
+  if (["INT-QL-079", "INT-QL-080", "INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(question.qlId)) brokenTailMonths.add(question.mathematicalState.tailMonths);
 }
 if ([...qlCounts.values()].some((count) => count !== 4)) throw new Error("Each QL must contribute four review questions.");
+if (answerPositions.some((count) => count !== 19)) throw new Error(`Review answer positions are not exactly balanced: ${answerPositions.join("/")}.`);
+if (moneyQuestions !== 48) throw new Error(`Expected 48 money-answer review questions, received ${moneyQuestions}.`);
+if (decimalMoneyQuestions > 12) throw new Error(`Too many decimal-money review questions: ${decimalMoneyQuestions}/48.`);
+if (!ql075Pairs.has("1-2")) throw new Error("Review pack omits the standard annual-versus-half-yearly comparison.");
+if (!ql075Pairs.has("4-12")) throw new Error("Review pack omits a higher-frequency comparison involving monthly compounding.");
+if (!ql076Frequencies.has(12)) throw new Error("Review pack omits monthly effective-rate coverage.");
+if (ql078Frequencies.size !== 4) throw new Error(`Frequency-identification review coverage is incomplete: ${[...ql078Frequencies].join(",")}.`);
+if (brokenTailMonths.size !== 3) throw new Error(`Broken-period review does not cover 3, 6 and 9 month tails.`);
 
 const lines: string[] = [
   "# INT-CP-004 — Questions and Explanations",
@@ -60,6 +130,13 @@ const summary = {
   proseQuestions: questions.filter((question) => question.representation !== "TERMS_TABLE").length,
   answerPositions,
   representationCoverage: representations.size,
+  moneyQuestions,
+  decimalMoneyQuestions,
+  decimalMoneyShare: Number((decimalMoneyQuestions / moneyQuestions).toFixed(4)),
+  annualVsHalfYearlyComparison: ql075Pairs.has("1-2"),
+  monthlyEffectiveRateCoverage: ql076Frequencies.has(12),
+  frequencyIdentificationCoverage: [...ql078Frequencies].sort((a, b) => a - b),
+  brokenTailMonthCoverage: [...brokenTailMonths].sort((a, b) => a - b),
   lifecycle: {
     approvalStatus: "NOT_APPROVED",
     enabled: false,
