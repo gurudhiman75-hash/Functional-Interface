@@ -57,9 +57,10 @@ function productionDomainEligible(
 
   switch (propertyId) {
     case "EVEN_SIDED_POLYGON":
-      // Keep all four options in the same simple-polygon visual domain so the
-      // learner must inspect side parity instead of spotting "polygon vs line".
-      return entry.category === "CLOSED_SHAPE" && entry.polygonSideCount !== null;
+      // A divided polygon still has an unambiguous outer side count. Keeping
+      // partitioned polygons available increases legitimate visual breadth while
+      // every option must still have a polygon side-count authority.
+      return entry.polygonSideCount !== null;
     case "POLYGON":
       // A divided square still looks like a polygon to a learner. Restrict this
       // family to simple closed figures so only the outer-boundary question is asked.
