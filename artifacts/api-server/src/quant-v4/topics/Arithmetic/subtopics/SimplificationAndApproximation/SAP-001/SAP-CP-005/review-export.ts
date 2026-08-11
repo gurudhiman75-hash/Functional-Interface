@@ -1,17 +1,19 @@
 import {
   SAP_CP005_CATALOGUE,
   SAP_CP005_PROTOTYPE_IDS,
-  generateSapCp005,
   type SapCp005Package,
   type SapCp005PrototypeId,
 } from "./runtime";
 import {
   SAP_CP005_WAVE2_CATALOGUE,
   SAP_CP005_WAVE2_PROTOTYPE_IDS,
-  generateSapCp005Wave2,
   type SapCp005Wave2Package,
   type SapCp005Wave2PrototypeId,
 } from "./runtime-wave2";
+import {
+  generateSapCp005Editorial,
+  generateSapCp005Wave2Editorial,
+} from "./editorial-runtime";
 
 export type SapCp005ReviewPrototypeId = SapCp005PrototypeId | SapCp005Wave2PrototypeId;
 export type SapCp005ReviewBasePackage = SapCp005Package | SapCp005Wave2Package;
@@ -73,9 +75,9 @@ function reviewAnswerPositionSequence(): readonly number[] {
 
 function generatePackage(prototypeId: SapCp005ReviewPrototypeId, seed: number): SapCp005ReviewBasePackage {
   if ((SAP_CP005_PROTOTYPE_IDS as readonly string[]).includes(prototypeId)) {
-    return generateSapCp005(prototypeId as SapCp005PrototypeId, seed);
+    return generateSapCp005Editorial(prototypeId as SapCp005PrototypeId, seed);
   }
-  return generateSapCp005Wave2(prototypeId as SapCp005Wave2PrototypeId, seed);
+  return generateSapCp005Wave2Editorial(prototypeId as SapCp005Wave2PrototypeId, seed);
 }
 
 export function generateSapCp005ReviewRecords(): readonly SapCp005ReviewRecord[] {
