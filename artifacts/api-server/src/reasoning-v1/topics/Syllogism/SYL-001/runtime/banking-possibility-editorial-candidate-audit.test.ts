@@ -79,7 +79,7 @@ for (let seed = 0; seed < 80; seed += 1) {
         } else {
           assert.ok(!record.follows);
         }
-        continue;
+        return;
       }
 
       const conclusion = record.canonicalConclusion;
