@@ -4,6 +4,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import {
   SPATIAL_FSR_SYNTHESIS_RULE_IDS_V1,
   SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2,
+  buildSpatialFclSafeQuartetCatalogV1,
   buildSpatialPrimitiveClassificationQuestionFromIdsV2,
   buildSpatialSynthesisEditorialReviewHtmlV1,
   buildSpatialSynthesisEditorialReviewV1,
@@ -12,6 +13,16 @@ import {
 } from "../foundation/spatial";
 
 const REQUESTED_PER_CHAPTER = 96;
+const fclCatalogSizes = Object.fromEntries(
+  SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2.map((propertyId) => [
+    propertyId,
+    buildSpatialFclSafeQuartetCatalogV1(propertyId).length,
+  ]),
+);
+for (const [propertyId, size] of Object.entries(fclCatalogSizes)) {
+  assert.ok(size >= 8, `${propertyId}: safe catalog must support at least eight distinct content quartets; found ${size}`);
+}
+
 const batch = synthesizeSpatialProductionBatchV1({
   seedPrefix: "SPA-FND-001-PRODUCTION-SYNTHESIS-V1-PROOF",
   requestedPerChapter: REQUESTED_PER_CHAPTER,
@@ -64,6 +75,12 @@ assert.equal(Object.keys(batch.chapters["FCL-001"].familyCounts).length, SPATIAL
 for (const propertyId of SPATIAL_PRIMITIVE_CLASSIFICATION_PROPERTY_IDS_V2) {
   assert.equal(batch.chapters["FCL-001"].familyCounts[propertyId], 8, propertyId);
 }
+assert.equal(batch.chapters["FCL-001"].rejectionCounts.FCL_COMPETING_DESCRIPTOR ?? 0, 0);
+assert.ok(
+  batch.chapters["FCL-001"].attempts.length <= 160,
+  `Catalog-based FCL synthesis must accept 96 candidates within 160 attempts; used ${batch.chapters["FCL-001"].attempts.length}.`,
+);
+
 assert.equal(Object.keys(batch.chapters["FSR-001"].familyCounts).length, SPATIAL_FSR_SYNTHESIS_RULE_IDS_V1.length);
 for (const ruleId of SPATIAL_FSR_SYNTHESIS_RULE_IDS_V1) {
   assert.ok((batch.chapters["FSR-001"].familyCounts[ruleId] ?? 0) >= 9, ruleId);
@@ -150,6 +167,7 @@ const evidence = {
   seedPrefix: batch.seedPrefix,
   requestedPerChapter: batch.requestedPerChapter,
   totalAccepted: batch.totalAccepted,
+  fclCatalogSizes,
   chapters: Object.fromEntries(chapterCodes.map((chapterCode) => {
     const chapter = batch.chapters[chapterCode];
     return [chapterCode, {
@@ -170,7 +188,10 @@ const evidence = {
     separateDeliveryFingerprint: true,
     balancedCorrectSlots: true,
     fullFamilyCoverage: true,
+    compiledFclSafeQuartetCatalog: true,
+    fclCatalogFinalBuilderRevalidation: true,
     fclCompetingMinorityRejection: true,
+    efficientFclCatalogSelection: true,
     representativeEditorialReview: true,
     lifecycleIsolation: true,
   },
@@ -211,6 +232,7 @@ console.log(JSON.stringify({
     fcl: batch.chapters["FCL-001"].rejectionCounts,
     fsr: batch.chapters["FSR-001"].rejectionCounts,
   },
+  fclCatalogSizes,
   correctSlots: {
     fan: batch.chapters["FAN-001"].correctSlotCounts,
     fcl: batch.chapters["FCL-001"].correctSlotCounts,
