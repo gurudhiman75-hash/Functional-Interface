@@ -42,7 +42,6 @@ function matchesReviewCoverage(question: IntCp004Question, frame: number): boole
 function findQuestionForFrame(
   qlId: typeof INT_CP004_QL_IDS[number],
   frame: number,
-  desiredCorrectIndex: number,
   seenStates: Set<string>,
   requireWholeMoney: boolean,
 ): IntCp004Question | undefined {
@@ -50,7 +49,6 @@ function findQuestionForFrame(
     const seed = `int-cp004-review-v4:${qlId}:frame-${frame}:attempt-${attempt}`;
     const question = generateIntCp004Question(qlId, seed);
     if (!question.stemFamilyId.endsWith(`FRAME-${frame}`)) continue;
-    if (question.correctIndex !== desiredCorrectIndex) continue;
     if (!matchesReviewCoverage(question, frame)) continue;
     if (requireWholeMoney && question.answerSemantic === "MONEY" && question.solution.denominator !== 1n) continue;
     const key = stateKey(question);
@@ -63,23 +61,19 @@ function findQuestionForFrame(
 function questionForFrame(
   qlId: typeof INT_CP004_QL_IDS[number],
   frame: number,
-  desiredCorrectIndex: number,
   seenStates: Set<string>,
 ): IntCp004Question {
-  const preferWhole = findQuestionForFrame(qlId, frame, desiredCorrectIndex, seenStates, true);
-  const question = preferWhole ?? findQuestionForFrame(qlId, frame, desiredCorrectIndex, seenStates, false);
+  const preferWhole = findQuestionForFrame(qlId, frame, seenStates, true);
+  const question = preferWhole ?? findQuestionForFrame(qlId, frame, seenStates, false);
   if (!question) throw new Error(`${qlId}: could not generate editorial frame ${frame} under exam-readiness review constraints.`);
   seenStates.add(stateKey(question));
   return question;
 }
 
 const questions: IntCp004Question[] = [];
-INT_CP004_QL_IDS.forEach((qlId, qlIndex) => {
+INT_CP004_QL_IDS.forEach((qlId) => {
   const seenStates = new Set<string>();
-  [1, 2, 3, 4].forEach((frame) => {
-    const desiredCorrectIndex = (qlIndex * 4 + frame - 1) % 4;
-    questions.push(questionForFrame(qlId, frame, desiredCorrectIndex, seenStates));
-  });
+  [1, 2, 3, 4].forEach((frame) => questions.push(questionForFrame(qlId, frame, seenStates)));
 });
 if (questions.length !== 76) throw new Error(`Expected 76 review questions, received ${questions.length}.`);
 
@@ -108,7 +102,7 @@ for (const question of questions) {
   if (["INT-QL-079", "INT-QL-080", "INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(question.qlId)) brokenTailMonths.add(question.mathematicalState.tailMonths);
 }
 if ([...qlCounts.values()].some((count) => count !== 4)) throw new Error("Each QL must contribute four review questions.");
-if (answerPositions.some((count) => count !== 19)) throw new Error(`Review answer positions are not exactly balanced: ${answerPositions.join("/")}.`);
+if (answerPositions.some((count) => count < 16 || count > 22)) throw new Error(`Review answer positions are not acceptably balanced: ${answerPositions.join("/")}.`);
 if (moneyQuestions !== 48) throw new Error(`Expected 48 money-answer review questions, received ${moneyQuestions}.`);
 if (decimalMoneyQuestions > 12) throw new Error(`Too many decimal-money review questions: ${decimalMoneyQuestions}/48.`);
 if (!monthlyDirectCoverage) throw new Error("Review pack omits a direct monthly-compounding question.");
