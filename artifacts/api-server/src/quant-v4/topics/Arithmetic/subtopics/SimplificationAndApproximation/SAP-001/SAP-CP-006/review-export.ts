@@ -1,10 +1,10 @@
 import {
   SAP_CP006_CATALOGUE,
   SAP_CP006_PROTOTYPE_IDS,
-  generateSapCp006,
   type SapCp006Package,
   type SapCp006PrototypeId,
 } from "./runtime";
+import { generateSapCp006Editorial } from "./editorial-runtime";
 
 export type SapCp006ReviewRecord = SapCp006Package & { readonly questionId: string };
 
@@ -34,7 +34,7 @@ export function generateSapCp006ReviewRecords(): readonly SapCp006ReviewRecord[]
     let seed = 1;
     while (accepted < SAP_CP006_REVIEW_COUNT_PER_PROTOTYPE) {
       if (seed > 50_000) throw new Error(`${prototypeId}: unable to find balanced, diverse, unique review records.`);
-      const pkg = generateSapCp006(prototypeId as SapCp006PrototypeId, seed);
+      const pkg = generateSapCp006Editorial(prototypeId as SapCp006PrototypeId, seed);
       seed += 1;
       if (!pkg.validation.ok) continue;
       if (pkg.correctIndex !== targets[reviewIndex]) continue;
