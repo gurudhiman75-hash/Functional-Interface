@@ -16,7 +16,7 @@ const frac = (a: number | bigint, b: number | bigint): string => rationalText(ra
 const tidy = (value: string): string => value.replace(/\s+/gu, " ").replace(/\s+([?.!,।])/gu, "$1").trim();
 
 const ballWord = (language: ProbabilityNativeLanguage, count: number): string => language === "hi" ? "गेंद" : "ਗੇਂਦ";
-const bagWord = (language: ProbabilityNativeLanguage): string => language === "hi" ? "bag" : "ਬੈਗ";
+const bagWord = (language: ProbabilityNativeLanguage): string => language === "hi" ? "बैग" : "ਬੈਗ";
 const probabilityWord = (language: ProbabilityNativeLanguage): string => language === "hi" ? "प्रायिकता" : "ਸੰਭਾਵਨਾ";
 
 function colour(value: string, language: ProbabilityNativeLanguage): string {
@@ -48,6 +48,18 @@ function propertyPhrase(source: ProbabilityQuestion, language: ProbabilityNative
 
 function eventLabel(value: string, language: ProbabilityNativeLanguage): string {
   const normalized = value.trim().toLowerCase();
+  const greater = normalized.match(/^an integer greater than (\d+)$/u);
+  const less = normalized.match(/^an integer less than (\d+)$/u);
+  const notExceeding = normalized.match(/^an integer not exceeding (\d+)$/u);
+  const divisible = normalized.match(/^an integer divisible by (\d+)$/u);
+  if (greater) return language === "hi" ? `${greater[1]} से बड़ा पूर्णांक` : `${greater[1]} ਤੋਂ ਵੱਡਾ ਪੂਰਨ ਅੰਕ`;
+  if (less) return language === "hi" ? `${less[1]} से छोटा पूर्णांक` : `${less[1]} ਤੋਂ ਛੋਟਾ ਪੂਰਨ ਅੰਕ`;
+  if (notExceeding) return language === "hi" ? `${notExceeding[1]} से अधिक न होने वाला पूर्णांक` : `${notExceeding[1]} ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ ਪੂਰਨ ਅੰਕ`;
+  if (divisible) return language === "hi" ? `${divisible[1]} से विभाज्य पूर्णांक` : `${divisible[1]} ਨਾਲ ਭਾਗਯੋਗ ਪੂਰਨ ਅੰਕ`;
+  if (/^an? even integer$/u.test(normalized)) return language === "hi" ? "सम पूर्णांक" : "ਜੋੜੀ ਪੂਰਨ ਅੰਕ";
+  if (/^an? odd integer$/u.test(normalized)) return language === "hi" ? "विषम पूर्णांक" : "ਬੇਜੋੜ ਪੂਰਨ ਅੰਕ";
+  if (/^an? prime integer$/u.test(normalized)) return language === "hi" ? "अभाज्य पूर्णांक" : "ਅਭਾਜ ਪੂਰਨ ਅੰਕ";
+  if (/^an? composite integer$/u.test(normalized)) return language === "hi" ? "संयोज्य पूर्णांक" : "ਸੰਯੁਕਤ ਪੂਰਨ ਅੰਕ";
   const hi: Record<string, string> = {
     "a candidate qualifies": "एक अभ्यर्थी के उत्तीर्ण होने",
     "a train arrives on time": "ट्रेन के समय पर पहुँचने",
@@ -232,7 +244,7 @@ export function renderNativeStudentFacingStem(source: ProbabilityQuestion, langu
       case "findExactlyKSuccessSmallCase": return `एक निष्पक्ष सिक्के को ${trials} बार उछाला जाता है। ठीक ${num(source, "k")} चित आने की प्रायिकता क्या है?`;
       case "findAtMostKSuccessSmallCase": return `एक निष्पक्ष सिक्के को ${trials} बार उछाला जाता है। अधिकतम ${num(source, "k")} चित आने की प्रायिकता क्या है?`;
       case "findAllSuccessOrNotAll": return `एक निष्पक्ष सिक्के को ${trials} बार उछाला जाता है। सभी उछालों में एक ही पक्ष आने की प्रायिकता क्या है?`;
-      case "findCoinPatternProbability": return `एक निष्पक्ष सिक्के को ${num(source, "tosses")} बार उछाला जाता है। क्रम ${text(source, "pattern")} प्राप्त होने की प्रायिकता क्या है?`;
+      case "findCoinPatternProbability": { const pattern = [...text(source, "pattern")].map((token) => token === "H" ? "चित" : "पट").join("-"); return `एक निष्पक्ष सिक्के को ${num(source, "tosses")} बार उछाला जाता है। क्रम ${pattern} प्राप्त होने की प्रायिकता क्या है?`; }
       case "findCoinHeadCountProbability": return `एक निष्पक्ष सिक्के को ${num(source, "tosses")} बार उछाला जाता है। ठीक ${num(source, "heads")} चित आने की प्रायिकता क्या है?`;
       case "findSingleDieEventProbability": return `एक निष्पक्ष पासा एक बार फेंका जाता है। ${propertyPhrase(source, language)} संख्या आने की प्रायिकता क्या है?`;
       case "findTwoDiceSumProbability": return `दो निष्पक्ष पासे फेंके जाते हैं। प्राप्त संख्याओं का योग ${num(source, "targetSum")} होने की प्रायिकता क्या है?`;
@@ -259,14 +271,14 @@ export function renderNativeStudentFacingStem(source: ProbabilityQuestion, langu
       case "findConditionalCardProbability": return "मानक 52 पत्तों की गड्डी से निकला पत्ता फेस कार्ड है। उसके बादशाह होने की प्रायिकता क्या है?";
       case "findConditionalNumberProbability": return `1 से ${num(source, "upper")} तक चुना गया एक पूर्णांक ${num(source, "conditionDivisor")} से विभाज्य है। उसके ${num(source, "targetDivisor")} से भी विभाज्य होने की प्रायिकता क्या है?`;
       case "findConditionalUrnProbability": return `एक ${bagWord(language)} में ${red} लाल और ${blue} नीली गेंदें हैं। दो गेंदें बिना वापस रखे निकाली जाती हैं। यदि पहली गेंद लाल है, तो दूसरी गेंद के भी लाल होने की प्रायिकता क्या है?`;
-      case "findReverseConditionalCount": return `${num(source, "restrictedTotal")} शॉर्टलिस्ट किए गए अभ्यर्थियों में से यादृच्छिक रूप से चुने गए अभ्यर्थी के ${text(source, "targetLabel", "certified")} होने की प्रायिकता ${frac(num(source, "favourable"), num(source, "restrictedTotal", 1))} है। ऐसे कितने अभ्यर्थी हैं?`;
+      case "findReverseConditionalCount": { const status = text(source, "targetLabel", "certified") === "certified" ? "प्रमाणित" : "शॉर्टलिस्ट"; return `${num(source, "restrictedTotal")} शॉर्टलिस्ट किए गए अभ्यर्थियों में से यादृच्छिक रूप से चुने गए अभ्यर्थी के ${status} होने की प्रायिकता ${frac(num(source, "favourable"), num(source, "restrictedTotal", 1))} है। ऐसे कितने अभ्यर्थी हैं?`; }
       case "findRandomArrangementPropertyProbability": return `${num(source, "people")} व्यक्ति यादृच्छिक क्रम में खड़े होते हैं। किसी एक निश्चित व्यक्ति के पहले स्थान पर होने की प्रायिकता क्या है?`;
       case "findTogetherOrApartProbability": return `${num(source, "people")} व्यक्ति यादृच्छिक क्रम में खड़े होते हैं। दो निश्चित व्यक्तियों के ${text(source, "relation", "TOGETHER") === "APART" ? "एक-दूसरे के पास न होने" : "एक-दूसरे के पास होने"} की प्रायिकता क्या है?`;
       case "findPositionRestrictionProbability": return `${num(source, "positions")} अलग-अलग पद ${num(source, "men")} पुरुषों और ${num(source, "women")} महिलाओं में यादृच्छिक रूप से बाँटे जाते हैं। पहला पद किसी महिला को मिलने की प्रायिकता क्या है?`;
       case "findNumberFormationProbability": return `${num(source, "minDigit", 1)} से ${num(source, "maxDigit")} तक के अंकों का बिना पुनरावृत्ति उपयोग करके ${num(source, "length")} अंकों की एक संख्या बनाई जाती है। संख्या के सम होने की प्रायिकता क्या है?`;
       case "findUnionProbability": case "findIntersectionProbability": case "findExactlyOneOfTwoEvents": case "findMixedEventExpressionProbability": case "findNeitherEventProbability": case "findMissingIntersectionOrUnionProbability": return eventGroupStem(source, language);
       case "findMutuallyExclusiveUnion": return `किसी अभ्यर्थी को पुरस्कार A या पुरस्कार B मिल सकता है, लेकिन दोनों नहीं। यदि P(A) = ${frac(num(source, "aNumerator"), num(source, "aDenominator", 1))} और P(B) = ${frac(num(source, "bNumerator"), num(source, "bDenominator", 1))} है, तो किसी एक पुरस्कार के मिलने की प्रायिकता क्या है?`;
-      case "findIndependentIntersection": return `किसी अभ्यर्थी के Section A और Section B उत्तीर्ण करने की प्रायिकताएँ क्रमशः ${frac(num(source, "aNumerator"), num(source, "aDenominator", 1))} और ${frac(num(source, "bNumerator"), num(source, "bDenominator", 1))} हैं। दोनों परिणाम स्वतंत्र हैं। अभ्यर्थी के दोनों Sections उत्तीर्ण करने की प्रायिकता क्या है?`;
+      case "findIndependentIntersection": return `किसी अभ्यर्थी के सेक्शन A और सेक्शन B उत्तीर्ण करने की प्रायिकताएँ क्रमशः ${frac(num(source, "aNumerator"), num(source, "aDenominator", 1))} और ${frac(num(source, "bNumerator"), num(source, "bDenominator", 1))} हैं। दोनों परिणाम स्वतंत्र हैं। अभ्यर्थी के दोनों सेक्शन उत्तीर्ण करने की प्रायिकता क्या है?`;
     }
   } else {
     switch (mode) {
@@ -279,7 +291,7 @@ export function renderNativeStudentFacingStem(source: ProbabilityQuestion, langu
       case "findExactlyKSuccessSmallCase": return `ਇੱਕ ਨਿਰਪੱਖ ਸਿੱਕੇ ਨੂੰ ${trials} ਵਾਰ ਉਛਾਲਿਆ ਜਾਂਦਾ ਹੈ। ਠੀਕ ${num(source, "k")} ਚਿੱਤ ਆਉਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findAtMostKSuccessSmallCase": return `ਇੱਕ ਨਿਰਪੱਖ ਸਿੱਕੇ ਨੂੰ ${trials} ਵਾਰ ਉਛਾਲਿਆ ਜਾਂਦਾ ਹੈ। ਵੱਧ ਤੋਂ ਵੱਧ ${num(source, "k")} ਚਿੱਤ ਆਉਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findAllSuccessOrNotAll": return `ਇੱਕ ਨਿਰਪੱਖ ਸਿੱਕੇ ਨੂੰ ${trials} ਵਾਰ ਉਛਾਲਿਆ ਜਾਂਦਾ ਹੈ। ਸਾਰੇ ਉਛਾਲਾਂ ਵਿੱਚ ਇੱਕੋ ਪਾਸਾ ਆਉਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
-      case "findCoinPatternProbability": return `ਇੱਕ ਨਿਰਪੱਖ ਸਿੱਕੇ ਨੂੰ ${num(source, "tosses")} ਵਾਰ ਉਛਾਲਿਆ ਜਾਂਦਾ ਹੈ। ਕ੍ਰਮ ${text(source, "pattern")} ਪ੍ਰਾਪਤ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
+      case "findCoinPatternProbability": { const pattern = [...text(source, "pattern")].map((token) => token === "H" ? "ਚਿੱਤ" : "ਪੱਟ").join("-"); return `ਇੱਕ ਨਿਰਪੱਖ ਸਿੱਕੇ ਨੂੰ ${num(source, "tosses")} ਵਾਰ ਉਛਾਲਿਆ ਜਾਂਦਾ ਹੈ। ਕ੍ਰਮ ${pattern} ਪ੍ਰਾਪਤ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`; }
       case "findCoinHeadCountProbability": return `ਇੱਕ ਨਿਰਪੱਖ ਸਿੱਕੇ ਨੂੰ ${num(source, "tosses")} ਵਾਰ ਉਛਾਲਿਆ ਜਾਂਦਾ ਹੈ। ਠੀਕ ${num(source, "heads")} ਚਿੱਤ ਆਉਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findSingleDieEventProbability": return `ਇੱਕ ਨਿਰਪੱਖ ਪਾਸਾ ਇੱਕ ਵਾਰ ਸੁੱਟਿਆ ਜਾਂਦਾ ਹੈ। ${propertyPhrase(source, language)} ਸੰਖਿਆ ਆਉਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findTwoDiceSumProbability": return `ਦੋ ਨਿਰਪੱਖ ਪਾਸੇ ਸੁੱਟੇ ਜਾਂਦੇ ਹਨ। ਪ੍ਰਾਪਤ ਸੰਖਿਆਵਾਂ ਦਾ ਜੋੜ ${num(source, "targetSum")} ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
@@ -306,14 +318,14 @@ export function renderNativeStudentFacingStem(source: ProbabilityQuestion, langu
       case "findConditionalCardProbability": return "ਮਿਆਰੀ 52 ਪੱਤਿਆਂ ਦੀ ਗੱਡੀ ਵਿੱਚੋਂ ਕੱਢਿਆ ਪੱਤਾ ਫੇਸ ਕਾਰਡ ਹੈ। ਉਸ ਦੇ ਬਾਦਸ਼ਾਹ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?";
       case "findConditionalNumberProbability": return `1 ਤੋਂ ${num(source, "upper")} ਤੱਕ ਚੁਣਿਆ ਗਿਆ ਇੱਕ ਪੂਰਨ ਅੰਕ ${num(source, "conditionDivisor")} ਨਾਲ ਭਾਗਯੋਗ ਹੈ। ਉਸ ਦੇ ${num(source, "targetDivisor")} ਨਾਲ ਵੀ ਭਾਗਯੋਗ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findConditionalUrnProbability": return `ਇੱਕ ${bagWord(language)} ਵਿੱਚ ${red} ਲਾਲ ਅਤੇ ${blue} ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਹਨ। ਦੋ ਗੇਂਦਾਂ ਬਿਨਾਂ ਵਾਪਸ ਰੱਖੇ ਕੱਢੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਜੇ ਪਹਿਲੀ ਗੇਂਦ ਲਾਲ ਹੈ, ਤਾਂ ਦੂਜੀ ਗੇਂਦ ਦੇ ਵੀ ਲਾਲ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
-      case "findReverseConditionalCount": return `${num(source, "restrictedTotal")} ਸ਼ਾਰਟਲਿਸਟ ਕੀਤੇ ਉਮੀਦਵਾਰਾਂ ਵਿੱਚੋਂ ਬੇਤਰਤੀਬੀ ਨਾਲ ਚੁਣੇ ਉਮੀਦਵਾਰ ਦੇ ${text(source, "targetLabel", "certified")} ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ${frac(num(source, "favourable"), num(source, "restrictedTotal", 1))} ਹੈ। ਅਜਿਹੇ ਕਿੰਨੇ ਉਮੀਦਵਾਰ ਹਨ?`;
+      case "findReverseConditionalCount": { const status = text(source, "targetLabel", "certified") === "certified" ? "ਪ੍ਰਮਾਣਿਤ" : "ਸ਼ਾਰਟਲਿਸਟ"; return `${num(source, "restrictedTotal")} ਸ਼ਾਰਟਲਿਸਟ ਕੀਤੇ ਉਮੀਦਵਾਰਾਂ ਵਿੱਚੋਂ ਬੇਤਰਤੀਬੀ ਨਾਲ ਚੁਣੇ ਉਮੀਦਵਾਰ ਦੇ ${status} ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ${frac(num(source, "favourable"), num(source, "restrictedTotal", 1))} ਹੈ। ਅਜਿਹੇ ਕਿੰਨੇ ਉਮੀਦਵਾਰ ਹਨ?`; }
       case "findRandomArrangementPropertyProbability": return `${num(source, "people")} ਵਿਅਕਤੀ ਬੇਤਰਤੀਬ ਕ੍ਰਮ ਵਿੱਚ ਖੜ੍ਹੇ ਹੁੰਦੇ ਹਨ। ਕਿਸੇ ਇੱਕ ਨਿਸ਼ਚਿਤ ਵਿਅਕਤੀ ਦੇ ਪਹਿਲੇ ਸਥਾਨ ਉੱਤੇ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findTogetherOrApartProbability": return `${num(source, "people")} ਵਿਅਕਤੀ ਬੇਤਰਤੀਬ ਕ੍ਰਮ ਵਿੱਚ ਖੜ੍ਹੇ ਹੁੰਦੇ ਹਨ। ਦੋ ਨਿਸ਼ਚਿਤ ਵਿਅਕਤੀਆਂ ਦੇ ${text(source, "relation", "TOGETHER") === "APART" ? "ਇੱਕ-ਦੂਜੇ ਦੇ ਨਾਲ ਨਾ ਖੜ੍ਹੇ ਹੋਣ" : "ਇੱਕ-ਦੂਜੇ ਦੇ ਨਾਲ ਖੜ੍ਹੇ ਹੋਣ"} ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findPositionRestrictionProbability": return `${num(source, "positions")} ਵੱਖ-ਵੱਖ ਅਹੁਦੇ ${num(source, "men")} ਮਰਦਾਂ ਅਤੇ ${num(source, "women")} ਔਰਤਾਂ ਵਿੱਚ ਬੇਤਰਤੀਬੀ ਨਾਲ ਵੰਡੇ ਜਾਂਦੇ ਹਨ। ਪਹਿਲਾ ਅਹੁਦਾ ਕਿਸੇ ਔਰਤ ਨੂੰ ਮਿਲਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findNumberFormationProbability": return `${num(source, "minDigit", 1)} ਤੋਂ ${num(source, "maxDigit")} ਤੱਕ ਦੇ ਅੰਕਾਂ ਨੂੰ ਬਿਨਾਂ ਦੁਹਰਾਏ ਵਰਤ ਕੇ ${num(source, "length")} ਅੰਕਾਂ ਦੀ ਇੱਕ ਸੰਖਿਆ ਬਣਾਈ ਜਾਂਦੀ ਹੈ। ਸੰਖਿਆ ਦੇ ਜੋੜੀ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findUnionProbability": case "findIntersectionProbability": case "findExactlyOneOfTwoEvents": case "findMixedEventExpressionProbability": case "findNeitherEventProbability": case "findMissingIntersectionOrUnionProbability": return eventGroupStem(source, language);
       case "findMutuallyExclusiveUnion": return `ਕਿਸੇ ਉਮੀਦਵਾਰ ਨੂੰ ਇਨਾਮ A ਜਾਂ ਇਨਾਮ B ਮਿਲ ਸਕਦਾ ਹੈ, ਪਰ ਦੋਵੇਂ ਨਹੀਂ। ਜੇ P(A) = ${frac(num(source, "aNumerator"), num(source, "aDenominator", 1))} ਅਤੇ P(B) = ${frac(num(source, "bNumerator"), num(source, "bDenominator", 1))} ਹੈ, ਤਾਂ ਕਿਸੇ ਇੱਕ ਇਨਾਮ ਦੇ ਮਿਲਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
-      case "findIndependentIntersection": return `ਕਿਸੇ ਉਮੀਦਵਾਰ ਦੇ Section A ਅਤੇ Section B ਪਾਸ ਕਰਨ ਦੀਆਂ ਸੰਭਾਵਨਾਵਾਂ ਕ੍ਰਮਵਾਰ ${frac(num(source, "aNumerator"), num(source, "aDenominator", 1))} ਅਤੇ ${frac(num(source, "bNumerator"), num(source, "bDenominator", 1))} ਹਨ। ਦੋਵੇਂ ਨਤੀਜੇ ਸੁਤੰਤਰ ਹਨ। ਉਮੀਦਵਾਰ ਦੇ ਦੋਵੇਂ Sections ਪਾਸ ਕਰਨ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
+      case "findIndependentIntersection": return `ਕਿਸੇ ਉਮੀਦਵਾਰ ਦੇ ਸੈਕਸ਼ਨ A ਅਤੇ ਸੈਕਸ਼ਨ B ਪਾਸ ਕਰਨ ਦੀਆਂ ਸੰਭਾਵਨਾਵਾਂ ਕ੍ਰਮਵਾਰ ${frac(num(source, "aNumerator"), num(source, "aDenominator", 1))} ਅਤੇ ${frac(num(source, "bNumerator"), num(source, "bDenominator", 1))} ਹਨ। ਦੋਵੇਂ ਨਤੀਜੇ ਸੁਤੰਤਰ ਹਨ। ਉਮੀਦਵਾਰ ਦੇ ਦੋਵੇਂ ਸੈਕਸ਼ਨ ਪਾਸ ਕਰਨ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
     }
   }
 

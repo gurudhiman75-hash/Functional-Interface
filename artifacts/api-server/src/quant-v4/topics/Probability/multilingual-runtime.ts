@@ -22,6 +22,7 @@ import {
   getProbabilityNativeTerm,
 } from "./native-language-primitives";
 import { renderProbabilityMathText } from "./shared/math-text";
+import { renderNativeStudentFacingStem } from "./shared/native-student-facing-renderer";
 import { rational, rationalText } from "./shared/rational";
 import type {
   ProbabilityCanonicalProblemId,
@@ -198,23 +199,8 @@ function resolveNativeEditorial(source: ProbabilityQuestion, language: Probabili
 function renderNativeStem(
   source: ProbabilityQuestion,
   language: ProbabilityNativeLanguage,
-  editorial: NativeEditorial,
-  localizeBinding: NativeBindingLocalizer,
 ): string {
-  const context = buildNativeRenderContext(source);
-  const rendered = editorial.stemTemplate.replace(
-    /\{([A-Za-z_][A-Za-z0-9_.-]*)\}/g,
-    (_match, key: string) => {
-      if (!(key in context) && key !== "answerInstruction") {
-        throw new Error(`ML-05 unresolved ${source.packageId}/${source.questionLanguageId} native binding {${key}}.`);
-      }
-      return localizeBinding(key, context[key], language, source.questionLanguageId);
-    },
-  );
-  if (/\{[^}]+\}/u.test(rendered)) {
-    throw new Error(`ML-05 unresolved placeholder in ${source.questionLanguageId}/${language}.`);
-  }
-  const stem = renderProbabilityMathText(rendered.replace(/\s+/gu, " ").trim());
+  const stem = renderProbabilityMathText(renderNativeStudentFacingStem(source, language));
   assertProbabilityNativeTextValid(stem, language);
   return stem;
 }
@@ -291,7 +277,7 @@ function localizeNativeVisual(
         : "52 ਪੱਤਿਆਂ ਦੀ ਮਿਆਰੀ ਗੱਡੀ ਦੀਆਂ ਲੋੜੀਂਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਸਾਰ।";
       break;
     case "URN_COMPOSITION_DISPLAY":
-      title = language === "hi" ? "थैले में गेंदों की संरचना" : "ਥੈਲੇ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ";
+      title = language === "hi" ? "बैग में गेंदों की संरचना" : "ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ";
       altText = language === "hi"
         ? `${String(data.red ?? "")} लाल और ${String(data.blue ?? "")} नीली गेंदों वाला चयन-चित्र।`
         : `${String(data.red ?? "")} ਲਾਲ ਅਤੇ ${String(data.blue ?? "")} ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।`;
@@ -397,12 +383,12 @@ export function renderProbabilityNativePreview(
     throw new Error(`ML-05 refuses to localize invalid English source ${source.questionLanguageId}.`);
   }
 
-  const { editorial, localizeBinding } = resolveNativeEditorial(source, language);
+  const { editorial } = resolveNativeEditorial(source, language);
   if (editorial.qlId !== source.questionLanguageId) {
     throw new Error(`ML-05 editorial/source QL mismatch for ${source.questionLanguageId}/${language}.`);
   }
 
-  const stem = renderNativeStem(source, language, editorial, localizeBinding);
+  const stem = renderNativeStem(source, language);
   const options = Object.freeze([...source.options]);
   const answer = source.answer;
   const correctIndex = source.correctIndex;
