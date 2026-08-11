@@ -27,7 +27,16 @@ function annotationSafe(value: string): string {
   return value.replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
 }
 
-const coverageGaps = new Map<string, { locale: "hi-IN" | "pa-IN"; count: number; exampleItemId: string; message: string }>();
+type Locale = "hi-IN" | "pa-IN";
+type CoverageGap = {
+  locale: Locale;
+  count: number;
+  exampleItemId: string;
+  canonicalForm: string;
+  exampleSentence: string;
+};
+
+const coverageGaps = new Map<string, CoverageGap>();
 
 for (const locale of ["hi-IN", "pa-IN"] as const) {
   const leakingRecords: string[] = [];
@@ -40,13 +49,18 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
       localized = localizeBlrCp003QuestionComplete(source, locale);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      const key = `${locale}|${message}`;
+      const sentenceMarker = "passage sentence: ";
+      const markerIndex = message.indexOf(sentenceMarker);
+      const sentence = markerIndex >= 0 ? message.slice(markerIndex + sentenceMarker.length) : message;
+      const canonicalForm = normalizeNames(sentence, source);
+      const key = `${locale}|${canonicalForm}`;
       const existing = coverageGaps.get(key);
       coverageGaps.set(key, {
         locale,
         count: (existing?.count ?? 0) + 1,
         exampleItemId: existing?.exampleItemId ?? source.itemId,
-        message,
+        canonicalForm,
+        exampleSentence: existing?.exampleSentence ?? sentence,
       });
       continue;
     }
@@ -109,7 +123,7 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
 }
 
 const orderedCoverageGaps = [...coverageGaps.values()].sort(
-  (left, right) => right.count - left.count || left.locale.localeCompare(right.locale) || left.message.localeCompare(right.message),
+  (left, right) => right.count - left.count || left.locale.localeCompare(right.locale) || left.canonicalForm.localeCompare(right.canonicalForm),
 );
 
 if (orderedCoverageGaps.length > 0) {
@@ -119,8 +133,8 @@ if (orderedCoverageGaps.length > 0) {
   }, null, 2));
   for (const [index, gap] of orderedCoverageGaps.slice(0, 40).entries()) {
     console.error(
-      `::error title=${annotationSafe(`CP003 ${gap.locale} coverage gap ${index + 1}/${Math.min(orderedCoverageGaps.length, 40)}`)}::${annotationSafe(`count=${gap.count} | example=${gap.exampleItemId} | ${gap.message}`)}`,
+      `::error title=${annotationSafe(`CP003 ${gap.locale} template gap ${index + 1}/${Math.min(orderedCoverageGaps.length, 40)}`)}::${annotationSafe(`count=${gap.count} | form=${gap.canonicalForm} | example=${gap.exampleSentence} | item=${gap.exampleItemId}`)}`,
     );
   }
-  assert.fail(`${orderedCoverageGaps.length} unique CP-003 localization coverage gaps remain.`);
+  assert.fail(`${orderedCoverageGaps.length} unique CP-003 localization template gaps remain.`);
 }
