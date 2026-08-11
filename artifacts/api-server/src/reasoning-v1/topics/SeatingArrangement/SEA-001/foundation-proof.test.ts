@@ -5,6 +5,7 @@ import { LinearTopology } from "./topology/linear.ts";
 import { enumerateLinearOracle } from "./solver/independent-oracle.ts";
 import { solveLinear } from "./solver/production-solver.ts";
 import { generateSeaCp001Caselet } from "./generation/caselet-assembler.ts";
+import { SEA_001_ENGLISH_NAME_POOL } from "./generation/name-pool.ts";
 import type { LinearConstraint } from "./types.ts";
 
 function topologyProof(): void {
@@ -51,6 +52,9 @@ function generatedCaseletProof(): void {
   const observedContractsByPosition = Array.from({ length: 4 }, () => new Set<string>());
   const answerPositions = Array.from({ length: 4 }, () => [0, 0, 0, 0]);
   const observedPersonCounts = new Set<number>();
+  const seatsByName = new Map<string, number[]>();
+  assert.ok(SEA_001_ENGLISH_NAME_POOL.length >= 80, `SEA-001 English name pool is too narrow: ${SEA_001_ENGLISH_NAME_POOL.length}`);
+
   for (const blueprintId of SEA_001_BLUEPRINTS) {
     for (let seedIndex = 0; seedIndex < 125; seedIndex += 1) {
       const seed = `sea-foundation-${seedIndex}`;
@@ -75,8 +79,39 @@ function generatedCaseletProof(): void {
         const answerBucket = answerPositions[child.questionOrder - 1];
         if (answerBucket) answerBucket[child.answerIndex] = (answerBucket[child.answerIndex] ?? 0) + 1;
       }
+
       const personCount = Number(first.setupText.match(/^(\d+)\s+persons/)?.[1] ?? 0);
       observedPersonCounts.add(personCount);
+      const listedNames = first.setupText.match(/persons—(.+?)—are sitting/i)?.[1]
+        ?.split(",")
+        .map((name) => name.trim())
+        .filter(Boolean) ?? [];
+      assert.equal(listedNames.length, personCount, `${blueprintId}/${seed} directions do not list every participant`);
+      assert.equal(new Set(listedNames).size, personCount, `${blueprintId}/${seed} directions repeat a participant name`);
+
+      const visibleText = [
+        first.setupText,
+        ...first.clueTexts,
+        first.diagramText,
+        first.sharedExplanation,
+        ...first.children.flatMap((child) => [child.text, child.explanation, ...child.options.flatMap((option) => [option.display, option.explanation])]),
+      ].join("\n");
+      for (const name of SEA_001_ENGLISH_NAME_POOL) {
+        if (new RegExp(`\\b${name}\\b`).test(visibleText)) {
+          assert.ok(listedNames.includes(name), `${blueprintId}/${seed} exposes ${name} without listing that participant in the directions`);
+        }
+      }
+
+      const personLine = first.diagramText.split("\n").find((line) => /^Person:/i.test(line));
+      assert.ok(personLine, `${blueprintId}/${seed} is missing the solved person row`);
+      const solvedNames = personLine!.replace(/^Person:\s*/i, "").split("|").map((name) => name.trim()).filter(Boolean);
+      assert.equal(solvedNames.length, personCount, `${blueprintId}/${seed} solved row has the wrong participant count`);
+      solvedNames.forEach((name, seatIndex) => {
+        const bucket = seatsByName.get(name) ?? [];
+        bucket.push(seatIndex + 1);
+        seatsByName.set(name, bucket);
+      });
+
       for (const child of first.children) {
         assert.equal(child.options.length, 4);
         assert.equal(new Set(child.options.map((option) => option.semanticFingerprint)).size, 4);
@@ -109,6 +144,18 @@ function generatedCaseletProof(): void {
     assert.ok(Math.max(...counts) - Math.min(...counts) <= 30, `CP001 Q${position + 1} answer positions are imbalanced: ${counts.join(",")}`);
   }
   assert.deepEqual([...observedPersonCounts].sort((left, right) => left - right), [5, 6, 7, 8]);
+
+  for (const [name, seats] of seatsByName) {
+    if (seats.length < 20) continue;
+    const counts = new Map<number, number>();
+    for (const seat of seats) counts.set(seat, (counts.get(seat) ?? 0) + 1);
+    const dominant = Math.max(...counts.values());
+    assert.ok(
+      dominant / seats.length <= 0.4,
+      `${name} is over-correlated with one CP001 seat: ${dominant}/${seats.length}; distribution=${JSON.stringify(Object.fromEntries(counts))}`,
+    );
+    assert.ok(counts.size >= 4, `${name} appears in too few distinct CP001 positions: ${JSON.stringify(Object.fromEntries(counts))}`);
+  }
 }
 
 function lifecycleProof(): void {
@@ -128,6 +175,8 @@ console.log("generated child questions", SEA_001_BLUEPRINTS.length * 125 * 4);
 console.log("query contract families", 10);
 console.log("visible query-order variation", "ENFORCED");
 console.log("visible answer-position balance", "ENFORCED");
+console.log("participant list visibility", "ENFORCED");
+console.log("name/seat correlation", "ENFORCED");
 console.log("PBA-004 maximum clue count", 7);
 console.log("PBA-004 negative clues per caselet", 1);
 console.log("permanent QLs", 0);
