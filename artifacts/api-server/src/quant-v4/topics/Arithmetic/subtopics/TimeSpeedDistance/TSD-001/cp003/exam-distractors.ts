@@ -578,6 +578,8 @@ export function deriveExamReadyCp003WrongWorkings(
             : walkingDistance;
       const totalQuantity = isTimeTarget ? input.totalTime : input.totalDistance;
       const equalSplit = divide(totalQuantity, rational(2));
+      const quarterSplit = divide(totalQuantity, rational(4));
+      const threeQuarterSplit = multiply(totalQuantity, rational(3, 4));
       const wrongPairing = input.target === "WALKING_TIME" ? divide(walkingDistance, input.ridingSpeed)
         : input.target === "RIDING_TIME" ? divide(ridingDistance, input.walkingSpeed)
           : input.target === "WALKING_DISTANCE" ? multiply(walkingTime, input.ridingSpeed)
@@ -604,6 +606,18 @@ export function deriveExamReadyCp003WrongWorkings(
           totalQuantity,
           `${f(totalQuantity)}`,
           "It reports the full journey quantity instead of the requested walking/riding share.",
+        ),
+        wrong(
+          "ASSUME_FIXED_MODE_SHARE",
+          quarterSplit,
+          `${f(totalQuantity)} ÷ 4`,
+          "It assumes the requested walking/riding component is one-quarter of the total without using the speed equations.",
+        ),
+        wrong(
+          "ASSUME_FIXED_MODE_SHARE",
+          threeQuarterSplit,
+          `3 × ${f(totalQuantity)} ÷ 4`,
+          "It assumes the requested walking/riding component is three-quarters of the total without using the speed equations.",
         ),
         wrong(
           "PAIR_DISTANCE_WITH_WRONG_SPEED",
