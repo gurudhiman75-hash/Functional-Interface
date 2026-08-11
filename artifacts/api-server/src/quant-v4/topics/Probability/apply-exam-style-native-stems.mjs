@@ -8,7 +8,7 @@ function replaceOnce(value, from, to, label) {
   return value.replace(from, to);
 }
 
-// Keep the familiar exam word 'bag' as बैग in Hindi rather than पात्र/थैला.
+// Keep the familiar exam word "bag" as बैग/ਬੈਗ instead of पात्र/थैला.
 {
   const path = `${root}/shared/native-student-facing-renderer.ts`;
   let value = fs.readFileSync(path, "utf8");
@@ -18,10 +18,27 @@ function replaceOnce(value, from, to, label) {
   value = value.replaceAll("सेक्शन A ਅਤੇ सेक्शन B", "ਸੈਕਸ਼ਨ A ਅਤੇ ਸੈਕਸ਼ਨ B");
   value = value.replaceAll("ਦੋਵੇਂ सेक्शन", "ਦੋਵੇਂ ਸੈਕਸ਼ਨ");
 
+  const eventInsert = [
+    '  const normalized = value.trim().toLowerCase();',
+    '  const greater = normalized.match(/^an integer greater than (\\d+)$/u);',
+    '  const less = normalized.match(/^an integer less than (\\d+)$/u);',
+    '  const notExceeding = normalized.match(/^an integer not exceeding (\\d+)$/u);',
+    '  const divisible = normalized.match(/^an integer divisible by (\\d+)$/u);',
+    '  if (greater) return language === "hi" ? `${greater[1]} से बड़ा पूर्णांक` : `${greater[1]} ਤੋਂ ਵੱਡਾ ਪੂਰਨ ਅੰਕ`;',
+    '  if (less) return language === "hi" ? `${less[1]} से छोटा पूर्णांक` : `${less[1]} ਤੋਂ ਛੋਟਾ ਪੂਰਨ ਅੰਕ`;',
+    '  if (notExceeding) return language === "hi" ? `${notExceeding[1]} से अधिक न होने वाला पूर्णांक` : `${notExceeding[1]} ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ ਪੂਰਨ ਅੰਕ`;',
+    '  if (divisible) return language === "hi" ? `${divisible[1]} से विभाज्य पूर्णांक` : `${divisible[1]} ਨਾਲ ਭਾਗਯੋਗ ਪੂਰਨ ਅੰਕ`;',
+    '  if (/^an? even integer$/u.test(normalized)) return language === "hi" ? "सम पूर्णांक" : "ਜੋੜੀ ਪੂਰਨ ਅੰਕ";',
+    '  if (/^an? odd integer$/u.test(normalized)) return language === "hi" ? "विषम पूर्णांक" : "ਬੇਜੋੜ ਪੂਰਨ ਅੰਕ";',
+    '  if (/^an? prime integer$/u.test(normalized)) return language === "hi" ? "अभाज्य पूर्णांक" : "ਅਭਾਜ ਪੂਰਨ ਅੰਕ";',
+    '  if (/^an? composite integer$/u.test(normalized)) return language === "hi" ? "संयोज्य पूर्णांक" : "ਸੰਯੁਕਤ ਪੂਰਨ ਅੰਕ";',
+    '  const hi: Record<string, string> = {',
+  ].join("\n");
+
   value = replaceOnce(
     value,
     '  const normalized = value.trim().toLowerCase();\n  const hi: Record<string, string> = {',
-    `  const normalized = value.trim().toLowerCase();\n  const greater = normalized.match(/^an integer greater than (\\d+)$/u);\n  const less = normalized.match(/^an integer less than (\\d+)$/u);\n  const notExceeding = normalized.match(/^an integer not exceeding (\\d+)$/u);\n  const divisible = normalized.match(/^an integer divisible by (\\d+)$/u);\n  if (greater) return language === "hi" ? \\`\\${greater[1]} से बड़ा पूर्णांक\\` : \\`\\${greater[1]} ਤੋਂ ਵੱਡਾ ਪੂਰਨ ਅੰਕ\\`;\n  if (less) return language === "hi" ? \\`\\${less[1]} से छोटा पूर्णांक\\` : \\`\\${less[1]} ਤੋਂ ਛੋਟਾ ਪੂਰਨ ਅੰਕ\\`;\n  if (notExceeding) return language === "hi" ? \\`\\${notExceeding[1]} से अधिक न होने वाला पूर्णांक\\` : \\`\\${notExceeding[1]} ਤੋਂ ਵੱਧ ਨਾ ਹੋਣ ਵਾਲਾ ਪੂਰਨ ਅੰਕ\\`;\n  if (divisible) return language === "hi" ? \\`\\${divisible[1]} से विभाज्य पूर्णांक\\` : \\`\\${divisible[1]} ਨਾਲ ਭਾਗਯੋਗ ਪੂਰਨ ਅੰਕ\\`;\n  if (/^an? even integer$/u.test(normalized)) return language === "hi" ? "सम पूर्णांक" : "ਜੋੜੀ ਪੂਰਨ ਅੰਕ";\n  if (/^an? odd integer$/u.test(normalized)) return language === "hi" ? "विषम पूर्णांक" : "ਬੇਜੋੜ ਪੂਰਨ ਅੰਕ";\n  if (/^an? prime integer$/u.test(normalized)) return language === "hi" ? "अभाज्य पूर्णांक" : "ਅਭਾਜ ਪੂਰਨ ਅੰਕ";\n  if (/^an? composite integer$/u.test(normalized)) return language === "hi" ? "संयोज्य पूर्णांक" : "ਸੰਯੁਕਤ ਪੂਰਨ ਅੰਕ";\n  const hi: Record<string, string> = {`,
+    eventInsert,
     "dynamic event-label localization",
   );
 
@@ -36,7 +53,6 @@ function replaceOnce(value, from, to, label) {
   fs.writeFileSync(path, value);
 }
 
-// Make the shared terminology and visual review surface use बैग, not थैला/पात्र.
 {
   const path = `${root}/native-language-primitives.ts`;
   let value = fs.readFileSync(path, "utf8");
