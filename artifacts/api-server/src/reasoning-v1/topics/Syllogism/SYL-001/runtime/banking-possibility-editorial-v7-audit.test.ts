@@ -32,6 +32,10 @@ function witnessSatisfies(entry: Witness, conclusion: CanonicalConclusion): bool
   return false;
 }
 
+function witnessDebug(entries: readonly Witness[]): string {
+  return entries.map((entry) => `inside=[${[...entry.inside].join(",")}],outside=[${[...entry.outside].join(",")}]`).join(";") || "none";
+}
+
 for (let seed = 0; seed < 80; seed += 1) {
   for (const locale of locales) {
     const prior = generateBankingPossibilityReviewQuestionV4(seed, locale);
@@ -66,7 +70,15 @@ for (let seed = 0; seed < 80; seed += 1) {
         existentialTruthChecks += 1;
         assert.ok(
           diagramWitnesses.some((entry) => witnessSatisfies(entry, record.canonicalConclusion)),
-          `${seed}/${locale}/${index}: explanation claims an entailed existential witness not present in diagram`,
+          [
+            `${seed}/${locale}/${index}: explanation claims an entailed existential witness not present in diagram`,
+            `scenario=${question.scenarioId}`,
+            `statements=${JSON.stringify(question.statements)}`,
+            `conclusion=${JSON.stringify(record)}`,
+            `explanation=${JSON.stringify(line)}`,
+            `witnesses=${witnessDebug(diagramWitnesses)}`,
+            `geometrySource=${question.diagram.geometrySource}`,
+          ].join(" | "),
         );
       }
 
