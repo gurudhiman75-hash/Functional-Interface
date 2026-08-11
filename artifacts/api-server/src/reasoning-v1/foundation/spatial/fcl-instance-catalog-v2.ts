@@ -1,4 +1,9 @@
 import { buildSpatialFclSafeQuartetCatalogV1 } from "./fcl-safe-quartet-catalog-v1";
+import {
+  compareSpatialScenePerceptualSimilarityV2,
+  SPATIAL_PERCEPTUAL_HARD_ALIAS_DICE_V2,
+  SPATIAL_PERCEPTUAL_SAME_ROLE_NEAR_ALIAS_DICE_V2,
+} from "./perceptual-scene-similarity-v2";
 import { buildSpatialPrimitiveInstanceSceneV2 } from "./primitive-instance-v2";
 import { getSpatialPrimitiveConnectivityV2 } from "./primitive-connectivity-v2";
 import {
@@ -22,12 +27,24 @@ export type SpatialFclInstanceQuartetV2 = readonly [
   SpatialFclPrimitiveInstanceV2,
 ];
 
+export interface SpatialFclPerceptualAliasPairV2 {
+  leftIndex: number;
+  rightIndex: number;
+  leftPrimitiveId: SpatialPrimitiveIdV2;
+  rightPrimitiveId: SpatialPrimitiveIdV2;
+  dice: number;
+  jaccard: number;
+  samePropertyValue: boolean;
+  severity: "HARD_ALIAS" | "SAME_ROLE_NEAR_ALIAS";
+}
+
 export interface SpatialFclInstanceQuartetAuditV2 {
   propertyVector: boolean[];
   descriptorAudits: SpatialFclInstanceDescriptorAuditV2[];
   competingDescriptorIds: string[];
   reinforcingDescriptorIds: string[];
   disallowedShortcutDescriptorIds: string[];
+  perceptualAliasPairs: SpatialFclPerceptualAliasPairV2[];
   globalRotationOrbitFingerprint: string;
   safe: boolean;
 }
@@ -201,6 +218,35 @@ function auditDescriptor(
   };
 }
 
+function auditPerceptualAliases(
+  quartet: SpatialFclInstanceQuartetV2,
+  propertyVector: readonly boolean[],
+): SpatialFclPerceptualAliasPairV2[] {
+  const aliases: SpatialFclPerceptualAliasPairV2[] = [];
+  for (let leftIndex = 0; leftIndex < quartet.length; leftIndex += 1) {
+    for (let rightIndex = leftIndex + 1; rightIndex < quartet.length; rightIndex += 1) {
+      const left = quartet[leftIndex]!;
+      const right = quartet[rightIndex]!;
+      const similarity = compareSpatialScenePerceptualSimilarityV2(left.scene, right.scene);
+      const samePropertyValue = propertyVector[leftIndex] === propertyVector[rightIndex];
+      const hardAlias = similarity.dice >= SPATIAL_PERCEPTUAL_HARD_ALIAS_DICE_V2;
+      const sameRoleNearAlias = samePropertyValue && similarity.dice >= SPATIAL_PERCEPTUAL_SAME_ROLE_NEAR_ALIAS_DICE_V2;
+      if (!hardAlias && !sameRoleNearAlias) continue;
+      aliases.push({
+        leftIndex,
+        rightIndex,
+        leftPrimitiveId: left.primitiveId,
+        rightPrimitiveId: right.primitiveId,
+        dice: similarity.dice,
+        jaccard: similarity.jaccard,
+        samePropertyValue,
+        severity: hardAlias ? "HARD_ALIAS" : "SAME_ROLE_NEAR_ALIAS",
+      });
+    }
+  }
+  return aliases;
+}
+
 export function spatialFclInstanceQuartetGlobalRotationOrbitFingerprintV2(
   quartet: SpatialFclInstanceQuartetV2,
   propertyId: SpatialPrimitiveClassificationPropertyIdV2,
@@ -238,6 +284,7 @@ export function auditSpatialFclInstanceQuartetV2(
   const disallowedShortcutDescriptorIds = reinforcingDescriptorIds.filter(
     (descriptorId) => STUDENT_VISIBLE_SHORTCUTS.has(descriptorId) && !allowed.has(descriptorId),
   );
+  const perceptualAliasPairs = auditPerceptualAliases(quartet, propertyVector);
   const globalRotationOrbitFingerprint = spatialFclInstanceQuartetGlobalRotationOrbitFingerprintV2(quartet, propertyId);
   return {
     propertyVector,
@@ -245,8 +292,12 @@ export function auditSpatialFclInstanceQuartetV2(
     competingDescriptorIds,
     reinforcingDescriptorIds,
     disallowedShortcutDescriptorIds,
+    perceptualAliasPairs,
     globalRotationOrbitFingerprint,
-    safe: propertyIsValid && competingDescriptorIds.length === 0 && disallowedShortcutDescriptorIds.length === 0,
+    safe: propertyIsValid
+      && competingDescriptorIds.length === 0
+      && disallowedShortcutDescriptorIds.length === 0
+      && perceptualAliasPairs.length === 0,
   };
 }
 
