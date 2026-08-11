@@ -22,7 +22,7 @@ import {
   getProbabilityNativeTerm,
 } from "./native-language-primitives";
 import { renderProbabilityMathText } from "./shared/math-text";
-import { renderNativeStudentFacingStem } from "./shared/native-student-facing-renderer";
+import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
 import { rational, rationalText } from "./shared/rational";
 import type {
   ProbabilityCanonicalProblemId,
