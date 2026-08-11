@@ -103,11 +103,13 @@ jobs:
           grep -q '"questions": 76' "$review_summary"
           grep -q '"qlCount": 19' "$review_summary"
           grep -q '"questionsPerQl": 4' "$review_summary"
-          grep -q '"structuredQuestions": 19' "$review_summary"
-          grep -q '"proseQuestions": 57' "$review_summary"
+          grep -q '"structuredQuestions": 10' "$review_summary"
+          grep -q '"proseQuestions": 66' "$review_summary"
           test "$(grep -c '^## Question ' "$clean_review")" -eq 76
           test "$(grep -c '^### Explanation$' "$clean_review")" -eq 76
+          test "$(grep -c '^| Detail | Value |$' "$clean_review")" -eq 10
           ! grep -E -i 'canonical|verifier|mathematical state|generation seed|annual factor|growth factor|A/P ratio|CI/P ratio|reference principal|exact two-stage rule|Observed / required value|Continue the same calculation' "$clean_review"
+          ! grep -E -i 'illustrative compound-growth plan|illustrative growth plan|extra months|[0-9]+ complete periods?|[0-9]+ complete years? and [0-9]+ months?|first 1 year|next 1 year|first year are' "$clean_review"
           ! grep -E '^an [a-z]' "$clean_review"
           node - "$summary" "$review_summary" <<'NODE'
           const fs = require('node:fs');
@@ -119,11 +121,16 @@ jobs:
           assert(summary.versions.editorialRemediation === 'INT-CP-004-EDITORIAL-REMEDIATION-v4', 'wrong editorial remediation version');
           assert(summary.moneyAnswerQuestions === 1200, 'unexpected money-answer audit count');
           assert(summary.decimalMoneyShare <= 0.30, 'corpus decimal-money share exceeds 30%');
+          assert(summary.tableQuestionCount / summary.questionCount <= 0.15, 'corpus table share exceeds 15%');
+          assert(summary.proseQuestionCount / summary.questionCount >= 0.85, 'corpus prose share is below 85%');
+          assert(same(summary.representations, ['STANDARD_PROSE', 'TERMS_TABLE']), 'unexpected student-facing representation types');
           assert(same(summary.frequencyIdentificationFrequencies, [1, 2, 4]), 'frequency recovery must be annual/half-yearly/quarterly');
           assert(same(summary.brokenTailMonths, [3, 6, 9]), 'broken-period tails must cover 3/6/9 months');
           assert(same(summary.mixedIntervalFrequencies, [1, 2, 4]), 'mixed-frequency runtime must exclude monthly');
           assert(summary.frequencyComparisonPairs.includes('1-2'), 'annual-v-half-yearly comparison missing from corpus');
           assert(summary.effectiveRateFrequencies.includes(12), 'monthly effective-rate coverage missing from corpus');
+          assert(review.structuredQuestions === 10, 'review must contain exactly 10 purposeful tables');
+          assert(review.proseQuestions === 66, 'review must contain exactly 66 prose questions');
           assert(review.moneyQuestions === 48, 'review money-answer count changed');
           assert(review.decimalMoneyQuestions <= 12, 'review decimal-money count exceeds 12/48');
           assert(review.decimalMoneyShare <= 0.25, 'review decimal-money share exceeds 25%');
