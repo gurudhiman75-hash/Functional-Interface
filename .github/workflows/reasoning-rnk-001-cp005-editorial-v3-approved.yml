@@ -1,4 +1,4 @@
-name: Validate RNK-001 CP-005 Editorial V3 Approved
+name: Validate RNK-001 CP-005 Editorial V3 Approved V2
 
 on:
   push:
@@ -17,11 +17,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: rnk-cp005-editorial-v3-approved-${{ github.ref }}
+  group: rnk-cp005-editorial-v3-approved-v2-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-editorial-v3-approved:
+  validate-editorial-v3-approved-v2:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -54,19 +54,19 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial-v2.test.ts \
             | tee rnk-cp005-partial-order-editorial-v2.log
 
-      - name: Validate editorial V3 approved semantics
+      - name: Validate editorial V3 approved V2 semantics
         run: |
           set -o pipefail
           pnpm dlx tsx \
-            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial-v3-approved.test.ts \
-            | tee rnk-cp005-partial-order-editorial-v3-approved.log
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial-v3-approved-v2.test.ts \
+            | tee rnk-cp005-partial-order-editorial-v3-approved-v2.log
 
-      - name: Generate editorial V3 approved review pack
+      - name: Generate editorial V3 approved V2 review pack
         run: |
           set -o pipefail
           pnpm dlx tsx \
-            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial-v3-approved-review-export.ts \
-            | tee rnk-cp005-editorial-v3-approved-review-export.log
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial-v3-approved-v2-review-export.ts \
+            | tee rnk-cp005-editorial-v3-approved-v2-review-export.log
 
       - name: Validate ownership reset remains intact
         run: |
@@ -88,27 +88,27 @@ jobs:
           pnpm --dir artifacts/api-server build \
             | tee rnk-cp005-api-build.log
 
-      - name: Upload V3 approved evidence
+      - name: Upload V3 approved V2 evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp005-editorial-v3-approved-evidence
+          name: rnk-001-cp005-editorial-v3-approved-v2-evidence
           path: |
             rnk-cp005-partial-order-discovery.log
             rnk-cp005-partial-order-editorial-v2.log
-            rnk-cp005-partial-order-editorial-v3-approved.log
-            rnk-cp005-editorial-v3-approved-review-export.log
+            rnk-cp005-partial-order-editorial-v3-approved-v2.log
+            rnk-cp005-editorial-v3-approved-v2-review-export.log
             rnk-book-ownership-reset.log
             rnk-question-studio-registry.log
             rnk-cp005-api-build.log
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Upload editorial V3 approved review pack
+      - name: Upload editorial V3 approved V2 review pack
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp005-partial-order-editorial-v3-approved-review-28q
-          path: artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/generated/RNK-CP-005-PARTIAL-ORDER-EDITORIAL-V3-APPROVED-REVIEW-28Q.md
+          name: rnk-001-cp005-partial-order-editorial-v3-approved-v2-review-28q
+          path: artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/generated/RNK-CP-005-PARTIAL-ORDER-EDITORIAL-V3-APPROVED-V2-REVIEW-28Q.md
           if-no-files-found: error
           retention-days: 14
