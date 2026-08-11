@@ -31,6 +31,17 @@ export const SAP_CP005_REVIEW_CATALOGUE = Object.freeze([
 
 const REVIEW_COUNT_PER_PROTOTYPE = 15;
 
+const LONG_EXPRESSION_LIMITS: Partial<Record<SapCp005ReviewPrototypeId, number>> = {
+  "SAP-CP005-PROT-PRODUCT-OF-RECIPROCALS": 105,
+  "SAP-CP005-PROT-TELESCOPING-SUM": 135,
+  "SAP-CP005-PROT-TELESCOPING-PRODUCT": 105,
+  "SAP-CP005-PROT-ONE-PLUS-MINUS-CHAIN": 135,
+};
+
+export function sapCp005ReviewStemLimit(prototypeId: SapCp005ReviewPrototypeId): number {
+  return LONG_EXPRESSION_LIMITS[prototypeId] ?? 170;
+}
+
 function nextState(value: number): number {
   let state = value >>> 0;
   state ^= (state << 13) >>> 0;
@@ -89,11 +100,13 @@ export function generateSapCp005ReviewRecords(): readonly SapCp005ReviewRecord[]
   for (const prototypeId of SAP_CP005_REVIEW_PROTOTYPE_IDS) {
     let accepted = 0;
     let seed = 1;
+    const maxStemLength = sapCp005ReviewStemLimit(prototypeId);
     while (accepted < REVIEW_COUNT_PER_PROTOTYPE) {
       if (seed > 100_000) throw new Error(`${prototypeId}: unable to find ${REVIEW_COUNT_PER_PROTOTYPE} balanced unique review payloads.`);
       const pkg = generatePackage(prototypeId, seed);
       seed += 1;
       if (!pkg.validation.ok) continue;
+      if (pkg.stem.length > maxStemLength) continue;
       if (pkg.correctIndex !== targetPositions[reviewIndex]) continue;
       if (globalPayloads.has(pkg.canonicalPayloadKey)) continue;
       globalPayloads.add(pkg.canonicalPayloadKey);
