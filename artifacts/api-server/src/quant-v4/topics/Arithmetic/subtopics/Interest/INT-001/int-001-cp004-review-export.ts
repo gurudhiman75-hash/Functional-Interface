@@ -20,14 +20,15 @@ const desiredComparisonPairs: Readonly<Record<number, string>> = Object.freeze({
   1: "1-2",
   2: "2-4",
   3: "1-4",
-  4: "4-12",
+  4: "1-2",
 });
 const desiredEffectiveFrequencies: Readonly<Record<number, number>> = Object.freeze({ 1: 2, 2: 4, 3: 12, 4: 2 });
-const desiredIdentificationFrequencies: Readonly<Record<number, number>> = Object.freeze({ 1: 1, 2: 2, 3: 4, 4: 12 });
+const desiredIdentificationFrequencies: Readonly<Record<number, number>> = Object.freeze({ 1: 1, 2: 2, 3: 4, 4: 1 });
 const desiredTailMonths: Readonly<Record<number, number>> = Object.freeze({ 1: 3, 2: 6, 3: 9, 4: 6 });
 
 function matchesReviewCoverage(question: IntCp004Question, frame: number): boolean {
   if (question.answerSemantic === "MONEY" && frame <= 3 && question.solution.denominator !== 1n) return false;
+  if (question.qlId === "INT-QL-067" && frame === 4) return question.mathematicalState.frequency === 12;
   if (question.qlId === "INT-QL-075") {
     return pairKey(question.mathematicalState.frequency, question.mathematicalState.comparisonFrequency) === desiredComparisonPairs[frame];
   }
@@ -78,6 +79,7 @@ const ql078Frequencies = new Set<number>();
 const brokenTailMonths = new Set<number>();
 let moneyQuestions = 0;
 let decimalMoneyQuestions = 0;
+let monthlyDirectCoverage = false;
 for (const question of questions) {
   answerPositions[question.correctIndex] += 1;
   qlCounts.set(question.qlId, (qlCounts.get(question.qlId) ?? 0) + 1);
@@ -86,6 +88,7 @@ for (const question of questions) {
     moneyQuestions += 1;
     if (question.solution.denominator !== 1n) decimalMoneyQuestions += 1;
   }
+  if (question.qlId === "INT-QL-067" && question.mathematicalState.frequency === 12) monthlyDirectCoverage = true;
   if (question.qlId === "INT-QL-075") ql075Pairs.add(pairKey(question.mathematicalState.frequency, question.mathematicalState.comparisonFrequency));
   if (question.qlId === "INT-QL-076") ql076Frequencies.add(question.mathematicalState.frequency);
   if (question.qlId === "INT-QL-078") ql078Frequencies.add(question.mathematicalState.frequency);
@@ -95,10 +98,13 @@ if ([...qlCounts.values()].some((count) => count !== 4)) throw new Error("Each Q
 if (answerPositions.some((count) => count !== 19)) throw new Error(`Review answer positions are not exactly balanced: ${answerPositions.join("/")}.`);
 if (moneyQuestions !== 48) throw new Error(`Expected 48 money-answer review questions, received ${moneyQuestions}.`);
 if (decimalMoneyQuestions > 12) throw new Error(`Too many decimal-money review questions: ${decimalMoneyQuestions}/48.`);
+if (!monthlyDirectCoverage) throw new Error("Review pack omits a direct monthly-compounding question.");
 if (!ql075Pairs.has("1-2")) throw new Error("Review pack omits the standard annual-versus-half-yearly comparison.");
-if (!ql075Pairs.has("4-12")) throw new Error("Review pack omits a higher-frequency comparison involving monthly compounding.");
+if (ql075Pairs.has("1-12") || ql075Pairs.has("2-12") || ql075Pairs.has("4-12")) throw new Error("Review pack contains a calculator-heavy monthly frequency-comparison question.");
 if (!ql076Frequencies.has(12)) throw new Error("Review pack omits monthly effective-rate coverage.");
-if (ql078Frequencies.size !== 4) throw new Error(`Frequency-identification review coverage is incomplete: ${[...ql078Frequencies].join(",")}.`);
+if (ql078Frequencies.size !== 3 || !ql078Frequencies.has(1) || !ql078Frequencies.has(2) || !ql078Frequencies.has(4) || ql078Frequencies.has(12)) {
+  throw new Error(`Frequency-identification review coverage must be annual/half-yearly/quarterly only: ${[...ql078Frequencies].join(",")}.`);
+}
 if (brokenTailMonths.size !== 3) throw new Error(`Broken-period review does not cover 3, 6 and 9 month tails.`);
 
 const lines: string[] = [
@@ -133,6 +139,7 @@ const summary = {
   moneyQuestions,
   decimalMoneyQuestions,
   decimalMoneyShare: Number((decimalMoneyQuestions / moneyQuestions).toFixed(4)),
+  monthlyDirectCoverage,
   annualVsHalfYearlyComparison: ql075Pairs.has("1-2"),
   monthlyEffectiveRateCoverage: ql076Frequencies.has(12),
   frequencyIdentificationCoverage: [...ql078Frequencies].sort((a, b) => a - b),
