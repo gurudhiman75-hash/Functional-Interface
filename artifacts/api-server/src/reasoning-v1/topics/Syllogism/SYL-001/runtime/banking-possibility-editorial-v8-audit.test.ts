@@ -39,11 +39,17 @@ function opposite(conclusion: CanonicalConclusion): CanonicalConclusion | null {
   return null;
 }
 
-function cleanEnglish(line: string, locale: SylLocale): string {
-  if (locale !== "en-IN") return line;
+function normalizeVisibleWitnessLine(line: string, locale: SylLocale): string {
+  if (locale === "hi-IN") {
+    return line.replace("एक आवश्यक ×", "नीला ×");
+  }
+  if (locale === "pa-IN") {
+    return line.replace("ਇੱਕ ਲਾਜ਼ਮੀ ×", "ਨੀਲਾ ×");
+  }
   return line
     .replace(". the part of the ", ". The part of the ")
     .replace(". the shared region of the ", ". The shared region of the ")
+    .replaceAll("a required ×", "the blue ×")
     .replace(/an “([^”]+)” × cannot lie outside “([^”]+)”/gu, "a witness for the “$1” class cannot lie outside the “$2” class");
 }
 
@@ -73,7 +79,7 @@ for (let seed = 0; seed < 80; seed += 1) {
       if (visible) {
         visibleContradictions += 1;
         changedLines += 1;
-        assert.equal(line, cleanEnglish(v6.explanation[index], locale));
+        assert.equal(line, normalizeVisibleWitnessLine(v6.explanation[index], locale));
         if (locale === "en-IN") assert.match(line, /blue ×/u);
         else if (locale === "hi-IN") assert.match(line, /नीला ×/u);
         else assert.match(line, /ਨੀਲਾ ×/u);
