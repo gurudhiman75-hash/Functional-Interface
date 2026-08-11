@@ -18,13 +18,12 @@ function pairKey(left: number, right: number): string {
 
 const DIRECT_COMPLETE_QLS = new Set(["INT-QL-067", "INT-QL-068", "INT-QL-073", "INT-QL-074"]);
 
-function findQuestionForFrame(
+function questionForFrame(
   qlId: typeof INT_CP004_QL_IDS[number],
   frame: number,
   seenStates: Set<string>,
-  requireWholeMoney: boolean,
-): IntCp004Question | undefined {
-  for (let attempt = 0; attempt < 8000; attempt += 1) {
+): IntCp004Question {
+  for (let attempt = 0; attempt < 2000; attempt += 1) {
     const seed = `int-cp004-review-v4:${qlId}:frame-${frame}:attempt-${attempt}`;
     let question: IntCp004Question;
     try {
@@ -33,24 +32,12 @@ function findQuestionForFrame(
       continue;
     }
     if (!question.stemFamilyId.endsWith(`FRAME-${frame}`)) continue;
-    if (requireWholeMoney && question.answerSemantic === "MONEY" && question.solution.denominator !== 1n) continue;
     const key = stateKey(question);
     if (seenStates.has(key)) continue;
+    seenStates.add(key);
     return question;
   }
-  return undefined;
-}
-
-function questionForFrame(
-  qlId: typeof INT_CP004_QL_IDS[number],
-  frame: number,
-  seenStates: Set<string>,
-): IntCp004Question {
-  const preferWhole = findQuestionForFrame(qlId, frame, seenStates, true);
-  const question = preferWhole ?? findQuestionForFrame(qlId, frame, seenStates, false);
-  if (!question) throw new Error(`${qlId}: could not generate editorial frame ${frame} under exam-readiness review constraints.`);
-  seenStates.add(stateKey(question));
-  return question;
+  throw new Error(`${qlId}: could not generate editorial frame ${frame} under exam-readiness review constraints.`);
 }
 
 const questions: IntCp004Question[] = [];
