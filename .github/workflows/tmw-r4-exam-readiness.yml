@@ -50,6 +50,8 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/learner-explanation-r4-exam-readiness.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-exam-readiness.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-cp001-cp006-source-regression.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-cp007-cp011-source-regression.test.ts
       - name: Bundle R4 full-chapter proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -69,22 +71,22 @@ jobs:
           --outfile=dist/quant-v4/tmw-001-r1-r4-regression.test.mjs
       - name: Run R1 critical regression
         run: node artifacts/api-server/dist/quant-v4/tmw-001-r1-r4-regression.test.mjs
-      - name: Bundle R2 learner regression
+      - name: Bundle CP001-CP006 source regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r2-learner-explanation.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-cp001-cp006-source-regression.test.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/tmw-001-r2-r4-regression.test.mjs
-      - name: Run R2 learner regression
-        run: node artifacts/api-server/dist/quant-v4/tmw-001-r2-r4-regression.test.mjs
-      - name: Bundle R3 learner regression
+          --outfile=dist/quant-v4/tmw-001-r4-cp001-cp006-source-regression.test.mjs
+      - name: Run CP001-CP006 source regression
+        run: node artifacts/api-server/dist/quant-v4/tmw-001-r4-cp001-cp006-source-regression.test.mjs
+      - name: Bundle CP007-CP011 source regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r3-learner-explanation.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-cp007-cp011-source-regression.test.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/tmw-001-r3-r4-regression.test.mjs
-      - name: Run R3 learner regression
-        run: node artifacts/api-server/dist/quant-v4/tmw-001-r3-r4-regression.test.mjs
+          --outfile=dist/quant-v4/tmw-001-r4-cp007-cp011-source-regression.test.mjs
+      - name: Run CP007-CP011 source regression
+        run: node artifacts/api-server/dist/quant-v4/tmw-001-r4-cp007-cp011-source-regression.test.mjs
       - name: Bundle multilingual parity regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
