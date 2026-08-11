@@ -4,6 +4,7 @@ import {
   SAP_CP005_REVIEW_COUNT_PER_PROTOTYPE,
   SAP_CP005_REVIEW_PROTOTYPE_IDS,
   generateSapCp005ReviewRecords,
+  sapCp005ReviewStemLimit,
 } from "./review-export";
 
 interface Rational { n: bigint; d: bigint; }
@@ -78,6 +79,7 @@ for (const [index, record] of records.entries()) {
   identities.add(record.generationIdentity);
 
   assert.ok(record.stem.length >= 20, `${record.questionId}: stem is too short for review.`);
+  assert.ok(record.stem.length <= sapCp005ReviewStemLimit(record.prototypeId), `${record.questionId}: expression is too long for the CP-005 human-review surface.`);
   assert.doesNotMatch(record.stem, METHOD_GIVING, `${record.questionId}: stem gives away the intended method.`);
   assert.ok(record.explanation.coreConcept.length >= 70, `${record.questionId}: core concept is too thin.`);
   assert.ok(record.explanation.steps.length >= 2, `${record.questionId}: explanation needs at least two steps.`);
@@ -157,4 +159,4 @@ assert.deepEqual([...qlIds].sort(), Array.from({ length: 20 }, (_, index) => `SA
 assert.deepEqual([...directions].sort(), ["DIAGNOSIS", "FORWARD", "INVERSE", "STRATEGY"]);
 assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
 
-console.log("SAP-CP-005 editorial review authority passed: 300 unique records, 20 modes, no impossible negative distractors, distinct core concepts, balanced A/B/C/D positions.");
+console.log("SAP-CP-005 editorial review authority passed: 300 unique records, 20 modes, bounded exam-sized stems, no impossible negative distractors, distinct core concepts, balanced A/B/C/D positions.");
