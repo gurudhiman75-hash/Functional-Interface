@@ -3,6 +3,7 @@ import { join } from "node:path";
 import {
   INT_CP004_QL_IDS,
   INT_CP004_REGISTRY,
+  INT_CP004_EDITORIAL_REMEDIATION_VERSION,
   canonicalCp004Answer,
   generateIntCp004Question,
   verifyCp004Answer,
@@ -26,6 +27,7 @@ function assertDeepFrozen(value: unknown, path: string, seen = new WeakSet<objec
   for (const key of Reflect.ownKeys(value)) count += assertDeepFrozen((value as Record<PropertyKey, unknown>)[key], `${path}.${String(key)}`, seen);
   return count;
 }
+function pairKey(left: number, right: number): string { return [left, right].sort((a, b) => a - b).join("-"); }
 
 const FORBIDDEN_STEM = /\b(?:population|depreciation|simple versus compound|simple-interest difference|instalment|repayment|different annual rates|successive rates|banker'?s discount|true discount)\b/iu;
 const FORBIDDEN_EXPLANATION = /\b(?:annual factor|growth factor|accumulated multiplier|geometric progression|inverse relation|canonical|verifier|mathematical state|rate substitution|period topology)\b/iu;
@@ -34,6 +36,7 @@ const HIGH_RATE_BANKING_CONTEXT = /\b(?:bank|banking|fixed deposit|savings accou
 const INVERSE_QLS = new Set(["INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072", "INT-QL-077", "INT-QL-081", "INT-QL-082", "INT-QL-083"]);
 const EXACT_RATIO_QLS = new Set(["INT-QL-069", "INT-QL-070", "INT-QL-081"]);
 const REPRESENTATION_TABLES = new Set(["TERMS_TABLE", "BALANCE_RECORD", "SCHEME_COMPARISON"]);
+const EASY_DIRECT_QLS = new Set(["INT-QL-067", "INT-QL-068", "INT-QL-073", "INT-QL-074"]);
 
 let questionCount = 0;
 let verifierChecks = 0;
@@ -47,6 +50,9 @@ let inversePedagogyChecks = 0;
 let misconceptionOwnershipChecks = 0;
 let representationStructureChecks = 0;
 let contextRateChecks = 0;
+let examArithmeticChecks = 0;
+let moneyAnswerQuestions = 0;
+let decimalMoneyAnswerQuestions = 0;
 const qlCounts = new Map<string, number>();
 const answerPositions = [0, 0, 0, 0];
 const frequencies = new Set<number>();
@@ -56,6 +62,10 @@ const semantics = new Set<string>();
 const domains = new Set<string>();
 const templateKeys = new Set<string>();
 const ql077Frequencies = new Set<number>();
+const ql075Pairs = new Set<string>();
+const ql076Frequencies = new Set<number>();
+const ql078Frequencies = new Set<number>();
+const brokenTailMonths = new Set<number>();
 const mixedFrequencies = new Set<number>();
 
 for (const qlId of INT_CP004_QL_IDS) {
@@ -97,6 +107,7 @@ for (const qlId of INT_CP004_QL_IDS) {
     if (!question.explanation.steps.some((step) => /[=÷×+−]/u.test(step))) fail(`${qlId}/${seed}: explanation shows no intermediate calculation.`);
     if (FORBIDDEN_EXPLANATION.test(explanationText)) fail(`${qlId}/${seed}: technical internal wording reached the explanation.`);
     if (!question.explanation.finalAnswer.includes(question.correctAnswer)) fail(`${qlId}/${seed}: final answer does not match the keyed option.`);
+    if (/Continue the same calculation/iu.test(explanationText)) fail(`${qlId}/${seed}: explanation hides undisplayed repeated arithmetic.`);
 
     if (INVERSE_QLS.has(qlId)) {
       inversePedagogyChecks += 1;
@@ -133,6 +144,18 @@ for (const qlId of INT_CP004_QL_IDS) {
       fail(`${qlId}/${seed}: high nominal rate is presented as a normal banking product.`);
     }
 
+    examArithmeticChecks += 1;
+    if (EASY_DIRECT_QLS.has(qlId) && question.mathematicalState.periods > 6) {
+      fail(`${qlId}/${seed}: Easy direct question exceeds six compounding periods.`);
+    }
+    if (question.answerSemantic === "MONEY") {
+      moneyAnswerQuestions += 1;
+      if (question.solution.denominator !== 1n) decimalMoneyAnswerQuestions += 1;
+      if ((question.solution.numerator * 100n) % question.solution.denominator !== 0n) {
+        fail(`${qlId}/${seed}: money answer requires hidden precision beyond paise.`);
+      }
+    }
+
     lifecycleChecks += 8;
     if (question.approvalStatus !== "NOT_APPROVED" || question.enabled || question.stagingStatus !== "NOT_STAGED"
       || question.registrationStatus !== "NOT_REGISTERED" || question.questionStudioDiscoverable
@@ -144,7 +167,11 @@ for (const qlId of INT_CP004_QL_IDS) {
     frequencies.add(question.mathematicalState.frequency);
     frequencies.add(question.mathematicalState.firstFrequency);
     frequencies.add(question.mathematicalState.secondFrequency);
+    if (qlId === "INT-QL-075") ql075Pairs.add(pairKey(question.mathematicalState.frequency, question.mathematicalState.comparisonFrequency));
+    if (qlId === "INT-QL-076") ql076Frequencies.add(question.mathematicalState.frequency);
     if (qlId === "INT-QL-077") ql077Frequencies.add(question.mathematicalState.frequency);
+    if (qlId === "INT-QL-078") ql078Frequencies.add(question.mathematicalState.frequency);
+    if (["INT-QL-079", "INT-QL-080", "INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(qlId)) brokenTailMonths.add(question.mathematicalState.tailMonths);
     if (qlId === "INT-QL-084" || qlId === "INT-QL-085") {
       mixedFrequencies.add(question.mathematicalState.firstFrequency);
       mixedFrequencies.add(question.mathematicalState.secondFrequency);
@@ -163,7 +190,13 @@ if ([...qlCounts.values()].some((count) => count !== 100)) fail("One or more QLs
 if (frequencies.size !== 4) fail(`Frequency coverage changed: ${frequencies.size}/4.`);
 if (representations.size < 4) fail(`Representation coverage changed: ${representations.size}/4.`);
 if (ql077Frequencies.size !== 2 || !ql077Frequencies.has(2) || !ql077Frequencies.has(4)) fail("INT-QL-077 must cover half-yearly and quarterly inverse effective-rate cases.");
+if (!ql075Pairs.has("1-2")) fail("INT-QL-075 audit corpus must include annual-versus-half-yearly comparison.");
+if (!ql076Frequencies.has(12)) fail("INT-QL-076 audit corpus must include monthly effective-rate questions.");
+if (ql078Frequencies.size !== 4) fail("INT-QL-078 must identify all four supported compounding frequencies across the audit corpus.");
+if (brokenTailMonths.size !== 3) fail("Broken-period QLs must cover 3, 6 and 9 month tails across the corpus.");
 if (mixedFrequencies.size !== 4 || !mixedFrequencies.has(12)) fail("Mixed-frequency QLs must include annual, half-yearly, quarterly and monthly intervals across the corpus.");
+if (moneyAnswerQuestions !== 1200) fail(`Money-answer audit count changed: ${moneyAnswerQuestions}.`);
+if (decimalMoneyAnswerQuestions / moneyAnswerQuestions > 0.30) fail(`Decimal-money share is too high: ${decimalMoneyAnswerQuestions}/${moneyAnswerQuestions}.`);
 for (const expected of ["Easy", "Medium", "Hard"]) if (!difficulties.has(expected)) fail(`Difficulty ${expected} is missing.`);
 for (const expected of ["MONEY", "RATE_PERCENT", "DURATION", "FREQUENCY"]) if (!semantics.has(expected)) fail(`Answer semantic ${expected} is missing.`);
 for (const expected of ["COMPLETE_PERIODS", "FREQUENCY_COMPARISON", "EFFECTIVE_RATE", "BROKEN_PERIOD", "MIXED_FREQUENCY"]) if (!domains.has(expected)) fail(`Domain ${expected} is missing.`);
@@ -174,7 +207,7 @@ const outputDirectory = join(process.cwd(), "dist", "quant-v4", "int-cp004-frequ
 mkdirSync(outputDirectory, { recursive: true });
 const summary = {
   status: "INT_CP004_ENGLISH_IMPLEMENTATION_COMPLETE_REVIEW_REQUIRED",
-  editorialRemediationStatus: "INT_CP004_EDITORIALLY_REMEDIATED_REVIEW_REQUIRED",
+  editorialRemediationStatus: "INT_CP004_EXAM_READINESS_V4_REVIEW_REQUIRED",
   qlRange: "INT-QL-067..INT-QL-085",
   qlCount: INT_CP004_QL_IDS.length,
   questionCount,
@@ -187,11 +220,19 @@ const summary = {
   misconceptionOwnershipChecks,
   representationStructureChecks,
   contextRateChecks,
+  examArithmeticChecks,
+  moneyAnswerQuestions,
+  decimalMoneyAnswerQuestions,
+  decimalMoneyShare: Number((decimalMoneyAnswerQuestions / moneyAnswerQuestions).toFixed(4)),
   lifecycleChecks,
   frozenObjectChecks,
   answerPositions,
   frequencies: [...frequencies].sort((a, b) => a - b),
+  frequencyComparisonPairs: [...ql075Pairs].sort(),
+  effectiveRateFrequencies: [...ql076Frequencies].sort((a, b) => a - b),
   effectiveRateInverseFrequencies: [...ql077Frequencies].sort((a, b) => a - b),
+  frequencyIdentificationFrequencies: [...ql078Frequencies].sort((a, b) => a - b),
+  brokenTailMonths: [...brokenTailMonths].sort((a, b) => a - b),
   mixedIntervalFrequencies: [...mixedFrequencies].sort((a, b) => a - b),
   representations: [...representations].sort(),
   difficulties: [...difficulties].sort(),
@@ -203,7 +244,7 @@ const summary = {
     generator: "INT-CP-004-EXAM-GENERATOR-v1",
     solver: "INT-CP-004-CANONICAL-SOLVER-v1",
     verifier: "INT-CP-004-RELATION-VERIFIER-v1",
-    editorialRemediation: "INT-CP-004-EDITORIAL-REMEDIATION-v2",
+    editorialRemediation: INT_CP004_EDITORIAL_REMEDIATION_VERSION,
   },
   lifecycle: {
     approvalStatus: "NOT_APPROVED",
