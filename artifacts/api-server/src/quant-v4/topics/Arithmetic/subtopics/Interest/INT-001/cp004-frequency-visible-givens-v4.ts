@@ -20,7 +20,7 @@ export function assertCp004VisibleGivensExamReadyV4(state: Cp004MathematicalStat
   const duration = durationText(state.periods, state.frequency);
   const noun = escapeRegExp(frequencyNoun(state.frequency));
   const namedPeriodEvidence = new RegExp(`\\b${state.periods}\\s+(?:complete\\s+)?${noun}s?\\b`, "iu");
-  const genericPeriodEvidence = new RegExp(`\\b${state.periods}\\s+(?:complete\\s+)?periods?\\b`, "iu");
+  const genericPeriodEvidence = new RegExp(`\\b${state.periods}\\s+(?:(?:complete|such)\\s+)?periods?\\b`, "iu");
   if (!stem.includes(duration) && !namedPeriodEvidence.test(stem) && !genericPeriodEvidence.test(stem)) {
     throw new Error(`${state.qlId}: displayed stem omits the duration or equivalent number of periods.`);
   }
