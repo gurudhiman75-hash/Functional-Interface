@@ -32,10 +32,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          echo "1ec5a00c9cc75b66f66b9fed6dc46da8ee503b88007f1fd3da7136d709bb142e  .github/num-cp007-wave03/num-cp007-wave03-source.tar.gz" | sha256sum --check
+          echo "11c7c2a473e167b301bde19c3da1037c0013cd60d1781bb84c4b5d77a69956e1  .github/num-cp007-wave03/num-cp007-wave03-source.tar.gz" | sha256sum --check
           tar -xzf .github/num-cp007-wave03/num-cp007-wave03-source.tar.gz -C .
           rm -f .github/num-cp007-wave03/num-cp007-wave03-source.tar.gz
           rmdir .github/num-cp007-wave03 || true
+          rm -f .github/workflows/num-002-cp007-wave03.yml
 
       - name: Commit materialized source
         shell: bash
