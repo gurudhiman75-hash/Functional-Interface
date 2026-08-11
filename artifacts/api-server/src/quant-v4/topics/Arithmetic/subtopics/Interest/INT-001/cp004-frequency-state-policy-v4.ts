@@ -23,6 +23,10 @@ function isMixedQl(qlId: IntCp004QlId): boolean {
   return qlId === "INT-QL-084" || qlId === "INT-QL-085";
 }
 
+function pairKey(left: number, right: number): string {
+  return [left, right].sort((a, b) => a - b).join("-");
+}
+
 function nearestCompatiblePrincipal(multiplier: Rational, target: bigint): Rational | undefined {
   const unit = multiplier.denominator / gcdForCp004(multiplier.denominator, 100n);
   if (unit > 100000n) return undefined;
@@ -43,15 +47,18 @@ function nearestCompatiblePrincipal(multiplier: Rational, target: bigint): Ratio
 }
 
 function generateMixedExamReadyState(qlId: IntCp004QlId, seed: string): Cp004MathematicalState {
+  const desiredPairs = ["1-2", "1-4", "2-4"] as const;
+  const desiredPair = desiredPairs[hash(`${seed}:${qlId}:mixed-pair-target-v4`) % desiredPairs.length]!;
   let exactFallback: Cp004MathematicalState | undefined;
-  for (let attempt = 0; attempt < 512; attempt += 1) {
-    const effectiveSeed = attempt === 0 ? seed : `${seed}:mixed-exam-ready-v4:${attempt}`;
+  for (let attempt = 0; attempt < 1024; attempt += 1) {
+    const effectiveSeed = `${seed}:mixed-exam-ready-v4:${attempt}`;
     let state: Cp004MathematicalState;
     try {
       state = generateCp004State(qlId, effectiveSeed);
     } catch {
       continue;
     }
+    if (pairKey(state.firstFrequency, state.secondFrequency) !== desiredPair) continue;
     if (state.firstFrequency === 12 || state.secondFrequency === 12) continue;
     if (state.firstYears !== 1 || state.secondYears !== 1) continue;
     const amount = mixedAmountForState(state);
@@ -61,7 +68,7 @@ function generateMixedExamReadyState(qlId: IntCp004QlId, seed: string): Cp004Mat
     exactFallback ??= state;
   }
   if (exactFallback) return exactFallback;
-  throw new Error(`${qlId}/${seed}: could not construct an exact-paise mixed-frequency state.`);
+  throw new Error(`${qlId}/${seed}: could not construct an exact-paise mixed-frequency state for ${desiredPair}.`);
 }
 
 function generateFrequencyRecoveryState(seed: string): Cp004MathematicalState {
