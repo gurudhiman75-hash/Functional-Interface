@@ -11,7 +11,7 @@ function protectNames(
   const entries = [...record.proceduralLogic.nodes]
     .filter((node) => node.label)
     .sort((a, b) => b.label.length - a.label.length)
-    .map((node) => ({ token: `⟦${node.id}⟧`, label: node.label }));
+    .map((node, index) => ({ token: `⟦${index}⟧`, label: node.label }));
   let protectedText = text;
   for (const { token, label } of entries) protectedText = protectedText.split(label).join(token);
   return {
@@ -31,6 +31,7 @@ function lastHindi(text: string): string {
     .replace(/^(.+) and (.+) are married and have one daughter, (.+)\.$/, "$1 और $2 विवाहित हैं और उनकी एक पुत्री $3 है।")
     .replace(/^(.+) and (.+) are married and have three children\.$/, "$1 और $2 विवाहित हैं और उनकी तीन संतानें हैं।")
     .replace(/^(.+) is married to (.+), and (.+) is married to (.+)\.$/, "$1 का विवाह $2 से हुआ है और $3 का विवाह $4 से हुआ है।")
+    .replace(/^(.+) is married to (.+), and (.+) to (.+)\.$/, "$1 का विवाह $2 से और $3 का विवाह $4 से हुआ है।")
     .replace(/^(.+) is married to (.+), while (.+) is married to (.+)\.$/, "$1 का विवाह $2 से हुआ है, जबकि $3 का विवाह $4 से हुआ है।")
     .replace(/^(.+) is married to (.+), (.+) to (.+), and (.+) to (.+)\.$/, "$1 का विवाह $2 से, $3 का $4 से और $5 का $6 से हुआ है।")
     .replace(/^(.+) is married to (.+) and has (.+)\.$/, "$1 का विवाह $2 से हुआ है और उनकी संतान $3 है।")
@@ -42,9 +43,11 @@ function lastHindi(text: string): string {
     .replace(/^(.+) is married to (.+); their children are (.+), (.+), (.+) and (.+)\.$/, "$1 का विवाह $2 से हुआ है; उनकी संतानें $3, $4, $5 और $6 हैं।")
     .replace(/^(.+) is married to (.+); their children are (.+), (.+) and (.+)\.$/, "$1 का विवाह $2 से हुआ है; उनकी संतानें $3, $4 और $5 हैं।")
     .replace(/^(.+) is not (.+)'s son; he is the son of (.+) and (.+)\.$/, "$1, $2 का पुत्र नहीं है; वह $3 और $4 का पुत्र है।")
+    .replace(/^(.+) is the son of (.+) and (.+), not of (.+)\.$/, "$1, $2 और $3 का पुत्र है, $4 का नहीं।")
     .replace(/^(.+) is not the child of (.+) or (.+); he is the son of (.+) and (.+)\.$/, "$1, $2 या $3 की संतान नहीं है; वह $4 और $5 का पुत्र है।")
     .replace(/^(.+) is neither (.+)'s sibling nor (.+)'s child; he is the son of (.+) and (.+)\.$/, "$1 न $2 का भाई-बहन है और न $3 की संतान; वह $4 और $5 का पुत्र है।")
     .replace(/^(.+) is not the child of (.+), and (.+) is not the child of (.+)\.$/, "$1, $2 की संतान नहीं है और $3, $4 की संतान नहीं है।")
+    .replace(/^(.+)'s sister (.+) is married to (.+); (.+) and (.+) have a daughter, (.+)\.$/, "$2, $1 की बहन है और उसका विवाह $3 से हुआ है; $4 और $5 की एक पुत्री $6 है।")
     .replace(/^(.+)'s mother (.+) is not a child of (.+) and (.+); she is (.+)'s sister\.$/, "$2, $1 की माता है और $3 तथा $4 की संतान नहीं है; वह $5 की बहन है।")
     .replace(/^Their son (.+) is married to (.+), and (.+) is their daughter\.$/, "उनका पुत्र $1, $2 से विवाहित है और $3 उनकी पुत्री है।")
     .replace(/^Their daughter (.+) is married to (.+) and has (.+) and (.+)\.$/, "उनकी पुत्री $1 का विवाह $2 से हुआ है और उनकी संतानें $3 और $4 हैं।")
@@ -77,6 +80,7 @@ function lastPunjabi(text: string): string {
     .replace(/^(.+) and (.+) are married and have one daughter, (.+)\.$/, "$1 ਅਤੇ $2 ਵਿਆਹੇ ਹੋਏ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਇੱਕ ਧੀ $3 ਹੈ।")
     .replace(/^(.+) and (.+) are married and have three children\.$/, "$1 ਅਤੇ $2 ਵਿਆਹੇ ਹੋਏ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਤਿੰਨ ਸੰਤਾਨਾਂ ਹਨ।")
     .replace(/^(.+) is married to (.+), and (.+) is married to (.+)\.$/, "$1 ਦਾ ਵਿਆਹ $2 ਨਾਲ ਹੋਇਆ ਹੈ ਅਤੇ $3 ਦਾ ਵਿਆਹ $4 ਨਾਲ ਹੋਇਆ ਹੈ।")
+    .replace(/^(.+) is married to (.+), and (.+) to (.+)\.$/, "$1 ਦਾ ਵਿਆਹ $2 ਨਾਲ ਅਤੇ $3 ਦਾ ਵਿਆਹ $4 ਨਾਲ ਹੋਇਆ ਹੈ।")
     .replace(/^(.+) is married to (.+), while (.+) is married to (.+)\.$/, "$1 ਦਾ ਵਿਆਹ $2 ਨਾਲ ਹੋਇਆ ਹੈ, ਜਦਕਿ $3 ਦਾ ਵਿਆਹ $4 ਨਾਲ ਹੋਇਆ ਹੈ।")
     .replace(/^(.+) is married to (.+), (.+) to (.+), and (.+) to (.+)\.$/, "$1 ਦਾ ਵਿਆਹ $2 ਨਾਲ, $3 ਦਾ $4 ਨਾਲ ਅਤੇ $5 ਦਾ $6 ਨਾਲ ਹੋਇਆ ਹੈ।")
     .replace(/^(.+) is married to (.+) and has (.+)\.$/, "$1 ਦਾ ਵਿਆਹ $2 ਨਾਲ ਹੋਇਆ ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਸੰਤਾਨ $3 ਹੈ।")
@@ -88,9 +92,11 @@ function lastPunjabi(text: string): string {
     .replace(/^(.+) is married to (.+); their children are (.+), (.+), (.+) and (.+)\.$/, "$1 ਦਾ ਵਿਆਹ $2 ਨਾਲ ਹੋਇਆ ਹੈ; ਉਨ੍ਹਾਂ ਦੀਆਂ ਸੰਤਾਨਾਂ $3, $4, $5 ਅਤੇ $6 ਹਨ।")
     .replace(/^(.+) is married to (.+); their children are (.+), (.+) and (.+)\.$/, "$1 ਦਾ ਵਿਆਹ $2 ਨਾਲ ਹੋਇਆ ਹੈ; ਉਨ੍ਹਾਂ ਦੀਆਂ ਸੰਤਾਨਾਂ $3, $4 ਅਤੇ $5 ਹਨ।")
     .replace(/^(.+) is not (.+)'s son; he is the son of (.+) and (.+)\.$/, "$1, $2 ਦਾ ਪੁੱਤਰ ਨਹੀਂ ਹੈ; ਉਹ $3 ਅਤੇ $4 ਦਾ ਪੁੱਤਰ ਹੈ।")
+    .replace(/^(.+) is the son of (.+) and (.+), not of (.+)\.$/, "$1, $2 ਅਤੇ $3 ਦਾ ਪੁੱਤਰ ਹੈ, $4 ਦਾ ਨਹੀਂ।")
     .replace(/^(.+) is not the child of (.+) or (.+); he is the son of (.+) and (.+)\.$/, "$1, $2 ਜਾਂ $3 ਦੀ ਸੰਤਾਨ ਨਹੀਂ ਹੈ; ਉਹ $4 ਅਤੇ $5 ਦਾ ਪੁੱਤਰ ਹੈ।")
     .replace(/^(.+) is neither (.+)'s sibling nor (.+)'s child; he is the son of (.+) and (.+)\.$/, "$1 ਨਾ $2 ਦਾ ਭਰਾ-ਭੈਣ ਹੈ ਅਤੇ ਨਾ $3 ਦੀ ਸੰਤਾਨ; ਉਹ $4 ਅਤੇ $5 ਦਾ ਪੁੱਤਰ ਹੈ।")
     .replace(/^(.+) is not the child of (.+), and (.+) is not the child of (.+)\.$/, "$1, $2 ਦੀ ਸੰਤਾਨ ਨਹੀਂ ਹੈ ਅਤੇ $3, $4 ਦੀ ਸੰਤਾਨ ਨਹੀਂ ਹੈ।")
+    .replace(/^(.+)'s sister (.+) is married to (.+); (.+) and (.+) have a daughter, (.+)\.$/, "$2, $1 ਦੀ ਭੈਣ ਹੈ ਅਤੇ ਉਸ ਦਾ ਵਿਆਹ $3 ਨਾਲ ਹੋਇਆ ਹੈ; $4 ਅਤੇ $5 ਦੀ ਇੱਕ ਧੀ $6 ਹੈ।")
     .replace(/^(.+)'s mother (.+) is not a child of (.+) and (.+); she is (.+)'s sister\.$/, "$2, $1 ਦੀ ਮਾਤਾ ਹੈ ਅਤੇ $3 ਅਤੇ $4 ਦੀ ਸੰਤਾਨ ਨਹੀਂ ਹੈ; ਉਹ $5 ਦੀ ਭੈਣ ਹੈ।")
     .replace(/^Their son (.+) is married to (.+), and (.+) is their daughter\.$/, "ਉਨ੍ਹਾਂ ਦਾ ਪੁੱਤਰ $1, $2 ਨਾਲ ਵਿਆਹਿਆ ਹੋਇਆ ਹੈ ਅਤੇ $3 ਉਨ੍ਹਾਂ ਦੀ ਧੀ ਹੈ।")
     .replace(/^Their daughter (.+) is married to (.+) and has (.+) and (.+)\.$/, "ਉਨ੍ਹਾਂ ਦੀ ਧੀ $1 ਦਾ ਵਿਆਹ $2 ਨਾਲ ਹੋਇਆ ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਸੰਤਾਨਾਂ $3 ਅਤੇ $4 ਹਨ।")
