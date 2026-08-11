@@ -22,6 +22,7 @@ function frameOf(question: IntCp004Question): number {
 }
 
 type CandidatePredicate = (question: IntCp004Question) => boolean;
+type CoverageRequirement = Readonly<{ label: string; predicate: CandidatePredicate }>;
 
 function findQuestionForFrame(
   qlId: typeof INT_CP004_QL_IDS[number],
@@ -29,7 +30,7 @@ function findQuestionForFrame(
   seenStates: Set<string>,
   predicate: CandidatePredicate = () => true,
 ): IntCp004Question | undefined {
-  for (let attempt = 0; attempt < 3000; attempt += 1) {
+  for (let attempt = 0; attempt < 3500; attempt += 1) {
     const seed = `int-cp004-review-v4:${qlId}:frame-${frame}:attempt-${attempt}`;
     let question: IntCp004Question;
     try {
@@ -64,38 +65,85 @@ INT_CP004_QL_IDS.forEach((qlId) => {
 });
 if (questions.length !== 76) throw new Error(`Expected 76 review questions, received ${questions.length}.`);
 
-function forceFrameCoverage(
+function qlIndexes(qlId: typeof INT_CP004_QL_IDS[number]): number[] {
+  return questions.map((question, index) => ({ question, index })).filter(({ question }) => question.qlId === qlId).map(({ index }) => index);
+}
+function countRequirement(indexes: readonly number[], requirement: CoverageRequirement): number {
+  return indexes.reduce((count, index) => count + (requirement.predicate(questions[index]!) ? 1 : 0), 0);
+}
+function placeRequirementInQl(
   qlId: typeof INT_CP004_QL_IDS[number],
-  frame: number,
-  predicate: CandidatePredicate,
-  label: string,
+  requirement: CoverageRequirement,
+  allRequirements: readonly CoverageRequirement[],
+): boolean {
+  const indexes = qlIndexes(qlId);
+  if (indexes.some((index) => requirement.predicate(questions[index]!))) return true;
+
+  for (const targetIndex of indexes) {
+    const current = questions[targetIndex]!;
+    const wouldBreakRequiredCoverage = allRequirements.some((other) =>
+      other !== requirement
+      && other.predicate(current)
+      && countRequirement(indexes, other) === 1,
+    );
+    if (wouldBreakRequiredCoverage) continue;
+
+    const frame = frameOf(current);
+    const seenStates = new Set(indexes.filter((index) => index !== targetIndex).map((index) => stateKey(questions[index]!)));
+    const replacement = findQuestionForFrame(qlId, frame, seenStates, requirement.predicate);
+    if (!replacement) continue;
+    questions[targetIndex] = replacement;
+    return true;
+  }
+  return false;
+}
+function forceQlCoverage(
+  qlId: typeof INT_CP004_QL_IDS[number],
+  requirements: readonly CoverageRequirement[],
 ): void {
-  const targetIndex = questions.findIndex((question) => question.qlId === qlId && frameOf(question) === frame);
-  if (targetIndex < 0) throw new Error(`${qlId}: missing frame ${frame} while forcing ${label}.`);
-  if (predicate(questions[targetIndex]!)) return;
-  const seenStates = new Set(
-    questions
-      .filter((question, index) => question.qlId === qlId && index !== targetIndex)
-      .map(stateKey),
-  );
-  const replacement = findQuestionForFrame(qlId, frame, seenStates, predicate);
-  if (!replacement) throw new Error(`${qlId}: could not place ${label} in frame ${frame}.`);
-  questions[targetIndex] = replacement;
+  for (const requirement of requirements) {
+    if (!placeRequirementInQl(qlId, requirement, requirements)) {
+      throw new Error(`${qlId}: could not place ${requirement.label} in any editorial frame.`);
+    }
+  }
+  const indexes = qlIndexes(qlId);
+  for (const requirement of requirements) {
+    if (!indexes.some((index) => requirement.predicate(questions[index]!))) {
+      throw new Error(`${qlId}: lost required coverage for ${requirement.label}.`);
+    }
+  }
 }
 
-// Coverage is imposed only on the review sample. Production generation stays independent of wording frames.
-forceFrameCoverage("INT-QL-067", 4, (q) => q.mathematicalState.frequency === 12, "direct monthly compounding");
-forceFrameCoverage("INT-QL-075", 1, (q) => pairKey(q.mathematicalState.frequency, q.mathematicalState.comparisonFrequency) === "1-2", "annual-versus-half-yearly comparison");
-forceFrameCoverage("INT-QL-075", 2, (q) => pairKey(q.mathematicalState.frequency, q.mathematicalState.comparisonFrequency) === "2-4", "half-yearly-versus-quarterly comparison");
-forceFrameCoverage("INT-QL-076", 3, (q) => q.mathematicalState.frequency === 12, "monthly effective-rate example");
-forceFrameCoverage("INT-QL-078", 1, (q) => q.mathematicalState.frequency === 1, "annual frequency-recovery example");
-forceFrameCoverage("INT-QL-078", 2, (q) => q.mathematicalState.frequency === 2, "half-yearly frequency-recovery example");
-forceFrameCoverage("INT-QL-078", 3, (q) => q.mathematicalState.frequency === 4, "quarterly frequency-recovery example");
-forceFrameCoverage("INT-QL-079", 1, (q) => q.mathematicalState.tailMonths === 3, "3-month broken-period tail");
-forceFrameCoverage("INT-QL-079", 2, (q) => q.mathematicalState.tailMonths === 6, "6-month broken-period tail");
-forceFrameCoverage("INT-QL-079", 3, (q) => q.mathematicalState.tailMonths === 9, "9-month broken-period tail");
-forceFrameCoverage("INT-QL-084", 1, (q) => pairKey(q.mathematicalState.firstFrequency, q.mathematicalState.secondFrequency) === "1-2", "annual-to-half-yearly mixed-frequency example");
-forceFrameCoverage("INT-QL-084", 2, (q) => pairKey(q.mathematicalState.firstFrequency, q.mathematicalState.secondFrequency) === "1-4", "annual-to-quarterly mixed-frequency example");
+const monthlyDirect: CoverageRequirement = {
+  label: "direct monthly compounding",
+  predicate: (q) => q.mathematicalState.frequency === 12,
+};
+if (!placeRequirementInQl("INT-QL-067", monthlyDirect, [monthlyDirect])
+    && !placeRequirementInQl("INT-QL-068", monthlyDirect, [monthlyDirect])) {
+  throw new Error("Review selector could not place a direct monthly-compounding sample in QL-067 or QL-068.");
+}
+
+forceQlCoverage("INT-QL-075", [
+  { label: "annual-versus-half-yearly comparison", predicate: (q) => pairKey(q.mathematicalState.frequency, q.mathematicalState.comparisonFrequency) === "1-2" },
+  { label: "half-yearly-versus-quarterly comparison", predicate: (q) => pairKey(q.mathematicalState.frequency, q.mathematicalState.comparisonFrequency) === "2-4" },
+]);
+forceQlCoverage("INT-QL-076", [
+  { label: "monthly effective-rate example", predicate: (q) => q.mathematicalState.frequency === 12 },
+]);
+forceQlCoverage("INT-QL-078", [
+  { label: "annual frequency-recovery example", predicate: (q) => q.mathematicalState.frequency === 1 },
+  { label: "half-yearly frequency-recovery example", predicate: (q) => q.mathematicalState.frequency === 2 },
+  { label: "quarterly frequency-recovery example", predicate: (q) => q.mathematicalState.frequency === 4 },
+]);
+forceQlCoverage("INT-QL-079", [
+  { label: "3-month broken-period tail", predicate: (q) => q.mathematicalState.tailMonths === 3 },
+  { label: "6-month broken-period tail", predicate: (q) => q.mathematicalState.tailMonths === 6 },
+  { label: "9-month broken-period tail", predicate: (q) => q.mathematicalState.tailMonths === 9 },
+]);
+forceQlCoverage("INT-QL-084", [
+  { label: "annual-to-half-yearly mixed-frequency example", predicate: (q) => pairKey(q.mathematicalState.firstFrequency, q.mathematicalState.secondFrequency) === "1-2" },
+  { label: "annual-to-quarterly mixed-frequency example", predicate: (q) => pairKey(q.mathematicalState.firstFrequency, q.mathematicalState.secondFrequency) === "1-4" },
+]);
 
 const answerPositions = [0, 0, 0, 0];
 const qlCounts = new Map<string, number>();
