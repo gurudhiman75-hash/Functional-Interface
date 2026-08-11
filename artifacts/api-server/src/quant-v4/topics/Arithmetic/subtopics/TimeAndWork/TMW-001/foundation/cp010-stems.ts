@@ -10,7 +10,7 @@ function stageCapabilities(p:TmwCp010Parameters){return compactCapabilities(uniq
 function cycleCapabilities(p:TmwCp010Parameters){return compactCapabilities(uniquePipes((p.cycle??[]).map(segment=>segment.pipes)));}
 function compactPipeFact(pipe:TmwCp009Pipe):string{
   const verb=pipe.kind==='INLET'?'fills':'empties';
-  return `${pipe.label} ${verb} it alone in ${timeText(pipe.soloTime)}`;
+  return `${pipe.label} ${verb} in ${timeText(pipe.soloTime)}`;
 }
 function compactCapabilities(pipes:TmwCp009Pipe[]):string{return `Pipe times: ${pipes.map(compactPipeFact).join('; ')}.`;}
 function compactArrangement(pipes:TmwCp009Pipe[]):string{
