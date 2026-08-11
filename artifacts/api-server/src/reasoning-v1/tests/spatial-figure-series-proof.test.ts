@@ -51,6 +51,14 @@ for (const question of corpus) {
   for (const check of question.solverEvidence.transitionVisualChecks) {
     assert.equal(check.ok, true, `${question.prototypeId}: ${check.errors.join(" | ")}`);
   }
+  for (const letter of ["A", "B", "C", "D"]) {
+    assert.match(question.learnerExplanation.check, new RegExp(`\\b${letter}\\b`), question.prototypeId);
+  }
+  assert.doesNotMatch(
+    question.learnerExplanation.check,
+    /the other options represent/i,
+    question.prototypeId,
+  );
   assert.equal(question.lifecycle.permanentQlId, null);
   assert.equal(question.lifecycle.questionStudioDiscoverable, false);
   assert.equal(question.lifecycle.questionBankWritable, false);
@@ -102,6 +110,7 @@ console.log(
         optionSceneUniqueness: true,
         balancedNonRepeatingAnswerOrder: true,
         primitiveLibraryV2Consumption: true,
+        optionSpecificLearnerExplanation: true,
         responsiveEditorialReview: true,
         lifecycleIsolation: true,
       },
