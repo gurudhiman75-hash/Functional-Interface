@@ -52,6 +52,7 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-exam-readiness.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-cp001-cp006-source-regression.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-cp007-cp011-source-regression.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-stem-readiness.test.ts
       - name: Bundle R4 full-chapter proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -87,6 +88,17 @@ jobs:
           --outfile=dist/quant-v4/tmw-001-r4-cp007-cp011-source-regression.test.mjs
       - name: Run CP007-CP011 source regression
         run: node artifacts/api-server/dist/quant-v4/tmw-001-r4-cp007-cp011-source-regression.test.mjs
+      - name: Bundle CP010 stem-readiness proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-stem-readiness.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-r4-stem-readiness.test.mjs
+      - name: Run CP010 stem-readiness proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-r4-stem-readiness.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-r4-stem-readiness.log
       - name: Bundle multilingual parity regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -100,6 +112,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tmw-001-remediation-r4-exam-readiness
-          path: artifacts/api-server/dist/quant-v4/tmw-001-r4-exam-readiness.log
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-r4-exam-readiness.log
+            artifacts/api-server/dist/quant-v4/tmw-001-r4-stem-readiness.log
           if-no-files-found: warn
           retention-days: 14
