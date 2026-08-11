@@ -49,6 +49,12 @@ export * from "./series-proof-generator";
 export * from "./series-editorial-export";
 export * from "./proofs/spa-fnd-001-fsr-001-corpus";
 export * from "./synthesis-types-v1";
-export * from "./production-synthesis-v1";
+export {
+  SPATIAL_FSR_SYNTHESIS_RULE_IDS_V1,
+  synthesizeSpatialFanAttemptV1,
+  synthesizeSpatialFsrAttemptV1,
+} from "./production-synthesis-v1";
+export * from "./fcl-safe-quartet-catalog-v1";
+export * from "./production-synthesis-engine-v1";
 export * from "./synthesis-editorial-export-v1";
 export * from "./svg-renderer";
