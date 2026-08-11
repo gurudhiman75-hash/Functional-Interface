@@ -1,0 +1,52 @@
+name: Generate Probability ML-06 review Markdown
+
+on:
+  push:
+    branches:
+      - feat/prb-probability-ml06-review-md
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Probability/generate-native-review-md.ts"
+      - ".github/workflows/generate-prb-ml06-review-md.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-review-markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/prb-probability-ml06-review-md
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate all 432 native review surfaces
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-native-review-md.ts
+
+      - name: Verify four review files
+        run: |
+          test -f artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-001-HINDI-120Q-REVIEW.md
+          test -f artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-001-PUNJABI-120Q-REVIEW.md
+          test -f artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-002-HINDI-96Q-REVIEW.md
+          test -f artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-002-PUNJABI-96Q-REVIEW.md
+          grep -q "## 120\." artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-001-HINDI-120Q-REVIEW.md
+          grep -q "## 120\." artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-001-PUNJABI-120Q-REVIEW.md
+          grep -q "## 96\." artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-002-HINDI-96Q-REVIEW.md
+          grep -q "## 96\." artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-002-PUNJABI-96Q-REVIEW.md
+
+      - name: Commit generated review Markdown
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Probability/review/*.md
+          if git diff --cached --quiet; then
+            echo "Review Markdown already up to date."
+          else
+            git commit -m "docs(probability): generate 432 ML-06 native review surfaces"
+            git push origin HEAD:feat/prb-probability-ml06-review-md
+          fi
