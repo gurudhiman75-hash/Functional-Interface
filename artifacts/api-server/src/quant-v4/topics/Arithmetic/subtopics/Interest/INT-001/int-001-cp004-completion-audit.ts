@@ -30,12 +30,13 @@ function assertDeepFrozen(value: unknown, path: string, seen = new WeakSet<objec
 function pairKey(left: number, right: number): string { return [left, right].sort((a, b) => a - b).join("-"); }
 
 const FORBIDDEN_STEM = /\b(?:population|depreciation|simple versus compound|simple-interest difference|instalment|repayment|different annual rates|successive rates|banker'?s discount|true discount)\b/iu;
+const FORBIDDEN_UNNATURAL_STEM = /(?:illustrative compound-growth plan|\bextra months\b|\b\d+\s+complete\s+periods?\b|\b\d+\s+complete\s+years?\s+and\s+\d+\s+months?\b|\bfirst\s+1\s+year\b|\bnext\s+1\s+year\b)/iu;
 const FORBIDDEN_EXPLANATION = /\b(?:annual factor|growth factor|accumulated multiplier|geometric progression|inverse relation|canonical|verifier|mathematical state|rate substitution|period topology)\b/iu;
 const METHOD_HINT = /\b(?:use .*? to find|divide .*? to obtain|work backwards by|reconstruct|apply the formula)\b/iu;
 const HIGH_RATE_BANKING_CONTEXT = /\b(?:bank|banking|fixed deposit|savings account|loan|borrowed|lender)\b/iu;
 const INVERSE_QLS = new Set(["INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072", "INT-QL-077", "INT-QL-081", "INT-QL-082", "INT-QL-083"]);
 const EXACT_RATIO_QLS = new Set(["INT-QL-069", "INT-QL-070", "INT-QL-081"]);
-const REPRESENTATION_TABLES = new Set(["TERMS_TABLE", "BALANCE_RECORD", "SCHEME_COMPARISON"]);
+const REPRESENTATION_TABLES = new Set(["TERMS_TABLE"]);
 const EASY_DIRECT_QLS = new Set(["INT-QL-067", "INT-QL-068", "INT-QL-073", "INT-QL-074"]);
 
 let questionCount = 0;
@@ -53,6 +54,8 @@ let contextRateChecks = 0;
 let examArithmeticChecks = 0;
 let moneyAnswerQuestions = 0;
 let decimalMoneyAnswerQuestions = 0;
+let tableQuestionCount = 0;
+let proseQuestionCount = 0;
 const qlCounts = new Map<string, number>();
 const answerPositions = [0, 0, 0, 0];
 const frequencies = new Set<number>();
@@ -121,6 +124,7 @@ for (const qlId of INT_CP004_QL_IDS) {
     }
 
     if (FORBIDDEN_STEM.test(question.stem)) fail(`${qlId}/${seed}: stem drifted outside CP-004.`);
+    if (FORBIDDEN_UNNATURAL_STEM.test(question.stem)) fail(`${qlId}/${seed}: unnatural exam wording reached the stem.`);
     if (METHOD_HINT.test(question.stem)) fail(`${qlId}/${seed}: stem reveals the method.`);
     if (!question.stem.includes("?") && !/\bFind\b/u.test(question.stem)) fail(`${qlId}/${seed}: stem has no clear task prompt.`);
 
@@ -136,6 +140,8 @@ for (const qlId of INT_CP004_QL_IDS) {
     if (question.representation === "STANDARD_PROSE" && /\|\s*---/u.test(question.stem)) {
       fail(`${qlId}/${seed}: standard prose unexpectedly contains a table.`);
     }
+    if (question.representation === "TERMS_TABLE") tableQuestionCount += 1;
+    else proseQuestionCount += 1;
 
     contextRateChecks += 1;
     const rate = question.mathematicalState.nominalAnnualRatePercent;
@@ -188,7 +194,11 @@ if (INT_CP004_REGISTRY.length !== 19 || INT_CP004_QL_IDS.length !== 19) fail("CP
 if (questionCount !== 1900) fail(`Question count changed: ${questionCount}.`);
 if ([...qlCounts.values()].some((count) => count !== 100)) fail("One or more QLs did not receive 100 audit seeds.");
 if (frequencies.size !== 4) fail(`Frequency coverage changed: ${frequencies.size}/4.`);
-if (representations.size < 4) fail(`Representation coverage changed: ${representations.size}/4.`);
+if (representations.size !== 2 || !representations.has("STANDARD_PROSE") || !representations.has("TERMS_TABLE")) {
+  fail(`Student-facing representation contract changed: ${[...representations].sort().join(", ")}.`);
+}
+if (tableQuestionCount > Math.floor(questionCount * 0.30)) fail(`Too many table questions: ${tableQuestionCount}/${questionCount}.`);
+if (proseQuestionCount < Math.ceil(questionCount * 0.70)) fail(`Too few prose questions: ${proseQuestionCount}/${questionCount}.`);
 if (ql077Frequencies.size !== 2 || !ql077Frequencies.has(2) || !ql077Frequencies.has(4)) fail("INT-QL-077 must cover half-yearly and quarterly inverse effective-rate cases.");
 if (!ql075Pairs.has("1-2")) fail("INT-QL-075 audit corpus must include annual-versus-half-yearly comparison.");
 if (!ql076Frequencies.has(12)) fail("INT-QL-076 audit corpus must include monthly effective-rate questions.");
@@ -228,6 +238,8 @@ const summary = {
   moneyAnswerQuestions,
   decimalMoneyAnswerQuestions,
   decimalMoneyShare: Number((decimalMoneyAnswerQuestions / moneyAnswerQuestions).toFixed(4)),
+  tableQuestionCount,
+  proseQuestionCount,
   lifecycleChecks,
   frozenObjectChecks,
   answerPositions,
