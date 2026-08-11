@@ -38,6 +38,19 @@ function generateMixedExamReadyState(qlId: IntCp004QlId, seed: string): Cp004Mat
   throw new Error(`${qlId}/${seed}: could not construct an exact-paise mixed-frequency state.`);
 }
 
+function generateRestrictedFrequencyState(qlId: IntCp004QlId, seed: string): Cp004MathematicalState {
+  for (let attempt = 0; attempt < 512; attempt += 1) {
+    const effectiveSeed = attempt === 0 ? seed : `${seed}:frequency-restriction-v4:${attempt}`;
+    const state = generateExamReadyCp004State(qlId, effectiveSeed);
+    if (state.frequency === 12) continue;
+    if (qlId === "INT-QL-075" && state.comparisonFrequency === 12) continue;
+    return state;
+  }
+  throw new Error(`${qlId}/${seed}: could not construct an annual/half-yearly/quarterly comparison state.`);
+}
+
 export function generateCp004ExamReadyStateV4(qlId: IntCp004QlId, seed: string): Cp004MathematicalState {
-  return isMixedQl(qlId) ? generateMixedExamReadyState(qlId, seed) : generateExamReadyCp004State(qlId, seed);
+  if (isMixedQl(qlId)) return generateMixedExamReadyState(qlId, seed);
+  if (qlId === "INT-QL-075" || qlId === "INT-QL-078") return generateRestrictedFrequencyState(qlId, seed);
+  return generateExamReadyCp004State(qlId, seed);
 }
