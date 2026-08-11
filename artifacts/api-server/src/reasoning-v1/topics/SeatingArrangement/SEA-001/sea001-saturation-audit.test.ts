@@ -134,7 +134,7 @@ for (const blueprintId of SEA_001_BLUEPRINTS) {
     const caselet = generateSeaCp001Caselet({ blueprintId, seed: `SEA-001-SAT-CP001-${blueprintId}-${index}` });
     const seatCount = Number(caselet.setupText.match(/^(\d+) persons/)?.[1]);
     const facing = caselet.solverOracleAgreement.productionKeys[0]?.split("|")[0] ?? "UNKNOWN";
-    const traceKinds = caselet.proofTrace.map((event) => event.kind).sort().join("+");
+    const traceKinds = caselet.proofTrace.map((event) => event.inferenceKind).sort().join("+");
     recordCaselet({
       checkpointId: caselet.checkpointId,
       blueprintId,
