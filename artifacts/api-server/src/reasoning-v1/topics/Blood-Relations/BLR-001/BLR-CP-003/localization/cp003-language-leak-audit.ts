@@ -10,7 +10,7 @@ function normalizeNames(text: string, source: (typeof canonical)[number]): strin
     .map((node) => node.label)
     .filter(Boolean)
     .sort((left, right) => right.length - left.length);
-  for (const label of labels) value = value.split(label).join("{PERSON}");
+  for (const label of labels) value = value.split(label).join("◊");
   return value.replace(/\s+/g, " ").trim();
 }
 
@@ -24,7 +24,7 @@ function splitSentences(text: string): string[] {
 
 for (const locale of ["hi-IN", "pa-IN"] as const) {
   const leakingRecords: string[] = [];
-  const forms = new Map<string, { count: number; localized: string }>();
+  const forms = new Map<string, { count: number; localized: string; words: readonly string[] }>();
   let placeholderLeakCount = 0;
 
   for (const source of canonical) {
@@ -38,7 +38,8 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
     for (let index = 0; index < localizedSentences.length; index += 1) {
       const localizedSentence = localizedSentences[index]!;
       const normalizedLocalized = normalizeNames(localizedSentence, source);
-      if ((normalizedLocalized.match(asciiWord) ?? []).length === 0) continue;
+      const words = normalizedLocalized.match(asciiWord) ?? [];
+      if (words.length === 0) continue;
       recordLeaks = true;
       const canonicalSentence = canonicalSentences[index] ?? source.sharedPrompt;
       const canonicalForm = normalizeNames(canonicalSentence, source);
@@ -46,17 +47,20 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
       forms.set(canonicalForm, {
         count: (existing?.count ?? 0) + 1,
         localized: normalizedLocalized,
+        words: [...new Set(words.map((word) => word.toLowerCase()))].sort(),
       });
     }
 
     const normalizedStem = normalizeNames(localized.stem, source);
-    if ((normalizedStem.match(asciiWord) ?? []).length > 0) {
+    const stemWords = normalizedStem.match(asciiWord) ?? [];
+    if (stemWords.length > 0) {
       recordLeaks = true;
       const canonicalForm = `STEM: ${normalizeNames(source.stem, source)}`;
       const existing = forms.get(canonicalForm);
       forms.set(canonicalForm, {
         count: (existing?.count ?? 0) + 1,
         localized: normalizedStem,
+        words: [...new Set(stemWords.map((word) => word.toLowerCase()))].sort(),
       });
     }
 
@@ -69,7 +73,7 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
     placeholderLeakCount,
     uniqueLeakFormCount: forms.size,
     leakForms: [...forms.entries()]
-      .map(([canonical, value]) => ({ canonical, count: value.count, localized: value.localized }))
+      .map(([canonical, value]) => ({ canonical, count: value.count, localized: value.localized, words: value.words }))
       .sort((left, right) => right.count - left.count || left.canonical.localeCompare(right.canonical)),
   }, null, 2));
 }
