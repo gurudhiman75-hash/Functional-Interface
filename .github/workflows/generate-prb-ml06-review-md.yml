@@ -39,6 +39,14 @@ jobs:
           grep -q "## 96\." artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-002-HINDI-96Q-REVIEW.md
           grep -q "## 96\." artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-002-PUNJABI-96Q-REVIEW.md
 
+      - name: Upload review Markdown bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: probability-ml06-native-review-md
+          path: artifacts/api-server/src/quant-v4/topics/Probability/review/*.md
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Commit generated review Markdown
         run: |
           git config user.name "github-actions[bot]"
