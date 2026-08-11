@@ -199,10 +199,15 @@ function buildGroup(
   const output: SelectedCandidate[] = [];
 
   for (let sourceOrdinal = 0; sourceOrdinal < 20_000 && output.length < group.count; sourceOrdinal += 1) {
-    const question = generateRnkCp005EditorialV3ReleaseQuestion(
-      group.sourceForm,
-      sourceOrdinal,
-    );
+    let question: RnkCp005EditorialV3Question;
+    try {
+      question = generateRnkCp005EditorialV3ReleaseQuestion(
+        group.sourceForm,
+        sourceOrdinal,
+      );
+    } catch {
+      continue;
+    }
     if (!group.matches(question)) continue;
     if (answerCounts[question.correctIndex]! >= answerTargets[question.correctIndex]!) continue;
 
