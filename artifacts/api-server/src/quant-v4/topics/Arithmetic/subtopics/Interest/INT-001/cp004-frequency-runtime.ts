@@ -18,11 +18,8 @@ import { generateCp004ExamReadyStateV4 } from "./cp004-frequency-state-policy-v4
 import { ensureCp004InverseExplanationDepthV4 } from "./cp004-frequency-explanation-depth-v4";
 import { assertCp004VisibleGivensExamReadyV4 } from "./cp004-frequency-visible-givens-v4";
 import { polishCp004TargetWordingV4 } from "./cp004-frequency-wording-v4";
-import {
-  assertCp004HumanPolishV4,
-  polishCp004ExplanationHumanV4,
-  polishCp004PresentationHumanV4,
-} from "./cp004-frequency-human-polish-v4";
+import { assertCp004HumanPolishV4, polishCp004ExplanationHumanV4, polishCp004PresentationHumanV4 } from "./cp004-frequency-human-polish-v4";
+import { polishCp004OptionsHumanV4 } from "./cp004-frequency-option-polish-v4";
 
 export * from "./cp004-frequency-math";
 export { generateCp004State } from "./cp004-frequency-generation";
@@ -49,7 +46,8 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
   const v3Presentation = hardenCp004PresentationV3(cleanedPresentation);
   const presentation = polishCp004PresentationHumanV4(mathematicalState, v3Presentation);
   assertCp004VisibleGivensExamReadyV4(mathematicalState, presentation.stem);
-  const options = hardenCp004OptionsV3(mathematicalState, optionsFor(mathematicalState, seed));
+  const v3Options = hardenCp004OptionsV3(mathematicalState, optionsFor(mathematicalState, seed));
+  const options = polishCp004OptionsHumanV4(mathematicalState, v3Options);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${qlId}/${seed}: option ownership failed.`);
   const correctAnswer = options[correctIndex]!.text;
