@@ -192,9 +192,13 @@ if (representations.size < 4) fail(`Representation coverage changed: ${represent
 if (ql077Frequencies.size !== 2 || !ql077Frequencies.has(2) || !ql077Frequencies.has(4)) fail("INT-QL-077 must cover half-yearly and quarterly inverse effective-rate cases.");
 if (!ql075Pairs.has("1-2")) fail("INT-QL-075 audit corpus must include annual-versus-half-yearly comparison.");
 if (!ql076Frequencies.has(12)) fail("INT-QL-076 audit corpus must include monthly effective-rate questions.");
-if (ql078Frequencies.size !== 4) fail("INT-QL-078 must identify all four supported compounding frequencies across the audit corpus.");
+if (ql078Frequencies.size !== 3 || !ql078Frequencies.has(1) || !ql078Frequencies.has(2) || !ql078Frequencies.has(4) || ql078Frequencies.has(12)) {
+  fail("INT-QL-078 frequency recovery must stay within annual, half-yearly and quarterly schedules.");
+}
 if (brokenTailMonths.size !== 3) fail("Broken-period QLs must cover 3, 6 and 9 month tails across the corpus.");
-if (mixedFrequencies.size !== 4 || !mixedFrequencies.has(12)) fail("Mixed-frequency QLs must include annual, half-yearly, quarterly and monthly intervals across the corpus.");
+if (mixedFrequencies.size !== 3 || !mixedFrequencies.has(1) || !mixedFrequencies.has(2) || !mixedFrequencies.has(4) || mixedFrequencies.has(12)) {
+  fail("Mixed-frequency QLs must stay within annual, half-yearly and quarterly intervals.");
+}
 if (moneyAnswerQuestions !== 1200) fail(`Money-answer audit count changed: ${moneyAnswerQuestions}.`);
 if (decimalMoneyAnswerQuestions / moneyAnswerQuestions > 0.30) fail(`Decimal-money share is too high: ${decimalMoneyAnswerQuestions}/${moneyAnswerQuestions}.`);
 for (const expected of ["Easy", "Medium", "Hard"]) if (!difficulties.has(expected)) fail(`Difficulty ${expected} is missing.`);
