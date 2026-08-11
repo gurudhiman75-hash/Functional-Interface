@@ -1,0 +1,70 @@
+{
+  "familyId": "TRIGONOMETRY",
+  "status": "PHASE_0_DESIGN_LOCK",
+  "active": false,
+  "publishableLanguages": ["en"],
+  "registeredInQuestionStudio": false,
+  "registeredInTestBuilder": false,
+  "packages": [
+    {
+      "packageId": "TRG-001",
+      "title": "Trigonometric Ratios, Exact Values & Identities",
+      "active": false,
+      "productionQlTarget": 144,
+      "qlIdStart": "TRG-001-QL-001",
+      "qlIdEnd": "TRG-001-QL-144",
+      "canonicalProblems": [
+        {"cpId": "TRG-CP-001", "title": "Right-Triangle Ratios, Reciprocals & Side Recovery", "qlCount": 24, "qlStart": "TRG-001-QL-001", "qlEnd": "TRG-001-QL-024"},
+        {"cpId": "TRG-CP-002", "title": "Standard Angles & Exact Evaluation", "qlCount": 24, "qlStart": "TRG-001-QL-025", "qlEnd": "TRG-001-QL-048"},
+        {"cpId": "TRG-CP-003", "title": "Angle Measures, Complementary Relations & Reduction", "qlCount": 24, "qlStart": "TRG-001-QL-049", "qlEnd": "TRG-001-QL-072"},
+        {"cpId": "TRG-CP-004", "title": "Fundamental Identities & Expression Simplification", "qlCount": 24, "qlStart": "TRG-001-QL-073", "qlEnd": "TRG-001-QL-096"},
+        {"cpId": "TRG-CP-005", "title": "Derived Ratios, Algebraic Relations & Controlled Equations", "qlCount": 24, "qlStart": "TRG-001-QL-097", "qlEnd": "TRG-001-QL-120"},
+        {"cpId": "TRG-CP-006", "title": "Mixed Exam Expressions & Controlled Applications", "qlCount": 24, "qlStart": "TRG-001-QL-121", "qlEnd": "TRG-001-QL-144"}
+      ]
+    },
+    {
+      "packageId": "TRG-002",
+      "title": "Heights & Distances Applications",
+      "active": false,
+      "productionQlTarget": 96,
+      "qlIdStart": "TRG-002-QL-001",
+      "qlIdEnd": "TRG-002-QL-096",
+      "canonicalProblems": [
+        {"cpId": "TRG-CP-007", "title": "Single-Observation Elevation & Depression", "qlCount": 24, "qlStart": "TRG-002-QL-001", "qlEnd": "TRG-002-QL-024"},
+        {"cpId": "TRG-CP-008", "title": "Shadows, Ladders, Poles & Broken Objects", "qlCount": 24, "qlStart": "TRG-002-QL-025", "qlEnd": "TRG-002-QL-048"},
+        {"cpId": "TRG-CP-009", "title": "Two-Observation & Moving-Point Systems", "qlCount": 24, "qlStart": "TRG-002-QL-049", "qlEnd": "TRG-002-QL-072"},
+        {"cpId": "TRG-CP-010", "title": "Observer Height, Opposite-Side & Composite Sight-Line Systems", "qlCount": 24, "qlStart": "TRG-002-QL-073", "qlEnd": "TRG-002-QL-096"}
+      ]
+    }
+  ],
+  "totals": {
+    "packageCount": 2,
+    "canonicalProblemCount": 10,
+    "englishQlTarget": 240,
+    "primaryHumanReviewTarget": 240
+  },
+  "exactAnswerKinds": ["INTEGER", "RATIONAL", "SURD", "RATIONAL_SURD", "PI_RATIONAL", "UNDEFINED_INTENTIONAL"],
+  "angleMeasures": ["DEGREE", "RADIAN_PI"],
+  "standardAnglesDegrees": [0, 30, 45, 60, 90],
+  "defaultHeightsDistancesAnglesDegrees": [30, 45, 60],
+  "diagramPolicy": {
+    "TRG-001": "OPTIONAL_BY_QL",
+    "TRG-002": "REQUIRED_FOR_SUBSTANTIVE_APPLICATION_QLS"
+  },
+  "independentVerificationRequired": true,
+  "activationGate": "EXPLICIT_PRODUCT_OWNER_APPROVAL_AFTER_ENGINEERING_MATH_DIAGRAM_EDITORIAL_GATES",
+  "initialExclusions": [
+    "inverse_trigonometric_functions",
+    "general_trigonometric_equation_solutions",
+    "trigonometric_graphs_as_major_family",
+    "euler_formula_and_complex_trigonometry",
+    "hyperbolic_functions",
+    "calculus_applications",
+    "proof_heavy_advanced_identities",
+    "trigonometric_inequalities",
+    "sine_rule_cosine_rule_as_major_families",
+    "three_dimensional_trigonometry",
+    "spherical_trigonometry",
+    "navigation_and_bearings_systems"
+  ]
+}
