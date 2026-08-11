@@ -37,6 +37,9 @@ type CoverageGap = {
 };
 
 const coverageGaps = new Map<string, CoverageGap>();
+let totalLeakingRecords = 0;
+let totalPlaceholderLeaks = 0;
+let totalLeakForms = 0;
 
 for (const locale of ["hi-IN", "pa-IN"] as const) {
   const leakingRecords: string[] = [];
@@ -107,6 +110,10 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
     .map(([canonical, value]) => ({ canonical, count: value.count, localized: value.localized, words: value.words }))
     .sort((left, right) => right.count - left.count || left.canonical.localeCompare(right.canonical));
 
+  totalLeakingRecords += leakingRecords.length;
+  totalPlaceholderLeaks += placeholderLeakCount;
+  totalLeakForms += forms.size;
+
   console.log(JSON.stringify({
     locale,
     leakingRecordCount: leakingRecords.length,
@@ -117,8 +124,11 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
 
   for (const [index, form] of orderedForms.slice(0, 5).entries()) {
     console.error(
-      `::warning title=${annotationSafe(`CP003 ${locale} residual form ${index + 1}/${Math.min(orderedForms.length, 5)}`)}::${annotationSafe(`count=${form.count} | words=${form.words.join(",")} | canonical=${form.canonical} | localized=${form.localized}`)}`,
+      `::error title=${annotationSafe(`CP003 ${locale} residual form ${index + 1}/${Math.min(orderedForms.length, 5)}`)}::${annotationSafe(`count=${form.count} | words=${form.words.join(",")} | canonical=${form.canonical} | localized=${form.localized}`)}`,
     );
+  }
+  if (placeholderLeakCount > 0) {
+    console.error(`::error title=${annotationSafe(`CP003 ${locale} placeholder leakage`)}::${placeholderLeakCount} localized records contain unresolved placeholder markers.`);
   }
 }
 
@@ -136,5 +146,19 @@ if (orderedCoverageGaps.length > 0) {
       `::error title=${annotationSafe(`CP003 ${gap.locale} template gap ${index + 1}/${Math.min(orderedCoverageGaps.length, 40)}`)}::${annotationSafe(`count=${gap.count} | form=${gap.canonicalForm} | example=${gap.exampleSentence} | item=${gap.exampleItemId}`)}`,
     );
   }
-  assert.fail(`${orderedCoverageGaps.length} unique CP-003 localization template gaps remain.`);
 }
+
+assert.equal(orderedCoverageGaps.length, 0, `${orderedCoverageGaps.length} unique CP-003 localization template gaps remain.`);
+assert.equal(totalLeakingRecords, 0, `${totalLeakingRecords} CP-003 localized records contain residual English.`);
+assert.equal(totalLeakForms, 0, `${totalLeakForms} unique CP-003 residual-English forms remain.`);
+assert.equal(totalPlaceholderLeaks, 0, `${totalPlaceholderLeaks} CP-003 localized records contain unresolved placeholders.`);
+
+console.log(JSON.stringify({
+  verdict: "BLR_CP003_HI_PA_LANGUAGE_LEAK_AUDIT_PROVED",
+  canonicalCount: canonical.length,
+  localizedRecordsAudited: canonical.length * 2,
+  coverageGapCount: 0,
+  leakingRecordCount: 0,
+  placeholderLeakCount: 0,
+  uniqueLeakFormCount: 0,
+}, null, 2));
