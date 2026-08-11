@@ -25,9 +25,9 @@ const desiredComparisonPairs: Readonly<Record<number, string>> = Object.freeze({
 const desiredEffectiveFrequencies: Readonly<Record<number, number>> = Object.freeze({ 1: 2, 2: 4, 3: 12, 4: 2 });
 const desiredIdentificationFrequencies: Readonly<Record<number, number>> = Object.freeze({ 1: 1, 2: 2, 3: 4, 4: 1 });
 const desiredTailMonths: Readonly<Record<number, number>> = Object.freeze({ 1: 3, 2: 6, 3: 9, 4: 6 });
+const DIRECT_COMPLETE_QLS = new Set(["INT-QL-067", "INT-QL-068", "INT-QL-073", "INT-QL-074"]);
 
 function matchesReviewCoverage(question: IntCp004Question, frame: number): boolean {
-  if (question.qlId === "INT-QL-067" && frame === 4) return question.mathematicalState.frequency === 12;
   if (question.qlId === "INT-QL-075") {
     return pairKey(question.mathematicalState.frequency, question.mathematicalState.comparisonFrequency) === desiredComparisonPairs[frame];
   }
@@ -95,7 +95,7 @@ for (const question of questions) {
     moneyQuestions += 1;
     if (question.solution.denominator !== 1n) decimalMoneyQuestions += 1;
   }
-  if (question.qlId === "INT-QL-067" && question.mathematicalState.frequency === 12) monthlyDirectCoverage = true;
+  if (DIRECT_COMPLETE_QLS.has(question.qlId) && question.mathematicalState.frequency === 12) monthlyDirectCoverage = true;
   if (question.qlId === "INT-QL-075") ql075Pairs.add(pairKey(question.mathematicalState.frequency, question.mathematicalState.comparisonFrequency));
   if (question.qlId === "INT-QL-076") ql076Frequencies.add(question.mathematicalState.frequency);
   if (question.qlId === "INT-QL-078") ql078Frequencies.add(question.mathematicalState.frequency);
