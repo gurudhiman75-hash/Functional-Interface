@@ -42,7 +42,7 @@ jobs:
       - name: Bundle full-review authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/full-review-authority-v2.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/full-review-authority-v3.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp006-full-review-authority.test.mjs
 
