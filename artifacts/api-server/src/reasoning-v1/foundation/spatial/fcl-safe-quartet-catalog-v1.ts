@@ -7,6 +7,7 @@ import {
   type SpatialPrimitiveClassificationPropertyIdV2,
 } from "./primitive-classification-v2";
 import { SPATIAL_FCL_PRIMITIVE_POOL_V2 } from "./primitive-chapter-pools-v2";
+import { getSpatialPrimitiveConnectivityV2 } from "./primitive-connectivity-v2";
 import { getSpatialPrimitiveV2 } from "./primitive-library-v2";
 import type { SpatialPrimitiveIdV2 } from "./primitive-types";
 
@@ -92,6 +93,12 @@ function productionDomainEligible(
       // A divided polygon still has an unambiguous outer side count. Every option
       // must expose a polygon side-count authority, eliminating polygon-vs-line shortcuts.
       return entry.polygonSideCount !== null;
+    case "HAS_TRUE_CROSSING":
+      // A true crossing is necessarily also a multi-line junction. Require all
+      // four options to contain a junction so the learner must distinguish
+      // "branches meet" from "lines continue through the meeting point" rather
+      // than solving the item through junction presence alone.
+      return getSpatialPrimitiveConnectivityV2(primitiveId).junctionCount > 0;
     case "POLYGON":
       // A divided square still looks like a polygon to a learner. Restrict this
       // family to simple closed figures so only the outer-boundary question is asked.
