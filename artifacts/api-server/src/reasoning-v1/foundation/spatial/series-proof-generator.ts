@@ -2,6 +2,7 @@ import { spatialSceneSemanticFingerprint } from "./normalize";
 import {
   SPATIAL_SERIES_RULE_IDS,
   applySpatialSeriesRule,
+  spatialSeriesRuleCompatibleWithPresentation,
   spatialSeriesRuleDescription,
 } from "./series-rule-authority";
 import { buildSpatialSeriesFrameScene } from "./series-scene";
@@ -33,6 +34,9 @@ function inferRules(
   definition: SpatialSeriesProofDefinition,
 ): SpatialSeriesRuleId[] {
   return SPATIAL_SERIES_RULE_IDS.filter((ruleId) => {
+    if (!spatialSeriesRuleCompatibleWithPresentation(ruleId, definition.presentationProfile)) {
+      return false;
+    }
     for (let index = 0; index < states.length - 1; index += 1) {
       const predicted = applySpatialSeriesRule(states[index]!, ruleId);
       if (!predicted) return false;
