@@ -31,7 +31,7 @@ jobs:
       - name: Bundle CP009 authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-009/authority.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-009/authority-v3.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp009-authority.test.mjs
       - name: Run CP009 authority
