@@ -22,6 +22,8 @@ for (const qlId of qls) {
         options: question.options,
         correctIndex: question.correctIndex,
         answer: question.solution?.answerText,
+        parameters: question.parameters,
+        solution: question.solution,
         learnerExplanation: question.learnerExplanation,
         validation: question.validation,
         publiclyPublishable: question.publiclyPublishable,
