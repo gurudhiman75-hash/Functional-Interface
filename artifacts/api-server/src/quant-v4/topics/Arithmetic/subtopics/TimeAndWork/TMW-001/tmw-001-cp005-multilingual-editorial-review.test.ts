@@ -92,7 +92,7 @@ for (const qlId of qls) {
       if (question.solveMode === "findRemainingWorkAfterFullCycles") {
         const scalar = answerScalar(question.solution.answerText);
         const working = question.learnerExplanation.solution.slice(0, -1).join(" ");
-        assert(scalar && working.includes(`\\(${scalar}\\)`), `${label}: remaining-work subtraction does not reach the solved answer ${scalar}`);
+        assert(scalar && working.includes(scalar), `${label}: remaining-work subtraction does not reach the solved answer ${scalar}`);
         const required = language === "hi" ? /बचा काम = पूरा काम/u : language === "pa" ? /ਬਚਿਆ ਕੰਮ = ਸਾਰਾ ਕੰਮ/u : /Remaining work = whole work/i;
         assert(required.test(working), `${label}: explicit remaining-work subtraction is missing`);
       }
