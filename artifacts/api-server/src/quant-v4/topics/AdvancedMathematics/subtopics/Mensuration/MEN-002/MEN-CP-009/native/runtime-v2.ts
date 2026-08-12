@@ -10,6 +10,7 @@ import {
 } from "./editorial-v2";
 import { cleanMenCp009NativeTeachingLineV2 } from "./teaching-cleanup-v2";
 import { applyMenCp009NativeWordGuardV2 } from "./native-word-guard-v2";
+import { naturalizeMenCp009NativeTeachingV3 } from "./post-teaching-naturalizer-v3";
 import {
   MEN_CP_009_MULTILINGUAL_TEACHING_V2_AUTHORITY,
   type MenCp009NativeTeachingV2View,
@@ -52,8 +53,11 @@ export function generateMenCp009NativeTeachingV2(
     english.explanationLines,
     language,
   ).map((line) =>
-    applyMenCp009NativeWordGuardV2(
-      cleanMenCp009NativeTeachingLineV2(line, language),
+    naturalizeMenCp009NativeTeachingV3(
+      applyMenCp009NativeWordGuardV2(
+        cleanMenCp009NativeTeachingLineV2(line, language),
+        language,
+      ),
       language,
     ),
   );
