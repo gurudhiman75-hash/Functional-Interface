@@ -1,0 +1,28 @@
+{
+  "packageId": "TRG-001",
+  "status": "DIVERSITY_REMEDIATION_IMPLEMENTED_REVIEW_PENDING",
+  "activeRuntime": "production-diversity-remediated-runtime.ts",
+  "gate": "production-diversity-remediated.test.ts",
+  "permanentQlCount": 144,
+  "directAuditRemediationCount": 9,
+  "orientationSensitiveQlCount": 30,
+  "orientationStates": ["TAN_LT_ONE", "TAN_GT_ONE"],
+  "canonicalSeedTarget": 24,
+  "canonicalCaseTarget": 3456,
+  "sweepSeedTarget": 50,
+  "sweepCaseTarget": 7200,
+  "generativeDiversityTarget": "AT_LEAST_132_OF_144",
+  "intentionalSingleFormExceptionBudget": 12,
+  "executionEvidence": "PENDING",
+  "freshAiEditorialReview": "PENDING",
+  "humanReview": "0/144_PENDING",
+  "freezeEligible": false,
+  "unresolvedAuditGates": [],
+  "activation": {
+    "questionStudio": false,
+    "testBuilder": false,
+    "questionBankStorage": false,
+    "publicPublication": false,
+    "localizationRuntime": false
+  }
+}
