@@ -7,6 +7,8 @@ function assert(condition: unknown, message: string): asserts condition {
 function answerScalar(answer: string): string | null {
   const math = /\\\(([\s\S]*?)\\\)/.exec(answer)?.[1]?.trim();
   if (math) return math;
+  const fraction = /(-?\d+)\s*\/\s*(\d+)/.exec(answer);
+  if (fraction) return `\\frac{${fraction[1]}}{${fraction[2]}}`;
   return /(-?\d+(?:\.\d+)?)/.exec(answer)?.[1] ?? null;
 }
 
