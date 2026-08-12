@@ -4,14 +4,14 @@ import {
   generateSapCp007,
   type SapCp007Package,
   type SapCp007PrototypeId,
-} from "./runtime-v4";
+} from "./editorial-runtime";
 import {
   SAP_CP007_WAVE2_CATALOGUE,
   SAP_CP007_WAVE2_PROTOTYPE_IDS,
   generateSapCp007Wave2,
   type SapCp007Wave2Package,
   type SapCp007Wave2PrototypeId,
-} from "./runtime-wave2-v5";
+} from "./wave2-editorial";
 
 export type SapCp007FullReviewPrototypeId = SapCp007PrototypeId | SapCp007Wave2PrototypeId;
 export type SapCp007FullReviewBasePackage = SapCp007Package | SapCp007Wave2Package;
@@ -104,6 +104,9 @@ function passesVarietyTarget(
   }
   if (prototypeId === "SAP-CP007-PROT-NEGATIVE-HALFWAY-EXPLICIT-RULE") {
     return d.targetDp === accepted % 2;
+  }
+  if (prototypeId === "SAP-CP007-PROT-CORRECT-PRECISION-REPRESENTATION") {
+    return d.carryCase === accepted % 2;
   }
   if (prototypeId === "SAP-CP007-PROT-MISSING-DIGIT-FOR-ROUNDING") {
     return d.roundUp === accepted % 2;
