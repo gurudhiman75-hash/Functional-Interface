@@ -1,4 +1,4 @@
-import { absRational, divide, multiply, rational, subtract, type Rational } from "../../foundation/rational";
+import { absRational, divide, multiply, rational, subtract } from "../../foundation/rational";
 import { formatExamNumber } from "../generation-support";
 import {
   generateCp003AllNativeEditorialReview,
@@ -10,6 +10,7 @@ import {
   formatNativeSolvedValue,
   type TsdCp003NativeLanguage,
 } from "./native-language-primitives";
+import { enhanceCp003NativePedagogy } from "./native-pedagogy";
 
 export const TSD_CP003_NATIVE_REVIEW_CANDIDATE_STATUS = "READY_FOR_PRODUCT_OWNER_NATIVE_REVIEW" as const;
 
@@ -21,29 +22,6 @@ export type TsdCp003ReviewedNativeCandidate = TsdCp003NativeEditorialReview & Re
     multilingualFreezeAuthorized: false;
   }>;
 }>;
-
-function exactNativeDuration(value: Rational, language: TsdCp003NativeLanguage): string {
-  const seconds = multiply(value, rational(3600));
-  if (seconds.denominator !== 1n) return formatNativeDuration(value, language);
-
-  const totalSeconds = Number(seconds.numerator);
-  const sign = totalSeconds < 0 ? "-" : "";
-  const absolute = Math.abs(totalSeconds);
-  const hours = Math.floor(absolute / 3600);
-  const minutes = Math.floor((absolute % 3600) / 60);
-  const remainingSeconds = absolute % 60;
-  const parts: string[] = [];
-  if (hours > 0) {
-    const unit = language === "hi"
-      ? (hours === 1 ? "घंटा" : "घंटे")
-      : (hours === 1 ? "ਘੰਟਾ" : "ਘੰਟੇ");
-    parts.push(`${hours} ${unit}`);
-  }
-  if (minutes > 0) parts.push(`${minutes} ${language === "hi" ? "मिनट" : "ਮਿੰਟ"}`);
-  if (remainingSeconds > 0) parts.push(`${remainingSeconds} ${language === "hi" ? "सेकंड" : "ਸਕਿੰਟ"}`);
-  if (parts.length === 0) parts.push(`0 ${language === "hi" ? "मिनट" : "ਮਿੰਟ"}`);
-  return `${sign}${parts.join(" ")}`;
-}
 
 function closeKnownSelfReviewBlockers(entry: TsdCp003NativeEditorialReview): TsdCp003ReviewedNativeCandidate {
   const { source, presentation } = entry;
@@ -75,8 +53,8 @@ function closeKnownSelfReviewBlockers(entry: TsdCp003NativeEditorialReview): Tsd
         ? "पहले भाग में लगा समय निकालें। फिर निर्धारित कुल समय और कुल दूरी में से इस्तेमाल हुआ समय और तय दूरी घटाएँ।"
         : "ਪਹਿਲੇ ਭਾਗ ਵਿੱਚ ਲੱਗਿਆ ਸਮਾਂ ਕੱਢੋ। ਫਿਰ ਨਿਰਧਾਰਤ ਕੁੱਲ ਸਮੇਂ ਅਤੇ ਕੁੱਲ ਦੂਰੀ ਵਿੱਚੋਂ ਲੱਗਿਆ ਸਮਾਂ ਅਤੇ ਤੈਅ ਦੂਰੀ ਘਟਾਓ।",
       steps: Object.freeze([
-        `${language === "hi" ? "गणना" : "ਗਣਨਾ"}: ${formatExamNumber(input.completedDistance)} ÷ ${formatExamNumber(input.completedSpeed)} = ${exactNativeDuration(completedTime, language)}।`,
-        `${language === "hi" ? "गणना" : "ਗਣਨਾ"}: ${language === "hi" ? "शेष समय" : "ਬਾਕੀ ਸਮਾਂ"} = ${exactNativeDuration(remainingTime, language)}, ${language === "hi" ? "शेष दूरी" : "ਬਾਕੀ ਦੂਰੀ"} = ${formatExamNumber(remainingDistance)} km।`,
+        `${language === "hi" ? "गणना" : "ਗਣਨਾ"}: ${formatExamNumber(input.completedDistance)} ÷ ${formatExamNumber(input.completedSpeed)} = ${formatNativeDuration(completedTime, language)}।`,
+        `${language === "hi" ? "गणना" : "ਗਣਨਾ"}: ${language === "hi" ? "शेष समय" : "ਬਾਕੀ ਸਮਾਂ"} = ${formatNativeDuration(remainingTime, language)}, ${language === "hi" ? "शेष दूरी" : "ਬਾਕੀ ਦੂਰੀ"} = ${formatExamNumber(remainingDistance)} km।`,
         `${language === "hi" ? "अतः" : "ਇਸ ਲਈ"} ${language === "hi" ? "आवश्यक गति" : "ਲੋੜੀਂਦੀ ਰਫ਼ਤਾਰ"} = ${formatExamNumber(remainingDistance)} × 60 ÷ ${formatExamNumber(remainingMinutes)} = ${final}।`,
       ]),
       answer: `${language === "hi" ? "उत्तर" : "ਉੱਤਰ"}: ${final}`,
@@ -104,6 +82,8 @@ function closeKnownSelfReviewBlockers(entry: TsdCp003NativeEditorialReview): Tsd
       answer: `${language === "hi" ? "उत्तर" : "ਉੱਤਰ"}: ${final}`,
     });
   }
+
+  explanation = enhanceCp003NativePedagogy(source, language, explanation);
 
   return Object.freeze({
     source,
