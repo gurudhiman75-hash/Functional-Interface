@@ -1,6 +1,13 @@
-import type { QuantLanguage } from "../contracts";
-import { PRB_001 } from "./PRB-001";
-import { PRB_002 } from "./PRB-002";
+import {
+  listPrb001QuestionEntries,
+  runPrb001Pipeline,
+  type Prb001CanonicalProblemId,
+} from "./PRB-001";
+import {
+  listPrb002QuestionEntries,
+  runPrb002Pipeline,
+  type Prb002CanonicalProblemId,
+} from "./PRB-002";
 import type { Prb001NativeEditorialEntry } from "./PRB-001/native-editorial";
 import {
   getPrb001NativeEditorialEntry,
@@ -23,7 +30,9 @@ import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge
 import { polishNativeVisual } from "./shared/native-final-explanation-renderer";
 import { renderNativeSourceExplanationLines } from "./shared/native-source-explanation-mirror";
 import type {
-  ProbabilityPackage,
+  ProbabilityCanonicalProblemId,
+  ProbabilityGenerationInput,
+  ProbabilityPackageId,
   ProbabilityQuestion,
   ProbabilityVisual,
   ValidationCheck,
@@ -66,17 +75,15 @@ export interface ProbabilityMultilingualPreview {
     targetLanguage: ProbabilityNativeLanguage;
     sourceSeed: string;
     sourceQuestionLanguageId: string;
-    sourceParameterFingerprint: string;
-    sourceMathematicalFingerprint: string;
+    parameterFingerprint: string;
+    mathematicalFingerprint: string;
     optionPolicy: "PRESERVE_ENGLISH_OPTIONS_AND_CORRECT_INDEX";
     answerKeyAuthority: "ENGLISH_RUNTIME";
     solverAuthority: "ENGLISH_RUNTIME";
     mockPolicyAuthority: "ENGLISH_RUNTIME";
-    optionsPreserved: true;
-    correctIndexPreserved: true;
+    exactOptionsPreserved: true;
     answerPreserved: true;
-    parameterFingerprintPreserved: true;
-    mathematicalFingerprintPreserved: true;
+    correctIndexPreserved: true;
   }>;
 }
 
@@ -87,12 +94,8 @@ type NativeBindingLocalizer = (
   context?: Record<string, unknown>,
 ) => unknown;
 
-function packageFor(packageId: "PRB-001" | "PRB-002"): ProbabilityPackage {
-  return packageId === "PRB-001" ? PRB_001 : PRB_002;
-}
-
 function sourceExplanationId(source: ProbabilityQuestion): string {
-  return `${source.questionId}-EXP`;
+  return source.explanation.explanationId;
 }
 
 function buildNativeRenderContext(source: ProbabilityQuestion): Record<string, unknown> {
@@ -232,9 +235,6 @@ function renderNativeExplanation(
 }
 
 function auditNativeExplanationLine(line: string, language: ProbabilityNativeLanguage): void {
-  // The English explanation authority contains this standard combination identity outside
-  // MathJax in some lines. Keep the learner-facing bytes unchanged, but mask it as math
-  // for the native prose/script audit so algebra is not mistaken for Latin prose.
   const auditLine = line.replaceAll("n!/[r!(n-r)!]", "\\(n!/[r!(n-r)!]\\)");
   assertProbabilityNativeTextValid(auditLine, language);
 }
@@ -264,7 +264,7 @@ function buildNativeValidation(
     {
       name: "native-explanation-script-audit",
       passed: true,
-      message: `${language} explanation passed native script audit.",
+      message: `${language} explanation passed native script audit.`,
       blocker: true,
     },
     {
@@ -351,55 +351,49 @@ export function renderProbabilityNativePreview(
       targetLanguage: language,
       sourceSeed: source.seed,
       sourceQuestionLanguageId: source.questionLanguageId,
-      sourceParameterFingerprint: source.traceability.parameterFingerprint,
-      sourceMathematicalFingerprint: source.traceability.mathematicalFingerprint,
+      parameterFingerprint: source.parameterFingerprint,
+      mathematicalFingerprint: source.mathematicalFingerprint,
       optionPolicy: "PRESERVE_ENGLISH_OPTIONS_AND_CORRECT_INDEX",
       answerKeyAuthority: "ENGLISH_RUNTIME",
       solverAuthority: "ENGLISH_RUNTIME",
       mockPolicyAuthority: "ENGLISH_RUNTIME",
-      optionsPreserved: true,
-      correctIndexPreserved: true,
+      exactOptionsPreserved: true,
       answerPreserved: true,
-      parameterFingerprintPreserved: true,
-      mathematicalFingerprintPreserved: true,
+      correctIndexPreserved: true,
     },
   };
 }
 
 export function runProbabilityNativePreview(
-  packageId: "PRB-001" | "PRB-002",
-  cpId: string,
+  packageId: ProbabilityPackageId,
+  cpId: ProbabilityCanonicalProblemId,
   language: ProbabilityNativeLanguage,
-  input: Readonly<{
-    questionLanguageId: string;
-    seed: string;
-  }>,
+  input: Omit<ProbabilityGenerationInput, "language"> = {},
 ): ProbabilityMultilingualPreview {
-  const packageModule = packageFor(packageId);
-  const source = packageModule.generateQuestion({
-    ...input,
-    cpId,
-    language: "en" satisfies QuantLanguage,
-  });
+  const source = packageId === "PRB-001"
+    ? runPrb001Pipeline(cpId as Prb001CanonicalProblemId, { ...input, language: "en" })
+    : runPrb002Pipeline(cpId as Prb002CanonicalProblemId, { ...input, language: "en" });
+  if (source.packageId !== packageId || source.canonicalProblemId !== cpId) {
+    throw new Error(`ML-05 source routing mismatch for ${packageId}/${cpId}.`);
+  }
   return renderProbabilityNativePreview(source, language);
 }
 
 export function listProbabilityMl05QlEntries(): readonly Readonly<{
-  packageId: "PRB-001" | "PRB-002";
-  cpId: string;
+  packageId: ProbabilityPackageId;
+  cpId: ProbabilityCanonicalProblemId;
   qlId: string;
 }>[] {
-  const rows = [
-    ...PRB_001.questionLanguages.map((ql) => ({
+  return [
+    ...listPrb001QuestionEntries().map((entry) => ({
       packageId: "PRB-001" as const,
-      cpId: ql.canonicalProblemId,
-      qlId: ql.id,
+      cpId: entry.cpId,
+      qlId: entry.qlId,
     })),
-    ...PRB_002.questionLanguages.map((ql) => ({
+    ...listPrb002QuestionEntries().map((entry) => ({
       packageId: "PRB-002" as const,
-      cpId: ql.canonicalProblemId,
-      qlId: ql.id,
+      cpId: entry.cpId,
+      qlId: entry.qlId,
     })),
   ];
-  return Object.freeze(rows);
 }
