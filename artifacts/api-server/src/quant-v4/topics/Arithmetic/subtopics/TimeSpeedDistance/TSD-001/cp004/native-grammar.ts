@@ -1,7 +1,5 @@
-import { renderCp004EditorialV4NativeQuestion } from "./native-v4";
 import type { TsdCp004NativeLanguage } from "./native";
-import type { TsdCp004FinalNativeQuestion } from "./native-polished";
-import type { TsdCp004ActorKind, TsdCp004Question } from "./types";
+import type { TsdCp004ActorKind } from "./types";
 
 const FEMININE_ACTORS = new Set<TsdCp004ActorKind>(["CAR", "BUS", "DELIVERY_VAN"]);
 
@@ -9,7 +7,6 @@ function polishHindiFeminine(stem: string, actorKind: TsdCp004ActorKind): string
   if (!FEMININE_ACTORS.has(actorKind)) return stem;
   let text = stem;
 
-  // Noun-number agreement. Phrase-level replacements avoid touching substrings inside other words.
   if (actorKind === "CAR") {
     text = text.replace(/दो कार की/gu, "दो कारों की").replace(/दो कार\b/gu, "दो कारें").replace(/दूसरा कार\b/gu, "दूसरी कार");
   } else if (actorKind === "BUS") {
@@ -18,7 +15,6 @@ function polishHindiFeminine(stem: string, actorKind: TsdCp004ActorKind): string
     text = text.replace(/दो डिलीवरी वैन की/gu, "दो डिलीवरी वैनों की").replace(/दूसरा डिलीवरी वैन\b/gu, "दूसरी डिलीवरी वैन");
   }
 
-  // All learner actors in one row have the same actor kind, so these finite-verb repairs are safe.
   return text
     .replace(/चलता रहता है/gu, "चलती रहती है")
     .replace(/चलते रहते हैं/gu, "चलती रहती हैं")
@@ -69,14 +65,10 @@ function polishPunjabiFeminine(stem: string, actorKind: TsdCp004ActorKind): stri
     .replace(/ਦੂਜੇ ਦੀ ਰਫ਼ਤਾਰ/gu, "ਦੂਜੀ ਦੀ ਰਫ਼ਤਾਰ");
 }
 
-function polishStem(stem: string, language: TsdCp004NativeLanguage, actorKind: TsdCp004ActorKind): string {
+export function polishCp004NativeGrammarStem(stem: string, language: TsdCp004NativeLanguage, actorKind: TsdCp004ActorKind): string {
   return language === "hi" ? polishHindiFeminine(stem, actorKind) : polishPunjabiFeminine(stem, actorKind);
 }
 
-export function renderCp004NativeGrammarFinalQuestion(english: TsdCp004Question, language: TsdCp004NativeLanguage): TsdCp004FinalNativeQuestion {
-  const base = renderCp004EditorialV4NativeQuestion(english, language);
-  return Object.freeze({
-    ...base,
-    stem: polishStem(base.stem, language, english.state.actorKind),
-  });
+export function cp004UsesFeminineNativeActor(actorKind: TsdCp004ActorKind): boolean {
+  return FEMININE_ACTORS.has(actorKind);
 }
