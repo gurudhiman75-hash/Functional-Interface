@@ -42,7 +42,7 @@ jobs:
       - name: Bundle CP-007 authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-007/authority-v3.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-007/authority-v4.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp007-foundation-authority.test.mjs
 
