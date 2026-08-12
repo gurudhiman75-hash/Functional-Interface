@@ -56,9 +56,30 @@ for (const qlId of TRG_002_RUNTIME_PROOF_IDS) {
       assert(question.exactAnswer.kind === "NUMBER" && formatExactPlain(question.exactAnswer.value).includes("√"), "QL-030 may place the exact surd naturally in the answer.");
     }
 
+    if (qlId === "TRG-002-QL-056") {
+      assert(question.canonicalSpatialState.requested.kind === "HORIZONTAL_DISTANCE", "QL-056 canonical target must be horizontal distance.");
+      if (question.canonicalSpatialState.requested.kind === "HORIZONTAL_DISTANCE") {
+        assert(question.canonicalSpatialState.requested.fromPointId === "object-base" && question.canonicalSpatialState.requested.toPointId === "near-ground", "QL-056 must request the near distance from tower to final point.");
+      }
+    }
+
     if (qlId === "TRG-002-QL-061") {
       assert(!/^From\s+\d/.test(question.stem), "QL-061 must not disclose the original distance in the stem.");
       assert(question.explanation.steps.length >= 3, "QL-061 must retain the two-observation Hard explanation.");
+    }
+
+    if (qlId === "TRG-002-QL-065") {
+      assert(question.canonicalSpatialState.requested.kind === "HORIZONTAL_DISTANCE", "QL-065 canonical target must be horizontal distance.");
+      if (question.canonicalSpatialState.requested.kind === "HORIZONTAL_DISTANCE") {
+        assert(question.canonicalSpatialState.requested.fromPointId === "object-base" && question.canonicalSpatialState.requested.toPointId === "far-ground", "QL-065 must request the original far distance from tower to starting point.");
+      }
+    }
+
+    if (qlId === "TRG-002-QL-068") {
+      assert(question.canonicalSpatialState.requested.kind === "HORIZONTAL_DISTANCE", "QL-068 canonical target must be point separation.");
+      if (question.canonicalSpatialState.requested.kind === "HORIZONTAL_DISTANCE") {
+        assert(question.canonicalSpatialState.requested.fromPointId === "near-ground" && question.canonicalSpatialState.requested.toPointId === "far-ground", "QL-068 must request the near-to-far point separation.");
+      }
     }
 
     if (qlId === "TRG-002-QL-073") {
