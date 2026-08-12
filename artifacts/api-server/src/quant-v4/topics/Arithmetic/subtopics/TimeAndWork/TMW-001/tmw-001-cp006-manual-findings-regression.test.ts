@@ -4,6 +4,13 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function numericMath(answerText: string): string | null {
+  const inner = /\\\(([\s\S]*?)\\\)/.exec(answerText)?.[1];
+  if (!inner) return null;
+  const cleaned = inner.replace(/\\text\{[^}]*\}/g, "").trim();
+  return cleaned ? `\\(${cleaned}\\)` : null;
+}
+
 const qls = ["TMW-QL-108", "TMW-QL-116", "TMW-QL-119", "TMW-QL-121", "TMW-QL-127"] as const;
 const languages: readonly Tmw001ChapterLanguage[] = ["en", "hi", "pa"];
 const namespaces = ["tmw-cp006-editorial", "tmw-cp006-editorial-review"] as const;
@@ -37,8 +44,9 @@ for (const qlId of qls) {
         }
 
         if (qlId === "TMW-QL-119") {
-          const sourceMath = /\\\(([\s\S]*?)\\\)/.exec(question.solution.answerText)?.[0];
-          if (sourceMath) assert(question.learnerExplanation.answer.includes(sourceMath), `${label}: overtime conclusion does not preserve student-friendly answer formatting`);
+          const sourceMath = numericMath(question.solution.answerText);
+          if (sourceMath) assert(question.learnerExplanation.answer.includes(sourceMath), `${label}: overtime conclusion does not preserve student-friendly numeric answer formatting`);
+          assert(!/\\text\{/.test(question.learnerExplanation.answer), `${label}: overtime conclusion puts prose inside MathJax`);
           assert(!/ओवरटाइम प्रतिदिन/u.test(question.learnerExplanation.answer), `${label}: repetitive Hindi overtime wording`);
           assert(!/ਓਵਰਟਾਈਮ ਹਰ ਦਿਨ/u.test(question.learnerExplanation.answer), `${label}: repetitive Punjabi overtime wording`);
         }
