@@ -1,0 +1,103 @@
+name: Validate NUM-CP-001 Wave 01 foundation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
+      - .github/workflows/num-001-cp001-wave01-foundation.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp001-wave01-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp001-wave01:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 1 exact runtime proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/wave01/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-wave01-authority.test.mjs
+
+      - name: Run Wave 1 exact runtime proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-authority.log
+
+      - name: Bundle Wave 1 learner authority proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/wave01/runtime-authority-editorial.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-wave01-learner-authority.test.mjs
+
+      - name: Run Wave 1 learner authority proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-learner-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-learner-authority.log
+
+      - name: Bundle Wave 1 structural audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/wave01/runtime-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-wave01-audit.mjs
+
+      - name: Run Wave 1 structural audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-audit.log
+
+      - name: Bundle Wave 1 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/wave01/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-wave01-review-export.mjs
+
+      - name: Generate Wave 1 review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-001-cp001-wave01-review-export.mjs
+
+      - name: Upload Wave 1 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp001-wave01-foundation
+          path: |
+            artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-authority.log
+            artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-learner-authority.log
+            artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-audit.log
+            artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-review.json
+            artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-review.md
+          if-no-files-found: error
+          retention-days: 14
