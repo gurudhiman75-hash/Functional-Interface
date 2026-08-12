@@ -6,7 +6,7 @@ if (corpus.caselets.length !== 40) throw new Error(`Expected 40 teaching-proof c
 
 const bannedInternalTerms = /\b(?:solver|oracle|canonical|model class|search branch|seat zero)\b/i;
 const arbitraryCaseLanguage = /several arrangements are still possible|three useful cases/i;
-const explanationShortcut = /use the remaining clues|build the arrangement by joining the clues|keep this facing fixed while applying the remaining clues/i;
+const explanationShortcut = /use the remaining clues|build the arrangement by joining the clues|keep this facing fixed while applying the remaining clues|translate this clue onto the sketch as a restriction|mark exactly what this clue allows and forbids on the sketch/i;
 const internalPersonId = /\bP\d+\b/;
 const participantNames = new Set<string>();
 const pbaCaseCounts = new Map<string, number>();
