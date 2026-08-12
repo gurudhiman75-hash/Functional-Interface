@@ -44,6 +44,31 @@ for (const checkpointId of ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-00
   if (count !== 20) throw new Error(`${checkpointId} review corpus must contain exactly 20 caselets, observed ${count}`);
 }
 
+for (const caselet of reviewCorpus) {
+  const studentText = [
+    caselet.setupText,
+    ...caselet.clueTexts,
+    caselet.sharedExplanation,
+    caselet.diagramText ?? caselet.diagram?.text ?? "",
+    ...caselet.children.flatMap((child) => [
+      child.text,
+      child.explanation,
+      ...child.options.flatMap((option) => [option.display, option.explanation]),
+    ]),
+  ].join("\n");
+  if (/\b(?:6th|7th|8th) to the (?:left|right)\b/i.test(studentText)) {
+    throw new Error(`${caselet.caseletId} exposes a numeric ordinal relation instead of natural English`);
+  }
+  if (/\brelation is immediate to the (?:left|right)\b/i.test(studentText)) {
+    throw new Error(`${caselet.caseletId} exposes awkward immediate-relation wording`);
+  }
+  for (const child of caselet.children) {
+    if (new Set(child.options.map((option) => option.display)).size !== child.options.length) {
+      throw new Error(`${caselet.caseletId}/${child.queryContractId} has duplicate visible option text`);
+    }
+  }
+}
+
 console.log("PASS_SEA_001_PRODUCTION_SATURATION");
 console.log("caselets", audit.caseletCount);
 console.log("child questions", audit.childQuestionCount);
@@ -52,6 +77,8 @@ console.log("query-template surfaces", audit.querySurfaceCount);
 console.log("manual-review candidates", reviewCorpus.length);
 console.log("question-specific correct-option explanations", "ENFORCED");
 console.log("fallback distractors with value-specific explanations", fallbackDistractorCount);
+console.log("natural relation wording", "ENFORCED");
+console.log("visible option uniqueness", "ENFORCED");
 console.log("rejected exact duplicate candidates", audit.rejectedExactDuplicateCandidates);
 console.log("rejected normalized clue-set candidates", audit.rejectedNormalizedClueSetCandidates);
 console.log("residual blocker count", audit.blockerCount);
