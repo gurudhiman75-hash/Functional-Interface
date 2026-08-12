@@ -46,9 +46,38 @@ function stableNumber(value: string): number {
   return hash >>> 0;
 }
 
+function containsWholeWord(text: string, value: string): boolean {
+  const escaped = value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`\\b${escaped}\\b`, "i").test(text);
+}
+
+function fallbackExplanation(
+  answerType: string,
+  correctDisplay: string,
+  wrongDisplay: string,
+): string {
+  if (answerType === "COUNT") {
+    return `The required count is ${correctDisplay}; ${wrongDisplay} is not the count obtained from the specified seats or arc.`;
+  }
+  if (answerType === "PAIR") {
+    return `The required pair is ${correctDisplay}; ${wrongDisplay} does not occupy the two positions specified in the question.`;
+  }
+  if (answerType === "RELATION") {
+    return `The solved positions give ${correctDisplay}; ${wrongDisplay} uses a different direction or distance.`;
+  }
+  if (answerType === "SEQUENCE") {
+    return `The required order is ${correctDisplay}; ${wrongDisplay} does not follow the specified direction and order.`;
+  }
+  if (answerType === "STATEMENT") {
+    return `The solved arrangement supports ${correctDisplay}; the statement ${wrongDisplay} does not satisfy the required truth condition.`;
+  }
+  return `Following the relation asked in the question reaches ${correctDisplay}, not ${wrongDisplay}.`;
+}
+
 export function presentSea001Children<T extends {
   readonly questionOrder: number;
   readonly queryContractId: string;
+  readonly answerType: string;
   readonly answerDeterminingFactFingerprint: string;
   readonly answerIndex: number;
   readonly text: string;
@@ -57,26 +86,48 @@ export function presentSea001Children<T extends {
     readonly display: string;
     readonly explanation: string;
     readonly isCorrect: boolean;
+    readonly recomputation: Readonly<Record<string, unknown>>;
   }[];
 }>(
   children: readonly T[],
   displayNames: Readonly<Record<string, string>>,
 ): T[] {
   const presented = children.map((child) => {
+    const text = presentSea001Text(child.text, displayNames);
     const explanation = presentSea001Text(child.explanation, displayNames);
+    const displayOptions = child.options.map((option) => ({
+      ...option,
+      display: presentSea001Text(option.display, displayNames),
+      explanation: presentSea001Text(option.explanation, displayNames),
+    }));
+    const correctOption = displayOptions.find((option) => option.isCorrect);
+    if (!correctOption) throw new Error(`SEA-001 child ${child.queryContractId} has no correct option before presentation`);
+
+    const queriedNames = Object.values(displayNames).filter((name) => containsWholeWord(text, name));
+    const options = displayOptions.map((option) => {
+      if (option.isCorrect) {
+        return { ...option, explanation };
+      }
+      const isFallback = Object.prototype.hasOwnProperty.call(option.recomputation, "fallbackVerifiedValue");
+      if (!isFallback) return option;
+
+      if ((child.answerType === "PERSON" || child.answerType === "PAIR")
+        && queriedNames.some((name) => containsWholeWord(option.display, name))) {
+        throw new Error(
+          `SEA-001 ${child.queryContractId} fallback distractor reuses queried participant: ${option.display}`,
+        );
+      }
+      return {
+        ...option,
+        explanation: fallbackExplanation(child.answerType, correctOption.display, option.display),
+      };
+    });
+
     return {
       ...child,
-      text: presentSea001Text(child.text, displayNames),
+      text,
       explanation,
-      options: child.options.map((option) => ({
-        ...option,
-        display: presentSea001Text(option.display, displayNames),
-        // The correct option must carry the same question-specific reasoning as the
-        // child explanation. Wrong options retain their misconception-specific rationale.
-        explanation: option.isCorrect
-          ? explanation
-          : presentSea001Text(option.explanation, displayNames),
-      })),
+      options,
     };
   }) as unknown as T[];
 
