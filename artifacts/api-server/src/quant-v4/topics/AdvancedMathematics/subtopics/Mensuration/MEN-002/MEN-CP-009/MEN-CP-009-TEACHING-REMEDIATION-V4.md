@@ -58,6 +58,18 @@ Prefer normal exam/student language such as:
 
 Avoid vocabulary-heavy generator wording when a simpler expression carries the same meaning.
 
+### Canonical native surface-area terminology
+
+For learner-facing Hindi and Punjabi, **surface area is expressed as “area of the surface”**, not with bookish `पृष्ठीय/ਪ੍ਰਿਸ਼ਠੀ` terminology.
+
+| English | Hindi | Punjabi |
+|---|---|---|
+| Surface area | `सतह का क्षेत्रफल` | `ਸਤਹ ਦਾ ਖੇਤਰਫਲ` |
+| Curved surface area | `वक्र सतह का क्षेत्रफल` | `ਵਕਰ ਸਤਹ ਦਾ ਖੇਤਰਫਲ` |
+| Total surface area | `कुल सतह का क्षेत्रफल` | `ਕੁੱਲ ਸਤਹ ਦਾ ਖੇਤਰਫਲ` |
+
+Forms such as `पृष्ठीय क्षेत्रफल`, `वक्र पृष्ठीय क्षेत्रफल`, `कुल पृष्ठीय क्षेत्रफल`, `ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ`, `ਵਕਰ ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ` and `ਕੁੱਲ ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ` are not allowed on the learner surface.
+
 ### Hindi
 
 Prefer simple phrases such as:
