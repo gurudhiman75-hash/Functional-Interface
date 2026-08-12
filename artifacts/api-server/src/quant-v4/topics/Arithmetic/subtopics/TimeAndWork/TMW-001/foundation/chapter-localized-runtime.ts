@@ -35,7 +35,7 @@ import { applyTmw001LearnerExplanationR3Cp007To011 } from "./learner-explanation
 import { applyTmw001LearnerExplanationR4ExamReadiness } from "./learner-explanation-r4-exam-readiness";
 import { applyTmwCp005EditorialReviewRemediation } from "./cp005-editorial-review-remediation";
 import { applyTmwCp005StartingAgentEditorialFix } from "./cp005-starting-agent-editorial-fix";
-import { applyTmwCp005InverseEditorialFix } from "./cp005-inverse-editorial-fix";
+import { applyTmwCp005InverseEditorialFix, applyTmwCp005RemainingWorkEditorialFix } from "./cp005-inverse-editorial-fix";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -64,7 +64,8 @@ function finishEnglish(question: any, questionLanguageId: string): any {
   const r4Learner = applyTmw001LearnerExplanationR4ExamReadiness(r3Learner, questionLanguageId, "en");
   const cp005Reviewed = applyTmwCp005EditorialReviewRemediation(r4Learner, questionLanguageId, "en");
   const cp005StartFixed = applyTmwCp005StartingAgentEditorialFix(cp005Reviewed, questionLanguageId, "en");
-  return applyTmwCp005InverseEditorialFix(cp005StartFixed, questionLanguageId, "en");
+  const cp005InverseFixed = applyTmwCp005InverseEditorialFix(cp005StartFixed, questionLanguageId, "en");
+  return applyTmwCp005RemainingWorkEditorialFix(cp005InverseFixed, questionLanguageId, "en");
 }
 
 function finishLocalized(question: any, questionLanguageId: string, language: TmwLocalizedLanguage): any {
@@ -85,7 +86,8 @@ function finishLocalized(question: any, questionLanguageId: string, language: Tm
   const r4Learner = applyTmw001LearnerExplanationR4ExamReadiness(r3Learner, questionLanguageId, language);
   const cp005Reviewed = applyTmwCp005EditorialReviewRemediation(r4Learner, questionLanguageId, language);
   const cp005StartFixed = applyTmwCp005StartingAgentEditorialFix(cp005Reviewed, questionLanguageId, language);
-  return applyTmwCp005InverseEditorialFix(cp005StartFixed, questionLanguageId, language);
+  const cp005InverseFixed = applyTmwCp005InverseEditorialFix(cp005StartFixed, questionLanguageId, language);
+  return applyTmwCp005RemainingWorkEditorialFix(cp005InverseFixed, questionLanguageId, language);
 }
 
 export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
