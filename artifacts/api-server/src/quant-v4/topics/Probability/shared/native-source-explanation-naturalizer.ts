@@ -18,6 +18,8 @@ function objectForms(
     pen: { plural: "पेन", oblique: "पेनों", singular: "पेन" },
     "coloured stones": { plural: "रंगीन पत्थर", oblique: "रंगीन पत्थरों", singular: "रंगीन पत्थर" },
     "coloured stone": { plural: "रंगीन पत्थर", oblique: "रंगीन पत्थरों", singular: "रंगीन पत्थर" },
+    stones: { plural: "पत्थर", oblique: "पत्थरों", singular: "पत्थर" },
+    stone: { plural: "पत्थर", oblique: "पत्थरों", singular: "पत्थर" },
   };
   const pa: Record<string, { plural: string; oblique: string; singular: string }> = {
     balls: { plural: "ਗੇਂਦਾਂ", oblique: "ਗੇਂਦਾਂ", singular: "ਗੇਂਦ" },
@@ -28,6 +30,8 @@ function objectForms(
     pen: { plural: "ਪੈਨ", oblique: "ਪੈਨਾਂ", singular: "ਪੈਨ" },
     "coloured stones": { plural: "ਰੰਗੀਨ ਪੱਥਰ", oblique: "ਰੰਗੀਨ ਪੱਥਰਾਂ", singular: "ਰੰਗੀਨ ਪੱਥਰ" },
     "coloured stone": { plural: "ਰੰਗੀਨ ਪੱਥਰ", oblique: "ਰੰਗੀਨ ਪੱਥਰਾਂ", singular: "ਰੰਗੀਨ ਪੱਥਰ" },
+    stones: { plural: "ਪੱਥਰ", oblique: "ਪੱਥਰਾਂ", singular: "ਪੱਥਰ" },
+    stone: { plural: "ਪੱਥਰ", oblique: "ਪੱਥਰਾਂ", singular: "ਪੱਥਰ" },
   };
   const value = (language === "hi" ? hi : pa)[key];
   if (!value) throw new Error(`Unsupported Probability native explanation object ${object}.`);
@@ -58,6 +62,14 @@ export function naturalizeProbabilityExplanationBody(
   m = value.match(/^The required probability is (.+) = (.+)\.$/u);
   if (m) return pick(language, `आवश्यक प्रायिकता ${m[1]} = ${m[2]} है।`, `ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ${m[1]} = ${m[2]} ਹੈ।`);
 
+  if (value === "The probability is valid because every admissible arrangement is treated as equally likely.") {
+    return pick(
+      language,
+      "यह प्रायिकता सही है क्योंकि प्रत्येक मान्य व्यवस्था को समान रूप से संभावित माना गया है।",
+      "ਇਹ ਸੰਭਾਵਨਾ ਸਹੀ ਹੈ ਕਿਉਂਕਿ ਹਰ ਮਨਜ਼ੂਰ ਵਿਉਂਤ ਨੂੰ ਬਰਾਬਰ ਸੰਭਾਵਨਾ ਵਾਲਾ ਮੰਨਿਆ ਗਿਆ ਹੈ।",
+    );
+  }
+
   m = value.match(/^The probability is (.+)\.$/u);
   if (m) return pick(language, `प्रायिकता ${m[1]} है।`, `ਸੰਭਾਵਨਾ ${m[1]} ਹੈ।`);
 
@@ -87,8 +99,8 @@ export function naturalizeProbabilityExplanationBody(
   if (value === "For one random selection, use ¤0¤ = favourable cases ¤1¤ total equally likely cases.") {
     return pick(
       language,
-      "एक यादृच्छिक चयन में प्रायिकता = अनुकूल स्थितियों की संख्या ÷ कुल समान-संभावित स्थितियों की संख्या होती है।",
-      "ਇੱਕ ਬੇਤਰਤੀਬ ਚੋਣ ਵਿੱਚ ਸੰਭਾਵਨਾ = ਅਨੁਕੂਲ ਮਾਮਲਿਆਂ ਦੀ ਗਿਣਤੀ ÷ ਕੁੱਲ ਬਰਾਬਰ ਸੰਭਾਵਨਾ ਵਾਲੇ ਮਾਮਲਿਆਂ ਦੀ ਗਿਣਤੀ ਹੁੰਦੀ ਹੈ।",
+      "एक यादृच्छिक चयन में ¤0¤ = अनुकूल स्थितियों की संख्या ¤1¤ कुल समान-संभावित स्थितियों की संख्या।",
+      "ਇੱਕ ਬੇਤਰਤੀਬ ਚੋਣ ਵਿੱਚ ¤0¤ = ਅਨੁਕੂਲ ਮਾਮਲਿਆਂ ਦੀ ਗਿਣਤੀ ¤1¤ ਕੁੱਲ ਬਰਾਬਰ ਸੰਭਾਵਨਾ ਵਾਲੇ ਮਾਮਲਿਆਂ ਦੀ ਗਿਣਤੀ।",
     );
   }
 
@@ -189,8 +201,8 @@ export function naturalizeProbabilityExplanationBody(
   m = value.match(/^A fair die has six equally likely faces; list the faces satisfying the condition and divide their count by (\d+)\.$/u);
   if (m) return pick(
     language,
-    `एक निष्पक्ष पासे के 6 फलक समान-संभावित होते हैं। शर्त पूरी करने वाले फलक गिनें और उनकी संख्या को ${m[1]} से भाग दें।`,
-    `ਇੱਕ ਨਿਰਪੱਖ ਪਾਸੇ ਦੇ 6 ਪਾਸੇ ਬਰਾਬਰ ਸੰਭਾਵਨਾ ਵਾਲੇ ਹੁੰਦੇ ਹਨ। ਸ਼ਰਤ ਪੂਰੀ ਕਰਨ ਵਾਲੇ ਪਾਸੇ ਗਿਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਗਿਣਤੀ ਨੂੰ ${m[1]} ਨਾਲ ਭਾਗ ਦਿਓ।`,
+    `एक निष्पक्ष पासे के छह फलक समान-संभावित होते हैं। शर्त पूरी करने वाले फलक गिनें और उनकी संख्या को ${m[1]} से भाग दें।`,
+    `ਇੱਕ ਨਿਰਪੱਖ ਪਾਸੇ ਦੇ ਛੇ ਪਾਸੇ ਬਰਾਬਰ ਸੰਭਾਵਨਾ ਵਾਲੇ ਹੁੰਦੇ ਹਨ। ਸ਼ਰਤ ਪੂਰੀ ਕਰਨ ਵਾਲੇ ਪਾਸੇ ਗਿਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਗਿਣਤੀ ਨੂੰ ${m[1]} ਨਾਲ ਭਾਗ ਦਿਓ।`,
   );
 
   m = value.match(/^The favourable faces are (.+); there are (\d+)\.$/u);
@@ -324,7 +336,7 @@ export function naturalizeProbabilityExplanationBody(
     return pick(
       language,
       "वस्तु वापस रखने के कारण दोनों चरणों में प्रायिकता मूल संरचना के आधार पर ही निकाली जाती है।",
-      "ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਕਾਰਨ ਦੋਵੇਂ ਪੜਾਅਾਂ ਵਿੱਚ ਸੰਭਾਵਨਾ ਮੂਲ ਬਣਤਰ ਦੇ ਆਧਾਰ ਤੇ ਹੀ ਕੱਢੀ ਜਾਂਦੀ ਹੈ।",
+      "ਵਸਤੂ ਵਾਪਸ ਰੱਖਣ ਕਾਰਨ ਦੋਵੇਂ ਪੜਾਵਾਂ ਵਿੱਚ ਸੰਭਾਵਨਾ ਮੂਲ ਬਣਤਰ ਦੇ ਆਧਾਰ ਤੇ ਹੀ ਕੱਢੀ ਜਾਂਦੀ ਹੈ।",
     );
   }
 
@@ -358,10 +370,12 @@ export function naturalizeProbabilityExplanationBody(
 
   m = value.match(/^The first (marble|stone|ball|pen) is replaced, so the container again has (\d+) red and (\d+) blue (marbles|coloured stones|balls|pens) before the second selection\.$/u);
   if (m) {
+    const first = objectForms(language, m[1]);
     const o = objectForms(language, m[4]);
+    const feminine = m[1] === "ball";
     return language === "hi"
-      ? `पहली ${objectForms(language, m[1]).singular} वापस रख दी जाती है, इसलिए दूसरे चयन से पहले पात्र में फिर ${m[2]} लाल और ${m[3]} नीले ${o.plural} होते हैं।`
-      : `ਪਹਿਲੀ ${objectForms(language, m[1]).singular} ਵਾਪਸ ਰੱਖ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਦੂਜੀ ਚੋਣ ਤੋਂ ਪਹਿਲਾਂ ਡੱਬੇ ਵਿੱਚ ਫਿਰ ${m[2]} ਲਾਲ ਅਤੇ ${m[3]} ਨੀਲੇ ${o.plural} ਹੁੰਦੇ ਹਨ।`;
+      ? `${feminine ? "पहली" : "पहला"} ${first.singular} वापस ${feminine ? "रख दी जाती है" : "रख दिया जाता है"}, इसलिए दूसरे चयन से पहले उसी पात्र में फिर ${m[2]} लाल और ${m[3]} नीले ${o.plural} होते हैं।`
+      : `${feminine ? "ਪਹਿਲੀ" : "ਪਹਿਲਾ"} ${first.singular} ਵਾਪਸ ${feminine ? "ਰੱਖ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ" : "ਰੱਖ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ"}, ਇਸ ਲਈ ਦੂਜੀ ਚੋਣ ਤੋਂ ਪਹਿਲਾਂ ਉਸੇ ਪਾਤਰ ਵਿੱਚ ਫਿਰ ${m[2]} ਲਾਲ ਅਤੇ ${m[3]} ਨੀਲੇ ${o.plural} ਹੁੰਦੇ ਹਨ।`;
   }
 
   if (value === "The order is fixed: a red marble must occur first and a blue marble second.") {
@@ -481,7 +495,7 @@ export function naturalizeProbabilityExplanationBody(
   if (m) return pick(language, `${m[1]} में से प्रत्येक अभ्यर्थी पहले स्थान पर आ सकता है।`, `${m[1]} ਵਿੱਚੋਂ ਹਰ ਉਮੀਦਵਾਰ ਪਹਿਲੇ ਸਥਾਨ ਤੇ ਆ ਸਕਦਾ ਹੈ।`);
 
   m = value.match(/^Only one of these (\d+) possibilities places the specified candidate first\.$/u);
-  if (m) return pick(language, `इन ${m[1]} संभावनाओं में केवल 1 में निर्दिष्ट अभ्यर्थी पहले स्थान पर आता है।`, `ਇਨ੍ਹਾਂ ${m[1]} ਸੰਭਾਵਨਾਵਾਂ ਵਿੱਚ ਕੇਵਲ 1 ਵਿੱਚ ਨਿਰਧਾਰਤ ਉਮੀਦਵਾਰ ਪਹਿਲੇ ਸਥਾਨ ਤੇ ਆਉਂਦਾ ਹੈ।`);
+  if (m) return pick(language, `इन ${m[1]} संभावनाओं में केवल एक में निर्दिष्ट अभ्यर्थी पहले स्थान पर आता है।`, `ਇਨ੍ਹਾਂ ${m[1]} ਸੰਭਾਵਨਾਵਾਂ ਵਿੱਚ ਕੇਵਲ ਇੱਕ ਵਿੱਚ ਨਿਰਧਾਰਤ ਉਮੀਦਵਾਰ ਪਹਿਲੇ ਸਥਾਨ ਤੇ ਆਉਂਦਾ ਹੈ।`);
 
   if (value === "For n distinct people, total linear arrangements = n!. To count two specified people together, treat them as one block and multiply by 2 for their internal order.") {
     return pick(language, "n अलग व्यक्तियों की कुल रैखिक व्यवस्थाएँ n! होती हैं। दो निर्दिष्ट व्यक्तियों को साथ रखने के लिए उन्हें एक ब्लॉक मानें और उनके आंतरिक क्रम के लिए 2 से गुणा करें।", "n ਵੱਖ ਵਿਅਕਤੀਆਂ ਦੀਆਂ ਕੁੱਲ ਰੇਖੀ ਵਿਉਂਤਾਂ n! ਹੁੰਦੀਆਂ ਹਨ। ਦੋ ਨਿਰਧਾਰਤ ਵਿਅਕਤੀਆਂ ਨੂੰ ਇਕੱਠੇ ਰੱਖਣ ਲਈ ਉਨ੍ਹਾਂ ਨੂੰ ਇੱਕ ਬਲਾਕ ਮੰਨੋ ਅਤੇ ਅੰਦਰੂਨੀ ਕ੍ਰਮ ਲਈ 2 ਨਾਲ ਗੁਣਾ ਕਰੋ।");
