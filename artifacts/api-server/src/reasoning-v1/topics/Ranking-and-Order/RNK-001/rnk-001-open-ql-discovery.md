@@ -1,52 +1,58 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 through CP-006 frozen at `RNK-QL-001..041`; post-CP006 audit found no new authority; `RNK-QL-042` remains available.**
+Status: **CP-001 through CP-006 frozen at `RNK-QL-001..041`; CP007 source-backed discovery open; `RNK-QL-042` remains unallocated.**
 
 Counts in this register are evidence, never chapter-size quotas.
 
-## 1. Frozen RNK-CP-001
+## Frozen inventory
 
 ```text
-13 prototypes / 3,120 discovery
-54 approved English review questions
-9 frozen authorities
-RNK-QL-001..009
+RNK-CP-001  9 authorities  RNK-QL-001..009
+RNK-CP-002  8 authorities  RNK-QL-010..017
+RNK-CP-003  9 authorities  RNK-QL-018..026
+RNK-CP-004  9 authorities  RNK-QL-027..035
+RNK-CP-005  3 authorities  RNK-QL-036..038
+RNK-CP-006  3 authorities  RNK-QL-039..041
 ```
 
-## 2. Frozen RNK-CP-002
+Cumulative frozen authorities: **41**.
+
+Next available identity: **`RNK-QL-042`**.
+
+## Frozen projections
 
 ```text
-13 prototypes / 3,120 discovery
-48 approved English review questions
-8 frozen authorities
-1,536 permanent questions
-RNK-QL-010..017
-projection: sha256:e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
+CP002  e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
+CP003  6457a50fdde7673f9e66fe607a47a5c38a4c921489ed387b72c87ef8a22947d5
+CP004  39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
+CP005  f6759445937626e6777f322f9b8217bc7aaa12f6a96ee180a24ca3350bd42717
+CP006  7043ecd80798ed9b60529d6052f4bc6fd4e678a98d06cc3e0332a3d10028d819
 ```
 
-## 3. Frozen RNK-CP-003
+The expanded object pools are forbidden from silently changing these projections.
+
+## Book-to-QL ownership reset
+
+The 2026-08-08 audit established these protected boundaries:
+
+- ordinary one-person rank arithmetic → CP001;
+- two-person positional/separation logic → CP002;
+- movement/interchange/insertion/removal → CP003;
+- one unique strict multi-entity comparison order → CP004;
+- multiple valid strict orders / uncertainty → CP005;
+- explicit equality / one unique weak order → CP006;
+- seating-facing/adjacency geometry → Seating Arrangement;
+- shared passages → infrastructure;
+- substantial arithmetic whose main target is calculation → Quant;
+- family inference as the main burden → Blood Relations / mixed puzzle.
+
+## CP004 frozen state contract
 
 ```text
-13 prototypes / 3,120 discovery
-78 approved English review questions
-9 frozen authorities
-1,728 permanent questions
-RNK-QL-018..026
-projection: sha256:6457a50fdde7673f9e66fe607a47a5c38a4c921489ed387b72c87ef8a22947d5
+ONE_UNIQUE_STRICT_TOTAL_ORDER
 ```
 
-## 4. Frozen RNK-CP-004
-
-```text
-11 source forms
-132 approved English review questions
-9 frozen authorities
-1,728 permanent questions
-RNK-QL-027..035
-projection: sha256:39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
-```
-
-Frozen authorities:
+Authorities:
 
 ```text
 RNK-QL-027  ENDPOINT_ENTITY
@@ -60,34 +66,13 @@ RNK-QL-034  DEFINITELY_TRUE_RELATION
 RNK-QL-035  MISSING_COMPARISON
 ```
 
-CP-004 owns comparison evidence that forces one unique complete strict order.
-
-## 5. Book-to-QL reset
-
-`RNK-001-BOOK-TO-QL-AUDIT-2026-08-08.md` established these protected boundaries:
-
-- ordinary rank arithmetic, two-position relations, interchange/movement and unique strict comparison ranking were already covered by CP-001..004;
-- left/right placement, facing and neighbour geometry belong to Seating Arrangement;
-- shared passages/caselets are delivery infrastructure;
-- context words do not create QLs;
-- arithmetic-heavy marks/age/speed/score questions belong to Quant;
-- incomplete strict comparisons with multiple valid complete rankings remain Ranking ownership;
-- explicit equality/tied comparison evidence remains Ranking ownership when the reasoning burden is order comparison rather than arithmetic.
-
-## 6. Frozen RNK-CP-005 — Partial Order and Ranking Uncertainty
+## CP005 frozen state contract
 
 ```text
-raw prototypes:                 8
-raw questions:                256
-V3 release source forms:        7
-V3 checked questions:         168
-consolidated authorities:       3
-final manual review pack:      36
-permanent questions:          576
-questions/authority:          192
+MULTIPLE_VALID_STRICT_TOTAL_ORDERS
 ```
 
-Permanent authorities:
+Authorities:
 
 ```text
 RNK-QL-036  RELATION_TRUTH_STATUS
@@ -95,46 +80,15 @@ RNK-QL-037  POSSIBLE_RANK_BOUND
 RNK-QL-038  EXACT_RANK_DETERMINACY
 ```
 
-Candidate projection:
+Permanent runtime: **576**.
+
+## CP006 frozen state contract
 
 ```text
-sha256:c45517d1d8bf4283d38eb4b62d1c9e2f90c5ec58593e2c400a59b2a26fb6e71e
+ONE_UNIQUE_TOTAL_PREORDER_WITH_EXPLICIT_EQUALITY
 ```
 
-Frozen permanent projection:
-
-```text
-sha256:f6759445937626e6777f322f9b8217bc7aaa12f6a96ee180a24ca3350bd42717
-```
-
-`RNK-QL-036..038` are no longer open discovery identities.
-
-## 7. Frozen RNK-CP-006 — Equality-Aware Ranking
-
-### Source and discovery evidence
-
-Primary ranking-source evidence supports explicit equality relations such as equal height, equal score and equal speed, while separately distinguishing incomparable pairs.
-
-Raw source forms:
-
-```text
-EQUAL_PAIR_IDENTIFICATION
-PAIR_RELATION_WITH_EQUALITY
-ENDPOINT_ENTITY_WITH_INTERNAL_TIE
-COMPLETE_WEAK_ORDER
-```
-
-Rejected:
-
-```text
-EQUAL_PAIR_IDENTIFICATION
-```
-
-Reason: direct equality-clue lookup rather than a meaningful solve contract.
-
-The surviving forms were remodeled so the equality statement is a required bridge rather than decorative evidence.
-
-### Permanent authorities
+Authorities:
 
 ```text
 RNK-QL-039  EQUALITY_AWARE_PAIR_RELATION
@@ -142,132 +96,121 @@ RNK-QL-040  EQUALITY_AWARE_ENDPOINT
 RNK-QL-041  COMPLETE_WEAK_ORDER
 ```
 
-State contract:
+Permanent runtime: **576**.
+
+The direct equality-lookup source form was rejected. Numeric post-tie rank conventions remain excluded.
+
+## Corrected post-CP006 source audit
+
+The initial saturation conclusion was superseded after a deeper page-level review of the Ranking source.
+
+Current decision:
 
 ```text
-ONE_UNIQUE_TOTAL_PREORDER_WITH_EXPLICIT_EQUALITY
+SOURCE_BACKED_CP007_DISCOVERY_REQUIRED
 ```
 
-This is distinct from CP-004's unique strict total order and CP-005's multiple-valid-order uncertainty state.
+This is a discovery decision only. No permanent QL has been allocated.
 
-### Permanent runtime evidence
+## Open RNK-CP-007 — Derived and Compositional Ranking
+
+### Candidate A — CATEGORY_COMPOSITION_AROUND_RANK
+
+Source fixtures: Ranking Q65 and Q67.
+
+Pattern:
 
 ```text
-RNK-QL-039: 192
-RNK-QL-040: 192
-RNK-QL-041: 192
-Total:      576
+total population
++ category ratio/count
++ target rank
++ count of one category ahead
+-> requested category count after target
 ```
 
-Answer-position balance per QL:
+Disposition: `DISCOVER_AS_PROVISIONAL_AUTHORITY`.
+
+Primary overlap audit: CP001 side-count arithmetic.
+
+### Candidate B — DERIVED_QUANTITY_ORDER
+
+Source fixtures:
 
 ```text
-48 / 48 / 48 / 48
+Q35 [CSAT 2015]      money transfers -> final balances -> comparative rank
+Q68 [SSC MTS 2021]  weight ratios/equations -> derived order -> rank query
 ```
 
-Mode counts:
+Disposition: `DISCOVER_AS_PROVISIONAL_AUTHORITY`.
+
+Primary boundary audit: direct Ranking reasoning versus arithmetic-dominant Quant.
+
+### Candidate C — NUMERIC_VALUE_CONSTRAINED_ORDER
+
+Source fixtures: Q27-Q28 [CSAT 2015].
+
+Bounded consecutive ages, exact offsets, comparison constraints and excluded values jointly determine possible values/orders.
+
+Disposition: `AUDIT_MERGE_WITH_DERIVED_QUANTITY_ORDER`.
+
+### Candidate D — RELATIONAL_SIDE_COUNT_EQUATION
+
+Source fixture: Q66.
+
+Front/behind counts for two people are linked by equations.
+
+Disposition: `AUDIT_EXTENSION_OF_CP001`.
+
+## CP007 allocation lock
 
 ```text
-PAIR_LOCAL_BRIDGE:    96
-PAIR_FULL_CHAIN:      96
-ENDPOINT_HIGHEST:     96
-ENDPOINT_LOWEST:      96
-COMPLETE_WEAK_ORDER: 192
+RNK-QL-042 allocated:          false
+CP007 permanent authorities:   0
+CP007 permanent runtime:       NOT AUTHORIZED
+CP007 English freeze:          NOT AUTHORIZED
 ```
 
-Difficulty:
+The four source candidates are **not four QLs**. They must undergo solver construction and merge/split ownership review first.
+
+## Held / redirected candidates
 
 ```text
-Easy:       0
-Medium:   416
-Hard:     160
+NUMERIC_POST_TIE_RANK_CONVENTION  HOLD
+MULTIPLE_INDEPENDENT_TIE_GROUPS   HOLD
+TIE_CLASS_SIZE_GTE_3               HOLD
+SHARED_RANKING_CASELETS            INFRASTRUCTURE
+MIXED_RANKING_AND_BLOOD_RELATION   OTHER CHAPTER / MIXED PUZZLE
 ```
 
-Every QL contains all five approved contexts and 5-, 6- and 7-entity states.
+## Object-pool remediation
 
-### Freeze proof
+The audit also found a presentation-diversity weakness: frozen mathematics is strong, but historical generators use small checkpoint-local pools.
 
-Manual final review:
+Future-facing foundation now provides:
 
 ```text
-questions independently reviewed: 36 / 36
-wrong answer keys:                  0
-ambiguous correct options:          0
-decorative equality samples:        0
-unstated numeric tie-rank rules:     0
+96 people / 288 EN-HI-PA person labels
+20 neutral group objects
+18 setting objects
+6 ordinary ranking semantic domains
+6 multilingual relation-template sets
+52 symbolic rankable objects
+8 derived quantity domains
+12 subgroup partition schemes
+8 derived-operation surface families
 ```
 
-Full-runtime executable proof:
+All selection APIs are deterministic and seeded. Frozen CP001..CP006 retain their historical pools to protect projections.
+
+See:
 
 ```text
-questions independently re-proved: 576
-equality-essential checks:         576
-complete-order distractors checked:576
-unique mathematical state keys:    576
-unique learner fingerprints:       576
-unique permanent fingerprints:     576
+foundation/rnk-object-pool-v2.ts
+foundation/rnk-presentation-object-pool-v2.ts
+foundation/rnk-derived-object-pool-v2.ts
 ```
 
-Pinned production candidate projection:
-
-```text
-sha256:3b26204b7137910d3247af37c75934680ea34cd86b5f342b55de2012e057fd00
-```
-
-Frozen permanent projection:
-
-```text
-sha256:7043ecd80798ed9b60529d6052f4bc6fd4e678a98d06cc3e0332a3d10028d819
-```
-
-See `RNK-CP-006/RNK-CP-006-ENGLISH-FREEZE-V1.md`.
-
-`RNK-QL-039..041` are therefore no longer open discovery identities.
-
-### Still excluded from CP-006 freeze
-
-A numerical rank after a tie is not defined. Competition/dense/fractional ranking conventions are not inferred from equality alone.
-
-Multiple independent tie groups and equality classes larger than two people remain future source-backed discovery only.
-
-## 8. Post-CP006 gap audit
-
-Fresh audit record:
-
-`RNK-001-POST-CP006-CHAPTER-GAP-AUDIT-2026-08-12.md`
-
-Decision:
-
-```text
-NO_NEW_QL_JUSTIFIED_YET
-```
-
-### RNK-CP-007
-
-**Closed / unallocated.** Do not start question generation simply because `RNK-QL-042` is available.
-
-Held/redirected candidates:
-
-```text
-numeric post-tie rank convention      HOLD
-multiple independent tie groups       HOLD
-tie class size >= 3                    HOLD
-advanced mixed transformations        HOLD
-shared ranking caselets                INFRASTRUCTURE
-ranking + blood/family inference       OTHER CHAPTER / MIXED PUZZLE
-```
-
-### RNK-CP-008
-
-Reserved. Shared passages/linked-question assembly remain infrastructure rather than authority identities.
-
-### Object-pool remediation
-
-The audit found a presentation-diversity weakness rather than a mathematical-coverage weakness. A future-facing shared object pool now provides at least 96 EN/HI/PA people, 20 neutral groups, 18 settings, 6 ranking domains and multilingual relation templates with deterministic seeded selection.
-
-It is not imported into frozen projection paths.
-
-## 9. Protected exclusions
+## Protected exclusions
 
 ```text
 lexicographic/dictionary position              -> Word and Dictionary Order
@@ -276,26 +219,24 @@ multi-attribute assignment                     -> Logic Puzzles
 league/tournament scoring                      -> Games and Tournament
 statement I/II sufficiency                     -> Data Sufficiency
 alphabet position without ranked group         -> Alphabet Test
-age/speed/marks arithmetic as main burden      -> Quant
-family/gender inference as main burden         -> Blood Relations / Mixed Puzzle
+substantial arithmetic as the main burden      -> Quant
+family/gender inference as the main burden     -> Blood Relations / Mixed Puzzle
 ```
 
-## 10. Lifecycle
+## Lifecycle
 
 ```text
 cumulative permanent range: RNK-QL-001..041
 next available RNK ID:      RNK-QL-042
-post-CP006 gap decision:    NO_NEW_QL_JUSTIFIED_YET
-CP-007:                     CLOSED / UNALLOCATED
-CP-005 English freeze:      true
-CP-006 English freeze:      true
-chapter-wide final freeze:  false
-Hindi/Punjabi:              NOT_STARTED
+post-CP006 decision:        SOURCE_BACKED_CP007_DISCOVERY_REQUIRED
+CP007 discovery:            OPEN
+CP007 permanent QLs:        0
 Question Studio:            DISABLED
 persistence:                DISABLED
 Question Bank:              NOT_STORED
 test eligibility:           INELIGIBLE
 public publication:         false
+Hindi/Punjabi:              NOT_STARTED
 ```
 
 No merge, deployment, publication, persistence or Question Studio enablement is authorized by this audit.
