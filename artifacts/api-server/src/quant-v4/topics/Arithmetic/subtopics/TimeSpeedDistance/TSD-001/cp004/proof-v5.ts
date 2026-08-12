@@ -26,7 +26,7 @@ for (const q of stress) {
   assert(q.permanentQlId === null && !q.questionStudioDiscoverable && q.questionBankStatus === "NOT_STORED" && q.testEligibility === "INELIGIBLE" && !q.publiclyPublishable, "Final CP004 lifecycle lock opened");
   if ((q.authorityId === "SEPARATION_AFTER_TIME" || q.authorityId === "TIME_TO_SPECIFIED_SEPARATION") && q.state.directionCase === "OPPOSITE_AWAY" && q.state.initialGapKm.numerator === 0n) {
     assert(/start from the same point/u.test(q.stem), `Final English same-point wording not applied: ${q.stem}`);
-    assert(!/0 km apart/u.test(q.stem), `Final English still says 0 km apart: ${q.stem}`);
+    assert(!/\b0 km apart/u.test(q.stem), `Final English still says 0 km apart: ${q.stem}`);
   }
   assert(!/\b(?:find|determine|locate)\b[^?]*\?$/iu.test(q.stem), `Imperative catalogue wording remains on final surface: ${q.stem}`);
 }
@@ -54,7 +54,7 @@ for (const authority of TSD_CP004_AUTHORITIES) {
       }
       if ((english.authorityId === "SEPARATION_AFTER_TIME" || english.authorityId === "TIME_TO_SPECIFIED_SEPARATION") && english.state.directionCase === "OPPOSITE_AWAY" && english.state.initialGapKm.numerator === 0n) {
         assert(language === "hi" ? /एक ही बिंदु से शुरू/u.test(native.stem) : /ਇੱਕੋ ਬਿੰਦੂ ਤੋਂ ਸ਼ੁਰੂ/u.test(native.stem), `${language} final same-point wording missing: ${native.stem}`);
-        assert(!/0 km/u.test(native.stem), `${language} final stem still says 0 km: ${native.stem}`);
+        assert(!/\b0 km/u.test(native.stem), `${language} final stem still says 0 km: ${native.stem}`);
         nativeSamePointChecks += 1;
       }
       if (english.authorityId === "SPEED_RATIO_FROM_MEETING_POINT" && english.state.variant === 0) {
