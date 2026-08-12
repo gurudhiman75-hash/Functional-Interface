@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { buildMenCp009V3StudentReviewBatch } from "../coverage-v2/student-review-batch-v3";
-import { buildMenCp009StudentViewV4 } from "../coverage-v2/student-view-v4";
+import { buildMenCp009StudentViewV4Final } from "../coverage-v2/student-view-v4-final";
 import { generateMenCp009NativeTeachingV2 } from "./runtime-v2";
 
 function esc(value: unknown) {
@@ -42,7 +42,7 @@ function card(item: {
 }
 
 const englishCards = reviewed.rows
-  .map((row) => card(buildMenCp009StudentViewV4(row), "en"))
+  .map((row) => card(buildMenCp009StudentViewV4Final(row), "en"))
   .join("\n");
 const hindiCards = reviewed.rows
   .map((row) => card(generateMenCp009NativeTeachingV2(row.permanentQlId, row.seed, "hi"), "hi"))
