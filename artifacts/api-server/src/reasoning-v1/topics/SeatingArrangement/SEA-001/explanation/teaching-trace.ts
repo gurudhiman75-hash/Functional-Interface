@@ -54,7 +54,7 @@ export function studentClueAction(text: string): string {
     return `Place ${subject} in the next seat ${direction?.toLowerCase()} from ${reference}.`;
   }
 
-  match = text.match(/^Exactly (\d+) persons? sit between (.+?) and (.+?) when counted (clockwise|anticlockwise) from (.+?)\.$/i);
+  match = text.match(/^Exactly (\d+) person(?:s)? sit(?:s)? between (.+?) and (.+?) when counted (clockwise|anticlockwise) from (.+?)\.$/i);
   if (match) {
     const gap = Number(match[1]);
     const first = match[2];
@@ -68,8 +68,8 @@ export function studentClueAction(text: string): string {
 
   match = text.match(/^(.+?) does not sit adjacent to (.+?)\.$/i);
   if (match) {
-    const [, subject, reference] = match;
-    return `Cross out the two seats next to ${reference} for ${subject}. When the other clues leave only one legal seat, ${subject} must take that seat.`;
+    const [, first, second] = match;
+    return `${first} and ${second} cannot be neighbours. If either one is already placed, cross out both seats beside that person for the other.`;
   }
 
   match = text.match(/^(.+?) sits adjacent to (.+?)\.$/i);
