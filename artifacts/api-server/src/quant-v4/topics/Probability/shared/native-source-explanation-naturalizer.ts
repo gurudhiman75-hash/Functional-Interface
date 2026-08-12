@@ -56,6 +56,14 @@ export function naturalizeProbabilityExplanationBody(
 ): string | null {
   let m: RegExpMatchArray | null;
 
+  if (value === "Knowing that the card is a face card reduces the sample space to the 12 jacks, queens and kings.") {
+    return pick(
+      language,
+      "पत्ता फेस कार्ड दिया गया है, इसलिए अब कुल संभावित पत्ते केवल 12 गुलाम, बेगम और बादशाह हैं।",
+      "ਪੱਤਾ ਫੇਸ ਕਾਰਡ ਦਿੱਤਾ ਹੋਇਆ ਹੈ, ਇਸ ਲਈ ਹੁਣ ਕੁੱਲ ਸੰਭਵ ਪੱਤੇ ਕੇਵਲ 12 ਗੁਲਾਮ, ਬੇਗਮ ਅਤੇ ਬਾਦਸ਼ਾਹ ਹਨ।",
+    );
+  }
+
   m = value.match(/^The first marble is replaced, so the container again has (\d+) red and (\d+) blue marbles before the second selection\.$/u);
   if (m) return pick(
     language,
