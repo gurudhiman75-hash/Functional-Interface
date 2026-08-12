@@ -1,0 +1,72 @@
+name: Validate SAP-CP-006 final 300-question review
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feat/sap-cp005-structural-cancellation-foundation
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/**
+      - .github/workflows/validate-sap-cp006-final-review.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-sap-cp006-final-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sap-cp006-final-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle final full-review authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/full-review-authority-final.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp006-final-review-authority.test.mjs
+      - name: Run final full-review authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp006-final-review-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp006-final-review-authority.log
+      - name: Bundle final review generator
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/generate-full-review-final.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp006-generate-final-review.mjs
+      - name: Generate final 300-question review files
+        run: >-
+          node artifacts/api-server/dist/quant-v4/sap-cp006-generate-final-review.mjs
+          artifacts/api-server/dist/quant-v4/SAP-CP-006-300-FULL-ENGLISH-REVIEW.md
+          artifacts/api-server/dist/quant-v4/SAP-CP-006-300-FULL-ENGLISH-REVIEW.html
+          artifacts/api-server/dist/quant-v4/SAP-CP-006-300-FULL-ENGLISH-REVIEW.json
+      - name: Upload final review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp006-final-300-question-review
+          path: |
+            artifacts/api-server/dist/quant-v4/sap-cp006-final-review-authority.log
+            artifacts/api-server/dist/quant-v4/SAP-CP-006-300-FULL-ENGLISH-REVIEW.md
+            artifacts/api-server/dist/quant-v4/SAP-CP-006-300-FULL-ENGLISH-REVIEW.html
+            artifacts/api-server/dist/quant-v4/SAP-CP-006-300-FULL-ENGLISH-REVIEW.json
+          if-no-files-found: error
+          retention-days: 30
