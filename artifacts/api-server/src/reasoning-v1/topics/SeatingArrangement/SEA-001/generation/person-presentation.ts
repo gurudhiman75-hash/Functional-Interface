@@ -29,7 +29,7 @@ export function sea001DisplayName(
 export function normalizeSea001StudentLanguage(text: string): string {
   let output = text
     .replace(/\bImmediate to the (left|right)\b/g, "Immediately to the $1")
-    .replace(/\brelation is immediate to the (left|right)\b/gi, "is immediately to the $1")
+    .replace(/\brelation is immediate to the (left|right)\b/gi, "position is immediately to the $1")
     .replace(/\b6th to the (left|right)\b/g, "Sixth to the $1")
     .replace(/\b7th to the (left|right)\b/g, "Seventh to the $1")
     .replace(/\b8th to the (left|right)\b/g, "Eighth to the $1")
@@ -53,6 +53,10 @@ export function normalizeSea001StudentLanguage(text: string): string {
       /^With (\d+) seats, the opposite position is (\d+) seats away\. (.+?) occupies it\.$/i,
       "With $1 seats, the opposite seat is halfway around: $2 seats away. $3 sits there.",
     )
+    .replace(
+      /^(.+?) faces (north|south)\. From (.+?)'s point of view, (.+?) is (.+?), so the (?:relation|position) is (.+?)\.$/i,
+      "$1 faces $2. Look from $3's side: $4 is $5. So $4 is $6 of $3.",
+    )
     .replace(/Facing does not change physical adjacency\.?/gi, "For neighbours, facing does not matter.")
     .replace(/Facing does not change adjacency\.?/gi, "For neighbours, facing does not matter.")
     .replace(/\bphysical adjacency\b/gi, "who sits next to whom")
@@ -65,15 +69,23 @@ export function normalizeSea001StudentLanguage(text: string): string {
     .replace(/\bThis includes one endpoint in the count\./gi, "This wrongly counts one of the named people.")
     .replace(/\bThis incorrectly includes the reference person\./gi, "This wrongly counts the person named in the question.")
     .replace(/\bThe reference person cannot be their own neighbour\./gi, "A person cannot be their own neighbour.")
+    .replace(/\bThis reverses the centre-facing left\/right rule\./gi, "Everyone faces the centre, so left is clockwise and right is anticlockwise. This option uses the opposite side.")
+    .replace(/\bThis applies the centre-facing rule\. For outward-facing persons, left is anticlockwise\./gi, "Everyone faces outward, so left is anticlockwise. This option uses the wrong side.")
+    .replace(/\bFor outward-facing persons\b/gi, "For people facing outward")
     .replace(/\bthe reference person's facing\b/gi, "that person's facing")
     .replace(/\bthe reference person's left and right\b/gi, "that person's left and right")
     .replace(/\bthe reference person\b/gi, "the person named in the question")
+    .replace(/\bthe reference\b/gi, "that person")
     .replace(/\bendpoint(?:s)?\b/gi, "named person")
     .replace(/\bphysical circular direction directly, independent of facing\b/gi, "direction written in the question")
-    .replace(
-      /^(.+?) faces (north|south)\. From \1's point of view, (.+?) is (.+?), so the relation is (.+?)\.$/i,
-      "$1 faces $2. Look from $1's side: $3 is $4. So $3 is $5 of $1.",
-    )
+    .replace(/\boccupy the two seats directly beside\b/gi, "sit in the two seats next to")
+    .replace(/\boccupies the two seats directly beside\b/gi, "sits in one of the two seats next to")
+    .replace(/\boccupy consecutive seats in the solved row\. Therefore that statement is true\./gi, "sit next to each other in the final row, so that statement is true.")
+    .replace(/\boccupy consecutive seats, so this pair shares the common adjacency relation rather than being the odd pair\./gi, "sit next to each other, so this pair follows the same 'sitting next to' pattern and is not the odd pair.")
+    .replace(/\boccupies seat (\d+) when the solved row is counted from the left end, so the position is ([^.]+)\./gi, "sits in seat $1 when we count from the left end, so the answer is $2.")
+    .replace(/\bReading the solved row from the left end\b/gi, "Reading the final row from the left end")
+    .replace(/\bThis chooses the occupant at the mirrored right-end seat\./gi, "This chooses the person at the opposite end of the row.")
+    .replace(/\bThis skips the person immediately beside that person on one side\./gi, "This skips the person sitting immediately next to them on one side.")
     .replace(
       /^Count only the seats between (.+?) and (.+?); named person are excluded\. The result is (\d+)\.$/i,
       "Count only the people sitting between $1 and $2. Do not count $1 or $2. The answer is $3.",
@@ -154,7 +166,7 @@ function fallbackExplanation(
     return `The correct order is ${correctDisplay}. ${wrongDisplay} does not follow the order asked in the question.`;
   }
   if (answerType === "STATEMENT") {
-    return `${correctDisplay} matches the solved arrangement. ${wrongDisplay} does not.`;
+    return `${correctDisplay} is true in the final arrangement. ${wrongDisplay} is not.`;
   }
   return `Counting as the question asks reaches ${correctDisplay}, not ${wrongDisplay}.`;
 }
