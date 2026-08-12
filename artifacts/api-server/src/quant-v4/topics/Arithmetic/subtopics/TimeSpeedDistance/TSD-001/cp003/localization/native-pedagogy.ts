@@ -1,4 +1,4 @@
-import { absRational, add, compare, divide, subtract, type Rational } from "../../foundation/rational";
+import { absRational, add, compare, divide, rational, subtract, type Rational } from "../../foundation/rational";
 import type { TsdCp003EnglishFrozenRecord } from "../english-frozen";
 import { formatExamNumber } from "../generation-support";
 import type { TsdCp003NativePresentation } from "./native-runtime";
@@ -13,6 +13,9 @@ type BaseExplanation = TsdCp003NativePresentation["explanation"];
 const n = (value: Rational): string => formatExamNumber(value);
 const dur = (value: Rational, language: TsdCp003NativeLanguage): string => formatNativeDuration(value, language);
 const km = (value: Rational): string => `${n(value)} km`;
+const reciprocalGap = (first: Rational, second: Rational): Rational => absRational(
+  subtract(divide(rational(1), first), divide(rational(1), second)),
+);
 
 export function enhanceCp003NativePedagogy(
   source: TsdCp003EnglishFrozenRecord,
@@ -48,6 +51,7 @@ export function enhanceCp003NativePedagogy(
     case "speedChangePointDistance": {
       const baseline = divide(input.totalDistance, input.secondSpeed);
       const extra = subtract(input.totalTravelTime, baseline);
+      const perKmExtra = reciprocalGap(input.firstSpeed, input.secondSpeed);
       return Object.freeze({
         method: hi
           ? "तुलना के लिए पहले मानें कि पूरा मार्ग दूसरी गति से तय हुआ। वास्तविक समय में जो अतिरिक्त समय है, वही पहले धीमे भाग के कारण आया है।"
@@ -55,8 +59,8 @@ export function enhanceCp003NativePedagogy(
         steps: Object.freeze([
           `${C}: ${hi ? "यदि पूरा मार्ग दूसरी गति से तय होता, समय" : "ਜੇ ਪੂਰਾ ਰਸਤਾ ਦੂਜੀ ਰਫ਼ਤਾਰ ਨਾਲ ਤੈਅ ਹੁੰਦਾ, ਸਮਾਂ"} = ${n(input.totalDistance)} ÷ ${n(input.secondSpeed)} = ${dur(baseline, language)}।`,
           `${C}: ${hi ? "पहली गति के कारण अतिरिक्त समय" : "ਪਹਿਲੀ ਰਫ਼ਤਾਰ ਕਰਕੇ ਵਾਧੂ ਸਮਾਂ"} = ${dur(input.totalTravelTime, language)} − ${dur(baseline, language)} = ${dur(extra, language)}।`,
-          `${C}: ${hi ? "हर 1 km को पहली गति पर करने से अतिरिक्त समय" : "ਹਰ 1 km ਪਹਿਲੀ ਰਫ਼ਤਾਰ ਨਾਲ ਕਰਨ ਉੱਤੇ ਵਾਧੂ ਸਮਾਂ"} = 1/${n(input.firstSpeed)} − 1/${n(input.secondSpeed)} ${hi ? "घंटा" : "ਘੰਟਾ"}।`,
-          `${T} ${hi ? "पहली गति से तय दूरी" : "ਪਹਿਲੀ ਰਫ਼ਤਾਰ ਨਾਲ ਤੈਅ ਦੂਰੀ"} = ${dur(extra, language)} ÷ (1/${n(input.firstSpeed)} − 1/${n(input.secondSpeed)}) = ${final}।`,
+          `${C}: ${hi ? "हर 1 km को पहली गति पर करने से अतिरिक्त समय" : "ਹਰ 1 km ਪਹਿਲੀ ਰਫ਼ਤਾਰ ਨਾਲ ਕਰਨ ਉੱਤੇ ਵਾਧੂ ਸਮਾਂ"} = ${dur(perKmExtra, language)} ${hi ? "प्रति km" : "ਪ੍ਰਤੀ km"}।`,
+          `${T} ${hi ? "पहली गति से तय दूरी" : "ਪਹਿਲੀ ਰਫ਼ਤਾਰ ਨਾਲ ਤੈਅ ਦੂਰੀ"} = ${dur(extra, language)} ÷ ${dur(perKmExtra, language)} ${hi ? "प्रति km" : "ਪ੍ਰਤੀ km"} = ${final}।`,
         ]),
         answer: base.answer,
       });
@@ -67,12 +71,10 @@ export function enhanceCp003NativePedagogy(
       const baseline = divide(input.totalDistance, input.originalSpeed);
       const changedIsFaster = compare(input.changedSpeed, input.originalSpeed) > 0;
       const timeEffect = absRational(subtract(baseline, input.totalTravelTime));
+      const perKmEffect = reciprocalGap(input.originalSpeed, input.changedSpeed);
       const effectWord = changedIsFaster
         ? (hi ? "समय की बचत" : "ਸਮੇਂ ਦੀ ਬਚਤ")
         : (hi ? "अतिरिक्त समय" : "ਵਾਧੂ ਸਮਾਂ");
-      const reciprocal = changedIsFaster
-        ? `1/${n(input.originalSpeed)} − 1/${n(input.changedSpeed)}`
-        : `1/${n(input.changedSpeed)} − 1/${n(input.originalSpeed)}`;
       return Object.freeze({
         method: changedIsFaster
           ? (hi
@@ -84,7 +86,8 @@ export function enhanceCp003NativePedagogy(
         steps: Object.freeze([
           `${C}: ${hi ? "यदि पूरा मार्ग पुरानी गति से तय होता, समय" : "ਜੇ ਪੂਰਾ ਰਸਤਾ ਪੁਰਾਣੀ ਰਫ਼ਤਾਰ ਨਾਲ ਤੈਅ ਹੁੰਦਾ, ਸਮਾਂ"} = ${n(input.totalDistance)} ÷ ${n(input.originalSpeed)} = ${dur(baseline, language)}।`,
           `${C}: ${effectWord} = |${dur(baseline, language)} − ${dur(input.totalTravelTime, language)}| = ${dur(timeEffect, language)}।`,
-          `${C}: ${hi ? "बदली गति वाला मार्ग" : "ਬਦਲੀ ਰਫ਼ਤਾਰ ਵਾਲਾ ਰਸਤਾ"} = ${dur(timeEffect, language)} ÷ (${reciprocal}) = ${km(changed)}।`,
+          `${C}: ${hi ? "बदली गति से हर 1 km पर समय का अंतर" : "ਬਦਲੀ ਰਫ਼ਤਾਰ ਨਾਲ ਹਰ 1 km ਉੱਤੇ ਸਮੇਂ ਦਾ ਅੰਤਰ"} = ${dur(perKmEffect, language)} ${hi ? "प्रति km" : "ਪ੍ਰਤੀ km"}।`,
+          `${C}: ${hi ? "बदली गति वाला मार्ग" : "ਬਦਲੀ ਰਫ਼ਤਾਰ ਵਾਲਾ ਰਸਤਾ"} = ${dur(timeEffect, language)} ÷ ${dur(perKmEffect, language)} ${hi ? "प्रति km" : "ਪ੍ਰਤੀ km"} = ${km(changed)}।`,
           `${T} ${hi ? "बदली गति पर तय प्रतिशत" : "ਬਦਲੀ ਰਫ਼ਤਾਰ ਉੱਤੇ ਤੈਅ ਪ੍ਰਤੀਸ਼ਤ"} = ${n(changed)} ÷ ${n(input.totalDistance)} × 100 = ${final}।`,
         ]),
         answer: base.answer,
