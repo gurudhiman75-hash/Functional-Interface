@@ -109,9 +109,42 @@ function buildQl062(seed: string) {
   };
 }
 
+const FIXED_STEM_VARIANTS: Record<string, [string, string]> = {
+  "TRG-001-QL-038": ["Find the exact value of cosec 45°.", "Evaluate cosec 45° in exact form."],
+  "TRG-001-QL-039": ["Evaluate exactly: sin 30° + cos 60°.", "Find the exact value of cos 60° + sin 30°."],
+  "TRG-001-QL-040": ["Evaluate exactly: sec 60° − tan 45°.", "Find sec 60° − tan 45° exactly."],
+  "TRG-001-QL-041": ["Evaluate exactly: tan 30° × cot 30°.", "Find the product tan 30°·cot 30°."],
+  "TRG-001-QL-042": ["Evaluate exactly: sec 45° × cosec 45°.", "Find sec 45°·cosec 45° in exact form."],
+  "TRG-001-QL-043": ["Evaluate exactly: sin 60° / cos 30°.", "Find the exact quotient sin 60° ÷ cos 30°."],
+  "TRG-001-QL-044": ["Evaluate exactly: (sin 30° + cos 30°)².", "Find the square of sin 30° + cos 30° exactly."],
+  "TRG-001-QL-045": ["Evaluate exactly: 1 / (sin 30° × cos 60°).", "Find the reciprocal of sin 30°·cos 60°."],
+  "TRG-001-QL-046": ["Evaluate exactly: cosec 30° + cot 45°.", "Find cosec 30° + cot 45° in exact form."],
+  "TRG-001-QL-047": ["What is the value of tan 90°?", "Which option correctly describes tan 90°?"],
+  "TRG-001-QL-048": ["What is the value of cot 0°?", "Which option correctly describes cot 0°?"],
+  "TRG-001-QL-072": ["In quadrant II, which pair of trigonometric functions is positive?", "Which pair remains positive for an angle in quadrant II?"],
+  "TRG-001-QL-095": ["Simplify: (tan θ + cot θ)² − sec²θ − cosec²θ, where all terms are defined.", "Find the value of (tan θ + cot θ)² − sec²θ − cosec²θ, where defined."],
+  "TRG-001-QL-096": ["Which expression is equivalent to 1/(1 + tan²θ), wherever it is defined?", "1/(1+tan²θ) is identically equal to which expression?"],
+  "TRG-001-QL-119": ["If 2sin²θ = 1 and 0° < θ < 90°, find θ.", "For an acute angle θ, solve 2sin²θ=1."],
+  "TRG-001-QL-120": ["If tan θ = cot θ and 0° < θ < 90°, find θ.", "For acute θ, find θ if tanθ=cotθ."],
+  "TRG-001-QL-133": ["Evaluate exactly: cos 75° + sin 15°.", "Find cos75°+sin15° in exact form."],
+  "TRG-001-QL-134": ["Evaluate exactly: sin 75° − cos 75°.", "Find the exact value of sin75°−cos75°."],
+  "TRG-001-QL-135": ["Find the exact value of tan 15°.", "Evaluate tan15° exactly."],
+  "TRG-001-QL-137": ["If tan θ = √3/3 and θ is acute, find tan 2θ.", "For acute θ with tanθ=√3/3, evaluate tan2θ."],
+  "TRG-001-QL-139": ["Evaluate exactly: cos 60°·cos 30° + sin 60°·sin 30°.", "Find cos60°cos30°+sin60°sin30° exactly."],
+  "TRG-001-QL-140": ["Evaluate exactly: cos 60°·cos 30° − sin 60°·sin 30°.", "Find cos60°cos30°−sin60°sin30° exactly."],
+  "TRG-001-QL-144": ["Which expression is equal to cos(A + B)?", "Choose the identity equivalent to cos(A+B)."],
+};
+
+function applySeededStemVariant(question: any) {
+  const variants = FIXED_STEM_VARIANTS[question.qlId];
+  if (!variants || !question.productionOnly) return question;
+  const index = hash(`${question.seed}|${question.qlId}|production-stem`) % variants.length;
+  return { ...question, stem: variants[index], candidateStemVariant: index };
+}
+
 export function generateCandidateTrg001ProductionQuestion(qlId: string, seed: string): any {
-  if (qlId === "TRG-001-QL-062") return buildQl062(seed);
-  return generateTrg001ProductionQuestion(qlId, seed);
+  const question = qlId === "TRG-001-QL-062" ? buildQl062(seed) : generateTrg001ProductionQuestion(qlId, seed);
+  return applySeededStemVariant(question);
 }
 
 export function generateAllCandidateTrg001ProductionQuestions(seed: string) {
