@@ -13,6 +13,7 @@ import {
   RNK_CP006_PERMANENT_AUTHORITY_ASSIGNMENTS,
 } from "./RNK-CP-006/cp006-permanent-runtime-v1";
 import {
+  RNK_CP007_DISCOVERY_CANDIDATES,
   RNK_HELD_GAPS,
   RNK_IMPLEMENTED_STATE_CONTRACTS,
   RNK_POST_CP006_FROZEN_RANGE,
@@ -27,7 +28,7 @@ function qlNumber(id: string): number {
   return Number(match[1]);
 }
 
-assert.equal(RNK_POST_CP006_GAP_DECISION, "NO_NEW_QL_JUSTIFIED_YET");
+assert.equal(RNK_POST_CP006_GAP_DECISION, "SOURCE_BACKED_CP007_DISCOVERY_REQUIRED");
 assert.deepEqual(RNK_POST_CP006_FROZEN_RANGE, {
   first: "RNK-QL-001",
   last: "RNK-QL-041",
@@ -50,15 +51,30 @@ assert.deepEqual(RNK_IMPLEMENTED_STATE_CONTRACTS.map((entry) => entry.contract),
 ]);
 assert.equal(new Set(RNK_IMPLEMENTED_STATE_CONTRACTS.map((entry) => entry.contract)).size, 3);
 
+assert.deepEqual(RNK_CP007_DISCOVERY_CANDIDATES.map((entry) => entry.id), [
+  "CATEGORY_COMPOSITION_AROUND_RANK",
+  "DERIVED_QUANTITY_ORDER",
+  "NUMERIC_VALUE_CONSTRAINED_ORDER",
+  "RELATIONAL_SIDE_COUNT_EQUATION",
+]);
+assert.deepEqual(RNK_CP007_DISCOVERY_CANDIDATES.map((entry) => entry.disposition), [
+  "DISCOVER_AS_PROVISIONAL_AUTHORITY",
+  "DISCOVER_AS_PROVISIONAL_AUTHORITY",
+  "AUDIT_MERGE_WITH_DERIVED_QUANTITY_ORDER",
+  "AUDIT_EXTENSION_OF_CP001",
+]);
+assert.ok(RNK_CP007_DISCOVERY_CANDIDATES.every((entry) => entry.sourceEvidence.length >= 1));
+assert.ok(RNK_CP007_DISCOVERY_CANDIDATES.every((entry) => entry.permanentQlId === null));
+assert.equal(RNK_CP007_DISCOVERY_CANDIDATES.filter((entry) => entry.disposition === "DISCOVER_AS_PROVISIONAL_AUTHORITY").length, 2);
+
 assert.deepEqual(RNK_HELD_GAPS.map((entry) => entry.id), [
   "NUMERIC_POST_TIE_RANK_CONVENTION",
   "MULTIPLE_INDEPENDENT_TIE_GROUPS",
   "TIE_CLASS_SIZE_GTE_3",
   "SHARED_RANKING_CASELETS",
   "MIXED_RANKING_AND_BLOOD_RELATION",
-  "ADVANCED_MIXED_TRANSFORMATIONS",
 ]);
-assert.equal(RNK_HELD_GAPS.filter((entry) => entry.status === "HOLD").length, 4);
+assert.equal(RNK_HELD_GAPS.filter((entry) => entry.status === "HOLD").length, 3);
 assert.equal(RNK_HELD_GAPS.filter((entry) => entry.status === "INFRASTRUCTURE").length, 1);
 assert.equal(RNK_HELD_GAPS.filter((entry) => entry.status === "OTHER_CHAPTER_BOUNDARY").length, 1);
 
@@ -67,7 +83,9 @@ assert.deepEqual(RNK_POST_CP006_INFRASTRUCTURE_FINDINGS, {
   frozenProjectionChangeRequired: false,
   objectPoolExpansionRequired: true,
   staleRoadmapDocumentationRequiresCorrection: true,
-  cp007QuestionGenerationAuthorized: false,
+  cp007DiscoveryAuthorized: true,
+  cp007PermanentRuntimeAuthorized: false,
+  cp007EnglishFreezeAuthorized: false,
   permanentQl042Allocated: false,
 });
 assert.deepEqual(RNK_POST_CP006_LIFECYCLE, {
@@ -87,8 +105,14 @@ console.log(JSON.stringify({
   status: "PASS",
   decision: RNK_POST_CP006_GAP_DECISION,
   frozenRange: RNK_POST_CP006_FROZEN_RANGE,
-  distinctStateContracts: RNK_IMPLEMENTED_STATE_CONTRACTS.length,
+  distinctImplementedStateContracts: RNK_IMPLEMENTED_STATE_CONTRACTS.length,
+  cp007DiscoveryCandidates: RNK_CP007_DISCOVERY_CANDIDATES.map((entry) => ({
+    id: entry.id,
+    disposition: entry.disposition,
+  })),
   heldOrRedirectedCandidates: RNK_HELD_GAPS.length,
   ql042Allocated: false,
+  cp007DiscoveryAuthorized: true,
+  cp007PermanentRuntimeAuthorized: false,
   objectPoolExpansionRequired: true,
 }, null, 2));
