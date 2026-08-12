@@ -193,7 +193,21 @@ function buildCandidateConstraints(
       personId: firstPerson,
       facing: facings[firstPerson] as MixedCircleFacing,
     });
+
+    // Give the minimiser several truthful solve routes instead of forcing a
+    // complete immediate-clockwise chain. The retained PBA-020 passage must
+    // still include physical cyclic placement, reference-facing left/right
+    // reasoning, and conditional orientation.
     constraints.push(...cyclicChain(clockwiseOrder, clockwiseOrder, nextId));
+    for (let index = 0; index < clockwiseOrder.length; index += 1) {
+      constraints.push(facingRelativeConstraint(
+        clockwiseOrder,
+        facings,
+        index,
+        (index + 2) % clockwiseOrder.length,
+        nextId(),
+      ));
+    }
     for (let index = 1; index < clockwiseOrder.length; index += 1) {
       const previousPerson = clockwiseOrder[index - 1] as string;
       const targetPerson = clockwiseOrder[index] as string;
@@ -241,8 +255,9 @@ function requirementSatisfied(
       && count("DIRECTIONAL_COUNT_BETWEEN") >= 1
       && count("FACING") === seatCount;
   }
-  return count("CONDITIONAL_FACING") === seatCount - 1
+  return count("CONDITIONAL_FACING") >= 1
     && count("FACING") === 1
+    && count("RELATIVE_POSITION") >= 2
     && count("CYCLIC_POSITION") >= 1;
 }
 
