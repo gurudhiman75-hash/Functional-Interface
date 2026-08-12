@@ -56,6 +56,143 @@ export function naturalizeProbabilityExplanationBody(
 ): string | null {
   let m: RegExpMatchArray | null;
 
+  m = value.match(/^Among them, (.+) are divisible by (\d+)\. So the probability is (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "इनमें से " + m[1] + " संख्याएँ " + m[2] + " से विभाज्य हैं। इसलिए प्रायिकता " + m[3] + " है।",
+    "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ " + m[1] + " ਸੰਖਿਆਵਾਂ " + m[2] + " ਨਾਲ ਭਾਗਯੋਗ ਹਨ। ਇਸ ਲਈ ਸੰਭਾਵਨਾ " + m[3] + " ਹੈ।",
+  );
+
+  m = value.match(/^First find those satisfying at least one condition: (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "पहले कम-से-कम एक शर्त पूरी करने वालों की संख्या ज्ञात करें: " + m[1] + "।",
+    "ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸ਼ਰਤ ਪੂਰੀ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ: " + m[1] + "।",
+  );
+
+  m = value.match(/^People satisfying neither condition = (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "किसी भी शर्त को पूरा न करने वाले लोगों की संख्या = " + m[1] + "।",
+    "ਕਿਸੇ ਵੀ ਸ਼ਰਤ ਨੂੰ ਪੂਰਾ ਨਾ ਕਰਨ ਵਾਲੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ = " + m[1] + "।",
+  );
+
+  m = value.match(/^Apply (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "सूत्र लगाएँ: " + m[1] + "।",
+    "ਸੂਤਰ ਲਗਾਓ: " + m[1] + "।",
+  );
+
+  m = value.match(/^In counts, the overlap is (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "संख्याओं के रूप में साझा भाग = " + m[1] + "।",
+    "ਗਿਣਤੀਆਂ ਦੇ ਰੂਪ ਵਿੱਚ ਸਾਂਝਾ ਹਿੱਸਾ = " + m[1] + "।",
+  );
+
+  if (value === "Use symmetry at the first post. Every person is equally likely to receive that post, so compare the number of women with the total number of people.") {
+    return pick(
+      language,
+      "पहले पद के लिए सममिति का उपयोग करें। हर व्यक्ति के उस पद पर चुने जाने की संभावना समान है, इसलिए महिलाओं की संख्या की तुलना कुल लोगों की संख्या से करें।",
+      "ਪਹਿਲੇ ਅਹੁਦੇ ਲਈ ਸਮਮਿਤੀ ਵਰਤੋ। ਹਰ ਵਿਅਕਤੀ ਦੇ ਉਸ ਅਹੁਦੇ ਲਈ ਚੁਣੇ ਜਾਣ ਦੀ ਸੰਭਾਵਨਾ ਇੱਕੋ ਹੈ, ਇਸ ਲਈ ਔਰਤਾਂ ਦੀ ਗਿਣਤੀ ਦੀ ਤੁਲਨਾ ਕੁੱਲ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਨਾਲ ਕਰੋ।",
+    );
+  }
+
+  m = value.match(/^There are (\d+) people altogether: (\d+) men \+ (\d+) women = (\d+)\.$/u);
+  if (m) return pick(
+    language,
+    "कुल " + m[1] + " लोग हैं: " + m[2] + " पुरुष + " + m[3] + " महिलाएँ = " + m[4] + "।",
+    "ਕੁੱਲ " + m[1] + " ਲੋਕ ਹਨ: " + m[2] + " ਮਰਦ + " + m[3] + " ਔਰਤਾਂ = " + m[4] + "।",
+  );
+
+  m = value.match(/^(\d+) of the (\d+) people are women, so (.+)\.$/u);
+  if (m) return pick(
+    language,
+    m[2] + " लोगों में " + m[1] + " महिलाएँ हैं, इसलिए " + m[3] + "।",
+    m[2] + " ਲੋਕਾਂ ਵਿੱਚ " + m[1] + " ਔਰਤਾਂ ਹਨ, ਇਸ ਲਈ " + m[3] + "।",
+  );
+
+  if (value === "Assignments to the remaining posts do not change the probability for the first post.") {
+    return pick(
+      language,
+      "बाकी पदों का आवंटन पहले पद की प्रायिकता को नहीं बदलता।",
+      "ਬਾਕੀ ਅਹੁਦਿਆਂ ਦੀ ਵੰਡ ਪਹਿਲੇ ਅਹੁਦੇ ਦੀ ਸੰਭਾਵਨਾ ਨੂੰ ਨਹੀਂ ਬਦਲਦੀ।",
+    );
+  }
+
+  m = value.match(/^Any of the (\d+) people can receive the first post\.$/u);
+  if (m) return pick(
+    language,
+    m[1] + " लोगों में से कोई भी पहला पद प्राप्त कर सकता है।",
+    m[1] + " ਲੋਕਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਨੂੰ ਵੀ ਪਹਿਲਾ ਅਹੁਦਾ ਮਿਲ ਸਕਦਾ ਹੈ।",
+  );
+
+  m = value.match(/^(\d+) of these (\d+) people are women, and the remaining posts do not affect who receives the first post\.$/u);
+  if (m) return pick(
+    language,
+    "इन " + m[2] + " लोगों में " + m[1] + " महिलाएँ हैं। बाकी पदों का आवंटन इस बात को प्रभावित नहीं करता कि पहला पद किसे मिलता है।",
+    "ਇਨ੍ਹਾਂ " + m[2] + " ਲੋਕਾਂ ਵਿੱਚ " + m[1] + " ਔਰਤਾਂ ਹਨ। ਬਾਕੀ ਅਹੁਦਿਆਂ ਦੀ ਵੰਡ ਇਸ ਗੱਲ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਨਹੀਂ ਕਰਦੀ ਕਿ ਪਹਿਲਾ ਅਹੁਦਾ ਕਿਸ ਨੂੰ ਮਿਲਦਾ ਹੈ।",
+  );
+
+  m = value.match(/^The unit digit has (\d+) even choices\. After fixing it, the remaining (\d+) positions can be filled in (.+) ways\.$/u);
+  if (m) return pick(
+    language,
+    "इकाई स्थान के लिए " + m[1] + " सम अंकों के विकल्प हैं। इसे तय करने के बाद बाकी " + m[2] + " स्थानों को " + m[3] + " तरीकों से भरा जा सकता है।",
+    "ਇਕਾਈ ਸਥਾਨ ਲਈ " + m[1] + " ਜੋੜੇ ਅੰਕਾਂ ਦੀਆਂ ਚੋਣਾਂ ਹਨ। ਇਸ ਨੂੰ ਨਿਰਧਾਰਤ ਕਰਨ ਤੋਂ ਬਾਅਦ ਬਾਕੀ " + m[2] + " ਸਥਾਨ " + m[3] + " ਤਰੀਕਿਆਂ ਨਾਲ ਭਰੇ ਜਾ ਸਕਦੇ ਹਨ।",
+  );
+
+  m = value.match(/^Use the complement\. Committees containing no woman are all-men committees: (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "पूरक घटना का उपयोग करें। जिस समिति में कोई महिला नहीं है, वह केवल पुरुषों की समिति होगी: " + m[1] + "।",
+    "ਪੂਰਕ ਘਟਨਾ ਵਰਤੋ। ਜਿਸ ਕਮੇਟੀ ਵਿੱਚ ਕੋਈ ਔਰਤ ਨਹੀਂ ਹੈ, ਉਹ ਕੇਵਲ ਮਰਦਾਂ ਦੀ ਕਮੇਟੀ ਹੋਵੇਗੀ: " + m[1] + "।",
+  );
+
+  m = value.match(/^Committees with at least one woman = (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "कम-से-कम एक महिला वाली समितियाँ = " + m[1] + "।",
+    "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਔਰਤ ਵਾਲੀਆਂ ਕਮੇਟੀਆਂ = " + m[1] + "।",
+  );
+
+  m = value.match(/^Ways to choose (\d+) (woman|women): (.+)\.$/u);
+  if (m) return pick(
+    language,
+    m[1] + " महिला चुनने के तरीके: " + m[3] + "।",
+    m[1] + " ਔਰਤ ਚੁਣਨ ਦੇ ਤਰੀਕੇ: " + m[3] + "।",
+  );
+
+  m = value.match(/^Ways to choose (\d+) (man|men): (.+)\.$/u);
+  if (m) return pick(
+    language,
+    m[1] + " पुरुष चुनने के तरीके: " + m[3] + "।",
+    m[1] + " ਮਰਦ ਚੁਣਨ ਦੇ ਤਰੀਕੇ: " + m[3] + "।",
+  );
+
+  if (value === "No division by the total number of committees is needed because the question asks for a count, not a probability.") {
+    return pick(
+      language,
+      "यहाँ कुल समितियों की संख्या से भाग देने की आवश्यकता नहीं है, क्योंकि प्रश्न प्रायिकता नहीं बल्कि समितियों की संख्या पूछता है।",
+      "ਇੱਥੇ ਕੁੱਲ ਕਮੇਟੀਆਂ ਦੀ ਗਿਣਤੀ ਨਾਲ ਭਾਗ ਦੇਣ ਦੀ ਲੋੜ ਨਹੀਂ ਹੈ, ਕਿਉਂਕਿ ਪ੍ਰਸ਼ਨ ਸੰਭਾਵਨਾ ਨਹੀਂ ਸਗੋਂ ਕਮੇਟੀਆਂ ਦੀ ਗਿਣਤੀ ਪੁੱਛਦਾ ਹੈ।",
+    );
+  }
+
+  m = value.match(/^The required number of committees is (\d+)\.$/u);
+  if (m) return pick(
+    language,
+    "आवश्यक समितियों की संख्या " + m[1] + " है।",
+    "ਲੋੜੀਂਦੀਆਂ ਕਮੇਟੀਆਂ ਦੀ ਗਿਣਤੀ " + m[1] + " ਹੈ।",
+  );
+
+  if (value === "The order in which committee members are named is irrelevant, so each committee must be counted only once.") {
+    return pick(
+      language,
+      "समिति के सदस्यों को किस क्रम में लिखा गया है, इससे फर्क नहीं पड़ता; इसलिए प्रत्येक समिति को केवल एक बार गिनें।",
+      "ਕਮੇਟੀ ਦੇ ਮੈਂਬਰਾਂ ਨੂੰ ਕਿਸ ਕ੍ਰਮ ਵਿੱਚ ਲਿਖਿਆ ਗਿਆ ਹੈ, ਇਸ ਨਾਲ ਫਰਕ ਨਹੀਂ ਪੈਂਦਾ; ਇਸ ਲਈ ਹਰ ਕਮੇਟੀ ਨੂੰ ਕੇਵਲ ਇੱਕ ਵਾਰ ਗਿਣੋ।",
+    );
+  }
+
   if (value === "Out of the 36 ordered pairs, 18 have one odd and one even face, while the other 18 have equal parity.") {
     return pick(
       language,
