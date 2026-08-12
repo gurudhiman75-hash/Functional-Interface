@@ -67,6 +67,8 @@ for (const qlId of qls) {
         }
 
         if (qlId === "TMW-QL-141") {
+          if (language === "hi") assert(!/ का ऑर्डर पर/u.test(question.stem), `${label}: Hindi order postposition remains`);
+          if (language === "pa") assert(!/ ਦਾ ਆਰਡਰ ਉੱਤੇ/u.test(question.stem), `${label}: Punjabi order postposition remains`);
           const fractionStep = question.learnerExplanation.solution.at(-2) ?? "";
           assert(!/(\\frac\{\d+\}\{\d+\})\s*=\s*\1/.test(fractionStep), `${label}: redundant fraction identity remains`);
         }
