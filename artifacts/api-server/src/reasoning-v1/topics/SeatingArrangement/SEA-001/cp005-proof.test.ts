@@ -16,7 +16,7 @@ let conditionalOrientationCases = 0;
 let oppositeGapCases = 0;
 let facingCounterfactualQuestions = 0;
 let groupedFacingPresentationCases = 0;
-let naturalizedConditionalPresentationCases = 0;
+let diversifiedConditionalCases = 0;
 const observedSeatCounts = new Set<number>();
 const startedAt = performance.now();
 
@@ -65,21 +65,24 @@ for (const blueprint of SEA_CP005_BLUEPRINTS) {
     }
     if (blueprint === "SEA-PBA-020") {
       conditionalOrientationCases += 1;
-      assert.ok(caselet.constraints.some((constraint) =>
-        constraint.kind === "CONDITIONAL_FACING"));
+      const conditionalCount = caselet.constraints.filter((constraint) =>
+        constraint.kind === "CONDITIONAL_FACING").length;
+      const relativeCount = caselet.constraints.filter((constraint) =>
+        constraint.kind === "RELATIVE_POSITION").length;
+      const cyclicCount = caselet.constraints.filter((constraint) =>
+        constraint.kind === "CYCLIC_POSITION").length;
+      assert.ok(conditionalCount >= 1, `${blueprint}/${seed} lost conditional orientation`);
+      assert.ok(relativeCount >= 2, `${blueprint}/${seed} lost reference-facing solve work`);
+      assert.ok(cyclicCount >= 1, `${blueprint}/${seed} lost physical cyclic placement`);
       const visibleConditionals = caselet.clueTexts.filter((clue) => /^If\b/i.test(clue));
-      const visibleRelativeFacings = caselet.clueTexts.filter((clue) =>
-        /face (?:the same direction|opposite directions)/i.test(clue));
-      assert.equal(
-        visibleConditionals.length,
-        1,
-        `${blueprint}/${seed} should retain exactly one explicit conditional-facing clue`,
-      );
+      assert.equal(visibleConditionals.length, 1, `${blueprint}/${seed} should expose one explicit conditional-facing clue`);
+      assert.ok(caselet.clueTexts.length <= 9, `${blueprint}/${seed} remains editorially overlong: ${caselet.clueTexts.length}`);
+      const immediateClockwiseClues = caselet.clueTexts.filter((clue) => /sits immediately clockwise from/i.test(clue));
       assert.ok(
-        visibleRelativeFacings.length >= persons.length - 2,
-        `${blueprint}/${seed} did not naturalize the remaining conditional-equivalent facing links`,
+        immediateClockwiseClues.length <= Math.max(2, persons.length - 3),
+        `${blueprint}/${seed} still hands out too much of the clockwise order directly`,
       );
-      naturalizedConditionalPresentationCases += 1;
+      diversifiedConditionalCases += 1;
     }
 
     for (const clue of caselet.constraints) {
@@ -100,7 +103,7 @@ assert.equal(inferredFacingCases, casesPerBlueprint);
 assert.equal(oppositeGapCases, casesPerBlueprint);
 assert.equal(conditionalOrientationCases, casesPerBlueprint);
 assert.equal(groupedFacingPresentationCases, casesPerBlueprint * 2);
-assert.equal(naturalizedConditionalPresentationCases, casesPerBlueprint);
+assert.equal(diversifiedConditionalCases, casesPerBlueprint);
 assert.ok(facingCounterfactualQuestions >= generatedCaselets * 2);
 
 console.log("PASS_SEA_001_CP005_MIXED_CIRCLE");
@@ -109,7 +112,7 @@ console.log(`generated deterministic caselets ${generatedCaselets}`);
 console.log(`generated child questions ${generatedQuestions}`);
 console.log(`facing-counterfactual questions ${facingCounterfactualQuestions}`);
 console.log(`grouped-facing presentation cases ${groupedFacingPresentationCases}`);
-console.log(`naturalized-conditional presentation cases ${naturalizedConditionalPresentationCases}`);
+console.log(`diversified-conditional presentation cases ${diversifiedConditionalCases}`);
 console.log(`displayed-clue necessity audits ${displayedClueNecessityAudits}`);
 console.log(`elapsed milliseconds ${Math.round(performance.now() - startedAt)}`);
 console.log("permanent QLs 0");
