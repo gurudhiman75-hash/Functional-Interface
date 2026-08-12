@@ -1,0 +1,109 @@
+name: Validate RNK-001 Post-CP006 Audit and Object Pool
+
+on:
+  push:
+    branches:
+      - audit/rnk-001-post-cp006-gap-object-pool
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-registry*'
+      - '.github/workflows/reasoning-rnk-001-post-cp006-audit-object-pool.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate expanded RNK object pool
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/foundation/rnk-object-pool-v2.test.ts \
+            | tee rnk-object-pool-v2.log
+
+      - name: Validate post-CP006 chapter gap audit
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-post-cp006-gap-audit.test.ts \
+            | tee rnk-post-cp006-gap-audit.log
+
+      - name: Validate frozen projection compatibility
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-frozen-projection-compatibility.test.ts \
+            | tee rnk-frozen-projection-compatibility.log
+
+      - name: Validate frozen CP-006 English runtime
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-permanent-runtime-v1-freeze.test.ts \
+            | tee rnk-cp006-frozen-regression.log
+
+      - name: Validate frozen CP-005 English runtime
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-freeze.test.ts \
+            | tee rnk-cp005-frozen-regression.log
+
+      - name: Validate frozen CP-004 permanent projection
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-permanent-runtime-v1-gates.test.ts \
+            | tee rnk-cp004-frozen-regression.log
+
+      - name: Validate book ownership reset remains compatible
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-book-ownership-reset.test.ts \
+            | tee rnk-book-ownership-reset.log
+
+      - name: Validate Question Studio remains disabled
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/question-studio-registry.test.ts \
+            | tee rnk-question-studio-registry.log
+
+      - name: Build API server
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server build \
+            | tee rnk-post-cp006-api-build.log
+
+      - name: Upload audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-post-cp006-audit-object-pool-evidence
+          path: |
+            rnk-object-pool-v2.log
+            rnk-post-cp006-gap-audit.log
+            rnk-frozen-projection-compatibility.log
+            rnk-cp006-frozen-regression.log
+            rnk-cp005-frozen-regression.log
+            rnk-cp004-frozen-regression.log
+            rnk-book-ownership-reset.log
+            rnk-question-studio-registry.log
+            rnk-post-cp006-api-build.log
+          if-no-files-found: ignore
+          retention-days: 14
