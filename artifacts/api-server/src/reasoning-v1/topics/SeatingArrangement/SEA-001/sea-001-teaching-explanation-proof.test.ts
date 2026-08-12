@@ -5,8 +5,9 @@ const corpus = buildSea001SaturationCorpus(2);
 if (corpus.caselets.length !== 40) throw new Error(`Expected 40 teaching-proof caselets, got ${corpus.caselets.length}`);
 
 const bannedInternalTerms = /\b(?:solver|oracle|canonical|model class|search branch|seat zero)\b/i;
+const technicalTeachingLanguage = /drawing reference|reference person|two orientations|rotational ambiguity|surviving case|legal seat|placement is still compatible|placements and restrictions|relative clues|physically to our|meaningful placements|genuine placements|as a restriction/i;
 const arbitraryCaseLanguage = /several arrangements are still possible|three useful cases/i;
-const explanationShortcut = /use the remaining clues|build the arrangement by joining the clues|keep this facing fixed while applying the remaining clues|translate this clue onto the sketch as a restriction|mark exactly what this clue allows and forbids on the sketch/i;
+const explanationShortcut = /use the remaining clues|build the arrangement by joining the clues|keep this facing fixed while applying the remaining clues|translate this clue onto the sketch|mark exactly what this clue allows and forbids|put this clue on the drawing in the simplest possible way/i;
 const internalPersonId = /\bP\d+\b/;
 const participantNames = new Set<string>();
 const pbaCaseCounts = new Map<string, number>();
@@ -47,6 +48,7 @@ for (const caselet of corpus.caselets) {
       ...child.options.flatMap((option) => [option.display, option.explanation]),
     ]),
   ].join("\n");
+
   if (/position 1 from the left end/i.test(visibleText)) throw new Error(`Awkward left-end wording leaked into ${caselet.caseletId}`);
   if (/not necessarily seated in alphabetical order/i.test(visibleText)) throw new Error(`Alphabetical-order filler leaked into ${caselet.caseletId}`);
   if (internalPersonId.test(visibleText)) throw new Error(`Internal person ID leaked into student-facing content: ${caselet.caseletId}`);
@@ -62,12 +64,13 @@ for (const caselet of corpus.caselets) {
 
   if (!explanation.trim()) throw new Error(`Empty teaching explanation: ${caselet.caseletId}`);
   if (bannedInternalTerms.test(explanation)) throw new Error(`Internal terminology leaked into ${caselet.caseletId}: ${explanation}`);
+  if (technicalTeachingLanguage.test(explanation)) throw new Error(`Technical teaching language leaked into ${caselet.caseletId}: ${explanation}`);
   if (arbitraryCaseLanguage.test(explanation)) throw new Error(`Arbitrary representative-case language leaked into ${caselet.caseletId}`);
   if (explanationShortcut.test(explanation)) throw new Error(`Unhelpful explanation shortcut leaked into ${caselet.caseletId}: ${explanation}`);
-  if (caselet.clueTexts.length > 0 && !/What this tells us:/i.test(explanation)) {
-    throw new Error(`Teaching explanation does not translate clues into student actions: ${caselet.caseletId}`);
+  if (caselet.clueTexts.length > 0 && !/\bSo:/i.test(explanation)) {
+    throw new Error(`Teaching explanation does not turn clues into simple actions: ${caselet.caseletId}`);
   }
-  if (!/final (?:row|clockwise arrangement|clockwise arrangement and facings)|therefore/i.test(explanation)) {
+  if (!/so the final (?:row|clockwise order|circle) is:|final arrangement:/i.test(explanation)) {
     throw new Error(`Final arrangement conclusion is missing: ${caselet.caseletId}`);
   }
 
@@ -76,7 +79,7 @@ for (const caselet of corpus.caselets) {
   }
 
   if ((caselet.checkpointId === "SEA-CP-003" || caselet.checkpointId === "SEA-CP-004")
-    && /this adjacency gives two orientations/i.test(explanation)) {
+    && /two people sit together, so try both orders around the circle/i.test(explanation)) {
     const adjacency = caselet.constraints?.find((constraint) => constraint.kind === "ADJACENT");
     if (!adjacency || typeof adjacency.firstId !== "string" || typeof adjacency.secondId !== "string") {
       throw new Error(`Missing typed adjacency behind case explanation: ${caselet.caseletId}`);
@@ -96,24 +99,23 @@ for (const caselet of corpus.caselets) {
     pbaCaseCounts.set(caselet.blueprintAuthorityId, (pbaCaseCounts.get(caselet.blueprintAuthorityId) ?? 0) + 1);
     const highestCase = Math.max(...caseNumbers);
     if (highestCase > 3) throw new Error(`More than three student-facing cases exposed: ${caselet.caseletId}`);
-    if (!explanation.includes("❌")) throw new Error(`Case analysis lacks a cancelled case: ${caselet.caseletId}`);
-    if (!explanation.includes("✅")) throw new Error(`Case analysis lacks a surviving case: ${caselet.caseletId}`);
-    if (!/cancel it because/i.test(explanation)) {
-      throw new Error(`Elimination is not explicitly justified: ${caselet.caseletId}`);
+    if (!explanation.includes("❌")) throw new Error(`Case analysis lacks a wrong case: ${caselet.caseletId}`);
+    if (!explanation.includes("✅")) throw new Error(`Case analysis lacks a correct remaining case: ${caselet.caseletId}`);
+    if (!/Case \d+ ❌[^\n]*(?:does not fit|case is wrong)/i.test(explanation)) {
+      throw new Error(`Wrong case is not explained in simple language: ${caselet.caseletId}`);
     }
     eliminationCount += 1;
   }
 
-  if (caselet.checkpointId === "SEA-CP-001" && /possible partial cases/.test(explanation)) {
+  if (caselet.checkpointId === "SEA-CP-001" && /leave the rest blank/i.test(explanation)) {
     cp001PartialCaseCount += 1;
-    if (!/\b\d+:_\b/.test(explanation)) throw new Error(`CP001 partial case does not leave unresolved seats blank: ${caselet.caseletId}`);
-    if (!/leave the rest blank/i.test(explanation)) throw new Error(`CP001 partial-case pedagogy guard is missing: ${caselet.caseletId}`);
+    if (!/\b\d+:_\b/.test(explanation)) throw new Error(`CP001 case does not leave unknown seats blank: ${caselet.caseletId}`);
   }
 
   if ((caselet.checkpointId === "SEA-CP-003" || caselet.checkpointId === "SEA-CP-004" || caselet.checkpointId === "SEA-CP-005")
-    && /rotating the complete arrangement does not create a different case/i.test(explanation) === false
+    && /turning the whole circle does not make a new answer/i.test(explanation) === false
     && caselet.topologySnapshot?.landmark === undefined) {
-    throw new Error(`Circular rotation-equivalence teaching guard is missing: ${caselet.caseletId}`);
+    throw new Error(`Simple circular-rotation teaching rule is missing: ${caselet.caseletId}`);
   }
 
   if (caselet.checkpointId === "SEA-CP-005"
@@ -138,7 +140,7 @@ if (caseAnalysisCount < 16 || eliminationCount !== caseAnalysisCount) {
   throw new Error(`Teaching-case coverage is too weak: cases=${caseAnalysisCount}, eliminations=${eliminationCount}`);
 }
 if (cp001PartialCaseCount < 2) {
-  throw new Error(`CP001 partial-case teaching coverage is too weak: ${cp001PartialCaseCount}`);
+  throw new Error(`CP001 blank-seat case teaching coverage is too weak: ${cp001PartialCaseCount}`);
 }
 for (const blueprintId of ["SEA-PBA-003", "SEA-PBA-011", "SEA-PBA-015"]) {
   if ((pbaCaseCounts.get(blueprintId) ?? 0) < 1) {
@@ -151,8 +153,6 @@ for (const checkpointId of ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-00
   }
 }
 
-// Q1 is intentionally fixed for the all-centre/all-outward direction detector.
-// All other visible slots must show more than one query family across this corpus.
 for (const checkpointId of ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-004", "SEA-CP-005"]) {
   for (const questionOrder of [1, 2, 3, 4]) {
     if ((checkpointId === "SEA-CP-003" || checkpointId === "SEA-CP-004") && questionOrder === 1) continue;
@@ -167,7 +167,7 @@ console.log("PASS_SEA_001_TEACHING_EXPLANATIONS");
 console.log("caselets", corpus.caselets.length);
 console.log("distinct participant names", participantNames.size);
 console.log("case-analysis explanations", caseAnalysisCount);
-console.log("CP001 partial-case explanations", cp001PartialCaseCount);
+console.log("CP001 blank-seat case explanations", cp001PartialCaseCount);
 console.log("PBA003 cases", pbaCaseCounts.get("SEA-PBA-003") ?? 0);
 console.log("PBA011 cases", pbaCaseCounts.get("SEA-PBA-011") ?? 0);
 console.log("PBA015 cases", pbaCaseCounts.get("SEA-PBA-015") ?? 0);
