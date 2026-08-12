@@ -14,6 +14,7 @@ import {
 import { auditProbabilityNativeText } from "./native-language-primitives";
 import type { ProbabilityNativeLanguage } from "./multilingual-foundation";
 import type { ProbabilityQuestion } from "./shared/types";
+import { canonicalizeProbabilityExplanationMathSegment } from "./shared/native-math-event-labels";
 
 function stringify(value: unknown): string {
   return JSON.stringify(value, (_key, item) => typeof item === "bigint" ? item.toString() : item);
@@ -96,9 +97,9 @@ function assertExplanationAuthority(
       `${source.questionLanguageId}/${language}: explanation role/order drifted at line ${index + 1}`,
     );
     assert.deepEqual(
-      mathSegments(nativeLine),
+      mathSegments(nativeLine).map((segment) => canonicalizeProbabilityExplanationMathSegment(segment, language)),
       mathSegments(englishLine),
-      `${source.questionLanguageId}/${language}: MathJax changed at line ${index + 1}`,
+      `${source.questionLanguageId}/${language}: MathJax semantics changed at line ${index + 1}`,
     );
     assert.deepEqual(
       numericMultiset(nativeLine),
