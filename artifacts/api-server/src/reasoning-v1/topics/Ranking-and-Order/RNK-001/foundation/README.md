@@ -2,6 +2,15 @@
 
 Status: **future-facing deterministic presentation infrastructure; not adopted by frozen CP001..CP006 runtimes**.
 
+Pinned content manifest:
+
+```text
+RNK_OBJECT_POOL_V2_MANIFEST_V1
+sha256:09fd886c8ef602ab00bd6ca4b1410b963c8db93351881417ec13e538ec4aa452
+```
+
+Any change to the versioned people, localized labels, groups, settings, relation templates, symbolic objects, quantity domains, partition schemes, operation surfaces or required-operation variables must deliberately move this manifest.
+
 ## Inventory
 
 ### Ordinary Ranking presentation pool
@@ -33,8 +42,12 @@ Core files:
 rnk-object-pool-v2.ts
 rnk-presentation-object-pool-v2.ts
 rnk-derived-object-pool-v2.ts
+rnk-derived-operation-render-v2.ts
+rnk-object-pool-v2-manifest.ts
 rnk-object-pool-v2.test.ts
 rnk-derived-object-pool-v2.test.ts
+rnk-derived-operation-render-v2.test.ts
+rnk-object-pool-v2-manifest.test.ts
 ```
 
 ## Purpose
@@ -154,6 +167,8 @@ BOUNDED_CONSECUTIVE_VALUES
 
 They provide EN/HI/PA surface variants only. Mathematical validity remains the responsibility of the eventual CP007 solver.
 
+`rnk-derived-operation-render-v2.ts` adds deterministic placeholder substitution and a gender-neutral transfer renderer. Hindi/Punjabi money-transfer wording is intentionally phrased without assuming the selected person's grammatical gender.
+
 ## Deterministic APIs
 
 Ordinary layer:
@@ -173,6 +188,7 @@ selectRnkSymbolicObjects(seed, count)
 selectRnkDerivedQuantityDomain(seed)
 selectRnkPartitionScheme(seed)
 rnkDerivedOperationSurface(kind)
+renderRnkDerivedOperation(kind, locale, seed, variables)
 ```
 
 No V2 selector uses `Math.random()`.
@@ -201,6 +217,14 @@ The derived pool test checks:
 - all eight operation surface kinds across EN/HI/PA;
 - deterministic symbolic draws for 4–16 objects across thousands of seeds;
 - deterministic quantity-domain and partition selection.
+
+The derived renderer test checks all eight operation kinds across all three locales for deterministic rendering, complete substitution and transfer-gender neutrality.
+
+The manifest test protects the complete V2 content projection at:
+
+```text
+09fd886c8ef602ab00bd6ca4b1410b963c8db93351881417ec13e538ec4aa452
+```
 
 ## Frozen compatibility
 
