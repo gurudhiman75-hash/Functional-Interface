@@ -39,7 +39,7 @@ jobs:
       - name: Bundle CP-008 authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-008/authority.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-008/authority-v2.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp008-authority.test.mjs
       - name: Run CP-008 authority
