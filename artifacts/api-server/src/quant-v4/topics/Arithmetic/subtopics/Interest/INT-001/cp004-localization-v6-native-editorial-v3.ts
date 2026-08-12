@@ -22,6 +22,8 @@ function naturalMonths(locale: IntCp004V6Locale, months: number): string {
   return locale === "hi-IN" ? `${yearText} और ${monthText}` : `${yearText} ਅਤੇ ${monthText}`;
 }
 
+const FLEX_SPACE = "[\\s\\u200B-\\u200D\\uFEFF]*";
+
 function normalize(locale: IntCp004V6Locale, text: string): string {
   const pattern = locale === "hi-IN" ? /(\d+) महीने/gu : /(\d+) ਮਹੀਨੇ/gu;
   let result = text.replace(pattern, (match, raw: string) => {
@@ -29,12 +31,15 @@ function normalize(locale: IntCp004V6Locale, text: string): string {
     return Number.isInteger(months) && months >= 12 ? naturalMonths(locale, months) : match;
   });
   if (locale === "hi-IN") {
+    const annualAttached = new RegExp(`ब्याज${FLEX_SPACE}वार्षिक${FLEX_SPACE}रूप${FLEX_SPACE}से${FLEX_SPACE}जुड़ता${FLEX_SPACE}है`, "gu");
+    const firstYearsAnnualAttached = new RegExp(`पहले${FLEX_SPACE}(\\d+)${FLEX_SPACE}वर्ष${FLEX_SPACE}ब्याज${FLEX_SPACE}वार्षिक${FLEX_SPACE}रूप${FLEX_SPACE}से${FLEX_SPACE}जुड़ता${FLEX_SPACE}है`, "gu");
     result = result
       .replace(/पहले 1 वर्ष/gu, "पहले वर्ष")
       .replace(/अगले 1 वर्ष/gu, "अगले वर्ष")
-      .replace(/पहले (\d+) वर्ष ब्याज वार्षिक रूप से जुड़ता है/gu, (_m, n: string) => Number(n) === 1
+      .replace(firstYearsAnnualAttached, (_m, n: string) => Number(n) === 1
         ? "पहले वर्ष ब्याज सालाना जोड़ा जाता है"
         : `पहले ${n} वर्षों तक ब्याज सालाना जोड़ा जाता है`)
+      .replace(annualAttached, "ब्याज सालाना जोड़ा जाता है")
       .replace(/ब्याज वार्षिक रूप से जुड़ता है/gu, "ब्याज सालाना जोड़ा जाता है")
       .replace(/वार्षिक रूप से जोड़ने/gu, "हर साल जोड़ने")
       .replace(/अंतिम (\d+) महीने के लिए/gu, "अंतिम $1 महीनों के लिए")
@@ -49,14 +54,18 @@ function normalize(locale: IntCp004V6Locale, text: string): string {
       .replace(/पहले वर्ष ब्याज हर तीन महीने जोड़ा जाता है और अगले वर्ष हर वर्ष जोड़ा जाता है/gu, "पहले वर्ष ब्याज हर तीन महीने और अगले वर्ष सालाना जोड़ा जाता है")
       .replace(/पहले वर्ष ब्याज हर वर्ष और अगले वर्ष हर तीन महीने जोड़ा जाता है/gu, "पहले वर्ष ब्याज सालाना और अगले वर्ष हर तीन महीने जोड़ा जाता है")
       .replace(/पहले वर्ष ब्याज हर वर्ष और अगले वर्ष हर छह महीने जोड़ा जाता है/gu, "पहले वर्ष ब्याज सालाना और अगले वर्ष हर छह महीने जोड़ा जाता है")
-      .replace(/अगले वर्ष हर वर्ष/gu, "अगले वर्ष सालाना");
+      .replace(/अगले वर्ष हर वर्ष/gu, "अगले वर्ष सालाना")
+      .replace(/पूरे हुए वर्षों/gu, "पूरे वर्षों");
   } else {
+    const annualAttached = new RegExp(`ਵਿਆਜ${FLEX_SPACE}ਸਾਲਾਨਾ${FLEX_SPACE}ਜੁੜਦਾ${FLEX_SPACE}ਹੈ`, "gu");
+    const firstYearsAnnualAttached = new RegExp(`ਪਹਿਲੇ${FLEX_SPACE}(\\d+)${FLEX_SPACE}ਸਾਲ${FLEX_SPACE}ਵਿਆਜ${FLEX_SPACE}ਸਾਲਾਨਾ${FLEX_SPACE}ਜੁੜਦਾ${FLEX_SPACE}ਹੈ`, "gu");
     result = result
       .replace(/ਪਹਿਲੇ 1 ਸਾਲ/gu, "ਪਹਿਲੇ ਸਾਲ")
       .replace(/ਅਗਲੇ 1 ਸਾਲ/gu, "ਅਗਲੇ ਸਾਲ")
-      .replace(/ਪਹਿਲੇ (\d+) ਸਾਲ ਵਿਆਜ ਸਾਲਾਨਾ ਜੁੜਦਾ ਹੈ/gu, (_m, n: string) => Number(n) === 1
+      .replace(firstYearsAnnualAttached, (_m, n: string) => Number(n) === 1
         ? "ਪਹਿਲੇ ਸਾਲ ਵਿਆਜ ਸਾਲਾਨਾ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ"
         : `ਪਹਿਲੇ ${n} ਸਾਲਾਂ ਤੱਕ ਵਿਆਜ ਸਾਲਾਨਾ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ`)
+      .replace(annualAttached, "ਵਿਆਜ ਸਾਲਾਨਾ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ")
       .replace(/ਵਿਆਜ ਸਾਲਾਨਾ ਜੁੜਦਾ ਹੈ/gu, "ਵਿਆਜ ਸਾਲਾਨਾ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ")
       .replace(/ਕੁੱਲ ਸਮਾਂਾਂ n = (\d+)।/gu, "ਵਿਆਜ ਕੁੱਲ $1 ਵਾਰ ਜੁੜਦਾ ਹੈ, ਇਸ ਲਈ n = $1।")
       .replace(/ਕੁੱਲ ਸਮਾਂਾਂ/gu, "ਵਿਆਜ ਜੁੜਨ ਦੀ ਕੁੱਲ ਗਿਣਤੀ")
@@ -67,7 +76,8 @@ function normalize(locale: IntCp004V6Locale, text: string): string {
       .replace(/ਪਹਿਲੇ ਸਾਲ ਵਿਆਜ ਹਰ ਤਿੰਨ ਮਹੀਨੇ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਅਗਲੇ ਸਾਲ ਹਰ ਸਾਲ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ/gu, "ਪਹਿਲੇ ਸਾਲ ਵਿਆਜ ਹਰ ਤਿੰਨ ਮਹੀਨੇ ਅਤੇ ਅਗਲੇ ਸਾਲ ਸਾਲਾਨਾ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ")
       .replace(/ਪਹਿਲੇ ਸਾਲ ਵਿਆਜ ਹਰ ਸਾਲ ਅਤੇ ਅਗਲੇ ਸਾਲ ਹਰ ਤਿੰਨ ਮਹੀਨੇ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ/gu, "ਪਹਿਲੇ ਸਾਲ ਵਿਆਜ ਸਾਲਾਨਾ ਅਤੇ ਅਗਲੇ ਸਾਲ ਹਰ ਤਿੰਨ ਮਹੀਨੇ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ")
       .replace(/ਪਹਿਲੇ ਸਾਲ ਵਿਆਜ ਹਰ ਸਾਲ ਅਤੇ ਅਗਲੇ ਸਾਲ ਹਰ ਛੇ ਮਹੀਨੇ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ/gu, "ਪਹਿਲੇ ਸਾਲ ਵਿਆਜ ਸਾਲਾਨਾ ਅਤੇ ਅਗਲੇ ਸਾਲ ਹਰ ਛੇ ਮਹੀਨੇ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ")
-      .replace(/ਅਗਲੇ ਸਾਲ ਹਰ ਸਾਲ/gu, "ਅਗਲੇ ਸਾਲ ਸਾਲਾਨਾ");
+      .replace(/ਅਗਲੇ ਸਾਲ ਹਰ ਸਾਲ/gu, "ਅਗਲੇ ਸਾਲ ਸਾਲਾਨਾ")
+      .replace(/ਪੂਰੇ ਹੋਏ ਸਾਲਾਂ/gu, "ਪੂਰੇ ਸਾਲਾਂ");
   }
   return result;
 }
