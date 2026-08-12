@@ -1,5 +1,5 @@
 import type { AngleMeasure, ExactTrigNumber } from "../../foundation/types";
-import { addExact, exactInteger, subtractExact } from "../../foundation/exact";
+import { addExact, exactInteger, exactKey, subtractExact } from "../../foundation/exact";
 import type {
   Trg002DiagramStrategy,
   Trg002Scenario,
@@ -71,7 +71,7 @@ export function buildSingleElevationState(input: {
     }],
     movements: [],
     requested: { kind: "OBJECT_HEIGHT", objectId: "object-1" },
-    diagramStrategy: input.diagramStrategy ?? (eyeHeight === ground ? "SINGLE_ELEVATION" : "OBSERVER_HEIGHT"),
+    diagramStrategy: input.diagramStrategy ?? (exactKey(eyeHeight) === exactKey(ground) ? "SINGLE_ELEVATION" : "OBSERVER_HEIGHT"),
     metadata: { units: input.units ?? "m", sameSide: true },
   };
 }
@@ -256,6 +256,5 @@ export function horizontalSeparationBetweenPoints(
   const first = state.points.find((item) => item.id === firstPointId);
   const second = state.points.find((item) => item.id === secondPointId);
   if (!first || !second) throw new Error(`Unknown point pair ${firstPointId}/${secondPointId}.`);
-  const delta = subtractExact(second.x, first.x);
-  return delta;
+  return subtractExact(second.x, first.x);
 }
