@@ -1,0 +1,39 @@
+{
+  "packageId": "TRG-001",
+  "status": "FINAL_AI_EDITORIAL_PASS_EXECUTION_AND_HUMAN_PENDING",
+  "activeRuntime": "production-final-editorial-runtime.ts",
+  "gate": "production-final-editorial.test.ts",
+  "permanentQlCount": 144,
+  "aiEditorialReviewed": 144,
+  "aiEditorialPass": 144,
+  "knownAiEditorialBlockers": 0,
+  "directAuditRemediationCount": 9,
+  "orientationSensitiveQlCount": 30,
+  "difficultyRecalibratedQlIds": [
+    "TRG-001-QL-094",
+    "TRG-001-QL-099",
+    "TRG-001-QL-100"
+  ],
+  "diversityGate": {
+    "canonicalSeedTarget": 24,
+    "canonicalCaseTarget": 3456,
+    "generativelyDiverseQlTarget": "AT_LEAST_132_OF_144",
+    "intentionalSingleFormExceptionBudget": 12
+  },
+  "finalEditorialGate": {
+    "canonicalSeedTarget": 12,
+    "canonicalCaseTarget": 1728,
+    "sweepSeedTarget": 50,
+    "sweepCaseTarget": 7200
+  },
+  "executionEvidence": "PENDING",
+  "humanReview": "0/144_PENDING",
+  "freezeEligible": false,
+  "activation": {
+    "questionStudio": false,
+    "testBuilder": false,
+    "questionBankStorage": false,
+    "publicPublication": false,
+    "localizationRuntime": false
+  }
+}
