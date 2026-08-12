@@ -57,51 +57,51 @@ function clueNumberList(indices: readonly number[]): string {
   return `${values.slice(0, -1).join(", ")} and ${values[values.length - 1]}`;
 }
 
-function linkedClockwiseBlockSummary(remaining: readonly IndexedTeachingClue[]): string | null {
-  const immediate = new Map<string, { readonly subject: string; readonly index: number }>();
+function linkedClockwiseGroup(remaining: readonly IndexedTeachingClue[]): string | null {
+  const nextPerson = new Map<string, { readonly person: string; readonly index: number }>();
   for (const clue of remaining) {
     const match = clue.text.match(/^(.+?) sits immediately clockwise from (.+?)\.$/i);
     if (!match?.[1] || !match[2]) continue;
-    immediate.set(match[2].trim(), { subject: match[1].trim(), index: clue.index });
+    nextPerson.set(match[2].trim(), { person: match[1].trim(), index: clue.index });
   }
 
   for (const clue of remaining) {
-    const gapMatch = clue.text.match(/^Exactly (\d+) person(?:s)? sit(?:s)? between (.+?) and (.+?) when counted clockwise from (.+?)\.$/i);
-    if (!gapMatch?.[1] || !gapMatch[2] || !gapMatch[3] || !gapMatch[4]) continue;
-    const gap = Number(gapMatch[1]);
-    const first = gapMatch[2].trim();
-    const second = gapMatch[3].trim();
-    const reference = gapMatch[4].trim();
-    const target = reference === first ? second : first;
-    const block = [reference];
+    const match = clue.text.match(/^Exactly (\d+) person(?:s)? sit(?:s)? between (.+?) and (.+?) when counted clockwise from (.+?)\.$/i);
+    if (!match?.[1] || !match[2] || !match[3] || !match[4]) continue;
+    const gap = Number(match[1]);
+    const first = match[2].trim();
+    const second = match[3].trim();
+    const from = match[4].trim();
+    const other = from === first ? second : first;
+    const group = [from];
     const used = [clue.index];
-    let current = reference;
+    let current = from;
     let complete = true;
 
     for (let step = 0; step < gap; step += 1) {
-      const edge = immediate.get(current);
-      if (!edge || block.includes(edge.subject)) {
+      const next = nextPerson.get(current);
+      if (!next || group.includes(next.person)) {
         complete = false;
         break;
       }
-      block.push(edge.subject);
-      used.push(edge.index);
-      current = edge.subject;
+      group.push(next.person);
+      used.push(next.index);
+      current = next.person;
     }
     if (!complete) continue;
-    block.push(target);
+    group.push(other);
 
-    current = target;
+    current = other;
     while (true) {
-      const edge = immediate.get(current);
-      if (!edge || block.includes(edge.subject)) break;
-      block.push(edge.subject);
-      used.push(edge.index);
-      current = edge.subject;
+      const next = nextPerson.get(current);
+      if (!next || group.includes(next.person)) break;
+      group.push(next.person);
+      used.push(next.index);
+      current = next.person;
     }
 
-    if (block.length < 3 || used.length < 2) continue;
-    return `Putting clues ${clueNumberList(used)} together gives the clockwise block: ${block.join(" → ")}. Keep this block intact while fitting it into the open seats.`;
+    if (group.length < 3 || used.length < 2) continue;
+    return `Clues ${clueNumberList(used)} put these people together in this clockwise order: ${group.join(" → ")}. Write them together in your circle.`;
   }
   return null;
 }
@@ -115,19 +115,22 @@ function appendRemainingTeachingSteps(
     .map((text, index) => ({ text, index }))
     .filter(({ index }) => !alreadyUsed.has(index));
   if (remaining.length === 0) return;
-  lines.push("Now complete the surviving case clue by clue:");
+
+  lines.push("Now fill the empty seats:");
   for (const { text, index } of remaining) {
     lines.push(`Clue ${index + 1}: ${text}`);
-    lines.push(`What this tells us: ${studentClueAction(text)}`);
+    lines.push(`So: ${studentClueAction(text)}`);
   }
-  const linkedBlock = linkedClockwiseBlockSummary(remaining);
-  if (linkedBlock) {
-    lines.push(linkedBlock);
+
+  const group = linkedClockwiseGroup(remaining);
+  if (group) {
+    lines.push(group);
     if (remaining.some(({ text }) => /does not sit adjacent to/i.test(text))) {
-      lines.push("Now slide that block only through the still-open seats. Use the non-adjacency clue to reject any placement that makes the forbidden pair neighbours; the surviving placement fixes the last open seat as well.");
+      lines.push("Try this group in the empty seats. If one place makes the forbidden pair sit next to each other, that place is wrong. Use the other place.");
     }
   }
-  lines.push("As each person is placed, cross out occupied or forbidden seats. If only one legal seat remains for a person, place that person there before moving on.");
+
+  lines.push("Keep marking the seats as you fill them. If only one seat is left for someone, put that person there.");
 }
 
 function rotateToAnchor<T extends string>(order: readonly T[], anchor?: T): T[] {
@@ -149,9 +152,9 @@ function mixedRowModel(model: MixedFacingModel, displayNames: DisplayNames): Tea
 function centreCircleModel(
   model: CircularSolverModel,
   displayNames: DisplayNames,
-  drawingAnchor?: PersonId,
+  drawingStart?: PersonId,
 ): TeachingCaseModel {
-  const displayed = rotateToAnchor(model.clockwiseOrder, drawingAnchor);
+  const displayed = rotateToAnchor(model.clockwiseOrder, drawingStart);
   const start = displayed[0];
   return {
     key: model.canonicalKey,
@@ -162,9 +165,9 @@ function centreCircleModel(
 function outwardCircleModel(
   model: OutwardSolverModel,
   displayNames: DisplayNames,
-  drawingAnchor?: OutwardPersonId,
+  drawingStart?: OutwardPersonId,
 ): TeachingCaseModel {
-  const displayed = rotateToAnchor(model.clockwiseOrder, drawingAnchor);
+  const displayed = rotateToAnchor(model.clockwiseOrder, drawingStart);
   const start = displayed[0];
   return {
     key: model.canonicalKey,
@@ -175,9 +178,9 @@ function outwardCircleModel(
 function mixedCircleModel(
   model: MixedCircleModel,
   displayNames: DisplayNames,
-  drawingAnchor?: MixedCirclePersonId,
+  drawingStart?: MixedCirclePersonId,
 ): TeachingCaseModel {
-  const displayed = rotateToAnchor(model.clockwiseOrder, drawingAnchor);
+  const displayed = rotateToAnchor(model.clockwiseOrder, drawingStart);
   const start = displayed[0];
   return {
     key: model.canonicalKey,
@@ -215,9 +218,9 @@ function compileCp002(caselet: MixedFacingCaseletRecord): string {
 
   return compileCaseEliminationExplanation({
     intro: [
-      "Number the seats from left to right.",
-      "For a left/right clue, look at the reference person's facing first. A north-facing person's left is towards our left; a south-facing person's left is towards our right.",
-      "If a clue still permits two or three meaningful placements, keep those cases open instead of guessing a seat.",
+      "Number the seats 1, 2, 3... from left to right.",
+      "Not everyone faces the same way. For a left/right clue, first see which way the person after 'of' is facing. If that person faces north, left is our left. If that person faces south, left is our right.",
+      "If two or three places are possible, keep them for a moment. A later clue will decide the correct one.",
     ],
     clues: caselet.clueTexts.map((text) => ({ text })),
     enumeratePrefix: (clueCount, maxModels) => enumerateMixedFacingProduction({
@@ -226,7 +229,7 @@ function compileCp002(caselet: MixedFacingCaseletRecord): string {
       maxModels,
     }).map((model) => mixedRowModel(model, displayNames)),
     finalModel: mixedRowModel(finalModel, displayNames),
-    finalHeading: "Therefore, the final row and facing pattern are:",
+    finalHeading: "So the final row is:",
   });
 }
 
@@ -236,57 +239,62 @@ function compileCentreAdjacencyCases(
   displayNames: DisplayNames,
   landmarkAnchored: boolean,
   finalModel: CircularSolverModel,
-  drawingAnchor: PersonId,
+  drawingStart: PersonId,
   intro: readonly string[],
 ): string | null {
-  for (let branchIndex = 0; branchIndex < caselet.constraints.length; branchIndex += 1) {
-    const branch = caselet.constraints[branchIndex];
-    if (!branch || branch.kind !== "ADJACENT") continue;
+  for (let startIndex = 0; startIndex < caselet.constraints.length; startIndex += 1) {
+    const clueConstraint = caselet.constraints[startIndex];
+    if (!clueConstraint || clueConstraint.kind !== "ADJACENT") continue;
+
     const assumptions: CircularConstraint[] = [
-      { id: `SEA-TEACH-CP003-CW-${branch.id}`, kind: "CYCLIC_POSITION", referenceId: branch.firstId, subjectId: branch.secondId, direction: "CLOCKWISE", steps: 1 },
-      { id: `SEA-TEACH-CP003-ACW-${branch.id}`, kind: "CYCLIC_POSITION", referenceId: branch.firstId, subjectId: branch.secondId, direction: "ANTICLOCKWISE", steps: 1 },
+      { id: `SEA-TEACH-CP003-CW-${clueConstraint.id}`, kind: "CYCLIC_POSITION", referenceId: clueConstraint.firstId, subjectId: clueConstraint.secondId, direction: "CLOCKWISE", steps: 1 },
+      { id: `SEA-TEACH-CP003-ACW-${clueConstraint.id}`, kind: "CYCLIC_POSITION", referenceId: clueConstraint.firstId, subjectId: clueConstraint.secondId, direction: "ANTICLOCKWISE", steps: 1 },
     ];
-    const survives = (throughIndex: number, assumption: CircularConstraint): boolean => enumerateCircularProduction({
+    const works = (throughIndex: number, assumption: CircularConstraint): boolean => enumerateCircularProduction({
       persons,
       constraints: [...caselet.constraints.slice(0, throughIndex + 1), assumption],
       landmarkAnchored,
       maxModels: 1,
     }).length > 0;
-    let active = assumptions.map((assumption, originalIndex) => ({ assumption, originalIndex }))
-      .filter(({ assumption }) => survives(branchIndex, assumption));
-    if (active.length !== 2) continue;
-    const steps: Array<{ clueIndex: number; active: typeof active }> = [];
-    for (let clueIndex = branchIndex + 1; clueIndex < caselet.constraints.length && active.length > 1; clueIndex += 1) {
-      const after = active.filter(({ assumption }) => survives(clueIndex, assumption));
-      if (after.length === 0 || after.length === active.length) continue;
-      active = after;
-      steps.push({ clueIndex, active });
-    }
-    if (active.length !== 1 || steps.length === 0) continue;
 
-    const first = shown(branch.firstId, displayNames);
-    const second = shown(branch.secondId, displayNames);
+    let possible = assumptions.map((assumption, originalIndex) => ({ assumption, originalIndex }))
+      .filter(({ assumption }) => works(startIndex, assumption));
+    if (possible.length !== 2) continue;
+
+    const decidingSteps: Array<{ clueIndex: number; possible: typeof possible }> = [];
+    for (let clueIndex = startIndex + 1; clueIndex < caselet.constraints.length && possible.length > 1; clueIndex += 1) {
+      const after = possible.filter(({ assumption }) => works(clueIndex, assumption));
+      if (after.length === 0 || after.length === possible.length) continue;
+      possible = after;
+      decidingSteps.push({ clueIndex, possible });
+    }
+    if (possible.length !== 1 || decidingSteps.length === 0) continue;
+
+    const first = shown(clueConstraint.firstId, displayNames);
+    const second = shown(clueConstraint.secondId, displayNames);
     const lines = [...intro];
-    lines.push(`Start with clue ${branchIndex + 1}: ${caselet.clueTexts[branchIndex]}`);
-    lines.push("With the first person used only as a drawing reference, this adjacency gives two orientations:");
+    lines.push(`Start with clue ${startIndex + 1}: ${caselet.clueTexts[startIndex]}`);
+    lines.push("This clue only says that the two people sit together, so try both orders around the circle:");
     lines.push(`Case 1: ${first} → ${second} clockwise.`);
     lines.push(`Case 2: ${second} → ${first} clockwise.`);
+
     let live = new Set([0, 1]);
-    for (const step of steps) {
-      const next = new Set(step.active.map((entry) => entry.originalIndex));
+    for (const step of decidingSteps) {
+      const next = new Set(step.possible.map((entry) => entry.originalIndex));
       lines.push(`Now use clue ${step.clueIndex + 1}: ${caselet.clueTexts[step.clueIndex]}`);
-      lines.push(`What this tells us: ${studentClueAction(caselet.clueTexts[step.clueIndex] ?? "")}`);
+      lines.push(`So: ${studentClueAction(caselet.clueTexts[step.clueIndex] ?? "")}`);
       for (const caseIndex of [...live]) {
         lines.push(next.has(caseIndex)
-          ? `Case ${caseIndex + 1} ✅ — it still satisfies the clues.`
-          : `Case ${caseIndex + 1} ❌ — cancel it because this clue fixes the opposite orientation.`);
+          ? `Case ${caseIndex + 1} ✅ — this clue works here.`
+          : `Case ${caseIndex + 1} ❌ — this clue does not fit, so this case is wrong.`);
       }
       live = next;
     }
-    lines.push(`Only Case ${[...live][0]! + 1} remains. Keep this orientation and finish the open seats.`);
-    appendRemainingTeachingSteps(lines, caselet.clueTexts, new Set([branchIndex, ...steps.map((step) => step.clueIndex)]));
-    lines.push("Therefore, the final clockwise arrangement is:");
-    lines.push(centreCircleModel(finalModel, displayNames, drawingAnchor).display);
+
+    lines.push(`Only Case ${[...live][0]! + 1} is left. Keep it and fill the empty seats.`);
+    appendRemainingTeachingSteps(lines, caselet.clueTexts, new Set([startIndex, ...decidingSteps.map((step) => step.clueIndex)]));
+    lines.push("So the final clockwise order is:");
+    lines.push(centreCircleModel(finalModel, displayNames, drawingStart).display);
     return lines.join("\n\n");
   }
   return null;
@@ -301,18 +309,19 @@ function compileCp003(caselet: CircularCaseletRecord): string {
   const finalModel = enumerateCircularProduction({ persons, constraints: caselet.constraints, landmarkAnchored, maxModels: 2 })[0];
   if (!finalModel) return caselet.sharedExplanation;
   const landmark = caselet.topologySnapshot.landmark?.id.toLowerCase();
-  const drawingAnchor = landmarkAnchored
+  const drawingStart = landmarkAnchored
     ? finalModel.clockwiseOrder[0] as PersonId
     : finalModel.clockwiseOrder[seedIndex(caselet.seed, finalModel.clockwiseOrder.length)] as PersonId;
+
   const intro = [
     landmark
-      ? `Use the displayed ${landmark} as the fixed drawing reference.`
-      : `Use ${shown(drawingAnchor, displayNames)} as a convenient drawing reference only. Rotating the complete arrangement does not create a different case.`,
-    "Since everyone faces the centre, left is clockwise and right is anticlockwise.",
-    "Keep two or three meaningful cases only when a clue genuinely leaves those alternatives open.",
+      ? `Start the circle from the seat shown nearest the ${landmark}.`
+      : `Put ${shown(drawingStart, displayNames)} anywhere to start your circle. Turning the whole circle does not make a new answer.`,
+    "Everyone faces the centre. So left means clockwise and right means anticlockwise.",
+    "If two or three ways are possible, keep them for a moment. A later clue will show which one is correct.",
   ];
 
-  const adjacencyTeaching = compileCentreAdjacencyCases(caselet, persons, displayNames, landmarkAnchored, finalModel, drawingAnchor, intro);
+  const adjacencyTeaching = compileCentreAdjacencyCases(caselet, persons, displayNames, landmarkAnchored, finalModel, drawingStart, intro);
   if (adjacencyTeaching) return adjacencyTeaching;
 
   return compileCaseEliminationExplanation({
@@ -323,9 +332,9 @@ function compileCp003(caselet: CircularCaseletRecord): string {
       constraints: caselet.constraints.slice(0, clueCount),
       landmarkAnchored,
       maxModels,
-    }).map((model) => centreCircleModel(model, displayNames, drawingAnchor)),
-    finalModel: centreCircleModel(finalModel, displayNames, drawingAnchor),
-    finalHeading: "Therefore, the final clockwise arrangement is:",
+    }).map((model) => centreCircleModel(model, displayNames, drawingStart)),
+    finalModel: centreCircleModel(finalModel, displayNames, drawingStart),
+    finalHeading: "So the final clockwise order is:",
   });
 }
 
@@ -335,57 +344,62 @@ function compileOutwardAdjacencyCases(
   displayNames: DisplayNames,
   landmarkAnchored: boolean,
   finalModel: OutwardSolverModel,
-  drawingAnchor: OutwardPersonId,
+  drawingStart: OutwardPersonId,
   intro: readonly string[],
 ): string | null {
-  for (let branchIndex = 0; branchIndex < caselet.constraints.length; branchIndex += 1) {
-    const branch = caselet.constraints[branchIndex];
-    if (!branch || branch.kind !== "ADJACENT") continue;
+  for (let startIndex = 0; startIndex < caselet.constraints.length; startIndex += 1) {
+    const clueConstraint = caselet.constraints[startIndex];
+    if (!clueConstraint || clueConstraint.kind !== "ADJACENT") continue;
+
     const assumptions: OutwardConstraint[] = [
-      { id: `SEA-TEACH-CP004-CW-${branch.id}`, kind: "CYCLIC_POSITION", referenceId: branch.firstId, subjectId: branch.secondId, direction: "CLOCKWISE", steps: 1 },
-      { id: `SEA-TEACH-CP004-ACW-${branch.id}`, kind: "CYCLIC_POSITION", referenceId: branch.firstId, subjectId: branch.secondId, direction: "ANTICLOCKWISE", steps: 1 },
+      { id: `SEA-TEACH-CP004-CW-${clueConstraint.id}`, kind: "CYCLIC_POSITION", referenceId: clueConstraint.firstId, subjectId: clueConstraint.secondId, direction: "CLOCKWISE", steps: 1 },
+      { id: `SEA-TEACH-CP004-ACW-${clueConstraint.id}`, kind: "CYCLIC_POSITION", referenceId: clueConstraint.firstId, subjectId: clueConstraint.secondId, direction: "ANTICLOCKWISE", steps: 1 },
     ];
-    const survives = (throughIndex: number, assumption: OutwardConstraint): boolean => enumerateOutwardProduction({
+    const works = (throughIndex: number, assumption: OutwardConstraint): boolean => enumerateOutwardProduction({
       persons,
       constraints: [...caselet.constraints.slice(0, throughIndex + 1), assumption],
       landmarkAnchored,
       maxModels: 1,
     }).length > 0;
-    let active = assumptions.map((assumption, originalIndex) => ({ assumption, originalIndex }))
-      .filter(({ assumption }) => survives(branchIndex, assumption));
-    if (active.length !== 2) continue;
-    const steps: Array<{ clueIndex: number; active: typeof active }> = [];
-    for (let clueIndex = branchIndex + 1; clueIndex < caselet.constraints.length && active.length > 1; clueIndex += 1) {
-      const after = active.filter(({ assumption }) => survives(clueIndex, assumption));
-      if (after.length === 0 || after.length === active.length) continue;
-      active = after;
-      steps.push({ clueIndex, active });
-    }
-    if (active.length !== 1 || steps.length === 0) continue;
 
-    const first = shown(branch.firstId, displayNames);
-    const second = shown(branch.secondId, displayNames);
+    let possible = assumptions.map((assumption, originalIndex) => ({ assumption, originalIndex }))
+      .filter(({ assumption }) => works(startIndex, assumption));
+    if (possible.length !== 2) continue;
+
+    const decidingSteps: Array<{ clueIndex: number; possible: typeof possible }> = [];
+    for (let clueIndex = startIndex + 1; clueIndex < caselet.constraints.length && possible.length > 1; clueIndex += 1) {
+      const after = possible.filter(({ assumption }) => works(clueIndex, assumption));
+      if (after.length === 0 || after.length === possible.length) continue;
+      possible = after;
+      decidingSteps.push({ clueIndex, possible });
+    }
+    if (possible.length !== 1 || decidingSteps.length === 0) continue;
+
+    const first = shown(clueConstraint.firstId, displayNames);
+    const second = shown(clueConstraint.secondId, displayNames);
     const lines = [...intro];
-    lines.push(`Start with clue ${branchIndex + 1}: ${caselet.clueTexts[branchIndex]}`);
-    lines.push("With the first person used only as a drawing reference, this adjacency gives two orientations:");
+    lines.push(`Start with clue ${startIndex + 1}: ${caselet.clueTexts[startIndex]}`);
+    lines.push("This clue only says that the two people sit together, so try both orders around the circle:");
     lines.push(`Case 1: ${first} → ${second} clockwise.`);
     lines.push(`Case 2: ${second} → ${first} clockwise.`);
+
     let live = new Set([0, 1]);
-    for (const step of steps) {
-      const next = new Set(step.active.map((entry) => entry.originalIndex));
+    for (const step of decidingSteps) {
+      const next = new Set(step.possible.map((entry) => entry.originalIndex));
       lines.push(`Now use clue ${step.clueIndex + 1}: ${caselet.clueTexts[step.clueIndex]}`);
-      lines.push(`What this tells us: ${studentClueAction(caselet.clueTexts[step.clueIndex] ?? "")}`);
+      lines.push(`So: ${studentClueAction(caselet.clueTexts[step.clueIndex] ?? "")}`);
       for (const caseIndex of [...live]) {
         lines.push(next.has(caseIndex)
-          ? `Case ${caseIndex + 1} ✅ — it still satisfies the clues.`
-          : `Case ${caseIndex + 1} ❌ — cancel it because this clue fixes the opposite orientation.`);
+          ? `Case ${caseIndex + 1} ✅ — this clue works here.`
+          : `Case ${caseIndex + 1} ❌ — this clue does not fit, so this case is wrong.`);
       }
       live = next;
     }
-    lines.push(`Only Case ${[...live][0]! + 1} remains. Keep this orientation and finish the open seats.`);
-    appendRemainingTeachingSteps(lines, caselet.clueTexts, new Set([branchIndex, ...steps.map((step) => step.clueIndex)]));
-    lines.push("Therefore, the final clockwise arrangement is:");
-    lines.push(outwardCircleModel(finalModel, displayNames, drawingAnchor).display);
+
+    lines.push(`Only Case ${[...live][0]! + 1} is left. Keep it and fill the empty seats.`);
+    appendRemainingTeachingSteps(lines, caselet.clueTexts, new Set([startIndex, ...decidingSteps.map((step) => step.clueIndex)]));
+    lines.push("So the final clockwise order is:");
+    lines.push(outwardCircleModel(finalModel, displayNames, drawingStart).display);
     return lines.join("\n\n");
   }
   return null;
@@ -400,18 +414,19 @@ function compileCp004(caselet: OutwardCaseletRecord): string {
   const finalModel = enumerateOutwardProduction({ persons, constraints: caselet.constraints, landmarkAnchored, maxModels: 2 })[0];
   if (!finalModel) return caselet.sharedExplanation;
   const landmark = caselet.topologySnapshot.landmark?.id.toLowerCase();
-  const drawingAnchor = landmarkAnchored
+  const drawingStart = landmarkAnchored
     ? finalModel.clockwiseOrder[0] as OutwardPersonId
     : finalModel.clockwiseOrder[seedIndex(caselet.seed, finalModel.clockwiseOrder.length)] as OutwardPersonId;
+
   const intro = [
     landmark
-      ? `Use the displayed ${landmark} as the fixed drawing reference.`
-      : `Use ${shown(drawingAnchor, displayNames)} as a convenient drawing reference only. Rotating the complete arrangement does not create a different case.`,
-    "Since everyone faces outward, left is anticlockwise and right is clockwise.",
-    "Keep the small number of meaningful cases open until a later clue rules one out.",
+      ? `Start the circle from the seat shown nearest the ${landmark}.`
+      : `Put ${shown(drawingStart, displayNames)} anywhere to start your circle. Turning the whole circle does not make a new answer.`,
+    "Everyone faces outward. So left means anticlockwise and right means clockwise.",
+    "If two or three ways are possible, keep them for a moment. A later clue will show which one is correct.",
   ];
 
-  const adjacencyTeaching = compileOutwardAdjacencyCases(caselet, persons, displayNames, landmarkAnchored, finalModel, drawingAnchor, intro);
+  const adjacencyTeaching = compileOutwardAdjacencyCases(caselet, persons, displayNames, landmarkAnchored, finalModel, drawingStart, intro);
   if (adjacencyTeaching) return adjacencyTeaching;
 
   return compileCaseEliminationExplanation({
@@ -422,9 +437,9 @@ function compileCp004(caselet: OutwardCaseletRecord): string {
       constraints: caselet.constraints.slice(0, clueCount),
       landmarkAnchored,
       maxModels,
-    }).map((model) => outwardCircleModel(model, displayNames, drawingAnchor)),
-    finalModel: outwardCircleModel(finalModel, displayNames, drawingAnchor),
-    finalHeading: "Therefore, the final clockwise arrangement is:",
+    }).map((model) => outwardCircleModel(model, displayNames, drawingStart)),
+    finalModel: outwardCircleModel(finalModel, displayNames, drawingStart),
+    finalHeading: "So the final clockwise order is:",
   });
 }
 
@@ -447,32 +462,27 @@ function compileCp005(caselet: MixedCircleCaseletRecord): string {
   const displayNames = displayNameMap(caselet.setupText, persons);
   const finalModel = enumerateMixedCircleProduction({ persons, constraints: caselet.constraints, maxModels: 2 })[0];
   if (!finalModel) return caselet.sharedExplanation;
-  const drawingAnchor = finalModel.clockwiseOrder[seedIndex(caselet.seed, finalModel.clockwiseOrder.length)] as MixedCirclePersonId;
+  const drawingStart = finalModel.clockwiseOrder[seedIndex(caselet.seed, finalModel.clockwiseOrder.length)] as MixedCirclePersonId;
 
   return compileCaseEliminationExplanation({
     intro: [
-      `Use ${shown(drawingAnchor, displayNames)} as a convenient drawing reference only. Rotating the complete arrangement does not create a different case.`,
-      "Before using a left/right clue, resolve the reference person's facing. For a centre-facing person, left is clockwise; for an outward-facing person, left is anticlockwise.",
+      `Put ${shown(drawingStart, displayNames)} anywhere to start your circle. Turning the whole circle does not make a new answer.`,
+      "For every left/right clue, first see whether that person faces the centre or outward. If the person faces the centre, left means clockwise. If the person faces outward, left means anticlockwise.",
       caselet.blueprintAuthorityId === "SEA-PBA-020"
-        ? "For an if-then facing clue, keep both meaningful possibilities open only until another clue decides which condition is true."
-        : "When more than one placement remains, compare only the useful cases and cancel a case as soon as a clue contradicts it.",
+        ? "For an if/otherwise clue, do not guess. Keep both possibilities until another clue tells us which one is true."
+        : "If a clue gives two possible ways, keep both for a moment. As soon as a later clue does not fit one case, cross that case out.",
     ],
     clues: caselet.clueTexts.map((text) => ({ text })),
     enumeratePrefix: (clueCount, maxModels) => enumerateMixedCircleProduction({
       persons,
       constraints: cp005ConstraintsForVisiblePrefix(caselet, clueCount),
       maxModels,
-    }).map((model) => mixedCircleModel(model, displayNames, drawingAnchor)),
-    finalModel: mixedCircleModel(finalModel, displayNames, drawingAnchor),
-    finalHeading: "Therefore, the final clockwise arrangement and facings are:",
+    }).map((model) => mixedCircleModel(model, displayNames, drawingStart)),
+    finalModel: mixedCircleModel(finalModel, displayNames, drawingStart),
+    finalHeading: "So the final circle is:",
   });
 }
 
-/**
- * Student-facing explanation compiler for the whole SEA-001 package.
- * It consumes already verified caselets and never changes their answer state,
- * options, lifecycle, clue semantics, or authority coverage.
- */
 export function compileSea001TeachingExplanation(caselet: Sea001TeachingCaselet): string {
   switch (caselet.checkpointId) {
     case "SEA-CP-001":
