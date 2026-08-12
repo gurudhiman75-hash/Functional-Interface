@@ -26,6 +26,8 @@ for (const [index, entry] of NUM_CP007_PERMANENT_ALLOCATION.entries()) {
   assert(entry.authorityId === NUM_CP007_PROPOSED_AUTHORITIES[index]!.authorityId, `${entry.qlId}: authority mapping`);
   assert(entry.prototypeIds.length > 0, `${entry.qlId}: empty prototype ancestry`);
   assert(entry.permanentIdentityFrozen, `${entry.qlId}: identity not frozen`);
+  assert(entry.allocationStatus === "PRODUCT_OWNER_APPROVED_INACTIVE_MULTILINGUAL_IMPLEMENTATION", `${entry.qlId}: allocation status`);
+  assert(entry.maturity === "MULTILINGUAL_IMPLEMENTATION_FROZEN", `${entry.qlId}: maturity`);
   assert(entry.reviewStatus === "PRODUCT_OWNER_COMPLETION_AUTHORISED", `${entry.qlId}: review status`);
   assert(!entry.active, `${entry.qlId}: active leak`);
   assert(!entry.questionStudioDiscoverable, `${entry.qlId}: Question Studio leak`);
@@ -45,13 +47,14 @@ for (const prototypeId of NUM_CP007_DISCOVERED_PROTOTYPE_IDS) {
 assert(NUM_CP007_PERMANENT_ALLOCATION.filter((entry) => entry.mergeDisposition === "MERGE_AS_PARAMETERS").length === 5, "approved merge-group count");
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP007_PERMANENT_ALLOCATION",
+  status: "PASS_NUM_CP007_PERMANENT_MULTILINGUAL_ALLOCATION",
   firstQlId: NUM_CP007_PERMANENT_QL_IDS[0],
   lastQlId: NUM_CP007_PERMANENT_QL_IDS.at(-1),
   permanentQlCount: NUM_CP007_PERMANENT_QL_IDS.length,
   frozenSolveModeCount: new Set(NUM_CP007_PERMANENT_ALLOCATION.map((entry) => entry.solveModeId)).size,
   representedPrototypeCount: coveredPrototypes.size,
   mergedAuthorityCount: NUM_CP007_PERMANENT_ALLOCATION.filter((entry) => entry.mergeDisposition === "MERGE_AS_PARAMETERS").length,
+  maturity: "MULTILINGUAL_IMPLEMENTATION_FROZEN",
   activeQlCount: NUM_CP007_PERMANENT_ALLOCATION.filter((entry) => entry.active).length,
   nextQlId: "NUM-QL-124",
 }, null, 2));
