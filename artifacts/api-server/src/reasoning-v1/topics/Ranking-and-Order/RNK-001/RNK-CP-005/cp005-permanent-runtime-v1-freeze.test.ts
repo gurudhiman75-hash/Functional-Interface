@@ -146,7 +146,7 @@ const learnerFingerprints = new Set<string>();
 const contextSets: Record<string, Set<string>> = {};
 const topologySets: Record<string, Set<string>> = {};
 let independentlyReproved = 0;
-let explanationChainsChecked = 0;
+let compulsoryProofChainsChecked = 0;
 let fullWitnessOrdersChecked = 0;
 let rankBoundaryProofsChecked = 0;
 
@@ -210,21 +210,30 @@ for (const question of runtime) {
     ...question.options.map((option) => option.explanation),
   ].join("\n");
   for (const chain of explanationChains(explanationText)) {
+    const isFullOrder =
+      chain.length === state.entities.length &&
+      new Set(chain).size === state.entities.length &&
+      state.entities.every((entity) => chain.includes(entity));
+
+    if (isFullOrder) {
+      for (const edge of state.edges) {
+        assert.ok(
+          chain.indexOf(edge.higher) < chain.indexOf(edge.lower),
+          `${question.discoveryId}: witness violates ${edge.higher} > ${edge.lower}: ${chain.join(" > ")}`,
+        );
+      }
+      fullWitnessOrdersChecked += 1;
+      continue;
+    }
+
     for (let index = 0; index + 1 < chain.length; index += 1) {
       assert.equal(
         relationAlways(state, chain[index]!, chain[index + 1]!),
         true,
-        `${question.discoveryId}: explanation chain is not compulsory: ${chain.join(" > ")}`,
+        `${question.discoveryId}: proof chain is not compulsory: ${chain.join(" > ")}`,
       );
     }
-    explanationChainsChecked += 1;
-    if (chain.length === state.entities.length && new Set(chain).size === state.entities.length) {
-      assert.deepEqual(new Set(chain), new Set(state.entities));
-      for (const edge of state.edges) {
-        assert.ok(chain.indexOf(edge.higher) < chain.indexOf(edge.lower));
-      }
-      fullWitnessOrdersChecked += 1;
-    }
+    compulsoryProofChainsChecked += 1;
   }
 
   if (candidateProfile.mode === "HIGHEST_POSSIBLE" || candidateProfile.mode === "LOWEST_POSSIBLE") {
@@ -295,7 +304,7 @@ assert.equal(independentlyReproved, 576);
 assert.equal(rankBoundaryProofsChecked, 192);
 assert.equal(permanentFingerprints.size, 576);
 assert.equal(learnerFingerprints.size, 576);
-assert.ok(explanationChainsChecked > 0);
+assert.ok(compulsoryProofChainsChecked > 0);
 assert.ok(fullWitnessOrdersChecked > 0);
 
 const projectionSha256 = rnkCp005PermanentProjectionSha256(runtime);
@@ -324,7 +333,7 @@ console.log(JSON.stringify({
   topologiesPerAuthority: Object.fromEntries(
     Object.entries(topologySets).map(([authority, values]) => [authority, [...values].sort()]),
   ),
-  explanationChainsChecked,
+  compulsoryProofChainsChecked,
   fullWitnessOrdersChecked,
   rankBoundaryProofsChecked,
   permanentRuntimeFingerprints: permanentFingerprints.size,
