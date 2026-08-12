@@ -30,9 +30,9 @@ technical/editorial blockers = 0
 permanent QLs               = 0
 ```
 
-The current harness accepts 80 unique caselets per named PBA, producing **1,600 accepted caselets** and at least **6,000 genuine child questions**.
+The current harness accepts 80 unique caselets per named PBA, producing **1,600 accepted caselets** and **6,400 genuine child questions**.
 
-An established green saturation run observed **212 material structural variants** and **26 query-template surfaces** before the later CP-001 query-family expansions. The current proof continues to enforce the same lower bounds and now treats `SEA-QC-016`, `SEA-QC-017` and `SEA-QC-019` as owned SEA-001 contracts whose reachability is mandatory.
+The current proof exposes **34 query-template surfaces** and keeps the lower-bound structural saturation gates intact. `SEA-QC-016`, `SEA-QC-017` and `SEA-QC-019` are owned SEA-001 contracts whose reachability is mandatory.
 
 Exact and normalized duplicate clue-set candidates are rejected during saturation sampling.
 
@@ -41,12 +41,12 @@ Exact and normalized duplicate clue-set candidates are rejected during saturatio
 Wave 5 closes the remaining CP-001 implementation gaps identified against V3:
 
 - seat-count boundary expanded to 5–8 persons;
-- **thirteen** distinct query-contract families are reachable across deterministic CP-001 seeds;
+- thirteen distinct query-contract families are reachable across deterministic CP-001 seeds;
 - four-child caselets remain inside the V3 3–5-child rule;
 - position-from-end, immediate-right, adjacent-pair and seat-exchange hypothetical queries are included;
-- V3 exam-style `SEA-QC-016` **which statement is true** is executable with `STATEMENT` answer semantics;
-- V3 exam-style `SEA-QC-017` **which statement is false** is executable with `STATEMENT` answer semantics;
-- V3 exam-style `SEA-QC-019` **odd pair/group by seating relation** is executable with `PAIR` answer semantics;
+- V3 `SEA-QC-016` **which statement is true** is executable with `STATEMENT` answer semantics;
+- V3 `SEA-QC-017` **which statement is false** is executable with `STATEMENT` answer semantics;
+- V3 `SEA-QC-019` **odd pair/group by seating relation** is executable with `PAIR` answer semantics;
 - wrong options in these exam-style formats carry explicit misconception classification, semantic fingerprints, recomputation evidence and value-specific explanations;
 - the saturation residual audit declares QC016/QC017/QC019 owned, so any loss of their reachability fails the package gate;
 - PBA-004 displays exactly one negative-adjacency clue and at most seven clues;
@@ -56,12 +56,28 @@ Wave 5 closes the remaining CP-001 implementation gaps identified against V3:
 
 The V3 roadmap wording says five CP-001 provisional blueprints, but the explicit named inventory contains `SEA-PBA-001` through `SEA-PBA-004`. The repository records **named-inventory precedence** and does not invent an unnamed fifth authority.
 
+## Editorial hardening from the 100-caselet pass
+
+The balanced review surfaced systematic presentation weaknesses that were not correctness failures. They are now generator-level regressions rather than one-off edits:
+
+- every correct option carries the question-specific child explanation instead of a generic `This matches ...` rationale;
+- fallback distractors carry value-specific explanations;
+- person/pair fallbacks may not reuse a participant explicitly named in the query;
+- visible option displays must remain four-way unique;
+- mixed-facing relation labels use natural ordinals and `Immediately to the left/right` wording;
+- awkward `the relation is immediate to ...` explanation phrasing is normalized;
+- the balanced review corpus is scanned for the rejected wording.
+
+Detailed review evidence is recorded in `SEA-001-EDITORIAL-REVIEW-EVIDENCE.md`.
+
 ## Circular closure work
 
 - CP-003 exposes the shared physical clockwise/anticlockwise query contract as well as centre-facing left/right.
 - CP-003 and CP-004 retain odd-N opposite-seat guards.
 - CP-004 retains an explicit counterfactual detector for accidental centre-facing semantics.
 - CP-005 retains per-person facing constraints in the solver while grouping multiple explicit facing facts into one natural student-facing clue.
+- PBA-020 no longer relies on a near-complete immediate-clockwise chain followed by repetitive if/otherwise facing links. Its retained solve contract requires conditional orientation, reference-facing left/right work and physical cyclic placement together.
+- PBA-020 passages are capped at 9 displayed clues and expose exactly one explicit if/otherwise facing clue; binary-equivalent retained links render naturally as same/opposite-facing statements.
 
 ## Merge/split audit
 
@@ -108,7 +124,7 @@ The technical gap audit checks:
 - package-boundary exclusions for SEA-002/SEA-003;
 - source-gated hypothetical categories.
 
-Established automated result: **0 genuine missing-implementation gaps** before the current exam-query-breadth refinement; the current branch re-runs the same governance gates after every seating change.
+Current automated result: **0 genuine missing-implementation gaps**. The same governance gates re-run after every seating change.
 
 ## External exam source audit
 
@@ -135,7 +151,7 @@ There are 13 verified evidence records. SSC, Railway and Punjab lanes include of
 
 The final review corpus remains balanced at **20 caselets per checkpoint / 5 per PBA**.
 
-For CP-001, review selection now requires **QC016, QC017 and QC019 in every PBA's five-caselet review slice** before filling the remaining two slots. The exporter therefore builds a broader candidate pool and then selects exactly 100 review caselets; the review count itself has not increased.
+For CP-001, review selection requires **QC016, QC017 and QC019 in every PBA's five-caselet review slice** before filling the remaining two slots. The exporter builds a broader candidate pool and then selects exactly 100 review caselets; the review count itself has not increased.
 
 The ledger is content-fingerprinted. A decided entry must include `reviewerId` and `reviewedAt`.
 
