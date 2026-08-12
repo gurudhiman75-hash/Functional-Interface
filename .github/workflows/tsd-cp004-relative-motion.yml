@@ -32,7 +32,7 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Preserve frozen CP003 public surface
+      - name: Enforce frozen CP003 and sole CP004 public surfaces
         run: |
           INDEX=artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
           grep -q 'cp003/localization/native-approved-freeze' "$INDEX"
@@ -40,32 +40,37 @@ jobs:
             echo 'CP003 frozen public surface was reopened'
             exit 1
           fi
+          grep -q 'cp004/final-review-candidate' "$INDEX"
+          if grep -Eq 'cp004/(authority|types|generation|solver|verifier|runtime|runtime-final|runtime-v2|runtime-v3|native|native-final|native-polished|native-v2|native-v3|native-v4|native-v5|editorial-v2|final-surface|visual-v2|visual-v3|status)' "$INDEX"; then
+            echo 'An intermediate CP004 entry point is publicly exported'
+            exit 1
+          fi
 
-      - name: Bundle CP004 final proof and exporter
+      - name: Bundle CP004 sole final proof and exporter
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp004
-          OUT=dist/quant-v4/tsd-001/cp004-editorial-v3-review
+          OUT=dist/quant-v4/tsd-001/cp004-final-surface
           mkdir -p artifacts/api-server/$OUT
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/proof-v4.ts" --bundle --platform=node --format=esm --outfile="$OUT/proof-v4.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-review-v3.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-review-v3.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/proof-v5.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-final-surface.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-final-surface.mjs"
 
-      - name: Run CP004 final exam-readiness and native grammar proofs
+      - name: Run CP004 final exam-readiness proofs
         run: |
           set -o pipefail
           cd artifacts/api-server
-          OUT=dist/quant-v4/tsd-001/cp004-editorial-v3-review
-          node "$OUT/proof-v4.mjs" 2>&1 | tee "$OUT/proof-v4.log"
-          node "$OUT/export-review-v3.mjs" "$OUT/artifact" 2>&1 | tee "$OUT/export-v3.log"
+          OUT=dist/quant-v4/tsd-001/cp004-final-surface
+          node "$OUT/proof-v5.mjs" 2>&1 | tee "$OUT/proof-v5.log"
+          node "$OUT/export-final-surface.mjs" "$OUT/artifact" 2>&1 | tee "$OUT/export-final-surface.log"
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Upload CP004 final review artifact
+      - name: Upload CP004 sole final review artifact
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp004-editorial-v3-multilingual-review
+          name: tsd-cp004-final-review-surface
           path: |
-            artifacts/api-server/dist/quant-v4/tsd-001/cp004-editorial-v3-review/artifact/*.json
-            artifacts/api-server/dist/quant-v4/tsd-001/cp004-editorial-v3-review/artifact/*.html
-            artifacts/api-server/dist/quant-v4/tsd-001/cp004-editorial-v3-review/*.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp004-final-surface/artifact/*.json
+            artifacts/api-server/dist/quant-v4/tsd-001/cp004-final-surface/artifact/*.html
+            artifacts/api-server/dist/quant-v4/tsd-001/cp004-final-surface/*.log
           if-no-files-found: error
