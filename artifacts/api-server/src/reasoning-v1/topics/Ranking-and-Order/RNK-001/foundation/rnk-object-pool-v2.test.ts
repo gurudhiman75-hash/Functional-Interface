@@ -12,6 +12,12 @@ import {
   type RnkObjectLocale,
   type RnkRankingDomain,
 } from "./rnk-object-pool-v2";
+import {
+  RNK_RELATION_TEMPLATES_V2,
+  buildRnkPresentationBundle,
+  renderRnkRelation,
+  rnkRelationTemplates,
+} from "./rnk-presentation-object-pool-v2";
 
 const locales: readonly RnkObjectLocale[] = ["en", "hi", "pa"];
 const ids = new Set<string>();
@@ -49,6 +55,7 @@ assert.ok(Math.abs(genderCounts.M - genderCounts.F) <= 2, `Gender pool imbalance
 assert.ok(RNK_GROUP_OBJECTS_V2.length >= 20, `Expected >=20 group objects, found ${RNK_GROUP_OBJECTS_V2.length}`);
 assert.ok(RNK_SETTING_OBJECTS_V2.length >= 18, `Expected >=18 setting objects, found ${RNK_SETTING_OBJECTS_V2.length}`);
 assert.equal(RNK_DOMAIN_LEXICON_V2.length, 6);
+assert.equal(RNK_RELATION_TEMPLATES_V2.length, 6);
 
 const groupIds = new Set(RNK_GROUP_OBJECTS_V2.map((entry) => entry.id));
 assert.equal(groupIds.size, RNK_GROUP_OBJECTS_V2.length, "Duplicate RNK group object id");
@@ -98,6 +105,26 @@ for (const lexicon of RNK_DOMAIN_LEXICON_V2) {
   assert.equal(rnkDomainLexicon(lexicon.domain).domain, lexicon.domain);
 }
 
+for (const templateSet of RNK_RELATION_TEMPLATES_V2) {
+  assert.equal(rnkRelationTemplates(templateSet.domain).domain, templateSet.domain);
+  for (const locale of locales) {
+    for (const relation of ["higher", "lower", "equal"] as const) {
+      const template = templateSet[relation][locale];
+      assert.equal(template, template.normalize("NFC"));
+      assert.ok(template.includes("{A}"), `${templateSet.domain}/${relation}/${locale}: missing {A}`);
+      assert.ok(template.includes("{B}"), `${templateSet.domain}/${relation}/${locale}: missing {B}`);
+      assert.equal(/\b(?:he|she|his|her)\b/i.test(template), false, `${templateSet.domain}/${relation}/${locale}: gendered pronoun leakage`);
+      assert.equal(template.includes("/"), false, `${templateSet.domain}/${relation}/${locale}: slash-gender placeholder leakage`);
+      const rendered = renderRnkRelation(templateSet.domain, relation, locale, "Aman", "Riya");
+      assert.equal(rendered.includes("{A}"), false);
+      assert.equal(rendered.includes("{B}"), false);
+      assert.ok(rendered.includes("Aman"));
+      assert.ok(rendered.includes("Riya"));
+      assert.equal(rendered, rendered.normalize("NFC"));
+    }
+  }
+}
+
 for (const count of [5, 6, 7, 8, 10, 12]) {
   for (let seed = 0; seed < 1000; seed += 1) {
     const first = selectRnkPeople(seed, count, { genderMode: "BALANCED" });
@@ -130,6 +157,25 @@ for (const domain of domains) {
   }
 }
 
+let presentationBundlesChecked = 0;
+for (const locale of locales) {
+  for (const domain of domains) {
+    for (let seed = 0; seed < 100; seed += 1) {
+      const first = buildRnkPresentationBundle(seed, 7, { locale, domain });
+      const second = buildRnkPresentationBundle(seed, 7, { locale, domain });
+      assert.equal(first.domain, domain);
+      assert.equal(first.locale, locale);
+      assert.equal(first.setting.domain, domain);
+      assert.ok(first.setting.compatibleGroupIds.includes(first.group.id));
+      assert.deepEqual(first.people.map((entry) => entry.id), second.people.map((entry) => entry.id));
+      assert.equal(first.setting.id, second.setting.id);
+      assert.equal(first.group.id, second.group.id);
+      assert.equal(new Set(first.people.map((entry) => entry.names[locale])).size, 7);
+      presentationBundlesChecked += 1;
+    }
+  }
+}
+
 console.log(JSON.stringify({
   status: "PASS",
   poolVersion: "RNK_OBJECT_POOL_V2",
@@ -139,8 +185,10 @@ console.log(JSON.stringify({
   groupObjects: RNK_GROUP_OBJECTS_V2.length,
   settingObjects: RNK_SETTING_OBJECTS_V2.length,
   domains: [...domains].sort(),
+  relationTemplateSets: RNK_RELATION_TEMPLATES_V2.length,
   deterministicBalancedDrawsChecked: 1000 * 6,
   deterministicSettingDrawsChecked: 1000,
+  presentationBundlesChecked,
   frozenRuntimeAdoption: false,
   nextAvailableQlUnaffected: "RNK-QL-042",
 }, null, 2));
