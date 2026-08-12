@@ -24,10 +24,20 @@ function naturalMonths(locale: IntCp004V6Locale, months: number): string {
 
 function normalize(locale: IntCp004V6Locale, text: string): string {
   const pattern = locale === "hi-IN" ? /(\d+) महीने/gu : /(\d+) ਮਹੀਨੇ/gu;
-  return text.replace(pattern, (match, raw: string) => {
+  let result = text.replace(pattern, (match, raw: string) => {
     const months = Number(raw);
     return Number.isInteger(months) && months >= 12 ? naturalMonths(locale, months) : match;
   });
+  if (locale === "hi-IN") {
+    result = result
+      .replace(/पहले 1 वर्ष/gu, "पहले वर्ष")
+      .replace(/अगले 1 वर्ष/gu, "अगले वर्ष");
+  } else {
+    result = result
+      .replace(/ਪਹਿਲੇ 1 ਸਾਲ/gu, "ਪਹਿਲੇ ਸਾਲ")
+      .replace(/ਅਗਲੇ 1 ਸਾਲ/gu, "ਅਗਲੇ ਸਾਲ");
+  }
+  return result;
 }
 
 export function generateIntCp004V6NativeEditorialV3Question(
