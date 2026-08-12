@@ -42,11 +42,21 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-editorial-v2-release.test.ts \
             | tee rnk-cp006-equality-editorial-v2-release.log
 
+      - name: Validate CP-006 provisional authority consolidation
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-authority-consolidation-v1.test.ts \
+            | tee rnk-cp006-authority-consolidation.log
+
       - name: Generate 24-question CP-006 V2 release human review pack
         run: |
           pnpm dlx tsx \
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-editorial-v2-release-review-export.ts
           test -s RNK-CP-006-EQUALITY-EDITORIAL-V2-RELEASE-REVIEW-24Q.md
+
+      - name: Emit CP-006 review pack for exact-head inspection
+        run: cat RNK-CP-006-EQUALITY-EDITORIAL-V2-RELEASE-REVIEW-24Q.md
 
       - name: Validate frozen CP-005 English runtime
         run: |
@@ -83,6 +93,7 @@ jobs:
           path: |
             rnk-cp006-equality-discovery.log
             rnk-cp006-equality-editorial-v2-release.log
+            rnk-cp006-authority-consolidation.log
             rnk-cp005-frozen-regression.log
             rnk-cp004-frozen-regression.log
             rnk-question-studio-registry.log
