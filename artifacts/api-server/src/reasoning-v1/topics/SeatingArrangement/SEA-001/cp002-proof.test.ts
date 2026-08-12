@@ -46,9 +46,9 @@ for (const blueprint of SEA_CP002_BLUEPRINTS) {
       blockCases += 1;
       assert.ok(first.constraints.some((constraint) => constraint.kind === "ADJACENT"));
       const teaching = compileSea001TeachingExplanationFromUnknown(first);
-      if (/facing is not stated yet, so keep both facing cases open/i.test(teaching)
-        && /place .* outside the row/i.test(teaching)
-        && /must face (?:north|south)/i.test(teaching)) {
+      if (/we do not yet know which way .* faces, so try both/i.test(teaching)
+        && /would fall outside the row/i.test(teaching)
+        && /so .* must face (?:north|south)/i.test(teaching)) {
         inferredEndFacingExplanations += 1;
       }
     }
