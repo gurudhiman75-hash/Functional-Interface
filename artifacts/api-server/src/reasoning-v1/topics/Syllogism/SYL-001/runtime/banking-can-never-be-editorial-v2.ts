@@ -66,7 +66,7 @@ function negativeExplanation(
   if (question.locale === "hi-IN") {
     if (conclusion.surfaceKind === "ALL_CAN_NEVER") {
       return conclusion.follows
-        ? `${label}: “${subject}” वर्ग का कम-से-कम एक सदस्य “${predicate}” वर्ग से बाहर रहना ही चाहिए। इसलिए सभी ${subject} का ${predicate} होना असंभव है।`
+        ? `${label}: “${subject}” वर्ग का कम-से-कम एक सदस्य “${predicate}” वर्ग से बाहर रहना ही चाहिए। इसलिए “${subject}” वर्ग के सभी सदस्यों का “${predicate}” वर्ग में होना असंभव है।`
         : `${label}: कम-से-कम एक वैध व्यवस्था में “${subject}” वर्ग के सभी सदस्य “${predicate}” वर्ग में रखे जा सकते हैं। इसलिए “कभी संभव नहीं” सिद्ध नहीं होता।`;
     }
     return conclusion.follows
@@ -77,7 +77,7 @@ function negativeExplanation(
   if (question.locale === "pa-IN") {
     if (conclusion.surfaceKind === "ALL_CAN_NEVER") {
       return conclusion.follows
-        ? `${label}: “${subject}” ਵਰਗ ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ “${predicate}” ਵਰਗ ਤੋਂ ਬਾਹਰ ਰਹਿਣਾ ਲਾਜ਼ਮੀ ਹੈ। ਇਸ ਲਈ ਸਾਰੇ ${subject} ਦਾ ${predicate} ਹੋਣਾ ਅਸੰਭਵ ਹੈ।`
+        ? `${label}: “${subject}” ਵਰਗ ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ “${predicate}” ਵਰਗ ਤੋਂ ਬਾਹਰ ਰਹਿਣਾ ਲਾਜ਼ਮੀ ਹੈ। ਇਸ ਲਈ “${subject}” ਵਰਗ ਦੇ ਸਾਰੇ ਮੈਂਬਰਾਂ ਦਾ “${predicate}” ਵਰਗ ਵਿੱਚ ਹੋਣਾ ਅਸੰਭਵ ਹੈ।`
         : `${label}: ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵੈਧ ਬਣਤਰ ਵਿੱਚ “${subject}” ਵਰਗ ਦੇ ਸਾਰੇ ਮੈਂਬਰ “${predicate}” ਵਰਗ ਵਿੱਚ ਰੱਖੇ ਜਾ ਸਕਦੇ ਹਨ। ਇਸ ਲਈ “ਕਦੇ ਸੰਭਵ ਨਹੀਂ” ਸਾਬਤ ਨਹੀਂ ਹੁੰਦਾ।`;
     }
     return conclusion.follows
