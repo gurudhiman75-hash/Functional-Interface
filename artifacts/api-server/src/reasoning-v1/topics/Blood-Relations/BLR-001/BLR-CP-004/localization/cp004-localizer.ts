@@ -2,7 +2,7 @@ import {
   generateBlrCp003FinalApprovedBank,
   type BlrCp003FinalApprovedRecord,
 } from "../../BLR-CP-003/cp003-final-approved-bank";
-import { localizedBlrCp003SharedPrompt } from "../../BLR-CP-003/localization/cp003-language-pack";
+import { localizedBlrCp003SharedPromptCompleteV6 } from "../../BLR-CP-003/localization/cp003-passage-grammar-v6";
 import { generateBlrCp004FrozenBank } from "../cp004-bank";
 import type { GeneratedBlrCp004Question } from "../cp004-model";
 import {
@@ -69,7 +69,11 @@ function labelFor(source: BlrCp003FinalApprovedRecord, personId: string): string
   return source.proceduralLogic.nodes.find((node) => node.id === personId)?.label ?? personId;
 }
 
-function renderPairKey(source: BlrCp003FinalApprovedRecord, key: string, locale: BlrCp004TranslatedLocale): string {
+function renderPairKey(
+  source: BlrCp003FinalApprovedRecord,
+  key: string,
+  locale: BlrCp004TranslatedLocale,
+): string {
   if (key.includes("->")) {
     const [left, right] = key.split("->");
     return `${labelFor(source, left!)} → ${labelFor(source, right!)}`;
@@ -106,7 +110,9 @@ function localizedWorking(
   }
 
   if (record.answer.countedPairKeys.length) {
-    const pairs = record.answer.countedPairKeys.map((key) => renderPairKey(source, key, locale)).join("; ");
+    const pairs = record.answer.countedPairKeys
+      .map((key) => renderPairKey(source, key, locale))
+      .join("; ");
     return [
       localeText(locale, `गिने गए संबंध-युग्म: ${pairs}।`, `ਗਿਣੇ ਗਏ ਸੰਬੰਧ-ਜੋੜੇ: ${pairs}।`),
       localeText(locale, `कुल संख्या = ${record.answer.value}।`, `ਕੁੱਲ ਗਿਣਤੀ = ${record.answer.value}।`),
@@ -132,7 +138,6 @@ function localizedExplanation(
   locale: BlrCp004TranslatedLocale,
   options: GeneratedBlrCp004Question["options"],
 ): GeneratedBlrCp004Question["explanation"] {
-  const correct = options[record.correctIndex]!;
   const correctLabel = optionLabel(record.correctIndex);
   const conclusion = record.answer.kind === "COUNT_VECTOR"
     ? localeText(
@@ -191,7 +196,7 @@ export function localizeBlrCp004Question(
     canonicalItemId: record.itemId,
     itemId: `${record.itemId}-${localeSuffix}`,
     questionLanguageId: `${record.itemId}:${locale}`,
-    sharedPrompt: localizedBlrCp003SharedPrompt(source, locale),
+    sharedPrompt: localizedBlrCp003SharedPromptCompleteV6(source, locale),
     stem: localizedBlrCp004Stem(record, locale),
     options,
     explanation: localizedExplanation(record, source, locale, options),
