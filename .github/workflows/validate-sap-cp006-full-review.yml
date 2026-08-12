@@ -39,23 +39,23 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle full-review authority
+      - name: Bundle current final-review authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/full-review-authority-v3.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/full-review-authority-final.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp006-full-review-authority.test.mjs
 
-      - name: Run full-review authority
+      - name: Run current final-review authority
         shell: bash
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/sap-cp006-full-review-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp006-full-review-authority.log
 
-      - name: Bundle full-review generator
+      - name: Bundle current final-review generator
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/generate-full-review.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/generate-full-review-final.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp006-generate-full-review.mjs
 
