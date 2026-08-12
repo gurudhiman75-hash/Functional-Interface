@@ -1,49 +1,34 @@
 {
   "packageId": "TRG-001",
-  "checkpoint": "PRODUCTION_144_ENGINEERING",
-  "status": "IMPLEMENTED_ENGINEERING_ONLY",
+  "checkpoint": "PRODUCTION_144_ENGINEERING_TRACE",
+  "status": "SUPERSEDED_AS_CANDIDATE",
+  "supersededBy": "production-authority.manifest.json",
+  "reason": "The initial 144-QL engineering surface reached correct package/CP counts but a later Phase 0 ledger audit found detailed permanent-QL family allocation drift. The trace runtime and gates are retained as engineering evidence only.",
+  "traceRuntime": "production-runtime.ts",
+  "traceCandidateRuntime": "production-candidate-runtime.ts",
+  "traceGateSuite": "production-runtime.test.ts",
   "qlCounts": {
-    "reviewedMvpAnchors": 72,
-    "productionExpansion": 72,
-    "total": 144,
+    "engineeringTotal": 144,
     "perCp": 24
   },
-  "ranges": {
-    "TRG-CP-001": ["TRG-001-QL-001", "TRG-001-QL-024"],
-    "TRG-CP-002": ["TRG-001-QL-025", "TRG-001-QL-048"],
-    "TRG-CP-003": ["TRG-001-QL-049", "TRG-001-QL-072"],
-    "TRG-CP-004": ["TRG-001-QL-073", "TRG-001-QL-096"],
-    "TRG-CP-005": ["TRG-001-QL-097", "TRG-001-QL-120"],
-    "TRG-CP-006": ["TRG-001-QL-121", "TRG-001-QL-144"]
-  },
-  "candidateRuntime": "production-candidate-runtime.ts",
-  "traceRuntime": "production-runtime.ts",
-  "gateSuite": "production-runtime.test.ts",
-  "candidateHardening": {
+  "historicalHardening": {
     "ql062ExactHalfDegreeDistractor": "225/2 degrees",
     "fixedTemplateStemVariants": 23
   },
-  "gateTargets": {
+  "historicalGateTargets": {
     "canonicalSeedsPerQl": 12,
     "canonicalCases": 1728,
-    "reviewedMvpPreservationCases": 864,
     "sweepSeeds": 50,
     "fullSweepCases": 7200
   },
   "executionEvidence": {
-    "githubActionsObserved": false,
     "strictTypeScriptCompile": "NOT_CLAIMED",
-    "runtimeGateExecution": "NOT_CLAIMED",
-    "note": "Executable gates are committed. Pass status must only be recorded after an actual execution is observed."
+    "runtimeGateExecution": "NOT_CLAIMED"
   },
   "editorial": {
-    "aiApprovedReviewedMvp": 72,
-    "aiReviewedProductionExpansion": 0,
-    "aiApprovedTotal": 72,
-    "aiTotal": 144,
-    "humanReviewed": 0,
-    "humanTotal": 144,
-    "freezeEligible": false
+    "historicalReviewedMvpEvidence": 72,
+    "carriedForwardAsFinalRowApproval": false,
+    "reason": "Authority reconciliation changes permanent QL-to-family assignment, so the reconciled 144-row surface must be reviewed afresh."
   },
   "activation": {
     "questionStudioDiscoverable": false,
@@ -52,5 +37,5 @@
     "publiclyPublishable": false,
     "hindiPunjabiRuntime": false
   },
-  "next": "Review and remediate the new 72 production QLs, then run a combined 144-QL semantic/difficulty audit before freeze."
+  "next": "Use production-authority.manifest.json and production-authority-candidate-runtime.ts as the active 144-QL candidate authority."
 }
