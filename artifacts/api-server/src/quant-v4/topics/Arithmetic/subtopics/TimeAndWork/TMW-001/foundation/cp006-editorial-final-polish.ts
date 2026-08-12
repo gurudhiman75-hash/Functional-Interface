@@ -1,4 +1,3 @@
-import { toLatex } from "./rational";
 import type { TmwLearnerExplanationV2 } from "./learner-explanation-contract";
 import type { TmwCp006Parameters, TmwCp006Solution } from "./cp006-types";
 
@@ -25,6 +24,13 @@ function exactDimensionalMeasure(question: Cp006Question, language: Language): "
   return dimensions === 2 ? "area" : "volume";
 }
 
+function answerMath(answerText: string): string {
+  const inline = /\\\(([\s\S]*?)\\\)/.exec(answerText)?.[0];
+  if (inline) return inline;
+  const scalar = /-?\d+(?:\.\d+)?/.exec(answerText)?.[0];
+  return scalar ? `\\(${scalar}\\)` : answerText;
+}
+
 export function polishTmwCp006EditorialReview<T extends Cp006Question>(
   question: T,
   qlId: string,
@@ -36,36 +42,29 @@ export function polishTmwCp006EditorialReview<T extends Cp006Question>(
   let learnerExplanation = question.learnerExplanation;
 
   if (qlId === "TMW-QL-108") {
+    const answer = t(
+      language,
+      `Therefore, the required working time is ${question.solution?.answerText ?? ""}.`,
+      `अतः आवश्यक कार्य-समय ${question.solution?.answerText ?? ""} है।`,
+      `ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਕੰਮ-ਸਮਾਂ ${question.solution?.answerText ?? ""} ਹੈ।`,
+    );
     learnerExplanation = {
       ...learnerExplanation,
-      answer: t(
-        language,
-        `Therefore, the required working time is ${question.solution?.answerText ?? ""}.`,
-        `अतः आवश्यक कार्य-समय ${question.solution?.answerText ?? ""} है।`,
-        `ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਕੰਮ-ਸਮਾਂ ${question.solution?.answerText ?? ""} ਹੈ।`,
-      ),
-      solution: [
-        ...learnerExplanation.solution.slice(0, -1),
-        t(
-          language,
-          `Therefore, the required working time is ${question.solution?.answerText ?? ""}.`,
-          `अतः आवश्यक कार्य-समय ${question.solution?.answerText ?? ""} है।`,
-          `ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਕੰਮ-ਸਮਾਂ ${question.solution?.answerText ?? ""} ਹੈ।`,
-        ),
-      ],
+      answer,
+      solution: [...learnerExplanation.solution.slice(0, -1), answer],
     };
   }
 
   if (qlId === "TMW-QL-116") {
     if (language === "hi") {
-      stem = stem.replace(/वर्तमान प्रति-([^ ]+) गति समान रहे/g, "प्रति-$1 वर्तमान उत्पादकता समान रहे");
+      stem = stem.replace(/वर्तमान प्रति-(.+?) गति समान रहे/g, "प्रति-$1 वर्तमान उत्पादकता समान रहे");
     } else if (language === "pa") {
-      stem = stem.replace(/ਮੌਜੂਦਾ ਪ੍ਰਤੀ-([^ ]+) ਗਤੀ ਇੱਕੋ ਰਹੇ/g, "ਪ੍ਰਤੀ-$1 ਮੌਜੂਦਾ ਉਤਪਾਦਕਤਾ ਇੱਕੋ ਰਹੇ");
+      stem = stem.replace(/ਮੌਜੂਦਾ ਪ੍ਰਤੀ-(.+?) ਗਤੀ ਇੱਕੋ ਰਹੇ/g, "ਪ੍ਰਤੀ-$1 ਮੌਜੂਦਾ ਉਤਪਾਦਕਤਾ ਇੱਕੋ ਰਹੇ");
     }
   }
 
   if (qlId === "TMW-QL-119" && question.solution) {
-    const overtime = `\\(${toLatex(question.solution.answer)}\\)`;
+    const overtime = answerMath(question.solution.answerText);
     const answer = t(
       language,
       `Therefore, each remaining worker must do ${overtime} hours of overtime per day.`,
