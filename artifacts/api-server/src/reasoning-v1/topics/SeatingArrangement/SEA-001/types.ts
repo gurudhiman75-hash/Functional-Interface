@@ -92,7 +92,7 @@ export type SeatingMisconceptionId =
   | "SEA-MC-LIN-TRUE_FALSE_POLARITY"
   | "SEA-MC-LIN-ODD_RELATION_MISCLASSIFIED";
 
-export type SeatingAnswerType = "PERSON" | "SEAT_POSITION" | "COUNT" | "PAIR" | "RELATION" | "SEQUENCE";
+export type SeatingAnswerType = "PERSON" | "SEAT_POSITION" | "COUNT" | "PAIR" | "RELATION" | "SEQUENCE" | "STATEMENT";
 export type SeatingSemanticValue = string | number | readonly string[];
 
 export interface SeatingOption {
