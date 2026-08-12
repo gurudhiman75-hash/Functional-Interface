@@ -2,6 +2,10 @@ import type { ProbabilityNativeLanguage } from "../multilingual-foundation";
 import { assertProbabilityNativeTextValid } from "../native-language-primitives";
 import type { ProbabilityQuestion } from "./types";
 import { naturalizeProbabilityExplanationBody } from "./native-source-explanation-naturalizer";
+import {
+  canonicalizeProbabilityExplanationMathSegment,
+  localizeProbabilityExplanationMathSegment,
+} from "./native-math-event-labels";
 
 type Rule = readonly [source: string, hi: string, pa: string];
 
@@ -641,11 +645,11 @@ function replaceRule(value: string, source: string, replacement: string): string
   return value.replace(pattern, replacement);
 }
 
-function protectMath(value: string): { text: string; math: string[] } {
+function protectMath(value: string, language: ProbabilityNativeLanguage): { text: string; math: string[] } {
   const math: string[] = [];
   return {
     text: value.replace(MATH, (token) => {
-      const index = math.push(token) - 1;
+      const index = math.push(localizeProbabilityExplanationMathSegment(token, language)) - 1;
       return `¤${index}¤`;
     }),
     math,
@@ -726,7 +730,7 @@ function mathSegments(value: string): string[] {
 }
 
 function translateSourceLine(sourceLine: string, language: ProbabilityNativeLanguage): string {
-  const protectedLine = protectMath(sourceLine);
+  const protectedLine = protectMath(sourceLine, language);
   const match = protectedLine.text.match(ROLE);
   if (!match) throw new Error(`Probability English explanation line has unsupported structure: ${sourceLine}`);
   const role = match[1]!;
@@ -735,8 +739,10 @@ function translateSourceLine(sourceLine: string, language: ProbabilityNativeLang
   const translatedBody = translateBody(body, language);
   const nativeLine = restoreMath(`${localizeRole(role, step, language)} — ${translatedBody}`, protectedLine.math);
 
-  if (mathSegments(sourceLine).join("\u0000") !== mathSegments(nativeLine).join("\u0000")) {
-    throw new Error(`Probability native explanation changed English-authority MathJax: ${sourceLine}`);
+  const canonicalNativeMath = mathSegments(nativeLine).map((segment) =>
+    canonicalizeProbabilityExplanationMathSegment(segment, language));
+  if (mathSegments(sourceLine).join("\u0000") !== canonicalNativeMath.join("\u0000")) {
+    throw new Error(`Probability native explanation changed English-authority MathJax semantics: ${sourceLine}`);
   }
   if (numericMultiset(sourceLine).join("\u0000") !== numericMultiset(nativeLine).join("\u0000")) {
     throw new Error(`Probability native explanation changed English-authority numeric facts: ${sourceLine}`);
