@@ -40,6 +40,7 @@ import { applyTmwCp006MultilingualEditorialReview } from "./cp006-multilingual-e
 import { polishTmwCp006EditorialReview } from "./cp006-editorial-final-polish";
 import { applyTmwCp007MultilingualEditorialReview } from "./cp007-multilingual-editorial-review-remediation";
 import { polishTmwCp007EditorialReview } from "./cp007-editorial-final-polish";
+import { finalizeTmwCp007EditorialValidation } from "./cp007-editorial-validation-finalizer";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -60,6 +61,12 @@ function qlOrdinal(questionLanguageId: string): number {
   return ordinal;
 }
 
+function finishCp007(question: any, questionLanguageId: string, language: Tmw001ChapterLanguage): any {
+  const reviewed = applyTmwCp007MultilingualEditorialReview(question, questionLanguageId, language);
+  const polished = polishTmwCp007EditorialReview(reviewed, questionLanguageId, language);
+  return finalizeTmwCp007EditorialValidation(polished, language);
+}
+
 function finishEnglish(question: any, questionLanguageId: string): any {
   const r2Remediated = applyTmw001EditorialRemediationR2Cp001To006(question, questionLanguageId, "en");
   const r3Remediated = applyTmw001EditorialRemediationR3Cp007To011(r2Remediated, questionLanguageId, "en");
@@ -72,8 +79,7 @@ function finishEnglish(question: any, questionLanguageId: string): any {
   const cp005RemainingFixed = applyTmwCp005RemainingWorkEditorialFix(cp005InverseFixed, questionLanguageId, "en");
   const cp006Reviewed = applyTmwCp006MultilingualEditorialReview(cp005RemainingFixed, questionLanguageId, "en");
   const cp006Polished = polishTmwCp006EditorialReview(cp006Reviewed, questionLanguageId, "en");
-  const cp007Reviewed = applyTmwCp007MultilingualEditorialReview(cp006Polished, questionLanguageId, "en");
-  return polishTmwCp007EditorialReview(cp007Reviewed, questionLanguageId, "en");
+  return finishCp007(cp006Polished, questionLanguageId, "en");
 }
 
 function finishLocalized(question: any, questionLanguageId: string, language: TmwLocalizedLanguage): any {
@@ -98,8 +104,7 @@ function finishLocalized(question: any, questionLanguageId: string, language: Tm
   const cp005RemainingFixed = applyTmwCp005RemainingWorkEditorialFix(cp005InverseFixed, questionLanguageId, language);
   const cp006Reviewed = applyTmwCp006MultilingualEditorialReview(cp005RemainingFixed, questionLanguageId, language);
   const cp006Polished = polishTmwCp006EditorialReview(cp006Reviewed, questionLanguageId, language);
-  const cp007Reviewed = applyTmwCp007MultilingualEditorialReview(cp006Polished, questionLanguageId, language);
-  return polishTmwCp007EditorialReview(cp007Reviewed, questionLanguageId, language);
+  return finishCp007(cp006Polished, questionLanguageId, language);
 }
 
 export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
