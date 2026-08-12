@@ -35,6 +35,12 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-discovery.test.ts \
             | tee rnk-cp006-equality-discovery.log
 
+      - name: Generate 24-question CP-006 human review pack
+        run: |
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-review-export.ts
+          test -s RNK-CP-006-EQUALITY-RANKING-REVIEW-24Q.md
+
       - name: Validate frozen CP-005 English runtime
         run: |
           set -o pipefail
@@ -73,5 +79,14 @@ jobs:
             rnk-cp004-frozen-regression.log
             rnk-question-studio-registry.log
             rnk-cp006-api-build.log
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload CP-006 review pack
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp006-equality-ranking-review-24q
+          path: RNK-CP-006-EQUALITY-RANKING-REVIEW-24Q.md
           if-no-files-found: ignore
           retention-days: 14
