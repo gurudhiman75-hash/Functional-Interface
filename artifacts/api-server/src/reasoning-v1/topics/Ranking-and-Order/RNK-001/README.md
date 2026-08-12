@@ -1,6 +1,6 @@
 # RNK-001 — Ranking and Order
 
-Status: **CP-001 through CP-004 frozen at `RNK-QL-001..035`; CP-005 has a pinned 576-question permanent-runtime candidate and is awaiting final manual English freeze approval. No CP-005 QL is allocated.**
+Status: **CP-001 through CP-005 English frozen at `RNK-QL-001..038`; next available identity is `RNK-QL-039`.**
 
 Student-facing chapter: **Ranking and Order**  
 Reasoning V1 package: `RNK-001`  
@@ -23,7 +23,7 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 | `RNK-CP-002` | two-person positions, separation, comparison, mixed-end totals | frozen `RNK-QL-010..017` |
 | `RNK-CP-003` | interchange, movement, overtaking, insertion/removal | frozen `RNK-QL-018..026` |
 | `RNK-CP-004` | unique multi-entity strict-order reasoning | frozen `RNK-QL-027..035` |
-| `RNK-CP-005` | partial order, relation truth status, possible-rank bounds, exact-rank determinacy | 576-question candidate pinned; final manual freeze review pending; 0 QLs |
+| `RNK-CP-005` | partial order / ranking uncertainty | frozen `RNK-QL-036..038` |
 | `RNK-CP-006` | non-strict/tied-ranking audit | unallocated; source evidence required |
 | `RNK-CP-007` | advanced mixed transformations | unallocated; later gap audit |
 | `RNK-CP-008` | reserved | shared-set assembly is infrastructure, not QL ownership |
@@ -35,6 +35,7 @@ RNK-QL-001..009   CP-001 one-person rank arithmetic
 RNK-QL-010..017   CP-002 two-position/separation/mixed-end constraints
 RNK-QL-018..026   CP-003 movement/interchange/membership transformations
 RNK-QL-027..035   CP-004 unique strict multi-entity order reasoning
+RNK-QL-036..038   CP-005 partial-order ranking uncertainty
 ```
 
 CP-004 frozen authorities:
@@ -51,103 +52,70 @@ RNK-QL-034  DEFINITELY_TRUE_RELATION
 RNK-QL-035  MISSING_COMPARISON
 ```
 
-Next available RNK identity: **`RNK-QL-036`**.
+CP-005 frozen authorities:
 
-## Book-to-QL ownership audit
+```text
+RNK-QL-036  RELATION_TRUTH_STATUS
+RNK-QL-037  POSSIBLE_RANK_BOUND
+RNK-QL-038  EXACT_RANK_DETERMINACY
+```
 
-The 2026-08-08 audit established that ordinary top/bottom ranking, two-person separation, interchange/movement and unique strict-comparison ranking are already owned by CP-001..004.
+Next available RNK identity: **`RNK-QL-039`**.
 
-It also fixed these boundaries:
+## Ownership boundary
 
+The 2026-08-08 book-to-QL audit fixed these chapter boundaries:
+
+- top/bottom arithmetic and side counts → CP-001;
+- two-person rank/separation relations → CP-002;
+- interchange, movement, insertion/removal → CP-003;
+- comparison evidence that forces one unique complete strict order → CP-004;
+- incomplete strict-comparison information with multiple valid complete rankings → CP-005;
 - left/right placement, facing, adjacency and seat neighbours → Seating Arrangement;
 - shared passages/caselets → delivery infrastructure, not a QL;
-- height/age/marks/performance words → context only unless solver changes;
 - arithmetic-heavy marks/age/speed/score → relevant Quant chapter;
-- incomplete comparison information with several valid strict rankings → CP-005.
+- tied/non-strict ranks → CP-006 only after source evidence.
 
 ## CP-004 freeze summary
 
 ```text
-approved English review: 132
-source forms:              11
 frozen authorities:        9
 permanent runtime:      1,728
-projection: sha256:39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
+projection:
+sha256:39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
 ```
 
-CP-004 assumes the evidence forces one unique complete strict order.
+CP-004 requires one unique complete strict order.
 
-## CP-005 ownership and V3 editorial result
+## CP-005 freeze summary
 
-CP-005 deliberately retains **multiple valid complete rankings** and asks what remains definite, possible, impossible, bounded or indeterminate across them.
+CP-005 deliberately retains **two or more valid complete rankings** and asks what remains definite, possible, impossible, bounded or indeterminate across them.
+
+Discovery/editorial path:
 
 ```text
-raw discovery:        8 prototypes / 256 questions
-V3 release:           7 source forms / 168 checked questions
-V3 answer positions:  42 / 42 / 42 / 42
-unique release states: 168
-V3 graph families:    8
-
-Easy:      0
-Medium:  156
-Hard:     12
+raw discovery:           8 prototypes / 256 questions
+V3 release:              7 source forms / 168 checked questions
+consolidated authorities: 3
+manual freeze pack:      36 / 36 independently reviewed
+permanent runtime:       576
+questions/authority:     192
 ```
 
-The rejected form remains `ORDER_UNIQUENESS_STATUS`.
-
-Three authority candidates survived consolidation:
+Permanent assignments:
 
 ```text
-RELATION_TRUTH_STATUS
+RNK-QL-036  RELATION_TRUTH_STATUS
   MUST / COULD / CANNOT / PAIR_STATUS
 
-POSSIBLE_RANK_BOUND
-  HIGHEST / LOWEST
+RNK-QL-037  POSSIBLE_RANK_BOUND
+  HIGHEST_POSSIBLE / LOWEST_POSSIBLE
 
-EXACT_RANK_DETERMINACY
-  DEFINITE / INDETERMINATE
+RNK-QL-038  EXACT_RANK_DETERMINACY
+  EXACT_DEFINITE / EXACT_INDETERMINATE
 ```
 
-`PAIR_RELATION_CANNOT_BE_DETERMINED` is retained only as a legacy discovery ID; learner-facing `PAIR_STATUS` contains first-above, second-above and indeterminate outcomes.
-
-### QL-034 ownership resolution
-
-The final ownership audit retains CP-005 `RELATION_TRUTH_STATUS` as a **separate provisional authority** rather than widening frozen `RNK-QL-034`.
-
-```text
-RNK-QL-034 / CP-004
-  state contract: exactly one complete strict order
-  query: definitely-true relation
-
-CP-005 / RELATION_TRUTH_STATUS
-  state contract: at least two complete strict orders remain valid
-  queries: MUST / COULD / CANNOT / PAIR_STATUS
-```
-
-Audit decision:
-
-```text
-KEEP_SEPARATE_PROVISIONAL_AUTHORITY
-```
-
-No permanent ID is allocated by this decision.
-
-## CP-005 permanent-runtime candidate
-
-The production-scale English candidate is now built from the approved V3 solver/editorial contracts:
-
-```text
-candidate runtime version: RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_V1
-candidate questions:       576
-candidate authorities:       3
-questions/authority:        192
-
-RELATION_TRUTH_STATUS:      192
-POSSIBLE_RANK_BOUND:        192
-EXACT_RANK_DETERMINACY:     192
-```
-
-Mode distribution:
+Mode counts:
 
 ```text
 MUST:                       48
@@ -162,112 +130,93 @@ EXACT_DEFINITE:             96
 EXACT_INDETERMINATE:        96
 ```
 
-Every authority is independently answer-position balanced at `48 / 48 / 48 / 48`.
+Each CP-005 QL is answer-position balanced `48 / 48 / 48 / 48`.
 
-The exact-rank source intentionally splits `EXACT_DEFINITE` as `48/0/48/0` and `EXACT_INDETERMINATE` as `0/48/0/48`; the combined authority remains perfectly balanced.
+All five approved presentation contexts occur in every CP-005 authority. Quality-filtered topology coverage is 8 / 7 / 6 graph families for QL036 / QL037 / QL038 respectively.
 
-All five approved presentation contexts occur within every authority. Context rendering is decoupled from the mathematical state, so wording diversity does not alter solver logic.
-
-Quality-filtered topology baselines are preserved:
-
-```text
-RELATION_TRUTH_STATUS:    8 graph families
-POSSIBLE_RANK_BOUND:      7 graph families
-EXACT_RANK_DETERMINACY:   6 graph families
-```
-
-Runtime evidence:
+Frozen CP-005 difficulty distribution:
 
 ```text
 Easy:       0
 Medium:   496
 Hard:      80
-
-normalized learner surfaces: 576
-selected state keys:          576
-runtime fingerprints:         576
 ```
 
-Every selected state retains at least two valid complete rankings.
+### Freeze proof
 
-### Pinned candidate projection
+The 36-question manual pack was independently re-solved before allocation: zero wrong keys, zero ambiguous correct options, zero invalid witnesses and zero contradictory clue sets.
+
+The executable freeze gate then independently re-proved every answer across the full 576-question runtime from the partial-order state:
+
+```text
+questions independently re-proved: 576
+compulsory proof chains checked:    736
+full witness orders checked:        816
+rank-bound proofs rechecked:        192
+unique learner fingerprints:        576
+unique permanent fingerprints:      576
+```
+
+### Projection chain
+
+Reviewed candidate projection:
 
 ```text
 sha256:c45517d1d8bf4283d38eb4b62d1c9e2f90c5ec58593e2c400a59b2a26fb6e71e
 ```
 
-This pin protects the candidate against silent drift. It does **not** allocate `RNK-QL-036..038` and does **not** approve English freeze.
-
-### Final manual freeze-review pack
-
-A deterministic 36-question pack is generated from the pinned candidate:
+Frozen permanent projection:
 
 ```text
-questions:                36
-questions/authority:      12
-answer positions:    9 / 9 / 9 / 9
+sha256:f6759445937626e6777f322f9b8217bc7aaa12f6a96ee180a24ca3350bd42717
 ```
 
-It includes all relation-status modes, both possible-rank directions, and both exact-rank outcomes while preferring context/topology diversity.
+See `RNK-CP-005/RNK-CP-005-ENGLISH-FREEZE-V1.md`.
 
-See:
-- `RNK-CP-005/RNK-CP-005-EDITORIAL-V3-CONSOLIDATION.md`
-- `RNK-CP-005/RNK-CP-005-QL034-OWNERSHIP-AUDIT.md`
-- `RNK-CP-005/RNK-CP-005-PERMANENT-RUNTIME-CANDIDATE-V1.md`
+### QL-034 versus QL-036
+
+The ownership audit remains authoritative:
+
+```text
+RNK-QL-034 / CP-004
+  exactly one complete strict order is valid
+  solver reconstructs that unique order
+
+RNK-QL-036 / CP-005
+  two or more complete strict orders remain valid
+  solver evaluates relation truth over the valid-order set
+```
+
+Their wording can resemble each other, but the solver state and answer contract are different. The QL-034 anti-duplication audit remains in CP-005 freeze CI.
 
 ## Proof summary
 
 ```text
-CP-001: 13 prototypes / 3,120 discovery / 54 approved / 9 frozen authorities
-CP-002: 13 prototypes / 3,120 discovery / 48 approved / 8 frozen authorities
-CP-003: 13 prototypes / 3,120 discovery / 78 approved / 9 frozen authorities
-CP-004: 11 forms / 2,640 discovery / 132 approved / 9 frozen authorities / 1,728 permanent
-CP-005: 8 raw / 256 raw / 7 V3 forms / 168 V3 checked / 3 authorities / 576 candidate / 0 permanent
+CP-001: 9 frozen authorities  / RNK-QL-001..009
+CP-002: 8 frozen authorities  / RNK-QL-010..017
+CP-003: 9 frozen authorities  / RNK-QL-018..026
+CP-004: 9 frozen authorities  / RNK-QL-027..035 / 1,728 permanent
+CP-005: 3 frozen authorities  / RNK-QL-036..038 /   576 permanent
 ```
 
-## Ownership boundaries
-
-- one-person rank arithmetic → CP-001;
-- two-position relationships → CP-002;
-- movement/interchange/insertion/removal → CP-003;
-- unique multi-entity strict order → CP-004;
-- incomplete strict comparison graph / ranking uncertainty → CP-005;
-- tied/non-strict ranking → CP-006 only after source evidence;
-- shared passage structure → assembly infrastructure;
-- seating adjacency/facing geometry → Seating Arrangement;
-- multi-attribute assignment → Logic Puzzles;
-- statement-wise sufficiency → Data Sufficiency;
-- arithmetic-heavy marks/ages/speeds/scores → Quant.
-
-## Next CP-005 gate
-
-```text
-ownership resolved
--> 576-question candidate built
--> projection pinned
--> final 36-question manual English freeze review
--> explicit freeze approval
--> only then allocate CP-005 permanent QL IDs
-```
+Cumulative frozen authority count: **38**.
 
 ## Current lifecycle
 
 ```text
-cumulative permanent range: RNK-QL-001..035
-next available ID:          RNK-QL-036
+cumulative permanent range: RNK-QL-001..038
+next available ID:          RNK-QL-039
 CP-001 frozen:              true
 CP-002 frozen:              true
 CP-003 frozen:              true
 CP-004 frozen:              true
-CP-005 editorial review:    passed
-CP-005 ownership audit:     passed
-CP-005 candidate runtime:   built + pinned
-CP-005 English freeze:      false
-CP-005 permanent QLs:       0
-chapter-wide freeze:        false
+CP-005 English frozen:      true
+chapter-wide final freeze:  false
 Hindi/Punjabi:              NOT_STARTED
 Question Studio:            DISABLED
 Question Bank:              NOT_STORED
 test eligibility:           INELIGIBLE
 public publication:         false
 ```
+
+Freezing CP-005 does not authorize merge, deployment, publication, Question Studio generation, persistence, or translation.
