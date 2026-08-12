@@ -24,7 +24,12 @@ const rows = generateCp003AllFinalNativeReviewCandidates().map(({ source, presen
     options: source.options,
     correctIndex: source.correctIndex,
     answerText: source.answerText,
-    explanation: source.explanation,
+    explanation: Object.freeze({
+      method: source.explanation.keyRule,
+      steps: source.explanation.stepByStepSolution,
+      examSpeedShortcut: source.explanation.examSpeedShortcut,
+      answer: source.explanation.conclusion,
+    }),
   }),
   native: Object.freeze({
     stem: presentation.stem,
@@ -46,17 +51,16 @@ const cards = rows.map((row, index) => {
   const nativeOptions = row.native.options.map((option, optionIndex) => `<li class="${optionIndex === row.native.correctIndex ? "correct" : ""}">${String.fromCharCode(65 + optionIndex)}. ${escapeHtml(option)}</li>`).join("");
   const englishOptions = row.english.options.map((option, optionIndex) => `<li class="${optionIndex === row.english.correctIndex ? "correct" : ""}">${String.fromCharCode(65 + optionIndex)}. ${escapeHtml(option)}</li>`).join("");
   const steps = row.native.explanation.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join("");
-  const optionAnalysis = row.native.explanation.optionAnalysis.map((entry) => `<li><b>${entry.option}. ${escapeHtml(entry.text)}</b>${entry.wrongWorking ? `<div>${escapeHtml(entry.wrongWorking)}</div>` : ""}<div>${escapeHtml(entry.reason)}</div></li>`).join("");
   return `<article class="card" data-language="${row.language}" data-ql="${row.permanentQlId}" data-mode="${escapeHtml(row.solveMode)}">
 <header><strong>${index + 1}. ${row.permanentQlId}</strong> · ${row.locale} · ${escapeHtml(row.solveMode)} · ${escapeHtml(row.difficulty.label)}</header>
 <div class="grid"><section><h3>Frozen English authority</h3><p>${escapeHtml(row.english.stem)}</p><ol>${englishOptions}</ol><p><b>Answer:</b> ${escapeHtml(row.english.answerText)}</p></section>
-<section><h3>${row.language === "hi" ? "Hindi final review candidate" : "Punjabi final review candidate"}</h3><p class="native">${escapeHtml(row.native.stem)}</p><ol class="native">${nativeOptions}</ol><p class="native"><b>${row.language === "hi" ? "विधि" : "ਵਿਧੀ"}:</b> ${escapeHtml(row.native.explanation.method)}</p><ol class="native">${steps}</ol><p class="native"><b>${row.language === "hi" ? "परीक्षा शॉर्टकट" : "ਪਰੀਖਿਆ ਸ਼ਾਰਟਕੱਟ"}:</b> ${escapeHtml(row.native.explanation.examSpeedShortcut)}</p><h4>${row.language === "hi" ? "विकल्प विश्लेषण" : "ਵਿਕਲਪ ਵਿਸ਼ਲੇਸ਼ਣ"}</h4><ol class="native">${optionAnalysis}</ol><p class="native"><b>${escapeHtml(row.native.explanation.answer)}</b></p></section></div>
+<section><h3>${row.language === "hi" ? "Hindi final review candidate" : "Punjabi final review candidate"}</h3><p class="native">${escapeHtml(row.native.stem)}</p><ol class="native">${nativeOptions}</ol><p class="native"><b>${row.language === "hi" ? "विधि" : "ਵਿਧੀ"}:</b> ${escapeHtml(row.native.explanation.method)}</p><ol class="native">${steps}</ol><p class="native"><b>${row.language === "hi" ? "परीक्षा शॉर्टकट" : "ਪਰੀਖਿਆ ਸ਼ਾਰਟਕੱਟ"}:</b> ${escapeHtml(row.native.explanation.examSpeedShortcut)}</p><p class="native"><b>${escapeHtml(row.native.explanation.answer)}</b></p></section></div>
 <details><summary>Identity and lifecycle</summary><code>${escapeHtml(row.questionLanguageId)}</code><br><code>${escapeHtml(row.mathematicalFingerprint)}</code><pre>${escapeHtml(JSON.stringify({finalNativeReview:row.finalNativeReview,lifecycle:row.lifecycle},null,2))}</pre></details></article>`;
 }).join("\n");
 
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TSD CP-003 Final Hindi/Punjabi Review Candidate</title><style>
 body{font-family:system-ui,-apple-system,"Noto Sans Devanagari","Noto Sans Gurmukhi",sans-serif;margin:0;background:#f5f5f5;color:#1d1d1f}main{max-width:1240px;margin:auto;padding:24px}.notice,.toolbar{background:white;padding:14px;border:1px solid #ddd;border-radius:10px;margin-bottom:16px}.toolbar{position:sticky;top:0;z-index:2}.card{background:white;border:1px solid #ddd;border-radius:12px;padding:18px;margin:16px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.native{font-size:1.05rem;line-height:1.65}.correct{font-weight:700}.correct::after{content:" ✓"}ol{padding-left:24px}code,pre{font-size:.8rem;white-space:pre-wrap;word-break:break-all}select,input{padding:8px;margin-right:8px}@media(max-width:760px){.grid{grid-template-columns:1fr}main{padding:10px}}
-</style></head><body><main><h1>TSD-CP-003 Final Hindi/Punjabi Review Candidate</h1><div class="notice"><b>Lifecycle:</b> English is frozen. Hindi/Punjabi are ready for product-owner native review but remain UNFROZEN. The native explanation contract includes method, connected steps, exam shortcut, exact wrong workings, misconception analysis and answer. Question Studio, storage, tests and public delivery remain locked.</div><div class="toolbar"><select id="lang"><option value="all">All languages</option><option value="hi">Hindi</option><option value="pa">Punjabi</option></select><input id="search" placeholder="QL or solve mode"></div>${cards}<script>const lang=document.getElementById('lang'),search=document.getElementById('search');function apply(){const l=lang.value,q=search.value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{const ok=l==='all'||c.dataset.language===l;const hay=(c.dataset.ql+' '+c.dataset.mode+' '+c.innerText).toLowerCase();c.style.display=ok&&hay.includes(q)?'block':'none';});}lang.addEventListener('change',apply);search.addEventListener('input',apply);</script></main></body></html>`;
+</style></head><body><main><h1>TSD-CP-003 Final Hindi/Punjabi Review Candidate</h1><div class="notice"><b>Lifecycle:</b> English is frozen. Hindi/Punjabi are ready for product-owner native review but remain UNFROZEN. Final learner explanations contain method, connected steps, exam shortcut and answer only. Option analysis is excluded. Native subject/object nouns must match the English source; rows without an English actor remain object-neutral. Question Studio, storage, tests and public delivery remain locked.</div><div class="toolbar"><select id="lang"><option value="all">All languages</option><option value="hi">Hindi</option><option value="pa">Punjabi</option></select><input id="search" placeholder="QL or solve mode"></div>${cards}<script>const lang=document.getElementById('lang'),search=document.getElementById('search');function apply(){const l=lang.value,q=search.value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{const ok=l==='all'||c.dataset.language===l;const hay=(c.dataset.ql+' '+c.dataset.mode+' '+c.innerText).toLowerCase();c.style.display=ok&&hay.includes(q)?'block':'none';});}lang.addEventListener('change',apply);search.addEventListener('input',apply);</script></main></body></html>`;
 writeFileSync(resolve(out, "tsd-cp003-hi-pa-final-review.html"), html);
 
 console.log(JSON.stringify({
@@ -65,8 +69,9 @@ console.log(JSON.stringify({
   rows: rows.length,
   hindiRows: rows.filter((row) => row.language === "hi").length,
   punjabiRows: rows.filter((row) => row.language === "pa").length,
-  optionAnalyses: rows.reduce((sum, row) => sum + row.native.explanation.optionAnalysis.length, 0),
-  localizedWrongWorkings: rows.reduce((sum, row) => sum + row.native.explanation.optionAnalysis.filter((entry) => entry.wrongWorking !== null).length, 0),
+  explanationContract: "METHOD_STEPS_SHORTCUT_ANSWER",
+  optionAnalysisIncluded: false,
+  sourceObjectParityEnforced: true,
   productOwnerApprovalRecorded: false,
   multilingualFreezeAuthorized: false,
   outputDirectory: out,
