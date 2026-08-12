@@ -28,12 +28,19 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Validate expanded RNK object pool
+      - name: Validate expanded RNK person/context object pool
         run: |
           set -o pipefail
           pnpm dlx tsx \
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/foundation/rnk-object-pool-v2.test.ts \
             | tee rnk-object-pool-v2.log
+
+      - name: Validate RNK derived-quantity object pools
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/foundation/rnk-derived-object-pool-v2.test.ts \
+            | tee rnk-derived-object-pool-v2.log
 
       - name: Validate post-CP006 chapter gap audit
         run: |
@@ -42,7 +49,7 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-post-cp006-gap-audit.test.ts \
             | tee rnk-post-cp006-gap-audit.log
 
-      - name: Validate frozen projection compatibility
+      - name: Validate frozen projection compatibility manifest
         run: |
           set -o pipefail
           pnpm dlx tsx \
@@ -97,6 +104,7 @@ jobs:
           name: rnk-001-post-cp006-audit-object-pool-evidence
           path: |
             rnk-object-pool-v2.log
+            rnk-derived-object-pool-v2.log
             rnk-post-cp006-gap-audit.log
             rnk-frozen-projection-compatibility.log
             rnk-cp006-frozen-regression.log
