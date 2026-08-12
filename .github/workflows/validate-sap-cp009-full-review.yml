@@ -28,18 +28,18 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Bundle review authority
+      - name: Bundle remediated review authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-009/full-review-authority.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-009/full-review-authority-v2.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp009-full-review-authority.test.mjs
-      - name: Run review authority
+      - name: Run remediated review authority
         run: node artifacts/api-server/dist/quant-v4/sap-cp009-full-review-authority.test.mjs
-      - name: Bundle review exporter
+      - name: Bundle remediated review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-009/generate-full-review.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-009/generate-full-review-v2.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp009-generate-review.mjs
       - name: Generate review files
