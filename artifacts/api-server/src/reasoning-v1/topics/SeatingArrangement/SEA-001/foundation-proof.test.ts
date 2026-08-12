@@ -131,6 +131,9 @@ function generatedCaseletProof(): void {
     "SEA-QC-008",
     "SEA-QC-014",
     "SEA-QC-015",
+    "SEA-QC-016",
+    "SEA-QC-017",
+    "SEA-QC-019",
     "SEA-QC-020",
     "SEA-QC-021",
   ]);
@@ -172,7 +175,7 @@ console.log("PASS_SEA_001_CP001_FOUNDATION");
 console.log("named blueprint authorities", SEA_001_BLUEPRINTS.length);
 console.log("generated deterministic caselets", SEA_001_BLUEPRINTS.length * 125);
 console.log("generated child questions", SEA_001_BLUEPRINTS.length * 125 * 4);
-console.log("query contract families", 10);
+console.log("query contract families", 13);
 console.log("visible query-order variation", "ENFORCED");
 console.log("visible answer-position balance", "ENFORCED");
 console.log("participant list visibility", "ENFORCED");
