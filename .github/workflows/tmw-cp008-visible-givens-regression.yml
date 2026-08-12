@@ -1,0 +1,52 @@
+name: Validate TMW-001 CP008 visible-givens derivation
+
+on:
+  push:
+    branches:
+      - fix/tmw-001-cp008-multilingual-editorial-review
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-cp008-visible-givens-regression.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-visible-givens:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler
+          --strictNullChecks --noImplicitAny --noImplicitReturns --noFallthroughCasesInSwitch
+          --skipLibCheck --types node
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp008-visible-givens-final-polish.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp008-visible-givens-regression.test.ts
+      - name: Bundle visible-givens regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp008-visible-givens-regression.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp008-visible-givens-regression.test.mjs
+      - name: Run 48 visible-givens cases
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp008-visible-givens-regression.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp008-visible-givens-regression.log
+      - name: Upload visible-givens evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-001-cp008-visible-givens-regression
+          path: artifacts/api-server/dist/quant-v4/tmw-001-cp008-visible-givens-regression.log
+          if-no-files-found: warn
+          retention-days: 14
