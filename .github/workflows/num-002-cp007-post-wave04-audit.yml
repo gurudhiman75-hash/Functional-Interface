@@ -1,0 +1,123 @@
+name: Validate NUM-CP-007 post-Wave-04 source saturation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - ".github/workflows/num-002-cp007-post-wave04-audit.yml"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp007-post-wave04-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp007-post-wave04-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 01 authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/wave01/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp007-post-wave04-wave01.mjs
+
+      - name: Run Wave 01 authority
+        run: node artifacts/api-server/dist/quant-v4/num-002-cp007-post-wave04-wave01.mjs
+
+      - name: Bundle Wave 02 authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/wave02/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp007-post-wave04-wave02.mjs
+
+      - name: Run Wave 02 authority
+        run: node artifacts/api-server/dist/quant-v4/num-002-cp007-post-wave04-wave02.mjs
+
+      - name: Bundle Wave 03 authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/wave03/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp007-post-wave04-wave03.mjs
+
+      - name: Run Wave 03 authority
+        run: node artifacts/api-server/dist/quant-v4/num-002-cp007-post-wave04-wave03.mjs
+
+      - name: Bundle Wave 04 authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/wave04/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp007-post-wave04-wave04.mjs
+
+      - name: Run Wave 04 authority
+        run: node artifacts/api-server/dist/quant-v4/num-002-cp007-post-wave04-wave04.mjs
+
+      - name: Bundle Wave 04 structural audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/wave04/runtime-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp007-post-wave04-wave04-audit.mjs
+
+      - name: Run Wave 04 structural audit
+        run: node artifacts/api-server/dist/quant-v4/num-002-cp007-post-wave04-wave04-audit.mjs
+
+      - name: Bundle outcome-stratified review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/wave04/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp007-post-wave04-review-export.mjs
+
+      - name: Generate outcome-stratified review evidence
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-002-cp007-post-wave04-review-export.mjs
+
+      - name: Bundle final source-saturation and merge-split audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-007/post-wave04-authority-proposal.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp007-post-wave04-final-audit.mjs
+
+      - name: Run final source-saturation and merge-split audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp007-post-wave04-final-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp007-post-wave04-final-audit.log
+
+      - name: Upload final audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp007-post-wave04-source-saturation
+          retention-days: 14
+          path: |
+            artifacts/api-server/dist/quant-v4/num-002-cp007-post-wave04-final-audit.log
+            artifacts/api-server/dist/quant-v4/num-002-cp007-wave04-review.json
+            artifacts/api-server/dist/quant-v4/num-002-cp007-wave04-review.csv
+            artifacts/api-server/dist/quant-v4/num-002-cp007-wave04-review.md
