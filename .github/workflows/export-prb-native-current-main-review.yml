@@ -1,0 +1,31 @@
+name: Export Probability current-main native review corpus
+
+on:
+  push:
+    branches:
+      - review/prb-native-post-label-audit
+  workflow_dispatch:
+
+jobs:
+  export-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Generate current native review Markdown
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-native-review-md.ts
+      - name: Verify four review packs
+        run: |
+          test -f artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-001-HINDI-120Q-REVIEW.md
+          test -f artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-001-PUNJABI-120Q-REVIEW.md
+          test -f artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-002-HINDI-96Q-REVIEW.md
+          test -f artifacts/api-server/src/quant-v4/topics/Probability/review/PRB-002-PUNJABI-96Q-REVIEW.md
+      - name: Upload current review corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: probability-native-current-main-review
+          path: artifacts/api-server/src/quant-v4/topics/Probability/review/*.md
+          if-no-files-found: error
+          retention-days: 30
