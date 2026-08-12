@@ -79,7 +79,10 @@ jobs:
           ! grep -Eq "[0-9]+ ਉਮੀਦਵਾਰ ਦੇ ਇੱਕ ਸਮੂਹ|[0-9]+ ਵਿਦਿਆਰਥੀ ਦੇ ਇੱਕ ਸਮੂਹ|ਚੁਣੇ ਗੇਂਦਾਂ ਵਿੱਚ|ਉਸ ਦੇ ਨੀਲਾ ਹੋਣ|ਉਸ ਦੇ ਇਨਾਮ ਵਾਲਾ ਟਿਕਟ ਹੋਣ" artifacts/api-server/src/quant-v4/topics/Probability/review/*PUNJABI*.md
           ! grep -Eq "पहली कंचा|पहली पत्थर|पहली पेन" artifacts/api-server/src/quant-v4/topics/Probability/review/*HINDI*.md
           ! grep -Eq "ਪਹਿਲੀ ਕੰਚਾ|ਪਹਿਲੀ ਪੱਥਰ|ਪਹਿਲੀ ਪੈਨ" artifacts/api-server/src/quant-v4/topics/Probability/review/*PUNJABI*.md
-          ! grep -Eq "ਪੜਾਅਾਂ|ਪੜਾਅਵਾਂ" artifacts/api-server/src/quant-v4/topics/Probability/review/*PUNJABI*.md
+          if grep -nHE "ਪੜਾਅਾਂ|ਪੜਾਅਵਾਂ" artifacts/api-server/src/quant-v4/topics/Probability/review/*PUNJABI*.md; then
+            echo "Found non-canonical Punjabi stage inflection above."
+            exit 1
+          fi
 
       - name: Upload review Markdown bundle
         uses: actions/upload-artifact@v4
