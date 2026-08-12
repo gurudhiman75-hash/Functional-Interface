@@ -38,8 +38,14 @@ jobs:
 
           if grep -q 'naturalizeProbabilityExplanationBody' "$mirror"; then
             echo "English-authority explanation mirror already materialized."
-            echo "Applying post-materialization correction waves only."
-            node artifacts/api-server/src/quant-v4/topics/Probability/patch-native-explanation-vocabulary-wave20.mjs
+            echo "Replaying idempotent post-materialization correction waves 15-20."
+            for n in $(seq 15 20); do
+              file="artifacts/api-server/src/quant-v4/topics/Probability/patch-native-explanation-vocabulary-wave${n}.mjs"
+              if [ -f "$file" ]; then
+                echo "Applying $file"
+                node "$file"
+              fi
+            done
           else
             echo "Bootstrapping English-authority explanation mirror."
             node "$base"
