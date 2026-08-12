@@ -35,8 +35,8 @@ jobs:
       - name: Enforce sole final public native API
         run: |
           INDEX=artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
-          grep -q 'cp003/localization/native-final-candidate' "$INDEX"
-          if grep -Eq 'cp003/localization/(native-runtime|native-editorial-review|native-reviewed-candidate|native-authoritative)' "$INDEX"; then
+          grep -q 'cp003/localization/native-final-polished-candidate' "$INDEX"
+          if grep -Eq 'cp003/localization/(native-runtime|native-editorial-review|native-reviewed-candidate|native-authoritative|native-final-candidate")' "$INDEX"; then
             echo "A non-final CP-003 localization entry point is publicly exported"
             exit 1
           fi
@@ -52,6 +52,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-authoritative-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-authoritative-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-pedagogy-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-pedagogy-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-final-candidate-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-final-candidate-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-final-polished-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-final-polished-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-review-export.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-final-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-final-export.mjs"
 
@@ -64,6 +65,7 @@ jobs:
           node dist/quant-v4/tsd-001/cp003-localization/native-authoritative-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003-localization/native-authoritative-proof.log
           node dist/quant-v4/tsd-001/cp003-localization/native-pedagogy-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003-localization/native-pedagogy-proof.log
           node dist/quant-v4/tsd-001/cp003-localization/native-final-candidate-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003-localization/native-final-candidate-proof.log
+          node dist/quant-v4/tsd-001/cp003-localization/native-final-polished-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003-localization/native-final-polished-proof.log
           node dist/quant-v4/tsd-001/cp003-localization/native-review-export.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003-localization/native-review-export.log
           node dist/quant-v4/tsd-001/cp003-localization/native-final-export.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003-localization/native-final-export.log
 
