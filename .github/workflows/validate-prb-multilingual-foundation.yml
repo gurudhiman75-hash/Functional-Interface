@@ -52,6 +52,8 @@ jobs:
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/native-editorial-quality-wave02.test.ts
       - name: Validate ML-06 native editorial quality wave03
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/native-editorial-quality-wave03.test.ts
+      - name: Validate ML-06 native editorial quality wave04
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/native-editorial-quality-wave04.test.ts
       - name: Preserve English Probability readiness
         run: |
           npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/question-studio-profile.test.ts

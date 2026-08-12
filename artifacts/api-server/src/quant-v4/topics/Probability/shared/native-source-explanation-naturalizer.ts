@@ -56,6 +56,50 @@ export function naturalizeProbabilityExplanationBody(
 ): string | null {
   let m: RegExpMatchArray | null;
 
+  m = value.match(/^The (box|pouch) contains (\d+) (pens|coloured stones) altogether: (\d+) red, (\d+) blue and (\d+) green\.$/u);
+  if (m) {
+    const containerHi = m[1] === "box" ? "बॉक्स" : "पाउच";
+    const containerPa = m[1] === "box" ? "ਬਾਕਸ" : "ਪਾਊਚ";
+    const objectHi = m[3] === "pens" ? "पेन" : "रंगीन पत्थर";
+    const objectPa = m[3] === "pens" ? "ਪੈਨ" : "ਰੰਗੀਨ ਪੱਥਰ";
+    return pick(
+      language,
+      containerHi + " में कुल " + m[2] + " " + objectHi + " हैं—" + m[4] + " लाल, " + m[5] + " नीले और " + m[6] + " हरे।",
+      containerPa + " ਵਿੱਚ ਕੁੱਲ " + m[2] + " " + objectPa + " ਹਨ—" + m[4] + " ਲਾਲ, " + m[5] + " ਨੀਲੇ ਅਤੇ " + m[6] + " ਹਰੇ।",
+    );
+  }
+
+  m = value.match(/^(\d+) of the (\d+) (pens|coloured stones) are (red|blue|green)\.$/u);
+  if (m) {
+    const objectHi = m[3] === "pens" ? "पेन" : "रंगीन पत्थरों";
+    const objectPa = m[3] === "pens" ? "ਪੈਨਾਂ" : "ਰੰਗੀਨ ਪੱਥਰਾਂ";
+    const colourHi: Record<string, string> = { red: "लाल", blue: "नीले", green: "हरे" };
+    const colourPa: Record<string, string> = { red: "ਲਾਲ", blue: "ਨੀਲੇ", green: "ਹਰੇ" };
+    return language === "hi"
+      ? "कुल " + m[2] + " " + objectHi + " में से " + m[1] + " " + colourHi[m[4]!] + " हैं।"
+      : "ਕੁੱਲ " + m[2] + " " + objectPa + " ਵਿੱਚੋਂ " + m[1] + " " + colourPa[m[4]!] + " ਹਨ।";
+  }
+
+  m = value.match(/^The deck has (\d+) (black|red) cards\.$/u);
+  if (m) {
+    const colourHi = m[2] === "black" ? "काले" : "लाल";
+    const colourPa = m[2] === "black" ? "ਕਾਲੇ" : "ਲਾਲ";
+    return language === "hi"
+      ? "ताश की गड्डी में " + m[1] + " " + colourHi + " पत्ते हैं।"
+      : "ਤਾਸ਼ ਦੀ ਗੱਡੀ ਵਿੱਚ " + m[1] + " " + colourPa + " ਪੱਤੇ ਹਨ।";
+  }
+
+  m = value.match(/^A deck has (\d+) (diamonds|spades|hearts|clubs), so cards that are not (diamonds|spades|hearts|clubs) = (\d+) - (\d+) = (\d+)\.$/u);
+  if (m) {
+    const suitHi: Record<string, string> = { diamonds: "डायमंड", spades: "स्पेड", hearts: "हार्ट", clubs: "क्लब" };
+    const suitPa: Record<string, string> = { diamonds: "ਡਾਇਮੰਡ", spades: "ਸਪੇਡ", hearts: "ਹਾਰਟ", clubs: "ਕਲੱਬ" };
+    const hi = suitHi[m[2]!]!;
+    const pa = suitPa[m[2]!]!;
+    return language === "hi"
+      ? "एक ताश की गड्डी में " + m[1] + " " + hi + " होते हैं। इसलिए " + hi + " न होने वाले पत्तों की संख्या = " + m[4] + " - " + m[5] + " = " + m[6] + "।"
+      : "ਤਾਸ਼ ਦੀ ਇੱਕ ਗੱਡੀ ਵਿੱਚ " + m[1] + " " + pa + " ਹੁੰਦੇ ਹਨ। ਇਸ ਲਈ " + pa + " ਨਾ ਹੋਣ ਵਾਲੇ ਪੱਤਿਆਂ ਦੀ ਗਿਣਤੀ = " + m[4] + " - " + m[5] + " = " + m[6] + "।";
+  }
+
   if (value === "Knowing that the card is a face card reduces the sample space to the 12 jacks, queens and kings.") {
     return pick(
       language,
