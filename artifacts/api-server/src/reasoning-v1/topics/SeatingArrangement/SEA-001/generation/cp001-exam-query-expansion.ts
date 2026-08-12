@@ -55,6 +55,8 @@ function buildOptions(input: {
   readonly seed: string;
   readonly answer: SeatingSemanticValue;
   readonly answerDisplay?: string;
+  readonly answerRecomputation: Readonly<Record<string, unknown>>;
+  readonly answerExplanation: string;
   readonly traps: readonly ExamTrap[];
 }): Pick<SeatingChildQuestion, "options" | "answerIndex"> {
   const correctFingerprint = canonicalDigest(input.answer);
@@ -87,8 +89,8 @@ function buildOptions(input: {
     semanticFingerprint: correctFingerprint,
     display: input.answerDisplay ?? displaySemantic(input.state, input.answer),
     isCorrect: true,
-    recomputation: { method: "VERIFIED_LINEAR_RELATION_SET" },
-    explanation: "This option matches the uniquely solved row and the relation asked in the question.",
+    recomputation: input.answerRecomputation,
+    explanation: input.answerExplanation,
   });
 
   return {
@@ -120,6 +122,8 @@ function trueStatementQuestion(
       seed,
       answer: `TRUE_ADJACENT:${[first, second].sort().join("~")}`,
       answerDisplay: correctDisplay,
+      answerRecomputation: { relation: "ADJACENT", firstId: first, secondId: second, truth: true },
+      answerExplanation: `${nameOf(state, first)} and ${nameOf(state, second)} occupy consecutive seats, so this statement is true.`,
       traps: [
         {
           value: `FALSE_ADJACENT:${[first, third].sort().join("~")}`,
@@ -173,6 +177,8 @@ function falseStatementQuestion(
       seed,
       answer,
       answerDisplay,
+      answerRecomputation: { relation: "ADJACENT", firstId: first, secondId: third, truth: false },
+      answerExplanation: `${nameOf(state, second)} sits between ${nameOf(state, first)} and ${nameOf(state, third)}, so ${nameOf(state, first)} and ${nameOf(state, third)} are not adjacent. This is the false statement.`,
       traps: [
         {
           value: `TRUE_ADJACENT:${[first, second].sort().join("~")}`,
@@ -224,6 +230,8 @@ function oddRelationPairQuestion(
       state,
       seed,
       answer,
+      answerRecomputation: { relation: "EXACT_COUNT_BETWEEN", pair: answer, count: 1 },
+      answerExplanation: `${nameOf(state, answer[0] as string)} and ${nameOf(state, answer[1] as string)} have exactly one person between them, while the other three pairs are adjacent. Therefore this is the odd pair.`,
       traps: adjacentPairs.map((pair) => ({
         value: pair,
         misconceptionId: "SEA-MC-LIN-ODD_RELATION_MISCLASSIFIED",
