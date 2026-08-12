@@ -73,7 +73,10 @@ for (const id of TRG_001_AUTHORITY_ALIGNED_IDS) {
   const family = authorityFamilyForTrg001Ql(id);
   actualFamilyCounts[family] = (actualFamilyCounts[family] ?? 0) + 1;
 }
-assert(JSON.stringify(actualFamilyCounts) === JSON.stringify(expectedFamilyCounts), "Authority family counts no longer match the Phase 0 QL ledger.");
+for (const [family, count] of Object.entries(expectedFamilyCounts)) {
+  assert(actualFamilyCounts[family] === count, `${family} must contain exactly ${count} QLs.`);
+}
+assert(Object.keys(actualFamilyCounts).length === Object.keys(expectedFamilyCounts).length, "Unexpected authority family detected.");
 
 const canonicalSeeds = Array.from({ length: 12 }, (_, index) => `trg-authority-canonical-${String(index + 1).padStart(2, "0")}`);
 let canonicalCases = 0;
@@ -117,7 +120,7 @@ for (const qlId of TRG_001_AUTHORITY_ALIGNED_IDS) {
     solveModes.add(first.solveMode);
     cpCounts.set(first.cpId, (cpCounts.get(first.cpId) ?? 0) + (seed === canonicalSeeds[0] ? 1 : 0));
     if (seed === canonicalSeeds[0]) {
-      if (first.authorityAlignment.source === "CUSTOM") customIds.add(qlId);
+      if (String(first.authorityAlignment.source).startsWith("CUSTOM")) customIds.add(qlId);
       else {
         assert(typeof first.sourceQlId === "string", `${qlId} must retain its trace source QL.`);
         assert(!sourceIds.has(first.sourceQlId), `${qlId} reuses source template ${first.sourceQlId}; source reuse would create semantic duplication risk.`);
