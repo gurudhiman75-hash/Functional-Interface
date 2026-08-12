@@ -17,43 +17,28 @@ const difficulties = new Map<string, Set<NumCp001Difficulty>>();
 const fingerprints = new Map<string, Set<string>>();
 const semantics = new Set<string>();
 const p1Sets = new Set<string>();
-const p2Claims = new Set<string>();
-const p5Topologies = new Set<string>();
+const p2Answers = new Set<string>();
+const p5EndpointTopologies = new Set<string>();
 const p6Topologies = new Set<string>();
 const p7Classes = new Set<string>();
 const p8Lengths = new Set<number>();
 
 for (const pkg of packages) {
   const replay = generateNumCp001Wave01Package(pkg.temporaryPrototypeId, pkg.seed);
-  assert.equal(
-    JSON.stringify(replay),
-    JSON.stringify(pkg),
-    `${pkg.temporaryPrototypeId} seed ${pkg.seed} is not deterministic`,
-  );
+  assert.equal(JSON.stringify(replay), JSON.stringify(pkg), `${pkg.temporaryPrototypeId} seed ${pkg.seed} replay mismatch`);
 
   assert.equal(pkg.packageId, "NUM-001");
   assert.equal(pkg.checkpointId, "NUM-CP-001");
   assert.equal(pkg.permanentQlId, null);
   assert.equal(pkg.locale, "en-IN");
-  assert.equal(
-    pkg.canonicalAnswer,
-    pkg.verifierAnswer,
-    `${pkg.temporaryPrototypeId} seed ${pkg.seed} canonical/verifier mismatch`,
-  );
+  assert.equal(pkg.canonicalAnswer, pkg.verifierAnswer, `${pkg.temporaryPrototypeId} seed ${pkg.seed} verifier mismatch`);
 
   assert.equal(pkg.options.length, 4);
-  assert.equal(
-    new Set(pkg.options.map((option) => option.value)).size,
-    4,
-    `${pkg.temporaryPrototypeId} seed ${pkg.seed} has duplicate options`,
-  );
+  assert.equal(new Set(pkg.options.map((option) => option.value)).size, 4, `${pkg.temporaryPrototypeId} duplicate options`);
   assert.equal(pkg.options.filter((option) => option.isCorrect).length, 1);
   assert.equal(pkg.options[pkg.correctIndex]?.isCorrect, true);
   assert.equal(pkg.options[pkg.correctIndex]?.value, pkg.canonicalAnswer);
-  assert.ok(
-    pkg.options.filter((option) => !option.isCorrect).every((option) => Boolean(option.misconceptionId)),
-    `${pkg.temporaryPrototypeId} seed ${pkg.seed} has an anonymous distractor`,
-  );
+  assert.ok(pkg.options.filter((option) => !option.isCorrect).every((option) => Boolean(option.misconceptionId)));
 
   assert.ok(pkg.stem.length >= 20);
   assert.ok(pkg.explanation.coreConcept.length > 0);
@@ -78,55 +63,41 @@ for (const pkg of packages) {
   assert.equal(pkg.lifecycle.testEligible, false);
   assert.equal(pkg.lifecycle.publiclyPublishable, false);
 
-  const prototypePositions = answerPositions.get(pkg.temporaryPrototypeId) ?? new Set<number>();
-  prototypePositions.add(pkg.correctIndex);
-  answerPositions.set(pkg.temporaryPrototypeId, prototypePositions);
+  const positions = answerPositions.get(pkg.temporaryPrototypeId) ?? new Set<number>();
+  positions.add(pkg.correctIndex);
+  answerPositions.set(pkg.temporaryPrototypeId, positions);
 
-  const prototypeDifficulties = difficulties.get(pkg.temporaryPrototypeId) ?? new Set<NumCp001Difficulty>();
-  prototypeDifficulties.add(pkg.difficulty);
-  difficulties.set(pkg.temporaryPrototypeId, prototypeDifficulties);
+  const bands = difficulties.get(pkg.temporaryPrototypeId) ?? new Set<NumCp001Difficulty>();
+  bands.add(pkg.difficulty);
+  difficulties.set(pkg.temporaryPrototypeId, bands);
 
-  const prototypeFingerprints = fingerprints.get(pkg.temporaryPrototypeId) ?? new Set<string>();
-  prototypeFingerprints.add(pkg.mathematicalFingerprint);
-  fingerprints.set(pkg.temporaryPrototypeId, prototypeFingerprints);
-
+  const states = fingerprints.get(pkg.temporaryPrototypeId) ?? new Set<string>();
+  states.add(pkg.mathematicalFingerprint);
+  fingerprints.set(pkg.temporaryPrototypeId, states);
   semantics.add(pkg.answerSemantic);
 
   if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-001") p1Sets.add(pkg.canonicalAnswer);
-  if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-002") p2Claims.add(pkg.canonicalAnswer);
-  if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-005") p5Topologies.add(String(pkg.hiddenState.topology));
+  if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-002") p2Answers.add(pkg.canonicalAnswer);
+  if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-005") {
+    const notation = String(pkg.hiddenState.topology);
+    p5EndpointTopologies.add(`${notation[0]}${notation.at(-1)}`);
+  }
   if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-006") p6Topologies.add(String(pkg.hiddenState.topology));
   if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-007") p7Classes.add(pkg.canonicalAnswer);
   if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-008") p8Lengths.add(Number(pkg.hiddenState.length));
 }
 
 for (const prototypeId of NUM_CP001_WAVE01_PROTOTYPE_IDS) {
-  assert.deepEqual(
-    [...answerPositions.get(prototypeId)!].sort(),
-    [0, 1, 2, 3],
-    `${prototypeId} did not reach every answer position`,
-  );
-  assert.deepEqual(
-    [...difficulties.get(prototypeId)!].sort(),
-    ["EASY", "HARD", "MEDIUM"],
-    `${prototypeId} did not reach every difficulty band`,
-  );
-  assert.ok(
-    (fingerprints.get(prototypeId)?.size ?? 0) >= 3,
-    `${prototypeId} collapsed to fewer than three mathematical states`,
-  );
+  assert.deepEqual([...answerPositions.get(prototypeId)!].sort(), [0, 1, 2, 3], `${prototypeId} answer-position gap`);
+  assert.deepEqual([...difficulties.get(prototypeId)!].sort(), ["EASY", "HARD", "MEDIUM"], `${prototypeId} difficulty gap`);
+  assert.ok((fingerprints.get(prototypeId)?.size ?? 0) >= 3, `${prototypeId} collapsed to fewer than three states`);
 }
 
 assert.deepEqual([...p1Sets].sort(), ["INTEGER", "IRRATIONAL", "NATURAL", "RATIONAL", "WHOLE"]);
-assert.ok(p2Claims.size >= 4, "Edge-claim prototype did not exercise enough boundary statements");
-assert.deepEqual([...p5Topologies].sort(), ["(-10, -4)", "(-11, -4]", "(-8, -2]", "(-9, -2)"].sort());
+assert.ok(p2Answers.size >= 4, "Boundary-claim foundation did not vary its correct statement");
+assert.deepEqual([...p5EndpointTopologies].sort(), ["()", "(]", "[)", "[]"]);
 assert.deepEqual([...p6Topologies].sort(), ["0", "1", "2"]);
-assert.deepEqual([...p7Classes].sort(), [
-  "ALWAYS_TRUE",
-  "NEVER_TRUE",
-  "SOMETIMES_TRUE",
-  "TRUE_ONLY_WHEN_N_IS_ZERO",
-]);
+assert.deepEqual([...p7Classes].sort(), ["ALWAYS_TRUE", "NEVER_TRUE", "SOMETIMES_TRUE", "TRUE_ONLY_WHEN_N_IS_ZERO"]);
 assert.deepEqual([...p8Lengths].sort((a, b) => a - b), [3, 4, 5]);
 
 for (const expectedSemantic of [
@@ -149,12 +120,10 @@ console.log(JSON.stringify({
   temporaryPrototypeCount: NUM_CP001_WAVE01_PROTOTYPE_IDS.length,
   packagesPerPrototype: SEEDS_PER_PROTOTYPE,
   generatedPackages: packages.length,
-  distinctFingerprintsByPrototype: Object.fromEntries(
-    [...fingerprints.entries()].map(([prototypeId, values]) => [prototypeId, values.size]),
-  ),
+  distinctFingerprintsByPrototype: Object.fromEntries([...fingerprints.entries()].map(([id, values]) => [id, values.size])),
   answerSemantics: [...semantics].sort(),
   numberSetsReached: [...p1Sets].sort(),
-  intervalTopologiesReached: [...p5Topologies].sort(),
+  intervalEndpointTopologiesReached: [...p5EndpointTopologies].sort(),
   parityClaimClassesReached: [...p7Classes].sort(),
   permanentQlCount: 0,
   activePackageCount: 0,
