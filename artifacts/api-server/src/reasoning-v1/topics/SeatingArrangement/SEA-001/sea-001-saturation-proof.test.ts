@@ -2,9 +2,8 @@ import { buildSea001SaturationCorpus, selectManualReviewCorpus } from "./saturat
 import { auditSea001Corpus, assertSea001ProductionCandidateTargets } from "./saturation/residual-audit.ts";
 
 const startedAt = Date.now();
-// CP-001 intentionally uses three children while CP-002..005 use four. Eighty accepted
-// caselets per provisional PBA yields 1,600 caselets and at least 6,000 genuine children
-// without padding a passage merely to satisfy a corpus counter.
+// Eighty accepted caselets per provisional PBA yields 1,600 caselets and 6,400
+// genuine four-child questions while preserving the V3 3–5-child governance rule.
 const corpus = buildSea001SaturationCorpus(80);
 const audit = auditSea001Corpus(
   corpus.caselets,
@@ -12,6 +11,21 @@ const audit = auditSea001Corpus(
   corpus.rejectedNormalizedClueSetCandidates,
 );
 assertSea001ProductionCandidateTargets(audit);
+
+for (const caselet of corpus.caselets) {
+  for (const child of caselet.children) {
+    const correctOption = child.options[child.answerIndex];
+    if (!correctOption?.isCorrect) {
+      throw new Error(`${caselet.caseletId}/${child.queryContractId} lost answer-index alignment`);
+    }
+    if (correctOption.explanation !== child.explanation) {
+      throw new Error(`${caselet.caseletId}/${child.queryContractId} correct option does not carry the question-specific explanation`);
+    }
+    if (/^This matches\b/i.test(correctOption.explanation.trim())) {
+      throw new Error(`${caselet.caseletId}/${child.queryContractId} still exposes a generic correct-option explanation`);
+    }
+  }
+}
 
 const reviewCorpus = selectManualReviewCorpus(corpus.caselets, 5);
 if (reviewCorpus.length !== 100) throw new Error(`Expected 100 review caselets, observed ${reviewCorpus.length}`);
@@ -26,6 +40,7 @@ console.log("child questions", audit.childQuestionCount);
 console.log("material variants", audit.materialVariantCount);
 console.log("query-template surfaces", audit.querySurfaceCount);
 console.log("manual-review candidates", reviewCorpus.length);
+console.log("question-specific correct-option explanations", "ENFORCED");
 console.log("rejected exact duplicate candidates", audit.rejectedExactDuplicateCandidates);
 console.log("rejected normalized clue-set candidates", audit.rejectedNormalizedClueSetCandidates);
 console.log("residual blocker count", audit.blockerCount);
