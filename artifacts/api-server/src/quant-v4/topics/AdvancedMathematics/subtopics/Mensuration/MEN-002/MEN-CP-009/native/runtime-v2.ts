@@ -1,6 +1,6 @@
 import { generateMenCp009ApprovedEnglishView } from "../approved/english";
 import { generateMenCp009QuestionV2 } from "../coverage-v2/runtime";
-import { buildMenCp009StudentViewV4 } from "../coverage-v2/student-view-v4";
+import { buildMenCp009StudentViewV4Final } from "../coverage-v2/student-view-v4-final";
 import { generateMenCp009NativeDraftView } from "./runtime";
 import {
   simplifyMenCp009NativeStemV2,
@@ -28,7 +28,7 @@ export function generateMenCp009NativeTeachingV2(
   }
 
   const raw = generateMenCp009QuestionV2(qlId, seed);
-  const english = buildMenCp009StudentViewV4(raw);
+  const english = buildMenCp009StudentViewV4Final(raw);
   const nativeV1 = generateMenCp009NativeDraftView(qlId, seed, language);
 
   if (
