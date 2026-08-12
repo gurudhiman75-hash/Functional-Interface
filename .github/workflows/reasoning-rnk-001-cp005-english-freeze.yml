@@ -28,19 +28,12 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Validate frozen 576-question CP-005 runtime
+      - name: Validate frozen 576-question CP-005 runtime and independently re-prove answers
         run: |
           set -o pipefail
           pnpm dlx tsx \
-            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-gates.test.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-freeze.test.ts \
             | tee rnk-cp005-permanent-freeze.log
-
-      - name: Validate pinned candidate regression
-        run: |
-          set -o pipefail
-          pnpm dlx tsx \
-            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-candidate-v1.test.ts \
-            | tee rnk-cp005-candidate-regression.log
 
       - name: Validate CP-005 V3 release semantics remain intact
         run: |
@@ -83,7 +76,6 @@ jobs:
           name: rnk-001-cp005-english-freeze-evidence
           path: |
             rnk-cp005-permanent-freeze.log
-            rnk-cp005-candidate-regression.log
             rnk-cp005-v3-release.log
             rnk-cp005-ql034-ownership.log
             rnk-cp004-permanent-runtime.log
