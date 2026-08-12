@@ -39,6 +39,19 @@ function polishText(text: string, language: TsdCp004NativeLanguage): string {
     .replace(/distance/giu, "ਦੂਰੀ");
 }
 
+function polishStem(english: TsdCp004Question, nativeStem: string, language: TsdCp004NativeLanguage): string {
+  let stem = nativeStem;
+  if (/\bwhile\b/i.test(english.stem)) {
+    if (language === "hi" && !/जबकि|चलते हुए/u.test(stem)) {
+      stem = stem.replace(/ और /u, ", जबकि ");
+    }
+    if (language === "pa" && !/ਜਦਕਿ|ਚੱਲਦਿਆਂ/u.test(stem)) {
+      stem = stem.replace(/ ਅਤੇ /u, ", ਜਦਕਿ ");
+    }
+  }
+  return stem.replace(/\s{2,}/gu, " ").trim();
+}
+
 function polishExplanation(explanation: TsdCp004Explanation, language: TsdCp004NativeLanguage): TsdCp004Explanation {
   return Object.freeze({
     method: polishText(explanation.method, language),
@@ -52,6 +65,7 @@ export function renderCp004PolishedNativeQuestion(english: TsdCp004Question, lan
   const base = renderCp004FinalNativeQuestion(english, language);
   return Object.freeze({
     ...base,
+    stem: polishStem(english, base.stem, language),
     explanation: polishExplanation(base.explanation, language),
   });
 }
