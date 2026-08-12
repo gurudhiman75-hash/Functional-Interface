@@ -77,9 +77,9 @@ export const TRG_002_PROOF_SOLUTION_ANNOTATION_PLANS: Record<
     P("given-horizontal", "GIVEN", "object-base", "observer-ground", { kind: "HORIZONTAL_DISTANCE", fromPointId: "object-base", toPointId: "observer-ground" }, "BELOW", "d"),
   ],
   "TRG-002-QL-015": [
-    P("given-observer-height", "GIVEN", "observer-base", "observer-top", { kind: "OBJECT_HEIGHT", objectId: "observer-building" }, "LEFT"),
+    P("given-observer-height", "GIVEN", "observer-base", "observer-top", { kind: "OBJECT_HEIGHT", objectId: "observer-building" }, "RIGHT"),
     P("given-horizontal", "GIVEN", "observer-base", "target-base", { kind: "HORIZONTAL_DISTANCE", fromPointId: "observer-base", toPointId: "target-base" }, "BELOW"),
-    P("target-pole-height", "TARGET_SOLVED", "target-base", "target-top", { kind: "ANSWER" }, "RIGHT", "h"),
+    P("target-pole-height", "TARGET_SOLVED", "target-base", "target-top", { kind: "ANSWER" }, "LEFT", "h"),
   ],
   "TRG-002-QL-023": [
     P("target-height", "TARGET_SOLVED", "object-base", "object-top", { kind: "ANSWER" }, "RIGHT", "h"),
@@ -100,7 +100,7 @@ export const TRG_002_PROOF_SOLUTION_ANNOTATION_PLANS: Record<
     P("target-wall-height", "TARGET_SOLVED", "wall-base", "wall-contact", { kind: "ANSWER" }, "RIGHT", "h"),
   ],
   "TRG-002-QL-045": [
-    P("given-mast-height", "GIVEN", "mast-base", "mast-top", { kind: "OBJECT_HEIGHT", objectId: "mast-1" }, "LEFT", "h"),
+    P("given-mast-height", "GIVEN", "mast-base", "mast-top", { kind: "OBJECT_HEIGHT", objectId: "mast-1" }, "RIGHT", "h"),
     P("target-wire", "TARGET_SOLVED", "anchor", "mast-top", { kind: "ANSWER" }, "ABOVE", "L"),
   ],
   "TRG-002-QL-049": [
@@ -125,24 +125,24 @@ export const TRG_002_PROOF_SOLUTION_ANNOTATION_PLANS: Record<
   ],
   "TRG-002-QL-073": [
     P("given-horizontal", "GIVEN", "object-base", "observer-ground", { kind: "HORIZONTAL_DISTANCE", fromPointId: "object-base", toPointId: "observer-ground" }, "BELOW", "d"),
-    P("given-eye-height", "EYE_HEIGHT", "observer-ground", "observer-eye", { kind: "EYE_HEIGHT", observerId: "observer-1" }, "RIGHT", "e"),
-    P("target-building-height", "TARGET_SOLVED", "object-base", "object-top", { kind: "ANSWER" }, "LEFT", "H"),
+    P("given-eye-height", "EYE_HEIGHT", "observer-ground", "observer-eye", { kind: "EYE_HEIGHT", observerId: "observer-1" }, "LEFT", "e"),
+    P("target-building-height", "TARGET_SOLVED", "object-base", "object-top", { kind: "ANSWER" }, "RIGHT", "H"),
   ],
   "TRG-002-QL-078": [
     P("given-observer-separation", "GIVEN", "left-ground", "right-ground", { kind: "HORIZONTAL_DISTANCE", fromPointId: "left-ground", toPointId: "right-ground" }, "BELOW", "AB"),
     P("target-height", "TARGET_SOLVED", "object-base", "object-top", { kind: "ANSWER" }, "RIGHT", "h"),
   ],
   "TRG-002-QL-083": [
-    P("given-first-height", "GIVEN", "first-base", "first-top", { kind: "OBJECT_HEIGHT", objectId: "building-1" }, "LEFT", "h₁"),
+    P("given-first-height", "GIVEN", "first-base", "first-top", { kind: "OBJECT_HEIGHT", objectId: "building-1" }, "RIGHT", "h₁"),
     P("given-horizontal", "GIVEN", "first-base", "second-base", { kind: "HORIZONTAL_DISTANCE", fromPointId: "first-base", toPointId: "second-base" }, "BELOW", "d"),
-    P("target-second-height", "TARGET_SOLVED", "second-base", "second-top", { kind: "ANSWER" }, "RIGHT", "h₂"),
+    P("target-second-height", "TARGET_SOLVED", "second-base", "second-top", { kind: "ANSWER" }, "LEFT", "h₂"),
   ],
   "TRG-002-QL-088": [
-    P("given-observer-building-height", "GIVEN", "observer-base", "observer-top", { kind: "OBJECT_HEIGHT", objectId: "observer-building" }, "LEFT", "h₁"),
-    P("target-tower-height", "TARGET_SOLVED", "target-base", "target-top", { kind: "ANSWER" }, "RIGHT", "h₂"),
+    P("given-observer-building-height", "GIVEN", "observer-base", "observer-top", { kind: "OBJECT_HEIGHT", objectId: "observer-building" }, "RIGHT", "h₁"),
+    P("target-tower-height", "TARGET_SOLVED", "target-base", "target-top", { kind: "ANSWER" }, "LEFT", "h₂"),
   ],
   "TRG-002-QL-092": [
-    P("given-tower-height", "GIVEN", "tower-base", "tower-top", { kind: "OBJECT_HEIGHT", objectId: "bank-tower" }, "LEFT", "h"),
+    P("given-tower-height", "GIVEN", "tower-base", "tower-top", { kind: "OBJECT_HEIGHT", objectId: "bank-tower" }, "RIGHT", "h"),
     P("target-river-width", "TARGET_SOLVED", "tower-base", "opposite-bank", { kind: "ANSWER" }, "BELOW", "w"),
   ],
 };
