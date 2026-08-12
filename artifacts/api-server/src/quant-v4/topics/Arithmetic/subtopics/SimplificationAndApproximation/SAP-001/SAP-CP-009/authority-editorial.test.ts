@@ -4,7 +4,7 @@ import {
   SAP_CP009_POLICY,
   SAP_CP009_PROTOTYPE_IDS,
   generateSapCp009,
-} from "./editorial-runtime";
+} from "./final-runtime";
 import { runCp009Authority } from "./authority-core";
 
 const result = runCp009Authority({
@@ -54,6 +54,9 @@ for (let seed = 1; seed <= 100; seed += 1) {
   assert.equal(Number(ratioDiagnosis.oracle.data.safeRatioState), 1);
   assert.equal(roundIndependent(Number(ratioDiagnosis.oracle.data.numerator), 100), Number(ratioDiagnosis.oracle.data.numeratorRounded));
   assert.equal(roundIndependent(Number(ratioDiagnosis.oracle.data.denominator), 100), Number(ratioDiagnosis.oracle.data.denominatorRounded));
+  assert.match(ratioDiagnosis.canonicalAnswer, /nearest-hundred values/i);
+  assert.doesNotMatch(ratioDiagnosis.canonicalAnswer, /same rounding place/i);
+  assert.ok(ratioDiagnosis.stem.includes("safer estimate using nearest hundreds"));
 
   const classification = generateSapCp009(SAP_CP009_PROTOTYPE_IDS[18]!, seed);
   const d = classification.oracle.data;
@@ -64,4 +67,4 @@ for (let seed = 1; seed <= 100; seed += 1) {
   assert.doesNotMatch(classification.explanation.steps.join(" "), /exact product\s*:/i);
 }
 
-console.log(`SAP-CP-009 editorial authority passed: ${result.total} states preserve the full proof while enforcing safe ratio substitutions, exam-calculable nearest-product states and direction-based over/under explanations.`);
+console.log(`SAP-CP-009 editorial authority passed: ${result.total} states preserve the full proof while enforcing safe ratio substitutions, exam-calculable nearest-product states, precise unsafe-ratio diagnosis and direction-based over/under explanations.`);
