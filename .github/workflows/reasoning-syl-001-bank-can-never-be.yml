@@ -1,0 +1,57 @@
+name: Validate SYL-001 Banking can-never-be closure
+on:
+  pull_request:
+    branches:
+      - prototype/syl-001-bank-possibility-shell
+      - audit/syl-001-source-profile-freeze
+      - feat/syl-001-learner-v4
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-shell-v1.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-shell-v1-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-balanced.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-balanced-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-BANKING-CAN-NEVER-BE-SOURCE-CLOSURE-V1.md
+      - .github/workflows/reasoning-syl-001-bank-can-never-be.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: validate-syl-001-bank-can-never-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate-can-never-be:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle can-never-be audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-shell-v1-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-can-never-be-shell-v1-audit.test.mjs
+      - name: Run can-never-be audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-shell-v1-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-shell-v1-audit.log
+      - name: Bundle V2 answer-balance audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-balanced-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-possibility-v2-balanced-audit.test.mjs
+      - name: Run V2 answer-balance audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-v2-balanced-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-v2-balanced-audit.log
+      - name: Upload closure logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: syl-001-bank-can-never-be-closure
+          path: |
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-shell-v1-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-v2-balanced-audit.log
+          if-no-files-found: error
+          retention-days: 30
