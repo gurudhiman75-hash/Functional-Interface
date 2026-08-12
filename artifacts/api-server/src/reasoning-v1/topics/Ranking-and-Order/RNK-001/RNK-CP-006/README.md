@@ -1,8 +1,8 @@
 # RNK-CP-006 — Equality-Aware Ranking
 
-Status: **RAW DISCOVERY PASSED — EDITORIAL V2 UNDER VALIDATION — no permanent QL allocated**
+Status: **ENGLISH FROZEN at `RNK-QL-039..041`**
 
-CP-006 covers ordinary ranking comparisons in which explicit evidence places two people at the **same comparison level**.
+CP-006 covers ranking comparisons in which explicit evidence places two people at the **same comparison level**.
 
 It does not treat missing comparison as equality and it does not assume an unstated numerical ranking convention after a tie.
 
@@ -19,7 +19,7 @@ This supports a distinct equality-aware ranking state contract.
 
 See `RNK-CP-006-SOURCE-AND-OWNERSHIP-AUDIT-2026-08-12.md`.
 
-## State contract
+## Frozen state contract
 
 ```text
 ONE_UNIQUE_TOTAL_PREORDER_WITH_EXPLICIT_EQUALITY
@@ -38,17 +38,11 @@ Interpretation:
 - both `B` and `C` are strictly above `D`;
 - one weak order is determined even though two entities share one level.
 
-This differs from CP-005, where several strict total orders remain valid because some relations are unresolved.
+This differs from CP-004, which requires one unique **strict** total order, and from CP-005, where several complete strict rankings remain valid because some relations are unresolved.
 
-## V1 raw discovery
+## Discovery and editorial path
 
-Version:
-
-```text
-RNK_CP006_EQUALITY_DISCOVERY_V1
-```
-
-Raw source forms:
+Raw V1 source forms:
 
 ```text
 EQUAL_PAIR_IDENTIFICATION
@@ -57,41 +51,9 @@ ENDPOINT_ENTITY_WITH_INTERNAL_TIE
 COMPLETE_WEAK_ORDER
 ```
 
-Validated raw corpus:
+`EQUAL_PAIR_IDENTIFICATION` was rejected because the answer merely repeated the equality clue.
 
-```text
-32 questions/source form
-4 source forms
-128 questions
-answer positions/source form: 8 / 8 / 8 / 8
-overall answer positions:    32 / 32 / 32 / 32
-contexts: 5
-unique mathematical fingerprints: 128
-```
-
-Raw executable checks included 256 equality checks, 3,658 strict comparison checks, 639 rendered-clue checks and independent rejection of all 96 complete-order distractors.
-
-V1 deliberately uses one internal two-person equality class per state. Larger or multiple tie groups remain later discovery candidates rather than being assumed safe now.
-
-## Raw self-review decision
-
-See `RNK-CP-006-RAW-SELF-REVIEW-V1.md`.
-
-The raw mathematical corpus passed, but the first editorial rendering was **not** accepted unchanged.
-
-### Rejected
-
-```text
-EQUAL_PAIR_IDENTIFICATION
-```
-
-Reason: the stem asks for the equal pair while the equality clue already names that pair. This is direct clue lookup, not a worthwhile permanent solve contract.
-
-### Remodeled
-
-The original pair and endpoint forms included an equality clue, but the strict chain could sometimes enter and leave the tied level through the same person. The equality fact could therefore be decorative.
-
-Editorial V2 enforces the stronger structure:
+The surviving forms were remodeled so the chain must cross equality through different members of the tie:
 
 ```text
 A > B
@@ -99,110 +61,132 @@ B = C
 C > D
 ```
 
-rather than:
+rather than allowing equality to be decorative.
+
+Editorial V4 finalized context-native learner wording and misconception-oriented complete-order distractors.
+
+## Permanent authorities
 
 ```text
-A > B
-B = C
-B > D
+RNK-QL-039  EQUALITY_AWARE_PAIR_RELATION
+RNK-QL-040  EQUALITY_AWARE_ENDPOINT
+RNK-QL-041  COMPLETE_WEAK_ORDER
 ```
 
-Required executable invariant:
+### RNK-QL-039 — EQUALITY_AWARE_PAIR_RELATION
+
+A queried pair lies across an equality level. Equality must be used as a bridge to prove the directional relation.
+
+Modes:
 
 ```text
-path(top, bottom | strict clues only) = false
-path(top, bottom | strict clues + equality) = true
+PAIR_LOCAL_BRIDGE
+PAIR_FULL_CHAIN
 ```
 
-## Editorial V2
+CP-004 analogue: `RNK-QL-031 RELATIVE_ORDER_OF_PAIR`, but QL031 is strict-order only.
 
-Version:
+### RNK-QL-040 — EQUALITY_AWARE_ENDPOINT
+
+The learner identifies the unique highest or lowest entity only after equality connects the comparison chain.
+
+Modes:
 
 ```text
-RNK_CP006_EQUALITY_EDITORIAL_V2
+ENDPOINT_HIGHEST
+ENDPOINT_LOWEST
 ```
 
-Three surviving forms are under validation:
+CP-004 analogue: `RNK-QL-027 ENDPOINT_ENTITY`, but QL027 is strict-order only.
+
+### RNK-QL-041 — COMPLETE_WEAK_ORDER
+
+The learner reconstructs the full weak order and preserves the explicit tied class.
+
+Mode:
 
 ```text
-PAIR_RELATION_THROUGH_EQUALITY
-ENDPOINT_ENTITY_THROUGH_EQUALITY
 COMPLETE_WEAK_ORDER
 ```
 
-Target V2 corpus:
+CP-004 analogue: `RNK-QL-030 COMPLETE_ORDER`, but QL030 reconstructs a strict total order.
+
+## Frozen permanent runtime
 
 ```text
-48 questions/source form
-144 questions total
-answer positions/source form: 12 / 12 / 12 / 12
-all five contexts/source form
+permanent questions:       576
+questions/authority:       192
+answer positions/QL:       48 / 48 / 48 / 48
+contexts/QL:               5
+entity counts/QL:          5, 6, 7
+unique state keys:         576
+unique learner surfaces:   576
+unique permanent IDs:      576
 ```
 
-Additional V2 requirements:
-
-- equality bridge is mathematically necessary in every state;
-- no direct equality-lookup answer survives;
-- pair questions split between local bridge and full-chain proofs;
-- pair direction is balanced;
-- endpoint questions split highest/lowest evenly;
-- complete-order distractors test split ties, wrong strict order or false equality grouping;
-- difficulty comes from proof span/entity count rather than merely clue count;
-- no Seating Arrangement geometry;
-- no symbolic Inequalities takeover;
-- no numeric post-tie ranking convention;
-- all lifecycle gates remain off.
-
-## Ownership is still unresolved
-
-Editorial survival does **not** imply three new QLs.
-
-The next audit must compare:
+Mode counts:
 
 ```text
-PAIR_RELATION_THROUGH_EQUALITY
-  vs RNK-QL-031 RELATIVE_ORDER_OF_PAIR
-
-ENDPOINT_ENTITY_THROUGH_EQUALITY
-  vs RNK-QL-027 ENDPOINT_ENTITY
-
-COMPLETE_WEAK_ORDER
-  vs RNK-QL-030 COMPLETE_ORDER
+PAIR_LOCAL_BRIDGE:    96
+PAIR_FULL_CHAIN:      96
+ENDPOINT_HIGHEST:     96
+ENDPOINT_LOWEST:      96
+COMPLETE_WEAK_ORDER: 192
 ```
 
-The endpoint form is especially likely to be a state-contract extension rather than a standalone new authority. No decision is pre-allocated.
-
-## V2 human review pack
-
-After executable V2 validation, CI generates:
+Difficulty:
 
 ```text
-24 questions
-8 questions/source form
-answer positions: 6 / 6 / 6 / 6
-all five contexts inside every source form
+Easy:       0
+Medium:   416
+Hard:     160
 ```
 
-The pack is specifically for editorial and merge/split review before any production-scale candidate exists.
+## Freeze proof
 
-## Numeric tie-rank convention
+The 36-question production review pack was manually checked before allocation. All 36 answer keys and explanations were correct, the equality clue was necessary, and no unstated numerical post-tie ranking rule appeared.
 
-Not implemented.
+The executable freeze gate then independently re-proved all 576 frozen questions:
 
-Questions such as:
+```text
+questions independently re-proved: 576
+equality-essential checks:         576
+complete-order distractors checked:576
+```
+
+Pinned production candidate projection:
+
+```text
+sha256:3b26204b7137910d3247af37c75934680ea34cd86b5f342b55de2012e057fd00
+```
+
+Frozen permanent projection:
+
+```text
+sha256:7043ecd80798ed9b60529d6052f4bc6fd4e678a98d06cc3e0332a3d10028d819
+```
+
+See `RNK-CP-006-ENGLISH-FREEZE-V1.md`.
+
+## Numeric tie-rank convention remains excluded
+
+CP-006 does not implement questions such as:
 
 ```text
 Three candidates share 5th place. What rank comes next?
 ```
 
-are prohibited unless a ranking convention is explicitly stated or later primary-source evidence establishes the intended exam rule.
+unless a numerical ranking convention is explicitly stated or later primary-source evidence establishes the intended exam rule.
+
+Multiple tie groups and equality classes larger than two people are also outside this freeze and require a fresh source-backed checkpoint before use.
 
 ## Lifecycle
 
 ```text
-frozen RNK range:       RNK-QL-001..038
-next available QL:      RNK-QL-039
-CP-006 permanent QLs:   0
+frozen RNK range:       RNK-QL-001..041
+next available QL:      RNK-QL-042
+CP-006 permanent QLs:   3
+CP-006 English frozen:  true
 Question Studio:        DISABLED
 persistence:            DISABLED
 Question Bank:          NOT_STORED
@@ -210,3 +194,5 @@ test eligibility:       INELIGIBLE
 public publication:     false
 Hindi/Punjabi:          NOT_STARTED
 ```
+
+This freeze does not authorize merge, deployment, publication, persistence, Question Studio generation or translation.
