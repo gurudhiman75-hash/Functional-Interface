@@ -105,8 +105,9 @@ function buildParameters(entry: Entry, seed: string): CoverageParameters {
     return { subgroupTime, allTogetherTime, excludedTime };
   }
 
-  const source = entry.solveMode === "findDelayAfterMemberEfficiencyDecrease" ? decreaseStates : increaseStates;
-  const state = pick(source, seed, `cp012-efficiency-state:${entry.solveMode}`);
+  const state = entry.solveMode === "findDelayAfterMemberEfficiencyDecrease"
+    ? pick(decreaseStates, seed, `cp012-efficiency-state:${entry.solveMode}`)
+    : pick(increaseStates, seed, `cp012-efficiency-state:${entry.solveMode}`);
   const efficiencyA = rational(state.a);
   const efficiencyB = rational(state.b);
   const originalCombinedTime = rational(state.original);
