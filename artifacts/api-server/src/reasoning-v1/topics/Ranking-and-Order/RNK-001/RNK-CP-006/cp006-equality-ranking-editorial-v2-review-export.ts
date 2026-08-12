@@ -85,11 +85,11 @@ export function buildRnkCp006EditorialV2ReviewMarkdown(): string {
     "## What changed after raw self-review",
     "",
     "- `EQUAL_PAIR_IDENTIFICATION` was rejected because it copied the explicit equality clue into the answer.",
-    "- direct equality lookup was removed from the pair-relation family;
-- pair-relation questions now ask a strict relation whose proof crosses the equality class;
-- endpoint questions are retained as an ownership probe because they are source-real but may overlap frozen endpoint ownership;
-- complete weak-order reconstruction remains the strongest distinct equality-aware form;
-- numeric post-tie rank conventions remain prohibited.",
+    "- Direct equality lookup was removed from the pair-relation family.",
+    "- Pair-relation questions now ask a strict relation whose proof crosses the equality class.",
+    "- Endpoint questions are retained as an ownership probe because they are source-real but may overlap frozen endpoint ownership.",
+    "- Complete weak-order reconstruction remains the strongest distinct equality-aware form.",
+    "- Numeric post-tie rank conventions remain prohibited.",
     "",
     "## Pack composition",
     "",
