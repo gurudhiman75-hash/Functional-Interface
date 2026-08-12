@@ -11,7 +11,10 @@ import {
 import { cleanMenCp009NativeTeachingLineV2 } from "./teaching-cleanup-v2";
 import { applyMenCp009NativeWordGuardV2 } from "./native-word-guard-v2";
 import { naturalizeMenCp009NativeTeachingV3 } from "./post-teaching-naturalizer-v3";
-import { polishMenCp009NativeTeachingV4 } from "./final-polish-v4";
+import {
+  polishMenCp009NativeTeachingV4,
+  buildMenCp009NativeFinalLineV4,
+} from "./final-polish-v4";
 import { naturalizeMenCp009NativeStemV3 } from "./stem-naturalizer-v3";
 import {
   MEN_CP_009_MULTILINGUAL_TEACHING_V2_AUTHORITY,
@@ -68,6 +71,11 @@ export function generateMenCp009NativeTeachingV2(
       ),
       language,
     ),
+  );
+  explanationLines[explanationLines.length - 1] = buildMenCp009NativeFinalLineV4(
+    english.familyId,
+    answer,
+    language,
   );
 
   const parity = {
