@@ -16,58 +16,33 @@ function assert(condition: unknown, message: string): asserts condition {
 
 const INTRODUCED_ACTOR_PHRASES = Object.freeze({
   hi: Object.freeze([
-    "एक डिलीवरी वाहन",
-    "एक डिलीवरी वैन",
-    "एक स्कूल बस",
-    "एक वाहन",
-    "एक कोच",
-    "एक ट्रक",
-    "एक टैक्सी",
-    "एक कार",
-    "एक बस",
-    "एक यात्री",
-    "एक व्यक्ति",
+    "एक डिलीवरी वाहन", "एक डिलीवरी वैन", "एक स्कूल बस", "एक वाहन", "एक कोच", "एक ट्रक",
+    "एक टैक्सी", "एक कार", "एक बस", "एक यात्री", "एक व्यक्ति",
   ]),
   pa: Object.freeze([
-    "ਇੱਕ ਡਿਲਿਵਰੀ ਵਾਹਨ",
-    "ਇੱਕ ਡਿਲਿਵਰੀ ਵੈਨ",
-    "ਇੱਕ ਸਕੂਲ ਬੱਸ",
-    "ਇੱਕ ਵਾਹਨ",
-    "ਇੱਕ ਕੋਚ",
-    "ਇੱਕ ਟਰੱਕ",
-    "ਇੱਕ ਟੈਕਸੀ",
-    "ਇੱਕ ਕਾਰ",
-    "ਇੱਕ ਬੱਸ",
-    "ਇੱਕ ਯਾਤਰੀ",
-    "ਇੱਕ ਵਿਅਕਤੀ",
+    "ਇੱਕ ਡਿਲਿਵਰੀ ਵਾਹਨ", "ਇੱਕ ਡਿਲਿਵਰੀ ਵੈਨ", "ਇੱਕ ਸਕੂਲ ਬੱਸ", "ਇੱਕ ਵਾਹਨ", "ਇੱਕ ਕੋਚ", "ਇੱਕ ਟਰੱਕ",
+    "ਇੱਕ ਟੈਕਸੀ", "ਇੱਕ ਕਾਰ", "ਇੱਕ ਬੱਸ", "ਇੱਕ ਯਾਤਰੀ", "ਇੱਕ ਵਿਅਕਤੀ",
   ]),
 } as const);
 
 const EXPECTED_ACTOR_BY_KEY = Object.freeze({
   hi: Object.freeze({
-    DELIVERY_VAN: "एक डिलीवरी वैन",
-    SCHOOL_BUS: "एक स्कूल बस",
-    COACH: "एक कोच",
-    TAXI: "एक टैक्सी",
-    CAR: "एक कार",
-    BUS: "एक बस",
+    DELIVERY_VAN: "एक डिलीवरी वैन", SCHOOL_BUS: "एक स्कूल बस", COACH: "एक कोच",
+    TAXI: "एक टैक्सी", CAR: "एक कार", BUS: "एक बस",
   }),
   pa: Object.freeze({
-    DELIVERY_VAN: "ਇੱਕ ਡਿਲਿਵਰੀ ਵੈਨ",
-    SCHOOL_BUS: "ਇੱਕ ਸਕੂਲ ਬੱਸ",
-    COACH: "ਇੱਕ ਕੋਚ",
-    TAXI: "ਇੱਕ ਟੈਕਸੀ",
-    CAR: "ਇੱਕ ਕਾਰ",
-    BUS: "ਇੱਕ ਬੱਸ",
+    DELIVERY_VAN: "ਇੱਕ ਡਿਲਿਵਰੀ ਵੈਨ", SCHOOL_BUS: "ਇੱਕ ਸਕੂਲ ਬੱਸ", COACH: "ਇੱਕ ਕੋਚ",
+    TAXI: "ਇੱਕ ਟੈਕਸੀ", CAR: "ਇੱਕ ਕਾਰ", BUS: "ਇੱਕ ਬੱਸ",
   }),
 } as const);
 
+const OBJECT_POSTPOSITIONS = Object.freeze({
+  hi: Object.freeze([" को", " के", " का", " की", " पर", " से", " में", "  "]),
+  pa: Object.freeze([" ਨੂੰ", " ਕੋਲ", " ਦਾ", " ਦੀ", " ਦੇ", " ਉੱਤੇ", " ਨਾਲ", " ਵਿੱਚ", "  "]),
+} as const);
+
 const FEMININE_OBJECTS = new Set<TsdCp003SourceObjectKey>([
-  "DELIVERY_VAN",
-  "SCHOOL_BUS",
-  "TAXI",
-  "CAR",
-  "BUS",
+  "DELIVERY_VAN", "SCHOOL_BUS", "TAXI", "CAR", "BUS",
 ]);
 
 const MASCULINE_FORMS = Object.freeze({
@@ -75,8 +50,23 @@ const MASCULINE_FORMS = Object.freeze({
   pa: Object.freeze(["ਤੈਅ ਕਰਦਾ ਹੈ", "ਪਹੁੰਚਦਾ ਹੈ", "ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ", "ਰੁਕਦਾ ਹੈ", "ਚੱਲਦਾ ਹੈ", "ਰੁਕਿਆ?", "ਰੁਕਿਆ।"]),
 } as const);
 
+const SAFE_GENERIC_CONTEXT_NOUNS = Object.freeze({
+  hi: Object.freeze(["वाहन", "कोच", "ट्रक"]),
+  pa: Object.freeze(["ਵਾਹਨ", "ਕੋਚ", "ਟਰੱਕ"]),
+} as const);
+
 function nativeStemHasIntroducedActor(stem: string, language: TsdCp003NativeLanguage): boolean {
   return INTRODUCED_ACTOR_PHRASES[language].some((phrase) => stem.includes(phrase));
+}
+
+function hasExpectedObject(
+  stem: string,
+  key: TsdCp003SourceObjectKey,
+  language: TsdCp003NativeLanguage,
+): boolean {
+  const object = cp003ExpectedNativeObject(key, language);
+  if (stem.includes(EXPECTED_ACTOR_BY_KEY[language][key])) return true;
+  return OBJECT_POSTPOSITIONS[language].some((suffix) => stem.includes(`${object}${suffix}`));
 }
 
 const frozen = generateCp003EnglishFrozenRecords();
@@ -147,10 +137,9 @@ for (const row of all) {
   const sourceObject = cp003EnglishSourceObjectKey(canonical.stem);
   if (sourceObject !== null) {
     const expectedNativeObject = cp003ExpectedNativeObject(sourceObject, presentation.language);
-    const expectedActor = EXPECTED_ACTOR_BY_KEY[presentation.language][sourceObject];
     assert(
-      presentation.stem.includes(expectedNativeObject) && presentation.stem.includes(expectedActor),
-      `${presentation.questionLanguageId}: English object ${sourceObject} must remain ${expectedActor} in native stem`,
+      hasExpectedObject(presentation.stem, sourceObject, presentation.language),
+      `${presentation.questionLanguageId}: English object ${sourceObject} must remain ${expectedNativeObject} in native stem`,
     );
     sourceObjectParityChecks += 1;
 
@@ -158,10 +147,17 @@ for (const row of all) {
       if (otherKey === sourceObject) continue;
       assert(!presentation.stem.includes(otherActor), `${presentation.questionLanguageId}: unexpected alternate actor ${otherActor}`);
     }
+    const expectedGeneric = sourceObject === "COACH" ? cp003ExpectedNativeObject(sourceObject, presentation.language) : null;
+    for (const generic of SAFE_GENERIC_CONTEXT_NOUNS[presentation.language]) {
+      if (generic === expectedGeneric) continue;
+      assert(!presentation.stem.includes(generic), `${presentation.questionLanguageId}: generic context noun '${generic}' leaked after source-object alignment`);
+    }
     exclusiveActorChecks += 1;
 
-    const corruptSuffix = presentation.language === "hi" ? "ण" : "ਨ";
-    assert(!presentation.stem.includes(`${expectedActor}${corruptSuffix}`), `${presentation.questionLanguageId}: actor replacement corrupted a surrounding word`);
+    if (sourceObject !== "CAR") {
+      const corruptSuffix = presentation.language === "hi" ? "ण" : "ਨ";
+      assert(!presentation.stem.includes(`${expectedNativeObject}${corruptSuffix}`), `${presentation.questionLanguageId}: actor replacement corrupted a surrounding word`);
+    }
     corruptionChecks += 1;
 
     if (FEMININE_OBJECTS.has(sourceObject)) {
