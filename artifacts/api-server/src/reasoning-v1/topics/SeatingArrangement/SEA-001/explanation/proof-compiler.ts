@@ -58,10 +58,7 @@ interface PartialCase {
   readonly display: string;
 }
 
-function partialDisplay(
-  state: LinearSeatingState,
-  placement: ReadonlyMap<PersonId, number>,
-): string {
+function partialDisplay(state: LinearSeatingState, placement: ReadonlyMap<PersonId, number>): string {
   const displayNameById = new Map(state.persons.map((person) => [person.id, person.displayName] as const));
   const row = Array.from({ length: state.seats.length }, () => "_");
   for (const [personId, seatIndex] of placement) row[seatIndex] = displayNameById.get(personId) ?? personId;
@@ -80,14 +77,22 @@ function partialCasesForConstraint(
   const topology = new LinearTopology(state.seats.length);
   if (constraint.kind === "RELATIVE_POSITION") {
     const cases: PartialCase[] = [];
-    for (let referenceSeat = 0; referenceSeat < topology.seatCount; referenceSeat += 1) {
-      const target = topology.moveRelative({ seatId: topology.seatId(referenceSeat), facing, direction: constraint.direction, steps: constraint.steps });
+    for (let fromSeat = 0; fromSeat < topology.seatCount; fromSeat += 1) {
+      const target = topology.moveRelative({
+        seatId: topology.seatId(fromSeat),
+        facing,
+        direction: constraint.direction,
+        steps: constraint.steps,
+      });
       if (target === null) continue;
       const subjectSeat = topology.indexOf(target);
-      const placement = new Map<PersonId, number>([[constraint.referenceId, referenceSeat], [constraint.subjectId, subjectSeat]]);
+      const placement = new Map<PersonId, number>([
+        [constraint.referenceId, fromSeat],
+        [constraint.subjectId, subjectSeat],
+      ]);
       cases.push({
         assumptions: [
-          absoluteAssumption(constraint.referenceId, referenceSeat, `${constraint.id}-R-${referenceSeat}`),
+          absoluteAssumption(constraint.referenceId, fromSeat, `${constraint.id}-R-${fromSeat}`),
           absoluteAssumption(constraint.subjectId, subjectSeat, `${constraint.id}-S-${subjectSeat}`),
         ],
         display: partialDisplay(state, placement),
@@ -118,74 +123,78 @@ function compilePartialCaseTeaching(
   directionRule: string,
 ): string | null {
   const personIds = state.persons.map((person) => person.id);
-  const solveWith = (throughClueIndex: number, candidate: PartialCase): boolean => solveLinear({
+  const works = (throughClueIndex: number, candidate: PartialCase): boolean => solveLinear({
     personIds,
     facing,
     constraints: [...clues.slice(0, throughClueIndex + 1).map((clue) => clue.constraint), ...candidate.assumptions],
     maxModels: 1,
   }).models.length > 0;
 
-  const branchCandidates = clues
+  const choices = clues
     .map((clue, index) => ({ clue, index, cases: partialCasesForConstraint(state, clue.constraint, facing) }))
     .filter(({ cases }) => cases.length >= 2 && cases.length <= 3);
 
-  for (const branch of branchCandidates) {
-    const initiallyLive = branch.cases.map((candidate, originalIndex) => ({ candidate, originalIndex })).filter(({ candidate }) => solveWith(branch.index, candidate));
-    if (initiallyLive.length < 2 || initiallyLive.length > 3) continue;
+  for (const choice of choices) {
+    const startingCases = choice.cases
+      .map((candidate, originalIndex) => ({ candidate, originalIndex }))
+      .filter(({ candidate }) => works(choice.index, candidate));
+    if (startingCases.length < 2 || startingCases.length > 3) continue;
 
-    let active = initiallyLive;
-    const eliminators: Array<{ readonly clueIndex: number; readonly before: readonly typeof active[number][]; readonly after: readonly typeof active[number][] }> = [];
-    for (let clueIndex = branch.index + 1; clueIndex < clues.length && active.length > 1; clueIndex += 1) {
-      const after = active.filter(({ candidate }) => solveWith(clueIndex, candidate));
-      if (after.length === 0 || after.length === active.length) continue;
-      eliminators.push({ clueIndex, before: active, after });
-      active = [...after];
+    let possible = startingCases;
+    const decidingSteps: Array<{ readonly clueIndex: number; readonly after: readonly typeof possible[number][] }> = [];
+    for (let clueIndex = choice.index + 1; clueIndex < clues.length && possible.length > 1; clueIndex += 1) {
+      const after = possible.filter(({ candidate }) => works(clueIndex, candidate));
+      if (after.length === 0 || after.length === possible.length) continue;
+      decidingSteps.push({ clueIndex, after });
+      possible = [...after];
     }
-    if (active.length !== 1 || eliminators.length === 0) continue;
+    if (possible.length !== 1 || decidingSteps.length === 0) continue;
 
-    const branchText = clueTexts[branch.index] ?? `clue ${branch.index + 1}`;
+    const firstClue = clueTexts[choice.index] ?? `clue ${choice.index + 1}`;
     const lines: string[] = [
       directionRule,
-      "When a clue gives two or three genuine placements, keep those cases open. Show only the seats fixed in each case and leave the rest blank.",
-      `Start with clue ${branch.index + 1}: ${branchText}`,
-      `What this tells us: ${studentClueAction(branchText)}`,
-      `This gives ${initiallyLive.length} possible partial cases:`,
-      ...initiallyLive.map((entry, index) => `Case ${index + 1}: ${entry.candidate.display}`),
+      "Sometimes a clue gives two or three possible places. Draw only the seats you know and leave the rest blank.",
+      `Start with clue ${choice.index + 1}: ${firstClue}`,
+      `So: ${studentClueAction(firstClue)}`,
+      `This gives ${startingCases.length} possible ways:`,
+      ...startingCases.map((entry, index) => `Case ${index + 1}: ${entry.candidate.display}`),
     ];
 
-    let liveOriginal = new Set(initiallyLive.map((entry) => entry.originalIndex));
-    const displayedCaseNumber = new Map(initiallyLive.map((entry, index) => [entry.originalIndex, index + 1] as const));
-    const usedClues = new Set<number>([branch.index]);
-    for (const step of eliminators) {
+    let liveOriginal = new Set(startingCases.map((entry) => entry.originalIndex));
+    const caseNumberByOriginal = new Map(startingCases.map((entry, index) => [entry.originalIndex, index + 1] as const));
+    const usedClues = new Set<number>([choice.index]);
+
+    for (const step of decidingSteps) {
       usedClues.add(step.clueIndex);
       const afterOriginal = new Set(step.after.map((entry) => entry.originalIndex));
-      const eliminatingClue = clueTexts[step.clueIndex] ?? `clue ${step.clueIndex + 1}`;
-      lines.push(`Now use clue ${step.clueIndex + 1}: ${eliminatingClue}`);
-      lines.push(`What this tells us: ${studentClueAction(eliminatingClue)}`);
+      const decidingClue = clueTexts[step.clueIndex] ?? `clue ${step.clueIndex + 1}`;
+      lines.push(`Now use clue ${step.clueIndex + 1}: ${decidingClue}`);
+      lines.push(`So: ${studentClueAction(decidingClue)}`);
       for (const originalIndex of [...liveOriginal]) {
-        const caseNumber = displayedCaseNumber.get(originalIndex);
+        const caseNumber = caseNumberByOriginal.get(originalIndex);
         if (!caseNumber) continue;
         lines.push(afterOriginal.has(originalIndex)
-          ? `Case ${caseNumber} ✅ — this placement is still compatible with "${eliminatingClue}" and all earlier clues.`
-          : `Case ${caseNumber} ❌ — cancel it because, with this placement and the earlier clues fixed, "${eliminatingClue}" cannot be satisfied anywhere in the row.`);
+          ? `Case ${caseNumber} ✅ — this clue works here.`
+          : `Case ${caseNumber} ❌ — this clue does not fit, so this case is wrong.`);
       }
       liveOriginal = afterOriginal;
     }
 
-    const survivorOriginal = [...liveOriginal][0];
-    const survivorCaseNumber = survivorOriginal === undefined ? undefined : displayedCaseNumber.get(survivorOriginal);
-    if (!survivorCaseNumber) continue;
-    lines.push(`Only Case ${survivorCaseNumber} remains. Keep those fixed seats and finish the open positions step by step.`);
+    const finalOriginal = [...liveOriginal][0];
+    const finalCaseNumber = finalOriginal === undefined ? undefined : caseNumberByOriginal.get(finalOriginal);
+    if (!finalCaseNumber) continue;
+
+    lines.push(`Only Case ${finalCaseNumber} is left. Keep those seats and fill the blanks.`);
     const remaining = clues.map((_, index) => index).filter((index) => !usedClues.has(index));
     if (remaining.length > 0) {
       for (const index of remaining) {
         const text = clueTexts[index] ?? `clue ${index + 1}`;
         lines.push(`Clue ${index + 1}: ${text}`);
-        lines.push(`What this tells us: ${studentClueAction(text)}`);
+        lines.push(`So: ${studentClueAction(text)}`);
       }
-      lines.push("After each placement, cross out occupied or forbidden seats. When only one legal seat remains for a person, place that person there.");
+      lines.push("Keep marking seats as you fill them. If only one seat is left for someone, put that person there.");
     }
-    lines.push("Therefore, the final row is:");
+    lines.push("So the final row is:");
     lines.push(renderLinearDiagram(state));
     return lines.join("\n\n");
   }
@@ -197,21 +206,35 @@ export function compileSharedExplanation(state: LinearSeatingState, clues: reado
   if (!facing) throw new Error("Cannot explain an empty seating state");
   const personIds = state.persons.map((person) => person.id);
   const clueTexts = clues.map((clue) => renderConstraint(clue.constraint, state.persons, state.seats.length));
-  const finalModels = solveLinear({ personIds, facing, constraints: clues.map((clue) => clue.constraint), maxModels: 2 }).models;
+  const finalModels = solveLinear({
+    personIds,
+    facing,
+    constraints: clues.map((clue) => clue.constraint),
+    maxModels: 2,
+  }).models;
   const finalModel = finalModels[0];
   if (!finalModel || finalModels.length !== 1) throw new Error("Cannot compile a teaching explanation without one final arrangement");
 
   const directionRule = facing === "NORTH"
-    ? "All persons face north. When seats are numbered from left to right, a person's left is towards the lower seat number and right is towards the higher seat number."
-    : "All persons face south. When seats are numbered from left to right, a person's left is towards the higher seat number and right is towards the lower seat number.";
-  const partialTeaching = compilePartialCaseTeaching(state, clues, clueTexts, facing, directionRule);
-  if (partialTeaching) return partialTeaching;
+    ? "Everyone faces north. Number the seats from left to right. A person's left is towards the left side of your page, and right is towards the right side."
+    : "Everyone faces south. Number the seats from left to right. Because they face you, a person's left is towards the right side of your page, and right is towards the left side.";
+
+  const caseTeaching = compilePartialCaseTeaching(state, clues, clueTexts, facing, directionRule);
+  if (caseTeaching) return caseTeaching;
 
   return compileCaseEliminationExplanation({
-    intro: [directionRule, "Join the strongest linked clues first. Use separate cases only when two or three real placements remain unresolved."],
+    intro: [
+      directionRule,
+      "Start with the clue that fixes a seat or joins two people. If two places are possible, keep both until another clue decides.",
+    ],
     clues: clueTexts.map((text) => ({ text })),
-    enumeratePrefix: (clueCount, maxModels) => solveLinear({ personIds, facing, constraints: clues.slice(0, clueCount).map((clue) => clue.constraint), maxModels }).models.map((model) => teachingModel(model, state)),
+    enumeratePrefix: (clueCount, maxModels) => solveLinear({
+      personIds,
+      facing,
+      constraints: clues.slice(0, clueCount).map((clue) => clue.constraint),
+      maxModels,
+    }).models.map((model) => teachingModel(model, state)),
     finalModel: teachingModel(finalModel, state),
-    finalHeading: "Therefore, the final row is:",
+    finalHeading: "So the final row is:",
   }) + `\n\n${renderLinearDiagram(state)}`;
 }
