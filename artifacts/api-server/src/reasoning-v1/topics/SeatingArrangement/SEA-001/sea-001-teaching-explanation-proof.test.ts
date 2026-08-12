@@ -6,6 +6,7 @@ if (corpus.caselets.length !== 40) throw new Error(`Expected 40 teaching-proof c
 
 const bannedInternalTerms = /\b(?:solver|oracle|canonical|model class|search branch|seat zero)\b/i;
 const arbitraryCaseLanguage = /several arrangements are still possible|three useful cases/i;
+const explanationShortcut = /use the remaining clues|build the arrangement by joining the clues|keep this facing fixed while applying the remaining clues/i;
 const internalPersonId = /\bP\d+\b/;
 const participantNames = new Set<string>();
 const pbaCaseCounts = new Map<string, number>();
@@ -62,6 +63,10 @@ for (const caselet of corpus.caselets) {
   if (!explanation.trim()) throw new Error(`Empty teaching explanation: ${caselet.caseletId}`);
   if (bannedInternalTerms.test(explanation)) throw new Error(`Internal terminology leaked into ${caselet.caseletId}: ${explanation}`);
   if (arbitraryCaseLanguage.test(explanation)) throw new Error(`Arbitrary representative-case language leaked into ${caselet.caseletId}`);
+  if (explanationShortcut.test(explanation)) throw new Error(`Unhelpful explanation shortcut leaked into ${caselet.caseletId}: ${explanation}`);
+  if (caselet.clueTexts.length > 0 && !/What this tells us:/i.test(explanation)) {
+    throw new Error(`Teaching explanation does not translate clues into student actions: ${caselet.caseletId}`);
+  }
   if (!/final (?:row|clockwise arrangement|clockwise arrangement and facings)|therefore/i.test(explanation)) {
     throw new Error(`Final arrangement conclusion is missing: ${caselet.caseletId}`);
   }
