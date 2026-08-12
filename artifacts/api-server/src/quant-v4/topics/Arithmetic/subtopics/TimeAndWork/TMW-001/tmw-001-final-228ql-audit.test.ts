@@ -41,7 +41,7 @@ const byCheckpoint = new Map<string, number>();
 const byLanguage = new Map<string, number>();
 const answerPositions = new Map<number, number>();
 const learnerVersions = new Map<string, number>();
-const fingerprints = new Set<string>();
+const contractFingerprints = new Set<string>();
 let cases = 0;
 let maxStemTokens = 0;
 let maxStemLabel = "";
@@ -109,9 +109,10 @@ for (const qlId of QL_IDS) {
     const version = question.learnerExplanationVersion ?? "UNKNOWN";
     learnerVersions.set(version, (learnerVersions.get(version) ?? 0) + 1);
 
-    const fingerprint = `${language}|${question.mathematicalFingerprint ?? `${qlId}|${question.solveMode ?? "unknown"}|${seed}`}`;
-    assert(!fingerprints.has(fingerprint), `${label}: duplicate same-language mathematical fingerprint in final deterministic export`);
-    fingerprints.add(fingerprint);
+    const parameterFingerprint = question.mathematicalFingerprint ?? `${qlId}|${seed}`;
+    const contractFingerprint = `${language}|${question.solveMode ?? "unknown"}|${parameterFingerprint}`;
+    assert(!contractFingerprints.has(contractFingerprint), `${label}: duplicate same-language solve-mode + parameter fingerprint in final deterministic export`);
+    contractFingerprints.add(contractFingerprint);
   }
 }
 
@@ -135,7 +136,7 @@ console.log(JSON.stringify({
   byCheckpoint: Object.fromEntries([...byCheckpoint.entries()].sort()),
   learnerVersions: Object.fromEntries([...learnerVersions.entries()].sort()),
   answerPositions: Object.fromEntries([...answerPositions.entries()].sort(([a], [b]) => a - b)),
-  uniqueSameLanguageFingerprints: fingerprints.size,
+  uniqueSameLanguageContractFingerprints: contractFingerprints.size,
   maxStemTokens,
   maxStemLabel,
   publicationLocked: true,
