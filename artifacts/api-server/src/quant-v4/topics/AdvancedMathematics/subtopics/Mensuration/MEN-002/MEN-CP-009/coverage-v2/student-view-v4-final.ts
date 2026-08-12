@@ -61,6 +61,16 @@ export function buildMenCp009StudentViewV4Final(
       lines[2] = `Now substitute the actual values: r³ = (3 × ${given}) ÷ (2 × ${p}) = ${r3}.`;
       break;
     }
+    case "SPHERE_PAINTING_COST": {
+      const rate = question.state.rate!;
+      lines[3] = `Now include the painting rate: cost = (4 × ${p} × ${r}²) × ${rate} = ${view.answer}.`;
+      break;
+    }
+    case "HEMISPHERE_INNER_POLISHING_COST": {
+      const rate = question.state.rate!;
+      lines[3] = `Now include the polishing rate: cost = (2 × ${p} × ${r}²) × ${rate} = ${view.answer}.`;
+      break;
+    }
   }
 
   return { ...view, explanationLines: lines };
