@@ -12,6 +12,7 @@ on:
   push:
     branches:
       - "feat/prb-probability-*"
+      - "fix/prb-native-editorial-*"
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Probability/**"
@@ -41,6 +42,8 @@ jobs:
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/multilingual-runtime.test.ts
       - name: Validate ML-06 native human-review boundary
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/native-review-adapter.test.ts
+      - name: Validate ML-06 native editorial quality wave01
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/native-editorial-quality-regression.test.ts
       - name: Preserve English Probability readiness
         run: |
           npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/question-studio-profile.test.ts
