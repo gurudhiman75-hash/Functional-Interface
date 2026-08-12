@@ -33,9 +33,9 @@ export type NumCp001NumberSet =
 
 export type NumCp001ClaimClass =
   | "ALWAYS_TRUE"
-  | "SOMETIMES_TRUE"
-  | "NEVER_TRUE"
-  | "TRUE_ONLY_WHEN_N_IS_ZERO";
+  | "TRUE_FOR_EVEN_N_ONLY"
+  | "TRUE_FOR_ODD_N_ONLY"
+  | "NEVER_TRUE";
 
 export interface NumCp001Option {
   readonly value: string;
