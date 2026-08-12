@@ -101,7 +101,7 @@ export function cp003ExpectedNativeObject(key: TsdCp003SourceObjectKey, language
   return language === "hi" ? entry.hi : entry.pa;
 }
 
-function sourceContext(stem: string, language: TsdCp003NativeLanguage): string {
+export function cp003ExpectedNativeContext(stem: string, language: TsdCp003NativeLanguage): string | null {
   const lower = stem.toLowerCase();
   const hi = language === "hi";
   if (lower.includes("on its usual route") && lower.includes("on a regional route")) return hi ? "अपने नियमित क्षेत्रीय मार्ग पर" : "ਆਪਣੇ ਨਿਯਮਿਤ ਖੇਤਰੀ ਰਸਤੇ ਉੱਤੇ";
@@ -111,15 +111,26 @@ function sourceContext(stem: string, language: TsdCp003NativeLanguage): string {
   if (lower.includes("on a highway trip")) return hi ? "राजमार्ग की यात्रा में" : "ਹਾਈਵੇ ਦੇ ਸਫ਼ਰ ਵਿੱਚ";
   if (lower.includes("on a regional route")) return hi ? "क्षेत्रीय मार्ग पर" : "ਖੇਤਰੀ ਰਸਤੇ ਉੱਤੇ";
   if (lower.includes("on an intercity route")) return hi ? "अंतर-शहरी मार्ग पर" : "ਅੰਤਰ-ਸ਼ਹਿਰੀ ਰਸਤੇ ਉੱਤੇ";
-  return "";
+  return null;
 }
 
-function subject(source: TsdCp003EnglishFrozenRecord, language: TsdCp003NativeLanguage): string | null {
+function actor(source: TsdCp003EnglishFrozenRecord, language: TsdCp003NativeLanguage): string | null {
   const key = cp003EnglishSourceObjectKey(source.stem);
   if (key === null) return null;
-  const actor = `${language === "hi" ? "एक" : "ਇੱਕ"} ${cp003ExpectedNativeObject(key, language)}`;
-  const context = sourceContext(source.stem, language);
-  return context ? `${actor} ${context}` : actor;
+  return `${language === "hi" ? "एक" : "ਇੱਕ"} ${cp003ExpectedNativeObject(key, language)}`;
+}
+
+function actorWithContext(source: TsdCp003EnglishFrozenRecord, language: TsdCp003NativeLanguage): string | null {
+  const a = actor(source, language);
+  if (a === null) return null;
+  const context = cp003ExpectedNativeContext(source.stem, language);
+  return context ? `${a} ${context}` : a;
+}
+
+function contextBeforeLoss(source: TsdCp003EnglishFrozenRecord, language: TsdCp003NativeLanguage): string {
+  const context = cp003ExpectedNativeContext(source.stem, language);
+  if (!context) return language === "hi" ? "समय गंवाने के बाद" : "ਸਮਾਂ ਗੁਆਉਣ ਤੋਂ ਬਾਅਦ";
+  return language === "hi" ? `${context} समय गंवाने के बाद` : `${context} ਸਮਾਂ ਗੁਆਉਣ ਤੋਂ ਬਾਅਦ`;
 }
 
 function targetText(target: Extract<TsdCp003EnglishFrozenRecord["input"], { solveMode: "walkingRidingAllocation" }>["target"], language: TsdCp003NativeLanguage): string {
@@ -210,12 +221,19 @@ function replaceContextActor(nativeStem: string, expectedObject: string, languag
 }
 
 function applyObjectAgreement(stem: string, key: TsdCp003SourceObjectKey, language: TsdCp003NativeLanguage): string {
-  if (!FEMININE_OBJECTS.has(key)) return stem;
-  const replacements: readonly (readonly [string, string])[] = language === "hi"
-    ? [["तय करता है", "तय करती है"], ["पहुँचता है", "पहुँचती है"], ["पहुँचेगा", "पहुँचेगी"], ["चलना शुरू करता है", "चलना शुरू करती है"], ["रुकता है", "रुकती है"], ["चलता है", "चलती है"], ["रुका?", "रुकी?"], ["रुका।", "रुकी।"]]
-    : [["ਤੈਅ ਕਰਦਾ ਹੈ", "ਤੈਅ ਕਰਦੀ ਹੈ"], ["ਪਹੁੰਚਦਾ ਹੈ", "ਪਹੁੰਚਦੀ ਹੈ"], ["ਪਹੁੰਚੇਗਾ", "ਪਹੁੰਚੇਗੀ"], ["ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ", "ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ"], ["ਰੁਕਦਾ ਹੈ", "ਰੁਕਦੀ ਹੈ"], ["ਚੱਲਦਾ ਹੈ", "ਚੱਲਦੀ ਹੈ"], ["ਰੁਕਿਆ?", "ਰੁਕੀ?"], ["ਰੁਕਿਆ।", "ਰੁਕੀ।"]];
+  const masculineToFeminine: readonly (readonly [string, string])[] = language === "hi"
+    ? [["तय करता है", "तय करती है"], ["पहुँचता है", "पहुँचती है"], ["पहुँचेगा", "पहुँचेगी"], ["चलना शुरू करता है", "चलना शुरू करती है"], ["रुकता है", "रुकती है"], ["चलता है", "चलती है"], ["करता है", "करती है"], ["रुका?", "रुकी?"], ["रुका।", "रुकी।"]]
+    : [["ਤੈਅ ਕਰਦਾ ਹੈ", "ਤੈਅ ਕਰਦੀ ਹੈ"], ["ਪਹੁੰਚਦਾ ਹੈ", "ਪਹੁੰਚਦੀ ਹੈ"], ["ਪਹੁੰਚੇਗਾ", "ਪਹੁੰਚੇਗੀ"], ["ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ", "ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ"], ["ਰੁਕਦਾ ਹੈ", "ਰੁਕਦੀ ਹੈ"], ["ਚੱਲਦਾ ਹੈ", "ਚੱਲਦੀ ਹੈ"], ["ਕਰਦਾ ਹੈ", "ਕਰਦੀ ਹੈ"], ["ਰੁਕਿਆ?", "ਰੁਕੀ?"], ["ਰੁਕਿਆ।", "ਰੁਕੀ।"]];
+
   let agreed = stem;
-  for (const [from, to] of replacements) agreed = agreed.split(from).join(to);
+  if (FEMININE_OBJECTS.has(key)) {
+    for (const [from, to] of masculineToFeminine) agreed = agreed.split(from).join(to);
+    return agreed;
+  }
+
+  if (key === "COACH") {
+    for (const [masculine, feminine] of masculineToFeminine) agreed = agreed.split(feminine).join(masculine);
+  }
   return agreed;
 }
 
@@ -235,25 +253,31 @@ function alignStemObjectWithEnglish(source: TsdCp003EnglishFrozenRecord, nativeS
 function renderSemanticSentenceParity(source: TsdCp003EnglishFrozenRecord, stem: string, language: TsdCp003NativeLanguage): string {
   const english = source.stem.toLowerCase();
   const input = source.input;
-  const s = subject(source, language);
+  const a = actor(source, language);
+  const s = actorWithContext(source, language);
   const hi = language === "hi";
 
   if (input.solveMode === "timeGainLossFromSpeedChange") {
     const faster = compare(input.changedSpeed, input.originalSpeed) > 0;
     if (/\bif\b/u.test(english)) {
       return hi
-        ? `${s} ${km(input.distance)} की दूरी तय करती है। यदि उसकी गति ${sp(input.originalSpeed)} से घटकर ${sp(input.changedSpeed)} हो जाए, तो कितना अतिरिक्त यात्रा-समय लगेगा?`
-        : `${s} ${km(input.distance)} ਦੀ ਦੂਰੀ ਤੈਅ ਕਰਦੀ ਹੈ। ਜੇ ਉਸਦੀ ਰਫ਼ਤਾਰ ${sp(input.originalSpeed)} ਤੋਂ ਘਟ ਕੇ ${sp(input.changedSpeed)} ਹੋ ਜਾਵੇ, ਤਾਂ ਸਫ਼ਰ ਲਈ ਕਿੰਨਾ ਵਾਧੂ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+        ? `${s} ${km(input.distance)} की दूरी तय करता है। यदि उसकी गति ${sp(input.originalSpeed)} से घटकर ${sp(input.changedSpeed)} हो जाए, तो कितना अतिरिक्त यात्रा-समय लगेगा?`
+        : `${s} ${km(input.distance)} ਦੀ ਦੂਰੀ ਤੈਅ ਕਰਦਾ ਹੈ। ਜੇ ਉਸਦੀ ਰਫ਼ਤਾਰ ${sp(input.originalSpeed)} ਤੋਂ ਘਟ ਕੇ ${sp(input.changedSpeed)} ਹੋ ਜਾਵੇ, ਤਾਂ ਸਫ਼ਰ ਲਈ ਕਿੰਨਾ ਵਾਧੂ ਸਮਾਂ ਲੱਗੇਗਾ?`;
     }
     return hi
-      ? `${s} सामान्यतः ${km(input.distance)} की दूरी ${sp(input.originalSpeed)} से तय करती है, लेकिन अब उसकी गति ${sp(input.changedSpeed)} है। ${faster ? "यात्रा-समय में कितनी कमी आएगी?" : "कितना अतिरिक्त यात्रा-समय लगेगा?"}`
-      : `${s} ਆਮ ਤੌਰ ਉੱਤੇ ${km(input.distance)} ਦੀ ਦੂਰੀ ${sp(input.originalSpeed)} ਨਾਲ ਤੈਅ ਕਰਦੀ ਹੈ, ਪਰ ਹੁਣ ਉਸਦੀ ਰਫ਼ਤਾਰ ${sp(input.changedSpeed)} ਹੈ। ${faster ? "ਸਫ਼ਰ ਦੇ ਸਮੇਂ ਵਿੱਚ ਕਿੰਨੀ ਕਮੀ ਆਵੇਗੀ?" : "ਸਫ਼ਰ ਲਈ ਕਿੰਨਾ ਵਾਧੂ ਸਮਾਂ ਲੱਗੇਗਾ?"}`;
+      ? `${s} सामान्यतः ${km(input.distance)} की दूरी ${sp(input.originalSpeed)} से तय करता है, लेकिन अब उसकी गति ${sp(input.changedSpeed)} है। ${faster ? "यात्रा-समय में कितनी कमी आएगी?" : "कितना अतिरिक्त यात्रा-समय लगेगा?"}`
+      : `${s} ਆਮ ਤੌਰ ਉੱਤੇ ${km(input.distance)} ਦੀ ਦੂਰੀ ${sp(input.originalSpeed)} ਨਾਲ ਤੈਅ ਕਰਦਾ ਹੈ, ਪਰ ਹੁਣ ਉਸਦੀ ਰਫ਼ਤਾਰ ${sp(input.changedSpeed)} ਹੈ। ${faster ? "ਸਫ਼ਰ ਦੇ ਸਮੇਂ ਵਿੱਚ ਕਿੰਨੀ ਕਮੀ ਆਵੇਗੀ?" : "ਸਫ਼ਰ ਲਈ ਕਿੰਨਾ ਵਾਧੂ ਸਮਾਂ ਲੱਗੇਗਾ?"}`;
   }
 
   if (input.solveMode === "distanceFromSpeedTimeDifference") {
+    if (s !== null) {
+      return hi
+        ? `जब ${s} ${sp(input.slowerSpeed)} से चलता है, तो उसी मार्ग को ${sp(input.fasterSpeed)} से तय करने की तुलना में ${dur(input.timeDifference, language)} अधिक समय लगता है। मार्ग की दूरी ज्ञात कीजिए।`
+        : `ਜਦੋਂ ${s} ${sp(input.slowerSpeed)} ਨਾਲ ਚੱਲਦਾ ਹੈ, ਤਾਂ ਉਸੇ ਰਸਤੇ ਨੂੰ ${sp(input.fasterSpeed)} ਨਾਲ ਤੈਅ ਕਰਨ ਦੇ ਮੁਕਾਬਲੇ ${dur(input.timeDifference, language)} ਵੱਧ ਸਮਾਂ ਲੱਗਦਾ ਹੈ। ਰਸਤੇ ਦੀ ਦੂਰੀ ਕੱਢੋ।`;
+    }
     return hi
-      ? `${s ? `${s} ` : ""}एक ही मार्ग को ${sp(input.slowerSpeed)} से तय करने में ${sp(input.fasterSpeed)} की तुलना में ${dur(input.timeDifference, language)} अधिक समय लगता है। मार्ग की दूरी ज्ञात कीजिए।`
-      : `${s ? `${s} ` : ""}ਇੱਕੋ ਰਸਤਾ ${sp(input.slowerSpeed)} ਨਾਲ ਤੈਅ ਕਰਨ ਵਿੱਚ ${sp(input.fasterSpeed)} ਦੇ ਮੁਕਾਬਲੇ ${dur(input.timeDifference, language)} ਵੱਧ ਸਮਾਂ ਲੱਗਦਾ ਹੈ। ਰਸਤੇ ਦੀ ਦੂਰੀ ਕੱਢੋ।`;
+      ? `एक ही मार्ग को ${sp(input.slowerSpeed)} से तय करने में ${sp(input.fasterSpeed)} की तुलना में ${dur(input.timeDifference, language)} अधिक समय लगता है। मार्ग की दूरी ज्ञात कीजिए।`
+      : `ਇੱਕੋ ਰਸਤਾ ${sp(input.slowerSpeed)} ਨਾਲ ਤੈਅ ਕਰਨ ਵਿੱਚ ${sp(input.fasterSpeed)} ਦੇ ਮੁਕਾਬਲੇ ${dur(input.timeDifference, language)} ਵੱਧ ਸਮਾਂ ਲੱਗਦਾ ਹੈ। ਰਸਤੇ ਦੀ ਦੂਰੀ ਕੱਢੋ।`;
   }
 
   if (input.solveMode === "speedFromFixedRouteTimeDifference") {
@@ -268,59 +292,59 @@ function renderSemanticSentenceParity(source: TsdCp003EnglishFrozenRecord, stem:
       const targetHi = input.target === "FASTER" ? "अधिक" : "कम";
       const targetPa = input.target === "FASTER" ? "ਵੱਧ" : "ਘੱਟ";
       return hi
-        ? `${s} ${km(input.distance)} की यात्रा दो अलग गतियों से करती है, जिनका अनुपात ${n(input.slowerRatio)}:${n(input.fasterRatio)} है। दोनों स्थितियों के यात्रा-समयों में ${dur(input.timeDifference, language)} का अंतर है। ${targetHi} गति ज्ञात कीजिए।`
-        : `${s} ${km(input.distance)} ਦਾ ਸਫ਼ਰ ਦੋ ਵੱਖ-ਵੱਖ ਰਫ਼ਤਾਰਾਂ ਨਾਲ ਕਰਦੀ ਹੈ, ਜਿਨ੍ਹਾਂ ਦਾ ਅਨੁਪਾਤ ${n(input.slowerRatio)}:${n(input.fasterRatio)} ਹੈ। ਦੋਵੇਂ ਹਾਲਤਾਂ ਦੇ ਸਫ਼ਰ-ਸਮਿਆਂ ਵਿੱਚ ${dur(input.timeDifference, language)} ਦਾ ਅੰਤਰ ਹੈ। ${targetPa} ਰਫ਼ਤਾਰ ਕੱਢੋ।`;
+        ? `${s} ${km(input.distance)} की यात्रा दो अलग गतियों से करता है, जिनका अनुपात ${n(input.slowerRatio)}:${n(input.fasterRatio)} है। दोनों स्थितियों के यात्रा-समयों में ${dur(input.timeDifference, language)} का अंतर है। ${targetHi} गति ज्ञात कीजिए।`
+        : `${s} ${km(input.distance)} ਦਾ ਸਫ਼ਰ ਦੋ ਵੱਖ-ਵੱਖ ਰਫ਼ਤਾਰਾਂ ਨਾਲ ਕਰਦਾ ਹੈ, ਜਿਨ੍ਹਾਂ ਦਾ ਅਨੁਪਾਤ ${n(input.slowerRatio)}:${n(input.fasterRatio)} ਹੈ। ਦੋਵੇਂ ਹਾਲਤਾਂ ਦੇ ਸਫ਼ਰ-ਸਮਿਆਂ ਵਿੱਚ ${dur(input.timeDifference, language)} ਦਾ ਅੰਤਰ ਹੈ। ${targetPa} ਰਫ਼ਤਾਰ ਕੱਢੋ।`;
     }
   }
 
   if (input.solveMode === "usualSpeedFromEarlyLatePair") {
     return hi
-      ? `${s} ${sp(input.slowerTrialSpeed)} से चलने पर ${dur(input.lateBy, language)} देर से पहुँचती है, जबकि ${sp(input.fasterTrialSpeed)} से चलने पर ${dur(input.earlyBy, language)} पहले पहुँचती है। ठीक समय पर पहुँचने की सामान्य गति ज्ञात कीजिए।`
-      : `${s} ${sp(input.slowerTrialSpeed)} ਨਾਲ ਚੱਲਣ ਤੇ ${dur(input.lateBy, language)} ਦੇਰ ਨਾਲ ਪਹੁੰਚਦੀ ਹੈ, ਜਦਕਿ ${sp(input.fasterTrialSpeed)} ਨਾਲ ਚੱਲਣ ਤੇ ${dur(input.earlyBy, language)} ਪਹਿਲਾਂ ਪਹੁੰਚਦੀ ਹੈ। ਬਿਲਕੁਲ ਸਮੇਂ ਉੱਤੇ ਪਹੁੰਚਣ ਲਈ ਆਮ ਰਫ਼ਤਾਰ ਕੱਢੋ।`;
+      ? `${s} ${sp(input.slowerTrialSpeed)} से चलने पर ${dur(input.lateBy, language)} देर से पहुँचता है, जबकि ${sp(input.fasterTrialSpeed)} से चलने पर ${dur(input.earlyBy, language)} पहले पहुँचता है। ठीक समय पर पहुँचने की सामान्य गति ज्ञात कीजिए।`
+      : `${s} ${sp(input.slowerTrialSpeed)} ਨਾਲ ਚੱਲਣ ਤੇ ${dur(input.lateBy, language)} ਦੇਰ ਨਾਲ ਪਹੁੰਚਦਾ ਹੈ, ਜਦਕਿ ${sp(input.fasterTrialSpeed)} ਨਾਲ ਚੱਲਣ ਤੇ ${dur(input.earlyBy, language)} ਪਹਿਲਾਂ ਪਹੁੰਚਦਾ ਹੈ। ਬਿਲਕੁਲ ਸਮੇਂ ਉੱਤੇ ਪਹੁੰਚਣ ਲਈ ਆਮ ਰਫ਼ਤਾਰ ਕੱਢੋ।`;
   }
 
   if (input.solveMode === "scheduledArrivalTimeFromActualSpeed" && /\bif\b/u.test(english)) {
     return hi
-      ? `${s} ${formatNativeClock(input.departureMinuteFromDayZero, language)} पर प्रस्थान करती है। यदि मार्ग की दूरी ${km(input.distance)} है और गति ${sp(input.actualSpeed)} है, तो वह किस समय पहुँचेगी?`
-      : `${s} ${formatNativeClock(input.departureMinuteFromDayZero, language)} ਵਜੇ ਰਵਾਨਾ ਹੁੰਦੀ ਹੈ। ਜੇ ਰਸਤੇ ਦੀ ਦੂਰੀ ${km(input.distance)} ਹੈ ਅਤੇ ਰਫ਼ਤਾਰ ${sp(input.actualSpeed)} ਹੈ, ਤਾਂ ਉਹ ਕਿੰਨੇ ਵਜੇ ਪਹੁੰਚੇਗੀ?`;
+      ? `${s} ${formatNativeClock(input.departureMinuteFromDayZero, language)} पर प्रस्थान करता है। यदि मार्ग की दूरी ${km(input.distance)} है और गति ${sp(input.actualSpeed)} है, तो वह किस समय पहुँचेगा?`
+      : `${s} ${formatNativeClock(input.departureMinuteFromDayZero, language)} ਵਜੇ ਰਵਾਨਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਰਸਤੇ ਦੀ ਦੂਰੀ ${km(input.distance)} ਹੈ ਅਤੇ ਰਫ਼ਤਾਰ ${sp(input.actualSpeed)} ਹੈ, ਤਾਂ ਉਹ ਕਿੰਨੇ ਵਜੇ ਪਹੁੰਚੇਗਾ?`;
   }
 
   if (input.solveMode === "stoppageDurationFromRunningAndOverallSpeed") {
     return hi
-      ? `${s} ${km(input.distance)} की दूरी तय करती है। चलते समय उसकी गति ${sp(input.runningSpeed)} है, लेकिन ठहरावों को शामिल करने के बाद औसत गति केवल ${sp(input.overallSpeed)} रह जाती है। वह कुल कितनी देर रुकी?`
-      : `${s} ${km(input.distance)} ਦੀ ਦੂਰੀ ਤੈਅ ਕਰਦੀ ਹੈ। ਚੱਲਣ ਸਮੇਂ ਉਸਦੀ ਰਫ਼ਤਾਰ ${sp(input.runningSpeed)} ਹੈ, ਪਰ ਠਹਿਰਾਅਾਂ ਨੂੰ ਸ਼ਾਮਲ ਕਰਨ ਤੋਂ ਬਾਅਦ ਔਸਤ ਰਫ਼ਤਾਰ ਸਿਰਫ਼ ${sp(input.overallSpeed)} ਰਹਿ ਜਾਂਦੀ ਹੈ। ਉਹ ਕੁੱਲ ਕਿੰਨੀ ਦੇਰ ਰੁਕੀ?`;
+      ? `${s} ${km(input.distance)} की दूरी तय करता है। चलते समय उसकी गति ${sp(input.runningSpeed)} है, लेकिन ठहरावों को शामिल करने के बाद औसत गति केवल ${sp(input.overallSpeed)} रह जाती है। वह कुल कितनी देर रुका?`
+      : `${s} ${km(input.distance)} ਦੀ ਦੂਰੀ ਤੈਅ ਕਰਦਾ ਹੈ। ਚੱਲਣ ਸਮੇਂ ਉਸਦੀ ਰਫ਼ਤਾਰ ${sp(input.runningSpeed)} ਹੈ, ਪਰ ਠਹਿਰਾਅਾਂ ਨੂੰ ਸ਼ਾਮਲ ਕਰਨ ਤੋਂ ਬਾਅਦ ਔਸਤ ਰਫ਼ਤਾਰ ਸਿਰਫ਼ ${sp(input.overallSpeed)} ਰਹਿ ਜਾਂਦੀ ਹੈ। ਉਹ ਕੁੱਲ ਕਿੰਨੀ ਦੇਰ ਰੁਕਿਆ?`;
   }
 
   if (input.solveMode === "overallSpeedIncludingStops") {
     return hi
-      ? `${s} चलते समय ${sp(input.runningSpeed)} की गति से ${km(input.distance)} की दूरी तय करती है, जबकि यात्रा के दौरान वह कुल ${dur(input.totalStopTime, language)} रुकती है। ठहराव सहित औसत गति ज्ञात कीजिए।`
-      : `${s} ਚੱਲਣ ਸਮੇਂ ${sp(input.runningSpeed)} ਦੀ ਰਫ਼ਤਾਰ ਨਾਲ ${km(input.distance)} ਦੀ ਦੂਰੀ ਤੈਅ ਕਰਦੀ ਹੈ, ਜਦਕਿ ਸਫ਼ਰ ਦੌਰਾਨ ਉਹ ਕੁੱਲ ${dur(input.totalStopTime, language)} ਰੁਕਦੀ ਹੈ। ਠਹਿਰਾਅ ਸਮੇਤ ਔਸਤ ਰਫ਼ਤਾਰ ਕੱਢੋ।`;
+      ? `${s} चलते समय ${sp(input.runningSpeed)} की गति से ${km(input.distance)} की दूरी तय करता है, जबकि यात्रा के दौरान वह कुल ${dur(input.totalStopTime, language)} रुकता है। ठहराव सहित औसत गति ज्ञात कीजिए।`
+      : `${s} ਚੱਲਣ ਸਮੇਂ ${sp(input.runningSpeed)} ਦੀ ਰਫ਼ਤਾਰ ਨਾਲ ${km(input.distance)} ਦੀ ਦੂਰੀ ਤੈਅ ਕਰਦਾ ਹੈ, ਜਦਕਿ ਸਫ਼ਰ ਦੌਰਾਨ ਉਹ ਕੁੱਲ ${dur(input.totalStopTime, language)} ਰੁਕਦਾ ਹੈ। ਠਹਿਰਾਅ ਸਮੇਤ ਔਸਤ ਰਫ਼ਤਾਰ ਕੱਢੋ।`;
   }
 
   if (input.solveMode === "runningSpeedFromOverallSpeedAndStops") {
     return hi
-      ? `${s} ${km(input.distance)} की यात्रा में कुल ${dur(input.totalStopTime, language)} रुकती है। इन ठहरावों को शामिल करने के बाद उसकी औसत गति ${sp(input.overallSpeed)} है। चलते समय उसकी गति कितनी है?`
-      : `${s} ${km(input.distance)} ਦੇ ਸਫ਼ਰ ਵਿੱਚ ਕੁੱਲ ${dur(input.totalStopTime, language)} ਰੁਕਦੀ ਹੈ। ਇਨ੍ਹਾਂ ਠਹਿਰਾਅਾਂ ਨੂੰ ਸ਼ਾਮਲ ਕਰਨ ਤੋਂ ਬਾਅਦ ਉਸਦੀ ਔਸਤ ਰਫ਼ਤਾਰ ${sp(input.overallSpeed)} ਹੈ। ਚੱਲਣ ਸਮੇਂ ਉਸਦੀ ਰਫ਼ਤਾਰ ਕਿੰਨੀ ਹੈ?`;
+      ? `${s} ${km(input.distance)} की यात्रा में कुल ${dur(input.totalStopTime, language)} रुकता है। इन ठहरावों को शामिल करने के बाद उसकी औसत गति ${sp(input.overallSpeed)} है। चलते समय उसकी गति कितनी है?`
+      : `${s} ${km(input.distance)} ਦੇ ਸਫ਼ਰ ਵਿੱਚ ਕੁੱਲ ${dur(input.totalStopTime, language)} ਰੁਕਦਾ ਹੈ। ਇਨ੍ਹਾਂ ਠਹਿਰਾਅਾਂ ਨੂੰ ਸ਼ਾਮਲ ਕਰਨ ਤੋਂ ਬਾਅਦ ਉਸਦੀ ਔਸਤ ਰਫ਼ਤਾਰ ${sp(input.overallSpeed)} ਹੈ। ਚੱਲਣ ਸਮੇਂ ਉਸਦੀ ਰਫ਼ਤਾਰ ਕਿੰਨੀ ਹੈ?`;
   }
 
   if (input.solveMode === "restTimeInRepeatedTravelRestCycle") return renderObjectNeutralStem(source, language, stem);
 
   if (input.solveMode === "totalTimeWithRegularStops" && /\bif\b/u.test(english)) {
     return hi
-      ? `ठहरावों को छोड़कर यात्रा में ${dur(input.runningTime, language)} लगते हैं। यदि ${s} ${n(input.stopCount)} बार रुकती है और प्रत्येक ठहराव ${dur(input.stopDuration, language)} का है, तो रुकने सहित कुल यात्रा-समय कितना होगा?`
-      : `ਠਹਿਰਾਅਾਂ ਨੂੰ ਛੱਡ ਕੇ ਸਫ਼ਰ ਵਿੱਚ ${dur(input.runningTime, language)} ਲੱਗਦੇ ਹਨ। ਜੇ ${s} ${n(input.stopCount)} ਵਾਰ ਰੁਕਦੀ ਹੈ ਅਤੇ ਹਰ ਠਹਿਰਾਅ ${dur(input.stopDuration, language)} ਦਾ ਹੈ, ਤਾਂ ਠਹਿਰਾਅ ਸਮੇਤ ਕੁੱਲ ਸਫ਼ਰ-ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?`;
+      ? `ठहरावों को छोड़कर यात्रा में ${dur(input.runningTime, language)} लगते हैं। यदि ${s} ${n(input.stopCount)} बार रुकता है और प्रत्येक ठहराव ${dur(input.stopDuration, language)} का है, तो रुकने सहित कुल यात्रा-समय कितना होगा?`
+      : `ਠਹਿਰਾਅਾਂ ਨੂੰ ਛੱਡ ਕੇ ਸਫ਼ਰ ਵਿੱਚ ${dur(input.runningTime, language)} ਲੱਗਦੇ ਹਨ। ਜੇ ${s} ${n(input.stopCount)} ਵਾਰ ਰੁਕਦਾ ਹੈ ਅਤੇ ਹਰ ਠਹਿਰਾਅ ${dur(input.stopDuration, language)} ਦਾ ਹੈ, ਤਾਂ ਠਹਿਰਾਅ ਸਮੇਤ ਕੁੱਲ ਸਫ਼ਰ-ਸਮਾਂ ਕਿੰਨਾ ਹੋਵੇਗਾ?`;
   }
 
   if (input.solveMode === "speedChangePointDistance") {
     return hi
-      ? `${s ? `${s} ` : ""}${km(input.totalDistance)} की यात्रा ${dur(input.totalTravelTime, language)} में पूरी करती है। शुरुआत में गति ${sp(input.firstSpeed)} है और बाद में ${sp(input.secondSpeed)} हो जाती है। कितने km चलने के बाद गति बदलती है?`
-      : `${s ? `${s} ` : ""}${km(input.totalDistance)} ਦਾ ਸਫ਼ਰ ${dur(input.totalTravelTime, language)} ਵਿੱਚ ਪੂਰਾ ਕਰਦੀ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਰਫ਼ਤਾਰ ${sp(input.firstSpeed)} ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ${sp(input.secondSpeed)} ਹੋ ਜਾਂਦੀ ਹੈ। ਕਿੰਨੇ km ਤੈਅ ਕਰਨ ਤੋਂ ਬਾਅਦ ਰਫ਼ਤਾਰ ਬਦਲਦੀ ਹੈ?`;
+      ? `${s ? `${s} ` : ""}${km(input.totalDistance)} की यात्रा ${dur(input.totalTravelTime, language)} में पूरी करता है। शुरुआत में गति ${sp(input.firstSpeed)} है और बाद में ${sp(input.secondSpeed)} हो जाती है। कितने km चलने के बाद गति बदलती है?`
+      : `${s ? `${s} ` : ""}${km(input.totalDistance)} ਦਾ ਸਫ਼ਰ ${dur(input.totalTravelTime, language)} ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਰਫ਼ਤਾਰ ${sp(input.firstSpeed)} ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ${sp(input.secondSpeed)} ਹੋ ਜਾਂਦੀ ਹੈ। ਕਿੰਨੇ km ਤੈਅ ਕਰਨ ਤੋਂ ਬਾਅਦ ਰਫ਼ਤਾਰ ਬਦਲਦੀ ਹੈ?`;
   }
 
   if (input.solveMode === "lostTimeDurationFromScheduleRecovery") {
     return hi
-      ? `समय गंवाने के बाद ${s} के पास ${km(input.remainingDistance)} की दूरी शेष है। वह सामान्यतः यह दूरी ${sp(input.usualSpeed)} से तय करती है, लेकिन अब ${sp(input.recoverySpeed)} से चलने पर भी ${dur(input.finalArrivalDelay, language)} देर से पहुँचती है। शुरू में कितना समय गंवाया गया था?`
-      : `ਸਮਾਂ ਗੁਆਉਣ ਤੋਂ ਬਾਅਦ ${s} ਕੋਲ ${km(input.remainingDistance)} ਦੀ ਦੂਰੀ ਬਾਕੀ ਹੈ। ਉਹ ਆਮ ਤੌਰ ਉੱਤੇ ਇਹ ਦੂਰੀ ${sp(input.usualSpeed)} ਨਾਲ ਤੈਅ ਕਰਦੀ ਹੈ, ਪਰ ਹੁਣ ${sp(input.recoverySpeed)} ਨਾਲ ਚੱਲਣ ਦੇ ਬਾਵਜੂਦ ${dur(input.finalArrivalDelay, language)} ਦੇਰ ਨਾਲ ਪਹੁੰਚਦੀ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਗੁਆਇਆ ਗਿਆ ਸੀ?`;
+      ? `${contextBeforeLoss(source, language)} ${a} के पास ${km(input.remainingDistance)} की दूरी शेष है। वह सामान्यतः यह दूरी ${sp(input.usualSpeed)} से तय करता है, लेकिन अब ${sp(input.recoverySpeed)} से चलने पर भी ${dur(input.finalArrivalDelay, language)} देर से पहुँचता है। शुरू में कितना समय गंवाया गया था?`
+      : `${contextBeforeLoss(source, language)} ${a} ਕੋਲ ${km(input.remainingDistance)} ਦੀ ਦੂਰੀ ਬਾਕੀ ਹੈ। ਉਹ ਆਮ ਤੌਰ ਉੱਤੇ ਇਹ ਦੂਰੀ ${sp(input.usualSpeed)} ਨਾਲ ਤੈਅ ਕਰਦਾ ਹੈ, ਪਰ ਹੁਣ ${sp(input.recoverySpeed)} ਨਾਲ ਚੱਲਣ ਦੇ ਬਾਵਜੂਦ ${dur(input.finalArrivalDelay, language)} ਦੇਰ ਨਾਲ ਪਹੁੰਚਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਗੁਆਇਆ ਗਿਆ ਸੀ?`;
   }
 
   if (input.solveMode === "startTimeShiftForSameArrival") {
@@ -328,16 +352,16 @@ function renderSemanticSentenceParity(source: TsdCp003EnglishFrozenRecord, stem:
     const directionHi = faster ? "बाद" : "पहले";
     const directionPa = faster ? "ਬਾਅਦ" : "ਪਹਿਲਾਂ";
     return hi
-      ? `${s} ${km(input.distance)} की यात्रा करती है। यदि उसकी गति ${sp(input.originalSpeed)} से बदलकर ${sp(input.newSpeed)} हो जाए लेकिन पहुँचने का समय वही रखना हो, तो उसे कितनी देर ${directionHi} चलना शुरू करना चाहिए?`
-      : `${s} ${km(input.distance)} ਦਾ ਸਫ਼ਰ ਕਰਦੀ ਹੈ। ਜੇ ਉਸਦੀ ਰਫ਼ਤਾਰ ${sp(input.originalSpeed)} ਤੋਂ ਬਦਲ ਕੇ ${sp(input.newSpeed)} ਹੋ ਜਾਵੇ ਪਰ ਪਹੁੰਚਣ ਦਾ ਸਮਾਂ ਉਹੀ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਉਸਨੂੰ ਕਿੰਨੀ ਦੇਰ ${directionPa} ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?`;
+      ? `${s} ${km(input.distance)} की यात्रा करता है। यदि उसकी गति ${sp(input.originalSpeed)} से बदलकर ${sp(input.newSpeed)} हो जाए लेकिन पहुँचने का समय वही रखना हो, तो उसे कितनी देर ${directionHi} चलना शुरू करना चाहिए?`
+      : `${s} ${km(input.distance)} ਦਾ ਸਫ਼ਰ ਕਰਦਾ ਹੈ। ਜੇ ਉਸਦੀ ਰਫ਼ਤਾਰ ${sp(input.originalSpeed)} ਤੋਂ ਬਦਲ ਕੇ ${sp(input.newSpeed)} ਹੋ ਜਾਵੇ ਪਰ ਪਹੁੰਚਣ ਦਾ ਸਮਾਂ ਉਹੀ ਰੱਖਣਾ ਹੋਵੇ, ਤਾਂ ਉਸਨੂੰ ਕਿੰਨੀ ਦੇਰ ${directionPa} ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?`;
   }
 
   if (input.solveMode === "arrivalShiftFromDepartureAndSpeedChanges") {
     if (s === null) return renderObjectNeutralStem(source, language, stem);
     const instead = /\binstead\b/u.test(english);
     return hi
-      ? `${s} सामान्यतः ${km(input.distance)} की दूरी ${sp(input.originalSpeed)} से तय करती है। दूसरे दिन वह ${departureShiftText(input.departureShift, language)} चलना शुरू करती है और ${instead ? `${sp(input.originalSpeed)} के बजाय ` : ""}${sp(input.newSpeed)} से चलती है। आगमन-समय में परिवर्तन की मात्रा ज्ञात कीजिए।`
-      : `${s} ਆਮ ਤੌਰ ਉੱਤੇ ${km(input.distance)} ਦੀ ਦੂਰੀ ${sp(input.originalSpeed)} ਨਾਲ ਤੈਅ ਕਰਦੀ ਹੈ। ਦੂਜੇ ਦਿਨ ਉਹ ${departureShiftText(input.departureShift, language)} ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ ਅਤੇ ${instead ? `${sp(input.originalSpeed)} ਦੀ ਥਾਂ ` : ""}${sp(input.newSpeed)} ਨਾਲ ਚੱਲਦੀ ਹੈ। ਪਹੁੰਚਣ ਦੇ ਸਮੇਂ ਵਿੱਚ ਬਦਲਾਅ ਦੀ ਮਾਤਰਾ ਕੱਢੋ।`;
+      ? `${s} सामान्यतः ${km(input.distance)} की दूरी ${sp(input.originalSpeed)} से तय करता है। दूसरे दिन वह ${departureShiftText(input.departureShift, language)} चलना शुरू करता है और ${instead ? `${sp(input.originalSpeed)} के बजाय ` : ""}${sp(input.newSpeed)} से चलता है। आगमन-समय में परिवर्तन की मात्रा ज्ञात कीजिए।`
+      : `${s} ਆਮ ਤੌਰ ਉੱਤੇ ${km(input.distance)} ਦੀ ਦੂਰੀ ${sp(input.originalSpeed)} ਨਾਲ ਤੈਅ ਕਰਦਾ ਹੈ। ਦੂਜੇ ਦਿਨ ਉਹ ${departureShiftText(input.departureShift, language)} ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ ਅਤੇ ${instead ? `${sp(input.originalSpeed)} ਦੀ ਥਾਂ ` : ""}${sp(input.newSpeed)} ਨਾਲ ਚੱਲਦਾ ਹੈ। ਪਹੁੰਚਣ ਦੇ ਸਮੇਂ ਵਿੱਚ ਬਦਲਾਅ ਦੀ ਮਾਤਰਾ ਕੱਢੋ।`;
   }
 
   return stem;
