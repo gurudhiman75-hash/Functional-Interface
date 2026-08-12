@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import {
   generateNumCp001Wave01Sweep,
   NUM_CP001_WAVE01_PROTOTYPE_IDS,
-} from "./runtime";
+} from "./runtime-authority";
 
 const PACKAGES_PER_PROTOTYPE = 60;
 const packages = generateNumCp001Wave01Sweep(PACKAGES_PER_PROTOTYPE);
