@@ -1,6 +1,6 @@
 # RNK-CP-006 — Equality-Aware Ranking
 
-Status: **RAW DISCOVERY ACTIVE — SOURCE-BACKED — no permanent QL allocated**
+Status: **RAW DISCOVERY PASSED — EDITORIAL V2 UNDER VALIDATION — no permanent QL allocated**
 
 CP-006 covers ordinary ranking comparisons in which explicit evidence places two people at the **same comparison level**.
 
@@ -48,7 +48,7 @@ Version:
 RNK_CP006_EQUALITY_DISCOVERY_V1
 ```
 
-Source forms:
+Raw source forms:
 
 ```text
 EQUAL_PAIR_IDENTIFICATION
@@ -57,72 +57,137 @@ ENDPOINT_ENTITY_WITH_INTERNAL_TIE
 COMPLETE_WEAK_ORDER
 ```
 
-Generation target:
+Validated raw corpus:
 
 ```text
 32 questions/source form
 4 source forms
-128 raw discovery questions
+128 questions
+answer positions/source form: 8 / 8 / 8 / 8
+overall answer positions:    32 / 32 / 32 / 32
+contexts: 5
+unique mathematical fingerprints: 128
 ```
 
-Contexts:
-
-```text
-HEIGHT
-SCORES
-SPEED
-SENIORITY
-PERFORMANCE
-```
+Raw executable checks included 256 equality checks, 3,658 strict comparison checks, 639 rendered-clue checks and independent rejection of all 96 complete-order distractors.
 
 V1 deliberately uses one internal two-person equality class per state. Larger or multiple tie groups remain later discovery candidates rather than being assumed safe now.
 
-## Raw validity gates
+## Raw self-review decision
 
-Every question must prove:
+See `RNK-CP-006-RAW-SELF-REVIEW-V1.md`.
 
-- 5–7 distinct entities;
-- every entity appears in exactly one equivalence class;
-- exactly one equality class of size two;
-- equality class is internal, preserving unique top and bottom endpoints;
-- equality is symmetric within the class;
-- strict order is complete between different classes;
-- displayed equality and strict clues are all true of the hidden state;
-- four unique options;
-- exactly one independently correct option;
-- stored correct index agrees with independent state evaluation;
-- answer-position balance is checked per source form;
-- semantic fingerprints are unique in the raw corpus;
-- no Seating Arrangement geometry leaks in;
-- no unstated competition/dense/fractional ranking convention leaks in;
-- all lifecycle gates remain off.
+The raw mathematical corpus passed, but the first editorial rendering was **not** accepted unchanged.
 
-## Human review pack
-
-A deterministic 24-question pack is generated after the raw gates:
+### Rejected
 
 ```text
-6 questions/source form
-24 total questions
+EQUAL_PAIR_IDENTIFICATION
+```
+
+Reason: the stem asks for the equal pair while the equality clue already names that pair. This is direct clue lookup, not a worthwhile permanent solve contract.
+
+### Remodeled
+
+The original pair and endpoint forms included an equality clue, but the strict chain could sometimes enter and leave the tied level through the same person. The equality fact could therefore be decorative.
+
+Editorial V2 enforces the stronger structure:
+
+```text
+A > B
+B = C
+C > D
+```
+
+rather than:
+
+```text
+A > B
+B = C
+B > D
+```
+
+Required executable invariant:
+
+```text
+path(top, bottom | strict clues only) = false
+path(top, bottom | strict clues + equality) = true
+```
+
+## Editorial V2
+
+Version:
+
+```text
+RNK_CP006_EQUALITY_EDITORIAL_V2
+```
+
+Three surviving forms are under validation:
+
+```text
+PAIR_RELATION_THROUGH_EQUALITY
+ENDPOINT_ENTITY_THROUGH_EQUALITY
+COMPLETE_WEAK_ORDER
+```
+
+Target V2 corpus:
+
+```text
+48 questions/source form
+144 questions total
+answer positions/source form: 12 / 12 / 12 / 12
+all five contexts/source form
+```
+
+Additional V2 requirements:
+
+- equality bridge is mathematically necessary in every state;
+- no direct equality-lookup answer survives;
+- pair questions split between local bridge and full-chain proofs;
+- pair direction is balanced;
+- endpoint questions split highest/lowest evenly;
+- complete-order distractors test split ties, wrong strict order or false equality grouping;
+- difficulty comes from proof span/entity count rather than merely clue count;
+- no Seating Arrangement geometry;
+- no symbolic Inequalities takeover;
+- no numeric post-tie ranking convention;
+- all lifecycle gates remain off.
+
+## Ownership is still unresolved
+
+Editorial survival does **not** imply three new QLs.
+
+The next audit must compare:
+
+```text
+PAIR_RELATION_THROUGH_EQUALITY
+  vs RNK-QL-031 RELATIVE_ORDER_OF_PAIR
+
+ENDPOINT_ENTITY_THROUGH_EQUALITY
+  vs RNK-QL-027 ENDPOINT_ENTITY
+
+COMPLETE_WEAK_ORDER
+  vs RNK-QL-030 COMPLETE_ORDER
+```
+
+The endpoint form is especially likely to be a state-contract extension rather than a standalone new authority. No decision is pre-allocated.
+
+## V2 human review pack
+
+After executable V2 validation, CI generates:
+
+```text
+24 questions
+8 questions/source form
 answer positions: 6 / 6 / 6 / 6
 all five contexts inside every source form
 ```
 
-The human review must decide whether the four source forms really deserve separate authorities.
-
-Particular merge question:
-
-```text
-ENDPOINT_ENTITY_WITH_INTERNAL_TIE
-```
-
-may be only a state extension of frozen CP-004 endpoint ownership rather than a new permanent QL.
-
-Likewise equal-pair, pair-relation and complete-weak-order forms may consolidate based on proof and answer semantics.
+The pack is specifically for editorial and merge/split review before any production-scale candidate exists.
 
 ## Numeric tie-rank convention
 
-Not implemented in V1.
+Not implemented.
 
 Questions such as:
 
