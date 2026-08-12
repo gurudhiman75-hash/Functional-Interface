@@ -71,10 +71,43 @@ const OBJECT_PATTERNS: readonly Readonly<{
   Object.freeze({ key: "BUS", english: /\bbus\b/iu, hi: "बस", pa: "ਬੱਸ" }),
 ]);
 
-const HI_ACTOR = /(?:एक\s+)?(?:डिलीवरी वाहन|डिलीवरी वैन|स्कूल बस|वाहन|कोच|ट्रक|टैक्सी|कार|बस)/gu;
-const PA_ACTOR = /(?:ਇੱਕ\s+)?(?:ਡਿਲਿਵਰੀ ਵਾਹਨ|ਡਿਲਿਵਰੀ ਵੈਨ|ਸਕੂਲ ਬੱਸ|ਵਾਹਨ|ਕੋਚ|ਟਰੱਕ|ਟੈਕਸੀ|ਕਾਰ|ਬੱਸ)/gu;
-const HI_INTRODUCED_ACTOR = /(?:डिलीवरी वाहन|डिलीवरी वैन|स्कूल बस|वाहन|कोच|ट्रक|टैक्सी|कार|बस|यात्री|व्यक्ति)/u;
-const PA_INTRODUCED_ACTOR = /(?:ਡਿਲਿਵਰੀ ਵਾਹਨ|ਡਿਲਿਵਰੀ ਵੈਨ|ਸਕੂਲ ਬੱਸ|ਵਾਹਨ|ਕੋਚ|ਟਰੱਕ|ਟੈਕਸੀ|ਕਾਰ|ਬੱਸ|ਯਾਤਰੀ|ਵਿਅਕਤੀ)/u;
+const ACTOR_PHRASES = Object.freeze({
+  hi: Object.freeze([
+    "एक डिलीवरी वाहन",
+    "एक डिलीवरी वैन",
+    "एक स्कूल बस",
+    "एक वाहन",
+    "एक कोच",
+    "एक ट्रक",
+    "एक टैक्सी",
+    "एक कार",
+    "एक बस",
+  ]),
+  pa: Object.freeze([
+    "ਇੱਕ ਡਿਲਿਵਰੀ ਵਾਹਨ",
+    "ਇੱਕ ਡਿਲਿਵਰੀ ਵੈਨ",
+    "ਇੱਕ ਸਕੂਲ ਬੱਸ",
+    "ਇੱਕ ਵਾਹਨ",
+    "ਇੱਕ ਕੋਚ",
+    "ਇੱਕ ਟਰੱਕ",
+    "ਇੱਕ ਟੈਕਸੀ",
+    "ਇੱਕ ਕਾਰ",
+    "ਇੱਕ ਬੱਸ",
+  ]),
+} as const);
+
+const GENERIC_CONTEXT_NOUNS = Object.freeze({
+  hi: Object.freeze(["वाहन", "कोच", "ट्रक"]),
+  pa: Object.freeze(["ਵਾਹਨ", "ਕੋਚ", "ਟਰੱਕ"]),
+} as const);
+
+const FEMININE_OBJECTS = new Set<TsdCp003SourceObjectKey>([
+  "DELIVERY_VAN",
+  "SCHOOL_BUS",
+  "TAXI",
+  "CAR",
+  "BUS",
+]);
 
 const n = (value: Rational): string => formatExamNumber(value);
 const km = (value: Rational): string => `${n(value)} km`;
@@ -95,13 +128,6 @@ export function cp003ExpectedNativeObject(
   const entry = OBJECT_PATTERNS.find((candidate) => candidate.key === key);
   if (!entry) throw new Error(`Unknown CP-003 source object key: ${key}`);
   return language === "hi" ? entry.hi : entry.pa;
-}
-
-export function cp003NativeStemHasIntroducedActor(
-  stem: string,
-  language: TsdCp003NativeLanguage,
-): boolean {
-  return language === "hi" ? HI_INTRODUCED_ACTOR.test(stem) : PA_INTRODUCED_ACTOR.test(stem);
 }
 
 function targetText(
@@ -184,6 +210,69 @@ function renderObjectNeutralStem(
   }
 }
 
+function replaceContextActor(
+  nativeStem: string,
+  expectedObject: string,
+  language: TsdCp003NativeLanguage,
+): string {
+  const article = language === "hi" ? "एक" : "ਇੱਕ";
+  const replacementWithArticle = `${article} ${expectedObject}`;
+  let aligned = nativeStem;
+  let replaced = false;
+
+  for (const phrase of ACTOR_PHRASES[language]) {
+    if (!aligned.includes(phrase)) continue;
+    aligned = aligned.split(phrase).join(replacementWithArticle);
+    replaced = true;
+  }
+
+  for (const noun of GENERIC_CONTEXT_NOUNS[language]) {
+    if (!aligned.includes(noun)) continue;
+    aligned = aligned.split(noun).join(expectedObject);
+    replaced = true;
+  }
+
+  if (!replaced) aligned = `${replacementWithArticle} ${aligned}`;
+
+  if (language === "hi") {
+    aligned = aligned.replace(`${replacementWithArticle} कितनी बार`, "वह कितनी बार");
+  } else {
+    aligned = aligned.replace(`${replacementWithArticle} ਕਿੰਨੀ ਵਾਰ`, "ਉਹ ਕਿੰਨੀ ਵਾਰ");
+  }
+  return aligned;
+}
+
+function applyObjectAgreement(
+  stem: string,
+  key: TsdCp003SourceObjectKey,
+  language: TsdCp003NativeLanguage,
+): string {
+  if (!FEMININE_OBJECTS.has(key)) return stem;
+  const replacements: readonly (readonly [string, string])[] = language === "hi"
+    ? [
+      ["तय करता है", "तय करती है"],
+      ["पहुँचता है", "पहुँचती है"],
+      ["चलना शुरू करता है", "चलना शुरू करती है"],
+      ["रुकता है", "रुकती है"],
+      ["चलता है", "चलती है"],
+      ["रुका?", "रुकी?"],
+      ["रुका।", "रुकी।"],
+    ]
+    : [
+      ["ਤੈਅ ਕਰਦਾ ਹੈ", "ਤੈਅ ਕਰਦੀ ਹੈ"],
+      ["ਪਹੁੰਚਦਾ ਹੈ", "ਪਹੁੰਚਦੀ ਹੈ"],
+      ["ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ", "ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ"],
+      ["ਰੁਕਦਾ ਹੈ", "ਰੁਕਦੀ ਹੈ"],
+      ["ਚੱਲਦਾ ਹੈ", "ਚੱਲਦੀ ਹੈ"],
+      ["ਰੁਕਿਆ?", "ਰੁਕੀ?"],
+      ["ਰੁਕਿਆ।", "ਰੁਕੀ।"],
+    ];
+
+  let agreed = stem;
+  for (const [from, to] of replacements) agreed = agreed.split(from).join(to);
+  return agreed;
+}
+
 function alignStemObjectWithEnglish(
   source: TsdCp003EnglishFrozenRecord,
   nativeStem: string,
@@ -197,13 +286,11 @@ function alignStemObjectWithEnglish(
   }
 
   const expectedObject = cp003ExpectedNativeObject(sourceObject, language);
-  const actorPattern = language === "hi" ? HI_ACTOR : PA_ACTOR;
-  actorPattern.lastIndex = 0;
-  const article = language === "hi" ? "एक" : "ਇੱਕ";
-  const replacement = `${article} ${expectedObject}`;
-  const aligned = actorPattern.test(nativeStem)
-    ? nativeStem.replace(actorPattern, replacement)
-    : `${replacement} ${nativeStem}`;
+  const aligned = applyObjectAgreement(
+    replaceContextActor(nativeStem, expectedObject, language),
+    sourceObject,
+    language,
+  );
   assertTsdCp003NativeText(aligned, language, `${source.questionLanguageId}/object-aligned-stem`);
   return aligned;
 }
