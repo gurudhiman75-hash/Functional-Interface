@@ -104,6 +104,23 @@ export function naturalizeProbabilityExplanationBody(
     );
   }
 
+  m = value.match(/^There are (\d+) lottery tickets in all, and (\d+) are prize-winning\.$/u);
+  if (m) return pick(language, `कुल ${m[1]} लॉटरी टिकट हैं, जिनमें से ${m[2]} इनाम वाले हैं।`, `ਕੁੱਲ ${m[1]} ਲਾਟਰੀ ਟਿਕਟ ਹਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ ${m[2]} ਇਨਾਮ ਵਾਲੇ ਹਨ।`);
+
+  m = value.match(/^The batch has (\d+) bulbs, of which (\d+) are defective\.$/u);
+  if (m) return pick(language, `बैच में कुल ${m[1]} बल्ब हैं, जिनमें से ${m[2]} खराब हैं।`, `ਬੈਚ ਵਿੱਚ ਕੁੱਲ ${m[1]} ਬਲਬ ਹਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ ${m[2]} ਖਰਾਬ ਹਨ।`);
+
+  m = value.match(/^The shelf has (\d+) books, of which (\d+) are Mathematics books\.$/u);
+  if (m) return pick(language, `शेल्फ पर कुल ${m[1]} किताबें हैं, जिनमें से ${m[2]} गणित की किताबें हैं।`, `ਸ਼ੈਲਫ਼ ਉੱਤੇ ਕੁੱਲ ${m[1]} ਕਿਤਾਬਾਂ ਹਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ ${m[2]} ਗਣਿਤ ਦੀਆਂ ਕਿਤਾਬਾਂ ਹਨ।`);
+
+  m = value.match(/^The bag has (\d+) balls altogether\. (\d+) of them are (red|blue|green)\.$/u);
+  if (m) {
+    const c = colour(language, m[3]);
+    return language === "hi"
+      ? `बैग में कुल ${m[1]} गेंदें हैं। उनमें से ${m[2]} ${c} हैं।`
+      : `ਬੈਗ ਵਿੱਚ ਕੁੱਲ ${m[1]} ਗੇਂਦਾਂ ਹਨ। ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ ${m[2]} ${c} ਹਨ।`;
+  }
+
   m = value.match(/^The (bag|jar|box|pouch) (?:has|contains) (\d+) (balls|marbles|pens|coloured stones), of which (\d+) are (red|blue|green)\.$/iu);
   if (m) {
     const containerHi: Record<string, string> = { bag: "बैग", jar: "जार", box: "बॉक्स", pouch: "पाउच" };
@@ -113,6 +130,37 @@ export function naturalizeProbabilityExplanationBody(
     return language === "hi"
       ? `${containerHi[m[1].toLowerCase()]} में कुल ${m[2]} ${object.plural} हैं, जिनमें से ${m[4]} ${c} हैं।`
       : `${containerPa[m[1].toLowerCase()]} ਵਿੱਚ ਕੁੱਲ ${m[2]} ${object.plural} ਹਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ ${m[4]} ${c} ਹਨ।`;
+  }
+
+  m = value.match(/^(Prize-winning tickets|Defective bulbs|Qualified candidates|Female employees|Male employees|Red balls|Approved applications|Successful applications|Red coloured stones) make up (.+) of all (\d+) (tickets|bulbs|candidates|employees|balls|applications|coloured stones)\.$/u);
+  if (m) {
+    const hiSubject = {
+      "Prize-winning tickets": "इनाम वाले टिकट",
+      "Defective bulbs": "खराब बल्ब",
+      "Qualified candidates": "योग्य अभ्यर्थी",
+      "Female employees": "महिला कर्मचारी",
+      "Male employees": "पुरुष कर्मचारी",
+      "Red balls": "लाल गेंदें",
+      "Approved applications": "स्वीकृत आवेदन",
+      "Successful applications": "सफल आवेदन",
+      "Red coloured stones": "लाल रंगीन पत्थर",
+    }[m[1]];
+    const paSubject = {
+      "Prize-winning tickets": "ਇਨਾਮ ਵਾਲੇ ਟਿਕਟ",
+      "Defective bulbs": "ਖਰਾਬ ਬਲਬ",
+      "Qualified candidates": "ਯੋਗ ਉਮੀਦਵਾਰ",
+      "Female employees": "ਮਹਿਲਾ ਕਰਮਚਾਰੀ",
+      "Male employees": "ਪੁਰਸ਼ ਕਰਮਚਾਰੀ",
+      "Red balls": "ਲਾਲ ਗੇਂਦਾਂ",
+      "Approved applications": "ਮਨਜ਼ੂਰ ਅਰਜ਼ੀਆਂ",
+      "Successful applications": "ਸਫਲ ਅਰਜ਼ੀਆਂ",
+      "Red coloured stones": "ਲਾਲ ਰੰਗੀਨ ਪੱਥਰ",
+    }[m[1]];
+    const hiTotal = { tickets: "टिकटों", bulbs: "बल्बों", candidates: "अभ्यर्थियों", employees: "कर्मचारियों", balls: "गेंदों", applications: "आवेदनों", "coloured stones": "रंगीन पत्थरों" }[m[4]];
+    const paTotal = { tickets: "ਟਿਕਟਾਂ", bulbs: "ਬਲਬਾਂ", candidates: "ਉਮੀਦਵਾਰਾਂ", employees: "ਕਰਮਚਾਰੀਆਂ", balls: "ਗੇਂਦਾਂ", applications: "ਅਰਜ਼ੀਆਂ", "coloured stones": "ਰੰਗੀਨ ਪੱਥਰਾਂ" }[m[4]];
+    return language === "hi"
+      ? `कुल ${m[3]} ${hiTotal} में ${hiSubject} का भाग ${m[2]} है।`
+      : `ਕੁੱਲ ${m[3]} ${paTotal} ਵਿੱਚ ${paSubject} ਦਾ ਹਿੱਸਾ ${m[2]} ਹੈ।`;
   }
 
   m = value.match(/^(Female|Male) employees make up (.+) of all (\d+) employees\.$/u);
@@ -413,6 +461,24 @@ export function naturalizeProbabilityExplanationBody(
 
   if (value === "Both possible colour orders must be included because the draws are successive.") {
     return pick(language, "चयन क्रमिक हैं, इसलिए रंगों के दोनों संभावित क्रम शामिल करने होंगे।", "ਚੋਣਾਂ ਲਗਾਤਾਰ ਹਨ, ਇਸ ਲਈ ਰੰਗਾਂ ਦੇ ਦੋਵੇਂ ਸੰਭਵ ਕ੍ਰਮ ਸ਼ਾਮਲ ਕਰਨੇ ਪੈਣਗੇ।");
+  }
+
+  m = value.match(/^(\d+) (prize-winning|defective|qualified|female|red|approved|successful) (tickets|bulbs|candidates|employees|applications|balls|people) represent (.+) of the full group\.$/u);
+  if (m) {
+    const hiDescription = { "prize-winning": "इनाम वाले", defective: "खराब", qualified: "योग्य", female: "महिला", red: "लाल", approved: "स्वीकृत", successful: "सफल" }[m[2]];
+    const paDescription = { "prize-winning": "ਇਨਾਮ ਵਾਲੇ", defective: "ਖਰਾਬ", qualified: "ਯੋਗ", female: "ਮਹਿਲਾ", red: "ਲਾਲ", approved: "ਮਨਜ਼ੂਰ", successful: "ਸਫਲ" }[m[2]];
+    const hiNoun = { tickets: "टिकट", bulbs: "बल्ब", candidates: "अभ्यर्थी", employees: "कर्मचारी", applications: "आवेदन", balls: "गेंदें", people: "लोग" }[m[3]];
+    const paNoun = { tickets: "ਟਿਕਟ", bulbs: "ਬਲਬ", candidates: "ਉਮੀਦਵਾਰ", employees: "ਕਰਮਚਾਰੀ", applications: "ਅਰਜ਼ੀਆਂ", balls: "ਗੇਂਦਾਂ", people: "ਲੋਕ" }[m[3]];
+    return language === "hi"
+      ? `${m[1]} ${hiDescription} ${hiNoun} पूरे समूह का ${m[4]} भाग हैं।`
+      : `${m[1]} ${paDescription} ${paNoun} ਪੂਰੇ ਸਮੂਹ ਦਾ ${m[4]} ਹਿੱਸਾ ਹਨ।`;
+  }
+
+  m = value.match(/^Total (tickets|bulbs|candidates|employees|applications|balls|people) = (.+)\.$/u);
+  if (m) {
+    const hiNoun = { tickets: "टिकट", bulbs: "बल्ब", candidates: "अभ्यर्थी", employees: "कर्मचारी", applications: "आवेदन", balls: "गेंदें", people: "लोग" }[m[1]];
+    const paNoun = { tickets: "ਟਿਕਟ", bulbs: "ਬਲਬ", candidates: "ਉਮੀਦਵਾਰ", employees: "ਕਰਮਚਾਰੀ", applications: "ਅਰਜ਼ੀਆਂ", balls: "ਗੇਂਦਾਂ", people: "ਲੋਕ" }[m[1]];
+    return language === "hi" ? `कुल ${hiNoun} = ${m[2]}।` : `ਕੁੱਲ ${paNoun} = ${m[2]}।`;
   }
 
   if (value === "Use the complement: at least one red ball fails only when both selected balls are blue.") {
