@@ -10,10 +10,13 @@ let sourceLabelOccurrenceCount = 0;
 let localizedSurfaceCount = 0;
 
 for (const entry of listProbabilityMl05QlEntries()) {
-  const seed = `native-math-label-runtime:${entry.qlId}`;
+  // Reuse the canonical ML-05 parity seed so this gate tests native presentation only;
+  // English source validity is already owned and proven by multilingual-runtime.test.ts.
+  const seed = `ml05-parity:${entry.qlId}`;
   const source = entry.packageId === "PRB-001"
     ? runPrb001Pipeline(entry.cpId as any, { questionLanguageId: entry.qlId, seed })
     : runPrb002Pipeline(entry.cpId as any, { questionLanguageId: entry.qlId, seed });
+  assert(source.validation.valid, `${entry.qlId}: canonical ML-05 English source must validate`);
   const english = source.explanation.lines.join("\n");
   const sourceLabels = labels.filter((label) => english.includes(`P\\!\\left(${label}\\right)`));
   sourceLabelOccurrenceCount += sourceLabels.length;
