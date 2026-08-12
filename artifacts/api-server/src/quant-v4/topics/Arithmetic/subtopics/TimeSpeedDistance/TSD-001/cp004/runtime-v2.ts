@@ -1,6 +1,7 @@
 import { TSD_CP004_AUTHORITIES } from "./authority";
-import { buildCp004EditorialV2Visual, polishCp004EditorialV2Options, renderCp004EnglishEditorialV2Stem } from "./editorial-v2";
+import { polishCp004EditorialV2Options, renderCp004EnglishEditorialV2Stem } from "./editorial-v2";
 import { generateCp004FinalEnglishQuestion } from "./runtime-final";
+import { buildCp004FaithfulVisualV2 } from "./visual-v2";
 import type { TsdCp004AuthorityId } from "./authority";
 import type { TsdCp004Question } from "./types";
 import { verifyCp004 } from "./verifier";
@@ -11,9 +12,7 @@ function validateV2(q: TsdCp004Question): void {
   if (q.options[q.correctIndex] !== q.solution.answerText) throw new Error(`CP004 V2 correct option parity failed: ${q.authorityId}/${q.seed}`);
   const verification = verifyCp004(q.state, q.solution);
   if (!verification.valid) throw new Error(`CP004 V2 verifier failed: ${verification.errors.join("; ")}`);
-  if (q.permanentQlId !== null || q.questionStudioDiscoverable || q.questionBankStatus !== "NOT_STORED" || q.testEligibility !== "INELIGIBLE" || q.publiclyPublishable) {
-    throw new Error("CP004 V2 lifecycle lock failed");
-  }
+  if (q.permanentQlId !== null || q.questionStudioDiscoverable || q.questionBankStatus !== "NOT_STORED" || q.testEligibility !== "INELIGIBLE" || q.publiclyPublishable) throw new Error("CP004 V2 lifecycle lock failed");
 }
 
 export function generateCp004EditorialV2EnglishQuestion(authorityId: TsdCp004AuthorityId, seed: string): TsdCp004Question {
@@ -23,7 +22,7 @@ export function generateCp004EditorialV2EnglishQuestion(authorityId: TsdCp004Aut
   const q: TsdCp004Question = Object.freeze({
     ...base,
     stem: renderCp004EnglishEditorialV2Stem(base),
-    visual: buildCp004EditorialV2Visual(base.state, "en"),
+    visual: buildCp004FaithfulVisualV2(base.state, "en"),
     options,
     optionAudit,
   });
@@ -33,20 +32,11 @@ export function generateCp004EditorialV2EnglishQuestion(authorityId: TsdCp004Aut
 
 export function generateCp004EditorialV2StressCorpus(seedsPerAuthority = 50): readonly TsdCp004Question[] {
   const rows: TsdCp004Question[] = [];
-  for (const authority of TSD_CP004_AUTHORITIES) {
-    for (let i = 0; i < seedsPerAuthority; i += 1) {
-      rows.push(generateCp004EditorialV2EnglishQuestion(authority.authorityId, `cp004-v2-${authority.authorityId.toLowerCase()}-${String(i + 1).padStart(3, "0")}`));
-    }
-  }
+  for (const authority of TSD_CP004_AUTHORITIES) for (let i = 0; i < seedsPerAuthority; i += 1) rows.push(generateCp004EditorialV2EnglishQuestion(authority.authorityId, `cp004-v2-${authority.authorityId.toLowerCase()}-${String(i + 1).padStart(3, "0")}`));
   return Object.freeze(rows);
 }
 
-function findReviewRow(
-  authorityId: TsdCp004AuthorityId,
-  variant: number,
-  usedMath: Set<string>,
-  usedActors: Set<string>,
-): TsdCp004Question {
+function findReviewRow(authorityId: TsdCp004AuthorityId, variant: number, usedMath: Set<string>, usedActors: Set<string>): TsdCp004Question {
   let mathFallback: TsdCp004Question | null = null;
   for (let i = variant; i < 3000; i += 3) {
     const q = generateCp004EditorialV2EnglishQuestion(authorityId, `cp004-v2-review-${authorityId.toLowerCase()}-${i}`);
