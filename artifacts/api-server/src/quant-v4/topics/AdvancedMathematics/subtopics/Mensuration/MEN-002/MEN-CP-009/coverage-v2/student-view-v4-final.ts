@@ -71,6 +71,12 @@ export function buildMenCp009StudentViewV4Final(
       lines[3] = `Now include the polishing rate: cost = (2 × ${p} × ${r}²) × ${rate} = ${view.answer}.`;
       break;
     }
+    case "SPHERE_HEMISPHERE_MEASURE_RATIO": {
+      lines[2] = /volume/i.test(view.stem)
+        ? "4/3 × πr³ : 2/3 × πr³ = 2:1."
+        : "4πr² : 3πr² = 4:3.";
+      break;
+    }
   }
 
   return { ...view, explanationLines: lines };
