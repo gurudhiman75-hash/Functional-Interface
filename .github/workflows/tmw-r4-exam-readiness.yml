@@ -49,10 +49,12 @@ jobs:
           --types node
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/learner-explanation-r4-exam-readiness.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp012-coverage-closure-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-exam-readiness.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-cp001-cp006-source-regression.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-cp007-cp011-source-regression.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-stem-readiness.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp012-coverage-closure.test.ts
       - name: Bundle R4 full-chapter proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -107,6 +109,17 @@ jobs:
           --outfile=dist/quant-v4/tmw-001-multilingual-r4-regression.test.mjs
       - name: Run multilingual parity regression
         run: node artifacts/api-server/dist/quant-v4/tmw-001-multilingual-r4-regression.test.mjs
+      - name: Bundle CP012 coverage-closure proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp012-coverage-closure.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp012-coverage-closure.test.mjs
+      - name: Run CP012 coverage-closure proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp012-coverage-closure.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp012-coverage-closure.log
       - name: Upload R4 proof
         if: always()
         uses: actions/upload-artifact@v4
@@ -115,5 +128,6 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/tmw-001-r4-exam-readiness.log
             artifacts/api-server/dist/quant-v4/tmw-001-r4-stem-readiness.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp012-coverage-closure.log
           if-no-files-found: warn
           retention-days: 14
