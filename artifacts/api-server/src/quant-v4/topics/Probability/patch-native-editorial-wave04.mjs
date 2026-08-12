@@ -1,0 +1,14 @@
+import fs from "node:fs";
+
+const path = "artifacts/api-server/src/quant-v4/topics/Probability/shared/native-source-explanation-naturalizer.ts";
+let value = fs.readFileSync(path, "utf8");
+
+const block = `  m = value.match(/^The (box|pouch) contains (\\d+) (pens|coloured stones) altogether: (\\d+) red, (\\d+) blue and (\\d+) green\\.$/u);\n  if (m) {\n    const containerHi = m[1] === "box" ? "बॉक्स" : "पाउच";\n    const containerPa = m[1] === "box" ? "ਬਾਕਸ" : "ਪਾਊਚ";\n    const objectHi = m[3] === "pens" ? "पेन" : "रंगीन पत्थर";\n    const objectPa = m[3] === "pens" ? "ਪੈਨ" : "ਰੰਗੀਨ ਪੱਥਰ";\n    return pick(\n      language,\n      containerHi + " में कुल " + m[2] + " " + objectHi + " हैं—" + m[4] + " लाल, " + m[5] + " नीले और " + m[6] + " हरे।",\n      containerPa + " ਵਿੱਚ ਕੁੱਲ " + m[2] + " " + objectPa + " ਹਨ—" + m[4] + " ਲਾਲ, " + m[5] + " ਨੀਲੇ ਅਤੇ " + m[6] + " ਹਰੇ।",\n    );\n  }\n\n  m = value.match(/^(\\d+) of the (\\d+) (pens|coloured stones) are (red|blue|green)\\.$/u);\n  if (m) {\n    const objectHi = m[3] === "pens" ? "पेन" : "रंगीन पत्थरों";\n    const objectPa = m[3] === "pens" ? "ਪੈਨਾਂ" : "ਰੰਗੀਨ ਪੱਥਰਾਂ";\n    const colourHi = { red: "लाल", blue: "नीले", green: "हरे" }[m[4]];\n    const colourPa = { red: "ਲਾਲ", blue: "ਨੀਲੇ", green: "ਹਰੇ" }[m[4]];\n    return language === "hi"\n      ? "कुल " + m[2] + " " + objectHi + " में से " + m[1] + " " + colourHi + " हैं।"\n      : "ਕੁੱਲ " + m[2] + " " + objectPa + " ਵਿੱਚੋਂ " + m[1] + " " + colourPa + " ਹਨ।";\n  }\n\n  m = value.match(/^The deck has (\\d+) (black|red) cards\\.$/u);\n  if (m) {\n    const colourHi = m[2] === "black" ? "काले" : "लाल";\n    const colourPa = m[2] === "black" ? "ਕਾਲੇ" : "ਲਾਲ";\n    return language === "hi"\n      ? "ताश की गड्डी में " + m[1] + " " + colourHi + " पत्ते हैं।"\n      : "ਤਾਸ਼ ਦੀ ਗੱਡੀ ਵਿੱਚ " + m[1] + " " + colourPa + " ਪੱਤੇ ਹਨ।";\n  }\n\n  m = value.match(/^A deck has (\\d+) (diamonds|spades), so cards that are not (diamonds|spades) = (\\d+) - (\\d+) = (\\d+)\\.$/u);\n  if (m) {\n    const suitHi = m[2] === "diamonds" ? "डायमंड" : "स्पेड";\n    const suitPa = m[2] === "diamonds" ? "ਡਾਇਮੰਡ" : "ਸਪੇਡ";\n    return language === "hi"\n      ? "एक ताश की गड्डी में " + m[1] + " " + suitHi + " होते हैं। इसलिए " + suitHi + " न होने वाले पत्तों की संख्या = " + m[4] + " - " + m[5] + " = " + m[6] + "।"\n      : "ਤਾਸ਼ ਦੀ ਇੱਕ ਗੱਡੀ ਵਿੱਚ " + m[1] + " " + suitPa + " ਹੁੰਦੇ ਹਨ। ਇਸ ਲਈ " + suitPa + " ਨਾ ਹੋਣ ਵਾਲੇ ਪੱਤਿਆਂ ਦੀ ਗਿਣਤੀ = " + m[4] + " - " + m[5] + " = " + m[6] + "।";\n  }\n\n`;
+
+const anchor = `  let m: RegExpMatchArray | null;\n\n`;
+if (!value.includes(block)) {
+  if (!value.includes(anchor)) throw new Error("Probability naturalizer function-start anchor not found.");
+  value = value.replace(anchor, anchor + block);
+}
+fs.writeFileSync(path, value);
+console.log("Materialized Probability native editorial wave04 direct-selection/card wording.");
