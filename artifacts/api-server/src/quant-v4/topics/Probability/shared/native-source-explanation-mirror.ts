@@ -1,6 +1,7 @@
 import type { ProbabilityNativeLanguage } from "../multilingual-foundation";
 import { assertProbabilityNativeTextValid } from "../native-language-primitives";
 import type { ProbabilityQuestion } from "./types";
+import { naturalizeProbabilityExplanationBody } from "./native-source-explanation-naturalizer";
 
 type Rule = readonly [source: string, hi: string, pa: string];
 
@@ -675,6 +676,8 @@ function localizeRole(role: string, step: string | undefined, language: Probabil
 }
 
 function translateBody(value: string, language: ProbabilityNativeLanguage): string {
+  const natural = naturalizeProbabilityExplanationBody(value, language);
+  if (natural !== null) return natural;
   const equallyPossible = value.match(/^Thus, (\d+) of the (\d+) equally possible (marbles|balls|pens|coloured stones) are favourable\.$/iu);
   if (equallyPossible) {
     const favourable = equallyPossible[1]!;
