@@ -6,7 +6,22 @@ let value = fs.readFileSync(path, "utf8");
 // Sentence-level handling is required here because English "x of the y ..." order is unnatural
 // if translated token by token into Hindi/Punjabi. Preserve both numbers and the exact fact.
 const anchor = "function translateBody(value: string, language: ProbabilityNativeLanguage): string {\n  let body = value;";
-const replacement = `function translateBody(value: string, language: ProbabilityNativeLanguage): string {\n  const equallyPossible = value.match(/^Thus, (\\d+) of the (\\d+) equally possible (marbles|balls|pens|coloured stones) are favourable\\.$/iu);\n  if (equallyPossible) {\n    const favourable = equallyPossible[1]!;\n    const total = equallyPossible[2]!;\n    const object = equallyPossible[3]!.toLowerCase();\n    const hiObject: Record<string, string> = { marbles: \"कंचों\", balls: \"गेंदों\", pens: \"पेनों\", \"coloured stones\": \"रंगीन पत्थरों\" };\n    const paObject: Record<string, string> = { marbles: \"ਕੰਚਿਆਂ\", balls: \"ਗੇਂਦਾਂ\", pens: \"ਪੈਨਾਂ\", \"coloured stones\": \"ਰੰਗੀਨ ਪੱਥਰਾਂ\" };\n    return language === \"hi\"\n      ? \`इस प्रकार, \\${total} समान रूप से संभावित \\${hiObject[object]} में से \\${favourable} अनुकूल हैं।\`\n      : \`ਇਸ ਤਰ੍ਹਾਂ, \\${total} ਬਰਾਬਰ ਸੰਭਾਵਨਾ ਵਾਲੇ \\${paObject[object]} ਵਿੱਚੋਂ \\${favourable} ਅਨੁਕੂਲ ਹਨ।\`;\n  }\n\n  let body = value;`;
+const replacement = [
+  "function translateBody(value: string, language: ProbabilityNativeLanguage): string {",
+  "  const equallyPossible = value.match(/^Thus, (\\d+) of the (\\d+) equally possible (marbles|balls|pens|coloured stones) are favourable\\.$/iu);",
+  "  if (equallyPossible) {",
+  "    const favourable = equallyPossible[1]!;",
+  "    const total = equallyPossible[2]!;",
+  "    const object = equallyPossible[3]!.toLowerCase();",
+  "    const hiObject: Record<string, string> = { marbles: \"कंचों\", balls: \"गेंदों\", pens: \"पेनों\", \"coloured stones\": \"रंगीन पत्थरों\" };",
+  "    const paObject: Record<string, string> = { marbles: \"ਕੰਚਿਆਂ\", balls: \"ਗੇਂਦਾਂ\", pens: \"ਪੈਨਾਂ\", \"coloured stones\": \"ਰੰਗੀਨ ਪੱਥਰਾਂ\" };",
+  "    return language === \"hi\"",
+  "      ? `इस प्रकार, ${total} समान रूप से संभावित ${hiObject[object]} में से ${favourable} अनुकूल हैं।`",
+  "      : `ਇਸ ਤਰ੍ਹਾਂ, ${total} ਬਰਾਬਰ ਸੰਭਾਵਨਾ ਵਾਲੇ ${paObject[object]} ਵਿੱਚੋਂ ${favourable} ਅਨੁਕੂਲ ਹਨ।`;",
+  "  }",
+  "",
+  "  let body = value;",
+].join("\n");
 
 if (!value.includes(replacement)) {
   if (!value.includes(anchor)) throw new Error("Could not find Probability translateBody anchor.");
