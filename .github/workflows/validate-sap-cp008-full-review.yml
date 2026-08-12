@@ -39,7 +39,7 @@ jobs:
       - name: Bundle full-review authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-008/full-review-authority.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-008/full-review-authority-v2.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp008-full-review-authority.test.mjs
       - name: Run full-review authority
@@ -47,7 +47,7 @@ jobs:
       - name: Bundle review generator
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-008/generate-full-review.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-008/generate-full-review-v2.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp008-generate-review.mjs
       - name: Generate review files
