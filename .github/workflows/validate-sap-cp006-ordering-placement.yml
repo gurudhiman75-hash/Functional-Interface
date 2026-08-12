@@ -1,0 +1,62 @@
+name: Validate SAP-CP-006 ordering option decoupling
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feat/sap-cp005-structural-cancellation-foundation
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/**
+      - .github/workflows/validate-sap-cp006-ordering-placement.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-sap-cp006-ordering-placement-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sap-cp006-ordering-placement:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle ordering-placement authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/ordering-placement-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp006-ordering-placement-authority.test.mjs
+
+      - name: Run ordering-placement authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp006-ordering-placement-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp006-ordering-placement-authority.log
+
+      - name: Upload ordering-placement evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp006-ordering-placement-authority
+          path: artifacts/api-server/dist/quant-v4/sap-cp006-ordering-placement-authority.log
+          if-no-files-found: error
+          retention-days: 30
