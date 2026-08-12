@@ -71,11 +71,13 @@ for (const seed of seeds) {
       const joined = `${negative.text} ${editorial.explanation[negativeIndex] ?? ""}`;
       assert.doesNotMatch(joined, /can never be|some \.\.\.|subject|predicate/u);
       if (locale === "hi-IN") {
-        assert.match(negative.text, /वैध व्यवस्था|समूह/u);
-        assert.match(editorial.explanation[negativeIndex] ?? "", /समूह/u);
+        assert.match(negative.text, /वर्ग/u);
+        assert.match(editorial.explanation[negativeIndex] ?? "", /वर्ग/u);
+        assert.doesNotMatch(joined, /समूह/u);
       } else {
-        assert.match(negative.text, /ਵੈਧ ਬਣਤਰ|ਸਮੂਹ/u);
-        assert.match(editorial.explanation[negativeIndex] ?? "", /ਸਮੂਹ/u);
+        assert.match(negative.text, /ਵਰਗ/u);
+        assert.match(editorial.explanation[negativeIndex] ?? "", /ਵਰਗ/u);
+        assert.doesNotMatch(joined, /ਸਮੂਹ/u);
       }
     }
   }
@@ -92,6 +94,7 @@ console.log(JSON.stringify({
   changedNegativeExplanations,
   semanticParityWithV1: true,
   hindiPunjabiEnglishModalLeaks: 0,
+  rejectedLegacyGroupWording: true,
   localizationPolicy: "AGREEMENT_SAFE_GROUP_WORDING_V1",
   activationPermitted: false,
 }, null, 2));
