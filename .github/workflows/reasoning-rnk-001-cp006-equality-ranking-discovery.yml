@@ -35,12 +35,19 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-discovery.test.ts \
             | tee rnk-cp006-equality-discovery.log
 
-      - name: Validate CP-006 equality editorial V2 release
+      - name: Validate CP-006 equality-bridge V2 release
         run: |
           set -o pipefail
           pnpm dlx tsx \
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-editorial-v2-release.test.ts \
             | tee rnk-cp006-equality-editorial-v2-release.log
+
+      - name: Validate CP-006 context-native V3 release
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-editorial-v3-release.test.ts \
+            | tee rnk-cp006-equality-editorial-v3-release.log
 
       - name: Validate CP-006 provisional authority consolidation
         run: |
@@ -49,14 +56,14 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-authority-consolidation-v1.test.ts \
             | tee rnk-cp006-authority-consolidation.log
 
-      - name: Generate 24-question CP-006 V2 release human review pack
+      - name: Generate 24-question CP-006 V3 human review pack
         run: |
           pnpm dlx tsx \
-            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-editorial-v2-release-review-export.ts
-          test -s RNK-CP-006-EQUALITY-EDITORIAL-V2-RELEASE-REVIEW-24Q.md
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-editorial-v3-review-export.ts
+          test -s RNK-CP-006-EQUALITY-EDITORIAL-V3-REVIEW-24Q.md
 
-      - name: Emit CP-006 review pack for exact-head inspection
-        run: cat RNK-CP-006-EQUALITY-EDITORIAL-V2-RELEASE-REVIEW-24Q.md
+      - name: Emit CP-006 V3 review pack for exact-head inspection
+        run: cat RNK-CP-006-EQUALITY-EDITORIAL-V3-REVIEW-24Q.md
 
       - name: Validate frozen CP-005 English runtime
         run: |
@@ -93,6 +100,7 @@ jobs:
           path: |
             rnk-cp006-equality-discovery.log
             rnk-cp006-equality-editorial-v2-release.log
+            rnk-cp006-equality-editorial-v3-release.log
             rnk-cp006-authority-consolidation.log
             rnk-cp005-frozen-regression.log
             rnk-cp004-frozen-regression.log
@@ -101,11 +109,11 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Upload CP-006 V2 release review pack
+      - name: Upload CP-006 V3 review pack
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp006-equality-editorial-v2-release-review-24q
-          path: RNK-CP-006-EQUALITY-EDITORIAL-V2-RELEASE-REVIEW-24Q.md
+          name: rnk-001-cp006-equality-editorial-v3-review-24q
+          path: RNK-CP-006-EQUALITY-EDITORIAL-V3-REVIEW-24Q.md
           if-no-files-found: ignore
           retention-days: 14
