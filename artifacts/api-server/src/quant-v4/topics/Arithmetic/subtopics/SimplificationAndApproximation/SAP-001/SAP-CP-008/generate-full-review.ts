@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import { generateSapCp008ReviewRecords } from "./full-review";
 
 const records = generateSapCp008ReviewRecords();
-const outDir = resolve(process.cwd(), "dist/quant-v4/sap-cp008-review");
+const outDir = resolve(process.cwd(), "artifacts/api-server/dist/quant-v4/sap-cp008-review");
 mkdirSync(outDir, { recursive: true });
 
 const summary = {
