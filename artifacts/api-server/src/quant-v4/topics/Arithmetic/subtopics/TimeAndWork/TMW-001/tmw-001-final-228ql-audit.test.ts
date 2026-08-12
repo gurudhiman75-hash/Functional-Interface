@@ -6,6 +6,7 @@ function assert(condition: unknown, message: string): asserts condition {
 
 const LANGUAGES: readonly Tmw001ChapterLanguage[] = ["en", "hi", "pa"];
 const QL_IDS = Array.from({ length: 228 }, (_, index) => `TMW-QL-${String(index + 1).padStart(3, "0")}`);
+const DISTRIBUTION_SEEDS = ["0", "1", "2", "3", "4", "5", "6", "7"] as const;
 
 function ordinal(qlId: string): number {
   return Number(qlId.slice(-3));
@@ -39,7 +40,7 @@ function mathBalanced(value: string): boolean {
 
 const byCheckpoint = new Map<string, number>();
 const byLanguage = new Map<string, number>();
-const answerPositions = new Map<number, number>();
+const snapshotAnswerPositions = new Map<number, number>();
 const learnerVersions = new Map<string, number>();
 const contractFingerprints = new Set<string>();
 let cases = 0;
@@ -105,7 +106,7 @@ for (const qlId of QL_IDS) {
     const cp = question.canonicalProblemId ?? question.cpId ?? "UNKNOWN";
     byCheckpoint.set(cp, (byCheckpoint.get(cp) ?? 0) + 1);
     byLanguage.set(language, (byLanguage.get(language) ?? 0) + 1);
-    answerPositions.set(question.correctIndex, (answerPositions.get(question.correctIndex) ?? 0) + 1);
+    snapshotAnswerPositions.set(question.correctIndex, (snapshotAnswerPositions.get(question.correctIndex) ?? 0) + 1);
     const version = question.learnerExplanationVersion ?? "UNKNOWN";
     learnerVersions.set(version, (learnerVersions.get(version) ?? 0) + 1);
 
@@ -122,8 +123,26 @@ assert(learnerVersions.get("TMW_LEARNER_V2") === 633, `Expected 633 legacy R4 pa
 assert(learnerVersions.get("TMW_COVERAGE_V1") === 12, `Expected 12 CP012 packages, got ${learnerVersions.get("TMW_COVERAGE_V1") ?? 0}`);
 assert(learnerVersions.get("TMW_DS_V1") === 24, `Expected 24 CP013 packages, got ${learnerVersions.get("TMW_DS_V1") ?? 0}`);
 assert(learnerVersions.get("TMW_PRESENTATION_V1") === 15, `Expected 15 CP014 packages, got ${learnerVersions.get("TMW_PRESENTATION_V1") ?? 0}`);
+
+const distributionPositions = new Map<number, number>();
+let distributionCases = 0;
+for (const qlId of QL_IDS) {
+  for (const language of LANGUAGES) {
+    for (const seedSuffix of DISTRIBUTION_SEEDS) {
+      const seed = `tmw-position-audit:${qlId}:${language}:${seedSuffix}`;
+      const question = runTmw001ChapterPipeline({ questionLanguageId: qlId, language, seed });
+      assert(question.validation?.valid, `${qlId}:${language}:${seedSuffix}: distribution sample is invalid`);
+      assert(Number.isInteger(question.correctIndex) && question.correctIndex >= 0 && question.correctIndex <= 3, `${qlId}:${language}:${seedSuffix}: invalid distribution correctIndex`);
+      distributionPositions.set(question.correctIndex, (distributionPositions.get(question.correctIndex) ?? 0) + 1);
+      distributionCases += 1;
+    }
+  }
+}
+assert(distributionCases === 5472, `Expected 5472 position samples, got ${distributionCases}`);
 for (const index of [0, 1, 2, 3]) {
-  assert((answerPositions.get(index) ?? 0) >= 100, `Correct-option position ${index} is underrepresented: ${answerPositions.get(index) ?? 0}`);
+  const count = distributionPositions.get(index) ?? 0;
+  const share = count / distributionCases;
+  assert(share >= 0.20 && share <= 0.30, `Correct-option position ${index} has biased multi-seed share ${(share * 100).toFixed(2)}% (${count}/${distributionCases})`);
 }
 
 console.log(JSON.stringify({
@@ -135,7 +154,9 @@ console.log(JSON.stringify({
   byLanguage: Object.fromEntries([...byLanguage.entries()].sort()),
   byCheckpoint: Object.fromEntries([...byCheckpoint.entries()].sort()),
   learnerVersions: Object.fromEntries([...learnerVersions.entries()].sort()),
-  answerPositions: Object.fromEntries([...answerPositions.entries()].sort(([a], [b]) => a - b)),
+  snapshotAnswerPositions: Object.fromEntries([...snapshotAnswerPositions.entries()].sort(([a], [b]) => a - b)),
+  multiSeedDistributionCases: distributionCases,
+  multiSeedAnswerPositions: Object.fromEntries([...distributionPositions.entries()].sort(([a], [b]) => a - b)),
   uniqueSameLanguageContractFingerprints: contractFingerprints.size,
   maxStemTokens,
   maxStemLabel,
