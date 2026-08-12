@@ -54,9 +54,13 @@ for (const source of review.rows) {
     }
 
     if (language === "hi") {
+      assert.ok(!/पृष्ठीय क्षेत्रफल|वक्र पृष्ठीय क्षेत्रफल|कुल पृष्ठीय क्षेत्रफल/.test(prose),
+        `${source.permanentQlId}: learner Hindi must use सतह का क्षेत्रफल wording.`);
       assert.ok(!/एक गोले का सतह का क्षेत्रफल/.test(native.stem));
       assert.ok(!/सतह का क्षेत्रफलों/.test(native.stem));
     } else {
+      assert.ok(!/ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ|ਵਕਰ ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ|ਕੁੱਲ ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ/.test(prose),
+        `${source.permanentQlId}: learner Punjabi must use ਸਤਹ ਦਾ ਖੇਤਰਫਲ wording.`);
       assert.ok(!/ਅਰਧ ਵਿਆਸ/.test(native.stem));
       assert.ok(!/ਸਤਹ ਦਾ ਖੇਤਰਫਲਾਂ/.test(native.stem));
       assert.ok(!/ਉਨ੍ਹਾਂ ਦੇ ਸਤਹ ਦੇ ਖੇਤਰਫਲਾਂ/.test(native.stem));
@@ -67,4 +71,4 @@ for (const source of review.rows) {
 }
 
 assert.equal(checked, 220);
-console.log(`MEN-CP-009 native teaching quality V4 passed: ${checked} review surfaces, no residual English prose, semantic final lines, and native stem grammar guards.`);
+console.log(`MEN-CP-009 native teaching quality V4 passed: ${checked} review surfaces, canonical सतह का क्षेत्रफल / ਸਤਹ ਦਾ ਖੇਤਰਫਲ terminology, no residual English prose, semantic final lines, and native stem grammar guards.`);
