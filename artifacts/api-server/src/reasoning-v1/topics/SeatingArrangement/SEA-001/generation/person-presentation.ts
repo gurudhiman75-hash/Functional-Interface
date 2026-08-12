@@ -62,16 +62,23 @@ export function presentSea001Children<T extends {
   children: readonly T[],
   displayNames: Readonly<Record<string, string>>,
 ): T[] {
-  const presented = children.map((child) => ({
-    ...child,
-    text: presentSea001Text(child.text, displayNames),
-    explanation: presentSea001Text(child.explanation, displayNames),
-    options: child.options.map((option) => ({
-      ...option,
-      display: presentSea001Text(option.display, displayNames),
-      explanation: presentSea001Text(option.explanation, displayNames),
-    })),
-  })) as unknown as T[];
+  const presented = children.map((child) => {
+    const explanation = presentSea001Text(child.explanation, displayNames);
+    return {
+      ...child,
+      text: presentSea001Text(child.text, displayNames),
+      explanation,
+      options: child.options.map((option) => ({
+        ...option,
+        display: presentSea001Text(option.display, displayNames),
+        // The correct option must carry the same question-specific reasoning as the
+        // child explanation. Wrong options retain their misconception-specific rationale.
+        explanation: option.isCorrect
+          ? explanation
+          : presentSea001Text(option.explanation, displayNames),
+      })),
+    };
+  }) as unknown as T[];
 
   // CP003/CP004 deliberately use QC009 in their four-question mix and keep
   // the facing-rule detector at Q1. Other checkpoints may vary all children.
