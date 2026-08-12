@@ -6,6 +6,10 @@ import {
   TSD_CP003_NATIVE_AUTHORITATIVE_STATUS,
 } from "./native-authoritative";
 import { assertTsdCp003NativeText } from "./native-language-primitives";
+import {
+  hasExplicitNativeMisconceptionCopy,
+  TSD_CP003_EXPLICIT_NATIVE_MISCONCEPTIONS,
+} from "./native-misconception-copy";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -34,6 +38,13 @@ const all = generateCp003AllAuthoritativeNativeCandidates();
 assert(frozen.length === 63, `Expected 63 frozen English rows, received ${frozen.length}`);
 assert(hi.length === 63 && pa.length === 63 && all.length === 126, "Authoritative native surface must contain 63 Hindi and 63 Punjabi rows");
 assert(stableCp003Stringify(generateCp003EnglishFrozenRecords()) === frozenIdentity, "Frozen English corpus changed while building authoritative native surface");
+
+const acceptedWrongIds = new Set(frozen.flatMap((row) => row.optionAudit.filter((entry) => !entry.isCorrect).map((entry) => entry.misconceptionId)));
+assert(acceptedWrongIds.size === 61, `Expected 61 distinct accepted wrong-method IDs, received ${acceptedWrongIds.size}`);
+assert(TSD_CP003_EXPLICIT_NATIVE_MISCONCEPTIONS.length === 61, `Explicit native misconception inventory should contain 61 IDs, received ${TSD_CP003_EXPLICIT_NATIVE_MISCONCEPTIONS.length}`);
+for (const id of acceptedWrongIds) {
+  assert(hasExplicitNativeMisconceptionCopy(id), `${id}: accepted misconception has no explicit Hindi/Punjabi explanation`);
+}
 
 const sourceById = new Map(frozen.map((row) => [row.questionLanguageId, row] as const));
 const signatures = new Map<string, Set<string>>();
@@ -71,11 +82,21 @@ for (const row of all) {
     assertTsdCp003NativeText(step, presentation.language, `${presentation.questionLanguageId}/step-${index + 1}`);
   }
 
+  if (presentation.language === "hi") {
+    assert(!presentation.stem.includes("एक निर्धारित यात्रा में"), `${presentation.questionLanguageId}: mechanical Hindi framing remains`);
+    assert(!presentation.stem.includes("दिए गए आँकड़ों के आधार पर"), `${presentation.questionLanguageId}: mechanical Hindi data-framing remains`);
+  } else {
+    assert(!presentation.stem.includes("ਇੱਕ ਨਿਰਧਾਰਤ ਸਫ਼ਰ ਵਿੱਚ"), `${presentation.questionLanguageId}: mechanical Punjabi framing remains`);
+    assert(!presentation.stem.includes("ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੇ ਆਧਾਰ ਉੱਤੇ"), `${presentation.questionLanguageId}: mechanical Punjabi data-framing remains`);
+  }
+
   const analyses = presentation.explanation.optionAnalysis;
   assert(analyses.length === 4, `${presentation.questionLanguageId}: expected four option analyses`);
   assert(analyses.filter((entry) => entry.isCorrect).length === 1, `${presentation.questionLanguageId}: option analysis must identify exactly one correct option`);
   assert(analyses[presentation.correctIndex]?.isCorrect === true, `${presentation.questionLanguageId}: correct option analysis is not aligned to correct index`);
   analyses.forEach((entry, index) => {
+    const audit = canonical.optionAudit[index];
+    assert(hasExplicitNativeMisconceptionCopy(audit.misconceptionId), `${presentation.questionLanguageId}/${entry.option}: option reason used non-explicit misconception copy`);
     assert(entry.text === presentation.options[index], `${presentation.questionLanguageId}: option-analysis text drift at ${entry.option}`);
     assertTsdCp003NativeText(entry.reason, presentation.language, `${presentation.questionLanguageId}/option-${entry.option}-reason`);
     optionAnalyses += 1;
@@ -150,6 +171,7 @@ console.log(JSON.stringify({
   nativeRows: all.length,
   solveModesPerLanguage: 21,
   structuralStemVariantsPerMode: 3,
+  explicitAcceptedMisconceptionIds: acceptedWrongIds.size,
   hindiContextCounts: contextCounts.hi,
   punjabiContextCounts: contextCounts.pa,
   optionAnalyses,
@@ -157,6 +179,7 @@ console.log(JSON.stringify({
   wrongOptionReasons,
   explanationContract: "METHOD_STEPS_SHORTCUT_OPTION_ANALYSIS_ANSWER",
   rawFractionalHourLearnerProse: 0,
+  mechanicalFramingRows: 0,
   frozenEnglishCorpusChanged: false,
   productOwnerApprovalRecorded: false,
   multilingualFreezeAuthorized: false,
