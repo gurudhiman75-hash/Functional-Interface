@@ -22,11 +22,40 @@ export function sea001DisplayName(
   return displayNames[personId] ?? personId;
 }
 
+function normalizeStudentLanguage(text: string): string {
+  let output = text
+    .replace(/\bImmediate to the (left|right)\b/g, "Immediately to the $1")
+    .replace(/\b6th to the (left|right)\b/g, "Sixth to the $1")
+    .replace(/\b7th to the (left|right)\b/g, "Seventh to the $1")
+    .replace(/\b8th to the (left|right)\b/g, "Eighth to the $1");
+
+  // In a binary centre/outward system, most PBA-020 if/otherwise facing links
+  // are exactly equivalent to SAME_FACING or OPPOSITE_FACING. Preserve the P1
+  // anchor's explicit conditional form so the blueprint still teaches conditional
+  // orientation, but render the remaining equivalent links in the shorter wording
+  // commonly used in exam-style mixed-facing sets.
+  const conditionalPattern = /^If (P\d+) faces (the centre|outward), (P\d+) faces (the centre|outward); otherwise, \3 faces (the centre|outward)\.$/;
+  const match = output.match(conditionalPattern);
+  if (match && match[1] !== "P1") {
+    const conditionPerson = match[1] as string;
+    const conditionFacing = match[2] as string;
+    const targetPerson = match[3] as string;
+    const thenFacing = match[4] as string;
+    const elseFacing = match[5] as string;
+    if (thenFacing !== elseFacing) {
+      output = conditionFacing === thenFacing
+        ? `${conditionPerson} and ${targetPerson} face the same direction.`
+        : `${conditionPerson} and ${targetPerson} face opposite directions.`;
+    }
+  }
+  return output;
+}
+
 export function presentSea001Text(
   text: string,
   displayNames: Readonly<Record<string, string>>,
 ): string {
-  let output = text;
+  let output = normalizeStudentLanguage(text);
   const ids = Object.keys(displayNames).sort((left, right) => right.length - left.length);
   for (const personId of ids) {
     const escaped = personId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -60,7 +89,7 @@ function fallbackExplanation(
     return `The required count is ${correctDisplay}; ${wrongDisplay} is not the count obtained from the specified seats or arc.`;
   }
   if (answerType === "PAIR") {
-    return `The required pair is ${correctDisplay}; ${wrongDisplay} does not occupy the two positions specified in the question.`;
+    return `The required pair is ${correctDisplay}; the pair ${wrongDisplay} does not occupy the two positions specified in the question.`;
   }
   if (answerType === "RELATION") {
     return `The solved positions give ${correctDisplay}; ${wrongDisplay} uses a different direction or distance.`;
