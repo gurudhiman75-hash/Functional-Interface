@@ -71,8 +71,8 @@ for (const qlId of qls) {
       }
 
       if (INVERSE_MODES.has(question.solveMode)) {
-        const required = language === "hi" ? /अज्ञात|दर|बचा काम/u : language === "pa" ? /ਅਣਜਾਣ|ਦਰ|ਬਚਿਆ ਕੰਮ/u : /unknown|rate|work left/i;
-        assert(required.test(learner), `${label}: inverse explanation does not name the unknown-work logic`);
+        assert(/A/.test(learner) && /B/.test(learner), `${label}: inverse explanation does not identify A and B explicitly`);
+        assert(!/unknown worker|known worker|अज्ञात कर्मी|ज्ञात कर्मी|ਅਣਜਾਣ ਕਰਮਚਾਰੀ|ਜਾਣੇ ਕਰਮਚਾਰੀ/i.test(learner), `${label}: generic worker labels returned in inverse explanation`);
         const scalar = answerScalar(question.solution.answerText);
         assert(scalar, `${label}: inverse solved answer has no extractable scalar`);
         const working = question.learnerExplanation.solution.slice(0, -1).join(" ");
@@ -87,6 +87,14 @@ for (const qlId of qls) {
 
       if (question.solveMode === "findStartingAgentFromCompletionCondition") {
         assert(/A/.test(learner) && /B/.test(learner), `${label}: both possible starting orders are not compared`);
+      }
+
+      if (question.solveMode === "findRemainingWorkAfterFullCycles") {
+        const scalar = answerScalar(question.solution.answerText);
+        const working = question.learnerExplanation.solution.slice(0, -1).join(" ");
+        assert(scalar && working.includes(`\\(${scalar}\\)`), `${label}: remaining-work subtraction does not reach the solved answer ${scalar}`);
+        const required = language === "hi" ? /बचा काम = पूरा काम/u : language === "pa" ? /ਬਚਿਆ ਕੰਮ = ਸਾਰਾ ਕੰਮ/u : /Remaining work = whole work/i;
+        assert(required.test(working), `${label}: explicit remaining-work subtraction is missing`);
       }
 
       if (question.solveMode === "findCycleCountToReachSpecifiedFraction") {
@@ -114,6 +122,7 @@ console.log(JSON.stringify({
   checked,
   solveModes: modes.size,
   inverseAnswerAlignment: true,
+  remainingWorkAnswerAlignment: true,
   publicationLocked: true,
   verdict: "PASS",
 }, null, 2));
