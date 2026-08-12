@@ -48,9 +48,9 @@ for (const allocation of NUM_CP007_PERMANENT_ALLOCATION) {
     verifierChecks += 1;
     assert(first.verifierAnswer === first.canonicalAnswer, `${qlId}/${seed}: independent verifier mismatch`);
     assert(first.permanentIdentityFrozen, `${qlId}/${seed}: identity not frozen`);
-    assert(first.allocationStatus === "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION", `${qlId}/${seed}: allocation status`);
+    assert(first.allocationStatus === "PRODUCT_OWNER_APPROVED_INACTIVE_MULTILINGUAL_IMPLEMENTATION", `${qlId}/${seed}: allocation status`);
     assert(first.reviewStatus === "PRODUCT_OWNER_COMPLETION_AUTHORISED", `${qlId}/${seed}: review status`);
-    assert(first.maturity === "ENGLISH_IMPLEMENTATION_FROZEN", `${qlId}/${seed}: maturity`);
+    assert(first.maturity === "MULTILINGUAL_IMPLEMENTATION_FROZEN", `${qlId}/${seed}: maturity`);
     assert(!first.lifecycle.active, `${qlId}/${seed}: active leak`);
     assert(!first.lifecycle.questionStudioDiscoverable, `${qlId}/${seed}: Question Studio leak`);
     assert(!first.lifecycle.questionBankWritable, `${qlId}/${seed}: Question Bank leak`);
@@ -84,10 +84,12 @@ try {
 } catch {
   unsupportedLanguageRejected = true;
 }
-assert(unsupportedLanguageRejected, "unsupported language must be rejected");
+assert(unsupportedLanguageRejected, "canonical runtime must reject translated languages; use localization adapter");
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP007_PERMANENT_ENGLISH_IMPLEMENTATION_FROZEN_RUNTIME",
+  status: "PASS_NUM_CP007_PERMANENT_MULTILINGUAL_IMPLEMENTATION_FROZEN_RUNTIME",
+  canonicalRuntimeLanguage: "en",
+  translatedLocalesViaAdapter: ["hi-IN", "pa-IN"],
   permanentQlCount: NUM_CP007_PERMANENT_QL_IDS.length,
   solveModeCount: new Set(NUM_CP007_PERMANENT_ALLOCATION.map((entry) => entry.solveModeId)).size,
   representedPrototypeCount: new Set(NUM_CP007_PERMANENT_ALLOCATION.flatMap((entry) => [...entry.prototypeIds])).size,

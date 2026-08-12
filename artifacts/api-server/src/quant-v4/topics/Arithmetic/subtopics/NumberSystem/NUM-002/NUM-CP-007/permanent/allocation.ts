@@ -31,10 +31,10 @@ export interface NumCp007PermanentAllocationEntry {
   readonly sourceEvidence: readonly string[];
   readonly difficultyPolicy: "STATE_DERIVED";
   readonly language: "en";
-  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION";
+  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_MULTILINGUAL_IMPLEMENTATION";
   readonly permanentIdentityFrozen: true;
   readonly active: false;
-  readonly maturity: "ENGLISH_IMPLEMENTATION_FROZEN";
+  readonly maturity: "MULTILINGUAL_IMPLEMENTATION_FROZEN";
   readonly reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED";
   readonly publiclyPublishable: false;
   readonly questionStudioDiscoverable: false;
@@ -93,13 +93,14 @@ export const NUM_CP007_PERMANENT_ALLOCATION = NUM_CP007_PROPOSED_AUTHORITIES.map
     "NUM-CP-007-POST-WAVE04-SOURCE-SATURATION-AND-MERGE-SPLIT-AUDIT",
     ...authority.prototypes,
     "NUM-CP-007-PRODUCT-OWNER-26-AUTHORITY-APPROVAL",
+    "NUM-CP-007-HINDI-PUNJABI-MULTILINGUAL-FREEZE",
   ],
   difficultyPolicy: "STATE_DERIVED" as const,
   language: "en" as const,
-  allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION" as const,
+  allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_MULTILINGUAL_IMPLEMENTATION" as const,
   permanentIdentityFrozen: true as const,
   active: false as const,
-  maturity: "ENGLISH_IMPLEMENTATION_FROZEN" as const,
+  maturity: "MULTILINGUAL_IMPLEMENTATION_FROZEN" as const,
   reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED" as const,
   publiclyPublishable: false as const,
   questionStudioDiscoverable: false as const,
