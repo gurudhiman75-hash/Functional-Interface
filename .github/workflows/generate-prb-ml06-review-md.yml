@@ -33,7 +33,10 @@ jobs:
 
       - name: Apply controlled explanation vocabulary waves
         run: |
-          for file in artifacts/api-server/src/quant-v4/topics/Probability/patch-native-explanation-vocabulary*.mjs; do
+          base="artifacts/api-server/src/quant-v4/topics/Probability/patch-native-explanation-vocabulary.mjs"
+          echo "Applying $base"
+          node "$base"
+          for file in artifacts/api-server/src/quant-v4/topics/Probability/patch-native-explanation-vocabulary-wave*.mjs; do
             echo "Applying $file"
             node "$file"
           done
