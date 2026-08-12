@@ -153,7 +153,8 @@ for (const authority of TSD_CP004_AUTHORITIES) {
         conditionalChecks += 1;
       }
       if (/\bwhile\b/i.test(english.stem)) {
-        assert(language === "hi" ? /जबकि|चलते हुए/u.test(native.stem) : /ਜਦਕਿ|ਚੱਲਦਿਆਂ/u.test(native.stem), `${language} lost while-relation ${authority.authorityId}`);
+        // `चलते समय` is an explicit, gender-neutral Hindi equivalent of English “while travelling”.
+        assert(language === "hi" ? /जबकि|चलते हुए|चलते समय/u.test(native.stem) : /ਜਦਕਿ|ਚੱਲਦਿਆਂ/u.test(native.stem), `${language} lost while-relation ${authority.authorityId}`);
         whileChecks += 1;
       }
       const visibleSvg = native.visual?.svg.replace(/<[^>]+>/gu, " ") ?? "";
