@@ -7,7 +7,7 @@ import type { OutwardCaseletRecord, OutwardConstraint, OutwardPersonId, OutwardS
 import { enumerateMixedCircleProduction } from "../cp005/solvers.ts";
 import type { MixedCircleCaseletRecord, MixedCircleConstraint, MixedCircleModel, MixedCirclePersonId } from "../cp005/types.ts";
 import type { SeatingCaseletRecord } from "../types.ts";
-import { compileCaseEliminationExplanation, type TeachingCaseModel } from "./teaching-trace.ts";
+import { compileCaseEliminationExplanation, studentClueAction, type TeachingCaseModel } from "./teaching-trace.ts";
 
 export type Sea001TeachingCaselet =
   | SeatingCaseletRecord
@@ -43,6 +43,23 @@ function displayNameMap(setupText: string, personIds: readonly string[]): Displa
 
 function shown(personId: string, displayNames: DisplayNames): string {
   return displayNames[personId] ?? personId;
+}
+
+function appendRemainingTeachingSteps(
+  lines: string[],
+  clueTexts: readonly string[],
+  alreadyUsed: ReadonlySet<number>,
+): void {
+  const remaining = clueTexts
+    .map((text, index) => ({ text, index }))
+    .filter(({ index }) => !alreadyUsed.has(index));
+  if (remaining.length === 0) return;
+  lines.push("Now complete the surviving case clue by clue:");
+  for (const { text, index } of remaining) {
+    lines.push(`Clue ${index + 1}: ${text}`);
+    lines.push(`What this tells us: ${studentClueAction(text)}`);
+  }
+  lines.push("As each person is placed, cross out occupied or forbidden seats. If only one legal seat remains for a person, place that person there before moving on.");
 }
 
 function rotateToAnchor<T extends string>(order: readonly T[], anchor?: T): T[] {
@@ -190,6 +207,7 @@ function compileCentreAdjacencyCases(
     for (const step of steps) {
       const next = new Set(step.active.map((entry) => entry.originalIndex));
       lines.push(`Now use clue ${step.clueIndex + 1}: ${caselet.clueTexts[step.clueIndex]}`);
+      lines.push(`What this tells us: ${studentClueAction(caselet.clueTexts[step.clueIndex] ?? "")}`);
       for (const caseIndex of [...live]) {
         lines.push(next.has(caseIndex)
           ? `Case ${caseIndex + 1} ✅ — it still satisfies the clues.`
@@ -197,7 +215,8 @@ function compileCentreAdjacencyCases(
       }
       live = next;
     }
-    lines.push(`Only Case ${[...live][0]! + 1} remains. Use the remaining clues to fill the other seats.`);
+    lines.push(`Only Case ${[...live][0]! + 1} remains. Keep this orientation and finish the open seats.`);
+    appendRemainingTeachingSteps(lines, caselet.clueTexts, new Set([branchIndex, ...steps.map((step) => step.clueIndex)]));
     lines.push("Therefore, the final clockwise arrangement is:");
     lines.push(centreCircleModel(finalModel, displayNames, drawingAnchor).display);
     return lines.join("\n\n");
@@ -287,6 +306,7 @@ function compileOutwardAdjacencyCases(
     for (const step of steps) {
       const next = new Set(step.active.map((entry) => entry.originalIndex));
       lines.push(`Now use clue ${step.clueIndex + 1}: ${caselet.clueTexts[step.clueIndex]}`);
+      lines.push(`What this tells us: ${studentClueAction(caselet.clueTexts[step.clueIndex] ?? "")}`);
       for (const caseIndex of [...live]) {
         lines.push(next.has(caseIndex)
           ? `Case ${caseIndex + 1} ✅ — it still satisfies the clues.`
@@ -294,7 +314,8 @@ function compileOutwardAdjacencyCases(
       }
       live = next;
     }
-    lines.push(`Only Case ${[...live][0]! + 1} remains. Use the remaining clues to fill the other seats.`);
+    lines.push(`Only Case ${[...live][0]! + 1} remains. Keep this orientation and finish the open seats.`);
+    appendRemainingTeachingSteps(lines, caselet.clueTexts, new Set([branchIndex, ...steps.map((step) => step.clueIndex)]));
     lines.push("Therefore, the final clockwise arrangement is:");
     lines.push(outwardCircleModel(finalModel, displayNames, drawingAnchor).display);
     return lines.join("\n\n");
