@@ -22,3 +22,103 @@ export function polishMenCp009NativeTeachingV4(
     .replace(/\s+/g, " ")
     .trim();
 }
+
+export function buildMenCp009NativeFinalLineV4(
+  familyId: string,
+  answer: string,
+  language: MenCp009NativeV2Language,
+) {
+  if (language === "hi") {
+    switch (familyId) {
+      case "SPHERE_SURFACE_FROM_RADIUS":
+      case "SPHERE_SURFACE_FROM_DIAMETER":
+        return `इसलिए सतह का क्षेत्रफल ${answer} है।`;
+      case "SPHERE_VOLUME_FROM_RADIUS":
+      case "SPHERE_VOLUME_FROM_DIAMETER":
+      case "HEMISPHERE_VOLUME_FROM_RADIUS":
+        return `इसलिए आयतन ${answer} है।`;
+      case "SPHERE_RADIUS_FROM_SURFACE":
+      case "SPHERE_RADIUS_FROM_VOLUME":
+      case "HEMISPHERE_RADIUS_FROM_CSA":
+      case "HEMISPHERE_RADIUS_FROM_TSA":
+      case "HEMISPHERE_RADIUS_FROM_VOLUME":
+      case "RADIUS_FROM_CURVED_SURFACE_VOLUME_RATIO":
+      case "HEMISPHERE_RADIUS_FROM_TOTAL_SURFACE_VOLUME_RATIO":
+        return `इसलिए त्रिज्या ${answer} है।`;
+      case "SPHERE_DIAMETER_FROM_SURFACE":
+      case "SPHERE_DIAMETER_FROM_VOLUME":
+        return `इसलिए व्यास ${answer} है।`;
+      case "HEMISPHERE_CSA_FROM_RADIUS":
+        return `इसलिए वक्र सतह का क्षेत्रफल ${answer} है।`;
+      case "HEMISPHERE_TSA_FROM_RADIUS":
+        return `इसलिए कुल सतह का क्षेत्रफल ${answer} है।`;
+      case "HEMISPHERE_CAPACITY_LITRES":
+        return `इसलिए पात्र की क्षमता ${answer} है।`;
+      case "SPHERE_PAINTING_COST":
+        return `इसलिए रंगाई की कुल लागत ${answer} है।`;
+      case "HEMISPHERE_INNER_POLISHING_COST":
+        return `इसलिए पॉलिश की कुल लागत ${answer} है।`;
+      case "RADIUS_RATIO_FROM_SURFACE_RATIO":
+      case "RADIUS_RATIO_FROM_VOLUME_RATIO":
+        return `इसलिए त्रिज्याओं का अनुपात ${answer} है।`;
+      case "SPHERE_SURFACE_PERCENT_CHANGE":
+        return `इसलिए सतह के क्षेत्रफल में ${answer} की वृद्धि होती है।`;
+      case "SPHERE_VOLUME_PERCENT_CHANGE":
+        return `इसलिए आयतन में ${answer} की वृद्धि होती है।`;
+      case "SPHERE_SURFACE_RATIO":
+      case "SPHERE_VOLUME_RATIO":
+      case "SPHERE_HEMISPHERE_MEASURE_RATIO":
+      case "SPHERE_OR_HEMISPHERE_CURVED_SURFACE_VOLUME_RATIO":
+      case "HEMISPHERE_TOTAL_SURFACE_VOLUME_RATIO":
+        return `इसलिए आवश्यक अनुपात ${answer} है।`;
+      default:
+        return `इसलिए उत्तर ${answer} है।`;
+    }
+  }
+
+  switch (familyId) {
+    case "SPHERE_SURFACE_FROM_RADIUS":
+    case "SPHERE_SURFACE_FROM_DIAMETER":
+      return `ਇਸ ਲਈ ਸਤਹ ਦਾ ਖੇਤਰਫਲ ${answer} ਹੈ।`;
+    case "SPHERE_VOLUME_FROM_RADIUS":
+    case "SPHERE_VOLUME_FROM_DIAMETER":
+    case "HEMISPHERE_VOLUME_FROM_RADIUS":
+      return `ਇਸ ਲਈ ਆਇਤਨ ${answer} ਹੈ।`;
+    case "SPHERE_RADIUS_FROM_SURFACE":
+    case "SPHERE_RADIUS_FROM_VOLUME":
+    case "HEMISPHERE_RADIUS_FROM_CSA":
+    case "HEMISPHERE_RADIUS_FROM_TSA":
+    case "HEMISPHERE_RADIUS_FROM_VOLUME":
+    case "RADIUS_FROM_CURVED_SURFACE_VOLUME_RATIO":
+    case "HEMISPHERE_RADIUS_FROM_TOTAL_SURFACE_VOLUME_RATIO":
+      return `ਇਸ ਲਈ ਅਰਧ-ਵਿਆਸ ${answer} ਹੈ।`;
+    case "SPHERE_DIAMETER_FROM_SURFACE":
+    case "SPHERE_DIAMETER_FROM_VOLUME":
+      return `ਇਸ ਲਈ ਵਿਆਸ ${answer} ਹੈ।`;
+    case "HEMISPHERE_CSA_FROM_RADIUS":
+      return `ਇਸ ਲਈ ਵਕਰ ਸਤਹ ਦਾ ਖੇਤਰਫਲ ${answer} ਹੈ।`;
+    case "HEMISPHERE_TSA_FROM_RADIUS":
+      return `ਇਸ ਲਈ ਕੁੱਲ ਸਤਹ ਦਾ ਖੇਤਰਫਲ ${answer} ਹੈ।`;
+    case "HEMISPHERE_CAPACITY_LITRES":
+      return `ਇਸ ਲਈ ਭਾਂਡੇ ਦੀ ਸਮਰੱਥਾ ${answer} ਹੈ।`;
+    case "SPHERE_PAINTING_COST":
+      return `ਇਸ ਲਈ ਰੰਗਾਈ ਦੀ ਕੁੱਲ ਲਾਗਤ ${answer} ਹੈ।`;
+    case "HEMISPHERE_INNER_POLISHING_COST":
+      return `ਇਸ ਲਈ ਪਾਲਿਸ਼ ਦੀ ਕੁੱਲ ਲਾਗਤ ${answer} ਹੈ।`;
+    case "RADIUS_RATIO_FROM_SURFACE_RATIO":
+    case "RADIUS_RATIO_FROM_VOLUME_RATIO":
+      return `ਇਸ ਲਈ ਅਰਧ-ਵਿਆਸਾਂ ਦਾ ਅਨੁਪਾਤ ${answer} ਹੈ।`;
+    case "SPHERE_SURFACE_PERCENT_CHANGE":
+      return `ਇਸ ਲਈ ਸਤਹ ਦੇ ਖੇਤਰਫਲ ਵਿੱਚ ${answer} ਵਾਧਾ ਹੁੰਦਾ ਹੈ।`;
+    case "SPHERE_VOLUME_PERCENT_CHANGE":
+      return `ਇਸ ਲਈ ਆਇਤਨ ਵਿੱਚ ${answer} ਵਾਧਾ ਹੁੰਦਾ ਹੈ।`;
+    case "SPHERE_SURFACE_RATIO":
+    case "SPHERE_VOLUME_RATIO":
+    case "SPHERE_HEMISPHERE_MEASURE_RATIO":
+    case "SPHERE_OR_HEMISPHERE_CURVED_SURFACE_VOLUME_RATIO":
+    case "HEMISPHERE_TOTAL_SURFACE_VOLUME_RATIO":
+      return `ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਅਨੁਪਾਤ ${answer} ਹੈ।`;
+    default:
+      return `ਇਸ ਲਈ ਉੱਤਰ ${answer} ਹੈ।`;
+  }
+}
