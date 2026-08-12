@@ -31,8 +31,12 @@ const OBJECT_POSTPOSITIONS = Object.freeze({
 
 const FEMININE_OBJECTS = new Set<TsdCp003SourceObjectKey>(["DELIVERY_VAN", "SCHOOL_BUS", "TAXI", "CAR", "BUS"]);
 const MASCULINE_FORMS = Object.freeze({
-  hi: Object.freeze(["तय करता है", "पहुँचता है", "पहुँचेगा", "चलना शुरू करता है", "रुकता है", "चलता है", "रुका?", "रुका।"]),
-  pa: Object.freeze(["ਤੈਅ ਕਰਦਾ ਹੈ", "ਪਹੁੰਚਦਾ ਹੈ", "ਪਹੁੰਚੇਗਾ", "ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ", "ਰੁਕਦਾ ਹੈ", "ਚੱਲਦਾ ਹੈ", "ਰੁਕਿਆ?", "ਰੁਕਿਆ।"]),
+  hi: Object.freeze(["तय करता है", "पहुँचता है", "पहुँचेगा", "चलना शुरू करता है", "रुकता है", "चलता है", "करता है", "रुका?", "रुका।"]),
+  pa: Object.freeze(["ਤੈਅ ਕਰਦਾ ਹੈ", "ਪਹੁੰਚਦਾ ਹੈ", "ਪਹੁੰਚੇਗਾ", "ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ", "ਰੁਕਦਾ ਹੈ", "ਚੱਲਦਾ ਹੈ", "ਕਰਦਾ ਹੈ", "ਰੁਕਿਆ?", "ਰੁਕਿਆ।"]),
+} as const);
+const FEMININE_FORMS = Object.freeze({
+  hi: Object.freeze(["तय करती है", "पहुँचती है", "पहुँचेगी", "चलना शुरू करती है", "रुकती है", "चलती है", "करती है", "रुकी?", "रुकी।"]),
+  pa: Object.freeze(["ਤੈਅ ਕਰਦੀ ਹੈ", "ਪਹੁੰਚਦੀ ਹੈ", "ਪਹੁੰਚੇਗੀ", "ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ", "ਰੁਕਦੀ ਹੈ", "ਚੱਲਦੀ ਹੈ", "ਕਰਦੀ ਹੈ", "ਰੁਕੀ?", "ਰੁਕੀ।"]),
 } as const);
 const SAFE_GENERIC_CONTEXT_NOUNS = Object.freeze({ hi: Object.freeze(["वाहन", "कोच", "ट्रक"]), pa: Object.freeze(["ਵਾਹਨ", "ਕੋਚ", "ਟਰੱਕ"]) } as const);
 
@@ -46,6 +50,12 @@ function hasExpectedObject(stem: string, key: TsdCp003SourceObjectKey, language:
 }
 function sentenceCount(stem: string): number {
   return stem.split(/[।?]+/u).map((part) => part.trim()).filter(Boolean).length;
+}
+function hasContrast(stem: string, language: TsdCp003NativeLanguage): boolean {
+  return language === "hi" ? /लेकिन|जबकि|परंतु/u.test(stem) : /ਪਰ|ਜਦਕਿ/u.test(stem);
+}
+function hasPersistence(stem: string, language: TsdCp003NativeLanguage): boolean {
+  return language === "hi" ? /फिर भी|पर भी|के बावजूद/u.test(stem) : /ਫਿਰ ਵੀ|ਦੇ ਬਾਵਜੂਦ/u.test(stem);
 }
 
 const frozen = generateCp003EnglishFrozenRecords();
@@ -64,9 +74,15 @@ let optionAnalysisFields = 0;
 let explanationChecks = 0;
 let exclusiveActorChecks = 0;
 let agreementChecks = 0;
+let masculineAgreementChecks = 0;
 let corruptionChecks = 0;
 let conditionalSentenceChecks = 0;
 let whenClauseChecks = 0;
+let contrastClauseChecks = 0;
+let insteadClauseChecks = 0;
+let persistenceClauseChecks = 0;
+let causeClauseChecks = 0;
+let malformedCaseChecks = 0;
 
 for (const row of all) {
   const { presentation, finalNativeReview } = row;
@@ -107,13 +123,16 @@ for (const row of all) {
   assertTsdCp003NativeText(presentation.stem, presentation.language, `${presentation.questionLanguageId}/stem`);
   explanationChecks += 1;
 
+  const malformed = presentation.language === "hi"
+    ? [" पर के पास", " में के पास", "टैक्सीण", "वैनण", "बसण"]
+    : [" ਉੱਤੇ ਕੋਲ", " ਵਿੱਚ ਕੋਲ", "ਟੈਕਸੀਨ", "ਵੈਨਨ", "ਬੱਸਨ"];
+  for (const pattern of malformed) assert(!presentation.stem.includes(pattern), `${presentation.questionLanguageId}: malformed native case/replacement pattern '${pattern}'`);
+  malformedCaseChecks += 1;
+
   const english = canonical.stem.toLowerCase();
   if (/\bif\b/u.test(english)) {
-    if (presentation.language === "hi") {
-      assert(presentation.stem.includes("यदि") && presentation.stem.includes("तो"), `${presentation.questionLanguageId}: English IF relation was flattened in Hindi`);
-    } else {
-      assert(presentation.stem.includes("ਜੇ") && presentation.stem.includes("ਤਾਂ"), `${presentation.questionLanguageId}: English IF relation was flattened in Punjabi`);
-    }
+    if (presentation.language === "hi") assert(presentation.stem.includes("यदि") && presentation.stem.includes("तो"), `${presentation.questionLanguageId}: English IF relation was flattened in Hindi`);
+    else assert(presentation.stem.includes("ਜੇ") && presentation.stem.includes("ਤਾਂ"), `${presentation.questionLanguageId}: English IF relation was flattened in Punjabi`);
     assert(sentenceCount(presentation.stem) >= 2, `${presentation.questionLanguageId}: conditional native stem is still over-compressed`);
     conditionalSentenceChecks += 1;
   }
@@ -121,6 +140,24 @@ for (const row of all) {
     if (presentation.language === "hi") assert(presentation.stem.includes("जब"), `${presentation.questionLanguageId}: English WHEN relation missing in Hindi`);
     else assert(presentation.stem.includes("ਜਦੋਂ"), `${presentation.questionLanguageId}: English WHEN relation missing in Punjabi`);
     whenClauseChecks += 1;
+  }
+  if (/\bbut\b|\bwhile\b/u.test(english)) {
+    assert(hasContrast(presentation.stem, presentation.language), `${presentation.questionLanguageId}: English contrast relation was flattened`);
+    contrastClauseChecks += 1;
+  }
+  if (/\binstead\b/u.test(english)) {
+    if (presentation.language === "hi") assert(presentation.stem.includes("के बजाय"), `${presentation.questionLanguageId}: English INSTEAD relation missing in Hindi`);
+    else assert(presentation.stem.includes("ਦੀ ਥਾਂ"), `${presentation.questionLanguageId}: English INSTEAD relation missing in Punjabi`);
+    insteadClauseChecks += 1;
+  }
+  if (/\bstill\b/u.test(english)) {
+    assert(hasPersistence(presentation.stem, presentation.language), `${presentation.questionLanguageId}: English STILL relation was flattened`);
+    persistenceClauseChecks += 1;
+  }
+  if (/\bbecause\b/u.test(english)) {
+    if (presentation.language === "hi") assert(presentation.stem.includes("कारण"), `${presentation.questionLanguageId}: English BECAUSE relation missing in Hindi`);
+    else assert(presentation.stem.includes("ਕਾਰਨ"), `${presentation.questionLanguageId}: English BECAUSE relation missing in Punjabi`);
+    causeClauseChecks += 1;
   }
 
   const sourceObject = cp003EnglishSourceObjectKey(canonical.stem);
@@ -147,6 +184,10 @@ for (const row of all) {
       for (const masculine of MASCULINE_FORMS[presentation.language]) assert(!presentation.stem.includes(masculine), `${presentation.questionLanguageId}: feminine ${sourceObject} retains masculine form '${masculine}'`);
       agreementChecks += 1;
     }
+    if (sourceObject === "COACH") {
+      for (const feminine of FEMININE_FORMS[presentation.language]) assert(!presentation.stem.includes(feminine), `${presentation.questionLanguageId}: masculine COACH retains feminine form '${feminine}'`);
+      masculineAgreementChecks += 1;
+    }
   } else {
     assert(!nativeStemHasIntroducedActor(presentation.stem, presentation.language), `${presentation.questionLanguageId}: native stem invented a person/vehicle object absent from English`);
     objectNeutralityChecks += 1;
@@ -158,8 +199,13 @@ assert(explanationChecks === 126, `Expected 126 final learner-explanation checks
 assert(sourceObjectParityChecks + objectNeutralityChecks === 126, "Every native row must receive object-parity or object-neutrality check");
 assert(exclusiveActorChecks === sourceObjectParityChecks, "Every object-bearing row must reject alternate native actors");
 assert(corruptionChecks === sourceObjectParityChecks, "Every object-bearing row must receive actor-corruption check");
+assert(malformedCaseChecks === 126, `Expected 126 malformed-case checks, received ${malformedCaseChecks}`);
 assert(conditionalSentenceChecks === 16, `Expected 16 Hindi/Punjabi IF-clause parity checks, received ${conditionalSentenceChecks}`);
 assert(whenClauseChecks === 4, `Expected 4 Hindi/Punjabi WHEN-clause parity checks, received ${whenClauseChecks}`);
+assert(contrastClauseChecks === 26, `Expected 26 Hindi/Punjabi contrast checks, received ${contrastClauseChecks}`);
+assert(insteadClauseChecks === 2, `Expected 2 Hindi/Punjabi INSTEAD checks, received ${insteadClauseChecks}`);
+assert(persistenceClauseChecks === 6, `Expected 6 Hindi/Punjabi STILL checks, received ${persistenceClauseChecks}`);
+assert(causeClauseChecks === 4, `Expected 4 Hindi/Punjabi BECAUSE checks, received ${causeClauseChecks}`);
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -175,8 +221,14 @@ console.log(JSON.stringify({
   exclusiveActorChecks,
   corruptionChecks,
   feminineAgreementChecks: agreementChecks,
+  masculineCoachAgreementChecks: masculineAgreementChecks,
+  malformedCaseChecks,
   conditionalSentenceChecks,
   whenClauseChecks,
+  contrastClauseChecks,
+  insteadClauseChecks,
+  persistenceClauseChecks,
+  causeClauseChecks,
   semanticSentenceParityEnforced: true,
   nativeEditorialStatus: TSD_CP003_NATIVE_FINAL_REVIEW_STATUS,
   frozenEnglishCorpusChanged: false,
