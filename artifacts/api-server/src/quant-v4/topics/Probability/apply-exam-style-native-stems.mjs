@@ -69,6 +69,22 @@ function replaceOnce(value, from, to, label) {
   fs.writeFileSync(path, value);
 }
 
+// Older review edits could leave the conditional helper duplicated. Remove all copies after the first.
+{
+  const path = `${root}/shared/native-final-explanation-renderer.ts`;
+  let value = fs.readFileSync(path, "utf8");
+  const block = `function isConditionalMode(source: ProbabilityQuestion): boolean {\n  return [\n    "findConditionalProbabilityByCounting",\n    "findConditionalCardProbability",\n    "findConditionalNumberProbability",\n    "findConditionalUrnProbability",\n    "findReverseConditionalCount",\n    "findConditionalFromTwoWayTable",\n  ].includes(source.solveMode);\n}\n\n`;
+  const first = value.indexOf(block);
+  if (first >= 0) {
+    let next = value.indexOf(block, first + block.length);
+    while (next >= 0) {
+      value = value.slice(0, next) + value.slice(next + block.length);
+      next = value.indexOf(block, first + block.length);
+    }
+  }
+  fs.writeFileSync(path, value);
+}
+
 {
   const path = `${root}/multilingual-runtime.ts`;
   let value = fs.readFileSync(path, "utf8");
