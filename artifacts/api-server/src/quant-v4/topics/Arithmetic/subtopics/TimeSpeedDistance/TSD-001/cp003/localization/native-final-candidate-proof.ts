@@ -6,6 +6,7 @@ import {
   generateCp003AllFinalNativeReviewCandidates,
   generateCp003FinalNativeReviewCandidate,
   TSD_CP003_NATIVE_FINAL_REVIEW_STATUS,
+  type TsdCp003SourceObjectKey,
 } from "./native-final-candidate";
 import { assertTsdCp003NativeText, type TsdCp003NativeLanguage } from "./native-language-primitives";
 
@@ -42,6 +43,38 @@ const INTRODUCED_ACTOR_PHRASES = Object.freeze({
   ]),
 } as const);
 
+const EXPECTED_ACTOR_BY_KEY = Object.freeze({
+  hi: Object.freeze({
+    DELIVERY_VAN: "एक डिलीवरी वैन",
+    SCHOOL_BUS: "एक स्कूल बस",
+    COACH: "एक कोच",
+    TAXI: "एक टैक्सी",
+    CAR: "एक कार",
+    BUS: "एक बस",
+  }),
+  pa: Object.freeze({
+    DELIVERY_VAN: "ਇੱਕ ਡਿਲਿਵਰੀ ਵੈਨ",
+    SCHOOL_BUS: "ਇੱਕ ਸਕੂਲ ਬੱਸ",
+    COACH: "ਇੱਕ ਕੋਚ",
+    TAXI: "ਇੱਕ ਟੈਕਸੀ",
+    CAR: "ਇੱਕ ਕਾਰ",
+    BUS: "ਇੱਕ ਬੱਸ",
+  }),
+} as const);
+
+const FEMININE_OBJECTS = new Set<TsdCp003SourceObjectKey>([
+  "DELIVERY_VAN",
+  "SCHOOL_BUS",
+  "TAXI",
+  "CAR",
+  "BUS",
+]);
+
+const MASCULINE_FORMS = Object.freeze({
+  hi: Object.freeze(["तय करता है", "पहुँचता है", "चलना शुरू करता है", "रुकता है", "चलता है", "रुका?", "रुका।"]),
+  pa: Object.freeze(["ਤੈਅ ਕਰਦਾ ਹੈ", "ਪਹੁੰਚਦਾ ਹੈ", "ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ", "ਰੁਕਦਾ ਹੈ", "ਚੱਲਦਾ ਹੈ", "ਰੁਕਿਆ?", "ਰੁਕਿਆ।"]),
+} as const);
+
 function nativeStemHasIntroducedActor(stem: string, language: TsdCp003NativeLanguage): boolean {
   return INTRODUCED_ACTOR_PHRASES[language].some((phrase) => stem.includes(phrase));
 }
@@ -61,6 +94,9 @@ let sourceObjectParityChecks = 0;
 let objectNeutralityChecks = 0;
 let optionAnalysisFields = 0;
 let explanationChecks = 0;
+let exclusiveActorChecks = 0;
+let agreementChecks = 0;
+let corruptionChecks = 0;
 
 for (const row of all) {
   const { presentation, finalNativeReview } = row;
@@ -111,11 +147,29 @@ for (const row of all) {
   const sourceObject = cp003EnglishSourceObjectKey(canonical.stem);
   if (sourceObject !== null) {
     const expectedNativeObject = cp003ExpectedNativeObject(sourceObject, presentation.language);
+    const expectedActor = EXPECTED_ACTOR_BY_KEY[presentation.language][sourceObject];
     assert(
-      presentation.stem.includes(expectedNativeObject),
-      `${presentation.questionLanguageId}: English object ${sourceObject} must remain ${expectedNativeObject} in native stem`,
+      presentation.stem.includes(expectedNativeObject) && presentation.stem.includes(expectedActor),
+      `${presentation.questionLanguageId}: English object ${sourceObject} must remain ${expectedActor} in native stem`,
     );
     sourceObjectParityChecks += 1;
+
+    for (const [otherKey, otherActor] of Object.entries(EXPECTED_ACTOR_BY_KEY[presentation.language])) {
+      if (otherKey === sourceObject) continue;
+      assert(!presentation.stem.includes(otherActor), `${presentation.questionLanguageId}: unexpected alternate actor ${otherActor}`);
+    }
+    exclusiveActorChecks += 1;
+
+    const corruptSuffix = presentation.language === "hi" ? "ण" : "ਨ";
+    assert(!presentation.stem.includes(`${expectedActor}${corruptSuffix}`), `${presentation.questionLanguageId}: actor replacement corrupted a surrounding word`);
+    corruptionChecks += 1;
+
+    if (FEMININE_OBJECTS.has(sourceObject)) {
+      for (const masculine of MASCULINE_FORMS[presentation.language]) {
+        assert(!presentation.stem.includes(masculine), `${presentation.questionLanguageId}: feminine ${sourceObject} retains masculine form '${masculine}'`);
+      }
+      agreementChecks += 1;
+    }
   } else {
     assert(
       !nativeStemHasIntroducedActor(presentation.stem, presentation.language),
@@ -128,6 +182,8 @@ for (const row of all) {
 assert(optionAnalysisFields === 0, `Expected zero final option-analysis fields, received ${optionAnalysisFields}`);
 assert(explanationChecks === 126, `Expected 126 final learner-explanation checks, received ${explanationChecks}`);
 assert(sourceObjectParityChecks + objectNeutralityChecks === 126, "Every native row must receive either an object-parity or object-neutrality check");
+assert(exclusiveActorChecks === sourceObjectParityChecks, "Every object-bearing row must reject alternate native actors");
+assert(corruptionChecks === sourceObjectParityChecks, "Every object-bearing row must receive an actor-corruption check");
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -140,6 +196,9 @@ console.log(JSON.stringify({
   explanationContract: "METHOD_STEPS_SHORTCUT_ANSWER",
   sourceObjectParityChecks,
   objectNeutralityChecks,
+  exclusiveActorChecks,
+  corruptionChecks,
+  feminineAgreementChecks: agreementChecks,
   nativeEditorialStatus: TSD_CP003_NATIVE_FINAL_REVIEW_STATUS,
   frozenEnglishCorpusChanged: false,
   productOwnerApprovalRecorded: false,
