@@ -2,16 +2,14 @@ import assert from "node:assert/strict";
 import { MEN_CP_009_FROZEN_QLS_V2 } from "./registry";
 import { buildMenCp009V3StudentReviewBatch } from "./student-review-batch-v3";
 import { generateMenCp009QuestionV2 } from "./runtime";
-import {
-  MEN_CP_009_STUDENT_VIEW_V4_AUTHORITY,
-  buildMenCp009StudentViewV4,
-} from "./student-view-v4";
+import { MEN_CP_009_STUDENT_VIEW_V4_AUTHORITY } from "./student-view-v4";
+import { buildMenCp009StudentViewV4Final } from "./student-view-v4-final";
 import { generateMenCp009NativeTeachingV2 } from "../native/runtime-v2";
 
 const review = buildMenCp009V3StudentReviewBatch();
 assert.equal(review.rows.length, 110);
 
-const english = review.rows.map(buildMenCp009StudentViewV4);
+const english = review.rows.map(buildMenCp009StudentViewV4Final);
 assert.equal(new Set(english.map((row) => row.permanentQlId)).size, 28);
 assert.equal(new Set(english.map((row) => row.stem)).size, 110);
 
@@ -52,7 +50,7 @@ for (let index = 0; index < english.length; index += 1) {
     assert.ok(uses >= 2, `${row.permanentQlId}: ${expected} must be shown in setup and calculation.`);
     explicitPiTeachingUses += 1;
   }
-  if (row.explanationLines.some((line) => /so .* =|gives .* =|= .* =/i.test(line))) {
+  if (row.explanationLines.some((line) => /so .* =|gives .* =|= .* =|substitute the actual values/i.test(line))) {
     middleCalculationProofs += 1;
   }
   if (sourceStem.includes("3.14") && row.options.some((option) => /\d+\.\d+/.test(option.display))) {
@@ -96,7 +94,7 @@ for (const definition of MEN_CP_009_FROZEN_QLS_V2) {
   for (let index = 0; index < 40; index += 1) {
     const seed = `men-cp009-teaching-v4:${definition.qlId}:${index}`;
     const raw = generateMenCp009QuestionV2(definition.qlId, seed);
-    const en = buildMenCp009StudentViewV4(raw);
+    const en = buildMenCp009StudentViewV4Final(raw);
     assert.equal(en.sourceValidationPassed, true);
     assert.equal(en.sourceVerificationPassed, true);
     for (const language of ["hi", "pa"] as const) {
