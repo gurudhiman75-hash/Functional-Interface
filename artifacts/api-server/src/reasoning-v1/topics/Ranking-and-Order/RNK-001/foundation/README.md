@@ -1,18 +1,30 @@
 # RNK-001 Foundation Object Pool V2
 
-Status: **future-facing presentation infrastructure; not adopted by frozen CP001..CP006 runtimes**.
+Status: **future-facing deterministic presentation infrastructure; not adopted by frozen CP001..CP006 runtimes**.
 
 ## Inventory
 
+### Ordinary Ranking presentation pool
+
 ```text
-person objects:          96
-male/female:             48 / 48
-locales/person:          EN / HI / PA
-localized person labels: 288
-group objects:           20
-setting objects:         18
-semantic domains:         6
-relation template sets:   6 x 3 locales
+person objects:            96
+male/female:               48 / 48
+locales/person:            EN / HI / PA
+localized person labels:   288
+group objects:             20
+setting objects:           18
+semantic ranking domains:   6
+relation template sets:      6 x 3 locales
+```
+
+### Derived/compositional Ranking pool
+
+```text
+symbolic rankable objects: 52
+derived quantity domains:   8
+partition schemes:          12
+derived operation kinds:     8
+locales:                    EN / HI / PA
 ```
 
 Core files:
@@ -20,20 +32,24 @@ Core files:
 ```text
 rnk-object-pool-v2.ts
 rnk-presentation-object-pool-v2.ts
+rnk-derived-object-pool-v2.ts
 rnk-object-pool-v2.test.ts
+rnk-derived-object-pool-v2.test.ts
 ```
 
 ## Purpose
 
 Historical RNK generators were built checkpoint by checkpoint and some use small local name arrays. Those arrays are now projection-bearing history and must remain unchanged.
 
-Object Pool V2 gives future Question Studio / discovery versions a much larger deterministic presentation layer without mutating frozen mathematics.
+Object Pool V2 gives future Question Studio/discovery versions a much larger deterministic presentation layer without mutating frozen mathematics.
+
+The derived extension was added after the post-CP006 source audit found source-backed Ranking questions involving subgroup composition, symbolic weighted objects, money transfers and bounded numeric age domains.
 
 ## People
 
 The registry contains 96 stable person IDs, balanced 48/48 across male/female records, with unique English, Hindi and Punjabi display forms.
 
-Names are presentation objects only. Gender or name identity must never imply rank, score, speed, seniority, ability or performance.
+Names are presentation objects only. Gender or name identity must never imply rank, score, speed, seniority, wealth, ability or performance.
 
 ## Group and setting objects
 
@@ -41,9 +57,9 @@ Twenty neutral group labels include candidates, students, applicants, trainees, 
 
 Eighteen setting objects cover merit/selection lists, score rankings, training assessments, height comparison, race/time-trial ranking, seniority lists and performance-review settings.
 
-Each setting declares compatible group IDs so a renderer does not create combinations such as a race of office analysts unless explicitly intended by a future authority.
+Each setting declares compatible group IDs so a renderer does not create obviously mismatched context combinations.
 
-## Semantic domains
+## Ordinary semantic domains
 
 ```text
 GENERIC_RANK
@@ -58,7 +74,7 @@ Domains own presentation vocabulary, not QL identity.
 
 ## Multilingual relation templates
 
-`rnk-presentation-object-pool-v2.ts` provides complete `{A}` / `{B}` templates in English, Hindi and Punjabi for:
+`rnk-presentation-object-pool-v2.ts` provides complete `{A}` / `{B}` relation templates in English, Hindi and Punjabi for:
 
 ```text
 higher relation
@@ -66,9 +82,81 @@ lower relation
 equality relation
 ```
 
-Templates deliberately avoid `he/she`, `his/her` and slash-gender placeholders. This keeps the relation grammar independent of the selected person's gender wherever possible.
+Templates avoid English gender pronouns and slash-gender placeholders so neutral ranking grammar is not coupled to the selected person's gender.
+
+## Symbolic rankable objects
+
+`rnk-derived-object-pool-v2.ts` adds 52 deterministic symbolic objects.
+
+The first 26 are `A..Z`, directly supporting source-authentic forms such as the SSC MTS weight problem with objects `F, G, H, J, K, L`. Additional symbolic IDs extend capacity for larger generated states without forcing human names into object-weight questions.
+
+Each symbolic object supports:
+
+```text
+SYMBOL_ONLY
+OBJECT_LABEL
+```
+
+## Derived quantity domains
+
+```text
+WEIGHT
+MONEY_BALANCE
+AGE
+POPULATION_COUNT
+SCORE
+TIME_TAKEN
+HEIGHT
+INCOME
+```
+
+These are **presentation/derivation domains**, not permanent QLs.
+
+A future solver must still decide whether a problem belongs to Ranking or Quant based on the assessed reasoning burden.
+
+## Partition schemes
+
+Twelve two-category schemes support subgroup-composition questions.
+
+One is directly source-backed:
+
+```text
+boys / girls
+```
+
+Neutral alternatives include:
+
+```text
+Section A / Section B
+morning batch / evening batch
+Batch P / Batch Q
+Group X / Group Y
+first shift / second shift
+Team A / Team B
+```
+
+A category is always explicit problem data. It must never be inferred from a person's name.
+
+## Derived operation surfaces
+
+Eight operation families support source-backed CP007 discovery:
+
+```text
+TRANSFER
+MULTIPLIER
+FRACTION_OF
+EXACT_DIFFERENCE
+SUM_COMPARISON
+CATEGORY_RATIO
+CATEGORY_AHEAD_COUNT
+BOUNDED_CONSECUTIVE_VALUES
+```
+
+They provide EN/HI/PA surface variants only. Mathematical validity remains the responsibility of the eventual CP007 solver.
 
 ## Deterministic APIs
+
+Ordinary layer:
 
 ```text
 selectRnkPeople(seed, count, options)
@@ -78,11 +166,20 @@ buildRnkPresentationBundle(seed, count, options)
 renderRnkRelation(domain, relation, locale, A, B)
 ```
 
-No RNK V2 selector uses `Math.random()`.
+Derived layer:
+
+```text
+selectRnkSymbolicObjects(seed, count)
+selectRnkDerivedQuantityDomain(seed)
+selectRnkPartitionScheme(seed)
+rnkDerivedOperationSurface(kind)
+```
+
+No V2 selector uses `Math.random()`.
 
 ## Validation burden
 
-The pool test checks:
+The ordinary pool test checks:
 
 - globally unique person IDs and visible names per locale;
 - NFC normalization;
@@ -92,13 +189,22 @@ The pool test checks:
 - every setting's group compatibility;
 - all six semantic domains;
 - complete EN/HI/PA relation-template coverage;
-- absence of gender-pronoun/slash placeholders in relation templates;
+- absence of English gender-pronoun/slash placeholders in relation templates;
 - absence of Seating Arrangement vocabulary;
 - deterministic presentation bundles across locales/domains.
 
+The derived pool test checks:
+
+- 52 unique symbolic object IDs/symbols;
+- eight quantity domains with valid supported-operation references;
+- twelve unique partition schemes and explicit source-backed marker for boys/girls;
+- all eight operation surface kinds across EN/HI/PA;
+- deterministic symbolic draws for 4–16 objects across thousands of seeds;
+- deterministic quantity-domain and partition selection.
+
 ## Frozen compatibility
 
-The V2 pool must not change these permanent projections:
+The V2 pools must not change these permanent projections:
 
 ```text
 CP004  39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
