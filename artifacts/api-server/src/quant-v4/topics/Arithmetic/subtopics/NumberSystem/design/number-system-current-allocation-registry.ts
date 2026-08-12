@@ -71,12 +71,30 @@ export const NUMBER_SYSTEM_COMPLETED_CHECKPOINT_ALLOCATIONS = [
     testEligible: false,
     publiclyPublishable: false,
   },
+  {
+    cpId: "NUM-CP-007",
+    packageId: "NUM-002",
+    title: "Division Algorithm and Elementary Remainder Transformation",
+    firstQlNumber: 98,
+    lastQlNumber: 123,
+    permanentQlCount: 26,
+    frozenLearnerTemplateCount: 26,
+    frozenSolveModeCount: 26,
+    authorityRoute: "NUM-002/NUM-CP-007/permanent/allocation.ts",
+    maturity: "ENGLISH_IMPLEMENTATION_FROZEN",
+    language: "en",
+    active: false,
+    questionStudioDiscoverable: false,
+    questionBankWritable: false,
+    testEligible: false,
+    publiclyPublishable: false,
+  },
 ] as const;
 
 export const NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE = {
   first: 1,
-  last: 97,
-  count: 97,
+  last: 123,
+  count: 123,
 } as const;
 
-export const NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT = 98 as const;
+export const NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT = 124 as const;
