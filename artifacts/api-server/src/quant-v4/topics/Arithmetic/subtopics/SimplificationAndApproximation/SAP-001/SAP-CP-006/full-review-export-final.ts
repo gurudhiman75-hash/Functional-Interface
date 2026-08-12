@@ -11,7 +11,7 @@ import { SAP_CP006_PROTOTYPE_IDS, type SapCp006PrototypeId } from "./runtime";
 import { generateSapCp006Editorial } from "./editorial-runtime-v3";
 import { SAP_CP006_WAVE2_PROTOTYPE_IDS, type SapCp006Wave2PrototypeId } from "./runtime-wave2";
 import { generateSapCp006Wave2Editorial } from "./wave2-editorial";
-import { generateSapCp006Wave3, type SapCp006Wave3PrototypeId } from "./runtime-wave3-v2";
+import { generateSapCp006Wave3, type SapCp006Wave3PrototypeId } from "./runtime-wave3-v3";
 
 export {
   SAP_CP006_FULL_REVIEW_CATALOGUE,
