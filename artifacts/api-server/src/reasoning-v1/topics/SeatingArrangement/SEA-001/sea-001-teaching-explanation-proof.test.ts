@@ -6,6 +6,7 @@ if (corpus.caselets.length !== 40) throw new Error(`Expected 40 teaching-proof c
 
 const bannedInternalTerms = /\b(?:solver|oracle|canonical|model class|search branch|seat zero)\b/i;
 const technicalTeachingLanguage = /drawing reference|reference person|two orientations|rotational ambiguity|surviving case|legal seat|placement is still compatible|placements and restrictions|relative clues|physically to our|meaningful placements|genuine placements|as a restriction/i;
+const technicalChildLanguage = /physical circular direction|independent of facing|strictly between|clockwise distance|physical adjacency|point of view|relation is|\bendpoint(?:s)?\b|required truth condition|specified seats or arc|positions away|reference person/i;
 const arbitraryCaseLanguage = /several arrangements are still possible|three useful cases/i;
 const explanationShortcut = /use the remaining clues|build the arrangement by joining the clues|keep this facing fixed while applying the remaining clues|translate this clue onto the sketch|mark exactly what this clue allows and forbids|put this clue on the drawing in the simplest possible way/i;
 const internalPersonId = /\bP\d+\b/;
@@ -37,6 +38,11 @@ for (const caselet of corpus.caselets) {
     contractsByCheckpointPosition.set(key, contracts);
   }
 
+  const childExplanationText = caselet.children.flatMap((child) => [
+    child.explanation,
+    ...child.options.map((option) => option.explanation),
+  ]).join("\n");
+
   const visibleText = [
     caselet.setupText,
     ...caselet.clueTexts,
@@ -52,6 +58,9 @@ for (const caselet of corpus.caselets) {
   if (/position 1 from the left end/i.test(visibleText)) throw new Error(`Awkward left-end wording leaked into ${caselet.caseletId}`);
   if (/not necessarily seated in alphabetical order/i.test(visibleText)) throw new Error(`Alphabetical-order filler leaked into ${caselet.caseletId}`);
   if (internalPersonId.test(visibleText)) throw new Error(`Internal person ID leaked into student-facing content: ${caselet.caseletId}`);
+  if (technicalChildLanguage.test(childExplanationText)) {
+    throw new Error(`Technical child/option explanation language leaked into ${caselet.caseletId}: ${childExplanationText}`);
+  }
 
   const setupNames = caselet.setupText.match(/persons—(.+?)—are sitting/i)?.[1]
     ?.split(",")
