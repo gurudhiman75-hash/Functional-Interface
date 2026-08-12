@@ -1,7 +1,7 @@
 import {
-  buildRnkCp006EqualityEditorialV2Release,
-  type RnkCp006EditorialReleaseQuestion,
-} from "./cp006-equality-ranking-editorial-v2-release";
+  buildRnkCp006EqualityEditorialV3Release,
+  type RnkCp006EditorialV3Question,
+} from "./cp006-equality-ranking-editorial-v3-release";
 import type { RnkCp006EditorialSourceForm } from "./cp006-equality-ranking-editorial-v2";
 
 export const RNK_CP006_AUTHORITY_CONSOLIDATION_VERSION =
@@ -40,7 +40,7 @@ export interface RnkCp006AuthorityProfile {
   readonly freezeEligible: false;
 }
 
-export type RnkCp006ConsolidatedQuestion = RnkCp006EditorialReleaseQuestion & {
+export type RnkCp006ConsolidatedQuestion = RnkCp006EditorialV3Question & {
   readonly authorityProfile: RnkCp006AuthorityProfile;
 };
 
@@ -92,7 +92,7 @@ function profileFor(sourceForm: RnkCp006EditorialSourceForm): RnkCp006AuthorityP
 }
 
 export function buildRnkCp006ConsolidatedEditorialQuestions(): readonly RnkCp006ConsolidatedQuestion[] {
-  return buildRnkCp006EqualityEditorialV2Release().map((question) => ({
+  return buildRnkCp006EqualityEditorialV3Release().map((question) => ({
     ...question,
     authorityProfile: profileFor(question.sourceForm),
   }));
