@@ -11,7 +11,8 @@
     "spatial/diagram.ts",
     "spatial/index.ts",
     "spatial/foundation.test.ts",
-    "PHASE5_STATUS.md"
+    "PHASE5_STATUS.md",
+    "PHASE5_SELF_REVIEW.md"
   ],
   "contracts": {
     "canonicalCoordinatesBeforeProse": true,
@@ -21,7 +22,9 @@
     "sameOppositeSideStateExplicit": true,
     "movementDirectionExplicit": true,
     "diagramStrategyRequired": true,
-    "coordinateVerifierIndependentOfStem": true
+    "coordinateVerifierIndependentOfStem": true,
+    "physicalFeasibilityGuards": true,
+    "exactZeroEyeHeightSemantics": true
   },
   "diagramStrategies": 14,
   "foundationBuilders": [
@@ -45,8 +48,10 @@
     "findCleanStandardAngleFromRiseRun"
   ],
   "testFixturesCommitted": {
-    "positiveCanonicalScenes": 6,
-    "negativeTamperCases": 3,
+    "positiveCanonicalSceneTypes": 6,
+    "negativeVerifierTamperCases": 3,
+    "physicalFeasibilityRejectionCases": 4,
+    "exactZeroStrategyRegression": 1,
     "diagramStrategyNameLock": 14
   },
   "executionEvidence": {
