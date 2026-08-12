@@ -38,9 +38,21 @@ function candidateList(entry:TmwCp011RegistryEntry,p:TmwCp011Parameters,s:TmwCp0
   case "findPostThresholdRateChange": return [[p.postThresholdRate!,"NEW_RATE_REPORTED_AS_CHANGE"],[p.initialRate!,"ORIGINAL_RATE_REPORTED"],[multiply(s.answer,rational(-1)),"INVERSE_FORMULA_REVERSED"]];
  }
 }
+function genericFallbackCandidates(entry:TmwCp011RegistryEntry,s:TmwCp011Solution):Rational[]{
+ const one=rational(1),two=rational(2);
+ if(entry.answerType==="RATE_CHANGE")return [multiply(s.answer,rational(-1)),add(s.answer,one),subtract(s.answer,one),multiply(s.answer,two),divide(s.answer,two),add(s.answer,two),subtract(s.answer,two)];
+ return [add(s.answer,one),subtract(s.answer,one),multiply(s.answer,two),divide(s.answer,two),add(s.answer,two),subtract(s.answer,two),multiply(s.answer,rational(3)),divide(s.answer,rational(3))];
+}
+function validDistractorValue(entry:TmwCp011RegistryEntry,value:Rational){
+ if(entry.answerType!=="RATE_CHANGE"&&!positive(value))return false;
+ if(entry.answerType==="DAY_INDEX"&&value.denominator!==1)return false;
+ if(entry.answerType==="OUTPUT"&&value.denominator!==1)return false;
+ return true;
+}
 export function buildTmwCp011Options(entry:TmwCp011RegistryEntry,p:TmwCp011Parameters,s:TmwCp011Solution,seed:string){
  const used=new Set([rationalKey(s.answer)]);const wrong:Array<[Rational,TmwCp011MisconceptionId]>=[];
- for(const [value,id] of candidateList(entry,p,s)){if(entry.answerType!=="RATE_CHANGE"&&!positive(value)||entry.answerType==="DAY_INDEX"&&value.denominator!==1||entry.answerType==="OUTPUT"&&value.denominator!==1)continue;const key=rationalKey(value);if(used.has(key))continue;used.add(key);wrong.push([value,id]);if(wrong.length===3)break;}
+ for(const [value,id] of candidateList(entry,p,s)){if(!validDistractorValue(entry,value))continue;const key=rationalKey(value);if(used.has(key))continue;used.add(key);wrong.push([value,id]);if(wrong.length===3)break;}
+ if(wrong.length<3){for(const value of genericFallbackCandidates(entry,s)){if(!validDistractorValue(entry,value))continue;const key=rationalKey(value);if(used.has(key))continue;used.add(key);wrong.push([value,"PLAUSIBLE_SCALE_ERROR"]);if(wrong.length===3)break;}}
  if(wrong.length<3)throw new Error(`insufficient CP-011 distractors for ${entry.qlId}`);
  const correctIndex=cp011SeedNumber(seed,`${entry.qlId}:position`)%4;const options:TmwCp011Option[]=[];let wi=0;
  for(let i=0;i<4;i++){if(i===correctIndex)options.push({text:s.answerText,value:s.answer,misconceptionId:"CORRECT"});else{const [value,misconceptionId]=wrong[wi++];options.push({text:format(entry,p,value),value,misconceptionId});}}
