@@ -21,7 +21,9 @@ const p2Answers = new Set<string>();
 const p5EndpointTopologies = new Set<string>();
 const p6Topologies = new Set<string>();
 const p7Classes = new Set<string>();
+const p7Claims = new Set<string>();
 const p8Lengths = new Set<number>();
+let learnerFacingInternalLabelLeaks = 0;
 
 for (const pkg of packages) {
   const replay = generateNumCp001Wave01Package(pkg.temporaryPrototypeId, pkg.seed);
@@ -46,7 +48,20 @@ for (const pkg of packages) {
   assert.ok(pkg.explanation.stepByStep.length > 0);
   assert.ok(pkg.explanation.examSpeedMethod.length > 0);
   assert.equal(pkg.explanation.commonTraps.length, 3);
-  assert.ok(pkg.explanation.finalAnswer.includes(pkg.canonicalAnswer));
+  assert.ok(pkg.explanation.finalAnswer.toLowerCase().includes(pkg.canonicalAnswer.toLowerCase()));
+
+  const learnerFacingText = [
+    pkg.stem,
+    pkg.canonicalAnswer,
+    ...pkg.options.map((option) => option.value),
+    ...pkg.explanation.coreConcept,
+    ...pkg.explanation.givenDataAndStrategy,
+    ...pkg.explanation.stepByStep,
+    ...pkg.explanation.examSpeedMethod,
+    ...pkg.explanation.commonTraps,
+    pkg.explanation.finalAnswer,
+  ].join("\n");
+  if (/[A-Z]{2,}_[A-Z0-9_]+/.test(learnerFacingText)) learnerFacingInternalLabelLeaks += 1;
 
   assert.ok(pkg.sourceAncestry.length >= 3);
   assert.ok(pkg.prototypeAncestry.includes(pkg.temporaryPrototypeId));
@@ -80,11 +95,29 @@ for (const pkg of packages) {
   if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-002") p2Answers.add(pkg.canonicalAnswer);
   if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-005") {
     const notation = String(pkg.hiddenState.topology);
-    p5EndpointTopologies.add(`${notation[0]}${notation.at(-1)}`);
+    const endpointShape = `${notation[0]}${notation.at(-1)}`;
+    p5EndpointTopologies.add(endpointShape);
+    const expectedDifficulty = endpointShape === "[]" ? "EASY" : endpointShape === "()" ? "HARD" : "MEDIUM";
+    assert.equal(pkg.difficulty, expectedDifficulty, `Interval difficulty is not topology-driven for ${notation}`);
   }
-  if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-006") p6Topologies.add(String(pkg.hiddenState.topology));
-  if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-007") p7Classes.add(pkg.canonicalAnswer);
-  if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-008") p8Lengths.add(Number(pkg.hiddenState.length));
+  if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-006") {
+    const topology = Number(pkg.hiddenState.topology);
+    p6Topologies.add(String(topology));
+    assert.equal(pkg.difficulty, (["EASY", "MEDIUM", "HARD"] as const)[topology]);
+  }
+  if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-007") {
+    p7Classes.add(pkg.canonicalAnswer);
+    p7Claims.add(String(pkg.hiddenState.claimId));
+    const claimId = String(pkg.hiddenState.claimId);
+    if (claimId.startsWith("POLYNOMIAL_")) assert.equal(pkg.difficulty, "HARD");
+    if (claimId === "N_IS_EVEN" || claimId === "N_IS_ODD") assert.equal(pkg.difficulty, "EASY");
+  }
+  if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-008") {
+    const length = Number(pkg.hiddenState.length);
+    p8Lengths.add(length);
+    const expectedDifficulty = length === 3 ? "EASY" : length === 4 ? "MEDIUM" : "HARD";
+    assert.equal(pkg.difficulty, expectedDifficulty, `Consecutive-block difficulty is not length-driven for ${length}`);
+  }
 }
 
 for (const prototypeId of NUM_CP001_WAVE01_PROTOTYPE_IDS) {
@@ -93,11 +126,25 @@ for (const prototypeId of NUM_CP001_WAVE01_PROTOTYPE_IDS) {
   assert.ok((fingerprints.get(prototypeId)?.size ?? 0) >= 3, `${prototypeId} collapsed to fewer than three states`);
 }
 
-assert.deepEqual([...p1Sets].sort(), ["INTEGER", "IRRATIONAL", "NATURAL", "RATIONAL", "WHOLE"]);
+assert.equal(learnerFacingInternalLabelLeaks, 0);
+assert.deepEqual([...p1Sets].sort(), [
+  "Integers",
+  "Irrational numbers",
+  "Natural numbers",
+  "Rational numbers",
+  "Whole numbers",
+].sort());
 assert.ok(p2Answers.size >= 4, "Boundary-claim foundation did not vary its correct statement");
 assert.deepEqual([...p5EndpointTopologies].sort(), ["()", "(]", "[)", "[]"]);
 assert.deepEqual([...p6Topologies].sort(), ["0", "1", "2"]);
-assert.deepEqual([...p7Classes].sort(), ["ALWAYS_TRUE", "NEVER_TRUE", "SOMETIMES_TRUE", "TRUE_ONLY_WHEN_N_IS_ZERO"]);
+assert.deepEqual([...p7Classes].sort(), [
+  "Always true",
+  "Never true",
+  "True only when n is even",
+  "True only when n is odd",
+].sort());
+assert.equal(p7Claims.size, 8, "Parity topology fingerprinting must reflect the eight real claim states only");
+assert.equal(fingerprints.get("NUM-CP001-PROT-007")?.size, 8, "Parity fingerprint count is artificially inflated");
 assert.deepEqual([...p8Lengths].sort((a, b) => a - b), [3, 4, 5]);
 
 for (const expectedSemantic of [
@@ -125,6 +172,8 @@ console.log(JSON.stringify({
   numberSetsReached: [...p1Sets].sort(),
   intervalEndpointTopologiesReached: [...p5EndpointTopologies].sort(),
   parityClaimClassesReached: [...p7Classes].sort(),
+  parityClaimStatesReached: p7Claims.size,
+  learnerFacingInternalLabelLeaks,
   permanentQlCount: 0,
   activePackageCount: 0,
 }, null, 2));
