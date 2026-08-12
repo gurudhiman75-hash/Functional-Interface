@@ -35,6 +35,14 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-production-candidate-v1.test.ts \
             | tee rnk-cp006-production-candidate.log
 
+      - name: Upload CP-006 core candidate proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp006-production-candidate-core-proof
+          path: rnk-cp006-production-candidate.log
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Validate CP-006 V4 final editorial baseline
         run: |
           set -o pipefail
