@@ -4,7 +4,7 @@ import { renderLinearDiagram } from "../rendering/linear-diagram.ts";
 import { solveLinear } from "../solver/production-solver.ts";
 import { LinearTopology } from "../topology/linear.ts";
 import type { CandidateClue, LinearConstraint, LinearSeatingState, PersonId, SolverModel } from "../types.ts";
-import { compileCaseEliminationExplanation, type TeachingCaseModel } from "./teaching-trace.ts";
+import { compileCaseEliminationExplanation, studentClueAction, type TeachingCaseModel } from "./teaching-trace.ts";
 
 export function compileProofTrace(state: LinearSeatingState, clues: readonly CandidateClue[]): readonly ProofEvent[] {
   const allSeats = state.seats.map((seat) => seat.id);
@@ -143,10 +143,12 @@ function compilePartialCaseTeaching(
     }
     if (active.length !== 1 || eliminators.length === 0) continue;
 
+    const branchText = clueTexts[branch.index] ?? `clue ${branch.index + 1}`;
     const lines: string[] = [
       directionRule,
       "When a clue gives two or three genuine placements, keep those cases open. Show only the seats fixed in each case and leave the rest blank.",
-      `Start with clue ${branch.index + 1}: ${clueTexts[branch.index]}`,
+      `Start with clue ${branch.index + 1}: ${branchText}`,
+      `What this tells us: ${studentClueAction(branchText)}`,
       `This gives ${initiallyLive.length} possible partial cases:`,
       ...initiallyLive.map((entry, index) => `Case ${index + 1}: ${entry.candidate.display}`),
     ];
@@ -159,6 +161,7 @@ function compilePartialCaseTeaching(
       const afterOriginal = new Set(step.after.map((entry) => entry.originalIndex));
       const eliminatingClue = clueTexts[step.clueIndex] ?? `clue ${step.clueIndex + 1}`;
       lines.push(`Now use clue ${step.clueIndex + 1}: ${eliminatingClue}`);
+      lines.push(`What this tells us: ${studentClueAction(eliminatingClue)}`);
       for (const originalIndex of [...liveOriginal]) {
         const caseNumber = displayedCaseNumber.get(originalIndex);
         if (!caseNumber) continue;
@@ -172,9 +175,16 @@ function compilePartialCaseTeaching(
     const survivorOriginal = [...liveOriginal][0];
     const survivorCaseNumber = survivorOriginal === undefined ? undefined : displayedCaseNumber.get(survivorOriginal);
     if (!survivorCaseNumber) continue;
-    lines.push(`Only Case ${survivorCaseNumber} remains. Keep the fixed seats and use the remaining clues to complete the row.`);
+    lines.push(`Only Case ${survivorCaseNumber} remains. Keep those fixed seats and finish the open positions step by step.`);
     const remaining = clues.map((_, index) => index).filter((index) => !usedClues.has(index));
-    if (remaining.length > 0) lines.push(remaining.map((index) => `${index + 1}. ${clueTexts[index]}`).join("\n"));
+    if (remaining.length > 0) {
+      for (const index of remaining) {
+        const text = clueTexts[index] ?? `clue ${index + 1}`;
+        lines.push(`Clue ${index + 1}: ${text}`);
+        lines.push(`What this tells us: ${studentClueAction(text)}`);
+      }
+      lines.push("After each placement, cross out occupied or forbidden seats. When only one legal seat remains for a person, place that person there.");
+    }
     lines.push("Therefore, the final row is:");
     lines.push(renderLinearDiagram(state));
     return lines.join("\n\n");
