@@ -8,7 +8,7 @@ const PACKAGES_PER_PROTOTYPE = 60;
 const packages = generateNumCp001Wave01Sweep(PACKAGES_PER_PROTOTYPE);
 
 const exactStemOwners = new Map<string, Set<string>>();
-const stemCountsByPrototype = new Map<string, Set<string>>();
+const renderedCountsByPrototype = new Map<string, Set<string>>();
 const explanationCountsByPrototype = new Map<string, Set<string>>();
 let maxStemChars = 0;
 let maxStemWords = 0;
@@ -29,9 +29,10 @@ for (const pkg of packages) {
   owners.add(pkg.temporaryPrototypeId);
   exactStemOwners.set(normalizedStem, owners);
 
-  const stems = stemCountsByPrototype.get(pkg.temporaryPrototypeId) ?? new Set<string>();
-  stems.add(normalizedStem);
-  stemCountsByPrototype.set(pkg.temporaryPrototypeId, stems);
+  const renderedIdentity = `${normalizedStem}||${pkg.options.map((option) => option.value).join("||")}`;
+  const rendered = renderedCountsByPrototype.get(pkg.temporaryPrototypeId) ?? new Set<string>();
+  rendered.add(renderedIdentity);
+  renderedCountsByPrototype.set(pkg.temporaryPrototypeId, rendered);
 
   const explanations = explanationCountsByPrototype.get(pkg.temporaryPrototypeId) ?? new Set<string>();
   explanations.add(JSON.stringify(pkg.explanation));
@@ -66,7 +67,7 @@ for (const owners of exactStemOwners.values()) {
 }
 
 for (const prototypeId of NUM_CP001_WAVE01_PROTOTYPE_IDS) {
-  assert.ok((stemCountsByPrototype.get(prototypeId)?.size ?? 0) >= 3, `${prototypeId} has insufficient stem-state variety`);
+  assert.ok((renderedCountsByPrototype.get(prototypeId)?.size ?? 0) >= 3, `${prototypeId} has insufficient rendered-state variety`);
   assert.ok((explanationCountsByPrototype.get(prototypeId)?.size ?? 0) >= 3, `${prototypeId} has insufficient explanation variety`);
 }
 
@@ -83,8 +84,8 @@ console.log(JSON.stringify({
   status: "PASS_NUM_CP001_WAVE01_STRUCTURAL_AUDIT",
   generatedPackages: packages.length,
   packagesPerPrototype: PACKAGES_PER_PROTOTYPE,
-  distinctStemsByPrototype: Object.fromEntries(
-    [...stemCountsByPrototype.entries()].map(([prototypeId, stems]) => [prototypeId, stems.size]),
+  distinctRenderedQuestionsByPrototype: Object.fromEntries(
+    [...renderedCountsByPrototype.entries()].map(([prototypeId, values]) => [prototypeId, values.size]),
   ),
   distinctExplanationsByPrototype: Object.fromEntries(
     [...explanationCountsByPrototype.entries()].map(([prototypeId, values]) => [prototypeId, values.size]),
