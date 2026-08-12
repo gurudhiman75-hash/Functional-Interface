@@ -37,6 +37,7 @@ import { applyTmwCp005EditorialReviewRemediation } from "./cp005-editorial-revie
 import { applyTmwCp005StartingAgentEditorialFix } from "./cp005-starting-agent-editorial-fix";
 import { applyTmwCp005InverseEditorialFix, applyTmwCp005RemainingWorkEditorialFix } from "./cp005-inverse-editorial-fix";
 import { applyTmwCp006MultilingualEditorialReview } from "./cp006-multilingual-editorial-review-remediation";
+import { polishTmwCp006EditorialReview } from "./cp006-editorial-final-polish";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -67,7 +68,8 @@ function finishEnglish(question: any, questionLanguageId: string): any {
   const cp005StartFixed = applyTmwCp005StartingAgentEditorialFix(cp005Reviewed, questionLanguageId, "en");
   const cp005InverseFixed = applyTmwCp005InverseEditorialFix(cp005StartFixed, questionLanguageId, "en");
   const cp005RemainingFixed = applyTmwCp005RemainingWorkEditorialFix(cp005InverseFixed, questionLanguageId, "en");
-  return applyTmwCp006MultilingualEditorialReview(cp005RemainingFixed, questionLanguageId, "en");
+  const cp006Reviewed = applyTmwCp006MultilingualEditorialReview(cp005RemainingFixed, questionLanguageId, "en");
+  return polishTmwCp006EditorialReview(cp006Reviewed, questionLanguageId, "en");
 }
 
 function finishLocalized(question: any, questionLanguageId: string, language: TmwLocalizedLanguage): any {
@@ -90,7 +92,8 @@ function finishLocalized(question: any, questionLanguageId: string, language: Tm
   const cp005StartFixed = applyTmwCp005StartingAgentEditorialFix(cp005Reviewed, questionLanguageId, language);
   const cp005InverseFixed = applyTmwCp005InverseEditorialFix(cp005StartFixed, questionLanguageId, language);
   const cp005RemainingFixed = applyTmwCp005RemainingWorkEditorialFix(cp005InverseFixed, questionLanguageId, language);
-  return applyTmwCp006MultilingualEditorialReview(cp005RemainingFixed, questionLanguageId, language);
+  const cp006Reviewed = applyTmwCp006MultilingualEditorialReview(cp005RemainingFixed, questionLanguageId, language);
+  return polishTmwCp006EditorialReview(cp006Reviewed, questionLanguageId, language);
 }
 
 export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
