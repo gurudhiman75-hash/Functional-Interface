@@ -51,6 +51,19 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-authority.log
 
+      - name: Bundle Wave 1 learner authority proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/wave01/runtime-authority-editorial.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-wave01-learner-authority.test.mjs
+
+      - name: Run Wave 1 learner authority proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-learner-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-learner-authority.log
+
       - name: Bundle Wave 1 structural audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -82,6 +95,7 @@ jobs:
           name: num-001-cp001-wave01-foundation
           path: |
             artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-authority.log
+            artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-learner-authority.log
             artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-audit.log
             artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-review.json
             artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-review.md
