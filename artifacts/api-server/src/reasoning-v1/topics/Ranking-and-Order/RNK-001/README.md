@@ -1,6 +1,6 @@
 # RNK-001 — Ranking and Order
 
-Status: **CP-001 through CP-005 English frozen at `RNK-QL-001..038`; next available identity is `RNK-QL-039`.**
+Status: **CP-001 through CP-006 English frozen at `RNK-QL-001..041`; next available identity is `RNK-QL-042`.**
 
 Student-facing chapter: **Ranking and Order**  
 Reasoning V1 package: `RNK-001`  
@@ -24,8 +24,8 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 | `RNK-CP-003` | interchange, movement, overtaking, insertion/removal | frozen `RNK-QL-018..026` |
 | `RNK-CP-004` | unique multi-entity strict-order reasoning | frozen `RNK-QL-027..035` |
 | `RNK-CP-005` | partial order / ranking uncertainty | frozen `RNK-QL-036..038` |
-| `RNK-CP-006` | non-strict/tied-ranking audit | unallocated; source evidence required |
-| `RNK-CP-007` | advanced mixed transformations | unallocated; later gap audit |
+| `RNK-CP-006` | equality-aware / tied comparison ranking | frozen `RNK-QL-039..041` |
+| `RNK-CP-007` | advanced mixed transformations | unallocated; fresh gap audit required |
 | `RNK-CP-008` | reserved | shared-set assembly is infrastructure, not QL ownership |
 
 ## Frozen inventory
@@ -36,9 +36,10 @@ RNK-QL-010..017   CP-002 two-position/separation/mixed-end constraints
 RNK-QL-018..026   CP-003 movement/interchange/membership transformations
 RNK-QL-027..035   CP-004 unique strict multi-entity order reasoning
 RNK-QL-036..038   CP-005 partial-order ranking uncertainty
+RNK-QL-039..041   CP-006 equality-aware weak-order reasoning
 ```
 
-CP-004 frozen authorities:
+### CP-004 frozen authorities
 
 ```text
 RNK-QL-027  ENDPOINT_ENTITY
@@ -52,7 +53,7 @@ RNK-QL-034  DEFINITELY_TRUE_RELATION
 RNK-QL-035  MISSING_COMPARISON
 ```
 
-CP-005 frozen authorities:
+### CP-005 frozen authorities
 
 ```text
 RNK-QL-036  RELATION_TRUTH_STATUS
@@ -60,27 +61,33 @@ RNK-QL-037  POSSIBLE_RANK_BOUND
 RNK-QL-038  EXACT_RANK_DETERMINACY
 ```
 
-Next available RNK identity: **`RNK-QL-039`**.
+### CP-006 frozen authorities
 
-## Ownership boundary
+```text
+RNK-QL-039  EQUALITY_AWARE_PAIR_RELATION
+RNK-QL-040  EQUALITY_AWARE_ENDPOINT
+RNK-QL-041  COMPLETE_WEAK_ORDER
+```
 
-The 2026-08-08 book-to-QL audit fixed these chapter boundaries:
+Next available RNK identity: **`RNK-QL-042`**.
 
-- top/bottom arithmetic and side counts → CP-001;
+## Protected ownership boundaries
+
+- rank arithmetic and side counts → CP-001;
 - two-person rank/separation relations → CP-002;
 - interchange, movement, insertion/removal → CP-003;
-- comparison evidence that forces one unique complete strict order → CP-004;
-- incomplete strict-comparison information with multiple valid complete rankings → CP-005;
+- comparison evidence forcing one unique complete **strict** order → CP-004;
+- incomplete strict-comparison evidence with two or more valid complete rankings → CP-005;
+- explicit equality producing one unique **weak** order / total preorder → CP-006;
 - left/right placement, facing, adjacency and seat neighbours → Seating Arrangement;
 - shared passages/caselets → delivery infrastructure, not a QL;
-- arithmetic-heavy marks/age/speed/score → relevant Quant chapter;
-- tied/non-strict ranks → CP-006 only after source evidence.
+- arithmetic-heavy marks/age/speed/score → relevant Quant chapter.
 
 ## CP-004 freeze summary
 
 ```text
-frozen authorities:        9
-permanent runtime:      1,728
+frozen authorities:     9
+permanent runtime:  1,728
 projection:
 sha256:39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
 ```
@@ -89,105 +96,104 @@ CP-004 requires one unique complete strict order.
 
 ## CP-005 freeze summary
 
-CP-005 deliberately retains **two or more valid complete rankings** and asks what remains definite, possible, impossible, bounded or indeterminate across them.
+CP-005 retains two or more valid strict total rankings and reasons across the valid-order set.
+
+```text
+frozen authorities:     3
+permanent runtime:    576
+questions/authority:  192
+answer positions/QL: 48 / 48 / 48 / 48
+candidate projection:
+sha256:c45517d1d8bf4283d38eb4b62d1c9e2f90c5ec58593e2c400a59b2a26fb6e71e
+permanent projection:
+sha256:f6759445937626e6777f322f9b8217bc7aaa12f6a96ee180a24ca3350bd42717
+```
+
+## CP-006 freeze summary
+
+CP-006 owns explicit equality inside ranking comparisons. Every frozen state determines one unique total preorder such as:
+
+```text
+A > B = C > D > E
+```
+
+The equality is not decorative: removing it breaks the inference path needed by the question.
 
 Discovery/editorial path:
 
 ```text
-raw discovery:           8 prototypes / 256 questions
-V3 release:              7 source forms / 168 checked questions
-consolidated authorities: 3
-manual freeze pack:      36 / 36 independently reviewed
-permanent runtime:       576
-questions/authority:     192
+raw discovery forms:        4
+rejected direct-lookup form: EQUAL_PAIR_IDENTIFICATION
+surviving authorities:      3
+manual freeze pack:        36
+permanent runtime:        576
+questions/authority:      192
 ```
 
-Permanent assignments:
+Permanent assignments and modes:
 
 ```text
-RNK-QL-036  RELATION_TRUTH_STATUS
-  MUST / COULD / CANNOT / PAIR_STATUS
+RNK-QL-039  EQUALITY_AWARE_PAIR_RELATION
+  PAIR_LOCAL_BRIDGE / PAIR_FULL_CHAIN
 
-RNK-QL-037  POSSIBLE_RANK_BOUND
-  HIGHEST_POSSIBLE / LOWEST_POSSIBLE
+RNK-QL-040  EQUALITY_AWARE_ENDPOINT
+  ENDPOINT_HIGHEST / ENDPOINT_LOWEST
 
-RNK-QL-038  EXACT_RANK_DETERMINACY
-  EXACT_DEFINITE / EXACT_INDETERMINATE
+RNK-QL-041  COMPLETE_WEAK_ORDER
+  COMPLETE_WEAK_ORDER
 ```
 
-Mode counts:
+Runtime evidence:
 
 ```text
-MUST:                       48
-COULD:                      48
-CANNOT:                     48
-PAIR_FIRST_ABOVE:           16
-PAIR_SECOND_ABOVE:          16
-PAIR_INDETERMINATE:         16
-HIGHEST_POSSIBLE:           96
-LOWEST_POSSIBLE:            96
-EXACT_DEFINITE:             96
-EXACT_INDETERMINATE:        96
+answer positions/QL:             48 / 48 / 48 / 48
+questions independently re-proved:            576
+equality-essential checks:                    576
+complete-order distractors checked:           576
+unique mathematical state keys:               576
+unique learner fingerprints:                  576
+unique permanent fingerprints:                576
+contexts/QL:                                     5
+entity counts/QL:                             5,6,7
 ```
 
-Each CP-005 QL is answer-position balanced `48 / 48 / 48 / 48`.
-
-All five approved presentation contexts occur in every CP-005 authority. Quality-filtered topology coverage is 8 / 7 / 6 graph families for QL036 / QL037 / QL038 respectively.
-
-Frozen CP-005 difficulty distribution:
+Difficulty:
 
 ```text
 Easy:       0
-Medium:   496
-Hard:      80
+Medium:   416
+Hard:     160
 ```
 
-### Freeze proof
-
-The 36-question manual pack was independently re-solved before allocation: zero wrong keys, zero ambiguous correct options, zero invalid witnesses and zero contradictory clue sets.
-
-The executable freeze gate then independently re-proved every answer across the full 576-question runtime from the partial-order state:
+Projection chain:
 
 ```text
-questions independently re-proved: 576
-compulsory proof chains checked:    736
-full witness orders checked:        816
-rank-bound proofs rechecked:        192
-unique learner fingerprints:        576
-unique permanent fingerprints:      576
+reviewed candidate:
+sha256:3b26204b7137910d3247af37c75934680ea34cd86b5f342b55de2012e057fd00
+
+frozen permanent:
+sha256:7043ecd80798ed9b60529d6052f4bc6fd4e678a98d06cc3e0332a3d10028d819
 ```
 
-### Projection chain
+See `RNK-CP-006/RNK-CP-006-ENGLISH-FREEZE-V1.md`.
 
-Reviewed candidate projection:
+### CP-004 versus CP-006
 
 ```text
-sha256:c45517d1d8bf4283d38eb4b62d1c9e2f90c5ec58593e2c400a59b2a26fb6e71e
+CP-004
+  one unique strict total order
+  no equality class
+
+CP-006
+  one unique total preorder / weak order
+  explicit equality class is required evidence
 ```
 
-Frozen permanent projection:
+The similar endpoint/pair/complete-order stem shapes therefore remain separate QLs because their state contracts differ.
 
-```text
-sha256:f6759445937626e6777f322f9b8217bc7aaa12f6a96ee180a24ca3350bd42717
-```
+### Numeric rank after a tie remains excluded
 
-See `RNK-CP-005/RNK-CP-005-ENGLISH-FREEZE-V1.md`.
-
-### QL-034 versus QL-036
-
-The ownership audit remains authoritative:
-
-```text
-RNK-QL-034 / CP-004
-  exactly one complete strict order is valid
-  solver reconstructs that unique order
-
-RNK-QL-036 / CP-005
-  two or more complete strict orders remain valid
-  solver evaluates relation truth over the valid-order set
-```
-
-Their wording can resemble each other, but the solver state and answer contract are different. The QL-034 anti-duplication audit remains in CP-005 freeze CI.
+CP-006 does not silently assume competition, dense or fractional ranking. Numerical post-tie questions remain excluded unless their convention is explicitly stated or a future source-backed checkpoint establishes the rule.
 
 ## Proof summary
 
@@ -197,26 +203,29 @@ CP-002: 8 frozen authorities  / RNK-QL-010..017
 CP-003: 9 frozen authorities  / RNK-QL-018..026
 CP-004: 9 frozen authorities  / RNK-QL-027..035 / 1,728 permanent
 CP-005: 3 frozen authorities  / RNK-QL-036..038 /   576 permanent
+CP-006: 3 frozen authorities  / RNK-QL-039..041 /   576 permanent
 ```
 
-Cumulative frozen authority count: **38**.
+Cumulative frozen authority count: **41**.
 
 ## Current lifecycle
 
 ```text
-cumulative permanent range: RNK-QL-001..038
-next available ID:          RNK-QL-039
+cumulative permanent range: RNK-QL-001..041
+next available ID:          RNK-QL-042
 CP-001 frozen:              true
 CP-002 frozen:              true
 CP-003 frozen:              true
 CP-004 frozen:              true
 CP-005 English frozen:      true
+CP-006 English frozen:      true
 chapter-wide final freeze:  false
 Hindi/Punjabi:              NOT_STARTED
 Question Studio:            DISABLED
+persistence:                DISABLED
 Question Bank:              NOT_STORED
 test eligibility:           INELIGIBLE
 public publication:         false
 ```
 
-Freezing CP-005 does not authorize merge, deployment, publication, Question Studio generation, persistence, or translation.
+Freezing CP-006 does not authorize merge, deployment, publication, Question Studio generation, persistence or translation.
