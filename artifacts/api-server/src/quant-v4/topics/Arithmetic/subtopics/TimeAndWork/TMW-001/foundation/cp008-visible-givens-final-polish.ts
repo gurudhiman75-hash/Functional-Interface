@@ -39,9 +39,9 @@ export function polishTmwCp008VisibleGivens<T extends Cp008Question>(question: T
   const steps = [
     t(
       language,
-      `The work rates and daily hours are equal, so both common factors cancel. Contribution ratio = ${math(`${toLatex(a.days)}:${toLatex(b.days)}`)}.`,
-      `दोनों की काम-दर और प्रतिदिन घंटे समान हैं, इसलिए दोनों समान गुणक कट जाते हैं। योगदान अनुपात = ${math(`${toLatex(a.days)}:${toLatex(b.days)}`)}।`,
-      `ਦੋਵਾਂ ਦੀ ਕੰਮ-ਦਰ ਅਤੇ ਹਰ ਰੋਜ਼ ਘੰਟੇ ਇੱਕੋ ਹਨ, ਇਸ ਲਈ ਦੋਵੇਂ ਸਾਂਝੇ ਗੁਣਕ ਕੱਟ ਜਾਂਦੇ ਹਨ। ਯੋਗਦਾਨ ਅਨੁਪਾਤ = ${math(`${toLatex(a.days)}:${toLatex(b.days)}`)}।`,
+      `The work rates and daily hours are equal; equal daily hours cancel, and the equal work-rate factor cancels too. Contribution ratio = ${math(`${toLatex(a.days)}:${toLatex(b.days)}`)}.`,
+      `दोनों की काम-दर और प्रतिदिन घंटे समान हैं; प्रतिदिन समान घंटे कट जाते हैं और समान काम-दर भी कट जाती है। योगदान अनुपात = ${math(`${toLatex(a.days)}:${toLatex(b.days)}`)}।`,
+      `ਦੋਵਾਂ ਦੀ ਕੰਮ-ਦਰ ਅਤੇ ਹਰ ਰੋਜ਼ ਘੰਟੇ ਇੱਕੋ ਹਨ; ਹਰ ਰੋਜ਼ ਇੱਕੋ ਘੰਟੇ ਕੱਟ ਜਾਂਦੇ ਹਨ ਅਤੇ ਇੱਕੋ ਕੰਮ-ਦਰ ਵੀ ਕੱਟ ਜਾਂਦੀ ਹੈ। ਯੋਗਦਾਨ ਅਨੁਪਾਤ = ${math(`${toLatex(a.days)}:${toLatex(b.days)}`)}।`,
     ),
     t(
       language,
@@ -58,8 +58,6 @@ export function polishTmwCp008VisibleGivens<T extends Cp008Question>(question: T
     answer,
   ];
   const previousErrors = question.validation?.errors ?? [];
-  const hiddenScaledRatio = `${toLatex(a.efficiency) === "1" ? "" : toLatex(a.efficiency)}${toLatex(a.days)}`;
-  void hiddenScaledRatio;
   return {
     ...question,
     learnerExplanation: { ...question.learnerExplanation, solution: steps },
