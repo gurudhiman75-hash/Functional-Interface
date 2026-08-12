@@ -1,0 +1,61 @@
+name: Validate SAP-CP-008 300-question full review
+
+on:
+  pull_request:
+    branches:
+      - feat/sap-cp007-rounding-foundation
+      - feat/sap-cp006-exact-synthesis-foundation
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-008/**
+      - .github/workflows/validate-sap-cp008-full-review.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-sap-cp008-full-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sap-cp008-full-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle full-review authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-008/full-review-authority-v3.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp008-full-review-authority.test.mjs
+      - name: Run full-review authority
+        run: node artifacts/api-server/dist/quant-v4/sap-cp008-full-review-authority.test.mjs
+      - name: Bundle review generator
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-008/generate-full-review-v3.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp008-generate-review.mjs
+      - name: Generate review files
+        run: node artifacts/api-server/dist/quant-v4/sap-cp008-generate-review.mjs
+      - name: Upload human-review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp008-300-question-full-review
+          path: artifacts/api-server/dist/quant-v4/sap-cp008-review/**
+          if-no-files-found: error
+          retention-days: 30
