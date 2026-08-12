@@ -39,14 +39,14 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle wave-three authority
+      - name: Bundle current arithmetic-only DS authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/authority-wave3.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/authority-wave3-v3.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp006-wave3-authority.test.mjs
 
-      - name: Run wave-three authority
+      - name: Run current arithmetic-only DS authority
         shell: bash
         run: |
           set -o pipefail
