@@ -76,6 +76,9 @@ export type SeatingQueryContractId =
   | "SEA-QC-008"
   | "SEA-QC-014"
   | "SEA-QC-015"
+  | "SEA-QC-016"
+  | "SEA-QC-017"
+  | "SEA-QC-019"
   | "SEA-QC-020"
   | "SEA-QC-021";
 
