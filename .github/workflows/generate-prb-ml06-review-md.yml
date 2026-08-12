@@ -38,8 +38,8 @@ jobs:
 
           if grep -q 'naturalizeProbabilityExplanationBody' "$mirror"; then
             echo "English-authority explanation mirror already materialized."
-            echo "Replaying idempotent post-materialization correction waves 15-21."
-            for n in $(seq 15 21); do
+            echo "Replaying idempotent post-materialization correction waves 15-22."
+            for n in $(seq 15 22); do
               file="artifacts/api-server/src/quant-v4/topics/Probability/patch-native-explanation-vocabulary-wave${n}.mjs"
               if [ -f "$file" ]; then
                 echo "Applying $file"
@@ -49,7 +49,7 @@ jobs:
           else
             echo "Bootstrapping English-authority explanation mirror."
             node "$base"
-            for n in $(seq 2 21); do
+            for n in $(seq 2 22); do
               file="artifacts/api-server/src/quant-v4/topics/Probability/patch-native-explanation-vocabulary-wave${n}.mjs"
               if [ -f "$file" ]; then
                 echo "Applying $file"
@@ -79,6 +79,7 @@ jobs:
           ! grep -Eq "[0-9]+ ਉਮੀਦਵਾਰ ਦੇ ਇੱਕ ਸਮੂਹ|[0-9]+ ਵਿਦਿਆਰਥੀ ਦੇ ਇੱਕ ਸਮੂਹ|ਚੁਣੇ ਗੇਂਦਾਂ ਵਿੱਚ|ਉਸ ਦੇ ਨੀਲਾ ਹੋਣ|ਉਸ ਦੇ ਇਨਾਮ ਵਾਲਾ ਟਿਕਟ ਹੋਣ" artifacts/api-server/src/quant-v4/topics/Probability/review/*PUNJABI*.md
           ! grep -Eq "पहली कंचा|पहली पत्थर|पहली पेन" artifacts/api-server/src/quant-v4/topics/Probability/review/*HINDI*.md
           ! grep -Eq "ਪਹਿਲੀ ਕੰਚਾ|ਪਹਿਲੀ ਪੱਥਰ|ਪਹਿਲੀ ਪੈਨ" artifacts/api-server/src/quant-v4/topics/Probability/review/*PUNJABI*.md
+          ! grep -Eq "ਪੜਾਅਾਂ|ਪੜਾਅਵਾਂ" artifacts/api-server/src/quant-v4/topics/Probability/review/*PUNJABI*.md
 
       - name: Upload review Markdown bundle
         uses: actions/upload-artifact@v4
