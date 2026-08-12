@@ -42,16 +42,41 @@ function numberWord(value: number): string {
   return words[value] ?? String(value);
 }
 
+function ordinalSteps(value: string): string {
+  const normalized = value.toLowerCase();
+  const words: Record<string, number> = {
+    immediate: 1,
+    immediately: 1,
+    first: 1,
+    second: 2,
+    third: 3,
+    fourth: 4,
+    fifth: 5,
+    sixth: 6,
+    seventh: 7,
+    eighth: 8,
+  };
+  const numeric = words[normalized] ?? Number.parseInt(normalized, 10);
+  if (!Number.isFinite(numeric)) return `${value} seats`;
+  return `${numberWord(numeric)} seat${numeric === 1 ? "" : "s"}`;
+}
+
 /**
  * Convert a clue into a small student action. The explanation should tell the
  * learner what to mark on the sketch, not merely repeat the clue or ask them to
- * "use the remaining clues" on their own.
+ * complete the reasoning themselves.
  */
 export function studentClueAction(text: string): string {
   let match = text.match(/^(.+?) sits immediately (clockwise|anticlockwise) from (.+?)\.$/i);
   if (match) {
     const [, subject, direction, reference] = match;
     return `Place ${subject} in the next seat ${direction?.toLowerCase()} from ${reference}.`;
+  }
+
+  match = text.match(/^(.+?) sits (first|second|third|fourth|fifth|sixth|seventh|eighth|\d+(?:st|nd|rd|th)) (clockwise|anticlockwise) from (.+?)\.$/i);
+  if (match) {
+    const [, subject, distance, direction, reference] = match;
+    return `Start from ${reference}, move ${ordinalSteps(distance ?? "")} ${direction?.toLowerCase()}, and place ${subject} there.`;
   }
 
   match = text.match(/^Exactly (\d+) person(?:s)? sit(?:s)? between (.+?) and (.+?) when counted (clockwise|anticlockwise) from (.+?)\.$/i);
@@ -66,13 +91,22 @@ export function studentClueAction(text: string): string {
     return `Starting from ${reference}, move ${numberWord(distance)} seat${distance === 1 ? "" : "s"} ${direction}; ${target} must occupy that seat. This leaves exactly ${numberWord(gap)} person${gap === 1 ? "" : "s"} in between.`;
   }
 
-  match = text.match(/^(.+?) does not sit adjacent to (.+?)\.$/i);
+  match = text.match(/^Exactly (\d+) person(?:s)? sit(?:s)? between (.+?) and (.+?)\.$/i);
+  if (match) {
+    const gap = Number(match[1]);
+    const first = match[2];
+    const second = match[3];
+    const distance = gap + 1;
+    return `${first} and ${second} must be ${numberWord(distance)} seat${distance === 1 ? "" : "s"} apart. If one is fixed, count ${numberWord(distance)} seats to locate the other; if neither is fixed, keep only placements with exactly ${numberWord(gap)} person${gap === 1 ? "" : "s"} between them.`;
+  }
+
+  match = text.match(/^(.+?) does not sit (?:adjacent to|next to) (.+?)\.$/i);
   if (match) {
     const [, first, second] = match;
     return `${first} and ${second} cannot be neighbours. If either one is already placed, cross out both seats beside that person for the other.`;
   }
 
-  match = text.match(/^(.+?) sits adjacent to (.+?)\.$/i);
+  match = text.match(/^(.+?) sits (?:adjacent to|next to) (.+?)\.$/i);
   if (match) {
     const [, subject, reference] = match;
     return `Keep ${subject} in one of the two neighbouring seats of ${reference}. Do not choose the side yet unless another clue fixes it.`;
@@ -81,10 +115,13 @@ export function studentClueAction(text: string): string {
   match = text.match(/^(.+?) sits (immediately|first|second|third|fourth|fifth|sixth|seventh|eighth|\d+(?:st|nd|rd|th)) to the (left|right) of (.+?)\.$/i);
   if (match) {
     const [, subject, distance, side, reference] = match;
-    const stepText = distance?.toLowerCase() === "immediately" || distance?.toLowerCase() === "first"
-      ? "one seat"
-      : `${distance?.toLowerCase()} seat`;
-    return `Use ${reference} as the reference person. Move ${stepText} to ${reference}'s ${side?.toLowerCase()} and place ${subject} there. First convert left/right according to ${reference}'s facing.`;
+    return `Use ${reference} as the reference person. Move ${ordinalSteps(distance ?? "")} to ${reference}'s ${side?.toLowerCase()} and place ${subject} there. First convert left/right according to ${reference}'s facing.`;
+  }
+
+  match = text.match(/^(.+?) sits at (?:the )?(left|right) end\.$/i);
+  if (match) {
+    const [, subject, side] = match;
+    return `Fix ${subject} at the ${side?.toLowerCase()}most seat. Treat this as an anchor before placing the relative clues.`;
   }
 
   match = text.match(/^(.+?) sits at the extreme (left|right) end\.$/i);
@@ -93,10 +130,46 @@ export function studentClueAction(text: string): string {
     return `Fix ${subject} at the extreme ${side?.toLowerCase()} seat first; this gives you a strong anchor for the remaining placements.`;
   }
 
+  match = text.match(/^(.+?) sits at one of the extreme ends\.$/i);
+  if (match) {
+    const subject = match[1];
+    return `${subject} can be only at the first or the last seat. Keep these two end cases open until another clue fixes which end is correct.`;
+  }
+
+  match = text.match(/^(.+?) sits in a middle seat\.$/i);
+  if (match) {
+    const subject = match[1];
+    return `Restrict ${subject} to the middle seat position(s). Do not place ${subject} elsewhere; another clue will decide between the middle choices if there are two.`;
+  }
+
+  match = text.match(/^(.+?) sits (\d+)(?:st|nd|rd|th) from the (left|right) end\.$/i);
+  if (match) {
+    const [, subject, position, side] = match;
+    return `Count ${position} seats from the ${side?.toLowerCase()} end and fix ${subject} in that seat.`;
+  }
+
+  match = text.match(/^(.+?) sits opposite (.+?)\.$/i);
+  if (match) {
+    const [, subject, reference] = match;
+    return `Place ${subject} directly opposite ${reference}. Once ${reference} is fixed on the circle, the opposite seat for ${subject} is fixed too.`;
+  }
+
+  match = text.match(/^(.+?) sits at the seat nearest the (entrance|stage|door)\.$/i);
+  if (match) {
+    const [, subject, landmark] = match;
+    return `Use the ${landmark?.toLowerCase()} as the fixed landmark and place ${subject} in the seat nearest to it. This removes rotational ambiguity.`;
+  }
+
   match = text.match(/^(.+?) faces (north|south|the centre|centre|outward)\.$/i);
   if (match) {
     const [, subject, facing] = match;
     return `Mark ${subject}'s facing as ${facing?.toLowerCase()} before using any left/right clue that refers to ${subject}.`;
+  }
+
+  match = text.match(/^(.+?) face the centre; (.+?) face outward\.$/i);
+  if (match) {
+    const [, centreGroup, outwardGroup] = match;
+    return `Mark ${centreGroup} as centre-facing and ${outwardGroup} as outward-facing on the sketch. Keep these arrows fixed before applying any left/right relation.`;
   }
 
   match = text.match(/^(.+?) and (.+?) face the same direction\.$/i);
@@ -117,7 +190,7 @@ export function studentClueAction(text: string): string {
     return `Keep the condition "${condition}" open for now. If it becomes true, use "${whenTrue}"; if not, use "${whenFalse}". Do not choose a branch without a supporting clue.`;
   }
 
-  return "Translate this clue onto the sketch as a restriction. Keep any still-possible seat open until a later clue rules it in or out.";
+  return "Mark exactly what this clue allows and forbids on the sketch, then combine it with the already fixed seats before moving to the next clue.";
 }
 
 function detailedClueLines(clues: readonly TeachingTraceClue[], offset = 0): string[] {
