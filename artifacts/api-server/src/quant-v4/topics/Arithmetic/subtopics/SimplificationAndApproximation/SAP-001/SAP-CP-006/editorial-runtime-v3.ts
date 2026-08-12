@@ -2,10 +2,15 @@ import type { SapCp006Option, SapCp006Package, SapCp006PrototypeId } from "./run
 import { generateSapCp006Editorial as generateV2 } from "./editorial-runtime-v2";
 
 function independentFourWayCorrectIndex(seed: number): number {
-  // Answer placement must be independent from the mathematical state.
-  // Four-seed blocks yield exactly 100 placements in each A/B/C/D position
-  // across seeds 1..400.
-  return Math.floor((seed - 1) / 4) % 4;
+  // Use a Latin-cycle placement rule. Within each four consecutive seeds all
+  // four answer positions occur, and the mapping shifts by one position in the
+  // next block. This prevents seed % 4 mathematical states from being locked to
+  // a single answer position while preserving exact 100/100/100/100 balance
+  // over seeds 1..400.
+  const zeroBased = seed - 1;
+  const withinBlock = zeroBased % 4;
+  const block = Math.floor(zeroBased / 4);
+  return (withinBlock + block) % 4;
 }
 
 function repositionCorrectOption(base: SapCp006Package, seed: number, marker: string): SapCp006Package {
