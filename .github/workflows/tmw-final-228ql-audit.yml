@@ -48,11 +48,24 @@ jobs:
           --skipLibCheck
           --types node
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp011-options.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp012-coverage-closure-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp013-data-sufficiency-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp014-presentation-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-distractor-resilience.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-export.ts
+      - name: Bundle CP011 distractor resilience
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-distractor-resilience.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp011-distractor-resilience.test.mjs
+      - name: Run CP011 distractor resilience
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011-distractor-resilience.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp011-distractor-resilience.log
       - name: Bundle final audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -80,6 +93,7 @@ jobs:
         with:
           name: tmw-001-final-228ql-audit
           path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-cp011-distractor-resilience.log
             artifacts/api-server/dist/quant-v4/tmw-001-final-228ql-audit.log
             artifacts/api-server/dist/quant-v4/tmw-001-final-228ql-audit.json
           if-no-files-found: warn
