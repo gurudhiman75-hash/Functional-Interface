@@ -58,8 +58,11 @@ export function applyTmwCp005InverseEditorialFix<T extends Question>(
 
   const current = question.learnerExplanation;
   const baseWorking = current.solution.slice(0, 3);
-  const rate = solvedValue(question, "r_x");
-  const soloTime = mode === "findUnknownTimeFromAlternatingCompletion" ? finalAnswerValue(current.answer) : null;
+  const answerValue = finalAnswerValue(current.answer);
+  const rate = mode === "findUnknownTimeFromAlternatingCompletion"
+    ? solvedValue(question, "r_x")
+    : answerValue;
+  const soloTime = mode === "findUnknownTimeFromAlternatingCompletion" ? answerValue : null;
 
   const decisive = mode === "findUnknownTimeFromAlternatingCompletion"
     ? `${t(
