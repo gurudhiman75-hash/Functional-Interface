@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { generateCp003AllFinalNativeReviewCandidates } from "./native-final-candidate";
+import { generateCp003AllFinalNativeReviewCandidates } from "./native-final-polished-candidate";
 
 function escapeHtml(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
@@ -60,7 +60,7 @@ const cards = rows.map((row, index) => {
 
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TSD CP-003 Final Hindi/Punjabi Review Candidate</title><style>
 body{font-family:system-ui,-apple-system,"Noto Sans Devanagari","Noto Sans Gurmukhi",sans-serif;margin:0;background:#f5f5f5;color:#1d1d1f}main{max-width:1240px;margin:auto;padding:24px}.notice,.toolbar{background:white;padding:14px;border:1px solid #ddd;border-radius:10px;margin-bottom:16px}.toolbar{position:sticky;top:0;z-index:2}.card{background:white;border:1px solid #ddd;border-radius:12px;padding:18px;margin:16px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.native{font-size:1.05rem;line-height:1.65}.correct{font-weight:700}.correct::after{content:" ✓"}ol{padding-left:24px}code,pre{font-size:.8rem;white-space:pre-wrap;word-break:break-all}select,input{padding:8px;margin-right:8px}@media(max-width:760px){.grid{grid-template-columns:1fr}main{padding:10px}}
-</style></head><body><main><h1>TSD-CP-003 Final Hindi/Punjabi Review Candidate</h1><div class="notice"><b>Lifecycle:</b> English is frozen. Hindi/Punjabi are ready for product-owner native review but remain UNFROZEN. Final learner explanations contain method, connected steps, exam shortcut and answer only. Option analysis is excluded. Native subject/object nouns must match the English source; rows without an English actor remain object-neutral. Question Studio, storage, tests and public delivery remain locked.</div><div class="toolbar"><select id="lang"><option value="all">All languages</option><option value="hi">Hindi</option><option value="pa">Punjabi</option></select><input id="search" placeholder="QL or solve mode"></div>${cards}<script>const lang=document.getElementById('lang'),search=document.getElementById('search');function apply(){const l=lang.value,q=search.value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{const ok=l==='all'||c.dataset.language===l;const hay=(c.dataset.ql+' '+c.dataset.mode+' '+c.innerText).toLowerCase();c.style.display=ok&&hay.includes(q)?'block':'none';});}lang.addEventListener('change',apply);search.addEventListener('input',apply);</script></main></body></html>`;
+</style></head><body><main><h1>TSD-CP-003 Final Hindi/Punjabi Review Candidate</h1><div class="notice"><b>Lifecycle:</b> English is frozen. Hindi/Punjabi are ready for product-owner native review but remain UNFROZEN. Final learner explanations contain method, connected steps, exam shortcut and answer only. Option analysis is excluded. Native subject/object nouns, route/trip context and logical sentence relationships must match the English source without unnatural compression. Question Studio, storage, tests and public delivery remain locked.</div><div class="toolbar"><select id="lang"><option value="all">All languages</option><option value="hi">Hindi</option><option value="pa">Punjabi</option></select><input id="search" placeholder="QL or solve mode"></div>${cards}<script>const lang=document.getElementById('lang'),search=document.getElementById('search');function apply(){const l=lang.value,q=search.value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{const ok=l==='all'||c.dataset.language===l;const hay=(c.dataset.ql+' '+c.dataset.mode+' '+c.innerText).toLowerCase();c.style.display=ok&&hay.includes(q)?'block':'none';});}lang.addEventListener('change',apply);search.addEventListener('input',apply);</script></main></body></html>`;
 writeFileSync(resolve(out, "tsd-cp003-hi-pa-final-review.html"), html);
 
 console.log(JSON.stringify({
@@ -72,6 +72,8 @@ console.log(JSON.stringify({
   explanationContract: "METHOD_STEPS_SHORTCUT_ANSWER",
   optionAnalysisIncluded: false,
   sourceObjectParityEnforced: true,
+  semanticSentenceParityEnforced: true,
+  sourceContextParityEnforced: true,
   productOwnerApprovalRecorded: false,
   multilingualFreezeAuthorized: false,
   outputDirectory: out,
