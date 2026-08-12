@@ -1,75 +1,46 @@
-# SEA-001 — Linear and Circular Seating Foundations
+# SEA-001 — Seating Arrangement Foundations
 
 Executable discovery implementation governed solely by **SEA Seating Arrangement Master End-to-End Family Design V3 (merged)**.
 
 ## Implemented checkpoints
 
-### `SEA-CP-001` — Single row, same facing
+All five foundational checkpoints are executable:
 
-- 5–7 persons, all north or all south;
-- typed end, middle, relative, adjacency and exact-gap constraints;
-- deterministic hidden-state-first generation;
-- production solver plus independent permutation oracle;
-- three-child caselets, method-derived options, explanations and row diagrams.
+- `SEA-CP-001` — single row, same facing;
+- `SEA-CP-002` — single row, mixed facing;
+- `SEA-CP-003` — circular, facing centre;
+- `SEA-CP-004` — circular, facing outward;
+- `SEA-CP-005` — circular, mixed facing.
 
-Named authorities: `SEA-PBA-001` through `SEA-PBA-004`.
+All named provisional authorities `SEA-PBA-001` through `SEA-PBA-020` are reachable.
 
-### `SEA-CP-002` — Single row, mixed facing
+## Current exam-readiness state
 
-- deterministic 6–8 person rows with genuinely mixed north/south facings;
-- complete solution state includes both seat order and each person's facing;
-- person-relative left/right always uses the reference person's facing;
-- stated-facing and inferred-facing discovery variants;
-- production facing-plus-placement backtracker and independently structured seat-filling oracle;
-- every displayed clue is sensitivity-bearing under the unique-state policy;
-- four-child passages covering second-left, immediate-right, neighbours and persons-between queries;
-- facing-dependent explanations explicitly resolve the reference person's facing;
-- physically valid numerical distractors and text row diagrams with facing arrows;
-- 48-caselet JSON/CSV/HTML English review export.
+The current package includes:
 
-Named authorities: `SEA-PBA-005` through `SEA-PBA-008`.
+- production solver plus independently structured oracle checks;
+- unique solution state/class enforcement;
+- displayed-clue necessity checks;
+- rotational canonicalisation where applicable;
+- misconception-derived options and counterfactual checks;
+- student-facing teaching explanations;
+- source-coverage, merge/split, inverse and gap audits;
+- a balanced 100-caselet English manual-review candidate and content-fingerprinted review ledger template.
 
-### `SEA-CP-003` — Circular, facing centre
+Latest editorial hardening includes:
 
-- deterministic 6–10 person centre-facing circles;
-- guarded odd 7/9 variants with no opposite clue or query;
-- centre-facing left/right, adjacency, opposite and directional-gap constraints;
-- rotational solution-class canonicalisation and explicit landmark anchoring;
-- independent production solver and oracle;
-- four-child passages, SVG/text diagrams and 48-caselet review export.
+- CP-001 5–8 person support and thirteen reachable query-contract families;
+- V3 QC016 statement-true, QC017 statement-false and QC019 odd-pair/group queries;
+- question-specific correct-option explanations across all checkpoints;
+- value-specific fallback distractor explanations and rejection of fallback person/pair options that reuse a queried participant;
+- natural mixed-facing relation wording and visible option uniqueness checks;
+- diversified `SEA-PBA-020` conditional-orientation passages combining conditional facing, reference-facing left/right work and physical cyclic placement instead of a near-complete direct clockwise chain;
+- PBA-020 displayed clue cap of 9.
 
-Named authorities: `SEA-PBA-009` through `SEA-PBA-012`.
+See:
 
-### `SEA-CP-004` — Circular, facing outward
-
-- deterministic 6–10 person outward-facing circles;
-- outward rule encoded explicitly: left is anticlockwise and right is clockwise;
-- separate clue evaluator and independent seat-filling oracle rather than reusing centre-facing direction logic;
-- rotational solution classes, even/odd opposite guards and entrance/stage/door landmark variants;
-- all four named authorities `SEA-PBA-013` through `SEA-PBA-016`;
-- every displayed clue is sensitivity-bearing;
-- each caselet contains a child whose answer differs under the incorrect centre-facing rule;
-- wrong centre-facing result stored as a reproducible misconception counterfactual;
-- four-child passages and 48-caselet JSON/CSV/HTML English review export.
-
-Named authorities:
-
-- `SEA-PBA-013` — outward-facing opposite-anchor cycle;
-- `SEA-PBA-014` — outward left/right reversal-intensive chain;
-- `SEA-PBA-015` — outward gap and neighbour mix;
-- `SEA-PBA-016` — outward external-landmark anchor and reversal.
-
-## Wave 4 verification hardening
-
-Completed verification contracts include:
-
-- generic production-model/independent-oracle agreement;
-- entity-renaming, clue-order, rotation and supportive-clue metamorphic proofs;
-- displayed-clue sensitivity checks;
-- independent option-misconception recomputation;
-- locked parent/child Question Studio projection;
-- proof-event-based teaching-trace compilation;
-- dedicated CI proof and evidence record.
+- `WAVE5-SATURATION-AUDIT-EVIDENCE.md` for automated/source evidence;
+- `SEA-001-EDITORIAL-REVIEW-EVIDENCE.md` for the 100-caselet AI/editorial review findings and remediation.
 
 ## Run proofs
 
@@ -78,38 +49,29 @@ node --experimental-strip-types foundation-proof.test.ts
 node --experimental-strip-types cp002-proof.test.ts
 node --experimental-strip-types cp003-proof.test.ts
 node --experimental-strip-types cp004-proof.test.ts
+node --experimental-strip-types cp005-proof.test.ts
 node --experimental-strip-types wave4-verification-proof.test.ts
+node --experimental-strip-types sea-001-saturation-proof.test.ts
+node --experimental-strip-types sea-001-authority-audit-proof.test.ts
+node --experimental-strip-types sea-001-review-readiness-proof.test.ts
 ```
 
-## Generate English review evidence
+## Lifecycle lock
 
-```bash
-SEA_CP002_REVIEW_OUTPUT_DIR=./dist/sea-cp002-review \
-  node --experimental-strip-types cp002-review-export.ts
-
-SEA_CP003_REVIEW_OUTPUT_DIR=./dist/sea-cp003-review \
-  node --experimental-strip-types cp003-review-export.ts
-
-SEA_CP004_REVIEW_OUTPUT_DIR=./dist/sea-cp004-review \
-  node --experimental-strip-types cp004-review-export.ts
-```
-
-## Remaining Wave 5 implementation
-
-`SEA-CP-005 — Circular, Mixed Facing` is the only unfinished SEA-001 checkpoint.
-
-Full saturation, manual English review, merge/split/inverse/gap audits, permanent allocation and English freeze remain later Wave 5 gates after CP-005 is implemented.
-
-## Lifecycle
-
-This package remains internal executable discovery only:
+This package remains internal and is **not activated**.
 
 ```text
 Permanent QLs:                0
-Question Studio public view:  false
+Signed English review:        PENDING
+Solve-inventory freeze:       LOCKED
+Query-mix freeze:             LOCKED
+English freeze:               LOCKED
+Question Studio registration: false
 Question Bank writes:         false
 Mock-test eligibility:        false
 Public publication:           false
 ```
 
-Do not bypass `assertSea001ActivationAllowed`. Remaining SEA-001 work, source and gap audits, manual freezes and product approvals remain mandatory.
+Permanent allocation can become eligible only after the exact regenerated 100-caselet review ledger contains 100 signed `ACCEPT` decisions and zero `REWRITE` / zero `REJECT`. Activation remains a separate downstream gate.
+
+Do not bypass `assertSea001ActivationAllowed`.
