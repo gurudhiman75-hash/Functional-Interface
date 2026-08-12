@@ -28,13 +28,16 @@ function csvCell(value: unknown): string {
 const outputDir = process.env.SEA_001_REVIEW_OUTPUT_DIR ?? "/tmp/sea-001-review";
 await mkdir(outputDir, { recursive: true });
 
-const smallCorpus = buildSea001SaturationCorpus(5);
-const review = selectManualReviewCorpus(smallCorpus.caselets, 5);
+// Build a broader candidate pool than the final review sample so CP-001 can
+// deliberately cover QC016/QC017/QC019 in every blueprint. The exported
+// manual-review corpus remains exactly five caselets per PBA / 100 total.
+const reviewCandidateCorpus = buildSea001SaturationCorpus(40);
+const review = selectManualReviewCorpus(reviewCandidateCorpus.caselets, 5);
 const pendingLedger = buildPendingSea001ManualReviewLedger(review);
 const audit = auditSea001Corpus(
   review,
-  smallCorpus.rejectedExactDuplicateCandidates,
-  smallCorpus.rejectedNormalizedClueSetCandidates,
+  reviewCandidateCorpus.rejectedExactDuplicateCandidates,
+  reviewCandidateCorpus.rejectedNormalizedClueSetCandidates,
 );
 
 const records = review.map((caselet, index) => ({
