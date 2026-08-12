@@ -112,7 +112,7 @@ function trueStatementQuestion(
   return {
     questionOrder: 4,
     queryContractId: "SEA-QC-016",
-    answerType: "RELATION",
+    answerType: "STATEMENT",
     answerDeterminingFactFingerprint: `QC016:TRUE:ADJACENT:${[first, second].sort().join("~")}`,
     text: "Which of the following statements is true?",
     ...buildOptions({
@@ -165,7 +165,7 @@ function falseStatementQuestion(
   return {
     questionOrder: 4,
     queryContractId: "SEA-QC-017",
-    answerType: "RELATION",
+    answerType: "STATEMENT",
     answerDeterminingFactFingerprint: `QC017:FALSE:ADJACENT:${[first, third].sort().join("~")}`,
     text: "Which of the following statements is false?",
     ...buildOptions({
