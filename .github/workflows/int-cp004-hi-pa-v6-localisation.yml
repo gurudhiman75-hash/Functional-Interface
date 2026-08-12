@@ -83,7 +83,7 @@ jobs:
           audit=artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-localization/int-cp004-hi-pa-v6-localization-audit.json
           review=artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-localization-review/int-cp004-hi-pa-v6-review-summary.json
 
-          grep -q 'PASS_INT_CP004_ENGLISH_V6_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
+          grep -q 'PASS_INT_CP004_APPROVED_ENGLISH_FREEZE_V2' artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
           grep -q 'PASS_INT_CP004_HI_PA_V6_LOCALIZATION' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-audit.log
           grep -q 'PASS_INT_CP004_HI_PA_V6_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-review-export.log
           test -f "$audit"
