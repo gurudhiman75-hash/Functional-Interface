@@ -9,6 +9,7 @@ import {
   type MenCp009NativeV2Language,
 } from "./editorial-v2";
 import { cleanMenCp009NativeTeachingLineV2 } from "./teaching-cleanup-v2";
+import { applyMenCp009NativeWordGuardV2 } from "./native-word-guard-v2";
 import {
   MEN_CP_009_MULTILINGUAL_TEACHING_V2_AUTHORITY,
   type MenCp009NativeTeachingV2View,
@@ -50,7 +51,12 @@ export function generateMenCp009NativeTeachingV2(
   const explanationLines = translateMenCp009TeachingExplanationV2(
     english.explanationLines,
     language,
-  ).map((line) => cleanMenCp009NativeTeachingLineV2(line, language));
+  ).map((line) =>
+    applyMenCp009NativeWordGuardV2(
+      cleanMenCp009NativeTeachingLineV2(line, language),
+      language,
+    ),
+  );
 
   const parity = {
     valid:
