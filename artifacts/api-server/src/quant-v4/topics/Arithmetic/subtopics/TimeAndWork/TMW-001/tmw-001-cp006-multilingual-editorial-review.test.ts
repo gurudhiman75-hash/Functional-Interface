@@ -57,6 +57,11 @@ for (const qlId of qls) {
       if (language === "hi") assert(/[\u0900-\u097F]/u.test(learner), `${label}: Hindi learner text lacks Devanagari`);
       if (language === "pa") assert(/[\u0A00-\u0A7F]/u.test(learner), `${label}: Punjabi learner text lacks Gurmukhi`);
 
+      if (qlId === "TMW-QL-108") {
+        assert(!/दैनिक कार्य-समय प्रतिदिन/u.test(learner), `${label}: Hindi daily-time wording is repetitive`);
+        assert(!/ਰੋਜ਼ਾਨਾ ਕੰਮ-ਸਮਾਂ ਹਰ ਦਿਨ/u.test(learner), `${label}: Punjabi daily-time wording is repetitive`);
+      }
+
       if (qlId === "TMW-QL-115") {
         assert(!/का (?:काम|कार्य|निर्माण) का केवल/u.test(question.stem), `${label}: duplicated Hindi genitive remains in progress stem`);
         assert(!/ਦਾ (?:ਕੰਮ|ਨਿਰਮਾਣ) ਦਾ ਸਿਰਫ਼/u.test(question.stem), `${label}: duplicated Punjabi genitive remains in progress stem`);
@@ -68,11 +73,25 @@ for (const qlId of qls) {
         assert(working.includes(`=${scalar}`), `${label}: extra-workforce subtraction is not shown to the solved answer`);
         const required = language === "hi" ? /कुल आवश्यक कर्मचारी/u : language === "pa" ? /ਕੁੱਲ ਲੋੜੀਂਦੇ ਕਰਮਚਾਰੀ/u : /total workforce required/i;
         assert(required.test(learner), `${label}: total-versus-extra workforce distinction is not explicit`);
+        assert(!/वर्तमान प्रति-[^ ]+ गति/u.test(question.stem), `${label}: unnatural Hindi per-worker speed wording remains`);
+        assert(!/ਮੌਜੂਦਾ ਪ੍ਰਤੀ-[^ ]+ ਗਤੀ/u.test(question.stem), `${label}: unnatural Punjabi per-worker speed wording remains`);
+      }
+
+      if (qlId === "TMW-QL-119") {
+        assert(!/ओवरटाइम प्रतिदिन/u.test(question.learnerExplanation.answer), `${label}: Hindi overtime conclusion is repetitive`);
+        assert(!/ਓਵਰਟਾਈਮ ਹਰ ਦਿਨ/u.test(question.learnerExplanation.answer), `${label}: Punjabi overtime conclusion is repetitive`);
       }
 
       if (qlId === "TMW-QL-121") {
-        const required = language === "hi" ? /क्षेत्रफल या आयतन/u : language === "pa" ? /ਖੇਤਰਫਲ ਜਾਂ ਆਇਤਨ/u : /area or volume/i;
-        assert(required.test(question.stem), `${label}: dimensional stem is not valid for both 2D and 3D cases`);
+        const dimensionality = question.parameters?.dimensionsA?.length;
+        assert(dimensionality === 2 || dimensionality === 3, `${label}: unexpected dimensionality`);
+        const expected = language === "hi"
+          ? dimensionality === 2 ? /क्षेत्रफल/u : /आयतन/u
+          : language === "pa"
+            ? dimensionality === 2 ? /ਖੇਤਰਫਲ/u : /ਆਇਤਨ/u
+            : dimensionality === 2 ? /area/i : /volume/i;
+        assert(expected.test(question.stem), `${label}: dimensional stem does not name the exact 2D/3D measure`);
+        assert(!/क्षेत्रफल या आयतन|ਖੇਤਰਫਲ ਜਾਂ ਆਇਤਨ|area or volume/i.test(question.stem), `${label}: dimensional stem still hedges between area and volume`);
       }
 
       if (qlId === "TMW-QL-122" || qlId === "TMW-QL-123") {
@@ -94,6 +113,8 @@ for (const qlId of qls) {
       if (qlId === "TMW-QL-127") {
         const required = language === "hi" ? /संसाधन-समय/u : language === "pa" ? /ਸਰੋਤ-ਸਮਾਂ/u : /resource-time/i;
         assert(required.test(question.learnerExplanation.method), `${label}: equivalent resource-time method is still a generic capacity rule`);
+        const answerLead = language === "hi" ? /समतुल्य कुल/u : language === "pa" ? /ਸਮਤੁੱਲ ਕੁੱਲ/u : /equivalent total/i;
+        assert(answerLead.test(question.learnerExplanation.answer), `${label}: equivalent resource-time conclusion is not naturalized`);
       }
     }
   }
