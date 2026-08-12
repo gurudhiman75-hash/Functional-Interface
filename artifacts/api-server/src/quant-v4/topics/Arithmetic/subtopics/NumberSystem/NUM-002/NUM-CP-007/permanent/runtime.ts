@@ -52,7 +52,7 @@ interface NumCp007TemporaryPackage {
 
 export interface NumCp007PermanentLifecycle {
   readonly permanentQlId: NumCp007PermanentQlId;
-  readonly maturity: "ENGLISH_IMPLEMENTATION_FROZEN";
+  readonly maturity: "MULTILINGUAL_IMPLEMENTATION_FROZEN";
   readonly reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED";
   readonly questionBankStatus: "NOT_STORED";
   readonly testEligibility: "INELIGIBLE";
@@ -91,10 +91,10 @@ export interface NumCp007PermanentQuestion {
   readonly explanation: NumCp007Explanation;
   readonly sourceAncestry: readonly string[];
   readonly prototypeAncestry: readonly string[];
-  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION";
+  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_MULTILINGUAL_IMPLEMENTATION";
   readonly permanentIdentityFrozen: true;
   readonly reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED";
-  readonly maturity: "ENGLISH_IMPLEMENTATION_FROZEN";
+  readonly maturity: "MULTILINGUAL_IMPLEMENTATION_FROZEN";
   readonly lifecycle: NumCp007PermanentLifecycle;
   readonly traceability: Readonly<{
     packageId: "NUM-002";
@@ -135,7 +135,7 @@ export function runNumCp007PermanentPipeline(
   const questionLanguageId = input.questionLanguageId ?? NUM_CP007_PERMANENT_QL_IDS[0];
   const language = input.language ?? "en";
   if (language !== "en") {
-    throw new Error(`NUM-CP-007 permanent runtime only supports English; received ${language}`);
+    throw new Error(`NUM-CP-007 canonical permanent runtime only supports English; received ${language}. Use the localization adapter for frozen translated locales.`);
   }
   const seed = input.seed ?? 1;
   if (!Number.isInteger(seed) || seed <= 0) {
@@ -168,7 +168,7 @@ export function runNumCp007PermanentPipeline(
 
   const lifecycle: NumCp007PermanentLifecycle = {
     permanentQlId: allocation.qlId,
-    maturity: "ENGLISH_IMPLEMENTATION_FROZEN",
+    maturity: "MULTILINGUAL_IMPLEMENTATION_FROZEN",
     reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED",
     questionBankStatus: "NOT_STORED",
     testEligibility: "INELIGIBLE",
@@ -191,10 +191,10 @@ export function runNumCp007PermanentPipeline(
     seed,
     sourceSeed,
     language: "en",
-    allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION",
+    allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_MULTILINGUAL_IMPLEMENTATION",
     permanentIdentityFrozen: true,
     reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED",
-    maturity: "ENGLISH_IMPLEMENTATION_FROZEN",
+    maturity: "MULTILINGUAL_IMPLEMENTATION_FROZEN",
     lifecycle,
     traceability: {
       packageId: "NUM-002",
