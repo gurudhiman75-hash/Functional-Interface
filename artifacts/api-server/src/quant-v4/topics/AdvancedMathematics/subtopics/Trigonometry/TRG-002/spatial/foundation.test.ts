@@ -3,7 +3,6 @@ import {
   exactKey,
   exactRational,
   exactSurd,
-  exactToNumber,
 } from "../../foundation/exact";
 import { degree, toDegrees } from "../../foundation/angle";
 import {
@@ -34,6 +33,12 @@ function exactEquals(actual: any, expected: any, message: string) {
   assert(exactKey(actual) === exactKey(expected), `${message}: ${exactKey(actual)} !== ${exactKey(expected)}`);
 }
 
+function expectThrow(action: () => unknown, message: string) {
+  let threw = false;
+  try { action(); } catch { threw = true; }
+  assert(threw, message);
+}
+
 function objectHeight(state: any) {
   assert(state.verticalObjects.length > 0, "Expected a vertical object.");
   return state.verticalObjects[0].height;
@@ -57,6 +62,9 @@ const single = buildSingleElevationState({ horizontal: twenty, angle: degree(45)
 exactEquals(objectHeight(single), twenty, "Single elevation object height mismatch");
 assert(verifyTrg002SpatialState(single).valid, "Single elevation canonical state must verify.");
 assert(validateTrg002DiagramSpec(buildTrg002DiagramSpec(single)).valid, "Single elevation diagram must validate.");
+
+const explicitZeroEye = buildSingleElevationState({ horizontal: twenty, angle: degree(45), eyeHeight: exactInteger(0), units: "m" });
+assert(explicitZeroEye.diagramStrategy === "SINGLE_ELEVATION", "Explicit exact zero eye height must not switch to OBSERVER_HEIGHT strategy.");
 
 const observerHeight = buildObserverHeightElevationState({
   horizontal: ten,
@@ -144,7 +152,24 @@ const tamperedOpposite = {
 };
 assert(!verifyTrg002SpatialState(tamperedOpposite).valid, "Verifier must reject an opposite-side object moved outside the observers.");
 
+expectThrow(
+  () => sameSideTwoObservationSystem(degree(60), degree(30), twenty),
+  "Same-side closer solver must reject a near angle smaller than the far angle.",
+);
+expectThrow(
+  () => sameSideTwoObservationSystem(degree(30), degree(60), zero),
+  "Same-side solver must reject zero movement.",
+);
+expectThrow(
+  () => oppositeSideObservationSystem(degree(45), degree(45), zero),
+  "Opposite-side solver must reject zero observer separation.",
+);
+expectThrow(
+  () => ladderAgainstWall(zero, degree(30)),
+  "Ladder solver must reject zero ladder length.",
+);
+
 assert(TRG_002_DIAGRAM_STRATEGIES.length === 14, "The Phase 0 diagram strategy union must contain all 14 locked strategy families.");
 assert(new Set(TRG_002_DIAGRAM_STRATEGIES).size === 14, "Diagram strategy names must be unique.");
 
-console.log("TRG-002 spatial foundation fixtures passed: exact solvers, 6 canonical scenes, deterministic diagrams and 3 negative tamper checks.");
+console.log("TRG-002 spatial foundation fixtures passed: exact solvers, 6 canonical scenes, exact-zero strategy semantics, 3 verifier tamper checks and 4 physical-feasibility rejection checks.");
