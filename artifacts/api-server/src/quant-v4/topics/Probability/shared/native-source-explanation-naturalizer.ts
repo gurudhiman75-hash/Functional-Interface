@@ -56,6 +56,27 @@ export function naturalizeProbabilityExplanationBody(
 ): string | null {
   let m: RegExpMatchArray | null;
 
+  m = value.match(/^No integer from 1 to (\d+) satisfies the condition\.$/u);
+  if (m) return pick(
+    language,
+    "1 से " + m[1] + " तक कोई भी पूर्णांक दी गई शर्त को पूरा नहीं करता।",
+    "1 ਤੋਂ " + m[1] + " ਤੱਕ ਕੋਈ ਵੀ ਪੂਰਨ ਅੰਕ ਦਿੱਤੀ ਸ਼ਰਤ ਨੂੰ ਪੂਰਾ ਨਹੀਂ ਕਰਦਾ।",
+  );
+
+  m = value.match(/^No red marble means all selected marbles are blue: (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "कोई लाल कंचा न चुने जाने का अर्थ है कि चुने गए सभी कंचे नीले हों: " + m[1] + "।",
+    "ਕੋਈ ਲਾਲ ਕੰਚਾ ਨਾ ਚੁਣੇ ਜਾਣ ਦਾ ਅਰਥ ਹੈ ਕਿ ਚੁਣੇ ਗਏ ਸਾਰੇ ਕੰਚੇ ਨੀਲੇ ਹੋਣ: " + m[1] + "।",
+  );
+
+  m = value.match(/^Use the complement\. Selections of pens with no red pen: (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "पूरक घटना का उपयोग करें। ऐसे चयन जिनमें कोई लाल पेन न हो: " + m[1] + "।",
+    "ਪੂਰਕ ਘਟਨਾ ਵਰਤੋ। ਉਹ ਚੋਣਾਂ ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਕੋਈ ਲਾਲ ਪੈਨ ਨਾ ਹੋਵੇ: " + m[1] + "।",
+  );
+
   m = value.match(/^The (box|pouch) contains (\d+) (pens|coloured stones) altogether: (\d+) red, (\d+) blue and (\d+) green\.$/u);
   if (m) {
     const containerHi = m[1] === "box" ? "बॉक्स" : "पाउच";
