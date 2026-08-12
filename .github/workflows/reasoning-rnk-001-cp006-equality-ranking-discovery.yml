@@ -56,6 +56,13 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-editorial-v4-release.test.ts \
             | tee rnk-cp006-equality-editorial-v4-release.log
 
+      - name: Validate CP-006 V4 final learner surface
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-editorial-v4-final.test.ts \
+            | tee rnk-cp006-equality-editorial-v4-final.log
+
       - name: Validate CP-006 provisional authority consolidation
         run: |
           set -o pipefail
@@ -63,14 +70,14 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-authority-consolidation-v1.test.ts \
             | tee rnk-cp006-authority-consolidation.log
 
-      - name: Generate 24-question CP-006 V4 human review pack
+      - name: Generate 24-question CP-006 V4 final human review pack
         run: |
           pnpm dlx tsx \
-            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-editorial-v4-review-export.ts
-          test -s RNK-CP-006-EQUALITY-EDITORIAL-V4-REVIEW-24Q.md
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-editorial-v4-final-review-export.ts
+          test -s RNK-CP-006-EQUALITY-EDITORIAL-V4-FINAL-REVIEW-24Q.md
 
-      - name: Emit CP-006 V4 review pack for exact-head inspection
-        run: cat RNK-CP-006-EQUALITY-EDITORIAL-V4-REVIEW-24Q.md
+      - name: Emit CP-006 V4 final review pack for exact-head inspection
+        run: cat RNK-CP-006-EQUALITY-EDITORIAL-V4-FINAL-REVIEW-24Q.md
 
       - name: Validate frozen CP-005 English runtime
         run: |
@@ -109,6 +116,7 @@ jobs:
             rnk-cp006-equality-editorial-v2-release.log
             rnk-cp006-equality-editorial-v3-release.log
             rnk-cp006-equality-editorial-v4-release.log
+            rnk-cp006-equality-editorial-v4-final.log
             rnk-cp006-authority-consolidation.log
             rnk-cp005-frozen-regression.log
             rnk-cp004-frozen-regression.log
@@ -117,11 +125,11 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Upload CP-006 V4 review pack
+      - name: Upload CP-006 V4 final review pack
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp006-equality-editorial-v4-review-24q
-          path: RNK-CP-006-EQUALITY-EDITORIAL-V4-REVIEW-24Q.md
+          name: rnk-001-cp006-equality-editorial-v4-final-review-24q
+          path: RNK-CP-006-EQUALITY-EDITORIAL-V4-FINAL-REVIEW-24Q.md
           if-no-files-found: ignore
           retention-days: 14
