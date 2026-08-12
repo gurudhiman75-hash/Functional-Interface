@@ -10,6 +10,10 @@ on:
       - '.github/workflows/reasoning-rnk-001-post-cp006-audit-object-pool.yml'
   workflow_dispatch:
 
+concurrency:
+  group: rnk-001-post-cp006-audit-object-pool
+  cancel-in-progress: true
+
 jobs:
   validate-audit:
     runs-on: ubuntu-latest
@@ -55,6 +59,14 @@ jobs:
           pnpm dlx tsx \
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/foundation/rnk-object-pool-v2-manifest.test.ts \
             | tee rnk-object-pool-v2-manifest.log
+
+      - name: Upload RNK object-pool manifest proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-object-pool-v2-manifest-proof
+          path: rnk-object-pool-v2-manifest.log
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Replay CP-007 source-backed gap fixtures
         run: |
