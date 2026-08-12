@@ -58,8 +58,13 @@ for (const pkg of packages) {
   }
 
   if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-003" && Number(pkg.hiddenState.tier) === 0) {
-    const wrongStartingPositive = pkg.options.find((option) => !option.isCorrect && Number(option.value.split("<")[0]!.trim()) >= 0);
-    if (wrongStartingPositive && wrongStartingPositive.misconceptionId !== "MISPLACED_NEGATIVE_VALUE") orderingTrapMismatches += 1;
+    const reversedValue = pkg.canonicalAnswer.split("<").map((part) => part.trim()).reverse().join(" < ");
+    for (const option of pkg.options.filter((item) => !item.isCorrect)) {
+      const startsPositive = Number(option.value.split("<")[0]!.trim()) >= 0;
+      if (!startsPositive) continue;
+      const expected = option.value === reversedValue ? "ORDER_REVERSED" : "MISPLACED_NEGATIVE_VALUE";
+      if (option.misconceptionId !== expected) orderingTrapMismatches += 1;
+    }
   }
 
   if (pkg.temporaryPrototypeId === "NUM-CP001-PROT-004") {
