@@ -4,11 +4,35 @@ import {
   type SapCp006Wave2PrototypeId,
 } from "./runtime-wave2";
 
+function independentFourWayCorrectIndex(seed: number): number {
+  const zeroBased = seed - 1;
+  const withinBlock = zeroBased % 4;
+  const block = Math.floor(zeroBased / 4);
+  return (withinBlock + block) % 4;
+}
+
+function decoupleOptionPlacement(pkg: SapCp006Wave2Package, seed: number): SapCp006Wave2Package {
+  const correctIndex = independentFourWayCorrectIndex(seed);
+  const correct = pkg.options.find((option) => option.isCorrect);
+  if (!correct) throw new Error(`${pkg.prototypeId}: package has no correct option.`);
+  const wrong = pkg.options.filter((option) => !option.isCorrect);
+  if (wrong.length !== 3) throw new Error(`${pkg.prototypeId}: package must contain exactly three distractors.`);
+  const options = [...wrong];
+  options.splice(correctIndex, 0, correct);
+  return Object.freeze({
+    ...pkg,
+    options: Object.freeze(options),
+    correctIndex,
+    generationIdentity: `${pkg.generationIdentity}:DECOUPLED-OPTION-POS-${correctIndex}`,
+  });
+}
+
 export function generateSapCp006Wave2Editorial(
   prototypeId: SapCp006Wave2PrototypeId,
   seed: number,
 ): SapCp006Wave2Package {
-  const pkg = generateSapCp006Wave2(prototypeId, seed);
+  const base = generateSapCp006Wave2(prototypeId, seed);
+  const pkg = decoupleOptionPlacement(base, seed);
 
   if (prototypeId !== "SAP-CP006-PROT-MISSING-MIXED-DIVIDEND") return pkg;
 
@@ -29,6 +53,6 @@ export function generateSapCp006Wave2Editorial(
       steps,
       verification,
     }),
-    generationIdentity: `${pkg.generationIdentity}:EDITORIAL-V1`,
+    generationIdentity: `${pkg.generationIdentity}:EDITORIAL-V2`,
   });
 }
