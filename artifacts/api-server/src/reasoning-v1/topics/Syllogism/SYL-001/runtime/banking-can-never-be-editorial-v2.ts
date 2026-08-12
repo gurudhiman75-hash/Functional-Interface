@@ -48,12 +48,12 @@ function renderNegativeConclusion(
   }
   if (question.locale === "hi-IN") {
     return conclusion.surfaceKind === "ALL_CAN_NEVER"
-      ? `ऐसी कोई वैध व्यवस्था नहीं है जिसमें सभी ${subject} ${predicate} हों।`
-      : `कुछ सदस्य ${subject} समूह में हैं और उनका ${predicate} समूह में होना असंभव है।`;
+      ? `“${subject}” वर्ग के सभी सदस्यों का “${predicate}” वर्ग में होना असंभव है।`
+      : `“${subject}” वर्ग का कम-से-कम एक सदस्य “${predicate}” वर्ग का सदस्य कभी नहीं हो सकता।`;
   }
   return conclusion.surfaceKind === "ALL_CAN_NEVER"
-    ? `ਕੋਈ ਵੀ ਵੈਧ ਬਣਤਰ ਐਸੀ ਨਹੀਂ ਹੈ ਜਿਸ ਵਿੱਚ ਸਾਰੇ ${subject} ${predicate} ਹੋਣ।`
-    : `ਕੁਝ ਮੈਂਬਰ ${subject} ਸਮੂਹ ਵਿੱਚ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਦਾ ${predicate} ਸਮੂਹ ਵਿੱਚ ਹੋਣਾ ਅਸੰਭਵ ਹੈ।`;
+    ? `“${subject}” ਵਰਗ ਦੇ ਸਾਰੇ ਮੈਂਬਰਾਂ ਦਾ “${predicate}” ਵਰਗ ਵਿੱਚ ਹੋਣਾ ਅਸੰਭਵ ਹੈ।`
+    : `“${subject}” ਵਰਗ ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ “${predicate}” ਵਰਗ ਦਾ ਮੈਂਬਰ ਕਦੇ ਨਹੀਂ ਹੋ ਸਕਦਾ।`;
 }
 
 function negativeExplanation(
@@ -66,23 +66,23 @@ function negativeExplanation(
   if (question.locale === "hi-IN") {
     if (conclusion.surfaceKind === "ALL_CAN_NEVER") {
       return conclusion.follows
-        ? `${label}: कम-से-कम एक सदस्य ${subject} समूह में रहकर ${predicate} समूह से बाहर होना ही चाहिए। इसलिए ऐसी कोई वैध व्यवस्था नहीं है जिसमें सभी ${subject} ${predicate} हों।`
-        : `${label}: कम-से-कम एक वैध व्यवस्था में ${subject} समूह का हर सदस्य ${predicate} समूह में भी रखा जा सकता है। इसलिए “कभी संभव नहीं” सिद्ध नहीं होता।`;
+        ? `${label}: “${subject}” वर्ग का कम-से-कम एक सदस्य “${predicate}” वर्ग से बाहर रहना ही चाहिए। इसलिए सभी ${subject} का ${predicate} होना असंभव है।`
+        : `${label}: कम-से-कम एक वैध व्यवस्था में “${subject}” वर्ग के सभी सदस्य “${predicate}” वर्ग में रखे जा सकते हैं। इसलिए “कभी संभव नहीं” सिद्ध नहीं होता।`;
     }
     return conclusion.follows
-      ? `${label}: कम-से-कम एक सदस्य का ${subject} समूह में होना और ${predicate} समूह से बाहर रहना निश्चित है। इसलिए यह निष्कर्ष अनुसरण करता है।`
-      : `${label}: किसी सदस्य का ${subject} समूह में होना और साथ ही ${predicate} समूह से बाहर रहना हर वैध व्यवस्था में निश्चित नहीं है। इसलिए यह निष्कर्ष अनुसरण नहीं करता।`;
+      ? `${label}: “${subject}” वर्ग का कम-से-कम एक सदस्य “${predicate}” वर्ग से बाहर रहना निश्चित है। इसलिए यह निष्कर्ष अनुसरण करता है।`
+      : `${label}: “${subject}” वर्ग का कोई सदस्य हर वैध व्यवस्था में “${predicate}” वर्ग से बाहर रहने के लिए बाध्य नहीं है। इसलिए यह निष्कर्ष अनुसरण नहीं करता।`;
   }
 
   if (question.locale === "pa-IN") {
     if (conclusion.surfaceKind === "ALL_CAN_NEVER") {
       return conclusion.follows
-        ? `${label}: ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ ਦਾ ${subject} ਸਮੂਹ ਵਿੱਚ ਰਹਿ ਕੇ ${predicate} ਸਮੂਹ ਤੋਂ ਬਾਹਰ ਰਹਿਣਾ ਲਾਜ਼ਮੀ ਹੈ। ਇਸ ਲਈ ਕੋਈ ਵੀ ਵੈਧ ਬਣਤਰ ਐਸੀ ਨਹੀਂ ਹੈ ਜਿਸ ਵਿੱਚ ਸਾਰੇ ${subject} ${predicate} ਹੋਣ।`
-        : `${label}: ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵੈਧ ਬਣਤਰ ਵਿੱਚ ${subject} ਸਮੂਹ ਦਾ ਹਰ ਮੈਂਬਰ ${predicate} ਸਮੂਹ ਵਿੱਚ ਵੀ ਰੱਖਿਆ ਜਾ ਸਕਦਾ ਹੈ। ਇਸ ਲਈ “ਕਦੇ ਸੰਭਵ ਨਹੀਂ” ਸਾਬਤ ਨਹੀਂ ਹੁੰਦਾ।`;
+        ? `${label}: “${subject}” ਵਰਗ ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ “${predicate}” ਵਰਗ ਤੋਂ ਬਾਹਰ ਰਹਿਣਾ ਲਾਜ਼ਮੀ ਹੈ। ਇਸ ਲਈ ਸਾਰੇ ${subject} ਦਾ ${predicate} ਹੋਣਾ ਅਸੰਭਵ ਹੈ।`
+        : `${label}: ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵੈਧ ਬਣਤਰ ਵਿੱਚ “${subject}” ਵਰਗ ਦੇ ਸਾਰੇ ਮੈਂਬਰ “${predicate}” ਵਰਗ ਵਿੱਚ ਰੱਖੇ ਜਾ ਸਕਦੇ ਹਨ। ਇਸ ਲਈ “ਕਦੇ ਸੰਭਵ ਨਹੀਂ” ਸਾਬਤ ਨਹੀਂ ਹੁੰਦਾ।`;
     }
     return conclusion.follows
-      ? `${label}: ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ ਦਾ ${subject} ਸਮੂਹ ਵਿੱਚ ਹੋਣਾ ਅਤੇ ${predicate} ਸਮੂਹ ਤੋਂ ਬਾਹਰ ਰਹਿਣਾ ਪੱਕਾ ਹੈ। ਇਸ ਲਈ ਇਹ ਨਤੀਜਾ ਸਹੀ ਹੈ।`
-      : `${label}: ਕਿਸੇ ਮੈਂਬਰ ਦਾ ${subject} ਸਮੂਹ ਵਿੱਚ ਹੋਣਾ ਅਤੇ ਨਾਲ ਹੀ ${predicate} ਸਮੂਹ ਤੋਂ ਬਾਹਰ ਰਹਿਣਾ ਹਰ ਵੈਧ ਬਣਤਰ ਵਿੱਚ ਪੱਕਾ ਨਹੀਂ ਹੈ। ਇਸ ਲਈ ਇਹ ਨਤੀਜਾ ਸਹੀ ਨਹੀਂ ਹੈ।`;
+      ? `${label}: “${subject}” ਵਰਗ ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ “${predicate}” ਵਰਗ ਤੋਂ ਬਾਹਰ ਰਹਿਣਾ ਪੱਕਾ ਹੈ। ਇਸ ਲਈ ਇਹ ਨਤੀਜਾ ਸਹੀ ਹੈ।`
+      : `${label}: “${subject}” ਵਰਗ ਦਾ ਕੋਈ ਮੈਂਬਰ ਹਰ ਵੈਧ ਬਣਤਰ ਵਿੱਚ “${predicate}” ਵਰਗ ਤੋਂ ਬਾਹਰ ਰਹਿਣ ਲਈ ਮਜਬੂਰ ਨਹੀਂ ਹੈ। ਇਸ ਲਈ ਇਹ ਨਤੀਜਾ ਸਹੀ ਨਹੀਂ ਹੈ।`;
   }
 
   if (conclusion.surfaceKind === "ALL_CAN_NEVER") {
