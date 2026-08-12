@@ -66,6 +66,7 @@ function targetPositions(): readonly number[] {
 }
 
 const COMPARISON_SEQUENCE = ["A < B", "A = B", "A > B"] as const;
+const FACTORIAL_INPUT_SEQUENCE = ["3", "4", "5", "6"] as const;
 const DS_SEQUENCE = [
   "I alone is sufficient",
   "II alone is sufficient",
@@ -90,6 +91,9 @@ function passesVarietyTarget(prototypeId: SapCp006FullReviewPrototypeId, accepte
   if (prototypeId === "SAP-CP006-PROT-ORDER-MIXED-REPRESENTATIONS") {
     const shouldUseTable = accepted % 2 === 0;
     return (pkg.oracle.data.tableWrapper === 1) === shouldUseTable;
+  }
+  if (prototypeId === "SAP-CP006-PROT-COMPOSED-FACTORIAL-MISSING") {
+    return pkg.canonicalAnswer === FACTORIAL_INPUT_SEQUENCE[accepted % FACTORIAL_INPUT_SEQUENCE.length];
   }
   if (prototypeId === "SAP-CP006-PROT-EXACT-ARITHMETIC-DATA-SUFFICIENCY") {
     return pkg.canonicalAnswer === DS_SEQUENCE[accepted % DS_SEQUENCE.length];
