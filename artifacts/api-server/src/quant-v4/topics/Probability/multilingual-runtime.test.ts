@@ -12,6 +12,7 @@ import {
   buildProbabilityMultilingualManifest,
 } from "./multilingual-foundation";
 import { auditProbabilityNativeText } from "./native-language-primitives";
+import type { ProbabilityNativeLanguage } from "./multilingual-foundation";
 import type { ProbabilityQuestion } from "./shared/types";
 
 function stringify(value: unknown): string {
@@ -44,6 +45,72 @@ function mathematicalSnapshot(question: ProbabilityQuestion): string {
   });
 }
 
+function mathSegments(value: string): string[] {
+  const result: string[] = [];
+  for (const [open, close] of [["\\(", "\\)"], ["\\[", "\\]"]] as const) {
+    let cursor = 0;
+    while (cursor < value.length) {
+      const start = value.indexOf(open, cursor);
+      if (start < 0) break;
+      const end = value.indexOf(close, start + open.length);
+      if (end < 0) throw new Error(`Unclosed MathJax segment: ${value}`);
+      result.push(value.slice(start, end + close.length));
+      cursor = end + close.length;
+    }
+  }
+  return result;
+}
+
+function numericMultiset(value: string): string[] {
+  return (value.match(/\d+(?:\.\d+)?/gu) ?? []).sort();
+}
+
+function expectedNativeRole(englishLine: string, language: ProbabilityNativeLanguage): string {
+  if (englishLine.startsWith("Method — ")) return language === "hi" ? "विधि" : "ਵਿਧੀ";
+  const step = englishLine.match(/^Step (\d+) — /u)?.[1];
+  if (step) return language === "hi" ? `चरण ${step}` : `ਕਦਮ ${step}`;
+  if (englishLine.startsWith("Simplification — ")) return language === "hi" ? "सरलीकरण" : "ਸਰਲੀਕਰਨ";
+  if (englishLine.startsWith("Key point — ")) return language === "hi" ? "मुख्य बिंदु" : "ਮੁੱਖ ਬਿੰਦੂ";
+  if (englishLine.startsWith("Answer — ")) return language === "hi" ? "उत्तर" : "ਉੱਤਰ";
+  throw new Error(`Unsupported English explanation role: ${englishLine}`);
+}
+
+function assertExplanationAuthority(
+  source: ProbabilityQuestion,
+  nativeLines: readonly string[],
+  language: ProbabilityNativeLanguage,
+): void {
+  const englishLines = source.explanation.lines;
+  assert.equal(
+    nativeLines.length,
+    englishLines.length,
+    `${source.questionLanguageId}/${language}: native explanation step count diverged from English authority`,
+  );
+
+  for (let index = 0; index < englishLines.length; index += 1) {
+    const englishLine = englishLines[index]!;
+    const nativeLine = nativeLines[index]!;
+    const role = expectedNativeRole(englishLine, language);
+    assert(
+      nativeLine.startsWith(`${role} — `),
+      `${source.questionLanguageId}/${language}: explanation role/order drifted at line ${index + 1}`,
+    );
+    assert.deepEqual(
+      mathSegments(nativeLine),
+      mathSegments(englishLine),
+      `${source.questionLanguageId}/${language}: MathJax changed at line ${index + 1}`,
+    );
+    assert.deepEqual(
+      numericMultiset(nativeLine),
+      numericMultiset(englishLine),
+      `${source.questionLanguageId}/${language}: numeric facts changed at line ${index + 1}`,
+    );
+    const auditLine = nativeLine.replaceAll("n!/[r!(n-r)!]", "\\(n!/[r!(n-r)!]\\)");
+    const audit = auditProbabilityNativeText(auditLine, language);
+    assert(audit.valid, `${source.questionLanguageId}/${language}: explanation line ${index + 1} failed ${JSON.stringify(audit)}`);
+  }
+}
+
 const allEntries = listProbabilityMl05QlEntries();
 assert.equal(allEntries.length, 216);
 assert.equal(listPrb001QuestionEntries().length, 120);
@@ -58,6 +125,7 @@ let punjabiCount = 0;
 let prb001NativeCount = 0;
 let prb002NativeCount = 0;
 let visualCount = 0;
+let explanationLinePairsChecked = 0;
 
 for (const entry of allEntries) {
   const seed = `ml05-parity:${entry.qlId}`;
@@ -117,12 +185,10 @@ for (const entry of allEntries) {
     assert.equal(preview.parity.answerPreserved, true);
     assert.equal(preview.parity.correctIndexPreserved, true);
 
-    assert.equal(presentation.explanation.lines.length, 5);
+    assertExplanationAuthority(source, presentation.explanation.lines, language);
+    explanationLinePairsChecked += source.explanation.lines.length;
     assert(presentation.explanation.wordCount > 0);
-    for (const [index, line] of presentation.explanation.lines.entries()) {
-      const audit = auditProbabilityNativeText(line, language);
-      assert(audit.valid, `${entry.qlId}/${language}: explanation line ${index + 1} failed ${JSON.stringify(audit)}`);
-    }
+
     for (const visual of presentation.explanation.visuals) {
       visualCount += 1;
       assert(auditProbabilityNativeText(visual.title, language).valid, `${entry.qlId}/${language}: visual title leaked English`);
@@ -160,6 +226,7 @@ assert.equal(prb001NativeCount, 240);
 assert.equal(prb002NativeCount, 192);
 assert.equal(localizedQuestionIds.size, 432);
 assert.equal(localizedExplanationIds.size, 432);
+assert(explanationLinePairsChecked > 0);
 assert(visualCount > 0, "ML-05 parity suite must exercise at least one native visual path");
 
 const first001 = listPrb001QuestionEntries()[0]!;
@@ -204,13 +271,14 @@ for (const language of ["hi", "pa"] as const) {
 
 console.log(JSON.stringify({
   status: "PASS",
-  checkpoint: "ML-05",
+  checkpoint: "ML-05-EXPLANATION-AUTHORITY",
   englishQlCount: 216,
   nativePresentationCount,
   hindiCount,
   punjabiCount,
   prb001NativeCount,
   prb002NativeCount,
+  explanationLinePairsChecked,
   visualCount,
   localizedQuestionIdCount: localizedQuestionIds.size,
   localizedExplanationIdCount: localizedExplanationIds.size,
