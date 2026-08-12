@@ -3,7 +3,7 @@ import { renderConstraint } from "../constraints/render.ts";
 import { compileProofTrace, compileSharedExplanation } from "../explanation/proof-compiler.ts";
 import { SEA_001_LIFECYCLE } from "../lifecycle.ts";
 import { renderLinearDiagram } from "../rendering/linear-diagram.ts";
-import type { SeatingBlueprintId, SeatingCaseletRecord } from "../types.ts";
+import type { SeatingBlueprintId, SeatingCaseletRecord, SeatingChildQuestion } from "../types.ts";
 import { enumerateTrueCandidateClues } from "./candidate-clues.ts";
 import { selectUniqueClueSet } from "./clue-selection.ts";
 import { expandCp001ExamQueryFormats } from "./cp001-exam-query-expansion.ts";
@@ -23,6 +23,17 @@ function auditCrossQuestionLeakage(children: SeatingCaseletRecord["children"]): 
     }
   }
   return true;
+}
+
+function personalizeCorrectOptionExplanations(
+  children: readonly SeatingChildQuestion[],
+): readonly SeatingChildQuestion[] {
+  return children.map((child) => ({
+    ...child,
+    options: child.options.map((option) => option.isCorrect
+      ? { ...option, explanation: child.explanation }
+      : option) as unknown as SeatingChildQuestion["options"],
+  }));
 }
 
 function assertQueryMix(children: SeatingCaseletRecord["children"]): void {
@@ -53,7 +64,8 @@ export function generateSeaCp001Caselet(input: {
       const clueTexts = selection.selected.map((clue) => renderConstraint(clue.constraint, state.persons, state.seats.length));
       const expandedChildren = expandCp001QueryMix(state, derivedSeed, generateCp001Questions(state, derivedSeed));
       const examExpandedChildren = expandCp001ExamQueryFormats(state, derivedSeed, expandedChildren);
-      const children = varySea001ChildOrder(derivedSeed, examExpandedChildren) as SeatingCaseletRecord["children"];
+      const personalizedChildren = personalizeCorrectOptionExplanations(examExpandedChildren);
+      const children = varySea001ChildOrder(derivedSeed, personalizedChildren) as SeatingCaseletRecord["children"];
       assertQueryMix(children);
       const crossQuestionLeakagePassed = auditCrossQuestionLeakage(children);
       if (!crossQuestionLeakagePassed) throw new Error("Cross-question answer leakage audit failed");
