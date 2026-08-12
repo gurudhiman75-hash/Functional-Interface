@@ -30,20 +30,25 @@ technical/editorial blockers = 0
 permanent QLs               = 0
 ```
 
-The current harness accepts 80 unique caselets per named PBA, producing **1,600 accepted caselets** and **6,400 child questions**.
+The current harness accepts 80 unique caselets per named PBA, producing **1,600 accepted caselets** and at least **6,000 genuine child questions**.
 
-An established green saturation run observed **212 material structural variants** and **26 query-template surfaces** before the later CP-001 ten-family query expansion. The current proof continues to enforce the same lower bounds after that expansion.
+An established green saturation run observed **212 material structural variants** and **26 query-template surfaces** before the later CP-001 query-family expansions. The current proof continues to enforce the same lower bounds and now treats `SEA-QC-016`, `SEA-QC-017` and `SEA-QC-019` as owned SEA-001 contracts whose reachability is mandatory.
 
 Exact and normalized duplicate clue-set candidates are rejected during saturation sampling.
 
-## CP-001 closure work
+## CP-001 closure and exam-query breadth
 
 Wave 5 closes the remaining CP-001 implementation gaps identified against V3:
 
 - seat-count boundary expanded to 5–8 persons;
-- ten distinct query-contract families are reachable across deterministic seeds;
+- **thirteen** distinct query-contract families are reachable across deterministic CP-001 seeds;
 - four-child caselets remain inside the V3 3–5-child rule;
 - position-from-end, immediate-right, adjacent-pair and seat-exchange hypothetical queries are included;
+- V3 exam-style `SEA-QC-016` **which statement is true** is executable with `STATEMENT` answer semantics;
+- V3 exam-style `SEA-QC-017` **which statement is false** is executable with `STATEMENT` answer semantics;
+- V3 exam-style `SEA-QC-019` **odd pair/group by seating relation** is executable with `PAIR` answer semantics;
+- wrong options in these exam-style formats carry explicit misconception classification, semantic fingerprints, recomputation evidence and value-specific explanations;
+- the saturation residual audit declares QC016/QC017/QC019 owned, so any loss of their reachability fails the package gate;
 - PBA-004 displays exactly one negative-adjacency clue and at most seven clues;
 - PBA-004 relative clues are seed-varied rather than distance-ranked;
 - if a PBA-004 passage contains multiple relative clues, at least two relation distances are required;
@@ -103,7 +108,7 @@ The technical gap audit checks:
 - package-boundary exclusions for SEA-002/SEA-003;
 - source-gated hypothetical categories.
 
-Established automated result: **0 genuine missing-implementation gaps**.
+Established automated result: **0 genuine missing-implementation gaps** before the current exam-query-breadth refinement; the current branch re-runs the same governance gates after every seating change.
 
 ## External exam source audit
 
@@ -128,7 +133,9 @@ There are 13 verified evidence records. SSC, Railway and Punjab lanes include of
 - `sea-001-review-100.html`;
 - `sea-001-review-ledger-template.json`.
 
-The review corpus is balanced at **20 caselets per checkpoint / 5 per PBA**.
+The final review corpus remains balanced at **20 caselets per checkpoint / 5 per PBA**.
+
+For CP-001, review selection now requires **QC016, QC017 and QC019 in every PBA's five-caselet review slice** before filling the remaining two slots. The exporter therefore builds a broader candidate pool and then selects exactly 100 review caselets; the review count itself has not increased.
 
 The ledger is content-fingerprinted. A decided entry must include `reviewerId` and `reviewedAt`.
 
