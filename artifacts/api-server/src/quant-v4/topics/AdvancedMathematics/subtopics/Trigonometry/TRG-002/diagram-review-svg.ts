@@ -3,6 +3,7 @@ import type {
   Trg002DiagramPoint,
   Trg002DiagramSpec,
 } from "./spatial";
+import type { Trg002ResolvedSolutionAnnotation } from "./solution-diagram-annotations";
 
 function escapeXml(value: string) {
   return value
@@ -47,12 +48,10 @@ function angleArc(
   const sweepFlag = delta >= 0 ? 1 : 0;
   const midAngle = referenceAngle + delta / 2;
   const textRadius = radius + 22;
-  const textX = vertex.x + textRadius * Math.cos(midAngle);
-  const textY = vertex.y + textRadius * Math.sin(midAngle);
   return {
     path: `M ${startX.toFixed(2)} ${startY.toFixed(2)} A ${radius} ${radius} 0 0 ${sweepFlag} ${endX.toFixed(2)} ${endY.toFixed(2)}`,
-    textX,
-    textY,
+    textX: vertex.x + textRadius * Math.cos(midAngle),
+    textY: vertex.y + textRadius * Math.sin(midAngle),
   };
 }
 
@@ -73,18 +72,34 @@ function labelOffset(point: Trg002DiagramPoint) {
   }
 }
 
+function annotationPosition(
+  annotation: Trg002ResolvedSolutionAnnotation,
+  points: Map<string, Trg002DiagramPoint>,
+) {
+  const from = pointOrThrow(points, annotation.fromPointId);
+  const to = pointOrThrow(points, annotation.toPointId);
+  const x = (from.x + to.x) / 2;
+  const y = (from.y + to.y) / 2;
+  switch (annotation.placement) {
+    case "ABOVE": return { x, y: y - 34 };
+    case "BELOW": return { x, y: y + 36 };
+    case "LEFT": return { x: x - 48, y };
+    case "RIGHT": return { x: x + 48, y };
+  }
+}
+
 export interface Trg002SvgReviewOptions {
   title?: string;
   showPointDots?: boolean;
   showStrategyCaption?: boolean;
+  annotations?: readonly Trg002ResolvedSolutionAnnotation[];
 }
 
 /**
  * Review-only SVG renderer.
  *
- * This function never derives geometry. It consumes the already projected and
- * validated Trg002DiagramSpec so the visual review surface cannot become a
- * competing mathematical authority.
+ * This function never derives geometry or measurement values. It consumes the
+ * already projected Trg002DiagramSpec plus already-resolved exact annotations.
  */
 export function renderTrg002DiagramReviewSvg(
   spec: Trg002DiagramSpec,
@@ -94,6 +109,7 @@ export function renderTrg002DiagramReviewSvg(
   const title = options.title ?? `TRG-002 ${spec.strategy}`;
   const pointDots = options.showPointDots ?? true;
   const showStrategyCaption = options.showStrategyCaption ?? true;
+  const annotations = options.annotations ?? [];
 
   const segments = spec.segments.map((segment) => {
     const from = pointOrThrow(points, segment.fromPointId);
@@ -122,6 +138,12 @@ export function renderTrg002DiagramReviewSvg(
     return `<text class="point-label" x="${(anchor.x + offset.dx).toFixed(2)}" y="${(anchor.y + offset.dy).toFixed(2)}" data-label-id="${escapeXml(label.id)}">${escapeXml(label.text)}</text>`;
   }).join("\n");
 
+  const measurementLabels = annotations.map((annotation) => {
+    const position = annotationPosition(annotation, points);
+    const roleClass = annotation.role.toLowerCase().replace(/_/g, "-");
+    return `<text class="measurement-label measurement-${roleClass}" x="${position.x.toFixed(2)}" y="${position.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" data-annotation-id="${escapeXml(annotation.id)}" data-annotation-role="${escapeXml(annotation.role)}">${escapeXml(annotation.label)}</text>`;
+  }).join("\n");
+
   const strategyCaption = showStrategyCaption
     ? `<text class="strategy-caption" x="${spec.width - spec.padding}" y="${spec.padding - 18}" text-anchor="end">${escapeXml(spec.strategy)}</text>`
     : "";
@@ -143,6 +165,9 @@ export function renderTrg002DiagramReviewSvg(
     .angle-label { font: 600 24px system-ui, sans-serif; fill: #111827; paint-order: stroke; stroke: #ffffff; stroke-width: 7px; stroke-linejoin: round; }
     .point { fill: #111827; stroke: #ffffff; stroke-width: 2; vector-effect: non-scaling-stroke; }
     .point-label { font: 600 23px system-ui, sans-serif; fill: #111827; paint-order: stroke; stroke: #ffffff; stroke-width: 7px; stroke-linejoin: round; }
+    .measurement-label { font: 650 22px system-ui, sans-serif; fill: #111827; paint-order: stroke; stroke: #ffffff; stroke-width: 8px; stroke-linejoin: round; }
+    .measurement-target-solved { font-weight: 800; }
+    .measurement-eye-height { font-size: 19px; }
     .strategy-caption { font: 600 17px system-ui, sans-serif; fill: #6b7280; letter-spacing: 0.04em; }
   </style>
   <rect class="diagram-bg" x="0" y="0" width="${spec.width}" height="${spec.height}" />
@@ -150,6 +175,7 @@ export function renderTrg002DiagramReviewSvg(
   ${angles}
   ${dots}
   ${labels}
+  ${measurementLabels}
   ${strategyCaption}
 </svg>`;
 }
