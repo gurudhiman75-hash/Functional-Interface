@@ -12,7 +12,7 @@ import {
   SAP_CP006_DATA_SUFFICIENCY_CLASSES,
   type SapCp006DataSufficiencyClass,
   type SapCp006Wave3Package,
-} from "./runtime-wave3-v2";
+} from "./runtime-wave3-v3";
 
 function gcdNumber(a: number, b: number): number {
   let x = Math.abs(a), y = Math.abs(b);
@@ -52,6 +52,15 @@ function wave2SubstitutionHolds(pkg: SapCp006Wave2Package, candidate: number): b
   }
 }
 
+function predicateHolds(kind: number, threshold: number, value: number): boolean {
+  if (kind === 0) return value === threshold;
+  if (kind === 1) return value > threshold;
+  if (kind === 2) return value < threshold;
+  if (kind === 3) return value >= threshold;
+  if (kind === 4) return value <= threshold;
+  throw new Error(`Unknown arithmetic DS predicate kind ${kind}.`);
+}
+
 function independentDsClass(pkg: SapCp006Wave3Package): {
   answer: SapCp006DataSufficiencyClass;
   first: number[];
@@ -61,18 +70,8 @@ function independentDsClass(pkg: SapCp006Wave3Package): {
   const d = pkg.oracle.data;
   const domain = [1, 2, 3, 4, 5, 6];
   const e = (x: number) => d.coefficient! * x + d.percentValue!;
-  const exact = (x: number) => e(x) === d.exactE!;
-  const parity = d.hiddenX! % 2 === 0
-    ? (x: number) => (e(x) - d.percentValue!) % (2 * d.coefficient!) === 0
-    : (x: number) => (e(x) - d.percentValue!) % (2 * d.coefficient!) !== 0;
-  const residue = (x: number) => (e(x) - d.percentValue!) % (3 * d.coefficient!) === d.coefficient! * d.residue!;
-  const universal = (x: number) => (e(x) - d.percentValue!) % d.coefficient! === 0;
-  let firstTest: (x: number) => boolean;
-  let secondTest: (x: number) => boolean;
-  if (d.scenario === 0) { firstTest = exact; secondTest = parity; }
-  else if (d.scenario === 1) { firstTest = parity; secondTest = exact; }
-  else if (d.scenario === 2) { firstTest = parity; secondTest = residue; }
-  else { firstTest = parity; secondTest = universal; }
+  const firstTest = (x: number) => predicateHolds(d.firstKind!, d.firstThreshold!, e(x));
+  const secondTest = (x: number) => predicateHolds(d.secondKind!, d.secondThreshold!, e(x));
   const first = domain.filter(firstTest);
   const second = domain.filter(secondTest);
   const combined = domain.filter((x) => firstTest(x) && secondTest(x));
@@ -202,9 +201,12 @@ for (const [index, record] of records.entries()) {
     assert.equal(pkg.taskDirection, "DATA_SUFFICIENCY");
     assert.equal(pkg.answerSemantic, "DATA_SUFFICIENCY_CLASS");
     assert.equal(pkg.representation, "DATA_SUFFICIENCY");
+    assert.equal(pkg.oracle.data.editorialMode, 3);
     assert.deepEqual(new Set(pkg.options.map((option) => option.value)), new Set(SAP_CP006_DATA_SUFFICIENCY_CLASSES));
     assert.match(pkg.stem, /Statement I:/);
     assert.match(pkg.stem, /Statement II:/);
+    assert.doesNotMatch(pkg.stem, /divis|remainder|parity/i, `${record.questionId}: Number-System vocabulary leaked into arithmetic DS.`);
+    assert.match(pkg.stem, /E\s*[=<>≥≤]/);
     const independent = independentDsClass(pkg);
     assert.equal(independent.answer, pkg.canonicalAnswer);
     assert.deepEqual(independent.first, [...pkg.oracle.firstCandidates]);
@@ -252,4 +254,4 @@ assert.ok((answersByPrototype.get("SAP-CP006-PROT-STATEMENT-COMBINATION")?.size 
 assert.deepEqual([...directions].sort(), ["COMPARISON", "DATA_SUFFICIENCY", "INVERSE", "ORDERING", "SYNTHESIS", "VERIFICATION"]);
 assert.deepEqual([...difficulties].sort(), ["HARD", "MEDIUM"]);
 
-console.log("SAP-CP-006 final full-review authority passed: 300 unique questions across 21 identities including balanced QL-112 data sufficiency and QL-099 table variants; 75 A/B/C/D each; independent substitution and candidate-set proofs.");
+console.log("SAP-CP-006 final full-review authority passed: 300 unique questions across 21 identities including arithmetic-only balanced QL-112 data sufficiency and QL-099 table variants; 75 A/B/C/D each; independent substitution and candidate-set proofs.");
