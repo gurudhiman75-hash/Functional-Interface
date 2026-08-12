@@ -27,7 +27,7 @@ export * from "./cp003/ql-allocation";
 export * from "./cp003/english-freeze-candidate";
 export * from "./cp003/english-frozen";
 export * from "./cp003/localization/native-language-primitives";
-export * from "./cp003/localization/native-final-candidate";
+export * from "./cp003/localization/native-final-polished-candidate";
 export * from "./authority-overlap-audit";
 export * from "./final-authority-registry";
 export * from "./final-authority-review";
