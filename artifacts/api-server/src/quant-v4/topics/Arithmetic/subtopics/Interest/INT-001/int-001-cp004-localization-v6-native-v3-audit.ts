@@ -53,7 +53,8 @@ for (const qlId of INT_CP004_QL_IDS) {
 
       naturalnessChecks += 1;
       const text = [q.stem, q.explanation.whatAsked, ...q.explanation.steps, q.explanation.commonMistake].join("\n");
-      if (locale === "hi-IN" ? BAD_HINDI.test(text) : BAD_PUNJABI.test(text)) fail(`${qlId}/${seed}/${locale}: rejected mechanical wording remains.`);
+      const rejected = text.match(locale === "hi-IN" ? BAD_HINDI : BAD_PUNJABI);
+      if (rejected) fail(`${qlId}/${seed}/${locale}: rejected mechanical wording '${rejected[0]}' remains.`);
       if (hasLongMonthOnly(locale, q.stem)) fail(`${qlId}/${seed}/${locale}: 12+ month duration remains month-only.`);
 
       for (const option of q.options) {
