@@ -100,4 +100,15 @@ const numericStemValidation = validateTrg002DiagramEvidence(numericStemLabelStat
 assert(!numericStemValidation.valid, "A stem diagram carrying a numeric point-label leak must fail policy validation.");
 assert(numericStemValidation.checks.some((check) => check.name === "STEM_NO_NUMERIC_POINT_LABEL_LEAK" && !check.passed), "Stem answer-leak failure must be diagnosed explicitly.");
 
-console.log("Trigonometry solution-diagram architecture locked: TRG-001 selective policy, TRG-002 96/96 required solution diagrams, canonical-state binding, optional stem separation and stem-leak protection.");
+const angleTargetState = {
+  ...original,
+  requested: { kind: "ANGLE" as const, observationId: "obs-1" },
+};
+const solutionOnlyAngleEvidence = buildTrg002DiagramEvidence("TRG-002-QL-012", angleTargetState);
+assert(validateTrg002DiagramEvidence(angleTargetState, solutionOnlyAngleEvidence).valid, "An angle-target solution diagram must remain valid after the attempt.");
+const leakingAngleStemEvidence = buildTrg002DiagramEvidence("TRG-002-QL-012", angleTargetState, { includeStemDiagram: true });
+const leakingAngleStemValidation = validateTrg002DiagramEvidence(angleTargetState, leakingAngleStemEvidence);
+assert(!leakingAngleStemValidation.valid, "A stem diagram must fail when it prints the angle that the learner is asked to find.");
+assert(leakingAngleStemValidation.checks.some((check) => check.name === "STEM_NO_REQUESTED_ANGLE_LEAK" && !check.passed), "Requested-angle leakage must be diagnosed explicitly.");
+
+console.log("Trigonometry solution-diagram architecture locked: TRG-001 selective policy, TRG-002 96/96 required solution diagrams, canonical-state binding, optional stem separation, numeric-label protection and requested-angle leak protection.");
