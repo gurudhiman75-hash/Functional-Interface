@@ -115,6 +115,15 @@ export function naturalizeProbabilityExplanationBody(
       : `${containerPa[m[1].toLowerCase()]} ਵਿੱਚ ਕੁੱਲ ${m[2]} ${object.plural} ਹਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ ${m[4]} ${c} ਹਨ।`;
   }
 
+  m = value.match(/^(Female|Male) employees make up (.+) of all (\d+) employees\.$/u);
+  if (m) {
+    const hiSubject = m[1] === "Female" ? "महिला कर्मचारियों" : "पुरुष कर्मचारियों";
+    const paSubject = m[1] === "Female" ? "ਮਹਿਲਾ ਕਰਮਚਾਰੀਆਂ" : "ਪੁਰਸ਼ ਕਰਮਚਾਰੀਆਂ";
+    return language === "hi"
+      ? `कुल ${m[3]} कर्मचारियों में ${hiSubject} का भाग ${m[2]} है।`
+      : `ਕੁੱਲ ${m[3]} ਕਰਮਚਾਰੀਆਂ ਵਿੱਚ ${paSubject} ਦਾ ਹਿੱਸਾ ${m[2]} ਹੈ।`;
+  }
+
   m = value.match(/^(Defective bulbs|Qualified candidates|Red coloured stones) make up (.+) of all (\d+) (bulbs|candidates|coloured stones)\.$/u);
   if (m) {
     const hiSubject: Record<string, string> = {
