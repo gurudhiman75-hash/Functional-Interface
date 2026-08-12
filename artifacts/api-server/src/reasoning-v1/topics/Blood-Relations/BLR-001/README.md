@@ -1,6 +1,6 @@
 # BLR-001 — Blood Relations
 
-Status: **all seven designed checkpoints implemented; permanent QL range `BLR-QL-001..035`; CP-003 Hindi/Punjabi machine-proved review candidates complete; CP-007 multilingual production-review lifecycle enabled**.
+Status: **all seven designed checkpoints implemented; permanent QL range `BLR-QL-001..035`; CP-003 and CP-004 Hindi/Punjabi machine-proved review candidates complete; CP-007 multilingual production-review lifecycle enabled**.
 
 Student-facing chapter: **Blood Relations**  
 Reasoning V1 package: `BLR-001`  
@@ -22,7 +22,7 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BL
 | `BLR-CP-001` | direct declarative named-person relations | `BLR-QL-001..007` | English discovery frozen; review runtime available |
 | `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | `BLR-QL-008` | English discovery frozen; review runtime available |
 | `BLR-CP-003` | shared family passages and shared graphs | `BLR-QL-009..012` | English discovery frozen; review runtime available; Hindi/Punjabi machine-proved review candidates complete and product-locked pending human language review |
-| `BLR-CP-004` | counts and family composition | `BLR-QL-013..017` | English discovery frozen; review runtime available; zero-count recovery remediation applied |
+| `BLR-CP-004` | counts and family composition | `BLR-QL-013..017` | English discovery frozen; zero-count remediation applied; Hindi/Punjabi machine-proved review candidates complete and product-locked pending human language review |
 | `BLR-CP-005` | determinacy, possibility and uncertainty | `BLR-QL-018..025` | English discovery frozen; exam-grade review runtime available |
 | `BLR-CP-006` | coded relation decoding | `BLR-QL-026..030` | English discovery frozen; review runtime available |
 | `BLR-CP-007` | coded relation construction, completion and validation | `BLR-QL-031..035` | English/Hindi/Punjabi frozen; production Question Studio review lifecycle enabled |
@@ -99,15 +99,27 @@ The CP-003 localized candidates preserve the frozen English QL ownership, answer
 ### CP-004
 
 ```text
-approved English records       612
-shared-passage groups          102
-permanent QLs                    5
-range                BLR-QL-013..017
-independently verified         612
-explicit zero-answer cases       1
+approved English records                  612
+shared-passage groups                     102
+permanent QLs                               5
+range                           BLR-QL-013..017
+independently verified                    612
+explicit zero-answer cases                  1
+Hindi machine review candidates           612
+Punjabi machine review candidates         612
+total localized review candidates        1224
+localized semantic parity              proved
+Hindi residual-English records              0
+Punjabi residual-English records            0
+target-script gaps                          0
+placeholder leaks                           0
+localized human language review        required
+localized product delivery              locked
 ```
 
-During current-main recovery, strict CI exposed a historical false-green in CP-004: the runtime required a zero-answer example, but the old workflow masked the failed process through `tee` without `pipefail`. `BLR-CP-004-ZERO-COUNT-RECOVERY-REMEDIATION.md` records the correction. The checkpoint remains 612 records / 102 groups / five QLs.
+During current-main recovery, strict CI exposed a historical false-green in CP-004: the runtime required a zero-answer example, but the old workflow masked the failed process through `tee` without `pipefail`. `BLR-CP-004-ZERO-COUNT-RECOVERY-REMEDIATION.md` records the correction. The checkpoint remains 612 canonical records / 102 groups / five QLs; localization adds language variants only and allocates no new QL identity.
+
+The CP-004 localized candidates preserve frozen English source identity, answer objects, counted member/pair identities, option semantic keys, correct answer positions, family-tree semantics and canonical semantic fingerprints. They remain human-language-review blocked and unavailable to Question Studio, Question Bank, mock tests and public delivery.
 
 ### CP-005
 
@@ -176,9 +188,10 @@ The chapter shares a typed family graph and relation ontology with:
 - `BLR-CP-001/BLR-CP-001-FINAL-DISCOVERY-FREEZE.md`
 - `BLR-CP-002/BLR-CP-002-FINAL-DISCOVERY-FREEZE.md`
 - `BLR-CP-003/BLR-CP-003-FINAL-DISCOVERY-FREEZE.md`
-- `BLR-CP-003/README.md` for the current multilingual review-candidate boundary
+- `BLR-CP-003/README.md` for the current CP-003 multilingual review-candidate boundary
 - `BLR-CP-004/BLR-CP-004-FINAL-DISCOVERY-FREEZE.md`
 - `BLR-CP-004/BLR-CP-004-ZERO-COUNT-RECOVERY-REMEDIATION.md`
+- `BLR-CP-004/README.md` for the current CP-004 multilingual review-candidate boundary
 - `BLR-CP-005/BLR-CP-005-FINAL-DISCOVERY-FREEZE.md`
 - `BLR-CP-006/BLR-CP-006-FINAL-DISCOVERY-FREEZE.md`
 - `BLR-CP-007/` frozen English, multilingual and production-lifecycle records
@@ -188,7 +201,7 @@ The chapter shares a typed family graph and relation ontology with:
 Checkpoint implementation/freeze state and product delivery state are separate:
 
 - CP-001 and CP-002 remain English review-runtime authorities unless a later explicit product-release gate changes them;
-- CP-003 now has machine-proved Hindi/Punjabi review candidates, but they remain human-review-blocked and product-locked;
-- CP-004 through CP-006 remain English review-runtime authorities and are not automatically added to Question Studio, Question Bank, mock tests or public delivery;
+- CP-003 and CP-004 now have machine-proved Hindi/Punjabi review candidates, but they remain human-review-blocked and product-locked;
+- CP-005 and CP-006 remain English review-runtime authorities and are not automatically added to Question Studio, Question Bank, mock tests or public delivery;
 - CP-007 alone currently has the multilingual production-review integration described above;
 - production publication still follows the existing audited admin approval workflow.
