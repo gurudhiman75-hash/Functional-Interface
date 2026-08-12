@@ -42,6 +42,8 @@ jobs:
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/multilingual-runtime.test.ts
       - name: Validate native math event labels
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/native-math-event-labels.test.ts
+      - name: Reject English math event labels in native runtime
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/native-math-event-label-runtime.test.ts
       - name: Validate ML-06 native human-review boundary
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/native-review-adapter.test.ts
       - name: Validate ML-06 native editorial quality wave01
