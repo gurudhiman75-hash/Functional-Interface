@@ -56,6 +56,20 @@ export function naturalizeProbabilityExplanationBody(
 ): string | null {
   let m: RegExpMatchArray | null;
 
+  m = value.match(/^The first marble is replaced, so the container again has (\d+) red and (\d+) blue marbles before the second selection\.$/u);
+  if (m) return pick(
+    language,
+    "पहला कंचा वापस रख दिया जाता है, इसलिए दूसरे चयन से पहले उसी जार में फिर " + m[1] + " लाल और " + m[2] + " नीले कंचे होते हैं।",
+    "ਪਹਿਲਾ ਕੰਚਾ ਵਾਪਸ ਰੱਖ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ, ਇਸ ਲਈ ਦੂਜੀ ਚੋਣ ਤੋਂ ਪਹਿਲਾਂ ਉਸੇ ਜਾਰ ਵਿੱਚ ਫਿਰ " + m[1] + " ਲਾਲ ਅਤੇ " + m[2] + " ਨੀਲੇ ਕੰਚੇ ਹੁੰਦੇ ਹਨ।",
+  );
+
+  m = value.match(/^The first stone is replaced, so the container again has (\d+) red and (\d+) blue coloured stones before the second selection\.$/u);
+  if (m) return pick(
+    language,
+    "पहला पत्थर वापस रख दिया जाता है, इसलिए दूसरे चयन से पहले उसी पाउच में फिर " + m[1] + " लाल और " + m[2] + " नीले रंगीन पत्थर होते हैं।",
+    "ਪਹਿਲਾ ਪੱਥਰ ਵਾਪਸ ਰੱਖ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ, ਇਸ ਲਈ ਦੂਜੀ ਚੋਣ ਤੋਂ ਪਹਿਲਾਂ ਉਸੇ ਪਾਊਚ ਵਿੱਚ ਫਿਰ " + m[1] + " ਲਾਲ ਅਤੇ " + m[2] + " ਨੀਲੇ ਰੰਗੀਨ ਪੱਥਰ ਹੁੰਦੇ ਹਨ।",
+  );
+
   m = value.match(/^Among them, (.+) are divisible by (\d+)\. So the probability is (.+)\.$/u);
   if (m) return pick(
     language,
