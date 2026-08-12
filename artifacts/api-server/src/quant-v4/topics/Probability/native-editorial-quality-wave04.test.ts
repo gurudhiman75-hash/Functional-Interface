@@ -21,7 +21,10 @@ for (const entry of catalog) {
     for (const bad of language === "hi"
       ? ["बॉक्स में हैं", "पाउच में हैं", "ताश की गड्डी में हैं", "पत्ते कि हैं नहीं", "पेन हैं नीला", "पत्थर हैं लाल"]
       : ["ਬਾਕਸ ਵਿੱਚ ਹਨ", "ਪਾਊਚ ਵਿੱਚ ਹਨ", "ਤਾਸ਼ ਦੀ ਗੱਡੀ ਵਿੱਚ ਹਨ", "ਪੱਤੇ ਕਿ ਹਨ ਨਹੀਂ", "ਪੈਨ ਹਨ ਨੀਲਾ", "ਪੱਥਰ ਹਨ ਲਾਲ"]) {
-      assert(!native.includes(bad), `${entry.qlId}/${language}: machine-like direct-selection phrase survived: ${bad}`);
+      assert(
+        !native.includes(bad),
+        `${entry.qlId}/${language}: machine-like direct-selection phrase survived: ${bad}\n${native}`,
+      );
     }
 
     if (["PRB-QL-005", "PRB-QL-017"].includes(entry.qlId)) {
