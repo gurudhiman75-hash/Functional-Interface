@@ -278,17 +278,6 @@ function overrideSuccessiveObjectExplanation(
   return next;
 }
 
-function isConditionalMode(source: ProbabilityQuestion): boolean {
-  return [
-    "findConditionalProbabilityByCounting",
-    "findConditionalCardProbability",
-    "findConditionalNumberProbability",
-    "findConditionalUrnProbability",
-    "findReverseConditionalCount",
-    "findConditionalFromTwoWayTable",
-  ].includes(source.solveMode);
-}
-
 function overrideConditionalExplanation(
   source: ProbabilityQuestion,
   language: ProbabilityNativeLanguage,
@@ -371,10 +360,10 @@ export function polishNativeVisual(
     };
     return {
       ...visual,
-      title: "ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ",
+      title: "ਦੋ ਪੜਾਵਾਂ ਦਾ ਸੰਭਾਵਨਾ ਦਰੱਖਤ",
       altText: withReplacement
-        ? "ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਹਰ ਚੋਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।"
-        : "ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।",
+        ? "ਦੋ ਪੜਾਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਹਰ ਚੋਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ਵਾਪਸ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।"
+        : "ਦੋ ਪੜਾਵਾਂ ਦਾ ਚੋਣ-ਦਰੱਖਤ; ਚੁਣੀ ਵਸਤੂ ਵਾਪਸ ਨਹੀਂ ਰੱਖੀ ਜਾਂਦੀ।",
     };
   }
 

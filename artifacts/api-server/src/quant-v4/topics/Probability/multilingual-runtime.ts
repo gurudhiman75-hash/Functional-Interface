@@ -194,7 +194,7 @@ function localizeNativeVisual(
       title = language === "hi" ? "क्रमिक ड्रॉ प्रायिकता वृक्ष" : "ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ";
       altText = language === "hi"
         ? `दो चरणों का ड्रॉ-वृक्ष; शर्त: ${nativeReplacementLabel(source, language)}।`
-        : `ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ${nativeReplacementLabel(source, language)}।`;
+        : `ਦੋ ਪੜਾਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ${nativeReplacementLabel(source, language)}।`;
       break;
     case "VENN_EVENT_REGIONS":
       title = language === "hi" ? "दो घटनाओं का क्षेत्र मॉडल" : "ਦੋ ਘਟਨਾਵਾਂ ਦਾ ਖੇਤਰ ਮਾਡਲ";
