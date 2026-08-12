@@ -42,6 +42,13 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/foundation/rnk-derived-object-pool-v2.test.ts \
             | tee rnk-derived-object-pool-v2.log
 
+      - name: Validate RNK derived-operation rendering
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/foundation/rnk-derived-operation-render-v2.test.ts \
+            | tee rnk-derived-operation-render-v2.log
+
       - name: Validate post-CP006 chapter gap audit
         run: |
           set -o pipefail
@@ -105,6 +112,7 @@ jobs:
           path: |
             rnk-object-pool-v2.log
             rnk-derived-object-pool-v2.log
+            rnk-derived-operation-render-v2.log
             rnk-post-cp006-gap-audit.log
             rnk-frozen-projection-compatibility.log
             rnk-cp006-frozen-regression.log
