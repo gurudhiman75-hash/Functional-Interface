@@ -24,8 +24,12 @@ for (const qlId of TRG_002_RUNTIME_PROOF_IDS) {
     assert(question.diagramEvidence.policy.stemDiagramPolicy === "OPTIONAL", `${qlId} must keep stem diagram optional.`);
     assert(question.diagramEvidence.policy.purpose === "SPATIAL_MODEL", `${qlId} must use SPATIAL_MODEL purpose.`);
     assert(question.diagramEvidence.disclosure.solutionStage === "AFTER_ATTEMPT", `${qlId} solution figure must be explanation-stage.`);
+    assert(question.verification.canonicalTarget.valid, `${qlId} canonical requested target does not match exact answer.`);
     assert(question.verification.diagramPolicy.valid, `${qlId} solution-diagram state binding failed.`);
+    assert(question.verification.solutionAnnotations.valid, `${qlId} solution annotations failed validation.`);
+    assert(question.solutionAnnotations.length >= 1, `${qlId} must expose at least one exact solution annotation.`);
     assert(question.solutionDiagram.strategy === question.canonicalSpatialState.diagramStrategy, `${qlId} diagram strategy drifted from canonical state.`);
+    assert(question.solutionAnnotations.every((item) => !/NaN|undefined|Infinity/.test(item.label)), `${qlId} has a non-finite/unresolved solution annotation.`);
     assert(!question.publiclyPublishable && !question.questionStudioDiscoverable && question.testEligibility === "INELIGIBLE", `${qlId} activation lock changed.`);
     canonicalCases += 1;
   }
@@ -39,9 +43,11 @@ for (const seed of sweepSeeds) {
   for (const question of questions) {
     assert(question.validation.valid, `${question.qlId} failed solution-diagram sweep validation for ${seed}.`);
     assert(question.solutionDiagram && question.verification.diagramPolicy.valid, `${question.qlId} lost required solution diagram evidence for ${seed}.`);
+    assert(question.verification.canonicalTarget.valid, `${question.qlId} lost canonical requested-target integrity for ${seed}.`);
+    assert(question.verification.solutionAnnotations.valid && question.solutionAnnotations.length >= 1, `${question.qlId} lost exact solution annotations for ${seed}.`);
     assert(question.stemDiagram === undefined, `${question.qlId} unexpectedly produced a stem diagram for ${seed}.`);
     sweepCases += 1;
   }
 }
 
-console.log(`TRG-002 solution-diagram proof gate target: ${canonicalCases} canonical cases and ${sweepCases} sweep cases with 20/20 required solution diagrams.`);
+console.log(`TRG-002 solution-diagram proof gate target: ${canonicalCases} canonical cases and ${sweepCases} sweep cases with required diagrams, canonical targets and exact annotations.`);
