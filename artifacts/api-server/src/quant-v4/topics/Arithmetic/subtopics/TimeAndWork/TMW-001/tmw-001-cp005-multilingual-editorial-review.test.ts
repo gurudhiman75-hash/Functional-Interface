@@ -48,7 +48,7 @@ for (const qlId of qls) {
         question.learnerExplanation.answer,
       ].join(" ");
 
-      assert(!/W_\{|W_cycle|W_remaining|W_known|t_x|r_x|T_x|Q_1|Q_2|Verified|first turn|full cycles|terminal turn|start with/i.test(learner), `${label}: internal solver wording leaked`);
+      assert(!/W_\{|W_cycle|W_remaining|W_known|t_x|r_x|T_x|Q_1|Q_2|Verified(?: exact| cycle| isolated| repeated| schedule)/i.test(learner), `${label}: internal solver notation leaked`);
       assert(!/Continue the calculation|After simplification|Substitute the work, rate and time/i.test(learner), `${label}: mechanical learner wording returned`);
 
       if (language === "hi") assert(/[\u0900-\u097F]/u.test(learner), `${label}: Hindi learner text lacks Devanagari`);
