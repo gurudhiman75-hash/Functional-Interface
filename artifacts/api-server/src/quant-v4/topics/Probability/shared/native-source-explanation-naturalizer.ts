@@ -56,6 +56,41 @@ export function naturalizeProbabilityExplanationBody(
 ): string | null {
   let m: RegExpMatchArray | null;
 
+  m = value.match(/^Among them, (.+) are divisible by (\d+)\. So the probability is (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "इनमें से " + m[1] + " संख्याएँ " + m[2] + " से विभाज्य हैं। इसलिए प्रायिकता " + m[3] + " है।",
+    "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ " + m[1] + " ਸੰਖਿਆਵਾਂ " + m[2] + " ਨਾਲ ਭਾਗਯੋਗ ਹਨ। ਇਸ ਲਈ ਸੰਭਾਵਨਾ " + m[3] + " ਹੈ।",
+  );
+
+  m = value.match(/^First find those satisfying at least one condition: (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "पहले कम-से-कम एक शर्त पूरी करने वालों की संख्या ज्ञात करें: " + m[1] + "।",
+    "ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸ਼ਰਤ ਪੂਰੀ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ: " + m[1] + "।",
+  );
+
+  m = value.match(/^People satisfying neither condition = (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "किसी भी शर्त को पूरा न करने वाले लोगों की संख्या = " + m[1] + "।",
+    "ਕਿਸੇ ਵੀ ਸ਼ਰਤ ਨੂੰ ਪੂਰਾ ਨਾ ਕਰਨ ਵਾਲੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ = " + m[1] + "।",
+  );
+
+  m = value.match(/^Apply (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "सूत्र लगाएँ: " + m[1] + "।",
+    "ਸੂਤਰ ਲਗਾਓ: " + m[1] + "।",
+  );
+
+  m = value.match(/^In counts, the overlap is (.+)\.$/u);
+  if (m) return pick(
+    language,
+    "संख्याओं के रूप में साझा भाग = " + m[1] + "।",
+    "ਗਿਣਤੀਆਂ ਦੇ ਰੂਪ ਵਿੱਚ ਸਾਂਝਾ ਹਿੱਸਾ = " + m[1] + "।",
+  );
+
   if (value === "Use symmetry at the first post. Every person is equally likely to receive that post, so compare the number of women with the total number of people.") {
     return pick(
       language,
