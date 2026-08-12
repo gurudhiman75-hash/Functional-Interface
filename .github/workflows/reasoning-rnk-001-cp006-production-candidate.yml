@@ -1,0 +1,111 @@
+name: Validate RNK-001 CP-006 Production Candidate
+
+on:
+  push:
+    branches:
+      - feat/rnk-001-cp006-production-candidate
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-registry*'
+      - '.github/workflows/reasoning-rnk-001-cp006-production-candidate.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-candidate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate all 576 CP-006 production candidate questions
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-production-candidate-v1.test.ts \
+            | tee rnk-cp006-production-candidate.log
+
+      - name: Validate CP-006 V4 final editorial baseline
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-equality-ranking-editorial-v4-final.test.ts \
+            | tee rnk-cp006-v4-final.log
+
+      - name: Validate CP-006 provisional authority consolidation
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-authority-consolidation-v1.test.ts \
+            | tee rnk-cp006-authority-consolidation.log
+
+      - name: Generate 36-question CP-006 production review pack
+        run: |
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-production-candidate-review-export.ts
+          test -s RNK-CP-006-PRODUCTION-CANDIDATE-REVIEW-36Q.md
+
+      - name: Emit CP-006 production review pack
+        run: cat RNK-CP-006-PRODUCTION-CANDIDATE-REVIEW-36Q.md
+
+      - name: Validate frozen CP-005 English runtime
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-freeze.test.ts \
+            | tee rnk-cp005-frozen-regression.log
+
+      - name: Validate frozen CP-004 permanent projection
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-permanent-runtime-v1-gates.test.ts \
+            | tee rnk-cp004-frozen-regression.log
+
+      - name: Validate Question Studio remains disabled
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/question-studio-registry.test.ts \
+            | tee rnk-question-studio-registry.log
+
+      - name: Build API server
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server build \
+            | tee rnk-cp006-candidate-api-build.log
+
+      - name: Upload candidate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp006-production-candidate-evidence
+          path: |
+            rnk-cp006-production-candidate.log
+            rnk-cp006-v4-final.log
+            rnk-cp006-authority-consolidation.log
+            rnk-cp005-frozen-regression.log
+            rnk-cp004-frozen-regression.log
+            rnk-question-studio-registry.log
+            rnk-cp006-candidate-api-build.log
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload CP-006 36-question production review pack
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp006-production-candidate-review-36q
+          path: RNK-CP-006-PRODUCTION-CANDIDATE-REVIEW-36Q.md
+          if-no-files-found: ignore
+          retention-days: 14
