@@ -1,0 +1,67 @@
+{
+  "packageId": "TRG-002",
+  "checkpoint": "PHASE6_RUNTIME_PROOF_20",
+  "status": "IMPLEMENTED_AI_PROOF_REVIEWED_EXECUTION_PENDING",
+  "base": "feat/trg-002-spatial-foundation@64c18f1bf7f015ff92c772b59ed0e0b455ee5a95",
+  "activeCandidate": "runtime-proof-reviewed.ts",
+  "engineeringRuntime": "runtime-proof.ts",
+  "baseGateSuite": "runtime-proof.test.ts",
+  "reviewedGateSuite": "runtime-proof-reviewed.test.ts",
+  "statusDocument": "RUNTIME_PROOF_STATUS.md",
+  "qlCounts": {
+    "proof": 20,
+    "perCp": 5,
+    "distinctSolveModes": 20,
+    "distinctLockedFamilies": 20,
+    "fullProductionTarget": 96
+  },
+  "proofIds": {
+    "TRG-CP-007": ["TRG-002-QL-001","TRG-002-QL-007","TRG-002-QL-012","TRG-002-QL-015","TRG-002-QL-023"],
+    "TRG-CP-008": ["TRG-002-QL-025","TRG-002-QL-030","TRG-002-QL-033","TRG-002-QL-036","TRG-002-QL-045"],
+    "TRG-CP-009": ["TRG-002-QL-049","TRG-002-QL-056","TRG-002-QL-061","TRG-002-QL-065","TRG-002-QL-068"],
+    "TRG-CP-010": ["TRG-002-QL-073","TRG-002-QL-078","TRG-002-QL-083","TRG-002-QL-088","TRG-002-QL-092"]
+  },
+  "contracts": {
+    "canonicalSpatialStateRequired": true,
+    "diagramDerivedFromCanonicalState": true,
+    "independentSpatialVerifierRequired": true,
+    "independentAnswerReconstructionRequired": true,
+    "fourExactOptionsRequired": true,
+    "misconceptionDistractorsRequired": true,
+    "permanentFamilyIdsDistributed": true
+  },
+  "editorial": {
+    "aiReviewed": 20,
+    "aiPass": 20,
+    "aiBlockers": 0,
+    "humanReviewed": 0,
+    "remediation": {
+      "TRG-002-QL-061": "REMOVED_ORIGINAL_DISTANCE_INFORMATION_LEAK"
+    }
+  },
+  "gateTargets": {
+    "canonicalSeedsPerQl": 12,
+    "canonicalCases": 240,
+    "sweepSeeds": 50,
+    "sweepCases": 1000,
+    "minimumStemVariantsPerQl": 2
+  },
+  "executionEvidence": {
+    "strictTypeScriptCompile": "NOT_CLAIMED",
+    "baseGateExecution": "NOT_CLAIMED",
+    "reviewedGateExecution": "NOT_CLAIMED",
+    "githubActionsObserved": false
+  },
+  "unrepresentedProofFamiliesStillMandatory": [
+    "BROKEN_OBJECT",
+    "COMPOSITE_VERTICAL_OBJECT"
+  ],
+  "activation": {
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "publiclyPublishable": false,
+    "hindiPunjabiRuntime": false
+  },
+  "next": "Expand the reviewed 20-QL proof to the 48-QL TRG-002 MVP while preserving permanent subfamily allocations."
+}
