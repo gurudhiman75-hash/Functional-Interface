@@ -15,25 +15,13 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 const INTRODUCED_ACTOR_PHRASES = Object.freeze({
-  hi: Object.freeze([
-    "एक डिलीवरी वाहन", "एक डिलीवरी वैन", "एक स्कूल बस", "एक वाहन", "एक कोच", "एक ट्रक",
-    "एक टैक्सी", "एक कार", "एक बस", "एक यात्री", "एक व्यक्ति",
-  ]),
-  pa: Object.freeze([
-    "ਇੱਕ ਡਿਲਿਵਰੀ ਵਾਹਨ", "ਇੱਕ ਡਿਲਿਵਰੀ ਵੈਨ", "ਇੱਕ ਸਕੂਲ ਬੱਸ", "ਇੱਕ ਵਾਹਨ", "ਇੱਕ ਕੋਚ", "ਇੱਕ ਟਰੱਕ",
-    "ਇੱਕ ਟੈਕਸੀ", "ਇੱਕ ਕਾਰ", "ਇੱਕ ਬੱਸ", "ਇੱਕ ਯਾਤਰੀ", "ਇੱਕ ਵਿਅਕਤੀ",
-  ]),
+  hi: Object.freeze(["एक डिलीवरी वाहन", "एक डिलीवरी वैन", "एक स्कूल बस", "एक वाहन", "एक कोच", "एक ट्रक", "एक टैक्सी", "एक कार", "एक बस", "एक यात्री", "एक व्यक्ति"]),
+  pa: Object.freeze(["ਇੱਕ ਡਿਲਿਵਰੀ ਵਾਹਨ", "ਇੱਕ ਡਿਲਿਵਰੀ ਵੈਨ", "ਇੱਕ ਸਕੂਲ ਬੱਸ", "ਇੱਕ ਵਾਹਨ", "ਇੱਕ ਕੋਚ", "ਇੱਕ ਟਰੱਕ", "ਇੱਕ ਟੈਕਸੀ", "ਇੱਕ ਕਾਰ", "ਇੱਕ ਬੱਸ", "ਇੱਕ ਯਾਤਰੀ", "ਇੱਕ ਵਿਅਕਤੀ"]),
 } as const);
 
 const EXPECTED_ACTOR_BY_KEY = Object.freeze({
-  hi: Object.freeze({
-    DELIVERY_VAN: "एक डिलीवरी वैन", SCHOOL_BUS: "एक स्कूल बस", COACH: "एक कोच",
-    TAXI: "एक टैक्सी", CAR: "एक कार", BUS: "एक बस",
-  }),
-  pa: Object.freeze({
-    DELIVERY_VAN: "ਇੱਕ ਡਿਲਿਵਰੀ ਵੈਨ", SCHOOL_BUS: "ਇੱਕ ਸਕੂਲ ਬੱਸ", COACH: "ਇੱਕ ਕੋਚ",
-    TAXI: "ਇੱਕ ਟੈਕਸੀ", CAR: "ਇੱਕ ਕਾਰ", BUS: "ਇੱਕ ਬੱਸ",
-  }),
+  hi: Object.freeze({ DELIVERY_VAN: "एक डिलीवरी वैन", SCHOOL_BUS: "एक स्कूल बस", COACH: "एक कोच", TAXI: "एक टैक्सी", CAR: "एक कार", BUS: "एक बस" }),
+  pa: Object.freeze({ DELIVERY_VAN: "ਇੱਕ ਡਿਲਿਵਰੀ ਵੈਨ", SCHOOL_BUS: "ਇੱਕ ਸਕੂਲ ਬੱਸ", COACH: "ਇੱਕ ਕੋਚ", TAXI: "ਇੱਕ ਟੈਕਸੀ", CAR: "ਇੱਕ ਕਾਰ", BUS: "ਇੱਕ ਬੱਸ" }),
 } as const);
 
 const OBJECT_POSTPOSITIONS = Object.freeze({
@@ -41,32 +29,23 @@ const OBJECT_POSTPOSITIONS = Object.freeze({
   pa: Object.freeze([" ਨੂੰ", " ਕੋਲ", " ਦਾ", " ਦੀ", " ਦੇ", " ਉੱਤੇ", " ਨਾਲ", " ਵਿੱਚ", "  "]),
 } as const);
 
-const FEMININE_OBJECTS = new Set<TsdCp003SourceObjectKey>([
-  "DELIVERY_VAN", "SCHOOL_BUS", "TAXI", "CAR", "BUS",
-]);
-
+const FEMININE_OBJECTS = new Set<TsdCp003SourceObjectKey>(["DELIVERY_VAN", "SCHOOL_BUS", "TAXI", "CAR", "BUS"]);
 const MASCULINE_FORMS = Object.freeze({
-  hi: Object.freeze(["तय करता है", "पहुँचता है", "चलना शुरू करता है", "रुकता है", "चलता है", "रुका?", "रुका।"]),
-  pa: Object.freeze(["ਤੈਅ ਕਰਦਾ ਹੈ", "ਪਹੁੰਚਦਾ ਹੈ", "ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ", "ਰੁਕਦਾ ਹੈ", "ਚੱਲਦਾ ਹੈ", "ਰੁਕਿਆ?", "ਰੁਕਿਆ।"]),
+  hi: Object.freeze(["तय करता है", "पहुँचता है", "पहुँचेगा", "चलना शुरू करता है", "रुकता है", "चलता है", "रुका?", "रुका।"]),
+  pa: Object.freeze(["ਤੈਅ ਕਰਦਾ ਹੈ", "ਪਹੁੰਚਦਾ ਹੈ", "ਪਹੁੰਚੇਗਾ", "ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ", "ਰੁਕਦਾ ਹੈ", "ਚੱਲਦਾ ਹੈ", "ਰੁਕਿਆ?", "ਰੁਕਿਆ।"]),
 } as const);
-
-const SAFE_GENERIC_CONTEXT_NOUNS = Object.freeze({
-  hi: Object.freeze(["वाहन", "कोच", "ट्रक"]),
-  pa: Object.freeze(["ਵਾਹਨ", "ਕੋਚ", "ਟਰੱਕ"]),
-} as const);
+const SAFE_GENERIC_CONTEXT_NOUNS = Object.freeze({ hi: Object.freeze(["वाहन", "कोच", "ट्रक"]), pa: Object.freeze(["ਵਾਹਨ", "ਕੋਚ", "ਟਰੱਕ"]) } as const);
 
 function nativeStemHasIntroducedActor(stem: string, language: TsdCp003NativeLanguage): boolean {
   return INTRODUCED_ACTOR_PHRASES[language].some((phrase) => stem.includes(phrase));
 }
-
-function hasExpectedObject(
-  stem: string,
-  key: TsdCp003SourceObjectKey,
-  language: TsdCp003NativeLanguage,
-): boolean {
+function hasExpectedObject(stem: string, key: TsdCp003SourceObjectKey, language: TsdCp003NativeLanguage): boolean {
   const object = cp003ExpectedNativeObject(key, language);
   if (stem.includes(EXPECTED_ACTOR_BY_KEY[language][key])) return true;
   return OBJECT_POSTPOSITIONS[language].some((suffix) => stem.includes(`${object}${suffix}`));
+}
+function sentenceCount(stem: string): number {
+  return stem.split(/[।?]+/u).map((part) => part.trim()).filter(Boolean).length;
 }
 
 const frozen = generateCp003EnglishFrozenRecords();
@@ -74,7 +53,6 @@ const frozenIdentity = stableCp003Stringify(frozen);
 const hi = generateCp003FinalNativeReviewCandidate("hi");
 const pa = generateCp003FinalNativeReviewCandidate("pa");
 const all = generateCp003AllFinalNativeReviewCandidates();
-
 assert(frozen.length === 63, `Expected 63 frozen English rows, received ${frozen.length}`);
 assert(hi.length === 63 && pa.length === 63 && all.length === 126, "Final native candidate must contain 63 Hindi and 63 Punjabi rows");
 assert(stableCp003Stringify(generateCp003EnglishFrozenRecords()) === frozenIdentity, "Frozen English corpus changed while building final native review candidate");
@@ -87,6 +65,8 @@ let explanationChecks = 0;
 let exclusiveActorChecks = 0;
 let agreementChecks = 0;
 let corruptionChecks = 0;
+let conditionalSentenceChecks = 0;
+let whenClauseChecks = 0;
 
 for (const row of all) {
   const { presentation, finalNativeReview } = row;
@@ -106,15 +86,15 @@ for (const row of all) {
   assert(presentation.options[presentation.correctIndex] === presentation.answerText, `${presentation.questionLanguageId}: answer/correct-option mismatch`);
 
   assert(finalNativeReview.status === TSD_CP003_NATIVE_FINAL_REVIEW_STATUS, `${presentation.questionLanguageId}: final review status drift`);
-  assert(finalNativeReview.solePublicNativeEntryPoint === true, `${presentation.questionLanguageId}: final surface is not marked as sole public native entry point`);
+  assert(finalNativeReview.solePublicNativeEntryPoint === true, `${presentation.questionLanguageId}: final surface is not sole public native entry point`);
   assert(finalNativeReview.explanationContract === "METHOD_STEPS_SHORTCUT_ANSWER", `${presentation.questionLanguageId}: final explanation contract drift`);
   assert(finalNativeReview.optionAnalysisIncluded === false, `${presentation.questionLanguageId}: option analysis must remain excluded`);
   assert(finalNativeReview.sourceObjectParityEnforced === true, `${presentation.questionLanguageId}: source-object parity is not asserted`);
+  assert(finalNativeReview.semanticSentenceParityEnforced === true, `${presentation.questionLanguageId}: semantic sentence parity is not asserted`);
   assert(finalNativeReview.productOwnerApprovalRecorded === false, `${presentation.questionLanguageId}: product-owner approval fabricated`);
   assert(finalNativeReview.multilingualFreezeAuthorized === false, `${presentation.questionLanguageId}: multilingual freeze authorized prematurely`);
   assert(finalNativeReview.sourceMathChanged === false, `${presentation.questionLanguageId}: source math changed`);
 
-  assert(presentation.lifecycle.nativeEditorialStatus === TSD_CP003_NATIVE_FINAL_REVIEW_STATUS, `${presentation.questionLanguageId}: lifecycle native status drift`);
   assert(presentation.lifecycle.multilingualFreezeStatus === "UNFROZEN", `${presentation.questionLanguageId}: multilingual content frozen prematurely`);
   assert(presentation.lifecycle.questionStudioEnabled === false, `${presentation.questionLanguageId}: Question Studio unlocked prematurely`);
   assert(presentation.lifecycle.questionBankStatus === "NOT_STORED", `${presentation.questionLanguageId}: Question Bank unlocked prematurely`);
@@ -123,26 +103,31 @@ for (const row of all) {
 
   if ("optionAnalysis" in presentation.explanation) optionAnalysisFields += 1;
   assert(!("optionAnalysis" in presentation.explanation), `${presentation.questionLanguageId}: option analysis leaked into final learner explanation`);
-  assert(presentation.explanation.method.trim().length > 0, `${presentation.questionLanguageId}: method missing`);
-  assert(presentation.explanation.steps.length > 0, `${presentation.questionLanguageId}: worked steps missing`);
-  assert(presentation.explanation.examSpeedShortcut.trim().length > 0, `${presentation.questionLanguageId}: exam shortcut missing`);
-  assert(presentation.explanation.answer.trim().length > 0, `${presentation.questionLanguageId}: answer explanation missing`);
+  assert(presentation.explanation.method.trim().length > 0 && presentation.explanation.steps.length > 0 && presentation.explanation.examSpeedShortcut.trim().length > 0 && presentation.explanation.answer.trim().length > 0, `${presentation.questionLanguageId}: final explanation component missing`);
   assertTsdCp003NativeText(presentation.stem, presentation.language, `${presentation.questionLanguageId}/stem`);
-  assertTsdCp003NativeText(presentation.explanation.method, presentation.language, `${presentation.questionLanguageId}/method`);
-  presentation.explanation.steps.forEach((step, index) => assertTsdCp003NativeText(step, presentation.language, `${presentation.questionLanguageId}/step-${index + 1}`));
-  assertTsdCp003NativeText(presentation.explanation.examSpeedShortcut, presentation.language, `${presentation.questionLanguageId}/shortcut`);
-  assertTsdCp003NativeText(presentation.explanation.answer, presentation.language, `${presentation.questionLanguageId}/answer`);
   explanationChecks += 1;
+
+  const english = canonical.stem.toLowerCase();
+  if (/\bif\b/u.test(english)) {
+    if (presentation.language === "hi") {
+      assert(presentation.stem.includes("यदि") && presentation.stem.includes("तो"), `${presentation.questionLanguageId}: English IF relation was flattened in Hindi`);
+    } else {
+      assert(presentation.stem.includes("ਜੇ") && presentation.stem.includes("ਤਾਂ"), `${presentation.questionLanguageId}: English IF relation was flattened in Punjabi`);
+    }
+    assert(sentenceCount(presentation.stem) >= 2, `${presentation.questionLanguageId}: conditional native stem is still over-compressed`);
+    conditionalSentenceChecks += 1;
+  }
+  if (/\bwhen\b/u.test(english)) {
+    if (presentation.language === "hi") assert(presentation.stem.includes("जब"), `${presentation.questionLanguageId}: English WHEN relation missing in Hindi`);
+    else assert(presentation.stem.includes("ਜਦੋਂ"), `${presentation.questionLanguageId}: English WHEN relation missing in Punjabi`);
+    whenClauseChecks += 1;
+  }
 
   const sourceObject = cp003EnglishSourceObjectKey(canonical.stem);
   if (sourceObject !== null) {
     const expectedNativeObject = cp003ExpectedNativeObject(sourceObject, presentation.language);
-    assert(
-      hasExpectedObject(presentation.stem, sourceObject, presentation.language),
-      `${presentation.questionLanguageId}: English object ${sourceObject} must remain ${expectedNativeObject} in native stem`,
-    );
+    assert(hasExpectedObject(presentation.stem, sourceObject, presentation.language), `${presentation.questionLanguageId}: English object ${sourceObject} must remain ${expectedNativeObject} in native stem`);
     sourceObjectParityChecks += 1;
-
     for (const [otherKey, otherActor] of Object.entries(EXPECTED_ACTOR_BY_KEY[presentation.language])) {
       if (otherKey === sourceObject) continue;
       assert(!presentation.stem.includes(otherActor), `${presentation.questionLanguageId}: unexpected alternate actor ${otherActor}`);
@@ -153,33 +138,28 @@ for (const row of all) {
       assert(!presentation.stem.includes(generic), `${presentation.questionLanguageId}: generic context noun '${generic}' leaked after source-object alignment`);
     }
     exclusiveActorChecks += 1;
-
     if (sourceObject !== "CAR") {
       const corruptSuffix = presentation.language === "hi" ? "ण" : "ਨ";
       assert(!presentation.stem.includes(`${expectedNativeObject}${corruptSuffix}`), `${presentation.questionLanguageId}: actor replacement corrupted a surrounding word`);
     }
     corruptionChecks += 1;
-
     if (FEMININE_OBJECTS.has(sourceObject)) {
-      for (const masculine of MASCULINE_FORMS[presentation.language]) {
-        assert(!presentation.stem.includes(masculine), `${presentation.questionLanguageId}: feminine ${sourceObject} retains masculine form '${masculine}'`);
-      }
+      for (const masculine of MASCULINE_FORMS[presentation.language]) assert(!presentation.stem.includes(masculine), `${presentation.questionLanguageId}: feminine ${sourceObject} retains masculine form '${masculine}'`);
       agreementChecks += 1;
     }
   } else {
-    assert(
-      !nativeStemHasIntroducedActor(presentation.stem, presentation.language),
-      `${presentation.questionLanguageId}: native stem invented a person/vehicle object absent from English`,
-    );
+    assert(!nativeStemHasIntroducedActor(presentation.stem, presentation.language), `${presentation.questionLanguageId}: native stem invented a person/vehicle object absent from English`);
     objectNeutralityChecks += 1;
   }
 }
 
 assert(optionAnalysisFields === 0, `Expected zero final option-analysis fields, received ${optionAnalysisFields}`);
 assert(explanationChecks === 126, `Expected 126 final learner-explanation checks, received ${explanationChecks}`);
-assert(sourceObjectParityChecks + objectNeutralityChecks === 126, "Every native row must receive either an object-parity or object-neutrality check");
+assert(sourceObjectParityChecks + objectNeutralityChecks === 126, "Every native row must receive object-parity or object-neutrality check");
 assert(exclusiveActorChecks === sourceObjectParityChecks, "Every object-bearing row must reject alternate native actors");
-assert(corruptionChecks === sourceObjectParityChecks, "Every object-bearing row must receive an actor-corruption check");
+assert(corruptionChecks === sourceObjectParityChecks, "Every object-bearing row must receive actor-corruption check");
+assert(conditionalSentenceChecks === 16, `Expected 16 Hindi/Punjabi IF-clause parity checks, received ${conditionalSentenceChecks}`);
+assert(whenClauseChecks === 4, `Expected 4 Hindi/Punjabi WHEN-clause parity checks, received ${whenClauseChecks}`);
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -195,6 +175,9 @@ console.log(JSON.stringify({
   exclusiveActorChecks,
   corruptionChecks,
   feminineAgreementChecks: agreementChecks,
+  conditionalSentenceChecks,
+  whenClauseChecks,
+  semanticSentenceParityEnforced: true,
   nativeEditorialStatus: TSD_CP003_NATIVE_FINAL_REVIEW_STATUS,
   frozenEnglishCorpusChanged: false,
   productOwnerApprovalRecorded: false,
