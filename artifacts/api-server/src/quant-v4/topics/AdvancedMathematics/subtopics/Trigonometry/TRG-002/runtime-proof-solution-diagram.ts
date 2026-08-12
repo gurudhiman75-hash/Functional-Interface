@@ -3,6 +3,7 @@ import {
   type Trg002ProofQlId,
 } from "./runtime-proof";
 import { generateExamReadyTrg002RuntimeProofQuestion } from "./runtime-proof-exam-ready";
+import { verifyTrg002CanonicalRequestedTarget } from "./canonical-target-verifier";
 import {
   buildTrg002DiagramEvidence,
   validateTrg002DiagramEvidence,
@@ -10,6 +11,11 @@ import {
 
 export function generateSolutionDiagramTrg002RuntimeProofQuestion(qlId: Trg002ProofQlId, seed: string) {
   const question = generateExamReadyTrg002RuntimeProofQuestion(qlId, seed);
+  const canonicalTargetVerification = verifyTrg002CanonicalRequestedTarget(question);
+  if (!canonicalTargetVerification.valid) {
+    throw new Error(`${qlId}: canonical requested target does not match the exact answer.`);
+  }
+
   const diagramEvidence = buildTrg002DiagramEvidence(qlId, question.canonicalSpatialState);
   const diagramPolicyVerification = validateTrg002DiagramEvidence(question.canonicalSpatialState, diagramEvidence);
   if (!diagramPolicyVerification.valid || !diagramEvidence.solutionDiagram) {
@@ -18,6 +24,11 @@ export function generateSolutionDiagramTrg002RuntimeProofQuestion(qlId: Trg002Pr
 
   const checks = [
     ...question.validation.checks,
+    {
+      name: "CANONICAL_REQUESTED_TARGET_MATCH",
+      passed: canonicalTargetVerification.valid,
+      message: "Canonical requested target reconstructs the same quantity as the exact answer.",
+    },
     {
       name: "SOLUTION_DIAGRAM_REQUIRED",
       passed: diagramEvidence.policy.solutionDiagramPolicy === "REQUIRED" && Boolean(diagramEvidence.solutionDiagram),
@@ -48,6 +59,7 @@ export function generateSolutionDiagramTrg002RuntimeProofQuestion(qlId: Trg002Pr
     diagramEvidence,
     verification: {
       ...question.verification,
+      canonicalTarget: canonicalTargetVerification,
       diagramPolicy: diagramPolicyVerification,
     },
     validation: {
