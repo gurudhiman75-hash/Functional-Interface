@@ -11,6 +11,7 @@ import {
 import { cleanMenCp009NativeTeachingLineV2 } from "./teaching-cleanup-v2";
 import { applyMenCp009NativeWordGuardV2 } from "./native-word-guard-v2";
 import { naturalizeMenCp009NativeTeachingV3 } from "./post-teaching-naturalizer-v3";
+import { naturalizeMenCp009NativeStemV3 } from "./stem-naturalizer-v3";
 import {
   MEN_CP_009_MULTILINGUAL_TEACHING_V2_AUTHORITY,
   type MenCp009NativeTeachingV2View,
@@ -48,7 +49,10 @@ export function generateMenCp009NativeTeachingV2(
     isCorrect: option.isCorrect,
   }));
   const answer = translateMenCp009DisplayV2(english.answer, language);
-  const stem = simplifyMenCp009NativeStemV2(nativeV1.stem, language);
+  const stem = naturalizeMenCp009NativeStemV3(
+    simplifyMenCp009NativeStemV2(nativeV1.stem, language),
+    language,
+  );
   const explanationLines = translateMenCp009TeachingExplanationV2(
     english.explanationLines,
     language,
