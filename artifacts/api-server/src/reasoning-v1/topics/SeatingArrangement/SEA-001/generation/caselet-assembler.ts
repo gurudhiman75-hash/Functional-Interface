@@ -9,6 +9,7 @@ import { selectUniqueClueSet } from "./clue-selection.ts";
 import { expandCp001ExamQueryFormats } from "./cp001-exam-query-expansion.ts";
 import { expandCp001QueryMix } from "./cp001-query-expansion.ts";
 import { generateHiddenLinearState } from "./hidden-state.ts";
+import { normalizeSea001StudentLanguage } from "./person-presentation.ts";
 import { generateCp001Questions } from "./question-generator.ts";
 import { varySea001ChildOrder } from "./child-order.ts";
 
@@ -23,6 +24,19 @@ function auditCrossQuestionLeakage(children: SeatingCaseletRecord["children"]): 
     }
   }
   return true;
+}
+
+function simplifyChildExplanations(
+  children: readonly SeatingChildQuestion[],
+): readonly SeatingChildQuestion[] {
+  return children.map((child) => ({
+    ...child,
+    explanation: normalizeSea001StudentLanguage(child.explanation),
+    options: child.options.map((option) => ({
+      ...option,
+      explanation: normalizeSea001StudentLanguage(option.explanation),
+    })) as unknown as SeatingChildQuestion["options"],
+  }));
 }
 
 function personalizeCorrectOptionExplanations(
@@ -64,7 +78,8 @@ export function generateSeaCp001Caselet(input: {
       const clueTexts = selection.selected.map((clue) => renderConstraint(clue.constraint, state.persons, state.seats.length));
       const expandedChildren = expandCp001QueryMix(state, derivedSeed, generateCp001Questions(state, derivedSeed));
       const examExpandedChildren = expandCp001ExamQueryFormats(state, derivedSeed, expandedChildren);
-      const personalizedChildren = personalizeCorrectOptionExplanations(examExpandedChildren);
+      const simplifiedChildren = simplifyChildExplanations(examExpandedChildren);
+      const personalizedChildren = personalizeCorrectOptionExplanations(simplifiedChildren);
       const children = varySea001ChildOrder(derivedSeed, personalizedChildren) as SeatingCaseletRecord["children"];
       assertQueryMix(children);
       const crossQuestionLeakagePassed = auditCrossQuestionLeakage(children);
