@@ -1,0 +1,62 @@
+name: Validate SAP-CP-007 rounding consequences wave two
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feat/sap-cp006-exact-synthesis-foundation
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-007/**
+      - .github/workflows/validate-sap-cp007-wave2.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-sap-cp007-wave2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sap-cp007-wave2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP-007 wave-two authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-007/authority-wave2.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp007-wave2-authority.test.mjs
+
+      - name: Run CP-007 wave-two authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp007-wave2-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp007-wave2-authority.log
+
+      - name: Upload CP-007 wave-two evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp007-wave2-authority
+          path: artifacts/api-server/dist/quant-v4/sap-cp007-wave2-authority.log
+          if-no-files-found: error
+          retention-days: 30
