@@ -35,6 +35,15 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-permanent-runtime-v1-freeze.test.ts \
             | tee rnk-cp006-english-freeze.log
 
+      - name: Upload CP-006 core freeze proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp006-core-freeze-proof
+          path: rnk-cp006-english-freeze.log
+          if-no-files-found: ignore
+          retention-days: 14
+
       - name: Validate pinned CP-006 production candidate
         run: |
           set -o pipefail
