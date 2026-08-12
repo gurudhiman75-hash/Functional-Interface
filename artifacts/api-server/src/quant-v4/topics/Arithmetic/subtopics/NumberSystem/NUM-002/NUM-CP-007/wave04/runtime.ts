@@ -1,5 +1,5 @@
 import { createRng } from "./core.ts";
-import { WAVE04_GENERATORS } from "./generators.ts";
+import { WAVE04_GENERATORS } from "./generator-overrides.ts";
 import { NUM_CP007_WAVE04_PROTOTYPE_IDS } from "./types.ts";
 import type {
   NumCp007Wave04Package,
