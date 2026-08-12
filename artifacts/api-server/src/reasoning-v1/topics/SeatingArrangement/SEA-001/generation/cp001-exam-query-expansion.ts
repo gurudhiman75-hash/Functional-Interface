@@ -3,6 +3,7 @@ import { LinearTopology } from "../topology/linear.ts";
 import type {
   LinearSeatingState,
   SeatingChildQuestion,
+  SeatingMisconceptionId,
   SeatingOption,
   SeatingSemanticValue,
 } from "../types.ts";
@@ -44,6 +45,7 @@ function displaySemantic(state: LinearSeatingState, value: SeatingSemanticValue)
 type ExamTrap = {
   readonly value: SeatingSemanticValue;
   readonly display?: string;
+  readonly misconceptionId: SeatingMisconceptionId;
   readonly recomputation: Readonly<Record<string, unknown>>;
   readonly explanation: string;
 };
@@ -68,6 +70,7 @@ function buildOptions(input: {
       semanticFingerprint: fingerprint,
       display: trap.display ?? displaySemantic(input.state, trap.value),
       isCorrect: false,
+      misconceptionId: trap.misconceptionId,
       recomputation: trap.recomputation,
       explanation: trap.explanation,
     });
@@ -121,18 +124,21 @@ function trueStatementQuestion(
         {
           value: `FALSE_ADJACENT:${[first, third].sort().join("~")}`,
           display: `${nameOf(state, first)} sits adjacent to ${nameOf(state, third)}.`,
+          misconceptionId: "SEA-MC-LIN-OFF_BY_ONE_SEAT",
           recomputation: { relation: "ADJACENT", firstId: first, secondId: third, truth: false },
           explanation: `${nameOf(state, second)} sits between ${nameOf(state, first)} and ${nameOf(state, third)}, so they are not adjacent.`,
         },
         {
           value: `FALSE_ADJACENT:${[second, fourth].sort().join("~")}`,
           display: `${nameOf(state, second)} sits adjacent to ${nameOf(state, fourth)}.`,
+          misconceptionId: "SEA-MC-LIN-OFF_BY_ONE_SEAT",
           recomputation: { relation: "ADJACENT", firstId: second, secondId: fourth, truth: false },
           explanation: `${nameOf(state, third)} lies between these two persons, so the statement is false.`,
         },
         {
           value: `FALSE_ADJACENT:${[first, last].sort().join("~")}`,
           display: `${nameOf(state, first)} sits adjacent to ${nameOf(state, last)}.`,
+          misconceptionId: "SEA-MC-LIN-MIRROR_POSITION",
           recomputation: { relation: "ADJACENT", firstId: first, secondId: last, truth: false },
           explanation: "The two extreme ends of a straight row are not adjacent to each other.",
         },
@@ -171,20 +177,23 @@ function falseStatementQuestion(
         {
           value: `TRUE_ADJACENT:${[first, second].sort().join("~")}`,
           display: `${nameOf(state, first)} sits adjacent to ${nameOf(state, second)}.`,
+          misconceptionId: "SEA-MC-LIN-TRUE_FALSE_POLARITY",
           recomputation: { relation: "ADJACENT", firstId: first, secondId: second, truth: true },
-          explanation: "This statement is true because the two persons occupy consecutive seats.",
+          explanation: "This statement is true because the two persons occupy consecutive seats; selecting it reverses the question's false-statement polarity.",
         },
         {
           value: `TRUE_ADJACENT:${[second, third].sort().join("~")}`,
           display: `${nameOf(state, second)} sits adjacent to ${nameOf(state, third)}.`,
+          misconceptionId: "SEA-MC-LIN-TRUE_FALSE_POLARITY",
           recomputation: { relation: "ADJACENT", firstId: second, secondId: third, truth: true },
-          explanation: "This statement is true because the two persons occupy consecutive seats.",
+          explanation: "This statement is true because the two persons occupy consecutive seats; the question asks for the false statement.",
         },
         {
           value: `TRUE_ADJACENT:${[penultimate, last].sort().join("~")}`,
           display: `${nameOf(state, penultimate)} sits adjacent to ${nameOf(state, last)}.`,
+          misconceptionId: "SEA-MC-LIN-TRUE_FALSE_POLARITY",
           recomputation: { relation: "ADJACENT", firstId: penultimate, secondId: last, truth: true },
-          explanation: "This statement is true because these two persons occupy the final two consecutive seats.",
+          explanation: "This statement is true because these two persons occupy the final two consecutive seats; it therefore cannot answer a false-statement query.",
         },
       ],
     }),
@@ -217,8 +226,9 @@ function oddRelationPairQuestion(
       answer,
       traps: adjacentPairs.map((pair) => ({
         value: pair,
+        misconceptionId: "SEA-MC-LIN-ODD_RELATION_MISCLASSIFIED",
         recomputation: { relation: "ADJACENT", pair },
-        explanation: `${nameOf(state, pair[0] as string)} and ${nameOf(state, pair[1] as string)} occupy consecutive seats, matching the common relation shared by the other non-answer pairs.`,
+        explanation: `${nameOf(state, pair[0] as string)} and ${nameOf(state, pair[1] as string)} occupy consecutive seats, so this pair shares the common adjacency relation rather than being the odd pair.`,
       })),
     }),
     answer,
