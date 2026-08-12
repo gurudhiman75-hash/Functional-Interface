@@ -1,38 +1,35 @@
 # TRG-001 144-QL Authority-Aligned Production Candidate
 
-Status: **IMPLEMENTED AS AUTHORITY-ALIGNED CANDIDATE — EDITORIAL RE-REVIEW REQUIRED**
+Status: **AUTHORITY RECONCILIATION IMPLEMENTED — FULL EDITORIAL RE-REVIEW REQUIRED**
 
-## Why a reconciliation layer was necessary
+## Why reconciliation was necessary
 
-The first 144-QL engineering surface reached the correct package and CP counts, but a production review found that many permanent QL IDs had drifted away from the detailed Phase 0 family ranges in `TRG-001/ql-ledger.md`.
+The first 144-QL engineering surface reached the correct package and CP counts, but a production review found that a number of permanent QL IDs had drifted away from the detailed Phase 0 family ranges in `TRG-001/ql-ledger.md`.
 
-This was treated as a design-authority defect, not a cosmetic numbering issue.
+This was treated as a design-authority defect, not a cosmetic numbering issue. The Phase 0 ledger was **not weakened or rewritten to match implementation drift**.
 
-The Phase 0 ledger was **not weakened or rewritten to match the code**. Instead, the production branch now contains an authority-aligned candidate layer.
+## Active candidate
 
-## Candidate files
+The active 144-QL candidate is now:
 
 - `production-authority-runtime.ts`
 - `production-authority-candidate-runtime.ts`
 - `production-authority.test.ts`
-- `PRODUCTION_AUTHORITY_AUDIT.md`
+- `production-authority.manifest.json`
 
-The earlier proof/MVP/production runtime files remain intact as trace evidence.
+The earlier proof/MVP/production generators remain in the branch as trace evidence.
 
-## Reconciliation strategy
+## Reconciliation result
 
-The corrected candidate contains all permanent IDs:
+The candidate contains:
 
 - `TRG-001-QL-001...144`
-- 24 QLs per CP
-- 144 total
+- 24 permanent QLs per CP
+- all **39** detailed Phase 0 subfamilies at their locked counts
+- **112** mathematically sound trace templates reused exactly once
+- **32** custom authority roles authored where reuse would leave a family missing, weak or semantically misplaced
 
-To avoid unnecessary generator churn:
-
-- **114** mathematically sound trace templates are reused exactly once under the Phase 0 family position where their role belongs;
-- **30** QLs are newly authored because the locked family did not have an adequate unique role in the engineering trace surface;
-- no trace template is reused twice in the authority candidate;
-- custom roles are deterministic and misconception-distractor based.
+No trace template is intentionally reused twice in the authority candidate.
 
 ## Phase 0 family counts restored
 
@@ -84,27 +81,27 @@ To avoid unnecessary generator churn:
 - double-angle applications: 3
 - standard-value series/products: 4
 - maximum/minimum: 2
-- triangle area via 1/2 ab sin C: 2
+- triangle area via `1/2 ab sin C`: 2
 - equivalence/verification/composite forms: 3
 
-## New custom authority roles
+## Custom authority roles
 
-Exactly 30 permanent QLs required newly authored roles:
+The final 32 custom IDs are:
 
-`001, 002, 003, 004, 011, 012, 024, 032, 038, 039, 040, 045, 046, 057, 058, 062, 063, 066, 093, 094, 112, 115, 116, 119, 120, 134, 135, 136, 137, 144`.
+`001, 002, 003, 004, 011, 012, 024, 032, 038, 039, 040, 045, 046, 057, 058, 062, 063, 066, 093, 094, 095, 098, 112, 115, 116, 119, 120, 134, 135, 136, 137, 144`.
 
-These fill missing or underrepresented Phase 0 roles rather than padding the chapter with cosmetic variants.
+These are not filler. They close missing or underrepresented Phase 0 roles.
 
-## Defect caught during reconciliation
+## Additional semantic hardening found during the authority audit
 
-`TRG-001-QL-135` initially had two equivalent distractors:
+The second pass found four defects worth correcting before editorial review:
 
-- `1/2`
-- `sin30°`
+1. **QL-066** — the 270°/360° locked family was represented only by 360°-style cases. The candidate now includes a genuine `sin(270°+θ)` reduction.
+2. **QL-095** — the mapped item was a generic identity rather than an expression evaluated from a given ratio. It is now a multi-step `tanθ+cotθ` question derived from a given sine ratio.
+3. **QL-098** — the mapped item used a supplied `sinθ+cosθ` relation rather than deriving an expression from known sin/cos/tan data. It is now `secθ+cosθ` derived from a tangent ratio.
+4. **QL-135** — two distractors (`1/2` and `sin30°`) were mathematically equivalent. The duplicate was replaced by a distinct reciprocal-function misconception.
 
-Both represent the same mathematical value.
-
-The authority candidate hardening replaces the second duplicate with a distinct reciprocal-function misconception and keeps the canonical option-equivalence gate active.
+The QL-095 and QL-098 parameter pools were checked across all five Pythagorean triples used by the candidate; their four-option sets remain mathematically distinct for every allowed triple.
 
 ## Authority gate suite
 
@@ -114,8 +111,8 @@ The authority candidate hardening replaces the second duplicate with a distinct 
 - exactly 24 QLs per CP;
 - exact Phase 0 family counts across all 39 locked subfamilies;
 - 144 distinct solve modes;
-- 114 unique trace-template reuses;
-- 30 custom missing-role QLs;
+- 112 unique trace-template reuses;
+- 32 custom authority roles;
 - deterministic regeneration;
 - 12 canonical seeds per QL = **1,728 target cases**;
 - at least two distinct generated stems per QL across the canonical seeds;
@@ -124,24 +121,24 @@ The authority candidate hardening replaces the second duplicate with a distinct 
 - one correct option and correct-index integrity;
 - difficulty-sensitive explanation depth;
 - no internal assignment-style stem leakage;
-- AI/human review reset after reconciliation;
-- activation locks;
+- row-level AI/human review reset after reconciliation;
+- all activation locks;
 - 50-seed full sweep = **7,200 target cases**.
 
 These are **committed executable gates**. No execution result is claimed unless an actual run is observed.
 
-## Editorial consequence
+## Editorial state
 
-Because permanent IDs and family roles were reconciled, the earlier row-level editorial status cannot simply be carried forward.
+Permanent QL roles changed during reconciliation, so the earlier row-level AI approval cannot simply be inherited by ID.
 
-Authority candidate status:
+Current authority-candidate review state:
 
-- engineering QL coverage: **144 / 144**
+- engineering coverage: **144 / 144**
 - Phase 0 family allocation: **144 / 144 aligned by construction**
 - AI editorial review on reconciled surface: **0 / 144 PENDING**
-- human review: **0 / 144 PENDING**
+- mandatory human review: **0 / 144 PENDING**
 
-The previously reviewed content remains useful evidence, but it is not counted as a final row-level freeze after reassignment.
+Previously reviewed templates remain useful evidence, but not final row-level approval.
 
 ## Activation state
 
@@ -157,4 +154,4 @@ No registration or activation change is authorized.
 
 ## Next checkpoint
 
-Run/verify the authority gate suite where execution is available, then perform the **full 144-QL AI exam-readiness/editorial review on the authority-aligned candidate**. Only after that should the human-review/freeze gate be considered.
+Observe/execute the authority gate suite where execution is available, then perform the **full 144-QL AI exam-readiness/editorial review on this authority-aligned candidate**. Human review remains a separate mandatory freeze gate.
