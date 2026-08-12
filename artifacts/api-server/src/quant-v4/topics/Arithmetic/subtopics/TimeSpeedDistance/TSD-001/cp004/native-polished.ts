@@ -65,3 +65,5 @@ export function generateCp004PolishedMultilingualReviewCorpus(): readonly (TsdCp
   }
   return Object.freeze(rows);
 }
+
+export type { TsdCp004FinalNativeQuestion } from "./native-final";
