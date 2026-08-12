@@ -1,6 +1,7 @@
 import {
   cp003EnglishSourceObjectKey,
   cp003ExpectedNativeContext,
+  cp003ExpectedNativeObject,
   generateCp003AllFinalNativeReviewCandidates as generateBaseAll,
   generateCp003FinalNativeReviewCandidate as generateBaseLanguage,
   type TsdCp003FinalNativeReviewRow,
@@ -16,24 +17,52 @@ const FEMININE_OBJECTS = new Set<TsdCp003SourceObjectKey>([
   "BUS",
 ]);
 
+function contextBeforeSubject(context: string, language: TsdCp003NativeLanguage): string {
+  if (language === "hi") {
+    return context
+      .replace(/^अपनी /u, "")
+      .replace(/^अपने /u, "");
+  }
+  return context
+    .replace(/^ਆਪਣੀ /u, "")
+    .replace(/^ਆਪਣੇ /u, "");
+}
+
 function preserveEnglishContext(
   row: TsdCp003FinalNativeReviewRow,
   stem: string,
 ): string {
   const { source, presentation } = row;
-  const context = cp003ExpectedNativeContext(source.stem, presentation.language);
+  const language = presentation.language;
+  const context = cp003ExpectedNativeContext(source.stem, language);
   if (context === null || stem.includes(context)) return stem;
 
-  if (cp003EnglishSourceObjectKey(source.stem) === null) {
-    if (presentation.language === "hi" && stem.startsWith("एक ही मार्ग को ")) {
-      return `${context} ${stem.replace(/^एक ही मार्ग को /u, "इस मार्ग को ")}`;
+  const key = cp003EnglishSourceObjectKey(source.stem);
+  if (key === null) {
+    const prefix = contextBeforeSubject(context, language);
+    if (language === "hi" && stem.startsWith("एक ही मार्ग को ")) {
+      return `${prefix} ${stem.replace(/^एक ही मार्ग को /u, "इस मार्ग को ")}`;
     }
-    if (presentation.language === "pa" && stem.startsWith("ਇੱਕੋ ਰਸਤਾ ")) {
-      return `${context} ${stem.replace(/^ਇੱਕੋ ਰਸਤਾ /u, "ਇਸ ਰਸਤੇ ਨੂੰ ")}`;
+    if (language === "pa" && stem.startsWith("ਇੱਕੋ ਰਸਤਾ ")) {
+      return `${prefix} ${stem.replace(/^ਇੱਕੋ ਰਸਤਾ /u, "ਇਸ ਰਸਤੇ ਨੂੰ ")}`;
+    }
+    return `${prefix} ${stem}`;
+  }
+
+  const actor = `${language === "hi" ? "एक" : "ਇੱਕ"} ${cp003ExpectedNativeObject(key, language)}`;
+  const actorIndex = stem.indexOf(actor);
+  if (actorIndex >= 0) {
+    const afterActor = stem.slice(actorIndex + actor.length);
+    const unsafePostposition = language === "hi"
+      ? /^(?: को| के| का| की| से| में| पर)/u.test(afterActor)
+      : /^(?: ਨੂੰ| ਕੋਲ| ਦਾ| ਦੀ| ਦੇ| ਨਾਲ| ਵਿੱਚ| ਉੱਤੇ)/u.test(afterActor);
+
+    if (!unsafePostposition) {
+      return `${stem.slice(0, actorIndex + actor.length)} ${context}${afterActor}`;
     }
   }
 
-  return `${context} ${stem}`;
+  return `${contextBeforeSubject(context, language)} ${stem}`;
 }
 
 function fixDurationCase(stem: string, language: TsdCp003NativeLanguage): string {
