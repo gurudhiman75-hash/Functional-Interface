@@ -1,0 +1,100 @@
+import { generateMenCp009ApprovedEnglishView } from "../approved/english";
+import { generateMenCp009QuestionV2 } from "../coverage-v2/runtime";
+import { buildMenCp009StudentViewV4 } from "../coverage-v2/student-view-v4";
+import { generateMenCp009NativeDraftView } from "./runtime";
+import {
+  simplifyMenCp009NativeStemV2,
+  translateMenCp009DisplayV2,
+  translateMenCp009TeachingExplanationV2,
+  type MenCp009NativeV2Language,
+} from "./editorial-v2";
+import {
+  MEN_CP_009_MULTILINGUAL_TEACHING_V2_AUTHORITY,
+  type MenCp009NativeTeachingV2View,
+} from "./types-v2";
+
+export function generateMenCp009NativeTeachingV2(
+  qlId: string,
+  seed: string,
+  language: MenCp009NativeV2Language,
+): MenCp009NativeTeachingV2View {
+  if (language !== "hi" && language !== "pa") {
+    throw new Error(`Unsupported MEN-CP-009 V2 native language: ${String(language)}`);
+  }
+
+  const approved = generateMenCp009ApprovedEnglishView(qlId, seed);
+  if (!approved.approvalValidation.valid) {
+    throw new Error(`MEN-CP-009 approved English validation failed for ${qlId} ${seed}.`);
+  }
+
+  const raw = generateMenCp009QuestionV2(qlId, seed);
+  const english = buildMenCp009StudentViewV4(raw);
+  const nativeV1 = generateMenCp009NativeDraftView(qlId, seed, language);
+
+  if (
+    english.permanentQlId !== approved.permanentQlId ||
+    english.correctIndex !== approved.correctIndex ||
+    english.options.length !== approved.options.length
+  ) {
+    throw new Error(`MEN-CP-009 V4 candidate changed mathematical ownership for ${qlId} ${seed}.`);
+  }
+
+  const options = english.options.map((option) => ({
+    label: option.label,
+    display: translateMenCp009DisplayV2(option.display, language),
+    isCorrect: option.isCorrect,
+  }));
+  const answer = translateMenCp009DisplayV2(english.answer, language);
+  const stem = simplifyMenCp009NativeStemV2(nativeV1.stem, language);
+  const explanationLines = translateMenCp009TeachingExplanationV2(
+    english.explanationLines,
+    language,
+  );
+
+  const parity = {
+    valid:
+      english.correctIndex === options.findIndex((option) => option.isCorrect) &&
+      english.options.every((option, index) => option.isCorrect === options[index]!.isCorrect) &&
+      english.options.length === options.length,
+    correctIndexParity: english.correctIndex === options.findIndex((option) => option.isCorrect),
+    correctOptionParity: english.options.every(
+      (option, index) => option.isCorrect === options[index]!.isCorrect,
+    ),
+    optionCountParity: english.options.length === options.length,
+  };
+
+  if (!parity.valid) {
+    throw new Error(`MEN-CP-009 V2 native parity failed for ${qlId} ${seed} ${language}.`);
+  }
+
+  return {
+    authority: MEN_CP_009_MULTILINGUAL_TEACHING_V2_AUTHORITY,
+    sourceMathReleaseId: "MEN-CP009-EN-V3-APPROVED",
+    sourceLearnerCandidateAuthority: english.authority,
+    permanentQlId: english.permanentQlId,
+    familyId: english.familyId,
+    solveMode: english.solveMode,
+    seed: english.seed,
+    difficulty: english.difficulty,
+    target: english.target,
+    language,
+    stem,
+    options,
+    correctIndex: english.correctIndex,
+    answer,
+    explanationLines,
+    showDiagram: false,
+    sourceValidationPassed: english.sourceValidationPassed,
+    sourceVerificationPassed: english.sourceVerificationPassed,
+    parity,
+    reviewStatus: "PENDING_EDITORIAL_REVIEW_V2",
+    humanReviewStatus: "PENDING_HUMAN_REVIEW",
+    active: false,
+    questionStudioDiscoverable: false,
+    questionBankStatus: "NOT_STORED",
+    questionBankWritable: false,
+    testEligibility: "INELIGIBLE",
+    testEligible: false,
+    publiclyPublishable: false,
+  };
+}
