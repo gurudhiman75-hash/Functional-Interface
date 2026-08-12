@@ -1,13 +1,23 @@
 {
   "packageId": "TRG-002",
-  "checkpoint": "PHASE6_RUNTIME_PROOF_20",
-  "status": "IMPLEMENTED_AI_PROOF_REVIEWED_EXECUTION_PENDING",
-  "base": "feat/trg-002-spatial-foundation@64c18f1bf7f015ff92c772b59ed0e0b455ee5a95",
-  "activeCandidate": "runtime-proof-reviewed.ts",
+  "checkpoint": "PHASE6_RUNTIME_PROOF_20_EXAM_READY",
+  "status": "AI_REMEDIATED_EXECUTION_AND_HUMAN_REVIEW_PENDING",
+  "base": "feat/trg-002-spatial-foundation@eaee9f91a4a02b78f5119b843b5d573c30ba9c9b",
   "engineeringRuntime": "runtime-proof.ts",
-  "baseGateSuite": "runtime-proof.test.ts",
-  "reviewedGateSuite": "runtime-proof-reviewed.test.ts",
+  "legacyReviewedInput": "runtime-proof-reviewed.ts",
+  "activeCandidate": "runtime-proof-exam-ready.ts",
+  "activeDiagramCandidate": "runtime-proof-solution-diagram.ts",
+  "activeGateSuites": [
+    "runtime-proof-exam-ready.test.ts",
+    "runtime-proof-solution-diagram.test.ts"
+  ],
+  "retiredLegacyGateSuites": [
+    "runtime-proof.test.ts",
+    "runtime-proof-reviewed.test.ts"
+  ],
+  "legacyGateRationale": "Fresh audit found QL-056, QL-065 and QL-068 marked Hard with only two engineering explanation steps while the engineering runtime requires at least three; the original all-20 gates were therefore not valid authority surfaces.",
   "statusDocument": "RUNTIME_PROOF_STATUS.md",
+  "legacyGateNote": "LEGACY_PROOF_GATE_NOTE.md",
   "qlCounts": {
     "proof": 20,
     "perCp": 5,
@@ -21,22 +31,49 @@
     "TRG-CP-009": ["TRG-002-QL-049","TRG-002-QL-056","TRG-002-QL-061","TRG-002-QL-065","TRG-002-QL-068"],
     "TRG-CP-010": ["TRG-002-QL-073","TRG-002-QL-078","TRG-002-QL-083","TRG-002-QL-088","TRG-002-QL-092"]
   },
-  "contracts": {
-    "canonicalSpatialStateRequired": true,
-    "diagramDerivedFromCanonicalState": true,
-    "independentSpatialVerifierRequired": true,
-    "independentAnswerReconstructionRequired": true,
-    "fourExactOptionsRequired": true,
-    "misconceptionDistractorsRequired": true,
-    "permanentFamilyIdsDistributed": true
+  "diagramPolicy": {
+    "solutionRequired": 20,
+    "stemAutomatic": 0,
+    "canonicalStateBindingRequired": true,
+    "solutionDisclosure": "AFTER_ATTEMPT"
   },
-  "editorial": {
-    "aiReviewed": 20,
-    "aiPass": 20,
-    "aiBlockers": 0,
-    "humanReviewed": 0,
-    "remediation": {
-      "TRG-002-QL-061": "REMOVED_ORIGINAL_DISTANCE_INFORMATION_LEAK"
+  "examReadinessRemediation": {
+    "stateOrMathRemodel": [
+      "TRG-002-QL-015",
+      "TRG-002-QL-025",
+      "TRG-002-QL-030",
+      "TRG-002-QL-056",
+      "TRG-002-QL-065",
+      "TRG-002-QL-068",
+      "TRG-002-QL-073"
+    ],
+    "difficultyOrEditorialCalibration": [
+      "TRG-002-QL-061",
+      "TRG-002-QL-078",
+      "TRG-002-QL-083",
+      "TRG-002-QL-088",
+      "TRG-002-QL-092"
+    ],
+    "difficultyMedium": [
+      "TRG-002-QL-056",
+      "TRG-002-QL-065",
+      "TRG-002-QL-068",
+      "TRG-002-QL-078",
+      "TRG-002-QL-083",
+      "TRG-002-QL-088",
+      "TRG-002-QL-092"
+    ],
+    "genuineHardRetained": [
+      "TRG-002-QL-049",
+      "TRG-002-QL-061"
+    ],
+    "specificFixes": {
+      "TRG-002-QL-015": "CLEAN_INTEGER_TARGET_HEIGHT_WITH_VALID_30_DEG_DEPRESSION_GEOMETRY",
+      "TRG-002-QL-025": "REMOVED_AWKWARD_SQRT3_OVER_3_HEIGHT_ANSWERS",
+      "TRG-002-QL-030": "NATURAL_INTEGER_GIVEN_HEIGHT_WITH_SURD_ANSWER",
+      "TRG-002-QL-061": "RETAINED_NO_ORIGINAL_DISTANCE_INFORMATION_LEAK",
+      "TRG-002-QL-073": "FIXED_OBSERVER_EYE_HEIGHT_TO_1_5_M",
+      "TRG-002-QL-078": "CORRECTED_DISTRACTOR_PROVENANCE_LABELS"
     }
   },
   "gateTargets": {
@@ -44,12 +81,19 @@
     "canonicalCases": 240,
     "sweepSeeds": 50,
     "sweepCases": 1000,
-    "minimumStemVariantsPerQl": 2
+    "minimumStemVariantsPerQl": 2,
+    "solutionDiagramCanonicalCases": 240,
+    "solutionDiagramSweepCases": 1000
+  },
+  "editorial": {
+    "aiRemediationCompleted": true,
+    "humanReviewed": 0,
+    "humanReviewTarget": 20
   },
   "executionEvidence": {
     "strictTypeScriptCompile": "NOT_CLAIMED",
-    "baseGateExecution": "NOT_CLAIMED",
-    "reviewedGateExecution": "NOT_CLAIMED",
+    "examReadyGateExecution": "NOT_CLAIMED",
+    "solutionDiagramGateExecution": "NOT_CLAIMED",
     "githubActionsObserved": false
   },
   "unrepresentedProofFamiliesStillMandatory": [
@@ -63,5 +107,5 @@
     "publiclyPublishable": false,
     "hindiPunjabiRuntime": false
   },
-  "next": "Expand the reviewed 20-QL proof to the 48-QL TRG-002 MVP while preserving permanent subfamily allocations."
+  "next": "Obtain execution evidence and visually review representative rendered solution diagrams before expanding the exam-ready anchors to the 48-QL TRG-002 MVP."
 }
