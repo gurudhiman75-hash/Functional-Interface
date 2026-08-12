@@ -89,6 +89,11 @@ function stemDiagramHasUnsafePointLabels(spec: Trg002DiagramSpec) {
   return spec.labels.some((label) => /\d|√|π|\/|=/.test(label.text));
 }
 
+function stemDiagramDisclosesRequestedAngle(state: Trg002SpatialState, spec: Trg002DiagramSpec) {
+  if (state.requested.kind !== "ANGLE") return false;
+  return spec.angles.some((angle) => angle.id === `angle-${state.requested.observationId}` && angle.label.trim().length > 0);
+}
+
 export function buildTrg002DiagramEvidence(
   qlId: string,
   state: Trg002SpatialState,
@@ -169,6 +174,11 @@ export function validateTrg002DiagramEvidence(state: Trg002SpatialState, evidenc
       name: "STEM_NO_NUMERIC_POINT_LABEL_LEAK",
       passed: !evidence.stemDiagram || !stemDiagramHasUnsafePointLabels(evidence.stemDiagram),
       message: "Optional stem diagrams may use symbolic point labels but must not leak numeric solution labels.",
+    },
+    {
+      name: "STEM_NO_REQUESTED_ANGLE_LEAK",
+      passed: !evidence.stemDiagram || !stemDiagramDisclosesRequestedAngle(state, evidence.stemDiagram),
+      message: "An optional stem diagram must not print an angle when that angle is the requested answer.",
     },
     {
       name: "SOLUTION_AFTER_ATTEMPT",
