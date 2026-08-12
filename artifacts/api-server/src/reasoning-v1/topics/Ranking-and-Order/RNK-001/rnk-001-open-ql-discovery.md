@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 through CP-006 frozen at `RNK-QL-001..041`; `RNK-QL-042` is the next available identity.**
+Status: **CP-001 through CP-006 frozen at `RNK-QL-001..041`; post-CP006 audit found no new authority; `RNK-QL-042` remains available.**
 
 Counts in this register are evidence, never chapter-size quotas.
 
@@ -230,15 +230,42 @@ A numerical rank after a tie is not defined. Competition/dense/fractional rankin
 
 Multiple independent tie groups and equality classes larger than two people remain future source-backed discovery only.
 
-## 8. Open later checkpoints
+## 8. Post-CP006 gap audit
 
-### RNK-CP-007 — advanced mixed ranking transformations
+Fresh audit record:
 
-Unallocated. Open only after a fresh chapter-gap audit.
+`RNK-001-POST-CP006-CHAPTER-GAP-AUDIT-2026-08-12.md`
 
-### RNK-CP-008 — reserved
+Decision:
 
-Shared passages/linked-question assembly remain infrastructure rather than authority identities.
+```text
+NO_NEW_QL_JUSTIFIED_YET
+```
+
+### RNK-CP-007
+
+**Closed / unallocated.** Do not start question generation simply because `RNK-QL-042` is available.
+
+Held/redirected candidates:
+
+```text
+numeric post-tie rank convention      HOLD
+multiple independent tie groups       HOLD
+tie class size >= 3                    HOLD
+advanced mixed transformations        HOLD
+shared ranking caselets                INFRASTRUCTURE
+ranking + blood/family inference       OTHER CHAPTER / MIXED PUZZLE
+```
+
+### RNK-CP-008
+
+Reserved. Shared passages/linked-question assembly remain infrastructure rather than authority identities.
+
+### Object-pool remediation
+
+The audit found a presentation-diversity weakness rather than a mathematical-coverage weakness. A future-facing shared object pool now provides at least 96 EN/HI/PA people, 20 neutral groups, 18 settings, 6 ranking domains and multilingual relation templates with deterministic seeded selection.
+
+It is not imported into frozen projection paths.
 
 ## 9. Protected exclusions
 
@@ -250,6 +277,7 @@ league/tournament scoring                      -> Games and Tournament
 statement I/II sufficiency                     -> Data Sufficiency
 alphabet position without ranked group         -> Alphabet Test
 age/speed/marks arithmetic as main burden      -> Quant
+family/gender inference as main burden         -> Blood Relations / Mixed Puzzle
 ```
 
 ## 10. Lifecycle
@@ -257,9 +285,10 @@ age/speed/marks arithmetic as main burden      -> Quant
 ```text
 cumulative permanent range: RNK-QL-001..041
 next available RNK ID:      RNK-QL-042
+post-CP006 gap decision:    NO_NEW_QL_JUSTIFIED_YET
+CP-007:                     CLOSED / UNALLOCATED
 CP-005 English freeze:      true
 CP-006 English freeze:      true
-CP-006 permanent QLs:       3
 chapter-wide final freeze:  false
 Hindi/Punjabi:              NOT_STARTED
 Question Studio:            DISABLED
@@ -269,4 +298,4 @@ test eligibility:           INELIGIBLE
 public publication:         false
 ```
 
-No merge, deployment, publication, persistence or Question Studio enablement is authorized by this freeze.
+No merge, deployment, publication, persistence or Question Studio enablement is authorized by this audit.
