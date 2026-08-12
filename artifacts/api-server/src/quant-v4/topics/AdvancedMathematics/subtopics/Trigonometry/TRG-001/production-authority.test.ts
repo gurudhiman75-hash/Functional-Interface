@@ -132,8 +132,9 @@ for (const qlId of TRG_001_AUTHORITY_ALIGNED_IDS) {
   assert(stems.size >= 2, `${qlId} did not produce at least two distinct stems across canonical seeds.`);
 }
 
-assert(customIds.size === 30, `Authority reconciliation must contain exactly 30 new/missing-role QLs, found ${customIds.size}.`);
-assert(sourceIds.size === 114, `Authority reconciliation must reuse exactly 114 unique trace templates, found ${sourceIds.size}.`);
+assert(customIds.size === 32, `Authority reconciliation must contain exactly 32 custom/missing-role QLs, found ${customIds.size}.`);
+assert(sourceIds.size === 112, `Authority reconciliation must reuse exactly 112 unique trace templates, found ${sourceIds.size}.`);
+assert(customIds.size + sourceIds.size === 144, "Every permanent QL must be either a unique trace reuse or a custom authority role.");
 assert(solveModes.size === 144, `Authority candidate must expose 144 distinct solve modes, found ${solveModes.size}.`);
 for (const cpId of ["TRG-CP-001","TRG-CP-002","TRG-CP-003","TRG-CP-004","TRG-CP-005","TRG-CP-006"]) {
   assert(cpCounts.get(cpId) === 24, `${cpId} must contain exactly 24 authority-aligned QLs.`);
@@ -156,4 +157,4 @@ for (const seed of sweepSeeds) {
   }
 }
 
-console.log(`TRG-001 authority gates passed: 144 QLs, ${canonicalCases} canonical deterministic cases, ${sweepCases} sweep cases, 114 unique trace-template reuses and 30 new authority roles.`);
+console.log(`TRG-001 authority gates passed: 144 QLs, ${canonicalCases} canonical deterministic cases, ${sweepCases} sweep cases, 112 unique trace-template reuses and 32 custom authority roles.`);
