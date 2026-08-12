@@ -1,4 +1,5 @@
 import type { TsdCp003EnglishFrozenRecord } from "../english-frozen";
+import type { TsdCp003MisconceptionId } from "../runtime-types";
 import {
   generateCp003ReviewedNativeCandidate,
   type TsdCp003ReviewedNativeCandidate,
@@ -72,6 +73,25 @@ function diversifyContext(
   return language === "hi" ? stem.replace(HI_CONTEXT, context) : stem.replace(PA_CONTEXT, context);
 }
 
+function refineBaseStem(
+  source: TsdCp003EnglishFrozenRecord,
+  stem: string,
+  language: TsdCp003NativeLanguage,
+): string {
+  if (source.input.solveMode !== "speedFromFixedRouteTimeDifference" || source.input.representation !== "KNOWN_OTHER_SPEED") {
+    return stem;
+  }
+
+  if (language === "hi") {
+    return stem
+      .replace("दूसरी कम गति के साथ यात्रा-समयों का अंतर", "दूसरी गति इससे कम है और दोनों यात्रा-समयों का अंतर")
+      .replace("दूसरी अधिक गति के साथ यात्रा-समयों का अंतर", "दूसरी गति इससे अधिक है और दोनों यात्रा-समयों का अंतर");
+  }
+  return stem
+    .replace("ਦੂਜੀ ਘੱਟ ਰਫ਼ਤਾਰ ਨਾਲ ਸਫ਼ਰ-ਸਮਿਆਂ ਦਾ ਅੰਤਰ", "ਦੂਜੀ ਰਫ਼ਤਾਰ ਇਸ ਤੋਂ ਘੱਟ ਹੈ ਅਤੇ ਦੋਵੇਂ ਸਫ਼ਰ-ਸਮਿਆਂ ਦਾ ਅੰਤਰ")
+    .replace("ਦੂਜੀ ਵੱਧ ਰਫ਼ਤਾਰ ਨਾਲ ਸਫ਼ਰ-ਸਮਿਆਂ ਦਾ ਅੰਤਰ", "ਦੂਜੀ ਰਫ਼ਤਾਰ ਇਸ ਤੋਂ ਵੱਧ ਹੈ ਅਤੇ ਦੋਵੇਂ ਸਫ਼ਰ-ਸਮਿਆਂ ਦਾ ਅੰਤਰ");
+}
+
 function replaceFinalQuestion(stem: string, question: string): string {
   const trimmed = stem.trim();
   const body = trimmed.endsWith("।") ? trimmed.slice(0, -1) : trimmed;
@@ -106,7 +126,7 @@ function alternateQuestion(
     case "distanceFromSpeedTimeDifference":
       question = ordinal === 1
         ? (hi ? "इस निश्चित मार्ग की दूरी कितनी है?" : "ਇਸ ਨਿਰਧਾਰਤ ਰਸਤੇ ਦੀ ਦੂਰੀ ਕਿੰਨੀ ਹੈ?")
-        : (hi ? "समान तय दूरी का मान बताइए।" : "ਇੱਕੋ ਤੈਅ ਦੂਰੀ ਦਾ ਮਾਨ ਦੱਸੋ।");
+        : (hi ? "तय मार्ग की दूरी बताइए।" : "ਤੈਅ ਰਸਤੇ ਦੀ ਦੂਰੀ ਦੱਸੋ।");
       break;
     case "speedFromFixedRouteTimeDifference": {
       const current = stem.slice(stem.lastIndexOf("।") + 1).trim();
@@ -121,7 +141,7 @@ function alternateQuestion(
     case "usualSpeedFromEarlyLatePair":
       question = ordinal === 1
         ? (hi ? "समय पर पहुँचने के लिए सामान्य गति कितनी होनी चाहिए?" : "ਸਮੇਂ ਉੱਤੇ ਪਹੁੰਚਣ ਲਈ ਆਮ ਰਫ਼ਤਾਰ ਕਿੰਨੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ?")
-        : (hi ? "निर्धारित समय की सामान्य गति बताइए।" : "ਨਿਰਧਾਰਤ ਸਮੇਂ ਲਈ ਆਮ ਰਫ਼ਤਾਰ ਦੱਸੋ।");
+        : (hi ? "ठीक समय पर पहुँचने वाली सामान्य गति बताइए।" : "ਸਮੇਂ ਉੱਤੇ ਪਹੁੰਚਣ ਲਈ ਆਮ ਰਫ਼ਤਾਰ ਦੱਸੋ।");
       break;
     case "distanceFromEarlyLatePair":
       question = ordinal === 1
@@ -165,7 +185,7 @@ function alternateQuestion(
       break;
     case "delayFromRegularStops":
       question = ordinal === 1
-        ? (hi ? "इन रुकावटों से कुल कितनी देरी होगी?" : "ਇਨ੍ਹਾਂ ਰੁਕਾਵਟਾਂ ਨਾਲ ਕੁੱਲ ਕਿੰਨੀ ਦੇਰੀ ਹੋਵੇਗੀ?")
+        ? (hi ? "इन ठहरावों से कुल कितनी देरी होगी?" : "ਇਨ੍ਹਾਂ ਠਹਿਰਾਅਾਂ ਨਾਲ ਕੁੱਲ ਕਿੰਨੀ ਦੇਰੀ ਹੋਵੇਗੀ?")
         : (hi ? "कुल देरी बताइए।" : "ਕੁੱਲ ਦੇਰੀ ਦੱਸੋ।");
       break;
     case "restTimeInRepeatedTravelRestCycle":
@@ -191,7 +211,7 @@ function alternateQuestion(
     case "lostTimeDurationFromScheduleRecovery":
       question = ordinal === 1
         ? (hi ? "आरंभ में कितना समय गंवाया गया?" : "ਸ਼ੁਰੂ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਗੁਆਇਆ ਗਿਆ?")
-        : (hi ? "प्रारंभिक समय-हानि बताइए।" : "ਸ਼ੁਰੂਆਤੀ ਸਮਾਂ-ਹਾਨੀ ਦੱਸੋ।");
+        : (hi ? "शुरू में गंवाया समय बताइए।" : "ਸ਼ੁਰੂ ਵਿੱਚ ਗੁਆਇਆ ਸਮਾਂ ਦੱਸੋ।");
       break;
     case "startTimeShiftForSameArrival": {
       const direction = hi
@@ -199,7 +219,7 @@ function alternateQuestion(
         : (stem.includes(" ਪਹਿਲਾਂ ") ? "ਪਹਿਲਾਂ" : "ਬਾਅਦ");
       question = ordinal === 1
         ? (hi ? `समान आगमन के लिए प्रस्थान कितनी देर ${direction} करना होगा?` : `ਇੱਕੋ ਪਹੁੰਚ ਸਮੇਂ ਲਈ ਰਵਾਨਗੀ ਕਿੰਨੀ ਦੇਰ ${direction} ਕਰਨੀ ਹੋਵੇਗੀ?`)
-        : (hi ? `उसे कितने समय ${direction} निकलना चाहिए?` : `ਉਸਨੂੰ ਕਿੰਨਾ ਸਮਾਂ ${direction} ਨਿਕਲਣਾ ਚਾਹੀਦਾ ਹੈ?`);
+        : (hi ? `वाहन को कितने समय ${direction} निकलना चाहिए?` : `ਵਾਹਨ ਨੂੰ ਕਿੰਨਾ ਸਮਾਂ ${direction} ਨਿਕਲਣਾ ਚਾਹੀਦਾ ਹੈ?`);
       break;
     }
     case "arrivalShiftFromDepartureAndSpeedChanges":
@@ -277,6 +297,35 @@ function examShortcut(solveMode: string, language: TsdCp003NativeLanguage): stri
   }
 }
 
+function contextualMisconceptionReason(
+  source: TsdCp003EnglishFrozenRecord,
+  id: TsdCp003MisconceptionId,
+  language: TsdCp003NativeLanguage,
+): string {
+  const hi = language === "hi";
+  if (source.input.solveMode === "usualSpeedFromEarlyLatePair" && id === "USE_SLOWER_SPEED_ONLY") {
+    return hi
+      ? "सामान्य गति निकालने के बजाय देर से पहुँचने वाली कम परीक्षण गति को ही उत्तर मान लिया गया है।"
+      : "ਆਮ ਰਫ਼ਤਾਰ ਕੱਢਣ ਦੀ ਥਾਂ ਦੇਰ ਨਾਲ ਪਹੁੰਚਣ ਵਾਲੀ ਘੱਟ ਪਰਖ-ਰਫ਼ਤਾਰ ਨੂੰ ਹੀ ਉੱਤਰ ਮੰਨ ਲਿਆ ਗਿਆ ਹੈ।";
+  }
+  if (source.input.solveMode === "usualSpeedFromEarlyLatePair" && id === "USE_FASTER_SPEED_ONLY") {
+    return hi
+      ? "सामान्य गति निकालने के बजाय पहले पहुँचने वाली अधिक परीक्षण गति को ही उत्तर मान लिया गया है।"
+      : "ਆਮ ਰਫ਼ਤਾਰ ਕੱਢਣ ਦੀ ਥਾਂ ਪਹਿਲਾਂ ਪਹੁੰਚਣ ਵਾਲੀ ਵੱਧ ਪਰਖ-ਰਫ਼ਤਾਰ ਨੂੰ ਹੀ ਉੱਤਰ ਮੰਨ ਲਿਆ ਗਿਆ ਹੈ।";
+  }
+  if (source.input.solveMode === "distanceFromEarlyLatePair" && id === "USE_FASTER_SPEED_ONLY") {
+    return hi
+      ? "केवल पहले पहुँचने वाले समय को पूरी तेज यात्रा की अवधि मानकर उससे दूरी निकाल दी गई है।"
+      : "ਸਿਰਫ਼ ਪਹਿਲਾਂ ਪਹੁੰਚਣ ਵਾਲੇ ਸਮੇਂ ਨੂੰ ਪੂਰੇ ਤੇਜ਼ ਸਫ਼ਰ ਦੀ ਮਿਆਦ ਮੰਨ ਕੇ ਉਸ ਨਾਲ ਦੂਰੀ ਕੱਢ ਦਿੱਤੀ ਗਈ ਹੈ।";
+  }
+  if (source.input.solveMode === "lostTimeDurationFromScheduleRecovery" && id === "USE_ONE_TRAVEL_TIME") {
+    return hi
+      ? "शुरू में गंवाया समय निकालने के बजाय शेष मार्ग की किसी एक पूरी यात्रा-अवधि को ही उत्तर मान लिया गया है।"
+      : "ਸ਼ੁਰੂ ਵਿੱਚ ਗੁਆਇਆ ਸਮਾਂ ਕੱਢਣ ਦੀ ਥਾਂ ਬਾਕੀ ਰਸਤੇ ਦੀ ਕਿਸੇ ਇੱਕ ਪੂਰੀ ਸਫ਼ਰ-ਮਿਆਦ ਨੂੰ ਹੀ ਉੱਤਰ ਮੰਨ ਲਿਆ ਗਿਆ ਹੈ।";
+  }
+  return nativeMisconceptionReason(id, language);
+}
+
 function optionAnalysis(
   source: TsdCp003EnglishFrozenRecord,
   nativeOptions: readonly string[],
@@ -285,12 +334,12 @@ function optionAnalysis(
 ): readonly TsdCp003NativeOptionAnalysis[] {
   return Object.freeze(source.optionAudit.map((audit, index) => {
     const option = String.fromCharCode(65 + index) as "A" | "B" | "C" | "D";
-    const core = nativeMisconceptionReason(audit.misconceptionId, language);
+    const core = contextualMisconceptionReason(source, audit.misconceptionId, language);
     const reason = audit.isCorrect
       ? core
       : language === "hi"
-        ? `${core} इसलिए ${nativeOptions[index]} सही उत्तर नहीं है; सही विधि ${answerText} देती है।`
-        : `${core} ਇਸ ਲਈ ${nativeOptions[index]} ਸਹੀ ਉੱਤਰ ਨਹੀਂ ਹੈ; ਸਹੀ ਵਿਧੀ ${answerText} ਦਿੰਦੀ ਹੈ।`;
+        ? `${core} इसलिए ${nativeOptions[index]} सही उत्तर नहीं है; सही गणना से उत्तर ${answerText} मिलता है।`
+        : `${core} ਇਸ ਲਈ ${nativeOptions[index]} ਸਹੀ ਉੱਤਰ ਨਹੀਂ ਹੈ; ਸਹੀ ਗਣਨਾ ਨਾਲ ਉੱਤਰ ${answerText} ਮਿਲਦਾ ਹੈ।`;
     assertTsdCp003NativeText(reason, language, `${source.questionLanguageId}/${language}/option-${option}-reason`);
     return Object.freeze({ option, text: nativeOptions[index], isCorrect: audit.isCorrect, reason });
   }));
@@ -303,7 +352,8 @@ function strengthenRow(
   const { source, presentation } = row;
   const language = presentation.language;
   const contextual = diversifyContext(presentation.stem, language, ordinal);
-  const stem = alternateQuestion(source, contextual, language, ordinal);
+  const refined = refineBaseStem(source, contextual, language);
+  const stem = alternateQuestion(source, refined, language, ordinal);
   assertTsdCp003NativeText(stem, language, `${presentation.questionLanguageId}/authoritative-stem`);
 
   const shortcut = examShortcut(presentation.solveMode, language);
