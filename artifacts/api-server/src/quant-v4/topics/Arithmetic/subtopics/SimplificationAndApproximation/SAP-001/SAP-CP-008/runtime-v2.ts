@@ -66,8 +66,63 @@ function correctedDifferenceBound(seed: number): SapCp008Package {
   });
 }
 
+function correctedComparison(seed: number): SapCp008Package {
+  const original = generateV1("SAP-CP008-PROT-COMPARE-ADDITIVE-ESTIMATES", seed);
+  const n = seed - 1;
+  const relationClass = n % 3;
+  const aTarget = 400 + 10 * seed;
+  const bTarget = 600 + 10 * seed;
+  const estimateA = aTarget + bTarget;
+  const cTarget = 450 + 10 * seed;
+  const estimateB = relationClass === 0 ? estimateA : relationClass === 1 ? estimateA + 20 : estimateA - 20;
+  const dTarget = estimateB - cTarget;
+  const a = aTarget + (seed % 2 === 0 ? 3 : -2);
+  const b = bTarget + (seed % 2 === 0 ? -4 : 2);
+  const c = cTarget + (seed % 2 === 0 ? 2 : -3);
+  const d = dTarget + (seed % 2 === 0 ? -2 : 4);
+  const relation = estimateA < estimateB ? "A < B" : estimateA > estimateB ? "A > B" : "A = B";
+  const answer = relation;
+  const candidates = ["A < B", "A = B", "A > B", "Cannot be determined"];
+  const wrongs: SapCp008Option[] = candidates.filter((value) => value !== answer).map((value, index) => Object.freeze({
+    value,
+    isCorrect: false,
+    misconceptionId: `COMPARISON_WRONG_${index + 1}`,
+    analysis: value === "Cannot be determined" ? "The declared rounding policy fixes both estimates exactly, so the relation is determined." : "This relation disagrees with the two independently evaluated rounded sums.",
+  }));
+  const correct: SapCp008Option = Object.freeze({ value: answer, isCorrect: true, misconceptionId: null, analysis: "This relation follows from evaluating both additive estimates under the same declared nearest-ten terms-first policy." });
+  const options = [...wrongs];
+  options.splice(original.correctIndex, 0, correct);
+  const stem = `Round each indicated term to the nearest ten first, then evaluate. Let A estimate ${a} + ${b} and B estimate ${c} + ${d}. Which relation is correct?`;
+  const data = Object.freeze({ a, b, c, d, estimateA, estimateB, relation, relationClass, v2: 1 });
+  const explanation = Object.freeze({
+    coreConcept: "Comparison of additive estimates requires applying the same declared policy to both expressions before comparing their transformed values. The family deliberately includes lower, equal and greater outcomes so comparison skill is tested rather than a repeated directional pattern.",
+    steps: Object.freeze([
+      `A = ${aTarget} + ${bTarget} = ${estimateA}.`,
+      `B = ${cTarget} + ${dTarget} = ${estimateB}; therefore ${relation}.`,
+    ]),
+    finalAnswer: `Therefore, the required answer is ${answer}.`,
+    verification: Object.freeze([
+      `Each visible term is within 4 of its stated nearest-ten benchmark.`,
+      `Direct integer comparison of ${estimateA} and ${estimateB} reproduces ${relation}.`,
+    ]),
+  });
+  return Object.freeze({
+    ...original,
+    stem,
+    canonicalAnswer: answer,
+    options: Object.freeze(options),
+    correctIndex: original.correctIndex,
+    explanation,
+    oracle: Object.freeze({ kind: original.prototypeId, data }),
+    canonicalPayloadKey: JSON.stringify({ prototypeId: original.prototypeId, stem, answer, data }),
+    generationIdentity: `${original.prototypeId}:v2:seed:${seed}:${JSON.stringify(data)}`,
+    validation: Object.freeze({ ok: true, errors: Object.freeze([]) }),
+  });
+}
+
 export function generateSapCp008(prototypeId: SapCp008PrototypeId, seed: number): SapCp008Package {
   if (prototypeId === "SAP-CP008-PROT-DIFFERENCE-ROUNDING-BOUNDS") return correctedDifferenceBound(seed);
+  if (prototypeId === "SAP-CP008-PROT-COMPARE-ADDITIVE-ESTIMATES") return correctedComparison(seed);
   return generateV1(prototypeId, seed);
 }
 
