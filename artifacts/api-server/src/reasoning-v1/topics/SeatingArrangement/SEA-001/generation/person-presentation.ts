@@ -57,6 +57,10 @@ export function normalizeSea001StudentLanguage(text: string): string {
       /^(.+?) faces (north|south)\. From (.+?)'s point of view, (.+?) is (.+?), so the (?:relation|position) is (.+?)\.$/i,
       "$1 faces $2. Look from $3's side: $4 is $5. So $4 is $6 of $3.",
     )
+    .replace(
+      /^(.+?) is a plausible nearby occupant, but not the person at the queried seat\.$/i,
+      "$1 sits nearby, but not in the seat asked about.",
+    )
     .replace(/Facing does not change physical adjacency\.?/gi, "For neighbours, facing does not matter.")
     .replace(/Facing does not change adjacency\.?/gi, "For neighbours, facing does not matter.")
     .replace(/\bphysical adjacency\b/gi, "who sits next to whom")
@@ -86,6 +90,11 @@ export function normalizeSea001StudentLanguage(text: string): string {
     .replace(/\bReading the solved row from the left end\b/gi, "Reading the final row from the left end")
     .replace(/\bThis chooses the occupant at the mirrored right-end seat\./gi, "This chooses the person at the opposite end of the row.")
     .replace(/\bThis skips the person immediately beside that person on one side\./gi, "This skips the person sitting immediately next to them on one side.")
+    .replace(/\bThis statement is true because these two persons occupy the final two consecutive seats; it therefore cannot answer a false-statement query\./gi, "These two people really do sit next to each other, so this statement is true. The question asks for the false statement.")
+    .replace(/\bThis statement is true because the two persons occupy consecutive seats; selecting it reverses the question's false-statement polarity\./gi, "These two people really do sit next to each other, so this statement is true. The question asks for the false statement.")
+    .replace(/\bThis shifts the solved seat position by one or more places\./gi, "This gives the wrong seat number.")
+    .replace(/\bThis treats a two-seat relation as an immediate relation\./gi, "This counts only one seat instead of two.")
+    .replace(/\bThis moves one seat farther than the actual relation\./gi, "This counts one seat too far.")
     .replace(
       /^Count only the seats between (.+?) and (.+?); named person are excluded\. The result is (\d+)\.$/i,
       "Count only the people sitting between $1 and $2. Do not count $1 or $2. The answer is $3.",
