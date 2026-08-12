@@ -25,6 +25,7 @@ export function sea001DisplayName(
 function normalizeStudentLanguage(text: string): string {
   let output = text
     .replace(/\bImmediate to the (left|right)\b/g, "Immediately to the $1")
+    .replace(/\brelation is immediate to the (left|right)\b/gi, "relation is immediately to the $1")
     .replace(/\b6th to the (left|right)\b/g, "Sixth to the $1")
     .replace(/\b7th to the (left|right)\b/g, "Seventh to the $1")
     .replace(/\b8th to the (left|right)\b/g, "Eighth to the $1");
