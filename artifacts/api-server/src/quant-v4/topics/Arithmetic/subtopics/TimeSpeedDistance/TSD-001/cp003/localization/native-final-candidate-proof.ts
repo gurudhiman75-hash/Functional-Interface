@@ -3,15 +3,47 @@ import { stableCp003Stringify } from "../runtime";
 import {
   cp003EnglishSourceObjectKey,
   cp003ExpectedNativeObject,
-  cp003NativeStemHasIntroducedActor,
   generateCp003AllFinalNativeReviewCandidates,
   generateCp003FinalNativeReviewCandidate,
   TSD_CP003_NATIVE_FINAL_REVIEW_STATUS,
 } from "./native-final-candidate";
-import { assertTsdCp003NativeText } from "./native-language-primitives";
+import { assertTsdCp003NativeText, type TsdCp003NativeLanguage } from "./native-language-primitives";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
+}
+
+const INTRODUCED_ACTOR_PHRASES = Object.freeze({
+  hi: Object.freeze([
+    "एक डिलीवरी वाहन",
+    "एक डिलीवरी वैन",
+    "एक स्कूल बस",
+    "एक वाहन",
+    "एक कोच",
+    "एक ट्रक",
+    "एक टैक्सी",
+    "एक कार",
+    "एक बस",
+    "एक यात्री",
+    "एक व्यक्ति",
+  ]),
+  pa: Object.freeze([
+    "ਇੱਕ ਡਿਲਿਵਰੀ ਵਾਹਨ",
+    "ਇੱਕ ਡਿਲਿਵਰੀ ਵੈਨ",
+    "ਇੱਕ ਸਕੂਲ ਬੱਸ",
+    "ਇੱਕ ਵਾਹਨ",
+    "ਇੱਕ ਕੋਚ",
+    "ਇੱਕ ਟਰੱਕ",
+    "ਇੱਕ ਟੈਕਸੀ",
+    "ਇੱਕ ਕਾਰ",
+    "ਇੱਕ ਬੱਸ",
+    "ਇੱਕ ਯਾਤਰੀ",
+    "ਇੱਕ ਵਿਅਕਤੀ",
+  ]),
+} as const);
+
+function nativeStemHasIntroducedActor(stem: string, language: TsdCp003NativeLanguage): boolean {
+  return INTRODUCED_ACTOR_PHRASES[language].some((phrase) => stem.includes(phrase));
 }
 
 const frozen = generateCp003EnglishFrozenRecords();
@@ -86,7 +118,7 @@ for (const row of all) {
     sourceObjectParityChecks += 1;
   } else {
     assert(
-      !cp003NativeStemHasIntroducedActor(presentation.stem, presentation.language),
+      !nativeStemHasIntroducedActor(presentation.stem, presentation.language),
       `${presentation.questionLanguageId}: native stem invented a person/vehicle object absent from English`,
     );
     objectNeutralityChecks += 1;
