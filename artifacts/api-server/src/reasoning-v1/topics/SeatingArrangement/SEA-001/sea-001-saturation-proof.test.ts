@@ -12,6 +12,7 @@ const audit = auditSea001Corpus(
 );
 assertSea001ProductionCandidateTargets(audit);
 
+let fallbackDistractorCount = 0;
 for (const caselet of corpus.caselets) {
   for (const child of caselet.children) {
     const correctOption = child.options[child.answerIndex];
@@ -23,6 +24,15 @@ for (const caselet of corpus.caselets) {
     }
     if (/^This matches\b/i.test(correctOption.explanation.trim())) {
       throw new Error(`${caselet.caseletId}/${child.queryContractId} still exposes a generic correct-option explanation`);
+    }
+    for (const option of child.options) {
+      if (option.isCorrect) continue;
+      const isFallback = Object.prototype.hasOwnProperty.call(option.recomputation, "fallbackVerifiedValue");
+      if (!isFallback) continue;
+      fallbackDistractorCount += 1;
+      if (/(?:possible-looking|does not match (?:the )?(?:solved|uniquely solved))/i.test(option.explanation)) {
+        throw new Error(`${caselet.caseletId}/${child.queryContractId} still exposes a generic fallback explanation`);
+      }
     }
   }
 }
@@ -41,6 +51,7 @@ console.log("material variants", audit.materialVariantCount);
 console.log("query-template surfaces", audit.querySurfaceCount);
 console.log("manual-review candidates", reviewCorpus.length);
 console.log("question-specific correct-option explanations", "ENFORCED");
+console.log("fallback distractors with value-specific explanations", fallbackDistractorCount);
 console.log("rejected exact duplicate candidates", audit.rejectedExactDuplicateCandidates);
 console.log("rejected normalized clue-set candidates", audit.rejectedNormalizedClueSetCandidates);
 console.log("residual blocker count", audit.blockerCount);
