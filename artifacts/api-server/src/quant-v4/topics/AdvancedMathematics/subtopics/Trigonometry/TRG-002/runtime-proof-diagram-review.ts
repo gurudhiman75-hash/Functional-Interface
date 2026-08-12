@@ -48,11 +48,15 @@ export function buildTrg002DiagramReviewCases(seed = "trg002-diagram-review-01")
       answer: question.answer,
       difficulty: question.difficulty,
       exactDiagram: question.solutionDiagram,
+      solutionAnnotations: question.solutionAnnotations,
       svg: renderTrg002DiagramReviewSvg(question.solutionDiagram, {
         title: `${qlId} solution diagram — ${strategy}`,
+        annotations: question.solutionAnnotations,
       }),
       validation: question.validation,
+      canonicalTargetVerification: question.verification.canonicalTarget,
       diagramPolicyVerification: question.verification.diagramPolicy,
+      solutionAnnotationVerification: question.verification.solutionAnnotations,
     };
   });
 }
@@ -78,12 +82,14 @@ export function renderTrg002DiagramReviewHtml(seed = "trg002-diagram-review-01")
       <p class="stem"><strong>Stem:</strong> ${escapeHtml(item.stem)}</p>
       <div class="diagram-frame">${item.svg}</div>
       <p class="answer"><strong>Answer:</strong> ${escapeHtml(item.answer)}</p>
+      <p class="annotation-count"><strong>Exact solution labels:</strong> ${item.solutionAnnotations.length}</p>
       <ul class="checklist">
         <li>Ground/object/sight-line geometry is visually legible.</li>
         <li>Angle marker is attached to the correct observer/reference horizontal.</li>
-        <li>Point labels do not overlap important lines or angle text.</li>
+        <li>Given and solved measurement labels sit on the intended canonical segment.</li>
+        <li>Solved target labels agree with the exact answer and appear only in the solution figure.</li>
+        <li>Point/measurement labels do not overlap important lines or angle text.</li>
         <li>No segment or label is clipped by the viewport.</li>
-        <li>The figure helps the explanation without acting as an automatic stem hint.</li>
       </ul>
     </article>`).join("\n");
 
@@ -106,7 +112,7 @@ export function renderTrg002DiagramReviewHtml(seed = "trg002-diagram-review-01")
     .review-card h2 { margin: 0; font-size: 21px; }
     .strategy { margin: 4px 0 0; color: #4b5563; font-size: 13px; font-weight: 700; letter-spacing: .03em; }
     .status { font-size: 12px; font-weight: 700; border: 1px solid #9ca3af; border-radius: 999px; padding: 4px 8px; white-space: nowrap; }
-    .stem, .answer { line-height: 1.5; }
+    .stem, .answer, .annotation-count { line-height: 1.5; }
     .diagram-frame { border: 1px solid #d1d5db; border-radius: 12px; overflow: hidden; background: #fff; margin: 14px 0; }
     .diagram-frame svg { display: block; width: 100%; height: auto; }
     .checklist { margin: 12px 0 0; padding-left: 20px; color: #374151; line-height: 1.5; font-size: 14px; }
@@ -119,7 +125,7 @@ export function renderTrg002DiagramReviewHtml(seed = "trg002-diagram-review-01")
     <h1>TRG-002 solution-diagram visual review</h1>
     <p><strong>Seed:</strong> ${escapeHtml(seed)}</p>
     <p>This review surface renders one active exam-ready solution diagram for every diagram strategy currently represented by the 20-QL proof. It deliberately does not emit stem diagrams.</p>
-    <p>Mathematical authority remains the canonical spatial state and validated diagram spec; this page is only a visual inspection surface.</p>
+    <p>Given and solved measurement labels come from explicit exact annotation plans; the SVG renderer does not infer mathematical values from screen coordinates.</p>
   </section>
   <section class="grid">
     ${cards}
