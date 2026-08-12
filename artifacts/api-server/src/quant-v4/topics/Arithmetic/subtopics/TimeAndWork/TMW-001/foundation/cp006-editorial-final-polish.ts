@@ -25,8 +25,11 @@ function exactDimensionalMeasure(question: Cp006Question, language: Language): "
 }
 
 function answerMath(answerText: string): string {
-  const inline = /\\\(([\s\S]*?)\\\)/.exec(answerText)?.[0];
-  if (inline) return inline;
+  const inner = /\\\(([\s\S]*?)\\\)/.exec(answerText)?.[1];
+  if (inner) {
+    const numericMath = inner.replace(/\\text\{[^}]*\}/g, "").trim();
+    if (numericMath) return `\\(${numericMath}\\)`;
+  }
   const scalar = /-?\d+(?:\.\d+)?/.exec(answerText)?.[0];
   return scalar ? `\\(${scalar}\\)` : answerText;
 }
