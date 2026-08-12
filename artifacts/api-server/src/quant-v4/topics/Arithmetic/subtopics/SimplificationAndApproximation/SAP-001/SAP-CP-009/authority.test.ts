@@ -5,7 +5,7 @@ import {
   SAP_CP009_PROTOTYPE_IDS,
   generateSapCp009,
   type SapCp009Package,
-} from "./runtime";
+} from "./runtime-v2";
 
 function gcd(a: bigint, b: bigint): bigint {
   let x = a < 0n ? -a : a;
