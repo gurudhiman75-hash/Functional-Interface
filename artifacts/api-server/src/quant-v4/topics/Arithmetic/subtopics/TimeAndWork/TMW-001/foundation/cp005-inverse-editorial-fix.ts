@@ -63,6 +63,31 @@ function relabelInverseBase(current: TmwLearnerExplanationV2, language: Language
   ].filter((line): line is string => Boolean(line));
 }
 
+function inverseMethod(mode: string, language: Language): string {
+  if (mode === "findUnknownTimeFromAlternatingCompletion") {
+    return t(
+      language,
+      "Use the alternating schedule to find how much work is left for B. Divide by B's active turns to get B's rate, then take its reciprocal to get B's solo time.",
+      "बारी-बारी वाले क्रम से B के लिए बचा काम निकालें। इसे B की काम वाली बारियों से भाग देकर B की दर पाएँ, फिर उसका व्युत्क्रम लेकर B का अकेले का समय निकालें।",
+      "ਵਾਰੀ-ਵਾਰੀ ਵਾਲੇ ਕ੍ਰਮ ਤੋਂ B ਲਈ ਬਚਿਆ ਕੰਮ ਕੱਢੋ। ਇਸ ਨੂੰ B ਦੀਆਂ ਕੰਮ ਵਾਲੀਆਂ ਵਾਰੀਆਂ ਨਾਲ ਭਾਗ ਦੇ ਕੇ B ਦੀ ਦਰ ਕੱਢੋ, ਫਿਰ ਉਸ ਦਾ ਉਲਟ ਲੈ ਕੇ B ਦਾ ਇਕੱਲੇ ਦਾ ਸਮਾਂ ਕੱਢੋ।",
+    );
+  }
+  if (mode === "findRequiredCycleRateForDeadline") {
+    return t(
+      language,
+      "Use the deadline schedule to find how much work A completes and how many turns B gets. The remaining work divided by B's turns gives B's required rate.",
+      "समय-सीमा तक A द्वारा किया गया काम और B को मिलने वाली बारियों की संख्या निकालें। बचे काम को B की बारियों से भाग देने पर B की आवश्यक दर मिलती है।",
+      "ਸਮਾਂ-ਸੀਮਾ ਤੱਕ A ਵੱਲੋਂ ਕੀਤਾ ਕੰਮ ਅਤੇ B ਨੂੰ ਮਿਲਣ ਵਾਲੀਆਂ ਵਾਰੀਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ। ਬਚੇ ਕੰਮ ਨੂੰ B ਦੀਆਂ ਵਾਰੀਆਂ ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ B ਦੀ ਲੋੜੀਂਦੀ ਦਰ ਮਿਲਦੀ ਹੈ।",
+    );
+  }
+  return t(
+    language,
+    "Use the alternating schedule to find how much work A completes and how many turns B gets. Divide the work left for B by B's turns to get B's rate.",
+    "बारी-बारी वाले क्रम से A द्वारा किया गया काम और B को मिलने वाली बारियों की संख्या निकालें। B के लिए बचे काम को B की बारियों से भाग देकर B की दर पाएँ।",
+    "ਵਾਰੀ-ਵਾਰੀ ਵਾਲੇ ਕ੍ਰਮ ਤੋਂ A ਵੱਲੋਂ ਕੀਤਾ ਕੰਮ ਅਤੇ B ਨੂੰ ਮਿਲਣ ਵਾਲੀਆਂ ਵਾਰੀਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ। B ਲਈ ਬਚੇ ਕੰਮ ਨੂੰ B ਦੀਆਂ ਵਾਰੀਆਂ ਨਾਲ ਭਾਗ ਦੇ ਕੇ B ਦੀ ਦਰ ਕੱਢੋ।",
+  );
+}
+
 function concreteRemainingWork(question: Question): string | null {
   for (const step of legacySteps(question)) {
     const inner = /\\\(([\s\S]*?)\\\)/.exec(step)?.[1]?.trim();
@@ -111,6 +136,7 @@ export function applyTmwCp005InverseEditorialFix<T extends Question>(
 
   const learnerExplanation: TmwLearnerExplanationV2 = {
     ...current,
+    method: inverseMethod(mode, language),
     solution: [...baseWorking, decisive, current.answer],
   };
   const errors = validateTmwLearnerExplanationV2(learnerExplanation);
