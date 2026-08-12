@@ -2,14 +2,14 @@ import {
   TRG_002_RUNTIME_PROOF_IDS,
   type Trg002ProofQlId,
 } from "./runtime-proof";
-import { generateReviewedTrg002RuntimeProofQuestion } from "./runtime-proof-reviewed";
+import { generateExamReadyTrg002RuntimeProofQuestion } from "./runtime-proof-exam-ready";
 import {
   buildTrg002DiagramEvidence,
   validateTrg002DiagramEvidence,
 } from "./spatial";
 
 export function generateSolutionDiagramTrg002RuntimeProofQuestion(qlId: Trg002ProofQlId, seed: string) {
-  const question = generateReviewedTrg002RuntimeProofQuestion(qlId, seed);
+  const question = generateExamReadyTrg002RuntimeProofQuestion(qlId, seed);
   const diagramEvidence = buildTrg002DiagramEvidence(qlId, question.canonicalSpatialState);
   const diagramPolicyVerification = validateTrg002DiagramEvidence(question.canonicalSpatialState, diagramEvidence);
   if (!diagramPolicyVerification.valid || !diagramEvidence.solutionDiagram) {
