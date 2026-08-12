@@ -1,0 +1,111 @@
+name: Validate INT-CP-004 Hindi Punjabi V6 migration
+
+on:
+  pull_request:
+    branches:
+      - freeze/int-cp004-approved-english-v2
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp004-localization-v6-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localization-v6-*.ts"
+      - ".github/workflows/int-cp004-hi-pa-v6-localisation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp004-hi-pa-v6:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle canonical English V6 freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-english-freeze-v2-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-english-freeze-v2-audit.mjs
+
+      - name: Run canonical English V6 freeze audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-english-freeze-v2-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
+
+      - name: Bundle Hindi Punjabi V6 parity audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localization-v6-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localization-v6-audit.mjs
+
+      - name: Run Hindi Punjabi V6 parity audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localization-v6-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localization-v6-audit.log
+
+      - name: Bundle Hindi Punjabi V6 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localization-v6-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localization-v6-review-export.mjs
+
+      - name: Export Hindi Punjabi V6 review packs
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localization-v6-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localization-v6-review-export.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify migration evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          audit=artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-localization/int-cp004-hi-pa-v6-localization-audit.json
+          review=artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-localization-review/int-cp004-hi-pa-v6-review-summary.json
+
+          grep -q 'PASS_INT_CP004_ENGLISH_V6_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
+          grep -q 'PASS_INT_CP004_HI_PA_V6_LOCALIZATION' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-audit.log
+          grep -q 'PASS_INT_CP004_HI_PA_V6_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-review-export.log
+          test -f "$audit"
+          test -f "$review"
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-localization-review/INT-CP-004-Hindi-V6-Review.md
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-localization-review/INT-CP-004-Punjabi-V6-Review.md
+          grep -q '"bilingualQuestions": 3800' "$audit"
+          grep -q '"formulaChecks": 3800' "$audit"
+          grep -q '"calculationChecks": 3800' "$audit"
+          grep -q '"reviewStatus": "LOCALIZED_REVIEW_REQUIRED"' "$audit"
+          grep -q '"questions": 76' "$review"
+          grep -q '"formulaFirst": 76' "$review"
+
+      - name: Upload Hindi Punjabi V6 migration evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp004-hi-pa-v6-localisation-review
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-review-export.log
+            artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-localization/**
+            artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-localization-review/**
+          if-no-files-found: error
+          retention-days: 30
