@@ -38,8 +38,8 @@ jobs:
 
           if grep -q 'naturalizeProbabilityExplanationBody' "$mirror"; then
             echo "English-authority explanation mirror already materialized."
-            echo "Replaying idempotent post-materialization correction waves 15-23."
-            for n in $(seq 15 23); do
+            echo "Replaying idempotent post-materialization correction waves 15-24."
+            for n in $(seq 15 24); do
               file="artifacts/api-server/src/quant-v4/topics/Probability/patch-native-explanation-vocabulary-wave${n}.mjs"
               if [ -f "$file" ]; then
                 echo "Applying $file"
@@ -49,7 +49,7 @@ jobs:
           else
             echo "Bootstrapping English-authority explanation mirror."
             node "$base"
-            for n in $(seq 2 23); do
+            for n in $(seq 2 24); do
               file="artifacts/api-server/src/quant-v4/topics/Probability/patch-native-explanation-vocabulary-wave${n}.mjs"
               if [ -f "$file" ]; then
                 echo "Applying $file"
