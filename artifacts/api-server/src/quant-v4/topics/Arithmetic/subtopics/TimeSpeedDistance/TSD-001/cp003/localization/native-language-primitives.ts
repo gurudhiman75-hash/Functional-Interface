@@ -45,7 +45,8 @@ export const TSD_CP003_NATIVE_NUMBER_POLICY = Object.freeze({
   distanceUnit: "km",
   clockSuffix: "AM_PM",
   percentStyle: "SOURCE_VALUE_PERCENT_SIGN",
-  fractionStyle: "SOURCE_EXAM_NUMBER",
+  fractionStyle: "SOURCE_EXAM_NUMBER_FOR_NON_TIME_VALUES",
+  durationStyle: "EXACT_HOUR_MINUTE_SECOND",
 } as const);
 
 function nativeHourUnit(hours: number, language: TsdCp003NativeLanguage): string {
@@ -54,19 +55,25 @@ function nativeHourUnit(hours: number, language: TsdCp003NativeLanguage): string
 }
 
 export function formatNativeDuration(value: Rational, language: TsdCp003NativeLanguage): string {
-  const minutes = multiply(value, rational(60));
-  if (minutes.denominator !== 1n) {
-    return `${formatExamNumber(value)} ${language === "hi" ? "घंटे" : "ਘੰਟੇ"}`;
+  const seconds = multiply(value, rational(3600));
+  if (seconds.denominator !== 1n) {
+    throw new Error(`Native learner duration must resolve to exact seconds; received ${formatExamNumber(value)} hours`);
   }
 
-  const total = Number(minutes.numerator);
-  const sign = total < 0 ? "-" : "";
-  const absolute = Math.abs(total);
-  const hours = Math.floor(absolute / 60);
-  const remainder = absolute % 60;
-  if (hours === 0) return `${sign}${remainder} ${language === "hi" ? "मिनट" : "ਮਿੰਟ"}`;
-  if (remainder === 0) return `${sign}${hours} ${nativeHourUnit(hours, language)}`;
-  return `${sign}${hours} ${nativeHourUnit(hours, language)} ${remainder} ${language === "hi" ? "मिनट" : "ਮਿੰਟ"}`;
+  const totalSeconds = Number(seconds.numerator);
+  const sign = totalSeconds < 0 ? "-" : "";
+  const absolute = Math.abs(totalSeconds);
+  const hours = Math.floor(absolute / 3600);
+  const minutes = Math.floor((absolute % 3600) / 60);
+  const remainingSeconds = absolute % 60;
+  const parts: string[] = [];
+
+  if (hours > 0) parts.push(`${hours} ${nativeHourUnit(hours, language)}`);
+  if (minutes > 0) parts.push(`${minutes} ${language === "hi" ? "मिनट" : "ਮਿੰਟ"}`);
+  if (remainingSeconds > 0) parts.push(`${remainingSeconds} ${language === "hi" ? "सेकंड" : "ਸਕਿੰਟ"}`);
+  if (parts.length === 0) parts.push(`0 ${language === "hi" ? "मिनट" : "ਮਿੰਟ"}`);
+
+  return `${sign}${parts.join(" ")}`;
 }
 
 export function formatNativeClock(value: Rational, language: TsdCp003NativeLanguage): string {
