@@ -4,12 +4,22 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function answerScalar(answer: string): string | null {
+  const math = /\\\(([\s\S]*?)\\\)/.exec(answer)?.[1]?.trim();
+  if (math) return math;
+  return /(-?\d+(?:\.\d+)?)/.exec(answer)?.[1] ?? null;
+}
+
 const qls = Array.from({ length: 24 }, (_, index) => `TMW-QL-${String(index + 82).padStart(3, "0")}`);
 const languages: readonly Tmw001ChapterLanguage[] = ["en", "hi", "pa"];
 const seeds = ["0", "1", "2", "3", "4"] as const;
 const INVERSE_MODES = new Set([
   "findUnknownRateFromAlternatingCompletion",
   "findUnknownTimeFromAlternatingCompletion",
+  "findRequiredCycleRateForDeadline",
+]);
+const RATE_ANSWER_MODES = new Set([
+  "findUnknownRateFromAlternatingCompletion",
   "findRequiredCycleRateForDeadline",
 ]);
 const NON_TERMINAL_GENERIC_MODES = new Set([
@@ -61,6 +71,16 @@ for (const qlId of qls) {
       if (INVERSE_MODES.has(question.solveMode)) {
         const required = language === "hi" ? /अज्ञात|दर|बचा काम/u : language === "pa" ? /ਅਣਜਾਣ|ਦਰ|ਬਚਿਆ ਕੰਮ/u : /unknown|rate|work left/i;
         assert(required.test(learner), `${label}: inverse explanation does not name the unknown-work logic`);
+        const scalar = answerScalar(question.solution.answerText);
+        assert(scalar, `${label}: inverse solved answer has no extractable scalar`);
+        const working = question.learnerExplanation.solution.slice(0, -1).join(" ");
+        assert(working.includes(`\\(${scalar}\\)`), `${label}: decisive inverse working does not contain the solved answer value ${scalar}`);
+      }
+
+      if (RATE_ANSWER_MODES.has(question.solveMode)) {
+        const scalar = answerScalar(question.solution.answerText);
+        const decisive = question.learnerExplanation.solution.at(-2) ?? "";
+        assert(scalar && decisive.includes(`\\(${scalar}\\)`), `${label}: required-rate step is not aligned to the final rate answer`);
       }
 
       if (question.solveMode === "findStartingAgentFromCompletionCondition") {
@@ -91,6 +111,7 @@ console.log(JSON.stringify({
   seedsPerQlLanguage: seeds.length,
   checked,
   solveModes: modes.size,
+  inverseAnswerAlignment: true,
   publicationLocked: true,
   verdict: "PASS",
 }, null, 2));
