@@ -16,10 +16,13 @@ function t(language: Language, en: string, hi: string, pa: string): string {
   return language === "hi" ? hi : language === "pa" ? pa : en;
 }
 
+function legacySteps(question: Question): string[] {
+  return Array.isArray(question.explanation?.steps) ? question.explanation.steps : [];
+}
+
 function solvedValue(question: Question, symbol: "r_x"): string | null {
-  const steps = Array.isArray(question.explanation?.steps) ? question.explanation.steps : [];
   const pattern = new RegExp(String.raw`(?:^|,\s*\\quad\s*)${symbol}=([^,]+)`);
-  for (const step of steps) {
+  for (const step of legacySteps(question)) {
     const inner = /\\\(([\s\S]*?)\\\)/.exec(step)?.[1]?.trim();
     if (!inner) continue;
     const match = pattern.exec(inner);
@@ -37,6 +40,39 @@ function finalAnswerValue(answer: string): string | null {
   if (fraction) return `\\(\\frac{${fraction[1]}}{${fraction[2]}}\\)`;
   const number = /(-?\d+(?:\.\d+)?)/.exec(answer)?.[1];
   return number ? `\\(${number}\\)` : null;
+}
+
+function firstInlineMath(line: string | undefined): string | null {
+  return line ? /\\\(([\s\S]*?)\\\)/.exec(line)?.[0] ?? null : null;
+}
+
+function relabelInverseBase(current: TmwLearnerExplanationV2, language: Language): string[] {
+  const turns = firstInlineMath(current.solution[0]);
+  const known = firstInlineMath(current.solution[1]);
+  const remaining = firstInlineMath(current.solution[2]);
+  return [
+    turns
+      ? `${t(language, "Number of active turns for B", "B की कुल काम वाली बारियाँ", "B ਦੀਆਂ ਕੁੱਲ ਕੰਮ ਵਾਲੀਆਂ ਵਾਰੀਆਂ")}: ${turns}.`
+      : current.solution[0],
+    known
+      ? `${t(language, "Work completed by A", "A द्वारा किया गया काम", "A ਵੱਲੋਂ ਕੀਤਾ ਗਿਆ ਕੰਮ")}: ${known}.`
+      : current.solution[1],
+    remaining
+      ? `${t(language, "Work remaining for B", "B के लिए बचा काम", "B ਲਈ ਬਚਿਆ ਕੰਮ")}: ${remaining}.`
+      : current.solution[2],
+  ].filter((line): line is string => Boolean(line));
+}
+
+function concreteRemainingWork(question: Question): string | null {
+  for (const step of legacySteps(question)) {
+    const inner = /\\\(([\s\S]*?)\\\)/.exec(step)?.[1]?.trim();
+    if (!inner) continue;
+    const match = /W_\{remaining\}=([^,]+)/.exec(inner);
+    const rhs = match?.[1]?.trim();
+    if (!rhs || /W_|\bn\b|\?|\\text\{/.test(rhs)) continue;
+    return `\\(${rhs}\\)`;
+  }
+  return null;
 }
 
 export function applyTmwCp005InverseEditorialFix<T extends Question>(
@@ -57,7 +93,7 @@ export function applyTmwCp005InverseEditorialFix<T extends Question>(
   ) return question;
 
   const current = question.learnerExplanation;
-  const baseWorking = current.solution.slice(0, 3);
+  const baseWorking = relabelInverseBase(current, language);
   const answerValue = finalAnswerValue(current.answer);
   const rate = mode === "findUnknownTimeFromAlternatingCompletion"
     ? solvedValue(question, "r_x")
@@ -67,11 +103,11 @@ export function applyTmwCp005InverseEditorialFix<T extends Question>(
   const decisive = mode === "findUnknownTimeFromAlternatingCompletion"
     ? `${t(
         language,
-        "Divide the remaining work by the unknown worker's active turns to get the rate, then take the reciprocal for the solo time",
-        "बचे काम को अज्ञात कर्मी की काम वाली बारियों से भाग देकर दर निकालें, फिर उसका व्युत्क्रम लेकर अकेले का समय पाएँ",
-        "ਬਚੇ ਕੰਮ ਨੂੰ ਅਣਜਾਣ ਕਰਮਚਾਰੀ ਦੀਆਂ ਕੰਮ ਵਾਲੀਆਂ ਵਾਰੀਆਂ ਨਾਲ ਭਾਗ ਦੇ ਕੇ ਦਰ ਕੱਢੋ, ਫਿਰ ਉਸ ਦਾ ਉਲਟ ਲੈ ਕੇ ਇਕੱਲੇ ਦਾ ਸਮਾਂ ਕੱਢੋ",
+        "Divide B's remaining work by B's active turns to get B's rate, then take the reciprocal for B's solo time",
+        "B के बचे काम को B की काम वाली बारियों से भाग देकर B की दर निकालें, फिर उसका व्युत्क्रम लेकर B के अकेले का समय पाएँ",
+        "B ਦੇ ਬਚੇ ਕੰਮ ਨੂੰ B ਦੀਆਂ ਕੰਮ ਵਾਲੀਆਂ ਵਾਰੀਆਂ ਨਾਲ ਭਾਗ ਦੇ ਕੇ B ਦੀ ਦਰ ਕੱਢੋ, ਫਿਰ ਉਸ ਦਾ ਉਲਟ ਲੈ ਕੇ B ਦੇ ਇਕੱਲੇ ਦਾ ਸਮਾਂ ਕੱਢੋ",
       )}: ${rate ?? ""}${rate && soloTime ? "; " : ""}${soloTime ?? ""}.`
-    : `${t(language, "Required work rate", "आवश्यक कार्य-दर", "ਲੋੜੀਂਦੀ ਕੰਮ-ਦਰ")}: ${rate ?? ""}.`;
+    : `${t(language, "Required work rate of B", "B की आवश्यक कार्य-दर", "B ਦੀ ਲੋੜੀਂਦੀ ਕੰਮ-ਦਰ")}: ${rate ?? ""}.`;
 
   const learnerExplanation: TmwLearnerExplanationV2 = {
     ...current,
@@ -89,6 +125,57 @@ export function applyTmwCp005InverseEditorialFix<T extends Question>(
         ...errors.map((error) => `CP005 inverse editorial fix: ${error}`),
         ...(!rate ? ["CP005 inverse editorial fix: solved rate missing"] : []),
         ...(mode === "findUnknownTimeFromAlternatingCompletion" && !soloTime ? ["CP005 inverse editorial fix: solved solo time missing"] : []),
+      ],
+    },
+    publiclyPublishable: false,
+  };
+}
+
+export function applyTmwCp005RemainingWorkEditorialFix<T extends Question>(
+  question: T,
+  qlId: string,
+  language: Language,
+): T {
+  if (
+    qlId !== "TMW-QL-088" ||
+    (question.canonicalProblemId ?? question.cpId) !== "TMW-CP-005" ||
+    question.solveMode !== "findRemainingWorkAfterFullCycles" ||
+    !question.learnerExplanation
+  ) return question;
+
+  const remaining = concreteRemainingWork(question);
+  const current = question.learnerExplanation;
+  const solution = [...current.solution];
+  if (remaining && solution.length >= 2) {
+    solution.splice(
+      solution.length - 1,
+      0,
+      `${t(
+        language,
+        "Remaining work = whole work − completed work",
+        "बचा काम = पूरा काम − किया गया काम",
+        "ਬਚਿਆ ਕੰਮ = ਸਾਰਾ ਕੰਮ − ਕੀਤਾ ਗਿਆ ਕੰਮ",
+      )}: ${remaining}.`,
+    );
+  }
+
+  const deduplicated = solution.filter((line, index) => {
+    if (index === solution.length - 1) return true;
+    if (/Subtract from the whole work|इसे पूरे काम में से घटाएँ|ਇਸ ਨੂੰ ਪੂਰੇ ਕੰਮ ਵਿੱਚੋਂ ਘਟਾਓ/i.test(line)) return false;
+    return true;
+  });
+  const learnerExplanation: TmwLearnerExplanationV2 = { ...current, solution: deduplicated.slice(0, 5) };
+  const errors = validateTmwLearnerExplanationV2(learnerExplanation);
+
+  return {
+    ...question,
+    learnerExplanation,
+    validation: {
+      valid: Boolean(question.validation?.valid) && Boolean(remaining) && errors.length === 0,
+      errors: [
+        ...(question.validation?.errors ?? []),
+        ...(!remaining ? ["CP005 remaining-work editorial fix: concrete remaining-work equation missing"] : []),
+        ...errors.map((error) => `CP005 remaining-work editorial fix: ${error}`),
       ],
     },
     publiclyPublishable: false,
