@@ -34,6 +34,7 @@ import { applyTmw001EditorialRemediationR3Cp007To011 } from "./editorial-remedia
 import { applyTmw001LearnerExplanationR3Cp007To011 } from "./learner-explanation-r3-cp007-cp011";
 import { applyTmw001LearnerExplanationR4ExamReadiness } from "./learner-explanation-r4-exam-readiness";
 import { applyTmwCp005EditorialReviewRemediation } from "./cp005-editorial-review-remediation";
+import { applyTmwCp005StartingAgentEditorialFix } from "./cp005-starting-agent-editorial-fix";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -60,7 +61,8 @@ function finishEnglish(question: any, questionLanguageId: string): any {
   const r2Learner = applyTmw001LearnerExplanationR2Cp001To006(r3Remediated, questionLanguageId, "en");
   const r3Learner = applyTmw001LearnerExplanationR3Cp007To011(r2Learner, questionLanguageId, "en");
   const r4Learner = applyTmw001LearnerExplanationR4ExamReadiness(r3Learner, questionLanguageId, "en");
-  return applyTmwCp005EditorialReviewRemediation(r4Learner, questionLanguageId, "en");
+  const cp005Reviewed = applyTmwCp005EditorialReviewRemediation(r4Learner, questionLanguageId, "en");
+  return applyTmwCp005StartingAgentEditorialFix(cp005Reviewed, questionLanguageId, "en");
 }
 
 function finishLocalized(question: any, questionLanguageId: string, language: TmwLocalizedLanguage): any {
@@ -79,7 +81,8 @@ function finishLocalized(question: any, questionLanguageId: string, language: Tm
   const r2Learner = applyTmw001LearnerExplanationR2Cp001To006(r3Remediated, questionLanguageId, language);
   const r3Learner = applyTmw001LearnerExplanationR3Cp007To011(r2Learner, questionLanguageId, language);
   const r4Learner = applyTmw001LearnerExplanationR4ExamReadiness(r3Learner, questionLanguageId, language);
-  return applyTmwCp005EditorialReviewRemediation(r4Learner, questionLanguageId, language);
+  const cp005Reviewed = applyTmwCp005EditorialReviewRemediation(r4Learner, questionLanguageId, language);
+  return applyTmwCp005StartingAgentEditorialFix(cp005Reviewed, questionLanguageId, language);
 }
 
 export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
