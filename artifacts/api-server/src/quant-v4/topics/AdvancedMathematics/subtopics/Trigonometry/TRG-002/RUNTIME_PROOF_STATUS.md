@@ -1,212 +1,235 @@
 # TRG-002 20-QL Runtime Proof Status
 
-Status: **IMPLEMENTED + AI PROOF REVIEW COMPLETE — EXECUTION/HUMAN REVIEW PENDING**
+Status: **EXAM-READINESS REMEDIATION IMPLEMENTED — EXECUTION / VISUAL DIAGRAM REVIEW / HUMAN REVIEW PENDING**
 
 ## Scope
 
-Phase 6 implements **20 permanent English QLs** for `TRG-002 — Heights & Distances Applications`.
+Phase 6 still uses the same **20 permanent English QLs** for `TRG-002 — Heights & Distances Applications`:
 
-The proof deliberately samples permanent IDs across the locked Phase 0 subfamilies instead of consuming the first five contiguous IDs of each CP.
+- TRG-CP-007: 5
+- TRG-CP-008: 5
+- TRG-CP-009: 5
+- TRG-CP-010: 5
+- proof total: **20 / 20**
+- production target: **96 QLs**
 
-Distribution:
+Permanent IDs and locked family roles are unchanged.
 
-- TRG-CP-007: 5 QLs
-- TRG-CP-008: 5 QLs
-- TRG-CP-009: 5 QLs
-- TRG-CP-010: 5 QLs
-- total: **20 / 20 proof QLs**
-- full TRG-002 production target: **20 / 96**
+## Active authority surface
 
-## Permanent proof IDs
+The original engineering layers remain for traceability:
 
-### TRG-CP-007
-- `TRG-002-QL-001` — height from elevation
-- `TRG-002-QL-007` — distance from elevation
-- `TRG-002-QL-012` — clean standard angle from height/distance
-- `TRG-002-QL-015` — target height from depression
-- `TRG-002-QL-023` — reverse single observation using line of sight
+- `runtime-proof.ts` — legacy engineering generator
+- `runtime-proof-reviewed.ts` — earlier QL-061 editorial input
 
-### TRG-CP-008
-- `TRG-002-QL-025` — shadow → height
-- `TRG-002-QL-030` — height → shadow
-- `TRG-002-QL-033` — changed shadow / solar elevation
-- `TRG-002-QL-036` — ladder against wall
-- `TRG-002-QL-045` — guy wire / ground anchor
+The active candidate is now:
 
-### TRG-CP-009
-- `TRG-002-QL-049` — same-side two observations
-- `TRG-002-QL-056` — observer moves closer
-- `TRG-002-QL-061` — observer moves farther
-- `TRG-002-QL-065` — recover original distance
-- `TRG-002-QL-068` — recover point separation
+- `runtime-proof-exam-ready.ts` — current math/editorial proof authority
+- `runtime-proof-solution-diagram.ts` — current solution-diagram-aware delivery surface
 
-### TRG-CP-010
-- `TRG-002-QL-073` — eye-height correction
-- `TRG-002-QL-078` — opposite-side observations
-- `TRG-002-QL-083` — building-to-building height relation
-- `TRG-002-QL-088` — combined elevation + depression
-- `TRG-002-QL-092` — river width
+Active gates:
 
-These 20 IDs represent **20 distinct locked family roles and 20 distinct solve modes**.
+- `runtime-proof-exam-ready.test.ts`
+- `runtime-proof-solution-diagram.test.ts`
 
-## Runtime files
+The original `runtime-proof.test.ts` and `runtime-proof-reviewed.test.ts` were retired after fresh review found that they exercised a known-invalid engineering difficulty surface. The reason is recorded in `LEGACY_PROOF_GATE_NOTE.md`; Git history preserves those files.
 
-- `runtime-proof.ts` — exact 20-QL engineering proof generator
-- `runtime-proof-reviewed.ts` — active reviewed proof candidate
-- `runtime-proof.test.ts` — base engineering gates
-- `runtime-proof-reviewed.test.ts` — editorial-integrity overlay gates
+## Fresh audit finding corrected
 
-`runtime-proof-reviewed.ts` is the candidate surface to use for subsequent expansion.
+Three additional execution blockers were found in the pre-remediation engineering runtime:
 
-## Question contract
+- `TRG-002-QL-056`
+- `TRG-002-QL-065`
+- `TRG-002-QL-068`
 
-Every proof question contains:
+Each was marked **Hard** while the engineering explanation had only **two steps**. The engineering runtime requires at least three explanation steps for Hard questions, so those QLs could throw before the earlier reviewed wrapper was reached.
 
-- permanent package/CP/QL identity;
-- locked family and solve mode;
-- deterministic seed;
-- exam-style English stem;
-- exactly four exact answer options;
-- misconception ID on each distractor;
-- correct index;
-- exact answer;
-- generated value-aware explanation;
-- canonical spatial state;
-- deterministic diagram spec generated from that state;
-- independent spatial verification result;
-- diagram validation result;
-- independent answer reconstruction result;
-- final validation checks;
-- review and activation locks.
+The current candidate does not hide this. These roles have been rebuilt/recalibrated as **Medium**, which better matches their present standard-angle forms.
 
-## Spatial authority integration
+## Mathematical/state remediation
 
-A proof question cannot be emitted unless all three authorities agree:
+### QL-015 — height from depression
 
-1. **primary exact solver / canonical coordinates**;
-2. **independent coordinate verifier**;
-3. **diagram projection validator**.
+Old issue: awkward forms such as `30 − 10√3` could appear as the target height.
 
-The answer is also reconstructed independently from the canonical coordinates or target object geometry.
+Current construction:
 
-This prevents the future stem, explanation and diagram from silently describing different triangles.
+- valid 30° depression geometry;
+- horizontal separation chosen as a clean multiple of `√3`;
+- vertical drop becomes an integer;
+- target pole height is an integer;
+- explanation explicitly distinguishes **vertical drop** from **final pole height**.
 
-## Representative application coverage
+### QL-025 — shadow to height
 
-The proof now exercises:
+Old issue: some seeds produced less natural `√3/3`-style height answers.
 
-- direct tangent height/distance;
-- line-of-sight sine application;
-- exact standard-angle recovery;
-- angle of depression with unequal object heights;
-- solar shadows;
-- changed shadow angle;
-- ladder geometry;
-- guy-wire hypotenuse geometry;
-- same-side two-point systems;
-- moving closer / farther;
-- recovery of original distance / separation;
-- observer eye-height correction;
-- opposite-side observer geometry;
-- two-building height difference;
-- simultaneous elevation and depression;
-- river width.
+Current construction varies the 30°/60° case while choosing the shadow length so the exact height is a clean multiple of `√3` rather than a rationalized denominator form.
 
-Broken-object and composite-vertical-object families are **not represented in this 20-QL proof** and remain mandatory for MVP/production expansion.
+### QL-030 — height to shadow
 
-## Editorial finding corrected
+Old issue: reverse construction could give the learner a synthetic surd object height merely to force a tidy shadow.
 
-### QL-061 information leak
+Current construction gives a natural **integer object height** and allows the exact surd to appear in the requested shadow answer, which is more exam-like.
 
-The first engineering stem for `TRG-002-QL-061` disclosed the initial distance from the tower while also giving the initial 60° elevation angle.
+### QL-056 — observer moves closer
 
-That made the second observation and move-farther information unnecessary: the student could calculate the height directly from the first observation.
+- permanent family retained;
+- current difficulty: **Medium**;
+- complete two-observation setup;
+- stem wording clarified;
+- distractors represent original distance, distance walked, and tower height.
 
-The reviewed candidate now states only:
+### QL-065 — recover original distance
+
+- permanent family retained;
+- current difficulty: **Medium**;
+- intended same-height relation used explicitly;
+- explanation no longer relies on an inflated Hard label.
+
+### QL-068 — recover point separation
+
+- permanent family retained;
+- current difficulty: **Medium**;
+- nearer and farther distances are found from the tower height and then subtracted;
+- same-side difference is emphasized.
+
+### QL-073 — observer-height correction
+
+Old issue: seeded eye height could be **2.5 m**, which is poor real-world modeling for a standing observer.
+
+Current authority fixes eye height at **1.5 m** and binds the stem, canonical state, answer, explanation and solution diagram to that same value.
+
+## Difficulty calibration
+
+Current exam-readiness difficulty decisions:
+
+### Genuine Hard retained
+
+- `QL-049` — same-side two-observation system
+- `QL-061` — move-farther system with the original distance intentionally unknown
+
+### Medium in current standard-angle form
+
+- `QL-056`
+- `QL-065`
+- `QL-068`
+- `QL-078`
+- `QL-083`
+- `QL-088`
+- `QL-092`
+
+This avoids calling a direct 45° or routine 30°/60° application Hard simply because the scenario contains more words.
+
+## Editorial refinements
+
+### QL-061
+
+The earlier information-leak fix remains authoritative:
 
 - initial angle = 60°;
-- distance moved away;
+- distance walked away is given;
 - final angle = 30°;
-- target = tower height.
+- original distance is **not** given;
+- the explanation must use both observations.
 
-The initial distance is unknown, forcing the intended two-observation system:
+### QL-078
 
-`x tan60° = (x + movement) tan30°`.
+- opposite-side wording clarified;
+- difficulty calibrated to Medium;
+- distractor provenance IDs now say what the error actually is, e.g. using the full observer separation as height.
 
-The review-specific test locks this distinction while requiring the exact answer, mathematical options, canonical spatial state and diagram to remain unchanged.
+### QL-083
 
-## AI proof-stage editorial result
+- building-to-building stem clarified;
+- explanation separates **rise above the first roof** from **full second-building height**;
+- difficulty calibrated to Medium.
 
-The 20 representative QLs were reviewed for:
+### QL-088
 
-- locked-family fit;
-- stem realism;
-- whether all supplied data is genuinely relevant;
-- mathematical validity;
-- option uniqueness and misconception plausibility;
-- difficulty integrity;
-- explanation clarity/depth;
-- diagram/state consistency;
-- scope fit.
+- elevation/depression wording cleaned;
+- explanation frames the target as lower part + upper part around the observer's horizontal level;
+- difficulty calibrated to Medium.
 
-Result after QL-061 remediation:
+### QL-092
 
-- AI reviewed: **20 / 20**
-- AI proof-stage PASS: **20 / 20**
-- unresolved AI blockers: **0**
-- human reviewed: **0 / 20**
+- river-width wording clarified;
+- 45° shortcut is explained rather than treated as a Hard system;
+- difficulty calibrated to Medium.
 
-This proof review is not the later 96-row production human freeze.
+## Diagram policy
 
-## Executable gates committed
+The solution-diagram-first architecture remains unchanged by this content pass.
 
-### Base proof gate
+For all 20 proof QLs:
 
-`runtime-proof.test.ts` targets:
+- solution diagram: **REQUIRED**;
+- stem diagram: **OPTIONAL**, not automatically emitted;
+- solution disclosure: **AFTER_ATTEMPT**;
+- diagram evidence is fingerprint-bound to the canonical spatial state;
+- a solution diagram reused against a different state must fail validation;
+- optional stem figures must not leak requested numeric labels/angles.
 
-- exact 20-ID distributed sample;
-- five QLs per CP;
-- 20 distinct solve modes;
-- 20 distinct locked families;
-- permanent range compliance;
+`runtime-proof-solution-diagram.ts` now consumes the exam-ready candidate directly.
+
+## Active gate targets
+
+### Exam-ready gate
+
+`runtime-proof-exam-ready.test.ts` targets:
+
+- all 20 permanent proof IDs;
 - 12 canonical seeds per QL = **240 target cases**;
-- deterministic regeneration;
-- independent spatial verification;
-- diagram verification;
-- answer reconstruction;
-- four mathematically distinct options;
-- one correct option;
-- correct-index integrity;
-- diagram-strategy agreement;
-- explanation depth;
+- spatial verification;
+- legacy diagram projection verification;
+- independent answer reconstruction;
+- four distinct options and valid correct index;
 - at least two stem variants per QL;
-- activation locks;
-- 50-seed full proof sweep = **1,000 target cases**.
+- explicit difficulty locks for remediated Medium / retained Hard roles;
+- clean QL-015 integer target heights;
+- no `√3/3`-style QL-025 regression;
+- natural integer-given QL-030 stems;
+- QL-061 information-leak protection;
+- QL-073 eye height = 1.5 m;
+- QL-078 distractor-tag remediation;
+- 50-seed sweep = **1,000 target cases**.
 
-### Reviewed-overlay gate
+### Solution-diagram gate
 
-`runtime-proof-reviewed.test.ts` repeats the canonical/sweep safety checks on the active reviewed candidate and additionally requires:
+`runtime-proof-solution-diagram.test.ts` targets:
 
-- QL-061 reviewed stem differs from its leaky engineering source;
-- the original distance is not disclosed;
-- both observation equations appear in the explanation;
-- exact answer/options/correct index/canonical state/diagram remain unchanged by editorial remediation.
+- 20/20 required solution diagrams;
+- canonical-state binding;
+- correct diagram strategy;
+- no automatic stem diagrams;
+- AFTER_ATTEMPT disclosure;
+- 240 canonical diagram cases;
+- 1,000-case diagram sweep.
 
 ## Execution evidence
 
-The gate suites are **committed but not claimed as executed**.
+The new gates are committed, but **execution is still not claimed**.
 
-No GitHub Actions run has been observed for this branch. The current execution environment cannot clone the repository from `github.com`, so a local TypeScript run is unavailable here.
-
-Therefore:
+Current truth:
 
 - strict TypeScript compile: **NOT CLAIMED**
-- 240-case canonical proof pass: **NOT CLAIMED**
-- 1,000-case sweep pass: **NOT CLAIMED**
-- reviewed-overlay execution pass: **NOT CLAIMED**
+- exam-ready 240-case gate: **NOT CLAIMED**
+- exam-ready 1,000-case sweep: **NOT CLAIMED**
+- solution-diagram 240-case gate: **NOT CLAIMED**
+- solution-diagram 1,000-case sweep: **NOT CLAIMED**
 - GitHub Actions pass: **NOT CLAIMED**
 
-## Activation state
+No GitHub Actions run has been observed on the current proof head.
+
+## Review truth
+
+- AI remediation pass: **implemented for 20/20 proof anchors**
+- human review: **0 / 20**
+- rendered diagram visual review: **not yet completed**
+
+Runtime review flags remain conservative (`UNREVIEWED` / `PENDING`) until the later human process; AI remediation is recorded in this status/manifest rather than impersonating human review.
+
+## Activation
 
 Still OFF:
 
@@ -216,31 +239,11 @@ Still OFF:
 - public publication
 - Hindi/Punjabi runtime
 
-Every generated proof question is:
+## Next checkpoint
 
-- `reviewStatus = UNREVIEWED`
-- `aiEditorialStatus = PENDING` in runtime metadata despite the external review record
-- `humanReviewStatus = PENDING`
-- `questionBankStatus = NOT_STORED`
-- `testEligibility = INELIGIBLE`
-- `publiclyPublishable = false`
-- `questionStudioDiscoverable = false`
-- `proofOnly = true`
+Before expanding **20 → 48 QLs**:
 
-The runtime flags remain conservative even when a review document records AI proof-stage acceptance.
-
-## Next checkpoint — TRG-002 48-QL MVP
-
-The next expansion should move from **20 → 48 QLs**, approximately 12 per CP, while keeping permanent family allocations authoritative.
-
-Priority additions must include families absent from the proof, especially:
-
-- broken tree / broken pole geometry;
-- additional shadow transformations;
-- guy-wire variants;
-- move-farther variants;
-- comparative/two-object systems;
-- composite vertical-object cases;
-- broader building-to-building and river-width forms.
-
-The 20 reviewed proof QLs should be retained as anchor templates unless a defect is discovered.
+1. obtain real TypeScript/runtime execution evidence if available;
+2. visually inspect representative rendered solution diagrams from all major spatial strategies represented by the proof;
+3. perform one more exam-readiness sample review using the active candidate output;
+4. then expand to the 48-QL MVP while adding still-missing families, especially broken-object and composite-vertical-object geometry.
