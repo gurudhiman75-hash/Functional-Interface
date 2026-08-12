@@ -55,7 +55,7 @@ export const PROBABILITY_NATIVE_TERMS = {
   CARD: pair("पत्ता", "ਪੱਤਾ"),
   CARDS: pair("पत्ते", "ਪੱਤੇ"),
   DECK: pair("ताश की गड्डी", "ਤਾਸ਼ ਦੀ ਗੱਡੀ"),
-  BAG: pair("थैला", "ਥੈਲਾ"),
+  BAG: pair("बैग", "ਬੈਗ"),
   URN: pair("पात्र", "ਭਾਂਡਾ"),
   BALL: pair("गेंद", "ਗੇਂਦ"),
   BALLS: pair("गेंदें", "ਗੇਂਦਾਂ"),
