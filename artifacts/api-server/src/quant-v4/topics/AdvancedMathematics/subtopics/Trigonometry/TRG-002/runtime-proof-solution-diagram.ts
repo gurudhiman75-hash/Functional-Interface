@@ -4,6 +4,7 @@ import {
 } from "./runtime-proof";
 import { generateExamReadyTrg002RuntimeProofQuestion } from "./runtime-proof-exam-ready";
 import { verifyTrg002CanonicalRequestedTarget } from "./canonical-target-verifier";
+import { buildTrg002SolutionAnnotations } from "./solution-diagram-annotations";
 import {
   buildTrg002DiagramEvidence,
   validateTrg002DiagramEvidence,
@@ -20,6 +21,11 @@ export function generateSolutionDiagramTrg002RuntimeProofQuestion(qlId: Trg002Pr
   const diagramPolicyVerification = validateTrg002DiagramEvidence(question.canonicalSpatialState, diagramEvidence);
   if (!diagramPolicyVerification.valid || !diagramEvidence.solutionDiagram) {
     throw new Error(`${qlId}: required solution-diagram policy failed.`);
+  }
+
+  const solutionAnnotationEvidence = buildTrg002SolutionAnnotations(question);
+  if (!solutionAnnotationEvidence.validation.valid) {
+    throw new Error(`${qlId}: solution measurement annotation validation failed.`);
   }
 
   const checks = [
@@ -40,6 +46,11 @@ export function generateSolutionDiagramTrg002RuntimeProofQuestion(qlId: Trg002Pr
       message: "Solution diagram is validated against the same canonical spatial state as the question.",
     },
     {
+      name: "SOLUTION_ANNOTATIONS_VALID",
+      passed: solutionAnnotationEvidence.validation.valid,
+      message: "Solution measurement annotations use explicit exact semantic sources and canonical endpoints.",
+    },
+    {
       name: "NO_AUTOMATIC_STEM_DIAGRAM",
       passed: diagramEvidence.stemDiagram === undefined,
       message: "Stem diagram remains an explicit optional editorial choice rather than an automatic hint.",
@@ -47,7 +58,7 @@ export function generateSolutionDiagramTrg002RuntimeProofQuestion(qlId: Trg002Pr
     {
       name: "SOLUTION_DISCLOSURE_STAGE",
       passed: diagramEvidence.disclosure.solutionStage === "AFTER_ATTEMPT",
-      message: "Required solution diagram is disclosed with the explanation after the attempt.",
+      message: "Required solution diagram and solved annotations are disclosed with the explanation after the attempt.",
     },
   ];
 
@@ -55,12 +66,14 @@ export function generateSolutionDiagramTrg002RuntimeProofQuestion(qlId: Trg002Pr
     ...question,
     diagram: diagramEvidence.solutionDiagram,
     solutionDiagram: diagramEvidence.solutionDiagram,
+    solutionAnnotations: solutionAnnotationEvidence.annotations,
     stemDiagram: undefined,
     diagramEvidence,
     verification: {
       ...question.verification,
       canonicalTarget: canonicalTargetVerification,
       diagramPolicy: diagramPolicyVerification,
+      solutionAnnotations: solutionAnnotationEvidence.validation,
     },
     validation: {
       valid: checks.every((check) => check.passed),
