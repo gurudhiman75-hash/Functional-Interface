@@ -16,7 +16,8 @@ import {
 import { RNK_DERIVED_OPERATION_REQUIRED_VARIABLES } from "./rnk-derived-operation-render-v2";
 
 export const RNK_OBJECT_POOL_V2_MANIFEST_VERSION = "RNK_OBJECT_POOL_V2_MANIFEST_V1" as const;
-export const RNK_OBJECT_POOL_V2_EXPECTED_SHA256 = "UNPINNED" as const;
+export const RNK_OBJECT_POOL_V2_EXPECTED_SHA256 =
+  "09fd886c8ef602ab00bd6ca4b1410b963c8db93351881417ec13e538ec4aa452" as const;
 
 function sha256(value: unknown): string {
   return createHash("sha256").update(JSON.stringify(value), "utf8").digest("hex");
