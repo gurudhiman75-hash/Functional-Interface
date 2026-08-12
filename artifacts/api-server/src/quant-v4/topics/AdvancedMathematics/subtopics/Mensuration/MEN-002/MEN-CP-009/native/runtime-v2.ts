@@ -11,6 +11,7 @@ import {
 import { cleanMenCp009NativeTeachingLineV2 } from "./teaching-cleanup-v2";
 import { applyMenCp009NativeWordGuardV2 } from "./native-word-guard-v2";
 import { naturalizeMenCp009NativeTeachingV3 } from "./post-teaching-naturalizer-v3";
+import { polishMenCp009NativeTeachingV4 } from "./final-polish-v4";
 import { naturalizeMenCp009NativeStemV3 } from "./stem-naturalizer-v3";
 import {
   MEN_CP_009_MULTILINGUAL_TEACHING_V2_AUTHORITY,
@@ -57,9 +58,12 @@ export function generateMenCp009NativeTeachingV2(
     english.explanationLines,
     language,
   ).map((line) =>
-    naturalizeMenCp009NativeTeachingV3(
-      applyMenCp009NativeWordGuardV2(
-        cleanMenCp009NativeTeachingLineV2(line, language),
+    polishMenCp009NativeTeachingV4(
+      naturalizeMenCp009NativeTeachingV3(
+        applyMenCp009NativeWordGuardV2(
+          cleanMenCp009NativeTeachingLineV2(line, language),
+          language,
+        ),
         language,
       ),
       language,
