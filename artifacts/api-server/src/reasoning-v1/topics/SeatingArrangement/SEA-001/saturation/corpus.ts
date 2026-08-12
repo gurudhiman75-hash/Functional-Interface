@@ -315,6 +315,46 @@ export function buildSea001SaturationCorpus(
   };
 }
 
+const CP001_REVIEW_REQUIRED_QUERY_CONTRACTS = [
+  "SEA-QC-016",
+  "SEA-QC-017",
+  "SEA-QC-019",
+] as const;
+
+function selectCp001ReviewCandidates(
+  candidates: readonly AuditCaselet[],
+  perBlueprint: number,
+  blueprintId: string,
+): readonly AuditCaselet[] {
+  if (perBlueprint < CP001_REVIEW_REQUIRED_QUERY_CONTRACTS.length) {
+    throw new Error(`CP-001 manual review needs at least ${CP001_REVIEW_REQUIRED_QUERY_CONTRACTS.length} caselets per blueprint to cover exam-style query formats`);
+  }
+
+  const selected: AuditCaselet[] = [];
+  const selectedIds = new Set<string>();
+  for (const queryContractId of CP001_REVIEW_REQUIRED_QUERY_CONTRACTS) {
+    const candidate = candidates.find((caselet) =>
+      !selectedIds.has(caselet.caseletId)
+      && caselet.children.some((child) => child.queryContractId === queryContractId));
+    if (!candidate) {
+      throw new Error(`${blueprintId} manual review has no candidate for required ${queryContractId}`);
+    }
+    selected.push(candidate);
+    selectedIds.add(candidate.caseletId);
+  }
+
+  for (const candidate of candidates) {
+    if (selected.length >= perBlueprint) break;
+    if (selectedIds.has(candidate.caseletId)) continue;
+    selected.push(candidate);
+    selectedIds.add(candidate.caseletId);
+  }
+  if (selected.length !== perBlueprint) {
+    throw new Error(`Insufficient CP-001 review candidates for ${blueprintId}: ${selected.length}/${perBlueprint}`);
+  }
+  return selected;
+}
+
 export function selectManualReviewCorpus(
   corpus: readonly AuditCaselet[],
   perBlueprint = 5,
@@ -323,7 +363,11 @@ export function selectManualReviewCorpus(
   for (const descriptor of sea001BlueprintDescriptors()) {
     const candidates = corpus.filter((caselet) => caselet.blueprintAuthorityId === descriptor.blueprintId);
     if (candidates.length < perBlueprint) throw new Error(`Insufficient review candidates for ${descriptor.blueprintId}`);
-    selected.push(...candidates.slice(0, perBlueprint));
+    if (descriptor.checkpointId === "SEA-CP-001") {
+      selected.push(...selectCp001ReviewCandidates(candidates, perBlueprint, descriptor.blueprintId));
+    } else {
+      selected.push(...candidates.slice(0, perBlueprint));
+    }
   }
   return selected;
 }
