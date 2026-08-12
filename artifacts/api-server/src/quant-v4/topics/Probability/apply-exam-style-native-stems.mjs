@@ -69,70 +69,49 @@ function replaceOnce(value, from, to, label) {
   fs.writeFileSync(path, value);
 }
 
-// Normalize the editable explanation renderer before TypeScript compilation.
-// Keep exactly one shared conditional-mode predicate if an interrupted edit duplicated it.
-{
-  const path = `${root}/shared/native-final-explanation-renderer.ts`;
-  let value = fs.readFileSync(path, "utf8");
-  const block = `function isConditionalMode(source: ProbabilityQuestion): boolean {\n  return [\n    "findConditionalProbabilityByCounting",\n    "findConditionalCardProbability",\n    "findConditionalNumberProbability",\n    "findConditionalUrnProbability",\n    "findReverseConditionalCount",\n    "findConditionalFromTwoWayTable",\n  ].includes(source.solveMode);\n}\n\n`;
-  const first = value.indexOf(block);
-  if (first >= 0) {
-    const second = value.indexOf(block, first + block.length);
-    if (second >= 0) value = value.slice(0, second) + value.slice(second + block.length);
-  }
-  fs.writeFileSync(path, value);
-}
-
 {
   const path = `${root}/multilingual-runtime.ts`;
   let value = fs.readFileSync(path, "utf8");
 
+  // Remove prior iterative native renderer imports and install one canonical set.
+  value = value
+    .split("\n")
+    .filter((line) =>
+      !line.includes('from "./shared/native-exam-style-bridge"') &&
+      !line.includes('from "./shared/native-student-facing-renderer"') &&
+      !line.includes('from "./shared/native-final-explanation-renderer"') &&
+      !line.includes('from "./shared/native-source-explanation-mirror"'))
+    .join("\n");
+
   value = replaceOnce(
     value,
     'import { renderProbabilityMathText } from "./shared/math-text";',
-    'import { renderProbabilityMathText } from "./shared/math-text";\nimport { polishNativeExplanationLines, polishNativeVisual } from "./shared/native-final-explanation-renderer";',
-    "native explanation renderer import",
-  );
-  value = replaceOnce(
-    value,
-    'import { renderProbabilityMathText } from "./shared/math-text";',
-    'import { renderProbabilityMathText } from "./shared/math-text";\nimport { renderNativeStudentFacingStem } from "./shared/native-student-facing-renderer";',
-    "native stem renderer import",
-  );
-  value = value.replace(
-    'from "./shared/native-student-facing-renderer";',
-    'from "./shared/native-exam-style-bridge";',
+    [
+      'import { renderProbabilityMathText } from "./shared/math-text";',
+      'import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";',
+      'import { polishNativeVisual } from "./shared/native-final-explanation-renderer";',
+      'import { renderNativeSourceExplanationLines } from "./shared/native-source-explanation-mirror";',
+    ].join("\n"),
+    "canonical native runtime imports",
   );
 
-  const start = value.indexOf("function renderNativeStem(");
-  const end = value.indexOf("function localizedEquation", start);
-  if (start < 0 || end < 0) throw new Error("Could not find renderNativeStem block.");
-  const replacement = `function renderNativeStem(\n  source: ProbabilityQuestion,\n  language: ProbabilityNativeLanguage,\n): string {\n  const stem = renderProbabilityMathText(renderNativeStudentFacingStem(source, language));\n  assertProbabilityNativeTextValid(stem, language);\n  return stem;\n}\n\n`;
-  value = value.slice(0, start) + replacement + value.slice(end);
+  const stemStart = value.indexOf("function renderNativeStem(");
+  const stemEnd = value.indexOf("function localizedEquation", stemStart);
+  if (stemStart < 0 || stemEnd < 0) throw new Error("Could not find renderNativeStem block.");
+  const stemReplacement = `function renderNativeStem(\n  source: ProbabilityQuestion,\n  language: ProbabilityNativeLanguage,\n): string {\n  const stem = renderProbabilityMathText(renderNativeStudentFacingStem(source, language));\n  assertProbabilityNativeTextValid(stem, language);\n  return stem;\n}\n\n`;
+  value = value.slice(0, stemStart) + stemReplacement + value.slice(stemEnd);
   value = value.replace('const { editorial, localizeBinding } = resolveNativeEditorial(source, language);', 'const { editorial } = resolveNativeEditorial(source, language);');
   value = value.replace('const stem = renderNativeStem(source, language, editorial, localizeBinding);', 'const stem = renderNativeStem(source, language);');
   value = value.replace('title = language === "hi" ? "थैले में गेंदों की संरचना" : "ਥੈਲੇ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ";', 'title = language === "hi" ? "बैग में गेंदों की संरचना" : "ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ";');
 
-  value = replaceOnce(
-    value,
-    '  const lines = [',
-    '  const lines = polishNativeExplanationLines(source, language, [',
-    "native explanation line polishing",
-  );
-  value = replaceOnce(
-    value,
-    '  ].map(renderProbabilityMathText);\n\n  for (const line of lines)',
-    '  ].map(renderProbabilityMathText));\n\n  for (const line of lines)',
-    "native explanation line polishing close",
-  );
-  value = replaceOnce(
-    value,
-    '  const visuals = source.explanation.visuals.map((visual) =>\n    localizeNativeVisual(visual, source, language, editorial.eventWording));',
-    '  const visuals = source.explanation.visuals.map((visual) =>\n    polishNativeVisual(source, language, localizeNativeVisual(visual, source, language, editorial.eventWording)));',
-    "native visual context polishing",
-  );
+  // English source explanation lines are the sole explanation authority.
+  const explanationStart = value.indexOf("function renderNativeExplanation(");
+  const validationStart = value.indexOf("function buildNativeValidation(", explanationStart);
+  if (explanationStart < 0 || validationStart < 0) throw new Error("Could not find native explanation block.");
+  const explanationReplacement = `function renderNativeExplanation(\n  source: ProbabilityQuestion,\n  language: ProbabilityNativeLanguage,\n  editorial: NativeEditorial,\n): ProbabilityNativePresentation["explanation"] {\n  const lines = renderNativeSourceExplanationLines(source, language);\n  const visuals = source.explanation.visuals.map((visual) =>\n    polishNativeVisual(source, language, localizeNativeVisual(visual, source, language, editorial.eventWording)));\n  return { lines, wordCount: explanationWordCount(lines), visuals };\n}\n\n`;
+  value = value.slice(0, explanationStart) + explanationReplacement + value.slice(validationStart);
 
   fs.writeFileSync(path, value);
 }
 
-console.log("Applied context-preserving, exam-style Hindi/Punjabi Probability stems, explanations and visuals.");
+console.log("Applied context-preserving native stems and English-authority explanation mirroring.");
