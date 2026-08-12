@@ -16,7 +16,7 @@ function t(language: Language, en: string, hi: string, pa: string): string {
   return language === "hi" ? hi : language === "pa" ? pa : en;
 }
 
-function solvedValue(question: Question, symbol: "r_x" | "T_x"): string | null {
+function solvedValue(question: Question, symbol: "r_x"): string | null {
   const steps = Array.isArray(question.explanation?.steps) ? question.explanation.steps : [];
   const pattern = new RegExp(String.raw`(?:^|,\s*\\quad\s*)${symbol}=([^,]+)`);
   for (const step of steps) {
@@ -28,6 +28,15 @@ function solvedValue(question: Question, symbol: "r_x" | "T_x"): string | null {
     return `\\(${value}\\)`;
   }
   return null;
+}
+
+function finalAnswerValue(answer: string): string | null {
+  const inline = /\\\(([\s\S]*?)\\\)/.exec(answer)?.[1]?.trim();
+  if (inline) return `\\(${inline}\\)`;
+  const fraction = /(-?\d+)\s*\/\s*(\d+)/.exec(answer);
+  if (fraction) return `\\(\\frac{${fraction[1]}}{${fraction[2]}}\\)`;
+  const number = /(-?\d+(?:\.\d+)?)/.exec(answer)?.[1];
+  return number ? `\\(${number}\\)` : null;
 }
 
 export function applyTmwCp005InverseEditorialFix<T extends Question>(
@@ -50,7 +59,7 @@ export function applyTmwCp005InverseEditorialFix<T extends Question>(
   const current = question.learnerExplanation;
   const baseWorking = current.solution.slice(0, 3);
   const rate = solvedValue(question, "r_x");
-  const soloTime = mode === "findUnknownTimeFromAlternatingCompletion" ? solvedValue(question, "T_x") : null;
+  const soloTime = mode === "findUnknownTimeFromAlternatingCompletion" ? finalAnswerValue(current.answer) : null;
 
   const decisive = mode === "findUnknownTimeFromAlternatingCompletion"
     ? `${t(
