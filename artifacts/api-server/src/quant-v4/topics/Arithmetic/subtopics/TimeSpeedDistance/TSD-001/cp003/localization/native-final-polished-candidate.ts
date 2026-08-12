@@ -19,13 +19,9 @@ const FEMININE_OBJECTS = new Set<TsdCp003SourceObjectKey>([
 
 function contextBeforeSubject(context: string, language: TsdCp003NativeLanguage): string {
   if (language === "hi") {
-    return context
-      .replace(/^अपनी /u, "")
-      .replace(/^अपने /u, "");
+    return context.replace(/^अपनी /u, "").replace(/^अपने /u, "");
   }
-  return context
-    .replace(/^ਆਪਣੀ /u, "")
-    .replace(/^ਆਪਣੇ /u, "");
+  return context.replace(/^ਆਪਣੀ /u, "").replace(/^ਆਪਣੇ /u, "");
 }
 
 function preserveEnglishContext(
@@ -41,10 +37,10 @@ function preserveEnglishContext(
   if (key === null) {
     const prefix = contextBeforeSubject(context, language);
     if (language === "hi" && stem.startsWith("एक ही मार्ग को ")) {
-      return `${prefix} ${stem.replace(/^एक ही मार्ग को /u, "इस मार्ग को ")}`;
+      return `${prefix} ${stem.replace(/^एक ही मार्ग को /u, "")}`;
     }
     if (language === "pa" && stem.startsWith("ਇੱਕੋ ਰਸਤਾ ")) {
-      return `${prefix} ${stem.replace(/^ਇੱਕੋ ਰਸਤਾ /u, "ਇਸ ਰਸਤੇ ਨੂੰ ")}`;
+      return `${prefix} ${stem.replace(/^ਇੱਕੋ ਰਸਤਾ /u, "")}`;
     }
     return `${prefix} ${stem}`;
   }
@@ -52,13 +48,22 @@ function preserveEnglishContext(
   const actor = `${language === "hi" ? "एक" : "ਇੱਕ"} ${cp003ExpectedNativeObject(key, language)}`;
   const actorIndex = stem.indexOf(actor);
   if (actorIndex >= 0) {
-    const afterActor = stem.slice(actorIndex + actor.length);
+    const actorEnd = actorIndex + actor.length;
+    const afterActor = stem.slice(actorEnd);
+
+    if (language === "hi" && afterActor.startsWith(" को")) {
+      return `${stem.slice(0, actorEnd)} को ${context}${afterActor.slice(3)}`;
+    }
+    if (language === "pa" && afterActor.startsWith(" ਨੂੰ")) {
+      return `${stem.slice(0, actorEnd)} ਨੂੰ ${context}${afterActor.slice(4)}`;
+    }
+
     const unsafePostposition = language === "hi"
-      ? /^(?: को| के| का| की| से| में| पर)/u.test(afterActor)
-      : /^(?: ਨੂੰ| ਕੋਲ| ਦਾ| ਦੀ| ਦੇ| ਨਾਲ| ਵਿੱਚ| ਉੱਤੇ)/u.test(afterActor);
+      ? /^(?: के| का| की| से| में| पर)/u.test(afterActor)
+      : /^(?: ਕੋਲ| ਦਾ| ਦੀ| ਦੇ| ਨਾਲ| ਵਿੱਚ| ਉੱਤੇ)/u.test(afterActor);
 
     if (!unsafePostposition) {
-      return `${stem.slice(0, actorIndex + actor.length)} ${context}${afterActor}`;
+      return `${stem.slice(0, actorEnd)} ${context}${afterActor}`;
     }
   }
 
