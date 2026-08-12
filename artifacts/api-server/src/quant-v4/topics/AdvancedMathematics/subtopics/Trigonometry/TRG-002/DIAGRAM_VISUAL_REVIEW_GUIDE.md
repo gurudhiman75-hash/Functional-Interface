@@ -2,15 +2,42 @@
 
 This checkpoint is a **visual QA layer**, not a new mathematical authority.
 
-The canonical spatial state remains authoritative for coordinates, answer reconstruction and diagram projection. The review renderer consumes the validated `Trg002DiagramSpec` only.
+The canonical spatial state remains authoritative for coordinates and semantic quantities. The exact answer remains authoritative for the solved target. The SVG renderer consumes only the validated diagram spec plus already-resolved exact annotations.
 
 ## Review surface
 
+- exact annotation authority: `solution-diagram-annotations.ts`
+- annotation gate: `solution-diagram-annotations.test.ts`
 - SVG renderer: `diagram-review-svg.ts`
 - 13-strategy gallery generator: `runtime-proof-diagram-review.ts`
-- structural gate: `runtime-proof-diagram-review.test.ts`
+- gallery structural gate: `runtime-proof-diagram-review.test.ts`
 
 The gallery deliberately uses **solution diagrams only**. It does not opt any proof QL into a stem diagram.
+
+## Measurement-annotation policy
+
+The renderer is not allowed to decide what a length means or calculate a display value from screen coordinates.
+
+Every annotation plan explicitly provides:
+
+- permanent QL identity;
+- canonical endpoint pair;
+- semantic source;
+- role (`GIVEN`, `TARGET_SOLVED`, `MOVEMENT`, `EYE_HEIGHT`);
+- placement;
+- optional student-facing symbol.
+
+Allowed current semantic sources are:
+
+- exact answer;
+- canonical object height;
+- canonical horizontal distance;
+- canonical movement distance;
+- canonical eye height.
+
+Solved target labels must use the **exact answer** source. They therefore remain explanation-stage content only.
+
+QL-012 is intentionally different: its target is an angle, so the solved value remains on the canonical angle marker instead of being duplicated as a length annotation.
 
 ## Current representative strategy anchors
 
@@ -31,6 +58,19 @@ The gallery deliberately uses **solution diagrams only**. It does not opt any pr
 | RIVER_WIDTH | TRG-002-QL-092 |
 
 The gate requires this set to equal the actual set of strategies represented by the active 20-QL proof. If proof coverage changes, the review gallery must change too.
+
+## Canonical target integrity
+
+`canonical-target-verifier.ts` now checks that the semantic `canonicalSpatialState.requested` quantity reconstructs the exact answer for every proof QL.
+
+This systemic gate was added after self-review caught four target-state drifts:
+
+- QL-036: ladder builder defaulted to sight-line/ladder length although the question asks how high the ladder reaches; current target is `OBJECT_HEIGHT(wall-1)`.
+- QL-056: current target is tower-to-near/final horizontal distance.
+- QL-065: current target is tower-to-far/original horizontal distance.
+- QL-068: current target is near-to-far point separation.
+
+The delivery wrapper now refuses to emit a solution diagram if requested-target verification fails.
 
 ## Manual review checklist
 
@@ -53,19 +93,22 @@ For every representative rendered card, inspect all of the following.
 - multi-observation diagrams show every required observation angle;
 - angle text does not overlap the sight line or point label.
 
-### 3. Label readability
+### 3. Measurement and label readability
 
+- every displayed measurement belongs to the intended canonical segment;
+- given values agree with the stem/canonical state;
+- solved target labels agree with the exact answer;
+- the 1.5 m observer eye-height annotation remains legible in QL-073;
 - symbolic point labels are not clipped;
-- point labels do not collide with one another;
-- point labels do not hide angle markers;
-- strategy caption is unobtrusive and review-only;
+- point labels do not collide with measurement labels;
+- labels do not hide angle markers;
 - no `NaN`, `undefined`, `Infinity` or unresolved identifier appears.
 
 ### 4. Viewport / proportions
 
 - every important endpoint lies comfortably inside the frame;
 - long horizontal scenes do not flatten vertical geometry beyond usefulness;
-- tall objects do not push angle text outside the frame;
+- tall objects do not push angle/measurement text outside the frame;
 - two-building/opposite-side diagrams retain enough whitespace to read both observations;
 - eye-level references remain visible when eye height is small relative to the scene.
 
@@ -74,41 +117,45 @@ For every representative rendered card, inspect all of the following.
 - the figure makes the solution setup easier to follow;
 - it does not introduce a second or contradictory geometry model;
 - it does not imply that a stem diagram was supplied when it was not;
-- it does not reveal an answer during the question stage;
+- solved target values appear only at solution stage;
 - it is worth showing in the explanation rather than being decorative.
 
-## Automatic structural checks already targeted
+## Automatic structural checks targeted
 
-`runtime-proof-diagram-review.test.ts` checks:
+`solution-diagram-annotations.test.ts` targets:
 
-- exactly 13 distinct representative strategies for the current proof;
+- explicit plans for all 20 proof QLs;
+- at least one exact annotation per QL;
+- unique annotation IDs and resolved endpoints;
+- non-empty finite labels;
+- all length-target QLs expose a `TARGET_SOLVED` label sourced from the exact answer;
+- QL-012 keeps its angle target on the angle marker;
+- QL-036 solved target sits on the wall vertical;
+- QL-073 exposes the canonical 1.5 m eye height.
+
+`runtime-proof-diagram-review.test.ts` targets:
+
+- exactly 13 distinct representative strategies;
 - representative strategy set equals active proof strategy set;
-- active question validation and diagram-policy validation before rendering;
+- active question, canonical-target, diagram-policy and annotation validation before rendering;
 - SVG root/strategy metadata;
-- all diagram segments are emitted;
-- all angle markers and angle labels are emitted;
+- all segments, angle markers and angle labels emitted;
+- every planned solution annotation emitted with its exact label;
 - no `NaN`, `undefined` or `Infinity` strings;
 - no script content;
 - exactly 13 gallery cards;
-- gallery explicitly states that stem diagrams are not automatically emitted.
+- explicit statement that stem diagrams are not automatically emitted and values are not inferred by the renderer.
 
 These checks **do not replace human visual inspection** for overlap, aesthetics or pedagogical clarity.
 
-## Important limitation discovered at this checkpoint
+## Deliberate current limitation
 
-The current canonical `Trg002DiagramSpec` carries:
+Not every numeric given is yet a first-class semantic field in every legacy proof state. Examples include the original line-of-sight input in QL-023 and ladder length in QL-036.
 
-- points;
-- structural segments;
-- angle markers;
-- symbolic point labels.
+The solution diagram therefore labels only measurements that can be sourced exactly and semantically from current canonical/question authority. It does **not** reverse-engineer missing givens from floating-point screen geometry or parse them back out of stem text.
 
-It does **not yet carry a first-class dimension/measurement annotation model** for labeling given lengths, movement distances, eye heights or final computed target values on the solution figure.
-
-That is acceptable for the current structural review, but it may be too weak for production-quality pedagogical solution diagrams. The visual review must decide whether to add a controlled solution-annotation layer before the 48-QL MVP.
-
-Any such annotation layer must be driven by question/canonical-state data and disclosure policy; it must not be inferred independently by the SVG renderer.
+If production review decides those givens must also appear, the correct next step is to add first-class exact `givenMeasurements`/diagram-fact metadata to the QL state—not to teach the renderer to guess.
 
 ## Execution truth
 
-The renderer/gallery/gate are committed as review tooling. A rendered visual PASS is **not claimed** until the TypeScript path is actually executed and the generated gallery is inspected.
+The annotation, renderer, gallery and gates are committed as review tooling. A rendered visual PASS is **not claimed** until the TypeScript path is actually executed and the generated gallery is inspected.
