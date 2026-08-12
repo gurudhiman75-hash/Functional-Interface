@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 through CP-004 frozen at `RNK-QL-001..035`; CP-005 has a pinned 576-question permanent-runtime candidate, final manual English freeze review remains open, and `RNK-QL-036` is unallocated.**
+Status: **CP-001 through CP-005 frozen at `RNK-QL-001..038`; `RNK-QL-039` is the next available identity.**
 
 Counts in this register are evidence, never chapter-size quotas.
 
@@ -64,120 +64,72 @@ CP-004 owns comparison evidence that forces one unique complete strict order.
 
 ## 5. Book-to-QL reset
 
-`RNK-001-BOOK-TO-QL-AUDIT-2026-08-08.md` confirmed:
+`RNK-001-BOOK-TO-QL-AUDIT-2026-08-08.md` established these protected boundaries:
 
-- ordinary rank arithmetic, two-position relations, interchange/movement and unique strict comparison ranking are already covered;
+- ordinary rank arithmetic, two-position relations, interchange/movement and unique strict comparison ranking were already covered by CP-001..004;
 - left/right placement, facing and neighbour geometry belong to Seating Arrangement;
 - shared passages/caselets are delivery infrastructure;
 - context words do not create QLs;
-- the genuine remaining ranking gap is incomplete strict comparison information with several valid total orders.
+- arithmetic-heavy marks/age/speed/score questions belong to Quant;
+- incomplete strict comparisons with multiple valid complete rankings remain Ranking ownership.
 
-The rejected presentation-led/shared-set proposal allocated no QLs.
+## 6. Frozen RNK-CP-005 — Partial Order and Ranking Uncertainty
 
-## 6. RNK-CP-005 — Partial Order and Ranking Uncertainty
-
-### Validated discovery state
+### Discovery and consolidation evidence
 
 ```text
 raw prototypes:                 8
 raw questions:                256
-raw answer balance:    64 / 64 / 64 / 64
-
 V3 release source forms:        7
-release questions:            168
-questions/source form:         24
-release answer balance: 42 / 42 / 42 / 42
-unique release states:        168
-provisional authorities:        3
-permanent QLs:                  0
-
-V3 Easy:                        0
-V3 Medium:                    156
-V3 Hard:                       12
-```
-
-Seven discovery source forms:
-
-```text
-DEFINITELY_TRUE_RELATION
-POSSIBLE_RELATION
-IMPOSSIBLE_RELATION
-PAIR_RELATION_CANNOT_BE_DETERMINED   # legacy ID; learner form = PAIR_RELATION_STATUS
-MINIMUM_POSSIBLE_RANK
-MAXIMUM_POSSIBLE_RANK
-DEFINITE_RANK_OR_INDETERMINATE
+V3 checked questions:         168
+consolidated authorities:       3
+final manual review pack:      36
+permanent questions:          576
+questions/authority:          192
 ```
 
 Rejected: `ORDER_UNIQUENESS_STATUS`.
 
-### Consolidation after ownership audit
+The seven surviving source forms consolidate into three permanent authorities:
 
 ```text
-RELATION_TRUTH_STATUS
+RNK-QL-036  RELATION_TRUTH_STATUS
   MUST / COULD / CANNOT / PAIR_STATUS
 
-POSSIBLE_RANK_BOUND
-  HIGHEST / LOWEST
+RNK-QL-037  POSSIBLE_RANK_BOUND
+  HIGHEST_POSSIBLE / LOWEST_POSSIBLE
 
-EXACT_RANK_DETERMINACY
-  DEFINITE / INDETERMINATE
+RNK-QL-038  EXACT_RANK_DETERMINACY
+  EXACT_DEFINITE / EXACT_INDETERMINATE
 ```
 
-These are still provisional authorities, not permanent QLs.
-
-### QL-034 overlap — resolved
-
-Decision:
-
-```text
-KEEP_SEPARATE_PROVISIONAL_AUTHORITY
-```
-
-Reason:
+### QL-034 ownership boundary
 
 ```text
 RNK-QL-034 / CP-004
   exactly one total order is valid
   solver reconstructs that unique order
-  asks for a definitely-true relation
 
-CP-005 RELATION_TRUTH_STATUS
-  at least two total orders remain valid
-  solver quantifies relations over all valid orders
-  supports MUST / COULD / CANNOT / PAIR_STATUS
+RNK-QL-036 / CP-005
+  two or more total orders remain valid
+  solver quantifies relation truth over the complete valid-order set
 ```
 
-The shared surface wording does not make these the same authority. Merging would change the frozen QL-034 state contract and answer space.
+The QL-034 ownership/anti-duplication audit remains a permanent freeze regression gate.
 
-Executable audit coverage:
+### Permanent runtime evidence
 
 ```text
-QL-034 frozen questions checked:       192
-CP-005 relation questions checked:      96
-CP-005 MUST:                            24
-CP-005 COULD:                           24
-CP-005 CANNOT:                          24
-CP-005 PAIR_STATUS:                     24
-PAIR first/second/indeterminate:    8 / 8 / 8
+RNK-QL-036: 192
+RNK-QL-037: 192
+RNK-QL-038: 192
+Total:      576
 ```
 
-### Permanent-runtime candidate
-
-The three authority candidates have now been expanded to a production-scale, projection-pinned English candidate:
+Answer-position balance per QL:
 
 ```text
-candidate runtime version: RNK_CP005_PERMANENT_RUNTIME_CANDIDATE_V1
-candidate questions:       576
-questions/authority:        192
-permanent QLs:                0
-```
-
-Authority counts:
-
-```text
-RELATION_TRUTH_STATUS:      192
-POSSIBLE_RANK_BOUND:        192
-EXACT_RANK_DETERMINACY:     192
+48 / 48 / 48 / 48
 ```
 
 Mode counts:
@@ -195,97 +147,56 @@ EXACT_DEFINITE:             96
 EXACT_INDETERMINATE:        96
 ```
 
-Each authority has exact answer-position balance:
+All five approved contexts occur within every authority. Quality-filtered topology coverage is 8 / 7 / 6 graph families for QL036 / QL037 / QL038.
 
-```text
-48 / 48 / 48 / 48
-```
-
-All five approved contexts occur inside every authority. Context rendering is independent of mathematical state selection.
-
-Quality-filtered topology coverage:
-
-```text
-RELATION_TRUTH_STATUS:    8 families
-POSSIBLE_RANK_BOUND:      7 families
-EXACT_RANK_DETERMINACY:   6 families
-```
-
-Candidate difficulty and uniqueness:
+Frozen difficulty:
 
 ```text
 Easy:       0
 Medium:   496
 Hard:      80
-
-normalized learner surfaces: 576
-selected state keys:          576
-runtime fingerprints:         576
 ```
 
-Every selected state still has at least two valid complete rankings.
+### Freeze proof
 
-Pinned candidate projection:
+Manual final review:
+
+```text
+questions independently reviewed: 36 / 36
+wrong answer keys:                  0
+ambiguous correct options:          0
+invalid witness rankings:           0
+contradictory clue sets:            0
+```
+
+Full-runtime executable proof:
+
+```text
+questions independently re-proved: 576
+compulsory proof chains checked:    736
+full witness orders checked:        816
+rank-bound proofs rechecked:        192
+unique learner fingerprints:        576
+unique permanent fingerprints:      576
+```
+
+Candidate projection:
 
 ```text
 sha256:c45517d1d8bf4283d38eb4b62d1c9e2f90c5ec58593e2c400a59b2a26fb6e71e
 ```
 
-This is a freeze-review pin, not a permanent allocation.
-
-### Final manual freeze review
-
-A deterministic 36-question review pack is generated from the pinned runtime:
+Frozen permanent projection:
 
 ```text
-questions:                36
-questions/authority:      12
-answer positions:    9 / 9 / 9 / 9
+sha256:f6759445937626e6777f322f9b8217bc7aaa12f6a96ee180a24ca3350bd42717
 ```
 
-Composition:
+See `RNK-CP-005/RNK-CP-005-ENGLISH-FREEZE-V1.md`.
 
-```text
-RELATION_TRUTH_STATUS
-  2 MUST
-  2 COULD
-  2 CANNOT
-  2 PAIR_FIRST_ABOVE
-  2 PAIR_SECOND_ABOVE
-  2 PAIR_INDETERMINATE
+`RNK-QL-036..038` are therefore no longer open discovery identities.
 
-POSSIBLE_RANK_BOUND
-  6 HIGHEST_POSSIBLE
-  6 LOWEST_POSSIBLE
-
-EXACT_RANK_DETERMINACY
-  6 EXACT_DEFINITE
-  6 EXACT_INDETERMINATE
-```
-
-English freeze is still **NOT APPROVED**. The review pack is the final manual gate.
-
-### Remaining gate before permanent allocation
-
-```text
-ownership audit:         passed
-editorial review:        passed
-runtime candidate:       built
-projection:              pinned
-manual freeze review:    pending
-permanent QL allocation: prohibited until explicit approval
-```
-
-If all three later pass freeze, the available contiguous range would be `RNK-QL-036..038`; this statement is a forecast, not an allocation.
-
-`RNK-QL-036` remains available.
-
-See:
-
-- `RNK-CP-005/RNK-CP-005-QL034-OWNERSHIP-AUDIT.md`
-- `RNK-CP-005/RNK-CP-005-PERMANENT-RUNTIME-CANDIDATE-V1.md`
-
-## 7. Later checkpoints
+## 7. Open later checkpoints
 
 ### RNK-CP-006 — tied/non-strict ranking
 
@@ -293,7 +204,7 @@ Unallocated. Implement only after strong exam-source evidence.
 
 ### RNK-CP-007 — advanced mixed ranking transformations
 
-Unallocated. Open only after CP-005 freeze and a fresh chapter-gap audit.
+Unallocated. Open only after a fresh chapter-gap audit.
 
 ### RNK-CP-008 — reserved
 
@@ -314,17 +225,16 @@ age/speed/marks arithmetic as main burden      -> Quant
 ## 9. Lifecycle
 
 ```text
-cumulative permanent range: RNK-QL-001..035
-next available RNK ID:      RNK-QL-036
-CP-005 editorial review:    passed
-CP-005 ownership audit:     passed
-CP-005 runtime candidate:   built + pinned
-CP-005 English freeze:      false
-CP-005 permanent QLs:       0
-chapter-wide freeze:        false
+cumulative permanent range: RNK-QL-001..038
+next available RNK ID:      RNK-QL-039
+CP-005 English freeze:      true
+CP-005 permanent QLs:       3
+chapter-wide final freeze:  false
 Hindi/Punjabi:              NOT_STARTED
 Question Studio:            DISABLED
 Question Bank:              NOT_STORED
 test eligibility:           INELIGIBLE
 public publication:         false
 ```
+
+No merge, deployment, publication or Question Studio/persistence enablement is authorized by this freeze.
