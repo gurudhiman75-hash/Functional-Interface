@@ -5,6 +5,7 @@ type Language = "en" | "hi" | "pa";
 interface Cp007Question {
   canonicalProblemId?: string;
   cpId?: string;
+  stem?: string;
   learnerExplanation?: TmwLearnerExplanationV2;
   validation?: { valid: boolean; errors: string[] };
   publiclyPublishable?: boolean;
@@ -17,6 +18,15 @@ const STALE_TRACE_ERRORS = new Set([
 
 export function finalizeTmwCp007EditorialValidation<T extends Cp007Question>(question: T, language: Language): T {
   if ((question.canonicalProblemId ?? question.cpId) !== "TMW-CP-007" || !question.learnerExplanation) return question;
+
+  let stem = question.stem ?? "";
+  if (language === "hi") {
+    stem = stem
+      .replace(/ का ऑर्डर पर/g, " के ऑर्डर पर")
+      .replace(/ का ऑर्डर को/g, " के ऑर्डर को");
+  } else if (language === "pa") {
+    stem = stem.replace(/ ਦਾ ਆਰਡਰ ਉੱਤੇ/g, " ਦੇ ਆਰਡਰ ਉੱਤੇ");
+  }
 
   const learnerText = [
     question.learnerExplanation.method,
@@ -33,6 +43,7 @@ export function finalizeTmwCp007EditorialValidation<T extends Cp007Question>(que
 
   return {
     ...question,
+    stem,
     validation: { valid: errors.length === 0, errors },
     publiclyPublishable: false,
   };
