@@ -25,12 +25,114 @@ function caseLines(models: readonly TeachingCaseModel[]): string[] {
   return models.map((model, index) => `Case ${index + 1}: ${model.display}`);
 }
 
+function numberWord(value: number): string {
+  const words: Record<number, string> = {
+    0: "zero",
+    1: "one",
+    2: "two",
+    3: "three",
+    4: "four",
+    5: "five",
+    6: "six",
+    7: "seven",
+    8: "eight",
+    9: "nine",
+    10: "ten",
+  };
+  return words[value] ?? String(value);
+}
+
+/**
+ * Convert a clue into a small student action. The explanation should tell the
+ * learner what to mark on the sketch, not merely repeat the clue or ask them to
+ * "use the remaining clues" on their own.
+ */
+export function studentClueAction(text: string): string {
+  let match = text.match(/^(.+?) sits immediately (clockwise|anticlockwise) from (.+?)\.$/i);
+  if (match) {
+    const [, subject, direction, reference] = match;
+    return `Place ${subject} in the next seat ${direction?.toLowerCase()} from ${reference}.`;
+  }
+
+  match = text.match(/^Exactly (\d+) persons? sit between (.+?) and (.+?) when counted (clockwise|anticlockwise) from (.+?)\.$/i);
+  if (match) {
+    const gap = Number(match[1]);
+    const first = match[2];
+    const second = match[3];
+    const direction = match[4]?.toLowerCase();
+    const reference = match[5];
+    const target = reference === first ? second : first;
+    const distance = gap + 1;
+    return `Starting from ${reference}, move ${numberWord(distance)} seat${distance === 1 ? "" : "s"} ${direction}; ${target} must occupy that seat. This leaves exactly ${numberWord(gap)} person${gap === 1 ? "" : "s"} in between.`;
+  }
+
+  match = text.match(/^(.+?) does not sit adjacent to (.+?)\.$/i);
+  if (match) {
+    const [, subject, reference] = match;
+    return `Cross out the two seats next to ${reference} for ${subject}. When the other clues leave only one legal seat, ${subject} must take that seat.`;
+  }
+
+  match = text.match(/^(.+?) sits adjacent to (.+?)\.$/i);
+  if (match) {
+    const [, subject, reference] = match;
+    return `Keep ${subject} in one of the two neighbouring seats of ${reference}. Do not choose the side yet unless another clue fixes it.`;
+  }
+
+  match = text.match(/^(.+?) sits (immediately|first|second|third|fourth|fifth|sixth|seventh|eighth|\d+(?:st|nd|rd|th)) to the (left|right) of (.+?)\.$/i);
+  if (match) {
+    const [, subject, distance, side, reference] = match;
+    const stepText = distance?.toLowerCase() === "immediately" || distance?.toLowerCase() === "first"
+      ? "one seat"
+      : `${distance?.toLowerCase()} seat`;
+    return `Use ${reference} as the reference person. Move ${stepText} to ${reference}'s ${side?.toLowerCase()} and place ${subject} there. First convert left/right according to ${reference}'s facing.`;
+  }
+
+  match = text.match(/^(.+?) sits at the extreme (left|right) end\.$/i);
+  if (match) {
+    const [, subject, side] = match;
+    return `Fix ${subject} at the extreme ${side?.toLowerCase()} seat first; this gives you a strong anchor for the remaining placements.`;
+  }
+
+  match = text.match(/^(.+?) faces (north|south|the centre|centre|outward)\.$/i);
+  if (match) {
+    const [, subject, facing] = match;
+    return `Mark ${subject}'s facing as ${facing?.toLowerCase()} before using any left/right clue that refers to ${subject}.`;
+  }
+
+  match = text.match(/^(.+?) and (.+?) face the same direction\.$/i);
+  if (match) {
+    const [, first, second] = match;
+    return `Give ${first} and ${second} the same facing. Once either facing is known, copy it to the other person.`;
+  }
+
+  match = text.match(/^(.+?) and (.+?) face opposite directions\.$/i);
+  if (match) {
+    const [, first, second] = match;
+    return `Give ${first} and ${second} opposite facings. Once either facing is known, the other person's facing is fixed automatically.`;
+  }
+
+  match = text.match(/^If (.+?), (.+?); otherwise (.+?)\.$/i);
+  if (match) {
+    const [, condition, whenTrue, whenFalse] = match;
+    return `Keep the condition "${condition}" open for now. If it becomes true, use "${whenTrue}"; if not, use "${whenFalse}". Do not choose a branch without a supporting clue.`;
+  }
+
+  return "Translate this clue onto the sketch as a restriction. Keep any still-possible seat open until a later clue rules it in or out.";
+}
+
+function detailedClueLines(clues: readonly TeachingTraceClue[], offset = 0): string[] {
+  return clues.flatMap((clue, index) => [
+    `Step ${offset + index + 1}: ${clue.text}`,
+    `What this tells us: ${studentClueAction(clue.text)}`,
+  ]);
+}
+
 function directExplanation(input: TeachingTraceInput): string {
   return [
     ...input.intro,
-    "Build the arrangement by joining the clues in this order:",
-    ...input.clues.map((clue, index) => `${index + 1}. ${clue.text}`),
-    "Here the linked clues fix the arrangement directly, so a separate case split is not required.",
+    "Work through the clues one at a time:",
+    ...detailedClueLines(input.clues),
+    "After carrying these placements and restrictions forward, only one complete arrangement remains.",
     input.finalHeading ?? "Final arrangement:",
     input.finalModel.display,
   ].join("\n\n");
@@ -92,13 +194,16 @@ function compileEndFacingInference(input: TeachingTraceInput): string | null {
       lines.push(`Now use clue ${relativeIndex + 1}: ${relativeText}`);
       lines.push(`Case ${impossibleCase} ❌ — cancel it because if ${reference} faces ${impossibleFacing}, ${reference}'s ${relative} is physically to our ${impossiblePhysical}. From the extreme ${end} end, that would place ${subject} outside the row.`);
       lines.push(`Case ${possibleCase} ✅ — keep it because if ${reference} faces ${possibleFacing}, ${reference}'s ${relative} is physically to our ${possiblePhysical}, so ${subject} can occupy the adjacent seat inside the row.`);
-      lines.push(`Therefore, ${reference} must face ${possibleFacing}. Keep this facing fixed while applying the remaining clues.`);
+      lines.push(`Therefore, ${reference} must face ${possibleFacing}. Keep this facing fixed.`);
       const remaining = input.clues
         .map((clue, index) => ({ clue, index }))
         .filter(({ index }) => index !== endIndex && index !== relativeIndex);
       if (remaining.length > 0) {
-        lines.push("Use the remaining clues to complete and cross-check the row:");
-        lines.push(remaining.map(({ clue, index }) => `${index + 1}. ${clue.text}`).join("\n"));
+        lines.push("Now complete the row clue by clue:");
+        for (const { clue, index } of remaining) {
+          lines.push(`Clue ${index + 1}: ${clue.text}`);
+          lines.push(`What this tells us: ${studentClueAction(clue.text)}`);
+        }
       }
       lines.push(input.finalHeading ?? "Final arrangement:");
       lines.push(input.finalModel.display);
@@ -140,7 +245,12 @@ export function compileCaseEliminationExplanation(input: TeachingTraceInput): st
 
   const lines: string[] = [...input.intro];
   lines.push(branchPrefix === 1 ? "Start with this clue:" : `First combine clues 1 to ${branchPrefix}:`);
-  lines.push(input.clues.slice(0, branchPrefix).map((clue, index) => `${index + 1}. ${clue.text}`).join("\n"));
+  for (let index = 0; index < branchPrefix; index += 1) {
+    const clue = input.clues[index];
+    if (!clue) continue;
+    lines.push(`${index + 1}. ${clue.text}`);
+    lines.push(`What this tells us: ${studentClueAction(clue.text)}`);
+  }
   lines.push(`At this stage, exactly ${branchModels.length} cases are possible:`);
   lines.push(caseLines(branchModels).join("\n"));
 
@@ -158,6 +268,7 @@ export function compileCaseEliminationExplanation(input: TeachingTraceInput): st
     const clue = input.clues[clueCount - 1];
     if (!clue) continue;
     lines.push(`Now use clue ${clueCount}: ${clue.text}`);
+    lines.push(`What this tells us: ${studentClueAction(clue.text)}`);
     for (const model of branchModels) {
       if (!activeKeys.has(model.key)) continue;
       const caseNumber = branchModels.findIndex((candidate) => candidate.key === model.key) + 1;
@@ -170,7 +281,7 @@ export function compileCaseEliminationExplanation(input: TeachingTraceInput): st
 
   const finalCaseIndex = branchModels.findIndex((model) => model.key === input.finalModel.key);
   if (activeKeys.size === 1 && finalCaseIndex >= 0 && activeKeys.has(input.finalModel.key)) {
-    lines.push(`Only Case ${finalCaseIndex + 1} remains, so the arrangement is fixed.`);
+    lines.push(`Only Case ${finalCaseIndex + 1} remains, so keep that case and finish its open seats.`);
   } else {
     return directExplanation(input);
   }
@@ -179,8 +290,11 @@ export function compileCaseEliminationExplanation(input: TeachingTraceInput): st
     .map((clue, index) => ({ clue, index }))
     .filter(({ index }) => index >= branchPrefix && !shownLaterClues.has(index));
   if (unshownLater.length > 0) {
-    lines.push("Use the remaining clue(s) as cross-checks:");
-    lines.push(unshownLater.map(({ clue, index }) => `${index + 1}. ${clue.text}`).join("\n"));
+    lines.push("Finish and cross-check the surviving case with the clues not yet used:");
+    for (const { clue, index } of unshownLater) {
+      lines.push(`Clue ${index + 1}: ${clue.text}`);
+      lines.push(`What this tells us: ${studentClueAction(clue.text)}`);
+    }
   }
 
   lines.push(input.finalHeading ?? "Final arrangement:");
