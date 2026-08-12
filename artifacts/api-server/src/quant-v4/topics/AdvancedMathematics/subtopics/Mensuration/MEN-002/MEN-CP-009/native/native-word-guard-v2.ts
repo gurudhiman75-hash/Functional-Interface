@@ -32,6 +32,7 @@ const HINDI_WORDS: Array<[RegExp, string]> = [
   [/\bwith\b/gi, "के साथ"],
   [/\bper\b/gi, "प्रति"],
   [/\band\b/gi, "और"],
+  [/\bthe\b/gi, ""],
 ];
 
 const PUNJABI_WORDS: Array<[RegExp, string]> = [
@@ -66,15 +67,36 @@ const PUNJABI_WORDS: Array<[RegExp, string]> = [
   [/\bwith\b/gi, "ਦੇ ਨਾਲ"],
   [/\bper\b/gi, "ਪ੍ਰਤੀ"],
   [/\band\b/gi, "ਅਤੇ"],
+  [/\bthe\b/gi, ""],
 ];
+
+function naturalizeRootInstruction(
+  value: string,
+  language: MenCp009NativeV2Language,
+) {
+  if (/^So take the square root of both terms of /i.test(value)) {
+    const tail = value.replace(/^So take the square root of both terms of /i, "");
+    return language === "hi"
+      ? `अब ${tail.replace(/\.$/, "")} के दोनों पदों का वर्गमूल लें।`
+      : `ਹੁਣ ${tail.replace(/\.$/, "")} ਦੇ ਦੋਵੇਂ ਪਦਾਂ ਦਾ ਵਰਗਮੂਲ ਲਓ।`;
+  }
+  if (/^So take the cube root of both terms of /i.test(value)) {
+    const tail = value.replace(/^So take the cube root of both terms of /i, "");
+    return language === "hi"
+      ? `अब ${tail.replace(/\.$/, "")} के दोनों पदों का घनमूल लें।`
+      : `ਹੁਣ ${tail.replace(/\.$/, "")} ਦੇ ਦੋਵੇਂ ਪਦਾਂ ਦਾ ਘਣਮੂਲ ਲਓ।`;
+  }
+  return value;
+}
 
 export function applyMenCp009NativeWordGuardV2(
   value: string,
   language: MenCp009NativeV2Language,
 ) {
   const replacements = language === "hi" ? HINDI_WORDS : PUNJABI_WORDS;
+  const naturalized = naturalizeRootInstruction(value, language);
   return replacements.reduce(
     (text, [pattern, replacement]) => text.replace(pattern, replacement),
-    value,
+    naturalized,
   ).replace(/\s+/g, " ").trim();
 }
