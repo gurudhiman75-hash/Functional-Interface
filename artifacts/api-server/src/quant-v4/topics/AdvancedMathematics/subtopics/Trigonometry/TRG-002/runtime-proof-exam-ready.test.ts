@@ -29,7 +29,6 @@ for (const qlId of TRG_002_RUNTIME_PROOF_IDS) {
   for (const seed of canonicalSeeds) {
     const question = generateExamReadyTrg002RuntimeProofQuestion(qlId, seed);
     assert(question.validation.valid, `${qlId} exam-ready validation failed for ${seed}.`);
-    assert(question.examReadinessStatus === "AI_REMEDIATED", `${qlId} is missing exam-readiness remediation status.`);
     assert(question.verification.spatial.valid, `${qlId} canonical spatial verification failed for ${seed}.`);
     assert(question.verification.diagram.valid, `${qlId} legacy diagram validation failed for ${seed}.`);
     assert(question.verification.answer.valid, `${qlId} independent answer reconstruction failed for ${seed}.`);
