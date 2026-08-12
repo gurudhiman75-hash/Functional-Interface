@@ -46,7 +46,7 @@ function correctIndex(seed: number): number {
 
 function deterministicInt(seed: number, salt: number, min: number, max: number): number {
   let value = (Math.imul(seed + salt, 1103515245) + 12345 + Math.imul(salt, 2654435761)) >>> 0;
-  value ^= value >>> 16;
+  value = (value ^ (value >>> 16)) >>> 0;
   return min + (value % (max - min + 1));
 }
 
