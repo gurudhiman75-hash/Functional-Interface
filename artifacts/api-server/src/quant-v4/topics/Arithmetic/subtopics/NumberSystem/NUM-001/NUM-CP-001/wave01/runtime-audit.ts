@@ -14,6 +14,7 @@ let maxStemChars = 0;
 let maxStemWords = 0;
 let maxExplanationChars = 0;
 let internalIdLeaks = 0;
+let learnerFacingInternalLabelLeaks = 0;
 let lifecycleViolations = 0;
 let optionViolations = 0;
 let verifierViolations = 0;
@@ -39,6 +40,19 @@ for (const pkg of packages) {
   explanationCountsByPrototype.set(pkg.temporaryPrototypeId, explanations);
 
   if (/NUM-CP001|PROT-00|permanentQlId|mathematicalFingerprint/i.test(pkg.stem)) internalIdLeaks += 1;
+
+  const learnerFacingText = [
+    pkg.stem,
+    pkg.canonicalAnswer,
+    ...pkg.options.map((option) => option.value),
+    ...pkg.explanation.coreConcept,
+    ...pkg.explanation.givenDataAndStrategy,
+    ...pkg.explanation.stepByStep,
+    ...pkg.explanation.examSpeedMethod,
+    ...pkg.explanation.commonTraps,
+    pkg.explanation.finalAnswer,
+  ].join("\n");
+  if (/[A-Z]{2,}_[A-Z0-9_]+/.test(learnerFacingText)) learnerFacingInternalLabelLeaks += 1;
 
   if (
     pkg.lifecycle.active
@@ -72,6 +86,7 @@ for (const prototypeId of NUM_CP001_WAVE01_PROTOTYPE_IDS) {
 }
 
 assert.equal(internalIdLeaks, 0);
+assert.equal(learnerFacingInternalLabelLeaks, 0);
 assert.equal(lifecycleViolations, 0);
 assert.equal(optionViolations, 0);
 assert.equal(verifierViolations, 0);
@@ -94,6 +109,7 @@ console.log(JSON.stringify({
   maxStemWords,
   maxExplanationChars,
   internalIdLeaks,
+  learnerFacingInternalLabelLeaks,
   lifecycleViolations,
   optionViolations,
   verifierViolations,
