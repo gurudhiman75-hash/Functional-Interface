@@ -74,14 +74,25 @@ function finalAnswerLine(familyId: string, answer: string) {
   }
 }
 
+function naturalStem(baseStem: string, familyId: string) {
+  let stem = baseStem
+    .replace(/\s*Calculate and mark the correct option\.?/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (familyId === "SPHERE_HEMISPHERE_MEASURE_RATIO") {
+    stem = stem
+      .replace(/\. Find sphere volume : hemisphere volume\.$/, ". What is sphere volume : hemisphere volume?")
+      .replace(/\. Find sphere surface area : hemisphere total area\.$/, ". What is sphere surface area : hemisphere total area?");
+  }
+  return stem;
+}
+
 export function buildMenCp009StudentViewV4Final(
   question: MenCp009QuestionV2,
 ): MenCp009StudentViewV4 {
   const base = buildMenCp009StudentViewV4(question);
-  const stem = base.stem
-    .replace(/\s*Calculate and mark the correct option\.?/gi, "")
-    .replace(/\s+/g, " ")
-    .trim();
+  const stem = naturalStem(base.stem, base.familyId);
   const options = base.options.map((option) => ({
     ...option,
     display: normalizeDisplay(base.familyId, option.display),
