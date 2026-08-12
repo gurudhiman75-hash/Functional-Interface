@@ -12,6 +12,17 @@ function point(question: Trg002ProofQuestion, id: string) {
   return found;
 }
 
+function normalizeCanonicalRequestedTarget(question: Trg002ProofQuestion): Trg002ProofQuestion {
+  if (question.qlId !== "TRG-002-QL-036") return question;
+  return {
+    ...question,
+    canonicalSpatialState: {
+      ...question.canonicalSpatialState,
+      requested: { kind: "OBJECT_HEIGHT" as const, objectId: "wall-1" },
+    },
+  };
+}
+
 function remediateMoveFartherLeak(question: Trg002ProofQuestion): Trg002ProofQuestion {
   if (question.qlId !== "TRG-002-QL-061") return question;
   const movement = question.canonicalSpatialState.movements[0];
@@ -37,7 +48,9 @@ function remediateMoveFartherLeak(question: Trg002ProofQuestion): Trg002ProofQue
 }
 
 export function generateReviewedTrg002RuntimeProofQuestion(qlId: Trg002ProofQlId, seed: string) {
-  return remediateMoveFartherLeak(generateTrg002RuntimeProofQuestion(qlId, seed));
+  return remediateMoveFartherLeak(
+    normalizeCanonicalRequestedTarget(generateTrg002RuntimeProofQuestion(qlId, seed)),
+  );
 }
 
 export function generateAllReviewedTrg002RuntimeProofQuestions(seed: string) {
