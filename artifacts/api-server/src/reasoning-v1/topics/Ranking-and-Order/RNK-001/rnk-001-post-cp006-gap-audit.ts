@@ -1,8 +1,8 @@
 export const RNK_POST_CP006_GAP_AUDIT_VERSION =
-  "RNK_POST_CP006_GAP_AUDIT_2026_08_12_V1" as const;
+  "RNK_POST_CP006_GAP_AUDIT_2026_08_12_V2" as const;
 
 export const RNK_POST_CP006_GAP_DECISION =
-  "NO_NEW_QL_JUSTIFIED_YET" as const;
+  "SOURCE_BACKED_CP007_DISCOVERY_REQUIRED" as const;
 
 export const RNK_POST_CP006_FROZEN_RANGE = {
   first: "RNK-QL-001",
@@ -31,13 +31,72 @@ export const RNK_IMPLEMENTED_STATE_CONTRACTS = [
   },
 ] as const;
 
+export type RnkCp007DiscoveryCandidateId =
+  | "CATEGORY_COMPOSITION_AROUND_RANK"
+  | "DERIVED_QUANTITY_ORDER"
+  | "NUMERIC_VALUE_CONSTRAINED_ORDER"
+  | "RELATIONAL_SIDE_COUNT_EQUATION";
+
+export const RNK_CP007_DISCOVERY_CANDIDATES: readonly {
+  readonly id: RnkCp007DiscoveryCandidateId;
+  readonly sourceEvidence: readonly string[];
+  readonly disposition:
+    | "DISCOVER_AS_PROVISIONAL_AUTHORITY"
+    | "AUDIT_MERGE_WITH_DERIVED_QUANTITY_ORDER"
+    | "AUDIT_EXTENSION_OF_CP001";
+  readonly rationale: string;
+  readonly permanentQlId: null;
+}[] = [
+  {
+    id: "CATEGORY_COMPOSITION_AROUND_RANK",
+    sourceEvidence: [
+      "Aggarwal Ranking Q65: total class + boys:girls composition + target rank + subgroup ahead -> subgroup after",
+      "Aggarwal Ranking Q67: total class + girls:boys composition + target rank + subgroup ahead -> subgroup after",
+    ],
+    disposition: "DISCOVER_AS_PROVISIONAL_AUTHORITY",
+    rationale:
+      "CP001 owns one-person rank/side-count arithmetic but not category-composition accounting around the ranked person; CP002 owns two fixed positions rather than subgroup populations.",
+    permanentQlId: null,
+  },
+  {
+    id: "DERIVED_QUANTITY_ORDER",
+    sourceEvidence: [
+      "Aggarwal Ranking Q35 [CSAT 2015]: money transfers are applied before holdings are ranked",
+      "Aggarwal Ranking Q68 [SSC MTS 2021]: weight ratios/equations are derived before second-from-bottom ranking",
+    ],
+    disposition: "DISCOVER_AS_PROVISIONAL_AUTHORITY",
+    rationale:
+      "The displayed facts first determine derived numeric quantities; the learner then answers an order/rank query. This is not represented by CP004's direct comparison graph or CP005's comparison-only uncertainty state.",
+    permanentQlId: null,
+  },
+  {
+    id: "NUMERIC_VALUE_CONSTRAINED_ORDER",
+    sourceEvidence: [
+      "Aggarwal Ranking Q27-Q28 [CSAT 2015]: ages occupy a bounded consecutive numeric domain with exact one-year and ordering constraints; queries ask possible value/order count",
+    ],
+    disposition: "AUDIT_MERGE_WITH_DERIVED_QUANTITY_ORDER",
+    rationale:
+      "This is source-backed, but it may be a numeric-domain mode of DERIVED_QUANTITY_ORDER rather than a separate learner authority. Discovery must compare solver and answer contracts before any split.",
+    permanentQlId: null,
+  },
+  {
+    id: "RELATIONAL_SIDE_COUNT_EQUATION",
+    sourceEvidence: [
+      "Aggarwal Ranking Q66: one person's front/behind counts are related multiplicatively and another person's front count is linked to them",
+    ],
+    disposition: "AUDIT_EXTENSION_OF_CP001",
+    rationale:
+      "The arithmetic is still side-count reasoning, but it links two people through equations. Audit whether CP001 can safely own this as a new generated mode or whether the proof contract is materially distinct.",
+    permanentQlId: null,
+  },
+] as const;
+
 export type RnkHeldGapId =
   | "NUMERIC_POST_TIE_RANK_CONVENTION"
   | "MULTIPLE_INDEPENDENT_TIE_GROUPS"
   | "TIE_CLASS_SIZE_GTE_3"
   | "SHARED_RANKING_CASELETS"
-  | "MIXED_RANKING_AND_BLOOD_RELATION"
-  | "ADVANCED_MIXED_TRANSFORMATIONS";
+  | "MIXED_RANKING_AND_BLOOD_RELATION";
 
 export const RNK_HELD_GAPS: readonly {
   readonly id: RnkHeldGapId;
@@ -54,7 +113,7 @@ export const RNK_HELD_GAPS: readonly {
     id: "MULTIPLE_INDEPENDENT_TIE_GROUPS",
     status: "HOLD",
     reason:
-      "No reviewed exam-source fixture yet establishes this as a distinct Ranking solve contract rather than a synthetic extension.",
+      "No reviewed exam-source fixture yet establishes this as a distinct Ranking solve contract rather than a synthetic extension of CP006.",
   },
   {
     id: "TIE_CLASS_SIZE_GTE_3",
@@ -74,12 +133,6 @@ export const RNK_HELD_GAPS: readonly {
     reason:
       "A source example combines height ordering with gender/family inference; the family inference burden belongs to Blood Relations or a controlled mixed-puzzle layer, not a new pure Ranking QL.",
   },
-  {
-    id: "ADVANCED_MIXED_TRANSFORMATIONS",
-    status: "HOLD",
-    reason:
-      "CP001..CP006 already cover arithmetic, pair constraints, movement/interchange, unique strict order, uncertainty and equality. No reviewed source currently proves another non-overlapping advanced Ranking authority.",
-  },
 ] as const;
 
 export const RNK_POST_CP006_INFRASTRUCTURE_FINDINGS = {
@@ -87,7 +140,9 @@ export const RNK_POST_CP006_INFRASTRUCTURE_FINDINGS = {
   frozenProjectionChangeRequired: false,
   objectPoolExpansionRequired: true,
   staleRoadmapDocumentationRequiresCorrection: true,
-  cp007QuestionGenerationAuthorized: false,
+  cp007DiscoveryAuthorized: true,
+  cp007PermanentRuntimeAuthorized: false,
+  cp007EnglishFreezeAuthorized: false,
   permanentQl042Allocated: false,
 } as const;
 
