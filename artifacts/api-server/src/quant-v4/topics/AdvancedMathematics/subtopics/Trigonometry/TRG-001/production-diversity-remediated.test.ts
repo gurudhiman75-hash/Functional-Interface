@@ -1,4 +1,4 @@
-import { exactKey } from "../foundation/exact";
+import { exactKey, exactToNumber } from "../foundation/exact";
 import { toDegrees } from "../foundation/angle";
 import { TRG_001_AUTHORITY_ALIGNED_IDS, authorityFamilyForTrg001Ql } from "./production-authority-runtime";
 import {
@@ -122,14 +122,12 @@ for (const seed of canonicalSeeds) {
   else assert(q23.answer === "cos θ > sin θ", "QL-023 failed tan<1 comparison semantics.");
 
   const q100 = generateDiversityRemediatedTrg001Question("TRG-001-QL-100", seed);
-  const value100 = q100.exactAnswer.value;
   const sign100 = Number(q100.canonicalState.o) > Number(q100.canonicalState.a) ? 1 : -1;
-  assert(Math.sign(Number(value100.numerator ?? 0)) === sign100, "QL-100 square-difference sign no longer follows orientation.");
+  assert(Math.sign(exactToNumber(q100.exactAnswer.value)) === sign100, "QL-100 square-difference sign no longer follows orientation.");
 
   const q132 = generateDiversityRemediatedTrg001Question("TRG-001-QL-132", seed);
-  const value132 = q132.exactAnswer.value;
   const sign132 = Number(q132.canonicalState.a) > Number(q132.canonicalState.o) ? 1 : -1;
-  assert(Math.sign(Number(value132.numerator ?? 0)) === sign132, "QL-132 cos2θ sign no longer follows orientation.");
+  assert(Math.sign(exactToNumber(q132.exactAnswer.value)) === sign132, "QL-132 cos2θ sign no longer follows orientation.");
 }
 
 const sweepSeeds = Array.from({ length: 50 }, (_, i) => `trg-diversity-sweep-${String(i + 1).padStart(2, "0")}`);
