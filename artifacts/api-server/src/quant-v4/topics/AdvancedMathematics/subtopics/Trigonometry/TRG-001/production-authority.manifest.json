@@ -12,8 +12,8 @@
     "total": 144,
     "perCp": 24,
     "phase0Subfamilies": 39,
-    "uniqueTraceTemplateReuses": 114,
-    "newAuthorityRoles": 30
+    "uniqueTraceTemplateReuses": 112,
+    "customAuthorityRoles": 32
   },
   "ranges": {
     "TRG-CP-001": ["TRG-001-QL-001", "TRG-001-QL-024"],
@@ -32,11 +32,16 @@
       "TRG-001-QL-038", "TRG-001-QL-039", "TRG-001-QL-040", "TRG-001-QL-045",
       "TRG-001-QL-046", "TRG-001-QL-057", "TRG-001-QL-058", "TRG-001-QL-062",
       "TRG-001-QL-063", "TRG-001-QL-066", "TRG-001-QL-093", "TRG-001-QL-094",
-      "TRG-001-QL-112", "TRG-001-QL-115", "TRG-001-QL-116", "TRG-001-QL-119",
-      "TRG-001-QL-120", "TRG-001-QL-134", "TRG-001-QL-135", "TRG-001-QL-136",
-      "TRG-001-QL-137", "TRG-001-QL-144"
+      "TRG-001-QL-095", "TRG-001-QL-098", "TRG-001-QL-112", "TRG-001-QL-115",
+      "TRG-001-QL-116", "TRG-001-QL-119", "TRG-001-QL-120", "TRG-001-QL-134",
+      "TRG-001-QL-135", "TRG-001-QL-136", "TRG-001-QL-137", "TRG-001-QL-144"
     ],
-    "ql135OptionCollision": "FIXED_IN_AUTHORITY_CANDIDATE",
+    "semanticHardening": {
+      "TRG-001-QL-066": "270-degree reduction restored within the locked 270/360 family",
+      "TRG-001-QL-095": "replaced non-ratio identity with expression derived from a given sine ratio",
+      "TRG-001-QL-098": "replaced sin-plus-cos-given relation with expression derived from a tangent ratio",
+      "TRG-001-QL-135": "equivalent distractor collision removed"
+    },
     "ql062ExactHalfDegreeHardening": "REUSED_FROM_ENGINEERING_CANDIDATE"
   },
   "gateTargets": {
