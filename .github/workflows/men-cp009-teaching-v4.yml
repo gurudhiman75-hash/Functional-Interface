@@ -48,6 +48,19 @@ jobs:
             --outfile=dist/quant-v4/men-cp009-teaching-v4.test.mjs
           node artifacts/api-server/dist/quant-v4/men-cp009-teaching-v4.test.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp009-teaching-v4.test.log
+      - name: Prove natural native teaching quality
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/native/teaching-quality-v4.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp009-native-teaching-quality-v4.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp009-native-teaching-quality-v4.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp009-native-teaching-quality-v4.test.log
       - name: Export tri-language teaching review
         shell: bash
         run: |
@@ -86,6 +99,7 @@ jobs:
           name: men-cp009-teaching-review-v2
           path: |
             artifacts/api-server/dist/quant-v4/men-cp009-teaching-v4.test.log
+            artifacts/api-server/dist/quant-v4/men-cp009-native-teaching-quality-v4.test.log
             artifacts/api-server/dist/quant-v4/men-cp009-review-export-v2.log
             artifacts/api-server/dist/quant-v4/MEN-CP-009-TEACHING-REVIEW-V2.html
           if-no-files-found: error
