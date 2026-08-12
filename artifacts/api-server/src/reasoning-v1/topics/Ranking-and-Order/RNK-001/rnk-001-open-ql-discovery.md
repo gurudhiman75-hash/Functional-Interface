@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 through CP-005 frozen at `RNK-QL-001..038`; `RNK-QL-039` is the next available identity.**
+Status: **CP-001 through CP-006 frozen at `RNK-QL-001..041`; `RNK-QL-042` is the next available identity.**
 
 Counts in this register are evidence, never chapter-size quotas.
 
@@ -71,11 +71,10 @@ CP-004 owns comparison evidence that forces one unique complete strict order.
 - shared passages/caselets are delivery infrastructure;
 - context words do not create QLs;
 - arithmetic-heavy marks/age/speed/score questions belong to Quant;
-- incomplete strict comparisons with multiple valid complete rankings remain Ranking ownership.
+- incomplete strict comparisons with multiple valid complete rankings remain Ranking ownership;
+- explicit equality/tied comparison evidence remains Ranking ownership when the reasoning burden is order comparison rather than arithmetic.
 
 ## 6. Frozen RNK-CP-005 — Partial Order and Ranking Uncertainty
-
-### Discovery and consolidation evidence
 
 ```text
 raw prototypes:                 8
@@ -88,96 +87,12 @@ permanent questions:          576
 questions/authority:          192
 ```
 
-Rejected: `ORDER_UNIQUENESS_STATUS`.
-
-The seven surviving source forms consolidate into three permanent authorities:
+Permanent authorities:
 
 ```text
 RNK-QL-036  RELATION_TRUTH_STATUS
-  MUST / COULD / CANNOT / PAIR_STATUS
-
 RNK-QL-037  POSSIBLE_RANK_BOUND
-  HIGHEST_POSSIBLE / LOWEST_POSSIBLE
-
 RNK-QL-038  EXACT_RANK_DETERMINACY
-  EXACT_DEFINITE / EXACT_INDETERMINATE
-```
-
-### QL-034 ownership boundary
-
-```text
-RNK-QL-034 / CP-004
-  exactly one total order is valid
-  solver reconstructs that unique order
-
-RNK-QL-036 / CP-005
-  two or more total orders remain valid
-  solver quantifies relation truth over the complete valid-order set
-```
-
-The QL-034 ownership/anti-duplication audit remains a permanent freeze regression gate.
-
-### Permanent runtime evidence
-
-```text
-RNK-QL-036: 192
-RNK-QL-037: 192
-RNK-QL-038: 192
-Total:      576
-```
-
-Answer-position balance per QL:
-
-```text
-48 / 48 / 48 / 48
-```
-
-Mode counts:
-
-```text
-MUST:                       48
-COULD:                      48
-CANNOT:                     48
-PAIR_FIRST_ABOVE:           16
-PAIR_SECOND_ABOVE:          16
-PAIR_INDETERMINATE:         16
-HIGHEST_POSSIBLE:           96
-LOWEST_POSSIBLE:            96
-EXACT_DEFINITE:             96
-EXACT_INDETERMINATE:        96
-```
-
-All five approved contexts occur within every authority. Quality-filtered topology coverage is 8 / 7 / 6 graph families for QL036 / QL037 / QL038.
-
-Frozen difficulty:
-
-```text
-Easy:       0
-Medium:   496
-Hard:      80
-```
-
-### Freeze proof
-
-Manual final review:
-
-```text
-questions independently reviewed: 36 / 36
-wrong answer keys:                  0
-ambiguous correct options:          0
-invalid witness rankings:           0
-contradictory clue sets:            0
-```
-
-Full-runtime executable proof:
-
-```text
-questions independently re-proved: 576
-compulsory proof chains checked:    736
-full witness orders checked:        816
-rank-bound proofs rechecked:        192
-unique learner fingerprints:        576
-unique permanent fingerprints:      576
 ```
 
 Candidate projection:
@@ -192,15 +107,130 @@ Frozen permanent projection:
 sha256:f6759445937626e6777f322f9b8217bc7aaa12f6a96ee180a24ca3350bd42717
 ```
 
-See `RNK-CP-005/RNK-CP-005-ENGLISH-FREEZE-V1.md`.
+`RNK-QL-036..038` are no longer open discovery identities.
 
-`RNK-QL-036..038` are therefore no longer open discovery identities.
+## 7. Frozen RNK-CP-006 — Equality-Aware Ranking
 
-## 7. Open later checkpoints
+### Source and discovery evidence
 
-### RNK-CP-006 — tied/non-strict ranking
+Primary ranking-source evidence supports explicit equality relations such as equal height, equal score and equal speed, while separately distinguishing incomparable pairs.
 
-Unallocated. Implement only after strong exam-source evidence.
+Raw source forms:
+
+```text
+EQUAL_PAIR_IDENTIFICATION
+PAIR_RELATION_WITH_EQUALITY
+ENDPOINT_ENTITY_WITH_INTERNAL_TIE
+COMPLETE_WEAK_ORDER
+```
+
+Rejected:
+
+```text
+EQUAL_PAIR_IDENTIFICATION
+```
+
+Reason: direct equality-clue lookup rather than a meaningful solve contract.
+
+The surviving forms were remodeled so the equality statement is a required bridge rather than decorative evidence.
+
+### Permanent authorities
+
+```text
+RNK-QL-039  EQUALITY_AWARE_PAIR_RELATION
+RNK-QL-040  EQUALITY_AWARE_ENDPOINT
+RNK-QL-041  COMPLETE_WEAK_ORDER
+```
+
+State contract:
+
+```text
+ONE_UNIQUE_TOTAL_PREORDER_WITH_EXPLICIT_EQUALITY
+```
+
+This is distinct from CP-004's unique strict total order and CP-005's multiple-valid-order uncertainty state.
+
+### Permanent runtime evidence
+
+```text
+RNK-QL-039: 192
+RNK-QL-040: 192
+RNK-QL-041: 192
+Total:      576
+```
+
+Answer-position balance per QL:
+
+```text
+48 / 48 / 48 / 48
+```
+
+Mode counts:
+
+```text
+PAIR_LOCAL_BRIDGE:    96
+PAIR_FULL_CHAIN:      96
+ENDPOINT_HIGHEST:     96
+ENDPOINT_LOWEST:      96
+COMPLETE_WEAK_ORDER: 192
+```
+
+Difficulty:
+
+```text
+Easy:       0
+Medium:   416
+Hard:     160
+```
+
+Every QL contains all five approved contexts and 5-, 6- and 7-entity states.
+
+### Freeze proof
+
+Manual final review:
+
+```text
+questions independently reviewed: 36 / 36
+wrong answer keys:                  0
+ambiguous correct options:          0
+decorative equality samples:        0
+unstated numeric tie-rank rules:     0
+```
+
+Full-runtime executable proof:
+
+```text
+questions independently re-proved: 576
+equality-essential checks:         576
+complete-order distractors checked:576
+unique mathematical state keys:    576
+unique learner fingerprints:       576
+unique permanent fingerprints:     576
+```
+
+Pinned production candidate projection:
+
+```text
+sha256:3b26204b7137910d3247af37c75934680ea34cd86b5f342b55de2012e057fd00
+```
+
+Frozen permanent projection:
+
+```text
+sha256:7043ecd80798ed9b60529d6052f4bc6fd4e678a98d06cc3e0332a3d10028d819
+```
+
+See `RNK-CP-006/RNK-CP-006-ENGLISH-FREEZE-V1.md`.
+
+`RNK-QL-039..041` are therefore no longer open discovery identities.
+
+### Still excluded from CP-006 freeze
+
+A numerical rank after a tie is not defined. Competition/dense/fractional ranking conventions are not inferred from equality alone.
+
+Multiple independent tie groups and equality classes larger than two people remain future source-backed discovery only.
+
+## 8. Open later checkpoints
 
 ### RNK-CP-007 — advanced mixed ranking transformations
 
@@ -210,7 +240,7 @@ Unallocated. Open only after a fresh chapter-gap audit.
 
 Shared passages/linked-question assembly remain infrastructure rather than authority identities.
 
-## 8. Protected exclusions
+## 9. Protected exclusions
 
 ```text
 lexicographic/dictionary position              -> Word and Dictionary Order
@@ -222,19 +252,21 @@ alphabet position without ranked group         -> Alphabet Test
 age/speed/marks arithmetic as main burden      -> Quant
 ```
 
-## 9. Lifecycle
+## 10. Lifecycle
 
 ```text
-cumulative permanent range: RNK-QL-001..038
-next available RNK ID:      RNK-QL-039
+cumulative permanent range: RNK-QL-001..041
+next available RNK ID:      RNK-QL-042
 CP-005 English freeze:      true
-CP-005 permanent QLs:       3
+CP-006 English freeze:      true
+CP-006 permanent QLs:       3
 chapter-wide final freeze:  false
 Hindi/Punjabi:              NOT_STARTED
 Question Studio:            DISABLED
+persistence:                DISABLED
 Question Bank:              NOT_STORED
 test eligibility:           INELIGIBLE
 public publication:         false
 ```
 
-No merge, deployment, publication or Question Studio/persistence enablement is authorized by this freeze.
+No merge, deployment, publication, persistence or Question Studio enablement is authorized by this freeze.
