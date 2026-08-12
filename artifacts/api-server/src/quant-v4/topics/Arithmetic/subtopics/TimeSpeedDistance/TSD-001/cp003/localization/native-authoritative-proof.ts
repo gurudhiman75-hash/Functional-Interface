@@ -55,6 +55,7 @@ const contextCounts = {
 let optionAnalyses = 0;
 let wrongOptionReasons = 0;
 let correctOptionReasons = 0;
+let contextualMisconceptionChecks = 0;
 
 for (const row of all) {
   const { source, presentation, authoritativeReview } = row;
@@ -85,9 +86,16 @@ for (const row of all) {
   if (presentation.language === "hi") {
     assert(!presentation.stem.includes("एक निर्धारित यात्रा में"), `${presentation.questionLanguageId}: mechanical Hindi framing remains`);
     assert(!presentation.stem.includes("दिए गए आँकड़ों के आधार पर"), `${presentation.questionLanguageId}: mechanical Hindi data-framing remains`);
+    assert(!presentation.stem.includes("समान तय दूरी का मान"), `${presentation.questionLanguageId}: awkward Hindi fixed-distance phrasing remains`);
+    assert(!presentation.stem.includes("निर्धारित समय की सामान्य गति"), `${presentation.questionLanguageId}: awkward Hindi usual-speed phrasing remains`);
+    assert(!/दूसरी (?:कम|अधिक) गति के साथ यात्रा-समयों/u.test(presentation.stem), `${presentation.questionLanguageId}: awkward Hindi known-speed relation remains`);
+    assert(!presentation.stem.includes("उसे कितने समय"), `${presentation.questionLanguageId}: unclear Hindi pronoun referent remains`);
   } else {
     assert(!presentation.stem.includes("ਇੱਕ ਨਿਰਧਾਰਤ ਸਫ਼ਰ ਵਿੱਚ"), `${presentation.questionLanguageId}: mechanical Punjabi framing remains`);
     assert(!presentation.stem.includes("ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੇ ਆਧਾਰ ਉੱਤੇ"), `${presentation.questionLanguageId}: mechanical Punjabi data-framing remains`);
+    assert(!presentation.stem.includes("ਇੱਕੋ ਤੈਅ ਦੂਰੀ ਦਾ ਮਾਨ"), `${presentation.questionLanguageId}: awkward Punjabi fixed-distance phrasing remains`);
+    assert(!/ਦੂਜੀ (?:ਘੱਟ|ਵੱਧ) ਰਫ਼ਤਾਰ ਨਾਲ ਸਫ਼ਰ-ਸਮਿਆਂ/u.test(presentation.stem), `${presentation.questionLanguageId}: awkward Punjabi known-speed relation remains`);
+    assert(!presentation.stem.includes("ਉਸਨੂੰ ਕਿੰਨਾ ਸਮਾਂ"), `${presentation.questionLanguageId}: unclear Punjabi pronoun referent remains`);
   }
 
   const analyses = presentation.explanation.optionAnalysis;
@@ -99,6 +107,29 @@ for (const row of all) {
     assert(hasExplicitNativeMisconceptionCopy(audit.misconceptionId), `${presentation.questionLanguageId}/${entry.option}: option reason used non-explicit misconception copy`);
     assert(entry.text === presentation.options[index], `${presentation.questionLanguageId}: option-analysis text drift at ${entry.option}`);
     assertTsdCp003NativeText(entry.reason, presentation.language, `${presentation.questionLanguageId}/option-${entry.option}-reason`);
+    if (!entry.isCorrect) {
+      if (presentation.language === "hi") {
+        assert(!/सही विधि .* देती है/u.test(entry.reason), `${presentation.questionLanguageId}/${entry.option}: mechanical Hindi answer-feedback suffix remains`);
+        assert(entry.reason.includes("सही गणना से उत्तर"), `${presentation.questionLanguageId}/${entry.option}: Hindi wrong-option feedback lacks student-facing correction`);
+      } else {
+        assert(!/ਸਹੀ ਵਿਧੀ .* ਦਿੰਦੀ ਹੈ/u.test(entry.reason), `${presentation.questionLanguageId}/${entry.option}: mechanical Punjabi answer-feedback suffix remains`);
+        assert(entry.reason.includes("ਸਹੀ ਗਣਨਾ ਨਾਲ ਉੱਤਰ"), `${presentation.questionLanguageId}/${entry.option}: Punjabi wrong-option feedback lacks student-facing correction`);
+      }
+    }
+
+    if (canonical.solveMode === "usualSpeedFromEarlyLatePair" && (audit.misconceptionId === "USE_SLOWER_SPEED_ONLY" || audit.misconceptionId === "USE_FASTER_SPEED_ONLY")) {
+      assert(presentation.language === "hi" ? entry.reason.includes("परीक्षण गति") : entry.reason.includes("ਪਰਖ-ਰਫ਼ਤਾਰ"), `${presentation.questionLanguageId}/${entry.option}: usual-speed trial-speed misconception is not context-specific`);
+      contextualMisconceptionChecks += 1;
+    }
+    if (canonical.solveMode === "distanceFromEarlyLatePair" && audit.misconceptionId === "USE_FASTER_SPEED_ONLY") {
+      assert(presentation.language === "hi" ? entry.reason.includes("पहले पहुँचने वाले समय") : entry.reason.includes("ਪਹਿਲਾਂ ਪਹੁੰਚਣ ਵਾਲੇ ਸਮੇਂ"), `${presentation.questionLanguageId}/${entry.option}: early-arrival distance misconception is not context-specific`);
+      contextualMisconceptionChecks += 1;
+    }
+    if (canonical.solveMode === "lostTimeDurationFromScheduleRecovery" && audit.misconceptionId === "USE_ONE_TRAVEL_TIME") {
+      assert(presentation.language === "hi" ? entry.reason.includes("शेष मार्ग की किसी एक पूरी यात्रा-अवधि") : entry.reason.includes("ਬਾਕੀ ਰਸਤੇ ਦੀ ਕਿਸੇ ਇੱਕ ਪੂਰੀ ਸਫ਼ਰ-ਮਿਆਦ"), `${presentation.questionLanguageId}/${entry.option}: lost-time single-journey misconception is not context-specific`);
+      contextualMisconceptionChecks += 1;
+    }
+
     optionAnalyses += 1;
     if (entry.isCorrect) correctOptionReasons += 1;
     else wrongOptionReasons += 1;
@@ -161,6 +192,7 @@ assert(contextCounts.pa.vehicle >= 8 && contextCounts.pa.coach >= 8 && contextCo
 assert(optionAnalyses === 504, `Expected 504 native option analyses, received ${optionAnalyses}`);
 assert(correctOptionReasons === 126, `Expected 126 correct-option reasons, received ${correctOptionReasons}`);
 assert(wrongOptionReasons === 378, `Expected 378 wrong-option reasons, received ${wrongOptionReasons}`);
+assert(contextualMisconceptionChecks > 0, "Expected context-specific misconception checks to execute");
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -172,6 +204,7 @@ console.log(JSON.stringify({
   solveModesPerLanguage: 21,
   structuralStemVariantsPerMode: 3,
   explicitAcceptedMisconceptionIds: acceptedWrongIds.size,
+  contextualMisconceptionChecks,
   hindiContextCounts: contextCounts.hi,
   punjabiContextCounts: contextCounts.pa,
   optionAnalyses,
@@ -180,6 +213,7 @@ console.log(JSON.stringify({
   explanationContract: "METHOD_STEPS_SHORTCUT_OPTION_ANALYSIS_ANSWER",
   rawFractionalHourLearnerProse: 0,
   mechanicalFramingRows: 0,
+  knownAwkwardPhrasingRows: 0,
   frozenEnglishCorpusChanged: false,
   productOwnerApprovalRecorded: false,
   multilingualFreezeAuthorized: false,
