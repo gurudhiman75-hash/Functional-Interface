@@ -1,6 +1,6 @@
 # RNK-001 — Ranking and Order
 
-Status: **CP-001 through CP-006 English frozen at `RNK-QL-001..041`; next available identity is `RNK-QL-042`.**
+Status: **CP-001 through CP-006 English frozen at `RNK-QL-001..041`; post-CP006 gap audit found no new QL justified; `RNK-QL-042` remains available.**
 
 Student-facing chapter: **Ranking and Order**  
 Reasoning V1 package: `RNK-001`  
@@ -13,7 +13,10 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 3. `RNK-001-END-TO-END-DESIGN.md`;
 4. `rnk-001-open-ql-discovery.md`;
 5. `RNK-001-BOOK-TO-QL-AUDIT-2026-08-08.md`;
-6. checkpoint-specific consolidation/freeze records.
+6. `RNK-001-POST-CP006-CHAPTER-GAP-AUDIT-2026-08-12.md`;
+7. checkpoint-specific consolidation/freeze records.
+
+The original end-to-end checkpoint map was provisional. The post-CP006 audit is authoritative where implementation evidence supersedes that early roadmap.
 
 ## Checkpoint map
 
@@ -25,7 +28,7 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 | `RNK-CP-004` | unique multi-entity strict-order reasoning | frozen `RNK-QL-027..035` |
 | `RNK-CP-005` | partial order / ranking uncertainty | frozen `RNK-QL-036..038` |
 | `RNK-CP-006` | equality-aware / tied comparison ranking | frozen `RNK-QL-039..041` |
-| `RNK-CP-007` | advanced mixed transformations | unallocated; fresh gap audit required |
+| `RNK-CP-007` | no non-overlapping source-backed authority found | **closed/unallocated after fresh gap audit** |
 | `RNK-CP-008` | reserved | shared-set assembly is infrastructure, not QL ownership |
 
 ## Frozen inventory
@@ -69,7 +72,7 @@ RNK-QL-040  EQUALITY_AWARE_ENDPOINT
 RNK-QL-041  COMPLETE_WEAK_ORDER
 ```
 
-Next available RNK identity: **`RNK-QL-042`**.
+Next available RNK identity: **`RNK-QL-042`**. It is intentionally unallocated.
 
 ## Protected ownership boundaries
 
@@ -81,7 +84,8 @@ Next available RNK identity: **`RNK-QL-042`**.
 - explicit equality producing one unique **weak** order / total preorder → CP-006;
 - left/right placement, facing, adjacency and seat neighbours → Seating Arrangement;
 - shared passages/caselets → delivery infrastructure, not a QL;
-- arithmetic-heavy marks/age/speed/score → relevant Quant chapter.
+- arithmetic-heavy marks/age/speed/score → relevant Quant chapter;
+- family/gender inference mixed into a ranking context → Blood Relations or a controlled mixed-puzzle layer.
 
 ## CP-004 freeze summary
 
@@ -146,15 +150,15 @@ RNK-QL-041  COMPLETE_WEAK_ORDER
 Runtime evidence:
 
 ```text
-answer positions/QL:             48 / 48 / 48 / 48
-questions independently re-proved:            576
-equality-essential checks:                    576
-complete-order distractors checked:           576
-unique mathematical state keys:               576
-unique learner fingerprints:                  576
-unique permanent fingerprints:                576
-contexts/QL:                                     5
-entity counts/QL:                             5,6,7
+answer positions/QL:                       48 / 48 / 48 / 48
+questions independently re-proved:                      576
+equality-essential checks:                              576
+complete-order distractors checked:                     576
+unique mathematical state keys:                         576
+unique learner fingerprints:                            576
+unique permanent fingerprints:                          576
+contexts/QL:                                               5
+entity counts/QL:                                       5,6,7
 ```
 
 Difficulty:
@@ -195,6 +199,49 @@ The similar endpoint/pair/complete-order stem shapes therefore remain separate Q
 
 CP-006 does not silently assume competition, dense or fractional ranking. Numerical post-tie questions remain excluded unless their convention is explicitly stated or a future source-backed checkpoint establishes the rule.
 
+## Post-CP006 gap audit
+
+The fresh source/ownership audit found no remaining Ranking family that currently meets the threshold for a new permanent authority.
+
+Held or redirected candidates:
+
+```text
+numeric post-tie ranking convention   HOLD — source does not define one universal rule
+multiple independent equality groups  HOLD — no distinct source-backed exam contract yet
+tie class size >= 3                    HOLD — later CP006 expansion only if evidenced
+shared ranking caselets                INFRASTRUCTURE
+ranking + family/gender inference      BLOOD RELATIONS / MIXED PUZZLE
+advanced mixed transformations         HOLD — no non-overlapping authority evidenced
+```
+
+Therefore `RNK-QL-042` remains unused and CP007 question generation is not authorized by this audit.
+
+See `RNK-001-POST-CP006-CHAPTER-GAP-AUDIT-2026-08-12.md`.
+
+## Object-pool V2
+
+The audit found a separate infrastructure weakness: frozen question mathematics is strong, but several historical checkpoints use small local name pools. CP006 was frozen from a 14-name English pool.
+
+A future-facing shared object registry now exists at:
+
+```text
+foundation/rnk-object-pool-v2.ts
+```
+
+It deliberately does **not** feed CP004/005/006 frozen projection paths.
+
+Current V2 targets:
+
+```text
+people:           >= 96, gender-balanced, EN/HI/PA
+neutral groups:   >= 20
+settings:         >= 18
+semantic domains: 6
+selection:        deterministic seeded API
+```
+
+Frozen compatibility remains mandatory: introducing or expanding the shared pool must not change the CP004, CP005 or CP006 pinned hashes.
+
 ## Proof summary
 
 ```text
@@ -219,6 +266,8 @@ CP-003 frozen:              true
 CP-004 frozen:              true
 CP-005 English frozen:      true
 CP-006 English frozen:      true
+post-CP006 gap audit:       NO_NEW_QL_JUSTIFIED_YET
+CP-007 generation:          CLOSED / UNALLOCATED
 chapter-wide final freeze:  false
 Hindi/Punjabi:              NOT_STARTED
 Question Studio:            DISABLED
@@ -228,4 +277,4 @@ test eligibility:           INELIGIBLE
 public publication:         false
 ```
 
-Freezing CP-006 does not authorize merge, deployment, publication, Question Studio generation, persistence or translation.
+This audit and object-pool expansion do not authorize merge, deployment, publication, Question Studio generation, persistence or translation.
