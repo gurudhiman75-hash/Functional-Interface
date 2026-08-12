@@ -1,5 +1,6 @@
 import { runTmw001ChapterPipeline, type Tmw001ChapterLanguage } from "./foundation/chapter-localized-runtime";
-import { equals } from "./foundation/rational";
+import { runTmwCp014CaseletGroup } from "./foundation/final-extension-presentation-polish";
+import { compare, equals, rational } from "./foundation/rational";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -46,6 +47,25 @@ for (const qlId of [...tableQls, ...caseletQls]) {
         assert(block.paragraphs.length === 2, `${qlId}:${language}: caselet must have two paragraphs`);
         assert(question.caseletGroupId === "TMW-CASELET-001", `${qlId}:${language}: wrong caselet group`);
         assert(typeof question.caseletStimulus === "string" && question.caseletStimulus.length > 40, `${qlId}:${language}: caselet stimulus missing`);
+        assert(question.groupGenerationRequired === true, `${qlId}:${language}: grouped caselet generation requirement missing`);
+        assert(question.caseletItemIndex === (qlId === "TMW-QL-227" ? 0 : 1), `${qlId}:${language}: caselet item index mismatch`);
+      }
+
+      if (qlId === "TMW-QL-225") {
+        const allText = JSON.stringify(question);
+        assert(!/base-worker-days|आधार-कामगार-दिन|ਆਧਾਰ-ਮਜ਼ਦੂਰ-ਦਿਨ/.test(allText), `${qlId}:${language}: old contribution unit leaked`);
+        assert(question.solution.answerType === "base-work-units", `${qlId}:${language}: contribution answer type was not normalized`);
+      }
+
+      if (qlId === "TMW-QL-226") {
+        for (const option of question.optionAudit) {
+          assert(compare(option.value, rational(0)) > 0, `${qlId}:${language}: non-positive tank-fraction option`);
+          assert(compare(option.value, rational(1)) <= 0, `${qlId}:${language}: impossible >1 tank-fraction option`);
+        }
+      }
+
+      if (language === "pa") {
+        assert(!JSON.stringify(question).includes("ਪੜਾਅਾਂ"), `${qlId}:${language}: malformed Punjabi stage plural remains`);
       }
     }
   }
@@ -60,6 +80,12 @@ for (const language of languages) {
     assert(q227.caseletStimulus === q228.caseletStimulus, `${language}:${seedSuffix}: paired caselet stimulus mismatch`);
     assert(q227.mathematicalFingerprint.split("|answer=")[0] === q228.mathematicalFingerprint.split("|answer=")[0].replace("caseletRemainingCompletionTime", "caseletStageOneOutput"), `${language}:${seedSuffix}: paired caselet state mismatch`);
     assert(!equals(q227.solution.answer, q228.solution.answer) || q227.solution.answerType !== q228.solution.answerType, `${language}:${seedSuffix}: paired caselet targets collapsed`);
+
+    const grouped = runTmwCp014CaseletGroup({ seed, language });
+    assert(grouped.caseletGroupId === "TMW-CASELET-001", `${language}:${seedSuffix}: grouped generator ID mismatch`);
+    assert(grouped.questions.length === 2, `${language}:${seedSuffix}: grouped generator must return two questions`);
+    assert(grouped.questions[0].caseletStimulus === grouped.questions[1].caseletStimulus, `${language}:${seedSuffix}: grouped generator stimuli differ`);
+    assert(grouped.stimulus === grouped.questions[0].caseletStimulus, `${language}:${seedSuffix}: grouped stimulus mismatch`);
   }
 }
 
@@ -73,5 +99,7 @@ console.log(JSON.stringify({
   seedsPerQlLanguage: seeds.length,
   checked,
   pairedCaseletChecks: languages.length * seeds.length,
+  groupedCaseletChecks: languages.length * seeds.length,
+  physicalTankOptionChecks: languages.length * seeds.length,
   verdict: "PASS",
 }, null, 2));
