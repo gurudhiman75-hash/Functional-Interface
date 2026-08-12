@@ -4,25 +4,31 @@ import {
   type Prb001CanonicalProblemId,
 } from "./PRB-001";
 import {
-  getPrb001NativeEditorialEntry,
-  localizePrb001NativeBindingValue,
-} from "./PRB-001/native-editorial";
-import {
   listPrb002QuestionEntries,
   runPrb002Pipeline,
   type Prb002CanonicalProblemId,
 } from "./PRB-002";
+import type { Prb001NativeEditorialEntry } from "./PRB-001/native-editorial";
+import {
+  getPrb001NativeEditorialEntry,
+  localizePrb001NativeBindingValue,
+} from "./PRB-001/native-editorial";
+import type { Prb002NativeEditorialEntry } from "./PRB-002/native-editorial";
 import {
   getPrb002NativeEditorialEntry,
   localizePrb002NativeBindingValue,
 } from "./PRB-002/native-editorial";
-import type { ProbabilityNativeLanguage } from "./multilingual-foundation";
+import type {
+  ProbabilityNativeLanguage,
+} from "./multilingual-foundation";
 import {
   assertProbabilityNativeTextValid,
   getProbabilityNativeTerm,
 } from "./native-language-primitives";
 import { renderProbabilityMathText } from "./shared/math-text";
-import { rational, rationalText } from "./shared/rational";
+import { renderNativeStudentFacingStem } from "./shared/native-exam-style-bridge";
+import { polishNativeVisual } from "./shared/native-final-explanation-renderer";
+import { renderNativeSourceExplanationLines } from "./shared/native-source-explanation-mirror";
 import type {
   ProbabilityCanonicalProblemId,
   ProbabilityGenerationInput,
@@ -38,33 +44,33 @@ export const PROBABILITY_NATIVE_PREVIEW_STATUS =
 
 export type ProbabilityNativePreviewStatus = typeof PROBABILITY_NATIVE_PREVIEW_STATUS;
 
-export type ProbabilityNativePresentation = Readonly<{
-  language: ProbabilityNativeLanguage;
-  localizedQuestionId: string;
-  localizedExplanationId: string;
-  sourceQuestionId: string;
-  sourceExplanationId: string;
-  qlId: string;
-  eventWording: string;
-  stem: string;
-  options: readonly string[];
-  correctIndex: number;
-  answer: string;
-  explanation: Readonly<{
+export interface ProbabilityNativePresentation {
+  readonly language: ProbabilityNativeLanguage;
+  readonly localizedQuestionId: string;
+  readonly localizedExplanationId: string;
+  readonly sourceQuestionId: string;
+  readonly sourceExplanationId: string;
+  readonly qlId: string;
+  readonly eventWording: string;
+  readonly stem: string;
+  readonly options: readonly string[];
+  readonly correctIndex: number;
+  readonly answer: string;
+  readonly explanation: Readonly<{
     lines: readonly string[];
     wordCount: number;
     visuals: readonly ProbabilityVisual[];
   }>;
-  validation: ValidationResult;
-  localizationStatus: ProbabilityNativePreviewStatus;
-  questionStudioEnabled: false;
-  publiclyPublishable: false;
-}>;
+  readonly validation: ValidationResult;
+  readonly localizationStatus: ProbabilityNativePreviewStatus;
+  readonly questionStudioEnabled: false;
+  readonly publiclyPublishable: false;
+}
 
-export type ProbabilityMultilingualPreview = Readonly<{
-  source: ProbabilityQuestion;
-  presentation: ProbabilityNativePresentation;
-  parity: Readonly<{
+export interface ProbabilityMultilingualPreview {
+  readonly source: ProbabilityQuestion;
+  readonly presentation: ProbabilityNativePresentation;
+  readonly parity: Readonly<{
     sourceLanguage: "en";
     targetLanguage: ProbabilityNativeLanguage;
     sourceSeed: string;
@@ -79,101 +85,28 @@ export type ProbabilityMultilingualPreview = Readonly<{
     answerPreserved: true;
     correctIndexPreserved: true;
   }>;
-}>;
+}
 
-type NativeEditorial = Readonly<{
-  qlId: string;
-  eventWording: string;
-  stemTemplate: string;
-  explanation: Readonly<{
-    approach: string;
-    workingLead: string;
-    keyPoint: string;
-    answerLabel: string;
-  }>;
-}>;
-
+type NativeEditorial = Prb001NativeEditorialEntry | Prb002NativeEditorialEntry;
 type NativeBindingLocalizer = (
-  key: string,
   value: unknown,
   language: ProbabilityNativeLanguage,
-  qlId: string,
-) => string;
+  context?: Record<string, unknown>,
+) => unknown;
 
 function sourceExplanationId(source: ProbabilityQuestion): string {
   return source.explanation.explanationId;
 }
 
-function scalar(value: unknown): string {
-  if (Array.isArray(value)) return value.join(", ");
-  if (value && typeof value === "object") return JSON.stringify(value);
-  return String(value ?? "");
-}
+function buildNativeRenderContext(source: ProbabilityQuestion): Record<string, unknown> {
+  const context: Record<string, unknown> = {
+    ...source.parameters,
+    answerInstruction: source.answer,
+    answerDimension: source.answerDimension,
+  };
 
-function numberParameter(parameters: Record<string, unknown>, key: string): number | undefined {
-  const value = parameters[key];
-  return typeof value === "number" && Number.isFinite(value) ? value : undefined;
-}
-
-function buildNativeRenderContext(source: ProbabilityQuestion): Record<string, string> {
-  const parameters = source.parameters;
-  const context: Record<string, string> = Object.fromEntries(
-    Object.entries(parameters).map(([key, value]) => [key, scalar(value)]),
-  );
-  context.answer = source.answer;
-
-  const evidence = (source.solver.evidence ?? {}) as Record<string, unknown>;
-  const totalOutcomeCount = evidence.totalOutcomeCount;
-  const favourableOutcomeCount = evidence.favourableOutcomeCount;
-  if (totalOutcomeCount !== undefined) context.totalOutcomes = String(totalOutcomeCount);
-  if (favourableOutcomeCount !== undefined) context.favourableOutcomes = String(favourableOutcomeCount);
-
-  if (totalOutcomeCount !== undefined && favourableOutcomeCount !== undefined) {
-    context.probability = rationalText(rational(BigInt(String(favourableOutcomeCount)), BigInt(String(totalOutcomeCount))));
-  }
-
-  const probabilityNumerator = numberParameter(parameters, "probabilityNumerator");
-  const probabilityDenominator = numberParameter(parameters, "probabilityDenominator");
-  if (probabilityNumerator !== undefined && probabilityDenominator !== undefined) {
-    context.probability = rationalText(rational(probabilityNumerator, probabilityDenominator));
-  }
-
-  const givenNumerator = numberParameter(parameters, "givenNumerator");
-  const givenDenominator = numberParameter(parameters, "givenDenominator");
-  if (givenNumerator !== undefined && givenDenominator !== undefined) {
-    context.givenProbability = rationalText(rational(givenNumerator, givenDenominator));
-  }
-
-  const red = numberParameter(parameters, "red");
-  const blue = numberParameter(parameters, "blue");
-  if (red !== undefined && blue !== undefined) context.urnTotal = String(red + blue);
-
-  const men = numberParameter(parameters, "men");
-  const women = numberParameter(parameters, "women");
-  if (men !== undefined && women !== undefined) context.population = String(men + women);
-
-  const total = numberParameter(parameters, "total");
-  const aCount = numberParameter(parameters, "aCount");
-  const bCount = numberParameter(parameters, "bCount");
-  const overlap = numberParameter(parameters, "overlap");
-  if (total !== undefined && aCount !== undefined) context.pA = rationalText(rational(aCount, total));
-  if (total !== undefined && bCount !== undefined) context.pB = rationalText(rational(bCount, total));
-  if (total !== undefined && overlap !== undefined) {
-    context.pIntersection = rationalText(rational(overlap, total));
-    if (aCount !== undefined && bCount !== undefined) {
-      context.pUnion = rationalText(rational(aCount + bCount - overlap, total));
-    }
-  }
-
-  const aNumerator = numberParameter(parameters, "aNumerator");
-  const aDenominator = numberParameter(parameters, "aDenominator");
-  if (aNumerator !== undefined && aDenominator !== undefined) {
-    context.pA = rationalText(rational(aNumerator, aDenominator));
-  }
-  const bNumerator = numberParameter(parameters, "bNumerator");
-  const bDenominator = numberParameter(parameters, "bDenominator");
-  if (bNumerator !== undefined && bDenominator !== undefined) {
-    context.pB = rationalText(rational(bNumerator, bDenominator));
+  for (const [key, value] of Object.entries(source.parameters)) {
+    if (typeof value === "bigint") context[key] = value.toString();
   }
 
   return context;
@@ -198,23 +131,8 @@ function resolveNativeEditorial(source: ProbabilityQuestion, language: Probabili
 function renderNativeStem(
   source: ProbabilityQuestion,
   language: ProbabilityNativeLanguage,
-  editorial: NativeEditorial,
-  localizeBinding: NativeBindingLocalizer,
 ): string {
-  const context = buildNativeRenderContext(source);
-  const rendered = editorial.stemTemplate.replace(
-    /\{([A-Za-z_][A-Za-z0-9_.-]*)\}/g,
-    (_match, key: string) => {
-      if (!(key in context) && key !== "answerInstruction") {
-        throw new Error(`ML-05 unresolved ${source.packageId}/${source.questionLanguageId} native binding {${key}}.`);
-      }
-      return localizeBinding(key, context[key], language, source.questionLanguageId);
-    },
-  );
-  if (/\{[^}]+\}/u.test(rendered)) {
-    throw new Error(`ML-05 unresolved placeholder in ${source.questionLanguageId}/${language}.`);
-  }
-  const stem = renderProbabilityMathText(rendered.replace(/\s+/gu, " ").trim());
+  const stem = renderProbabilityMathText(renderNativeStudentFacingStem(source, language));
   assertProbabilityNativeTextValid(stem, language);
   return stem;
 }
@@ -276,7 +194,7 @@ function localizeNativeVisual(
       title = language === "hi" ? "क्रमिक ड्रॉ प्रायिकता वृक्ष" : "ਲਗਾਤਾਰ ਡਰਾਅ ਸੰਭਾਵਨਾ ਦਰੱਖਤ";
       altText = language === "hi"
         ? `दो चरणों का ड्रॉ-वृक्ष; शर्त: ${nativeReplacementLabel(source, language)}।`
-        : `ਦੋ ਪੜਾਅਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ${nativeReplacementLabel(source, language)}।`;
+        : `ਦੋ ਪੜਾਵਾਂ ਦਾ ਡਰਾਅ-ਦਰੱਖਤ; ਸ਼ਰਤ: ${nativeReplacementLabel(source, language)}।`;
       break;
     case "VENN_EVENT_REGIONS":
       title = language === "hi" ? "दो घटनाओं का क्षेत्र मॉडल" : "ਦੋ ਘਟਨਾਵਾਂ ਦਾ ਖੇਤਰ ਮਾਡਲ";
@@ -291,7 +209,7 @@ function localizeNativeVisual(
         : "52 ਪੱਤਿਆਂ ਦੀ ਮਿਆਰੀ ਗੱਡੀ ਦੀਆਂ ਲੋੜੀਂਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਸਾਰ।";
       break;
     case "URN_COMPOSITION_DISPLAY":
-      title = language === "hi" ? "थैले में गेंदों की संरचना" : "ਥੈਲੇ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ";
+      title = language === "hi" ? "बैग में गेंदों की संरचना" : "ਬੈਗ ਵਿੱਚ ਗੇਂਦਾਂ ਦੀ ਬਣਤਰ";
       altText = language === "hi"
         ? `${String(data.red ?? "")} लाल और ${String(data.blue ?? "")} नीली गेंदों वाला चयन-चित्र।`
         : `${String(data.red ?? "")} ਲਾਲ ਅਤੇ ${String(data.blue ?? "")} ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਵਾਲਾ ਚੋਣ-ਚਿੱਤਰ।`;
@@ -310,22 +228,15 @@ function renderNativeExplanation(
   language: ProbabilityNativeLanguage,
   editorial: NativeEditorial,
 ): ProbabilityNativePresentation["explanation"] {
-  const approachLabel = getProbabilityNativeTerm("APPROACH", language);
-  const workingLabel = getProbabilityNativeTerm("WORKING", language);
-  const keyPointLabel = getProbabilityNativeTerm("KEY_POINT", language);
-  const finalAnswerLabel = getProbabilityNativeTerm("FINAL_ANSWER", language);
-  const lines = [
-    `${approachLabel}: ${editorial.explanation.approach}`,
-    `${workingLabel}: ${editorial.explanation.workingLead}`,
-    `${workingLabel}: ${localizedEquation(source)}`,
-    `${keyPointLabel}: ${editorial.explanation.keyPoint}`,
-    `${finalAnswerLabel}: ${source.answer}`,
-  ].map(renderProbabilityMathText);
-
-  for (const line of lines) assertProbabilityNativeTextValid(line, language);
+  const lines = renderNativeSourceExplanationLines(source, language);
   const visuals = source.explanation.visuals.map((visual) =>
-    localizeNativeVisual(visual, source, language, editorial.eventWording));
+    polishNativeVisual(source, language, localizeNativeVisual(visual, source, language, editorial.eventWording)));
   return { lines, wordCount: explanationWordCount(lines), visuals };
+}
+
+function auditNativeExplanationLine(line: string, language: ProbabilityNativeLanguage): void {
+  const auditLine = line.replaceAll("n!/[r!(n-r)!]", "\\(n!/[r!(n-r)!]\\)");
+  assertProbabilityNativeTextValid(auditLine, language);
 }
 
 function buildNativeValidation(
@@ -378,7 +289,7 @@ function buildNativeValidation(
 
   // The assertions above guarantee these checks before a preview can be returned.
   assertProbabilityNativeTextValid(stem, language);
-  for (const line of explanation.lines) assertProbabilityNativeTextValid(line, language);
+  for (const line of explanation.lines) auditNativeExplanationLine(line, language);
   for (const visual of explanation.visuals) {
     assertProbabilityNativeTextValid(visual.title, language);
     assertProbabilityNativeTextValid(visual.altText, language);
@@ -397,12 +308,12 @@ export function renderProbabilityNativePreview(
     throw new Error(`ML-05 refuses to localize invalid English source ${source.questionLanguageId}.`);
   }
 
-  const { editorial, localizeBinding } = resolveNativeEditorial(source, language);
+  const { editorial } = resolveNativeEditorial(source, language);
   if (editorial.qlId !== source.questionLanguageId) {
     throw new Error(`ML-05 editorial/source QL mismatch for ${source.questionLanguageId}/${language}.`);
   }
 
-  const stem = renderNativeStem(source, language, editorial, localizeBinding);
+  const stem = renderNativeStem(source, language);
   const options = Object.freeze([...source.options]);
   const answer = source.answer;
   const correctIndex = source.correctIndex;
