@@ -56,6 +56,49 @@ export function naturalizeProbabilityExplanationBody(
 ): string | null {
   let m: RegExpMatchArray | null;
 
+  if (value === "Out of the 36 ordered pairs, 18 have one odd and one even face, while the other 18 have equal parity.") {
+    return pick(
+      language,
+      "36 क्रमित युग्मों में से 18 में एक फलक विषम और दूसरा सम है, जबकि बाकी 18 में दोनों फलकों की सम-विषम प्रकृति समान है।",
+      "36 ਕ੍ਰਮਿਤ ਜੋੜਿਆਂ ਵਿੱਚੋਂ 18 ਵਿੱਚ ਇੱਕ ਪਾਸਾ ਟਾਂਕ ਅਤੇ ਦੂਜਾ ਜੋੜਾ ਹੈ, ਜਦਕਿ ਬਾਕੀ 18 ਵਿੱਚ ਦੋਵੇਂ ਪਾਸਿਆਂ ਦੀ ਸਮ-ਵਿਸਮ ਪ੍ਰਕਿਰਤੀ ਇੱਕੋ ਹੈ।",
+    );
+  }
+
+  if (value === "Odd faces are 1, 3, 5 and even faces are 2, 4, 6. Same parity means odd-odd or even-even.") {
+    return pick(
+      language,
+      "विषम फलक 1, 3, 5 हैं और सम फलक 2, 4, 6 हैं। समान सम-विषम प्रकृति के लिए दोनों परिणाम या तो विषम-विषम होंगे या सम-सम।",
+      "ਟਾਂਕ ਪਾਸੇ 1, 3, 5 ਹਨ ਅਤੇ ਜੋੜੇ ਪਾਸੇ 2, 4, 6 ਹਨ। ਇੱਕੋ ਸਮ-ਵਿਸਮ ਪ੍ਰਕਿਰਤੀ ਲਈ ਦੋਵੇਂ ਨਤੀਜੇ ਜਾਂ ਤਾਂ ਟਾਂਕ-ਟਾਂਕ ਹੋਣਗੇ ਜਾਂ ਜੋੜਾ-ਜੋੜਾ।",
+    );
+  }
+
+  if (value === "Odd faces are 1, 3, 5 and even faces are 2, 4, 6. Different parity means odd-even or even-odd.") {
+    return pick(
+      language,
+      "विषम फलक 1, 3, 5 हैं और सम फलक 2, 4, 6 हैं। अलग सम-विषम प्रकृति के लिए एक परिणाम विषम और दूसरा सम होगा।",
+      "ਟਾਂਕ ਪਾਸੇ 1, 3, 5 ਹਨ ਅਤੇ ਜੋੜੇ ਪਾਸੇ 2, 4, 6 ਹਨ। ਵੱਖ ਸਮ-ਵਿਸਮ ਪ੍ਰਕਿਰਤੀ ਲਈ ਇੱਕ ਨਤੀਜਾ ਟਾਂਕ ਅਤੇ ਦੂਜਾ ਜੋੜਾ ਹੋਵੇਗਾ।",
+    );
+  }
+
+  m = value.match(/^Required ordered pairs = 3 × 3 \+ 3 × 3 = 18\. ((?:So|Hence) the probability is .+)$/u);
+  if (m) {
+    const hiTail = m[1].replace(/^(?:So|Hence) the probability is/u, "अतः प्रायिकता");
+    const paTail = m[1].replace(/^(?:So|Hence) the probability is/u, "ਇਸ ਲਈ ਸੰਭਾਵਨਾ");
+    return pick(
+      language,
+      "आवश्यक क्रमित युग्म = 3 × 3 + 3 × 3 = 18। " + hiTail,
+      "ਲੋੜੀਂਦੇ ਕ੍ਰਮਿਤ ਜੋੜੇ = 3 × 3 + 3 × 3 = 18। " + paTail,
+    );
+  }
+
+  if (value === "Parity questions become quick once the odd and even face counts are separated.") {
+    return pick(
+      language,
+      "विषम और सम फलकों की संख्या अलग कर लेने पर सम-विषम वाले प्रश्न जल्दी हल हो जाते हैं।",
+      "ਟਾਂਕ ਅਤੇ ਜੋੜੇ ਪਾਸਿਆਂ ਦੀ ਗਿਣਤੀ ਵੱਖ ਕਰ ਲੈਣ ਨਾਲ ਸਮ-ਵਿਸਮ ਵਾਲੇ ਪ੍ਰਸ਼ਨ ਤੇਜ਼ੀ ਨਾਲ ਹੱਲ ਹੋ ਜਾਂਦੇ ਹਨ।",
+    );
+  }
+
   m = value.match(/^The required probability is (.+)\.$/u);
   if (m) return pick(language, `आवश्यक प्रायिकता ${m[1]} है।`, `ਲੋੜੀਂਦੀ ਸੰਭਾਵਨਾ ${m[1]} ਹੈ।`);
 
