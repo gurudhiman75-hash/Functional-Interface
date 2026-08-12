@@ -1,11 +1,27 @@
 import type { SapCp006Option, SapCp006Package, SapCp006PrototypeId } from "./runtime";
 import { generateSapCp006Editorial as generateV2 } from "./editorial-runtime-v2";
 
-function independentOrderingCorrectIndex(seed: number): number {
-  // Answer placement must be independent from the mathematical ordering state.
+function independentFourWayCorrectIndex(seed: number): number {
+  // Answer placement must be independent from the mathematical state.
   // Four-seed blocks yield exactly 100 placements in each A/B/C/D position
   // across seeds 1..400.
   return Math.floor((seed - 1) / 4) % 4;
+}
+
+function repositionCorrectOption(base: SapCp006Package, seed: number, marker: string): SapCp006Package {
+  const correctIndex = independentFourWayCorrectIndex(seed);
+  const correct = base.options.find((option) => option.isCorrect);
+  if (!correct) throw new Error(`${marker}: package has no correct option.`);
+  const wrong = base.options.filter((option) => !option.isCorrect);
+  if (wrong.length !== 3) throw new Error(`${marker}: package must contain exactly three distractors.`);
+  const options = [...wrong];
+  options.splice(correctIndex, 0, correct);
+  return Object.freeze({
+    ...base,
+    options: Object.freeze(options),
+    correctIndex,
+    generationIdentity: `${base.generationIdentity}:${marker}:OPTION-POS-${correctIndex}`,
+  });
 }
 
 function orderingPermutationIndex(seed: number): number {
@@ -83,7 +99,7 @@ function remodelOrderingPackage(base: SapCp006Package, seed: number): SapCp006Pa
   const valueByLabel = new Map<string, number>(labels.map((label, index) => [label, assigned[index]!]));
   const orderedLabels = [...labels].sort((left, right) => valueByLabel.get(left)! - valueByLabel.get(right)!);
   const answer = orderedLabels.join(" < ");
-  const correctIndex = independentOrderingCorrectIndex(seed);
+  const correctIndex = independentFourWayCorrectIndex(seed);
   const options = orderingOptions(answer, orderedLabels, correctIndex);
   const tableWrapper = seed % 2 === 1;
   const dPercent = dVal! - 10;
@@ -138,6 +154,11 @@ export function generateSapCp006Editorial(
   seed: number,
 ): SapCp006Package {
   const base = generateV2(prototypeId, seed);
-  if (prototypeId !== "SAP-CP006-PROT-ORDER-MIXED-REPRESENTATIONS") return base;
-  return remodelOrderingPackage(base, seed);
+  if (prototypeId === "SAP-CP006-PROT-ORDER-MIXED-REPRESENTATIONS") {
+    return remodelOrderingPackage(base, seed);
+  }
+  if (prototypeId === "SAP-CP006-PROT-STATEMENT-COMBINATION") {
+    return repositionCorrectOption(base, seed, "STATEMENT-COMBINATION-DECOUPLED");
+  }
+  return base;
 }
