@@ -88,7 +88,9 @@ export type SeatingMisconceptionId =
   | "SEA-MC-LIN-OFF_BY_ONE_SEAT"
   | "SEA-MC-LIN-COUNT_ENDPOINT_INCLUDED"
   | "SEA-MC-LIN-SUBJECT_REFERENCE_SWAPPED"
-  | "SEA-MC-LIN-MIRROR_POSITION";
+  | "SEA-MC-LIN-MIRROR_POSITION"
+  | "SEA-MC-LIN-TRUE_FALSE_POLARITY"
+  | "SEA-MC-LIN-ODD_RELATION_MISCLASSIFIED";
 
 export type SeatingAnswerType = "PERSON" | "SEAT_POSITION" | "COUNT" | "PAIR" | "RELATION" | "SEQUENCE";
 export type SeatingSemanticValue = string | number | readonly string[];
