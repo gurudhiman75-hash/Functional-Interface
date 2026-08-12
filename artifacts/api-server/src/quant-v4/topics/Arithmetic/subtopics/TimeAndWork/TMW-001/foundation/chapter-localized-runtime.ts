@@ -14,6 +14,7 @@ import { runTmwCp010Pipeline } from "./cp010-runtime";
 import { runTmwCp010LocalizedPipeline } from "./cp010-localized-runtime";
 import { runTmwCp011Pipeline } from "./cp011-runtime";
 import { runTmwCp011LocalizedPipeline } from "./cp011-localized-runtime";
+import { runTmwCp012CoverageClosurePipeline } from "./cp012-coverage-closure-runtime";
 import { applyTmw001MultilingualStemRemediation } from "./chapter-editorial-remediation";
 import { applyTmw001MultilingualStemRemediationWave02 } from "./chapter-editorial-remediation-wave02";
 import { sanitizeTmw001LocalizedPresentation } from "./chapter-presentation-sanitizer";
@@ -43,8 +44,8 @@ function qlOrdinal(questionLanguageId: string): number {
   const match = /^TMW-QL-(\d{3})$/.exec(questionLanguageId);
   if (!match) throw new Error(`Unknown TMW-001 question-language ID: ${questionLanguageId}`);
   const ordinal = Number(match[1]);
-  if (!Number.isInteger(ordinal) || ordinal < 1 || ordinal > 211) {
-    throw new Error(`TMW-001 question-language ID is outside the frozen range: ${questionLanguageId}`);
+  if (!Number.isInteger(ordinal) || ordinal < 1 || ordinal > 215) {
+    throw new Error(`TMW-001 question-language ID is outside the supported range: ${questionLanguageId}`);
   }
   return ordinal;
 }
@@ -159,6 +160,9 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   const ordinal = qlOrdinal(input.questionLanguageId);
   const base = { questionLanguageId: input.questionLanguageId, seed: input.seed };
 
+  if (ordinal >= 212) {
+    return runTmwCp012CoverageClosurePipeline({ ...base, language: input.language });
+  }
   if (ordinal <= 20) {
     return input.language === "en"
       ? finishEnglish(runTmwCp001Pipeline({ ...base, language: "en" }), input.questionLanguageId)
