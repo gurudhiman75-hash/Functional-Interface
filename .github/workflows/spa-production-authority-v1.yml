@@ -1,0 +1,21 @@
+name: Validate SPA-FND-001 Production Authority V1
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-production-authority-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate controlled spatial production authority
+        run: node artifacts/api-server/src/reasoning-v1/foundation/spatial/validate-production-authority-v1.mjs
