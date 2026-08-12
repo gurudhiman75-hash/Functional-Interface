@@ -16,6 +16,7 @@ let conditionalOrientationCases = 0;
 let oppositeGapCases = 0;
 let facingCounterfactualQuestions = 0;
 let groupedFacingPresentationCases = 0;
+let naturalizedConditionalPresentationCases = 0;
 const observedSeatCounts = new Set<number>();
 const startedAt = performance.now();
 
@@ -66,6 +67,19 @@ for (const blueprint of SEA_CP005_BLUEPRINTS) {
       conditionalOrientationCases += 1;
       assert.ok(caselet.constraints.some((constraint) =>
         constraint.kind === "CONDITIONAL_FACING"));
+      const visibleConditionals = caselet.clueTexts.filter((clue) => /^If\b/i.test(clue));
+      const visibleRelativeFacings = caselet.clueTexts.filter((clue) =>
+        /face (?:the same direction|opposite directions)/i.test(clue));
+      assert.equal(
+        visibleConditionals.length,
+        1,
+        `${blueprint}/${seed} should retain exactly one explicit conditional-facing clue`,
+      );
+      assert.ok(
+        visibleRelativeFacings.length >= persons.length - 2,
+        `${blueprint}/${seed} did not naturalize the remaining conditional-equivalent facing links`,
+      );
+      naturalizedConditionalPresentationCases += 1;
     }
 
     for (const clue of caselet.constraints) {
@@ -86,6 +100,7 @@ assert.equal(inferredFacingCases, casesPerBlueprint);
 assert.equal(oppositeGapCases, casesPerBlueprint);
 assert.equal(conditionalOrientationCases, casesPerBlueprint);
 assert.equal(groupedFacingPresentationCases, casesPerBlueprint * 2);
+assert.equal(naturalizedConditionalPresentationCases, casesPerBlueprint);
 assert.ok(facingCounterfactualQuestions >= generatedCaselets * 2);
 
 console.log("PASS_SEA_001_CP005_MIXED_CIRCLE");
@@ -94,6 +109,7 @@ console.log(`generated deterministic caselets ${generatedCaselets}`);
 console.log(`generated child questions ${generatedQuestions}`);
 console.log(`facing-counterfactual questions ${facingCounterfactualQuestions}`);
 console.log(`grouped-facing presentation cases ${groupedFacingPresentationCases}`);
+console.log(`naturalized-conditional presentation cases ${naturalizedConditionalPresentationCases}`);
 console.log(`displayed-clue necessity audits ${displayedClueNecessityAudits}`);
 console.log(`elapsed milliseconds ${Math.round(performance.now() - startedAt)}`);
 console.log("permanent QLs 0");
