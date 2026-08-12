@@ -1,6 +1,5 @@
 import type { ExactTrigNumber } from "../foundation/types";
 import {
-  addExact,
   assertDefined,
   divideExact,
   exactInteger,
@@ -33,8 +32,7 @@ import {
 import { generateReviewedTrg002RuntimeProofQuestion } from "./runtime-proof-reviewed";
 
 type NumberAnswer = Extract<Trg002ProofQuestion["exactAnswer"], { kind: "NUMBER" }>;
-type ProofOption = Trg002ProofQuestion["options"][number];
-type ProofExplanation = Trg002ProofQuestion["explanation"];
+type Explanation = Trg002ProofQuestion["explanation"];
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -81,7 +79,13 @@ function showAnswer(answer: Trg002ProofQuestion["exactAnswer"]) {
   return `${angle.denominator === 1n ? angle.numerator : `${angle.numerator}/${angle.denominator}`}°`;
 }
 
-function point(id: string, x: ExactTrigNumber, y: ExactTrigNumber, role: Trg002SpatialPoint["role"], label?: string): Trg002SpatialPoint {
+function point(
+  id: string,
+  x: ExactTrigNumber,
+  y: ExactTrigNumber,
+  role: Trg002SpatialPoint["role"],
+  label?: string,
+): Trg002SpatialPoint {
   return { id, x, y, role, ...(label ? { label } : {}) };
 }
 
@@ -101,23 +105,23 @@ function spatialPoint(state: Trg002SpatialState, id: string) {
   return found;
 }
 
-function object(state: Trg002SpatialState, id: string) {
+function spatialObject(state: Trg002SpatialState, id: string) {
   const found = state.verticalObjects.find((item) => item.id === id);
   if (!found) throw new Error(`Missing canonical object ${id}.`);
   return found;
 }
 
-function requestedNumericValue(state: Trg002SpatialState) {
+function requestedNumericValue(state: Trg002SpatialState): number {
   switch (state.requested.kind) {
     case "OBJECT_HEIGHT":
-      return exactToNumber(object(state, state.requested.objectId).height);
+      return exactToNumber(spatialObject(state, state.requested.objectId).height);
     case "HORIZONTAL_DISTANCE": {
       const first = spatialPoint(state, state.requested.fromPointId);
       const second = spatialPoint(state, state.requested.toPointId);
       return Math.abs(exactToNumber(first.x) - exactToNumber(second.x));
     }
     case "SHADOW_LENGTH": {
-      const targetObject = object(state, state.requested.objectId);
+      const targetObject = spatialObject(state, state.requested.objectId);
       const base = spatialPoint(state, targetObject.basePointId);
       const tip = spatialPoint(state, state.requested.shadowTipPointId);
       return Math.abs(exactToNumber(base.x) - exactToNumber(tip.x));
@@ -125,7 +129,10 @@ function requestedNumericValue(state: Trg002SpatialState) {
     case "SIGHT_LINE_LENGTH": {
       const first = spatialPoint(state, state.requested.fromPointId);
       const second = spatialPoint(state, state.requested.toPointId);
-      return Math.hypot(exactToNumber(first.x) - exactToNumber(second.x), exactToNumber(first.y) - exactToNumber(second.y));
+      return Math.hypot(
+        exactToNumber(first.x) - exactToNumber(second.x),
+        exactToNumber(first.y) - exactToNumber(second.y),
+      );
     }
     case "MOVEMENT_DISTANCE": {
       const movement = state.movements.find((item) => item.id === state.requested.movementId);
@@ -146,7 +153,7 @@ function requestedNumericValue(state: Trg002SpatialState) {
   }
 }
 
-function makeExplanation(rule: string, steps: string[], trap: string, shortcut?: string): ProofExplanation {
+function makeExplanation(rule: string, steps: string[], trap: string, shortcut?: string): Explanation {
   return {
     keyRule: rule,
     steps: steps.map((body, index) => ({
@@ -163,24 +170,27 @@ function makeOptions(
   seed: string,
   correct: NumberAnswer,
   wrong: Array<{ value: ExactTrigNumber; misconceptionId: string }>,
-) {
-  const raw = [
-    { value: correct as Trg002ProofQuestion["exactAnswer"], isCorrect: true, misconceptionId: null as string | null },
-    ...wrong.map((item) => ({ value: numberAnswer(item.value) as Trg002ProofQuestion["exactAnswer"], isCorrect: false, misconceptionId: item.misconceptionId })),
+): Trg002ProofQuestion["options"] {
+  const raw: Array<{
+    value: Trg002ProofQuestion["exactAnswer"];
+    isCorrect: boolean;
+    misconceptionId: string | null;
+  }> = [
+    { value: correct, isCorrect: true, misconceptionId: null },
+    ...wrong.map((item) => ({ value: numberAnswer(item.value), isCorrect: false, misconceptionId: item.misconceptionId })),
   ];
   assert(raw.length === 4, `${qlId}: exactly four options are required.`);
-  assert(new Set(raw.map((item) => answerKey(item.value))).size === 4, `${qlId}: equivalent option collision in exam-ready layer.`);
-  const shuffled = shuffle(`${seed}|${qlId}|exam-ready-options`, raw);
-  return shuffled.map((item, index) => ({
+  assert(new Set(raw.map((item) => answerKey(item.value))).size === 4, `${qlId}: equivalent option collision.`);
+  return shuffle(`${seed}|${qlId}|exam-ready-options`, raw).map((item, index) => ({
     label: (["A", "B", "C", "D"] as const)[index],
     value: item.value,
     display: showAnswer(item.value),
     isCorrect: item.isCorrect,
     misconceptionId: item.misconceptionId,
-  })) as ProofOption[];
+  }));
 }
 
-function freshValidation(question: Trg002ProofQuestion) {
+function revalidate(question: Trg002ProofQuestion): Trg002ProofQuestion {
   const entry = TRG_002_RUNTIME_PROOF_REGISTRY.find((item) => item.qlId === question.qlId);
   if (!entry) throw new Error(`${question.qlId}: missing proof registry entry.`);
   const minimum = question.difficulty === "Hard" ? 3 : question.difficulty === "Medium" ? 2 : 1;
@@ -192,22 +202,18 @@ function freshValidation(question: Trg002ProofQuestion) {
     { name: "ONE_CORRECT", passed: question.options.filter((item) => item.isCorrect).length === 1, message: "Exactly one option is correct." },
     { name: "UNIQUE_OPTIONS", passed: new Set(question.options.map((item) => answerKey(item.value))).size === 4, message: "Options are mathematically unique." },
     { name: "CORRECT_INDEX", passed: question.options[question.correctIndex]?.isCorrect === true, message: "Correct index points to the correct option." },
+    { name: "ANSWER_DISPLAY", passed: question.answer === question.options[question.correctIndex]?.display, message: "Rendered answer matches the correct option." },
     { name: "DIAGRAM_STRATEGY", passed: question.canonicalSpatialState.diagramStrategy === entry.diagramStrategy, message: "Locked diagram strategy retained." },
     { name: "EXPLANATION_DEPTH", passed: question.explanation.steps.length >= minimum, message: "Explanation depth matches calibrated difficulty." },
     { name: "NO_PLACEHOLDERS", passed: !/[{}]\\w+|\\{\\{/.test(question.stem), message: "No unresolved placeholders remain." },
     { name: "ACTIVATION_LOCK", passed: !question.publiclyPublishable && !question.questionStudioDiscoverable && question.testEligibility === "INELIGIBLE" && question.questionBankStatus === "NOT_STORED", message: "Proof remains inactive." },
-    { name: "EXAM_READY_LAYER", passed: true, message: "Exam-readiness remediation layer applied." },
   ];
-  return { valid: checks.every((check) => check.passed), checks };
-}
-
-function finalize(question: Trg002ProofQuestion): Trg002ProofQuestion & { examReadinessStatus: "AI_REMEDIATED" } {
-  const validation = freshValidation(question);
+  const validation = { valid: checks.every((check) => check.passed), checks };
   if (!validation.valid) {
-    const failed = validation.checks.filter((check) => !check.passed).map((check) => check.name).join(", ");
+    const failed = checks.filter((check) => !check.passed).map((check) => check.name).join(", ");
     throw new Error(`${question.qlId}: exam-ready validation failed: ${failed}`);
   }
-  return { ...question, validation, examReadinessStatus: "AI_REMEDIATED" };
+  return { ...question, validation };
 }
 
 function customQuestion(input: {
@@ -218,7 +224,7 @@ function customQuestion(input: {
   stem: string;
   correct: ExactTrigNumber;
   wrong: Array<{ value: ExactTrigNumber; misconceptionId: string }>;
-  explanation: ProofExplanation;
+  explanation: Explanation;
 }): Trg002ProofQuestion {
   const entry = TRG_002_RUNTIME_PROOF_REGISTRY.find((item) => item.qlId === input.qlId);
   if (!entry) throw new Error(`${input.qlId}: missing proof registry entry.`);
@@ -231,14 +237,6 @@ function customQuestion(input: {
   const reconstructed = requestedNumericValue(input.state);
   const expected = exactToNumber(input.correct);
   const delta = Math.abs(reconstructed - expected);
-  const answerCheck = {
-    valid: Number.isFinite(reconstructed) && delta <= 1e-9,
-    method: "CANONICAL_REQUEST_RECONSTRUCTION",
-    reconstructed,
-    expected,
-    delta,
-  };
-
   const question: Trg002ProofQuestion = {
     packageId: "TRG-002",
     cpId: entry.cpId,
@@ -257,7 +255,17 @@ function customQuestion(input: {
     explanation: input.explanation,
     canonicalSpatialState: input.state,
     diagram,
-    verification: { spatial, diagram: diagramCheck, answer: answerCheck },
+    verification: {
+      spatial,
+      diagram: diagramCheck,
+      answer: {
+        valid: Number.isFinite(reconstructed) && delta <= 1e-9,
+        method: "CANONICAL_REQUEST_RECONSTRUCTION",
+        reconstructed,
+        expected,
+        delta,
+      },
+    },
     validation: { valid: false, checks: [] },
     reviewStatus: "UNREVIEWED",
     aiEditorialStatus: "PENDING",
@@ -268,7 +276,7 @@ function customQuestion(input: {
     questionStudioDiscoverable: false,
     proofOnly: true,
   };
-  return finalize(question);
+  return revalidate(question);
 }
 
 function buildDepressionHeightQuestion(seed: string) {
@@ -277,7 +285,6 @@ function buildDepressionHeightQuestion(seed: string) {
   const run = exactSurd(k, 3);
   const observerHeight = exactInteger(3 * k);
   const targetHeight = exactInteger(2 * k);
-  const drop = exactInteger(k);
   const state: Trg002SpatialState = {
     packageId: "TRG-002",
     scenario: "TWO_BUILDINGS",
@@ -307,7 +314,6 @@ function buildDepressionHeightQuestion(seed: string) {
     diagramStrategy: "SINGLE_DEPRESSION",
     metadata: { units: "m", sameSide: true },
   };
-
   return customQuestion({
     qlId,
     seed,
@@ -316,7 +322,7 @@ function buildDepressionHeightQuestion(seed: string) {
     stem: `From the top of a ${3 * k} m building, the top of a vertical pole ${formatExactPlain(run)} m away is seen at an angle of depression of 30°. Find the height of the pole.`,
     correct: targetHeight,
     wrong: [
-      { value: drop, misconceptionId: "RETURNED_VERTICAL_DROP" },
+      { value: exactInteger(k), misconceptionId: "RETURNED_VERTICAL_DROP" },
       { value: observerHeight, misconceptionId: "IGNORED_DEPRESSION" },
       { value: exactInteger(4 * k), misconceptionId: "ADDED_DROP_INSTEAD_OF_SUBTRACTING" },
     ],
@@ -333,7 +339,7 @@ function buildDepressionHeightQuestion(seed: string) {
   });
 }
 
-function shadowState(height: ExactTrigNumber, shadow: ExactTrigNumber, angle: 30 | 60, requested: "HEIGHT" | "SHADOW"): Trg002SpatialState {
+function buildShadowState(height: ExactTrigNumber, shadow: ExactTrigNumber, angle: 30 | 60, requested: "HEIGHT" | "SHADOW"): Trg002SpatialState {
   return {
     packageId: "TRG-002",
     scenario: "SHADOW",
@@ -369,11 +375,10 @@ function buildShadowToHeightQuestion(seed: string) {
   const angle = pick(seed, `${qlId}|angle`, [30, 60] as const);
   const shadow = exactInteger(angle === 30 ? 3 * k : k);
   const height = exactSurd(k, 3);
-  const state = shadowState(height, shadow, angle, "HEIGHT");
   return customQuestion({
     qlId,
     seed,
-    state,
+    state: buildShadowState(height, shadow, angle, "HEIGHT"),
     difficulty: "Easy",
     stem: `A vertical pole casts a ${formatExactPlain(shadow)} m shadow when the sun's angle of elevation is ${angle}°. Find the height of the pole.`,
     correct: height,
@@ -384,10 +389,7 @@ function buildShadowToHeightQuestion(seed: string) {
     ],
     explanation: makeExplanation(
       "For a vertical object and its shadow, tanθ=height/shadow length.",
-      [
-        `tan${angle}°=h/${formatExactPlain(shadow)}.`,
-        `Therefore h=${formatExactPlain(shadow)}×tan${angle}°=${formatExactPlain(height)} m.`,
-      ],
+      [`tan${angle}°=h/${formatExactPlain(shadow)}.`, `Therefore h=${formatExactPlain(shadow)}×tan${angle}°=${formatExactPlain(height)} m.`],
       "The shadow is the adjacent horizontal side, not the hypotenuse.",
     ),
   });
@@ -399,11 +401,10 @@ function buildHeightToShadowQuestion(seed: string) {
   const angle = pick(seed, `${qlId}|angle`, [30, 60] as const);
   const height = exactInteger(angle === 30 ? k : 3 * k);
   const shadow = exactSurd(k, 3);
-  const state = shadowState(height, shadow, angle, "SHADOW");
   return customQuestion({
     qlId,
     seed,
-    state,
+    state: buildShadowState(height, shadow, angle, "SHADOW"),
     difficulty: "Easy",
     stem: `A vertical pole is ${formatExactPlain(height)} m high. When the sun's angle of elevation is ${angle}°, find the length of its shadow.`,
     correct: shadow,
@@ -414,21 +415,31 @@ function buildHeightToShadowQuestion(seed: string) {
     ],
     explanation: makeExplanation(
       "Use tanθ=height/shadow and solve for the shadow length.",
-      [
-        `tan${angle}°=${formatExactPlain(height)}/s.`,
-        `Hence s=${formatExactPlain(height)}/tan${angle}°=${formatExactPlain(shadow)} m.`,
-      ],
+      [`tan${angle}°=${formatExactPlain(height)}/s.`, `Hence s=${formatExactPlain(height)}/tan${angle}°=${formatExactPlain(shadow)} m.`],
       "The shadow is the adjacent side, so isolate it by dividing the height by tanθ.",
     ),
   });
 }
 
-function buildMoveCloserQuestion(seed: string) {
-  const qlId: Trg002ProofQlId = "TRG-002-QL-056";
+function sameSideBase(qlId: Trg002ProofQlId, seed: string) {
   const k = pick(seed, `${qlId}|scale`, [10, 20] as const);
   const movement = exactInteger(2 * k);
-  const state = buildSameSideMovingState({ farAngle: degree(30), nearAngle: degree(60), movementTowardObject: movement, units: "m" });
-  const height = object(state, "object-1").height;
+  const state = buildSameSideMovingState({
+    farAngle: degree(30),
+    nearAngle: degree(60),
+    movementTowardObject: movement,
+    units: "m",
+  });
+  return { k, movement, state, height: spatialObject(state, "object-1").height };
+}
+
+function buildMoveCloserQuestion(seed: string) {
+  const qlId: Trg002ProofQlId = "TRG-002-QL-056";
+  const { k, movement, state: base, height } = sameSideBase(qlId, seed);
+  const state: Trg002SpatialState = {
+    ...base,
+    requested: { kind: "HORIZONTAL_DISTANCE", fromPointId: "object-base", toPointId: "near-ground" },
+  };
   return customQuestion({
     qlId,
     seed,
@@ -454,10 +465,11 @@ function buildMoveCloserQuestion(seed: string) {
 
 function buildOriginalDistanceQuestion(seed: string) {
   const qlId: Trg002ProofQlId = "TRG-002-QL-065";
-  const k = pick(seed, `${qlId}|scale`, [10, 20] as const);
-  const movement = exactInteger(2 * k);
-  const state = buildSameSideMovingState({ farAngle: degree(30), nearAngle: degree(60), movementTowardObject: movement, units: "m" });
-  const height = object(state, "object-1").height;
+  const { k, movement, state: base, height } = sameSideBase(qlId, seed);
+  const state: Trg002SpatialState = {
+    ...base,
+    requested: { kind: "HORIZONTAL_DISTANCE", fromPointId: "object-base", toPointId: "far-ground" },
+  };
   return customQuestion({
     qlId,
     seed,
@@ -483,16 +495,13 @@ function buildOriginalDistanceQuestion(seed: string) {
 
 function buildPointSeparationQuestion(seed: string) {
   const qlId: Trg002ProofQlId = "TRG-002-QL-068";
-  const k = pick(seed, `${qlId}|scale`, [10, 20] as const);
-  const movement = exactInteger(2 * k);
-  const base = buildSameSideMovingState({ farAngle: degree(30), nearAngle: degree(60), movementTowardObject: movement, units: "m" });
+  const { k, movement, state: base, height } = sameSideBase(qlId, seed);
   const state: Trg002SpatialState = {
     ...base,
     movements: [],
     requested: { kind: "HORIZONTAL_DISTANCE", fromPointId: "near-ground", toPointId: "far-ground" },
     diagramStrategy: "TWO_OBSERVATIONS_SAME_SIDE",
   };
-  const height = object(state, "object-1").height;
   return customQuestion({
     qlId,
     seed,
@@ -521,7 +530,7 @@ function buildObserverHeightQuestion(seed: string) {
   const run = exactInteger(pick(seed, `${qlId}|run`, [10, 20] as const));
   const eyeHeight = exactRational(3, 2);
   const state = buildObserverHeightElevationState({ horizontal: run, angle: degree(45), eyeHeight, units: "m" });
-  const correct = object(state, "object-1").height;
+  const correct = spatialObject(state, "object-1").height;
   const rise = subtractExact(correct, eyeHeight);
   return customQuestion({
     qlId,
@@ -537,10 +546,7 @@ function buildObserverHeightQuestion(seed: string) {
     ],
     explanation: makeExplanation(
       "The tangent relation gives the rise above eye level; the observer's eye height must then be added once.",
-      [
-        `Rise above eye level=${formatExactPlain(run)}×tan45°=${formatExactPlain(rise)} m.`,
-        `Building height=${formatExactPlain(rise)}+1.5=${formatExactPlain(correct)} m.`,
-      ],
+      [`Rise above eye level=${formatExactPlain(run)}×tan45°=${formatExactPlain(rise)} m.`, `Building height=${formatExactPlain(rise)}+1.5=${formatExactPlain(correct)} m.`],
       "Do not omit the 1.5 m eye height, and do not add it twice.",
     ),
   });
@@ -551,15 +557,15 @@ function polishExisting(question: Trg002ProofQuestion): Trg002ProofQuestion {
     const movement = question.canonicalSpatialState.movements[0];
     if (!movement) throw new Error("TRG-002-QL-061: canonical movement missing.");
     const moved = formatExactPlain(movement.distance);
-    const near = formatExactPlain(spatialPoint(question.canonicalSpatialState, "near-ground").x);
-    return finalize({
+    const originalDistance = formatExactPlain(spatialPoint(question.canonicalSpatialState, "near-ground").x);
+    return revalidate({
       ...question,
       stem: `An observer sees the top of a tower at an elevation of 60°. After walking ${moved} m directly away from the tower, the angle of elevation becomes 30°. Find the height of the tower.`,
       explanation: makeExplanation(
         "The tower height stays the same while the horizontal distance increases.",
         [
           `Let the original distance be x m. After walking away, the distance is x+${moved} m.`,
-          `Equate the two height expressions: x tan60°=(x+${moved})tan30°. This gives x=${near} m.`,
+          `Equate the two height expressions: x tan60°=(x+${moved})tan30°. This gives x=${originalDistance} m.`,
           `Now h=x tan60°, so the tower height is ${question.answer}.`,
         ],
         "Using only the distance walked as a tower distance ignores one of the observations.",
@@ -569,18 +575,17 @@ function polishExisting(question: Trg002ProofQuestion): Trg002ProofQuestion {
 
   if (question.qlId === "TRG-002-QL-078") {
     const separation = formatExactPlain(spatialPoint(question.canonicalSpatialState, "right-ground").x);
-    const options = question.options.map((option) => ({
-      ...option,
-      misconceptionId: option.misconceptionId === "USED_FULL_SEPARATION"
-        ? "USED_FULL_OBSERVER_SEPARATION_AS_HEIGHT"
-        : option.misconceptionId === "USED_THREE_QUARTERS"
-          ? "USED_THREE_QUARTERS_OF_SEPARATION"
-          : option.misconceptionId,
-    }));
-    return finalize({
+    return revalidate({
       ...question,
       difficulty: "Medium",
-      options,
+      options: question.options.map((option) => ({
+        ...option,
+        misconceptionId: option.misconceptionId === "USED_FULL_SEPARATION"
+          ? "USED_FULL_OBSERVER_SEPARATION_AS_HEIGHT"
+          : option.misconceptionId === "USED_THREE_QUARTERS"
+            ? "USED_THREE_QUARTERS_OF_SEPARATION"
+            : option.misconceptionId,
+      })),
       stem: `Two observation points are ${separation} m apart on opposite sides of a tower. From each point, the angle of elevation of the tower top is 45°. Find the height of the tower.`,
       explanation: makeExplanation(
         "At 45°, the tower height equals the horizontal distance from each observation point to the tower.",
@@ -595,9 +600,9 @@ function polishExisting(question: Trg002ProofQuestion): Trg002ProofQuestion {
   }
 
   if (question.qlId === "TRG-002-QL-083") {
-    const firstHeight = formatExactPlain(object(question.canonicalSpatialState, "building-1").height);
+    const firstHeight = formatExactPlain(spatialObject(question.canonicalSpatialState, "building-1").height);
     const run = formatExactPlain(spatialPoint(question.canonicalSpatialState, "second-base").x);
-    return finalize({
+    return revalidate({
       ...question,
       difficulty: "Medium",
       stem: `From the top of a ${firstHeight} m building, the angle of elevation of the top of a second building ${run} m away is 45°. Find the height of the second building.`,
@@ -614,7 +619,7 @@ function polishExisting(question: Trg002ProofQuestion): Trg002ProofQuestion {
   }
 
   if (question.qlId === "TRG-002-QL-088") {
-    return finalize({
+    return revalidate({
       ...question,
       difficulty: "Medium",
       stem: question.stem.replace("a tower base", "the base of a tower").replace("its top", "the tower top"),
@@ -627,7 +632,7 @@ function polishExisting(question: Trg002ProofQuestion): Trg002ProofQuestion {
   }
 
   if (question.qlId === "TRG-002-QL-092") {
-    return finalize({
+    return revalidate({
       ...question,
       difficulty: "Medium",
       stem: question.stem.replace("the point directly opposite", "a point directly opposite the tower"),
@@ -639,10 +644,10 @@ function polishExisting(question: Trg002ProofQuestion): Trg002ProofQuestion {
     });
   }
 
-  return finalize(question);
+  return revalidate(question);
 }
 
-export function generateExamReadyTrg002RuntimeProofQuestion(qlId: Trg002ProofQlId, seed: string) {
+export function generateExamReadyTrg002RuntimeProofQuestion(qlId: Trg002ProofQlId, seed: string): Trg002ProofQuestion {
   switch (qlId) {
     case "TRG-002-QL-015": return buildDepressionHeightQuestion(seed);
     case "TRG-002-QL-025": return buildShadowToHeightQuestion(seed);
