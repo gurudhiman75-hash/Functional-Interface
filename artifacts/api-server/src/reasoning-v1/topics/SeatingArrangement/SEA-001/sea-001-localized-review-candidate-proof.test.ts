@@ -3,7 +3,7 @@ import { buildSea001SaturationCorpus, selectManualReviewCorpus } from "./saturat
 import { SEA001_TRANSLATION_TARGET_LOCALES, assertSea001LocalizationFoundationStillBlocked, sea001CanonicalParityFingerprint } from "./localization/readiness.ts";
 import { SEA001_REVIEW_CANONICAL_NAMES } from "./localization/name-pack.ts";
 import { sea001LocalizedLearnerSurface } from "./localization/candidate-localizer.ts";
-import { buildSea001LocalizedReviewCandidate } from "./localization/review-projection.ts";
+import { buildSea001FinalLocalizedReviewCandidate } from "./localization/final-review-cleanup.ts";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -32,7 +32,7 @@ const criticalResiduals = new Map<string, number>();
 
 for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
   for (const canonical of canonicalReview) {
-    const localized = buildSea001LocalizedReviewCandidate(canonical, locale);
+    const localized = buildSea001FinalLocalizedReviewCandidate(canonical, locale);
     localizedCaseletCount += 1;
     localizedChildCount += localized.children.length;
 
