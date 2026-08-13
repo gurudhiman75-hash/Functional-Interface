@@ -1,5 +1,5 @@
 import { compare, toCanonicalString, type Rational } from "../foundation/rational";
-import { deriveStrongCp004WrongWorkings } from "./distractor-engine-v2";
+import { deriveStrongCp004WrongWorkingsFinal } from "./distractor-engine-v2-final";
 import { independentlyVerifyCp004 } from "./independent-verifier";
 import { cp004PermanentQlForAuthority } from "./ql-allocation";
 import { buildCp004Options, cp004DifficultyForAuthority } from "./options";
@@ -74,7 +74,7 @@ function validateQuestion(question: Omit<TsdCp004GeneratedQuestion, "validation"
 
 export function generateCp004Question(authorityKey: string, seed: string): TsdCp004GeneratedQuestion {
   const { state, solution } = generateSolvableState(authorityKey, seed);
-  const wrongWorkings = deriveStrongCp004WrongWorkings(state.solveMode, state.input, solution);
+  const wrongWorkings = deriveStrongCp004WrongWorkingsFinal(state.solveMode, state.input, solution);
   const built = buildCp004Options(solution, wrongWorkings, state.permanentQlId, seed);
   const answerText = built.options[built.correctIndex];
   const stem = renderCp004StemV2(state);
