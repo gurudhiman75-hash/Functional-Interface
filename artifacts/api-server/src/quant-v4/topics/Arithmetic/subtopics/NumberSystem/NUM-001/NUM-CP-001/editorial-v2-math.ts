@@ -1,0 +1,3 @@
+const inline=(value:string)=>`\\(${value}\\)`;
+export function latexifyLearnerText(value:string):string{return value.replace(/(?<![\\{])(-?\d+)\/(\d+)\b/gu,(_match,numerator,denominator)=>denominator==="1"?inline(String(numerator)):inline(`\\frac{${numerator}}{${denominator}}`));}
+export function latexifyEditorialSurface(surface:any){return{...surface,stem:latexifyLearnerText(String(surface.stem)),options:Object.freeze((surface.options??[]).map((value:string)=>latexifyLearnerText(String(value)))),answer:latexifyLearnerText(String(surface.answer)),concept:latexifyLearnerText(String(surface.concept??"")),steps:Object.freeze((surface.steps??[]).map((value:string)=>latexifyLearnerText(String(value))))};}
