@@ -136,6 +136,7 @@ function constructState(seed: number): RnkCp007CategoryCompositionState {
     const categoryAAhead = pickInt(localSeed, 0x41484541, minAAhead, maxAAhead);
     const categoryBAhead = totalAhead - categoryAAhead;
     if (categoryAAhead <= 0 || categoryBAhead <= 0) continue;
+    if (categoryAAhead === categoryBAhead) continue;
 
     const categoryAAfter = categoryATotal - categoryAAhead - (targetCategory === "A" ? 1 : 0);
     const categoryBAfter = categoryBTotal - categoryBAhead - (targetCategory === "B" ? 1 : 0);
