@@ -34,13 +34,7 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
     const eye = raw.find((point) => point.id === observation.eyePointId);
     const target = raw.find((point) => point.id === observation.targetPointId);
     if (!eye || !target) throw new Error(`Diagram cannot resolve observation ${observation.id}.`);
-    raw.push({
-      id: `eye-level-${observation.id}`,
-      x: target.x,
-      y: eye.y,
-      role: "AUXILIARY",
-      label: undefined,
-    });
+    raw.push({ id: `eye-level-${observation.id}`, x: target.x, y: eye.y, role: "AUXILIARY", label: undefined });
   }
 
   const xs = raw.map((point) => point.x);
@@ -101,7 +95,7 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
   }
 
   for (const movement of state.movements) {
-    segments.push({ id: `movement-${movement.id}`, fromPointId: movement.fromGroundPointId, toPointId: movement.toGroundPointId, kind: "AUXILIARY" });
+    segments.push({ id: `movement-${movement.id}`, fromPointId: movement.fromGroundPointId, toPointId: movement.toGroundPointId, kind: "MOVEMENT" });
   }
 
   const angles: Trg002DiagramAngleMarker[] = state.observations.map((observation) => {
