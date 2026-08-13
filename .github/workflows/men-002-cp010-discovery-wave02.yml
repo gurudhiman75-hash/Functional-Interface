@@ -1,0 +1,72 @@
+name: Validate MEN-CP-010 discovery wave 02
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp010-foundation/discovery-v2*
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-010/MEN-CP-010-DISCOVERY-WAVE-02.md
+      - .github/workflows/men-002-cp010-discovery-wave02.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-002-cp010-discovery-wave02-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp010-discovery-wave02:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Prove MEN-CP-010 Wave 02 discovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp010-foundation/discovery-v2.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp010-discovery-wave02.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp010-discovery-wave02.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp010-discovery-wave02.test.log
+      - name: Export Wave 02 review evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp010-foundation/discovery-v2-export.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp010-discovery-wave02-review.mjs
+          cd artifacts/api-server
+          node dist/quant-v4/men-cp010-discovery-wave02-review.mjs \
+            2>&1 | tee dist/quant-v4/men-cp010-discovery-wave02-review.log
+      - name: Build production API bundle
+        run: bash build-api.sh
+      - name: Upload MEN-CP-010 Wave 02 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp010-discovery-wave02
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp010-discovery-wave02.test.log
+            artifacts/api-server/dist/quant-v4/men-cp010-discovery-wave02-review.log
+            artifacts/api-server/dist/quant-v4/men-cp010-discovery-wave02.json
+            artifacts/api-server/dist/quant-v4/men-cp010-discovery-wave02.md
+          if-no-files-found: error
+          retention-days: 14
