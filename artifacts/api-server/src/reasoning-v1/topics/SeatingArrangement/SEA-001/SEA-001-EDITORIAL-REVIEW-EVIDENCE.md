@@ -2,7 +2,7 @@
 
 Authority: **SEA Seating Arrangement Master End-to-End Family Design V3 (merged)**.
 
-Status: **Editorial remediation complete; signed human English review approved for the exact fingerprinted 100-caselet corpus.**
+Status: **Editorial remediation complete; signed human English review approved and English presentation frozen for the exact fingerprinted 100-caselet corpus.**
 
 ## Review scope
 
@@ -102,23 +102,37 @@ The approval record is stored in `review/approved-review.ts` and is locked to:
 - 0 `REJECT`;
 - reviewer `gurudhiman75-hash`;
 - review timestamp `2026-08-13T07:56:00+05:30`;
-- exact approved 100-caselet content fingerprint `e3a4bdcd5c3afb656bed4a695e50f2f4218e45907647e23d8c733feffb59ca22`.
+- exact approved 100-caselet content fingerprint `e3a4bdcd5c3afb656bed4a695e50f2f4218e45907647e23d8c733feffb59ca22`;
+- approved artifact SHA-256 `68972a48f078118b45fffbd69e6552b66c71a2373df741e678270de3657f29cf`.
 
 If any caselet ID or review-content fingerprint changes, the approval record fails closed and the review must be performed again.
+
+## Permanent allocation and freeze
+
+After signed-review closure, the V3 merge/split result retains all 20 named PBAs as separate solve authorities. Permanent identities are therefore allocated one-to-one as `SEA-QL-001..SEA-QL-020`, with `SEA-QL-021` reserved as the next unused identity.
+
+The permanent layer freezes:
+
+- solve inventory: 20 retained authorities, zero merges, zero splits;
+- query mix: checkpoint-owned query-contract sets and four child questions per caselet;
+- English: approved `en-IN` plain-teacher presentation tied to the signed review fingerprint.
+
+The historical discovery layer is intentionally preserved. The permanent registry/freeze is separate and inactive so the exact approved review evidence remains reproducible.
 
 ## Governance status
 
 ```text
 signed 100-caselet human English review   APPROVED — 100/100 ACCEPT
-permanent QL allocation                    ELIGIBLE, NOT YET APPLIED
-solve-inventory freeze                     ELIGIBLE, NOT YET APPLIED
-query-mix freeze                           ELIGIBLE, NOT YET APPLIED
-English freeze                             ELIGIBLE, NOT YET APPLIED
+permanent QL allocation                    APPLIED — SEA-QL-001..SEA-QL-020
+solve-inventory freeze                     FROZEN
+query-mix freeze                           FROZEN
+English freeze                             FROZEN
+localization                               NOT_STARTED
 Question Studio registration               false
 Question Bank writes                       false
 mock-test eligibility                      false
 public delivery                            false
-permanent QLs                              0
+permanent QLs                              20
 ```
 
-Human English review is no longer a blocker. Permanent QL allocation and the three freezes remain separate implementation steps. Activation remains a separate downstream gate even after those steps.
+Human English review, permanent allocation and the three freezes are no longer blockers. Localization and activation remain separate downstream gates. No Question Studio, Question Bank, mock-test or public-delivery flag is enabled by this freeze.
