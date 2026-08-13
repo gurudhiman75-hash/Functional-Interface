@@ -1,0 +1,82 @@
+name: Validate SYL-001 Banking inactive profile V3
+on:
+  pull_request:
+    branches:
+      - prototype/syl-001-bank-possibility-shell
+      - audit/syl-001-source-profile-freeze
+      - feat/syl-001-learner-v4
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/profile-plan-v3.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v3.ts
+      - .github/workflows/reasoning-syl-001-bank-profile-v3.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate-profile-v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Bundle profile planner V3
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/profile-plan-v3.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-profile-plan-v3.mjs
+      - name: Audit inactive Banking candidate family
+        shell: bash
+        run: |
+          set -o pipefail
+          node --input-type=module <<'NODE' 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-profile-plan-v3-audit.log
+          import assert from 'node:assert/strict';
+          const m = await import('./artifacts/api-server/dist/reasoning-v1/syl-001-profile-plan-v3.mjs');
+          const plan = m.buildSylProfilePlanV3('BANKING', 731, 100);
+          assert.deepEqual(plan.readinessCounts, { ACTIVE_CANONICAL: 80, CANDIDATE_INACTIVE: 20, BLOCKED_REMODEL: 0, PRACTICE_ONLY: 0 });
+          const slots = plan.slots.filter((s) => s.familyId === 'BANK_POSSIBILITY_IN_CONCLUSION_SET');
+          assert.equal(slots.length, 20);
+          assert.ok(slots.every((s) => s.canonicalQlId === null && s.registrationRequired === true));
+          assert.ok(slots.every((s) => s.candidateAuthorities.includes('SYL_001_BANKING_POSSIBILITY_SHELL_V2')));
+          assert.ok(slots.every((s) => s.candidateAuthorities.includes('SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V4')));
+          assert.equal(plan.connectedToGenerator, false);
+          assert.equal(plan.activationPermitted, false);
+          console.log(JSON.stringify({ status: 'PASS_SYL_001_PROFILE_PLAN_V3', readiness: plan.readinessCounts, candidateSlots: slots.length, candidateAuthorities: m.SYL_PROFILE_PLAN_V3.candidateAuthorities, registered: false, connectedToGenerator: false, activationPermitted: false }, null, 2));
+          NODE
+
+      - name: Bundle freeze readiness V3
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v3.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-freeze-readiness-v3.mjs
+      - name: Audit post-remodel freeze decision
+        shell: bash
+        run: |
+          set -o pipefail
+          node --input-type=module <<'NODE' 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v3-audit.log
+          import assert from 'node:assert/strict';
+          const m = await import('./artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v3.mjs');
+          assert.deepEqual(m.SYL_FREEZE_READINESS_V3.counts, { MET: 3, PARTIAL: 4, BLOCKED: 3 });
+          assert.equal(m.SYL_FREEZE_READINESS_V3.status, 'NOT_READY_FOR_PROFILE_OR_QL_FREEZE');
+          assert.equal(m.SYL_FREEZE_READINESS_V3.bankingRemodelBlockerClosed, true);
+          assert.equal(m.SYL_FREEZE_READINESS_V3.bankingCandidateInactive, true);
+          const bank = m.SYL_FREEZE_REQUIREMENTS_V3.find((r) => r.requirementId === 'BANKING_PROFILE_MOCK_READY');
+          assert.equal(bank?.status, 'PARTIAL');
+          assert.match(bank?.evidence ?? '', /80% active canonical/);
+          assert.match(bank?.evidence ?? '', /20% candidate-inactive/);
+          assert.equal(m.SYL_FREEZE_READINESS_V3.permanentQlFreezePermitted, false);
+          assert.equal(m.SYL_FREEZE_READINESS_V3.profileActivationPermitted, false);
+          assert.equal(m.SYL_FREEZE_READINESS_V3.generatorIntegrationPermitted, false);
+          console.log(JSON.stringify({ status: 'PASS_SYL_001_FREEZE_READINESS_V3', decision: m.SYL_FREEZE_READINESS_V3.status, counts: m.SYL_FREEZE_READINESS_V3.counts, bankingProfileStatus: bank?.status, activationPermitted: false }, null, 2));
+          NODE
+
+      - name: Upload profile V3 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: syl-001-bank-profile-v3
+          path: |
+            artifacts/api-server/dist/reasoning-v1/syl-001-profile-plan-v3-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v3-audit.log
+          if-no-files-found: error
+          retention-days: 30
