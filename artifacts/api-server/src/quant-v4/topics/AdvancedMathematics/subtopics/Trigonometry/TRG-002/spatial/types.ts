@@ -145,7 +145,7 @@ export interface Trg002DiagramSegment {
   id: string;
   fromPointId: string;
   toPointId: string;
-  kind: "GROUND" | "VERTICAL_OBJECT" | "SIGHT_LINE" | "EYE_LEVEL" | "LADDER" | "WIRE" | "SHADOW" | "AUXILIARY";
+  kind: "GROUND" | "VERTICAL_OBJECT" | "SIGHT_LINE" | "EYE_LEVEL" | "LADDER" | "WIRE" | "SHADOW" | "MOVEMENT" | "AUXILIARY";
 }
 
 export interface Trg002DiagramAngleMarker {
