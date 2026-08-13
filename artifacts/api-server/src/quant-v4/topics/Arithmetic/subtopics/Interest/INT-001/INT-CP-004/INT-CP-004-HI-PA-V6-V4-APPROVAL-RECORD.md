@@ -17,7 +17,8 @@ Canonical English freeze: INT-CP-004-EN-v2-frozen
 Native editorial version: INT-CP-004-HI-PA-V6-NATIVE-EDITORIAL-v4
 QL range:                 INT-QL-067..INT-QL-085
 Locales:                  hi-IN, pa-IN
-Approved source head:     38ad6fdd7cde2c155c2121fb554f9fa3d11016af
+Approved content head:    38ad6fdd7cde2c155c2121fb554f9fa3d11016af
+Approval-record head:     adc97c6c824a7bc893797ac698f3aa90905a8495
 Workflow run:             31716094213 — PASS
 Evidence artifact ID:     9187335552
 Evidence digest:          sha256:a383c700b0cafa2ca63ccccaf56665913d55d1eb36e40fdd9e2b92f823b85934
@@ -25,7 +26,7 @@ Evidence digest:          sha256:a383c700b0cafa2ca63ccccaf56665913d55d1eb36e40fd
 
 ## Exact-head proof
 
-The approved source head passed the complete migration workflow and inherited isolation contract.
+The approved content head passed the complete migration workflow and inherited isolation contract.
 
 ```text
 Native V4 questions:             3,800
