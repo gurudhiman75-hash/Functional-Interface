@@ -33,6 +33,8 @@ export * from "./cp004/relative-motion-foundation";
 export * from "./cp004/cross-checkpoint-overlap-audit";
 export * from "./cp004/final-ownership-candidate";
 export * from "./cp004/ql-allocation";
+export * from "./cp004/runtime-types";
+export * from "./cp004/runtime-engine";
 export * from "./authority-overlap-audit";
 export * from "./final-authority-registry";
 export * from "./final-authority-review";
