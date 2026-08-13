@@ -33,8 +33,8 @@ export type ReasoningV1QuestionStudioReviewRequest = Readonly<{
 }>;
 
 const REVIEW_PACKAGES = [
-  BLR_CP006_QUESTION_STUDIO_REVIEW_PACKAGE,
   BLR_CP007_QUESTION_STUDIO_REVIEW_PACKAGE,
+  BLR_CP006_QUESTION_STUDIO_REVIEW_PACKAGE,
 ] as const;
 
 export function listReasoningV1QuestionStudioReviewPackages() {
