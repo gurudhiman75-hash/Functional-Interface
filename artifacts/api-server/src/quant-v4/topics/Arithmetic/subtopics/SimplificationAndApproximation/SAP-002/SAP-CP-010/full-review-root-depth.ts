@@ -2,7 +2,7 @@ import {
   SAP_CP010_PROTOTYPE_IDS,
   generateSapCp010,
   type SapCp010Package,
-} from "./root-depth-runtime";
+} from "./root-depth-final-runtime";
 
 export interface SapCp010RootDepthReviewRecord extends SapCp010Package { readonly questionId: string; }
 
