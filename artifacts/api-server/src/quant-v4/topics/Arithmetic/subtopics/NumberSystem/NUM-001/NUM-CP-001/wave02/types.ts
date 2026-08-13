@@ -20,7 +20,7 @@ export type NumCp001Wave02PrototypeId =
   (typeof NUM_CP001_WAVE02_PROTOTYPE_IDS)[number];
 
 export type NumCp001Wave02AnswerSemantic =
-  | "RATIONAL_VALUE"
+  | "VALUE"
   | "INTEGER"
   | "COUNT"
   | "NUMBER_TUPLE"
