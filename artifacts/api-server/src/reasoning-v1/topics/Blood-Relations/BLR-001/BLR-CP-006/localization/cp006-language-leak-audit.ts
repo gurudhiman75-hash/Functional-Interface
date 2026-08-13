@@ -2,7 +2,10 @@ import { generateBlrCp006LocalizedReviewBank } from "./cp006-localizer";
 import type { BlrCp006TranslatedLocale } from "./cp006-language-pack";
 
 const ASCII_WORD = /\b[A-Za-z]{2,}\b/g;
-const DEVANAGARI = /[\u0900-\u097F]/;
+// U+0964/U+0965 (danda/double danda) are shared Indic punctuation and are
+// valid in Punjabi prose, so cross-script detection intentionally excludes
+// those two code points while retaining Devanagari letters, marks and digits.
+const DEVANAGARI = /[\u0900-\u0963\u0966-\u097F]/;
 const GURMUKHI = /[\u0A00-\u0A7F]/;
 const PLACEHOLDER = /(?:\{[A-Za-z_][^}]*\}|\$\d+|⟦\d+⟧|__PERSON_\d+__|\b(?:TODO|TBD|TRANSLATE|PLACEHOLDER)\b)/i;
 
