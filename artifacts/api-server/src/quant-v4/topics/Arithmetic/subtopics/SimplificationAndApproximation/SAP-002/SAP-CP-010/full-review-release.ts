@@ -2,7 +2,7 @@ import {
   SAP_CP010_PROTOTYPE_IDS,
   generateSapCp010,
   type SapCp010Package,
-} from "./release-runtime";
+} from "./student-runtime";
 
 export interface SapCp010ReviewRecord extends SapCp010Package {
   readonly questionId: string;
