@@ -1,0 +1,50 @@
+name: Validate SAP-CP-009 multiplicative approximation
+
+on:
+  pull_request:
+    branches:
+      - freeze/sap-cp004-cp008-product-owner-approved
+      - feat/sap-cp008-additive-approximation-foundation
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-009/**
+      - .github/workflows/validate-sap-cp009-multiplicative.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-sap-cp009:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP009 exam-standard authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-009/authority-exam-standard.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp009-authority.test.mjs
+      - name: Run CP009 exam-standard authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp009-authority.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp009-authority.log
+      - name: Upload CP009 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp009-multiplicative-authority
+          path: artifacts/api-server/dist/quant-v4/sap-cp009-authority.log
+          if-no-files-found: error
+          retention-days: 30
