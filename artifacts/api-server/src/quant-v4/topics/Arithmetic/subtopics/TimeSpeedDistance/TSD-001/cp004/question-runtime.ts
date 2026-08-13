@@ -1,11 +1,11 @@
 import { compare, toCanonicalString, type Rational } from "../foundation/rational";
-import { deriveExamReadyCp004WrongWorkings } from "./distractor-remediation";
-import { generateCp004State, renderCp004Stem } from "./generator";
+import { deriveStrongCp004WrongWorkings } from "./distractor-engine-v2";
 import { independentlyVerifyCp004 } from "./independent-verifier";
 import { cp004PermanentQlForAuthority } from "./ql-allocation";
 import { buildCp004Options, cp004DifficultyForAuthority } from "./options";
 import { solveCp004Core } from "./relative-motion-foundation";
-import { remediateCp004Stem } from "./stem-remediation";
+import { generateCp004StateV2 } from "./state-v2";
+import { renderCp004StemV2 } from "./stem-library-v2";
 import { buildCp004Teaching } from "./teaching";
 import type { TsdCp004GeneratedQuestion } from "./runtime-types";
 
@@ -29,7 +29,7 @@ function generateSolvableState(authorityKey: string, seed: string) {
   const failures: string[] = [];
   for (let attempt = 0; attempt < 24; attempt += 1) {
     const candidateSeed = attempt === 0 ? seed : `${seed}:valid-${attempt}:${ordinal}`;
-    const state = generateCp004State(authorityKey, candidateSeed);
+    const state = generateCp004StateV2(authorityKey, candidateSeed);
     try {
       const solution = solveCp004Core(state.solveMode, state.input);
       const independent = independentlyVerifyCp004(state.solveMode, state.input, solution);
@@ -56,6 +56,8 @@ function validateQuestion(question: Omit<TsdCp004GeneratedQuestion, "validation"
   if (question.internalOptionAudit.filter((entry) => entry.isCorrect).length !== 1) errors.push("option audit must contain one correct option");
   if (question.internalOptionAudit.filter((entry) => !entry.isCorrect).length !== 3) errors.push("option audit must contain three wrong options");
   if (question.internalOptionAudit.some((entry) => !entry.isCorrect && (entry.wrongWorking === null || entry.applicability !== "EXACT_METHOD"))) errors.push("wrong option missing exact-method provenance");
+  if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && /scaled|alter final arithmetic|answer ×|answer ÷/i.test(entry.wrongWorking.calculation))) errors.push("generic answer-scaling distractor leaked into CP004 V2");
+  if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && entry.wrongWorking.diagnosis.length < 25)) errors.push("distractor diagnosis is too weak");
   if ((question.solveMode === "findMeetingPointDistanceSplit" || question.solveMode === "findMeetingPointFromSpeedRatio") && question.input.routeDistance) {
     if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && compare(entry.wrongWorking.value, question.input.routeDistance!) >= 0)) {
       errors.push("meeting-point distractor must lie strictly inside the route");
@@ -72,10 +74,10 @@ function validateQuestion(question: Omit<TsdCp004GeneratedQuestion, "validation"
 
 export function generateCp004Question(authorityKey: string, seed: string): TsdCp004GeneratedQuestion {
   const { state, solution } = generateSolvableState(authorityKey, seed);
-  const wrongWorkings = deriveExamReadyCp004WrongWorkings(state.solveMode, state.input, solution);
+  const wrongWorkings = deriveStrongCp004WrongWorkings(state.solveMode, state.input, solution);
   const built = buildCp004Options(solution, wrongWorkings, state.permanentQlId, seed);
   const answerText = built.options[built.correctIndex];
-  const stem = remediateCp004Stem(state, renderCp004Stem(state));
+  const stem = renderCp004StemV2(state);
   const fingerprintValues = rationals(state.input).map(toCanonicalString).join("|");
   const draft = {
     chapterId: "TSD-001" as const,
