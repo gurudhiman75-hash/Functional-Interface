@@ -74,6 +74,7 @@ function cp001Preview(
   const explanationLines = Array.isArray(pkg.explanation?.lines)
     ? pkg.explanation.lines.map((line: unknown) => String(line ?? ""))
     : [];
+  const taskKind = traceability.runtimePrototypeId ?? hiddenState.kind ?? hiddenState.mode;
   const canonicalAnswer = {
     kind: "symbolic",
     value: pkg.answer,
@@ -110,7 +111,7 @@ function cp001Preview(
     publiclyPublishable: pkg.publiclyPublishable,
     packageSource: "quant-v4-cp001-guarded-review-runtime",
     packageId: "NUM-001",
-    taskKind: traceability.runtimePrototypeId ?? hiddenState.kind ?? hiddenState.mode,
+    taskKind,
     scenarioId: undefined,
     language: pkg.language,
     metadata: {
@@ -119,6 +120,8 @@ function cp001Preview(
       canonicalProblemId: "NUM-CP-001",
       questionLanguageId: pkg.questionLanguageId,
       explanationId: pkg.explanationId,
+      taskKind,
+      scenarioId: undefined,
       runtimeMode: pkg.runtimeMode,
       reviewStatus: pkg.reviewStatus,
       questionBankStatus: pkg.questionBankStatus,
@@ -141,6 +144,8 @@ function cp001Preview(
       canonicalProblemId: "NUM-CP-001",
       questionLanguageId: pkg.questionLanguageId,
       explanationId: pkg.explanationId,
+      taskKind,
+      scenarioId: undefined,
       questionIndex: context.questionIndex,
       questionCount: context.questionCount,
       questionId: pkg.questionId,
@@ -236,6 +241,11 @@ export async function generateQuestion(request: QuestionStudioQuantV4GenerationR
   const language = String(request.language ?? "en") as NumCp001QuestionStudioReviewLanguage;
   const explicitCp = String(request.canonicalProblemId ?? request.cpId ?? "") || undefined;
   const inferredCp = inferNumCpFromQl(request.questionLanguageId);
+
+  if (explicitCp && inferredCp && explicitCp !== inferredCp) {
+    throw new Error(`${String(request.questionLanguageId)} is owned by ${inferredCp}, not ${explicitCp}.`);
+  }
+
   const cp001Target = explicitCp === "NUM-CP-001"
     || inferredCp === "NUM-CP-001"
     || (language !== "en" && !explicitCp && !inferredCp);
