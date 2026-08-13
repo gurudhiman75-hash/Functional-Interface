@@ -38,6 +38,16 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Bundle permanent allocation proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/permanent/allocation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-hi-pa-allocation.test.mjs
+
+      - name: Run permanent allocation proof
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-allocation.test.mjs
+
       - name: Bundle permanent runtime regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -84,6 +94,16 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-editorial-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-editorial-audit.log
 
+      - name: Bundle chapter allocation registry proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/design/number-system-current-allocation-registry.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-hi-pa-chapter-registry.test.mjs
+
+      - name: Run chapter allocation registry proof
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-chapter-registry.test.mjs
+
       - name: Bundle bilingual review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -105,5 +125,5 @@ jobs:
             dist/quant-v4/num-001-cp001-hi-pa-review.json
             dist/quant-v4/num-001-cp001-hi-pa-review.md
             dist/quant-v4/num-001-cp001-hi-pa-review.csv
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 14
