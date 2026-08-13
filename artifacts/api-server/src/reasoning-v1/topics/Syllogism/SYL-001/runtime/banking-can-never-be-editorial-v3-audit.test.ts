@@ -94,7 +94,13 @@ for (const seed of seeds) {
       if (conclusion.mode === "DEFINITE") changedOrdinaryExplanations += 1;
       else changedModalExplanations += 1;
 
-      if (locale !== "en-IN") {
+      if (locale === "en-IN") {
+        assert.match(explanation, /class/u, `${seed}/${index}: English explanation must use class/member wording.`);
+        assert.doesNotMatch(
+          explanation,
+          /\bat least one (?:cups|roads|trains|windows|coins|fruits|poets|lamps|flags|chairs|drums|boxes|rings|flowers|birds|gardens|stars|pencils|books|badges|shirts|plates|bells)\b|\bevery (?:cups|roads|trains|windows|coins|fruits|poets|lamps|flags|chairs|drums|boxes|rings|flowers|birds|gardens|stars|pencils|books|badges|shirts|plates|bells)\b|\bno (?:cups|roads|trains|windows|coins|fruits|poets|lamps|flags|chairs|drums|boxes|rings|flowers|birds|gardens|stars|pencils|books|badges|shirts|plates|bells) is\b/u,
+        );
+      } else {
         assert.doesNotMatch(explanation, /solver profile|learner-facing|subject|predicate|can never be|some \.\.\./iu);
         if (conclusion.mode === "CAN_NEVER_BE") {
           assert.notEqual(conclusion.text, baseConclusion.text);
@@ -139,6 +145,7 @@ console.log(JSON.stringify({
   modalTruthByPosition,
   semanticParityWithShellV2: true,
   genericSolverExplanationOccurrences: 0,
+  englishPluralAgreementLeakage: 0,
   hindiPunjabiEnglishModalLeaks: 0,
   explanationPolicy: "PREMISE_SPECIFIC_RELATION_REASONING_V3",
   activationPermitted: false,
