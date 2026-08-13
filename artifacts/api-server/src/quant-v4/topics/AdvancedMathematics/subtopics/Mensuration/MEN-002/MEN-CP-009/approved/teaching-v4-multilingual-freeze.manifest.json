@@ -1,0 +1,45 @@
+{
+  "freezeId": "MEN-CP009-TEACHING-V4-MULTILINGUAL-v1-frozen",
+  "status": "PRODUCT_OWNER_APPROVED__CONTENT_FROZEN__INACTIVE",
+  "approvedAt": "2026-08-13T08:14:00+05:30",
+  "checkpoint": "MEN-CP-009",
+  "package": "MEN-002",
+  "permanentQlRange": "MEN-002-QL-096..MEN-002-QL-123",
+  "permanentQlCount": 28,
+  "authorities": {
+    "english": "MEN-CP009-STUDENT-VIEW-V4-TEACHING",
+    "hindiPunjabi": "MEN-CP009-MULTILINGUAL-TEACHING-V2"
+  },
+  "reviewInventory": {
+    "english": 110,
+    "hindi": 110,
+    "punjabi": 110,
+    "total": 330
+  },
+  "approvedSource": {
+    "branch": "fix/men-cp009-teaching-explanations-v4",
+    "headSha": "26b6d2b8fb4effa33f1e89ba7b555817e5132888"
+  },
+  "validation": {
+    "workflowRunId": 31660721576,
+    "artifactName": "men-cp009-teaching-review-v2",
+    "artifactId": 9166092324,
+    "artifactDigest": "sha256:599164b47c282aa99218822d3685f8d4cf316b11b258f655b8e057f58febedfc"
+  },
+  "punjabiOrthography": {
+    "surface": "ਸਤ੍ਹਾ",
+    "rejectedSurface": "ਸਤਹ",
+    "surfaceArea": "ਸਤ੍ਹਾ ਦਾ ਖੇਤਰਫਲ",
+    "curvedSurfaceArea": "ਵਕਰ ਸਤ੍ਹਾ ਦਾ ਖੇਤਰਫਲ",
+    "totalSurfaceArea": "ਕੁੱਲ ਸਤ੍ਹਾ ਦਾ ਖੇਤਰਫਲ"
+  },
+  "lifecycle": {
+    "questionStudioDiscoverable": false,
+    "questionBankWritable": false,
+    "questionBankStatus": "NOT_STORED",
+    "testEligible": false,
+    "testEligibility": "INELIGIBLE",
+    "publiclyPublishable": false,
+    "mergeAuthorized": false
+  }
+}
