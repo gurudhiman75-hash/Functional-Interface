@@ -25,6 +25,14 @@ import {
 const ALL = 'all';
 const LANGUAGE_LABELS: Record<ProbabilityReviewLanguage, string> = { hi: 'Hindi', pa: 'Punjabi' };
 
+type ProbabilityEvidenceStatus = ProbabilityReviewStatus & {
+  uniqueApprovedSurfaceCount?: number;
+  duplicateApprovedItemCount?: number;
+  hindiApprovedQlCount?: number;
+  punjabiApprovedQlCount?: number;
+  databaseEvidenceComplete?: boolean;
+};
+
 function Metric({ label, value }: { label: string; value: number | string }) {
   return <div className="rounded-lg border bg-background p-3"><p className="text-xs text-muted-foreground">{label}</p><p className="mt-1 text-xl font-semibold">{value}</p></div>;
 }
@@ -84,6 +92,7 @@ export function QuestionStudioProbabilityReviewPanel() {
   const [questions, setQuestions] = useState<ProbabilityReviewQuestion[]>([]);
   const [loading, setLoading] = useState(true);
   const [working, setWorking] = useState<'preview' | 'run' | null>(null);
+  const evidenceStatus = status as ProbabilityEvidenceStatus | null;
 
   const refreshStatus = async () => {
     const next = await getProbabilityReviewStatus();
@@ -151,20 +160,32 @@ export function QuestionStudioProbabilityReviewPanel() {
         <p className="text-xs leading-5 text-muted-foreground">Review the exact ML-05 Hindi/Punjabi surfaces while English remains the mathematical, option and answer-key authority. Review approval does not unlock Question Bank, scored mocks or public/student publication.</p>
       </CardHeader>
       <CardContent className="space-y-5">
-        {status && (
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
-            <Metric label="Permanent QLs" value={status.permanentQlCount} />
-            <Metric label="Native surfaces" value={status.nativeReviewSurfaceCount} />
-            <Metric label="Studio items" value={status.generationItemCount} />
-            <Metric label="Queue approved" value={status.approvedItemCount} />
-            <Metric label="Committed freeze approvals" value={`${status.releaseFreeze.approvedDecisionCount}/432`} />
-          </div>
-        )}
+        {status && evidenceStatus && (
+          <>
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              <Metric label="Unique approval evidence" value={`${evidenceStatus.uniqueApprovedSurfaceCount ?? 0}/${status.nativeReviewSurfaceCount}`} />
+              <Metric label="Hindi QLs reviewed" value={`${evidenceStatus.hindiApprovedQlCount ?? 0}/${status.permanentQlCount}`} />
+              <Metric label="Punjabi QLs reviewed" value={`${evidenceStatus.punjabiApprovedQlCount ?? 0}/${status.permanentQlCount}`} />
+              <Metric label="Committed freeze approvals" value={`${status.releaseFreeze.approvedDecisionCount}/${status.releaseFreeze.requiredDecisionCount}`} />
+              <Metric label="Studio items generated" value={status.generationItemCount} />
+              <Metric label="Raw approved items" value={status.approvedItemCount} />
+              <Metric label="Duplicate approval evidence" value={evidenceStatus.duplicateApprovedItemCount ?? 0} />
+              <Metric label="Question Bank links" value={status.questionBankCount} />
+            </div>
 
-        <div className="rounded-lg border border-warning/30 bg-background/60 p-3 text-sm">
-          <div className="flex items-center gap-2 font-medium"><ShieldAlert className="h-4 w-4" /> Human-review freeze not yet granted</div>
-          <p className="mt-2 text-xs leading-5 text-muted-foreground">The committed ML-06 freeze ledger currently requires 432 explicit QL-language approvals. Database review actions are evidence for editorial work, but release remains locked until those decisions are deliberately recorded in the freeze authority and revalidated.</p>
-        </div>
+            <div className={`rounded-lg border bg-background/60 p-3 text-sm ${evidenceStatus.databaseEvidenceComplete ? 'border-success/30' : 'border-warning/30'}`}>
+              <div className="flex items-center gap-2 font-medium">
+                {evidenceStatus.databaseEvidenceComplete
+                  ? <CheckCircle2 className="h-4 w-4 text-success" />
+                  : <ShieldAlert className="h-4 w-4" />}
+                {evidenceStatus.databaseEvidenceComplete ? 'Database review evidence complete' : 'Human-review evidence incomplete'}
+              </div>
+              <p className="mt-2 text-xs leading-5 text-muted-foreground">
+                Unique evidence counts each QL-language pair only once, so repeated review runs cannot inflate progress. Raw approvals: {status.approvedItemCount}; unique surfaces: {evidenceStatus.uniqueApprovedSurfaceCount ?? 0}; duplicates: {evidenceStatus.duplicateApprovedItemCount ?? 0}. The committed ML-06 freeze remains a separate release authority and still requires explicit validated decisions before any native delivery can be enabled.
+              </p>
+            </div>
+          </>
+        )}
 
         {loading ? <div className="flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading Probability review package…</div> : (
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
