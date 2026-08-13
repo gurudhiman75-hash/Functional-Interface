@@ -14,6 +14,9 @@ const positions = [0, 0, 0, 0];
 const counts = new Map<string, number>();
 const kinds = new Set<string>();
 const relations = new Set<string>();
+const percentPowerExponents = new Set<number>();
+const missingRadicandSides = new Set<string>();
+const inversePowerBranches = new Set<string>();
 let run = 1;
 let maxRun = 1;
 
@@ -33,8 +36,19 @@ records.forEach((r, i) => {
   assert.equal(r.lifecycle.questionBankWritable, false);
   assert.equal(r.lifecycle.testEligible, false);
   assert.equal(r.lifecycle.publiclyPublishable, false);
+
+  if (r.prototypeId === SAP_CP010_PROTOTYPE_IDS[7]) {
+    percentPowerExponents.add(Number(r.oracle.data.exponent));
+  }
+  if (r.prototypeId === SAP_CP010_PROTOTYPE_IDS[12]) {
+    missingRadicandSides.add(String(r.oracle.data.side));
+  }
+  if (r.prototypeId === SAP_CP010_PROTOTYPE_IDS[13]) {
+    inversePowerBranches.add(`${r.oracle.data.exponent}:${r.oracle.data.side}`);
+  }
   if (r.prototypeId === SAP_CP010_PROTOTYPE_IDS[14]) kinds.add(String(r.oracle.data.kind));
   if (r.prototypeId === SAP_CP010_PROTOTYPE_IDS[15]) relations.add(r.canonicalAnswer);
+
   if (i > 0 && records[i - 1]!.correctIndex === r.correctIndex) {
     run += 1;
     maxRun = Math.max(maxRun, run);
@@ -44,7 +58,10 @@ records.forEach((r, i) => {
 SAP_CP010_PROTOTYPE_IDS.forEach((id, index) => assert.equal(counts.get(id), index < 11 ? 18 : 17));
 assert.deepEqual(positions, [75, 75, 75, 75]);
 assert.ok(maxRun < 3);
+assert.deepEqual([...percentPowerExponents].sort(), [2, 3]);
+assert.deepEqual([...missingRadicandSides].sort(), ["ABOVE", "BELOW"]);
+assert.deepEqual([...inversePowerBranches].sort(), ["2:ABOVE", "2:BELOW", "3:ABOVE", "3:BELOW"]);
 assert.deepEqual([...kinds].sort(), ["POWER", "ROOT"]);
 assert.deepEqual([...relations].sort(), ["A < B", "A = B", "A > B"].sort());
 
-console.log("SAP-CP-010 release 300-review passed: 17 identities, exact 75/75/75/75 answers, exam-ready presentation, both special-form kinds, all comparison relations and no 3-position streak.");
+console.log("SAP-CP-010 release 300-review passed: 17 identities, exact 75/75/75/75 answers, stratified hidden-submode coverage, exam-ready presentation, both special-form kinds, all comparison relations and no 3-position streak.");
