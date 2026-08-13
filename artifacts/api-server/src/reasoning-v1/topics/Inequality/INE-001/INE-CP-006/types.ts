@@ -106,7 +106,7 @@ export interface GeneratedIneCp006Question {
   solutions: { mock: string; learning: IneCp001Explanation };
   metadata: {
     runtimeVersion: "ine-cp006-prototype-v3";
-    reviewStatus: "PENDING_MANUAL_REVIEW";
+    reviewStatus: "CHECKPOINT_ACCEPTED";
     deliveryProfile: "GUIDED_CONCEPT" | "EXAM_PRACTICE_PROTOTYPE";
     symbolProfile: IneCp006SymbolProfile;
     examApplicability: IneCp006ExamApplicability;

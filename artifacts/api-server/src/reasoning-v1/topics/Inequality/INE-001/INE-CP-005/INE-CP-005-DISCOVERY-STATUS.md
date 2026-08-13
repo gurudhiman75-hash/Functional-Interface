@@ -4,7 +4,7 @@
 
 **Implementation:** English prototype discovery complete
 
-**Manual review:** Pending
+**Manual review:** Accepted during sequential INE-001 review; revalidated at chapter closure on 13 August 2026
 
 **Critical self-review:** Complete; ready for user review
 
@@ -36,6 +36,6 @@
 
 The contexts are controlled surface renderings, not free-form story problems. The pack is an English concept and exam-practice bridge, not an SSC or Banking PYQ replica. Coded inequality symbols belong to CP-006. Hindi and Punjabi rendering begins only after the English phrase contract is approved.
 
-## Gate
+## Checkpoint decision
 
-The checkpoint remains a prototype until the English review pack is manually accepted. No permanent QL or release decision is implied by implementation completion.
+The English phrase contract and revised public explanations are accepted for chapter closure. Permanent QL allocation, Hindi and Punjabi localization, Question Studio visibility, and public release remain separate decisions.

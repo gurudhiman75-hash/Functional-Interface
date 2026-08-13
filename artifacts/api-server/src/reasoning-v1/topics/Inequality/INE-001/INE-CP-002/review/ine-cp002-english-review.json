@@ -21,7 +21,7 @@
     "strictStatementCount": 0,
     "answerRelation": "GREATER_THAN_OR_EQUAL",
     "contentHash": "cce77604",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -83,7 +83,7 @@
     "strictStatementCount": 1,
     "answerRelation": "LESS_THAN",
     "contentHash": "7a2cc0cb",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -145,7 +145,7 @@
     "strictStatementCount": 1,
     "answerRelation": "GREATER_THAN",
     "contentHash": "c2cff542",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -208,7 +208,7 @@
     "strictStatementCount": 0,
     "answerRelation": "LESS_THAN_OR_EQUAL",
     "contentHash": "6e069b4c",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -251,70 +251,6 @@
     "questionStudioVisible": false
   },
   {
-    "recordId": "INE-CP002-5D7403E4",
-    "packageId": "INE-001",
-    "checkpointId": "INE-CP-002",
-    "authorityId": "DETERMINE_LONG_CHAIN_RELATION",
-    "prototypeId": "INE-CP002-PROT-LONG-CHAIN",
-    "seed": 4,
-    "difficulty": "MEDIUM",
-    "difficultyBasis": "STANDARD_GRAPH_REASONING",
-    "releaseTier": "BANKING_PRELIMS",
-    "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "CHAIN_5_ENTITIES_LATE_STRICT",
-    "graphFingerprint": "146fe539",
-    "explanationMode": "LONG_CHAIN",
-    "nodeCount": 5,
-    "statementCount": 4,
-    "relevantStatementCount": 4,
-    "irrelevantStatementCount": 0,
-    "equalityStatementCount": 0,
-    "strictStatementCount": 1,
-    "answerRelation": "GREATER_THAN",
-    "contentHash": "65eb4f15",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
-    "optionRoles": [
-      {
-        "index": 0,
-        "role": "DISTRACTOR",
-        "errorLabel": "VALID_PATH_IGNORED"
-      },
-      {
-        "index": 1,
-        "role": "DISTRACTOR",
-        "errorLabel": "QUERY_ORDER_REVERSED"
-      },
-      {
-        "index": 2,
-        "role": "CORRECT"
-      },
-      {
-        "index": 3,
-        "role": "DISTRACTOR",
-        "errorLabel": "REVERSED_DIRECTION"
-      }
-    ],
-    "stem": "Which relation between P and D is definitely established by the statements?",
-    "statements": [
-      "R ≤ B",
-      "D < A",
-      "B ≤ P",
-      "R ≥ A"
-    ],
-    "options": [
-      "The relation cannot be determined",
-      "P ≤ D",
-      "P > D",
-      "P < D"
-    ],
-    "correctOption": "P > D",
-    "explanation": "Read the links as one chain: B ≤ P and R ≤ B and R ≥ A and D < A.\n\nA strict link occurs on the route, so the two ends cannot be equal. This proves P > D.\n\nTherefore, P > D is definitely established.",
-    "mockExplanation": "Read the links as one chain: B ≤ P and R ≤ B and R ≥ A and D < A. A strict link occurs on the route, so the two ends cannot be equal. This proves P > D. Therefore, P > D is definitely established.",
-    "learningExplanation": "Read the links as one chain: B ≤ P and R ≤ B and R ≥ A and D < A.\n\nA strict link occurs on the route, so the two ends cannot be equal. This proves P > D.\n\nTherefore, P > D is definitely established.",
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
     "recordId": "INE-CP002-6E133C6B",
     "packageId": "INE-001",
     "checkpointId": "INE-CP-002",
@@ -336,7 +272,7 @@
     "strictStatementCount": 2,
     "answerRelation": "GREATER_THAN",
     "contentHash": "aa738262",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -400,7 +336,7 @@
     "strictStatementCount": 2,
     "answerRelation": "LESS_THAN",
     "contentHash": "4791f99a",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -464,7 +400,7 @@
     "strictStatementCount": 2,
     "answerRelation": "GREATER_THAN",
     "contentHash": "f934f19c",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -529,7 +465,7 @@
     "strictStatementCount": 0,
     "answerRelation": "GREATER_THAN_OR_EQUAL",
     "contentHash": "bedd149c",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -572,72 +508,6 @@
     "questionStudioVisible": false
   },
   {
-    "recordId": "INE-CP002-18DC090F",
-    "packageId": "INE-001",
-    "checkpointId": "INE-CP-002",
-    "authorityId": "DETERMINE_MULTI_ROUTE_RELATION",
-    "prototypeId": "INE-CP002-PROT-MULTIPLE-ROUTES",
-    "seed": 4,
-    "difficulty": "HARD",
-    "difficultyBasis": "ADVANCED_GRAPH_REASONING",
-    "releaseTier": "ADVANCED_PRACTICE",
-    "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "TWO_ROUTES_WITH_CROSS_LINK",
-    "graphFingerprint": "5ffdcf96",
-    "explanationMode": "MULTIPLE_ROUTES",
-    "nodeCount": 5,
-    "statementCount": 6,
-    "relevantStatementCount": 6,
-    "irrelevantStatementCount": 0,
-    "equalityStatementCount": 0,
-    "strictStatementCount": 3,
-    "answerRelation": "GREATER_THAN",
-    "contentHash": "aa4a4265",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
-    "optionRoles": [
-      {
-        "index": 0,
-        "role": "DISTRACTOR",
-        "errorLabel": "VALID_PATH_IGNORED"
-      },
-      {
-        "index": 1,
-        "role": "DISTRACTOR",
-        "errorLabel": "REVERSED_DIRECTION"
-      },
-      {
-        "index": 2,
-        "role": "DISTRACTOR",
-        "errorLabel": "STRICTNESS_IGNORED"
-      },
-      {
-        "index": 3,
-        "role": "CORRECT"
-      }
-    ],
-    "stem": "Which relation between P and A is definitely established by the statements?",
-    "statements": [
-      "R > A",
-      "P ≥ R",
-      "A ≤ B",
-      "Q < P",
-      "R < Q",
-      "B ≤ Q"
-    ],
-    "options": [
-      "The relation cannot be determined",
-      "P < A",
-      "P = A",
-      "P > A"
-    ],
-    "correctOption": "P > A",
-    "explanation": "Two separate routes connect P and A.\n\nRoute 1: Q < P and B ≤ Q and A ≤ B — this gives P > A.\n\nRoute 2: P ≥ R and R > A — this independently gives the same result.\n\nTherefore, P > A is definitely established.",
-    "mockExplanation": "Two separate routes connect P and A. Route 1: Q < P and B ≤ Q and A ≤ B — this gives P > A. Route 2: P ≥ R and R > A — this independently gives the same result. Therefore, P > A is definitely established.",
-    "learningExplanation": "Two separate routes connect P and A.\n\nRoute 1: Q < P and B ≤ Q and A ≤ B — this gives P > A.\n\nRoute 2: P ≥ R and R > A — this independently gives the same result.\n\nTherefore, P > A is definitely established.",
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
     "recordId": "INE-CP002-FE96204A",
     "packageId": "INE-001",
     "checkpointId": "INE-CP-002",
@@ -659,7 +529,7 @@
     "strictStatementCount": 1,
     "answerRelation": "GREATER_THAN",
     "contentHash": "402c4135",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -723,7 +593,7 @@
     "strictStatementCount": 1,
     "answerRelation": "LESS_THAN",
     "contentHash": "1571abc1",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -787,7 +657,7 @@
     "strictStatementCount": 1,
     "answerRelation": "GREATER_THAN",
     "contentHash": "ea7e07cf",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -851,7 +721,7 @@
     "strictStatementCount": 1,
     "answerRelation": "LESS_THAN",
     "contentHash": "20a3820a",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -894,70 +764,6 @@
     "questionStudioVisible": false
   },
   {
-    "recordId": "INE-CP002-15F6AF56",
-    "packageId": "INE-001",
-    "checkpointId": "INE-CP-002",
-    "authorityId": "APPLY_ALTERNATE_PATH_STRICTNESS",
-    "prototypeId": "INE-CP002-PROT-ALTERNATE-STRICT-PATH",
-    "seed": 4,
-    "difficulty": "HARD",
-    "difficultyBasis": "ADVANCED_GRAPH_REASONING",
-    "releaseTier": "ADVANCED_PRACTICE",
-    "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "DIRECT_PLUS_LONG_ALTERNATE",
-    "graphFingerprint": "a00782cb",
-    "explanationMode": "ALTERNATE_STRICT_PATH",
-    "nodeCount": 4,
-    "statementCount": 4,
-    "relevantStatementCount": 4,
-    "irrelevantStatementCount": 0,
-    "equalityStatementCount": 0,
-    "strictStatementCount": 1,
-    "answerRelation": "GREATER_THAN",
-    "contentHash": "a318a267",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
-    "optionRoles": [
-      {
-        "index": 0,
-        "role": "CORRECT"
-      },
-      {
-        "index": 1,
-        "role": "DISTRACTOR",
-        "errorLabel": "REVERSED_DIRECTION"
-      },
-      {
-        "index": 2,
-        "role": "DISTRACTOR",
-        "errorLabel": "STRICTNESS_IGNORED"
-      },
-      {
-        "index": 3,
-        "role": "DISTRACTOR",
-        "errorLabel": "VALID_PATH_IGNORED"
-      }
-    ],
-    "stem": "Which relation between S and A is definitely established by the statements?",
-    "statements": [
-      "Q ≥ A",
-      "D ≤ S",
-      "Q < D",
-      "S ≥ A"
-    ],
-    "options": [
-      "S > A",
-      "S < A",
-      "S = A",
-      "The relation cannot be determined"
-    ],
-    "correctOption": "S > A",
-    "explanation": "Compare the two available routes from S to A.\n\nDirect route: S ≥ A — this is only inclusive.\n\nAlternate route: D ≤ S and Q < D and Q ≥ A — its strict link rules out equality, proving S > A.\n\nTherefore, S > A is definitely established.",
-    "mockExplanation": "Compare the two available routes from S to A. Direct route: S ≥ A — this is only inclusive. Alternate route: D ≤ S and Q < D and Q ≥ A — its strict link rules out equality, proving S > A. Therefore, S > A is definitely established.",
-    "learningExplanation": "Compare the two available routes from S to A.\n\nDirect route: S ≥ A — this is only inclusive.\n\nAlternate route: D ≤ S and Q < D and Q ≥ A — its strict link rules out equality, proving S > A.\n\nTherefore, S > A is definitely established.",
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
     "recordId": "INE-CP002-34FE440A",
     "packageId": "INE-001",
     "checkpointId": "INE-CP-002",
@@ -979,7 +785,7 @@
     "strictStatementCount": 2,
     "answerRelation": "INDETERMINATE",
     "contentHash": "1e509d42",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1042,7 +848,7 @@
     "strictStatementCount": 2,
     "answerRelation": "INDETERMINATE",
     "contentHash": "35a8eb4a",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1105,7 +911,7 @@
     "strictStatementCount": 3,
     "answerRelation": "INDETERMINATE",
     "contentHash": "bb21715b",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1169,7 +975,7 @@
     "strictStatementCount": 2,
     "answerRelation": "INDETERMINATE",
     "contentHash": "3886c6df",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1211,71 +1017,6 @@
     "questionStudioVisible": false
   },
   {
-    "recordId": "INE-CP002-26FFEE16",
-    "packageId": "INE-001",
-    "checkpointId": "INE-CP-002",
-    "authorityId": "DETERMINE_BRANCHED_GRAPH_RELATION",
-    "prototypeId": "INE-CP002-PROT-BRANCHED-GRAPH",
-    "seed": 4,
-    "difficulty": "HARD",
-    "difficultyBasis": "ADVANCED_GRAPH_REASONING",
-    "releaseTier": "ADVANCED_PRACTICE",
-    "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "BRANCH_WITH_EQUALITY_DEPTH",
-    "graphFingerprint": "430d8cf6",
-    "explanationMode": "BRANCHED_GRAPH",
-    "nodeCount": 5,
-    "statementCount": 5,
-    "relevantStatementCount": 5,
-    "irrelevantStatementCount": 0,
-    "equalityStatementCount": 1,
-    "strictStatementCount": 3,
-    "answerRelation": "INDETERMINATE",
-    "contentHash": "fae2ed85",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
-    "optionRoles": [
-      {
-        "index": 0,
-        "role": "CORRECT"
-      },
-      {
-        "index": 1,
-        "role": "DISTRACTOR",
-        "errorLabel": "COMMON_BOUND_MISREAD"
-      },
-      {
-        "index": 2,
-        "role": "DISTRACTOR",
-        "errorLabel": "COMMON_BOUND_MISREAD"
-      },
-      {
-        "index": 3,
-        "role": "DISTRACTOR",
-        "errorLabel": "COMMON_BOUND_MISREAD"
-      }
-    ],
-    "stem": "Which relation between C and P is definitely established by the statements?",
-    "statements": [
-      "B = C",
-      "B ≥ Q",
-      "P < R",
-      "P > Q",
-      "C < R"
-    ],
-    "options": [
-      "The relation cannot be determined",
-      "C < P",
-      "C ≥ P",
-      "C > P"
-    ],
-    "correctOption": "The relation cannot be determined",
-    "explanation": "C and P sit on different branches of the same connected graph.\n\nThe branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of C and P is not fixed.\n\nB=0, C=0, P=1, Q=0, R=2 satisfies every statement and gives C < P.\n\nB=1, C=1, P=1, Q=0, R=2 satisfies every statement and gives C = P.\n\nBecause valid arrangements give different results, the relation between C and P cannot be determined.",
-    "mockExplanation": "C and P sit on different branches of the same connected graph. The branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of C and P is not fixed. Because valid arrangements give different results, the relation between C and P cannot be determined.",
-    "learningExplanation": "C and P sit on different branches of the same connected graph.\n\nThe branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of C and P is not fixed.\n\nB=0, C=0, P=1, Q=0, R=2 satisfies every statement and gives C < P.\n\nB=1, C=1, P=1, Q=0, R=2 satisfies every statement and gives C = P.\n\nBecause valid arrangements give different results, the relation between C and P cannot be determined.",
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
     "recordId": "INE-CP002-F7B6A136",
     "packageId": "INE-001",
     "checkpointId": "INE-CP-002",
@@ -1297,7 +1038,7 @@
     "strictStatementCount": 3,
     "answerRelation": "GREATER_THAN",
     "contentHash": "fcda3359",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1361,7 +1102,7 @@
     "strictStatementCount": 2,
     "answerRelation": "LESS_THAN",
     "contentHash": "5e919868",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1424,7 +1165,7 @@
     "strictStatementCount": 3,
     "answerRelation": "GREATER_THAN",
     "contentHash": "46239376",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1488,7 +1229,7 @@
     "strictStatementCount": 2,
     "answerRelation": "LESS_THAN",
     "contentHash": "cf75d215",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1530,70 +1271,6 @@
     "questionStudioVisible": false
   },
   {
-    "recordId": "INE-CP002-2B916E2A",
-    "packageId": "INE-001",
-    "checkpointId": "INE-CP-002",
-    "authorityId": "FILTER_IRRELEVANT_STATEMENTS",
-    "prototypeId": "INE-CP002-PROT-IRRELEVANT-EVIDENCE",
-    "seed": 4,
-    "difficulty": "MEDIUM",
-    "difficultyBasis": "STANDARD_GRAPH_REASONING",
-    "releaseTier": "BANKING_PRELIMS",
-    "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "RELEVANT_CHAIN_PLUS_SIDE_BRANCH",
-    "graphFingerprint": "1e09029f",
-    "explanationMode": "IRRELEVANT_EVIDENCE",
-    "nodeCount": 5,
-    "statementCount": 4,
-    "relevantStatementCount": 2,
-    "irrelevantStatementCount": 2,
-    "equalityStatementCount": 0,
-    "strictStatementCount": 3,
-    "answerRelation": "GREATER_THAN",
-    "contentHash": "4b6ec8c5",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
-    "optionRoles": [
-      {
-        "index": 0,
-        "role": "DISTRACTOR",
-        "errorLabel": "VALID_PATH_IGNORED"
-      },
-      {
-        "index": 1,
-        "role": "DISTRACTOR",
-        "errorLabel": "STRICTNESS_IGNORED"
-      },
-      {
-        "index": 2,
-        "role": "CORRECT"
-      },
-      {
-        "index": 3,
-        "role": "DISTRACTOR",
-        "errorLabel": "QUERY_ORDER_REVERSED"
-      }
-    ],
-    "stem": "Which relation between B and A is definitely established by the statements?",
-    "statements": [
-      "P < D",
-      "A < S",
-      "B > D",
-      "S ≤ B"
-    ],
-    "options": [
-      "The relation cannot be determined",
-      "B = A",
-      "B > A",
-      "B ≤ A"
-    ],
-    "correctOption": "B > A",
-    "explanation": "Relevant route: S ≤ B and A < S.\n\nThe remaining clues — B > D and P < D — do not complete another route between B and A. The relevant route proves B > A.\n\nTherefore, B > A is definitely established.",
-    "mockExplanation": "Relevant route: S ≤ B and A < S. The remaining clues — B > D and P < D — do not complete another route between B and A. The relevant route proves B > A. Therefore, B > A is definitely established.",
-    "learningExplanation": "Relevant route: S ≤ B and A < S.\n\nThe remaining clues — B > D and P < D — do not complete another route between B and A. The relevant route proves B > A.\n\nTherefore, B > A is definitely established.",
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
     "recordId": "INE-CP002-65D3D470",
     "packageId": "INE-001",
     "checkpointId": "INE-CP-002",
@@ -1614,7 +1291,7 @@
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
     "contentHash": "3e5b635e",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1677,7 +1354,7 @@
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
     "contentHash": "0b2d1420",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1740,7 +1417,7 @@
     "equalityStatementCount": 2,
     "strictStatementCount": 1,
     "contentHash": "6a72ec52",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1802,7 +1479,7 @@
     "equalityStatementCount": 1,
     "strictStatementCount": 1,
     "contentHash": "2fe4fe20",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1845,69 +1522,6 @@
     "questionStudioVisible": false
   },
   {
-    "recordId": "INE-CP002-4E82D524",
-    "packageId": "INE-001",
-    "checkpointId": "INE-CP-002",
-    "authorityId": "IDENTIFY_PAIR_WITH_DEFINITE_RELATION",
-    "prototypeId": "INE-CP002-PROT-SELECT-DEFINITE-PAIR",
-    "seed": 4,
-    "difficulty": "HARD",
-    "difficultyBasis": "PAIR_AUDIT",
-    "releaseTier": "ADVANCED_PRACTICE",
-    "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "PAIR_AUDIT_CONNECTED_BRANCHES_MULTI_STEP",
-    "graphFingerprint": "c9047f50",
-    "explanationMode": "PAIR_SELECTION",
-    "nodeCount": 5,
-    "statementCount": 4,
-    "relevantStatementCount": 4,
-    "irrelevantStatementCount": 0,
-    "equalityStatementCount": 1,
-    "strictStatementCount": 1,
-    "contentHash": "54000ea8",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
-    "optionRoles": [
-      {
-        "index": 0,
-        "role": "DISTRACTOR",
-        "errorLabel": "COMMON_BOUND_ONLY"
-      },
-      {
-        "index": 1,
-        "role": "DISTRACTOR",
-        "errorLabel": "COMMON_BOUND_ONLY"
-      },
-      {
-        "index": 2,
-        "role": "CORRECT"
-      },
-      {
-        "index": 3,
-        "role": "DISTRACTOR",
-        "errorLabel": "COMMON_BOUND_ONLY"
-      }
-    ],
-    "stem": "Which pair has a relation that is completely determined by the statements?",
-    "statements": [
-      "A = C",
-      "S ≤ Q",
-      "B ≤ S",
-      "B < C"
-    ],
-    "options": [
-      "Q and C",
-      "S and A",
-      "B and Q",
-      "S and C"
-    ],
-    "correctOption": "B and Q",
-    "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nB and Q: S ≤ Q and B ≤ S, so B ≤ Q.\n\nTherefore, option 3 — B and Q — is the only pair with a definite relation.\n\nPair check: Q and C are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: S and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: S and C are on separate branches of one graph, with no directed path fixing their order.",
-    "mockExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. B and Q: S ≤ Q and B ≤ S, so B ≤ Q. Therefore, option 3 — B and Q — is the only pair with a definite relation.",
-    "learningExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nB and Q: S ≤ Q and B ≤ S, so B ≤ Q.\n\nTherefore, option 3 — B and Q — is the only pair with a definite relation.\n\nPair check: Q and C are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: S and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: S and C are on separate branches of one graph, with no directed path fixing their order.",
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
     "recordId": "INE-CP002-FF243FB7",
     "packageId": "INE-001",
     "checkpointId": "INE-CP-002",
@@ -1928,7 +1542,7 @@
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
     "contentHash": "5e7a0da3",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -1991,7 +1605,7 @@
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
     "contentHash": "d4b1f66a",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -2054,7 +1668,7 @@
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
     "contentHash": "e60e74d1",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -2117,7 +1731,7 @@
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
     "contentHash": "b8c6fee3",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -2160,69 +1774,6 @@
     "questionStudioVisible": false
   },
   {
-    "recordId": "INE-CP002-D57F6DD3",
-    "packageId": "INE-001",
-    "checkpointId": "INE-CP-002",
-    "authorityId": "IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION",
-    "prototypeId": "INE-CP002-PROT-SELECT-INDETERMINATE-PAIR",
-    "seed": 4,
-    "difficulty": "HARD",
-    "difficultyBasis": "PAIR_AUDIT",
-    "releaseTier": "ADVANCED_PRACTICE",
-    "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "PAIR_AUDIT_CONNECTED_GRAPH_SINGLE_UNKNOWN",
-    "graphFingerprint": "86ac78b8",
-    "explanationMode": "PAIR_SELECTION",
-    "nodeCount": 5,
-    "statementCount": 4,
-    "relevantStatementCount": 4,
-    "irrelevantStatementCount": 0,
-    "equalityStatementCount": 1,
-    "strictStatementCount": 2,
-    "contentHash": "5f3270b1",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
-    "optionRoles": [
-      {
-        "index": 0,
-        "role": "CORRECT"
-      },
-      {
-        "index": 1,
-        "role": "DISTRACTOR",
-        "errorLabel": "ACTUAL_DEFINITE_PATH"
-      },
-      {
-        "index": 2,
-        "role": "DISTRACTOR",
-        "errorLabel": "ACTUAL_DEFINITE_PATH"
-      },
-      {
-        "index": 3,
-        "role": "DISTRACTOR",
-        "errorLabel": "ACTUAL_DEFINITE_PATH"
-      }
-    ],
-    "stem": "Which pair has a relation that cannot be determined from the statements?",
-    "statements": [
-      "A < B",
-      "A ≥ R",
-      "D > Q",
-      "Q = R"
-    ],
-    "options": [
-      "A and D",
-      "B and Q",
-      "B and R",
-      "Q and A"
-    ],
-    "correctOption": "A and D",
-    "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nA and D are on separate branches of one graph, with no directed path fixing their order.\n\nTherefore, option 1 — A and D — is the only pair whose relation is not determined.\n\nPair check: B and Q: A < B and A ≥ R, so B > Q.\n\nPair check: B and R: A < B and A ≥ R, so B > R.\n\nPair check: Q and A: A ≥ R, so Q ≤ A.",
-    "mockExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. A and D are on separate branches of one graph, with no directed path fixing their order. Therefore, option 1 — A and D — is the only pair whose relation is not determined.",
-    "learningExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nA and D are on separate branches of one graph, with no directed path fixing their order.\n\nTherefore, option 1 — A and D — is the only pair whose relation is not determined.\n\nPair check: B and Q: A < B and A ≥ R, so B > Q.\n\nPair check: B and R: A < B and A ≥ R, so B > R.\n\nPair check: Q and A: A ≥ R, so Q ≤ A.",
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
     "recordId": "INE-CP002-6E34CEAC",
     "packageId": "INE-001",
     "checkpointId": "INE-CP-002",
@@ -2244,7 +1795,7 @@
     "strictStatementCount": 2,
     "answerRelation": "INDETERMINATE",
     "contentHash": "eb7d29f5",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -2306,7 +1857,7 @@
     "strictStatementCount": 2,
     "answerRelation": "INDETERMINATE",
     "contentHash": "f0e443e2",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -2369,7 +1920,7 @@
     "strictStatementCount": 2,
     "answerRelation": "INDETERMINATE",
     "contentHash": "84a5ecec",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -2432,7 +1983,7 @@
     "strictStatementCount": 2,
     "answerRelation": "INDETERMINATE",
     "contentHash": "b8f1d0be",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -2474,69 +2025,6 @@
     "questionStudioVisible": false
   },
   {
-    "recordId": "INE-CP002-11310D18",
-    "packageId": "INE-001",
-    "checkpointId": "INE-CP-002",
-    "authorityId": "DETERMINE_DISCONNECTED_PAIR_RELATION",
-    "prototypeId": "INE-CP002-PROT-DISCONNECTED-COMPONENTS",
-    "seed": 4,
-    "difficulty": "EASY",
-    "difficultyBasis": "SHORT_SINGLE_PATH",
-    "releaseTier": "SSC_STANDARD_MOCK",
-    "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "DISCONNECTED_EQUALITY_CHAIN_PLUS_EDGE",
-    "graphFingerprint": "cfe686f5",
-    "explanationMode": "DISCONNECTED_COMPONENTS",
-    "nodeCount": 5,
-    "statementCount": 3,
-    "relevantStatementCount": 3,
-    "irrelevantStatementCount": 0,
-    "equalityStatementCount": 2,
-    "strictStatementCount": 1,
-    "answerRelation": "INDETERMINATE",
-    "contentHash": "e45c06d3",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
-    "optionRoles": [
-      {
-        "index": 0,
-        "role": "DISTRACTOR",
-        "errorLabel": "COMMON_BOUND_MISREAD"
-      },
-      {
-        "index": 1,
-        "role": "CORRECT"
-      },
-      {
-        "index": 2,
-        "role": "DISTRACTOR",
-        "errorLabel": "NO_PATH_MISREAD_AS_EQUALITY"
-      },
-      {
-        "index": 3,
-        "role": "DISTRACTOR",
-        "errorLabel": "COMMON_BOUND_MISREAD"
-      }
-    ],
-    "stem": "Which relation between P and D is definitely established by the statements?",
-    "statements": [
-      "P = B",
-      "Q > D",
-      "P = S"
-    ],
-    "options": [
-      "P < D",
-      "The relation cannot be determined",
-      "P = D",
-      "P ≥ D"
-    ],
-    "correctOption": "The relation cannot be determined",
-    "explanation": "P and D belong to two separate groups of statements.\n\nGroup containing P: P = B; P = S.\n\nGroup containing D: Q > D. No comparison joins the groups, so the order of P and D is not fixed.\n\nB=0, D=1, P=0, Q=2, S=0 satisfies every statement and gives P < D.\n\nB=0, D=0, P=0, Q=1, S=0 satisfies every statement and gives P = D.\n\nBecause valid arrangements give different results, the relation between P and D cannot be determined.",
-    "mockExplanation": "P and D belong to two separate groups of statements. Group containing P: P = B; P = S. Group containing D: Q > D. No comparison joins the groups, so the order of P and D is not fixed. Because valid arrangements give different results, the relation between P and D cannot be determined.",
-    "learningExplanation": "P and D belong to two separate groups of statements.\n\nGroup containing P: P = B; P = S.\n\nGroup containing D: Q > D. No comparison joins the groups, so the order of P and D is not fixed.\n\nB=0, D=1, P=0, Q=2, S=0 satisfies every statement and gives P < D.\n\nB=0, D=0, P=0, Q=1, S=0 satisfies every statement and gives P = D.\n\nBecause valid arrangements give different results, the relation between P and D cannot be determined.",
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
     "recordId": "INE-CP002-E45B3926",
     "packageId": "INE-001",
     "checkpointId": "INE-CP-002",
@@ -2558,7 +2046,7 @@
     "strictStatementCount": 1,
     "answerRelation": "EQUAL_TO",
     "contentHash": "257cce65",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -2620,7 +2108,7 @@
     "strictStatementCount": 0,
     "answerRelation": "EQUAL_TO",
     "contentHash": "12772245",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -2683,7 +2171,7 @@
     "strictStatementCount": 1,
     "answerRelation": "EQUAL_TO",
     "contentHash": "9102f859",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -2747,7 +2235,7 @@
     "strictStatementCount": 1,
     "answerRelation": "EQUAL_TO",
     "contentHash": "4ea5b225",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "optionRoles": [
       {
         "index": 0,
@@ -2787,70 +2275,6 @@
     "explanation": "Collapse the equality route first: R = B and R = D.\n\nThis places B and D in the same equality group. The other comparisons leave that group but cannot separate its members, so B = D.\n\nTherefore, B = D is definitely established.",
     "mockExplanation": "Collapse the equality route first: R = B and R = D. This places B and D in the same equality group. The other comparisons leave that group but cannot separate its members, so B = D. Therefore, B = D is definitely established.",
     "learningExplanation": "Collapse the equality route first: R = B and R = D.\n\nThis places B and D in the same equality group. The other comparisons leave that group but cannot separate its members, so B = D.\n\nTherefore, B = D is definitely established.",
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "recordId": "INE-CP002-C102EA9A",
-    "packageId": "INE-001",
-    "checkpointId": "INE-CP-002",
-    "authorityId": "PROPAGATE_EQUALITY_ACROSS_BRANCHES",
-    "prototypeId": "INE-CP002-PROT-EQUALITY-SPANNING-BRANCHES",
-    "seed": 4,
-    "difficulty": "MEDIUM",
-    "difficultyBasis": "STANDARD_GRAPH_REASONING",
-    "releaseTier": "BANKING_PRELIMS",
-    "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "EQUALITY_STAR_SPLIT_BRANCHES",
-    "graphFingerprint": "371f862d",
-    "explanationMode": "EQUALITY_SPANNING_BRANCHES",
-    "nodeCount": 5,
-    "statementCount": 4,
-    "relevantStatementCount": 4,
-    "irrelevantStatementCount": 0,
-    "equalityStatementCount": 2,
-    "strictStatementCount": 1,
-    "answerRelation": "EQUAL_TO",
-    "contentHash": "a370ff68",
-    "reviewStatus": "PENDING_MANUAL_REVIEW",
-    "optionRoles": [
-      {
-        "index": 0,
-        "role": "DISTRACTOR",
-        "errorLabel": "EQUALITY_PROPAGATION_IGNORED"
-      },
-      {
-        "index": 1,
-        "role": "CORRECT"
-      },
-      {
-        "index": 2,
-        "role": "DISTRACTOR",
-        "errorLabel": "EQUALITY_MISREAD_AS_UNKNOWN"
-      },
-      {
-        "index": 3,
-        "role": "DISTRACTOR",
-        "errorLabel": "EQUALITY_PROPAGATION_IGNORED"
-      }
-    ],
-    "stem": "Which relation between C and Q is definitely established by the statements?",
-    "statements": [
-      "D = Q",
-      "C = D",
-      "C > B",
-      "A ≤ Q"
-    ],
-    "options": [
-      "C < Q",
-      "C = Q",
-      "The relation cannot be determined",
-      "C > Q"
-    ],
-    "correctOption": "C = Q",
-    "explanation": "Collapse the equality route first: C = D and D = Q.\n\nThis places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q.\n\nTherefore, C = Q is definitely established.",
-    "mockExplanation": "Collapse the equality route first: C = D and D = Q. This places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q. Therefore, C = Q is definitely established.",
-    "learningExplanation": "Collapse the equality route first: C = D and D = Q.\n\nThis places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q.\n\nTherefore, C = Q is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   }

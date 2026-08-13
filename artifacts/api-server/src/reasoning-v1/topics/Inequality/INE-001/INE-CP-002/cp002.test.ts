@@ -76,7 +76,7 @@ for (const contract of INE_CP002_PROTOTYPE_CONTRACTS) {
       question.metadata.competency,
       "MULTI_LINK_INEQUALITY_REASONING",
     );
-    assert.equal(question.metadata.reviewStatus, "PENDING_MANUAL_REVIEW");
+    assert.equal(question.metadata.reviewStatus, "CHECKPOINT_ACCEPTED");
     assert.ok(question.solutions.mock.length > 60);
     assert.deepEqual(question.solutions.learning, question.explanation);
     assert.match(question.metadata.contentHash, /^[0-9a-f]{8}$/);

@@ -33,4 +33,4 @@ Single-conclusion classification uses three options because it has exactly three
 
 The `review` directory contains 84 revised English questions: 12 for each provisional authority. Markdown and JSON versions are generated from the same deterministic records.
 
-The revised pack requires a second manual review before permanent QL allocation or production release.
+The revised pack was manually accepted and has been revalidated by the chapter-closure audit. Permanent QL allocation and production release remain separate decisions.

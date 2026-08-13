@@ -422,7 +422,7 @@ export function generateIneCp007Question(
     recordId: `INE-CP007-${stableHash([prototypeId, seed, "record-v1"]).toUpperCase()}`,
     metadata: {
       runtimeVersion: "ine-cp007-prototype-v1",
-      reviewStatus: "PENDING_MANUAL_REVIEW",
+      reviewStatus: "CHECKPOINT_ACCEPTED",
       deliveryProfile: contract.deliveryProfile,
       examApplicability: contract.examApplicability,
       localeReadiness: "ENGLISH_ONLY",

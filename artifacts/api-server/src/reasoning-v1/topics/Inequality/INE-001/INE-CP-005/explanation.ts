@@ -42,16 +42,6 @@ function atomicDomainText(
   return `${values[0]}, ${values[1]}, or ${values[2]}`;
 }
 
-function normalizedSteps(scenario: IneCp005Scenario): string[] {
-  return scenario.renderedStatements.flatMap((entry) =>
-    entry.surfaceKind === "LINGUISTIC"
-      ? [
-          `“${withoutFinalPeriod(entry.text)}” ${phraseMeaning(entry.phraseKey!)}; symbolically, ${formatStatement(entry.constraint, scenario.entityNames)}.`,
-        ]
-      : [],
-  );
-}
-
 function relationLabel(
   relation: ComparisonRelation | undefined,
   scenario: IneCp005Scenario,
@@ -121,7 +111,11 @@ export function buildIneCp005Explanation(
   options: readonly IneCp005Option[],
   correctIndex: number,
 ): IneCp001Explanation {
-  const translations = normalizedSteps(scenario);
+  const translations = [
+    `In symbols: ${scenario.statements
+      .map((statement) => formatStatement(statement, scenario.entityNames))
+      .join(", ")}.`,
+  ];
   const correctOption = options[correctIndex]!;
   if (scenario.taskKind === "INTERPRET_RELATION") {
     const statement = scenario.renderedStatements[0]!;
@@ -149,7 +143,6 @@ export function buildIneCp005Explanation(
       evaluateConclusion(scenario.statements, entry),
     );
     const audit = evaluations.map((entry, index) => {
-      const conclusion = scenario.renderedConclusions[index]!.text;
       const left =
         scenario.entityNames[entry.conclusion.leftId] ??
         entry.conclusion.leftId;
@@ -161,11 +154,11 @@ export function buildIneCp005Explanation(
         left,
         right,
       );
-      return `Conclusion ${index === 0 ? "I" : "II"}: ${conclusion} The statements allow ${domain}, so it ${entry.truth === "DEFINITELY_TRUE" ? "definitely follows" : "is not guaranteed"}.`;
+      return `Conclusion ${index === 0 ? "I" : "II"} ${entry.truth === "DEFINITELY_TRUE" ? "follows" : "is not certain"} because the possible relation is ${domain}.`;
     });
     return {
       ruleStatement:
-        "First translate the verbal comparisons, then test each conclusion against the complete chain.",
+        "Translate the statements first, then check the conclusions.",
       normalizedStatements: translations,
       proofSteps: audit,
       modelWitnesses: [],
@@ -206,7 +199,7 @@ export function buildIneCp005Explanation(
     proofSteps: [`The translated statements allow ${domain}.`],
     modelWitnesses: [],
     conclusion: strongest
-      ? `Therefore, ${relationLabel(strongest, scenario)} is the strongest definite relation.`
+      ? `Therefore, ${relationLabel(strongest, scenario)}.`
       : `Therefore, the relation between ${left} and ${right} cannot be determined.`,
     distractorAnalysis: options
       .filter((entry) => !entry.isCorrect)

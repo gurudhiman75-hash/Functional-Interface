@@ -200,7 +200,7 @@ export function buildIneCp001Explanation(
     conclusion:
       correctAnswer === "INDETERMINATE"
         ? `So the relation between ${leftName} and ${rightName} cannot be determined.`
-        : `Therefore, the strongest relation we can guarantee is ${leftName} ${answerLabel(correctAnswer)} ${rightName}.`,
+        : `Therefore, ${leftName} ${answerLabel(correctAnswer)} ${rightName}.`,
     distractorAnalysis: options
       .filter((option) => !option.isCorrect)
       .map((option) => ({

@@ -51,7 +51,7 @@ for (const contract of INE_CP003_PROTOTYPE_CONTRACTS) {
     assert.equal(question.authorityId, contract.authorityId);
     assert.equal(question.metadata.taskKind, contract.taskKind);
     assert.equal(question.metadata.runtimeVersion, "ine-cp003-prototype-v2");
-    assert.equal(question.metadata.reviewStatus, "REVISION_REVIEW_REQUIRED");
+    assert.equal(question.metadata.reviewStatus, "CHECKPOINT_ACCEPTED");
     assert.deepEqual(
       question.metadata.sourceLedgerIds,
       contract.sourceLedgerIds,

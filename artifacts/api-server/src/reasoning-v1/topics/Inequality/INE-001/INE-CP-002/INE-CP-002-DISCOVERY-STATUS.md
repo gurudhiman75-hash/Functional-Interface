@@ -7,7 +7,8 @@
 - **Frozen solve modes:** `0`
 - **Question Studio visibility:** Disabled
 - **Public release:** Disabled
-- **Next authority gate:** Human review, source mapping, and merge/split decisions
+- **Manual review:** Accepted during sequential INE-001 review; revalidated at chapter closure on 13 August 2026
+- **Next authority gate:** INE-001 chapter-closure approval
 
 ## Implemented provisional authorities
 
@@ -37,13 +38,13 @@ All authorities remain provisional. Graph shape alone does not justify a permane
 - exam-standard relation options have exactly one necessarily true answer;
 - all five source operators (`>`, `<`, `=`, `≥`, `≤`) are rendered and orientation reversal is parity-tested;
 - answer placement uses independently seeded, balanced four-question permutation blocks;
-- exported five-seed pack positions are balanced `12 / 11 / 12 / 10`, with eight distinct prototype sequences;
+- the synchronized review pack contains four seeds per authority and 36 records;
 - undetermined answers include two learner-facing countermodels without leaking internal entity IDs;
 - pair-selection explanations show the decisive path for every definite pair;
 - stable record IDs, content hashes, competency, topology, clue counts, explanation mode, and review status are exported;
-- the five-seed review pack contains 34 canonical graph fingerprints across 45 records, up from the reviewed baseline of 21;
+- the synchronized four-seed review pack contains 29 canonical graph fingerprints across 36 records;
 - 31 named topologies span three to five nodes and two to six statements;
-- calibrated difficulty coverage contains 10 easy, 17 medium, and 18 hard review records;
+- calibrated difficulty coverage contains 9 easy, 14 medium, and 13 hard review records;
 - standard relation explanations use a short path/interpretation/conclusion structure, while pair-selection records retain a full pair audit;
 - every record exports separate concise mock and detailed learning solutions;
 - release-tier metadata separates `SSC_STANDARD_MOCK`, `BANKING_PRELIMS`, and `ADVANCED_PRACTICE` from difficulty;
@@ -81,11 +82,8 @@ Further corpus-scale expansion remains appropriate after the nine provisional au
 | Disconnected components vs CP-001 indeterminate relation | Revisit; component complexity may be difficulty-only                         |
 | Equality across branches vs CP-001 equality propagation  | Revisit after explanation and source review                                  |
 
-## Closure blockers
+## Closure decision
 
-1. The remediated English review pack requires a new manual approval pass.
-2. Page-level source mapping is unavailable because the synced project library currently contains no source files.
-3. The provisional merge/split decisions above are unresolved.
-4. Permanent QL allocation has not been authorized.
+The historical merge/split questions are resolved by `chapter-closure/registry.ts`. Connected relation tasks merge with CP-001 relation determination; disconnected relation tasks merge with the indeterminate-relation candidate; pair-selection tasks share a separate parameterized candidate.
 
-Until those gates close, CP-002 remains prototype-only and excluded from Question Studio and public delivery.
+Permanent QL allocation has not been authorized. CP-002 remains excluded from Question Studio and public delivery until the chapter closure is accepted.

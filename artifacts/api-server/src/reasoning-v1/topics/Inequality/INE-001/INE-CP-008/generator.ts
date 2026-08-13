@@ -466,7 +466,7 @@ export function generateIneCp008Question(
     structuredScenario: built.scenario,
     metadata: {
       runtimeVersion: "ine-cp008-prototype-v1",
-      reviewStatus: "PENDING_MANUAL_REVIEW",
+      reviewStatus: "CHECKPOINT_ACCEPTED",
       deliveryProfile: contract.deliveryProfile,
       examApplicability: contract.examApplicability,
       localeReadiness: "ENGLISH_ONLY",

@@ -17,7 +17,8 @@ assert.ok(
   rows.every((row) => new Set(row.options).size === row.options.length),
 );
 assert.ok(rows.every((row) => row.options.includes(row.correctOption)));
-assert.ok(rows.every((row) => row.explanation.length > 180));
+assert.ok(rows.every((row) => row.explanation.length >= 80));
+assert.ok(rows.every((row) => row.explanation.length <= 500));
 assert.ok(
   rows.every(
     (row) =>

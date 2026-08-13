@@ -199,7 +199,7 @@ export function generateIneCp002Question(
     metadata: {
       runtimeVersion: "ine-cp002-prototype-v4",
       competency: "MULTI_LINK_INEQUALITY_REASONING",
-      reviewStatus: "PENDING_MANUAL_REVIEW",
+      reviewStatus: "CHECKPOINT_ACCEPTED",
       releaseTier: releaseTierFor(difficulty),
       difficultyBasis: difficultyBasisFor(scenario),
       contentHash: stableHash([

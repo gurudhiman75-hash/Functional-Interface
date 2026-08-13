@@ -1,6 +1,6 @@
 # INE-CP-001 — Direct Chains and Definite Relations
 
-- **Status:** Executable prototype discovery in progress
+- **Status:** Discovery accepted; included in chapter closure
 - **Permanent QLs:** `0`
 - **Frozen solve modes:** `0`
 - **Question Studio visibility:** Disabled
@@ -28,17 +28,13 @@ This checkpoint owns the direct-chain mathematical foundation for INE-001. The c
 - select-valid and select-invalid conclusion authorities;
 - a 300-question deterministic conclusion audit;
 - deterministic JSON and Markdown review-pack export helpers;
-- a committed 40-question English review pack covering all eight provisional authorities;
+- a synchronized 32-question English review pack covering all eight provisional authorities;
 - an executable discovery and provisional merge/split status ledger.
 
 The graph solver receives displayed structured constraints only. The independent verifier enumerates satisfying assignments and retains witness models for `LT`, `EQ`, and `GT` where applicable.
 
 No permanent QL, multilingual runtime, central registry entry, or release toggle is introduced by this discovery wave.
 
-## Next discovery work
+## Closure handoff
 
-1. Complete page-level source mapping and source saturation.
-2. Manually review the exported deterministic English pack.
-3. Resolve equality-propagation merge/split ownership.
-4. Close the answer-semantic audit.
-5. Request manual approval before allocating permanent QLs.
+The authority merge decisions now live in `../chapter-closure/registry.ts`. Permanent QL allocation and production integration require manual acceptance of the chapter-closure review.

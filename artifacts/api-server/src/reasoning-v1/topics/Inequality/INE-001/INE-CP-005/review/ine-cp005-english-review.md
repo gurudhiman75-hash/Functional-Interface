@@ -21,21 +21,9 @@ Which symbolic relation has exactly the same meaning as the statement?
 
 **Correct:** 2. B < D
 
-### Mock solution
+### Explanation
 
 “B is less than D” means less than. So the sentence is written symbolically as B < D.
-
-### Learning solution
-
-“B is less than D” means less than.
-
-So the sentence is written symbolically as B < D.
-
-B > D: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-B = D: Nothing in the statement or chain forces the two values to be equal.
-
-B ≥ D: This comparison points in the wrong direction or uses the wrong degree of certainty.
 
 ## 2. INTERPRET_LINGUISTIC_RELATION — seed 1
 
@@ -56,21 +44,9 @@ Which symbolic relation has exactly the same meaning as the statement?
 
 **Correct:** 3. Farah < Gagan
 
-### Mock solution
+### Explanation
 
 “Farah's marks are neither greater than nor equal to Gagan's marks” rules out greater than and equal to, so it means less than. So the sentence is written symbolically as Farah < Gagan.
-
-### Learning solution
-
-“Farah's marks are neither greater than nor equal to Gagan's marks” rules out greater than and equal to, so it means less than.
-
-So the sentence is written symbolically as Farah < Gagan.
-
-Farah ≥ Gagan: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Farah = Gagan: Nothing in the statement or chain forces the two values to be equal.
-
-Farah > Gagan: This comparison points in the wrong direction or uses the wrong degree of certainty.
 
 ## 3. INTERPRET_LINGUISTIC_RELATION — seed 2
 
@@ -91,21 +67,9 @@ Which symbolic relation has exactly the same meaning as the statement?
 
 **Correct:** 4. Aman ≤ Charan
 
-### Mock solution
+### Explanation
 
 “Aman's salary is not greater than Charan's salary” allows less than or equal to. So the sentence is written symbolically as Aman ≤ Charan.
-
-### Learning solution
-
-“Aman's salary is not greater than Charan's salary” allows less than or equal to.
-
-So the sentence is written symbolically as Aman ≤ Charan.
-
-Aman = Charan: The wording allows both less than and equal to, so this option is too specific.
-
-Aman < Charan: The wording allows both less than and equal to, so this option is too specific.
-
-Aman > Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.
 
 ## 4. INTERPRET_LINGUISTIC_RELATION — seed 3
 
@@ -126,21 +90,9 @@ Which symbolic relation has exactly the same meaning as the statement?
 
 **Correct:** 1. Farah ≤ Gagan
 
-### Mock solution
+### Explanation
 
 “Farah's height is not greater than Gagan's height” allows less than or equal to. So the sentence is written symbolically as Farah ≤ Gagan.
-
-### Learning solution
-
-“Farah's height is not greater than Gagan's height” allows less than or equal to.
-
-So the sentence is written symbolically as Farah ≤ Gagan.
-
-Farah > Gagan: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Farah < Gagan: The wording allows both less than and equal to, so this option is too specific.
-
-The relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.
 
 ## 5. INTERPRET_LINGUISTIC_RELATION — seed 4
 
@@ -161,21 +113,9 @@ Which symbolic relation has exactly the same meaning as the statement?
 
 **Correct:** 1. Gagan = Farah
 
-### Mock solution
+### Explanation
 
 “Gagan's weight is equal to Farah's weight” means equal to. So the sentence is written symbolically as Gagan = Farah.
-
-### Learning solution
-
-“Gagan's weight is equal to Farah's weight” means equal to.
-
-So the sentence is written symbolically as Gagan = Farah.
-
-The relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.
-
-Gagan < Farah: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Gagan ≥ Farah: This comparison points in the wrong direction or uses the wrong degree of certainty.
 
 ## 6. INTERPRET_LINGUISTIC_RELATION — seed 5
 
@@ -196,21 +136,9 @@ Which symbolic relation has exactly the same meaning as the statement?
 
 **Correct:** 3. Diya > Aman
 
-### Mock solution
+### Explanation
 
 “Diya's score is neither less than nor equal to Aman's score” rules out less than and equal to, so it means greater than. So the sentence is written symbolically as Diya > Aman.
-
-### Learning solution
-
-“Diya's score is neither less than nor equal to Aman's score” rules out less than and equal to, so it means greater than.
-
-So the sentence is written symbolically as Diya > Aman.
-
-The relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.
-
-Diya = Aman: Nothing in the statement or chain forces the two values to be equal.
-
-Diya < Aman: This comparison points in the wrong direction or uses the wrong degree of certainty.
 
 ## 7. INTERPRET_LINGUISTIC_RELATION — seed 6
 
@@ -231,21 +159,9 @@ Which symbolic relation has exactly the same meaning as the statement?
 
 **Correct:** 2. Product F < Product B
 
-### Mock solution
+### Explanation
 
 “The price of Product F is less than the price of Product B” means less than. So the sentence is written symbolically as Product F < Product B.
-
-### Learning solution
-
-“The price of Product F is less than the price of Product B” means less than.
-
-So the sentence is written symbolically as Product F < Product B.
-
-Product F ≤ Product B: This is weaker than the strict less-than relation proved by the chain.
-
-Product F > Product B: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Product F ≥ Product B: This comparison points in the wrong direction or uses the wrong degree of certainty.
 
 ## 8. INTERPRET_LINGUISTIC_RELATION — seed 7
 
@@ -266,21 +182,9 @@ Which symbolic relation has exactly the same meaning as the statement?
 
 **Correct:** 4. Plant C = Plant D
 
-### Mock solution
+### Explanation
 
 “Plant C's production is neither less than nor greater than Plant D's production” means equal to. So the sentence is written symbolically as Plant C = Plant D.
-
-### Learning solution
-
-“Plant C's production is neither less than nor greater than Plant D's production” means equal to.
-
-So the sentence is written symbolically as Plant C = Plant D.
-
-Plant C ≥ Plant D: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Plant C < Plant D: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Plant C ≤ Plant D: This comparison points in the wrong direction or uses the wrong degree of certainty.
 
 ## 9. INTERPRET_LINGUISTIC_RELATION — seed 8
 
@@ -301,21 +205,9 @@ Which symbolic relation has exactly the same meaning as the statement?
 
 **Correct:** 4. C < B
 
-### Mock solution
+### Explanation
 
 “C is less than B” means less than. So the sentence is written symbolically as C < B.
-
-### Learning solution
-
-“C is less than B” means less than.
-
-So the sentence is written symbolically as C < B.
-
-C ≥ B: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-C = B: Nothing in the statement or chain forces the two values to be equal.
-
-C > B: This comparison points in the wrong direction or uses the wrong degree of certainty.
 
 ## 10. INTERPRET_LINGUISTIC_RELATION — seed 9
 
@@ -336,21 +228,9 @@ Which symbolic relation has exactly the same meaning as the statement?
 
 **Correct:** 1. Aman < Farah
 
-### Mock solution
+### Explanation
 
 “Aman's marks are neither greater than nor equal to Farah's marks” rules out greater than and equal to, so it means less than. So the sentence is written symbolically as Aman < Farah.
-
-### Learning solution
-
-“Aman's marks are neither greater than nor equal to Farah's marks” rules out greater than and equal to, so it means less than.
-
-So the sentence is written symbolically as Aman < Farah.
-
-Aman ≥ Farah: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Aman > Farah: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Aman ≤ Farah: This is weaker than the strict less-than relation proved by the chain.
 
 ## 11. INTERPRET_LINGUISTIC_RELATION — seed 10
 
@@ -371,21 +251,9 @@ Which symbolic relation has exactly the same meaning as the statement?
 
 **Correct:** 3. Bina ≤ Aman
 
-### Mock solution
+### Explanation
 
 “Bina's salary is not greater than Aman's salary” allows less than or equal to. So the sentence is written symbolically as Bina ≤ Aman.
-
-### Learning solution
-
-“Bina's salary is not greater than Aman's salary” allows less than or equal to.
-
-So the sentence is written symbolically as Bina ≤ Aman.
-
-Bina < Aman: The wording allows both less than and equal to, so this option is too specific.
-
-Bina > Aman: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Bina ≥ Aman: This comparison points in the wrong direction or uses the wrong degree of certainty.
 
 ## 12. INTERPRET_LINGUISTIC_RELATION — seed 11
 
@@ -406,21 +274,9 @@ Which symbolic relation has exactly the same meaning as the statement?
 
 **Correct:** 2. Gagan ≥ Diya
 
-### Mock solution
+### Explanation
 
 “Gagan's height is not less than Diya's height” allows greater than or equal to. So the sentence is written symbolically as Gagan ≥ Diya.
-
-### Learning solution
-
-“Gagan's height is not less than Diya's height” allows greater than or equal to.
-
-So the sentence is written symbolically as Gagan ≥ Diya.
-
-Gagan = Diya: The wording allows both greater than and equal to, so this option is too specific.
-
-Gagan ≤ Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Gagan < Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.
 
 ## 13. SOLVE_LINGUISTIC_CHAIN — seed 0
 
@@ -441,25 +297,9 @@ What is the strongest definite relation between B and P?
 
 **Correct:** 4. B > P
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “P is less than B” means less than; symbolically, P < B. The translated statements allow B > P. Therefore, B > P is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“P is less than B” means less than; symbolically, P < B.
-
-The translated statements allow B > P.
-
-Therefore, B > P is the strongest definite relation.
-
-B ≥ P: This is weaker than the strict greater-than relation proved by the chain.
-
-B = P: Nothing in the statement or chain forces the two values to be equal.
-
-B < P: This comparison points in the wrong direction or uses the wrong degree of certainty.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: P < B. The translated statements allow B > P. Therefore, B > P.
 
 ## 14. SOLVE_LINGUISTIC_CHAIN — seed 1
 
@@ -480,25 +320,9 @@ What is the strongest definite relation between Gagan's marks and Bina's marks?
 
 **Correct:** 2. Gagan ≥ Bina
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Gagan's marks are not less than Bina's marks” allows greater than or equal to; symbolically, Gagan ≥ Bina. The translated statements allow Gagan = Bina or Gagan > Bina. Therefore, Gagan ≥ Bina is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Gagan's marks are not less than Bina's marks” allows greater than or equal to; symbolically, Gagan ≥ Bina.
-
-The translated statements allow Gagan = Bina or Gagan > Bina.
-
-Therefore, Gagan ≥ Bina is the strongest definite relation.
-
-Gagan < Bina: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Gagan = Bina: The wording allows both greater than and equal to, so this option is too specific.
-
-The relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Gagan ≥ Bina. The translated statements allow Gagan = Bina or Gagan > Bina. Therefore, Gagan ≥ Bina.
 
 ## 15. SOLVE_LINGUISTIC_CHAIN — seed 2
 
@@ -520,27 +344,9 @@ What is the strongest definite relation between Aman's salary and Bina's salary?
 
 **Correct:** 1. Aman > Bina
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's salary is greater than Bina's salary” means greater than; symbolically, Diya > Bina. “Aman's salary is neither less than nor equal to Diya's salary” rules out less than and equal to, so it means greater than; symbolically, Aman > Diya. The translated statements allow Aman > Bina. Therefore, Aman > Bina is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Diya's salary is greater than Bina's salary” means greater than; symbolically, Diya > Bina.
-
-“Aman's salary is neither less than nor equal to Diya's salary” rules out less than and equal to, so it means greater than; symbolically, Aman > Diya.
-
-The translated statements allow Aman > Bina.
-
-Therefore, Aman > Bina is the strongest definite relation.
-
-Aman < Bina: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Aman = Bina: Nothing in the statement or chain forces the two values to be equal.
-
-Aman ≤ Bina: This comparison points in the wrong direction or uses the wrong degree of certainty.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Diya > Bina, Aman > Diya. The translated statements allow Aman > Bina. Therefore, Aman > Bina.
 
 ## 16. SOLVE_LINGUISTIC_CHAIN — seed 3
 
@@ -562,27 +368,9 @@ What is the strongest definite relation between Diya's height and Bina's height?
 
 **Correct:** 3. Diya > Bina
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's height is not less than Aman's height” allows greater than or equal to; symbolically, Diya ≥ Aman. “Aman's height is greater than Bina's height” means greater than; symbolically, Aman > Bina. The translated statements allow Diya > Bina. Therefore, Diya > Bina is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Diya's height is not less than Aman's height” allows greater than or equal to; symbolically, Diya ≥ Aman.
-
-“Aman's height is greater than Bina's height” means greater than; symbolically, Aman > Bina.
-
-The translated statements allow Diya > Bina.
-
-Therefore, Diya > Bina is the strongest definite relation.
-
-Diya ≤ Bina: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-The relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.
-
-Diya < Bina: This comparison points in the wrong direction or uses the wrong degree of certainty.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Diya ≥ Aman, Aman > Bina. The translated statements allow Diya > Bina. Therefore, Diya > Bina.
 
 ## 17. SOLVE_LINGUISTIC_CHAIN — seed 4
 
@@ -604,27 +392,9 @@ What is the strongest definite relation between Aman's weight and Farah's weight
 
 **Correct:** 3. Aman ≥ Farah
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Farah's weight is equal to Gagan's weight” means equal to; symbolically, Farah = Gagan. “Gagan's weight is not greater than Aman's weight” allows less than or equal to; symbolically, Gagan ≤ Aman. The translated statements allow Aman = Farah or Aman > Farah. Therefore, Aman ≥ Farah is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Farah's weight is equal to Gagan's weight” means equal to; symbolically, Farah = Gagan.
-
-“Gagan's weight is not greater than Aman's weight” allows less than or equal to; symbolically, Gagan ≤ Aman.
-
-The translated statements allow Aman = Farah or Aman > Farah.
-
-Therefore, Aman ≥ Farah is the strongest definite relation.
-
-Aman ≤ Farah: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Aman > Farah: The wording allows both greater than and equal to, so this option is too specific.
-
-The relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Farah = Gagan, Gagan ≤ Aman. The translated statements allow Aman = Farah or Aman > Farah. Therefore, Aman ≥ Farah.
 
 ## 18. SOLVE_LINGUISTIC_CHAIN — seed 5
 
@@ -647,29 +417,9 @@ What is the strongest definite relation between Diya's score and Aman's score?
 
 **Correct:** 4. Diya ≤ Aman
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's score is not greater than Farah's score” allows less than or equal to; symbolically, Diya ≤ Farah. “Gagan's score is not greater than Aman's score” allows less than or equal to; symbolically, Gagan ≤ Aman. “Gagan's score is neither less than nor greater than Farah's score” means equal to; symbolically, Gagan = Farah. The translated statements allow Diya < Aman or Diya = Aman. Therefore, Diya ≤ Aman is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Diya's score is not greater than Farah's score” allows less than or equal to; symbolically, Diya ≤ Farah.
-
-“Gagan's score is not greater than Aman's score” allows less than or equal to; symbolically, Gagan ≤ Aman.
-
-“Gagan's score is neither less than nor greater than Farah's score” means equal to; symbolically, Gagan = Farah.
-
-The translated statements allow Diya < Aman or Diya = Aman.
-
-Therefore, Diya ≤ Aman is the strongest definite relation.
-
-Diya = Aman: The wording allows both less than and equal to, so this option is too specific.
-
-Diya < Aman: The wording allows both less than and equal to, so this option is too specific.
-
-The relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Diya ≤ Farah, Gagan ≤ Aman, Gagan = Farah. The translated statements allow Diya < Aman or Diya = Aman. Therefore, Diya ≤ Aman.
 
 ## 19. SOLVE_LINGUISTIC_CHAIN — seed 6
 
@@ -691,27 +441,9 @@ What is the strongest definite relation between the prices of Product C and Prod
 
 **Correct:** 2. The relation cannot be determined
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “The price of Product D is greater than the price of Product C” means greater than; symbolically, Product D > Product C. “The price of Product D is neither less than nor equal to the price of Product A” rules out less than and equal to, so it means greater than; symbolically, Product D > Product A. The translated statements allow Product C < Product A, Product C = Product A, or Product C > Product A. Therefore, the relation between Product C and Product A cannot be determined.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“The price of Product D is greater than the price of Product C” means greater than; symbolically, Product D > Product C.
-
-“The price of Product D is neither less than nor equal to the price of Product A” rules out less than and equal to, so it means greater than; symbolically, Product D > Product A.
-
-The translated statements allow Product C < Product A, Product C = Product A, or Product C > Product A.
-
-Therefore, the relation between Product C and Product A cannot be determined.
-
-Product C ≥ Product A: The statements do not fix one definite relation, so this option claims more than the information proves.
-
-Product C ≤ Product A: The statements do not fix one definite relation, so this option claims more than the information proves.
-
-Product C < Product A: The statements do not fix one definite relation, so this option claims more than the information proves.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Product D > Product C, Product D > Product A. The translated statements allow Product C < Product A, Product C = Product A, or Product C > Product A. Therefore, the relation between Product C and Product A cannot be determined.
 
 ## 20. SOLVE_LINGUISTIC_CHAIN — seed 7
 
@@ -733,27 +465,9 @@ What is the strongest definite relation between Plant C's production and Plant B
 
 **Correct:** 1. The relation cannot be determined
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Plant A's production is neither less than nor equal to Plant C's production” rules out less than and equal to, so it means greater than; symbolically, Plant A > Plant C. “Plant B's production is less than Plant D's production” means less than; symbolically, Plant B < Plant D. The translated statements allow Plant C < Plant B, Plant C = Plant B, or Plant C > Plant B. Therefore, the relation between Plant C and Plant B cannot be determined.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Plant A's production is neither less than nor equal to Plant C's production” rules out less than and equal to, so it means greater than; symbolically, Plant A > Plant C.
-
-“Plant B's production is less than Plant D's production” means less than; symbolically, Plant B < Plant D.
-
-The translated statements allow Plant C < Plant B, Plant C = Plant B, or Plant C > Plant B.
-
-Therefore, the relation between Plant C and Plant B cannot be determined.
-
-Plant C < Plant B: The statements do not fix one definite relation, so this option claims more than the information proves.
-
-Plant C ≤ Plant B: The statements do not fix one definite relation, so this option claims more than the information proves.
-
-Plant C > Plant B: The statements do not fix one definite relation, so this option claims more than the information proves.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Plant A > Plant C, Plant B < Plant D. The translated statements allow Plant C < Plant B, Plant C = Plant B, or Plant C > Plant B. Therefore, the relation between Plant C and Plant B cannot be determined.
 
 ## 21. SOLVE_LINGUISTIC_CHAIN — seed 8
 
@@ -777,31 +491,9 @@ What is the strongest definite relation between A and D?
 
 **Correct:** 3. A > D
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “P is equal to C” means equal to; symbolically, P = C. “P is not greater than A” allows less than or equal to; symbolically, P ≤ A. “D is not greater than Q” allows less than or equal to; symbolically, D ≤ Q. “C is neither less than nor equal to Q” rules out less than and equal to, so it means greater than; symbolically, C > Q. The translated statements allow A > D. Therefore, A > D is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“P is equal to C” means equal to; symbolically, P = C.
-
-“P is not greater than A” allows less than or equal to; symbolically, P ≤ A.
-
-“D is not greater than Q” allows less than or equal to; symbolically, D ≤ Q.
-
-“C is neither less than nor equal to Q” rules out less than and equal to, so it means greater than; symbolically, C > Q.
-
-The translated statements allow A > D.
-
-Therefore, A > D is the strongest definite relation.
-
-The relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.
-
-A ≤ D: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-A < D: This comparison points in the wrong direction or uses the wrong degree of certainty.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: P = C, P ≤ A, D ≤ Q, C > Q. The translated statements allow A > D. Therefore, A > D.
 
 ## 22. SOLVE_LINGUISTIC_CHAIN — seed 9
 
@@ -825,31 +517,9 @@ What is the strongest definite relation between Diya's marks and Aman's marks?
 
 **Correct:** 2. Diya ≥ Aman
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Farah's marks are neither less than nor greater than Diya's marks” means equal to; symbolically, Farah = Diya. “Gagan's marks are not less than Aman's marks” allows greater than or equal to; symbolically, Gagan ≥ Aman. “Bina's marks are not greater than Farah's marks” allows less than or equal to; symbolically, Bina ≤ Farah. “Bina's marks are equal to Gagan's marks” means equal to; symbolically, Bina = Gagan. The translated statements allow Diya = Aman or Diya > Aman. Therefore, Diya ≥ Aman is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Farah's marks are neither less than nor greater than Diya's marks” means equal to; symbolically, Farah = Diya.
-
-“Gagan's marks are not less than Aman's marks” allows greater than or equal to; symbolically, Gagan ≥ Aman.
-
-“Bina's marks are not greater than Farah's marks” allows less than or equal to; symbolically, Bina ≤ Farah.
-
-“Bina's marks are equal to Gagan's marks” means equal to; symbolically, Bina = Gagan.
-
-The translated statements allow Diya = Aman or Diya > Aman.
-
-Therefore, Diya ≥ Aman is the strongest definite relation.
-
-Diya < Aman: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Diya > Aman: The wording allows both greater than and equal to, so this option is too specific.
-
-Diya = Aman: The wording allows both greater than and equal to, so this option is too specific.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Farah = Diya, Gagan ≥ Aman, Bina ≤ Farah, Bina = Gagan. The translated statements allow Diya = Aman or Diya > Aman. Therefore, Diya ≥ Aman.
 
 ## 23. SOLVE_LINGUISTIC_CHAIN — seed 10
 
@@ -872,29 +542,9 @@ What is the strongest definite relation between Farah's salary and Bina's salary
 
 **Correct:** 1. The relation cannot be determined
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Bina's salary is greater than Charan's salary” means greater than; symbolically, Bina > Charan. “Gagan's salary is neither less than nor equal to Bina's salary” rules out less than and equal to, so it means greater than; symbolically, Gagan > Bina. “Charan's salary is not greater than Farah's salary” allows less than or equal to; symbolically, Charan ≤ Farah. The translated statements allow Farah < Bina, Farah = Bina, or Farah > Bina. Therefore, the relation between Farah and Bina cannot be determined.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Bina's salary is greater than Charan's salary” means greater than; symbolically, Bina > Charan.
-
-“Gagan's salary is neither less than nor equal to Bina's salary” rules out less than and equal to, so it means greater than; symbolically, Gagan > Bina.
-
-“Charan's salary is not greater than Farah's salary” allows less than or equal to; symbolically, Charan ≤ Farah.
-
-The translated statements allow Farah < Bina, Farah = Bina, or Farah > Bina.
-
-Therefore, the relation between Farah and Bina cannot be determined.
-
-Farah < Bina: The statements do not fix one definite relation, so this option claims more than the information proves.
-
-Farah ≥ Bina: The statements do not fix one definite relation, so this option claims more than the information proves.
-
-Farah ≤ Bina: The statements do not fix one definite relation, so this option claims more than the information proves.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Bina > Charan, Gagan > Bina, Charan ≤ Farah. The translated statements allow Farah < Bina, Farah = Bina, or Farah > Bina. Therefore, the relation between Farah and Bina cannot be determined.
 
 ## 24. SOLVE_LINGUISTIC_CHAIN — seed 11
 
@@ -917,29 +567,9 @@ What is the strongest definite relation between Charan's height and Diya's heigh
 
 **Correct:** 4. Charan > Diya
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Charan's height is neither less than nor equal to Aman's height” rules out less than and equal to, so it means greater than; symbolically, Charan > Aman. “Aman's height is not less than Diya's height” allows greater than or equal to; symbolically, Aman ≥ Diya. “Gagan's height is neither less than nor greater than Farah's height” means equal to; symbolically, Gagan = Farah. The translated statements allow Charan > Diya. Therefore, Charan > Diya is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Charan's height is neither less than nor equal to Aman's height” rules out less than and equal to, so it means greater than; symbolically, Charan > Aman.
-
-“Aman's height is not less than Diya's height” allows greater than or equal to; symbolically, Aman ≥ Diya.
-
-“Gagan's height is neither less than nor greater than Farah's height” means equal to; symbolically, Gagan = Farah.
-
-The translated statements allow Charan > Diya.
-
-Therefore, Charan > Diya is the strongest definite relation.
-
-Charan ≥ Diya: This is weaker than the strict greater-than relation proved by the chain.
-
-Charan ≤ Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Charan < Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Charan > Aman, Aman ≥ Diya, Gagan = Farah. The translated statements allow Charan > Diya. Therefore, Charan > Diya.
 
 ## 25. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 0
 
@@ -961,25 +591,9 @@ What is the strongest definite relation between Q and A?
 
 **Correct:** 4. Q < A
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “P is greater than Q” means greater than; symbolically, P > Q. The translated statements allow Q < A. Therefore, Q < A is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“P is greater than Q” means greater than; symbolically, P > Q.
-
-The translated statements allow Q < A.
-
-Therefore, Q < A is the strongest definite relation.
-
-Q ≤ A: This is weaker than the strict less-than relation proved by the chain.
-
-Q > A: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-The relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: P > Q, P < A. The translated statements allow Q < A. Therefore, Q < A.
 
 ## 26. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 1
 
@@ -1001,25 +615,9 @@ What is the strongest definite relation between Bina's marks and Gagan's marks?
 
 **Correct:** 2. Bina > Gagan
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Bina's marks are not less than Aman's marks” allows greater than or equal to; symbolically, Bina ≥ Aman. The translated statements allow Bina > Gagan. Therefore, Bina > Gagan is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Bina's marks are not less than Aman's marks” allows greater than or equal to; symbolically, Bina ≥ Aman.
-
-The translated statements allow Bina > Gagan.
-
-Therefore, Bina > Gagan is the strongest definite relation.
-
-Bina ≥ Gagan: This is weaker than the strict greater-than relation proved by the chain.
-
-Bina = Gagan: Nothing in the statement or chain forces the two values to be equal.
-
-Bina ≤ Gagan: This comparison points in the wrong direction or uses the wrong degree of certainty.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Bina ≥ Aman, Gagan < Aman. The translated statements allow Bina > Gagan. Therefore, Bina > Gagan.
 
 ## 27. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 2
 
@@ -1041,25 +639,9 @@ What is the strongest definite relation between Bina's salary and Diya's salary?
 
 **Correct:** 1. Bina > Diya
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's salary is less than Charan's salary” means less than; symbolically, Diya < Charan. The translated statements allow Bina > Diya. Therefore, Bina > Diya is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Diya's salary is less than Charan's salary” means less than; symbolically, Diya < Charan.
-
-The translated statements allow Bina > Diya.
-
-Therefore, Bina > Diya is the strongest definite relation.
-
-Bina ≤ Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Bina ≥ Diya: This is weaker than the strict greater-than relation proved by the chain.
-
-Bina < Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Diya < Charan, Charan < Bina. The translated statements allow Bina > Diya. Therefore, Bina > Diya.
 
 ## 28. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 3
 
@@ -1081,25 +663,9 @@ What is the strongest definite relation between Diya's height and Charan's heigh
 
 **Correct:** 3. Diya < Charan
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's height is neither greater than nor equal to Farah's height” rules out greater than and equal to, so it means less than; symbolically, Diya < Farah. The translated statements allow Diya < Charan. Therefore, Diya < Charan is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Diya's height is neither greater than nor equal to Farah's height” rules out greater than and equal to, so it means less than; symbolically, Diya < Farah.
-
-The translated statements allow Diya < Charan.
-
-Therefore, Diya < Charan is the strongest definite relation.
-
-The relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.
-
-Diya > Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Diya ≥ Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Diya < Farah, Charan ≥ Farah. The translated statements allow Diya < Charan. Therefore, Diya < Charan.
 
 ## 29. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 4
 
@@ -1121,25 +687,9 @@ What is the strongest definite relation between Gagan's weight and Charan's weig
 
 **Correct:** 2. Gagan ≤ Charan
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Gagan's weight is equal to Aman's weight” means equal to; symbolically, Gagan = Aman. The translated statements allow Gagan < Charan or Gagan = Charan. Therefore, Gagan ≤ Charan is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Gagan's weight is equal to Aman's weight” means equal to; symbolically, Gagan = Aman.
-
-The translated statements allow Gagan < Charan or Gagan = Charan.
-
-Therefore, Gagan ≤ Charan is the strongest definite relation.
-
-Gagan ≥ Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Gagan > Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Gagan < Charan: The wording allows both less than and equal to, so this option is too specific.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Gagan = Aman, Aman ≤ Charan. The translated statements allow Gagan < Charan or Gagan = Charan. Therefore, Gagan ≤ Charan.
 
 ## 30. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 5
 
@@ -1162,27 +712,9 @@ What is the strongest definite relation between Gagan's score and Charan's score
 
 **Correct:** 4. Gagan ≤ Charan
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Charan's score is not less than Aman's score” allows greater than or equal to; symbolically, Charan ≥ Aman. “Farah's score is neither less than nor greater than Aman's score” means equal to; symbolically, Farah = Aman. The translated statements allow Gagan < Charan or Gagan = Charan. Therefore, Gagan ≤ Charan is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Charan's score is not less than Aman's score” allows greater than or equal to; symbolically, Charan ≥ Aman.
-
-“Farah's score is neither less than nor greater than Aman's score” means equal to; symbolically, Farah = Aman.
-
-The translated statements allow Gagan < Charan or Gagan = Charan.
-
-Therefore, Gagan ≤ Charan is the strongest definite relation.
-
-The relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.
-
-Gagan ≥ Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Gagan > Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Charan ≥ Aman, Farah ≥ Gagan, Farah = Aman. The translated statements allow Gagan < Charan or Gagan = Charan. Therefore, Gagan ≤ Charan.
 
 ## 31. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 6
 
@@ -1204,25 +736,9 @@ What is the strongest definite relation between the prices of Product E and Prod
 
 **Correct:** 1. The relation cannot be determined
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “The price of Product E is less than the price of Product D” means less than; symbolically, Product E < Product D. The translated statements allow Product E < Product A, Product E = Product A, or Product E > Product A. Therefore, the relation between Product E and Product A cannot be determined.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“The price of Product E is less than the price of Product D” means less than; symbolically, Product E < Product D.
-
-The translated statements allow Product E < Product A, Product E = Product A, or Product E > Product A.
-
-Therefore, the relation between Product E and Product A cannot be determined.
-
-Product E > Product A: The statements do not fix one definite relation, so this option claims more than the information proves.
-
-Product E = Product A: The statements do not fix one definite relation, so this option claims more than the information proves.
-
-Product E ≥ Product A: The statements do not fix one definite relation, so this option claims more than the information proves.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Product E < Product D, Product A < Product D. The translated statements allow Product E < Product A, Product E = Product A, or Product E > Product A. Therefore, the relation between Product E and Product A cannot be determined.
 
 ## 32. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 7
 
@@ -1244,25 +760,9 @@ What is the strongest definite relation between Plant E's production and Plant B
 
 **Correct:** 3. The relation cannot be determined
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Plant D's production is neither less than nor equal to Plant E's production” rules out less than and equal to, so it means greater than; symbolically, Plant D > Plant E. The translated statements allow Plant E < Plant B, Plant E = Plant B, or Plant E > Plant B. Therefore, the relation between Plant E and Plant B cannot be determined.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Plant D's production is neither less than nor equal to Plant E's production” rules out less than and equal to, so it means greater than; symbolically, Plant D > Plant E.
-
-The translated statements allow Plant E < Plant B, Plant E = Plant B, or Plant E > Plant B.
-
-Therefore, the relation between Plant E and Plant B cannot be determined.
-
-Plant E = Plant B: The statements do not fix one definite relation, so this option claims more than the information proves.
-
-Plant E ≤ Plant B: The statements do not fix one definite relation, so this option claims more than the information proves.
-
-Plant E > Plant B: The statements do not fix one definite relation, so this option claims more than the information proves.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Plant D > Plant E, Plant A > Plant B. The translated statements allow Plant E < Plant B, Plant E = Plant B, or Plant E > Plant B. Therefore, the relation between Plant E and Plant B cannot be determined.
 
 ## 33. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 8
 
@@ -1286,27 +786,9 @@ What is the strongest definite relation between A and B?
 
 **Correct:** 4. A > B
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Q is not less than B” allows greater than or equal to; symbolically, Q ≥ B. “D is equal to P” means equal to; symbolically, D = P. The translated statements allow A > B. Therefore, A > B is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Q is not less than B” allows greater than or equal to; symbolically, Q ≥ B.
-
-“D is equal to P” means equal to; symbolically, D = P.
-
-The translated statements allow A > B.
-
-Therefore, A > B is the strongest definite relation.
-
-A ≥ B: This is weaker than the strict greater-than relation proved by the chain.
-
-A = B: Nothing in the statement or chain forces the two values to be equal.
-
-A ≤ B: This comparison points in the wrong direction or uses the wrong degree of certainty.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Q ≥ B, P > Q, D = P, A ≥ D. The translated statements allow A > B. Therefore, A > B.
 
 ## 34. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 9
 
@@ -1330,27 +812,9 @@ What is the strongest definite relation between Charan's marks and Diya's marks?
 
 **Correct:** 2. Charan ≥ Diya
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's marks are not greater than Gagan's marks” allows less than or equal to; symbolically, Diya ≤ Gagan. “Bina's marks are not greater than Aman's marks” allows less than or equal to; symbolically, Bina ≤ Aman. The translated statements allow Charan = Diya or Charan > Diya. Therefore, Charan ≥ Diya is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Diya's marks are not greater than Gagan's marks” allows less than or equal to; symbolically, Diya ≤ Gagan.
-
-“Bina's marks are not greater than Aman's marks” allows less than or equal to; symbolically, Bina ≤ Aman.
-
-The translated statements allow Charan = Diya or Charan > Diya.
-
-Therefore, Charan ≥ Diya is the strongest definite relation.
-
-Charan < Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Charan ≤ Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-Charan = Diya: The wording allows both greater than and equal to, so this option is too specific.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Diya ≤ Gagan, Gagan = Bina, Bina ≤ Aman, Aman = Charan. The translated statements allow Charan = Diya or Charan > Diya. Therefore, Charan ≥ Diya.
 
 ## 35. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 10
 
@@ -1373,27 +837,9 @@ What is the strongest definite relation between Aman's salary and Charan's salar
 
 **Correct:** 1. The relation cannot be determined
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's salary is not greater than Charan's salary” allows less than or equal to; symbolically, Diya ≤ Charan. “Gagan's salary is greater than Aman's salary” means greater than; symbolically, Gagan > Aman. The translated statements allow Aman < Charan, Aman = Charan, or Aman > Charan. Therefore, the relation between Aman and Charan cannot be determined.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Diya's salary is not greater than Charan's salary” allows less than or equal to; symbolically, Diya ≤ Charan.
-
-“Gagan's salary is greater than Aman's salary” means greater than; symbolically, Gagan > Aman.
-
-The translated statements allow Aman < Charan, Aman = Charan, or Aman > Charan.
-
-Therefore, the relation between Aman and Charan cannot be determined.
-
-Aman < Charan: The statements do not fix one definite relation, so this option claims more than the information proves.
-
-Aman = Charan: The statements do not fix one definite relation, so this option claims more than the information proves.
-
-Aman ≤ Charan: The statements do not fix one definite relation, so this option claims more than the information proves.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Diya ≤ Charan, Diya < Aman, Gagan > Aman. The translated statements allow Aman < Charan, Aman = Charan, or Aman > Charan. Therefore, the relation between Aman and Charan cannot be determined.
 
 ## 36. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 11
 
@@ -1416,27 +862,9 @@ What is the strongest definite relation between Charan's height and Bina's heigh
 
 **Correct:** 3. Charan < Bina
 
-### Mock solution
+### Explanation
 
-Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Farah's height is neither less than nor greater than Gagan's height” means equal to; symbolically, Farah = Gagan. “Diya's height is neither greater than nor equal to Bina's height” rules out greater than and equal to, so it means less than; symbolically, Diya < Bina. The translated statements allow Charan < Bina. Therefore, Charan < Bina is the strongest definite relation.
-
-### Learning solution
-
-Translate the verbal comparisons first, then connect only the statements that link the two required terms.
-
-“Farah's height is neither less than nor greater than Gagan's height” means equal to; symbolically, Farah = Gagan.
-
-“Diya's height is neither greater than nor equal to Bina's height” rules out greater than and equal to, so it means less than; symbolically, Diya < Bina.
-
-The translated statements allow Charan < Bina.
-
-Therefore, Charan < Bina is the strongest definite relation.
-
-Charan ≤ Bina: This is weaker than the strict less-than relation proved by the chain.
-
-Charan > Bina: This comparison points in the wrong direction or uses the wrong degree of certainty.
-
-The relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.
+Translate the verbal comparisons first, then connect only the statements that link the two required terms. In symbols: Farah = Gagan, Charan ≤ Diya, Diya < Bina. The translated statements allow Charan < Bina. Therefore, Charan < Bina.
 
 ## 37. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 0
 
@@ -1463,29 +891,9 @@ II. P is greater than Q.
 
 **Correct:** 2. Only conclusion I follows
 
-### Mock solution
+### Explanation
 
-First translate the verbal comparisons, then test each conclusion against the complete chain. “P is less than A” means less than; symbolically, P < A. “Q is neither less than nor equal to A” rules out less than and equal to, so it means greater than; symbolically, Q > A. Conclusion I: P is neither greater than nor equal to A. The statements allow P < A, so it definitely follows. Conclusion II: P is greater than Q. The statements allow P < Q, so it is not guaranteed. Therefore, only conclusion I follows.
-
-### Learning solution
-
-First translate the verbal comparisons, then test each conclusion against the complete chain.
-
-“P is less than A” means less than; symbolically, P < A.
-
-“Q is neither less than nor equal to A” rules out less than and equal to, so it means greater than; symbolically, Q > A.
-
-Conclusion I: P is neither greater than nor equal to A. The statements allow P < A, so it definitely follows.
-
-Conclusion II: P is greater than Q. The statements allow P < Q, so it is not guaranteed.
-
-Therefore, only conclusion I follows.
-
-Neither conclusion I nor conclusion II follows: This option rejects both conclusions. Only conclusion I is guaranteed.
-
-Only conclusion II follows: This option keeps the wrong conclusion. Only conclusion I is guaranteed.
-
-Both conclusions I and II follow: This option treats both conclusions as certain. Only conclusion I is guaranteed.
+Translate the statements first, then check the conclusions. In symbols: P < A, Q > A. Conclusion I follows because the possible relation is P < A. Conclusion II is not certain because the possible relation is P < Q. Therefore, only conclusion I follows.
 
 ## 38. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 1
 
@@ -1512,29 +920,9 @@ II. Gagan's marks are neither less than nor equal to Farah's marks.
 
 **Correct:** 4. Only conclusion II follows
 
-### Mock solution
+### Explanation
 
-First translate the verbal comparisons, then test each conclusion against the complete chain. “Gagan's marks are neither less than nor equal to Farah's marks” rules out less than and equal to, so it means greater than; symbolically, Gagan > Farah. “Gagan's marks are not greater than Charan's marks” allows less than or equal to; symbolically, Gagan ≤ Charan. Conclusion I: Charan's marks are equal to Gagan's marks. The statements allow Charan = Gagan or Charan > Gagan, so it is not guaranteed. Conclusion II: Gagan's marks are neither less than nor equal to Farah's marks. The statements allow Gagan > Farah, so it definitely follows. Therefore, only conclusion II follows.
-
-### Learning solution
-
-First translate the verbal comparisons, then test each conclusion against the complete chain.
-
-“Gagan's marks are neither less than nor equal to Farah's marks” rules out less than and equal to, so it means greater than; symbolically, Gagan > Farah.
-
-“Gagan's marks are not greater than Charan's marks” allows less than or equal to; symbolically, Gagan ≤ Charan.
-
-Conclusion I: Charan's marks are equal to Gagan's marks. The statements allow Charan = Gagan or Charan > Gagan, so it is not guaranteed.
-
-Conclusion II: Gagan's marks are neither less than nor equal to Farah's marks. The statements allow Gagan > Farah, so it definitely follows.
-
-Therefore, only conclusion II follows.
-
-Both conclusions I and II follow: This option treats both conclusions as certain. Only conclusion II is guaranteed.
-
-Only conclusion I follows: This option keeps the wrong conclusion. Only conclusion II is guaranteed.
-
-Neither conclusion I nor conclusion II follows: This option rejects both conclusions. Only conclusion II is guaranteed.
+Translate the statements first, then check the conclusions. In symbols: Gagan > Farah, Gagan ≤ Charan. Conclusion I is not certain because the possible relation is Charan = Gagan or Charan > Gagan. Conclusion II follows because the possible relation is Gagan > Farah. Therefore, only conclusion II follows.
 
 ## 39. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 2
 
@@ -1561,29 +949,9 @@ II. Farah's salary is not less than Bina's salary.
 
 **Correct:** 1. Both conclusions I and II follow
 
-### Mock solution
+### Explanation
 
-First translate the verbal comparisons, then test each conclusion against the complete chain. “Bina's salary is less than Charan's salary” means less than; symbolically, Bina < Charan. “Farah's salary is neither less than nor equal to Charan's salary” rules out less than and equal to, so it means greater than; symbolically, Farah > Charan. Conclusion I: Farah's salary is neither less than nor equal to Charan's salary. The statements allow Farah > Charan, so it definitely follows. Conclusion II: Farah's salary is not less than Bina's salary. The statements allow Farah > Bina, so it definitely follows. Therefore, both conclusions I and II follow.
-
-### Learning solution
-
-First translate the verbal comparisons, then test each conclusion against the complete chain.
-
-“Bina's salary is less than Charan's salary” means less than; symbolically, Bina < Charan.
-
-“Farah's salary is neither less than nor equal to Charan's salary” rules out less than and equal to, so it means greater than; symbolically, Farah > Charan.
-
-Conclusion I: Farah's salary is neither less than nor equal to Charan's salary. The statements allow Farah > Charan, so it definitely follows.
-
-Conclusion II: Farah's salary is not less than Bina's salary. The statements allow Farah > Bina, so it definitely follows.
-
-Therefore, both conclusions I and II follow.
-
-Neither conclusion I nor conclusion II follows: This option rejects both conclusions. Both conclusions are guaranteed.
-
-Only conclusion II follows: This option keeps the wrong conclusion. Both conclusions are guaranteed.
-
-Only conclusion I follows: This option keeps the wrong conclusion. Both conclusions are guaranteed.
+Translate the statements first, then check the conclusions. In symbols: Bina < Charan, Farah > Charan. Conclusion I follows because the possible relation is Farah > Charan. Conclusion II follows because the possible relation is Farah > Bina. Therefore, both conclusions I and II follow.
 
 ## 40. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 3
 
@@ -1610,29 +978,9 @@ II. Charan's height is neither greater than nor equal to Aman's height.
 
 **Correct:** 3. Neither conclusion I nor conclusion II follows
 
-### Mock solution
+### Explanation
 
-First translate the verbal comparisons, then test each conclusion against the complete chain. “Aman's height is neither greater than nor equal to Charan's height” rules out greater than and equal to, so it means less than; symbolically, Aman < Charan. “Farah's height is not less than Charan's height” allows greater than or equal to; symbolically, Farah ≥ Charan. Conclusion I: Charan's height is not less than Farah's height. The statements allow Charan < Farah or Charan = Farah, so it is not guaranteed. Conclusion II: Charan's height is neither greater than nor equal to Aman's height. The statements allow Charan > Aman, so it is not guaranteed. Therefore, neither conclusion I nor conclusion II follows.
-
-### Learning solution
-
-First translate the verbal comparisons, then test each conclusion against the complete chain.
-
-“Aman's height is neither greater than nor equal to Charan's height” rules out greater than and equal to, so it means less than; symbolically, Aman < Charan.
-
-“Farah's height is not less than Charan's height” allows greater than or equal to; symbolically, Farah ≥ Charan.
-
-Conclusion I: Charan's height is not less than Farah's height. The statements allow Charan < Farah or Charan = Farah, so it is not guaranteed.
-
-Conclusion II: Charan's height is neither greater than nor equal to Aman's height. The statements allow Charan > Aman, so it is not guaranteed.
-
-Therefore, neither conclusion I nor conclusion II follows.
-
-Only conclusion I follows: This option keeps the wrong conclusion. Neither conclusion is guaranteed.
-
-Both conclusions I and II follow: This option treats both conclusions as certain. Neither conclusion is guaranteed.
-
-Only conclusion II follows: This option keeps the wrong conclusion. Neither conclusion is guaranteed.
+Translate the statements first, then check the conclusions. In symbols: Aman < Charan, Farah ≥ Charan. Conclusion I is not certain because the possible relation is Charan < Farah or Charan = Farah. Conclusion II is not certain because the possible relation is Charan > Aman. Therefore, neither conclusion I nor conclusion II follows.
 
 ## 41. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 4
 
@@ -1659,29 +1007,9 @@ II. Gagan's weight is equal to Aman's weight.
 
 **Correct:** 2. Only conclusion I follows
 
-### Mock solution
+### Explanation
 
-First translate the verbal comparisons, then test each conclusion against the complete chain. “Aman's weight is not less than Gagan's weight” allows greater than or equal to; symbolically, Aman ≥ Gagan. “Gagan's weight is neither less than nor greater than Charan's weight” means equal to; symbolically, Gagan = Charan. Conclusion I: Charan's weight is not greater than Gagan's weight. The statements allow Charan = Gagan, so it definitely follows. Conclusion II: Gagan's weight is equal to Aman's weight. The statements allow Gagan < Aman or Gagan = Aman, so it is not guaranteed. Therefore, only conclusion I follows.
-
-### Learning solution
-
-First translate the verbal comparisons, then test each conclusion against the complete chain.
-
-“Aman's weight is not less than Gagan's weight” allows greater than or equal to; symbolically, Aman ≥ Gagan.
-
-“Gagan's weight is neither less than nor greater than Charan's weight” means equal to; symbolically, Gagan = Charan.
-
-Conclusion I: Charan's weight is not greater than Gagan's weight. The statements allow Charan = Gagan, so it definitely follows.
-
-Conclusion II: Gagan's weight is equal to Aman's weight. The statements allow Gagan < Aman or Gagan = Aman, so it is not guaranteed.
-
-Therefore, only conclusion I follows.
-
-Only conclusion II follows: This option keeps the wrong conclusion. Only conclusion I is guaranteed.
-
-Both conclusions I and II follow: This option treats both conclusions as certain. Only conclusion I is guaranteed.
-
-Neither conclusion I nor conclusion II follows: This option rejects both conclusions. Only conclusion I is guaranteed.
+Translate the statements first, then check the conclusions. In symbols: Aman ≥ Gagan, Gagan = Charan. Conclusion I follows because the possible relation is Charan = Gagan. Conclusion II is not certain because the possible relation is Gagan < Aman or Gagan = Aman. Therefore, only conclusion I follows.
 
 ## 42. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 5
 
@@ -1709,31 +1037,9 @@ II. Charan's score is not greater than Farah's score.
 
 **Correct:** 4. Only conclusion II follows
 
-### Mock solution
+### Explanation
 
-First translate the verbal comparisons, then test each conclusion against the complete chain. “Bina's score is not less than Gagan's score” allows greater than or equal to; symbolically, Bina ≥ Gagan. “Charan's score is not greater than Farah's score” allows less than or equal to; symbolically, Charan ≤ Farah. “Charan's score is neither less than nor greater than Bina's score” means equal to; symbolically, Charan = Bina. Conclusion I: Farah's score is not greater than Bina's score. The statements allow Farah = Bina or Farah > Bina, so it is not guaranteed. Conclusion II: Charan's score is not greater than Farah's score. The statements allow Charan < Farah or Charan = Farah, so it definitely follows. Therefore, only conclusion II follows.
-
-### Learning solution
-
-First translate the verbal comparisons, then test each conclusion against the complete chain.
-
-“Bina's score is not less than Gagan's score” allows greater than or equal to; symbolically, Bina ≥ Gagan.
-
-“Charan's score is not greater than Farah's score” allows less than or equal to; symbolically, Charan ≤ Farah.
-
-“Charan's score is neither less than nor greater than Bina's score” means equal to; symbolically, Charan = Bina.
-
-Conclusion I: Farah's score is not greater than Bina's score. The statements allow Farah = Bina or Farah > Bina, so it is not guaranteed.
-
-Conclusion II: Charan's score is not greater than Farah's score. The statements allow Charan < Farah or Charan = Farah, so it definitely follows.
-
-Therefore, only conclusion II follows.
-
-Both conclusions I and II follow: This option treats both conclusions as certain. Only conclusion II is guaranteed.
-
-Only conclusion I follows: This option keeps the wrong conclusion. Only conclusion II is guaranteed.
-
-Neither conclusion I nor conclusion II follows: This option rejects both conclusions. Only conclusion II is guaranteed.
+Translate the statements first, then check the conclusions. In symbols: Bina ≥ Gagan, Charan ≤ Farah, Charan = Bina. Conclusion I is not certain because the possible relation is Farah = Bina or Farah > Bina. Conclusion II follows because the possible relation is Charan < Farah or Charan = Farah. Therefore, only conclusion II follows.
 
 ## 43. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 6
 
@@ -1760,29 +1066,9 @@ II. The price of Product D is not greater than the price of Product F.
 
 **Correct:** 1. Both conclusions I and II follow
 
-### Mock solution
+### Explanation
 
-First translate the verbal comparisons, then test each conclusion against the complete chain. “The price of Product F is greater than the price of Product B” means greater than; symbolically, Product F > Product B. “The price of Product F is neither less than nor equal to the price of Product D” rules out less than and equal to, so it means greater than; symbolically, Product F > Product D. Conclusion I: The price of Product F is neither less than nor equal to the price of Product B. The statements allow Product F > Product B, so it definitely follows. Conclusion II: The price of Product D is not greater than the price of Product F. The statements allow Product D < Product F, so it definitely follows. Therefore, both conclusions I and II follow.
-
-### Learning solution
-
-First translate the verbal comparisons, then test each conclusion against the complete chain.
-
-“The price of Product F is greater than the price of Product B” means greater than; symbolically, Product F > Product B.
-
-“The price of Product F is neither less than nor equal to the price of Product D” rules out less than and equal to, so it means greater than; symbolically, Product F > Product D.
-
-Conclusion I: The price of Product F is neither less than nor equal to the price of Product B. The statements allow Product F > Product B, so it definitely follows.
-
-Conclusion II: The price of Product D is not greater than the price of Product F. The statements allow Product D < Product F, so it definitely follows.
-
-Therefore, both conclusions I and II follow.
-
-Neither conclusion I nor conclusion II follows: This option rejects both conclusions. Both conclusions are guaranteed.
-
-Only conclusion II follows: This option keeps the wrong conclusion. Both conclusions are guaranteed.
-
-Only conclusion I follows: This option keeps the wrong conclusion. Both conclusions are guaranteed.
+Translate the statements first, then check the conclusions. In symbols: Product F > Product B, Product F > Product D. Conclusion I follows because the possible relation is Product F > Product B. Conclusion II follows because the possible relation is Product D < Product F. Therefore, both conclusions I and II follow.
 
 ## 44. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 7
 
@@ -1809,29 +1095,9 @@ II. Plant E's production is not greater than Plant D's production.
 
 **Correct:** 3. Neither conclusion I nor conclusion II follows
 
-### Mock solution
+### Explanation
 
-First translate the verbal comparisons, then test each conclusion against the complete chain. “Plant E's production is neither greater than nor equal to Plant B's production” rules out greater than and equal to, so it means less than; symbolically, Plant E < Plant B. “Plant A's production is greater than Plant D's production” means greater than; symbolically, Plant A > Plant D. Conclusion I: Plant B's production is equal to Plant E's production. The statements allow Plant B > Plant E, so it is not guaranteed. Conclusion II: Plant E's production is not greater than Plant D's production. The statements allow Plant E < Plant D, Plant E = Plant D, or Plant E > Plant D, so it is not guaranteed. Therefore, neither conclusion I nor conclusion II follows.
-
-### Learning solution
-
-First translate the verbal comparisons, then test each conclusion against the complete chain.
-
-“Plant E's production is neither greater than nor equal to Plant B's production” rules out greater than and equal to, so it means less than; symbolically, Plant E < Plant B.
-
-“Plant A's production is greater than Plant D's production” means greater than; symbolically, Plant A > Plant D.
-
-Conclusion I: Plant B's production is equal to Plant E's production. The statements allow Plant B > Plant E, so it is not guaranteed.
-
-Conclusion II: Plant E's production is not greater than Plant D's production. The statements allow Plant E < Plant D, Plant E = Plant D, or Plant E > Plant D, so it is not guaranteed.
-
-Therefore, neither conclusion I nor conclusion II follows.
-
-Only conclusion II follows: This option keeps the wrong conclusion. Neither conclusion is guaranteed.
-
-Both conclusions I and II follow: This option treats both conclusions as certain. Neither conclusion is guaranteed.
-
-Only conclusion I follows: This option keeps the wrong conclusion. Neither conclusion is guaranteed.
+Translate the statements first, then check the conclusions. In symbols: Plant E < Plant B, Plant A > Plant D. Conclusion I is not certain because the possible relation is Plant B > Plant E. Conclusion II is not certain because the possible relation is Plant E < Plant D, Plant E = Plant D, or Plant E > Plant D. Therefore, neither conclusion I nor conclusion II follows.
 
 ## 45. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 8
 
@@ -1860,33 +1126,9 @@ II. B is less than C.
 
 **Correct:** 2. Only conclusion I follows
 
-### Mock solution
+### Explanation
 
-First translate the verbal comparisons, then test each conclusion against the complete chain. “C is not greater than A” allows less than or equal to; symbolically, C ≤ A. “D is neither less than nor greater than Q” means equal to; symbolically, D = Q. “A is less than D” means less than; symbolically, A < D. “B is not less than Q” allows greater than or equal to; symbolically, B ≥ Q. Conclusion I: Q is not greater than D. The statements allow Q = D, so it definitely follows. Conclusion II: B is less than C. The statements allow B > C, so it is not guaranteed. Therefore, only conclusion I follows.
-
-### Learning solution
-
-First translate the verbal comparisons, then test each conclusion against the complete chain.
-
-“C is not greater than A” allows less than or equal to; symbolically, C ≤ A.
-
-“D is neither less than nor greater than Q” means equal to; symbolically, D = Q.
-
-“A is less than D” means less than; symbolically, A < D.
-
-“B is not less than Q” allows greater than or equal to; symbolically, B ≥ Q.
-
-Conclusion I: Q is not greater than D. The statements allow Q = D, so it definitely follows.
-
-Conclusion II: B is less than C. The statements allow B > C, so it is not guaranteed.
-
-Therefore, only conclusion I follows.
-
-Neither conclusion I nor conclusion II follows: This option rejects both conclusions. Only conclusion I is guaranteed.
-
-Both conclusions I and II follow: This option treats both conclusions as certain. Only conclusion I is guaranteed.
-
-Only conclusion II follows: This option keeps the wrong conclusion. Only conclusion I is guaranteed.
+Translate the statements first, then check the conclusions. In symbols: C ≤ A, D = Q, A < D, B ≥ Q. Conclusion I follows because the possible relation is Q = D. Conclusion II is not certain because the possible relation is B > C. Therefore, only conclusion I follows.
 
 ## 46. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 9
 
@@ -1915,33 +1157,9 @@ II. Aman's marks are not greater than Bina's marks.
 
 **Correct:** 4. Only conclusion II follows
 
-### Mock solution
+### Explanation
 
-First translate the verbal comparisons, then test each conclusion against the complete chain. “Farah's marks are not less than Charan's marks” allows greater than or equal to; symbolically, Farah ≥ Charan. “Aman's marks are equal to Charan's marks” means equal to; symbolically, Aman = Charan. “Aman's marks are not less than Diya's marks” allows greater than or equal to; symbolically, Aman ≥ Diya. “Farah's marks are equal to Bina's marks” means equal to; symbolically, Farah = Bina. Conclusion I: Charan's marks are not greater than Diya's marks. The statements allow Charan = Diya or Charan > Diya, so it is not guaranteed. Conclusion II: Aman's marks are not greater than Bina's marks. The statements allow Aman < Bina or Aman = Bina, so it definitely follows. Therefore, only conclusion II follows.
-
-### Learning solution
-
-First translate the verbal comparisons, then test each conclusion against the complete chain.
-
-“Farah's marks are not less than Charan's marks” allows greater than or equal to; symbolically, Farah ≥ Charan.
-
-“Aman's marks are equal to Charan's marks” means equal to; symbolically, Aman = Charan.
-
-“Aman's marks are not less than Diya's marks” allows greater than or equal to; symbolically, Aman ≥ Diya.
-
-“Farah's marks are equal to Bina's marks” means equal to; symbolically, Farah = Bina.
-
-Conclusion I: Charan's marks are not greater than Diya's marks. The statements allow Charan = Diya or Charan > Diya, so it is not guaranteed.
-
-Conclusion II: Aman's marks are not greater than Bina's marks. The statements allow Aman < Bina or Aman = Bina, so it definitely follows.
-
-Therefore, only conclusion II follows.
-
-Neither conclusion I nor conclusion II follows: This option rejects both conclusions. Only conclusion II is guaranteed.
-
-Both conclusions I and II follow: This option treats both conclusions as certain. Only conclusion II is guaranteed.
-
-Only conclusion I follows: This option keeps the wrong conclusion. Only conclusion II is guaranteed.
+Translate the statements first, then check the conclusions. In symbols: Farah ≥ Charan, Aman = Charan, Aman ≥ Diya, Farah = Bina. Conclusion I is not certain because the possible relation is Charan = Diya or Charan > Diya. Conclusion II follows because the possible relation is Aman < Bina or Aman = Bina. Therefore, only conclusion II follows.
 
 ## 47. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 10
 
@@ -1969,31 +1187,9 @@ II. Charan's salary is less than Farah's salary.
 
 **Correct:** 3. Both conclusions I and II follow
 
-### Mock solution
+### Explanation
 
-First translate the verbal comparisons, then test each conclusion against the complete chain. “Diya's salary is greater than Farah's salary” means greater than; symbolically, Diya > Farah. “Gagan's salary is not less than Charan's salary” allows greater than or equal to; symbolically, Gagan ≥ Charan. “Charan's salary is less than Farah's salary” means less than; symbolically, Charan < Farah. Conclusion I: Diya's salary is not less than Farah's salary. The statements allow Diya > Farah, so it definitely follows. Conclusion II: Charan's salary is less than Farah's salary. The statements allow Charan < Farah, so it definitely follows. Therefore, both conclusions I and II follow.
-
-### Learning solution
-
-First translate the verbal comparisons, then test each conclusion against the complete chain.
-
-“Diya's salary is greater than Farah's salary” means greater than; symbolically, Diya > Farah.
-
-“Gagan's salary is not less than Charan's salary” allows greater than or equal to; symbolically, Gagan ≥ Charan.
-
-“Charan's salary is less than Farah's salary” means less than; symbolically, Charan < Farah.
-
-Conclusion I: Diya's salary is not less than Farah's salary. The statements allow Diya > Farah, so it definitely follows.
-
-Conclusion II: Charan's salary is less than Farah's salary. The statements allow Charan < Farah, so it definitely follows.
-
-Therefore, both conclusions I and II follow.
-
-Only conclusion I follows: This option keeps the wrong conclusion. Both conclusions are guaranteed.
-
-Only conclusion II follows: This option keeps the wrong conclusion. Both conclusions are guaranteed.
-
-Neither conclusion I nor conclusion II follows: This option rejects both conclusions. Both conclusions are guaranteed.
+Translate the statements first, then check the conclusions. In symbols: Diya > Farah, Gagan ≥ Charan, Charan < Farah. Conclusion I follows because the possible relation is Diya > Farah. Conclusion II follows because the possible relation is Charan < Farah. Therefore, both conclusions I and II follow.
 
 ## 48. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 11
 
@@ -2021,28 +1217,6 @@ II. Diya's height is not less than Gagan's height.
 
 **Correct:** 1. Neither conclusion I nor conclusion II follows
 
-### Mock solution
+### Explanation
 
-First translate the verbal comparisons, then test each conclusion against the complete chain. “Gagan's height is neither greater than nor equal to Farah's height” rules out greater than and equal to, so it means less than; symbolically, Gagan < Farah. “Bina's height is equal to Diya's height” means equal to; symbolically, Bina = Diya. “Gagan's height is not less than Aman's height” allows greater than or equal to; symbolically, Gagan ≥ Aman. Conclusion I: Farah's height is equal to Diya's height. The statements allow Farah < Diya, Farah = Diya, or Farah > Diya, so it is not guaranteed. Conclusion II: Diya's height is not less than Gagan's height. The statements allow Diya < Gagan, Diya = Gagan, or Diya > Gagan, so it is not guaranteed. Therefore, neither conclusion I nor conclusion II follows.
-
-### Learning solution
-
-First translate the verbal comparisons, then test each conclusion against the complete chain.
-
-“Gagan's height is neither greater than nor equal to Farah's height” rules out greater than and equal to, so it means less than; symbolically, Gagan < Farah.
-
-“Bina's height is equal to Diya's height” means equal to; symbolically, Bina = Diya.
-
-“Gagan's height is not less than Aman's height” allows greater than or equal to; symbolically, Gagan ≥ Aman.
-
-Conclusion I: Farah's height is equal to Diya's height. The statements allow Farah < Diya, Farah = Diya, or Farah > Diya, so it is not guaranteed.
-
-Conclusion II: Diya's height is not less than Gagan's height. The statements allow Diya < Gagan, Diya = Gagan, or Diya > Gagan, so it is not guaranteed.
-
-Therefore, neither conclusion I nor conclusion II follows.
-
-Only conclusion II follows: This option keeps the wrong conclusion. Neither conclusion is guaranteed.
-
-Both conclusions I and II follow: This option treats both conclusions as certain. Neither conclusion is guaranteed.
-
-Only conclusion I follows: This option keeps the wrong conclusion. Neither conclusion is guaranteed.
+Translate the statements first, then check the conclusions. In symbols: Gagan < Farah, Bina = Diya, Gagan ≥ Aman. Conclusion I is not certain because the possible relation is Farah < Diya, Farah = Diya, or Farah > Diya. Conclusion II is not certain because the possible relation is Diya < Gagan, Diya = Gagan, or Diya > Gagan. Therefore, neither conclusion I nor conclusion II follows.

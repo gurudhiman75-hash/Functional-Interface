@@ -121,13 +121,9 @@ export function renderIneCp003ReviewMarkdown(
       "",
       `**Correct:** ${row.correctIndex + 1}. ${row.correctOption}`,
       "",
-      "### Mock solution",
+      "### Explanation",
       "",
       row.mockSolution,
-      "",
-      "### Learning solution",
-      "",
-      row.learningSolution,
     ].join("\n");
   });
   return [

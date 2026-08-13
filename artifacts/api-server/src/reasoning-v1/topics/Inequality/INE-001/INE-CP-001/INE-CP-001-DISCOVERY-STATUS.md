@@ -7,7 +7,8 @@
 - **Frozen solve modes:** `0`
 - **Question Studio visibility:** Disabled
 - **Public release:** Disabled
-- **Next authority gate:** Human review and source saturation
+- **Manual review:** Accepted during sequential INE-001 review; revalidated at chapter closure on 13 August 2026
+- **Next authority gate:** INE-001 chapter-closure approval
 
 ## Implemented provisional authorities
 
@@ -36,7 +37,7 @@ All authorities remain provisional. Their names express solve ownership, not per
 - canonically equivalent options are rejected even when one is written in reverse, such as `A > B` and `B < A`;
 - indeterminate questions retain concrete `LT`, `EQ`, and `GT` witnesses;
 - learner explanations use the displayed chain and symbolic possibilities rather than internal numeric assignments;
-- the committed English review pack contains 40 deterministic questions, with five seeds for each of the eight authorities.
+- the synchronized English review pack contains 32 deterministic questions, with four seeds for each of the eight authorities.
 
 ## Open source and representation work
 
@@ -73,11 +74,8 @@ Representation-only differences must not create new QLs:
 - map recovery and missing operators: `INE-CP-007`;
 - advanced multi-set synthesis: `INE-CP-008`.
 
-## Closure blockers
+## Closure decision
 
-1. Page-level source ledger and source-saturation statement are not complete.
-2. English prototype review has not been manually approved.
-3. Equality-propagation merge/split ownership remains open.
-4. No permanent QL allocation has been authorized.
+The historical merge/split questions are resolved by `chapter-closure/registry.ts`. Direct, transitive, equality, and complex connected relation tasks merge into one relation-determination candidate. Indeterminate relation tasks remain a separate candidate, selection-by-truth authorities merge under one parameterized candidate, and the single-conclusion truth classifier remains guided-only.
 
-The deterministic English review pack is exported. The correct next action is to complete page-level source mapping, obtain human review of the pack, and resolve equality-propagation ownership. Permanent QLs must remain at zero until those gates close.
+No permanent QL allocation has been authorized. CP-001 remains unavailable in Question Studio and public delivery until the chapter closure is accepted.

@@ -1,6 +1,6 @@
 # INE-CP-002 — Multi-Link, Branched, and Disconnected Graphs
 
-- **Status:** Executable prototype discovery in progress
+- **Status:** Discovery accepted; included in chapter closure
 - **Permanent QLs:** `0`
 - **Frozen solve modes:** `0`
 - **Question Studio visibility:** Disabled
@@ -39,10 +39,6 @@ All nine authorities are provisional discovery labels. Representation-only varia
 
 No permanent QL, multilingual runtime, central registry entry, or release toggle is introduced by this checkpoint.
 
-## Next discovery work
+## Closure handoff
 
-1. Manually review the remediated English pack.
-2. Complete page-level source mapping when the synced library material is available.
-3. Decide which graph-shape authorities merge into shared permanent solve contracts.
-4. Expand the accepted final QLs into a corpus-scale generation matrix.
-5. Request approval before allocating permanent QLs.
+The graph-shape merge decisions now live in `../chapter-closure/registry.ts`. Permanent QL allocation and production integration require manual acceptance of the chapter-closure review.

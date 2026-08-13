@@ -251,16 +251,11 @@ function singleOrSelectionExplanation(
   }
 
   return {
-    ruleStatement: "Check each option against the shortest useful chain.",
+    ruleStatement: decisiveChain(primary, scenario),
     normalizedStatements: [],
-    proofSteps: options.map((option, index) => {
-      const evaluation = evaluations.find(
-        (candidate) => candidate.conclusion === option.conclusion,
-      )!;
-      return `Option ${index + 1}: ${decisiveChain(evaluation, scenario)} ${truthResult(evaluation, scenario)}`;
-    }),
+    proofSteps: [truthResult(primary, scenario)],
     modelWitnesses: witnessSteps(primary, scenario),
-    conclusion: `Therefore, option ${correctIndex + 1} is the only conclusion with the required truth status.`,
+    conclusion: `Therefore, option ${correctIndex + 1} is correct.`,
     distractorAnalysis: options
       .filter((option) => !option.isCorrect)
       .map((option) => {

@@ -139,7 +139,7 @@ export function generateIneCp005Question(
     solutions: { mock: mockSolution(explanation), learning: explanation },
     metadata: {
       runtimeVersion: "ine-cp005-prototype-v1",
-      reviewStatus: "PENDING_MANUAL_REVIEW",
+      reviewStatus: "CHECKPOINT_ACCEPTED",
       deliveryProfile: contract.deliveryProfile,
       context: scenario.context,
       topologyId: scenario.topologyId,

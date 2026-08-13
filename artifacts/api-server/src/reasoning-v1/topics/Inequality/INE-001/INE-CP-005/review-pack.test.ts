@@ -18,7 +18,8 @@ assert.ok(
     (entry) => entry.options[entry.correctIndex] === entry.correctOption,
   ),
 );
-assert.ok(rows.every((entry) => entry.mockSolution.length > 80));
+assert.ok(rows.every((entry) => entry.mockSolution.length > 60));
+assert.ok(rows.every((entry) => entry.mockSolution.length <= 500));
 assert.ok(rows.every((entry) => entry.learningSolution.length > 100));
 assert.ok(rows.every((entry) => entry.sourceLedgerIds.length > 0));
 assert.equal(new Set(rows.map((entry) => entry.recordId)).size, 48);
@@ -31,6 +32,8 @@ for (const authority of new Set(rows.map((entry) => entry.authorityId))) {
   assert.deepEqual(positions, [3, 3, 3, 3]);
 }
 const markdown = renderIneCp005ReviewMarkdown(rows);
+assert.equal((markdown.match(/^### Explanation$/gm) ?? []).length, 48);
+assert.equal((markdown.match(/^### Learning solution$/gm) ?? []).length, 0);
 assert.equal((markdown.match(/^## /gm) ?? []).length, 48);
 assert.equal((markdown.match(/^### Options$/gm) ?? []).length, 48);
 assert.ok(!/\bE[1-9]\b/.test(markdown));

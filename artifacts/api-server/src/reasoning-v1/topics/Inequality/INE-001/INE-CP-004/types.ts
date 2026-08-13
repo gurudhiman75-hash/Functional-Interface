@@ -113,7 +113,7 @@ export interface GeneratedIneCp004Question {
   metadata: {
     runtimeVersion: "ine-cp004-prototype-v3";
     competency: "COMPLEMENTARY_EXHAUSTIVENESS_REASONING";
-    reviewStatus: "PENDING_MANUAL_REVIEW";
+    reviewStatus: "CHECKPOINT_ACCEPTED";
     mockAssemblyPolicy: "MIX_WITH_CP003_NON_COMPLEMENTARY_OUTCOMES";
     deliveryProfile: "GUIDED_CONCEPT" | "BANKING_MOCK_PROTOTYPE";
     topologyId: string;

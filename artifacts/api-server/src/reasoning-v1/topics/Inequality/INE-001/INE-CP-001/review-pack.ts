@@ -25,13 +25,9 @@ function explanationText(
 ): string {
   return [
     explanation.ruleStatement,
-    ...explanation.normalizedStatements,
     ...explanation.proofSteps,
     ...explanation.modelWitnesses,
     explanation.conclusion,
-    ...explanation.distractorAnalysis.map(
-      (entry) => `Why not “${entry.optionValue}”? ${entry.studentWarning}`,
-    ),
   ]
     .filter((paragraph) => paragraph.trim().length > 0)
     .join("\n\n");

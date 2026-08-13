@@ -27,21 +27,9 @@ II. A > C
 
 **Correct:** 1. Valid either-or pair
 
-### Mock solution
+### Explanation
 
 Use A ≥ C. So the relation can be C < A or C = A. Conclusion I matches C = A, while conclusion II matches C < A. Neither follows on its own, but exactly one of them must be true. Therefore, this is classified as “Valid either-or pair”.
-
-### Learning solution
-
-Use A ≥ C. So the relation can be C < A or C = A. Conclusion I matches C = A, while conclusion II matches C < A. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, this is classified as “Valid either-or pair”.
-
-Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
-
-Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
-
-Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 ## 2. CLASSIFY_COMPLEMENTARY_PAIR — seed 1
 
@@ -69,21 +57,9 @@ II. C = R
 
 **Correct:** 4. Not either-or: some valid cases are left uncovered
 
-### Mock solution
+### Explanation
 
 Use R ≥ C. The relation may be R = C or R > C. Conclusion I matches no valid case, while conclusion II matches R = C. At least one possible case is missed, so this is not an either-or pair. Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.
-
-### Learning solution
-
-Use R ≥ C. The relation may be R = C or R > C. Conclusion I matches no valid case, while conclusion II matches R = C. At least one possible case is missed, so this is not an either-or pair.
-
-Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.
-
-Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
-
-Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
-
-Valid either-or pair: An either-or pair must be both non-overlapping and complete.
 
 ## 3. CLASSIFY_COMPLEMENTARY_PAIR — seed 2
 
@@ -111,21 +87,9 @@ II. R ≤ Q
 
 **Correct:** 2. Not either-or: the conclusions overlap
 
-### Mock solution
+### Explanation
 
 No chain fixes the relation between R and Q. The relation may be R < Q, R = Q, or R > Q. Conclusion I matches R = Q or R > Q, while conclusion II matches R < Q or R = Q. The conclusions overlap because both can be true in the same case. Therefore, this is classified as “Not either-or: the conclusions overlap”.
-
-### Learning solution
-
-No chain fixes the relation between R and Q. The relation may be R < Q, R = Q, or R > Q. Conclusion I matches R = Q or R > Q, while conclusion II matches R < Q or R = Q. The conclusions overlap because both can be true in the same case.
-
-Therefore, this is classified as “Not either-or: the conclusions overlap”.
-
-Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
-
-Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
-
-Valid either-or pair: An either-or pair must be both non-overlapping and complete.
 
 ## 4. CLASSIFY_COMPLEMENTARY_PAIR — seed 3
 
@@ -154,21 +118,9 @@ II. S > A
 
 **Correct:** 3. Valid either-or pair
 
-### Mock solution
+### Explanation
 
 No chain fixes the relation between S and A. So the relation can be S < A, S = A, or S > A. Conclusion I matches S < A or S = A, while conclusion II matches S > A. Neither follows on its own, but exactly one of them must be true. Therefore, this is classified as “Valid either-or pair”.
-
-### Learning solution
-
-No chain fixes the relation between S and A. So the relation can be S < A, S = A, or S > A. Conclusion I matches S < A or S = A, while conclusion II matches S > A. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, this is classified as “Valid either-or pair”.
-
-Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
-
-Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
-
-Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
 
 ## 5. CLASSIFY_COMPLEMENTARY_PAIR — seed 4
 
@@ -196,21 +148,9 @@ II. R ≤ A
 
 **Correct:** 1. Not either-or: some valid cases are left uncovered
 
-### Mock solution
+### Explanation
 
 Use R ≥ C and C = A. The relation may be A < R or A = R. Conclusion I matches no valid case, while conclusion II matches A = R. At least one possible case is missed, so this is not an either-or pair. Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.
-
-### Learning solution
-
-Use R ≥ C and C = A. The relation may be A < R or A = R. Conclusion I matches no valid case, while conclusion II matches A = R. At least one possible case is missed, so this is not an either-or pair.
-
-Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.
-
-Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
-
-Valid either-or pair: An either-or pair must be both non-overlapping and complete.
-
-Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
 
 ## 6. CLASSIFY_COMPLEMENTARY_PAIR — seed 5
 
@@ -239,21 +179,9 @@ II. D ≤ R
 
 **Correct:** 3. Not either-or: the conclusions overlap
 
-### Mock solution
+### Explanation
 
 Use B ≥ D and R = B. The relation may be D < R or D = R. Conclusion I matches D < R, while conclusion II matches D < R or D = R. The conclusions overlap because both can be true in the same case. Therefore, this is classified as “Not either-or: the conclusions overlap”.
-
-### Learning solution
-
-Use B ≥ D and R = B. The relation may be D < R or D = R. Conclusion I matches D < R, while conclusion II matches D < R or D = R. The conclusions overlap because both can be true in the same case.
-
-Therefore, this is classified as “Not either-or: the conclusions overlap”.
-
-Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
-
-Valid either-or pair: An either-or pair must be both non-overlapping and complete.
-
-Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 ## 7. CLASSIFY_COMPLEMENTARY_PAIR — seed 6
 
@@ -281,21 +209,9 @@ II. R ≤ D
 
 **Correct:** 4. Valid either-or pair
 
-### Mock solution
+### Explanation
 
 No chain fixes the relation between R and D. So the relation can be R < D, R = D, or R > D. Conclusion I matches R > D, while conclusion II matches R < D or R = D. Neither follows on its own, but exactly one of them must be true. Therefore, this is classified as “Valid either-or pair”.
-
-### Learning solution
-
-No chain fixes the relation between R and D. So the relation can be R < D, R = D, or R > D. Conclusion I matches R > D, while conclusion II matches R < D or R = D. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, this is classified as “Valid either-or pair”.
-
-Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
-
-Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
-
-Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
 
 ## 8. CLASSIFY_COMPLEMENTARY_PAIR — seed 7
 
@@ -323,21 +239,9 @@ II. P > C
 
 **Correct:** 2. Not either-or: some valid cases are left uncovered
 
-### Mock solution
+### Explanation
 
 Use C ≥ S and S ≥ P. The relation may be C = P or C > P. Conclusion I matches C = P, while conclusion II matches no valid case. At least one possible case is missed, so this is not an either-or pair. Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.
-
-### Learning solution
-
-Use C ≥ S and S ≥ P. The relation may be C = P or C > P. Conclusion I matches C = P, while conclusion II matches no valid case. At least one possible case is missed, so this is not an either-or pair.
-
-Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.
-
-Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
-
-Valid either-or pair: An either-or pair must be both non-overlapping and complete.
-
-Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 ## 9. CLASSIFY_COMPLEMENTARY_PAIR — seed 8
 
@@ -367,21 +271,9 @@ II. D ≤ Q
 
 **Correct:** 3. Not either-or: the conclusions overlap
 
-### Mock solution
+### Explanation
 
 Use R ≤ D, Q ≤ S, and R = S. The relation may be D = Q or D > Q. Conclusion I matches D = Q or D > Q, while conclusion II matches D = Q. The conclusions overlap because both can be true in the same case. Therefore, this is classified as “Not either-or: the conclusions overlap”.
-
-### Learning solution
-
-Use R ≤ D, Q ≤ S, and R = S. The relation may be D = Q or D > Q. Conclusion I matches D = Q or D > Q, while conclusion II matches D = Q. The conclusions overlap because both can be true in the same case.
-
-Therefore, this is classified as “Not either-or: the conclusions overlap”.
-
-Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
-
-Valid either-or pair: An either-or pair must be both non-overlapping and complete.
-
-Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 ## 10. CLASSIFY_COMPLEMENTARY_PAIR — seed 9
 
@@ -411,21 +303,9 @@ II. B < Q
 
 **Correct:** 2. Valid either-or pair
 
-### Mock solution
+### Explanation
 
 No chain fixes the relation between Q and B. So the relation can be Q < B, Q = B, or Q > B. Conclusion I matches Q < B or Q = B, while conclusion II matches Q > B. Neither follows on its own, but exactly one of them must be true. Therefore, this is classified as “Valid either-or pair”.
-
-### Learning solution
-
-No chain fixes the relation between Q and B. So the relation can be Q < B, Q = B, or Q > B. Conclusion I matches Q < B or Q = B, while conclusion II matches Q > B. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, this is classified as “Valid either-or pair”.
-
-Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
-
-Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
-
-Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
 
 ## 11. CLASSIFY_COMPLEMENTARY_PAIR — seed 10
 
@@ -455,21 +335,9 @@ II. R > S
 
 **Correct:** 1. Not either-or: some valid cases are left uncovered
 
-### Mock solution
+### Explanation
 
 No chain fixes the relation between R and S. The relation may be R < S, R = S, or R > S. Conclusion I matches R < S, while conclusion II matches R > S. At least one possible case is missed, so this is not an either-or pair. Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.
-
-### Learning solution
-
-No chain fixes the relation between R and S. The relation may be R < S, R = S, or R > S. Conclusion I matches R < S, while conclusion II matches R > S. At least one possible case is missed, so this is not an either-or pair.
-
-Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.
-
-Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
-
-Valid either-or pair: An either-or pair must be both non-overlapping and complete.
-
-Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
 
 ## 12. CLASSIFY_COMPLEMENTARY_PAIR — seed 11
 
@@ -499,21 +367,9 @@ II. R ≤ B
 
 **Correct:** 4. Not either-or: the conclusions overlap
 
-### Mock solution
+### Explanation
 
 Use C ≤ B, D ≥ R, and D = C. The relation may be B = R or B > R. Conclusion I matches B > R, while conclusion II matches B = R or B > R. The conclusions overlap because both can be true in the same case. Therefore, this is classified as “Not either-or: the conclusions overlap”.
-
-### Learning solution
-
-Use C ≤ B, D ≥ R, and D = C. The relation may be B = R or B > R. Conclusion I matches B > R, while conclusion II matches B = R or B > R. The conclusions overlap because both can be true in the same case.
-
-Therefore, this is classified as “Not either-or: the conclusions overlap”.
-
-Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
-
-Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
-
-Valid either-or pair: An either-or pair must be both non-overlapping and complete.
 
 ## 13. IDENTIFY_COMPLEMENTARY_PAIR — seed 0
 
@@ -535,29 +391,9 @@ Which option contains a valid either-or pair?
 
 **Correct:** 1. I. B < C; II. B = C
 
-### Mock solution
+### Explanation
 
 Option 1: Use B ≤ C. So the relation can be B < C or B = C. Conclusion I matches B < C, while conclusion II matches B = C. Neither follows on its own, but exactly one of them must be true. Therefore, option 1 is the valid either-or pair.
-
-### Learning solution
-
-Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.
-
-Option 1: Use B ≤ C. So the relation can be B < C or B = C. Conclusion I matches B < C, while conclusion II matches B = C. Neither follows on its own, but exactly one of them must be true.
-
-Option 2: Use B ≤ C. The relation may be C = B or C > B. Conclusion I matches no valid case, while conclusion II matches C = B. At least one possible case is missed, so this is not an either-or pair.
-
-Option 3: Use B ≤ C. The relation may be B < C or B = C. Conclusion I matches B < C or B = C, while conclusion II matches B < C. The conclusions overlap because both can be true in the same case.
-
-Option 4: Use B ≤ C. The relation may be B < C or B = C. Conclusion I matches no valid case, while conclusion II matches B = C. At least one possible case is missed, so this is not an either-or pair.
-
-Only option 1 passes all three tests.
-
-I. C < B; II. B ≥ C: The pair misses at least one relation still permitted by the statements.
-
-I. B ≤ C; II. B < C: Both conclusions can be true in the same case, so the pair is not either-or.
-
-I. B > C; II. B = C: The pair misses at least one relation still permitted by the statements.
 
 ## 14. IDENTIFY_COMPLEMENTARY_PAIR — seed 1
 
@@ -580,29 +416,9 @@ Which option contains a valid either-or pair?
 
 **Correct:** 3. I. D = P; II. P < D
 
-### Mock solution
+### Explanation
 
 Option 3: Use P ≤ D. So the relation can be D = P or D > P. Conclusion I matches D = P, while conclusion II matches D > P. Neither follows on its own, but exactly one of them must be true. Therefore, option 3 is the valid either-or pair.
-
-### Learning solution
-
-Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.
-
-Option 1: Use P ≤ D. The relation may be D = P or D > P. Conclusion I matches D = P, while conclusion II matches no valid case. At least one possible case is missed, so this is not an either-or pair.
-
-Option 2: Use P ≤ D. The relation may be D = P or D > P. Conclusion I matches D > P, while conclusion II matches D = P or D > P. The conclusions overlap because both can be true in the same case.
-
-Option 3: Use P ≤ D. So the relation can be D = P or D > P. Conclusion I matches D = P, while conclusion II matches D > P. Neither follows on its own, but exactly one of them must be true.
-
-Option 4: Use P ≤ D. The relation may be P < D or P = D. Conclusion I matches no valid case, while conclusion II matches P < D. At least one possible case is missed, so this is not an either-or pair.
-
-Only option 3 passes all three tests.
-
-I. D = P; II. D < P: The pair misses at least one relation still permitted by the statements.
-
-I. D > P; II. D ≥ P: Both conclusions can be true in the same case, so the pair is not either-or.
-
-I. P > D; II. P < D: The pair misses at least one relation still permitted by the statements.
 
 ## 15. IDENTIFY_COMPLEMENTARY_PAIR — seed 2
 
@@ -625,29 +441,9 @@ Which option contains a valid either-or pair?
 
 **Correct:** 4. I. R < Q; II. R ≥ Q
 
-### Mock solution
+### Explanation
 
 Option 4: No chain fixes the relation between R and Q. So the relation can be R < Q, R = Q, or R > Q. Conclusion I matches R < Q, while conclusion II matches R = Q or R > Q. Neither follows on its own, but exactly one of them must be true. Therefore, option 4 is the valid either-or pair.
-
-### Learning solution
-
-Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.
-
-Option 1: No chain fixes the relation between R and Q. The relation may be R < Q, R = Q, or R > Q. Conclusion I matches R > Q, while conclusion II matches R = Q. At least one possible case is missed, so this is not an either-or pair.
-
-Option 2: No chain fixes the relation between R and Q. The relation may be R < Q, R = Q, or R > Q. Conclusion I matches R = Q or R > Q, while conclusion II matches R < Q or R = Q. The conclusions overlap because both can be true in the same case.
-
-Option 3: No chain fixes the relation between R and Q. The relation may be R < Q, R = Q, or R > Q. Conclusion I matches R > Q, while conclusion II matches R < Q. At least one possible case is missed, so this is not an either-or pair.
-
-Option 4: No chain fixes the relation between R and Q. So the relation can be R < Q, R = Q, or R > Q. Conclusion I matches R < Q, while conclusion II matches R = Q or R > Q. Neither follows on its own, but exactly one of them must be true.
-
-Only option 4 passes all three tests.
-
-I. R > Q; II. Q = R: The pair misses at least one relation still permitted by the statements.
-
-I. R ≥ Q; II. Q ≥ R: Both conclusions can be true in the same case, so the pair is not either-or.
-
-I. R > Q; II. R < Q: The pair misses at least one relation still permitted by the statements.
 
 ## 16. IDENTIFY_COMPLEMENTARY_PAIR — seed 3
 
@@ -671,29 +467,9 @@ Which option contains a valid either-or pair?
 
 **Correct:** 2. I. A < P; II. P ≤ A
 
-### Mock solution
+### Explanation
 
 Option 2: No chain fixes the relation between A and P. So the relation can be A < P, A = P, or A > P. Conclusion I matches A < P, while conclusion II matches A = P or A > P. Neither follows on its own, but exactly one of them must be true. Therefore, option 2 is the valid either-or pair.
-
-### Learning solution
-
-Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.
-
-Option 1: No chain fixes the relation between P and A. The relation may be P < A, P = A, or P > A. Conclusion I matches P = A or P > A, while conclusion II matches P < A or P = A. The conclusions overlap because both can be true in the same case.
-
-Option 2: No chain fixes the relation between A and P. So the relation can be A < P, A = P, or A > P. Conclusion I matches A < P, while conclusion II matches A = P or A > P. Neither follows on its own, but exactly one of them must be true.
-
-Option 3: No chain fixes the relation between A and P. The relation may be A < P, A = P, or A > P. Conclusion I matches A < P, while conclusion II matches A > P. At least one possible case is missed, so this is not an either-or pair.
-
-Option 4: No chain fixes the relation between A and P. The relation may be A < P, A = P, or A > P. Conclusion I matches A > P, while conclusion II matches A = P. At least one possible case is missed, so this is not an either-or pair.
-
-Only option 2 passes all three tests.
-
-I. P ≥ A; II. A ≥ P: Both conclusions can be true in the same case, so the pair is not either-or.
-
-I. A < P; II. P < A: The pair misses at least one relation still permitted by the statements.
-
-I. A > P; II. A = P: The pair misses at least one relation still permitted by the statements.
 
 ## 17. IDENTIFY_COMPLEMENTARY_PAIR — seed 4
 
@@ -716,29 +492,9 @@ Which option contains a valid either-or pair?
 
 **Correct:** 1. I. Q < B; II. B = Q
 
-### Mock solution
+### Explanation
 
 Option 1: Use B ≥ P and Q = P. So the relation can be Q < B or Q = B. Conclusion I matches Q < B, while conclusion II matches Q = B. Neither follows on its own, but exactly one of them must be true. Therefore, option 1 is the valid either-or pair.
-
-### Learning solution
-
-Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.
-
-Option 1: Use B ≥ P and Q = P. So the relation can be Q < B or Q = B. Conclusion I matches Q < B, while conclusion II matches Q = B. Neither follows on its own, but exactly one of them must be true.
-
-Option 2: Use B ≥ P and Q = P. The relation may be B = Q or B > Q. Conclusion I matches B = Q, while conclusion II matches B = Q or B > Q. The conclusions overlap because both can be true in the same case.
-
-Option 3: Use B ≥ P and Q = P. The relation may be Q < B or Q = B. Conclusion I matches no valid case, while conclusion II matches Q = B. At least one possible case is missed, so this is not an either-or pair.
-
-Option 4: Use B ≥ P and Q = P. The relation may be B = Q or B > Q. Conclusion I matches no valid case, while conclusion II matches B = Q. At least one possible case is missed, so this is not an either-or pair.
-
-Only option 1 passes all three tests.
-
-I. B = Q; II. Q ≤ B: Both conclusions can be true in the same case, so the pair is not either-or.
-
-I. Q > B; II. B ≤ Q: The pair misses at least one relation still permitted by the statements.
-
-I. B < Q; II. B = Q: The pair misses at least one relation still permitted by the statements.
 
 ## 18. IDENTIFY_COMPLEMENTARY_PAIR — seed 5
 
@@ -762,29 +518,9 @@ Which option contains a valid either-or pair?
 
 **Correct:** 3. I. D < P; II. P = D
 
-### Mock solution
+### Explanation
 
 Option 3: Use A ≥ D and P = A. So the relation can be D < P or D = P. Conclusion I matches D < P, while conclusion II matches D = P. Neither follows on its own, but exactly one of them must be true. Therefore, option 3 is the valid either-or pair.
-
-### Learning solution
-
-Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.
-
-Option 1: Use A ≥ D and P = A. The relation may be D < P or D = P. Conclusion I matches D < P, while conclusion II matches no valid case. At least one possible case is missed, so this is not an either-or pair.
-
-Option 2: Use A ≥ D and P = A. The relation may be D < P or D = P. Conclusion I matches no valid case, while conclusion II matches D = P. At least one possible case is missed, so this is not an either-or pair.
-
-Option 3: Use A ≥ D and P = A. So the relation can be D < P or D = P. Conclusion I matches D < P, while conclusion II matches D = P. Neither follows on its own, but exactly one of them must be true.
-
-Option 4: Use A ≥ D and P = A. The relation may be D < P or D = P. Conclusion I matches D = P, while conclusion II matches D < P or D = P. The conclusions overlap because both can be true in the same case.
-
-Only option 3 passes all three tests.
-
-I. D < P; II. P < D: The pair misses at least one relation still permitted by the statements.
-
-I. D > P; II. D = P: The pair misses at least one relation still permitted by the statements.
-
-I. D ≥ P; II. P ≥ D: Both conclusions can be true in the same case, so the pair is not either-or.
 
 ## 19. IDENTIFY_COMPLEMENTARY_PAIR — seed 6
 
@@ -807,29 +543,9 @@ Which option contains a valid either-or pair?
 
 **Correct:** 2. I. Q ≤ D; II. D < Q
 
-### Mock solution
+### Explanation
 
 Option 2: No chain fixes the relation between Q and D. So the relation can be Q < D, Q = D, or Q > D. Conclusion I matches Q < D or Q = D, while conclusion II matches Q > D. Neither follows on its own, but exactly one of them must be true. Therefore, option 2 is the valid either-or pair.
-
-### Learning solution
-
-Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.
-
-Option 1: No chain fixes the relation between Q and D. The relation may be Q < D, Q = D, or Q > D. Conclusion I matches Q = D, while conclusion II matches Q < D. At least one possible case is missed, so this is not an either-or pair.
-
-Option 2: No chain fixes the relation between Q and D. So the relation can be Q < D, Q = D, or Q > D. Conclusion I matches Q < D or Q = D, while conclusion II matches Q > D. Neither follows on its own, but exactly one of them must be true.
-
-Option 3: No chain fixes the relation between D and Q. The relation may be D < Q, D = Q, or D > Q. Conclusion I matches D > Q, while conclusion II matches D < Q. At least one possible case is missed, so this is not an either-or pair.
-
-Option 4: No chain fixes the relation between D and Q. The relation may be D < Q, D = Q, or D > Q. Conclusion I matches D < Q or D = Q, while conclusion II matches D = Q or D > Q. The conclusions overlap because both can be true in the same case.
-
-Only option 2 passes all three tests.
-
-I. Q = D; II. Q < D: The pair misses at least one relation still permitted by the statements.
-
-I. D > Q; II. Q > D: The pair misses at least one relation still permitted by the statements.
-
-I. D ≤ Q; II. D ≥ Q: Both conclusions can be true in the same case, so the pair is not either-or.
 
 ## 20. IDENTIFY_COMPLEMENTARY_PAIR — seed 7
 
@@ -852,29 +568,9 @@ Which option contains a valid either-or pair?
 
 **Correct:** 4. I. A = D; II. A < D
 
-### Mock solution
+### Explanation
 
 Option 4: Use D ≥ C and A ≤ C. So the relation can be A < D or A = D. Conclusion I matches A = D, while conclusion II matches A < D. Neither follows on its own, but exactly one of them must be true. Therefore, option 4 is the valid either-or pair.
-
-### Learning solution
-
-Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.
-
-Option 1: Use D ≥ C and A ≤ C. The relation may be A < D or A = D. Conclusion I matches A = D, while conclusion II matches A < D or A = D. The conclusions overlap because both can be true in the same case.
-
-Option 2: Use D ≥ C and A ≤ C. The relation may be D = A or D > A. Conclusion I matches D > A, while conclusion II matches no valid case. At least one possible case is missed, so this is not an either-or pair.
-
-Option 3: Use D ≥ C and A ≤ C. The relation may be D = A or D > A. Conclusion I matches no valid case, while conclusion II matches D = A. At least one possible case is missed, so this is not an either-or pair.
-
-Option 4: Use D ≥ C and A ≤ C. So the relation can be A < D or A = D. Conclusion I matches A = D, while conclusion II matches A < D. Neither follows on its own, but exactly one of them must be true.
-
-Only option 4 passes all three tests.
-
-I. A = D; II. D ≥ A: Both conclusions can be true in the same case, so the pair is not either-or.
-
-I. D > A; II. A > D: The pair misses at least one relation still permitted by the statements.
-
-I. D < A; II. D ≤ A: The pair misses at least one relation still permitted by the statements.
 
 ## 21. IDENTIFY_COMPLEMENTARY_PAIR — seed 8
 
@@ -899,29 +595,9 @@ Which option contains a valid either-or pair?
 
 **Correct:** 1. I. Q > C; II. Q = C
 
-### Mock solution
+### Explanation
 
 Option 1: Use Q ≥ S, C ≤ A, and S = A. So the relation can be Q = C or Q > C. Conclusion I matches Q > C, while conclusion II matches Q = C. Neither follows on its own, but exactly one of them must be true. Therefore, option 1 is the valid either-or pair.
-
-### Learning solution
-
-Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.
-
-Option 1: Use Q ≥ S, C ≤ A, and S = A. So the relation can be Q = C or Q > C. Conclusion I matches Q > C, while conclusion II matches Q = C. Neither follows on its own, but exactly one of them must be true.
-
-Option 2: Use Q ≥ S, C ≤ A, and S = A. The relation may be C < Q or C = Q. Conclusion I matches C = Q, while conclusion II matches no valid case. At least one possible case is missed, so this is not an either-or pair.
-
-Option 3: Use Q ≥ S, C ≤ A, and S = A. The relation may be C < Q or C = Q. Conclusion I matches C = Q, while conclusion II matches no valid case. At least one possible case is missed, so this is not an either-or pair.
-
-Option 4: Use Q ≥ S, C ≤ A, and S = A. The relation may be C < Q or C = Q. Conclusion I matches C < Q or C = Q, while conclusion II matches C = Q. The conclusions overlap because both can be true in the same case.
-
-Only option 1 passes all three tests.
-
-I. C ≥ Q; II. C > Q: The pair misses at least one relation still permitted by the statements.
-
-I. C = Q; II. C > Q: The pair misses at least one relation still permitted by the statements.
-
-I. C ≤ Q; II. Q = C: Both conclusions can be true in the same case, so the pair is not either-or.
 
 ## 22. IDENTIFY_COMPLEMENTARY_PAIR — seed 9
 
@@ -946,29 +622,9 @@ Which option contains a valid either-or pair?
 
 **Correct:** 4. I. S ≥ C; II. S < C
 
-### Mock solution
+### Explanation
 
 Option 4: No chain fixes the relation between S and C. So the relation can be S < C, S = C, or S > C. Conclusion I matches S = C or S > C, while conclusion II matches S < C. Neither follows on its own, but exactly one of them must be true. Therefore, option 4 is the valid either-or pair.
-
-### Learning solution
-
-Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.
-
-Option 1: No chain fixes the relation between S and C. The relation may be S < C, S = C, or S > C. Conclusion I matches S = C or S > C, while conclusion II matches S < C or S = C. The conclusions overlap because both can be true in the same case.
-
-Option 2: No chain fixes the relation between S and C. The relation may be S < C, S = C, or S > C. Conclusion I matches S = C, while conclusion II matches S < C. At least one possible case is missed, so this is not an either-or pair.
-
-Option 3: No chain fixes the relation between C and S. The relation may be C < S, C = S, or C > S. Conclusion I matches C > S, while conclusion II matches C = S. At least one possible case is missed, so this is not an either-or pair.
-
-Option 4: No chain fixes the relation between S and C. So the relation can be S < C, S = C, or S > C. Conclusion I matches S = C or S > C, while conclusion II matches S < C. Neither follows on its own, but exactly one of them must be true.
-
-Only option 4 passes all three tests.
-
-I. S ≥ C; II. S ≤ C: Both conclusions can be true in the same case, so the pair is not either-or.
-
-I. S = C; II. C > S: The pair misses at least one relation still permitted by the statements.
-
-I. C > S; II. S = C: The pair misses at least one relation still permitted by the statements.
 
 ## 23. IDENTIFY_COMPLEMENTARY_PAIR — seed 10
 
@@ -993,29 +649,9 @@ Which option contains a valid either-or pair?
 
 **Correct:** 3. I. P ≥ R; II. P < R
 
-### Mock solution
+### Explanation
 
 Option 3: No chain fixes the relation between P and R. So the relation can be P < R, P = R, or P > R. Conclusion I matches P = R or P > R, while conclusion II matches P < R. Neither follows on its own, but exactly one of them must be true. Therefore, option 3 is the valid either-or pair.
-
-### Learning solution
-
-Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.
-
-Option 1: No chain fixes the relation between P and R. The relation may be P < R, P = R, or P > R. Conclusion I matches P = R, while conclusion II matches P < R. At least one possible case is missed, so this is not an either-or pair.
-
-Option 2: No chain fixes the relation between P and R. The relation may be P < R, P = R, or P > R. Conclusion I matches P < R, while conclusion II matches P > R. At least one possible case is missed, so this is not an either-or pair.
-
-Option 3: No chain fixes the relation between P and R. So the relation can be P < R, P = R, or P > R. Conclusion I matches P = R or P > R, while conclusion II matches P < R. Neither follows on its own, but exactly one of them must be true.
-
-Option 4: No chain fixes the relation between P and R. The relation may be P < R, P = R, or P > R. Conclusion I matches P = R or P > R, while conclusion II matches P < R or P = R. The conclusions overlap because both can be true in the same case.
-
-Only option 3 passes all three tests.
-
-I. P = R; II. R > P: The pair misses at least one relation still permitted by the statements.
-
-I. P < R; II. R < P: The pair misses at least one relation still permitted by the statements.
-
-I. P ≥ R; II. P ≤ R: Both conclusions can be true in the same case, so the pair is not either-or.
 
 ## 24. IDENTIFY_COMPLEMENTARY_PAIR — seed 11
 
@@ -1040,29 +676,9 @@ Which option contains a valid either-or pair?
 
 **Correct:** 2. I. Q > B; II. B = Q
 
-### Mock solution
+### Explanation
 
 Option 2: Use R ≤ Q, B ≤ S, and R = S. So the relation can be Q = B or Q > B. Conclusion I matches Q > B, while conclusion II matches Q = B. Neither follows on its own, but exactly one of them must be true. Therefore, option 2 is the valid either-or pair.
-
-### Learning solution
-
-Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.
-
-Option 1: Use R ≤ Q, B ≤ S, and R = S. The relation may be B < Q or B = Q. Conclusion I matches B = Q, while conclusion II matches no valid case. At least one possible case is missed, so this is not an either-or pair.
-
-Option 2: Use R ≤ Q, B ≤ S, and R = S. So the relation can be Q = B or Q > B. Conclusion I matches Q > B, while conclusion II matches Q = B. Neither follows on its own, but exactly one of them must be true.
-
-Option 3: Use R ≤ Q, B ≤ S, and R = S. The relation may be Q = B or Q > B. Conclusion I matches no valid case, while conclusion II matches Q = B. At least one possible case is missed, so this is not an either-or pair.
-
-Option 4: Use R ≤ Q, B ≤ S, and R = S. The relation may be Q = B or Q > B. Conclusion I matches Q = B, while conclusion II matches Q = B or Q > B. The conclusions overlap because both can be true in the same case.
-
-Only option 2 passes all three tests.
-
-I. B ≥ Q; II. Q < B: The pair misses at least one relation still permitted by the statements.
-
-I. Q < B; II. Q ≤ B: The pair misses at least one relation still permitted by the statements.
-
-I. Q ≤ B; II. B ≤ Q: Both conclusions can be true in the same case, so the pair is not either-or.
 
 ## 25. RESOLVE_EITHER_OR_CONCLUSIONS — seed 0
 
@@ -1089,21 +705,9 @@ II. D < B
 
 **Correct:** 3. Either conclusion I or conclusion II follows
 
-### Mock solution
+### Explanation
 
 Use B ≥ D. So the relation can be B = D or B > D. Conclusion I matches B = D, while conclusion II matches B > D. Neither follows on its own, but exactly one of them must be true. Hence, either conclusion I or conclusion II follows.
-
-### Learning solution
-
-Use B ≥ D. So the relation can be B = D or B > D. Conclusion I matches B = D, while conclusion II matches B > D. Neither follows on its own, but exactly one of them must be true.
-
-Hence, either conclusion I or conclusion II follows.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
-
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
-
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
 
 ## 26. RESOLVE_EITHER_OR_CONCLUSIONS — seed 1
 
@@ -1131,21 +735,9 @@ II. P = D
 
 **Correct:** 4. Either conclusion I or conclusion II follows
 
-### Mock solution
+### Explanation
 
 Use P ≤ D. So the relation can be P < D or P = D. Conclusion I matches P < D, while conclusion II matches P = D. Neither follows on its own, but exactly one of them must be true. Hence, either conclusion I or conclusion II follows.
-
-### Learning solution
-
-Use P ≤ D. So the relation can be P < D or P = D. Conclusion I matches P < D, while conclusion II matches P = D. Neither follows on its own, but exactly one of them must be true.
-
-Hence, either conclusion I or conclusion II follows.
-
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
-
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
-
-Both conclusions I and II follow: The two conclusions cannot be true together.
 
 ## 27. RESOLVE_EITHER_OR_CONCLUSIONS — seed 2
 
@@ -1173,21 +765,9 @@ II. S > R
 
 **Correct:** 2. Either conclusion I or conclusion II follows
 
-### Mock solution
+### Explanation
 
 No chain fixes the relation between R and S. So the relation can be R < S, R = S, or R > S. Conclusion I matches R = S or R > S, while conclusion II matches R < S. Neither follows on its own, but exactly one of them must be true. Hence, either conclusion I or conclusion II follows.
-
-### Learning solution
-
-No chain fixes the relation between R and S. So the relation can be R < S, R = S, or R > S. Conclusion I matches R = S or R > S, while conclusion II matches R < S. Neither follows on its own, but exactly one of them must be true.
-
-Hence, either conclusion I or conclusion II follows.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
-
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
-
-Both conclusions I and II follow: The two conclusions cannot be true together.
 
 ## 28. RESOLVE_EITHER_OR_CONCLUSIONS — seed 3
 
@@ -1216,21 +796,9 @@ II. S ≥ B
 
 **Correct:** 1. Either conclusion I or conclusion II follows
 
-### Mock solution
+### Explanation
 
 No chain fixes the relation between S and B. So the relation can be S < B, S = B, or S > B. Conclusion I matches S < B, while conclusion II matches S = B or S > B. Neither follows on its own, but exactly one of them must be true. Hence, either conclusion I or conclusion II follows.
-
-### Learning solution
-
-No chain fixes the relation between S and B. So the relation can be S < B, S = B, or S > B. Conclusion I matches S < B, while conclusion II matches S = B or S > B. Neither follows on its own, but exactly one of them must be true.
-
-Hence, either conclusion I or conclusion II follows.
-
-Both conclusions I and II follow: The two conclusions cannot be true together.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
-
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
 
 ## 29. RESOLVE_EITHER_OR_CONCLUSIONS — seed 4
 
@@ -1258,21 +826,9 @@ II. S > A
 
 **Correct:** 3. Either conclusion I or conclusion II follows
 
-### Mock solution
+### Explanation
 
 Use S ≥ D and A = D. So the relation can be A < S or A = S. Conclusion I matches A = S, while conclusion II matches A < S. Neither follows on its own, but exactly one of them must be true. Hence, either conclusion I or conclusion II follows.
-
-### Learning solution
-
-Use S ≥ D and A = D. So the relation can be A < S or A = S. Conclusion I matches A = S, while conclusion II matches A < S. Neither follows on its own, but exactly one of them must be true.
-
-Hence, either conclusion I or conclusion II follows.
-
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
-
-Both conclusions I and II follow: The two conclusions cannot be true together.
 
 ## 30. RESOLVE_EITHER_OR_CONCLUSIONS — seed 5
 
@@ -1301,21 +857,9 @@ II. P = C
 
 **Correct:** 1. Either conclusion I or conclusion II follows
 
-### Mock solution
+### Explanation
 
 Use R ≥ P and C = R. So the relation can be P < C or P = C. Conclusion I matches P < C, while conclusion II matches P = C. Neither follows on its own, but exactly one of them must be true. Hence, either conclusion I or conclusion II follows.
-
-### Learning solution
-
-Use R ≥ P and C = R. So the relation can be P < C or P = C. Conclusion I matches P < C, while conclusion II matches P = C. Neither follows on its own, but exactly one of them must be true.
-
-Hence, either conclusion I or conclusion II follows.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
-
-Both conclusions I and II follow: The two conclusions cannot be true together.
-
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
 
 ## 31. RESOLVE_EITHER_OR_CONCLUSIONS — seed 6
 
@@ -1343,21 +887,9 @@ II. P < Q
 
 **Correct:** 2. Either conclusion I or conclusion II follows
 
-### Mock solution
+### Explanation
 
 No chain fixes the relation between P and Q. So the relation can be P < Q, P = Q, or P > Q. Conclusion I matches P = Q or P > Q, while conclusion II matches P < Q. Neither follows on its own, but exactly one of them must be true. Hence, either conclusion I or conclusion II follows.
-
-### Learning solution
-
-No chain fixes the relation between P and Q. So the relation can be P < Q, P = Q, or P > Q. Conclusion I matches P = Q or P > Q, while conclusion II matches P < Q. Neither follows on its own, but exactly one of them must be true.
-
-Hence, either conclusion I or conclusion II follows.
-
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
-
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
 
 ## 32. RESOLVE_EITHER_OR_CONCLUSIONS — seed 7
 
@@ -1385,21 +917,9 @@ II. C > R
 
 **Correct:** 4. Either conclusion I or conclusion II follows
 
-### Mock solution
+### Explanation
 
 Use Q ≤ C and R ≤ Q. So the relation can be R < C or R = C. Conclusion I matches R = C, while conclusion II matches R < C. Neither follows on its own, but exactly one of them must be true. Hence, either conclusion I or conclusion II follows.
-
-### Learning solution
-
-Use Q ≤ C and R ≤ Q. So the relation can be R < C or R = C. Conclusion I matches R = C, while conclusion II matches R < C. Neither follows on its own, but exactly one of them must be true.
-
-Hence, either conclusion I or conclusion II follows.
-
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
-
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
-
-Both conclusions I and II follow: The two conclusions cannot be true together.
 
 ## 33. RESOLVE_EITHER_OR_CONCLUSIONS — seed 8
 
@@ -1429,21 +949,9 @@ II. P = R
 
 **Correct:** 1. Either conclusion I or conclusion II follows
 
-### Mock solution
+### Explanation
 
 Use Q ≤ P, B ≥ R, and Q = B. So the relation can be P = R or P > R. Conclusion I matches P > R, while conclusion II matches P = R. Neither follows on its own, but exactly one of them must be true. Hence, either conclusion I or conclusion II follows.
-
-### Learning solution
-
-Use Q ≤ P, B ≥ R, and Q = B. So the relation can be P = R or P > R. Conclusion I matches P > R, while conclusion II matches P = R. Neither follows on its own, but exactly one of them must be true.
-
-Hence, either conclusion I or conclusion II follows.
-
-Both conclusions I and II follow: The two conclusions cannot be true together.
-
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
 
 ## 34. RESOLVE_EITHER_OR_CONCLUSIONS — seed 9
 
@@ -1473,21 +981,9 @@ II. A ≥ C
 
 **Correct:** 2. Either conclusion I or conclusion II follows
 
-### Mock solution
+### Explanation
 
 No chain fixes the relation between A and C. So the relation can be A < C, A = C, or A > C. Conclusion I matches A < C, while conclusion II matches A = C or A > C. Neither follows on its own, but exactly one of them must be true. Hence, either conclusion I or conclusion II follows.
-
-### Learning solution
-
-No chain fixes the relation between A and C. So the relation can be A < C, A = C, or A > C. Conclusion I matches A < C, while conclusion II matches A = C or A > C. Neither follows on its own, but exactly one of them must be true.
-
-Hence, either conclusion I or conclusion II follows.
-
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
-
-Both conclusions I and II follow: The two conclusions cannot be true together.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
 
 ## 35. RESOLVE_EITHER_OR_CONCLUSIONS — seed 10
 
@@ -1517,21 +1013,9 @@ II. C > R
 
 **Correct:** 4. Either conclusion I or conclusion II follows
 
-### Mock solution
+### Explanation
 
 No chain fixes the relation between R and C. So the relation can be R < C, R = C, or R > C. Conclusion I matches R = C or R > C, while conclusion II matches R < C. Neither follows on its own, but exactly one of them must be true. Hence, either conclusion I or conclusion II follows.
-
-### Learning solution
-
-No chain fixes the relation between R and C. So the relation can be R < C, R = C, or R > C. Conclusion I matches R = C or R > C, while conclusion II matches R < C. Neither follows on its own, but exactly one of them must be true.
-
-Hence, either conclusion I or conclusion II follows.
-
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
-
-Both conclusions I and II follow: The two conclusions cannot be true together.
-
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
 
 ## 36. RESOLVE_EITHER_OR_CONCLUSIONS — seed 11
 
@@ -1561,21 +1045,9 @@ II. C < R
 
 **Correct:** 3. Either conclusion I or conclusion II follows
 
-### Mock solution
+### Explanation
 
 Use P ≤ R, C ≤ A, and A = P. So the relation can be C < R or C = R. Conclusion I matches C = R, while conclusion II matches C < R. Neither follows on its own, but exactly one of them must be true. Hence, either conclusion I or conclusion II follows.
-
-### Learning solution
-
-Use P ≤ R, C ≤ A, and A = P. So the relation can be C < R or C = R. Conclusion I matches C = R, while conclusion II matches C < R. Neither follows on its own, but exactly one of them must be true.
-
-Hence, either conclusion I or conclusion II follows.
-
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
-
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
 
 ## 37. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 0
 
@@ -1603,23 +1075,9 @@ III. C = S
 
 **Correct:** 4. Conclusion I and either conclusion II or conclusion III follow
 
-### Mock solution
+### Explanation
 
 Use B < R. This proves conclusion I: R > B. For conclusions II and III: Use C ≤ S. So the relation can be C < S or C = S. Conclusion II matches C < S, while conclusion III matches C = S. Neither follows on its own, but exactly one of them must be true. Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-### Learning solution
-
-Use B < R. This proves conclusion I: R > B.
-
-For conclusions II and III: Use C ≤ S. So the relation can be C < S or C = S. Conclusion II matches C < S, while conclusion III matches C = S. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-None of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.
-
-Only conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.
-
-Either conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.
 
 ## 38. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 1
 
@@ -1648,23 +1106,9 @@ III. P < D
 
 **Correct:** 3. Conclusion I and either conclusion II or conclusion III follow
 
-### Mock solution
+### Explanation
 
 Use B ≥ C and C > Q. This proves conclusion I: B > Q. For conclusions II and III: Use D ≥ P. So the relation can be D = P or D > P. Conclusion II matches D = P, while conclusion III matches D > P. Neither follows on its own, but exactly one of them must be true. Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-### Learning solution
-
-Use B ≥ C and C > Q. This proves conclusion I: B > Q.
-
-For conclusions II and III: Use D ≥ P. So the relation can be D = P or D > P. Conclusion II matches D = P, while conclusion III matches D > P. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-Only conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.
-
-None of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.
-
-Either conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.
 
 ## 39. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 2
 
@@ -1693,23 +1137,9 @@ III. R > Q
 
 **Correct:** 2. Conclusion I and either conclusion II or conclusion III follow
 
-### Mock solution
+### Explanation
 
 Use C > B. This proves conclusion I: C > B. For conclusions II and III: No chain fixes the relation between R and Q. So the relation can be R < Q, R = Q, or R > Q. Conclusion II matches R < Q or R = Q, while conclusion III matches R > Q. Neither follows on its own, but exactly one of them must be true. Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-### Learning solution
-
-Use C > B. This proves conclusion I: C > B.
-
-For conclusions II and III: No chain fixes the relation between R and Q. So the relation can be R < Q, R = Q, or R > Q. Conclusion II matches R < Q or R = Q, while conclusion III matches R > Q. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-Only conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.
-
-Either conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.
-
-None of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.
 
 ## 40. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 3
 
@@ -1739,23 +1169,9 @@ III. S ≤ C
 
 **Correct:** 1. Conclusion I and either conclusion II or conclusion III follow
 
-### Mock solution
+### Explanation
 
 Use A > D and B = A. This proves conclusion I: D < B. For conclusions II and III: No chain fixes the relation between C and S. So the relation can be C < S, C = S, or C > S. Conclusion II matches C < S, while conclusion III matches C = S or C > S. Neither follows on its own, but exactly one of them must be true. Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-### Learning solution
-
-Use A > D and B = A. This proves conclusion I: D < B.
-
-For conclusions II and III: No chain fixes the relation between C and S. So the relation can be C < S, C = S, or C > S. Conclusion II matches C < S, while conclusion III matches C = S or C > S. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-None of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.
-
-Only conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.
-
-Either conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.
 
 ## 41. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 4
 
@@ -1784,23 +1200,9 @@ III. Q = R
 
 **Correct:** 1. Conclusion I and either conclusion II or conclusion III follow
 
-### Mock solution
+### Explanation
 
 Use S > P. This proves conclusion I: P < S. For conclusions II and III: Use C ≤ Q and C = R. So the relation can be Q = R or Q > R. Conclusion II matches Q > R, while conclusion III matches Q = R. Neither follows on its own, but exactly one of them must be true. Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-### Learning solution
-
-Use S > P. This proves conclusion I: P < S.
-
-For conclusions II and III: Use C ≤ Q and C = R. So the relation can be Q = R or Q > R. Conclusion II matches Q > R, while conclusion III matches Q = R. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-None of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.
-
-Either conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.
-
-Only conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.
 
 ## 42. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 5
 
@@ -1830,23 +1232,9 @@ III. D < C
 
 **Correct:** 3. Conclusion I and either conclusion II or conclusion III follow
 
-### Mock solution
+### Explanation
 
 Use R ≤ S and R > Q. This proves conclusion I: Q < S. For conclusions II and III: Use P ≥ D and C = P. So the relation can be D < C or D = C. Conclusion II matches D = C, while conclusion III matches D < C. Neither follows on its own, but exactly one of them must be true. Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-### Learning solution
-
-Use R ≤ S and R > Q. This proves conclusion I: Q < S.
-
-For conclusions II and III: Use P ≥ D and C = P. So the relation can be D < C or D = C. Conclusion II matches D = C, while conclusion III matches D < C. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-None of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.
-
-Either conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.
-
-Only conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.
 
 ## 43. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 6
 
@@ -1875,23 +1263,9 @@ III. S ≥ D
 
 **Correct:** 2. Conclusion I and either conclusion II or conclusion III follow
 
-### Mock solution
+### Explanation
 
 Use B < C. This proves conclusion I: C > B. For conclusions II and III: No chain fixes the relation between D and S. So the relation can be D < S, D = S, or D > S. Conclusion II matches D > S, while conclusion III matches D < S or D = S. Neither follows on its own, but exactly one of them must be true. Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-### Learning solution
-
-Use B < C. This proves conclusion I: C > B.
-
-For conclusions II and III: No chain fixes the relation between D and S. So the relation can be D < S, D = S, or D > S. Conclusion II matches D > S, while conclusion III matches D < S or D = S. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-Either conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.
-
-None of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.
-
-Only conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.
 
 ## 44. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 7
 
@@ -1920,23 +1294,9 @@ III. B = Q
 
 **Correct:** 4. Conclusion I and either conclusion II or conclusion III follow
 
-### Mock solution
+### Explanation
 
 Use D < C. This proves conclusion I: C > D. For conclusions II and III: Use Q ≥ S and S ≥ B. So the relation can be Q = B or Q > B. Conclusion II matches Q > B, while conclusion III matches Q = B. Neither follows on its own, but exactly one of them must be true. Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-### Learning solution
-
-Use D < C. This proves conclusion I: C > D.
-
-For conclusions II and III: Use Q ≥ S and S ≥ B. So the relation can be Q = B or Q > B. Conclusion II matches Q > B, while conclusion III matches Q = B. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-Either conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.
-
-None of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.
-
-Only conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.
 
 ## 45. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 8
 
@@ -1967,23 +1327,9 @@ III. S = C
 
 **Correct:** 2. Conclusion I and either conclusion II or conclusion III follow
 
-### Mock solution
+### Explanation
 
 Use D ≤ Q, B < D, and Q = R. This proves conclusion I: R > B. For conclusions II and III: Use R ≤ S, Q ≥ C, and Q = R. So the relation can be S = C or S > C. Conclusion II matches S > C, while conclusion III matches S = C. Neither follows on its own, but exactly one of them must be true. Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-### Learning solution
-
-Use D ≤ Q, B < D, and Q = R. This proves conclusion I: R > B.
-
-For conclusions II and III: Use R ≤ S, Q ≥ C, and Q = R. So the relation can be S = C or S > C. Conclusion II matches S > C, while conclusion III matches S = C. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-None of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.
-
-Only conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.
-
-Either conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.
 
 ## 46. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 9
 
@@ -2014,23 +1360,9 @@ III. S ≤ C
 
 **Correct:** 4. Conclusion I and either conclusion II or conclusion III follow
 
-### Mock solution
+### Explanation
 
 Use P > B, C < A, and A = B. This proves conclusion I: C < P. For conclusions II and III: No chain fixes the relation between S and C. So the relation can be S < C, S = C, or S > C. Conclusion II matches S > C, while conclusion III matches S < C or S = C. Neither follows on its own, but exactly one of them must be true. Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-### Learning solution
-
-Use P > B, C < A, and A = B. This proves conclusion I: C < P.
-
-For conclusions II and III: No chain fixes the relation between S and C. So the relation can be S < C, S = C, or S > C. Conclusion II matches S > C, while conclusion III matches S < C or S = C. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-None of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.
-
-Either conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.
-
-Only conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.
 
 ## 47. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 10
 
@@ -2061,23 +1393,9 @@ III. S ≤ R
 
 **Correct:** 1. Conclusion I and either conclusion II or conclusion III follow
 
-### Mock solution
+### Explanation
 
 Use P < R, B ≤ P, C ≥ B, and C = P. This proves conclusion I: R > B. For conclusions II and III: No chain fixes the relation between S and R. So the relation can be S < R, S = R, or S > R. Conclusion II matches S > R, while conclusion III matches S < R or S = R. Neither follows on its own, but exactly one of them must be true. Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-### Learning solution
-
-Use P < R, B ≤ P, C ≥ B, and C = P. This proves conclusion I: R > B.
-
-For conclusions II and III: No chain fixes the relation between S and R. So the relation can be S < R, S = R, or S > R. Conclusion II matches S > R, while conclusion III matches S < R or S = R. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-None of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.
-
-Either conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.
-
-Only conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.
 
 ## 48. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 11
 
@@ -2108,20 +1426,6 @@ III. R = D
 
 **Correct:** 3. Conclusion I and either conclusion II or conclusion III follow
 
-### Mock solution
+### Explanation
 
 Use S ≥ Q, C < Q, and A = S. This proves conclusion I: C < A. For conclusions II and III: Use S ≤ R, D ≤ A, and A = S. So the relation can be D < R or D = R. Conclusion II matches D < R, while conclusion III matches D = R. Neither follows on its own, but exactly one of them must be true. Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-### Learning solution
-
-Use S ≥ Q, C < Q, and A = S. This proves conclusion I: C < A.
-
-For conclusions II and III: Use S ≤ R, D ≤ A, and A = S. So the relation can be D < R or D = R. Conclusion II matches D < R, while conclusion III matches D = R. Neither follows on its own, but exactly one of them must be true.
-
-Therefore, conclusion I and either conclusion II or conclusion III follow.
-
-Only conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.
-
-Either conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.
-
-None of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.

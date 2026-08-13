@@ -52,8 +52,8 @@ assert.ok(
 );
 assert.equal((markdown.match(/^## /gm) ?? []).length, 84);
 assert.equal((markdown.match(/^### Options$/gm) ?? []).length, 84);
-assert.equal((markdown.match(/^### Mock solution$/gm) ?? []).length, 84);
-assert.equal((markdown.match(/^### Learning solution$/gm) ?? []).length, 84);
+assert.equal((markdown.match(/^### Explanation$/gm) ?? []).length, 84);
+assert.equal((markdown.match(/^### Learning solution$/gm) ?? []).length, 0);
 assert.equal((markdown.match(/^### Conclusions$/gm) ?? []).length, 12);
 assert.ok(!/\bE[1-9]\b/.test(markdown));
 assert.ok(!/\b(?:undefined|null|NaN)\b/.test(markdown));

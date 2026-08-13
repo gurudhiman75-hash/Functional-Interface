@@ -63,7 +63,7 @@ export interface GeneratedIneCp008Question {
   structuredScenario: IneCp008Scenario;
   metadata: {
     runtimeVersion: "ine-cp008-prototype-v1";
-    reviewStatus: "PENDING_MANUAL_REVIEW";
+    reviewStatus: "CHECKPOINT_ACCEPTED";
     deliveryProfile: "EXAM_PRACTICE_PROTOTYPE" | "GUIDED_ADVANCED_PROTOTYPE";
     examApplicability:
       | "BANKING_REGULATORY_PRACTICE_ONLY"

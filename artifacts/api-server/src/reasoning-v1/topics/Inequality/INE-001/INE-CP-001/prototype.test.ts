@@ -96,7 +96,7 @@ for (const contract of INE_CP001_PROTOTYPE_CONTRACTS) {
     assert.ok(question.explanation.ruleStatement.length > 12);
     assert.equal(question.explanation.normalizedStatements.length, 0);
     assert.ok(question.explanation.proofSteps.length >= 1);
-    assert.ok(question.explanation.conclusion.length > 40);
+    assert.ok(question.explanation.conclusion.length > 10);
     assert.equal(question.explanation.distractorAnalysis.length, 3);
     assert.ok(
       question.explanation.distractorAnalysis.every(

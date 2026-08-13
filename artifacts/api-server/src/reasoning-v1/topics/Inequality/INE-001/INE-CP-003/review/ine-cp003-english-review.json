@@ -34,7 +34,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -75,7 +75,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -115,7 +115,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -155,7 +155,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -196,7 +196,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -236,7 +236,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -278,7 +278,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -320,7 +320,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -362,7 +362,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -403,7 +403,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -445,7 +445,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -487,7 +487,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -521,15 +521,15 @@
       "POSSIBLY_TRUE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine S ≤ P. This leaves S < P or S = P possible. S < P works in one valid case but fails in another. It is possible, not certain. Option 2: Combine S ≤ P. This leaves P = S or P > S possible. P ≤ S works in one valid case but fails in another. It is possible, not certain. Option 3: Combine S ≤ P and S > Q. This gives Q < P. This proves Q < P. Option 4: Combine S > Q. This gives Q < S. Q < S contradicts Q ≥ S, so the conclusion cannot be true. Therefore, option 3 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine S ≤ P. This leaves S < P or S = P possible. S < P works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine S ≤ P. This leaves P = S or P > S possible. P ≤ S works in one valid case but fails in another. It is possible, not certain.\n\nOption 3: Combine S ≤ P and S > Q. This gives Q < P. This proves Q < P.\n\nOption 4: Combine S > Q. This gives Q < S. Q < S contradicts Q ≥ S, so the conclusion cannot be true.\n\nTherefore, option 3 is the only conclusion with the required truth status.\n\nS < P: S < P works in one valid case but fails in another. It is possible, not certain.\n\nP ≤ S: P ≤ S works in one valid case but fails in another. It is possible, not certain.\n\nQ ≥ S: Q < S contradicts Q ≥ S, so the conclusion cannot be true.",
+    "mockSolution": "Combine S ≤ P and S > Q. This gives Q < P. This proves Q < P. Therefore, option 3 is correct.",
+    "learningSolution": "Combine S ≤ P and S > Q. This gives Q < P.\n\nThis proves Q < P.\n\nTherefore, option 3 is correct.\n\nS < P: S < P works in one valid case but fails in another. It is possible, not certain.\n\nP ≤ S: P ≤ S works in one valid case but fails in another. It is possible, not certain.\n\nQ ≥ S: Q < S contradicts Q ≥ S, so the conclusion cannot be true.",
     "contentHash": "4ed3f745",
     "structuralFingerprint": "3fba72ce",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -565,15 +565,15 @@
       "POSSIBLY_TRUE",
       "DEFINITELY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: There is no chain fixing the relation between B and D; either may be greater, or they may be equal. B ≤ D works in one valid case but fails in another. It is possible, not certain. Option 2: Combine C ≤ B. This leaves B = C or B > C possible. B = C works in one valid case but fails in another. It is possible, not certain. Option 3: Combine D > C. This gives D > C. D > C contradicts D < C, so the conclusion cannot be true. Option 4: Combine A > D and D > C. This gives C < A. This proves C ≤ A. Therefore, option 4 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: There is no chain fixing the relation between B and D; either may be greater, or they may be equal. B ≤ D works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine C ≤ B. This leaves B = C or B > C possible. B = C works in one valid case but fails in another. It is possible, not certain.\n\nOption 3: Combine D > C. This gives D > C. D > C contradicts D < C, so the conclusion cannot be true.\n\nOption 4: Combine A > D and D > C. This gives C < A. This proves C ≤ A.\n\nTherefore, option 4 is the only conclusion with the required truth status.\n\nB ≤ D: B ≤ D works in one valid case but fails in another. It is possible, not certain.\n\nB = C: B = C works in one valid case but fails in another. It is possible, not certain.\n\nD < C: D > C contradicts D < C, so the conclusion cannot be true.",
+    "mockSolution": "Combine A > D and D > C. This gives C < A. This proves C ≤ A. Therefore, option 4 is correct.",
+    "learningSolution": "Combine A > D and D > C. This gives C < A.\n\nThis proves C ≤ A.\n\nTherefore, option 4 is correct.\n\nB ≤ D: B ≤ D works in one valid case but fails in another. It is possible, not certain.\n\nB = C: B = C works in one valid case but fails in another. It is possible, not certain.\n\nD < C: D > C contradicts D < C, so the conclusion cannot be true.",
     "contentHash": "ec7b76a2",
     "structuralFingerprint": "b0679afd",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -608,15 +608,15 @@
       "POSSIBLY_TRUE",
       "IMPOSSIBLE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine P ≥ Q, Q > C, and S = P. This gives C < S. This proves C < S. Option 2: Combine P ≥ Q and S = P. This leaves S = Q or S > Q possible. S = Q works in one valid case but fails in another. It is possible, not certain. Option 3: Combine Q > C. This gives Q > C. Q > C contradicts Q = C, so the conclusion cannot be true. Option 4: Combine P ≥ Q and S = P. This leaves S = Q or S > Q possible. S ≤ Q works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine P ≥ Q, Q > C, and S = P. This gives C < S. This proves C < S.\n\nOption 2: Combine P ≥ Q and S = P. This leaves S = Q or S > Q possible. S = Q works in one valid case but fails in another. It is possible, not certain.\n\nOption 3: Combine Q > C. This gives Q > C. Q > C contradicts Q = C, so the conclusion cannot be true.\n\nOption 4: Combine P ≥ Q and S = P. This leaves S = Q or S > Q possible. S ≤ Q works in one valid case but fails in another. It is possible, not certain.\n\nTherefore, option 1 is the only conclusion with the required truth status.\n\nS = Q: S = Q works in one valid case but fails in another. It is possible, not certain.\n\nQ = C: Q > C contradicts Q = C, so the conclusion cannot be true.\n\nS ≤ Q: S ≤ Q works in one valid case but fails in another. It is possible, not certain.",
+    "mockSolution": "Combine P ≥ Q, Q > C, and S = P. This gives C < S. This proves C < S. Therefore, option 1 is correct.",
+    "learningSolution": "Combine P ≥ Q, Q > C, and S = P. This gives C < S.\n\nThis proves C < S.\n\nTherefore, option 1 is correct.\n\nS = Q: S = Q works in one valid case but fails in another. It is possible, not certain.\n\nQ = C: Q > C contradicts Q = C, so the conclusion cannot be true.\n\nS ≤ Q: S ≤ Q works in one valid case but fails in another. It is possible, not certain.",
     "contentHash": "425e845f",
     "structuralFingerprint": "89480053",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -651,15 +651,15 @@
       "POSSIBLY_TRUE",
       "DEFINITELY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine A ≥ D and D = B. This leaves D < A or D = A possible. D < A works in one valid case but fails in another. It is possible, not certain. Option 2: Combine B > R and D = B. This gives R < D. This proves R ≤ D. Option 3: Combine A ≥ D and D = B. This leaves D < A or D = A possible. D = A works in one valid case but fails in another. It is possible, not certain. Option 4: Combine A ≥ D, B > R, and D = B. This gives A > R. A > R contradicts A < R, so the conclusion cannot be true. Therefore, option 2 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine A ≥ D and D = B. This leaves D < A or D = A possible. D < A works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine B > R and D = B. This gives R < D. This proves R ≤ D.\n\nOption 3: Combine A ≥ D and D = B. This leaves D < A or D = A possible. D = A works in one valid case but fails in another. It is possible, not certain.\n\nOption 4: Combine A ≥ D, B > R, and D = B. This gives A > R. A > R contradicts A < R, so the conclusion cannot be true.\n\nTherefore, option 2 is the only conclusion with the required truth status.\n\nD < A: D < A works in one valid case but fails in another. It is possible, not certain.\n\nD = A: D = A works in one valid case but fails in another. It is possible, not certain.\n\nA < R: A > R contradicts A < R, so the conclusion cannot be true.",
+    "mockSolution": "Combine B > R and D = B. This gives R < D. This proves R ≤ D. Therefore, option 2 is correct.",
+    "learningSolution": "Combine B > R and D = B. This gives R < D.\n\nThis proves R ≤ D.\n\nTherefore, option 2 is correct.\n\nD < A: D < A works in one valid case but fails in another. It is possible, not certain.\n\nD = A: D = A works in one valid case but fails in another. It is possible, not certain.\n\nA < R: A > R contradicts A < R, so the conclusion cannot be true.",
     "contentHash": "21187fe9",
     "structuralFingerprint": "4ea91b2a",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -695,15 +695,15 @@
       "DEFINITELY_TRUE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine D ≥ A. This leaves D = A or D > A possible. D = A works in one valid case but fails in another. It is possible, not certain. Option 2: Combine P ≤ S and P > A. This gives S > A. This proves S > A. Option 3: There is no chain fixing the relation between D and P; either may be greater, or they may be equal. D > P works in one valid case but fails in another. It is possible, not certain. Option 4: Combine P ≤ S and P > A. This gives S > A. S > A contradicts S = A, so the conclusion cannot be true. Therefore, option 2 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine D ≥ A. This leaves D = A or D > A possible. D = A works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine P ≤ S and P > A. This gives S > A. This proves S > A.\n\nOption 3: There is no chain fixing the relation between D and P; either may be greater, or they may be equal. D > P works in one valid case but fails in another. It is possible, not certain.\n\nOption 4: Combine P ≤ S and P > A. This gives S > A. S > A contradicts S = A, so the conclusion cannot be true.\n\nTherefore, option 2 is the only conclusion with the required truth status.\n\nD = A: D = A works in one valid case but fails in another. It is possible, not certain.\n\nD > P: D > P works in one valid case but fails in another. It is possible, not certain.\n\nS = A: S > A contradicts S = A, so the conclusion cannot be true.",
+    "mockSolution": "Combine P ≤ S and P > A. This gives S > A. This proves S > A. Therefore, option 2 is correct.",
+    "learningSolution": "Combine P ≤ S and P > A. This gives S > A.\n\nThis proves S > A.\n\nTherefore, option 2 is correct.\n\nD = A: D = A works in one valid case but fails in another. It is possible, not certain.\n\nD > P: D > P works in one valid case but fails in another. It is possible, not certain.\n\nS = A: S > A contradicts S = A, so the conclusion cannot be true.",
     "contentHash": "bd338868",
     "structuralFingerprint": "f8653e99",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -738,15 +738,15 @@
       "POSSIBLY_TRUE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: There is no chain fixing the relation between C and B; either may be greater, or they may be equal. C ≥ B works in one valid case but fails in another. It is possible, not certain. Option 2: Combine P ≤ R and P > B. This gives B < R. B < R contradicts B > R, so the conclusion cannot be true. Option 3: There is no chain fixing the relation between S and P; either may be greater, or they may be equal. S ≤ P works in one valid case but fails in another. It is possible, not certain. Option 4: Combine P ≤ R and P > B. This gives R > B. This proves R ≥ B. Therefore, option 4 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: There is no chain fixing the relation between C and B; either may be greater, or they may be equal. C ≥ B works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine P ≤ R and P > B. This gives B < R. B < R contradicts B > R, so the conclusion cannot be true.\n\nOption 3: There is no chain fixing the relation between S and P; either may be greater, or they may be equal. S ≤ P works in one valid case but fails in another. It is possible, not certain.\n\nOption 4: Combine P ≤ R and P > B. This gives R > B. This proves R ≥ B.\n\nTherefore, option 4 is the only conclusion with the required truth status.\n\nC ≥ B: C ≥ B works in one valid case but fails in another. It is possible, not certain.\n\nB > R: B < R contradicts B > R, so the conclusion cannot be true.\n\nS ≤ P: S ≤ P works in one valid case but fails in another. It is possible, not certain.",
+    "mockSolution": "Combine P ≤ R and P > B. This gives R > B. This proves R ≥ B. Therefore, option 4 is correct.",
+    "learningSolution": "Combine P ≤ R and P > B. This gives R > B.\n\nThis proves R ≥ B.\n\nTherefore, option 4 is correct.\n\nC ≥ B: C ≥ B works in one valid case but fails in another. It is possible, not certain.\n\nB > R: B < R contradicts B > R, so the conclusion cannot be true.\n\nS ≤ P: S ≤ P works in one valid case but fails in another. It is possible, not certain.",
     "contentHash": "6a640758",
     "structuralFingerprint": "a80bd317",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -783,15 +783,15 @@
       "POSSIBLY_TRUE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine C > S and C = Q. This gives Q > S. This proves Q > S. Option 2: Combine R < Q and C = Q. This gives R < C. R < C contradicts R = C, so the conclusion cannot be true. Option 3: Combine C ≤ D and C = Q. This leaves C < D or C = D possible. C = D works in one valid case but fails in another. It is possible, not certain. Option 4: There is no chain fixing the relation between S and R; either may be greater, or they may be equal. S = R works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine C > S and C = Q. This gives Q > S. This proves Q > S.\n\nOption 2: Combine R < Q and C = Q. This gives R < C. R < C contradicts R = C, so the conclusion cannot be true.\n\nOption 3: Combine C ≤ D and C = Q. This leaves C < D or C = D possible. C = D works in one valid case but fails in another. It is possible, not certain.\n\nOption 4: There is no chain fixing the relation between S and R; either may be greater, or they may be equal. S = R works in one valid case but fails in another. It is possible, not certain.\n\nTherefore, option 1 is the only conclusion with the required truth status.\n\nR = C: R < C contradicts R = C, so the conclusion cannot be true.\n\nC = D: C = D works in one valid case but fails in another. It is possible, not certain.\n\nS = R: S = R works in one valid case but fails in another. It is possible, not certain.",
+    "mockSolution": "Combine C > S and C = Q. This gives Q > S. This proves Q > S. Therefore, option 1 is correct.",
+    "learningSolution": "Combine C > S and C = Q. This gives Q > S.\n\nThis proves Q > S.\n\nTherefore, option 1 is correct.\n\nR = C: R < C contradicts R = C, so the conclusion cannot be true.\n\nC = D: C = D works in one valid case but fails in another. It is possible, not certain.\n\nS = R: S = R works in one valid case but fails in another. It is possible, not certain.",
     "contentHash": "58e38c48",
     "structuralFingerprint": "84f6d18e",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -828,15 +828,15 @@
       "POSSIBLY_TRUE",
       "IMPOSSIBLE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine D ≤ C and C = P. This leaves D < P or D = P possible. D ≥ P works in one valid case but fails in another. It is possible, not certain. Option 2: Combine Q ≤ R. This leaves R = Q or R > Q possible. R = Q works in one valid case but fails in another. It is possible, not certain. Option 3: Combine D ≤ C, D > Q, and C = P. This gives C > Q. This proves C > Q. Option 4: Combine R < C and C = P. This gives R < C. R < C contradicts R > C, so the conclusion cannot be true. Therefore, option 3 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine D ≤ C and C = P. This leaves D < P or D = P possible. D ≥ P works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine Q ≤ R. This leaves R = Q or R > Q possible. R = Q works in one valid case but fails in another. It is possible, not certain.\n\nOption 3: Combine D ≤ C, D > Q, and C = P. This gives C > Q. This proves C > Q.\n\nOption 4: Combine R < C and C = P. This gives R < C. R < C contradicts R > C, so the conclusion cannot be true.\n\nTherefore, option 3 is the only conclusion with the required truth status.\n\nD ≥ P: D ≥ P works in one valid case but fails in another. It is possible, not certain.\n\nR = Q: R = Q works in one valid case but fails in another. It is possible, not certain.\n\nR > C: R < C contradicts R > C, so the conclusion cannot be true.",
+    "mockSolution": "Combine D ≤ C, D > Q, and C = P. This gives C > Q. This proves C > Q. Therefore, option 3 is correct.",
+    "learningSolution": "Combine D ≤ C, D > Q, and C = P. This gives C > Q.\n\nThis proves C > Q.\n\nTherefore, option 3 is correct.\n\nD ≥ P: D ≥ P works in one valid case but fails in another. It is possible, not certain.\n\nR = Q: R = Q works in one valid case but fails in another. It is possible, not certain.\n\nR > C: R < C contradicts R > C, so the conclusion cannot be true.",
     "contentHash": "bbe74914",
     "structuralFingerprint": "ed3d436c",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -873,15 +873,15 @@
       "POSSIBLY_TRUE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine B ≥ Q, Q ≥ P, and P = S. This leaves S < B or S = B possible. S = B works in one valid case but fails in another. It is possible, not certain. Option 2: Combine B < D and B ≥ Q. This gives D > Q. This proves D > Q. Option 3: Combine B ≥ Q. This leaves B = Q or B > Q possible. None of those possibilities satisfies B < Q, so the conclusion cannot be true. Option 4: Combine P = S. This leaves S < A, S = A, or S > A possible. S = A works in one valid case but fails in another. It is possible, not certain. Therefore, option 2 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine B ≥ Q, Q ≥ P, and P = S. This leaves S < B or S = B possible. S = B works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine B < D and B ≥ Q. This gives D > Q. This proves D > Q.\n\nOption 3: Combine B ≥ Q. This leaves B = Q or B > Q possible. None of those possibilities satisfies B < Q, so the conclusion cannot be true.\n\nOption 4: Combine P = S. This leaves S < A, S = A, or S > A possible. S = A works in one valid case but fails in another. It is possible, not certain.\n\nTherefore, option 2 is the only conclusion with the required truth status.\n\nS = B: S = B works in one valid case but fails in another. It is possible, not certain.\n\nB < Q: None of those possibilities satisfies B < Q, so the conclusion cannot be true.\n\nS = A: S = A works in one valid case but fails in another. It is possible, not certain.",
+    "mockSolution": "Combine B < D and B ≥ Q. This gives D > Q. This proves D > Q. Therefore, option 2 is correct.",
+    "learningSolution": "Combine B < D and B ≥ Q. This gives D > Q.\n\nThis proves D > Q.\n\nTherefore, option 2 is correct.\n\nS = B: S = B works in one valid case but fails in another. It is possible, not certain.\n\nB < Q: None of those possibilities satisfies B < Q, so the conclusion cannot be true.\n\nS = A: S = A works in one valid case but fails in another. It is possible, not certain.",
     "contentHash": "64ce81a2",
     "structuralFingerprint": "92e9c06d",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -917,15 +917,15 @@
       "DEFINITELY_TRUE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine D = C. This leaves P < D, P = D, or P > D possible. P ≤ D works in one valid case but fails in another. It is possible, not certain. Option 2: There is no chain fixing the relation between P and A; either may be greater, or they may be equal. P ≤ A works in one valid case but fails in another. It is possible, not certain. Option 3: Combine R < B and R ≥ P. This gives B > P. This proves B ≥ P. Option 4: Combine D > A and D = C. This gives C > A. C > A contradicts C < A, so the conclusion cannot be true. Therefore, option 3 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine D = C. This leaves P < D, P = D, or P > D possible. P ≤ D works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: There is no chain fixing the relation between P and A; either may be greater, or they may be equal. P ≤ A works in one valid case but fails in another. It is possible, not certain.\n\nOption 3: Combine R < B and R ≥ P. This gives B > P. This proves B ≥ P.\n\nOption 4: Combine D > A and D = C. This gives C > A. C > A contradicts C < A, so the conclusion cannot be true.\n\nTherefore, option 3 is the only conclusion with the required truth status.\n\nP ≤ D: P ≤ D works in one valid case but fails in another. It is possible, not certain.\n\nP ≤ A: P ≤ A works in one valid case but fails in another. It is possible, not certain.\n\nC < A: C > A contradicts C < A, so the conclusion cannot be true.",
+    "mockSolution": "Combine R < B and R ≥ P. This gives B > P. This proves B ≥ P. Therefore, option 3 is correct.",
+    "learningSolution": "Combine R < B and R ≥ P. This gives B > P.\n\nThis proves B ≥ P.\n\nTherefore, option 3 is correct.\n\nP ≤ D: P ≤ D works in one valid case but fails in another. It is possible, not certain.\n\nP ≤ A: P ≤ A works in one valid case but fails in another. It is possible, not certain.\n\nC < A: C > A contradicts C < A, so the conclusion cannot be true.",
     "contentHash": "93bde949",
     "structuralFingerprint": "66369d5e",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -962,15 +962,15 @@
       "DEFINITELY_TRUE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine S > D and A ≤ D. This gives A < S. This proves A ≤ S. Option 2: Combine S > D, A ≤ D, and A ≥ R. This gives S > R. S > R contradicts S ≤ R, so the conclusion cannot be true. Option 3: Combine S ≥ B. This leaves B < S or B = S possible. B = S works in one valid case but fails in another. It is possible, not certain. Option 4: Combine A ≥ R. This leaves A = R or A > R possible. A > R works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine S > D and A ≤ D. This gives A < S. This proves A ≤ S.\n\nOption 2: Combine S > D, A ≤ D, and A ≥ R. This gives S > R. S > R contradicts S ≤ R, so the conclusion cannot be true.\n\nOption 3: Combine S ≥ B. This leaves B < S or B = S possible. B = S works in one valid case but fails in another. It is possible, not certain.\n\nOption 4: Combine A ≥ R. This leaves A = R or A > R possible. A > R works in one valid case but fails in another. It is possible, not certain.\n\nTherefore, option 1 is the only conclusion with the required truth status.\n\nS ≤ R: S > R contradicts S ≤ R, so the conclusion cannot be true.\n\nB = S: B = S works in one valid case but fails in another. It is possible, not certain.\n\nA > R: A > R works in one valid case but fails in another. It is possible, not certain.",
+    "mockSolution": "Combine S > D and A ≤ D. This gives A < S. This proves A ≤ S. Therefore, option 1 is correct.",
+    "learningSolution": "Combine S > D and A ≤ D. This gives A < S.\n\nThis proves A ≤ S.\n\nTherefore, option 1 is correct.\n\nS ≤ R: S > R contradicts S ≤ R, so the conclusion cannot be true.\n\nB = S: B = S works in one valid case but fails in another. It is possible, not certain.\n\nA > R: A > R works in one valid case but fails in another. It is possible, not certain.",
     "contentHash": "d1d119f9",
     "structuralFingerprint": "9547151a",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1007,15 +1007,15 @@
       "POSSIBLY_TRUE",
       "IMPOSSIBLE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine P ≤ Q. This leaves P < Q or P = Q possible. P = Q works in one valid case but fails in another. It is possible, not certain. Option 2: Combine P ≤ Q, P ≥ B, and B = S. This leaves B < Q or B = Q possible. B = Q works in one valid case but fails in another. It is possible, not certain. Option 3: Combine C > P. This gives P < C. P < C contradicts P = C, so the conclusion cannot be true. Option 4: Combine P ≤ Q, P ≥ B, S ≥ R, and B = S. This leaves R < Q or R = Q possible. This proves R ≤ Q. Therefore, option 4 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine P ≤ Q. This leaves P < Q or P = Q possible. P = Q works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine P ≤ Q, P ≥ B, and B = S. This leaves B < Q or B = Q possible. B = Q works in one valid case but fails in another. It is possible, not certain.\n\nOption 3: Combine C > P. This gives P < C. P < C contradicts P = C, so the conclusion cannot be true.\n\nOption 4: Combine P ≤ Q, P ≥ B, S ≥ R, and B = S. This leaves R < Q or R = Q possible. This proves R ≤ Q.\n\nTherefore, option 4 is the only conclusion with the required truth status.\n\nP = Q: P = Q works in one valid case but fails in another. It is possible, not certain.\n\nB = Q: B = Q works in one valid case but fails in another. It is possible, not certain.\n\nP = C: P < C contradicts P = C, so the conclusion cannot be true.",
+    "mockSolution": "Combine P ≤ Q, P ≥ B, S ≥ R, and B = S. This leaves R < Q or R = Q possible. This proves R ≤ Q. Therefore, option 4 is correct.",
+    "learningSolution": "Combine P ≤ Q, P ≥ B, S ≥ R, and B = S. This leaves R < Q or R = Q possible.\n\nThis proves R ≤ Q.\n\nTherefore, option 4 is correct.\n\nP = Q: P = Q works in one valid case but fails in another. It is possible, not certain.\n\nB = Q: B = Q works in one valid case but fails in another. It is possible, not certain.\n\nP = C: P < C contradicts P = C, so the conclusion cannot be true.",
     "contentHash": "103e44eb",
     "structuralFingerprint": "ae6cbcf7",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1049,15 +1049,15 @@
       "POSSIBLY_TRUE",
       "DEFINITELY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine S ≥ P and R < P. This gives S > R. This proves S ≥ R. Option 2: Combine S ≥ P. This leaves P < S or P = S possible. This proves P ≤ S. Option 3: Combine S ≥ P. This leaves P < S or P = S possible. P ≥ S works in one valid case but fails in another. It is possible, not certain. Option 4: Combine S ≥ P and R < P. This gives R < S. R < S contradicts R ≥ S, so the conclusion cannot be true. Therefore, option 3 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine S ≥ P and R < P. This gives S > R. This proves S ≥ R.\n\nOption 2: Combine S ≥ P. This leaves P < S or P = S possible. This proves P ≤ S.\n\nOption 3: Combine S ≥ P. This leaves P < S or P = S possible. P ≥ S works in one valid case but fails in another. It is possible, not certain.\n\nOption 4: Combine S ≥ P and R < P. This gives R < S. R < S contradicts R ≥ S, so the conclusion cannot be true.\n\nFor example, P = 1, R = 0, and S = 1 satisfies every statement and gives P = S.\n\nBut P = 1, R = 0, and S = 2 also satisfies every statement and gives P < S. This is why the conclusion is not guaranteed.\n\nTherefore, option 3 is the only conclusion with the required truth status.\n\nS ≥ R: This proves S ≥ R.\n\nP ≤ S: This proves P ≤ S.\n\nR ≥ S: R < S contradicts R ≥ S, so the conclusion cannot be true.",
+    "mockSolution": "Combine S ≥ P. This leaves P < S or P = S possible. P ≥ S works in one valid case but fails in another. It is possible, not certain. Therefore, option 3 is correct.",
+    "learningSolution": "Combine S ≥ P. This leaves P < S or P = S possible.\n\nP ≥ S works in one valid case but fails in another. It is possible, not certain.\n\nFor example, P = 1, R = 0, and S = 1 satisfies every statement and gives P = S.\n\nBut P = 1, R = 0, and S = 2 also satisfies every statement and gives P < S. This is why the conclusion is not guaranteed.\n\nTherefore, option 3 is correct.\n\nS ≥ R: This proves S ≥ R.\n\nP ≤ S: This proves P ≤ S.\n\nR ≥ S: R < S contradicts R ≥ S, so the conclusion cannot be true.",
     "contentHash": "25359647",
     "structuralFingerprint": "3fba72ce",
     "sourceLedgerIds": [
       "AGG-INE-005",
       "DISHA-INE-006"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1093,15 +1093,15 @@
       "POSSIBLY_TRUE",
       "DEFINITELY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: There is no chain fixing the relation between P and A; either may be greater, or they may be equal. P ≥ A works in one valid case but fails in another. It is possible, not certain. Option 2: Combine A < S and C ≤ A. This gives S > C. This proves S ≥ C. Option 3: Combine A < S. This gives S > A. This proves S ≥ A. Option 4: Combine A < S. This gives A < S. A < S contradicts A > S, so the conclusion cannot be true. Therefore, option 1 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: There is no chain fixing the relation between P and A; either may be greater, or they may be equal. P ≥ A works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine A < S and C ≤ A. This gives S > C. This proves S ≥ C.\n\nOption 3: Combine A < S. This gives S > A. This proves S ≥ A.\n\nOption 4: Combine A < S. This gives A < S. A < S contradicts A > S, so the conclusion cannot be true.\n\nFor example, A = 1, C = 0, P = 1, and S = 2 satisfies every statement and gives P = A.\n\nBut A = 2, C = 0, P = 1, and S = 3 also satisfies every statement and gives P < A. This is why the conclusion is not guaranteed.\n\nTherefore, option 1 is the only conclusion with the required truth status.\n\nS ≥ C: This proves S ≥ C.\n\nS ≥ A: This proves S ≥ A.\n\nA > S: A < S contradicts A > S, so the conclusion cannot be true.",
+    "mockSolution": "There is no chain fixing the relation between P and A; either may be greater, or they may be equal. P ≥ A works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is correct.",
+    "learningSolution": "There is no chain fixing the relation between P and A; either may be greater, or they may be equal.\n\nP ≥ A works in one valid case but fails in another. It is possible, not certain.\n\nFor example, A = 1, C = 0, P = 1, and S = 2 satisfies every statement and gives P = A.\n\nBut A = 2, C = 0, P = 1, and S = 3 also satisfies every statement and gives P < A. This is why the conclusion is not guaranteed.\n\nTherefore, option 1 is correct.\n\nS ≥ C: This proves S ≥ C.\n\nS ≥ A: This proves S ≥ A.\n\nA > S: A < S contradicts A > S, so the conclusion cannot be true.",
     "contentHash": "437704fa",
     "structuralFingerprint": "b0679afd",
     "sourceLedgerIds": [
       "AGG-INE-005",
       "DISHA-INE-006"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1136,15 +1136,15 @@
       "DEFINITELY_TRUE",
       "IMPOSSIBLE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine D < C. This gives D < C. This proves D ≤ C. Option 2: Combine C ≤ R and P = R. This leaves P = C or P > C possible. P = C works in one valid case but fails in another. It is possible, not certain. Option 3: Combine C ≤ R, D < C, and P = R. This gives R > D. This proves R ≥ D. Option 4: Combine D < C. This gives D < C. D < C contradicts D > C, so the conclusion cannot be true. Therefore, option 2 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine D < C. This gives D < C. This proves D ≤ C.\n\nOption 2: Combine C ≤ R and P = R. This leaves P = C or P > C possible. P = C works in one valid case but fails in another. It is possible, not certain.\n\nOption 3: Combine C ≤ R, D < C, and P = R. This gives R > D. This proves R ≥ D.\n\nOption 4: Combine D < C. This gives D < C. D < C contradicts D > C, so the conclusion cannot be true.\n\nFor example, C = 1, D = 0, P = 1, and R = 1 satisfies every statement and gives P = C.\n\nBut C = 1, D = 0, P = 2, and R = 2 also satisfies every statement and gives P > C. This is why the conclusion is not guaranteed.\n\nTherefore, option 2 is the only conclusion with the required truth status.\n\nD ≤ C: This proves D ≤ C.\n\nR ≥ D: This proves R ≥ D.\n\nD > C: D < C contradicts D > C, so the conclusion cannot be true.",
+    "mockSolution": "Combine C ≤ R and P = R. This leaves P = C or P > C possible. P = C works in one valid case but fails in another. It is possible, not certain. Therefore, option 2 is correct.",
+    "learningSolution": "Combine C ≤ R and P = R. This leaves P = C or P > C possible.\n\nP = C works in one valid case but fails in another. It is possible, not certain.\n\nFor example, C = 1, D = 0, P = 1, and R = 1 satisfies every statement and gives P = C.\n\nBut C = 1, D = 0, P = 2, and R = 2 also satisfies every statement and gives P > C. This is why the conclusion is not guaranteed.\n\nTherefore, option 2 is correct.\n\nD ≤ C: This proves D ≤ C.\n\nR ≥ D: This proves R ≥ D.\n\nD > C: D < C contradicts D > C, so the conclusion cannot be true.",
     "contentHash": "22df6084",
     "structuralFingerprint": "89480053",
     "sourceLedgerIds": [
       "AGG-INE-005",
       "DISHA-INE-006"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1179,15 +1179,15 @@
       "DEFINITELY_TRUE",
       "IMPOSSIBLE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine R > S and Q = R. This gives Q > S. This proves Q ≥ S. Option 2: Combine D ≥ Q and Q = R. This leaves D = Q or D > Q possible. None of those possibilities satisfies D < Q, so the conclusion cannot be true. Option 3: Combine Q = R. This gives Q = R. This proves Q ≥ R. Option 4: Combine D ≥ Q and Q = R. This leaves R < D or R = D possible. R < D works in one valid case but fails in another. It is possible, not certain. Therefore, option 4 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine R > S and Q = R. This gives Q > S. This proves Q ≥ S.\n\nOption 2: Combine D ≥ Q and Q = R. This leaves D = Q or D > Q possible. None of those possibilities satisfies D < Q, so the conclusion cannot be true.\n\nOption 3: Combine Q = R. This gives Q = R. This proves Q ≥ R.\n\nOption 4: Combine D ≥ Q and Q = R. This leaves R < D or R = D possible. R < D works in one valid case but fails in another. It is possible, not certain.\n\nFor example, D = 2, Q = 1, R = 1, and S = 0 satisfies every statement and gives R < D.\n\nBut D = 1, Q = 1, R = 1, and S = 0 also satisfies every statement and gives R = D. This is why the conclusion is not guaranteed.\n\nTherefore, option 4 is the only conclusion with the required truth status.\n\nQ ≥ S: This proves Q ≥ S.\n\nD < Q: None of those possibilities satisfies D < Q, so the conclusion cannot be true.\n\nQ ≥ R: This proves Q ≥ R.",
+    "mockSolution": "Combine D ≥ Q and Q = R. This leaves R < D or R = D possible. R < D works in one valid case but fails in another. It is possible, not certain. Therefore, option 4 is correct.",
+    "learningSolution": "Combine D ≥ Q and Q = R. This leaves R < D or R = D possible.\n\nR < D works in one valid case but fails in another. It is possible, not certain.\n\nFor example, D = 2, Q = 1, R = 1, and S = 0 satisfies every statement and gives R < D.\n\nBut D = 1, Q = 1, R = 1, and S = 0 also satisfies every statement and gives R = D. This is why the conclusion is not guaranteed.\n\nTherefore, option 4 is correct.\n\nQ ≥ S: This proves Q ≥ S.\n\nD < Q: None of those possibilities satisfies D < Q, so the conclusion cannot be true.\n\nQ ≥ R: This proves Q ≥ R.",
     "contentHash": "9b0a6645",
     "structuralFingerprint": "4ea91b2a",
     "sourceLedgerIds": [
       "AGG-INE-005",
       "DISHA-INE-006"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1223,15 +1223,15 @@
       "IMPOSSIBLE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine C < Q. This gives C < Q. This proves C < Q. Option 2: There is no chain fixing the relation between D and Q; either may be greater, or they may be equal. D = Q works in one valid case but fails in another. It is possible, not certain. Option 3: Combine D < S and C ≤ D. This gives S > C. This proves S > C. Option 4: Combine C < Q. This gives Q > C. Q > C contradicts Q ≤ C, so the conclusion cannot be true. Therefore, option 2 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine C < Q. This gives C < Q. This proves C < Q.\n\nOption 2: There is no chain fixing the relation between D and Q; either may be greater, or they may be equal. D = Q works in one valid case but fails in another. It is possible, not certain.\n\nOption 3: Combine D < S and C ≤ D. This gives S > C. This proves S > C.\n\nOption 4: Combine C < Q. This gives Q > C. Q > C contradicts Q ≤ C, so the conclusion cannot be true.\n\nFor example, C = 0, D = 1, Q = 1, and S = 2 satisfies every statement and gives D = Q.\n\nBut C = 0, D = 0, Q = 1, and S = 1 also satisfies every statement and gives D < Q. This is why the conclusion is not guaranteed.\n\nTherefore, option 2 is the only conclusion with the required truth status.\n\nC < Q: This proves C < Q.\n\nS > C: This proves S > C.\n\nQ ≤ C: Q > C contradicts Q ≤ C, so the conclusion cannot be true.",
+    "mockSolution": "There is no chain fixing the relation between D and Q; either may be greater, or they may be equal. D = Q works in one valid case but fails in another. It is possible, not certain. Therefore, option 2 is correct.",
+    "learningSolution": "There is no chain fixing the relation between D and Q; either may be greater, or they may be equal.\n\nD = Q works in one valid case but fails in another. It is possible, not certain.\n\nFor example, C = 0, D = 1, Q = 1, and S = 2 satisfies every statement and gives D = Q.\n\nBut C = 0, D = 0, Q = 1, and S = 1 also satisfies every statement and gives D < Q. This is why the conclusion is not guaranteed.\n\nTherefore, option 2 is correct.\n\nC < Q: This proves C < Q.\n\nS > C: This proves S > C.\n\nQ ≤ C: Q > C contradicts Q ≤ C, so the conclusion cannot be true.",
     "contentHash": "de6da8c3",
     "structuralFingerprint": "f8653e99",
     "sourceLedgerIds": [
       "AGG-INE-005",
       "DISHA-INE-006"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1266,15 +1266,15 @@
       "IMPOSSIBLE",
       "DEFINITELY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: There is no chain fixing the relation between P and R; either may be greater, or they may be equal. P > R works in one valid case but fails in another. It is possible, not certain. Option 2: Combine S ≤ D and S > P. This gives D > P. This proves D ≥ P. Option 3: Combine S ≤ D and S > P. This gives P < D. This proves P < D. Option 4: Combine S > P. This gives S > P. S > P contradicts S < P, so the conclusion cannot be true. Therefore, option 1 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: There is no chain fixing the relation between P and R; either may be greater, or they may be equal. P > R works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine S ≤ D and S > P. This gives D > P. This proves D ≥ P.\n\nOption 3: Combine S ≤ D and S > P. This gives P < D. This proves P < D.\n\nOption 4: Combine S > P. This gives S > P. S > P contradicts S < P, so the conclusion cannot be true.\n\nFor example, B = 1, D = 2, P = 1, R = 0, and S = 2 satisfies every statement and gives P > R.\n\nBut B = 2, D = 1, P = 0, R = 1, and S = 1 also satisfies every statement and gives P < R. This is why the conclusion is not guaranteed.\n\nTherefore, option 1 is the only conclusion with the required truth status.\n\nD ≥ P: This proves D ≥ P.\n\nP < D: This proves P < D.\n\nS < P: S > P contradicts S < P, so the conclusion cannot be true.",
+    "mockSolution": "There is no chain fixing the relation between P and R; either may be greater, or they may be equal. P > R works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is correct.",
+    "learningSolution": "There is no chain fixing the relation between P and R; either may be greater, or they may be equal.\n\nP > R works in one valid case but fails in another. It is possible, not certain.\n\nFor example, B = 1, D = 2, P = 1, R = 0, and S = 2 satisfies every statement and gives P > R.\n\nBut B = 2, D = 1, P = 0, R = 1, and S = 1 also satisfies every statement and gives P < R. This is why the conclusion is not guaranteed.\n\nTherefore, option 1 is correct.\n\nD ≥ P: This proves D ≥ P.\n\nP < D: This proves P < D.\n\nS < P: S > P contradicts S < P, so the conclusion cannot be true.",
     "contentHash": "a806dab4",
     "structuralFingerprint": "a80bd317",
     "sourceLedgerIds": [
       "AGG-INE-005",
       "DISHA-INE-006"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1311,15 +1311,15 @@
       "IMPOSSIBLE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine R < B, R ≥ S, and P = B. This gives B > S. This proves B > S. Option 2: Combine P > D and P = B. This gives P > D. P > D contradicts P < D, so the conclusion cannot be true. Option 3: There is no chain fixing the relation between S and D; either may be greater, or they may be equal. S < D works in one valid case but fails in another. It is possible, not certain. Option 4: Combine P ≤ C, R < B, and P = B. This gives C > R. This proves C ≥ R. Therefore, option 3 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine R < B, R ≥ S, and P = B. This gives B > S. This proves B > S.\n\nOption 2: Combine P > D and P = B. This gives P > D. P > D contradicts P < D, so the conclusion cannot be true.\n\nOption 3: There is no chain fixing the relation between S and D; either may be greater, or they may be equal. S < D works in one valid case but fails in another. It is possible, not certain.\n\nOption 4: Combine P ≤ C, R < B, and P = B. This gives C > R. This proves C ≥ R.\n\nFor example, B = 2, C = 2, D = 1, P = 2, R = 0, and S = 0 satisfies every statement and gives S < D.\n\nBut B = 1, C = 1, D = 0, P = 1, R = 0, and S = 0 also satisfies every statement and gives S = D. This is why the conclusion is not guaranteed.\n\nTherefore, option 3 is the only conclusion with the required truth status.\n\nB > S: This proves B > S.\n\nP < D: P > D contradicts P < D, so the conclusion cannot be true.\n\nC ≥ R: This proves C ≥ R.",
+    "mockSolution": "There is no chain fixing the relation between S and D; either may be greater, or they may be equal. S < D works in one valid case but fails in another. It is possible, not certain. Therefore, option 3 is correct.",
+    "learningSolution": "There is no chain fixing the relation between S and D; either may be greater, or they may be equal.\n\nS < D works in one valid case but fails in another. It is possible, not certain.\n\nFor example, B = 2, C = 2, D = 1, P = 2, R = 0, and S = 0 satisfies every statement and gives S < D.\n\nBut B = 1, C = 1, D = 0, P = 1, R = 0, and S = 0 also satisfies every statement and gives S = D. This is why the conclusion is not guaranteed.\n\nTherefore, option 3 is correct.\n\nB > S: This proves B > S.\n\nP < D: P > D contradicts P < D, so the conclusion cannot be true.\n\nC ≥ R: This proves C ≥ R.",
     "contentHash": "8b500d00",
     "structuralFingerprint": "84f6d18e",
     "sourceLedgerIds": [
       "AGG-INE-005",
       "DISHA-INE-006"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1356,15 +1356,15 @@
       "POSSIBLY_TRUE",
       "DEFINITELY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine P > R and P = Q. This gives R < Q. R < Q contradicts R > Q, so the conclusion cannot be true. Option 2: Combine P > R and P = Q. This gives P > R. This proves P ≥ R. Option 3: Combine P ≥ B and P = Q. This leaves P = B or P > B possible. This proves P ≥ B. Option 4: There is no chain fixing the relation between B and R; either may be greater, or they may be equal. B < R works in one valid case but fails in another. It is possible, not certain. Therefore, option 4 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine P > R and P = Q. This gives R < Q. R < Q contradicts R > Q, so the conclusion cannot be true.\n\nOption 2: Combine P > R and P = Q. This gives P > R. This proves P ≥ R.\n\nOption 3: Combine P ≥ B and P = Q. This leaves P = B or P > B possible. This proves P ≥ B.\n\nOption 4: There is no chain fixing the relation between B and R; either may be greater, or they may be equal. B < R works in one valid case but fails in another. It is possible, not certain.\n\nFor example, B = 1, C = 0, P = 3, Q = 3, and R = 2 satisfies every statement and gives B < R.\n\nBut B = 1, C = 0, P = 2, Q = 2, and R = 1 also satisfies every statement and gives B = R. This is why the conclusion is not guaranteed.\n\nTherefore, option 4 is the only conclusion with the required truth status.\n\nR > Q: R < Q contradicts R > Q, so the conclusion cannot be true.\n\nP ≥ R: This proves P ≥ R.\n\nP ≥ B: This proves P ≥ B.",
+    "mockSolution": "There is no chain fixing the relation between B and R; either may be greater, or they may be equal. B < R works in one valid case but fails in another. It is possible, not certain. Therefore, option 4 is correct.",
+    "learningSolution": "There is no chain fixing the relation between B and R; either may be greater, or they may be equal.\n\nB < R works in one valid case but fails in another. It is possible, not certain.\n\nFor example, B = 1, C = 0, P = 3, Q = 3, and R = 2 satisfies every statement and gives B < R.\n\nBut B = 1, C = 0, P = 2, Q = 2, and R = 1 also satisfies every statement and gives B = R. This is why the conclusion is not guaranteed.\n\nTherefore, option 4 is correct.\n\nR > Q: R < Q contradicts R > Q, so the conclusion cannot be true.\n\nP ≥ R: This proves P ≥ R.\n\nP ≥ B: This proves P ≥ B.",
     "contentHash": "a6a069d2",
     "structuralFingerprint": "ed3d436c",
     "sourceLedgerIds": [
       "AGG-INE-005",
       "DISHA-INE-006"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1401,15 +1401,15 @@
       "IMPOSSIBLE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine C ≤ S. This leaves C < S or C = S possible. This proves C ≤ S. Option 2: There is no chain fixing the relation between C and A; either may be greater, or they may be equal. C < A works in one valid case but fails in another. It is possible, not certain. Option 3: Combine S < R and C ≤ S. This gives C < R. C < R contradicts C = R, so the conclusion cannot be true. Option 4: Combine S < R and C ≤ S. This gives C < R. This proves C ≤ R. Therefore, option 2 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine C ≤ S. This leaves C < S or C = S possible. This proves C ≤ S.\n\nOption 2: There is no chain fixing the relation between C and A; either may be greater, or they may be equal. C < A works in one valid case but fails in another. It is possible, not certain.\n\nOption 3: Combine S < R and C ≤ S. This gives C < R. C < R contradicts C = R, so the conclusion cannot be true.\n\nOption 4: Combine S < R and C ≤ S. This gives C < R. This proves C ≤ R.\n\nFor example, A = 1, B = 0, C = 0, D = 2, Q = 0, R = 1, and S = 0 satisfies every statement and gives C < A.\n\nBut A = 0, B = 0, C = 0, D = 1, Q = 0, R = 1, and S = 0 also satisfies every statement and gives C = A. This is why the conclusion is not guaranteed.\n\nTherefore, option 2 is the only conclusion with the required truth status.\n\nC ≤ S: This proves C ≤ S.\n\nC = R: C < R contradicts C = R, so the conclusion cannot be true.\n\nC ≤ R: This proves C ≤ R.",
+    "mockSolution": "There is no chain fixing the relation between C and A; either may be greater, or they may be equal. C < A works in one valid case but fails in another. It is possible, not certain. Therefore, option 2 is correct.",
+    "learningSolution": "There is no chain fixing the relation between C and A; either may be greater, or they may be equal.\n\nC < A works in one valid case but fails in another. It is possible, not certain.\n\nFor example, A = 1, B = 0, C = 0, D = 2, Q = 0, R = 1, and S = 0 satisfies every statement and gives C < A.\n\nBut A = 0, B = 0, C = 0, D = 1, Q = 0, R = 1, and S = 0 also satisfies every statement and gives C = A. This is why the conclusion is not guaranteed.\n\nTherefore, option 2 is correct.\n\nC ≤ S: This proves C ≤ S.\n\nC = R: C < R contradicts C = R, so the conclusion cannot be true.\n\nC ≤ R: This proves C ≤ R.",
     "contentHash": "db934574",
     "structuralFingerprint": "92e9c06d",
     "sourceLedgerIds": [
       "AGG-INE-005",
       "DISHA-INE-006"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1445,15 +1445,15 @@
       "POSSIBLY_TRUE",
       "IMPOSSIBLE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine R > A. This gives R > A. This proves R > A. Option 2: Combine S = C. This gives S = C. This proves S = C. Option 3: Combine S = C. This leaves R < S, R = S, or R > S possible. R = S works in one valid case but fails in another. It is possible, not certain. Option 4: Combine R > A and B ≤ A. This gives B < R. B < R contradicts B = R, so the conclusion cannot be true. Therefore, option 3 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine R > A. This gives R > A. This proves R > A.\n\nOption 2: Combine S = C. This gives S = C. This proves S = C.\n\nOption 3: Combine S = C. This leaves R < S, R = S, or R > S possible. R = S works in one valid case but fails in another. It is possible, not certain.\n\nOption 4: Combine R > A and B ≤ A. This gives B < R. B < R contradicts B = R, so the conclusion cannot be true.\n\nFor example, A = 0, B = 0, C = 1, Q = 0, R = 1, and S = 1 satisfies every statement and gives R = S.\n\nBut A = 0, B = 0, C = 2, Q = 0, R = 1, and S = 2 also satisfies every statement and gives R < S. This is why the conclusion is not guaranteed.\n\nTherefore, option 3 is the only conclusion with the required truth status.\n\nR > A: This proves R > A.\n\nS = C: This proves S = C.\n\nB = R: B < R contradicts B = R, so the conclusion cannot be true.",
+    "mockSolution": "Combine S = C. This leaves R < S, R = S, or R > S possible. R = S works in one valid case but fails in another. It is possible, not certain. Therefore, option 3 is correct.",
+    "learningSolution": "Combine S = C. This leaves R < S, R = S, or R > S possible.\n\nR = S works in one valid case but fails in another. It is possible, not certain.\n\nFor example, A = 0, B = 0, C = 1, Q = 0, R = 1, and S = 1 satisfies every statement and gives R = S.\n\nBut A = 0, B = 0, C = 2, Q = 0, R = 1, and S = 2 also satisfies every statement and gives R < S. This is why the conclusion is not guaranteed.\n\nTherefore, option 3 is correct.\n\nR > A: This proves R > A.\n\nS = C: This proves S = C.\n\nB = R: B < R contradicts B = R, so the conclusion cannot be true.",
     "contentHash": "069db983",
     "structuralFingerprint": "66369d5e",
     "sourceLedgerIds": [
       "AGG-INE-005",
       "DISHA-INE-006"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1490,15 +1490,15 @@
       "DEFINITELY_TRUE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine C ≥ R. This leaves C = R or C > R possible. None of those possibilities satisfies C < R, so the conclusion cannot be true. Option 2: Combine D > C and C ≥ R. This gives R < D. This proves R ≤ D. Option 3: Combine D > C. This gives C < D. This proves C ≤ D. Option 4: There is no chain fixing the relation between D and B; either may be greater, or they may be equal. D = B works in one valid case but fails in another. It is possible, not certain. Therefore, option 4 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine C ≥ R. This leaves C = R or C > R possible. None of those possibilities satisfies C < R, so the conclusion cannot be true.\n\nOption 2: Combine D > C and C ≥ R. This gives R < D. This proves R ≤ D.\n\nOption 3: Combine D > C. This gives C < D. This proves C ≤ D.\n\nOption 4: There is no chain fixing the relation between D and B; either may be greater, or they may be equal. D = B works in one valid case but fails in another. It is possible, not certain.\n\nFor example, B = 1, C = 0, D = 1, R = 0, and S = 2 satisfies every statement and gives D = B.\n\nBut B = 2, C = 0, D = 1, R = 0, and S = 3 also satisfies every statement and gives D < B. This is why the conclusion is not guaranteed.\n\nTherefore, option 4 is the only conclusion with the required truth status.\n\nC < R: None of those possibilities satisfies C < R, so the conclusion cannot be true.\n\nR ≤ D: This proves R ≤ D.\n\nC ≤ D: This proves C ≤ D.",
+    "mockSolution": "There is no chain fixing the relation between D and B; either may be greater, or they may be equal. D = B works in one valid case but fails in another. It is possible, not certain. Therefore, option 4 is correct.",
+    "learningSolution": "There is no chain fixing the relation between D and B; either may be greater, or they may be equal.\n\nD = B works in one valid case but fails in another. It is possible, not certain.\n\nFor example, B = 1, C = 0, D = 1, R = 0, and S = 2 satisfies every statement and gives D = B.\n\nBut B = 2, C = 0, D = 1, R = 0, and S = 3 also satisfies every statement and gives D < B. This is why the conclusion is not guaranteed.\n\nTherefore, option 4 is correct.\n\nC < R: None of those possibilities satisfies C < R, so the conclusion cannot be true.\n\nR ≤ D: This proves R ≤ D.\n\nC ≤ D: This proves C ≤ D.",
     "contentHash": "a7a65d8b",
     "structuralFingerprint": "9547151a",
     "sourceLedgerIds": [
       "AGG-INE-005",
       "DISHA-INE-006"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1535,15 +1535,15 @@
       "POSSIBLY_TRUE",
       "DEFINITELY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: There is no chain fixing the relation between B and S; either may be greater, or they may be equal. B ≤ S works in one valid case but fails in another. It is possible, not certain. Option 2: Combine R = D. This gives D = R. This proves D ≥ R. Option 3: Combine R ≥ A and R = D. This leaves A < D or A = D possible. None of those possibilities satisfies A > D, so the conclusion cannot be true. Option 4: Combine D ≤ C, R ≥ A, and R = D. This leaves A < C or A = C possible. This proves A ≤ C. Therefore, option 1 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: There is no chain fixing the relation between B and S; either may be greater, or they may be equal. B ≤ S works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine R = D. This gives D = R. This proves D ≥ R.\n\nOption 3: Combine R ≥ A and R = D. This leaves A < D or A = D possible. None of those possibilities satisfies A > D, so the conclusion cannot be true.\n\nOption 4: Combine D ≤ C, R ≥ A, and R = D. This leaves A < C or A = C possible. This proves A ≤ C.\n\nFor example, A = 0, B = 1, C = 0, D = 0, R = 0, and S = 2 satisfies every statement and gives B < S.\n\nBut A = 0, B = 1, C = 0, D = 0, R = 0, and S = 0 also satisfies every statement and gives B > S. This is why the conclusion is not guaranteed.\n\nTherefore, option 1 is the only conclusion with the required truth status.\n\nD ≥ R: This proves D ≥ R.\n\nA > D: None of those possibilities satisfies A > D, so the conclusion cannot be true.\n\nA ≤ C: This proves A ≤ C.",
+    "mockSolution": "There is no chain fixing the relation between B and S; either may be greater, or they may be equal. B ≤ S works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is correct.",
+    "learningSolution": "There is no chain fixing the relation between B and S; either may be greater, or they may be equal.\n\nB ≤ S works in one valid case but fails in another. It is possible, not certain.\n\nFor example, A = 0, B = 1, C = 0, D = 0, R = 0, and S = 2 satisfies every statement and gives B < S.\n\nBut A = 0, B = 1, C = 0, D = 0, R = 0, and S = 0 also satisfies every statement and gives B > S. This is why the conclusion is not guaranteed.\n\nTherefore, option 1 is correct.\n\nD ≥ R: This proves D ≥ R.\n\nA > D: None of those possibilities satisfies A > D, so the conclusion cannot be true.\n\nA ≤ C: This proves A ≤ C.",
     "contentHash": "b032f7a0",
     "structuralFingerprint": "ae6cbcf7",
     "sourceLedgerIds": [
       "AGG-INE-005",
       "DISHA-INE-006"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1577,15 +1577,15 @@
       "DEFINITELY_TRUE",
       "IMPOSSIBLE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine S ≤ P and A < S. This gives A < P. A < P contradicts A ≥ P, so the conclusion cannot be true. Option 2: Combine A < S. This gives A < S. This proves A ≤ S. Option 3: Combine S ≤ P. This leaves P = S or P > S possible. P > S works in one valid case but fails in another. It is possible, not certain. Option 4: Combine S ≤ P and A < S. This gives P > A. This proves P > A. Therefore, option 1 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine S ≤ P and A < S. This gives A < P. A < P contradicts A ≥ P, so the conclusion cannot be true.\n\nOption 2: Combine A < S. This gives A < S. This proves A ≤ S.\n\nOption 3: Combine S ≤ P. This leaves P = S or P > S possible. P > S works in one valid case but fails in another. It is possible, not certain.\n\nOption 4: Combine S ≤ P and A < S. This gives P > A. This proves P > A.\n\nTherefore, option 1 is the only conclusion with the required truth status.\n\nA ≤ S: This proves A ≤ S.\n\nP > S: P > S works in one valid case but fails in another. It is possible, not certain.\n\nP > A: This proves P > A.",
+    "mockSolution": "Combine S ≤ P and A < S. This gives A < P. A < P contradicts A ≥ P, so the conclusion cannot be true. Therefore, option 1 is correct.",
+    "learningSolution": "Combine S ≤ P and A < S. This gives A < P.\n\nA < P contradicts A ≥ P, so the conclusion cannot be true.\n\nTherefore, option 1 is correct.\n\nA ≤ S: This proves A ≤ S.\n\nP > S: P > S works in one valid case but fails in another. It is possible, not certain.\n\nP > A: This proves P > A.",
     "contentHash": "7ea13384",
     "structuralFingerprint": "3fba72ce",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1621,15 +1621,15 @@
       "DEFINITELY_TRUE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine P > R. This gives P > R. This proves P ≥ R. Option 2: Combine C < B. This gives C < B. This proves C < B. Option 3: Combine B > P and P > R. This gives B > R. B > R contradicts B < R, so the conclusion cannot be true. Option 4: Combine R ≤ C. This leaves C = R or C > R possible. C > R works in one valid case but fails in another. It is possible, not certain. Therefore, option 3 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine P > R. This gives P > R. This proves P ≥ R.\n\nOption 2: Combine C < B. This gives C < B. This proves C < B.\n\nOption 3: Combine B > P and P > R. This gives B > R. B > R contradicts B < R, so the conclusion cannot be true.\n\nOption 4: Combine R ≤ C. This leaves C = R or C > R possible. C > R works in one valid case but fails in another. It is possible, not certain.\n\nTherefore, option 3 is the only conclusion with the required truth status.\n\nP ≥ R: This proves P ≥ R.\n\nC < B: This proves C < B.\n\nC > R: C > R works in one valid case but fails in another. It is possible, not certain.",
+    "mockSolution": "Combine B > P and P > R. This gives B > R. B > R contradicts B < R, so the conclusion cannot be true. Therefore, option 3 is correct.",
+    "learningSolution": "Combine B > P and P > R. This gives B > R.\n\nB > R contradicts B < R, so the conclusion cannot be true.\n\nTherefore, option 3 is correct.\n\nP ≥ R: This proves P ≥ R.\n\nC < B: This proves C < B.\n\nC > R: C > R works in one valid case but fails in another. It is possible, not certain.",
     "contentHash": "054f8244",
     "structuralFingerprint": "b0679afd",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1664,15 +1664,15 @@
       "POSSIBLY_TRUE",
       "DEFINITELY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine P ≤ R and B = R. This leaves R = P or R > P possible. R = P works in one valid case but fails in another. It is possible, not certain. Option 2: Combine P ≤ R and B = R. This leaves P < B or P = B possible. None of those possibilities satisfies P > B, so the conclusion cannot be true. Option 3: Combine P ≤ R and B = R. This leaves P < B or P = B possible. This proves P ≤ B. Option 4: Combine P ≤ R, P > S, and B = R. This gives R > S. This proves R > S. Therefore, option 2 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine P ≤ R and B = R. This leaves R = P or R > P possible. R = P works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine P ≤ R and B = R. This leaves P < B or P = B possible. None of those possibilities satisfies P > B, so the conclusion cannot be true.\n\nOption 3: Combine P ≤ R and B = R. This leaves P < B or P = B possible. This proves P ≤ B.\n\nOption 4: Combine P ≤ R, P > S, and B = R. This gives R > S. This proves R > S.\n\nTherefore, option 2 is the only conclusion with the required truth status.\n\nR = P: R = P works in one valid case but fails in another. It is possible, not certain.\n\nP ≤ B: This proves P ≤ B.\n\nR > S: This proves R > S.",
+    "mockSolution": "Combine P ≤ R and B = R. This leaves P < B or P = B possible. None of those possibilities satisfies P > B, so the conclusion cannot be true. Therefore, option 2 is correct.",
+    "learningSolution": "Combine P ≤ R and B = R. This leaves P < B or P = B possible.\n\nNone of those possibilities satisfies P > B, so the conclusion cannot be true.\n\nTherefore, option 2 is correct.\n\nR = P: R = P works in one valid case but fails in another. It is possible, not certain.\n\nP ≤ B: This proves P ≤ B.\n\nR > S: This proves R > S.",
     "contentHash": "be27f709",
     "structuralFingerprint": "89480053",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1707,15 +1707,15 @@
       "DEFINITELY_TRUE",
       "IMPOSSIBLE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine C ≥ R, B > D, and B = R. This gives C > D. This proves C > D. Option 2: Combine C ≥ R and B = R. This leaves R < C or R = C possible. R ≥ C works in one valid case but fails in another. It is possible, not certain. Option 3: Combine B > D and B = R. This gives R > D. This proves R > D. Option 4: Combine B > D and B = R. This gives R > D. R > D contradicts R < D, so the conclusion cannot be true. Therefore, option 4 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine C ≥ R, B > D, and B = R. This gives C > D. This proves C > D.\n\nOption 2: Combine C ≥ R and B = R. This leaves R < C or R = C possible. R ≥ C works in one valid case but fails in another. It is possible, not certain.\n\nOption 3: Combine B > D and B = R. This gives R > D. This proves R > D.\n\nOption 4: Combine B > D and B = R. This gives R > D. R > D contradicts R < D, so the conclusion cannot be true.\n\nTherefore, option 4 is the only conclusion with the required truth status.\n\nC > D: This proves C > D.\n\nR ≥ C: R ≥ C works in one valid case but fails in another. It is possible, not certain.\n\nR > D: This proves R > D.",
+    "mockSolution": "Combine B > D and B = R. This gives R > D. R > D contradicts R < D, so the conclusion cannot be true. Therefore, option 4 is correct.",
+    "learningSolution": "Combine B > D and B = R. This gives R > D.\n\nR > D contradicts R < D, so the conclusion cannot be true.\n\nTherefore, option 4 is correct.\n\nC > D: This proves C > D.\n\nR ≥ C: R ≥ C works in one valid case but fails in another. It is possible, not certain.\n\nR > D: This proves R > D.",
     "contentHash": "58b56c9b",
     "structuralFingerprint": "4ea91b2a",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1751,15 +1751,15 @@
       "DEFINITELY_TRUE",
       "DEFINITELY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine S > D. This gives D < S. This proves D < S. Option 2: Combine D ≤ A. This leaves A = D or A > D possible. This proves A ≥ D. Option 3: Combine A < Q and D ≤ A. This gives Q > D. Q > D contradicts Q = D, so the conclusion cannot be true. Option 4: Combine D ≤ A. This leaves D < A or D = A possible. D ≥ A works in one valid case but fails in another. It is possible, not certain. Therefore, option 3 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine S > D. This gives D < S. This proves D < S.\n\nOption 2: Combine D ≤ A. This leaves A = D or A > D possible. This proves A ≥ D.\n\nOption 3: Combine A < Q and D ≤ A. This gives Q > D. Q > D contradicts Q = D, so the conclusion cannot be true.\n\nOption 4: Combine D ≤ A. This leaves D < A or D = A possible. D ≥ A works in one valid case but fails in another. It is possible, not certain.\n\nTherefore, option 3 is the only conclusion with the required truth status.\n\nD < S: This proves D < S.\n\nA ≥ D: This proves A ≥ D.\n\nD ≥ A: D ≥ A works in one valid case but fails in another. It is possible, not certain.",
+    "mockSolution": "Combine A < Q and D ≤ A. This gives Q > D. Q > D contradicts Q = D, so the conclusion cannot be true. Therefore, option 3 is correct.",
+    "learningSolution": "Combine A < Q and D ≤ A. This gives Q > D.\n\nQ > D contradicts Q = D, so the conclusion cannot be true.\n\nTherefore, option 3 is correct.\n\nD < S: This proves D < S.\n\nA ≥ D: This proves A ≥ D.\n\nD ≥ A: D ≥ A works in one valid case but fails in another. It is possible, not certain.",
     "contentHash": "73cf7494",
     "structuralFingerprint": "f8653e99",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1794,15 +1794,15 @@
       "DEFINITELY_TRUE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine Q ≥ D and D > B. This gives Q > B. Q > B contradicts Q = B, so the conclusion cannot be true. Option 2: Combine D > B. This gives D > B. This proves D > B. Option 3: Combine Q ≥ D and D > B. This gives Q > B. This proves Q > B. Option 4: There is no chain fixing the relation between P and D; either may be greater, or they may be equal. P < D works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine Q ≥ D and D > B. This gives Q > B. Q > B contradicts Q = B, so the conclusion cannot be true.\n\nOption 2: Combine D > B. This gives D > B. This proves D > B.\n\nOption 3: Combine Q ≥ D and D > B. This gives Q > B. This proves Q > B.\n\nOption 4: There is no chain fixing the relation between P and D; either may be greater, or they may be equal. P < D works in one valid case but fails in another. It is possible, not certain.\n\nTherefore, option 1 is the only conclusion with the required truth status.\n\nD > B: This proves D > B.\n\nQ > B: This proves Q > B.\n\nP < D: P < D works in one valid case but fails in another. It is possible, not certain.",
+    "mockSolution": "Combine Q ≥ D and D > B. This gives Q > B. Q > B contradicts Q = B, so the conclusion cannot be true. Therefore, option 1 is correct.",
+    "learningSolution": "Combine Q ≥ D and D > B. This gives Q > B.\n\nQ > B contradicts Q = B, so the conclusion cannot be true.\n\nTherefore, option 1 is correct.\n\nD > B: This proves D > B.\n\nQ > B: This proves Q > B.\n\nP < D: P < D works in one valid case but fails in another. It is possible, not certain.",
     "contentHash": "b16bcc09",
     "structuralFingerprint": "a80bd317",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1839,15 +1839,15 @@
       "POSSIBLY_TRUE",
       "DEFINITELY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine B > Q and B = R. This gives Q < R. This proves Q < R. Option 2: Combine B ≤ A, B > Q, and B = R. This gives A > Q. A > Q contradicts A < Q, so the conclusion cannot be true. Option 3: Combine B ≤ A, B > Q, and B = R. This gives Q < A. This proves Q < A. Option 4: There is no chain fixing the relation between C and Q; either may be greater, or they may be equal. C ≥ Q works in one valid case but fails in another. It is possible, not certain. Therefore, option 2 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine B > Q and B = R. This gives Q < R. This proves Q < R.\n\nOption 2: Combine B ≤ A, B > Q, and B = R. This gives A > Q. A > Q contradicts A < Q, so the conclusion cannot be true.\n\nOption 3: Combine B ≤ A, B > Q, and B = R. This gives Q < A. This proves Q < A.\n\nOption 4: There is no chain fixing the relation between C and Q; either may be greater, or they may be equal. C ≥ Q works in one valid case but fails in another. It is possible, not certain.\n\nTherefore, option 2 is the only conclusion with the required truth status.\n\nQ < R: This proves Q < R.\n\nQ < A: This proves Q < A.\n\nC ≥ Q: C ≥ Q works in one valid case but fails in another. It is possible, not certain.",
+    "mockSolution": "Combine B ≤ A, B > Q, and B = R. This gives A > Q. A > Q contradicts A < Q, so the conclusion cannot be true. Therefore, option 2 is correct.",
+    "learningSolution": "Combine B ≤ A, B > Q, and B = R. This gives A > Q.\n\nA > Q contradicts A < Q, so the conclusion cannot be true.\n\nTherefore, option 2 is correct.\n\nQ < R: This proves Q < R.\n\nQ < A: This proves Q < A.\n\nC ≥ Q: C ≥ Q works in one valid case but fails in another. It is possible, not certain.",
     "contentHash": "ca9dab2a",
     "structuralFingerprint": "84f6d18e",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1884,15 +1884,15 @@
       "POSSIBLY_TRUE",
       "IMPOSSIBLE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: There is no chain fixing the relation between R and S; either may be greater, or they may be equal. R > S works in one valid case but fails in another. It is possible, not certain. Option 2: Combine P = B. This gives B = P. This proves B = P. Option 3: Combine S > D. This gives S > D. This proves S > D. Option 4: Combine P ≥ S, S > D, and P = B. This gives D < B. D < B contradicts D = B, so the conclusion cannot be true. Therefore, option 4 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: There is no chain fixing the relation between R and S; either may be greater, or they may be equal. R > S works in one valid case but fails in another. It is possible, not certain.\n\nOption 2: Combine P = B. This gives B = P. This proves B = P.\n\nOption 3: Combine S > D. This gives S > D. This proves S > D.\n\nOption 4: Combine P ≥ S, S > D, and P = B. This gives D < B. D < B contradicts D = B, so the conclusion cannot be true.\n\nTherefore, option 4 is the only conclusion with the required truth status.\n\nR > S: R > S works in one valid case but fails in another. It is possible, not certain.\n\nB = P: This proves B = P.\n\nS > D: This proves S > D.",
+    "mockSolution": "Combine P ≥ S, S > D, and P = B. This gives D < B. D < B contradicts D = B, so the conclusion cannot be true. Therefore, option 4 is correct.",
+    "learningSolution": "Combine P ≥ S, S > D, and P = B. This gives D < B.\n\nD < B contradicts D = B, so the conclusion cannot be true.\n\nTherefore, option 4 is correct.\n\nR > S: R > S works in one valid case but fails in another. It is possible, not certain.\n\nB = P: This proves B = P.\n\nS > D: This proves S > D.",
     "contentHash": "d13a1748",
     "structuralFingerprint": "ed3d436c",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1929,15 +1929,15 @@
       "DEFINITELY_TRUE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine B = D. This gives D = B. This proves D ≤ B. Option 2: Combine R < A and R ≥ C. This gives A > C. A > C contradicts A ≤ C, so the conclusion cannot be true. Option 3: Combine P < Q. This gives Q > P. This proves Q > P. Option 4: There is no chain fixing the relation between P and C; either may be greater, or they may be equal. P ≥ C works in one valid case but fails in another. It is possible, not certain. Therefore, option 2 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine B = D. This gives D = B. This proves D ≤ B.\n\nOption 2: Combine R < A and R ≥ C. This gives A > C. A > C contradicts A ≤ C, so the conclusion cannot be true.\n\nOption 3: Combine P < Q. This gives Q > P. This proves Q > P.\n\nOption 4: There is no chain fixing the relation between P and C; either may be greater, or they may be equal. P ≥ C works in one valid case but fails in another. It is possible, not certain.\n\nTherefore, option 2 is the only conclusion with the required truth status.\n\nD ≤ B: This proves D ≤ B.\n\nQ > P: This proves Q > P.\n\nP ≥ C: P ≥ C works in one valid case but fails in another. It is possible, not certain.",
+    "mockSolution": "Combine R < A and R ≥ C. This gives A > C. A > C contradicts A ≤ C, so the conclusion cannot be true. Therefore, option 2 is correct.",
+    "learningSolution": "Combine R < A and R ≥ C. This gives A > C.\n\nA > C contradicts A ≤ C, so the conclusion cannot be true.\n\nTherefore, option 2 is correct.\n\nD ≤ B: This proves D ≤ B.\n\nQ > P: This proves Q > P.\n\nP ≥ C: P ≥ C works in one valid case but fails in another. It is possible, not certain.",
     "contentHash": "f43f1856",
     "structuralFingerprint": "92e9c06d",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1973,15 +1973,15 @@
       "DEFINITELY_TRUE",
       "POSSIBLY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine B = D. This gives B = D. This proves B ≤ D. Option 2: Combine B = D. This leaves D < R, D = R, or D > R possible. D ≥ R works in one valid case but fails in another. It is possible, not certain. Option 3: Combine R < P and R ≥ A. This gives A < P. A < P contradicts A = P, so the conclusion cannot be true. Option 4: Combine B = D. This gives B = D. This proves B = D. Therefore, option 3 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine B = D. This gives B = D. This proves B ≤ D.\n\nOption 2: Combine B = D. This leaves D < R, D = R, or D > R possible. D ≥ R works in one valid case but fails in another. It is possible, not certain.\n\nOption 3: Combine R < P and R ≥ A. This gives A < P. A < P contradicts A = P, so the conclusion cannot be true.\n\nOption 4: Combine B = D. This gives B = D. This proves B = D.\n\nTherefore, option 3 is the only conclusion with the required truth status.\n\nB ≤ D: This proves B ≤ D.\n\nD ≥ R: D ≥ R works in one valid case but fails in another. It is possible, not certain.\n\nB = D: This proves B = D.",
+    "mockSolution": "Combine R < P and R ≥ A. This gives A < P. A < P contradicts A = P, so the conclusion cannot be true. Therefore, option 3 is correct.",
+    "learningSolution": "Combine R < P and R ≥ A. This gives A < P.\n\nA < P contradicts A = P, so the conclusion cannot be true.\n\nTherefore, option 3 is correct.\n\nB ≤ D: This proves B ≤ D.\n\nD ≥ R: D ≥ R works in one valid case but fails in another. It is possible, not certain.\n\nB = D: This proves B = D.",
     "contentHash": "b9c58ca9",
     "structuralFingerprint": "66369d5e",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2018,15 +2018,15 @@
       "DEFINITELY_TRUE",
       "IMPOSSIBLE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine S > Q, Q ≥ B, and C ≤ B. This gives C < S. C < S contradicts C = S, so the conclusion cannot be true. Option 2: Combine S > Q, Q ≥ B, and C ≤ B. This gives S > C. This proves S ≥ C. Option 3: Combine B < P. This gives B < P. This proves B < P. Option 4: Combine C ≤ B. This leaves C < B or C = B possible. C ≥ B works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine S > Q, Q ≥ B, and C ≤ B. This gives C < S. C < S contradicts C = S, so the conclusion cannot be true.\n\nOption 2: Combine S > Q, Q ≥ B, and C ≤ B. This gives S > C. This proves S ≥ C.\n\nOption 3: Combine B < P. This gives B < P. This proves B < P.\n\nOption 4: Combine C ≤ B. This leaves C < B or C = B possible. C ≥ B works in one valid case but fails in another. It is possible, not certain.\n\nTherefore, option 1 is the only conclusion with the required truth status.\n\nS ≥ C: This proves S ≥ C.\n\nB < P: This proves B < P.\n\nC ≥ B: C ≥ B works in one valid case but fails in another. It is possible, not certain.",
+    "mockSolution": "Combine S > Q, Q ≥ B, and C ≤ B. This gives C < S. C < S contradicts C = S, so the conclusion cannot be true. Therefore, option 1 is correct.",
+    "learningSolution": "Combine S > Q, Q ≥ B, and C ≤ B. This gives C < S.\n\nC < S contradicts C = S, so the conclusion cannot be true.\n\nTherefore, option 1 is correct.\n\nS ≥ C: This proves S ≥ C.\n\nB < P: This proves B < P.\n\nC ≥ B: C ≥ B works in one valid case but fails in another. It is possible, not certain.",
     "contentHash": "d650faab",
     "structuralFingerprint": "9547151a",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2063,15 +2063,15 @@
       "IMPOSSIBLE",
       "DEFINITELY_TRUE"
     ],
-    "mockSolution": "Check each option against the shortest useful chain. Option 1: Combine A > P, P ≥ B, and B = D. This gives A > D. This proves A ≥ D. Option 2: Combine S ≤ D and B = D. This leaves B = S or B > S possible. B > S works in one valid case but fails in another. It is possible, not certain. Option 3: Combine A > P, P ≥ B, and B = D. This gives B < A. This proves B < A. Option 4: Combine A > P, P ≥ B, and B = D. This gives A > D. A > D contradicts A < D, so the conclusion cannot be true. Therefore, option 4 is the only conclusion with the required truth status.",
-    "learningSolution": "Check each option against the shortest useful chain.\n\nOption 1: Combine A > P, P ≥ B, and B = D. This gives A > D. This proves A ≥ D.\n\nOption 2: Combine S ≤ D and B = D. This leaves B = S or B > S possible. B > S works in one valid case but fails in another. It is possible, not certain.\n\nOption 3: Combine A > P, P ≥ B, and B = D. This gives B < A. This proves B < A.\n\nOption 4: Combine A > P, P ≥ B, and B = D. This gives A > D. A > D contradicts A < D, so the conclusion cannot be true.\n\nTherefore, option 4 is the only conclusion with the required truth status.\n\nA ≥ D: This proves A ≥ D.\n\nB > S: B > S works in one valid case but fails in another. It is possible, not certain.\n\nB < A: This proves B < A.",
+    "mockSolution": "Combine A > P, P ≥ B, and B = D. This gives A > D. A > D contradicts A < D, so the conclusion cannot be true. Therefore, option 4 is correct.",
+    "learningSolution": "Combine A > P, P ≥ B, and B = D. This gives A > D.\n\nA > D contradicts A < D, so the conclusion cannot be true.\n\nTherefore, option 4 is correct.\n\nA ≥ D: This proves A ≥ D.\n\nB > S: B > S works in one valid case but fails in another. It is possible, not certain.\n\nB < A: This proves B < A.",
     "contentHash": "bb51dea0",
     "structuralFingerprint": "ae6cbcf7",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2112,7 +2112,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2156,7 +2156,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2197,7 +2197,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2238,7 +2238,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2282,7 +2282,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2325,7 +2325,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2368,7 +2368,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2413,7 +2413,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2456,7 +2456,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2500,7 +2500,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2545,7 +2545,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2589,7 +2589,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2628,7 +2628,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2669,7 +2669,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2709,7 +2709,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2749,7 +2749,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2790,7 +2790,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2830,7 +2830,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2872,7 +2872,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2914,7 +2914,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2956,7 +2956,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -2997,7 +2997,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3039,7 +3039,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3081,7 +3081,7 @@
       "AGG-INE-001",
       "DISHA-INE-002"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3125,7 +3125,7 @@
       "AGG-INE-002",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3171,7 +3171,7 @@
       "AGG-INE-002",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3216,7 +3216,7 @@
       "AGG-INE-002",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3261,7 +3261,7 @@
       "AGG-INE-002",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3307,7 +3307,7 @@
       "AGG-INE-002",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3352,7 +3352,7 @@
       "AGG-INE-002",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3399,7 +3399,7 @@
       "AGG-INE-002",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3446,7 +3446,7 @@
       "AGG-INE-002",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3493,7 +3493,7 @@
       "AGG-INE-002",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3539,7 +3539,7 @@
       "AGG-INE-002",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3586,7 +3586,7 @@
       "AGG-INE-002",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -3633,7 +3633,7 @@
       "AGG-INE-002",
       "DISHA-INE-003"
     ],
-    "reviewStatus": "REVISION_REVIEW_REQUIRED",
+    "reviewStatus": "CHECKPOINT_ACCEPTED",
     "permanentQlId": null,
     "questionStudioVisible": false
   }

@@ -126,7 +126,7 @@ export function generateIneCp006Question(
     solutions: { mock: mockSolution(explanation), learning: explanation },
     metadata: {
       runtimeVersion: "ine-cp006-prototype-v3",
-      reviewStatus: "PENDING_MANUAL_REVIEW",
+      reviewStatus: "CHECKPOINT_ACCEPTED",
       deliveryProfile: contract.deliveryProfile,
       symbolProfile: contract.symbolProfile,
       examApplicability: contract.examApplicability,

@@ -114,7 +114,7 @@ export interface GeneratedIneCp002Question {
   metadata: {
     runtimeVersion: "ine-cp002-prototype-v4";
     competency: "MULTI_LINK_INEQUALITY_REASONING";
-    reviewStatus: "PENDING_MANUAL_REVIEW";
+    reviewStatus: "CHECKPOINT_ACCEPTED";
     releaseTier: IneCp002ReleaseTier;
     difficultyBasis:
       | "SHORT_SINGLE_PATH"

@@ -170,7 +170,7 @@ export function generateIneCp003Question(
     metadata: {
       runtimeVersion: "ine-cp003-prototype-v2",
       competency: "CONCLUSION_CERTAINTY_REASONING",
-      reviewStatus: "REVISION_REVIEW_REQUIRED",
+      reviewStatus: "CHECKPOINT_ACCEPTED",
       releaseTier: releaseTierFor(scenario),
       topologyId: scenario.topologyId,
       structuralFingerprint,

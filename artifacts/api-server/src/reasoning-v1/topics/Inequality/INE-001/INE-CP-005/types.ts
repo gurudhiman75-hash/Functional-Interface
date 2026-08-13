@@ -92,7 +92,7 @@ export interface GeneratedIneCp005Question {
   solutions: { mock: string; learning: IneCp001Explanation };
   metadata: {
     runtimeVersion: "ine-cp005-prototype-v1";
-    reviewStatus: "PENDING_MANUAL_REVIEW";
+    reviewStatus: "CHECKPOINT_ACCEPTED";
     deliveryProfile:
       | "GUIDED_CONCEPT"
       | "EXAM_PRACTICE_PROTOTYPE"
