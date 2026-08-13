@@ -44,10 +44,10 @@ function safeRadicand(root: number, seed: number, shift: number, block: number, 
 function rootQuotient(seed: number): SapCp010Package {
   const mode = 10;
   const base = generateFinal(SAP_CP010_PROTOTYPE_IDS[mode]!, seed);
-  const divisorRoot = 3 + ((seed - 1) % 10);
-  const block = Math.floor((seed - 1) / 10);
-  const cycle = Math.floor(block / 5);
-  const quotient = 2 + (block % 5);
+  const divisorRoot = 3 + ((seed - 1) % 8);
+  const block = Math.floor((seed - 1) / 8);
+  const cycle = Math.floor((seed - 1) / 32);
+  const quotient = 2 + (block % 4);
   const numeratorRoot = divisorRoot * quotient;
   const n = safeRadicand(numeratorRoot, seed, 0, block, cycle);
   const d = safeRadicand(divisorRoot, seed, 1, block, cycle);
