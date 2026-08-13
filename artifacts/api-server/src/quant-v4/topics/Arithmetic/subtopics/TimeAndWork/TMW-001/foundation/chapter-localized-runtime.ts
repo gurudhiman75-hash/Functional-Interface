@@ -45,6 +45,7 @@ import { finalizeTmwCp008MultilingualEditorialReview } from "./cp008-multilingua
 import { polishTmwCp008VisibleGivens } from "./cp008-visible-givens-final-polish";
 import { finalizeTmwCp009MultilingualEditorialReview } from "./cp009-multilingual-editorial-review-finalizer";
 import { finalizeTmwCp010MultilingualEditorialReview } from "./cp010-multilingual-editorial-review-finalizer";
+import { polishTmwCp010EditorialReview } from "./cp010-editorial-final-polish";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -80,7 +81,7 @@ function finishCp009(question: any, language: Tmw001ChapterLanguage): any {
 }
 
 function finishCp010(question: any, language: Tmw001ChapterLanguage): any {
-  return finalizeTmwCp010MultilingualEditorialReview(question, language);
+  return polishTmwCp010EditorialReview(finalizeTmwCp010MultilingualEditorialReview(question, language), language);
 }
 
 function finishEnglish(question: any, questionLanguageId: string): any {
