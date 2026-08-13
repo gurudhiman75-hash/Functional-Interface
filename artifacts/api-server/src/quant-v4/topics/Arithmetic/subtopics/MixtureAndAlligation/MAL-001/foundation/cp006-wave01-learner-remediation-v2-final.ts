@@ -5,6 +5,7 @@ import {
   type MalCp006Wave01V2PrototypeId,
   verifyMalCp006Wave01V2Answer,
 } from "./cp006-wave01-learner-remediation-v2";
+import { generateMalCp006EqualExchangeV2Final } from "./cp006-wave01-equal-exchange-v2-final";
 import type { MalCp006DiscoveryQuestion } from "./cp006-types";
 
 export {
@@ -40,30 +41,6 @@ function generateWithDistinctMisconceptions(
   prototypeId: MalCp006Wave01V2PrototypeId,
   seed: string,
 ): MalCp006DiscoveryQuestion {
-  if (
-    prototypeId ===
-    "MAL-CP006-PROT-EQUAL-EXCHANGE-AMOUNT-FOR-EQUAL-CONCENTRATIONS"
-  ) {
-    const byState = new Map<string, MalCp006DiscoveryQuestion>();
-    for (let attempt = 0; attempt < 32; attempt += 1) {
-      const candidateSeed =
-        attempt === 0 ? seed : `${seed}:clean-state-pool:${attempt}`;
-      const candidate = tryCandidate(prototypeId, candidateSeed);
-      if (!candidate) continue;
-      if (!byState.has(candidate.siblingStateKey)) {
-        byState.set(candidate.siblingStateKey, candidate);
-      }
-      if (byState.size >= 8) break;
-    }
-    const candidates = [...byState.values()];
-    if (candidates.length === 0) {
-      throw new Error(
-        `${prototypeId}: could not find a clean equal-exchange state with three distinct misconception distractors for ${seed}.`,
-      );
-    }
-    return candidates[hash(`${seed}:equal-exchange-choice`) % candidates.length]!;
-  }
-
   for (let attempt = 0; attempt < 64; attempt += 1) {
     const candidateSeed =
       attempt === 0 ? seed : `${seed}:distinct-options:${attempt}`;
@@ -116,13 +93,6 @@ function makeInterrogative(
       return `${prefix} What is A's final salt percentage?`;
     }
 
-    if (
-      question.prototypeId ===
-        "MAL-CP006-PROT-EQUAL-EXCHANGE-AMOUNT-FOR-EQUAL-CONCENTRATIONS"
-    ) {
-      return `${prefix} What equal amount must be exchanged simultaneously to make the final concentrations equal?`;
-    }
-
     return `${prefix} What is ${target}?`;
   }
 
@@ -145,6 +115,12 @@ export function generateMalCp006Wave01EditorialV2FinalQuestion(
   prototypeId: MalCp006Wave01V2PrototypeId,
   seed = "mal-cp006-wave01-v2-final:default",
 ): MalCp006DiscoveryQuestion {
+  if (
+    prototypeId ===
+    "MAL-CP006-PROT-EQUAL-EXCHANGE-AMOUNT-FOR-EQUAL-CONCENTRATIONS"
+  ) {
+    return generateMalCp006EqualExchangeV2Final(seed);
+  }
   const question = generateWithDistinctMisconceptions(prototypeId, seed);
   const stem = makeInterrogative(question);
   return {
