@@ -1,4 +1,3 @@
-
 import {
   BLR_CP006_CONTRACTS,
   relationDisplay,
@@ -69,6 +68,18 @@ assert(Object.keys(telemetry.keyStyleCounts).length === 3, "all three code-token
 
 const itemIds = new Set<string>();
 const signatures = new Set<string>();
+const internalDiagnosticPattern = /\[(?:CORRECT_[A-Z0-9_]+|[A-Z][A-Z0-9_]{3,})\]/;
+const rawDiagnosticNames = [
+  "QUERY_DIRECTION_REVERSAL",
+  "GENERATION_LEVEL_ERROR",
+  "BLOOD_AFFINAL_CONFUSION",
+  "INCOMPLETE_DECODED_PATH",
+  "IGNORED_EXPLICIT_GENDER_CODE",
+  "FALSE_CONTRADICTION",
+  "CODE_DIRECTION_GENDER_SWAP",
+  "PAIR_RELATION_MISMATCH",
+  "DECODED_RELATION_MISMATCH",
+];
 
 for (const question of bank) {
   assert(!itemIds.has(question.itemId), `${question.itemId}: duplicate item ID`);
@@ -123,8 +134,38 @@ for (const question of bank) {
 
   equal(independentlyAnswer(question), question.answer, `${question.itemId}: independent answer`);
   equal(question.explanation.optionAnalysis.length, 4, `${question.itemId}: option analysis count`);
-  question.explanation.optionAnalysis.forEach((analysis) => {
-    assert(/\[[A-Z0-9_]+\]$/.test(analysis.explanation), `${question.itemId}: missing diagnostic code`);
+  question.explanation.optionAnalysis.forEach((analysis, index) => {
+    const option = question.options[index]!;
+    assert(
+      !internalDiagnosticPattern.test(analysis.explanation),
+      `${question.itemId}: internal diagnostic tag leaked into learner explanation`,
+    );
+    for (const code of rawDiagnosticNames) {
+      assert(
+        !analysis.explanation.includes(code),
+        `${question.itemId}: raw diagnostic name ${code} leaked into learner explanation`,
+      );
+    }
+    assert(
+      analysis.explanation.includes(`Option ${analysis.optionLabel}`),
+      `${question.itemId}: option explanation must identify its option`,
+    );
+    if (option.isCorrect) {
+      assert(
+        analysis.explanation.includes(question.answer),
+        `${question.itemId}: correct-option explanation must state the answer`,
+      );
+    }
+    if (question.query.kind === "RELATION" && !option.isCorrect) {
+      assert(
+        analysis.explanation.includes(question.answer),
+        `${question.itemId}: relation distractor feedback must state the decoded answer`,
+      );
+      assert(
+        analysis.explanation.includes(option.text),
+        `${question.itemId}: relation distractor feedback must name the rejected relation`,
+      );
+    }
   });
   assert(question.explanation.familyTree.nodes.length === question.graph.persons.length, `${question.itemId}: tree node parity`);
   assert(question.explanation.familyTree.edges.length > 0, `${question.itemId}: tree edges`);
@@ -158,5 +199,7 @@ console.log(JSON.stringify({
   explicitGenderEvidenceFailures: 0,
   nameBasedGenderAssumptions: 0,
   displayedStatementMismatches: 0,
+  learnerDiagnosticLeaks: 0,
+  relationFeedbackMismatches: 0,
   verdict: "BLR-CP-006 PERMANENT RUNTIME PASSED",
 }, null, 2));
