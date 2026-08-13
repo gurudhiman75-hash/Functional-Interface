@@ -1,0 +1,106 @@
+name: Validate MEN-CP-009 teaching remediation V4
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/**
+      - .github/workflows/men-cp009-teaching-v4.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-cp009-teaching-v4-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-men-cp009-teaching-v4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Prove teaching-first English V4 and native V2
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/coverage-v2/student-view-v4.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp009-teaching-v4.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp009-teaching-v4.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp009-teaching-v4.test.log
+      - name: Prove natural native teaching quality
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/native/teaching-quality-v4.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp009-native-teaching-quality-v4.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp009-native-teaching-quality-v4.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp009-native-teaching-quality-v4.test.log
+      - name: Export tri-language teaching review
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/native/review-export-v2.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp009-review-export-v2.mjs
+          cd artifacts/api-server
+          node dist/quant-v4/men-cp009-review-export-v2.mjs \
+            2>&1 | tee dist/quant-v4/men-cp009-review-export-v2.log
+          test -s dist/quant-v4/MEN-CP-009-TEACHING-REVIEW-V2.html
+          test "$(grep -o 'class=\"question-card\"' dist/quant-v4/MEN-CP-009-TEACHING-REVIEW-V2.html | wc -l)" -eq 330
+      - name: Regress approved English V3
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/approved/english.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp009-approved-v3-regression.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp009-approved-v3-regression.mjs
+      - name: Build production API bundle
+        shell: bash
+        run: bash build-api.sh
+      - name: Upload teaching review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp009-teaching-review-v2
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp009-teaching-v4.test.log
+            artifacts/api-server/dist/quant-v4/men-cp009-native-teaching-quality-v4.test.log
+            artifacts/api-server/dist/quant-v4/men-cp009-review-export-v2.log
+            artifacts/api-server/dist/quant-v4/MEN-CP-009-TEACHING-REVIEW-V2.html
+          if-no-files-found: error
+          retention-days: 14
