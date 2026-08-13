@@ -40,6 +40,7 @@ function finalTextPolish(text: string): string {
     .replace(new RegExp(`${amount} is moved A→B`, "giu"), "$1 is transferred from A to B")
     .replace(new RegExp(`${amount} of the mixed A is moved back`, "giu"), "$1 of the mixed liquid in A is transferred back")
     .replace(/,\s+What\s+/gu, ", what ")
+    .replace(/What is the final ([a-z]+)\s*:\s*([a-z]+) ratio in B\?/giu, "What is the final $1-to-$2 ratio in B?")
     .replace(/\b([0-9]+(?:\.[0-9]+)?(?:\s+[0-9]+\/[0-9]+)? litres) goes\b/giu, "$1 is transferred")
     .replace(/\b1 litres\b/giu, "1 litre");
 }
@@ -126,6 +127,7 @@ function surfaceIsClean(question: MalCp006DiscoveryQuestion): boolean {
   if (/\b1 litres\b/iu.test(learnerText)) return false;
   if (/\blitres goes\b/iu.test(learnerText)) return false;
   if (/\blitres is moved [AB]→[AB]\b/iu.test(learnerText)) return false;
+  if (/What is the final [a-z]+\s*:\s*[a-z]+ ratio/iu.test(question.stem)) return false;
   if (/\b\d+(?:\.\d+)?% spirit mixture\b/iu.test(learnerText)) return false;
   if (/\ba mixture that is \d+(?:\.\d+)?% spirit\b/iu.test(learnerText)) return false;
   if (
