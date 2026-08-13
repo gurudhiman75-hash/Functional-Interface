@@ -1,6 +1,7 @@
 import type { AuditCaselet, AuditChild, AuditOption } from "../saturation/corpus.ts";
 import type { Sea001TranslatedLocale } from "./readiness.ts";
-import { buildSea001LocalizedReviewCandidate, type Sea001LocalizedReviewCaselet } from "./candidate-localizer.ts";
+import type { Sea001LocalizedReviewCaselet } from "./candidate-localizer.ts";
+import { buildSea001LocalizedReviewCandidate } from "./review-projection.ts";
 
 type Pair = readonly [string, string];
 const HI: readonly Pair[] = [
@@ -28,14 +29,9 @@ const PA: readonly Pair[] = [
   ["\u0a38\u0a35\u0a3e\u0a32 \u0a2a\u0a41\u0a71\u0a1b\u0a26\u0a3e \u0a39\u0a48 \u0a32\u0a08 \u0a17\u0a32\u0a24 \u0a15\u0a25\u0a28", "\u0a38\u0a35\u0a3e\u0a32 \u0a17\u0a32\u0a24 \u0a15\u0a25\u0a28 \u0a2a\u0a41\u0a71\u0a1b\u0a26\u0a3e \u0a39\u0a48"],
 ];
 
-const RESIDUAL: Readonly<Record<string, Pair>> = {early:["\u092a\u0939\u0932\u0947","\u0a2a\u0a39\u0a3f\u0a32\u0a3e\u0a02"],rotation:["\u0918\u0941\u092e\u093e\u0935","\u0a18\u0a41\u0a70\u0a2e\u0a3e\u0a35"],occupant:["\u092c\u0948\u0920\u093e \u0935\u094d\u092f\u0915\u094d\u0924\u093f","\u0a2c\u0a48\u0a20\u0a3e \u0a35\u0a3f\u0a05\u0a15\u0a24\u0a40"],occupants:["\u092c\u0948\u0920\u0947 \u0935\u094d\u092f\u0915\u094d\u0924\u093f","\u0a2c\u0a48\u0a20\u0a47 \u0a35\u0a3f\u0a05\u0a15\u0a24\u0a40"],note:["\u0927\u094d\u092f\u093e\u0928 \u0926\u0947\u0902","\u0a27\u0a3f\u0a06\u0a28 \u0a26\u0a3f\u0a13"],observer:["\u0926\u0947\u0916\u0928\u0947 \u0935\u093e\u0932\u093e","\u0a35\u0a47\u0a16\u0a23 \u0a35\u0a3e\u0a32\u0a3e"],while:["\u091c\u092c\u0915\u093f","\u0a1c\u0a26\u0a15\u0a3f"],someone:["\u0915\u094b\u0908 \u0935\u094d\u092f\u0915\u094d\u0924\u093f","\u0a15\u0a4b\u0a08 \u0a35\u0a3f\u0a05\u0a15\u0a24\u0a40"],exactly:["\u0920\u0940\u0915","\u0a20\u0a40\u0a15"],beside:["\u092c\u0917\u0932 \u092e\u0947\u0902","\u0a28\u0a3e\u0a32"],when:["\u091c\u092c","\u0a1c\u0a26\u0a4b\u0a02"],into:["\u092e\u0947\u0902","\u0a35\u0a3f\u0a71\u0a1a"],own:["\u0938\u094d\u0935\u092f\u0902","\u0a06\u0a2a\u0a23\u0a3e"]};
-
 function cleanText(text:string, locale:Sea001TranslatedLocale):string {
   let out=text;
-  for(const [word,pair] of Object.entries(RESIDUAL)) out=out.replace(new RegExp(`\\b${word}\\b`,"gi"),locale==="hi-IN"?pair[0]:pair[1]);
   for(const [bad,good] of locale==="hi-IN"?HI:PA) out=out.split(bad).join(good);
-  const lang=locale==="hi-IN"?{direct:"\u0938\u0940\u0927\u0947",strict:"\u0920\u0940\u0915",immediate:"\u0924\u0941\u0930\u0902\u0924",convenient:"\u0938\u0941\u0935\u093f\u0927\u093e\u091c\u0928\u0915"}:{direct:"\u0a38\u0a3f\u0a71\u0a27\u0a47",strict:"\u0a20\u0a40\u0a15",immediate:"\u0a24\u0a41\u0a30\u0a70\u0a24",convenient:"\u0a38\u0a41\u0a35\u0a3f\u0a27\u0a3e\u0a1c\u0a28\u0a15"};
-  for(const [a,b] of Object.entries(lang)) out=out.replace(new RegExp(`\\b${a}\\b`,"gi"),b);
   return out.replace(/\s+([,.;:!?])/g,"$1").replace(/ {2,}/g," ").replace(/\n +/g,"\n").trim();
 }
 function cleanOption(o:AuditOption,l:Sea001TranslatedLocale):AuditOption{return {...o,display:cleanText(o.display,l),explanation:cleanText(o.explanation,l)};}
