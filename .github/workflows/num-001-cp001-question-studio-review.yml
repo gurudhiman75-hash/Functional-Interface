@@ -84,7 +84,13 @@ jobs:
           --outfile=dist/quant-v4/num-cp001-qs-review-legacy-release.test.mjs
 
       - name: Run legacy Number System Question Studio regression
-        run: node artifacts/api-server/dist/quant-v4/num-cp001-qs-review-legacy-release.test.mjs
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/num-cp001-qs-review-legacy-release.test.mjs \
+            2>&1 | tee dist/quant-v4/num-cp001-qs-review-legacy-release.log
 
       - name: Upload CP001 guarded review evidence
         if: always()
@@ -94,6 +100,7 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/num-cp001-qs-review-hi-pa-parity.log
             artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review-audit.log
+            artifacts/api-server/dist/quant-v4/num-cp001-qs-review-legacy-release.log
             artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review/num-cp001-question-studio-review.json
             artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review/num-cp001-question-studio-review.md
             artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review/num-cp001-question-studio-review.csv
