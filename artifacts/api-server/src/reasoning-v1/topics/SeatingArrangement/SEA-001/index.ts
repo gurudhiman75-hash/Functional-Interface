@@ -109,3 +109,6 @@ export * from "./saturation/source-audit.ts";
 export * from "./saturation/governance-audit.ts";
 export * from "./review/manual-review.ts";
 export * from "./review/readiness.ts";
+export * from "./review/approved-review.ts";
+export * from "./permanent/registry.ts";
+export * from "./permanent/freeze.ts";
