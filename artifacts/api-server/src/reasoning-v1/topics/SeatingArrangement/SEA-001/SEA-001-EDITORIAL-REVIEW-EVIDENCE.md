@@ -2,7 +2,7 @@
 
 Authority: **SEA Seating Arrangement Master End-to-End Family Design V3 (merged)**.
 
-Status: **AI/editorial review evidence only — not the signed human English freeze**.
+Status: **Editorial remediation complete; signed human English review approved for the exact fingerprinted 100-caselet corpus.**
 
 ## Review scope
 
@@ -38,16 +38,18 @@ Remediation:
 - generic `possible-looking` / `does not match the solved arrangement` fallback language is rejected by saturation;
 - visible option text is checked for four-way uniqueness in the balanced review corpus.
 
-### 3. Mixed-facing relation wording needed polishing
+### 3. Mixed-facing and explanation language needed polishing
 
-The review exposed mechanical surface forms such as numeric relation ordinals and `Immediate to the left/right` in option text.
+The review exposed mechanical surface forms and overly technical teaching language.
 
 Remediation:
 
 - sixth/seventh/eighth relation labels use natural English words;
 - option labels use `Immediately to the left/right`;
-- explanation wording such as `the relation is immediate to the left/right` is normalized to `immediately`;
-- the balanced review corpus is regression-scanned for the rejected wording.
+- shared puzzle solutions use plain teacher-style language;
+- answer explanations and wrong-option explanations use the same plain-language standard;
+- engine-style terms such as `reference person`, `orientation`, `physical adjacency`, `strictly between`, `queried seat` and similar phrases are rejected by the teaching-language proof;
+- the balanced review corpus is regression-scanned for rejected wording and grammar artefacts.
 
 ### 4. PBA-020 was technically correct but too constructed
 
@@ -82,25 +84,36 @@ The package gate continues to require:
 - query-contract reachability;
 - question-specific correct-option explanations;
 - value-specific fallback explanations;
+- plain student-facing explanation language;
 - natural relation wording;
 - lifecycle locks.
 
 The focused CP-005 proof additionally exercises 400 deterministic mixed-circle caselets and requires all 100 PBA-020 cases to satisfy the diversified conditional-orientation presentation contract.
 
-## Editorial conclusion
+## Human review approval
 
-The automated and AI/editorial review does not currently identify a technical or systematic English-format blocker in the SEA-001 review candidate after the above remediation.
+The final plain-teacher 100-caselet English artifact was approved by the project owner on **2026-08-13**.
 
-This statement is **not** a human sign-off. The authoritative manual-review ledger remains pending.
+The approval record is stored in `review/approved-review.ts` and is locked to:
+
+- 100 `ACCEPT` decisions;
+- 0 `PENDING`;
+- 0 `REWRITE`;
+- 0 `REJECT`;
+- reviewer `gurudhiman75-hash`;
+- review timestamp `2026-08-13T07:56:00+05:30`;
+- exact approved 100-caselet content fingerprint `e3a4bdcd5c3afb656bed4a695e50f2f4218e45907647e23d8c733feffb59ca22`.
+
+If any caselet ID or review-content fingerprint changes, the approval record fails closed and the review must be performed again.
 
 ## Governance status
 
 ```text
-signed 100-caselet human English review   PENDING
-permanent QL allocation                    LOCKED
-solve-inventory freeze                     LOCKED
-query-mix freeze                           LOCKED
-English freeze                             LOCKED
+signed 100-caselet human English review   APPROVED — 100/100 ACCEPT
+permanent QL allocation                    ELIGIBLE, NOT YET APPLIED
+solve-inventory freeze                     ELIGIBLE, NOT YET APPLIED
+query-mix freeze                           ELIGIBLE, NOT YET APPLIED
+English freeze                             ELIGIBLE, NOT YET APPLIED
 Question Studio registration               false
 Question Bank writes                       false
 mock-test eligibility                      false
@@ -108,4 +121,4 @@ public delivery                            false
 permanent QLs                              0
 ```
 
-Permanent allocation can become eligible only after the exact regenerated review corpus is represented by 100 signed `ACCEPT` decisions with zero `REWRITE` and zero `REJECT`. Activation remains a separate downstream gate even after allocation eligibility.
+Human English review is no longer a blocker. Permanent QL allocation and the three freezes remain separate implementation steps. Activation remains a separate downstream gate even after those steps.
