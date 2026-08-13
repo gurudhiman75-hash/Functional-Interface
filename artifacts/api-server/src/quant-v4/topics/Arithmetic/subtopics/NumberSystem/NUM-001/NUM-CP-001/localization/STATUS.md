@@ -1,3 +1,3 @@
-Status: IMPLEMENTATION_AWAITING_EXACT_HEAD_VALIDATION
+Status: MULTILINGUAL_IMPLEMENTATION_FROZEN_AWAITING_MERGE
 
-Permanent lifecycle promotion is intentionally deferred until the dedicated Hindi/Punjabi parity and editorial workflow is green on the exact branch head.
+Hindi/Punjabi mathematical parity and learner-surface editorial audit passed before lifecycle promotion. Permanent QL identities, solve modes and the canonical English authority remain unchanged. Question Studio, Question Bank, test eligibility and public publication remain closed. The promoted exact branch head must pass the dedicated multilingual workflow before merge.
