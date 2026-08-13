@@ -46,8 +46,12 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/cp001-runtime.test.ts
       - name: Regress CP-002 runtime
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-runtime.test.ts
-      - name: Regress CP-003 runtime
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-runtime.test.ts
+      - name: Regress CP-003 frozen runtime
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-final-discovery-freeze.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-permanent-runtime.test.ts
       - name: Regress CP-004 runtime
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/cp004-runtime.test.ts
       - name: Regress CP-005 runtime
