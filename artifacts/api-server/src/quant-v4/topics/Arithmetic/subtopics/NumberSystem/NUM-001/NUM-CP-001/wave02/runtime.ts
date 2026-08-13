@@ -55,23 +55,12 @@ function makeOptions(
   if (wrong.length !== 3) throw new Error("Wave 2 requires exactly three distractors");
   const values = [correctValue, ...wrong.map((x) => x.value)];
   if (new Set(values).size !== 4) throw new Error(`Duplicate options: ${values.join(" | ")}`);
-  const options: NumCp001Option[] = wrong.map((x) => ({
-    value: x.value,
-    isCorrect: false,
-    misconceptionId: x.misconceptionId,
-  }));
+  const options: NumCp001Option[] = wrong.map((x) => ({ value: x.value, isCorrect: false, misconceptionId: x.misconceptionId }));
   options.splice(mod(seed - 1, 4), 0, { value: correctValue, isCorrect: true });
   return options;
 }
 
-function explanation(
-  core: string,
-  strategy: string,
-  steps: readonly string[],
-  speed: string,
-  traps: readonly string[],
-  finalAnswer: string,
-): NumCp001Explanation {
+function explanation(core: string, strategy: string, steps: readonly string[], speed: string, traps: readonly string[], finalAnswer: string): NumCp001Explanation {
   return {
     coreConcept: [core],
     givenDataAndStrategy: [strategy],
@@ -82,12 +71,7 @@ function explanation(
   };
 }
 
-function base(
-  prototype: NumCp001Wave02PrototypeId,
-  seed: number,
-  difficulty: NumCp001Difficulty,
-  answerSemantic: NumCp001Wave02AnswerSemantic,
-) {
+function base(prototype: NumCp001Wave02PrototypeId, seed: number, difficulty: NumCp001Difficulty, answerSemantic: NumCp001Wave02AnswerSemantic) {
   return {
     packageId: "NUM-001" as const,
     checkpointId: "NUM-CP-001" as const,
@@ -111,29 +95,23 @@ function p009(seed: number): NumCp001Wave02Package {
   const d = difficulty(seed);
   const mode = mod(seed - 1, 4);
   const set = ["natural numbers", "whole numbers", "integers", "rational numbers"][mode];
-  const correct = mode === 0 ? `-${3 + mod(seed, 7)}` : mode === 1 ? `-${2 + mod(seed, 8)}` : mode === 2 ? frac(2 * seed + 1, 2) : `√${2 + mod(seed, 8)}`;
-  const wrong = mode === 0
-    ? ["1", `${2 + mod(seed, 9)}`, `${5 + mod(seed, 11)}`]
-    : mode === 1
-      ? ["0", `${2 + mod(seed, 8)}`, `${8 + mod(seed, 9)}`]
-      : mode === 2
-        ? [`-${2 + mod(seed, 7)}`, "0", `${4 + mod(seed, 9)}`]
-        : [frac(seed + 1, 3), `${2 + mod(seed, 7)}`, `-${3 + mod(seed, 5)}`];
+  const nonSquares = [2, 3, 5, 6, 7, 8, 10, 11] as const;
+  const correct = mode === 0 ? `-${3 + mod(seed, 7)}` : mode === 1 ? `-${2 + mod(seed, 8)}` : mode === 2 ? frac(2 * seed + 1, 2) : `√${nonSquares[mod(seed, nonSquares.length)]}`;
+  const wrong = mode === 0 ? ["1", "2", "3"] : mode === 1 ? ["0", "2", "4"] : mode === 2 ? ["-2", "0", "3"] : ["1/2", "3", "-4"];
   const options = makeOptions(correct, wrong.map((value, i) => ({ value, misconceptionId: `SET_MEMBERSHIP_${i + 1}` })), seed);
-  const verifier = correct;
   return {
-    ...base("NUM-CP001-PROT-009", seed, d, "RATIONAL_VALUE"),
+    ...base("NUM-CP001-PROT-009", seed, d, "VALUE"),
     stem: `Which of the following is NOT a member of the set of ${set}? Assume natural numbers begin at 1.`,
     options,
     correctIndex: options.findIndex((x) => x.isCorrect),
     canonicalAnswer: correct,
-    verifierAnswer: verifier,
+    verifierAnswer: correct,
     hiddenState: { set, correct, mode },
     mathematicalFingerprint: `outside-set:${mode}:${correct}`,
     explanation: explanation(
       "A value belongs to a number set only when it satisfies that set's defining property.",
       `Check each option against ${set}; the task asks for the outsider, not the most specific classification.`,
-      [`The first three admissible options satisfy the definition of ${set}.`, `${correct} fails that defining condition.`, `Therefore ${correct} is the unique outsider.`],
+      [`Three options satisfy the definition of ${set}.`, `${correct} fails that defining condition.`, `Therefore ${correct} is the unique outsider.`],
       "Test the defining property directly and stop as soon as exactly one option fails it.",
       ["Do not choose a value merely because it also belongs to a larger set.", "Keep the stated natural-number convention in view.", "A non-integer fraction is rational but not an integer."],
       correct,
@@ -155,7 +133,7 @@ function p010(seed: number): NumCp001Wave02Package {
   const options = makeOptions(correct, [
     { value: String(c - 1), misconceptionId: "STRICTNESS_IGNORED" },
     { value: String(c + 1), misconceptionId: "BOUND_DIRECTION_REVERSED" },
-    { value: String(least ? Math.floor(value) : Math.ceil(value)), misconceptionId: "FLOOR_CEILING_CONFUSED" },
+    { value: String(least ? c + 2 : c - 2), misconceptionId: "FLOOR_CEILING_CONFUSED" },
   ], seed);
   const op = least ? (strict ? ">" : "≥") : (strict ? "<" : "≤");
   return {
@@ -196,20 +174,21 @@ function p011(seed: number): NumCp001Wave02Package {
   const options = makeOptions(correct, [
     { value: String(correctCount + 1), misconceptionId: "COUNTED_ONE_BOUND" },
     { value: String(correctCount + 2), misconceptionId: "COUNTED_BOTH_BOUNDS" },
-    { value: String(Math.max(0, correctCount - 1)), misconceptionId: "DROPPED_ADMISSIBLE_INTEGER" },
+    { value: String(correctCount - 1), misconceptionId: "DROPPED_ADMISSIBLE_INTEGER" },
   ], seed);
+  const verifierCount = Array.from({ length: Math.ceil(right - left) + 6 }, (_, i) => Math.floor(left) - 2 + i).filter((x) => left < x && x < right).length;
   return {
     ...base("NUM-CP001-PROT-011", seed, d, "COUNT"),
     stem: `How many integers x satisfy ${frac(leftNum, leftDen)} < x < ${frac(rightNum, rightDen)}?`,
     options,
     correctIndex: options.findIndex((x) => x.isCorrect),
     canonicalAnswer: correct,
-    verifierAnswer: String(Array.from({ length: Math.ceil(right - left) + 5 }, (_, i) => Math.floor(left) - 2 + i).filter((x) => left < x && x < right).length),
+    verifierAnswer: String(verifierCount),
     hiddenState: { leftNum, leftDen, rightNum, rightDen, first, last },
     mathematicalFingerprint: `rational-count:${frac(leftNum, leftDen)}:${frac(rightNum, rightDen)}`,
     explanation: explanation(
       "Count integers between exact rational bounds by finding the first and last admissible integers.",
-      `Do not convert the bounds to rounded decimals; use exact comparison.`,
+      "Do not convert the bounds to rounded decimals; use exact comparison.",
       [`The first integer greater than the left bound is ${first}.`, `The last integer less than the right bound is ${last}.`, `Count = ${last} - ${first} + 1 = ${correct}.`],
       "Identify first and last valid integers, then use last − first + 1.",
       ["Do not count a non-integer bound as an integer.", "Do not add both endpoints automatically.", "Do not round a rational bound before testing integers."],
@@ -231,7 +210,7 @@ function p012(seed: number): NumCp001Wave02Package {
   const options = makeOptions(correct, [
     { value: String(right - 1), misconceptionId: "RIGHT_ENDPOINT_INCLUSION_MISREAD" },
     { value: String(right + 1), misconceptionId: "EXTRA_ENDPOINT_ADDED" },
-    { value: String(right + (leftInclusive ? -1 : 1)), misconceptionId: "LEFT_ENDPOINT_EFFECT_MISREAD" },
+    { value: String(right + 2), misconceptionId: "LEFT_ENDPOINT_EFFECT_MISREAD" },
   ], seed);
   const lbr = leftInclusive ? "[" : "(";
   const rbr = rightInclusive ? "]" : ")";
@@ -267,7 +246,7 @@ function p013(seed: number): NumCp001Wave02Package {
   const correct = String(c);
   const options = makeOptions(correct, [
     { value: String(c + 1), misconceptionId: "ZERO_PROPERTY_CONFUSION" },
-    { value: String(Math.max(0, c - 1)), misconceptionId: "BOUNDARY_MEMBER_DROPPED" },
+    { value: String(c - 1), misconceptionId: "BOUNDARY_MEMBER_DROPPED" },
     { value: String(c + 2), misconceptionId: "FILTER_NOT_APPLIED" },
   ], seed);
   return {
@@ -332,20 +311,19 @@ function p015(seed: number): NumCp001Wave02Package {
     "The product of n and an odd integer is odd.",
     "The product of n and an odd integer is even.",
   ];
-  const correct = mode === 0 || mode === 1 || mode === 2 ? "Odd" : "Even";
+  const correct = mode === 3 ? "Even" : "Odd";
   const options = makeOptions(correct, [
     { value: correct === "Odd" ? "Even" : "Odd", misconceptionId: "INVERSE_PARITY_REVERSED" },
     { value: "Cannot be determined", misconceptionId: "PARITY_EVIDENCE_IGNORED" },
     { value: "Neither even nor odd", misconceptionId: "INTEGER_PARITY_EXHAUSTIVENESS_MISSED" },
   ], seed);
-  const verifier = correct;
   return {
     ...base("NUM-CP001-PROT-015", seed, d, "PARITY_CLASS"),
     stem: `${stems[mode]} What must be the parity of the integer n?`,
     options,
     correctIndex: options.findIndex((x) => x.isCorrect),
     canonicalAnswer: correct,
-    verifierAnswer: verifier,
+    verifierAnswer: correct,
     hiddenState: { mode, condition: stems[mode] },
     mathematicalFingerprint: `inverse-parity:${mode}`,
     explanation: explanation(
@@ -362,7 +340,7 @@ function p015(seed: number): NumCp001Wave02Package {
 function p016(seed: number): NumCp001Wave02Package {
   const d = difficulty(seed);
   const odd = mod(seed, 2) === 1;
-  const len = 3 + 2 * mod(seed, 2);
+  const len = mod(seed, 4) < 2 ? 3 : 5;
   let first = 3 + 2 * mod(seed * 2, 8);
   if (!odd && first % 2 !== 0) first += 1;
   if (odd && first % 2 === 0) first += 1;
@@ -404,10 +382,7 @@ function p016(seed: number): NumCp001Wave02Package {
   };
 }
 
-export function generateNumCp001Wave02(
-  prototypeId: NumCp001Wave02PrototypeId,
-  seed: number,
-): NumCp001Wave02Package {
+export function generateNumCp001Wave02(prototypeId: NumCp001Wave02PrototypeId, seed: number): NumCp001Wave02Package {
   if (!Number.isInteger(seed) || seed <= 0) throw new Error("seed must be a positive integer");
   switch (prototypeId) {
     case "NUM-CP001-PROT-009": return p009(seed);
@@ -418,6 +393,5 @@ export function generateNumCp001Wave02(
     case "NUM-CP001-PROT-014": return p014(seed);
     case "NUM-CP001-PROT-015": return p015(seed);
     case "NUM-CP001-PROT-016": return p016(seed);
-    default: throw new Error(`Unsupported NUM-CP-001 Wave 2 prototype: ${prototypeId satisfies never}`);
   }
 }
