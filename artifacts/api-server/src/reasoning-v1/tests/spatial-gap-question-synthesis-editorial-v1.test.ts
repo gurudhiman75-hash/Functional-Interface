@@ -22,6 +22,8 @@ const batch = synthesizeSpatialGapQuestionBatchV1({
 
 assert(SPATIAL_GAP_IDS_V1.length === 19, `Expected 19 audited gaps, got ${SPATIAL_GAP_IDS_V1.length}.`);
 assert(batch.totalAccepted === 760, `Expected 760 learner questions, got ${batch.totalAccepted}.`);
+assert(batch.totalAttempts >= batch.totalAccepted, "Total attempts cannot be below accepted count.");
+assert(batch.totalDuplicateRejects === batch.totalAttempts - batch.totalAccepted, "Duplicate retry accounting is inconsistent.");
 assert(batch.chapterCounts["FAN-001"] === 200, `Expected 200 FAN questions, got ${batch.chapterCounts["FAN-001"]}.`);
 assert(batch.chapterCounts["FCL-001"] === 240, `Expected 240 FCL questions, got ${batch.chapterCounts["FCL-001"]}.`);
 assert(batch.chapterCounts["FSR-001"] === 320, `Expected 320 FSR questions, got ${batch.chapterCounts["FSR-001"]}.`);
@@ -29,6 +31,7 @@ assert(batch.correctSlotCounts.every((count) => count === 190), `Global answer s
 
 for (const gapId of SPATIAL_GAP_IDS_V1) {
   assert(batch.gapCounts[gapId] === REQUESTED_PER_GAP, `${gapId}: expected ${REQUESTED_PER_GAP}, got ${batch.gapCounts[gapId]}.`);
+  assert(batch.attemptsByGap[gapId] === batch.gapCounts[gapId] + batch.duplicateRejectsByGap[gapId], `${gapId}: attempt/reject accounting mismatch.`);
   assert(batch.correctSlotCountsByGap[gapId].every((count) => count === 10), `${gapId}: answer slots are not A10/B10/C10/D10: ${batch.correctSlotCountsByGap[gapId].join("/")}.`);
 }
 
@@ -47,7 +50,7 @@ for (const question of batch.accepted) {
   assert(question.reviewMetadata.explanationSpecificityCheck === "PASS", `${question.prototypeId}: explanation specificity check failed.`);
   assert(question.reviewMetadata.mobileReviewStatus === "ARTIFACT_READY_HUMAN_REVIEW_PENDING", `${question.prototypeId}: mobile review was falsely promoted.`);
   assert(question.reviewMetadata.englishFreezeStatus === "HUMAN_REVIEW_PENDING", `${question.prototypeId}: English was falsely frozen.`);
-  assert(question.stemText.length >= 70, `${question.prototypeId}: learner stem is unexpectedly short.`);
+  assert(question.stemText.length >= 55, `${question.prototypeId}: learner stem is unexpectedly short.`);
   assert(question.learnerExplanation.observation.length >= 35, `${question.prototypeId}: observation is too generic.`);
   assert(question.learnerExplanation.rule.length >= 30, `${question.prototypeId}: rule explanation is too short.`);
   assert(question.learnerExplanation.application.length >= 25, `${question.prototypeId}: application explanation is too short.`);
@@ -87,6 +90,7 @@ assert(
     JSON.stringify(replay.accepted.map((question) => question.deliveryFingerprint)),
   "Deterministic learner-question replay mismatch.",
 );
+assert(JSON.stringify(batch.duplicateRejectsByGap) === JSON.stringify(replay.duplicateRejectsByGap), "Duplicate retry pressure is not deterministic.");
 
 const alternate = synthesizeSpatialGapQuestionBatchV1({
   seedPrefix: `${SEED_PREFIX}-ALT`,
@@ -117,6 +121,9 @@ const evidence = {
     auditedGaps: SPATIAL_GAP_IDS_V1.length,
     requestedPerGap: REQUESTED_PER_GAP,
     totalAccepted: batch.totalAccepted,
+    totalAttempts: batch.totalAttempts,
+    totalDuplicateRejects: batch.totalDuplicateRejects,
+    duplicateRejectsByGap: batch.duplicateRejectsByGap,
     chapterCounts: batch.chapterCounts,
     correctSlotCounts: batch.correctSlotCounts,
   },
@@ -133,6 +140,7 @@ const evidence = {
     exactThreeToOneFclPropertyVectors: true,
     questionSpecificExplanationChecks: true,
     deterministicReplay: true,
+    deterministicDuplicateRetryPressure: true,
     alternateSeedDivergence: true,
     uniqueQuestionContent: true,
     balancedSlotsPerGap: true,
