@@ -33,11 +33,16 @@ export function generateCp004StateV2(authorityKey: string, seed: string): TsdCp0
     );
   }
 
-  if (base.solveMode === "findMeetingTimeFromInitialSeparation") {
+  if (
+    base.solveMode === "findMeetingTimeFromInitialSeparation" ||
+    base.solveMode === "findInitialSeparationFromMeetingTime" ||
+    base.solveMode === "findUnknownStartPointGap" ||
+    base.solveMode === "findRelativeDistanceCoveredInGivenTime"
+  ) {
     input = normalizeTwoToOnePair(input, input.directionCase ?? directionCase);
   }
 
-  if (base.solveMode === "findCatchUpTimeFromHeadStartDistance") {
+  if (base.solveMode === "findCatchUpTimeFromHeadStartDistance" || base.solveMode === "findHeadStartDistanceFromCatchUpTime") {
     input = normalizeTwoToOnePair(input, "SAME");
   }
 
@@ -45,7 +50,7 @@ export function generateCp004StateV2(authorityKey: string, seed: string): TsdCp0
     const knownSpeeds = [24, 30, 36, 40, 45, 48] as const;
     input = Object.freeze({
       ...input,
-      speedB: rational(knownSpeeds[index % knownSpeeds.length]),
+      speedB: rational(knownSpeeds[index % knownSpeeeds.length]),
       directionCase,
     });
   }
@@ -54,7 +59,7 @@ export function generateCp004StateV2(authorityKey: string, seed: string): TsdCp0
     const requiredRelative = divide(input.initialSeparation, input.targetTime);
     input = Object.freeze({
       ...input,
-      speedB: divide(requiredRelative, rational(3)),
+      speedB: divide(requiredRelative, rational(3),
     });
   }
 
