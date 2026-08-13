@@ -21,6 +21,13 @@ export {
 const ALLOWED_OPTION_FRACTION_DENOMINATORS = new Set([2, 3, 4, 5, 8, 10]);
 const ALLOWED_PERCENT_FRACTION_DENOMINATORS = new Set([2, 3, 4, 5]);
 
+function finalTextPolish(text: string): string {
+  return text
+    .replace(/\ba acid-water solution\b/giu, "an acid-water solution")
+    .replace(/\ba alcohol-water mixture\b/giu, "an alcohol-water mixture")
+    .replace(/\b1 litres\b/giu, "1 litre");
+}
+
 function learnerOptionIsFriendly(option: string): boolean {
   for (const match of option.matchAll(/(\d+)\/(\d+)/gu)) {
     const denominator = Number(match[2]);
@@ -35,10 +42,50 @@ function learnerOptionIsFriendly(option: string): boolean {
   return true;
 }
 
+function applyFinalTextPolish(
+  question: MalCp006DiscoveryQuestion,
+): MalCp006DiscoveryQuestion {
+  const stem = finalTextPolish(question.stem);
+  const options = question.options.map(finalTextPolish);
+  const answer = finalTextPolish(question.answer);
+  const visibleLines = question.explanation.visibleLines.map(finalTextPolish);
+  const commonMistake = finalTextPolish(
+    question.explanation.optionalHelp.commonMistake,
+  );
+  const verification = question.explanation.optionalHelp.verification.map(
+    finalTextPolish,
+  );
+  const optionAudit = question.optionAudit.map((entry, index) => ({
+    ...entry,
+    text: options[index]!,
+  }));
+  return {
+    ...question,
+    stem,
+    answer,
+    options,
+    optionAudit,
+    explanation: {
+      ...question.explanation,
+      visibleLines,
+      answerLine: `Answer: ${answer}`,
+      optionalHelp: {
+        ...question.explanation.optionalHelp,
+        commonMistake,
+        verification,
+      },
+    },
+  };
+}
+
 function surfaceIsClean(question: MalCp006DiscoveryQuestion): boolean {
   if (!question.validation.ok) return false;
   if (!question.options.every(learnerOptionIsFriendly)) return false;
-  if (question.optionAudit.some((entry, index) => entry.text !== question.options[index])) {
+  if (
+    question.optionAudit.some(
+      (entry, index) => entry.text !== question.options[index],
+    )
+  ) {
     return false;
   }
   const learnerText = [
@@ -48,9 +95,13 @@ function surfaceIsClean(question: MalCp006DiscoveryQuestion): boolean {
     question.explanation.optionalHelp.commonMistake,
     ...question.explanation.optionalHelp.verification,
   ].join(" ");
-  if (/\ba acid-water\b/iu.test(learnerText)) return false;
+  if (/\ba (?:acid|alcohol)-water\b/iu.test(learnerText)) return false;
   if (/\b1 litres\b/iu.test(learnerText)) return false;
-  if (/salt solution component|component load|state key|current fraction|global component/iu.test(learnerText)) {
+  if (
+    /salt solution component|component load|state key|current fraction|global component/iu.test(
+      learnerText,
+    )
+  ) {
     return false;
   }
   return true;
@@ -63,9 +114,11 @@ export function generateMalCp006Wave01FinalLearnerAuthorityQuestion(
   for (let attempt = 0; attempt < 120; attempt += 1) {
     const candidateSeed =
       attempt === 0 ? seed : `${seed}:authority-retry:${attempt}`;
-    const question = generateMalCp006Wave01LearnerPolishFinalQuestion(
-      prototypeId,
-      candidateSeed,
+    const question = applyFinalTextPolish(
+      generateMalCp006Wave01LearnerPolishFinalQuestion(
+        prototypeId,
+        candidateSeed,
+      ),
     );
     if (surfaceIsClean(question)) {
       return {
