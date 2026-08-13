@@ -160,7 +160,7 @@ function localizedStem(record: GeneratedBlrCp006Question, locale: Locale): strin
   return localeText(
     locale,
     `किस जोड़ी के बीच ${phrase} है?`,
-    `ਕਿਹੜੀ ਜੋੜੀ ਵਿਚਕਾਰ ${phrase} ਹੈ?`,
+    `ਕਿਹੜੀ ਜੋੜੀ ਵਿੱਚ ${phrase} ਹੈ?`,
   );
 }
 
@@ -260,10 +260,24 @@ function localizedOptionExplanation(
 ): string {
   const label = optionLabel(index);
   if (option.isCorrect) {
+    if (option.semanticKey.startsWith("PAIR:")) {
+      return localeText(
+        locale,
+        `विकल्प ${label} सही है। सभी कूटों का अर्थ निकालकर परिवार-संबंध चित्र बनाने पर सही उत्तर ${answer} की जोड़ी है।`,
+        `ਵਿਕਲਪ ${label} ਸਹੀ ਹੈ। ਸਾਰੇ ਕੋਡਾਂ ਦਾ ਅਰਥ ਕੱਢ ਕੇ ਪਰਿਵਾਰਕ ਸੰਬੰਧ-ਚਿੱਤਰ ਬਣਾਉਣ ਉੱਤੇ ਸਹੀ ਉੱਤਰ ${answer} ਦੀ ਜੋੜੀ ਹੈ।`,
+      );
+    }
     return localeText(
       locale,
-      `विकल्प ${label} सही है। सभी कूटों का अर्थ निकालकर परिवार-संबंध चित्र बनाने पर उत्तर ${answer} मिलता है।`,
-      `ਵਿਕਲਪ ${label} ਸਹੀ ਹੈ। ਸਾਰੇ ਕੋਡਾਂ ਦਾ ਅਰਥ ਕੱਢ ਕੇ ਪਰਿਵਾਰਕ ਸੰਬੰਧ-ਚਿੱਤਰ ਬਣਾਉਣ ਉੱਤੇ ਉੱਤਰ ${answer} ਮਿਲਦਾ ਹੈ।`,
+      `विकल्प ${label} सही है। सभी कूटों का अर्थ निकालकर परिवार-संबंध चित्र बनाने पर सही उत्तर ${answer} है।`,
+      `ਵਿਕਲਪ ${label} ਸਹੀ ਹੈ। ਸਾਰੇ ਕੋਡਾਂ ਦਾ ਅਰਥ ਕੱਢ ਕੇ ਪਰਿਵਾਰਕ ਸੰਬੰਧ-ਚਿੱਤਰ ਬਣਾਉਣ ਉੱਤੇ ਸਹੀ ਉੱਤਰ ${answer} ਹੈ।`,
+    );
+  }
+  if (option.semanticKey.startsWith("REL:")) {
+    return localeText(
+      locale,
+      `विकल्प ${label} गलत है। कूटों का अर्थ निकालने पर सही संबंध ${answer} मिलता है, ${option.text} नहीं।`,
+      `ਵਿਕਲਪ ${label} ਗਲਤ ਹੈ। ਕੋਡਾਂ ਦਾ ਅਰਥ ਕੱਢਣ ਉੱਤੇ ਸਹੀ ਸੰਬੰਧ ${answer} ਮਿਲਦਾ ਹੈ, ${option.text} ਨਹੀਂ।`,
     );
   }
   const code = option.errorLabel ?? "DECODED_RELATION_MISMATCH";
