@@ -6,6 +6,16 @@ import type { TsdCp004GeneratedQuestion, TsdCp004GeneratedState } from "./runtim
 const OPTION_LABELS = ["A", "B", "C", "D"] as const;
 const REVIEW_VARIANT_COUNT = 6;
 
+function stemSkeleton(stem: string): string {
+  return stem
+    .toLowerCase()
+    .replace(/\b\d{1,2}:\d{2}\s*(?:am|pm)\b/g, " CLOCK ")
+    .replace(/\b\d+(?:\.\d+)?(?:\/\d+)?\b/g, " # ")
+    .replace(/\b(?:car|cars|bus|buses|truck|trucks|van|vans|vehicle|vehicles|motorbike|motorbikes|scooter|scooters|jeep|jeeps|lorry|lorries|motorist|motorists|motorcyclist|motorcyclists|rider|riders|traveller|travellers)\b/g, " ACTOR ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function polishReviewQuestion(question: TsdCp004GeneratedQuestion): TsdCp004GeneratedQuestion {
   const state: TsdCp004GeneratedState = Object.freeze({
     authorityKey: question.authorityKey,
@@ -43,9 +53,12 @@ function selectUniqueReviewQuestion(
     if (Number(candidate.representation.split(":").at(-1) ?? "-1") !== variant) continue;
     if (selected.some((row) => row.mathematicalFingerprint === candidate.mathematicalFingerprint)) continue;
     if (selected.some((row) => row.stem === candidate.stem)) continue;
+    if (selected.some((row) => stemSkeleton(row.stem) === stemSkeleton(candidate.stem))) continue;
+    const misconceptionClasses = new Set(candidate.internalOptionAudit.filter((entry) => !entry.isCorrect).map((entry) => entry.misconceptionId));
+    if (misconceptionClasses.size < 2) continue;
     return candidate;
   }
-  throw new Error(`${authorityKey}: could not find a unique mathematical state for review variant ${variant} without changing its solve mode`);
+  throw new Error(`${authorityKey}: could not find a mathematically unique, structurally distinct review row for variant ${variant} without changing its solve mode`);
 }
 
 export function generateCp004AuditPool(seedsPerAuthority = 40): readonly TsdCp004GeneratedQuestion[] {
@@ -68,6 +81,7 @@ export function generateCp004ReviewQuestions(rowsPerAuthority = 6): readonly Tsd
       selected.push(selectUniqueReviewQuestion(authorityKey, variant, selected));
     }
     if (new Set(selected.map((row) => row.stem)).size !== selected.length) throw new Error(`${authorityKey}: duplicate stem in review selection`);
+    if (new Set(selected.map((row) => stemSkeleton(row.stem))).size !== selected.length) throw new Error(`${authorityKey}: duplicate normalized stem structure in review selection`);
     if (new Set(selected.map((row) => row.mathematicalFingerprint)).size !== selected.length) throw new Error(`${authorityKey}: duplicate mathematical fingerprint in review selection`);
     rows.push(...selected);
   }
