@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import type { SylLocale } from "../foundation/types";
 import { generateBankingCanNeverShellV2 } from "./banking-can-never-be-shell-v2";
 import { generateBankingCanNeverEditorialV3 } from "./banking-can-never-be-editorial-v3";
+import "./banking-can-never-be-editorial-v4-audit.test";
 
 const locales: readonly SylLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const seeds = Array.from({ length: 80 }, (_, index) => index);
@@ -161,10 +162,6 @@ assert.equal(modalTruthByPosition["I|true"], 60);
 assert.equal(modalTruthByPosition["I|false"], 60);
 assert.equal(modalTruthByPosition["II|true"], 60);
 assert.equal(modalTruthByPosition["II|false"], 60);
-
-// These are measured diagnostic populations, not target weights. The release
-// anti-pattern grid balances status, modal position and modal kind; it does not
-// artificially rebalance the solver's internal false-reason classifications.
 assert.equal(someContradictedFailures, 10);
 assert.equal(someUndeterminedFailures, 10);
 assert.equal(allEntailedFailures, 5);
@@ -194,5 +191,6 @@ console.log(JSON.stringify({
   wholeClassModalWordingUnambiguous: true,
   hindiPunjabiEnglishModalLeaks: 0,
   explanationPolicy: "COMPLETE_PREMISE_DISPOSITION_SPECIFIC_REASONING_V3",
+  chainedEditorialV4Audit: true,
   activationPermitted: false,
 }, null, 2));
