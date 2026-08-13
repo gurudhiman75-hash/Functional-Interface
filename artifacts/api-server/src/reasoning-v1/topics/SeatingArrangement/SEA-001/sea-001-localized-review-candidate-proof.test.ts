@@ -27,6 +27,7 @@ let localizedChildCount = 0;
 let criticalLeakCount = 0;
 let canonicalNameLeakCount = 0;
 const residualEnglish = new Map<string, number>();
+const criticalResiduals = new Map<string, number>();
 
 for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
   for (const canonical of canonicalReview) {
@@ -72,7 +73,10 @@ for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
     for (const token of latinTokens(surface)) {
       const lower = token.toLowerCase();
       residualEnglish.set(lower, (residualEnglish.get(lower) ?? 0) + 1);
-      if (criticalEnglishOperators.has(lower)) criticalLeakCount += 1;
+      if (criticalEnglishOperators.has(lower)) {
+        criticalLeakCount += 1;
+        criticalResiduals.set(lower, (criticalResiduals.get(lower) ?? 0) + 1);
+      }
     }
 
     assert(localized.humanLanguageReviewRequired, `${canonical.caseletId}/${locale}: localized review cannot skip human language review`);
@@ -80,6 +84,22 @@ for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
     assert(!localized.productionStagingApproved, `${canonical.caseletId}/${locale}: localized review cannot approve staging`);
   }
 }
+
+const residualTop = [...residualEnglish.entries()]
+  .sort((left, right) => right[1] - left[1])
+  .slice(0, 60);
+const criticalTop = [...criticalResiduals.entries()]
+  .sort((left, right) => right[1] - left[1]);
+
+console.log("SEA_001_LOCALIZED_REVIEW_DIAGNOSTIC");
+console.log("localized caselets", localizedCaseletCount);
+console.log("localized child questions", localizedChildCount);
+console.log("semantic parity", "200/200");
+console.log("canonical Latin-name leaks", canonicalNameLeakCount);
+console.log("critical English seating-operator leaks", criticalLeakCount);
+console.log("critical residual operators", JSON.stringify(criticalTop));
+console.log("residual Latin tokens", [...residualEnglish.values()].reduce((sum, count) => sum + count, 0));
+console.log("top residual Latin tokens", JSON.stringify(residualTop));
 
 assert(localizedCaseletCount === 200, `expected 200 localized review caselets, got ${localizedCaseletCount}`);
 assert(localizedChildCount === 800, `expected 800 localized child questions, got ${localizedChildCount}`);
@@ -92,18 +112,7 @@ assert(!SEA001_PERMANENT_INACTIVE_LIFECYCLE.questionBankWritable, "Question Bank
 assert(!SEA001_PERMANENT_INACTIVE_LIFECYCLE.testEligible, "mock-test eligibility must remain disabled");
 assert(!SEA001_PERMANENT_INACTIVE_LIFECYCLE.publiclyPublishable, "public delivery must remain disabled");
 
-const residualTop = [...residualEnglish.entries()]
-  .sort((left, right) => right[1] - left[1])
-  .slice(0, 40);
-
 console.log("PASS_SEA_001_LOCALIZED_REVIEW_CANDIDATE");
-console.log("localized caselets", localizedCaseletCount);
-console.log("localized child questions", localizedChildCount);
-console.log("semantic parity", "200/200");
-console.log("canonical Latin-name leaks", canonicalNameLeakCount);
-console.log("critical English seating-operator leaks", criticalLeakCount);
-console.log("residual Latin tokens", [...residualEnglish.values()].reduce((sum, count) => sum + count, 0));
-console.log("top residual Latin tokens", JSON.stringify(residualTop));
 console.log("human language review", "PENDING");
 console.log("Question Studio registered", SEA001_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered);
 console.log("publicly publishable", SEA001_PERMANENT_INACTIVE_LIFECYCLE.publiclyPublishable);
