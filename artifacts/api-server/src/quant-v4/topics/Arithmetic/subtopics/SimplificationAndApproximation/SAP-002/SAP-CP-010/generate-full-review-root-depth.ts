@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { generateSapCp010RootDepthReviewRecords } from "./full-review-root-depth";
+import { generateSapCp010RootDepthReviewRecords } from "./full-review-root-depth-v2";
 
 const records = generateSapCp010RootDepthReviewRecords();
 const outDir = resolve(process.cwd(), "artifacts/api-server/dist/quant-v4/sap-cp010-root-depth-review");
