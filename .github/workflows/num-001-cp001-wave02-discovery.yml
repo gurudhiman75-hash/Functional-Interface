@@ -1,0 +1,99 @@
+name: Validate NUM-CP-001 Wave 02 discovery
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
+      - .github/workflows/num-001-cp001-wave02-discovery.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp001-wave02-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp001-wave02:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 1 regression proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/wave01/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-wave01-regression.test.mjs
+
+      - name: Run Wave 1 regression proof
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp001-wave01-regression.test.mjs
+
+      - name: Bundle Wave 2 exact runtime proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/wave02/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-wave02-authority.test.mjs
+
+      - name: Run Wave 2 exact runtime proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp001-wave02-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp001-wave02-authority.log
+
+      - name: Bundle Wave 2 structural audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/wave02/runtime-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-wave02-audit.mjs
+
+      - name: Run Wave 2 structural audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp001-wave02-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp001-wave02-audit.log
+
+      - name: Bundle Wave 2 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/wave02/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-wave02-review-export.mjs
+
+      - name: Generate Wave 2 review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-001-cp001-wave02-review-export.mjs
+
+      - name: Upload Wave 2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp001-wave02-discovery
+          path: |
+            artifacts/api-server/dist/quant-v4/num-001-cp001-wave02-authority.log
+            artifacts/api-server/dist/quant-v4/num-001-cp001-wave02-audit.log
+            artifacts/api-server/dist/quant-v4/num-001-cp001-wave02-review.json
+            artifacts/api-server/dist/quant-v4/num-001-cp001-wave02-review.md
+          if-no-files-found: error
+          retention-days: 14
