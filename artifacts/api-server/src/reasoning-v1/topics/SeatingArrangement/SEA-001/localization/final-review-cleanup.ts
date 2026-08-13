@@ -29,9 +29,14 @@ const PA: readonly Pair[] = [
   ["\u0a38\u0a35\u0a3e\u0a32 \u0a2a\u0a41\u0a71\u0a1b\u0a26\u0a3e \u0a39\u0a48 \u0a32\u0a08 \u0a17\u0a32\u0a24 \u0a15\u0a25\u0a28", "\u0a38\u0a35\u0a3e\u0a32 \u0a17\u0a32\u0a24 \u0a15\u0a25\u0a28 \u0a2a\u0a41\u0a71\u0a1b\u0a26\u0a3e \u0a39\u0a48"],
 ];
 
+const RESIDUAL: Readonly<Record<string, Pair>> = Object.freeze({
+  early:["\u092a\u0939\u0932\u0947","\u0a2a\u0a39\u0a3f\u0a32\u0a3e\u0a02"], rotation:["\u0918\u0941\u092e\u093e\u0935","\u0a18\u0a41\u0a70\u0a2e\u0a3e\u0a35"], occupant:["\u092c\u0948\u0920\u093e \u0935\u094d\u092f\u0915\u094d\u0924\u093f","\u0a2c\u0a48\u0a20\u0a3e \u0a35\u0a3f\u0a05\u0a15\u0a24\u0a40"], occupants:["\u092c\u0948\u0920\u0947 \u0935\u094d\u092f\u0915\u094d\u0924\u093f","\u0a2c\u0a48\u0a20\u0a47 \u0a35\u0a3f\u0a05\u0a15\u0a24\u0a40"], note:["\u0927\u094d\u092f\u093e\u0928 \u0926\u0947\u0902","\u0a27\u0a3f\u0a06\u0a28 \u0a26\u0a3f\u0a13"], observer:["\u0926\u0947\u0916\u0928\u0947 \u0935\u093e\u0932\u093e","\u0a35\u0a47\u0a16\u0a23 \u0a35\u0a3e\u0a32\u0a3e"], while:["\u091c\u092c\u0915\u093f","\u0a1c\u0a26\u0a15\u0a3f"], on:["\u092a\u0930","'\u0a24\u0a47"], someone:["\u0915\u094b\u0908 \u0935\u094d\u092f\u0915\u094d\u0924\u093f","\u0a15\u0a4b\u0a08 \u0a35\u0a3f\u0a05\u0a15\u0a24\u0a40"], lists:["\u0915\u094d\u0930\u092e \u092c\u0924\u093e\u0924\u093e \u0939\u0948","\u0a15\u0a4d\u0a30\u0a2e \u0a26\u0a71\u0a38\u0a26\u0a3e \u0a39\u0a48"], exactly:["\u0920\u0940\u0915","\u0a20\u0a40\u0a15"], out:["\u092c\u093e\u0939\u0930","\u0a2c\u0a3e\u0a39\u0a30"], fixes:["\u0924\u092f \u0915\u0930\u0924\u093e \u0939\u0948","\u0a24\u0a48\u0a05 \u0a15\u0a30\u0a26\u0a3e \u0a39\u0a48"], beside:["\u092c\u0917\u0932 \u092e\u0947\u0902","\u0a28\u0a3e\u0a32"], lies:["\u0938\u094d\u0925\u093f\u0924 \u0939\u0948","\u0a38\u0a25\u0a3f\u0a24 \u0a39\u0a48"], when:["\u091c\u092c","\u0a1c\u0a26\u0a4b\u0a02"], into:["\u092e\u0947\u0902","\u0a35\u0a3f\u0a71\u0a1a"], own:["\u0938\u094d\u0935\u092f\u0902","\u0a06\u0a2a\u0a23\u0a3e"], ly:["",""], ing:["",""], d:["",""]
+});
+
 function cleanText(text:string, locale:Sea001TranslatedLocale):string {
   let out=text;
   for(const [bad,good] of locale==="hi-IN"?HI:PA) out=out.split(bad).join(good);
+  for(const [word,pair] of Object.entries(RESIDUAL)) out=out.replace(new RegExp(`\\b${word}\\b`,"gi"),locale==="hi-IN"?pair[0]:pair[1]);
   return out.replace(/\s+([,.;:!?])/g,"$1").replace(/ {2,}/g," ").replace(/\n +/g,"\n").trim();
 }
 function cleanOption(o:AuditOption,l:Sea001TranslatedLocale):AuditOption{return {...o,display:cleanText(o.display,l),explanation:cleanText(o.explanation,l)};}
