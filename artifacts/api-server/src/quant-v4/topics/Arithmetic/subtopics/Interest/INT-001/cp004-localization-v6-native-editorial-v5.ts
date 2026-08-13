@@ -62,7 +62,7 @@ function remediateRawEquation(locale: IntCp004V6Locale, step: string): string {
   }
 
   const bareEquation = step.match(/^(.+?=.+?)[।.]?$/u);
-  if (bareEquation && !/\\[([]/u.test(bareEquation[1])) {
+  if (bareEquation && !bareEquation[1].includes("\\(") && !bareEquation[1].includes("\\[")) {
     return `${inlineMath(toLatexArithmetic(bareEquation[1]))}।`;
   }
 
