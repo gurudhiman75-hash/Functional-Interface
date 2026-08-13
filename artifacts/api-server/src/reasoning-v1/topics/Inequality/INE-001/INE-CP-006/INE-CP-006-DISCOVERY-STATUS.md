@@ -2,11 +2,11 @@
 
 **Checkpoint:** INE-CP-006 — Coded Inequality: Fixed Maps
 
-**Implementation:** English prototype discovery v2 complete
+**Implementation:** English prototype discovery v3 complete
 
-**Manual review:** Pending
+**Manual review:** Approved by user on 2026-08-13
 
-**Critical self-review:** Complete; readiness findings implemented and ready for user review
+**Critical self-review:** Complete; readiness findings implemented and accepted
 
 **Exam readiness:** Banking/regulatory practice prototype ready; not a universal Banking, SSC, Railways, PSSSB, PPSC, or Punjab mock/PYQ pack
 
@@ -40,4 +40,4 @@ The mapping is always complete and supplied. Recovering an unknown mapping, choo
 
 ## Gate
 
-The checkpoint remains a prototype until the English review pack is manually accepted. No permanent QL, Question Studio, localization, or public-release decision is implied by implementation completion.
+The English review pack has been manually accepted. The checkpoint remains a discovery prototype with no permanent QL, Question Studio, localization, or public-release allocation; those decisions require the separate chapter-closure gate.
