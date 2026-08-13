@@ -111,7 +111,9 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
   if (answerPositions.some((count) => count !== 19)) fail(`${locale}: answer positions ${answerPositions.join("/")}.`);
   if (tables !== 10 || 76 - tables !== 66) fail(`${locale}: prose/table mix ${76 - tables}/${tables}.`);
   if (formulaFirst !== 76 || wrappedFormula !== 76) fail(`${locale}: formula/wrapper ${formulaFirst}/${wrappedFormula}.`);
-  if (directStems !== 0 || rejectedPunjabiTerms !== 0 || legacyDollarDelimiters !== 0 || rawMathOutsideWrappers !== 0 || uglyDecimals !== 0 || duplicateStems !== 0) fail(`${locale}: review presentation guard failed.`);
+  if (directStems !== 0 || rejectedPunjabiTerms !== 0 || legacyDollarDelimiters !== 0 || rawMathOutsideWrappers !== 0 || uglyDecimals !== 0 || duplicateStems !== 0) {
+    fail(`${locale}: review presentation guard failed: direct=${directStems}, rejectedPunjabi=${rejectedPunjabiTerms}, dollar=${legacyDollarDelimiters}, rawMath=${rawMathOutsideWrappers}, uglyDecimals=${uglyDecimals}, duplicateStems=${duplicateStems}.`);
+  }
   if (approximationAnswers === 0) fail(`${locale}: rounded effective-rate review case missing.`);
 
   const fileBase = locale === "hi-IN" ? "INT-CP-004-Hindi-V6-Native-V5-Review" : "INT-CP-004-Punjabi-V6-Native-V5-Review";
