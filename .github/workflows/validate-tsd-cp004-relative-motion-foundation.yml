@@ -25,12 +25,13 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle CP004 foundation proof
+      - name: Bundle CP004 proofs
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
           OUT=dist/quant-v4/tsd-001/cp004-foundation
           mkdir -p artifacts/api-server/$OUT
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004/foundation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/foundation-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004/authority-allocation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/authority-allocation-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
 
       - name: Run CP004 exact foundation proof
@@ -39,12 +40,21 @@ jobs:
           cd artifacts/api-server
           node dist/quant-v4/tsd-001/cp004-foundation/foundation-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp004-foundation/foundation-proof.log
 
+      - name: Run CP004 authority and QL allocation proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/tsd-001/cp004-foundation/authority-allocation-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp004-foundation/authority-allocation-proof.log
+
       - name: Preserve CP003 approved freeze boundary
         run: |
           INDEX=artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
           grep -q 'cp003/localization/native-approved-freeze' "$INDEX"
           grep -q 'cp004/discovery-registry' "$INDEX"
           grep -q 'cp004/relative-motion-foundation' "$INDEX"
+          grep -q 'cp004/cross-checkpoint-overlap-audit' "$INDEX"
+          grep -q 'cp004/final-ownership-candidate' "$INDEX"
+          grep -q 'cp004/ql-allocation' "$INDEX"
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
