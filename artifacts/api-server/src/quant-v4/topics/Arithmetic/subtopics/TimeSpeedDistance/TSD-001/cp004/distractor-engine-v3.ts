@@ -57,5 +57,20 @@ export function deriveStrongCp004WrongWorkingsV3(mode: TsdCp004CoreSolveMode, in
     return Object.freeze(rows.slice(0, 4));
   }
 
+  if (mode === "findStartDelayFromCatchUpState") {
+    const pursuit = input.meetingTime!;
+    const faster = input.speedA!;
+    const slower = input.speedB!;
+    const closing = subtract(faster, slower);
+    const headStart = multiply(closing, pursuit);
+    const { rows, push } = uniqueWrongRows(solution.answer);
+    push("TREAT_DELAY_AS_PURSUIT_TIME", pursuit, "copy the pursuit duration as the earlier start delay", "The learner treats the time spent chasing as if it were the time advantage enjoyed by the slower vehicle before pursuit began.");
+    push("USE_ONE_SPEED_ONLY", divide(headStart, faster), "divide the reconstructed head-start distance by the faster vehicle's speed", "The earlier lead was built by the slower vehicle, but the learner divides by the pursuer's speed instead.");
+    push("USE_SUM_INSTEAD_OF_DIFFERENCE", divide(multiply(add(faster, slower), pursuit), slower), "use the sum of speeds during the pursuit before converting distance back to a delay", "Same-direction pursuit is treated as opposite-direction motion, inflating the reconstructed head-start distance.");
+    push("IGNORE_START_DELAY", divide(multiply(faster, pursuit), slower), "treat the pursuer's entire chase distance as the earlier vehicle's head-start distance", "The learner ignores that both vehicles move during pursuit and converts the faster vehicle's full chase distance into a start delay.");
+    if (rows.length < 3) throw new Error(`${mode}: V3 produced only ${rows.length} strong distractors`);
+    return Object.freeze(rows.slice(0, 4));
+  }
+
   return deriveStrongCp004WrongWorkings(mode, input, solution);
 }
