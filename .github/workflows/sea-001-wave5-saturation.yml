@@ -77,6 +77,17 @@ jobs:
       - name: Prove permanent QL allocation and solve/query/English freezes
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-permanent-allocation-freeze-proof.test.ts
 
+  localization-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prove Hindi/Punjabi localization foundation and semantic parity contract
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localization-readiness-proof.test.ts
+
   teaching-explanations:
     runs-on: ubuntu-latest
     timeout-minutes: 20
