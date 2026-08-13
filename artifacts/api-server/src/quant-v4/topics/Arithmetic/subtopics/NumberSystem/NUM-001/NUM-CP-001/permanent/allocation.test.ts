@@ -31,8 +31,8 @@ for (const [index, entry] of NUM_CP001_PERMANENT_ALLOCATION.entries()) {
   assert.equal(entry.permanentIdentityFrozen, true);
   assert.equal(entry.solveModeFrozen, true);
   assert.equal(entry.englishImplementationFrozen, true);
-  assert.equal(entry.allocationStatus, "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION");
-  assert.equal(entry.maturity, "ENGLISH_IMPLEMENTATION_FROZEN");
+  assert.equal(entry.allocationStatus, "PRODUCT_OWNER_APPROVED_INACTIVE_MULTILINGUAL_IMPLEMENTATION");
+  assert.equal(entry.maturity, "MULTILINGUAL_IMPLEMENTATION_FROZEN");
   assert.equal(entry.reviewStatus, "PRODUCT_OWNER_COMPLETION_AUTHORISED");
   assert.equal(entry.active, false);
   assert.equal(entry.questionStudioDiscoverable, false);
@@ -41,6 +41,7 @@ for (const [index, entry] of NUM_CP001_PERMANENT_ALLOCATION.entries()) {
   assert.equal(entry.publiclyPublishable, false);
   assert.ok(entry.sourceEvidence.includes("PRODUCT-OWNER-21-AUTHORITY-APPROVAL-2026-08-13"));
   assert.ok(entry.sourceEvidence.includes("NUM-CP-001-PERMANENT-ENGLISH-FREEZE"));
+  assert.ok(entry.sourceEvidence.includes("NUM-CP-001-HINDI-PUNJABI-MULTILINGUAL-FREEZE"));
 }
 
 assert.equal(
@@ -66,7 +67,7 @@ assert.equal(NUM_CP001_PERMANENT_QL_IDS[20], "NUM-QL-144");
 assert.equal(NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT, 145);
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP001_ENGLISH_FROZEN_ALLOCATION",
+  status: "PASS_NUM_CP001_MULTILINGUAL_FROZEN_ALLOCATION",
   approvedAuthorityCount: NUM_CP001_PROPOSED_AUTHORITIES.length,
   permanentQlCount: NUM_CP001_PERMANENT_ALLOCATION.length,
   solveModeCount: new Set(NUM_CP001_PERMANENT_ALLOCATION.map((entry) => entry.solveModeId)).size,
@@ -75,6 +76,7 @@ console.log(JSON.stringify({
   singletonAuthorityCount: 17,
   solveModeFrozen: true,
   englishImplementationFrozen: true,
+  multilingualImplementationFrozen: true,
   nextPermanentQl: "NUM-QL-145",
   deliveryExposure: 0,
 }, null, 2));
