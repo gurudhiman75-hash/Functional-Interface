@@ -134,7 +134,9 @@ assert.deepEqual(answerPositions, [72, 72, 72, 72]);
 for (const mode of RNK_CP007_CATEGORY_COMPOSITION_MODES) {
   assert.equal(modeCounts.get(mode), QUESTIONS_PER_MODE);
 }
-assert.equal(partitionIds.size, 12);
+// Editorial V1.2 intentionally rejects desk-a-b, leaving 11 approved partition contexts.
+assert.equal(partitionIds.size, 11);
+assert.equal(partitionIds.has("desk-a-b"), false);
 assert.equal(evidenceCountEchoes, 0, `Answer/evidence numeric echoes must be zero, found ${evidenceCountEchoes}`);
 
 const q65: RnkCp007CategoryCompositionState = {
@@ -171,7 +173,7 @@ assert.equal(
 
 console.log(JSON.stringify({
   status: "PASS",
-  version: "RNK_CP007_CATEGORY_COMPOSITION_EDITORIAL_V1_1_ZERO_ECHO",
+  version: "RNK_CP007_CATEGORY_COMPOSITION_EDITORIAL_V1_2_MISCONCEPTION_OPTIONS",
   prototype: "CATEGORY_COMPOSITION_AROUND_RANK",
   questionsChecked: questions.length,
   questionsPerMode: QUESTIONS_PER_MODE,
