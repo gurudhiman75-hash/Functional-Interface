@@ -88,6 +88,13 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-category-composition-production-candidate-v1.test.ts \
             | tee rnk-cp007-category-production-candidate.log
 
+      - name: Validate CP007 permanent freeze runtime
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-permanent-runtime-v1-freeze.test.ts \
+            | tee rnk-cp007-permanent-freeze.log
+
       - name: Generate CP007 V1.1 28-question review pack
         run: |
           set -o pipefail
@@ -145,11 +152,11 @@ jobs:
           pnpm --dir artifacts/api-server build \
             | tee rnk-cp007-api-build.log
 
-      - name: Upload discovery and ownership evidence
+      - name: Upload CP007 freeze and ownership evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp007-post-v1-1-ownership-production-evidence
+          name: rnk-001-cp007-freeze-and-ownership-evidence
           path: |
             rnk-object-pool-v2-manifest.log
             rnk-cp007-source-fixtures.log
@@ -159,6 +166,7 @@ jobs:
             rnk-cp007-merge-split-audit.log
             rnk-cp007-post-v11-ownership.log
             rnk-cp007-category-production-candidate.log
+            rnk-cp007-permanent-freeze.log
             rnk-cp007-review-export.log
             rnk-cp007-category-production-review-export.log
             rnk-frozen-projection-compatibility.log
