@@ -54,7 +54,7 @@ Each caselet remains a four-child passage. The owned query-contract sets are fro
 - `SEA-CP-002`: QC003, QC005, QC006, QC008, QC015;
 - `SEA-CP-003`: QC003, QC004, QC006, QC009, QC010, QC020;
 - `SEA-CP-004`: QC003, QC006, QC009, QC010, QC020;
-- `SEA-CP-005`: QC003, QC005, QC006, QC010, QC020, QC022.
+- `SEA-CP-005`: QC003, QC005, QC006, QC010, QC022.
 
 The permanent freeze proof compares these frozen sets against the contracts actually reached by the real saturation corpus.
 
