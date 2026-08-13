@@ -4,7 +4,7 @@ import { canonicalDigest } from "./canonical.ts";
 import { buildSea001SaturationCorpus, selectManualReviewCorpus, type AuditCaselet } from "./saturation/corpus.ts";
 import { SEA001_TRANSLATION_TARGET_LOCALES, type Sea001TranslatedLocale, sea001CanonicalParityFingerprint } from "./localization/readiness.ts";
 import { sea001LocalizedLearnerSurface, type Sea001LocalizedReviewCaselet } from "./localization/candidate-localizer.ts";
-import { buildSea001LocalizedReviewCandidate } from "./localization/review-projection.ts";
+import { buildSea001FinalLocalizedReviewCandidate } from "./localization/final-review-cleanup.ts";
 
 function escapeHtml(value: unknown): string {
   return String(value)
@@ -151,7 +151,7 @@ const ledgerEntries: Array<{
 }> = [];
 
 for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
-  const localized = canonicalReview.map((caselet) => buildSea001LocalizedReviewCandidate(caselet, locale));
+  const localized = canonicalReview.map((caselet) => buildSea001FinalLocalizedReviewCandidate(caselet, locale));
   const records = localized.map((caselet, index) => buildRecord(canonicalReview[index]!, caselet, index + 1));
   for (const record of records) {
     ledgerEntries.push({
