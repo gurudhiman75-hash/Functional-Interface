@@ -1,5 +1,5 @@
 import { degree } from "../foundation/angle";
-import { addExact, exactInteger, exactRational, formatExactPlain, multiplyExact, subtractExact } from "../foundation/exact";
+import { exactInteger, exactRational, formatExactPlain, multiplyExact, subtractExact } from "../foundation/exact";
 import { buildObserverHeightElevationState, buildOppositeSideState } from "./spatial";
 import { buildTrg002MvpQuestion, mvpExplanation, mvpNumberAnswer, mvpPick, type Trg002MvpQuestion } from "./mvp-runtime-core";
 
@@ -20,7 +20,7 @@ function ql076(seed: string) {
     wrong: [
       { value: mvpNumberAnswer(total), misconceptionId: "USED_FULL_BUILDING_HEIGHT_AS_RISE" },
       { value: mvpNumberAnswer(subtractExact(run, eye)), misconceptionId: "SUBTRACTED_EYE_HEIGHT_TWICE" },
-      { value: mvpNumberAnswer(addExact(run, eye)), misconceptionId: "ADDED_EYE_HEIGHT_TO_DISTANCE" },
+      { value: mvpNumberAnswer(multiplyExact(run, exactInteger(2))), misconceptionId: "DOUBLED_HORIZONTAL_DISTANCE" },
     ],
     explanation: mvpExplanation("Tangent uses the rise above eye level, not the full building height.", [`Rise=${formatExactPlain(total)}−1.5=${formatExactPlain(run)} m.`, `At 45°, rise=horizontal distance, so d=${formatExactPlain(run)} m.`], "Apply eye height exactly once before using tangent."),
   });
