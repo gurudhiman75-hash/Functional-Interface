@@ -45,7 +45,7 @@ export function runNumCp001QuestionStudioReview(input: v1.NumCp001QuestionStudio
   const source = v1.runNumCp001QuestionStudioReview(input) as any;
   const editorial = normalizeEditorial(applyNumCp001EditorialV2(source, source.language, Number(source.seed)));
   if (editorial.options.length !== 4 || new Set(editorial.options).size !== 4 || editorial.options[editorial.correctIndex] !== editorial.answer) {
-    throw new Error("NUM-CP-001 Editorial V2 integrity failure");
+    throw new Error(`NUM-CP-001 Editorial V2 integrity failure ${source.questionLanguageId}/${source.language}/${source.seed}: index=${editorial.correctIndex}; answer=${JSON.stringify(editorial.answer)}; options=${JSON.stringify(editorial.options)}`);
   }
   return Object.freeze({
     ...source,
