@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import "./authority-root-depth.test";
-import { SAP_CP010_PROTOTYPE_IDS } from "./root-depth-runtime";
-import { generateSapCp010RootDepthReviewRecords } from "./full-review-root-depth";
+import { SAP_CP010_PROTOTYPE_IDS } from "./root-depth-final-runtime";
+import { generateSapCp010RootDepthReviewRecords } from "./full-review-root-depth-v2";
 
 const records = generateSapCp010RootDepthReviewRecords();
 assert.equal(records.length, 300);
