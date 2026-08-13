@@ -9,13 +9,14 @@ mkdirSync(outDir, { recursive: true });
 const summary = {
   checkpointId: "SAP-CP-010",
   title: "Approximate Roots, Powers, Reciprocals and Derived Values",
-  reviewVersion: "CP010-EXAM-STANDARD-V4-RELEASE-CANDIDATE",
+  reviewVersion: "CP010-EXAM-STANDARD-V4-STRATIFIED-RELEASE-CANDIDATE",
   questionCount: records.length,
   identities: [...new Set(records.map((r) => r.prototypeId))].length,
   candidateQlRange: "SAP-QL-166..182",
   answerPositions: [0, 1, 2, 3].map((p) => records.filter((r) => r.correctIndex === p).length),
   lifecycle: "INACTIVE_HUMAN_REVIEW_CANDIDATE",
   editorialContract: "EXAM_STANDARD_STEMS_PLAUSIBLE_DISTRACTORS_SIMPLE_2_TO_3_STEP_EXPLANATIONS",
+  reviewSampling: "STRATIFIED_ACROSS_PERCENT_POWER_ROOT_SIDE_AND_INVERSE_POWER_SUBMODES",
   deliberatelyHeld: [
     "nearest-tenth roots without source evidence",
     "interpolation without source evidence",
@@ -24,14 +25,14 @@ const summary = {
 };
 
 const lines: string[] = [
-  "# SAP-CP-010 — 300-Question English Human Review — Exam Standard V4 Release Candidate",
+  "# SAP-CP-010 — 300-Question English Human Review — Exam Standard V4 Stratified Release Candidate",
   "",
   `Questions: **${summary.questionCount}**  `,
   `Solve identities: **${summary.identities}**  `,
   `Candidate QLs: **${summary.candidateQlRange}**  `,
   `Answer positions A/B/C/D: **${summary.answerPositions.join(" / ")}**`,
   "",
-  "> All questions are provisional and inactive. Stems use competitive-exam language; distractors model nearby mistakes; explanations use short benchmark/bracketing reasoning. Unsupported interpolation and advanced numerical methods remain deliberately excluded.",
+  "> All questions are provisional and inactive. Stems use competitive-exam language; distractors model nearby mistakes; explanations use short benchmark/bracketing reasoning. The review sample is stratified across hidden submodes rather than taking only early seeds. Unsupported interpolation and advanced numerical methods remain deliberately excluded.",
   "",
 ];
 
@@ -64,7 +65,7 @@ for (const r of records) {
 
 const markdown = lines.join("\n");
 const escaped = markdown.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-const html = `<!doctype html><html><head><meta charset="utf-8"><title>SAP-CP-010 V4 Release Review</title><style>body{font-family:Arial,sans-serif;max-width:1050px;margin:24px auto;padding:0 20px;line-height:1.5;color:#222}pre{white-space:pre-wrap;font-family:Arial,sans-serif}h1{border-bottom:2px solid #333}</style></head><body><pre>${escaped}</pre></body></html>`;
+const html = `<!doctype html><html><head><meta charset="utf-8"><title>SAP-CP-010 V4 Stratified Release Review</title><style>body{font-family:Arial,sans-serif;max-width:1050px;margin:24px auto;padding:0 20px;line-height:1.5;color:#222}pre{white-space:pre-wrap;font-family:Arial,sans-serif}h1{border-bottom:2px solid #333}</style></head><body><pre>${escaped}</pre></body></html>`;
 
 writeFileSync(resolve(outDir, "SAP-CP-010-300-FULL-ENGLISH-REVIEW.md"), markdown, "utf8");
 writeFileSync(resolve(outDir, "SAP-CP-010-300-FULL-ENGLISH-REVIEW.html"), html, "utf8");
