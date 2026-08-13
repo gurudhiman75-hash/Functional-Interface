@@ -29,12 +29,12 @@ export interface NumCp001PermanentAllocationEntry {
   readonly sourceEvidence: readonly string[];
   readonly difficultyPolicy: "STATE_DERIVED";
   readonly language: "en";
-  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION";
+  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_MULTILINGUAL_IMPLEMENTATION";
   readonly permanentIdentityFrozen: true;
   readonly solveModeFrozen: true;
   readonly englishImplementationFrozen: true;
   readonly active: false;
-  readonly maturity: "ENGLISH_IMPLEMENTATION_FROZEN";
+  readonly maturity: "MULTILINGUAL_IMPLEMENTATION_FROZEN";
   readonly reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED";
   readonly publiclyPublishable: false;
   readonly questionStudioDiscoverable: false;
@@ -90,16 +90,17 @@ export const NUM_CP001_PERMANENT_ALLOCATION = NUM_CP001_PROPOSED_AUTHORITIES.map
     "PR-750-MERGED-75ab2ec665278b3979c92120c8d58cb34242870f",
     "PRODUCT-OWNER-21-AUTHORITY-APPROVAL-2026-08-13",
     "NUM-CP-001-PERMANENT-ENGLISH-FREEZE",
+    "NUM-CP-001-HINDI-PUNJABI-MULTILINGUAL-FREEZE",
     ...authority.prototypeIds,
   ],
   difficultyPolicy: "STATE_DERIVED" as const,
   language: "en" as const,
-  allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION" as const,
+  allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_MULTILINGUAL_IMPLEMENTATION" as const,
   permanentIdentityFrozen: true as const,
   solveModeFrozen: true as const,
   englishImplementationFrozen: true as const,
   active: false as const,
-  maturity: "ENGLISH_IMPLEMENTATION_FROZEN" as const,
+  maturity: "MULTILINGUAL_IMPLEMENTATION_FROZEN" as const,
   reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED" as const,
   publiclyPublishable: false as const,
   questionStudioDiscoverable: false as const,

@@ -50,7 +50,8 @@ assert(cp001?.firstQlNumber === 124, "CP-001 first QL");
 assert(cp001?.lastQlNumber === 144, "CP-001 last QL");
 assert(cp001?.permanentQlCount === 21, "CP-001 permanent count");
 assert(cp001?.frozenSolveModeCount === 21, "CP-001 solve-mode count");
-assert(cp001?.maturity === "ENGLISH_IMPLEMENTATION_FROZEN", "CP-001 English-freeze maturity");
+assert(cp001?.maturity === "MULTILINGUAL_IMPLEMENTATION_FROZEN", "CP-001 multilingual-freeze maturity");
+assert(cp001?.language === "en/hi/pa", "CP-001 frozen language coverage");
 
 assert(NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE.first === 1, "chapter first QL");
 assert(NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE.last === 144, "chapter last QL");
@@ -69,6 +70,7 @@ console.log(JSON.stringify({
   cp007Range: "NUM-QL-098..NUM-QL-123",
   cp001Range: "NUM-QL-124..NUM-QL-144",
   cp001Maturity: cp001?.maturity,
+  cp001Languages: cp001?.language,
   cp001FrozenSolveModeCount: cp001?.frozenSolveModeCount,
   nextPermanentQlNumber: NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT,
   activeCheckpointCount: NUMBER_SYSTEM_COMPLETED_CHECKPOINT_ALLOCATIONS.filter((entry) => entry.active).length,
