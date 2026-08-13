@@ -10,13 +10,13 @@ import {
 } from "./analysis";
 import {
   bankingCanNeverDispositionV1,
-  buildBalancedBankingPairOptionsV1,
   type BankingCanNeverConclusionV1,
   type BankingCanNeverDispositionV1,
   type BankingCanNeverModeV1,
   type BankingCanNeverSurfaceKindV1,
 } from "./banking-can-never-be-shell-v1";
 import {
+  pairSemanticLabel,
   renderConclusion,
   renderPremise,
   type TermAssignment,
@@ -52,7 +52,8 @@ export interface BankingCanNeverShellQuestionV2 {
     modalSemanticProfile: "BANKING_EXAM_CAN_NEVER_BE_V1";
     negativeModalConclusionCount: 1;
     definiteConclusionCount: 1;
-    answerPositionPolicy: "EXACT_SEED_MOD_5_BALANCE_V1";
+    answerPositionPolicy: "FIXED_BANK_FIVE_OPTION_TEMPLATE_V2";
+    answerBalancePolicy: "BALANCE_SEMANTIC_QUESTION_TYPES_NOT_OPTION_LABELS_V2";
     selectionPolicy: "ORTHOGONAL_STATUS_POSITION_KIND_GRID_V2";
     sourceEvidenceLevel: "SECONDARY_BANKING_QUESTION_LEVEL";
     legacyQlChanged: false;
@@ -81,6 +82,14 @@ interface SelectedPairV2 {
   status: PairSemanticStatus;
   negative: NegativeCandidateV2;
 }
+
+export const BANKING_CAN_NEVER_FIXED_OPTION_ORDER_V2: readonly PairSemanticStatus[] = Object.freeze([
+  "ONLY_FIRST_FOLLOWS",
+  "ONLY_SECOND_FOLLOWS",
+  "BOTH_FOLLOW",
+  "NEITHER_FOLLOWS",
+  "EITHER_OR_FOLLOWS",
+]);
 
 const TARGET_STATUSES: readonly PairSemanticStatus[] = [
   "ONLY_FIRST_FOLLOWS",
@@ -278,6 +287,19 @@ function renderSelectedConclusion(
   };
 }
 
+function buildFixedBankingPairOptionsV2(
+  status: PairSemanticStatus,
+  locale: SylLocale,
+): readonly GeneratedSylOption[] {
+  return BANKING_CAN_NEVER_FIXED_OPTION_ORDER_V2.map((entry, index) => ({
+    optionId: `OPTION-${index + 1}`,
+    semanticValue: entry,
+    text: pairSemanticLabel(entry, locale),
+    isCorrect: entry === status,
+    errorLabel: entry === status ? null : "WRONG_COMBINATION_LABEL",
+  }));
+}
+
 function semanticExplanation(
   label: "I" | "II",
   conclusion: BankingCanNeverConclusionV1,
@@ -327,7 +349,7 @@ export function generateBankingCanNeverShellV2(
       assignment,
     ),
   ] as const;
-  const options = buildBalancedBankingPairOptionsV1(selected.status, locale, seed);
+  const options = buildFixedBankingPairOptionsV2(selected.status, locale);
   const correctIndexes = options
     .map((entry, index) => entry.isCorrect ? index : -1)
     .filter((index) => index >= 0);
@@ -356,7 +378,8 @@ export function generateBankingCanNeverShellV2(
       modalSemanticProfile: "BANKING_EXAM_CAN_NEVER_BE_V1",
       negativeModalConclusionCount: 1,
       definiteConclusionCount: 1,
-      answerPositionPolicy: "EXACT_SEED_MOD_5_BALANCE_V1",
+      answerPositionPolicy: "FIXED_BANK_FIVE_OPTION_TEMPLATE_V2",
+      answerBalancePolicy: "BALANCE_SEMANTIC_QUESTION_TYPES_NOT_OPTION_LABELS_V2",
       selectionPolicy: "ORTHOGONAL_STATUS_POSITION_KIND_GRID_V2",
       sourceEvidenceLevel: "SECONDARY_BANKING_QUESTION_LEVEL",
       legacyQlChanged: false,
@@ -376,6 +399,8 @@ export const SYL_BANKING_CAN_NEVER_BE_SHELL_V2 = Object.freeze({
   semanticAuthority: "BANKING_EXAM_CAN_NEVER_BE_V1",
   selectionPolicy: "ORTHOGONAL_STATUS_POSITION_KIND_GRID_V2",
   targetGrid: "4 statuses x 2 modal positions x 2 modal kinds",
+  optionPolicy: "FIXED_BANK_FIVE_OPTION_TEMPLATE_V2",
+  answerBalancePolicy: "BALANCE_SEMANTIC_QUESTION_TYPES_NOT_OPTION_LABELS_V2",
   fallbackPermitted: false,
   activationPermitted: false,
 });
