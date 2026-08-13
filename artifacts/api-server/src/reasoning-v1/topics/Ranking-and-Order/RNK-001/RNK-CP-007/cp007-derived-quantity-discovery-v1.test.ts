@@ -33,6 +33,7 @@ let partialOrderQuestions = 0;
 let uniqueValueQuestions = 0;
 let transferStatesWithRepeatedFinalBalance = 0;
 let scaledStatesWithoutOrderVariation = 0;
+let scaledLocalDistractorChecks = 0;
 
 for (const question of questions) {
   answerPositions[question.answerIndex] += 1;
@@ -51,13 +52,30 @@ for (const question of questions) {
     if (new Set(replay).size !== 4) transferStatesWithRepeatedFinalBalance += 1;
     assert.equal(question.reviewMetadata.stateUniqueness, "UNIQUE_VALUES");
     assert.equal(question.reviewMetadata.arithmeticOperationCount, 3);
+    assert.equal(question.reviewMetadata.arithmeticBurden, "LIGHT");
+    assert.ok(/[.!?]$/.test(question.explanation.trim()), `${question.mode}/${question.seed}: incomplete transfer explanation`);
+    if (question.mode === "HIGHEST_BALANCE") assert.ok(question.explanation.endsWith(`${question.answer} has the highest final balance.`));
+    if (question.mode === "LOWEST_BALANCE") assert.ok(question.explanation.endsWith(`${question.answer} has the lowest final balance.`));
+    if (question.mode === "SECOND_HIGHEST_BALANCE") assert.ok(question.explanation.endsWith(`${question.answer} has the second-highest final balance.`));
+    if (question.mode === "TRUE_FINAL_RELATION") assert.ok(question.explanation.includes("Therefore the true statement is:"));
     uniqueValueQuestions += 1;
   } else {
     const state = question.scaledState!;
     const distinctWitnesses = new Set(state.witnessOrders.map((order) => order.join(">")));
     if (distinctWitnesses.size < 2) scaledStatesWithoutOrderVariation += 1;
     assert.ok(distinctWitnesses.size >= 2);
-    for (const order of state.witnessOrders) assert.equal(new Set(order).size, 6);
+    assert.equal(question.reviewMetadata.arithmeticBurden, "MODERATE");
+    assert.equal(question.reviewMetadata.arithmeticOperationCount, 5);
+    for (const symbol of state.roleSymbols) {
+      assert.match(symbol, /^[A-Z]$/, `${question.mode}/${question.seed}: synthetic symbol ${symbol}`);
+    }
+    for (const option of question.options) {
+      assert.match(option, /^[A-Z]$/, `${question.mode}/${question.seed}: non-letter option ${option}`);
+    }
+    for (const order of state.witnessOrders) {
+      assert.equal(new Set(order).size, 6);
+      assert.equal(order.every((symbol) => /^[A-Z]$/.test(symbol)), true);
+    }
 
     const requestedRank = question.mode === "HEAVIEST_OBJECT" ? 1
       : question.mode === "FOURTH_FROM_TOP" ? 4
@@ -65,7 +83,13 @@ for (const question of questions) {
       : 6;
     assert.equal(invariantScaledRankEntity(state, requestedRank), question.answer);
     assert.equal(question.reviewMetadata.stateUniqueness, "PARTIAL_ORDER_WITH_QUERY_INVARIANT");
-    assert.equal(question.reviewMetadata.arithmeticOperationCount, 5);
+
+    const distractors = question.options.filter((option) => option !== question.answer);
+    const localDistractors = distractors.filter((symbol) =>
+      state.witnessOrders.some((order) => Math.abs(order.indexOf(symbol) + 1 - requestedRank) <= 2),
+    );
+    assert.ok(localDistractors.length >= 2, `${question.mode}/${question.seed}: weak rank distractors ${distractors.join(",")}`);
+    scaledLocalDistractorChecks += 1;
     partialOrderQuestions += 1;
   }
 }
@@ -78,6 +102,7 @@ assert.equal(transferStatesWithRepeatedFinalBalance, 0);
 assert.equal(scaledStatesWithoutOrderVariation, 0);
 assert.equal(uniqueValueQuestions, 128);
 assert.equal(partialOrderQuestions, 128);
+assert.equal(scaledLocalDistractorChecks, 128);
 
 // Source-form contract replays.
 const q35Replay = solveRnkCp007TransferState(100, [
@@ -102,6 +127,7 @@ assert.equal(q68Witness2.at(-2), "C");
 
 console.log(JSON.stringify({
   status: "PASS",
+  version: "RNK_CP007_DERIVED_QUANTITY_DISCOVERY_V1_1",
   prototype: "DERIVED_QUANTITY_ORDER",
   questionsChecked: questions.length,
   sourceForms: Object.fromEntries(sourceCounts),
@@ -110,6 +136,7 @@ console.log(JSON.stringify({
   uniqueFingerprints: new Set(questions.map((question) => question.mathematicalFingerprint)).size,
   uniqueValueQuestions,
   partialOrderWithInvariantQueryQuestions: partialOrderQuestions,
+  scaledLocalDistractorChecks,
   sourceFixturesReplayed: ["Q35", "Q68"],
   permanentQlAllocated: false,
 }, null, 2));
