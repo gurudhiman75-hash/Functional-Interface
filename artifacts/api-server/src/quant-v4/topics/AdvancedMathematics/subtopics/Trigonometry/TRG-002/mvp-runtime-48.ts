@@ -1,7 +1,8 @@
 import { TRG_002_RUNTIME_PROOF_IDS, type Trg002ProofQlId } from "./runtime-proof";
 import { generateSolutionDiagramTrg002RuntimeProofQuestion } from "./runtime-proof-solution-diagram";
 import { TRG_002_MVP_48_IDS, type Trg002Mvp48Id } from "./mvp-48-registry";
-import { TRG_002_MVP_CP007_ADDED_IDS, generateTrg002MvpCp007AddedQuestion, type Trg002MvpCp007AddedId } from "./mvp-cp007";
+import { TRG_002_MVP_CP007_A_IDS, generateTrg002MvpCp007AQuestion, type Trg002MvpCp007AId } from "./mvp-cp007-a";
+import { TRG_002_MVP_CP007_B_IDS, generateTrg002MvpCp007BQuestion, type Trg002MvpCp007BId } from "./mvp-cp007-b";
 import { generateTrg002MvpQl024Clean } from "./mvp-ql024-clean";
 import { TRG_002_MVP_CP008_SHADOW_LADDER_IDS, generateTrg002MvpCp008ShadowLadderQuestion, type Trg002MvpCp008ShadowLadderId } from "./mvp-cp008-shadow-ladder";
 import { generateTrg002MvpQl035Clean } from "./mvp-ql035-clean";
@@ -16,7 +17,8 @@ import { generateTrg002MvpQl094Clean } from "./mvp-ql094-clean";
 import { generateTrg002MvpQl095, generateTrg002MvpQl096 } from "./mvp-cp010-composite-a";
 
 const proof = new Set<string>(TRG_002_RUNTIME_PROOF_IDS);
-const c7 = new Set<string>(TRG_002_MVP_CP007_ADDED_IDS);
+const c7a = new Set<string>(TRG_002_MVP_CP007_A_IDS);
+const c7b = new Set<string>(TRG_002_MVP_CP007_B_IDS);
 const c8a = new Set<string>(TRG_002_MVP_CP008_SHADOW_LADDER_IDS);
 const c8b = new Set<string>(TRG_002_MVP_CP008_BROKEN_IDS);
 const c8c = new Set<string>(TRG_002_MVP_CP008_WIRE_IDS);
@@ -31,7 +33,8 @@ export function generateTrg002Mvp48Question(qlId: Trg002Mvp48Id, seed: string) {
   if (qlId === "TRG-002-QL-035") return generateTrg002MvpQl035Clean(seed);
   if (qlId === "TRG-002-QL-038") return generateTrg002MvpQl038Clean(seed);
   if (qlId === "TRG-002-QL-094") return generateTrg002MvpQl094Clean(seed);
-  if (c7.has(qlId)) return generateTrg002MvpCp007AddedQuestion(qlId as Trg002MvpCp007AddedId, seed);
+  if (c7a.has(qlId)) return generateTrg002MvpCp007AQuestion(qlId as Trg002MvpCp007AId, seed);
+  if (c7b.has(qlId)) return generateTrg002MvpCp007BQuestion(qlId as Trg002MvpCp007BId, seed);
   if (c8a.has(qlId)) return generateTrg002MvpCp008ShadowLadderQuestion(qlId as Trg002MvpCp008ShadowLadderId, seed);
   if (c8b.has(qlId)) return generateTrg002MvpCp008BrokenQuestion(qlId as Trg002MvpCp008BrokenId, seed);
   if (c8c.has(qlId)) return generateTrg002MvpCp008WireQuestion(qlId as Trg002MvpCp008WireId, seed);
