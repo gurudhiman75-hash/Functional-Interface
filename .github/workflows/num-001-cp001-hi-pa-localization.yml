@@ -1,0 +1,109 @@
+name: Validate NUM-CP-001 Hindi Punjabi localization
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
+      - .github/workflows/num-001-cp001-hi-pa-localization.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp001-hi-pa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp001-hi-pa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle permanent runtime regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/permanent/runtime-proof.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-hi-pa-english-runtime-regression.test.mjs
+
+      - name: Run permanent runtime regression
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-english-runtime-regression.test.mjs
+
+      - name: Bundle English learner-surface regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/permanent/english-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-hi-pa-english-audit-regression.mjs
+
+      - name: Run English learner-surface regression
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-english-audit-regression.mjs
+
+      - name: Bundle Hindi Punjabi mathematical parity proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/localization/runtime-parity.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-hi-pa-parity.test.mjs
+
+      - name: Run Hindi Punjabi mathematical parity proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-parity.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-parity.log
+
+      - name: Bundle Hindi Punjabi editorial audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/localization/editorial-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-hi-pa-editorial-audit.mjs
+
+      - name: Run Hindi Punjabi editorial audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-editorial-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-editorial-audit.log
+
+      - name: Bundle bilingual review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/localization/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp001-hi-pa-review-export.mjs
+
+      - name: Export bilingual review pack
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-review-export.mjs
+
+      - name: Upload CP001 Hindi Punjabi evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp001-hi-pa-localization
+          path: |
+            artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-parity.log
+            artifacts/api-server/dist/quant-v4/num-001-cp001-hi-pa-editorial-audit.log
+            dist/quant-v4/num-001-cp001-hi-pa-review.json
+            dist/quant-v4/num-001-cp001-hi-pa-review.md
+            dist/quant-v4/num-001-cp001-hi-pa-review.csv
+          if-no-files-found: warn
+          retention-days: 14
