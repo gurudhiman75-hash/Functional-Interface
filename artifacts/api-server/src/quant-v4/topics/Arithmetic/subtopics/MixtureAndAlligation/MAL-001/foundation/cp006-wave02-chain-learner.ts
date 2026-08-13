@@ -5,7 +5,7 @@ import type { MalCp006Wave02LearnerQuestion } from "./cp006-wave02-inverse-learn
 
 export const MAL_CP006_WAVE02_CHAIN_LEARNER_ID = "MAL-CP006-PROT-CHANGED-SOURCE-CHAIN-REMAINING-COMPONENT" as const;
 
-type State = readonly [number, number, number]; // water in B, milk moved A→B, mixture moved B→C
+type State = readonly [number, number, number];
 const STATES: readonly State[] = [
   [30,20,10],[30,60,30],[30,70,20],[30,70,40],
   [30,90,40],[40,60,20],[40,80,30],[50,100,30],
@@ -33,10 +33,10 @@ export function generateMalCp006Wave02ChainLearner(seed: string): MalCp006Wave02
   const shape = (h >>> 5) % 4;
 
   const stems = [
-    `Vessel A contains pure milk, vessel B contains ${waterB} litres of pure water, and vessel C is empty. ${milkMoved} litres of milk is transferred from A to B. After mixing B well, ${secondTransfer} litres of the mixture is transferred from B to C. How many litres of milk remain in B?`,
-    `B initially contains ${waterB} litres of water and C is empty. From vessel A, ${milkMoved} litres of pure milk is added to B. After B is mixed, ${secondTransfer} litres is transferred from B to C. Find the milk left in B.`,
-    `${milkMoved} litres of pure milk is transferred from A into B containing ${waterB} litres of water. The mixture in B is stirred well and ${secondTransfer} litres is then transferred to empty vessel C. What quantity of milk remains in B?`,
-    `A contains pure milk. B has ${waterB} litres of water and C is empty. First, ${milkMoved} litres is transferred from A to B. Then ${secondTransfer} litres of the mixed liquid in B is transferred to C. How much milk is still in B?`,
+    `Vessel A contains pure milk, vessel B contains ${waterB} litres of pure water, and vessel C is empty. ${milkMoved} litres of milk are transferred from A to B. After mixing B well, ${secondTransfer} litres of the mixture are transferred from B to C. How many litres of milk remain in B?`,
+    `B initially contains ${waterB} litres of water and C is empty. From vessel A, ${milkMoved} litres of pure milk are added to B. After B is mixed, ${secondTransfer} litres of the mixture are transferred from B to C. Find the milk left in B.`,
+    `${milkMoved} litres of pure milk are transferred from A into B containing ${waterB} litres of water. The mixture in B is stirred well and ${secondTransfer} litres are then transferred to empty vessel C. What quantity of milk remains in B?`,
+    `A contains pure milk. B has ${waterB} litres of water and C is empty. First, ${milkMoved} litres are transferred from A to B. Then ${secondTransfer} litres of the mixed liquid in B are transferred to C. How much milk is still in B?`,
   ] as const;
 
   const raw = [
@@ -83,7 +83,7 @@ export function generateMalCp006Wave02ChainLearner(seed: string): MalCp006Wave02
       `Milk transferred to C = ${secondTransfer} × ${milkMoved}/${totalB} = ${movedMilk} litres.`,
       `Milk left in B = ${milkMoved} − ${movedMilk} = ${milkLeft} litres.`,
     ],
-    commonMistake: `The ${secondTransfer} litres sent to C is a mixture, not pure milk. Use B's composition after the first transfer.`,
+    commonMistake: `The ${secondTransfer} litres sent to C are a mixture, not pure milk. Use B's composition after the first transfer.`,
     sourceEvidenceIds: ["IBPS-RRB-CLERK-2019-MAINS-CHAIN"],
     validation: { ok: errors.length === 0, errors },
     permanentQlId: null,
