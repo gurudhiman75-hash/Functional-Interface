@@ -1,0 +1,40 @@
+name: Validate SAP E1 Exhaustiveness Remediation
+
+on:
+  pull_request:
+    branches: [audit/sap-exhaustiveness-2026-08]
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP004 E1 authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/e1-authority-v2.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e1-cp004.mjs
+      - name: Run CP004 E1 authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e1-cp004.mjs
+      - name: Bundle CP005 E1 authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-005/e1-authority.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e1-cp005.mjs
+      - name: Run CP005 E1 authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e1-cp005.mjs
+      - name: Bundle CP007 E1 authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-007/e1-authority.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e1-cp007.mjs
+      - name: Run CP007 E1 authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e1-cp007.mjs
+      - name: Bundle CP010 E1 authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/e1-authority.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e1-cp010.mjs
+      - name: Run CP010 E1 authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e1-cp010.mjs
+
+# E1 review workflow runs independently on the same PR head.
