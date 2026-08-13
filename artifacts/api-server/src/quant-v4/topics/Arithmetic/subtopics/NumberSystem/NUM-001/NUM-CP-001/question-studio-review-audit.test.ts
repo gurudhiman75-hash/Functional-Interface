@@ -56,10 +56,7 @@ for (const language of languages) {
       answerPositions.get(language)!.add(question.correctIndex);
       questionIds.add(question.questionId);
 
-      if (
-        question.options.length !== 4
-        || new Set(question.options).size !== 4
-      ) optionViolations += 1;
+      if (question.options.length !== 4 || new Set(question.options).size !== 4) optionViolations += 1;
       if (
         question.options[question.correctIndex] !== question.answer
         || question.canonicalAnswer !== question.answer
@@ -82,15 +79,10 @@ for (const language of languages) {
         || question.testEligibility !== "INELIGIBLE"
       ) reviewLifecycleViolations += 1;
 
-      const learnerText = [
-        question.stem,
-        ...question.options,
-        ...(question.explanation.lines ?? []),
-      ].join("\n");
+      const learnerText = [question.stem, ...question.options, ...(question.explanation.lines ?? [])].join("\n");
       if (internalPattern.test(learnerText)) learnerIdentityLeaks += 1;
       if (language === "hi" && !/[\u0900-\u097F]/u.test(learnerText)) scriptViolations += 1;
       if (language === "pa" && !/[\u0A00-\u0A7F]/u.test(learnerText)) scriptViolations += 1;
-
       if (variant === 1) reviewSamples.push(question);
     }
   }
@@ -118,12 +110,11 @@ assert(numberSystem.questionBankStatus === "NOT_STORED", "capability Question Ba
 assert(numberSystem.testEligibility === "INELIGIBLE", "capability test gate opened");
 assert(numberSystem.publiclyPublishable === false, "capability public gate opened");
 
-const integrationCases = [
+for (const testCase of [
   { language: "en" as const, qlId: "NUM-QL-124" },
   { language: "hi" as const, qlId: "NUM-QL-130" },
   { language: "pa" as const, qlId: "NUM-QL-143" },
-];
-for (const testCase of integrationCases) {
+]) {
   const result = await generateQuestion({
     packageId: "NUM-001",
     canonicalProblemId: "NUM-CP-001",
@@ -148,24 +139,9 @@ for (const testCase of integrationCases) {
   }
 }
 
-const legacyCp003 = await generateQuestion({
-  packageId: "NUM-001",
-  canonicalProblemId: "NUM-CP-003",
-  questionLanguageId: "NUM-QL-001",
-  language: "en",
-  count: 1,
-  seed: "cp001-review-legacy-cp003",
-});
+const legacyCp003 = await generateQuestion({ packageId: "NUM-001", canonicalProblemId: "NUM-CP-003", questionLanguageId: "NUM-QL-001", language: "en", count: 1, seed: "cp001-review-legacy-cp003" });
 assert((legacyCp003.questions[0] as any)?.canonicalProblemId === "NUM-CP-003", "legacy CP003 delegation changed");
-
-const legacyCp004 = await generateQuestion({
-  packageId: "NUM-001",
-  canonicalProblemId: "NUM-CP-004",
-  questionLanguageId: "NUM-QL-018",
-  language: "en",
-  count: 1,
-  seed: "cp001-review-legacy-cp004",
-});
+const legacyCp004 = await generateQuestion({ packageId: "NUM-001", canonicalProblemId: "NUM-CP-004", questionLanguageId: "NUM-QL-018", language: "en", count: 1, seed: "cp001-review-legacy-cp004" });
 assert((legacyCp004.questions[0] as any)?.canonicalProblemId === "NUM-CP-004", "legacy CP004 delegation changed");
 
 let translatedLegacyRejected = 0;
@@ -173,15 +149,25 @@ for (const request of [
   { canonicalProblemId: "NUM-CP-003", questionLanguageId: "NUM-QL-001", language: "hi" },
   { canonicalProblemId: "NUM-CP-004", questionLanguageId: "NUM-QL-018", language: "pa" },
 ]) {
-  try {
-    await generateQuestion({ packageId: "NUM-001", ...request, count: 1 } as any);
-  } catch {
-    translatedLegacyRejected += 1;
-  }
+  try { await generateQuestion({ packageId: "NUM-001", ...request, count: 1 } as any); } catch { translatedLegacyRejected += 1; }
 }
 assert(translatedLegacyRejected === 2, "translated legacy CP request was accepted");
 
-const routePath = resolve(process.cwd(), "src/routes/admin-question-studio-average.ts");
+let conflictingOwnershipRejected = false;
+try {
+  await generateQuestion({
+    packageId: "NUM-001",
+    canonicalProblemId: "NUM-CP-003",
+    questionLanguageId: "NUM-QL-124",
+    language: "en",
+    count: 1,
+  } as any);
+} catch {
+  conflictingOwnershipRejected = true;
+}
+assert(conflictingOwnershipRejected, "conflicting CP/QL ownership was accepted by wrapper");
+
+const routePath = resolve(process.cwd(), "artifacts/api-server/src/routes/admin-question-studio-average.ts");
 const routeSource = readFileSync(routePath, "utf8");
 for (const marker of [
   "question-studio-review-engine",
@@ -189,55 +175,29 @@ for (const marker of [
   "Hindi/Punjabi controlled review is available for NUM-CP-001",
   "'review'::generation_run_status",
   "'unreviewed'::generation_item_status",
-]) {
-  assert(routeSource.includes(marker), `admin route missing guarded-review marker: ${marker}`);
-}
+]) assert(routeSource.includes(marker), `admin route missing guarded-review marker: ${marker}`);
 
-const outDir = resolve(process.cwd(), "dist/quant-v4/num-cp001-question-studio-review");
+const outDir = resolve(process.cwd(), "artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review");
 mkdirSync(outDir, { recursive: true });
 const jsonPath = resolve(outDir, "num-cp001-question-studio-review.json");
 const mdPath = resolve(outDir, "num-cp001-question-studio-review.md");
 const csvPath = resolve(outDir, "num-cp001-question-studio-review.csv");
-
-writeFileSync(jsonPath, JSON.stringify({
-  release: NUM_CP001_QUESTION_STUDIO_REVIEW_RELEASE,
-  directQuestions,
-  reviewSamples,
-}, null, 2));
-
+writeFileSync(jsonPath, JSON.stringify({ release: NUM_CP001_QUESTION_STUDIO_REVIEW_RELEASE, directQuestions, reviewSamples }, null, 2));
 writeFileSync(mdPath, [
-  "# NUM-CP-001 Guarded Question Studio Review",
-  "",
-  `Release: \`${NUM_CP001_QUESTION_STUDIO_REVIEW_RELEASE.releaseId}\``,
-  "",
-  "Lifecycle: Question Studio review enabled; Question Bank writes, tests and public publication remain disabled.",
-  "",
-  `Review samples: ${reviewSamples.length}`,
-  "",
+  "# NUM-CP-001 Guarded Question Studio Review", "",
+  `Release: \`${NUM_CP001_QUESTION_STUDIO_REVIEW_RELEASE.releaseId}\``, "",
+  "Lifecycle: Question Studio review enabled; Question Bank writes, tests and public publication remain disabled.", "",
+  `Review samples: ${reviewSamples.length}`, "",
   ...reviewSamples.flatMap((question) => [
-    `## ${question.language} · ${question.questionLanguageId} · ${question.difficulty}`,
-    "",
-    question.stem,
-    "",
+    `## ${question.language} · ${question.questionLanguageId} · ${question.difficulty}`, "", question.stem, "",
     ...question.options.map((option: string, index: number) => `${String.fromCharCode(65 + index)}. ${option}${index === question.correctIndex ? " ✓" : ""}`),
-    "",
-    ...question.explanation.lines,
-    "",
+    "", ...question.explanation.lines, "",
   ]),
 ].join("\n"));
-
 const csvCell = (value: unknown) => `"${String(value ?? "").replace(/"/g, '""')}"`;
 writeFileSync(csvPath, [
   ["language", "qlId", "difficulty", "stem", "optionA", "optionB", "optionC", "optionD", "correctIndex", "answer"].map(csvCell).join(","),
-  ...reviewSamples.map((question) => [
-    question.language,
-    question.questionLanguageId,
-    question.difficulty,
-    question.stem,
-    ...question.options,
-    question.correctIndex,
-    question.answer,
-  ].map(csvCell).join(",")),
+  ...reviewSamples.map((question) => [question.language, question.questionLanguageId, question.difficulty, question.stem, ...question.options, question.correctIndex, question.answer].map(csvCell).join(",")),
 ].join("\n"));
 
 console.log(JSON.stringify({
@@ -255,6 +215,7 @@ console.log(JSON.stringify({
   learnerIdentityLeaks,
   scriptViolations,
   translatedLegacyRejected,
+  conflictingOwnershipRejected,
   questionStudioDiscoverable: true,
   questionBankWritable: false,
   testEligible: false,
