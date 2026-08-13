@@ -5,19 +5,26 @@ function local(language: TmwLanguage, en: string, hi: string, pa: string): strin
 }
 
 function polishTerms(value: string, language: TmwLanguage): string {
+  let polished = value;
+  if (language === "en") {
+    polished = polished
+      .replace("Statement I candidate set:", "Possible target values from Statement I:")
+      .replace("Statement II candidate set:", "Possible target values from Statement II:")
+      .replace("Together the candidate set is", "Using both statements, the possible target values are");
+  }
   if (language === "hi") {
-    return value
+    polished = polished
       .replace(/\binlet\b/gi, "इनलेट")
       .replace(/\bleak\b/gi, "रिसाव")
       .replace(/\bnet\b/gi, "शुद्ध");
   }
   if (language === "pa") {
-    return value
+    polished = polished
       .replace(/\binlet\b/gi, "ਇਨਲੈੱਟ")
       .replace(/\bleak\b/gi, "ਰਿਸਾਅ")
       .replace(/\bnet\b/gi, "ਸ਼ੁੱਧ");
   }
-  return value;
+  return polished;
 }
 
 function mapStrings(values: readonly string[], language: TmwLanguage): string[] {
