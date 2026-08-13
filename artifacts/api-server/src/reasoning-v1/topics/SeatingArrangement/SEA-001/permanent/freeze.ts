@@ -67,7 +67,7 @@ export const SEA001_PERMANENT_INACTIVE_LIFECYCLE = Object.freeze({
   queryMixStatus: "FROZEN" as const,
   englishFreezeStatus: "FROZEN" as const,
   permanentQlCount: 20 as const,
-  localizationStatus: "NOT_STARTED" as const,
+  localizationStatus: "FOUNDATION_READY_TRANSLATION_PENDING" as const,
   questionStudioRegistered: false as const,
   questionBankWritable: false as const,
   testEligible: false as const,
