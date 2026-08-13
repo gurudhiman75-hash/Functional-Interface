@@ -37,6 +37,10 @@ for (const prototypeId of MAL_CP006_WAVE01_V2_RETAINED_PROTOTYPE_IDS) {
       `${seed}: technical/plural transfer grammar survived.`,
     );
     assert(
+      !/What is the final [a-z]+\s*:\s*[a-z]+ ratio/iu.test(question.stem),
+      `${seed}: colon-style ratio wording survived in prose.`,
+    );
+    assert(
       !/\ba (?:acid|alcohol)-water\b/iu.test(learnerText),
       `${seed}: article error survived.`,
     );
