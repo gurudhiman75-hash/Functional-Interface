@@ -13,12 +13,14 @@ export const NUM_CP001_PERMANENT_QL_IDS = [
 
 export type NumCp001PermanentQlId = (typeof NUM_CP001_PERMANENT_QL_IDS)[number];
 export type NumCp001PermanentQlTemplateId = `NUM-CP001-QLC-${string}`;
+export type NumCp001PermanentSolveModeId = `NUM-CP001-SM-${string}`;
 
 export interface NumCp001PermanentAllocationEntry {
   readonly qlId: NumCp001PermanentQlId;
   readonly packageId: "NUM-001";
   readonly cpId: "NUM-CP-001";
   readonly qlTemplateId: NumCp001PermanentQlTemplateId;
+  readonly solveModeId: NumCp001PermanentSolveModeId;
   readonly proposalId: (typeof NUM_CP001_PROPOSED_AUTHORITIES)[number]["proposalId"];
   readonly title: string;
   readonly prototypeIds: readonly string[];
@@ -26,13 +28,14 @@ export interface NumCp001PermanentAllocationEntry {
   readonly mergeDisposition: "RETAIN" | "MERGE_AS_PARAMETERS";
   readonly sourceEvidence: readonly string[];
   readonly difficultyPolicy: "STATE_DERIVED";
-  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_PERMANENT_ALLOCATION";
+  readonly language: "en";
+  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION";
   readonly permanentIdentityFrozen: true;
-  readonly solveModeFrozen: false;
-  readonly englishImplementationFrozen: false;
+  readonly solveModeFrozen: true;
+  readonly englishImplementationFrozen: true;
   readonly active: false;
-  readonly maturity: "PERMANENT_ALLOCATION_APPROVED";
-  readonly reviewStatus: "ENGLISH_IMPLEMENTATION_PENDING";
+  readonly maturity: "ENGLISH_IMPLEMENTATION_FROZEN";
+  readonly reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED";
   readonly publiclyPublishable: false;
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
@@ -75,6 +78,7 @@ export const NUM_CP001_PERMANENT_ALLOCATION = NUM_CP001_PROPOSED_AUTHORITIES.map
   packageId: "NUM-001" as const,
   cpId: "NUM-CP-001" as const,
   qlTemplateId: `NUM-CP001-QLC-${QL_TEMPLATE_CODES[index]!}` as NumCp001PermanentQlTemplateId,
+  solveModeId: `NUM-CP001-SM-${String(index + 1).padStart(3, "0")}` as NumCp001PermanentSolveModeId,
   proposalId: authority.proposalId,
   title: authority.title,
   prototypeIds: authority.prototypeIds,
@@ -85,16 +89,18 @@ export const NUM_CP001_PERMANENT_ALLOCATION = NUM_CP001_PROPOSED_AUTHORITIES.map
     "NUM-CP-001-WAVE-05-MERGE-SPLIT-AUDIT",
     "PR-750-MERGED-75ab2ec665278b3979c92120c8d58cb34242870f",
     "PRODUCT-OWNER-21-AUTHORITY-APPROVAL-2026-08-13",
+    "NUM-CP-001-PERMANENT-ENGLISH-FREEZE",
     ...authority.prototypeIds,
   ],
   difficultyPolicy: "STATE_DERIVED" as const,
-  allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_PERMANENT_ALLOCATION" as const,
+  language: "en" as const,
+  allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION" as const,
   permanentIdentityFrozen: true as const,
-  solveModeFrozen: false as const,
-  englishImplementationFrozen: false as const,
+  solveModeFrozen: true as const,
+  englishImplementationFrozen: true as const,
   active: false as const,
-  maturity: "PERMANENT_ALLOCATION_APPROVED" as const,
-  reviewStatus: "ENGLISH_IMPLEMENTATION_PENDING" as const,
+  maturity: "ENGLISH_IMPLEMENTATION_FROZEN" as const,
+  reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED" as const,
   publiclyPublishable: false as const,
   questionStudioDiscoverable: false as const,
   questionBankWritable: false as const,
