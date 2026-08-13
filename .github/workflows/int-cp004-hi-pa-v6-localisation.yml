@@ -60,33 +60,47 @@ jobs:
           cd artifacts/api-server
           node dist/quant-v4/int-001-cp004-localization-v6-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localization-v6-audit.log
 
-      - name: Bundle native editorial V3 audit
+      - name: Bundle native editorial V3 regression audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localization-v6-native-v3-audit.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-001-cp004-localization-v6-native-v3-audit.mjs
 
-      - name: Run native editorial V3 audit
+      - name: Run native editorial V3 regression audit
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/int-001-cp004-localization-v6-native-v3-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localization-v6-native-v3-audit.log
 
-      - name: Bundle native V3 review exporter
+      - name: Bundle approved native editorial V4 audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localization-v6-native-v3-review-export.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localization-v6-native-v4-audit.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/int-001-cp004-localization-v6-native-v3-review-export.mjs
+          --outfile=dist/quant-v4/int-001-cp004-localization-v6-native-v4-audit.mjs
 
-      - name: Export polished Hindi Punjabi V3 review packs
+      - name: Run approved native editorial V4 audit
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/quant-v4/int-001-cp004-localization-v6-native-v3-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localization-v6-native-v3-review-export.log
+          node dist/quant-v4/int-001-cp004-localization-v6-native-v4-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localization-v6-native-v4-audit.log
+
+      - name: Bundle approved native V4 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localization-v6-native-v4-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localization-v6-native-v4-review-export.mjs
+
+      - name: Export approved Hindi Punjabi V4 review packs
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localization-v6-native-v4-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localization-v6-native-v4-review-export.log
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -95,41 +109,46 @@ jobs:
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
           parity=artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-localization/int-cp004-hi-pa-v6-localization-audit.json
-          editorial=artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v3/int-cp004-hi-pa-v6-native-v3-audit.json
-          review=artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v3-review/int-cp004-hi-pa-v6-native-v3-review-summary.json
+          editorial=artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v4/int-cp004-hi-pa-v6-native-v4-audit.json
+          review=artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v4-review/int-cp004-hi-pa-v6-native-v4-review-summary.json
 
           grep -q 'PASS_INT_CP004_APPROVED_ENGLISH_FREEZE_V2' artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
           grep -q 'PASS_INT_CP004_HI_PA_V6_LOCALIZATION' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-audit.log
           grep -q 'PASS_INT_CP004_HI_PA_V6_NATIVE_V3' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v3-audit.log
-          grep -q 'PASS_INT_CP004_HI_PA_V6_NATIVE_V3_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v3-review-export.log
+          grep -q 'PASS_INT_CP004_HI_PA_V6_NATIVE_V4' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v4-audit.log
+          grep -q 'PASS_INT_CP004_HI_PA_V6_NATIVE_V4_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v4-review-export.log
           test -f "$parity"
           test -f "$editorial"
           test -f "$review"
-          test -f artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v3-review/INT-CP-004-Hindi-V6-Native-V3-Review.md
-          test -f artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v3-review/INT-CP-004-Punjabi-V6-Native-V3-Review.md
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v4-review/INT-CP-004-Hindi-V6-Native-V4-Review.md
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v4-review/INT-CP-004-Punjabi-V6-Native-V4-Review.md
           grep -q '"bilingualQuestions": 3800' "$parity"
-          grep -q '"formulaChecks": 3800' "$parity"
           grep -q '"questions": 3800' "$editorial"
-          grep -q '"naturalnessChecks": 3800' "$editorial"
-          grep -q '"formulaChecks": 3800' "$editorial"
-          grep -q '"calculationChecks": 3800' "$editorial"
-          grep -q '"reviewStatus": "LOCALIZED_REVIEW_REQUIRED"' "$editorial"
+          grep -q '"termChecks": 3800' "$editorial"
+          grep -q '"latexFormulaChecks": 3800' "$editorial"
+          grep -q '"latexCalculationChecks": 3800' "$editorial"
+          grep -q '"stemReadabilityChecks": 3800' "$editorial"
+          grep -q '"PunjabiCompoundInterest": "ਮਿਸ਼ਰਤ ਵਿਆਜ"' "$editorial"
           grep -q '"questions": 76' "$review"
           grep -q '"proseQuestions": 66' "$review"
           grep -q '"tableQuestions": 10' "$review"
           grep -q '"formulaFirst": 76' "$review"
+          grep -q '"latexFormula": 76' "$review"
+          grep -q '"directStems": 0' "$review"
+          grep -q '"rejectedPunjabiTerms": 0' "$review"
 
-      - name: Upload Hindi Punjabi V6 migration evidence
+      - name: Upload Hindi Punjabi V6 V4 migration evidence
         uses: actions/upload-artifact@v4
         with:
-          name: int-cp004-hi-pa-v6-native-v3-review
+          name: int-cp004-hi-pa-v6-native-v4-review
           path: |
             artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v3-audit.log
-            artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v3-review-export.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v4-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v4-review-export.log
             artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-localization/**
-            artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v3/**
-            artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v3-review/**
+            artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v4/**
+            artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v4-review/**
           if-no-files-found: error
           retention-days: 30
