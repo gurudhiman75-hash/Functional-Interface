@@ -16,8 +16,21 @@ function numericTokens(value: string): string[] {
   return (value.match(/-?\d+(?:\.\d+)?(?:\/\d+)?/g) ?? []).sort();
 }
 
-function comparableNumbers(question: ReturnType<typeof runTmw001ChapterPipeline>): string[] {
-  return numericTokens([question.stem, ...question.options].join(" "));
+function stemMagnitudeTokens(value: string): string[] {
+  return numericTokens(value).map((token) => token.startsWith("-") ? token.slice(1) : token).sort();
+}
+
+function comparableNumbers(question: ReturnType<typeof runTmw001ChapterPipeline>): {
+  stemMagnitudes: string[];
+  optionValues: string[];
+} {
+  return {
+    // Localized prose may encode direction lexically (for example, "decreases by 3")
+    // while English source prose can expose the same parameter as -3. Compare stem
+    // magnitudes, but keep signs exact in options so answer-sign regressions still fail.
+    stemMagnitudes: stemMagnitudeTokens(question.stem),
+    optionValues: numericTokens(question.options.join(" ")),
+  };
 }
 
 function learnerText(question: ReturnType<typeof runTmw001ChapterPipeline>): string {
