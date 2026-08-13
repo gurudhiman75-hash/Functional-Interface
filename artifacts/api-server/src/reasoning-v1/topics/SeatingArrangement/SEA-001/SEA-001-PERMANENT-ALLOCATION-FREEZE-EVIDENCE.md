@@ -81,13 +81,17 @@ Signed English review:         APPROVED — 100/100 ACCEPT
 Solve-inventory freeze:        FROZEN
 Query-mix freeze:              FROZEN
 English freeze:                FROZEN
-Localization:                  NOT_STARTED
+Localization foundation:       READY
+Hindi translation/review:      PENDING
+Punjabi translation/review:    PENDING
 Question Studio registration:  false
 Question Bank writes:          false
 Mock-test eligibility:         false
 Public publication:            false
 ```
 
-This is a **permanent-but-inactive** freeze. Allocation/freeze does not authorize activation. Localization and downstream activation/publication remain separate gates.
+The localization foundation is documented separately in `SEA-001-LOCALIZATION-READINESS-EVIDENCE.md`; it does not modify the English freeze and does not claim multilingual approval.
+
+This is a **permanent-but-inactive** freeze. Allocation/freeze and localization readiness do not authorize activation. Downstream multilingual review and activation/publication remain separate gates.
 
 The PR must remain draft/unmerged unless an explicit later instruction changes that state.
