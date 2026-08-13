@@ -99,6 +99,27 @@ jobs:
       - name: Prove Hindi/Punjabi review-candidate semantic parity and language safety
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-candidate-proof.test.ts
 
+  localized-review-artifact:
+    needs: localized-review-candidate
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generate Hindi/Punjabi side-by-side human-review packs
+        env:
+          SEA_001_LOCALIZED_REVIEW_OUTPUT_DIR: /tmp/sea-001-localized-review
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-export.ts
+      - name: Upload SEA-001 Hindi/Punjabi review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-001-hi-pa-review-200
+          path: /tmp/sea-001-localized-review/**
+          if-no-files-found: error
+          retention-days: 21
+
   teaching-explanations:
     runs-on: ubuntu-latest
     timeout-minutes: 20
