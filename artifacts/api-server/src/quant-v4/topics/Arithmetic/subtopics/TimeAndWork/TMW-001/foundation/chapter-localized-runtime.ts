@@ -81,10 +81,64 @@ function finishCp009(question: any, language: Tmw001ChapterLanguage): any {
   return finalizeTmwCp009MultilingualEditorialReview(question, language);
 }
 
+function translateCp010CycleLabel(value: string, language: TmwLocalizedLanguage): string {
+  if (language === "hi") {
+    return value
+      .replace(/Dual-pump/gi, "दो-पंप")
+      .replace(/Single-pump/gi, "एक-पंप")
+      .replace(/Pump-on/gi, "पंप-चालू")
+      .replace(/Pump-off/gi, "पंप-बंद")
+      .replace(/Recovery inlet/gi, "पुनः भराव")
+      .replace(/Fast inlet/gi, "तेज़ भराव")
+      .replace(/Slow inlet/gi, "धीमा भराव")
+      .replace(/Inlet ([A-Z])/gi, "भराव पाइप $1")
+      .replace(/Outlet ([A-Z])/gi, "निकासी पाइप $1")
+      .replace(/Drainage/gi, "निकासी")
+      .replace(/Drain/gi, "निकासी")
+      .replace(/Inlet/gi, "भराव")
+      .replace(/Outlet/gi, "निकासी")
+      .replace(/interval/gi, "अंतराल")
+      .replace(/shift/gi, "पाली")
+      .replace(/hour/gi, "घंटा")
+      .replace(/check/gi, "जाँच");
+  }
+  return value
+    .replace(/Dual-pump/gi, "ਦੋ-ਪੰਪ")
+    .replace(/Single-pump/gi, "ਇੱਕ-ਪੰਪ")
+    .replace(/Pump-on/gi, "ਪੰਪ-ਚਾਲੂ")
+    .replace(/Pump-off/gi, "ਪੰਪ-ਬੰਦ")
+    .replace(/Recovery inlet/gi, "ਮੁੜ ਭਰਾਵ")
+    .replace(/Fast inlet/gi, "ਤੇਜ਼ ਭਰਾਵ")
+    .replace(/Slow inlet/gi, "ਹੌਲਾ ਭਰਾਵ")
+    .replace(/Inlet ([A-Z])/gi, "ਭਰਾਵ ਪਾਈਪ $1")
+    .replace(/Outlet ([A-Z])/gi, "ਨਿਕਾਸੀ ਪਾਈਪ $1")
+    .replace(/Drainage/gi, "ਨਿਕਾਸੀ")
+    .replace(/Drain/gi, "ਨਿਕਾਸੀ")
+    .replace(/Inlet/gi, "ਭਰਾਵ")
+    .replace(/Outlet/gi, "ਨਿਕਾਸੀ")
+    .replace(/interval/gi, "ਅੰਤਰਾਲ")
+    .replace(/shift/gi, "ਵਾਰੀ")
+    .replace(/hour/gi, "ਘੰਟਾ")
+    .replace(/check/gi, "ਜਾਂਚ");
+}
+
+function normalizeCp010CycleLabels(question: any, language: Tmw001ChapterLanguage): any {
+  if (language === "en" || question?.canonicalProblemId !== "TMW-CP-010") return question;
+  const mapLine = (line: string): string => translateCp010CycleLabel(line, language);
+  const learner = question.learnerExplanation
+    ? { ...question.learnerExplanation, solution: question.learnerExplanation.solution.map(mapLine) }
+    : question.learnerExplanation;
+  const explanation = question.explanation
+    ? { ...question.explanation, steps: question.explanation.steps.map(mapLine) }
+    : question.explanation;
+  return { ...question, learnerExplanation: learner, explanation };
+}
+
 function finishCp010(question: any, language: Tmw001ChapterLanguage): any {
   const reviewed = finalizeTmwCp010MultilingualEditorialReview(question, language);
   const polished = polishTmwCp010EditorialReview(reviewed, language);
-  return finalizeTmwCp010CorpusCleanup(polished, language);
+  const cleaned = finalizeTmwCp010CorpusCleanup(polished, language);
+  return normalizeCp010CycleLabels(cleaned, language);
 }
 
 function finishEnglish(question: any, questionLanguageId: string): any {
