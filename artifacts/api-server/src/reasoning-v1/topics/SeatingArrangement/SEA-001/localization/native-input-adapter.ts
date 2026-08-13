@@ -17,14 +17,21 @@ const WORD_ORDINALS: Readonly<Record<string, string>> = Object.freeze({
   tenth: "10th",
 });
 
+const WORD_ORDINAL_PATTERN = "first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth";
+
 function normalizeNativeClueInput(clue: string): string {
   let normalized = clue.startsWith("Exactly 1 person sits between ")
     ? clue.replace("Exactly 1 person sits between ", "Exactly 1 persons sit between ")
     : clue;
 
   normalized = normalized.replace(
-    / sits (first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth) to the (left|right) of /,
+    new RegExp(` sits (${WORD_ORDINAL_PATTERN}) to the (left|right) of `),
     (_match, ordinal: string, side: string) => ` sits ${WORD_ORDINALS[ordinal]} to the ${side} of `,
+  );
+
+  normalized = normalized.replace(
+    new RegExp(` sits (${WORD_ORDINAL_PATTERN}) (clockwise|anticlockwise) from `),
+    (_match, ordinal: string, direction: string) => ` sits ${WORD_ORDINALS[ordinal]} ${direction} from `,
   );
 
   return normalized;
