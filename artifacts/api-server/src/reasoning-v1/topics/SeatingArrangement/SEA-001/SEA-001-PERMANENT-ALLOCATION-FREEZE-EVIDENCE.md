@@ -32,7 +32,7 @@ Accordingly, permanent identities are allocated one-to-one, in authority order:
 
 The next unused permanent identity is `SEA-QL-021`.
 
-The registry is implemented in `permanent/registry.ts`. Historical discovery generators and provisional lifecycle records are intentionally not rewritten; the permanent registry is a separate inactive layer so the approved discovery/review evidence remains reproducible.
+The registry is implemented in `permanent/registry.ts`. Historical discovery generators and their embedded lifecycle records are intentionally not rewritten; the permanent registry is a separate inactive layer so the approved discovery/review evidence remains reproducible.
 
 ## Solve-inventory freeze
 
@@ -66,8 +66,9 @@ English is frozen for the approved `en-IN` student-facing presentation:
 - clue-by-clue coaching solution;
 - question-specific correct-answer explanation;
 - student-friendly wrong-option explanation;
-- diagrams remain review/explanation evidence where supplied by the rendering layer;
 - signed approval fingerprint is part of the freeze authority.
+
+The diagram-enhanced HTML used in manual review is reviewer evidence. Native Question Studio/runtime diagram support is **not** activated by this freeze and remains a separate downstream product-integration concern.
 
 Any generated-content or teaching-explanation change that changes a reviewed fingerprint invalidates the signed review rather than silently inheriting the freeze.
 
