@@ -1,0 +1,53 @@
+name: Validate MAL-CP-006 Wave 02 source saturation
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-wave02-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-source-fixtures-wave02.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave02-source-saturation-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/MAL-CP-006/MAL-CP-006-WAVE-02-SOURCE-SATURATION.md"
+      - ".github/workflows/mal-cp006-wave02-source-saturation.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-mal-cp006-wave02:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 02 audit
+        run: >
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave02-source-saturation-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp006-wave02-source-saturation-audit.mjs
+
+      - name: Run Wave 02 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp006-wave02-source-saturation-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp006-wave02-source-saturation-audit.log
+
+      - name: Upload Wave 02 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp006-wave02-source-saturation
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp006-wave02-source-saturation-audit.log
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/MAL-CP-006/MAL-CP-006-WAVE-02-SOURCE-SATURATION.md
+          if-no-files-found: error
+          retention-days: 14
