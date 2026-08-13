@@ -1,0 +1,58 @@
+name: Validate SYL-001 Banking source coverage V5
+on:
+  pull_request:
+    branches:
+      - prototype/syl-001-bank-possibility-shell
+      - audit/syl-001-source-profile-freeze
+      - feat/syl-001-learner-v4
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/banking-source-profile-v3.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/banking-source-profile-v4.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v5.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-BANKING-SOURCE-EVIDENCE-V3.md
+      - .github/workflows/reasoning-syl-001-bank-source-v5.yml
+permissions:
+  contents: read
+jobs:
+  validate-source-v5:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle source coverage
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/banking-source-profile-v4.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-source-v4.mjs
+      - name: Bundle freeze readiness
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v5.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-freeze-v5.mjs
+      - name: Audit source and freeze boundary
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE' | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-source-v5-audit.log
+          import assert from 'node:assert/strict';
+          const s = await import('./artifacts/api-server/dist/reasoning-v1/syl-001-bank-source-v4.mjs');
+          const f = await import('./artifacts/api-server/dist/reasoning-v1/syl-001-freeze-v5.mjs');
+          const p = s.SYL_BANKING_COVERAGE_POLICY_V4;
+          assert.equal(p.evidenceItemCount, 9);
+          assert.equal(Object.keys(p.familyEvidenceCounts).length, 5);
+          assert.ok(Object.values(p.familyEvidenceCounts).every((n) => n > 0));
+          assert.equal(p.sourceMixFrozen, false);
+          assert.equal(p.exactHistoricalFrequencyClaimPermitted, false);
+          assert.equal(p.prototypeGenerationCountsAreFrequencyEvidence, false);
+          assert.deepEqual(f.SYL_FREEZE_READINESS_V5.counts, { MET: 4, PARTIAL: 4, BLOCKED: 3 });
+          assert.equal(f.SYL_FREEZE_READINESS_V5.bankingFamilySourceCoverageClosed, true);
+          assert.equal(f.SYL_FREEZE_READINESS_V5.bankingExactWeightingFrozen, false);
+          assert.equal(f.SYL_FREEZE_READINESS_V5.profileActivationPermitted, false);
+          console.log(JSON.stringify({status:'PASS_SYL_001_BANK_SOURCE_V5', evidenceItems:p.evidenceItemCount, familyEvidenceCounts:p.familyEvidenceCounts, familyPolicy:p.familyPolicy, freezeCounts:f.SYL_FREEZE_READINESS_V5.counts, exactWeightingFrozen:false, activationPermitted:false}, null, 2));
+          NODE
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: syl-001-bank-source-v5
+          path: artifacts/api-server/dist/reasoning-v1/syl-001-bank-source-v5-audit.log
+          retention-days: 30
