@@ -24,7 +24,16 @@ assert.ok(
     (entry) => entry.correctOption === entry.options[entry.correctIndex],
   ),
 );
-assert.ok(rows.every((entry) => entry.explanation.length >= 100));
+assert.ok(rows.every((entry) => entry.explanation.length >= 70));
+assert.ok(rows.every((entry) => entry.explanation.length <= 300));
+assert.ok(
+  rows.every(
+    (entry) =>
+      !/\b(?:endpoint|model|formally|solver|strict parts|strongest definite relation|carry|carries)\b/i.test(
+        entry.explanation,
+      ),
+  ),
+);
 const reconstructionRows = rows.filter(
   (entry) => entry.authorityId === "RECONSTRUCT_MISSING_RELATION",
 );

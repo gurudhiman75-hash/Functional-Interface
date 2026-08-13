@@ -21,7 +21,7 @@ CP-008 is ready for manual English prototype review with restricted authority-le
 - Statement-set answers compare the exact strongest relation, preventing a strict relation from being mistaken for the requested inclusive relation.
 - Every question has four unique options and one correct answer.
 - Bare one-symbol options are rendered as inline code so Markdown cannot hide them.
-- Explanations state the decisive reasoning in one short paragraph without option-by-option clutter.
+- Explanations use short sentences, show the combined chain directly, and reject internal terms such as “endpoint,” “model,” and “strongest definite relation.”
 - Twelve object sets and balanced answer positions prevent thin-surface repetition.
 
 ## Deferred ownership

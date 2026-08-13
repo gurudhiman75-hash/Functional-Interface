@@ -20,7 +20,7 @@
     ],
     "correctIndex": 2,
     "correctOption": ">",
-    "explanation": "The blank is written from R to S, so it must be >. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly P > T.",
+    "explanation": "Put > in the blank. The full chain becomes P ≥ Q = R > S = T. Therefore, P > T.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -47,7 +47,7 @@
     ],
     "correctIndex": 0,
     "correctOption": ">",
-    "explanation": "The blank is written in the reverse direction, H to F. Therefore, it must be >, which is equivalent to F < H. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly A < K.",
+    "explanation": "We need F < H, but the blank is written as H ___ F. So use >. The full chain becomes A ≤ D = F < H = K. Therefore, A < K.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -74,7 +74,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "=",
-    "explanation": "The blank is written from O to U, so it must be =. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly M = V.",
+    "explanation": "Put = in the blank. The full chain becomes M = N = O = U = V. Therefore, M = V.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -101,7 +101,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "≤",
-    "explanation": "The blank is written in the reverse direction, J to G. Therefore, it must be ≤, which is equivalent to G ≥ J. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly B ≥ L.",
+    "explanation": "We need G ≥ J, but the blank is written as J ___ G. So use ≤. The full chain becomes B = C = G ≥ J = L. Therefore, B ≥ L.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -128,7 +128,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "≤",
-    "explanation": "The blank is written from Y to Z, so it must be ≤. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly W ≤ E.",
+    "explanation": "Put ≤ in the blank. The full chain becomes W = X = Y ≤ Z = E. Therefore, W ≤ E.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -155,7 +155,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "<",
-    "explanation": "The blank is written in the reverse direction, N to K. Therefore, it must be <, which is equivalent to K > N. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly G > R.",
+    "explanation": "We need K > N, but the blank is written as N ___ K. So use <. The full chain becomes G ≥ I = K > N = R. Therefore, G > R.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -182,7 +182,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "<",
-    "explanation": "The blank is written from H to M, so it must be <. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly C < T.",
+    "explanation": "Put < in the blank. The full chain becomes C ≤ E = H < M = T. Therefore, C < T.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -209,7 +209,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "=",
-    "explanation": "The blank is written in the reverse direction, V to P. Therefore, it must be =, which is equivalent to P = V. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly D = Y.",
+    "explanation": "We need P = V, but the blank is written as V ___ P. So use =. The full chain becomes D = J = P = V = Y. Therefore, D = Y.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -236,7 +236,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "≥",
-    "explanation": "The blank is written from Q to S, so it must be ≥. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly F ≥ W.",
+    "explanation": "Put ≥ in the blank. The full chain becomes F = L = Q ≥ S = W. Therefore, F ≥ W.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -263,7 +263,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "≥",
-    "explanation": "The blank is written in the reverse direction, R to O. Therefore, it must be ≥, which is equivalent to O ≤ R. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly B ≤ U.",
+    "explanation": "We need O ≤ R, but the blank is written as R ___ O. So use ≥. The full chain becomes B = I = O ≤ R = U. Therefore, B ≤ U.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -290,7 +290,7 @@
     ],
     "correctIndex": 1,
     "correctOption": ">",
-    "explanation": "The blank is written from M to X, so it must be >. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly A > Z.",
+    "explanation": "Put > in the blank. The full chain becomes A ≥ G = M > X = Z. Therefore, A > Z.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -317,7 +317,7 @@
     ],
     "correctIndex": 0,
     "correctOption": ">",
-    "explanation": "The blank is written in the reverse direction, T to N. Therefore, it must be >, which is equivalent to N < T. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly E < V.",
+    "explanation": "We need N < T, but the blank is written as T ___ N. So use >. The full chain becomes E ≤ K = N < T = V. Therefore, E < V.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -344,7 +344,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "P > Q",
-    "explanation": "P ≥ Q allows the two values either to be equal or to differ in the stated direction. Therefore, P > Q can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "explanation": "P ≥ Q means P may be greater than Q, or the two may be equal. So P > Q can be true, but it is not certain. That is why this is the correct option.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "AGG-INE-005",
@@ -372,7 +372,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "A < D",
-    "explanation": "A ≤ D allows the two values either to be equal or to differ in the stated direction. Therefore, A < D can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "explanation": "A ≤ D means A may be less than D, or the two may be equal. So A < D can be true, but it is not certain. That is why this is the correct option.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "AGG-INE-005",
@@ -400,7 +400,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "M = N",
-    "explanation": "M ≥ N allows the two values either to be equal or to differ in the stated direction. Therefore, M = N can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "explanation": "M ≥ N means M may be greater than N, or the two may be equal. So M = N can be true, but it is not certain. That is why this is the correct option.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "AGG-INE-005",
@@ -428,7 +428,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "B = C",
-    "explanation": "B ≤ C allows the two values either to be equal or to differ in the stated direction. Therefore, B = C can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "explanation": "B ≤ C means B may be less than C, or the two may be equal. So B = C can be true, but it is not certain. That is why this is the correct option.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "AGG-INE-005",
@@ -456,7 +456,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "W > X",
-    "explanation": "W ≥ X allows the two values either to be equal or to differ in the stated direction. Therefore, W > X can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "explanation": "W ≥ X means W may be greater than X, or the two may be equal. So W > X can be true, but it is not certain. That is why this is the correct option.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "AGG-INE-005",
@@ -484,7 +484,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "G < I",
-    "explanation": "G ≤ I allows the two values either to be equal or to differ in the stated direction. Therefore, G < I can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "explanation": "G ≤ I means G may be less than I, or the two may be equal. So G < I can be true, but it is not certain. That is why this is the correct option.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "AGG-INE-005",
@@ -512,7 +512,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "C = E",
-    "explanation": "C ≥ E allows the two values either to be equal or to differ in the stated direction. Therefore, C = E can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "explanation": "C ≥ E means C may be greater than E, or the two may be equal. So C = E can be true, but it is not certain. That is why this is the correct option.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "AGG-INE-005",
@@ -540,7 +540,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "D = J",
-    "explanation": "D ≤ J allows the two values either to be equal or to differ in the stated direction. Therefore, D = J can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "explanation": "D ≤ J means D may be less than J, or the two may be equal. So D = J can be true, but it is not certain. That is why this is the correct option.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "AGG-INE-005",
@@ -568,7 +568,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "F > L",
-    "explanation": "F ≥ L allows the two values either to be equal or to differ in the stated direction. Therefore, F > L can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "explanation": "F ≥ L means F may be greater than L, or the two may be equal. So F > L can be true, but it is not certain. That is why this is the correct option.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "AGG-INE-005",
@@ -596,7 +596,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "B < I",
-    "explanation": "B ≤ I allows the two values either to be equal or to differ in the stated direction. Therefore, B < I can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "explanation": "B ≤ I means B may be less than I, or the two may be equal. So B < I can be true, but it is not certain. That is why this is the correct option.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "AGG-INE-005",
@@ -624,7 +624,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "A = G",
-    "explanation": "A ≥ G allows the two values either to be equal or to differ in the stated direction. Therefore, A = G can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "explanation": "A ≥ G means A may be greater than G, or the two may be equal. So A = G can be true, but it is not certain. That is why this is the correct option.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "AGG-INE-005",
@@ -652,7 +652,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "E = K",
-    "explanation": "E ≤ K allows the two values either to be equal or to differ in the stated direction. Therefore, E = K can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "explanation": "E ≤ K means E may be less than K, or the two may be equal. So E = K can be true, but it is not certain. That is why this is the correct option.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "AGG-INE-005",
@@ -680,7 +680,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "P ≥ Q; Q = R; R > T",
-    "explanation": "In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly P > T; the other sets produce a different strongest relation.",
+    "explanation": "Combine the correct set: P ≥ Q = R > T. This gives P > T, which is exactly the relation asked for.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -707,7 +707,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "A ≤ D; D = F; F < K",
-    "explanation": "In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly A < K; the other sets produce a different strongest relation.",
+    "explanation": "Combine the correct set: A ≤ D = F < K. This gives A < K, which is exactly the relation asked for.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -734,7 +734,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "M = N; N = O; O = V",
-    "explanation": "In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly M = V; the other sets produce a different strongest relation.",
+    "explanation": "Combine the correct set: M = N = O = V. This gives M = V, which is exactly the relation asked for.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -761,7 +761,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "B ≥ C; C = G; G = L",
-    "explanation": "In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly B ≥ L; the other sets produce a different strongest relation.",
+    "explanation": "Combine the correct set: B ≥ C = G = L. This gives B ≥ L, which is exactly the relation asked for.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -788,7 +788,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "T ≥ P",
-    "explanation": "The given chain establishes P > T. The statement T ≥ P forces the opposite direction, so both cannot be true together. The other choices agree with the chain.",
+    "explanation": "Combine the given statements: P ≥ Q > R = S ≥ T. This shows P > T. The option T ≥ P says the opposite, so it cannot be added.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -815,7 +815,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "K ≤ A",
-    "explanation": "The given chain establishes A < K. The statement K ≤ A forces the opposite direction, so both cannot be true together. The other choices agree with the chain.",
+    "explanation": "Combine the given statements: A ≤ D < F = H ≤ K. This shows A < K. The option K ≤ A says the opposite, so it cannot be added.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -842,7 +842,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "V ≥ M",
-    "explanation": "The given chain establishes M > V. The statement V ≥ M forces the opposite direction, so both cannot be true together. The other choices agree with the chain.",
+    "explanation": "Combine the given statements: M ≥ N > O = U ≥ V. This shows M > V. The option V ≥ M says the opposite, so it cannot be added.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -869,7 +869,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "L ≤ B",
-    "explanation": "The given chain establishes B < L. The statement L ≤ B forces the opposite direction, so both cannot be true together. The other choices agree with the chain.",
+    "explanation": "Combine the given statements: B ≤ C < G = J ≤ L. This shows B < L. The option L ≤ B says the opposite, so it cannot be added.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"

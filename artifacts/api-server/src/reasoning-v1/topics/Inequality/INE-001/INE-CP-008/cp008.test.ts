@@ -21,8 +21,12 @@ for (const contract of INE_CP008_PROTOTYPE_CONTRACTS) {
     assert.equal(new Set(question.options.map((entry) => entry.value)).size, 4);
     assert.equal(question.options.filter((entry) => entry.isCorrect).length, 1);
     assert.equal(question.options[question.correctIndex]?.isCorrect, true);
-    assert.ok(question.explanation.length >= 100);
-    assert.ok(question.explanation.length <= 500);
+    assert.ok(question.explanation.length >= 70);
+    assert.ok(question.explanation.length <= 300);
+    assert.doesNotMatch(
+      question.explanation,
+      /\b(?:endpoint|model|formally|solver|strict parts|strongest definite relation|carry|carries)\b/i,
+    );
     assert.equal(question.permanentQlId, null);
     assert.equal(question.questionStudioVisible, false);
     const counts = positions.get(contract.authorityId) ?? [0, 0, 0, 0];

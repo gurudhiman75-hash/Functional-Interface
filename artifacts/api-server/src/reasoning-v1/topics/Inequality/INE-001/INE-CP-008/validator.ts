@@ -26,8 +26,14 @@ export function validateIneCp008Question(
       .some((entry) => !entry.errorLabel)
   )
     errors.push("Every distractor requires a misconception label.");
-  if (question.explanation.length < 100 || question.explanation.length > 500)
+  if (question.explanation.length < 70 || question.explanation.length > 300)
     errors.push("Explanation must be clear, concise, and sufficiently helpful.");
+  if (
+    /\b(?:endpoint|model|formally|solver|strict parts|strongest definite relation|carry|carries)\b/i.test(
+      question.explanation,
+    )
+  )
+    errors.push("Explanation contains learner-unfriendly technical language.");
   if (
     question.metadata.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE" &&
     question.metadata.examApplicability !==

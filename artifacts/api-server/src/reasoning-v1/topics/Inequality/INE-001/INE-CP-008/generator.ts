@@ -167,6 +167,8 @@ function buildSelectStatementSet(
   const optionResult = placeCorrect(correct, distractors, "SELECT_STATEMENT_SET", seed);
   const left = names.E1!;
   const right = names.E5!;
+  const correctSet = correct.statementSet!;
+  const combinedChain = `${left} ${relationSymbol(correctSet[0]!.relation)} ${names.E2} = ${names.E3} ${relationSymbol(correctSet[2]!.relation)} ${right}`;
   return {
     scenario: {
       taskKind: "SELECT_STATEMENT_SET",
@@ -179,7 +181,7 @@ function buildSelectStatementSet(
     stem: `Which statement set has ${left} ${relationSymbol(targetRelation)} ${right} as its strongest definite endpoint relation?`,
     displayedStatements: [`Required endpoint relation: ${left} ${relationSymbol(targetRelation)} ${right}`],
     optionResult,
-    explanation: `In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly ${left} ${relationSymbol(targetRelation)} ${right}; the other sets produce a different strongest relation.`,
+    explanation: `Combine the correct set: ${combinedChain}. This gives ${left} ${relationSymbol(targetRelation)} ${right}, which is exactly the relation asked for.`,
   };
 }
 
@@ -247,6 +249,7 @@ function buildContradictoryAddition(
   );
   const endpointRelation = descending ? ">" : "<";
   const reverseClaim = formatStatement(contradiction, names);
+  const combinedChain = `${names.E1} ${relationSymbol(weak)} ${names.E2} ${relationSymbol(strict)} ${names.E3} = ${names.E4} ${relationSymbol(weak)} ${names.E5}`;
   return {
     scenario: {
       taskKind: "CONTRADICTORY_ADDITION" as const,
@@ -258,7 +261,7 @@ function buildContradictoryAddition(
     stem: "Which statement cannot be added without contradicting the given chain?",
     displayedStatements: [renderStatements(baseStatements, names)],
     optionResult,
-    explanation: `The given chain establishes ${names.E1} ${endpointRelation} ${names.E5}. The statement ${reverseClaim} forces the opposite direction, so both cannot be true together. The other choices agree with the chain.`,
+    explanation: `Combine the given statements: ${combinedChain}. This shows ${names.E1} ${endpointRelation} ${names.E5}. The option ${reverseClaim} says the opposite, so it cannot be added.`,
   };
 }
 
@@ -329,8 +332,9 @@ function buildReconstructRelation(
   const displayedChain = `${formatStatement(fixedStatements[0]!, names)}; ${formatStatement(fixedStatements[1]!, names)}; ${blankText}; ${formatStatement(fixedStatements[2]!, names)}`;
   const targetText = `${names.E1} ${relationSymbol(targetRelation)} ${names.E5}`;
   const blankReason = reverseBlank
-    ? `The blank is written in the reverse direction, ${names.E4} to ${names.E3}. Therefore, it must be ${relationSymbol(requiredBlankRelation)}, which is equivalent to ${names.E3} ${relationSymbol(targetRelation)} ${names.E4}.`
-    : `The blank is written from ${names.E3} to ${names.E4}, so it must be ${relationSymbol(requiredBlankRelation)}.`;
+    ? `We need ${names.E3} ${relationSymbol(targetRelation)} ${names.E4}, but the blank is written as ${names.E4} ___ ${names.E3}. So use ${relationSymbol(requiredBlankRelation)}.`
+    : `Put ${relationSymbol(requiredBlankRelation)} in the blank.`;
+  const combinedChain = `${names.E1} ${relationSymbol(prefixRelation)} ${names.E2} = ${names.E3} ${relationSymbol(targetRelation)} ${names.E4} = ${names.E5}`;
   return {
     scenario: {
       taskKind: "RECONSTRUCT_RELATION" as const,
@@ -343,7 +347,7 @@ function buildReconstructRelation(
     stem: `Which relation should fill the blank so that the strongest endpoint relation is ${targetText}?`,
     displayedStatements: [displayedChain],
     optionResult,
-    explanation: `${blankReason} The equality links then carry that comparison to the endpoints, and the complete chain gives exactly ${targetText}.`,
+    explanation: `${blankReason} The full chain becomes ${combinedChain}. Therefore, ${targetText}.`,
   };
 }
 
@@ -409,6 +413,9 @@ function buildPossibleConclusion(
   );
   const weakText = formatStatement(baseStatements[0]!, names);
   const possibleText = formatStatement(possible, names);
+  const weakMeaning = descending
+    ? `${names.E1} may be greater than ${names.E2}, or the two may be equal`
+    : `${names.E1} may be less than ${names.E2}, or the two may be equal`;
   return {
     scenario: {
       taskKind: "POSSIBLE_CONCLUSION" as const,
@@ -420,7 +427,7 @@ function buildPossibleConclusion(
     stem: "Which conclusion is possible but is not definitely true?",
     displayedStatements: [renderStatements(baseStatements, names)],
     optionResult,
-    explanation: `${weakText} allows the two values either to be equal or to differ in the stated direction. Therefore, ${possibleText} can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.`,
+    explanation: `${weakText} means ${weakMeaning}. So ${possibleText} can be true, but it is not certain. That is why this is the correct option.`,
   };
 }
 

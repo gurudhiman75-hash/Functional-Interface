@@ -908,6 +908,21 @@ For either-or cases, explain individual non-definiteness and joint exhaustivenes
 
 Explanations must not reveal hidden generator values or facts that were not displayed to the learner.
 
+### 12.1 Mandatory learner-language standard
+
+Solver evidence decides the answer, but solver terminology must not appear in the learner explanation. Every CP must enforce these rules in its generator, validator, tests, and review pack:
+
+- use one short paragraph of two to four simple sentences;
+- show the relevant combined chain directly;
+- explain the decisive step in everyday language;
+- state why the correct answer follows;
+- discuss other options only when the question type cannot be explained clearly without doing so;
+- never use internal terms such as “endpoint,” “model,” “solver,” “strict parts,” “carry,” or “strongest definite relation” in learner-facing text;
+- prefer wording such as “may be,” “must be,” “says the opposite,” and “cannot be decided”;
+- reject an explanation during validation if it is technically correct but sounds like an implementation note.
+
+This learner-language standard is inherited by every later INE-001 CP and does not require separate approval each time.
+
 ---
 
 ## 13. Rendering and multilingual design

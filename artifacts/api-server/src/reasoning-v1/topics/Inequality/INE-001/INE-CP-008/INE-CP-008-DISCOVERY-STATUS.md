@@ -25,7 +25,8 @@
 - exactly four unique visible options;
 - twelve rotating five-object sets;
 - balanced answer positions;
-- simple explanations between 100 and 500 characters;
+- simple learner-facing explanations between 70 and 300 characters;
+- a language gate that rejects internal solver terminology;
 - independent solver agreement and deterministic generation.
 
 ## Gate

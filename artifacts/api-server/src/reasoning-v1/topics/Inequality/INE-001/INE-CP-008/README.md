@@ -9,7 +9,7 @@ Implemented prototype authorities:
 - reconstruct a missing middle relation, including reverse-written blanks;
 - select a conclusion that is possible but not definitely true.
 
-The review pack contains 24 exam-practice prototypes and 8 guided advanced prototypes. All records use exactly four visible options, twelve rotating object sets, balanced correct positions, short plain-language explanations, and independent graph/model validation.
+The review pack contains 24 exam-practice prototypes and 8 guided advanced prototypes. All records use exactly four visible options, twelve rotating object sets, balanced correct positions, short plain-language explanations, and independent graph/model validation. Learner explanations show the useful chain directly and are rejected if they contain internal solver terminology.
 
 Shared passages, hybrid linguistic/coded evidence, and explicit Data Sufficiency answer contracts remain outside this first CP-008 prototype. They must not be implied by the implemented authorities.
 

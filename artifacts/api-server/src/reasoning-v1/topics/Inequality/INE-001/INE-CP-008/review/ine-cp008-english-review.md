@@ -21,7 +21,7 @@ Which relation should fill the blank so that the strongest endpoint relation is 
 
 ### Explanation
 
-The blank is written from R to S, so it must be >. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly P > T.
+Put > in the blank. The full chain becomes P ≥ Q = R > S = T. Therefore, P > T.
 
 ## 2. RECONSTRUCT_MISSING_RELATION — seed 1
 
@@ -42,7 +42,7 @@ Which relation should fill the blank so that the strongest endpoint relation is 
 
 ### Explanation
 
-The blank is written in the reverse direction, H to F. Therefore, it must be >, which is equivalent to F < H. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly A < K.
+We need F < H, but the blank is written as H ___ F. So use >. The full chain becomes A ≤ D = F < H = K. Therefore, A < K.
 
 ## 3. RECONSTRUCT_MISSING_RELATION — seed 2
 
@@ -63,7 +63,7 @@ Which relation should fill the blank so that the strongest endpoint relation is 
 
 ### Explanation
 
-The blank is written from O to U, so it must be =. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly M = V.
+Put = in the blank. The full chain becomes M = N = O = U = V. Therefore, M = V.
 
 ## 4. RECONSTRUCT_MISSING_RELATION — seed 3
 
@@ -84,7 +84,7 @@ Which relation should fill the blank so that the strongest endpoint relation is 
 
 ### Explanation
 
-The blank is written in the reverse direction, J to G. Therefore, it must be ≤, which is equivalent to G ≥ J. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly B ≥ L.
+We need G ≥ J, but the blank is written as J ___ G. So use ≤. The full chain becomes B = C = G ≥ J = L. Therefore, B ≥ L.
 
 ## 5. RECONSTRUCT_MISSING_RELATION — seed 4
 
@@ -105,7 +105,7 @@ Which relation should fill the blank so that the strongest endpoint relation is 
 
 ### Explanation
 
-The blank is written from Y to Z, so it must be ≤. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly W ≤ E.
+Put ≤ in the blank. The full chain becomes W = X = Y ≤ Z = E. Therefore, W ≤ E.
 
 ## 6. RECONSTRUCT_MISSING_RELATION — seed 5
 
@@ -126,7 +126,7 @@ Which relation should fill the blank so that the strongest endpoint relation is 
 
 ### Explanation
 
-The blank is written in the reverse direction, N to K. Therefore, it must be <, which is equivalent to K > N. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly G > R.
+We need K > N, but the blank is written as N ___ K. So use <. The full chain becomes G ≥ I = K > N = R. Therefore, G > R.
 
 ## 7. RECONSTRUCT_MISSING_RELATION — seed 6
 
@@ -147,7 +147,7 @@ Which relation should fill the blank so that the strongest endpoint relation is 
 
 ### Explanation
 
-The blank is written from H to M, so it must be <. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly C < T.
+Put < in the blank. The full chain becomes C ≤ E = H < M = T. Therefore, C < T.
 
 ## 8. RECONSTRUCT_MISSING_RELATION — seed 7
 
@@ -168,7 +168,7 @@ Which relation should fill the blank so that the strongest endpoint relation is 
 
 ### Explanation
 
-The blank is written in the reverse direction, V to P. Therefore, it must be =, which is equivalent to P = V. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly D = Y.
+We need P = V, but the blank is written as V ___ P. So use =. The full chain becomes D = J = P = V = Y. Therefore, D = Y.
 
 ## 9. RECONSTRUCT_MISSING_RELATION — seed 8
 
@@ -189,7 +189,7 @@ Which relation should fill the blank so that the strongest endpoint relation is 
 
 ### Explanation
 
-The blank is written from Q to S, so it must be ≥. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly F ≥ W.
+Put ≥ in the blank. The full chain becomes F = L = Q ≥ S = W. Therefore, F ≥ W.
 
 ## 10. RECONSTRUCT_MISSING_RELATION — seed 9
 
@@ -210,7 +210,7 @@ Which relation should fill the blank so that the strongest endpoint relation is 
 
 ### Explanation
 
-The blank is written in the reverse direction, R to O. Therefore, it must be ≥, which is equivalent to O ≤ R. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly B ≤ U.
+We need O ≤ R, but the blank is written as R ___ O. So use ≥. The full chain becomes B = I = O ≤ R = U. Therefore, B ≤ U.
 
 ## 11. RECONSTRUCT_MISSING_RELATION — seed 10
 
@@ -231,7 +231,7 @@ Which relation should fill the blank so that the strongest endpoint relation is 
 
 ### Explanation
 
-The blank is written from M to X, so it must be >. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly A > Z.
+Put > in the blank. The full chain becomes A ≥ G = M > X = Z. Therefore, A > Z.
 
 ## 12. RECONSTRUCT_MISSING_RELATION — seed 11
 
@@ -252,7 +252,7 @@ Which relation should fill the blank so that the strongest endpoint relation is 
 
 ### Explanation
 
-The blank is written in the reverse direction, T to N. Therefore, it must be >, which is equivalent to N < T. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly E < V.
+We need N < T, but the blank is written as T ___ N. So use >. The full chain becomes E ≤ K = N < T = V. Therefore, E < V.
 
 ## 13. SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION — seed 0
 
@@ -273,7 +273,7 @@ Which conclusion is possible but is not definitely true?
 
 ### Explanation
 
-P ≥ Q allows the two values either to be equal or to differ in the stated direction. Therefore, P > Q can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.
+P ≥ Q means P may be greater than Q, or the two may be equal. So P > Q can be true, but it is not certain. That is why this is the correct option.
 
 ## 14. SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION — seed 1
 
@@ -294,7 +294,7 @@ Which conclusion is possible but is not definitely true?
 
 ### Explanation
 
-A ≤ D allows the two values either to be equal or to differ in the stated direction. Therefore, A < D can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.
+A ≤ D means A may be less than D, or the two may be equal. So A < D can be true, but it is not certain. That is why this is the correct option.
 
 ## 15. SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION — seed 2
 
@@ -315,7 +315,7 @@ Which conclusion is possible but is not definitely true?
 
 ### Explanation
 
-M ≥ N allows the two values either to be equal or to differ in the stated direction. Therefore, M = N can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.
+M ≥ N means M may be greater than N, or the two may be equal. So M = N can be true, but it is not certain. That is why this is the correct option.
 
 ## 16. SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION — seed 3
 
@@ -336,7 +336,7 @@ Which conclusion is possible but is not definitely true?
 
 ### Explanation
 
-B ≤ C allows the two values either to be equal or to differ in the stated direction. Therefore, B = C can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.
+B ≤ C means B may be less than C, or the two may be equal. So B = C can be true, but it is not certain. That is why this is the correct option.
 
 ## 17. SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION — seed 4
 
@@ -357,7 +357,7 @@ Which conclusion is possible but is not definitely true?
 
 ### Explanation
 
-W ≥ X allows the two values either to be equal or to differ in the stated direction. Therefore, W > X can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.
+W ≥ X means W may be greater than X, or the two may be equal. So W > X can be true, but it is not certain. That is why this is the correct option.
 
 ## 18. SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION — seed 5
 
@@ -378,7 +378,7 @@ Which conclusion is possible but is not definitely true?
 
 ### Explanation
 
-G ≤ I allows the two values either to be equal or to differ in the stated direction. Therefore, G < I can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.
+G ≤ I means G may be less than I, or the two may be equal. So G < I can be true, but it is not certain. That is why this is the correct option.
 
 ## 19. SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION — seed 6
 
@@ -399,7 +399,7 @@ Which conclusion is possible but is not definitely true?
 
 ### Explanation
 
-C ≥ E allows the two values either to be equal or to differ in the stated direction. Therefore, C = E can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.
+C ≥ E means C may be greater than E, or the two may be equal. So C = E can be true, but it is not certain. That is why this is the correct option.
 
 ## 20. SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION — seed 7
 
@@ -420,7 +420,7 @@ Which conclusion is possible but is not definitely true?
 
 ### Explanation
 
-D ≤ J allows the two values either to be equal or to differ in the stated direction. Therefore, D = J can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.
+D ≤ J means D may be less than J, or the two may be equal. So D = J can be true, but it is not certain. That is why this is the correct option.
 
 ## 21. SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION — seed 8
 
@@ -441,7 +441,7 @@ Which conclusion is possible but is not definitely true?
 
 ### Explanation
 
-F ≥ L allows the two values either to be equal or to differ in the stated direction. Therefore, F > L can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.
+F ≥ L means F may be greater than L, or the two may be equal. So F > L can be true, but it is not certain. That is why this is the correct option.
 
 ## 22. SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION — seed 9
 
@@ -462,7 +462,7 @@ Which conclusion is possible but is not definitely true?
 
 ### Explanation
 
-B ≤ I allows the two values either to be equal or to differ in the stated direction. Therefore, B < I can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.
+B ≤ I means B may be less than I, or the two may be equal. So B < I can be true, but it is not certain. That is why this is the correct option.
 
 ## 23. SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION — seed 10
 
@@ -483,7 +483,7 @@ Which conclusion is possible but is not definitely true?
 
 ### Explanation
 
-A ≥ G allows the two values either to be equal or to differ in the stated direction. Therefore, A = G can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.
+A ≥ G means A may be greater than G, or the two may be equal. So A = G can be true, but it is not certain. That is why this is the correct option.
 
 ## 24. SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION — seed 11
 
@@ -504,7 +504,7 @@ Which conclusion is possible but is not definitely true?
 
 ### Explanation
 
-E ≤ K allows the two values either to be equal or to differ in the stated direction. Therefore, E = K can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.
+E ≤ K means E may be less than K, or the two may be equal. So E = K can be true, but it is not certain. That is why this is the correct option.
 
 ## 25. SELECT_SET_ESTABLISHING_RELATION — seed 0
 
@@ -525,7 +525,7 @@ Which statement set has P > T as its strongest definite endpoint relation?
 
 ### Explanation
 
-In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly P > T; the other sets produce a different strongest relation.
+Combine the correct set: P ≥ Q = R > T. This gives P > T, which is exactly the relation asked for.
 
 ## 26. SELECT_SET_ESTABLISHING_RELATION — seed 1
 
@@ -546,7 +546,7 @@ Which statement set has A < K as its strongest definite endpoint relation?
 
 ### Explanation
 
-In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly A < K; the other sets produce a different strongest relation.
+Combine the correct set: A ≤ D = F < K. This gives A < K, which is exactly the relation asked for.
 
 ## 27. SELECT_SET_ESTABLISHING_RELATION — seed 2
 
@@ -567,7 +567,7 @@ Which statement set has M = V as its strongest definite endpoint relation?
 
 ### Explanation
 
-In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly M = V; the other sets produce a different strongest relation.
+Combine the correct set: M = N = O = V. This gives M = V, which is exactly the relation asked for.
 
 ## 28. SELECT_SET_ESTABLISHING_RELATION — seed 3
 
@@ -588,7 +588,7 @@ Which statement set has B ≥ L as its strongest definite endpoint relation?
 
 ### Explanation
 
-In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly B ≥ L; the other sets produce a different strongest relation.
+Combine the correct set: B ≥ C = G = L. This gives B ≥ L, which is exactly the relation asked for.
 
 ## 29. IDENTIFY_CONTRADICTORY_ADDITION — seed 0
 
@@ -609,7 +609,7 @@ Which statement cannot be added without contradicting the given chain?
 
 ### Explanation
 
-The given chain establishes P > T. The statement T ≥ P forces the opposite direction, so both cannot be true together. The other choices agree with the chain.
+Combine the given statements: P ≥ Q > R = S ≥ T. This shows P > T. The option T ≥ P says the opposite, so it cannot be added.
 
 ## 30. IDENTIFY_CONTRADICTORY_ADDITION — seed 1
 
@@ -630,7 +630,7 @@ Which statement cannot be added without contradicting the given chain?
 
 ### Explanation
 
-The given chain establishes A < K. The statement K ≤ A forces the opposite direction, so both cannot be true together. The other choices agree with the chain.
+Combine the given statements: A ≤ D < F = H ≤ K. This shows A < K. The option K ≤ A says the opposite, so it cannot be added.
 
 ## 31. IDENTIFY_CONTRADICTORY_ADDITION — seed 2
 
@@ -651,7 +651,7 @@ Which statement cannot be added without contradicting the given chain?
 
 ### Explanation
 
-The given chain establishes M > V. The statement V ≥ M forces the opposite direction, so both cannot be true together. The other choices agree with the chain.
+Combine the given statements: M ≥ N > O = U ≥ V. This shows M > V. The option V ≥ M says the opposite, so it cannot be added.
 
 ## 32. IDENTIFY_CONTRADICTORY_ADDITION — seed 3
 
@@ -672,4 +672,4 @@ Which statement cannot be added without contradicting the given chain?
 
 ### Explanation
 
-The given chain establishes B < L. The statement L ≤ B forces the opposite direction, so both cannot be true together. The other choices agree with the chain.
+Combine the given statements: B ≤ C < G = J ≤ L. This shows B < L. The option L ≤ B says the opposite, so it cannot be added.
