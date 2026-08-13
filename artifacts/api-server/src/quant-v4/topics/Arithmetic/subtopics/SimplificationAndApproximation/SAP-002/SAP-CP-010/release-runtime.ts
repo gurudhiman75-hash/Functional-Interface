@@ -19,6 +19,10 @@ function wrong(value: string, misconceptionId: string, analysis: string): SapCp0
   return Object.freeze({ value, isCorrect: false, misconceptionId, analysis });
 }
 
+function existingWrongs(base: SapCp010Package): readonly SapCp010Option[] {
+  return base.options.filter((option) => !option.isCorrect);
+}
+
 function rebuild(
   base: SapCp010Package,
   args: {
@@ -38,7 +42,7 @@ function rebuild(
   const options = [...unique.slice(0, 3)];
   options.splice(base.correctIndex, 0, correct);
   const frozenOptions = Object.freeze(options);
-  const data = Object.freeze({ ...base.oracle.data, releaseRuntimeVersion: 5 });
+  const data = Object.freeze({ ...base.oracle.data, releaseRuntimeVersion: 6 });
   const visible = `${args.stem} ${answer} ${frozenOptions.map((o) => o.value).join(" ")} ${args.concept} ${args.steps.join(" ")} ${args.verification.join(" ")}`;
   const errors: string[] = [];
   if (frozenOptions.length !== 4 || new Set(frozenOptions.map((o) => o.value)).size !== 4) errors.push("Four distinct options required.");
@@ -62,8 +66,91 @@ function rebuild(
     }),
     oracle: Object.freeze({ kind: base.prototypeId, data }),
     canonicalPayloadKey: JSON.stringify({ prototypeId: base.prototypeId, stem: args.stem, answer, data, releaseTag: args.tag }),
-    generationIdentity: `${base.prototypeId}:release-v5:${args.tag}:${base.seed}:${JSON.stringify(data)}`,
+    generationIdentity: `${base.prototypeId}:release-v6:${args.tag}:${base.seed}:${JSON.stringify(data)}`,
     validation: Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors) }),
+  });
+}
+
+function fourthRootInterval(seed: number): SapCp010Package {
+  const mode = 2;
+  const base = generateCertified(SAP_CP010_PROTOTYPE_IDS[mode]!, seed);
+  const d = base.oracle.data;
+  return rebuild(base, {
+    stem: `The fourth root of ${d.n} lies between which two consecutive integers?`,
+    wrongs: existingWrongs(base),
+    concept: "Compare the number with consecutive exact fourth powers.",
+    steps: [`${d.lower}⁴ = ${Number(d.lower) ** 4} and ${d.upper}⁴ = ${Number(d.upper) ** 4}.`, `${Number(d.lower) ** 4} < ${d.n} < ${Number(d.upper) ** 4}, so the fourth root lies between ${d.lower} and ${d.upper}.`],
+    verification: ["No decimal root calculation is needed; the two exact fourth powers give the interval."],
+    tag: "fourth-root-textual-stem",
+  });
+}
+
+function nearestIntegerSqrt(seed: number): SapCp010Package {
+  const mode = 3;
+  const base = generateCertified(SAP_CP010_PROTOTYPE_IDS[mode]!, seed);
+  const d = base.oracle.data;
+  const n = Number(d.n);
+  const k = Number(d.k);
+  const answer = Number(base.canonicalAnswer);
+  const midpoint = k + 0.5;
+  const midpointSquare = midpoint ** 2;
+  const lowerSide = answer === k;
+  return rebuild(base, {
+    stem: base.stem,
+    wrongs: existingWrongs(base),
+    concept: "Bracket the square root, then compare it with the midpoint of the two consecutive integers.",
+    steps: [
+      `${k}² = ${k ** 2} and ${k + 1}² = ${(k + 1) ** 2}, so √${n} lies between ${k} and ${k + 1}.`,
+      `${fmt(midpoint, 1)}² = ${fmt(midpointSquare, 2)}. Since ${n} ${lowerSide ? "<" : ">"} ${fmt(midpointSquare, 2)}, √${n} is ${lowerSide ? "below" : "above"} ${fmt(midpoint, 1)} and is nearer to ${answer}.`,
+    ],
+    verification: ["The midpoint between the two consecutive integers decides which integer is nearer."],
+    tag: "nearest-sqrt-student-midpoint",
+  });
+}
+
+function nearestIntegerCbrt(seed: number): SapCp010Package {
+  const mode = 4;
+  const base = generateCertified(SAP_CP010_PROTOTYPE_IDS[mode]!, seed);
+  const d = base.oracle.data;
+  const n = Number(d.n);
+  const k = Number(d.k);
+  const answer = Number(base.canonicalAnswer);
+  const midpoint = k + 0.5;
+  const midpointCube = midpoint ** 3;
+  const lowerSide = answer === k;
+  return rebuild(base, {
+    stem: base.stem,
+    wrongs: existingWrongs(base),
+    concept: "Bracket the cube root, then compare it with the midpoint of the two consecutive integers.",
+    steps: [
+      `${k}³ = ${k ** 3} and ${k + 1}³ = ${(k + 1) ** 3}, so ∛${n} lies between ${k} and ${k + 1}.`,
+      `${fmt(midpoint, 1)}³ = ${fmt(midpointCube, 3)}. Since ${n} ${lowerSide ? "<" : ">"} ${fmt(midpointCube, 3)}, ∛${n} is ${lowerSide ? "below" : "above"} ${fmt(midpoint, 1)} and is nearer to ${answer}.`,
+    ],
+    verification: ["The midpoint check directly shows which consecutive integer is closer to the cube root."],
+    tag: "nearest-cuberoot-student-midpoint",
+  });
+}
+
+function decimalPower(seed: number): SapCp010Package {
+  const mode = 6;
+  const base = generateCertified(SAP_CP010_PROTOTYPE_IDS[mode]!, seed);
+  const d = base.oracle.data;
+  const rounded = Number(d.rounded);
+  const exponent = Number(d.exponent);
+  const answerNumber = rounded ** exponent;
+  const adjustment = rounded ** (exponent - 1);
+  return rebuild(base, {
+    stem: base.stem,
+    answer: String(answerNumber),
+    wrongs: [
+      wrong(String(answerNumber - adjustment), "POWER_SLIGHTLY_LOW", "The rounded power was evaluated slightly too low."),
+      wrong(String(answerNumber + adjustment), "POWER_SLIGHTLY_HIGH", "The rounded power was evaluated slightly too high."),
+      wrong(String((rounded + 1) ** exponent), "BASE_ONE_HIGH", "The base was rounded one integer too high before applying the power."),
+    ],
+    concept: "Round the base first, then evaluate the required small integer power.",
+    steps: [`${d.raw} → ${rounded}.`, `${rounded}^${exponent} = ${answerNumber}.`],
+    verification: ["The approximation changes only the base; the exponent remains unchanged."],
+    tag: "decimal-power-nearby-options",
   });
 }
 
@@ -200,7 +287,7 @@ function missingPowerBase(seed: number): SapCp010Package {
   const target = Number(d.target);
   const below = String(d.side) === "BELOW";
   const answer = base.canonicalAnswer;
-  const relation = below ? "slightly less than an integer" : "slightly greater than an integer";
+  const relation = below ? "0.2 less than an integer" : "0.2 greater than an integer";
   const operation = exponent === 2 ? "squaring" : "cubing";
   const wrongs = below
     ? [
@@ -214,17 +301,21 @@ function missingPowerBase(seed: number): SapCp010Package {
         wrong((rounded + 2.2).toFixed(1), "ROUNDS_TWO_HIGH", "This value rounds two integers above the required base."),
       ];
   return rebuild(base, {
-    stem: `A number ${relation} is rounded to the nearest whole number. After ${operation} the rounded value, the result is ${target}. Which option could be the original number?`,
+    stem: `A number is ${relation}. It is rounded to the nearest whole number. After ${operation} the rounded value, the result is ${target}. Which option could be the original number?`,
     answer,
     wrongs,
     concept: "Recover the rounded integer from the power, then choose the option that rounds to that integer.",
     steps: [`${rounded}^${exponent} = ${target}, so the rounded value must be ${rounded}.`, `${answer} rounds to ${rounded}.`],
     verification: ["Each distractor rounds to a different whole number."],
-    tag: "missing-power-base-natural-stem",
+    tag: "missing-power-base-precise-stem",
   });
 }
 
 export function generateSapCp010(prototypeId: SapCp010PrototypeId, seed: number): SapCp010Package {
+  if (prototypeId === SAP_CP010_PROTOTYPE_IDS[2]) return fourthRootInterval(seed);
+  if (prototypeId === SAP_CP010_PROTOTYPE_IDS[3]) return nearestIntegerSqrt(seed);
+  if (prototypeId === SAP_CP010_PROTOTYPE_IDS[4]) return nearestIntegerCbrt(seed);
+  if (prototypeId === SAP_CP010_PROTOTYPE_IDS[6]) return decimalPower(seed);
   if (prototypeId === SAP_CP010_PROTOTYPE_IDS[7]) return percentPower(seed);
   if (prototypeId === SAP_CP010_PROTOTYPE_IDS[8]) return reciprocal(seed);
   if (prototypeId === SAP_CP010_PROTOTYPE_IDS[10]) return rootQuotient(seed);
