@@ -1,10 +1,11 @@
 import { buildLocalizedEditorialA } from "./editorial-v2-localized-a";
 import { buildLocalizedEditorialB } from "./editorial-v2-localized-b";
+import { polishLocalizedEditorialSurface } from "./editorial-v2-localized-polish";
 
 export function buildGenericEditorialSurface(frozen: any, language: "en" | "hi" | "pa") {
   if (language !== "en") {
     const localized = buildLocalizedEditorialA(frozen, language, Number(frozen.seed)) ?? buildLocalizedEditorialB(frozen, language, Number(frozen.seed));
-    if (localized) return localized;
+    if (localized) return polishLocalizedEditorialSurface(localized, language);
   }
   const math = (value: string) => `\\(${value}\\)`;
   const cleanText = (value: string) => value
@@ -37,5 +38,6 @@ export function buildGenericEditorialSurface(frozen: any, language: "en" | "hi" 
   const core = Array.isArray(frozen.explanation?.coreConcept) ? frozen.explanation.coreConcept.map(String) : [];
   const steps = Array.isArray(frozen.explanation?.stepByStep) ? frozen.explanation.stepByStep.map((value: unknown) => cleanText(String(value))).slice(0, 4) : [];
   const concept = cleanText(String(core[0] ?? "Use the relevant Number System rule."));
-  return { stem, options, correctIndex, answer, concept, steps };
+  const fallback = { stem, options, correctIndex, answer, concept, steps };
+  return language === "en" ? fallback : polishLocalizedEditorialSurface(fallback, language);
 }
