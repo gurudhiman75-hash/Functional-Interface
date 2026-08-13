@@ -88,9 +88,10 @@ for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
 
 const residualTop = [...residualEnglish.entries()]
   .sort((left, right) => right[1] - left[1])
-  .slice(0, 60);
+  .slice(0, 80);
 const criticalTop = [...criticalResiduals.entries()]
   .sort((left, right) => right[1] - left[1]);
+const residualLatinCount = [...residualEnglish.values()].reduce((sum, count) => sum + count, 0);
 
 console.log("SEA_001_LOCALIZED_REVIEW_DIAGNOSTIC");
 console.log("localized caselets", localizedCaseletCount);
@@ -99,13 +100,14 @@ console.log("semantic parity", "200/200");
 console.log("canonical Latin-name leaks", canonicalNameLeakCount);
 console.log("critical English seating-operator leaks", criticalLeakCount);
 console.log("critical residual operators", JSON.stringify(criticalTop));
-console.log("residual Latin tokens", [...residualEnglish.values()].reduce((sum, count) => sum + count, 0));
+console.log("residual Latin tokens", residualLatinCount);
 console.log("top residual Latin tokens", JSON.stringify(residualTop));
 
 assert(localizedCaseletCount === 200, `expected 200 localized review caselets, got ${localizedCaseletCount}`);
 assert(localizedChildCount === 800, `expected 800 localized child questions, got ${localizedChildCount}`);
 assert(canonicalNameLeakCount === 0, `localized learner text still exposes ${canonicalNameLeakCount} canonical Latin-script names`);
 assert(criticalLeakCount === 0, `localized learner text still exposes ${criticalLeakCount} critical English seating-operator tokens`);
+assert(residualLatinCount === 0, `localized learner text still exposes ${residualLatinCount} Latin learner-text tokens`);
 
 assertSea001LocalizationFoundationStillBlocked();
 assert(!SEA001_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered, "Question Studio must remain disabled");
@@ -114,6 +116,7 @@ assert(!SEA001_PERMANENT_INACTIVE_LIFECYCLE.testEligible, "mock-test eligibility
 assert(!SEA001_PERMANENT_INACTIVE_LIFECYCLE.publiclyPublishable, "public delivery must remain disabled");
 
 console.log("PASS_SEA_001_LOCALIZED_REVIEW_CANDIDATE");
+console.log("learner Latin residue", "ZERO");
 console.log("human language review", "PENDING");
 console.log("Question Studio registered", SEA001_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered);
 console.log("publicly publishable", SEA001_PERMANENT_INACTIVE_LIFECYCLE.publiclyPublishable);
