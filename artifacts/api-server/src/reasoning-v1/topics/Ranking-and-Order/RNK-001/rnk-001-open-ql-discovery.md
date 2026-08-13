@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 through CP-006 frozen at `RNK-QL-001..041`; CP007 Discovery V1 implemented with zero permanent QLs; `RNK-QL-042` remains unallocated.**
+Status: **CP-001 through CP-006 frozen at `RNK-QL-001..041`; CP007 Discovery V1.1 implemented with zero permanent QLs; `RNK-QL-042` remains unallocated.**
 
 Counts in this register are evidence, never chapter-size quotas.
 
@@ -18,17 +18,15 @@ RNK-CP-006  3 authorities  RNK-QL-039..041
 Cumulative frozen authorities: **41**.  
 Next available identity: **`RNK-QL-042`**.
 
-## Frozen projections
+Frozen tail projections remain:
 
 ```text
-CP002  e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
-CP003  6457a50fdde7673f9e66fe607a47a5c38a4c921489ed387b72c87ef8a22947d5
 CP004  39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
 CP005  f6759445937626e6777f322f9b8217bc7aaa12f6a96ee180a24ca3350bd42717
 CP006  7043ecd80798ed9b60529d6052f4bc6fd4e678a98d06cc3e0332a3d10028d819
 ```
 
-CP007 and Object Pool V2 are not allowed to move these hashes.
+CP007 and Object Pool V2 must not move these hashes.
 
 ## Corrected post-CP006 audit
 
@@ -38,35 +36,48 @@ Decision:
 SOURCE_BACKED_CP007_DISCOVERY_REQUIRED
 ```
 
-Source fixtures replayed:
+Executable source anchors:
 
 ```text
 Q27 Q28 Q35 Q65 Q66 Q67 Q68
 ```
 
-The source evidence justified discovery, not automatic QL allocation.
+Discovery is justified; another permanent QL is not yet justified.
 
-## CP007 Discovery V1
+## CP007 Discovery V1.1
 
 ### Candidate A — CATEGORY_COMPOSITION_AROUND_RANK
 
 Source fixtures: Q65 / Q67.
 
-Implemented modes:
+V1.1 modes:
 
 ```text
 TARGET_CATEGORY_AFTER
 OTHER_CATEGORY_AFTER
-UNKNOWN_CATEGORY_AHEAD
+TARGET_CATEGORY_AHEAD_FROM_OTHER_AFTER
+OTHER_CATEGORY_AHEAD_FROM_TARGET_AFTER
 ```
+
+The old `UNKNOWN_CATEGORY_AHEAD` mode was removed because the subgroup ratio could be decorative.
 
 Corpus:
 
 ```text
 questions:        288
-questions/mode:    96
+questions/mode:    72
 answer positions:  72 / 72 / 72 / 72
 ```
+
+V1.1 gates require:
+
+- displayed subgroup evidence concerns the opposite category from the requested one;
+- perturbing target rank changes the answer;
+- perturbing the relevant ratio-derived category total changes the answer;
+- perturbing the displayed subgroup count changes the answer;
+- every numeric option stays inside the visible mathematical bound;
+- ordinal grammar is valid;
+- explanations do not render meaningless `- 0` arithmetic.
 
 Disposition:
 
@@ -74,7 +85,7 @@ Disposition:
 PROVISIONAL_AUTHORITY_CANDIDATE
 ```
 
-Primary overlap audit: CP001 side-count arithmetic/composition extension.
+Primary overlap audit remains CP001 side-count/composition extension.
 
 ### Candidate B — DERIVED_QUANTITY_ORDER
 
@@ -85,14 +96,14 @@ Q35  CSAT 2015      money transfers -> final balances -> rank/relation
 Q68  SSC MTS 2021   weight relations/equations -> derived order -> rank query
 ```
 
-Implemented source forms:
+Source forms:
 
 ```text
 TRANSFER_BALANCE_ORDER
 SCALED_OBJECT_ORDER
 ```
 
-Implemented modes:
+Modes:
 
 ```text
 HIGHEST_BALANCE
@@ -114,13 +125,30 @@ scaled-object:     128
 answer positions:   64 / 64 / 64 / 64
 ```
 
+V1.1 transfer remediation:
+
+```text
+arithmetic burden: LIGHT
+complete mode-specific solution conclusions
+```
+
+V1.1 scaled remediation:
+
+```text
+arithmetic burden: MODERATE
+exam-facing symbols: A-Z single letters only
+synthetic labels P9/Q12/etc: forbidden
+rank-aware distractors: enabled
+>=2 wrong options within two rank positions in a witness order: required
+```
+
 Disposition:
 
 ```text
 DISCOVERY_FAMILY_ADAPTER_VS_QL_UNRESOLVED
 ```
 
-Preferred hypothesis:
+Preferred architecture:
 
 ```text
 DERIVATION_ADAPTER
@@ -128,7 +156,7 @@ DERIVATION_ADAPTER
   -> existing CP004/CP005 query authority where possible
 ```
 
-Do not create a new QL merely because evidence is arithmetic/equational.
+Do not create a QL merely because the input evidence is arithmetic/equational.
 
 ### Candidate C — NUMERIC_VALUE_CONSTRAINED_ORDER
 
@@ -140,7 +168,7 @@ Disposition:
 HOLD_MERGE_WITH_DERIVED_QUANTITY
 ```
 
-Source replay exists; production generator intentionally deferred until more source diversity or a distinct solve contract appears.
+Source replay exists; production generation remains intentionally deferred pending more source diversity or a distinct solve contract.
 
 ### Candidate D — RELATIONAL_SIDE_COUNT_EQUATION
 
@@ -152,47 +180,46 @@ Disposition:
 REDIRECT_CP001_EXTENSION
 ```
 
-The relation normalizes into ordinary CP001 side-count identities after a compact algebraic solve. No separate CP007 corpus is created.
+The displayed equation normalizes into ordinary CP001 side-count identities after a compact algebraic solve.
 
-## Discovery V1 totals
+## V1.1 totals
 
 ```text
 category-composition: 288
 derived-quantity:     256
 combined corpus:      544
-permanent QLs:          0
+permanent CP007 QLs:    0
 RNK-QL-042 allocated: false
 ```
 
 Manual review artifact:
 
 ```text
-RNK-CP-007-DISCOVERY-V1-REVIEW-28Q.md
+RNK-CP-007-DISCOVERY-V1.1-REVIEW-28Q.md
 12 category-composition + 16 derived-quantity
+answer positions: 7 / 7 / 7 / 7
 ```
 
 ## Allocation lock
 
-The current four discovery candidates are not four QLs.
+The four discovery candidates are not four QLs.
 
-Before any permanent ID can be allocated:
+Before any permanent allocation:
 
 1. category composition must survive CP001 overlap review;
-2. derived quantity must be tested as an adapter over CP004/CP005 before becoming a QL;
+2. derived quantity must be tested as an adapter over CP004/CP005;
 3. numeric-value constraints must survive merge testing;
 4. relational side-count equations remain CP001-bound unless stronger evidence appears;
 5. manual exam-readiness review must pass;
-6. Question Studio and persistence remain disabled.
+6. Question Studio/persistence remain disabled.
 
-## Ranking vs Quant boundary
+## Ranking versus Quant boundary
 
-Derived/compositional questions stay in Ranking only when arithmetic is short and instrumental and the final learner task is order/rank/relation.
+Derived/compositional questions stay in Ranking only when arithmetic is compact and instrumental and the final learner burden is order/rank/relation.
 
 Substantial equation solving, percentage/profit/age calculation or optimization remains Quant even when a comparison appears at the end.
 
-## Object-pool remediation
-
-Pinned Object Pool V2:
+## Object Pool V2
 
 ```text
 people:                    96
@@ -207,13 +234,13 @@ partition schemes:          12
 derived operation kinds:     8
 ```
 
-Manifest:
+Pinned manifest:
 
 ```text
 sha256:09fd886c8ef602ab00bd6ca4b1410b963c8db93351881417ec13e538ec4aa452
 ```
 
-Selection is deterministic. Frozen CP001..CP006 retain historical pools.
+Frozen CP001..CP006 retain their historical presentation pools.
 
 ## Held / redirected candidates
 
@@ -225,25 +252,12 @@ SHARED_RANKING_CASELETS            INFRASTRUCTURE
 MIXED_RANKING_AND_BLOOD_RELATION   OTHER CHAPTER / MIXED PUZZLE
 ```
 
-## Protected exclusions
-
-```text
-lexicographic/dictionary position              -> Word and Dictionary Order
-seating adjacency/facing/geometry              -> Seating Arrangement
-multi-attribute assignment                     -> Logic Puzzles
-league/tournament scoring                      -> Games and Tournament
-statement I/II sufficiency                     -> Data Sufficiency
-alphabet position without ranked group         -> Alphabet Test
-substantial arithmetic as the main burden      -> Quant
-family/gender inference as the main burden     -> Blood Relations / Mixed Puzzle
-```
-
 ## Lifecycle
 
 ```text
 cumulative permanent range: RNK-QL-001..041
 next available RNK ID:      RNK-QL-042
-CP007 Discovery V1:         IMPLEMENTED / MANUAL REVIEW PENDING
+CP007 Discovery V1.1:       IMPLEMENTED / EXACT-HEAD + MANUAL REVIEW PENDING
 CP007 permanent QLs:        0
 CP007 permanent runtime:    NOT AUTHORIZED
 CP007 English freeze:       NOT AUTHORIZED
@@ -255,4 +269,4 @@ public publication:         false
 Hindi/Punjabi:              NOT_STARTED
 ```
 
-No merge, deployment, publication, persistence, Question Studio enablement, translation or QL allocation is authorized by Discovery V1.
+No merge, deployment, publication, persistence, Question Studio enablement, translation or QL allocation is authorized by Discovery V1.1.
