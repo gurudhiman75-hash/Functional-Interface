@@ -6,7 +6,7 @@ import {
   solveRnkCp007CategoryComposition,
   type RnkCp007CategoryCompositionState,
   type RnkCp007CategoryId,
-} from "./cp007-category-composition-discovery-v1";
+} from "./cp007-category-composition-editorial-v1-1";
 
 const QUESTIONS_PER_MODE = 72;
 const questions = RNK_CP007_CATEGORY_COMPOSITION_MODES.flatMap((mode) =>
@@ -94,7 +94,6 @@ for (const question of questions) {
     assert.ok(option >= 0 && option <= visibleMaximum, `${question.mode}/${question.seed}: impossible option ${option}/${visibleMaximum}`);
   }
 
-  // Rank must materially participate in every solve contract.
   const changedRank = solveRnkCp007CategoryComposition(
     withRank(question.state, question.state.targetRankFromTop + 1),
     question.reviewMetadata.requestedCategory,
@@ -104,7 +103,6 @@ for (const question of questions) {
   assert.notEqual(changedRank, question.answer, `${question.mode}/${question.seed}: rank clue is decorative`);
   rankEssentialChecks += 1;
 
-  // The ratio-derived category totals must materially participate too.
   const totalCategoryToPerturb = question.reviewMetadata.requestedSide === "AFTER"
     ? question.reviewMetadata.requestedCategory
     : question.evidence.category;
@@ -117,7 +115,6 @@ for (const question of questions) {
   assert.notEqual(changedTotal, question.answer, `${question.mode}/${question.seed}: ratio/category total is decorative`);
   ratioEssentialChecks += 1;
 
-  // The displayed subgroup count must materially participate.
   const changedEvidence = solveRnkCp007CategoryComposition(
     question.state,
     question.reviewMetadata.requestedCategory,
@@ -138,11 +135,8 @@ for (const mode of RNK_CP007_CATEGORY_COMPOSITION_MODES) {
   assert.equal(modeCounts.get(mode), QUESTIONS_PER_MODE);
 }
 assert.equal(partitionIds.size, 12);
+assert.equal(evidenceCountEchoes, 0, `Answer/evidence numeric echoes must be zero, found ${evidenceCountEchoes}`);
 
-// Evidence-count echoes are not mathematically invalid, but editorial V1.1 should keep them rare.
-assert.ok(evidenceCountEchoes <= 4, `Too many answer/evidence numeric echoes: ${evidenceCountEchoes}`);
-
-// Reconstruct source Q65 and Q67 through the same normalized solver contract.
 const q65: RnkCp007CategoryCompositionState = {
   total: 150,
   categoryATotal: 100,
@@ -177,7 +171,7 @@ assert.equal(
 
 console.log(JSON.stringify({
   status: "PASS",
-  version: "RNK_CP007_CATEGORY_COMPOSITION_DISCOVERY_V1_1",
+  version: "RNK_CP007_CATEGORY_COMPOSITION_EDITORIAL_V1_1_ZERO_ECHO",
   prototype: "CATEGORY_COMPOSITION_AROUND_RANK",
   questionsChecked: questions.length,
   questionsPerMode: QUESTIONS_PER_MODE,
