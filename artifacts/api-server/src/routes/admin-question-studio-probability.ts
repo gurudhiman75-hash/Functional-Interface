@@ -24,6 +24,7 @@ const DIFFICULTIES = new Set<string>(PROBABILITY_NATIVE_REVIEW_DIFFICULTIES);
 const PACKAGES = new Set<string>(PROBABILITY_NATIVE_REVIEW_PACKAGES);
 const CATALOG = listProbabilityNativeReviewCatalog();
 const QL_IDS = new Set(CATALOG.map((entry) => entry.qlId));
+const REVIEW_DECISION_STATUSES = new Set(["unreviewed", "needs_fix", "approved", "rejected"]);
 
 type ProbabilityReviewResult = ReturnType<typeof previewProbabilityNativeReview>;
 type ProbabilityReviewQuestion = ProbabilityReviewResult["questions"][number];
@@ -35,6 +36,42 @@ function asString(value: unknown) {
 function asCount(value: unknown, fallback = 5, max = 50) {
   const parsed = Math.floor(Number(value));
   return Number.isFinite(parsed) && parsed > 0 ? Math.min(parsed, max) : fallback;
+}
+
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : {};
+}
+
+function assertLockedNativeReviewPayload(value: unknown): void {
+  const payload = asRecord(value);
+  const generationContext = asRecord(payload.generationContext);
+  const authority = asString(payload.integrationAuthority || generationContext.integrationAuthority);
+  const questionBankStatus = asString(payload.questionBankStatus || generationContext.questionBankStatus).toUpperCase();
+  const testEligibility = asString(payload.testEligibility || generationContext.testEligibility).toUpperCase();
+
+  if (authority !== PROBABILITY_NATIVE_REVIEW_AUTHORITY) {
+    throw new Error("Generated item is not governed by the Probability native review authority.");
+  }
+  if ((payload.reviewOnly ?? generationContext.reviewOnly) !== true) {
+    throw new Error("Probability native review item lost its review-only lock.");
+  }
+  if ((payload.manualApprovalRequired ?? generationContext.manualApprovalRequired) !== true) {
+    throw new Error("Probability native review item lost its manual-approval requirement.");
+  }
+  if (questionBankStatus !== "NOT_STORED" || (payload.questionBankWritable ?? generationContext.questionBankWritable) !== false) {
+    throw new Error("Probability native review item lost its Question Bank lock.");
+  }
+  if (testEligibility !== "INELIGIBLE" || (payload.testEligible ?? generationContext.testEligible) !== false) {
+    throw new Error("Probability native review item lost its test-eligibility lock.");
+  }
+  if ((payload.publiclyPublishable ?? generationContext.publiclyPublishable) !== false) {
+    throw new Error("Probability native review item lost its publication lock.");
+  }
+  if ((payload.automaticStudentPublication ?? generationContext.automaticStudentPublication) !== false) {
+    throw new Error("Probability native review item lost its automatic-publication lock.");
+  }
 }
 
 function publicRunCode() {
@@ -311,6 +348,131 @@ router.post(
     } catch (error) {
       console.error("Probability native Question Studio review run failed", error);
       res.status(500).json({ error: error instanceof Error ? error.message : "Unable to create Probability native review run." });
+    }
+  },
+);
+
+router.patch(
+  "/quant/probability/native-review/items/:itemId/decision",
+  requireAdminPermission("content.generation.review"),
+  async (req, res) => {
+    const actorUserId = req.adminSession?.user.id;
+    if (!actorUserId) {
+      res.status(403).json({ error: "Administrator session required." });
+      return;
+    }
+    const itemId = asString(req.params.itemId);
+    const status = asString(req.body?.status);
+    const reason = asString(req.body?.reason);
+    if (!itemId) {
+      res.status(400).json({ error: "Probability native review item is required." });
+      return;
+    }
+    if (!REVIEW_DECISION_STATUSES.has(status)) {
+      res.status(400).json({ error: "Invalid Probability native review decision." });
+      return;
+    }
+    if ((status === "needs_fix" || status === "rejected") && !reason) {
+      res.status(400).json({ error: "A reason is required for this review decision." });
+      return;
+    }
+
+    try {
+      const result = await sqlClient.begin(async (tx) => {
+        const rows = await tx`
+          SELECT
+            i.id,
+            i.status,
+            i.generation_run_id AS "generationRunId",
+            i.accepted_question_id AS "acceptedQuestionId",
+            i.accepted_question_version_id AS "acceptedQuestionVersionId",
+            i.current_version_number AS "currentVersionNumber",
+            v.id AS "versionId",
+            v.payload
+          FROM content.generation_run_items i
+          INNER JOIN content.generation_item_versions v
+            ON v.generation_item_id = i.id
+           AND v.version_number = i.current_version_number
+          WHERE i.id = ${itemId}::uuid
+          FOR UPDATE OF i
+        `;
+        const row = rows[0];
+        if (!row) throw new Error("Probability native review item was not found.");
+        if (row.acceptedQuestionId || row.acceptedQuestionVersionId) {
+          throw new Error("Probability native review item is unexpectedly linked to Question Bank.");
+        }
+        assertLockedNativeReviewPayload(row.payload);
+
+        const updated = await tx`
+          UPDATE content.generation_run_items
+          SET
+            status = ${status}::generation_item_status,
+            retry_reason = ${reason || null},
+            reviewer_user_id = ${actorUserId}::uuid,
+            updated_at = now()
+          WHERE id = ${itemId}::uuid
+          RETURNING status, updated_at AS "updatedAt"
+        `;
+
+        const counts = await tx`
+          SELECT
+            COUNT(*)::int AS total,
+            COUNT(*) FILTER (WHERE status = 'approved')::int AS approved
+          FROM content.generation_run_items
+          WHERE generation_run_id = ${String(row.generationRunId)}::uuid
+        `;
+        const total = Number(counts[0]?.total ?? 0);
+        const approved = Number(counts[0]?.approved ?? 0);
+        const runStatus = total > 0 && approved === total
+          ? "approved"
+          : approved > 0
+            ? "partially_approved"
+            : "review";
+        await tx`
+          UPDATE content.generation_runs
+          SET status = ${runStatus}::generation_run_status, updated_at = now()
+          WHERE id = ${String(row.generationRunId)}::uuid
+        `;
+
+        await tx`
+          INSERT INTO platform.audit_events (
+            id, actor_type, actor_user_id, action_key, entity_type, entity_id,
+            entity_version_id, reason, summary, metadata
+          ) VALUES (
+            ${randomUUID()}::uuid, 'user'::audit_actor_type, ${actorUserId}::uuid,
+            ${`question_studio.probability_native_review.${status}`}, 'generation_item', ${itemId}::uuid,
+            ${String(row.versionId)}::uuid, ${reason || null},
+            ${`Probability native review item moved to ${status} without Question Bank conversion`},
+            ${JSON.stringify({
+              previousStatus: row.status,
+              status,
+              integrationAuthority: PROBABILITY_NATIVE_REVIEW_AUTHORITY,
+              editorialDecisionOnly: true,
+              questionBankWritePerformed: false,
+              questionBankWritable: false,
+              testEligible: false,
+              publiclyPublishable: false,
+              releaseFreezeStillRequired: true,
+            })}::jsonb
+          )
+        `;
+
+        return {
+          id: itemId,
+          generationRunId: String(row.generationRunId),
+          previousStatus: String(row.status),
+          status: String(updated[0]?.status ?? status),
+          updatedAt: updated[0]?.updatedAt ?? null,
+          convertedQuestion: null,
+          questionBankWritePerformed: false,
+          releaseFreezeStillRequired: true,
+        };
+      });
+
+      res.json(result);
+    } catch (error) {
+      console.error("Probability native review decision failed", error);
+      res.status(422).json({ error: error instanceof Error ? error.message : "Unable to save Probability native review decision." });
     }
   },
 );
