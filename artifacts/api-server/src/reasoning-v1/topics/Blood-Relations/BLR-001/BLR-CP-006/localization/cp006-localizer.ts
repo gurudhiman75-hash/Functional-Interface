@@ -103,19 +103,37 @@ function localizedSharedPrompt(record: GeneratedBlrCp006Question, locale: Locale
     .map((entry) => `• ${entry.leftId} ${entry.token} ${entry.rightId}`)
     .join("\n");
   return [
-    localeText(locale, "दिए गए संबंध-कोड और कूटित कथनों का अध्ययन कीजिए।", "ਦਿੱਤੇ ਗਏ ਸੰਬੰਧ-ਕੋਡ ਅਤੇ ਕੋਡਿਤ ਕਥਨਾਂ ਦਾ ਅਧਿਐਨ ਕਰੋ।"),
+    localeText(
+      locale,
+      "दिए गए संबंध-कूट और कूटबद्ध कथनों को ध्यान से पढ़िए।",
+      "ਦਿੱਤੇ ਗਏ ਸੰਬੰਧ-ਕੋਡ ਅਤੇ ਕੋਡ ਕੀਤੇ ਕਥਨਾਂ ਨੂੰ ਧਿਆਨ ਨਾਲ ਪੜ੍ਹੋ।",
+    ),
     "",
     keyRows,
     "",
-    localeText(locale, "कूटित कथन:", "ਕੋਡਿਤ ਕਥਨ:"),
+    localeText(locale, "कूटबद्ध कथन:", "ਕੋਡ ਕੀਤੇ ਕਥਨ:"),
     statements,
     "",
     localeText(
       locale,
-      "हर पास-पास की कूटित जोड़ी एक अलग पारिवारिक कथन है। संकेत संबंध-कोड हैं, गणितीय चिह्न नहीं।",
-      "ਹਰ ਨਾਲ-ਨਾਲ ਕੋਡਿਤ ਜੋੜੀ ਇੱਕ ਵੱਖਰਾ ਪਰਿਵਾਰਕ ਕਥਨ ਹੈ। ਸੰਕੇਤ ਸੰਬੰਧ-ਕੋਡ ਹਨ, ਗਣਿਤੀ ਚਿੰਨ੍ਹ ਨਹੀਂ।",
+      "प्रत्येक संकेत का अर्थ केवल दिए गए संबंध-कूट के अनुसार लें। संकेतों को गणितीय चिह्न मानकर प्राथमिकता न लगाएँ।",
+      "ਹਰ ਚਿੰਨ੍ਹ ਦਾ ਅਰਥ ਕੇਵਲ ਦਿੱਤੇ ਸੰਬੰਧ-ਕੋਡ ਅਨੁਸਾਰ ਲਓ। ਚਿੰਨ੍ਹਾਂ ਨੂੰ ਗਣਿਤੀ ਨਿਸ਼ਾਨ ਮੰਨ ਕੇ ਤਰਜੀਹ ਨਾ ਲਗਾਓ।",
     ),
   ].join("\n");
+}
+
+function localizedPairRelationPhrase(relationId: BlrCp006Relation, locale: Locale): string {
+  if (relationId === "SIBLING") {
+    return localeText(locale, "भाई-बहन का संबंध", "ਭਰਾ-ਭੈਣ ਦਾ ਸੰਬੰਧ");
+  }
+  if (relationId === "SPOUSE") {
+    return localeText(locale, "जीवनसाथी का संबंध", "ਜੀਵਨਸਾਥੀ ਦਾ ਸੰਬੰਧ");
+  }
+  if (relationId === "PARENT") {
+    return localeText(locale, "माता-पिता और संतान का संबंध", "ਮਾਤਾ-ਪਿਤਾ ਅਤੇ ਸੰਤਾਨ ਦਾ ਸੰਬੰਧ");
+  }
+  const relation = localizedRelationLabel(relationId, locale);
+  return localeText(locale, `${relation} का संबंध`, `${relation} ਦਾ ਸੰਬੰਧ`);
 }
 
 function localizedStem(record: GeneratedBlrCp006Question, locale: Locale): string {
@@ -138,11 +156,11 @@ function localizedStem(record: GeneratedBlrCp006Question, locale: Locale): strin
   if (query.kind === "GENDER") {
     return localeText(locale, `${query.personId} का लिंग क्या है?`, `${query.personId} ਦਾ ਲਿੰਗ ਕੀ ਹੈ?`);
   }
-  const relation = localizedRelationLabel(query.relationId, locale);
+  const phrase = localizedPairRelationPhrase(query.relationId, locale);
   return localeText(
     locale,
-    `किस जोड़ी में ${relation} का संबंध है?`,
-    `ਕਿਹੜੀ ਜੋੜੀ ਵਿੱਚ ${relation} ਦਾ ਸੰਬੰਧ ਹੈ?`,
+    `किस जोड़ी के बीच ${phrase} है?`,
+    `ਕਿਹੜੀ ਜੋੜੀ ਵਿਚਕਾਰ ${phrase} ਹੈ?`,
   );
 }
 
@@ -165,8 +183,8 @@ function localizedDecodingAudit(
 ): readonly string[] {
   return record.codedStatements.map((coded, index) => localeText(
     locale,
-    `${coded.leftId} ${coded.token} ${coded.rightId} को खोलने पर: ${decodedStatements[index]}`,
-    `${coded.leftId} ${coded.token} ${coded.rightId} ਨੂੰ ਖੋਲ੍ਹਣ ਉੱਤੇ: ${decodedStatements[index]}`,
+    `${coded.leftId} ${coded.token} ${coded.rightId} का अर्थ: ${decodedStatements[index]}`,
+    `${coded.leftId} ${coded.token} ${coded.rightId} ਦਾ ਅਰਥ: ${decodedStatements[index]}`,
   ));
 }
 
@@ -179,26 +197,58 @@ function localizedGraphAudit(
   if (query.kind === "RELATION") {
     const path = record.explanation.familyTree.query.pathPersonIds;
     return [
-      localeText(locale, `प्रश्न की दिशा में रास्ता देखें: ${path.join(" → ")}।`, `ਪ੍ਰਸ਼ਨ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਰਸਤਾ ਵੇਖੋ: ${path.join(" → ")}।`),
-      localeText(locale, `पूरे खुले हुए रास्ते से उत्तर ${answer} मिलता है।`, `ਪੂਰੇ ਖੁੱਲ੍ਹੇ ਹੋਏ ਰਸਤੇ ਤੋਂ ਉੱਤਰ ${answer} ਮਿਲਦਾ ਹੈ।`),
+      localeText(
+        locale,
+        `प्रश्न में पूछी गई दिशा की संबंध-श्रृंखला: ${path.join(" → ")}।`,
+        `ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਪੁੱਛੀ ਦਿਸ਼ਾ ਦੀ ਸੰਬੰਧ-ਲੜੀ: ${path.join(" → ")}।`,
+      ),
+      localeText(
+        locale,
+        `इस पूरी संबंध-श्रृंखला से उत्तर ${answer} निकलता है।`,
+        `ਇਸ ਪੂਰੀ ਸੰਬੰਧ-ਲੜੀ ਤੋਂ ਉੱਤਰ ${answer} ਨਿਕਲਦਾ ਹੈ।`,
+      ),
     ];
   }
   if (query.kind === "IDENTIFY_PERSON") {
     const relation = localizedRelationLabel(query.relationId, locale);
     return [
-      localeText(locale, `उम्मीदवार ${query.candidateIds.join(", ")} को ${query.referenceId} के ${relation} के रूप में जाँचें।`, `ਉਮੀਦਵਾਰ ${query.candidateIds.join(", ")} ਨੂੰ ${query.referenceId} ਦੇ ${relation} ਵਜੋਂ ਜਾਂਚੋ।`),
-      localeText(locale, `केवल ${answer} पूरा खुला हुआ संबंध पूरा करता है।`, `ਕੇਵਲ ${answer} ਪੂਰਾ ਖੁੱਲ੍ਹਾ ਹੋਇਆ ਸੰਬੰਧ ਪੂਰਾ ਕਰਦਾ ਹੈ।`),
+      localeText(
+        locale,
+        `उम्मीदवार ${query.candidateIds.join(", ")} में जाँचें कि ${query.referenceId} का ${relation} कौन है।`,
+        `ਉਮੀਦਵਾਰ ${query.candidateIds.join(", ")} ਵਿੱਚ ਜਾਂਚੋ ਕਿ ${query.referenceId} ਦਾ ${relation} ਕੌਣ ਹੈ।`,
+      ),
+      localeText(
+        locale,
+        `केवल ${answer} सभी दिए गए संबंधों से मेल खाता है।`,
+        `ਕੇਵਲ ${answer} ਸਾਰੇ ਦਿੱਤੇ ਸੰਬੰਧਾਂ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।`,
+      ),
     ];
   }
   if (query.kind === "GENDER") {
     return [
-      localeText(locale, `${query.personId} से जुड़ा खुला लिंग-सूचक संबंध लिंग तय करता है।`, `${query.personId} ਨਾਲ ਜੁੜਿਆ ਖੁੱਲ੍ਹਾ ਲਿੰਗ-ਸੂਚਕ ਸੰਬੰਧ ਲਿੰਗ ਨਿਰਧਾਰਤ ਕਰਦਾ ਹੈ।`),
-      localeText(locale, `आवश्यक उत्तर ${answer} है; अक्षर स्वयं लिंग का प्रमाण नहीं है।`, `ਲੋੜੀਂਦਾ ਉੱਤਰ ${answer} ਹੈ; ਅੱਖਰ ਆਪਣੇ ਆਪ ਲਿੰਗ ਦਾ ਸਬੂਤ ਨਹੀਂ ਹੈ।`),
+      localeText(
+        locale,
+        `${query.personId} से जुड़ा स्पष्ट लिंग-सूचक संबंध उसका लिंग निर्धारित करता है।`,
+        `${query.personId} ਨਾਲ ਜੁੜਿਆ ਸਪਸ਼ਟ ਲਿੰਗ-ਸੂਚਕ ਸੰਬੰਧ ਉਸਦਾ ਲਿੰਗ ਨਿਰਧਾਰਤ ਕਰਦਾ ਹੈ।`,
+      ),
+      localeText(
+        locale,
+        `इसलिए उत्तर ${answer} है; केवल अक्षर देखकर लिंग तय नहीं किया गया है।`,
+        `ਇਸ ਲਈ ਉੱਤਰ ${answer} ਹੈ; ਕੇਵਲ ਅੱਖਰ ਦੇਖ ਕੇ ਲਿੰਗ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਗਿਆ।`,
+      ),
     ];
   }
   return [
-    localeText(locale, "कोड खोलने के बाद दी गई जोड़ियों को भाई-बहन, जीवनसाथी, माता-पिता-संतान या असंगत के रूप में पहचानें।", "ਕੋਡ ਖੋਲ੍ਹਣ ਤੋਂ ਬਾਅਦ ਦਿੱਤੀਆਂ ਜੋੜੀਆਂ ਨੂੰ ਭਰਾ-ਭੈਣ, ਜੀਵਨਸਾਥੀ, ਮਾਤਾ-ਪਿਤਾ-ਸੰਤਾਨ ਜਾਂ ਅਸੰਗਤ ਵਜੋਂ ਪਛਾਣੋ।"),
-    localeText(locale, `${answer} ही माँगे गए संबंध वाली एकमात्र जोड़ी है।`, `${answer} ਹੀ ਮੰਗੇ ਗਏ ਸੰਬੰਧ ਵਾਲੀ ਇਕੱਲੀ ਜੋੜੀ ਹੈ।`),
+    localeText(
+      locale,
+      "कूटों का अर्थ निकालने के बाद दी गई जोड़ियों को भाई-बहन, जीवनसाथी, माता-पिता-संतान या असंबंधित जोड़ी के रूप में पहचानें।",
+      "ਕੋਡਾਂ ਦਾ ਅਰਥ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ਦਿੱਤੀਆਂ ਜੋੜੀਆਂ ਨੂੰ ਭਰਾ-ਭੈਣ, ਜੀਵਨਸਾਥੀ, ਮਾਤਾ-ਪਿਤਾ-ਸੰਤਾਨ ਜਾਂ ਅਸੰਬੰਧਿਤ ਜੋੜੀ ਵਜੋਂ ਪਛਾਣੋ।",
+    ),
+    localeText(
+      locale,
+      `${answer} ही माँगे गए संबंध वाली एकमात्र जोड़ी है।`,
+      `${answer} ਹੀ ਮੰਗੇ ਗਏ ਸੰਬੰਧ ਵਾਲੀ ਇਕੱਲੀ ਜੋੜੀ ਹੈ।`,
+    ),
   ];
 }
 
@@ -212,37 +262,37 @@ function localizedOptionExplanation(
   if (option.isCorrect) {
     return localeText(
       locale,
-      `विकल्प ${label} सही है। पूरा कोड खोलने और परिवार-ग्राफ देखने पर ${answer} मिलता है। [CORRECT_DECODED_GRAPH]`,
-      `ਵਿਕਲਪ ${label} ਸਹੀ ਹੈ। ਪੂਰਾ ਕੋਡ ਖੋਲ੍ਹਣ ਅਤੇ ਪਰਿਵਾਰਕ ਗ੍ਰਾਫ ਵੇਖਣ ਉੱਤੇ ${answer} ਮਿਲਦਾ ਹੈ। [CORRECT_DECODED_GRAPH]`,
+      `विकल्प ${label} सही है। सभी कूटों का अर्थ निकालकर परिवार-संबंध चित्र बनाने पर उत्तर ${answer} मिलता है।`,
+      `ਵਿਕਲਪ ${label} ਸਹੀ ਹੈ। ਸਾਰੇ ਕੋਡਾਂ ਦਾ ਅਰਥ ਕੱਢ ਕੇ ਪਰਿਵਾਰਕ ਸੰਬੰਧ-ਚਿੱਤਰ ਬਣਾਉਣ ਉੱਤੇ ਉੱਤਰ ${answer} ਮਿਲਦਾ ਹੈ।`,
     );
   }
   const code = option.errorLabel ?? "DECODED_RELATION_MISMATCH";
   const hi: Record<string, string> = {
-    QUERY_DIRECTION_REVERSAL: "यह प्रश्न में दी गई दिशा के उलट परिवार-रास्ता पढ़ता है।",
-    GENERATION_LEVEL_ERROR: "कोड खोलने के बाद यह व्यक्ति को गलत पीढ़ी में रखता है।",
-    BLOOD_AFFINAL_CONFUSION: "यह रक्त-संबंध वाले रास्ते को विवाह से जुड़े रास्ते से मिला देता है।",
-    INCOMPLETE_DECODED_PATH: "यह उम्मीदवार खुले हुए रास्ते के केवल एक हिस्से से मेल खाता है, पूरे संबंध से नहीं।",
-    IGNORED_EXPLICIT_GENDER_CODE: "खुला हुआ लिंग-सूचक संबंध लक्ष्य का लिंग तय करता है, इसलिए अनिश्चितता संभव नहीं है।",
-    FALSE_CONTRADICTION: "दिया गया कोड और कथन एक संगत परिवार-ग्राफ बनाते हैं।",
-    CODE_DIRECTION_GENDER_SWAP: "यह खुले हुए संबंध में मौजूद दिशा या लिंग को उलट देता है।",
-    PAIR_RELATION_MISMATCH: "इस जोड़ी का खुला हुआ संबंध प्रश्न में माँगे गए संबंध से अलग है।",
-    DECODED_RELATION_MISMATCH: "यह पूरे खुले हुए परिवार-ग्राफ से मेल नहीं खाता।",
+    QUERY_DIRECTION_REVERSAL: "यह संबंध-श्रृंखला को प्रश्न में पूछी गई दिशा के उलट पढ़ता है।",
+    GENERATION_LEVEL_ERROR: "कूटों का अर्थ निकालने पर यह व्यक्ति को गलत पीढ़ी में रखता है।",
+    BLOOD_AFFINAL_CONFUSION: "यह रक्त-संबंध और विवाह-संबंध वाली श्रृंखला को आपस में मिला देता है।",
+    INCOMPLETE_DECODED_PATH: "यह केवल संबंध-श्रृंखला के एक हिस्से से मेल खाता है, पूरे संबंध से नहीं।",
+    IGNORED_EXPLICIT_GENDER_CODE: "कूट का अर्थ निकालने पर मिला स्पष्ट लिंग-सूचक संबंध लक्ष्य का लिंग तय करता है, इसलिए उत्तर अनिश्चित नहीं है।",
+    FALSE_CONTRADICTION: "दिए गए कूट और कथन एक संगत परिवार-संबंध चित्र बनाते हैं; इनमें विरोधाभास नहीं है।",
+    CODE_DIRECTION_GENDER_SWAP: "यह दिए गए संबंध की दिशा या लिंग-सूचक अर्थ को उलट देता है।",
+    PAIR_RELATION_MISMATCH: "इस जोड़ी का संबंध प्रश्न में माँगे गए संबंध से अलग है।",
+    DECODED_RELATION_MISMATCH: "यह सभी दिए गए संबंधों को एक साथ संतुष्ट नहीं करता।",
   };
   const pa: Record<string, string> = {
-    QUERY_DIRECTION_REVERSAL: "ਇਹ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੀ ਦਿਸ਼ਾ ਦੇ ਉਲਟ ਪਰਿਵਾਰਕ ਰਸਤਾ ਪੜ੍ਹਦਾ ਹੈ।",
-    GENERATION_LEVEL_ERROR: "ਕੋਡ ਖੋਲ੍ਹਣ ਤੋਂ ਬਾਅਦ ਇਹ ਵਿਅਕਤੀ ਨੂੰ ਗਲਤ ਪੀੜ੍ਹੀ ਵਿੱਚ ਰੱਖਦਾ ਹੈ।",
-    BLOOD_AFFINAL_CONFUSION: "ਇਹ ਖੂਨ ਦੇ ਸੰਬੰਧ ਵਾਲੇ ਰਸਤੇ ਨੂੰ ਵਿਆਹ ਨਾਲ ਜੁੜੇ ਰਸਤੇ ਨਾਲ ਗੁੰਝਲਾਉਂਦਾ ਹੈ।",
-    INCOMPLETE_DECODED_PATH: "ਇਹ ਉਮੀਦਵਾਰ ਖੁੱਲ੍ਹੇ ਰਸਤੇ ਦੇ ਕੇਵਲ ਇੱਕ ਹਿੱਸੇ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ, ਪੂਰੇ ਸੰਬੰਧ ਨਾਲ ਨਹੀਂ।",
-    IGNORED_EXPLICIT_GENDER_CODE: "ਖੁੱਲ੍ਹਾ ਲਿੰਗ-ਸੂਚਕ ਸੰਬੰਧ ਲਕਸ਼ ਦਾ ਲਿੰਗ ਨਿਰਧਾਰਤ ਕਰਦਾ ਹੈ, ਇਸ ਲਈ ਅਨਿਸ਼ਚਿਤਤਾ ਸੰਭਵ ਨਹੀਂ।",
-    FALSE_CONTRADICTION: "ਦਿੱਤਾ ਕੋਡ ਅਤੇ ਕਥਨ ਇੱਕ ਸੰਗਤ ਪਰਿਵਾਰਕ ਗ੍ਰਾਫ ਬਣਾਉਂਦੇ ਹਨ।",
-    CODE_DIRECTION_GENDER_SWAP: "ਇਹ ਖੁੱਲ੍ਹੇ ਸੰਬੰਧ ਵਿੱਚ ਮੌਜੂਦ ਦਿਸ਼ਾ ਜਾਂ ਲਿੰਗ ਨੂੰ ਉਲਟ ਦਿੰਦਾ ਹੈ।",
-    PAIR_RELATION_MISMATCH: "ਇਸ ਜੋੜੀ ਦਾ ਖੁੱਲ੍ਹਾ ਸੰਬੰਧ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਮੰਗੇ ਸੰਬੰਧ ਤੋਂ ਵੱਖਰਾ ਹੈ।",
-    DECODED_RELATION_MISMATCH: "ਇਹ ਪੂਰੇ ਖੁੱਲ੍ਹੇ ਪਰਿਵਾਰਕ ਗ੍ਰਾਫ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।",
+    QUERY_DIRECTION_REVERSAL: "ਇਹ ਸੰਬੰਧ-ਲੜੀ ਨੂੰ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਪੁੱਛੀ ਦਿਸ਼ਾ ਦੇ ਉਲਟ ਪੜ੍ਹਦਾ ਹੈ।",
+    GENERATION_LEVEL_ERROR: "ਕੋਡਾਂ ਦਾ ਅਰਥ ਕੱਢਣ ਉੱਤੇ ਇਹ ਵਿਅਕਤੀ ਨੂੰ ਗਲਤ ਪੀੜ੍ਹੀ ਵਿੱਚ ਰੱਖਦਾ ਹੈ।",
+    BLOOD_AFFINAL_CONFUSION: "ਇਹ ਖੂਨ ਦੇ ਸੰਬੰਧ ਅਤੇ ਵਿਆਹ ਵਾਲੇ ਸੰਬੰਧ ਦੀ ਲੜੀ ਨੂੰ ਆਪਸ ਵਿੱਚ ਗੁੰਝਲਾ ਦਿੰਦਾ ਹੈ।",
+    INCOMPLETE_DECODED_PATH: "ਇਹ ਕੇਵਲ ਸੰਬੰਧ-ਲੜੀ ਦੇ ਇੱਕ ਹਿੱਸੇ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ, ਪੂਰੇ ਸੰਬੰਧ ਨਾਲ ਨਹੀਂ।",
+    IGNORED_EXPLICIT_GENDER_CODE: "ਕੋਡ ਦਾ ਅਰਥ ਕੱਢਣ ਉੱਤੇ ਮਿਲਿਆ ਸਪਸ਼ਟ ਲਿੰਗ-ਸੂਚਕ ਸੰਬੰਧ ਲਕਸ਼ ਦਾ ਲਿੰਗ ਨਿਰਧਾਰਤ ਕਰਦਾ ਹੈ, ਇਸ ਲਈ ਉੱਤਰ ਅਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੈ।",
+    FALSE_CONTRADICTION: "ਦਿੱਤੇ ਕੋਡ ਅਤੇ ਕਥਨ ਇੱਕ ਸੰਗਤ ਪਰਿਵਾਰਕ ਸੰਬੰਧ-ਚਿੱਤਰ ਬਣਾਉਂਦੇ ਹਨ; ਇਨ੍ਹਾਂ ਵਿੱਚ ਵਿਰੋਧ ਨਹੀਂ ਹੈ।",
+    CODE_DIRECTION_GENDER_SWAP: "ਇਹ ਦਿੱਤੇ ਸੰਬੰਧ ਦੀ ਦਿਸ਼ਾ ਜਾਂ ਲਿੰਗ-ਸੂਚਕ ਅਰਥ ਨੂੰ ਉਲਟ ਦਿੰਦਾ ਹੈ।",
+    PAIR_RELATION_MISMATCH: "ਇਸ ਜੋੜੀ ਦਾ ਸੰਬੰਧ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਮੰਗੇ ਸੰਬੰਧ ਤੋਂ ਵੱਖਰਾ ਹੈ।",
+    DECODED_RELATION_MISMATCH: "ਇਹ ਸਾਰੇ ਦਿੱਤੇ ਸੰਬੰਧਾਂ ਨੂੰ ਇਕੱਠੇ ਪੂਰਾ ਨਹੀਂ ਕਰਦਾ।",
   };
   return localeText(
     locale,
-    `विकल्प ${label} गलत है। ${hi[code] ?? hi.DECODED_RELATION_MISMATCH} [${code}]`,
-    `ਵਿਕਲਪ ${label} ਗਲਤ ਹੈ। ${pa[code] ?? pa.DECODED_RELATION_MISMATCH} [${code}]`,
+    `विकल्प ${label} गलत है। ${hi[code] ?? hi.DECODED_RELATION_MISMATCH}`,
+    `ਵਿਕਲਪ ${label} ਗਲਤ ਹੈ। ${pa[code] ?? pa.DECODED_RELATION_MISMATCH}`,
   );
 }
 
@@ -261,27 +311,27 @@ function localizedFamilyTree(
     return localeText(locale, `पीढ़ी ${generation}: ${members}`, `ਪੀੜ੍ਹੀ ${generation}: ${members}`);
   });
   const edges = [
-    ...record.graph.parents.map((edge) => localeText(locale, `${edge.parentId} -> संतान -> ${edge.childId}`, `${edge.parentId} -> ਸੰਤਾਨ -> ${edge.childId}`)),
-    ...record.graph.spouses.map((edge) => localeText(locale, `${edge.personAId} == जीवनसाथी == ${edge.personBId}`, `${edge.personAId} == ਜੀਵਨਸਾਥੀ == ${edge.personBId}`)),
-    ...record.graph.siblings.map((edge) => localeText(locale, `${edge.personAId} -- भाई/बहन -- ${edge.personBId}`, `${edge.personAId} -- ਭਰਾ/ਭੈਣ -- ${edge.personBId}`)),
+    ...record.graph.parents.map((edge) => localeText(locale, `${edge.parentId} → संतान → ${edge.childId}`, `${edge.parentId} → ਸੰਤਾਨ → ${edge.childId}`)),
+    ...record.graph.spouses.map((edge) => localeText(locale, `${edge.personAId} ↔ जीवनसाथी ↔ ${edge.personBId}`, `${edge.personAId} ↔ ਜੀਵਨਸਾਥੀ ↔ ${edge.personBId}`)),
+    ...record.graph.siblings.map((edge) => localeText(locale, `${edge.personAId} ↔ भाई/बहन ↔ ${edge.personBId}`, `${edge.personAId} ↔ ਭਰਾ/ਭੈਣ ↔ ${edge.personBId}`)),
   ];
   return {
     ...tree,
-    title: localeText(locale, "खोला गया परिवार-संबंध मानचित्र", "ਖੋਲ੍ਹਿਆ ਗਿਆ ਪਰਿਵਾਰਕ-ਸੰਬੰਧ ਨਕਸ਼ਾ"),
+    title: localeText(locale, "परिवार-संबंध चित्र", "ਪਰਿਵਾਰਕ ਸੰਬੰਧ-ਚਿੱਤਰ"),
     query: { ...tree.query, answerLabel: answer },
     accessibleSummary: localeText(
       locale,
-      `${tree.nodes.length} व्यक्तियों और ${tree.edges.length} संबंध-किनारों वाला खोला गया परिवार-ग्राफ।`,
-      `${tree.nodes.length} ਵਿਅਕਤੀਆਂ ਅਤੇ ${tree.edges.length} ਸੰਬੰਧ-ਕਿਨਾਰਿਆਂ ਵਾਲਾ ਖੋਲ੍ਹਿਆ ਗਿਆ ਪਰਿਵਾਰਕ ਗ੍ਰਾਫ।`,
+      `${tree.nodes.length} व्यक्तियों और ${tree.edges.length} संबंधों वाला परिवार-संबंध चित्र।`,
+      `${tree.nodes.length} ਵਿਅਕਤੀਆਂ ਅਤੇ ${tree.edges.length} ਸੰਬੰਧਾਂ ਵਾਲਾ ਪਰਿਵਾਰਕ ਸੰਬੰਧ-ਚਿੱਤਰ।`,
     ),
     asciiFallback: [
-      localeText(locale, "खोला गया परिवार-संबंध मानचित्र", "ਖੋਲ੍ਹਿਆ ਗਿਆ ਪਰਿਵਾਰਕ-ਸੰਬੰਧ ਨਕਸ਼ਾ"),
+      localeText(locale, "परिवार-संबंध चित्र", "ਪਰਿਵਾਰਕ ਸੰਬੰਧ-ਚਿੱਤਰ"),
       ...rows,
       "",
-      localeText(locale, "खुले हुए संबंध:", "ਖੁੱਲ੍ਹੇ ਹੋਏ ਸੰਬੰਧ:"),
+      localeText(locale, "स्पष्ट संबंध:", "ਸਪਸ਼ਟ ਸੰਬੰਧ:"),
       ...edges,
       "",
-      localeText(locale, "कुंजी: (+) पुरुष | (-) महिला | (?) लिंग स्थापित नहीं", "ਕੁੰਜੀ: (+) ਪੁਰਸ਼ | (-) ਮਹਿਲਾ | (?) ਲਿੰਗ ਸਥਾਪਿਤ ਨਹੀਂ"),
+      localeText(locale, "कुंजी: (+) पुरुष | (-) महिला | (?) लिंग ज्ञात नहीं", "ਕੁੰਜੀ: (+) ਪੁਰਸ਼ | (-) ਮਹਿਲਾ | (?) ਲਿੰਗ ਪਤਾ ਨਹੀਂ"),
     ].join("\n"),
   };
 }
@@ -312,14 +362,14 @@ export function localizeBlrCp006Question(
       graphAudit: localizedGraphAudit(record, answer, locale),
       conclusion: localeText(
         locale,
-        `${answer} पूरा कोड खोलने से बने परिवार-ग्राफ द्वारा समर्थित एकमात्र उत्तर है।`,
-        `${answer} ਪੂਰਾ ਕੋਡ ਖੋਲ੍ਹਣ ਨਾਲ ਬਣੇ ਪਰਿਵਾਰਕ ਗ੍ਰਾਫ ਦੁਆਰਾ ਸਮਰਥਿਤ ਇਕੱਲਾ ਉੱਤਰ ਹੈ।`,
+        `${answer} सभी कूटों का अर्थ निकालकर बने परिवार-संबंध चित्र से मिलने वाला एकमात्र सही उत्तर है।`,
+        `${answer} ਸਾਰੇ ਕੋਡਾਂ ਦਾ ਅਰਥ ਕੱਢ ਕੇ ਬਣੇ ਪਰਿਵਾਰਕ ਸੰਬੰਧ-ਚਿੱਤਰ ਤੋਂ ਮਿਲਣ ਵਾਲਾ ਇਕੱਲਾ ਸਹੀ ਉੱਤਰ ਹੈ।`,
       ),
       examShortcut: localizedShortcut(record.solveAuthority, locale),
       commonTraps: [
-        localeText(locale, "संबंध-संकेतों पर गणितीय प्राथमिकता लागू न करें।", "ਸੰਬੰਧ-ਸੰਕੇਤਾਂ ਉੱਤੇ ਗਣਿਤੀ ਤਰਜੀਹ ਲਾਗੂ ਨਾ ਕਰੋ।"),
-        localeText(locale, "प्रश्न में दिए गए व्यक्ति और संदर्भ व्यक्ति की दिशा न उलटें।", "ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਵਿਅਕਤੀ ਅਤੇ ਹਵਾਲਾ ਵਿਅਕਤੀ ਦੀ ਦਿਸ਼ਾ ਨਾ ਉਲਟੋ।"),
-        localeText(locale, "अक्षर या नाम देखकर लिंग न मानें।", "ਅੱਖਰ ਜਾਂ ਨਾਮ ਦੇਖ ਕੇ ਲਿੰਗ ਨਾ ਮੰਨੋ।"),
+        localeText(locale, "संबंध-संकेतों पर गणितीय प्राथमिकता लागू न करें।", "ਸੰਬੰਧ-ਚਿੰਨ੍ਹਾਂ ਉੱਤੇ ਗਣਿਤੀ ਤਰਜੀਹ ਲਾਗੂ ਨਾ ਕਰੋ।"),
+        localeText(locale, "प्रश्न में पूछे गए व्यक्ति और संदर्भ व्यक्ति की दिशा न उलटें।", "ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਪੁੱਛੇ ਵਿਅਕਤੀ ਅਤੇ ਹਵਾਲਾ ਵਿਅਕਤੀ ਦੀ ਦਿਸ਼ਾ ਨਾ ਉਲਟੋ।"),
+        localeText(locale, "केवल अक्षर या नाम देखकर लिंग न मानें।", "ਕੇਵਲ ਅੱਖਰ ਜਾਂ ਨਾਮ ਦੇਖ ਕੇ ਲਿੰਗ ਨਾ ਮੰਨੋ।"),
       ],
       optionAnalysis: options.map((option, index) => ({
         optionLabel: optionLabel(index),
