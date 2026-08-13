@@ -19,10 +19,17 @@ const ratioFamilies = new Set([
 ]);
 
 let checked = 0;
+let punjabiSurfaceOrthographyChecks = 0;
 for (const source of review.rows) {
   for (const language of ["hi", "pa"] as const) {
     const native = generateMenCp009NativeTeachingV2(source.permanentQlId, source.seed, language);
     const prose = [native.stem, ...native.explanationLines].join(" ");
+    const allLearnerText = [
+      native.stem,
+      ...native.options.map((option) => option.display),
+      native.answer,
+      ...native.explanationLines,
+    ].join(" ");
     const asciiWords = prose.match(/[A-Za-z]{2,}/g) ?? [];
     const unexpected = asciiWords.filter((word) => !allowedAsciiWords.has(word));
     assert.deepEqual(
@@ -59,11 +66,14 @@ for (const source of review.rows) {
       assert.ok(!/एक गोले का सतह का क्षेत्रफल/.test(native.stem));
       assert.ok(!/सतह का क्षेत्रफलों/.test(native.stem));
     } else {
-      assert.ok(!/ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ|ਵਕਰ ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ|ਕੁੱਲ ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ/.test(prose),
-        `${source.permanentQlId}: learner Punjabi must use ਸਤਹ ਦਾ ਖੇਤਰਫਲ wording.`);
+      assert.ok(!/ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ|ਵਕਰ ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ|ਕੁੱਲ ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ/.test(allLearnerText),
+        `${source.permanentQlId}: learner Punjabi must not use bookish ਪ੍ਰਿਸ਼ਠੀ terminology.`);
+      assert.ok(!/ਸਤਹ/.test(allLearnerText),
+        `${source.permanentQlId}: learner Punjabi must spell surface as ਸਤ੍ਹਾ, not ਸਤਹ.`);
       assert.ok(!/ਅਰਧ ਵਿਆਸ/.test(native.stem));
-      assert.ok(!/ਸਤਹ ਦਾ ਖੇਤਰਫਲਾਂ/.test(native.stem));
-      assert.ok(!/ਉਨ੍ਹਾਂ ਦੇ ਸਤਹ ਦੇ ਖੇਤਰਫਲਾਂ/.test(native.stem));
+      assert.ok(!/ਸਤ੍ਹਾ ਦਾ ਖੇਤਰਫਲਾਂ/.test(native.stem));
+      assert.ok(!/ਉਨ੍ਹਾਂ ਦੇ ਸਤ੍ਹਾ ਦੇ ਖੇਤਰਫਲਾਂ/.test(native.stem));
+      punjabiSurfaceOrthographyChecks += 1;
     }
 
     checked += 1;
@@ -71,4 +81,5 @@ for (const source of review.rows) {
 }
 
 assert.equal(checked, 220);
-console.log(`MEN-CP-009 native teaching quality V4 passed: ${checked} review surfaces, canonical सतह का क्षेत्रफल / ਸਤਹ ਦਾ ਖੇਤਰਫਲ terminology, no residual English prose, semantic final lines, and native stem grammar guards.`);
+assert.equal(punjabiSurfaceOrthographyChecks, 110);
+console.log(`MEN-CP-009 native teaching quality V4 passed: ${checked} review surfaces, canonical सतह का क्षेत्रफल / ਸਤ੍ਹਾ ਦਾ ਖੇਤਰਫਲ terminology, 110 Punjabi orthography checks, no residual English prose, semantic final lines, and native stem grammar guards.`);
