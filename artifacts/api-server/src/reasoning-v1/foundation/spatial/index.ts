@@ -68,4 +68,8 @@ export * from "./gap-runtime-v1";
 export * from "./gap-authority-v1";
 export * from "./gap-proof-generator-v1";
 export * from "./gap-scale-engine-v1";
+export * from "./gap-question-types-v1";
+export * from "./gap-question-generator-v1";
+export * from "./gap-question-engine-v1";
+export * from "./gap-question-editorial-export-v1";
 export * from "./svg-renderer";
