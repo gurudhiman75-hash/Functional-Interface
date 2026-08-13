@@ -74,19 +74,70 @@ function remediateMathStep(locale: IntCp004V6Locale, original: string): string {
   return remediateRawEquation(locale, converted);
 }
 
+function remediateStem(
+  qlId: IntCp004V6LocalizedQuestion["qlId"],
+  locale: IntCp004V6Locale,
+  original: string,
+): string {
+  let stem = original;
+
+  if (qlId === "INT-QL-076") {
+    stem = locale === "hi-IN"
+      ? stem.replace(/प्रभावी दी गई जानकारी के आधार पर वार्षिक ब्याज दर कितनी थी\?/gu, "प्रभावी वार्षिक ब्याज दर (दो दशमलव स्थान तक) कितनी होगी?")
+      : stem.replace(/ਪ੍ਰਭਾਵੀ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਦੇ ਅਧਾਰ 'ਤੇ ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ ਕਿੰਨੀ ਸੀ\?/gu, "ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ (ਦੋ ਦਸ਼ਮਲਵ ਥਾਵਾਂ ਤੱਕ) ਕਿੰਨੀ ਹੋਵੇਗੀ?");
+  }
+
+  if (qlId === "INT-QL-084") {
+    stem = locale === "hi-IN"
+      ? stem.replace(/पहले वर्ष ब्याज जोड़ा जाता है और अगले वर्ष हर छह महीने जोड़ा जाता है।/gu, "पहले वर्ष ब्याज सालाना जोड़ा जाता है और अगले वर्ष हर छह महीने जोड़ा जाता है।")
+      : stem.replace(/ਪਹਿਲੇ ਸਾਲ ਵਿਆਜ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਅਗਲੇ ਸਾਲ ਹਰ ਛੇ ਮਹੀਨੇ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ।/gu, "ਪਹਿਲੇ ਸਾਲ ਵਿਆਜ ਸਾਲਾਨਾ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਅਗਲੇ ਸਾਲ ਹਰ ਛੇ ਮਹੀਨੇ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ।");
+  }
+
+  return stem;
+}
+
+function displayedPercent(text: string): number | null {
+  const match = text.replace(/,/gu, "").match(/^([0-9]+(?:\.\d+)?)%$/u);
+  return match ? Number(match[1]) : null;
+}
+
+function solutionNumber(question: IntCp004V6LocalizedQuestion): number {
+  return Number(question.solution.numerator) / Number(question.solution.denominator);
+}
+
+function needsApproximation(question: IntCp004V6LocalizedQuestion): boolean {
+  if (question.qlId !== "INT-QL-076") return false;
+  const displayed = displayedPercent(question.correctAnswer);
+  return displayed !== null && Math.abs(solutionNumber(question) - displayed) > 1e-10;
+}
+
+function markApproximation(step: string, correctAnswer: string): string {
+  const displayed = correctAnswer.replace(/%$/u, "");
+  const exactNeedle = `= ${displayed}\\%`;
+  if (step.includes(exactNeedle)) return step.replace(exactNeedle, `\\approx ${displayed}\\%`);
+  const compactNeedle = `=${displayed}\\%`;
+  return step.includes(compactNeedle) ? step.replace(compactNeedle, `\\approx ${displayed}\\%`) : step;
+}
+
 export function generateIntCp004V6NativeEditorialV5Question(
   qlId: IntCp004V6LocalizedQuestion["qlId"],
   seed: string,
   locale: IntCp004V6Locale,
 ): IntCp004V6LocalizedQuestion {
   const question = generateIntCp004V6NativeEditorialV4Question(qlId, seed, locale);
+  const approximate = needsApproximation(question);
+  const steps = question.explanation.steps.map((step) => remediateMathStep(locale, step));
   const explanation = Object.freeze({
     ...question.explanation,
-    steps: Object.freeze(question.explanation.steps.map((step) => remediateMathStep(locale, step))),
+    steps: Object.freeze(approximate ? steps.map((step) => markApproximation(step, question.correctAnswer)) : steps),
+    finalAnswer: approximate
+      ? (locale === "hi-IN" ? `उत्तर: लगभग ${question.correctAnswer}।` : `ਉੱਤਰ: ਲਗਭਗ ${question.correctAnswer}।`)
+      : question.explanation.finalAnswer,
   });
 
   return deepFreeze({
     ...question,
+    stem: remediateStem(qlId, locale, question.stem),
     explanation,
   });
 }
