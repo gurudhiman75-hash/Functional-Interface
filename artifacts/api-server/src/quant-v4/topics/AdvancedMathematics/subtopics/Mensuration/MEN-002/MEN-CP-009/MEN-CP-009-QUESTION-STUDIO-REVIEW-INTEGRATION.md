@@ -1,12 +1,20 @@
-# MEN-CP-009 Question Studio Review Integration
+# MEN-CP-009 Question Studio Integration
 
 ## Status
 
-`REGISTERED_REVIEW_ONLY__DOWNSTREAM_RELEASE_LOCKED`
+`REGISTERED_GENERATE_REVIEW_APPROVE_TO_BANK`
 
-MEN-CP-009 is registered in Question Studio only for preview, review-queue persistence and editorial review.
+MEN-CP-009 must follow the standard examtree Question Studio lifecycle:
 
-The adapter consumes the product-owner-approved multilingual teaching freeze:
+```text
+generate
+→ persist as unreviewed
+→ human/admin review
+→ approved
+→ Question Bank
+```
+
+The product-owner-approved multilingual teaching freeze remains the content authority:
 
 - freeze: `MEN-CP009-TEACHING-V4-MULTILINGUAL-v1-frozen`
 - package: `MEN-002`
@@ -31,33 +39,21 @@ Question Studio previews are regenerated through the approved teaching presentat
 - visible middle calculation/algebra;
 - explicit numerical π substitution when the source question requires `22/7` or `3.14`;
 - approved simple Hindi/Punjabi wording;
-- Punjabi `ਸਤ੍ਹਾ` orthography, with `ਸਤਹ` rejected;
-- source lifecycle remaining inactive below the adapter.
+- Punjabi `ਸਤ੍ਹਾ` orthography, with `ਸਤਹ` rejected.
 
 ## Question Studio lifecycle
 
-The adapter grants a narrow review surface without modifying the frozen source lifecycle.
+The frozen source remains immutable. Question Studio is the operational layer around it.
 
-```text
-questionStudioRegistrationStatus: REGISTERED_REVIEW_ONLY
-questionStudioStagingStatus:      REVIEW_QUEUE_ENABLED
-questionStudioVisible:            true
-questionStudioDiscoverable:       true
-persistenceAllowed:               true
-questionBankStatus:               NOT_STORED
-questionBankWritable:             false
-testEligibility:                  INELIGIBLE
-testEligible:                     false
-mockTestEligible:                 false
-publiclyPublishable:              false
-automaticStudentPublication:      false
-```
+Generated items first enter the normal review queue as `unreviewed`. They are not written to Question Bank at generation time. A reviewer can mark an item `needs_fix`, `rejected` or `approved`.
 
-Review items may be persisted into the normal `content.generation_runs` / review queue for editorial operations. That persistence is not Question Bank storage.
+For a production-intended approved MEN-CP-009 item, **`approved` is the authorization to convert that exact reviewed item into Question Bank storage**. There is no second manual "activate Question Bank" gate after Question Studio approval.
+
+This follows the project-wide authority `QUESTION-STUDIO-GENERATE-REVIEW-BANK-AUTHORITY.md`.
 
 ## Admin surface
 
-Question Studio Operations exposes a dedicated MEN-CP-009 panel with:
+Question Studio Operations exposes MEN-CP-009 with:
 
 - language selector: English / Hindi / Punjabi;
 - QL selector across all 28 permanent QLs;
@@ -67,6 +63,6 @@ Question Studio Operations exposes a dedicated MEN-CP-009 panel with:
 - review-run creation up to 50 questions;
 - current review-queue and Question Bank counts.
 
-## Release boundary
+## Downstream boundary
 
-This registration does not authorize Question Bank conversion, scored tests, mock tests or public/student delivery. Those remain separate product-release gates.
+Question Bank conversion is part of editorial approval. Automatic student publication is still prohibited. Any separate test-series, mock-test or public-delivery policy must be enforced downstream and must never bypass Question Studio review.
