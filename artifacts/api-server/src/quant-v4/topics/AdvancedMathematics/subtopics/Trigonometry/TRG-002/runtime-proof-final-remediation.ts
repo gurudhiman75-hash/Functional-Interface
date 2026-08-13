@@ -22,12 +22,6 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-function point(state: Trg002SpatialState, id: string) {
-  const found = state.points.find((item) => item.id === id);
-  if (!found) throw new Error(`Missing canonical point ${id}.`);
-  return found;
-}
-
 function object(state: Trg002SpatialState, id: string) {
   const found = state.verticalObjects.find((item) => item.id === id);
   if (!found) throw new Error(`Missing canonical object ${id}.`);
@@ -41,7 +35,7 @@ function ql015NaturalDepression(question: Trg002ProofQuestion): Trg002ProofQuest
   const observerHeight = object(question.canonicalSpatialState, "observer-building").height;
   const targetHeight = object(question.canonicalSpatialState, "target-object").height;
   const verticalDrop = subtractExact(observerHeight, targetHeight);
-  const run = verticalDrop; // tan45° = 1, so the clean horizontal distance equals the vertical drop.
+  const run = verticalDrop;
 
   const state: Trg002SpatialState = {
     ...question.canonicalSpatialState,
