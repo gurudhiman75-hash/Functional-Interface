@@ -25,9 +25,6 @@ function comparableNumbers(question: ReturnType<typeof runTmw001ChapterPipeline>
   optionValues: string[];
 } {
   return {
-    // Localized prose may encode direction lexically (for example, "decreases by 3")
-    // while English source prose can expose the same parameter as -3. Compare stem
-    // magnitudes, but keep signs exact in options so answer-sign regressions still fail.
     stemMagnitudes: stemMagnitudeTokens(question.stem),
     optionValues: numericTokens(question.options.join(" ")),
   };
@@ -152,13 +149,15 @@ for (const qlId of qls) {
     const punjabi = generated.get("pa");
     assert(english && hindi && punjabi, `${qlId}:${seedSuffix}: missing language generation`);
     const englishNumbers = comparableNumbers(english);
+    const hindiNumbers = comparableNumbers(hindi);
+    const punjabiNumbers = comparableNumbers(punjabi);
     assert(
-      JSON.stringify(comparableNumbers(hindi)) === JSON.stringify(englishNumbers),
-      `${qlId}:${seedSuffix}: Hindi numeric parity mismatch`,
+      JSON.stringify(hindiNumbers) === JSON.stringify(englishNumbers),
+      `${qlId}:${seedSuffix}: Hindi numeric parity mismatch; en=${JSON.stringify(englishNumbers)} hi=${JSON.stringify(hindiNumbers)}`,
     );
     assert(
-      JSON.stringify(comparableNumbers(punjabi)) === JSON.stringify(englishNumbers),
-      `${qlId}:${seedSuffix}: Punjabi numeric parity mismatch`,
+      JSON.stringify(punjabiNumbers) === JSON.stringify(englishNumbers),
+      `${qlId}:${seedSuffix}: Punjabi numeric parity mismatch; en=${JSON.stringify(englishNumbers)} pa=${JSON.stringify(punjabiNumbers)}`,
     );
   }
 }
