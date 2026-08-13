@@ -75,9 +75,76 @@ function rebuildTankFractionOptions(question: any): any {
   };
 }
 
+function cp012Text(language: TmwLanguage, en: string, hi: string, pa: string): string {
+  return language === "en" ? en : language === "hi" ? hi : pa;
+}
+
 function polishCp012(question: any, language: TmwLanguage): any {
-  if (language !== "en") return question;
-  return deepMapStrings(question, (value) => value.replaceAll("required saved", "required time saved"));
+  let polished = language === "en"
+    ? deepMapStrings(question, (value) => value.replaceAll("required saved", "required time saved"))
+    : question;
+
+  const excludedMode = polished.solveMode === "findExcludedIndividualTimeFromAllTogetherAndSubgroup";
+  const shortcutTitle = excludedMode
+    ? cp012Text(language, "Quick Rate-Subtraction Method", "त्वरित दर-घटाव विधि", "ਤੇਜ਼ ਦਰ-ਘਟਾਓ ਵਿਧੀ")
+    : cp012Text(language, "Quick Efficiency-Unit Method", "त्वरित दक्षता-इकाई विधि", "ਤੇਜ਼ ਕੁਸ਼ਲਤਾ-ਇਕਾਈ ਵਿਧੀ");
+
+  const secondShortcutStep = excludedMode
+    ? cp012Text(
+        language,
+        "The remaining rate belongs to C; take its reciprocal to get C's time.",
+        "बची हुई दर C की है; उसका व्युत्क्रम लेने पर C का समय मिल जाता है।",
+        "ਬਚੀ ਹੋਈ ਦਰ C ਦੀ ਹੈ; ਉਸਦਾ ਉਲਟ ਲੈਣ ਨਾਲ C ਦਾ ਸਮਾਂ ਮਿਲ ਜਾਂਦਾ ਹੈ।",
+      )
+    : cp012Text(
+        language,
+        "Change only A's efficiency by the stated percentage, add B's unchanged efficiency, and then compare the new time with the original if the question asks for a saving or delay.",
+        "केवल A की दक्षता को दिए गए प्रतिशत से बदलें, B की अपरिवर्तित दक्षता जोड़ें और यदि समय-बचत या देरी पूछी गई हो तो नए समय की तुलना मूल समय से करें।",
+        "ਸਿਰਫ਼ A ਦੀ ਕੁਸ਼ਲਤਾ ਨੂੰ ਦਿੱਤੇ ਪ੍ਰਤੀਸ਼ਤ ਅਨੁਸਾਰ ਬਦਲੋ, B ਦੀ ਨਾ-ਬਦਲੀ ਕੁਸ਼ਲਤਾ ਜੋੜੋ ਅਤੇ ਜੇ ਸਮਾਂ-ਬਚਤ ਜਾਂ ਦੇਰੀ ਪੁੱਛੀ ਹੋਵੇ ਤਾਂ ਨਵੇਂ ਸਮੇਂ ਦੀ ਮੂਲ ਸਮੇਂ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।",
+      );
+
+  const trapText = polished.explanation.commonTrap.optionText;
+  const trapExplanation = excludedMode
+    ? cp012Text(
+        language,
+        `Choosing ${trapText} comes from operating directly on completion times instead of subtracting work rates.`,
+        `${trapText} चुनना पूरा करने के समयों पर सीधे क्रिया करने की गलती से मिलता है; सही तरीका कार्य-दरों को घटाना है।`,
+        `${trapText} ਚੁਣਨਾ ਪੂਰਾ ਕਰਨ ਦੇ ਸਮਿਆਂ ਉੱਤੇ ਸਿੱਧੀ ਕ੍ਰਿਆ ਕਰਨ ਦੀ ਗਲਤੀ ਤੋਂ ਮਿਲਦਾ ਹੈ; ਸਹੀ ਤਰੀਕਾ ਕੰਮ-ਦਰਾਂ ਨੂੰ ਘਟਾਉਣਾ ਹੈ।`,
+      )
+    : cp012Text(
+        language,
+        `Choosing ${trapText} treats A's percentage change as if it changed the whole team's rate or the completion time directly.`,
+        `${trapText} चुनना A की दक्षता में बदलाव को पूरी टीम की दर या सीधे पूरा करने के समय पर लागू मानने की गलती है।`,
+        `${trapText} ਚੁਣਨਾ A ਦੀ ਕੁਸ਼ਲਤਾ ਵਿੱਚ ਬਦਲਾਅ ਨੂੰ ਪੂਰੀ ਟੀਮ ਦੀ ਦਰ ਜਾਂ ਸਿੱਧੇ ਪੂਰਾ ਕਰਨ ਦੇ ਸਮੇਂ ਉੱਤੇ ਲਾਗੂ ਮੰਨਣ ਦੀ ਗਲਤੀ ਹੈ।`,
+      );
+
+  const answer = polished.solution.answerText;
+  const conclusion = excludedMode
+    ? cp012Text(language, `Therefore, C alone completes the work in ${answer}.`, `अतः C अकेला काम ${answer} में पूरा करता है।`, `ਇਸ ਲਈ C ਇਕੱਲਾ ਕੰਮ ${answer} ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ।`)
+    : polished.solveMode === "findNewCombinedTimeAfterMemberEfficiencyIncrease"
+      ? cp012Text(language, `Therefore, their new combined completion time is ${answer}.`, `अतः दोनों का नया संयुक्त समय ${answer} है।`, `ਇਸ ਲਈ ਦੋਵਾਂ ਦਾ ਨਵਾਂ ਸਾਂਝਾ ਸਮਾਂ ${answer} ਹੈ।`)
+      : polished.solveMode === "findTimeSavedAfterMemberEfficiencyIncrease"
+        ? cp012Text(language, `Therefore, the time saved is ${answer}.`, `अतः बचा हुआ समय ${answer} है।`, `ਇਸ ਲਈ ਬਚਿਆ ਹੋਇਆ ਸਮਾਂ ${answer} ਹੈ।`)
+        : cp012Text(language, `Therefore, the completion is delayed by ${answer}.`, `अतः काम पूरा होने में ${answer} की देरी होती है।`, `ਇਸ ਲਈ ਕੰਮ ਪੂਰਾ ਹੋਣ ਵਿੱਚ ${answer} ਦੀ ਦੇਰੀ ਹੁੰਦੀ ਹੈ।`);
+
+  polished = {
+    ...polished,
+    explanation: {
+      ...polished.explanation,
+      shortcut: {
+        ...polished.explanation.shortcut,
+        title: shortcutTitle,
+        steps: [polished.explanation.shortcut.steps[0], secondShortcutStep],
+      },
+      commonTrap: {
+        ...polished.explanation.commonTrap,
+        explanation: trapExplanation,
+      },
+      conclusion,
+    },
+  };
+
+  return polished;
 }
 
 function polishCp014(question: any, qlId: string, language: TmwLanguage): any {
