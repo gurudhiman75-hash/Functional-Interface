@@ -72,21 +72,22 @@ for (const seed of seeds) {
       assert.ok(conclusion);
       assert.ok(baseConclusion);
       assert.ok(evidence);
-      assert.ok(evidence.premiseIds.length > 0);
-      assert.ok(evidence.renderedPremises.length > 0);
       assert.equal(evidence.label, index === 0 ? "I" : "II");
+      assert.equal(evidence.premiseIds.length, editorial.statements.length);
+      assert.equal(evidence.renderedPremises.length, editorial.statements.length);
+      assert.deepEqual(
+        [...evidence.renderedPremises].sort(),
+        [...editorial.statements].sort(),
+        `${seed}/${locale}/${index}: explanation evidence must equal the complete displayed premise set.`,
+      );
       assert.notEqual(explanation, baseExplanation);
       assert.doesNotMatch(
         explanation,
         /ordinary conclusion is true in every valid arrangement|ordinary conclusion is not true in every valid arrangement|solver profile|learner-facing/u,
       );
       assert.ok(
-        evidence.renderedPremises.some((statement) => explanation.includes(statement)),
-        `${seed}/${locale}/${index}: explanation must quote at least one supporting premise.`,
-      );
-      assert.ok(
-        evidence.renderedPremises.every((statement) => editorial.statements.includes(statement)),
-        `${seed}/${locale}/${index}: explanation evidence must come from displayed statements.`,
+        evidence.renderedPremises.every((statement) => explanation.includes(statement)),
+        `${seed}/${locale}/${index}: explanation must quote every premise used by the question.`,
       );
       explanationLines += 1;
       evidencePremiseReferences += evidence.renderedPremises.length;
@@ -128,7 +129,7 @@ assert.equal(explanationLines, 480);
 assert.equal(changedOrdinaryExplanations, 240);
 assert.equal(changedModalExplanations, 240);
 assert.equal(changedLocalizedModalConclusions, 160);
-assert.ok(evidencePremiseReferences >= 480);
+assert.ok(evidencePremiseReferences >= 960);
 assert.equal(modalTruthByPosition["I|true"], 60);
 assert.equal(modalTruthByPosition["I|false"], 60);
 assert.equal(modalTruthByPosition["II|true"], 60);
@@ -144,9 +145,10 @@ console.log(JSON.stringify({
   changedLocalizedModalConclusions,
   modalTruthByPosition,
   semanticParityWithShellV2: true,
+  completePremiseEvidence: true,
   genericSolverExplanationOccurrences: 0,
   englishPluralAgreementLeakage: 0,
   hindiPunjabiEnglishModalLeaks: 0,
-  explanationPolicy: "PREMISE_SPECIFIC_RELATION_REASONING_V3",
+  explanationPolicy: "COMPLETE_PREMISE_SET_RELATION_REASONING_V3",
   activationPermitted: false,
 }, null, 2));
