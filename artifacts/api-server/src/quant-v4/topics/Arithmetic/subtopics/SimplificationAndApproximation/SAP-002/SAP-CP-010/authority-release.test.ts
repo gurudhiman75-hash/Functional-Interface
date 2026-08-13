@@ -52,6 +52,26 @@ for (const prototypeId of SAP_CP010_PROTOTYPE_IDS) {
     identities.add(release.generationIdentity);
     positions[release.correctIndex]! += 1;
 
+    if (prototypeId === SAP_CP010_PROTOTYPE_IDS[2]) {
+      assert.match(release.stem, /fourth root/i, `${prototypeId}:${seed}: fourth-root stem should use natural exam language.`);
+      assert.doesNotMatch(release.stem, /∜/, `${prototypeId}:${seed}: uncommon fourth-root glyph leaked into the stem.`);
+    }
+
+    if (prototypeId === SAP_CP010_PROTOTYPE_IDS[3] || prototypeId === SAP_CP010_PROTOTYPE_IDS[4]) {
+      const explanation = `${release.explanation.steps.join(" ")} ${release.explanation.verification.join(" ")}`;
+      assert.doesNotMatch(explanation, /Compare\s+[48]\s*×/i, `${prototypeId}:${seed}: technical scaled midpoint shortcut returned.`);
+      assert.match(explanation, /midpoint|\.5/i, `${prototypeId}:${seed}: student midpoint reasoning is missing.`);
+    }
+
+    if (prototypeId === SAP_CP010_PROTOTYPE_IDS[6]) {
+      const answer = Number(release.canonicalAnswer);
+      for (const option of release.options) {
+        const value = Number(option.value);
+        assert.ok(Number.isFinite(value) && value > 0, `${prototypeId}:${seed}: non-positive power option.`);
+        assert.ok(value >= answer / 4 && value <= answer * 4, `${prototypeId}:${seed}: power distractor is too remote (${option.value} vs ${answer}).`);
+      }
+    }
+
     if (prototypeId === SAP_CP010_PROTOTYPE_IDS[7]) {
       for (const option of release.options) {
         const value = Number(option.value);
@@ -78,6 +98,11 @@ for (const prototypeId of SAP_CP010_PROTOTYPE_IDS) {
         assert.ok(Number.isFinite(value) && value > 0 && value <= answer * 2, `${prototypeId}:${seed}: mixed-form distractor too remote.`);
       }
     }
+
+    if (prototypeId === SAP_CP010_PROTOTYPE_IDS[13]) {
+      assert.match(release.stem, /0\.2 (?:greater|less) than an integer/i, `${prototypeId}:${seed}: inverse power stem should state the exact offset.`);
+      assert.doesNotMatch(release.stem, /slightly/i, `${prototypeId}:${seed}: vague inverse power wording returned.`);
+    }
   }
   assert.equal(stems.size, 100, `${prototypeId}: expected 100 unique release stems`);
 }
@@ -86,4 +111,4 @@ assert.equal(payloads.size, 1700);
 assert.equal(identities.size, 1700);
 assert.deepEqual(positions, [425, 425, 425, 425]);
 
-console.log("SAP-CP-010 release authority passed: certified mathematics preserved across 1,700 states while exam-ready stems, plausible distractors, short explanations and inactive lifecycle are enforced.");
+console.log("SAP-CP-010 release authority passed: certified mathematics preserved across 1,700 states while exam-standard stems, plausible distractors, midpoint-friendly explanations and inactive lifecycle are enforced.");
