@@ -60,12 +60,33 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-derived-quantity-discovery-v1.test.ts \
             | tee rnk-cp007-derived-quantity.log
 
+      - name: Prove partial-order position inverse maps to QL038
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-partial-order-position-adapter-v1.test.ts \
+            | tee rnk-cp007-position-adapter.log
+
       - name: Validate CP007 merge split ownership audit
         run: |
           set -o pipefail
           pnpm dlx tsx \
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-merge-split-audit-v1.test.ts \
             | tee rnk-cp007-merge-split-audit.log
+
+      - name: Validate CP007 post V1.1 ownership decision
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-post-v11-ownership-audit-v1.test.ts \
+            | tee rnk-cp007-post-v11-ownership.log
+
+      - name: Validate category-composition production candidate
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-category-composition-production-candidate-v1.test.ts \
+            | tee rnk-cp007-category-production-candidate.log
 
       - name: Generate CP007 V1.1 28-question review pack
         run: |
@@ -74,6 +95,14 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-discovery-review-export-v1.ts \
             'RNK-CP-007-DISCOVERY-V1.1-REVIEW-28Q.md' \
             | tee rnk-cp007-review-export.log
+
+      - name: Generate category-composition 24-question production review pack
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-category-composition-production-review-export-v1.ts \
+            RNK-CP-007-CATEGORY-COMPOSITION-PRODUCTION-CANDIDATE-REVIEW-24Q.md \
+            | tee rnk-cp007-category-production-review-export.log
 
       - name: Validate frozen projection compatibility manifest
         run: |
@@ -116,18 +145,22 @@ jobs:
           pnpm --dir artifacts/api-server build \
             | tee rnk-cp007-api-build.log
 
-      - name: Upload discovery evidence
+      - name: Upload discovery and ownership evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp007-derived-composition-discovery-v1-1-evidence
+          name: rnk-001-cp007-post-v1-1-ownership-production-evidence
           path: |
             rnk-object-pool-v2-manifest.log
             rnk-cp007-source-fixtures.log
             rnk-cp007-category-composition.log
             rnk-cp007-derived-quantity.log
+            rnk-cp007-position-adapter.log
             rnk-cp007-merge-split-audit.log
+            rnk-cp007-post-v11-ownership.log
+            rnk-cp007-category-production-candidate.log
             rnk-cp007-review-export.log
+            rnk-cp007-category-production-review-export.log
             rnk-frozen-projection-compatibility.log
             rnk-cp006-frozen-regression.log
             rnk-cp005-frozen-regression.log
@@ -143,5 +176,14 @@ jobs:
         with:
           name: rnk-001-cp007-discovery-v1-1-review-28q
           path: 'RNK-CP-007-DISCOVERY-V1.1-REVIEW-28Q.md'
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload category production review pack
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp007-category-production-candidate-review-24q
+          path: RNK-CP-007-CATEGORY-COMPOSITION-PRODUCTION-CANDIDATE-REVIEW-24Q.md
           if-no-files-found: error
           retention-days: 14
