@@ -7,30 +7,34 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-const bannedMeta = /^(?:In this question\b|Here\b)/iu;
+const bannedMeta = /^(?:In this question\b|Here\b)|Under the stated convention|Assume natural numbers begin at 1/iu;
 const bannedJargon = /\b(?:admissible|topology|candidate-set|residue condition|universal guarantee|sharpness)\b/iu;
 const bannedClutter = /\b(?:Strategy|Exam Speed|Common Traps?)\b/iu;
 const unicodeMath = /[√²³]/u;
 const rawUnitFraction = /-?\d+\/1\b/u;
 const longDecimal = /\d+\.\d{5,}/u;
+const reviewDifficulties = ["Easy", "Medium", "Hard", "Medium"] as const;
 const samples: any[] = [];
 let questions = 0;
 
 for (const qlId of NUM_CP001_PERMANENT_QL_IDS) {
+  const reached = new Set<string>();
   for (let variant = 1; variant <= 4; variant += 1) {
     const question = runNumCp001QuestionStudioReview({
       questionLanguageId: qlId,
       language: "en",
+      difficulty: reviewDifficulties[variant - 1],
       seed: `cp001-editorial-v2:${qlId}:${variant}`,
     }) as any;
     questions += 1;
     samples.push(question);
+    reached.add(String(question.difficulty).toUpperCase());
     const learnerText = [question.stem, ...question.options, ...(question.explanation?.lines ?? [])].join("\n");
 
     assert(question.editorialVersion === "NUM_CP001_EDITORIAL_V2", `${qlId}: editorial version missing`);
     assert(question.options.length === 4 && new Set(question.options).size === 4, `${qlId}: option integrity`);
     assert(question.options[question.correctIndex] === question.answer, `${qlId}: answer index`);
-    assert(!bannedMeta.test(question.stem), `${qlId}: meta-stem remains: ${question.stem}`);
+    assert(!bannedMeta.test(learnerText), `${qlId}: meta/convention text remains`);
     assert(!bannedJargon.test(learnerText), `${qlId}: technical learner jargon remains`);
     assert(!bannedClutter.test(learnerText), `${qlId}: cluttered explanation label remains`);
     assert(!unicodeMath.test(learnerText), `${qlId}: unicode math glyph remains`);
@@ -40,6 +44,12 @@ for (const qlId of NUM_CP001_PERMANENT_QL_IDS) {
     if (qlId === "NUM-QL-129") {
       assert(/\\\([a-z]/iu.test(question.stem), `${qlId}: parity stem still lacks variables`);
       assert(!/^Which one of the following expressions has an odd value/iu.test(question.stem), `${qlId}: trivial numeric parity stem remains`);
+    }
+    if (qlId === "NUM-QL-132") {
+      assert(!/\d{4,}/u.test(question.options.join(" ")), `${qlId}: unrealistic large-number distractor remains`);
+    }
+    if (qlId === "NUM-QL-133" || qlId === "NUM-QL-139") {
+      assert(question.stem.includes("\\(") && !/\d+\/\d+/u.test(question.stem), `${qlId}: raw fraction/formula remains in stem`);
     }
     if (qlId === "NUM-QL-138") {
       assert(learnerText.includes("\\sqrt{"), `${qlId}: LaTeX radical missing`);
@@ -59,6 +69,7 @@ for (const qlId of NUM_CP001_PERMANENT_QL_IDS) {
       assert(Boolean(match) && Number(match?.[1]) >= 3, `${qlId}: difficulty floor still trivial`);
     }
   }
+  assert(["EASY", "MEDIUM", "HARD"].every((band) => reached.has(band)), `${qlId}: review pack misses a difficulty band`);
 }
 
 assert(questions === 84, `English V2 review count ${questions}`);
@@ -70,7 +81,7 @@ const mdPath = resolve(outDir, "num-cp001-editorial-v2-84q-review.md");
 writeFileSync(jsonPath, JSON.stringify({ status: "EDITORIAL_V2_REVIEW_CANDIDATE", questions, samples }, null, 2));
 writeFileSync(mdPath, [
   "# NUM-CP-001 Editorial V2 — 84Q English Review", "",
-  "21 permanent QLs × 4 review questions. Question Bank, tests and public release remain closed.", "",
+  "21 permanent QLs × 4 review questions. Each QL includes Easy, Medium and Hard coverage. Question Bank, tests and public release remain closed.", "",
   ...samples.flatMap((question) => [
     `## ${question.questionLanguageId} · ${question.difficulty}`, "",
     question.stem, "",
@@ -79,4 +90,4 @@ writeFileSync(mdPath, [
   ]),
 ].join("\n"));
 
-console.log(JSON.stringify({ status: "PASS_NUM_CP001_EDITORIAL_V2", questions, jsonPath, mdPath }, null, 2));
+console.log(JSON.stringify({ status: "PASS_NUM_CP001_EDITORIAL_V2", questions, difficultyCoverage: "EASY_MEDIUM_HARD_PER_QL", jsonPath, mdPath }, null, 2));
