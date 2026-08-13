@@ -6,11 +6,11 @@ import {
 } from "./generation-engine-legacy";
 import type { QuantV4GenerationRequest } from "./generation-engine-legacy";
 import {
-  generateProbabilityStandardQuestionStudioBatch,
+  generateProbabilityQuestionStudioBatch,
   isProbabilityStandardQuestionStudioRequest,
   listProbabilityStandardQuestionStudioPackages,
   type ProbabilityStandardQuestionStudioRequest,
-} from "./topics/Probability/question-studio-runtime";
+} from "./topics/Probability/question-studio-integration";
 
 export type {
   QuantV4Difficulty,
@@ -31,7 +31,7 @@ export function listQuantV4Packages() {
 
 export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
   if (isProbabilityStandardQuestionStudioRequest(request as ProbabilityStandardQuestionStudioRequest)) {
-    return generateProbabilityStandardQuestionStudioBatch(request as ProbabilityStandardQuestionStudioRequest);
+    return generateProbabilityQuestionStudioBatch(request as ProbabilityStandardQuestionStudioRequest);
   }
   return generateLegacyQuestion(request);
 }
