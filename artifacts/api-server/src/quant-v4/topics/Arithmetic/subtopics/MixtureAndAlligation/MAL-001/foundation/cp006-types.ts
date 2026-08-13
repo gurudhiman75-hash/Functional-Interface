@@ -3,6 +3,8 @@ import type { Rational } from "./types";
 export const MAL_CP006_ID = "MAL-CP-006" as const;
 export const MAL_CP006_WAVE01_RUNTIME_ID =
   "MAL-CP006-EN-OPEN-DISCOVERY-WAVE01-V1" as const;
+export const MAL_CP006_WAVE01_EDITORIAL_RUNTIME_ID =
+  "MAL-CP006-EN-LEARNER-REMEDIATION-WAVE01-V2" as const;
 
 export const MAL_CP006_WAVE01_PROTOTYPE_IDS = [
   "MAL-CP006-PROT-TRANSFER-RETURN-FINAL-RATIO",
@@ -77,7 +79,9 @@ export interface MalCp006DiscoveryQuestion {
   archetypeId: "MAL-001";
   canonicalProblemId: typeof MAL_CP006_ID;
   prototypeId: MalCp006Wave01PrototypeId;
-  runtimeId: typeof MAL_CP006_WAVE01_RUNTIME_ID;
+  runtimeId:
+    | typeof MAL_CP006_WAVE01_RUNTIME_ID
+    | typeof MAL_CP006_WAVE01_EDITORIAL_RUNTIME_ID;
   permanentQlId: null;
   permanentSolveModeId: null;
   language: "en";
