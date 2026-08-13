@@ -197,11 +197,51 @@ function missingRadicand(seed: number): SapCp010Package {
   });
 }
 
+function oneDecimal(value: number): string {
+  return value.toFixed(1);
+}
+
+function missingPowerBase(seed: number): SapCp010Package {
+  const mode = 13;
+  const base = generateExam(SAP_CP010_PROTOTYPE_IDS[mode]!, seed);
+  const index = seed - 1;
+  const rounded = 3 + (index % 25);
+  const group = Math.floor(index / 25);
+  const exponent = group % 2 === 0 ? 2 : 3;
+  const below = group >= 2;
+  const target = rounded ** exponent;
+  const correct = below ? rounded - 0.2 : rounded + 0.2;
+  const answer = oneDecimal(correct);
+  const relation = below ? "below" : "above";
+  const wrongs = below
+    ? [
+        wrong(oneDecimal(rounded + 0.8), "ROUNDS_ONE_HIGH", "This value is below its own rounded integer, but it rounds one integer too high."),
+        wrong(oneDecimal(rounded - 1.2), "ROUNDS_ONE_LOW", "This value is below its own rounded integer, but it rounds one integer too low."),
+        wrong(oneDecimal(rounded + 1.8), "ROUNDS_TWO_HIGH", "This value rounds two integers above the required base."),
+      ]
+    : [
+        wrong(oneDecimal(rounded - 0.8), "ROUNDS_ONE_LOW", "This value is above its own rounded integer, but it rounds one integer too low."),
+        wrong(oneDecimal(rounded + 1.2), "ROUNDS_ONE_HIGH", "This value is above its own rounded integer, but it rounds one integer too high."),
+        wrong(oneDecimal(rounded + 2.2), "ROUNDS_TWO_HIGH", "This value rounds two integers above the required base."),
+      ];
+  return rebuild(base, {
+    stem: `A number is rounded to the nearest whole number and then raised to the power ${exponent}, giving an estimate of ${target}. The original number was ${relation} its rounded value. Which option could be the original number?`,
+    answer,
+    wrongs,
+    data: { correct: answer, rounded, exponent, target, side: below ? "BELOW" : "ABOVE" },
+    concept: "Recover the rounded integer base from the power, then choose a number in the correct half of that rounding interval.",
+    steps: [`${rounded}^${exponent} = ${target}, so the rounded base must be ${rounded}.`, `${answer} is ${relation} ${rounded} and still rounds to ${rounded}.`],
+    verification: ["Each distractor lies in the stated direction relative to its own rounded integer but rounds to the wrong base."],
+    tag: "missing-power-base-100-material-states",
+  });
+}
+
 export function generateSapCp010(prototypeId: SapCp010PrototypeId, seed: number): SapCp010Package {
   if (prototypeId === SAP_CP010_PROTOTYPE_IDS[4]) return nearestIntegerCbrt(seed);
   if (prototypeId === SAP_CP010_PROTOTYPE_IDS[9]) return rootProduct(seed);
   if (prototypeId === SAP_CP010_PROTOTYPE_IDS[10]) return rootQuotient(seed);
   if (prototypeId === SAP_CP010_PROTOTYPE_IDS[12]) return missingRadicand(seed);
+  if (prototypeId === SAP_CP010_PROTOTYPE_IDS[13]) return missingPowerBase(seed);
   return generateExam(prototypeId, seed);
 }
 
