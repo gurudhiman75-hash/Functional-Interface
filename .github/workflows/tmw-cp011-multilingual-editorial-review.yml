@@ -1,0 +1,95 @@
+name: Validate TMW-001 CP011 multilingual editorial review
+
+on:
+  push:
+    branches:
+      - fix/tmw-001-cp011-multilingual-editorial-review
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-cp011-multilingual-editorial-review.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tmw-cp011-editorial-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp011-editorial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec tsc
+          --noEmit
+          --target es2022
+          --module esnext
+          --moduleResolution bundler
+          --strictNullChecks
+          --noImplicitAny
+          --noImplicitReturns
+          --noFallthroughCasesInSwitch
+          --skipLibCheck
+          --types node
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp011-localized-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp011-editorial-review-remediation.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp011-teaching-language-remediation.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-multilingual-editorial-review.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts
+      - name: Bundle CP011 multilingual editorial proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-multilingual-editorial-review.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp011-multilingual-editorial-review.test.mjs
+      - name: Run CP011 multilingual editorial proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011-multilingual-editorial-review.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp011-multilingual-editorial-review.log
+      - name: Bundle final 228-QL multilingual audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-final-228ql-cp011-regression.test.mjs
+      - name: Run final 228-QL multilingual audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-final-228ql-cp011-regression.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-final-228ql-cp011-regression.log
+      - name: Bundle chapter multilingual parity regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-chapter-parity.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-multilingual-cp011-regression.test.mjs
+      - name: Run chapter multilingual parity regression
+        run: node artifacts/api-server/dist/quant-v4/tmw-001-multilingual-cp011-regression.test.mjs
+      - name: Upload CP011 editorial evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-001-cp011-multilingual-editorial-review
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-cp011-multilingual-editorial-review.log
+            artifacts/api-server/dist/quant-v4/tmw-001-final-228ql-cp011-regression.log
+          if-no-files-found: warn
+          retention-days: 14
