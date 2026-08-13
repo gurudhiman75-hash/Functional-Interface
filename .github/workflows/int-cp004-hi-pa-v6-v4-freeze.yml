@@ -1,0 +1,125 @@
+name: Validate INT-CP-004 Hindi Punjabi V6 V4 freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/int-cp004-hi-pa-v6-localisation
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp004-localization-v6-native-v4-frozen.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-hi-pa-v6-v4-freeze-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-004/**"
+      - ".github/workflows/int-cp004-hi-pa-v6-v4-freeze.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp004-hi-pa-v6-v4-freeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle canonical English V6 freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-english-freeze-v2-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-english-freeze-v2-audit.mjs
+
+      - name: Run canonical English V6 freeze audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-english-freeze-v2-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
+
+      - name: Bundle approved native V4 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localization-v6-native-v4-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localization-v6-native-v4-audit.mjs
+
+      - name: Run approved native V4 audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localization-v6-native-v4-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localization-v6-native-v4-audit.log
+
+      - name: Bundle multilingual V4 freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-hi-pa-v6-v4-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-hi-pa-v6-v4-freeze-audit.mjs
+
+      - name: Run multilingual V4 freeze audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-hi-pa-v6-v4-freeze-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-hi-pa-v6-v4-freeze-audit.log
+
+      - name: Bundle CP-001 pre-registration isolation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-question-studio-pre-registration-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.mjs
+
+      - name: Run CP-001 pre-registration isolation audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify freeze evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          freeze=artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-v4-freeze/int-cp004-hi-pa-v6-v4-freeze-audit.json
+          grep -q 'PASS_INT_CP004_APPROVED_ENGLISH_FREEZE_V2' artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
+          grep -q 'PASS_INT_CP004_HI_PA_V6_NATIVE_V4' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v4-audit.log
+          grep -q 'PASS_INT_CP004_HI_PA_V6_V4_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp004-hi-pa-v6-v4-freeze-audit.log
+          grep -q 'PASS_INT_CP001_QUESTION_STUDIO_PRE_REGISTRATION' artifacts/api-server/dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.log
+          test -f "$freeze"
+          grep -q '"freezeId": "INT-CP-004-HI-PA-V6-v4-frozen"' "$freeze"
+          grep -q '"frozenQuestions": 3800' "$freeze"
+          grep -q '"contentIdentityChecks": 3800' "$freeze"
+          grep -q '"termChecks": 3800' "$freeze"
+          grep -q '"latexChecks": 3800' "$freeze"
+          grep -q '"mutationGuards": 2' "$freeze"
+          grep -q '"registrationStatus": "NOT_REGISTERED"' "$freeze"
+          grep -q '"questionBankStatus": "NOT_STORED"' "$freeze"
+          grep -q '"publiclyPublishable": false' "$freeze"
+
+      - name: Upload multilingual V4 freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp004-hi-pa-v6-v4-freeze-evidence
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v4-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-hi-pa-v6-v4-freeze-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.log
+            artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-v4-freeze/**
+          if-no-files-found: error
+          retention-days: 30
