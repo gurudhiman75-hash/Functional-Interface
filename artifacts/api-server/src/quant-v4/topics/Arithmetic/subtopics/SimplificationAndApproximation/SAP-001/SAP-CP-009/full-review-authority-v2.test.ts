@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import "./authority-editorial.test";
-import { SAP_CP009_PROTOTYPE_IDS } from "./editorial-runtime";
+import "./authority-exam-standard.test";
+import { SAP_CP009_PROTOTYPE_IDS } from "./exam-runtime-v2";
 import { generateSapCp009ReviewRecords } from "./full-review-v2";
 
 const records = generateSapCp009ReviewRecords();
@@ -25,26 +25,34 @@ for (let i = 0; i < records.length; i += 1) {
   assert.equal(r.validation.ok, true, `${r.questionId}: ${r.validation.errors.join("; ")}`);
   assert.equal(r.options.length, 4);
   assert.equal(new Set(r.options.map((o) => o.value)).size, 4);
-  assert.ok(r.stem.length <= 260);
+  assert.ok(r.stem.length <= 220);
   assert.ok(r.explanation.steps.length >= 2 && r.explanation.steps.length <= 3);
-  const studentText = `${r.stem} ${r.explanation.coreConcept} ${r.explanation.steps.join(" ")} ${r.explanation.verification.join(" ")} ${r.options.map((o) => o.analysis).join(" ")}`;
+  const studentText = `${r.stem} ${r.canonicalAnswer} ${r.options.map((o) => o.value).join(" ")} ${r.explanation.coreConcept} ${r.explanation.steps.join(" ")} ${r.explanation.verification.join(" ")} ${r.options.map((o) => o.analysis).join(" ")}`;
   assert.doesNotMatch(studentText, /oracle|runtime|prototype|canonical|learner route|transformed expression|internal|guard|apply the declared/i);
+  assert.doesNotMatch(studentText, /-?\d+\.\d{6,}/, `${r.questionId}: floating-point artifact in learner content.`);
+  assert.doesNotMatch(r.stem, /for estimation, take|using cancellation|using\s+-?\d+(?:\.\d+)?\s+for\s+-?\d+(?:\.\d+)?|round the required numbers/i, `${r.questionId}: non-exam or over-guided stem.`);
   assert.equal(r.lifecycle.active, false);
   assert.equal(r.lifecycle.questionStudioDiscoverable, false);
   assert.equal(r.lifecycle.questionBankWritable, false);
   assert.equal(r.lifecycle.testEligible, false);
   assert.equal(r.lifecycle.publiclyPublishable, false);
+
   if (r.prototypeId === SAP_CP009_PROTOTYPE_IDS[13]) relations.add(r.canonicalAnswer);
   if (r.prototypeId === SAP_CP009_PROTOTYPE_IDS[18]) overUnder.add(r.canonicalAnswer);
   if (r.prototypeId === SAP_CP009_PROTOTYPE_IDS[12]) {
     nearestKinds.add(String(r.oracle.data.kind));
     if (r.oracle.data.kind === "PRODUCT") {
       assert.equal(Number(r.oracle.data.roundUnit), 100);
-      assert.equal(Number(r.canonicalAnswer) % 10000, 0, `${r.questionId}: nearest-product answer should be exam-calculable after hundred rounding.`);
+      assert.equal(Number(r.canonicalAnswer) % 10000, 0, `${r.questionId}: nearest-product answer should remain exam-calculable.`);
+    } else {
+      assert.match(r.stem, /round .* nearest ten/i, `${r.questionId}: quotient stem must make the rounding precision clear without supplying the rounded values.`);
     }
   }
   if (r.prototypeId === SAP_CP009_PROTOTYPE_IDS[18]) {
     assert.doesNotMatch(r.explanation.steps.join(" "), /\d{6,}\s*[×=]/, `${r.questionId}: unnecessary large multiplication leaked into explanation.`);
+  }
+  if (r.prototypeId === SAP_CP009_PROTOTYPE_IDS[8]) {
+    assert.doesNotMatch(r.stem, /cancel/i, `${r.questionId}: cancellation shortcut is given away in the stem.`);
   }
   if (i > 0 && records[i - 1]!.correctIndex === r.correctIndex) {
     sameRun += 1;
@@ -59,4 +67,4 @@ assert.deepEqual([...relations].sort(), ["A < B", "A = B", "A > B"].sort());
 assert.deepEqual([...overUnder].sort(), ["Overestimate", "Underestimate"].sort());
 assert.deepEqual([...nearestKinds].sort(), ["PRODUCT", "QUOTIENT"]);
 
-console.log("SAP-CP-009 remediated 300-review passed: 19 identities, 75/75/75/75 answers, safe ratios, exam-calculable product estimates, short explanations and no 3-position streak.");
+console.log("SAP-CP-009 exam-standard 300-review passed: 19 identities, 75/75/75/75 answers, student-owned approximation choices, clean decimal display, distinct distractors and no 3-position streak.");
