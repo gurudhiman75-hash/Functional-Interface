@@ -100,7 +100,7 @@ function quotedEvidence(locale: SylLocale, statements: readonly string[]): strin
 function localizedClass(locale: SylLocale, label: string): string {
   if (locale === "hi-IN") return `“${label}” वर्ग`;
   if (locale === "pa-IN") return `“${label}” ਵਰਗ`;
-  return label;
+  return `the “${label}” class`;
 }
 
 function renderNegativeConclusion(
@@ -172,21 +172,21 @@ function ordinaryRelation(
   }
 
   if (classification === "ENTAILED") {
-    if (form === "ALL") return `every ${subject} must be ${predicate}`;
-    if (form === "NO") return `${subject} and ${predicate} must remain disjoint`;
-    if (form === "SOME") return `at least one ${subject} must also be ${predicate}`;
-    return `at least one ${subject} must remain outside ${predicate}`;
+    if (form === "ALL") return `every member of ${s} must also belong to ${p}`;
+    if (form === "NO") return `${s} and ${p} must remain disjoint`;
+    if (form === "SOME") return `at least one member must belong to both ${s} and ${p}`;
+    return `at least one member of ${s} must remain outside ${p}`;
   }
   if (classification === "CONTRADICTED") {
-    if (form === "ALL") return `at least one ${subject} is forced to stay outside ${predicate}`;
-    if (form === "NO") return `at least one ${subject} is forced to overlap ${predicate}`;
-    if (form === "SOME") return `an overlap between ${subject} and ${predicate} is impossible`;
-    return `every existing ${subject} is forced to stay inside ${predicate}`;
+    if (form === "ALL") return `at least one member of ${s} is forced to stay outside ${p}`;
+    if (form === "NO") return `at least one member is forced to belong to both ${s} and ${p}`;
+    if (form === "SOME") return `an overlap between ${s} and ${p} is impossible`;
+    return `every existing member of ${s} is forced to stay inside ${p}`;
   }
-  if (form === "ALL") return `it is not forced that every ${subject} is ${predicate}`;
-  if (form === "NO") return `it is not forced that ${subject} and ${predicate} are disjoint`;
-  if (form === "SOME") return `no overlap between ${subject} and ${predicate} is forced`;
-  return `no ${subject} is forced to remain outside ${predicate}`;
+  if (form === "ALL") return `it is not forced that every member of ${s} belongs to ${p}`;
+  if (form === "NO") return `it is not forced that ${s} and ${p} are disjoint`;
+  if (form === "SOME") return `no overlap between ${s} and ${p} is forced`;
+  return `no member of ${s} is forced to remain outside ${p}`;
 }
 
 function explainOrdinary(
@@ -263,12 +263,12 @@ function explainModal(
 
   if (conclusion.surfaceKind === "ALL_CAN_NEVER") {
     return conclusion.follows
-      ? `${evidence.label}: ${lead}, at least one ${subject} must remain outside ${predicate}. Therefore no valid arrangement can place all ${subject} inside ${predicate}, so Conclusion ${evidence.label} follows.`
-      : `${evidence.label}: ${lead}, at least one valid arrangement can still place every ${subject} inside ${predicate}. Therefore “all ${subject} can never be ${predicate}” is not proved, so Conclusion ${evidence.label} does not follow.`;
+      ? `${evidence.label}: ${lead}, at least one member of ${s} must remain outside ${p}. Therefore no valid arrangement can place every member of ${s} inside ${p}, so Conclusion ${evidence.label} follows.`
+      : `${evidence.label}: ${lead}, at least one valid arrangement can still place every member of ${s} inside ${p}. Therefore “all ${subject} can never be ${predicate}” is not proved, so Conclusion ${evidence.label} does not follow.`;
   }
   return conclusion.follows
-    ? `${evidence.label}: ${lead}, at least one ${subject} is forced to remain outside ${predicate}. Therefore Conclusion ${evidence.label} follows.`
-    : `${evidence.label}: ${lead}, no ${subject} is forced to remain outside ${predicate} in every valid arrangement. Therefore Conclusion ${evidence.label} does not follow.`;
+    ? `${evidence.label}: ${lead}, at least one member of ${s} is forced to remain outside ${p}. Therefore Conclusion ${evidence.label} follows.`
+    : `${evidence.label}: ${lead}, no member of ${s} is forced to remain outside ${p} in every valid arrangement. Therefore Conclusion ${evidence.label} does not follow.`;
 }
 
 export function generateBankingCanNeverEditorialV3(
