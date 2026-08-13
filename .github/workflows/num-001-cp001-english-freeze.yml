@@ -112,8 +112,8 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/num-001-cp001-permanent-runtime-proof.log
             artifacts/api-server/dist/quant-v4/num-001-cp001-english-freeze-audit.log
-            artifacts/api-server/dist/quant-v4/num-001-cp001-permanent-english-review.json
-            artifacts/api-server/dist/quant-v4/num-001-cp001-permanent-english-review.md
-            artifacts/api-server/dist/quant-v4/num-001-cp001-permanent-english-review.csv
-          if-no-files-found: warn
+            dist/quant-v4/num-001-cp001-permanent-english-review.json
+            dist/quant-v4/num-001-cp001-permanent-english-review.md
+            dist/quant-v4/num-001-cp001-permanent-english-review.csv
+          if-no-files-found: error
           retention-days: 14
