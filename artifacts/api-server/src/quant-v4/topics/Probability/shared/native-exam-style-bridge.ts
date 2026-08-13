@@ -1,6 +1,7 @@
 import type { ProbabilityNativeLanguage } from "../multilingual-foundation";
 import type { ProbabilityQuestion } from "./types";
 import { renderNativeFinalStem } from "./native-final-stem-renderer";
+import { renderNativeClassicalContextStem } from "./native-classical-context-renderer";
 
 function numericTokens(value: string): Set<string> {
   return new Set(value.match(/\d+(?:\.\d+)?/gu) ?? []);
@@ -15,7 +16,7 @@ function allowedImplicitNumbers(source: string): Set<string> {
   for (const [word, digit] of Object.entries(words)) {
     if (new RegExp(`\\b${word}\\b`, "iu").test(source)) allowed.add(digit);
   }
-  // "Standard deck" is a defined 52-card object even when English omits the number.
+  // A standard deck is a defined 52-card object even when English omits the number.
   if (/standard (?:deck|pack)|standard playing-card/iu.test(source)) allowed.add("52");
   return allowed;
 }
@@ -27,7 +28,7 @@ function assertNoKnownGrammarDrift(stem: string, language: ProbabilityNativeLang
         /\d+ विद्यार्थी के एक समूह/u,
         /चुने गए गेंदें में/u,
         /उसके नीला होने/u,
-        /उसके इनाम वाला टिकट होने/u,
+        /उसके [^.?!]* टिकट होने/u,
         /के कोई भी शर्त पूरी न करने/u,
         /के ठीक एक शर्त पूरी करने/u,
       ]
@@ -36,7 +37,7 @@ function assertNoKnownGrammarDrift(stem: string, language: ProbabilityNativeLang
         /\d+ ਵਿਦਿਆਰਥੀ ਦੇ ਇੱਕ ਸਮੂਹ/u,
         /ਚੁਣੇ ਗੇਂਦਾਂ ਵਿੱਚ/u,
         /ਉਸ ਦੇ ਨੀਲਾ ਹੋਣ/u,
-        /ਉਸ ਦੇ ਇਨਾਮ ਵਾਲਾ ਟਿਕਟ ਹੋਣ/u,
+        /ਉਸ ਦੇ [^.?!]* ਟਿਕਟ ਹੋਣ/u,
         /ਦੇ ਕੋਈ ਵੀ ਸ਼ਰਤ ਪੂਰੀ ਨਾ ਕਰਨ/u,
         /ਦੇ ਠੀਕ ਇੱਕ ਸ਼ਰਤ ਪੂਰੀ ਕਰਨ/u,
       ];
@@ -49,7 +50,8 @@ export function renderNativeStudentFacingStem(
   source: ProbabilityQuestion,
   language: ProbabilityNativeLanguage,
 ): string {
-  const stem = renderNativeFinalStem(source, language);
+  const polishedStem = renderNativeFinalStem(source, language);
+  const stem = renderNativeClassicalContextStem(source, language, polishedStem);
   const sourceNumbers = numericTokens(source.stem);
   const nativeNumbers = numericTokens(stem);
   const implicitNumbers = allowedImplicitNumbers(source.stem);
