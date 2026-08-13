@@ -31,10 +31,7 @@ function normalizeRadians(value: number) {
   return result;
 }
 
-function angleArc(
-  marker: Trg002DiagramAngleMarker,
-  points: Map<string, Trg002DiagramPoint>,
-) {
+function angleArc(marker: Trg002DiagramAngleMarker, points: Map<string, Trg002DiagramPoint>) {
   const vertex = pointOrThrow(points, marker.vertexPointId);
   const ray = pointOrThrow(points, marker.rayPointId);
   const radius = 38;
@@ -72,10 +69,13 @@ function labelOffset(point: Trg002DiagramPoint) {
   }
 }
 
-function annotationPosition(
-  annotation: Trg002ResolvedSolutionAnnotation,
-  points: Map<string, Trg002DiagramPoint>,
-) {
+export function trg002ReviewPointLabelPosition(spec: Trg002DiagramSpec, pointId: string) {
+  const point = pointOrThrow(pointMap(spec), pointId);
+  const offset = labelOffset(point);
+  return { x: point.x + offset.dx, y: point.y + offset.dy };
+}
+
+function annotationBasePosition(annotation: Trg002ResolvedSolutionAnnotation, points: Map<string, Trg002DiagramPoint>) {
   const from = pointOrThrow(points, annotation.fromPointId);
   const to = pointOrThrow(points, annotation.toPointId);
   const x = (from.x + to.x) / 2;
@@ -88,6 +88,17 @@ function annotationPosition(
   }
 }
 
+export function trg002ReviewAnnotationPosition(spec: Trg002DiagramSpec, annotation: Trg002ResolvedSolutionAnnotation) {
+  const position = annotationBasePosition(annotation, pointMap(spec));
+  if (spec.strategy === "OPPOSITE_SIDE_OBSERVATIONS" && annotation.id === "given-observer-separation") {
+    return { x: position.x + 96, y: position.y };
+  }
+  if (spec.strategy === "ELEVATION_AND_DEPRESSION" && annotation.id === "target-tower-height") {
+    return { x: position.x + 96, y: position.y };
+  }
+  return position;
+}
+
 export interface Trg002SvgReviewOptions {
   title?: string;
   showPointDots?: boolean;
@@ -95,16 +106,7 @@ export interface Trg002SvgReviewOptions {
   annotations?: readonly Trg002ResolvedSolutionAnnotation[];
 }
 
-/**
- * Review-only SVG renderer.
- *
- * This function never derives geometry or measurement values. It consumes the
- * already projected Trg002DiagramSpec plus already-resolved exact annotations.
- */
-export function renderTrg002DiagramReviewSvg(
-  spec: Trg002DiagramSpec,
-  options: Trg002SvgReviewOptions = {},
-) {
+export function renderTrg002DiagramReviewSvg(spec: Trg002DiagramSpec, options: Trg002SvgReviewOptions = {}) {
   const points = pointMap(spec);
   const title = options.title ?? `TRG-002 ${spec.strategy}`;
   const pointDots = options.showPointDots ?? true;
@@ -114,7 +116,8 @@ export function renderTrg002DiagramReviewSvg(
   const segments = spec.segments.map((segment) => {
     const from = pointOrThrow(points, segment.fromPointId);
     const to = pointOrThrow(points, segment.toPointId);
-    return `<line class="segment segment-${segment.kind.toLowerCase().replace(/_/g, "-")}" x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${to.x.toFixed(2)}" y2="${to.y.toFixed(2)}" data-segment-id="${escapeXml(segment.id)}" />`;
+    const movementArrow = segment.kind === "MOVEMENT" ? ` marker-end="url(#movement-arrow)"` : "";
+    return `<line class="segment segment-${segment.kind.toLowerCase().replace(/_/g, "-")}" x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${to.x.toFixed(2)}" y2="${to.y.toFixed(2)}" data-segment-id="${escapeXml(segment.id)}"${movementArrow} />`;
   }).join("\n");
 
   const angles = spec.angles.map((marker) => {
@@ -126,20 +129,16 @@ export function renderTrg002DiagramReviewSvg(
   }).join("\n");
 
   const dots = pointDots
-    ? spec.points
-        .filter((point) => point.role !== "AUXILIARY")
-        .map((point) => `<circle class="point point-${point.role.toLowerCase().replace(/_/g, "-")}" cx="${point.x.toFixed(2)}" cy="${point.y.toFixed(2)}" r="4" data-point-id="${escapeXml(point.id)}" />`)
-        .join("\n")
+    ? spec.points.filter((point) => point.role !== "AUXILIARY").map((point) => `<circle class="point point-${point.role.toLowerCase().replace(/_/g, "-")}" cx="${point.x.toFixed(2)}" cy="${point.y.toFixed(2)}" r="4" data-point-id="${escapeXml(point.id)}" />`).join("\n")
     : "";
 
   const labels = spec.labels.map((label) => {
-    const anchor = pointOrThrow(points, label.pointId);
-    const offset = labelOffset(anchor);
-    return `<text class="point-label" x="${(anchor.x + offset.dx).toFixed(2)}" y="${(anchor.y + offset.dy).toFixed(2)}" data-label-id="${escapeXml(label.id)}">${escapeXml(label.text)}</text>`;
+    const position = trg002ReviewPointLabelPosition(spec, label.pointId);
+    return `<text class="point-label" x="${position.x.toFixed(2)}" y="${position.y.toFixed(2)}" data-label-id="${escapeXml(label.id)}">${escapeXml(label.text)}</text>`;
   }).join("\n");
 
   const measurementLabels = annotations.map((annotation) => {
-    const position = annotationPosition(annotation, points);
+    const position = trg002ReviewAnnotationPosition(spec, annotation);
     const roleClass = annotation.role.toLowerCase().replace(/_/g, "-");
     return `<text class="measurement-label measurement-${roleClass}" x="${position.x.toFixed(2)}" y="${position.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" data-annotation-id="${escapeXml(annotation.id)}" data-annotation-role="${escapeXml(annotation.role)}">${escapeXml(annotation.label)}</text>`;
   }).join("\n");
@@ -151,6 +150,11 @@ export function renderTrg002DiagramReviewSvg(
   return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 ${spec.width} ${spec.height}" role="img" aria-labelledby="diagram-title diagram-desc" data-diagram-strategy="${escapeXml(spec.strategy)}">
   <title id="diagram-title">${escapeXml(title)}</title>
   <desc id="diagram-desc">Review rendering of the canonical TRG-002 solution diagram using strategy ${escapeXml(spec.strategy)}.</desc>
+  <defs>
+    <marker id="movement-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" />
+    </marker>
+  </defs>
   <style>
     .diagram-bg { fill: #ffffff; }
     .segment { stroke: #1f2937; stroke-width: 4; fill: none; vector-effect: non-scaling-stroke; stroke-linecap: round; }
@@ -159,8 +163,10 @@ export function renderTrg002DiagramReviewSvg(
     .segment-sight-line { stroke-width: 4; }
     .segment-eye-level { stroke-width: 3; stroke-dasharray: 12 10; opacity: 0.72; }
     .segment-auxiliary { stroke-width: 3; stroke-dasharray: 8 9; opacity: 0.78; }
+    .segment-movement { stroke-width: 4; stroke-dasharray: 10 8; }
     .segment-ladder, .segment-wire { stroke-width: 6; }
     .segment-shadow { stroke-width: 7; }
+    #movement-arrow path { fill: #1f2937; }
     .angle-arc { stroke: #4b5563; stroke-width: 3; fill: none; vector-effect: non-scaling-stroke; }
     .angle-label { font: 600 24px system-ui, sans-serif; fill: #111827; paint-order: stroke; stroke: #ffffff; stroke-width: 7px; stroke-linejoin: round; }
     .point { fill: #111827; stroke: #ffffff; stroke-width: 2; vector-effect: non-scaling-stroke; }
