@@ -1,0 +1,49 @@
+name: Reasoning BLR-001 CP-006 Multilingual Candidate
+
+on:
+  push:
+    branches:
+      - New-main
+      - feat/blr-cp006-hi-pa-review
+      - feat/blr-cp006-hi-pa-review-current
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/**"
+      - ".github/workflows/reasoning-blr-001-cp006-localization.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/**"
+      - ".github/workflows/reasoning-blr-001-cp006-localization.yml"
+  workflow_dispatch:
+
+jobs:
+  prove-multilingual-candidate:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Regress CP-006 English freeze
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-final-freeze.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts
+      - name: Audit learner language leakage
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/localization/cp006-language-leak-audit.ts
+      - name: Audit Hindi Punjabi editorial quality
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/localization/cp006-editorial-quality-audit.ts
+      - name: Prove Hindi Punjabi semantic parity
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/localization/cp006-localizer.test.ts
+      - name: Typecheck admin application
+        run: pnpm --dir artifacts/admin-app typecheck
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
