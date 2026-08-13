@@ -2,7 +2,7 @@ import {
   TRG_002_RUNTIME_PROOF_IDS,
   type Trg002ProofQlId,
 } from "./runtime-proof";
-import { generateExamReadyTrg002RuntimeProofQuestion } from "./runtime-proof-exam-ready";
+import { generateFinalRemediatedTrg002RuntimeProofQuestion } from "./runtime-proof-final-remediation";
 import { verifyTrg002CanonicalRequestedTarget } from "./canonical-target-verifier";
 import { buildTrg002SolutionAnnotations } from "./solution-diagram-annotations";
 import {
@@ -11,7 +11,7 @@ import {
 } from "./spatial";
 
 export function generateSolutionDiagramTrg002RuntimeProofQuestion(qlId: Trg002ProofQlId, seed: string) {
-  const question = generateExamReadyTrg002RuntimeProofQuestion(qlId, seed);
+  const question = generateFinalRemediatedTrg002RuntimeProofQuestion(qlId, seed);
   const canonicalTargetVerification = verifyTrg002CanonicalRequestedTarget(question);
   if (!canonicalTargetVerification.valid) {
     throw new Error(`${qlId}: canonical requested target does not match the exact answer.`);
