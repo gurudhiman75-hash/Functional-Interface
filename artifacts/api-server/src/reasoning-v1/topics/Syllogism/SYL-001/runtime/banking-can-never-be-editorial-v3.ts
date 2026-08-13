@@ -1,5 +1,5 @@
 import type { CanonicalCategoricalForm, SylLocale } from "../foundation/types";
-import { analyzeScenario, conclusionSemanticKey } from "./analysis";
+import { analyzeScenario } from "./analysis";
 import {
   generateBankingCanNeverShellV2,
   type BankingCanNeverShellQuestionV2,
@@ -8,7 +8,6 @@ import type { BankingCanNeverConclusionV1 } from "./banking-can-never-be-shell-v
 import { renderPremise } from "./localization";
 import { scenariosForGroup } from "./scenarios";
 import { assignTerms } from "./term-assignment";
-import type { EvaluatedConclusion } from "./types";
 
 export interface BankingCanNeverExplanationEvidenceV3 {
   label: "I" | "II";
@@ -39,16 +38,6 @@ function contextFor(question: BankingCanNeverShellQuestionV2): ContextV3 {
   };
 }
 
-function candidateFor(
-  context: ContextV3,
-  conclusion: BankingCanNeverConclusionV1,
-): EvaluatedConclusion {
-  const target = `${conclusion.canonicalConclusion.form}:${conclusion.canonicalConclusion.subject}:${conclusion.canonicalConclusion.predicate}`;
-  const candidate = context.analysis.candidates.find((entry) => conclusionSemanticKey(entry) === target);
-  if (!candidate) throw new Error(`${context.question.seed}/${target}: missing candidate for editorial V3.`);
-  return candidate;
-}
-
 function termLabel(
   context: ContextV3,
   conclusion: BankingCanNeverConclusionV1,
@@ -62,16 +51,13 @@ function termLabel(
 
 function evidenceFor(
   context: ContextV3,
-  conclusion: BankingCanNeverConclusionV1,
   label: "I" | "II",
 ): BankingCanNeverExplanationEvidenceV3 {
-  const candidate = candidateFor(context, conclusion);
-  const premiseIds = candidate.verdictImpactPremiseIds.length > 0
-    ? candidate.verdictImpactPremiseIds
-    : candidate.impactPremiseIds.length > 0
-      ? candidate.impactPremiseIds
-      : context.analysis.premises.map((premise) => premise.premiseId);
-  const selected = context.analysis.premises.filter((premise) => premiseIds.includes(premise.premiseId));
+  // Learner explanations deliberately use the complete premise set. A prior
+  // impact-premise heuristic could omit an existential premise that was still
+  // required for a sound human proof (for example, NO + SOME -> SOME_NOT).
+  const selected = context.analysis.premises;
+  const premiseIds = selected.map((premise) => premise.premiseId);
   const renderedPremises = selected.map((premise) =>
     renderPremise(premise, context.question.locale, context.assignment));
   if (renderedPremises.length === 0) {
@@ -278,7 +264,7 @@ export function generateBankingCanNeverEditorialV3(
   const base = generateBankingCanNeverShellV2(seed, locale);
   const context = contextFor(base);
   const labels = ["I", "II"] as const;
-  const evidence = base.conclusions.map((entry, index) => evidenceFor(context, entry, labels[index]));
+  const evidence = base.conclusions.map((_, index) => evidenceFor(context, labels[index]));
   const conclusions = base.conclusions.map((entry) => ({
     ...entry,
     text: renderNegativeConclusion(context, entry),
@@ -300,7 +286,7 @@ export function generateBankingCanNeverEditorialV3(
 export const SYL_BANKING_CAN_NEVER_BE_EDITORIAL_V3 = Object.freeze({
   authorityId: "SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V3",
   semanticAuthority: "SYL_001_BANKING_CAN_NEVER_BE_SHELL_V2",
-  explanationPolicy: "PREMISE_SPECIFIC_RELATION_REASONING_V3",
+  explanationPolicy: "COMPLETE_PREMISE_SET_RELATION_REASONING_V3",
   genericSolverExplanationPermitted: false,
   changesSemantics: false,
   changesStatements: false,
