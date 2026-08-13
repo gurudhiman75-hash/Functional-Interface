@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import "./authority-release.test";
-import { SAP_CP010_PROTOTYPE_IDS } from "./release-runtime";
+import "./authority-review-ready.test";
+import { SAP_CP010_PROTOTYPE_IDS } from "./review-ready-runtime";
 import { generateSapCp010ReviewRecords } from "./full-review-release";
 
 const records = generateSapCp010ReviewRecords();
@@ -28,7 +28,8 @@ records.forEach((r, i) => {
   assert.equal(new Set(r.options.map((o) => o.value)).size, 4);
   assert.ok(r.stem.length <= 220);
   assert.ok(r.explanation.steps.length >= 2 && r.explanation.steps.length <= 3);
-  const visible = `${r.stem} ${r.canonicalAnswer} ${r.options.map((o) => o.value).join(" ")} ${r.explanation.coreConcept} ${r.explanation.steps.join(" ")}`;
+  const visible = `${r.stem} ${r.canonicalAnswer} ${r.options.map((o) => o.value).join(" ")} ${r.explanation.coreConcept} ${r.explanation.steps.join(" ")} ${r.explanation.verification.join(" ")} ${r.options.map((o) => o.analysis).join(" ")}`;
+  assert.doesNotMatch(visible, /\bradicand\b|certified nearest|special-form|nearest-integer band|\^[234]/i);
   assert.doesNotMatch(visible, /-?\d+\.\d{6,}/);
   assert.doesNotMatch(r.stem, /the original number was (?:above|below) its rounded value/i);
   assert.equal(r.lifecycle.active, false);
@@ -64,4 +65,4 @@ assert.deepEqual([...inversePowerBranches].sort(), ["2:ABOVE", "2:BELOW", "3:ABO
 assert.deepEqual([...kinds].sort(), ["POWER", "ROOT"]);
 assert.deepEqual([...relations].sort(), ["A < B", "A = B", "A > B"].sort());
 
-console.log("SAP-CP-010 release 300-review passed: 17 identities, exact 75/75/75/75 answers, stratified hidden-submode coverage, exam-ready presentation, both special-form kinds, all comparison relations and no 3-position streak.");
+console.log("SAP-CP-010 review-ready 300-review passed: 17 identities, exact 75/75/75/75 answers, all-consecutive root-interval options, stratified hidden-submode coverage, plain exam-ready presentation and no 3-position streak.");
