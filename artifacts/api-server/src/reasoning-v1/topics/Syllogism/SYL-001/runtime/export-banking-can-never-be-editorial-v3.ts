@@ -77,8 +77,9 @@ const summary = {
     modalTruthBiasRemoved: true,
     orthogonalGrid: "4 statuses x 2 modal positions x 2 modal kinds",
   },
-  explanationPolicy: "COMPLETE_PREMISE_SET_RELATION_REASONING_V3",
+  explanationPolicy: "COMPLETE_PREMISE_DISPOSITION_SPECIFIC_REASONING_V3",
   completePremiseEvidence: true,
+  dispositionSpecificModalFailures: true,
   englishPluralAgreementLeakage: 0,
   hindiPunjabiEnglishModalLeaks: 0,
   humanEditorialStatus: "PENDING",
@@ -100,12 +101,12 @@ function card(question: (typeof records)[number]): string {
 </article>`;
 }
 
-const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SYL-001 Banking Can-Never-Be Editorial V3</title><style>body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#f1f5f9;color:#0f172a;margin:0;padding:18px}main{max-width:1050px;margin:auto}.notice,.card{background:#fff;border:1px solid #cbd5e1;border-radius:14px;padding:16px;margin:0 0 18px}.notice{border-left:5px solid #d97706}.card header{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #e2e8f0;padding-bottom:10px}.roman{list-style-type:upper-roman}.correct{font-weight:800}small{color:#475569}p,li{line-height:1.55}h1{margin-top:0}@media(max-width:700px){body{padding:8px}.card{padding:12px}}</style></head><body><main><h1>SYL-001 Banking Can-Never-Be — Editorial V3</h1><div class="notice"><b>Human review required.</b> This candidate removes the measured Conclusion-I/modal-truth shortcut and uses complete-premise, relation-specific learner explanations so existential support cannot be omitted. Registration and activation remain disabled.</div>${records.map(card).join("\n")}</main></body></html>`;
+const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SYL-001 Banking Can-Never-Be Editorial V3</title><style>body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#f1f5f9;color:#0f172a;margin:0;padding:18px}main{max-width:1050px;margin:auto}.notice,.card{background:#fff;border:1px solid #cbd5e1;border-radius:14px;padding:16px;margin:0 0 18px}.notice{border-left:5px solid #d97706}.card header{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #e2e8f0;padding-bottom:10px}.roman{list-style-type:upper-roman}.correct{font-weight:800}small{color:#475569}p,li{line-height:1.55}h1{margin-top:0}@media(max-width:700px){body{padding:8px}.card{padding:12px}}</style></head><body><main><h1>SYL-001 Banking Can-Never-Be — Editorial V3</h1><div class="notice"><b>Human review required.</b> This candidate removes the measured Conclusion-I/modal-truth shortcut and uses complete-premise, relation-specific explanations. False modal conclusions distinguish an impossible relation from one that is merely not guaranteed. Registration and activation remain disabled.</div>${records.map(card).join("\n")}</main></body></html>`;
 
 const markdown = [
   "# SYL-001 Banking Can-Never-Be — Editorial V3",
   "",
-  "> Human review required. Anti-pattern-remediated selection and complete-premise relation-specific explanations; no registration or activation is permitted.",
+  "> Human review required. Anti-pattern-remediated selection with complete-premise, disposition-specific explanations; no registration or activation is permitted.",
   "",
   ...records.flatMap((question) => [
     `## Seed ${question.seed} — ${question.locale} — ${question.scenarioId}`,
