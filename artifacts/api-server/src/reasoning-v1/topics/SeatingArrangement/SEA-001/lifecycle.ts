@@ -18,5 +18,5 @@ export const SEA_001_LIFECYCLE: SeatingLifecycle = Object.freeze({
 });
 
 export function assertSea001ActivationAllowed(): never {
-  throw new Error("SEA-001 activation remains locked. The discovery layer is historical evidence; the permanent layer is frozen but inactive until an explicit downstream activation gate is approved.");
+  throw new Error("SEA-001 activation remains locked: discovery foundation only. The historical discovery layer is preserved for evidence; the permanent layer is frozen but inactive until an explicit downstream activation gate is approved.");
 }
