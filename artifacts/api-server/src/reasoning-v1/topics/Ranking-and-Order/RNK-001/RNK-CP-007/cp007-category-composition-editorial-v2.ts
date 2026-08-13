@@ -114,7 +114,7 @@ function renderStem(
 
   if (style === "COMPACT_RATIO") {
     return [
-      `${state.total} ${whole} are ranked from top to bottom. ${labelA} and ${labelB} are in the ratio ${ratioA}:${ratioB}.`,
+      `${state.total} ${whole} are ranked from top to bottom, with ${labelA} and ${labelB} in the ratio ${ratioA}:${ratioB}.`,
       `${name} is one of the ${targetLabel} and is ${rank} from the top.`,
       `${question.evidence.count} ${evidenceLabel} are ${evidenceSide} ${name}.`,
       `How many ${requestedLabel} are ${requestedSide} ${name}?`,
