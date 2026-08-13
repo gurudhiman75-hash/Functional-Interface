@@ -1,4 +1,11 @@
+import { buildLocalizedEditorialA } from "./editorial-v2-localized-a";
+import { buildLocalizedEditorialB } from "./editorial-v2-localized-b";
+
 export function buildGenericEditorialSurface(frozen: any, language: "en" | "hi" | "pa") {
+  if (language !== "en") {
+    const localized = buildLocalizedEditorialA(frozen, language, Number(frozen.seed)) ?? buildLocalizedEditorialB(frozen, language, Number(frozen.seed));
+    if (localized) return localized;
+  }
   const math = (value: string) => `\\(${value}\\)`;
   const cleanText = (value: string) => value
     .replace(/admissible/giu, "allowed")
