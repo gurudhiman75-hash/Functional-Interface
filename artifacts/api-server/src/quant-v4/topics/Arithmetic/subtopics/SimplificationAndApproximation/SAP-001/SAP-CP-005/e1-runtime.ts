@@ -34,17 +34,20 @@ export function generateSapCp005E1Telescoping(seed: number): SapE1CandidatePacka
   const start = 2 + (i % 20);
   const termCount = 4 + (Math.floor(i / 20) % 5);
   const endPlusOne = start + termCount;
+  const denominator = start * endPlusOne;
   const terms = Array.from({ length: termCount }, (_, index) => {
     const k = start + index;
     return `\\frac{1}{${k} \\times ${k + 1}}`;
   });
   const stem = `Find the exact value of ${sapE1Math(terms.join(" + "))}.`;
-  const answer = fraction(termCount, start * endPlusOne);
+  const answer = fraction(termCount, denominator);
   const correctIndex = i % 4;
   const options = sapE1Options(answer, [
     { value: fraction(1, start), misconceptionId: "LAST_ENDPOINT_NOT_SUBTRACTED", analysis: "The first surviving endpoint is kept, but the final endpoint is not subtracted." },
     { value: fraction(1, endPlusOne), misconceptionId: "FIRST_ENDPOINT_DROPPED", analysis: "Only the last endpoint is retained after cancellation, so the starting term is lost." },
-    { value: fraction(termCount + 1, start * endPlusOne), misconceptionId: "TERM_COUNT_ONE_HIGH", analysis: "The telescoping structure is recognised, but the number of surviving unit differences is counted one too high." },
+    { value: fraction(termCount + 1, denominator), misconceptionId: "TERM_COUNT_ONE_HIGH", analysis: "The telescoping structure is recognised, but the number of surviving unit differences is counted one too high." },
+    { value: fraction(Math.max(1, termCount - 1), denominator), misconceptionId: "TERM_COUNT_ONE_LOW", analysis: "The endpoint denominator is formed correctly, but one surviving unit difference is omitted." },
+    { value: fraction(termCount + 2, denominator), misconceptionId: "TERM_COUNT_TWO_HIGH", analysis: "The endpoint denominator is formed correctly, but two extra unit differences are counted." },
   ], correctIndex);
   const firstDecomposition = `${sapE1Math(`\\frac{1}{${start} \\times ${start + 1}} = ${texFraction(1, start)} - ${texFraction(1, start + 1)}`)}`;
   const lastK = endPlusOne - 1;
@@ -57,7 +60,8 @@ export function generateSapCp005E1Telescoping(seed: number): SapE1CandidatePacka
   const verification = Object.freeze([`Independent endpoint check: 1/${start} - 1/${endPlusOne} = ${answer}.`]);
   const errors = [...sapE1BaseValidation({ stem, answer, options, correctIndex, steps })];
   if (termCount < 4 || termCount > 8) errors.push("Term count is outside the bounded E1 range.");
-  const data = Object.freeze({ start, termCount, endPlusOne, answerNumerator: termCount, answerDenominator: start * endPlusOne });
+  if (options.some((option) => /^Alternative\s/i.test(option.value))) errors.push("Generic fallback distractor leaked into learner options.");
+  const data = Object.freeze({ start, termCount, endPlusOne, answerNumerator: termCount, answerDenominator: denominator });
   return Object.freeze({
     packageId: "SAP-001",
     checkpointId: "SAP-CP-005",
