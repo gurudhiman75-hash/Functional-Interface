@@ -28,7 +28,8 @@ The current package includes:
 - a balanced 100-caselet English review corpus;
 - fingerprint-locked human approval for all 100 reviewed caselets;
 - permanent QL allocation `SEA-QL-001..SEA-QL-020`;
-- frozen solve inventory, query mix and approved English presentation.
+- frozen solve inventory, query mix and approved English presentation;
+- Hindi/Punjabi localization foundation with semantic-parity protection and mandatory human-language-review blocker.
 
 Latest editorial hardening includes:
 
@@ -48,7 +49,9 @@ See:
 - `review/approved-review.ts` for the fingerprint-locked signed review record;
 - `permanent/registry.ts` for permanent `SEA-QL-001..SEA-QL-020` ownership;
 - `permanent/freeze.ts` for the solve-inventory, query-mix and English freeze authorities;
-- `SEA-001-PERMANENT-ALLOCATION-FREEZE-EVIDENCE.md` for the permanent allocation/freeze evidence.
+- `SEA-001-PERMANENT-ALLOCATION-FREEZE-EVIDENCE.md` for the permanent allocation/freeze evidence;
+- `localization/readiness.ts` for Hindi/Punjabi target locales, glossary, parity projection and fail-closed review blocker;
+- `SEA-001-LOCALIZATION-READINESS-EVIDENCE.md` for the localization-foundation checkpoint.
 
 ## Run proofs
 
@@ -63,6 +66,7 @@ node --experimental-strip-types sea-001-saturation-proof.test.ts
 node --experimental-strip-types sea-001-authority-audit-proof.test.ts
 node --experimental-strip-types sea-001-review-readiness-proof.test.ts
 node --experimental-strip-types sea-001-permanent-allocation-freeze-proof.test.ts
+node --experimental-strip-types sea-001-localization-readiness-proof.test.ts
 ```
 
 ## Lifecycle state
@@ -77,15 +81,19 @@ Permanent allocation:          APPLIED
 Solve-inventory freeze:        FROZEN
 Query-mix freeze:              FROZEN
 English freeze:                FROZEN
-Localization:                  NOT_STARTED
+Localization foundation:       READY
+Hindi translation/review:      PENDING
+Punjabi translation/review:    PENDING
 Question Studio registration:  false
 Question Bank writes:          false
 Mock-test eligibility:         false
 Public publication:            false
 ```
 
-The signed review is content-fingerprint locked. Any change to the reviewed 100-caselet corpus invalidates the approval and reopens the review gate automatically.
+The signed English review is content-fingerprint locked. Any change to the reviewed 100-caselet corpus invalidates the approval and reopens the English gate automatically.
 
-Permanent allocation and the English freeze do **not** authorize activation. Localization and downstream Question Studio / Question Bank / test / public activation remain separate gates. Native runtime diagram support is also a downstream product-integration concern; the diagram-enhanced manual-review HTML is not itself Question Studio integration.
+The localization foundation is likewise fail-closed: `hi-IN`/`pa-IN` work must preserve canonical solve/query/answer semantics and must receive genuine human language review before multilingual freeze.
+
+Permanent allocation, English freeze and localization readiness do **not** authorize activation. Downstream Question Studio / Question Bank / test / public activation remain separate gates. Native runtime diagram support is also a downstream product-integration concern; the diagram-enhanced manual-review HTML is not itself Question Studio integration.
 
 Do not bypass `assertSea001ActivationAllowed`.
