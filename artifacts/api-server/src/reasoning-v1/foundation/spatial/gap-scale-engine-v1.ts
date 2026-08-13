@@ -5,6 +5,7 @@ import {
   SPATIAL_GAP_LIFECYCLE_LOCK_V1,
   type SpatialGapCapabilityIdV1,
   type SpatialGapIdV1,
+  type SpatialGapRuntimeCandidateV1,
   type SpatialGapRuntimeScaleRequestV1,
   type SpatialGapRuntimeScaleResultV1,
 } from "./gap-types-v1";
@@ -44,7 +45,7 @@ export function synthesizeSpatialGapRuntimeScaleV1(
     throw new Error("Spatial gap authority and audited gap ID count diverged.");
   }
 
-  const accepted = [] as SpatialGapRuntimeScaleResultV1["accepted"] extends readonly (infer T)[] ? T[] : never;
+  const accepted: SpatialGapRuntimeCandidateV1[] = [];
   const gapCounts = zeroGapCounts();
   const capabilityCounts = zeroCapabilityCounts();
   const globalContentFingerprints = new Set<string>();
