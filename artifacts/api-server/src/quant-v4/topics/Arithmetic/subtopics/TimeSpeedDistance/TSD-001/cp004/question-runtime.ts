@@ -19,6 +19,31 @@ function rationals(value: unknown, output: Rational[] = []): Rational[] {
   return output;
 }
 
+function terminalOrdinal(seed: string): string {
+  return seed.match(/(\d+)$/)?.[1] ?? "0";
+}
+
+function generateSolvableState(authorityKey: string, seed: string) {
+  const ordinal = terminalOrdinal(seed);
+  const failures: string[] = [];
+  for (let attempt = 0; attempt < 24; attempt += 1) {
+    const candidateSeed = attempt === 0 ? seed : `${seed}:valid-${attempt}:${ordinal}`;
+    const state = generateCp004State(authorityKey, candidateSeed);
+    try {
+      const solution = solveCp004Core(state.solveMode, state.input);
+      const independent = independentlyVerifyCp004(state.solveMode, state.input, solution);
+      if (!independent.valid) {
+        failures.push(`${candidateSeed}: ${independent.errors.join("; ")}`);
+        continue;
+      }
+      return Object.freeze({ state, solution });
+    } catch (error) {
+      failures.push(`${candidateSeed}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+  throw new Error(`${authorityKey}: could not construct a valid CP004 state for seed ${seed}; ${failures.slice(-3).join(" | ")}`);
+}
+
 function validateQuestion(question: Omit<TsdCp004GeneratedQuestion, "validation">): TsdCp004GeneratedQuestion["validation"] {
   const errors: string[] = [];
   const warnings: string[] = [];
@@ -40,10 +65,7 @@ function validateQuestion(question: Omit<TsdCp004GeneratedQuestion, "validation"
 }
 
 export function generateCp004Question(authorityKey: string, seed: string): TsdCp004GeneratedQuestion {
-  const state = generateCp004State(authorityKey, seed);
-  const solution = solveCp004Core(state.solveMode, state.input);
-  const independent = independentlyVerifyCp004(state.solveMode, state.input, solution);
-  if (!independent.valid) throw new Error(`${state.solveMode}: independent verification failed: ${independent.errors.join("; ")}`);
+  const { state, solution } = generateSolvableState(authorityKey, seed);
   const wrongWorkings = deriveCp004WrongWorkings(state.solveMode, state.input, solution);
   const built = buildCp004Options(solution, wrongWorkings, state.permanentQlId, seed);
   const answerText = built.options[built.correctIndex];
