@@ -124,6 +124,7 @@ function formulaStep(qlId: IntCp004V6LocalizedQuestion["qlId"], locale: IntCp004
     case "INT-QL-085":
       return String.raw`${prefix} $A=P\left(1+\dfrac{R}{100m_1}\right)^{m_1t_1}\left(1+\dfrac{R}{100m_2}\right)^{m_2t_2}$।`;
   }
+  throw new Error(`${qlId}/${locale}: V4 formula authority missing.`);
 }
 
 function mathNumber(raw: string): string {
@@ -146,6 +147,11 @@ function convertMathExpression(raw: string): string {
 
 function latexifyWorkedStep(locale: IntCp004V6Locale, original: string): string {
   let step = preferredCompoundTerm(locale, original);
+
+  const rateLine = step.match(locale === "hi-IN"
+    ? /^(हर अवधि की दर)\s*=\s*(.+)$/u
+    : /^(ਹਰ ਮਿਆਦ ਦੀ ਦਰ)\s*=\s*(.+)$/u);
+  if (rateLine) return `${rateLine[1]}: $${convertMathExpression(rateLine[2])}$।`;
 
   const colonIndex = step.indexOf(":");
   if (colonIndex >= 0) {
