@@ -35,5 +35,8 @@ assert.ok(
 const markdown = renderIneCp007ReviewMarkdown(rows);
 assert.match(markdown, /# INE-CP-007 English Prototype Review Pack/);
 assert.match(markdown, /### Explanation/);
+assert.match(markdown, /^\d+\. `#`$/m);
+assert.match(markdown, /^\d+\. `\+`$/m);
+assert.doesNotMatch(markdown, /^\d+\. [#*+_-]\s*$/m);
 assert.doesNotMatch(markdown, /\b(?:undefined|null|NaN)\b/i);
 console.log("INE-CP-007 review-pack audit passed.", { rowCount: rows.length });

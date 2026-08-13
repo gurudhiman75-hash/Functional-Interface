@@ -39,6 +39,8 @@ export function buildIneCp007ReviewPack() {
 export function renderIneCp007ReviewMarkdown(
   rows: ReturnType<typeof buildIneCp007ReviewPack>,
 ): string {
+  const renderOption = (value: string) =>
+    value.length === 1 ? `\`${value}\`` : value;
   const questions = rows.map((row) => [
     `## ${row.index}. ${row.authorityId} — seed ${row.seed}`,
     "",
@@ -53,9 +55,11 @@ export function renderIneCp007ReviewMarkdown(
     "",
     "### Options",
     "",
-    ...row.options.map((entry, optionIndex) => `${optionIndex + 1}. ${entry}`),
+    ...row.options.map(
+      (entry, optionIndex) => `${optionIndex + 1}. ${renderOption(entry)}`,
+    ),
     "",
-    `**Correct:** ${row.correctIndex + 1}. ${row.correctOption}`,
+    `**Correct:** ${row.correctIndex + 1}. ${renderOption(row.correctOption)}`,
     "",
     "### Explanation",
     "",

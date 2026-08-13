@@ -23,12 +23,12 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Options
 
-1. &
-2. %
-3. #
-4. $
+1. `&`
+2. `%`
+3. `#`
+4. `$`
 
-**Correct:** 2. %
+**Correct:** 2. `%`
 
 ### Explanation
 
@@ -55,12 +55,12 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Options
 
-1. ?
-2. ^
-3. ~
-4. !
+1. `?`
+2. `^`
+3. `~`
+4. `!`
 
-**Correct:** 1. ?
+**Correct:** 1. `?`
 
 ### Explanation
 
@@ -87,12 +87,12 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Options
 
-1. @
-2. $
-3. #
-4. &
+1. `@`
+2. `$`
+3. `#`
+4. `&`
 
-**Correct:** 3. #
+**Correct:** 3. `#`
 
 ### Explanation
 
@@ -119,12 +119,12 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Options
 
-1. ^
-2. +
-3. !
-4. ?
+1. `^`
+2. `+`
+3. `!`
+4. `?`
 
-**Correct:** 4. ?
+**Correct:** 4. `?`
 
 ### Explanation
 
@@ -151,12 +151,12 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Options
 
-1. $
-2. #
-3. @
-4. %
+1. `$`
+2. `#`
+3. `@`
+4. `%`
 
-**Correct:** 3. @
+**Correct:** 3. `@`
 
 ### Explanation
 
@@ -183,12 +183,12 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Options
 
-1. ^
-2. ~
-3. ?
-4. +
+1. `^`
+2. `~`
+3. `?`
+4. `+`
 
-**Correct:** 2. ~
+**Correct:** 2. `~`
 
 ### Explanation
 
@@ -215,12 +215,12 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Options
 
-1. %
-2. &
-3. @
-4. $
+1. `%`
+2. `&`
+3. `@`
+4. `$`
 
-**Correct:** 4. $
+**Correct:** 4. `$`
 
 ### Explanation
 
@@ -247,12 +247,12 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Options
 
-1. +
-2. ?
-3. ~
-4. ^
+1. `+`
+2. `?`
+3. `~`
+4. `^`
 
-**Correct:** 1. +
+**Correct:** 1. `+`
 
 ### Explanation
 
@@ -279,12 +279,12 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Options
 
-1. &
-2. %
-3. @
-4. $
+1. `&`
+2. `%`
+3. `@`
+4. `$`
 
-**Correct:** 1. &
+**Correct:** 1. `&`
 
 ### Explanation
 
@@ -311,12 +311,12 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Options
 
-1. ^
-2. +
-3. !
-4. ?
+1. `^`
+2. `+`
+3. `!`
+4. `?`
 
-**Correct:** 2. +
+**Correct:** 2. `+`
 
 ### Explanation
 
@@ -343,12 +343,12 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Options
 
-1. %
-2. #
-3. $
-4. &
+1. `%`
+2. `#`
+3. `$`
+4. `&`
 
-**Correct:** 3. $
+**Correct:** 3. `$`
 
 ### Explanation
 
@@ -375,12 +375,12 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Options
 
-1. ~
-2. ^
-3. !
-4. +
+1. `~`
+2. `^`
+3. `!`
+4. `+`
 
-**Correct:** 4. +
+**Correct:** 4. `+`
 
 ### Explanation
 
