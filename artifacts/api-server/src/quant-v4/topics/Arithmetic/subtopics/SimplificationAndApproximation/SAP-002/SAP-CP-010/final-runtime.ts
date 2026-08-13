@@ -1,0 +1,252 @@
+import {
+  SAP_CP010_CATALOGUE,
+  SAP_CP010_POLICY,
+  SAP_CP010_PROTOTYPE_IDS,
+  generateSapCp010 as generateExam,
+  type SapCp010Option,
+  type SapCp010Package,
+  type SapCp010PrototypeId,
+} from "./exam-runtime";
+
+export { SAP_CP010_CATALOGUE, SAP_CP010_POLICY, SAP_CP010_PROTOTYPE_IDS };
+export type { SapCp010Package, SapCp010PrototypeId };
+
+function repack(
+  base: SapCp010Package,
+  stem: string,
+  data: Readonly<Record<string, number | string>>,
+  steps: readonly string[],
+  verification: readonly string[],
+  tag: string,
+): SapCp010Package {
+  const frozenData = Object.freeze({ ...data, finalRuntimeVersion: 3 });
+  const studentText = `${stem} ${base.canonicalAnswer} ${base.options.map((o) => o.value).join(" ")} ${base.explanation.coreConcept} ${steps.join(" ")} ${verification.join(" ")}`;
+  const errors: string[] = [];
+  if (base.options.length !== 4 || new Set(base.options.map((o) => o.value)).size !== 4) errors.push("Four distinct options required.");
+  if (base.options.filter((o) => o.isCorrect).length !== 1) errors.push("Exactly one correct option required.");
+  if (base.options[base.correctIndex]?.value !== base.canonicalAnswer) errors.push("Correct option mismatch.");
+  if (steps.length < 2 || steps.length > 3) errors.push("Explanation must use 2-3 steps.");
+  if (stem.length > 220) errors.push("Stem too long for exam presentation.");
+  if (/oracle|runtime|prototype|canonical|internal|guard|machine policy|newton|taylor/i.test(studentText)) errors.push("Internal or unsupported wording leaked.");
+  if (/-?\d+\.\d{6,}/.test(studentText)) errors.push("Long floating-point display leaked.");
+  return Object.freeze({
+    ...base,
+    stem,
+    explanation: Object.freeze({
+      ...base.explanation,
+      steps: Object.freeze([...steps]),
+      verification: Object.freeze([...verification]),
+    }),
+    oracle: Object.freeze({ kind: base.prototypeId, data: frozenData }),
+    canonicalPayloadKey: JSON.stringify({ prototypeId: base.prototypeId, stem, answer: base.canonicalAnswer, data: frozenData, tag }),
+    generationIdentity: `${base.prototypeId}:final-v3:${tag}:${base.seed}:${JSON.stringify(frozenData)}`,
+    validation: Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors) }),
+  });
+}
+
+function wrong(value: string, misconceptionId: string, analysis: string): SapCp010Option {
+  return Object.freeze({ value, isCorrect: false, misconceptionId, analysis });
+}
+
+function rebuild(
+  base: SapCp010Package,
+  args: {
+    stem: string;
+    answer: string;
+    wrongs: readonly SapCp010Option[];
+    data: Readonly<Record<string, number | string>>;
+    concept: string;
+    steps: readonly string[];
+    verification: readonly string[];
+    tag: string;
+  },
+): SapCp010Package {
+  const correct: SapCp010Option = Object.freeze({ value: args.answer, isCorrect: true, misconceptionId: null, analysis: "Correct." });
+  const unique = args.wrongs.filter((item, index, all) => item.value !== args.answer && all.findIndex((other) => other.value === item.value) === index);
+  if (unique.length < 3) throw new Error(`${base.prototypeId}:${base.seed}: rebuilt distractors collapsed.`);
+  const options = [...unique.slice(0, 3)];
+  options.splice(base.correctIndex, 0, correct);
+  const frozenOptions = Object.freeze(options);
+  const frozenData = Object.freeze({ ...args.data, finalRuntimeVersion: 4 });
+  const studentText = `${args.stem} ${args.answer} ${frozenOptions.map((o) => o.value).join(" ")} ${args.concept} ${args.steps.join(" ")} ${args.verification.join(" ")}`;
+  const errors: string[] = [];
+  if (frozenOptions.length !== 4 || new Set(frozenOptions.map((o) => o.value)).size !== 4) errors.push("Four distinct options required.");
+  if (args.steps.length < 2 || args.steps.length > 3) errors.push("Explanation must use 2-3 steps.");
+  if (args.stem.length > 220) errors.push("Stem too long for exam presentation.");
+  if (/oracle|runtime|prototype|canonical|internal|guard|machine policy|newton|taylor/i.test(studentText)) errors.push("Internal or unsupported wording leaked.");
+  if (/-?\d+\.\d{6,}/.test(studentText)) errors.push("Long floating-point display leaked.");
+  return Object.freeze({
+    ...base,
+    stem: args.stem,
+    canonicalAnswer: args.answer,
+    options: frozenOptions,
+    correctIndex: base.correctIndex,
+    explanation: Object.freeze({
+      coreConcept: args.concept,
+      steps: Object.freeze([...args.steps]),
+      finalAnswer: `Answer: ${args.answer}.`,
+      verification: Object.freeze([...args.verification]),
+    }),
+    oracle: Object.freeze({ kind: base.prototypeId, data: frozenData }),
+    canonicalPayloadKey: JSON.stringify({ prototypeId: base.prototypeId, stem: args.stem, answer: args.answer, data: frozenData, tag: args.tag }),
+    generationIdentity: `${base.prototypeId}:final-v4:${args.tag}:${base.seed}:${JSON.stringify(frozenData)}`,
+    validation: Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors) }),
+  });
+}
+
+function safeNearSquare(root: number, seed: number, shift: number, block: number, cycle = 0): number {
+  const rawD = 1 + ((block + shift) % 5);
+  const d = Math.min(rawD, Math.max(1, root - 1));
+  return (seed + shift + cycle) % 2 === 0 ? root * root + d : root * root - d;
+}
+
+function nearestIntegerCbrt(seed: number): SapCp010Package {
+  const mode = 4;
+  const base = generateExam(SAP_CP010_PROTOTYPE_IDS[mode]!, seed);
+  const k = 3 + ((seed - 1) % 10);
+  const block = Math.floor((seed - 1) / 10);
+  const d = 1 + block;
+  const lowerCase = seed % 2 === 1;
+  const n = lowerCase ? k ** 3 + d : (k + 1) ** 3 - d;
+  const answer = lowerCase ? k : k + 1;
+  return repack(
+    base,
+    `∛${n} is nearest to which integer?`,
+    { n, k, answer, threshold8: (2 * k + 1) ** 3, scaledN: 8 * n, d },
+    [
+      `${k}³ = ${k ** 3} and ${k + 1}³ = ${(k + 1) ** 3}, so ∛${n} lies between ${k} and ${k + 1}.`,
+      lowerCase ? `∛${n} < ${k}.5, so it is nearer to ${k}.` : `∛${n} > ${k}.5, so it is nearer to ${k + 1}.`,
+    ],
+    [`Compare 8 × ${n} = ${8 * n} with ${2 * k + 1}³ = ${(2 * k + 1) ** 3}.`],
+    "nearest-cuberoot-safe-band",
+  );
+}
+
+function rootProduct(seed: number): SapCp010Package {
+  const mode = 9;
+  const base = generateExam(SAP_CP010_PROTOTYPE_IDS[mode]!, seed);
+  const r1 = 5 + ((seed - 1) % 20);
+  const block = Math.floor((seed - 1) / 20);
+  const r2 = 3 + block;
+  const n1 = safeNearSquare(r1, seed, 0, block);
+  const n2 = safeNearSquare(r2, seed, 1, block);
+  return repack(
+    base,
+    `Estimate √${n1} × √${n2} by taking each square root to the nearest integer.`,
+    { n1, n2, r1, r2, answer: r1 * r2, block },
+    [`√${n1} ≈ ${r1} and √${n2} ≈ ${r2}.`, `${r1} × ${r2} = ${r1 * r2}.`],
+    [`${r1}² = ${r1 ** 2}; ${r2}² = ${r2 ** 2}. Each radicand remains inside the nearest-integer band of its benchmark.`],
+    "root-product-safe-band",
+  );
+}
+
+function rootQuotient(seed: number): SapCp010Package {
+  const mode = 10;
+  const base = generateExam(SAP_CP010_PROTOTYPE_IDS[mode]!, seed);
+  const divisorRoot = 3 + ((seed - 1) % 8);
+  const block = Math.floor((seed - 1) / 8);
+  const cycle = Math.floor((seed - 1) / 32);
+  const quotient = 2 + (block % 4);
+  const numeratorRoot = divisorRoot * quotient;
+  const n = safeNearSquare(numeratorRoot, seed, 0, block, cycle);
+  const d = safeNearSquare(divisorRoot, seed, 1, block, cycle);
+  return repack(
+    base,
+    `Estimate √${n} ÷ √${d} by taking each square root to the nearest integer.`,
+    { n, d, numeratorRoot, divisorRoot, quotient, block, cycle },
+    [`√${n} ≈ ${numeratorRoot} and √${d} ≈ ${divisorRoot}.`, `${numeratorRoot} ÷ ${divisorRoot} = ${quotient}.`],
+    ["Both radicands remain inside the certified nearest-integer bands, and the denominator root is non-zero."],
+    "root-quotient-safe-band",
+  );
+}
+
+function missingRadicand(seed: number): SapCp010Package {
+  const mode = 12;
+  const base = generateExam(SAP_CP010_PROTOTYPE_IDS[mode]!, seed);
+  const k = 8 + ((seed - 1) % 50);
+  const below = seed > 50;
+  const d = 1 + (Math.floor((seed - 1) / 10) % 4);
+  const square = k * k;
+  const correctN = below ? square - d : square + d;
+  const answer = String(correctN);
+  const stem = below
+    ? `Which value below ${square} has a square root nearest to ${k}?`
+    : `Which value above ${square} has a square root nearest to ${k}?`;
+  const wrongs = below
+    ? [
+        wrong(String((k - 1) ** 2 + 1), "NEAR_PREVIOUS_ROOT", "This value is nearer to the previous integer square-root benchmark."),
+        wrong(String((k - 1) ** 2 - d), "BELOW_PREVIOUS_SQUARE", "This value lies around the previous perfect square, not the required one."),
+        wrong(String((k - 2) ** 2 + d), "TWO_ROOTS_LOW", "This value is centred near an integer root two steps lower."),
+      ]
+    : [
+        wrong(String((k + 1) ** 2 - 1), "NEAR_NEXT_ROOT", "This value is nearer to the next integer square-root benchmark."),
+        wrong(String((k + 1) ** 2 + d), "ABOVE_NEXT_SQUARE", "This value lies around the next perfect square, not the required one."),
+        wrong(String((k + 2) ** 2 - d), "TWO_ROOTS_HIGH", "This value is centred near an integer root two steps higher."),
+      ];
+  return rebuild(base, {
+    stem,
+    answer,
+    wrongs,
+    data: { k, correctN, d, square, side: below ? "BELOW" : "ABOVE" },
+    concept: "Choose a number close enough to the required perfect square for its square root to round to that integer.",
+    steps: below
+      ? [`${k}² = ${square}, and ${correctN} is only ${d} below it.`, `So √${correctN} is nearest to ${k}.`]
+      : [`${k}² = ${square}, and ${correctN} is only ${d} above it.`, `So √${correctN} is nearest to ${k}.`],
+    verification: [`4 × ${correctN} lies between ${(2 * k - 1) ** 2} and ${(2 * k + 1) ** 2}, the exact nearest-integer band for root ${k}.`],
+    tag: "missing-radicand-100-material-states",
+  });
+}
+
+function oneDecimal(value: number): string {
+  return value.toFixed(1);
+}
+
+function missingPowerBase(seed: number): SapCp010Package {
+  const mode = 13;
+  const base = generateExam(SAP_CP010_PROTOTYPE_IDS[mode]!, seed);
+  const index = seed - 1;
+  const rounded = 3 + (index % 25);
+  const group = Math.floor(index / 25);
+  const exponent = group % 2 === 0 ? 2 : 3;
+  const below = group >= 2;
+  const target = rounded ** exponent;
+  const correct = below ? rounded - 0.2 : rounded + 0.2;
+  const answer = oneDecimal(correct);
+  const relation = below ? "below" : "above";
+  const wrongs = below
+    ? [
+        wrong(oneDecimal(rounded + 0.8), "ROUNDS_ONE_HIGH", "This value is below its own rounded integer, but it rounds one integer too high."),
+        wrong(oneDecimal(rounded - 1.2), "ROUNDS_ONE_LOW", "This value is below its own rounded integer, but it rounds one integer too low."),
+        wrong(oneDecimal(rounded + 1.8), "ROUNDS_TWO_HIGH", "This value rounds two integers above the required base."),
+      ]
+    : [
+        wrong(oneDecimal(rounded - 0.8), "ROUNDS_ONE_LOW", "This value is above its own rounded integer, but it rounds one integer too low."),
+        wrong(oneDecimal(rounded + 1.2), "ROUNDS_ONE_HIGH", "This value is above its own rounded integer, but it rounds one integer too high."),
+        wrong(oneDecimal(rounded + 2.2), "ROUNDS_TWO_HIGH", "This value rounds two integers above the required base."),
+      ];
+  return rebuild(base, {
+    stem: `A number is rounded to the nearest whole number and then raised to the power ${exponent}, giving an estimate of ${target}. The original number was ${relation} its rounded value. Which option could be the original number?`,
+    answer,
+    wrongs,
+    data: { correct: answer, rounded, exponent, target, side: below ? "BELOW" : "ABOVE" },
+    concept: "Recover the rounded integer base from the power, then choose a number in the correct half of that rounding interval.",
+    steps: [`${rounded}^${exponent} = ${target}, so the rounded base must be ${rounded}.`, `${answer} is ${relation} ${rounded} and still rounds to ${rounded}.`],
+    verification: ["Each distractor lies in the stated direction relative to its own rounded integer but rounds to the wrong base."],
+    tag: "missing-power-base-100-material-states",
+  });
+}
+
+export function generateSapCp010(prototypeId: SapCp010PrototypeId, seed: number): SapCp010Package {
+  if (prototypeId === SAP_CP010_PROTOTYPE_IDS[4]) return nearestIntegerCbrt(seed);
+  if (prototypeId === SAP_CP010_PROTOTYPE_IDS[9]) return rootProduct(seed);
+  if (prototypeId === SAP_CP010_PROTOTYPE_IDS[10]) return rootQuotient(seed);
+  if (prototypeId === SAP_CP010_PROTOTYPE_IDS[12]) return missingRadicand(seed);
+  if (prototypeId === SAP_CP010_PROTOTYPE_IDS[13]) return missingPowerBase(seed);
+  return generateExam(prototypeId, seed);
+}
+
+export function generateSapCp010Sweep(seedsPerMode = 100): readonly SapCp010Package[] {
+  return Object.freeze(SAP_CP010_PROTOTYPE_IDS.flatMap((prototypeId) =>
+    Array.from({ length: seedsPerMode }, (_, index) => generateSapCp010(prototypeId, index + 1)),
+  ));
+}
