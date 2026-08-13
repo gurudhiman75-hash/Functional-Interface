@@ -18,6 +18,8 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v3-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v4.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v4-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/profile-plan-v2.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v2.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-can-never-be-editorial-v3.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-can-never-be-editorial-v4.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-balanced.ts
@@ -82,6 +84,50 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v4-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v4-audit.log
 
+      - name: Bundle inactive profile planner V2
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/profile-plan-v2.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-profile-plan-v2.mjs
+      - name: Prove Banking candidate is modeled but inactive
+        shell: bash
+        run: |
+          set -o pipefail
+          node --input-type=module <<'NODE' 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-profile-plan-v2-audit.log
+          import assert from 'node:assert/strict';
+          const m = await import('./artifacts/api-server/dist/reasoning-v1/syl-001-profile-plan-v2.mjs');
+          const plan = m.buildSylProfilePlanV2('BANKING', 731, 100);
+          assert.deepEqual(plan.readinessCounts, { ACTIVE_CANONICAL: 80, CANDIDATE_INACTIVE: 20, BLOCKED_REMODEL: 0, PRACTICE_ONLY: 0 });
+          const candidates = plan.slots.filter((s) => s.familyId === 'BANK_POSSIBILITY_IN_CONCLUSION_SET');
+          assert.equal(candidates.length, 20);
+          assert.ok(candidates.every((s) => s.canonicalQlId === null));
+          assert.ok(candidates.every((s) => s.registrationRequired === true));
+          assert.ok(candidates.every((s) => s.candidateAuthority === 'SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V4'));
+          assert.equal(plan.connectedToGenerator, false);
+          assert.equal(plan.activationPermitted, false);
+          console.log(JSON.stringify({ status: 'PASS_SYL_001_PROFILE_PLAN_V2', readiness: plan.readinessCounts, candidateSlots: candidates.length, candidateAuthority: m.SYL_PROFILE_PLAN_V2.candidateAuthority, registered: false, connectedToGenerator: false, activationPermitted: false }, null, 2));
+          NODE
+
+      - name: Bundle freeze readiness V2
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v2.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-freeze-readiness-v2.mjs
+      - name: Prove freeze decision after Banking candidate closure
+        shell: bash
+        run: |
+          set -o pipefail
+          node --input-type=module <<'NODE' 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v2-audit.log
+          import assert from 'node:assert/strict';
+          const m = await import('./artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v2.mjs');
+          assert.deepEqual(m.SYL_FREEZE_READINESS_V2.counts, { MET: 3, PARTIAL: 4, BLOCKED: 3 });
+          assert.equal(m.SYL_FREEZE_READINESS_V2.status, 'NOT_READY_FOR_PROFILE_OR_QL_FREEZE');
+          assert.equal(m.SYL_FREEZE_READINESS_V2.bankingRemodelBlockerClosed, true);
+          assert.equal(m.SYL_FREEZE_READINESS_V2.bankingCandidateInactive, true);
+          const bank = m.SYL_FREEZE_REQUIREMENTS_V2.find((r) => r.requirementId === 'BANKING_PROFILE_MOCK_READY');
+          assert.equal(bank.status, 'PARTIAL');
+          assert.match(bank.evidence, /80% active canonical/);
+          assert.match(bank.evidence, /20% candidate-inactive/);
+          assert.equal(m.SYL_FREEZE_READINESS_V2.permanentQlFreezePermitted, false);
+          assert.equal(m.SYL_FREEZE_READINESS_V2.profileActivationPermitted, false);
+          assert.equal(m.SYL_FREEZE_READINESS_V2.generatorIntegrationPermitted, false);
+          console.log(JSON.stringify({ status: 'PASS_SYL_001_FREEZE_READINESS_V2', decision: m.SYL_FREEZE_READINESS_V2.status, counts: m.SYL_FREEZE_READINESS_V2.counts, bankingRemodelBlockerClosed: true, bankingProfileStatus: bank.status, activationPermitted: false }, null, 2));
+          NODE
+
       - name: Bundle ordinary possibility answer-balance audit
         run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-balanced-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-possibility-v2-balanced-audit.test.mjs
       - name: Run ordinary possibility answer-balance audit
@@ -111,6 +157,8 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-shell-v2-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v3-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v4-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-profile-plan-v2-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v2-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-v2-balanced-audit.log
             dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v3/**
             dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v4/**
