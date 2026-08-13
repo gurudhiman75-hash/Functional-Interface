@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import {
   listProbabilityNativeReviewCatalog,
   previewProbabilityNativeReview,
@@ -92,6 +93,31 @@ for (const language of ["hi", "pa"] as const) {
   assert(rows.every((entry) => entry.publiclyPublishable === false));
 }
 
+const probabilityRouteSource = readFileSync(
+  new URL("../../../routes/admin-question-studio-probability.ts", import.meta.url),
+  "utf8",
+);
+const decisionPath = '"/quant/probability/native-review/items/:itemId/decision"';
+const decisionStart = probabilityRouteSource.indexOf(decisionPath);
+const statusStart = probabilityRouteSource.indexOf('"/quant/probability/native-review/status"', decisionStart);
+assert(decisionStart >= 0, "Probability native editorial decision endpoint must exist.");
+assert(statusStart > decisionStart, "Probability native editorial decision endpoint boundary is malformed.");
+const decisionSource = probabilityRouteSource.slice(decisionStart, statusStart);
+assert(decisionSource.includes("assertLockedNativeReviewPayload(row.payload)"));
+assert(decisionSource.includes("accepted_question_id"));
+assert(decisionSource.includes("questionBankWritePerformed: false"));
+assert(decisionSource.includes("releaseFreezeStillRequired: true"));
+assert(!decisionSource.includes("convertApprovedGenerationItem"));
+assert(!decisionSource.includes("INSERT INTO content.questions"));
+assert(!decisionSource.includes("INSERT INTO content.question_versions"));
+
+const contentReviewControllerSource = readFileSync(
+  new URL("../../../../admin-app/src/features/content-review/useContentReviewController.ts", import.meta.url),
+  "utf8",
+);
+assert(contentReviewControllerSource.includes("isProbabilityNativeReviewPayload(selectedItem.currentPayload)"));
+assert(contentReviewControllerSource.includes("updateProbabilityReviewItem({"));
+
 const freeze = getProbabilityNativeFreezeSummary();
 assert.equal(freeze.requiredDecisionCount, 432);
 assert.equal(freeze.recordedDecisionCount, 0);
@@ -114,4 +140,6 @@ console.log(JSON.stringify({
   nativeQuestionBankWritable: false,
   nativeTestEligible: false,
   nativePubliclyPublishable: false,
+  editorialDecisionEndpointLocked: true,
+  questionBankConversionOnNativeApproval: false,
 }, null, 2));
