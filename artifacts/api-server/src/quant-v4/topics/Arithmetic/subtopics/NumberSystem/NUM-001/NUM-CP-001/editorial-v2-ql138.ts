@@ -3,43 +3,39 @@ export function buildQl138Editorial(frozen: any) {
   const state = frozen.hiddenState as Record<string, unknown>;
   const n = Number(state.n);
   const mode = Number(state.mode);
-  const rationalForms = [
+  const forms = [
     `\\sqrt{${n}}\\times\\sqrt{${n}}`,
     `(\\sqrt{${n}})^{2}+\\frac{1}{2}`,
     `(3\\sqrt{${n}})\\times\\sqrt{${n}}`,
     `\\frac{\\sqrt{${n}}\\times\\sqrt{${n}}}{2}`,
   ];
-  const irrationalForms = [
-    `\\sqrt{${n}}+1`,
-    `2\\sqrt{${n}}`,
-    `\\frac{\\sqrt{${n}}}{2}`,
-    `\\sqrt{${n}}-3`,
-    `5+\\sqrt{${n}}`,
-    `3\\sqrt{${n}}+2`,
-  ];
-  const answer = m(rationalForms[mode]!);
-  const originalWrong = (frozen.options ?? [])
-    .filter((option: any) => !option.isCorrect)
-    .map((option: any) => String(option.value))
-    .map((value: string) => {
-      const normalized = value
-        .replace(/√(\d+)/gu, "\\sqrt{$1}")
-        .replace(/×/gu, "\\times")
-        .replace(/²/gu, "^{2}")
-        .replace(/1\/2/gu, "\\frac{1}{2}")
-        .replace(/√(\d+) \/ 2/gu, "\\frac{\\sqrt{$1}}{2}");
-      return m(normalized);
-    });
-  const distractors = originalWrong.length === 3 ? originalWrong : irrationalForms.slice(0, 3).map(m);
+  const answer = m(forms[mode]!);
+  const normalizeWrong = (value: string) => value
+    .replace(/^√(\d+) \/ 2$/u, (_match, radicand) => `\\frac{\\sqrt{${radicand}}}{2}`)
+    .replace(/√(\d+)/gu, "\\sqrt{$1}")
+    .replace(/×/gu, "\\times")
+    .replace(/²/gu, "^{2}")
+    .replace(/1\/2/gu, "\\frac{1}{2}");
+  const distractors = (frozen.options ?? []).filter((option: any) => !option.isCorrect).map((option: any) => m(normalizeWrong(String(option.value))));
   const options = [...distractors];
   const correctIndex = Number(frozen.correctIndex);
   options.splice(correctIndex, 0, answer);
+  const value = String(state.rationalValue);
+  const parts = value.split("/");
+  const valueLatex = parts.length === 2 ? `\\frac{${parts[0]}}{${parts[1]}}` : value;
+  const working = mode === 0
+    ? `${forms[0]}=${n}`
+    : mode === 1
+      ? `${forms[1]}=${n}+\\frac{1}{2}=${valueLatex}`
+      : mode === 2
+        ? `${forms[2]}=3\\times${n}=${valueLatex}`
+        : `${forms[3]}=\\frac{${n}}{2}=${valueLatex}`;
   return {
     stem: `For the positive non-square integer ${m(String(n))}, which expression is rational?`,
     options: Object.freeze(options),
     correctIndex,
     answer,
-    concept: `${m(`\\sqrt{${n}}`)} is irrational, but multiplying matching radicals removes the square root.`,
-    steps: [`Use ${m(`\\sqrt{${n}}\\times\\sqrt{${n}}=${n}`)}.`, `The correct expression simplifies to ${m(String(state.rationalValue))}, which is rational.`],
+    concept: `${m(`\\sqrt{${n}}`)} is irrational, but matching radicals simplify when multiplied.`,
+    steps: [`For the correct option, ${m(working)}.`, `Its value ${m(valueLatex)} is rational.`],
   };
 }
