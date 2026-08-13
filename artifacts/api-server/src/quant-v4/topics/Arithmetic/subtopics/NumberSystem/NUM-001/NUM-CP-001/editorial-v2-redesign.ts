@@ -36,8 +36,57 @@ function oddExpression(frozen: any) {
   return { stem, options: placed.options, correctIndex: placed.correctIndex, answer: correct, concept: "Use parity rules; exact numerical calculation is unnecessary.", steps };
 }
 
-export function redesignEnglishQl(frozen: any, _seed: number) {
+function filteredIntervalCount(frozen: any, seed: number) {
+  const band = String(frozen.difficulty).toUpperCase();
+  const shift = Math.abs(seed) % 3;
+  let low: number;
+  let high: number;
+  let kind: "positive" | "negative" | "even" | "odd";
+  let values: number[];
+  let stem: string;
+  let concept: string;
+
+  if (band === "EASY") {
+    low = -6 - shift;
+    high = 7 + shift;
+    kind = seed % 2 === 0 ? "positive" : "negative";
+    values = Array.from({ length: high - low + 1 }, (_, index) => low + index).filter((value) => kind === "positive" ? value > 0 : value < 0);
+    stem = `How many ${kind} integers are there in the interval ${math(`[${low},${high}]`)}?`;
+    concept = `Count only the ${kind} integers inside the closed interval.`;
+  } else if (band === "MEDIUM") {
+    low = -9 - shift;
+    high = 8 + shift;
+    kind = seed % 2 === 0 ? "even" : "odd";
+    values = Array.from({ length: high - low + 1 }, (_, index) => low + index).filter((value) => kind === "even" ? value % 2 === 0 : Math.abs(value % 2) === 1);
+    stem = `How many ${kind} integers are there in the interval ${math(`[${low},${high}]`)}?`;
+    concept = `Apply the ${kind} filter to all integers in the closed interval.`;
+  } else {
+    low = -8 - shift;
+    high = 10 + shift;
+    kind = seed % 2 === 0 ? "even" : "odd";
+    values = Array.from({ length: high - low }, (_, index) => low + 1 + index).filter((value) => value <= high && (kind === "even" ? value % 2 === 0 : Math.abs(value % 2) === 1));
+    stem = `How many ${kind} integers ${math("x")} satisfy ${math(`${low}<x\\le${high}`)}?`;
+    concept = `Apply the open/closed bounds first, then count only the ${kind} integers.`;
+  }
+
+  const count = values.length;
+  const correct = math(String(count));
+  const distractors = [Math.max(0, count - 1), count + 1, count + 2].map((value) => math(String(value)));
+  const placed = placeCorrect(correct, distractors, frozen.correctIndex);
+  const listed = values.length <= 12 ? values.map((value) => math(String(value))).join(", ") : `${values.length} qualifying integers`;
+  return {
+    stem,
+    options: placed.options,
+    correctIndex: placed.correctIndex,
+    answer: correct,
+    concept,
+    steps: [values.length <= 12 ? `The qualifying integers are ${listed}.` : listed, `Hence the count is ${correct}.`],
+  };
+}
+
+export function redesignEnglishQl(frozen: any, seed: number) {
   const qlId = String(frozen.questionLanguageId ?? frozen.permanentQlId);
   if (qlId === "NUM-QL-129") return oddExpression(frozen);
+  if (qlId === "NUM-QL-135") return filteredIntervalCount(frozen, seed);
   return null;
 }
