@@ -1,5 +1,5 @@
 import { degree } from "../foundation/angle";
-import { exactInteger, formatExactPlain, multiplyExact, subtractExact } from "../foundation/exact";
+import { exactInteger, formatExactPlain } from "../foundation/exact";
 import { buildSameSideMovingState } from "./spatial";
 import { buildTrg002MvpQuestion, mvpExplanation, mvpNumberAnswer, mvpPick, type Trg002MvpQuestion } from "./mvp-runtime-core";
 
@@ -39,7 +39,9 @@ function ql058(seed: string) {
 
 function ql064(seed: string) {
   const b = base(seed, "064-k");
-  b.state.movements = [{ ...b.state.movements[0], observerId: "observer-near", fromGroundPointId: "near-ground", toGroundPointId: "far-ground", direction: "FARTHER" }];
+  const movement = b.state.movements[0];
+  if (!movement) throw new Error("TRG-002-QL-064: canonical movement missing.");
+  b.state.movements = [{ ...movement, observerId: "observer-near", fromGroundPointId: "near-ground", toGroundPointId: "far-ground", direction: "FARTHER" }];
   b.state.diagramStrategy = "OBSERVER_MOVES_FARTHER"; b.state.requested = { kind: "MOVEMENT_DISTANCE", movementId: "movement-1" };
   return buildTrg002MvpQuestion({ qlId: "TRG-002-QL-064", cpId: "TRG-CP-009", lockedFamily: "OBSERVER_MOVES_FARTHER", solveMode: "findMovementFromHeightAndTwoAngles", seed, difficulty: "Hard", target: "LENGTH",
     stem: `A tower is ${formatExactPlain(b.height)} m high. An observer sees its top at 60°, then walks straight away until the angle becomes 30°. How far did the observer walk?`, state: b.state, correct: mvpNumberAnswer(b.movement),
