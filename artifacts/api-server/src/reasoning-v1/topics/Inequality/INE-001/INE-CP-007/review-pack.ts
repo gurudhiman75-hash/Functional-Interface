@@ -64,7 +64,7 @@ export function renderIneCp007ReviewMarkdown(
   return [
     "# INE-CP-007 English Prototype Review Pack",
     "",
-    "This 32-question discovery pack contains 24 source-backed missing-operator and expression-selection questions, followed by 8 guided map-recovery questions. Every question has exactly four options and a short explanation. Only the first two authorities carry Banking/regulatory practice applicability; map recovery remains guided because verified mainstream exam evidence is insufficient. Permanent QLs, Question Studio visibility, localization, and public release remain disabled.",
+    "This 32-question discovery pack contains 24 source-backed missing-operator and expression-selection questions, followed by 8 guided map-recovery questions. Letter objects, numerical tests, and misconception-owned map alternatives rotate across independently validated pools. Every question has exactly four options and a short explanation. Only the first two authorities carry Banking/regulatory practice applicability; map recovery remains guided because verified mainstream exam evidence is insufficient. Permanent QLs, Question Studio visibility, localization, and public release remain disabled.",
     "",
     questions.join("\n\n"),
     "",

@@ -6,6 +6,8 @@ import { validateIneCp007Question } from "./validator";
 assert.equal(INE_CP007_PROTOTYPE_CONTRACTS.length, 4);
 const positions = new Map<string, number[]>();
 const relations = new Set<string>();
+const entityTriples = new Set<string>();
+const numericCases = new Set<string>();
 let generatedCount = 0;
 for (const contract of INE_CP007_PROTOTYPE_CONTRACTS) {
   for (let seed = 0; seed < 20; seed += 1) {
@@ -24,15 +26,28 @@ for (const contract of INE_CP007_PROTOTYPE_CONTRACTS) {
     counts[question.correctIndex] += 1;
     positions.set(contract.authorityId, counts);
     relations.add(question.structuredScenario.targetRelation);
+    entityTriples.add(
+      Object.values(question.structuredScenario.entityNames).join("/"),
+    );
+    if (question.structuredScenario.numericTests)
+      numericCases.add(
+        question.structuredScenario.numericTests
+          .map((entry) => `${entry.left}/${entry.right}/${entry.expected}`)
+          .join("|"),
+      );
     generatedCount += 1;
   }
 }
 assert.equal(generatedCount, 80);
 assert.equal(relations.size, 5);
+assert.equal(entityTriples.size, 12);
+assert.ok(numericCases.size >= 12);
 for (const counts of positions.values()) assert.deepEqual(counts, [5, 5, 5, 5]);
 console.log("INE-CP-007 map-recovery audit passed.", {
   generatedCount,
   authorityCount: INE_CP007_PROTOTYPE_CONTRACTS.length,
   relationCount: relations.size,
+  entityTripleCount: entityTriples.size,
+  numericCaseCount: numericCases.size,
   positions: Object.fromEntries(positions),
 });

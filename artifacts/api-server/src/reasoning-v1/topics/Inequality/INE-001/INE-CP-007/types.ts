@@ -33,6 +33,11 @@ export interface IneCp007Scenario {
   codeKey: readonly string[];
   candidateRelations: readonly ComparisonRelation[];
   numericTests?: readonly IneCp007NumericTest[];
+  entityNames: {
+    left: string;
+    middle: string;
+    right: string;
+  };
 }
 
 export interface IneCp007Option {

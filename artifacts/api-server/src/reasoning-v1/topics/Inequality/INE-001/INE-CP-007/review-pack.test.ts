@@ -8,12 +8,24 @@ assert.equal(rows.filter((entry) => entry.deliveryProfile === "GUIDED_DISCOVERY"
 assert.ok(rows.every((entry) => entry.options.length === 4));
 assert.ok(rows.every((entry) => new Set(entry.options).size === 4));
 assert.ok(rows.every((entry) => entry.correctOption === entry.options[entry.correctIndex]));
+const missingOperatorRows = rows.filter(
+  (entry) => entry.authorityId === "COMPLETE_MISSING_CODED_OPERATOR",
+);
+assert.equal(
+  new Set(missingOperatorRows.map((entry) => entry.evidence[0])).size,
+  12,
+);
 const recoveryRows = rows.filter(
   (entry) => entry.authorityId === "RECOVER_MISSING_MAP_ENTRY",
 );
 assert.equal(recoveryRows.length, 4);
 assert.ok(recoveryRows.every((entry) => entry.codeKey.length === 3));
 assert.ok(recoveryRows.every((entry) => entry.evidence.length === 4));
+assert.equal(
+  new Set(recoveryRows.map((entry) => entry.evidence.slice(2).join(" | ")))
+    .size,
+  4,
+);
 assert.ok(recoveryRows.every((entry) => entry.explanation.length >= 140));
 assert.ok(
   recoveryRows.every(

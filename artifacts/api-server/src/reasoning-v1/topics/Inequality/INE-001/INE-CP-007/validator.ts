@@ -82,16 +82,30 @@ export function validateIneCp007Question(
     question.structuredScenario.taskKind === "SELECT_EXPRESSION"
   ) {
     const target = question.structuredScenario.targetRelation;
+    const names = question.structuredScenario.entityNames;
     const matchingOptions = question.options.filter((option) => {
       if (!option.relation) return false;
       const statements = [
-        createComparisonConstraint("P", option.relation, "Q", "S1"),
-        createComparisonConstraint("Q", "EQUAL_TO", "R", "S2"),
+        createComparisonConstraint(
+          names.left,
+          option.relation,
+          names.middle,
+          "S1",
+        ),
+        createComparisonConstraint(
+          names.middle,
+          "EQUAL_TO",
+          names.right,
+          "S2",
+        ),
       ];
       return (
         strongestDefiniteRelation(
-          assertSolverAgreement(statements, "P", "R").modelEvidence
-            .possibleAtomicRelations,
+          assertSolverAgreement(
+            statements,
+            names.left,
+            names.right,
+          ).modelEvidence.possibleAtomicRelations,
         ) === target
       );
     });

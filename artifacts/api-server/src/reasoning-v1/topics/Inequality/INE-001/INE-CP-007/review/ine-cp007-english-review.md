@@ -1,6 +1,6 @@
 # INE-CP-007 English Prototype Review Pack
 
-This 32-question discovery pack contains 24 source-backed missing-operator and expression-selection questions, followed by 8 guided map-recovery questions. Every question has exactly four options and a short explanation. Only the first two authorities carry Banking/regulatory practice applicability; map recovery remains guided because verified mainstream exam evidence is insufficient. Permanent QLs, Question Studio visibility, localization, and public release remain disabled.
+This 32-question discovery pack contains 24 source-backed missing-operator and expression-selection questions, followed by 8 guided map-recovery questions. Letter objects, numerical tests, and misconception-owned map alternatives rotate across independently validated pools. Every question has exactly four options and a short explanation. Only the first two authorities carry Banking/regulatory practice applicability; map recovery remains guided because verified mainstream exam evidence is insufficient. Permanent QLs, Question Studio visibility, localization, and public release remain disabled.
 
 ## 1. COMPLETE_MISSING_CODED_OPERATOR — seed 0
 
@@ -50,8 +50,8 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Given
 
-- P ___ Q ! R
-- Required strongest relation: P < R
+- M ___ N ! T
+- Required strongest relation: M < T
 
 ### Options
 
@@ -64,7 +64,7 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Explanation
 
-Q = R, so replacing Q with R does not change the comparison. To obtain P < R, the blank must be ? (<).
+N = T, so replacing N with T does not change the comparison. To obtain M < T, the blank must be ? (<).
 
 ## 3. COMPLETE_MISSING_CODED_OPERATOR — seed 2
 
@@ -82,8 +82,8 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Given
 
-- P ___ Q # R
-- Required strongest relation: P = R
+- H ___ K # L
+- Required strongest relation: H = L
 
 ### Options
 
@@ -96,7 +96,7 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Explanation
 
-Q = R, so replacing Q with R does not change the comparison. To obtain P = R, the blank must be # (=).
+K = L, so replacing K with L does not change the comparison. To obtain H = L, the blank must be # (=).
 
 ## 4. COMPLETE_MISSING_CODED_OPERATOR — seed 3
 
@@ -114,8 +114,8 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Given
 
-- P ___ Q ^ R
-- Required strongest relation: P ≥ R
+- C ___ D ^ F
+- Required strongest relation: C ≥ F
 
 ### Options
 
@@ -128,7 +128,7 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Explanation
 
-Q = R, so replacing Q with R does not change the comparison. To obtain P ≥ R, the blank must be ? (≥).
+D = F, so replacing D with F does not change the comparison. To obtain C ≥ F, the blank must be ? (≥).
 
 ## 5. COMPLETE_MISSING_CODED_OPERATOR — seed 4
 
@@ -146,8 +146,8 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Given
 
-- P ___ Q % R
-- Required strongest relation: P ≤ R
+- W ___ X % Y
+- Required strongest relation: W ≤ Y
 
 ### Options
 
@@ -160,7 +160,7 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Explanation
 
-Q = R, so replacing Q with R does not change the comparison. To obtain P ≤ R, the blank must be @ (≤).
+X = Y, so replacing X with Y does not change the comparison. To obtain W ≤ Y, the blank must be @ (≤).
 
 ## 6. COMPLETE_MISSING_CODED_OPERATOR — seed 5
 
@@ -178,8 +178,8 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Given
 
-- P ___ Q ! R
-- Required strongest relation: P > R
+- G ___ J ! V
+- Required strongest relation: G > V
 
 ### Options
 
@@ -192,7 +192,7 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Explanation
 
-Q = R, so replacing Q with R does not change the comparison. To obtain P > R, the blank must be ~ (>).
+J = V, so replacing J with V does not change the comparison. To obtain G > V, the blank must be ~ (>).
 
 ## 7. COMPLETE_MISSING_CODED_OPERATOR — seed 6
 
@@ -210,8 +210,8 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Given
 
-- P ___ Q # R
-- Required strongest relation: P < R
+- S ___ U # Z
+- Required strongest relation: S < Z
 
 ### Options
 
@@ -224,7 +224,7 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Explanation
 
-Q = R, so replacing Q with R does not change the comparison. To obtain P < R, the blank must be $ (<).
+U = Z, so replacing U with Z does not change the comparison. To obtain S < Z, the blank must be $ (<).
 
 ## 8. COMPLETE_MISSING_CODED_OPERATOR — seed 7
 
@@ -242,8 +242,8 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Given
 
-- P ___ Q + R
-- Required strongest relation: P = R
+- E ___ I + O
+- Required strongest relation: E = O
 
 ### Options
 
@@ -256,7 +256,7 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Explanation
 
-Q = R, so replacing Q with R does not change the comparison. To obtain P = R, the blank must be + (=).
+I = O, so replacing I with O does not change the comparison. To obtain E = O, the blank must be + (=).
 
 ## 9. COMPLETE_MISSING_CODED_OPERATOR — seed 8
 
@@ -274,8 +274,8 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Given
 
-- P ___ Q @ R
-- Required strongest relation: P ≥ R
+- N ___ V @ W
+- Required strongest relation: N ≥ W
 
 ### Options
 
@@ -288,7 +288,7 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Explanation
 
-Q = R, so replacing Q with R does not change the comparison. To obtain P ≥ R, the blank must be & (≥).
+V = W, so replacing V with W does not change the comparison. To obtain N ≥ W, the blank must be & (≥).
 
 ## 10. COMPLETE_MISSING_CODED_OPERATOR — seed 9
 
@@ -306,8 +306,8 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Given
 
-- P ___ Q ! R
-- Required strongest relation: P ≤ R
+- D ___ K ! S
+- Required strongest relation: D ≤ S
 
 ### Options
 
@@ -320,7 +320,7 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Explanation
 
-Q = R, so replacing Q with R does not change the comparison. To obtain P ≤ R, the blank must be + (≤).
+K = S, so replacing K with S does not change the comparison. To obtain D ≤ S, the blank must be + (≤).
 
 ## 11. COMPLETE_MISSING_CODED_OPERATOR — seed 10
 
@@ -338,8 +338,8 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Given
 
-- P ___ Q & R
-- Required strongest relation: P > R
+- F ___ R & T
+- Required strongest relation: F > T
 
 ### Options
 
@@ -352,7 +352,7 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Explanation
 
-Q = R, so replacing Q with R does not change the comparison. To obtain P > R, the blank must be $ (>).
+R = T, so replacing R with T does not change the comparison. To obtain F > T, the blank must be $ (>).
 
 ## 12. COMPLETE_MISSING_CODED_OPERATOR — seed 11
 
@@ -370,8 +370,8 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Given
 
-- P ___ Q ~ R
-- Required strongest relation: P < R
+- J ___ M ~ P
+- Required strongest relation: J < P
 
 ### Options
 
@@ -384,7 +384,7 @@ Which coded symbol should fill the blank so that the required strongest relation
 
 ### Explanation
 
-Q = R, so replacing Q with R does not change the comparison. To obtain P < R, the blank must be + (<).
+M = P, so replacing M with P does not change the comparison. To obtain J < P, the blank must be + (<).
 
 ## 13. SELECT_CODED_EXPRESSION_FOR_RELATION — seed 0
 
@@ -433,20 +433,20 @@ Which coded expression establishes the required strongest relation?
 
 ### Given
 
-- Required strongest relation: P < R
+- Required strongest relation: M < T
 
 ### Options
 
-1. P ~ Q ! R
-2. P ^ Q ! R
-3. P + Q ! R
-4. P ? Q ! R
+1. M ~ N ! T
+2. M ^ N ! T
+3. M + N ! T
+4. M ? N ! T
 
-**Correct:** 4. P ? Q ! R
+**Correct:** 4. M ? N ! T
 
 ### Explanation
 
-Q = R, so only the first symbol decides the answer. ? means <, giving P < Q = R and therefore P < R.
+N = T, so only the first symbol decides the answer. ? means <, giving M < N = T and therefore M < T.
 
 ## 15. SELECT_CODED_EXPRESSION_FOR_RELATION — seed 2
 
@@ -464,20 +464,20 @@ Which coded expression establishes the required strongest relation?
 
 ### Given
 
-- Required strongest relation: P = R
+- Required strongest relation: H = L
 
 ### Options
 
-1. P # Q # R
-2. P % Q # R
-3. P & Q # R
-4. P $ Q # R
+1. H # K # L
+2. H % K # L
+3. H & K # L
+4. H $ K # L
 
-**Correct:** 1. P # Q # R
+**Correct:** 1. H # K # L
 
 ### Explanation
 
-Q = R, so only the first symbol decides the answer. # means =, giving P = Q = R and therefore P = R.
+K = L, so only the first symbol decides the answer. # means =, giving H = K = L and therefore H = L.
 
 ## 16. SELECT_CODED_EXPRESSION_FOR_RELATION — seed 3
 
@@ -495,20 +495,20 @@ Which coded expression establishes the required strongest relation?
 
 ### Given
 
-- Required strongest relation: P ≥ R
+- Required strongest relation: C ≥ F
 
 ### Options
 
-1. P ^ Q ^ R
-2. P ? Q ^ R
-3. P ! Q ^ R
-4. P + Q ^ R
+1. C ^ D ^ F
+2. C ? D ^ F
+3. C ! D ^ F
+4. C + D ^ F
 
-**Correct:** 2. P ? Q ^ R
+**Correct:** 2. C ? D ^ F
 
 ### Explanation
 
-Q = R, so only the first symbol decides the answer. ? means ≥, giving P ≥ Q = R and therefore P ≥ R.
+D = F, so only the first symbol decides the answer. ? means ≥, giving C ≥ D = F and therefore C ≥ F.
 
 ## 17. SELECT_CODED_EXPRESSION_FOR_RELATION — seed 4
 
@@ -526,20 +526,20 @@ Which coded expression establishes the required strongest relation?
 
 ### Given
 
-- Required strongest relation: P ≤ R
+- Required strongest relation: W ≤ Y
 
 ### Options
 
-1. P & Q % R
-2. P # Q % R
-3. P @ Q % R
-4. P $ Q % R
+1. W & X % Y
+2. W # X % Y
+3. W @ X % Y
+4. W $ X % Y
 
-**Correct:** 3. P @ Q % R
+**Correct:** 3. W @ X % Y
 
 ### Explanation
 
-Q = R, so only the first symbol decides the answer. @ means ≤, giving P ≤ Q = R and therefore P ≤ R.
+X = Y, so only the first symbol decides the answer. @ means ≤, giving W ≤ X = Y and therefore W ≤ Y.
 
 ## 18. SELECT_CODED_EXPRESSION_FOR_RELATION — seed 5
 
@@ -557,20 +557,20 @@ Which coded expression establishes the required strongest relation?
 
 ### Given
 
-- Required strongest relation: P > R
+- Required strongest relation: G > V
 
 ### Options
 
-1. P ! Q ! R
-2. P ~ Q ! R
-3. P + Q ! R
-4. P ^ Q ! R
+1. G ! J ! V
+2. G ~ J ! V
+3. G + J ! V
+4. G ^ J ! V
 
-**Correct:** 2. P ~ Q ! R
+**Correct:** 2. G ~ J ! V
 
 ### Explanation
 
-Q = R, so only the first symbol decides the answer. ~ means >, giving P > Q = R and therefore P > R.
+J = V, so only the first symbol decides the answer. ~ means >, giving G > J = V and therefore G > V.
 
 ## 19. SELECT_CODED_EXPRESSION_FOR_RELATION — seed 6
 
@@ -588,20 +588,20 @@ Which coded expression establishes the required strongest relation?
 
 ### Given
 
-- Required strongest relation: P < R
+- Required strongest relation: S < Z
 
 ### Options
 
-1. P & Q # R
-2. P @ Q # R
-3. P # Q # R
-4. P $ Q # R
+1. S & U # Z
+2. S @ U # Z
+3. S # U # Z
+4. S $ U # Z
 
-**Correct:** 4. P $ Q # R
+**Correct:** 4. S $ U # Z
 
 ### Explanation
 
-Q = R, so only the first symbol decides the answer. $ means <, giving P < Q = R and therefore P < R.
+U = Z, so only the first symbol decides the answer. $ means <, giving S < U = Z and therefore S < Z.
 
 ## 20. SELECT_CODED_EXPRESSION_FOR_RELATION — seed 7
 
@@ -619,20 +619,20 @@ Which coded expression establishes the required strongest relation?
 
 ### Given
 
-- Required strongest relation: P = R
+- Required strongest relation: E = O
 
 ### Options
 
-1. P + Q + R
-2. P ^ Q + R
-3. P ~ Q + R
-4. P ? Q + R
+1. E + I + O
+2. E ^ I + O
+3. E ~ I + O
+4. E ? I + O
 
-**Correct:** 1. P + Q + R
+**Correct:** 1. E + I + O
 
 ### Explanation
 
-Q = R, so only the first symbol decides the answer. + means =, giving P = Q = R and therefore P = R.
+I = O, so only the first symbol decides the answer. + means =, giving E = I = O and therefore E = O.
 
 ## 21. SELECT_CODED_EXPRESSION_FOR_RELATION — seed 8
 
@@ -650,20 +650,20 @@ Which coded expression establishes the required strongest relation?
 
 ### Given
 
-- Required strongest relation: P ≥ R
+- Required strongest relation: N ≥ W
 
 ### Options
 
-1. P & Q @ R
-2. P % Q @ R
-3. P # Q @ R
-4. P @ Q @ R
+1. N & V @ W
+2. N % V @ W
+3. N # V @ W
+4. N @ V @ W
 
-**Correct:** 1. P & Q @ R
+**Correct:** 1. N & V @ W
 
 ### Explanation
 
-Q = R, so only the first symbol decides the answer. & means ≥, giving P ≥ Q = R and therefore P ≥ R.
+V = W, so only the first symbol decides the answer. & means ≥, giving N ≥ V = W and therefore N ≥ W.
 
 ## 22. SELECT_CODED_EXPRESSION_FOR_RELATION — seed 9
 
@@ -681,20 +681,20 @@ Which coded expression establishes the required strongest relation?
 
 ### Given
 
-- Required strongest relation: P ≤ R
+- Required strongest relation: D ≤ S
 
 ### Options
 
-1. P ^ Q ! R
-2. P + Q ! R
-3. P ! Q ! R
-4. P ~ Q ! R
+1. D ^ K ! S
+2. D + K ! S
+3. D ! K ! S
+4. D ~ K ! S
 
-**Correct:** 2. P + Q ! R
+**Correct:** 2. D + K ! S
 
 ### Explanation
 
-Q = R, so only the first symbol decides the answer. + means ≤, giving P ≤ Q = R and therefore P ≤ R.
+K = S, so only the first symbol decides the answer. + means ≤, giving D ≤ K = S and therefore D ≤ S.
 
 ## 23. SELECT_CODED_EXPRESSION_FOR_RELATION — seed 10
 
@@ -712,20 +712,20 @@ Which coded expression establishes the required strongest relation?
 
 ### Given
 
-- Required strongest relation: P > R
+- Required strongest relation: F > T
 
 ### Options
 
-1. P # Q & R
-2. P % Q & R
-3. P $ Q & R
-4. P & Q & R
+1. F # R & T
+2. F % R & T
+3. F $ R & T
+4. F & R & T
 
-**Correct:** 3. P $ Q & R
+**Correct:** 3. F $ R & T
 
 ### Explanation
 
-Q = R, so only the first symbol decides the answer. $ means >, giving P > Q = R and therefore P > R.
+R = T, so only the first symbol decides the answer. $ means >, giving F > R = T and therefore F > T.
 
 ## 24. SELECT_CODED_EXPRESSION_FOR_RELATION — seed 11
 
@@ -743,20 +743,20 @@ Which coded expression establishes the required strongest relation?
 
 ### Given
 
-- Required strongest relation: P < R
+- Required strongest relation: J < P
 
 ### Options
 
-1. P ! Q ~ R
-2. P ? Q ~ R
-3. P ~ Q ~ R
-4. P + Q ~ R
+1. J ! M ~ P
+2. J ? M ~ P
+3. J ~ M ~ P
+4. J + M ~ P
 
-**Correct:** 4. P + Q ~ R
+**Correct:** 4. J + M ~ P
 
 ### Explanation
 
-Q = R, so only the first symbol decides the answer. + means <, giving P < Q = R and therefore P < R.
+M = P, so only the first symbol decides the answer. + means <, giving J < M = P and therefore J < P.
 
 ## 25. RECOVER_MISSING_MAP_ENTRY — seed 0
 
@@ -806,8 +806,8 @@ Use the test results to determine what the coded symbol '?' means.
 
 - The five symbols have five different meanings: >, <, =, ≥ and ≤.
 - Only two meanings remain for ?: < or ≤.
-- 3 ? 8 is true
-- 5 ? 5 is false
+- 7 ? 12 is true
+- 9 ? 9 is false
 
 ### Options
 
@@ -820,7 +820,7 @@ Use the test results to determine what the coded symbol '?' means.
 
 ### Explanation
 
-From the three known entries, ? can only mean < or ≤. The result 5 ? 5 is false rules out ≤, because equality is allowed in ≤. Therefore, ? means < (less than).
+From the three known entries, ? can only mean < or ≤. The result 9 ? 9 is false rules out ≤, because equality is allowed in ≤. Therefore, ? means < (less than).
 
 ## 27. RECOVER_MISSING_MAP_ENTRY — seed 2
 
@@ -838,8 +838,8 @@ Use the test results to determine what the coded symbol '#' means.
 
 - The five symbols have five different meanings: >, <, =, ≥ and ≤.
 - Only two meanings remain for #: = or ≥.
-- 5 # 5 is true
-- 8 # 3 is false
+- 11 # 11 is true
+- 15 # 6 is false
 
 ### Options
 
@@ -852,7 +852,7 @@ Use the test results to determine what the coded symbol '#' means.
 
 ### Explanation
 
-From the three known entries, # can only mean = or ≥. Although 5 # 5 is true for both, 8 # 3 is false. It would be true for ≥, so # must mean = (equal to).
+From the three known entries, # can only mean = or ≥. Although 11 # 11 is true for both, 15 # 6 is false. It would be true for ≥, so # must mean = (equal to).
 
 ## 28. RECOVER_MISSING_MAP_ENTRY — seed 3
 
@@ -870,8 +870,8 @@ Use the test results to determine what the coded symbol '?' means.
 
 - The five symbols have five different meanings: >, <, =, ≥ and ≤.
 - Only two meanings remain for ?: ≥ or >.
-- 8 ? 3 is true
-- 5 ? 5 is true
+- 21 ? 14 is true
+- 8 ? 8 is true
 
 ### Options
 
@@ -884,7 +884,7 @@ Use the test results to determine what the coded symbol '?' means.
 
 ### Explanation
 
-From the three known entries, ? can only mean ≥ or >. The result 5 ? 5 is true rules out the strict sign >. Therefore, ? means ≥ (greater than or equal to).
+From the three known entries, ? can only mean ≥ or >. The result 8 ? 8 is true rules out the strict sign >. Therefore, ? means ≥ (greater than or equal to).
 
 ## 29. IDENTIFY_ONLY_CONSISTENT_CODE_MAP — seed 0
 
@@ -908,9 +908,9 @@ Which complete code map is consistent with every test result?
 ### Options
 
 1. % = >, $ = <, @ = =, & = ≥, # = ≤
-2. % = ≥, $ = <, @ = =, & = >, # = ≤
-3. % = >, $ = ≤, @ = =, & = ≥, # = <
-4. % = <, $ = >, @ = =, & = ≥, # = ≤
+2. % = >, $ = ≤, @ = =, & = ≥, # = <
+3. % = =, $ = <, @ = >, & = ≥, # = ≤
+4. % = ≤, $ = <, @ = =, & = ≥, # = >
 
 **Correct:** 1. % = >, $ = <, @ = =, & = ≥, # = ≤
 
@@ -926,23 +926,23 @@ Which complete code map is consistent with every test result?
 
 ### Given
 
-- 8 ^ 3 is true
-- 5 ^ 5 is false
-- 3 ? 8 is true
-- 5 ? 5 is false
-- 5 ! 5 is true
-- 8 ! 3 is false
-- 8 ~ 3 is true
-- 5 ~ 5 is true
-- 3 + 8 is true
-- 5 + 5 is true
+- 12 ^ 7 is true
+- 9 ^ 9 is false
+- 7 ? 12 is true
+- 9 ? 9 is false
+- 9 ! 9 is true
+- 12 ! 7 is false
+- 12 ~ 7 is true
+- 9 ~ 9 is true
+- 7 + 12 is true
+- 9 + 9 is true
 
 ### Options
 
-1. ^ = ≥, ? = <, ! = =, ~ = >, + = ≤
-2. ^ = >, ? = ≤, ! = =, ~ = ≥, + = <
+1. ^ = ≤, ? = <, ! = =, ~ = ≥, + = >
+2. ^ = =, ? = <, ! = >, ~ = ≥, + = ≤
 3. ^ = >, ? = <, ! = =, ~ = ≥, + = ≤
-4. ^ = <, ? = >, ! = =, ~ = ≥, + = ≤
+4. ^ = ≥, ? = <, ! = =, ~ = >, + = ≤
 
 **Correct:** 3. ^ = >, ? = <, ! = =, ~ = ≥, + = ≤
 
@@ -958,22 +958,22 @@ Which complete code map is consistent with every test result?
 
 ### Given
 
-- 8 % 3 is true
-- 5 % 5 is false
-- 3 $ 8 is true
-- 5 $ 5 is false
-- 5 # 5 is true
-- 8 # 3 is false
-- 8 @ 3 is true
-- 5 @ 5 is true
-- 3 & 8 is true
-- 5 & 5 is true
+- 15 % 6 is true
+- 11 % 11 is false
+- 6 $ 15 is true
+- 11 $ 11 is false
+- 11 # 11 is true
+- 15 # 6 is false
+- 15 @ 6 is true
+- 11 @ 11 is true
+- 6 & 15 is true
+- 11 & 11 is true
 
 ### Options
 
-1. % = ≥, $ = <, # = =, @ = >, & = ≤
-2. % = >, $ = ≤, # = =, @ = ≥, & = <
-3. % = <, $ = >, # = =, @ = ≥, & = ≤
+1. % = >, $ = <, # = =, @ = ≤, & = ≥
+2. % = <, $ = >, # = =, @ = ≥, & = ≤
+3. % = =, $ = <, # = >, @ = ≥, & = ≤
 4. % = >, $ = <, # = =, @ = ≥, & = ≤
 
 **Correct:** 4. % = >, $ = <, # = =, @ = ≥, & = ≤
@@ -990,23 +990,23 @@ Which complete code map is consistent with every test result?
 
 ### Given
 
-- 8 ~ 3 is true
-- 5 ~ 5 is false
-- 3 + 8 is true
-- 5 + 5 is false
-- 5 ^ 5 is true
-- 8 ^ 3 is false
-- 8 ? 3 is true
-- 5 ? 5 is true
-- 3 ! 8 is true
-- 5 ! 5 is true
+- 21 ~ 14 is true
+- 8 ~ 8 is false
+- 14 + 21 is true
+- 8 + 8 is false
+- 8 ^ 8 is true
+- 21 ^ 14 is false
+- 21 ? 14 is true
+- 8 ? 8 is true
+- 14 ! 21 is true
+- 8 ! 8 is true
 
 ### Options
 
 1. ~ = ≥, + = <, ^ = =, ? = >, ! = ≤
 2. ~ = >, + = <, ^ = =, ? = ≥, ! = ≤
-3. ~ = >, + = ≤, ^ = =, ? = ≥, ! = <
-4. ~ = <, + = >, ^ = =, ? = ≥, ! = ≤
+3. ~ = <, + = >, ^ = =, ? = ≥, ! = ≤
+4. ~ = >, + = <, ^ = ≥, ? = =, ! = ≤
 
 **Correct:** 2. ~ = >, + = <, ^ = =, ? = ≥, ! = ≤
 

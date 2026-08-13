@@ -27,6 +27,55 @@ const RELATIONS: readonly ComparisonRelation[] = [
   "LESS_THAN_OR_EQUAL",
 ];
 
+const ENTITY_TRIPLETS: readonly (readonly [string, string, string])[] = [
+  ["P", "Q", "R"],
+  ["M", "N", "T"],
+  ["H", "K", "L"],
+  ["C", "D", "F"],
+  ["W", "X", "Y"],
+  ["G", "J", "V"],
+  ["S", "U", "Z"],
+  ["E", "I", "O"],
+  ["N", "V", "W"],
+  ["D", "K", "S"],
+  ["F", "R", "T"],
+  ["J", "M", "P"],
+];
+
+const NUMBER_CASES: readonly {
+  high: number;
+  low: number;
+  equal: number;
+}[] = [
+  { high: 8, low: 3, equal: 5 },
+  { high: 12, low: 7, equal: 9 },
+  { high: 15, low: 6, equal: 11 },
+  { high: 21, low: 14, equal: 8 },
+  { high: 18, low: 5, equal: 13 },
+  { high: 25, low: 9, equal: 7 },
+  { high: 17, low: 4, equal: 10 },
+  { high: 30, low: 16, equal: 12 },
+  { high: 19, low: 2, equal: 6 },
+  { high: 24, low: 11, equal: 15 },
+  { high: 14, low: 1, equal: 4 },
+  { high: 27, low: 13, equal: 16 },
+];
+
+function entityNamesFor(seed: number) {
+  const names =
+    ENTITY_TRIPLETS[
+      ((seed % ENTITY_TRIPLETS.length) + ENTITY_TRIPLETS.length) %
+        ENTITY_TRIPLETS.length
+    ]!;
+  return { left: names[0], middle: names[1], right: names[2] };
+}
+
+function numberCaseFor(seed: number) {
+  return NUMBER_CASES[
+    ((seed % NUMBER_CASES.length) + NUMBER_CASES.length) % NUMBER_CASES.length
+  ]!;
+}
+
 function balancedIndex(namespace: string, seed: number): number {
   const block = Math.floor((seed >>> 0) / 4);
   const slot = (seed >>> 0) % 4;
@@ -80,32 +129,33 @@ function relationOptions(
 
 function relationTests(
   relation: ComparisonRelation,
+  values: { high: number; low: number; equal: number },
 ): readonly IneCp007NumericTest[] {
   switch (relation) {
     case "GREATER_THAN":
       return [
-        { left: 8, right: 3, expected: true },
-        { left: 5, right: 5, expected: false },
+        { left: values.high, right: values.low, expected: true },
+        { left: values.equal, right: values.equal, expected: false },
       ];
     case "GREATER_THAN_OR_EQUAL":
       return [
-        { left: 8, right: 3, expected: true },
-        { left: 5, right: 5, expected: true },
+        { left: values.high, right: values.low, expected: true },
+        { left: values.equal, right: values.equal, expected: true },
       ];
     case "LESS_THAN":
       return [
-        { left: 3, right: 8, expected: true },
-        { left: 5, right: 5, expected: false },
+        { left: values.low, right: values.high, expected: true },
+        { left: values.equal, right: values.equal, expected: false },
       ];
     case "LESS_THAN_OR_EQUAL":
       return [
-        { left: 3, right: 8, expected: true },
-        { left: 5, right: 5, expected: true },
+        { left: values.low, right: values.high, expected: true },
+        { left: values.equal, right: values.equal, expected: true },
       ];
     case "EQUAL_TO":
       return [
-        { left: 5, right: 5, expected: true },
-        { left: 8, right: 3, expected: false },
+        { left: values.equal, right: values.equal, expected: true },
+        { left: values.high, right: values.low, expected: false },
       ];
   }
 }
@@ -139,17 +189,18 @@ function recoveryExplanation(
   symbol: string,
   target: ComparisonRelation,
   foil: ComparisonRelation,
+  tests: readonly IneCp007NumericTest[],
 ): string {
   const targetSign = ordinaryRelationSymbol(target);
   const foilSign = ordinaryRelationSymbol(foil);
   if (target === "GREATER_THAN" || target === "LESS_THAN")
-    return `From the three known entries, ${symbol} can only mean ${targetSign} or ${foilSign}. The result 5 ${symbol} 5 is false rules out ${foilSign}, because equality is allowed in ${foilSign}. Therefore, ${symbol} means ${targetSign} (${ordinaryRelationWords(target)}).`;
+    return `From the three known entries, ${symbol} can only mean ${targetSign} or ${foilSign}. The result ${tests[1]!.left} ${symbol} ${tests[1]!.right} is false rules out ${foilSign}, because equality is allowed in ${foilSign}. Therefore, ${symbol} means ${targetSign} (${ordinaryRelationWords(target)}).`;
   if (
     target === "GREATER_THAN_OR_EQUAL" ||
     target === "LESS_THAN_OR_EQUAL"
   )
-    return `From the three known entries, ${symbol} can only mean ${targetSign} or ${foilSign}. The result 5 ${symbol} 5 is true rules out the strict sign ${foilSign}. Therefore, ${symbol} means ${targetSign} (${ordinaryRelationWords(target)}).`;
-  return `From the three known entries, ${symbol} can only mean ${targetSign} or ${foilSign}. Although 5 ${symbol} 5 is true for both, 8 ${symbol} 3 is false. It would be true for ${foilSign}, so ${symbol} must mean ${targetSign} (${ordinaryRelationWords(target)}).`;
+    return `From the three known entries, ${symbol} can only mean ${targetSign} or ${foilSign}. The result ${tests[1]!.left} ${symbol} ${tests[1]!.right} is true rules out the strict sign ${foilSign}. Therefore, ${symbol} means ${targetSign} (${ordinaryRelationWords(target)}).`;
+  return `From the three known entries, ${symbol} can only mean ${targetSign} or ${foilSign}. Although ${tests[0]!.left} ${symbol} ${tests[0]!.right} is true for both, ${tests[1]!.left} ${symbol} ${tests[1]!.right} is false. It would be true for ${foilSign}, so ${symbol} must mean ${targetSign} (${ordinaryRelationWords(target)}).`;
 }
 
 function mapSummary(
@@ -192,6 +243,8 @@ function buildQuestion(
   const contract = getIneCp007PrototypeContract(prototypeId);
   const codeMap = buildIneCp006CodeMap(seed, "ASCII_EXAM_PROFILE");
   const targetRelation = RELATIONS[((seed % 5) + 5) % 5]!;
+  const entityNames = entityNamesFor(seed);
+  const numberCase = numberCaseFor(seed);
   const scenario: IneCp007Scenario = {
     taskKind: contract.taskKind,
     codeMap,
@@ -199,6 +252,7 @@ function buildQuestion(
     evidence: [],
     codeKey: [],
     candidateRelations: RELATIONS,
+    entityNames,
   };
   const relationSymbol = ordinaryRelationSymbol(targetRelation);
   let stem = "";
@@ -211,16 +265,29 @@ function buildQuestion(
     displayedCodeKey = renderCodeKey(codeMap).map((entry) => entry.text);
     const equalCode = codeMap.symbolByRelation.EQUAL_TO;
     displayedEvidence = [
-      `P ___ Q ${equalCode} R`,
-      `Required strongest relation: P ${relationSymbol} R`,
+      `${entityNames.left} ___ ${entityNames.middle} ${equalCode} ${entityNames.right}`,
+      `Required strongest relation: ${entityNames.left} ${relationSymbol} ${entityNames.right}`,
     ];
     scenario.evidence = displayedEvidence;
     scenario.codeKey = displayedCodeKey;
-    const first = createComparisonConstraint("P", targetRelation, "Q", "S1");
-    const second = createComparisonConstraint("Q", "EQUAL_TO", "R", "S2");
+    const first = createComparisonConstraint(
+      entityNames.left,
+      targetRelation,
+      entityNames.middle,
+      "S1",
+    );
+    const second = createComparisonConstraint(
+      entityNames.middle,
+      "EQUAL_TO",
+      entityNames.right,
+      "S2",
+    );
     const strongest = strongestDefiniteRelation(
-      assertSolverAgreement([first, second], "P", "R").modelEvidence
-        .possibleAtomicRelations,
+      assertSolverAgreement(
+        [first, second],
+        entityNames.left,
+        entityNames.right,
+      ).modelEvidence.possibleAtomicRelations,
     );
     if (strongest !== targetRelation)
       throw new Error("Missing-operator scenario did not preserve the target relation.");
@@ -231,10 +298,12 @@ function buildQuestion(
       (relation) => codeMap.symbolByRelation[relation],
     );
     stem = "Which coded symbol should fill the blank so that the required strongest relation is obtained?";
-    explanation = `Q = R, so replacing Q with R does not change the comparison. To obtain P ${relationSymbol} R, the blank must be ${codeMap.symbolByRelation[targetRelation]} (${relationSymbol}).`;
+    explanation = `${entityNames.middle} = ${entityNames.right}, so replacing ${entityNames.middle} with ${entityNames.right} does not change the comparison. To obtain ${entityNames.left} ${relationSymbol} ${entityNames.right}, the blank must be ${codeMap.symbolByRelation[targetRelation]} (${relationSymbol}).`;
   } else if (contract.taskKind === "SELECT_EXPRESSION") {
     displayedCodeKey = renderCodeKey(codeMap).map((entry) => entry.text);
-    displayedEvidence = [`Required strongest relation: P ${relationSymbol} R`];
+    displayedEvidence = [
+      `Required strongest relation: ${entityNames.left} ${relationSymbol} ${entityNames.right}`,
+    ];
     scenario.evidence = displayedEvidence;
     scenario.codeKey = displayedCodeKey;
     const equalCode = codeMap.symbolByRelation.EQUAL_TO;
@@ -242,14 +311,15 @@ function buildQuestion(
       targetRelation,
       scenario,
       seed,
-      (relation) => `P ${codeMap.symbolByRelation[relation]} Q ${equalCode} R`,
+      (relation) =>
+        `${entityNames.left} ${codeMap.symbolByRelation[relation]} ${entityNames.middle} ${equalCode} ${entityNames.right}`,
     );
     stem = "Which coded expression establishes the required strongest relation?";
-    explanation = `Q = R, so only the first symbol decides the answer. ${codeMap.symbolByRelation[targetRelation]} means ${relationSymbol}, giving P ${relationSymbol} Q = R and therefore P ${relationSymbol} R.`;
+    explanation = `${entityNames.middle} = ${entityNames.right}, so only the first symbol decides the answer. ${codeMap.symbolByRelation[targetRelation]} means ${relationSymbol}, giving ${entityNames.left} ${relationSymbol} ${entityNames.middle} = ${entityNames.right} and therefore ${entityNames.left} ${relationSymbol} ${entityNames.right}.`;
   } else if (contract.taskKind === "RECOVER_MAP") {
     const missingSymbol = codeMap.symbolByRelation[targetRelation];
     const foilRelation = foilRelationFor(targetRelation);
-    const tests = relationTests(targetRelation);
+    const tests = relationTests(targetRelation, numberCase);
     displayedCodeKey = renderCodeKey(codeMap)
       .filter(
         (entry) =>
@@ -276,11 +346,12 @@ function buildQuestion(
       missingSymbol,
       targetRelation,
       foilRelation,
+      tests,
     );
   } else {
     displayedEvidence = RELATIONS.flatMap((relation) =>
       renderNumericTests(
-        relationTests(relation),
+        relationTests(relation, numberCase),
         codeMap.symbolByRelation[relation],
       ),
     );
@@ -289,15 +360,26 @@ function buildQuestion(
       value: mapSummary(codeMap),
       isCorrect: true,
     };
-    const distractors: IneCp007Option[] = [
-      [0, 3],
-      [1, 4],
-      [0, 1],
-    ].map(([first, second]) => ({
-      value: swappedMapSummary(scenario, first!, second!),
-      isCorrect: false,
-      errorLabel: "MAP_CONTRADICTS_TEST_EVIDENCE",
-    }));
+    const swapPool = RELATIONS.flatMap((_relation, first) =>
+      RELATIONS.slice(first + 1).map(
+        (_other, offset) => [first, first + offset + 1] as const,
+      ),
+    );
+    const distractorRandom = new SeededRandom(
+      seed ^
+        Number.parseInt(
+          stableHash([scenario.taskKind, "map-distractors-v2"]),
+          16,
+        ),
+    );
+    const distractors: IneCp007Option[] = distractorRandom
+      .shuffle(swapPool)
+      .slice(0, 3)
+      .map(([first, second]) => ({
+        value: swappedMapSummary(scenario, first, second),
+        isCorrect: false,
+        errorLabel: "MAP_CONTRADICTS_TEST_EVIDENCE",
+      }));
     optionResult = placeCorrect(correct, distractors, scenario.taskKind, seed);
     stem = "Which complete code map is consistent with every test result?";
     explanation = `Equal-value tests distinguish strict from inclusive signs. Checking all the results gives: ${mapSummary(codeMap)}.`;

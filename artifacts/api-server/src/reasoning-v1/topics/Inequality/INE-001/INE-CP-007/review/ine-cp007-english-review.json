@@ -50,8 +50,8 @@
       "A + B means A is less than or equal to B."
     ],
     "evidence": [
-      "P ___ Q ! R",
-      "Required strongest relation: P < R"
+      "M ___ N ! T",
+      "Required strongest relation: M < T"
     ],
     "options": [
       "?",
@@ -61,7 +61,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "?",
-    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P < R, the blank must be ? (<).",
+    "explanation": "N = T, so replacing N with T does not change the comparison. To obtain M < T, the blank must be ? (<).",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -84,8 +84,8 @@
       "A & B means A is less than or equal to B."
     ],
     "evidence": [
-      "P ___ Q # R",
-      "Required strongest relation: P = R"
+      "H ___ K # L",
+      "Required strongest relation: H = L"
     ],
     "options": [
       "@",
@@ -95,7 +95,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "#",
-    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P = R, the blank must be # (=).",
+    "explanation": "K = L, so replacing K with L does not change the comparison. To obtain H = L, the blank must be # (=).",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -118,8 +118,8 @@
       "A ! B means A is less than or equal to B."
     ],
     "evidence": [
-      "P ___ Q ^ R",
-      "Required strongest relation: P ≥ R"
+      "C ___ D ^ F",
+      "Required strongest relation: C ≥ F"
     ],
     "options": [
       "^",
@@ -129,7 +129,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "?",
-    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P ≥ R, the blank must be ? (≥).",
+    "explanation": "D = F, so replacing D with F does not change the comparison. To obtain C ≥ F, the blank must be ? (≥).",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -152,8 +152,8 @@
       "A @ B means A is less than or equal to B."
     ],
     "evidence": [
-      "P ___ Q % R",
-      "Required strongest relation: P ≤ R"
+      "W ___ X % Y",
+      "Required strongest relation: W ≤ Y"
     ],
     "options": [
       "$",
@@ -163,7 +163,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "@",
-    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P ≤ R, the blank must be @ (≤).",
+    "explanation": "X = Y, so replacing X with Y does not change the comparison. To obtain W ≤ Y, the blank must be @ (≤).",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -186,8 +186,8 @@
       "A ? B means A is less than or equal to B."
     ],
     "evidence": [
-      "P ___ Q ! R",
-      "Required strongest relation: P > R"
+      "G ___ J ! V",
+      "Required strongest relation: G > V"
     ],
     "options": [
       "^",
@@ -197,7 +197,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "~",
-    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P > R, the blank must be ~ (>).",
+    "explanation": "J = V, so replacing J with V does not change the comparison. To obtain G > V, the blank must be ~ (>).",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -220,8 +220,8 @@
       "A & B means A is less than or equal to B."
     ],
     "evidence": [
-      "P ___ Q # R",
-      "Required strongest relation: P < R"
+      "S ___ U # Z",
+      "Required strongest relation: S < Z"
     ],
     "options": [
       "%",
@@ -231,7 +231,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "$",
-    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P < R, the blank must be $ (<).",
+    "explanation": "U = Z, so replacing U with Z does not change the comparison. To obtain S < Z, the blank must be $ (<).",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -254,8 +254,8 @@
       "A ^ B means A is less than or equal to B."
     ],
     "evidence": [
-      "P ___ Q + R",
-      "Required strongest relation: P = R"
+      "E ___ I + O",
+      "Required strongest relation: E = O"
     ],
     "options": [
       "+",
@@ -265,7 +265,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "+",
-    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P = R, the blank must be + (=).",
+    "explanation": "I = O, so replacing I with O does not change the comparison. To obtain E = O, the blank must be + (=).",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -288,8 +288,8 @@
       "A % B means A is less than or equal to B."
     ],
     "evidence": [
-      "P ___ Q @ R",
-      "Required strongest relation: P ≥ R"
+      "N ___ V @ W",
+      "Required strongest relation: N ≥ W"
     ],
     "options": [
       "&",
@@ -299,7 +299,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "&",
-    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P ≥ R, the blank must be & (≥).",
+    "explanation": "V = W, so replacing V with W does not change the comparison. To obtain N ≥ W, the blank must be & (≥).",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -322,8 +322,8 @@
       "A + B means A is less than or equal to B."
     ],
     "evidence": [
-      "P ___ Q ! R",
-      "Required strongest relation: P ≤ R"
+      "D ___ K ! S",
+      "Required strongest relation: D ≤ S"
     ],
     "options": [
       "^",
@@ -333,7 +333,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "+",
-    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P ≤ R, the blank must be + (≤).",
+    "explanation": "K = S, so replacing K with S does not change the comparison. To obtain D ≤ S, the blank must be + (≤).",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -356,8 +356,8 @@
       "A % B means A is less than or equal to B."
     ],
     "evidence": [
-      "P ___ Q & R",
-      "Required strongest relation: P > R"
+      "F ___ R & T",
+      "Required strongest relation: F > T"
     ],
     "options": [
       "%",
@@ -367,7 +367,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "$",
-    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P > R, the blank must be $ (>).",
+    "explanation": "R = T, so replacing R with T does not change the comparison. To obtain F > T, the blank must be $ (>).",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -390,8 +390,8 @@
       "A ? B means A is less than or equal to B."
     ],
     "evidence": [
-      "P ___ Q ~ R",
-      "Required strongest relation: P < R"
+      "J ___ M ~ P",
+      "Required strongest relation: J < P"
     ],
     "options": [
       "~",
@@ -401,7 +401,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "+",
-    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P < R, the blank must be + (<).",
+    "explanation": "M = P, so replacing M with P does not change the comparison. To obtain J < P, the blank must be + (<).",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -457,17 +457,17 @@
       "A + B means A is less than or equal to B."
     ],
     "evidence": [
-      "Required strongest relation: P < R"
+      "Required strongest relation: M < T"
     ],
     "options": [
-      "P ~ Q ! R",
-      "P ^ Q ! R",
-      "P + Q ! R",
-      "P ? Q ! R"
+      "M ~ N ! T",
+      "M ^ N ! T",
+      "M + N ! T",
+      "M ? N ! T"
     ],
     "correctIndex": 3,
-    "correctOption": "P ? Q ! R",
-    "explanation": "Q = R, so only the first symbol decides the answer. ? means <, giving P < Q = R and therefore P < R.",
+    "correctOption": "M ? N ! T",
+    "explanation": "N = T, so only the first symbol decides the answer. ? means <, giving M < N = T and therefore M < T.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -490,17 +490,17 @@
       "A & B means A is less than or equal to B."
     ],
     "evidence": [
-      "Required strongest relation: P = R"
+      "Required strongest relation: H = L"
     ],
     "options": [
-      "P # Q # R",
-      "P % Q # R",
-      "P & Q # R",
-      "P $ Q # R"
+      "H # K # L",
+      "H % K # L",
+      "H & K # L",
+      "H $ K # L"
     ],
     "correctIndex": 0,
-    "correctOption": "P # Q # R",
-    "explanation": "Q = R, so only the first symbol decides the answer. # means =, giving P = Q = R and therefore P = R.",
+    "correctOption": "H # K # L",
+    "explanation": "K = L, so only the first symbol decides the answer. # means =, giving H = K = L and therefore H = L.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -523,17 +523,17 @@
       "A ! B means A is less than or equal to B."
     ],
     "evidence": [
-      "Required strongest relation: P ≥ R"
+      "Required strongest relation: C ≥ F"
     ],
     "options": [
-      "P ^ Q ^ R",
-      "P ? Q ^ R",
-      "P ! Q ^ R",
-      "P + Q ^ R"
+      "C ^ D ^ F",
+      "C ? D ^ F",
+      "C ! D ^ F",
+      "C + D ^ F"
     ],
     "correctIndex": 1,
-    "correctOption": "P ? Q ^ R",
-    "explanation": "Q = R, so only the first symbol decides the answer. ? means ≥, giving P ≥ Q = R and therefore P ≥ R.",
+    "correctOption": "C ? D ^ F",
+    "explanation": "D = F, so only the first symbol decides the answer. ? means ≥, giving C ≥ D = F and therefore C ≥ F.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -556,17 +556,17 @@
       "A @ B means A is less than or equal to B."
     ],
     "evidence": [
-      "Required strongest relation: P ≤ R"
+      "Required strongest relation: W ≤ Y"
     ],
     "options": [
-      "P & Q % R",
-      "P # Q % R",
-      "P @ Q % R",
-      "P $ Q % R"
+      "W & X % Y",
+      "W # X % Y",
+      "W @ X % Y",
+      "W $ X % Y"
     ],
     "correctIndex": 2,
-    "correctOption": "P @ Q % R",
-    "explanation": "Q = R, so only the first symbol decides the answer. @ means ≤, giving P ≤ Q = R and therefore P ≤ R.",
+    "correctOption": "W @ X % Y",
+    "explanation": "X = Y, so only the first symbol decides the answer. @ means ≤, giving W ≤ X = Y and therefore W ≤ Y.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -589,17 +589,17 @@
       "A ? B means A is less than or equal to B."
     ],
     "evidence": [
-      "Required strongest relation: P > R"
+      "Required strongest relation: G > V"
     ],
     "options": [
-      "P ! Q ! R",
-      "P ~ Q ! R",
-      "P + Q ! R",
-      "P ^ Q ! R"
+      "G ! J ! V",
+      "G ~ J ! V",
+      "G + J ! V",
+      "G ^ J ! V"
     ],
     "correctIndex": 1,
-    "correctOption": "P ~ Q ! R",
-    "explanation": "Q = R, so only the first symbol decides the answer. ~ means >, giving P > Q = R and therefore P > R.",
+    "correctOption": "G ~ J ! V",
+    "explanation": "J = V, so only the first symbol decides the answer. ~ means >, giving G > J = V and therefore G > V.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -622,17 +622,17 @@
       "A & B means A is less than or equal to B."
     ],
     "evidence": [
-      "Required strongest relation: P < R"
+      "Required strongest relation: S < Z"
     ],
     "options": [
-      "P & Q # R",
-      "P @ Q # R",
-      "P # Q # R",
-      "P $ Q # R"
+      "S & U # Z",
+      "S @ U # Z",
+      "S # U # Z",
+      "S $ U # Z"
     ],
     "correctIndex": 3,
-    "correctOption": "P $ Q # R",
-    "explanation": "Q = R, so only the first symbol decides the answer. $ means <, giving P < Q = R and therefore P < R.",
+    "correctOption": "S $ U # Z",
+    "explanation": "U = Z, so only the first symbol decides the answer. $ means <, giving S < U = Z and therefore S < Z.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -655,17 +655,17 @@
       "A ^ B means A is less than or equal to B."
     ],
     "evidence": [
-      "Required strongest relation: P = R"
+      "Required strongest relation: E = O"
     ],
     "options": [
-      "P + Q + R",
-      "P ^ Q + R",
-      "P ~ Q + R",
-      "P ? Q + R"
+      "E + I + O",
+      "E ^ I + O",
+      "E ~ I + O",
+      "E ? I + O"
     ],
     "correctIndex": 0,
-    "correctOption": "P + Q + R",
-    "explanation": "Q = R, so only the first symbol decides the answer. + means =, giving P = Q = R and therefore P = R.",
+    "correctOption": "E + I + O",
+    "explanation": "I = O, so only the first symbol decides the answer. + means =, giving E = I = O and therefore E = O.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -688,17 +688,17 @@
       "A % B means A is less than or equal to B."
     ],
     "evidence": [
-      "Required strongest relation: P ≥ R"
+      "Required strongest relation: N ≥ W"
     ],
     "options": [
-      "P & Q @ R",
-      "P % Q @ R",
-      "P # Q @ R",
-      "P @ Q @ R"
+      "N & V @ W",
+      "N % V @ W",
+      "N # V @ W",
+      "N @ V @ W"
     ],
     "correctIndex": 0,
-    "correctOption": "P & Q @ R",
-    "explanation": "Q = R, so only the first symbol decides the answer. & means ≥, giving P ≥ Q = R and therefore P ≥ R.",
+    "correctOption": "N & V @ W",
+    "explanation": "V = W, so only the first symbol decides the answer. & means ≥, giving N ≥ V = W and therefore N ≥ W.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -721,17 +721,17 @@
       "A + B means A is less than or equal to B."
     ],
     "evidence": [
-      "Required strongest relation: P ≤ R"
+      "Required strongest relation: D ≤ S"
     ],
     "options": [
-      "P ^ Q ! R",
-      "P + Q ! R",
-      "P ! Q ! R",
-      "P ~ Q ! R"
+      "D ^ K ! S",
+      "D + K ! S",
+      "D ! K ! S",
+      "D ~ K ! S"
     ],
     "correctIndex": 1,
-    "correctOption": "P + Q ! R",
-    "explanation": "Q = R, so only the first symbol decides the answer. + means ≤, giving P ≤ Q = R and therefore P ≤ R.",
+    "correctOption": "D + K ! S",
+    "explanation": "K = S, so only the first symbol decides the answer. + means ≤, giving D ≤ K = S and therefore D ≤ S.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -754,17 +754,17 @@
       "A % B means A is less than or equal to B."
     ],
     "evidence": [
-      "Required strongest relation: P > R"
+      "Required strongest relation: F > T"
     ],
     "options": [
-      "P # Q & R",
-      "P % Q & R",
-      "P $ Q & R",
-      "P & Q & R"
+      "F # R & T",
+      "F % R & T",
+      "F $ R & T",
+      "F & R & T"
     ],
     "correctIndex": 2,
-    "correctOption": "P $ Q & R",
-    "explanation": "Q = R, so only the first symbol decides the answer. $ means >, giving P > Q = R and therefore P > R.",
+    "correctOption": "F $ R & T",
+    "explanation": "R = T, so only the first symbol decides the answer. $ means >, giving F > R = T and therefore F > T.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -787,17 +787,17 @@
       "A ? B means A is less than or equal to B."
     ],
     "evidence": [
-      "Required strongest relation: P < R"
+      "Required strongest relation: J < P"
     ],
     "options": [
-      "P ! Q ~ R",
-      "P ? Q ~ R",
-      "P ~ Q ~ R",
-      "P + Q ~ R"
+      "J ! M ~ P",
+      "J ? M ~ P",
+      "J ~ M ~ P",
+      "J + M ~ P"
     ],
     "correctIndex": 3,
-    "correctOption": "P + Q ~ R",
-    "explanation": "Q = R, so only the first symbol decides the answer. + means <, giving P < Q = R and therefore P < R.",
+    "correctOption": "J + M ~ P",
+    "explanation": "M = P, so only the first symbol decides the answer. + means <, giving J < M = P and therefore J < P.",
     "sourceLedgerIds": [
       "DISHA-INE-005",
       "DISHA-INE-006"
@@ -854,8 +854,8 @@
     "evidence": [
       "The five symbols have five different meanings: >, <, =, ≥ and ≤.",
       "Only two meanings remain for ?: < or ≤.",
-      "3 ? 8 is true",
-      "5 ? 5 is false"
+      "7 ? 12 is true",
+      "9 ? 9 is false"
     ],
     "options": [
       "less than or equal to",
@@ -865,7 +865,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "less than",
-    "explanation": "From the three known entries, ? can only mean < or ≤. The result 5 ? 5 is false rules out ≤, because equality is allowed in ≤. Therefore, ? means < (less than).",
+    "explanation": "From the three known entries, ? can only mean < or ≤. The result 9 ? 9 is false rules out ≤, because equality is allowed in ≤. Therefore, ? means < (less than).",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -888,8 +888,8 @@
     "evidence": [
       "The five symbols have five different meanings: >, <, =, ≥ and ≤.",
       "Only two meanings remain for #: = or ≥.",
-      "5 # 5 is true",
-      "8 # 3 is false"
+      "11 # 11 is true",
+      "15 # 6 is false"
     ],
     "options": [
       "less than",
@@ -899,7 +899,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "equal to",
-    "explanation": "From the three known entries, # can only mean = or ≥. Although 5 # 5 is true for both, 8 # 3 is false. It would be true for ≥, so # must mean = (equal to).",
+    "explanation": "From the three known entries, # can only mean = or ≥. Although 11 # 11 is true for both, 15 # 6 is false. It would be true for ≥, so # must mean = (equal to).",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -922,8 +922,8 @@
     "evidence": [
       "The five symbols have five different meanings: >, <, =, ≥ and ≤.",
       "Only two meanings remain for ?: ≥ or >.",
-      "8 ? 3 is true",
-      "5 ? 5 is true"
+      "21 ? 14 is true",
+      "8 ? 8 is true"
     ],
     "options": [
       "greater than or equal to",
@@ -933,7 +933,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "greater than or equal to",
-    "explanation": "From the three known entries, ? can only mean ≥ or >. The result 5 ? 5 is true rules out the strict sign >. Therefore, ? means ≥ (greater than or equal to).",
+    "explanation": "From the three known entries, ? can only mean ≥ or >. The result 8 ? 8 is true rules out the strict sign >. Therefore, ? means ≥ (greater than or equal to).",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -963,9 +963,9 @@
     ],
     "options": [
       "% = >, $ = <, @ = =, & = ≥, # = ≤",
-      "% = ≥, $ = <, @ = =, & = >, # = ≤",
       "% = >, $ = ≤, @ = =, & = ≥, # = <",
-      "% = <, $ = >, @ = =, & = ≥, # = ≤"
+      "% = =, $ = <, @ = >, & = ≥, # = ≤",
+      "% = ≤, $ = <, @ = =, & = ≥, # = >"
     ],
     "correctIndex": 0,
     "correctOption": "% = >, $ = <, @ = =, & = ≥, # = ≤",
@@ -986,22 +986,22 @@
     "stem": "Which complete code map is consistent with every test result?",
     "codeKey": [],
     "evidence": [
-      "8 ^ 3 is true",
-      "5 ^ 5 is false",
-      "3 ? 8 is true",
-      "5 ? 5 is false",
-      "5 ! 5 is true",
-      "8 ! 3 is false",
-      "8 ~ 3 is true",
-      "5 ~ 5 is true",
-      "3 + 8 is true",
-      "5 + 5 is true"
+      "12 ^ 7 is true",
+      "9 ^ 9 is false",
+      "7 ? 12 is true",
+      "9 ? 9 is false",
+      "9 ! 9 is true",
+      "12 ! 7 is false",
+      "12 ~ 7 is true",
+      "9 ~ 9 is true",
+      "7 + 12 is true",
+      "9 + 9 is true"
     ],
     "options": [
-      "^ = ≥, ? = <, ! = =, ~ = >, + = ≤",
-      "^ = >, ? = ≤, ! = =, ~ = ≥, + = <",
+      "^ = ≤, ? = <, ! = =, ~ = ≥, + = >",
+      "^ = =, ? = <, ! = >, ~ = ≥, + = ≤",
       "^ = >, ? = <, ! = =, ~ = ≥, + = ≤",
-      "^ = <, ? = >, ! = =, ~ = ≥, + = ≤"
+      "^ = ≥, ? = <, ! = =, ~ = >, + = ≤"
     ],
     "correctIndex": 2,
     "correctOption": "^ = >, ? = <, ! = =, ~ = ≥, + = ≤",
@@ -1022,21 +1022,21 @@
     "stem": "Which complete code map is consistent with every test result?",
     "codeKey": [],
     "evidence": [
-      "8 % 3 is true",
-      "5 % 5 is false",
-      "3 $ 8 is true",
-      "5 $ 5 is false",
-      "5 # 5 is true",
-      "8 # 3 is false",
-      "8 @ 3 is true",
-      "5 @ 5 is true",
-      "3 & 8 is true",
-      "5 & 5 is true"
+      "15 % 6 is true",
+      "11 % 11 is false",
+      "6 $ 15 is true",
+      "11 $ 11 is false",
+      "11 # 11 is true",
+      "15 # 6 is false",
+      "15 @ 6 is true",
+      "11 @ 11 is true",
+      "6 & 15 is true",
+      "11 & 11 is true"
     ],
     "options": [
-      "% = ≥, $ = <, # = =, @ = >, & = ≤",
-      "% = >, $ = ≤, # = =, @ = ≥, & = <",
+      "% = >, $ = <, # = =, @ = ≤, & = ≥",
       "% = <, $ = >, # = =, @ = ≥, & = ≤",
+      "% = =, $ = <, # = >, @ = ≥, & = ≤",
       "% = >, $ = <, # = =, @ = ≥, & = ≤"
     ],
     "correctIndex": 3,
@@ -1058,22 +1058,22 @@
     "stem": "Which complete code map is consistent with every test result?",
     "codeKey": [],
     "evidence": [
-      "8 ~ 3 is true",
-      "5 ~ 5 is false",
-      "3 + 8 is true",
-      "5 + 5 is false",
-      "5 ^ 5 is true",
-      "8 ^ 3 is false",
-      "8 ? 3 is true",
-      "5 ? 5 is true",
-      "3 ! 8 is true",
-      "5 ! 5 is true"
+      "21 ~ 14 is true",
+      "8 ~ 8 is false",
+      "14 + 21 is true",
+      "8 + 8 is false",
+      "8 ^ 8 is true",
+      "21 ^ 14 is false",
+      "21 ? 14 is true",
+      "8 ? 8 is true",
+      "14 ! 21 is true",
+      "8 ! 8 is true"
     ],
     "options": [
       "~ = ≥, + = <, ^ = =, ? = >, ! = ≤",
       "~ = >, + = <, ^ = =, ? = ≥, ! = ≤",
-      "~ = >, + = ≤, ^ = =, ? = ≥, ! = <",
-      "~ = <, + = >, ^ = =, ? = ≥, ! = ≤"
+      "~ = <, + = >, ^ = =, ? = ≥, ! = ≤",
+      "~ = >, + = <, ^ = ≥, ? = =, ! = ≤"
     ],
     "correctIndex": 1,
     "correctOption": "~ = >, + = <, ^ = =, ? = ≥, ! = ≤",

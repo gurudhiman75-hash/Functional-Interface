@@ -22,6 +22,7 @@ The missing-operator and expression-selection authorities are supported by the d
 - The stem asks for the strongest definite relation, preventing strict, equality, and inclusive symbols from becoming simultaneous answers.
 - The blank is rendered as `___`, because `?` may itself be a valid coded symbol.
 - Guided map-recovery questions leave two plausible meanings and require numerical test evidence; simple "only unused meaning" questions are rejected.
+- Object variation is structural: twelve letter triplets and twelve numerical evidence sets replace repeated `P, Q, R` and `3, 5, 8` surfaces.
 - Explanations are limited to one short reasoning paragraph.
 - Map recovery and consistency proof are labelled `GUIDED_CONCEPT_ONLY`.
 - All records remain English-only, manually gated, and invisible to Question Studio.

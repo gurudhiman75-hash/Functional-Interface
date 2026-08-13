@@ -12,3 +12,5 @@ Implemented prototype authorities:
 The first two authorities are source-backed by the difficult inequality exercises recorded as `DISHA-INE-005`. Map recovery and consistency proof remain guided discovery because the reviewed mainstream Banking and platform examples normally supply the complete map.
 
 All records remain English-only, manually gated prototypes with four options, no permanent QLs, and no Question Studio or public visibility.
+
+The generator rotates through twelve letter triplets and twelve numerical evidence sets. Consistent-map distractors are sampled from ten distinct pairwise mapping errors rather than three fixed swaps.
