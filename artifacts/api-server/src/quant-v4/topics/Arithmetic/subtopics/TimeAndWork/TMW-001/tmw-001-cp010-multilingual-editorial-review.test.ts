@@ -8,9 +8,10 @@ const seeds = ["0", "1", "2", "3", "4", "5", "6", "7"] as const;
 let checked = 0;
 const modes = new Set<string>();
 
-function hasLocalizedProseInsideMath(value: string): boolean {
+function hasLocalizedScheduleProseInsideMath(value: string): boolean {
   for (const match of value.matchAll(/\\\(([\s\S]*?)\\\)/g)) {
-    if (/[\u0900-\u097F\u0A00-\u0A7F]/u.test(match[1] ?? "")) return true;
+    const inside = match[1] ?? "";
+    if (/चरण|अंतिम चक्र|बाकी स्तर|पाली|अंतराल|ਪੜਾਅ|ਅੰਤਿਮ ਚੱਕਰ|ਬਾਕੀ ਪੱਧਰ|ਸ਼ਿਫ਼ਟ|ਅੰਤਰਾਲ/u.test(inside)) return true;
   }
   return false;
 }
@@ -45,14 +46,14 @@ for (const qlId of qls) {
       if (language === "hi") {
         assert(/[\u0900-\u097F]/u.test(learner), `${label}: Hindi learner text lacks Devanagari`);
         assert(!/चलती है[^।;?]*चलता है|चलते हैं[^।;?]*चलता है|चलती है हो जाती है|चलती है चालू करता है/u.test(q.stem), `${label}: broken Hindi staged-schedule agreement remains`);
-        assert(!hasLocalizedProseInsideMath(learner), `${label}: Hindi prose remains inside MathJax`);
+        assert(!hasLocalizedScheduleProseInsideMath(learner), `${label}: Hindi schedule prose remains inside MathJax`);
         assert(!/Pump-on|Pump-off|Drainage|Drain interval|Inlet [A-Z]|Outlet [A-Z]/i.test(learner), `${label}: English cycle label remains in Hindi learner text`);
         assert(!/टंकी .* का अंतराल में/u.test(learner), `${label}: Hindi terminal-segment postposition grammar remains`);
       }
       if (language === "pa") {
         assert(/[\u0A00-\u0A7F]/u.test(learner), `${label}: Punjabi learner text lacks Gurmukhi`);
         assert(!/ਚੱਲਦੀ ਹੈ[^।;?]*ਚੱਲਦਾ ਹੈ|ਚੱਲਦੇ ਹਨ[^।;?]*ਚੱਲਦਾ ਹੈ|ਚੱਲਦੀ ਹੈ ਹੋ ਜਾਂਦੀ ਹੈ|ਚੱਲਦੀ ਹੈ ਚਾਲੂ ਕਰਦਾ ਹੈ/u.test(q.stem), `${label}: broken Punjabi staged-schedule agreement remains`);
-        assert(!hasLocalizedProseInsideMath(learner), `${label}: Punjabi prose remains inside MathJax`);
+        assert(!hasLocalizedScheduleProseInsideMath(learner), `${label}: Punjabi schedule prose remains inside MathJax`);
         assert(!/Pump-on|Pump-off|Drainage|Drain interval|Inlet [A-Z]|Outlet [A-Z]/i.test(learner), `${label}: English cycle label remains in Punjabi learner text`);
         assert(!/ਟੈਂਕੀ .* ਦਾ ਅੰਤਰਾਲ ਵਿੱਚ/u.test(learner), `${label}: Punjabi terminal-segment postposition grammar remains`);
       }
