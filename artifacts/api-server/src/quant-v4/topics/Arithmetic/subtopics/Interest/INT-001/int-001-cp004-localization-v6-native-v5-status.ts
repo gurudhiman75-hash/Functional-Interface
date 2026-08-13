@@ -1,0 +1,16 @@
+export const INT_CP004_HI_PA_V6_NATIVE_V5_REMEDIATION_STATUS = Object.freeze({
+  editorialVersion: "INT-CP-004-HI-PA-V6-NATIVE-EDITORIAL-v5",
+  status: "VALIDATED_REVIEW_CANDIDATE",
+  supersedes: "INT-CP-004-HI-PA-V6-NATIVE-EDITORIAL-v4",
+  reason: "V4 did not enforce Examtree math wrappers around every formula and worked equation.",
+  mathStandard: "EXAMTREE_MATHJAX_LATEX",
+  inlineDelimiter: "\\(...\\)",
+  displayDelimiter: "\\[...\\]",
+  approved: false,
+  frozen: false,
+  enabled: false,
+  registrationStatus: "NOT_REGISTERED",
+  questionStudioDiscoverable: false,
+  questionBankStatus: "NOT_STORED",
+  publiclyPublishable: false,
+} as const);
