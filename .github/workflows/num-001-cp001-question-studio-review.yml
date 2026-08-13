@@ -76,6 +76,19 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review-audit.log
 
+      - name: Bundle CP001 Editorial V2 quality audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/editorial-v2-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp001-editorial-v2-audit.test.mjs
+
+      - name: Run CP001 Editorial V2 quality audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2-audit.log
+
       - name: Bundle legacy Number System Question Studio regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -100,9 +113,12 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/num-cp001-qs-review-hi-pa-parity.log
             artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review-audit.log
+            artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2-audit.log
             artifacts/api-server/dist/quant-v4/num-cp001-qs-review-legacy-release.log
             artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review/num-cp001-question-studio-review.json
             artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review/num-cp001-question-studio-review.md
             artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review/num-cp001-question-studio-review.csv
+            artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2/num-cp001-editorial-v2-84q-review.json
+            artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2/num-cp001-editorial-v2-84q-review.md
           if-no-files-found: warn
           retention-days: 14
