@@ -19,6 +19,36 @@ const criticalEnglishOperators = new Set([
   "facing", "faces", "seat", "seats", "clue", "clues", "row", "circle", "person", "persons",
 ]);
 
+const mechanicalHindiFragments = [
+  "संख्या सीटें से बायाँ को दायाँ",
+  "पहला देखें कौन-सा तरीका",
+  "क्योंकि का तरीका वह व्यक्ति",
+  "केवल स्थिति 1 है बायाँ",
+  "केवल स्थिति 2 है बायाँ",
+  "बाद सभी संकेत हैं इस्तेमाल किया",
+  "यह चलता है 1 सीट बहुत दूर",
+  "यह है 1 कम से संख्या",
+  "यह है 1 अधिक से संख्या",
+  "दोनों व्यक्ति थे चुना गया",
+  "यह रुकता है बाद 1 सीट",
+  "प्रश्न पूछता है के लिए गलत कथन",
+] as const;
+
+const mechanicalPunjabiFragments = [
+  "ਗਿਣਤੀ ਸੀਟਾਂ ਤੋਂ ਖੱਬਾ ਨੂੰ ਸੱਜਾ",
+  "ਪਹਿਲਾ ਵੇਖੋ ਕਿਹੜਾ ਤਰੀਕਾ",
+  "ਕਿਉਂਕਿ ਦਾ ਤਰੀਕਾ ਉਹ ਵਿਅਕਤੀ",
+  "ਸਿਰਫ਼ ਸਥਿਤੀ 1 ਹੈ ਖੱਬਾ",
+  "ਸਿਰਫ਼ ਸਥਿਤੀ 2 ਹੈ ਖੱਬਾ",
+  "ਬਾਅਦ ਸਭ ਸੰਕੇਤ ਹਨ ਵਰਤਿਆ",
+  "ਇਹ ਚਲਦਾ ਹੈ 1 ਸੀਟ ਬਹੁਤ ਦੂਰ",
+  "ਇਹ ਹੈ 1 ਘੱਟ ਤੋਂ ਗਿਣਤੀ",
+  "ਇਹ ਹੈ 1 ਵੱਧ ਤੋਂ ਗਿਣਤੀ",
+  "ਦੋਵੇਂ ਵਿਅਕਤੀ ਸਨ ਚੁਣਿਆ ਗਿਆ",
+  "ਇਹ ਰੁਕਦਾ ਹੈ ਬਾਅਦ 1 ਸੀਟ",
+  "ਸਵਾਲ ਪੁੱਛਦਾ ਹੈ ਲਈ ਗਲਤ ਕਥਨ",
+] as const;
+
 const saturation = buildSea001SaturationCorpus(40);
 const canonicalReview = selectManualReviewCorpus(saturation.caselets, 5);
 assert(canonicalReview.length === 100, `expected 100 canonical review caselets, got ${canonicalReview.length}`);
@@ -27,6 +57,7 @@ let localizedCaseletCount = 0;
 let localizedChildCount = 0;
 let criticalLeakCount = 0;
 let canonicalNameLeakCount = 0;
+let mechanicalTranslationeseCount = 0;
 const residualEnglish = new Map<string, number>();
 const criticalResiduals = new Map<string, number>();
 
@@ -63,8 +94,14 @@ for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
     const surface = sea001LocalizedLearnerSurface(localized);
     if (locale === "hi-IN") {
       assert(/[\u0900-\u097F]/u.test(surface), `${canonical.caseletId}: Hindi learner surface lacks Devanagari`);
+      for (const fragment of mechanicalHindiFragments) {
+        if (surface.includes(fragment)) mechanicalTranslationeseCount += 1;
+      }
     } else {
       assert(/[\u0A00-\u0A7F]/u.test(surface), `${canonical.caseletId}: Punjabi learner surface lacks Gurmukhi`);
+      for (const fragment of mechanicalPunjabiFragments) {
+        if (surface.includes(fragment)) mechanicalTranslationeseCount += 1;
+      }
     }
 
     for (const name of SEA001_REVIEW_CANONICAL_NAMES) {
@@ -102,12 +139,14 @@ console.log("critical English seating-operator leaks", criticalLeakCount);
 console.log("critical residual operators", JSON.stringify(criticalTop));
 console.log("residual Latin tokens", residualLatinCount);
 console.log("top residual Latin tokens", JSON.stringify(residualTop));
+console.log("mechanical translationese hits", mechanicalTranslationeseCount);
 
 assert(localizedCaseletCount === 200, `expected 200 localized review caselets, got ${localizedCaseletCount}`);
 assert(localizedChildCount === 800, `expected 800 localized child questions, got ${localizedChildCount}`);
 assert(canonicalNameLeakCount === 0, `localized learner text still exposes ${canonicalNameLeakCount} canonical Latin-script names`);
 assert(criticalLeakCount === 0, `localized learner text still exposes ${criticalLeakCount} critical English seating-operator tokens`);
 assert(residualLatinCount === 0, `localized learner text still exposes ${residualLatinCount} Latin learner-text tokens`);
+assert(mechanicalTranslationeseCount === 0, `localized learner text still exposes ${mechanicalTranslationeseCount} known mechanical-translation fragments`);
 
 assertSea001LocalizationFoundationStillBlocked();
 assert(!SEA001_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered, "Question Studio must remain disabled");
@@ -117,6 +156,7 @@ assert(!SEA001_PERMANENT_INACTIVE_LIFECYCLE.publiclyPublishable, "public deliver
 
 console.log("PASS_SEA_001_LOCALIZED_REVIEW_CANDIDATE");
 console.log("learner Latin residue", "ZERO");
+console.log("known mechanical translationese", "ZERO");
 console.log("human language review", "PENDING");
 console.log("Question Studio registered", SEA001_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered);
 console.log("publicly publishable", SEA001_PERMANENT_INACTIVE_LIFECYCLE.publiclyPublishable);
