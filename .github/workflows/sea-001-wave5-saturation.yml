@@ -66,6 +66,17 @@ jobs:
       - name: Run 1,600-caselet SEA-001 production saturation proof
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-saturation-proof.test.ts
 
+  permanent-allocation-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prove permanent QL allocation and solve/query/English freezes
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-permanent-allocation-freeze-proof.test.ts
+
   teaching-explanations:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -107,7 +118,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Prove permanent allocation remains locked before signed review
+      - name: Prove signed-review permanent allocation readiness
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-review-readiness-proof.test.ts
 
   english-review-candidate:
