@@ -1,20 +1,3 @@
-export function buildQl141Editorial(frozen: any) {
-  const m = (v: string) => `\\(${v}\\)`;
-  const s = frozen.hiddenState as Record<string, unknown>;
-  const k = Number(s.len);
-  const total = Number(s.proposedSum);
-  const top = 2 * total - k * (k - 1);
-  const bottom = 2 * k;
-  const possible = Boolean(s.possible);
-  const options = Object.freeze((frozen.options ?? []).map((o: any) => String(o.value ?? o)));
-  const correctIndex = Number(frozen.correctIndex);
-  const answer = options[correctIndex]!;
-  return {
-    stem: `Can ${m(String(total))} be the sum of ${k} consecutive integers?`,
-    options,
-    correctIndex,
-    answer,
-    concept: "Find the first integer exactly; do not use decimal approximations.",
-    steps: [`The first integer would be ${m(`\\frac{${top}}{${bottom}}`)}.`, possible ? "This is an integer, so such a block exists." : "This is not an integer, so such a block does not exist."],
-  };
-}
+function gcd(a:number,b:number){let x=Math.abs(a),y=Math.abs(b);while(y!==0)[x,y]=[y,x%y];return x||1;}
+function frac(n:number,d:number){const g=gcd(n,d);n/=g;d/=g;if(d<0){n=-n;d=-d;}return d===1?String(n):`\\frac{${n}}{${d}}`;}
+export function buildQl141Editorial(frozen:any){const m=(v:string)=>`\\(${v}\\)`;const s=frozen.hiddenState as Record<string,unknown>;const k=Number(s.len),total=Number(s.proposedSum),first=frac(2*total-k*(k-1),2*k),possible=Boolean(s.possible);const options=Object.freeze((frozen.options??[]).map((o:any)=>String(o.value??o)));const correctIndex=Number(frozen.correctIndex),answer=options[correctIndex]!;return{stem:`Can ${m(String(total))} be the sum of ${k} consecutive integers?`,options,correctIndex,answer,concept:"Such a sum is possible only when the first term is an integer.",steps:[`The first integer would be ${m(first)}.`,possible?"This is an integer, so such a block exists.":"This is not an integer, so such a block does not exist."]};}
