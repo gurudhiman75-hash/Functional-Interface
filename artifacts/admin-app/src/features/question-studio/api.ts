@@ -201,11 +201,14 @@ export function updateGenerationItems(input: {
       generationRunId: string;
       previousStatus: GenerationItemStatus;
       status: GenerationItemStatus;
+      approvalMode: 'question_bank' | 'review_only' | null;
+      conversionSkippedReason: string | null;
       convertedQuestion: ConvertedQuestion | null;
     }>;
     updatedCount: number;
     converted: ConvertedQuestion[];
     convertedCount: number;
+    reviewOnlyApprovedCount: number;
   }>(
     '/admin/question-studio/items/bulk',
     { method: 'PATCH', body: JSON.stringify(input) },
