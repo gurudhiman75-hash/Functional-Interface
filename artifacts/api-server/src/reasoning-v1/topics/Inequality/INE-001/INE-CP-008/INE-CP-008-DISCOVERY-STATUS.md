@@ -4,7 +4,7 @@
 
 **Implementation:** English prototype discovery v1 complete
 
-**Manual review:** Pending
+**Manual review:** Revised English pack approved by the user on 13 August 2026
 
 **Exam readiness:** Missing-relation and possible-conclusion prototypes only; statement-set and contradiction authorities remain guided advanced practice
 
@@ -29,6 +29,6 @@
 - a language gate that rejects internal solver terminology;
 - independent solver agreement and deterministic generation.
 
-## Gate
+## Checkpoint decision
 
-The English review pack requires manual acceptance. Approval will close prototype review only; it will not allocate a permanent QL or enable production visibility.
+The revised English prototype is manually accepted. CP-008 discovery is complete, and INE-001 may proceed to the chapter-closure gate. Permanent QL allocation, localization, Question Studio visibility, and public release remain separate decisions and are still disabled.
