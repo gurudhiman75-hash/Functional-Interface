@@ -48,20 +48,22 @@ jobs:
           --skipLibCheck
           --types node
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp010-multilingual-editorial-review-finalizer.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp010-corpus-semantic-working.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp010-corpus-cleanup-finalizer.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
-          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp010-multilingual-editorial-review.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp010-corpus-integrity.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts
-      - name: Bundle CP010 multilingual editorial proof
+      - name: Bundle CP010 corpus-integrity proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp010-multilingual-editorial-review.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp010-corpus-integrity.test.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/tmw-001-cp010-multilingual-editorial-review.test.mjs
-      - name: Run CP010 multilingual editorial proof
+          --outfile=dist/quant-v4/tmw-001-cp010-corpus-integrity-main.test.mjs
+      - name: Run 864 CP010 corpus-integrity cases
         shell: bash
         run: |
           set -o pipefail
-          node artifacts/api-server/dist/quant-v4/tmw-001-cp010-multilingual-editorial-review.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp010-multilingual-editorial-review.log
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp010-corpus-integrity-main.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp010-multilingual-editorial-review.log
       - name: Bundle final 228-QL multilingual audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
