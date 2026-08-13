@@ -43,12 +43,12 @@ const METHODS: Record<string, Triplet> = {
   findEmptyTimeFromMixedPipes: [
     "Form the signed net flow and divide one full tank by the magnitude of the net emptying rate",
     "भराव और निकासी दरों का सही जोड़-घटाव करें और पूरी टंकी को शुद्ध निकासी दर के परिमाण से भाग दें",
-    "ਭਰਨ ਅਤੇ ਨਿਕਾਸੀ ਦਰਾਂ ਦਾ ਸਹੀ ਜੋੜ-ਘਟਾਅ ਕਰੋ ਅਤੇ ਪੂਰੀ ਟੈਂਕੀ ਨੂੰ ਸ਼ੁੱਧ ਨਿਕਾਸੀ ਦਰ ਦੇ ਪਰਿਮਾਣ ਨਾਲ ਭਾਗ ਦਿਓ",
+    "ਭਰਨ ਅਤੇ ਨਿਕਾਸੀ ਦਰਾਂ ਦਾ ਸਹੀ ਜੋੜ-ਘਟਾਅ ਕਰੋ ਅਤੇ ਪੂਰੀ ਟੈਂਕੀ ਨੂੰ ਸ਼ੁੱਧ ਨਿਕਾਸੀ ਦਰ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ",
   ],
   findNetFractionChangedInGivenTime: [
     "Find the signed net rate and multiply its magnitude by the stated running time",
     "शुद्ध भराव या निकासी दर निकालें और उसके परिमाण को दिए समय से गुणा करें",
-    "ਸ਼ੁੱਧ ਭਰਨ ਜਾਂ ਨਿਕਾਸੀ ਦਰ ਕੱਢੋ ਅਤੇ ਉਸ ਦੇ ਪਰਿਮਾਣ ਨੂੰ ਦਿੱਤੇ ਸਮੇਂ ਨਾਲ ਗੁਣਾ ਕਰੋ",
+    "ਸ਼ੁੱਧ ਭਰਨ ਜਾਂ ਨਿਕਾਸੀ ਦਰ ਕੱਢੋ ਅਤੇ ਉਸ ਦੀ ਮਾਤਰਾ ਨੂੰ ਦਿੱਤੇ ਸਮੇਂ ਨਾਲ ਗੁਣਾ ਕਰੋ",
   ],
   findMissingInletTime: [
     "Convert the combined filling time to the required net rate, then isolate the unknown inlet rate",
@@ -76,9 +76,9 @@ const METHODS: Record<string, Triplet> = {
     "ਪ੍ਰਵਾਹ ਦਰ = ਟੈਂਕੀ ਦੀ ਸਮਰੱਥਾ ÷ ਭਰਨ ਸਮਾਂ ਲਗਾਓ",
   ],
   findTimeFromCapacityAndNetFlow: [
-    "Use filling time = tank capacity ÷ net inflow",
-    "भरने का समय = टंकी की क्षमता ÷ शुद्ध भराव लगाएँ",
-    "ਭਰਨ ਸਮਾਂ = ਟੈਂਕੀ ਦੀ ਸਮਰੱਥਾ ÷ ਸ਼ੁੱਧ ਭਰਾਅ ਲਗਾਓ",
+    "Use filling time = tank capacity ÷ net inflow rate",
+    "भरने का समय = टंकी की क्षमता ÷ शुद्ध भराव दर लगाएँ",
+    "ਭਰਨ ਸਮਾਂ = ਟੈਂਕੀ ਦੀ ਸਮਰੱਥਾ ÷ ਸ਼ੁੱਧ ਭਰਨ ਦਰ ਲਗਾਓ",
   ],
   convertFlowUnits: [
     "Convert the time unit first: multiply by 60 from per minute to per hour, and divide by 60 in the reverse direction",
@@ -88,7 +88,7 @@ const METHODS: Record<string, Triplet> = {
   findTimeFromInitialLevelToBoundary: [
     "Find the distance from the initial level to the required boundary, then divide by the magnitude of the net rate",
     "प्रारंभिक स्तर से माँगी गई सीमा तक का स्तर-अंतर निकालें और उसे शुद्ध दर के परिमाण से भाग दें",
-    "ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ ਤੋਂ ਮੰਗੀ ਹੱਦ ਤੱਕ ਪੱਧਰ ਦਾ ਫਰਕ ਕੱਢੋ ਅਤੇ ਉਸ ਨੂੰ ਸ਼ੁੱਧ ਦਰ ਦੇ ਪਰਿਮਾਣ ਨਾਲ ਭਾਗ ਦਿਓ",
+    "ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ ਤੋਂ ਮੰਗੀ ਹੱਦ ਤੱਕ ਪੱਧਰ ਦਾ ਫਰਕ ਕੱਢੋ ਅਤੇ ਉਸ ਨੂੰ ਸ਼ੁੱਧ ਦਰ ਦੀ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ",
   ],
   findFinalLevelAfterGivenTime: [
     "Find net level change = signed net rate × time, then add it to the initial level",
@@ -136,7 +136,7 @@ const ANSWER_LABELS: Record<string, Triplet> = {
   convertFlowUnits: ["the converted flow rate", "परिवर्तित प्रवाह दर", "ਬਦਲੀ ਹੋਈ ਪ੍ਰਵਾਹ ਦਰ"],
   findTimeFromInitialLevelToBoundary: ["the required boundary time", "सीमा तक पहुँचने का समय", "ਹੱਦ ਤੱਕ ਪਹੁੰਚਣ ਦਾ ਸਮਾਂ"],
   findFinalLevelAfterGivenTime: ["the final tank level", "टंकी का अंतिम स्तर", "ਟੈਂਕੀ ਦਾ ਅੰਤਿਮ ਪੱਧਰ"],
-  compareTankCapacities: ["the capacity ratio A:B", "क्षमता अनुपात A:B", "ਸਮਰੱਥਾ ਅਨੁਪਾਤ A:B"],
+  compareTankCapacities: ["the capacity ratio (A:B)", "क्षमता अनुपात (A:B)", "ਸਮਰੱਥਾ ਅਨੁਪਾਤ (A:B)"],
   findReducedPipeEfficiencyFromChangedTime: ["the new:old efficiency ratio", "नई:पुरानी दक्षता का अनुपात", "ਨਵੀਂ:ਪੁਰਾਣੀ ਦੱਖਤਾ ਦਾ ਅਨੁਪਾਤ"],
   findBlockagePercentFromChangedTime: ["the percentage reduction in flow", "प्रवाह दर में प्रतिशत कमी", "ਪ੍ਰਵਾਹ ਦਰ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ"],
   findNetRateDirection: ["the net direction", "पानी के स्तर की दिशा", "ਪਾਣੀ ਦੇ ਪੱਧਰ ਦੀ ਦਿਸ਼ਾ"],
@@ -166,7 +166,7 @@ function extractAnswer(current: string, language: Language): string {
 function answerLine(mode: string, answer: string, language: Language): string {
   const label = t(language, ANSWER_LABELS[mode] ?? ["answer", "उत्तर", "ਉੱਤਰ"]);
   if (language === "en") return `Therefore, ${label} is ${answer}.`;
-  return `${language === "hi" ? "अतः" : "ਇਸ ਲਈ"} ${label}: ${answer}${language === "hi" ? "।" : "।"}`;
+  return `${language === "hi" ? "अतः" : "ਇਸ ਲਈ"} ${label}: ${answer}।`;
 }
 
 function rhsFromMathEquality(step: string): string | null {
@@ -203,7 +203,7 @@ function polishSolution(question: Cp009Question, language: Language, answer: str
   if (qlId === "TMW-QL-170" && steps.length >= 3) {
     steps[0] = steps[0].replace(/^V\s*=\s*/u, `${t(language, ["Tank A capacity", "टंकी A की क्षमता", "ਟੈਂਕੀ A ਦੀ ਸਮਰੱਥਾ"])} = `);
     steps[1] = steps[1].replace(/^V\s*=\s*/u, `${t(language, ["Tank B capacity", "टंकी B की क्षमता", "ਟੈਂਕੀ B ਦੀ ਸਮਰੱਥਾ"])} = `);
-    steps[2] = `${t(language, ["Capacity ratio A:B", "क्षमता अनुपात A:B", "ਸਮਰੱਥਾ ਅਨੁਪਾਤ A:B"])} = ${math(answer)}${language === "en" ? "." : "।"}`;
+    steps[2] = `${t(language, ["Capacity ratio (A:B)", "क्षमता अनुपात (A:B)", "ਸਮਰੱਥਾ ਅਨੁਪਾਤ (A:B)"])} = ${math(answer)}${language === "en" ? "." : "।"}`;
   }
 
   if (qlId === "TMW-QL-171") {
@@ -211,7 +211,7 @@ function polishSolution(question: Cp009Question, language: Language, answer: str
     const newTime = rationalText(question.parameters?.changedTime);
     if (oldTime && newTime) {
       steps = [
-        `${t(language, ["Old filling time", "पुराना भरने का समय", "ਪੁਰਾਣਾ ਭਰਨ ਸਮਾਂ"])} = ${math(oldTime)}; ${t(language, ["new filling time", "नया भरने का समय", "ਨਵਾਂ ਭਰਨ ਸਮਾਂ"])} = ${math(newTime)}${language === "en" ? "." : "।"}`,
+        `${t(language, ["Old filling time", "पुराना भरने का समय", "ਪੁਰਾਣਾ ਭਰਨ ਸਮਾਂ"])} = ${math(oldTime)} ${t(language, ["hours", "घंटे", "ਘੰਟੇ"])}; ${t(language, ["new filling time", "नया भरने का समय", "ਨਵਾਂ ਭਰਨ ਸਮਾਂ"])} = ${math(newTime)} ${t(language, ["hours", "घंटे", "ਘੰਟੇ"])}${language === "en" ? "." : "।"}`,
         `${t(language, ["New:old efficiency", "नई:पुरानी दक्षता", "ਨਵੀਂ:ਪੁਰਾਣੀ ਦੱਖਤਾ"])} = ${math(`${oldTime}:${newTime}`)}${language === "en" ? "." : "।"}`,
         `${t(language, ["Simplified ratio", "सरल अनुपात", "ਸਧਾਰਿਆ ਅਨੁਪਾਤ"])} = ${math(answer)}${language === "en" ? "." : "।"}`,
       ];
@@ -227,9 +227,12 @@ function polishSolution(question: Cp009Question, language: Language, answer: str
   }
 
   if (qlId === "TMW-QL-173" && steps[2]) {
-    const condition = steps[2].match(/^\\\(([^\\]*r[^\\]*?)\\Rightarrow[\s\S]*\\\)$/u)?.[1]
-      ?? steps[2].match(/^\\\((r[^\\]*?)\\Rightarrow[\s\S]*\\\)$/u)?.[1];
-    if (condition) steps[2] = `${math(condition)} ⇒ ${answer}${language === "en" ? "." : "।"}`;
+    const condition = steps[2].match(/^\\\(([\s\S]*?)\\Rightarrow[\s\S]*\\\)[।.]?$/u)?.[1]?.trim();
+    if (condition) {
+      steps[2] = `${math(condition)} ⇒ ${answer}${language === "en" ? "." : "।"}`;
+    } else if (/[\u0900-\u097F\u0A00-\u0A7F]/u.test(steps[2])) {
+      steps[2] = `${t(language, ["Hence the net direction", "अतः पानी के स्तर की दिशा", "ਇਸ ਲਈ ਪਾਣੀ ਦੇ ਪੱਧਰ ਦੀ ਦਿਸ਼ਾ"])}: ${answer}${language === "en" ? "." : "।"}`;
+    }
   }
 
   if (qlId === "TMW-QL-174" && steps[2]) {
