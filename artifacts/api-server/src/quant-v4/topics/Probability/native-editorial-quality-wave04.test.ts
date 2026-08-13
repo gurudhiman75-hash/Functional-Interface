@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { runPrb001Pipeline } from "./PRB-001";
 import { listProbabilityMl05QlEntries, renderProbabilityNativePreview } from "./multilingual-runtime";
+import "./native-editorial-quality-wave05.test";
 
 const TARGET_QLS = new Set([
   "PRB-QL-005", "PRB-QL-011", "PRB-QL-017",
