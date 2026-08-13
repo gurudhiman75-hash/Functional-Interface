@@ -71,7 +71,7 @@ for (const qlId of qls) {
       if (qlId === "TMW-QL-187" && language === "hi") assert(!/\d+वीं/u.test(q.stem), `${label}: numeric Hindi ordinal remains`);
       if (qlId === "TMW-QL-187" && language === "pa") assert(!/\d+ਵੀਂ/u.test(q.stem), `${label}: numeric Punjabi ordinal remains`);
       if (qlId === "TMW-QL-189") assert(!/संख्या\s+\d+\s+पूरे चक्र|ਗਿਣਤੀ\s+\d+\s+ਪੂਰੇ ਚੱਕਰ/u.test(q.learnerExplanation.answer), `${label}: duplicated cycle-count wording remains`);
-      if (qlId === "TMW-QL-190") assert(/terminal segment|पहली बार पूरी भरती|ਪਹਿਲੀ ਵਾਰ ਪੂਰੀ ਭਰਦੀ/i.test(q.learnerExplanation.answer), `${label}: terminal-segment answer label is generic`);
+      if (qlId === "TMW-QL-190") assert(/terminal segment|first becomes full|पहली बार पूरी भरती|ਪਹਿਲੀ ਵਾਰ ਪੂਰੀ ਭਰਦੀ/i.test(q.learnerExplanation.answer), `${label}: terminal-segment answer label is generic`);
       if (qlId === "TMW-QL-192") {
         assert(/required by the deadline|समय-सीमा के लिए आवश्यक|ਸਮਾਂ-ਸੀਮਾ ਲਈ ਲੋੜੀਂਦਾ/i.test(q.learnerExplanation.solution.join(" ")), `${label}: deadline-required change time is not explicit`);
         assert(/originally planned|मूल नियोजित|ਮੂਲ ਯੋਜਿਤ/i.test(q.learnerExplanation.solution.join(" ")), `${label}: original change time is not explicit`);
