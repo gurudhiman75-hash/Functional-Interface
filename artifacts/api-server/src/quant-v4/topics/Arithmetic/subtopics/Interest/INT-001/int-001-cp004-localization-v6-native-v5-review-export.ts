@@ -28,7 +28,7 @@ function questionForFrame(
   qlId: IntCp004QlId,
   frame: number,
   locale: IntCp004V6Locale,
-  usedSourceStems: Set<string>,
+  usedLearnerStems: Set<string>,
 ): IntCp004V6LocalizedQuestion {
   let targetCorrectIndex: number | null = null;
   for (let attempt = 0; attempt < 500; attempt += 1) {
@@ -38,11 +38,11 @@ function questionForFrame(
     const candidate = generateIntCp004V6NativeEditorialV5Question(qlId, seed, locale);
     if (targetCorrectIndex === null) targetCorrectIndex = candidate.correctIndex;
     if (candidate.correctIndex !== targetCorrectIndex) continue;
-    if (usedSourceStems.has(source.stem)) continue;
-    usedSourceStems.add(source.stem);
+    if (usedLearnerStems.has(candidate.stem)) continue;
+    usedLearnerStems.add(candidate.stem);
     return candidate;
   }
-  throw new Error(`${qlId}/${locale}: unique frame ${frame} unavailable.`);
+  throw new Error(`${qlId}/${locale}: unique learner-facing frame ${frame} unavailable.`);
 }
 
 function markdown(locale: IntCp004V6Locale, questions: readonly IntCp004V6LocalizedQuestion[]): string {
@@ -65,8 +65,8 @@ const summary: Record<string, unknown> = { canonicalFreezeId: "INT-CP-004-EN-v2-
 for (const locale of ["hi-IN", "pa-IN"] as const) {
   const questions: IntCp004V6LocalizedQuestion[] = [];
   for (const qlId of INT_CP004_QL_IDS) {
-    const usedSourceStems = new Set<string>();
-    for (const frame of [1, 2, 3, 4]) questions.push(questionForFrame(qlId, frame, locale, usedSourceStems));
+    const usedLearnerStems = new Set<string>();
+    for (const frame of [1, 2, 3, 4]) questions.push(questionForFrame(qlId, frame, locale, usedLearnerStems));
   }
   if (questions.length !== 76) fail(`${locale}: review count ${questions.length}.`);
 
