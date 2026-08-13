@@ -3,7 +3,7 @@ import { writeFileSync } from "node:fs";
 import {
   generateRnkCp007CategoryCompositionQuestion,
   RNK_CP007_CATEGORY_COMPOSITION_MODES,
-} from "./cp007-category-composition-discovery-v1";
+} from "./cp007-category-composition-editorial-v1-1";
 import {
   generateRnkCp007DerivedQuantityQuestion,
   RNK_CP007_SCALED_MODES,
@@ -49,6 +49,7 @@ const category: ReviewQuestion[] = RNK_CP007_CATEGORY_COMPOSITION_MODES.flatMap(
         requestedSide: question.reviewMetadata.requestedSide,
         requestedCategory: question.reviewMetadata.requestedCategory,
         allDisplayedEvidenceEssential: question.reviewMetadata.allDisplayedEvidenceEssential,
+        numericEchoRejected: question.answer !== question.evidence.count,
       },
     };
   }),
@@ -92,7 +93,7 @@ lines.push("# RNK-CP-007 — Discovery V1.1 Manual Review Pack (28 Questions)");
 lines.push("");
 lines.push("Status: **discovery only — no permanent QL allocated**.");
 lines.push("");
-lines.push("This V1.1 pack remediates the first manual-review defects: decorative subgroup clues, impossible numeric distractors, ordinal grammar, synthetic scaled-object labels, weak rank distractors, and incomplete transfer conclusions.");
+lines.push("This V1.1 pack remediates the first manual-review defects: decorative subgroup clues, impossible numeric distractors, ordinal grammar, numeric answer/clue echoes, synthetic scaled-object labels, weak rank distractors, and incomplete transfer conclusions.");
 lines.push("");
 lines.push("It tests two source-backed discovery families before any QL decision:");
 lines.push("");
@@ -150,7 +151,7 @@ lines.push("```");
 writeFileSync(OUTPUT, `${lines.join("\n")}\n`, "utf8");
 console.log(JSON.stringify({
   status: "PASS",
-  version: "RNK_CP007_DISCOVERY_REVIEW_V1_1",
+  version: "RNK_CP007_DISCOVERY_REVIEW_V1_1_ZERO_ECHO",
   output: OUTPUT,
   questions: questions.length,
   categoryComposition: category.length,
