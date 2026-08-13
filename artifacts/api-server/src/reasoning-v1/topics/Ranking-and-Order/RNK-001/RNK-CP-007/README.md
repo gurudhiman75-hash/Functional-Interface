@@ -1,6 +1,6 @@
 # RNK-CP-007 — Derived and Compositional Ranking Discovery
 
-Status: **DISCOVERY V1 IMPLEMENTED — manual review pending; zero permanent QLs allocated**.
+Status: **DISCOVERY V1.1 IMPLEMENTED — exact-head/manual review pending; zero permanent QLs allocated**.
 
 CP007 exists because the post-CP006 page-level source audit found Ranking questions whose displayed evidence must first be transformed arithmetically or compositionally before a rank/order conclusion can be reached.
 
@@ -15,52 +15,90 @@ NUMERIC_VALUE_CONSTRAINED_ORDER
 RELATIONAL_SIDE_COUNT_EQUATION
 ```
 
-## Discovery V1 implementation
+## Why V1.1 was required
 
-Two strongest source-backed families now have executable generators and independent solver gates.
+The first 28-question V1 pack was mathematically correct but manual review found editorial shortcuts that executable answer-key tests did not catch:
 
-### CATEGORY_COMPOSITION_AROUND_RANK
+- some category-composition questions contained decorative rank or ratio clues;
+- some numeric distractors exceeded an obvious subgroup/rank bound;
+- ordinal rendering produced forms such as `42th`;
+- scaled-object questions could use synthetic labels such as `P9` or `Q12`;
+- scaled distractors were not always close to the requested rank;
+- transfer explanations could end with an incomplete conclusion such as `Therefore Kavya`.
+
+V1.1 fixes these weaknesses rather than relaxing the gates.
+
+## CATEGORY_COMPOSITION_AROUND_RANK — V1.1
 
 Source basis: Aggarwal Ranking Q65 and Q67.
 
-Typical structure:
+Typical solve burden:
 
 ```text
-total population
-+ ratio/count of two categories
-+ target person's rank
-+ known members of one category ahead
--> requested category count ahead/after target
+whole-group total
++ category ratio
++ target category
++ target rank
++ one opposite-category count ahead/after
+-> requested category count ahead/after
 ```
 
-Implemented modes:
+V1.1 modes:
 
 ```text
 TARGET_CATEGORY_AFTER
 OTHER_CATEGORY_AFTER
-UNKNOWN_CATEGORY_AHEAD
+TARGET_CATEGORY_AHEAD_FROM_OTHER_AFTER
+OTHER_CATEGORY_AHEAD_FROM_TARGET_AFTER
 ```
 
-Discovery corpus:
+The old `UNKNOWN_CATEGORY_AHEAD` mode was removed because its ratio could become decorative.
+
+Corpus:
 
 ```text
-3 modes x 96 questions = 288
+4 modes x 72 questions = 288
 answer positions:          72 / 72 / 72 / 72
 permanent QL:              none
 ```
 
-Every question is solved again from the normalized subgroup state. Direct lookup of the known subgroup-ahead count is forbidden.
+### V1.1 evidence-essentiality contract
 
-Current disposition: **provisional authority candidate**, with CP001 composition-extension still retained as the nearest alternative.
+Every generated question must prove that all displayed reasoning evidence matters:
 
-### DERIVED_QUANTITY_ORDER
+1. perturb the target rank -> answer must change;
+2. perturb the category total supplied by the ratio -> answer must change;
+3. perturb the displayed opposite-category count -> answer must change.
+
+The displayed subgroup clue always concerns the category opposite the requested one. Direct subgroup-count lookup is therefore forbidden by construction.
+
+Numeric options are bounded by the visible mathematical maximum:
+
+```text
+requested AHEAD count <= target rank - 1
+requested AFTER count <= requested-category population minus target where applicable
+```
+
+This removes impossible-option shortcuts.
+
+Ordinal rendering is now grammatical (`21st`, `32nd`, `43rd`, etc.), and explanation rendering suppresses meaningless `- 0` arithmetic.
+
+Current disposition remains:
+
+```text
+PROVISIONAL_AUTHORITY_CANDIDATE
+```
+
+Nearest alternative remains a CP001 composition extension. No QL is allocated yet.
+
+## DERIVED_QUANTITY_ORDER — V1.1
 
 Source basis:
 
-- Aggarwal Ranking Q35 [CSAT 2015] — money transfers -> final balances -> richest/poorest/comparison;
-- Aggarwal Ranking Q68 [SSC MTS 2021] — weight ratios/equations -> derived order -> second from bottom.
+- Aggarwal Q35 [CSAT 2015] — money transfers -> final balances -> rank/relation;
+- Aggarwal Q68 [SSC MTS 2021] — weight ratios/equations -> derived order -> rank.
 
-Discovery source forms:
+Source forms:
 
 ```text
 TRANSFER_BALANCE_ORDER
@@ -85,7 +123,7 @@ SECOND_FROM_BOTTOM
 FOURTH_FROM_TOP
 ```
 
-Discovery corpus:
+Corpus:
 
 ```text
 8 modes x 32 questions = 256
@@ -95,13 +133,41 @@ answer positions:            64 / 64 / 64 / 64
 permanent QL:                none
 ```
 
-Transfer states use three compact transactions, preserve total money, and require four distinct final balances.
+### Transfer remediation
 
-Scaled-object states deliberately preserve genuine uncertainty between two middle objects while requiring the asked rank position to remain invariant across valid witness orders. This reproduces the important Q68 property: the full order need not be unique for the requested rank fact to be definite.
+Transfer states still:
 
-### Architecture warning: discovery family does not automatically mean QL
+- start all four people with an equal balance;
+- use three compact transfers;
+- preserve total money;
+- require four distinct final balances;
+- replay the ledger independently.
 
-The preferred architecture hypothesis for `DERIVED_QUANTITY_ORDER` is currently:
+V1.1 explanations now finish with a complete mode-specific conclusion, such as:
+
+```text
+Therefore X has the highest final balance.
+Therefore Y has the second-highest final balance.
+Therefore the true statement is: ...
+```
+
+Arithmetic burden remains `LIGHT`.
+
+### Scaled-object remediation
+
+The shared V2 object pool still contains 52 symbolic objects for infrastructure capacity, but this exam-facing source form now selects **six single-letter A-Z symbols only**.
+
+Labels such as `P9` and `Q12` are forbidden for this family.
+
+Scaled states deliberately retain at least two valid complete orders because two middle objects may exchange places. The requested rank must nevertheless be invariant across every witness order.
+
+Distractors are now rank-aware: entities appearing nearest to the requested rank across witness orders are preferred. Executable gates require at least two of the three distractors to have appeared within two positions of the requested rank in a valid witness order.
+
+Arithmetic burden is now `MODERATE`, not `LIGHT`.
+
+## Architecture warning: discovery family does not automatically mean QL
+
+The preferred architecture hypothesis for `DERIVED_QUANTITY_ORDER` remains:
 
 ```text
 DERIVATION ADAPTER
@@ -111,15 +177,17 @@ DERIVATION ADAPTER
 
 A separate permanent QL is allowed only if manual/editorial evidence shows that adapter composition loses a materially different student-visible solve contract.
 
-This is intentionally unresolved in Discovery V1.
+Current disposition:
+
+```text
+DISCOVERY_FAMILY_ADAPTER_VS_QL_UNRESOLVED
+```
 
 ## Remaining candidates
 
 ### NUMERIC_VALUE_CONSTRAINED_ORDER
 
-Source basis: Aggarwal Ranking Q27-Q28 [CSAT 2015].
-
-The entities occupy a bounded numeric domain with ordering, exact-offset and exclusion constraints.
+Source basis: Aggarwal Q27-Q28 [CSAT 2015].
 
 Current disposition:
 
@@ -127,11 +195,11 @@ Current disposition:
 HOLD_MERGE_WITH_DERIVED_QUANTITY
 ```
 
-Discovery V1 replays the source fixture but does **not** create a production corpus yet. More source diversity is required before deciding whether this is a derived-constraint mode or its own learner contract.
+The source fixture is replayed, but no production corpus is generated yet. More source diversity is required before splitting it from the derived-constraint family.
 
 ### RELATIONAL_SIDE_COUNT_EQUATION
 
-Source basis: Aggarwal Ranking Q66.
+Source basis: Aggarwal Q66.
 
 Current disposition:
 
@@ -139,7 +207,7 @@ Current disposition:
 REDIRECT_CP001_EXTENSION
 ```
 
-The equation layer normalizes into ordinary CP001 front/behind counts after a small algebraic solve. Discovery V1 therefore does not create a separate CP007 generator for it.
+The equation layer normalizes into ordinary CP001 front/behind identities after a compact algebraic solve. No separate CP007 generator is justified by current evidence.
 
 ## Source-fixture replay
 
@@ -155,11 +223,11 @@ Q67
 Q68
 ```
 
-These fixtures are retained as source anchors, not as learner-facing copied questions.
+These are source anchors, not copied learner questions.
 
 ## Object-pool support
 
-CP007 Discovery V1 uses the pinned future-facing Ranking Object Pool V2:
+Pinned future-facing Ranking Object Pool V2:
 
 ```text
 96 localized person objects
@@ -172,29 +240,39 @@ CP007 Discovery V1 uses the pinned future-facing Ranking Object Pool V2:
 EN / HI / PA infrastructure
 ```
 
-Frozen CP001..CP006 generators do not import the new pool into their projection paths.
+Manifest:
 
-## Review pack
+```text
+RNK_OBJECT_POOL_V2_MANIFEST_V1
+sha256:09fd886c8ef602ab00bd6ca4b1410b963c8db93351881417ec13e538ec4aa452
+```
+
+Frozen CP001..CP006 projection paths do not adopt the new pool.
+
+## V1.1 review pack
 
 CI generates:
 
 ```text
-RNK-CP-007-DISCOVERY-V1-REVIEW-28Q.md
+RNK-CP-007-DISCOVERY-V1.1-REVIEW-28Q.md
 ```
 
 Composition:
 
 ```text
 CATEGORY_COMPOSITION_AROUND_RANK  12
+  3 per V1.1 mode
+
 DERIVED_QUANTITY_ORDER            16
+  2 per transfer/scaled mode
+
 TOTAL                              28
+answer positions             7 / 7 / 7 / 7
 ```
 
-The review pack is evidence for manual exam-readiness review only. It is not a freeze pack.
+This is a manual discovery-review artifact, not a freeze pack.
 
 ## Merge/split audit
-
-`cp007-merge-split-audit-v1.ts` currently records:
 
 ```text
 CATEGORY_COMPOSITION_AROUND_RANK
@@ -212,29 +290,30 @@ RELATIONAL_SIDE_COUNT_EQUATION
 
 No discovery candidate owns `RNK-QL-042`.
 
-## Boundary rule against Quant
+## Ranking versus Quant boundary
 
 Ranking owns a derived-quantity item only when:
 
-1. the arithmetic derivation is short and instrumental;
+1. arithmetic derivation is compact and instrumental;
 2. the final assessed task is rank/order/relation;
-3. the arithmetic itself is not the dominant challenge.
+3. substantial calculation is not the dominant challenge.
 
-Substantial equation solving, percentage/profit/age arithmetic, or calculation-heavy optimization remains Quant even if a final comparison is asked.
+Calculation-heavy age, percentage, profit, equation or optimization work remains Quant even when a final comparison is asked.
 
 ## Required next gates
 
-1. Exact-head CI over both discovery corpora.
-2. Manual review of the 28-question pack.
-3. Audit distractor quality and repetitive surface patterns.
-4. Decide whether category composition is new authority or CP001 composition extension.
-5. Decide whether derived quantity is a QL or derivation adapter over CP004/CP005.
-6. Only then consider another generator wave or permanent identity.
+1. Exact-head CI over V1.1 corpora.
+2. Manual inspection of all 28 regenerated questions.
+3. Recheck category evidence essentiality and option realism.
+4. Recheck scaled source authenticity and distractor plausibility.
+5. Decide whether category composition is a new authority or CP001 extension.
+6. Decide whether derived quantity is an authority or a derivation adapter over CP004/CP005.
+7. Only then consider another wave or permanent identity.
 
 ## Lifecycle
 
 ```text
-permanent QLs:          0
+permanent CP007 QLs:    0
 next available RNK ID:  RNK-QL-042
 English freeze:         false
 Question Studio:        DISABLED
@@ -245,4 +324,4 @@ public publication:     false
 Hindi/Punjabi:          NOT_STARTED
 ```
 
-No merge, deployment, persistence, publication, translation, Question Studio activation or QL allocation is authorized by Discovery V1.
+No merge, deployment, persistence, publication, translation, Question Studio activation or QL allocation is authorized by Discovery V1.1.
