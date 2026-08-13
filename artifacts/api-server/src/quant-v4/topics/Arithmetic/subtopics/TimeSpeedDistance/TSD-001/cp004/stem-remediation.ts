@@ -1,5 +1,5 @@
 import { formatClockMinute, formatDurationHours, formatExamNumber } from "../cp003/generation-support";
-import type { Rational } from "../foundation/rational";
+import { multiply, rational, type Rational } from "../foundation/rational";
 import type { TsdCp004GeneratedState } from "./runtime-types";
 
 function n(value: Rational | undefined): string {
@@ -10,12 +10,29 @@ function h(value: Rational | undefined): string {
   return value ? formatDurationHours(value) : "?";
 }
 
+function friendlyDuration(value: Rational | undefined): string {
+  if (!value) return "?";
+  if (value.numerator >= value.denominator) return formatDurationHours(value);
+  const minutes = multiply(value, rational(60));
+  if (minutes.denominator === 1n) return `${minutes.numerator} minute${minutes.numerator === 1n ? "" : "s"}`;
+  const seconds = multiply(minutes, rational(60));
+  const wholeMinutes = seconds.numerator / (seconds.denominator * 60n);
+  const remainingSeconds = (seconds.numerator / seconds.denominator) - wholeMinutes * 60n;
+  return wholeMinutes > 0n
+    ? `${wholeMinutes} minute${wholeMinutes === 1n ? "" : "s"} ${remainingSeconds} seconds`
+    : `${remainingSeconds} seconds`;
+}
+
 export function remediateCp004Stem(state: TsdCp004GeneratedState, rawStem: string): string {
   const i = state.input;
   const representation = Number(state.representation.split(":").at(-1) ?? "0");
 
   if (state.solveMode === "findCatchUpTimeFromHeadStartDistance") {
     return `A vehicle moving at ${n(i.speedB)} km/h has a head start of ${n(i.headStartDistance)} km. Another vehicle follows on the same road at ${n(i.speedA)} km/h. How long will the faster vehicle take to catch up?`;
+  }
+
+  if (state.solveMode === "findDelayedStartCatchUpTime") {
+    return `A bus leaves first at ${n(i.speedB)} km/h. After ${friendlyDuration(i.startDelay)}, a car leaves from the same point in the same direction at ${n(i.speedA)} km/h. How long after the car starts will it catch the bus?`;
   }
 
   if (state.solveMode === "findDepartureClockTimeFromMeetingState") {
@@ -40,9 +57,12 @@ export function remediateCp004Stem(state: TsdCp004GeneratedState, rawStem: strin
       return `Two buses start simultaneously from opposite ends of a road and meet after covering ${n(i.distanceA)} km and ${n(i.distanceB)} km respectively. What is the ratio of their speeds?`;
     }
     if (representation === 2) {
-      return `Two runners start simultaneously from opposite ends of a straight route and meet after covering ${n(i.distanceA)} km and ${n(i.distanceB)} km respectively. What is the ratio of their speeds?`;
+      return `Two motorcyclists start simultaneously from opposite ends of a straight route and meet after covering ${n(i.distanceA)} km and ${n(i.distanceB)} km respectively. What is the ratio of their speeds?`;
     }
   }
 
-  return rawStem.replace("travel on two towns", "travel on a road between two towns").replace("apart on two towns", "apart on a road between two towns");
+  return rawStem
+    .replace("travel on two towns", "travel on a road between two towns")
+    .replace("apart on two towns", "apart on a road between two towns")
+    .replaceAll("a straight cycling route", "a straight road");
 }
