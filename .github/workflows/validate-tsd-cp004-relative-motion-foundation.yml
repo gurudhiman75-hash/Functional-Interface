@@ -25,13 +25,15 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle CP004 proofs
+      - name: Bundle CP004 proofs and candidate engine
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
           OUT=dist/quant-v4/tsd-001/cp004-foundation
-          mkdir -p artifacts/api-server/$OUT
+          mkdir -p artifacts/api-server/$OUT/package
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004/foundation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/foundation-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004/authority-allocation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/authority-allocation-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004/evidence.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-candidate-evidence.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004/runtime-engine.ts" --bundle --platform=node --format=esm --outfile="$OUT/runtime-engine.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
 
       - name: Run CP004 exact foundation proof
@@ -46,6 +48,33 @@ jobs:
           cd artifacts/api-server
           node dist/quant-v4/tsd-001/cp004-foundation/authority-allocation-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp004-foundation/authority-allocation-proof.log
 
+      - name: Run CP004 English candidate evidence
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/tsd-001/cp004-foundation/english-candidate-evidence.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp004-foundation/english-candidate-evidence.log
+
+      - name: Export clean 60-question candidate JSON
+        run: |
+          cd artifacts/api-server
+          node --input-type=module <<'NODE' > dist/quant-v4/tsd-001/cp004-foundation/package/tsd-cp004-english-candidate-60q.json
+          const engine = await import('./dist/quant-v4/tsd-001/cp004-foundation/runtime-engine.mjs');
+          const labels = ['A','B','C','D'];
+          const rows = engine.generateCp004ReviewQuestions(6).map((q, index) => ({
+            questionNo: index + 1,
+            permanentQlId: q.permanentQlId,
+            authorityKey: q.authorityKey,
+            difficulty: q.difficulty,
+            representation: q.representation,
+            stem: q.stem,
+            options: q.options,
+            correctOption: labels[q.correctIndex],
+            answer: q.answerText,
+            explanation: q.explanation,
+          }));
+          console.log(JSON.stringify(rows, null, 2));
+          NODE
+
       - name: Preserve CP003 approved freeze boundary
         run: |
           INDEX=artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
@@ -59,9 +88,11 @@ jobs:
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Upload CP004 foundation evidence
+      - name: Upload CP004 evidence and candidate package
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp004-relative-motion-foundation-evidence
-          path: artifacts/api-server/dist/quant-v4/tsd-001/cp004-foundation/*.log
+          name: tsd-cp004-english-candidate-60q
+          path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/cp004-foundation/*.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp004-foundation/package/*.json
           if-no-files-found: error
