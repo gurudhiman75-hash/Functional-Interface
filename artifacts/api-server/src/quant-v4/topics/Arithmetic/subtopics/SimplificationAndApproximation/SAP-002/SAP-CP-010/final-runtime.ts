@@ -3,6 +3,7 @@ import {
   SAP_CP010_POLICY,
   SAP_CP010_PROTOTYPE_IDS,
   generateSapCp010 as generateExam,
+  type SapCp010Option,
   type SapCp010Package,
   type SapCp010PrototypeId,
 } from "./exam-runtime";
@@ -39,6 +40,56 @@ function repack(
     oracle: Object.freeze({ kind: base.prototypeId, data: frozenData }),
     canonicalPayloadKey: JSON.stringify({ prototypeId: base.prototypeId, stem, answer: base.canonicalAnswer, data: frozenData, tag }),
     generationIdentity: `${base.prototypeId}:final-v3:${tag}:${base.seed}:${JSON.stringify(frozenData)}`,
+    validation: Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors) }),
+  });
+}
+
+function wrong(value: string, misconceptionId: string, analysis: string): SapCp010Option {
+  return Object.freeze({ value, isCorrect: false, misconceptionId, analysis });
+}
+
+function rebuild(
+  base: SapCp010Package,
+  args: {
+    stem: string;
+    answer: string;
+    wrongs: readonly SapCp010Option[];
+    data: Readonly<Record<string, number | string>>;
+    concept: string;
+    steps: readonly string[];
+    verification: readonly string[];
+    tag: string;
+  },
+): SapCp010Package {
+  const correct: SapCp010Option = Object.freeze({ value: args.answer, isCorrect: true, misconceptionId: null, analysis: "Correct." });
+  const unique = args.wrongs.filter((item, index, all) => item.value !== args.answer && all.findIndex((other) => other.value === item.value) === index);
+  if (unique.length < 3) throw new Error(`${base.prototypeId}:${base.seed}: rebuilt distractors collapsed.`);
+  const options = [...unique.slice(0, 3)];
+  options.splice(base.correctIndex, 0, correct);
+  const frozenOptions = Object.freeze(options);
+  const frozenData = Object.freeze({ ...args.data, finalRuntimeVersion: 4 });
+  const studentText = `${args.stem} ${args.answer} ${frozenOptions.map((o) => o.value).join(" ")} ${args.concept} ${args.steps.join(" ")} ${args.verification.join(" ")}`;
+  const errors: string[] = [];
+  if (frozenOptions.length !== 4 || new Set(frozenOptions.map((o) => o.value)).size !== 4) errors.push("Four distinct options required.");
+  if (args.steps.length < 2 || args.steps.length > 3) errors.push("Explanation must use 2-3 steps.");
+  if (args.stem.length > 220) errors.push("Stem too long for exam presentation.");
+  if (/oracle|runtime|prototype|canonical|internal|guard|machine policy|newton|taylor/i.test(studentText)) errors.push("Internal or unsupported wording leaked.");
+  if (/-?\d+\.\d{6,}/.test(studentText)) errors.push("Long floating-point display leaked.");
+  return Object.freeze({
+    ...base,
+    stem: args.stem,
+    canonicalAnswer: args.answer,
+    options: frozenOptions,
+    correctIndex: base.correctIndex,
+    explanation: Object.freeze({
+      coreConcept: args.concept,
+      steps: Object.freeze([...args.steps]),
+      finalAnswer: `Answer: ${args.answer}.`,
+      verification: Object.freeze([...args.verification]),
+    }),
+    oracle: Object.freeze({ kind: base.prototypeId, data: frozenData }),
+    canonicalPayloadKey: JSON.stringify({ prototypeId: base.prototypeId, stem: args.stem, answer: args.answer, data: frozenData, tag: args.tag }),
+    generationIdentity: `${base.prototypeId}:final-v4:${args.tag}:${base.seed}:${JSON.stringify(frozenData)}`,
     validation: Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors) }),
   });
 }
@@ -109,10 +160,48 @@ function rootQuotient(seed: number): SapCp010Package {
   );
 }
 
+function missingRadicand(seed: number): SapCp010Package {
+  const mode = 12;
+  const base = generateExam(SAP_CP010_PROTOTYPE_IDS[mode]!, seed);
+  const k = 8 + ((seed - 1) % 50);
+  const below = seed > 50;
+  const d = 1 + (Math.floor((seed - 1) / 10) % 4);
+  const square = k * k;
+  const correctN = below ? square - d : square + d;
+  const answer = String(correctN);
+  const stem = below
+    ? `Which value below ${square} has a square root nearest to ${k}?`
+    : `Which value above ${square} has a square root nearest to ${k}?`;
+  const wrongs = below
+    ? [
+        wrong(String((k - 1) ** 2 + 1), "NEAR_PREVIOUS_ROOT", "This value is nearer to the previous integer square-root benchmark."),
+        wrong(String((k - 1) ** 2 - d), "BELOW_PREVIOUS_SQUARE", "This value lies around the previous perfect square, not the required one."),
+        wrong(String((k - 2) ** 2 + d), "TWO_ROOTS_LOW", "This value is centred near an integer root two steps lower."),
+      ]
+    : [
+        wrong(String((k + 1) ** 2 - 1), "NEAR_NEXT_ROOT", "This value is nearer to the next integer square-root benchmark."),
+        wrong(String((k + 1) ** 2 + d), "ABOVE_NEXT_SQUARE", "This value lies around the next perfect square, not the required one."),
+        wrong(String((k + 2) ** 2 - d), "TWO_ROOTS_HIGH", "This value is centred near an integer root two steps higher."),
+      ];
+  return rebuild(base, {
+    stem,
+    answer,
+    wrongs,
+    data: { k, correctN, d, square, side: below ? "BELOW" : "ABOVE" },
+    concept: "Choose a number close enough to the required perfect square for its square root to round to that integer.",
+    steps: below
+      ? [`${k}² = ${square}, and ${correctN} is only ${d} below it.`, `So √${correctN} is nearest to ${k}.`]
+      : [`${k}² = ${square}, and ${correctN} is only ${d} above it.`, `So √${correctN} is nearest to ${k}.`],
+    verification: [`4 × ${correctN} lies between ${(2 * k - 1) ** 2} and ${(2 * k + 1) ** 2}, the exact nearest-integer band for root ${k}.`],
+    tag: "missing-radicand-100-material-states",
+  });
+}
+
 export function generateSapCp010(prototypeId: SapCp010PrototypeId, seed: number): SapCp010Package {
   if (prototypeId === SAP_CP010_PROTOTYPE_IDS[4]) return nearestIntegerCbrt(seed);
   if (prototypeId === SAP_CP010_PROTOTYPE_IDS[9]) return rootProduct(seed);
   if (prototypeId === SAP_CP010_PROTOTYPE_IDS[10]) return rootQuotient(seed);
+  if (prototypeId === SAP_CP010_PROTOTYPE_IDS[12]) return missingRadicand(seed);
   return generateExam(prototypeId, seed);
 }
 
