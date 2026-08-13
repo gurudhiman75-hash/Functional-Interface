@@ -54,7 +54,7 @@ function rootProduct(seed: number): SapCp010Package {
   const n1 = centeredSquare(r1, i % 4), n2 = centeredSquare(r2, (i + 2) % 4), ans = r1 * r2;
   const expr = `${rootTex(2, n1)} \\times ${rootTex(2, n2)}`;
   return rebuild(base, { stem: `Estimate ${math(expr)} by taking each square root to the nearest integer.`, answer: String(ans),
-    wrongs: [wrong(String((r1 - 1) * r2), "FIRST_LOW", "The first root was estimated one integer too low."), wrong(String(r1 * (r2 + 1)), "SECOND_HIGH", "The second root was estimated one integer too high."), wrong(String((r1 + 1) * (r2 - 1)), "BOTH_SHIFTED", "Both root estimates were shifted to neighbouring integers.")],
+    wrongs: [wrong(String((r1 - 1) * r2), "FIRST_LOW", "The first root was estimated one integer too low."), wrong(String(r1 * (r2 + 1)), "SECOND_HIGH", "The second root was estimated one integer too high."), wrong(String((r1 + 1) * (r2 + 1)), "BOTH_HIGH", "Both root estimates were taken one integer too high.")],
     data: { n1, n2, r1, r2, answer: ans, band1: i % 4, band2: (i + 2) % 4 }, concept: "Estimate each root to its nearest integer before multiplying.",
     steps: [`${math(rootTex(2, n1))} ≈ ${r1} and ${math(rootTex(2, n2))} ≈ ${r2}.`, math(`${r1} \\times ${r2} = ${ans}`)],
     verification: ["The two radicands sample both sides of their nearest-integer ranges."], tag: "root-product-depth" });
