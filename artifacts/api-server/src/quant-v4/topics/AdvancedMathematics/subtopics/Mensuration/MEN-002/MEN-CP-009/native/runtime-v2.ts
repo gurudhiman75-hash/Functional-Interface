@@ -16,10 +16,20 @@ import {
   buildMenCp009NativeFinalLineV4,
 } from "./final-polish-v4";
 import { naturalizeMenCp009NativeStemV3 } from "./stem-naturalizer-v3";
+import { normalizeMenCp009PunjabiSurfaceOrthography } from "./punjabi-surface-orthography-v1";
 import {
   MEN_CP_009_MULTILINGUAL_TEACHING_V2_AUTHORITY,
   type MenCp009NativeTeachingV2View,
 } from "./types-v2";
+
+function normalizeNativeSurfaceOrthography(
+  value: string,
+  language: MenCp009NativeV2Language,
+) {
+  return language === "pa"
+    ? normalizeMenCp009PunjabiSurfaceOrthography(value)
+    : value;
+}
 
 export function generateMenCp009NativeTeachingV2(
   qlId: string,
@@ -49,22 +59,34 @@ export function generateMenCp009NativeTeachingV2(
 
   const options = english.options.map((option) => ({
     label: option.label,
-    display: translateMenCp009DisplayV2(option.display, language),
+    display: normalizeNativeSurfaceOrthography(
+      translateMenCp009DisplayV2(option.display, language),
+      language,
+    ),
     isCorrect: option.isCorrect,
   }));
-  const answer = translateMenCp009DisplayV2(english.answer, language);
-  const stem = naturalizeMenCp009NativeStemV3(
-    simplifyMenCp009NativeStemV2(nativeV1.stem, language),
+  const answer = normalizeNativeSurfaceOrthography(
+    translateMenCp009DisplayV2(english.answer, language),
+    language,
+  );
+  const stem = normalizeNativeSurfaceOrthography(
+    naturalizeMenCp009NativeStemV3(
+      simplifyMenCp009NativeStemV2(nativeV1.stem, language),
+      language,
+    ),
     language,
   );
   const explanationLines = translateMenCp009TeachingExplanationV2(
     english.explanationLines,
     language,
   ).map((line) =>
-    polishMenCp009NativeTeachingV4(
-      naturalizeMenCp009NativeTeachingV3(
-        applyMenCp009NativeWordGuardV2(
-          cleanMenCp009NativeTeachingLineV2(line, language),
+    normalizeNativeSurfaceOrthography(
+      polishMenCp009NativeTeachingV4(
+        naturalizeMenCp009NativeTeachingV3(
+          applyMenCp009NativeWordGuardV2(
+            cleanMenCp009NativeTeachingLineV2(line, language),
+            language,
+          ),
           language,
         ),
         language,
@@ -72,9 +94,12 @@ export function generateMenCp009NativeTeachingV2(
       language,
     ),
   );
-  explanationLines[explanationLines.length - 1] = buildMenCp009NativeFinalLineV4(
-    english.familyId,
-    answer,
+  explanationLines[explanationLines.length - 1] = normalizeNativeSurfaceOrthography(
+    buildMenCp009NativeFinalLineV4(
+      english.familyId,
+      answer,
+      language,
+    ),
     language,
   );
 
