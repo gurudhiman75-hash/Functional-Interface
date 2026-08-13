@@ -27,15 +27,15 @@ export function buildQl130Editorial(frozen: any, seed: number) {
   } else if (seed % 2 === 0) {
     statement = `${math("3n^{2}+5n+1")} is odd`;
     answer = "Always true";
-    steps = [`Modulo 2, ${math("3n^{2}+5n+1\\equiv n^{2}+n+1")}.`, `${math("n^{2}+n=n(n+1)")} is even, so the expression is always odd.`];
+    steps = [`For odd/even behaviour, ${math("3n^{2}+5n+1")} has the same parity as ${math("n^{2}+n+1")}.`, `${math("n^{2}+n=n(n+1)")} is even, so the whole expression is always odd.`];
   } else {
     statement = `${math("3n^{2}+5n+1")} is even`;
     answer = "Never true";
-    steps = [`Modulo 2, ${math("3n^{2}+5n+1\\equiv n^{2}+n+1")}.`, `${math("n^{2}+n")} is even, so the expression is always odd, never even.`];
+    steps = [`For odd/even behaviour, ${math("3n^{2}+5n+1")} has the same parity as ${math("n^{2}+n+1")}.`, `${math("n^{2}+n")} is even, so the whole expression is always odd.`];
   }
   const labels = ["Always true", "True only when n is even", "True only when n is odd", "Never true"];
   const options = labels.filter((value) => value !== answer);
   const correctIndex = Number(frozen.correctIndex);
   options.splice(correctIndex, 0, answer);
-  return { stem: `For every integer ${math("n")}, which description is correct for the statement “${statement}”?`, options: Object.freeze(options), correctIndex, answer, concept: "Reduce the expression to even/odd behaviour for an arbitrary integer.", steps };
+  return { stem: `For every integer ${math("n")}, which description is correct for the statement “${statement}”?`, options: Object.freeze(options), correctIndex, answer, concept: "Track only whether each part is odd or even.", steps };
 }
