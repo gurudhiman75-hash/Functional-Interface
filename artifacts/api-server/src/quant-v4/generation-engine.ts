@@ -46,6 +46,12 @@ import {
 } from "./topics/Probability/PRB-002";
 import type { ProbabilityExamProfile } from "./topics/Probability/shared";
 import {
+  MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE,
+  generateMenCp009StandardQuestionStudioBatch,
+  isMenCp009StandardQuestionStudioRequest,
+  type MenCp009StandardQuestionStudioRequest,
+} from "./topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/question-studio-runtime";
+import {
   CAL_001_QUESTION_STUDIO_PACKAGE,
   generateCal001QuestionStudioBatch,
   isCal001GenerationRequest,
@@ -57,6 +63,7 @@ export type QuantV4PackageId =
   | "PNL-001"
   | "PRB-001"
   | "PRB-002"
+  | "MEN-002"
   | "CAL-001";
 
 export type QuantV4GenerationRequest = Omit<
@@ -421,7 +428,7 @@ function probabilityPackageForQuestionStudio(pkg: RuntimeDefinition) {
 }
 
 export function listQuantV4Packages() {
-  const specialIds = new Set(["PNL-001", "PRB-001", "PRB-002", "CAL-001"]);
+  const specialIds = new Set(["PNL-001", "PRB-001", "PRB-002", "MEN-002", "CAL-001"]);
   const corePackages = listCorePackages()
     .filter((pkg) => !isRawPnlCheckpointPackage(pkg))
     .filter((pkg) => !specialIds.has(pkg.packageId))
@@ -434,6 +441,7 @@ export function listQuantV4Packages() {
   return [
     ...corePackages,
     CAL_001_QUESTION_STUDIO_PACKAGE,
+    MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE,
     pnlPackageForQuestionStudio(),
     ...PRB_RUNTIME_PACKAGES.map(probabilityPackageForQuestionStudio),
   ].sort((left, right) => left.packageId.localeCompare(right.packageId));
@@ -542,6 +550,12 @@ async function generateWithRuntimePackage(
 }
 
 export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
+  if (isMenCp009StandardQuestionStudioRequest(request as MenCp009StandardQuestionStudioRequest)) {
+    return generateMenCp009StandardQuestionStudioBatch(
+      request as MenCp009StandardQuestionStudioRequest,
+    );
+  }
+
   if (isCal001GenerationRequest(request as Cal001QuestionStudioRequest)) {
     return generateCal001QuestionStudioBatch(
       request as Cal001QuestionStudioRequest,
