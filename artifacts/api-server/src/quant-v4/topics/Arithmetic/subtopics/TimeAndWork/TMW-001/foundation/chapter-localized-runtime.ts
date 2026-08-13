@@ -16,6 +16,7 @@ import { runTmwCp011Pipeline } from "./cp011-runtime";
 import { runTmwCp011LocalizedPipeline } from "./cp011-localized-runtime";
 import { runTmwCp012CoverageClosurePipeline } from "./cp012-coverage-closure-runtime";
 import { runTmwCp013DataSufficiencyPipeline } from "./cp013-data-sufficiency-runtime";
+import { finalizeTmwCp013MultilingualEditorialReview } from "./cp013-multilingual-editorial-review-finalizer";
 import { runTmwCp014PresentationPipeline } from "./cp014-presentation-runtime";
 import { polishTmw001ExtensionQuestion } from "./final-extension-presentation-polish";
 import { applyTmw001MultilingualStemRemediation } from "./chapter-editorial-remediation";
@@ -131,7 +132,12 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   if (ordinal >= 224) {
     return polishTmw001ExtensionQuestion(runTmwCp014PresentationPipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
   }
-  if (ordinal >= 216) return runTmwCp013DataSufficiencyPipeline({ ...base, language: input.language });
+  if (ordinal >= 216) {
+    return finalizeTmwCp013MultilingualEditorialReview(
+      runTmwCp013DataSufficiencyPipeline({ ...base, language: input.language }),
+      input.language,
+    );
+  }
   if (ordinal >= 212) {
     return polishTmw001ExtensionQuestion(runTmwCp012CoverageClosurePipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
   }
