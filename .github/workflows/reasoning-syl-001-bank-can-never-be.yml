@@ -12,8 +12,11 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-shell-v1-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v2.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v2-audit.test.ts
-      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-can-never-be-review-v1.ts
-      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-can-never-be-editorial-v2.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-shell-v2.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-shell-v2-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v3.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v3-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-can-never-be-editorial-v3.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-balanced.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-balanced-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-BANKING-CAN-NEVER-BE-SOURCE-CLOSURE-V1.md
@@ -35,31 +38,52 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Bundle can-never-be semantic audit
+
+      - name: Bundle legacy semantic regression audit
         run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-shell-v1-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-can-never-be-shell-v1-audit.test.mjs
-      - name: Run can-never-be semantic audit
+      - name: Run legacy semantic regression audit
         shell: bash
         run: |
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-shell-v1-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-shell-v1-audit.log
-      - name: Bundle can-never-be editorial V2 audit
+
+      - name: Bundle legacy editorial V2 regression audit
         run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v2-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v2-audit.test.mjs
-      - name: Run can-never-be editorial V2 audit
+      - name: Run legacy editorial V2 regression audit
         shell: bash
         run: |
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v2-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v2-audit.log
-      - name: Bundle V2 answer-balance audit
+
+      - name: Bundle anti-pattern-remediated semantic V2 audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-shell-v2-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-can-never-be-shell-v2-audit.test.mjs
+      - name: Run anti-pattern-remediated semantic V2 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-shell-v2-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-shell-v2-audit.log
+
+      - name: Bundle premise-specific editorial V3 audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v3-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v3-audit.test.mjs
+      - name: Run premise-specific editorial V3 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v3-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v3-audit.log
+
+      - name: Bundle ordinary possibility answer-balance audit
         run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-balanced-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-possibility-v2-balanced-audit.test.mjs
-      - name: Run V2 answer-balance audit
+      - name: Run ordinary possibility answer-balance audit
         shell: bash
         run: |
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-v2-balanced-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-v2-balanced-audit.log
-      - name: Bundle editorial V2 review exporter
-        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-can-never-be-editorial-v2.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/export-syl-001-bank-can-never-be-editorial-v2.mjs
-      - name: Generate editorial V2 human review pack
-        run: node artifacts/api-server/dist/reasoning-v1/export-syl-001-bank-can-never-be-editorial-v2.mjs
+
+      - name: Bundle editorial V3 review exporter
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-can-never-be-editorial-v3.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/export-syl-001-bank-can-never-be-editorial-v3.mjs
+      - name: Generate editorial V3 human review pack
+        run: node artifacts/api-server/dist/reasoning-v1/export-syl-001-bank-can-never-be-editorial-v3.mjs
+
       - name: Upload closure evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -68,7 +92,9 @@ jobs:
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-shell-v1-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v2-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-shell-v2-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v3-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-v2-balanced-audit.log
-            dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v2/**
+            dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v3/**
           if-no-files-found: error
           retention-days: 30
