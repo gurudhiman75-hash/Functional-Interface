@@ -64,11 +64,11 @@ For learner-facing Hindi and Punjabi, **surface area is expressed as “area of 
 
 | English | Hindi | Punjabi |
 |---|---|---|
-| Surface area | `सतह का क्षेत्रफल` | `ਸਤਹ ਦਾ ਖੇਤਰਫਲ` |
-| Curved surface area | `वक्र सतह का क्षेत्रफल` | `ਵਕਰ ਸਤਹ ਦਾ ਖੇਤਰਫਲ` |
-| Total surface area | `कुल सतह का क्षेत्रफल` | `ਕੁੱਲ ਸਤਹ ਦਾ ਖੇਤਰਫਲ` |
+| Surface area | `सतह का क्षेत्रफल` | `ਸਤ੍ਹਾ ਦਾ ਖੇਤਰਫਲ` |
+| Curved surface area | `वक्र सतह का क्षेत्रफल` | `ਵਕਰ ਸਤ੍ਹਾ ਦਾ ਖੇਤਰਫਲ` |
+| Total surface area | `कुल सतह का क्षेत्रफल` | `ਕੁੱਲ ਸਤ੍ਹਾ ਦਾ ਖੇਤਰਫਲ` |
 
-Forms such as `पृष्ठीय क्षेत्रफल`, `वक्र पृष्ठीय क्षेत्रफल`, `कुल पृष्ठीय क्षेत्रफल`, `ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ`, `ਵਕਰ ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ` and `ਕੁੱਲ ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ` are not allowed on the learner surface.
+Forms such as `पृष्ठीय क्षेत्रफल`, `वक्र पृष्ठीय क्षेत्रफल`, `कुल पृष्ठीय क्षेत्रफल`, `ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ`, `ਵਕਰ ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ`, `ਕੁੱਲ ਪ੍ਰਿਸ਼ਠੀ ਖੇਤਰਫਲ` and the misspelling `ਸਤਹ` are not allowed on the learner surface. Punjabi must use `ਸਤ੍ਹਾ`.
 
 ### Hindi
 
@@ -85,9 +85,9 @@ Avoid unnecessarily formal wording where simpler school/exam Hindi is clear.
 
 Prefer simple phrases such as:
 
-- `ਸਤਹ ਦਾ ਖੇਤਰਫਲ`
-- `ਵਕਰ ਸਤਹ ਦਾ ਖੇਤਰਫਲ`
-- `ਕੁੱਲ ਸਤਹ ਦਾ ਖੇਤਰਫਲ`
+- `ਸਤ੍ਹਾ ਦਾ ਖੇਤਰਫਲ`
+- `ਵਕਰ ਸਤ੍ਹਾ ਦਾ ਖੇਤਰਫਲ`
+- `ਕੁੱਲ ਸਤ੍ਹਾ ਦਾ ਖੇਤਰਫਲ`
 - `ਮੁੱਲ ਸੂਤਰ ਵਿੱਚ ਰੱਖਣ ਤੇ...`
 
 Avoid overly Sanskritised or bookish phrasing when a natural Punjabi sentence is available.
