@@ -62,14 +62,14 @@ function rootProduct(seed: number): SapCp010Package {
 
 function rootQuotient(seed: number): SapCp010Package {
   const id = SAP_CP010_PROTOTYPE_IDS[10]!, base = generateRootDepthFoundation(id, seed), i = seed - 1;
-  const dr = 3 + (i % 8), block = Math.floor(i / 8), q = 2 + (block % 4), nr = dr * q;
-  const n = centeredSquare(nr, block % 4), d = centeredSquare(dr, (block + 2) % 4);
+  const group = Math.floor(i / 25), dr = 3 + (i % 25), q = 2 + group, nr = dr * q;
+  const n = centeredSquare(nr, i % 4), d = centeredSquare(dr, (i + 2) % 4);
   const expr = `${rootTex(2, n)} \\div ${rootTex(2, d)}`;
   return rebuild(base, { stem: `Estimate ${math(expr)} by taking each square root to the nearest integer.`, answer: String(q),
-    wrongs: [wrong(String(Math.max(1, q - 1)), "ONE_LOW", "The quotient is one unit too low."), wrong(String(q + 1), "ONE_HIGH", "The quotient is one unit too high."), wrong(String(q + 2), "TWO_HIGH", "The quotient is two units too high.")],
-    data: { n, d, numeratorRoot: nr, divisorRoot: dr, quotient: q, block }, concept: "Estimate the numerator and denominator roots separately, then divide.",
+    wrongs: [wrong(String(q - 1), "ONE_LOW", "The quotient is one unit too low."), wrong(String(q + 1), "ONE_HIGH", "The quotient is one unit too high."), wrong(String(q + 2), "TWO_HIGH", "The quotient is two units too high.")],
+    data: { n, d, numeratorRoot: nr, divisorRoot: dr, quotient: q, group, numeratorBand: i % 4, divisorBand: (i + 2) % 4 }, concept: "Estimate the numerator and denominator roots separately, then divide.",
     steps: [`${math(rootTex(2, n))} ≈ ${nr} and ${math(rootTex(2, d))} ≈ ${dr}.`, math(`${nr} \\div ${dr} = ${q}`)],
-    verification: ["Both roots are inside their nearest-integer ranges and the denominator estimate is non-zero."], tag: "root-quotient-depth" });
+    verification: ["The 100 states use 25 divisor roots across four quotient levels; both roots remain inside their nearest-integer ranges."], tag: "root-quotient-depth" });
 }
 
 function missingRadicand(seed: number): SapCp010Package {
