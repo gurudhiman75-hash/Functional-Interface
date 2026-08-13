@@ -51,14 +51,14 @@ function filteredIntervalCount(frozen: any, seed: number) {
     high = 7 + shift;
     kind = seed % 2 === 0 ? "positive" : "negative";
     values = Array.from({ length: high - low + 1 }, (_, index) => low + index).filter((value) => kind === "positive" ? value > 0 : value < 0);
-    stem = `How many ${kind} integers are there in the interval ${math(`[${low},${high}]`)}?`;
+    stem = `How many ${kind} integers are there in the interval [${low},${high}]?`;
     concept = `Count only the ${kind} integers inside the closed interval.`;
   } else if (band === "MEDIUM") {
     low = -9 - shift;
     high = 8 + shift;
     kind = seed % 2 === 0 ? "even" : "odd";
     values = Array.from({ length: high - low + 1 }, (_, index) => low + index).filter((value) => kind === "even" ? value % 2 === 0 : Math.abs(value % 2) === 1);
-    stem = `How many ${kind} integers are there in the interval ${math(`[${low},${high}]`)}?`;
+    stem = `How many ${kind} integers are there in the interval [${low},${high}]?`;
     concept = `Apply the ${kind} filter to all integers in the closed interval.`;
   } else {
     low = -8 - shift;
