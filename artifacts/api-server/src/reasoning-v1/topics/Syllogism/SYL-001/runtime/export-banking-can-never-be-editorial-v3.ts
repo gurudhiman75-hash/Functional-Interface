@@ -77,7 +77,10 @@ const summary = {
     modalTruthBiasRemoved: true,
     orthogonalGrid: "4 statuses x 2 modal positions x 2 modal kinds",
   },
-  explanationPolicy: "PREMISE_SPECIFIC_RELATION_REASONING_V3",
+  explanationPolicy: "COMPLETE_PREMISE_SET_RELATION_REASONING_V3",
+  completePremiseEvidence: true,
+  englishPluralAgreementLeakage: 0,
+  hindiPunjabiEnglishModalLeaks: 0,
   humanEditorialStatus: "PENDING",
   humanLocalizationStatus: "PENDING",
   humanExamAuthenticityStatus: "PENDING",
@@ -92,17 +95,17 @@ function card(question: (typeof records)[number]): string {
 <section><h3>Statements</h3><ol>${question.statements.map((entry) => `<li>${esc(entry)}</li>`).join("")}</ol></section>
 <section><h3>Conclusions</h3><ol class="roman">${question.conclusions.map((entry) => `<li><small>${esc(entry.mode)}${entry.surfaceKind ? ` · ${esc(entry.surfaceKind)}` : ""} · ${entry.follows ? "FOLLOWS" : "DOES NOT FOLLOW"}</small><br>${esc(entry.text)}</li>`).join("")}</ol></section>
 <section><h3>Options</h3><ol type="A">${question.options.map((entry) => `<li class="${entry.isCorrect ? "correct" : ""}">${esc(entry.text)}</li>`).join("")}</ol><p><b>Correct answer:</b> ${esc(answer)}</p></section>
-<section><h3>Premise-specific explanation</h3>${question.explanation.map((entry) => `<p>${esc(entry)}</p>`).join("")}</section>
+<section><h3>Complete-premise explanation</h3>${question.explanation.map((entry) => `<p>${esc(entry)}</p>`).join("")}</section>
 <section><h3>Explanation evidence</h3>${question.explanationEvidence.map((entry) => `<p><b>${entry.label}:</b> ${entry.premiseIds.map(esc).join(", ")}</p>`).join("")}</section>
 </article>`;
 }
 
-const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SYL-001 Banking Can-Never-Be Editorial V3</title><style>body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#f1f5f9;color:#0f172a;margin:0;padding:18px}main{max-width:1050px;margin:auto}.notice,.card{background:#fff;border:1px solid #cbd5e1;border-radius:14px;padding:16px;margin:0 0 18px}.notice{border-left:5px solid #d97706}.card header{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #e2e8f0;padding-bottom:10px}.roman{list-style-type:upper-roman}.correct{font-weight:800}small{color:#475569}p,li{line-height:1.55}h1{margin-top:0}@media(max-width:700px){body{padding:8px}.card{padding:12px}}</style></head><body><main><h1>SYL-001 Banking Can-Never-Be — Editorial V3</h1><div class="notice"><b>Human review required.</b> This candidate removes the measured Conclusion-I/modal-truth shortcut and uses premise-specific learner explanations. Registration and activation remain disabled.</div>${records.map(card).join("\n")}</main></body></html>`;
+const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SYL-001 Banking Can-Never-Be Editorial V3</title><style>body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#f1f5f9;color:#0f172a;margin:0;padding:18px}main{max-width:1050px;margin:auto}.notice,.card{background:#fff;border:1px solid #cbd5e1;border-radius:14px;padding:16px;margin:0 0 18px}.notice{border-left:5px solid #d97706}.card header{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #e2e8f0;padding-bottom:10px}.roman{list-style-type:upper-roman}.correct{font-weight:800}small{color:#475569}p,li{line-height:1.55}h1{margin-top:0}@media(max-width:700px){body{padding:8px}.card{padding:12px}}</style></head><body><main><h1>SYL-001 Banking Can-Never-Be — Editorial V3</h1><div class="notice"><b>Human review required.</b> This candidate removes the measured Conclusion-I/modal-truth shortcut and uses complete-premise, relation-specific learner explanations so existential support cannot be omitted. Registration and activation remain disabled.</div>${records.map(card).join("\n")}</main></body></html>`;
 
 const markdown = [
   "# SYL-001 Banking Can-Never-Be — Editorial V3",
   "",
-  "> Human review required. Anti-pattern-remediated selection and premise-specific explanations; no registration or activation is permitted.",
+  "> Human review required. Anti-pattern-remediated selection and complete-premise relation-specific explanations; no registration or activation is permitted.",
   "",
   ...records.flatMap((question) => [
     `## Seed ${question.seed} — ${question.locale} — ${question.scenarioId}`,
@@ -116,7 +119,7 @@ const markdown = [
     "### Options",
     ...question.options.map((entry, index) => `${String.fromCharCode(65 + index)}. ${entry.text}${entry.isCorrect ? " **✓**" : ""}`),
     "",
-    "### Explanation",
+    "### Complete-premise explanation",
     ...question.explanation.map((entry) => `- ${entry}`),
     "",
     "### Evidence premises",
