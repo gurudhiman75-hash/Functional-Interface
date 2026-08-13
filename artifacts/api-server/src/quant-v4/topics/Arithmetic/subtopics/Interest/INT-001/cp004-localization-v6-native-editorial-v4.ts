@@ -153,6 +153,9 @@ function latexifyWorkedStep(locale: IntCp004V6Locale, original: string): string 
     : /^(ਹਰ ਮਿਆਦ ਦੀ ਦਰ)\s*=\s*(.+)$/u);
   if (rateLine) return `${rateLine[1]}: $${convertMathExpression(rateLine[2])}$।`;
 
+  const mixedMath = step.match(/^(.+[=×÷^].*?);\s*(\$[^$]+\$)[।.]?$/u);
+  if (mixedMath) return `$${convertMathExpression(mixedMath[1])}$; ${mixedMath[2]}।`;
+
   const colonIndex = step.indexOf(":");
   if (colonIndex >= 0) {
     const prefix = step.slice(0, colonIndex + 1);
@@ -162,12 +165,14 @@ function latexifyWorkedStep(locale: IntCp004V6Locale, original: string): string 
     }
   }
 
-  if (/^(?:A|P|E|A₁|A₂|\[|\d[\d,.]*\s*÷)/u.test(step) && /[=×÷^]/u.test(step) && !step.includes("$")) {
+  if (/^(?:A|P|E|A₁|A₂|\[|₹?\d[\d,.]*\s*÷)/u.test(step) && /[=×÷^]/u.test(step) && !step.includes("$")) {
     return `$${convertMathExpression(step)}$।`;
   }
 
-  step = step.replace(/\b([nmyx]) = ([0-9.]+)/gu, (_m, variable: string, value: string) => `$${variable}=${value}$`);
-  step = step.replace(/\b([nmyx])=([0-9.]+)/gu, (_m, variable: string, value: string) => `$${variable}=${value}$`);
+  if (!step.includes("$")) {
+    step = step.replace(/\b([nmyx]) = ([0-9.]+)/gu, (_m, variable: string, value: string) => `$${variable}=${value}$`);
+    step = step.replace(/\b([nmyx])=([0-9.]+)/gu, (_m, variable: string, value: string) => `$${variable}=${value}$`);
+  }
   return step;
 }
 
