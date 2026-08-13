@@ -1,4 +1,4 @@
-import { toCanonicalString, type Rational } from "../foundation/rational";
+import { compare, toCanonicalString, type Rational } from "../foundation/rational";
 import { deriveExamReadyCp004WrongWorkings } from "./distractor-remediation";
 import { generateCp004State, renderCp004Stem } from "./generator";
 import { independentlyVerifyCp004 } from "./independent-verifier";
@@ -56,6 +56,11 @@ function validateQuestion(question: Omit<TsdCp004GeneratedQuestion, "validation"
   if (question.internalOptionAudit.filter((entry) => entry.isCorrect).length !== 1) errors.push("option audit must contain one correct option");
   if (question.internalOptionAudit.filter((entry) => !entry.isCorrect).length !== 3) errors.push("option audit must contain three wrong options");
   if (question.internalOptionAudit.some((entry) => !entry.isCorrect && (entry.wrongWorking === null || entry.applicability !== "EXACT_METHOD"))) errors.push("wrong option missing exact-method provenance");
+  if ((question.solveMode === "findMeetingPointDistanceSplit" || question.solveMode === "findMeetingPointFromSpeedRatio") && question.input.routeDistance) {
+    if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && compare(entry.wrongWorking.value, question.input.routeDistance!) >= 0)) {
+      errors.push("meeting-point distractor must lie strictly inside the route");
+    }
+  }
   if (question.explanation.steps.length < 2) errors.push("learner explanation is too short");
   if ((question.explanation as unknown as Record<string, unknown>).optionAnalysis !== undefined) errors.push("public explanation must not contain option analysis");
   if (cp004PermanentQlForAuthority(question.authorityKey).permanentQlId !== question.permanentQlId) errors.push("permanent QL does not match authority allocation");
