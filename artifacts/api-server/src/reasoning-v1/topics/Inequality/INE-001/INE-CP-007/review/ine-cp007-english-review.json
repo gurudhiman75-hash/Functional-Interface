@@ -1,0 +1,1082 @@
+[
+  {
+    "index": 1,
+    "recordId": "INE-CP007-EDC33F7F",
+    "authorityId": "COMPLETE_MISSING_CODED_OPERATOR",
+    "seed": 0,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded symbol should fill the blank so that the required strongest relation is obtained?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A # B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "P ___ Q @ R",
+      "Required strongest relation: P > R"
+    ],
+    "options": [
+      "&",
+      "%",
+      "#",
+      "$"
+    ],
+    "correctIndex": 1,
+    "correctOption": "%",
+    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P > R, the blank must be % (>).",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 2,
+    "recordId": "INE-CP007-D49A0CB4",
+    "authorityId": "COMPLETE_MISSING_CODED_OPERATOR",
+    "seed": 1,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded symbol should fill the blank so that the required strongest relation is obtained?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ~ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "P ___ Q ! R",
+      "Required strongest relation: P < R"
+    ],
+    "options": [
+      "?",
+      "^",
+      "~",
+      "!"
+    ],
+    "correctIndex": 0,
+    "correctOption": "?",
+    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P < R, the blank must be ? (<).",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 3,
+    "recordId": "INE-CP007-724FF02D",
+    "authorityId": "COMPLETE_MISSING_CODED_OPERATOR",
+    "seed": 2,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded symbol should fill the blank so that the required strongest relation is obtained?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A # B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A & B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "P ___ Q # R",
+      "Required strongest relation: P = R"
+    ],
+    "options": [
+      "@",
+      "$",
+      "#",
+      "&"
+    ],
+    "correctIndex": 2,
+    "correctOption": "#",
+    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P = R, the blank must be # (=).",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 4,
+    "recordId": "INE-CP007-217E131A",
+    "authorityId": "COMPLETE_MISSING_CODED_OPERATOR",
+    "seed": 3,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded symbol should fill the blank so that the required strongest relation is obtained?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ^ B means A is equal to B.",
+      "A ? B means A is greater than or equal to B.",
+      "A ! B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "P ___ Q ^ R",
+      "Required strongest relation: P ≥ R"
+    ],
+    "options": [
+      "^",
+      "+",
+      "!",
+      "?"
+    ],
+    "correctIndex": 3,
+    "correctOption": "?",
+    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P ≥ R, the blank must be ? (≥).",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 5,
+    "recordId": "INE-CP007-A14A360B",
+    "authorityId": "COMPLETE_MISSING_CODED_OPERATOR",
+    "seed": 4,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded symbol should fill the blank so that the required strongest relation is obtained?",
+    "codeKey": [
+      "A & B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A % B means A is equal to B.",
+      "A # B means A is greater than or equal to B.",
+      "A @ B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "P ___ Q % R",
+      "Required strongest relation: P ≤ R"
+    ],
+    "options": [
+      "$",
+      "#",
+      "@",
+      "%"
+    ],
+    "correctIndex": 2,
+    "correctOption": "@",
+    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P ≤ R, the blank must be @ (≤).",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 6,
+    "recordId": "INE-CP007-926A3F00",
+    "authorityId": "COMPLETE_MISSING_CODED_OPERATOR",
+    "seed": 5,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded symbol should fill the blank so that the required strongest relation is obtained?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "P ___ Q ! R",
+      "Required strongest relation: P > R"
+    ],
+    "options": [
+      "^",
+      "~",
+      "?",
+      "+"
+    ],
+    "correctIndex": 1,
+    "correctOption": "~",
+    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P > R, the blank must be ~ (>).",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 7,
+    "recordId": "INE-CP007-D9950BB9",
+    "authorityId": "COMPLETE_MISSING_CODED_OPERATOR",
+    "seed": 6,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded symbol should fill the blank so that the required strongest relation is obtained?",
+    "codeKey": [
+      "A @ B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A # B means A is equal to B.",
+      "A % B means A is greater than or equal to B.",
+      "A & B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "P ___ Q # R",
+      "Required strongest relation: P < R"
+    ],
+    "options": [
+      "%",
+      "&",
+      "@",
+      "$"
+    ],
+    "correctIndex": 3,
+    "correctOption": "$",
+    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P < R, the blank must be $ (<).",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 8,
+    "recordId": "INE-CP007-689B6D36",
+    "authorityId": "COMPLETE_MISSING_CODED_OPERATOR",
+    "seed": 7,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded symbol should fill the blank so that the required strongest relation is obtained?",
+    "codeKey": [
+      "A ! B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A + B means A is equal to B.",
+      "A ~ B means A is greater than or equal to B.",
+      "A ^ B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "P ___ Q + R",
+      "Required strongest relation: P = R"
+    ],
+    "options": [
+      "+",
+      "?",
+      "~",
+      "^"
+    ],
+    "correctIndex": 0,
+    "correctOption": "+",
+    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P = R, the blank must be + (=).",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 9,
+    "recordId": "INE-CP007-25DBB597",
+    "authorityId": "COMPLETE_MISSING_CODED_OPERATOR",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded symbol should fill the blank so that the required strongest relation is obtained?",
+    "codeKey": [
+      "A # B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "P ___ Q @ R",
+      "Required strongest relation: P ≥ R"
+    ],
+    "options": [
+      "&",
+      "%",
+      "@",
+      "$"
+    ],
+    "correctIndex": 0,
+    "correctOption": "&",
+    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P ≥ R, the blank must be & (≥).",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 10,
+    "recordId": "INE-CP007-A160E60C",
+    "authorityId": "COMPLETE_MISSING_CODED_OPERATOR",
+    "seed": 9,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded symbol should fill the blank so that the required strongest relation is obtained?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "P ___ Q ! R",
+      "Required strongest relation: P ≤ R"
+    ],
+    "options": [
+      "^",
+      "+",
+      "!",
+      "?"
+    ],
+    "correctIndex": 1,
+    "correctOption": "+",
+    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P ≤ R, the blank must be + (≤).",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 11,
+    "recordId": "INE-CP007-1C755E72",
+    "authorityId": "COMPLETE_MISSING_CODED_OPERATOR",
+    "seed": 10,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded symbol should fill the blank so that the required strongest relation is obtained?",
+    "codeKey": [
+      "A $ B means A is greater than B.",
+      "A # B means A is less than B.",
+      "A & B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "P ___ Q & R",
+      "Required strongest relation: P > R"
+    ],
+    "options": [
+      "%",
+      "#",
+      "$",
+      "&"
+    ],
+    "correctIndex": 2,
+    "correctOption": "$",
+    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P > R, the blank must be $ (>).",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 12,
+    "recordId": "INE-CP007-15C1D4A5",
+    "authorityId": "COMPLETE_MISSING_CODED_OPERATOR",
+    "seed": 11,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded symbol should fill the blank so that the required strongest relation is obtained?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ~ B means A is equal to B.",
+      "A ! B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "P ___ Q ~ R",
+      "Required strongest relation: P < R"
+    ],
+    "options": [
+      "~",
+      "^",
+      "!",
+      "+"
+    ],
+    "correctIndex": 3,
+    "correctOption": "+",
+    "explanation": "Q = R, so replacing Q with R does not change the comparison. To obtain P < R, the blank must be + (<).",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 13,
+    "recordId": "INE-CP007-4F707DFB",
+    "authorityId": "SELECT_CODED_EXPRESSION_FOR_RELATION",
+    "seed": 0,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded expression establishes the required strongest relation?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A # B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "Required strongest relation: P > R"
+    ],
+    "options": [
+      "P $ Q @ R",
+      "P & Q @ R",
+      "P % Q @ R",
+      "P @ Q @ R"
+    ],
+    "correctIndex": 2,
+    "correctOption": "P % Q @ R",
+    "explanation": "Q = R, so only the first symbol decides the answer. % means >, giving P > Q = R and therefore P > R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 14,
+    "recordId": "INE-CP007-3E48B630",
+    "authorityId": "SELECT_CODED_EXPRESSION_FOR_RELATION",
+    "seed": 1,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded expression establishes the required strongest relation?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ~ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "Required strongest relation: P < R"
+    ],
+    "options": [
+      "P ~ Q ! R",
+      "P ^ Q ! R",
+      "P + Q ! R",
+      "P ? Q ! R"
+    ],
+    "correctIndex": 3,
+    "correctOption": "P ? Q ! R",
+    "explanation": "Q = R, so only the first symbol decides the answer. ? means <, giving P < Q = R and therefore P < R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 15,
+    "recordId": "INE-CP007-2E412CE9",
+    "authorityId": "SELECT_CODED_EXPRESSION_FOR_RELATION",
+    "seed": 2,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded expression establishes the required strongest relation?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A # B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A & B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "Required strongest relation: P = R"
+    ],
+    "options": [
+      "P # Q # R",
+      "P % Q # R",
+      "P & Q # R",
+      "P $ Q # R"
+    ],
+    "correctIndex": 0,
+    "correctOption": "P # Q # R",
+    "explanation": "Q = R, so only the first symbol decides the answer. # means =, giving P = Q = R and therefore P = R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 16,
+    "recordId": "INE-CP007-462D7466",
+    "authorityId": "SELECT_CODED_EXPRESSION_FOR_RELATION",
+    "seed": 3,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded expression establishes the required strongest relation?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ^ B means A is equal to B.",
+      "A ? B means A is greater than or equal to B.",
+      "A ! B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "Required strongest relation: P ≥ R"
+    ],
+    "options": [
+      "P ^ Q ^ R",
+      "P ? Q ^ R",
+      "P ! Q ^ R",
+      "P + Q ^ R"
+    ],
+    "correctIndex": 1,
+    "correctOption": "P ? Q ^ R",
+    "explanation": "Q = R, so only the first symbol decides the answer. ? means ≥, giving P ≥ Q = R and therefore P ≥ R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 17,
+    "recordId": "INE-CP007-59938BAF",
+    "authorityId": "SELECT_CODED_EXPRESSION_FOR_RELATION",
+    "seed": 4,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded expression establishes the required strongest relation?",
+    "codeKey": [
+      "A & B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A % B means A is equal to B.",
+      "A # B means A is greater than or equal to B.",
+      "A @ B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "Required strongest relation: P ≤ R"
+    ],
+    "options": [
+      "P & Q % R",
+      "P # Q % R",
+      "P @ Q % R",
+      "P $ Q % R"
+    ],
+    "correctIndex": 2,
+    "correctOption": "P @ Q % R",
+    "explanation": "Q = R, so only the first symbol decides the answer. @ means ≤, giving P ≤ Q = R and therefore P ≤ R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 18,
+    "recordId": "INE-CP007-5D18D164",
+    "authorityId": "SELECT_CODED_EXPRESSION_FOR_RELATION",
+    "seed": 5,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded expression establishes the required strongest relation?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "Required strongest relation: P > R"
+    ],
+    "options": [
+      "P ! Q ! R",
+      "P ~ Q ! R",
+      "P + Q ! R",
+      "P ^ Q ! R"
+    ],
+    "correctIndex": 1,
+    "correctOption": "P ~ Q ! R",
+    "explanation": "Q = R, so only the first symbol decides the answer. ~ means >, giving P > Q = R and therefore P > R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 19,
+    "recordId": "INE-CP007-62785B9D",
+    "authorityId": "SELECT_CODED_EXPRESSION_FOR_RELATION",
+    "seed": 6,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded expression establishes the required strongest relation?",
+    "codeKey": [
+      "A @ B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A # B means A is equal to B.",
+      "A % B means A is greater than or equal to B.",
+      "A & B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "Required strongest relation: P < R"
+    ],
+    "options": [
+      "P & Q # R",
+      "P @ Q # R",
+      "P # Q # R",
+      "P $ Q # R"
+    ],
+    "correctIndex": 3,
+    "correctOption": "P $ Q # R",
+    "explanation": "Q = R, so only the first symbol decides the answer. $ means <, giving P < Q = R and therefore P < R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 20,
+    "recordId": "INE-CP007-6FD2464A",
+    "authorityId": "SELECT_CODED_EXPRESSION_FOR_RELATION",
+    "seed": 7,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded expression establishes the required strongest relation?",
+    "codeKey": [
+      "A ! B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A + B means A is equal to B.",
+      "A ~ B means A is greater than or equal to B.",
+      "A ^ B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "Required strongest relation: P = R"
+    ],
+    "options": [
+      "P + Q + R",
+      "P ^ Q + R",
+      "P ~ Q + R",
+      "P ? Q + R"
+    ],
+    "correctIndex": 0,
+    "correctOption": "P + Q + R",
+    "explanation": "Q = R, so only the first symbol decides the answer. + means =, giving P = Q = R and therefore P = R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 21,
+    "recordId": "INE-CP007-CA3209D3",
+    "authorityId": "SELECT_CODED_EXPRESSION_FOR_RELATION",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded expression establishes the required strongest relation?",
+    "codeKey": [
+      "A # B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "Required strongest relation: P ≥ R"
+    ],
+    "options": [
+      "P & Q @ R",
+      "P % Q @ R",
+      "P # Q @ R",
+      "P @ Q @ R"
+    ],
+    "correctIndex": 0,
+    "correctOption": "P & Q @ R",
+    "explanation": "Q = R, so only the first symbol decides the answer. & means ≥, giving P ≥ Q = R and therefore P ≥ R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 22,
+    "recordId": "INE-CP007-30A5AB68",
+    "authorityId": "SELECT_CODED_EXPRESSION_FOR_RELATION",
+    "seed": 9,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded expression establishes the required strongest relation?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "Required strongest relation: P ≤ R"
+    ],
+    "options": [
+      "P ^ Q ! R",
+      "P + Q ! R",
+      "P ! Q ! R",
+      "P ~ Q ! R"
+    ],
+    "correctIndex": 1,
+    "correctOption": "P + Q ! R",
+    "explanation": "Q = R, so only the first symbol decides the answer. + means ≤, giving P ≤ Q = R and therefore P ≤ R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 23,
+    "recordId": "INE-CP007-D9029406",
+    "authorityId": "SELECT_CODED_EXPRESSION_FOR_RELATION",
+    "seed": 10,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded expression establishes the required strongest relation?",
+    "codeKey": [
+      "A $ B means A is greater than B.",
+      "A # B means A is less than B.",
+      "A & B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "Required strongest relation: P > R"
+    ],
+    "options": [
+      "P # Q & R",
+      "P % Q & R",
+      "P $ Q & R",
+      "P & Q & R"
+    ],
+    "correctIndex": 2,
+    "correctOption": "P $ Q & R",
+    "explanation": "Q = R, so only the first symbol decides the answer. $ means >, giving P > Q = R and therefore P > R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 24,
+    "recordId": "INE-CP007-B10C4B89",
+    "authorityId": "SELECT_CODED_EXPRESSION_FOR_RELATION",
+    "seed": 11,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "stem": "Which coded expression establishes the required strongest relation?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ~ B means A is equal to B.",
+      "A ! B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "Required strongest relation: P < R"
+    ],
+    "options": [
+      "P ! Q ~ R",
+      "P ? Q ~ R",
+      "P ~ Q ~ R",
+      "P + Q ~ R"
+    ],
+    "correctIndex": 3,
+    "correctOption": "P + Q ~ R",
+    "explanation": "Q = R, so only the first symbol decides the answer. + means <, giving P < Q = R and therefore P < R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 25,
+    "recordId": "INE-CP007-C77F46B9",
+    "authorityId": "RECOVER_MISSING_MAP_ENTRY",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "What must % mean to complete the one-to-one code map?",
+    "codeKey": [
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A # B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "The five symbols have five different meanings: >, <, =, ≥ and ≤.",
+      "Meaning of %: ?"
+    ],
+    "options": [
+      "less than or equal to",
+      "equal to",
+      "greater than",
+      "greater than or equal to"
+    ],
+    "correctIndex": 2,
+    "correctOption": "greater than",
+    "explanation": "The other four meanings are already used. The only meaning left for % is greater than.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ]
+  },
+  {
+    "index": 26,
+    "recordId": "INE-CP007-5685A836",
+    "authorityId": "RECOVER_MISSING_MAP_ENTRY",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "What must ? mean to complete the one-to-one code map?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A ! B means A is equal to B.",
+      "A ~ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "The five symbols have five different meanings: >, <, =, ≥ and ≤.",
+      "Meaning of ?: ?"
+    ],
+    "options": [
+      "less than or equal to",
+      "less than",
+      "equal to",
+      "greater than or equal to"
+    ],
+    "correctIndex": 1,
+    "correctOption": "less than",
+    "explanation": "The other four meanings are already used. The only meaning left for ? is less than.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ]
+  },
+  {
+    "index": 27,
+    "recordId": "INE-CP007-8F34710B",
+    "authorityId": "RECOVER_MISSING_MAP_ENTRY",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "What must # mean to complete the one-to-one code map?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is greater than or equal to B.",
+      "A & B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "The five symbols have five different meanings: >, <, =, ≥ and ≤.",
+      "Meaning of #: ?"
+    ],
+    "options": [
+      "less than",
+      "greater than or equal to",
+      "greater than",
+      "equal to"
+    ],
+    "correctIndex": 3,
+    "correctOption": "equal to",
+    "explanation": "The other four meanings are already used. The only meaning left for # is equal to.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ]
+  },
+  {
+    "index": 28,
+    "recordId": "INE-CP007-80547A00",
+    "authorityId": "RECOVER_MISSING_MAP_ENTRY",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "What must ? mean to complete the one-to-one code map?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ^ B means A is equal to B.",
+      "A ! B means A is less than or equal to B."
+    ],
+    "evidence": [
+      "The five symbols have five different meanings: >, <, =, ≥ and ≤.",
+      "Meaning of ?: ?"
+    ],
+    "options": [
+      "greater than or equal to",
+      "less than",
+      "equal to",
+      "less than or equal to"
+    ],
+    "correctIndex": 0,
+    "correctOption": "greater than or equal to",
+    "explanation": "The other four meanings are already used. The only meaning left for ? is greater than or equal to.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ]
+  },
+  {
+    "index": 29,
+    "recordId": "INE-CP007-54273303",
+    "authorityId": "IDENTIFY_ONLY_CONSISTENT_CODE_MAP",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "Which complete code map is consistent with every test result?",
+    "codeKey": [],
+    "evidence": [
+      "8 % 3 is true",
+      "5 % 5 is false",
+      "3 $ 8 is true",
+      "5 $ 5 is false",
+      "5 @ 5 is true",
+      "8 @ 3 is false",
+      "8 & 3 is true",
+      "5 & 5 is true",
+      "3 # 8 is true",
+      "5 # 5 is true"
+    ],
+    "options": [
+      "% = >, $ = <, @ = =, & = ≥, # = ≤",
+      "% = ≥, $ = <, @ = =, & = >, # = ≤",
+      "% = >, $ = ≤, @ = =, & = ≥, # = <",
+      "% = <, $ = >, @ = =, & = ≥, # = ≤"
+    ],
+    "correctIndex": 0,
+    "correctOption": "% = >, $ = <, @ = =, & = ≥, # = ≤",
+    "explanation": "Equal-value tests distinguish strict from inclusive signs. Checking all the results gives: % = >, $ = <, @ = =, & = ≥, # = ≤.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ]
+  },
+  {
+    "index": 30,
+    "recordId": "INE-CP007-E513A458",
+    "authorityId": "IDENTIFY_ONLY_CONSISTENT_CODE_MAP",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "Which complete code map is consistent with every test result?",
+    "codeKey": [],
+    "evidence": [
+      "8 ^ 3 is true",
+      "5 ^ 5 is false",
+      "3 ? 8 is true",
+      "5 ? 5 is false",
+      "5 ! 5 is true",
+      "8 ! 3 is false",
+      "8 ~ 3 is true",
+      "5 ~ 5 is true",
+      "3 + 8 is true",
+      "5 + 5 is true"
+    ],
+    "options": [
+      "^ = ≥, ? = <, ! = =, ~ = >, + = ≤",
+      "^ = >, ? = ≤, ! = =, ~ = ≥, + = <",
+      "^ = >, ? = <, ! = =, ~ = ≥, + = ≤",
+      "^ = <, ? = >, ! = =, ~ = ≥, + = ≤"
+    ],
+    "correctIndex": 2,
+    "correctOption": "^ = >, ? = <, ! = =, ~ = ≥, + = ≤",
+    "explanation": "Equal-value tests distinguish strict from inclusive signs. Checking all the results gives: ^ = >, ? = <, ! = =, ~ = ≥, + = ≤.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ]
+  },
+  {
+    "index": 31,
+    "recordId": "INE-CP007-4E4EC651",
+    "authorityId": "IDENTIFY_ONLY_CONSISTENT_CODE_MAP",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "Which complete code map is consistent with every test result?",
+    "codeKey": [],
+    "evidence": [
+      "8 % 3 is true",
+      "5 % 5 is false",
+      "3 $ 8 is true",
+      "5 $ 5 is false",
+      "5 # 5 is true",
+      "8 # 3 is false",
+      "8 @ 3 is true",
+      "5 @ 5 is true",
+      "3 & 8 is true",
+      "5 & 5 is true"
+    ],
+    "options": [
+      "% = ≥, $ = <, # = =, @ = >, & = ≤",
+      "% = >, $ = ≤, # = =, @ = ≥, & = <",
+      "% = <, $ = >, # = =, @ = ≥, & = ≤",
+      "% = >, $ = <, # = =, @ = ≥, & = ≤"
+    ],
+    "correctIndex": 3,
+    "correctOption": "% = >, $ = <, # = =, @ = ≥, & = ≤",
+    "explanation": "Equal-value tests distinguish strict from inclusive signs. Checking all the results gives: % = >, $ = <, # = =, @ = ≥, & = ≤.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ]
+  },
+  {
+    "index": 32,
+    "recordId": "INE-CP007-A7F8C44E",
+    "authorityId": "IDENTIFY_ONLY_CONSISTENT_CODE_MAP",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "Which complete code map is consistent with every test result?",
+    "codeKey": [],
+    "evidence": [
+      "8 ~ 3 is true",
+      "5 ~ 5 is false",
+      "3 + 8 is true",
+      "5 + 5 is false",
+      "5 ^ 5 is true",
+      "8 ^ 3 is false",
+      "8 ? 3 is true",
+      "5 ? 5 is true",
+      "3 ! 8 is true",
+      "5 ! 5 is true"
+    ],
+    "options": [
+      "~ = ≥, + = <, ^ = =, ? = >, ! = ≤",
+      "~ = >, + = <, ^ = =, ? = ≥, ! = ≤",
+      "~ = >, + = ≤, ^ = =, ? = ≥, ! = <",
+      "~ = <, + = >, ^ = =, ? = ≥, ! = ≤"
+    ],
+    "correctIndex": 1,
+    "correctOption": "~ = >, + = <, ^ = =, ? = ≥, ! = ≤",
+    "explanation": "Equal-value tests distinguish strict from inclusive signs. Checking all the results gives: ~ = >, + = <, ^ = =, ? = ≥, ! = ≤.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ]
+  }
+]
