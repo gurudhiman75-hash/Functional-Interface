@@ -34,6 +34,8 @@ export function synthesizeSpatialGapQuestionBatchV1(
 
   const accepted: SpatialGapQuestionBatchResultV1["accepted"] = [];
   const gapCounts = zeroGapCounts();
+  const attemptsByGap = zeroGapCounts();
+  const duplicateRejectsByGap = zeroGapCounts();
   const correctSlotCounts: [number, number, number, number] = [0, 0, 0, 0];
   const correctSlotCountsByGap = zeroSlotsByGap();
   const chapterCounts: Record<SpatialGapChapterV1, number> = {
@@ -43,25 +45,41 @@ export function synthesizeSpatialGapQuestionBatchV1(
   };
   const contentFingerprints = new Set<string>();
   const deliveryFingerprints = new Set<string>();
+  let totalAttempts = 0;
+  let totalDuplicateRejects = 0;
 
   SPATIAL_GAP_IDS_V1.forEach((gapId, gapIndex) => {
-    for (let index = 0; index < request.requestedPerGap; index += 1) {
-      const desiredCorrectOptionIndex = ((index + gapIndex) % 4) as 0 | 1 | 2 | 3;
-      const seed = `${request.seedPrefix}:${gapId}:${String(index).padStart(4, "0")}`;
+    let attemptIndex = 0;
+    let acceptedForGap = 0;
+    const maxAttempts = Math.max(request.requestedPerGap * 50, request.requestedPerGap + 100);
+    while (acceptedForGap < request.requestedPerGap) {
+      if (attemptIndex >= maxAttempts) {
+        throw new Error(`${gapId}: exhausted ${maxAttempts} attempts before reaching ${request.requestedPerGap} unique learner questions.`);
+      }
+      const desiredCorrectOptionIndex = ((acceptedForGap + gapIndex) % 4) as 0 | 1 | 2 | 3;
+      const seed = `${request.seedPrefix}:${gapId}:${String(attemptIndex).padStart(4, "0")}`;
       const question = generateSpatialGapLearnerQuestionV1({
         gapId,
         seed,
         desiredCorrectOptionIndex,
       });
+      attemptIndex += 1;
+      totalAttempts += 1;
+      attemptsByGap[gapId] += 1;
+
       if (contentFingerprints.has(question.contentFingerprint)) {
-        throw new Error(`${gapId}: duplicate learner-question content at seed '${seed}'.`);
+        duplicateRejectsByGap[gapId] += 1;
+        totalDuplicateRejects += 1;
+        continue;
       }
       if (deliveryFingerprints.has(question.deliveryFingerprint)) {
-        throw new Error(`${gapId}: duplicate learner-question delivery at seed '${seed}'.`);
+        throw new Error(`${gapId}: delivery fingerprint collided without a content collision at seed '${seed}'.`);
       }
+
       contentFingerprints.add(question.contentFingerprint);
       deliveryFingerprints.add(question.deliveryFingerprint);
       accepted.push(question);
+      acceptedForGap += 1;
       gapCounts[gapId] += 1;
       chapterCounts[chapterForGap(gapId)] += 1;
       correctSlotCounts[question.correctOptionIndex] += 1;
@@ -74,8 +92,12 @@ export function synthesizeSpatialGapQuestionBatchV1(
     seedPrefix: request.seedPrefix,
     requestedPerGap: request.requestedPerGap,
     totalAccepted: accepted.length,
+    totalAttempts,
+    totalDuplicateRejects,
     accepted,
     gapCounts,
+    attemptsByGap,
+    duplicateRejectsByGap,
     chapterCounts,
     correctSlotCounts,
     correctSlotCountsByGap,
