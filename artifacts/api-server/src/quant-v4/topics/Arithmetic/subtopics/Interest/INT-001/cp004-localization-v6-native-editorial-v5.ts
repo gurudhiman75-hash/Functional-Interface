@@ -76,6 +76,7 @@ function remediateMathStep(locale: IntCp004V6Locale, original: string): string {
 
 function remediateStem(
   qlId: IntCp004V6LocalizedQuestion["qlId"],
+  stemFamilyId: string,
   locale: IntCp004V6Locale,
   original: string,
 ): string {
@@ -85,6 +86,22 @@ function remediateStem(
     stem = locale === "hi-IN"
       ? stem.replace(/प्रभावी दी गई जानकारी के आधार पर वार्षिक ब्याज दर कितनी थी\?/gu, "प्रभावी वार्षिक ब्याज दर (दो दशमलव स्थान तक) कितनी होगी?")
       : stem.replace(/ਪ੍ਰਭਾਵੀ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਦੇ ਅਧਾਰ 'ਤੇ ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ ਕਿੰਨੀ ਸੀ\?/gu, "ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ (ਦੋ ਦਸ਼ਮਲਵ ਥਾਵਾਂ ਤੱਕ) ਕਿੰਨੀ ਹੋਵੇਗੀ?");
+  }
+
+  if (qlId === "INT-QL-077" && stemFamilyId.endsWith("FRAME-3")) {
+    if (locale === "hi-IN") {
+      const match = stem.match(/^ब्याज (.+?) जोड़ने पर प्रभावी वार्षिक दर ([\d.]+)% है।.*$/u);
+      if (match) stem = `इस योजना में ब्याज ${match[1]} जोड़ा जाता है और प्रभावी वार्षिक दर ${match[2]}% है। संबंधित वार्षिक ब्याज दर कितनी है?`;
+    } else {
+      const match = stem.match(/^ਵਿਆਜ (.+?) ਜੋੜਨ ਉੱਤੇ ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ ([\d.]+)% ਹੈ।.*$/u);
+      if (match) stem = `ਇਸ ਯੋਜਨਾ ਵਿੱਚ ਵਿਆਜ ${match[1]} ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ ${match[2]}% ਹੈ। ਸੰਬੰਧਿਤ ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ ਕਿੰਨੀ ਹੈ?`;
+    }
+  }
+
+  if (qlId === "INT-QL-078" && stemFamilyId.endsWith("FRAME-4")) {
+    stem = locale === "hi-IN"
+      ? stem.replace(/दी गई अंतिम राशि से मेल खाने के लिए ब्याज जोड़ने का सही अंतराल कौन-सा है\?$/u, "इस निवेश में ब्याज किस अंतराल पर मूलधन में जोड़ा गया था?")
+      : stem.replace(/ਦਿੱਤੀ ਅੰਤਿਮ ਰਕਮ ਨਾਲ ਮੇਲ ਖਾਣ ਲਈ ਵਿਆਜ ਜੋੜਨ ਦਾ ਸਹੀ ਅੰਤਰਾਲ ਕਿਹੜਾ ਹੈ\?$/u, "ਇਸ ਨਿਵੇਸ਼ ਵਿੱਚ ਵਿਆਜ ਕਿਹੜੇ ਅੰਤਰਾਲ 'ਤੇ ਮੂਲਧਨ ਵਿੱਚ ਜੋੜਿਆ ਗਿਆ ਸੀ?");
   }
 
   if (qlId === "INT-QL-084") {
@@ -137,7 +154,7 @@ export function generateIntCp004V6NativeEditorialV5Question(
 
   return deepFreeze({
     ...question,
-    stem: remediateStem(qlId, locale, question.stem),
+    stem: remediateStem(qlId, question.stemFamilyId, locale, question.stem),
     explanation,
   });
 }
