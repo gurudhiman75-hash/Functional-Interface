@@ -9,6 +9,16 @@ export function generateTrg002MvpQl038Clean(seed: string) {
   const distance = assertDefined(divideExact(length, exactInteger(2)));
   const verticalReach = assertDefined(divideExact(multiplyExact(length, exactSurd(1, 3)), exactInteger(2)));
   const state = buildLadderState({ ladderLength: length, angleAtGround: degree(60), units: "m" });
+  state.observers = [{ id: "ladder-reference", groundPointId: "ladder-base", eyePointId: "ladder-base", eyeHeight: exactInteger(0) }];
+  state.observations = [{
+    id: "ladder-angle",
+    observerId: "ladder-reference",
+    eyePointId: "ladder-base",
+    targetPointId: "wall-contact",
+    classification: "ELEVATION",
+    angle: degree(60),
+    horizontalReference: "EYE_LEVEL",
+  }];
   state.requested = { kind: "HORIZONTAL_DISTANCE", fromPointId: "wall-base", toPointId: "ladder-base" };
   return buildTrg002MvpQuestion({
     qlId: "TRG-002-QL-038", cpId: "TRG-CP-008", lockedFamily: "LADDER_AGAINST_WALL", solveMode: "findLadderFootDistanceFromAngle",
