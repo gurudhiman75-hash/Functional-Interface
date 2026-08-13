@@ -4,7 +4,7 @@ import {
   SAP_CP009_POLICY,
   SAP_CP009_PROTOTYPE_IDS,
   generateSapCp009,
-} from "./exam-runtime-v2";
+} from "./exam-runtime-v3";
 import { runCp009Authority } from "./authority-core";
 
 const result = runCp009Authority({
