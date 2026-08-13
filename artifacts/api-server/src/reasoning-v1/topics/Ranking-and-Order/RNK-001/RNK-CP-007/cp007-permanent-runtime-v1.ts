@@ -14,7 +14,7 @@ export const RNK_CP007_PERMANENT_QL_ID = "RNK-QL-042" as const;
 export const RNK_CP007_PERMANENT_AUTHORITY_ID =
   "CATEGORY_COMPOSITION_AROUND_RANK" as const;
 export const RNK_CP007_EXPECTED_PERMANENT_PROJECTION_SHA256 =
-  "UNPINNED" as const;
+  "44aefb019c1a55308b58f4b285b1b6f7df97dea0185652d6de73e2dafbbd446b" as const;
 
 export type RnkCp007PermanentQuestion = Omit<
   RnkCp007PinnedCategoryCompositionQuestion,
