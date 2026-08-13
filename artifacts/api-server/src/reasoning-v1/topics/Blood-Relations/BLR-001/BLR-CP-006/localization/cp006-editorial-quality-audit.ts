@@ -18,6 +18,7 @@ const FORBIDDEN: Record<BlrCp006TranslatedLocale, readonly string[]> = {
     "ਖੋਲ੍ਹਿਆ ਗਿਆ ਪਰਿਵਾਰ",
     "ਸੰਬੰਧ-ਕਿਨਾਰ",
     "ਕੋਡਿਤ ਕਥਨ",
+    "ਜੋੜੀ ਵਿਚਕਾਰ",
   ],
 };
 
@@ -61,6 +62,7 @@ function auditLocale(locale: BlrCp006TranslatedLocale) {
   const forbiddenHits: string[] = [];
   const diagnosticLeaks: string[] = [];
   const rawErrorLabelLeaks: string[] = [];
+  const relationFeedbackFailures: string[] = [];
   const qls = new Set<string>();
 
   for (const record of bank) {
@@ -73,6 +75,13 @@ function auditLocale(locale: BlrCp006TranslatedLocale) {
     for (const option of record.options) {
       if (option.errorLabel && text.includes(`[${option.errorLabel}]`)) {
         rawErrorLabelLeaks.push(`${record.itemId}: ${option.errorLabel}`);
+      }
+    }
+    if (record.query.kind === "RELATION") {
+      for (const entry of record.explanation.optionAnalysis.filter((value) => !value.isCorrect)) {
+        if (!entry.explanation.includes(record.answer) || !entry.explanation.includes(entry.optionText)) {
+          relationFeedbackFailures.push(`${record.itemId}:${entry.optionLabel}`);
+        }
       }
     }
   }
@@ -107,6 +116,7 @@ function auditLocale(locale: BlrCp006TranslatedLocale) {
     forbiddenHits,
     diagnosticLeaks,
     rawErrorLabelLeaks,
+    relationFeedbackFailures,
     labelFailures,
     missingQls,
     samples,
@@ -121,6 +131,7 @@ for (const report of reports) {
     forbiddenEditorialPhrases: report.forbiddenHits.length,
     internalDiagnosticLeaks: report.diagnosticLeaks.length,
     rawErrorLabelLeaks: report.rawErrorLabelLeaks.length,
+    relationFeedbackFailures: report.relationFeedbackFailures.length,
     genericKinshipLabelFailures: report.labelFailures.length,
     missingQlCoverage: report.missingQls.length,
     representativeSamples: report.samples,
@@ -131,6 +142,7 @@ const failures = reports.flatMap((report) => [
   ...report.forbiddenHits.map((value) => `${report.locale} forbidden editorial phrase ${value}`),
   ...report.diagnosticLeaks.map((itemId) => `${report.locale} internal diagnostic leak ${itemId}`),
   ...report.rawErrorLabelLeaks.map((value) => `${report.locale} raw error-label leak ${value}`),
+  ...report.relationFeedbackFailures.map((value) => `${report.locale} relation feedback mismatch ${value}`),
   ...report.labelFailures.map((value) => `${report.locale} generic kinship label failure ${value}`),
   ...report.missingQls.map((value) => `${report.locale} missing QL coverage ${value}`),
 ]);
