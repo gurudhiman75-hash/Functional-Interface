@@ -42,7 +42,11 @@ export function generateCp004StateV2(authorityKey: string, seed: string): TsdCp0
     input = normalizeTwoToOnePair(input, input.directionCase ?? directionCase);
   }
 
-  if (base.solveMode === "findCatchUpTimeFromHeadStartDistance" || base.solveMode === "findHeadStartDistanceFromCatchUpTime") {
+  if (
+    base.solveMode === "findCatchUpTimeFromHeadStartDistance" ||
+    base.solveMode === "findHeadStartDistanceFromCatchUpTime" ||
+    base.solveMode === "findDelayedStartCatchUpTime"
+  ) {
     input = normalizeTwoToOnePair(input, "SAME");
   }
 
