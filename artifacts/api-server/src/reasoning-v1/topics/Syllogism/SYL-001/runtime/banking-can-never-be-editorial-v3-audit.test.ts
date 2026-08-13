@@ -101,6 +101,7 @@ for (const seed of seeds) {
 
       if (locale === "en-IN") {
         assert.match(explanation, /class/u, `${seed}/${index}: English explanation must use class/member wording.`);
+        assert.doesNotMatch(explanation, /“in the “|” class” relation/u);
         assert.doesNotMatch(
           explanation,
           /\bat least one (?:cups|roads|trains|windows|coins|fruits|poets|lamps|flags|chairs|drums|boxes|rings|flowers|birds|gardens|stars|pencils|books|badges|shirts|plates|bells)\b|\bevery (?:cups|roads|trains|windows|coins|fruits|poets|lamps|flags|chairs|drums|boxes|rings|flowers|birds|gardens|stars|pencils|books|badges|shirts|plates|bells)\b|\bno (?:cups|roads|trains|windows|coins|fruits|poets|lamps|flags|chairs|drums|boxes|rings|flowers|birds|gardens|stars|pencils|books|badges|shirts|plates|bells) is\b/u,
@@ -110,7 +111,7 @@ for (const seed of seeds) {
           if (conclusion.surfaceKind === "SOME_CAN_NEVER" && conclusion.classification === "CONTRADICTED") {
             someContradictedFailures += 1;
             assert.match(explanation, /every existing member .* forced to stay inside/u);
-            assert.match(explanation, /no definite member/u);
+            assert.match(explanation, /impossible for a member to be in/u);
           } else if (conclusion.surfaceKind === "SOME_CAN_NEVER" && conclusion.classification === "UNDETERMINED") {
             someUndeterminedFailures += 1;
             assert.match(explanation, /may remain outside/u);
@@ -118,11 +119,11 @@ for (const seed of seeds) {
           } else if (conclusion.surfaceKind === "ALL_CAN_NEVER" && conclusion.classification === "ENTAILED") {
             allEntailedFailures += 1;
             assert.match(explanation, /every member .* must belong/u);
-            assert.match(explanation, /opposite of what the statements force/u);
+            assert.match(explanation, /all-in relation is not impossible; it is actually forced/u);
           } else if (conclusion.surfaceKind === "ALL_CAN_NEVER" && conclusion.classification === "UNDETERMINED") {
             allUndeterminedFailures += 1;
             assert.match(explanation, /at least one valid arrangement can still place every member/u);
-            assert.match(explanation, /is not proved/u);
+            assert.match(explanation, /all-in relation is possible in at least one valid arrangement/u);
           } else {
             assert.fail(`${seed}: unexpected false modal disposition ${conclusion.surfaceKind}/${conclusion.classification}.`);
           }
@@ -189,6 +190,8 @@ console.log(JSON.stringify({
   completePremiseEvidence: true,
   genericSolverExplanationOccurrences: 0,
   englishPluralAgreementLeakage: 0,
+  nestedEnglishQuoteDefects: 0,
+  wholeClassModalWordingUnambiguous: true,
   hindiPunjabiEnglishModalLeaks: 0,
   explanationPolicy: "COMPLETE_PREMISE_DISPOSITION_SPECIFIC_REASONING_V3",
   activationPermitted: false,
