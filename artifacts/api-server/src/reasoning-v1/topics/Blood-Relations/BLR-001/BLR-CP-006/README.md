@@ -1,6 +1,6 @@
 # BLR-CP-006 — Coded Relation Decoding
 
-Status: **English discovery frozen at `BLR-QL-026..BLR-QL-030`; English option-explanation Editorial V2 remediated; Hindi/Punjabi machine-proved Editorial V2 review candidates implemented; localized product delivery remains locked pending human language review**.
+Status: **English discovery frozen at `BLR-QL-026..BLR-QL-030`; English option-explanation Editorial V2 remediated; Hindi/Punjabi Editorial V2 reviewed and frozen under `BLR_CP006_MULTILINGUAL_FROZEN`; product delivery remains locked**.
 
 ## Permanent QLs
 
@@ -14,13 +14,14 @@ BLR-QL-030  RESOLVE_CODED_FAMILY_SET_RELATION
 
 Next available Blood Relations identity: `BLR-QL-031`.
 
-## Frozen and localized inventory
+## Frozen multilingual inventory
 
 ```text
-152 canonical English review questions
-152 Hindi machine review candidates
-152 Punjabi machine review candidates
-304 total localized review candidates
+152 canonical English frozen questions
+152 Hindi frozen questions
+152 Punjabi frozen questions
+304 localized frozen questions
+456 total multilingual questions
 19 source prototypes
 17 source topologies
 5 permanent solve authorities
@@ -29,7 +30,7 @@ Next available Blood Relations identity: `BLR-QL-031`.
 152 / 152 unique canonical learner-item signatures
 ```
 
-QL distribution per language:
+QL distribution per localized language:
 
 ```text
 BLR-QL-026   72
@@ -57,54 +58,47 @@ Symbols are never evaluated with arithmetic precedence.
 
 The frozen English semantic corpus is unchanged. English Editorial V2 changes only learner-facing option explanations.
 
-The remediation:
+The remediation removes internal diagnostic tags from learner-facing prose, stops using position-assigned relation-distractor labels as learner explanations, makes relation distractor feedback state the actual decoded answer and rejected relation, retains legacy `errorLabel` values as internal metadata, and preserves item IDs, semantic fingerprints, QLs, options, option order, correct indexes, answers, code keys, coded statements, graphs and family-tree structures.
 
-- removes internal diagnostic tags such as `[BLOOD_AFFINAL_CONFUSION]` and `[CORRECT_DECODED_GRAPH]` from learner-facing prose;
-- stops using position-assigned relation-distractor diagnostic labels as learner explanations;
-- makes every relation distractor explanation state the actual decoded answer and the rejected relation;
-- keeps non-relation feedback natural and specific for person, gender and pair questions;
-- retains legacy `errorLabel` values as internal metadata for compatibility;
-- preserves item IDs, semantic fingerprints, QLs, options, option order, correct indexes, answers, code keys, coded statements, graphs and family-tree structures.
-
-`cp006-runtime.test.ts` fails closed if a diagnostic tag/name leaks into English learner text or if a relation distractor explanation does not explicitly identify both the decoded answer and the rejected option.
+`cp006-runtime.test.ts` fails closed if a diagnostic tag/name leaks into English learner text or if relation distractor feedback does not identify both the decoded answer and rejected option.
 
 Merged English remediation authority: PR `#757`, merge commit `d1de35383e9c9fb5bfcf61941f49e07f103006ba`.
 
 ## Hindi/Punjabi localization contract
 
-The localized review runtime is generated from the frozen English semantic record rather than by translating coded logic. For every Hindi and Punjabi record it preserves exactly:
-
-- permanent QL and solve authority;
-- source prototype, scenario, topology and seed;
-- code-key tokens and their directed relation IDs;
-- all 440 canonical coded statement assertions;
-- structured query object;
-- decoded family graph;
-- option semantic keys, correctness flags and legacy diagnostic metadata;
-- correct option index;
-- family-tree nodes, edges and query path;
-- canonical semantic fingerprint;
-- UNKNOWN-gender evidence.
+The localized runtime is generated from the frozen English semantic record rather than by translating coded logic. For every Hindi and Punjabi record it preserves permanent QL and solve authority, source prototype/scenario/topology/seed, code-key tokens and relation IDs, all 440 coded assertions, structured query object, decoded family graph, option semantic keys/order/correctness, correct index, family-tree structure/query path, canonical semantic fingerprint and UNKNOWN-gender evidence.
 
 Only learner-facing language is localized: code-key meanings, stems, relation/gender/pair labels, decoded statements, graph audit, option explanations, conclusion, shortcuts, trap guidance and family-tree accessibility text.
 
-The learner-language audit is fail-closed for residual ASCII prose after protected code tokens are removed, target-script coverage, cross-script leakage and unresolved placeholders.
+The language audit is fail-closed for residual English after protected tokens are removed, target-script coverage, cross-script leakage and unresolved placeholders.
 
-## Hindi/Punjabi Editorial V2 remediation
+## Hindi/Punjabi Editorial V2
 
-Rendered review across all five QLs found machine-invisible weaknesses in the first localization pass. Editorial V2 corrects them without changing the solver, graph, query object, answer semantics, correct positions, QL ownership or canonical semantic fingerprints.
+Editorial V2 replaced runtime-like literal wording with exam-natural family-relation wording, corrected generic singular kinship labels, removed learner-visible diagnostic tags, made relation-question distractor feedback relation-specific, polished Hindi/Punjabi answer grammar, used natural Punjabi pair stems such as `ਕਿਹੜੀ ਜੋੜੀ ਵਿੱਚ ...`, and replaced technical graph/edge accessibility wording with learner-facing relationship-chart language.
 
-The remediation:
+`localization/cp006-editorial-quality-audit.ts` scans all 304 localized records for forbidden runtime-style wording, diagnostic leakage, relation-feedback mismatch, generic kinship-label regression and complete `BLR-QL-026..030` coverage. It also emits a rendered Hindi and Punjabi sample from every QL.
 
-- replaces runtime-like literal wording such as `परिवार-ग्राफ`, `खुला हुआ संबंध` and Punjabi equivalents with exam-natural family-relation wording;
-- corrects generic singular kinship labels for `PARENT`, `GRANDPARENT` and `GRANDCHILD`;
-- removes internal diagnostic tags from localized learner-facing explanations while retaining internal metadata;
-- makes relation-question distractor feedback relation-specific instead of trusting legacy position-based diagnostic labels;
-- polishes Hindi/Punjabi correct-answer grammar;
-- uses natural Punjabi pair stems such as `ਕਿਹੜੀ ਜੋੜੀ ਵਿੱਚ ...`;
-- replaces technical graph/edge accessibility wording with learner-facing relationship-chart language.
+Final review on 2026-08-13 accepted representative Hindi and Punjabi samples from every permanent CP-006 QL. The exhaustive audits reported zero residual-English records, target-script gaps, cross-script records, placeholders, forbidden editorial phrases, internal diagnostic leaks, raw error-label leaks, relation-feedback failures, generic kinship-label failures and missing QL coverage.
 
-`localization/cp006-editorial-quality-audit.ts` scans all 304 localized records for forbidden runtime-style wording, diagnostic leakage, relation-feedback mismatch, generic kinship-label regression and complete `BLR-QL-026..030` coverage. It also emits a rendered Hindi and Punjabi sample from every QL for direct inspection.
+## Multilingual freeze
+
+Freeze authority: `BLR_CP006_MULTILINGUAL_FROZEN`  
+Approval date: `2026-08-13`
+
+The freeze wrapper changes approval metadata only. It proves:
+
+- Hindi learner corpus changed: `false`;
+- Punjabi learner corpus changed: `false`;
+- Hindi semantic parity: `true`;
+- Punjabi semantic parity: `true`;
+- localization-review-pending count: `0`;
+- human-review-required count: `0`;
+- multilingual frozen localized count: `304`;
+- product-delivery-enabled count: `0`.
+
+The original review-candidate parity proof remains executable alongside the frozen-corpus proof, so the transition from candidate to frozen authority is explicitly regression-checked.
+
+Merged multilingual freeze authority: PR `#758`, merge commit `d54dbcf07265630a7e45e1b296d586bf7396390e`.
 
 ## Gender-evidence rule
 
@@ -115,7 +109,7 @@ father, mother, son, daughter,
 brother, sister, husband or wife
 ```
 
-All other people remain `UNKNOWN` unless another decoded statement establishes their gender. Localization does not change this evidence boundary.
+All other people remain `UNKNOWN` unless another decoded statement establishes their gender.
 
 ## Files
 
@@ -128,31 +122,26 @@ All other people remain `UNKNOWN` unless another decoded statement establishes t
 - `cp006-runtime.test.ts` — complete 152-question runtime, evidence, learner-feedback and replay regression;
 - `cp006-final-freeze.test.ts` — source, boundary, inverse, merge/split and CP-007 ownership audit;
 - `localization/cp006-language-pack.ts` — Hindi/Punjabi relation vocabulary and learner-language helpers;
-- `localization/cp006-localizer.ts` — semantic-preserving localized review runtime;
-- `localization/cp006-localizer.test.ts` — 304-record semantic-parity and release-lock proof;
+- `localization/cp006-localizer.ts` — semantic-preserving localized candidate runtime;
+- `localization/cp006-localizer.review-candidate.test.ts` — original 304-record candidate semantic-parity and release-lock proof;
+- `localization/cp006-localizer.test.ts` — CI entry that runs candidate parity plus multilingual-freeze proof;
 - `localization/cp006-language-leak-audit.ts` — fail-closed learner-language audit;
 - `localization/cp006-editorial-quality-audit.ts` — fail-closed Hindi/Punjabi Editorial V2 audit;
-- `localization/cp006-localized-review-runtime.ts` — localized review telemetry;
-- `export-cp006-final-freeze.ts` — English JSONL, CSV, HTML, contracts, summary and freeze exporter;
+- `localization/cp006-localized-review-runtime.ts` — localized candidate telemetry;
+- `cp006-multilingual-frozen.ts` — approved frozen Hindi/Punjabi wrapper and freeze invariants;
+- `cp006-multilingual-frozen.test.ts` — frozen-corpus, semantic-parity and release-lock proof;
+- `BLR-CP-006-MULTILINGUAL-FREEZE.md` — authoritative multilingual freeze record;
+- `export-cp006-final-freeze.ts` — English freeze exporter;
 - `BLR-CP-006-FINAL-DISCOVERY-FREEZE.md` — authoritative English checkpoint record.
 
 ## Boundary
 
-CP-006 owns decoding and solving a supplied relation key.
+CP-006 owns decoding and solving a supplied relation key. CP-007 owns inverse coded tasks such as selecting expressions, completing code tokens/persons, and validating coded statements.
 
-CP-007 owns inverse coded tasks:
-
-- choose an expression for a target relation;
-- fill a missing token;
-- choose a token that makes a relation true;
-- identify a correct or incorrect coded statement;
-- compare coded expressions;
-- infer a token where kinship composition remains the tested skill.
-
-Localization does not change checkpoint ownership and allocates no new QL.
+Localization and multilingual freeze do not change checkpoint ownership and allocate no new QL.
 
 ## Release lock
 
-The Hindi/Punjabi records are **review candidates only**. `humanLanguageReviewRequired` remains true and the blocker `HINDI_PUNJABI_HUMAN_REVIEW_PENDING` remains active.
+Hindi/Punjabi human-language review is complete and the 304 localized records are frozen. **Multilingual freeze is not product-release approval.**
 
-Question Studio visibility, Question Bank eligibility, mock-test eligibility, public publication, production staging and automatic student delivery remain disabled for these localized candidates until a later explicit human-language review and approval/freeze gate.
+Question Studio visibility, Question Bank eligibility, mock-test eligibility, public publication, production staging and automatic student delivery remain disabled for CP-006. A later explicit Question Studio/product-release integration must be separately reviewed and approved.
