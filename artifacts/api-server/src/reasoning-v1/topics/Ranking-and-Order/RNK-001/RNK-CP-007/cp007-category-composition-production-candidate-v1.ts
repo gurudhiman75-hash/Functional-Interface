@@ -2,14 +2,14 @@ import { createHash } from "node:crypto";
 
 import {
   generateRnkCp007CategoryCompositionQuestion,
-  RNK_CP007_CATEGORY_COMPOSITION_EDITORIAL_VERSION,
+  RNK_CP007_CATEGORY_COMPOSITION_EDITORIAL_V2_VERSION,
   RNK_CP007_CATEGORY_COMPOSITION_MODES,
-  type RnkCp007CategoryCompositionEditorialQuestion,
+  type RnkCp007CategoryCompositionEditorialV2Question,
   type RnkCp007CategoryCompositionMode,
-} from "./cp007-category-composition-editorial-v1-1";
+} from "./cp007-category-composition-editorial-v2";
 
 export const RNK_CP007_CATEGORY_COMPOSITION_PRODUCTION_CANDIDATE_VERSION =
-  "RNK_CP007_CATEGORY_COMPOSITION_PRODUCTION_CANDIDATE_V1" as const;
+  "RNK_CP007_CATEGORY_COMPOSITION_PRODUCTION_CANDIDATE_V2" as const;
 
 export const RNK_CP007_CATEGORY_COMPOSITION_AUTHORITY_CANDIDATE_ID =
   "CATEGORY_COMPOSITION_AROUND_RANK" as const;
@@ -17,7 +17,7 @@ export const RNK_CP007_CATEGORY_COMPOSITION_AUTHORITY_CANDIDATE_ID =
 export type RnkCp007CandidateDifficulty = "MEDIUM" | "HARD";
 
 export type RnkCp007CategoryCompositionCandidateQuestion =
-  RnkCp007CategoryCompositionEditorialQuestion & {
+  RnkCp007CategoryCompositionEditorialV2Question & {
     readonly candidateVersion: typeof RNK_CP007_CATEGORY_COMPOSITION_PRODUCTION_CANDIDATE_VERSION;
     readonly authorityCandidateId: typeof RNK_CP007_CATEGORY_COMPOSITION_AUTHORITY_CANDIDATE_ID;
     readonly candidateOrdinal: number;
@@ -25,8 +25,10 @@ export type RnkCp007CategoryCompositionCandidateQuestion =
     readonly permanentQlAllocated: false;
   };
 
-function difficultyFor(question: RnkCp007CategoryCompositionEditorialQuestion): RnkCp007CandidateDifficulty {
-  return question.reviewMetadata.derivationSteps >= 5 ? "HARD" : "MEDIUM";
+function difficultyFor(mode: RnkCp007CategoryCompositionMode): RnkCp007CandidateDifficulty {
+  // Converting a same-category "after" count to "ahead" requires the extra
+  // target exclusion and is the only consistently hard production lane.
+  return mode === "OTHER_CATEGORY_AHEAD_FROM_TARGET_AFTER" ? "HARD" : "MEDIUM";
 }
 
 export function generateRnkCp007CategoryCompositionCandidateQuestion(
@@ -43,7 +45,7 @@ export function generateRnkCp007CategoryCompositionCandidateQuestion(
     candidateVersion: RNK_CP007_CATEGORY_COMPOSITION_PRODUCTION_CANDIDATE_VERSION,
     authorityCandidateId: RNK_CP007_CATEGORY_COMPOSITION_AUTHORITY_CANDIDATE_ID,
     candidateOrdinal,
-    difficulty: difficultyFor(question),
+    difficulty: difficultyFor(mode),
     permanentQlAllocated: false,
   };
 }
@@ -76,7 +78,8 @@ export function rnkCp007CategoryCompositionCandidateProjectionSha256(
       evidence: question.evidence,
       mathematicalFingerprint: question.mathematicalFingerprint,
       partitionId: question.reviewMetadata.partitionId,
-      editorialVersion: RNK_CP007_CATEGORY_COMPOSITION_EDITORIAL_VERSION,
+      editorialVersion: RNK_CP007_CATEGORY_COMPOSITION_EDITORIAL_V2_VERSION,
+      surfaceStyle: question.reviewMetadata.surfaceProfile.style,
       distractorKinds: question.reviewMetadata.editorialProfile.distractorKinds,
     }))), "utf8")
     .digest("hex");
