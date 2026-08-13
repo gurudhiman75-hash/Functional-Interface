@@ -44,5 +44,18 @@ export function deriveStrongCp004WrongWorkingsV3(mode: TsdCp004CoreSolveMode, in
     return Object.freeze(rows.slice(0, 4));
   }
 
+  if (mode === "findFasterSpeedFromCatchUpState" || mode === "findSlowerSpeedFromCatchUpState") {
+    const closing = divide(input.headStartDistance!, input.meetingTime!);
+    const known = mode === "findFasterSpeedFromCatchUpState" ? input.speedB! : input.speedA!;
+    const { rows, push } = uniqueWrongRows(solution.answer);
+    push("USE_TARGET_RELATIVE_SPEED_AS_BODY_SPEED", closing, "report head-start distance divided by catch-up time as the requested vehicle speed", "The learner correctly obtains closing speed but stops before converting it to the requested individual speed.");
+    push("COPY_KNOWN_SPEED", known, "copy the stated vehicle speed", "The known vehicle's speed is returned instead of reconstructing the unknown speed from the closing-speed relation.");
+    const reversed = mode === "findFasterSpeedFromCatchUpState" ? subtract(known, closing) : add(known, closing);
+    if (isPositive(reversed)) push("REVERSE_RELATIVE_DECOMPOSITION", reversed, "reverse the final add/subtract relation", "The closing speed is correct, but the learner applies the individual-speed reconstruction with the wrong sign.");
+    push("USE_AVERAGE_SPEED", divide(add(known, closing), rational(2)), "average the known speed and the closing speed", "The learner averages the two available speed quantities instead of applying the same-direction relative-speed equation.");
+    if (rows.length < 3) throw new Error(`${mode}: V3 produced only ${rows.length} strong distractors`);
+    return Object.freeze(rows.slice(0, 4));
+  }
+
   return deriveStrongCp004WrongWorkings(mode, input, solution);
 }
