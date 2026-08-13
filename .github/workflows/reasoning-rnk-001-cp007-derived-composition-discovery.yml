@@ -1,0 +1,147 @@
+name: Validate RNK-001 CP007 Derived Composition Discovery
+
+on:
+  push:
+    branches:
+      - feat/rnk-001-cp007-derived-composition-discovery
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-registry*'
+      - '.github/workflows/reasoning-rnk-001-cp007-derived-composition-discovery.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: rnk-001-cp007-derived-composition-discovery
+  cancel-in-progress: true
+
+jobs:
+  validate-discovery:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate pinned RNK object pool V2
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/foundation/rnk-object-pool-v2-manifest.test.ts \
+            | tee rnk-object-pool-v2-manifest.log
+
+      - name: Replay CP007 source fixtures
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-source-fixture-replay-v1.test.ts \
+            | tee rnk-cp007-source-fixtures.log
+
+      - name: Validate category-composition discovery corpus
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-category-composition-discovery-v1.test.ts \
+            | tee rnk-cp007-category-composition.log
+
+      - name: Validate derived-quantity discovery corpus
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-derived-quantity-discovery-v1.test.ts \
+            | tee rnk-cp007-derived-quantity.log
+
+      - name: Validate CP007 merge split ownership audit
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-merge-split-audit-v1.test.ts \
+            | tee rnk-cp007-merge-split-audit.log
+
+      - name: Generate CP007 28-question review pack
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-discovery-review-export-v1.ts \
+            RNK-CP-007-DISCOVERY-V1-REVIEW-28Q.md \
+            | tee rnk-cp007-review-export.log
+
+      - name: Validate frozen projection compatibility manifest
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-frozen-projection-compatibility.test.ts \
+            | tee rnk-frozen-projection-compatibility.log
+
+      - name: Validate frozen CP006 runtime
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-permanent-runtime-v1-freeze.test.ts \
+            | tee rnk-cp006-frozen-regression.log
+
+      - name: Validate frozen CP005 runtime
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-freeze.test.ts \
+            | tee rnk-cp005-frozen-regression.log
+
+      - name: Validate frozen CP004 runtime
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-permanent-runtime-v1-gates.test.ts \
+            | tee rnk-cp004-frozen-regression.log
+
+      - name: Validate Question Studio remains disabled
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/question-studio-registry.test.ts \
+            | tee rnk-question-studio-registry.log
+
+      - name: Build API server
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server build \
+            | tee rnk-cp007-api-build.log
+
+      - name: Upload discovery evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp007-derived-composition-discovery-evidence
+          path: |
+            rnk-object-pool-v2-manifest.log
+            rnk-cp007-source-fixtures.log
+            rnk-cp007-category-composition.log
+            rnk-cp007-derived-quantity.log
+            rnk-cp007-merge-split-audit.log
+            rnk-cp007-review-export.log
+            rnk-frozen-projection-compatibility.log
+            rnk-cp006-frozen-regression.log
+            rnk-cp005-frozen-regression.log
+            rnk-cp004-frozen-regression.log
+            rnk-question-studio-registry.log
+            rnk-cp007-api-build.log
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload manual review pack
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp007-discovery-v1-review-28q
+          path: RNK-CP-007-DISCOVERY-V1-REVIEW-28Q.md
+          if-no-files-found: error
+          retention-days: 14
