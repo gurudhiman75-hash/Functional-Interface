@@ -7,7 +7,7 @@ import { authenticate } from "../middlewares/auth";
 import {
   generateQuestion as generateQuantV4Questions,
   listQuantV4Packages,
-} from "../quant-v4/question-studio-generation-engine";
+} from "../quant-v4/question-studio-review-engine";
 
 const router = Router();
 const LANGUAGES = new Set(["en", "hi", "pa"]);
@@ -67,6 +67,16 @@ function isNumberSystemRequest(body: any) {
     (selectors.has(topic) && !subtopic) ||
     (topic === "arithmetic" && selectors.has(subtopic))
   );
+}
+
+function inferNumberSystemCpFromQl(value: unknown) {
+  const match = /^NUM-QL-(\d{3})$/u.exec(asString(value));
+  if (!match) return undefined;
+  const number = Number(match[1]);
+  if (number >= 1 && number <= 17) return "NUM-CP-003";
+  if (number >= 18 && number <= 45) return "NUM-CP-004";
+  if (number >= 124 && number <= 144) return "NUM-CP-001";
+  return undefined;
 }
 
 function publicRunCode() {
@@ -147,12 +157,30 @@ router.post(
     const seed = asString(req.body?.seed) || undefined;
     const canonicalProblemId = asString(req.body?.canonicalProblemId) || undefined;
     const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;
+    const inferredNumberSystemCp = numberSystemRequest
+      ? inferNumberSystemCpFromQl(questionLanguageId)
+      : undefined;
 
-    if (numberSystemRequest && language !== "en") {
+    if (
+      numberSystemRequest
+      && canonicalProblemId
+      && inferredNumberSystemCp
+      && canonicalProblemId !== inferredNumberSystemCp
+    ) {
       res.status(400).json({
-        error: "NUM-001 supports English Question Studio generation only.",
+        error: `${questionLanguageId} is owned by ${inferredNumberSystemCp}, not ${canonicalProblemId}.`,
       });
       return;
+    }
+
+    if (numberSystemRequest && language !== "en") {
+      const targetCp = canonicalProblemId ?? inferredNumberSystemCp ?? "NUM-CP-001";
+      if (targetCp !== "NUM-CP-001") {
+        res.status(400).json({
+          error: "NUM-001 supports English Question Studio generation only for NUM-CP-003 and NUM-CP-004; Hindi/Punjabi controlled review is available for NUM-CP-001.",
+        });
+        return;
+      }
     }
 
     const runId = randomUUID();

@@ -1,0 +1,108 @@
+name: Validate NUM-CP-001 guarded Question Studio review
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
+      - artifacts/api-server/src/quant-v4/question-studio-review-engine.ts
+      - artifacts/api-server/src/routes/admin-question-studio-average.ts
+      - .github/workflows/num-001-cp001-question-studio-review.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp001-question-studio-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp001-question-studio-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP001 permanent runtime regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/permanent/runtime-proof.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp001-qs-review-permanent-runtime.test.mjs
+
+      - name: Run CP001 permanent runtime regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp001-qs-review-permanent-runtime.test.mjs
+
+      - name: Bundle CP001 Hindi Punjabi parity regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/localization/runtime-parity.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp001-qs-review-hi-pa-parity.test.mjs
+
+      - name: Run CP001 Hindi Punjabi parity regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp001-qs-review-hi-pa-parity.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp001-qs-review-hi-pa-parity.log
+
+      - name: Bundle guarded Question Studio review audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/question-studio-review-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp001-question-studio-review-audit.test.mjs
+
+      - name: Run guarded Question Studio review audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review-audit.log
+
+      - name: Bundle legacy Number System Question Studio regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/number-system-question-studio-release-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp001-qs-review-legacy-release.test.mjs
+
+      - name: Run legacy Number System Question Studio regression
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/num-cp001-qs-review-legacy-release.test.mjs \
+            2>&1 | tee dist/quant-v4/num-cp001-qs-review-legacy-release.log
+
+      - name: Upload CP001 guarded review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp001-question-studio-review
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp001-qs-review-hi-pa-parity.log
+            artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review-audit.log
+            artifacts/api-server/dist/quant-v4/num-cp001-qs-review-legacy-release.log
+            artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review/num-cp001-question-studio-review.json
+            artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review/num-cp001-question-studio-review.md
+            artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review/num-cp001-question-studio-review.csv
+          if-no-files-found: warn
+          retention-days: 14
