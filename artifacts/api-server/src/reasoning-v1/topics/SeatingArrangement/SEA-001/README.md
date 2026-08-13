@@ -25,7 +25,8 @@ The current package includes:
 - misconception-derived options and counterfactual checks;
 - student-facing teaching explanations;
 - source-coverage, merge/split, inverse and gap audits;
-- a balanced 100-caselet English manual-review candidate and content-fingerprinted review ledger template.
+- a balanced 100-caselet English review corpus;
+- fingerprint-locked human approval for all 100 reviewed caselets.
 
 Latest editorial hardening includes:
 
@@ -34,13 +35,15 @@ Latest editorial hardening includes:
 - question-specific correct-option explanations across all checkpoints;
 - value-specific fallback distractor explanations and rejection of fallback person/pair options that reuse a queried participant;
 - natural mixed-facing relation wording and visible option uniqueness checks;
+- plain teacher-style solution language across shared explanations, answer explanations and option explanations;
 - diversified `SEA-PBA-020` conditional-orientation passages combining conditional facing, reference-facing left/right work and physical cyclic placement instead of a near-complete direct clockwise chain;
 - PBA-020 displayed clue cap of 9.
 
 See:
 
 - `WAVE5-SATURATION-AUDIT-EVIDENCE.md` for automated/source evidence;
-- `SEA-001-EDITORIAL-REVIEW-EVIDENCE.md` for the 100-caselet AI/editorial review findings and remediation.
+- `SEA-001-EDITORIAL-REVIEW-EVIDENCE.md` for the 100-caselet editorial findings, remediation and human approval status;
+- `review/approved-review.ts` for the fingerprint-locked signed review record.
 
 ## Run proofs
 
@@ -56,22 +59,25 @@ node --experimental-strip-types sea-001-authority-audit-proof.test.ts
 node --experimental-strip-types sea-001-review-readiness-proof.test.ts
 ```
 
-## Lifecycle lock
+## Lifecycle state
 
 This package remains internal and is **not activated**.
 
 ```text
 Permanent QLs:                0
-Signed English review:        PENDING
-Solve-inventory freeze:       LOCKED
-Query-mix freeze:             LOCKED
-English freeze:               LOCKED
+Signed English review:        APPROVED (100/100 ACCEPT)
+Permanent allocation:         ELIGIBLE, NOT YET APPLIED
+Solve-inventory freeze:       ELIGIBLE, NOT YET APPLIED
+Query-mix freeze:             ELIGIBLE, NOT YET APPLIED
+English freeze:               ELIGIBLE, NOT YET APPLIED
 Question Studio registration: false
 Question Bank writes:         false
 Mock-test eligibility:        false
 Public publication:           false
 ```
 
-Permanent allocation can become eligible only after the exact regenerated 100-caselet review ledger contains 100 signed `ACCEPT` decisions and zero `REWRITE` / zero `REJECT`. Activation remains a separate downstream gate.
+The signed review is content-fingerprint locked. Any change to the reviewed 100-caselet corpus invalidates the approval and reopens the review gate automatically.
+
+Permanent QL allocation and the three freezes must still be applied in a separately reviewed commit. Activation remains a separate downstream gate.
 
 Do not bypass `assertSea001ActivationAllowed`.
