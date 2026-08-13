@@ -43,6 +43,7 @@ import { polishTmwCp007EditorialReview } from "./cp007-editorial-final-polish";
 import { finalizeTmwCp007EditorialValidation } from "./cp007-editorial-validation-finalizer";
 import { finalizeTmwCp008MultilingualEditorialReview } from "./cp008-multilingual-editorial-review-finalizer";
 import { polishTmwCp008VisibleGivens } from "./cp008-visible-givens-final-polish";
+import { finalizeTmwCp009MultilingualEditorialReview } from "./cp009-multilingual-editorial-review-finalizer";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -71,6 +72,10 @@ function finishCp007(question: any, questionLanguageId: string, language: Tmw001
 
 function finishCp008(question: any, language: Tmw001ChapterLanguage): any {
   return polishTmwCp008VisibleGivens(finalizeTmwCp008MultilingualEditorialReview(question, language), language);
+}
+
+function finishCp009(question: any, language: Tmw001ChapterLanguage): any {
+  return finalizeTmwCp009MultilingualEditorialReview(question, language);
 }
 
 function finishEnglish(question: any, questionLanguageId: string): any {
@@ -166,9 +171,10 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
     return finishCp008(question, input.language);
   }
   if (ordinal <= 174) {
-    return input.language === "en"
+    const question = input.language === "en"
       ? finishEnglish(runTmwCp009Pipeline(base), input.questionLanguageId)
       : finishLocalized(runTmwCp009LocalizedPipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
+    return finishCp009(question, input.language);
   }
   if (ordinal <= 192) {
     return input.language === "en"
