@@ -8,12 +8,7 @@ function ordinal(seed: string): number {
 
 function normalizeTwoToOnePair(input: TsdCp004GeneratedState["input"], directionCase: "OPPOSITE" | "SAME") {
   const baseSpeed = input.speedB ?? rational(30);
-  return Object.freeze({
-    ...input,
-    speedA: multiply(baseSpeed, rational(2)),
-    speedB: baseSpeed,
-    directionCase,
-  });
+  return Object.freeze({ ...input, speedA: multiply(baseSpeed, rational(2)), speedB: baseSpeed, directionCase });
 }
 
 export function generateCp004StateV2(authorityKey: string, seed: string): TsdCp004GeneratedState {
@@ -22,54 +17,29 @@ export function generateCp004StateV2(authorityKey: string, seed: string): TsdCp0
   const directionCase = index % 2 === 0 ? "OPPOSITE" as const : "SAME" as const;
   let input = base.input;
 
-  if (input.speedA && input.speedB && equals(input.speedA, input.speedB)) {
-    input = Object.freeze({ ...input, speedA: add(input.speedA, rational(6)) });
-  }
+  if (input.speedA && input.speedB && equals(input.speedA, input.speedB)) input = Object.freeze({ ...input, speedA: add(input.speedA, rational(6)) });
 
   if (base.solveMode === "findRelativeSpeedOppositeDirections" || base.solveMode === "findRelativeSpeedSameDirection") {
-    input = normalizeTwoToOnePair(
-      input,
-      base.solveMode === "findRelativeSpeedSameDirection" ? "SAME" : "OPPOSITE",
-    );
+    input = normalizeTwoToOnePair(input, base.solveMode === "findRelativeSpeedSameDirection" ? "SAME" : "OPPOSITE");
   }
 
-  if (
-    base.solveMode === "findMeetingTimeFromInitialSeparation" ||
-    base.solveMode === "findInitialSeparationFromMeetingTime" ||
-    base.solveMode === "findUnknownStartPointGap" ||
-    base.solveMode === "findRelativeDistanceCoveredInGivenTime"
-  ) {
+  if (base.solveMode === "findMeetingTimeFromInitialSeparation" || base.solveMode === "findInitialSeparationFromMeetingTime" || base.solveMode === "findUnknownStartPointGap" || base.solveMode === "findRelativeDistanceCoveredInGivenTime") {
     input = normalizeTwoToOnePair(input, input.directionCase ?? directionCase);
   }
 
-  if (
-    base.solveMode === "findCatchUpTimeFromHeadStartDistance" ||
-    base.solveMode === "findHeadStartDistanceFromCatchUpTime" ||
-    base.solveMode === "findDelayedStartCatchUpTime"
-  ) {
+  if (base.solveMode === "findCatchUpTimeFromHeadStartDistance" || base.solveMode === "findHeadStartDistanceFromCatchUpTime" || base.solveMode === "findDelayedStartCatchUpTime" || base.solveMode === "findStartDelayFromCatchUpState") {
     input = normalizeTwoToOnePair(input, "SAME");
   }
 
   if (base.solveMode === "findRelativeSpeedFromMeetingTime") {
     const knownSpeeds = [24, 30, 36, 40, 45, 48] as const;
-    input = Object.freeze({
-      ...input,
-      speedB: rational(knownSpeeds[index % knownSpeeds.length]),
-      directionCase,
-    });
+    input = Object.freeze({ ...input, speedB: rational(knownSpeeds[index % knownSpeeds.length]), directionCase });
   }
 
   if (authorityKey === "requiredSpeedForTargetMeeting" && input.initialSeparation && input.targetTime) {
     const requiredRelative = divide(input.initialSeparation, input.targetTime);
-    input = Object.freeze({
-      ...input,
-      speedB: divide(requiredRelative, rational(3)),
-    });
+    input = Object.freeze({ ...input, speedB: divide(requiredRelative, rational(3)) });
   }
 
-  return Object.freeze({
-    ...base,
-    representation: `${base.solveMode}:${index % 6}`,
-    input,
-  });
+  return Object.freeze({ ...base, representation: `${base.solveMode}:${index % 6}`, input });
 }
