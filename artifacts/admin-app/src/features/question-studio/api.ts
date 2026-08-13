@@ -160,6 +160,17 @@ export interface RegenerateGenerationItemsResult {
   failed: Array<{ itemId: string; message: string }>;
 }
 
+function probabilityExamProfile(exam: string) {
+  const value = exam.trim().toLowerCase();
+  if (/ibps|sbi|bank|rrb/.test(value)) {
+    return /mains|main/.test(value) ? 'BANKING_MAINS' : 'BANKING_PRELIMS';
+  }
+  if (/ssc/.test(value)) {
+    return /jso|statistics/.test(value) ? 'SSC_CGL_JSO' : 'SSC_CGL_CHSL';
+  }
+  return 'GENERIC_PRACTICE';
+}
+
 export function getQuestionStudioCapabilities() {
   return adminRequest<QuestionStudioCapabilities>(
     '/admin/question-studio/capabilities',
@@ -177,6 +188,9 @@ export function getQuestionStudioDashboard() {
 }
 
 export function createGenerationRun(input: CreateGenerationRunInput) {
+  const body = input.packageId === 'PRB-001' || input.packageId === 'PRB-002'
+    ? { ...input, runtimeMode: probabilityExamProfile(input.exam) }
+    : input;
   return adminRequest<{
     id: string;
     publicCode: string;
@@ -185,7 +199,7 @@ export function createGenerationRun(input: CreateGenerationRunInput) {
     generationSystem: string;
   }>(
     '/admin/question-studio/runs',
-    { method: 'POST', body: JSON.stringify(input) },
+    { method: 'POST', body: JSON.stringify(body) },
     { fallbackMessage: 'Unable to create the generation run.' },
   );
 }
