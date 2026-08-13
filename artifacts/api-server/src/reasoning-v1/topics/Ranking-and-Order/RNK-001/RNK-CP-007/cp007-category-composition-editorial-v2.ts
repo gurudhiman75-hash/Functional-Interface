@@ -12,7 +12,7 @@ import {
 } from "./cp007-category-composition-editorial-v1-1";
 
 export const RNK_CP007_CATEGORY_COMPOSITION_EDITORIAL_V2_VERSION =
-  "RNK_CP007_CATEGORY_COMPOSITION_EDITORIAL_V2_SURFACE_DIVERSIFIED" as const;
+  "RNK_CP007_CATEGORY_COMPOSITION_EDITORIAL_V2_SURFACE_DIVERSIFIED_POLISHED" as const;
 
 export { RNK_CP007_CATEGORY_COMPOSITION_MODES, solveRnkCp007CategoryComposition };
 export type {
@@ -97,7 +97,7 @@ function renderStem(
     return [
       `A ranked list contains ${state.total} ${whole}.`,
       `The ratio of ${labelA} to ${labelB} is ${ratioA}:${ratioB}.`,
-      `${name} belongs to the ${targetLabel} and occupies ${rank} position from the top.`,
+      `${name} is one of the ${targetLabel} and occupies ${rank} position from the top.`,
       `Exactly ${question.evidence.count} ${evidenceLabel} are ${evidenceSide} ${name}.`,
       `How many ${requestedLabel} are ${requestedSide} ${name}?`,
     ].join(" ");
@@ -114,8 +114,8 @@ function renderStem(
 
   if (style === "COMPACT_RATIO") {
     return [
-      `${state.total} ${whole} are ranked from top to bottom; ${labelA}:${labelB} = ${ratioA}:${ratioB}.`,
-      `${name}, a member of the ${targetLabel}, is ${rank} from the top.`,
+      `${state.total} ${whole} are ranked from top to bottom. ${labelA} and ${labelB} are in the ratio ${ratioA}:${ratioB}.`,
+      `${name} is one of the ${targetLabel} and is ${rank} from the top.`,
       `${question.evidence.count} ${evidenceLabel} are ${evidenceSide} ${name}.`,
       `How many ${requestedLabel} are ${requestedSide} ${name}?`,
     ].join(" ");
@@ -140,14 +140,14 @@ function renderExplanation(question: RnkCp007CategoryCompositionEditorialQuestio
   const requestedAhead = totalAhead - evidenceAhead;
   const evidenceConversion = question.evidence.side === "AHEAD"
     ? `${question.evidence.count} ${evidenceLabel} are already ahead.`
-    : `${evidenceLabel} ahead = ${categoryTotal(state, question.evidence.category)} - ${question.evidence.count}${evidenceAdjustment ? " - 1 (the target)" : ""} = ${evidenceAhead}.`;
+    : `The number of ${evidenceLabel} ahead = ${categoryTotal(state, question.evidence.category)} - ${question.evidence.count}${evidenceAdjustment ? " - 1 (the target)" : ""} = ${evidenceAhead}.`;
 
   if (question.reviewMetadata.requestedSide === "AHEAD") {
-    return `The ratio gives ${state.categoryATotal} ${labelA} and ${state.categoryBTotal} ${labelB}. Rank ${state.targetRankFromTop} means ${totalAhead} people are ahead. ${evidenceConversion} Therefore ${requestedLabel} ahead = ${totalAhead} - ${evidenceAhead} = ${question.answer}.`;
+    return `The ratio gives ${state.categoryATotal} ${labelA} and ${state.categoryBTotal} ${labelB}. Rank ${state.targetRankFromTop} means ${totalAhead} people are ahead. ${evidenceConversion} Therefore, the number of ${requestedLabel} ahead = ${totalAhead} - ${evidenceAhead} = ${question.answer}.`;
   }
 
   const requestedAdjustment = targetAdjustment(state, question.reviewMetadata.requestedCategory);
-  return `The ratio gives ${state.categoryATotal} ${labelA} and ${state.categoryBTotal} ${labelB}. Rank ${state.targetRankFromTop} means ${totalAhead} people are ahead. ${evidenceConversion} Hence ${requestedLabel} ahead = ${requestedAhead}. ${requestedLabel} after = ${categoryTotal(state, question.reviewMetadata.requestedCategory)} - ${requestedAhead}${requestedAdjustment ? " - 1 (the target)" : ""} = ${question.answer}.`;
+  return `The ratio gives ${state.categoryATotal} ${labelA} and ${state.categoryBTotal} ${labelB}. Rank ${state.targetRankFromTop} means ${totalAhead} people are ahead. ${evidenceConversion} Hence, the number of ${requestedLabel} ahead = ${requestedAhead}. The number of ${requestedLabel} after = ${categoryTotal(state, question.reviewMetadata.requestedCategory)} - ${requestedAhead}${requestedAdjustment ? " - 1 (the target)" : ""} = ${question.answer}.`;
 }
 
 export function generateRnkCp007CategoryCompositionQuestion(
@@ -163,7 +163,7 @@ export function generateRnkCp007CategoryCompositionQuestion(
     ...question,
     stem,
     explanation,
-    mathematicalFingerprint: `${question.mathematicalFingerprint}:SURFACE_V2:${style}`,
+    mathematicalFingerprint: `${question.mathematicalFingerprint}:SURFACE_V2:${style}:POLISHED`,
     reviewMetadata: {
       ...question.reviewMetadata,
       surfaceProfile: {
