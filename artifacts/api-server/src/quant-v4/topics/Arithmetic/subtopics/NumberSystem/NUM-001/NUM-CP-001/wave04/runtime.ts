@@ -253,9 +253,9 @@ function p026(seed: number): NumCp001Wave04Package {
     { value: factorial(k - 1), misconceptionId: "USED_ONE_FEWER_CONSECUTIVE_FACTORS" },
     { value: k, misconceptionId: "USED_BLOCK_LENGTH_ONLY" },
     { value: k * (k - 1), misconceptionId: "USED_ONLY_TWO_BLOCK_FACTORS" },
+    { value: canonical + 1, misconceptionId: "NEARBY_DIVISOR_GUESS" },
     { value: canonical + k, misconceptionId: "ADDED_BLOCK_LENGTH_TO_FACTORIAL" },
     { value: canonical * 2, misconceptionId: "ASSUMED_EXTRA_FACTOR_ALWAYS_PRESENT" },
-    { value: Math.max(1, canonical - 1), misconceptionId: "NEARBY_DIVISOR_GUESS" },
   ];
   const seen = new Set([canonicalAnswer]);
   const wrongs: { value: string; misconceptionId: string }[] = [];
