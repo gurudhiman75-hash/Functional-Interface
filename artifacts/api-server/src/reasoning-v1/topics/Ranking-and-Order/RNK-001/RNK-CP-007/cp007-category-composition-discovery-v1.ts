@@ -130,22 +130,13 @@ export function solveRnkCp007CategoryComposition(
   if (evidence.category === requestedCategory) {
     throw new Error("CP007 composition evidence must concern the opposite category");
   }
-
   const totalAhead = state.targetRankFromTop - 1;
-  let evidenceAhead: number;
-  if (evidence.side === "AHEAD") {
-    evidenceAhead = evidence.count;
-  } else {
-    evidenceAhead = categoryTotal(state, evidence.category)
-      - evidence.count
-      - targetAdjustment(state, evidence.category);
-  }
-
+  const evidenceAhead = evidence.side === "AHEAD"
+    ? evidence.count
+    : categoryTotal(state, evidence.category) - evidence.count - targetAdjustment(state, evidence.category);
   const requestedAhead = totalAhead - evidenceAhead;
   if (requestedSide === "AHEAD") return requestedAhead;
-  return categoryTotal(state, requestedCategory)
-    - requestedAhead
-    - targetAdjustment(state, requestedCategory);
+  return categoryTotal(state, requestedCategory) - requestedAhead - targetAdjustment(state, requestedCategory);
 }
 
 function constructState(seed: number): RnkCp007CategoryCompositionState {
@@ -215,23 +206,13 @@ function boundedDistractors(
         categoryTotal(state, requestedCategory) - requestedAhead,
         categoryTotal(state, requestedCategory) - evidence.count - targetAdjustment(state, requestedCategory),
         categoryTotal(state, requestedCategory) - evidenceAhead - targetAdjustment(state, requestedCategory),
-        answer + 1,
-        answer - 1,
-        answer + 2,
-        answer - 2,
-        answer + 3,
-        answer - 3,
+        answer + 1, answer - 1, answer + 2, answer - 2, answer + 3, answer - 3,
       ]
     : [
         totalAhead - evidence.count,
         totalAhead - evidenceAhead + targetAdjustment(state, requestedCategory),
         state.targetRankFromTop - evidenceAhead,
-        answer + 1,
-        answer - 1,
-        answer + 2,
-        answer - 2,
-        answer + 3,
-        answer - 3,
+        answer + 1, answer - 1, answer + 2, answer - 2, answer + 3, answer - 3,
       ];
 
   const unique = [...new Set(raw)]
@@ -244,9 +225,7 @@ function boundedDistractors(
 function placeOptions(answer: number, distractors: readonly number[], answerIndex: 0 | 1 | 2 | 3): readonly number[] {
   const output: number[] = [];
   let cursor = 0;
-  for (let index = 0; index < 4; index += 1) {
-    output.push(index === answerIndex ? answer : distractors[cursor++]!);
-  }
+  for (let index = 0; index < 4; index += 1) output.push(index === answerIndex ? answer : distractors[cursor++]!);
   if (new Set(output).size !== 4) throw new Error("Duplicate options in category-composition question");
   return output;
 }
@@ -283,12 +262,7 @@ export function generateRnkCp007CategoryCompositionQuestion(
   const evidenceLabel = evidence.category === "A" ? labelA : labelB;
   const requestedLabel = profile.requestedCategory === "A" ? labelA : labelB;
 
-  const answer = solveRnkCp007CategoryComposition(
-    state,
-    profile.requestedCategory,
-    profile.requestedSide,
-    evidence,
-  );
+  const answer = solveRnkCp007CategoryComposition(state, profile.requestedCategory, profile.requestedSide, evidence);
   const truth = categoryCount(state, profile.requestedCategory, profile.requestedSide);
   if (answer !== truth) throw new Error("Category-composition independent solver mismatch");
 
@@ -309,27 +283,23 @@ export function generateRnkCp007CategoryCompositionQuestion(
     queryText,
   ].join(" ");
 
-  const distractors = boundedDistractors(
-    state,
-    profile.requestedCategory,
-    profile.requestedSide,
-    evidence,
-    answer,
-  );
+  const distractors = boundedDistractors(state, profile.requestedCategory, profile.requestedSide, evidence, answer);
   const options = placeOptions(answer, distractors, requestedAnswerIndex);
 
   const totalAhead = state.targetRankFromTop - 1;
+  const evidenceAdjustment = targetAdjustment(state, evidence.category);
   const evidenceAhead = evidence.side === "AHEAD"
     ? evidence.count
-    : categoryTotal(state, evidence.category) - evidence.count - targetAdjustment(state, evidence.category);
+    : categoryTotal(state, evidence.category) - evidence.count - evidenceAdjustment;
   const requestedAhead = totalAhead - evidenceAhead;
   const evidenceDerivation = evidence.side === "AHEAD"
     ? `${evidence.count} ${evidenceLabel} are already known to be ahead.`
-    : `There are ${categoryTotal(state, evidence.category)} ${evidenceLabel} in total, so ${categoryTotal(state, evidence.category)} - ${evidence.count} - ${targetAdjustment(state, evidence.category)} = ${evidenceAhead} of them are ahead.`;
+    : `There are ${categoryTotal(state, evidence.category)} ${evidenceLabel} in total, so ${categoryTotal(state, evidence.category)} - ${evidence.count}${evidenceAdjustment ? " - 1 (the target)" : ""} = ${evidenceAhead} of them are ahead.`;
+  const requestedAdjustment = targetAdjustment(state, profile.requestedCategory);
 
   const explanation = profile.requestedSide === "AHEAD"
     ? `The ratio gives ${state.categoryATotal} ${labelA} and ${state.categoryBTotal} ${labelB}. ${ordinal(state.targetRankFromTop)} from the top means ${totalAhead} people are ahead. ${evidenceDerivation} Hence ${requestedLabel} ahead = ${totalAhead} - ${evidenceAhead} = ${answer}.`
-    : `The ratio gives ${state.categoryATotal} ${labelA} and ${state.categoryBTotal} ${labelB}. ${ordinal(state.targetRankFromTop)} from the top means ${totalAhead} people are ahead. ${evidenceDerivation} Therefore ${requestedAhead} ${requestedLabel} are ahead. So ${requestedLabel} after = ${categoryTotal(state, profile.requestedCategory)} - ${requestedAhead}${targetAdjustment(state, profile.requestedCategory) ? " - 1 (the target)" : ""} = ${answer}.`;
+    : `The ratio gives ${state.categoryATotal} ${labelA} and ${state.categoryBTotal} ${labelB}. ${ordinal(state.targetRankFromTop)} from the top means ${totalAhead} people are ahead. ${evidenceDerivation} Therefore ${requestedAhead} ${requestedLabel} are ahead. So ${requestedLabel} after = ${categoryTotal(state, profile.requestedCategory)} - ${requestedAhead}${requestedAdjustment ? " - 1 (the target)" : ""} = ${answer}.`;
 
   return {
     discoveryVersion: RNK_CP007_CATEGORY_COMPOSITION_VERSION,
@@ -342,16 +312,8 @@ export function generateRnkCp007CategoryCompositionQuestion(
     answer,
     explanation,
     mathematicalFingerprint: [
-      "CATCOMPV11",
-      state.total,
-      state.categoryATotal,
-      state.categoryBTotal,
-      state.targetRankFromTop,
-      state.targetCategory,
-      evidence.category,
-      evidence.side,
-      evidence.count,
-      mode,
+      "CATCOMPV11", state.total, state.categoryATotal, state.categoryBTotal,
+      state.targetRankFromTop, state.targetCategory, evidence.category, evidence.side, evidence.count, mode,
     ].join(":"),
     state,
     evidence,
