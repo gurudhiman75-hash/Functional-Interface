@@ -82,6 +82,25 @@ function numericFallback(answer: string, offset: number): string {
   throw new Error(`E1 option fallback requires a numeric answer, received: ${answer}`);
 }
 
+function fallbackMisconception(answer: string): Pick<SapE1WrongSpec, "misconceptionId" | "analysis"> {
+  if (/^-?\d+\.\d+$/.test(answer)) {
+    return {
+      misconceptionId: "LAST_DISPLAYED_DECIMAL_ONE_HIGH",
+      analysis: "The method is followed, but the final displayed decimal place is one unit too high.",
+    };
+  }
+  if (/^-?\d+\/\d+$/.test(answer)) {
+    return {
+      misconceptionId: "FINAL_FRACTION_NUMERATOR_SLIP",
+      analysis: "The cancellation route is followed, but the final reduced fraction has a one-unit numerator slip.",
+    };
+  }
+  return {
+    misconceptionId: "FINAL_INTEGER_ONE_HIGH",
+    analysis: "The method is followed, but the final integer is one unit too high.",
+  };
+}
+
 export function sapE1Options(answer: string, wrongSpecs: readonly SapE1WrongSpec[], correctIndex: number): readonly SapE1Option[] {
   const seen = new Set<string>([answer]);
   const wrong: SapE1WrongSpec[] = [];
@@ -95,7 +114,8 @@ export function sapE1Options(answer: string, wrongSpecs: readonly SapE1WrongSpec
     const value = numericFallback(answer, fallback);
     if (!seen.has(value)) {
       seen.add(value);
-      wrong.push({ value, misconceptionId: "NEARBY_FINAL_SLIP", analysis: "This option reflects a small final arithmetic slip after the intended method." });
+      const misconception = fallbackMisconception(answer);
+      wrong.push({ value, ...misconception });
     }
     fallback += 1;
   }
