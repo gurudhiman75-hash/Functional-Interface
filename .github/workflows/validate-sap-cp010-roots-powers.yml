@@ -28,13 +28,13 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Bundle CP010 release authority
+      - name: Bundle CP010 review-ready authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/authority-release.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/authority-review-ready.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp010-authority.test.mjs
-      - name: Run CP010 release authority
+      - name: Run CP010 review-ready authority
         shell: bash
         run: |
           set -o pipefail
