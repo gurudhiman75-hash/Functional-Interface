@@ -14,6 +14,25 @@ export {
   verifyMalCp006Wave01V2Answer,
 };
 
+function generateWithDistinctMisconceptions(
+  prototypeId: MalCp006Wave01V2PrototypeId,
+  seed: string,
+): MalCp006DiscoveryQuestion {
+  for (let attempt = 0; attempt < 64; attempt += 1) {
+    const candidateSeed =
+      attempt === 0 ? seed : `${seed}:distinct-options:${attempt}`;
+    try {
+      return generateCandidate(prototypeId, candidateSeed);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (!message.includes("not enough misconception distractors")) throw error;
+    }
+  }
+  throw new Error(
+    `${prototypeId}: could not find a clean state with three distinct misconception distractors for ${seed}.`,
+  );
+}
+
 function makeInterrogative(
   question: MalCp006DiscoveryQuestion,
 ): string {
@@ -84,10 +103,11 @@ export function generateMalCp006Wave01EditorialV2FinalQuestion(
   prototypeId: MalCp006Wave01V2PrototypeId,
   seed = "mal-cp006-wave01-v2-final:default",
 ): MalCp006DiscoveryQuestion {
-  const question = generateCandidate(prototypeId, seed);
+  const question = generateWithDistinctMisconceptions(prototypeId, seed);
   const stem = makeInterrogative(question);
   return {
     ...question,
+    requestedSeed: seed,
     stem,
     validation: rebuildValidation(question, stem),
   };
