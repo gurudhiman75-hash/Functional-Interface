@@ -1,0 +1,45 @@
+name: Export TMW-001 CP010 multilingual editorial review
+
+on:
+  push:
+    branches:
+      - fix/tmw-001-cp010-multilingual-editorial-review
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-cp010-multilingual-editorial-review-export.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp010-multilingual-editorial-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp010-multilingual-editorial-review-export.mjs
+      - name: Export 72 Hindi/Punjabi review packages
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/tmw-001-cp010-multilingual-editorial-review-export.mjs
+      - name: Upload review corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-001-cp010-multilingual-editorial-review-corpus
+          path: artifacts/api-server/dist/quant-v4/tmw-001-cp010-multilingual-editorial-review.json
+          if-no-files-found: error
+          retention-days: 14
