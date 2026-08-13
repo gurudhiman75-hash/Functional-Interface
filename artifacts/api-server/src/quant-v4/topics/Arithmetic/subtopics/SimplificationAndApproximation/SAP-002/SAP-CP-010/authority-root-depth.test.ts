@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import {
   SAP_CP010_PROTOTYPE_IDS,
   generateSapCp010,
-} from "./root-depth-runtime";
+} from "./root-depth-final-runtime";
 
 function intPow(base: number, degree: number): number { return base ** degree; }
 function nearestSqrt(n: number): number {
