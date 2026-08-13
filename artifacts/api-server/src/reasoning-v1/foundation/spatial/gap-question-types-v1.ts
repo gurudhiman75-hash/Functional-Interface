@@ -85,8 +85,12 @@ export interface SpatialGapQuestionBatchResultV1 {
   seedPrefix: string;
   requestedPerGap: number;
   totalAccepted: number;
+  totalAttempts: number;
+  totalDuplicateRejects: number;
   accepted: SpatialGapLearnerQuestionV1[];
   gapCounts: Record<SpatialGapIdV1, number>;
+  attemptsByGap: Record<SpatialGapIdV1, number>;
+  duplicateRejectsByGap: Record<SpatialGapIdV1, number>;
   chapterCounts: Record<SpatialGapChapterV1, number>;
   correctSlotCounts: [number, number, number, number];
   correctSlotCountsByGap: Record<SpatialGapIdV1, [number, number, number, number]>;
