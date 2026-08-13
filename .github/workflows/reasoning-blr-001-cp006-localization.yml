@@ -5,6 +5,7 @@ on:
     branches:
       - New-main
       - feat/blr-cp006-hi-pa-review
+      - feat/blr-cp006-hi-pa-review-current
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/**"
       - ".github/workflows/reasoning-blr-001-cp006-localization.yml"
@@ -38,6 +39,8 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts
       - name: Audit learner language leakage
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/localization/cp006-language-leak-audit.ts
+      - name: Audit Hindi Punjabi editorial quality
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/localization/cp006-editorial-quality-audit.ts
       - name: Prove Hindi Punjabi semantic parity
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/localization/cp006-localizer.test.ts
       - name: Typecheck admin application
