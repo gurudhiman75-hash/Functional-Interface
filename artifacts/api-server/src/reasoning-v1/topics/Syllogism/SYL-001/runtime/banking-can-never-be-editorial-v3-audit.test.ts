@@ -12,6 +12,10 @@ let evidencePremiseReferences = 0;
 let changedOrdinaryExplanations = 0;
 let changedModalExplanations = 0;
 let changedLocalizedModalConclusions = 0;
+let someContradictedFailures = 0;
+let someUndeterminedFailures = 0;
+let allEntailedFailures = 0;
+let allUndeterminedFailures = 0;
 const modalTruthByPosition: Record<string, number> = {};
 
 function increment(target: Record<string, number>, key: string): void {
@@ -101,6 +105,28 @@ for (const seed of seeds) {
           explanation,
           /\bat least one (?:cups|roads|trains|windows|coins|fruits|poets|lamps|flags|chairs|drums|boxes|rings|flowers|birds|gardens|stars|pencils|books|badges|shirts|plates|bells)\b|\bevery (?:cups|roads|trains|windows|coins|fruits|poets|lamps|flags|chairs|drums|boxes|rings|flowers|birds|gardens|stars|pencils|books|badges|shirts|plates|bells)\b|\bno (?:cups|roads|trains|windows|coins|fruits|poets|lamps|flags|chairs|drums|boxes|rings|flowers|birds|gardens|stars|pencils|books|badges|shirts|plates|bells) is\b/u,
         );
+
+        if (conclusion.mode === "CAN_NEVER_BE" && !conclusion.follows) {
+          if (conclusion.surfaceKind === "SOME_CAN_NEVER" && conclusion.classification === "CONTRADICTED") {
+            someContradictedFailures += 1;
+            assert.match(explanation, /every existing member .* forced to stay inside/u);
+            assert.match(explanation, /no definite member/u);
+          } else if (conclusion.surfaceKind === "SOME_CAN_NEVER" && conclusion.classification === "UNDETERMINED") {
+            someUndeterminedFailures += 1;
+            assert.match(explanation, /may remain outside/u);
+            assert.match(explanation, /not forced in every valid arrangement/u);
+          } else if (conclusion.surfaceKind === "ALL_CAN_NEVER" && conclusion.classification === "ENTAILED") {
+            allEntailedFailures += 1;
+            assert.match(explanation, /every member .* must belong/u);
+            assert.match(explanation, /opposite of what the statements force/u);
+          } else if (conclusion.surfaceKind === "ALL_CAN_NEVER" && conclusion.classification === "UNDETERMINED") {
+            allUndeterminedFailures += 1;
+            assert.match(explanation, /at least one valid arrangement can still place every member/u);
+            assert.match(explanation, /is not proved/u);
+          } else {
+            assert.fail(`${seed}: unexpected false modal disposition ${conclusion.surfaceKind}/${conclusion.classification}.`);
+          }
+        }
       } else {
         assert.doesNotMatch(explanation, /solver profile|learner-facing|subject|predicate|can never be|some \.\.\./iu);
         if (conclusion.mode === "CAN_NEVER_BE") {
@@ -134,6 +160,10 @@ assert.equal(modalTruthByPosition["I|true"], 60);
 assert.equal(modalTruthByPosition["I|false"], 60);
 assert.equal(modalTruthByPosition["II|true"], 60);
 assert.equal(modalTruthByPosition["II|false"], 60);
+assert.equal(someContradictedFailures, 10);
+assert.equal(someUndeterminedFailures, 10);
+assert.equal(allEntailedFailures, 10);
+assert.equal(allUndeterminedFailures, 10);
 
 console.log(JSON.stringify({
   status: "PASS_SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V3",
@@ -144,11 +174,17 @@ console.log(JSON.stringify({
   changedModalExplanations,
   changedLocalizedModalConclusions,
   modalTruthByPosition,
+  falseModalReasonClasses: {
+    someContradictedFailures,
+    someUndeterminedFailures,
+    allEntailedFailures,
+    allUndeterminedFailures,
+  },
   semanticParityWithShellV2: true,
   completePremiseEvidence: true,
   genericSolverExplanationOccurrences: 0,
   englishPluralAgreementLeakage: 0,
   hindiPunjabiEnglishModalLeaks: 0,
-  explanationPolicy: "COMPLETE_PREMISE_SET_RELATION_REASONING_V3",
+  explanationPolicy: "COMPLETE_PREMISE_DISPOSITION_SPECIFIC_REASONING_V3",
   activationPermitted: false,
 }, null, 2));
