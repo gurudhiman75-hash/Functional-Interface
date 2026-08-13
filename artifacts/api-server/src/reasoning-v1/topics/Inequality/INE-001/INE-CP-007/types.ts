@@ -19,6 +19,12 @@ export type IneCp007TaskKind =
   | "RECOVER_MAP"
   | "CONSISTENT_MAP";
 
+export interface IneCp007NumericTest {
+  left: number;
+  right: number;
+  expected: boolean;
+}
+
 export interface IneCp007Scenario {
   taskKind: IneCp007TaskKind;
   codeMap: IneCp006CodeMap;
@@ -26,6 +32,7 @@ export interface IneCp007Scenario {
   evidence: readonly string[];
   codeKey: readonly string[];
   candidateRelations: readonly ComparisonRelation[];
+  numericTests?: readonly IneCp007NumericTest[];
 }
 
 export interface IneCp007Option {

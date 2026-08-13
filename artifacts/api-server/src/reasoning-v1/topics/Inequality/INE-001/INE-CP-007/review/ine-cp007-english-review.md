@@ -762,19 +762,20 @@ Q = R, so only the first symbol decides the answer. + means <, giving P < Q = R 
 
 **Record:** INE-CP007-C77F46B9 · **Difficulty:** MEDIUM · **Delivery:** GUIDED_DISCOVERY · **Applicability:** GUIDED_CONCEPT_ONLY
 
-What must % mean to complete the one-to-one code map?
+Use the test results to determine what the coded symbol '%' means.
 
 ### Code key
 
 - A $ B means A is less than B.
 - A @ B means A is equal to B.
-- A & B means A is greater than or equal to B.
 - A # B means A is less than or equal to B.
 
 ### Given
 
 - The five symbols have five different meanings: >, <, =, ≥ and ≤.
-- Meaning of %: ?
+- Only two meanings remain for %: > or ≥.
+- 8 % 3 is true
+- 5 % 5 is false
 
 ### Options
 
@@ -787,25 +788,26 @@ What must % mean to complete the one-to-one code map?
 
 ### Explanation
 
-The other four meanings are already used. The only meaning left for % is greater than.
+From the three known entries, % can only mean > or ≥. The result 5 % 5 is false rules out ≥, because equality is allowed in ≥. Therefore, % means > (greater than).
 
 ## 26. RECOVER_MISSING_MAP_ENTRY — seed 1
 
 **Record:** INE-CP007-5685A836 · **Difficulty:** MEDIUM · **Delivery:** GUIDED_DISCOVERY · **Applicability:** GUIDED_CONCEPT_ONLY
 
-What must ? mean to complete the one-to-one code map?
+Use the test results to determine what the coded symbol '?' means.
 
 ### Code key
 
 - A ^ B means A is greater than B.
 - A ! B means A is equal to B.
 - A ~ B means A is greater than or equal to B.
-- A + B means A is less than or equal to B.
 
 ### Given
 
 - The five symbols have five different meanings: >, <, =, ≥ and ≤.
-- Meaning of ?: ?
+- Only two meanings remain for ?: < or ≤.
+- 3 ? 8 is true
+- 5 ? 5 is false
 
 ### Options
 
@@ -818,25 +820,26 @@ What must ? mean to complete the one-to-one code map?
 
 ### Explanation
 
-The other four meanings are already used. The only meaning left for ? is less than.
+From the three known entries, ? can only mean < or ≤. The result 5 ? 5 is false rules out ≤, because equality is allowed in ≤. Therefore, ? means < (less than).
 
 ## 27. RECOVER_MISSING_MAP_ENTRY — seed 2
 
 **Record:** INE-CP007-8F34710B · **Difficulty:** MEDIUM · **Delivery:** GUIDED_DISCOVERY · **Applicability:** GUIDED_CONCEPT_ONLY
 
-What must # mean to complete the one-to-one code map?
+Use the test results to determine what the coded symbol '#' means.
 
 ### Code key
 
 - A % B means A is greater than B.
 - A $ B means A is less than B.
-- A @ B means A is greater than or equal to B.
 - A & B means A is less than or equal to B.
 
 ### Given
 
 - The five symbols have five different meanings: >, <, =, ≥ and ≤.
-- Meaning of #: ?
+- Only two meanings remain for #: = or ≥.
+- 5 # 5 is true
+- 8 # 3 is false
 
 ### Options
 
@@ -849,17 +852,16 @@ What must # mean to complete the one-to-one code map?
 
 ### Explanation
 
-The other four meanings are already used. The only meaning left for # is equal to.
+From the three known entries, # can only mean = or ≥. Although 5 # 5 is true for both, 8 # 3 is false. It would be true for ≥, so # must mean = (equal to).
 
 ## 28. RECOVER_MISSING_MAP_ENTRY — seed 3
 
 **Record:** INE-CP007-80547A00 · **Difficulty:** MEDIUM · **Delivery:** GUIDED_DISCOVERY · **Applicability:** GUIDED_CONCEPT_ONLY
 
-What must ? mean to complete the one-to-one code map?
+Use the test results to determine what the coded symbol '?' means.
 
 ### Code key
 
-- A ~ B means A is greater than B.
 - A + B means A is less than B.
 - A ^ B means A is equal to B.
 - A ! B means A is less than or equal to B.
@@ -867,7 +869,9 @@ What must ? mean to complete the one-to-one code map?
 ### Given
 
 - The five symbols have five different meanings: >, <, =, ≥ and ≤.
-- Meaning of ?: ?
+- Only two meanings remain for ?: ≥ or >.
+- 8 ? 3 is true
+- 5 ? 5 is true
 
 ### Options
 
@@ -880,7 +884,7 @@ What must ? mean to complete the one-to-one code map?
 
 ### Explanation
 
-The other four meanings are already used. The only meaning left for ? is greater than or equal to.
+From the three known entries, ? can only mean ≥ or >. The result 5 ? 5 is true rules out the strict sign >. Therefore, ? means ≥ (greater than or equal to).
 
 ## 29. IDENTIFY_ONLY_CONSISTENT_CODE_MAP — seed 0
 

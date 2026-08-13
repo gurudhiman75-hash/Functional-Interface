@@ -1,6 +1,26 @@
 import { createComparisonConstraint, strongestDefiniteRelation } from "../foundation/relations";
 import { assertSolverAgreement } from "../foundation/solver-agreement";
+import type { ComparisonRelation } from "../foundation/types";
 import type { GeneratedIneCp007Question, IneCp007ValidationResult } from "./types";
+
+function relationHolds(
+  relation: ComparisonRelation,
+  left: number,
+  right: number,
+): boolean {
+  switch (relation) {
+    case "GREATER_THAN":
+      return left > right;
+    case "LESS_THAN":
+      return left < right;
+    case "EQUAL_TO":
+      return left === right;
+    case "GREATER_THAN_OR_EQUAL":
+      return left >= right;
+    case "LESS_THAN_OR_EQUAL":
+      return left <= right;
+  }
+}
 
 export function validateIneCp007Question(
   question: GeneratedIneCp007Question,
@@ -32,8 +52,31 @@ export function validateIneCp007Question(
     question.displayedCodeKey.length !== 5
   )
     errors.push("Exam-shaped operator tasks require the complete code key.");
-  if (question.structuredScenario.taskKind === "RECOVER_MAP" && question.displayedCodeKey.length !== 4)
-    errors.push("Map recovery must withhold exactly one mapping.");
+  if (
+    question.structuredScenario.taskKind === "RECOVER_MAP" &&
+    question.displayedCodeKey.length !== 3
+  )
+    errors.push("Map recovery must leave two candidate meanings unresolved.");
+  if (question.structuredScenario.taskKind === "RECOVER_MAP") {
+    const { candidateRelations, numericTests, targetRelation } =
+      question.structuredScenario;
+    const matchingRelations = candidateRelations.filter((relation) =>
+      (numericTests ?? []).every(
+        (test) =>
+          relationHolds(relation, test.left, test.right) === test.expected,
+      ),
+    );
+    if (
+      candidateRelations.length !== 2 ||
+      !numericTests ||
+      numericTests.length < 2 ||
+      matchingRelations.length !== 1 ||
+      matchingRelations[0] !== targetRelation
+    )
+      errors.push(
+        "Map-recovery evidence must distinguish exactly one of two candidate meanings.",
+      );
+  }
   if (
     question.structuredScenario.taskKind === "MISSING_OPERATOR" ||
     question.structuredScenario.taskKind === "SELECT_EXPRESSION"

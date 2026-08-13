@@ -811,16 +811,17 @@
     "difficulty": "MEDIUM",
     "deliveryProfile": "GUIDED_DISCOVERY",
     "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "stem": "What must % mean to complete the one-to-one code map?",
+    "stem": "Use the test results to determine what the coded symbol '%' means.",
     "codeKey": [
       "A $ B means A is less than B.",
       "A @ B means A is equal to B.",
-      "A & B means A is greater than or equal to B.",
       "A # B means A is less than or equal to B."
     ],
     "evidence": [
       "The five symbols have five different meanings: >, <, =, ≥ and ≤.",
-      "Meaning of %: ?"
+      "Only two meanings remain for %: > or ≥.",
+      "8 % 3 is true",
+      "5 % 5 is false"
     ],
     "options": [
       "less than or equal to",
@@ -830,7 +831,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "greater than",
-    "explanation": "The other four meanings are already used. The only meaning left for % is greater than.",
+    "explanation": "From the three known entries, % can only mean > or ≥. The result 5 % 5 is false rules out ≥, because equality is allowed in ≥. Therefore, % means > (greater than).",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -844,16 +845,17 @@
     "difficulty": "MEDIUM",
     "deliveryProfile": "GUIDED_DISCOVERY",
     "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "stem": "What must ? mean to complete the one-to-one code map?",
+    "stem": "Use the test results to determine what the coded symbol '?' means.",
     "codeKey": [
       "A ^ B means A is greater than B.",
       "A ! B means A is equal to B.",
-      "A ~ B means A is greater than or equal to B.",
-      "A + B means A is less than or equal to B."
+      "A ~ B means A is greater than or equal to B."
     ],
     "evidence": [
       "The five symbols have five different meanings: >, <, =, ≥ and ≤.",
-      "Meaning of ?: ?"
+      "Only two meanings remain for ?: < or ≤.",
+      "3 ? 8 is true",
+      "5 ? 5 is false"
     ],
     "options": [
       "less than or equal to",
@@ -863,7 +865,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "less than",
-    "explanation": "The other four meanings are already used. The only meaning left for ? is less than.",
+    "explanation": "From the three known entries, ? can only mean < or ≤. The result 5 ? 5 is false rules out ≤, because equality is allowed in ≤. Therefore, ? means < (less than).",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -877,16 +879,17 @@
     "difficulty": "MEDIUM",
     "deliveryProfile": "GUIDED_DISCOVERY",
     "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "stem": "What must # mean to complete the one-to-one code map?",
+    "stem": "Use the test results to determine what the coded symbol '#' means.",
     "codeKey": [
       "A % B means A is greater than B.",
       "A $ B means A is less than B.",
-      "A @ B means A is greater than or equal to B.",
       "A & B means A is less than or equal to B."
     ],
     "evidence": [
       "The five symbols have five different meanings: >, <, =, ≥ and ≤.",
-      "Meaning of #: ?"
+      "Only two meanings remain for #: = or ≥.",
+      "5 # 5 is true",
+      "8 # 3 is false"
     ],
     "options": [
       "less than",
@@ -896,7 +899,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "equal to",
-    "explanation": "The other four meanings are already used. The only meaning left for # is equal to.",
+    "explanation": "From the three known entries, # can only mean = or ≥. Although 5 # 5 is true for both, 8 # 3 is false. It would be true for ≥, so # must mean = (equal to).",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -910,16 +913,17 @@
     "difficulty": "MEDIUM",
     "deliveryProfile": "GUIDED_DISCOVERY",
     "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "stem": "What must ? mean to complete the one-to-one code map?",
+    "stem": "Use the test results to determine what the coded symbol '?' means.",
     "codeKey": [
-      "A ~ B means A is greater than B.",
       "A + B means A is less than B.",
       "A ^ B means A is equal to B.",
       "A ! B means A is less than or equal to B."
     ],
     "evidence": [
       "The five symbols have five different meanings: >, <, =, ≥ and ≤.",
-      "Meaning of ?: ?"
+      "Only two meanings remain for ?: ≥ or >.",
+      "8 ? 3 is true",
+      "5 ? 5 is true"
     ],
     "options": [
       "greater than or equal to",
@@ -929,7 +933,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "greater than or equal to",
-    "explanation": "The other four meanings are already used. The only meaning left for ? is greater than or equal to.",
+    "explanation": "From the three known entries, ? can only mean ≥ or >. The result 5 ? 5 is true rules out the strict sign >. Therefore, ? means ≥ (greater than or equal to).",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"

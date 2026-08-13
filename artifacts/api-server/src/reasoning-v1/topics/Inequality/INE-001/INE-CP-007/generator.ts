@@ -15,6 +15,7 @@ import type {
   IneCp007Option,
   IneCp007PrototypeId,
   IneCp007Scenario,
+  IneCp007NumericTest,
 } from "./types";
 import { validateIneCp007Question } from "./validator";
 
@@ -77,22 +78,78 @@ function relationOptions(
   return placeCorrect(correct, distractors, scenario.taskKind, seed);
 }
 
-function relationEvidence(
+function relationTests(
   relation: ComparisonRelation,
-  symbol: string,
-): readonly string[] {
+): readonly IneCp007NumericTest[] {
   switch (relation) {
     case "GREATER_THAN":
-      return [`8 ${symbol} 3 is true`, `5 ${symbol} 5 is false`];
+      return [
+        { left: 8, right: 3, expected: true },
+        { left: 5, right: 5, expected: false },
+      ];
     case "GREATER_THAN_OR_EQUAL":
-      return [`8 ${symbol} 3 is true`, `5 ${symbol} 5 is true`];
+      return [
+        { left: 8, right: 3, expected: true },
+        { left: 5, right: 5, expected: true },
+      ];
     case "LESS_THAN":
-      return [`3 ${symbol} 8 is true`, `5 ${symbol} 5 is false`];
+      return [
+        { left: 3, right: 8, expected: true },
+        { left: 5, right: 5, expected: false },
+      ];
     case "LESS_THAN_OR_EQUAL":
-      return [`3 ${symbol} 8 is true`, `5 ${symbol} 5 is true`];
+      return [
+        { left: 3, right: 8, expected: true },
+        { left: 5, right: 5, expected: true },
+      ];
     case "EQUAL_TO":
-      return [`5 ${symbol} 5 is true`, `8 ${symbol} 3 is false`];
+      return [
+        { left: 5, right: 5, expected: true },
+        { left: 8, right: 3, expected: false },
+      ];
   }
+}
+
+function renderNumericTests(
+  tests: readonly IneCp007NumericTest[],
+  symbol: string,
+): string[] {
+  return tests.map(
+    (test) =>
+      `${test.left} ${symbol} ${test.right} is ${test.expected ? "true" : "false"}`,
+  );
+}
+
+function foilRelationFor(relation: ComparisonRelation): ComparisonRelation {
+  switch (relation) {
+    case "GREATER_THAN":
+      return "GREATER_THAN_OR_EQUAL";
+    case "GREATER_THAN_OR_EQUAL":
+      return "GREATER_THAN";
+    case "LESS_THAN":
+      return "LESS_THAN_OR_EQUAL";
+    case "LESS_THAN_OR_EQUAL":
+      return "LESS_THAN";
+    case "EQUAL_TO":
+      return "GREATER_THAN_OR_EQUAL";
+  }
+}
+
+function recoveryExplanation(
+  symbol: string,
+  target: ComparisonRelation,
+  foil: ComparisonRelation,
+): string {
+  const targetSign = ordinaryRelationSymbol(target);
+  const foilSign = ordinaryRelationSymbol(foil);
+  if (target === "GREATER_THAN" || target === "LESS_THAN")
+    return `From the three known entries, ${symbol} can only mean ${targetSign} or ${foilSign}. The result 5 ${symbol} 5 is false rules out ${foilSign}, because equality is allowed in ${foilSign}. Therefore, ${symbol} means ${targetSign} (${ordinaryRelationWords(target)}).`;
+  if (
+    target === "GREATER_THAN_OR_EQUAL" ||
+    target === "LESS_THAN_OR_EQUAL"
+  )
+    return `From the three known entries, ${symbol} can only mean ${targetSign} or ${foilSign}. The result 5 ${symbol} 5 is true rules out the strict sign ${foilSign}. Therefore, ${symbol} means ${targetSign} (${ordinaryRelationWords(target)}).`;
+  return `From the three known entries, ${symbol} can only mean ${targetSign} or ${foilSign}. Although 5 ${symbol} 5 is true for both, 8 ${symbol} 3 is false. It would be true for ${foilSign}, so ${symbol} must mean ${targetSign} (${ordinaryRelationWords(target)}).`;
 }
 
 function mapSummary(
@@ -191,26 +248,41 @@ function buildQuestion(
     explanation = `Q = R, so only the first symbol decides the answer. ${codeMap.symbolByRelation[targetRelation]} means ${relationSymbol}, giving P ${relationSymbol} Q = R and therefore P ${relationSymbol} R.`;
   } else if (contract.taskKind === "RECOVER_MAP") {
     const missingSymbol = codeMap.symbolByRelation[targetRelation];
+    const foilRelation = foilRelationFor(targetRelation);
+    const tests = relationTests(targetRelation);
     displayedCodeKey = renderCodeKey(codeMap)
-      .filter((entry) => entry.relation !== targetRelation)
+      .filter(
+        (entry) =>
+          entry.relation !== targetRelation && entry.relation !== foilRelation,
+      )
       .map((entry) => entry.text);
     displayedEvidence = [
       "The five symbols have five different meanings: >, <, =, ≥ and ≤.",
-      `Meaning of ${missingSymbol}: ?`,
+      `Only two meanings remain for ${missingSymbol}: ${ordinaryRelationSymbol(targetRelation)} or ${ordinaryRelationSymbol(foilRelation)}.`,
+      ...renderNumericTests(tests, missingSymbol),
     ];
     scenario.evidence = displayedEvidence;
     scenario.codeKey = displayedCodeKey;
+    scenario.candidateRelations = [targetRelation, foilRelation];
+    scenario.numericTests = tests;
     optionResult = relationOptions(
       targetRelation,
       scenario,
       seed,
       ordinaryRelationWords,
     );
-    stem = `What must ${missingSymbol} mean to complete the one-to-one code map?`;
-    explanation = `The other four meanings are already used. The only meaning left for ${missingSymbol} is ${ordinaryRelationWords(targetRelation)}.`;
+    stem = `Use the test results to determine what the coded symbol '${missingSymbol}' means.`;
+    explanation = recoveryExplanation(
+      missingSymbol,
+      targetRelation,
+      foilRelation,
+    );
   } else {
     displayedEvidence = RELATIONS.flatMap((relation) =>
-      relationEvidence(relation, codeMap.symbolByRelation[relation]),
+      renderNumericTests(
+        relationTests(relation),
+        codeMap.symbolByRelation[relation],
+      ),
     );
     scenario.evidence = displayedEvidence;
     const correct: IneCp007Option = {
