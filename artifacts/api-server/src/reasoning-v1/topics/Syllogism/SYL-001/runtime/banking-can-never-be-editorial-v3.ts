@@ -231,14 +231,14 @@ function explainModal(
         return `${evidence.label}: ${lead}, ${s} का कम-से-कम एक सदस्य ${p} से बाहर रहना ही चाहिए। इसलिए ${s} के सभी सदस्यों का ${p} में होना असंभव है और निष्कर्ष ${evidence.label} अनुसरण करता है।`;
       }
       return conclusion.classification === "ENTAILED"
-        ? `${evidence.label}: ${lead}, ${s} का हर सदस्य ${p} में होना ही चाहिए। इसलिए “सभी कभी नहीं हो सकते” कथन दिए गए संबंध के विपरीत है और निष्कर्ष ${evidence.label} अनुसरण नहीं करता।`
-        : `${evidence.label}: ${lead}, कम-से-कम एक वैध व्यवस्था में ${s} के सभी सदस्य ${p} में रखे जा सकते हैं। इसलिए “कभी संभव नहीं” सिद्ध नहीं होता और निष्कर्ष ${evidence.label} अनुसरण नहीं करता।`;
+        ? `${evidence.label}: ${lead}, ${s} का हर सदस्य ${p} में होना ही चाहिए। इसलिए ${s} के सभी सदस्यों का ${p} में होना असंभव नहीं, बल्कि कथनों से निश्चित है; निष्कर्ष ${evidence.label} अनुसरण नहीं करता।`
+        : `${evidence.label}: ${lead}, कम-से-कम एक वैध व्यवस्था में ${s} के सभी सदस्य ${p} में रखे जा सकते हैं। इसलिए ${s} के सभी सदस्यों का ${p} में होना “कभी संभव नहीं” सिद्ध नहीं होता और निष्कर्ष ${evidence.label} अनुसरण नहीं करता।`;
     }
     if (conclusion.follows) {
       return `${evidence.label}: ${lead}, ${s} का कम-से-कम एक सदस्य ${p} से बाहर रहना निश्चित है। इसलिए निष्कर्ष ${evidence.label} अनुसरण करता है।`;
     }
     return conclusion.classification === "CONTRADICTED"
-      ? `${evidence.label}: ${lead}, ${s} का हर मौजूद सदस्य ${p} के भीतर रहना ही चाहिए। इसलिए ऐसा कोई निश्चित सदस्य नहीं हो सकता जो ${s} में हो और ${p} से बाहर रहे; निष्कर्ष ${evidence.label} अनुसरण नहीं करता।`
+      ? `${evidence.label}: ${lead}, ${s} का हर मौजूद सदस्य ${p} के भीतर रहना ही चाहिए। इसलिए किसी सदस्य का ${s} में रहकर ${p} से बाहर रहना असंभव है; निष्कर्ष ${evidence.label} अनुसरण नहीं करता।`
       : `${evidence.label}: ${lead}, ${s} का कोई सदस्य ${p} से बाहर हो सकता है, लेकिन ऐसा होना हर वैध व्यवस्था में निश्चित नहीं है। इसलिए निष्कर्ष ${evidence.label} अनुसरण नहीं करता।`;
   }
 
@@ -248,14 +248,14 @@ function explainModal(
         return `${evidence.label}: ${lead}, ${s} ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ ${p} ਤੋਂ ਬਾਹਰ ਰਹਿਣਾ ਹੀ ਚਾਹੀਦਾ ਹੈ। ਇਸ ਲਈ ${s} ਦੇ ਸਾਰੇ ਮੈਂਬਰਾਂ ਦਾ ${p} ਵਿੱਚ ਹੋਣਾ ਅਸੰਭਵ ਹੈ ਅਤੇ ਨਤੀਜਾ ${evidence.label} ਸਹੀ ਹੈ।`;
       }
       return conclusion.classification === "ENTAILED"
-        ? `${evidence.label}: ${lead}, ${s} ਦਾ ਹਰ ਮੈਂਬਰ ${p} ਵਿੱਚ ਹੋਣਾ ਹੀ ਚਾਹੀਦਾ ਹੈ। ਇਸ ਲਈ “ਸਾਰੇ ਕਦੇ ਨਹੀਂ ਹੋ ਸਕਦੇ” ਵਾਲਾ ਦਾਅਵਾ ਦਿੱਤੇ ਸੰਬੰਧ ਦੇ ਉਲਟ ਹੈ ਅਤੇ ਨਤੀਜਾ ${evidence.label} ਸਹੀ ਨਹੀਂ ਹੈ।`
-        : `${evidence.label}: ${lead}, ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵੈਧ ਬਣਤਰ ਵਿੱਚ ${s} ਦੇ ਸਾਰੇ ਮੈਂਬਰ ${p} ਵਿੱਚ ਰੱਖੇ ਜਾ ਸਕਦੇ ਹਨ। ਇਸ ਲਈ “ਕਦੇ ਸੰਭਵ ਨਹੀਂ” ਸਾਬਤ ਨਹੀਂ ਹੁੰਦਾ ਅਤੇ ਨਤੀਜਾ ${evidence.label} ਸਹੀ ਨਹੀਂ ਹੈ।`;
+        ? `${evidence.label}: ${lead}, ${s} ਦਾ ਹਰ ਮੈਂਬਰ ${p} ਵਿੱਚ ਹੋਣਾ ਹੀ ਚਾਹੀਦਾ ਹੈ। ਇਸ ਲਈ ${s} ਦੇ ਸਾਰੇ ਮੈਂਬਰਾਂ ਦਾ ${p} ਵਿੱਚ ਹੋਣਾ ਅਸੰਭਵ ਨਹੀਂ, ਸਗੋਂ ਕਥਨਾਂ ਤੋਂ ਪੱਕਾ ਹੈ; ਨਤੀਜਾ ${evidence.label} ਸਹੀ ਨਹੀਂ ਹੈ।`
+        : `${evidence.label}: ${lead}, ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵੈਧ ਬਣਤਰ ਵਿੱਚ ${s} ਦੇ ਸਾਰੇ ਮੈਂਬਰ ${p} ਵਿੱਚ ਰੱਖੇ ਜਾ ਸਕਦੇ ਹਨ। ਇਸ ਲਈ ${s} ਦੇ ਸਾਰੇ ਮੈਂਬਰਾਂ ਦਾ ${p} ਵਿੱਚ ਹੋਣਾ “ਕਦੇ ਸੰਭਵ ਨਹੀਂ” ਸਾਬਤ ਨਹੀਂ ਹੁੰਦਾ ਅਤੇ ਨਤੀਜਾ ${evidence.label} ਸਹੀ ਨਹੀਂ ਹੈ।`;
     }
     if (conclusion.follows) {
       return `${evidence.label}: ${lead}, ${s} ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ ${p} ਤੋਂ ਬਾਹਰ ਰਹਿਣਾ ਪੱਕਾ ਹੈ। ਇਸ ਲਈ ਨਤੀਜਾ ${evidence.label} ਸਹੀ ਹੈ।`;
     }
     return conclusion.classification === "CONTRADICTED"
-      ? `${evidence.label}: ${lead}, ${s} ਦਾ ਹਰ ਮੌਜੂਦ ਮੈਂਬਰ ${p} ਦੇ ਅੰਦਰ ਰਹਿਣਾ ਹੀ ਚਾਹੀਦਾ ਹੈ। ਇਸ ਲਈ ਕੋਈ ਪੱਕਾ ਮੈਂਬਰ ਐਸਾ ਨਹੀਂ ਹੋ ਸਕਦਾ ਜੋ ${s} ਵਿੱਚ ਹੋਵੇ ਅਤੇ ${p} ਤੋਂ ਬਾਹਰ ਰਹੇ; ਨਤੀਜਾ ${evidence.label} ਸਹੀ ਨਹੀਂ ਹੈ।`
+      ? `${evidence.label}: ${lead}, ${s} ਦਾ ਹਰ ਮੌਜੂਦ ਮੈਂਬਰ ${p} ਦੇ ਅੰਦਰ ਰਹਿਣਾ ਹੀ ਚਾਹੀਦਾ ਹੈ। ਇਸ ਲਈ ਕਿਸੇ ਮੈਂਬਰ ਦਾ ${s} ਵਿੱਚ ਰਹਿ ਕੇ ${p} ਤੋਂ ਬਾਹਰ ਰਹਿਣਾ ਅਸੰਭਵ ਹੈ; ਨਤੀਜਾ ${evidence.label} ਸਹੀ ਨਹੀਂ ਹੈ।`
       : `${evidence.label}: ${lead}, ${s} ਦਾ ਕੋਈ ਮੈਂਬਰ ${p} ਤੋਂ ਬਾਹਰ ਹੋ ਸਕਦਾ ਹੈ, ਪਰ ਇਹ ਹਰ ਵੈਧ ਬਣਤਰ ਵਿੱਚ ਪੱਕਾ ਨਹੀਂ ਹੈ। ਇਸ ਲਈ ਨਤੀਜਾ ${evidence.label} ਸਹੀ ਨਹੀਂ ਹੈ।`;
   }
 
@@ -264,14 +264,14 @@ function explainModal(
       return `${evidence.label}: ${lead}, at least one member of ${s} must remain outside ${p}. Therefore no valid arrangement can place every member of ${s} inside ${p}, so Conclusion ${evidence.label} follows.`;
     }
     return conclusion.classification === "ENTAILED"
-      ? `${evidence.label}: ${lead}, every member of ${s} must belong to ${p}. The claim that all members can never belong to ${p} is therefore the opposite of what the statements force, so Conclusion ${evidence.label} does not follow.`
-      : `${evidence.label}: ${lead}, at least one valid arrangement can still place every member of ${s} inside ${p}. Therefore “all ${subject} can never be ${predicate}” is not proved, so Conclusion ${evidence.label} does not follow.`;
+      ? `${evidence.label}: ${lead}, every member of ${s} must belong to ${p}. Therefore an all-in relation is not impossible; it is actually forced by the statements, so Conclusion ${evidence.label} does not follow.`
+      : `${evidence.label}: ${lead}, at least one valid arrangement can still place every member of ${s} inside ${p}. Therefore an all-in relation is possible in at least one valid arrangement, so Conclusion ${evidence.label} does not follow.`;
   }
   if (conclusion.follows) {
     return `${evidence.label}: ${lead}, at least one member of ${s} is forced to remain outside ${p}. Therefore Conclusion ${evidence.label} follows.`;
   }
   return conclusion.classification === "CONTRADICTED"
-    ? `${evidence.label}: ${lead}, every existing member of ${s} is forced to stay inside ${p}. Therefore no definite member can satisfy the required “in ${s} but outside ${p}” relation, so Conclusion ${evidence.label} does not follow.`
+    ? `${evidence.label}: ${lead}, every existing member of ${s} is forced to stay inside ${p}. Therefore it is impossible for a member to be in ${s} while remaining outside ${p}, so Conclusion ${evidence.label} does not follow.`
     : `${evidence.label}: ${lead}, a member of ${s} may remain outside ${p} in some valid arrangements, but that negative relation is not forced in every valid arrangement. Therefore Conclusion ${evidence.label} does not follow.`;
 }
 
