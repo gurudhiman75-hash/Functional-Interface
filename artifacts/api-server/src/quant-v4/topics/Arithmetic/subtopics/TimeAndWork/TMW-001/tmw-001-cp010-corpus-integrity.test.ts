@@ -42,7 +42,7 @@ for (const qlId of qls) for (const language of languages) for (const namespace o
   if (qlId === "TMW-QL-183") assert(/final.*rate|अंतिम भराव.*दर|ਅੰਤਿਮ ਭਰਨ.*ਦਰ/i.test(question.learnerExplanation.answer), `${label}: final-rate answer label missing`);
   if (qlId === "TMW-QL-184") assert(/capacity|क्षमता|ਸਮਰੱਥਾ/i.test(question.learnerExplanation.answer), `${label}: capacity label missing`);
   if (qlId === "TMW-QL-189") assert(/complete cycle|पूरे चक्र|ਪੂਰੇ ਚੱਕਰ/i.test(question.learnerExplanation.answer), `${label}: cycle-count label missing`);
-  if (qlId === "TMW-QL-190") assert(/segment|अंतराल|खंड|ਹਿੱਸ|ਅੰਤਰਾਲ/i.test(question.learnerExplanation.answer), `${label}: terminal-segment label missing`);
+  if (qlId === "TMW-QL-190") assert(/terminal segment|first becomes full|पहली बार पूरी भरती|ਪਹਿਲੀ ਵਾਰ ਪੂਰੀ ਭਰਦੀ|अंतराल|खंड|ਹਿੱਸ|ਅੰਤਰਾਲ/i.test(question.learnerExplanation.answer), `${label}: terminal-segment answer semantics missing`);
   if (qlId === "TMW-QL-192") assert(/schedule change|बदलाव|ਬਦਲਾਅ/i.test(question.learnerExplanation.answer), `${label}: schedule-adjustment label missing`);
 }
 
