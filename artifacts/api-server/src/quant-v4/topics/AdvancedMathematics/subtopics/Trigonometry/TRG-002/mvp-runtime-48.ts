@@ -4,6 +4,7 @@ import { TRG_002_MVP_48_IDS, type Trg002Mvp48Id } from "./mvp-48-registry";
 import { TRG_002_MVP_CP007_ADDED_IDS, generateTrg002MvpCp007AddedQuestion, type Trg002MvpCp007AddedId } from "./mvp-cp007";
 import { generateTrg002MvpQl024Clean } from "./mvp-ql024-clean";
 import { TRG_002_MVP_CP008_SHADOW_LADDER_IDS, generateTrg002MvpCp008ShadowLadderQuestion, type Trg002MvpCp008ShadowLadderId } from "./mvp-cp008-shadow-ladder";
+import { generateTrg002MvpQl038Clean } from "./mvp-ql038-clean";
 import { TRG_002_MVP_CP008_BROKEN_IDS, generateTrg002MvpCp008BrokenQuestion, type Trg002MvpCp008BrokenId } from "./mvp-cp008-broken";
 import { TRG_002_MVP_CP008_WIRE_IDS, generateTrg002MvpCp008WireQuestion, type Trg002MvpCp008WireId } from "./mvp-cp008-wire";
 import { TRG_002_MVP_CP009_A_IDS, generateTrg002MvpCp009AQuestion, type Trg002MvpCp009AId } from "./mvp-cp009-a";
@@ -26,6 +27,7 @@ const c10b = new Set<string>(TRG_002_MVP_CP010_BUILDING_SIGHT_IDS);
 export function generateTrg002Mvp48Question(qlId: Trg002Mvp48Id, seed: string) {
   if (proof.has(qlId)) return generateSolutionDiagramTrg002RuntimeProofQuestion(qlId as Trg002ProofQlId, seed);
   if (qlId === "TRG-002-QL-024") return generateTrg002MvpQl024Clean(seed);
+  if (qlId === "TRG-002-QL-038") return generateTrg002MvpQl038Clean(seed);
   if (qlId === "TRG-002-QL-094") return generateTrg002MvpQl094Clean(seed);
   if (c7.has(qlId)) return generateTrg002MvpCp007AddedQuestion(qlId as Trg002MvpCp007AddedId, seed);
   if (c8a.has(qlId)) return generateTrg002MvpCp008ShadowLadderQuestion(qlId as Trg002MvpCp008ShadowLadderId, seed);
