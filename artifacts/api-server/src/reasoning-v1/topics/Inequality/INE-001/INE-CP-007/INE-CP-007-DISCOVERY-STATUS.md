@@ -4,7 +4,7 @@
 
 **Implementation:** English prototype discovery v1 complete
 
-**Manual review:** Pending
+**Manual review:** Approved by user on 2026-08-13
 
 **Exam readiness:** Missing-operator and expression-selection prototypes only; map-recovery tasks remain guided
 
@@ -16,4 +16,4 @@
 
 ## Gate
 
-The 32-question English review pack requires manual review. No authority may be promoted, localized, or assigned a permanent QL from this checkpoint alone.
+The 32-question English review pack has been manually accepted. The checkpoint remains a discovery prototype: approval does not by itself promote an authority, enable localization, expose questions in Question Studio, or allocate a permanent QL.
