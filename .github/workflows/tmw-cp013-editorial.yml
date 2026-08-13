@@ -1,0 +1,29 @@
+name: Validate TMW CP013 editorial review
+on:
+  push:
+    branches: [fix/tmw-001-cp013-multilingual-editorial-review]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: TypeScript check
+        working-directory: artifacts/api-server
+        run: pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler --strictNullChecks --noImplicitAny --noImplicitReturns --skipLibCheck --types node src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp013-data-sufficiency-runtime.ts src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp013-multilingual-editorial-review-finalizer.ts src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp013-multilingual-editorial-review.test.ts
+      - name: Run CP013 editorial audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp013-multilingual-editorial-review.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/cp013-editorial.mjs && node artifacts/api-server/dist/quant-v4/cp013-editorial.mjs
+      - name: Run CP013 baseline
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp013-data-sufficiency.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/cp013-baseline.mjs && node artifacts/api-server/dist/quant-v4/cp013-baseline.mjs
+      - name: Run final chapter audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-final.mjs && node artifacts/api-server/dist/quant-v4/tmw-final.mjs
+      - name: Run multilingual parity
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-chapter-parity.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-parity.mjs && node artifacts/api-server/dist/quant-v4/tmw-parity.mjs
