@@ -3,7 +3,15 @@ import { deriveCp004WrongWorkings } from "./distractors";
 import type { TsdCp004CoreInput, TsdCp004CoreSolution, TsdCp004CoreSolveMode } from "./relative-motion-foundation";
 import type { TsdCp004WrongWorking } from "./runtime-types";
 
-function plausible(value: TsdCp004WrongWorking["value"], solution: TsdCp004CoreSolution): boolean {
+function plausible(
+  value: TsdCp004WrongWorking["value"],
+  mode: TsdCp004CoreSolveMode,
+  input: TsdCp004CoreInput,
+  solution: TsdCp004CoreSolution,
+): boolean {
+  if ((mode === "findMeetingPointDistanceSplit" || mode === "findMeetingPointFromSpeedRatio") && input.routeDistance) {
+    if (!isPositive(value) || compare(value, input.routeDistance) >= 0) return false;
+  }
   if (solution.unit === "CLOCK_MINUTE" || solution.unit === "RATIO") return true;
   const lower = divide(solution.answer, rational(3));
   const upper = multiply(solution.answer, rational(3));
@@ -17,7 +25,7 @@ export function deriveExamReadyCp004WrongWorkings(
 ): readonly TsdCp004WrongWorking[] {
   const accepted: TsdCp004WrongWorking[] = [];
   for (const working of deriveCp004WrongWorkings(mode, input, solution)) {
-    if (!plausible(working.value, solution)) continue;
+    if (!plausible(working.value, mode, input, solution)) continue;
     if (accepted.some((entry) => equals(entry.value, working.value))) continue;
     accepted.push(working);
   }
@@ -27,7 +35,7 @@ export function deriveExamReadyCp004WrongWorkings(
     if (accepted.length >= 3) break;
     const value = multiply(solution.answer, factor);
     if (!isPositive(value) || equals(value, solution.answer)) continue;
-    if (!plausible(value, solution)) continue;
+    if (!plausible(value, mode, input, solution)) continue;
     if (accepted.some((entry) => equals(entry.value, value))) continue;
     accepted.push(Object.freeze({
       misconceptionId: factor.numerator > factor.denominator ? "MULTIPLY_INSTEAD_OF_DIVIDE" : "DIVIDE_INSTEAD_OF_MULTIPLY",
