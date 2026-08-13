@@ -486,6 +486,18 @@ router.get(
         SELECT
           count(*)::int AS "generationItemCount",
           count(*) FILTER (WHERE i.status = 'approved')::int AS "approvedItemCount",
+          count(DISTINCT ((v.payload ->> 'qlId') || ':' || (v.payload ->> 'language')))
+            FILTER (
+              WHERE i.status = 'approved'
+                AND v.payload ->> 'qlId' IS NOT NULL
+                AND v.payload ->> 'language' IN ('hi', 'pa')
+            )::int AS "uniqueApprovedSurfaceCount",
+          count(DISTINCT (v.payload ->> 'qlId'))
+            FILTER (WHERE i.status = 'approved' AND v.payload ->> 'language' = 'hi')::int
+            AS "hindiApprovedQlCount",
+          count(DISTINCT (v.payload ->> 'qlId'))
+            FILTER (WHERE i.status = 'approved' AND v.payload ->> 'language' = 'pa')::int
+            AS "punjabiApprovedQlCount",
           count(*) FILTER (WHERE i.accepted_question_id IS NOT NULL)::int AS "questionBankCount"
         FROM content.generation_run_items i
         INNER JOIN content.generation_item_versions v
@@ -493,13 +505,27 @@ router.get(
         WHERE v.payload ->> 'integrationAuthority' = ${PROBABILITY_NATIVE_REVIEW_AUTHORITY}
       `;
       const freeze = getProbabilityNativeFreezeSummary();
+      const approvedItemCount = Number(rows[0]?.approvedItemCount ?? 0);
+      const uniqueApprovedSurfaceCount = Number(rows[0]?.uniqueApprovedSurfaceCount ?? 0);
+      const hindiApprovedQlCount = Number(rows[0]?.hindiApprovedQlCount ?? 0);
+      const punjabiApprovedQlCount = Number(rows[0]?.punjabiApprovedQlCount ?? 0);
+      const questionBankCount = Number(rows[0]?.questionBankCount ?? 0);
       res.json({
         chapterId: "Probability",
         permanentQlCount: CATALOG.length,
         nativeReviewSurfaceCount: CATALOG.length * 2,
         generationItemCount: Number(rows[0]?.generationItemCount ?? 0),
-        approvedItemCount: Number(rows[0]?.approvedItemCount ?? 0),
-        questionBankCount: Number(rows[0]?.questionBankCount ?? 0),
+        approvedItemCount,
+        uniqueApprovedSurfaceCount,
+        duplicateApprovedItemCount: Math.max(0, approvedItemCount - uniqueApprovedSurfaceCount),
+        hindiApprovedQlCount,
+        punjabiApprovedQlCount,
+        databaseEvidenceComplete:
+          uniqueApprovedSurfaceCount === CATALOG.length * 2
+          && hindiApprovedQlCount === CATALOG.length
+          && punjabiApprovedQlCount === CATALOG.length
+          && questionBankCount === 0,
+        questionBankCount,
         integrationAuthority: PROBABILITY_NATIVE_REVIEW_AUTHORITY,
         questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY",
         questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED",
