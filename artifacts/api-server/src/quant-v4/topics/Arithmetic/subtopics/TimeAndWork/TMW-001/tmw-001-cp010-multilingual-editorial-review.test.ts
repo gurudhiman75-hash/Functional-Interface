@@ -40,16 +40,21 @@ for (const qlId of qls) {
       assert(!/\{\{[^}]+\}\}|\$\{[^}]+\}|\bundefined\b|\bnull\b|\bNaN\b|\bInfinity\b/u.test(presentation), `${label}: unresolved learner token remains`);
       assert(!/\\text\{(?:Stage|Complete cycles before|level still required|completion occurs|terminal segment)/i.test(learner), `${label}: internal schedule prose remains inside learner MathJax`);
       assert(!/घंटा\\\) घंटे|ਘੰਟਾ\\\) ਘੰਟੇ/u.test(learner), `${label}: segment label is incorrectly presented as a duration`);
+      assert(!/\\\(r_\d+=.+?\\quad \\Delta L=.+?\\\)\s+(?:tank\/hour|टंकी\/घंटा|ਟੈਂਕੀ\/ਘੰਟਾ)/u.test(learner), `${label}: rate unit still applies ambiguously to level change`);
 
       if (language === "hi") {
         assert(/[\u0900-\u097F]/u.test(learner), `${label}: Hindi learner text lacks Devanagari`);
         assert(!/चलती है[^।;?]*चलता है|चलते हैं[^।;?]*चलता है|चलती है हो जाती है|चलती है चालू करता है/u.test(q.stem), `${label}: broken Hindi staged-schedule agreement remains`);
         assert(!hasLocalizedProseInsideMath(learner), `${label}: Hindi prose remains inside MathJax`);
+        assert(!/Pump-on|Pump-off|Drainage|Drain interval|Inlet [A-Z]|Outlet [A-Z]/i.test(learner), `${label}: English cycle label remains in Hindi learner text`);
+        assert(!/टंकी .* का अंतराल में/u.test(learner), `${label}: Hindi terminal-segment postposition grammar remains`);
       }
       if (language === "pa") {
         assert(/[\u0A00-\u0A7F]/u.test(learner), `${label}: Punjabi learner text lacks Gurmukhi`);
         assert(!/ਚੱਲਦੀ ਹੈ[^।;?]*ਚੱਲਦਾ ਹੈ|ਚੱਲਦੇ ਹਨ[^।;?]*ਚੱਲਦਾ ਹੈ|ਚੱਲਦੀ ਹੈ ਹੋ ਜਾਂਦੀ ਹੈ|ਚੱਲਦੀ ਹੈ ਚਾਲੂ ਕਰਦਾ ਹੈ/u.test(q.stem), `${label}: broken Punjabi staged-schedule agreement remains`);
         assert(!hasLocalizedProseInsideMath(learner), `${label}: Punjabi prose remains inside MathJax`);
+        assert(!/Pump-on|Pump-off|Drainage|Drain interval|Inlet [A-Z]|Outlet [A-Z]/i.test(learner), `${label}: English cycle label remains in Punjabi learner text`);
+        assert(!/ਟੈਂਕੀ .* ਦਾ ਅੰਤਰਾਲ ਵਿੱਚ/u.test(learner), `${label}: Punjabi terminal-segment postposition grammar remains`);
       }
 
       if (qlId === "TMW-QL-180") assert(/final tank level|अंत में टंकी|ਅੰਤ ਵਿੱਚ ਟੈਂਕੀ/i.test(q.learnerExplanation.answer), `${label}: final level answer label is generic`);
