@@ -15,25 +15,41 @@ function time(input: TsdCp004CoreInput, key: keyof TsdCp004CoreInput): string {
   return formatDurationHours(value as Rational);
 }
 
+function usesClosingSpeed(input: TsdCp004CoreInput, solution: TsdCp004CoreSolution): boolean {
+  if (input.directionCase === "SAME") return true;
+  return new Set([
+    "findRelativeSpeedSameDirection",
+    "findCatchUpTimeFromHeadStartDistance",
+    "findHeadStartDistanceFromCatchUpTime",
+    "findDelayedStartCatchUpTime",
+    "findStartDelayFromCatchUpState",
+    "findFasterSpeedFromCatchUpState",
+    "findSlowerSpeedFromCatchUpState",
+  ]).has(solution.solveMode);
+}
+
 export function buildCp004Teaching(
   authorityKey: string,
   input: TsdCp004CoreInput,
   solution: TsdCp004CoreSolution,
   answerText: string,
 ): TsdCp004Explanation {
-  const relativeRule = input.directionCase === "SAME"
+  const sameDirection = usesClosingSpeed(input, solution);
+  const relativeRule = sameDirection
     ? "For motion in the same direction, closing speed = faster speed − slower speed."
-    : "For motion towards each other or directly apart, relative speed uses the sum of the two speeds.";
+    : "For motion towards each other or directly apart, relative speed = speed A + speed B.";
 
   switch (authorityKey) {
     case "relativeSpeedBetweenTwoBodies":
       return Object.freeze({
         method: "Use the direction rule for relative speed.",
         steps: Object.freeze([
-          input.directionCase === "SAME" ? `Closing speed = ${v(input, "speedA")} − ${v(input, "speedB")} km/h.` : `Relative speed = ${v(input, "speedA")} + ${v(input, "speedB")} km/h.`,
-          `So the rate at which the gap changes is ${answerText}.`,
+          sameDirection
+            ? `Closing speed = ${v(input, "speedA")} − ${v(input, "speedB")} = ${answerText}.`
+            : `Relative speed = ${v(input, "speedA")} + ${v(input, "speedB")} = ${answerText}.`,
+          `So the gap changes at ${answerText}.`,
         ]),
-        shortcut: input.directionCase === "SAME" ? "Same direction → subtract speeds." : "Opposite directions → add speeds.",
+        shortcut: sameDirection ? "Same direction → subtract speeds." : "Opposite directions → add speeds.",
         finalAnswer: answerText,
       });
     case "firstMeetingOrCatchUpTimeFromGap": {
@@ -71,14 +87,14 @@ export function buildCp004Teaching(
       });
     case "relativeSpeedFromGapAndMeetingTime":
       return Object.freeze({
-        method: "Reconstruct the relative speed directly from the gap and meeting time.",
+        method: "Reconstruct the relative speed directly from the change in gap and the elapsed time.",
         steps: Object.freeze([
-          `Gap closed = ${v(input, "initialSeparation")} km.`,
-          `Meeting time = ${time(input, "meetingTime")}.`,
-          "Relative speed = gap ÷ meeting time.",
+          `Change in gap = ${v(input, "initialSeparation")} km.`,
+          `Elapsed time = ${time(input, "meetingTime")}.`,
+          "Relative speed = change in gap ÷ elapsed time.",
           `Therefore the relative speed is ${answerText}.`,
         ]),
-        shortcut: "Meeting state gives relative speed immediately: gap/time.",
+        shortcut: "Relative speed = change in gap / time.",
         finalAnswer: answerText,
       });
     case "individualSpeedFromRelativeState":
