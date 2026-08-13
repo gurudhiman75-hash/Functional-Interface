@@ -28,13 +28,13 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Bundle CP010 final authority
+      - name: Bundle CP010 certified authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/authority-final.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/authority-certified.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp010-authority.test.mjs
-      - name: Run CP010 final authority
+      - name: Run CP010 certified authority
         shell: bash
         run: |
           set -o pipefail
