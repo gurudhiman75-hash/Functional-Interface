@@ -49,7 +49,7 @@ const reassignments = NUM_CP001_SOURCE_DISPOSITIONS.filter(
 );
 assert.deepEqual(
   [...new Set(reassignments.map((row) => row.owner))].sort(),
-  ["ALGEBRA", "NUMBER_SERIES", "NUM-CP-002", "NUM-CP-004", "P_AND_C"],
+  ["ALGEBRA", "NUM-CP-002", "NUM-CP-004", "NUMBER_SERIES", "P_AND_C"],
 );
 
 assert.ok(NUM_CP001_SOURCE_DISPOSITIONS.some(
