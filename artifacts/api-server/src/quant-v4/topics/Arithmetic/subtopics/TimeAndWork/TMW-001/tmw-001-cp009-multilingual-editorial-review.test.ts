@@ -47,8 +47,11 @@ for (const qlId of qls) {
       if (qlId === "TMW-QL-167") assert(/1 hour = 60 minutes|1 घंटा = 60 मिनट|1 ਘੰਟਾ = 60 ਮਿੰਟ/u.test(learner), `${label}: readable unit relation missing`);
       if (qlId === "TMW-QL-168") assert(/initial level|प्रारंभिक स्तर|ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ/i.test(q.learnerExplanation.method), `${label}: initial-level method is not explicit`);
       if (qlId === "TMW-QL-169") assert(/final tank level|अंतिम स्तर|ਅੰਤਿਮ ਪੱਧਰ/i.test(q.learnerExplanation.answer) && !/आवश्यक समय|ਲੋੜੀਂਦਾ ਸਮਾਂ/u.test(q.learnerExplanation.answer), `${label}: final level is mislabeled as time`);
-      if (qlId === "TMW-QL-170") assert(/capacity ratio A:B|क्षमता अनुपात A:B|ਸਮਰੱਥਾ ਅਨੁਪਾਤ A:B/i.test(learner), `${label}: tank capacity ratio labels are unclear`);
-      if (qlId === "TMW-QL-171") assert(/efficiency ratio|दक्षता का अनुपात|ਦੱਖਤਾ ਦਾ ਅਨੁਪਾਤ/i.test(q.learnerExplanation.answer) && !/आवश्यक समय|ਲੋੜੀਂਦਾ ਸਮਾਂ/u.test(q.learnerExplanation.answer), `${label}: efficiency ratio is mislabeled as time`);
+      if (qlId === "TMW-QL-170") assert(/capacity ratio \(A:B\)|क्षमता अनुपात \(A:B\)|ਸਮਰੱਥਾ ਅਨੁਪਾਤ \(A:B\)/i.test(learner), `${label}: tank capacity ratio labels are unclear`);
+      if (qlId === "TMW-QL-171") {
+        assert(/efficiency ratio|दक्षता का अनुपात|ਦੱਖਤਾ ਦਾ ਅਨੁਪਾਤ/i.test(q.learnerExplanation.answer) && !/आवश्यक समय|ਲੋੜੀਂਦਾ ਸਮਾਂ/u.test(q.learnerExplanation.answer), `${label}: efficiency ratio is mislabeled as time`);
+        assert(/hours|घंटे|ਘੰਟੇ/u.test(learner), `${label}: old/new filling times omit units`);
+      }
       if (qlId === "TMW-QL-172") assert(/percentage reduction|प्रतिशत कमी|ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ/i.test(q.learnerExplanation.answer) && !/आवश्यक समय|ਲੋੜੀਂਦਾ ਸਮਾਂ/u.test(q.learnerExplanation.answer), `${label}: blockage percent is mislabeled as time`);
       if (qlId === "TMW-QL-173") assert(/net direction|पानी के स्तर की दिशा|ਪਾਣੀ ਦੇ ਪੱਧਰ ਦੀ ਦਿਸ਼ਾ/i.test(q.learnerExplanation.answer) && !/आवश्यक दर|ਲੋੜੀਂਦੀ ਦਰ/u.test(q.learnerExplanation.answer), `${label}: direction answer is mislabeled as rate`);
       if (qlId === "TMW-QL-174") {
