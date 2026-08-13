@@ -6,6 +6,16 @@ function ordinal(seed: string): number {
   return Number(seed.match(/(\d+)$/)?.[1] ?? "0");
 }
 
+function normalizeTwoToOnePair(input: TsdCp004GeneratedState["input"], directionCase: "OPPOSITE" | "SAME") {
+  const baseSpeed = input.speedB ?? rational(30);
+  return Object.freeze({
+    ...input,
+    speedA: multiply(baseSpeed, rational(2)),
+    speedB: baseSpeed,
+    directionCase,
+  });
+}
+
 export function generateCp004StateV2(authorityKey: string, seed: string): TsdCp004GeneratedState {
   const base = generateCp004State(authorityKey, seed);
   const index = ordinal(seed);
@@ -16,12 +26,19 @@ export function generateCp004StateV2(authorityKey: string, seed: string): TsdCp0
     input = Object.freeze({ ...input, speedA: add(input.speedA, rational(6)) });
   }
 
-  if ((base.solveMode === "findRelativeSpeedOppositeDirections" || base.solveMode === "findRelativeSpeedSameDirection") && input.speedB) {
-    input = Object.freeze({
-      ...input,
-      speedA: multiply(input.speedB, rational(2)),
-      directionCase: base.solveMode === "findRelativeSpeedSameDirection" ? "SAME" : "OPPOSITE",
-    });
+  if (base.solveMode === "findRelativeSpeedOppositeDirections" || base.solveMode === "findRelativeSpeedSameDirection") {
+    input = normalizeTwoToOnePair(
+      input,
+      base.solveMode === "findRelativeSpeedSameDirection" ? "SAME" : "OPPOSITE",
+    );
+  }
+
+  if (base.solveMode === "findMeetingTimeFromInitialSeparation") {
+    input = normalizeTwoToOnePair(input, input.directionCase ?? directionCase);
+  }
+
+  if (base.solveMode === "findCatchUpTimeFromHeadStartDistance") {
+    input = normalizeTwoToOnePair(input, "SAME");
   }
 
   if (base.solveMode === "findRelativeSpeedFromMeetingTime") {
