@@ -236,10 +236,18 @@ function polishSolution(question: Cp009Question, language: Language, answer: str
   }
 
   if (qlId === "TMW-QL-174" && steps[2]) {
-    steps[2] = steps[2].replace(
+    const localized = steps[2].replace(
       /boundary is reached within the window/gi,
       t(language, ["the boundary is reached within the available window", "सीमा उपलब्ध अवधि के भीतर पहुँच जाती है", "ਹੱਦ ਉਪਲਬਧ ਮਿਆਦ ਦੇ ਅੰਦਰ ਪਹੁੰਚ ਜਾਂਦੀ ਹੈ"]),
     );
+    const condition = localized.match(/^\\\(([\s\S]*?)\\Rightarrow[\s\S]*\\\)[।.]?$/u)?.[1]?.trim();
+    if (condition) {
+      steps[2] = `${math(condition)} ⇒ ${answer}${language === "en" ? "." : "।"}`;
+    } else if (/\\\([^)]*[\u0900-\u097F\u0A00-\u0A7F][^)]*\\\)/u.test(localized)) {
+      steps[2] = `${t(language, ["Boundary check", "सीमा-जाँच", "ਹੱਦ ਦੀ ਜਾਂਚ"])}: ${answer}${language === "en" ? "." : "।"}`;
+    } else {
+      steps[2] = localized;
+    }
   }
 
   return steps.slice(0, 5);
