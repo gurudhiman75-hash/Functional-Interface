@@ -28,13 +28,13 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Bundle CP009 editorial authority
+      - name: Bundle CP009 exam-standard authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-009/authority-editorial.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-009/authority-exam-standard.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp009-authority.test.mjs
-      - name: Run CP009 editorial authority
+      - name: Run CP009 exam-standard authority
         shell: bash
         run: |
           set -o pipefail
