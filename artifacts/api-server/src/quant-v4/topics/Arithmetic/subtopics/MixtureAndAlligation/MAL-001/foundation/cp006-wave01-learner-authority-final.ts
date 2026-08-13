@@ -25,6 +25,7 @@ function finalTextPolish(text: string): string {
   return text
     .replace(/\ba acid-water solution\b/giu, "an acid-water solution")
     .replace(/\ba alcohol-water mixture\b/giu, "an alcohol-water mixture")
+    .replace(/\b([0-9]+(?:\.[0-9]+)?(?:\s+[0-9]+\/[0-9]+)? litres) goes\b/giu, "$1 is transferred")
     .replace(/\b1 litres\b/giu, "1 litre");
 }
 
@@ -97,6 +98,7 @@ function surfaceIsClean(question: MalCp006DiscoveryQuestion): boolean {
   ].join(" ");
   if (/\ba (?:acid|alcohol)-water\b/iu.test(learnerText)) return false;
   if (/\b1 litres\b/iu.test(learnerText)) return false;
+  if (/\blitres goes\b/iu.test(learnerText)) return false;
   if (
     /salt solution component|component load|state key|current fraction|global component/iu.test(
       learnerText,
