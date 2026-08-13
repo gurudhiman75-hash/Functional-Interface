@@ -4,8 +4,10 @@ on:
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-wave01-learner-remediation-v2.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-wave01-learner-remediation-v2-final.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-types.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave01-learner-remediation-v2-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave01-learner-remediation-v2-final-audit.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/MAL-CP-006/**"
       - ".github/workflows/mal-cp006-wave01-learner-remediation-v2.yml"
   workflow_dispatch:
@@ -42,28 +44,28 @@ jobs:
           cd artifacts/api-server
           node dist/quant-v4/mal-001-cp006-wave01-v1-regression.mjs 2>&1 | tee dist/quant-v4/mal-001-cp006-wave01-v1-regression.log
 
-      - name: Bundle Wave 01 learner remediation V2 audit
+      - name: Bundle final Wave 01 learner remediation V2 audit
         run: >
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave01-learner-remediation-v2-audit.ts
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave01-learner-remediation-v2-final-audit.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/mal-001-cp006-wave01-learner-remediation-v2-audit.mjs
+          --outfile=dist/quant-v4/mal-001-cp006-wave01-learner-remediation-v2-final-audit.mjs
 
-      - name: Run Wave 01 learner remediation V2 audit
+      - name: Run final Wave 01 learner remediation V2 audit
         shell: bash
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/quant-v4/mal-001-cp006-wave01-learner-remediation-v2-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp006-wave01-learner-remediation-v2-audit.log
+          node dist/quant-v4/mal-001-cp006-wave01-learner-remediation-v2-final-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp006-wave01-learner-remediation-v2-final-audit.log
 
       - name: Upload Wave 01 learner remediation V2 evidence
         uses: actions/upload-artifact@v4
         with:
-          name: mal-cp006-wave01-learner-remediation-v2
+          name: mal-cp006-wave01-learner-remediation-v2-final
           path: |
             artifacts/api-server/dist/quant-v4/mal-001-cp006-wave01-v1-regression.log
-            artifacts/api-server/dist/quant-v4/mal-001-cp006-wave01-learner-remediation-v2-audit.log
-            artifacts/api-server/dist/quant-v4/mal-cp006-wave01-learner-remediation-v2.json
-            artifacts/api-server/dist/quant-v4/MAL-CP-006-WAVE-01-LEARNER-REMEDIATION-V2-25Q-REVIEW.md
+            artifacts/api-server/dist/quant-v4/mal-001-cp006-wave01-learner-remediation-v2-final-audit.log
+            artifacts/api-server/dist/quant-v4/mal-cp006-wave01-learner-remediation-v2-final.json
+            artifacts/api-server/dist/quant-v4/MAL-CP-006-WAVE-01-LEARNER-REMEDIATION-V2-FINAL-25Q-REVIEW.md
           if-no-files-found: error
           retention-days: 14
