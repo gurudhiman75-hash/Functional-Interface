@@ -5,29 +5,31 @@ import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 import {
-  previewReasoningV1QuestionStudioReview,
-  type ReasoningV1QuestionStudioReviewRequest,
-} from "../reasoning-v1/question-studio-review-registry";
-import {
   BLR_CP006_QUESTION_STUDIO_PACKAGE_ID,
   BLR_CP006_QUESTION_STUDIO_QL_IDS,
+  BLR_CP006_QUESTION_STUDIO_REVIEW_PACKAGE,
+  previewBlrCp006QuestionStudioReview,
   type BlrCp006QuestionStudioDifficulty,
   type BlrCp006QuestionStudioLanguage,
   type BlrCp006QuestionStudioQlId,
 } from "../reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/question-studio-review-adapter";
 import { BLR_CP006_MULTILINGUAL_FREEZE_AUTHORITY } from "../reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-multilingual-frozen";
+import {
+  BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
+  BLR_CP007_QUESTION_STUDIO_REVIEW_PACKAGE,
+} from "../reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/question-studio-review-adapter";
 
 const router = Router();
 
-const RELEASE_AUTHORITY = BLR_CP006_MULTILINGUAL_FREEZE_AUTHORITY;
+const CP006_RELEASE_AUTHORITY = BLR_CP006_MULTILINGUAL_FREEZE_AUTHORITY;
+const CP007_RELEASE_AUTHORITY = "BLR_CP007_PRODUCT_RELEASE_APPROVED_2026_08_09" as const;
 const RELEASE_RUNTIME_MODE = "CANONICAL_REVIEW" as const;
 const RELEASE_REVIEW_STATUS = "APPROVED_EDITORIAL_CANONICAL" as const;
 const LANGUAGES = new Set(["en", "hi", "pa"]);
 const DIFFICULTIES = new Set(["Easy", "Medium", "Hard"]);
 const QL_IDS = new Set<string>(BLR_CP006_QUESTION_STUDIO_QL_IDS);
 
-type PreviewResult = ReturnType<typeof previewReasoningV1QuestionStudioReview>;
-type PreviewQuestion = PreviewResult["questions"][number];
+type PreviewQuestion = ReturnType<typeof previewBlrCp006QuestionStudioReview>["questions"][number];
 
 function asString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -40,6 +42,25 @@ function asCount(value: unknown, fallback = 5, max = 50) {
 
 function isCp006Package(value: unknown) {
   return asString(value) === BLR_CP006_QUESTION_STUDIO_PACKAGE_ID;
+}
+
+function activatedPackage<T extends Record<string, unknown>>(
+  pkg: T,
+  releaseAuthority: string,
+) {
+  return {
+    ...pkg,
+    enabled: true,
+    reviewOnly: false,
+    adminReviewVisible: true,
+    questionStudioVisible: true,
+    persistenceAllowed: true,
+    databaseWriteEnabled: true,
+    questionBankEligible: true,
+    mockTestEligible: true,
+    publiclyPublishable: true,
+    releaseAuthority,
+  } as const;
 }
 
 function publicRunCode() {
@@ -97,7 +118,7 @@ function productionPayload(question: PreviewQuestion) {
     testEligibility: "ELIGIBLE",
     publiclyPublishable: true,
     mockTestEligible: true,
-    releaseAuthority: RELEASE_AUTHORITY,
+    releaseAuthority: CP006_RELEASE_AUTHORITY,
     traceability: question.traceability,
     sourceValidation: question.validation,
     generationContext: {
@@ -110,7 +131,7 @@ function productionPayload(question: PreviewQuestion) {
       testEligibility: "ELIGIBLE",
       publiclyPublishable: true,
       mockTestEligible: true,
-      releaseAuthority: RELEASE_AUTHORITY,
+      releaseAuthority: CP006_RELEASE_AUTHORITY,
       corpusAuthority: question.parameters.corpusAuthority,
       recordAuthority: question.parameters.recordAuthority,
     },
@@ -177,7 +198,7 @@ async function persistRun(
         'question_studio.reasoning_run.created', 'generation_run', ${runId}::uuid,
         'BLR-CP-006 frozen corpus entered Question Studio review',
         ${`Created ${questions.length} BLR-CP-006 review items in ${publicCode}`},
-        ${JSON.stringify({ requestSnapshot, releaseAuthority: RELEASE_AUTHORITY })}::jsonb
+        ${JSON.stringify({ requestSnapshot, releaseAuthority: CP006_RELEASE_AUTHORITY })}::jsonb
       )
     `;
 
@@ -196,6 +217,26 @@ async function persistRun(
 }
 
 router.get(
+  "/reasoning/packages",
+  authenticate,
+  requireAdminPermission("content.generation.read"),
+  (_req, res) => {
+    res.json({
+      generationSystem: "reasoning-v1",
+      activationMode: "PRODUCTION_REVIEW",
+      packages: [
+        activatedPackage(BLR_CP007_QUESTION_STUDIO_REVIEW_PACKAGE, CP007_RELEASE_AUTHORITY),
+        activatedPackage(BLR_CP006_QUESTION_STUDIO_REVIEW_PACKAGE, CP006_RELEASE_AUTHORITY),
+      ],
+      maxBatchSize: 50,
+      totalFrozenRecords: 504,
+      databaseWriteEnabled: true,
+      persistenceAllowed: true,
+    });
+  },
+);
+
+router.get(
   "/reasoning/preview",
   (req, _res, next) => isCp006Package(req.query.packageId) ? next() : next("route"),
   authenticate,
@@ -209,8 +250,7 @@ router.get(
       if (difficulty && !DIFFICULTIES.has(difficulty)) throw new Error(`Unsupported difficulty '${difficulty}'.`);
       if (qlId && !QL_IDS.has(qlId)) throw new Error(`Unsupported QL '${qlId}'.`);
 
-      const request: ReasoningV1QuestionStudioReviewRequest = {
-        packageId: BLR_CP006_QUESTION_STUDIO_PACKAGE_ID,
+      const result = previewBlrCp006QuestionStudioReview({
         language,
         difficulty: difficulty ? difficulty as BlrCp006QuestionStudioDifficulty : undefined,
         qlId: qlId ? qlId as BlrCp006QuestionStudioQlId : undefined,
@@ -218,9 +258,8 @@ router.get(
         questionLanguageId: asString(req.query.questionLanguageId) || undefined,
         seed: asString(req.query.seed) || undefined,
         count: asCount(req.query.count, 1, 20),
-      };
-      const result = previewReasoningV1QuestionStudioReview(request);
-      res.json({ ...result, releaseAuthority: RELEASE_AUTHORITY, productionEligible: true });
+      });
+      res.json({ ...result, releaseAuthority: CP006_RELEASE_AUTHORITY, productionEligible: true });
     } catch (error) {
       res.status(400).json({ error: error instanceof Error ? error.message : "Unable to preview BLR-CP-006 questions." });
     }
@@ -248,15 +287,13 @@ router.post(
 
       const count = asCount(req.body?.count, 5, 50);
       const seed = asString(req.body?.seed) || undefined;
-      const request: ReasoningV1QuestionStudioReviewRequest = {
-        packageId: BLR_CP006_QUESTION_STUDIO_PACKAGE_ID,
+      const result = previewBlrCp006QuestionStudioReview({
         language,
         difficulty: difficulty ? difficulty as BlrCp006QuestionStudioDifficulty : undefined,
         qlId: qlId ? qlId as BlrCp006QuestionStudioQlId : undefined,
         seed,
         count,
-      };
-      const result = previewReasoningV1QuestionStudioReview(request);
+      });
       const persisted = await persistRun(result.questions, {
         packageId: BLR_CP006_QUESTION_STUDIO_PACKAGE_ID,
         language,
@@ -264,7 +301,7 @@ router.post(
         qlId: qlId || null,
         count,
         seed: seed || null,
-        releaseAuthority: RELEASE_AUTHORITY,
+        releaseAuthority: CP006_RELEASE_AUTHORITY,
         requestedByFirebaseUid: req.user?.id,
       }, actorUserId);
       res.status(201).json({ ...persisted, generationSystem: "reasoning-v1" });
