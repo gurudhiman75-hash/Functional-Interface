@@ -36,3 +36,5 @@ jobs:
         run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/e1-authority.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e1-cp010.mjs
       - name: Run CP010 E1 authority
         run: node artifacts/api-server/dist/quant-v4/sap-e1-cp010.mjs
+
+# E1 review workflow runs independently on the same PR head.
