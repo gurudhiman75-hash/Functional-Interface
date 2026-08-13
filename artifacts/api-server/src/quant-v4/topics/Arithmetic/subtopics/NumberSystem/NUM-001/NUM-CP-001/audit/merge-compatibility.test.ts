@@ -80,7 +80,7 @@ for (let seed = 1; seed <= SEEDS; seed += 1) {
   const intervalCount = generateNumCp001Wave01Package("NUM-CP001-PROT-005", seed);
   const endpointInverse = generateNumCp001Wave02("NUM-CP001-PROT-012", seed);
   assert.equal(intervalCount.answerSemantic, "COUNT");
-  assert.equal(endpointInverse.answerSemantic, "VALUE");
+  assert.equal(endpointInverse.answerSemantic, "INTEGER");
   assert.notEqual(intervalCount.answerSemantic, endpointInverse.answerSemantic);
   nonMergeChecks += 1;
 
