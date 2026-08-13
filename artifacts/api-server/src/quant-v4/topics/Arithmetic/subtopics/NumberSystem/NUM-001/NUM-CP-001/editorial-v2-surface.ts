@@ -1,4 +1,5 @@
 import { redesignEnglishQl } from "./editorial-v2-redesign";
+import { buildQl125Editorial, buildQl132Editorial, buildQl133Editorial, buildQl139Editorial } from "./editorial-v2-ql125";
 import { buildQl130Editorial } from "./editorial-v2-ql130";
 import { buildQl137Editorial } from "./editorial-v2-ql137";
 import { buildQl138Editorial } from "./editorial-v2-ql138";
@@ -17,9 +18,13 @@ export function applyNumCp001EditorialV2(frozen: any, language: "en" | "hi" | "p
   const qlId = String(frozen.questionLanguageId ?? frozen.permanentQlId);
   if (language === "en") {
     surface = redesignEnglishQl(frozen, seed);
+    if (!surface && qlId === "NUM-QL-125") surface = buildQl125Editorial(frozen, seed);
     if (!surface && qlId === "NUM-QL-130") surface = buildQl130Editorial(frozen, seed);
+    if (!surface && qlId === "NUM-QL-132") surface = buildQl132Editorial(frozen);
+    if (!surface && qlId === "NUM-QL-133") surface = buildQl133Editorial(frozen);
     if (!surface && qlId === "NUM-QL-137") surface = buildQl137Editorial(frozen, seed);
     if (!surface && qlId === "NUM-QL-138") surface = buildQl138Editorial(frozen);
+    if (!surface && qlId === "NUM-QL-139") surface = buildQl139Editorial(frozen);
     if (!surface && qlId === "NUM-QL-141") surface = buildQl141Editorial(frozen);
     if (!surface && qlId === "NUM-QL-142") surface = buildQl142Editorial(frozen);
     if (!surface && qlId === "NUM-QL-143") surface = buildQl143Editorial(frozen);
