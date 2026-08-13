@@ -1,0 +1,50 @@
+name: Validate SAP CP009 Product Owner Freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/sap-cp009-multiplicative-approximation
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-CP009-PERMANENT-FREEZE.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-CP009-PERMANENT-FREEZE.test.ts
+      - .github/workflows/validate-sap-cp009-freeze.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP009 freeze authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-CP009-PERMANENT-FREEZE.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp009-freeze.test.mjs
+      - name: Run CP009 freeze authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp009-freeze.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp009-freeze.log
+      - name: Upload CP009 freeze evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp009-product-owner-freeze
+          path: artifacts/api-server/dist/quant-v4/sap-cp009-freeze.log
+          if-no-files-found: error
+          retention-days: 30
