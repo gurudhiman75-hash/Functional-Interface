@@ -1,6 +1,6 @@
 # BLR-CP-006 — Coded Relation Decoding
 
-Status: **English discovery frozen at `BLR-QL-026..BLR-QL-030`; review-only runtime available; release and merge locked**.
+Status: **English discovery frozen at `BLR-QL-026..BLR-QL-030`; review-only runtime available; English option-explanation editorial V2 remediated; release remains locked**.
 
 ## Permanent QLs
 
@@ -40,6 +40,21 @@ Every question supplies an explicit code key. The runtime:
 
 Symbols are never evaluated with arithmetic precedence.
 
+## English editorial V2 remediation
+
+The frozen semantic corpus is unchanged. English Editorial V2 changes only learner-facing option explanations.
+
+The remediation:
+
+- removes internal diagnostic tags such as `[BLOOD_AFFINAL_CONFUSION]` and `[CORRECT_DECODED_GRAPH]` from learner-facing prose;
+- stops using position-assigned relation-distractor diagnostic labels as learner explanations;
+- makes every relation distractor explanation state the actual decoded answer and the rejected relation;
+- keeps non-relation feedback natural and specific for person, gender and pair questions;
+- retains legacy `errorLabel` values as internal metadata for compatibility;
+- preserves item IDs, semantic fingerprints, QLs, options, option order, correct indexes, answers, code keys, coded statements, graphs and family-tree structures.
+
+`cp006-runtime.test.ts` now fails closed if a diagnostic tag/name leaks into learner text or if a relation distractor explanation does not explicitly identify both the decoded answer and the rejected option.
+
 ## Gender-evidence rule
 
 A person's letter label or name is never gender evidence. Fixed gender enters the graph only through a decoded gender-bearing relation:
@@ -59,7 +74,7 @@ All other people remain `UNKNOWN` unless another decoded statement establishes t
 - `cp006-presentation.ts` — options, explanations and family-tree diagrams;
 - `cp006-runtime.ts` — permanent generator and telemetry;
 - `cp006-independent-verifier.ts` — independent graph reconstruction and answer proof;
-- `cp006-runtime.test.ts` — complete 152-question runtime, evidence and replay regression;
+- `cp006-runtime.test.ts` — complete 152-question runtime, evidence, learner-feedback and replay regression;
 - `cp006-final-freeze.test.ts` — source, boundary, inverse, merge/split and CP-007 ownership audit;
 - `export-cp006-final-freeze.ts` — JSONL, CSV, HTML, contracts, summary and freeze exporter;
 - `BLR-CP-006-FINAL-DISCOVERY-FREEZE.md` — authoritative checkpoint record.
@@ -79,4 +94,4 @@ CP-007 owns inverse coded tasks:
 
 ## Release lock
 
-Question Studio, Question Bank, mock tests, Hindi/Punjabi localisation, public publication, production staging and merge remain disabled.
+Question Studio, Question Bank, mock tests, public publication and production staging remain disabled for this English review corpus. Hindi/Punjabi localization is handled under its separate review-candidate lifecycle and is not unlocked by this editorial patch.

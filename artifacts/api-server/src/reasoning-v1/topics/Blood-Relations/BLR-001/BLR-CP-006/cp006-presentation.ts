@@ -324,20 +324,26 @@ export function optionExplanation(
 ): string {
   const label = optionLabel(index);
   if (option.isCorrect) {
-    return `Option ${label} is correct. Complete token replacement and graph tracing gives ${answer}. [CORRECT_DECODED_GRAPH]`;
+    return `Option ${label} is correct. After decoding all relation codes and tracing the required family path, the answer is ${answer}.`;
   }
+
+  if (option.semanticKey.startsWith("REL:")) {
+    return `Option ${label} is incorrect. Decoding gives the relation ${answer}, not ${option.text}.`;
+  }
+
   const code = option.errorLabel ?? "DECODED_RELATION_MISMATCH";
   const messages: Record<string, string> = {
-    QUERY_DIRECTION_REVERSAL: "This follows the family path in the opposite direction from the question.",
-    GENERATION_LEVEL_ERROR: "This places the person on the wrong generation after the coded links are decoded.",
-    BLOOD_AFFINAL_CONFUSION: "This confuses a blood path with a marriage-linked path.",
-    INCOMPLETE_DECODED_PATH: "This candidate matches only part of the decoded route, not the complete requested relation.",
-    IGNORED_EXPLICIT_GENDER_CODE: "A decoded gender-bearing relation fixes the target's gender, so uncertainty is not available.",
-    FALSE_CONTRADICTION: "The supplied code key and statements form a consistent family graph.",
-    CODE_DIRECTION_GENDER_SWAP: "This reverses or ignores the gender carried by the decoded relation token.",
-    PAIR_RELATION_MISMATCH: "This pair has a different decoded relation from the one requested.",
+    INCOMPLETE_DECODED_PATH: "This person matches only part of the decoded relation chain, not the complete relation asked in the question.",
+    IGNORED_EXPLICIT_GENDER_CODE: "A decoded gender-bearing relation fixes the person's gender, so it cannot be left undetermined.",
+    FALSE_CONTRADICTION: "The supplied code key and statements form a consistent family relationship; they do not contradict one another.",
+    CODE_DIRECTION_GENDER_SWAP: "The decoded relation establishes a different gender from this option.",
+    PAIR_RELATION_MISMATCH: "This pair has a different relationship from the one asked in the question.",
+    QUERY_DIRECTION_REVERSAL: "This does not match the relation obtained in the direction asked by the question.",
+    GENERATION_LEVEL_ERROR: "This does not match the generation obtained after decoding the complete relation chain.",
+    BLOOD_AFFINAL_CONFUSION: "This does not match the complete decoded relationship.",
+    DECODED_RELATION_MISMATCH: "This does not match the complete decoded relationship.",
   };
-  return `Option ${label} is incorrect. ${messages[code] ?? "It does not match the complete decoded family graph."} [${code}]`;
+  return `Option ${label} is incorrect. ${messages[code] ?? messages.DECODED_RELATION_MISMATCH}`;
 }
 
 export function graphAuditLines(
@@ -366,7 +372,7 @@ export function graphAuditLines(
     ];
   }
   return [
-    `Classify the offered pairs as sibling, spouse, parent-child or non-matching after decoding.`,
+    "Classify the offered pairs as sibling, spouse, parent-child or non-matching after decoding.",
     `${answer} is the only pair with the requested relation.`,
   ];
 }
