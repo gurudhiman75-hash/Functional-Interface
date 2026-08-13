@@ -49,9 +49,9 @@ for (const allocation of NUM_CP001_PERMANENT_ALLOCATION) {
     assert(first.permanentIdentityFrozen, `${qlId}/${seed}: identity not frozen`);
     assert(first.solveModeFrozen, `${qlId}/${seed}: solve mode not frozen`);
     assert(first.englishImplementationFrozen, `${qlId}/${seed}: English implementation not frozen`);
-    assert(first.allocationStatus === "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION", `${qlId}/${seed}: allocation status`);
+    assert(first.allocationStatus === "PRODUCT_OWNER_APPROVED_INACTIVE_MULTILINGUAL_IMPLEMENTATION", `${qlId}/${seed}: allocation status`);
     assert(first.reviewStatus === "PRODUCT_OWNER_COMPLETION_AUTHORISED", `${qlId}/${seed}: review status`);
-    assert(first.maturity === "ENGLISH_IMPLEMENTATION_FROZEN", `${qlId}/${seed}: maturity`);
+    assert(first.maturity === "MULTILINGUAL_IMPLEMENTATION_FROZEN", `${qlId}/${seed}: maturity`);
     assert(!first.lifecycle.active, `${qlId}/${seed}: active leak`);
     assert(!first.lifecycle.questionStudioDiscoverable, `${qlId}/${seed}: Question Studio leak`);
     assert(!first.lifecycle.questionBankWritable, `${qlId}/${seed}: Question Bank leak`);
@@ -79,11 +79,12 @@ try {
 } catch {
   unsupportedLanguageRejected = true;
 }
-assert(unsupportedLanguageRejected, "canonical runtime must reject translated languages before localization freeze");
+assert(unsupportedLanguageRejected, "canonical runtime must reject translated languages and route them through localization adapter");
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP001_PERMANENT_ENGLISH_RUNTIME",
+  status: "PASS_NUM_CP001_PERMANENT_MULTILINGUAL_FROZEN_RUNTIME",
   canonicalRuntimeLanguage: "en",
+  translatedRuntimeLanguages: ["hi", "pa"],
   permanentQlCount: NUM_CP001_PERMANENT_QL_IDS.length,
   solveModeCount: new Set(NUM_CP001_PERMANENT_ALLOCATION.map((entry) => entry.solveModeId)).size,
   representedPrototypeCount: new Set(NUM_CP001_PERMANENT_ALLOCATION.flatMap((entry) => [...entry.prototypeIds])).size,
@@ -97,6 +98,7 @@ console.log(JSON.stringify({
   difficultyBandsByQl: Object.fromEntries([...difficulties.entries()].map(([qlId, values]) => [qlId, [...values].sort()])),
   unsupportedLanguageRejected,
   reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED",
+  maturity: "MULTILINGUAL_IMPLEMENTATION_FROZEN",
   questionStudioDiscoverableCount: 0,
   questionBankWritableCount: 0,
   testEligibleCount: 0,
