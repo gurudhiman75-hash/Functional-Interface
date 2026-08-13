@@ -11,7 +11,7 @@ import {
   solveRnkCp007CategoryComposition,
   type RnkCp007CategoryCompositionState,
   type RnkCp007CategoryId,
-} from "./cp007-category-composition-editorial-v1-1";
+} from "./cp007-category-composition-editorial-v2";
 
 const questions = buildRnkCp007CategoryCompositionProductionCandidate();
 assert.equal(questions.length, 192);
@@ -30,6 +30,7 @@ function targetAdjustment(state: RnkCp007CategoryCompositionState, category: Rnk
 const answerPositions = [0, 0, 0, 0];
 const modeCounts = new Map<string, number>();
 const difficultyCounts = new Map<string, number>();
+const surfaceStyleCounts = new Map<string, number>();
 const partitionIds = new Set<string>();
 const targetNames = new Set<string>();
 const mathematicalFingerprints = new Set<string>();
@@ -44,6 +45,10 @@ for (const question of questions) {
   answerPositions[question.answerIndex] += 1;
   modeCounts.set(question.mode, (modeCounts.get(question.mode) ?? 0) + 1);
   difficultyCounts.set(question.difficulty, (difficultyCounts.get(question.difficulty) ?? 0) + 1);
+  surfaceStyleCounts.set(
+    question.reviewMetadata.surfaceProfile.style,
+    (surfaceStyleCounts.get(question.reviewMetadata.surfaceProfile.style) ?? 0) + 1,
+  );
   partitionIds.add(question.reviewMetadata.partitionId);
   targetNames.add(question.reviewMetadata.targetName);
   mathematicalFingerprints.add(question.mathematicalFingerprint);
@@ -76,10 +81,7 @@ for (const question of questions) {
   assert.notEqual(changedEvidence, question.answer);
   evidenceEssentialChecks += 1;
 
-  const changedRankState = {
-    ...question.state,
-    targetRankFromTop: question.state.targetRankFromTop + 1,
-  };
+  const changedRankState = { ...question.state, targetRankFromTop: question.state.targetRankFromTop + 1 };
   const changedRank = solveRnkCp007CategoryComposition(
     changedRankState,
     question.reviewMetadata.requestedCategory,
@@ -93,16 +95,8 @@ for (const question of questions) {
     ? question.reviewMetadata.requestedCategory
     : question.evidence.category;
   const changedTotalState: RnkCp007CategoryCompositionState = categoryToPerturb === "A"
-    ? {
-        ...question.state,
-        total: question.state.total + 1,
-        categoryATotal: question.state.categoryATotal + 1,
-      }
-    : {
-        ...question.state,
-        total: question.state.total + 1,
-        categoryBTotal: question.state.categoryBTotal + 1,
-      };
+    ? { ...question.state, total: question.state.total + 1, categoryATotal: question.state.categoryATotal + 1 }
+    : { ...question.state, total: question.state.total + 1, categoryBTotal: question.state.categoryBTotal + 1 };
   const changedTotal = solveRnkCp007CategoryComposition(
     changedTotalState,
     question.reviewMetadata.requestedCategory,
@@ -116,9 +110,7 @@ for (const question of questions) {
     ? question.state.targetRankFromTop - 1
     : categoryTotal(question.state, question.reviewMetadata.requestedCategory)
       - targetAdjustment(question.state, question.reviewMetadata.requestedCategory);
-  for (const option of question.options) {
-    assert.ok(option >= 0 && option <= maximum);
-  }
+  for (const option of question.options) assert.ok(option >= 0 && option <= maximum);
 
   assert.equal(/\b(?:21|31|41)th\b|\b(?:22|32|42)th\b|\b(?:23|33|43)th\b/.test(question.stem), false);
   assert.equal(/left|right|facing|clockwise|anticlockwise|seat/i.test(question.stem), false);
@@ -130,8 +122,9 @@ assert.equal(mathematicalFingerprints.size, 192);
 assert.equal(learnerSurfaces.size, 192);
 assert.ok(partitionIds.size >= 10, `Expected >=10 partition contexts, found ${partitionIds.size}`);
 assert.ok(targetNames.size >= 60, `Expected >=60 target names, found ${targetNames.size}`);
-assert.ok((difficultyCounts.get("MEDIUM") ?? 0) > 0);
-assert.ok((difficultyCounts.get("HARD") ?? 0) > 0);
+assert.deepEqual(Object.fromEntries(difficultyCounts), { MEDIUM: 144, HARD: 48 });
+assert.equal(surfaceStyleCounts.size, 4);
+for (const count of surfaceStyleCounts.values()) assert.equal(count, 48);
 
 const projectionSha256 = rnkCp007CategoryCompositionCandidateProjectionSha256(questions);
 
@@ -143,6 +136,7 @@ console.log(JSON.stringify({
   modeCounts: Object.fromEntries(modeCounts),
   answerPositions,
   difficultyCounts: Object.fromEntries(difficultyCounts),
+  surfaceStyleCounts: Object.fromEntries(surfaceStyleCounts),
   partitionContexts: partitionIds.size,
   targetNames: targetNames.size,
   uniqueMathematicalFingerprints: mathematicalFingerprints.size,
