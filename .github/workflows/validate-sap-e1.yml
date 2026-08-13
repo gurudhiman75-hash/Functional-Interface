@@ -1,0 +1,28 @@
+name: Validate SAP E1
+
+on:
+  pull_request:
+    branches:
+      - audit/sap-exhaustiveness-2026-08
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/e1-authority.test.ts --bundle --platform=node --format=esm --outfile=dist/e1-cp004.mjs
+      - run: node artifacts/api-server/dist/e1-cp004.mjs
+      - run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-005/e1-authority.test.ts --bundle --platform=node --format=esm --outfile=dist/e1-cp005.mjs
+      - run: node artifacts/api-server/dist/e1-cp005.mjs
+      - run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-007/e1-authority.test.ts --bundle --platform=node --format=esm --outfile=dist/e1-cp007.mjs
+      - run: node artifacts/api-server/dist/e1-cp007.mjs
+      - run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/e1-authority.test.ts --bundle --platform=node --format=esm --outfile=dist/e1-cp010.mjs
+      - run: node artifacts/api-server/dist/e1-cp010.mjs
