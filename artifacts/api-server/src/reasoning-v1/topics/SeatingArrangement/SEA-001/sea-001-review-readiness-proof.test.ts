@@ -53,4 +53,3 @@ console.log("solve inventory freeze eligible", readiness.solveInventoryFreezeEli
 console.log("query mix freeze eligible", readiness.queryMixFreezeEligible);
 console.log("english freeze eligible", readiness.englishFreezeEligible);
 console.log("activation eligible", readiness.activationEligible);
-console.log("permanent QLs", 0);
