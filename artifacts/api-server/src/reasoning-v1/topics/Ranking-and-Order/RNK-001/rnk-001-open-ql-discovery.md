@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 through CP-006 frozen at `RNK-QL-001..041`; CP007 source-backed discovery open; `RNK-QL-042` remains unallocated.**
+Status: **CP-001 through CP-006 frozen at `RNK-QL-001..041`; CP007 Discovery V1 implemented with zero permanent QLs; `RNK-QL-042` remains unallocated.**
 
 Counts in this register are evidence, never chapter-size quotas.
 
@@ -15,8 +15,7 @@ RNK-CP-005  3 authorities  RNK-QL-036..038
 RNK-CP-006  3 authorities  RNK-QL-039..041
 ```
 
-Cumulative frozen authorities: **41**.
-
+Cumulative frozen authorities: **41**.  
 Next available identity: **`RNK-QL-042`**.
 
 ## Frozen projections
@@ -29,148 +28,192 @@ CP005  f6759445937626e6777f322f9b8217bc7aaa12f6a96ee180a24ca3350bd42717
 CP006  7043ecd80798ed9b60529d6052f4bc6fd4e678a98d06cc3e0332a3d10028d819
 ```
 
-The expanded object pools are forbidden from silently changing these projections.
+CP007 and Object Pool V2 are not allowed to move these hashes.
 
-## Book-to-QL ownership reset
+## Corrected post-CP006 audit
 
-The 2026-08-08 audit established these protected boundaries:
-
-- ordinary one-person rank arithmetic → CP001;
-- two-person positional/separation logic → CP002;
-- movement/interchange/insertion/removal → CP003;
-- one unique strict multi-entity comparison order → CP004;
-- multiple valid strict orders / uncertainty → CP005;
-- explicit equality / one unique weak order → CP006;
-- seating-facing/adjacency geometry → Seating Arrangement;
-- shared passages → infrastructure;
-- substantial arithmetic whose main target is calculation → Quant;
-- family inference as the main burden → Blood Relations / mixed puzzle.
-
-## CP004 frozen state contract
-
-```text
-ONE_UNIQUE_STRICT_TOTAL_ORDER
-```
-
-Authorities:
-
-```text
-RNK-QL-027  ENDPOINT_ENTITY
-RNK-QL-028  ENTITY_AT_POSITION
-RNK-QL-029  RANK_OF_NAMED_ENTITY
-RNK-QL-030  COMPLETE_ORDER
-RNK-QL-031  RELATIVE_ORDER_OF_PAIR
-RNK-QL-032  EXACT_RANK_DIFFERENCE_OF_PAIR
-RNK-QL-033  IMMEDIATE_NEIGHBOUR
-RNK-QL-034  DEFINITELY_TRUE_RELATION
-RNK-QL-035  MISSING_COMPARISON
-```
-
-## CP005 frozen state contract
-
-```text
-MULTIPLE_VALID_STRICT_TOTAL_ORDERS
-```
-
-Authorities:
-
-```text
-RNK-QL-036  RELATION_TRUTH_STATUS
-RNK-QL-037  POSSIBLE_RANK_BOUND
-RNK-QL-038  EXACT_RANK_DETERMINACY
-```
-
-Permanent runtime: **576**.
-
-## CP006 frozen state contract
-
-```text
-ONE_UNIQUE_TOTAL_PREORDER_WITH_EXPLICIT_EQUALITY
-```
-
-Authorities:
-
-```text
-RNK-QL-039  EQUALITY_AWARE_PAIR_RELATION
-RNK-QL-040  EQUALITY_AWARE_ENDPOINT
-RNK-QL-041  COMPLETE_WEAK_ORDER
-```
-
-Permanent runtime: **576**.
-
-The direct equality-lookup source form was rejected. Numeric post-tie rank conventions remain excluded.
-
-## Corrected post-CP006 source audit
-
-The initial saturation conclusion was superseded after a deeper page-level review of the Ranking source.
-
-Current decision:
+Decision:
 
 ```text
 SOURCE_BACKED_CP007_DISCOVERY_REQUIRED
 ```
 
-This is a discovery decision only. No permanent QL has been allocated.
+Source fixtures replayed:
 
-## Open RNK-CP-007 — Derived and Compositional Ranking
+```text
+Q27 Q28 Q35 Q65 Q66 Q67 Q68
+```
+
+The source evidence justified discovery, not automatic QL allocation.
+
+## CP007 Discovery V1
 
 ### Candidate A — CATEGORY_COMPOSITION_AROUND_RANK
 
-Source fixtures: Ranking Q65 and Q67.
+Source fixtures: Q65 / Q67.
 
-Pattern:
+Implemented modes:
 
 ```text
-total population
-+ category ratio/count
-+ target rank
-+ count of one category ahead
--> requested category count after target
+TARGET_CATEGORY_AFTER
+OTHER_CATEGORY_AFTER
+UNKNOWN_CATEGORY_AHEAD
 ```
 
-Disposition: `DISCOVER_AS_PROVISIONAL_AUTHORITY`.
+Corpus:
 
-Primary overlap audit: CP001 side-count arithmetic.
+```text
+questions:        288
+questions/mode:    96
+answer positions:  72 / 72 / 72 / 72
+```
+
+Disposition:
+
+```text
+PROVISIONAL_AUTHORITY_CANDIDATE
+```
+
+Primary overlap audit: CP001 side-count arithmetic/composition extension.
 
 ### Candidate B — DERIVED_QUANTITY_ORDER
 
 Source fixtures:
 
 ```text
-Q35 [CSAT 2015]      money transfers -> final balances -> comparative rank
-Q68 [SSC MTS 2021]  weight ratios/equations -> derived order -> rank query
+Q35  CSAT 2015      money transfers -> final balances -> rank/relation
+Q68  SSC MTS 2021   weight relations/equations -> derived order -> rank query
 ```
 
-Disposition: `DISCOVER_AS_PROVISIONAL_AUTHORITY`.
+Implemented source forms:
 
-Primary boundary audit: direct Ranking reasoning versus arithmetic-dominant Quant.
+```text
+TRANSFER_BALANCE_ORDER
+SCALED_OBJECT_ORDER
+```
+
+Implemented modes:
+
+```text
+HIGHEST_BALANCE
+LOWEST_BALANCE
+SECOND_HIGHEST_BALANCE
+TRUE_FINAL_RELATION
+HEAVIEST_OBJECT
+LIGHTEST_OBJECT
+SECOND_FROM_BOTTOM
+FOURTH_FROM_TOP
+```
+
+Corpus:
+
+```text
+questions:         256
+transfer:          128
+scaled-object:     128
+answer positions:   64 / 64 / 64 / 64
+```
+
+Disposition:
+
+```text
+DISCOVERY_FAMILY_ADAPTER_VS_QL_UNRESOLVED
+```
+
+Preferred hypothesis:
+
+```text
+DERIVATION_ADAPTER
+  -> normalized value/order state
+  -> existing CP004/CP005 query authority where possible
+```
+
+Do not create a new QL merely because evidence is arithmetic/equational.
 
 ### Candidate C — NUMERIC_VALUE_CONSTRAINED_ORDER
 
-Source fixtures: Q27-Q28 [CSAT 2015].
+Source fixtures: Q27-Q28.
 
-Bounded consecutive ages, exact offsets, comparison constraints and excluded values jointly determine possible values/orders.
+Disposition:
 
-Disposition: `AUDIT_MERGE_WITH_DERIVED_QUANTITY_ORDER`.
+```text
+HOLD_MERGE_WITH_DERIVED_QUANTITY
+```
+
+Source replay exists; production generator intentionally deferred until more source diversity or a distinct solve contract appears.
 
 ### Candidate D — RELATIONAL_SIDE_COUNT_EQUATION
 
 Source fixture: Q66.
 
-Front/behind counts for two people are linked by equations.
-
-Disposition: `AUDIT_EXTENSION_OF_CP001`.
-
-## CP007 allocation lock
+Disposition:
 
 ```text
-RNK-QL-042 allocated:          false
-CP007 permanent authorities:   0
-CP007 permanent runtime:       NOT AUTHORIZED
-CP007 English freeze:          NOT AUTHORIZED
+REDIRECT_CP001_EXTENSION
 ```
 
-The four source candidates are **not four QLs**. They must undergo solver construction and merge/split ownership review first.
+The relation normalizes into ordinary CP001 side-count identities after a compact algebraic solve. No separate CP007 corpus is created.
+
+## Discovery V1 totals
+
+```text
+category-composition: 288
+derived-quantity:     256
+combined corpus:      544
+permanent QLs:          0
+RNK-QL-042 allocated: false
+```
+
+Manual review artifact:
+
+```text
+RNK-CP-007-DISCOVERY-V1-REVIEW-28Q.md
+12 category-composition + 16 derived-quantity
+```
+
+## Allocation lock
+
+The current four discovery candidates are not four QLs.
+
+Before any permanent ID can be allocated:
+
+1. category composition must survive CP001 overlap review;
+2. derived quantity must be tested as an adapter over CP004/CP005 before becoming a QL;
+3. numeric-value constraints must survive merge testing;
+4. relational side-count equations remain CP001-bound unless stronger evidence appears;
+5. manual exam-readiness review must pass;
+6. Question Studio and persistence remain disabled.
+
+## Ranking vs Quant boundary
+
+Derived/compositional questions stay in Ranking only when arithmetic is short and instrumental and the final learner task is order/rank/relation.
+
+Substantial equation solving, percentage/profit/age calculation or optimization remains Quant even when a comparison appears at the end.
+
+## Object-pool remediation
+
+Pinned Object Pool V2:
+
+```text
+people:                    96
+localized person labels:   288
+male/female:               48 / 48
+group objects:             20
+settings:                  18
+ordinary semantic domains:  6
+symbolic rankable objects: 52
+derived quantity domains:   8
+partition schemes:          12
+derived operation kinds:     8
+```
+
+Manifest:
+
+```text
+sha256:09fd886c8ef602ab00bd6ca4b1410b963c8db93351881417ec13e538ec4aa452
+```
+
+Selection is deterministic. Frozen CP001..CP006 retain historical pools.
 
 ## Held / redirected candidates
 
@@ -180,34 +223,6 @@ MULTIPLE_INDEPENDENT_TIE_GROUPS   HOLD
 TIE_CLASS_SIZE_GTE_3               HOLD
 SHARED_RANKING_CASELETS            INFRASTRUCTURE
 MIXED_RANKING_AND_BLOOD_RELATION   OTHER CHAPTER / MIXED PUZZLE
-```
-
-## Object-pool remediation
-
-The audit also found a presentation-diversity weakness: frozen mathematics is strong, but historical generators use small checkpoint-local pools.
-
-Future-facing foundation now provides:
-
-```text
-96 people / 288 EN-HI-PA person labels
-20 neutral group objects
-18 setting objects
-6 ordinary ranking semantic domains
-6 multilingual relation-template sets
-52 symbolic rankable objects
-8 derived quantity domains
-12 subgroup partition schemes
-8 derived-operation surface families
-```
-
-All selection APIs are deterministic and seeded. Frozen CP001..CP006 retain their historical pools to protect projections.
-
-See:
-
-```text
-foundation/rnk-object-pool-v2.ts
-foundation/rnk-presentation-object-pool-v2.ts
-foundation/rnk-derived-object-pool-v2.ts
 ```
 
 ## Protected exclusions
@@ -228,9 +243,10 @@ family/gender inference as the main burden     -> Blood Relations / Mixed Puzzle
 ```text
 cumulative permanent range: RNK-QL-001..041
 next available RNK ID:      RNK-QL-042
-post-CP006 decision:        SOURCE_BACKED_CP007_DISCOVERY_REQUIRED
-CP007 discovery:            OPEN
+CP007 Discovery V1:         IMPLEMENTED / MANUAL REVIEW PENDING
 CP007 permanent QLs:        0
+CP007 permanent runtime:    NOT AUTHORIZED
+CP007 English freeze:       NOT AUTHORIZED
 Question Studio:            DISABLED
 persistence:                DISABLED
 Question Bank:              NOT_STORED
@@ -239,4 +255,4 @@ public publication:         false
 Hindi/Punjabi:              NOT_STARTED
 ```
 
-No merge, deployment, publication, persistence or Question Studio enablement is authorized by this audit.
+No merge, deployment, publication, persistence, Question Studio enablement, translation or QL allocation is authorized by Discovery V1.
