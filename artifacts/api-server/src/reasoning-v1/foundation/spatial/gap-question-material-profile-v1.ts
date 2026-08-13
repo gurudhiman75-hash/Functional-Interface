@@ -8,13 +8,14 @@ import { validateSpatialOptionUniqueness, validateSpatialScene } from "./validat
 export interface SpatialGapMaterialProfileV1 {
   id: string;
   capacity: number;
-  mode: "ROLE_SCALE_GRID" | "FCL_SUBFIGURE_ASPECT_GRID";
+  mode: "ROLE_SCALE_GRID" | "FCL_SUBFIGURE_EQUIVARIANT_GRID";
   componentAFactor?: number;
   componentBFactor?: number;
   componentCdFactor?: number;
   dotFactor?: number;
   aspectXFactor?: number;
   aspectYFactor?: number;
+  bendFactor?: number;
 }
 
 export interface MaterializedSpatialGapQuestionV1 {
@@ -31,9 +32,12 @@ const FCL_ASPECT_LEVELS = [
   1.04, 1.08, 1.12, 1.16,
   1.2, 1.24, 1.28, 1.32,
 ] as const;
+const FCL_BEND_LEVELS = [-0.28, -0.2, -0.12, -0.04, 0.04, 0.12, 0.2, 0.28] as const;
 
 export function spatialGapMaterialProfileCapacityV1(gapId: SpatialGapIdV1): number {
-  return gapId === "FCL-GAP-06" ? 256 : 216;
+  return gapId === "FCL-GAP-06"
+    ? FCL_ASPECT_LEVELS.length * FCL_ASPECT_LEVELS.length * FCL_BEND_LEVELS.length
+    : 216;
 }
 
 export function getSpatialGapMaterialProfileV1(
@@ -49,14 +53,16 @@ export function getSpatialGapMaterialProfileV1(
   }
 
   if (gapId === "FCL-GAP-06") {
-    const xIndex = profileIndex % FCL_ASPECT_LEVELS.length;
-    const yIndex = Math.floor(profileIndex / FCL_ASPECT_LEVELS.length) % FCL_ASPECT_LEVELS.length;
+    const bendIndex = profileIndex % FCL_BEND_LEVELS.length;
+    const xIndex = Math.floor(profileIndex / FCL_BEND_LEVELS.length) % FCL_ASPECT_LEVELS.length;
+    const yIndex = Math.floor(profileIndex / (FCL_BEND_LEVELS.length * FCL_ASPECT_LEVELS.length)) % FCL_ASPECT_LEVELS.length;
     return {
-      id: `FCL6-AX${String(xIndex).padStart(2, "0")}-AY${String(yIndex).padStart(2, "0")}`,
+      id: `FCL6-AX${String(xIndex).padStart(2, "0")}-AY${String(yIndex).padStart(2, "0")}-B${String(bendIndex).padStart(2, "0")}`,
       capacity,
-      mode: "FCL_SUBFIGURE_ASPECT_GRID",
+      mode: "FCL_SUBFIGURE_EQUIVARIANT_GRID",
       aspectXFactor: FCL_ASPECT_LEVELS[xIndex]!,
       aspectYFactor: FCL_ASPECT_LEVELS[yIndex]!,
+      bendFactor: FCL_BEND_LEVELS[bendIndex]!,
     };
   }
 
@@ -102,44 +108,53 @@ function scaleRole(
   return current;
 }
 
-function scalePointAnisotropic(
+function reflectionEquivariantPoint(
   point: SpatialPoint,
   center: SpatialPoint,
   factorX: number,
   factorY: number,
+  bendFactor: number,
 ): SpatialPoint {
+  const dx = point.x - center.x;
+  const dy = point.y - center.y;
   return {
-    x: center.x + (point.x - center.x) * factorX,
-    y: center.y + (point.y - center.y) * factorY,
+    x: center.x + dx * factorX,
+    y: center.y + dy * factorY + Math.abs(dx) * bendFactor,
   };
 }
 
-function anisotropicNode(node: SpatialNode, factorX: number, factorY: number): SpatialNode {
+function reflectionEquivariantNode(
+  node: SpatialNode,
+  factorX: number,
+  factorY: number,
+  bendFactor: number,
+): SpatialNode {
   const center = spatialNodeCenterV1(node);
   switch (node.kind) {
     case "line":
       return {
         ...node,
-        start: scalePointAnisotropic(node.start, center, factorX, factorY),
-        end: scalePointAnisotropic(node.end, center, factorX, factorY),
+        start: reflectionEquivariantPoint(node.start, center, factorX, factorY, bendFactor),
+        end: reflectionEquivariantPoint(node.end, center, factorX, factorY, bendFactor),
       };
     case "polygon":
     case "polyline":
       return {
         ...node,
-        points: node.points.map((point) => scalePointAnisotropic(point, center, factorX, factorY)),
+        points: node.points.map((point) => reflectionEquivariantPoint(point, center, factorX, factorY, bendFactor)),
       };
     case "circle":
     case "arc":
-      throw new Error(`Anisotropic material profiling does not support '${node.kind}' nodes.`);
+      throw new Error(`Reflection-equivariant profiling does not support '${node.kind}' nodes.`);
   }
 }
 
-function anisotropicRole(
+function reflectionEquivariantRole(
   scene: SpatialScene,
   role: string,
   factorX: number,
   factorY: number,
+  bendFactor: number,
   suffix: string,
 ): SpatialScene {
   const matching = scene.nodes.filter((node) => node.role === role);
@@ -148,7 +163,9 @@ function anisotropicRole(
     ...scene,
     id: `${scene.id}-${suffix}`,
     nodes: scene.nodes.map((node) =>
-      node.role === role ? anisotropicNode(node, factorX, factorY) : { ...node },
+      node.role === role
+        ? reflectionEquivariantNode(node, factorX, factorY, bendFactor)
+        : { ...node },
     ),
     metadata: scene.metadata ? { ...scene.metadata } : undefined,
   };
@@ -159,12 +176,13 @@ function applyProfileToScene(
   profile: SpatialGapMaterialProfileV1,
 ): SpatialScene {
   let current = scene;
-  if (profile.mode === "FCL_SUBFIGURE_ASPECT_GRID") {
-    current = anisotropicRole(
+  if (profile.mode === "FCL_SUBFIGURE_EQUIVARIANT_GRID") {
+    current = reflectionEquivariantRole(
       current,
       "component-a",
       profile.aspectXFactor!,
       profile.aspectYFactor!,
+      profile.bendFactor!,
       profile.id,
     );
   } else {
