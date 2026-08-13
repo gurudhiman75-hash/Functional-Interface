@@ -1,0 +1,132 @@
+name: Validate SAP E1 300 Review
+
+on:
+  pull_request:
+    branches:
+      - audit/sap-exhaustiveness-2026-08
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Bundle E1 review generators
+        run: |
+          mkdir -p artifacts/api-server/dist/e1-review
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/final-runtime.ts --bundle --platform=node --format=esm --outfile=dist/e1-review/cp004-final.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/e1-runtime.ts --bundle --platform=node --format=esm --outfile=dist/e1-review/cp004-e1.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/e1-root-expansion.ts --bundle --platform=node --format=esm --outfile=dist/e1-review/cp004-root.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-005/e1-runtime.ts --bundle --platform=node --format=esm --outfile=dist/e1-review/cp005.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-007/e1-runtime.ts --bundle --platform=node --format=esm --outfile=dist/e1-review/cp007.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/e1-runtime.ts --bundle --platform=node --format=esm --outfile=dist/e1-review/cp010.mjs
+
+      - name: Build and validate 300-question E1 review
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import assert from 'node:assert/strict';
+          const root = process.cwd();
+          const dist = path.join(root, 'artifacts/api-server/dist/e1-review');
+          const cp004Final = await import(path.join(dist, 'cp004-final.mjs'));
+          const cp004E1 = await import(path.join(dist, 'cp004-e1.mjs'));
+          const cp004Root = await import(path.join(dist, 'cp004-root.mjs'));
+          const cp005 = await import(path.join(dist, 'cp005.mjs'));
+          const cp007 = await import(path.join(dist, 'cp007.mjs'));
+          const cp010 = await import(path.join(dist, 'cp010.mjs'));
+
+          const records = [];
+          const add = (category, q) => records.push({ ...q, category, questionId: `SAP-E1-R-${String(records.length + 1).padStart(3, '0')}` });
+          for (let seed = 1; seed <= 60; seed++) add('CP004_NESTED_ADDITIVE', cp004E1.generateSapCp004E1NestedAdditive(seed));
+          for (let seed = 1; seed <= 48; seed++) add('CP005_NUMERIC_TELESCOPING', cp005.generateSapCp005E1Telescoping(seed));
+          for (let seed = 1; seed <= 48; seed++) add('CP007_SIGNIFICANT_FIGURES', cp007.generateSapCp007E1SignificantFigures(seed));
+          for (let seed = 1; seed <= 48; seed++) add('CP010_SUPPLIED_ROOT_SCALING', cp010.generateSapCp010E1SuppliedRootScaling(seed));
+          for (let index = 0; index < 48; index++) {
+            const seed = index + 1;
+            const square = index % 2 === 0;
+            const id = square ? 'SAP-CP004-PROT-PERFECT-SQUARE-ROOT' : 'SAP-CP004-PROT-ROOT-MIXED-ARITHMETIC';
+            const base = cp004Final.generateSapCp004Package(id, seed, index % 4);
+            add('CP004_EXISTING_ROOT_REMEDIATION', square ? cp004Root.expandPerfectSquareRoot(base) : cp004Root.expandRootMixedArithmetic(base));
+          }
+          const powerOnlyId = cp010.SAP_CP010_PROTOTYPE_IDS[14];
+          for (let seed = 1; seed <= 48; seed++) add('CP010_POWER_ONLY_NEAREST', cp010.generateSapCp010E1Existing(powerOnlyId, seed));
+
+          assert.equal(records.length, 300);
+          assert.equal(new Set(records.map(r => r.canonicalPayloadKey)).size, 300);
+          assert.equal(new Set(records.map(r => r.stem)).size, 300);
+          const counts = Object.fromEntries([...new Set(records.map(r => r.category))].map(c => [c, records.filter(r => r.category === c).length]));
+          assert.deepEqual(counts, {
+            CP004_NESTED_ADDITIVE: 60,
+            CP005_NUMERIC_TELESCOPING: 48,
+            CP007_SIGNIFICANT_FIGURES: 48,
+            CP010_SUPPLIED_ROOT_SCALING: 48,
+            CP004_EXISTING_ROOT_REMEDIATION: 48,
+            CP010_POWER_ONLY_NEAREST: 48,
+          });
+          const positions = [0, 0, 0, 0];
+          let last = -1, streak = 0;
+          for (const r of records) {
+            positions[r.correctIndex]++;
+            streak = r.correctIndex === last ? streak + 1 : 1;
+            last = r.correctIndex;
+            assert.ok(streak < 3, `${r.questionId}: three-position answer streak`);
+            assert.equal(r.options.length, 4);
+            assert.equal(new Set(r.options.map(o => o.value)).size, 4);
+            assert.equal(r.options[r.correctIndex]?.value, r.canonicalAnswer);
+            assert.equal(r.lifecycle.active, false);
+            assert.equal(r.lifecycle.questionStudioDiscoverable, false);
+            assert.equal(r.lifecycle.questionBankWritable, false);
+            assert.equal(r.lifecycle.testEligible, false);
+            assert.equal(r.lifecycle.publiclyPublishable, false);
+            const visible = `${r.stem} ${r.options.map(o => `${o.value} ${o.analysis}`).join(' ')} ${r.explanation.coreConcept} ${r.explanation.steps.join(' ')} ${r.explanation.finalAnswer}`;
+            assert.doesNotMatch(visible, /oracle|runtime|prototype|canonical|machine policy|question studio/i);
+            assert.doesNotMatch(visible, /[√∛∜]/, `${r.questionId}: raw radical leaked`);
+            if (['CP004_NESTED_ADDITIVE','CP005_NUMERIC_TELESCOPING','CP007_SIGNIFICANT_FIGURES','CP010_SUPPLIED_ROOT_SCALING'].includes(r.category)) assert.equal(r.lifecycle.permanentQlId, null);
+            if (r.category === 'CP010_POWER_ONLY_NEAREST') assert.notEqual(String(r.oracle.data.kind), 'ROOT');
+          }
+          assert.deepEqual(positions, [75, 75, 75, 75]);
+
+          const outDir = path.join(root, 'artifacts/api-server/dist/quant-v4/sap-e1-review');
+          fs.mkdirSync(outDir, { recursive: true });
+          const summary = {
+            reviewVersion: 'SAP-E1-EXHAUSTIVENESS-V1',
+            questionCount: 300,
+            categories: counts,
+            answerPositions: positions,
+            lifecycle: 'INACTIVE_HUMAN_REVIEW_CANDIDATE',
+            newCandidateAllocation: 'NONE',
+          };
+          const md = [`# SAP E1 — 300-Question Human Review`, '', `Questions: **300**`, `A/B/C/D: **${positions.join(' / ')}**`, '', '> E1 review only. New addenda are provisional and unallocated; all delivery surfaces remain off.', ''];
+          for (const r of records) {
+            md.push(`## ${r.questionId} — ${r.category}`, '', `**Difficulty:** ${r.difficulty}`, '', r.stem, '');
+            r.options.forEach((o, i) => md.push(`${String.fromCharCode(65 + i)}. ${o.value}`));
+            md.push('', `**Correct:** ${String.fromCharCode(65 + r.correctIndex)} — ${r.canonicalAnswer}`, '', `**Idea:** ${r.explanation.coreConcept}`, '', '**Working:**');
+            r.explanation.steps.forEach((s, i) => md.push(`${i + 1}. ${s}`));
+            md.push('', `**Final:** ${r.explanation.finalAnswer}`, '');
+          }
+          fs.writeFileSync(path.join(outDir, 'SAP-E1-300-REVIEW.md'), md.join('\n'));
+          fs.writeFileSync(path.join(outDir, 'SAP-E1-300-REVIEW.json'), JSON.stringify({ summary, records }, null, 2));
+          fs.writeFileSync(path.join(outDir, 'summary.json'), JSON.stringify(summary, null, 2));
+          const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          const cards = records.map(r => `<section><h2>${r.questionId} — ${r.category}</h2><p><b>Difficulty:</b> ${esc(r.difficulty)}</p><p>${esc(r.stem)}</p><ol type="A">${r.options.map(o => `<li>${esc(o.value)}</li>`).join('')}</ol><p><b>Correct:</b> ${String.fromCharCode(65 + r.correctIndex)} — ${esc(r.canonicalAnswer)}</p><p><b>Idea:</b> ${esc(r.explanation.coreConcept)}</p><ol>${r.explanation.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol><p><b>Final:</b> ${esc(r.explanation.finalAnswer)}</p></section>`).join('\n');
+          const html = `<!doctype html><html><head><meta charset="utf-8"><title>SAP E1 300 Review</title><script>MathJax={tex:{inlineMath:[['\\\\(','\\\\)']]},svg:{fontCache:'global'}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script><style>body{font-family:Arial,sans-serif;max-width:1050px;margin:24px auto;padding:0 20px;line-height:1.55}section{border-bottom:1px solid #ddd;padding:16px 0}h2{font-size:1.15rem}li{margin:.25rem 0}</style></head><body><h1>SAP E1 — 300-Question Human Review</h1><p>Answer balance: ${positions.join(' / ')}</p>${cards}</body></html>`;
+          fs.writeFileSync(path.join(outDir, 'SAP-E1-300-REVIEW.html'), html);
+          console.log(JSON.stringify(summary));
+          NODE
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sap-e1-300-review
+          path: artifacts/api-server/dist/quant-v4/sap-e1-review/**
+          if-no-files-found: error
+          retention-days: 30
