@@ -20,11 +20,22 @@ export {
 
 const ALLOWED_OPTION_FRACTION_DENOMINATORS = new Set([2, 3, 4, 5, 8, 10]);
 const ALLOWED_PERCENT_FRACTION_DENOMINATORS = new Set([2, 3, 4, 5]);
+const ALLOWED_MIXED_WORKING_DENOMINATORS = new Set([2, 3, 4, 5, 8, 10]);
 
 function finalTextPolish(text: string): string {
+  const percent = "([0-9]+(?:\\.[0-9]+)?(?:\\s+[0-9]+\\/[0-9]+)?)";
   return text
     .replace(/\ba acid-water solution\b/giu, "an acid-water solution")
     .replace(/\ba alcohol-water mixture\b/giu, "an alcohol-water mixture")
+    .replace(
+      new RegExp(`\\bof ${percent}% spirit mixture\\b`, "giu"),
+      "of a spirit-water mixture containing $1% spirit",
+    )
+    .replace(
+      new RegExp(`\\ba mixture that is ${percent}% spirit\\b`, "giu"),
+      "a spirit-water mixture containing $1% spirit",
+    )
+    .replace(/,\s+What\s+/gu, ", what ")
     .replace(/\b([0-9]+(?:\.[0-9]+)?(?:\s+[0-9]+\/[0-9]+)? litres) goes\b/giu, "$1 is transferred")
     .replace(/\b1 litres\b/giu, "1 litre");
 }
@@ -38,6 +49,16 @@ function learnerOptionIsFriendly(option: string): boolean {
       !ALLOWED_PERCENT_FRACTION_DENOMINATORS.has(denominator)
     ) {
       return false;
+    }
+  }
+  return true;
+}
+
+function visibleWorkingIsFriendly(lines: readonly string[]): boolean {
+  for (const line of lines) {
+    for (const match of line.matchAll(/\b\d+\s+(\d+)\/(\d+)\b/gu)) {
+      const denominator = Number(match[2]);
+      if (!ALLOWED_MIXED_WORKING_DENOMINATORS.has(denominator)) return false;
     }
   }
   return true;
@@ -82,6 +103,7 @@ function applyFinalTextPolish(
 function surfaceIsClean(question: MalCp006DiscoveryQuestion): boolean {
   if (!question.validation.ok) return false;
   if (!question.options.every(learnerOptionIsFriendly)) return false;
+  if (!visibleWorkingIsFriendly(question.explanation.visibleLines)) return false;
   if (
     question.optionAudit.some(
       (entry, index) => entry.text !== question.options[index],
@@ -99,6 +121,8 @@ function surfaceIsClean(question: MalCp006DiscoveryQuestion): boolean {
   if (/\ba (?:acid|alcohol)-water\b/iu.test(learnerText)) return false;
   if (/\b1 litres\b/iu.test(learnerText)) return false;
   if (/\blitres goes\b/iu.test(learnerText)) return false;
+  if (/\b\d+(?:\.\d+)?% spirit mixture\b/iu.test(learnerText)) return false;
+  if (/\ba mixture that is \d+(?:\.\d+)?% spirit\b/iu.test(learnerText)) return false;
   if (
     /salt solution component|component load|state key|current fraction|global component/iu.test(
       learnerText,
