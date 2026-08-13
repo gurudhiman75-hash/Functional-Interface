@@ -1,0 +1,878 @@
+[
+  {
+    "index": 1,
+    "recordId": "INE-CP008-B623AE34",
+    "authorityId": "RECONSTRUCT_MISSING_RELATION",
+    "seed": 0,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "FOUR_EDGE_CHAIN_WITH_MISSING_MIDDLE_RELATION",
+    "stem": "Which relation should fill the blank so that the strongest endpoint relation is P > T?",
+    "statements": [
+      "P ≥ Q; Q = R; R ___ S; S = T"
+    ],
+    "options": [
+      "=",
+      "≥",
+      ">",
+      "≤"
+    ],
+    "correctIndex": 2,
+    "correctOption": ">",
+    "explanation": "The blank is written from R to S, so it must be >. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly P > T.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 2,
+    "recordId": "INE-CP008-CF4CE0FF",
+    "authorityId": "RECONSTRUCT_MISSING_RELATION",
+    "seed": 1,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "FOUR_EDGE_CHAIN_WITH_MISSING_MIDDLE_RELATION",
+    "stem": "Which relation should fill the blank so that the strongest endpoint relation is A < K?",
+    "statements": [
+      "A ≤ D; D = F; H ___ F; H = K"
+    ],
+    "options": [
+      ">",
+      "=",
+      "≥",
+      "≤"
+    ],
+    "correctIndex": 0,
+    "correctOption": ">",
+    "explanation": "The blank is written in the reverse direction, H to F. Therefore, it must be >, which is equivalent to F < H. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly A < K.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 3,
+    "recordId": "INE-CP008-0307B49A",
+    "authorityId": "RECONSTRUCT_MISSING_RELATION",
+    "seed": 2,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "FOUR_EDGE_CHAIN_WITH_MISSING_MIDDLE_RELATION",
+    "stem": "Which relation should fill the blank so that the strongest endpoint relation is M = V?",
+    "statements": [
+      "M = N; N = O; O ___ U; U = V"
+    ],
+    "options": [
+      ">",
+      "<",
+      "≤",
+      "="
+    ],
+    "correctIndex": 3,
+    "correctOption": "=",
+    "explanation": "The blank is written from O to U, so it must be =. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly M = V.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 4,
+    "recordId": "INE-CP008-53D991AD",
+    "authorityId": "RECONSTRUCT_MISSING_RELATION",
+    "seed": 3,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "FOUR_EDGE_CHAIN_WITH_MISSING_MIDDLE_RELATION",
+    "stem": "Which relation should fill the blank so that the strongest endpoint relation is B ≥ L?",
+    "statements": [
+      "B = C; C = G; J ___ G; J = L"
+    ],
+    "options": [
+      "<",
+      "≤",
+      "=",
+      "≥"
+    ],
+    "correctIndex": 1,
+    "correctOption": "≤",
+    "explanation": "The blank is written in the reverse direction, J to G. Therefore, it must be ≤, which is equivalent to G ≥ J. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly B ≥ L.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 5,
+    "recordId": "INE-CP008-73F3E080",
+    "authorityId": "RECONSTRUCT_MISSING_RELATION",
+    "seed": 4,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "FOUR_EDGE_CHAIN_WITH_MISSING_MIDDLE_RELATION",
+    "stem": "Which relation should fill the blank so that the strongest endpoint relation is W ≤ E?",
+    "statements": [
+      "W = X; X = Y; Y ___ Z; Z = E"
+    ],
+    "options": [
+      "<",
+      "≤",
+      "=",
+      "≥"
+    ],
+    "correctIndex": 1,
+    "correctOption": "≤",
+    "explanation": "The blank is written from Y to Z, so it must be ≤. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly W ≤ E.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 6,
+    "recordId": "INE-CP008-82D3D78B",
+    "authorityId": "RECONSTRUCT_MISSING_RELATION",
+    "seed": 5,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "FOUR_EDGE_CHAIN_WITH_MISSING_MIDDLE_RELATION",
+    "stem": "Which relation should fill the blank so that the strongest endpoint relation is G > R?",
+    "statements": [
+      "G ≥ I; I = K; N ___ K; N = R"
+    ],
+    "options": [
+      ">",
+      "≥",
+      "<",
+      "≤"
+    ],
+    "correctIndex": 2,
+    "correctOption": "<",
+    "explanation": "The blank is written in the reverse direction, N to K. Therefore, it must be <, which is equivalent to K > N. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly G > R.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 7,
+    "recordId": "INE-CP008-4A250EB6",
+    "authorityId": "RECONSTRUCT_MISSING_RELATION",
+    "seed": 6,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "FOUR_EDGE_CHAIN_WITH_MISSING_MIDDLE_RELATION",
+    "stem": "Which relation should fill the blank so that the strongest endpoint relation is C < T?",
+    "statements": [
+      "C ≤ E; E = H; H ___ M; M = T"
+    ],
+    "options": [
+      "<",
+      ">",
+      "≥",
+      "≤"
+    ],
+    "correctIndex": 0,
+    "correctOption": "<",
+    "explanation": "The blank is written from H to M, so it must be <. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly C < T.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 8,
+    "recordId": "INE-CP008-BB1EAD39",
+    "authorityId": "RECONSTRUCT_MISSING_RELATION",
+    "seed": 7,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "FOUR_EDGE_CHAIN_WITH_MISSING_MIDDLE_RELATION",
+    "stem": "Which relation should fill the blank so that the strongest endpoint relation is D = Y?",
+    "statements": [
+      "D = J; J = P; V ___ P; V = Y"
+    ],
+    "options": [
+      ">",
+      "<",
+      "≤",
+      "="
+    ],
+    "correctIndex": 3,
+    "correctOption": "=",
+    "explanation": "The blank is written in the reverse direction, V to P. Therefore, it must be =, which is equivalent to P = V. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly D = Y.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 9,
+    "recordId": "INE-CP008-82EA878C",
+    "authorityId": "RECONSTRUCT_MISSING_RELATION",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "FOUR_EDGE_CHAIN_WITH_MISSING_MIDDLE_RELATION",
+    "stem": "Which relation should fill the blank so that the strongest endpoint relation is F ≥ W?",
+    "statements": [
+      "F = L; L = Q; Q ___ S; S = W"
+    ],
+    "options": [
+      ">",
+      "<",
+      "≥",
+      "="
+    ],
+    "correctIndex": 2,
+    "correctOption": "≥",
+    "explanation": "The blank is written from Q to S, so it must be ≥. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly F ≥ W.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 10,
+    "recordId": "INE-CP008-07655717",
+    "authorityId": "RECONSTRUCT_MISSING_RELATION",
+    "seed": 9,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "FOUR_EDGE_CHAIN_WITH_MISSING_MIDDLE_RELATION",
+    "stem": "Which relation should fill the blank so that the strongest endpoint relation is B ≤ U?",
+    "statements": [
+      "B = I; I = O; R ___ O; R = U"
+    ],
+    "options": [
+      ">",
+      "<",
+      "=",
+      "≥"
+    ],
+    "correctIndex": 3,
+    "correctOption": "≥",
+    "explanation": "The blank is written in the reverse direction, R to O. Therefore, it must be ≥, which is equivalent to O ≤ R. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly B ≤ U.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 11,
+    "recordId": "INE-CP008-E659BF8B",
+    "authorityId": "RECONSTRUCT_MISSING_RELATION",
+    "seed": 10,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "FOUR_EDGE_CHAIN_WITH_MISSING_MIDDLE_RELATION",
+    "stem": "Which relation should fill the blank so that the strongest endpoint relation is A > Z?",
+    "statements": [
+      "A ≥ G; G = M; M ___ X; X = Z"
+    ],
+    "options": [
+      "=",
+      ">",
+      "≥",
+      "≤"
+    ],
+    "correctIndex": 1,
+    "correctOption": ">",
+    "explanation": "The blank is written from M to X, so it must be >. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly A > Z.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 12,
+    "recordId": "INE-CP008-D779C880",
+    "authorityId": "RECONSTRUCT_MISSING_RELATION",
+    "seed": 11,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "FOUR_EDGE_CHAIN_WITH_MISSING_MIDDLE_RELATION",
+    "stem": "Which relation should fill the blank so that the strongest endpoint relation is E < V?",
+    "statements": [
+      "E ≤ K; K = N; T ___ N; T = V"
+    ],
+    "options": [
+      ">",
+      "=",
+      "≥",
+      "≤"
+    ],
+    "correctIndex": 0,
+    "correctOption": ">",
+    "explanation": "The blank is written in the reverse direction, T to N. Therefore, it must be >, which is equivalent to N < T. The equality links then carry that comparison to the endpoints, and the complete chain gives exactly E < V.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 13,
+    "recordId": "INE-CP008-7F3DC2C0",
+    "authorityId": "SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION",
+    "seed": 0,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "INCLUSIVE_EDGE_WITH_STRICT_DOWNSTREAM_CHAIN",
+    "stem": "Which conclusion is possible but is not definitely true?",
+    "statements": [
+      "P ≥ Q; Q = R; R > S; T = P"
+    ],
+    "options": [
+      "S ≥ P",
+      "P > S",
+      "P > Q",
+      "R = S"
+    ],
+    "correctIndex": 2,
+    "correctOption": "P > Q",
+    "explanation": "P ≥ Q allows the two values either to be equal or to differ in the stated direction. Therefore, P > Q can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 14,
+    "recordId": "INE-CP008-4167A2CB",
+    "authorityId": "SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION",
+    "seed": 1,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "INCLUSIVE_EDGE_WITH_STRICT_DOWNSTREAM_CHAIN",
+    "stem": "Which conclusion is possible but is not definitely true?",
+    "statements": [
+      "A ≤ D; D = F; F < H; K = A"
+    ],
+    "options": [
+      "A < H",
+      "H ≤ A",
+      "F = H",
+      "A < D"
+    ],
+    "correctIndex": 3,
+    "correctOption": "A < D",
+    "explanation": "A ≤ D allows the two values either to be equal or to differ in the stated direction. Therefore, A < D can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 15,
+    "recordId": "INE-CP008-88757AF6",
+    "authorityId": "SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION",
+    "seed": 2,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "INCLUSIVE_EDGE_WITH_STRICT_DOWNSTREAM_CHAIN",
+    "stem": "Which conclusion is possible but is not definitely true?",
+    "statements": [
+      "M ≥ N; N = O; O > U; V = M"
+    ],
+    "options": [
+      "O = U",
+      "M = N",
+      "M > U",
+      "U ≥ M"
+    ],
+    "correctIndex": 1,
+    "correctOption": "M = N",
+    "explanation": "M ≥ N allows the two values either to be equal or to differ in the stated direction. Therefore, M = N can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 16,
+    "recordId": "INE-CP008-6BD0E779",
+    "authorityId": "SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION",
+    "seed": 3,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "INCLUSIVE_EDGE_WITH_STRICT_DOWNSTREAM_CHAIN",
+    "stem": "Which conclusion is possible but is not definitely true?",
+    "statements": [
+      "B ≤ C; C = G; G < J; L = B"
+    ],
+    "options": [
+      "B = C",
+      "J ≤ B",
+      "B < J",
+      "G = J"
+    ],
+    "correctIndex": 0,
+    "correctOption": "B = C",
+    "explanation": "B ≤ C allows the two values either to be equal or to differ in the stated direction. Therefore, B = C can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 17,
+    "recordId": "INE-CP008-B7D8E074",
+    "authorityId": "SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION",
+    "seed": 4,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "INCLUSIVE_EDGE_WITH_STRICT_DOWNSTREAM_CHAIN",
+    "stem": "Which conclusion is possible but is not definitely true?",
+    "statements": [
+      "W ≥ X; X = Y; Y > Z; E = W"
+    ],
+    "options": [
+      "Y = Z",
+      "Z ≥ W",
+      "W > Z",
+      "W > X"
+    ],
+    "correctIndex": 3,
+    "correctOption": "W > X",
+    "explanation": "W ≥ X allows the two values either to be equal or to differ in the stated direction. Therefore, W > X can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 18,
+    "recordId": "INE-CP008-D15FFB3F",
+    "authorityId": "SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION",
+    "seed": 5,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "INCLUSIVE_EDGE_WITH_STRICT_DOWNSTREAM_CHAIN",
+    "stem": "Which conclusion is possible but is not definitely true?",
+    "statements": [
+      "G ≤ I; I = K; K < N; R = G"
+    ],
+    "options": [
+      "G < N",
+      "K = N",
+      "G < I",
+      "N ≤ G"
+    ],
+    "correctIndex": 2,
+    "correctOption": "G < I",
+    "explanation": "G ≤ I allows the two values either to be equal or to differ in the stated direction. Therefore, G < I can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 19,
+    "recordId": "INE-CP008-5D8D30DA",
+    "authorityId": "SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION",
+    "seed": 6,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "INCLUSIVE_EDGE_WITH_STRICT_DOWNSTREAM_CHAIN",
+    "stem": "Which conclusion is possible but is not definitely true?",
+    "statements": [
+      "C ≥ E; E = H; H > M; T = C"
+    ],
+    "options": [
+      "C = E",
+      "C > M",
+      "H = M",
+      "M ≥ C"
+    ],
+    "correctIndex": 0,
+    "correctOption": "C = E",
+    "explanation": "C ≥ E allows the two values either to be equal or to differ in the stated direction. Therefore, C = E can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 20,
+    "recordId": "INE-CP008-78F0D1ED",
+    "authorityId": "SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION",
+    "seed": 7,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "INCLUSIVE_EDGE_WITH_STRICT_DOWNSTREAM_CHAIN",
+    "stem": "Which conclusion is possible but is not definitely true?",
+    "statements": [
+      "D ≤ J; J = P; P < V; Y = D"
+    ],
+    "options": [
+      "P = V",
+      "D = J",
+      "V ≤ D",
+      "D < V"
+    ],
+    "correctIndex": 1,
+    "correctOption": "D = J",
+    "explanation": "D ≤ J allows the two values either to be equal or to differ in the stated direction. Therefore, D = J can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 21,
+    "recordId": "INE-CP008-EE02C3B8",
+    "authorityId": "SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "INCLUSIVE_EDGE_WITH_STRICT_DOWNSTREAM_CHAIN",
+    "stem": "Which conclusion is possible but is not definitely true?",
+    "statements": [
+      "F ≥ L; L = Q; Q > S; W = F"
+    ],
+    "options": [
+      "Q = S",
+      "F > S",
+      "F > L",
+      "S ≥ F"
+    ],
+    "correctIndex": 2,
+    "correctOption": "F > L",
+    "explanation": "F ≥ L allows the two values either to be equal or to differ in the stated direction. Therefore, F > L can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 22,
+    "recordId": "INE-CP008-B2734D63",
+    "authorityId": "SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION",
+    "seed": 9,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "INCLUSIVE_EDGE_WITH_STRICT_DOWNSTREAM_CHAIN",
+    "stem": "Which conclusion is possible but is not definitely true?",
+    "statements": [
+      "B ≤ I; I = O; O < R; U = B"
+    ],
+    "options": [
+      "B < I",
+      "B < R",
+      "O = R",
+      "R ≤ B"
+    ],
+    "correctIndex": 0,
+    "correctOption": "B < I",
+    "explanation": "B ≤ I allows the two values either to be equal or to differ in the stated direction. Therefore, B < I can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 23,
+    "recordId": "INE-CP008-715400EF",
+    "authorityId": "SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION",
+    "seed": 10,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "INCLUSIVE_EDGE_WITH_STRICT_DOWNSTREAM_CHAIN",
+    "stem": "Which conclusion is possible but is not definitely true?",
+    "statements": [
+      "A ≥ G; G = M; M > X; Z = A"
+    ],
+    "options": [
+      "X ≥ A",
+      "A = G",
+      "M = X",
+      "A > X"
+    ],
+    "correctIndex": 1,
+    "correctOption": "A = G",
+    "explanation": "A ≥ G allows the two values either to be equal or to differ in the stated direction. Therefore, A = G can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 24,
+    "recordId": "INE-CP008-3F6B0AA4",
+    "authorityId": "SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION",
+    "seed": 11,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "topologyId": "INCLUSIVE_EDGE_WITH_STRICT_DOWNSTREAM_CHAIN",
+    "stem": "Which conclusion is possible but is not definitely true?",
+    "statements": [
+      "E ≤ K; K = N; N < T; V = E"
+    ],
+    "options": [
+      "E < T",
+      "T ≤ E",
+      "N = T",
+      "E = K"
+    ],
+    "correctIndex": 3,
+    "correctOption": "E = K",
+    "explanation": "E ≤ K allows the two values either to be equal or to differ in the stated direction. Therefore, E = K can be true, but the statements do not force it. One other choice is definite, while the remaining two conflict with strict parts of the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 25,
+    "recordId": "INE-CP008-E766A5E0",
+    "authorityId": "SELECT_SET_ESTABLISHING_RELATION",
+    "seed": 0,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "topologyId": "FOUR_COMPETING_INFERENCE_CHAINS",
+    "stem": "Which statement set has P > T as its strongest definite endpoint relation?",
+    "statements": [
+      "Required endpoint relation: P > T"
+    ],
+    "options": [
+      "P ≤ Q; Q = R; R < T",
+      "P = Q; Q = R; R = T",
+      "P ≥ Q; Q = R; R > T",
+      "P ≤ Q; Q = R; R = T"
+    ],
+    "correctIndex": 2,
+    "correctOption": "P ≥ Q; Q = R; R > T",
+    "explanation": "In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly P > T; the other sets produce a different strongest relation.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 26,
+    "recordId": "INE-CP008-69A9CB6B",
+    "authorityId": "SELECT_SET_ESTABLISHING_RELATION",
+    "seed": 1,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "topologyId": "FOUR_COMPETING_INFERENCE_CHAINS",
+    "stem": "Which statement set has A < K as its strongest definite endpoint relation?",
+    "statements": [
+      "Required endpoint relation: A < K"
+    ],
+    "options": [
+      "A ≤ D; D = F; F < K",
+      "A ≤ D; D = F; F = K",
+      "A = D; D = F; F = K",
+      "A ≥ D; D = F; F > K"
+    ],
+    "correctIndex": 0,
+    "correctOption": "A ≤ D; D = F; F < K",
+    "explanation": "In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly A < K; the other sets produce a different strongest relation.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 27,
+    "recordId": "INE-CP008-86F2FB96",
+    "authorityId": "SELECT_SET_ESTABLISHING_RELATION",
+    "seed": 2,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "topologyId": "FOUR_COMPETING_INFERENCE_CHAINS",
+    "stem": "Which statement set has M = V as its strongest definite endpoint relation?",
+    "statements": [
+      "Required endpoint relation: M = V"
+    ],
+    "options": [
+      "M ≥ N; N = O; O > V",
+      "M ≤ N; N = O; O = V",
+      "M ≤ N; N = O; O < V",
+      "M = N; N = O; O = V"
+    ],
+    "correctIndex": 3,
+    "correctOption": "M = N; N = O; O = V",
+    "explanation": "In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly M = V; the other sets produce a different strongest relation.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 28,
+    "recordId": "INE-CP008-4BAE5299",
+    "authorityId": "SELECT_SET_ESTABLISHING_RELATION",
+    "seed": 3,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "topologyId": "FOUR_COMPETING_INFERENCE_CHAINS",
+    "stem": "Which statement set has B ≥ L as its strongest definite endpoint relation?",
+    "statements": [
+      "Required endpoint relation: B ≥ L"
+    ],
+    "options": [
+      "B = C; C = G; G = L",
+      "B ≥ C; C = G; G = L",
+      "B ≤ C; C = G; G = L",
+      "B ≤ C; C = G; G < L"
+    ],
+    "correctIndex": 1,
+    "correctOption": "B ≥ C; C = G; G = L",
+    "explanation": "In the correct set, the middle equality joins the chain without changing direction. After combining all three statements, the endpoint relation is exactly B ≥ L; the other sets produce a different strongest relation.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 29,
+    "recordId": "INE-CP008-FF516027",
+    "authorityId": "IDENTIFY_CONTRADICTORY_ADDITION",
+    "seed": 0,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "topologyId": "STRICT_CHAIN_WITH_CANDIDATE_ADDITION",
+    "stem": "Which statement cannot be added without contradicting the given chain?",
+    "statements": [
+      "P ≥ Q; Q > R; R = S; S ≥ T"
+    ],
+    "options": [
+      "R ≥ T",
+      "T ≥ P",
+      "P > T",
+      "Q > S"
+    ],
+    "correctIndex": 1,
+    "correctOption": "T ≥ P",
+    "explanation": "The given chain establishes P > T. The statement T ≥ P forces the opposite direction, so both cannot be true together. The other choices agree with the chain.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 30,
+    "recordId": "INE-CP008-F797015C",
+    "authorityId": "IDENTIFY_CONTRADICTORY_ADDITION",
+    "seed": 1,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "topologyId": "STRICT_CHAIN_WITH_CANDIDATE_ADDITION",
+    "stem": "Which statement cannot be added without contradicting the given chain?",
+    "statements": [
+      "A ≤ D; D < F; F = H; H ≤ K"
+    ],
+    "options": [
+      "K ≤ A",
+      "A < K",
+      "D < H",
+      "F ≤ K"
+    ],
+    "correctIndex": 0,
+    "correctOption": "K ≤ A",
+    "explanation": "The given chain establishes A < K. The statement K ≤ A forces the opposite direction, so both cannot be true together. The other choices agree with the chain.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 31,
+    "recordId": "INE-CP008-6F98D515",
+    "authorityId": "IDENTIFY_CONTRADICTORY_ADDITION",
+    "seed": 2,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "topologyId": "STRICT_CHAIN_WITH_CANDIDATE_ADDITION",
+    "stem": "Which statement cannot be added without contradicting the given chain?",
+    "statements": [
+      "M ≥ N; N > O; O = U; U ≥ V"
+    ],
+    "options": [
+      "N > U",
+      "M > V",
+      "O ≥ V",
+      "V ≥ M"
+    ],
+    "correctIndex": 3,
+    "correctOption": "V ≥ M",
+    "explanation": "The given chain establishes M > V. The statement V ≥ M forces the opposite direction, so both cannot be true together. The other choices agree with the chain.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  },
+  {
+    "index": 32,
+    "recordId": "INE-CP008-E22A63A2",
+    "authorityId": "IDENTIFY_CONTRADICTORY_ADDITION",
+    "seed": 3,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "topologyId": "STRICT_CHAIN_WITH_CANDIDATE_ADDITION",
+    "stem": "Which statement cannot be added without contradicting the given chain?",
+    "statements": [
+      "B ≤ C; C < G; G = J; J ≤ L"
+    ],
+    "options": [
+      "B < L",
+      "C < J",
+      "L ≤ B",
+      "G ≤ L"
+    ],
+    "correctIndex": 2,
+    "correctOption": "L ≤ B",
+    "explanation": "The given chain establishes B < L. The statement L ≤ B forces the opposite direction, so both cannot be true together. The other choices agree with the chain.",
+    "sourceLedgerIds": [
+      "DISHA-INE-005",
+      "DISHA-INE-006"
+    ]
+  }
+]
