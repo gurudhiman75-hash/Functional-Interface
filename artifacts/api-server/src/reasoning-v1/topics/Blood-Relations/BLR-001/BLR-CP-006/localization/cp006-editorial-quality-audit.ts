@@ -2,6 +2,7 @@ import { generateBlrCp006LocalizedReviewBank } from "./cp006-localizer";
 import { localizedRelationLabel, type BlrCp006TranslatedLocale } from "./cp006-language-pack";
 
 const INTERNAL_DIAGNOSTIC = /\[(?:CORRECT_[A-Z_]+|[A-Z][A-Z_]{3,})\]/;
+const EXPECTED_QLS = ["BLR-QL-026", "BLR-QL-027", "BLR-QL-028", "BLR-QL-029", "BLR-QL-030"] as const;
 
 const FORBIDDEN: Record<BlrCp006TranslatedLocale, readonly string[]> = {
   "hi-IN": [
@@ -82,8 +83,23 @@ function auditLocale(locale: BlrCp006TranslatedLocale) {
   if (localizedRelationLabel("GRANDPARENT", locale) !== labels.grandparent) labelFailures.push("GRANDPARENT");
   if (localizedRelationLabel("GRANDCHILD", locale) !== labels.grandchild) labelFailures.push("GRANDCHILD");
 
-  const expectedQls = ["BLR-QL-026", "BLR-QL-027", "BLR-QL-028", "BLR-QL-029", "BLR-QL-030"];
-  const missingQls = expectedQls.filter((ql) => !qls.has(ql));
+  const missingQls = EXPECTED_QLS.filter((ql) => !qls.has(ql));
+  const samples = EXPECTED_QLS.map((ql) => {
+    const record = bank.find((entry) => entry.qlId === ql);
+    if (!record) return { ql, missing: true };
+    return {
+      ql,
+      itemId: record.itemId,
+      stem: record.stem,
+      options: record.options.map((option) => option.text),
+      correctAnswer: record.answer,
+      coreConcept: record.explanation.coreConcept,
+      graphAudit: record.explanation.graphAudit,
+      correctOptionExplanation: record.explanation.optionAnalysis.find((entry) => entry.isCorrect)?.explanation,
+      firstDistractorExplanation: record.explanation.optionAnalysis.find((entry) => !entry.isCorrect)?.explanation,
+      shortcut: record.explanation.examShortcut,
+    };
+  });
 
   return {
     locale,
@@ -93,6 +109,7 @@ function auditLocale(locale: BlrCp006TranslatedLocale) {
     rawErrorLabelLeaks,
     labelFailures,
     missingQls,
+    samples,
   };
 }
 
@@ -106,6 +123,7 @@ for (const report of reports) {
     rawErrorLabelLeaks: report.rawErrorLabelLeaks.length,
     genericKinshipLabelFailures: report.labelFailures.length,
     missingQlCoverage: report.missingQls.length,
+    representativeSamples: report.samples,
   }, null, 2));
 }
 
