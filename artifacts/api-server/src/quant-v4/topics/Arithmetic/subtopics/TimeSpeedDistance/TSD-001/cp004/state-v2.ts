@@ -17,18 +17,33 @@ export function generateCp004StateV2(authorityKey: string, seed: string): TsdCp0
   }
 
   if ((base.solveMode === "findRelativeSpeedOppositeDirections" || base.solveMode === "findRelativeSpeedSameDirection") && input.speedB) {
-    input = Object.freeze({ ...input, speedA: multiply(input.speedB, rational(2)) });
+    input = Object.freeze({
+      ...input,
+      speedA: multiply(input.speedB, rational(2)),
+      directionCase: base.solveMode === "findRelativeSpeedSameDirection" ? "SAME" : "OPPOSITE",
+    });
   }
 
   if (base.solveMode === "findRelativeSpeedFromMeetingTime") {
     const knownSpeeds = [24, 30, 36, 40, 45, 48] as const;
-    input = Object.freeze({ ...input, speedB: rational(knownSpeeds[index % knownSpeeds.length]), directionCase });
+    input = Object.freeze({
+      ...input,
+      speedB: rational(knownSpeeds[index % knownSpeeds.length]),
+      directionCase,
+    });
   }
 
   if (authorityKey === "requiredSpeedForTargetMeeting" && input.initialSeparation && input.targetTime) {
     const requiredRelative = divide(input.initialSeparation, input.targetTime);
-    input = Object.freeze({ ...input, speedB: divide(requiredRelative, rational(3)) });
+    input = Object.freeze({
+      ...input,
+      speedB: divide(requiredRelative, rational(3)),
+    });
   }
 
-  return Object.freeze({ ...base, representation: `${base.solveMode}:${index % 6}`, input });
+  return Object.freeze({
+    ...base,
+    representation: `${base.solveMode}:${index % 6}`,
+    input,
+  });
 }
