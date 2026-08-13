@@ -3,6 +3,7 @@ import {
   materializeSpatialGapLearnerQuestionV1,
   spatialGapMaterialProfileCapacityV1,
   type SpatialGapMaterialProfileV1,
+  type MaterializedSpatialGapQuestionV1,
 } from "./gap-question-material-profile-v1";
 import type { SpatialGapLearnerQuestionV1 } from "./gap-question-types-v1";
 import {
@@ -54,6 +55,12 @@ function chapterForGap(gapId: SpatialGapIdV1): SpatialGapChapterV1 {
   return "FSR-001";
 }
 
+function isRetryableMaterialError(error: unknown): boolean {
+  if (!(error instanceof Error)) return false;
+  return error.message.includes("material profile collapsed option uniqueness") ||
+    error.message.includes("materialized scene is invalid");
+}
+
 export function synthesizeSpatialGapQuestionProductionScaleV1(request: {
   seedPrefix: string;
   requestedPerGap: number;
@@ -103,7 +110,15 @@ export function synthesizeSpatialGapQuestionProductionScaleV1(request: {
         seed,
         desiredCorrectOptionIndex,
       });
-      const materialized = materializeSpatialGapLearnerQuestionV1(baseQuestion, profileIndex);
+      let materialized: MaterializedSpatialGapQuestionV1;
+      try {
+        materialized = materializeSpatialGapLearnerQuestionV1(baseQuestion, profileIndex);
+      } catch (error) {
+        if (!isRetryableMaterialError(error)) throw error;
+        profileRejectsByGap[gapId] += 1;
+        totalProfileRejects += 1;
+        continue;
+      }
       if (seenProfiles.has(materialized.materialProfile.id)) {
         profileRejectsByGap[gapId] += 1;
         totalProfileRejects += 1;
