@@ -88,6 +88,17 @@ jobs:
       - name: Prove Hindi/Punjabi localization foundation and semantic parity contract
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localization-readiness-proof.test.ts
 
+  localized-review-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prove Hindi/Punjabi review-candidate semantic parity and language safety
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-candidate-proof.test.ts
+
   teaching-explanations:
     runs-on: ubuntu-latest
     timeout-minutes: 20
