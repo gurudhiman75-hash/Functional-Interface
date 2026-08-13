@@ -135,4 +135,4 @@ public delivery                            false
 permanent QLs                              20
 ```
 
-Human English review, permanent allocation and the three freezes are no longer blockers. Localization and activation remain separate downstream gates. No Question Studio, Question Bank, mock-test or public-delivery flag is enabled by this freeze.
+Human English review, permanent allocation and the three freezes are no longer blockers. Localization and activation remain separate downstream gates. No Question Studio, Question Bank, mock-test or public-delivery flag is enabled by this freeze. The diagram-enhanced manual-review HTML is evidence only; native runtime diagram integration is not activated here.
