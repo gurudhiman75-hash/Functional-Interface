@@ -59,6 +59,29 @@ export const SAP_E1_INACTIVE_LIFECYCLE = Object.freeze({
   publiclyPublishable: false as const,
 });
 
+function gcd(a: number, b: number): number {
+  let x = Math.abs(a), y = Math.abs(b);
+  while (y !== 0) [x, y] = [y, x % y];
+  return x || 1;
+}
+
+function numericFallback(answer: string, offset: number): string {
+  const fractionMatch = answer.match(/^(-?\d+)\/(\d+)$/);
+  if (fractionMatch) {
+    const numerator = Number(fractionMatch[1]) + offset;
+    const denominator = Number(fractionMatch[2]);
+    const g = gcd(numerator, denominator);
+    const n = numerator / g, d = denominator / g;
+    return d === 1 ? String(n) : `${n}/${d}`;
+  }
+  if (/^-?\d+(?:\.\d+)?$/.test(answer)) {
+    const places = answer.includes(".") ? answer.split(".")[1]!.length : 0;
+    const step = 10 ** -places;
+    return (Number(answer) + offset * step).toFixed(places);
+  }
+  throw new Error(`E1 option fallback requires a numeric answer, received: ${answer}`);
+}
+
 export function sapE1Options(answer: string, wrongSpecs: readonly SapE1WrongSpec[], correctIndex: number): readonly SapE1Option[] {
   const seen = new Set<string>([answer]);
   const wrong: SapE1WrongSpec[] = [];
@@ -69,7 +92,7 @@ export function sapE1Options(answer: string, wrongSpecs: readonly SapE1WrongSpec
   }
   let fallback = 1;
   while (wrong.length < 3) {
-    const value = /^-?\d+$/.test(answer) ? String(Number(answer) + fallback) : `Alternative ${fallback}`;
+    const value = numericFallback(answer, fallback);
     if (!seen.has(value)) {
       seen.add(value);
       wrong.push({ value, misconceptionId: "NEARBY_FINAL_SLIP", analysis: "This option reflects a small final arithmetic slip after the intended method." });
@@ -94,6 +117,7 @@ export function sapE1BaseValidation(args: { stem: string; answer: string; option
   if (args.options.filter((o) => o.isCorrect).length !== 1) errors.push("Exactly one correct option is required.");
   if (args.options[args.correctIndex]?.value !== args.answer) errors.push("Correct option is not answer-bound.");
   if (args.steps.length < 2 || args.steps.length > 3) errors.push("Student explanation must contain 2-3 short steps.");
+  if (args.options.some((o) => /^Alternative\s/i.test(o.value))) errors.push("Generic fallback option leaked into learner content.");
   return Object.freeze(errors);
 }
 
