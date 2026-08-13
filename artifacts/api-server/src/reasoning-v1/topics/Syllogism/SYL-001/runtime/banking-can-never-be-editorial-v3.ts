@@ -242,7 +242,7 @@ function explainModal(
   if (locale === "hi-IN") {
     if (conclusion.surfaceKind === "ALL_CAN_NEVER") {
       return conclusion.follows
-        ? `${evidence.label}: ${lead}, ${s} का कम-से-कम एक सदस्य ${p} से बाहर रहना ही चाहिए। इसलिए सभी ${subject} का ${predicate} होना असंभव है और निष्कर्ष ${evidence.label} अनुसरण करता है।`
+        ? `${evidence.label}: ${lead}, ${s} का कम-से-कम एक सदस्य ${p} से बाहर रहना ही चाहिए। इसलिए ${s} के सभी सदस्यों का ${p} में होना असंभव है और निष्कर्ष ${evidence.label} अनुसरण करता है।`
         : `${evidence.label}: ${lead}, कम-से-कम एक वैध व्यवस्था में ${s} के सभी सदस्य ${p} में रखे जा सकते हैं। इसलिए “कभी संभव नहीं” सिद्ध नहीं होता और निष्कर्ष ${evidence.label} अनुसरण नहीं करता।`;
     }
     return conclusion.follows
@@ -253,7 +253,7 @@ function explainModal(
   if (locale === "pa-IN") {
     if (conclusion.surfaceKind === "ALL_CAN_NEVER") {
       return conclusion.follows
-        ? `${evidence.label}: ${lead}, ${s} ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ ${p} ਤੋਂ ਬਾਹਰ ਰਹਿਣਾ ਹੀ ਚਾਹੀਦਾ ਹੈ। ਇਸ ਲਈ ਸਾਰੇ ${subject} ਦਾ ${predicate} ਹੋਣਾ ਅਸੰਭਵ ਹੈ ਅਤੇ ਨਤੀਜਾ ${evidence.label} ਸਹੀ ਹੈ।`
+        ? `${evidence.label}: ${lead}, ${s} ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ ${p} ਤੋਂ ਬਾਹਰ ਰਹਿਣਾ ਹੀ ਚਾਹੀਦਾ ਹੈ। ਇਸ ਲਈ ${s} ਦੇ ਸਾਰੇ ਮੈਂਬਰਾਂ ਦਾ ${p} ਵਿੱਚ ਹੋਣਾ ਅਸੰਭਵ ਹੈ ਅਤੇ ਨਤੀਜਾ ${evidence.label} ਸਹੀ ਹੈ।`
         : `${evidence.label}: ${lead}, ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵੈਧ ਬਣਤਰ ਵਿੱਚ ${s} ਦੇ ਸਾਰੇ ਮੈਂਬਰ ${p} ਵਿੱਚ ਰੱਖੇ ਜਾ ਸਕਦੇ ਹਨ। ਇਸ ਲਈ “ਕਦੇ ਸੰਭਵ ਨਹੀਂ” ਸਾਬਤ ਨਹੀਂ ਹੁੰਦਾ ਅਤੇ ਨਤੀਜਾ ${evidence.label} ਸਹੀ ਨਹੀਂ ਹੈ।`;
     }
     return conclusion.follows
