@@ -10,7 +10,7 @@ import { TRG_002_MVP_CP009_A_IDS, generateTrg002MvpCp009AQuestion, type Trg002Mv
 import { TRG_002_MVP_CP009_B_IDS, generateTrg002MvpCp009BQuestion, type Trg002MvpCp009BId } from "./mvp-cp009-b";
 import { TRG_002_MVP_CP010_OBSERVER_OPPOSITE_IDS, generateTrg002MvpCp010ObserverOppositeQuestion, type Trg002MvpCp010ObserverOppositeId } from "./mvp-cp010-observer-opposite";
 import { TRG_002_MVP_CP010_BUILDING_SIGHT_IDS, generateTrg002MvpCp010BuildingSightQuestion, type Trg002MvpCp010BuildingSightId } from "./mvp-cp010-building-sight";
-import { TRG_002_MVP_CP010_RIVER_IDS, generateTrg002MvpCp010RiverQuestion, type Trg002MvpCp010RiverId } from "./mvp-cp010-river";
+import { generateTrg002MvpQl094Clean } from "./mvp-ql094-clean";
 import { generateTrg002MvpQl095, generateTrg002MvpQl096 } from "./mvp-cp010-composite-a";
 
 const proof = new Set<string>(TRG_002_RUNTIME_PROOF_IDS);
@@ -22,11 +22,11 @@ const c9a = new Set<string>(TRG_002_MVP_CP009_A_IDS);
 const c9b = new Set<string>(TRG_002_MVP_CP009_B_IDS);
 const c10a = new Set<string>(TRG_002_MVP_CP010_OBSERVER_OPPOSITE_IDS);
 const c10b = new Set<string>(TRG_002_MVP_CP010_BUILDING_SIGHT_IDS);
-const c10c = new Set<string>(TRG_002_MVP_CP010_RIVER_IDS);
 
 export function generateTrg002Mvp48Question(qlId: Trg002Mvp48Id, seed: string) {
   if (proof.has(qlId)) return generateSolutionDiagramTrg002RuntimeProofQuestion(qlId as Trg002ProofQlId, seed);
   if (qlId === "TRG-002-QL-024") return generateTrg002MvpQl024Clean(seed);
+  if (qlId === "TRG-002-QL-094") return generateTrg002MvpQl094Clean(seed);
   if (c7.has(qlId)) return generateTrg002MvpCp007AddedQuestion(qlId as Trg002MvpCp007AddedId, seed);
   if (c8a.has(qlId)) return generateTrg002MvpCp008ShadowLadderQuestion(qlId as Trg002MvpCp008ShadowLadderId, seed);
   if (c8b.has(qlId)) return generateTrg002MvpCp008BrokenQuestion(qlId as Trg002MvpCp008BrokenId, seed);
@@ -35,7 +35,6 @@ export function generateTrg002Mvp48Question(qlId: Trg002Mvp48Id, seed: string) {
   if (c9b.has(qlId)) return generateTrg002MvpCp009BQuestion(qlId as Trg002MvpCp009BId, seed);
   if (c10a.has(qlId)) return generateTrg002MvpCp010ObserverOppositeQuestion(qlId as Trg002MvpCp010ObserverOppositeId, seed);
   if (c10b.has(qlId)) return generateTrg002MvpCp010BuildingSightQuestion(qlId as Trg002MvpCp010BuildingSightId, seed);
-  if (c10c.has(qlId)) return generateTrg002MvpCp010RiverQuestion(qlId as Trg002MvpCp010RiverId, seed);
   if (qlId === "TRG-002-QL-095") return generateTrg002MvpQl095(seed);
   if (qlId === "TRG-002-QL-096") return generateTrg002MvpQl096(seed);
   throw new Error(`Missing TRG-002 MVP generator for ${qlId}.`);
