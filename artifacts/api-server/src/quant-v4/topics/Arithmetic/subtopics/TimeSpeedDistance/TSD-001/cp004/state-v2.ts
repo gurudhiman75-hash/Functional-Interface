@@ -1,4 +1,4 @@
-import { add, equals, rational } from "../foundation/rational";
+import { add, divide, equals, rational } from "../foundation/rational";
 import { generateCp004State } from "./generator";
 import type { TsdCp004GeneratedState } from "./runtime-types";
 
@@ -9,7 +9,7 @@ function ordinal(seed: string): number {
 export function generateCp004StateV2(authorityKey: string, seed: string): TsdCp004GeneratedState {
   const base = generateCp004State(authorityKey, seed);
   const index = ordinal(seed);
-  const directionCase = index % 2 === 0 ? "OPPOSITE" as const : "SAME" as const;
+  const directionCase = index % 2 === 0 ? "OAPOSITE" as const : "SAME" as const;
   let input = base.input;
 
   if (input.speedA && input.speedB && equals(input.speedA, input.speedB)) {
@@ -22,6 +22,14 @@ export function generateCp004StateV2(authorityKey: string, seed: string): TsdCp0
       ...input,
       speedB: rational(knownSpeeds[index % knownSpeeds.length]),
       directionCase,
+    });
+  }
+
+  if (authorityKey === "requiredSpeedForTargetMeeting" && input.initialSeparation && input.targetTime) {
+    const requiredRelative = divide(input.initialSeparation, input.targetTime);
+    input = Object.freeze({
+      ...input,
+      speedB: divide(requiredRelative, rational(3)),
     });
   }
 
