@@ -1,0 +1,40 @@
+name: Validate SAP-CP-010 Root Depth
+
+on:
+  pull_request:
+    branches: [feat/sap-cp010-roots-powers-derived]
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/authority-root-depth.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-cp010-root-depth-authority.mjs
+      - name: Run authority
+        run: node artifacts/api-server/dist/quant-v4/sap-cp010-root-depth-authority.mjs
+      - name: Bundle review authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/full-review-root-depth.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-cp010-root-depth-review.test.mjs
+      - name: Run review authority
+        run: node artifacts/api-server/dist/quant-v4/sap-cp010-root-depth-review.test.mjs
+      - name: Bundle exporter
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/generate-full-review-root-depth.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-cp010-root-depth-export.mjs
+      - name: Generate review
+        run: node artifacts/api-server/dist/quant-v4/sap-cp010-root-depth-export.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp010-root-depth-v6-review
+          path: artifacts/api-server/dist/quant-v4/sap-cp010-root-depth-review/**
+          if-no-files-found: error
+          retention-days: 30
