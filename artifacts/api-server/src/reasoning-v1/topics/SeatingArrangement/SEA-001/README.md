@@ -86,6 +86,6 @@ Public publication:            false
 
 The signed review is content-fingerprint locked. Any change to the reviewed 100-caselet corpus invalidates the approval and reopens the review gate automatically.
 
-Permanent allocation and the English freeze do **not** authorize activation. Localization and downstream Question Studio / Question Bank / test / public activation remain separate gates.
+Permanent allocation and the English freeze do **not** authorize activation. Localization and downstream Question Studio / Question Bank / test / public activation remain separate gates. Native runtime diagram support is also a downstream product-integration concern; the diagram-enhanced manual-review HTML is not itself Question Studio integration.
 
 Do not bypass `assertSea001ActivationAllowed`.
