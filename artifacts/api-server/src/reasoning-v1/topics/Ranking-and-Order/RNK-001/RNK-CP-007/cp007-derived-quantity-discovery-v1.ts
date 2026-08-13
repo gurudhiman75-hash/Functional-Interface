@@ -1,8 +1,8 @@
 import { selectRnkPeople } from "../foundation/rnk-object-pool-v2";
-import { selectRnkSymbolicObjects } from "../foundation/rnk-derived-object-pool-v2";
+import { RNK_SYMBOLIC_OBJECT_POOL_V2 } from "../foundation/rnk-derived-object-pool-v2";
 
 export const RNK_CP007_DERIVED_QUANTITY_VERSION =
-  "RNK_CP007_DERIVED_QUANTITY_DISCOVERY_V1" as const;
+  "RNK_CP007_DERIVED_QUANTITY_DISCOVERY_V1_1" as const;
 
 export type RnkCp007DerivedQuantitySourceForm =
   | "TRANSFER_BALANCE_ORDER"
@@ -76,7 +76,7 @@ export interface RnkCp007DerivedQuantityQuestion {
     readonly sourceBacked: true;
     readonly permanentQlAllocated: false;
     readonly arithmeticOperationCount: number;
-    readonly arithmeticBurden: "LIGHT";
+    readonly arithmeticBurden: "LIGHT" | "MODERATE";
     readonly finalTask: "ORDER_OR_RANK";
     readonly quantDominant: false;
     readonly stateUniqueness: "UNIQUE_VALUES" | "PARTIAL_ORDER_WITH_QUERY_INVARIANT";
@@ -109,8 +109,7 @@ function placeOptions(answer: string, distractors: readonly string[], answerInde
   const output: string[] = [];
   let cursor = 0;
   for (let index = 0; index < 4; index += 1) {
-    if (index === answerIndex) output.push(answer);
-    else output.push(uniqueDistractors[cursor++]!);
+    output.push(index === answerIndex ? answer : uniqueDistractors[cursor++]!);
   }
   if (new Set(output).size !== 4) throw new Error("Duplicate derived-quantity options");
   return output;
@@ -163,6 +162,16 @@ function orderIndicesDescending(values: readonly number[]): number[] {
     .map((entry) => entry.index);
 }
 
+function transferConclusion(
+  mode: RnkCp007TransferMode,
+  answer: string,
+): string {
+  if (mode === "HIGHEST_BALANCE") return `Therefore ${answer} has the highest final balance.`;
+  if (mode === "LOWEST_BALANCE") return `Therefore ${answer} has the lowest final balance.`;
+  if (mode === "SECOND_HIGHEST_BALANCE") return `Therefore ${answer} has the second-highest final balance.`;
+  return `Therefore the true statement is: ${answer}`;
+}
+
 function generateTransferQuestion(
   mode: RnkCp007TransferMode,
   seed: number,
@@ -204,7 +213,7 @@ function generateTransferQuestion(
 
   const options = placeOptions(answer, distractors, answerIndex);
   const ledger = names.map((name, index) => `${name}: ₹${state.finalBalances[index]}`).join(", ");
-  const explanation = `All four start with ₹${state.initialBalance}. Apply the three transfers in order. Final balances are ${ledger}. Therefore ${answer}`;
+  const explanation = `All four start with ₹${state.initialBalance}. Apply the three transfers in order. Final balances are ${ledger}. ${transferConclusion(mode, answer)}`;
 
   return {
     discoveryVersion: RNK_CP007_DERIVED_QUANTITY_VERSION,
@@ -217,7 +226,7 @@ function generateTransferQuestion(
     answerIndex,
     answer,
     explanation,
-    mathematicalFingerprint: `TRANSFER:${mode}:${state.initialBalance}:${state.operations.map((op) => `${op.from}>${op.to}:${op.amount}`).join("|")}`,
+    mathematicalFingerprint: `TRANSFERV11:${mode}:${state.initialBalance}:${state.operations.map((op) => `${op.from}>${op.to}:${op.amount}`).join("|")}`,
     transferState: state,
     reviewMetadata: {
       sourceBacked: true,
@@ -266,10 +275,22 @@ function scaledOrder(
   return Object.entries(values).sort((x, y) => y[1] - x[1]).map(([symbol]) => symbol);
 }
 
+function selectSingleLetterSymbols(seed: number): readonly [string, string, string, string, string, string] {
+  const letters = RNK_SYMBOLIC_OBJECT_POOL_V2
+    .map((entry) => entry.symbol)
+    .filter((symbol) => /^[A-Z]$/.test(symbol));
+  if (letters.length < 26) throw new Error("RNK object pool lost A-Z single-letter coverage");
+  const selected = letters
+    .map((symbol, index) => ({ symbol, key: mix32(seed ^ Math.imul(index + 1, 0x9e3779b1)) }))
+    .sort((x, y) => x.key - y.key || x.symbol.localeCompare(y.symbol))
+    .slice(0, 6)
+    .map(({ symbol }) => symbol);
+  return rotate(selected, mix32(seed ^ 0x524f4c45) % 6) as [string, string, string, string, string, string];
+}
+
 function constructScaledState(seed: number): RnkCp007ScaledState {
   const { m, q, d } = scaledCoefficients(seed);
-  const selected = selectRnkSymbolicObjects(seed ^ 0x5343414c, 6).map((entry) => entry.symbol);
-  const roleSymbols = rotate(selected, mix32(seed ^ 0x524f4c45) % selected.length) as [string, string, string, string, string, string];
+  const roleSymbols = selectSingleLetterSymbols(seed ^ 0x5343414c);
   const eLowerBound = (1 + m) / 2;
   const sampleMultipliers = [1.03, 1.08, 1.16, 1.35, 1.8, 2.5];
   const candidateE = sampleMultipliers.map((factor) => eLowerBound * factor)
@@ -297,6 +318,28 @@ export function invariantScaledRankEntity(
   return entities.every((entity) => entity === entities[0]) ? entities[0] : undefined;
 }
 
+function rankAwareScaledDistractors(
+  state: RnkCp007ScaledState,
+  answer: string,
+  rankFromTop: number,
+): string[] {
+  const candidates = state.roleSymbols
+    .filter((symbol) => symbol !== answer)
+    .map((symbol) => {
+      const distances = state.witnessOrders.map((order) => {
+        const position = order.indexOf(symbol) + 1;
+        return Math.abs(position - rankFromTop);
+      });
+      return {
+        symbol,
+        minDistance: Math.min(...distances),
+        averageDistance: distances.reduce((sum, value) => sum + value, 0) / distances.length,
+      };
+    })
+    .sort((x, y) => x.minDistance - y.minDistance || x.averageDistance - y.averageDistance || x.symbol.localeCompare(y.symbol));
+  return candidates.slice(0, 3).map(({ symbol }) => symbol);
+}
+
 function generateScaledQuestion(
   mode: RnkCp007ScaledMode,
   seed: number,
@@ -313,8 +356,7 @@ function generateScaledQuestion(
   if (!answer) throw new Error(`Requested scaled rank ${rankFromTop} is not invariant`);
 
   const allSymbols = state.roleSymbols;
-  const distractorOrder = rotate(allSymbols.filter((symbol) => symbol !== answer), seed % 5);
-  const options = placeOptions(answer, distractorOrder.slice(0, 3), answerIndex);
+  const options = placeOptions(answer, rankAwareScaledDistractors(state, answer, rankFromTop), answerIndex);
   const positionText = mode === "HEAVIEST_OBJECT" ? "heaviest"
     : mode === "LIGHTEST_OBJECT" ? "lightest"
     : mode === "SECOND_FROM_BOTTOM" ? "second from the bottom"
@@ -331,7 +373,7 @@ function generateScaledQuestion(
   ].join(" ");
 
   const lowPair = cCoefficient > state.d ? `${c} > ${d}` : `${d} > ${c}`;
-  const explanation = `Let ${a}=1 unit. Then ${b}=${state.m}, ${c}=${Number(cCoefficient.toFixed(4))}, and ${d}=${state.d}. Since ${h}=2${e} and ${a}+${b}<${h}, ${e}>${Number(state.eLowerBound.toFixed(4))}; thus ${h} is always highest, while ${b} and ${e} may swap. The fixed lower order is ${a} > ${lowPair}. Across every valid witness order, ${answer} remains ${positionText}.`;
+  const explanation = `Let ${a}=1 unit. Then ${b}=${state.m}, ${c}=${Number(cCoefficient.toFixed(4))}, and ${d}=${state.d}. Since ${h}=2${e} and ${a}+${b}<${h}, ${e}>${Number(state.eLowerBound.toFixed(4))}; therefore ${h} is always the heaviest, while ${b} and ${e} may swap. The fixed lower order is ${a} > ${lowPair}. Across every valid order, ${answer} remains ${positionText}.`;
 
   return {
     discoveryVersion: RNK_CP007_DERIVED_QUANTITY_VERSION,
@@ -344,13 +386,13 @@ function generateScaledQuestion(
     answerIndex,
     answer,
     explanation,
-    mathematicalFingerprint: `SCALED:${mode}:${state.m}:${state.q}:${state.d}:${state.roleSymbols.join(",")}`,
+    mathematicalFingerprint: `SCALEDV11:${mode}:${state.m}:${state.q}:${state.d}:${state.roleSymbols.join(",")}`,
     scaledState: state,
     reviewMetadata: {
       sourceBacked: true,
       permanentQlAllocated: false,
       arithmeticOperationCount: 5,
-      arithmeticBurden: "LIGHT",
+      arithmeticBurden: "MODERATE",
       finalTask: "ORDER_OR_RANK",
       quantDominant: false,
       stateUniqueness: "PARTIAL_ORDER_WITH_QUERY_INVARIANT",
