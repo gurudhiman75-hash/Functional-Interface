@@ -23,7 +23,12 @@ for (const prototypeId of SAP_CP010_PROTOTYPE_IDS) {
     const certified = generateCertified(prototypeId, seed);
 
     assert.equal(release.validation.ok, true, `${prototypeId}:${seed}: ${release.validation.errors.join("; ")}`);
-    assert.equal(release.canonicalAnswer, certified.canonicalAnswer, `${prototypeId}:${seed}: editorial layer changed the answer.`);
+    if (prototypeId === SAP_CP010_PROTOTYPE_IDS[16]) {
+      assert.ok(release.canonicalAnswer.includes(`Use ${certified.oracle.data.correctRoot}`), `${prototypeId}:${seed}: diagnosis rewrite changed the selected root.`);
+      assert.match(release.canonicalAnswer, /nearer perfect square/i, `${prototypeId}:${seed}: diagnosis answer should use plain perfect-square language.`);
+    } else {
+      assert.equal(release.canonicalAnswer, certified.canonicalAnswer, `${prototypeId}:${seed}: editorial layer changed the answer.`);
+    }
     assert.deepEqual(coreData(release.oracle.data), certified.oracle.data, `${prototypeId}:${seed}: editorial layer changed certified math state.`);
     assert.equal(release.correctIndex, certified.correctIndex, `${prototypeId}:${seed}: answer position drifted.`);
     assert.equal(release.options.length, 4);
@@ -36,6 +41,7 @@ for (const prototypeId of SAP_CP010_PROTOTYPE_IDS) {
     const visible = `${release.stem} ${release.canonicalAnswer} ${release.options.map((o) => o.value).join(" ")} ${release.explanation.coreConcept} ${release.explanation.steps.join(" ")} ${release.explanation.verification.join(" ")} ${release.options.map((o) => o.analysis).join(" ")}`;
     assert.doesNotMatch(visible, /oracle|runtime|prototype|canonical|internal|guard|machine policy|newton|taylor|logarithmic interpolation|binomial series/i);
     assert.doesNotMatch(visible, /\bradicand\b|certified nearest|special-form|nearest-integer band/i, `${prototypeId}:${seed}: technical learner wording leaked.`);
+    assert.doesNotMatch(visible, /\^[234]/, `${prototypeId}:${seed}: programming-style exponent notation leaked.`);
     assert.doesNotMatch(visible, /-?\d+\.\d{6,}/);
     assert.doesNotMatch(release.stem, /the original number was (?:above|below) its rounded value/i, `${prototypeId}:${seed}: unnatural inverse wording returned.`);
 
@@ -105,6 +111,12 @@ for (const prototypeId of SAP_CP010_PROTOTYPE_IDS) {
       assert.doesNotMatch(release.stem, /slightly/i, `${prototypeId}:${seed}: vague inverse power wording returned.`);
     }
 
+    if (prototypeId === SAP_CP010_PROTOTYPE_IDS[14] && release.oracle.data.kind === "ROOT") {
+      const explanation = `${release.explanation.steps.join(" ")} ${release.explanation.verification.join(" ")}`;
+      assert.doesNotMatch(explanation, /4\s*×/i, `${prototypeId}:${seed}: scaled square-root shortcut returned in nearest-option explanation.`);
+      assert.match(explanation, /midpoint|\.5/i, `${prototypeId}:${seed}: midpoint explanation missing in root nearest-option state.`);
+    }
+
     if (prototypeId === SAP_CP010_PROTOTYPE_IDS[16]) {
       const explanation = `${release.explanation.steps.join(" ")} ${release.explanation.verification.join(" ")}`;
       assert.doesNotMatch(explanation, /4\s*×/i, `${prototypeId}:${seed}: scaled square-root shortcut returned in learner explanation.`);
@@ -118,4 +130,4 @@ assert.equal(payloads.size, 1700);
 assert.equal(identities.size, 1700);
 assert.deepEqual(positions, [425, 425, 425, 425]);
 
-console.log("SAP-CP-010 release authority passed: certified mathematics preserved across 1,700 states while exam-standard stems, plausible distractors, plain learner language, midpoint-friendly explanations and inactive lifecycle are enforced.");
+console.log("SAP-CP-010 release authority passed: certified mathematics preserved across 1,700 states while exam-standard notation, plausible distractors, plain learner language, midpoint-friendly explanations and inactive lifecycle are enforced.");
