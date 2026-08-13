@@ -16,7 +16,10 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-shell-v2-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v3.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v3-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v4.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v4-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-can-never-be-editorial-v3.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-can-never-be-editorial-v4.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-balanced.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-balanced-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-BANKING-CAN-NEVER-BE-SOURCE-CLOSURE-V1.md
@@ -71,6 +74,14 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v3-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v3-audit.log
 
+      - name: Bundle editorial V4 visual audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-can-never-be-editorial-v4-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v4-audit.test.mjs
+      - name: Run editorial V4 visual audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v4-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v4-audit.log
+
       - name: Bundle ordinary possibility answer-balance audit
         run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-balanced-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-possibility-v2-balanced-audit.test.mjs
       - name: Run ordinary possibility answer-balance audit
@@ -81,8 +92,13 @@ jobs:
 
       - name: Bundle editorial V3 review exporter
         run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-can-never-be-editorial-v3.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/export-syl-001-bank-can-never-be-editorial-v3.mjs
-      - name: Generate editorial V3 human review pack
+      - name: Generate editorial V3 regression review pack
         run: node artifacts/api-server/dist/reasoning-v1/export-syl-001-bank-can-never-be-editorial-v3.mjs
+
+      - name: Bundle editorial V4 visual review exporter
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-can-never-be-editorial-v4.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/export-syl-001-bank-can-never-be-editorial-v4.mjs
+      - name: Generate editorial V4 visual human review pack
+        run: node artifacts/api-server/dist/reasoning-v1/export-syl-001-bank-can-never-be-editorial-v4.mjs
 
       - name: Upload closure evidence
         if: always()
@@ -94,7 +110,9 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v2-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-shell-v2-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v3-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v4-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-v2-balanced-audit.log
             dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v3/**
+            dist/reasoning-v1/syl-001-bank-can-never-be-editorial-v4/**
           if-no-files-found: error
           retention-days: 30
