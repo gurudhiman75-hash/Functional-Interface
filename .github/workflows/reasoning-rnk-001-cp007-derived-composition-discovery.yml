@@ -46,14 +46,14 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-source-fixture-replay-v1.test.ts \
             | tee rnk-cp007-source-fixtures.log
 
-      - name: Validate category-composition discovery corpus
+      - name: Validate category-composition V1.1 corpus
         run: |
           set -o pipefail
           pnpm dlx tsx \
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-category-composition-discovery-v1.test.ts \
             | tee rnk-cp007-category-composition.log
 
-      - name: Validate derived-quantity discovery corpus
+      - name: Validate derived-quantity V1.1 corpus
         run: |
           set -o pipefail
           pnpm dlx tsx \
@@ -67,12 +67,12 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-merge-split-audit-v1.test.ts \
             | tee rnk-cp007-merge-split-audit.log
 
-      - name: Generate CP007 28-question review pack
+      - name: Generate CP007 V1.1 28-question review pack
         run: |
           set -o pipefail
           pnpm dlx tsx \
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-discovery-review-export-v1.ts \
-            RNK-CP-007-DISCOVERY-V1-REVIEW-28Q.md \
+            'RNK-CP-007-DISCOVERY-V1.1-REVIEW-28Q.md' \
             | tee rnk-cp007-review-export.log
 
       - name: Validate frozen projection compatibility manifest
@@ -120,7 +120,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp007-derived-composition-discovery-evidence
+          name: rnk-001-cp007-derived-composition-discovery-v1-1-evidence
           path: |
             rnk-object-pool-v2-manifest.log
             rnk-cp007-source-fixtures.log
@@ -137,11 +137,11 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Upload manual review pack
+      - name: Upload V1.1 manual review pack
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp007-discovery-v1-review-28q
-          path: RNK-CP-007-DISCOVERY-V1-REVIEW-28Q.md
+          name: rnk-001-cp007-discovery-v1-1-review-28q
+          path: 'RNK-CP-007-DISCOVERY-V1.1-REVIEW-28Q.md'
           if-no-files-found: error
           retention-days: 14
