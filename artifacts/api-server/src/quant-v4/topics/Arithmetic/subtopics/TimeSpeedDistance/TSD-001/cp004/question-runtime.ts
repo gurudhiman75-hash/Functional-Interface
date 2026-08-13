@@ -1,10 +1,11 @@
 import { toCanonicalString, type Rational } from "../foundation/rational";
-import { deriveCp004WrongWorkings } from "./distractors";
+import { deriveExamReadyCp004WrongWorkings } from "./distractor-remediation";
 import { generateCp004State, renderCp004Stem } from "./generator";
 import { independentlyVerifyCp004 } from "./independent-verifier";
 import { cp004PermanentQlForAuthority } from "./ql-allocation";
 import { buildCp004Options, cp004DifficultyForAuthority } from "./options";
 import { solveCp004Core } from "./relative-motion-foundation";
+import { remediateCp004Stem } from "./stem-remediation";
 import { buildCp004Teaching } from "./teaching";
 import type { TsdCp004GeneratedQuestion } from "./runtime-types";
 
@@ -66,10 +67,10 @@ function validateQuestion(question: Omit<TsdCp004GeneratedQuestion, "validation"
 
 export function generateCp004Question(authorityKey: string, seed: string): TsdCp004GeneratedQuestion {
   const { state, solution } = generateSolvableState(authorityKey, seed);
-  const wrongWorkings = deriveCp004WrongWorkings(state.solveMode, state.input, solution);
+  const wrongWorkings = deriveExamReadyCp004WrongWorkings(state.solveMode, state.input, solution);
   const built = buildCp004Options(solution, wrongWorkings, state.permanentQlId, seed);
   const answerText = built.options[built.correctIndex];
-  const stem = renderCp004Stem(state);
+  const stem = remediateCp004Stem(state, renderCp004Stem(state));
   const fingerprintValues = rationals(state.input).map(toCanonicalString).join("|");
   const draft = {
     chapterId: "TSD-001" as const,
