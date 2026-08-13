@@ -9,24 +9,24 @@ mkdirSync(outDir, { recursive: true });
 const summary = {
   checkpointId: "SAP-CP-009",
   title: "Approximate Products, Quotients, Ratios and Percentages",
-  reviewVersion: "CP009-EDITORIAL-V2",
+  reviewVersion: "CP009-EXAM-STANDARD-V3",
   questionCount: records.length,
   identities: [...new Set(records.map((r) => r.prototypeId))].length,
   candidateQlRange: "SAP-QL-147..165",
   answerPositions: [0, 1, 2, 3].map((p) => records.filter((r) => r.correctIndex === p).length),
   lifecycle: "INACTIVE_HUMAN_REVIEW_CANDIDATE",
-  editorialContract: "EXAM_STANDARD_STEMS_SIMPLE_2_TO_3_STEP_EXPLANATIONS",
+  editorialContract: "EXAM_STANDARD_STEMS_STUDENT_OWNS_APPROXIMATION_SIMPLE_2_TO_3_STEP_EXPLANATIONS",
 };
 
 const lines: string[] = [
-  "# SAP-CP-009 — 300-Question English Human Review — Editorial V2",
+  "# SAP-CP-009 — 300-Question English Human Review — Exam Standard V3",
   "",
   `Questions: **${summary.questionCount}**  `,
   `Solve identities: **${summary.identities}**  `,
   `Candidate QLs: **${summary.candidateQlRange}**  `,
   `Answer positions A/B/C/D: **${summary.answerPositions.join(" / ")}**`,
   "",
-  "> All questions are provisional and inactive. Stems are written in competitive-exam style; explanations use short, direct working rather than implementation language.",
+  "> All questions are provisional and inactive. Stems use competitive-exam language; the question states a rounding precision only when needed but does not supply the actual rounded values or solving shortcut. Explanations use short, direct student working.",
   "",
 ];
 
@@ -59,7 +59,7 @@ for (const r of records) {
 
 const markdown = lines.join("\n");
 const escaped = markdown.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-const html = `<!doctype html><html><head><meta charset="utf-8"><title>SAP-CP-009 Editorial V2 Review</title><style>body{font-family:Arial,sans-serif;max-width:1050px;margin:24px auto;padding:0 20px;line-height:1.5;color:#222}pre{white-space:pre-wrap;font-family:Arial,sans-serif}h1{border-bottom:2px solid #333}</style></head><body><pre>${escaped}</pre></body></html>`;
+const html = `<!doctype html><html><head><meta charset="utf-8"><title>SAP-CP-009 Exam Standard V3 Review</title><style>body{font-family:Arial,sans-serif;max-width:1050px;margin:24px auto;padding:0 20px;line-height:1.5;color:#222}pre{white-space:pre-wrap;font-family:Arial,sans-serif}h1{border-bottom:2px solid #333}</style></head><body><pre>${escaped}</pre></body></html>`;
 
 writeFileSync(resolve(outDir, "SAP-CP-009-300-FULL-ENGLISH-REVIEW.md"), markdown, "utf8");
 writeFileSync(resolve(outDir, "SAP-CP-009-300-FULL-ENGLISH-REVIEW.html"), html, "utf8");
