@@ -46,6 +46,7 @@ import { polishTmwCp008VisibleGivens } from "./cp008-visible-givens-final-polish
 import { finalizeTmwCp009MultilingualEditorialReview } from "./cp009-multilingual-editorial-review-finalizer";
 import { finalizeTmwCp010MultilingualEditorialReview } from "./cp010-multilingual-editorial-review-finalizer";
 import { polishTmwCp010EditorialReview } from "./cp010-editorial-final-polish";
+import { finalizeTmwCp010CorpusCleanup } from "./cp010-corpus-cleanup-finalizer";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -81,7 +82,9 @@ function finishCp009(question: any, language: Tmw001ChapterLanguage): any {
 }
 
 function finishCp010(question: any, language: Tmw001ChapterLanguage): any {
-  return polishTmwCp010EditorialReview(finalizeTmwCp010MultilingualEditorialReview(question, language), language);
+  const reviewed = finalizeTmwCp010MultilingualEditorialReview(question, language);
+  const polished = polishTmwCp010EditorialReview(reviewed, language);
+  return finalizeTmwCp010CorpusCleanup(polished, language);
 }
 
 function finishEnglish(question: any, questionLanguageId: string): any {
