@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - New-main
+      - feat/num-cp002-wave01-foundation-final2
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/**
