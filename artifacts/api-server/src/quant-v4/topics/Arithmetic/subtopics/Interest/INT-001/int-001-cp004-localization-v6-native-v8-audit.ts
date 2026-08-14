@@ -3,12 +3,29 @@ import { generateIntCp004EnglishFrozenV2Question } from "./cp004-english-frozen-
 import { INT_CP004_V6_LOCALIZED_LOCALES } from "./cp004-localization-v6-runtime";
 import { generateIntCp004V6NativeEditorialV5Question } from "./cp004-localization-v6-native-editorial-v5";
 import { generateIntCp004V6NativeEditorialV8Question } from "./cp004-localization-v6-native-editorial-v8";
+import type { IntCp004V6Locale } from "./cp004-localization-v6-types";
 
 const fail = (message: string): never => { throw new Error(message); };
 const stable = (value: unknown): string => JSON.stringify(value, (_key, item) => typeof item === "bigint" ? item.toString() : item);
 
 function outsideMath(text: string): string {
   return text.replace(/\\\([\s\S]*?\\\)/gu, "").replace(/\\\[[\s\S]*?\\\]/gu, "");
+}
+
+function approvedClean(text: string, locale: IntCp004V6Locale): string {
+  const label = locale === "hi-IN" ? /^(प्रति अवधि दर|हर अवधि की दर):\s*/u : /^(ਹਰ ਮਿਆਦ ਦੀ ਦਰ):\s*/u;
+  const match = text.match(label);
+  let cleaned = text;
+  if (match) {
+    const prefix = match[0];
+    const rest = text.slice(prefix.length);
+    const direct = rest.match(/^\\\(([0-9][0-9{,}.]*)\\frac\{\\%\}\{100\}\\\)([।.]?)$/u);
+    if (direct) cleaned = `${prefix}\\(${direct[1]}\\%=\\frac{${direct[1]}}{100}\\)${direct[2]}`;
+  }
+  cleaned = cleaned.replace(/([0-9][0-9{,}.]*)\\frac\{\\%\}\{100\}/gu, (_m, rate: string) => `\\frac{${rate}}{100}`);
+  cleaned = cleaned.replace(/₹\s*([\d,]+)\.00(?!\d)/gu, "₹$1");
+  cleaned = cleaned.replace(/(\d+)\.(\d*?[1-9])0+(?=\\?%)/gu, "$1.$2").replace(/(\d+)\.0+(?=\\?%)/gu, "$1");
+  return cleaned;
 }
 
 function visible(q: ReturnType<typeof generateIntCp004V6NativeEditorialV8Question>): string[] {
@@ -20,6 +37,7 @@ let parityChecks = 0;
 let wrapperChecks = 0;
 let decimalChecks = 0;
 let approximationChecks = 0;
+let normalizationIdentityChecks = 0;
 let wholeRupeeDotZero = 0;
 let malformedPercentFraction = 0;
 let rejectedPunjabiTerms = 0;
@@ -39,9 +57,19 @@ for (const qlId of INT_CP004_QL_IDS) {
       if (stable(q.mathematicalState) !== stable(english.mathematicalState)) fail(`${qlId}/${seed}/${locale}: mathematical state changed.`);
       if (stable(q.solution) !== stable(english.solution)) fail(`${qlId}/${seed}/${locale}: solution changed.`);
       if (q.correctIndex !== english.correctIndex) fail(`${qlId}/${seed}/${locale}: correct index changed.`);
-      if (q.stem !== predecessor.stem) fail(`${qlId}/${seed}/${locale}: V8 changed approved stem.`);
       if (q.options.length !== predecessor.options.length) fail(`${qlId}/${seed}/${locale}: option count changed.`);
       if (q.approvalStatus !== "LOCALIZED_REVIEW_REQUIRED" || q.enabled || q.registrationStatus !== "NOT_REGISTERED" || q.questionStudioDiscoverable || q.questionBankStatus !== "NOT_STORED" || q.publiclyPublishable) fail(`${qlId}/${seed}/${locale}: lifecycle opened.`);
+
+      normalizationIdentityChecks += 4 + q.options.length + q.explanation.steps.length;
+      if (q.stem !== approvedClean(predecessor.stem, locale)) fail(`${qlId}/${seed}/${locale}: stem changed beyond approved numeric normalization.`);
+      q.options.forEach((option, i) => {
+        if (option.text !== approvedClean(predecessor.options[i]?.text ?? "", locale)) fail(`${qlId}/${seed}/${locale}: option ${i} changed beyond approved numeric normalization.`);
+      });
+      if (q.explanation.whatAsked !== approvedClean(predecessor.explanation.whatAsked, locale)) fail(`${qlId}/${seed}/${locale}: whatAsked drift.`);
+      q.explanation.steps.forEach((step, i) => {
+        if (step !== approvedClean(predecessor.explanation.steps[i] ?? "", locale)) fail(`${qlId}/${seed}/${locale}: explanation step ${i + 1} drift.`);
+      });
+      if (q.explanation.commonMistake !== approvedClean(predecessor.explanation.commonMistake, locale)) fail(`${qlId}/${seed}/${locale}: commonMistake drift.`);
 
       const predecessorApprox = locale === "hi-IN" ? predecessor.explanation.finalAnswer.includes("लगभग") : predecessor.explanation.finalAnswer.includes("ਲਗਭਗ");
       if (predecessorApprox) {
@@ -81,6 +109,7 @@ console.log(JSON.stringify({
   questions,
   localeCounts,
   parityChecks,
+  normalizationIdentityChecks,
   wrapperChecks,
   decimalChecks,
   approximationChecks,
