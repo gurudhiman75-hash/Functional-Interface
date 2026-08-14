@@ -30,6 +30,12 @@ function object(state: Trg002SpatialState, id: string) {
   return found;
 }
 
+function point(state: Trg002SpatialState, id: string) {
+  const found = state.points.find((item) => item.id === id);
+  if (!found) throw new Error(`Missing canonical point ${id}.`);
+  return found;
+}
+
 function ql015NaturalDepression(question: Trg002ProofQuestion): Trg002ProofQuestion {
   if (question.qlId !== "TRG-002-QL-015") return question;
   assert(question.exactAnswer.kind === "NUMBER", "QL-015 must have a numeric length answer.");
@@ -159,9 +165,15 @@ function finalEditorialPolish(question: Trg002ProofQuestion): Trg002ProofQuestio
   }
 
   if (question.qlId === "TRG-002-QL-083") {
+    const state = question.canonicalSpatialState;
+    const first = object(state, "building-1");
+    const firstBase = point(state, first.basePointId);
+    const second = object(state, "building-2");
+    const secondBase = point(state, second.basePointId);
+    const run = subtractExact(secondBase.x, firstBase.x);
     return {
       ...question,
-      stem: question.stem.replace(/the top of another building (.+?) m away is seen/, "the top of another building, whose foot is $1 m horizontally from the first building, is seen"),
+      stem: `From the top of a ${formatExactPlain(first.height)} m building, the top of a second building is seen at an angle of elevation of 45°. The horizontal distance between the feet of the two buildings is ${formatExactPlain(run)} m. Find the height of the second building.`,
     };
   }
 
