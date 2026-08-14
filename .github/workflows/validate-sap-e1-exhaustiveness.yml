@@ -37,7 +37,7 @@ jobs:
       - name: Run CP010 E1 authority
         run: node artifacts/api-server/dist/quant-v4/sap-e1-cp010.mjs
       - name: Bundle E1 R2 exam authority
-        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E1-R2-AUTHORITY.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e1-r2.mjs
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E1-R2-AUTHORITY-v2.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e1-r2.mjs
       - name: Run E1 R2 exam authority
         run: node artifacts/api-server/dist/quant-v4/sap-e1-r2.mjs
 
