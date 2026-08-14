@@ -336,18 +336,27 @@ function orderText(entries: readonly OrderEntry[], ascending: boolean): string {
   return displayOrder(sorted, ascending);
 }
 
+function permutations<T>(values: readonly T[]): readonly (readonly T[])[] {
+  if (values.length <= 1) return [values];
+  return values.flatMap((value, valueIndex) =>
+    permutations(values.filter((_, index) => index !== valueIndex)).map((rest) => [value, ...rest]),
+  );
+}
+
 function prototype010(seed: number): Draft {
   const entries = choose(seed, orderSets, 13);
   const ascending = seed % 2 === 0;
   const correct = orderText(entries, ascending);
-  const perms = [
-    [entries[1]!, entries[0]!, entries[2]!], [entries[2]!, entries[1]!, entries[0]!], [entries[0]!, entries[2]!, entries[1]!],
-  ];
+  const distractors = permutations(entries)
+    .map((permutation) => displayOrder(permutation, ascending))
+    .filter((value, index, all) => value !== correct && all.indexOf(value) === index)
+    .slice(0, 3)
+    .map((value, index) => ({ value, misconceptionId: `PAIRWISE_ORDER_ERROR_${index + 1}` }));
   return {
     answerSemantic: "ORDERED_LIST",
     stem: `Arrange ${entries.map((e) => e.display).join(", ")} in ${ascending ? "ascending" : "descending"} order.`,
     correct,
-    distractors: perms.map((p, i) => ({ value: displayOrder(p, ascending), misconceptionId: `PAIRWISE_ORDER_ERROR_${i + 1}` })),
+    distractors,
     hiddenState: { ascending, entries: entries.map((e) => ({ display: e.display, n: e.value.n, d: e.value.d })) },
     concept: "Compare all values exactly as rational numbers before ordering them.",
     solution: [`Convert or compare the three values exactly; do not round a recurring decimal.`, `The required order is ${correct}.`],
