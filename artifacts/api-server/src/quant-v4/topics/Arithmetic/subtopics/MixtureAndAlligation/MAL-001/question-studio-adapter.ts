@@ -14,10 +14,10 @@ import {
 import { runMalCp002EnglishEditorialV2Pipeline } from "./foundation/cp002-editorial-v2";
 import {
   MAL_CP003_PERMANENT_ALLOCATION,
-  runMalCp003EnglishReleasePipeline,
   type MalCp003PermanentQlId,
   type MalCp003ReleasedQuestion,
 } from "./foundation/cp003-permanent-runtime";
+import { runMalCp003EnglishEditorialV2Pipeline } from "./foundation/cp003-release-editorial-v2";
 import {
   MAL_CP004_PERMANENT_ALLOCATION,
   type MalCp004PermanentQlId,
@@ -160,7 +160,7 @@ export function runMal001QuestionStudioPipeline(
       MAL_CP003_PERMANENT_ALLOCATION,
       input,
     ) as MalCp003PermanentQlId;
-    return runMalCp003EnglishReleasePipeline({
+    return runMalCp003EnglishEditorialV2Pipeline({
       questionLanguageId,
       seed: input.seed,
       language: "en",
