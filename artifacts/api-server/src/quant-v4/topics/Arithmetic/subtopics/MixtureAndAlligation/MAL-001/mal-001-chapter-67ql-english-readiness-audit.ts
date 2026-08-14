@@ -31,7 +31,15 @@ function visibleLines(question: unknown): string[] {
   const explanation = record.explanation;
   if (Array.isArray(explanation)) return asStringArray(explanation);
   if (!explanation || typeof explanation !== "object") return [];
-  return asStringArray((explanation as Record<string, unknown>).visibleLines);
+  const e = explanation as Record<string, unknown>;
+  for (const key of ["visibleLines", "lines", "steps"] as const) {
+    const values = asStringArray(e[key]);
+    if (values.length > 0) return values;
+  }
+  const fallback = ["coreConcept", "formula", "calculation", "verification", "conclusion"]
+    .map((key) => e[key])
+    .filter((value): value is string => typeof value === "string" && value.trim().length > 0);
+  return fallback;
 }
 
 function questionSurface(question: unknown): {
@@ -45,10 +53,9 @@ function questionSurface(question: unknown): {
   assert(typeof record.stem === "string", "Question stem is missing.");
   assert(typeof record.answer === "string", "Question answer is missing.");
   assert(typeof record.correctIndex === "number", "Question correctIndex is missing.");
-  const options = asStringArray(record.options);
   return {
     stem: record.stem,
-    options,
+    options: asStringArray(record.options),
     answer: record.answer,
     correctIndex: record.correctIndex,
     lines: visibleLines(question),
@@ -104,12 +111,8 @@ function generate(allocation: AuditAllocation, seed: string): unknown {
 
 const samplesPerQl = 20;
 let generated = 0;
-let stemIntegrity = 0;
-let optionIntegrity = 0;
-let explanationPresence = 0;
-let internalLeakChecks = 0;
 const difficultyCounts: Record<Difficulty, number> = { Easy: 0, Medium: 0, Hard: 0 };
-const cpCounts: Record<CpId, number> = {
+const cpGeneratedCounts: Record<CpId, number> = {
   "MAL-CP-001": 0,
   "MAL-CP-002": 0,
   "MAL-CP-003": 0,
@@ -140,22 +143,16 @@ for (const allocation of allocations) {
     assert(surface.stem.trim().length >= 20, `${allocation.qlId}/${seed}: stem is too short.`);
     assert(surface.stem.trim().endsWith("?"), `${allocation.qlId}/${seed}: stem is not an explicit question.`);
     assert(!/\b(?:find|calculate|determine)\s*\.$/iu.test(surface.stem.trim()), `${allocation.qlId}/${seed}: incomplete command stem.`);
-    stemIntegrity += 1;
-
     assert(surface.options.length === 4, `${allocation.qlId}/${seed}: expected four options.`);
     assert(new Set(surface.options).size === 4, `${allocation.qlId}/${seed}: duplicate options.`);
     assert(surface.correctIndex >= 0 && surface.correctIndex < 4, `${allocation.qlId}/${seed}: invalid correct index.`);
     assert(surface.options[surface.correctIndex] === surface.answer, `${allocation.qlId}/${seed}: answer/index mismatch.`);
-    optionIntegrity += 1;
-
     assert(surface.lines.length >= 1, `${allocation.qlId}/${seed}: no learner-visible worked solution lines.`);
     assert(surface.lines.every((line) => line.trim().length > 0), `${allocation.qlId}/${seed}: blank learner-visible solution line.`);
-    explanationPresence += 1;
 
     const learnerText = [surface.stem, ...surface.options, ...surface.lines].join(" ");
     assert(!/\bMAL-(?:CP|QL)|prototype|runtime id|state key|question language|traceability|global component|component load/iu.test(learnerText), `${allocation.qlId}/${seed}: internal implementation language leaked.`);
     assert(!/\b1 litres\b/iu.test(learnerText), `${allocation.qlId}/${seed}: singular litre grammar regressed.`);
-    internalLeakChecks += 1;
 
     stems.add(surface.stem);
     answers.add(surface.answer);
@@ -164,7 +161,7 @@ for (const allocation of allocations) {
     owners.add(allocation.qlId);
     crossQlStemOwners.set(normalizedStem, owners);
     generated += 1;
-    cpCounts[allocation.cpId] += 1;
+    cpGeneratedCounts[allocation.cpId] += 1;
     if (index === 0) reviewRows.push({ ...allocation, question });
   }
 
@@ -180,10 +177,6 @@ for (const allocation of allocations) {
 }
 
 assert(generated === 1340, `Expected 1340 chapter audit questions, received ${generated}.`);
-assert(stemIntegrity === generated, "Stem-integrity coverage incomplete.");
-assert(optionIntegrity === generated, "Option-integrity coverage incomplete.");
-assert(explanationPresence === generated, "Explanation-presence coverage incomplete.");
-assert(internalLeakChecks === generated, "Internal-leak coverage incomplete.");
 assert(reviewRows.length === 67, `Expected one review row per QL, received ${reviewRows.length}.`);
 assert(Object.values(difficultyCounts).every((count) => count > 0), "Chapter does not retain all three difficulty bands.");
 
@@ -205,13 +198,9 @@ const summary = {
   difficultyCounts,
   generated,
   samplesPerQl,
-  stemIntegrity,
-  optionIntegrity,
-  explanationPresence,
-  internalLeakChecks,
   crossQlExactStemCollisions,
   qlEvidence,
-  cpGeneratedCounts: cpCounts,
+  cpGeneratedCounts,
   lifecycleBoundary: {
     cp001ToCp005: "CURRENT_ENGLISH_PRODUCT_SURFACES",
     cp006: "INACTIVE_PERMANENT_ENGLISH_REVIEW_CANDIDATE",
