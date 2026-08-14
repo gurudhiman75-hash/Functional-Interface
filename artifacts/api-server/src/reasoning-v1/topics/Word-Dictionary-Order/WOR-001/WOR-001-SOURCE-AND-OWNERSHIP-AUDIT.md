@@ -19,11 +19,19 @@ The boundary agrees with the existing Classification design, which assigns dicti
 
 ## Evidence vocabulary
 
-Prototype contracts now carry one of three source-evidence states:
+Prototype contracts carry one of three source-evidence states:
 
 - `PYQ_SUPPORTED` — the same solve contract is directly evidenced in a competitive-exam previous/actual paper sample;
 - `PLATFORM_SUPPORTED` — the solve contract appears in established competitive-exam preparation material but direct PYQ evidence has not yet been pinned here;
 - `EXPLORATORY_SOURCE_GAP` — the runtime is mechanically valid, but no adequate recurring exam-source evidence has yet been pinned. This status blocks treating the prototype as freeze-ready merely because it executes.
+
+Freeze posture is derived separately:
+
+- retained + supported → `ELIGIBLE_AFTER_EDITORIAL`;
+- retained + source gap → `DEFER_SOURCE_GAP`;
+- `MERGE_AS_INSTANCE_VARIANT` → `INSTANCE_VARIANT_NO_QL`.
+
+This preserves useful executable discovery contracts without confusing them with publication approval.
 
 ## Pinned source sample
 
@@ -43,28 +51,38 @@ Pinned URLs:
 
 ## Executable discovery decisions after remediation
 
-| Pattern | Allocation decision | Source evidence | Freeze implication |
+| Pattern | Executable taxonomy | Source evidence | Freeze posture |
 | --- | --- | --- | --- |
-| Complete ascending order | `RETAIN` | `PYQ_SUPPORTED` | eligible for later QL decision after editorial/corpus gates |
-| Explicit descending order | `RETAIN` | `PLATFORM_SUPPORTED` | keep executable; pin direct PYQ before permanent freeze if kept separate |
-| First/last word | `RETAIN` | `PYQ_SUPPORTED` | eligible for later QL decision after editorial/corpus gates |
-| Kth word | `RETAIN` | `PYQ_SUPPORTED` | eligible for later QL decision after editorial/corpus gates |
-| Rank of a specified word | `RETAIN` | `PLATFORM_SUPPORTED` | keep executable; direct PYQ pin still desirable |
-| Immediate predecessor/successor | `RETAIN` | `EXPLORATORY_SOURCE_GAP` | not freeze-ready |
-| Middle word | `RETAIN` | `PLATFORM_SUPPORTED` | keep executable; direct PYQ pin still desirable |
-| Insertion position/new rank | `RETAIN` | `EXPLORATORY_SOURCE_GAP` | not freeze-ready |
-| Predecessor after insertion | `RETAIN` | `EXPLORATORY_SOURCE_GAP` | not freeze-ready |
-| Unique misplaced word | `RETAIN` | `EXPLORATORY_SOURCE_GAP` | not freeze-ready |
-| Unique incorrect adjacent pair | `RETAIN` | `EXPLORATORY_SOURCE_GAP` | not freeze-ready |
-| Complete partial order | `RETAIN` | `EXPLORATORY_SOURCE_GAP` | not freeze-ready |
-| Four to seven words | `MERGE_AS_INSTANCE_VARIANT` | inherited from solve contract | no separate QL |
-| Deep-prefix hard mode | `MERGE_AS_INSTANCE_VARIANT` | inherited from solve contract | no separate QL |
+| Complete ascending order | `RETAIN` | `PYQ_SUPPORTED` | `ELIGIBLE_AFTER_EDITORIAL` |
+| Explicit descending order | `RETAIN` | `PLATFORM_SUPPORTED` | `ELIGIBLE_AFTER_EDITORIAL` |
+| First/last word | `RETAIN` | `PYQ_SUPPORTED` | `ELIGIBLE_AFTER_EDITORIAL` |
+| Kth word | `RETAIN` | `PYQ_SUPPORTED` | `ELIGIBLE_AFTER_EDITORIAL` |
+| Rank of a specified word | `RETAIN` | `PLATFORM_SUPPORTED` | `ELIGIBLE_AFTER_EDITORIAL` |
+| Immediate predecessor/successor | `RETAIN` | `EXPLORATORY_SOURCE_GAP` | `DEFER_SOURCE_GAP` |
+| Middle word | `RETAIN` | `PLATFORM_SUPPORTED` | `ELIGIBLE_AFTER_EDITORIAL` |
+| Insertion position/new rank | `RETAIN` | `EXPLORATORY_SOURCE_GAP` | `DEFER_SOURCE_GAP` |
+| Predecessor after insertion | `RETAIN` | `EXPLORATORY_SOURCE_GAP` | `DEFER_SOURCE_GAP` |
+| Unique misplaced word | `RETAIN` | `EXPLORATORY_SOURCE_GAP` | `DEFER_SOURCE_GAP` |
+| Unique incorrect adjacent pair | `RETAIN` | `EXPLORATORY_SOURCE_GAP` | `DEFER_SOURCE_GAP` |
+| Complete partial order | `RETAIN` | `EXPLORATORY_SOURCE_GAP` | `DEFER_SOURCE_GAP` |
+| Four to seven words | `MERGE_AS_INSTANCE_VARIANT` | inherited from solve contract | `INSTANCE_VARIANT_NO_QL` |
+| Deep-prefix hard mode | `MERGE_AS_INSTANCE_VARIANT` | inherited from solve contract | `INSTANCE_VARIANT_NO_QL` |
 | Localized instructions | `MERGE_AS_PRESENTATION_VARIANT` | presentation-only | no separate QL |
 | Semantic sequence of words | `DEFER` | out of ownership | do not implement here |
 | Native-script collation | `DEFER` | out of V1 scope | do not implement in V1 |
 
 ## Current conclusion
 
-The core chapter ownership is now source-backed rather than relying only on the design specification. The source audit is **not saturated**: this pass establishes direct support for complete order, endpoint selection and kth/position-style reasoning, while explicitly preserving source gaps for the more synthetic CP-002/CP-003 contracts.
+The core chapter ownership is source-backed rather than relying only on the design specification. The audit is not saturated: targeted searches continue to support ordinary full-order/position forms, but did not establish recurring SSC/Banking/Punjab evidence for the synthetic source-gap contracts.
 
-No `EXPLORATORY_SOURCE_GAP` prototype may be treated as permanent-QL-ready solely because automated generation, answer validation or multilingual parity passes. A later saturation pass must either provide recurring SSC/Banking/Punjab evidence, merge the pattern into a supported contract as an instance variant, or remove it from permanent allocation consideration.
+Current freeze posture across the 19 executable prototypes is:
+
+```text
+ELIGIBLE_AFTER_EDITORIAL: 7
+DEFER_SOURCE_GAP: 8
+INSTANCE_VARIANT_NO_QL: 4
+```
+
+There are 9 `EXPLORATORY_SOURCE_GAP` prototypes overall; one of them (`WOR-PROT-019`) is already an instance variant and therefore never reserves a separate QL.
+
+No `DEFER_SOURCE_GAP` contract may be treated as permanent-QL-ready solely because automated generation, answer validation or multilingual parity passes. A later saturation pass must either provide recurring exam evidence, merge the pattern into a supported contract where semantically valid, or remove it from permanent allocation consideration.

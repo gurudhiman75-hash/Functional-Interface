@@ -78,6 +78,12 @@ function labelsFor(locale: WorLocale): ReviewLabels {
   };
 }
 
+function freezeDecisionFor(question: GeneratedWorQuestion): "ELIGIBLE_AFTER_EDITORIAL" | "DEFER_SOURCE_GAP" | "INSTANCE_VARIANT_NO_QL" {
+  if (question.metadata.allocationDecision === "MERGE_AS_INSTANCE_VARIANT") return "INSTANCE_VARIANT_NO_QL";
+  if (question.metadata.sourceEvidenceStatus === "EXPLORATORY_SOURCE_GAP") return "DEFER_SOURCE_GAP";
+  return "ELIGIBLE_AFTER_EDITORIAL";
+}
+
 function promptLines(question: GeneratedWorQuestion, labels: ReviewLabels): string[] {
   if (question.structuredPrompt.partialSequence) return [`**${labels.order}:** ${question.structuredPrompt.partialSequence.join(" → ")}`];
   if (question.structuredPrompt.presentedSequence) return [`**${labels.order}:** ${question.structuredPrompt.presentedSequence.join(" → ")}`];
@@ -115,8 +121,9 @@ export function renderWorReviewMarkdown(locale: WorLocale, questions = buildWorR
       `- Difficulty: ${question.difficulty}`,
       `- Family: ${question.metadata.sourceFamilyId}`,
       `- Canonical order: ${question.metadata.canonicalOrder.join(" → ")}`,
-      `- Allocation: ${question.metadata.allocationDecision}`,
+      `- Executable taxonomy: ${question.metadata.allocationDecision}`,
       `- Source evidence: ${question.metadata.sourceEvidenceStatus}`,
+      `- Freeze decision: ${freezeDecisionFor(question)}`,
       `- Distractors: ${question.options.map((option) => option.misconceptionId ?? "CORRECT").join(", ")}`,
       "",
       "</details>",
