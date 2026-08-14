@@ -218,8 +218,11 @@ export function malCp006Wave03MergeSplitAudit() {
       for (let j = i + 1; j < members.length; j += 1) {
         const a = members[i]!;
         const b = members[j]!;
-        const key = [a.id, b.id].sort().join("|");
-        if (!(key in MAL_CP006_WAVE03_COLLISION_RATIONALES)) failures.push(`missing collision rationale for ${key}`);
+        const key = `${a.id}|${b.id}`;
+        const reverseKey = `${b.id}|${a.id}`;
+        if (!(key in MAL_CP006_WAVE03_COLLISION_RATIONALES) && !(reverseKey in MAL_CP006_WAVE03_COLLISION_RATIONALES)) {
+          failures.push(`missing collision rationale for ${key}`);
+        }
       }
     }
   }
