@@ -15,7 +15,7 @@ import {
   type IntCp004QlId,
   type Rational,
 } from "./cp004-frequency-math";
-import { generateCp004State } from "./cp004-frequency-generation";
+import { generateCp004State } from "./cp004-frequency-generation-v9-legacy";
 
 export const INT_CP004_EXAM_FRIENDLY_STATE_V9_VERSION =
   "INT-CP-004-EXAM-FRIENDLY-STATE-v9" as const;
