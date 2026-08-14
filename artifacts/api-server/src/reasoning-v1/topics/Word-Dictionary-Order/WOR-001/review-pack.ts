@@ -116,6 +116,7 @@ export function renderWorReviewMarkdown(locale: WorLocale, questions = buildWorR
       `- Family: ${question.metadata.sourceFamilyId}`,
       `- Canonical order: ${question.metadata.canonicalOrder.join(" → ")}`,
       `- Allocation: ${question.metadata.allocationDecision}`,
+      `- Source evidence: ${question.metadata.sourceEvidenceStatus}`,
       `- Distractors: ${question.options.map((option) => option.misconceptionId ?? "CORRECT").join(", ")}`,
       "",
       "</details>",
