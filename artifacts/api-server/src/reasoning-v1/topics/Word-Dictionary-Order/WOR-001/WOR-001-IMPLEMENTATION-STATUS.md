@@ -1,92 +1,103 @@
-# WOR-001 Implementation Status — Remediation V2
+# WOR-001 Implementation Status — Post CP-005
 
 ## Current implementation
 
-- clean WOR-001 subtree on current `New-main` lineage;
-- four-checkpoint runtime with 19 provisional prototypes / 15 executable task kinds;
-- final recommended freeze architecture: 4 QL roots, 8 source-deferred retained contracts, 7 instance variants with no separate QL;
-- 30 curated families / 360 globally unique A–Z word records, all `PROVISIONAL_REVIEW` pending human corpus approval;
-- canonical comparator plus independent selection-sort verifier;
-- identical-word comparison traces rejected explicitly;
-- state-derived Easy/Medium/Hard scoring with deterministic resampling to requested band;
-- truthful misconception metadata for sequence, word, rank and adjacent-pair distractors;
-- FIND_RANK targets interior positions so it does not collapse into endpoint questions;
-- RANK_AFTER_INSERTION always selects a target whose rank actually shifts;
-- unique-answer correction and partial-order validators;
-- English, Hindi and Punjabi explanations now prove every adjacent comparison in the canonical order before giving the task-specific conclusion;
-- locale-specific review-pack scaffolding with no hard-coded trilingual label leakage;
-- source-evidence status attached to every prototype and generated question;
-- CP-003 and predecessor/successor source gaps remain explicitly deferred rather than hidden behind executable `RETAIN` status;
-- stale checked-in review snapshots removed; review packs are generated as CI artifacts;
-- dedicated runtime, source-governance and corpus-diversity CI audits.
+- five-checkpoint review-only runtime;
+- **24 prototypes / 20 executable task kinds**;
+- **16 retained executable contracts**;
+- **8 recommended permanent QL roots** after compression;
+- **8 classic source-deferred retained contracts** that remain review/research only;
+- **8 instance variants** that reserve no separate QL;
+- 30 real-word families / 360 globally unique `PROVISIONAL_REVIEW` words;
+- deterministic Banking five × three-letter cluster constructor for CP-005, with large curated cluster-pool expansion still pending;
+- classic explicit A–Z comparator plus independent lexical verifier;
+- independent Banking transformation/sort/answer verifier;
+- state-derived difficulty for classic and Banking states;
+- EN/HI/PA stems and explanations;
+- classic four-option and Banking five-option profiles;
+- Question Studio review adapter exposes all five checkpoints internally while public visibility remains disabled.
 
-## Recommended permanent QL roots
+## Recommended permanent QL architecture
 
 ```text
+CLASSIC
 1. Complete dictionary order
-   variants: reverse order, hard/deep-prefix full order
-
 2. Endpoint after ordering
-   variants: first word, last word
-
-3. Word at a specified position
-   variants: kth word, middle word, hard/deep-prefix kth
-
+3. Word/cluster at a specified position
 4. Position of a specified word
-   variants: ordinary rank, hard/deep-prefix rank
+
+BANKING COMPOSITES
+5. Sort -> concatenate -> global character
+6. Sort -> ranked cluster -> local character / alphabet offset
+7. Transform each -> sort -> positional word query
+8. Transform each -> sort -> local character query
 ```
 
-Permanent IDs remain unallocated. The four-root architecture is a freeze recommendation, not publication activation.
+`WOR-PROT-020` (plain Banking three-letter clusters with positional query) merges into classic root 3 because its answer/solver contract is the same kth-position contract with a different object mode.
 
-## Corpus shape
+Permanent IDs remain unallocated.
 
-```text
-families: 30
-word records: 360
-EASY families: 8
-MEDIUM families: 10
-HARD families: 12
-editorial state: PROVISIONAL_REVIEW
-global normalized duplicates: blocked by runtime guard
-```
+## CP-005 implemented prototypes
 
-## Source and freeze status
+| Prototype | Task | Allocation | Options | Difficulty |
+| --- | --- | --- | ---: | --- |
+| `WOR-PROT-020` | plain three-letter clusters → positional word query | instance variant of root 3 | 5 | E/M/H |
+| `WOR-PROT-021` | sort → concatenate → global character | new root candidate | 5 | M/H |
+| `WOR-PROT-022` | sort → ranked cluster → local character/offset | new root candidate | 5 | M/H |
+| `WOR-PROT-023` | transform each → sort → position | new root candidate | 5 | M/H |
+| `WOR-PROT-024` | transform each → sort → local character | new root candidate | 5 | M/H |
 
-Direct/previous-paper evidence supports complete ordering, endpoints, kth-position and middle-word forms. Reverse dictionary order is retained as an instance of complete ordering rather than a separate QL. Position-of-specified-word remains a supported distinct query direction.
+All five are tagged `PYQ_SUPPORTED` in the implementation registry based on the chapter content-gap/source audit.
 
-Targeted source saturation did not establish recurring direct exam evidence for predecessor/successor, insertion, misplaced-word, incorrect-adjacent-pair or partial-order contracts. Eight retained source-gap contracts therefore remain `DEFER_SOURCE_GAP`; the hard insertion prototype is already an instance variant with no QL.
+## Banking transformation library
 
-Current posture:
+- `SWAP_FIRST_SECOND`;
+- `SWAP_FIRST_LAST`;
+- `SORT_LETTERS_ASC`;
+- `SHIFT_FIRST_PREVIOUS`;
+- `SHIFT_FIRST_NEXT`;
+- `NONE` for non-transform composite forms.
 
-```text
-ELIGIBLE_AFTER_EDITORIAL: 4
-DEFER_SOURCE_GAP: 8
-INSTANCE_VARIANT_NO_QL: 7
-```
+Transformation results are required to remain unique; collisions trigger deterministic bounded resampling. Original ↔ transformed token mapping is preserved so a question can correctly ask for either representation.
 
-## Automated gate
+## Automated evidence
 
-The branch-head CI must pass all of the following:
+### Classic audit
 
-1. deterministic multilingual runtime audit;
-2. requested difficulty equals state-derived difficulty;
-3. tier-aware structural difficulty ordering;
-4. every explanation contains proof for every adjacent canonical pair;
-5. ordinary rank targets are interior positions;
-6. rank-after-insertion actually shifts the target rank;
-7. source-evidence and four-root freeze-governance audit;
-8. 30-family/360-word corpus uniqueness, reachability and visible-set diversity audit;
-9. commit-fresh review-pack generation and artifact upload;
-10. API production build.
+- 19 classic prototypes;
+- 6,840 localized generations;
+- answer positions `[570, 570, 570, 570]`;
+- all 30 real-word families reached;
+- independent solver parity maintained.
 
-## Still gated after this remediation
+### CP-005 Banking audit
 
-- human editorial approval of the 360-word corpus;
-- human English review of generated questions/explanations;
-- native Hindi review;
-- native Punjabi review;
-- permanent ID allocation to the four recommended roots;
-- central Question Studio discovery;
-- public mock-test release.
+- 5 prototypes;
+- **1,980 localized generations**;
+- five-option answer-position counts `[129, 130, 134, 131, 136]`;
+- all five Banking task kinds covered;
+- all five explicit transformation operators plus `NONE` covered;
+- Easy/Medium/Hard coverage where each prototype permits it;
+- deterministic EN/HI/PA parity;
+- independent transformation, ordering and answer agreement.
 
-Lifecycle remains `REVIEW_ONLY`; permanent QLs remain 0; Question Studio visibility and public release remain disabled.
+The CI run on commit `49977d468bae830e3dd2d2c81fd36ec08eefc28d` passed the classic audit, CP-005 Banking audit, source governance, corpus audit, 12-file review export and API production build.
+
+## Content-model status
+
+`ARCHITECTURE_COMPLETE_POOL_EXPANSION_PENDING`
+
+The major Banking taxonomy gap found in `WOR-001-CONTENT-GAP-AUDIT-V1.md` is now implemented. The remaining major content work is **object-pool breadth and editorial approval**, not another known solve-family gap.
+
+## Next phase
+
+1. expand real-word pool beyond 360 while preserving familiarity and structural tiering;
+2. build a large reviewed Banking three-letter cluster pool instead of relying only on the structural generator;
+3. remodel Easy pool so a meaningful fraction requires second-letter comparison;
+4. add repetition/saturation gates across both object modes;
+5. regenerate classic + Banking review packs;
+6. English editorial review;
+7. native Hindi/Punjabi review;
+8. allocate the eight permanent QL IDs only after those gates pass.
+
+Lifecycle remains `REVIEW_ONLY`; permanent QLs remain 0; public Question Studio/mock-test release remains disabled.
