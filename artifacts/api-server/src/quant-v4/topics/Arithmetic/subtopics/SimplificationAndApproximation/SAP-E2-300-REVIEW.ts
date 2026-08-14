@@ -16,17 +16,21 @@ assert.equal(cp012.reduce((s,f)=>s+f.target,0),210);
 const remaining = new Map([...cp011,...cp012].map(f => [f.id,f.target]));
 const usedSeeds = new Map<string, Set<number>>();
 let c11=0,c12=0;
-function nextFamily(pool: readonly Family[], cursor: "11"|"12"): Family {
-  let start = cursor === "11" ? c11 : c12;
+function choose(pool: readonly Family[], start: number, avoid: string, allowAvoid: boolean): { family: Family; index: number } | null {
   for (let k=0;k<pool.length;k++) {
     const i=(start+k)%pool.length, f=pool[i]!;
-    if ((remaining.get(f.id)??0)>0) {
-      remaining.set(f.id,(remaining.get(f.id)??0)-1);
-      if (cursor === "11") c11=(i+1)%pool.length; else c12=(i+1)%pool.length;
-      return f;
-    }
+    if ((remaining.get(f.id)??0)>0 && (allowAvoid || f.id!==avoid)) return {family:f,index:i};
   }
-  throw new Error(`No family remaining in CP${cursor}`);
+  return null;
+}
+function nextFamily(pool: readonly Family[], cursor: "11"|"12", avoid: string): Family {
+  const start = cursor === "11" ? c11 : c12;
+  const picked = choose(pool,start,avoid,false) ?? choose(pool,start,avoid,true);
+  if (!picked) throw new Error(`No family remaining in CP${cursor}`);
+  const {family,index}=picked;
+  remaining.set(family.id,(remaining.get(family.id)??0)-1);
+  if (cursor === "11") c11=(index+1)%pool.length; else c12=(index+1)%pool.length;
+  return family;
 }
 function seedFor(f: Family, correctIndex: number): number {
   const set=usedSeeds.get(f.id)??new Set<number>();
@@ -44,7 +48,8 @@ interface ReviewRecord extends SapE2Package { readonly questionId: string; }
 const records: ReviewRecord[]=[];
 for (let i=0;i<300;i++) {
   const inCp011=[2,5,8].includes(i%10);
-  const f=nextFamily(inCp011?cp011:cp012,inCp011?"11":"12");
+  const avoid=records.at(-1)?.structureId ?? "";
+  const f=nextFamily(inCp011?cp011:cp012,inCp011?"11":"12",avoid);
   const correctIndex=i%4;
   const seed=seedFor(f,correctIndex);
   const q=f.generate(seed);
