@@ -1,8 +1,8 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 through CP-007 frozen at `RNK-QL-001..042`; next available identity is `RNK-QL-043`.**
+Status: **English content/authority discovery closed at `RNK-QL-001..042`; CP008 allocates zero new QLs; next available identity remains `RNK-QL-043`.**
 
-Counts are evidence, never chapter-size quotas.
+Counts are evidence, never chapter-size quotas. Future reviewed exam/source evidence may reopen discovery; this register records that no **currently evidenced pure Ranking authority** remains unresolved after CP008.
 
 ## Frozen inventory
 
@@ -14,10 +14,12 @@ RNK-CP-004   9 authorities  RNK-QL-027..035
 RNK-CP-005   3 authorities  RNK-QL-036..038
 RNK-CP-006   3 authorities  RNK-QL-039..041
 RNK-CP-007   1 authority    RNK-QL-042
+RNK-CP-008   0 authorities  adapter / caselet closure
 ```
 
 Cumulative frozen authorities: **42**.  
-Next available identity: **`RNK-QL-043`**.
+Next available identity: **`RNK-QL-043`**.  
+CP008 does not reserve it.
 
 ## Frozen projection tail
 
@@ -34,15 +36,7 @@ CP007 pinned candidate:
 63e8cc87812f1ec4546d23829022f333736a03c5e9aa8142384bcab15817dc94
 ```
 
-## CP007 final ownership decision
-
-The post-CP006 source audit replayed:
-
-```text
-Q27 Q28 Q35 Q65 Q66 Q67 Q68
-```
-
-After V1.1 manual review and executable merge/split testing, only one source family survives as a new permanent authority.
+## Permanent CP007 authority
 
 ### RNK-QL-042 — CATEGORY_COMPOSITION_AROUND_RANK
 
@@ -70,20 +64,11 @@ target names:              84
 unique learner surfaces:  192
 ```
 
-Ownership rationale:
+The partitioned population + category totals/ratio + named rank + cross-category side evidence dimension is not owned by frozen CP001, so QL042 remains separate.
 
-```text
-partitioned population
-+ category totals/ratio
-+ named rank
-+ cross-category side evidence
-```
+## CP008 closes the remaining source forms
 
-Frozen CP001 has no subgroup-composition state dimension, so this family remains separate.
-
-## Source forms closed as new-QL candidates
-
-### TRANSFER_BALANCE_ORDER
+### TRANSFER_BALANCE_ORDER — Q35
 
 ```text
 DERIVATION_ADAPTER_TO_CP004
@@ -92,57 +77,82 @@ DERIVATION_ADAPTER_TO_CP004
 Mappings after arithmetic normalization:
 
 ```text
-highest / lowest     -> RNK-QL-027 ENDPOINT_ENTITY
-entity at position   -> RNK-QL-028 ENTITY_AT_POSITION
-true relation        -> RNK-QL-034 DEFINITELY_TRUE_RELATION
+highest / lowest       -> RNK-QL-027 ENDPOINT_ENTITY
+second-highest         -> RNK-QL-028 ENTITY_AT_POSITION
+true relation          -> RNK-QL-034 DEFINITELY_TRUE_RELATION
 ```
 
 No new QL.
 
-### SCALED_OBJECT_ORDER
+### SCALED_OBJECT_ORDER — Q68
 
 ```text
 DERIVATION_ADAPTER_TO_RNK_QL_038_INVERSE_VARIANT
 ```
 
-Q68-style states can admit several valid total rankings while one entity remains invariant at the requested position. This is the inverse presentation of exact-rank invariance already owned by `RNK-QL-038 EXACT_RANK_DETERMINACY`.
+Several valid total rankings may remain while the same entity occupies the requested rank in every ranking. That is inverse exact-rank invariance already owned by `RNK-QL-038`.
 
 No new QL.
 
-### NUMERIC_VALUE_CONSTRAINED_ORDER
+### NUMERIC_VALUE_CONSTRAINED_ORDER — Q27/Q28
 
 ```text
-HOLD_AS_DERIVATION_ADAPTER
+EXECUTABLE_NORMALIZATION_ADAPTER
 ```
 
-Q27-Q28 remain source fixtures. More evidence is required before any special adapter is frozen; no permanent QL is justified.
+CP008 now solves the bounded consecutive numeric domain and converts it into one or more ranking orders.
 
-### RELATIONAL_SIDE_COUNT_EQUATION
+When the learner asks a rank/order question, ownership is existing RNK:
 
 ```text
-REDIRECT_CP001_EXTENSION
+unique complete order               -> RNK-QL-030
+unique entity at position           -> RNK-QL-028
+unique rank of entity               -> RNK-QL-029
+unique pair relation                -> RNK-QL-031
+multi-order pair truth/status       -> RNK-QL-036
+multi-order exact-rank invariance   -> RNK-QL-038
 ```
 
-Q66 normalizes through compact algebra into ordinary CP001 before/after counts.
+Original source surfaces asking for an exact numeric attribute value or the number of satisfying numeric models are classified:
+
+```text
+REDIRECT_MIXED_NUMERIC_CONSTRAINT
+```
+
+Their answer semantic is numeric-model reasoning rather than a new pure Ranking authority. They therefore do not justify `RNK-QL-043`.
+
+### RELATIONAL_SIDE_COUNT_EQUATION — Q66
+
+```text
+EXECUTABLE_ADAPTER_TO_RNK_QL_004
+```
+
+The total population is explicitly learner-visible in CP008 V1.1. Compact algebra yields ordinary total/rank/side-count state already owned by CP001.
 
 No new QL.
 
-## CP007 freeze proof
-
-All 192 permanent QL042 questions are independently re-solved and gated for:
+### SHARED_RANKING_CASELETS
 
 ```text
-one correct answer
-rank clue essential
-ratio/category-total clue essential
-subgroup-count clue essential
->=2 structural misconception distractors
-zero answer/evidence numeric echoes
-bounded numeric options
-valid ordinal grammar
-no Seating Arrangement leakage
-unique mathematical/permanent/learner fingerprints
+DELIVERY_INFRASTRUCTURE
 ```
+
+Common clues are independently re-solved; each child retains existing QL ownership. Current child routes include QL027, QL028, QL031 and QL033.
+
+No new QL.
+
+## Still held / redirected after English content freeze
+
+```text
+NUMERIC_POST_TIE_RANK_CONVENTION   HOLD until convention is explicit and source-backed
+MULTIPLE_INDEPENDENT_TIE_GROUPS    possible CP006 state expansion, not new authority by entity count
+TIE_CLASS_SIZE_GTE_3                possible CP006 state expansion, not new authority by entity count
+MIXED_RANKING_AND_BLOOD_RELATION   OTHER CHAPTER / MIXED PUZZLE
+SUBSTANTIAL_ARITHMETIC_BURDEN       QUANT
+SHARED_RANKING_CASELETS             INFRASTRUCTURE
+```
+
+These do not reserve QL identities.
 
 ## Object Pool V2
 
@@ -169,37 +179,37 @@ sha256:09fd886c8ef602ab00bd6ca4b1410b963c8db93351881417ec13e538ec4aa452
 
 Historical frozen runtimes are not retrofitted merely to adopt the expanded pool.
 
-## Still held / redirected
+## Historical superseded snapshots
 
 ```text
-NUMERIC_POST_TIE_RANK_CONVENTION   HOLD
-MULTIPLE_INDEPENDENT_TIE_GROUPS    HOLD
-TIE_CLASS_SIZE_GTE_3                HOLD
-NUMERIC_VALUE_CONSTRAINED_ORDER    DERIVATION ADAPTER HOLD
-RELATIONAL_SIDE_COUNT_EQUATION     CP001 EXTENSION
-SHARED_RANKING_CASELETS             INFRASTRUCTURE
-MIXED_RANKING_AND_BLOOD_RELATION    OTHER CHAPTER / MIXED PUZZLE
+rnk-001-book-ownership-reset.test.ts
+  -> CP004-era snapshot ending at RNK-QL-035
+
+rnk-001-post-cp006-gap-audit.test.ts
+  -> pre-CP007 snapshot ending at RNK-QL-041
 ```
 
-These do not reserve QL identities.
+They remain historical evidence and are not current chapter-final gates.
 
 ## Ranking versus Quant boundary
 
-Derived arithmetic stays in Ranking only when arithmetic is compact and instrumental and the actual learner burden is ranking/order/relation. Substantial equation, percentage, profit, age or optimization work remains Quant.
+Derived arithmetic remains Ranking only when arithmetic is compact/instrumental and the assessed answer is rank/order/relation. Exact numeric-model/value tasks or substantial equation/percentage/profit/age/optimization burden remain mixed numeric or Quant ownership.
 
 ## Lifecycle
 
 ```text
-cumulative permanent range: RNK-QL-001..042
-next available RNK ID:      RNK-QL-043
-CP007 English freeze:       true
-chapter-wide final freeze:  false
-Question Studio:            DISABLED
-persistence:                DISABLED
-Question Bank:              NOT_STORED
-test eligibility:           INELIGIBLE
-public publication:         false
-Hindi/Punjabi:              NOT_STARTED
+cumulative permanent range:          RNK-QL-001..042
+next available RNK ID:               RNK-QL-043
+CP001..CP007 English frozen:         true
+CP008 adapter/caselet closure:       validated candidate
+chapter-wide English content freeze: true
+multilingual/product final freeze:   false
+Question Studio:                     DISABLED / NOT REGISTERED
+persistence:                         DISABLED
+Question Bank:                       NOT_STORED
+test eligibility:                    INELIGIBLE
+public publication:                  false
+Hindi/Punjabi:                       NOT_STARTED
 ```
 
 No merge, deployment, publication, persistence, Question Studio activation or translation is authorized by this register.
