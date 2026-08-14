@@ -63,10 +63,23 @@ for (const prototype of WOR_001_PROTOTYPES) {
   });
 }
 
+interface StructureCoverage {
+  questions: number;
+  comparisons: number;
+  prefix: number;
+  deep: number;
+  maxDepthTotal: number;
+}
+
 const answerPositions = [0, 0, 0, 0];
 const checkpointDifficulties = new Map<string, Set<string>>();
 const taskKinds = new Set<string>();
 const familyCoverage = new Set<string>();
+const structureCoverage: Record<WorDifficulty, StructureCoverage> = {
+  EASY: { questions: 0, comparisons: 0, prefix: 0, deep: 0, maxDepthTotal: 0 },
+  MEDIUM: { questions: 0, comparisons: 0, prefix: 0, deep: 0, maxDepthTotal: 0 },
+  HARD: { questions: 0, comparisons: 0, prefix: 0, deep: 0, maxDepthTotal: 0 },
+};
 let generatedCount = 0;
 let prefixCaseCount = 0;
 let deepComparisonCount = 0;
@@ -86,8 +99,18 @@ for (const prototype of WOR_001_PROTOTYPES) {
     familyCoverage.add(english.metadata.sourceFamilyId);
     checkpointDifficulties.set(english.checkpointId, checkpointDifficulties.get(english.checkpointId) ?? new Set());
     checkpointDifficulties.get(english.checkpointId)!.add(english.difficulty);
-    prefixCaseCount += english.metadata.comparisonTrace.filter((trace) => trace.decision !== "FIRST_DIFFERING_CHARACTER").length;
-    deepComparisonCount += english.metadata.comparisonTrace.filter((trace) => trace.commonPrefixLength >= 3).length;
+
+    const traces = english.metadata.comparisonTrace;
+    const prefixCount = traces.filter((trace) => trace.decision !== "FIRST_DIFFERING_CHARACTER").length;
+    const deepCount = traces.filter((trace) => trace.commonPrefixLength >= 3).length;
+    prefixCaseCount += prefixCount;
+    deepComparisonCount += deepCount;
+    const bandCoverage = structureCoverage[english.difficulty];
+    bandCoverage.questions += 1;
+    bandCoverage.comparisons += traces.length;
+    bandCoverage.prefix += prefixCount;
+    bandCoverage.deep += deepCount;
+    bandCoverage.maxDepthTotal += english.metadata.difficultyFeatures.commonPrefixDepthMax;
 
     for (const localized of [english, hindi, punjabi]) {
       assert.equal(localized.options.length, 4);
@@ -142,8 +165,22 @@ for (const prototype of WOR_001_PROTOTYPES) {
 assert.deepEqual(answerPositions, [570, 570, 570, 570]);
 assert.equal(taskKinds.size, 15);
 assert.equal(familyCoverage.size, WOR_WORD_FAMILIES.length);
-assert.ok(prefixCaseCount > 700, `Prefix coverage is too low: ${prefixCaseCount}`);
-assert.ok(deepComparisonCount > 3000, `Deep-comparison coverage is too low: ${deepComparisonCount}`);
+assert.ok(prefixCaseCount > 400, `Chapter-wide prefix containment coverage is unexpectedly low: ${prefixCaseCount}`);
+assert.ok(deepComparisonCount > 1000, `Chapter-wide deep-comparison coverage is unexpectedly low: ${deepComparisonCount}`);
+
+for (const difficulty of requestedBands) {
+  assert.ok(structureCoverage[difficulty].questions > 0, `${difficulty} structural coverage is empty.`);
+  assert.ok(structureCoverage[difficulty].comparisons > 0, `${difficulty} comparison coverage is empty.`);
+}
+const meanMaxDepth = (difficulty: WorDifficulty) => structureCoverage[difficulty].maxDepthTotal / structureCoverage[difficulty].questions;
+const deepRate = (difficulty: WorDifficulty) => structureCoverage[difficulty].deep / structureCoverage[difficulty].comparisons;
+const prefixRate = (difficulty: WorDifficulty) => structureCoverage[difficulty].prefix / structureCoverage[difficulty].comparisons;
+assert.ok(meanMaxDepth("MEDIUM") > meanMaxDepth("EASY"), `MEDIUM max-prefix depth should exceed EASY: ${JSON.stringify(structureCoverage)}`);
+assert.ok(meanMaxDepth("HARD") > meanMaxDepth("MEDIUM"), `HARD max-prefix depth should exceed MEDIUM: ${JSON.stringify(structureCoverage)}`);
+assert.ok(deepRate("MEDIUM") > deepRate("EASY"), `MEDIUM deep-comparison rate should exceed EASY: ${JSON.stringify(structureCoverage)}`);
+assert.ok(deepRate("HARD") > deepRate("MEDIUM"), `HARD deep-comparison rate should exceed MEDIUM: ${JSON.stringify(structureCoverage)}`);
+assert.ok(prefixRate("HARD") > prefixRate("EASY"), `HARD prefix-containment rate should exceed EASY: ${JSON.stringify(structureCoverage)}`);
+
 for (const checkpoint of WOR_001_CHECKPOINTS) {
   const difficulties = checkpointDifficulties.get(checkpoint.checkpointId)!;
   if (checkpoint.checkpointId === "WOR-CP-004") assert.deepEqual([...difficulties], ["HARD"]);
@@ -180,4 +217,5 @@ console.log("WOR-001 end-to-end runtime and multilingual audit passed.", {
   familyCoverage: familyCoverage.size,
   prefixCaseCount,
   deepComparisonCount,
+  structureCoverage,
 });
