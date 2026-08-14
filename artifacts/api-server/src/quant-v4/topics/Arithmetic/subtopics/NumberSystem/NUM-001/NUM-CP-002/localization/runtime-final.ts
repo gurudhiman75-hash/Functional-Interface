@@ -15,7 +15,6 @@ const HARDENING_RULES: ReadonlyArray<readonly [string, string, string]> = [
   ["subtract a shift that ends just before it", "और आवर्ती खंड से ठीक पहले तक खिसकाया गया मान घटाइए", "ਅਤੇ ਆਵਰਤੀ ਖੰਡ ਤੋਂ ਠੀਕ ਪਹਿਲਾਂ ਤੱਕ ਖਿਸਕਾਇਆ ਮੁੱਲ ਘਟਾਓ"],
   ["The subtraction gives", "घटाने पर मिलता है", "ਘਟਾਉਣ ਤੇ ਮਿਲਦਾ ਹੈ"],
   ["Let", "मान लीजिए", "ਮੰਨ ਲਵੋ"],
-  [", so", ", अतः", ", ਇਸ ਲਈ"],
   ["Therefore the fraction is", "इसलिए भिन्न है", "ਇਸ ਲਈ ਭਿੰਨ ਹੈ"],
   ["therefore the fraction is", "इसलिए भिन्न है", "ਇਸ ਲਈ ਭਿੰਨ ਹੈ"],
   ["the fraction is", "भिन्न है", "ਭਿੰਨ ਹੈ"],
@@ -32,6 +31,8 @@ const HARDENING_RULES: ReadonlyArray<readonly [string, string, string]> = [
   ["reduced denominator containing only", "सरल हर में केवल", "ਸਰਲ ਹਰ ਵਿੱਚ ਕੇਵਲ"],
   ["the reduced denominator contains primes other than", "सरल हर में इनके अलावा अभाज्य गुणनखंड हैं:", "ਸਰਲ ਹਰ ਵਿੱਚ ਇਨ੍ਹਾਂ ਤੋਂ ਇਲਾਵਾ ਅਭਾਜ ਗੁਣਨਖੰਡ ਹਨ:"],
   ["reduced denominator contains primes other than", "सरल हर में इनके अलावा अभाज्य गुणनखंड हैं:", "ਸਰਲ ਹਰ ਵਿੱਚ ਇਨ੍ਹਾਂ ਤੋਂ ਇਲਾਵਾ ਅਭਾਜ ਗੁਣਨਖੰਡ ਹਨ:"],
+  ["the reduced denominator contains primes", "सरल हर में अभाज्य गुणनखंड हैं", "ਸਰਲ ਹਰ ਵਿੱਚ ਅਭਾਜ ਗੁਣਨਖੰਡ ਹਨ"],
+  ["reduced denominator contains primes", "सरल हर में अभाज्य गुणनखंड हैं", "ਸਰਲ ਹਰ ਵਿੱਚ ਅਭਾਜ ਗੁਣਨਖੰਡ ਹਨ"],
   ["the factor", "गुणनखंड", "ਗੁਣਨਖੰਡ"],
   ["makes the decimal recurring.", "दशमलव को आवर्ती बनाता है।", "ਦਸ਼ਮਲਵ ਨੂੰ ਆਵਰਤੀ ਬਣਾਉਂਦਾ ਹੈ।"],
   ["makes the decimal recurring", "दशमलव को आवर्ती बनाता है", "ਦਸ਼ਮਲਵ ਨੂੰ ਆਵਰਤੀ ਬਣਾਉਂਦਾ ਹੈ"],
@@ -51,8 +52,6 @@ const HARDENING_RULES: ReadonlyArray<readonly [string, string, string]> = [
   ["digit.", "अंक है।", "ਅੰਕ ਹੈ।"],
   ["digits", "अंक", "ਅੰਕ"],
   ["digit", "अंक", "ਅੰਕ"],
-  ["not", "न कि", "ਨਾ ਕਿ"],
-  ["or", "या", "ਜਾਂ"],
   [", so", ", अतः", ", ਇਸ ਲਈ"],
   [" so ", " अतः ", " ਇਸ ਲਈ "],
 ];
@@ -60,6 +59,8 @@ const HARDENING_RULES: ReadonlyArray<readonly [string, string, string]> = [
 function hardenText(input: string, locale: NumCp002TranslatedLocale): string {
   let output = input;
   for (const [en, hi, pa] of HARDENING_RULES) output = output.split(en).join(tx(locale, hi, pa));
+  output = output.replace(/\bor\b/gu, tx(locale, "या", "ਜਾਂ"));
+  output = output.replace(/\bnot\b/gu, tx(locale, "न कि", "ਨਾ ਕਿ"));
   return output;
 }
 
