@@ -164,6 +164,13 @@ export interface Trg002DiagramAngleMarker {
   label: string;
 }
 
+export interface Trg002DiagramRightAngleMarker {
+  id: string;
+  vertexPointId: string;
+  verticalRayPointId: string;
+  horizontalDirection: "LEFT" | "RIGHT";
+}
+
 export interface Trg002DiagramSpec {
   strategy: Trg002DiagramStrategy;
   width: 1000;
@@ -172,5 +179,6 @@ export interface Trg002DiagramSpec {
   points: Trg002DiagramPoint[];
   segments: Trg002DiagramSegment[];
   angles: Trg002DiagramAngleMarker[];
+  rightAngles: Trg002DiagramRightAngleMarker[];
   labels: Array<{ id: string; pointId: string; text: string }>;
 }
