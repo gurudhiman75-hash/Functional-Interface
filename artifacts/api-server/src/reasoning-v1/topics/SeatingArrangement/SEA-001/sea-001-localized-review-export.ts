@@ -1,11 +1,16 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { canonicalDigest } from "./canonical.ts";
-import { buildSea001SaturationCorpus, selectManualReviewCorpus, type AuditCaselet } from "./saturation/corpus.ts";
-import { SEA001_TRANSLATION_TARGET_LOCALES, type Sea001TranslatedLocale, sea001CanonicalParityFingerprint } from "./localization/readiness.ts";
-import { SEA001_REVIEW_CANONICAL_NAMES } from "./localization/name-pack.ts";
 import { sea001LocalizedLearnerSurface, type Sea001LocalizedReviewCaselet } from "./localization/candidate-localizer.ts";
-import { buildSea001NativeCandidate } from "./localization/native-input-adapter.ts";
+import { sea001ExplanationParityDiagnostics } from "./localization/explanation-parity.ts";
+import { buildSea001ExplanationParityCandidate } from "./localization/explanation-parity-candidate.ts";
+import { SEA001_REVIEW_CANONICAL_NAMES } from "./localization/name-pack.ts";
+import {
+  SEA001_TRANSLATION_TARGET_LOCALES,
+  type Sea001TranslatedLocale,
+  sea001CanonicalParityFingerprint,
+} from "./localization/readiness.ts";
+import { buildSea001SaturationCorpus, selectManualReviewCorpus, type AuditCaselet } from "./saturation/corpus.ts";
 
 function escapeHtml(value: unknown): string {
   return String(value)
@@ -45,6 +50,18 @@ function assertNativeExportCandidate(canonical: AuditCaselet, localized: Sea001L
     throw new Error(`${canonical.caseletId}/${localized.locale}: export semantic parity changed`);
   }
 
+  const explanationParity = sea001ExplanationParityDiagnostics(canonical, localized);
+  if (explanationParity.sharedEnglishBlocks !== explanationParity.sharedLocalizedBlocks) {
+    throw new Error(`${canonical.caseletId}/${localized.locale}: export explanation block parity changed`);
+  }
+  if (explanationParity.childExplanations !== canonical.children.length) {
+    throw new Error(`${canonical.caseletId}/${localized.locale}: export correct-explanation coverage changed`);
+  }
+  const sourceOptionCount = canonical.children.reduce((sum, child) => sum + child.options.length, 0);
+  if (explanationParity.optionRationales !== sourceOptionCount) {
+    throw new Error(`${canonical.caseletId}/${localized.locale}: export option-rationale parity changed`);
+  }
+
   const learnerSurface = sea001LocalizedLearnerSurface(localized);
   const latinTokens = learnerSurface.match(/[A-Za-z]+(?:'[A-Za-z]+)?/g) ?? [];
   if (latinTokens.length !== 0) {
@@ -75,6 +92,7 @@ function buildRecord(canonical: AuditCaselet, localized: Sea001LocalizedReviewCa
     caseletId: canonical.caseletId,
     canonicalParityFingerprint: canonicalFingerprint,
     localizedContentFingerprint: localizedContentFingerprint(localized),
+    explanationParity: sea001ExplanationParityDiagnostics(canonical, localized),
     english: {
       setup: canonical.setupText,
       clues: canonical.clueTexts,
@@ -84,7 +102,11 @@ function buildRecord(canonical: AuditCaselet, localized: Sea001LocalizedReviewCa
         questionOrder: child.questionOrder,
         queryContractId: child.queryContractId,
         question: child.text,
-        options: child.options.map((option) => option.display),
+        options: child.options.map((option) => ({
+          display: option.display,
+          isCorrect: option.isCorrect,
+          explanation: option.explanation,
+        })),
         answerIndex: child.answerIndex,
         explanation: child.explanation,
       })),
@@ -108,6 +130,7 @@ function buildRecord(canonical: AuditCaselet, localized: Sea001LocalizedReviewCa
       })),
     },
     review: {
+      explanationStructureParity: "AUTOMATED_PROVED",
       semanticParity: "AUTOMATED_PROVED",
       terminologyAccuracy: "PENDING_HUMAN_REVIEW",
       setupNaturalness: "PENDING_HUMAN_REVIEW",
@@ -116,6 +139,7 @@ function buildRecord(canonical: AuditCaselet, localized: Sea001LocalizedReviewCa
       questionNaturalness: "PENDING_HUMAN_REVIEW",
       optionNaturalness: "PENDING_HUMAN_REVIEW",
       explanationTeachingQuality: "PENDING_HUMAN_REVIEW",
+      explanationFaithfulnessToEnglish: "PENDING_HUMAN_REVIEW",
       grammarFluency: "PENDING_HUMAN_REVIEW",
       editorialDecision: "PENDING_HUMAN_REVIEW",
       reviewNotes: "",
@@ -130,34 +154,41 @@ function renderHtml(locale: Sea001TranslatedLocale, records: readonly ReturnType
   <h2>${record.reviewNo}. ${escapeHtml(record.checkpointId)} · ${escapeHtml(record.blueprintAuthorityId)}</h2>
   <p class="meta"><strong>Caselet:</strong> ${escapeHtml(record.caseletId)}<br>
   <strong>Canonical semantic fingerprint:</strong> <code>${escapeHtml(record.canonicalParityFingerprint)}</code><br>
-  <strong>Localized content fingerprint:</strong> <code>${escapeHtml(record.localizedContentFingerprint)}</code></p>
+  <strong>Localized content fingerprint:</strong> <code>${escapeHtml(record.localizedContentFingerprint)}</code><br>
+  <strong>Explanation blocks:</strong> EN ${record.explanationParity.sharedEnglishBlocks} / ${language} ${record.explanationParity.sharedLocalizedBlocks}</p>
   <div class="grid">
     <div><h3>Frozen English</h3><p>${escapeHtml(record.english.setup)}</p><ol>${record.english.clues.map((clue) => `<li>${escapeHtml(clue)}</li>`).join("")}</ol></div>
     <div><h3>${language}</h3><p>${escapeHtml(record.localized.setup)}</p><ol>${record.localized.clues.map((clue) => `<li>${escapeHtml(clue)}</li>`).join("")}</ol></div>
   </div>
   <div class="grid">
-    <div><h3>English solution</h3><pre>${escapeHtml(record.english.sharedExplanation)}</pre></div>
-    <div><h3>${language} solution</h3><pre>${escapeHtml(record.localized.sharedExplanation)}</pre></div>
+    <div><h3>English solution authority</h3><pre>${escapeHtml(record.english.sharedExplanation)}</pre></div>
+    <div><h3>${language} solution — same teaching blocks</h3><pre>${escapeHtml(record.localized.sharedExplanation)}</pre></div>
   </div>
-  <h3>Questions</h3>
+  <h3>Questions and explanation parity</h3>
   ${record.localized.children.map((child, index) => {
     const english = record.english.children[index]!;
     return `<article class="child">
       <div class="grid">
-        <div><h4>English Q${english.questionOrder} · ${escapeHtml(english.queryContractId)}</h4><p>${escapeHtml(english.question)}</p></div>
-        <div><h4>${language} Q${child.questionOrder}</h4><p>${escapeHtml(child.question)}</p></div>
+        <div><h4>English Q${english.questionOrder} · ${escapeHtml(english.queryContractId)}</h4><p>${escapeHtml(english.question)}</p><p><strong>Correct-answer explanation:</strong> ${escapeHtml(english.explanation)}</p></div>
+        <div><h4>${language} Q${child.questionOrder}</h4><p>${escapeHtml(child.question)}</p><p><strong>Correct-answer explanation:</strong> ${escapeHtml(child.explanation)}</p></div>
       </div>
-      <ol type="A">${child.options.map((option, optionIndex) => `<li><strong>${escapeHtml(option.display)}</strong>${option.isCorrect ? " ✓" : ""}<br><small>${escapeHtml(option.explanation)}</small><br><span class="source">EN: ${escapeHtml(english.options[optionIndex] ?? "")}</span></li>`).join("")}</ol>
-      <p><strong>${language} explanation:</strong> ${escapeHtml(child.explanation)}</p>
+      <ol type="A">${child.options.map((option, optionIndex) => {
+        const sourceOption = english.options[optionIndex]!;
+        return `<li><strong>${escapeHtml(option.display)}</strong>${option.isCorrect ? " ✓" : ""}
+          <div class="grid option-grid">
+            <div><small><strong>EN rationale:</strong> ${escapeHtml(sourceOption.explanation)}</small></div>
+            <div><small><strong>${language} rationale:</strong> ${escapeHtml(option.explanation)}</small></div>
+          </div></li>`;
+      }).join("")}</ol>
     </article>`;
   }).join("")}
   <h3>Human language review</h3>
-  <p><strong>Decision:</strong> PENDING_HUMAN_REVIEW. Review terminology, direction meaning, naturalness, option wording and teaching quality. Automated semantic parity does not count as language approval.</p>
+  <p><strong>Decision:</strong> PENDING_HUMAN_REVIEW. Verify that every ${language} teaching step, case rejection/acceptance, correct-answer explanation and wrong-option misconception conveys the same reasoning as the frozen English authority. Automated structural parity is not human language approval.</p>
 </section>`).join("\n");
 
-  return `<!doctype html><html lang="${locale}"><head><meta charset="utf-8"><title>SEA-001 ${language} 100-caselet review</title><style>
-body{font-family:system-ui,"Noto Sans Devanagari","Noto Sans Gurmukhi",sans-serif;max-width:1250px;margin:0 auto;padding:24px;line-height:1.5}.caselet{border:1px solid #bbb;border-radius:12px;padding:20px;margin:24px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.child{border-top:1px solid #ddd;padding-top:12px;margin-top:14px}pre{white-space:pre-wrap;background:#f6f6f6;padding:12px;border-radius:8px}code{overflow-wrap:anywhere}.meta,.source,small{opacity:.78}@media(max-width:760px){.grid{grid-template-columns:1fr}}
-</style></head><body><h1>SEA-001 — ${language} 100-caselet manual-review candidate</h1><p>The English source is the frozen canonical authority. The ${language} column is generated by the fail-closed SEA-001 native renderer. Mathematical/semantic parity is automated; language approval remains pending for every caselet.</p>${sections}</body></html>`;
+  return `<!doctype html><html lang="${locale}"><head><meta charset="utf-8"><title>SEA-001 ${language} explanation-parity review</title><style>
+body{font-family:system-ui,"Noto Sans Devanagari","Noto Sans Gurmukhi",sans-serif;max-width:1350px;margin:0 auto;padding:24px;line-height:1.5}.caselet{border:1px solid #bbb;border-radius:12px;padding:20px;margin:24px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.child{border-top:1px solid #ddd;padding-top:14px;margin-top:16px}.option-grid{margin:6px 0 12px}pre{white-space:pre-wrap;background:#f6f6f6;padding:12px;border-radius:8px}code{overflow-wrap:anywhere}.meta,.source,small{opacity:.82}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+</style></head><body><h1>SEA-001 — ${language} 100-caselet explanation-parity review</h1><p>The frozen English explanation is the sole teaching authority. The ${language} explanation preserves the same teaching-block order, case branches, correct-answer reasoning and option-specific misconception rationales. Human language approval is still required.</p>${sections}</body></html>`;
 }
 
 const outputDir = process.env.SEA_001_LOCALIZED_REVIEW_OUTPUT_DIR ?? "/tmp/sea-001-localized-review";
@@ -179,7 +210,7 @@ const ledgerEntries: Array<{
 }> = [];
 
 for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
-  const localized = canonicalReview.map((caselet) => buildSea001NativeCandidate(caselet, locale));
+  const localized = canonicalReview.map((caselet) => buildSea001ExplanationParityCandidate(caselet, locale));
   localized.forEach((candidate, index) => assertNativeExportCandidate(canonicalReview[index]!, candidate));
   const records = localized.map((caselet, index) => buildRecord(canonicalReview[index]!, caselet, index + 1));
   for (const record of records) {
@@ -198,12 +229,13 @@ for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
   const slug = locale === "hi-IN" ? "hi" : "pa";
   const payload = {
     authority: "SEA Seating Arrangement Master End-to-End Family Design V3 merged",
-    localizationAuthority: "SEA001_NATIVE_REVIEW_V2",
-    renderer: "SEA001_NATIVE_REVIEW_V2",
+    localizationAuthority: "SEA001_EXPLANATION_PARITY_REVIEW",
+    renderer: "SEA001_NATIVE_REVIEW_V2_EXPLANATION_PARITY",
     locale,
-    status: "EXECUTABLE_HUMAN_LANGUAGE_REVIEW_REQUIRED",
+    status: "EXECUTABLE_EXPLANATION_PARITY_HUMAN_REVIEW_REQUIRED",
     canonicalEnglishFrozen: true,
     semanticParity: "AUTOMATED_PROVED",
+    explanationStructureParity: "AUTOMATED_PROVED",
     humanLanguageReview: "PENDING",
     productDeliveryUnlocked: false,
     records,
@@ -215,15 +247,17 @@ for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
     caseletId: caselet.caseletId,
     learnerSurface: sea001LocalizedLearnerSurface(caselet),
   })));
-  console.log("WROTE_SEA_001_NATIVE_LOCALIZED_REVIEW", locale, records.length, surfaceDigest);
+  console.log("WROTE_SEA_001_EXPLANATION_PARITY_REVIEW", locale, records.length, surfaceDigest);
 }
 
 const ledger = {
   packageId: "SEA-001",
-  renderer: "SEA001_NATIVE_REVIEW_V2",
-  status: "PENDING_HINDI_PUNJABI_HUMAN_REVIEW",
+  renderer: "SEA001_NATIVE_REVIEW_V2_EXPLANATION_PARITY",
+  status: "PENDING_HINDI_PUNJABI_EXPLANATION_PARITY_HUMAN_REVIEW",
   instructions: [
-    "Review Hindi and Punjabi independently against the frozen English column.",
+    "Review Hindi and Punjabi independently against the frozen English explanation authority.",
+    "For every caselet, verify the same case branches, clue order, accept/reject reasoning and final arrangement.",
+    "For every child question, verify the same correct-answer reasoning and the same wrong-option misconception rationale.",
     "Do not change semantic answers, option correctness, query contracts or solve identities during language review.",
     "Set decision to ACCEPT, REWRITE or REJECT and sign reviewerId/reviewedAt for every non-pending entry.",
     "Multilingual freeze and activation remain locked until all required language reviews are explicitly approved.",
@@ -234,13 +268,14 @@ await writeFile(join(outputDir, "sea-001-localized-review-ledger-template.json")
 
 const summary = {
   packageId: "SEA-001",
-  renderer: "SEA001_NATIVE_REVIEW_V2",
+  renderer: "SEA001_NATIVE_REVIEW_V2_EXPLANATION_PARITY",
   canonicalLocale: "en-IN",
   targetLocales: SEA001_TRANSLATION_TARGET_LOCALES,
   canonicalCaselets: canonicalReview.length,
   localizedCaselets: ledgerEntries.length,
   localizedChildQuestions: ledgerEntries.length * 4,
   semanticParity: "AUTOMATED_PROVED",
+  explanationStructureParity: "AUTOMATED_PROVED",
   humanLanguageReview: "PENDING",
   questionStudioRegistered: false,
   questionBankWritable: false,
@@ -248,4 +283,4 @@ const summary = {
   publiclyPublishable: false,
 };
 await writeFile(join(outputDir, "sea-001-localized-review-summary.json"), `${JSON.stringify(summary, null, 2)}\n`, "utf8");
-console.log("WROTE_SEA_001_NATIVE_LOCALIZED_REVIEW_LEDGER", ledgerEntries.length, outputDir);
+console.log("WROTE_SEA_001_EXPLANATION_PARITY_REVIEW_LEDGER", ledgerEntries.length, outputDir);
