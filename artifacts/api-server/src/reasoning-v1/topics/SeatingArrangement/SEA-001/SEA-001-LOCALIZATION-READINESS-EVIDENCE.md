@@ -2,124 +2,134 @@
 
 Authority: **SEA Seating Arrangement Master End-to-End Family Design V3 (merged)**.
 
-Status: **NATIVE HINDI/PUNJABI REVIEW CANDIDATE READY; HUMAN LANGUAGE REVIEW PENDING; INACTIVE**.
+Status: **APPROVED-ENGLISH EXPLANATION-PARITY CANDIDATE READY; HUMAN HINDI/PUNJABI REVIEW PENDING; INACTIVE**.
 
-## Why this gate exists
+## Governing localization rule
 
-SEA-001 English is already permanently frozen. Multilingual work must therefore localize learner-facing text without changing solve identity, query identity, answer semantics, option correctness, misconception semantics or the approved English corpus.
+SEA-001 English is permanently frozen and manually approved. Hindi/Punjabi must therefore preserve not only solve/query/answer semantics but also the **approved English teaching path**.
 
-The localization foundation first established that semantic contract. The current checkpoint now adds deterministic, native-sentence Hindi and Punjabi review candidates while keeping human approval and product activation separate.
+The authoritative English explanation is the exact presentation produced by `compileSea001TeachingExplanationFromUnknown(...)` and exposed by `sea-001-review-export.ts`. Raw generator `sharedExplanation` is not the review authority.
 
-## Target locales
+For every localized caselet, Hindi/Punjabi must preserve:
 
-- canonical authority: `en-IN`;
-- review candidate: `hi-IN`;
-- review candidate: `pa-IN`.
+- the same teaching-block order;
+- the same case formation and intermediate arrangements;
+- the same case accept/reject decisions;
+- the same clue application order;
+- the same `So:` teaching actions and cautions;
+- the same final arrangement;
+- the same correct-answer reasoning;
+- the same wrong-option misconception rationale for every option.
 
-Hindi and Punjabi are **review-ready, not approved or frozen**.
+Only learner language may change. Unsupported English explanation forms fail closed instead of being summarized or independently reconstructed.
 
-Active blocker:
+## Why the earlier candidate was superseded
 
-`HINDI_PUNJABI_HUMAN_REVIEW_PENDING`
+An earlier native Hindi/Punjabi candidate passed semantic and language-safety CI, but manual comparison showed that its explanations could solve the same question using a shorter/different narrative than the approved English explanation. That candidate is **superseded and must not be used for approval**.
 
-## Protected semantic layer
+The corrected architecture now treats the approved English explanation itself as the sole localization authority.
 
-Localization preserves, among other fields:
+## Current implementation
 
-- checkpoint and PBA authority;
-- permanent QL identity;
-- clue/solution semantic fingerprints;
-- query-contract identity;
-- answer type and answer value;
-- answer-determining fact fingerprint;
-- option semantic fingerprints;
-- correct option/index;
-- misconception identity and recomputation evidence.
+The explanation-parity path is implemented through:
 
-`localization/readiness.ts` exposes the canonical parity projection used to compare every localized candidate with the frozen English authority without comparing learner-facing wording.
+- `localization/explanation-parity.ts` — fail-closed translation of approved-English teaching blocks, correct-answer explanations and wrong-option rationales;
+- `localization/explanation-parity-candidate.ts` — anchors localization to the same compiled English explanation used by the approved review exporter;
+- `localization/explanation-parity-fidelity-polish.ts` — preserves exact details such as ordinals, post-reversal facing and source-driven `So:` teaching actions;
+- `localization/explanation-parity-script-polish.ts` — localizes inherited case-direction and grouped-clue labels without deleting teaching content;
+- `localization/explanation-parity-language-polish.ts` — keeps participant-name result wording gender-neutral without changing reasoning;
+- `sea-001-localized-review-candidate-proof.test.ts` — enforces semantic parity plus approved-English explanation parity;
+- `sea-001-localized-review-export.ts` — emits side-by-side approved English vs Hindi/Punjabi solutions and option rationales for human review.
 
-## Native learner-language implementation
+The original native setup/clue/question renderer remains in use for learner-facing stems, while explanation fields are replaced from the approved English authority.
 
-The first fragment-by-fragment translation approach was rejected during editorial inspection because semantic parity alone did not produce natural Hindi/Punjabi word order.
+## Exact explanation-parity proof
 
-SEA-001 now uses fail-closed native rendering through:
+Implementation head: `d019f736afc87a7afee86e74f247b7210f68b20e`
 
-- `localization/native-sentence-kit.ts` — native setup/clue/question/answer sentence families;
-- `localization/native-review-v2.ts` — native review-candidate composition;
-- `localization/native-input-adapter.ts` — canonical-form normalization plus final learner-language polish;
-- `localization/native-wrong-option-teaching.ts` — query-specific misconception/elimination teaching for every reviewed query contract;
-- `sea-001-localized-review-export.ts` — fail-closed side-by-side English/Hindi/Punjabi review exporter.
+Wave-5 run: `31798416849`
 
-The native renderer deliberately throws on unsupported clue/query forms instead of falling back to fragment translation.
-
-## Editorial hardening in the native candidate
-
-The final review-candidate layer includes explicit protections against the defects found during manual artifact inspection:
-
-- zero Latin-script learner-text residue;
-- zero canonical English-name leakage;
-- zero known mechanical translationese fragments;
-- correct Hindi/Punjabi oblique ordinal grammar;
-- gender-neutral singular seating language so unisex names are never assigned a guessed gender;
-- native if/otherwise facing language;
-- direct centre/outward, same-facing and opposite-facing clue families;
-- clockwise/anticlockwise directional-count normalization without changing semantic parity;
-- query-specific wrong-option explanations instead of generic “this option is wrong because Y is correct” text;
-- explicit under-count/over-count teaching for numeric distractors;
-- explicit neighbour/reference-person elimination;
-- sequence-mismatch, opposite-seat, relative-position and facing-reversal explanations.
-
-## Exact final proof
-
-On branch head `c410fec1502326b6c46759fe7ee6cd8bb9742813`, Wave-5 run `31767669260` passed the native localization proof with:
+The localized review proof passed with:
 
 ```text
-PASS_SEA_001_NATIVE_REVIEW_V2
-localized caselets                 200
-localized child questions          800
-semantic parity                    200/200
-query contracts                    16
-Latin learner residue              0
-known mechanical translationese    0
-ordinal grammar violations         0
-gendered singular seating markers  0
-generic wrong-option fallbacks     0
-human language review              PENDING
-Question Studio registered         false
-publicly publishable               false
+PASS_SEA_001_EXPLANATION_PARITY_REVIEW
+localized caselets                  200
+localized child questions           800
+semantic parity                     200/200
+approved-English explanation parity 200/200
+shared block parity                 200/200
+case accept/reject parity           200/200
+option-rationale parity             200/200
+query contracts                     16
+Latin learner residue               0
+known mechanical translationese     0
+ordinal grammar violations          0
+gendered singular seating markers   0
+generic wrong-option fallbacks      0
+human language review               PENDING
+Question Studio registered          false
+publicly publishable                false
 ```
 
-The same exact run passed production saturation, CP001–CP005 regressions, TypeScript, permanent-allocation freeze, source/authority audits, teaching explanations and review-readiness checks.
+The same exact run passed the 1,600-caselet production saturation proof, CP001–CP005 regressions, TypeScript, source and authority audits, teaching explanations, review-readiness lock, permanent allocation/freeze and localization readiness.
 
-## Human-review artifact
+## Final review artifact
 
-The exact-head workflow artifact is:
+Exact-head artifact:
 
 - artifact: `sea-001-hi-pa-review-200`;
-- artifact ID: `9206923822`;
-- SHA-256 digest: `97b17d3f274a88961710b6dfe8495a302760839007ce4673e7763681a485fd80`;
+- artifact ID: `9218301753`;
+- SHA-256 digest: `3918be759d9ccf56fcef1111c24cfca4e7d3dfb4112a7d3a549f45d0fa358169`;
+- implementation head: `d019f736afc87a7afee86e74f247b7210f68b20e`;
 - Hindi: 100 caselets;
 - Punjabi: 100 caselets;
 - total localized child questions: 800;
-- 20 review caselets per checkpoint in each language;
-- renderer marker: `SEA001_NATIVE_REVIEW_V2`.
+- renderer: `SEA001_NATIVE_REVIEW_V2_EXPLANATION_PARITY`;
+- status: `EXECUTABLE_EXPLANATION_PARITY_HUMAN_REVIEW_REQUIRED`.
 
-The exporter itself rechecks semantic parity, Latin residue, canonical-name leakage, mandatory human-review status and delivery locks before it writes the review files.
+The review HTML shows the approved English solution beside the localized solution and shows the English vs localized rationale for every option.
 
-## Lifecycle after this checkpoint
+## Manual artifact audit after CI
+
+Representative artifact inspection confirms:
+
+- CP001 preserves Case 1 / Case 2 formation, Case 1 rejection, Case 2 acceptance and the same subsequent clue sequence;
+- CP002 preserves facing-arrow reminders used later for left/right reasoning;
+- CP003/CP004 preserve circular direction and case/order teaching;
+- CP005 preserves mixed-facing case branches;
+- PBA020 preserves the complete if/otherwise facing branch and the same Case 1 ❌ / Case 2 ✅ decision;
+- QC022 preserves original facing → reversed facing → new left direction → second-person result;
+- wrong options preserve the corresponding approved-English misconception rather than replacing it with generic elimination text.
+
+A subsequent language audit also removed gender-assuming participant-name result forms such as `एकता मिलता है` / `ਏਕਤਾ ਮਿਲਦਾ ਹੈ`. In the exact artifact, participant-result forms `मिलता है`, `आ जाता है`, `ਮਿਲਦਾ ਹੈ`, `ਆ ਜਾਂਦਾ ਹੈ` are zero, and learner-facing Latin residue is zero in both languages.
+
+## Protected semantic layer
+
+Localization continues to preserve:
+
+- checkpoint/PBA/permanent QL identity;
+- solution and clue semantic fingerprints;
+- query-contract identity;
+- answer type/value/index;
+- answer-determining fact fingerprint;
+- option semantic fingerprints and correctness;
+- misconception identity and recomputation evidence.
+
+## Lifecycle
 
 ```text
-Permanent QLs:                 20 (SEA-QL-001..SEA-QL-020)
-English:                       FROZEN / APPROVED
-Localization foundation:       READY
-Hindi native review candidate: READY FOR HUMAN REVIEW
-Punjabi native review candidate: READY FOR HUMAN REVIEW
-Hindi/Punjabi human approval:  PENDING
-Multilingual freeze:           NOT APPLIED
-Question Studio registration:  false
-Question Bank writes:          false
-Mock-test eligibility:         false
-Public publication:            false
+Permanent QLs:                   20 (SEA-QL-001..SEA-QL-020)
+English:                         FROZEN / APPROVED
+Solve inventory:                 FROZEN
+Query mix:                       FROZEN
+Hindi explanation-parity candidate:   READY FOR HUMAN REVIEW
+Punjabi explanation-parity candidate: READY FOR HUMAN REVIEW
+Hindi/Punjabi human approval:    PENDING
+Multilingual freeze:             NOT APPLIED
+Question Studio registration:    false
+Question Bank writes:            false
+Mock-test eligibility:           false
+Public publication:              false
 ```
 
-Human language review is the next gate. Passing automated semantic/language checks does **not** count as Hindi/Punjabi approval. Multilingual freeze and product activation remain blocked until the review ledger is genuinely signed.
+Automated explanation parity proves structural and instructional correspondence; it is **not** human Hindi/Punjabi language approval. Multilingual freeze and all product activation remain blocked until the language-review ledger is explicitly approved.
