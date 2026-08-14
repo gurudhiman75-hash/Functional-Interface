@@ -67,7 +67,18 @@ const HARD_EDITORIAL_BLOCKERS: readonly { id: string; pattern: RegExp }[] = [
   { id: "SINGULAR_PART", pattern: /\b1 parts\b/iu },
   { id: "SINGULAR_RATIO_PART", pattern: /\b1 ratio parts\b/iu },
   { id: "DUPLICATED_QUICK_CHECK", pattern: /Quick check:\s*Check:/iu },
-  { id: "PLURAL_MATERIAL_AGREEMENT", pattern: /\b[^.!?]*(?:lentils|beans|leaves) (?:is|has)\b/iu },
+  {
+    id: "PLURAL_MATERIAL_NO_CHANGE",
+    pattern: /\bSince no [^,.!?]*(?:lentils|beans|leaves) is added or removed\b/iu,
+  },
+  {
+    id: "PLURAL_MATERIAL_SAME_QUANTITY",
+    pattern: /\b[^,.!?]*(?:lentils|beans|leaves) has the same quantity in both states\b/iu,
+  },
+  {
+    id: "PLURAL_MATERIAL_PRESENT",
+    pattern: /\bhow much [^,.!?]*(?:lentils|beans|leaves) is present\b/iu,
+  },
   {
     id: "PLURAL_TRANSFER_AGREEMENT",
     pattern: /\b(?:\d+(?:\.\d+)?(?:\s+\d+\/\d+)?|\d*x) litres(?: of [^,.;?]+)? is (?:transferred|sent|moved|poured|added|returned|removed)\b/iu,
