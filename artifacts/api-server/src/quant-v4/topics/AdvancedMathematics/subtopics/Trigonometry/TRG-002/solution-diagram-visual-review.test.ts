@@ -26,8 +26,9 @@ for (const reviewCase of TRG_002_SOLUTION_DIAGRAM_VISUAL_REVIEW_CASES) {
   assert(reviewCase.mustAvoid.length >= 2, `${reviewCase.qlId}: negative visual checklist is too weak.`);
 }
 
+const representedStrategies = new Set<string>(TRG_002_PROOF_REPRESENTED_DIAGRAM_STRATEGIES);
 assert(
-  !TRG_002_PROOF_REPRESENTED_DIAGRAM_STRATEGIES.some((strategy) => strategy === "BROKEN_TREE"),
+  !representedStrategies.has("BROKEN_TREE"),
   "Broken-tree strategy must not be falsely claimed by the 20-QL proof.",
 );
 
