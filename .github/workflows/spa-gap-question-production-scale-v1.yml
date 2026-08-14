@@ -1,4 +1,4 @@
-name: Validate SPA-FND-001 Gap Question Production Scale V1
+name: Validate SPA-FND-001 Gap Question Production Scale V2
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  validate-gap-question-production-scale-v1:
+  validate-gap-question-production-scale-v2:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -36,7 +36,7 @@ jobs:
             src/reasoning-v1/tests/spatial-gap-question-synthesis-editorial-v1.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/spatial/spatial-gap-question-synthesis-editorial-v1.test.mjs
-      - name: Revalidate 760-question learner synthesis
+      - name: Revalidate 760-question learner synthesis V2
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-gap-question-synthesis-editorial-v1.test.mjs
       - name: Bundle production scale proof
         run: |
@@ -44,14 +44,14 @@ jobs:
             src/reasoning-v1/tests/spatial-gap-question-production-scale-v1.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/spatial/spatial-gap-question-production-scale-v1.test.mjs
-      - name: Run 3800-question material production scale proof
+      - name: Run 3800-question perceptual production scale proof V2
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-gap-question-production-scale-v1.test.mjs
-      - name: Upload learner production scale evidence
+      - name: Upload learner production scale V2 evidence
         uses: actions/upload-artifact@v4
         with:
-          name: spa-gap-question-production-scale-v1-review
+          name: spa-gap-question-production-scale-v2-review
           path: |
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-question-production-scale-v1-evidence.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-question-production-scale-v1-review.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-question-production-scale-v1-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-question-production-scale-v2-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-question-production-scale-v2-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-question-production-scale-v2-review.html
           if-no-files-found: error
