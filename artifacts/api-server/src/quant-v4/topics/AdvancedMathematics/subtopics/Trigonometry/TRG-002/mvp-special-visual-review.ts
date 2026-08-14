@@ -1,6 +1,6 @@
 import type { Trg002Mvp48Id } from "./mvp-48-registry";
 
-export const TRG_002_MVP_SPECIAL_VISUAL_REVIEW: readonly Array<{
+export const TRG_002_MVP_SPECIAL_VISUAL_REVIEW: ReadonlyArray<{
   qlId: Trg002Mvp48Id;
   seed: string;
   focus: string;
