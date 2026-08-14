@@ -1,4 +1,4 @@
-import { compare, multiply, rational } from "../foundation/rational";
+import { add, compare, divide, equals, isPositive, multiply, rational, subtract } from "../foundation/rational";
 import { deriveStrongCp004WrongWorkingsV6 } from "./distractor-engine-v6";
 import type { TsdCp004CoreInput, TsdCp004CoreSolution, TsdCp004CoreSolveMode } from "./relative-motion-foundation";
 import type { TsdCp004WrongWorking } from "./runtime-types";
@@ -35,6 +35,48 @@ function classicSemanticException(entry: TsdCp004WrongWorking, solution: TsdCp00
   ].includes(entry.misconceptionId);
 }
 
+function clockClassicCandidates(
+  mode: TsdCp004CoreSolveMode,
+  input: TsdCp004CoreInput,
+  solution: TsdCp004CoreSolution,
+): readonly TsdCp004WrongWorking[] {
+  if (mode !== "findMeetingClockTime" && mode !== "findDepartureClockTimeFromMeetingState") return Object.freeze([]);
+  if (!input.speedA || !input.speedB || !input.initialSeparation) return Object.freeze([]);
+
+  const same = input.directionCase === "SAME";
+  const relative = same ? subtract(input.speedA, input.speedB) : add(input.speedA, input.speedB);
+  if (!isPositive(relative)) return Object.freeze([]);
+  const durationMinutes = multiply(divide(input.initialSeparation, relative), rational(60));
+  if (durationMinutes.denominator !== 1n) return Object.freeze([]);
+
+  const rows: TsdCp004WrongWorking[] = [];
+  const push = (
+    misconceptionId: TsdCp004WrongWorking["misconceptionId"],
+    value: TsdCp004WrongWorking["value"],
+    calculation: string,
+    diagnosis: string,
+  ) => {
+    if (value.denominator !== 1n || value.numerator < 0n || equals(value, solution.answer)) return;
+    if (rows.some((row) => equals(row.value, value))) return;
+    rows.push(Object.freeze({ misconceptionId, value, calculation, diagnosis }));
+  };
+
+  if (mode === "findMeetingClockTime") {
+    const departure = input.departureMinute!;
+    push("COPY_DEPARTURE_CLOCK", departure, "copy the departure clock time", "The learner reports the starting clock time and omits the correctly calculated meeting duration.");
+    const back = subtract(departure, durationMinutes);
+    if (back.numerator >= 0n) push("SUBTRACT_MEETING_DURATION", back, "departure time − correct meeting duration", "The learner obtains the correct travel duration but shifts the clock in the wrong direction.");
+    push("DOUBLE_MEETING_DURATION", add(departure, multiply(durationMinutes, rational(2))), "departure time + twice the correct meeting duration", "The correct duration is found but then counted twice when advancing the clock.");
+  } else {
+    const meeting = input.meetingClockMinute!;
+    push("COPY_MEETING_CLOCK", meeting, "copy the meeting clock time", "The learner reports the known meeting time instead of reconstructing the earlier departure time.");
+    push("ADD_MEETING_DURATION", add(meeting, durationMinutes), "meeting time + correct meeting duration", "The correct duration is found but added even though departure must occur before the meeting.");
+    const twiceBack = subtract(meeting, multiply(durationMinutes, rational(2)));
+    if (twiceBack.numerator >= 0n) push("DOUBLE_MEETING_DURATION", twiceBack, "meeting time − twice the correct meeting duration", "The learner subtracts the correctly found duration twice while working backwards.");
+  }
+  return Object.freeze(rows);
+}
+
 function competitive(entry: TsdCp004WrongWorking, mode: TsdCp004CoreSolveMode, input: TsdCp004CoreInput, solution: TsdCp004CoreSolution): boolean {
   if (solution.unit === "RATIO") {
     const value = numeric(entry.value);
@@ -42,7 +84,7 @@ function competitive(entry: TsdCp004WrongWorking, mode: TsdCp004CoreSolveMode, i
   }
 
   if (solution.unit === "CLOCK_MINUTE") {
-    return Math.abs(numeric(entry.value) - numeric(solution.answer)) <= 720;
+    return entry.value.denominator === 1n && Math.abs(numeric(entry.value) - numeric(solution.answer)) <= 720;
   }
 
   if ((mode === "findMeetingPointDistanceSplit" || mode === "findMeetingPointFromSpeedRatio") && input.routeDistance) {
@@ -54,11 +96,21 @@ function competitive(entry: TsdCp004WrongWorking, mode: TsdCp004CoreSolveMode, i
   return withinBand || classicSemanticException(entry, solution);
 }
 
-function semanticPriority(entry: TsdCp004WrongWorking, solution: TsdCp004CoreSolution): number {
+function semanticPriority(entry: TsdCp004WrongWorking, mode: TsdCp004CoreSolveMode, solution: TsdCp004CoreSolution): number {
   if (solution.unit === "RATIO") {
     if (entry.misconceptionId === "REVERSE_MEETING_RATIO") return 0;
     if (entry.misconceptionId === "ASSUME_MIDPOINT") return 0.05;
     if (entry.misconceptionId === "USE_ROUTE_DIFFERENCE") return 0.15;
+  }
+
+  if (solution.unit === "CLOCK_MINUTE") {
+    if (classicSemanticException(entry, solution)) return 0;
+    return 1;
+  }
+
+  if ((mode === "findMeetingPointDistanceSplit" || mode === "findMeetingPointFromSpeedRatio") && entry.misconceptionId === "USE_ROUTE_DIFFERENCE") {
+    if (/difference as the first traveller's share/i.test(entry.calculation)) return 0.05;
+    if (/count the first traveller's speed or ratio part twice/i.test(entry.calculation)) return 1.2;
   }
 
   if (classicSemanticException(entry, solution)) return 0.2;
@@ -83,10 +135,14 @@ function pathKey(entry: TsdCp004WrongWorking): string {
   return `${entry.misconceptionId}|${entry.calculation.trim().toLowerCase()}`;
 }
 
-function selectThree(candidates: readonly TsdCp004WrongWorking[], solution: TsdCp004CoreSolution): readonly TsdCp004WrongWorking[] {
+function selectThree(
+  candidates: readonly TsdCp004WrongWorking[],
+  mode: TsdCp004CoreSolveMode,
+  solution: TsdCp004CoreSolution,
+): readonly TsdCp004WrongWorking[] {
   const sorted = [...candidates].sort((a, b) => {
-    const scoreA = semanticPriority(a, solution) + closeness(a, solution);
-    const scoreB = semanticPriority(b, solution) + closeness(b, solution);
+    const scoreA = semanticPriority(a, mode, solution) + closeness(a, solution);
+    const scoreB = semanticPriority(b, mode, solution) + closeness(b, solution);
     return scoreA - scoreB;
   });
 
@@ -94,7 +150,6 @@ function selectThree(candidates: readonly TsdCp004WrongWorking[], solution: TsdC
   const usedIds = new Set<string>();
   const usedPaths = new Set<string>();
 
-  // First prefer distinct misconception classes.
   for (const candidate of sorted) {
     if (selected.length >= 3) break;
     const path = pathKey(candidate);
@@ -104,7 +159,6 @@ function selectThree(candidates: readonly TsdCp004WrongWorking[], solution: TsdC
     usedPaths.add(path);
   }
 
-  // Then allow a second calculation under the same broad class only when it is a genuinely different path.
   for (const candidate of sorted) {
     if (selected.length >= 3) break;
     const path = pathKey(candidate);
@@ -122,19 +176,26 @@ export function deriveStrongCp004WrongWorkingsV7(
   input: TsdCp004CoreInput,
   solution: TsdCp004CoreSolution,
 ): readonly TsdCp004WrongWorking[] {
-  const semanticCandidates = deriveStrongCp004WrongWorkingsV6(mode, input, solution);
-  const candidates = semanticCandidates.filter((entry) => competitive(entry, mode, input, solution));
+  const semanticCandidates = [
+    ...deriveStrongCp004WrongWorkingsV6(mode, input, solution),
+    ...clockClassicCandidates(mode, input, solution),
+  ];
+  const deduped = semanticCandidates.filter((entry, index, rows) => rows.findIndex((candidate) => equals(candidate.value, entry.value)) === index);
+  const candidates = deduped.filter((entry) => competitive(entry, mode, input, solution));
 
-  // Do not invent scaled or offset fillers. If the competitive subset is small,
-  // retain authentic misconception-derived candidates rather than reshaping the source state.
-  const pool = candidates.length >= 3 ? candidates : semanticCandidates;
-  const selected = selectThree(pool, solution);
+  const pool = candidates.length >= 3 ? candidates : solution.unit === "CLOCK_MINUTE"
+    ? candidates
+    : deduped;
+  const selected = selectThree(pool, mode, solution);
 
   if (selected.length !== 3) throw new Error(`${mode}: could not produce three semantic distractor paths`);
   if (new Set(selected.map(pathKey)).size !== 3) throw new Error(`${mode}: distractor paths are not distinct`);
   if (new Set(selected.map((entry) => entry.misconceptionId)).size < 2) throw new Error(`${mode}: distractors collapse to one misconception class`);
   if (selected.some((entry) => /scaled|alter final arithmetic|answer ×|answer ÷/i.test(entry.calculation))) {
     throw new Error(`${mode}: generic arithmetic filler leaked into V7 distractors`);
+  }
+  if (solution.unit === "CLOCK_MINUTE" && selected.some((entry) => entry.value.denominator !== 1n)) {
+    throw new Error(`${mode}: non-minute clock distractor leaked into V7`);
   }
 
   return selected;
