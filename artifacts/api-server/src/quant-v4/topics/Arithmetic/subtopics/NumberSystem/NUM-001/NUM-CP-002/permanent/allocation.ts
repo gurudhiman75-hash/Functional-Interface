@@ -30,13 +30,13 @@ export interface NumCp002PermanentAllocationEntry {
   readonly mergeDisposition: "RETAIN" | "MERGE_AS_PARAMETERS";
   readonly sourceEvidence: readonly string[];
   readonly difficultyPolicy: "STATE_DERIVED_AT_IMPLEMENTATION_FREEZE";
-  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ALLOCATION";
+  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION";
   readonly permanentIdentityFrozen: true;
   readonly solveModeFrozen: true;
-  readonly englishImplementationFrozen: false;
+  readonly englishImplementationFrozen: true;
   readonly active: false;
-  readonly maturity: "PERMANENT_ALLOCATION_MERGED";
-  readonly reviewStatus: "AWAITING_ENGLISH_IMPLEMENTATION_FREEZE";
+  readonly maturity: "ENGLISH_IMPLEMENTATION_FROZEN";
+  readonly reviewStatus: "AWAITING_PRODUCT_OWNER_EDITORIAL_REVIEW";
   readonly publiclyPublishable: false;
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
@@ -95,17 +95,19 @@ export const NUM_CP002_PERMANENT_ALLOCATION = NUM_CP002_PROPOSED_AUTHORITIES.map
     "NUM-CP-002-SOURCE-SATURATION-MERGE-SPLIT-PROPOSAL",
     "PR-785-MERGED-abdabe1c996e6460e7c820503f0c2860fd17bb0b",
     "PRODUCT-OWNER-21-AUTHORITY-APPROVAL-2026-08-14",
+    "NUM-CP-002-PERMANENT-ALLOCATION",
+    "NUM-CP-002-PERMANENT-ENGLISH-FREEZE",
     ...authority.corePrototypeIds,
     ...authority.adapterPrototypeIds,
   ],
   difficultyPolicy: "STATE_DERIVED_AT_IMPLEMENTATION_FREEZE" as const,
-  allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ALLOCATION" as const,
+  allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION" as const,
   permanentIdentityFrozen: true as const,
   solveModeFrozen: true as const,
-  englishImplementationFrozen: false as const,
+  englishImplementationFrozen: true as const,
   active: false as const,
-  maturity: "PERMANENT_ALLOCATION_MERGED" as const,
-  reviewStatus: "AWAITING_ENGLISH_IMPLEMENTATION_FREEZE" as const,
+  maturity: "ENGLISH_IMPLEMENTATION_FROZEN" as const,
+  reviewStatus: "AWAITING_PRODUCT_OWNER_EDITORIAL_REVIEW" as const,
   publiclyPublishable: false as const,
   questionStudioDiscoverable: false as const,
   questionBankWritable: false as const,

@@ -61,8 +61,8 @@ assert(cp002?.firstQlNumber === 145, "CP-002 first QL");
 assert(cp002?.lastQlNumber === 165, "CP-002 last QL");
 assert(cp002?.permanentQlCount === 21, "CP-002 permanent count");
 assert(cp002?.frozenSolveModeCount === 21, "CP-002 solve-mode count");
-assert(cp002?.maturity === "PERMANENT_ALLOCATION_MERGED", "CP-002 allocation maturity");
-assert(cp002?.language === "en", "CP-002 allocation language marker");
+assert(cp002?.maturity === "ENGLISH_IMPLEMENTATION_FROZEN", "CP-002 English-freeze maturity");
+assert(cp002?.language === "en", "CP-002 frozen language marker");
 
 assert(NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE.first === 1, "chapter first QL");
 assert(NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE.last === 165, "chapter last QL");

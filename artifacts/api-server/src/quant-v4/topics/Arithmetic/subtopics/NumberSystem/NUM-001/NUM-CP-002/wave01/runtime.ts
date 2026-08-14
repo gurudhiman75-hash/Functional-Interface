@@ -139,6 +139,7 @@ function prototype003(seed: number): Draft {
       { value: math(`\\frac{${q + r}}{${d}}`), misconceptionId: "ADD_WHOLE_AND_NUMERATOR" },
       { value: math(`\\frac{${q * d - r}}{${d}}`), misconceptionId: "SUBTRACT_REMAINDER" },
       { value: math(`\\frac{${q * d + r + 1}}{${d}}`), misconceptionId: "OFF_BY_ONE_NUMERATOR" },
+      { value: math(`\\frac{${q * d + r + d}}{${d}}`), misconceptionId: "ADD_DENOMINATOR_TO_NUMERATOR" },
     ],
     hiddenState: { q, r, d },
     solution: [`${math(`${q}\\times${d}+${r}=${n}`)}.`, `Therefore the fraction is ${math(`\\frac{${n}}{${d}}`)}.`],
@@ -325,25 +326,37 @@ const orderSets: readonly (readonly OrderEntry[])[] = [
   ],
 ];
 
+function displayOrder(entries: readonly OrderEntry[], ascending: boolean): string {
+  const bodies = entries.map((e) => e.display.replace(/^\\\((.*)\\\)$/u, "$1"));
+  return math(bodies.join(ascending ? "<" : ">"));
+}
+
 function orderText(entries: readonly OrderEntry[], ascending: boolean): string {
   const sorted = [...entries].sort((x, y) => compareRational(x.value, y.value) * (ascending ? 1 : -1));
-  const symbol = ascending ? "<" : ">";
-  const bodies = sorted.map((e) => e.display.replace(/^\\\((.*)\\\)$/u, "$1"));
-  return math(bodies.join(symbol));
+  return displayOrder(sorted, ascending);
+}
+
+function permutations<T>(values: readonly T[]): readonly (readonly T[])[] {
+  if (values.length <= 1) return [values];
+  return values.flatMap((value, valueIndex) =>
+    permutations(values.filter((_, index) => index !== valueIndex)).map((rest) => [value, ...rest]),
+  );
 }
 
 function prototype010(seed: number): Draft {
   const entries = choose(seed, orderSets, 13);
   const ascending = seed % 2 === 0;
   const correct = orderText(entries, ascending);
-  const perms = [
-    [entries[1]!, entries[0]!, entries[2]!], [entries[2]!, entries[1]!, entries[0]!], [entries[0]!, entries[2]!, entries[1]!],
-  ];
+  const distractors = permutations(entries)
+    .map((permutation) => displayOrder(permutation, ascending))
+    .filter((value, index, all) => value !== correct && all.indexOf(value) === index)
+    .slice(0, 3)
+    .map((value, index) => ({ value, misconceptionId: `PAIRWISE_ORDER_ERROR_${index + 1}` }));
   return {
     answerSemantic: "ORDERED_LIST",
     stem: `Arrange ${entries.map((e) => e.display).join(", ")} in ${ascending ? "ascending" : "descending"} order.`,
     correct,
-    distractors: perms.map((p, i) => ({ value: orderText(p, ascending), misconceptionId: `PAIRWISE_ORDER_ERROR_${i + 1}` })),
+    distractors,
     hiddenState: { ascending, entries: entries.map((e) => ({ display: e.display, n: e.value.n, d: e.value.d })) },
     concept: "Compare all values exactly as rational numbers before ordering them.",
     solution: [`Convert or compare the three values exactly; do not round a recurring decimal.`, `The required order is ${correct}.`],

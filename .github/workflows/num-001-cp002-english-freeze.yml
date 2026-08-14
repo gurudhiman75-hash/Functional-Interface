@@ -1,0 +1,113 @@
+name: Validate NUM-CP-002 permanent English freeze
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
+      - .github/workflows/num-001-cp002-english-freeze.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp002-english-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp002-english-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle cumulative discovery regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/wave03/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp002-english-freeze-discovery-regression.test.mjs
+
+      - name: Run cumulative discovery regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp002-english-freeze-discovery-regression.test.mjs
+
+      - name: Bundle permanent allocation proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/permanent/allocation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp002-english-freeze-allocation.test.mjs
+
+      - name: Run permanent allocation proof
+        run: node artifacts/api-server/dist/quant-v4/num-cp002-english-freeze-allocation.test.mjs
+
+      - name: Bundle permanent runtime proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/permanent/runtime-proof.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp002-permanent-runtime-proof.test.mjs
+
+      - name: Run permanent runtime proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp002-permanent-runtime-proof.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp002-permanent-runtime-proof.log
+
+      - name: Bundle permanent English editorial audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/permanent/english-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp002-permanent-english-audit.mjs
+
+      - name: Run permanent English editorial audit
+        shell: bash
+        working-directory: artifacts/api-server
+        run: |
+          set -o pipefail
+          node dist/quant-v4/num-cp002-permanent-english-audit.mjs \
+            2>&1 | tee dist/quant-v4/num-cp002-permanent-english-audit.log
+
+      - name: Bundle chapter allocation registry proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/design/number-system-current-allocation-registry.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/number-system-current-allocation-registry.test.mjs
+
+      - name: Run chapter allocation registry proof
+        run: node artifacts/api-server/dist/quant-v4/number-system-current-allocation-registry.test.mjs
+
+      - name: Upload English freeze evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp002-permanent-english-freeze
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp002-permanent-runtime-proof.log
+            artifacts/api-server/dist/quant-v4/num-cp002-permanent-english-audit.log
+            artifacts/api-server/dist/quant-v4/num-cp002-permanent-english-freeze/num-cp002-permanent-english-review.json
+            artifacts/api-server/dist/quant-v4/num-cp002-permanent-english-freeze/num-cp002-permanent-english-review.md
+            artifacts/api-server/dist/quant-v4/num-cp002-permanent-english-freeze/num-cp002-permanent-english-review.csv
+            artifacts/api-server/dist/quant-v4/num-cp002-permanent-english-freeze/num-cp002-permanent-english-audit.json
+          if-no-files-found: error
+          retention-days: 14
