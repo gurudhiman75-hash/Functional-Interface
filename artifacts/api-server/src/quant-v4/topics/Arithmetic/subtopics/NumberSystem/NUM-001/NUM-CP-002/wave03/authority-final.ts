@@ -42,11 +42,7 @@ function fixedBetween(seed: number): NumCp002Wave03Package {
     options: Object.freeze(options), correctIndex, canonicalAnswer: correct, verifierAnswer, hiddenState,
     sourceAncestry: NUM_CP002_WAVE03_SOURCE_ANCESTRY["NUM-CP002-PROT-023"],
     mathematicalFingerprint: `NUM-CP002-PROT-023:${JSON.stringify(hiddenState)}`,
-    explanation: Object.freeze({
-      concept: "A valid choice must be greater than the lower bound and smaller than the upper bound.",
-      solution: Object.freeze([`${fractionLatex(c.a)} ${math("<")} ${correct} ${math("<")} ${fractionLatex(c.b)}.`]),
-      finalAnswer: correct,
-    }), lifecycle,
+    explanation: Object.freeze({ concept: "A valid choice must be greater than the lower bound and smaller than the upper bound.", solution: Object.freeze([`${fractionLatex(c.a)} ${math("<")} ${correct} ${math("<")} ${fractionLatex(c.b)}.`]), finalAnswer: correct }), lifecycle,
   });
 }
 
@@ -63,8 +59,7 @@ function fixedDenominator(seed: number): NumCp002Wave03Package {
   const d = (c.n * c.target.d) / c.target.n;
   if (!Number.isInteger(d)) throw new Error("P026 denominator fixture is non-integer");
   const correct = math(String(d));
-  const candidates = [d - 1, d + 1, Math.max(2, d - 2), d + 2, c.target.d, c.target.n]
-    .map(String).map(math).filter((v, i, a) => v !== correct && a.indexOf(v) === i).slice(0, 3);
+  const candidates = [d - 1, d + 1, Math.max(2, d - 2), d + 2, c.target.d, c.target.n].map(String).map(math).filter((v, i, a) => v !== correct && a.indexOf(v) === i).slice(0, 3);
   if (candidates.length !== 3) throw new Error("P026 insufficient distractors");
   const correctIndex = idx(seed, 4, 176);
   const options: NumCp002Wave03Option[] = candidates.map((value, i) => ({ value, isCorrect: false, misconceptionId: `DENOMINATOR_INVERSE_ERROR_${i + 1}` }));
@@ -78,19 +73,43 @@ function fixedDenominator(seed: number): NumCp002Wave03Package {
     seed, locale: "en-IN", difficulty: "MEDIUM", answerSemantic: "INTEGER",
     stem: `If ${math(`\\frac{${c.n}}{d}`)} is exactly equal to ${c.display}, find the positive integer ${math("d")}.`,
     options: Object.freeze(options), correctIndex, canonicalAnswer: correct, verifierAnswer, hiddenState,
-    sourceAncestry: NUM_CP002_WAVE03_SOURCE_ANCESTRY["NUM-CP002-PROT-026"],
-    mathematicalFingerprint: `NUM-CP002-PROT-026:${JSON.stringify(hiddenState)}`,
-    explanation: Object.freeze({
-      concept: "Convert the recurring decimal to its exact reduced fraction, then use equivalent fractions.",
-      solution: Object.freeze([`${c.display} ${math(`=${targetBody}`)}.`, `${math(`\\frac{${c.n}}{d}=${targetBody}\\Rightarrow d=${d}`)}.`]),
-      finalAnswer: correct,
-    }), lifecycle,
+    sourceAncestry: NUM_CP002_WAVE03_SOURCE_ANCESTRY["NUM-CP002-PROT-026"], mathematicalFingerprint: `NUM-CP002-PROT-026:${JSON.stringify(hiddenState)}`,
+    explanation: Object.freeze({ concept: "Convert the recurring decimal to its exact reduced fraction, then use equivalent fractions.", solution: Object.freeze([`${c.display} ${math(`=${targetBody}`)}.`, `${math(`\\frac{${c.n}}{d}=${targetBody}\\Rightarrow d=${d}`)}.`]), finalAnswer: correct }), lifecycle,
+  });
+}
+
+const compoundCases = [
+  { p2: 2, p5: 1, badPrime: 3, badExp: 2 },
+  { p2: 1, p5: 3, badPrime: 7, badExp: 1 },
+  { p2: 4, p5: 1, badPrime: 3, badExp: 3 },
+  { p2: 2, p5: 2, badPrime: 11, badExp: 1 },
+] as const;
+function fixedCompound(seed: number): NumCp002Wave03Package {
+  const c = compoundCases[idx(seed, compoundCases.length, 30)]!;
+  const correct = math(String(c.badExp));
+  const wrongValues = [Math.max(0, c.badExp - 1), c.badExp + 1, c.p2 + c.p5, c.badExp + 2, c.badPrime]
+    .map(String).map(math).filter((v, i, a) => v !== correct && a.indexOf(v) === i).slice(0, 3);
+  if (wrongValues.length !== 3) throw new Error("P030 insufficient distractors");
+  const correctIndex = idx(seed, 4, 180);
+  const options: NumCp002Wave03Option[] = wrongValues.map((value, i) => ({ value, isCorrect: false, misconceptionId: `TERMINATION_EXPONENT_ERROR_${i + 1}` }));
+  options.splice(correctIndex, 0, { value: correct, isCorrect: true });
+  const hiddenState = Object.freeze({ p2: c.p2, p5: c.p5, badPrime: c.badPrime, badExp: c.badExp });
+  const verifierAnswer = independentlyVerifyNumCp002Wave03Authority("NUM-CP002-PROT-030", hiddenState);
+  if (verifierAnswer !== correct) throw new Error("P030 verifier disagreement");
+  return Object.freeze({
+    packageId: "NUM-001", checkpointId: "NUM-CP-002", temporaryPrototypeId: "NUM-CP002-PROT-030", permanentQlId: null,
+    seed, locale: "en-IN", difficulty: "MEDIUM", answerSemantic: "INTEGER",
+    stem: `Find the least non-negative integer ${math("x")} for which ${math(`\\frac{${c.badPrime}^{x}}{2^{${c.p2}}\\times5^{${c.p5}}\\times${c.badPrime}^{${c.badExp}}}`)} has a terminating decimal expansion after reduction.`,
+    options: Object.freeze(options), correctIndex, canonicalAnswer: correct, verifierAnswer, hiddenState,
+    sourceAncestry: NUM_CP002_WAVE03_SOURCE_ANCESTRY["NUM-CP002-PROT-030"], mathematicalFingerprint: `NUM-CP002-PROT-030:${JSON.stringify(hiddenState)}`,
+    explanation: Object.freeze({ concept: "Every denominator prime other than 2 and 5 must be cancelled completely.", solution: Object.freeze([`The only unwanted denominator factor is ${math(`${c.badPrime}^{${c.badExp}}`)}.`, `Therefore ${math(`x=${c.badExp}`)} is the least valid exponent.`]), finalAnswer: correct }), lifecycle,
   });
 }
 
 export function generateNumCp002Wave03Final(id: NumCp002Wave03PrototypeId, seed: number): NumCp002Wave03Package {
   if (id === "NUM-CP002-PROT-023") return fixedBetween(seed);
   if (id === "NUM-CP002-PROT-026") return fixedDenominator(seed);
+  if (id === "NUM-CP002-PROT-030") return fixedCompound(seed);
   return generateNumCp002Wave03Authority(id, seed);
 }
 
