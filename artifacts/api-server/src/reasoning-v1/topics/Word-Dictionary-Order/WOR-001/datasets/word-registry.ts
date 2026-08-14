@@ -20,22 +20,47 @@ function family(id: string, tier: WorDifficulty, words: readonly string[], famil
 }
 
 export const WOR_WORD_FAMILIES: readonly WorWordFamily[] = [
-  family("MIXED-COMMON-A", "EASY", ["Apple", "Bridge", "Candle", "Doctor", "Garden", "Market", "Silver", "Window", "Yellow"]),
-  family("MIXED-COMMON-B", "EASY", ["Book", "Branch", "Cloud", "Crane", "House", "Horse", "Table", "Train", "Water"]),
-  family("GRA-FAMILY", "MEDIUM", ["Grain", "Grand", "Grant", "Graphic", "Grape", "Grasp", "Grass", "Grate", "Gravity"]),
-  family("BL-FAMILY", "MEDIUM", ["Blend", "Blind", "Blink", "Bliss", "Block", "Bloom", "Blouse", "Blue", "Blunt"]),
-  family("ACT-FAMILY", "MEDIUM", ["Act", "Action", "Active", "Actor", "Actual", "Acute", "Adapt", "Add", "Adjust"]),
-  family("TRA-FAMILY", "MEDIUM", ["Trace", "Track", "Trade", "Train", "Trainer", "Trait", "Transfer", "Travel", "Tray"]),
-  family("CAR-FAMILY", "HARD", ["Car", "Card", "Care", "Careful", "Cargo", "Carnival", "Carp", "Cart", "Carbon"]),
-  family("STAR-FAMILY", "HARD", ["Star", "Stare", "Stark", "Start", "State", "Station", "Static", "Statue", "Stay"]),
-  family("PRO-FAMILY", "HARD", ["Produce", "Product", "Production", "Productive", "Productivity", "Professor", "Program", "Progress", "Project"]),
-  family("EXA-FAMILY", "HARD", ["Exact", "Exalt", "Exam", "Example", "Examine", "Examiner", "Examination", "Exceed", "Except"]),
-  family("CON-FAMILY", "HARD", ["Conceal", "Concede", "Concept", "Concern", "Concert", "Conclude", "Concrete", "Condition", "Conduct"], "STANDARD"),
-  family("DIS-FAMILY", "HARD", ["Discard", "Discover", "Discovery", "Discreet", "Display", "Distance", "Distinct", "District", "Divide"], "STANDARD"),
+  // EASY: broad, familiar vocabulary with mostly early decisions.
+  family("MIXED-COMMON-A", "EASY", ["Apple", "Bridge", "Candle", "Doctor", "Forest", "Garden", "Lemon", "Meadow", "River", "Silver", "Window", "Yellow"]),
+  family("MIXED-COMMON-B", "EASY", ["Book", "Branch", "Cloud", "Crane", "Dance", "House", "Horse", "Pencil", "Table", "Truck", "Water", "Zebra"]),
+  family("MIXED-COMMON-C", "EASY", ["Anchor", "Basket", "Circle", "Eagle", "Flower", "Kitchen", "Orange", "Planet", "Rabbit", "School", "Tiger", "Village"]),
+  family("MIXED-COMMON-D", "EASY", ["Arrow", "Bottle", "Camera", "Desert", "Engine", "Finger", "Hammer", "Island", "Jacket", "Needle", "Queen", "Stone"]),
+  family("MIXED-COMMON-E", "EASY", ["Autumn", "Beach", "Chair", "Drum", "Earth", "Fruit", "Globe", "Hotel", "Knife", "Music", "Paper", "Rose"]),
+  family("MIXED-COMMON-F", "EASY", ["Animal", "Bread", "Clock", "Dream", "Field", "Glass", "Hill", "Lake", "Moon", "Road", "Ship", "Tree"]),
+  family("MIXED-COMMON-G", "EASY", ["Army", "Box", "Child", "Door", "Farm", "Green", "Light", "Night", "Park", "Sun", "Voice", "World"]),
+  family("MIXED-COMMON-H", "EASY", ["Air", "Bell", "Coat", "Desk", "Fire", "Gold", "Iron", "King", "Milk", "Ring", "Town", "Wood"]),
+
+  // MEDIUM: moderate shared prefixes and occasional prefix containment.
+  family("GRA-FAMILY", "MEDIUM", ["Grace", "Grain", "Grand", "Grant", "Graphic", "Grape", "Grasp", "Grass", "Grate", "Gravel", "Gravity", "Gray"]),
+  family("BL-FAMILY", "MEDIUM", ["Blank", "Blaze", "Bleed", "Blend", "Blind", "Blink", "Bliss", "Block", "Bloom", "Blouse", "Blue", "Blunt"]),
+  family("ACT-FAMILY", "MEDIUM", ["Act", "Action", "Activate", "Active", "Activity", "Actor", "Actress", "Actual", "Acute", "Adapt", "Add", "Adjust"]),
+  family("TRA-FAMILY", "MEDIUM", ["Trace", "Track", "Trade", "Trail", "Train", "Trainer", "Trait", "Tram", "Trance", "Trap", "Trash", "Travel"]),
+  family("PRE-FAMILY", "MEDIUM", ["Preach", "Precise", "Predict", "Prefer", "Prefix", "Prepare", "Present", "Press", "Pretty", "Prevent", "Preview", "Price"]),
+  family("COM-FAMILY", "MEDIUM", ["Combat", "Combine", "Come", "Comfort", "Command", "Comment", "Common", "Compact", "Commodity", "Commerce", "Commit", "Community"]),
+  family("REA-FAMILY", "MEDIUM", ["Reach", "React", "Read", "Reader", "Ready", "Real", "Realm", "Rear", "Reason", "Rebuild", "Recall", "Record"]),
+  family("PLA-FAMILY", "MEDIUM", ["Place", "Plain", "Plan", "Plane", "Plant", "Plate", "Play", "Player", "Plaza", "Plead", "Please", "Plenty"]),
+  family("INT-FAMILY", "MEDIUM", ["Intact", "Intake", "Integer", "Intend", "Intent", "Into", "Invent", "Invite", "Involve", "Injury", "Input", "Inside"]),
+  family("MAR-FAMILY", "MEDIUM", ["March", "Margin", "Marine", "Mark", "Market", "Marriage", "Mask", "Master", "Match", "Material", "Mature", "Maximum"]),
+
+  // HARD: deep common-prefix decisions and explicit prefix-containment opportunities.
+  family("CAR-FAMILY", "HARD", ["Car", "Carbon", "Card", "Care", "Careful", "Cargo", "Carnival", "Carp", "Carrier", "Carry", "Cart", "Carton"]),
+  family("STAR-FAMILY", "HARD", ["Star", "Stare", "Stark", "Start", "State", "Station", "Static", "Statue", "Stay", "Steady", "Steam", "Steel"]),
+  family("PRO-FAMILY", "HARD", ["Produce", "Product", "Production", "Productive", "Productivity", "Professor", "Program", "Progress", "Project", "Promise", "Promote", "Proper"]),
+  family("EXA-FAMILY", "HARD", ["Exact", "Exalt", "Exam", "Examination", "Examine", "Examiner", "Example", "Exceed", "Except", "Exchange", "Excite", "Exclude"]),
+  family("CON-FAMILY", "HARD", ["Conceal", "Concede", "Concept", "Concern", "Concert", "Conclude", "Concrete", "Condition", "Conduct", "Confirm", "Conflict", "Connect"], "STANDARD"),
+  family("DIS-FAMILY", "HARD", ["Discard", "Discover", "Discovery", "Discreet", "Display", "Distance", "Distinct", "District", "Divide", "Divert", "Divine", "Division"], "STANDARD"),
+  family("OVER-FAMILY", "HARD", ["Over", "Overall", "Overcome", "Overflow", "Overhead", "Overlap", "Overload", "Overnight", "Override", "Overseas", "Overtake", "Overtime"]),
+  family("UNDER-FAMILY", "HARD", ["Under", "Undergo", "Underground", "Underline", "Underlying", "Understand", "Understood", "Undertake", "Undertone", "Underwear", "Underwrite", "Underwriter"]),
+  family("INTER-FAMILY", "HARD", ["Interact", "Interest", "Interface", "Interior", "Interim", "Internal", "International", "Internet", "Interpose", "Interpret", "Interrupt", "Interval"], "STANDARD"),
+  family("COMP-FAMILY", "HARD", ["Companion", "Company", "Compare", "Comparison", "Compass", "Compete", "Compile", "Complain", "Complete", "Complex", "Component", "Compose"], "STANDARD"),
+  family("TRANS-FAMILY", "HARD", ["Transaction", "Transfer", "Transform", "Transit", "Transition", "Translate", "Translation", "Transmit", "Transport", "Transplant", "Transparent", "Transpose"], "STANDARD"),
+  family("INST-FAMILY", "HARD", ["Install", "Instance", "Instant", "Instead", "Instinct", "Institute", "Institution", "Instruct", "Instruction", "Instrument", "Insurance", "Insure"], "STANDARD"),
 ];
 
 const allWords = WOR_WORD_FAMILIES.flatMap((entry) => entry.words);
 if (allWords.some((entry) => !/^[A-Z]+$/.test(entry.normalized))) throw new Error("WOR word registry contains a non A-Z token.");
+if (new Set(allWords.map((entry) => entry.normalized)).size !== allWords.length) throw new Error("WOR word registry contains a cross-family duplicate token.");
+if (new Set(allWords.map((entry) => entry.id)).size !== allWords.length) throw new Error("WOR word registry contains a duplicate word ID.");
 
 export function worFamiliesForDifficulty(difficulty: WorDifficulty): readonly WorWordFamily[] {
   return WOR_WORD_FAMILIES.filter((entry) => entry.tier === difficulty);
