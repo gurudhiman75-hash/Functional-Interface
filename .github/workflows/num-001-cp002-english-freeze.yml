@@ -66,9 +66,11 @@ jobs:
           --outfile=dist/quant-v4/num-cp002-permanent-runtime-proof.test.mjs
 
       - name: Run permanent runtime proof
-        run: >-
-          node artifacts/api-server/dist/quant-v4/num-cp002-permanent-runtime-proof.test.mjs
-          | tee artifacts/api-server/dist/quant-v4/num-cp002-permanent-runtime-proof.log
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp002-permanent-runtime-proof.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp002-permanent-runtime-proof.log
 
       - name: Bundle permanent English editorial audit
         run: >-
@@ -78,9 +80,12 @@ jobs:
           --outfile=dist/quant-v4/num-cp002-permanent-english-audit.mjs
 
       - name: Run permanent English editorial audit
-        run: >-
-          node artifacts/api-server/dist/quant-v4/num-cp002-permanent-english-audit.mjs
-          | tee artifacts/api-server/dist/quant-v4/num-cp002-permanent-english-audit.log
+        shell: bash
+        working-directory: artifacts/api-server
+        run: |
+          set -o pipefail
+          node dist/quant-v4/num-cp002-permanent-english-audit.mjs \
+            2>&1 | tee dist/quant-v4/num-cp002-permanent-english-audit.log
 
       - name: Bundle chapter allocation registry proof
         run: >-
@@ -104,5 +109,5 @@ jobs:
             artifacts/api-server/dist/quant-v4/num-cp002-permanent-english-freeze/num-cp002-permanent-english-review.md
             artifacts/api-server/dist/quant-v4/num-cp002-permanent-english-freeze/num-cp002-permanent-english-review.csv
             artifacts/api-server/dist/quant-v4/num-cp002-permanent-english-freeze/num-cp002-permanent-english-audit.json
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 14
