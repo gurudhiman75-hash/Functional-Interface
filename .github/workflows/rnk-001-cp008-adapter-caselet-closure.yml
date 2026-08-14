@@ -1,0 +1,64 @@
+name: Validate RNK-001 English Content Closure
+
+on:
+  push:
+    branches:
+      - integrate/rnk-001-cp008-english-closure
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-cp008-adapter-caselet-closure.yml'
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-cp008-adapter-caselet-closure.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: rnk-001-english-content-closure-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-english-closure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove CP008 adapter and caselet closure
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-008/cp008-adapter-caselet-closure-v1_1.test.ts
+
+      - name: Prove chapter-wide QL continuity and lifecycle locks
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+
+      - name: Re-prove CP001 English discovery freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-final-discovery-freeze.test.ts
+
+      - name: Re-prove CP002 English discovery freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-final-discovery-freeze.test.ts
+
+      - name: Re-prove CP003 English discovery freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-final-discovery-freeze.test.ts
+
+      - name: Re-prove CP004 permanent runtime
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-permanent-runtime-v1-gates.test.ts
+
+      - name: Re-prove CP005 permanent runtime
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-freeze.test.ts
+
+      - name: Re-prove CP006 permanent runtime
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-permanent-runtime-v1-freeze.test.ts
+
+      - name: Re-prove CP007 permanent runtime
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-permanent-runtime-v1-freeze.test.ts
+
+      - name: Validate frozen projection compatibility
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-frozen-projection-compatibility.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
