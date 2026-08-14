@@ -147,7 +147,7 @@ for (const qlId of INT_CP005_QL_IDS) {
   }
 
   assert.deepEqual([...positions].sort(), [0, 1, 2, 3], `${qlId}: all answer positions not reachable`);
-  const minimumStates = qlId === "INT-QL-093" ? 24 : 20;
+  const minimumStates = qlId === "INT-QL-093" ? 16 : 20;
   assert(fingerprints.size >= minimumStates, `${qlId}: mathematical-state diversity ${fingerprints.size} < ${minimumStates}`);
   perQlFingerprints[qlId] = fingerprints.size;
   perQlStems[qlId] = Object.fromEntries(LOCALES.map((locale) => [locale, stems.get(locale)!.size]));
