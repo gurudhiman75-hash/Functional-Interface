@@ -44,6 +44,8 @@ const mechanicalPunjabiFragments = [
 ] as const;
 const badHindiOrdinalLocation = /(?:पहला|दूसरा|तीसरा|चौथा|पाँचवाँ|छठा|सातवाँ|आठवाँ|नौवाँ|दसवाँ) स्थान (?:पर|तक)/u;
 const badPunjabiOrdinalLocation = /(?:ਪਹਿਲਾ|ਦੂਜਾ|ਤੀਜਾ|ਚੌਥਾ|ਪੰਜਵਾਂ|ਛੇਵਾਂ|ਸੱਤਵਾਂ|ਅੱਠਵਾਂ|ਨੌਵਾਂ|ਦਸਵਾਂ) ਸਥਾਨ (?:'ਤੇ|ਤੱਕ)/u;
+const genericHindiWrongOptionFallback = /यह विकल्प .+ देता है, लेकिन अंतिम व्यवस्था में सही उत्तर .+ है।/gu;
+const genericPunjabiWrongOptionFallback = /ਇਹ ਵਿਕਲਪ .+ ਦਿੰਦਾ ਹੈ, ਪਰ ਅੰਤਿਮ ਵਿਵਸਥਾ ਵਿੱਚ ਸਹੀ ਉੱਤਰ .+ ਹੈ।/gu;
 
 const canonicalReview = selectManualReviewCorpus(buildSea001SaturationCorpus(40).caselets, 5);
 assert(canonicalReview.length === 100, `expected 100 canonical review caselets, got ${canonicalReview.length}`);
@@ -110,13 +112,13 @@ for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
       for (const fragment of mechanicalHindiFragments) if (surface.includes(fragment)) mechanicalTranslationeseCount+=1;
       if (badHindiOrdinalLocation.test(surface)) ordinalGrammarViolationCount+=1;
       singularGenderMarkerCount+=(surface.match(/ बैठा है/g)??[]).length;
-      genericWrongOptionFallbackCount+=(surface.match(/यह विकल्प/g)??[]).length;
+      genericWrongOptionFallbackCount+=(surface.match(genericHindiWrongOptionFallback)??[]).length;
     } else {
       assert(/[\u0A00-\u0A7F]/u.test(surface),`${canonical.caseletId}: Punjabi learner surface lacks Gurmukhi`);
       for (const fragment of mechanicalPunjabiFragments) if (surface.includes(fragment)) mechanicalTranslationeseCount+=1;
       if (badPunjabiOrdinalLocation.test(surface)) ordinalGrammarViolationCount+=1;
       singularGenderMarkerCount+=(surface.match(/ ਬੈਠਾ ਹੈ/g)??[]).length;
-      genericWrongOptionFallbackCount+=(surface.match(/ਇਹ ਵਿਕਲਪ/g)??[]).length;
+      genericWrongOptionFallbackCount+=(surface.match(genericPunjabiWrongOptionFallback)??[]).length;
     }
     const leakedTokens = latinTokens(surface);
     residualLatinCount += leakedTokens.length;
