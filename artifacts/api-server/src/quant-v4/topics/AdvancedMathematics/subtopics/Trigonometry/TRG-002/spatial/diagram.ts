@@ -82,6 +82,14 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
   for (const observation of state.observations) {
     segments.push({ id: `sight-${observation.id}`, fromPointId: observation.eyePointId, toPointId: observation.targetPointId, kind: "SIGHT_LINE" });
     segments.push({ id: `eye-level-segment-${observation.id}`, fromPointId: observation.eyePointId, toPointId: `eye-level-${observation.id}`, kind: "EYE_LEVEL" });
+    if (observation.classification === "DEPRESSION") {
+      segments.push({
+        id: `depression-drop-${observation.id}`,
+        fromPointId: `eye-level-${observation.id}`,
+        toPointId: observation.targetPointId,
+        kind: "AUXILIARY",
+      });
+    }
   }
 
   if (state.diagramStrategy === "LADDER") {
