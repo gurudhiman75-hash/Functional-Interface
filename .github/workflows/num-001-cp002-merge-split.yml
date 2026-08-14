@@ -1,0 +1,69 @@
+name: Validate NUM-CP-002 source saturation merge split
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/**
+      - .github/workflows/num-001-cp002-merge-split.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp002-merge-split-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp002-merge-split:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP002 merge-split proposal audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/merge-split/proposal.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp002-merge-split-proposal.test.mjs
+      - name: Run CP002 merge-split proposal audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/num-cp002-merge-split-proposal.test.mjs 2>&1 | tee dist/quant-v4/num-cp002-merge-split-proposal.log
+
+      - name: Bundle Wave03 cumulative regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/wave03/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp002-merge-split-cumulative.test.mjs
+      - name: Run Wave03 cumulative regression
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-cp002-merge-split-cumulative.test.mjs
+
+      - name: Upload CP002 merge-split evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp002-source-saturation-merge-split
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp002-merge-split-proposal.log
+          if-no-files-found: warn
+          retention-days: 14
