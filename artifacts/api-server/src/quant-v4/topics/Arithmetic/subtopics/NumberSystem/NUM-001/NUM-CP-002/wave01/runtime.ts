@@ -326,11 +326,14 @@ const orderSets: readonly (readonly OrderEntry[])[] = [
   ],
 ];
 
+function displayOrder(entries: readonly OrderEntry[], ascending: boolean): string {
+  const bodies = entries.map((e) => e.display.replace(/^\\\((.*)\\\)$/u, "$1"));
+  return math(bodies.join(ascending ? "<" : ">"));
+}
+
 function orderText(entries: readonly OrderEntry[], ascending: boolean): string {
   const sorted = [...entries].sort((x, y) => compareRational(x.value, y.value) * (ascending ? 1 : -1));
-  const symbol = ascending ? "<" : ">";
-  const bodies = sorted.map((e) => e.display.replace(/^\\\((.*)\\\)$/u, "$1"));
-  return math(bodies.join(symbol));
+  return displayOrder(sorted, ascending);
 }
 
 function prototype010(seed: number): Draft {
@@ -344,7 +347,7 @@ function prototype010(seed: number): Draft {
     answerSemantic: "ORDERED_LIST",
     stem: `Arrange ${entries.map((e) => e.display).join(", ")} in ${ascending ? "ascending" : "descending"} order.`,
     correct,
-    distractors: perms.map((p, i) => ({ value: orderText(p, ascending), misconceptionId: `PAIRWISE_ORDER_ERROR_${i + 1}` })),
+    distractors: perms.map((p, i) => ({ value: displayOrder(p, ascending), misconceptionId: `PAIRWISE_ORDER_ERROR_${i + 1}` })),
     hiddenState: { ascending, entries: entries.map((e) => ({ display: e.display, n: e.value.n, d: e.value.d })) },
     concept: "Compare all values exactly as rational numbers before ordering them.",
     solution: [`Convert or compare the three values exactly; do not round a recurring decimal.`, `The required order is ${correct}.`],
