@@ -7,6 +7,19 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function structuralClass(row: { representation: string; input: { directionCase?: string } }): string {
+  const raw = Number(row.representation.split(":").at(-1) ?? "0");
+  const variant = Number.isInteger(raw) ? ((raw % 6) + 6) % 6 : 0;
+  const structure = ["DIRECT", "OBSERVATION", "CHECKPOINT", "RECONSTRUCTION", "DIRECT", "OBSERVATION"][variant]!;
+  return `${structure}${row.input.directionCase ? `:${row.input.directionCase}` : ""}`;
+}
+
+function wrongPaths(row: (typeof audit)[number]): readonly string[] {
+  return row.internalOptionAudit
+    .filter((entry) => !entry.isCorrect && entry.wrongWorking)
+    .map((entry) => `${entry.wrongWorking!.misconceptionId}|${entry.wrongWorking!.calculation.trim().toLowerCase()}`);
+}
+
 const audit = generateCp004AuditPool(40);
 const selected = generateCp004ReviewQuestions(6);
 
@@ -23,10 +36,34 @@ assert(new Set(selected.map((row) => row.stem)).size === selected.length, "selec
 assert(new Set(selected.map((row) => row.mathematicalFingerprint)).size === selected.length, "selected mathematical fingerprints are not globally unique");
 assert(new Set(selected.map((row) => row.solveMode)).size === 23, `selection must cover all 23 executable core/clock modes, covered ${new Set(selected.map((row) => row.solveMode)).size}`);
 assert(new Set(selected.map((row) => row.permanentQlId)).size === 10, "selection must cover all ten permanent QLs");
-for (const ql of TSD_CP004_PERMANENT_QL_IDS) assert(selected.filter((row) => row.permanentQlId === ql).length === 6, `${ql}: expected six selected questions`);
+
+for (const ql of TSD_CP004_PERMANENT_QL_IDS) {
+  const qlRows = selected.filter((row) => row.permanentQlId === ql);
+  assert(qlRows.length === 6, `${ql}: expected six selected questions`);
+  const structures = qlRows.map(structuralClass);
+  assert(new Set(structures).size >= 4, `${ql}: fewer than four structural stem classes in the six-question review set (${structures.join(", ")})`);
+  const counts = [...new Set(structures)].map((key) => structures.filter((value) => value === key).length);
+  assert(Math.max(...counts) <= 2, `${ql}: one stem structure appears more than twice in the six-question review set`);
+}
+
+for (const authority of TSD_CP004_REVIEW_AUTHORITIES) {
+  const authorityRows = audit.filter((row) => row.authorityKey === authority.authorityKey);
+  assert(authorityRows.length === 40, `${authority.authorityKey}: expected 40 audit questions`);
+  assert(new Set(authorityRows.map((row) => row.mathematicalFingerprint)).size >= 20, `${authority.authorityKey}: mathematical state diversity is too narrow`);
+}
+
 assert(selected.every((row) => (row.explanation as unknown as Record<string, unknown>).optionAnalysis === undefined), "option analysis leaked into public explanation");
+assert(selected.every((row) => row.explanation.steps.some((step) => step.includes("="))), "selected explanation lacks connected numerical working");
 assert(selected.every((row) => row.internalOptionAudit.filter((entry) => !entry.isCorrect && entry.applicability === "EXACT_METHOD").length === 3), "every selected question must have three exact-method wrong workings");
 assert(audit.every((row) => row.internalOptionAudit.filter((entry) => !entry.isCorrect).length === 3), "audit question missing three distractors");
+assert(audit.every((row) => new Set(wrongPaths(row)).size === 3), "audit question does not contain three distinct misconception paths");
+assert(audit.every((row) => row.internalOptionAudit.every((entry) => entry.isCorrect || !entry.wrongWorking || !/scaled|alter final arithmetic|answer ×|answer ÷/i.test(entry.wrongWorking.calculation))), "generic arithmetic filler leaked into distractors");
+
+const ratioRows = audit.filter((row) => row.solveMode === "findSpeedRatioFromMeetingPoint");
+assert(ratioRows.length > 0, "ratio-from-meeting-point mode missing from audit");
+assert(ratioRows.every((row) => row.internalOptionAudit.some((entry) => !entry.isCorrect && entry.misconceptionId === "REVERSE_MEETING_RATIO")), "ratio questions must retain the reversed-ratio misconception");
+assert(ratioRows.every((row) => row.internalOptionAudit.some((entry) => !entry.isCorrect && entry.misconceptionId === "ASSUME_MIDPOINT")), "ratio questions must retain the 1:1 midpoint misconception");
+
 assert(audit.every((row) => row.lifecycle.englishFreezeStatus === "UNFROZEN" && !row.lifecycle.questionStudioEnabled && row.lifecycle.questionBankStatus === "NOT_STORED" && row.lifecycle.testEligibility === "INELIGIBLE" && !row.lifecycle.publiclyPublishable), "downstream lifecycle lock violated");
 
 const positions = [0, 1, 2, 3].map((position) => audit.filter((row) => row.correctIndex === position).length);
@@ -47,7 +84,7 @@ assert(TSD_CP003_HI_PA_APPROVED_SOURCE_HEAD === "49965e649a7f688c2dd9f3ca5a2c909
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "TSD_CP004_ENGLISH_CANDIDATE",
+  phase: "TSD_CP004_ENGLISH_CANDIDATE_V2_EDITORIAL",
   permanentQlRange: "TSD-QL-048..TSD-QL-057",
   nextPermanentQl: TSD_CP004_NEXT_PERMANENT_QL_ID,
   learnerAuthorities: TSD_CP004_REVIEW_AUTHORITIES.length,
@@ -55,10 +92,14 @@ console.log(JSON.stringify({
   auditQuestions: audit.length,
   selectedQuestions: selected.length,
   questionsPerAuthority: 6,
+  minimumStructuralClassesPerQl: Math.min(...TSD_CP004_PERMANENT_QL_IDS.map((ql) => new Set(selected.filter((row) => row.permanentQlId === ql).map(structuralClass)).size)),
+  minimumMathematicalFingerprintsPerAuthority: Math.min(...TSD_CP004_REVIEW_AUTHORITIES.map((authority) => new Set(audit.filter((row) => row.authorityKey === authority.authorityKey).map((row) => row.mathematicalFingerprint)).size)),
   exactWrongWorkings: wrongWorkingCount,
+  distractorContract: "THREE_DISTINCT_SEMANTIC_PATHS_UNIT_SPECIFIC_SELECTION",
+  ratioReversalPreserved: true,
   correctOptionPositions: positions,
   difficulty,
-  publicExplanationContract: "METHOD_STEPS_SHORTCUT_ANSWER",
+  publicExplanationContract: "METHOD_CONNECTED_NUMERIC_STEPS_SHORTCUT_ANSWER",
   optionAnalysisPublic: false,
   englishFreezeStatus: "UNFROZEN",
   questionStudioEnabled: false,
