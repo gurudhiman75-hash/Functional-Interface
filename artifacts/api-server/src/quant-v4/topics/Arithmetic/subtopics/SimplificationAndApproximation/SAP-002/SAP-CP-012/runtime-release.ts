@@ -1,4 +1,4 @@
-import { e2Math, fmt, optionSet, packageE2, type SapE2Package } from "../../SAP-E2-TYPES";
+import { e2Math, fmt, optionSet, packageE2, squareRoot, type SapE2Package } from "../../SAP-E2-TYPES";
 import { SAP_CP012_E2_STRUCTURES, generateSapCp012E2 as generateFinal, type SapCp012E2Structure } from "./runtime-final";
 
 export { SAP_CP012_E2_STRUCTURES };
@@ -61,9 +61,32 @@ function twoSided(seed: number): SapE2Package {
   });
 }
 
+function polishGenerated(q: SapE2Package): SapE2Package {
+  if (q.structureId === "CP012-E2-MISSING-ROOT-RATIO") {
+    const d = q.oracle.data;
+    const r1 = Number(d.r1_100) / 100;
+    const r2 = Number(d.r2_100) / 100;
+    const root1 = Number(d.root1), root2 = Number(d.root2), multiplier = Number(d.multiplier);
+    const mD = Number(d.m100) / 100;
+    return Object.freeze({ ...q, explanation: Object.freeze({ ...q.explanation, steps: Object.freeze([
+      `${e2Math(`${squareRoot(fmt(r1))} \\approx ${root1}`)} and ${e2Math(`${squareRoot(fmt(r2))} \\approx ${root2}`)}; also ${fmt(mD)} ≈ ${multiplier}.`,
+      `So ? ≈ (${multiplier} × ${root1}) ÷ ${root2} = ${q.canonicalAnswer}.`,
+    ]) }) });
+  }
+  if (q.structureId === "CP012-E2-MISSING-CUBE-ROOT") {
+    const d = q.oracle.data;
+    const base = Number(d.base), c = Number(d.c), target = Number(d.target), cube = Number(d.cube);
+    return Object.freeze({ ...q, explanation: Object.freeze({ ...q.explanation, steps: Object.freeze([
+      `Using nearby integers: ?³ + ${base}² - ${c} ≈ ${target}.`,
+      `So ?³ ≈ ${cube}, hence ? ≈ ${q.canonicalAnswer}.`,
+    ]) }) });
+  }
+  return q;
+}
+
 export function generateSapCp012E2(structureId: SapCp012E2Structure, seed: number): SapE2Package {
   if (structureId === "CP012-E2-MISSING-ADDEND-MIXED") return missingAddend(seed);
   if (structureId === "CP012-E2-MISSING-DIVISOR") return missingDivisor(seed);
   if (structureId === "CP012-E2-TWO-SIDED-MIXED-EQUATION") return twoSided(seed);
-  return generateFinal(structureId, seed);
+  return polishGenerated(generateFinal(structureId, seed));
 }
