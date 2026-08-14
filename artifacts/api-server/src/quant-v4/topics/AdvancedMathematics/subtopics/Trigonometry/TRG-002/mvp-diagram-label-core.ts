@@ -8,7 +8,8 @@ export type MvpLabelSource =
   | { kind: "OBJECT_HEIGHT"; objectId: string }
   | { kind: "HORIZONTAL_DISTANCE"; fromPointId: string; toPointId: string }
   | { kind: "MOVEMENT_DISTANCE"; movementId: string }
-  | { kind: "EYE_HEIGHT"; observerId: string };
+  | { kind: "EYE_HEIGHT"; observerId: string }
+  | { kind: "MEASUREMENT"; key: string };
 export interface MvpLabelPlan { id: string; role: MvpLabelRole; fromPointId: string; toPointId: string; source: MvpLabelSource; placement: MvpLabelPlacement; symbol?: string; }
 export interface MvpResolvedLabel extends MvpLabelPlan { label: string; }
 export type MvpLabelPlanMap = Readonly<Record<string, readonly MvpLabelPlan[]>>;
@@ -37,6 +38,11 @@ function resolve(question: any, source: MvpLabelSource) {
     const movement = question.canonicalSpatialState.movements.find((item: any) => item.id === source.movementId);
     if (!movement) throw new Error(`${question.qlId}: missing diagram-label movement ${source.movementId}.`);
     return lengthText(question, movement.distance);
+  }
+  if (source.kind === "MEASUREMENT") {
+    const measurement = question.canonicalSpatialState.metadata.measurements?.[source.key];
+    if (!measurement) throw new Error(`${question.qlId}: missing exact named measurement ${source.key}.`);
+    return lengthText(question, measurement);
   }
   const observer = question.canonicalSpatialState.observers.find((item: any) => item.id === source.observerId);
   if (!observer) throw new Error(`${question.qlId}: missing diagram-label observer ${source.observerId}.`);
