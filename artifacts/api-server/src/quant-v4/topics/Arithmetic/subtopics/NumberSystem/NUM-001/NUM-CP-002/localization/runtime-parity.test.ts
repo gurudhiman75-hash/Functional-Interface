@@ -28,7 +28,7 @@ const answerPositions = new Map<string, Set<number>>();
 for (const locale of locales) {
   for (const ql of NUM_CP002_PERMANENT_QL_IDS) {
     answerPositions.set(`${locale}:${ql}`, new Set());
-    for (let seed = 0; seed < 120; seed += 1) {
+    for (let seed = 1; seed <= 120; seed += 1) {
       const english = runNumCp002PermanentPipeline({ questionLanguageId: ql, seed, language: "en" });
       const localized = runNumCp002LocalizedPipeline({ questionLanguageId: ql, seed, locale });
       const replay = runNumCp002LocalizedPipeline({ questionLanguageId: ql, seed, locale });
@@ -64,7 +64,7 @@ for (const locale of locales) {
       scriptChecks += 1;
       answerPositions.get(`${locale}:${ql}`)!.add(localized.correctIndex);
 
-      if (seed < 4) review.push({ english, localized });
+      if (seed <= 4) review.push({ english, localized });
     }
   }
 }
@@ -74,7 +74,7 @@ assert(replayChecks === generated && parityChecks === generated && optionChecks 
 for (const [key, positions] of answerPositions) assert(JSON.stringify([...positions].sort()) === JSON.stringify([0,1,2,3]), `${key}: answer-position reachability ${[...positions]}`);
 assert(review.length === 168, `Expected 168 bilingual review pairs, got ${review.length}`);
 
-const outDir = resolve(process.cwd(), "dist/quant-v4/num-cp002-localization");
+const outDir = resolve(process.cwd(), "artifacts/api-server/dist/quant-v4/num-cp002-localization");
 mkdirSync(outDir, { recursive: true });
 const reviewPath = resolve(outDir, "num-cp002-hi-pa-review.json");
 writeFileSync(reviewPath, JSON.stringify({
