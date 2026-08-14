@@ -50,6 +50,35 @@ export function deriveStrongCp004WrongWorkingsV5(
     return Object.freeze(rows);
   }
 
+  if (mode === "findMeetingClockTime" || mode === "findDepartureClockTimeFromMeetingState") {
+    const a = input.speedA!;
+    const b = input.speedB!;
+    const gap = input.initialSeparation!;
+    const averageSpeed = divide(add(a, b), rational(2));
+    const minutes = rational(60);
+    const wrongDurationA = divide(gap, a);
+    const wrongDurationB = divide(gap, b);
+    const wrongDurationAverage = divide(gap, averageSpeed);
+    const { rows, push } = rowsFor(solution.answer);
+
+    if (mode === "findMeetingClockTime") {
+      const departure = input.departureMinute!;
+      push("USE_ONE_SPEED_ONLY", add(departure, multiply(wrongDurationA, minutes)), "departure time + gap ÷ speed A", "The clock shift is performed correctly, but the meeting duration is calculated as if only the first vehicle were moving.");
+      push("USE_ONE_SPEED_ONLY", add(departure, multiply(wrongDurationB, minutes)), "departure time + gap ÷ speed B", "The learner converts a one-vehicle travel time into a clock time instead of using the two-body relative speed.");
+      push("USE_AVERAGE_SPEED", add(departure, multiply(wrongDurationAverage, minutes)), "departure time + gap ÷ average speed", "The learner uses average absolute speed to obtain the duration and then applies that wrong duration correctly to the clock.");
+      push("COPY_DEPARTURE_CLOCK", departure, "copy the departure clock time", "The motion calculation is skipped and the starting clock time is returned as the meeting time.");
+    } else {
+      const meeting = input.meetingClockMinute!;
+      push("USE_ONE_SPEED_ONLY", subtract(meeting, multiply(wrongDurationA, minutes)), "meeting time − gap ÷ speed A", "The learner shifts the clock backwards correctly but reconstructs the duration using only the first vehicle's speed.");
+      push("USE_ONE_SPEED_ONLY", subtract(meeting, multiply(wrongDurationB, minutes)), "meeting time − gap ÷ speed B", "The departure clock is reconstructed from a one-vehicle travel time instead of the relative-motion duration.");
+      push("USE_AVERAGE_SPEED", subtract(meeting, multiply(wrongDurationAverage, minutes)), "meeting time − gap ÷ average speed", "Average absolute speed is incorrectly used for the relative-motion duration before the clock subtraction.");
+      push("COPY_MEETING_CLOCK", meeting, "copy the meeting clock time", "The learner reports the known meeting time without subtracting the travel duration to recover departure.");
+    }
+
+    if (rows.length < 3) throw new Error(`${mode}: V5 produced only ${rows.length} strong clock-state distractors`);
+    return Object.freeze(rows);
+  }
+
   if (mode === "findSeparationAfterMovingApart") {
     const initial = input.initialSeparation!;
     const time = input.elapsedTime!;
