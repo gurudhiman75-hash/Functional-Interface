@@ -58,6 +58,9 @@ export function validateLearnerVisibleExplanationV2(parts: readonly string[]): {
   if (/\bcomponent\s+[a-d]\b/i.test(text) || /\bcomp-[a-z0-9-]+\b/i.test(text)) {
     errors.push("INTERNAL_COMPONENT_LABEL_VISIBLE_TO_LEARNER");
   }
+  if (/\b(?:in\s+)?the\s+first\s+three\s+(?:figures|options)\b/i.test(text)) {
+    errors.push("DELIVERY_ORDER_ASSUMPTION_IN_EXPLANATION");
+  }
   if (!/(hook|line|triangle|circle|square|diamond|pentagon|dot|arrow|shape|figure|pair|box|symbol|marker)/i.test(text)) {
     errors.push("NO_VISIBLE_FEATURE_NAMED");
   }
