@@ -23,7 +23,7 @@ import {
   type MalCp004PermanentQlId,
 } from "./foundation/cp004-permanent-runtime";
 import type { MalCp004ProductReviewQuestion } from "./foundation/cp004-product-review-remediation-v3";
-import { runMalCp004EnglishProductReviewV7Pipeline } from "./foundation/cp004-product-review-runtime-v7";
+import { runMalCp004EnglishChapterClosureV8Pipeline } from "./foundation/cp004-chapter-closure-runtime-v8";
 import type { MalCp005PermanentQlId } from "./foundation/cp005-permanent-allocation-v1";
 import {
   MAL_CP005_RELEASE_ALLOCATION,
@@ -173,7 +173,7 @@ export function runMal001QuestionStudioPipeline(
       MAL_CP004_PERMANENT_ALLOCATION,
       input,
     ) as MalCp004PermanentQlId;
-    return runMalCp004EnglishProductReviewV7Pipeline({
+    return runMalCp004EnglishChapterClosureV8Pipeline({
       questionLanguageId,
       seed: input.seed,
       language: "en",
