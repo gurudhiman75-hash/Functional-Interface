@@ -3,7 +3,7 @@ import { MEN_CP_010_PERMANENT_ALLOCATION } from "./allocation";
 import {
   generateMenCp010PermanentEnglishQuestion,
   listMenCp010PermanentEnglishSources,
-} from "./runtime";
+} from "./runtime-v2";
 
 assert.equal(MEN_CP_010_PERMANENT_ALLOCATION.length, 26);
 
@@ -36,6 +36,10 @@ for (const allocation of MEN_CP_010_PERMANENT_ALLOCATION) {
     assert.ok(q.stem.length >= 20);
     assert.ok(q.explanation.steps.length >= 4);
     assert.ok(q.explanation.keyRule.length >= 8);
+    const worked = q.explanation.steps.find((step) => step.title === "Substitute and calculate");
+    assert.ok(worked, `${q.permanentQlId}/${q.sourceId} must have a worked calculation step`);
+    assert.ok(worked.body.includes(q.answer), `${q.permanentQlId}/${q.sourceId} worked step must state the answer`);
+    assert.match(worked.body, /[=×√∛/]/, `${q.permanentQlId}/${q.sourceId} worked step must show arithmetic`);
     assert.equal(q.englishImplementationFrozen, false);
     assert.equal(q.active, false);
     assert.equal(q.questionStudioDiscoverable, false);
@@ -66,6 +70,7 @@ console.log(JSON.stringify({
   declaredSourceCount: declaredSources.length,
   exercisedSourceCount: sourceHits.size,
   correctPositions: { A: positions[0], B: positions[1], C: positions[2], D: positions[3] },
+  workedExplanations: true,
   englishImplementationFrozen: false,
   productLocked: true,
 }, null, 2));
