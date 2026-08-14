@@ -1,42 +1,61 @@
-# WOR-001 Implementation Status
+# WOR-001 Implementation Status — Remediation V1
 
-## Completed
+## Current implementation
 
-- four-checkpoint runtime;
-- 19 provisional prototypes covering 15 distinct task kinds;
-- 12 curated word families with 108 approved entries;
-- canonical comparator and independent verifier;
-- difficulty engine and structural word-set recipes;
-- misconception-owned four-option generation;
+- clean WOR-001 subtree transplanted onto current `New-main` lineage rather than rebasing the stale multi-topic feature branch;
+- four-checkpoint runtime with 19 provisional prototypes / 15 distinct solve contracts;
+- 30 curated families / 360 globally unique A–Z word records, all `PROVISIONAL_REVIEW`;
+- canonical comparator plus independent selection-sort verifier;
+- identical-word comparison traces rejected explicitly;
+- state-derived Easy/Medium/Hard scoring with deterministic resampling to requested band;
+- truthful misconception metadata for sequence, word, rank and adjacent-pair distractors;
 - unique-answer correction and partial-order validators;
-- English, Hindi and Punjabi presentation;
-- review-only Question Studio adapter;
-- 136-question Markdown and JSON review pack per locale;
-- chapter-wide automated audit.
+- task-specific English, Hindi and Punjabi explanations;
+- locale-specific review-pack scaffolding with no hard-coded trilingual English/HI/PA label leakage;
+- source-evidence status attached to every prototype and generated question;
+- CP-003 source gaps encoded as governance state rather than hidden behind `RETAIN`;
+- stale checked-in review snapshots removed; review packs are generated as CI artifacts;
+- dedicated runtime, source-governance and corpus-diversity CI audits.
 
-## Latest automated evidence
+## Corpus shape
 
 ```text
-generated localized questions: 6,840
-answer positions: 570 / 570 / 570 / 570
-task kinds: 15
-word-family coverage: 12 / 12
-prefix-contained comparisons: 813
-late common-prefix comparisons: 6,912
-blank options: 0
-duplicate options: 0
-solver disagreements: 0
-ambiguous correction/partial-order answers: 0
-strict WOR-001 TypeScript errors: 0
-API production build: passed
+families: 30
+word records: 360
+EASY families: 8
+MEDIUM families: 10
+HARD families: 12
+editorial state: PROVISIONAL_REVIEW
+global normalized duplicates: blocked by runtime guard
 ```
 
-## Still gated
+## Source status
 
-- external book/platform/PYQ audit;
-- human English review;
+Core complete-order, endpoint and kth/position-style reasoning now has pinned competitive-exam evidence in the source audit. Platform-supported contracts remain marked separately. All six CP-003 contracts remain `EXPLORATORY_SOURCE_GAP` until recurring SSC/Banking/Punjab evidence is pinned or the contract is merged/removed.
+
+## Automated gate
+
+The head CI gate must pass all of the following before this remediation branch is considered merge-ready:
+
+1. deterministic multilingual runtime audit;
+2. requested difficulty equals state-derived difficulty;
+3. tier-aware structural difficulty ordering (Hard structurally deeper than Medium; Medium deeper than Easy);
+4. source-evidence governance audit;
+5. 30-family/360-word corpus uniqueness, reachability and visible-set diversity audit;
+6. commit-fresh review-pack generation and artifact upload;
+7. API production build.
+
+No locally stated pass result substitutes for the GitHub Actions result on the branch head.
+
+## Still gated after engineering remediation
+
+- source saturation / merge-remove decision for `EXPLORATORY_SOURCE_GAP` contracts;
+- human editorial approval of the 360-word corpus;
+- human English review of generated questions/explanations;
 - native Hindi review;
 - native Punjabi review;
 - permanent QL allocation;
 - central Question Studio discovery;
 - public mock-test release.
+
+Lifecycle remains `REVIEW_ONLY`; permanent QLs remain 0; Question Studio visibility and public release remain disabled.
