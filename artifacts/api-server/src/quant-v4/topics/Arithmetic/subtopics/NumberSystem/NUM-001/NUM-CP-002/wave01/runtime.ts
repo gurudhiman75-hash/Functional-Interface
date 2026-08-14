@@ -139,6 +139,7 @@ function prototype003(seed: number): Draft {
       { value: math(`\\frac{${q + r}}{${d}}`), misconceptionId: "ADD_WHOLE_AND_NUMERATOR" },
       { value: math(`\\frac{${q * d - r}}{${d}}`), misconceptionId: "SUBTRACT_REMAINDER" },
       { value: math(`\\frac{${q * d + r + 1}}{${d}}`), misconceptionId: "OFF_BY_ONE_NUMERATOR" },
+      { value: math(`\\frac{${q * d + r + d}}{${d}}`), misconceptionId: "ADD_DENOMINATOR_TO_NUMERATOR" },
     ],
     hiddenState: { q, r, d },
     solution: [`${math(`${q}\\times${d}+${r}=${n}`)}.`, `Therefore the fraction is ${math(`\\frac{${n}}{${d}}`)}.`],
