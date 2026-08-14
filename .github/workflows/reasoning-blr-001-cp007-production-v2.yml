@@ -7,14 +7,11 @@ on:
       - feat/blr-001-cp007-production-v2
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
-      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-model.ts"
-      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-graph.ts"
-      - "artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts"
-      - "artifacts/api-server/src/question-studio-review-registry.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio-reasoning.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/question-studio-standard-integration.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
       - "artifacts/api-server/src/routes/index.ts"
-      - "artifacts/admin-app/src/features/question-studio/reasoning-review-api.ts"
-      - "artifacts/admin-app/src/pages/content/QuestionStudioReasoningReviewPanel.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
       - ".github/workflows/reasoning-blr-001-cp007-production-v2.yml"
   pull_request:
@@ -22,14 +19,11 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
-      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-model.ts"
-      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-graph.ts"
-      - "artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts"
-      - "artifacts/api-server/src/question-studio-review-registry.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio-reasoning.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/question-studio-standard-integration.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
       - "artifacts/api-server/src/routes/index.ts"
-      - "artifacts/admin-app/src/features/question-studio/reasoning-review-api.ts"
-      - "artifacts/admin-app/src/pages/content/QuestionStudioReasoningReviewPanel.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
       - ".github/workflows/reasoning-blr-001-cp007-production-v2.yml"
   workflow_dispatch:
@@ -48,56 +42,45 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
       - name: Set up pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10.33.0
-
       - name: Install workspace dependencies
         run: pnpm install --frozen-lockfile
-
       - name: Prove frozen English corpus
         shell: bash
         run: |
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-english-frozen.test.ts | tee english-freeze.log
-
       - name: Prove multilingual freeze
         shell: bash
         run: |
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-multilingual-frozen.test.ts | tee multilingual-freeze.log
-
-      - name: Prove Question Studio adapter
+      - name: Prove Question Studio source adapter
         shell: bash
         run: |
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/question-studio-review-adapter.test.ts | tee studio-adapter.log
-
-      - name: Prove production lifecycle
+      - name: Prove standard production lifecycle
         shell: bash
         run: |
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/question-studio-production.test.ts | tee production-lifecycle.log
-
       - name: Typecheck admin application
         run: pnpm --dir artifacts/admin-app typecheck
-
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-
       - name: Export production evidence
         shell: bash
         run: |
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-question-studio-production.ts blr-cp007-production-v2-output | tee production-export.log
-
       - name: Verify production evidence
         shell: bash
         run: |
@@ -115,14 +98,14 @@ jobs:
           grep -q '"punjabiCount": 168' "$SUMMARY"
           grep -q '"uniqueQuestionLanguageIdCount": 504' "$SUMMARY"
           grep -q '"validRecordCount": 504' "$SUMMARY"
+          grep -q '"standardQuestionStudioWorkflow": true' "$SUMMARY"
+          grep -q '"separateReasoningWorkflowRemoved": true' "$SUMMARY"
           grep -q '"generationPersistenceEnabled": true' "$SUMMARY"
-          grep -q '"idempotentFullCorpusSyncEnabled": true' "$SUMMARY"
           grep -q '"approvalGatePreserved": true' "$SUMMARY"
           grep -q '"questionBankConversionEligibleAfterApproval": true' "$SUMMARY"
           grep -q '"mockTestEligibleAfterApproval": true' "$SUMMARY"
           grep -q '"publicationWorkflowEligibleAfterApproval": true' "$SUMMARY"
           grep -q '"automaticStudentPublication": false' "$SUMMARY"
-
       - name: Upload production logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -135,7 +118,6 @@ jobs:
             production-lifecycle.log
             production-export.log
           retention-days: 14
-
       - name: Upload production evidence pack
         uses: actions/upload-artifact@v4
         with:
