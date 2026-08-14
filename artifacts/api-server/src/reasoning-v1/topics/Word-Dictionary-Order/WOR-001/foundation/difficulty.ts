@@ -52,7 +52,10 @@ export function calculateWorDifficultyFeatures(
 }
 
 export function classifyWorDifficulty(features: WorDifficultyFeatures): WorDifficulty {
-  if (features.score <= 4) return "EASY";
-  if (features.score <= 9) return "MEDIUM";
+  // Calibrated against the executable WOR state space rather than family labels:
+  // easy correction/insertion states top out at 6; medium states occupy the
+  // transition band and hard families can reliably produce states above 15.
+  if (features.score <= 6) return "EASY";
+  if (features.score <= 15) return "MEDIUM";
   return "HARD";
 }
