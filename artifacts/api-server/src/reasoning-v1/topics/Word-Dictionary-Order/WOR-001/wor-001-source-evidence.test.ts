@@ -22,6 +22,7 @@ assert.ok(directPyq.some((prototype) => prototype.taskKind === "SELECT_COMPLETE_
 assert.ok(directPyq.some((prototype) => prototype.taskKind === "SELECT_FIRST"));
 assert.ok(directPyq.some((prototype) => prototype.taskKind === "SELECT_LAST"));
 assert.ok(directPyq.some((prototype) => prototype.taskKind === "SELECT_KTH"));
+assert.ok(directPyq.some((prototype) => prototype.taskKind === "SELECT_MIDDLE"));
 
 const sourceGaps = WOR_001_PROTOTYPES.filter((prototype) => prototype.sourceEvidenceStatus === "EXPLORATORY_SOURCE_GAP");
 assert.ok(sourceGaps.length > 0, "Source gaps were unexpectedly erased; rerun the source audit before freeze.");
@@ -30,11 +31,12 @@ assert.ok(sourceGaps.every((prototype) => freezeDecisionFor(prototype) !== "ELIG
 const freezeEligible = WOR_001_PROTOTYPES.filter((prototype) => freezeDecisionFor(prototype) === "ELIGIBLE_AFTER_EDITORIAL");
 const sourceDeferred = WOR_001_PROTOTYPES.filter((prototype) => freezeDecisionFor(prototype) === "DEFER_SOURCE_GAP");
 const instanceVariants = WOR_001_PROTOTYPES.filter((prototype) => freezeDecisionFor(prototype) === "INSTANCE_VARIANT_NO_QL");
-assert.equal(freezeEligible.length, 7);
+assert.deepEqual(freezeEligible.map((prototype) => prototype.prototypeId), ["WOR-PROT-001", "WOR-PROT-003", "WOR-PROT-005", "WOR-PROT-006"]);
+assert.equal(freezeEligible.length, 4);
 assert.equal(sourceDeferred.length, 8);
-assert.equal(instanceVariants.length, 4);
+assert.equal(instanceVariants.length, 7);
 
-// Until source gaps and editorial gates are resolved, WOR-001 must remain review-only.
+// Until human editorial gates are resolved, WOR-001 must remain review-only even though four QL roots are freeze candidates.
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.permanentQlCount, 0);
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.questionStudioVisible, false);
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.publicReleaseEnabled, false);
