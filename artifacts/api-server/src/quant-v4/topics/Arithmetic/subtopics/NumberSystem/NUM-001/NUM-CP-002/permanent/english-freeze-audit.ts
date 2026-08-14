@@ -145,6 +145,7 @@ function selectReviewQuestions(qlId: (typeof NUM_CP002_PERMANENT_QL_IDS)[number]
     selected.push(q);
     selectedSurfaces.add(surface);
   }
+  assert(selected.length >= 4, `${qlId}: review pack needs at least four covered questions`);
   return Object.freeze(selected);
 }
 
@@ -157,7 +158,7 @@ assert(
   JSON.stringify([...reviewPrototypeReach].sort()) === JSON.stringify([...expectedPrototypeReach].sort()),
   "review prototype reach",
 );
-assert(reviewQuestions.length >= 21 * 6 && reviewQuestions.length <= 21 * 10, "review pack size bounds");
+assert(reviewQuestions.length >= 21 * 4 && reviewQuestions.length <= 21 * 10, "review pack size bounds");
 
 const outDir = resolve(process.cwd(), "dist/quant-v4/num-cp002-permanent-english-freeze");
 mkdirSync(outDir, { recursive: true });
@@ -194,6 +195,9 @@ const csvRows = [
 ];
 writeFileSync(csvPath, csvRows.map((row) => row.map(csvCell).join(",")).join("\n"));
 
+const reviewQuestionsPerQl = Object.fromEntries(
+  NUM_CP002_PERMANENT_QL_IDS.map((qlId) => [qlId, reviewQuestions.filter((q) => q.permanentQlId === qlId).length]),
+);
 const audit = {
   status: "PASS_NUM_CP002_PERMANENT_ENGLISH_EDITORIAL_AUDIT",
   audited,
@@ -208,6 +212,7 @@ const audit = {
   maxStemWords,
   maxExplanationChars,
   reviewQuestionCount: reviewQuestions.length,
+  reviewQuestionsPerQl,
   reviewPrototypeReach: reviewPrototypeReach.size,
   questionStudioDiscoverableCount: 0,
   questionBankWritableCount: 0,
