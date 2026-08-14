@@ -1,0 +1,51 @@
+name: Validate MAL-001 67 QL English readiness
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-permanent-review-runtime-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave06-permanent-english-review-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-chapter-67ql-english-readiness-audit.ts"
+      - ".github/workflows/mal-001-chapter-67ql-english-readiness.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-mal-chapter-readiness:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP006 and chapter audits
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave05-permanent-allocation-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-cp006-wave05-permanent-allocation-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave06-permanent-english-review-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-cp006-wave06-permanent-english-review-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-chapter-67ql-english-readiness-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-chapter-67ql-english-readiness-audit.mjs
+      - name: Run CP006 allocation regression
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp006-wave05-permanent-allocation-audit.mjs
+      - name: Run CP006 permanent English review audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp006-wave06-permanent-english-review-audit.mjs | tee dist/quant-v4/mal-001-cp006-wave06-permanent-english-review-audit.log
+      - name: Run 67 QL chapter readiness audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-chapter-67ql-english-readiness-audit.mjs | tee dist/quant-v4/mal-001-chapter-67ql-english-readiness-audit.log
+      - name: Upload review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-001-67ql-english-readiness
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp006-wave06-permanent-english-review-audit.log
+            artifacts/api-server/dist/quant-v4/MAL-CP-006-WAVE-06-PERMANENT-ENGLISH-56Q-REVIEW.md
+            artifacts/api-server/dist/quant-v4/mal-cp006-wave06-permanent-english-review.json
+            artifacts/api-server/dist/quant-v4/mal-001-chapter-67ql-english-readiness-audit.log
+            artifacts/api-server/dist/quant-v4/MAL-001-CHAPTER-67QL-ENGLISH-READINESS-REVIEW.md
+            artifacts/api-server/dist/quant-v4/mal-001-chapter-67ql-english-readiness.json
+          if-no-files-found: error
+          retention-days: 14
