@@ -1,0 +1,37 @@
+name: Validate MAL-CP-006 Wave 03 merge-split analysis
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-wave03-merge-split-analysis.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave03-merge-split-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/MAL-CP-006/MAL-CP-006-WAVE-03-MERGE-SPLIT-ANALYSIS.md"
+      - ".github/workflows/mal-cp006-wave03-merge-split.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-wave03-merge-split:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave03-merge-split-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-cp006-wave03-merge-split-audit.mjs
+      - name: Run audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp006-wave03-merge-split-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp006-wave03-merge-split-audit.log
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp006-wave03-merge-split
+          path: artifacts/api-server/dist/quant-v4/mal-001-cp006-wave03-merge-split-audit.log
+          if-no-files-found: error
+          retention-days: 14

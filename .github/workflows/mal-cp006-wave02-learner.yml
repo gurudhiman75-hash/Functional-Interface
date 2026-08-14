@@ -1,0 +1,44 @@
+name: Validate MAL-CP-006 Wave 02 learner surface
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-wave02-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave02-learner-*.ts"
+      - ".github/workflows/mal-cp006-wave02-learner.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-mal-cp006-wave02-learner:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Bundle learner audit and review
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave02-learner-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-cp006-wave02-learner-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave02-learner-review.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-cp006-wave02-learner-review.mjs
+
+      - name: Run learner audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp006-wave02-learner-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp006-wave02-learner-audit.log
+          node dist/quant-v4/mal-001-cp006-wave02-learner-review.mjs 2>&1 | tee dist/quant-v4/mal-001-cp006-wave02-learner-review.log
+
+      - name: Upload learner evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp006-wave02-learner-surface
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp006-wave02-learner-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp006-wave02-learner-review.log
+            artifacts/api-server/dist/quant-v4/MAL-CP-006-WAVE-02-20Q-LEARNER-REVIEW.md
+          if-no-files-found: error
+          retention-days: 14

@@ -1,0 +1,53 @@
+name: Validate MAL-CP-006 Wave 01 executable discovery
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave01-executable-discovery-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/MAL-CP-006/**"
+      - ".github/workflows/mal-cp006-wave01-executable-discovery.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-mal-cp006-wave01:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle MAL-CP-006 Wave 01 audit
+        run: >
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave01-executable-discovery-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp006-wave01-executable-discovery-audit.mjs
+
+      - name: Run MAL-CP-006 Wave 01 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp006-wave01-executable-discovery-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp006-wave01-executable-discovery-audit.log
+
+      - name: Upload MAL-CP-006 Wave 01 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp006-wave01-executable-discovery
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp006-wave01-executable-discovery-audit.log
+            artifacts/api-server/dist/quant-v4/mal-cp006-wave01-executable-discovery.json
+            artifacts/api-server/dist/quant-v4/MAL-CP-006-WAVE-01-EXECUTABLE-DISCOVERY-30Q-REVIEW.md
+          if-no-files-found: error
+          retention-days: 14

@@ -1,0 +1,41 @@
+name: Validate MAL-CP-006 Wave 05 permanent allocation
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-permanent-allocation.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave05-permanent-allocation-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/MAL-CP-006/MAL-CP-006-WAVE-05-*.md"
+      - ".github/workflows/mal-cp006-wave05-permanent-allocation.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-wave05-permanent-allocation:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle allocation audit and review
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave05-permanent-allocation-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-cp006-wave05-permanent-allocation-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave05-permanent-allocation-review.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-cp006-wave05-permanent-allocation-review.mjs
+      - name: Run allocation audit and review
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp006-wave05-permanent-allocation-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp006-wave05-permanent-allocation-audit.log
+          node dist/quant-v4/mal-001-cp006-wave05-permanent-allocation-review.mjs > dist/quant-v4/MAL-CP-006-WAVE-05-PERMANENT-ALLOCATION-REVIEW.md
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp006-wave05-permanent-allocation
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp006-wave05-permanent-allocation-audit.log
+            artifacts/api-server/dist/quant-v4/MAL-CP-006-WAVE-05-PERMANENT-ALLOCATION-REVIEW.md
+          if-no-files-found: error
+          retention-days: 14
