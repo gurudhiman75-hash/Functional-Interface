@@ -11,7 +11,7 @@ Status: **48-QL AI/EDITORIAL REMEDIATION PASS — TRG-002 WORKFLOW PASS — REPR
 - production freeze eligible: **NO**.
 - Question Studio/Test Builder/storage/public/localization activation: **OFF**.
 
-The self-review deliberately reopened the earlier editorial PASS and found real weaknesses. Those findings were remediated and regression-locked before restoring the current AI/editorial PASS status.
+The self-review deliberately reopened the earlier editorial PASS and found real weaknesses. Those findings were remediated and regression-locked before restoring the current AI/editorial PASS status. A subsequent review of the actual generated 48-question artifact found additional presentation-only defects; those have also been corrected without changing canonical answers or spatial state.
 
 ## Self-review remediation
 
@@ -21,13 +21,15 @@ Student-facing/editorial fixes include:
 - QL-024: natural grammar plus a genuine trig-based third distractor;
 - QL-043: fallen part explicitly makes 45° with the ground, with stronger misconception provenance;
 - QL-049: 30° is explicitly assigned to the farther point and 60° to the nearer point;
-- QL-067: diversified to a 45°/30° exact system and explicitly collinear geometry;
+- QL-067: diversified to a 45°/30° exact system and explicitly collinear geometry; its subtraction distractor now uses conventional positive-first surd notation;
 - QL-069: diversified to a 45°/60° moving-observer exact system;
 - QL-071: observation point and both tower feet are explicitly stated collinear and same-side;
-- QL-076: half-metre building heights are displayed naturally as decimals such as 13.5 m;
-- QL-081: Hard explanation now derives `x=3y` and solves the unequal opposite-side system;
+- QL-073: half-metre final answers/options are displayed as natural decimals rather than `/2` fractions;
+- QL-076: half-metre building heights and distractors are displayed naturally as decimals such as 13.5 m;
+- QL-081: Hard explanation derives `x=3y`, solves the unequal opposite-side system, and no longer repeats the same exact value in the final equality;
 - QL-083: horizontal distance between the feet of the two buildings is stated explicitly from canonical state;
 - QL-092: arbitrary multiple distractors replaced by genuine trig misconceptions;
+- QL-095: composite mast answer is displayed conventionally as `k(√3−1)` instead of a negative-first linear surd;
 - QL-096: Hard explanation explicitly shows rationalisation of `1/(√3-1)`.
 
 Difficulty is currently locked as Medium for QL-052/055/058/061/064/095 and Hard for QL-096.
@@ -57,10 +59,11 @@ This is **representative runtime visual evidence**, not a per-seed or real-app/b
 
 Workflow: `.github/workflows/trg-002-mvp48-verification.yml`.
 
-Latest observed successful remediation run:
+Latest observed successful post-audit remediation run:
 
-- run: **31794139792**
-- head: `f5a95957a7b3b22b59e211e30c5a9a6f6db4b239`
+- run: **31820489042**
+- head: `0a0b0fbe72bd053252d7dd05c33721a9aab522d2`
+- artifact id: **9226750393**
 - conclusion: **success**
 
 Passed:
@@ -72,7 +75,7 @@ Passed:
 - difficulty regression gate;
 - all 14 locked diagram-strategy representatives;
 - high-risk projection gate;
-- expanded 576-case final-editorial regression gate;
+- expanded 576-case final-editorial regression gate including student-facing presentation locks;
 - actual-runtime 48-QL HTML/JSON export;
 - artifact verification and upload.
 
