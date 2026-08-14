@@ -2,7 +2,7 @@
 
 ## Gate
 
-`PERMANENT_IDENTITY_ALLOCATION_APPROVED_AND_IMPLEMENTED_PENDING_EXACT_HEAD_PROOF`
+`PERMANENT_IDENTITY_ALLOCATION_COMPLETE_INACTIVE`
 
 ## Frozen English identities
 
@@ -28,6 +28,12 @@ Shared cores:
 - `STAGED_VESSEL_LEDGER`: QLs `061`, `063`, `064`, `065`, `066`, `067`
 - `SIMULTANEOUS_EQUAL_EXCHANGE`: QL `062`
 
+## Allocation proof
+
+The dedicated Wave05 workflow validates exact seven-prototype coverage, contiguous QLs and solve modes, 6+1 shared-core ownership, held CP001-boundary exclusion, Wave04 within-identity mapping and delivery lifecycle isolation. It also reruns 840 approved-authority regression questions across the Wave01 final learner authority, Wave02 V4 and Wave04 V2.
+
+Exact current-head workflow evidence and artifact digest are recorded on PR #748 so this status file does not create a self-referential proof commit.
+
 ## Boundary locks
 
 - common-final-concentration equal exchange remains held at the CP001 weighted-blend boundary;
@@ -48,4 +54,4 @@ Hindi authorized:            false
 Punjabi authorized:          false
 ```
 
-No merge or release activation is authorized by this status. Exact-head workflow evidence must pass before Wave05 is considered technically closed.
+Wave05 permanent allocation is technically complete, but release activation is not. No Question Studio adapter/registry activation, Question Bank writes, test/mock delivery, public publication, localization or PR merge is authorized by this status.
