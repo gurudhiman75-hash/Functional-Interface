@@ -64,5 +64,38 @@ export function deriveStrongCp004WrongWorkingsV6(
     return Object.freeze(rows);
   }
 
+  if (mode === "findDelayedStartCatchUpTime") {
+    const faster = input.speedA!;
+    const slower = input.speedB!;
+    const delay = input.startDelay!;
+    const headStart = multiply(slower, delay);
+    const averageSpeed = divide(add(faster, slower), rational(2));
+    const halfClosingRate = subtract(faster, averageSpeed);
+    const { rows, push } = rowsFor(solution.answer);
+    push("TREAT_DELAY_AS_PURSUIT_TIME", delay, "copy the departure delay as the pursuit time", "The learner confuses the time used to create the head start with the later interval during which the faster vehicle closes that head start.");
+    push("USE_ONE_SPEED_ONLY", divide(headStart, faster), "head-start distance ÷ faster vehicle speed", "The vehicle ahead is incorrectly treated as stationary once the pursuit begins, so the pursuer's full speed is used instead of closing speed.");
+    push("USE_AVERAGE_SPEED", divide(headStart, averageSpeed), "head-start distance ÷ average vehicle speed", "The learner uses average absolute speed as though it were the same-direction gap-closing rate.");
+    push("USE_AVERAGE_SPEED", divide(headStart, halfClosingRate), "head-start distance ÷ (faster speed − average speed)", "The learner compares the pursuer with the average speed, using only half of the true closing rate and therefore overestimating pursuit time.");
+    if (rows.length < 3) throw new Error(`${mode}: V6 produced only ${rows.length} competitive delayed-start catch-up distractors`);
+    return Object.freeze(rows);
+  }
+
+  if (mode === "findStartDelayFromCatchUpState") {
+    const faster = input.speedA!;
+    const slower = input.speedB!;
+    const pursuitTime = input.meetingTime!;
+    const closing = subtract(faster, slower);
+    const trueLead = multiply(closing, pursuitTime);
+    const halfClosing = divide(closing, rational(2));
+    const averageSpeed = divide(add(faster, slower), rational(2));
+    const { rows, push } = rowsFor(solution.answer);
+    push("TREAT_DELAY_AS_PURSUIT_TIME", pursuitTime, "copy the pursuit duration as the earlier departure delay", "The learner treats the time spent chasing as equal to the time by which the slower vehicle originally departed earlier.");
+    push("USE_ONE_SPEED_ONLY", divide(trueLead, faster), "reconstructed lead ÷ faster vehicle speed", "The lead was created by the slower vehicle before pursuit began, so dividing it by the faster vehicle's speed reconstructs the wrong departure delay.");
+    push("USE_AVERAGE_SPEED", divide(multiply(halfClosing, pursuitTime), slower), "half-closing-speed lead ÷ slower speed", "Only half of the true closing rate is used to reconstruct the lead, causing the earlier-start interval to be understated.");
+    push("USE_AVERAGE_SPEED", divide(trueLead, averageSpeed), "reconstructed lead ÷ average vehicle speed", "The learner converts the lead back to a delay using average speed instead of the speed of the vehicle that actually built the lead before pursuit started.");
+    if (rows.length < 3) throw new Error(`${mode}: V6 produced only ${rows.length} competitive start-delay distractors`);
+    return Object.freeze(rows);
+  }
+
   return deriveStrongCp004WrongWorkingsV5(mode, input, solution);
 }
