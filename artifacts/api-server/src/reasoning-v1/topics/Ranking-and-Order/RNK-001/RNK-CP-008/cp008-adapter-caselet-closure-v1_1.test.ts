@@ -7,12 +7,12 @@ import {
   adaptRnkCp007DerivedOrderToExistingQl,
   buildRnkCp008Q27Q28CanonicalState,
   classifyRnkCp008NumericSourceSurface,
-  generateRnkCp008SharedCaselet,
   solveRnkCp008CaseletOrders,
   solveRnkCp008NumericValueConstrainedOrder,
 } from "./cp008-adapter-caselet-closure-v1";
 import {
   generateRnkCp008RelationalSideCountQuestionV1_1,
+  generateRnkCp008SharedCaseletV1_1,
   routeRnkCp008NumericConstraintRankQueryV1_1,
 } from "./cp008-adapter-caselet-closure-v1_1";
 
@@ -58,21 +58,35 @@ assert.equal(
   "REDIRECT_MIXED_NUMERIC_CONSTRAINT",
 );
 
-// Multi-order numeric states keep pair-truth ownership in QL036, not QL038.
-const ambiguousNumeric = solveRnkCp008NumericValueConstrainedOrder({
+// Multi-order numeric states keep pair-truth ownership in QL036.
+const constrainedPair = solveRnkCp008NumericValueConstrainedOrder({
   entities: ["A", "B", "C"],
   minValue: 1,
   maxValue: 3,
   higherValueMeansHigherRank: true,
   constraints: [{ kind: "GREATER_THAN", left: "A", right: "B" }],
 });
-assert.ok(ambiguousNumeric.uniqueOrdersFromHighest.length > 1);
+assert.ok(constrainedPair.uniqueOrdersFromHighest.length > 1);
 const invariantPair = routeRnkCp008NumericConstraintRankQueryV1_1(
-  ambiguousNumeric,
+  constrainedPair,
   { kind: "RELATIVE_ORDER", first: "A", second: "B" },
 );
 assert.equal(invariantPair.mappedQlId, "RNK-QL-036");
 assert.equal(invariantPair.answer, "FIRST_ABOVE");
+
+const unconstrainedPair = solveRnkCp008NumericValueConstrainedOrder({
+  entities: ["A", "B", "C"],
+  minValue: 1,
+  maxValue: 3,
+  higherValueMeansHigherRank: true,
+  constraints: [],
+});
+const indeterminatePair = routeRnkCp008NumericConstraintRankQueryV1_1(
+  unconstrainedPair,
+  { kind: "RELATIVE_ORDER", first: "A", second: "B" },
+);
+assert.equal(indeterminatePair.mappedQlId, "RNK-QL-036");
+assert.equal(indeterminatePair.answer, "INDETERMINATE");
 
 // Q66 family: learner-visible total makes the algebraic preprocessing sufficient.
 for (let seed = 0; seed < 96; seed += 1) {
@@ -98,8 +112,10 @@ assert.equal(adaptRnkCp007DerivedOrderToExistingQl("FOURTH_FROM_TOP", 37).mapped
 
 // Shared passages are delivery infrastructure: each child retains existing QL ownership.
 const allowedCaseletQls = new Set(["RNK-QL-027", "RNK-QL-028", "RNK-QL-031", "RNK-QL-033"]);
-for (let seed = 0; seed < 64; seed += 1) {
-  const caselet = generateRnkCp008SharedCaselet(seed);
+const contextCounts = new Map<string, number>();
+for (let seed = 0; seed < 96; seed += 1) {
+  const caselet = generateRnkCp008SharedCaseletV1_1(seed);
+  contextCounts.set(caselet.context, (contextCounts.get(caselet.context) ?? 0) + 1);
   const solved = solveRnkCp008CaseletOrders(caselet.entities, caselet.clues);
   assert.equal(solved.length, 1);
   assert.deepEqual(solved[0], caselet.hiddenOrder);
@@ -110,7 +126,17 @@ for (let seed = 0; seed < 64; seed += 1) {
     assert.equal(new Set(child.options).size, 4);
     assert.equal(child.options[child.correctIndex], child.answer);
   }
+  const neighbour = caselet.children.find((child) => child.mappedQlId === "RNK-QL-033")!;
+  if (caselet.context === "RACE_FINISH") {
+    assert.match(neighbour.stem, /finished immediately after/i);
+    assert.doesNotMatch(neighbour.stem, /below/i);
+  } else if (caselet.context === "MERIT_LIST") {
+    assert.match(neighbour.stem, /merit list/i);
+  } else {
+    assert.match(neighbour.stem, /performance/i);
+  }
 }
+assert.equal(contextCounts.size, 3);
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -118,10 +144,11 @@ console.log(JSON.stringify({
   permanentQlsAllocated: RNK_CP008_PERMANENT_QLS_ALLOCATED,
   nextAvailableQl: RNK_CP008_NEXT_AVAILABLE_QL,
   q27q28Assignments: q27q28.assignments.length,
-  ambiguousNumericOrders: ambiguousNumeric.uniqueOrdersFromHighest.length,
-  ambiguousPairMappedQl: invariantPair.mappedQlId,
+  invariantPairMappedQl: invariantPair.mappedQlId,
+  indeterminatePairMappedQl: indeterminatePair.mappedQlId,
   relationalSideCountSeeds: 96,
-  sharedCaseletSeeds: 64,
+  sharedCaseletSeeds: 96,
+  sharedCaseletContexts: Object.fromEntries(contextCounts),
   questionStudio: RNK_CP008_LIFECYCLE.questionStudio,
   publicPublication: RNK_CP008_LIFECYCLE.publiclyPublishable,
 }, null, 2));
