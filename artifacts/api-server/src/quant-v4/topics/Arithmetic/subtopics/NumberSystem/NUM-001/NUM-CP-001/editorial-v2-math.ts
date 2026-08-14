@@ -26,14 +26,15 @@ function prejoinExistingMath(value: string): string {
   return output;
 }
 
+function wrapWorkingLabels(value: string): string {
+  const workingLabels = new RegExp(`(${WORKING_LABELS})\\s*=\\s*([^.;।\\n]+)(?=[.;।])`, "gu");
+  return value.replace(workingLabels, (_match, label, working) => `${label}: ${inline(mathBody(String(working)))}`);
+}
+
 function wrapRawFormulae(value: string): string {
   let output = value;
 
   output = output.replace(/\b([A-D]|x|n|b|p|q|r|m)\s*=\s*(-?\d+(?:\.\d+)?)\b/gu, (_match, label, number) => inline(`${label}=${number}`));
-
-  // Capture a labelled calculation before any inner arithmetic can be wrapped separately.
-  const workingLabels = new RegExp(`(${WORKING_LABELS})\\s*=\\s*([^.;।\\n]+)(?=[.;।])`, "gu");
-  output = output.replace(workingLabels, (_match, label, working) => `${label}: ${inline(mathBody(String(working)))}`);
 
   output = output.replace(/(-?\d+\/\d+)\s*<\s*([A-Za-z])\s*<\s*(-?\d+\/\d+)/gu, (_match, left, variable, right) => inline(`${fractionBody(left)}<${variable}<${fractionBody(right)}`));
   output = output.replace(/(-?\d+(?:\.\d+)?)\s*<\s*([A-Za-z])\s*<\s*(-?\d+(?:\.\d+)?)/gu, (_match, left, variable, right) => inline(`${left}<${variable}<${right}`));
@@ -58,6 +59,8 @@ export function latexifyLearnerText(value: string): string {
   });
 
   let output = protect(prejoinExistingMath(value));
+  output = wrapWorkingLabels(output);
+  output = protect(output);
   output = wrapRawFormulae(output);
   output = protect(output);
 
