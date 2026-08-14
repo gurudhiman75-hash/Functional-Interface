@@ -1,4 +1,4 @@
-name: Reasoning BLR-001 Complete Question Studio
+name: Reasoning BLR-001 Standard Question Studio
 
 on:
   pull_request:
@@ -6,25 +6,27 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
-      - "artifacts/api-server/src/routes/admin-question-studio-reasoning-blr-chapter.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio-reasoning-cp006.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio-reasoning.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
       - "artifacts/api-server/src/routes/index.ts"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
       - ".github/workflows/reasoning-blr-001-complete-question-studio.yml"
   push:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
-      - "artifacts/api-server/src/routes/admin-question-studio-reasoning-blr-chapter.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
       - "artifacts/api-server/src/routes/index.ts"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  validate-complete-chapter:
+  validate-standard-integration:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -40,7 +42,9 @@ jobs:
           version: 10.33.0
       - name: Install workspace dependencies
         run: pnpm install --frozen-lockfile
-      - name: Prove complete BLR Question Studio adapter
+      - name: Prove BLR standard Question Studio integration
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/question-studio-standard-integration.test.ts
+      - name: Regress chapter source adapter
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/question-studio-chapter-adapter.test.ts
       - name: Regress CP-001 runtime
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/cp001-runtime.test.ts
@@ -58,8 +62,8 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-005/cp005-runtime.test.ts
       - name: Regress CP-006 runtime
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts
-      - name: Regress CP-007 production adapter
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/question-studio-review-adapter.test.ts
+      - name: Prove CP-007 standard production lifecycle
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/question-studio-production.test.ts
       - name: Typecheck admin application
         run: pnpm --dir artifacts/admin-app typecheck
       - name: Build API server

@@ -11,6 +11,12 @@ import {
   listProbabilityStandardQuestionStudioPackages,
   type ProbabilityStandardQuestionStudioRequest,
 } from "./topics/Probability/question-studio-integration";
+import {
+  generateBlr001StandardQuestionStudioBatch,
+  isBlr001StandardQuestionStudioRequest,
+  listBlr001StandardQuestionStudioPackages,
+  type Blr001StandardQuestionStudioRequest,
+} from "../reasoning-v1/topics/Blood-Relations/BLR-001/question-studio-standard-integration";
 
 export type {
   QuantV4Difficulty,
@@ -25,11 +31,17 @@ export function listQuantV4Packages() {
   const packages = listLegacyPackages().filter(
     (entry) => entry.packageId !== "PRB-001" && entry.packageId !== "PRB-002",
   );
-  return [...packages, ...listProbabilityStandardQuestionStudioPackages()]
-    .sort((left, right) => left.packageId.localeCompare(right.packageId));
+  return [
+    ...packages,
+    ...listProbabilityStandardQuestionStudioPackages(),
+    ...listBlr001StandardQuestionStudioPackages(),
+  ].sort((left, right) => left.packageId.localeCompare(right.packageId));
 }
 
 export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
+  if (isBlr001StandardQuestionStudioRequest(request as Blr001StandardQuestionStudioRequest)) {
+    return generateBlr001StandardQuestionStudioBatch(request as Blr001StandardQuestionStudioRequest);
+  }
   if (isProbabilityStandardQuestionStudioRequest(request as ProbabilityStandardQuestionStudioRequest)) {
     return generateProbabilityQuestionStudioBatch(request as ProbabilityStandardQuestionStudioRequest);
   }

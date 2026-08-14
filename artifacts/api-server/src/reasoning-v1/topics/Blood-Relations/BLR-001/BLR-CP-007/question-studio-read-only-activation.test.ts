@@ -1,9 +1,6 @@
 import { strict as assert } from "node:assert";
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
 
 import {
-  listEnabledReasoningV1QuestionStudioPackages,
   listReasoningV1QuestionStudioReviewPackages,
   persistReasoningV1QuestionStudioReview,
   previewReasoningV1QuestionStudioReview,
@@ -12,69 +9,84 @@ import {
   BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
   BLR_CP007_QUESTION_STUDIO_QL_IDS,
 } from "./question-studio-review-adapter";
+import {
+  generateBlr001StandardQuestionStudioBatch,
+  listBlr001StandardQuestionStudioPackages,
+} from "../question-studio-standard-integration";
 
-const packages = listReasoningV1QuestionStudioReviewPackages();
-const enabledPackages = listEnabledReasoningV1QuestionStudioPackages();
+const sourcePackages = listReasoningV1QuestionStudioReviewPackages();
+assert.equal(sourcePackages.length, 1);
+assert.equal(sourcePackages[0]?.packageId, BLR_CP007_QUESTION_STUDIO_PACKAGE_ID);
+assert.equal(sourcePackages[0]?.enabled, false);
+assert.equal(sourcePackages[0]?.persistenceAllowed, false);
+assert.equal(sourcePackages[0]?.questionStudioVisible, false);
+assert.equal(sourcePackages[0]?.questionBankEligible, false);
+assert.equal(sourcePackages[0]?.mockTestEligible, false);
+assert.equal(sourcePackages[0]?.publiclyPublishable, false);
 
-assert.equal(packages.length, 1);
-assert.equal(packages[0]?.packageId, BLR_CP007_QUESTION_STUDIO_PACKAGE_ID);
-assert.equal(packages[0]?.reviewPreviewAvailable, true);
-assert.equal(packages[0]?.enabled, false);
-assert.equal(packages[0]?.persistenceAllowed, false);
-assert.equal(packages[0]?.questionStudioVisible, false);
-assert.equal(packages[0]?.questionBankEligible, false);
-assert.equal(packages[0]?.mockTestEligible, false);
-assert.equal(packages[0]?.publiclyPublishable, false);
-assert.equal(enabledPackages.length, 0);
+const standardPackage = listBlr001StandardQuestionStudioPackages().find(
+  (entry) => entry.packageId === BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
+);
+assert.ok(standardPackage);
+assert.equal(standardPackage?.enabled, true);
+assert.equal(standardPackage?.manualApprovalRequired, true);
+assert.equal(standardPackage?.automaticStudentPublication, false);
 
 const languages = ["en", "hi", "pa"] as const;
 const difficulties = ["Easy", "Medium", "Hard"] as const;
 let validatedPreviewCount = 0;
 
 for (const language of languages) {
-  const sample = previewReasoningV1QuestionStudioReview({
+  const sourceSample = previewReasoningV1QuestionStudioReview({
     packageId: BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
     language,
-    count: 5,
-    seed: `read-only-activation:${language}`,
+    count: 3,
+    seed: `source-lock:${language}`,
   });
-  assert.equal(sample.questions.length, 5);
-  assert.equal(sample.generationContext.persistenceAllowed, false);
-  assert.equal(sample.generationContext.publiclyPublishable, false);
+  assert.equal(sourceSample.generationContext.persistenceAllowed, false);
+  assert.equal(sourceSample.generationContext.publiclyPublishable, false);
+  assert.equal(sourceSample.questions.every((entry) => entry.safety.persistenceAllowed === false), true);
 
-  for (const question of sample.questions) {
+  const standardSample = generateBlr001StandardQuestionStudioBatch({
+    packageId: BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
+    language,
+    count: 3,
+    seed: `standard-staging:${language}`,
+  });
+  assert.equal(standardSample.generationContext.persistenceAllowed, true);
+  assert.equal(standardSample.generationContext.manualApprovalRequired, true);
+  assert.equal(standardSample.generationContext.automaticStudentPublication, false);
+
+  for (const question of standardSample.questions) {
     assert.equal(question.language, language);
     assert.equal(question.validation.valid, true);
-    assert.equal(question.options.length, 4);
-    assert.equal(question.safety.reviewOnly, true);
-    assert.equal(question.safety.questionStudioVisible, false);
-    assert.equal(question.safety.persistenceAllowed, false);
-    assert.equal(question.safety.questionBankEligible, false);
-    assert.equal(question.safety.mockTestEligible, false);
-    assert.equal(question.safety.publiclyPublishable, false);
+    assert.equal(question.manualApprovalRequired, true);
+    assert.equal(question.automaticStudentPublication, false);
+    assert.equal(question.sourceSafety.persistenceAllowed, false);
+    assert.equal(question.sourceSafety.publiclyPublishable, false);
     validatedPreviewCount += 1;
   }
 
   for (const qlId of BLR_CP007_QUESTION_STUDIO_QL_IDS) {
-    const qlSample = previewReasoningV1QuestionStudioReview({
+    const qlSample = generateBlr001StandardQuestionStudioBatch({
       packageId: BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
       language,
-      qlId,
+      canonicalProblemId: qlId,
       count: 1,
-      seed: `read-only-activation:${language}:${qlId}`,
+      seed: `standard-staging:${language}:${qlId}`,
     });
     assert.equal(qlSample.questions[0]?.qlId, qlId);
   }
 
   for (const difficulty of difficulties) {
-    const difficultySample = previewReasoningV1QuestionStudioReview({
+    const difficultySample = generateBlr001StandardQuestionStudioBatch({
       packageId: BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
       language,
       difficulty,
       count: 1,
-      seed: `read-only-activation:${language}:${difficulty}`,
+      seed: `standard-staging:${language}:${difficulty}`,
     });
-    assert.equal(difficultySample.questions[0]?.difficultyBand, difficulty);
+    assert.equal(difficultySample.questions[0]?.difficulty, difficulty);
   }
 }
 
@@ -87,46 +99,13 @@ assert.throws(
   /review-only|persistence|activation/i,
 );
 
-const repoRoot = resolve(import.meta.dirname, "../../../../../../../..");
-const routeSource = readFileSync(
-  resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-reasoning-review.ts"),
-  "utf8",
-);
-const routeIndexSource = readFileSync(
-  resolve(repoRoot, "artifacts/api-server/src/routes/index.ts"),
-  "utf8",
-);
-const operationsPageSource = readFileSync(
-  resolve(repoRoot, "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"),
-  "utf8",
-);
-const clientSource = readFileSync(
-  resolve(repoRoot, "artifacts/admin-app/src/features/question-studio/reasoning-review-api.ts"),
-  "utf8",
-);
-
-assert.match(routeSource, /content\.generation\.read/);
-assert.match(routeSource, /ADMIN_READ_ONLY/);
-assert.match(routeSource, /databaseWriteEnabled:\s*false/);
-assert.match(routeSource, /persistenceAllowed:\s*false/);
-assert.match(routeSource, /QUESTION_STUDIO_PERSISTENCE_LOCKED/);
-assert.doesNotMatch(routeSource, /sqlClient|INSERT INTO|generation_runs/);
-assert.match(routeIndexSource, /adminQuestionStudioReasoningReviewRouter/);
-assert.match(operationsPageSource, /QuestionStudioReasoningReviewPanel/);
-assert.match(clientSource, /reasoning-review\/packages/);
-assert.match(clientSource, /reasoning-review\/preview/);
-assert.doesNotMatch(clientSource, /method:\s*['"]POST['"]/);
-
 console.log(JSON.stringify({
-  verdict: "BLR_CP007_ADMIN_READ_ONLY_ACTIVATION_PROVED",
-  reviewPackageCount: packages.length,
-  enabledGenerationPackageCount: enabledPackages.length,
+  verdict: "BLR_CP007_FROZEN_SOURCE_LOCKS_PRESERVED_UNDER_STANDARD_STAGING",
+  sourceAdapterPersistenceAllowed: false,
+  standardQuestionStudioStagingAllowed: true,
+  manualApprovalRequired: true,
+  automaticStudentPublication: false,
   validatedPreviewCount,
   languages,
   qlCount: BLR_CP007_QUESTION_STUDIO_QL_IDS.length,
-  databaseWriteEnabled: false,
-  persistenceAllowed: false,
-  questionBankEligible: false,
-  mockTestEligible: false,
-  publiclyPublishable: false,
 }, null, 2));
