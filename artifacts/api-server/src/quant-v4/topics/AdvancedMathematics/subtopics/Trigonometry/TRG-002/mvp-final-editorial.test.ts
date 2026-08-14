@@ -21,6 +21,9 @@ for (const qlId of TRG_002_MVP_48_IDS) {
     assert(question.finalEditorialReview.humanReviewSubstituted === false, `${qlId}: AI review must not substitute for human review.`);
     assert(question.questionBankStatus === "NOT_STORED" && question.testEligibility === "INELIGIBLE", `${qlId}: activation lock changed.`);
     assert(question.publiclyPublishable === false && question.questionStudioDiscoverable === false, `${qlId}: publication/discovery lock changed.`);
+    assert(!question.answer.startsWith("-"), `${qlId}: student-facing answer must not start with an avoidable negative term.`);
+    assert(!question.options.some((option: any) => option.display.startsWith("-")), `${qlId}: option presentation must not start with an avoidable negative term.`);
+    assert(!question.options.some((option: any) => /\b\d+\/2 m\b/.test(option.display)), `${qlId}: half-metre option values must use natural decimal presentation.`);
     cases += 1;
   }
 }
@@ -47,14 +50,19 @@ const q049: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-049", wo
 assert(q049.stem.includes("30° at A, the farther point") && q049.stem.includes("60° at B, the nearer point"), "QL-049 must assign each angle to the correct observation point explicitly.");
 const q067: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-067", wordingSeed);
 assert(q067.stem.includes("45°") && q067.stem.includes("30°") && q067.stem.includes("same straight line"), "QL-067 must retain its diversified 45°/30° collinear form.");
+assert(!q067.options.some((option: any) => option.display.startsWith("-")), "QL-067 separation distractor must use conventional positive-first surd notation.");
 const q069: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-069", wordingSeed);
 assert(q069.stem.includes("45°") && q069.stem.includes("60°"), "QL-069 must retain its diversified 45°/60° moving-observer form.");
 const q071: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-071", wordingSeed);
 assert(q071.stem.includes("feet of both towers lie on the same straight line"), "QL-071 must state the collinearity needed to subtract tower distances.");
+const q073: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-073", wordingSeed);
+assert(/^\d+\.5 m$/.test(q073.answer), "QL-073 half-metre final answer must be presented as a natural decimal.");
 const q076: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-076", wordingSeed);
 assert(/\d+\.5 m building/.test(q076.stem) && !/\d+\/2 m building/.test(q076.stem), "QL-076 must present half-metre building heights as natural decimals.");
+assert(!q076.options.some((option: any) => /\b\d+\/2 m\b/.test(option.display)), "QL-076 half-metre distractors must also use natural decimals.");
 const q081: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-081", wordingSeed);
 assert(q081.explanation.steps.some((step: any) => step.body.includes("x=3y")), "QL-081 Hard explanation must derive the unequal opposite-side distance ratio.");
+assert(!q081.explanation.steps.some((step: any) => /(\d+√3)=\1 m/.test(step.body)), "QL-081 explanation must not repeat the same exact value on both sides of an equality.");
 const q083: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-083", wordingSeed);
 assert(q083.stem.includes("horizontal distance between the feet of the two buildings"), "QL-083 must state the horizontal building separation explicitly.");
 const q092: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-092", wordingSeed);
@@ -62,6 +70,7 @@ const q092WrongIds = new Set(q092.options.filter((option: any) => !option.isCorr
 assert(q092WrongIds.has("RETURNED_LINE_OF_SIGHT_USING_SIN45") && q092WrongIds.has("TREATED_TOWER_HEIGHT_AS_HYPOTENUSE") && q092WrongIds.has("USED_60_DEGREE_RATIO_INSTEAD_OF_45"), "QL-092 distractors must come from genuine trigonometric misconceptions rather than arbitrary multiples.");
 const q095: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-095", wordingSeed);
 assert(q095.stem.includes("point on level ground") && q095.stem.includes("from the foot of a building"), "QL-095 must state the observation baseline explicitly.");
+assert(/^\d+\(√3−1\) m$/.test(q095.answer), "QL-095 answer must use conventional factored positive-first surd notation.");
 const q096: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-096", wordingSeed);
 assert(q096.explanation.steps.some((step: any) => step.body.includes("Rationalize") && step.body.includes("√3+1")), "QL-096 Hard explanation must show the rationalization step explicitly.");
 
