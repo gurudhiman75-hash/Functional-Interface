@@ -46,7 +46,8 @@ export function generateSpatialFanArbitraryAngleQuestionV1(input: {
   angleDeg: SpatialFanArbitraryAngleV1;
   desiredCorrectOptionIndex?: 0 | 1 | 2 | 3;
 }): SpatialFanArbitraryAngleQuestionV1 {
-  const desired = input.desiredCorrectOptionIndex ?? 0;
+  const slotRng = new SpatialSeededRandom(`${input.seed}:correct-slot`);
+  const desired = input.desiredCorrectOptionIndex ?? (slotRng.int(0, 3) as 0 | 1 | 2 | 3);
   const pivot = { x: 50, y: 50 };
   const a = buildSeededAsymmetricComposition(`${input.seed}:A`);
   const c = buildSeededAsymmetricComposition(`${input.seed}:C:TRANSFER`);
