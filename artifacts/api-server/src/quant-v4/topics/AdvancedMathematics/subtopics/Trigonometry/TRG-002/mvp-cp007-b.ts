@@ -34,6 +34,7 @@ function ql020(seed: string) {
   const targetHeight = exactInteger(mvpPick(seed, "020-target", [6, 10, 14] as const));
   const observerHeight = addExact(targetHeight, d);
   const state = buildSingleDepressionState({ horizontal: d, angle: degree(45), observerEyeHeight: observerHeight, targetHeight, units: "m" });
+  state.metadata.measurements = { "target-height": targetHeight };
   return buildTrg002MvpQuestion({ qlId: "TRG-002-QL-020", cpId: "TRG-CP-007", lockedFamily: "DISTANCE_FROM_DEPRESSION", solveMode: "findHorizontalDistanceFromDepressionAndLevels", seed, difficulty: "Medium", target: "LENGTH",
     stem: `From a point ${formatExactPlain(observerHeight)} m above ground, the top of a ${formatExactPlain(targetHeight)} m pole is seen at 45° depression. Find the horizontal distance.`, state, correct: mvpNumberAnswer(d),
     wrong: [{ value: mvpNumberAnswer(observerHeight), misconceptionId: "USED_FULL_OBSERVER_HEIGHT" }, { value: mvpNumberAnswer(targetHeight), misconceptionId: "RETURNED_TARGET_HEIGHT" }, { value: mvpNumberAnswer(addExact(observerHeight, targetHeight)), misconceptionId: "ADDED_LEVELS" }],
