@@ -50,6 +50,7 @@ for (const variantId of MAL_CP006_WAVE04_VARIANT_IDS) {
     bucket.answerPositions[q.correctIndex] += 1;
     bucket.prototypeIds.add(q.prototypeId);
 
+    if (q.finalAuthorityId !== MAL_CP006_WAVE04_FINAL_GENERALISATION_ID) failures.push(`${variantId}: final authority ID mismatch`);
     if (!expectedPrototypeIds.has(q.prototypeId)) failures.push(`${variantId}: new prototype identity leaked`);
     if (!(MAL_CP006_WAVE03_CANDIDATE_IDS as readonly string[]).includes(q.prototypeId)) failures.push(`${variantId}: prototype outside retained Wave03 set`);
     if (q.permanentQlId !== null || q.permanentSolveModeId !== null || q.active || q.publiclyPublishable || q.questionStudioDiscoverable || q.questionBankWritable || q.testEligible) failures.push(`${variantId}: lifecycle escaped discovery lock`);
@@ -109,6 +110,7 @@ const serialised = Object.fromEntries(
 const report = {
   status: failures.length ? "FAIL_MAL_CP006_WAVE04_FINAL_GENERALISATION" : "PASS_MAL_CP006_WAVE04_FINAL_GENERALISATION",
   authorityId: MAL_CP006_WAVE04_FINAL_GENERALISATION_ID,
+  questionAuthorityStamped: true,
   newPrototypeIds: 0,
   newPermanentQls: 0,
   newPermanentSolveModes: 0,
