@@ -5,6 +5,7 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-wave02-final-authority-v4.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave02-final-v4-*.ts"
+      - "artifacts/api-server/src/quant-v4/common/entity-libraries/liquid-library.json"
       - ".github/workflows/mal-cp006-wave02-final-v4.yml"
   workflow_dispatch:
 
@@ -28,13 +29,13 @@ jobs:
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/mal-001-cp006-wave02-final-v4-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp006-wave02-final-v4-audit.log
-          node dist/quant-v4/mal-001-cp006-wave02-final-v4-review.mjs > dist/quant-v4/MAL-CP-006-WAVE-02-V4-OBJECT-POOL-16Q-REVIEW.md
+          node dist/quant-v4/mal-001-cp006-wave02-final-v4-review.mjs > dist/quant-v4/MAL-CP-006-WAVE-02-V4-CANONICAL-OBJECT-POOL-32Q-REVIEW.md
       - name: Upload evidence
         uses: actions/upload-artifact@v4
         with:
           name: mal-cp006-wave02-final-v4
           path: |
             artifacts/api-server/dist/quant-v4/mal-001-cp006-wave02-final-v4-audit.log
-            artifacts/api-server/dist/quant-v4/MAL-CP-006-WAVE-02-V4-OBJECT-POOL-16Q-REVIEW.md
+            artifacts/api-server/dist/quant-v4/MAL-CP-006-WAVE-02-V4-CANONICAL-OBJECT-POOL-32Q-REVIEW.md
           if-no-files-found: error
           retention-days: 14
