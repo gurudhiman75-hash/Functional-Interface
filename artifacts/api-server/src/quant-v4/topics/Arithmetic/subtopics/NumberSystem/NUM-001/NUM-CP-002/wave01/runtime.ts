@@ -387,7 +387,7 @@ function prototype012(seed: number): Draft {
     correct,
     distractors: candidates.map((x, i) => ({ value: math(String(x)), misconceptionId: i === 0 ? "USE_SMALLER_EXPONENT" : i === 1 ? "ADD_ONE_PLACE" : "ADD_FACTOR_EXPONENTS" })),
     hiddenState: { n: value.n, d: value.d },
-    concept: "For a reduced denominator ${math("2^a5^b")}, the exact terminating decimal needs ${math("\\max(a,b)")} places.",
+    concept: `For a reduced denominator ${math("2^a5^b")}, the exact terminating decimal needs ${math("\\max(a,b)")} places.`,
     solution: [`${math(`${value.d}=2^{${p.twos}}\\times5^{${p.fives}}`)}.`, `So the required number of places is ${math(`\\max(${p.twos},${p.fives})=${places}`)}.`],
   };
 }
