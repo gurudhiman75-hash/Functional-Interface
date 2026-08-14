@@ -13,7 +13,9 @@ for (const qlId of TRG_002_MVP_48_IDS) {
     assert(question.aiEditorialStatus === "PASS", `${qlId}: AI editorial status must be PASS.`);
     assert(question.humanReviewStatus === "PENDING", `${qlId}: human review must remain PENDING.`);
     assert(question.finalEditorialReview.status === "PASS", `${qlId}: final AI editorial review must be PASS.`);
-    assert(question.finalEditorialReview.renderedVisualInspection === "PENDING", `${qlId}: rendered visual inspection must remain PENDING.`);
+    assert(question.finalEditorialReview.runtimeSpecVisualInspection === "PASS", `${qlId}: runtime-spec visual inspection must be PASS.`);
+    assert(question.finalEditorialReview.appUiRenderedInspection === "PENDING", `${qlId}: app/UI rendered inspection must remain PENDING.`);
+    assert(question.finalEditorialReview.renderedVisualInspection === "PENDING", `${qlId}: generic rendered visual inspection must remain PENDING until app/UI inspection.`);
     assert(question.finalEditorialReview.humanReviewSubstituted === false, `${qlId}: AI review must not substitute for human review.`);
     assert(question.questionBankStatus === "NOT_STORED" && question.testEligibility === "INELIGIBLE", `${qlId}: activation lock changed.`);
     assert(question.publiclyPublishable === false && question.questionStudioDiscoverable === false, `${qlId}: publication/discovery lock changed.`);
@@ -36,4 +38,4 @@ assert(q048.stem.includes("with the ground"), "QL-048 must remove the ambiguous 
 const q095: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-095", wordingSeed);
 assert(q095.stem.includes("point on level ground") && q095.stem.includes("from the foot of a building"), "QL-095 must state the observation baseline explicitly.");
 
-console.log(`TRG-002 MVP final editorial gate target: ${cases} cases; rendered visual and human review remain pending.`);
+console.log(`TRG-002 MVP final editorial gate target: ${cases} cases; runtime-spec visual PASS, app/UI visual and human review pending.`);
