@@ -37,6 +37,7 @@ const HARDENING_RULES: ReadonlyArray<readonly [string, string, string]> = [
   ["makes the decimal recurring.", "दशमलव को आवर्ती बनाता है।", "ਦਸ਼ਮਲਵ ਨੂੰ ਆਵਰਤੀ ਬਣਾਉਂਦਾ ਹੈ।"],
   ["makes the decimal recurring", "दशमलव को आवर्ती बनाता है", "ਦਸ਼ਮਲਵ ਨੂੰ ਆਵਰਤੀ ਬਣਾਉਂਦਾ ਹੈ"],
   ["is terminating after reduction?", "क्या सरल करने के बाद सांत है?", "ਕੀ ਸਰਲ ਕਰਨ ਤੋਂ ਬਾਅਦ ਸਮਾਪਤ ਹੈ?"],
+  ["terminating after reduction?", "सरल करने के बाद सांत है?", "ਸਰਲ ਕਰਨ ਤੋਂ ਬਾਅਦ ਸਮਾਪਤ ਹੈ?"],
   ["is divisible by", "से विभाज्य है", "ਨਾਲ ਭਾਗਯੋਗ ਹੈ"],
   ["to be divisible by", "का इससे विभाज्य होना", "ਦਾ ਇਸ ਨਾਲ ਭਾਗਯੋਗ ਹੋਣਾ"],
   ["divisible by", "से विभाज्य", "ਨਾਲ ਭਾਗਯੋਗ"],
@@ -61,6 +62,7 @@ function hardenText(input: string, locale: NumCp002TranslatedLocale): string {
   for (const [en, hi, pa] of HARDENING_RULES) output = output.split(en).join(tx(locale, hi, pa));
   output = output.replace(/\bor\b/gu, tx(locale, "या", "ਜਾਂ"));
   output = output.replace(/\bnot\b/gu, tx(locale, "न कि", "ਨਾ ਕਿ"));
+  output = output.replace(/\bis\b/gu, tx(locale, "क्या", "ਕੀ"));
   return output;
 }
 
