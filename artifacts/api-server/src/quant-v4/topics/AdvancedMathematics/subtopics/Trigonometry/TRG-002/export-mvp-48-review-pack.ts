@@ -22,10 +22,14 @@ function segmentSvg(segment: any, points: Map<string, any>) {
   const a = points.get(segment.fromPointId);
   const b = points.get(segment.toPointId);
   if (!a || !b) return "";
-  const dashed = segment.kind === "EYE_LEVEL" ? ' stroke-dasharray="8 7"' : "";
+  const dashed = segment.kind === "EYE_LEVEL"
+    ? ' stroke-dasharray="8 7"'
+    : segment.kind === "AUXILIARY"
+      ? ' stroke-dasharray="6 7"'
+      : "";
   const width = segment.kind === "GROUND" ? 3 : segment.kind === "VERTICAL_OBJECT" || segment.kind === "LADDER" || segment.kind === "WIRE" ? 4 : 2.5;
   const arrow = segment.kind === "MOVEMENT" ? ' marker-end="url(#movementArrow)"' : "";
-  return `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="currentColor" stroke-width="${width}"${dashed}${arrow}/>`;
+  return `<line class="segment segment-${String(segment.kind).toLowerCase().replaceAll("_", "-")}" data-segment-id="${esc(segment.id)}" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="currentColor" stroke-width="${width}"${dashed}${arrow}/>`;
 }
 
 function annotationSvg(annotation: any, points: Map<string, any>) {
