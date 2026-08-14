@@ -1,5 +1,5 @@
 import { degree } from "../foundation/angle";
-import { exactInteger, formatExactPlain, multiplyExact, divideExact, assertDefined } from "../foundation/exact";
+import { addExact, exactInteger, exactSurd, formatExactPlain, multiplyExact, divideExact, assertDefined, subtractExact } from "../foundation/exact";
 import type { ExactTrigNumber } from "../foundation/types";
 import { buildSameSideMovingState, type Trg002SpatialPoint, type Trg002SpatialState, type Trg002VerticalObject } from "./spatial";
 import { buildTrg002MvpQuestion, mvpExplanation, mvpNumberAnswer, mvpPick, type Trg002MvpQuestion } from "./mvp-runtime-core";
@@ -9,53 +9,55 @@ export type Trg002MvpCp009BId = (typeof TRG_002_MVP_CP009_B_IDS)[number];
 const ZERO = exactInteger(0);
 const div = (a: ExactTrigNumber, b: ExactTrigNumber) => assertDefined(divideExact(a, b));
 
-function movingBase(seed: string, salt: string) {
-  const k = mvpPick(seed, salt, [8, 10, 12] as const);
-  const movement = exactInteger(2 * k);
-  const state = buildSameSideMovingState({ farAngle: degree(30), nearAngle: degree(60), movementTowardObject: movement, units: "m" });
-  return { k, movement, state, near: exactInteger(k), far: exactInteger(3 * k), height: state.verticalObjects[0].height };
-}
-
 function ql067(seed: string) {
-  const b = movingBase(seed, "067-k");
-  b.state.movements = [];
-  b.state.diagramStrategy = "TWO_OBSERVATIONS_SAME_SIDE";
-  b.state.requested = { kind: "HORIZONTAL_DISTANCE", fromPointId: "object-base", toPointId: "far-ground" };
+  const k = mvpPick(seed, "067-k", [8, 10, 12] as const);
+  const near = exactInteger(k);
+  const far = exactSurd(k, 3);
+  const separation = subtractExact(far, near);
+  const state = buildSameSideMovingState({ farAngle: degree(30), nearAngle: degree(45), movementTowardObject: separation, units: "m" });
+  state.movements = [];
+  state.diagramStrategy = "TWO_OBSERVATIONS_SAME_SIDE";
+  state.requested = { kind: "HORIZONTAL_DISTANCE", fromPointId: "object-base", toPointId: "far-ground" };
+  const nearSightLine = exactSurd(k, 2);
   return buildTrg002MvpQuestion({
     qlId: "TRG-002-QL-067", cpId: "TRG-CP-009", lockedFamily: "FIND_ORIGINAL_DISTANCE", solveMode: "recoverOriginalDistanceFromKnownNearPoint",
     seed, difficulty: "Medium", target: "LENGTH",
-    stem: `From a point ${formatExactPlain(b.near)} m from a tower, the angle of elevation of its top is 60°. From a farther point on the same straight line through the tower's foot, the angle is 30°. Find the farther point's distance from the tower.`,
-    state: b.state, correct: mvpNumberAnswer(b.far),
+    stem: `From a point ${formatExactPlain(near)} m from a tower, the angle of elevation of its top is 45°. From a farther point on the same straight line through the tower's foot, the angle is 30°. Find the farther point's distance from the tower.`,
+    state, correct: mvpNumberAnswer(far),
     wrong: [
-      { value: mvpNumberAnswer(b.near), misconceptionId: "RETURNED_NEAR_DISTANCE" },
-      { value: mvpNumberAnswer(b.movement), misconceptionId: "RETURNED_POINT_SEPARATION" },
-      { value: mvpNumberAnswer(b.height), misconceptionId: "RETURNED_HEIGHT" },
+      { value: mvpNumberAnswer(near), misconceptionId: "RETURNED_NEAR_DISTANCE" },
+      { value: mvpNumberAnswer(separation), misconceptionId: "RETURNED_POINT_SEPARATION" },
+      { value: mvpNumberAnswer(nearSightLine), misconceptionId: "RETURNED_45_DEGREE_SIGHT_LINE" },
     ],
     explanation: mvpExplanation(
-      "Use the nearer observation to find the common height, then recover the farther distance.",
-      [`Height=${formatExactPlain(b.near)}×tan60°=${formatExactPlain(b.height)} m.`, `Far distance=${formatExactPlain(b.height)}/tan30°=${formatExactPlain(b.far)} m.`],
-      "The two observations share one tower height; do not treat the point separation as the target.",
+      "Use the 45° observation to find the tower height, then use the 30° observation for the farther distance.",
+      [`At 45°, tower height=${formatExactPlain(near)} m.`, `If the farther distance is x, tan30°=${formatExactPlain(near)}/x=1/√3, so x=${formatExactPlain(far)} m.`],
+      "The farther distance is not the separation between the two observation points.",
     ),
   });
 }
 
 function ql069(seed: string) {
-  const b = movingBase(seed, "069-k");
-  b.state.requested = { kind: "MOVEMENT_DISTANCE", movementId: "movement-1" };
+  const k = mvpPick(seed, "069-k", [8, 10, 12] as const);
+  const far = exactInteger(3 * k);
+  const near = exactSurd(k, 3);
+  const movement = subtractExact(far, near);
+  const state = buildSameSideMovingState({ farAngle: degree(45), nearAngle: degree(60), movementTowardObject: movement, units: "m" });
+  state.requested = { kind: "MOVEMENT_DISTANCE", movementId: "movement-1" };
   return buildTrg002MvpQuestion({
     qlId: "TRG-002-QL-069", cpId: "TRG-CP-009", lockedFamily: "FIND_MOVEMENT_SEPARATION", solveMode: "findCloserMovementFromOriginalDistanceAndAngles",
     seed, difficulty: "Medium", target: "LENGTH",
-    stem: `From a point ${formatExactPlain(b.far)} m from a tower, its top is seen at 30°. An observer walks straight toward the tower until the angle becomes 60°. How far does the observer walk?`,
-    state: b.state, correct: mvpNumberAnswer(b.movement),
+    stem: `From a point ${formatExactPlain(far)} m from a tower, its top is seen at an angle of elevation of 45°. An observer walks straight toward the tower until the angle becomes 60°. How far does the observer walk?`,
+    state, correct: mvpNumberAnswer(movement),
     wrong: [
-      { value: mvpNumberAnswer(b.near), misconceptionId: "RETURNED_FINAL_DISTANCE" },
-      { value: mvpNumberAnswer(b.far), misconceptionId: "RETURNED_ORIGINAL_DISTANCE" },
-      { value: mvpNumberAnswer(b.height), misconceptionId: "RETURNED_TOWER_HEIGHT" },
+      { value: mvpNumberAnswer(near), misconceptionId: "RETURNED_FINAL_DISTANCE" },
+      { value: mvpNumberAnswer(far), misconceptionId: "RETURNED_ORIGINAL_DISTANCE" },
+      { value: mvpNumberAnswer(addExact(far, near)), misconceptionId: "ADDED_INSTEAD_OF_SUBTRACTING_DISTANCES" },
     ],
     explanation: mvpExplanation(
-      "Find the common height from the first observation, then the final distance from the second.",
-      [`Height=${formatExactPlain(b.far)}×tan30°=${formatExactPlain(b.height)} m.`, `Final distance=${formatExactPlain(b.height)}/tan60°=${formatExactPlain(b.near)} m.`, `Movement=${formatExactPlain(b.far)}−${formatExactPlain(b.near)}=${formatExactPlain(b.movement)} m.`],
-      "Movement is the difference between the two same-side distances.",
+      "Use the first observation to get the height, the second to get the new distance, then subtract.",
+      [`At 45°, tower height=${formatExactPlain(far)} m.`, `At 60°, final distance=${formatExactPlain(far)}/√3=${formatExactPlain(near)} m.`, `Movement=${formatExactPlain(far)}−${formatExactPlain(near)}=${formatExactPlain(movement)} m.`],
+      "Walking distance is the difference between the original and final horizontal distances.",
     ),
   });
 }
