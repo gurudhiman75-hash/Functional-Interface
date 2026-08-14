@@ -80,6 +80,8 @@ jobs:
             --bundle --packages=external --platform=node --format=esm \
             --outfile=dist/quant-v4/men-cp010-permanent-english-review-v1.export.mjs
           node artifacts/api-server/dist/quant-v4/men-cp010-permanent-english-review-v1.export.mjs
+          test -s artifacts/api-server/dist/quant-v4/men-cp010-permanent-english-review-v1.json
+          test -s artifacts/api-server/dist/quant-v4/men-cp010-permanent-english-review-v1.md
 
       - name: Build production API bundle
         run: bash build-api.sh
