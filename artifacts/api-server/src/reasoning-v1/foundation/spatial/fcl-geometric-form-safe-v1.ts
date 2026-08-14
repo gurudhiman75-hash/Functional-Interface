@@ -80,12 +80,12 @@ export function generateSpatialFclGeometricFormQuestionV1(input: { seed: string;
     commons = closedPool.map((item,index)=>({scene:item.build(`${input.seed}-closed-${index}`),visibleName:item.name}));
     const openKind = rng.pick(["U","V","L","Z"] as const);
     odd = {scene:openScene(`${input.seed}-odd-open`,openKind,rng.int(85,112)/100,rng.int(0,3)),visibleName:`open ${openKind}-shaped line`};
-    rule = "forms one closed shape";
+    rule = "form one closed shape";
   } else if (input.mode === "POLYGON_VS_CURVED") {
     const sidePool = rng.shuffle([3,4,5,6]).slice(0,3);
     commons = sidePool.map((sides,index)=>({scene:polygonScene(`${input.seed}-polygon-${index}`,sides,size(),rot(),`${sides}-sided polygon`),visibleName:sides===3?"triangle":sides===4?"quadrilateral":sides===5?"pentagon":"hexagon"}));
     odd = {scene:circleScene(`${input.seed}-odd-circle`,size()),visibleName:"circle"};
-    rule = "is a closed polygon made only of straight sides";
+    rule = "are closed polygons made only of straight sides";
   } else {
     commons = [
       {scene:polygonScene(`${input.seed}-square`,4,size(),rot(),"square"),visibleName:"square"},
@@ -94,7 +94,7 @@ export function generateSpatialFclGeometricFormQuestionV1(input: { seed: string;
     ];
     const oddSides = rng.pick([3,5] as const);
     odd = {scene:polygonScene(`${input.seed}-odd`,oddSides,size(),rot(),oddSides===3?"triangle":"pentagon"),visibleName:oddSides===3?"triangle":"pentagon"};
-    rule = "is a polygon with an even number of sides";
+    rule = "are polygons with an even number of sides";
   }
   const commonOptions = commons.map((item)=>({...item,followsRule:true}));
   const audit = validateSpatialFclCueAuditV2({decisiveCue:"rule",cues:{rule:["common","common","common","odd"],fill:["outline","outline","outline","outline"],count:["one","one","one","one"]}});
