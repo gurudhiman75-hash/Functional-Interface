@@ -1,27 +1,20 @@
 import { compileSea001TeachingExplanationFromUnknown } from "../explanation/checkpoint-teaching.ts";
 import type { AuditCaselet } from "../saturation/corpus.ts";
 import type { Sea001LocalizedReviewCaselet } from "./candidate-localizer.ts";
+import { polishSea001ExplanationParityFidelity } from "./explanation-parity-fidelity-polish.ts";
 import { applySea001CanonicalExplanationParity } from "./explanation-parity.ts";
 import { buildSea001NativeCandidate } from "./native-input-adapter.ts";
 import type { Sea001TranslatedLocale } from "./readiness.ts";
 
-/**
- * Reproduce the exact English explanation presentation used by
- * sea-001-review-export.ts. This is the English explanation authority that was
- * manually reviewed and frozen; raw generator sharedExplanation is not enough.
- */
+/** Reproduce the exact shared explanation presentation used by the approved English review exporter. */
 export function sea001EnglishExplanationAuthority(source: AuditCaselet): AuditCaselet {
-  return {
-    ...source,
-    sharedExplanation: compileSea001TeachingExplanationFromUnknown(source),
-  };
+  return { ...source, sharedExplanation: compileSea001TeachingExplanationFromUnknown(source) };
 }
 
 /**
- * Final review candidate authority for Hindi/Punjabi explanations.
- * Stems/clues/questions retain the proven native renderer; every explanation
- * is then translated from the same final English teaching presentation that
- * was exposed in the approved English review artifact.
+ * Final Hindi/Punjabi review candidate: proven native stems/clues/questions,
+ * followed by translation of the approved English explanation authority and
+ * source-driven fidelity polishing for exact details such as ordinals/facing reversal.
  */
 export function buildSea001ExplanationParityCandidate(
   source: AuditCaselet,
@@ -29,5 +22,6 @@ export function buildSea001ExplanationParityCandidate(
 ): Sea001LocalizedReviewCaselet {
   const nativeCandidate = buildSea001NativeCandidate(source, locale);
   const englishAuthority = sea001EnglishExplanationAuthority(source);
-  return applySea001CanonicalExplanationParity(englishAuthority, nativeCandidate, locale);
+  const parityCandidate = applySea001CanonicalExplanationParity(englishAuthority, nativeCandidate, locale);
+  return polishSea001ExplanationParityFidelity(englishAuthority, parityCandidate, locale);
 }
