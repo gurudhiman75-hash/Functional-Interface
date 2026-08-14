@@ -17,6 +17,43 @@ const lifecycle = Object.freeze({
   publiclyPublishable: false as const,
 });
 
+function gcd(a: number, b: number) { let x=Math.abs(a), y=Math.abs(b); while(y)[x,y]=[y,x%y]; return x||1; }
+function mixedState(seed: number) {
+  const denominators=[3,4,5,7,8,9,11] as const;
+  const d=denominators[((seed*5+1)>>>0)%denominators.length]!;
+  let r=((seed*7+2)%(d-1))+1;
+  while(gcd(r,d)!==1) r=(r%(d-1))+1;
+  const q=2+((seed*3+1)%6);
+  return {q,r,d,n:q*d+r};
+}
+function fixedMixedToImproper(seed:number): NumCp002Wave01Package {
+  const {q,r,d,n}=mixedState(seed);
+  const correct=math(`\\frac{${n}}{${d}}`);
+  const candidateBodies=[
+    `\\frac{${q+r}}{${d}}`,
+    `\\frac{${q*d-r}}{${d}}`,
+    `\\frac{${n+1}}{${d}}`,
+    `\\frac{${n-1}}{${d}}`,
+    `\\frac{${q*d+r}}{${d+1}}`,
+  ];
+  const wrongs=candidateBodies.map(math).filter((v,i,a)=>v!==correct&&a.indexOf(v)===i).slice(0,3);
+  if(wrongs.length!==3) throw new Error("NUM-CP002-PROT-003: insufficient unique distractors");
+  const correctIndex=((seed*13+2)>>>0)%4;
+  const options:NumCp002Option[]=wrongs.map((value,i)=>({value,isCorrect:false,misconceptionId:`MIXED_CONVERSION_ERROR_${i+1}`}));
+  options.splice(correctIndex,0,{value:correct,isCorrect:true});
+  const hiddenState=Object.freeze({q,r,d});
+  const verifierAnswer=independentlyVerifyNumCp002Wave01("NUM-CP002-PROT-003",hiddenState);
+  if(verifierAnswer!==correct) throw new Error("NUM-CP002-PROT-003 verifier disagreement");
+  return Object.freeze({
+    packageId:"NUM-001",checkpointId:"NUM-CP-002",temporaryPrototypeId:"NUM-CP002-PROT-003",permanentQlId:null,
+    seed,locale:"en-IN",difficulty:seed%3===0?"EASY":seed%3===1?"MEDIUM":"HARD",answerSemantic:"IMPROPER_FRACTION",
+    stem:`Convert ${math(`${q}\\frac{${r}}{${d}}`)} to an improper fraction.`,options:Object.freeze(options),correctIndex,
+    canonicalAnswer:correct,verifierAnswer,hiddenState,sourceAncestry:NUM_CP002_WAVE01_SOURCE_ANCESTRY["NUM-CP002-PROT-003"],
+    mathematicalFingerprint:`NUM-CP002-PROT-003:${JSON.stringify(hiddenState)}`,
+    explanation:Object.freeze({solution:Object.freeze([`${math(`${q}\\times${d}+${r}=${n}`)}.`,`Therefore the fraction is ${correct}.`]),finalAnswer:correct}),lifecycle,
+  });
+}
+
 interface OrderEntry { readonly display: string; readonly value: Rational }
 const orderSets: readonly (readonly OrderEntry[])[] = [
   [
@@ -65,31 +102,18 @@ function fixedOrder(seed: number): NumCp002Wave01Package {
   const verifierAnswer = independentlyVerifyNumCp002Wave01("NUM-CP002-PROT-010", hiddenState);
   if (verifierAnswer !== correct) throw new Error("NUM-CP002-PROT-010 verifier disagreement");
   return Object.freeze({
-    packageId: "NUM-001",
-    checkpointId: "NUM-CP-002",
-    temporaryPrototypeId: "NUM-CP002-PROT-010",
-    permanentQlId: null,
-    seed,
-    locale: "en-IN",
-    difficulty: seed % 3 === 0 ? "EASY" : seed % 3 === 1 ? "MEDIUM" : "HARD",
-    answerSemantic: "ORDERED_LIST",
+    packageId: "NUM-001", checkpointId: "NUM-CP-002", temporaryPrototypeId: "NUM-CP002-PROT-010", permanentQlId: null,
+    seed, locale: "en-IN", difficulty: seed % 3 === 0 ? "EASY" : seed % 3 === 1 ? "MEDIUM" : "HARD", answerSemantic: "ORDERED_LIST",
     stem: `Arrange ${entries.map((e) => e.display).join(", ")} in ${ascending ? "ascending" : "descending"} order.`,
-    options: Object.freeze(options),
-    correctIndex,
-    canonicalAnswer: correct,
-    verifierAnswer,
-    hiddenState,
-    sourceAncestry: NUM_CP002_WAVE01_SOURCE_ANCESTRY["NUM-CP002-PROT-010"],
-    mathematicalFingerprint: `NUM-CP002-PROT-010:${JSON.stringify(hiddenState)}`,
-    explanation: Object.freeze({
-      concept: "Compare every value exactly; recurring decimals must not be rounded.",
-      solution: Object.freeze(["Write the values on one exact rational scale.", `The required order is ${correct}.`]),
-      finalAnswer: correct,
-    }),
+    options: Object.freeze(options), correctIndex, canonicalAnswer: correct, verifierAnswer, hiddenState,
+    sourceAncestry: NUM_CP002_WAVE01_SOURCE_ANCESTRY["NUM-CP002-PROT-010"], mathematicalFingerprint: `NUM-CP002-PROT-010:${JSON.stringify(hiddenState)}`,
+    explanation: Object.freeze({ concept: "Compare every value exactly; recurring decimals must not be rounded.", solution: Object.freeze(["Write the values on one exact rational scale.", `The required order is ${correct}.`]), finalAnswer: correct }),
     lifecycle,
   });
 }
 
 export function generateNumCp002Wave01Authority(prototypeId: NumCp002Wave01PrototypeId, seed: number): NumCp002Wave01Package {
-  return prototypeId === "NUM-CP002-PROT-010" ? fixedOrder(seed) : generateNumCp002Wave01(prototypeId, seed);
+  if(prototypeId==="NUM-CP002-PROT-003") return fixedMixedToImproper(seed);
+  if(prototypeId==="NUM-CP002-PROT-010") return fixedOrder(seed);
+  return generateNumCp002Wave01(prototypeId, seed);
 }
