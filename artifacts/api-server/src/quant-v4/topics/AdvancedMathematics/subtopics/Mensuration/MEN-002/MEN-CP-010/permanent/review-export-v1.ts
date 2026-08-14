@@ -7,7 +7,10 @@ import {
 
 const records = buildMenCp010PermanentEnglishReview();
 const audit = auditMenCp010PermanentEnglishReview();
-const outputDir = path.resolve(process.cwd(), "dist/quant-v4");
+const apiRoot = fs.existsSync(path.resolve(process.cwd(), "artifacts/api-server"))
+  ? path.resolve(process.cwd(), "artifacts/api-server")
+  : process.cwd();
+const outputDir = path.resolve(apiRoot, "dist/quant-v4");
 fs.mkdirSync(outputDir, { recursive: true });
 
 const json = {
