@@ -1,4 +1,5 @@
-import type { LexicalComparisonTrace, WorOption } from "./types";
+import { traceWorComparison } from "./lexical-comparator";
+import type { WorOption } from "./types";
 
 interface CandidateOption { readonly value: string; readonly misconceptionId: string; }
 
@@ -27,26 +28,60 @@ function swapped(words: readonly string[], index: number): string[] {
   return result;
 }
 
-export function buildSequenceOptions(order: readonly string[], traces: readonly LexicalComparisonTrace[], seed: number): WorOption[] {
-  const hardest = traces
-    .map((trace, index) => ({ index, depth: trace.commonPrefixLength, prefix: trace.decision !== "FIRST_DIFFERING_CHARACTER" }))
-    .sort((a, b) => Number(b.prefix) - Number(a.prefix) || b.depth - a.depth);
-  const firstSwap = hardest[0]?.index ?? 0;
-  const secondSwap = hardest.find((entry) => entry.index !== firstSwap)?.index ?? Math.max(0, order.length - 2);
+function comparisonMisconception(left: string, right: string): string {
+  const trace = traceWorComparison(left, right);
+  if (trace.decision !== "FIRST_DIFFERING_CHARACTER") return "PREFIX_TERMINATION_ERROR";
+  if (trace.commonPrefixLength >= 3) return "LATE_CHARACTER_COMPARISON_ERROR";
+  if (trace.commonPrefixLength > 0) return "COMMON_PREFIX_COMPARISON_ERROR";
+  return "FIRST_LETTER_ORDER_ERROR";
+}
+
+export function buildSequenceOptions(order: readonly string[], seed: number): WorOption[] {
+  const adjacent = order.slice(0, -1).map((word, index) => {
+    const next = order[index + 1]!;
+    const trace = traceWorComparison(word, next);
+    return {
+      index,
+      depth: trace.commonPrefixLength,
+      prefix: trace.decision !== "FIRST_DIFFERING_CHARACTER",
+      misconceptionId: comparisonMisconception(word, next),
+    };
+  });
+  const hardest = [...adjacent].sort((a, b) => Number(b.prefix) - Number(a.prefix) || b.depth - a.depth || a.index - b.index);
+  const first = hardest[0] ?? { index: 0, misconceptionId: "FIRST_LETTER_ORDER_ERROR" };
+  const second = hardest.find((entry) => entry.index !== first.index)
+    ?? { index: Math.max(0, order.length - 2), misconceptionId: "FIRST_LETTER_ORDER_ERROR" };
   const rotated = [...order.slice(1), order[0]!];
   return assembleOptions(renderWordSequence(order), [
-    { value: renderWordSequence(swapped(order, firstSwap)), misconceptionId: "ADJACENT_LATE_COMPARISON_SWAP" },
-    { value: renderWordSequence(swapped(order, secondSwap)), misconceptionId: "STOPPED_COMPARISON_TOO_EARLY" },
+    { value: renderWordSequence(swapped(order, first.index)), misconceptionId: first.misconceptionId },
+    { value: renderWordSequence(swapped(order, second.index)), misconceptionId: second.misconceptionId },
     { value: renderWordSequence([...order].reverse()), misconceptionId: "REVERSE_ALPHABET_ERROR" },
     { value: renderWordSequence(rotated), misconceptionId: "FIRST_WORD_DISPLACED" },
   ], seed);
 }
 
+function wordMisconception(answer: string, candidate: string): string {
+  const trace = traceWorComparison(answer, candidate);
+  if (trace.decision !== "FIRST_DIFFERING_CHARACTER") return "PREFIX_TERMINATION_ERROR";
+  if (trace.commonPrefixLength >= 3) return "LATE_CHARACTER_COMPARISON_ERROR";
+  if (trace.commonPrefixLength > 0) return "COMMON_PREFIX_COMPARISON_ERROR";
+  return "POSITIONAL_WORD_CONFUSION";
+}
+
 export function buildWordOptions(answer: string, candidates: readonly string[], seed: number): WorOption[] {
-  return assembleOptions(answer, candidates.filter((word) => word !== answer).map((word, index) => ({
+  return assembleOptions(answer, candidates.filter((word) => word !== answer).map((word) => ({
     value: word,
-    misconceptionId: index === 0 ? "NEIGHBOUR_WORD_CONFUSION" : index === 1 ? "SHORTEST_LONGEST_HEURISTIC" : "POSITION_OFF_BY_ONE",
+    misconceptionId: wordMisconception(answer, word),
   })), seed);
+}
+
+function rankMisconception(answerRank: number, rank: number): string {
+  const difference = rank - answerRank;
+  if (difference === -1) return "RANK_ONE_PLACE_EARLY";
+  if (difference === 1) return "RANK_ONE_PLACE_LATE";
+  if (difference === -2) return "RANK_TWO_PLACES_EARLY";
+  if (difference === 2) return "RANK_TWO_PLACES_LATE";
+  return difference < 0 ? "RANK_MULTIPLE_PLACES_EARLY" : "RANK_MULTIPLE_PLACES_LATE";
 }
 
 export function buildRankOptions(answerRank: number, maximumRank: number, seed: number): WorOption[] {
@@ -55,14 +90,14 @@ export function buildRankOptions(answerRank: number, maximumRank: number, seed: 
     .sort((a, b) => Math.abs(a - answerRank) - Math.abs(b - answerRank) || a - b);
   return assembleOptions(String(answerRank), ranks.map((rank) => ({
     value: String(rank),
-    misconceptionId: rank < answerRank ? "RANK_ONE_PLACE_EARLY" : "RANK_ONE_PLACE_LATE",
+    misconceptionId: rankMisconception(answerRank, rank),
   })), seed);
 }
 
 export function buildPairOptions(answer: string, pairs: readonly string[], seed: number): WorOption[] {
   return assembleOptions(answer, pairs.filter((pair) => pair !== answer).map((pair) => ({
     value: pair,
-    misconceptionId: "WRONG_ADJACENT_PAIR",
+    misconceptionId: "CHOSE_CORRECTLY_ORDERED_ADJACENT_PAIR",
   })), seed);
 }
 
