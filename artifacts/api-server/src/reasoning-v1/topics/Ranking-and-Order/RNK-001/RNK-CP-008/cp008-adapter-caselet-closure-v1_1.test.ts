@@ -8,12 +8,12 @@ import {
   buildRnkCp008Q27Q28CanonicalState,
   classifyRnkCp008NumericSourceSurface,
   generateRnkCp008SharedCaselet,
-  routeRnkCp008NumericConstraintRankQuery,
   solveRnkCp008CaseletOrders,
   solveRnkCp008NumericValueConstrainedOrder,
 } from "./cp008-adapter-caselet-closure-v1";
 import {
   generateRnkCp008RelationalSideCountQuestionV1_1,
+  routeRnkCp008NumericConstraintRankQueryV1_1,
 } from "./cp008-adapter-caselet-closure-v1_1";
 
 assert.equal(RNK_CP008_PERMANENT_QLS_ALLOCATED, 0);
@@ -37,16 +37,16 @@ assert.deepEqual(q27q28.assignments[0], {
 });
 assert.equal(q27q28.uniqueOrdersFromHighest.length, 1);
 assert.deepEqual(q27q28.uniqueOrdersFromHighest[0], ["A", "C", "B", "F", "D", "E"]);
-assert.deepEqual(
-  routeRnkCp008NumericConstraintRankQuery(q27q28, { kind: "COMPLETE_ORDER" }).mappedQlId,
+assert.equal(
+  routeRnkCp008NumericConstraintRankQueryV1_1(q27q28, { kind: "COMPLETE_ORDER" }).mappedQlId,
   "RNK-QL-030",
 );
 assert.equal(
-  routeRnkCp008NumericConstraintRankQuery(q27q28, { kind: "ENTITY_AT_POSITION", rankFromTop: 4 }).answer,
+  routeRnkCp008NumericConstraintRankQueryV1_1(q27q28, { kind: "ENTITY_AT_POSITION", rankFromTop: 4 }).answer,
   "F",
 );
 assert.equal(
-  routeRnkCp008NumericConstraintRankQuery(q27q28, { kind: "RANK_OF_ENTITY", entity: "F" }).answer,
+  routeRnkCp008NumericConstraintRankQueryV1_1(q27q28, { kind: "RANK_OF_ENTITY", entity: "F" }).answer,
   4,
 );
 assert.equal(
@@ -57,6 +57,22 @@ assert.equal(
   classifyRnkCp008NumericSourceSurface("VALID_ORDER_COUNT").disposition,
   "REDIRECT_MIXED_NUMERIC_CONSTRAINT",
 );
+
+// Multi-order numeric states keep pair-truth ownership in QL036, not QL038.
+const ambiguousNumeric = solveRnkCp008NumericValueConstrainedOrder({
+  entities: ["A", "B", "C"],
+  minValue: 1,
+  maxValue: 3,
+  higherValueMeansHigherRank: true,
+  constraints: [{ kind: "GREATER_THAN", left: "A", right: "B" }],
+});
+assert.ok(ambiguousNumeric.uniqueOrdersFromHighest.length > 1);
+const invariantPair = routeRnkCp008NumericConstraintRankQueryV1_1(
+  ambiguousNumeric,
+  { kind: "RELATIVE_ORDER", first: "A", second: "B" },
+);
+assert.equal(invariantPair.mappedQlId, "RNK-QL-036");
+assert.equal(invariantPair.answer, "FIRST_ABOVE");
 
 // Q66 family: learner-visible total makes the algebraic preprocessing sufficient.
 for (let seed = 0; seed < 96; seed += 1) {
@@ -102,6 +118,8 @@ console.log(JSON.stringify({
   permanentQlsAllocated: RNK_CP008_PERMANENT_QLS_ALLOCATED,
   nextAvailableQl: RNK_CP008_NEXT_AVAILABLE_QL,
   q27q28Assignments: q27q28.assignments.length,
+  ambiguousNumericOrders: ambiguousNumeric.uniqueOrdersFromHighest.length,
+  ambiguousPairMappedQl: invariantPair.mappedQlId,
   relationalSideCountSeeds: 96,
   sharedCaseletSeeds: 64,
   questionStudio: RNK_CP008_LIFECYCLE.questionStudio,
