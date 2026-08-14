@@ -62,6 +62,18 @@ function expectedStimulusCount(
   return 3;
 }
 
+function deliverySafeExplanationText(
+  text: string,
+  chapterCode: "FAN-001" | "FCL-001" | "FSR-001",
+): string {
+  if (chapterCode !== "FCL-001") return text;
+  return text
+    .replaceAll("In the first three options", "In three options")
+    .replaceAll("The first three options", "Three options")
+    .replaceAll("In the first three figures", "In three figures")
+    .replaceAll("The first three figures", "Three figures");
+}
+
 export function generateSpatialGapLearnerQuestionV1(input: {
   gapId: SpatialGapIdV1;
   seed: string;
@@ -124,10 +136,13 @@ export function generateSpatialGapLearnerQuestionV1(input: {
 
   const correctLetter = optionLetter(input.desiredCorrectOptionIndex);
   const explanation: SpatialGapQuestionLearnerExplanationV1 = {
-    observation: built.explanation.observation,
-    rule: built.explanation.rule,
-    application: built.explanation.application,
-    check: built.explanation.check.replaceAll("{correct}", correctLetter),
+    observation: deliverySafeExplanationText(built.explanation.observation, authority.chapterCode),
+    rule: deliverySafeExplanationText(built.explanation.rule, authority.chapterCode),
+    application: deliverySafeExplanationText(built.explanation.application, authority.chapterCode),
+    check: deliverySafeExplanationText(
+      built.explanation.check.replaceAll("{correct}", correctLetter),
+      authority.chapterCode,
+    ),
   };
   const explanationGate = validateLearnerVisibleExplanationV2([
     explanation.observation,
