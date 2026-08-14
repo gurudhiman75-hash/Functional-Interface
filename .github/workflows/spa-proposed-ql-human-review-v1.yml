@@ -9,6 +9,7 @@ on:
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-proposed-ql-incomplete-slice-scale-v1.test.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-proposed-ql-string-modality-balance-v1.test.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-fcl-geometric-form-safe-scale-v1.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-fcl-subfigure-relation-mode-scale-v1.test.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-proposed-ql-human-review-pack-v1.test.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-proposed-ql-human-review-editorial-cleanup-v1.test.ts"
       - ".github/workflows/spa-proposed-ql-human-review-v1.yml"
@@ -43,6 +44,10 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/spatial-fcl-geometric-form-safe-scale-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/spatial/spatial-fcl-geometric-form-safe-scale-v1.test.mjs
           cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-fcl-geometric-form-safe-scale-v1.test.mjs
+      - name: Bundle and run FCL subfigure relation mode scale
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/spatial-fcl-subfigure-relation-mode-scale-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/spatial/spatial-fcl-subfigure-relation-mode-scale-v1.test.mjs
+          cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-fcl-subfigure-relation-mode-scale-v1.test.mjs
       - name: Bundle and run incomplete-slice scale completion
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/spatial-proposed-ql-incomplete-slice-scale-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/spatial/spatial-proposed-ql-incomplete-slice-scale-v1.test.mjs
@@ -61,5 +66,6 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-proposed-ql-human-review-pack-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-proposed-ql-string-modality-balance-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fcl-pql-03-learner-safe-scale-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fcl-pql-09-relation-mode-scale-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-proposed-ql-incomplete-slice-scale-v1-evidence.json
           if-no-files-found: error
