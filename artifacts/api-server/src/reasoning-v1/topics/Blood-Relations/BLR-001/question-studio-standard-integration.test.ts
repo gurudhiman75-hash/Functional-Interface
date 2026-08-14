@@ -13,6 +13,13 @@ assert.equal(packages.length, 7);
 assert.equal(packages.every((entry) => entry.enabled), true);
 assert.deepEqual(packages.slice(0, 2).map((entry) => entry.supportedLanguages), [["en"], ["en"]]);
 assert.equal(packages.slice(2).every((entry) => entry.supportedLanguages.join(",") === "en,hi,pa"), true);
+assert.equal(packages.every((entry) => entry.runtimeMode === "STANDARD_QUESTION_STUDIO"), true);
+for (const pkg of packages) {
+  assert.equal("reviewStatus" in pkg, false);
+  assert.equal("questionBankStatus" in pkg, false);
+  assert.equal("testEligibility" in pkg, false);
+  assert.equal("publiclyPublishable" in pkg, false);
+}
 
 const genericPackages = listQuantV4Packages();
 for (const pkg of packages) {
@@ -33,6 +40,8 @@ for (const pkg of packages) {
         seed: `standard:${pkg.packageId}:${language}:${qlId}`,
       });
       assert.equal(result.questions.length, 1);
+      assert.equal(result.generationContext.runtimeMode, "STANDARD_QUESTION_STUDIO");
+      assert.equal(result.generationContext.reviewStatus, "REVIEW_REQUIRED");
       const question = result.questions[0]!;
       assert.equal(question.packageId, pkg.packageId);
       assert.equal(question.qlId, qlId);
@@ -40,6 +49,8 @@ for (const pkg of packages) {
       assert.equal(question.options.length, 4);
       assert.equal(question.correctIndex >= 0 && question.correctIndex < 4, true);
       assert.equal(question.validation?.valid, true);
+      assert.equal(question.runtimeMode, "STANDARD_QUESTION_STUDIO");
+      assert.equal(question.reviewStatus, "REVIEW_REQUIRED");
       assert.equal(question.manualApprovalRequired, true);
       assert.equal(question.automaticStudentPublication, false);
       assert.equal(result.generationContext.persistenceAllowed, true);
@@ -66,6 +77,8 @@ for (const language of ["en", "hi", "pa"] as const) {
     count: 1,
     seed: `cp007-release-after-approval:${language}`,
   }).questions[0]!;
+  assert.equal(cp007.runtimeMode, "STANDARD_QUESTION_STUDIO");
+  assert.equal(cp007.reviewStatus, "REVIEW_REQUIRED");
   assert.equal(cp007.questionBankStatus, "READY_FOR_STORAGE");
   assert.equal(cp007.testEligibility, "ELIGIBLE");
   assert.equal(cp007.publiclyPublishable, true);
@@ -118,6 +131,8 @@ console.log(JSON.stringify({
   permanentQlRange: "BLR-QL-001..BLR-QL-035",
   validatedQlLanguagePairs,
   sharedCockpitOnly: true,
+  uniformPackagePresentation: true,
+  uniformRuntimePresentation: true,
   separateReasoningPanel: false,
   separateReasoningRoutes: false,
   cp001ThroughCp006ReviewOnly: true,
