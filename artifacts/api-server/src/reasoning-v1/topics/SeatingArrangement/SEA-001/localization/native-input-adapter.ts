@@ -4,6 +4,7 @@ import { sea001CanonicalParityFingerprint } from "./readiness.ts";
 import type { Sea001LocalizedReviewCaselet } from "./candidate-localizer.ts";
 import { localizedSea001Name } from "./name-pack.ts";
 import { buildSea001NativeReviewV2 } from "./native-review-v2.ts";
+import { applySea001NativeWrongOptionTeaching } from "./native-wrong-option-teaching.ts";
 
 const WORD_ORDINALS: Readonly<Record<string, string>> = Object.freeze({
   first: "1st",
@@ -145,8 +146,6 @@ function normalizeNativeClueInput(clue: string): string {
 
   normalized = normalized.replace(/^([A-Z][a-z]+) faces the centre\.$/, "$1 faces centre.");
 
-  // The generic non-directional between renderer accepts "persons sit", while the
-  // directional clockwise renderer owns the grammatical singular form.
   if (
     normalized.startsWith("Exactly 1 person sits between ") &&
     !normalized.includes(" when counted clockwise from ")
@@ -234,11 +233,13 @@ export function buildSea001NativeCandidate(source: AuditCaselet, locale: Sea001T
     explanationLines[actionLineIndex] = `   ${tr(locale, "करें", "ਕਰੋ")}: ${override.action}`;
   });
 
-  return polishNativeCandidate({
+  const withOverrides: Sea001LocalizedReviewCaselet = {
     ...rendered,
     clueTexts: finalClueTexts,
     sharedExplanation: explanationLines.join("\n"),
     canonicalCaseletId: source.caseletId,
     canonicalParityFingerprint: sea001CanonicalParityFingerprint(source),
-  }, locale);
+  };
+  const withTeaching = applySea001NativeWrongOptionTeaching(source, withOverrides, locale);
+  return polishNativeCandidate(withTeaching, locale);
 }
