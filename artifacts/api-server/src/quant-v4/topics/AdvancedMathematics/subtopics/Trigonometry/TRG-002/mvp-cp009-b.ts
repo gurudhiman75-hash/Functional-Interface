@@ -24,7 +24,7 @@ function ql067(seed: string) {
   return buildTrg002MvpQuestion({
     qlId: "TRG-002-QL-067", cpId: "TRG-CP-009", lockedFamily: "FIND_ORIGINAL_DISTANCE", solveMode: "recoverOriginalDistanceFromKnownNearPoint",
     seed, difficulty: "Medium", target: "LENGTH",
-    stem: `From a point ${formatExactPlain(b.near)} m from a tower, the angle of elevation of its top is 60°. From a farther point on the same line, the angle is 30°. Find the farther point's distance from the tower.`,
+    stem: `From a point ${formatExactPlain(b.near)} m from a tower, the angle of elevation of its top is 60°. From a farther point on the same straight line through the tower's foot, the angle is 30°. Find the farther point's distance from the tower.`,
     state: b.state, correct: mvpNumberAnswer(b.far),
     wrong: [
       { value: mvpNumberAnswer(b.near), misconceptionId: "RETURNED_NEAR_DISTANCE" },
@@ -89,7 +89,7 @@ function ql071(seed: string) {
   return buildTrg002MvpQuestion({
     qlId: "TRG-002-QL-071", cpId: "TRG-CP-009", lockedFamily: "COMPARATIVE_TWO_OBJECT_CONTROLLED", solveMode: "findSeparationBetweenTwo45DegreeObjects",
     seed, difficulty: "Medium", target: "LENGTH",
-    stem: `From the same point on level ground, the tops of two towers of heights ${formatExactPlain(d)} m and ${formatExactPlain(farHeight)} m are each seen at 45°. The towers lie on the same side of the point. Find the distance between their feet.`,
+    stem: `From an observation point on level ground, the tops of two towers of heights ${formatExactPlain(d)} m and ${formatExactPlain(farHeight)} m are each seen at an angle of elevation of 45°. The observation point and the feet of both towers lie on the same straight line, with both towers on the same side of the observation point. Find the distance between their feet.`,
     state: comparativeState(d), correct: mvpNumberAnswer(d),
     wrong: [
       { value: mvpNumberAnswer(farHeight), misconceptionId: "RETURNED_FAR_TOWER_DISTANCE" },
@@ -98,8 +98,8 @@ function ql071(seed: string) {
     ],
     explanation: mvpExplanation(
       "At 45°, each tower's horizontal distance from the observation point equals its height.",
-      [`Near tower distance=${formatExactPlain(d)} m; far tower distance=${formatExactPlain(farHeight)} m.`, `Separation=${formatExactPlain(farHeight)}−${formatExactPlain(d)}=${formatExactPlain(d)} m.`],
-      "Because both towers are on the same side, subtract their distances from the common observation point.",
+      [`Near tower distance=${formatExactPlain(d)} m; far tower distance=${formatExactPlain(farHeight)} m.`, `Because the three ground points are collinear and both towers lie on the same side, separation=${formatExactPlain(farHeight)}−${formatExactPlain(d)}=${formatExactPlain(d)} m.`],
+      "Subtract the two distances only because the observation point and both tower feet are on one straight line on the same side.",
     ),
   });
 }
