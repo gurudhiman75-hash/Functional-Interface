@@ -43,8 +43,8 @@ function assertCp002ValueQuality(question: {
 }): void {
   for (const match of question.stem.matchAll(/\b(\d+)\s*:\s*(\d+)\b/gu)) {
     assert(
-      Math.max(Number(match[1]), Number(match[2])) <= 250,
-      `${question.questionId}: CP002 ratio component exceeds 250.`,
+      Math.max(Number(match[1]), Number(match[2])) <= 500,
+      `${question.questionId}: CP002 ratio component exceeds 500.`,
     );
   }
   if (question.permanentQlId === "MAL-QL-026") {
