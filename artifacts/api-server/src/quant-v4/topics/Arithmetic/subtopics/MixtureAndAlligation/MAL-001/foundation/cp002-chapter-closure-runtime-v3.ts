@@ -7,7 +7,7 @@ import { runMalCp002EnglishEditorialV2Pipeline } from "./cp002-editorial-v2";
 export const MAL_CP002_CHAPTER_CLOSURE_RUNTIME_V3 =
   "MAL-CP002-EN-CHAPTER-CLOSURE-RUNTIME-V3" as const;
 
-const MAX_EXAM_RATIO_COMPONENT = 250;
+const MAX_EXAM_RATIO_COMPONENT = 500;
 
 function ratioComponentsAreExamNatural(stem: string): boolean {
   for (const match of stem.matchAll(/\b(\d+)\s*:\s*(\d+)\b/gu)) {
