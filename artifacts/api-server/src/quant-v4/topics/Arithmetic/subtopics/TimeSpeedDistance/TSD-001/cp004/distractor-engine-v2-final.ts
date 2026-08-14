@@ -1,5 +1,5 @@
 import { compare, multiply, rational } from "../foundation/rational";
-import { deriveStrongCp004WrongWorkingsV5 } from "./distractor-engine-v5";
+import { deriveStrongCp004WrongWorkingsV6 } from "./distractor-engine-v6";
 import type { TsdCp004CoreInput, TsdCp004CoreSolution, TsdCp004CoreSolveMode } from "./relative-motion-foundation";
 import type { TsdCp004WrongWorking } from "./runtime-types";
 
@@ -52,7 +52,7 @@ export function deriveStrongCp004WrongWorkingsFinal(
   input: TsdCp004CoreInput,
   solution: TsdCp004CoreSolution,
 ): readonly TsdCp004WrongWorking[] {
-  const candidates = deriveStrongCp004WrongWorkingsV5(mode, input, solution).filter((entry) => competitive(entry.value, solution));
+  const candidates = deriveStrongCp004WrongWorkingsV6(mode, input, solution).filter((entry) => competitive(entry.value, solution));
   if (candidates.length < 3) throw new Error(`${mode}: fewer than three option candidates survived the competitive magnitude gate`);
   const selected = selectCompetitiveSet(candidates, solution);
   if (selected.length !== 3) throw new Error(`${mode}: could not select three competitive distractors`);
