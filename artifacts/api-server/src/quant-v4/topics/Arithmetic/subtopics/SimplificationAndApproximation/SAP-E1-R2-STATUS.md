@@ -25,4 +25,12 @@ The previous E1 learner-facing review is retained as mathematical/coverage evide
 - all lifecycle flags OFF;
 - no permanent QL allocation.
 
+## Executable gates attached
+
+- 24 × 100 = 2,400-state independent R2 authority;
+- 300-question R2 review: 150 SSC / 150 Bank;
+- all 24 structures materially represented;
+- exact 75 / 75 / 75 / 75 answer-position target;
+- CP007 normal-mock count fixed at zero.
+
 `E1_R2_REVIEW_READY = false` until exact-head authority and human corpus review both pass.
