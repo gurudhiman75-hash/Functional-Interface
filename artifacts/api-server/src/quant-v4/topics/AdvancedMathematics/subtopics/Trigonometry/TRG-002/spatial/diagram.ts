@@ -85,8 +85,12 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
   }
   if (state.diagramStrategy === "SHADOW") {
     const base = state.points.find((point) => point.role === "OBJECT_BASE");
-    const tip = state.points.find((point) => point.role === "SHADOW_TIP");
-    if (base && tip) segments.push({ id: "shadow-segment", fromPointId: base.id, toPointId: tip.id, kind: "SHADOW" });
+    const tips = state.points.filter((point) => point.role === "SHADOW_TIP");
+    if (base) {
+      for (const tip of tips) {
+        segments.push({ id: `shadow-segment-${tip.id}`, fromPointId: base.id, toPointId: tip.id, kind: "SHADOW" });
+      }
+    }
   }
   if (state.diagramStrategy === "GUY_WIRE") {
     const top = state.points.find((point) => point.role === "OBJECT_TOP");
