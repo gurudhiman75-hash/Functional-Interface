@@ -1,0 +1,104 @@
+name: Validate INT-CP-004 Hindi Punjabi V8 final
+
+on:
+  pull_request:
+    branches:
+      - freeze/int-cp004-approved-english-v2
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp004-localization-v6-native-editorial-v8.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localization-v6-native-v8-*.ts"
+      - ".github/workflows/int-cp004-hi-pa-v6-v8-final.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp004-hi-pa-v8-final:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle canonical English freeze audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-english-freeze-v2-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/int-001-cp004-english-freeze-v2-audit.mjs
+
+      - name: Run canonical English freeze audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-english-freeze-v2-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
+
+      - name: Bundle V8 final audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localization-v6-native-v8-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/int-001-cp004-localization-v6-native-v8-audit.mjs
+
+      - name: Run V8 final audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localization-v6-native-v8-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localization-v6-native-v8-audit.log
+
+      - name: Bundle V8 full review exporter
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localization-v6-native-v8-review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/int-001-cp004-localization-v6-native-v8-review-export.mjs
+
+      - name: Export V8 Hindi Punjabi review packs
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localization-v6-native-v8-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localization-v6-native-v8-review-export.log
+
+      - name: Bundle CP-001 isolation audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-question-studio-pre-registration-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.mjs
+
+      - name: Run CP-001 isolation audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify V8 evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          review=artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v8-review/int-cp004-hi-pa-v6-native-v8-review-summary.json
+          grep -q 'PASS_INT_CP004_APPROVED_ENGLISH_FREEZE_V2' artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
+          grep -q 'PASS_INT_CP004_HI_PA_V6_NATIVE_V8' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v8-audit.log
+          grep -q 'PASS_INT_CP004_HI_PA_V6_NATIVE_V8_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v8-review-export.log
+          grep -q 'PASS_INT_CP001_QUESTION_STUDIO_PRE_REGISTRATION' artifacts/api-server/dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.log
+          test -f "$review"
+          test "$(grep -c '"questions": 76' "$review")" -eq 2
+          test "$(grep -c '"uglyDecimals": 0' "$review")" -eq 2
+          test "$(grep -c '"wholeRupeeDotZero": 0' "$review")" -eq 2
+          test "$(grep -c '"wrapperViolations": 0' "$review")" -eq 2
+          test "$(grep -c '"duplicateStems": 0' "$review")" -eq 2
+
+      - name: Upload V8 final review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp004-hi-pa-v6-native-v8-final-review
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-v2-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v8-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localization-v6-native-v8-review-export.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.log
+            artifacts/api-server/dist/quant-v4/int-cp004-hi-pa-v6-native-v8-review/**
+          if-no-files-found: error
+          retention-days: 30
