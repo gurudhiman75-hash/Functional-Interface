@@ -1,9 +1,16 @@
 {
   "packageId": "TRG-002",
-  "checkpoint": "PHASE7_MVP_48_AI_EDITORIAL",
-  "status": "AI_EDITORIAL_PASS_EXECUTION_RENDERED_VISUAL_HUMAN_REVIEW_PENDING",
+  "checkpoint": "PHASE7_MVP_48_AI_EDITORIAL_EXECUTED",
+  "status": "AI_EDITORIAL_PASS_EXECUTION_PASS_RUNTIME_SPEC_VISUAL_PASS_APP_UI_AND_HUMAN_REVIEW_PENDING",
   "activeRuntime": "mvp-final-editorial-runtime.ts",
-  "gate": "mvp-final-editorial.test.ts",
+  "gates": [
+    "mvp-runtime-48.test.ts",
+    "mvp-label-smoke.test.ts",
+    "mvp-difficulty-regression.test.ts",
+    "mvp-visual-review-14.test.ts",
+    "mvp-special-render-projection.test.ts",
+    "mvp-final-editorial.test.ts"
+  ],
   "counts": {
     "mvpPermanentQlCount": 48,
     "freshAddedQlReviewed": 28,
@@ -18,26 +25,39 @@
     "hardRetained": ["TRG-002-QL-096"]
   },
   "knownAiEditorialBlockers": 0,
+  "visualRemediationQlIds": ["TRG-002-QL-020", "TRG-002-QL-023", "TRG-002-QL-035", "TRG-002-QL-036", "TRG-002-QL-038", "TRG-002-QL-078", "TRG-002-QL-088"],
   "reviewMetadata": {
     "reviewStatus": "AI_REVIEWED",
     "aiEditorialStatus": "PASS",
     "humanReviewStatus": "PENDING",
+    "runtimeSpecVisualInspection": "PASS",
+    "appUiRenderedInspection": "PENDING",
     "renderedVisualInspection": "PENDING",
     "humanReviewSubstituted": false
   },
-  "gateTargets": {
-    "finalEditorialCases": 576,
-    "mvpCanonicalCases": 576,
-    "mvpSweepCases": 2400,
-    "diagramStrategyRepresentatives": 14,
-    "specialVisualReviewCases": 4
-  },
   "executionEvidence": {
-    "strictTypeScriptCompile": "NOT_CLAIMED",
-    "mvpCanonicalGate": "NOT_CLAIMED",
-    "mvpSweepGate": "NOT_CLAIMED",
-    "finalEditorialGate": "NOT_CLAIMED",
-    "renderedVisualInspection": "NOT_COMPLETED"
+    "workflow": ".github/workflows/trg-002-mvp48-verification.yml",
+    "observedSuccessfulRunId": 31765951856,
+    "observedSuccessfulHead": "fa22514d09120dab857a1796ceb9d1fed0dd9796",
+    "strictTypeScriptCompile": "PASS",
+    "mvpCanonicalCases": 576,
+    "mvpCanonicalGate": "PASS",
+    "mvpSweepCases": 2400,
+    "mvpSweepGate": "PASS",
+    "labelSmokeGate": "PASS",
+    "difficultyRegressionGate": "PASS",
+    "diagramStrategyGate": "PASS",
+    "specialProjectionGate": "PASS",
+    "finalEditorialCases": 576,
+    "finalEditorialGate": "PASS",
+    "runtimeReviewExport": "PASS",
+    "artifactName": "trg-002-mvp48-runtime-review"
+  },
+  "visualInspection": {
+    "runtimeSpec48Ql": "PASS",
+    "browserAppWrapper": "PENDING",
+    "defectsFoundAndFixed": 3,
+    "finalDefectIds": ["TRG-002-QL-020", "TRG-002-QL-023", "TRG-002-QL-036"]
   },
   "freezeEligible": false,
   "activation": {
@@ -47,5 +67,5 @@
     "publiclyPublishable": false,
     "hindiPunjabiRuntime": false
   },
-  "next": "Obtain actual execution evidence, inspect rendered diagrams, and complete human review before any 48-to-96 expansion."
+  "next": "Inspect the runtime-generated HTML in the real app/browser wrapper and complete human review of all 48 QLs before production freeze or 48-to-96 expansion under the current plan."
 }
