@@ -62,6 +62,34 @@ function questionSurface(question: unknown): {
   };
 }
 
+const HARD_EDITORIAL_BLOCKERS: readonly { id: string; pattern: RegExp }[] = [
+  { id: "UNDEFINED_LABEL", pattern: /\bundefined\b/iu },
+  { id: "SINGULAR_PART", pattern: /\b1 parts\b/iu },
+  { id: "SINGULAR_RATIO_PART", pattern: /\b1 ratio parts\b/iu },
+  { id: "DUPLICATED_QUICK_CHECK", pattern: /Quick check:\s*Check:/iu },
+  { id: "PLURAL_MATERIAL_AGREEMENT", pattern: /\b[^.!?]*(?:lentils|beans|leaves) (?:is|has)\b/iu },
+  {
+    id: "PLURAL_TRANSFER_AGREEMENT",
+    pattern: /\b(?:\d+(?:\.\d+)?(?:\s+\d+\/\d+)?|\d*x) litres(?: of [^,.;?]+)? is (?:transferred|sent|moved|poured|added|returned|removed)\b/iu,
+  },
+  {
+    id: "PLURAL_QUANTITY_UNIT",
+    pattern: /\b(?:[2-9]|\d{2,})(?:\.\d+)?(?:\s+\d+\/\d+)? litre\b/iu,
+  },
+];
+
+function assertManualEditorialGuards(
+  qlId: string,
+  seed: string,
+  surface: ReturnType<typeof questionSurface>,
+): void {
+  assert(!/^[a-z]/u.test(surface.stem), `${qlId}/${seed}: learner stem starts in lowercase.`);
+  const learnerText = [surface.stem, ...surface.options, ...surface.lines].join(" ");
+  for (const blocker of HARD_EDITORIAL_BLOCKERS) {
+    assert(!blocker.pattern.test(learnerText), `${qlId}/${seed}: hard editorial blocker ${blocker.id}.`);
+  }
+}
+
 type Difficulty = "Easy" | "Medium" | "Hard";
 type CpId = "MAL-CP-001" | "MAL-CP-002" | "MAL-CP-003" | "MAL-CP-004" | "MAL-CP-005" | "MAL-CP-006";
 type AuditAllocation = { cpId: CpId; qlId: string; difficulty: Difficulty };
@@ -111,6 +139,7 @@ function generate(allocation: AuditAllocation, seed: string): unknown {
 
 const samplesPerQl = 20;
 let generated = 0;
+let manualEditorialGuardChecks = 0;
 const difficultyCounts: Record<Difficulty, number> = { Easy: 0, Medium: 0, Hard: 0 };
 const cpGeneratedCounts: Record<CpId, number> = {
   "MAL-CP-001": 0,
@@ -153,6 +182,8 @@ for (const allocation of allocations) {
     const learnerText = [surface.stem, ...surface.options, ...surface.lines].join(" ");
     assert(!/\bMAL-(?:CP|QL)|prototype|runtime id|state key|question language|traceability|global component|component load/iu.test(learnerText), `${allocation.qlId}/${seed}: internal implementation language leaked.`);
     assert(!/\b1 litres\b/iu.test(learnerText), `${allocation.qlId}/${seed}: singular litre grammar regressed.`);
+    assertManualEditorialGuards(allocation.qlId, seed, surface);
+    manualEditorialGuardChecks += 1;
 
     stems.add(surface.stem);
     answers.add(surface.answer);
@@ -177,6 +208,7 @@ for (const allocation of allocations) {
 }
 
 assert(generated === 1340, `Expected 1340 chapter audit questions, received ${generated}.`);
+assert(manualEditorialGuardChecks === generated, "Manual editorial guard coverage incomplete.");
 assert(reviewRows.length === 67, `Expected one review row per QL, received ${reviewRows.length}.`);
 assert(Object.values(difficultyCounts).every((count) => count > 0), "Chapter does not retain all three difficulty bands.");
 
@@ -198,6 +230,8 @@ const summary = {
   difficultyCounts,
   generated,
   samplesPerQl,
+  manualEditorialGuardChecks,
+  hardEditorialBlockerClasses: HARD_EDITORIAL_BLOCKERS.map((entry) => entry.id),
   crossQlExactStemCollisions,
   qlEvidence,
   cpGeneratedCounts,
@@ -232,6 +266,7 @@ const markdown: string[] = [
   "| MAL-CP-006 | MAL-QL-061..067 | 7 | inactive permanent-ID review candidate |",
   "",
   `Difficulty authorities: Easy ${difficultyCounts.Easy}, Medium ${difficultyCounts.Medium}, Hard ${difficultyCounts.Hard}.`,
+  `Manual blocker guard checks: ${manualEditorialGuardChecks}.`,
   "",
   "## Per-QL diversity sample",
   "",
