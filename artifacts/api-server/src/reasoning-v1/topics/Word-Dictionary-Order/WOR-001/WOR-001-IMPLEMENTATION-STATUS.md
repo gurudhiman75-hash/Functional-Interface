@@ -1,103 +1,61 @@
-# WOR-001 Implementation Status — Post CP-005
+# WOR-001 Implementation Status — Pool Expansion V1
 
 ## Current implementation
 
-- five-checkpoint review-only runtime;
-- **24 prototypes / 20 executable task kinds**;
-- **16 retained executable contracts**;
-- **8 recommended permanent QL roots** after compression;
-- **8 classic source-deferred retained contracts** that remain review/research only;
-- **8 instance variants** that reserve no separate QL;
-- 30 real-word families / 360 globally unique `PROVISIONAL_REVIEW` words;
-- deterministic Banking five × three-letter cluster constructor for CP-005, with large curated cluster-pool expansion still pending;
-- classic explicit A–Z comparator plus independent lexical verifier;
-- independent Banking transformation/sort/answer verifier;
-- state-derived difficulty for classic and Banking states;
-- EN/HI/PA stems and explanations;
+- five-checkpoint, review-only runtime;
+- **24 prototypes / 20 task kinds**;
+- **8 recommended permanent QL roots**;
+- **8 source-deferred contracts**;
+- **8 instance variants**;
+- **60 real-word families / 720 globally unique provisional words**;
+- real-word split: **18 Easy / 20 Medium / 22 Hard**;
+- **60 Banking cluster families / 720 globally unique three-letter clusters**;
+- Banking split: **20 Easy / 20 Medium / 20 Hard**;
 - classic four-option and Banking five-option profiles;
-- Question Studio review adapter exposes all five checkpoints internally while public visibility remains disabled.
+- independent classic and Banking verification;
+- EN/HI/PA generation;
+- Question Studio/public visibility disabled.
 
-## Recommended permanent QL architecture
+## Expansion result
 
-```text
-CLASSIC
-1. Complete dictionary order
-2. Endpoint after ordering
-3. Word/cluster at a specified position
-4. Position of a specified word
+The original 360-word corpus remains intact and 360 additional real words are layered onto it. New Easy families use controlled same-initial pairs; Medium families use moderate shared prefixes; Hard families use dense, familiar root/prefix groups. The generated Easy shared-prefix rate is **32.2%**, correcting the previous first-letter-only bias without pushing Easy states out of their calibrated band.
 
-BANKING COMPOSITES
-5. Sort -> concatenate -> global character
-6. Sort -> ranked cluster -> local character / alphabet offset
-7. Transform each -> sort -> positional word query
-8. Transform each -> sort -> local character query
-```
-
-`WOR-PROT-020` (plain Banking three-letter clusters with positional query) merges into classic root 3 because its answer/solver contract is the same kth-position contract with a different object mode.
-
-Permanent IDs remain unallocated.
-
-## CP-005 implemented prototypes
-
-| Prototype | Task | Allocation | Options | Difficulty |
-| --- | --- | --- | ---: | --- |
-| `WOR-PROT-020` | plain three-letter clusters → positional word query | instance variant of root 3 | 5 | E/M/H |
-| `WOR-PROT-021` | sort → concatenate → global character | new root candidate | 5 | M/H |
-| `WOR-PROT-022` | sort → ranked cluster → local character/offset | new root candidate | 5 | M/H |
-| `WOR-PROT-023` | transform each → sort → position | new root candidate | 5 | M/H |
-| `WOR-PROT-024` | transform each → sort → local character | new root candidate | 5 | M/H |
-
-All five are tagged `PYQ_SUPPORTED` in the implementation registry based on the chapter content-gap/source audit.
-
-## Banking transformation library
-
-- `SWAP_FIRST_SECOND`;
-- `SWAP_FIRST_LAST`;
-- `SORT_LETTERS_ASC`;
-- `SHIFT_FIRST_PREVIOUS`;
-- `SHIFT_FIRST_NEXT`;
-- `NONE` for non-transform composite forms.
-
-Transformation results are required to remain unique; collisions trigger deterministic bounded resampling. Original ↔ transformed token mapping is preserved so a question can correctly ask for either representation.
+Banking CP-005 now samples from a stable 720-token reservoir instead of constructing every five-token set ad hoc. All clusters are uppercase three-letter, globally unique and shift-safe (`B`–`Y`). Easy families are first-letter separable, Medium families force first-letter ties, and Hard families share the first letter.
 
 ## Automated evidence
 
-### Classic audit
+### Classic runtime
 
-- 19 classic prototypes;
 - 6,840 localized generations;
-- answer positions `[570, 570, 570, 570]`;
-- all 30 real-word families reached;
-- independent solver parity maintained.
+- four answer positions: `[570, 570, 570, 570]`;
+- **60/60 real-word families reached**;
+- source/difficulty/independent-solver gates passed.
 
-### CP-005 Banking audit
+### Expanded real-word saturation
 
-- 5 prototypes;
-- **1,980 localized generations**;
-- five-option answer-position counts `[129, 130, 134, 131, 136]`;
-- all five Banking task kinds covered;
-- all five explicit transformation operators plus `NONE` covered;
-- Easy/Medium/Hard coverage where each prototype permits it;
-- deterministic EN/HI/PA parity;
-- independent transformation, ordering and answer agreement.
+- 60 families / 720 words;
+- tier counts: `{ EASY: 18, MEDIUM: 20, HARD: 22 }`;
+- all family/token/ID uniqueness gates passed;
+- all families reached in the 900-seed-per-tier audit;
+- visible-set uniqueness >= 90% per tier;
+- Easy shared-prefix question rate: **0.322**.
 
-The CI run on commit `49977d468bae830e3dd2d2c81fd36ec08eefc28d` passed the classic audit, CP-005 Banking audit, source governance, corpus audit, 12-file review export and API production build.
+### Banking runtime and reservoir
 
-## Content-model status
+- CP-005: 1,980 localized generations;
+- answer positions: `[131, 134, 135, 126, 134]`;
+- every Banking task and transformation covered;
+- 60 families / 720 clusters;
+- tier counts `{ EASY: 20, MEDIUM: 20, HARD: 20 }`;
+- unique visible sets over 1,000 builds: Easy **974**, Medium **963**, Hard **975**;
+- independent transform/sort/answer parity passed.
 
-`ARCHITECTURE_COMPLETE_POOL_EXPANSION_PENDING`
+### Build/review
 
-The major Banking taxonomy gap found in `WOR-001-CONTENT-GAP-AUDIT-V1.md` is now implemented. The remaining major content work is **object-pool breadth and editorial approval**, not another known solve-family gap.
+Fresh classic + Banking review packs are generated by CI and the API production build passes with the expanded pools.
 
-## Next phase
+## Current maturity
 
-1. expand real-word pool beyond 360 while preserving familiarity and structural tiering;
-2. build a large reviewed Banking three-letter cluster pool instead of relying only on the structural generator;
-3. remodel Easy pool so a meaningful fraction requires second-letter comparison;
-4. add repetition/saturation gates across both object modes;
-5. regenerate classic + Banking review packs;
-6. English editorial review;
-7. native Hindi/Punjabi review;
-8. allocate the eight permanent QL IDs only after those gates pass.
+`ARCHITECTURE_COMPLETE_EXPANDED_POOLS_REVIEW_ONLY`
 
-Lifecycle remains `REVIEW_ONLY`; permanent QLs remain 0; public Question Studio/mock-test release remains disabled.
+The next substantive gate is **editorial quality review**, not more architecture or raw object-count expansion. Permanent QLs remain 0 and public activation remains disabled until English and native Hindi/Punjabi review is accepted.
