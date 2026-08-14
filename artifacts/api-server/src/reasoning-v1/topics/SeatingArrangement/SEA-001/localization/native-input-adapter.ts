@@ -176,7 +176,14 @@ function polishNativeLearnerText(text: string, locale: Sea001TranslatedLocale): 
   }
 
   if (locale === "hi-IN") {
-    output = output.replaceAll(" मुख किए है।", " मुख करके बैठा है।");
+    output = output
+      .replaceAll(" मुख किए है।", " मुख करके बैठा है।")
+      .replace(/([^\s,।\n]+) (उत्तर की ओर|दक्षिण की ओर|केंद्र की ओर|बाहर की ओर) मुख करके बैठा है/g, "$1 का मुख $2 है")
+      .replaceAll(" बैठा है", " है");
+  } else {
+    output = output
+      .replace(/([^\s,।\n]+) (ਉੱਤਰ ਵੱਲ|ਦੱਖਣ ਵੱਲ|ਕੇਂਦਰ ਵੱਲ|ਬਾਹਰ ਵੱਲ) ਮੂੰਹ ਕਰਕੇ ਬੈਠਾ ਹੈ/g, "$1 ਦਾ ਮੂੰਹ $2 ਹੈ")
+      .replaceAll(" ਬੈਠਾ ਹੈ", " ਹੈ");
   }
   return output;
 }
