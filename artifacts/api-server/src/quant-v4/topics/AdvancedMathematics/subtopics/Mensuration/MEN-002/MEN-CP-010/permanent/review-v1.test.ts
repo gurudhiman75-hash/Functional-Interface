@@ -22,6 +22,7 @@ assert.equal(audit.noEngineeringShorthand, true);
 assert.equal(audit.naturalPercentageDisplay, true);
 assert.equal(audit.capacityUnitsPresent, true);
 assert.equal(audit.individualizedTeaching, true);
+assert.equal(audit.workedTeaching, true);
 assert.equal(audit.englishImplementationFrozen, false);
 assert.equal(audit.productLocked, true);
 
