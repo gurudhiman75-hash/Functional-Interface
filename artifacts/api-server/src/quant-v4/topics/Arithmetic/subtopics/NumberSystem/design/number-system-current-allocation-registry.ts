@@ -117,7 +117,7 @@ export const NUMBER_SYSTEM_COMPLETED_CHECKPOINT_ALLOCATIONS = [
     frozenLearnerTemplateCount: 21,
     frozenSolveModeCount: 21,
     authorityRoute: "NUM-001/NUM-CP-002/permanent/allocation.ts",
-    maturity: "PERMANENT_ALLOCATION_MERGED",
+    maturity: "ENGLISH_IMPLEMENTATION_FROZEN",
     language: "en",
     active: false,
     questionStudioDiscoverable: false,
