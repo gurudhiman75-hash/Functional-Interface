@@ -1,9 +1,12 @@
+import { selectRnkPeople } from "../foundation/rnk-object-pool-v2";
 import {
   generateRnkCp008RelationalSideCountQuestion as generateV1RelationalSideCountQuestion,
+  generateRnkCp008SharedCaselet as generateV1SharedCaselet,
   routeRnkCp008NumericConstraintRankQuery as routeV1NumericConstraintRankQuery,
   type RnkCp008NumericConstraintSolution,
   type RnkCp008NumericRankQuery,
   type RnkCp008RelationalSideCountQuestion,
+  type RnkCp008SharedCaselet,
 } from "./cp008-adapter-caselet-closure-v1";
 
 export * from "./cp008-adapter-caselet-closure-v1";
@@ -21,10 +24,9 @@ export function generateRnkCp008RelationalSideCountQuestionV1_1(
   seed: number,
 ): RnkCp008RelationalSideCountQuestion {
   const base = generateV1RelationalSideCountQuestion(seed);
-  const sourceMatch = base.stem.match(/ahead of ([^ ]+)/);
-  const targetMatch = base.stem.match(/ahead of ([^ ]+) is equal/);
-  const source = sourceMatch?.[1] ?? "the first person";
-  const target = targetMatch?.[1] ?? "the second person";
+  const people = selectRnkPeople(seed ^ 0x51463636, 2, { genderMode: "BALANCED" });
+  const source = people[0]!.names.en;
+  const target = people[1]!.names.en;
   const { total, multiplier } = base.normalizedState;
 
   return {
@@ -49,8 +51,8 @@ export interface RnkCp008NumericRankRouteV1_1 {
 
 /**
  * V1 correctly routed exact-rank invariants in multi-order states to QL038,
- * but an invariant pair relation in several valid orders is a relation-truth
- * question and belongs to QL036. V1.1 makes that ownership boundary explicit.
+ * but pair-relation status in several valid orders belongs to QL036.
+ * V1.1 covers first-above, second-above and indeterminate pair status.
  */
 export function routeRnkCp008NumericConstraintRankQueryV1_1(
   solution: RnkCp008NumericConstraintSolution,
@@ -63,11 +65,10 @@ export function routeRnkCp008NumericConstraintRankQueryV1_1(
         ? "FIRST_ABOVE"
         : "SECOND_ABOVE",
     ));
-    if (relations.size !== 1) throw new Error("Pair relation is not invariant");
     return {
       adapterVersion: RNK_CP008_ADAPTER_CASELET_CLOSURE_V1_1,
       mappedQlId: "RNK-QL-036",
-      answer: [...relations][0]!,
+      answer: relations.size === 1 ? [...relations][0]! : "INDETERMINATE",
       normalizedOrderCount: orders.length,
       permanentQlAllocated: false,
     };
@@ -78,4 +79,48 @@ export function routeRnkCp008NumericConstraintRankQueryV1_1(
     ...base,
     adapterVersion: RNK_CP008_ADAPTER_CASELET_CLOSURE_V1_1,
   };
+}
+
+/**
+ * Shared passages do not own QLs. V1.1 only adapts the child wording to the
+ * selected context while retaining the existing child QL identities.
+ */
+export function generateRnkCp008SharedCaseletV1_1(seed: number): RnkCp008SharedCaselet {
+  const base = generateV1SharedCaselet(seed);
+  const second = base.hiddenOrder[1]!;
+  const third = base.hiddenOrder[2]!;
+  const fifth = base.hiddenOrder[4]!;
+  const fourth = base.hiddenOrder[3]!;
+
+  const children = base.children.map((child) => {
+    if (child.mappedQlId === "RNK-QL-028") {
+      const stem = base.context === "RACE_FINISH"
+        ? "Who finished third?"
+        : base.context === "MERIT_LIST"
+          ? "Who is third in the merit list?"
+          : "Who is ranked third for performance?";
+      return { ...child, stem };
+    }
+    if (child.mappedQlId === "RNK-QL-031") {
+      const stem = base.context === "RACE_FINISH"
+        ? `Who finished ahead, ${second} or ${fifth}?`
+        : `Who is ranked higher, ${second} or ${fifth}?`;
+      return { ...child, stem };
+    }
+    if (child.mappedQlId === "RNK-QL-033") {
+      const stem = base.context === "RACE_FINISH"
+        ? `Who finished immediately after ${fourth}?`
+        : base.context === "MERIT_LIST"
+          ? `Who is immediately below ${fourth} in the merit list?`
+          : `Who is ranked immediately below ${fourth} for performance?`;
+      return { ...child, stem };
+    }
+    return child;
+  });
+
+  if (children[1]?.answer !== third) {
+    throw new Error("Caselet third-position child lost its canonical answer");
+  }
+
+  return { ...base, children };
 }
