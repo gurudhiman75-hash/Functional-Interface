@@ -43,6 +43,8 @@ export function generateFinalEditorialTrg002Mvp48Question(qlId: Trg002Mvp48Id, s
       status: "PASS" as const,
       reviewedAt: "2026-08-14",
       scope: FRESH_EDITORIAL_IDS.has(qlId) ? "TRG-002_MVP_28_ADDITIONS_FRESH" as const : "TRG-002_PROOF_20_CARRIED" as const,
+      runtimeSpecVisualInspection: "PASS" as const,
+      appUiRenderedInspection: "PENDING" as const,
       renderedVisualInspection: "PENDING" as const,
       humanReviewSubstituted: false,
     },
