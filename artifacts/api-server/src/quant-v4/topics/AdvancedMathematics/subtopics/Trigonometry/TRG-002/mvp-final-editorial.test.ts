@@ -56,7 +56,7 @@ assert(/\d+\.5 m building/.test(q076.stem) && !/\d+\/2 m building/.test(q076.ste
 const q081: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-081", wordingSeed);
 assert(q081.explanation.steps.some((step: any) => step.body.includes("x=3y")), "QL-081 Hard explanation must derive the unequal opposite-side distance ratio.");
 const q083: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-083", wordingSeed);
-assert(q083.stem.includes("horizontally from the first building"), "QL-083 must state the horizontal building separation explicitly.");
+assert(q083.stem.includes("horizontal distance between the feet of the two buildings"), "QL-083 must state the horizontal building separation explicitly.");
 const q092: any = generateFinalEditorialTrg002Mvp48Question("TRG-002-QL-092", wordingSeed);
 const q092WrongIds = new Set(q092.options.filter((option: any) => !option.isCorrect).map((option: any) => option.misconceptionId));
 assert(q092WrongIds.has("RETURNED_LINE_OF_SIGHT_USING_SIN45") && q092WrongIds.has("TREATED_TOWER_HEIGHT_AS_HYPOTENUSE") && q092WrongIds.has("USED_60_DEGREE_RATIO_INSTEAD_OF_45"), "QL-092 distractors must come from genuine trigonometric misconceptions rather than arbitrary multiples.");
