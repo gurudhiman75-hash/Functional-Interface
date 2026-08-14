@@ -70,15 +70,22 @@ jobs:
           for (const q of source) {
             const explanation = [q.explanation.method, ...q.explanation.steps, q.explanation.shortcut].join(' ');
             if (sameDirectionModes.has(q.solveMode) && (explanation.includes('sum of the two speeds') || explanation.includes('towards each other or directly apart'))) throw new Error(`${q.solveMode}: wrong direction rule in explanation`);
+            if (!q.explanation.steps.some((step) => step.includes('='))) throw new Error(`${q.solveMode}: explanation lacks connected numerical working`);
             if (q.stem.includes('on two towns')) throw new Error('awkward two-towns stem');
             if (q.stem.startsWith('Two vehicles in the same direction at')) throw new Error('malformed departure-clock stem');
+            if (q.stem.includes('faster than a bus ahead only through their speed difference')) throw new Error('malformed same-direction relative-speed stem');
             if (q.solveMode === 'findCatchUpTimeFromHeadStartDistance' && q.stem.includes('cyclist')) throw new Error('implausible cyclist pursuit wording');
-            if (q.solution.unit !== 'CLOCK_MINUTE' && q.solution.unit !== 'RATIO') {
-              const answer = Number(q.solution.answer.numerator) / Number(q.solution.answer.denominator);
-              for (const option of q.internalOptionAudit) {
-                if (option.isCorrect || !option.wrongWorking) continue;
-                const wrong = Number(option.wrongWorking.value.numerator) / Number(option.wrongWorking.value.denominator);
-                if (wrong < answer / 3 - 1e-12 || wrong > answer * 3 + 1e-12) throw new Error(`${q.solveMode}: implausible distractor magnitude`);
+            const wrongs = q.internalOptionAudit.filter((entry) => !entry.isCorrect);
+            if (wrongs.length !== 3) throw new Error(`${q.solveMode}: expected three distractors`);
+            const paths = wrongs.map((entry) => `${entry.misconceptionId}|${entry.wrongWorking?.calculation ?? ''}`);
+            if (new Set(paths).size !== 3) throw new Error(`${q.solveMode}: distractor paths are not distinct`);
+            if (wrongs.some((entry) => /scaled|alter final arithmetic|answer ×|answer ÷/i.test(entry.wrongWorking?.calculation ?? ''))) throw new Error(`${q.solveMode}: generic arithmetic filler leaked into options`);
+            if ((q.solveMode === 'findMeetingPointDistanceSplit' || q.solveMode === 'findMeetingPointFromSpeedRatio') && q.input.routeDistance) {
+              const route = Number(q.input.routeDistance.numerator) / Number(q.input.routeDistance.denominator);
+              for (const option of wrongs) {
+                if (!option.wrongWorking) continue;
+                const value = Number(option.wrongWorking.value.numerator) / Number(option.wrongWorking.value.denominator);
+                if (value <= 0 || value >= route) throw new Error(`${q.solveMode}: meeting-point distractor lies outside route`);
               }
             }
           }
