@@ -6,7 +6,6 @@ export const MAL_CP006_WAVE02_LEARNER_AUTHORITY_ID = "MAL-CP006-EN-WAVE02-LEARNE
 
 function polish(text: string): string {
   return text
-    .replace("litres of pure milk is kept", "litres of pure milk are kept")
     .replace("The x litres returned from B contains", "The x litres returned from B contain")
     .replace(". Find x.", ". What is x?")
     .replace(". Find the transferred quantity.", ". What quantity was transferred?")
