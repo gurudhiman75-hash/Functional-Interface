@@ -25,7 +25,7 @@ jobs:
           mkdir -p artifacts/api-server/dist/e1-r2-review
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/e1-r2-exam-runtime.ts --bundle --platform=node --format=esm --outfile=dist/e1-r2-review/cp004.mjs
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-005/e1-r2-exam-runtime.ts --bundle --platform=node --format=esm --outfile=dist/e1-r2-review/cp005.mjs
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/e1-r2-exam-runtime.ts --bundle --platform=node --format=esm --outfile=dist/e1-r2-review/cp010.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-002/SAP-CP-010/e1-r2-exam-runtime-final.ts --bundle --platform=node --format=esm --outfile=dist/e1-r2-review/cp010.mjs
 
       - name: Build and validate 300-question E1 R2 review
         run: |
@@ -100,7 +100,7 @@ jobs:
           const outDir = path.join(root, 'artifacts/api-server/dist/quant-v4/sap-e1-r2-review');
           fs.mkdirSync(outDir, { recursive: true });
           const summary = {
-            reviewVersion: 'SAP-E1-R2-EXAM-REALISM-V1',
+            reviewVersion: 'SAP-E1-R2-EXAM-REALISM-V2',
             questionCount: 300,
             profiles,
             structures: 24,
