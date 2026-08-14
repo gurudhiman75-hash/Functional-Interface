@@ -9,6 +9,7 @@ export function generateTrg002MvpQl038Clean(seed: string) {
   const distance = assertDefined(divideExact(length, exactInteger(2)));
   const verticalReach = assertDefined(divideExact(multiplyExact(length, exactSurd(1, 3)), exactInteger(2)));
   const state = buildLadderState({ ladderLength: length, angleAtGround: degree(60), units: "m" });
+  state.metadata.measurements = { "ladder-length": length };
   state.observers = [{ id: "ladder-reference", groundPointId: "ladder-base", eyePointId: "ladder-base", eyeHeight: exactInteger(0) }];
   state.observations = [{
     id: "ladder-angle",
