@@ -1,4 +1,12 @@
+import { buildLocalizedEditorialA } from "./editorial-v2-localized-a";
+import { buildLocalizedEditorialB } from "./editorial-v2-localized-b";
+import { polishLocalizedEditorialSurface } from "./editorial-v2-localized-polish";
+
 export function buildGenericEditorialSurface(frozen: any, language: "en" | "hi" | "pa") {
+  if (language !== "en") {
+    const localized = buildLocalizedEditorialA(frozen, language, Number(frozen.seed)) ?? buildLocalizedEditorialB(frozen, language, Number(frozen.seed));
+    if (localized) return polishLocalizedEditorialSurface(localized, language);
+  }
   const math = (value: string) => `\\(${value}\\)`;
   const cleanText = (value: string) => value
     .replace(/admissible/giu, "allowed")
@@ -25,8 +33,11 @@ export function buildGenericEditorialSurface(frozen: any, language: "en" | "hi" 
   const answer = options[correctIndex] ?? String(frozen.canonicalAnswer);
   let stem = cleanText(String(frozen.stem));
   if (language === "en") stem = stem.replace(/^In this question, natural numbers begin at 1\.\s*/u, "").replace(/^Here\s+/u, "").replace(/\bguaranteed\b/giu, "always");
+  if (language === "hi") stem = stem.replace(/^इस प्रश्न में प्राकृतिक संख्याएँ 1 से शुरू होती हैं।\s*/u, "");
+  if (language === "pa") stem = stem.replace(/^ਇਸ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਕੁਦਰਤੀ ਸੰਖਿਆਵਾਂ 1 ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀਆਂ ਹਨ।\s*/u, "");
   const core = Array.isArray(frozen.explanation?.coreConcept) ? frozen.explanation.coreConcept.map(String) : [];
   const steps = Array.isArray(frozen.explanation?.stepByStep) ? frozen.explanation.stepByStep.map((value: unknown) => cleanText(String(value))).slice(0, 4) : [];
   const concept = cleanText(String(core[0] ?? "Use the relevant Number System rule."));
-  return { stem, options, correctIndex, answer, concept, steps };
+  const fallback = { stem, options, correctIndex, answer, concept, steps };
+  return language === "en" ? fallback : polishLocalizedEditorialSurface(fallback, language);
 }
