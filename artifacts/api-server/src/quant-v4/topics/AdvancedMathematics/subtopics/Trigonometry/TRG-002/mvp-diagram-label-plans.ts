@@ -5,6 +5,7 @@ const O = (objectId: string): MvpLabelSource => ({ kind: "OBJECT_HEIGHT", object
 const H = (fromPointId: string, toPointId: string): MvpLabelSource => ({ kind: "HORIZONTAL_DISTANCE", fromPointId, toPointId });
 const M = (movementId: string): MvpLabelSource => ({ kind: "MOVEMENT_DISTANCE", movementId });
 const E = (observerId: string): MvpLabelSource => ({ kind: "EYE_HEIGHT", observerId });
+const X = (key: string): MvpLabelSource => ({ kind: "MEASUREMENT", key });
 const P = (id: string, role: MvpLabelRole, fromPointId: string, toPointId: string, source: MvpLabelSource, placement: MvpLabelPlacement, symbol?: string): MvpLabelPlan => ({ id, role, fromPointId, toPointId, source, placement, ...(symbol ? { symbol } : {}) });
 
 export const TRG_002_MVP_ADDED_LABEL_PLANS: MvpLabelPlanMap = {
@@ -13,13 +14,13 @@ export const TRG_002_MVP_ADDED_LABEL_PLANS: MvpLabelPlanMap = {
   "TRG-002-QL-009": [P("given-height","GIVEN","object-base","object-top",O("object-1"),"RIGHT","h"), P("target-horizontal","TARGET_SOLVED","object-base","observer-ground",A(),"BELOW","d")],
   "TRG-002-QL-014": [P("given-height","GIVEN","object-base","object-top",O("object-1"),"RIGHT","h"), P("given-horizontal","GIVEN","object-base","observer-ground",H("object-base","observer-ground"),"BELOW","d")],
   "TRG-002-QL-018": [P("given-observer-height","GIVEN","observer-base","observer-top",O("observer-building"),"LEFT"), P("given-horizontal","GIVEN","observer-base","target-base",H("observer-base","target-base"),"BELOW"), P("target-height","TARGET_SOLVED","target-base","target-top",A(),"RIGHT","h")],
-  "TRG-002-QL-020": [P("given-eye-level","EYE_HEIGHT","observer-ground","observer-eye",E("observer-1"),"LEFT"), P("target-horizontal","TARGET_SOLVED","observer-ground","target-ground",A(),"BELOW","d")],
+  "TRG-002-QL-020": [P("given-eye-level","EYE_HEIGHT","observer-ground","observer-eye",E("observer-1"),"LEFT","H"), P("given-target-height","GIVEN","target-ground","target",X("target-height"),"RIGHT","h"), P("target-horizontal","TARGET_SOLVED","observer-ground","target-ground",A(),"BELOW","d")],
   "TRG-002-QL-024": [P("given-height","GIVEN","object-base","object-top",O("object-1"),"RIGHT","h"), P("target-sloping","TARGET_SOLVED","observer-eye","object-top",A(),"ABOVE","L")],
 
   "TRG-002-QL-028": [P("given-shadow","GIVEN","object-base","shadow-tip",H("object-base","shadow-tip"),"BELOW","s"), P("target-height","TARGET_SOLVED","object-base","object-top",A(),"RIGHT","h")],
   "TRG-002-QL-032": [P("given-height","GIVEN","object-base","object-top",O("object-1"),"RIGHT","h"), P("target-shadow","TARGET_SOLVED","object-base","shadow-tip",A(),"BELOW","s")],
   "TRG-002-QL-035": [P("given-old-shadow","GIVEN","object-base","shadow-tip-old",H("object-base","shadow-tip-old"),"BELOW","s₁"), P("target-new-shadow","TARGET_SOLVED","object-base","shadow-tip-new",A(),"ABOVE","s₂")],
-  "TRG-002-QL-038": [P("target-foot-distance","TARGET_SOLVED","wall-base","ladder-base",A(),"BELOW","d")],
+  "TRG-002-QL-038": [P("given-ladder-length","GIVEN","ladder-base","wall-contact",X("ladder-length"),"ABOVE","L"), P("target-foot-distance","TARGET_SOLVED","wall-base","ladder-base",A(),"BELOW","d")],
   "TRG-002-QL-041": [P("given-stump","GIVEN","tree-base","break-point",O("stump"),"LEFT","h"), P("target-fallen-part","TARGET_SOLVED","touch-point","break-point",A(),"ABOVE","L")],
   "TRG-002-QL-043": [P("given-stump","GIVEN","tree-base","break-point",O("stump"),"LEFT","h"), P("target-touch-distance","TARGET_SOLVED","tree-base","touch-point",A(),"BELOW","d")],
   "TRG-002-QL-048": [P("given-mast-height","GIVEN","object-base","object-top",O("object-1"),"RIGHT","h"), P("target-anchor-distance","TARGET_SOLVED","object-base","observer-ground",A(),"BELOW","d")],
