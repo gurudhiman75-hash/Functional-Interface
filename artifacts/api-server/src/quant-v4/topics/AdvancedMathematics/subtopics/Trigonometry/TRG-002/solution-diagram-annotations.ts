@@ -1,9 +1,12 @@
 import {
+  assertDefined,
+  divideExact,
   exactToNumber,
   formatExactPlain,
   subtractExact,
 } from "../foundation/exact";
 import type { ExactTrigNumber } from "../foundation/types";
+import { requireTrigExact } from "../foundation/standard-values";
 import type { Trg002ProofQlId, Trg002ProofQuestion } from "./runtime-proof";
 
 export type Trg002SolutionAnnotationRole =
@@ -19,7 +22,8 @@ export type Trg002SolutionAnnotationSource =
   | { kind: "OBJECT_HEIGHT"; objectId: string }
   | { kind: "HORIZONTAL_DISTANCE"; fromPointId: string; toPointId: string }
   | { kind: "MOVEMENT_DISTANCE"; movementId: string }
-  | { kind: "EYE_HEIGHT"; observerId: string };
+  | { kind: "EYE_HEIGHT"; observerId: string }
+  | { kind: "OBSERVATION_SIGHT_LINE"; observationId: string };
 
 export interface Trg002SolutionAnnotationPlanEntry {
   id: string;
@@ -82,6 +86,7 @@ export const TRG_002_PROOF_SOLUTION_ANNOTATION_PLANS: Record<
     P("target-pole-height", "TARGET_SOLVED", "target-base", "target-top", { kind: "ANSWER" }, "LEFT", "h"),
   ],
   "TRG-002-QL-023": [
+    P("given-sight-line", "GIVEN", "observer-eye", "object-top", { kind: "OBSERVATION_SIGHT_LINE", observationId: "obs-1" }, "ABOVE", "L"),
     P("target-height", "TARGET_SOLVED", "object-base", "object-top", { kind: "ANSWER" }, "RIGHT", "h"),
   ],
   "TRG-002-QL-025": [
@@ -97,6 +102,7 @@ export const TRG_002_PROOF_SOLUTION_ANNOTATION_PLANS: Record<
     P("target-new-shadow", "TARGET_SOLVED", "object-base", "shadow-tip-new", { kind: "ANSWER" }, "ABOVE", "s₂"),
   ],
   "TRG-002-QL-036": [
+    P("given-ladder-length", "GIVEN", "ladder-base", "wall-contact", { kind: "OBSERVATION_SIGHT_LINE", observationId: "obs-ladder-reference" }, "ABOVE", "L"),
     P("target-wall-height", "TARGET_SOLVED", "wall-base", "wall-contact", { kind: "ANSWER" }, "RIGHT", "h"),
   ],
   "TRG-002-QL-045": [
@@ -192,6 +198,15 @@ function resolveSource(question: Trg002ProofQuestion, source: Trg002SolutionAnno
       const observer = question.canonicalSpatialState.observers.find((item) => item.id === source.observerId);
       if (!observer) throw new Error(`${question.qlId}: annotation cannot resolve observer ${source.observerId}.`);
       return formatLength(question, observer.eyeHeight);
+    }
+    case "OBSERVATION_SIGHT_LINE": {
+      const observation = question.canonicalSpatialState.observations.find((item) => item.id === source.observationId);
+      if (!observation) throw new Error(`${question.qlId}: annotation cannot resolve observation ${source.observationId}.`);
+      const eye = point(question, observation.eyePointId);
+      const target = point(question, observation.targetPointId);
+      const horizontal = positiveDifference(eye.x, target.x);
+      const cosine = requireTrigExact("COS", observation.angle);
+      return formatLength(question, assertDefined(divideExact(horizontal, cosine)));
     }
   }
 }
