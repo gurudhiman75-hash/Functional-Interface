@@ -1,0 +1,3282 @@
+[
+  {
+    "checkpointId": "INE-CP-001",
+    "sourceRecordId": "INE-CP-001-EVALUATE_SINGLE_CONCLUSION-0",
+    "authorityId": "EVALUATE_SINGLE_CONCLUSION",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष का सही मूल्यांकन क्या है?",
+    "statements": [
+      "A ≥ R",
+      "R > P"
+    ],
+    "conclusions": [
+      "A > P"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "निश्चित रूप से निकलता है",
+      "सत्य हो सकता है, पर निश्चित नहीं है",
+      "सत्य नहीं हो सकता",
+      "कथन परस्पर विरोधी हैं"
+    ],
+    "correctIndex": 0,
+    "correctOption": "निश्चित रूप से निकलता है",
+    "explanation": "मुख्य तुलना देखें: A ≥ R; R > P; A > P। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: निश्चित रूप से निकलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-001",
+    "sourceRecordId": "INE-CP-001-EVALUATE_SINGLE_CONCLUSION-1",
+    "authorityId": "EVALUATE_SINGLE_CONCLUSION",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष का सही मूल्यांकन क्या है?",
+    "statements": [
+      "D ≥ S"
+    ],
+    "conclusions": [
+      "D > S"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "निश्चित रूप से निकलता है",
+      "सत्य हो सकता है, पर निश्चित नहीं है",
+      "सत्य नहीं हो सकता",
+      "कथन परस्पर विरोधी हैं"
+    ],
+    "correctIndex": 1,
+    "correctOption": "सत्य हो सकता है, पर निश्चित नहीं है",
+    "explanation": "मुख्य तुलना देखें: D ≥ S; D = S; D > S। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: सत्य हो सकता है, पर निश्चित नहीं है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-001",
+    "sourceRecordId": "INE-CP-001-EVALUATE_SINGLE_CONCLUSION-2",
+    "authorityId": "EVALUATE_SINGLE_CONCLUSION",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष का सही मूल्यांकन क्या है?",
+    "statements": [
+      "C > R"
+    ],
+    "conclusions": [
+      "C ≤ R"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "निश्चित रूप से निकलता है",
+      "सत्य हो सकता है, पर निश्चित नहीं है",
+      "सत्य नहीं हो सकता",
+      "कथन परस्पर विरोधी हैं"
+    ],
+    "correctIndex": 2,
+    "correctOption": "सत्य नहीं हो सकता",
+    "explanation": "मुख्य तुलना देखें: C > R; C ≤ R। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: सत्य नहीं हो सकता।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-001",
+    "sourceRecordId": "INE-CP-001-EVALUATE_SINGLE_CONCLUSION-3",
+    "authorityId": "EVALUATE_SINGLE_CONCLUSION",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष का सही मूल्यांकन क्या है?",
+    "statements": [
+      "C ≥ S",
+      "S > D"
+    ],
+    "conclusions": [
+      "C > D"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "सत्य हो सकता है, पर निश्चित नहीं है",
+      "सत्य नहीं हो सकता",
+      "कथन परस्पर विरोधी हैं",
+      "निश्चित रूप से निकलता है"
+    ],
+    "correctIndex": 3,
+    "correctOption": "निश्चित रूप से निकलता है",
+    "explanation": "मुख्य तुलना देखें: C ≥ S; S > D; C > D। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: निश्चित रूप से निकलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-C6C5A6C2",
+    "authorityId": "CLASSIFY_SINGLE_CONCLUSION_TRUTH",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "P ≤ Q",
+      "P > S"
+    ],
+    "conclusions": [
+      "Q ≥ S"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "निश्चित रूप से सत्य",
+      "असंभव"
+    ],
+    "correctIndex": 1,
+    "correctOption": "निश्चित रूप से सत्य",
+    "explanation": "मुख्य तुलना देखें: P ≤ Q; P > S; Q > S; Q ≥ S। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: निश्चित रूप से सत्य।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-CC4AEF9D",
+    "authorityId": "CLASSIFY_SINGLE_CONCLUSION_TRUTH",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "D ≤ B",
+      "D < P",
+      "C > B",
+      "P < C"
+    ],
+    "conclusions": [
+      "P ≤ B"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "असंभव",
+      "निश्चित रूप से सत्य",
+      "संभवतः सत्य, पर निश्चित नहीं"
+    ],
+    "correctIndex": 2,
+    "correctOption": "संभवतः सत्य, पर निश्चित नहीं",
+    "explanation": "मुख्य तुलना देखें: P ≤ B। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: संभवतः सत्य, पर निश्चित नहीं।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-CBAA7064",
+    "authorityId": "CLASSIFY_SINGLE_CONCLUSION_TRUTH",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "P = R",
+      "S ≤ P",
+      "S > D"
+    ],
+    "conclusions": [
+      "S > R"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "असंभव",
+      "निश्चित रूप से सत्य",
+      "संभवतः सत्य, पर निश्चित नहीं"
+    ],
+    "correctIndex": 0,
+    "correctOption": "असंभव",
+    "explanation": "मुख्य तुलना देखें: S ≤ P; P = R; S < R; S = R; S > R। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: असंभव।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-DB045E37",
+    "authorityId": "CLASSIFY_SINGLE_CONCLUSION_TRUTH",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "Q < A",
+      "S ≤ D",
+      "A = S"
+    ],
+    "conclusions": [
+      "Q < S"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "निश्चित रूप से सत्य",
+      "असंभव"
+    ],
+    "correctIndex": 1,
+    "correctOption": "निश्चित रूप से सत्य",
+    "explanation": "मुख्य तुलना देखें: Q < A; A = S; Q < S। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: निश्चित रूप से सत्य।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-BCA2990E",
+    "authorityId": "CLASSIFY_SINGLE_CONCLUSION_TRUTH",
+    "seed": 4,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "R ≤ P",
+      "Q ≥ S",
+      "Q > P",
+      "S > R"
+    ],
+    "conclusions": [
+      "P > S"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "असंभव",
+      "निश्चित रूप से सत्य"
+    ],
+    "correctIndex": 0,
+    "correctOption": "संभवतः सत्य, पर निश्चित नहीं",
+    "explanation": "मुख्य तुलना देखें: P > S। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: संभवतः सत्य, पर निश्चित नहीं।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-AD7AD469",
+    "authorityId": "CLASSIFY_SINGLE_CONCLUSION_TRUTH",
+    "seed": 5,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "C ≥ P",
+      "P > R",
+      "A > B"
+    ],
+    "conclusions": [
+      "R = C"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "निश्चित रूप से सत्य",
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "असंभव"
+    ],
+    "correctIndex": 2,
+    "correctOption": "असंभव",
+    "explanation": "मुख्य तुलना देखें: C ≥ P; P > R; R < C; R = C। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: असंभव।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-977341B0",
+    "authorityId": "CLASSIFY_SINGLE_CONCLUSION_TRUTH",
+    "seed": 6,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "D < R",
+      "P < S",
+      "R ≤ C",
+      "Q ≤ P",
+      "R = S"
+    ],
+    "conclusions": [
+      "R ≥ P"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "असंभव",
+      "निश्चित रूप से सत्य",
+      "संभवतः सत्य, पर निश्चित नहीं"
+    ],
+    "correctIndex": 1,
+    "correctOption": "निश्चित रूप से सत्य",
+    "explanation": "मुख्य तुलना देखें: P < S; R = S; R > P; R ≥ P। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: निश्चित रूप से सत्य।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-B15F8C53",
+    "authorityId": "CLASSIFY_SINGLE_CONCLUSION_TRUTH",
+    "seed": 7,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "S ≥ B",
+      "D ≥ A",
+      "S < D",
+      "R = D",
+      "A > B"
+    ],
+    "conclusions": [
+      "S ≥ A"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "निश्चित रूप से सत्य",
+      "असंभव"
+    ],
+    "correctIndex": 0,
+    "correctOption": "संभवतः सत्य, पर निश्चित नहीं",
+    "explanation": "मुख्य तुलना देखें: S ≥ A। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: संभवतः सत्य, पर निश्चित नहीं।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-24EAF05A",
+    "authorityId": "CLASSIFY_SINGLE_CONCLUSION_TRUTH",
+    "seed": 8,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "P = S",
+      "A > Q",
+      "B ≤ R",
+      "B ≥ P",
+      "R < C"
+    ],
+    "conclusions": [
+      "C ≤ S"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "निश्चित रूप से सत्य",
+      "असंभव"
+    ],
+    "correctIndex": 2,
+    "correctOption": "असंभव",
+    "explanation": "मुख्य तुलना देखें: R < C; B ≤ R; B ≥ P; P = S; C > S; C ≤ S। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: असंभव।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-D4030935",
+    "authorityId": "CLASSIFY_SINGLE_CONCLUSION_TRUTH",
+    "seed": 9,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "S ≥ B",
+      "S < A",
+      "R = Q",
+      "R > D"
+    ],
+    "conclusions": [
+      "D < Q"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "असंभव",
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "निश्चित रूप से सत्य"
+    ],
+    "correctIndex": 2,
+    "correctOption": "निश्चित रूप से सत्य",
+    "explanation": "मुख्य तुलना देखें: R > D; R = Q; D < Q। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: निश्चित रूप से सत्य।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-4406488F",
+    "authorityId": "CLASSIFY_SINGLE_CONCLUSION_TRUTH",
+    "seed": 10,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "R ≤ D",
+      "S > R",
+      "Q > D",
+      "S ≤ Q",
+      "P ≤ R"
+    ],
+    "conclusions": [
+      "S ≤ D"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "असंभव",
+      "निश्चित रूप से सत्य"
+    ],
+    "correctIndex": 0,
+    "correctOption": "संभवतः सत्य, पर निश्चित नहीं",
+    "explanation": "मुख्य तुलना देखें: S ≤ D। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: संभवतः सत्य, पर निश्चित नहीं।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-CF74B6DC",
+    "authorityId": "CLASSIFY_SINGLE_CONCLUSION_TRUTH",
+    "seed": 11,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "C ≤ P",
+      "A ≥ D",
+      "A = C",
+      "P ≤ B",
+      "S > P"
+    ],
+    "conclusions": [
+      "D > P"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "असंभव",
+      "निश्चित रूप से सत्य"
+    ],
+    "correctIndex": 1,
+    "correctOption": "असंभव",
+    "explanation": "मुख्य तुलना देखें: C ≤ P; A ≥ D; A = C; D < P; D = P; D > P। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: असंभव।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-417C6F2F",
+    "authorityId": "IDENTIFY_ALL_POSSIBLE_RELATIONS",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कौन-सा विकल्प सभी संभव संबंधों को सही रूप में दिखाता है? S की तुलना Q से करें।",
+    "statements": [
+      "Q > B",
+      "Q ≤ S"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "S < Q या S = Q",
+      "S = Q या S > Q",
+      "S = Q",
+      "S > Q"
+    ],
+    "correctIndex": 1,
+    "correctOption": "S = Q या S > Q",
+    "explanation": "मुख्य तुलना देखें: Q ≤ S; S = Q; S > Q। इससे S = Q या S > Q वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-E7C1DAFC",
+    "authorityId": "IDENTIFY_ALL_POSSIBLE_RELATIONS",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कौन-सा विकल्प सभी संभव संबंधों को सही रूप में दिखाता है? R की तुलना S से करें।",
+    "statements": [
+      "R ≥ C",
+      "A > S",
+      "S > C",
+      "R < A"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "R < S, R = S, या R > S",
+      "R = S",
+      "R > S",
+      "R < S"
+    ],
+    "correctIndex": 0,
+    "correctOption": "R < S, R = S, या R > S",
+    "explanation": "मुख्य तुलना देखें: R < S; R = S; R > S। इससे R < S, R = S, या R > S वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-BEF83235",
+    "authorityId": "IDENTIFY_ALL_POSSIBLE_RELATIONS",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कौन-सा विकल्प सभी संभव संबंधों को सही रूप में दिखाता है? Q की तुलना D से करें।",
+    "statements": [
+      "D = Q",
+      "S ≤ D",
+      "S > C"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "Q < D",
+      "Q < D या Q = D",
+      "Q = D",
+      "Q < D, Q = D, या Q > D"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Q = D",
+    "explanation": "मुख्य तुलना देखें: D = Q; Q = D। इससे Q = D वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-0FE0195A",
+    "authorityId": "IDENTIFY_ALL_POSSIBLE_RELATIONS",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कौन-सा विकल्प सभी संभव संबंधों को सही रूप में दिखाता है? A की तुलना B से करें।",
+    "statements": [
+      "B < C",
+      "S = C",
+      "A ≥ S"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "A < B या A = B",
+      "A < B",
+      "A < B, A = B, या A > B",
+      "A > B"
+    ],
+    "correctIndex": 3,
+    "correctOption": "A > B",
+    "explanation": "मुख्य तुलना देखें: A ≥ S; B < C; S = C; A > B। इससे A > B वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-8A43A68B",
+    "authorityId": "IDENTIFY_ALL_POSSIBLE_RELATIONS",
+    "seed": 4,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कौन-सा विकल्प सभी संभव संबंधों को सही रूप में दिखाता है? P की तुलना A से करें।",
+    "statements": [
+      "A ≥ R",
+      "D > A",
+      "P > R",
+      "D ≥ P"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "P < A, P = A, या P > A",
+      "P = A",
+      "P < A",
+      "P = A या P > A"
+    ],
+    "correctIndex": 0,
+    "correctOption": "P < A, P = A, या P > A",
+    "explanation": "मुख्य तुलना देखें: P < A; P = A; P > A। इससे P < A, P = A, या P > A वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-E0743768",
+    "authorityId": "IDENTIFY_ALL_POSSIBLE_RELATIONS",
+    "seed": 5,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कौन-सा विकल्प सभी संभव संबंधों को सही रूप में दिखाता है? S की तुलना D से करें।",
+    "statements": [
+      "A > P",
+      "S ≥ A",
+      "D > Q"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "S = D",
+      "S < D",
+      "S < D, S = D, या S > D",
+      "S < D या S = D"
+    ],
+    "correctIndex": 2,
+    "correctOption": "S < D, S = D, या S > D",
+    "explanation": "मुख्य तुलना देखें: S < D; S = D; S > D। इससे S < D, S = D, या S > D वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-8ACCF2A1",
+    "authorityId": "IDENTIFY_ALL_POSSIBLE_RELATIONS",
+    "seed": 6,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कौन-सा विकल्प सभी संभव संबंधों को सही रूप में दिखाता है? Q की तुलना A से करें।",
+    "statements": [
+      "A ≥ S",
+      "C ≥ Q",
+      "R = S",
+      "R > C",
+      "S > B"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "Q > A",
+      "Q < A",
+      "Q = A या Q > A",
+      "Q < A, Q = A, या Q > A"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Q < A",
+    "explanation": "मुख्य तुलना देखें: A ≥ S; R > C; C ≥ Q; R = S; Q < A। इससे Q < A वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-22594DE6",
+    "authorityId": "IDENTIFY_ALL_POSSIBLE_RELATIONS",
+    "seed": 7,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कौन-सा विकल्प सभी संभव संबंधों को सही रूप में दिखाता है? D की तुलना P से करें।",
+    "statements": [
+      "R ≥ P",
+      "P > Q",
+      "D < R",
+      "Q ≤ D",
+      "S = R"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "D < P",
+      "D = P",
+      "D > P",
+      "D < P, D = P, या D > P"
+    ],
+    "correctIndex": 3,
+    "correctOption": "D < P, D = P, या D > P",
+    "explanation": "मुख्य तुलना देखें: D < P; D = P; D > P। इससे D < P, D = P, या D > P वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-C5F98737",
+    "authorityId": "IDENTIFY_ALL_POSSIBLE_RELATIONS",
+    "seed": 8,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कौन-सा विकल्प सभी संभव संबंधों को सही रूप में दिखाता है? A की तुलना R से करें।",
+    "statements": [
+      "D ≤ S",
+      "C < B",
+      "P ≥ S",
+      "P < R",
+      "A = D"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "A > R",
+      "A < R या A = R",
+      "A < R, A = R, या A > R",
+      "A < R"
+    ],
+    "correctIndex": 3,
+    "correctOption": "A < R",
+    "explanation": "मुख्य तुलना देखें: P < R; P ≥ S; D ≤ S; A = D; A < R। इससे A < R वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-B69F9964",
+    "authorityId": "IDENTIFY_ALL_POSSIBLE_RELATIONS",
+    "seed": 9,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कौन-सा विकल्प सभी संभव संबंधों को सही रूप में दिखाता है? C की तुलना D से करें।",
+    "statements": [
+      "C = R",
+      "R > B",
+      "D ≤ S",
+      "S < Q"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "C < D, C = D, या C > D",
+      "C = D",
+      "C > D",
+      "C < D या C = D"
+    ],
+    "correctIndex": 0,
+    "correctOption": "C < D, C = D, या C > D",
+    "explanation": "मुख्य तुलना देखें: C = R; C < D; C = D; C > D। इससे C < D, C = D, या C > D वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-9443162C",
+    "authorityId": "IDENTIFY_ALL_POSSIBLE_RELATIONS",
+    "seed": 10,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कौन-सा विकल्प सभी संभव संबंधों को सही रूप में दिखाता है? R की तुलना D से करें।",
+    "statements": [
+      "P > R",
+      "P ≥ D",
+      "D > C",
+      "S ≤ C",
+      "C ≤ R"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "R = D या R > D",
+      "R < D या R = D",
+      "R < D, R = D, या R > D",
+      "R < D"
+    ],
+    "correctIndex": 2,
+    "correctOption": "R < D, R = D, या R > D",
+    "explanation": "मुख्य तुलना देखें: R < D; R = D; R > D। इससे R < D, R = D, या R > D वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-7A05341F",
+    "authorityId": "IDENTIFY_ALL_POSSIBLE_RELATIONS",
+    "seed": 11,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कौन-सा विकल्प सभी संभव संबंधों को सही रूप में दिखाता है? D की तुलना B से करें।",
+    "statements": [
+      "C ≥ R",
+      "D ≤ Q",
+      "C ≤ B",
+      "C < P",
+      "Q = R"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "D = B",
+      "D < B या D = B",
+      "D > B",
+      "D = B या D > B"
+    ],
+    "correctIndex": 1,
+    "correctOption": "D < B या D = B",
+    "explanation": "मुख्य तुलना देखें: C ≤ B; C ≥ R; D ≤ Q; Q = R; D < B; D = B। इससे D < B या D = B वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-EE0ED803",
+    "authorityId": "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "A ≤ S",
+      "P < A"
+    ],
+    "conclusions": [
+      "S ≥ P"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "निश्चित रूप से सत्य",
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "असंभव"
+    ],
+    "correctIndex": 0,
+    "correctOption": "निश्चित रूप से सत्य",
+    "explanation": "मुख्य तुलना देखें: A ≤ S; P < A; S > P; S ≥ P। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: निश्चित रूप से सत्य।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-B0CA2BE0",
+    "authorityId": "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "A ≥ Q",
+      "C > P",
+      "Q < P",
+      "C > A"
+    ],
+    "conclusions": [
+      "P ≥ A"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "असंभव",
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "निश्चित रूप से सत्य"
+    ],
+    "correctIndex": 1,
+    "correctOption": "संभवतः सत्य, पर निश्चित नहीं",
+    "explanation": "मुख्य तुलना देखें: P ≥ A। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: संभवतः सत्य, पर निश्चित नहीं।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-52828899",
+    "authorityId": "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "C < B",
+      "B ≤ P",
+      "P = R"
+    ],
+    "conclusions": [
+      "P ≤ C"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "निश्चित रूप से सत्य",
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "असंभव"
+    ],
+    "correctIndex": 2,
+    "correctOption": "असंभव",
+    "explanation": "मुख्य तुलना देखें: B ≤ P; C < B; P = R; P > C; P ≤ C। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: असंभव।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-D2C5AAFE",
+    "authorityId": "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "D < R",
+      "P ≥ S",
+      "S = R"
+    ],
+    "conclusions": [
+      "D ≤ P"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "निश्चित रूप से सत्य",
+      "असंभव"
+    ],
+    "correctIndex": 1,
+    "correctOption": "निश्चित रूप से सत्य",
+    "explanation": "मुख्य तुलना देखें: P ≥ S; D < R; S = R; D < P; D ≤ P। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: निश्चित रूप से सत्य।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-04918C67",
+    "authorityId": "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH",
+    "seed": 4,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "Q > B",
+      "Q ≥ D",
+      "S ≤ B",
+      "D > S"
+    ],
+    "conclusions": [
+      "B ≥ D"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "असंभव",
+      "निश्चित रूप से सत्य",
+      "संभवतः सत्य, पर निश्चित नहीं"
+    ],
+    "correctIndex": 2,
+    "correctOption": "संभवतः सत्य, पर निश्चित नहीं",
+    "explanation": "मुख्य तुलना देखें: B ≥ D। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: संभवतः सत्य, पर निश्चित नहीं।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-914ECFD4",
+    "authorityId": "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH",
+    "seed": 5,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "S > A",
+      "S ≤ Q",
+      "B > R"
+    ],
+    "conclusions": [
+      "Q ≤ A"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "असंभव",
+      "निश्चित रूप से सत्य",
+      "संभवतः सत्य, पर निश्चित नहीं"
+    ],
+    "correctIndex": 0,
+    "correctOption": "असंभव",
+    "explanation": "मुख्य तुलना देखें: S ≤ Q; S > A; Q > A; Q ≤ A। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: असंभव।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-A6B663CD",
+    "authorityId": "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH",
+    "seed": 6,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "B = P",
+      "P ≤ A",
+      "P > D",
+      "R ≥ S",
+      "R < B"
+    ],
+    "conclusions": [
+      "D ≤ B"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "असंभव",
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "निश्चित रूप से सत्य"
+    ],
+    "correctIndex": 2,
+    "correctOption": "निश्चित रूप से सत्य",
+    "explanation": "मुख्य तुलना देखें: P > D; B = P; D < B; D ≤ B। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: निश्चित रूप से सत्य।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-798380F2",
+    "authorityId": "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH",
+    "seed": 7,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "P ≤ D",
+      "Q ≤ A",
+      "D > A",
+      "Q < P",
+      "C = D"
+    ],
+    "conclusions": [
+      "P ≤ A"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "निश्चित रूप से सत्य",
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "असंभव"
+    ],
+    "correctIndex": 1,
+    "correctOption": "संभवतः सत्य, पर निश्चित नहीं",
+    "explanation": "मुख्य तुलना देखें: P ≤ A। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: संभवतः सत्य, पर निश्चित नहीं।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-AD493A3B",
+    "authorityId": "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH",
+    "seed": 8,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "R > B",
+      "S < A",
+      "Q ≥ D",
+      "D = C",
+      "Q ≤ B"
+    ],
+    "conclusions": [
+      "R ≤ C"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "असंभव",
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "निश्चित रूप से सत्य"
+    ],
+    "correctIndex": 0,
+    "correctOption": "असंभव",
+    "explanation": "मुख्य तुलना देखें: R > B; Q ≤ B; Q ≥ D; D = C; R > C; R ≤ C। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: असंभव।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-519F3918",
+    "authorityId": "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH",
+    "seed": 9,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "R ≥ B",
+      "S = C",
+      "R < A",
+      "P < C"
+    ],
+    "conclusions": [
+      "S ≥ P"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "असंभव",
+      "निश्चित रूप से सत्य",
+      "संभवतः सत्य, पर निश्चित नहीं"
+    ],
+    "correctIndex": 1,
+    "correctOption": "निश्चित रूप से सत्य",
+    "explanation": "मुख्य तुलना देखें: P < C; S = C; S > P; S ≥ P। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: निश्चित रूप से सत्य।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-1FDE6A28",
+    "authorityId": "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH",
+    "seed": 10,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "Q ≥ S",
+      "D ≤ C",
+      "Q ≤ B",
+      "Q < D",
+      "C > B"
+    ],
+    "conclusions": [
+      "B ≤ S"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "असंभव",
+      "निश्चित रूप से सत्य",
+      "संभवतः सत्य, पर निश्चित नहीं"
+    ],
+    "correctIndex": 2,
+    "correctOption": "संभवतः सत्य, पर निश्चित नहीं",
+    "explanation": "मुख्य तुलना देखें: Q ≤ B; Q ≥ S; B = S; B > S; B ≤ S। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: संभवतः सत्य, पर निश्चित नहीं।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-003",
+    "sourceRecordId": "INE-CP003-08287E4B",
+    "authorityId": "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH",
+    "seed": 11,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "केवल दिए गए कथनों के आधार पर निष्कर्ष को कैसे वर्गीकृत करेंगे?",
+    "statements": [
+      "D ≥ S",
+      "C ≥ Q",
+      "P ≥ D",
+      "S = C",
+      "D < A"
+    ],
+    "conclusions": [
+      "Q ≥ A"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "असंभव",
+      "संभवतः सत्य, पर निश्चित नहीं",
+      "निश्चित रूप से सत्य"
+    ],
+    "correctIndex": 0,
+    "correctOption": "असंभव",
+    "explanation": "मुख्य तुलना देखें: D < A; D ≥ S; C ≥ Q; S = C; Q < A; Q ≥ A। अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: असंभव।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-A42CF22D",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "निष्कर्ष I और II की जोड़ी का सही मूल्यांकन क्या है?",
+    "statements": [
+      "A ≥ C",
+      "Q < S"
+    ],
+    "conclusions": [
+      "C = A",
+      "A > C"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "मान्य या-तो जोड़ी",
+      "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+      "या-तो नहीं: निष्कर्ष आपस में मिलते हैं",
+      "कथनों से निर्धारित नहीं किया जा सकता"
+    ],
+    "correctIndex": 0,
+    "correctOption": "मान्य या-तो जोड़ी",
+    "explanation": "मुख्य तुलना देखें: A ≥ C; C < A; C = A। दोनों हिस्सों को साथ जाँचने पर सही विकल्प मान्य या-तो जोड़ी है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-535B151A",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "निष्कर्ष I और II की जोड़ी का सही मूल्यांकन क्या है?",
+    "statements": [
+      "Q > P",
+      "Q ≤ S",
+      "R ≥ C"
+    ],
+    "conclusions": [
+      "R < C",
+      "C = R"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "या-तो नहीं: निष्कर्ष आपस में मिलते हैं",
+      "कथनों से निर्धारित नहीं किया जा सकता",
+      "मान्य या-तो जोड़ी",
+      "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं"
+    ],
+    "correctIndex": 3,
+    "correctOption": "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+    "explanation": "मुख्य तुलना देखें: R ≥ C; R = C; R > C। दोनों हिस्सों को साथ जाँचने पर सही विकल्प या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-1FA0417F",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "निष्कर्ष I और II की जोड़ी का सही मूल्यांकन क्या है?",
+    "statements": [
+      "P > R",
+      "Q < P",
+      "S < C"
+    ],
+    "conclusions": [
+      "R ≥ Q",
+      "R ≤ Q"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+      "या-तो नहीं: निष्कर्ष आपस में मिलते हैं",
+      "कथनों से निर्धारित नहीं किया जा सकता",
+      "मान्य या-तो जोड़ी"
+    ],
+    "correctIndex": 1,
+    "correctOption": "या-तो नहीं: निष्कर्ष आपस में मिलते हैं",
+    "explanation": "मुख्य तुलना देखें: R < Q; R = Q; R > Q। दोनों हिस्सों को साथ जाँचने पर सही विकल्प या-तो नहीं: निष्कर्ष आपस में मिलते हैं है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-06770EB4",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "निष्कर्ष I और II की जोड़ी का सही मूल्यांकन क्या है?",
+    "statements": [
+      "C < S",
+      "P = R",
+      "R > B",
+      "C < A"
+    ],
+    "conclusions": [
+      "S ≤ A",
+      "S > A"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "कथनों से निर्धारित नहीं किया जा सकता",
+      "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+      "मान्य या-तो जोड़ी",
+      "या-तो नहीं: निष्कर्ष आपस में मिलते हैं"
+    ],
+    "correctIndex": 2,
+    "correctOption": "मान्य या-तो जोड़ी",
+    "explanation": "मुख्य तुलना देखें: S < A; S = A; S > A। दोनों हिस्सों को साथ जाँचने पर सही विकल्प मान्य या-तो जोड़ी है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-0B720DB9",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "seed": 4,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "निष्कर्ष I और II की जोड़ी का सही मूल्यांकन क्या है?",
+    "statements": [
+      "R ≥ C",
+      "D < P",
+      "C = A"
+    ],
+    "conclusions": [
+      "A > R",
+      "R ≤ A"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+      "कथनों से निर्धारित नहीं किया जा सकता",
+      "मान्य या-तो जोड़ी",
+      "या-तो नहीं: निष्कर्ष आपस में मिलते हैं"
+    ],
+    "correctIndex": 0,
+    "correctOption": "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+    "explanation": "मुख्य तुलना देखें: R ≥ C; C = A; A < R; A = R। दोनों हिस्सों को साथ जाँचने पर सही विकल्प या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-9A786F36",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "seed": 5,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "निष्कर्ष I और II की जोड़ी का सही मूल्यांकन क्या है?",
+    "statements": [
+      "B ≥ D",
+      "Q > C",
+      "Q ≤ S",
+      "R = B"
+    ],
+    "conclusions": [
+      "D < R",
+      "D ≤ R"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+      "मान्य या-तो जोड़ी",
+      "या-तो नहीं: निष्कर्ष आपस में मिलते हैं",
+      "कथनों से निर्धारित नहीं किया जा सकता"
+    ],
+    "correctIndex": 2,
+    "correctOption": "या-तो नहीं: निष्कर्ष आपस में मिलते हैं",
+    "explanation": "मुख्य तुलना देखें: B ≥ D; R = B; D < R; D = R। दोनों हिस्सों को साथ जाँचने पर सही विकल्प या-तो नहीं: निष्कर्ष आपस में मिलते हैं है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-D327380B",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "seed": 6,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "निष्कर्ष I और II की जोड़ी का सही मूल्यांकन क्या है?",
+    "statements": [
+      "B ≤ R",
+      "D ≥ B",
+      "A < S"
+    ],
+    "conclusions": [
+      "R > D",
+      "R ≤ D"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+      "कथनों से निर्धारित नहीं किया जा सकता",
+      "या-तो नहीं: निष्कर्ष आपस में मिलते हैं",
+      "मान्य या-तो जोड़ी"
+    ],
+    "correctIndex": 3,
+    "correctOption": "मान्य या-तो जोड़ी",
+    "explanation": "मुख्य तुलना देखें: R < D; R = D; R > D। दोनों हिस्सों को साथ जाँचने पर सही विकल्प मान्य या-तो जोड़ी है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-C4474100",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "seed": 7,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "निष्कर्ष I और II की जोड़ी का सही मूल्यांकन क्या है?",
+    "statements": [
+      "C ≥ S",
+      "S ≥ P",
+      "B > D"
+    ],
+    "conclusions": [
+      "C = P",
+      "P > C"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "या-तो नहीं: निष्कर्ष आपस में मिलते हैं",
+      "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+      "मान्य या-तो जोड़ी",
+      "कथनों से निर्धारित नहीं किया जा सकता"
+    ],
+    "correctIndex": 1,
+    "correctOption": "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+    "explanation": "मुख्य तुलना देखें: C ≥ S; S ≥ P; C = P; C > P। दोनों हिस्सों को साथ जाँचने पर सही विकल्प या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-A2684605",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "seed": 8,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "निष्कर्ष I और II की जोड़ी का सही मूल्यांकन क्या है?",
+    "statements": [
+      "P < A",
+      "A ≤ S",
+      "Q ≤ S",
+      "R = S",
+      "R ≤ D"
+    ],
+    "conclusions": [
+      "D ≥ Q",
+      "D ≤ Q"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+      "मान्य या-तो जोड़ी",
+      "या-तो नहीं: निष्कर्ष आपस में मिलते हैं",
+      "कथनों से निर्धारित नहीं किया जा सकता"
+    ],
+    "correctIndex": 2,
+    "correctOption": "या-तो नहीं: निष्कर्ष आपस में मिलते हैं",
+    "explanation": "मुख्य तुलना देखें: R ≤ D; Q ≤ S; R = S; D = Q; D > Q। दोनों हिस्सों को साथ जाँचने पर सही विकल्प या-तो नहीं: निष्कर्ष आपस में मिलते हैं है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-8C0A0BD2",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "seed": 9,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "निष्कर्ष I और II की जोड़ी का सही मूल्यांकन क्या है?",
+    "statements": [
+      "R > Q",
+      "R > B",
+      "A > D",
+      "R = A",
+      "A < P"
+    ],
+    "conclusions": [
+      "Q ≤ B",
+      "B < Q"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "कथनों से निर्धारित नहीं किया जा सकता",
+      "मान्य या-तो जोड़ी",
+      "या-तो नहीं: निष्कर्ष आपस में मिलते हैं",
+      "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं"
+    ],
+    "correctIndex": 1,
+    "correctOption": "मान्य या-तो जोड़ी",
+    "explanation": "मुख्य तुलना देखें: Q < B; Q = B; Q > B। दोनों हिस्सों को साथ जाँचने पर सही विकल्प मान्य या-तो जोड़ी है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-40387D04",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "seed": 10,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "निष्कर्ष I और II की जोड़ी का सही मूल्यांकन क्या है?",
+    "statements": [
+      "B ≥ Q",
+      "C < S",
+      "Q ≤ C",
+      "B < R",
+      "C = B"
+    ],
+    "conclusions": [
+      "R < S",
+      "R > S"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+      "कथनों से निर्धारित नहीं किया जा सकता",
+      "मान्य या-तो जोड़ी",
+      "या-तो नहीं: निष्कर्ष आपस में मिलते हैं"
+    ],
+    "correctIndex": 0,
+    "correctOption": "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+    "explanation": "मुख्य तुलना देखें: R < S; R = S; R > S। दोनों हिस्सों को साथ जाँचने पर सही विकल्प या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-C8B493CF",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "seed": 11,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "निष्कर्ष I और II की जोड़ी का सही मूल्यांकन क्या है?",
+    "statements": [
+      "D = C",
+      "D ≥ R",
+      "C ≥ P",
+      "S < P",
+      "C ≤ B"
+    ],
+    "conclusions": [
+      "B > R",
+      "R ≤ B"
+    ],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "या-तो नहीं: कुछ मान्य स्थितियाँ छूट जाती हैं",
+      "कथनों से निर्धारित नहीं किया जा सकता",
+      "मान्य या-तो जोड़ी",
+      "या-तो नहीं: निष्कर्ष आपस में मिलते हैं"
+    ],
+    "correctIndex": 3,
+    "correctOption": "या-तो नहीं: निष्कर्ष आपस में मिलते हैं",
+    "explanation": "मुख्य तुलना देखें: C ≤ B; D ≥ R; D = C; B = R; B > R। दोनों हिस्सों को साथ जाँचने पर सही विकल्प या-तो नहीं: निष्कर्ष आपस में मिलते हैं है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-441C8CAB",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "किस विकल्प में सही या-तो वाली निष्कर्ष-जोड़ी है?",
+    "statements": [
+      "Q > R",
+      "B ≤ C"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "I. B < C; II. B = C",
+      "I. C < B; II. B ≥ C",
+      "I. B ≤ C; II. B < C",
+      "I. B > C; II. B = C"
+    ],
+    "correctIndex": 0,
+    "correctOption": "I. B < C; II. B = C",
+    "explanation": "मुख्य तुलना देखें: B ≤ C; B < C; B = C। दोनों हिस्सों को साथ जाँचने पर सही विकल्प I. B < C; II. B = C है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-FF790D20",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "किस विकल्प में सही या-तो वाली निष्कर्ष-जोड़ी है?",
+    "statements": [
+      "A ≥ R",
+      "B < R",
+      "P ≤ D"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "I. D = P; II. D < P",
+      "I. D > P; II. D ≥ P",
+      "I. D = P; II. P < D",
+      "I. P > D; II. P < D"
+    ],
+    "correctIndex": 2,
+    "correctOption": "I. D = P; II. P < D",
+    "explanation": "मुख्य तुलना देखें: P ≤ D; D = P; D > P। दोनों हिस्सों को साथ जाँचने पर सही विकल्प I. D = P; II. P < D है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-BF804ED9",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "किस विकल्प में सही या-तो वाली निष्कर्ष-जोड़ी है?",
+    "statements": [
+      "R < S",
+      "S > Q",
+      "A > P"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "I. R > Q; II. Q = R",
+      "I. R ≥ Q; II. Q ≥ R",
+      "I. R > Q; II. R < Q",
+      "I. R < Q; II. R ≥ Q"
+    ],
+    "correctIndex": 3,
+    "correctOption": "I. R < Q; II. R ≥ Q",
+    "explanation": "मुख्य तुलना देखें: R < Q; R = Q; R > Q। दोनों हिस्सों को साथ जाँचने पर सही विकल्प I. R < Q; II. R ≥ Q है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-062C1FD6",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "किस विकल्प में सही या-तो वाली निष्कर्ष-जोड़ी है?",
+    "statements": [
+      "D = R",
+      "A > Q",
+      "R > S",
+      "Q < P"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "I. P ≥ A; II. A ≥ P",
+      "I. A < P; II. P ≤ A",
+      "I. A < P; II. P < A",
+      "I. A > P; II. A = P"
+    ],
+    "correctIndex": 1,
+    "correctOption": "I. A < P; II. P ≤ A",
+    "explanation": "मुख्य तुलना देखें: A < P; A = P; A > P। दोनों हिस्सों को साथ जाँचने पर सही विकल्प I. A < P; II. P ≤ A है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-B69B2B9F",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "seed": 4,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "किस विकल्प में सही या-तो वाली निष्कर्ष-जोड़ी है?",
+    "statements": [
+      "Q = P",
+      "D > S",
+      "B ≥ P"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "I. Q < B; II. B = Q",
+      "I. B = Q; II. Q ≤ B",
+      "I. Q > B; II. B ≤ Q",
+      "I. B < Q; II. B = Q"
+    ],
+    "correctIndex": 0,
+    "correctOption": "I. Q < B; II. B = Q",
+    "explanation": "मुख्य तुलना देखें: B ≥ P; Q = P; Q < B; Q = B। दोनों हिस्सों को साथ जाँचने पर सही विकल्प I. Q < B; II. B = Q है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-BA8DCA54",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "seed": 5,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "किस विकल्प में सही या-तो वाली निष्कर्ष-जोड़ी है?",
+    "statements": [
+      "P = A",
+      "B > Q",
+      "A ≥ D",
+      "B ≤ R"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "I. D < P; II. P < D",
+      "I. D > P; II. D = P",
+      "I. D < P; II. P = D",
+      "I. D ≥ P; II. P ≥ D"
+    ],
+    "correctIndex": 2,
+    "correctOption": "I. D < P; II. P = D",
+    "explanation": "मुख्य तुलना देखें: A ≥ D; P = A; D < P; D = P। दोनों हिस्सों को साथ जाँचने पर सही विकल्प I. D < P; II. P = D है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-32E4C8CD",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "seed": 6,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "किस विकल्प में सही या-तो वाली निष्कर्ष-जोड़ी है?",
+    "statements": [
+      "D ≥ A",
+      "P > B",
+      "Q ≥ A"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "I. Q = D; II. Q < D",
+      "I. Q ≤ D; II. D < Q",
+      "I. D > Q; II. Q > D",
+      "I. D ≤ Q; II. D ≥ Q"
+    ],
+    "correctIndex": 1,
+    "correctOption": "I. Q ≤ D; II. D < Q",
+    "explanation": "मुख्य तुलना देखें: Q < D; Q = D; Q > D। दोनों हिस्सों को साथ जाँचने पर सही विकल्प I. Q ≤ D; II. D < Q है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-21F0783A",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "seed": 7,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "किस विकल्प में सही या-तो वाली निष्कर्ष-जोड़ी है?",
+    "statements": [
+      "P > S",
+      "A ≤ C",
+      "D ≥ C"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "I. A = D; II. D ≥ A",
+      "I. D > A; II. A > D",
+      "I. D < A; II. D ≤ A",
+      "I. A = D; II. A < D"
+    ],
+    "correctIndex": 3,
+    "correctOption": "I. A = D; II. A < D",
+    "explanation": "मुख्य तुलना देखें: D ≥ C; A ≤ C; A < D; A = D। दोनों हिस्सों को साथ जाँचने पर सही विकल्प I. A = D; II. A < D है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-061430C3",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "seed": 8,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "किस विकल्प में सही या-तो वाली निष्कर्ष-जोड़ी है?",
+    "statements": [
+      "A ≥ B",
+      "S = A",
+      "Q ≥ S",
+      "C ≤ A",
+      "B > P"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "I. Q > C; II. Q = C",
+      "I. C ≥ Q; II. C > Q",
+      "I. C = Q; II. C > Q",
+      "I. C ≤ Q; II. Q = C"
+    ],
+    "correctIndex": 0,
+    "correctOption": "I. Q > C; II. Q = C",
+    "explanation": "मुख्य तुलना देखें: Q ≥ S; C ≤ A; S = A; Q = C; Q > C। दोनों हिस्सों को साथ जाँचने पर सही विकल्प I. Q > C; II. Q = C है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-8ADAE918",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "seed": 9,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "किस विकल्प में सही या-तो वाली निष्कर्ष-जोड़ी है?",
+    "statements": [
+      "C < P",
+      "Q < R",
+      "S < P",
+      "Q = P",
+      "B < Q"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "I. S ≥ C; II. S ≤ C",
+      "I. S = C; II. C > S",
+      "I. C > S; II. S = C",
+      "I. S ≥ C; II. S < C"
+    ],
+    "correctIndex": 3,
+    "correctOption": "I. S ≥ C; II. S < C",
+    "explanation": "मुख्य तुलना देखें: S < C; S = C; S > C। दोनों हिस्सों को साथ जाँचने पर सही विकल्प I. S ≥ C; II. S < C है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-61C84136",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "seed": 10,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "किस विकल्प में सही या-तो वाली निष्कर्ष-जोड़ी है?",
+    "statements": [
+      "C ≤ B",
+      "P > B",
+      "A ≥ C",
+      "R > A",
+      "A = B"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "I. P = R; II. R > P",
+      "I. P < R; II. R < P",
+      "I. P ≥ R; II. P < R",
+      "I. P ≥ R; II. P ≤ R"
+    ],
+    "correctIndex": 2,
+    "correctOption": "I. P ≥ R; II. P < R",
+    "explanation": "मुख्य तुलना देखें: P < R; P = R; P > R। दोनों हिस्सों को साथ जाँचने पर सही विकल्प I. P ≥ R; II. P < R है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-004",
+    "sourceRecordId": "INE-CP004-D2C1DFB9",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "seed": 11,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "किस विकल्प में सही या-तो वाली निष्कर्ष-जोड़ी है?",
+    "statements": [
+      "B ≤ S",
+      "R ≤ Q",
+      "P < C",
+      "R ≥ C",
+      "R = S"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "I. B ≥ Q; II. Q < B",
+      "I. Q > B; II. B = Q",
+      "I. Q < B; II. Q ≤ B",
+      "I. Q ≤ B; II. B ≤ Q"
+    ],
+    "correctIndex": 1,
+    "correctOption": "I. Q > B; II. B = Q",
+    "explanation": "मुख्य तुलना देखें: R ≤ Q; B ≤ S; R = S; Q = B; Q > B। दोनों हिस्सों को साथ जाँचने पर सही विकल्प I. Q > B; II. B = Q है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-005",
+    "sourceRecordId": "INE-CP005-1FB43370",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कथन का ठीक वही अर्थ किस सांकेतिक संबंध में है?",
+    "statements": [
+      "B, D से छोटा है।"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "B > D",
+      "B < D",
+      "B = D",
+      "B ≥ D"
+    ],
+    "correctIndex": 1,
+    "correctOption": "B < D",
+    "explanation": "दिए गए वाक्य का सांकेतिक रूप B < D है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-005",
+    "sourceRecordId": "INE-CP005-2D76BB3B",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कथन का ठीक वही अर्थ किस सांकेतिक संबंध में है?",
+    "statements": [
+      "फ़राह के अंक, गगन के अंकों से न अधिक और न बराबर हैं।"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "फ़राह ≥ गगन",
+      "फ़राह = गगन",
+      "फ़राह < गगन",
+      "फ़राह > गगन"
+    ],
+    "correctIndex": 2,
+    "correctOption": "फ़राह < गगन",
+    "explanation": "दिए गए वाक्य का सांकेतिक रूप फ़राह < गगन है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-005",
+    "sourceRecordId": "INE-CP005-599C97A6",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कथन का ठीक वही अर्थ किस सांकेतिक संबंध में है?",
+    "statements": [
+      "अमन का वेतन, चरण के वेतन से अधिक नहीं है।"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "अमन = चरण",
+      "अमन < चरण",
+      "अमन > चरण",
+      "अमन ≤ चरण"
+    ],
+    "correctIndex": 3,
+    "correctOption": "अमन ≤ चरण",
+    "explanation": "दिए गए वाक्य का सांकेतिक रूप अमन ≤ चरण है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-005",
+    "sourceRecordId": "INE-CP005-B38F2D29",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कथन का ठीक वही अर्थ किस सांकेतिक संबंध में है?",
+    "statements": [
+      "फ़राह की लंबाई, गगन की लंबाई से अधिक नहीं है।"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "फ़राह ≤ गगन",
+      "फ़राह > गगन",
+      "फ़राह < गगन",
+      "संबंध निर्धारित नहीं किया जा सकता"
+    ],
+    "correctIndex": 0,
+    "correctOption": "फ़राह ≤ गगन",
+    "explanation": "दिए गए वाक्य का सांकेतिक रूप फ़राह ≤ गगन है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-005",
+    "sourceRecordId": "INE-CP005-972B75A4",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 4,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कथन का ठीक वही अर्थ किस सांकेतिक संबंध में है?",
+    "statements": [
+      "गगन का वज़न, फ़राह के वज़न के बराबर है।"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "गगन = फ़राह",
+      "संबंध निर्धारित नहीं किया जा सकता",
+      "गगन < फ़राह",
+      "गगन ≥ फ़राह"
+    ],
+    "correctIndex": 0,
+    "correctOption": "गगन = फ़राह",
+    "explanation": "दिए गए वाक्य का सांकेतिक रूप गगन = फ़राह है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-005",
+    "sourceRecordId": "INE-CP005-C9146BEF",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 5,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कथन का ठीक वही अर्थ किस सांकेतिक संबंध में है?",
+    "statements": [
+      "दीया का स्कोर, अमन के स्कोर से न कम और न बराबर है।"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "संबंध निर्धारित नहीं किया जा सकता",
+      "दीया = अमन",
+      "दीया > अमन",
+      "दीया < अमन"
+    ],
+    "correctIndex": 2,
+    "correctOption": "दीया > अमन",
+    "explanation": "दिए गए वाक्य का सांकेतिक रूप दीया > अमन है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-005",
+    "sourceRecordId": "INE-CP005-B31FD58A",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 6,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कथन का ठीक वही अर्थ किस सांकेतिक संबंध में है?",
+    "statements": [
+      "उत्पाद F की कीमत, उत्पाद B की कीमत से कम है।"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "उत्पाद F ≤ उत्पाद B",
+      "उत्पाद F < उत्पाद B",
+      "उत्पाद F > उत्पाद B",
+      "उत्पाद F ≥ उत्पाद B"
+    ],
+    "correctIndex": 1,
+    "correctOption": "उत्पाद F < उत्पाद B",
+    "explanation": "दिए गए वाक्य का सांकेतिक रूप उत्पाद F < उत्पाद B है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-005",
+    "sourceRecordId": "INE-CP005-9C3E2DDD",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 7,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कथन का ठीक वही अर्थ किस सांकेतिक संबंध में है?",
+    "statements": [
+      "संयंत्र C का उत्पादन, संयंत्र D के उत्पादन से न कम और न अधिक है।"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "संयंत्र C ≥ संयंत्र D",
+      "संयंत्र C < संयंत्र D",
+      "संयंत्र C ≤ संयंत्र D",
+      "संयंत्र C = संयंत्र D"
+    ],
+    "correctIndex": 3,
+    "correctOption": "संयंत्र C = संयंत्र D",
+    "explanation": "दिए गए वाक्य का सांकेतिक रूप संयंत्र C = संयंत्र D है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-005",
+    "sourceRecordId": "INE-CP005-F22A06A8",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 8,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कथन का ठीक वही अर्थ किस सांकेतिक संबंध में है?",
+    "statements": [
+      "C, B से छोटा है।"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "C ≥ B",
+      "C = B",
+      "C > B",
+      "C < B"
+    ],
+    "correctIndex": 3,
+    "correctOption": "C < B",
+    "explanation": "दिए गए वाक्य का सांकेतिक रूप C < B है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-005",
+    "sourceRecordId": "INE-CP005-BEF70A13",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 9,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कथन का ठीक वही अर्थ किस सांकेतिक संबंध में है?",
+    "statements": [
+      "अमन के अंक, फ़राह के अंकों से न अधिक और न बराबर हैं।"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "अमन < फ़राह",
+      "अमन ≥ फ़राह",
+      "अमन > फ़राह",
+      "अमन ≤ फ़राह"
+    ],
+    "correctIndex": 0,
+    "correctOption": "अमन < फ़राह",
+    "explanation": "दिए गए वाक्य का सांकेतिक रूप अमन < फ़राह है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-005",
+    "sourceRecordId": "INE-CP005-3B95BA1F",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 10,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कथन का ठीक वही अर्थ किस सांकेतिक संबंध में है?",
+    "statements": [
+      "बीना का वेतन, अमन के वेतन से अधिक नहीं है।"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "बीना < अमन",
+      "बीना > अमन",
+      "बीना ≤ अमन",
+      "बीना ≥ अमन"
+    ],
+    "correctIndex": 2,
+    "correctOption": "बीना ≤ अमन",
+    "explanation": "दिए गए वाक्य का सांकेतिक रूप बीना ≤ अमन है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-005",
+    "sourceRecordId": "INE-CP005-3F8858D4",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 11,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "stem": "कथन का ठीक वही अर्थ किस सांकेतिक संबंध में है?",
+    "statements": [
+      "गगन की लंबाई, दीया की लंबाई से कम नहीं है।"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "गगन = दीया",
+      "गगन ≥ दीया",
+      "गगन ≤ दीया",
+      "गगन < दीया"
+    ],
+    "correctIndex": 1,
+    "correctOption": "गगन ≥ दीया",
+    "explanation": "दिए गए वाक्य का सांकेतिक रूप गगन ≥ दीया है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-006",
+    "sourceRecordId": "INE-CP006-DA8A71BC",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "दी गई कोड कुंजी के अनुसार कोडित कथन का ठीक वही सामान्य संबंध कौन-सा है?",
+    "statements": [
+      "Q ▲ B"
+    ],
+    "conclusions": [],
+    "codeKey": [
+      "A ▲ B का अर्थ है: A, B से बड़ा है।",
+      "A ■ B का अर्थ है: A, B से छोटा है।",
+      "A ★ B का अर्थ है: A, B के बराबर है।",
+      "A ◆ B का अर्थ है: A, B से बड़ा या बराबर है।",
+      "A ● B का अर्थ है: A, B से छोटा या बराबर है।"
+    ],
+    "evidence": [],
+    "options": [
+      "Q ≤ B",
+      "Q > B",
+      "Q = B",
+      "Q < B"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Q > B",
+    "explanation": "मुख्य तुलना देखें: Q > B। कोड खोलकर संबंध जोड़ने पर सही उत्तर Q > B मिलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-006",
+    "sourceRecordId": "INE-CP006-B627BB50",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "दी गई कोड कुंजी के अनुसार सामान्य संबंध को कौन-सा विकल्प सही ढंग से कोड करता है?",
+    "statements": [
+      "D < A"
+    ],
+    "conclusions": [],
+    "codeKey": [
+      "A ▲ B का अर्थ है: A, B से बड़ा है।",
+      "A ■ B का अर्थ है: A, B से छोटा है।",
+      "A ★ B का अर्थ है: A, B के बराबर है।",
+      "A ◆ B का अर्थ है: A, B से बड़ा या बराबर है।",
+      "A ● B का अर्थ है: A, B से छोटा या बराबर है।"
+    ],
+    "evidence": [],
+    "options": [
+      "D ★ A",
+      "D ■ A",
+      "D ● A",
+      "D ◆ A"
+    ],
+    "correctIndex": 1,
+    "correctOption": "D ■ A",
+    "explanation": "मुख्य तुलना देखें: D < A। कोड खोलकर संबंध जोड़ने पर सही उत्तर D ■ A मिलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-006",
+    "sourceRecordId": "INE-CP006-37ACA12F",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "दी गई कोड कुंजी के अनुसार कोडित कथन का ठीक वही सामान्य संबंध कौन-सा है?",
+    "statements": [
+      "P ⊖ A"
+    ],
+    "conclusions": [],
+    "codeKey": [
+      "A ⊖ B का अर्थ है: A, B से बड़ा है।",
+      "A ⊗ B का अर्थ है: A, B से छोटा है।",
+      "A ⊕ B का अर्थ है: A, B के बराबर है।",
+      "A ⊙ B का अर्थ है: A, B से बड़ा या बराबर है।",
+      "A ⊘ B का अर्थ है: A, B से छोटा या बराबर है।"
+    ],
+    "evidence": [],
+    "options": [
+      "संबंध निर्धारित नहीं किया जा सकता",
+      "P = A",
+      "P < A",
+      "P > A"
+    ],
+    "correctIndex": 3,
+    "correctOption": "P > A",
+    "explanation": "मुख्य तुलना देखें: P > A। कोड खोलकर संबंध जोड़ने पर सही उत्तर P > A मिलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-006",
+    "sourceRecordId": "INE-CP006-998327D3",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "दी गई कोड कुंजी के अनुसार सामान्य संबंध को कौन-सा विकल्प सही ढंग से कोड करता है?",
+    "statements": [
+      "C > D"
+    ],
+    "conclusions": [],
+    "codeKey": [
+      "A ⊖ B का अर्थ है: A, B से बड़ा है।",
+      "A ⊗ B का अर्थ है: A, B से छोटा है।",
+      "A ⊕ B का अर्थ है: A, B के बराबर है।",
+      "A ⊙ B का अर्थ है: A, B से बड़ा या बराबर है।",
+      "A ⊘ B का अर्थ है: A, B से छोटा या बराबर है।"
+    ],
+    "evidence": [],
+    "options": [
+      "C ⊕ D",
+      "C ⊘ D",
+      "C ⊖ D",
+      "C ⊙ D"
+    ],
+    "correctIndex": 2,
+    "correctOption": "C ⊖ D",
+    "explanation": "मुख्य तुलना देखें: C > D। कोड खोलकर संबंध जोड़ने पर सही उत्तर C ⊖ D मिलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-006",
+    "sourceRecordId": "INE-CP006-548A78C2",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "दी गई कोड कुंजी के अनुसार कोडित कथन का ठीक वही सामान्य संबंध कौन-सा है?",
+    "statements": [
+      "A ★ D"
+    ],
+    "conclusions": [],
+    "codeKey": [
+      "A ◆ B का अर्थ है: A, B से बड़ा है।",
+      "A ● B का अर्थ है: A, B से छोटा है।",
+      "A ★ B का अर्थ है: A, B के बराबर है।",
+      "A ▲ B का अर्थ है: A, B से बड़ा या बराबर है।",
+      "A ■ B का अर्थ है: A, B से छोटा या बराबर है।"
+    ],
+    "evidence": [],
+    "options": [
+      "संबंध निर्धारित नहीं किया जा सकता",
+      "A < D",
+      "A = D",
+      "A ≥ D"
+    ],
+    "correctIndex": 2,
+    "correctOption": "A = D",
+    "explanation": "मुख्य तुलना देखें: A = D। कोड खोलकर संबंध जोड़ने पर सही उत्तर A = D मिलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-006",
+    "sourceRecordId": "INE-CP006-B0F00966",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "दी गई कोड कुंजी के अनुसार सामान्य संबंध को कौन-सा विकल्प सही ढंग से कोड करता है?",
+    "statements": [
+      "A = D"
+    ],
+    "conclusions": [],
+    "codeKey": [
+      "A ◆ B का अर्थ है: A, B से बड़ा है।",
+      "A ● B का अर्थ है: A, B से छोटा है।",
+      "A ★ B का अर्थ है: A, B के बराबर है।",
+      "A ▲ B का अर्थ है: A, B से बड़ा या बराबर है।",
+      "A ■ B का अर्थ है: A, B से छोटा या बराबर है।"
+    ],
+    "evidence": [],
+    "options": [
+      "A ▲ D",
+      "A ◆ D",
+      "A ● D",
+      "A ★ D"
+    ],
+    "correctIndex": 3,
+    "correctOption": "A ★ D",
+    "explanation": "मुख्य तुलना देखें: A = D। कोड खोलकर संबंध जोड़ने पर सही उत्तर A ★ D मिलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-006",
+    "sourceRecordId": "INE-CP006-04404B8D",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "दी गई कोड कुंजी के अनुसार कोडित कथन का ठीक वही सामान्य संबंध कौन-सा है?",
+    "statements": [
+      "B ⊕ C"
+    ],
+    "conclusions": [],
+    "codeKey": [
+      "A ⊘ B का अर्थ है: A, B से बड़ा है।",
+      "A ⊗ B का अर्थ है: A, B से छोटा है।",
+      "A ⊙ B का अर्थ है: A, B के बराबर है।",
+      "A ⊖ B का अर्थ है: A, B से बड़ा या बराबर है।",
+      "A ⊕ B का अर्थ है: A, B से छोटा या बराबर है।"
+    ],
+    "evidence": [],
+    "options": [
+      "B ≤ C",
+      "B = C",
+      "B < C",
+      "B ≥ C"
+    ],
+    "correctIndex": 0,
+    "correctOption": "B ≤ C",
+    "explanation": "मुख्य तुलना देखें: B ≤ C। कोड खोलकर संबंध जोड़ने पर सही उत्तर B ≤ C मिलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-006",
+    "sourceRecordId": "INE-CP006-7319E971",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "दी गई कोड कुंजी के अनुसार सामान्य संबंध को कौन-सा विकल्प सही ढंग से कोड करता है?",
+    "statements": [
+      "P ≥ B"
+    ],
+    "conclusions": [],
+    "codeKey": [
+      "A ⊘ B का अर्थ है: A, B से बड़ा है।",
+      "A ⊗ B का अर्थ है: A, B से छोटा है।",
+      "A ⊙ B का अर्थ है: A, B के बराबर है।",
+      "A ⊖ B का अर्थ है: A, B से बड़ा या बराबर है।",
+      "A ⊕ B का अर्थ है: A, B से छोटा या बराबर है।"
+    ],
+    "evidence": [],
+    "options": [
+      "P ⊖ B",
+      "P ⊕ B",
+      "P ⊙ B",
+      "P ⊘ B"
+    ],
+    "correctIndex": 0,
+    "correctOption": "P ⊖ B",
+    "explanation": "मुख्य तुलना देखें: P ≥ B। कोड खोलकर संबंध जोड़ने पर सही उत्तर P ⊖ B मिलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-007",
+    "sourceRecordId": "INE-CP007-C77F46B9",
+    "authorityId": "RECOVER_MISSING_MAP_ENTRY",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "परीक्षण के परिणामों से निर्धारित करें कि कोड-चिह्न '%' का क्या अर्थ है।",
+    "statements": [],
+    "conclusions": [],
+    "codeKey": [
+      "A $ B का अर्थ है: A, B से छोटा है।",
+      "A @ B का अर्थ है: A, B के बराबर है।",
+      "A # B का अर्थ है: A, B से छोटा या बराबर है।"
+    ],
+    "evidence": [
+      "पाँचों चिह्नों के पाँच अलग अर्थ हैं: >, <, =, ≥ और ≤।",
+      "% के लिए केवल दो अर्थ बचे हैं: > या ≥।",
+      "8 % 3 सत्य है",
+      "5 % 5 असत्य है"
+    ],
+    "options": [
+      "छोटा या बराबर (≤)",
+      "बराबर (=)",
+      "बड़ा (>)",
+      "बड़ा या बराबर (≥)"
+    ],
+    "correctIndex": 2,
+    "correctOption": "बड़ा (>)",
+    "explanation": "परीक्षणों में बराबर मान वाला उदाहरण असत्य है, इसलिए समावेशी संबंध हट जाता है। अतः कोड-चिह्न का अर्थ बड़ा (>) है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-007",
+    "sourceRecordId": "INE-CP007-5685A836",
+    "authorityId": "RECOVER_MISSING_MAP_ENTRY",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "परीक्षण के परिणामों से निर्धारित करें कि कोड-चिह्न '?' का क्या अर्थ है।",
+    "statements": [],
+    "conclusions": [],
+    "codeKey": [
+      "A ^ B का अर्थ है: A, B से बड़ा है।",
+      "A ! B का अर्थ है: A, B के बराबर है।",
+      "A ~ B का अर्थ है: A, B से बड़ा या बराबर है।"
+    ],
+    "evidence": [
+      "पाँचों चिह्नों के पाँच अलग अर्थ हैं: >, <, =, ≥ और ≤।",
+      "? के लिए केवल दो अर्थ बचे हैं: < या ≤।",
+      "7 ? 12 सत्य है",
+      "9 ? 9 असत्य है"
+    ],
+    "options": [
+      "छोटा या बराबर (≤)",
+      "छोटा (<)",
+      "बराबर (=)",
+      "बड़ा या बराबर (≥)"
+    ],
+    "correctIndex": 1,
+    "correctOption": "छोटा (<)",
+    "explanation": "परीक्षणों में बराबर मान वाला उदाहरण असत्य है, इसलिए समावेशी संबंध हट जाता है। अतः कोड-चिह्न का अर्थ छोटा (<) है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-007",
+    "sourceRecordId": "INE-CP007-8F34710B",
+    "authorityId": "RECOVER_MISSING_MAP_ENTRY",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "परीक्षण के परिणामों से निर्धारित करें कि कोड-चिह्न '#' का क्या अर्थ है।",
+    "statements": [],
+    "conclusions": [],
+    "codeKey": [
+      "A % B का अर्थ है: A, B से बड़ा है।",
+      "A $ B का अर्थ है: A, B से छोटा है।",
+      "A & B का अर्थ है: A, B से छोटा या बराबर है।"
+    ],
+    "evidence": [
+      "पाँचों चिह्नों के पाँच अलग अर्थ हैं: >, <, =, ≥ और ≤।",
+      "# के लिए केवल दो अर्थ बचे हैं: = या ≥।",
+      "11 # 11 सत्य है",
+      "15 # 6 असत्य है"
+    ],
+    "options": [
+      "छोटा (<)",
+      "बड़ा या बराबर (≥)",
+      "बड़ा (>)",
+      "बराबर (=)"
+    ],
+    "correctIndex": 3,
+    "correctOption": "बराबर (=)",
+    "explanation": "परीक्षणों में बराबर मान वाला उदाहरण असत्य है, इसलिए समावेशी संबंध हट जाता है। अतः कोड-चिह्न का अर्थ बराबर (=) है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-007",
+    "sourceRecordId": "INE-CP007-80547A00",
+    "authorityId": "RECOVER_MISSING_MAP_ENTRY",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "परीक्षण के परिणामों से निर्धारित करें कि कोड-चिह्न '?' का क्या अर्थ है।",
+    "statements": [],
+    "conclusions": [],
+    "codeKey": [
+      "A + B का अर्थ है: A, B से छोटा है।",
+      "A ^ B का अर्थ है: A, B के बराबर है।",
+      "A ! B का अर्थ है: A, B से छोटा या बराबर है।"
+    ],
+    "evidence": [
+      "पाँचों चिह्नों के पाँच अलग अर्थ हैं: >, <, =, ≥ और ≤।",
+      "? के लिए केवल दो अर्थ बचे हैं: ≥ या >।",
+      "21 ? 14 सत्य है",
+      "8 ? 8 सत्य है"
+    ],
+    "options": [
+      "बड़ा या बराबर (≥)",
+      "छोटा (<)",
+      "बराबर (=)",
+      "छोटा या बराबर (≤)"
+    ],
+    "correctIndex": 0,
+    "correctOption": "बड़ा या बराबर (≥)",
+    "explanation": "परीक्षणों में बराबर मान वाला उदाहरण असत्य है, इसलिए समावेशी संबंध हट जाता है। अतः कोड-चिह्न का अर्थ बड़ा या बराबर (≥) है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-007",
+    "sourceRecordId": "INE-CP007-54273303",
+    "authorityId": "IDENTIFY_ONLY_CONSISTENT_CODE_MAP",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "कौन-सा पूरा कोड-मानचित्र सभी परीक्षण परिणामों से मेल खाता है?",
+    "statements": [],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [
+      "8 % 3 सत्य है",
+      "5 % 5 असत्य है",
+      "3 $ 8 सत्य है",
+      "5 $ 5 असत्य है",
+      "5 @ 5 सत्य है",
+      "8 @ 3 असत्य है",
+      "8 & 3 सत्य है",
+      "5 & 5 सत्य है",
+      "3 # 8 सत्य है",
+      "5 # 5 सत्य है"
+    ],
+    "options": [
+      "% = >, $ = <, @ = =, & = ≥, # = ≤",
+      "% = >, $ = ≤, @ = =, & = ≥, # = <",
+      "% = =, $ = <, @ = >, & = ≥, # = ≤",
+      "% = ≤, $ = <, @ = =, & = ≥, # = >"
+    ],
+    "correctIndex": 0,
+    "correctOption": "% = >, $ = <, @ = =, & = ≥, # = ≤",
+    "explanation": "हर कोड-चिह्न को दिए गए सत्य और असत्य उदाहरणों पर जाँचें। केवल % = >, $ = <, @ = =, & = ≥, # = ≤ सभी परिणामों से मेल खाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-007",
+    "sourceRecordId": "INE-CP007-E513A458",
+    "authorityId": "IDENTIFY_ONLY_CONSISTENT_CODE_MAP",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "कौन-सा पूरा कोड-मानचित्र सभी परीक्षण परिणामों से मेल खाता है?",
+    "statements": [],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [
+      "12 ^ 7 सत्य है",
+      "9 ^ 9 असत्य है",
+      "7 ? 12 सत्य है",
+      "9 ? 9 असत्य है",
+      "9 ! 9 सत्य है",
+      "12 ! 7 असत्य है",
+      "12 ~ 7 सत्य है",
+      "9 ~ 9 सत्य है",
+      "7 + 12 सत्य है",
+      "9 + 9 सत्य है"
+    ],
+    "options": [
+      "^ = ≤, ? = <, ! = =, ~ = ≥, + = >",
+      "^ = =, ? = <, ! = >, ~ = ≥, + = ≤",
+      "^ = >, ? = <, ! = =, ~ = ≥, + = ≤",
+      "^ = ≥, ? = <, ! = =, ~ = >, + = ≤"
+    ],
+    "correctIndex": 2,
+    "correctOption": "^ = >, ? = <, ! = =, ~ = ≥, + = ≤",
+    "explanation": "हर कोड-चिह्न को दिए गए सत्य और असत्य उदाहरणों पर जाँचें। केवल ^ = >, ? = <, ! = =, ~ = ≥, + = ≤ सभी परिणामों से मेल खाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-007",
+    "sourceRecordId": "INE-CP007-4E4EC651",
+    "authorityId": "IDENTIFY_ONLY_CONSISTENT_CODE_MAP",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "कौन-सा पूरा कोड-मानचित्र सभी परीक्षण परिणामों से मेल खाता है?",
+    "statements": [],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [
+      "15 % 6 सत्य है",
+      "11 % 11 असत्य है",
+      "6 $ 15 सत्य है",
+      "11 $ 11 असत्य है",
+      "11 # 11 सत्य है",
+      "15 # 6 असत्य है",
+      "15 @ 6 सत्य है",
+      "11 @ 11 सत्य है",
+      "6 & 15 सत्य है",
+      "11 & 11 सत्य है"
+    ],
+    "options": [
+      "% = >, $ = <, # = =, @ = ≤, & = ≥",
+      "% = <, $ = >, # = =, @ = ≥, & = ≤",
+      "% = =, $ = <, # = >, @ = ≥, & = ≤",
+      "% = >, $ = <, # = =, @ = ≥, & = ≤"
+    ],
+    "correctIndex": 3,
+    "correctOption": "% = >, $ = <, # = =, @ = ≥, & = ≤",
+    "explanation": "हर कोड-चिह्न को दिए गए सत्य और असत्य उदाहरणों पर जाँचें। केवल % = >, $ = <, # = =, @ = ≥, & = ≤ सभी परिणामों से मेल खाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-007",
+    "sourceRecordId": "INE-CP007-A7F8C44E",
+    "authorityId": "IDENTIFY_ONLY_CONSISTENT_CODE_MAP",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_DISCOVERY",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "कौन-सा पूरा कोड-मानचित्र सभी परीक्षण परिणामों से मेल खाता है?",
+    "statements": [],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [
+      "21 ~ 14 सत्य है",
+      "8 ~ 8 असत्य है",
+      "14 + 21 सत्य है",
+      "8 + 8 असत्य है",
+      "8 ^ 8 सत्य है",
+      "21 ^ 14 असत्य है",
+      "21 ? 14 सत्य है",
+      "8 ? 8 सत्य है",
+      "14 ! 21 सत्य है",
+      "8 ! 8 सत्य है"
+    ],
+    "options": [
+      "~ = ≥, + = <, ^ = =, ? = >, ! = ≤",
+      "~ = >, + = <, ^ = =, ? = ≥, ! = ≤",
+      "~ = <, + = >, ^ = =, ? = ≥, ! = ≤",
+      "~ = >, + = <, ^ = ≥, ? = =, ! = ≤"
+    ],
+    "correctIndex": 1,
+    "correctOption": "~ = >, + = <, ^ = =, ? = ≥, ! = ≤",
+    "explanation": "हर कोड-चिह्न को दिए गए सत्य और असत्य उदाहरणों पर जाँचें। केवल ~ = >, + = <, ^ = =, ? = ≥, ! = ≤ सभी परिणामों से मेल खाता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-008",
+    "sourceRecordId": "INE-CP008-E766A5E0",
+    "authorityId": "SELECT_SET_ESTABLISHING_RELATION",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "कौन-सा कथन-समूह P > T को सबसे मजबूत निश्चित अंतिम संबंध बनाता है?",
+    "statements": [
+      "आवश्यक अंतिम संबंध: P > T"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "P ≤ Q; Q = R; R < T",
+      "P = Q; Q = R; R = T",
+      "P ≥ Q; Q = R; R > T",
+      "P ≤ Q; Q = R; R = T"
+    ],
+    "correctIndex": 2,
+    "correctOption": "P ≥ Q; Q = R; R > T",
+    "explanation": "मुख्य तुलना देखें: P ≥ Q = R > T; P > T। इन संबंधों को जोड़ने पर सबसे मजबूत निश्चित उत्तर P ≥ Q; Q = R; R > T मिलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-008",
+    "sourceRecordId": "INE-CP008-69A9CB6B",
+    "authorityId": "SELECT_SET_ESTABLISHING_RELATION",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "कौन-सा कथन-समूह A < K को सबसे मजबूत निश्चित अंतिम संबंध बनाता है?",
+    "statements": [
+      "आवश्यक अंतिम संबंध: A < K"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "A ≤ D; D = F; F < K",
+      "A ≤ D; D = F; F = K",
+      "A = D; D = F; F = K",
+      "A ≥ D; D = F; F > K"
+    ],
+    "correctIndex": 0,
+    "correctOption": "A ≤ D; D = F; F < K",
+    "explanation": "मुख्य तुलना देखें: A ≤ D = F < K; A < K। इन संबंधों को जोड़ने पर सबसे मजबूत निश्चित उत्तर A ≤ D; D = F; F < K मिलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-008",
+    "sourceRecordId": "INE-CP008-86F2FB96",
+    "authorityId": "SELECT_SET_ESTABLISHING_RELATION",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "कौन-सा कथन-समूह M = V को सबसे मजबूत निश्चित अंतिम संबंध बनाता है?",
+    "statements": [
+      "आवश्यक अंतिम संबंध: M = V"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "M ≥ N; N = O; O > V",
+      "M ≤ N; N = O; O = V",
+      "M ≤ N; N = O; O < V",
+      "M = N; N = O; O = V"
+    ],
+    "correctIndex": 3,
+    "correctOption": "M = N; N = O; O = V",
+    "explanation": "मुख्य तुलना देखें: M = N = O = V; M = V। इन संबंधों को जोड़ने पर सबसे मजबूत निश्चित उत्तर M = N; N = O; O = V मिलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-008",
+    "sourceRecordId": "INE-CP008-4BAE5299",
+    "authorityId": "SELECT_SET_ESTABLISHING_RELATION",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "कौन-सा कथन-समूह B ≥ L को सबसे मजबूत निश्चित अंतिम संबंध बनाता है?",
+    "statements": [
+      "आवश्यक अंतिम संबंध: B ≥ L"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "B = C; C = G; G = L",
+      "B ≥ C; C = G; G = L",
+      "B ≤ C; C = G; G = L",
+      "B ≤ C; C = G; G < L"
+    ],
+    "correctIndex": 1,
+    "correctOption": "B ≥ C; C = G; G = L",
+    "explanation": "मुख्य तुलना देखें: B ≥ C = G = L; B ≥ L। इन संबंधों को जोड़ने पर सबसे मजबूत निश्चित उत्तर B ≥ C; C = G; G = L मिलता है।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-008",
+    "sourceRecordId": "INE-CP008-FF516027",
+    "authorityId": "IDENTIFY_CONTRADICTORY_ADDITION",
+    "seed": 0,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "दिए गए कथनों से विरोध पैदा किए बिना कौन-सा कथन जोड़ा नहीं जा सकता?",
+    "statements": [
+      "P ≥ Q; Q > R; R = S; S ≥ T"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "R ≥ T",
+      "T ≥ P",
+      "P > T",
+      "Q > S"
+    ],
+    "correctIndex": 1,
+    "correctOption": "T ≥ P",
+    "explanation": "मुख्य तुलना देखें: P ≥ Q > R = S ≥ T; P > T; T ≥ P। T ≥ P जोड़ने पर बने हुए संबंध का उलटा परिणाम आता है। इसलिए यही कथन नहीं जोड़ा जा सकता।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-008",
+    "sourceRecordId": "INE-CP008-F797015C",
+    "authorityId": "IDENTIFY_CONTRADICTORY_ADDITION",
+    "seed": 1,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "दिए गए कथनों से विरोध पैदा किए बिना कौन-सा कथन जोड़ा नहीं जा सकता?",
+    "statements": [
+      "A ≤ D; D < F; F = H; H ≤ K"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "K ≤ A",
+      "A < K",
+      "D < H",
+      "F ≤ K"
+    ],
+    "correctIndex": 0,
+    "correctOption": "K ≤ A",
+    "explanation": "मुख्य तुलना देखें: A ≤ D < F = H ≤ K; A < K; K ≤ A। K ≤ A जोड़ने पर बने हुए संबंध का उलटा परिणाम आता है। इसलिए यही कथन नहीं जोड़ा जा सकता।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-008",
+    "sourceRecordId": "INE-CP008-6F98D515",
+    "authorityId": "IDENTIFY_CONTRADICTORY_ADDITION",
+    "seed": 2,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "दिए गए कथनों से विरोध पैदा किए बिना कौन-सा कथन जोड़ा नहीं जा सकता?",
+    "statements": [
+      "M ≥ N; N > O; O = U; U ≥ V"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "N > U",
+      "M > V",
+      "O ≥ V",
+      "V ≥ M"
+    ],
+    "correctIndex": 3,
+    "correctOption": "V ≥ M",
+    "explanation": "मुख्य तुलना देखें: M ≥ N > O = U ≥ V; M > V; V ≥ M। V ≥ M जोड़ने पर बने हुए संबंध का उलटा परिणाम आता है। इसलिए यही कथन नहीं जोड़ा जा सकता।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "checkpointId": "INE-CP-008",
+    "sourceRecordId": "INE-CP008-E22A63A2",
+    "authorityId": "IDENTIFY_CONTRADICTORY_ADDITION",
+    "seed": 3,
+    "locale": "hi-IN",
+    "contentClass": "GUIDED_ONLY",
+    "optionStandard": "GUIDED_INTERNAL",
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_ADVANCED_PROTOTYPE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "stem": "दिए गए कथनों से विरोध पैदा किए बिना कौन-सा कथन जोड़ा नहीं जा सकता?",
+    "statements": [
+      "B ≤ C; C < G; G = J; J ≤ L"
+    ],
+    "conclusions": [],
+    "codeKey": [],
+    "evidence": [],
+    "options": [
+      "B < L",
+      "C < J",
+      "L ≤ B",
+      "G ≤ L"
+    ],
+    "correctIndex": 2,
+    "correctOption": "L ≤ B",
+    "explanation": "मुख्य तुलना देखें: B ≤ C < G = J ≤ L; B < L; L ≤ B। L ≤ B जोड़ने पर बने हुए संबंध का उलटा परिणाम आता है। इसलिए यही कथन नहीं जोड़ा जा सकता।",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  }
+]

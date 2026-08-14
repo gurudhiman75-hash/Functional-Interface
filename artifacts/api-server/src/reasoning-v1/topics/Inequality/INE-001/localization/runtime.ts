@@ -1,4 +1,5 @@
 import { ineLanguagePack } from "./language-pack";
+import { ineContentClass, ineOptionStandard } from "./scope";
 import type {
   IneEnglishReviewRow,
   IneTranslatedLocale,
@@ -199,26 +200,34 @@ const STEMS: Record<string, readonly [string, string]> = {
   ],
 };
 
-const CONTEXT_TERMS: Record<IneTranslatedLocale, Record<string, string>> = {
+const ENTITY_NAMES: Record<IneTranslatedLocale, Readonly<Record<string, string>>> = {
   "hi-IN": {
-    marks: "अंक",
-    salary: "वेतन",
-    height: "लंबाई",
-    weight: "वज़न",
-    score: "स्कोर",
-    price: "कीमत",
-    production: "उत्पादन",
+    Aman: "अमन",
+    Bina: "बीना",
+    Charan: "चरण",
+    Diya: "दीया",
+    Farah: "फ़राह",
+    Gagan: "गगन",
   },
   "pa-IN": {
-    marks: "ਅੰਕ",
-    salary: "ਤਨਖਾਹ",
-    height: "ਕੱਦ",
-    weight: "ਭਾਰ",
-    score: "ਸਕੋਰ",
-    price: "ਕੀਮਤ",
-    production: "ਉਤਪਾਦਨ",
+    Aman: "ਅਮਨ",
+    Bina: "ਬੀਨਾ",
+    Charan: "ਚਰਨ",
+    Diya: "ਦੀਆ",
+    Farah: "ਫ਼ਰਾਹ",
+    Gagan: "ਗਗਨ",
   },
 };
+
+function localizeEntityNames(text: string, locale: IneTranslatedLocale): string {
+  let localized = text
+    .replace(/\bProduct ([A-Z])\b/g, locale === "hi-IN" ? "उत्पाद $1" : "ਉਤਪਾਦ $1")
+    .replace(/\bPlant ([A-Z])\b/g, locale === "hi-IN" ? "संयंत्र $1" : "ਇਕਾਈ $1");
+  for (const [english, translated] of Object.entries(ENTITY_NAMES[locale])) {
+    localized = localized.replace(new RegExp(`\\b${english}\\b`, "g"), translated);
+  }
+  return localized;
+}
 
 function relationClause(left: string, relation: string, right: string, locale: IneTranslatedLocale): string {
   if (locale === "hi-IN") {
@@ -258,7 +267,8 @@ function contextualClause(
   right: string,
   locale: IneTranslatedLocale,
 ): string {
-  const term = CONTEXT_TERMS[locale][context.toLowerCase()] ?? context;
+  const localizedLeft = localizeEntityNames(left, locale);
+  const localizedRight = localizeEntityNames(right, locale);
   if (locale === "hi-IN") {
     const relationText: Record<string, string> = {
       "greater than": "से अधिक",
@@ -270,7 +280,18 @@ function contextualClause(
       "neither less than nor equal to": "से न कम और न बराबर",
       "neither greater than nor equal to": "से न अधिक और न बराबर",
     };
-    return `${left} का ${term}, ${right} के ${term} ${relationText[relation] ?? relation} है।`;
+    const forms: Record<string, readonly [string, string]> = {
+      marks: [`${localizedLeft} के अंक`, `${localizedRight} के अंकों`],
+      salary: [`${localizedLeft} का वेतन`, `${localizedRight} के वेतन`],
+      height: [`${localizedLeft} की लंबाई`, `${localizedRight} की लंबाई`],
+      weight: [`${localizedLeft} का वज़न`, `${localizedRight} के वज़न`],
+      score: [`${localizedLeft} का स्कोर`, `${localizedRight} के स्कोर`],
+      price: [`${localizedLeft} की कीमत`, `${localizedRight} की कीमत`],
+      production: [`${localizedLeft} का उत्पादन`, `${localizedRight} के उत्पादन`],
+    };
+    const [subject, comparison] = forms[context.toLowerCase()] ?? [localizedLeft, localizedRight];
+    const copula = context.toLowerCase() === "marks" ? "हैं" : "है";
+    return `${subject}, ${comparison} ${relationText[relation] ?? relation} ${copula}।`;
   }
   const relationText: Record<string, string> = {
     "greater than": "ਨਾਲੋਂ ਵੱਧ",
@@ -282,7 +303,18 @@ function contextualClause(
     "neither less than nor equal to": "ਨਾਲੋਂ ਨਾ ਘੱਟ ਅਤੇ ਨਾ ਬਰਾਬਰ",
     "neither greater than nor equal to": "ਨਾਲੋਂ ਨਾ ਵੱਧ ਅਤੇ ਨਾ ਬਰਾਬਰ",
   };
-  return `${left} ਦਾ ${term}, ${right} ਦੇ ${term} ${relationText[relation] ?? relation} ਹੈ।`;
+  const forms: Record<string, readonly [string, string]> = {
+    marks: [`${localizedLeft} ਦੇ ਅੰਕ`, `${localizedRight} ਦੇ ਅੰਕਾਂ`],
+    salary: [`${localizedLeft} ਦੀ ਤਨਖਾਹ`, `${localizedRight} ਦੀ ਤਨਖਾਹ`],
+    height: [`${localizedLeft} ਦਾ ਕੱਦ`, `${localizedRight} ਦੇ ਕੱਦ`],
+    weight: [`${localizedLeft} ਦਾ ਭਾਰ`, `${localizedRight} ਦੇ ਭਾਰ`],
+    score: [`${localizedLeft} ਦਾ ਸਕੋਰ`, `${localizedRight} ਦੇ ਸਕੋਰ`],
+    price: [`${localizedLeft} ਦੀ ਕੀਮਤ`, `${localizedRight} ਦੀ ਕੀਮਤ`],
+    production: [`${localizedLeft} ਦਾ ਉਤਪਾਦਨ`, `${localizedRight} ਦੇ ਉਤਪਾਦਨ`],
+  };
+  const [subject, comparison] = forms[context.toLowerCase()] ?? [localizedLeft, localizedRight];
+  const copula = context.toLowerCase() === "marks" ? "ਹਨ" : "ਹੈ";
+  return `${subject}, ${comparison} ${relationText[relation] ?? relation} ${copula}।`;
 }
 
 export function translateIneStatement(text: string, locale: IneTranslatedLocale): string {
@@ -300,8 +332,15 @@ export function translateIneStatement(text: string, locale: IneTranslatedLocale)
   if (price) return contextualClause(price[1], "price", price[2].toLowerCase(), price[3], locale);
 
   const generic = clean.match(new RegExp(`^(.+?) is (${RELATION_PATTERN}) (.+?)\\.$`, "i"));
-  if (generic) return relationClause(generic[1], generic[2].toLowerCase(), generic[3], locale);
-  return clean;
+  if (generic) {
+    return relationClause(
+      localizeEntityNames(generic[1], locale),
+      generic[2].toLowerCase(),
+      localizeEntityNames(generic[3], locale),
+      locale,
+    );
+  }
+  return localizeEntityNames(clean, locale);
 }
 
 export function translateIneOption(text: string, locale: IneTranslatedLocale): string {
@@ -329,7 +368,10 @@ export function translateIneOption(text: string, locale: IneTranslatedLocale): s
   }
   const joiner = locale === "hi-IN" ? " और " : " ਅਤੇ ";
   const alternative = locale === "hi-IN" ? " या " : " ਜਾਂ ";
-  return text.replace(/\s+and\s+/gi, joiner).replace(/\s+or\s+/gi, alternative);
+  return localizeEntityNames(
+    text.replace(/\s+and\s+/gi, joiner).replace(/\s+or\s+/gi, alternative),
+    locale,
+  );
 }
 
 function translateCodeKeyLine(text: string, locale: IneTranslatedLocale): string {
@@ -367,6 +409,36 @@ function translateEvidenceLine(text: string, locale: IneTranslatedLocale): strin
     .replace(/\.$/, "।");
 }
 
+function localizeComparisonTarget(text: string, locale: IneTranslatedLocale): string {
+  const possessive = text.match(/^(.+?)'s (marks|salary|height|weight|score|production)$/i);
+  const price = text.match(/^the prices? of (.+)$/i);
+  const entity = localizeEntityNames(possessive?.[1] ?? price?.[1] ?? text, locale);
+  const context = (possessive?.[2] ?? (price ? "price" : undefined))?.toLowerCase();
+  if (!context) return entity;
+
+  const forms: Record<IneTranslatedLocale, Record<string, string>> = {
+    "hi-IN": {
+      marks: `${entity} के अंकों`,
+      salary: `${entity} के वेतन`,
+      height: `${entity} की लंबाई`,
+      weight: `${entity} के वज़न`,
+      score: `${entity} के स्कोर`,
+      price: `${entity} की कीमत`,
+      production: `${entity} के उत्पादन`,
+    },
+    "pa-IN": {
+      marks: `${entity} ਦੇ ਅੰਕਾਂ`,
+      salary: `${entity} ਦੀ ਤਨਖਾਹ`,
+      height: `${entity} ਦੇ ਕੱਦ`,
+      weight: `${entity} ਦੇ ਭਾਰ`,
+      score: `${entity} ਦੇ ਸਕੋਰ`,
+      price: `${entity} ਦੀ ਕੀਮਤ`,
+      production: `${entity} ਦੇ ਉਤਪਾਦਨ`,
+    },
+  };
+  return forms[locale][context] ?? entity;
+}
+
 function translatedStem(row: IneEnglishReviewRow, locale: IneTranslatedLocale): string {
   const stem = STEMS[row.authorityId];
   if (!stem) throw new Error(`INE-001 localization has no stem for authority ${row.authorityId}`);
@@ -375,9 +447,14 @@ function translatedStem(row: IneEnglishReviewRow, locale: IneTranslatedLocale): 
   const between = row.stem.match(/between (.+?) and (.+?)(?: is [^?]+)?\?$/i);
   const pair = compared ?? between;
   if (pair) {
+    const first = localizeComparisonTarget(pair[1], locale);
+    const secondSource = /^the prices? of /i.test(pair[1]) && !/^the prices? of /i.test(pair[2])
+      ? `the price of ${pair[2]}`
+      : pair[2];
+    const second = localizeComparisonTarget(secondSource, locale);
     return locale === "hi-IN"
-      ? `${base} तुलना ${pair[1]} और ${pair[2]} के बीच करनी है।`
-      : `${base} ਤੁਲਨਾ ${pair[1]} ਅਤੇ ${pair[2]} ਵਿਚਕਾਰ ਕਰਨੀ ਹੈ।`;
+      ? `${base} ${first} की तुलना ${second} से करें।`
+      : `${base} ${first} ਦੀ ਤੁਲਨਾ ${second} ਨਾਲ ਕਰੋ।`;
   }
   const missingSymbol = row.stem.match(/coded symbol '(.+?)' means/i);
   if (missingSymbol) {
@@ -388,14 +465,14 @@ function translatedStem(row: IneEnglishReviewRow, locale: IneTranslatedLocale): 
   const requiredEndpoint = row.stem.match(/strongest endpoint relation is (.+?)\?$/i);
   if (requiredEndpoint) {
     return locale === "hi-IN"
-      ? `खाली स्थान में कौन-सा संबंध रखने पर सबसे मजबूत अंतिम संबंध ${requiredEndpoint[1]} बनेगा?`
-      : `ਖਾਲੀ ਥਾਂ ਵਿੱਚ ਕਿਹੜਾ ਸੰਬੰਧ ਰੱਖਣ ਨਾਲ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਅੰਤਲਾ ਸੰਬੰਧ ${requiredEndpoint[1]} ਬਣੇਗਾ?`;
+      ? `खाली स्थान में कौन-सा संबंध रखने पर सबसे मजबूत अंतिम संबंध ${localizeEntityNames(requiredEndpoint[1], locale)} बनेगा?`
+      : `ਖਾਲੀ ਥਾਂ ਵਿੱਚ ਕਿਹੜਾ ਸੰਬੰਧ ਰੱਖਣ ਨਾਲ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਅੰਤਲਾ ਸੰਬੰਧ ${localizeEntityNames(requiredEndpoint[1], locale)} ਬਣੇਗਾ?`;
   }
   const establishing = row.stem.match(/has (.+?) as its strongest definite endpoint relation\?$/i);
   if (establishing) {
     return locale === "hi-IN"
-      ? `कौन-सा कथन-समूह ${establishing[1]} को सबसे मजबूत निश्चित अंतिम संबंध बनाता है?`
-      : `ਕਿਹੜਾ ਕਥਨ-ਸਮੂਹ ${establishing[1]} ਨੂੰ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਯਕੀਨੀ ਅੰਤਲਾ ਸੰਬੰਧ ਬਣਾਉਂਦਾ ਹੈ?`;
+      ? `कौन-सा कथन-समूह ${localizeEntityNames(establishing[1], locale)} को सबसे मजबूत निश्चित अंतिम संबंध बनाता है?`
+      : `ਕਿਹੜਾ ਕਥਨ-ਸਮੂਹ ${localizeEntityNames(establishing[1], locale)} ਨੂੰ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਯਕੀਨੀ ਅੰਤਲਾ ਸੰਬੰਧ ਬਣਾਉਂਦਾ ਹੈ?`;
   }
   return base;
 }
@@ -406,57 +483,82 @@ function extractSymbolSummary(row: IneEnglishReviewRow): string | undefined {
   return match?.[1]?.trim();
 }
 
+function extractReasoningRelations(row: IneEnglishReviewRow): string[] {
+  const symbolSummary = extractSymbolSummary(row);
+  if (symbolSummary) return [symbolSummary];
+
+  const source = row.mockSolution ?? row.mockExplanation ?? row.explanation ?? "";
+  const opening = source.split(/\.\s+/).slice(0, 3).join(". ");
+  const entity = "(?:Product [A-Z]|Plant [A-Z]|[A-Z][a-z]+|[A-Z])";
+  const chainPattern = new RegExp(`${entity}(?:\\s*[><=≤≥]\\s*${entity})+`, "g");
+  const extracted = opening.match(chainPattern) ?? [];
+  const unique = [...new Set(extracted.map((entry) => entry.trim()))];
+  if (unique.length > 0) return unique.slice(0, 6);
+
+  return (row.statements ?? [])
+    .filter((statement) => /[><=≤≥]/.test(statement))
+    .slice(0, 4);
+}
+
+function reasoningLead(row: IneEnglishReviewRow, locale: IneTranslatedLocale): string {
+  const relations = extractReasoningRelations(row).map((entry) => localizeEntityNames(entry, locale));
+  if (relations.length === 0) {
+    return locale === "hi-IN"
+      ? "दी गई जानकारी को एक-एक करके जाँचें।"
+      : "ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਨੂੰ ਇੱਕ-ਇੱਕ ਕਰਕੇ ਜਾਂਚੋ।";
+  }
+  const joined = relations.join(locale === "hi-IN" ? "; " : "; ");
+  return locale === "hi-IN"
+    ? `मुख्य तुलना देखें: ${joined}।`
+    : `ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: ${joined}।`;
+}
+
 function localizedExplanation(
   row: IneEnglishReviewRow,
   locale: IneTranslatedLocale,
   correctOption: string,
 ): string {
-  const symbols = extractSymbolSummary(row);
   const coded = row.authorityId.includes("CODE") || row.authorityId.includes("MAP");
   const isConclusion = row.authorityId.includes("CONCLUSION") || row.authorityId.includes("EITHER_OR");
   const isPair = row.authorityId.includes("PAIR");
   const isPossible = row.authorityId.includes("POSSIBLE");
   const isImpossible = row.authorityId.includes("IMPOSSIBLE");
+  const isIndeterminate = /cannot be determined/i.test(row.correctOption);
   const isContradiction = row.authorityId === "IDENTIFY_CONTRADICTORY_ADDITION";
   const isMapRecovery = row.authorityId === "RECOVER_MISSING_MAP_ENTRY";
   const isMapSelection = row.authorityId === "IDENTIFY_ONLY_CONSISTENT_CODE_MAP";
   const isMissing = row.authorityId.includes("MISSING") || row.authorityId === "RECONSTRUCT_MISSING_RELATION";
+  const lead = reasoningLead(row, locale);
 
   if (locale === "hi-IN") {
-    const prefix = symbols
-      ? `कथनों को चिह्नों में लिखने पर ${symbols} मिलता है। `
-      : coded
-        ? "पहले दिए गए कोड का अर्थ लगाएँ और फिर संबंधों को जोड़ें। "
-        : "कथनों को क्रम से जोड़कर केवल वही बात मानें जो हर स्थिति में सही रहती है। ";
-    if (row.authorityId === "INTERPRET_LINGUISTIC_RELATION") return `दिए गए वाक्य का सांकेतिक रूप ${correctOption} है। शब्दों और चिह्नों का अर्थ एक ही है, इसलिए यही सही विकल्प है।`;
+    if (row.authorityId === "INTERPRET_LINGUISTIC_RELATION") return `दिए गए वाक्य का सांकेतिक रूप ${correctOption} है। दोनों में वही तुलना है, इसलिए यही सही विकल्प है।`;
     if (isMapRecovery) return `परीक्षणों में बराबर मान वाला उदाहरण असत्य है, इसलिए समावेशी संबंध हट जाता है। अतः कोड-चिह्न का अर्थ ${correctOption} है।`;
     if (isMapSelection) return `हर कोड-चिह्न को दिए गए सत्य और असत्य उदाहरणों पर जाँचें। केवल ${correctOption} सभी परिणामों से मेल खाता है।`;
-    if (isContradiction) return `${prefix}${correctOption} जोड़ने पर पहले से बने संबंध का उलटा अर्थ निकलता है, इसलिए यही कथन नहीं जोड़ा जा सकता।`;
-    if (isMissing) return `${prefix}खाली स्थान पर ${correctOption} रखने से आवश्यक अंतिम संबंध ठीक बनता है; बाकी विकल्प संबंध को बदल देते हैं या कमजोर कर देते हैं।`;
-    if (isImpossible) return `${prefix}${correctOption} कथनों के निश्चित संबंध के विपरीत है, इसलिए यह संभव नहीं है।`;
-    if (isPossible) return `${prefix}${correctOption} कथनों का विरोध नहीं करता, लेकिन हर स्थिति में निश्चित भी नहीं है। इसलिए यही संभव उत्तर है।`;
-    if (isPair) return `${prefix}दोनों हिस्सों को साथ जाँचने पर सही विकल्प है: ${correctOption}। यही सभी संभव स्थितियों को ठीक से दर्शाता है।`;
-    if (isConclusion) return `${prefix}हर निष्कर्ष को अलग-अलग जाँचने पर सही विकल्प है: ${correctOption}।`;
-    if (coded) return `${prefix}कोड खोलने के बाद सही विकल्प है: ${correctOption}।`;
-    return `${prefix}इसलिए सबसे मजबूत निश्चित उत्तर है: ${correctOption}।`;
+    if (isContradiction) return `${lead} ${correctOption} जोड़ने पर बने हुए संबंध का उलटा परिणाम आता है। इसलिए यही कथन नहीं जोड़ा जा सकता।`;
+    if (isMissing) return `${lead} खाली स्थान पर ${correctOption} रखने से आवश्यक अंतिम संबंध ठीक बनता है। बाकी विकल्प परिणाम बदल देते हैं।`;
+    if (isIndeterminate) return `${lead} इन तुलनाओं से पूछे गए दोनों पदों का एक निश्चित क्रम नहीं बनता। इसलिए संबंध निर्धारित नहीं किया जा सकता।`;
+    if (isImpossible) return `${lead} ${correctOption} बने हुए संबंध के विपरीत है। इसलिए यह निष्कर्ष असंभव है।`;
+    if (row.authorityId === "IDENTIFY_ALL_POSSIBLE_RELATIONS") return `${lead} इससे ${correctOption} वाली सभी स्थितियाँ संभव रहती हैं। इसलिए यही पूरा उत्तर है।`;
+    if (isPossible) return `${lead} ${correctOption} कथनों का विरोध नहीं करता, पर हर स्थिति में निश्चित भी नहीं है। इसलिए यही संभव उत्तर है।`;
+    if (isPair) return `${lead} दोनों हिस्सों को साथ जाँचने पर सही विकल्प ${correctOption} है। यही सभी संभव स्थितियों को ठीक से दर्शाता है।`;
+    if (isConclusion) return `${lead} अब प्रत्येक निष्कर्ष को इस तुलना से मिलाएँ। सही उत्तर है: ${correctOption}।`;
+    if (coded) return `${lead} कोड खोलकर संबंध जोड़ने पर सही उत्तर ${correctOption} मिलता है।`;
+    return `${lead} इन संबंधों को जोड़ने पर सबसे मजबूत निश्चित उत्तर ${correctOption} मिलता है।`;
   }
 
-  const prefix = symbols
-    ? `ਕਥਨਾਂ ਨੂੰ ਚਿੰਨ੍ਹਾਂ ਵਿੱਚ ਲਿਖਣ 'ਤੇ ${symbols} ਮਿਲਦਾ ਹੈ। `
-    : coded
-      ? "ਪਹਿਲਾਂ ਦਿੱਤੇ ਕੋਡ ਦਾ ਅਰਥ ਲਗਾਓ ਅਤੇ ਫਿਰ ਸੰਬੰਧ ਜੋੜੋ। "
-      : "ਕਥਨਾਂ ਨੂੰ ਕ੍ਰਮ ਨਾਲ ਜੋੜ ਕੇ ਕੇਵਲ ਉਹੀ ਗੱਲ ਮੰਨੋ ਜੋ ਹਰ ਹਾਲਤ ਵਿੱਚ ਸਹੀ ਰਹਿੰਦੀ ਹੈ। ";
-  if (row.authorityId === "INTERPRET_LINGUISTIC_RELATION") return `ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ ${correctOption} ਹੈ। ਸ਼ਬਦਾਂ ਅਤੇ ਚਿੰਨ੍ਹਾਂ ਦਾ ਅਰਥ ਇੱਕੋ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।`;
+  if (row.authorityId === "INTERPRET_LINGUISTIC_RELATION") return `ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ ${correctOption} ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।`;
   if (isMapRecovery) return `ਪਰਖਾਂ ਵਿੱਚ ਬਰਾਬਰ ਮੁੱਲ ਵਾਲੀ ਉਦਾਹਰਨ ਗਲਤ ਹੈ, ਇਸ ਲਈ ਸਮਾਵੇਸ਼ੀ ਸੰਬੰਧ ਹਟ ਜਾਂਦਾ ਹੈ। ਇਸ ਕਰਕੇ ਕੋਡ-ਚਿੰਨ੍ਹ ਦਾ ਅਰਥ ${correctOption} ਹੈ।`;
   if (isMapSelection) return `ਹਰ ਕੋਡ-ਚਿੰਨ੍ਹ ਨੂੰ ਦਿੱਤੀਆਂ ਸਹੀ ਅਤੇ ਗਲਤ ਉਦਾਹਰਨਾਂ 'ਤੇ ਜਾਂਚੋ। ਕੇਵਲ ${correctOption} ਸਾਰੇ ਨਤੀਜਿਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।`;
-  if (isContradiction) return `${prefix}${correctOption} ਜੋੜਨ ਨਾਲ ਪਹਿਲਾਂ ਬਣੇ ਸੰਬੰਧ ਦਾ ਉਲਟ ਅਰਥ ਨਿਕਲਦਾ ਹੈ, ਇਸ ਲਈ ਇਹ ਕਥਨ ਨਹੀਂ ਜੋੜਿਆ ਜਾ ਸਕਦਾ।`;
-  if (isMissing) return `${prefix}ਖਾਲੀ ਥਾਂ 'ਤੇ ${correctOption} ਰੱਖਣ ਨਾਲ ਲੋੜੀਂਦਾ ਅੰਤਲਾ ਸੰਬੰਧ ਠੀਕ ਬਣਦਾ ਹੈ; ਬਾਕੀ ਚੋਣਾਂ ਸੰਬੰਧ ਨੂੰ ਬਦਲ ਜਾਂ ਕਮਜ਼ੋਰ ਕਰ ਦਿੰਦੀਆਂ ਹਨ।`;
-  if (isImpossible) return `${prefix}${correctOption} ਕਥਨਾਂ ਦੇ ਯਕੀਨੀ ਸੰਬੰਧ ਦੇ ਉਲਟ ਹੈ, ਇਸ ਲਈ ਇਹ ਸੰਭਵ ਨਹੀਂ ਹੈ।`;
-  if (isPossible) return `${prefix}${correctOption} ਕਥਨਾਂ ਦਾ ਵਿਰੋਧ ਨਹੀਂ ਕਰਦਾ, ਪਰ ਹਰ ਹਾਲਤ ਵਿੱਚ ਯਕੀਨੀ ਵੀ ਨਹੀਂ ਹੈ। ਇਸ ਲਈ ਇਹੀ ਸੰਭਵ ਉੱਤਰ ਹੈ।`;
-  if (isPair) return `${prefix}ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਹੈ: ${correctOption}। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।`;
-  if (isConclusion) return `${prefix}ਹਰ ਨਤੀਜੇ ਨੂੰ ਵੱਖ-ਵੱਖ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਹੈ: ${correctOption}।`;
-  if (coded) return `${prefix}ਕੋਡ ਖੋਲ੍ਹਣ ਤੋਂ ਬਾਅਦ ਸਹੀ ਚੋਣ ਹੈ: ${correctOption}।`;
-  return `${prefix}ਇਸ ਲਈ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਯਕੀਨੀ ਉੱਤਰ ਹੈ: ${correctOption}।`;
+  if (isContradiction) return `${lead} ${correctOption} ਜੋੜਨ ਨਾਲ ਬਣੇ ਹੋਏ ਸੰਬੰਧ ਦਾ ਉਲਟ ਨਤੀਜਾ ਆਉਂਦਾ ਹੈ। ਇਸ ਲਈ ਇਹ ਕਥਨ ਨਹੀਂ ਜੋੜਿਆ ਜਾ ਸਕਦਾ।`;
+  if (isMissing) return `${lead} ਖਾਲੀ ਥਾਂ 'ਤੇ ${correctOption} ਰੱਖਣ ਨਾਲ ਲੋੜੀਂਦਾ ਅੰਤਲਾ ਸੰਬੰਧ ਠੀਕ ਬਣਦਾ ਹੈ। ਬਾਕੀ ਚੋਣਾਂ ਨਤੀਜਾ ਬਦਲ ਦਿੰਦੀਆਂ ਹਨ।`;
+  if (isIndeterminate) return `${lead} ਇਨ੍ਹਾਂ ਤੁਲਨਾਵਾਂ ਤੋਂ ਪੁੱਛੇ ਗਏ ਦੋਵਾਂ ਪਦਾਂ ਦਾ ਇੱਕ ਯਕੀਨੀ ਕ੍ਰਮ ਨਹੀਂ ਬਣਦਾ। ਇਸ ਲਈ ਸੰਬੰਧ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।`;
+  if (isImpossible) return `${lead} ${correctOption} ਬਣੇ ਹੋਏ ਸੰਬੰਧ ਦੇ ਉਲਟ ਹੈ। ਇਸ ਲਈ ਇਹ ਨਤੀਜਾ ਅਸੰਭਵ ਹੈ।`;
+  if (row.authorityId === "IDENTIFY_ALL_POSSIBLE_RELATIONS") return `${lead} ਇਸ ਤੋਂ ${correctOption} ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।`;
+  if (isPossible) return `${lead} ${correctOption} ਕਥਨਾਂ ਦਾ ਵਿਰੋਧ ਨਹੀਂ ਕਰਦਾ, ਪਰ ਹਰ ਹਾਲਤ ਵਿੱਚ ਯਕੀਨੀ ਵੀ ਨਹੀਂ ਹੈ। ਇਸ ਲਈ ਇਹੀ ਸੰਭਵ ਉੱਤਰ ਹੈ।`;
+  if (isPair) return `${lead} ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ${correctOption} ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।`;
+  if (isConclusion) return `${lead} ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ${correctOption}।`;
+  if (coded) return `${lead} ਕੋਡ ਖੋਲ੍ਹ ਕੇ ਸੰਬੰਧ ਜੋੜਨ 'ਤੇ ਸਹੀ ਉੱਤਰ ${correctOption} ਮਿਲਦਾ ਹੈ।`;
+  return `${lead} ਇਨ੍ਹਾਂ ਸੰਬੰਧਾਂ ਨੂੰ ਜੋੜਨ 'ਤੇ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਯਕੀਨੀ ਉੱਤਰ ${correctOption} ਮਿਲਦਾ ਹੈ।`;
 }
 
 export function localizeIneQuestion(
@@ -478,6 +580,8 @@ export function localizeIneQuestion(
     authorityId: row.authorityId,
     seed: row.seed,
     locale,
+    contentClass: ineContentClass(row.authorityId),
+    optionStandard: ineOptionStandard(row.authorityId),
     difficulty: row.difficulty,
     deliveryProfile: row.deliveryProfile ?? "GUIDED_CONCEPT",
     ...(row.examApplicability === undefined ? {} : { examApplicability: row.examApplicability }),

@@ -15,13 +15,19 @@ The implementation preserves the source question's:
 
 ## Language policy
 
-The localized questions use natural exam-facing Hindi and Punjabi instead of literal word-for-word translation. Mathematical symbols, coded operators, names and logical expressions remain unchanged where changing them would alter the problem.
+The localized questions use natural exam-facing Hindi and Punjabi instead of literal word-for-word translation. Contextual names are transliterated consistently, while mathematical variables and coded operators remain unchanged where changing them would alter the problem.
 
-Explanations are deliberately short and learner-friendly. They state the useful comparison step and why the selected answer follows, without exposing solver terminology or internal proof machinery.
+Explanations are deliberately short and learner-friendly. Each explanation displays the question-specific comparison or decoded chain before stating why the selected answer follows, without exposing solver terminology or internal proof machinery.
 
 ## Review artifacts
 
-The `localization/review` directory contains downloadable Markdown and JSON packs for both languages. Each pack contains 360 questions covering INE-CP-001 through INE-CP-008.
+The `localization/review` directory contains three downloadable Markdown and JSON packs for each language:
+
+- a complete 360-question review corpus;
+- a 260-question exam-facing pack containing four options per question;
+- a 100-question guided-learning pack, including the 24 internal three-option classifiers.
+
+The exam-facing pack follows the approved `EXAMTREE_FOUR_OPTION` standard. It is suitable for ExamTree cross-exam practice but is not labelled as a pixel-exact reproduction of five-option IBPS/SBI interfaces.
 
 ## Safety state
 

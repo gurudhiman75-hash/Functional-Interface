@@ -1,11 +1,11 @@
-# INE-001 ਪੰਜਾਬੀ ਸਮੀਖਿਆ ਪੈਕ — ਪੂਰੀ ਸਮੀਖਿਆ
+# INE-001 ਪੰਜਾਬੀ ਸਮੀਖਿਆ ਪੈਕ — ਪ੍ਰੀਖਿਆ ਅਭਿਆਸ
 
-ਇਸ ਪੈਕ ਵਿੱਚ ਪ੍ਰੀਖਿਆ ਅਭਿਆਸ ਅਤੇ ਅੰਦਰੂਨੀ ਸੇਧਿਤ ਸਵਾਲ ਦੋਵੇਂ ਹਨ। ਇਸ ਨੂੰ ਸਿੱਧਾ ਮੌਕ ਟੈਸਟ ਵਜੋਂ ਪ੍ਰਕਾਸ਼ਿਤ ਨਾ ਕਰੋ।
+ਇਹ ਚਾਰ ਚੋਣਾਂ ਵਾਲਾ ExamTree ਪ੍ਰੀਖਿਆ ਅਭਿਆਸ ਪੈਕ ਹੈ। ਇਹ SSC, ਪੰਜਾਬ ਅਤੇ ਹੋਰ ਸਰਕਾਰੀ ਪ੍ਰੀਖਿਆਵਾਂ ਦੇ ਅਭਿਆਸ ਲਈ ਹੈ; ਪੰਜ ਚੋਣਾਂ ਵਾਲੇ ਬੈਂਕਿੰਗ ਇੰਟਰਫੇਸ ਦੀ ਹੂ-ਬ-ਹੂ ਨਕਲ ਨਹੀਂ ਹੈ।
 
-- ਸਵਾਲ: 360
+- ਸਵਾਲ: 260
 - Locale: pa-IN
-- Pack type: FULL_REVIEW
-- Option standard: MIXED_REVIEW_ONLY
+- Pack type: EXAM_FACING
+- Option standard: EXAMTREE_FOUR_OPTION
 
 ## ਸਵਾਲ 1 — INE-CP-001 / DETERMINE_DIRECT_RELATION
 
@@ -551,129 +551,7 @@
 
 ---
 
-## ਸਵਾਲ 21 — INE-CP-001 / EVALUATE_SINGLE_CONCLUSION
-
-- Source record: INE-CP-001-EVALUATE_SINGLE_CONCLUSION-0
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. A ≥ R
-2. R > P
-
-**ਨਤੀਜੇ**
-
-1. A > P
-
-**ਚੋਣਾਂ**
-
-1. ਯਕੀਨੀ ਤੌਰ ਤੇ ਨਿਕਲਦਾ ਹੈ
-2. ਸਹੀ ਹੋ ਸਕਦਾ ਹੈ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-3. ਸਹੀ ਨਹੀਂ ਹੋ ਸਕਦਾ
-4. ਕਥਨ ਆਪਸ ਵਿੱਚ ਵਿਰੋਧੀ ਹਨ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਯਕੀਨੀ ਤੌਰ ਤੇ ਨਿਕਲਦਾ ਹੈ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: A ≥ R; R > P; A > P। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਯਕੀਨੀ ਤੌਰ ਤੇ ਨਿਕਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 22 — INE-CP-001 / EVALUATE_SINGLE_CONCLUSION
-
-- Source record: INE-CP-001-EVALUATE_SINGLE_CONCLUSION-1
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. D ≥ S
-
-**ਨਤੀਜੇ**
-
-1. D > S
-
-**ਚੋਣਾਂ**
-
-1. ਯਕੀਨੀ ਤੌਰ ਤੇ ਨਿਕਲਦਾ ਹੈ
-2. ਸਹੀ ਹੋ ਸਕਦਾ ਹੈ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-3. ਸਹੀ ਨਹੀਂ ਹੋ ਸਕਦਾ
-4. ਕਥਨ ਆਪਸ ਵਿੱਚ ਵਿਰੋਧੀ ਹਨ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਸਹੀ ਹੋ ਸਕਦਾ ਹੈ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: D ≥ S; D = S; D > S। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਸਹੀ ਹੋ ਸਕਦਾ ਹੈ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ।
-
----
-
-## ਸਵਾਲ 23 — INE-CP-001 / EVALUATE_SINGLE_CONCLUSION
-
-- Source record: INE-CP-001-EVALUATE_SINGLE_CONCLUSION-2
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. C > R
-
-**ਨਤੀਜੇ**
-
-1. C ≤ R
-
-**ਚੋਣਾਂ**
-
-1. ਯਕੀਨੀ ਤੌਰ ਤੇ ਨਿਕਲਦਾ ਹੈ
-2. ਸਹੀ ਹੋ ਸਕਦਾ ਹੈ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-3. ਸਹੀ ਨਹੀਂ ਹੋ ਸਕਦਾ
-4. ਕਥਨ ਆਪਸ ਵਿੱਚ ਵਿਰੋਧੀ ਹਨ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਸਹੀ ਨਹੀਂ ਹੋ ਸਕਦਾ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: C > R; C ≤ R। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਸਹੀ ਨਹੀਂ ਹੋ ਸਕਦਾ।
-
----
-
-## ਸਵਾਲ 24 — INE-CP-001 / EVALUATE_SINGLE_CONCLUSION
-
-- Source record: INE-CP-001-EVALUATE_SINGLE_CONCLUSION-3
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. C ≥ S
-2. S > D
-
-**ਨਤੀਜੇ**
-
-1. C > D
-
-**ਚੋਣਾਂ**
-
-1. ਸਹੀ ਹੋ ਸਕਦਾ ਹੈ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-2. ਸਹੀ ਨਹੀਂ ਹੋ ਸਕਦਾ
-3. ਕਥਨ ਆਪਸ ਵਿੱਚ ਵਿਰੋਧੀ ਹਨ
-4. ਯਕੀਨੀ ਤੌਰ ਤੇ ਨਿਕਲਦਾ ਹੈ
-
-**ਸਹੀ ਉੱਤਰ:** 4. ਯਕੀਨੀ ਤੌਰ ਤੇ ਨਿਕਲਦਾ ਹੈ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: C ≥ S; S > D; C > D। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਯਕੀਨੀ ਤੌਰ ਤੇ ਨਿਕਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 25 — INE-CP-001 / SELECT_VALID_CONCLUSION
+## ਸਵਾਲ 21 — INE-CP-001 / SELECT_VALID_CONCLUSION
 
 - Source record: INE-CP-001-SELECT_VALID_CONCLUSION-0
 - ਬੀਜ: 0
@@ -700,7 +578,7 @@
 
 ---
 
-## ਸਵਾਲ 26 — INE-CP-001 / SELECT_VALID_CONCLUSION
+## ਸਵਾਲ 22 — INE-CP-001 / SELECT_VALID_CONCLUSION
 
 - Source record: INE-CP-001-SELECT_VALID_CONCLUSION-1
 - ਬੀਜ: 1
@@ -727,7 +605,7 @@
 
 ---
 
-## ਸਵਾਲ 27 — INE-CP-001 / SELECT_VALID_CONCLUSION
+## ਸਵਾਲ 23 — INE-CP-001 / SELECT_VALID_CONCLUSION
 
 - Source record: INE-CP-001-SELECT_VALID_CONCLUSION-2
 - ਬੀਜ: 2
@@ -754,7 +632,7 @@
 
 ---
 
-## ਸਵਾਲ 28 — INE-CP-001 / SELECT_VALID_CONCLUSION
+## ਸਵਾਲ 24 — INE-CP-001 / SELECT_VALID_CONCLUSION
 
 - Source record: INE-CP-001-SELECT_VALID_CONCLUSION-3
 - ਬੀਜ: 3
@@ -781,7 +659,7 @@
 
 ---
 
-## ਸਵਾਲ 29 — INE-CP-001 / SELECT_INVALID_CONCLUSION
+## ਸਵਾਲ 25 — INE-CP-001 / SELECT_INVALID_CONCLUSION
 
 - Source record: INE-CP-001-SELECT_INVALID_CONCLUSION-0
 - ਬੀਜ: 0
@@ -809,7 +687,7 @@
 
 ---
 
-## ਸਵਾਲ 30 — INE-CP-001 / SELECT_INVALID_CONCLUSION
+## ਸਵਾਲ 26 — INE-CP-001 / SELECT_INVALID_CONCLUSION
 
 - Source record: INE-CP-001-SELECT_INVALID_CONCLUSION-1
 - ਬੀਜ: 1
@@ -837,7 +715,7 @@
 
 ---
 
-## ਸਵਾਲ 31 — INE-CP-001 / SELECT_INVALID_CONCLUSION
+## ਸਵਾਲ 27 — INE-CP-001 / SELECT_INVALID_CONCLUSION
 
 - Source record: INE-CP-001-SELECT_INVALID_CONCLUSION-2
 - ਬੀਜ: 2
@@ -865,7 +743,7 @@
 
 ---
 
-## ਸਵਾਲ 32 — INE-CP-001 / SELECT_INVALID_CONCLUSION
+## ਸਵਾਲ 28 — INE-CP-001 / SELECT_INVALID_CONCLUSION
 
 - Source record: INE-CP-001-SELECT_INVALID_CONCLUSION-3
 - ਬੀਜ: 3
@@ -893,7 +771,7 @@
 
 ---
 
-## ਸਵਾਲ 33 — INE-CP-002 / DETERMINE_LONG_CHAIN_RELATION
+## ਸਵਾਲ 29 — INE-CP-002 / DETERMINE_LONG_CHAIN_RELATION
 
 - Source record: INE-CP002-293CD530
 - ਬੀਜ: 0
@@ -920,7 +798,7 @@
 
 ---
 
-## ਸਵਾਲ 34 — INE-CP-002 / DETERMINE_LONG_CHAIN_RELATION
+## ਸਵਾਲ 30 — INE-CP-002 / DETERMINE_LONG_CHAIN_RELATION
 
 - Source record: INE-CP002-43291FD3
 - ਬੀਜ: 1
@@ -947,7 +825,7 @@
 
 ---
 
-## ਸਵਾਲ 35 — INE-CP-002 / DETERMINE_LONG_CHAIN_RELATION
+## ਸਵਾਲ 31 — INE-CP-002 / DETERMINE_LONG_CHAIN_RELATION
 
 - Source record: INE-CP002-4E6C2C8E
 - ਬੀਜ: 2
@@ -975,7 +853,7 @@
 
 ---
 
-## ਸਵਾਲ 36 — INE-CP-002 / DETERMINE_LONG_CHAIN_RELATION
+## ਸਵਾਲ 32 — INE-CP-002 / DETERMINE_LONG_CHAIN_RELATION
 
 - Source record: INE-CP002-3F4467E9
 - ਬੀਜ: 3
@@ -1004,7 +882,7 @@
 
 ---
 
-## ਸਵਾਲ 37 — INE-CP-002 / DETERMINE_MULTI_ROUTE_RELATION
+## ਸਵਾਲ 33 — INE-CP-002 / DETERMINE_MULTI_ROUTE_RELATION
 
 - Source record: INE-CP002-6E133C6B
 - ਬੀਜ: 0
@@ -1033,7 +911,7 @@
 
 ---
 
-## ਸਵਾਲ 38 — INE-CP-002 / DETERMINE_MULTI_ROUTE_RELATION
+## ਸਵਾਲ 34 — INE-CP-002 / DETERMINE_MULTI_ROUTE_RELATION
 
 - Source record: INE-CP002-C443CD48
 - ਬੀਜ: 1
@@ -1062,7 +940,7 @@
 
 ---
 
-## ਸਵਾਲ 39 — INE-CP-002 / DETERMINE_MULTI_ROUTE_RELATION
+## ਸਵਾਲ 35 — INE-CP-002 / DETERMINE_MULTI_ROUTE_RELATION
 
 - Source record: INE-CP002-80970D01
 - ਬੀਜ: 2
@@ -1092,7 +970,7 @@
 
 ---
 
-## ਸਵਾਲ 40 — INE-CP-002 / DETERMINE_MULTI_ROUTE_RELATION
+## ਸਵਾਲ 36 — INE-CP-002 / DETERMINE_MULTI_ROUTE_RELATION
 
 - Source record: INE-CP002-77E746C6
 - ਬੀਜ: 3
@@ -1121,7 +999,7 @@
 
 ---
 
-## ਸਵਾਲ 41 — INE-CP-002 / APPLY_ALTERNATE_PATH_STRICTNESS
+## ਸਵਾਲ 37 — INE-CP-002 / APPLY_ALTERNATE_PATH_STRICTNESS
 
 - Source record: INE-CP002-FE96204A
 - ਬੀਜ: 0
@@ -1150,7 +1028,7 @@
 
 ---
 
-## ਸਵਾਲ 42 — INE-CP-002 / APPLY_ALTERNATE_PATH_STRICTNESS
+## ਸਵਾਲ 38 — INE-CP-002 / APPLY_ALTERNATE_PATH_STRICTNESS
 
 - Source record: INE-CP002-FC342A65
 - ਬੀਜ: 1
@@ -1179,7 +1057,7 @@
 
 ---
 
-## ਸਵਾਲ 43 — INE-CP-002 / APPLY_ALTERNATE_PATH_STRICTNESS
+## ਸਵਾਲ 39 — INE-CP-002 / APPLY_ALTERNATE_PATH_STRICTNESS
 
 - Source record: INE-CP002-4D04FAEC
 - ਬੀਜ: 2
@@ -1208,7 +1086,7 @@
 
 ---
 
-## ਸਵਾਲ 44 — INE-CP-002 / APPLY_ALTERNATE_PATH_STRICTNESS
+## ਸਵਾਲ 40 — INE-CP-002 / APPLY_ALTERNATE_PATH_STRICTNESS
 
 - Source record: INE-CP002-55B887DF
 - ਬੀਜ: 3
@@ -1237,7 +1115,7 @@
 
 ---
 
-## ਸਵਾਲ 45 — INE-CP-002 / DETERMINE_BRANCHED_GRAPH_RELATION
+## ਸਵਾਲ 41 — INE-CP-002 / DETERMINE_BRANCHED_GRAPH_RELATION
 
 - Source record: INE-CP002-34FE440A
 - ਬੀਜ: 0
@@ -1265,7 +1143,7 @@
 
 ---
 
-## ਸਵਾਲ 46 — INE-CP-002 / DETERMINE_BRANCHED_GRAPH_RELATION
+## ਸਵਾਲ 42 — INE-CP-002 / DETERMINE_BRANCHED_GRAPH_RELATION
 
 - Source record: INE-CP002-295A6C25
 - ਬੀਜ: 1
@@ -1293,7 +1171,7 @@
 
 ---
 
-## ਸਵਾਲ 47 — INE-CP-002 / DETERMINE_BRANCHED_GRAPH_RELATION
+## ਸਵਾਲ 43 — INE-CP-002 / DETERMINE_BRANCHED_GRAPH_RELATION
 
 - Source record: INE-CP002-7A2B3CAC
 - ਬੀਜ: 2
@@ -1322,7 +1200,7 @@
 
 ---
 
-## ਸਵਾਲ 48 — INE-CP-002 / DETERMINE_BRANCHED_GRAPH_RELATION
+## ਸਵਾਲ 44 — INE-CP-002 / DETERMINE_BRANCHED_GRAPH_RELATION
 
 - Source record: INE-CP002-5FED5A9F
 - ਬੀਜ: 3
@@ -1350,7 +1228,7 @@
 
 ---
 
-## ਸਵਾਲ 49 — INE-CP-002 / FILTER_IRRELEVANT_STATEMENTS
+## ਸਵਾਲ 45 — INE-CP-002 / FILTER_IRRELEVANT_STATEMENTS
 
 - Source record: INE-CP002-F7B6A136
 - ਬੀਜ: 0
@@ -1379,7 +1257,7 @@
 
 ---
 
-## ਸਵਾਲ 50 — INE-CP-002 / FILTER_IRRELEVANT_STATEMENTS
+## ਸਵਾਲ 46 — INE-CP-002 / FILTER_IRRELEVANT_STATEMENTS
 
 - Source record: INE-CP002-184147B1
 - ਬੀਜ: 1
@@ -1407,7 +1285,7 @@
 
 ---
 
-## ਸਵਾਲ 51 — INE-CP-002 / FILTER_IRRELEVANT_STATEMENTS
+## ਸਵਾਲ 47 — INE-CP-002 / FILTER_IRRELEVANT_STATEMENTS
 
 - Source record: INE-CP002-2446B4B8
 - ਬੀਜ: 2
@@ -1436,7 +1314,7 @@
 
 ---
 
-## ਸਵਾਲ 52 — INE-CP-002 / FILTER_IRRELEVANT_STATEMENTS
+## ਸਵਾਲ 48 — INE-CP-002 / FILTER_IRRELEVANT_STATEMENTS
 
 - Source record: INE-CP002-C98765DB
 - ਬੀਜ: 3
@@ -1464,7 +1342,7 @@
 
 ---
 
-## ਸਵਾਲ 53 — INE-CP-002 / IDENTIFY_PAIR_WITH_DEFINITE_RELATION
+## ਸਵਾਲ 49 — INE-CP-002 / IDENTIFY_PAIR_WITH_DEFINITE_RELATION
 
 - Source record: INE-CP002-65D3D470
 - ਬੀਜ: 0
@@ -1493,7 +1371,7 @@
 
 ---
 
-## ਸਵਾਲ 54 — INE-CP-002 / IDENTIFY_PAIR_WITH_DEFINITE_RELATION
+## ਸਵਾਲ 50 — INE-CP-002 / IDENTIFY_PAIR_WITH_DEFINITE_RELATION
 
 - Source record: INE-CP002-0DE14213
 - ਬੀਜ: 1
@@ -1522,7 +1400,7 @@
 
 ---
 
-## ਸਵਾਲ 55 — INE-CP-002 / IDENTIFY_PAIR_WITH_DEFINITE_RELATION
+## ਸਵਾਲ 51 — INE-CP-002 / IDENTIFY_PAIR_WITH_DEFINITE_RELATION
 
 - Source record: INE-CP002-E3BB68CE
 - ਬੀਜ: 2
@@ -1550,7 +1428,7 @@
 
 ---
 
-## ਸਵਾਲ 56 — INE-CP-002 / IDENTIFY_PAIR_WITH_DEFINITE_RELATION
+## ਸਵਾਲ 52 — INE-CP-002 / IDENTIFY_PAIR_WITH_DEFINITE_RELATION
 
 - Source record: INE-CP002-D7F8E429
 - ਬੀਜ: 3
@@ -1579,7 +1457,7 @@
 
 ---
 
-## ਸਵਾਲ 57 — INE-CP-002 / IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION
+## ਸਵਾਲ 53 — INE-CP-002 / IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION
 
 - Source record: INE-CP002-FF243FB7
 - ਬੀਜ: 0
@@ -1608,7 +1486,7 @@
 
 ---
 
-## ਸਵਾਲ 58 — INE-CP-002 / IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION
+## ਸਵਾਲ 54 — INE-CP-002 / IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION
 
 - Source record: INE-CP002-EFCA51E4
 - ਬੀਜ: 1
@@ -1637,7 +1515,7 @@
 
 ---
 
-## ਸਵਾਲ 59 — INE-CP-002 / IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION
+## ਸਵਾਲ 55 — INE-CP-002 / IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION
 
 - Source record: INE-CP002-F06AD11D
 - ਬੀਜ: 2
@@ -1666,7 +1544,7 @@
 
 ---
 
-## ਸਵਾਲ 60 — INE-CP-002 / IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION
+## ਸਵਾਲ 56 — INE-CP-002 / IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION
 
 - Source record: INE-CP002-EAE58842
 - ਬੀਜ: 3
@@ -1695,7 +1573,7 @@
 
 ---
 
-## ਸਵਾਲ 61 — INE-CP-002 / DETERMINE_DISCONNECTED_PAIR_RELATION
+## ਸਵਾਲ 57 — INE-CP-002 / DETERMINE_DISCONNECTED_PAIR_RELATION
 
 - Source record: INE-CP002-6E34CEAC
 - ਬੀਜ: 0
@@ -1722,7 +1600,7 @@
 
 ---
 
-## ਸਵਾਲ 62 — INE-CP-002 / DETERMINE_DISCONNECTED_PAIR_RELATION
+## ਸਵਾਲ 58 — INE-CP-002 / DETERMINE_DISCONNECTED_PAIR_RELATION
 
 - Source record: INE-CP002-53F6EC9F
 - ਬੀਜ: 1
@@ -1750,7 +1628,7 @@
 
 ---
 
-## ਸਵਾਲ 63 — INE-CP-002 / DETERMINE_DISCONNECTED_PAIR_RELATION
+## ਸਵਾਲ 59 — INE-CP-002 / DETERMINE_DISCONNECTED_PAIR_RELATION
 
 - Source record: INE-CP002-2907D60A
 - ਬੀਜ: 2
@@ -1778,7 +1656,7 @@
 
 ---
 
-## ਸਵਾਲ 64 — INE-CP-002 / DETERMINE_DISCONNECTED_PAIR_RELATION
+## ਸਵਾਲ 60 — INE-CP-002 / DETERMINE_DISCONNECTED_PAIR_RELATION
 
 - Source record: INE-CP002-1D63FE25
 - ਬੀਜ: 3
@@ -1806,7 +1684,7 @@
 
 ---
 
-## ਸਵਾਲ 65 — INE-CP-002 / PROPAGATE_EQUALITY_ACROSS_BRANCHES
+## ਸਵਾਲ 61 — INE-CP-002 / PROPAGATE_EQUALITY_ACROSS_BRANCHES
 
 - Source record: INE-CP002-E45B3926
 - ਬੀਜ: 0
@@ -1833,7 +1711,7 @@
 
 ---
 
-## ਸਵਾਲ 66 — INE-CP-002 / PROPAGATE_EQUALITY_ACROSS_BRANCHES
+## ਸਵਾਲ 62 — INE-CP-002 / PROPAGATE_EQUALITY_ACROSS_BRANCHES
 
 - Source record: INE-CP002-198E38E1
 - ਬੀਜ: 1
@@ -1861,7 +1739,7 @@
 
 ---
 
-## ਸਵਾਲ 67 — INE-CP-002 / PROPAGATE_EQUALITY_ACROSS_BRANCHES
+## ਸਵਾਲ 63 — INE-CP-002 / PROPAGATE_EQUALITY_ACROSS_BRANCHES
 
 - Source record: INE-CP002-A9612EA8
 - ਬੀਜ: 2
@@ -1890,7 +1768,7 @@
 
 ---
 
-## ਸਵਾਲ 68 — INE-CP-002 / PROPAGATE_EQUALITY_ACROSS_BRANCHES
+## ਸਵਾਲ 64 — INE-CP-002 / PROPAGATE_EQUALITY_ACROSS_BRANCHES
 
 - Source record: INE-CP002-91AB42CB
 - ਬੀਜ: 3
@@ -1920,391 +1798,7 @@
 
 ---
 
-## ਸਵਾਲ 69 — INE-CP-003 / CLASSIFY_SINGLE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-C6C5A6C2
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. P ≤ Q
-2. P > S
-
-**ਨਤੀਜੇ**
-
-1. Q ≥ S
-
-**ਚੋਣਾਂ**
-
-1. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-3. ਅਸੰਭਵ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P ≤ Q; P > S; Q > S; Q ≥ S। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ।
-
----
-
-## ਸਵਾਲ 70 — INE-CP-003 / CLASSIFY_SINGLE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-CC4AEF9D
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. D ≤ B
-2. D < P
-3. C > B
-4. P < C
-
-**ਨਤੀਜੇ**
-
-1. P ≤ B
-
-**ਚੋਣਾਂ**
-
-1. ਅਸੰਭਵ
-2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-3. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P ≤ B। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ।
-
----
-
-## ਸਵਾਲ 71 — INE-CP-003 / CLASSIFY_SINGLE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-CBAA7064
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. P = R
-2. S ≤ P
-3. S > D
-
-**ਨਤੀਜੇ**
-
-1. S > R
-
-**ਚੋਣਾਂ**
-
-1. ਅਸੰਭਵ
-2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-3. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਅਸੰਭਵ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: S ≤ P; P = R; S < R; S = R; S > R। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਅਸੰਭਵ।
-
----
-
-## ਸਵਾਲ 72 — INE-CP-003 / CLASSIFY_SINGLE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-DB045E37
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. Q < A
-2. S ≤ D
-3. A = S
-
-**ਨਤੀਜੇ**
-
-1. Q < S
-
-**ਚੋਣਾਂ**
-
-1. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-3. ਅਸੰਭਵ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: Q < A; A = S; Q < S। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ।
-
----
-
-## ਸਵਾਲ 73 — INE-CP-003 / CLASSIFY_SINGLE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-BCA2990E
-- ਬੀਜ: 4
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. R ≤ P
-2. Q ≥ S
-3. Q > P
-4. S > R
-
-**ਨਤੀਜੇ**
-
-1. P > S
-
-**ਚੋਣਾਂ**
-
-1. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-2. ਅਸੰਭਵ
-3. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P > S। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ।
-
----
-
-## ਸਵਾਲ 74 — INE-CP-003 / CLASSIFY_SINGLE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-AD7AD469
-- ਬੀਜ: 5
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. C ≥ P
-2. P > R
-3. A > B
-
-**ਨਤੀਜੇ**
-
-1. R = C
-
-**ਚੋਣਾਂ**
-
-1. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-2. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-3. ਅਸੰਭਵ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਅਸੰਭਵ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: C ≥ P; P > R; R < C; R = C। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਅਸੰਭਵ।
-
----
-
-## ਸਵਾਲ 75 — INE-CP-003 / CLASSIFY_SINGLE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-977341B0
-- ਬੀਜ: 6
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. D < R
-2. P < S
-3. R ≤ C
-4. Q ≤ P
-5. R = S
-
-**ਨਤੀਜੇ**
-
-1. R ≥ P
-
-**ਚੋਣਾਂ**
-
-1. ਅਸੰਭਵ
-2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-3. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P < S; R = S; R > P; R ≥ P। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ।
-
----
-
-## ਸਵਾਲ 76 — INE-CP-003 / CLASSIFY_SINGLE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-B15F8C53
-- ਬੀਜ: 7
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. S ≥ B
-2. D ≥ A
-3. S < D
-4. R = D
-5. A > B
-
-**ਨਤੀਜੇ**
-
-1. S ≥ A
-
-**ਚੋਣਾਂ**
-
-1. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-3. ਅਸੰਭਵ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: S ≥ A। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ।
-
----
-
-## ਸਵਾਲ 77 — INE-CP-003 / CLASSIFY_SINGLE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-24EAF05A
-- ਬੀਜ: 8
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. P = S
-2. A > Q
-3. B ≤ R
-4. B ≥ P
-5. R < C
-
-**ਨਤੀਜੇ**
-
-1. C ≤ S
-
-**ਚੋਣਾਂ**
-
-1. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-3. ਅਸੰਭਵ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਅਸੰਭਵ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R < C; B ≤ R; B ≥ P; P = S; C > S; C ≤ S। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਅਸੰਭਵ।
-
----
-
-## ਸਵਾਲ 78 — INE-CP-003 / CLASSIFY_SINGLE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-D4030935
-- ਬੀਜ: 9
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. S ≥ B
-2. S < A
-3. R = Q
-4. R > D
-
-**ਨਤੀਜੇ**
-
-1. D < Q
-
-**ਚੋਣਾਂ**
-
-1. ਅਸੰਭਵ
-2. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-3. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R > D; R = Q; D < Q। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ।
-
----
-
-## ਸਵਾਲ 79 — INE-CP-003 / CLASSIFY_SINGLE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-4406488F
-- ਬੀਜ: 10
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. R ≤ D
-2. S > R
-3. Q > D
-4. S ≤ Q
-5. P ≤ R
-
-**ਨਤੀਜੇ**
-
-1. S ≤ D
-
-**ਚੋਣਾਂ**
-
-1. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-2. ਅਸੰਭਵ
-3. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: S ≤ D। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ।
-
----
-
-## ਸਵਾਲ 80 — INE-CP-003 / CLASSIFY_SINGLE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-CF74B6DC
-- ਬੀਜ: 11
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. C ≤ P
-2. A ≥ D
-3. A = C
-4. P ≤ B
-5. S > P
-
-**ਨਤੀਜੇ**
-
-1. D > P
-
-**ਚੋਣਾਂ**
-
-1. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-2. ਅਸੰਭਵ
-3. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਅਸੰਭਵ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: C ≤ P; A ≥ D; A = C; D < P; D = P; D > P। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਅਸੰਭਵ।
-
----
-
-## ਸਵਾਲ 81 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
+## ਸਵਾਲ 65 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-46651EB8
 - ਬੀਜ: 0
@@ -2331,7 +1825,7 @@
 
 ---
 
-## ਸਵਾਲ 82 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
+## ਸਵਾਲ 66 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-EBA5CFDB
 - ਬੀਜ: 1
@@ -2360,7 +1854,7 @@
 
 ---
 
-## ਸਵਾਲ 83 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
+## ਸਵਾਲ 67 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-19D50B36
 - ਬੀਜ: 2
@@ -2388,7 +1882,7 @@
 
 ---
 
-## ਸਵਾਲ 84 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
+## ਸਵਾਲ 68 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-3A5FB1B1
 - ਬੀਜ: 3
@@ -2416,7 +1910,7 @@
 
 ---
 
-## ਸਵਾਲ 85 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
+## ਸਵਾਲ 69 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-945F604C
 - ਬੀਜ: 4
@@ -2445,7 +1939,7 @@
 
 ---
 
-## ਸਵਾਲ 86 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
+## ਸਵਾਲ 70 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-8001293F
 - ਬੀਜ: 5
@@ -2473,7 +1967,7 @@
 
 ---
 
-## ਸਵਾਲ 87 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
+## ਸਵਾਲ 71 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-4DAFD82A
 - ਬੀਜ: 6
@@ -2503,7 +1997,7 @@
 
 ---
 
-## ਸਵਾਲ 88 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
+## ਸਵਾਲ 72 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-CB350BC5
 - ਬੀਜ: 7
@@ -2533,7 +2027,7 @@
 
 ---
 
-## ਸਵਾਲ 89 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
+## ਸਵਾਲ 73 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-FD692800
 - ਬੀਜ: 8
@@ -2563,7 +2057,7 @@
 
 ---
 
-## ਸਵਾਲ 90 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
+## ਸਵਾਲ 74 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-8E6F8CA3
 - ਬੀਜ: 9
@@ -2592,7 +2086,7 @@
 
 ---
 
-## ਸਵਾਲ 91 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
+## ਸਵਾਲ 75 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-64107E59
 - ਬੀਜ: 10
@@ -2622,7 +2116,7 @@
 
 ---
 
-## ਸਵਾਲ 92 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
+## ਸਵਾਲ 76 — INE-CP-003 / IDENTIFY_DEFINITELY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-A6B3FABE
 - ਬੀਜ: 11
@@ -2652,7 +2146,7 @@
 
 ---
 
-## ਸਵਾਲ 93 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
+## ਸਵਾਲ 77 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-FA429469
 - ਬੀਜ: 0
@@ -2679,7 +2173,7 @@
 
 ---
 
-## ਸਵਾਲ 94 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
+## ਸਵਾਲ 78 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-096A590E
 - ਬੀਜ: 1
@@ -2708,7 +2202,7 @@
 
 ---
 
-## ਸਵਾਲ 95 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
+## ਸਵਾਲ 79 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-FE274C53
 - ਬੀਜ: 2
@@ -2736,7 +2230,7 @@
 
 ---
 
-## ਸਵਾਲ 96 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
+## ਸਵਾਲ 80 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-E43B01B0
 - ਬੀਜ: 3
@@ -2764,7 +2258,7 @@
 
 ---
 
-## ਸਵਾਲ 97 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
+## ਸਵਾਲ 81 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-1912AF9D
 - ਬੀਜ: 4
@@ -2793,7 +2287,7 @@
 
 ---
 
-## ਸਵਾਲ 98 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
+## ਸਵਾਲ 82 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-138D66C2
 - ਬੀਜ: 5
@@ -2821,7 +2315,7 @@
 
 ---
 
-## ਸਵਾਲ 99 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
+## ਸਵਾਲ 83 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-27CC1E37
 - ਬੀਜ: 6
@@ -2851,7 +2345,7 @@
 
 ---
 
-## ਸਵਾਲ 100 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
+## ਸਵਾਲ 84 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-18723064
 - ਬੀਜ: 7
@@ -2881,7 +2375,7 @@
 
 ---
 
-## ਸਵਾਲ 101 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
+## ਸਵਾਲ 85 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-EC9F89A1
 - ਬੀਜ: 8
@@ -2911,7 +2405,7 @@
 
 ---
 
-## ਸਵਾਲ 102 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
+## ਸਵਾਲ 86 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-842BE4E6
 - ਬੀਜ: 9
@@ -2940,7 +2434,7 @@
 
 ---
 
-## ਸਵਾਲ 103 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
+## ਸਵਾਲ 87 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-EC6C0372
 - ਬੀਜ: 10
@@ -2970,7 +2464,7 @@
 
 ---
 
-## ਸਵਾਲ 104 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
+## ਸਵਾਲ 88 — INE-CP-003 / IDENTIFY_POSSIBLY_TRUE_CONCLUSION
 
 - Source record: INE-CP003-199EE64D
 - ਬੀਜ: 11
@@ -3000,7 +2494,7 @@
 
 ---
 
-## ਸਵਾਲ 105 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
+## ਸਵਾਲ 89 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
 
 - Source record: INE-CP003-869CCE4B
 - ਬੀਜ: 0
@@ -3027,7 +2521,7 @@
 
 ---
 
-## ਸਵਾਲ 106 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
+## ਸਵਾਲ 90 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
 
 - Source record: INE-CP003-9E52BA28
 - ਬੀਜ: 1
@@ -3056,7 +2550,7 @@
 
 ---
 
-## ਸਵਾਲ 107 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
+## ਸਵਾਲ 91 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
 
 - Source record: INE-CP003-0E7FC461
 - ਬੀਜ: 2
@@ -3084,7 +2578,7 @@
 
 ---
 
-## ਸਵਾਲ 108 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
+## ਸਵਾਲ 92 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
 
 - Source record: INE-CP003-D94CC4A6
 - ਬੀਜ: 3
@@ -3112,7 +2606,7 @@
 
 ---
 
-## ਸਵਾਲ 109 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
+## ਸਵਾਲ 93 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
 
 - Source record: INE-CP003-B8D751EF
 - ਬੀਜ: 4
@@ -3141,7 +2635,7 @@
 
 ---
 
-## ਸਵਾਲ 110 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
+## ਸਵਾਲ 94 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
 
 - Source record: INE-CP003-DDEE87BC
 - ਬੀਜ: 5
@@ -3169,7 +2663,7 @@
 
 ---
 
-## ਸਵਾਲ 111 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
+## ਸਵਾਲ 95 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
 
 - Source record: INE-CP003-7C3BB6F5
 - ਬੀਜ: 6
@@ -3199,7 +2693,7 @@
 
 ---
 
-## ਸਵਾਲ 112 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
+## ਸਵਾਲ 96 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
 
 - Source record: INE-CP003-B5F4761A
 - ਬੀਜ: 7
@@ -3229,7 +2723,7 @@
 
 ---
 
-## ਸਵਾਲ 113 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
+## ਸਵਾਲ 97 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
 
 - Source record: INE-CP003-71F24F13
 - ਬੀਜ: 8
@@ -3259,7 +2753,7 @@
 
 ---
 
-## ਸਵਾਲ 114 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
+## ਸਵਾਲ 98 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
 
 - Source record: INE-CP003-C9E4E170
 - ਬੀਜ: 9
@@ -3288,7 +2782,7 @@
 
 ---
 
-## ਸਵਾਲ 115 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
+## ਸਵਾਲ 99 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
 
 - Source record: INE-CP003-94953060
 - ਬੀਜ: 10
@@ -3318,7 +2812,7 @@
 
 ---
 
-## ਸਵਾਲ 116 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
+## ਸਵਾਲ 100 — INE-CP-003 / IDENTIFY_IMPOSSIBLE_CONCLUSION
 
 - Source record: INE-CP003-D1D9DC83
 - ਬੀਜ: 11
@@ -3348,739 +2842,7 @@
 
 ---
 
-## ਸਵਾਲ 117 — INE-CP-003 / IDENTIFY_ALL_POSSIBLE_RELATIONS
-
-- Source record: INE-CP003-417C6F2F
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਸਾਰੇ ਸੰਭਵ ਸੰਬੰਧ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ? S ਦੀ ਤੁਲਨਾ Q ਨਾਲ ਕਰੋ।
-
-**ਕਥਨ**
-
-1. Q > B
-2. Q ≤ S
-
-**ਚੋਣਾਂ**
-
-1. S < Q ਜਾਂ S = Q
-2. S = Q ਜਾਂ S > Q
-3. S = Q
-4. S > Q
-
-**ਸਹੀ ਉੱਤਰ:** 2. S = Q ਜਾਂ S > Q
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: Q ≤ S; S = Q; S > Q। ਇਸ ਤੋਂ S = Q ਜਾਂ S > Q ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 118 — INE-CP-003 / IDENTIFY_ALL_POSSIBLE_RELATIONS
-
-- Source record: INE-CP003-E7C1DAFC
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਸਾਰੇ ਸੰਭਵ ਸੰਬੰਧ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ? R ਦੀ ਤੁਲਨਾ S ਨਾਲ ਕਰੋ।
-
-**ਕਥਨ**
-
-1. R ≥ C
-2. A > S
-3. S > C
-4. R < A
-
-**ਚੋਣਾਂ**
-
-1. R < S, R = S, ਜਾਂ R > S
-2. R = S
-3. R > S
-4. R < S
-
-**ਸਹੀ ਉੱਤਰ:** 1. R < S, R = S, ਜਾਂ R > S
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R < S; R = S; R > S। ਇਸ ਤੋਂ R < S, R = S, ਜਾਂ R > S ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 119 — INE-CP-003 / IDENTIFY_ALL_POSSIBLE_RELATIONS
-
-- Source record: INE-CP003-BEF83235
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਸਾਰੇ ਸੰਭਵ ਸੰਬੰਧ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ? Q ਦੀ ਤੁਲਨਾ D ਨਾਲ ਕਰੋ।
-
-**ਕਥਨ**
-
-1. D = Q
-2. S ≤ D
-3. S > C
-
-**ਚੋਣਾਂ**
-
-1. Q < D
-2. Q < D ਜਾਂ Q = D
-3. Q = D
-4. Q < D, Q = D, ਜਾਂ Q > D
-
-**ਸਹੀ ਉੱਤਰ:** 3. Q = D
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: D = Q; Q = D। ਇਸ ਤੋਂ Q = D ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 120 — INE-CP-003 / IDENTIFY_ALL_POSSIBLE_RELATIONS
-
-- Source record: INE-CP003-0FE0195A
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਸਾਰੇ ਸੰਭਵ ਸੰਬੰਧ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ? A ਦੀ ਤੁਲਨਾ B ਨਾਲ ਕਰੋ।
-
-**ਕਥਨ**
-
-1. B < C
-2. S = C
-3. A ≥ S
-
-**ਚੋਣਾਂ**
-
-1. A < B ਜਾਂ A = B
-2. A < B
-3. A < B, A = B, ਜਾਂ A > B
-4. A > B
-
-**ਸਹੀ ਉੱਤਰ:** 4. A > B
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: A ≥ S; B < C; S = C; A > B। ਇਸ ਤੋਂ A > B ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 121 — INE-CP-003 / IDENTIFY_ALL_POSSIBLE_RELATIONS
-
-- Source record: INE-CP003-8A43A68B
-- ਬੀਜ: 4
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਸਾਰੇ ਸੰਭਵ ਸੰਬੰਧ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ? P ਦੀ ਤੁਲਨਾ A ਨਾਲ ਕਰੋ।
-
-**ਕਥਨ**
-
-1. A ≥ R
-2. D > A
-3. P > R
-4. D ≥ P
-
-**ਚੋਣਾਂ**
-
-1. P < A, P = A, ਜਾਂ P > A
-2. P = A
-3. P < A
-4. P = A ਜਾਂ P > A
-
-**ਸਹੀ ਉੱਤਰ:** 1. P < A, P = A, ਜਾਂ P > A
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P < A; P = A; P > A। ਇਸ ਤੋਂ P < A, P = A, ਜਾਂ P > A ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 122 — INE-CP-003 / IDENTIFY_ALL_POSSIBLE_RELATIONS
-
-- Source record: INE-CP003-E0743768
-- ਬੀਜ: 5
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਸਾਰੇ ਸੰਭਵ ਸੰਬੰਧ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ? S ਦੀ ਤੁਲਨਾ D ਨਾਲ ਕਰੋ।
-
-**ਕਥਨ**
-
-1. A > P
-2. S ≥ A
-3. D > Q
-
-**ਚੋਣਾਂ**
-
-1. S = D
-2. S < D
-3. S < D, S = D, ਜਾਂ S > D
-4. S < D ਜਾਂ S = D
-
-**ਸਹੀ ਉੱਤਰ:** 3. S < D, S = D, ਜਾਂ S > D
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: S < D; S = D; S > D। ਇਸ ਤੋਂ S < D, S = D, ਜਾਂ S > D ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 123 — INE-CP-003 / IDENTIFY_ALL_POSSIBLE_RELATIONS
-
-- Source record: INE-CP003-8ACCF2A1
-- ਬੀਜ: 6
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਸਾਰੇ ਸੰਭਵ ਸੰਬੰਧ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ? Q ਦੀ ਤੁਲਨਾ A ਨਾਲ ਕਰੋ।
-
-**ਕਥਨ**
-
-1. A ≥ S
-2. C ≥ Q
-3. R = S
-4. R > C
-5. S > B
-
-**ਚੋਣਾਂ**
-
-1. Q > A
-2. Q < A
-3. Q = A ਜਾਂ Q > A
-4. Q < A, Q = A, ਜਾਂ Q > A
-
-**ਸਹੀ ਉੱਤਰ:** 2. Q < A
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: A ≥ S; R > C; C ≥ Q; R = S; Q < A। ਇਸ ਤੋਂ Q < A ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 124 — INE-CP-003 / IDENTIFY_ALL_POSSIBLE_RELATIONS
-
-- Source record: INE-CP003-22594DE6
-- ਬੀਜ: 7
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਸਾਰੇ ਸੰਭਵ ਸੰਬੰਧ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ? D ਦੀ ਤੁਲਨਾ P ਨਾਲ ਕਰੋ।
-
-**ਕਥਨ**
-
-1. R ≥ P
-2. P > Q
-3. D < R
-4. Q ≤ D
-5. S = R
-
-**ਚੋਣਾਂ**
-
-1. D < P
-2. D = P
-3. D > P
-4. D < P, D = P, ਜਾਂ D > P
-
-**ਸਹੀ ਉੱਤਰ:** 4. D < P, D = P, ਜਾਂ D > P
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: D < P; D = P; D > P। ਇਸ ਤੋਂ D < P, D = P, ਜਾਂ D > P ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 125 — INE-CP-003 / IDENTIFY_ALL_POSSIBLE_RELATIONS
-
-- Source record: INE-CP003-C5F98737
-- ਬੀਜ: 8
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਸਾਰੇ ਸੰਭਵ ਸੰਬੰਧ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ? A ਦੀ ਤੁਲਨਾ R ਨਾਲ ਕਰੋ।
-
-**ਕਥਨ**
-
-1. D ≤ S
-2. C < B
-3. P ≥ S
-4. P < R
-5. A = D
-
-**ਚੋਣਾਂ**
-
-1. A > R
-2. A < R ਜਾਂ A = R
-3. A < R, A = R, ਜਾਂ A > R
-4. A < R
-
-**ਸਹੀ ਉੱਤਰ:** 4. A < R
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P < R; P ≥ S; D ≤ S; A = D; A < R। ਇਸ ਤੋਂ A < R ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 126 — INE-CP-003 / IDENTIFY_ALL_POSSIBLE_RELATIONS
-
-- Source record: INE-CP003-B69F9964
-- ਬੀਜ: 9
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਸਾਰੇ ਸੰਭਵ ਸੰਬੰਧ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ? C ਦੀ ਤੁਲਨਾ D ਨਾਲ ਕਰੋ।
-
-**ਕਥਨ**
-
-1. C = R
-2. R > B
-3. D ≤ S
-4. S < Q
-
-**ਚੋਣਾਂ**
-
-1. C < D, C = D, ਜਾਂ C > D
-2. C = D
-3. C > D
-4. C < D ਜਾਂ C = D
-
-**ਸਹੀ ਉੱਤਰ:** 1. C < D, C = D, ਜਾਂ C > D
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: C = R; C < D; C = D; C > D। ਇਸ ਤੋਂ C < D, C = D, ਜਾਂ C > D ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 127 — INE-CP-003 / IDENTIFY_ALL_POSSIBLE_RELATIONS
-
-- Source record: INE-CP003-9443162C
-- ਬੀਜ: 10
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਸਾਰੇ ਸੰਭਵ ਸੰਬੰਧ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ? R ਦੀ ਤੁਲਨਾ D ਨਾਲ ਕਰੋ।
-
-**ਕਥਨ**
-
-1. P > R
-2. P ≥ D
-3. D > C
-4. S ≤ C
-5. C ≤ R
-
-**ਚੋਣਾਂ**
-
-1. R = D ਜਾਂ R > D
-2. R < D ਜਾਂ R = D
-3. R < D, R = D, ਜਾਂ R > D
-4. R < D
-
-**ਸਹੀ ਉੱਤਰ:** 3. R < D, R = D, ਜਾਂ R > D
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R < D; R = D; R > D। ਇਸ ਤੋਂ R < D, R = D, ਜਾਂ R > D ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 128 — INE-CP-003 / IDENTIFY_ALL_POSSIBLE_RELATIONS
-
-- Source record: INE-CP003-7A05341F
-- ਬੀਜ: 11
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਸਾਰੇ ਸੰਭਵ ਸੰਬੰਧ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ? D ਦੀ ਤੁਲਨਾ B ਨਾਲ ਕਰੋ।
-
-**ਕਥਨ**
-
-1. C ≥ R
-2. D ≤ Q
-3. C ≤ B
-4. C < P
-5. Q = R
-
-**ਚੋਣਾਂ**
-
-1. D = B
-2. D < B ਜਾਂ D = B
-3. D > B
-4. D = B ਜਾਂ D > B
-
-**ਸਹੀ ਉੱਤਰ:** 2. D < B ਜਾਂ D = B
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: C ≤ B; C ≥ R; D ≤ Q; Q = R; D < B; D = B। ਇਸ ਤੋਂ D < B ਜਾਂ D = B ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਹਾਲਤਾਂ ਸੰਭਵ ਰਹਿੰਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਪੂਰਾ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 129 — INE-CP-003 / EVALUATE_INCLUSIVE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-EE0ED803
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. A ≤ S
-2. P < A
-
-**ਨਤੀਜੇ**
-
-1. S ≥ P
-
-**ਚੋਣਾਂ**
-
-1. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-2. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-3. ਅਸੰਭਵ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: A ≤ S; P < A; S > P; S ≥ P। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ।
-
----
-
-## ਸਵਾਲ 130 — INE-CP-003 / EVALUATE_INCLUSIVE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-B0CA2BE0
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. A ≥ Q
-2. C > P
-3. Q < P
-4. C > A
-
-**ਨਤੀਜੇ**
-
-1. P ≥ A
-
-**ਚੋਣਾਂ**
-
-1. ਅਸੰਭਵ
-2. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-3. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P ≥ A। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ।
-
----
-
-## ਸਵਾਲ 131 — INE-CP-003 / EVALUATE_INCLUSIVE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-52828899
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. C < B
-2. B ≤ P
-3. P = R
-
-**ਨਤੀਜੇ**
-
-1. P ≤ C
-
-**ਚੋਣਾਂ**
-
-1. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-2. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-3. ਅਸੰਭਵ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਅਸੰਭਵ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: B ≤ P; C < B; P = R; P > C; P ≤ C। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਅਸੰਭਵ।
-
----
-
-## ਸਵਾਲ 132 — INE-CP-003 / EVALUATE_INCLUSIVE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-D2C5AAFE
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. D < R
-2. P ≥ S
-3. S = R
-
-**ਨਤੀਜੇ**
-
-1. D ≤ P
-
-**ਚੋਣਾਂ**
-
-1. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-3. ਅਸੰਭਵ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P ≥ S; D < R; S = R; D < P; D ≤ P। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ।
-
----
-
-## ਸਵਾਲ 133 — INE-CP-003 / EVALUATE_INCLUSIVE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-04918C67
-- ਬੀਜ: 4
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. Q > B
-2. Q ≥ D
-3. S ≤ B
-4. D > S
-
-**ਨਤੀਜੇ**
-
-1. B ≥ D
-
-**ਚੋਣਾਂ**
-
-1. ਅਸੰਭਵ
-2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-3. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: B ≥ D। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ।
-
----
-
-## ਸਵਾਲ 134 — INE-CP-003 / EVALUATE_INCLUSIVE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-914ECFD4
-- ਬੀਜ: 5
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. S > A
-2. S ≤ Q
-3. B > R
-
-**ਨਤੀਜੇ**
-
-1. Q ≤ A
-
-**ਚੋਣਾਂ**
-
-1. ਅਸੰਭਵ
-2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-3. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਅਸੰਭਵ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: S ≤ Q; S > A; Q > A; Q ≤ A। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਅਸੰਭਵ।
-
----
-
-## ਸਵਾਲ 135 — INE-CP-003 / EVALUATE_INCLUSIVE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-A6B663CD
-- ਬੀਜ: 6
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. B = P
-2. P ≤ A
-3. P > D
-4. R ≥ S
-5. R < B
-
-**ਨਤੀਜੇ**
-
-1. D ≤ B
-
-**ਚੋਣਾਂ**
-
-1. ਅਸੰਭਵ
-2. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-3. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P > D; B = P; D < B; D ≤ B। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ।
-
----
-
-## ਸਵਾਲ 136 — INE-CP-003 / EVALUATE_INCLUSIVE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-798380F2
-- ਬੀਜ: 7
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. P ≤ D
-2. Q ≤ A
-3. D > A
-4. Q < P
-5. C = D
-
-**ਨਤੀਜੇ**
-
-1. P ≤ A
-
-**ਚੋਣਾਂ**
-
-1. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-2. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-3. ਅਸੰਭਵ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P ≤ A। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ।
-
----
-
-## ਸਵਾਲ 137 — INE-CP-003 / EVALUATE_INCLUSIVE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-AD493A3B
-- ਬੀਜ: 8
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. R > B
-2. S < A
-3. Q ≥ D
-4. D = C
-5. Q ≤ B
-
-**ਨਤੀਜੇ**
-
-1. R ≤ C
-
-**ਚੋਣਾਂ**
-
-1. ਅਸੰਭਵ
-2. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-3. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਅਸੰਭਵ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R > B; Q ≤ B; Q ≥ D; D = C; R > C; R ≤ C। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਅਸੰਭਵ।
-
----
-
-## ਸਵਾਲ 138 — INE-CP-003 / EVALUATE_INCLUSIVE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-519F3918
-- ਬੀਜ: 9
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. R ≥ B
-2. S = C
-3. R < A
-4. P < C
-
-**ਨਤੀਜੇ**
-
-1. S ≥ P
-
-**ਚੋਣਾਂ**
-
-1. ਅਸੰਭਵ
-2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-3. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P < C; S = C; S > P; S ≥ P। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ।
-
----
-
-## ਸਵਾਲ 139 — INE-CP-003 / EVALUATE_INCLUSIVE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-1FDE6A28
-- ਬੀਜ: 10
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. Q ≥ S
-2. D ≤ C
-3. Q ≤ B
-4. Q < D
-5. C > B
-
-**ਨਤੀਜੇ**
-
-1. B ≤ S
-
-**ਚੋਣਾਂ**
-
-1. ਅਸੰਭਵ
-2. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-3. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: Q ≤ B; Q ≥ S; B = S; B > S; B ≤ S। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ।
-
----
-
-## ਸਵਾਲ 140 — INE-CP-003 / EVALUATE_INCLUSIVE_CONCLUSION_TRUTH
-
-- Source record: INE-CP003-08287E4B
-- ਬੀਜ: 11
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕੇਵਲ ਦਿੱਤੇ ਕਥਨਾਂ ਦੇ ਆਧਾਰ 'ਤੇ ਨਤੀਜੇ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕਰੋਗੇ?
-
-**ਕਥਨ**
-
-1. D ≥ S
-2. C ≥ Q
-3. P ≥ D
-4. S = C
-5. D < A
-
-**ਨਤੀਜੇ**
-
-1. Q ≥ A
-
-**ਚੋਣਾਂ**
-
-1. ਅਸੰਭਵ
-2. ਸੰਭਵ ਤੌਰ ਤੇ ਸਹੀ, ਪਰ ਯਕੀਨੀ ਨਹੀਂ
-3. ਯਕੀਨੀ ਤੌਰ ਤੇ ਸਹੀ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਅਸੰਭਵ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: D < A; D ≥ S; C ≥ Q; S = C; Q < A; Q ≥ A। ਹੁਣ ਹਰ ਨਤੀਜੇ ਨੂੰ ਇਸ ਤੁਲਨਾ ਨਾਲ ਮਿਲਾਓ। ਸਹੀ ਉੱਤਰ ਹੈ: ਅਸੰਭਵ।
-
----
-
-## ਸਵਾਲ 141 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
+## ਸਵਾਲ 101 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
 
 - Source record: INE-CP003-A3F6F280
 - ਬੀਜ: 0
@@ -4112,7 +2874,7 @@
 
 ---
 
-## ਸਵਾਲ 142 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
+## ਸਵਾਲ 102 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
 
 - Source record: INE-CP003-34FD5723
 - ਬੀਜ: 1
@@ -4146,7 +2908,7 @@
 
 ---
 
-## ਸਵਾਲ 143 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
+## ਸਵਾਲ 103 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
 
 - Source record: INE-CP003-6FAC231E
 - ਬੀਜ: 2
@@ -4179,7 +2941,7 @@
 
 ---
 
-## ਸਵਾਲ 144 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
+## ਸਵਾਲ 104 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
 
 - Source record: INE-CP003-62CC2F39
 - ਬੀਜ: 3
@@ -4212,7 +2974,7 @@
 
 ---
 
-## ਸਵਾਲ 145 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
+## ਸਵਾਲ 105 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
 
 - Source record: INE-CP003-3CB1D6F4
 - ਬੀਜ: 4
@@ -4246,7 +3008,7 @@
 
 ---
 
-## ਸਵਾਲ 146 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
+## ਸਵਾਲ 106 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
 
 - Source record: INE-CP003-EDDFFD07
 - ਬੀਜ: 5
@@ -4279,7 +3041,7 @@
 
 ---
 
-## ਸਵਾਲ 147 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
+## ਸਵਾਲ 107 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
 
 - Source record: INE-CP003-BC252C92
 - ਬੀਜ: 6
@@ -4314,7 +3076,7 @@
 
 ---
 
-## ਸਵਾਲ 148 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
+## ਸਵਾਲ 108 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
 
 - Source record: INE-CP003-A4FBFCED
 - ਬੀਜ: 7
@@ -4349,7 +3111,7 @@
 
 ---
 
-## ਸਵਾਲ 149 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
+## ਸਵਾਲ 109 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
 
 - Source record: INE-CP003-ECF2E938
 - ਬੀਜ: 8
@@ -4384,7 +3146,7 @@
 
 ---
 
-## ਸਵਾਲ 150 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
+## ਸਵਾਲ 110 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
 
 - Source record: INE-CP003-92339A5B
 - ਬੀਜ: 9
@@ -4418,7 +3180,7 @@
 
 ---
 
-## ਸਵਾਲ 151 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
+## ਸਵਾਲ 111 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
 
 - Source record: INE-CP003-DE32BE71
 - ਬੀਜ: 10
@@ -4453,7 +3215,7 @@
 
 ---
 
-## ਸਵਾਲ 152 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
+## ਸਵਾਲ 112 — INE-CP-003 / EVALUATE_TWO_CONCLUSIONS
 
 - Source record: INE-CP003-A0A344F6
 - ਬੀਜ: 11
@@ -4488,757 +3250,7 @@
 
 ---
 
-## ਸਵਾਲ 153 — INE-CP-004 / CLASSIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-A42CF22D
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਨਤੀਜੇ I ਅਤੇ II ਦੀ ਜੋੜੀ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. A ≥ C
-2. Q < S
-
-**ਨਤੀਜੇ**
-
-1. C = A
-2. A > C
-
-**ਚੋਣਾਂ**
-
-1. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-2. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-3. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-4. ਕਥਨਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: A ≥ C; C < A; C = A। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 154 — INE-CP-004 / CLASSIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-535B151A
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਨਤੀਜੇ I ਅਤੇ II ਦੀ ਜੋੜੀ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. Q > P
-2. Q ≤ S
-3. R ≥ C
-
-**ਨਤੀਜੇ**
-
-1. R < C
-2. C = R
-
-**ਚੋਣਾਂ**
-
-1. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-2. ਕਥਨਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-3. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-4. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-
-**ਸਹੀ ਉੱਤਰ:** 4. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R ≥ C; R = C; R > C। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 155 — INE-CP-004 / CLASSIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-1FA0417F
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਨਤੀਜੇ I ਅਤੇ II ਦੀ ਜੋੜੀ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. P > R
-2. Q < P
-3. S < C
-
-**ਨਤੀਜੇ**
-
-1. R ≥ Q
-2. R ≤ Q
-
-**ਚੋਣਾਂ**
-
-1. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-2. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-3. ਕਥਨਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-4. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R < Q; R = Q; R > Q। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 156 — INE-CP-004 / CLASSIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-06770EB4
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਨਤੀਜੇ I ਅਤੇ II ਦੀ ਜੋੜੀ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. C < S
-2. P = R
-3. R > B
-4. C < A
-
-**ਨਤੀਜੇ**
-
-1. S ≤ A
-2. S > A
-
-**ਚੋਣਾਂ**
-
-1. ਕਥਨਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-2. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-3. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-4. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: S < A; S = A; S > A। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 157 — INE-CP-004 / CLASSIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-0B720DB9
-- ਬੀਜ: 4
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਨਤੀਜੇ I ਅਤੇ II ਦੀ ਜੋੜੀ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. R ≥ C
-2. D < P
-3. C = A
-
-**ਨਤੀਜੇ**
-
-1. A > R
-2. R ≤ A
-
-**ਚੋਣਾਂ**
-
-1. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-2. ਕਥਨਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-3. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-4. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R ≥ C; C = A; A < R; A = R। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 158 — INE-CP-004 / CLASSIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-9A786F36
-- ਬੀਜ: 5
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਨਤੀਜੇ I ਅਤੇ II ਦੀ ਜੋੜੀ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. B ≥ D
-2. Q > C
-3. Q ≤ S
-4. R = B
-
-**ਨਤੀਜੇ**
-
-1. D < R
-2. D ≤ R
-
-**ਚੋਣਾਂ**
-
-1. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-2. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-3. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-4. ਕਥਨਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: B ≥ D; R = B; D < R; D = R। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 159 — INE-CP-004 / CLASSIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-D327380B
-- ਬੀਜ: 6
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਨਤੀਜੇ I ਅਤੇ II ਦੀ ਜੋੜੀ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. B ≤ R
-2. D ≥ B
-3. A < S
-
-**ਨਤੀਜੇ**
-
-1. R > D
-2. R ≤ D
-
-**ਚੋਣਾਂ**
-
-1. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-2. ਕਥਨਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-3. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-4. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-
-**ਸਹੀ ਉੱਤਰ:** 4. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R < D; R = D; R > D। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 160 — INE-CP-004 / CLASSIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-C4474100
-- ਬੀਜ: 7
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਨਤੀਜੇ I ਅਤੇ II ਦੀ ਜੋੜੀ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. C ≥ S
-2. S ≥ P
-3. B > D
-
-**ਨਤੀਜੇ**
-
-1. C = P
-2. P > C
-
-**ਚੋਣਾਂ**
-
-1. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-2. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-3. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-4. ਕਥਨਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: C ≥ S; S ≥ P; C = P; C > P। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 161 — INE-CP-004 / CLASSIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-A2684605
-- ਬੀਜ: 8
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਨਤੀਜੇ I ਅਤੇ II ਦੀ ਜੋੜੀ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. P < A
-2. A ≤ S
-3. Q ≤ S
-4. R = S
-5. R ≤ D
-
-**ਨਤੀਜੇ**
-
-1. D ≥ Q
-2. D ≤ Q
-
-**ਚੋਣਾਂ**
-
-1. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-2. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-3. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-4. ਕਥਨਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R ≤ D; Q ≤ S; R = S; D = Q; D > Q। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 162 — INE-CP-004 / CLASSIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-8C0A0BD2
-- ਬੀਜ: 9
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਨਤੀਜੇ I ਅਤੇ II ਦੀ ਜੋੜੀ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. R > Q
-2. R > B
-3. A > D
-4. R = A
-5. A < P
-
-**ਨਤੀਜੇ**
-
-1. Q ≤ B
-2. B < Q
-
-**ਚੋਣਾਂ**
-
-1. ਕਥਨਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-2. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-3. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-4. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: Q < B; Q = B; Q > B। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 163 — INE-CP-004 / CLASSIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-40387D04
-- ਬੀਜ: 10
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਨਤੀਜੇ I ਅਤੇ II ਦੀ ਜੋੜੀ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. B ≥ Q
-2. C < S
-3. Q ≤ C
-4. B < R
-5. C = B
-
-**ਨਤੀਜੇ**
-
-1. R < S
-2. R > S
-
-**ਚੋਣਾਂ**
-
-1. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-2. ਕਥਨਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-3. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-4. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R < S; R = S; R > S। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 164 — INE-CP-004 / CLASSIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-C8B493CF
-- ਬੀਜ: 11
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਨਤੀਜੇ I ਅਤੇ II ਦੀ ਜੋੜੀ ਦਾ ਸਹੀ ਮੁਲਾਂਕਣ ਕੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. D = C
-2. D ≥ R
-3. C ≥ P
-4. S < P
-5. C ≤ B
-
-**ਨਤੀਜੇ**
-
-1. B > R
-2. R ≤ B
-
-**ਚੋਣਾਂ**
-
-1. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਕੁਝ ਸੰਭਵ ਹਾਲਤਾਂ ਰਹਿ ਜਾਂਦੀਆਂ ਹਨ
-2. ਕਥਨਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-3. ਮੰਨਣਯੋਗ ਜਾਂ-ਤਾਂ ਜੋੜੀ
-4. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-
-**ਸਹੀ ਉੱਤਰ:** 4. ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: C ≤ B; D ≥ R; D = C; B = R; B > R। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ ਜਾਂ-ਤਾਂ ਨਹੀਂ: ਨਤੀਜੇ ਆਪਸ ਵਿੱਚ ਮਿਲਦੇ ਹਨ ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 165 — INE-CP-004 / IDENTIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-441C8CAB
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਸਹੀ ਜਾਂ-ਤਾਂ ਵਾਲੀ ਨਤੀਜਾ-ਜੋੜੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. Q > R
-2. B ≤ C
-
-**ਚੋਣਾਂ**
-
-1. I. B < C; II. B = C
-2. I. C < B; II. B ≥ C
-3. I. B ≤ C; II. B < C
-4. I. B > C; II. B = C
-
-**ਸਹੀ ਉੱਤਰ:** 1. I. B < C; II. B = C
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: B ≤ C; B < C; B = C। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ I. B < C; II. B = C ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 166 — INE-CP-004 / IDENTIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-FF790D20
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਸਹੀ ਜਾਂ-ਤਾਂ ਵਾਲੀ ਨਤੀਜਾ-ਜੋੜੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. A ≥ R
-2. B < R
-3. P ≤ D
-
-**ਚੋਣਾਂ**
-
-1. I. D = P; II. D < P
-2. I. D > P; II. D ≥ P
-3. I. D = P; II. P < D
-4. I. P > D; II. P < D
-
-**ਸਹੀ ਉੱਤਰ:** 3. I. D = P; II. P < D
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P ≤ D; D = P; D > P। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ I. D = P; II. P < D ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 167 — INE-CP-004 / IDENTIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-BF804ED9
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਸਹੀ ਜਾਂ-ਤਾਂ ਵਾਲੀ ਨਤੀਜਾ-ਜੋੜੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. R < S
-2. S > Q
-3. A > P
-
-**ਚੋਣਾਂ**
-
-1. I. R > Q; II. Q = R
-2. I. R ≥ Q; II. Q ≥ R
-3. I. R > Q; II. R < Q
-4. I. R < Q; II. R ≥ Q
-
-**ਸਹੀ ਉੱਤਰ:** 4. I. R < Q; II. R ≥ Q
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R < Q; R = Q; R > Q। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ I. R < Q; II. R ≥ Q ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 168 — INE-CP-004 / IDENTIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-062C1FD6
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਸਹੀ ਜਾਂ-ਤਾਂ ਵਾਲੀ ਨਤੀਜਾ-ਜੋੜੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. D = R
-2. A > Q
-3. R > S
-4. Q < P
-
-**ਚੋਣਾਂ**
-
-1. I. P ≥ A; II. A ≥ P
-2. I. A < P; II. P ≤ A
-3. I. A < P; II. P < A
-4. I. A > P; II. A = P
-
-**ਸਹੀ ਉੱਤਰ:** 2. I. A < P; II. P ≤ A
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: A < P; A = P; A > P। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ I. A < P; II. P ≤ A ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 169 — INE-CP-004 / IDENTIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-B69B2B9F
-- ਬੀਜ: 4
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਸਹੀ ਜਾਂ-ਤਾਂ ਵਾਲੀ ਨਤੀਜਾ-ਜੋੜੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. Q = P
-2. D > S
-3. B ≥ P
-
-**ਚੋਣਾਂ**
-
-1. I. Q < B; II. B = Q
-2. I. B = Q; II. Q ≤ B
-3. I. Q > B; II. B ≤ Q
-4. I. B < Q; II. B = Q
-
-**ਸਹੀ ਉੱਤਰ:** 1. I. Q < B; II. B = Q
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: B ≥ P; Q = P; Q < B; Q = B। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ I. Q < B; II. B = Q ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 170 — INE-CP-004 / IDENTIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-BA8DCA54
-- ਬੀਜ: 5
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਸਹੀ ਜਾਂ-ਤਾਂ ਵਾਲੀ ਨਤੀਜਾ-ਜੋੜੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. P = A
-2. B > Q
-3. A ≥ D
-4. B ≤ R
-
-**ਚੋਣਾਂ**
-
-1. I. D < P; II. P < D
-2. I. D > P; II. D = P
-3. I. D < P; II. P = D
-4. I. D ≥ P; II. P ≥ D
-
-**ਸਹੀ ਉੱਤਰ:** 3. I. D < P; II. P = D
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: A ≥ D; P = A; D < P; D = P। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ I. D < P; II. P = D ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 171 — INE-CP-004 / IDENTIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-32E4C8CD
-- ਬੀਜ: 6
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਸਹੀ ਜਾਂ-ਤਾਂ ਵਾਲੀ ਨਤੀਜਾ-ਜੋੜੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. D ≥ A
-2. P > B
-3. Q ≥ A
-
-**ਚੋਣਾਂ**
-
-1. I. Q = D; II. Q < D
-2. I. Q ≤ D; II. D < Q
-3. I. D > Q; II. Q > D
-4. I. D ≤ Q; II. D ≥ Q
-
-**ਸਹੀ ਉੱਤਰ:** 2. I. Q ≤ D; II. D < Q
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: Q < D; Q = D; Q > D। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ I. Q ≤ D; II. D < Q ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 172 — INE-CP-004 / IDENTIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-21F0783A
-- ਬੀਜ: 7
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਸਹੀ ਜਾਂ-ਤਾਂ ਵਾਲੀ ਨਤੀਜਾ-ਜੋੜੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. P > S
-2. A ≤ C
-3. D ≥ C
-
-**ਚੋਣਾਂ**
-
-1. I. A = D; II. D ≥ A
-2. I. D > A; II. A > D
-3. I. D < A; II. D ≤ A
-4. I. A = D; II. A < D
-
-**ਸਹੀ ਉੱਤਰ:** 4. I. A = D; II. A < D
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: D ≥ C; A ≤ C; A < D; A = D। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ I. A = D; II. A < D ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 173 — INE-CP-004 / IDENTIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-061430C3
-- ਬੀਜ: 8
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਸਹੀ ਜਾਂ-ਤਾਂ ਵਾਲੀ ਨਤੀਜਾ-ਜੋੜੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. A ≥ B
-2. S = A
-3. Q ≥ S
-4. C ≤ A
-5. B > P
-
-**ਚੋਣਾਂ**
-
-1. I. Q > C; II. Q = C
-2. I. C ≥ Q; II. C > Q
-3. I. C = Q; II. C > Q
-4. I. C ≤ Q; II. Q = C
-
-**ਸਹੀ ਉੱਤਰ:** 1. I. Q > C; II. Q = C
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: Q ≥ S; C ≤ A; S = A; Q = C; Q > C। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ I. Q > C; II. Q = C ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 174 — INE-CP-004 / IDENTIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-8ADAE918
-- ਬੀਜ: 9
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਸਹੀ ਜਾਂ-ਤਾਂ ਵਾਲੀ ਨਤੀਜਾ-ਜੋੜੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. C < P
-2. Q < R
-3. S < P
-4. Q = P
-5. B < Q
-
-**ਚੋਣਾਂ**
-
-1. I. S ≥ C; II. S ≤ C
-2. I. S = C; II. C > S
-3. I. C > S; II. S = C
-4. I. S ≥ C; II. S < C
-
-**ਸਹੀ ਉੱਤਰ:** 4. I. S ≥ C; II. S < C
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: S < C; S = C; S > C। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ I. S ≥ C; II. S < C ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 175 — INE-CP-004 / IDENTIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-61C84136
-- ਬੀਜ: 10
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਸਹੀ ਜਾਂ-ਤਾਂ ਵਾਲੀ ਨਤੀਜਾ-ਜੋੜੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. C ≤ B
-2. P > B
-3. A ≥ C
-4. R > A
-5. A = B
-
-**ਚੋਣਾਂ**
-
-1. I. P = R; II. R > P
-2. I. P < R; II. R < P
-3. I. P ≥ R; II. P < R
-4. I. P ≥ R; II. P ≤ R
-
-**ਸਹੀ ਉੱਤਰ:** 3. I. P ≥ R; II. P < R
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P < R; P = R; P > R। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ I. P ≥ R; II. P < R ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 176 — INE-CP-004 / IDENTIFY_COMPLEMENTARY_PAIR
-
-- Source record: INE-CP004-D2C1DFB9
-- ਬੀਜ: 11
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਸਹੀ ਜਾਂ-ਤਾਂ ਵਾਲੀ ਨਤੀਜਾ-ਜੋੜੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. B ≤ S
-2. R ≤ Q
-3. P < C
-4. R ≥ C
-5. R = S
-
-**ਚੋਣਾਂ**
-
-1. I. B ≥ Q; II. Q < B
-2. I. Q > B; II. B = Q
-3. I. Q < B; II. Q ≤ B
-4. I. Q ≤ B; II. B ≤ Q
-
-**ਸਹੀ ਉੱਤਰ:** 2. I. Q > B; II. B = Q
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: R ≤ Q; B ≤ S; R = S; Q = B; Q > B। ਦੋਵੇਂ ਹਿੱਸੇ ਇਕੱਠੇ ਜਾਂਚਣ 'ਤੇ ਸਹੀ ਚੋਣ I. Q > B; II. B = Q ਹੈ। ਇਹੀ ਸਾਰੀਆਂ ਸੰਭਵ ਹਾਲਤਾਂ ਨੂੰ ਠੀਕ ਤਰੀਕੇ ਨਾਲ ਦਿਖਾਉਂਦੀ ਹੈ।
-
----
-
-## ਸਵਾਲ 177 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
+## ਸਵਾਲ 113 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
 
 - Source record: INE-CP004-541FF268
 - ਬੀਜ: 0
@@ -5270,7 +3282,7 @@
 
 ---
 
-## ਸਵਾਲ 178 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
+## ਸਵਾਲ 114 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
 
 - Source record: INE-CP004-EDAC50D3
 - ਬੀਜ: 1
@@ -5303,7 +3315,7 @@
 
 ---
 
-## ਸਵਾਲ 179 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
+## ਸਵਾਲ 115 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
 
 - Source record: INE-CP004-5796AC9E
 - ਬੀਜ: 2
@@ -5336,7 +3348,7 @@
 
 ---
 
-## ਸਵਾਲ 180 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
+## ਸਵਾਲ 116 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
 
 - Source record: INE-CP004-AFC740A1
 - ਬੀਜ: 3
@@ -5370,7 +3382,7 @@
 
 ---
 
-## ਸਵਾਲ 181 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
+## ਸਵਾਲ 117 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
 
 - Source record: INE-CP004-884B31FC
 - ਬੀਜ: 4
@@ -5403,7 +3415,7 @@
 
 ---
 
-## ਸਵਾਲ 182 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
+## ਸਵਾਲ 118 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
 
 - Source record: INE-CP004-DB331C47
 - ਬੀਜ: 5
@@ -5437,7 +3449,7 @@
 
 ---
 
-## ਸਵਾਲ 183 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
+## ਸਵਾਲ 119 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
 
 - Source record: INE-CP004-0ECF7542
 - ਬੀਜ: 6
@@ -5470,7 +3482,7 @@
 
 ---
 
-## ਸਵਾਲ 184 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
+## ਸਵਾਲ 120 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
 
 - Source record: INE-CP004-B714E435
 - ਬੀਜ: 7
@@ -5503,7 +3515,7 @@
 
 ---
 
-## ਸਵਾਲ 185 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
+## ਸਵਾਲ 121 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
 
 - Source record: INE-CP004-61C2FD30
 - ਬੀਜ: 8
@@ -5538,7 +3550,7 @@
 
 ---
 
-## ਸਵਾਲ 186 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
+## ਸਵਾਲ 122 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
 
 - Source record: INE-CP004-72EAC4FB
 - ਬੀਜ: 9
@@ -5573,7 +3585,7 @@
 
 ---
 
-## ਸਵਾਲ 187 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
+## ਸਵਾਲ 123 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
 
 - Source record: INE-CP004-3CAE0447
 - ਬੀਜ: 10
@@ -5608,7 +3620,7 @@
 
 ---
 
-## ਸਵਾਲ 188 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
+## ਸਵਾਲ 124 — INE-CP-004 / RESOLVE_EITHER_OR_CONCLUSIONS
 
 - Source record: INE-CP004-E9C619FC
 - ਬੀਜ: 11
@@ -5643,7 +3655,7 @@
 
 ---
 
-## ਸਵਾਲ 189 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
+## ਸਵਾਲ 125 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
 
 - Source record: INE-CP004-C5FB47D6
 - ਬੀਜ: 0
@@ -5676,7 +3688,7 @@
 
 ---
 
-## ਸਵਾਲ 190 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
+## ਸਵਾਲ 126 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
 
 - Source record: INE-CP004-7F4F76D9
 - ਬੀਜ: 1
@@ -5710,7 +3722,7 @@
 
 ---
 
-## ਸਵਾਲ 191 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
+## ਸਵਾਲ 127 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
 
 - Source record: INE-CP004-BF483520
 - ਬੀਜ: 2
@@ -5744,7 +3756,7 @@
 
 ---
 
-## ਸਵਾਲ 192 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
+## ਸਵਾਲ 128 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
 
 - Source record: INE-CP004-03EBB4AB
 - ਬੀਜ: 3
@@ -5779,7 +3791,7 @@
 
 ---
 
-## ਸਵਾਲ 193 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
+## ਸਵਾਲ 129 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
 
 - Source record: INE-CP004-E1BFA03A
 - ਬੀਜ: 4
@@ -5813,7 +3825,7 @@
 
 ---
 
-## ਸਵਾਲ 194 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
+## ਸਵਾਲ 130 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
 
 - Source record: INE-CP004-F2B3F0CD
 - ਬੀਜ: 5
@@ -5848,7 +3860,7 @@
 
 ---
 
-## ਸਵਾਲ 195 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
+## ਸਵਾਲ 131 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
 
 - Source record: INE-CP004-7A5CF254
 - ਬੀਜ: 6
@@ -5882,7 +3894,7 @@
 
 ---
 
-## ਸਵਾਲ 196 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
+## ਸਵਾਲ 132 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
 
 - Source record: INE-CP004-766A539F
 - ਬੀਜ: 7
@@ -5916,7 +3928,7 @@
 
 ---
 
-## ਸਵਾਲ 197 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
+## ਸਵਾਲ 133 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
 
 - Source record: INE-CP004-C0FCAD0E
 - ਬੀਜ: 8
@@ -5952,7 +3964,7 @@
 
 ---
 
-## ਸਵਾਲ 198 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
+## ਸਵਾਲ 134 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
 
 - Source record: INE-CP004-E6689211
 - ਬੀਜ: 9
@@ -5988,7 +4000,7 @@
 
 ---
 
-## ਸਵਾਲ 199 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
+## ਸਵਾਲ 135 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
 
 - Source record: INE-CP004-895203A1
 - ਬੀਜ: 10
@@ -6024,7 +4036,7 @@
 
 ---
 
-## ਸਵਾਲ 200 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
+## ਸਵਾਲ 136 — INE-CP-004 / RESOLVE_DEFINITE_PLUS_EITHER_OR
 
 - Source record: INE-CP004-31216F9E
 - ਬੀਜ: 11
@@ -6060,319 +4072,7 @@
 
 ---
 
-## ਸਵਾਲ 201 — INE-CP-005 / INTERPRET_LINGUISTIC_RELATION
-
-- Source record: INE-CP005-1FB43370
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਅਰਥ ਕਿਹੜੇ ਸੰਕੇਤਕ ਸੰਬੰਧ ਵਿੱਚ ਹੈ?
-
-**ਕਥਨ**
-
-1. B, D ਤੋਂ ਛੋਟਾ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. B > D
-2. B < D
-3. B = D
-4. B ≥ D
-
-**ਸਹੀ ਉੱਤਰ:** 2. B < D
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ B < D ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।
-
----
-
-## ਸਵਾਲ 202 — INE-CP-005 / INTERPRET_LINGUISTIC_RELATION
-
-- Source record: INE-CP005-2D76BB3B
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਅਰਥ ਕਿਹੜੇ ਸੰਕੇਤਕ ਸੰਬੰਧ ਵਿੱਚ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਫ਼ਰਾਹ ਦੇ ਅੰਕ, ਗਗਨ ਦੇ ਅੰਕਾਂ ਨਾਲੋਂ ਨਾ ਵੱਧ ਅਤੇ ਨਾ ਬਰਾਬਰ ਹਨ।
-
-**ਚੋਣਾਂ**
-
-1. ਫ਼ਰਾਹ ≥ ਗਗਨ
-2. ਫ਼ਰਾਹ = ਗਗਨ
-3. ਫ਼ਰਾਹ < ਗਗਨ
-4. ਫ਼ਰਾਹ > ਗਗਨ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਫ਼ਰਾਹ < ਗਗਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ ਫ਼ਰਾਹ < ਗਗਨ ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।
-
----
-
-## ਸਵਾਲ 203 — INE-CP-005 / INTERPRET_LINGUISTIC_RELATION
-
-- Source record: INE-CP005-599C97A6
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਅਰਥ ਕਿਹੜੇ ਸੰਕੇਤਕ ਸੰਬੰਧ ਵਿੱਚ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਅਮਨ ਦੀ ਤਨਖਾਹ, ਚਰਨ ਦੀ ਤਨਖਾਹ ਨਾਲੋਂ ਵੱਧ ਨਹੀਂ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. ਅਮਨ = ਚਰਨ
-2. ਅਮਨ < ਚਰਨ
-3. ਅਮਨ > ਚਰਨ
-4. ਅਮਨ ≤ ਚਰਨ
-
-**ਸਹੀ ਉੱਤਰ:** 4. ਅਮਨ ≤ ਚਰਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ ਅਮਨ ≤ ਚਰਨ ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।
-
----
-
-## ਸਵਾਲ 204 — INE-CP-005 / INTERPRET_LINGUISTIC_RELATION
-
-- Source record: INE-CP005-B38F2D29
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਅਰਥ ਕਿਹੜੇ ਸੰਕੇਤਕ ਸੰਬੰਧ ਵਿੱਚ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਫ਼ਰਾਹ ਦਾ ਕੱਦ, ਗਗਨ ਦੇ ਕੱਦ ਨਾਲੋਂ ਵੱਧ ਨਹੀਂ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. ਫ਼ਰਾਹ ≤ ਗਗਨ
-2. ਫ਼ਰਾਹ > ਗਗਨ
-3. ਫ਼ਰਾਹ < ਗਗਨ
-4. ਸੰਬੰਧ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਫ਼ਰਾਹ ≤ ਗਗਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ ਫ਼ਰਾਹ ≤ ਗਗਨ ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।
-
----
-
-## ਸਵਾਲ 205 — INE-CP-005 / INTERPRET_LINGUISTIC_RELATION
-
-- Source record: INE-CP005-972B75A4
-- ਬੀਜ: 4
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਅਰਥ ਕਿਹੜੇ ਸੰਕੇਤਕ ਸੰਬੰਧ ਵਿੱਚ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਗਗਨ ਦਾ ਭਾਰ, ਫ਼ਰਾਹ ਦੇ ਭਾਰ ਦੇ ਬਰਾਬਰ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. ਗਗਨ = ਫ਼ਰਾਹ
-2. ਸੰਬੰਧ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-3. ਗਗਨ < ਫ਼ਰਾਹ
-4. ਗਗਨ ≥ ਫ਼ਰਾਹ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਗਗਨ = ਫ਼ਰਾਹ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ ਗਗਨ = ਫ਼ਰਾਹ ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।
-
----
-
-## ਸਵਾਲ 206 — INE-CP-005 / INTERPRET_LINGUISTIC_RELATION
-
-- Source record: INE-CP005-C9146BEF
-- ਬੀਜ: 5
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਅਰਥ ਕਿਹੜੇ ਸੰਕੇਤਕ ਸੰਬੰਧ ਵਿੱਚ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਦੀਆ ਦਾ ਸਕੋਰ, ਅਮਨ ਦੇ ਸਕੋਰ ਨਾਲੋਂ ਨਾ ਘੱਟ ਅਤੇ ਨਾ ਬਰਾਬਰ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. ਸੰਬੰਧ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-2. ਦੀਆ = ਅਮਨ
-3. ਦੀਆ > ਅਮਨ
-4. ਦੀਆ < ਅਮਨ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਦੀਆ > ਅਮਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ ਦੀਆ > ਅਮਨ ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।
-
----
-
-## ਸਵਾਲ 207 — INE-CP-005 / INTERPRET_LINGUISTIC_RELATION
-
-- Source record: INE-CP005-B31FD58A
-- ਬੀਜ: 6
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਅਰਥ ਕਿਹੜੇ ਸੰਕੇਤਕ ਸੰਬੰਧ ਵਿੱਚ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਉਤਪਾਦ F ਦੀ ਕੀਮਤ, ਉਤਪਾਦ B ਦੀ ਕੀਮਤ ਨਾਲੋਂ ਘੱਟ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. ਉਤਪਾਦ F ≤ ਉਤਪਾਦ B
-2. ਉਤਪਾਦ F < ਉਤਪਾਦ B
-3. ਉਤਪਾਦ F > ਉਤਪਾਦ B
-4. ਉਤਪਾਦ F ≥ ਉਤਪਾਦ B
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਉਤਪਾਦ F < ਉਤਪਾਦ B
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ ਉਤਪਾਦ F < ਉਤਪਾਦ B ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।
-
----
-
-## ਸਵਾਲ 208 — INE-CP-005 / INTERPRET_LINGUISTIC_RELATION
-
-- Source record: INE-CP005-9C3E2DDD
-- ਬੀਜ: 7
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਅਰਥ ਕਿਹੜੇ ਸੰਕੇਤਕ ਸੰਬੰਧ ਵਿੱਚ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਇਕਾਈ C ਦਾ ਉਤਪਾਦਨ, ਇਕਾਈ D ਦੇ ਉਤਪਾਦਨ ਨਾਲੋਂ ਨਾ ਘੱਟ ਅਤੇ ਨਾ ਵੱਧ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. ਇਕਾਈ C ≥ ਇਕਾਈ D
-2. ਇਕਾਈ C < ਇਕਾਈ D
-3. ਇਕਾਈ C ≤ ਇਕਾਈ D
-4. ਇਕਾਈ C = ਇਕਾਈ D
-
-**ਸਹੀ ਉੱਤਰ:** 4. ਇਕਾਈ C = ਇਕਾਈ D
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ ਇਕਾਈ C = ਇਕਾਈ D ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।
-
----
-
-## ਸਵਾਲ 209 — INE-CP-005 / INTERPRET_LINGUISTIC_RELATION
-
-- Source record: INE-CP005-F22A06A8
-- ਬੀਜ: 8
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਅਰਥ ਕਿਹੜੇ ਸੰਕੇਤਕ ਸੰਬੰਧ ਵਿੱਚ ਹੈ?
-
-**ਕਥਨ**
-
-1. C, B ਤੋਂ ਛੋਟਾ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. C ≥ B
-2. C = B
-3. C > B
-4. C < B
-
-**ਸਹੀ ਉੱਤਰ:** 4. C < B
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ C < B ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।
-
----
-
-## ਸਵਾਲ 210 — INE-CP-005 / INTERPRET_LINGUISTIC_RELATION
-
-- Source record: INE-CP005-BEF70A13
-- ਬੀਜ: 9
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਅਰਥ ਕਿਹੜੇ ਸੰਕੇਤਕ ਸੰਬੰਧ ਵਿੱਚ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਅਮਨ ਦੇ ਅੰਕ, ਫ਼ਰਾਹ ਦੇ ਅੰਕਾਂ ਨਾਲੋਂ ਨਾ ਵੱਧ ਅਤੇ ਨਾ ਬਰਾਬਰ ਹਨ।
-
-**ਚੋਣਾਂ**
-
-1. ਅਮਨ < ਫ਼ਰਾਹ
-2. ਅਮਨ ≥ ਫ਼ਰਾਹ
-3. ਅਮਨ > ਫ਼ਰਾਹ
-4. ਅਮਨ ≤ ਫ਼ਰਾਹ
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਅਮਨ < ਫ਼ਰਾਹ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ ਅਮਨ < ਫ਼ਰਾਹ ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।
-
----
-
-## ਸਵਾਲ 211 — INE-CP-005 / INTERPRET_LINGUISTIC_RELATION
-
-- Source record: INE-CP005-3B95BA1F
-- ਬੀਜ: 10
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਅਰਥ ਕਿਹੜੇ ਸੰਕੇਤਕ ਸੰਬੰਧ ਵਿੱਚ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਬੀਨਾ ਦੀ ਤਨਖਾਹ, ਅਮਨ ਦੀ ਤਨਖਾਹ ਨਾਲੋਂ ਵੱਧ ਨਹੀਂ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. ਬੀਨਾ < ਅਮਨ
-2. ਬੀਨਾ > ਅਮਨ
-3. ਬੀਨਾ ≤ ਅਮਨ
-4. ਬੀਨਾ ≥ ਅਮਨ
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਬੀਨਾ ≤ ਅਮਨ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ ਬੀਨਾ ≤ ਅਮਨ ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।
-
----
-
-## ਸਵਾਲ 212 — INE-CP-005 / INTERPRET_LINGUISTIC_RELATION
-
-- Source record: INE-CP005-3F8858D4
-- ਬੀਜ: 11
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਅਰਥ ਕਿਹੜੇ ਸੰਕੇਤਕ ਸੰਬੰਧ ਵਿੱਚ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਗਗਨ ਦਾ ਕੱਦ, ਦੀਆ ਦੇ ਕੱਦ ਨਾਲੋਂ ਘੱਟ ਨਹੀਂ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. ਗਗਨ = ਦੀਆ
-2. ਗਗਨ ≥ ਦੀਆ
-3. ਗਗਨ ≤ ਦੀਆ
-4. ਗਗਨ < ਦੀਆ
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਗਗਨ ≥ ਦੀਆ
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਦਿੱਤੇ ਵਾਕ ਦਾ ਸੰਕੇਤਕ ਰੂਪ ਗਗਨ ≥ ਦੀਆ ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਇੱਕੋ ਤੁਲਨਾ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਸਹੀ ਚੋਣ ਹੈ।
-
----
-
-## ਸਵਾਲ 213 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
+## ਸਵਾਲ 137 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
 
 - Source record: INE-CP005-C6134201
 - ਬੀਜ: 0
@@ -6398,7 +4098,7 @@
 
 ---
 
-## ਸਵਾਲ 214 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
+## ਸਵਾਲ 138 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
 
 - Source record: INE-CP005-6DE2ADFE
 - ਬੀਜ: 1
@@ -6424,7 +4124,7 @@
 
 ---
 
-## ਸਵਾਲ 215 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
+## ਸਵਾਲ 139 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
 
 - Source record: INE-CP005-75B6B533
 - ਬੀਜ: 2
@@ -6451,7 +4151,7 @@
 
 ---
 
-## ਸਵਾਲ 216 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
+## ਸਵਾਲ 140 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
 
 - Source record: INE-CP005-7C667848
 - ਬੀਜ: 3
@@ -6478,7 +4178,7 @@
 
 ---
 
-## ਸਵਾਲ 217 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
+## ਸਵਾਲ 141 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
 
 - Source record: INE-CP005-A619EC15
 - ਬੀਜ: 4
@@ -6505,7 +4205,7 @@
 
 ---
 
-## ਸਵਾਲ 218 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
+## ਸਵਾਲ 142 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
 
 - Source record: INE-CP005-18AB7AA2
 - ਬੀਜ: 5
@@ -6533,7 +4233,7 @@
 
 ---
 
-## ਸਵਾਲ 219 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
+## ਸਵਾਲ 143 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
 
 - Source record: INE-CP005-35D27727
 - ਬੀਜ: 6
@@ -6560,7 +4260,7 @@
 
 ---
 
-## ਸਵਾਲ 220 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
+## ਸਵਾਲ 144 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
 
 - Source record: INE-CP005-2E18185C
 - ਬੀਜ: 7
@@ -6587,7 +4287,7 @@
 
 ---
 
-## ਸਵਾਲ 221 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
+## ਸਵਾਲ 145 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
 
 - Source record: INE-CP005-921045C9
 - ਬੀਜ: 8
@@ -6616,7 +4316,7 @@
 
 ---
 
-## ਸਵਾਲ 222 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
+## ਸਵਾਲ 146 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
 
 - Source record: INE-CP005-00777746
 - ਬੀਜ: 9
@@ -6645,7 +4345,7 @@
 
 ---
 
-## ਸਵਾਲ 223 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
+## ਸਵਾਲ 147 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
 
 - Source record: INE-CP005-09235E70
 - ਬੀਜ: 10
@@ -6673,7 +4373,7 @@
 
 ---
 
-## ਸਵਾਲ 224 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
+## ਸਵਾਲ 148 — INE-CP-005 / SOLVE_LINGUISTIC_CHAIN
 
 - Source record: INE-CP005-16E5E63B
 - ਬੀਜ: 11
@@ -6701,7 +4401,7 @@
 
 ---
 
-## ਸਵਾਲ 225 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
+## ਸਵਾਲ 149 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
 
 - Source record: INE-CP005-90C6269D
 - ਬੀਜ: 0
@@ -6728,7 +4428,7 @@
 
 ---
 
-## ਸਵਾਲ 226 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
+## ਸਵਾਲ 150 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
 
 - Source record: INE-CP005-9E20114A
 - ਬੀਜ: 1
@@ -6755,7 +4455,7 @@
 
 ---
 
-## ਸਵਾਲ 227 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
+## ਸਵਾਲ 151 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
 
 - Source record: INE-CP005-87E156AF
 - ਬੀਜ: 2
@@ -6782,7 +4482,7 @@
 
 ---
 
-## ਸਵਾਲ 228 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
+## ਸਵਾਲ 152 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
 
 - Source record: INE-CP005-8B669C64
 - ਬੀਜ: 3
@@ -6809,7 +4509,7 @@
 
 ---
 
-## ਸਵਾਲ 229 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
+## ਸਵਾਲ 153 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
 
 - Source record: INE-CP005-5C8EF7E9
 - ਬੀਜ: 4
@@ -6836,7 +4536,7 @@
 
 ---
 
-## ਸਵਾਲ 230 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
+## ਸਵਾਲ 154 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
 
 - Source record: INE-CP005-747B3F66
 - ਬੀਜ: 5
@@ -6864,7 +4564,7 @@
 
 ---
 
-## ਸਵਾਲ 231 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
+## ਸਵਾਲ 155 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
 
 - Source record: INE-CP005-7DBE48FB
 - ਬੀਜ: 6
@@ -6891,7 +4591,7 @@
 
 ---
 
-## ਸਵਾਲ 232 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
+## ਸਵਾਲ 156 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
 
 - Source record: INE-CP005-6C968130
 - ਬੀਜ: 7
@@ -6918,7 +4618,7 @@
 
 ---
 
-## ਸਵਾਲ 233 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
+## ਸਵਾਲ 157 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
 
 - Source record: INE-CP005-C1E86835
 - ਬੀਜ: 8
@@ -6947,7 +4647,7 @@
 
 ---
 
-## ਸਵਾਲ 234 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
+## ਸਵਾਲ 158 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
 
 - Source record: INE-CP005-19A2F942
 - ਬੀਜ: 9
@@ -6976,7 +4676,7 @@
 
 ---
 
-## ਸਵਾਲ 235 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
+## ਸਵਾਲ 159 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
 
 - Source record: INE-CP005-53CBC9B4
 - ਬੀਜ: 10
@@ -7004,7 +4704,7 @@
 
 ---
 
-## ਸਵਾਲ 236 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
+## ਸਵਾਲ 160 — INE-CP-005 / SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN
 
 - Source record: INE-CP005-6CF4FC7F
 - ਬੀਜ: 11
@@ -7032,7 +4732,7 @@
 
 ---
 
-## ਸਵਾਲ 237 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
+## ਸਵਾਲ 161 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
 
 - Source record: INE-CP005-C3C3F468
 - ਬੀਜ: 0
@@ -7064,7 +4764,7 @@
 
 ---
 
-## ਸਵਾਲ 238 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
+## ਸਵਾਲ 162 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
 
 - Source record: INE-CP005-5D5052D3
 - ਬੀਜ: 1
@@ -7096,7 +4796,7 @@
 
 ---
 
-## ਸਵਾਲ 239 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
+## ਸਵਾਲ 163 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
 
 - Source record: INE-CP005-C73AAE9E
 - ਬੀਜ: 2
@@ -7128,7 +4828,7 @@
 
 ---
 
-## ਸਵਾਲ 240 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
+## ਸਵਾਲ 164 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
 
 - Source record: INE-CP005-1F6B42A1
 - ਬੀਜ: 3
@@ -7160,7 +4860,7 @@
 
 ---
 
-## ਸਵਾਲ 241 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
+## ਸਵਾਲ 165 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
 
 - Source record: INE-CP005-F7EF33FC
 - ਬੀਜ: 4
@@ -7192,7 +4892,7 @@
 
 ---
 
-## ਸਵਾਲ 242 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
+## ਸਵਾਲ 166 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
 
 - Source record: INE-CP005-4AD71E47
 - ਬੀਜ: 5
@@ -7225,7 +4925,7 @@
 
 ---
 
-## ਸਵਾਲ 243 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
+## ਸਵਾਲ 167 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
 
 - Source record: INE-CP005-7E737742
 - ਬੀਜ: 6
@@ -7257,7 +4957,7 @@
 
 ---
 
-## ਸਵਾਲ 244 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
+## ਸਵਾਲ 168 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
 
 - Source record: INE-CP005-26B8E635
 - ਬੀਜ: 7
@@ -7289,7 +4989,7 @@
 
 ---
 
-## ਸਵਾਲ 245 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
+## ਸਵਾਲ 169 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
 
 - Source record: INE-CP005-D166FF30
 - ਬੀਜ: 8
@@ -7323,7 +5023,7 @@
 
 ---
 
-## ਸਵਾਲ 246 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
+## ਸਵਾਲ 170 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
 
 - Source record: INE-CP005-E28EC6FB
 - ਬੀਜ: 9
@@ -7357,7 +5057,7 @@
 
 ---
 
-## ਸਵਾਲ 247 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
+## ਸਵਾਲ 171 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
 
 - Source record: INE-CP005-FBDD2A47
 - ਬੀਜ: 10
@@ -7390,7 +5090,7 @@
 
 ---
 
-## ਸਵਾਲ 248 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
+## ਸਵਾਲ 172 — INE-CP-005 / EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS
 
 - Source record: INE-CP005-A8F53FFC
 - ਬੀਜ: 11
@@ -7423,7 +5123,7 @@
 
 ---
 
-## ਸਵਾਲ 249 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 173 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-754FFE78
 - ਬੀਜ: 0
@@ -7457,7 +5157,7 @@
 
 ---
 
-## ਸਵਾਲ 250 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 174 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-C2ADD075
 - ਬੀਜ: 0
@@ -7496,7 +5196,7 @@
 
 ---
 
-## ਸਵਾਲ 251 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 175 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-CD80927B
 - ਬੀਜ: 1
@@ -7530,7 +5230,7 @@
 
 ---
 
-## ਸਵਾਲ 252 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 176 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-3A31B9AA
 - ਬੀਜ: 1
@@ -7569,7 +5269,7 @@
 
 ---
 
-## ਸਵਾਲ 253 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 177 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-75D94A8E
 - ਬੀਜ: 2
@@ -7603,7 +5303,7 @@
 
 ---
 
-## ਸਵਾਲ 254 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 178 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-88476217
 - ਬੀਜ: 2
@@ -7642,7 +5342,7 @@
 
 ---
 
-## ਸਵਾਲ 255 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 179 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-0F65A8F9
 - ਬੀਜ: 3
@@ -7676,7 +5376,7 @@
 
 ---
 
-## ਸਵਾਲ 256 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 180 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-C846F3C4
 - ਬੀਜ: 3
@@ -7715,7 +5415,7 @@
 
 ---
 
-## ਸਵਾਲ 257 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 181 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-2C88C71C
 - ਬੀਜ: 4
@@ -7749,7 +5449,7 @@
 
 ---
 
-## ਸਵਾਲ 258 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 182 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-F2DC2741
 - ਬੀਜ: 4
@@ -7789,7 +5489,7 @@
 
 ---
 
-## ਸਵਾਲ 259 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 183 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-D4CE360F
 - ਬੀਜ: 5
@@ -7823,7 +5523,7 @@
 
 ---
 
-## ਸਵਾਲ 260 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 184 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-AE5E4CF6
 - ਬੀਜ: 5
@@ -7863,7 +5563,7 @@
 
 ---
 
-## ਸਵਾਲ 261 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 185 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-AA048A22
 - ਬੀਜ: 6
@@ -7897,7 +5597,7 @@
 
 ---
 
-## ਸਵਾਲ 262 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 186 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-FD386FE3
 - ਬੀਜ: 6
@@ -7937,7 +5637,7 @@
 
 ---
 
-## ਸਵਾਲ 263 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 187 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-FCEC746D
 - ਬੀਜ: 7
@@ -7971,7 +5671,7 @@
 
 ---
 
-## ਸਵਾਲ 264 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 188 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-252EB860
 - ਬੀਜ: 7
@@ -8011,7 +5711,7 @@
 
 ---
 
-## ਸਵਾਲ 265 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 189 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-87610D40
 - ਬੀਜ: 8
@@ -8045,7 +5745,7 @@
 
 ---
 
-## ਸਵਾਲ 266 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 190 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-B6E4138D
 - ਬੀਜ: 8
@@ -8084,7 +5784,7 @@
 
 ---
 
-## ਸਵਾਲ 267 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 191 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-6F74C5C3
 - ਬੀਜ: 9
@@ -8118,7 +5818,7 @@
 
 ---
 
-## ਸਵਾਲ 268 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 192 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-072E40C2
 - ਬੀਜ: 9
@@ -8157,7 +5857,7 @@
 
 ---
 
-## ਸਵਾਲ 269 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 193 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-AABB3833
 - ਬੀਜ: 10
@@ -8191,7 +5891,7 @@
 
 ---
 
-## ਸਵਾਲ 270 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 194 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-D586849C
 - ਬੀਜ: 10
@@ -8230,7 +5930,7 @@
 
 ---
 
-## ਸਵਾਲ 271 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 195 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-F1670930
 - ਬੀਜ: 11
@@ -8264,7 +5964,7 @@
 
 ---
 
-## ਸਵਾਲ 272 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 196 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-7DCBF38F
 - ਬੀਜ: 11
@@ -8303,7 +6003,7 @@
 
 ---
 
-## ਸਵਾਲ 273 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 197 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-33577C51
 - ਬੀਜ: 12
@@ -8337,7 +6037,7 @@
 
 ---
 
-## ਸਵਾਲ 274 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 198 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-530247A2
 - ਬੀਜ: 12
@@ -8377,7 +6077,7 @@
 
 ---
 
-## ਸਵਾਲ 275 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 199 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-EEB3FCC6
 - ਬੀਜ: 13
@@ -8411,7 +6111,7 @@
 
 ---
 
-## ਸਵਾਲ 276 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 200 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-A5EA31ED
 - ਬੀਜ: 13
@@ -8451,7 +6151,7 @@
 
 ---
 
-## ਸਵਾਲ 277 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 201 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-1E1FB227
 - ਬੀਜ: 14
@@ -8485,7 +6185,7 @@
 
 ---
 
-## ਸਵਾਲ 278 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 202 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-1E4DBBF8
 - ਬੀਜ: 14
@@ -8525,7 +6225,7 @@
 
 ---
 
-## ਸਵਾਲ 279 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 203 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-0D2B6194
 - ਬੀਜ: 15
@@ -8559,7 +6259,7 @@
 
 ---
 
-## ਸਵਾਲ 280 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 204 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-767E4FFB
 - ਬੀਜ: 15
@@ -8599,7 +6299,7 @@
 
 ---
 
-## ਸਵਾਲ 281 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 205 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-A5D61B45
 - ਬੀਜ: 16
@@ -8633,7 +6333,7 @@
 
 ---
 
-## ਸਵਾਲ 282 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 206 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-1ED7080E
 - ਬੀਜ: 16
@@ -8672,7 +6372,7 @@
 
 ---
 
-## ਸਵਾਲ 283 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 207 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-A9C8B9FA
 - ਬੀਜ: 17
@@ -8706,7 +6406,7 @@
 
 ---
 
-## ਸਵਾਲ 284 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 208 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-B8636679
 - ਬੀਜ: 17
@@ -8745,7 +6445,7 @@
 
 ---
 
-## ਸਵਾਲ 285 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 209 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-11D4536B
 - ਬੀਜ: 18
@@ -8779,7 +6479,7 @@
 
 ---
 
-## ਸਵਾਲ 286 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 210 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-5A039CA4
 - ਬੀਜ: 18
@@ -8818,7 +6518,7 @@
 
 ---
 
-## ਸਵਾਲ 287 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
+## ਸਵਾਲ 211 — INE-CP-006 / SOLVE_FIXED_MAP_CODED_CHAIN
 
 - Source record: INE-CP006-EC686E68
 - ਬੀਜ: 19
@@ -8852,7 +6552,7 @@
 
 ---
 
-## ਸਵਾਲ 288 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
+## ਸਵਾਲ 212 — INE-CP-006 / EVALUATE_FIXED_MAP_CODED_CONCLUSIONS
 
 - Source record: INE-CP006-4CA9B1F7
 - ਬੀਜ: 19
@@ -8891,279 +6591,7 @@
 
 ---
 
-## ਸਵਾਲ 289 — INE-CP-006 / DECODE_FIXED_MAP_RELATION
-
-- Source record: INE-CP006-DA8A71BC
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਦਿੱਤੀ ਕੋਡ ਕੁੰਜੀ ਅਨੁਸਾਰ ਕੋਡਿਤ ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਆਮ ਸੰਬੰਧ ਕਿਹੜਾ ਹੈ?
-
-**ਕਥਨ**
-
-1. Q ▲ B
-
-**ਕੋਡ ਕੁੰਜੀ**
-
-1. A ▲ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਹੈ।
-2. A ■ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਹੈ।
-3. A ★ B ਦਾ ਅਰਥ ਹੈ: A, B ਦੇ ਬਰਾਬਰ ਹੈ।
-4. A ◆ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-5. A ● B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. Q ≤ B
-2. Q > B
-3. Q = B
-4. Q < B
-
-**ਸਹੀ ਉੱਤਰ:** 2. Q > B
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: Q > B। ਕੋਡ ਖੋਲ੍ਹ ਕੇ ਸੰਬੰਧ ਜੋੜਨ 'ਤੇ ਸਹੀ ਉੱਤਰ Q > B ਮਿਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 290 — INE-CP-006 / ENCODE_FIXED_MAP_RELATION
-
-- Source record: INE-CP006-B627BB50
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਦਿੱਤੀ ਕੋਡ ਕੁੰਜੀ ਅਨੁਸਾਰ ਆਮ ਸੰਬੰਧ ਨੂੰ ਕਿਹੜੀ ਚੋਣ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਕੋਡ ਕਰਦੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. D < A
-
-**ਕੋਡ ਕੁੰਜੀ**
-
-1. A ▲ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਹੈ।
-2. A ■ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਹੈ।
-3. A ★ B ਦਾ ਅਰਥ ਹੈ: A, B ਦੇ ਬਰਾਬਰ ਹੈ।
-4. A ◆ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-5. A ● B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. D ★ A
-2. D ■ A
-3. D ● A
-4. D ◆ A
-
-**ਸਹੀ ਉੱਤਰ:** 2. D ■ A
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: D < A। ਕੋਡ ਖੋਲ੍ਹ ਕੇ ਸੰਬੰਧ ਜੋੜਨ 'ਤੇ ਸਹੀ ਉੱਤਰ D ■ A ਮਿਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 291 — INE-CP-006 / DECODE_FIXED_MAP_RELATION
-
-- Source record: INE-CP006-37ACA12F
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਦਿੱਤੀ ਕੋਡ ਕੁੰਜੀ ਅਨੁਸਾਰ ਕੋਡਿਤ ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਆਮ ਸੰਬੰਧ ਕਿਹੜਾ ਹੈ?
-
-**ਕਥਨ**
-
-1. P ⊖ A
-
-**ਕੋਡ ਕੁੰਜੀ**
-
-1. A ⊖ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਹੈ।
-2. A ⊗ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਹੈ।
-3. A ⊕ B ਦਾ ਅਰਥ ਹੈ: A, B ਦੇ ਬਰਾਬਰ ਹੈ।
-4. A ⊙ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-5. A ⊘ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. ਸੰਬੰਧ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-2. P = A
-3. P < A
-4. P > A
-
-**ਸਹੀ ਉੱਤਰ:** 4. P > A
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P > A। ਕੋਡ ਖੋਲ੍ਹ ਕੇ ਸੰਬੰਧ ਜੋੜਨ 'ਤੇ ਸਹੀ ਉੱਤਰ P > A ਮਿਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 292 — INE-CP-006 / ENCODE_FIXED_MAP_RELATION
-
-- Source record: INE-CP006-998327D3
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਦਿੱਤੀ ਕੋਡ ਕੁੰਜੀ ਅਨੁਸਾਰ ਆਮ ਸੰਬੰਧ ਨੂੰ ਕਿਹੜੀ ਚੋਣ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਕੋਡ ਕਰਦੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. C > D
-
-**ਕੋਡ ਕੁੰਜੀ**
-
-1. A ⊖ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਹੈ।
-2. A ⊗ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਹੈ।
-3. A ⊕ B ਦਾ ਅਰਥ ਹੈ: A, B ਦੇ ਬਰਾਬਰ ਹੈ।
-4. A ⊙ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-5. A ⊘ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. C ⊕ D
-2. C ⊘ D
-3. C ⊖ D
-4. C ⊙ D
-
-**ਸਹੀ ਉੱਤਰ:** 3. C ⊖ D
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: C > D। ਕੋਡ ਖੋਲ੍ਹ ਕੇ ਸੰਬੰਧ ਜੋੜਨ 'ਤੇ ਸਹੀ ਉੱਤਰ C ⊖ D ਮਿਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 293 — INE-CP-006 / DECODE_FIXED_MAP_RELATION
-
-- Source record: INE-CP006-548A78C2
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਦਿੱਤੀ ਕੋਡ ਕੁੰਜੀ ਅਨੁਸਾਰ ਕੋਡਿਤ ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਆਮ ਸੰਬੰਧ ਕਿਹੜਾ ਹੈ?
-
-**ਕਥਨ**
-
-1. A ★ D
-
-**ਕੋਡ ਕੁੰਜੀ**
-
-1. A ◆ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਹੈ।
-2. A ● B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਹੈ।
-3. A ★ B ਦਾ ਅਰਥ ਹੈ: A, B ਦੇ ਬਰਾਬਰ ਹੈ।
-4. A ▲ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-5. A ■ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. ਸੰਬੰਧ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ
-2. A < D
-3. A = D
-4. A ≥ D
-
-**ਸਹੀ ਉੱਤਰ:** 3. A = D
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: A = D। ਕੋਡ ਖੋਲ੍ਹ ਕੇ ਸੰਬੰਧ ਜੋੜਨ 'ਤੇ ਸਹੀ ਉੱਤਰ A = D ਮਿਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 294 — INE-CP-006 / ENCODE_FIXED_MAP_RELATION
-
-- Source record: INE-CP006-B0F00966
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਦਿੱਤੀ ਕੋਡ ਕੁੰਜੀ ਅਨੁਸਾਰ ਆਮ ਸੰਬੰਧ ਨੂੰ ਕਿਹੜੀ ਚੋਣ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਕੋਡ ਕਰਦੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. A = D
-
-**ਕੋਡ ਕੁੰਜੀ**
-
-1. A ◆ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਹੈ।
-2. A ● B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਹੈ।
-3. A ★ B ਦਾ ਅਰਥ ਹੈ: A, B ਦੇ ਬਰਾਬਰ ਹੈ।
-4. A ▲ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-5. A ■ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. A ▲ D
-2. A ◆ D
-3. A ● D
-4. A ★ D
-
-**ਸਹੀ ਉੱਤਰ:** 4. A ★ D
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: A = D। ਕੋਡ ਖੋਲ੍ਹ ਕੇ ਸੰਬੰਧ ਜੋੜਨ 'ਤੇ ਸਹੀ ਉੱਤਰ A ★ D ਮਿਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 295 — INE-CP-006 / DECODE_FIXED_MAP_RELATION
-
-- Source record: INE-CP006-04404B8D
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਦਿੱਤੀ ਕੋਡ ਕੁੰਜੀ ਅਨੁਸਾਰ ਕੋਡਿਤ ਕਥਨ ਦਾ ਬਿਲਕੁਲ ਉਹੀ ਆਮ ਸੰਬੰਧ ਕਿਹੜਾ ਹੈ?
-
-**ਕਥਨ**
-
-1. B ⊕ C
-
-**ਕੋਡ ਕੁੰਜੀ**
-
-1. A ⊘ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਹੈ।
-2. A ⊗ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਹੈ।
-3. A ⊙ B ਦਾ ਅਰਥ ਹੈ: A, B ਦੇ ਬਰਾਬਰ ਹੈ।
-4. A ⊖ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-5. A ⊕ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. B ≤ C
-2. B = C
-3. B < C
-4. B ≥ C
-
-**ਸਹੀ ਉੱਤਰ:** 1. B ≤ C
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: B ≤ C। ਕੋਡ ਖੋਲ੍ਹ ਕੇ ਸੰਬੰਧ ਜੋੜਨ 'ਤੇ ਸਹੀ ਉੱਤਰ B ≤ C ਮਿਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 296 — INE-CP-006 / ENCODE_FIXED_MAP_RELATION
-
-- Source record: INE-CP006-7319E971
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: EASY
-- Content class: GUIDED_ONLY
-
-ਦਿੱਤੀ ਕੋਡ ਕੁੰਜੀ ਅਨੁਸਾਰ ਆਮ ਸੰਬੰਧ ਨੂੰ ਕਿਹੜੀ ਚੋਣ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਕੋਡ ਕਰਦੀ ਹੈ?
-
-**ਕਥਨ**
-
-1. P ≥ B
-
-**ਕੋਡ ਕੁੰਜੀ**
-
-1. A ⊘ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਹੈ।
-2. A ⊗ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਹੈ।
-3. A ⊙ B ਦਾ ਅਰਥ ਹੈ: A, B ਦੇ ਬਰਾਬਰ ਹੈ।
-4. A ⊖ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-5. A ⊕ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-
-**ਚੋਣਾਂ**
-
-1. P ⊖ B
-2. P ⊕ B
-3. P ⊙ B
-4. P ⊘ B
-
-**ਸਹੀ ਉੱਤਰ:** 1. P ⊖ B
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P ≥ B। ਕੋਡ ਖੋਲ੍ਹ ਕੇ ਸੰਬੰਧ ਜੋੜਨ 'ਤੇ ਸਹੀ ਉੱਤਰ P ⊖ B ਮਿਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 297 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
+## ਸਵਾਲ 213 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
 
 - Source record: INE-CP007-EDC33F7F
 - ਬੀਜ: 0
@@ -9198,7 +6626,7 @@
 
 ---
 
-## ਸਵਾਲ 298 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
+## ਸਵਾਲ 214 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
 
 - Source record: INE-CP007-D49A0CB4
 - ਬੀਜ: 1
@@ -9233,7 +6661,7 @@
 
 ---
 
-## ਸਵਾਲ 299 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
+## ਸਵਾਲ 215 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
 
 - Source record: INE-CP007-724FF02D
 - ਬੀਜ: 2
@@ -9268,7 +6696,7 @@
 
 ---
 
-## ਸਵਾਲ 300 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
+## ਸਵਾਲ 216 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
 
 - Source record: INE-CP007-217E131A
 - ਬੀਜ: 3
@@ -9303,7 +6731,7 @@
 
 ---
 
-## ਸਵਾਲ 301 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
+## ਸਵਾਲ 217 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
 
 - Source record: INE-CP007-A14A360B
 - ਬੀਜ: 4
@@ -9338,7 +6766,7 @@
 
 ---
 
-## ਸਵਾਲ 302 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
+## ਸਵਾਲ 218 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
 
 - Source record: INE-CP007-926A3F00
 - ਬੀਜ: 5
@@ -9373,7 +6801,7 @@
 
 ---
 
-## ਸਵਾਲ 303 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
+## ਸਵਾਲ 219 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
 
 - Source record: INE-CP007-D9950BB9
 - ਬੀਜ: 6
@@ -9408,7 +6836,7 @@
 
 ---
 
-## ਸਵਾਲ 304 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
+## ਸਵਾਲ 220 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
 
 - Source record: INE-CP007-689B6D36
 - ਬੀਜ: 7
@@ -9443,7 +6871,7 @@
 
 ---
 
-## ਸਵਾਲ 305 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
+## ਸਵਾਲ 221 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
 
 - Source record: INE-CP007-25DBB597
 - ਬੀਜ: 8
@@ -9478,7 +6906,7 @@
 
 ---
 
-## ਸਵਾਲ 306 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
+## ਸਵਾਲ 222 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
 
 - Source record: INE-CP007-A160E60C
 - ਬੀਜ: 9
@@ -9513,7 +6941,7 @@
 
 ---
 
-## ਸਵਾਲ 307 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
+## ਸਵਾਲ 223 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
 
 - Source record: INE-CP007-1C755E72
 - ਬੀਜ: 10
@@ -9548,7 +6976,7 @@
 
 ---
 
-## ਸਵਾਲ 308 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
+## ਸਵਾਲ 224 — INE-CP-007 / COMPLETE_MISSING_CODED_OPERATOR
 
 - Source record: INE-CP007-15C1D4A5
 - ਬੀਜ: 11
@@ -9583,7 +7011,7 @@
 
 ---
 
-## ਸਵਾਲ 309 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
+## ਸਵਾਲ 225 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
 
 - Source record: INE-CP007-4F707DFB
 - ਬੀਜ: 0
@@ -9617,7 +7045,7 @@
 
 ---
 
-## ਸਵਾਲ 310 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
+## ਸਵਾਲ 226 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
 
 - Source record: INE-CP007-3E48B630
 - ਬੀਜ: 1
@@ -9651,7 +7079,7 @@
 
 ---
 
-## ਸਵਾਲ 311 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
+## ਸਵਾਲ 227 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
 
 - Source record: INE-CP007-2E412CE9
 - ਬੀਜ: 2
@@ -9685,7 +7113,7 @@
 
 ---
 
-## ਸਵਾਲ 312 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
+## ਸਵਾਲ 228 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
 
 - Source record: INE-CP007-462D7466
 - ਬੀਜ: 3
@@ -9719,7 +7147,7 @@
 
 ---
 
-## ਸਵਾਲ 313 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
+## ਸਵਾਲ 229 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
 
 - Source record: INE-CP007-59938BAF
 - ਬੀਜ: 4
@@ -9753,7 +7181,7 @@
 
 ---
 
-## ਸਵਾਲ 314 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
+## ਸਵਾਲ 230 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
 
 - Source record: INE-CP007-5D18D164
 - ਬੀਜ: 5
@@ -9787,7 +7215,7 @@
 
 ---
 
-## ਸਵਾਲ 315 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
+## ਸਵਾਲ 231 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
 
 - Source record: INE-CP007-62785B9D
 - ਬੀਜ: 6
@@ -9821,7 +7249,7 @@
 
 ---
 
-## ਸਵਾਲ 316 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
+## ਸਵਾਲ 232 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
 
 - Source record: INE-CP007-6FD2464A
 - ਬੀਜ: 7
@@ -9855,7 +7283,7 @@
 
 ---
 
-## ਸਵਾਲ 317 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
+## ਸਵਾਲ 233 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
 
 - Source record: INE-CP007-CA3209D3
 - ਬੀਜ: 8
@@ -9889,7 +7317,7 @@
 
 ---
 
-## ਸਵਾਲ 318 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
+## ਸਵਾਲ 234 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
 
 - Source record: INE-CP007-30A5AB68
 - ਬੀਜ: 9
@@ -9923,7 +7351,7 @@
 
 ---
 
-## ਸਵਾਲ 319 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
+## ਸਵਾਲ 235 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
 
 - Source record: INE-CP007-D9029406
 - ਬੀਜ: 10
@@ -9957,7 +7385,7 @@
 
 ---
 
-## ਸਵਾਲ 320 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
+## ਸਵਾਲ 236 — INE-CP-007 / SELECT_CODED_EXPRESSION_FOR_RELATION
 
 - Source record: INE-CP007-B10C4B89
 - ਬੀਜ: 11
@@ -9991,287 +7419,7 @@
 
 ---
 
-## ਸਵਾਲ 321 — INE-CP-007 / RECOVER_MISSING_MAP_ENTRY
-
-- Source record: INE-CP007-C77F46B9
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਪਰਖ ਦੇ ਨਤੀਜਿਆਂ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ਕੋਡ-ਚਿੰਨ੍ਹ '%' ਦਾ ਕੀ ਅਰਥ ਹੈ।
-
-**ਕੋਡ ਕੁੰਜੀ**
-
-1. A $ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਹੈ।
-2. A @ B ਦਾ ਅਰਥ ਹੈ: A, B ਦੇ ਬਰਾਬਰ ਹੈ।
-3. A # B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-
-**ਦਿੱਤੀ ਜਾਣਕਾਰੀ**
-
-1. ਪੰਜੇ ਚਿੰਨ੍ਹਾਂ ਦੇ ਪੰਜ ਵੱਖਰੇ ਅਰਥ ਹਨ: >, <, =, ≥ ਅਤੇ ≤।
-2. % ਲਈ ਕੇਵਲ ਦੋ ਅਰਥ ਬਚੇ ਹਨ: > ਜਾਂ ≥।
-3. 8 % 3 ਸਹੀ ਹੈ
-4. 5 % 5 ਗਲਤ ਹੈ
-
-**ਚੋਣਾਂ**
-
-1. ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ (≤)
-2. ਬਰਾਬਰ (=)
-3. ਵੱਡਾ (>)
-4. ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ (≥)
-
-**ਸਹੀ ਉੱਤਰ:** 3. ਵੱਡਾ (>)
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਪਰਖਾਂ ਵਿੱਚ ਬਰਾਬਰ ਮੁੱਲ ਵਾਲੀ ਉਦਾਹਰਨ ਗਲਤ ਹੈ, ਇਸ ਲਈ ਸਮਾਵੇਸ਼ੀ ਸੰਬੰਧ ਹਟ ਜਾਂਦਾ ਹੈ। ਇਸ ਕਰਕੇ ਕੋਡ-ਚਿੰਨ੍ਹ ਦਾ ਅਰਥ ਵੱਡਾ (>) ਹੈ।
-
----
-
-## ਸਵਾਲ 322 — INE-CP-007 / RECOVER_MISSING_MAP_ENTRY
-
-- Source record: INE-CP007-5685A836
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਪਰਖ ਦੇ ਨਤੀਜਿਆਂ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ਕੋਡ-ਚਿੰਨ੍ਹ '?' ਦਾ ਕੀ ਅਰਥ ਹੈ।
-
-**ਕੋਡ ਕੁੰਜੀ**
-
-1. A ^ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਹੈ।
-2. A ! B ਦਾ ਅਰਥ ਹੈ: A, B ਦੇ ਬਰਾਬਰ ਹੈ।
-3. A ~ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-
-**ਦਿੱਤੀ ਜਾਣਕਾਰੀ**
-
-1. ਪੰਜੇ ਚਿੰਨ੍ਹਾਂ ਦੇ ਪੰਜ ਵੱਖਰੇ ਅਰਥ ਹਨ: >, <, =, ≥ ਅਤੇ ≤।
-2. ? ਲਈ ਕੇਵਲ ਦੋ ਅਰਥ ਬਚੇ ਹਨ: < ਜਾਂ ≤।
-3. 7 ? 12 ਸਹੀ ਹੈ
-4. 9 ? 9 ਗਲਤ ਹੈ
-
-**ਚੋਣਾਂ**
-
-1. ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ (≤)
-2. ਛੋਟਾ (<)
-3. ਬਰਾਬਰ (=)
-4. ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ (≥)
-
-**ਸਹੀ ਉੱਤਰ:** 2. ਛੋਟਾ (<)
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਪਰਖਾਂ ਵਿੱਚ ਬਰਾਬਰ ਮੁੱਲ ਵਾਲੀ ਉਦਾਹਰਨ ਗਲਤ ਹੈ, ਇਸ ਲਈ ਸਮਾਵੇਸ਼ੀ ਸੰਬੰਧ ਹਟ ਜਾਂਦਾ ਹੈ। ਇਸ ਕਰਕੇ ਕੋਡ-ਚਿੰਨ੍ਹ ਦਾ ਅਰਥ ਛੋਟਾ (<) ਹੈ।
-
----
-
-## ਸਵਾਲ 323 — INE-CP-007 / RECOVER_MISSING_MAP_ENTRY
-
-- Source record: INE-CP007-8F34710B
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਪਰਖ ਦੇ ਨਤੀਜਿਆਂ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ਕੋਡ-ਚਿੰਨ੍ਹ '#' ਦਾ ਕੀ ਅਰਥ ਹੈ।
-
-**ਕੋਡ ਕੁੰਜੀ**
-
-1. A % B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਵੱਡਾ ਹੈ।
-2. A $ B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਹੈ।
-3. A & B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-
-**ਦਿੱਤੀ ਜਾਣਕਾਰੀ**
-
-1. ਪੰਜੇ ਚਿੰਨ੍ਹਾਂ ਦੇ ਪੰਜ ਵੱਖਰੇ ਅਰਥ ਹਨ: >, <, =, ≥ ਅਤੇ ≤।
-2. # ਲਈ ਕੇਵਲ ਦੋ ਅਰਥ ਬਚੇ ਹਨ: = ਜਾਂ ≥।
-3. 11 # 11 ਸਹੀ ਹੈ
-4. 15 # 6 ਗਲਤ ਹੈ
-
-**ਚੋਣਾਂ**
-
-1. ਛੋਟਾ (<)
-2. ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ (≥)
-3. ਵੱਡਾ (>)
-4. ਬਰਾਬਰ (=)
-
-**ਸਹੀ ਉੱਤਰ:** 4. ਬਰਾਬਰ (=)
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਪਰਖਾਂ ਵਿੱਚ ਬਰਾਬਰ ਮੁੱਲ ਵਾਲੀ ਉਦਾਹਰਨ ਗਲਤ ਹੈ, ਇਸ ਲਈ ਸਮਾਵੇਸ਼ੀ ਸੰਬੰਧ ਹਟ ਜਾਂਦਾ ਹੈ। ਇਸ ਕਰਕੇ ਕੋਡ-ਚਿੰਨ੍ਹ ਦਾ ਅਰਥ ਬਰਾਬਰ (=) ਹੈ।
-
----
-
-## ਸਵਾਲ 324 — INE-CP-007 / RECOVER_MISSING_MAP_ENTRY
-
-- Source record: INE-CP007-80547A00
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਪਰਖ ਦੇ ਨਤੀਜਿਆਂ ਤੋਂ ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ਕੋਡ-ਚਿੰਨ੍ਹ '?' ਦਾ ਕੀ ਅਰਥ ਹੈ।
-
-**ਕੋਡ ਕੁੰਜੀ**
-
-1. A + B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਹੈ।
-2. A ^ B ਦਾ ਅਰਥ ਹੈ: A, B ਦੇ ਬਰਾਬਰ ਹੈ।
-3. A ! B ਦਾ ਅਰਥ ਹੈ: A, B ਤੋਂ ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ ਹੈ।
-
-**ਦਿੱਤੀ ਜਾਣਕਾਰੀ**
-
-1. ਪੰਜੇ ਚਿੰਨ੍ਹਾਂ ਦੇ ਪੰਜ ਵੱਖਰੇ ਅਰਥ ਹਨ: >, <, =, ≥ ਅਤੇ ≤।
-2. ? ਲਈ ਕੇਵਲ ਦੋ ਅਰਥ ਬਚੇ ਹਨ: ≥ ਜਾਂ >।
-3. 21 ? 14 ਸਹੀ ਹੈ
-4. 8 ? 8 ਸਹੀ ਹੈ
-
-**ਚੋਣਾਂ**
-
-1. ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ (≥)
-2. ਛੋਟਾ (<)
-3. ਬਰਾਬਰ (=)
-4. ਛੋਟਾ ਜਾਂ ਬਰਾਬਰ (≤)
-
-**ਸਹੀ ਉੱਤਰ:** 1. ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ (≥)
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਪਰਖਾਂ ਵਿੱਚ ਬਰਾਬਰ ਮੁੱਲ ਵਾਲੀ ਉਦਾਹਰਨ ਗਲਤ ਹੈ, ਇਸ ਲਈ ਸਮਾਵੇਸ਼ੀ ਸੰਬੰਧ ਹਟ ਜਾਂਦਾ ਹੈ। ਇਸ ਕਰਕੇ ਕੋਡ-ਚਿੰਨ੍ਹ ਦਾ ਅਰਥ ਵੱਡਾ ਜਾਂ ਬਰਾਬਰ (≥) ਹੈ।
-
----
-
-## ਸਵਾਲ 325 — INE-CP-007 / IDENTIFY_ONLY_CONSISTENT_CODE_MAP
-
-- Source record: INE-CP007-54273303
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜਾ ਪੂਰਾ ਕੋਡ-ਨਕਸ਼ਾ ਸਾਰੇ ਪਰਖ ਨਤੀਜਿਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ?
-
-**ਦਿੱਤੀ ਜਾਣਕਾਰੀ**
-
-1. 8 % 3 ਸਹੀ ਹੈ
-2. 5 % 5 ਗਲਤ ਹੈ
-3. 3 $ 8 ਸਹੀ ਹੈ
-4. 5 $ 5 ਗਲਤ ਹੈ
-5. 5 @ 5 ਸਹੀ ਹੈ
-6. 8 @ 3 ਗਲਤ ਹੈ
-7. 8 & 3 ਸਹੀ ਹੈ
-8. 5 & 5 ਸਹੀ ਹੈ
-9. 3 # 8 ਸਹੀ ਹੈ
-10. 5 # 5 ਸਹੀ ਹੈ
-
-**ਚੋਣਾਂ**
-
-1. % = >, $ = <, @ = =, & = ≥, # = ≤
-2. % = >, $ = ≤, @ = =, & = ≥, # = <
-3. % = =, $ = <, @ = >, & = ≥, # = ≤
-4. % = ≤, $ = <, @ = =, & = ≥, # = >
-
-**ਸਹੀ ਉੱਤਰ:** 1. % = >, $ = <, @ = =, & = ≥, # = ≤
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਹਰ ਕੋਡ-ਚਿੰਨ੍ਹ ਨੂੰ ਦਿੱਤੀਆਂ ਸਹੀ ਅਤੇ ਗਲਤ ਉਦਾਹਰਨਾਂ 'ਤੇ ਜਾਂਚੋ। ਕੇਵਲ % = >, $ = <, @ = =, & = ≥, # = ≤ ਸਾਰੇ ਨਤੀਜਿਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 326 — INE-CP-007 / IDENTIFY_ONLY_CONSISTENT_CODE_MAP
-
-- Source record: INE-CP007-E513A458
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜਾ ਪੂਰਾ ਕੋਡ-ਨਕਸ਼ਾ ਸਾਰੇ ਪਰਖ ਨਤੀਜਿਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ?
-
-**ਦਿੱਤੀ ਜਾਣਕਾਰੀ**
-
-1. 12 ^ 7 ਸਹੀ ਹੈ
-2. 9 ^ 9 ਗਲਤ ਹੈ
-3. 7 ? 12 ਸਹੀ ਹੈ
-4. 9 ? 9 ਗਲਤ ਹੈ
-5. 9 ! 9 ਸਹੀ ਹੈ
-6. 12 ! 7 ਗਲਤ ਹੈ
-7. 12 ~ 7 ਸਹੀ ਹੈ
-8. 9 ~ 9 ਸਹੀ ਹੈ
-9. 7 + 12 ਸਹੀ ਹੈ
-10. 9 + 9 ਸਹੀ ਹੈ
-
-**ਚੋਣਾਂ**
-
-1. ^ = ≤, ? = <, ! = =, ~ = ≥, + = >
-2. ^ = =, ? = <, ! = >, ~ = ≥, + = ≤
-3. ^ = >, ? = <, ! = =, ~ = ≥, + = ≤
-4. ^ = ≥, ? = <, ! = =, ~ = >, + = ≤
-
-**ਸਹੀ ਉੱਤਰ:** 3. ^ = >, ? = <, ! = =, ~ = ≥, + = ≤
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਹਰ ਕੋਡ-ਚਿੰਨ੍ਹ ਨੂੰ ਦਿੱਤੀਆਂ ਸਹੀ ਅਤੇ ਗਲਤ ਉਦਾਹਰਨਾਂ 'ਤੇ ਜਾਂਚੋ। ਕੇਵਲ ^ = >, ? = <, ! = =, ~ = ≥, + = ≤ ਸਾਰੇ ਨਤੀਜਿਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 327 — INE-CP-007 / IDENTIFY_ONLY_CONSISTENT_CODE_MAP
-
-- Source record: INE-CP007-4E4EC651
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜਾ ਪੂਰਾ ਕੋਡ-ਨਕਸ਼ਾ ਸਾਰੇ ਪਰਖ ਨਤੀਜਿਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ?
-
-**ਦਿੱਤੀ ਜਾਣਕਾਰੀ**
-
-1. 15 % 6 ਸਹੀ ਹੈ
-2. 11 % 11 ਗਲਤ ਹੈ
-3. 6 $ 15 ਸਹੀ ਹੈ
-4. 11 $ 11 ਗਲਤ ਹੈ
-5. 11 # 11 ਸਹੀ ਹੈ
-6. 15 # 6 ਗਲਤ ਹੈ
-7. 15 @ 6 ਸਹੀ ਹੈ
-8. 11 @ 11 ਸਹੀ ਹੈ
-9. 6 & 15 ਸਹੀ ਹੈ
-10. 11 & 11 ਸਹੀ ਹੈ
-
-**ਚੋਣਾਂ**
-
-1. % = >, $ = <, # = =, @ = ≤, & = ≥
-2. % = <, $ = >, # = =, @ = ≥, & = ≤
-3. % = =, $ = <, # = >, @ = ≥, & = ≤
-4. % = >, $ = <, # = =, @ = ≥, & = ≤
-
-**ਸਹੀ ਉੱਤਰ:** 4. % = >, $ = <, # = =, @ = ≥, & = ≤
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਹਰ ਕੋਡ-ਚਿੰਨ੍ਹ ਨੂੰ ਦਿੱਤੀਆਂ ਸਹੀ ਅਤੇ ਗਲਤ ਉਦਾਹਰਨਾਂ 'ਤੇ ਜਾਂਚੋ। ਕੇਵਲ % = >, $ = <, # = =, @ = ≥, & = ≤ ਸਾਰੇ ਨਤੀਜਿਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 328 — INE-CP-007 / IDENTIFY_ONLY_CONSISTENT_CODE_MAP
-
-- Source record: INE-CP007-A7F8C44E
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: MEDIUM
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜਾ ਪੂਰਾ ਕੋਡ-ਨਕਸ਼ਾ ਸਾਰੇ ਪਰਖ ਨਤੀਜਿਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ?
-
-**ਦਿੱਤੀ ਜਾਣਕਾਰੀ**
-
-1. 21 ~ 14 ਸਹੀ ਹੈ
-2. 8 ~ 8 ਗਲਤ ਹੈ
-3. 14 + 21 ਸਹੀ ਹੈ
-4. 8 + 8 ਗਲਤ ਹੈ
-5. 8 ^ 8 ਸਹੀ ਹੈ
-6. 21 ^ 14 ਗਲਤ ਹੈ
-7. 21 ? 14 ਸਹੀ ਹੈ
-8. 8 ? 8 ਸਹੀ ਹੈ
-9. 14 ! 21 ਸਹੀ ਹੈ
-10. 8 ! 8 ਸਹੀ ਹੈ
-
-**ਚੋਣਾਂ**
-
-1. ~ = ≥, + = <, ^ = =, ? = >, ! = ≤
-2. ~ = >, + = <, ^ = =, ? = ≥, ! = ≤
-3. ~ = <, + = >, ^ = =, ? = ≥, ! = ≤
-4. ~ = >, + = <, ^ = ≥, ? = =, ! = ≤
-
-**ਸਹੀ ਉੱਤਰ:** 2. ~ = >, + = <, ^ = =, ? = ≥, ! = ≤
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਹਰ ਕੋਡ-ਚਿੰਨ੍ਹ ਨੂੰ ਦਿੱਤੀਆਂ ਸਹੀ ਅਤੇ ਗਲਤ ਉਦਾਹਰਨਾਂ 'ਤੇ ਜਾਂਚੋ। ਕੇਵਲ ~ = >, + = <, ^ = =, ? = ≥, ! = ≤ ਸਾਰੇ ਨਤੀਜਿਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 329 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
+## ਸਵਾਲ 237 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
 
 - Source record: INE-CP008-B623AE34
 - ਬੀਜ: 0
@@ -10297,7 +7445,7 @@
 
 ---
 
-## ਸਵਾਲ 330 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
+## ਸਵਾਲ 238 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
 
 - Source record: INE-CP008-CF4CE0FF
 - ਬੀਜ: 1
@@ -10323,7 +7471,7 @@
 
 ---
 
-## ਸਵਾਲ 331 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
+## ਸਵਾਲ 239 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
 
 - Source record: INE-CP008-0307B49A
 - ਬੀਜ: 2
@@ -10349,7 +7497,7 @@
 
 ---
 
-## ਸਵਾਲ 332 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
+## ਸਵਾਲ 240 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
 
 - Source record: INE-CP008-53D991AD
 - ਬੀਜ: 3
@@ -10375,7 +7523,7 @@
 
 ---
 
-## ਸਵਾਲ 333 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
+## ਸਵਾਲ 241 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
 
 - Source record: INE-CP008-73F3E080
 - ਬੀਜ: 4
@@ -10401,7 +7549,7 @@
 
 ---
 
-## ਸਵਾਲ 334 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
+## ਸਵਾਲ 242 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
 
 - Source record: INE-CP008-82D3D78B
 - ਬੀਜ: 5
@@ -10427,7 +7575,7 @@
 
 ---
 
-## ਸਵਾਲ 335 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
+## ਸਵਾਲ 243 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
 
 - Source record: INE-CP008-4A250EB6
 - ਬੀਜ: 6
@@ -10453,7 +7601,7 @@
 
 ---
 
-## ਸਵਾਲ 336 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
+## ਸਵਾਲ 244 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
 
 - Source record: INE-CP008-BB1EAD39
 - ਬੀਜ: 7
@@ -10479,7 +7627,7 @@
 
 ---
 
-## ਸਵਾਲ 337 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
+## ਸਵਾਲ 245 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
 
 - Source record: INE-CP008-82EA878C
 - ਬੀਜ: 8
@@ -10505,7 +7653,7 @@
 
 ---
 
-## ਸਵਾਲ 338 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
+## ਸਵਾਲ 246 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
 
 - Source record: INE-CP008-07655717
 - ਬੀਜ: 9
@@ -10531,7 +7679,7 @@
 
 ---
 
-## ਸਵਾਲ 339 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
+## ਸਵਾਲ 247 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
 
 - Source record: INE-CP008-E659BF8B
 - ਬੀਜ: 10
@@ -10557,7 +7705,7 @@
 
 ---
 
-## ਸਵਾਲ 340 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
+## ਸਵਾਲ 248 — INE-CP-008 / RECONSTRUCT_MISSING_RELATION
 
 - Source record: INE-CP008-D779C880
 - ਬੀਜ: 11
@@ -10583,7 +7731,7 @@
 
 ---
 
-## ਸਵਾਲ 341 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
+## ਸਵਾਲ 249 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
 
 - Source record: INE-CP008-7F3DC2C0
 - ਬੀਜ: 0
@@ -10609,7 +7757,7 @@
 
 ---
 
-## ਸਵਾਲ 342 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
+## ਸਵਾਲ 250 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
 
 - Source record: INE-CP008-4167A2CB
 - ਬੀਜ: 1
@@ -10635,7 +7783,7 @@
 
 ---
 
-## ਸਵਾਲ 343 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
+## ਸਵਾਲ 251 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
 
 - Source record: INE-CP008-88757AF6
 - ਬੀਜ: 2
@@ -10661,7 +7809,7 @@
 
 ---
 
-## ਸਵਾਲ 344 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
+## ਸਵਾਲ 252 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
 
 - Source record: INE-CP008-6BD0E779
 - ਬੀਜ: 3
@@ -10687,7 +7835,7 @@
 
 ---
 
-## ਸਵਾਲ 345 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
+## ਸਵਾਲ 253 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
 
 - Source record: INE-CP008-B7D8E074
 - ਬੀਜ: 4
@@ -10713,7 +7861,7 @@
 
 ---
 
-## ਸਵਾਲ 346 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
+## ਸਵਾਲ 254 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
 
 - Source record: INE-CP008-D15FFB3F
 - ਬੀਜ: 5
@@ -10739,7 +7887,7 @@
 
 ---
 
-## ਸਵਾਲ 347 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
+## ਸਵਾਲ 255 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
 
 - Source record: INE-CP008-5D8D30DA
 - ਬੀਜ: 6
@@ -10765,7 +7913,7 @@
 
 ---
 
-## ਸਵਾਲ 348 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
+## ਸਵਾਲ 256 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
 
 - Source record: INE-CP008-78F0D1ED
 - ਬੀਜ: 7
@@ -10791,7 +7939,7 @@
 
 ---
 
-## ਸਵਾਲ 349 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
+## ਸਵਾਲ 257 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
 
 - Source record: INE-CP008-EE02C3B8
 - ਬੀਜ: 8
@@ -10817,7 +7965,7 @@
 
 ---
 
-## ਸਵਾਲ 350 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
+## ਸਵਾਲ 258 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
 
 - Source record: INE-CP008-B2734D63
 - ਬੀਜ: 9
@@ -10843,7 +7991,7 @@
 
 ---
 
-## ਸਵਾਲ 351 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
+## ਸਵਾਲ 259 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
 
 - Source record: INE-CP008-715400EF
 - ਬੀਜ: 10
@@ -10869,7 +8017,7 @@
 
 ---
 
-## ਸਵਾਲ 352 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
+## ਸਵਾਲ 260 — INE-CP-008 / SELECT_POSSIBLE_NOT_DEFINITE_CONCLUSION
 
 - Source record: INE-CP008-3F6B0AA4
 - ਬੀਜ: 11
@@ -10892,214 +8040,6 @@
 **ਸਹੀ ਉੱਤਰ:** 4. E = K
 
 **ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: E ≤ K; E = K। E = K ਕਥਨਾਂ ਦਾ ਵਿਰੋਧ ਨਹੀਂ ਕਰਦਾ, ਪਰ ਹਰ ਹਾਲਤ ਵਿੱਚ ਯਕੀਨੀ ਵੀ ਨਹੀਂ ਹੈ। ਇਸ ਲਈ ਇਹੀ ਸੰਭਵ ਉੱਤਰ ਹੈ।
-
----
-
-## ਸਵਾਲ 353 — INE-CP-008 / SELECT_SET_ESTABLISHING_RELATION
-
-- Source record: INE-CP008-E766A5E0
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜਾ ਕਥਨ-ਸਮੂਹ P > T ਨੂੰ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਯਕੀਨੀ ਅੰਤਲਾ ਸੰਬੰਧ ਬਣਾਉਂਦਾ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਲੋੜੀਂਦਾ ਅੰਤਲਾ ਸੰਬੰਧ: P > T
-
-**ਚੋਣਾਂ**
-
-1. P ≤ Q; Q = R; R < T
-2. P = Q; Q = R; R = T
-3. P ≥ Q; Q = R; R > T
-4. P ≤ Q; Q = R; R = T
-
-**ਸਹੀ ਉੱਤਰ:** 3. P ≥ Q; Q = R; R > T
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P ≥ Q = R > T; P > T। ਇਨ੍ਹਾਂ ਸੰਬੰਧਾਂ ਨੂੰ ਜੋੜਨ 'ਤੇ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਯਕੀਨੀ ਉੱਤਰ P ≥ Q; Q = R; R > T ਮਿਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 354 — INE-CP-008 / SELECT_SET_ESTABLISHING_RELATION
-
-- Source record: INE-CP008-69A9CB6B
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜਾ ਕਥਨ-ਸਮੂਹ A < K ਨੂੰ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਯਕੀਨੀ ਅੰਤਲਾ ਸੰਬੰਧ ਬਣਾਉਂਦਾ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਲੋੜੀਂਦਾ ਅੰਤਲਾ ਸੰਬੰਧ: A < K
-
-**ਚੋਣਾਂ**
-
-1. A ≤ D; D = F; F < K
-2. A ≤ D; D = F; F = K
-3. A = D; D = F; F = K
-4. A ≥ D; D = F; F > K
-
-**ਸਹੀ ਉੱਤਰ:** 1. A ≤ D; D = F; F < K
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: A ≤ D = F < K; A < K। ਇਨ੍ਹਾਂ ਸੰਬੰਧਾਂ ਨੂੰ ਜੋੜਨ 'ਤੇ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਯਕੀਨੀ ਉੱਤਰ A ≤ D; D = F; F < K ਮਿਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 355 — INE-CP-008 / SELECT_SET_ESTABLISHING_RELATION
-
-- Source record: INE-CP008-86F2FB96
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜਾ ਕਥਨ-ਸਮੂਹ M = V ਨੂੰ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਯਕੀਨੀ ਅੰਤਲਾ ਸੰਬੰਧ ਬਣਾਉਂਦਾ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਲੋੜੀਂਦਾ ਅੰਤਲਾ ਸੰਬੰਧ: M = V
-
-**ਚੋਣਾਂ**
-
-1. M ≥ N; N = O; O > V
-2. M ≤ N; N = O; O = V
-3. M ≤ N; N = O; O < V
-4. M = N; N = O; O = V
-
-**ਸਹੀ ਉੱਤਰ:** 4. M = N; N = O; O = V
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: M = N = O = V; M = V। ਇਨ੍ਹਾਂ ਸੰਬੰਧਾਂ ਨੂੰ ਜੋੜਨ 'ਤੇ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਯਕੀਨੀ ਉੱਤਰ M = N; N = O; O = V ਮਿਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 356 — INE-CP-008 / SELECT_SET_ESTABLISHING_RELATION
-
-- Source record: INE-CP008-4BAE5299
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਕਿਹੜਾ ਕਥਨ-ਸਮੂਹ B ≥ L ਨੂੰ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਯਕੀਨੀ ਅੰਤਲਾ ਸੰਬੰਧ ਬਣਾਉਂਦਾ ਹੈ?
-
-**ਕਥਨ**
-
-1. ਲੋੜੀਂਦਾ ਅੰਤਲਾ ਸੰਬੰਧ: B ≥ L
-
-**ਚੋਣਾਂ**
-
-1. B = C; C = G; G = L
-2. B ≥ C; C = G; G = L
-3. B ≤ C; C = G; G = L
-4. B ≤ C; C = G; G < L
-
-**ਸਹੀ ਉੱਤਰ:** 2. B ≥ C; C = G; G = L
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: B ≥ C = G = L; B ≥ L। ਇਨ੍ਹਾਂ ਸੰਬੰਧਾਂ ਨੂੰ ਜੋੜਨ 'ਤੇ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਯਕੀਨੀ ਉੱਤਰ B ≥ C; C = G; G = L ਮਿਲਦਾ ਹੈ।
-
----
-
-## ਸਵਾਲ 357 — INE-CP-008 / IDENTIFY_CONTRADICTORY_ADDITION
-
-- Source record: INE-CP008-FF516027
-- ਬੀਜ: 0
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਦਿੱਤੇ ਕਥਨਾਂ ਨਾਲ ਵਿਰੋਧ ਪੈਦਾ ਕੀਤੇ ਬਿਨਾਂ ਕਿਹੜਾ ਕਥਨ ਜੋੜਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ?
-
-**ਕਥਨ**
-
-1. P ≥ Q; Q > R; R = S; S ≥ T
-
-**ਚੋਣਾਂ**
-
-1. R ≥ T
-2. T ≥ P
-3. P > T
-4. Q > S
-
-**ਸਹੀ ਉੱਤਰ:** 2. T ≥ P
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: P ≥ Q > R = S ≥ T; P > T; T ≥ P। T ≥ P ਜੋੜਨ ਨਾਲ ਬਣੇ ਹੋਏ ਸੰਬੰਧ ਦਾ ਉਲਟ ਨਤੀਜਾ ਆਉਂਦਾ ਹੈ। ਇਸ ਲਈ ਇਹ ਕਥਨ ਨਹੀਂ ਜੋੜਿਆ ਜਾ ਸਕਦਾ।
-
----
-
-## ਸਵਾਲ 358 — INE-CP-008 / IDENTIFY_CONTRADICTORY_ADDITION
-
-- Source record: INE-CP008-F797015C
-- ਬੀਜ: 1
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਦਿੱਤੇ ਕਥਨਾਂ ਨਾਲ ਵਿਰੋਧ ਪੈਦਾ ਕੀਤੇ ਬਿਨਾਂ ਕਿਹੜਾ ਕਥਨ ਜੋੜਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ?
-
-**ਕਥਨ**
-
-1. A ≤ D; D < F; F = H; H ≤ K
-
-**ਚੋਣਾਂ**
-
-1. K ≤ A
-2. A < K
-3. D < H
-4. F ≤ K
-
-**ਸਹੀ ਉੱਤਰ:** 1. K ≤ A
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: A ≤ D < F = H ≤ K; A < K; K ≤ A। K ≤ A ਜੋੜਨ ਨਾਲ ਬਣੇ ਹੋਏ ਸੰਬੰਧ ਦਾ ਉਲਟ ਨਤੀਜਾ ਆਉਂਦਾ ਹੈ। ਇਸ ਲਈ ਇਹ ਕਥਨ ਨਹੀਂ ਜੋੜਿਆ ਜਾ ਸਕਦਾ।
-
----
-
-## ਸਵਾਲ 359 — INE-CP-008 / IDENTIFY_CONTRADICTORY_ADDITION
-
-- Source record: INE-CP008-6F98D515
-- ਬੀਜ: 2
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਦਿੱਤੇ ਕਥਨਾਂ ਨਾਲ ਵਿਰੋਧ ਪੈਦਾ ਕੀਤੇ ਬਿਨਾਂ ਕਿਹੜਾ ਕਥਨ ਜੋੜਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ?
-
-**ਕਥਨ**
-
-1. M ≥ N; N > O; O = U; U ≥ V
-
-**ਚੋਣਾਂ**
-
-1. N > U
-2. M > V
-3. O ≥ V
-4. V ≥ M
-
-**ਸਹੀ ਉੱਤਰ:** 4. V ≥ M
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: M ≥ N > O = U ≥ V; M > V; V ≥ M। V ≥ M ਜੋੜਨ ਨਾਲ ਬਣੇ ਹੋਏ ਸੰਬੰਧ ਦਾ ਉਲਟ ਨਤੀਜਾ ਆਉਂਦਾ ਹੈ। ਇਸ ਲਈ ਇਹ ਕਥਨ ਨਹੀਂ ਜੋੜਿਆ ਜਾ ਸਕਦਾ।
-
----
-
-## ਸਵਾਲ 360 — INE-CP-008 / IDENTIFY_CONTRADICTORY_ADDITION
-
-- Source record: INE-CP008-E22A63A2
-- ਬੀਜ: 3
-- ਔਖਿਆਈ: HARD
-- Content class: GUIDED_ONLY
-
-ਦਿੱਤੇ ਕਥਨਾਂ ਨਾਲ ਵਿਰੋਧ ਪੈਦਾ ਕੀਤੇ ਬਿਨਾਂ ਕਿਹੜਾ ਕਥਨ ਜੋੜਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ?
-
-**ਕਥਨ**
-
-1. B ≤ C; C < G; G = J; J ≤ L
-
-**ਚੋਣਾਂ**
-
-1. B < L
-2. C < J
-3. L ≤ B
-4. G ≤ L
-
-**ਸਹੀ ਉੱਤਰ:** 3. L ≤ B
-
-**ਸੌਖੀ ਵਿਆਖਿਆ:** ਮੁੱਖ ਤੁਲਨਾ ਵੇਖੋ: B ≤ C < G = J ≤ L; B < L; L ≤ B। L ≤ B ਜੋੜਨ ਨਾਲ ਬਣੇ ਹੋਏ ਸੰਬੰਧ ਦਾ ਉਲਟ ਨਤੀਜਾ ਆਉਂਦਾ ਹੈ। ਇਸ ਲਈ ਇਹ ਕਥਨ ਨਹੀਂ ਜੋੜਿਆ ਜਾ ਸਕਦਾ।
 
 ---
 

@@ -1,3 +1,5 @@
+import type { IneContentClass, IneOptionStandard } from "./scope";
+
 export type IneLocale = "en-IN" | "hi-IN" | "pa-IN";
 export type IneTranslatedLocale = Exclude<IneLocale, "en-IN">;
 
@@ -32,6 +34,8 @@ export interface LocalizedIneQuestion {
   authorityId: string;
   seed: number;
   locale: IneTranslatedLocale;
+  contentClass: IneContentClass;
+  optionStandard: IneOptionStandard;
   difficulty: string;
   deliveryProfile: string;
   examApplicability?: string;
