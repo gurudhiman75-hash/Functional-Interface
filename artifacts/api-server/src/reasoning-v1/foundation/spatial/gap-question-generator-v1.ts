@@ -1,4 +1,5 @@
 import { getSpatialGapAuthorityV1 } from "./gap-authority-v1";
+import { applySpatialEditorialMaterialV2 } from "./gap-question-editorial-material-v2";
 import {
   buildSpatialCanonicalQuestionV2,
 } from "./gap-question-remediation-v2";
@@ -72,12 +73,13 @@ export function generateSpatialGapLearnerQuestionV1(input: {
     throw new Error(`${input.gapId}: runtime authority is not scale validated.`);
   }
 
-  const built = buildSpatialCanonicalQuestionV2(input.gapId, input.seed);
+  const canonical = buildSpatialCanonicalQuestionV2(input.gapId, input.seed);
   if (authority.chapterCode === "FCL-001") {
-    if (!built.fclCueAudit) throw new Error(`${input.gapId}: learner-remediated FCL build is missing its cue audit.`);
-    const cueAudit = validateSpatialFclCueAuditV2(built.fclCueAudit);
+    if (!canonical.fclCueAudit) throw new Error(`${input.gapId}: learner-remediated FCL build is missing its cue audit.`);
+    const cueAudit = validateSpatialFclCueAuditV2(canonical.fclCueAudit);
     if (!cueAudit.ok) throw new Error(`${input.gapId}: competing FCL cue audit failed: ${cueAudit.errors.join(",")}.`);
   }
+  const built = applySpatialEditorialMaterialV2(canonical, input.seed);
 
   const correctOption: SpatialGapQuestionOptionV1 = {
     misconception: "CORRECT_RULE_APPLICATION",
