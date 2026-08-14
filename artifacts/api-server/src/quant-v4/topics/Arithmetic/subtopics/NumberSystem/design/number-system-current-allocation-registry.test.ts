@@ -4,6 +4,7 @@ import {
   NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT,
 } from "./number-system-current-allocation-registry";
 import { NUM_CP001_PERMANENT_QL_IDS } from "../NUM-001/NUM-CP-001/permanent/allocation";
+import { NUM_CP002_PERMANENT_QL_IDS } from "../NUM-001/NUM-CP-002/permanent/allocation";
 import { NUM_CP003_PERMANENT_QL_IDS } from "../NUM-001/NUM-CP-003/permanent/allocation";
 import { NUM_CP004_PERMANENT_QL_IDS } from "../NUM-001/NUM-CP-004/permanent/allocation";
 import { NUM_CP005_PERMANENT_QL_IDS } from "../NUM-001/NUM-CP-005/permanent/allocation";
@@ -14,13 +15,14 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-assert(NUMBER_SYSTEM_COMPLETED_CHECKPOINT_ALLOCATIONS.length === 6, "completed checkpoint count");
+assert(NUMBER_SYSTEM_COMPLETED_CHECKPOINT_ALLOCATIONS.length === 7, "completed checkpoint count");
 assert(NUM_CP003_PERMANENT_QL_IDS.length === 17, "CP-003 QL count");
 assert(NUM_CP004_PERMANENT_QL_IDS.length === 28, "CP-004 QL count");
 assert(NUM_CP005_PERMANENT_QL_IDS.length === 24, "CP-005 QL count");
 assert(NUM_CP006_PERMANENT_QL_IDS.length === 28, "CP-006 QL count");
 assert(NUM_CP007_PERMANENT_QL_IDS.length === 26, "CP-007 QL count");
 assert(NUM_CP001_PERMANENT_QL_IDS.length === 21, "CP-001 QL count");
+assert(NUM_CP002_PERMANENT_QL_IDS.length === 21, "CP-002 QL count");
 
 const allQlIds = [
   ...NUM_CP003_PERMANENT_QL_IDS,
@@ -29,8 +31,9 @@ const allQlIds = [
   ...NUM_CP006_PERMANENT_QL_IDS,
   ...NUM_CP007_PERMANENT_QL_IDS,
   ...NUM_CP001_PERMANENT_QL_IDS,
+  ...NUM_CP002_PERMANENT_QL_IDS,
 ];
-assert(allQlIds.length === 144, "chapter permanent QL count");
+assert(allQlIds.length === 165, "chapter permanent QL count");
 assert(new Set(allQlIds).size === allQlIds.length, "duplicate chapter QL identity");
 for (const [index, qlId] of allQlIds.entries()) {
   assert(qlId === `NUM-QL-${String(index + 1).padStart(3, "0")}`, `${qlId}: non-continuous chapter identity`);
@@ -53,10 +56,18 @@ assert(cp001?.frozenSolveModeCount === 21, "CP-001 solve-mode count");
 assert(cp001?.maturity === "MULTILINGUAL_IMPLEMENTATION_FROZEN", "CP-001 multilingual-freeze maturity");
 assert(cp001?.language === "en/hi/pa", "CP-001 frozen language coverage");
 
+const cp002 = NUMBER_SYSTEM_COMPLETED_CHECKPOINT_ALLOCATIONS.find((entry) => entry.cpId === "NUM-CP-002");
+assert(cp002?.firstQlNumber === 145, "CP-002 first QL");
+assert(cp002?.lastQlNumber === 165, "CP-002 last QL");
+assert(cp002?.permanentQlCount === 21, "CP-002 permanent count");
+assert(cp002?.frozenSolveModeCount === 21, "CP-002 solve-mode count");
+assert(cp002?.maturity === "PERMANENT_ALLOCATION_MERGED", "CP-002 allocation maturity");
+assert(cp002?.language === "en", "CP-002 allocation language marker");
+
 assert(NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE.first === 1, "chapter first QL");
-assert(NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE.last === 144, "chapter last QL");
-assert(NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE.count === 144, "chapter QL count");
-assert(NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT === 145, "next chapter QL identity");
+assert(NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE.last === 165, "chapter last QL");
+assert(NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE.count === 165, "chapter QL count");
+assert(NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT === 166, "next chapter QL identity");
 
 console.log(JSON.stringify({
   status: "PASS_NUMBER_SYSTEM_CURRENT_ALLOCATION_AUTHORITY",
@@ -69,9 +80,9 @@ console.log(JSON.stringify({
   cp006Range: "NUM-QL-070..NUM-QL-097",
   cp007Range: "NUM-QL-098..NUM-QL-123",
   cp001Range: "NUM-QL-124..NUM-QL-144",
+  cp002Range: "NUM-QL-145..NUM-QL-165",
   cp001Maturity: cp001?.maturity,
-  cp001Languages: cp001?.language,
-  cp001FrozenSolveModeCount: cp001?.frozenSolveModeCount,
+  cp002Maturity: cp002?.maturity,
   nextPermanentQlNumber: NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT,
   activeCheckpointCount: NUMBER_SYSTEM_COMPLETED_CHECKPOINT_ALLOCATIONS.filter((entry) => entry.active).length,
 }, null, 2));

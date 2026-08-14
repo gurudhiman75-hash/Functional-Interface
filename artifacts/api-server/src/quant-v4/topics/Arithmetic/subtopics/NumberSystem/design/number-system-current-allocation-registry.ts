@@ -107,12 +107,30 @@ export const NUMBER_SYSTEM_COMPLETED_CHECKPOINT_ALLOCATIONS = [
     testEligible: false,
     publiclyPublishable: false,
   },
+  {
+    cpId: "NUM-CP-002",
+    packageId: "NUM-001",
+    title: "Fractions, Decimals and Recurring Representations",
+    firstQlNumber: 145,
+    lastQlNumber: 165,
+    permanentQlCount: 21,
+    frozenLearnerTemplateCount: 21,
+    frozenSolveModeCount: 21,
+    authorityRoute: "NUM-001/NUM-CP-002/permanent/allocation.ts",
+    maturity: "PERMANENT_ALLOCATION_MERGED",
+    language: "en",
+    active: false,
+    questionStudioDiscoverable: false,
+    questionBankWritable: false,
+    testEligible: false,
+    publiclyPublishable: false,
+  },
 ] as const;
 
 export const NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE = {
   first: 1,
-  last: 144,
-  count: 144,
+  last: 165,
+  count: 165,
 } as const;
 
-export const NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT = 145 as const;
+export const NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT = 166 as const;
