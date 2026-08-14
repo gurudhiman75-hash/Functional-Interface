@@ -162,6 +162,7 @@ export interface Trg002DiagramAngleMarker {
   referenceDirection: "LEFT" | "RIGHT";
   classification: "ELEVATION" | "DEPRESSION";
   label: string;
+  arcLane: number;
 }
 
 export interface Trg002DiagramRightAngleMarker {
