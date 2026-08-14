@@ -3,7 +3,7 @@ import type { WorDifficulty, WorDifficultyFeatures, WorSortDirection, WorTaskKin
 
 const inferenceBurden: Record<WorTaskKind, number> = {
   SELECT_COMPLETE_ORDER: 0,
-  SELECT_DESCENDING_ORDER: 2,
+  SELECT_DESCENDING_ORDER: 0,
   SELECT_FIRST: 0,
   SELECT_LAST: 0,
   SELECT_KTH: 1,
@@ -38,7 +38,7 @@ export function calculateWorDifficultyFeatures(
     + late
     + prefix * 2
     + taskInferenceBurden
-    + (direction === "DESCENDING" ? 2 : 0);
+    + (direction === "DESCENDING" ? 1 : 0);
   return {
     wordCount: ascendingWords.length,
     commonPrefixDepthMax: max,
