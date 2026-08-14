@@ -2,7 +2,7 @@ import { MEN_CP_010_PERMANENT_ALLOCATION } from "./allocation";
 import {
   generateMenCp010PermanentEnglishQuestion,
   type MenCp010PermanentEnglishQuestion,
-} from "./runtime-v1";
+} from "./runtime";
 
 export const MEN_CP_010_PERMANENT_ENGLISH_REVIEW_AUTHORITY =
   "MEN-CP010-PERMANENT-ENGLISH-REVIEW-V1" as const;
