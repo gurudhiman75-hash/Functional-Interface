@@ -43,8 +43,8 @@ for (let index = 0; index < allWords.length - 2; index += 1) {
 assert.equal(WOR_001_PROTOTYPES.length, 19);
 assert.equal(new Set(WOR_001_PROTOTYPES.map((entry) => entry.prototypeId)).size, 19);
 assert.deepEqual(WOR_001_CHECKPOINTS.map((entry) => entry.prototypeCount), [4, 5, 6, 4]);
-assert.equal(WOR_001_PROTOTYPES.filter((entry) => entry.allocationDecision === "RETAIN").length, 15);
-assert.equal(WOR_001_PROTOTYPES.filter((entry) => entry.allocationDecision === "MERGE_AS_INSTANCE_VARIANT").length, 4);
+assert.equal(WOR_001_PROTOTYPES.filter((entry) => entry.allocationDecision === "RETAIN").length, 12);
+assert.equal(WOR_001_PROTOTYPES.filter((entry) => entry.allocationDecision === "MERGE_AS_INSTANCE_VARIANT").length, 7);
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.questionStudioVisible, false);
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.publicReleaseEnabled, false);
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.permanentQlCount, 0);
@@ -126,6 +126,10 @@ for (const prototype of WOR_001_PROTOTYPES) {
       assert.equal(localized.difficulty, classifyWorDifficulty(localized.metadata.difficultyFeatures));
       assert.ok(localized.explanation.length >= 180, `${localized.locale} explanation is too thin.`);
       assert.ok(localized.explanation.includes(localized.answer), `${localized.locale} explanation omits the answer.`);
+      localized.metadata.canonicalOrder.slice(0, -1).forEach((word, index) => {
+        const pair = `${word} < ${localized.metadata.canonicalOrder[index + 1]!}`;
+        assert.ok(localized.explanation.includes(pair), `${localized.locale} explanation omits adjacent proof ${pair}.`);
+      });
       assert.doesNotMatch(`${localized.stem} ${localized.explanation}`, /undefined|null|\{\{|\}\}|WOR-PROT|WOR-CP/);
       assert.ok(localized.structuredPrompt.words.every((word) => /^[A-Za-z]+$/.test(word)), "Logic words were translated or corrupted.");
     }
@@ -141,6 +145,17 @@ for (const prototype of WOR_001_PROTOTYPES) {
     assert.equal(punjabi.correctIndex, english.correctIndex);
     assert.deepEqual(hindi.metadata.canonicalOrder, english.metadata.canonicalOrder);
     assert.deepEqual(punjabi.metadata.comparisonTrace, english.metadata.comparisonTrace);
+    if (english.taskKind === "FIND_RANK") {
+      const rank = Number(english.answer);
+      assert.ok(rank > 1 && rank < english.metadata.canonicalOrder.length, `${prototype.prototypeId}/${seed} rank question collapsed to an endpoint.`);
+    }
+    if (english.taskKind === "RANK_AFTER_INSERTION") {
+      const match = english.stem.match(/new position of ([A-Za-z]+)\?$/);
+      assert.ok(match, `${prototype.prototypeId}/${seed} could not recover rank-after-insertion target.`);
+      const oldRank = english.structuredPrompt.words.indexOf(match[1]!) + 1;
+      assert.ok(oldRank > 0, `${prototype.prototypeId}/${seed} target missing from pre-insertion order.`);
+      assert.equal(Number(english.answer), oldRank + 1, `${prototype.prototypeId}/${seed} insertion did not actually shift the target rank.`);
+    }
     if (english.taskKind === "FIND_INCORRECT_PAIR") {
       const pairs = english.structuredPrompt.presentedSequence!.slice(0, -1).map((word, index) => `${word} – ${english.structuredPrompt.presentedSequence![index + 1]!}`);
       assert.ok(pairs.includes(english.answer), `${prototype.prototypeId}/${seed} answer is not an adjacent displayed pair.`);
@@ -210,7 +225,7 @@ for (const locale of ["en-IN", "hi-IN", "pa-IN"] as const) {
 
 console.log("WOR-001 end-to-end runtime and multilingual audit passed.", {
   prototypeCount: WOR_001_PROTOTYPES.length,
-  retainedSolveContracts: 15,
+  retainedSolveContracts: 12,
   generatedCount,
   answerPositions,
   taskKinds: [...taskKinds].sort(),
