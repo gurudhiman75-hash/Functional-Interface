@@ -88,10 +88,12 @@ function buildStateAttempt(
       queryRank = rng.int(2, canonicalAscendingOrder.length - 1);
       correctAnswer = canonicalAscendingOrder[queryRank - 1]!;
       break;
-    case "FIND_RANK":
-      targetWord = rng.pick(canonicalAscendingOrder);
-      correctAnswer = String(independentlyFindRank(fullWords, targetWord));
+    case "FIND_RANK": {
+      const targetIndex = rng.int(1, canonicalAscendingOrder.length - 2);
+      targetWord = canonicalAscendingOrder[targetIndex]!;
+      correctAnswer = String(targetIndex + 1);
       break;
+    }
     case "SELECT_PREDECESSOR": {
       const targetIndex = rng.int(1, canonicalAscendingOrder.length - 1);
       targetWord = canonicalAscendingOrder[targetIndex]!;
@@ -112,11 +114,14 @@ function buildStateAttempt(
       queryRank = independentlyFindRank(fullWords, insertionWord!);
       correctAnswer = String(queryRank);
       break;
-    case "RANK_AFTER_INSERTION":
-      targetWord = rng.pick(baseWords);
+    case "RANK_AFTER_INSERTION": {
+      const insertionRank = independentlyFindRank(fullWords, insertionWord!);
+      const shiftedCandidates = baseWords.filter((word) => independentlyFindRank(fullWords, word) > insertionRank);
+      targetWord = rng.pick(shiftedCandidates);
       queryRank = independentlyFindRank(fullWords, targetWord);
       correctAnswer = String(queryRank);
       break;
+    }
     case "PREDECESSOR_AFTER_INSERTION": {
       const insertionRank = independentlyFindRank(fullWords, insertionWord!);
       correctAnswer = canonicalAscendingOrder[insertionRank - 2]!;
