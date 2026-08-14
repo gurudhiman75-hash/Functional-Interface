@@ -2,11 +2,11 @@ import { divide, multiply, rational, subtract, type Rational } from "../foundati
 import { generateCp004StateV6 } from "./state-v6";
 import type { TsdCp004GeneratedState } from "./runtime-types";
 
-const CLEAN_PURSUIT_DURATIONS = Object.freeze([
-  rational(1, 2), rational(3, 4), rational(1), rational(5, 4),
-  rational(3, 2), rational(2), rational(5, 2), rational(3),
-  rational(7, 2), rational(4), rational(9, 2), rational(5),
-]);
+// Every 15-minute duration from 30 minutes through 6 hours.
+// This preserves broad state variety while ensuring derived start delays can be stated naturally.
+const CLEAN_PURSUIT_DURATIONS = Object.freeze(
+  Array.from({ length: 23 }, (_, index) => rational(index + 2, 4)),
+);
 
 function ordinal(seed: string): number {
   return Number(seed.match(/(\d+)$/)?.[1] ?? "0");
@@ -24,8 +24,6 @@ function cleanPursuitTime(seed: string, faster: Rational, slower: Rational): Rat
     const impliedDelay = divide(multiply(closing, candidate), slower);
     if (wholeMinute(impliedDelay)) return candidate;
   }
-  // Every current same-direction speed pair has at least one clean candidate;
-  // keep an explicit failure so a future pool change cannot silently reintroduce raw fractional times.
   throw new Error(`No clean delayed-start duration for speeds ${faster.numerator}/${faster.denominator} and ${slower.numerator}/${slower.denominator}`);
 }
 
