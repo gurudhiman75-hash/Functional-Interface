@@ -54,5 +54,9 @@ jobs:
         run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-AUTHORITY.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e2.mjs
       - name: Run E2 CP011 CP012 authority
         run: node artifacts/api-server/dist/quant-v4/sap-e2.mjs
+      - name: Bundle E2 CP012 release-realism authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-RELEASE-AUTHORITY.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e2-release.mjs
+      - name: Run E2 CP012 release-realism authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e2-release.mjs
 
 # E1/E2 remain review-only; no lifecycle changes are performed by this workflow.
