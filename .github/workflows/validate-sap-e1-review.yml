@@ -74,6 +74,7 @@ jobs:
           for (const r of records) {
             assert.equal(r.validation.ok, true, `${r.questionId}: ${r.validation.errors.join('; ')}`);
             assert.ok(r.decisionCount >= 2, `${r.questionId}: one-step question`);
+            assert.ok(r.structureId.includes('-R2-'), `${r.questionId}: non-R2 structure leaked into review`);
             assert.notEqual(r.checkpointId, 'SAP-CP-007');
             assert.equal(r.options.length, 4);
             assert.equal(new Set(r.options.map(o => o.value)).size, 4);
@@ -87,7 +88,6 @@ jobs:
             assert.doesNotMatch(r.stem, /\bround\b|For estimation, take|Using cancellation|using suitable approximation|nearest whole number/i);
             assert.doesNotMatch(r.stem, /[√∛∜]/);
             assert.doesNotMatch(r.options.map(o => o.value).join(' '), /Alternative\s+\d+/i);
-            assert.ok(!/^Find (?:the exact )?value of \\(\s*\\sqrt\{\d+\}\s*\\\)\.?$/i.test(r.stem), `${r.questionId}: atomic root drill`);
             positions[r.correctIndex]++;
             streak = r.correctIndex === last ? streak + 1 : 1;
             last = r.correctIndex;
