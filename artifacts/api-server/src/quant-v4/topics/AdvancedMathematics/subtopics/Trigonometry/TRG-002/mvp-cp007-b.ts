@@ -34,6 +34,16 @@ function ql020(seed: string) {
   const targetHeight = exactInteger(mvpPick(seed, "020-target", [6, 10, 14] as const));
   const observerHeight = addExact(targetHeight, d);
   const state = buildSingleDepressionState({ horizontal: d, angle: degree(45), observerEyeHeight: observerHeight, targetHeight, units: "m" });
+  const targetGround = state.points.find((item) => item.id === "target-ground");
+  const targetTop = state.points.find((item) => item.id === "target");
+  if (!targetGround || !targetTop) throw new Error("TRG-002-QL-020: target pole points missing from canonical state.");
+  targetGround.role = "OBJECT_BASE";
+  targetTop.role = "OBJECT_TOP";
+  state.scenario = "TWO_BUILDINGS";
+  state.verticalObjects = [
+    vo("observer-support", "BUILDING", "observer-ground", "observer-eye", observerHeight),
+    vo("target-pole", "POLE", "target-ground", "target", targetHeight),
+  ];
   state.metadata.measurements = { "target-height": targetHeight };
   return buildTrg002MvpQuestion({ qlId: "TRG-002-QL-020", cpId: "TRG-CP-007", lockedFamily: "DISTANCE_FROM_DEPRESSION", solveMode: "findHorizontalDistanceFromDepressionAndLevels", seed, difficulty: "Medium", target: "LENGTH",
     stem: `From a point ${formatExactPlain(observerHeight)} m above ground, the top of a ${formatExactPlain(targetHeight)} m pole is seen at 45° depression. Find the horizontal distance.`, state, correct: mvpNumberAnswer(d),
