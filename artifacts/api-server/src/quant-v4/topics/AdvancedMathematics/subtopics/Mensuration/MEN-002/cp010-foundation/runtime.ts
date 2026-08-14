@@ -1,0 +1,13 @@
+import { exactEquals, exactKey } from "../foundation/exact";
+import { getMenCp010Prototype } from "./registry";
+import { buildMenCp010State, solveMenCp010, verifyMenCp010 } from "./engine";
+import { optionsMenCp010, displayMenCp010 } from "./options";
+import { diagramMenCp010, explanationMenCp010, stemMenCp010 } from "./presentation";
+import { MEN_CP_010_AUTHORITY, MEN_CP_010_ID, type MenCp010PrototypeId, type MenCp010Question } from "./types";
+export function generateMenCp010Question(id:MenCp010PrototypeId,seed:string):MenCp010Question{
+  const def=getMenCp010Prototype(id),state=buildMenCp010State(id,seed),exactAnswer=solveMenCp010(state);state.derived.answer=exactAnswer;
+  const options=optionsMenCp010(state,exactAnswer),correctIndex=options.findIndex(x=>x.isCorrect),verification=verifyMenCp010(state,exactAnswer),diagram=diagramMenCp010(state);
+  const partial={authority:MEN_CP_010_AUTHORITY,packageId:"MEN-002" as const,canonicalProblemId:MEN_CP_010_ID,permanentQlId:null,prototypeId:id,solveMode:def.solveMode,language:"en" as const,seed,difficulty:def.difficultyFloor,target:def.target,piPolicy:state.piPolicy,stem:stemMenCp010(state),options,correctIndex,answer:displayMenCp010(exactAnswer,state.unit),exactAnswer,unit:state.unit,explanation:explanationMenCp010(state,exactAnswer),diagram,state,verification,maturity:"EXECUTABLE_DISCOVERY" as const,allocationStatus:"NO_PERMANENT_QL" as const,reviewStatus:"UNREVIEWED" as const,questionBankStatus:"NOT_STORED" as const,testEligibility:"INELIGIBLE" as const,publiclyPublishable:false as const,questionStudioDiscoverable:false as const};
+  const checks=[{name:"four-options",passed:options.length===4,message:"Exactly four options."},{name:"unique-options",passed:new Set(options.map(x=>exactKey(x.value))).size===4,message:"Options unique."},{name:"one-correct",passed:options.filter(x=>x.isCorrect).length===1,message:"Exactly one correct."},{name:"answer-parity",passed:exactEquals(options[correctIndex]!.value,exactAnswer),message:"Answer parity."},{name:"verification",passed:verification.valid,message:"Independent verification."},{name:"no-permanent-ql",passed:partial.permanentQlId===null,message:"No permanent QL in discovery."},{name:"product-locked",passed:!partial.questionStudioDiscoverable&&!partial.publiclyPublishable,message:"Product locked."},{name:"responsive-diagram",passed:diagram.responsive&&diagram.minWidthPx===0&&!/<svg[^>]*\swidth=\"\d+/.test(diagram.svg),message:"Responsive diagram."}];
+  const validation={valid:checks.every(x=>x.passed),checks};if(!validation.valid)throw new Error(`MEN-CP-010 validation failed ${id}/${seed}: ${checks.filter(x=>!x.passed).map(x=>x.name).join(",")}`);return{...partial,validation};
+}
