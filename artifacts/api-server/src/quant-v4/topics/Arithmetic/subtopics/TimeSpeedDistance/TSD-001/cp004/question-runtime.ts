@@ -4,7 +4,7 @@ import { independentlyVerifyCp004 } from "./independent-verifier";
 import { cp004PermanentQlForAuthority } from "./ql-allocation";
 import { buildCp004Options, cp004DifficultyForAuthority } from "./options";
 import { solveCp004Core } from "./relative-motion-foundation";
-import { generateCp004StateV6 } from "./state-v6";
+import { generateCp004StateV7 } from "./state-v7";
 import { renderCp004StemV4 } from "./stem-library-v4";
 import { buildCp004TeachingV2 } from "./teaching-v2";
 import type { TsdCp004GeneratedQuestion } from "./runtime-types";
@@ -29,7 +29,7 @@ function generateSolvableState(authorityKey: string, seed: string) {
   const failures: string[] = [];
   for (let attempt = 0; attempt < 24; attempt += 1) {
     const candidateSeed = attempt === 0 ? seed : `${seed}:valid-${attempt}:${ordinal}`;
-    const state = generateCp004StateV6(authorityKey, candidateSeed);
+    const state = generateCp004StateV7(authorityKey, candidateSeed);
     try {
       const solution = solveCp004Core(state.solveMode, state.input);
       const independent = independentlyVerifyCp004(state.solveMode, state.input, solution);
@@ -66,6 +66,9 @@ function validateQuestion(question: Omit<TsdCp004GeneratedQuestion, "validation"
     if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && compare(entry.wrongWorking.value, question.input.routeDistance!) >= 0)) {
       errors.push("meeting-point distractor must lie strictly inside the route");
     }
+  }
+  if (question.solution.unit === "CLOCK_MINUTE" && question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && entry.wrongWorking.value.denominator !== 1n)) {
+    errors.push("clock distractor must resolve to an exact clock minute");
   }
   if (question.explanation.steps.length < 2) errors.push("learner explanation is too short");
   if ((question.explanation as unknown as Record<string, unknown>).optionAnalysis !== undefined) errors.push("public explanation must not contain option analysis");
