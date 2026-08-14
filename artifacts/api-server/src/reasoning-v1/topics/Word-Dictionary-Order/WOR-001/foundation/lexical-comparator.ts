@@ -20,6 +20,7 @@ export function compareWorWords(leftWord: string, rightWord: string): number {
 export function traceWorComparison(leftWord: string, rightWord: string): LexicalComparisonTrace {
   const left = normalizeWorWord(leftWord);
   const right = normalizeWorWord(rightWord);
+  if (left === right) throw new Error(`WOR-001 comparison traces require two distinct words: ${leftWord}`);
   const limit = Math.min(left.length, right.length);
   let commonPrefixLength = 0;
   while (commonPrefixLength < limit && left[commonPrefixLength] === right[commonPrefixLength]) commonPrefixLength += 1;
