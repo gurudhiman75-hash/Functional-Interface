@@ -166,21 +166,59 @@ function normalizeNativeClueInput(clue: string): string {
   return normalized;
 }
 
+function polishNeighbourTeaching(text: string, locale: Sea001TranslatedLocale): string {
+  if (locale === "hi-IN") {
+    return text.replace(
+      /^(.+?) के दोनों ठीक पड़ोसी (.+?) हैं। (.+?) में कम-से-कम एक व्यक्ति \1 की साथ वाली सीट पर नहीं है।$/,
+      (_full, reference: string, correctPair: string, optionPair: string) => optionPair.includes(reference)
+        ? `${optionPair} में ${reference} स्वयं शामिल है, जबकि प्रश्न ${reference} के दो पड़ोसियों के बारे में है। सही जोड़ी ${correctPair} है।`
+        : `${reference} के दोनों ठीक पड़ोसी ${correctPair} हैं। ${optionPair} में कम-से-कम एक व्यक्ति ${reference} के ठीक पास नहीं बैठा है।`,
+    );
+  }
+  return text.replace(
+    /^(.+?) ਦੇ ਦੋਵੇਂ ਬਿਲਕੁਲ ਨੇੜਲੇ ਵਿਅਕਤੀ (.+?) ਹਨ। (.+?) ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਅਕਤੀ \1 ਦੀ ਨਾਲ ਵਾਲੀ ਸੀਟ 'ਤੇ ਨਹੀਂ ਹੈ।$/,
+    (_full, reference: string, correctPair: string, optionPair: string) => optionPair.includes(reference)
+      ? `${optionPair} ਵਿੱਚ ${reference} ਖੁਦ ਸ਼ਾਮਲ ਹੈ, ਜਦਕਿ ਸਵਾਲ ${reference} ਦੇ ਦੋ ਨੇੜਲੇ ਵਿਅਕਤੀਆਂ ਬਾਰੇ ਹੈ। ਸਹੀ ਜੋੜਾ ${correctPair} ਹੈ।`
+      : `${reference} ਦੇ ਦੋਵੇਂ ਬਿਲਕੁਲ ਨੇੜਲੇ ਵਿਅਕਤੀ ${correctPair} ਹਨ। ${optionPair} ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਅਕਤੀ ${reference} ਦੇ ਬਿਲਕੁਲ ਨਾਲ ਨਹੀਂ ਬੈਠਿਆ।`,
+  );
+}
+
 function polishNativeLearnerText(text: string, locale: Sea001TranslatedLocale): string {
-  let output = text;
+  let output = polishNeighbourTeaching(text, locale);
   const ordinalMap = locale === "hi-IN" ? HINDI_OBLIQUE_ORDINALS : PUNJABI_OBLIQUE_ORDINALS;
   const locationSuffix = locale === "hi-IN" ? "स्थान (?:पर|तक)" : "ਸਥਾਨ (?:'ਤੇ|ਤੱਕ)";
   for (const [plain, oblique] of Object.entries(ordinalMap)) {
     output = output.replace(new RegExp(`${plain}(?= ${locationSuffix})`, "g"), oblique);
+    if (locale === "hi-IN") {
+      output = output
+        .replaceAll(`स्थिति बाईं ओर ${plain} है`, `स्थिति बाईं ओर ${oblique} स्थान पर है`)
+        .replaceAll(`स्थिति दाईं ओर ${plain} है`, `स्थिति दाईं ओर ${oblique} स्थान पर है`)
+        .replaceAll(`सही संबंध बाईं ओर ${plain} है`, `सही संबंध बाईं ओर ${oblique} स्थान का है`)
+        .replaceAll(`सही संबंध दाईं ओर ${plain} है`, `सही संबंध दाईं ओर ${oblique} स्थान का है`);
+    } else {
+      output = output
+        .replaceAll(`ਸਥਿਤੀ ਖੱਬੇ ਪਾਸੇ ${plain} ਹੈ`, `ਸਥਿਤੀ ਖੱਬੇ ਪਾਸੇ ${oblique} ਸਥਾਨ 'ਤੇ ਹੈ`)
+        .replaceAll(`ਸਥਿਤੀ ਸੱਜੇ ਪਾਸੇ ${plain} ਹੈ`, `ਸਥਿਤੀ ਸੱਜੇ ਪਾਸੇ ${oblique} ਸਥਾਨ 'ਤੇ ਹੈ`)
+        .replaceAll(`ਸਹੀ ਸਬੰਧ ਖੱਬੇ ਪਾਸੇ ${plain} ਹੈ`, `ਸਹੀ ਸਬੰਧ ਖੱਬੇ ਪਾਸੇ ${oblique} ਸਥਾਨ ਦਾ ਹੈ`)
+        .replaceAll(`ਸਹੀ ਸਬੰਧ ਸੱਜੇ ਪਾਸੇ ${plain} ਹੈ`, `ਸਹੀ ਸਬੰਧ ਸੱਜੇ ਪਾਸੇ ${oblique} ਸਥਾਨ ਦਾ ਹੈ`);
+    }
   }
 
   if (locale === "hi-IN") {
     output = output
+      .replaceAll("1 व्यक्ति कम गिने जाते हैं", "1 व्यक्ति कम गिना जाता है")
+      .replaceAll("1 व्यक्ति अधिक गिने जाते हैं", "1 व्यक्ति अधिक गिना जाता है")
+      .replaceAll(" की साथ वाली सीट", " के ठीक पास वाली सीट")
+      .replaceAll("उस ठीक-दाईं सीट", "उस दाईं ओर की ठीक अगली सीट")
       .replaceAll(" मुख किए है।", " मुख करके बैठा है।")
       .replace(/([^\s,।\n]+) (उत्तर की ओर|दक्षिण की ओर|केंद्र की ओर|बाहर की ओर) मुख करके बैठा है/g, "$1 का मुख $2 है")
       .replaceAll(" बैठा है", " है");
   } else {
     output = output
+      .replaceAll("1 ਵਿਅਕਤੀ ਘੱਟ ਗਿਣੇ ਜਾਂਦੇ ਹਨ", "1 ਵਿਅਕਤੀ ਘੱਟ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ")
+      .replaceAll("1 ਵਿਅਕਤੀ ਵੱਧ ਗਿਣੇ ਜਾਂਦੇ ਹਨ", "1 ਵਿਅਕਤੀ ਵੱਧ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ")
+      .replaceAll(" ਦੀ ਨਾਲ ਵਾਲੀ ਸੀਟ", " ਦੇ ਬਿਲਕੁਲ ਨਾਲ ਵਾਲੀ ਸੀਟ")
+      .replaceAll("ਉਸ ਬਿਲਕੁਲ-ਸੱਜੀ ਸੀਟ", "ਉਸ ਦੇ ਸੱਜੇ ਪਾਸੇ ਵਾਲੀ ਬਿਲਕੁਲ ਅਗਲੀ ਸੀਟ")
       .replace(/([^\s,।\n]+) (ਉੱਤਰ ਵੱਲ|ਦੱਖਣ ਵੱਲ|ਕੇਂਦਰ ਵੱਲ|ਬਾਹਰ ਵੱਲ) ਮੂੰਹ ਕਰਕੇ ਬੈਠਾ ਹੈ/g, "$1 ਦਾ ਮੂੰਹ $2 ਹੈ")
       .replaceAll(" ਬੈਠਾ ਹੈ", " ਹੈ");
   }
