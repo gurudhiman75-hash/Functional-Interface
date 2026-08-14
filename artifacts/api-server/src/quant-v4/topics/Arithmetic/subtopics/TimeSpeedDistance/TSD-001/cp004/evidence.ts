@@ -46,10 +46,10 @@ for (const ql of TSD_CP004_PERMANENT_QL_IDS) {
   assert(Math.max(...counts) <= 2, `${ql}: one stem structure appears more than twice in the six-question review set`);
 }
 
-for (const authority of TSD_CP004_REVIEW_AUTHORITIES) {
-  const authorityRows = audit.filter((row) => row.authorityKey === authority.authorityKey);
-  assert(authorityRows.length === 40, `${authority.authorityKey}: expected 40 audit questions`);
-  assert(new Set(authorityRows.map((row) => row.mathematicalFingerprint)).size >= 20, `${authority.authorityKey}: mathematical state diversity is too narrow`);
+for (const authorityKey of TSD_CP004_REVIEW_AUTHORITIES) {
+  const authorityRows = audit.filter((row) => row.authorityKey === authorityKey);
+  assert(authorityRows.length === 40, `${authorityKey}: expected 40 audit questions`);
+  assert(new Set(authorityRows.map((row) => row.mathematicalFingerprint)).size >= 20, `${authorityKey}: mathematical state diversity is too narrow`);
 }
 
 assert(selected.every((row) => (row.explanation as unknown as Record<string, unknown>).optionAnalysis === undefined), "option analysis leaked into public explanation");
@@ -93,7 +93,7 @@ console.log(JSON.stringify({
   selectedQuestions: selected.length,
   questionsPerAuthority: 6,
   minimumStructuralClassesPerQl: Math.min(...TSD_CP004_PERMANENT_QL_IDS.map((ql) => new Set(selected.filter((row) => row.permanentQlId === ql).map(structuralClass)).size)),
-  minimumMathematicalFingerprintsPerAuthority: Math.min(...TSD_CP004_REVIEW_AUTHORITIES.map((authority) => new Set(audit.filter((row) => row.authorityKey === authority.authorityKey).map((row) => row.mathematicalFingerprint)).size)),
+  minimumMathematicalFingerprintsPerAuthority: Math.min(...TSD_CP004_REVIEW_AUTHORITIES.map((authorityKey) => new Set(audit.filter((row) => row.authorityKey === authorityKey).map((row) => row.mathematicalFingerprint)).size)),
   exactWrongWorkings: wrongWorkingCount,
   distractorContract: "THREE_DISTINCT_SEMANTIC_PATHS_UNIT_SPECIFIC_SELECTION",
   ratioReversalPreserved: true,
