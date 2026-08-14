@@ -42,5 +42,7 @@ function percentageError(seed: number): SapE2Package {
 
 export function generateSapCp011E2(structureId: SapCp011E2Structure, seed: number): SapE2Package {
   if (structureId === "CP011-E2-PERCENTAGE-ERROR") return percentageError(seed);
-  return generateCandidate(structureId, seed);
+  const q = generateCandidate(structureId, seed);
+  if (structureId === "CP011-E2-CLOSEST-ROOT-OPTION") return Object.freeze({ ...q, difficulty: "MEDIUM" as const });
+  return q;
 }
