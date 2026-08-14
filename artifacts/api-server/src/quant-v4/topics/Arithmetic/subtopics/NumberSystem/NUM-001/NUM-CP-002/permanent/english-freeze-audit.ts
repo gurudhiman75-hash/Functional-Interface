@@ -153,7 +153,10 @@ const reviewPrototypeReach = new Set(reviewQuestions.map((q) => q.temporaryProto
 const expectedPrototypeReach = new Set(
   NUM_CP002_PERMANENT_ALLOCATION.flatMap((entry) => [...entry.corePrototypeIds, ...entry.adapterPrototypeIds]),
 );
-assert.deepEqual([...reviewPrototypeReach].sort(), [...expectedPrototypeReach].sort(), "review prototype reach");
+assert(
+  JSON.stringify([...reviewPrototypeReach].sort()) === JSON.stringify([...expectedPrototypeReach].sort()),
+  "review prototype reach",
+);
 assert(reviewQuestions.length >= 21 * 6 && reviewQuestions.length <= 21 * 10, "review pack size bounds");
 
 const outDir = resolve(process.cwd(), "dist/quant-v4/num-cp002-permanent-english-freeze");
