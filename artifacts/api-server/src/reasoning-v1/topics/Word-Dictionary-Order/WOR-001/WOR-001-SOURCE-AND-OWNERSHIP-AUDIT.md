@@ -2,71 +2,45 @@
 
 ## Ownership decision
 
-WOR-001 owns ordering multiple complete English words by explicit A–Z dictionary rules and positional consequences derived from that order.
+WOR-001 owns explicit A–Z dictionary ordering of multiple words or letter clusters and consequences derived from that sorted state. This includes Banking composite questions where an **explicitly instructed** per-object letter operation is performed before the mandatory multi-object dictionary sort.
 
-It does not own:
+WOR-001 does not own:
 
-- rearranging letters within one word (`ALP-001`);
-- alphabet positions, gaps or letter pairs (`ALP-001`);
-- hidden word transformations (`COD-001`);
-- semantic or chronological word sequences;
-- rank inferred from relational clues;
-- classification or odd-word-out tasks;
-- word formation from supplied letters;
-- native Devanagari or Gurmukhi collation.
+- single-word rearrangement/letter operations when no multi-object dictionary sort follows (`ALP-001`);
+- hidden transformation-rule inference (`COD-001`);
+- semantic/chronological word ordering;
+- Input-Output machines whose rule must be inferred;
+- native Devanagari/Gurmukhi collation.
+
+ALP-001 itself excludes dictionary ordering of multiple words, so CP-005's explicit transform → multi-object sort pipelines remain clean WOR ownership even though they share low-level letter-operation concepts with Alphabet Test.
 
 ## Evidence vocabulary
 
-Prototype contracts carry one of three source-evidence states:
+Prototype contracts use:
 
-- `PYQ_SUPPORTED` — the same solve contract is directly evidenced in a competitive-exam previous/actual paper sample;
-- `PLATFORM_SUPPORTED` — the solve contract appears in established competitive-exam preparation material but direct PYQ evidence has not yet been pinned here;
-- `EXPLORATORY_SOURCE_GAP` — the runtime is mechanically valid, but adequate recurring exam-source evidence has not been pinned. This blocks permanent-QL readiness.
+- `PYQ_SUPPORTED` — solve contract directly represented in sampled previous/actual-paper or paper-reproduction evidence;
+- `PLATFORM_SUPPORTED` — established competitive-exam preparation pattern without equivalent pinned direct-paper evidence;
+- `EXPLORATORY_SOURCE_GAP` — mechanically valid, but insufficient recurring exam evidence for permanent allocation.
 
-Freeze posture is derived separately:
+Allocation is independent:
 
-- retained + supported → `ELIGIBLE_AFTER_EDITORIAL`;
-- retained + source gap → `DEFER_SOURCE_GAP`;
-- `MERGE_AS_INSTANCE_VARIANT` → `INSTANCE_VARIANT_NO_QL`.
+- supported `RETAIN` → permanent-root candidate after editorial review;
+- source-gap `RETAIN` → `DEFER_SOURCE_GAP`;
+- `MERGE_AS_INSTANCE_VARIANT` → no separate QL.
 
-## Pinned source sample
+## Classic evidence summary
 
-| Source | Exam / date | Observed pattern | Audit use |
-| --- | --- | --- | --- |
-| Employment News, Government of India, SSC CGL Tier-I actual-paper extract | 29 Aug 2016, morning shift | Arrange `Follicle / Folk / Follow / Foliage` in dictionary order | Direct support for complete-order contract and deep common-prefix instances |
-| Employment News, Government of India, SSC CGL Tier-I actual-paper extract | 2016 extract | Arrange words and choose the word that comes first | Direct support for endpoint selection after ordering |
-| Testbook reproduction labelled SSC GD Constable 2024 Official Paper | 27 Feb 2024, Shift 4 | Arrange five `Shr...` words and select the third word | Direct support for kth-position query |
-| Testbook reproduction labelled SSC CHSL Tier-I 2022 Official Paper | 9 Mar 2023, Shift 3 | Arrange five `Conv...` words and select the fourth word | Direct support for kth-position query with deep common prefix |
-| Testbook reproduction labelled Odisha Police SI Official Paper | 7 Jul 2022, Paper II | Arrange five words and select the middle word | Direct support for middle-word instance; merged into kth-position QL |
-| Testbook competitive-exam practice | current corpus | Explicit reverse dictionary order questions | Supports reverse-order instance; merged into complete-order QL |
-| Testbook reproduction labelled PSSSB Senior Assistant Official Paper | 28 Jan 2024 | Arrange `Range / Rader / Race / Rack / Rant` in dictionary order | Punjab-state corroboration for complete-order contract |
-| SSC official Answer Key portal | multiple years | Question papers/final answer keys for SSC families | Primary repository locator for later sampling |
+Sampled SSC/Punjab evidence supports:
 
-Pinned URLs:
+- complete dictionary ordering;
+- first/last endpoint selection;
+- kth-position selection;
+- middle-word selection;
+- rank/position style queries;
+- reverse-order presentation as the same comparator in the opposite direction;
+- deep common-prefix and prefix-sensitive instances.
 
-- https://employmentnews.gov.in/newemp/MoreContentNew.aspx?k=208&n=SpecialContent
-- https://employmentnews.gov.in/newemp/MoreContentNew.aspx?k=193&n=SpecialContent
-- https://testbook.com/question-answer/after-arranging-the-given-words-according-to-dicti--666d978f7bb5914b7130ca7f
-- https://testbook.com/question-answer/after-arranging-the-given-words-according-to-dicti--642d38fba26126bf63596dd6
-- https://testbook.com/question-answer/arrange-the-given-words-in-alphabetical-order-and--634ff902c45be191b49ce3ef
-- https://testbook.com/question-answer/arrange-the-given-words-in-the-order-in-which-they--5bed2337a6115a17e6c394fe
-- https://testbook.com/question-answer/arrange-the-given-words-in-the-sequence-in-which-t--68a8d09fbbfe34c441a48bba
-- https://doc.ssc.nic.in/Portal/AnswerKey
-
-## Final recommended QL architecture
-
-| Permanent root | Authority prototype | Instance variants | Evidence / rationale |
-| --- | --- | --- | --- |
-| Complete dictionary order | `WOR-PROT-001` | `002` reverse order; `016` hard full-order | full ordering is direct-PYQ; reverse is the same comparator with output direction reversed |
-| Endpoint after ordering | `WOR-PROT-003` | `004` last word | first and last are mirror endpoint queries on the same sorted sequence |
-| Word at a specified position | `WOR-PROT-005` | `009` middle; `017` hard kth | kth and middle forms have direct previous-paper support; middle is a fixed kth instance |
-| Position of a specified word | `WOR-PROT-006` | `018` hard rank | distinct input-output direction from kth; platform-supported and mechanically non-degenerate |
-
-These four are recommendations only. Permanent IDs remain unallocated until human editorial review is accepted.
-
-## Source-deferred executable contracts
-
-The following remain useful review-only solve contracts but do not reserve permanent QLs:
+The classic source-deferred contracts remain:
 
 - immediate predecessor;
 - immediate successor;
@@ -75,18 +49,57 @@ The following remain useful review-only solve contracts but do not reserve perma
 - predecessor after insertion;
 - unique misplaced word;
 - unique incorrect adjacent pair;
-- complete partial dictionary order.
+- partial-order completion.
 
-Targeted searches across SSC/banking/general competitive-exam sources repeatedly returned ordinary full-order, reverse-order, endpoint, kth and middle forms rather than recurring direct examples of these eight variants. They therefore remain `DEFER_SOURCE_GAP`.
+These remain executable research/review contracts but do not reserve permanent QLs.
 
-`WOR-PROT-019` is the hard insertion instance and is already `INSTANCE_VARIANT_NO_QL`.
+## Banking evidence summary
 
-## Current freeze posture
+The full chapter audit sampled recurring IBPS/RBI/RRB-style five-word/three-letter-group patterns including:
+
+- plain five-cluster dictionary sorting followed by a positional query;
+- sorting five groups, concatenating them without gaps and asking a global nth character;
+- normal/reverse sorting, selecting a ranked group and querying a local character or alphabet offset;
+- explicitly swapping letters in every group before dictionary sorting and then asking a positional question;
+- explicitly alphabetizing letters inside every group before dictionary sorting and then asking a local-character question;
+- replacing first letters with preceding/following alphabet letters before dictionary sorting.
+
+These patterns are implemented in `WOR-CP-005` as `WOR-PROT-020` through `WOR-PROT-024`, all tagged `PYQ_SUPPORTED` in the registry.
+
+## Final recommended permanent-root architecture
+
+### Classic roots
+
+1. `WOR-PROT-001` — Complete dictionary order.
+   - variants: reverse (`002`), hard/deep-prefix (`016`).
+2. `WOR-PROT-003` — Endpoint after ordering.
+   - variant: last (`004`).
+3. `WOR-PROT-005` — Word/cluster at a specified position.
+   - variants: middle (`009`), hard kth (`017`), Banking plain clusters (`020`).
+4. `WOR-PROT-006` — Position of a specified word.
+   - variant: hard rank (`018`).
+
+### Banking composite roots
+
+5. `WOR-PROT-021` — Sort → concatenate → global character.
+6. `WOR-PROT-022` — Sort → ranked cluster → local character/alphabet offset.
+7. `WOR-PROT-023` — Transform each → sort → positional word query.
+8. `WOR-PROT-024` — Transform each → sort → local character query.
+
+`WOR-PROT-020` does not reserve a ninth root because the learner solves the same kth-position contract as classic root 3; only the object representation changes.
+
+## Current chapter posture
 
 ```text
-ELIGIBLE_AFTER_EDITORIAL: 4
-DEFER_SOURCE_GAP: 8
-INSTANCE_VARIANT_NO_QL: 7
+recommended permanent roots: 8
+classic source-deferred retained contracts: 8
+instance variants without separate QLs: 8
+permanent IDs allocated: 0
+lifecycle: REVIEW_ONLY
 ```
 
-`RETAIN` continues to mean executable taxonomy, not publication approval. No source-deferred contract may become a permanent QL solely because generation, answer validation or multilingual parity passes.
+The content-model audit did not identify another major recurring SSC/Punjab/Banking solve family after CP-005 implementation. The remaining major work is pool breadth, repetition control and human/native-language editorial review.
+
+## Source locator note
+
+The detailed paper/platform examples and URLs used to justify CP-005 are retained in `WOR-001-CONTENT-GAP-AUDIT-V1.md`. That audit remains the evidence inventory; this file records the resulting ownership and allocation decision.
