@@ -30,7 +30,7 @@ export function buildMenCp010WorkedExplanationV2(
     q.sourceId === "MEN-CP010-PROT-CONICAL-FRUSTUM-CSA" ||
     q.sourceId === "MEN-CP010-PROT-CONICAL-FRUSTUM-TSA"
   ) {
-    const pi = /Take π = ([0-9./]+)/.exec(stem)?.[1];
+    const pi = /Take π = ([0-9]+(?:\/[0-9]+)?|[0-9]+\.[0-9]+)/.exec(stem)?.[1];
     if (pi) explanation = replaceWorkedStep(explanation, worked.replace("π", pi));
   }
 
