@@ -61,7 +61,7 @@ export function validateLearnerVisibleExplanationV2(parts: readonly string[]): {
   if (/\b(?:in\s+)?the\s+first\s+three\s+(?:figures|options)\b/i.test(text)) {
     errors.push("DELIVERY_ORDER_ASSUMPTION_IN_EXPLANATION");
   }
-  if (!/(hook|line|triangle|circle|square|diamond|pentagon|dot|arrow|shape|figure|pair|box|symbol|marker)/i.test(text)) {
+  if (!/(hook|line|segment|side|triangle|circle|square|diamond|pentagon|polygon|dot|arrow|shape|figure|pair|box|symbol|marker|inner|outer|shad|fill|region|hand|dial|clock|glyph|letter|digit)/i.test(text)) {
     errors.push("NO_VISIBLE_FEATURE_NAMED");
   }
   if (!/(option|select|choose|correct|odd|next|figure)/i.test(text)) {
