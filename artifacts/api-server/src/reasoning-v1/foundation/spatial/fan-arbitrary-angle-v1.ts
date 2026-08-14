@@ -86,7 +86,7 @@ export function generateSpatialFanArbitraryAngleQuestionV1(input: {
     correctOptionIndex: desired,
     learnerExplanation: {
       observation: `From the first figure to the second, the complete figure turns ${abs}° ${dir}; every visible part moves together.`,
-      rule: `Use one whole-figure rotation of ${abs}° ${dir}. The angle is a parameter of the same rigid-transformation analogy skill, not a new question type.`,
+      rule: `Rotate the complete figure ${abs}° ${dir}. Both the angle and the direction of rotation must remain the same.`,
       application: `Turn the entire third figure ${abs}° ${dir} about its centre. Do not rotate only one part and do not substitute a 90° or 180° turn.`,
       check: `Option ${String.fromCharCode(65 + desired)} alone shows the complete ${abs}° ${dir} rotation.`,
     },
