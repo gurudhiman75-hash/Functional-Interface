@@ -38,7 +38,10 @@ function finalTextPolish(text: string): string {
     )
     .replace(new RegExp(`${amount} is moved B→A`, "giu"), "$1 is transferred from B to A")
     .replace(new RegExp(`${amount} is moved A→B`, "giu"), "$1 is transferred from A to B")
-    .replace(new RegExp(`${amount} is transferred`, "giu"), "$1 are transferred")
+    .replace(
+      new RegExp(`${amount} is (transferred|sent|moved|poured|added|returned|removed)`, "giu"),
+      "$1 are $2",
+    )
     .replace(new RegExp(`${amount} of the mixed A is moved back`, "giu"), "$1 of the mixed liquid in A is transferred back")
     .replace(/,\s+What\s+/gu, ", what ")
     .replace(/What is the final ([a-z]+)\s*:\s*([a-z]+) ratio in B\?/giu, "What is the final $1-to-$2 ratio in B?")
@@ -127,7 +130,7 @@ function surfaceIsClean(question: MalCp006DiscoveryQuestion): boolean {
   if (/\ba (?:acid|alcohol)-water\b/iu.test(learnerText)) return false;
   if (/\b1 litres\b/iu.test(learnerText)) return false;
   if (/\blitres goes\b/iu.test(learnerText)) return false;
-  if (/\blitres is transferred\b/iu.test(learnerText)) return false;
+  if (/\blitres is (?:transferred|sent|moved|poured|added|returned|removed)\b/iu.test(learnerText)) return false;
   if (/\blitres is moved [AB]→[AB]\b/iu.test(learnerText)) return false;
   if (/What is the final [a-z]+\s*:\s*[a-z]+ ratio/iu.test(question.stem)) return false;
   if (/\b\d+(?:\.\d+)?% spirit mixture\b/iu.test(learnerText)) return false;
