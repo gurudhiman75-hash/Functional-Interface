@@ -38,6 +38,7 @@ assert.equal(audit.productLocked, true);
 assert.equal(records.some((q) => q.stem.includes("A bucket is shaped")), false);
 assert.equal(records.some((q) => hasReducibleBareSurd(q.answer)), false);
 assert.equal(records.some((q) => q.options.some((option) => hasReducibleBareSurd(option.display))), false);
+assert.equal(records.some((q) => q.explanation.steps.some((step) => /(?:\d+\/\d+|\d+)\.\s×/.test(step.body))), false);
 
 for (let index = 0; index < records.length; index += 4) {
   const slice = records.slice(index, index + 4);
