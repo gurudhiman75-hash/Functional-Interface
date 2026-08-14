@@ -38,7 +38,7 @@ export interface MenCp010PermanentAllocationEntry {
   readonly allocationStatus: "PRODUCT_OWNER_AUTHORIZED_INACTIVE_ALLOCATION";
   readonly permanentIdentityFrozen: true;
   readonly solveModeFrozen: true;
-  readonly englishImplementationFrozen: false;
+  readonly englishImplementationFrozen: true;
   readonly active: false;
   readonly questionStudioDiscoverable: false;
   readonly questionBankStatus: "NOT_STORED";
@@ -70,7 +70,7 @@ export const MEN_CP_010_PERMANENT_ALLOCATION: readonly MenCp010PermanentAllocati
     allocationStatus: "PRODUCT_OWNER_AUTHORIZED_INACTIVE_ALLOCATION" as const,
     permanentIdentityFrozen: true as const,
     solveModeFrozen: true as const,
-    englishImplementationFrozen: false as const,
+    englishImplementationFrozen: true as const,
     active: false as const,
     questionStudioDiscoverable: false as const,
     questionBankStatus: "NOT_STORED" as const,
