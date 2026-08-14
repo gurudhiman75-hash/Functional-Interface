@@ -1,8 +1,10 @@
 import { degree } from "../foundation/angle";
 import {
   exactKey,
+  exactSurd,
   exactToNumber,
   formatExactPlain,
+  multiplyExact,
   subtractExact,
 } from "../foundation/exact";
 import {
@@ -109,6 +111,28 @@ function friendlierThirdSurd(text: string) {
   return text.replace(/(\d+)√3\/3/g, "$1/√3");
 }
 
+function strengthenRiverDistractors(question: Trg002ProofQuestion): Trg002ProofQuestion {
+  if (question.qlId !== "TRG-002-QL-092" || question.exactAnswer.kind !== "NUMBER") return question;
+  const width = question.exactAnswer.value;
+  const wrongValues = [
+    { value: multiplyExact(width, exactSurd(1, 2)), misconceptionId: "RETURNED_LINE_OF_SIGHT_USING_SIN45" },
+    { value: multiplyExact(width, exactSurd(1, 2, 2)), misconceptionId: "TREATED_TOWER_HEIGHT_AS_HYPOTENUSE" },
+    { value: multiplyExact(width, exactSurd(1, 3, 3)), misconceptionId: "USED_60_DEGREE_RATIO_INSTEAD_OF_45" },
+  ];
+  let wrongIndex = 0;
+  const options = question.options.map((option) => {
+    if (option.isCorrect) return option;
+    const replacement = wrongValues[wrongIndex++];
+    return {
+      ...option,
+      value: { kind: "NUMBER" as const, value: replacement.value, unit: "m" as const },
+      display: `${formatExactPlain(replacement.value)} m`,
+      misconceptionId: replacement.misconceptionId,
+    };
+  });
+  return { ...question, options };
+}
+
 function finalEditorialPolish(question: Trg002ProofQuestion): Trg002ProofQuestion {
   if (question.qlId === "TRG-002-QL-007") {
     return {
@@ -141,7 +165,7 @@ function finalEditorialPolish(question: Trg002ProofQuestion): Trg002ProofQuestio
     };
   }
 
-  return question;
+  return strengthenRiverDistractors(question);
 }
 
 export function generateFinalRemediatedTrg002RuntimeProofQuestion(qlId: Trg002ProofQlId, seed: string) {
