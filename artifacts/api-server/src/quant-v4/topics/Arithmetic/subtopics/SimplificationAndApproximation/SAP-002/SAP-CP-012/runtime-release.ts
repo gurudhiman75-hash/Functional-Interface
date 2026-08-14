@@ -34,7 +34,7 @@ function missingDivisor(seed: number): SapE2Package {
   const xD = x + tight(seed, 0), bD = b + mult(seed, 1), cD = c + tight(seed, 3), tD = target + tight(seed, 6);
   const exactImplied = xD * bD / (tD - cD), answerText = String(answer);
   return packageE2({
-    profile: "BANK", checkpointId: "SAP-CP-012", structureId: "CP012-E2-MISSING-DIVISOR", seed, difficulty: "HARD", decisionCount: 5,
+    profile: "BANK", checkpointId: "SAP-CP-012", structureId: "CP012-E2-MISSING-DIVISOR", seed, difficulty: "MEDIUM", decisionCount: 5,
     stem: `What approximate value should replace ? in ${e2Math(`${fmt(xD)} \\div ? \\times ${fmt(bD)} + ${fmt(cD)} = ${fmt(tD)}`)}?`, canonicalAnswer: answerText,
     options: optionSet(answerText, correctIndex, [wrong(String(answer - 1), "DIVISOR_LOW", "The recovered divisor was one step too low."), wrong(String(answer + 1), "DIVISOR_HIGH", "The recovered divisor was one step too high."), wrong(String(answer + 2), "ORDER_SLIP", "Division and multiplication were reversed incorrectly.")]), correctIndex,
     explanation: Object.freeze({ coreConcept: "Approximate the visible terms, remove the additive term, then invert the remaining quotient-product relation.", steps: Object.freeze([`${x} ÷ ? × ${b} + ${c} ≈ ${target}.`, `Thus ${x * b} ÷ ? ≈ ${target - c}, giving ? ≈ ${answer}.`]), finalAnswer: `Therefore, ? ≈ ${answer}.` }),
