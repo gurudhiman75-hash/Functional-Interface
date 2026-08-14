@@ -51,9 +51,7 @@ function replaceCaseAware(text: string, pattern: RegExp, replacement: string): s
 }
 
 function polishArticles(text: string): string {
-  return text.replace(/\b([Aa]) ([aeiou])/gu, (_match, article: string, vowel: string) =>
-    `${article === "A" ? "An" : "an"} ${vowel}`,
-  );
+  return text.replace(/\ba ([aeiou])/gu, (_match, vowel: string) => `an ${vowel}`);
 }
 
 function applyMaterialContext(
@@ -103,7 +101,8 @@ function applyObjects(
   if (context.secondary !== "water" && /\bwater\b/iu.test(learnerText)) errors.push("water leaked outside selected context");
   if (/litres of pure milk are kept/iu.test(learnerText)) errors.push("quantity-agreement regression");
   if (/\bpure (syrup|juice|honey|wine|vinegar)\b/iu.test(learnerText)) errors.push("unnatural pure-liquid wording");
-  if (/\ba [aeiou]/iu.test(learnerText)) errors.push("indefinite-article regression");
+  if (/\ba [aeiou]/u.test(learnerText)) errors.push("indefinite-article regression");
+  if (/\bAn (and|ends|contains|starts|has|first|finally)\b/u.test(learnerText)) errors.push("vessel-A label corrupted by article polish");
   if (new Set(options).size !== 4 || options[q.correctIndex] !== answer) errors.push("object transformation changed option mapping");
 
   return {
