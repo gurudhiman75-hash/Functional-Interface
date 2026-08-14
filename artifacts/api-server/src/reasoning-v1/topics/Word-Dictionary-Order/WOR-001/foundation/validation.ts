@@ -1,3 +1,4 @@
+import { classifyWorDifficulty } from "./difficulty";
 import { independentlySortWorWords } from "./independent-lexical-solver";
 import { normalizeWorWord } from "./lexical-comparator";
 import type { GeneratedWorQuestion, WorQuestionState } from "./types";
@@ -28,6 +29,8 @@ export function validateWorQuestion(question: GeneratedWorQuestion, state: WorQu
   if (question.options.filter((option) => option.misconceptionId === null).length !== 1) throw new Error(`${question.prototypeId} must have one marked answer.`);
   if (question.options[question.correctIndex]?.value !== question.answer) throw new Error(`${question.prototypeId} answer/index mismatch.`);
   if (/\{\{|\}\}|undefined|null|WOR-PROT|WOR-CP/.test(`${question.stem} ${question.explanation}`)) throw new Error(`${question.prototypeId} leaked unresolved or internal text.`);
+  if (question.difficulty !== state.difficulty) throw new Error(`${question.prototypeId} question/state difficulty mismatch.`);
+  if (state.difficulty !== classifyWorDifficulty(state.difficultyFeatures)) throw new Error(`${question.prototypeId} difficulty is not state-derived.`);
   question.structuredPrompt.words.forEach(normalizeWorWord);
   const fullWords = state.insertionWord ? [...state.words, state.insertionWord] : state.taskKind === "COMPLETE_PARTIAL_ORDER" ? [...state.words, state.targetWord!] : [...state.words];
   const independentlySorted = independentlySortWorWords(fullWords);
