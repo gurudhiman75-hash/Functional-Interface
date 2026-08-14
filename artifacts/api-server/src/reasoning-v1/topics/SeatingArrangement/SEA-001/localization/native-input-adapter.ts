@@ -20,9 +20,17 @@ const WORD_ORDINALS: Readonly<Record<string, string>> = Object.freeze({
 const WORD_ORDINAL_PATTERN = "first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth";
 
 function normalizeNativeClueInput(clue: string): string {
-  let normalized = clue.startsWith("Exactly 1 person sits between ")
-    ? clue.replace("Exactly 1 person sits between ", "Exactly 1 persons sit between ")
-    : clue;
+  let normalized = clue;
+
+  // The generic linear/circular-between renderer accepts "persons sit", while the
+  // directional clockwise renderer intentionally owns the grammatical singular
+  // form "Exactly 1 person sits ... when counted clockwise from ...".
+  if (
+    normalized.startsWith("Exactly 1 person sits between ") &&
+    !normalized.includes(" when counted clockwise from ")
+  ) {
+    normalized = normalized.replace("Exactly 1 person sits between ", "Exactly 1 persons sit between ");
+  }
 
   normalized = normalized.replace(
     new RegExp(` sits (${WORD_ORDINAL_PATTERN}) to the (left|right) of `),
