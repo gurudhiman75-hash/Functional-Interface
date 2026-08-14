@@ -1,13 +1,8 @@
 {
   "packageId": "TRG-002",
-  "checkpoint": "PHASE7_MVP_48_EXECUTED_REVIEWED",
-  "status": "MVP_48_AI_EDITORIAL_PASS_EXECUTION_PASS_RUNTIME_SPEC_VISUAL_PASS_APP_UI_AND_HUMAN_REVIEW_PENDING",
+  "checkpoint": "PHASE7_MVP_48_POST_SELF_REVIEW_REMEDIATED",
+  "status": "MVP_48_REMEDIATION_PASS_EXECUTION_PASS_REPRESENTATIVE_RUNTIME_VISUAL_PASS_APP_UI_AND_HUMAN_REVIEW_PENDING",
   "activeRuntime": "mvp-final-editorial-runtime.ts",
-  "activeDeliveryRuntime": "mvp-final-editorial-runtime.ts",
-  "registry": "mvp-48-registry.ts",
-  "statusDocument": "MVP_48_STATUS.md",
-  "editorialStatusDocument": "MVP_AI_EDITORIAL_STATUS.md",
-  "editorialManifest": "mvp-ai-editorial.manifest.json",
   "counts": {
     "perCp": 12,
     "mvpPermanentQlCount": 48,
@@ -16,18 +11,16 @@
     "productionTarget": 96
   },
   "review": {
-    "freshAddedQlReviewed": 28,
-    "carriedProofQlReviewed": 20,
-    "aiEditorialReviewed": 48,
-    "aiEditorialPass": 48,
-    "knownAiEditorialBlockers": 0,
-    "runtimeSpecVisualInspection": "PASS",
+    "aiEditorialRemediation": "PASS",
+    "knownActiveBlockers": 0,
+    "representativeRuntimeVisualInspection": "PASS",
+    "perSeedVisualInspection": "NOT_ASSERTED",
     "appUiRenderedInspection": "PENDING",
     "humanReviewed": 0,
     "humanReviewTarget": 48,
     "freezeEligible": false
   },
-  "newCoverage": {
+  "coverage": {
     "brokenObjectQlIds": ["TRG-002-QL-041", "TRG-002-QL-043"],
     "comparativeTwoObjectQlIds": ["TRG-002-QL-071"],
     "compositeVerticalObjectQlIds": ["TRG-002-QL-095", "TRG-002-QL-096"],
@@ -38,22 +31,42 @@
     "stemAutomatic": 0,
     "stemPolicy": "OPTIONAL",
     "solutionDisclosure": "AFTER_ATTEMPT",
-    "exactAddedQlLabelPlans": 28,
-    "canonicalStateBindingRequired": true
+    "canonicalStateBindingRequired": true,
+    "angleArcs": true,
+    "rightAngleMarkers": true,
+    "sharedVertexAngleArcLanes": true
   },
   "remediation": {
-    "knownBlockers": 0,
-    "cleanAuthorityQlIds": ["TRG-002-QL-024", "TRG-002-QL-035", "TRG-002-QL-038", "TRG-002-QL-094", "TRG-002-QL-095"],
-    "runtimeVisualFixQlIds": ["TRG-002-QL-020", "TRG-002-QL-023", "TRG-002-QL-036"],
-    "difficultyMediumRecalibrated": ["TRG-002-QL-064", "TRG-002-QL-095"],
-    "difficultyHardRetained": ["TRG-002-QL-096"],
-    "oldCompileInvalidCp007DraftRemoved": true
+    "editorialQlIds": [
+      "TRG-002-QL-007",
+      "TRG-002-QL-024",
+      "TRG-002-QL-043",
+      "TRG-002-QL-049",
+      "TRG-002-QL-067",
+      "TRG-002-QL-069",
+      "TRG-002-QL-071",
+      "TRG-002-QL-076",
+      "TRG-002-QL-081",
+      "TRG-002-QL-083",
+      "TRG-002-QL-092",
+      "TRG-002-QL-096"
+    ],
+    "mediumDifficultyQlIds": [
+      "TRG-002-QL-052",
+      "TRG-002-QL-055",
+      "TRG-002-QL-058",
+      "TRG-002-QL-061",
+      "TRG-002-QL-064",
+      "TRG-002-QL-095"
+    ],
+    "hardRetainedQlIds": ["TRG-002-QL-096"],
+    "cp009DiversifiedQlIds": ["TRG-002-QL-067", "TRG-002-QL-069"],
+    "compositeNestedAngleArcQlIds": ["TRG-002-QL-095", "TRG-002-QL-096"]
   },
-  "wordingRefinementQlIds": ["TRG-002-QL-005", "TRG-002-QL-009", "TRG-002-QL-014", "TRG-002-QL-018", "TRG-002-QL-020", "TRG-002-QL-035", "TRG-002-QL-048", "TRG-002-QL-095"],
   "executionEvidence": {
     "workflow": ".github/workflows/trg-002-mvp48-verification.yml",
-    "successfulPostVisualFixRunId": 31765951856,
-    "successfulPostVisualFixHead": "fa22514d09120dab857a1796ceb9d1fed0dd9796",
+    "successfulRemediationRunId": 31794139792,
+    "successfulRemediationHead": "f5a95957a7b3b22b59e211e30c5a9a6f6db4b239",
     "strictTypeScriptCompile": "PASS",
     "mvpCanonicalCases": 576,
     "mvpCanonicalGate": "PASS",
@@ -75,5 +88,5 @@
     "publiclyPublishable": false,
     "hindiPunjabiRuntime": false
   },
-  "next": "Inspect the runtime-generated HTML in the real app/browser wrapper and complete human review of all 48 QLs before production freeze or 48-to-96 expansion under the current plan."
+  "next": "Inspect the real ExamTree/browser UI wrapper and complete human review of all 48 QLs before production freeze or 48-to-96 expansion under the current plan."
 }
