@@ -256,6 +256,7 @@ export function generateWor001Question(
       canonicalOrder: state.canonicalAscendingOrder,
       comparisonTrace: state.comparisonTrace,
       allocationDecision: contract.allocationDecision,
+      sourceEvidenceStatus: contract.sourceEvidenceStatus,
     },
   };
   validateWorQuestion(question, state);
