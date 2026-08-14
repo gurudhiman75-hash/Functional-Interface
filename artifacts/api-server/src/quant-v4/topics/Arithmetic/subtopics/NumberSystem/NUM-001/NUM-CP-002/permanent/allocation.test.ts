@@ -35,10 +35,10 @@ for (const [index, entry] of NUM_CP002_PERMANENT_ALLOCATION.entries()) {
   assert.equal(entry.cpId, "NUM-CP-002");
   assert.equal(entry.permanentIdentityFrozen, true);
   assert.equal(entry.solveModeFrozen, true);
-  assert.equal(entry.englishImplementationFrozen, false);
-  assert.equal(entry.allocationStatus, "PRODUCT_OWNER_APPROVED_INACTIVE_ALLOCATION");
-  assert.equal(entry.maturity, "PERMANENT_ALLOCATION_MERGED");
-  assert.equal(entry.reviewStatus, "AWAITING_ENGLISH_IMPLEMENTATION_FREEZE");
+  assert.equal(entry.englishImplementationFrozen, true);
+  assert.equal(entry.allocationStatus, "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION");
+  assert.equal(entry.maturity, "ENGLISH_IMPLEMENTATION_FROZEN");
+  assert.equal(entry.reviewStatus, "AWAITING_PRODUCT_OWNER_EDITORIAL_REVIEW");
   assert.equal(entry.active, false);
   assert.equal(entry.questionStudioDiscoverable, false);
   assert.equal(entry.questionBankWritable, false);
@@ -46,6 +46,7 @@ for (const [index, entry] of NUM_CP002_PERMANENT_ALLOCATION.entries()) {
   assert.equal(entry.publiclyPublishable, false);
   assert.ok(entry.sourceEvidence.includes("PRODUCT-OWNER-21-AUTHORITY-APPROVAL-2026-08-14"));
   assert.ok(entry.sourceEvidence.includes("PR-785-MERGED-abdabe1c996e6460e7c820503f0c2860fd17bb0b"));
+  assert.ok(entry.sourceEvidence.includes("NUM-CP-002-PERMANENT-ENGLISH-FREEZE"));
 }
 
 assert.equal(
@@ -62,7 +63,7 @@ assert.equal(NUM_CP002_PERMANENT_QL_IDS[20], "NUM-QL-165");
 assert.equal(NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT, 166);
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP002_PERMANENT_ALLOCATION",
+  status: "PASS_NUM_CP002_PERMANENT_ENGLISH_FROZEN_ALLOCATION",
   approvedAuthorityCount: NUM_CP002_PROPOSED_AUTHORITIES.length,
   permanentQlCount: NUM_CP002_PERMANENT_ALLOCATION.length,
   solveModeCount: new Set(NUM_CP002_PERMANENT_ALLOCATION.map((entry) => entry.solveModeId)).size,
@@ -70,7 +71,7 @@ console.log(JSON.stringify({
   mergedOrAdapterAuthorityCount: 7,
   singletonAuthorityCount: 14,
   solveModeFrozen: true,
-  englishImplementationFrozen: false,
+  englishImplementationFrozen: true,
   nextPermanentQl: "NUM-QL-166",
   deliveryExposure: 0,
 }, null, 2));
