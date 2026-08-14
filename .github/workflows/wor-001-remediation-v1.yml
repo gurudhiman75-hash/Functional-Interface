@@ -40,7 +40,16 @@ jobs:
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-corpus.test.ts
 
       - name: Generate WOR-001 review packs
-        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/export-review-packs.ts
+        env:
+          WOR_REVIEW_OUTPUT: ${{ runner.temp }}/wor-001-review
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/export-review-cli.ts
+
+      - name: Upload WOR-001 review packs
+        uses: actions/upload-artifact@v4
+        with:
+          name: wor-001-review-packs
+          path: ${{ runner.temp }}/wor-001-review
+          if-no-files-found: error
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
