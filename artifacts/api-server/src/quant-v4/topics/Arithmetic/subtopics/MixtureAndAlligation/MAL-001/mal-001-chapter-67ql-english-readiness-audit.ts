@@ -104,6 +104,85 @@ function assertManualEditorialGuards(
 type Difficulty = "Easy" | "Medium" | "Hard";
 type CpId = "MAL-CP-001" | "MAL-CP-002" | "MAL-CP-003" | "MAL-CP-004" | "MAL-CP-005" | "MAL-CP-006";
 type AuditAllocation = { cpId: CpId; qlId: string; difficulty: Difficulty };
+type RealismWarningClass =
+  | "LARGE_STEM_RATIO"
+  | "VERY_LARGE_STEM_RATIO"
+  | "UNREDUCED_STEM_RATIO"
+  | "EASY_LARGE_NUMBER"
+  | "EASY_FRACTIONAL_QUANTITY"
+  | "UGLY_PERCENT_FRACTION"
+  | "UGLY_CURRENCY_FRACTION"
+  | "UGLY_QUANTITY_FRACTION"
+  | "GENERIC_THIRD_GRADE_LABEL"
+  | "HIGH_PRECISION_PERCENT";
+
+type RealismWarning = {
+  class: RealismWarningClass;
+  cpId: CpId;
+  qlId: string;
+  difficulty: Difficulty;
+  seed: string;
+  excerpt: string;
+};
+
+function gcd(a: number, b: number): number {
+  let x = Math.abs(a);
+  let y = Math.abs(b);
+  while (y !== 0) [x, y] = [y, x % y];
+  return x;
+}
+
+function collectRealismWarnings(
+  allocation: AuditAllocation,
+  seed: string,
+  surface: ReturnType<typeof questionSurface>,
+): RealismWarning[] {
+  const warnings: RealismWarning[] = [];
+  const add = (warningClass: RealismWarningClass, excerpt: string) => {
+    warnings.push({
+      class: warningClass,
+      cpId: allocation.cpId,
+      qlId: allocation.qlId,
+      difficulty: allocation.difficulty,
+      seed,
+      excerpt: excerpt.trim().slice(0, 240),
+    });
+  };
+
+  for (const match of surface.stem.matchAll(/\b(\d+)\s*:\s*(\d+)\b/gu)) {
+    const left = Number(match[1]);
+    const right = Number(match[2]);
+    const max = Math.max(left, right);
+    if (max >= 100) add("LARGE_STEM_RATIO", match[0]);
+    if (max >= 500) add("VERY_LARGE_STEM_RATIO", match[0]);
+    if (left > 0 && right > 0 && gcd(left, right) > 1) add("UNREDUCED_STEM_RATIO", match[0]);
+  }
+
+  if (allocation.difficulty === "Easy") {
+    const largeNumber = surface.stem.match(/\b(?:[5-9]\d{2}|\d{4,})\b/u);
+    if (largeNumber) add("EASY_LARGE_NUMBER", largeNumber[0]);
+    const fractionalQuantity = surface.stem.match(
+      /(?:\\frac\{\d+\}\{\d+\}|\b\d+\s+\d+\/\d+)\s*(?:\\,\\text\{(?:kg|litres?)\}|kg|litres?)/u,
+    );
+    if (fractionalQuantity) add("EASY_FRACTIONAL_QUANTITY", fractionalQuantity[0]);
+  }
+
+  const learnerText = [surface.stem, ...surface.options].join(" ");
+  for (const match of learnerText.matchAll(/\b\d+\s+(\d+)\/(\d+)%/gu)) {
+    if (Number(match[2]) > 12) add("UGLY_PERCENT_FRACTION", match[0]);
+  }
+  for (const match of learnerText.matchAll(/₹\s*\d+\s+(\d+)\/(\d+)/gu)) {
+    if (Number(match[2]) > 10) add("UGLY_CURRENCY_FRACTION", match[0]);
+  }
+  for (const match of learnerText.matchAll(/\b\d+\s+(\d+)\/(\d+)\s+(?:kg|litres?)\b/gu)) {
+    if (Number(match[2]) > 16) add("UGLY_QUANTITY_FRACTION", match[0]);
+  }
+  if (/\bthird grade\b/iu.test(learnerText)) add("GENERIC_THIRD_GRADE_LABEL", "third grade");
+  const highPrecisionPercent = learnerText.match(/\b\d+\.\d{2,}%/u);
+  if (highPrecisionPercent) add("HIGH_PRECISION_PERCENT", highPrecisionPercent[0]);
+
+  return warnings;
+}
 
 const allocations: AuditAllocation[] = [
   ...MAL_CP001_PERMANENT_ALLOCATION.map((entry) => ({ cpId: "MAL-CP-001" as const, qlId: entry.qlId, difficulty: entry.difficulty })),
@@ -161,6 +240,7 @@ const cpGeneratedCounts: Record<CpId, number> = {
   "MAL-CP-006": 0,
 };
 const crossQlStemOwners = new Map<string, Set<string>>();
+const realismWarnings: RealismWarning[] = [];
 const qlEvidence: Array<{
   cpId: CpId;
   qlId: string;
@@ -195,6 +275,7 @@ for (const allocation of allocations) {
     assert(!/\b1 litres\b/iu.test(learnerText), `${allocation.qlId}/${seed}: singular litre grammar regressed.`);
     assertManualEditorialGuards(allocation.qlId, seed, surface);
     manualEditorialGuardChecks += 1;
+    realismWarnings.push(...collectRealismWarnings(allocation, seed, surface));
 
     stems.add(surface.stem);
     answers.add(surface.answer);
@@ -228,6 +309,25 @@ const crossQlExactStemCollisions = [...crossQlStemOwners.entries()]
   .map(([stem, owners]) => ({ stem, qls: [...owners].sort() }));
 assert(crossQlExactStemCollisions.length === 0, `Cross-QL exact stem collisions found: ${crossQlExactStemCollisions.length}.`);
 
+const realismByClass = Object.fromEntries(
+  [...new Set(realismWarnings.map((warning) => warning.class))]
+    .sort()
+    .map((warningClass) => [
+      warningClass,
+      realismWarnings.filter((warning) => warning.class === warningClass).length,
+    ]),
+);
+const realismByQl = Object.fromEntries(
+  [...new Set(realismWarnings.map((warning) => warning.qlId))]
+    .sort()
+    .map((qlId) => [qlId, realismWarnings.filter((warning) => warning.qlId === qlId).length]),
+);
+const realismExamples = realismWarnings.filter((warning, index, all) =>
+  all.findIndex(
+    (candidate) => candidate.qlId === warning.qlId && candidate.class === warning.class,
+  ) === index,
+);
+
 const outputDirectory = resolve(process.cwd(), "dist/quant-v4");
 mkdirSync(outputDirectory, { recursive: true });
 const jsonPath = resolve(outputDirectory, "mal-001-chapter-67ql-english-readiness.json");
@@ -246,6 +346,13 @@ const summary = {
   crossQlExactStemCollisions,
   qlEvidence,
   cpGeneratedCounts,
+  examRealismAdvisory: {
+    status: realismWarnings.length === 0 ? "NO_ADVISORIES" : "REVIEW_RECOMMENDED",
+    warningCount: realismWarnings.length,
+    byClass: realismByClass,
+    byQl: realismByQl,
+    examples: realismExamples,
+  },
   lifecycleBoundary: {
     cp001ToCp005: "CURRENT_ENGLISH_PRODUCT_SURFACES",
     cp006: "INACTIVE_PERMANENT_ENGLISH_REVIEW_CANDIDATE",
@@ -278,6 +385,14 @@ const markdown: string[] = [
   "",
   `Difficulty authorities: Easy ${difficultyCounts.Easy}, Medium ${difficultyCounts.Medium}, Hard ${difficultyCounts.Hard}.`,
   `Manual blocker guard checks: ${manualEditorialGuardChecks}.`,
+  "",
+  "## Exam-realism advisories (non-blocking)",
+  "",
+  `Warnings across ${generated} samples: ${realismWarnings.length}.`,
+  "",
+  "| Advisory class | Count |",
+  "|---|---:|",
+  ...Object.entries(realismByClass).map(([key, count]) => `| ${key} | ${count} |`),
   "",
   "## Per-QL diversity sample",
   "",
