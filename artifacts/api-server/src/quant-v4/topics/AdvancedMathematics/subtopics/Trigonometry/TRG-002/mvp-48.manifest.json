@@ -1,22 +1,79 @@
 {
   "packageId": "TRG-002",
-  "checkpoint": "PHASE7_MVP_48",
-  "status": "MVP_48_AI_EDITORIAL_PASS_EXECUTION_VISUAL_HUMAN_REVIEW_PENDING",
+  "checkpoint": "PHASE7_MVP_48_EXECUTED_REVIEWED",
+  "status": "MVP_48_AI_EDITORIAL_PASS_EXECUTION_PASS_RUNTIME_SPEC_VISUAL_PASS_APP_UI_AND_HUMAN_REVIEW_PENDING",
   "activeRuntime": "mvp-final-editorial-runtime.ts",
   "activeDeliveryRuntime": "mvp-final-editorial-runtime.ts",
   "registry": "mvp-48-registry.ts",
   "statusDocument": "MVP_48_STATUS.md",
   "editorialStatusDocument": "MVP_AI_EDITORIAL_STATUS.md",
   "editorialManifest": "mvp-ai-editorial.manifest.json",
-  "counts": {"perCp": 12, "mvpPermanentQlCount": 48, "retainedProofAnchors": 20, "addedMvpQlCount": 28, "productionTarget": 96},
-  "review": {"freshAddedQlReviewed": 28, "carriedProofQlReviewed": 20, "aiEditorialReviewed": 48, "aiEditorialPass": 48, "knownAiEditorialBlockers": 0, "humanReviewed": 0, "humanReviewTarget": 48, "renderedVisualInspection": "PENDING", "freezeEligible": false},
-  "newCoverage": {"brokenObjectQlIds": ["TRG-002-QL-041", "TRG-002-QL-043"], "comparativeTwoObjectQlIds": ["TRG-002-QL-071"], "compositeVerticalObjectQlIds": ["TRG-002-QL-095", "TRG-002-QL-096"], "representedDiagramStrategies": 14},
-  "solutionDiagramPolicy": {"solutionRequired": 48, "stemAutomatic": 0, "stemPolicy": "OPTIONAL", "solutionDisclosure": "AFTER_ATTEMPT", "exactAddedQlLabelPlans": 28, "canonicalStateBindingRequired": true},
-  "staticRemediation": {"knownBlockers": 0, "cleanAuthorityQlIds": ["TRG-002-QL-024", "TRG-002-QL-035", "TRG-002-QL-038", "TRG-002-QL-094", "TRG-002-QL-095"], "difficultyMediumRecalibrated": ["TRG-002-QL-064", "TRG-002-QL-095"], "difficultyHardRetained": ["TRG-002-QL-096"], "oldCompileInvalidCp007DraftRemoved": true},
+  "counts": {
+    "perCp": 12,
+    "mvpPermanentQlCount": 48,
+    "retainedProofAnchors": 20,
+    "addedMvpQlCount": 28,
+    "productionTarget": 96
+  },
+  "review": {
+    "freshAddedQlReviewed": 28,
+    "carriedProofQlReviewed": 20,
+    "aiEditorialReviewed": 48,
+    "aiEditorialPass": 48,
+    "knownAiEditorialBlockers": 0,
+    "runtimeSpecVisualInspection": "PASS",
+    "appUiRenderedInspection": "PENDING",
+    "humanReviewed": 0,
+    "humanReviewTarget": 48,
+    "freezeEligible": false
+  },
+  "newCoverage": {
+    "brokenObjectQlIds": ["TRG-002-QL-041", "TRG-002-QL-043"],
+    "comparativeTwoObjectQlIds": ["TRG-002-QL-071"],
+    "compositeVerticalObjectQlIds": ["TRG-002-QL-095", "TRG-002-QL-096"],
+    "representedDiagramStrategies": 14
+  },
+  "solutionDiagramPolicy": {
+    "solutionRequired": 48,
+    "stemAutomatic": 0,
+    "stemPolicy": "OPTIONAL",
+    "solutionDisclosure": "AFTER_ATTEMPT",
+    "exactAddedQlLabelPlans": 28,
+    "canonicalStateBindingRequired": true
+  },
+  "remediation": {
+    "knownBlockers": 0,
+    "cleanAuthorityQlIds": ["TRG-002-QL-024", "TRG-002-QL-035", "TRG-002-QL-038", "TRG-002-QL-094", "TRG-002-QL-095"],
+    "runtimeVisualFixQlIds": ["TRG-002-QL-020", "TRG-002-QL-023", "TRG-002-QL-036"],
+    "difficultyMediumRecalibrated": ["TRG-002-QL-064", "TRG-002-QL-095"],
+    "difficultyHardRetained": ["TRG-002-QL-096"],
+    "oldCompileInvalidCp007DraftRemoved": true
+  },
   "wordingRefinementQlIds": ["TRG-002-QL-005", "TRG-002-QL-009", "TRG-002-QL-014", "TRG-002-QL-018", "TRG-002-QL-020", "TRG-002-QL-035", "TRG-002-QL-048", "TRG-002-QL-095"],
-  "gateTargets": {"canonicalSeedsPerQl": 12, "canonicalCases": 576, "sweepSeeds": 50, "sweepCases": 2400, "finalEditorialCases": 576, "labelSmokeAddedQlCount": 28, "visualStrategyRepresentatives": 14, "specialVisualReviewCases": 4},
-  "activeGateSuites": ["mvp-runtime-48.test.ts", "mvp-label-smoke.test.ts", "mvp-difficulty-regression.test.ts", "mvp-visual-review-14.test.ts", "mvp-final-editorial.test.ts"],
-  "executionEvidence": {"strictTypeScriptCompile": "NOT_CLAIMED", "mvpCanonicalGate": "NOT_CLAIMED", "mvpSweepGate": "NOT_CLAIMED", "labelSmokeGate": "NOT_CLAIMED", "visualStrategyGate": "NOT_CLAIMED", "finalEditorialGate": "NOT_CLAIMED"},
-  "activation": {"questionStudioDiscoverable": false, "testBuilderEligible": false, "questionBankStored": false, "publiclyPublishable": false, "hindiPunjabiRuntime": false},
-  "next": "Obtain actual execution evidence, inspect rendered solution diagrams, then complete 48-QL human review before any 48-to-96 expansion or activation."
+  "executionEvidence": {
+    "workflow": ".github/workflows/trg-002-mvp48-verification.yml",
+    "successfulPostVisualFixRunId": 31765951856,
+    "successfulPostVisualFixHead": "fa22514d09120dab857a1796ceb9d1fed0dd9796",
+    "strictTypeScriptCompile": "PASS",
+    "mvpCanonicalCases": 576,
+    "mvpCanonicalGate": "PASS",
+    "mvpSweepCases": 2400,
+    "mvpSweepGate": "PASS",
+    "labelSmokeGate": "PASS",
+    "difficultyRegressionGate": "PASS",
+    "visualStrategyGate": "PASS",
+    "specialProjectionGate": "PASS",
+    "finalEditorialCases": 576,
+    "finalEditorialGate": "PASS",
+    "runtimeReviewExport": "PASS",
+    "artifactName": "trg-002-mvp48-runtime-review"
+  },
+  "activation": {
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "publiclyPublishable": false,
+    "hindiPunjabiRuntime": false
+  },
+  "next": "Inspect the runtime-generated HTML in the real app/browser wrapper and complete human review of all 48 QLs before production freeze or 48-to-96 expansion under the current plan."
 }
