@@ -28,10 +28,11 @@ const standardPackage = listBlr001StandardQuestionStudioPackages().find(
 );
 assert.ok(standardPackage);
 assert.equal(standardPackage?.enabled, true);
-assert.equal(standardPackage?.questionBankStatus, "READY_FOR_STORAGE");
-assert.equal(standardPackage?.testEligibility, "ELIGIBLE");
-assert.equal(standardPackage?.publiclyPublishable, true);
-assert.equal(standardPackage?.automaticStudentPublication, false);
+assert.equal(standardPackage?.runtimeMode, "STANDARD_QUESTION_STUDIO");
+assert.equal("reviewStatus" in standardPackage!, false);
+assert.equal("questionBankStatus" in standardPackage!, false);
+assert.equal("testEligibility" in standardPackage!, false);
+assert.equal("publiclyPublishable" in standardPackage!, false);
 
 for (const language of ["en", "hi", "pa"] as const) {
   const result = generateBlr001StandardQuestionStudioBatch({
@@ -42,11 +43,16 @@ for (const language of ["en", "hi", "pa"] as const) {
   });
   assert.equal(result.questions.length, 3);
   assert.equal(result.generationContext.persistenceAllowed, true);
+  assert.equal(result.generationContext.runtimeMode, "STANDARD_QUESTION_STUDIO");
+  assert.equal(result.generationContext.reviewStatus, "REVIEW_REQUIRED");
   assert.equal(result.generationContext.publiclyPublishable, true);
   for (const question of result.questions) {
     assert.equal(question.language, language);
     assert.equal(question.validation.valid, true);
+    assert.equal(question.runtimeMode, "STANDARD_QUESTION_STUDIO");
+    assert.equal(question.reviewStatus, "REVIEW_REQUIRED");
     assert.equal(question.questionBankStatus, "READY_FOR_STORAGE");
+    assert.equal(question.questionBankWritable, true);
     assert.equal(question.testEligibility, "ELIGIBLE");
     assert.equal(question.publiclyPublishable, true);
     assert.equal(question.manualApprovalRequired, true);
@@ -96,6 +102,8 @@ console.log(JSON.stringify({
   multilingualRecordCount: entries.length,
   uniqueQuestionLanguageIdCount: new Set(entries.map((entry) => entry.questionLanguageId)).size,
   standardQuestionStudioWorkflow: true,
+  normalPackagePresentation: true,
+  standardRuntimePresentation: true,
   separateReasoningWorkflowRemoved: true,
   generationPersistenceEnabled: true,
   approvalGatePreserved: true,

@@ -233,11 +233,7 @@ function toStandardQuestion(
   const authority = sourceAuthority(spec, language, source);
   const questionBankStatus = releaseEligible ? "READY_FOR_STORAGE" : "NOT_STORED";
   const testEligibility = releaseEligible ? "ELIGIBLE" : "INELIGIBLE";
-  const reviewStatus = releaseEligible
-    ? "APPROVED_EDITORIAL_CANONICAL"
-    : language === "en"
-      ? "CURRENT_ENGLISH_REVIEW_AUTHORITY"
-      : "LOCALIZED_REVIEW_REQUIRED";
+  const reviewStatus = "REVIEW_REQUIRED";
 
   return {
     text,
@@ -275,7 +271,7 @@ function toStandardQuestion(
     seed: source.parameters?.seed,
     renderer: source.renderer,
     reasoningGraph: source.reasoningGraph,
-    runtimeMode: releaseEligible ? "CANONICAL_REVIEW" : "STANDARD_QUESTION_STUDIO",
+    runtimeMode: "STANDARD_QUESTION_STUDIO",
     reviewStatus,
     questionBankStatus,
     questionBankWritable: releaseEligible,
@@ -321,12 +317,6 @@ export function listBlr001StandardQuestionStudioPackages() {
     enabled: true,
     runtimeMode: "STANDARD_QUESTION_STUDIO",
     supportedRuntimeModes: ["STANDARD_QUESTION_STUDIO"],
-    reviewStatus: spec.releaseEligibleAfterApproval ? "APPROVED_EDITORIAL_CANONICAL" : "REVIEW_REQUIRED",
-    questionBankStatus: spec.releaseEligibleAfterApproval ? "READY_FOR_STORAGE" : "NOT_STORED",
-    testEligibility: spec.releaseEligibleAfterApproval ? "ELIGIBLE" : "INELIGIBLE",
-    publiclyPublishable: spec.releaseEligibleAfterApproval,
-    automaticStudentPublication: false,
-    manualApprovalRequired: true,
   }));
 }
 
@@ -352,7 +342,7 @@ export function generateBlr001StandardQuestionStudioBatch(
       questionStudioRegistrationStatus: "REGISTERED_STANDARD" as const,
       questionStudioStagingStatus: "STANDARD_REVIEW_QUEUE" as const,
       persistenceAllowed: true as const,
-      reviewStatus: spec.releaseEligibleAfterApproval ? "APPROVED_EDITORIAL_CANONICAL" as const : "REVIEW_REQUIRED" as const,
+      reviewStatus: "REVIEW_REQUIRED" as const,
       questionBankStatus: spec.releaseEligibleAfterApproval ? "READY_FOR_STORAGE" as const : "NOT_STORED" as const,
       testEligibility: spec.releaseEligibleAfterApproval ? "ELIGIBLE" as const : "INELIGIBLE" as const,
       publiclyPublishable: spec.releaseEligibleAfterApproval,
