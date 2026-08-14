@@ -52,6 +52,7 @@ let localizedCaseletCount=0, localizedChildCount=0, canonicalNameLeakCount=0, re
 let mechanicalTranslationeseCount=0, ordinalGrammarViolationCount=0, singularGenderMarkerCount=0;
 let genericWrongOptionFallbackCount=0, explanationParityCaseletCount=0, sharedExplanationBlockParityCount=0;
 let caseDecisionParityCount=0, optionRationaleParityCount=0;
+const latinLeakSamples: string[] = [];
 const queryContracts = new Set<string>();
 
 for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
@@ -117,7 +118,11 @@ for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
       singularGenderMarkerCount+=(surface.match(/ ਬੈਠਾ ਹੈ/g)??[]).length;
       genericWrongOptionFallbackCount+=(surface.match(/ਇਹ ਵਿਕਲਪ/g)??[]).length;
     }
-    residualLatinCount+=latinTokens(surface).length;
+    const leakedTokens = latinTokens(surface);
+    residualLatinCount += leakedTokens.length;
+    if (leakedTokens.length > 0 && latinLeakSamples.length < 24) {
+      latinLeakSamples.push(`${canonical.caseletId}/${locale}: ${[...new Set(leakedTokens)].join(", ")}`);
+    }
     for (const name of SEA001_REVIEW_CANONICAL_NAMES) if (new RegExp(`\\b${name}\\b`).test(surface)) canonicalNameLeakCount+=1;
     assert(localized.humanLanguageReviewRequired,`${canonical.caseletId}/${locale}: human language review cannot be skipped`);
     assert(!localized.productDeliveryUnlocked,`${canonical.caseletId}/${locale}: product delivery cannot unlock`);
@@ -132,7 +137,7 @@ assert(sharedExplanationBlockParityCount===200,`expected approved-English shared
 assert(caseDecisionParityCount===200,`expected case-decision parity for 200 caselets, got ${caseDecisionParityCount}`);
 assert(optionRationaleParityCount===200,`expected option-rationale parity for 200 caselets, got ${optionRationaleParityCount}`);
 assert(canonicalNameLeakCount===0,`native learner text exposes ${canonicalNameLeakCount} canonical Latin names`);
-assert(residualLatinCount===0,`native learner text exposes ${residualLatinCount} Latin tokens`);
+assert(residualLatinCount===0,`native learner text exposes ${residualLatinCount} Latin tokens; samples: ${latinLeakSamples.join(" | ")}`);
 assert(mechanicalTranslationeseCount===0,`native learner text exposes ${mechanicalTranslationeseCount} known translationese fragments`);
 assert(ordinalGrammarViolationCount===0,`native learner text exposes ${ordinalGrammarViolationCount} nominative ordinal location phrases`);
 assert(singularGenderMarkerCount===0,`native learner text exposes ${singularGenderMarkerCount} gendered singular seating markers`);
