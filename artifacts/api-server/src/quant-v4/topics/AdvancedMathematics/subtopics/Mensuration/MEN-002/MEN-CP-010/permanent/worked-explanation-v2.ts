@@ -71,7 +71,7 @@ export function buildMenCp010WorkedExplanationV2(
       const power = q.sourceId.includes("VOLUME") ? 3 : 2;
       explanation = replaceWorkedStep(
         explanation,
-        `Raise both terms of the linear ratio to power ${power}: ${ratio[1]}^${power}:${ratio[2]}^${power}. Reducing this ratio gives ${answer}.`,
+        `Raise both terms of the linear ratio to power ${power}: ${ratio[1]}^${power}:${ratio[2]}^${power} = ${answer} after reduction.`,
       );
     }
   }
