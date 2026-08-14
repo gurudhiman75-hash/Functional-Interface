@@ -4,12 +4,18 @@ import { calculateWorDifficultyFeatures, classifyWorDifficulty } from "./foundat
 import { independentlyFindRank, independentlySortWorWords } from "./foundation/independent-lexical-solver";
 import { adjacentComparisonTrace, sortWorWords } from "./foundation/lexical-comparator";
 import { createWorRng } from "./foundation/prng";
-import type { GeneratedWorQuestion, WorDifficulty, WorLocale, WorOption, WorPrototypeContract, WorQuestionState } from "./foundation/types";
+import type { GeneratedWorQuestion, WorClassicTaskKind, WorDifficulty, WorLocale, WorOption, WorPrototypeContract, WorQuestionState } from "./foundation/types";
 import { incorrectAdjacentPairs, misplacedCandidates, validateWorQuestion } from "./foundation/validation";
 import { buildWorWordSet, difficultyForSeed, wordCountForDifficulty } from "./foundation/word-set-builder";
 import { renderWorExplanation } from "./localization/explanations";
 import { renderWorStem } from "./localization/language-pack";
 import { worPrototypeById } from "./prototype-registry";
+import { generateWorCp005Question } from "./WOR-CP-005/runtime";
+
+type WorClassicPrototypeContract = WorPrototypeContract & {
+  readonly taskKind: WorClassicTaskKind;
+  readonly checkpointId: "WOR-CP-001" | "WOR-CP-002" | "WOR-CP-003" | "WOR-CP-004";
+};
 
 function sameOrder(left: readonly string[], right: readonly string[]): boolean {
   return left.length === right.length && left.every((word, index) => word === right[index]);
@@ -39,13 +45,13 @@ function closestWordCandidates(order: readonly string[], answer: string, reserve
   return [...order.filter((word) => word !== answer).sort((a, b) => Math.abs(order.indexOf(a) - rank) - Math.abs(order.indexOf(b) - rank)), ...reserve];
 }
 
-function selectDifficulty(contract: WorPrototypeContract, seed: number, requested?: WorDifficulty): WorDifficulty {
+function selectDifficulty(contract: WorClassicPrototypeContract, seed: number, requested?: WorDifficulty): WorDifficulty {
   if (contract.hardOnly) return "HARD";
   return requested ?? difficultyForSeed(seed);
 }
 
 function buildStateAttempt(
-  contract: WorPrototypeContract,
+  contract: WorClassicPrototypeContract,
   generationSeed: number,
   targetDifficulty: WorDifficulty,
 ): { state: WorQuestionState; reserve: readonly string[] } {
@@ -181,7 +187,7 @@ function buildStateAttempt(
   };
 }
 
-function buildState(contract: WorPrototypeContract, seed: number, requestedDifficulty?: WorDifficulty): { state: WorQuestionState; reserve: readonly string[] } {
+function buildState(contract: WorClassicPrototypeContract, seed: number, requestedDifficulty?: WorDifficulty): { state: WorQuestionState; reserve: readonly string[] } {
   const targetDifficulty = selectDifficulty(contract, seed, requestedDifficulty);
   for (let attempt = 0; attempt < 64; attempt += 1) {
     const generationSeed = seed + attempt * 7919;
@@ -223,13 +229,15 @@ export function generateWor001Question(
   requestedDifficulty?: WorDifficulty,
 ): GeneratedWorQuestion {
   const contract = worPrototypeById(prototypeId);
-  const { state, reserve } = buildState(contract, seed, requestedDifficulty);
+  if (contract.checkpointId === "WOR-CP-005") return generateWorCp005Question(contract, seed, locale, requestedDifficulty);
+  const classicContract = contract as WorClassicPrototypeContract;
+  const { state, reserve } = buildState(classicContract, seed, requestedDifficulty);
   const options = buildOptions(state, reserve, seed);
   const correctIndex = correctOptionIndex(options);
   const question: GeneratedWorQuestion = {
     chapterId: "WOR-001",
-    checkpointId: contract.checkpointId,
-    prototypeId: contract.prototypeId,
+    checkpointId: classicContract.checkpointId,
+    prototypeId: classicContract.prototypeId,
     permanentQlId: null,
     lifecycleStatus: "REVIEW_ONLY",
     questionStudioVisible: false,
@@ -260,8 +268,10 @@ export function generateWor001Question(
       difficultyFeatures: state.difficultyFeatures,
       canonicalOrder: state.canonicalAscendingOrder,
       comparisonTrace: state.comparisonTrace,
-      allocationDecision: contract.allocationDecision,
-      sourceEvidenceStatus: contract.sourceEvidenceStatus,
+      allocationDecision: classicContract.allocationDecision,
+      sourceEvidenceStatus: classicContract.sourceEvidenceStatus,
+      optionCount: 4,
+      objectMode: "REAL_WORD",
     },
   };
   validateWorQuestion(question, state);
