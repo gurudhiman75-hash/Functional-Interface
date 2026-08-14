@@ -19,13 +19,13 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Bundle E1 R2 production review
-        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E1-R2-REVIEW.ts --bundle --platform=node --format=esm --outfile=dist/e1-r2-review.mjs
-      - name: Generate and validate E1 R2 production review
+      - name: Bundle E1 R2 production review V4
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E1-R2-REVIEW-V4.ts --bundle --platform=node --format=esm --outfile=dist/e1-r2-review.mjs
+      - name: Generate and validate E1 R2 production review V4
         run: node artifacts/api-server/dist/e1-r2-review.mjs
       - uses: actions/upload-artifact@v4
         with:
-          name: sap-e1-r2-300-review
+          name: sap-e1-r2-300-review-v4
           path: artifacts/api-server/dist/quant-v4/sap-e1-r2-review/**
           if-no-files-found: error
           retention-days: 30
