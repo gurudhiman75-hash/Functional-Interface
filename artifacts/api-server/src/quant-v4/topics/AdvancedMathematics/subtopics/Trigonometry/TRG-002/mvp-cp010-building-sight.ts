@@ -52,8 +52,9 @@ function sightState(eye: ExactTrigNumber, run: ExactTrigNumber, target: ExactTri
   };
 }
 function ql091(seed: string) {
-  const eye = exactInteger(mvpPick(seed, "091-eye", [8, 10, 12] as const));
-  const run = exactSurd(eye, 3);
+  const coefficient = mvpPick(seed, "091-eye", [8, 10, 12] as const);
+  const eye = exactInteger(coefficient);
+  const run = exactSurd(coefficient, 3);
   const rise = multiplyExact(eye, exactInteger(3));
   const target = addExact(eye, rise);
   return buildTrg002MvpQuestion({
