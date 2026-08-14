@@ -1,0 +1,40 @@
+name: Validate WOR-001 Remediation V1
+
+on:
+  push:
+    branches:
+      - feature/wor-001-remediation-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**'
+      - '.github/workflows/wor-001-remediation-v1.yml'
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**'
+      - '.github/workflows/wor-001-remediation-v1.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: wor-001-remediation-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-wor-001:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Run WOR-001 deterministic multilingual audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001.test.ts
+
+      - name: Generate WOR-001 review packs
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/export-review-packs.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
