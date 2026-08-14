@@ -1,0 +1,80 @@
+name: Verify TRG-002 48-QL MVP
+
+on:
+  push:
+    branches:
+      - feat/trg-002-mvp-48
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**
+      - .github/workflows/trg-002-mvp48-verification.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trg-002-mvp48-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Targeted TRG-002 TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg002-mvp48.json <<'EOF'
+          {
+            "extends": "./tsconfig.json",
+            "compilerOptions": {
+              "noEmit": true
+            },
+            "include": [
+              "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**/*.ts"
+            ],
+            "references": []
+          }
+          EOF
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg002-mvp48.json --pretty false
+
+      - name: Execute 48-QL canonical and sweep gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-runtime-48.test.ts
+
+      - name: Execute exact diagram-label gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-label-smoke.test.ts
+
+      - name: Execute difficulty regression gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-difficulty-regression.test.ts
+
+      - name: Execute 14-strategy diagram gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-visual-review-14.test.ts
+
+      - name: Execute high-risk projection gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-special-render-projection.test.ts
+
+      - name: Execute final editorial gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-final-editorial.test.ts
+
+      - name: Generate actual-runtime 48-QL HTML and JSON review pack
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-mvp-48-review-pack.ts
+
+      - name: Verify review pack
+        run: |
+          test -s ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          test -s ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.json
+          grep -q 'TRG-002-QL-096' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+
+      - name: Upload TRG-002 runtime review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-mvp48-runtime-review
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/
+          if-no-files-found: error
+          retention-days: 14
