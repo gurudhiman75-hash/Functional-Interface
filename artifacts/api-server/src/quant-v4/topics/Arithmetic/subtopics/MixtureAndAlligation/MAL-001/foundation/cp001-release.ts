@@ -147,6 +147,10 @@ function normaliseReleaseText(value: string): string {
     );
 }
 
+function sentenceCaseStem(value: string): string {
+  return value.replace(/^([a-z])/u, (_match, letter: string) => letter.toUpperCase());
+}
+
 function normaliseAlligationVisual(
   visual: MalCp001AlligationVisual,
 ): MalCp001AlligationVisual {
@@ -281,7 +285,7 @@ export function applyMalCp001EnglishRelease(
   const rawEditorial = buildMalCp001ReleaseEditorialV2(editorialQuestion);
   const editorial = {
     ...rawEditorial,
-    stem: normaliseReleaseText(rawEditorial.stem),
+    stem: sentenceCaseStem(normaliseReleaseText(rawEditorial.stem)),
     explanation: normaliseReleaseExplanation(rawEditorial.explanation),
   };
   const checks = releaseChecks(question, editorial);
