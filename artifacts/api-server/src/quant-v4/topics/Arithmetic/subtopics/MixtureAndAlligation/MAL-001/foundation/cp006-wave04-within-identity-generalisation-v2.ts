@@ -20,7 +20,15 @@ function polishStem(text: string): string {
     .replace(/\bFrom B's new mixture, (\d+) litres goes to A\b/gu, "B then sends $1 litres of its new mixture to A")
     .replace(/\bFrom A's new mixture, (\d+) litres then goes to B\b/gu, "A then sends $1 litres of its new mixture to B")
     .replace(/, (\d+) litres is first poured into B from A\./gu, ". A first pours $1 litres into B.")
-    .replace(/\b(\d+) litres is sent back to B\b/gu, "A sends $1 litres back to B");
+    .replace(/\b(\d+) litres is sent back to B\b/gu, "A sends $1 litres back to B")
+    .replace(
+      /^Starting from (\d+) litres of (.+?) in A and (\d+) litres of (.+?) in B\./u,
+      "A starts with $1 litres of $2, and B starts with $3 litres of $4.",
+    )
+    .replace(
+      /^At the end of three alternating transfers, find the (.+?) ratio in B\. (.+) What is the required ratio\?$/u,
+      "$2 After all three transfers, what is the $1 ratio in B?",
+    );
 }
 
 function xTerm(coefficient: number): string {
@@ -62,6 +70,8 @@ function finalise(q: MalCp006Wave04Question): MalCp006Wave04Question {
   if (/\b\d+ litres goes\b/iu.test(learnerText)) errors.push("litres-goes grammar regression");
   if (/\b1x\b/u.test(learnerText)) errors.push("1x arithmetic notation regression");
   if (/Solving this linear equation gives/iu.test(learnerText)) errors.push("inverse explanation still skips visible solving");
+  if (/^Starting from\b/u.test(stem)) errors.push("opening sentence fragment regression");
+  if (/\bfind the .+ ratio in B\./iu.test(stem)) errors.push("command-style opening regression");
   if (!stem.endsWith("?")) errors.push("stem is not interrogative");
   if (explanation.length !== 4) errors.push("explanation length changed");
   if (new Set(q.options).size !== 4 || q.options[q.correctIndex] !== q.answer) errors.push("option mapping changed");
