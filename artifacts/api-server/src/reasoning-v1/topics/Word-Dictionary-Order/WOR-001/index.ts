@@ -5,3 +5,5 @@ export * from "./prototype-registry";
 export * from "./runtime";
 export * from "./question-studio-adapter";
 export * from "./review-pack";
+export * from "./banking-review-pack";
+export * from "./WOR-CP-005/registry";
