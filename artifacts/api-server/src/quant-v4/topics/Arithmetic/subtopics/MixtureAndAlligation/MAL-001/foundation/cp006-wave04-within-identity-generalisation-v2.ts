@@ -9,6 +9,10 @@ import { MAL_CP006_WAVE02_OBJECT_CONTEXTS } from "./cp006-wave02-final-authority
 export const MAL_CP006_WAVE04_FINAL_GENERALISATION_ID =
   "MAL-CP006-WAVE04-WITHIN-IDENTITY-GENERALISATION-V2" as const;
 
+export type MalCp006Wave04FinalQuestion = MalCp006Wave04Question & {
+  finalAuthorityId: typeof MAL_CP006_WAVE04_FINAL_GENERALISATION_ID;
+};
+
 function polishStem(text: string): string {
   return text
     .replace(/\bA known (\d+) litres is first moved from A into B\b/gu, "A first moves $1 litres into B")
@@ -58,7 +62,7 @@ function inverseExplanation(q: MalCp006Wave04Question): string[] {
   ];
 }
 
-function finalise(q: MalCp006Wave04Question): MalCp006Wave04Question {
+function finalise(q: MalCp006Wave04Question): MalCp006Wave04FinalQuestion {
   const stem = polishStem(q.stem);
   const explanation = q.variantId === "ASYMMETRIC_INVERSE_RETURN"
     ? inverseExplanation(q)
@@ -78,7 +82,7 @@ function finalise(q: MalCp006Wave04Question): MalCp006Wave04Question {
 
   return {
     ...q,
-    generalisationId: q.generalisationId,
+    finalAuthorityId: MAL_CP006_WAVE04_FINAL_GENERALISATION_ID,
     stem,
     explanation,
     validation: { ok: errors.length === 0, errors },
@@ -88,6 +92,6 @@ function finalise(q: MalCp006Wave04Question): MalCp006Wave04Question {
 export function generateMalCp006Wave04FinalGeneralisation(
   variantId: MalCp006Wave04VariantId,
   seed: string,
-): MalCp006Wave04Question {
+): MalCp006Wave04FinalQuestion {
   return finalise(generateMalCp006Wave04Generalisation(variantId, seed));
 }
