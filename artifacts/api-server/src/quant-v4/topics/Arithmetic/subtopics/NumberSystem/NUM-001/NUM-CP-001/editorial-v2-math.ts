@@ -41,6 +41,7 @@ function wrapRawFormulae(value: string): string {
   output = output.replace(/([[(]\s*(?:-?\d+(?:\.\d+)?|[a-z])\s*,\s*(?:-?\d+(?:\.\d+)?|[a-z])\s*[\])])/gu, (_match, interval) => inline(String(interval).replace(/\s+/gu, "")));
 
   output = output.replace(/\b([A-D](?:\s*<\s*[A-D]){2,})\b/gu, (_match, order) => inline(String(order).replace(/\s+/gu, "")));
+  output = output.replace(/(-?\d+(?:\/\d+|\.\d+)?(?:\s*[<>]\s*-?\d+(?:\/\d+|\.\d+)?){2,})/gu, (_match, order) => inline(mathBody(String(order))));
   output = output.replace(/(-?\d+(?:\.\d+)?\s*(?:[+\-−×÷]\s*\(?-?\d+(?:\.\d+)?\)?)+\s*=\s*-?\d+(?:\.\d+)?)/gu, (_match, working) => inline(mathBody(String(working))));
 
   output = output.replace(/\b((?:\d+)?[xbnpqrm](?:\^\{?\d+\}?|[²³])?(?:\s*[+\-−×]\s*(?:\d+)?[xbnpqrm](?:\^\{?\d+\}?|[²³])?)+)\b/gu, (_match, expression) => inline(mathBody(String(expression))));
