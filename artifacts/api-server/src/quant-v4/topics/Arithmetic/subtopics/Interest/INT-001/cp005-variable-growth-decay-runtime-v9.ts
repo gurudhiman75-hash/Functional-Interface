@@ -44,19 +44,19 @@ function polishHighSalaryContext(source: IntCp005QuestionV8, text: string, local
 }
 
 function localizedKnownFactorDefinition(locale: IntCp005Locale): string {
-  if (locale === "en-IN") return "Here, \(K\) is the product of the known yearly growth factors.";
-  if (locale === "hi-IN") return "यहाँ \(K\) ज्ञात वर्षों के वृद्धि-गुणकों का गुणनफल है।";
-  return "ਇੱਥੇ \(K\) ਜਾਣੇ ਹੋਏ ਸਾਲਾਂ ਦੇ ਵਾਧੇ-ਗੁਣਕਾਂ ਦਾ ਗੁਣਨਫਲ ਹੈ।";
+  if (locale === "en-IN") return String.raw`Here, \(K\) is the product of the known yearly growth factors.`;
+  if (locale === "hi-IN") return String.raw`यहाँ \(K\) ज्ञात वर्षों के वृद्धि-गुणकों का गुणनफल है।`;
+  return String.raw`ਇੱਥੇ \(K\) ਜਾਣੇ ਹੋਏ ਸਾਲਾਂ ਦੇ ਵਾਧੇ-ਗੁਣਕਾਂ ਦਾ ਗੁਣਨਫਲ ਹੈ।`;
 }
 
 function ql089Steps(source: IntCp005QuestionV8, locale: IntCp005Locale): readonly string[] {
   const original = source.explanation.steps;
   if (original.length < 3) return original;
   const first = locale === "en-IN"
-    ? "Formula: \(V_n=V_0K\left(1+\frac{x}{100}\right)\)."
+    ? String.raw`Formula: \(V_n=V_0K\left(1+\frac{x}{100}\right)\).`
     : locale === "hi-IN"
-      ? "सूत्र: \(V_n=V_0K\left(1+\frac{x}{100}\right)\)।"
-      : "ਸੂਤਰ: \(V_n=V_0K\left(1+\frac{x}{100}\right)\)।";
+      ? String.raw`सूत्र: \(V_n=V_0K\left(1+\frac{x}{100}\right)\)।`
+      : String.raw`ਸੂਤਰ: \(V_n=V_0K\left(1+\frac{x}{100}\right)\)।`;
   return Object.freeze([first, localizedKnownFactorDefinition(locale), ...original.slice(1)]);
 }
 
