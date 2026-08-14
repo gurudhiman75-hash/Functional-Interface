@@ -105,18 +105,39 @@ function ql015NaturalDepression(question: Trg002ProofQuestion): Trg002ProofQuest
   return result;
 }
 
+function friendlierThirdSurd(text: string) {
+  return text.replace(/(\d+)√3\/3/g, "$1/√3");
+}
+
 function finalEditorialPolish(question: Trg002ProofQuestion): Trg002ProofQuestion {
+  if (question.qlId === "TRG-002-QL-007") {
+    return {
+      ...question,
+      stem: friendlierThirdSurd(question.stem),
+      explanation: {
+        ...question.explanation,
+        steps: question.explanation.steps.map((step) => ({ ...step, body: friendlierThirdSurd(step.body) })),
+      },
+    };
+  }
+
   if (question.qlId === "TRG-002-QL-049") {
     return {
       ...question,
-      stem: question.stem.replace("Two points A and B on the same side of a tower are", "Two observation points on the same side of a tower are"),
+      stem: question.stem
+        .replace("Two points A and B on the same side of a tower are", "Two observation points A and B on the same side of a tower are")
+        .replace("Their elevation angles are 30° and 60°.", "The angle of elevation is 30° at A, the farther point, and 60° at B, the nearer point."),
     };
+  }
+
+  if (question.qlId === "TRG-002-QL-061") {
+    return { ...question, difficulty: "Medium" };
   }
 
   if (question.qlId === "TRG-002-QL-083") {
     return {
       ...question,
-      stem: question.stem.replace("a second building", "another building"),
+      stem: question.stem.replace(/the top of another building (.+?) m away is seen/, "the top of another building, whose foot is $1 m horizontally from the first building, is seen"),
     };
   }
 
