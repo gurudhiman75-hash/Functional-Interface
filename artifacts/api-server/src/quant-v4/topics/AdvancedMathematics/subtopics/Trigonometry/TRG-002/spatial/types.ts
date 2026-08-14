@@ -118,6 +118,7 @@ export interface Trg002SpatialState {
     oppositeSide?: boolean;
     observerOrder?: string[];
     notes?: string[];
+    measurements?: Record<string, ExactTrigNumber>;
   };
 }
 
