@@ -66,6 +66,11 @@ for (const qlId of qls) {
       ok(q.options[q.correctIndex] === q.solution.answerText, `${label}: answer-option mismatch`);
       ok(q.optionAudit[q.correctIndex]?.misconceptionId === "CORRECT", `${label}: answer audit`);
       ok(q.presentationBlocks.length === 1 && q.presentationBlocks[0].type.toUpperCase() === q.representation, `${label}: structured block`);
+      if (q.representation === "TABLE") {
+        ok(q.presentationBlocks[0].rows.length >= 2 && q.presentationBlocks[0].columns.length >= 3, `${label}: table depth`);
+      } else {
+        ok(q.presentationBlocks[0].paragraphs.length >= 2, `${label}: caselet depth`);
+      }
       ok(e.steps.length >= 2 && e.shortcut.steps.length >= 1, `${label}: teaching depth`);
       ok(e.commonTrap.explanation.includes(e.commonTrap.optionText), `${label}: trap does not name distractor`);
       ok(!/undefined|null|NaN|Infinity|\{\{|\$\{/u.test(learnerText), `${label}: unresolved learner text`);
