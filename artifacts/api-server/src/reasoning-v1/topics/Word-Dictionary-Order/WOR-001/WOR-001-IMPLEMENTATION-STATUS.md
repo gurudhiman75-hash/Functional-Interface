@@ -1,22 +1,42 @@
-# WOR-001 Implementation Status — Remediation V1
+# WOR-001 Implementation Status — Remediation V2
 
 ## Current implementation
 
-- clean WOR-001 subtree transplanted onto current `New-main` lineage rather than rebasing the stale multi-topic feature branch;
-- four-checkpoint runtime with 19 provisional prototypes / 15 distinct solve contracts;
-- freeze posture separated from executable taxonomy: 7 retained contracts are eligible after editorial gates, 8 retained contracts are `DEFER_SOURCE_GAP`, and 4 CP-004 items are `INSTANCE_VARIANT_NO_QL`;
-- 30 curated families / 360 globally unique A–Z word records, all `PROVISIONAL_REVIEW`;
+- clean WOR-001 subtree on current `New-main` lineage;
+- four-checkpoint runtime with 19 provisional prototypes / 15 executable task kinds;
+- final recommended freeze architecture: 4 QL roots, 8 source-deferred retained contracts, 7 instance variants with no separate QL;
+- 30 curated families / 360 globally unique A–Z word records, all `PROVISIONAL_REVIEW` pending human corpus approval;
 - canonical comparator plus independent selection-sort verifier;
 - identical-word comparison traces rejected explicitly;
 - state-derived Easy/Medium/Hard scoring with deterministic resampling to requested band;
 - truthful misconception metadata for sequence, word, rank and adjacent-pair distractors;
+- FIND_RANK targets interior positions so it does not collapse into endpoint questions;
+- RANK_AFTER_INSERTION always selects a target whose rank actually shifts;
 - unique-answer correction and partial-order validators;
-- task-specific English, Hindi and Punjabi explanations;
-- locale-specific review-pack scaffolding with no hard-coded trilingual English/HI/PA label leakage;
+- English, Hindi and Punjabi explanations now prove every adjacent comparison in the canonical order before giving the task-specific conclusion;
+- locale-specific review-pack scaffolding with no hard-coded trilingual label leakage;
 - source-evidence status attached to every prototype and generated question;
-- CP-003 source gaps encoded as deferred freeze posture rather than hidden behind `RETAIN`;
+- CP-003 and predecessor/successor source gaps remain explicitly deferred rather than hidden behind executable `RETAIN` status;
 - stale checked-in review snapshots removed; review packs are generated as CI artifacts;
 - dedicated runtime, source-governance and corpus-diversity CI audits.
+
+## Recommended permanent QL roots
+
+```text
+1. Complete dictionary order
+   variants: reverse order, hard/deep-prefix full order
+
+2. Endpoint after ordering
+   variants: first word, last word
+
+3. Word at a specified position
+   variants: kth word, middle word, hard/deep-prefix kth
+
+4. Position of a specified word
+   variants: ordinary rank, hard/deep-prefix rank
+```
+
+Permanent IDs remain unallocated. The four-root architecture is a freeze recommendation, not publication activation.
 
 ## Corpus shape
 
@@ -32,32 +52,40 @@ global normalized duplicates: blocked by runtime guard
 
 ## Source and freeze status
 
-Core complete-order, endpoint and kth/position-style reasoning has pinned competitive-exam evidence in the source audit. Platform-supported contracts remain marked separately. Targeted source-saturation searches did not establish recurring evidence for predecessor/successor, insertion, misplaced-word, incorrect-adjacent-pair or partial-order contracts, so retained source-gap contracts are explicitly `DEFER_SOURCE_GAP`.
+Direct/previous-paper evidence supports complete ordering, endpoints, kth-position and middle-word forms. Reverse dictionary order is retained as an instance of complete ordering rather than a separate QL. Position-of-specified-word remains a supported distinct query direction.
 
-There are 9 source-gap prototypes in total: 8 retained contracts are deferred and `WOR-PROT-019` is already an instance variant with no separate QL.
+Targeted source saturation did not establish recurring direct exam evidence for predecessor/successor, insertion, misplaced-word, incorrect-adjacent-pair or partial-order contracts. Eight retained source-gap contracts therefore remain `DEFER_SOURCE_GAP`; the hard insertion prototype is already an instance variant with no QL.
+
+Current posture:
+
+```text
+ELIGIBLE_AFTER_EDITORIAL: 4
+DEFER_SOURCE_GAP: 8
+INSTANCE_VARIANT_NO_QL: 7
+```
 
 ## Automated gate
 
-The head CI gate must pass all of the following before this remediation branch is considered engineering-merge-ready:
+The branch-head CI must pass all of the following:
 
 1. deterministic multilingual runtime audit;
 2. requested difficulty equals state-derived difficulty;
-3. tier-aware structural difficulty ordering (Hard structurally deeper than Medium; Medium deeper than Easy);
-4. source-evidence and freeze-governance audit;
-5. 30-family/360-word corpus uniqueness, reachability and visible-set diversity audit;
-6. commit-fresh review-pack generation and artifact upload;
-7. API production build.
+3. tier-aware structural difficulty ordering;
+4. every explanation contains proof for every adjacent canonical pair;
+5. ordinary rank targets are interior positions;
+6. rank-after-insertion actually shifts the target rank;
+7. source-evidence and four-root freeze-governance audit;
+8. 30-family/360-word corpus uniqueness, reachability and visible-set diversity audit;
+9. commit-fresh review-pack generation and artifact upload;
+10. API production build.
 
-No locally stated pass result substitutes for the GitHub Actions result on the branch head.
+## Still gated after this remediation
 
-## Still gated after engineering remediation
-
-- source saturation / merge-remove decision for `DEFER_SOURCE_GAP` contracts;
 - human editorial approval of the 360-word corpus;
 - human English review of generated questions/explanations;
 - native Hindi review;
 - native Punjabi review;
-- permanent QL allocation;
+- permanent ID allocation to the four recommended roots;
 - central Question Studio discovery;
 - public mock-test release.
 
