@@ -1,48 +1,33 @@
 # TRG-002 48-QL MVP Status
 
-Status: **48/48 AI/EDITORIAL PASS — EXECUTION / RENDERED VISUAL INSPECTION / HUMAN REVIEW PENDING**
+Status: **48/48 AI/EDITORIAL PASS — EXECUTION PASS — RUNTIME-SPEC VISUAL PASS — APP/UI VISUAL + HUMAN REVIEW PENDING**
 
 ## Scope
 
-`TRG-002 — Heights & Distances Applications` has a composed 48-QL MVP candidate:
+`TRG-002 — Heights & Distances Applications` now has a composed 48-QL MVP candidate:
 
 - TRG-CP-007: 12 permanent QLs
 - TRG-CP-008: 12 permanent QLs
 - TRG-CP-009: 12 permanent QLs
 - TRG-CP-010: 12 permanent QLs
 - total: **48 permanent English QLs**
-- full production target remains 96
+- production target: 96
 
-The 20 audited proof anchors are retained. The MVP adds 28 permanent roles selected from the Phase-0 ledger.
+The 20 proof anchors are retained and the MVP adds 28 permanent roles from the Phase-0 ledger.
 
 ## Review outcome
 
-- 28 added MVP QLs: freshly AI/editorially reviewed at this checkpoint.
-- 20 proof anchors: carried from their completed proof-stage AI review because their generator content is unchanged by this expansion.
-- AI/editorial reviewed: **48 / 48**.
-- AI/editorial PASS: **48 / 48**.
-- known AI/editorial blockers: **0**.
-- human reviewed: **0 / 48**.
-- actual rendered diagram review: **PENDING**.
-- production freeze eligible: **NO**.
+- AI/editorial reviewed: **48 / 48**
+- AI/editorial PASS: **48 / 48**
+- known AI/editorial blockers: **0**
+- runtime-spec visual inspection: **PASS**
+- browser/app-wrapper inspection: **PENDING**
+- human reviewed: **0 / 48**
+- production freeze eligible: **NO**
 
-Active final AI/editorial runtime: `mvp-final-editorial-runtime.ts`.
+Active final runtime: `mvp-final-editorial-runtime.ts`.
 
-Detailed review evidence: `MVP_AI_EDITORIAL_STATUS.md` and `mvp-ai-editorial.manifest.json`.
-
-## Static remediation completed
-
-The active route includes fixes for:
-
-- QL-024 option collision;
-- QL-035 two-state changed-shadow geometry;
-- QL-038 ladder angle/provenance;
-- QL-064 difficulty calibration to Medium;
-- QL-076 duplicate option;
-- QL-094 option collision;
-- QL-095 difficulty calibration to Medium.
-
-Final wording polish additionally covers QL-005, 009, 014, 018, 020, 035, 048 and 095.
+Detailed authority: `MVP_AI_EDITORIAL_STATUS.md` and `mvp-ai-editorial.manifest.json`.
 
 ## Diagram policy
 
@@ -50,39 +35,40 @@ For all 48 MVP QLs:
 
 - solution diagram: **REQUIRED**
 - stem diagram: **OPTIONAL**, not automatic
-- disclosure: **AFTER_ATTEMPT**
-- canonical-state binding required
-- exact solution-label plans exist for all 28 additions
+- solution disclosure: **AFTER_ATTEMPT**
+- canonical-state fingerprint binding: required
+- exact semantic solution labels: required
 
-All **14 locked TRG-002 diagram strategies** are represented. `mvp-special-visual-review.ts` separately targets changed-shadow, ladder, broken-object and stacked-composite high-risk forms.
+All **14 locked TRG-002 diagram strategies** are represented.
 
-Actual rendered visual inspection remains pending; committed visual fixtures are not treated as a substitute for rendering.
+The runtime-spec visual pass inspected all 48 generated diagram specifications. Final teaching-aid fixes include:
 
-## Gate targets
+- QL-020: target pole and observer vertical level now visibly drawn;
+- QL-023: given sight-line length visibly labelled;
+- QL-036: given ladder length visibly labelled;
+- QL-035: both old/new shadows and both solar rays projected;
+- movement direction and prior QL-078/088 label collisions remain remediated.
 
-Committed targets include:
+## Actual execution evidence
 
-- `mvp-runtime-48.test.ts`: 576 canonical cases + 2,400 sweep cases;
-- `mvp-label-smoke.test.ts`: all 28 added label plans;
-- `mvp-difficulty-regression.test.ts`: QL-064/095 Medium and QL-096 Hard;
-- `mvp-visual-review-14.test.ts`: all 14 locked diagram strategies;
-- `mvp-final-editorial.test.ts`: 576 final-editorial cases plus wording/review-metadata locks.
+Workflow: `.github/workflows/trg-002-mvp48-verification.yml`.
 
-No execution pass is claimed unless an actual run is observed.
+Observed successful post-visual-fix run: **31765951856**, head `fa22514d09120dab857a1796ceb9d1fed0dd9796`.
 
-## Execution truth
+Passed:
 
-Current state:
+- targeted TRG-002 TypeScript compile;
+- **576** canonical MVP cases;
+- **2,400** sweep cases;
+- exact added-label gate;
+- difficulty regression gate;
+- 14-strategy diagram gate;
+- high-risk projection/teaching-aid gate;
+- **576** final-editorial cases;
+- actual-runtime 48-QL HTML + JSON export;
+- review artifact verification/upload.
 
-- strict TypeScript compile: **NOT CLAIMED**
-- 576-case MVP gate: **NOT CLAIMED**
-- 2,400-case sweep: **NOT CLAIMED**
-- label smoke gate: **NOT CLAIMED**
-- 14-strategy visual gate: **NOT CLAIMED**
-- 576-case final-editorial gate: **NOT CLAIMED**
-- rendered visual inspection: **NOT COMPLETED**
-
-A direct local clone/run attempt from the assistant runtime could not proceed because that environment cannot resolve GitHub. This is not classified as a code failure.
+Artifact name: `trg-002-mvp48-runtime-review`.
 
 ## Activation
 
@@ -94,10 +80,12 @@ Still OFF:
 - public publication
 - Hindi/Punjabi runtime
 
-## Next checkpoint
+## Remaining gate under the current plan
 
-Before any 48 -> 96 expansion:
+Do **not** treat the MVP as human-approved or production-frozen yet.
 
-1. obtain actual TypeScript/runtime execution evidence;
-2. inspect rendered solution diagrams for the 14 strategy representatives and four special forms;
-3. complete the 48-QL human/editorial review.
+Before 48 → 96 expansion under the current locked plan:
+
+1. inspect the runtime-generated HTML in the real app/browser wrapper;
+2. complete human review of the 48 questions;
+3. explicitly approve the next production expansion.
