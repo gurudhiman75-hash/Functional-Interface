@@ -11,7 +11,7 @@ function record(word: string, familiarity: WorWordRecord["familiarity"] = "COMMO
     morphologyTags: normalized.endsWith("TION") ? ["NOUN_SUFFIX"] : normalized.endsWith("IVE") ? ["ADJECTIVE_SUFFIX"] : [],
     prefixKeys,
     containsRepeatedLetters: /([A-Z]).*\1/.test(normalized),
-    editorialStatus: "APPROVED",
+    editorialStatus: "PROVISIONAL_REVIEW",
   };
 }
 
