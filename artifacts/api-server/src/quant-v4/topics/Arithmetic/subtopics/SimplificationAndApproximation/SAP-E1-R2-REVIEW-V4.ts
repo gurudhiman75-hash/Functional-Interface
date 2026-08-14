@@ -56,7 +56,8 @@ assert.equal(sscFamilies.reduce((sum, f) => sum + f.target, 0), 100);
 assert.equal(bankFamilies.reduce((sum, f) => sum + f.target, 0), 200);
 assert.equal(sscFamilies.length + bankFamilies.length, 24);
 
-const used = new Map<string, number>();
+const familyUsage = new Map<string, number>();
+const usedSeeds = new Map<string, Set<number>>();
 const remaining = new Map<string, number>([...sscFamilies, ...bankFamilies].map(f => [f.id, f.target]));
 let sscCursor = 0;
 let bankCursor = 0;
@@ -77,10 +78,20 @@ function nextFamily(pool: readonly Family[], profile: "SSC" | "BANK"): Family {
 }
 
 function stratifiedSeed(family: Family, targetCorrectIndex: number): number {
-  const usage = used.get(family.id) ?? 0;
-  used.set(family.id, usage + 1);
-  const bandSlot = (usage * 7 + family.salt) % 25;
-  return targetCorrectIndex + 1 + 4 * bandSlot;
+  const usage = familyUsage.get(family.id) ?? 0;
+  familyUsage.set(family.id, usage + 1);
+  const occupied = usedSeeds.get(family.id) ?? new Set<number>();
+  const preferredSlot = (usage * 7 + family.salt) % 25;
+  for (let probe = 0; probe < 25; probe += 1) {
+    const bandSlot = (preferredSlot + probe) % 25;
+    const seed = targetCorrectIndex + 1 + 4 * bandSlot;
+    if (!occupied.has(seed)) {
+      occupied.add(seed);
+      usedSeeds.set(family.id, occupied);
+      return seed;
+    }
+  }
+  throw new Error(`${family.id}: exhausted seed bucket for answer index ${targetCorrectIndex}.`);
 }
 
 interface ReviewRecord extends SapE1R2Package {
@@ -98,10 +109,10 @@ for (let index = 0; index < 300; index += 1) {
   records.push(Object.freeze({ ...q, questionId: `SAP-E1-R2-${String(index + 1).padStart(3, "0")}` }));
 }
 
-assert.equal(records.length, 300);
-assert.equal(new Set(records.map(r => r.stem)).size, 300);
-assert.equal(new Set(records.map(r => r.canonicalPayloadKey)).size, 300);
-assert.equal(new Set(records.map(r => r.generationIdentity)).size, 300);
+assert.equal(records.length, 300, "V4 review must contain 300 records.");
+assert.equal(new Set(records.map(r => r.stem)).size, 300, "V4 review must contain 300 unique visible stems.");
+assert.equal(new Set(records.map(r => r.canonicalPayloadKey)).size, 300, "V4 review must contain 300 unique payloads.");
+assert.equal(new Set(records.map(r => r.generationIdentity)).size, 300, "V4 review must contain 300 unique generation identities.");
 
 const profileCounts = {
   SSC: records.filter(r => r.profile === "SSC").length,
@@ -174,7 +185,7 @@ const summary = Object.freeze({
   suppliedRootQuestions: suppliedCount,
   unguidedBankApproximationQuestions: unguidedBankCount,
   cp007NormalMockQuestions: 0,
-  sampler: "FULL_RANGE_STRATIFIED_INTERLEAVED",
+  sampler: "FULL_RANGE_STRATIFIED_INTERLEAVED_UNIQUE_SEEDS",
   lifecycle: "INACTIVE_HUMAN_REVIEW_CANDIDATE",
   permanentQlAllocation: "NONE",
 });
