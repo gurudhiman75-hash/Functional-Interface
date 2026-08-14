@@ -59,6 +59,10 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
 }
 
+function sentenceCase(value: string): string {
+  return value.replace(/^([a-z])/u, (_match, letter: string) => letter.toUpperCase());
+}
+
 function isPluralMaterialLabel(label: string): boolean {
   return /(?:lentils|beans|leaves)$/iu.test(label.trim());
 }
@@ -170,6 +174,9 @@ function assertEditorialV2(
   if (!question.stem.endsWith("?")) {
     throw new Error(`${question.questionId}: stem is not interrogative.`);
   }
+  if (/^[a-z]/u.test(question.stem)) {
+    throw new Error(`${question.questionId}: stem does not begin with sentence case.`);
+  }
   if (!question.explanation.formula.includes("\\[")) {
     throw new Error(
       `${question.questionId}: formula has no displayed MathJax.`,
@@ -199,7 +206,7 @@ export function runMalCp002EnglishEditorialV2Pipeline(
   const explanation = normaliseExplanation(editorial.explanation, labels);
   const question: MalCp002ReleasedQuestion = {
     ...base,
-    stem: normaliseLearnerText(editorial.stem, labels),
+    stem: sentenceCase(normaliseLearnerText(editorial.stem, labels)),
     explanationId: `${base.permanentQlId}-EN-CONSERVED-PART-MATHJAX-V2`,
     parameters: {
       ...base.parameters,
@@ -216,7 +223,7 @@ export function runMalCp002EnglishEditorialV2Pipeline(
         {
           name: "editorial-v2-natural-stem",
           passed: true,
-          message: "The stem uses a natural competitive-exam voice.",
+          message: "The stem uses a natural competitive-exam voice and sentence case.",
         },
         {
           name: "editorial-v2-conserved-part-method",
