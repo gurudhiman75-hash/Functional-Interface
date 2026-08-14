@@ -1,6 +1,6 @@
 import { WOR_WORD_FAMILIES, worFamilyById } from "./datasets/word-registry";
 import { buildRankOptions, buildPairOptions, buildSequenceOptions, buildWordOptions, correctOptionIndex, renderWordSequence } from "./foundation/distractors";
-import { calculateWorDifficultyFeatures } from "./foundation/difficulty";
+import { calculateWorDifficultyFeatures, classifyWorDifficulty } from "./foundation/difficulty";
 import { independentlyFindRank, independentlySortWorWords } from "./foundation/independent-lexical-solver";
 import { adjacentComparisonTrace, sortWorWords } from "./foundation/lexical-comparator";
 import { createWorRng } from "./foundation/prng";
@@ -44,18 +44,21 @@ function selectDifficulty(contract: WorPrototypeContract, seed: number, requeste
   return requested ?? difficultyForSeed(seed);
 }
 
-function buildState(contract: WorPrototypeContract, seed: number, requestedDifficulty?: WorDifficulty): { state: WorQuestionState; reserve: readonly string[] } {
-  const difficulty = selectDifficulty(contract, seed, requestedDifficulty);
-  const rng = createWorRng(seed, contract.prototypeId);
+function buildStateAttempt(
+  contract: WorPrototypeContract,
+  generationSeed: number,
+  targetDifficulty: WorDifficulty,
+): { state: WorQuestionState; reserve: readonly string[] } {
+  const rng = createWorRng(generationSeed, contract.prototypeId);
   const isMiddle = contract.taskKind === "SELECT_MIDDLE";
   const isInsertion = ["INSERT_WORD", "RANK_AFTER_INSERTION", "PREDECESSOR_AFTER_INSERTION"].includes(contract.taskKind);
   const isCorrection = ["FIND_MISPLACED_WORD", "FIND_INCORRECT_PAIR"].includes(contract.taskKind);
   const isPartial = contract.taskKind === "COMPLETE_PARTIAL_ORDER";
-  let count = wordCountForDifficulty(difficulty, rng, isMiddle);
+  let count = wordCountForDifficulty(targetDifficulty, rng, isMiddle);
   if (isInsertion && count >= 7) count = 6;
   if ((isCorrection || isPartial) && count < 5) count = 5;
   if (isPartial) count = 5;
-  const built = buildWorWordSet(difficulty, count + (isInsertion ? 1 : 0), rng);
+  const built = buildWorWordSet(targetDifficulty, count + (isInsertion ? 1 : 0), rng);
   let baseWords = [...built.selected];
   let insertionWord: string | undefined;
   if (isInsertion) {
@@ -120,7 +123,7 @@ function buildState(contract: WorPrototypeContract, seed: number, requestedDiffi
       break;
     }
     case "FIND_MISPLACED_WORD": {
-      const misplaced = uniqueMisplacedSequence(canonicalAscendingOrder, seed);
+      const misplaced = uniqueMisplacedSequence(canonicalAscendingOrder, generationSeed);
       presentedSequence = misplaced.sequence;
       displayedWords = [...presentedSequence];
       correctAnswer = misplaced.answer;
@@ -148,6 +151,7 @@ function buildState(contract: WorPrototypeContract, seed: number, requestedDiffi
   }
   const comparisonTrace = adjacentComparisonTrace(canonicalAscendingOrder);
   const difficultyFeatures = calculateWorDifficultyFeatures(canonicalAscendingOrder, sortDirection, contract.taskKind);
+  const difficulty = classifyWorDifficulty(difficultyFeatures);
   return {
     state: {
       prototypeId: contract.prototypeId,
@@ -172,9 +176,19 @@ function buildState(contract: WorPrototypeContract, seed: number, requestedDiffi
   };
 }
 
+function buildState(contract: WorPrototypeContract, seed: number, requestedDifficulty?: WorDifficulty): { state: WorQuestionState; reserve: readonly string[] } {
+  const targetDifficulty = selectDifficulty(contract, seed, requestedDifficulty);
+  for (let attempt = 0; attempt < 64; attempt += 1) {
+    const generationSeed = seed + attempt * 7919;
+    const built = buildStateAttempt(contract, generationSeed, targetDifficulty);
+    if (built.state.difficulty === targetDifficulty) return built;
+  }
+  throw new Error(`${contract.prototypeId} could not construct a structurally ${targetDifficulty} state for seed ${seed}.`);
+}
+
 function buildOptions(state: WorQuestionState, reserve: readonly string[], seed: number): WorOption[] {
   if (["SELECT_COMPLETE_ORDER", "SELECT_DESCENDING_ORDER"].includes(state.taskKind)) {
-    return buildSequenceOptions(state.requestedOrder, state.comparisonTrace, seed);
+    return buildSequenceOptions(state.requestedOrder, seed);
   }
   if (["FIND_RANK", "INSERT_WORD", "RANK_AFTER_INSERTION"].includes(state.taskKind)) {
     return buildRankOptions(Number(state.correctAnswer), state.canonicalAscendingOrder.length, seed);
