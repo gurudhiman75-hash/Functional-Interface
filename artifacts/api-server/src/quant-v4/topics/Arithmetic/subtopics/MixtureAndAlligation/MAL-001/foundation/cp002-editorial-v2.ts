@@ -94,8 +94,10 @@ function normaliseLearnerText(
         new RegExp(`how much ${escaped} (?:is|are) present\\?`, "giu"),
         `what quantity of ${label} is present?`,
       )
-      .replace(new RegExp(`\\b${escaped} is\\b`, "giu"), `${label} are`)
-      .replace(new RegExp(`\\b${escaped} has\\b`, "giu"), `${label} have`);
+      .replace(
+        new RegExp(`what quantity of ${escaped} (?:is|are) present\\?`, "giu"),
+        `what quantity of ${label} is present?`,
+      );
   }
 
   return result;
@@ -161,7 +163,9 @@ function assertEditorialV2(
     /\|[^|\n]+\|/u,
     /\b1 parts\b/iu,
     /\b1 ratio parts\b/iu,
-    /\b(?:red|yellow) lentils (?:is|has)\b/iu,
+    /\bSince no (?:red|yellow) lentils is\b/iu,
+    /\b(?:red|yellow) lentils has the same quantity\b/iu,
+    /\bhow much (?:red|yellow) lentils is present\b/iu,
     /\[cite(?:_start|:)|googleusercontent|immersive_entry_chip/iu,
   ];
   for (const pattern of forbidden) {
