@@ -18,6 +18,11 @@ function angleText(angle: any) {
   return `${value.denominator === 1n ? value.numerator : `${value.numerator}/${value.denominator}`}°`;
 }
 
+function angleDegrees(angle: any) {
+  const value = toDegrees(angle);
+  return Number(value.numerator) / Number(value.denominator);
+}
+
 function coordinateKey(x: number, y: number) {
   return `${x.toFixed(8)}|${y.toFixed(8)}`;
 }
@@ -103,19 +108,37 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
     segments.push({ id: `movement-${movement.id}`, fromPointId: movement.fromGroundPointId, toPointId: movement.toGroundPointId, kind: "MOVEMENT" });
   }
 
+  const angleMagnitudeById = new Map<string, number>();
   const angles: Trg002DiagramAngleMarker[] = state.observations.map((observation) => {
     const eye = state.points.find((point) => point.id === observation.eyePointId);
     const target = state.points.find((point) => point.id === observation.targetPointId);
     if (!eye || !target) throw new Error(`Diagram cannot resolve angle ${observation.id}.`);
+    const id = `angle-${observation.id}`;
+    angleMagnitudeById.set(id, angleDegrees(observation.angle));
     return {
-      id: `angle-${observation.id}`,
+      id,
       vertexPointId: observation.eyePointId,
       rayPointId: observation.targetPointId,
       referenceDirection: exactToNumber(target.x) >= exactToNumber(eye.x) ? "RIGHT" : "LEFT",
       classification: observation.classification,
       label: angleText(observation.angle),
+      arcLane: 0,
     };
   });
+
+  const angleGroups = new Map<string, Trg002DiagramAngleMarker[]>();
+  for (const angle of angles) {
+    const group = angleGroups.get(angle.vertexPointId) ?? [];
+    group.push(angle);
+    angleGroups.set(angle.vertexPointId, group);
+  }
+  for (const group of angleGroups.values()) {
+    const distinctMagnitudes = [...new Set(group.map((angle) => angleMagnitudeById.get(angle.id) ?? 0))].sort((a, b) => a - b);
+    for (const angle of group) {
+      const magnitude = angleMagnitudeById.get(angle.id) ?? 0;
+      angle.arcLane = Math.max(0, distinctMagnitudes.indexOf(magnitude));
+    }
+  }
 
   const groundY = exactToNumber(state.groundY);
   const groundXs = canonicalGroundPoints.map((point) => exactToNumber(point.x));
@@ -150,11 +173,16 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
 
 export function validateTrg002DiagramSpec(spec: Trg002DiagramSpec) {
   const pointIds = new Set(spec.points.map((point) => point.id));
+  const sharedVertexDistinctAnglesSeparated = spec.angles.every((angle) => spec.angles.every((other) => {
+    if (angle.id === other.id || angle.vertexPointId !== other.vertexPointId || angle.label === other.label) return true;
+    return angle.arcLane !== other.arcLane;
+  }));
   const checks = [
     { name: "UNIQUE_POINTS", passed: pointIds.size === spec.points.length, message: "Diagram point IDs are unique." },
     { name: "POINTS_IN_VIEWPORT", passed: spec.points.every((point) => point.x >= spec.padding - 1e-6 && point.x <= spec.width - spec.padding + 1e-6 && point.y >= spec.padding - 1e-6 && point.y <= spec.height - spec.padding + 1e-6), message: "All diagram points lie inside the padded viewport." },
     { name: "SEGMENT_ENDPOINTS", passed: spec.segments.every((segment) => pointIds.has(segment.fromPointId) && pointIds.has(segment.toPointId)), message: "Every diagram segment resolves both endpoints." },
     { name: "ANGLE_ENDPOINTS", passed: spec.angles.every((angle) => pointIds.has(angle.vertexPointId) && pointIds.has(angle.rayPointId)), message: "Every angle marker resolves its vertex and sight-line target." },
+    { name: "ANGLE_ARC_LANES", passed: spec.angles.every((angle) => Number.isInteger(angle.arcLane) && angle.arcLane >= 0) && sharedVertexDistinctAnglesSeparated, message: "Angle arcs use valid lanes and distinct shared-vertex angles do not overlap." },
     { name: "RIGHT_ANGLE_ENDPOINTS", passed: spec.rightAngles.every((marker) => pointIds.has(marker.vertexPointId) && pointIds.has(marker.verticalRayPointId)), message: "Every right-angle marker resolves its ground vertex and vertical ray." },
     { name: "LABEL_ANCHORS", passed: spec.labels.every((label) => pointIds.has(label.pointId) && label.text.trim().length > 0), message: "Every label has a valid anchor and non-empty text." },
     { name: "UNIQUE_LABEL_IDS", passed: new Set(spec.labels.map((label) => label.id)).size === spec.labels.length, message: "Diagram label IDs are unique." },
