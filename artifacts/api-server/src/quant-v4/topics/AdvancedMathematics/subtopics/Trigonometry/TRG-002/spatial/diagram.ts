@@ -3,6 +3,7 @@ import { toDegrees } from "../../foundation/angle";
 import type {
   Trg002DiagramAngleMarker,
   Trg002DiagramPoint,
+  Trg002DiagramRightAngleMarker,
   Trg002DiagramSegment,
   Trg002DiagramSpec,
   Trg002SpatialState,
@@ -116,6 +117,25 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
     };
   });
 
+  const groundY = exactToNumber(state.groundY);
+  const groundXs = canonicalGroundPoints.map((point) => exactToNumber(point.x));
+  const rightAngles: Trg002DiagramRightAngleMarker[] = [];
+  for (const object of state.verticalObjects) {
+    const base = state.points.find((point) => point.id === object.basePointId);
+    const top = state.points.find((point) => point.id === object.topPointId);
+    if (!base || !top) continue;
+    const baseX = exactToNumber(base.x);
+    if (Math.abs(exactToNumber(base.y) - groundY) > 1e-9 || exactToNumber(top.y) <= groundY) continue;
+    const leftSpan = groundXs.length ? baseX - Math.min(...groundXs) : 0;
+    const rightSpan = groundXs.length ? Math.max(...groundXs) - baseX : 0;
+    rightAngles.push({
+      id: `right-angle-${object.id}`,
+      vertexPointId: object.basePointId,
+      verticalRayPointId: object.topPointId,
+      horizontalDirection: rightSpan >= leftSpan ? "RIGHT" : "LEFT",
+    });
+  }
+
   const labels: Array<{ id: string; pointId: string; text: string }> = [];
   const occupied = new Set<string>();
   for (const point of points.filter((item) => item.label)) {
@@ -125,7 +145,7 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
     labels.push({ id: `label-${point.id}`, pointId: point.id, text: point.label! });
   }
 
-  return { strategy: state.diagramStrategy, width: WIDTH, height: HEIGHT, padding: PADDING, points, segments, angles, labels };
+  return { strategy: state.diagramStrategy, width: WIDTH, height: HEIGHT, padding: PADDING, points, segments, angles, rightAngles, labels };
 }
 
 export function validateTrg002DiagramSpec(spec: Trg002DiagramSpec) {
@@ -135,6 +155,7 @@ export function validateTrg002DiagramSpec(spec: Trg002DiagramSpec) {
     { name: "POINTS_IN_VIEWPORT", passed: spec.points.every((point) => point.x >= spec.padding - 1e-6 && point.x <= spec.width - spec.padding + 1e-6 && point.y >= spec.padding - 1e-6 && point.y <= spec.height - spec.padding + 1e-6), message: "All diagram points lie inside the padded viewport." },
     { name: "SEGMENT_ENDPOINTS", passed: spec.segments.every((segment) => pointIds.has(segment.fromPointId) && pointIds.has(segment.toPointId)), message: "Every diagram segment resolves both endpoints." },
     { name: "ANGLE_ENDPOINTS", passed: spec.angles.every((angle) => pointIds.has(angle.vertexPointId) && pointIds.has(angle.rayPointId)), message: "Every angle marker resolves its vertex and sight-line target." },
+    { name: "RIGHT_ANGLE_ENDPOINTS", passed: spec.rightAngles.every((marker) => pointIds.has(marker.vertexPointId) && pointIds.has(marker.verticalRayPointId)), message: "Every right-angle marker resolves its ground vertex and vertical ray." },
     { name: "LABEL_ANCHORS", passed: spec.labels.every((label) => pointIds.has(label.pointId) && label.text.trim().length > 0), message: "Every label has a valid anchor and non-empty text." },
     { name: "UNIQUE_LABEL_IDS", passed: new Set(spec.labels.map((label) => label.id)).size === spec.labels.length, message: "Diagram label IDs are unique." },
     { name: "SIGHT_LINE_PER_OBSERVATION", passed: spec.angles.every((angle) => spec.segments.some((segment) => segment.id === angle.id.replace("angle-", "sight-") && segment.kind === "SIGHT_LINE")), message: "Every angle marker has a matching sight line." },
