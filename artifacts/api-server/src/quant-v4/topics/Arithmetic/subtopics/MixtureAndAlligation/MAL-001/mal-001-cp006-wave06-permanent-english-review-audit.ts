@@ -39,6 +39,7 @@ let deterministic = 0;
 let lifecycle = 0;
 let surface = 0;
 let traceability = 0;
+let manualEditorialGuardChecks = 0;
 const answerPositions = [0, 0, 0, 0];
 const reviewRows: MalCp006PermanentReviewQuestion[] = [];
 const qlEvidence: Array<{
@@ -94,6 +95,7 @@ for (const allocation of MAL_CP006_REVIEW_ALLOCATION) {
     lifecycle += 1;
 
     assert(first.stem.endsWith("?"), `${seed}: stem is not interrogative.`);
+    assert(!/^[a-z]/u.test(first.stem), `${seed}: stem starts in lowercase.`);
     assert(first.options.length === 4 && new Set(first.options).size === 4, `${seed}: options are not four unique choices.`);
     assert(first.options[first.correctIndex] === first.answer, `${seed}: answer/index mismatch.`);
     assert(first.explanation.visibleLines.length >= 1 && first.explanation.visibleLines.length <= 4, `${seed}: solution length is outside 1-4 lines.`);
@@ -104,8 +106,15 @@ for (const allocation of MAL_CP006_REVIEW_ALLOCATION) {
       first.explanation.optionalHelp.commonMistake,
     ].join(" ");
     assert(!/component load|state key|current fraction|global component/iu.test(learnerText), `${seed}: internal terminology leaked.`);
+    assert(!/\bundefined\b/iu.test(learnerText), `${seed}: undefined learner label leaked.`);
     assert(!/\b1 litres\b/iu.test(learnerText), `${seed}: singular litre grammar regressed.`);
-    assert(!/\b\d+ litres (?:is|goes)\b/iu.test(learnerText), `${seed}: quantity agreement regressed.`);
+    assert(!/\b1 parts\b|\b1 ratio parts\b/iu.test(learnerText), `${seed}: singular part grammar regressed.`);
+    assert(
+      !/\b(?:\d+(?:\.\d+)?(?:\s+\d+\/\d+)?|\d*x) litres(?: of [^,.;?]+)? is (?:transferred|sent|moved|poured|added|returned|removed)\b/iu.test(learnerText),
+      `${seed}: plural transfer agreement regressed.`,
+    );
+    assert(!/\b(?:[2-9]|\d{2,})(?:\.\d+)?(?:\s+\d+\/\d+)? litre\b/iu.test(learnerText), `${seed}: plural litre unit regressed.`);
+    manualEditorialGuardChecks += 1;
     surface += 1;
 
     states.add(first.stateKey);
@@ -147,6 +156,7 @@ assert(deterministic === 700, "Deterministic coverage incomplete.");
 assert(lifecycle === 700, "Lifecycle coverage incomplete.");
 assert(surface === 700, "Learner-surface coverage incomplete.");
 assert(traceability === 700, "Permanent traceability coverage incomplete.");
+assert(manualEditorialGuardChecks === 700, "Manual editorial guard coverage incomplete.");
 assert(answerPositions.every((count) => count > 0), `One answer position was never reached: ${answerPositions.join("/")}.`);
 assert(reviewRows.length === 56, `Expected 56 review rows, received ${reviewRows.length}.`);
 
@@ -165,6 +175,7 @@ const summary = {
   lifecycle,
   surface,
   traceability,
+  manualEditorialGuardChecks,
   answerPositions,
   qlEvidence,
   reviewCount: reviewRows.length,
