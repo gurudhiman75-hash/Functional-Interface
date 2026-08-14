@@ -97,14 +97,14 @@ export function generateSpatialFclGeometricFormQuestionV1(input: { seed: string;
     rule = "is a polygon with an even number of sides";
   }
   const commonOptions = commons.map((item)=>({...item,followsRule:true}));
+  const audit = validateSpatialFclCueAuditV2({decisiveCue:"rule",cues:{rule:["common","common","common","odd"],fill:["outline","outline","outline","outline"],count:["one","one","one","one"]}});
+  if(!audit.ok) throw new Error(`${input.seed}: geometric-form ambiguity audit failed: ${audit.errors.join(",")}`);
   const ordered = [...commonOptions];
   ordered.splice(desired,0,{...odd,followsRule:false});
   const options = ordered.map((item)=>({...item,sceneFingerprint:spatialSceneSemanticFingerprint(item.scene)}));
   for(const option of options){const validation=validateSpatialScene(option.scene);if(!validation.ok) throw new Error(`${input.seed}: invalid geometric-form option.`);}
   if(!validateSpatialOptionUniqueness(options.map((option)=>option.scene)).ok) throw new Error(`${input.seed}: semantic option collision.`);
   if(!validateSpatialPerceptualOptionUniquenessV2(options.map((option)=>option.scene)).ok) throw new Error(`${input.seed}: perceptual option collision.`);
-  const audit = validateSpatialFclCueAuditV2({decisiveCue:"rule",cues:{rule:ordered.map((item)=>item.followsRule?"common":"odd") as [string,string,string,string],fill:["outline","outline","outline","outline"],count:["one","one","one","one"]}});
-  if(!audit.ok) throw new Error(`${input.seed}: geometric-form ambiguity audit failed: ${audit.errors.join(",")}`);
   const application = options.map((option,index)=>`${optionLetter(index)}. ${option.visibleName}: ${option.followsRule?"follows":"does not follow"} the rule`).join("  ");
   return {
     version:"SPA-FND-001-FCL-GEOMETRIC-FORM-SAFE-V1",familyCode:"SPA-001",chapterCode:"FCL-001",proposalId:"FCL-PQL-03",seed:input.seed,mode:input.mode,
