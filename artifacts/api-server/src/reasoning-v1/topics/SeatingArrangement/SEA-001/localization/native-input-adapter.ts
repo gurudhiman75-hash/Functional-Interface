@@ -20,6 +20,32 @@ const WORD_ORDINALS: Readonly<Record<string, string>> = Object.freeze({
 
 const WORD_ORDINAL_PATTERN = "first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth";
 
+const HINDI_OBLIQUE_ORDINALS: Readonly<Record<string, string>> = Object.freeze({
+  "पहला": "पहले",
+  "दूसरा": "दूसरे",
+  "तीसरा": "तीसरे",
+  "चौथा": "चौथे",
+  "पाँचवाँ": "पाँचवें",
+  "छठा": "छठे",
+  "सातवाँ": "सातवें",
+  "आठवाँ": "आठवें",
+  "नौवाँ": "नौवें",
+  "दसवाँ": "दसवें",
+});
+
+const PUNJABI_OBLIQUE_ORDINALS: Readonly<Record<string, string>> = Object.freeze({
+  "ਪਹਿਲਾ": "ਪਹਿਲੇ",
+  "ਦੂਜਾ": "ਦੂਜੇ",
+  "ਤੀਜਾ": "ਤੀਜੇ",
+  "ਚੌਥਾ": "ਚੌਥੇ",
+  "ਪੰਜਵਾਂ": "ਪੰਜਵੇਂ",
+  "ਛੇਵਾਂ": "ਛੇਵੇਂ",
+  "ਸੱਤਵਾਂ": "ਸੱਤਵੇਂ",
+  "ਅੱਠਵਾਂ": "ਅੱਠਵੇਂ",
+  "ਨੌਵਾਂ": "ਨੌਵੇਂ",
+  "ਦਸਵਾਂ": "ਦਸਵੇਂ",
+});
+
 type NativeClueOverride = {
   readonly placeholder: string;
   readonly text: string;
@@ -141,6 +167,49 @@ function normalizeNativeClueInput(clue: string): string {
   return normalized;
 }
 
+function polishNativeLearnerText(text: string, locale: Sea001TranslatedLocale): string {
+  let output = text;
+  const ordinalMap = locale === "hi-IN" ? HINDI_OBLIQUE_ORDINALS : PUNJABI_OBLIQUE_ORDINALS;
+  const locationSuffix = locale === "hi-IN" ? "स्थान (?:पर|तक)" : "ਸਥਾਨ (?:'ਤੇ|ਤੱਕ)";
+  for (const [plain, oblique] of Object.entries(ordinalMap)) {
+    output = output.replace(new RegExp(`${plain}(?= ${locationSuffix})`, "g"), oblique);
+  }
+
+  if (locale === "hi-IN") {
+    output = output.replaceAll(" मुख किए है।", " मुख करके बैठा है।");
+  }
+  return output;
+}
+
+function polishNativeCandidate(candidate: Sea001LocalizedReviewCaselet, locale: Sea001TranslatedLocale): Sea001LocalizedReviewCaselet {
+  const diagramText = candidate.diagramText ? polishNativeLearnerText(candidate.diagramText, locale) : candidate.diagramText;
+  const diagram = candidate.diagram
+    ? {
+        ...candidate.diagram,
+        text: candidate.diagram.text ? polishNativeLearnerText(candidate.diagram.text, locale) : candidate.diagram.text,
+      }
+    : candidate.diagram;
+
+  return {
+    ...candidate,
+    setupText: polishNativeLearnerText(candidate.setupText, locale),
+    clueTexts: candidate.clueTexts.map((clue) => polishNativeLearnerText(clue, locale)),
+    sharedExplanation: polishNativeLearnerText(candidate.sharedExplanation, locale),
+    diagramText,
+    diagram,
+    children: candidate.children.map((child) => ({
+      ...child,
+      text: polishNativeLearnerText(child.text, locale),
+      explanation: polishNativeLearnerText(child.explanation, locale),
+      options: child.options.map((option) => ({
+        ...option,
+        display: polishNativeLearnerText(option.display, locale),
+        explanation: polishNativeLearnerText(option.explanation, locale),
+      })),
+    })),
+  };
+}
+
 export function buildSea001NativeCandidate(source: AuditCaselet, locale: Sea001TranslatedLocale): Sea001LocalizedReviewCaselet {
   const overrides = source.clueTexts.map((clue) => facingRelationOverride(clue, locale));
   const clueTexts = source.clueTexts.map((clue, index) => overrides[index]?.placeholder ?? normalizeNativeClueInput(clue));
@@ -158,11 +227,11 @@ export function buildSea001NativeCandidate(source: AuditCaselet, locale: Sea001T
     explanationLines[actionLineIndex] = `   ${tr(locale, "करें", "ਕਰੋ")}: ${override.action}`;
   });
 
-  return {
+  return polishNativeCandidate({
     ...rendered,
     clueTexts: finalClueTexts,
     sharedExplanation: explanationLines.join("\n"),
     canonicalCaseletId: source.caseletId,
     canonicalParityFingerprint: sea001CanonicalParityFingerprint(source),
-  };
+  }, locale);
 }
