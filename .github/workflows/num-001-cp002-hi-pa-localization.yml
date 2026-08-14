@@ -22,7 +22,7 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
       - name: Bundle permanent English regression
-        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/permanent/runtime.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp002-hi-pa-english-regression.mjs
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/permanent/runtime-proof.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp002-hi-pa-english-regression.mjs
       - name: Run permanent English regression
         run: node artifacts/api-server/dist/quant-v4/num-cp002-hi-pa-english-regression.mjs
       - name: Bundle Hindi Punjabi parity proof
