@@ -1,5 +1,9 @@
 import { generateSpatialGapLearnerQuestionV1 } from "./gap-question-generator-v1";
 import {
+  spatialPerceptualSignatureV2,
+  validateSpatialPerceptualOptionUniquenessV2,
+} from "./gap-question-perceptual-v2";
+import {
   materializeSpatialGapLearnerQuestionV1,
   spatialGapMaterialProfileCapacityV1,
   type SpatialGapMaterialProfileV1,
@@ -28,11 +32,13 @@ export interface SpatialGapQuestionProductionScaleResultV1 {
   totalAttempts: number;
   totalDuplicateRejects: number;
   totalProfileRejects: number;
+  totalPerceptualRejects: number;
   accepted: SpatialGapQuestionProductionScaleAcceptedV1[];
   gapCounts: Record<SpatialGapIdV1, number>;
   attemptsByGap: Record<SpatialGapIdV1, number>;
   duplicateRejectsByGap: Record<SpatialGapIdV1, number>;
   profileRejectsByGap: Record<SpatialGapIdV1, number>;
+  perceptualRejectsByGap: Record<SpatialGapIdV1, number>;
   materialProfileCountsByGap: Record<SpatialGapIdV1, number>;
   materialProfileCapacityByGap: Record<SpatialGapIdV1, number>;
   chapterCounts: Record<SpatialGapChapterV1, number>;
@@ -61,13 +67,23 @@ function isRetryableMaterialError(error: unknown): boolean {
     error.message.includes("materialized scene is invalid");
 }
 
+function perceptualQuestionFingerprint(gapId: SpatialGapIdV1, question: SpatialGapLearnerQuestionV1): string {
+  const optionSignatures = question.options.map((option) => spatialPerceptualSignatureV2(option.scene));
+  return JSON.stringify({
+    gapId,
+    stimulus: question.stimulusScenes.map(spatialPerceptualSignatureV2),
+    optionSet: [...optionSignatures].sort(),
+    correct: optionSignatures[question.correctOptionIndex],
+  });
+}
+
 export function synthesizeSpatialGapQuestionProductionScaleV1(request: {
   seedPrefix: string;
   requestedPerGap: number;
 }): SpatialGapQuestionProductionScaleResultV1 {
   if (!request.seedPrefix.trim()) throw new Error("Spatial learner production scale requires a non-empty seed prefix.");
   if (!Number.isInteger(request.requestedPerGap) || request.requestedPerGap <= 0) {
-    throw new Error("Spatial learner production scale requestedPerGap must be a positive integer.");
+    throw new Error("Spatial gap question requestedPerGap must be a positive integer.");
   }
 
   const accepted: SpatialGapQuestionProductionScaleAcceptedV1[] = [];
@@ -75,6 +91,7 @@ export function synthesizeSpatialGapQuestionProductionScaleV1(request: {
   const attemptsByGap = zeroGapCounts();
   const duplicateRejectsByGap = zeroGapCounts();
   const profileRejectsByGap = zeroGapCounts();
+  const perceptualRejectsByGap = zeroGapCounts();
   const materialProfileCountsByGap = zeroGapCounts();
   const materialProfileCapacityByGap = zeroGapCounts();
   const correctSlotCounts: [number, number, number, number] = [0, 0, 0, 0];
@@ -86,9 +103,11 @@ export function synthesizeSpatialGapQuestionProductionScaleV1(request: {
   };
   const globalContent = new Set<string>();
   const globalDelivery = new Set<string>();
+  const globalPerceptual = new Set<string>();
   let totalAttempts = 0;
   let totalDuplicateRejects = 0;
   let totalProfileRejects = 0;
+  let totalPerceptualRejects = 0;
 
   SPATIAL_GAP_IDS_V1.forEach((gapId, gapIndex) => {
     const capacity = spatialGapMaterialProfileCapacityV1(gapId);
@@ -127,6 +146,19 @@ export function synthesizeSpatialGapQuestionProductionScaleV1(request: {
       seenProfiles.add(materialized.materialProfile.id);
 
       const question = materialized.question;
+      const perceptualOptions = validateSpatialPerceptualOptionUniquenessV2(question.options.map((option) => option.scene));
+      if (!perceptualOptions.ok) {
+        perceptualRejectsByGap[gapId] += 1;
+        totalPerceptualRejects += 1;
+        continue;
+      }
+      const perceptualFingerprint = perceptualQuestionFingerprint(gapId, question);
+      if (globalPerceptual.has(perceptualFingerprint)) {
+        perceptualRejectsByGap[gapId] += 1;
+        totalPerceptualRejects += 1;
+        continue;
+      }
+
       if (globalContent.has(question.contentFingerprint)) {
         duplicateRejectsByGap[gapId] += 1;
         totalDuplicateRejects += 1;
@@ -136,6 +168,7 @@ export function synthesizeSpatialGapQuestionProductionScaleV1(request: {
         throw new Error(`${gapId}/${materialized.materialProfile.id}: delivery collision without content collision.`);
       }
 
+      globalPerceptual.add(perceptualFingerprint);
       globalContent.add(question.contentFingerprint);
       globalDelivery.add(question.deliveryFingerprint);
       accepted.push({
@@ -153,8 +186,9 @@ export function synthesizeSpatialGapQuestionProductionScaleV1(request: {
 
     if (acceptedForGap !== request.requestedPerGap) {
       throw new Error(
-        `${gapId}: material production scale reached ${acceptedForGap}/${request.requestedPerGap} unique learner questions ` +
-        `after exhausting ${capacity} material profiles (duplicates=${duplicateRejectsByGap[gapId]}, profileRejects=${profileRejectsByGap[gapId]}).`,
+        `${gapId}: perceptual material production scale reached ${acceptedForGap}/${request.requestedPerGap} unique learner questions ` +
+        `after exhausting ${capacity} material profiles (semanticDuplicates=${duplicateRejectsByGap[gapId]}, ` +
+        `profileRejects=${profileRejectsByGap[gapId]}, perceptualRejects=${perceptualRejectsByGap[gapId]}).`,
       );
     }
   });
@@ -167,11 +201,13 @@ export function synthesizeSpatialGapQuestionProductionScaleV1(request: {
     totalAttempts,
     totalDuplicateRejects,
     totalProfileRejects,
+    totalPerceptualRejects,
     accepted,
     gapCounts,
     attemptsByGap,
     duplicateRejectsByGap,
     profileRejectsByGap,
+    perceptualRejectsByGap,
     materialProfileCountsByGap,
     materialProfileCapacityByGap,
     chapterCounts,
