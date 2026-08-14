@@ -109,8 +109,8 @@ function semanticPriority(entry: TsdCp004WrongWorking, mode: TsdCp004CoreSolveMo
   }
 
   if ((mode === "findMeetingPointDistanceSplit" || mode === "findMeetingPointFromSpeedRatio") && entry.misconceptionId === "USE_ROUTE_DIFFERENCE") {
-    if (/difference as the first traveller's share/i.test(entry.calculation)) return 0.05;
-    if (/count the first traveller's speed or ratio part twice/i.test(entry.calculation)) return 1.2;
+    if (/difference as the first traveller's share/i.test(entry.calculation)) return 0;
+    if (/count the first traveller's speed or ratio part twice/i.test(entry.calculation)) return 4;
   }
 
   if (classicSemanticException(entry, solution)) return 0.2;
