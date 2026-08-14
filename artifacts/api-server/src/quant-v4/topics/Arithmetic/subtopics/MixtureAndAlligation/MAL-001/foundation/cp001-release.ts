@@ -12,6 +12,7 @@ import {
   MAL_CP001_ALLIGATION_VISUAL_ID,
   MAL_CP001_RELEASE_LAYOUT_ID,
   serializeMalCp001AlligationVisual,
+  type MalCp001AlligationVisual,
   type MalCp001ReleaseExplanationV2,
 } from "./cp001-release-editorial-v2";
 
@@ -136,6 +137,63 @@ export type MalCp001ReleasedQuestion = Omit<
   traceability: ReleasedTraceability;
 };
 
+function normaliseReleaseText(value: string): string {
+  return value
+    .replace(/\b1 ratio parts\b/giu, "1 ratio part")
+    .replace(/\b1 parts\b/giu, "1 part")
+    .replace(
+      /\b(\d+(?: \d+\/\d+)?) litre\b/giu,
+      (_match, amount: string) => `${amount} ${amount === "1" ? "litre" : "litres"}`,
+    );
+}
+
+function normaliseAlligationVisual(
+  visual: MalCp001AlligationVisual,
+): MalCp001AlligationVisual {
+  return JSON.parse(
+    JSON.stringify(visual),
+    (_key, value) =>
+      typeof value === "string" ? normaliseReleaseText(value) : value,
+  ) as MalCp001AlligationVisual;
+}
+
+function withReleaseEditorialLabels(
+  question: MalCp001PermanentQuestion,
+): MalCp001PermanentQuestion {
+  if (question.permanentQlId !== "MAL-QL-001") return question;
+  const request = question.parameters.request as Record<string, unknown>;
+  if (request.lowerComponentLabel && request.higherComponentLabel) return question;
+  return {
+    ...question,
+    parameters: {
+      ...question.parameters,
+      request: {
+        ...request,
+        lowerComponentLabel: question.parameters.context.lowerLabel,
+        higherComponentLabel: question.parameters.context.higherLabel,
+      },
+    },
+  } as MalCp001PermanentQuestion;
+}
+
+function normaliseReleaseExplanation(
+  explanation: MalCp001ReleaseExplanationV2,
+): MalCp001ReleaseExplanationV2 {
+  const normalise = (value: string) => normaliseReleaseText(value);
+  return {
+    ...explanation,
+    opening: normalise(explanation.opening),
+    coreConcept: normalise(explanation.coreConcept),
+    formula: normalise(explanation.formula),
+    steps: explanation.steps.map(normalise),
+    examShortcut: normalise(explanation.examShortcut),
+    verification: normalise(explanation.verification).replace(/^Check:\s*/iu, ""),
+    conclusion: normalise(explanation.conclusion),
+    commonTrap: normalise(explanation.commonTrap),
+    alligationVisual: normaliseAlligationVisual(explanation.alligationVisual),
+  };
+}
+
 function explanationLines(explanation: MalCp001ReleaseExplanationV2): string[] {
   return [
     explanation.sectionTitles.coreConcept,
@@ -219,7 +277,13 @@ export function applyMalCp001EnglishRelease(
     );
   }
 
-  const editorial = buildMalCp001ReleaseEditorialV2(question);
+  const editorialQuestion = withReleaseEditorialLabels(question);
+  const rawEditorial = buildMalCp001ReleaseEditorialV2(editorialQuestion);
+  const editorial = {
+    ...rawEditorial,
+    stem: normaliseReleaseText(rawEditorial.stem),
+    explanation: normaliseReleaseExplanation(rawEditorial.explanation),
+  };
   const checks = releaseChecks(question, editorial);
   const failures = checks.filter((check) => !check.passed);
   if (failures.length > 0) {
