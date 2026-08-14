@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
 import { WOR_WORD_FAMILIES } from "./datasets/word-registry";
+import { classifyWorDifficulty } from "./foundation/difficulty";
 import { compareWorWords, normalizeWorWord, sortWorWords, traceWorComparison } from "./foundation/lexical-comparator";
 import { independentlySortWorWords } from "./foundation/independent-lexical-solver";
+import type { WorDifficulty } from "./foundation/types";
 import { WOR_001_CHECKPOINTS, WOR_001_PROTOTYPES } from "./prototype-registry";
 import { WOR_001_QUESTION_STUDIO_ADAPTER } from "./question-studio-adapter";
 import { buildWorReviewPack, renderWorReviewMarkdown } from "./review-pack";
@@ -12,7 +14,7 @@ for (const word of allWords) assert.match(normalizeWorWord(word), /^[A-Z]+$/);
 for (const family of WOR_WORD_FAMILIES) {
   assert.ok(family.words.length >= 9, `${family.id} has a thin object pool.`);
   assert.equal(new Set(family.words.map((entry) => entry.normalized)).size, family.words.length, `${family.id} has duplicates.`);
-  assert.ok(family.words.every((entry) => entry.editorialStatus === "APPROVED"));
+  assert.ok(family.words.every((entry) => entry.editorialStatus === "PROVISIONAL_REVIEW"));
 }
 
 assert.ok(compareWorWords("Apple", "Ball") < 0);
@@ -21,6 +23,7 @@ assert.ok(compareWorWords("Car", "Card") < 0);
 assert.ok(compareWorWords("Product", "Production") < 0);
 assert.equal(traceWorComparison("Car", "Card").decision, "LEFT_IS_PREFIX");
 assert.equal(traceWorComparison("State", "Star").commonPrefix, "STA");
+assert.throws(() => traceWorComparison("Car", "car"), /distinct words/);
 
 for (const left of allWords) {
   for (const right of allWords) {
@@ -45,6 +48,20 @@ assert.equal(WOR_001_PROTOTYPES.filter((entry) => entry.allocationDecision === "
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.questionStudioVisible, false);
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.publicReleaseEnabled, false);
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.permanentQlCount, 0);
+
+const requestedBands: readonly WorDifficulty[] = ["EASY", "MEDIUM", "HARD"];
+for (const prototype of WOR_001_PROTOTYPES) {
+  if (prototype.hardOnly) {
+    const question = generateWor001Question(prototype.prototypeId, 17001, "en-IN", "EASY");
+    assert.equal(question.difficulty, "HARD", `${prototype.prototypeId} hard-only contract escaped HARD.`);
+    continue;
+  }
+  requestedBands.forEach((difficulty, index) => {
+    const question = generateWor001Question(prototype.prototypeId, 17001 + index * 101, "en-IN", difficulty);
+    assert.equal(question.difficulty, difficulty, `${prototype.prototypeId} failed requested ${difficulty} calibration.`);
+    assert.equal(question.difficulty, classifyWorDifficulty(question.metadata.difficultyFeatures));
+  });
+}
 
 const answerPositions = [0, 0, 0, 0];
 const checkpointDifficulties = new Map<string, Set<string>>();
@@ -83,6 +100,7 @@ for (const prototype of WOR_001_PROTOTYPES) {
       assert.equal(localized.lifecycleStatus, "REVIEW_ONLY");
       assert.equal(localized.metadata.independentSolverVerified, true);
       assert.equal(localized.metadata.ambiguityAudit, "LEXICALLY_UNIQUE");
+      assert.equal(localized.difficulty, classifyWorDifficulty(localized.metadata.difficultyFeatures));
       assert.ok(localized.explanation.length >= 180, `${localized.locale} explanation is too thin.`);
       assert.ok(localized.explanation.includes(localized.answer), `${localized.locale} explanation omits the answer.`);
       assert.doesNotMatch(`${localized.stem} ${localized.explanation}`, /undefined|null|\{\{|\}\}|WOR-PROT|WOR-CP/);
@@ -103,6 +121,19 @@ for (const prototype of WOR_001_PROTOTYPES) {
     if (english.taskKind === "FIND_INCORRECT_PAIR") {
       const pairs = english.structuredPrompt.presentedSequence!.slice(0, -1).map((word, index) => `${word} – ${english.structuredPrompt.presentedSequence![index + 1]!}`);
       assert.ok(pairs.includes(english.answer), `${prototype.prototypeId}/${seed} answer is not an adjacent displayed pair.`);
+      assert.ok(english.options.filter((option) => option.misconceptionId !== null).every((option) => option.misconceptionId === "CHOSE_CORRECTLY_ORDERED_ADJACENT_PAIR"));
+    }
+    if (["FIND_RANK", "INSERT_WORD", "RANK_AFTER_INSERTION"].includes(english.taskKind)) {
+      const answerRank = Number(english.answer);
+      english.options.filter((option) => option.misconceptionId !== null).forEach((option) => {
+        const delta = Number(option.value) - answerRank;
+        const label = option.misconceptionId!;
+        if (delta === -1) assert.equal(label, "RANK_ONE_PLACE_EARLY");
+        else if (delta === 1) assert.equal(label, "RANK_ONE_PLACE_LATE");
+        else if (delta === -2) assert.equal(label, "RANK_TWO_PLACES_EARLY");
+        else if (delta === 2) assert.equal(label, "RANK_TWO_PLACES_LATE");
+        else assert.equal(label, delta < 0 ? "RANK_MULTIPLE_PLACES_EARLY" : "RANK_MULTIPLE_PLACES_LATE");
+      });
     }
   }
   assert.ok(visibleVariants.size >= 30, `${prototype.prototypeId} visible variety is too low.`);
@@ -124,8 +155,20 @@ for (const locale of ["en-IN", "hi-IN", "pa-IN"] as const) {
   assert.equal(review.length, 136);
   assert.ok(review.every((question) => question.options.length === 4));
   const markdown = renderWorReviewMarkdown(locale, review);
-  assert.ok(markdown.includes("Questions: 136"));
   assert.doesNotMatch(markdown, /undefined|null|\{\{|\}\}/);
+  assert.doesNotMatch(markdown, /क्रम \/ ਕ੍ਰਮ \/ Order/);
+  if (locale === "en-IN") {
+    assert.ok(markdown.includes("Questions: 136"));
+    assert.ok(markdown.includes("**Words:**") || markdown.includes("**Order:**"));
+  } else if (locale === "hi-IN") {
+    assert.ok(markdown.includes("प्रश्न: 136"));
+    assert.ok(markdown.includes("**शब्द:**") || markdown.includes("**क्रम:**"));
+    assert.doesNotMatch(markdown, /\*\*(Words|Answer|Explanation|Order):\*\*/);
+  } else {
+    assert.ok(markdown.includes("ਪ੍ਰਸ਼ਨ: 136"));
+    assert.ok(markdown.includes("**ਸ਼ਬਦ:**") || markdown.includes("**ਕ੍ਰਮ:**"));
+    assert.doesNotMatch(markdown, /\*\*(Words|Answer|Explanation|Order):\*\*/);
+  }
 }
 
 console.log("WOR-001 end-to-end runtime and multilingual audit passed.", {
