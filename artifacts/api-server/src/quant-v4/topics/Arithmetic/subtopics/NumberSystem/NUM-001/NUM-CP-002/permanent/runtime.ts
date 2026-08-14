@@ -9,10 +9,8 @@ import {
   generateNumCp002Wave01,
   independentlyVerifyNumCp002Wave01,
 } from "../wave01/runtime";
-import {
-  generateNumCp002Wave02,
-  independentlyVerifyNumCp002Wave02,
-} from "../wave02/runtime";
+import { generateNumCp002Wave02Authority } from "../wave02/authority";
+import { independentlyVerifyNumCp002Wave02 } from "../wave02/runtime";
 import {
   generateNumCp002Wave03Final,
   independentlyVerifyNumCp002Wave03Final,
@@ -150,7 +148,7 @@ export function generateNumCp002TemporaryAuthorityPackage(
   const n = prototypeNumber(prototypeId);
   let result: unknown;
   if (n <= 12) result = generateNumCp002Wave01(prototypeId as never, seed);
-  else if (n <= 22) result = generateNumCp002Wave02(prototypeId as never, seed);
+  else if (n <= 22) result = generateNumCp002Wave02Authority(prototypeId as never, seed);
   else if (n <= 32) result = generateNumCp002Wave03Final(prototypeId as never, seed);
   else throw new Error(`Unsupported NUM-CP-002 prototype ID: ${prototypeId}`);
   return result as NumCp002TemporaryPackage;
