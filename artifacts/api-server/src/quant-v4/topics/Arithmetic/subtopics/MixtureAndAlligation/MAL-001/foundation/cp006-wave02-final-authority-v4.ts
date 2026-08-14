@@ -50,6 +50,12 @@ function replaceCaseAware(text: string, pattern: RegExp, replacement: string): s
   return text.replace(pattern, (match) => /^[A-Z]/u.test(match) ? titleCaseFirst(replacement) : replacement);
 }
 
+function polishArticles(text: string): string {
+  return text.replace(/\b([Aa]) ([aeiou])/gu, (_match, article: string, vowel: string) =>
+    `${article === "A" ? "An" : "an"} ${vowel}`,
+  );
+}
+
 function applyMaterialContext(
   text: string,
   context: (typeof MAL_CP006_WAVE02_OBJECT_CONTEXTS)[number],
@@ -59,7 +65,7 @@ function applyMaterialContext(
   value = replaceCaseAware(value, /\bpure water\b/giu, context.secondaryInitial);
   value = replaceCaseAware(value, /\bmilk\b/giu, context.primary);
   value = replaceCaseAware(value, /\bwater\b/giu, context.secondary);
-  return value;
+  return polishArticles(value);
 }
 
 function applyContainerObject(text: string, container: MalCp006Wave02ContainerObject): string {
@@ -97,6 +103,7 @@ function applyObjects(
   if (context.secondary !== "water" && /\bwater\b/iu.test(learnerText)) errors.push("water leaked outside selected context");
   if (/litres of pure milk are kept/iu.test(learnerText)) errors.push("quantity-agreement regression");
   if (/\bpure (syrup|juice|honey|wine|vinegar)\b/iu.test(learnerText)) errors.push("unnatural pure-liquid wording");
+  if (/\ba [aeiou]/iu.test(learnerText)) errors.push("indefinite-article regression");
   if (new Set(options).size !== 4 || options[q.correctIndex] !== answer) errors.push("object transformation changed option mapping");
 
   return {
