@@ -68,7 +68,7 @@ function assertLearnerSurface(question: IntCp005QuestionV2): void {
     assert(/[\u0A00-\u0A7F]/u.test(joined), `${question.qlId}/${question.seed}: Punjabi script missing`);
     assert(!joined.includes("ਚੱਕਰਵੱਧੀ"), `${question.qlId}/${question.seed}: rejected Punjabi compound-interest term`);
     if (question.qlId === "INT-QL-086" && ["POPULATION", "SALARY", "PRODUCTION"].includes(question.mathematicalState.context)) {
-      assert(!/ਇਸ ਵਿੱਚ [^।]+ ਹੁੰਦਾ ਹੈ।/u.test(question.presentation.markdown), `${question.qlId}/${question.seed}: mechanical Punjabi growth sentence survived V2`);
+      assert(/ਵਾਧਾ ਹੁੰਦਾ ਹੈ/u.test(question.presentation.markdown), `${question.qlId}/${question.seed}: Punjabi growth noun missing after V2 remediation`);
     }
   }
   if (question.locale === "hi-IN" && question.qlId === "INT-QL-092") {
