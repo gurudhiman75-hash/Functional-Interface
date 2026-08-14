@@ -22,6 +22,19 @@ export function deriveStrongCp004WrongWorkingsV5(
   input: TsdCp004CoreInput,
   solution: TsdCp004CoreSolution,
 ): readonly TsdCp004WrongWorking[] {
+  if (mode === "findRelativeSpeedSameDirection") {
+    const faster = input.speedA!;
+    const slower = input.speedB!;
+    const closing = subtract(faster, slower);
+    const { rows, push } = rowsFor(solution.answer);
+    push("USE_ONE_SPEED_ONLY", slower, "report the slower vehicle's speed as the closing rate", "The learner uses one vehicle's absolute speed instead of the rate at which the faster vehicle gains on it.");
+    push("USE_AVERAGE_SPEED", divide(add(faster, slower), rational(2)), "average the two vehicle speeds", "The learner averages the two absolute speeds even though same-direction relative speed is their difference.");
+    push("USE_AVERAGE_SPEED", divide(closing, rational(2)), "split the closing speed equally between the two vehicles", "The learner assumes both vehicles contribute equal halves to the gap-closing rate and therefore reports only half of the true closing speed.");
+    push("USE_ONE_SPEED_ONLY", faster, "report the faster vehicle's absolute speed", "The faster vehicle's own speed is mistaken for its speed relative to the slower vehicle ahead.");
+    if (rows.length < 3) throw new Error(`${mode}: V5 produced only ${rows.length} strong closing-speed distractors`);
+    return Object.freeze(rows);
+  }
+
   if (mode === "findSeparationAfterMovingApart") {
     const initial = input.initialSeparation!;
     const time = input.elapsedTime!;
