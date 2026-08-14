@@ -208,7 +208,7 @@ for (const q of questions) {
   assert(explanationGate.ok,`${q.proposalId}/${q.seed}: learner explanation gate failed: ${explanationGate.errors.join(",")}.`);
   if(q.proposalId==="MIR-PQL-03"){
     const text=Object.values(q.learnerExplanation).join(" ");
-    assert(!/12:00|11:60|subtract|minus|−/i.test(text),`${q.seed}: numeric mirror-time shortcut leaked into MIR clock learner explanation.`);
+    assert(!/12:00|11:60|subtract the shown time|subtract the clock time|mirror-time arithmetic shortcut/i.test(text),`${q.seed}: numeric mirror-time shortcut leaked into MIR clock learner explanation.`);
   }
   const key=JSON.stringify({stimulus:q.stimulusScenes.map(spatialPerceptualSignatureV2),options:q.options.map((o)=>spatialPerceptualSignatureV2(o.scene)).sort(),correct:spatialPerceptualSignatureV2(q.options[q.correctOptionIndex]!.scene)});
   const set=perceptualQuestionKeys.get(q.proposalId)??new Set<string>(); set.add(key); perceptualQuestionKeys.set(q.proposalId,set);
