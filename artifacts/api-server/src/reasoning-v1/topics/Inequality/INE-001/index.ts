@@ -3,6 +3,7 @@ export * from "./INE-CP-002/index";
 export * from "./INE-CP-003/index";
 export * from "./foundation/index";
 export * from "./chapter-closure/index";
+export * as IneLocalization from "./localization/index";
 export * as IneCp004 from "./INE-CP-004/index";
 export * as IneCp005 from "./INE-CP-005/index";
 export * as IneCp006 from "./INE-CP-006/index";

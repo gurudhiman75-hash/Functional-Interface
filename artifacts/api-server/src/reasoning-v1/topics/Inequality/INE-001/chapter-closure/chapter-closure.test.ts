@@ -129,6 +129,7 @@ for (const cpNumber of [2, 3, 4, 5]) {
 assert.deepEqual(INE_001_ACTIVATION_STATE, {
   permanentQlIdsAllocated: false,
   questionStudioVisible: false,
+  localizationImplemented: true,
   localizationEnabled: false,
   publicReleaseEnabled: false,
 });

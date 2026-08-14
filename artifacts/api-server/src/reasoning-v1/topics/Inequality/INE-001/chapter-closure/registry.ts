@@ -236,6 +236,7 @@ export const INE_001_GUIDED_GROUPS = INE_001_CLOSURE_GROUPS.filter(
 export const INE_001_ACTIVATION_STATE = {
   permanentQlIdsAllocated: false,
   questionStudioVisible: false,
+  localizationImplemented: true,
   localizationEnabled: false,
   publicReleaseEnabled: false,
 } as const;
