@@ -4,7 +4,7 @@ import {
   type MenCp010PermanentEnglishQuestion,
 } from "./runtime";
 import type { MenCp010PermanentQlId } from "./allocation";
-import { buildMenCp010WorkedExplanation } from "./worked-explanation-v1";
+import { buildMenCp010WorkedExplanationV2 } from "./worked-explanation-v2";
 
 function simplifySurdDisplay(text: string) {
   const match = /^√(\d+)(\s.*)?$/.exec(text.trim());
@@ -52,7 +52,7 @@ export function generateMenCp010PermanentEnglishQuestion(
   const q = finalEditorialPolish(generateEditorialMenCp010PermanentEnglishQuestion(qlId, seed));
   return {
     ...q,
-    explanation: buildMenCp010WorkedExplanation(q, q.stem, q.answer),
+    explanation: buildMenCp010WorkedExplanationV2(q, q.stem, q.answer),
   };
 }
 
