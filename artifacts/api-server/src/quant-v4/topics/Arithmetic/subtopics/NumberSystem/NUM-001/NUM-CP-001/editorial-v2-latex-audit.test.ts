@@ -24,6 +24,10 @@ function withoutLatex(value: string): string {
   return value.replace(/\\\(.*?\\\)/gu, "");
 }
 
+function hasNestedLatex(value: string): boolean {
+  return /\\\((?:(?!\\\)).)*\\\(/u.test(value);
+}
+
 let questions = 0;
 const violations: string[] = [];
 
@@ -38,7 +42,7 @@ for (const language of languages) {
       questions += 1;
       const learnerParts = [question.stem, ...question.options, ...(question.explanation?.lines ?? [])].map(String);
       for (const [index, part] of learnerParts.entries()) {
-        assert(!/\\\([^\n]*\\\(/u.test(part), `${language}/${qlId}/${variant}/${index}: nested LaTeX delimiter`);
+        assert(!hasNestedLatex(part), `${language}/${qlId}/${variant}/${index}: nested LaTeX delimiter`);
         const raw = withoutLatex(part);
         for (const pattern of rawPatterns) {
           if (pattern.re.test(raw)) violations.push(`${language}/${qlId}/${variant}/${index}:${pattern.name}:${raw}`);
