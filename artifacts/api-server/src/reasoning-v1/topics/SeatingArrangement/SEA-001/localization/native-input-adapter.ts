@@ -20,7 +20,8 @@ const WORD_ORDINALS: Readonly<Record<string, string>> = Object.freeze({
 
 const WORD_ORDINAL_PATTERN = "first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth";
 
-type ConditionalFacingOverride = {
+type NativeClueOverride = {
+  readonly placeholder: string;
   readonly text: string;
   readonly action: string;
 };
@@ -35,8 +36,46 @@ function facingLabel(value: "the centre" | "outward", locale: Sea001TranslatedLo
     : tr(locale, "बाहर की ओर", "ਬਾਹਰ ਵੱਲ");
 }
 
-function conditionalFacingOverride(clue: string, locale: Sea001TranslatedLocale): ConditionalFacingOverride | undefined {
-  const match = clue.match(
+function facingRelationOverride(clue: string, locale: Sea001TranslatedLocale): NativeClueOverride | undefined {
+  let match = clue.match(/^([A-Z][a-z]+) and ([A-Z][a-z]+) face (?:the )?same direction\.$/);
+  if (match) {
+    const first = localizedSea001Name(match[1]!, locale);
+    const second = localizedSea001Name(match[2]!, locale);
+    return {
+      placeholder: `${match[2]} sits opposite ${match[1]}.`,
+      text: tr(
+        locale,
+        `${first} और ${second} एक ही दिशा में मुख किए हैं।`,
+        `${first} ਅਤੇ ${second} ਇੱਕੋ ਦਿਸ਼ਾ ਵੱਲ ਮੂੰਹ ਕਰਕੇ ਬੈਠੇ ਹਨ।`,
+      ),
+      action: tr(
+        locale,
+        `${first} और ${second} की मुख-दिशा एक जैसी रखें।`,
+        `${first} ਅਤੇ ${second} ਦੀ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ਇੱਕੋ ਜਿਹੀ ਰੱਖੋ।`,
+      ),
+    };
+  }
+
+  match = clue.match(/^([A-Z][a-z]+) and ([A-Z][a-z]+) face opposite directions\.$/);
+  if (match) {
+    const first = localizedSea001Name(match[1]!, locale);
+    const second = localizedSea001Name(match[2]!, locale);
+    return {
+      placeholder: `${match[2]} sits opposite ${match[1]}.`,
+      text: tr(
+        locale,
+        `${first} और ${second} विपरीत दिशाओं में मुख किए हैं।`,
+        `${first} ਅਤੇ ${second} ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵੱਲ ਮੂੰਹ ਕਰਕੇ ਬੈਠੇ ਹਨ।`,
+      ),
+      action: tr(
+        locale,
+        `इन दोनों में से एक का मुख केंद्र की ओर हो, तो दूसरे का मुख बाहर की ओर रखें।`,
+        `ਇਨ੍ਹਾਂ ਦੋਵਾਂ ਵਿੱਚੋਂ ਇੱਕ ਦਾ ਮੂੰਹ ਕੇਂਦਰ ਵੱਲ ਹੋਵੇ, ਤਾਂ ਦੂਜੇ ਦਾ ਮੂੰਹ ਬਾਹਰ ਵੱਲ ਰੱਖੋ।`,
+      ),
+    };
+  }
+
+  match = clue.match(
     /^If ([A-Z][a-z]+) faces (the centre|outward), ([A-Z][a-z]+) faces (the centre|outward); otherwise, ([A-Z][a-z]+) faces (the centre|outward)\.$/,
   );
   if (!match || match[3] !== match[5]) return undefined;
@@ -48,6 +87,7 @@ function conditionalFacingOverride(clue: string, locale: Sea001TranslatedLocale)
   const elseFacing = facingLabel(match[6]! as "the centre" | "outward", locale);
 
   return {
+    placeholder: `${match[3]} sits opposite ${match[1]}.`,
     text: tr(
       locale,
       `यदि ${conditionPerson} का मुख ${conditionFacing} है, तो ${targetPerson} का मुख ${thenFacing} होगा; अन्यथा ${targetPerson} का मुख ${elseFacing} होगा।`,
@@ -77,6 +117,8 @@ function normalizeDirectionalCountToClockwise(clue: string): string {
 function normalizeNativeClueInput(clue: string): string {
   let normalized = normalizeDirectionalCountToClockwise(clue);
 
+  normalized = normalized.replace(/^([A-Z][a-z]+) faces the centre\.$/, "$1 faces centre.");
+
   // The generic non-directional between renderer accepts "persons sit", while the
   // directional clockwise renderer owns the grammatical singular form.
   if (
@@ -100,15 +142,8 @@ function normalizeNativeClueInput(clue: string): string {
 }
 
 export function buildSea001NativeCandidate(source: AuditCaselet, locale: Sea001TranslatedLocale): Sea001LocalizedReviewCaselet {
-  const overrides = source.clueTexts.map((clue) => conditionalFacingOverride(clue, locale));
-  const clueTexts = source.clueTexts.map((clue, index) => {
-    if (overrides[index]) {
-      const match = clue.match(/^If ([A-Z][a-z]+) faces .+?, ([A-Z][a-z]+) faces /);
-      if (!match) throw new Error(`${source.caseletId}: conditional facing placeholder parse failed`);
-      return `${match[2]} sits opposite ${match[1]}.`;
-    }
-    return normalizeNativeClueInput(clue);
-  });
+  const overrides = source.clueTexts.map((clue) => facingRelationOverride(clue, locale));
+  const clueTexts = source.clueTexts.map((clue, index) => overrides[index]?.placeholder ?? normalizeNativeClueInput(clue));
 
   const rendered = buildSea001NativeReviewV2({ ...source, clueTexts }, locale);
   const finalClueTexts = [...rendered.clueTexts];
