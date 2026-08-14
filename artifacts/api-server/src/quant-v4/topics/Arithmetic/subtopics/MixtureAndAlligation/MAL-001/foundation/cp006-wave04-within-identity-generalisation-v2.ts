@@ -11,9 +11,11 @@ export const MAL_CP006_WAVE04_FINAL_GENERALISATION_ID =
 
 function polishStem(text: string): string {
   return text
+    .replace(/\bA known (\d+) litres is first moved from A into B\b/gu, "A first moves $1 litres into B")
     .replace(/\b(\d+) litres is transferred from A to B\b/gu, "A transfers $1 litres to B")
     .replace(/\b(\d+) litres is transferred from B to A\b/gu, "B transfers $1 litres to A")
     .replace(/\bx litres is returned to A\b/gu, "B returns x litres to A")
+    .replace(/\b(\d+) litres is returned to A\b/gu, "B returns $1 litres to A")
     .replace(/\bAfter (\d+) litres moves from A to B\b/gu, "After A transfers $1 litres to B")
     .replace(/\bFrom B's new mixture, (\d+) litres goes to A\b/gu, "B then sends $1 litres of its new mixture to A")
     .replace(/\bFrom A's new mixture, (\d+) litres then goes to B\b/gu, "A then sends $1 litres of its new mixture to B")
