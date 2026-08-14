@@ -1,9 +1,9 @@
 import { traceWorComparison } from "./lexical-comparator";
-import type { WorOption } from "./types";
+import type { WorOption, WorOptionCount } from "./types";
 
 interface CandidateOption { readonly value: string; readonly misconceptionId: string; }
 
-function assembleOptions(correct: string, candidates: readonly CandidateOption[], seed: number): WorOption[] {
+function assembleOptions(correct: string, candidates: readonly CandidateOption[], seed: number, optionCount: WorOptionCount = 4): WorOption[] {
   const unique: CandidateOption[] = [];
   const seen = new Set([correct]);
   for (const candidate of candidates) {
@@ -11,9 +11,10 @@ function assembleOptions(correct: string, candidates: readonly CandidateOption[]
     seen.add(candidate.value);
     unique.push(candidate);
   }
-  if (unique.length < 3) throw new Error(`WOR-001 could not construct three distinct distractors for ${correct}.`);
-  const correctIndex = ((seed % 4) + 4) % 4;
-  const options: WorOption[] = unique.slice(0, 3).map((candidate) => ({ value: candidate.value, misconceptionId: candidate.misconceptionId }));
+  const requiredDistractors = optionCount - 1;
+  if (unique.length < requiredDistractors) throw new Error(`WOR-001 could not construct ${requiredDistractors} distinct distractors for ${correct}.`);
+  const correctIndex = ((seed % optionCount) + optionCount) % optionCount;
+  const options: WorOption[] = unique.slice(0, requiredDistractors).map((candidate) => ({ value: candidate.value, misconceptionId: candidate.misconceptionId }));
   options.splice(correctIndex, 0, { value: correct, misconceptionId: null });
   return options;
 }
@@ -36,7 +37,7 @@ function comparisonMisconception(left: string, right: string): string {
   return "FIRST_LETTER_ORDER_ERROR";
 }
 
-export function buildSequenceOptions(order: readonly string[], seed: number): WorOption[] {
+export function buildSequenceOptions(order: readonly string[], seed: number, optionCount: WorOptionCount = 4): WorOption[] {
   const adjacent = order.slice(0, -1).map((word, index) => {
     const next = order[index + 1]!;
     const trace = traceWorComparison(word, next);
@@ -48,16 +49,12 @@ export function buildSequenceOptions(order: readonly string[], seed: number): Wo
     };
   });
   const hardest = [...adjacent].sort((a, b) => Number(b.prefix) - Number(a.prefix) || b.depth - a.depth || a.index - b.index);
-  const first = hardest[0] ?? { index: 0, misconceptionId: "FIRST_LETTER_ORDER_ERROR" };
-  const second = hardest.find((entry) => entry.index !== first.index)
-    ?? { index: Math.max(0, order.length - 2), misconceptionId: "FIRST_LETTER_ORDER_ERROR" };
-  const rotated = [...order.slice(1), order[0]!];
-  return assembleOptions(renderWordSequence(order), [
-    { value: renderWordSequence(swapped(order, first.index)), misconceptionId: first.misconceptionId },
-    { value: renderWordSequence(swapped(order, second.index)), misconceptionId: second.misconceptionId },
+  const sequenceCandidates = hardest.map((entry) => ({ value: renderWordSequence(swapped(order, entry.index)), misconceptionId: entry.misconceptionId }));
+  sequenceCandidates.push(
     { value: renderWordSequence([...order].reverse()), misconceptionId: "REVERSE_ALPHABET_ERROR" },
-    { value: renderWordSequence(rotated), misconceptionId: "FIRST_WORD_DISPLACED" },
-  ], seed);
+    { value: renderWordSequence([...order.slice(1), order[0]!]), misconceptionId: "FIRST_WORD_DISPLACED" },
+  );
+  return assembleOptions(renderWordSequence(order), sequenceCandidates, seed, optionCount);
 }
 
 function wordMisconception(answer: string, candidate: string): string {
@@ -68,11 +65,11 @@ function wordMisconception(answer: string, candidate: string): string {
   return "POSITIONAL_WORD_CONFUSION";
 }
 
-export function buildWordOptions(answer: string, candidates: readonly string[], seed: number): WorOption[] {
+export function buildWordOptions(answer: string, candidates: readonly string[], seed: number, optionCount: WorOptionCount = 4): WorOption[] {
   return assembleOptions(answer, candidates.filter((word) => word !== answer).map((word) => ({
     value: word,
     misconceptionId: wordMisconception(answer, word),
-  })), seed);
+  })), seed, optionCount);
 }
 
 function rankMisconception(answerRank: number, rank: number): string {
@@ -84,21 +81,37 @@ function rankMisconception(answerRank: number, rank: number): string {
   return difference < 0 ? "RANK_MULTIPLE_PLACES_EARLY" : "RANK_MULTIPLE_PLACES_LATE";
 }
 
-export function buildRankOptions(answerRank: number, maximumRank: number, seed: number): WorOption[] {
+export function buildRankOptions(answerRank: number, maximumRank: number, seed: number, optionCount: WorOptionCount = 4): WorOption[] {
   const ranks = Array.from({ length: maximumRank }, (_, index) => index + 1)
     .filter((rank) => rank !== answerRank)
     .sort((a, b) => Math.abs(a - answerRank) - Math.abs(b - answerRank) || a - b);
   return assembleOptions(String(answerRank), ranks.map((rank) => ({
     value: String(rank),
     misconceptionId: rankMisconception(answerRank, rank),
-  })), seed);
+  })), seed, optionCount);
 }
 
-export function buildPairOptions(answer: string, pairs: readonly string[], seed: number): WorOption[] {
+export function buildPairOptions(answer: string, pairs: readonly string[], seed: number, optionCount: WorOptionCount = 4): WorOption[] {
   return assembleOptions(answer, pairs.filter((pair) => pair !== answer).map((pair) => ({
     value: pair,
     misconceptionId: "CHOSE_CORRECTLY_ORDERED_ADJACENT_PAIR",
-  })), seed);
+  })), seed, optionCount);
+}
+
+export function buildLetterOptions(answer: string, seed: number, optionCount: WorOptionCount = 4): WorOption[] {
+  if (!/^[A-Z]$/.test(answer)) throw new Error(`Invalid Banking letter answer: ${answer}`);
+  const answerCode = answer.charCodeAt(0);
+  const letters = Array.from({ length: 26 }, (_, index) => String.fromCharCode(65 + index))
+    .filter((letter) => letter !== answer)
+    .sort((left, right) => Math.abs(left.charCodeAt(0) - answerCode) - Math.abs(right.charCodeAt(0) - answerCode) || left.charCodeAt(0) - right.charCodeAt(0));
+  return assembleOptions(answer, letters.map((letter) => {
+    const delta = letter.charCodeAt(0) - answerCode;
+    const misconceptionId = delta === -1 ? "LETTER_ONE_PLACE_EARLY"
+      : delta === 1 ? "LETTER_ONE_PLACE_LATE"
+        : delta < 0 ? "LETTER_MULTIPLE_PLACES_EARLY"
+          : "LETTER_MULTIPLE_PLACES_LATE";
+    return { value: letter, misconceptionId };
+  }), seed, optionCount);
 }
 
 export function correctOptionIndex(options: readonly WorOption[]): number {
