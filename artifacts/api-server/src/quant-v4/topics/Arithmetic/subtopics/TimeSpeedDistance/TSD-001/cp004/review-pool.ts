@@ -1,3 +1,4 @@
+import { multiply, rational } from "../foundation/rational";
 import { TSD_CP004_REVIEW_AUTHORITIES } from "./generator";
 import { polishCp004ActorStem } from "./presentation-remediation";
 import { generateCp004Question } from "./question-runtime";
@@ -20,6 +21,32 @@ function structuralClass(question: TsdCp004GeneratedQuestion): string {
   const raw = Number(question.representation.split(":").at(-1) ?? "0");
   const variant = Number.isInteger(raw) ? ((raw % 6) + 6) % 6 : 0;
   return ["DIRECT", "OBSERVATION", "CHECKPOINT", "RECONSTRUCTION", "DIRECT", "OBSERVATION"][variant]!;
+}
+
+function reviewOptionsAreEditoriallyClean(question: TsdCp004GeneratedQuestion): boolean {
+  const values = [
+    question.solution.answer,
+    ...question.internalOptionAudit
+      .filter((entry) => !entry.isCorrect && entry.wrongWorking)
+      .map((entry) => entry.wrongWorking!.value),
+  ];
+
+  if (question.solution.unit === "TIME") {
+    // Exam-facing time options should resolve to whole minutes; avoid distractors such as 18/19 h.
+    return values.every((value) => multiply(value, rational(60)).denominator === 1n);
+  }
+
+  if (question.solution.unit === "SPEED" || question.solution.unit === "DISTANCE") {
+    // Keep selected review options to integers, halves or quarter-units. The full audit may still
+    // exercise exact rationals, but the product-review surface must not advertise awkward fractions.
+    return values.every((value) => value.denominator === 1n || value.denominator === 2n || value.denominator === 4n);
+  }
+
+  if (question.solution.unit === "CLOCK_MINUTE") {
+    return values.every((value) => value.denominator === 1n);
+  }
+
+  return true;
 }
 
 function polishReviewQuestion(question: TsdCp004GeneratedQuestion): TsdCp004GeneratedQuestion {
@@ -45,20 +72,21 @@ function selectUniqueReviewQuestion(
 ): TsdCp004GeneratedQuestion {
   const baseline = generateCp004Question(authorityKey, `english-review:${authorityKey}:${variant}`);
   const targetMode = baseline.solveMode;
-  for (let cycle = 0; cycle < 80; cycle += 1) {
+  for (let cycle = 0; cycle < 160; cycle += 1) {
     const index = variant + cycle * REVIEW_VARIANT_COUNT;
     const candidate = polishReviewQuestion(generateCp004Question(authorityKey, `english-review:${authorityKey}:${index}`));
     if (candidate.solveMode !== targetMode) continue;
     if (Number(candidate.representation.split(":").at(-1) ?? "-1") !== variant) continue;
     if (selected.some((row) => row.mathematicalFingerprint === candidate.mathematicalFingerprint)) continue;
     if (selected.some((row) => row.stem === candidate.stem)) continue;
+    if (!reviewOptionsAreEditoriallyClean(candidate)) continue;
     const misconceptionPaths = new Set(candidate.internalOptionAudit
       .filter((entry) => !entry.isCorrect && entry.wrongWorking)
       .map((entry) => `${entry.misconceptionId}|${entry.wrongWorking!.calculation.trim().toLowerCase()}`));
     if (misconceptionPaths.size !== 3) continue;
     return candidate;
   }
-  throw new Error(`${authorityKey}: could not find a mathematically unique review row for variant ${variant} without changing its solve mode`);
+  throw new Error(`${authorityKey}: could not find a clean, mathematically unique review row for variant ${variant} without changing its solve mode`);
 }
 
 export function generateCp004AuditPool(seedsPerAuthority = 40): readonly TsdCp004GeneratedQuestion[] {
@@ -82,6 +110,7 @@ export function generateCp004ReviewQuestions(rowsPerAuthority = 6): readonly Tsd
     }
     if (new Set(selected.map((row) => row.stem)).size !== selected.length) throw new Error(`${authorityKey}: duplicate stem in review selection`);
     if (new Set(selected.map((row) => row.mathematicalFingerprint)).size !== selected.length) throw new Error(`${authorityKey}: duplicate mathematical fingerprint in review selection`);
+    if (!selected.every(reviewOptionsAreEditoriallyClean)) throw new Error(`${authorityKey}: review selection contains editorially awkward option values`);
 
     const classes = selected.map(structuralClass);
     if (new Set(classes).size < Math.min(4, rowsPerAuthority)) throw new Error(`${authorityKey}: insufficient structural classes in review selection`);
