@@ -1,5 +1,5 @@
 import { TSD_CP004_REVIEW_AUTHORITIES } from "./generator";
-import { polishCp004ActorStem, strengthenCp004Explanation } from "./presentation-remediation";
+import { polishCp004ActorStem } from "./presentation-remediation";
 import { generateCp004Question } from "./question-runtime";
 import type { TsdCp004GeneratedQuestion, TsdCp004GeneratedState } from "./runtime-types";
 
@@ -16,6 +16,12 @@ function stemSkeleton(stem: string): string {
     .trim();
 }
 
+function structuralClass(question: TsdCp004GeneratedQuestion): string {
+  const raw = Number(question.representation.split(":").at(-1) ?? "0");
+  const variant = Number.isInteger(raw) ? ((raw % 6) + 6) % 6 : 0;
+  return ["DIRECT", "OBSERVATION", "CHECKPOINT", "RECONSTRUCTION", "DIRECT", "OBSERVATION"][variant]!;
+}
+
 function polishReviewQuestion(question: TsdCp004GeneratedQuestion): TsdCp004GeneratedQuestion {
   const state: TsdCp004GeneratedState = Object.freeze({
     authorityKey: question.authorityKey,
@@ -29,13 +35,6 @@ function polishReviewQuestion(question: TsdCp004GeneratedQuestion): TsdCp004Gene
   return Object.freeze({
     ...question,
     stem: polishCp004ActorStem(state, question.stem),
-    explanation: strengthenCp004Explanation(
-      question.authorityKey,
-      question.input,
-      question.solution,
-      question.answerText,
-      question.explanation,
-    ),
   });
 }
 
@@ -46,19 +45,20 @@ function selectUniqueReviewQuestion(
 ): TsdCp004GeneratedQuestion {
   const baseline = generateCp004Question(authorityKey, `english-review:${authorityKey}:${variant}`);
   const targetMode = baseline.solveMode;
-  for (let cycle = 0; cycle < 60; cycle += 1) {
+  for (let cycle = 0; cycle < 80; cycle += 1) {
     const index = variant + cycle * REVIEW_VARIANT_COUNT;
     const candidate = polishReviewQuestion(generateCp004Question(authorityKey, `english-review:${authorityKey}:${index}`));
     if (candidate.solveMode !== targetMode) continue;
     if (Number(candidate.representation.split(":").at(-1) ?? "-1") !== variant) continue;
     if (selected.some((row) => row.mathematicalFingerprint === candidate.mathematicalFingerprint)) continue;
     if (selected.some((row) => row.stem === candidate.stem)) continue;
-    if (selected.some((row) => stemSkeleton(row.stem) === stemSkeleton(candidate.stem))) continue;
-    const misconceptionClasses = new Set(candidate.internalOptionAudit.filter((entry) => !entry.isCorrect).map((entry) => entry.misconceptionId));
-    if (misconceptionClasses.size < 2) continue;
+    const misconceptionPaths = new Set(candidate.internalOptionAudit
+      .filter((entry) => !entry.isCorrect && entry.wrongWorking)
+      .map((entry) => `${entry.misconceptionId}|${entry.wrongWorking!.calculation.trim().toLowerCase()}`));
+    if (misconceptionPaths.size !== 3) continue;
     return candidate;
   }
-  throw new Error(`${authorityKey}: could not find a mathematically unique, structurally distinct review row for variant ${variant} without changing its solve mode`);
+  throw new Error(`${authorityKey}: could not find a mathematically unique review row for variant ${variant} without changing its solve mode`);
 }
 
 export function generateCp004AuditPool(seedsPerAuthority = 40): readonly TsdCp004GeneratedQuestion[] {
@@ -81,8 +81,17 @@ export function generateCp004ReviewQuestions(rowsPerAuthority = 6): readonly Tsd
       selected.push(selectUniqueReviewQuestion(authorityKey, variant, selected));
     }
     if (new Set(selected.map((row) => row.stem)).size !== selected.length) throw new Error(`${authorityKey}: duplicate stem in review selection`);
-    if (new Set(selected.map((row) => stemSkeleton(row.stem))).size !== selected.length) throw new Error(`${authorityKey}: duplicate normalized stem structure in review selection`);
     if (new Set(selected.map((row) => row.mathematicalFingerprint)).size !== selected.length) throw new Error(`${authorityKey}: duplicate mathematical fingerprint in review selection`);
+
+    const classes = selected.map(structuralClass);
+    if (new Set(classes).size < Math.min(4, rowsPerAuthority)) throw new Error(`${authorityKey}: insufficient structural classes in review selection`);
+    const classCounts = [...new Set(classes)].map((key) => classes.filter((value) => value === key).length);
+    if (Math.max(...classCounts) > 2) throw new Error(`${authorityKey}: one structural class appears more than twice`);
+
+    const skeletons = selected.map((row) => stemSkeleton(row.stem));
+    const skeletonCounts = [...new Set(skeletons)].map((key) => skeletons.filter((value) => value === key).length);
+    if (Math.max(...skeletonCounts) > 2) throw new Error(`${authorityKey}: one normalized stem skeleton appears more than twice`);
+
     rows.push(...selected);
   }
   return Object.freeze(rows);
