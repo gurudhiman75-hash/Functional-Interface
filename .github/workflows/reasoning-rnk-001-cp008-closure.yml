@@ -1,0 +1,36 @@
+name: Validate RNK-001 CP008 Closure
+
+on:
+  push:
+    branches: [feat/rnk-001-cp008-adapter-caselet-closure]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/reasoning-rnk-001-cp008-closure.yml'
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/reasoning-rnk-001-cp008-closure.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Validate CP008 adapter and caselet closure
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-008/cp008-adapter-caselet-closure-v1-1.test.ts
+      - name: Re-prove CP007 freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-permanent-runtime-v1-freeze.test.ts
+      - name: Re-prove CP006 freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-permanent-runtime-v1-freeze.test.ts
+      - name: Re-prove CP005 freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-freeze.test.ts
+      - name: Re-prove CP004 freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-permanent-runtime-v1-gates.test.ts
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
