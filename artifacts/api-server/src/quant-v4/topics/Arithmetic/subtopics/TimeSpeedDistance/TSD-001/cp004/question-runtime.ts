@@ -1,5 +1,5 @@
 import { compare, toCanonicalString, type Rational } from "../foundation/rational";
-import { deriveStrongCp004WrongWorkingsV7 } from "./distractor-engine-v7";
+import { deriveStrongCp004WrongWorkingsV8 } from "./distractor-engine-v8";
 import { independentlyVerifyCp004 } from "./independent-verifier";
 import { cp004PermanentQlForAuthority } from "./ql-allocation";
 import { buildCp004Options, cp004DifficultyForAuthority } from "./options";
@@ -60,7 +60,7 @@ function validateQuestion(question: Omit<TsdCp004GeneratedQuestion, "validation"
     .filter((entry) => !entry.isCorrect && entry.wrongWorking)
     .map((entry) => `${entry.wrongWorking!.misconceptionId}|${entry.wrongWorking!.calculation.trim().toLowerCase()}`);
   if (new Set(wrongPaths).size !== 3) errors.push("distractors must come from three distinct misconception paths");
-  if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && /scaled|alter final arithmetic|answer ×|answer ÷/i.test(entry.wrongWorking.calculation))) errors.push("generic answer-scaling distractor leaked into CP004 V7");
+  if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && /scaled|alter final arithmetic|answer ×|answer ÷/i.test(entry.wrongWorking.calculation))) errors.push("generic answer-scaling distractor leaked into CP004 V8");
   if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && entry.wrongWorking.diagnosis.length < 25)) errors.push("distractor diagnosis is too weak");
   if ((question.solveMode === "findMeetingPointDistanceSplit" || question.solveMode === "findMeetingPointFromSpeedRatio") && question.input.routeDistance) {
     if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && compare(entry.wrongWorking.value, question.input.routeDistance!) >= 0)) {
@@ -81,7 +81,7 @@ function validateQuestion(question: Omit<TsdCp004GeneratedQuestion, "validation"
 
 export function generateCp004Question(authorityKey: string, seed: string): TsdCp004GeneratedQuestion {
   const { state, solution } = generateSolvableState(authorityKey, seed);
-  const wrongWorkings = deriveStrongCp004WrongWorkingsV7(state.solveMode, state.input, solution);
+  const wrongWorkings = deriveStrongCp004WrongWorkingsV8(state.solveMode, state.input, solution);
   const built = buildCp004Options(solution, wrongWorkings, state.permanentQlId, seed);
   const answerText = built.options[built.correctIndex];
   const stem = renderCp004StemV4(state);
