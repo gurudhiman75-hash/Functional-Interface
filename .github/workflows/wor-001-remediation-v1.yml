@@ -33,6 +33,9 @@ jobs:
       - name: Run WOR-001 deterministic multilingual audit
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001.test.ts
 
+      - name: Run WOR-001 source-evidence governance audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-source-evidence.test.ts
+
       - name: Generate WOR-001 review packs
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/export-review-packs.ts
 
