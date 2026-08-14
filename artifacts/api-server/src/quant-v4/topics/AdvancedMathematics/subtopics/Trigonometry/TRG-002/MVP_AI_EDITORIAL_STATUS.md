@@ -1,134 +1,87 @@
 # TRG-002 48-QL MVP AI Editorial Status
 
-Status: **48/48 AI/EDITORIAL PASS — EXECUTION PASS — RUNTIME-SPEC VISUAL PASS — APP/UI VISUAL + HUMAN REVIEW PENDING**
+Status: **48-QL AI/EDITORIAL REMEDIATION PASS — TRG-002 WORKFLOW PASS — REPRESENTATIVE RUNTIME VISUAL PASS — APP/UI + HUMAN REVIEW PENDING**
 
-## Scope
+## Scope and boundary
 
-`TRG-002 — Heights & Distances Applications` has a 48-QL MVP candidate with 12 permanent English QLs per CP.
+`TRG-002 — Heights & Distances Applications` has 48 permanent English MVP QLs, 12 per CP. The active delivery surface is `mvp-final-editorial-runtime.ts`.
 
-- 28 added MVP QLs: freshly AI/editorially reviewed.
-- 20 proof anchors: carried from the completed proof-stage AI review, with their diagram delivery re-inspected in this checkpoint.
-- AI/editorial reviewed: **48 / 48**.
-- AI/editorial PASS: **48 / 48**.
+- AI/editorial remediation: complete for the current 48-QL candidate.
 - human reviewed: **0 / 48**.
-- freeze eligible: **NO**.
+- production freeze eligible: **NO**.
+- Question Studio/Test Builder/storage/public/localization activation: **OFF**.
 
-The active delivery surface is `mvp-final-editorial-runtime.ts`.
+The self-review deliberately reopened the earlier editorial PASS and found real weaknesses. Those findings were remediated and regression-locked before restoring the current AI/editorial PASS status.
 
-## Exam-readiness outcome
+## Self-review remediation
 
-The review covered:
+Student-facing/editorial fixes include:
 
-- exam-style stem clarity and target unambiguity;
-- exact standard-angle mathematics;
-- four-option integrity and misconception relevance;
-- explanation sequencing and calibrated depth;
-- consistency between prose, canonical spatial state, answer and diagram;
-- solution-only diagram disclosure.
+- QL-007: friendlier exact-value presentation instead of generator-like `√3/3` wording;
+- QL-024: natural grammar plus a genuine trig-based third distractor;
+- QL-043: fallen part explicitly makes 45° with the ground, with stronger misconception provenance;
+- QL-049: 30° is explicitly assigned to the farther point and 60° to the nearer point;
+- QL-067: diversified to a 45°/30° exact system and explicitly collinear geometry;
+- QL-069: diversified to a 45°/60° moving-observer exact system;
+- QL-071: observation point and both tower feet are explicitly stated collinear and same-side;
+- QL-076: half-metre building heights are displayed naturally as decimals such as 13.5 m;
+- QL-081: Hard explanation now derives `x=3y` and solves the unequal opposite-side system;
+- QL-083: horizontal distance between the feet of the two buildings is stated explicitly from canonical state;
+- QL-092: arbitrary multiple distractors replaced by genuine trig misconceptions;
+- QL-096: Hard explanation explicitly shows rationalisation of `1/(√3-1)`.
 
-Known AI/editorial blockers on the active 48-QL route: **0**.
+Difficulty is currently locked as Medium for QL-052/055/058/061/064/095 and Hard for QL-096.
 
-Wording refinements remain locked for QL-005, 009, 014, 018, 020, 035, 048 and 095.
+## Diagram teaching-aid standard
 
-Difficulty calibration remains:
+The shared TRG-002 diagram contract now provides:
 
-- QL-064: Medium;
-- QL-095: Medium;
-- QL-096: Hard.
+- visible angle arcs between the horizontal reference ray and sight line;
+- degree labels associated with those arcs rather than floating at the corner;
+- first-class right-angle markers at relevant ground/vertical intersections;
+- separate `arcLane` values for distinct angles sharing one vertex, so composite 45°/60° figures use nested non-overlapping arcs;
+- exact semantic side/height/movement labels from canonical state;
+- solution diagrams REQUIRED, stem diagrams OPTIONAL/not automatic, disclosure AFTER_ATTEMPT.
 
-## Diagram policy
+Representative final-artifact inspection confirmed ordinary elevation, ladder, broken-object, opposite-side and composite figures. QL-095/096 specifically show separate nested 45° and 60° arcs and a clear base right-angle marker.
 
-For all 48 MVP QLs:
+This is **representative runtime visual evidence**, not a per-seed or real-app/browser approval. Generated questions therefore emit:
 
-- solution diagram: **REQUIRED**;
-- stem diagram: **OPTIONAL**, never automatic;
-- disclosure: **AFTER_ATTEMPT**;
-- diagram is bound to the same canonical spatial state as solver/explanation;
-- solution annotations are exact semantic values, not numbers parsed from the stem.
-
-## Runtime-spec visual inspection
-
-The workflow-generated JSON/HTML review pack was generated from the actual final runtime. The 48 runtime diagram specifications were then inspected visually from their exact 1000×600 coordinates, segments, angles and solution annotations.
-
-Three teaching-aid defects were found and remediated:
-
-1. **QL-020 — depression levels**
-   - before: the target-pole height was labelled but the target pole itself was not drawn;
-   - now: observer-level vertical reference and target pole are explicit canonical vertical objects, with both given heights and solved horizontal distance shown.
-2. **QL-023 — reverse sight-line**
-   - before: solved height was shown but the given line-of-sight length was not labelled;
-   - now: the given sight-line length is derived exactly from canonical observation geometry and displayed on the sloping segment.
-3. **QL-036 — ladder proof anchor**
-   - before: solved wall height was shown but the given ladder length was not labelled;
-   - now: the ladder length is derived exactly from canonical observation geometry and displayed on the ladder.
-
-Previously remediated visual issues remain locked:
-
-- QL-035 projects both old and new shadow segments plus both solar rays;
-- movement diagrams use directional movement semantics;
-- QL-078 and QL-088 label-placement collisions were corrected;
-- QL-038 shows given ladder length, 60° angle and solved foot distance;
-- broken-object and stacked-composite geometry are canonical, not decorative.
-
-Result: **runtime-spec visual inspection PASS for the 48-Ql MVP**.
-
-This is not being mislabeled as browser/app UI approval. The environment blocked opening the local generated HTML in Chromium, so **actual app/browser wrapper inspection remains PENDING**.
+- `runtimeSpecVisualInspection: NOT_ASSERTED_PER_INSTANCE`;
+- `representativeRuntimeVisualEvidence: EXTERNAL_REVIEW_ARTIFACT`;
+- `representativeVisualReviewScope: ONE_DESIGNATED_REVIEW_INSTANCE_PER_QL`;
+- `appUiRenderedInspection: PENDING`;
+- `humanReviewSubstituted: false`.
 
 ## Actual execution evidence
 
-GitHub Actions workflow: `.github/workflows/trg-002-mvp48-verification.yml`.
+Workflow: `.github/workflows/trg-002-mvp48-verification.yml`.
 
-Observed successful run after the visual fixes: **run 31765951856**, head `fa22514d09120dab857a1796ceb9d1fed0dd9796`.
+Latest observed successful remediation run:
 
-The run passed all of the following:
+- run: **31794139792**
+- head: `f5a95957a7b3b22b59e211e30c5a9a6f6db4b239`
+- conclusion: **success**
 
-- targeted TRG-002 TypeScript compile: **PASS**;
-- 12 seeds × 48 = **576 canonical cases: PASS**;
-- 50 seeds × 48 = **2,400 sweep cases: PASS**;
-- exact diagram-label gate: **PASS**;
-- difficulty regression gate: **PASS**;
-- all 14 locked diagram-strategy representatives: **PASS**;
-- high-risk teaching-aid projection gate, including QL-020/023/036/035/038/041/095: **PASS**;
-- 12 seeds × 48 = **576 final-editorial cases: PASS**;
-- actual-runtime 48-QL HTML + JSON review export: **PASS**;
-- review artifact verification/upload: **PASS**.
+Passed:
 
-The workflow artifact is `trg-002-mvp48-runtime-review`.
+- targeted TypeScript compile;
+- 576 canonical cases;
+- 2,400 sweep cases;
+- exact solution-label gate;
+- difficulty regression gate;
+- all 14 locked diagram-strategy representatives;
+- high-risk projection gate;
+- expanded 576-case final-editorial regression gate;
+- actual-runtime 48-QL HTML/JSON export;
+- artifact verification and upload.
 
-## Review metadata
-
-`mvp-final-editorial-runtime.ts` emits:
-
-- `reviewStatus: AI_REVIEWED`;
-- `aiEditorialStatus: PASS`;
-- `humanReviewStatus: PENDING`;
-- `finalEditorialReview.status: PASS`;
-- `runtimeSpecVisualInspection: PASS`;
-- `appUiRenderedInspection: PENDING`;
-- generic `renderedVisualInspection: PENDING` until app/UI inspection;
-- `humanReviewSubstituted: false`.
-
-## Human / freeze truth
-
-- human review: **0 / 48**;
-- AI review does not substitute for human review;
-- production freeze eligible: **NO**;
-- 48 → 96 expansion remains blocked by the deliberate human-review gate unless that policy is explicitly changed.
-
-## Activation
-
-Still OFF:
-
-- Question Studio discovery;
-- Test Builder eligibility;
-- question-bank storage;
-- public publication;
-- Hindi/Punjabi runtime.
+Artifact: `trg-002-mvp48-runtime-review`.
 
 ## Remaining gate
 
-Before treating the 48-QL MVP as human-approved or moving it to production freeze:
+Before production freeze or 48→96 expansion under the current plan:
 
-1. inspect the generated HTML in the real browser/app wrapper;
+1. inspect the solution presentation in the real ExamTree/browser UI wrapper;
 2. complete human review of the 48 questions;
-3. only then approve 48 → 96 production expansion under the current plan.
+3. explicitly approve the next expansion.
