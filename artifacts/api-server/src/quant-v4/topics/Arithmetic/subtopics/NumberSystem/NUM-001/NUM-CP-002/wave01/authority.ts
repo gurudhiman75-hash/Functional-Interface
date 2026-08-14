@@ -78,10 +78,13 @@ const orderSets: readonly (readonly OrderEntry[])[] = [
   ],
 ];
 
+function displayOrder(entries: readonly OrderEntry[], ascending: boolean): string {
+  const bodies = entries.map((e) => e.display.replace(/^\\\((.*)\\\)$/u, "$1"));
+  return math(bodies.join(ascending ? "<" : ">"));
+}
 function orderText(entries: readonly OrderEntry[], ascending: boolean): string {
   const sorted = [...entries].sort((a, b) => compareRational(a.value, b.value) * (ascending ? 1 : -1));
-  const bodies = sorted.map((e) => e.display.replace(/^\\\((.*)\\\)$/u, "$1"));
-  return math(bodies.join(ascending ? "<" : ">"));
+  return displayOrder(sorted, ascending);
 }
 
 function permutations<T>(values: readonly T[]): readonly (readonly T[])[] {
@@ -93,7 +96,7 @@ function fixedOrder(seed: number): NumCp002Wave01Package {
   const entries = orderSets[((seed * 7 + 3) >>> 0) % orderSets.length]!;
   const ascending = seed % 2 === 0;
   const correct = orderText(entries, ascending);
-  const wrongs = permutations(entries).map((p) => orderText(p, ascending)).filter((value, index, all) => value !== correct && all.indexOf(value) === index).slice(0, 3);
+  const wrongs = permutations(entries).map((p) => displayOrder(p, ascending)).filter((value, index, all) => value !== correct && all.indexOf(value) === index).slice(0, 3);
   if (wrongs.length !== 3) throw new Error("NUM-CP002-PROT-010: insufficient order distractors");
   const correctIndex = ((seed * 11 + 1) >>> 0) % 4;
   const options: NumCp002Option[] = wrongs.map((value, i) => ({ value, isCorrect: false, misconceptionId: `PAIRWISE_ORDER_ERROR_${i + 1}` }));
