@@ -9,6 +9,8 @@ export const MAL_CP003_CHAPTER_CLOSURE_EDITORIAL_V2_ID =
 
 const TRANSFER_VERBS =
   "removed|replaced|transferred|sent|moved|poured|added|returned|withdrawn";
+const MAX_MIXED_FRACTION_DENOMINATOR = 32;
+const MAX_EXAM_RATIO_COMPONENT = 300;
 
 function sentenceCase(value: string): string {
   return value.replace(/^([a-z])/u, (_match, letter: string) =>
@@ -80,6 +82,22 @@ function normaliseReasoningGraph(
   };
 }
 
+function isExamNatural(question: MalCp003ReleasedQuestion): boolean {
+  const learnerChoices = [question.stem, ...question.options].join(" ");
+  for (const match of learnerChoices.matchAll(/\b(\d+)\/(\d+)\b/gu)) {
+    if (Number(match[2]) > MAX_MIXED_FRACTION_DENOMINATOR) return false;
+  }
+  for (const match of question.stem.matchAll(/\b(\d+)\s*:\s*(\d+)\b/gu)) {
+    if (
+      Math.max(Number(match[1]), Number(match[2])) >
+      MAX_EXAM_RATIO_COMPONENT
+    ) {
+      return false;
+    }
+  }
+  return true;
+}
+
 function assertEditorialV2(question: MalCp003ReleasedQuestion): void {
   const learnerText = [
     question.stem,
@@ -116,17 +134,17 @@ function assertEditorialV2(question: MalCp003ReleasedQuestion): void {
       throw new Error(`${question.questionId}: CP003 V2 ${label} regression.`);
     }
   }
+  if (!isExamNatural(question)) {
+    throw new Error(`${question.questionId}: CP003 V2 exam-realism constraints failed.`);
+  }
 }
 
-export function runMalCp003EnglishEditorialV2Pipeline(input: {
-  questionLanguageId: MalCp003PermanentQlId;
-  seed?: string;
-  language?: "en";
-}): MalCp003ReleasedQuestion {
-  const base = runMalCp003EnglishReleasePipelineV1(input);
+function buildEditorialV2Question(
+  base: MalCp003ReleasedQuestion,
+): MalCp003ReleasedQuestion {
   const stem = sentenceCase(normaliseLearnerText(base.stem));
   const explanation = normaliseExplanation(base.explanation);
-  const question: MalCp003ReleasedQuestion = {
+  return {
     ...base,
     stem,
     explanationId: `${base.permanentQlId}-EN-REPEATED-REPLACEMENT-CHAPTER-CLOSURE-V2`,
@@ -146,9 +164,36 @@ export function runMalCp003EnglishEditorialV2Pipeline(input: {
           message:
             "Learner prose is sentence-cased and quantity/transfer grammar is normalized without changing mathematics, options or identity.",
         },
+        {
+          name: "CHAPTER_CLOSURE_EXAM_REALISM_V2",
+          passed: true,
+          message: `Learner-visible fractions use denominators no larger than ${MAX_MIXED_FRACTION_DENOMINATOR}, and stem ratios keep each component at or below ${MAX_EXAM_RATIO_COMPONENT}.`,
+        },
       ],
     },
   };
-  assertEditorialV2(question);
-  return question;
+}
+
+export function runMalCp003EnglishEditorialV2Pipeline(input: {
+  questionLanguageId: MalCp003PermanentQlId;
+  seed?: string;
+  language?: "en";
+}): MalCp003ReleasedQuestion {
+  for (let attempt = 0; attempt < 100; attempt += 1) {
+    const candidateSeed =
+      attempt === 0
+        ? input.seed
+        : `${input.seed ?? "mal-cp003-editorial-v2"}:exam-retry:${attempt}`;
+    const base = runMalCp003EnglishReleasePipelineV1({
+      ...input,
+      seed: candidateSeed,
+    });
+    const question = buildEditorialV2Question(base);
+    if (!isExamNatural(question)) continue;
+    assertEditorialV2(question);
+    return question;
+  }
+  throw new Error(
+    `${input.questionLanguageId}: no exam-natural CP003 editorial V2 state survived.`,
+  );
 }
