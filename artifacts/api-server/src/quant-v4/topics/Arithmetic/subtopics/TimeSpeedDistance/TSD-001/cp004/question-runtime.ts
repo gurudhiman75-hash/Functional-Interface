@@ -5,7 +5,7 @@ import { cp004PermanentQlForAuthority } from "./ql-allocation";
 import { buildCp004Options, cp004DifficultyForAuthority } from "./options";
 import { solveCp004Core } from "./relative-motion-foundation";
 import { generateCp004StateV3 } from "./state-v3";
-import { renderCp004StemV2 } from "./stem-library-v2";
+import { renderCp004StemV3 } from "./stem-library-v3";
 import { buildCp004Teaching } from "./teaching";
 import type { TsdCp004GeneratedQuestion } from "./runtime-types";
 
@@ -77,7 +77,7 @@ export function generateCp004Question(authorityKey: string, seed: string): TsdCp
   const wrongWorkings = deriveStrongCp004WrongWorkingsFinal(state.solveMode, state.input, solution);
   const built = buildCp004Options(solution, wrongWorkings, state.permanentQlId, seed);
   const answerText = built.options[built.correctIndex];
-  const stem = renderCp004StemV2(state);
+  const stem = renderCp004StemV3(state);
   const fingerprintValues = rationals(state.input).map(toCanonicalString).join("|");
   const draft = {
     chapterId: "TSD-001" as const,
