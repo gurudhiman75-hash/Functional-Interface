@@ -1,4 +1,4 @@
-import { compare, divide, multiply, rational } from "../foundation/rational";
+import { compare, multiply, rational } from "../foundation/rational";
 import { deriveStrongCp004WrongWorkingsV5 } from "./distractor-engine-v5";
 import type { TsdCp004CoreInput, TsdCp004CoreSolution, TsdCp004CoreSolveMode } from "./relative-motion-foundation";
 import type { TsdCp004WrongWorking } from "./runtime-types";
@@ -11,7 +11,7 @@ function competitive(value: TsdCp004WrongWorking["value"], solution: TsdCp004Cor
   if (solution.unit === "CLOCK_MINUTE") {
     return Math.abs(numeric(value) - numeric(solution.answer)) <= 360;
   }
-  const lower = divide(solution.answer, rational(2, 5));
+  const lower = multiply(solution.answer, rational(2, 5));
   const upper = multiply(solution.answer, rational(5, 2));
   return compare(value, lower) >= 0 && compare(value, upper) <= 0;
 }
