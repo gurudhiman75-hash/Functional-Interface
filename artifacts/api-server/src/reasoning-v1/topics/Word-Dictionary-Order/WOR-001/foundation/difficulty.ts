@@ -1,5 +1,5 @@
 import { traceWorComparison } from "./lexical-comparator";
-import type { WorDifficultyFeatures, WorSortDirection, WorTaskKind } from "./types";
+import type { WorDifficulty, WorDifficultyFeatures, WorSortDirection, WorTaskKind } from "./types";
 
 const inferenceBurden: Record<WorTaskKind, number> = {
   SELECT_COMPLETE_ORDER: 0,
@@ -31,7 +31,14 @@ export function calculateWorDifficultyFeatures(
   const late = depths.filter((value) => value >= 3).length;
   const prefix = traces.filter((trace) => trace.decision !== "FIRST_DIFFERING_CHARACTER").length;
   const taskInferenceBurden = inferenceBurden[taskKind];
-  const score = Math.max(0, ascendingWords.length - 4) + Math.round(mean) + late + prefix * 2 + taskInferenceBurden + (direction === "DESCENDING" ? 2 : 0);
+  const structuralDepth = Math.max(0, max - 1);
+  const score = Math.max(0, ascendingWords.length - 4)
+    + Math.round(mean)
+    + structuralDepth
+    + late
+    + prefix * 2
+    + taskInferenceBurden
+    + (direction === "DESCENDING" ? 2 : 0);
   return {
     wordCount: ascendingWords.length,
     commonPrefixDepthMax: max,
@@ -42,4 +49,10 @@ export function calculateWorDifficultyFeatures(
     taskInferenceBurden,
     score,
   };
+}
+
+export function classifyWorDifficulty(features: WorDifficultyFeatures): WorDifficulty {
+  if (features.score <= 4) return "EASY";
+  if (features.score <= 9) return "MEDIUM";
+  return "HARD";
 }
