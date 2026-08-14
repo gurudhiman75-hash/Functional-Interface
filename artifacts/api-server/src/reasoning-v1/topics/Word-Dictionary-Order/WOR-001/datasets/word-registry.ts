@@ -1,4 +1,5 @@
 import type { WorDifficulty, WorWordFamily, WorWordRecord } from "../foundation/types";
+import { WOR_WORD_FAMILY_EXPANSION } from "./expanded-word-registry";
 
 function record(word: string, familiarity: WorWordRecord["familiarity"] = "COMMON"): WorWordRecord {
   const normalized = word.toUpperCase();
@@ -19,8 +20,7 @@ function family(id: string, tier: WorDifficulty, words: readonly string[], famil
   return { id, tier, words: words.map((word) => record(word, familiarity)) };
 }
 
-export const WOR_WORD_FAMILIES: readonly WorWordFamily[] = [
-  // EASY: broad, familiar vocabulary with mostly early decisions.
+const WOR_BASE_WORD_FAMILIES: readonly WorWordFamily[] = [
   family("MIXED-COMMON-A", "EASY", ["Apple", "Bridge", "Candle", "Doctor", "Forest", "Garden", "Lemon", "Meadow", "River", "Silver", "Window", "Yellow"]),
   family("MIXED-COMMON-B", "EASY", ["Book", "Branch", "Cloud", "Crane", "Dance", "House", "Horse", "Pencil", "Table", "Truck", "Water", "Zebra"]),
   family("MIXED-COMMON-C", "EASY", ["Anchor", "Basket", "Circle", "Eagle", "Flower", "Kitchen", "Orange", "Planet", "Rabbit", "School", "Tiger", "Village"]),
@@ -29,8 +29,6 @@ export const WOR_WORD_FAMILIES: readonly WorWordFamily[] = [
   family("MIXED-COMMON-F", "EASY", ["Animal", "Bread", "Clock", "Dream", "Field", "Glass", "Hill", "Lake", "Moon", "Road", "Ship", "Tree"]),
   family("MIXED-COMMON-G", "EASY", ["Army", "Box", "Child", "Door", "Farm", "Green", "Light", "Night", "Park", "Sun", "Voice", "World"]),
   family("MIXED-COMMON-H", "EASY", ["Air", "Bell", "Coat", "Desk", "Fire", "Gold", "Iron", "King", "Milk", "Ring", "Town", "Wood"]),
-
-  // MEDIUM: moderate shared prefixes and occasional prefix containment.
   family("GRA-FAMILY", "MEDIUM", ["Grace", "Grain", "Grand", "Grant", "Graphic", "Grape", "Grasp", "Grass", "Grate", "Gravel", "Gravity", "Gray"]),
   family("BL-FAMILY", "MEDIUM", ["Blank", "Blaze", "Bleed", "Blend", "Blind", "Blink", "Bliss", "Block", "Bloom", "Blouse", "Blue", "Blunt"]),
   family("ACT-FAMILY", "MEDIUM", ["Act", "Action", "Activate", "Active", "Activity", "Actor", "Actress", "Actual", "Acute", "Adapt", "Add", "Adjust"]),
@@ -41,8 +39,6 @@ export const WOR_WORD_FAMILIES: readonly WorWordFamily[] = [
   family("PLA-FAMILY", "MEDIUM", ["Place", "Plain", "Plan", "Plane", "Plant", "Plate", "Play", "Player", "Plaza", "Plead", "Please", "Plenty"]),
   family("INT-FAMILY", "MEDIUM", ["Intact", "Intake", "Integer", "Intend", "Intent", "Into", "Invent", "Invite", "Involve", "Injury", "Input", "Inside"]),
   family("MAR-FAMILY", "MEDIUM", ["March", "Margin", "Marine", "Mark", "Market", "Marriage", "Mask", "Master", "Match", "Material", "Mature", "Maximum"]),
-
-  // HARD: deep common-prefix decisions and explicit prefix-containment opportunities.
   family("CAR-FAMILY", "HARD", ["Car", "Carbon", "Card", "Care", "Careful", "Cargo", "Carnival", "Carp", "Carrier", "Carry", "Cart", "Carton"]),
   family("STAR-FAMILY", "HARD", ["Star", "Stare", "Stark", "Start", "State", "Station", "Static", "Statue", "Stay", "Steady", "Steam", "Steel"]),
   family("PRO-FAMILY", "HARD", ["Produce", "Product", "Production", "Productive", "Productivity", "Professor", "Program", "Progress", "Project", "Promise", "Promote", "Proper"]),
@@ -57,7 +53,10 @@ export const WOR_WORD_FAMILIES: readonly WorWordFamily[] = [
   family("INST-FAMILY", "HARD", ["Install", "Instance", "Instant", "Instead", "Instinct", "Institute", "Institution", "Instruct", "Instruction", "Instrument", "Insurance", "Insure"], "STANDARD"),
 ];
 
+export const WOR_WORD_FAMILIES: readonly WorWordFamily[] = [...WOR_BASE_WORD_FAMILIES, ...WOR_WORD_FAMILY_EXPANSION];
+
 const allWords = WOR_WORD_FAMILIES.flatMap((entry) => entry.words);
+if (WOR_WORD_FAMILIES.length !== 60 || allWords.length !== 720) throw new Error("WOR expanded real-word corpus must be 60 families / 720 words.");
 if (allWords.some((entry) => !/^[A-Z]+$/.test(entry.normalized))) throw new Error("WOR word registry contains a non A-Z token.");
 if (new Set(allWords.map((entry) => entry.normalized)).size !== allWords.length) throw new Error("WOR word registry contains a cross-family duplicate token.");
 if (new Set(allWords.map((entry) => entry.id)).size !== allWords.length) throw new Error("WOR word registry contains a duplicate word ID.");
