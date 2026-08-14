@@ -8,13 +8,17 @@ import {
   validateSpatialOptionUniqueness,
   validateSpatialScene,
 } from "../foundation/spatial/index";
+import {
+  validateLearnerVisibleExplanationV2,
+  validateSpatialPerceptualOptionUniquenessV2,
+} from "../foundation/spatial/gap-question-perceptual-v2";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
 const REQUESTED_PER_GAP = 40;
-const SEED_PREFIX = "SPA-FND-001-GAP-QUESTION-SYNTHESIS-EDITORIAL-V1";
+const SEED_PREFIX = "SPA-FND-001-GAP-QUESTION-SYNTHESIS-EDITORIAL-V2";
 const batch = synthesizeSpatialGapQuestionBatchV1({
   seedPrefix: SEED_PREFIX,
   requestedPerGap: REQUESTED_PER_GAP,
@@ -50,11 +54,19 @@ for (const question of batch.accepted) {
   assert(question.reviewMetadata.explanationSpecificityCheck === "PASS", `${question.prototypeId}: explanation specificity check failed.`);
   assert(question.reviewMetadata.mobileReviewStatus === "ARTIFACT_READY_HUMAN_REVIEW_PENDING", `${question.prototypeId}: mobile review was falsely promoted.`);
   assert(question.reviewMetadata.englishFreezeStatus === "HUMAN_REVIEW_PENDING", `${question.prototypeId}: English was falsely frozen.`);
+  assert(question.reviewMetadata.recommendedOptionPixels >= 104, `${question.prototypeId}: learner option size floor is below 104px.`);
   assert(question.stemText.length >= 55, `${question.prototypeId}: learner stem is unexpectedly short.`);
   assert(question.learnerExplanation.observation.length >= 35, `${question.prototypeId}: observation is too generic.`);
   assert(question.learnerExplanation.rule.length >= 30, `${question.prototypeId}: rule explanation is too short.`);
   assert(question.learnerExplanation.application.length >= 25, `${question.prototypeId}: application explanation is too short.`);
   assert(/Option [A-D]/.test(question.learnerExplanation.check), `${question.prototypeId}: explanation check does not identify the delivered correct option.`);
+  const explanationGate = validateLearnerVisibleExplanationV2([
+    question.learnerExplanation.observation,
+    question.learnerExplanation.rule,
+    question.learnerExplanation.application,
+    question.learnerExplanation.check,
+  ]);
+  assert(explanationGate.ok, `${question.prototypeId}: learner-visible explanation gate failed: ${explanationGate.errors.join(",")}.`);
   assert(!question.prototypeId.includes("-QL-"), `${question.prototypeId}: permanent QL-like identifier leaked.`);
   assert(question.lifecycle.permanentQlId === null, `${question.prototypeId}: permanent QL leaked.`);
   assert(question.lifecycle.questionStudioDiscoverable === false, `${question.prototypeId}: Question Studio discovery leaked.`);
@@ -62,8 +74,12 @@ for (const question of batch.accepted) {
   assert(question.lifecycle.testEligible === false, `${question.prototypeId}: mock-test eligibility leaked.`);
   assert(question.lifecycle.publiclyPublishable === false, `${question.prototypeId}: publication leaked.`);
 
-  const expectedStimulusCount = question.chapterCode === "FCL-001" ? 0 : 3;
-  assert(question.stimulusScenes.length === expectedStimulusCount, `${question.prototypeId}: wrong stimulus count for ${question.chapterCode}.`);
+  const expectedStimulusCount = question.chapterCode === "FCL-001"
+    ? 0
+    : question.gapId === "FSR-GAP-03" || question.gapId === "FSR-GAP-08"
+      ? 4
+      : 3;
+  assert(question.stimulusScenes.length === expectedStimulusCount, `${question.prototypeId}: wrong stimulus count for ${question.gapId}.`);
   if (question.chapterCode === "FCL-001") {
     const vector = question.solverEvidence.propertyVector;
     assert(vector?.length === 4, `${question.prototypeId}: FCL property vector missing.`);
@@ -77,8 +93,10 @@ for (const question of batch.accepted) {
     const validation = validateSpatialScene(scene);
     assert(validation.ok, `${question.prototypeId}/${scene.id}: scene validation failed.`);
   }
-  const uniqueness = validateSpatialOptionUniqueness(question.options.map((option) => option.scene));
-  assert(uniqueness.ok, `${question.prototypeId}: independent option uniqueness validation failed.`);
+  const semanticUniqueness = validateSpatialOptionUniqueness(question.options.map((option) => option.scene));
+  assert(semanticUniqueness.ok, `${question.prototypeId}: independent semantic option uniqueness validation failed.`);
+  const perceptualUniqueness = validateSpatialPerceptualOptionUniquenessV2(question.options.map((option) => option.scene));
+  assert(perceptualUniqueness.ok, `${question.prototypeId}: independent perceptual uniqueness failed: ${JSON.stringify(perceptualUniqueness.duplicatePairs)}.`);
 }
 
 const replay = synthesizeSpatialGapQuestionBatchV1({
@@ -109,14 +127,15 @@ assert(review.reviewStatus === "REPRESENTATIVE_ARTIFACT_READY_HUMAN_REVIEW_PENDI
 assert(review.englishFreezeStatus === "HUMAN_REVIEW_PENDING", "English was falsely frozen in review artifact.");
 const html = buildSpatialGapQuestionEditorialReviewHtmlV1(review);
 assert(html.includes("@media(max-width:520px)"), "Editorial review is missing mobile rendering rules.");
+assert(html.includes("width:104px"), "Editorial review does not enforce the 104px mobile figure floor.");
 for (const gapId of SPATIAL_GAP_IDS_V1) assert(html.includes(gapId), `Editorial HTML is missing ${gapId}.`);
 
 const outputDir = join(process.cwd(), "dist", "reasoning-v1", "spatial");
 mkdirSync(outputDir, { recursive: true });
-writeFileSync(join(outputDir, "spa-gap-question-editorial-v1-review.json"), JSON.stringify(review, null, 2));
-writeFileSync(join(outputDir, "spa-gap-question-editorial-v1-review.html"), html);
+writeFileSync(join(outputDir, "spa-gap-question-editorial-v2-review.json"), JSON.stringify(review, null, 2));
+writeFileSync(join(outputDir, "spa-gap-question-editorial-v2-review.html"), html);
 const evidence = {
-  status: "PASS_SPA_FND_001_GAP_QUESTION_SYNTHESIS_EDITORIAL_V1",
+  status: "PASS_SPA_FND_001_GAP_QUESTION_LEARNER_REMEDIATION_V2",
   synthesis: {
     auditedGaps: SPATIAL_GAP_IDS_V1.length,
     requestedPerGap: REQUESTED_PER_GAP,
@@ -135,10 +154,13 @@ const evidence = {
   checks: {
     exactNineteenGapCoverage: true,
     fourOptionsEveryQuestion: true,
-    independentOptionUniqueness: true,
+    independentSemanticOptionUniqueness: true,
+    independentPerceptualOptionUniqueness: true,
+    fclCompetingCueAudit: true,
     chapterSpecificQuestionContracts: true,
-    exactThreeToOneFclPropertyVectors: true,
-    questionSpecificExplanationChecks: true,
+    fourVisibleFramesForFsr03And08: true,
+    learnerVisibleExplanations: true,
+    minimumMobileFigurePixels104: true,
     deterministicReplay: true,
     deterministicDuplicateRetryPressure: true,
     alternateSeedDivergence: true,
@@ -153,7 +175,7 @@ const evidence = {
     humanEnglishFreezeStillPending: true,
   },
   lifecycle: batch.lifecycle,
-  nextGate: "SPATIAL_GAP_QUESTION_PRODUCTION_SCALE_V1",
+  nextGate: "SPATIAL_LEARNER_REMEDIATION_V2_HUMAN_REVIEW",
 };
-writeFileSync(join(outputDir, "spa-gap-question-synthesis-editorial-v1-evidence.json"), JSON.stringify(evidence, null, 2));
+writeFileSync(join(outputDir, "spa-gap-question-learner-remediation-v2-evidence.json"), JSON.stringify(evidence, null, 2));
 console.log(JSON.stringify(evidence, null, 2));
