@@ -59,6 +59,8 @@ for (const variantId of MAL_CP006_WAVE04_VARIANT_IDS) {
     if (/\b\d+ litres goes\b/iu.test(learnerText)) failures.push(`${variantId}/${i}: litres-goes grammar`);
     if (/\b1x\b/u.test(learnerText)) failures.push(`${variantId}/${i}: 1x notation`);
     if (/Solving this linear equation gives/iu.test(learnerText)) failures.push(`${variantId}/${i}: skipped inverse solving`);
+    if (/^Starting from\b/u.test(q.stem)) failures.push(`${variantId}/${i}: opening sentence fragment`);
+    if (/\bfind the .+ ratio in B\./iu.test(q.stem)) failures.push(`${variantId}/${i}: command-style opening`);
   }
 
   const expectedStates = variantId === "ASYMMETRIC_INVERSE_RETURN"
