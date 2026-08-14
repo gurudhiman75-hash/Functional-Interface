@@ -16,11 +16,6 @@ function mathBody(value: string): string {
     .trim();
 }
 
-function unwrapInline(value: string): string {
-  const match = value.trim().match(/^\\\((.*)\\\)$/u);
-  return match ? String(match[1]) : value.trim();
-}
-
 const WORKING_LABELS = "Count|Middle integer|Left point|Right point|Average|औसत|मध्य पूर्णांक|बायाँ बिंदु|दायाँ बिंदु|ਔਸਤ|ਵਿਚਕਾਰਲਾ ਪੂਰਨ ਅੰਕ|ਖੱਬਾ ਬਿੰਦੂ|ਸੱਜਾ ਬਿੰਦੂ";
 
 function prejoinExistingMath(value: string): string {
@@ -36,6 +31,10 @@ function wrapRawFormulae(value: string): string {
 
   output = output.replace(/\b([A-D]|x|n|b|p|q|r|m)\s*=\s*(-?\d+(?:\.\d+)?)\b/gu, (_match, label, number) => inline(`${label}=${number}`));
 
+  // Capture a labelled calculation before any inner arithmetic can be wrapped separately.
+  const workingLabels = new RegExp(`(${WORKING_LABELS})\\s*=\\s*([^.;।\\n]+)(?=[.;।])`, "gu");
+  output = output.replace(workingLabels, (_match, label, working) => `${label}: ${inline(mathBody(String(working)))}`);
+
   output = output.replace(/(-?\d+\/\d+)\s*<\s*([A-Za-z])\s*<\s*(-?\d+\/\d+)/gu, (_match, left, variable, right) => inline(`${fractionBody(left)}<${variable}<${fractionBody(right)}`));
   output = output.replace(/(-?\d+(?:\.\d+)?)\s*<\s*([A-Za-z])\s*<\s*(-?\d+(?:\.\d+)?)/gu, (_match, left, variable, right) => inline(`${left}<${variable}<${right}`));
   output = output.replace(/([[(]\s*(?:-?\d+(?:\.\d+)?|[a-z])\s*,\s*(?:-?\d+(?:\.\d+)?|[a-z])\s*[\])])/gu, (_match, interval) => inline(String(interval).replace(/\s+/gu, "")));
@@ -47,9 +46,6 @@ function wrapRawFormulae(value: string): string {
   output = output.replace(/\b([xbnpqrm](?:\^\{?\d+\}?|[²³]))\b/gu, (_match, expression) => inline(mathBody(String(expression))));
 
   output = output.replace(/(?<![\w\\])(-?\d+(?:\s*,\s*-?\d+){2,})(?![\w])/gu, (_match, list) => inline(String(list).replace(/\s+/gu, "")));
-
-  const workingLabels = new RegExp(`(${WORKING_LABELS})\\s*=\\s*([^.;।\\n]+)(?=[.;।])`, "gu");
-  output = output.replace(workingLabels, (_match, label, working) => `${label}: ${inline(mathBody(unwrapInline(String(working))))}`);
 
   return output;
 }
