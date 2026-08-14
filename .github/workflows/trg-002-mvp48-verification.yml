@@ -56,6 +56,9 @@ jobs:
       - name: Execute 14-strategy diagram gate
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-visual-review-14.test.ts
 
+      - name: Execute depression helper-line gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/depression-helper-line.test.ts
+
       - name: Execute high-risk projection gate
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-special-render-projection.test.ts
 
@@ -72,6 +75,7 @@ jobs:
           grep -q 'TRG-002-QL-096' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
           grep -q 'class="angle-arc"' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
           grep -q 'class="right-angle-marker"' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          grep -q 'depression-drop-' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
 
       - name: Upload TRG-002 runtime review pack
         uses: actions/upload-artifact@v4
