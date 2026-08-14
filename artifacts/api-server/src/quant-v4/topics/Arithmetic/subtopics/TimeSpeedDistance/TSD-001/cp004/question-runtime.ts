@@ -1,12 +1,12 @@
 import { compare, toCanonicalString, type Rational } from "../foundation/rational";
-import { deriveStrongCp004WrongWorkingsFinal } from "./distractor-engine-v2-final";
+import { deriveStrongCp004WrongWorkingsV7 } from "./distractor-engine-v7";
 import { independentlyVerifyCp004 } from "./independent-verifier";
 import { cp004PermanentQlForAuthority } from "./ql-allocation";
 import { buildCp004Options, cp004DifficultyForAuthority } from "./options";
 import { solveCp004Core } from "./relative-motion-foundation";
-import { generateCp004StateV5 } from "./state-v5";
-import { renderCp004StemV3 } from "./stem-library-v3";
-import { buildCp004Teaching } from "./teaching";
+import { generateCp004StateV6 } from "./state-v6";
+import { renderCp004StemV4 } from "./stem-library-v4";
+import { buildCp004TeachingV2 } from "./teaching-v2";
 import type { TsdCp004GeneratedQuestion } from "./runtime-types";
 
 function rationals(value: unknown, output: Rational[] = []): Rational[] {
@@ -29,7 +29,7 @@ function generateSolvableState(authorityKey: string, seed: string) {
   const failures: string[] = [];
   for (let attempt = 0; attempt < 24; attempt += 1) {
     const candidateSeed = attempt === 0 ? seed : `${seed}:valid-${attempt}:${ordinal}`;
-    const state = generateCp004StateV5(authorityKey, candidateSeed);
+    const state = generateCp004StateV6(authorityKey, candidateSeed);
     try {
       const solution = solveCp004Core(state.solveMode, state.input);
       const independent = independentlyVerifyCp004(state.solveMode, state.input, solution);
@@ -56,7 +56,11 @@ function validateQuestion(question: Omit<TsdCp004GeneratedQuestion, "validation"
   if (question.internalOptionAudit.filter((entry) => entry.isCorrect).length !== 1) errors.push("option audit must contain one correct option");
   if (question.internalOptionAudit.filter((entry) => !entry.isCorrect).length !== 3) errors.push("option audit must contain three wrong options");
   if (question.internalOptionAudit.some((entry) => !entry.isCorrect && (entry.wrongWorking === null || entry.applicability !== "EXACT_METHOD"))) errors.push("wrong option missing exact-method provenance");
-  if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && /scaled|alter final arithmetic|answer ×|answer ÷/i.test(entry.wrongWorking.calculation))) errors.push("generic answer-scaling distractor leaked into CP004 V2");
+  const wrongPaths = question.internalOptionAudit
+    .filter((entry) => !entry.isCorrect && entry.wrongWorking)
+    .map((entry) => `${entry.wrongWorking!.misconceptionId}|${entry.wrongWorking!.calculation.trim().toLowerCase()}`);
+  if (new Set(wrongPaths).size !== 3) errors.push("distractors must come from three distinct misconception paths");
+  if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && /scaled|alter final arithmetic|answer ×|answer ÷/i.test(entry.wrongWorking.calculation))) errors.push("generic answer-scaling distractor leaked into CP004 V7");
   if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && entry.wrongWorking.diagnosis.length < 25)) errors.push("distractor diagnosis is too weak");
   if ((question.solveMode === "findMeetingPointDistanceSplit" || question.solveMode === "findMeetingPointFromSpeedRatio") && question.input.routeDistance) {
     if (question.internalOptionAudit.some((entry) => !entry.isCorrect && entry.wrongWorking && compare(entry.wrongWorking.value, question.input.routeDistance!) >= 0)) {
@@ -74,10 +78,10 @@ function validateQuestion(question: Omit<TsdCp004GeneratedQuestion, "validation"
 
 export function generateCp004Question(authorityKey: string, seed: string): TsdCp004GeneratedQuestion {
   const { state, solution } = generateSolvableState(authorityKey, seed);
-  const wrongWorkings = deriveStrongCp004WrongWorkingsFinal(state.solveMode, state.input, solution);
+  const wrongWorkings = deriveStrongCp004WrongWorkingsV7(state.solveMode, state.input, solution);
   const built = buildCp004Options(solution, wrongWorkings, state.permanentQlId, seed);
   const answerText = built.options[built.correctIndex];
-  const stem = renderCp004StemV3(state);
+  const stem = renderCp004StemV4(state);
   const fingerprintValues = rationals(state.input).map(toCanonicalString).join("|");
   const draft = {
     chapterId: "TSD-001" as const,
@@ -97,7 +101,7 @@ export function generateCp004Question(authorityKey: string, seed: string): TsdCp
     options: built.options,
     correctIndex: built.correctIndex,
     internalOptionAudit: built.audit,
-    explanation: buildCp004Teaching(state.authorityKey, state.input, solution, answerText),
+    explanation: buildCp004TeachingV2(state.authorityKey, state.input, solution, answerText),
     mathematicalFingerprint: `${state.authorityKey}|${state.solveMode}|${fingerprintValues}`,
     lifecycle: Object.freeze({
       reviewStatus: "ENGLISH_REVIEW_CANDIDATE" as const,
