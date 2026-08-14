@@ -1,6 +1,6 @@
 import {
   MAL_CP006_WAVE03_CANDIDATE_IDS,
-  MAL_CP006_WAVE03_HELD_IDS,
+  MAL_CP006_WAVE03_HELD_BOUNDARY,
   type MalCp006Wave03CandidateId,
 } from "./cp006-wave03-merge-split-analysis";
 import { MAL_CP006_WAVE04_FINAL_GENERALISATION_ID } from "./cp006-wave04-within-identity-generalisation-v2";
@@ -158,7 +158,7 @@ export const MAL_CP006_PERMANENT_ALLOCATION_POLICY = {
   qlRange: MAL_CP006_PERMANENT_QL_RANGE,
   language: MAL_CP006_PERMANENT_LANGUAGE,
   approvedPrototypeIds: MAL_CP006_WAVE03_CANDIDATE_IDS,
-  heldPrototypeIds: MAL_CP006_WAVE03_HELD_IDS,
+  heldPrototypeIds: Object.keys(MAL_CP006_WAVE03_HELD_BOUNDARY),
   permanentQlCount: 7,
   permanentSolveModeCount: 7,
   sharedCoreCount: 2,
