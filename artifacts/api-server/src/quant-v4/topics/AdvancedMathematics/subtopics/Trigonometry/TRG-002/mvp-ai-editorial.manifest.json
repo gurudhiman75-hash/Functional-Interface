@@ -16,11 +16,20 @@
     "TRG-002-QL-067",
     "TRG-002-QL-069",
     "TRG-002-QL-071",
+    "TRG-002-QL-073",
     "TRG-002-QL-076",
     "TRG-002-QL-081",
     "TRG-002-QL-083",
     "TRG-002-QL-092",
+    "TRG-002-QL-095",
     "TRG-002-QL-096"
+  ],
+  "studentFacingPresentationQlIds": [
+    "TRG-002-QL-067",
+    "TRG-002-QL-073",
+    "TRG-002-QL-076",
+    "TRG-002-QL-081",
+    "TRG-002-QL-095"
   ],
   "difficulty": {
     "mediumLocked": [
@@ -52,8 +61,9 @@
   },
   "executionEvidence": {
     "workflow": ".github/workflows/trg-002-mvp48-verification.yml",
-    "observedSuccessfulRunId": 31794139792,
-    "observedSuccessfulHead": "f5a95957a7b3b22b59e211e30c5a9a6f6db4b239",
+    "observedSuccessfulRunId": 31820489042,
+    "observedSuccessfulHead": "0a0b0fbe72bd053252d7dd05c33721a9aab522d2",
+    "artifactId": 9226750393,
     "strictTypeScriptCompile": "PASS",
     "mvpCanonicalCases": 576,
     "mvpCanonicalGate": "PASS",
