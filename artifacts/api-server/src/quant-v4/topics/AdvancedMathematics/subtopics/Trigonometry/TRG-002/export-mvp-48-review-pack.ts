@@ -42,16 +42,35 @@ function annotationSvg(annotation: any, points: Map<string, any>) {
   return `<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" class="measurement">${esc(annotation.label)}</text>`;
 }
 
+function normalizeSignedRadians(value: number) {
+  let normalized = value;
+  while (normalized > Math.PI) normalized -= Math.PI * 2;
+  while (normalized <= -Math.PI) normalized += Math.PI * 2;
+  return normalized;
+}
+
 function angleSvg(angle: any, points: Map<string, any>) {
   const v = points.get(angle.vertexPointId);
   const r = points.get(angle.rayPointId);
   if (!v || !r) return "";
+
   const dx = r.x - v.x;
   const dy = r.y - v.y;
-  const len = Math.hypot(dx, dy) || 1;
-  const x = v.x + (dx / len) * 45;
-  const y = v.y + (dy / len) * 45 - 8;
-  return `<text x="${x}" y="${y}" text-anchor="middle" class="angle">${esc(angle.label)}</text>`;
+  const rayAngle = Math.atan2(dy, dx);
+  const referenceAngle = angle.referenceDirection === "LEFT" ? Math.PI : 0;
+  const delta = normalizeSignedRadians(rayAngle - referenceAngle);
+  const radius = 38;
+  const labelRadius = 62;
+  const startX = v.x + Math.cos(referenceAngle) * radius;
+  const startY = v.y + Math.sin(referenceAngle) * radius;
+  const endX = v.x + Math.cos(rayAngle) * radius;
+  const endY = v.y + Math.sin(rayAngle) * radius;
+  const midAngle = referenceAngle + delta / 2;
+  const labelX = v.x + Math.cos(midAngle) * labelRadius;
+  const labelY = v.y + Math.sin(midAngle) * labelRadius;
+  const sweep = delta >= 0 ? 1 : 0;
+
+  return `<path d="M ${startX} ${startY} A ${radius} ${radius} 0 0 ${sweep} ${endX} ${endY}" class="angle-arc"/><text x="${labelX}" y="${labelY}" text-anchor="middle" dominant-baseline="middle" class="angle">${esc(angle.label)}</text>`;
 }
 
 function diagramSvg(question: any) {
@@ -89,7 +108,7 @@ const rows = TRG_002_MVP_48_IDS.map((qlId, index) => {
 });
 
 const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TRG-002 48-QL Runtime Review Pack</title><style>
-body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f5f5f5;color:#111}.page{max-width:1500px;margin:auto;padding:24px}.summary,.question-card{background:white;border:1px solid #ddd;border-radius:10px;padding:20px;margin:0 0 20px}.question-card h2{margin:0 0 6px;font-size:20px}.family{color:#555;font-size:13px}.stem{font-size:17px;line-height:1.45}.columns{display:grid;grid-template-columns:0.9fr 1.1fr;gap:24px}.options{list-style:none;padding:0}.options li{padding:5px 0}.options .correct{font-weight:700}.diagram svg{width:100%;height:auto;border:1px solid #ccc;background:white;color:#111}.measurement{font-size:22px;font-weight:700;paint-order:stroke;stroke:white;stroke-width:5px;stroke-linejoin:round}.angle{font-size:22px;font-weight:700;paint-order:stroke;stroke:white;stroke-width:5px}.point-label{font-size:20px;font-weight:700;paint-order:stroke;stroke:white;stroke-width:5px}@media(max-width:900px){.columns{grid-template-columns:1fr}}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f5f5f5;color:#111}.page{max-width:1500px;margin:auto;padding:24px}.summary,.question-card{background:white;border:1px solid #ddd;border-radius:10px;padding:20px;margin:0 0 20px}.question-card h2{margin:0 0 6px;font-size:20px}.family{color:#555;font-size:13px}.stem{font-size:17px;line-height:1.45}.columns{display:grid;grid-template-columns:0.9fr 1.1fr;gap:24px}.options{list-style:none;padding:0}.options li{padding:5px 0}.options .correct{font-weight:700}.diagram svg{width:100%;height:auto;border:1px solid #ccc;background:white;color:#111}.measurement{font-size:22px;font-weight:700;paint-order:stroke;stroke:white;stroke-width:5px;stroke-linejoin:round}.angle-arc{fill:none;stroke:currentColor;stroke-width:3}.angle{font-size:22px;font-weight:700;paint-order:stroke;stroke:white;stroke-width:5px}.point-label{font-size:20px;font-weight:700;paint-order:stroke;stroke:white;stroke-width:5px}@media(max-width:900px){.columns{grid-template-columns:1fr}}
 </style></head><body><main class="page"><section class="summary"><h1>TRG-002 48-QL Runtime Review Pack</h1><p>Generated from <code>mvp-final-editorial-runtime.ts</code>. All diagrams are solution-stage projections from the same canonical spatial state used by the solver and explanation.</p><p><b>Count:</b> 48 QLs · <b>solution diagrams:</b> 48 · <b>stem diagrams:</b> 0 automatic</p></section>${rows.join("\n")}</main></body></html>`;
 
 const json = TRG_002_MVP_48_IDS.map((qlId, index) => {
