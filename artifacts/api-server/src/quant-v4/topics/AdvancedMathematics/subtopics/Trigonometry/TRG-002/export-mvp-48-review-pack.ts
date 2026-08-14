@@ -59,8 +59,8 @@ function angleSvg(angle: any, points: Map<string, any>) {
   const rayAngle = Math.atan2(dy, dx);
   const referenceAngle = angle.referenceDirection === "LEFT" ? Math.PI : 0;
   const delta = normalizeSignedRadians(rayAngle - referenceAngle);
-  const radius = 38;
-  const labelRadius = 62;
+  const radius = 38 + Number(angle.arcLane ?? 0) * 24;
+  const labelRadius = radius + 24;
   const startX = v.x + Math.cos(referenceAngle) * radius;
   const startY = v.y + Math.sin(referenceAngle) * radius;
   const endX = v.x + Math.cos(rayAngle) * radius;
@@ -70,7 +70,7 @@ function angleSvg(angle: any, points: Map<string, any>) {
   const labelY = v.y + Math.sin(midAngle) * labelRadius;
   const sweep = delta >= 0 ? 1 : 0;
 
-  return `<path d="M ${startX} ${startY} A ${radius} ${radius} 0 0 ${sweep} ${endX} ${endY}" class="angle-arc"/><text x="${labelX}" y="${labelY}" text-anchor="middle" dominant-baseline="middle" class="angle">${esc(angle.label)}</text>`;
+  return `<path d="M ${startX} ${startY} A ${radius} ${radius} 0 0 ${sweep} ${endX} ${endY}" class="angle-arc" data-angle-lane="${angle.arcLane ?? 0}"/><text x="${labelX}" y="${labelY}" text-anchor="middle" dominant-baseline="middle" class="angle">${esc(angle.label)}</text>`;
 }
 
 function rightAngleSvg(marker: any, points: Map<string, any>) {
