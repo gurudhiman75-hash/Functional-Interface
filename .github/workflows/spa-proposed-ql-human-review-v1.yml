@@ -10,6 +10,7 @@ on:
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-proposed-ql-string-modality-balance-v1.test.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-fcl-geometric-form-safe-scale-v1.test.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-proposed-ql-human-review-pack-v1.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-proposed-ql-human-review-editorial-cleanup-v1.test.ts"
       - ".github/workflows/spa-proposed-ql-human-review-v1.yml"
   workflow_dispatch:
 
@@ -48,8 +49,8 @@ jobs:
           cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-proposed-ql-incomplete-slice-scale-v1.test.mjs
       - name: Bundle and build final 120-question human review pack
         run: |
-          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/spatial-proposed-ql-human-review-pack-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/spatial/spatial-proposed-ql-human-review-pack-v1.test.mjs
-          cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-proposed-ql-human-review-pack-v1.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/spatial-proposed-ql-human-review-editorial-cleanup-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/spatial/spatial-proposed-ql-human-review-editorial-cleanup-v1.test.mjs
+          cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-proposed-ql-human-review-editorial-cleanup-v1.test.mjs
       - name: Upload final proposed QL human review pack
         uses: actions/upload-artifact@v4
         with:
