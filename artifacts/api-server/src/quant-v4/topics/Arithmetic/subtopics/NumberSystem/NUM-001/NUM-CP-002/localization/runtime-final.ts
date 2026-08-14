@@ -219,13 +219,20 @@ function polishQl155(q: NumCp002LocalizedQuestion, locale: NumCp002TranslatedLoc
   const a = powerOf(rd, 2);
   const b = powerOf(rd, 5);
   const places = Math.max(a, b);
+  const isPowerClearing = q.temporaryPrototypeId === "NUM-CP002-PROT-016";
   return {
-    concept: tx(locale,
-      "यदि सरल हर \\(2^a5^b\\) है, तो सटीक सांत दशमलव में \\(\\max(a,b)\\) दशमलव स्थान होते हैं।",
-      "ਜੇ ਸਰਲ ਹਰ \\(2^a5^b\\) ਹੈ, ਤਾਂ ਸਹੀ ਸਮਾਪਤ ਦਸ਼ਮਲਵ ਵਿੱਚ \\(\\max(a,b)\\) ਦਸ਼ਮਲਵ ਸਥਾਨ ਹੁੰਦੇ ਹਨ।"),
+    concept: isPowerClearing
+      ? tx(locale,
+          "यदि सरल हर \\(2^a5^b\\) है, तो \\(10^k\\) से गुणा करके हर साफ करने के लिए न्यूनतम \\(k=\\max(a,b)\\) होता है।",
+          "ਜੇ ਸਰਲ ਹਰ \\(2^a5^b\\) ਹੈ, ਤਾਂ \\(10^k\\) ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਹਰ ਸਾਫ਼ ਕਰਨ ਲਈ ਘੱਟੋ-ਘੱਟ \\(k=\\max(a,b)\\) ਹੁੰਦਾ ਹੈ।")
+      : tx(locale,
+          "यदि सरल हर \\(2^a5^b\\) है, तो सटीक सांत दशमलव में \\(\\max(a,b)\\) दशमलव स्थान होते हैं।",
+          "ਜੇ ਸਰਲ ਹਰ \\(2^a5^b\\) ਹੈ, ਤਾਂ ਸਹੀ ਸਮਾਪਤ ਦਸ਼ਮਲਵ ਵਿੱਚ \\(\\max(a,b)\\) ਦਸ਼ਮਲਵ ਸਥਾਨ ਹੁੰਦੇ ਹਨ।"),
     solution: Object.freeze([
       tx(locale, `सरल हर \\(${rd}=${primeFactorizationTex(rd)}\\) है।`, `ਸਰਲ ਹਰ \\(${rd}=${primeFactorizationTex(rd)}\\) ਹੈ।`),
-      tx(locale, `\\(\\max(${a},${b})=${places}\\), इसलिए आवश्यक दशमलव स्थान \\(${places}\\) हैं।`, `\\(\\max(${a},${b})=${places}\\), ਇਸ ਲਈ ਲੋੜੀਂਦੇ ਦਸ਼ਮਲਵ ਸਥਾਨ \\(${places}\\) ਹਨ।`),
+      isPowerClearing
+        ? tx(locale, `\\(\\max(${a},${b})=${places}\\), इसलिए न्यूनतम \\(k=${places}\\) है।`, `\\(\\max(${a},${b})=${places}\\), ਇਸ ਲਈ ਘੱਟੋ-ਘੱਟ \\(k=${places}\\) ਹੈ।`)
+        : tx(locale, `\\(\\max(${a},${b})=${places}\\), इसलिए आवश्यक दशमलव स्थान \\(${places}\\) हैं।`, `\\(\\max(${a},${b})=${places}\\), ਇਸ ਲਈ ਲੋੜੀਂਦੇ ਦਸ਼ਮਲਵ ਸਥਾਨ \\(${places}\\) ਹਨ।`),
     ]),
   };
 }
