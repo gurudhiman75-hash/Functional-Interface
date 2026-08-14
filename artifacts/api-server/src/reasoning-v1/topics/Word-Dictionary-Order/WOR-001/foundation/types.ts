@@ -22,6 +22,7 @@ export type WorTaskKind =
 
 export type WorAnswerType = "WORD" | "WORD_SEQUENCE" | "RANK" | "WORD_PAIR";
 export type WorAllocationDecision = "RETAIN" | "MERGE_AS_INSTANCE_VARIANT";
+export type WorSourceEvidenceStatus = "PYQ_SUPPORTED" | "PLATFORM_SUPPORTED" | "EXPLORATORY_SOURCE_GAP";
 
 export interface WorPrototypeContract {
   readonly prototypeId: string;
@@ -30,6 +31,7 @@ export interface WorPrototypeContract {
   readonly answerType: WorAnswerType;
   readonly title: string;
   readonly allocationDecision: WorAllocationDecision;
+  readonly sourceEvidenceStatus: WorSourceEvidenceStatus;
   readonly hardOnly?: boolean;
 }
 
@@ -134,5 +136,6 @@ export interface GeneratedWorQuestion {
     readonly canonicalOrder: readonly string[];
     readonly comparisonTrace: readonly LexicalComparisonTrace[];
     readonly allocationDecision: WorAllocationDecision;
+    readonly sourceEvidenceStatus: WorSourceEvidenceStatus;
   };
 }
