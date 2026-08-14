@@ -1,4 +1,4 @@
-import { canonicalCp004Answer, deepFreeze, registryEntry, verifyCp004Answer, type IntCp004QlId, type IntCp004Question } from "./cp004-frequency-math";
+import { canonicalCp004Answer, deepFreeze, registryEntry, verifyCp004Answer, type Cp004MathematicalState, type IntCp004QlId, type IntCp004Question } from "./cp004-frequency-math";
 import { generateCp004State } from "./cp004-frequency-generation";
 import { optionsFor } from "./cp004-frequency-options";
 import { explanationFor } from "./cp004-frequency-explanations";
@@ -28,6 +28,50 @@ import { assertCp004FormulaStepV6, ensureCp004FormulaStepV6 } from "./cp004-freq
 export * from "./cp004-frequency-math";
 export { generateCp004State } from "./cp004-frequency-generation";
 export { INT_CP004_EDITORIAL_REMEDIATION_VERSION } from "./cp004-frequency-exam-readiness-v4";
+
+// Compatibility export retained for current-main sources that construct an explicit
+// mathematical state (notably cp004-exam-friendly-source-v9). Its behavior matches
+// the pre-integration New-main helper and does not alter the frozen V6 generator path.
+export function generateIntCp004QuestionFromState(
+  qlId: IntCp004QlId,
+  seed: string,
+  mathematicalState: Cp004MathematicalState,
+): IntCp004Question {
+  if (mathematicalState.qlId !== qlId) {
+    throw new Error(`${qlId}/${seed}: explicit mathematical state belongs to ${mathematicalState.qlId}.`);
+  }
+  const entry = registryEntry(qlId);
+  const solution = canonicalCp004Answer(mathematicalState);
+  if (!verifyCp004Answer(mathematicalState, solution)) throw new Error(`${qlId}/${seed}: canonical answer failed independent verification.`);
+  const hardenedPresentation = hardenCp004Presentation(mathematicalState, stemFor(mathematicalState, seed));
+  const cleanedPresentation = Object.freeze({
+    ...hardenedPresentation,
+    stem: hardenedPresentation.stem
+      .replace(/\bDetermine\b/gu, "Find")
+      .replace(/\bIdentify\b/gu, "Find")
+      .replace(/, find only the interest/gu, ". Find only the interest")
+      .replace(/from annually compounding/gu, "from annual compounding")
+      .replace(/to annually compounding/gu, "to annual compounding")
+      .replace(/\bannually compounding\b/gu, "annual compounding")
+      .replace(/\ba annual compounding scheme\b/gu, "an annual compounding scheme")
+      .replace(/At ([0-9.]+%) per annum on (₹[0-9,.]+)\. Find only the interest in the maturity value\./gu, "Find only the interest in the maturity value on $2 at $1 per annum."),
+  });
+  const presentation = hardenCp004PresentationV3(cleanedPresentation);
+  const options = hardenCp004OptionsV3(mathematicalState, optionsFor(mathematicalState, seed));
+  const correctIndex = options.findIndex((option) => option.isCorrect);
+  if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${qlId}/${seed}: option ownership failed.`);
+  const correctAnswer = options[correctIndex]!.text;
+  const explanation = hardenCp004ExplanationV3(mathematicalState, explanationFor(mathematicalState, correctAnswer));
+  assertCp004ReviewV3(mathematicalState, presentation, options, explanation);
+  return deepFreeze({ packageId: "INT-001", canonicalProblemId: "INT-CP-004", permanentQlId: qlId, qlId,
+    solveContract: entry.solveContract, answerSemantic: entry.answerSemantic, difficulty: entry.difficulty, seed, mathematicalState,
+    representation: presentation.representation, stemFamilyId: presentation.stemFamilyId, stem: presentation.stem, options,
+    correctIndex, correctAnswer, solution, explanation, authorityVersion: "INT-CP-004-MATH-AUTHORITY-v1",
+    generatorVersion: "INT-CP-004-EXAM-GENERATOR-v1", solverVersion: "INT-CP-004-CANONICAL-SOLVER-v1",
+    verifierVersion: "INT-CP-004-RELATION-VERIFIER-v1", editorialStatus: "ENGLISH_REVIEW_CANDIDATE",
+    approvalStatus: "NOT_APPROVED", enabled: false, stagingStatus: "NOT_STAGED", registrationStatus: "NOT_REGISTERED",
+    questionStudioDiscoverable: false, questionBankStatus: "NOT_STORED", testEligibility: "INELIGIBLE", publiclyPublishable: false });
+}
 
 export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-default"): IntCp004Question {
   const entry = registryEntry(qlId);
