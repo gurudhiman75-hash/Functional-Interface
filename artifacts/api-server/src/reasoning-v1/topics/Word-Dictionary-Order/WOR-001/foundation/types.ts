@@ -41,7 +41,7 @@ export interface WorWordRecord {
   readonly morphologyTags: readonly string[];
   readonly prefixKeys: readonly string[];
   readonly containsRepeatedLetters: boolean;
-  readonly editorialStatus: "APPROVED";
+  readonly editorialStatus: "PROVISIONAL_REVIEW" | "APPROVED";
 }
 
 export interface WorWordFamily {
