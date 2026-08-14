@@ -2,7 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { NUM_CP002_PERMANENT_QL_IDS } from "../permanent/allocation";
 import { runNumCp002PermanentPipeline } from "../permanent/runtime";
-import { runNumCp002LocalizedPipeline } from "./runtime";
+import { runNumCp002LocalizedFinalPipeline } from "./runtime-final";
 import type { NumCp002TranslatedLocale } from "./types";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
@@ -16,12 +16,17 @@ const rawSlashFraction = /(?<!\\frac\{)\b\d+\/\d+\b/u;
 const unicodeMath = /[√²³]/u;
 const internalIdLeak = /NUM-(?:CP|QL)|PROT-|solveMode|authorityId|qlTemplateId/iu;
 
+function proseOutsideMath(value: string): string {
+  return value.replace(/\\\(.*?\\\)/gsu, " ").replace(/\b(?:I|II|III)\b/gu, " ");
+}
+
 let generated = 0;
 let replayChecks = 0;
 let parityChecks = 0;
 let optionChecks = 0;
 let lifecycleChecks = 0;
 let scriptChecks = 0;
+let englishLeakChecks = 0;
 const review: unknown[] = [];
 const answerPositions = new Map<string, Set<number>>();
 
@@ -30,8 +35,8 @@ for (const locale of locales) {
     answerPositions.set(`${locale}:${ql}`, new Set());
     for (let seed = 1; seed <= 120; seed += 1) {
       const english = runNumCp002PermanentPipeline({ questionLanguageId: ql, seed, language: "en" });
-      const localized = runNumCp002LocalizedPipeline({ questionLanguageId: ql, seed, locale });
-      const replay = runNumCp002LocalizedPipeline({ questionLanguageId: ql, seed, locale });
+      const localized = runNumCp002LocalizedFinalPipeline({ questionLanguageId: ql, seed, locale });
+      const replay = runNumCp002LocalizedFinalPipeline({ questionLanguageId: ql, seed, locale });
       generated += 1;
       assert(JSON.stringify(localized) === JSON.stringify(replay), `${locale}/${ql}/${seed}: replay mismatch`);
       replayChecks += 1;
@@ -62,6 +67,10 @@ for (const locale of locales) {
       assert(!unicodeMath.test(learner), `${locale}/${ql}/${seed}: unicode math`);
       assert(!internalIdLeak.test(learner), `${locale}/${ql}/${seed}: internal identity leak`);
       scriptChecks += 1;
+
+      const prose = proseOutsideMath(learner);
+      assert(!/[A-Za-z]{2,}/u.test(prose), `${locale}/${ql}/${seed}: English prose leak: ${prose}`);
+      englishLeakChecks += 1;
       answerPositions.get(`${locale}:${ql}`)!.add(localized.correctIndex);
 
       if (seed <= 4) review.push({ english, localized });
@@ -70,7 +79,7 @@ for (const locale of locales) {
 }
 
 assert(generated === 5040, `Expected 5,040 localized questions, got ${generated}`);
-assert(replayChecks === generated && parityChecks === generated && optionChecks === generated && lifecycleChecks === generated && scriptChecks === generated, "proof count mismatch");
+assert(replayChecks === generated && parityChecks === generated && optionChecks === generated && lifecycleChecks === generated && scriptChecks === generated && englishLeakChecks === generated, "proof count mismatch");
 for (const [key, positions] of answerPositions) assert(JSON.stringify([...positions].sort()) === JSON.stringify([0,1,2,3]), `${key}: answer-position reachability ${[...positions]}`);
 assert(review.length === 168, `Expected 168 bilingual review pairs, got ${review.length}`);
 
@@ -86,6 +95,7 @@ writeFileSync(reviewPath, JSON.stringify({
   parityChecks,
   optionChecks,
   lifecycleChecks,
+  englishLeakChecks,
   reviewPairCount: review.length,
   questionStudioDiscoverable: false,
   questionBankWritable: false,
@@ -103,6 +113,7 @@ console.log(JSON.stringify({
   optionChecks,
   lifecycleChecks,
   scriptChecks,
+  englishLeakChecks,
   reviewPairCount: review.length,
   reviewPath,
 }, null, 2));
