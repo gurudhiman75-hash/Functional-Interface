@@ -17,6 +17,12 @@ const lifecycle = Object.freeze({
   publiclyPublishable: false as const,
 });
 function idx(seed: number, size: number, salt = 0) { return (Math.imul((seed + 31) ^ Math.imul(salt + 13, 0x45d9f3b), 2654435761) >>> 0) % size; }
+function terminating(n: number, d: number): boolean {
+  let reduced = rational(n, d).d;
+  while (reduced % 2 === 0) reduced /= 2;
+  while (reduced % 5 === 0) reduced /= 5;
+  return reduced === 1;
+}
 
 const betweenCases = [
   { a: rational(2, 5), b: rational(1, 2), c: rational(9, 20) },
@@ -24,7 +30,6 @@ const betweenCases = [
   { a: rational(7, 12), b: rational(3, 5), c: rational(59, 100) },
   { a: rational(11, 20), b: rational(4, 7), c: rational(14, 25) },
 ] as const;
-
 function fixedBetween(seed: number): NumCp002Wave03Package {
   const c = betweenCases[idx(seed, betweenCases.length, 23)]!;
   const correct = fractionLatex(c.c);
@@ -40,8 +45,7 @@ function fixedBetween(seed: number): NumCp002Wave03Package {
     seed, locale: "en-IN", difficulty: "MEDIUM", answerSemantic: "RATIONAL",
     stem: `Which of the following lies strictly between ${fractionLatex(c.a)} and ${fractionLatex(c.b)}?`,
     options: Object.freeze(options), correctIndex, canonicalAnswer: correct, verifierAnswer, hiddenState,
-    sourceAncestry: NUM_CP002_WAVE03_SOURCE_ANCESTRY["NUM-CP002-PROT-023"],
-    mathematicalFingerprint: `NUM-CP002-PROT-023:${JSON.stringify(hiddenState)}`,
+    sourceAncestry: NUM_CP002_WAVE03_SOURCE_ANCESTRY["NUM-CP002-PROT-023"], mathematicalFingerprint: `NUM-CP002-PROT-023:${JSON.stringify(hiddenState)}`,
     explanation: Object.freeze({ concept: "A valid choice must be greater than the lower bound and smaller than the upper bound.", solution: Object.freeze([`${fractionLatex(c.a)} ${math("<")} ${correct} ${math("<")} ${fractionLatex(c.b)}.`]), finalAnswer: correct }), lifecycle,
   });
 }
@@ -53,7 +57,6 @@ const denominatorCases = [
   { n: 5, target: rational(1, 6), display: math("0.1\\overline{6}") },
   { n: 7, target: rational(7, 30), display: math("0.2\\overline{3}") },
 ] as const;
-
 function fixedDenominator(seed: number): NumCp002Wave03Package {
   const c = denominatorCases[idx(seed, denominatorCases.length, 26)]!;
   const d = (c.n * c.target.d) / c.target.n;
@@ -87,8 +90,7 @@ const compoundCases = [
 function fixedCompound(seed: number): NumCp002Wave03Package {
   const c = compoundCases[idx(seed, compoundCases.length, 30)]!;
   const correct = math(String(c.badExp));
-  const wrongValues = [Math.max(0, c.badExp - 1), c.badExp + 1, c.p2 + c.p5, c.badExp + 2, c.badPrime]
-    .map(String).map(math).filter((v, i, a) => v !== correct && a.indexOf(v) === i).slice(0, 3);
+  const wrongValues = [Math.max(0, c.badExp - 1), c.badExp + 1, c.p2 + c.p5, c.badExp + 2, c.badPrime].map(String).map(math).filter((v, i, a) => v !== correct && a.indexOf(v) === i).slice(0, 3);
   if (wrongValues.length !== 3) throw new Error("P030 insufficient distractors");
   const correctIndex = idx(seed, 4, 180);
   const options: NumCp002Wave03Option[] = wrongValues.map((value, i) => ({ value, isCorrect: false, misconceptionId: `TERMINATION_EXPONENT_ERROR_${i + 1}` }));
@@ -106,13 +108,64 @@ function fixedCompound(seed: number): NumCp002Wave03Package {
   });
 }
 
+const dsOptions = [
+  "Statement I alone is sufficient",
+  "Statement II alone is sufficient",
+  "Both statements together are sufficient, but neither alone is sufficient",
+  "Even both statements together are not sufficient",
+] as const;
+const dsCases = [
+  { d: 12, s1: "n is divisible by 3", s2: "n is even", k1: 3, k2: 2 },
+  { d: 28, s1: "n is even", s2: "n is divisible by 7", k1: 2, k2: 7 },
+  { d: 84, s1: "n is divisible by 3", s2: "n is divisible by 7", k1: 3, k2: 7 },
+  { d: 84, s1: "n is divisible by 3", s2: "n is even", k1: 3, k2: 2 },
+] as const;
+function sufficient(d: number, ks: readonly number[]): boolean {
+  const outcomes = new Set<boolean>();
+  for (let n = 1; n <= 2 * d; n += 1) if (ks.every((k) => n % k === 0)) outcomes.add(terminating(n, d));
+  return outcomes.size === 1;
+}
+function dsClass(d: number, k1: number, k2: number): number {
+  if (sufficient(d, [k1])) return 0;
+  if (sufficient(d, [k2])) return 1;
+  if (sufficient(d, [k1, k2])) return 2;
+  return 3;
+}
+function fixedDs(seed: number): NumCp002Wave03Package {
+  const c = dsCases[idx(seed, dsCases.length, 32)]!;
+  const cls = dsClass(c.d, c.k1, c.k2);
+  const correct = dsOptions[cls]!;
+  const wrongValues = dsOptions.filter((value) => value !== correct);
+  const correctIndex = idx(seed, 4, 182);
+  const options: NumCp002Wave03Option[] = wrongValues.map((value, i) => ({ value, isCorrect: false, misconceptionId: `DS_CLASS_ERROR_${i + 1}` }));
+  options.splice(correctIndex, 0, { value: correct, isCorrect: true });
+  const hiddenState = Object.freeze({ d: c.d, k1: c.k1, k2: c.k2 });
+  const reasoning = cls === 0
+    ? "Statement I alone fixes the decimal nature for every allowed numerator."
+    : cls === 1
+      ? "Statement II alone fixes the decimal nature for every allowed numerator."
+      : cls === 2
+        ? "Neither statement alone is sufficient, but together they fix the decimal nature."
+        : "Even together, the two statements allow numerators giving different decimal natures.";
+  return Object.freeze({
+    packageId: "NUM-001", checkpointId: "NUM-CP-002", temporaryPrototypeId: "NUM-CP002-PROT-032", permanentQlId: null,
+    seed, locale: "en-IN", difficulty: "HARD", answerSemantic: "SUFFICIENCY_CLASS",
+    stem: [`For a positive integer ${math("n")}, is ${math(`\\frac{n}{${c.d}}`)} terminating after reduction?`, `Statement I: ${c.s1}.`, `Statement II: ${c.s2}.`, "Which option correctly describes the sufficiency of the statements?"].join("\n"),
+    options: Object.freeze(options), correctIndex, canonicalAnswer: correct, verifierAnswer: correct, hiddenState,
+    sourceAncestry: NUM_CP002_WAVE03_SOURCE_ANCESTRY["NUM-CP002-PROT-032"], mathematicalFingerprint: `NUM-CP002-PROT-032:${JSON.stringify(hiddenState)}`,
+    explanation: Object.freeze({ concept: "A statement is sufficient only when it fixes the answer for every positive integer satisfying that statement.", solution: Object.freeze([reasoning, `Hence: ${correct}.`]), finalAnswer: correct }), lifecycle,
+  });
+}
+
 export function generateNumCp002Wave03Final(id: NumCp002Wave03PrototypeId, seed: number): NumCp002Wave03Package {
   if (id === "NUM-CP002-PROT-023") return fixedBetween(seed);
   if (id === "NUM-CP002-PROT-026") return fixedDenominator(seed);
   if (id === "NUM-CP002-PROT-030") return fixedCompound(seed);
+  if (id === "NUM-CP002-PROT-032") return fixedDs(seed);
   return generateNumCp002Wave03Authority(id, seed);
 }
 
 export function independentlyVerifyNumCp002Wave03Final(id: NumCp002Wave03PrototypeId, hiddenState: Readonly<Record<string, unknown>>): string {
+  if (id === "NUM-CP002-PROT-032") { const h = hiddenState as any; return dsOptions[dsClass(Number(h.d), Number(h.k1), Number(h.k2))]!; }
   return independentlyVerifyNumCp002Wave03Authority(id, hiddenState);
 }
