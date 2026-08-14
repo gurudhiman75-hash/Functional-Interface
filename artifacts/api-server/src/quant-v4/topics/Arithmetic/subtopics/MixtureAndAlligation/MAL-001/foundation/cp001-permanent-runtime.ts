@@ -131,7 +131,7 @@ function normaliseMoneyGrouping(value: string): string {
 
 function normaliseQuantityUnits(value: string): string {
   return value.replace(
-    /\b(\d[\d,]*(?: \d+\/\d+)?|\d+\/\d+) litre\b/gu,
+    /\b(\d[\d,]*(?: \d+\/\d+)?|\d+\/\d+) litre(?:s)?\b/gu,
     (_match, amount: string) =>
       `${amount} ${amount.replace(/,/gu, "") === "1" ? "litre" : "litres"}`,
   );
@@ -208,7 +208,7 @@ function normalisePermanentOptionSurface(
   answerSemantic: MalCp001PermanentAllocationEntry["answerSemantic"],
 ): MalCp001FoundationQuestion {
   const options = question.options.map((option) => {
-    const grouped = normaliseMoneyGrouping(option);
+    const grouped = normaliseMoneyGrouping(normaliseQuantityUnits(option));
     return answerSemantic === "COMPONENT_RATIO"
       ? normaliseRatioOption(grouped)
       : grouped;
