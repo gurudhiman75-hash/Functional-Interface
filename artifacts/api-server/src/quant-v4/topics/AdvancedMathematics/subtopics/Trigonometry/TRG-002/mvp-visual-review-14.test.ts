@@ -14,6 +14,7 @@ for (const item of TRG_002_MVP_VISUAL_REVIEW_14) {
   assert(question.validation.valid, `${item.qlId}: representative question is invalid.`);
   assert(question.solutionDiagram.strategy === item.strategy, `${item.qlId}: expected ${item.strategy}, got ${question.solutionDiagram.strategy}.`);
   assert(Array.isArray(question.solutionDiagram.rightAngles), `${item.qlId}: diagram contract must expose right-angle markers.`);
+  assert(question.solutionDiagram.angles.every((angle: any) => Number.isInteger(angle.arcLane) && angle.arcLane >= 0), `${item.qlId}: every angle marker must carry a valid arc lane.`);
   assert(question.stemDiagram === undefined, `${item.qlId}: representative must remain solution-only by default.`);
   assert(question.solutionAnnotations.length >= 1, `${item.qlId}: representative solution diagram has no exact labels.`);
   assert(item.mustShow.length >= 3 && item.mustAvoid.length >= 2, `${item.qlId}: visual checklist is too weak.`);
@@ -31,4 +32,11 @@ assert(broken.canonicalSpatialState.points.some((point: any) => point.role === "
 assert(broken.canonicalSpatialState.points.some((point: any) => point.role === "TOUCH_POINT"), "BROKEN_TREE representative lacks a ground touch point.");
 assert(broken.solutionDiagram.rightAngles.some((marker: any) => marker.vertexPointId === "tree-base"), "BROKEN_TREE representative must mark the stump-ground right angle.");
 
-console.log("TRG-002 MVP visual-review gate targets all 14 strategies plus explicit angle/right-angle geometry markers.");
+for (const qlId of ["TRG-002-QL-095", "TRG-002-QL-096"] as const) {
+  const composite: any = generateLabelledTrg002Mvp48Question(qlId, `mvp-visual-shared-vertex-${qlId}`);
+  assert(composite.solutionDiagram.angles.length === 2, `${qlId}: composite diagram must retain two sight-line angle markers.`);
+  assert(new Set(composite.solutionDiagram.angles.map((angle: any) => angle.vertexPointId)).size === 1, `${qlId}: composite sight angles must share the observer vertex.`);
+  assert(new Set(composite.solutionDiagram.angles.map((angle: any) => angle.arcLane)).size === 2, `${qlId}: distinct 45°/60° angles at one vertex must use separate arc lanes.`);
+}
+
+console.log("TRG-002 MVP visual-review gate targets all 14 strategies plus angle arcs, right-angle markers and separated shared-vertex angle lanes.");
