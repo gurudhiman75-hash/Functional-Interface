@@ -172,6 +172,20 @@ function polishCp014(question: any, qlId: string, language: TmwLanguage): any {
 
   if (qlId === "TMW-QL-226") {
     polished = rebuildTankFractionOptions(polished);
+    if (language === "hi") {
+      polished = deepMapStrings(polished, (value) => value
+        .replace(/\binlet\b/giu, "प्रवेश पाइप")
+        .replace(/\boutlet\b/giu, "निकास पाइप")
+        .replace(/\bnet\b/giu, "शुद्ध")
+        .replace(/(\d+) h\b/gu, "$1 घंटे"));
+    }
+    if (language === "pa") {
+      polished = deepMapStrings(polished, (value) => value
+        .replace(/\binlet\b/giu, "ਭਰਨ ਵਾਲੀ ਪਾਈਪ")
+        .replace(/\boutlet\b/giu, "ਖਾਲੀ ਕਰਨ ਵਾਲੀ ਪਾਈਪ")
+        .replace(/\bnet\b/giu, "ਸ਼ੁੱਧ")
+        .replace(/(\d+) h\b/gu, "$1 ਘੰਟੇ"));
+    }
   }
 
   if (qlId === "TMW-QL-227" || qlId === "TMW-QL-228") {
@@ -181,6 +195,31 @@ function polishCp014(question: any, qlId: string, language: TmwLanguage): any {
       caseletItemIndex: qlId === "TMW-QL-227" ? 0 : 1,
     };
   }
+
+  const shortcutTitle = cp012Text(language, "Structured-data shortcut", "संरचित-डेटा त्वरित विधि", "ਸੰਰਚਿਤ-ਡਾਟਾ ਤੇਜ਼ ਵਿਧੀ");
+  const trapText = polished.explanation.commonTrap.optionText;
+  const trapExplanation = cp012Text(
+    language,
+    `Choosing ${trapText} can result from skipping a row or stage, or from combining raw numbers before accounting for time, efficiency, or direction.`,
+    `${trapText} चुनना किसी पंक्ति या चरण को छोड़ने, अथवा समय, दक्षता या दिशा को ध्यान में रखने से पहले संख्याएँ जोड़ देने की गलती से हो सकता है।`,
+    `${trapText} ਚੁਣਨਾ ਕਿਸੇ ਕਤਾਰ ਜਾਂ ਪੜਾਅ ਨੂੰ ਛੱਡਣ, ਜਾਂ ਸਮਾਂ, ਕੁਸ਼ਲਤਾ ਜਾਂ ਦਿਸ਼ਾ ਦਾ ਧਿਆਨ ਰੱਖਣ ਤੋਂ ਪਹਿਲਾਂ ਗਿਣਤੀਆਂ ਜੋੜ ਦੇਣ ਦੀ ਗਲਤੀ ਨਾਲ ਹੋ ਸਕਦਾ ਹੈ।`,
+  );
+
+  polished = {
+    ...polished,
+    explanation: {
+      ...polished.explanation,
+      shortcut: {
+        ...polished.explanation.shortcut,
+        title: shortcutTitle,
+      },
+      commonTrap: {
+        ...polished.explanation.commonTrap,
+        optionLabel: cp012Text(language, "Common trap", "सामान्य गलती", "ਆਮ ਗਲਤੀ"),
+        explanation: trapExplanation,
+      },
+    },
+  };
 
   return polished;
 }
