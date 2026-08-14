@@ -3,7 +3,7 @@ import {
   generateMenCp010PermanentEnglishQuestion,
   listMenCp010PermanentEnglishSources,
   type MenCp010PermanentEnglishQuestion,
-} from "./runtime";
+} from "./runtime-v2";
 
 export const MEN_CP_010_PERMANENT_ENGLISH_REVIEW_AUTHORITY =
   "MEN-CP010-PERMANENT-ENGLISH-REVIEW-V1" as const;
@@ -79,11 +79,10 @@ export function auditMenCp010PermanentEnglishReview() {
   const capacityUnitsPresent = records
     .filter((q) => q.sourceId === "CP010-D2-APP-BUCKET-CAPACITY-LITRES")
     .every((q) => q.options.every((option) => /litres$/.test(option.display)) && /litres$/.test(q.answer));
-  const individualizedTeaching = records.every((q) =>
-    q.explanation.steps.some((step) =>
-      step.title === "Substitute the given values" && step.body.includes(q.answer),
-    ),
-  );
+  const workedTeaching = records.every((q) => {
+    const step = q.explanation.steps.find((candidate) => candidate.title === "Substitute and calculate");
+    return !!step && step.body.includes(q.answer) && /[=×√∛/]/.test(step.body);
+  });
 
   return {
     authority: MEN_CP_010_PERMANENT_ENGLISH_REVIEW_AUTHORITY,
@@ -105,7 +104,8 @@ export function auditMenCp010PermanentEnglishReview() {
     noEngineeringShorthand,
     naturalPercentageDisplay,
     capacityUnitsPresent,
-    individualizedTeaching,
+    individualizedTeaching: workedTeaching,
+    workedTeaching,
     sourceCoverage,
     englishImplementationFrozen: false,
     productLocked: records.every(
