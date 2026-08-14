@@ -119,30 +119,34 @@ function object(state: Trg002SpatialState, id: string) {
 }
 
 function requestedNumericValue(state: Trg002SpatialState) {
-  switch (state.requested.kind) {
-    case "OBJECT_HEIGHT": return exactToNumber(object(state, state.requested.objectId).height);
-    case "HORIZONTAL_DISTANCE": return Math.abs(exactToNumber(point(state, state.requested.fromPointId).x) - exactToNumber(point(state, state.requested.toPointId).x));
+  const requested = state.requested;
+  switch (requested.kind) {
+    case "OBJECT_HEIGHT": return exactToNumber(object(state, requested.objectId).height);
+    case "HORIZONTAL_DISTANCE": return Math.abs(exactToNumber(point(state, requested.fromPointId).x) - exactToNumber(point(state, requested.toPointId).x));
     case "SHADOW_LENGTH": {
-      const target = object(state, state.requested.objectId);
-      return Math.abs(exactToNumber(point(state, target.basePointId).x) - exactToNumber(point(state, state.requested.shadowTipPointId).x));
+      const target = object(state, requested.objectId);
+      return Math.abs(exactToNumber(point(state, target.basePointId).x) - exactToNumber(point(state, requested.shadowTipPointId).x));
     }
     case "SIGHT_LINE_LENGTH": {
-      const first = point(state, state.requested.fromPointId), second = point(state, state.requested.toPointId);
+      const first = point(state, requested.fromPointId), second = point(state, requested.toPointId);
       return Math.hypot(exactToNumber(first.x) - exactToNumber(second.x), exactToNumber(first.y) - exactToNumber(second.y));
     }
     case "MOVEMENT_DISTANCE": {
-      const movement = state.movements.find((item) => item.id === state.requested.movementId);
-      if (!movement) throw new Error(`Missing movement ${state.requested.movementId}.`);
+      const movementId = requested.movementId;
+      const movement = state.movements.find((item) => item.id === movementId);
+      if (!movement) throw new Error(`Missing movement ${movementId}.`);
       return exactToNumber(movement.distance);
     }
     case "EYE_HEIGHT": {
-      const observer = state.observers.find((item) => item.id === state.requested.observerId);
-      if (!observer) throw new Error(`Missing observer ${state.requested.observerId}.`);
+      const observerId = requested.observerId;
+      const observer = state.observers.find((item) => item.id === observerId);
+      if (!observer) throw new Error(`Missing observer ${observerId}.`);
       return exactToNumber(observer.eyeHeight);
     }
     case "ANGLE": {
-      const observation = state.observations.find((item) => item.id === state.requested.observationId);
-      if (!observation) throw new Error(`Missing observation ${state.requested.observationId}.`);
+      const observationId = requested.observationId;
+      const observation = state.observations.find((item) => item.id === observationId);
+      if (!observation) throw new Error(`Missing observation ${observationId}.`);
       const angle = toDegrees(observation.angle);
       return Number(angle.numerator) / Number(angle.denominator);
     }
