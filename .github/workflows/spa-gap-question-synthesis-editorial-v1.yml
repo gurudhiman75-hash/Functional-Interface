@@ -47,9 +47,9 @@ jobs:
       - name: Upload learner editorial review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: spa-gap-question-synthesis-editorial-v1-review
+          name: spa-gap-question-learner-remediation-v2-review
           path: |
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-question-editorial-v1-review.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-question-editorial-v1-review.html
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-question-synthesis-editorial-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-question-editorial-v2-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-question-editorial-v2-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-question-learner-remediation-v2-evidence.json
           if-no-files-found: error
