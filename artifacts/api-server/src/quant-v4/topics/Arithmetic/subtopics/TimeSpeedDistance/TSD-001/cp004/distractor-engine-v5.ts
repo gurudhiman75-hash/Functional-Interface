@@ -35,6 +35,21 @@ export function deriveStrongCp004WrongWorkingsV5(
     return Object.freeze(rows);
   }
 
+  if (mode === "findCatchUpTimeFromHeadStartDistance" || (mode === "findMeetingTimeFromInitialSeparation" && input.directionCase === "SAME")) {
+    const faster = input.speedA!;
+    const slower = input.speedB!;
+    const gap = mode === "findCatchUpTimeFromHeadStartDistance" ? input.headStartDistance! : input.initialSeparation!;
+    const averageSpeed = divide(add(faster, slower), rational(2));
+    const halfClosingRate = subtract(faster, averageSpeed);
+    const { rows, push } = rowsFor(solution.answer);
+    push("USE_ONE_SPEED_ONLY", divide(gap, slower), "gap ÷ slower vehicle speed", "The learner divides the lead by the vehicle ahead's absolute speed instead of by the speed at which the lead is being closed.");
+    push("USE_AVERAGE_SPEED", divide(gap, averageSpeed), "gap ÷ average of the two vehicle speeds", "The learner substitutes the average of the two absolute speeds for the same-direction closing speed.");
+    push("USE_AVERAGE_SPEED", divide(gap, halfClosingRate), "gap ÷ (faster speed − average speed)", "The learner first averages the vehicle speeds and then compares only the faster vehicle with that average, effectively using half of the true closing rate.");
+    push("USE_ONE_SPEED_ONLY", divide(gap, faster), "gap ÷ faster vehicle speed", "The learner treats the pursuer as if the vehicle ahead were stationary and therefore uses the pursuer's full speed.");
+    if (rows.length < 3) throw new Error(`${mode}: V5 produced only ${rows.length} competitive same-direction time distractors`);
+    return Object.freeze(rows);
+  }
+
   if (mode === "findSeparationAfterMovingApart") {
     const initial = input.initialSeparation!;
     const time = input.elapsedTime!;
