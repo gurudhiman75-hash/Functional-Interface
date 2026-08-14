@@ -45,7 +45,7 @@ const PUNJABI_TERMS: Readonly<Record<IntCp003AuthorityTerm, string>> = Object.fr
   AMOUNT: "ਰਕਮ",
   ANNUAL_RATE: "ਸਾਲਾਨਾ ਦਰ",
   BALANCE: "ਬਕਾਇਆ ਰਕਮ",
-  COMPOUND_INTEREST: "ਚੱਕਰਵੱਧੀ ਵਿਆਜ",
+  COMPOUND_INTEREST: "ਮਿਸ਼ਰਤ ਵਿਆਜ",
   CORRECT: "ਸਹੀ",
   EARLIER_YEAR: "ਪਹਿਲਾਂ ਦਿੱਤਾ ਸਾਲ",
   FINAL_AMOUNT: "ਅੰਤਿਮ ਰਕਮ",
@@ -107,8 +107,8 @@ export function cp003OrdinalYearText(
 
 export function cp003CompoundedAnnuallyText(locale: IntCp003LocalizedLocale): string {
   return locale === "hi-IN"
-    ? "ब्याज की गणना वार्षिक चक्रवृद्धि आधार पर की जाती है"
-    : "ਵਿਆਜ ਦੀ ਗਿਣਤੀ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ ਆਧਾਰ 'ਤੇ ਕੀਤੀ ਜਾਂਦੀ ਹੈ";
+    ? "ब्याज हर वर्ष मूलधन में जोड़ दिया जाता है"
+    : "ਵਿਆਜ ਹਰ ਸਾਲ ਮੂਲਧਨ ਵਿੱਚ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ";
 }
 
 export function cp003FindPrompt(
