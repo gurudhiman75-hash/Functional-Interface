@@ -3,7 +3,7 @@ import { MEN_CP_010_PERMANENT_ALLOCATION } from "./allocation";
 import {
   generateMenCp010PermanentEnglishQuestion,
   listMenCp010PermanentEnglishSources,
-} from "./runtime-v1";
+} from "./runtime";
 
 assert.equal(MEN_CP_010_PERMANENT_ALLOCATION.length, 26);
 
