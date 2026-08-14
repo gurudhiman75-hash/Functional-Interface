@@ -4,10 +4,15 @@ on:
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-permanent-review-runtime-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-wave01-learner-authority-final.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave06-permanent-english-review-audit.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-chapter-67ql-english-readiness-audit.ts"
       - ".github/workflows/mal-001-chapter-67ql-english-readiness.yml"
   workflow_dispatch:
+
+concurrency:
+  group: mal-001-67ql-readiness-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-mal-chapter-readiness:
