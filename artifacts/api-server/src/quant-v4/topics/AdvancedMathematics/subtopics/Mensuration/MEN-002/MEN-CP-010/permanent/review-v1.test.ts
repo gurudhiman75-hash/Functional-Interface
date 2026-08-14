@@ -7,6 +7,16 @@ import {
 const records = buildMenCp010PermanentEnglishReview();
 const audit = auditMenCp010PermanentEnglishReview();
 
+function hasReducibleBareSurd(text: string) {
+  const match = /^√(\d+)/.exec(text.trim());
+  if (!match) return false;
+  const n = Number(match[1]);
+  for (let factor = 2; factor * factor <= n; factor += 1) {
+    if (n % (factor * factor) === 0) return true;
+  }
+  return false;
+}
+
 assert.equal(records.length, 104);
 assert.equal(audit.reviewRecordCount, 104);
 assert.equal(audit.permanentQlCount, 26);
@@ -25,6 +35,9 @@ assert.equal(audit.individualizedTeaching, true);
 assert.equal(audit.workedTeaching, true);
 assert.equal(audit.englishImplementationFrozen, false);
 assert.equal(audit.productLocked, true);
+assert.equal(records.some((q) => q.stem.includes("A bucket is shaped")), false);
+assert.equal(records.some((q) => hasReducibleBareSurd(q.answer)), false);
+assert.equal(records.some((q) => q.options.some((option) => hasReducibleBareSurd(option.display))), false);
 
 for (let index = 0; index < records.length; index += 4) {
   const slice = records.slice(index, index + 4);
