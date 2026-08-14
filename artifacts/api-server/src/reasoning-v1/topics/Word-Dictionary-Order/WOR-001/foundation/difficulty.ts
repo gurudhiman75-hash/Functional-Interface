@@ -1,7 +1,7 @@
 import { traceWorComparison } from "./lexical-comparator";
-import type { WorDifficulty, WorDifficultyFeatures, WorSortDirection, WorTaskKind } from "./types";
+import type { WorClassicTaskKind, WorDifficulty, WorDifficultyFeatures, WorSortDirection } from "./types";
 
-const inferenceBurden: Record<WorTaskKind, number> = {
+const inferenceBurden: Record<WorClassicTaskKind, number> = {
   SELECT_COMPLETE_ORDER: 0,
   SELECT_DESCENDING_ORDER: 0,
   SELECT_FIRST: 0,
@@ -22,7 +22,7 @@ const inferenceBurden: Record<WorTaskKind, number> = {
 export function calculateWorDifficultyFeatures(
   ascendingWords: readonly string[],
   direction: WorSortDirection,
-  taskKind: WorTaskKind,
+  taskKind: WorClassicTaskKind,
 ): WorDifficultyFeatures {
   const traces = ascendingWords.slice(0, -1).map((word, index) => traceWorComparison(word, ascendingWords[index + 1]!));
   const depths = traces.map((trace) => trace.commonPrefixLength);
@@ -52,9 +52,6 @@ export function calculateWorDifficultyFeatures(
 }
 
 export function classifyWorDifficulty(features: WorDifficultyFeatures): WorDifficulty {
-  // Calibrated against the executable WOR state space rather than family labels:
-  // easy correction/insertion states top out at 6; medium states occupy the
-  // transition band and hard families can reliably produce states above 15.
   if (features.score <= 6) return "EASY";
   if (features.score <= 15) return "MEDIUM";
   return "HARD";
