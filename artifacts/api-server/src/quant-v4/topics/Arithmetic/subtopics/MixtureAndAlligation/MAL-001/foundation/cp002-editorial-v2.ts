@@ -67,6 +67,26 @@ function isPluralMaterialLabel(label: string): boolean {
   return /(?:lentils|beans|leaves)$/iu.test(label.trim());
 }
 
+function contextualThirdLabel(labels: readonly string[]): string | null {
+  const normalized = labels.map((label) => label.trim().toLowerCase());
+  if (!normalized.some((label) => label === "third grade" || label === "third liquid")) {
+    return null;
+  }
+  const has = (...values: string[]) => values.every((value) => normalized.includes(value));
+  if (has("red lentils", "yellow lentils")) return "green lentils";
+  if (has("grade a rice", "grade b rice")) return "Grade C rice";
+  if (has("assam tea", "darjeeling tea")) return "Nilgiri tea";
+  if (has("wheat", "barley")) return "oats";
+  if (has("cement", "sand")) return "stone dust";
+  if (has("coffee", "chicory")) return "roasted barley";
+  if (has("milk", "water")) return "cream";
+  if (has("petrol", "ethanol")) return "diesel";
+  if (has("diesel", "kerosene")) return "petrol";
+  if (has("mustard oil", "sunflower oil")) return "groundnut oil";
+  if (has("apple juice", "grape juice")) return "orange juice";
+  return normalized.includes("third liquid") ? "a third liquid" : "a third ingredient";
+}
+
 function normaliseLearnerText(
   value: string,
   labels: readonly string[],
@@ -74,6 +94,13 @@ function normaliseLearnerText(
   let result = value
     .replace(/\b1 ratio parts\b/giu, "1 ratio part")
     .replace(/\b1 parts\b/giu, "1 part");
+
+  const thirdLabel = contextualThirdLabel(labels);
+  if (thirdLabel) {
+    result = result
+      .replace(/\bthird grade\b/giu, thirdLabel)
+      .replace(/\bthird liquid\b/giu, thirdLabel);
+  }
 
   for (const label of labels.filter(isPluralMaterialLabel)) {
     const escaped = escapeRegExp(label);
@@ -166,6 +193,8 @@ function assertEditorialV2(
     /\bSince no (?:red|yellow) lentils is\b/iu,
     /\b(?:red|yellow) lentils has the same quantity\b/iu,
     /\bhow much (?:red|yellow) lentils is present\b/iu,
+    /\bthird grade\b/iu,
+    /\bthird liquid\b/iu,
     /\[cite(?:_start|:)|googleusercontent|immersive_entry_chip/iu,
   ];
   for (const pattern of forbidden) {
@@ -242,7 +271,7 @@ export function runMalCp002EnglishEditorialV2Pipeline(
         {
           name: "editorial-v2-native-grammar",
           passed: true,
-          message: "Plural material labels and singular ratio-part wording are normalized on the learner surface.",
+          message: "Plural material labels, singular ratio-part wording and generic third-component labels are normalized on the learner surface.",
         },
       ],
     },
