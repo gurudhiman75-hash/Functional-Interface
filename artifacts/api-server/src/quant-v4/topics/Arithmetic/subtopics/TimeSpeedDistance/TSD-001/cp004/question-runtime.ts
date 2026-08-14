@@ -4,7 +4,7 @@ import { independentlyVerifyCp004 } from "./independent-verifier";
 import { cp004PermanentQlForAuthority } from "./ql-allocation";
 import { buildCp004Options, cp004DifficultyForAuthority } from "./options";
 import { solveCp004Core } from "./relative-motion-foundation";
-import { generateCp004StateV4 } from "./state-v4";
+import { generateCp004StateV5 } from "./state-v5";
 import { renderCp004StemV3 } from "./stem-library-v3";
 import { buildCp004Teaching } from "./teaching";
 import type { TsdCp004GeneratedQuestion } from "./runtime-types";
@@ -29,7 +29,7 @@ function generateSolvableState(authorityKey: string, seed: string) {
   const failures: string[] = [];
   for (let attempt = 0; attempt < 24; attempt += 1) {
     const candidateSeed = attempt === 0 ? seed : `${seed}:valid-${attempt}:${ordinal}`;
-    const state = generateCp004StateV4(authorityKey, candidateSeed);
+    const state = generateCp004StateV5(authorityKey, candidateSeed);
     try {
       const solution = solveCp004Core(state.solveMode, state.input);
       const independent = independentlyVerifyCp004(state.solveMode, state.input, solution);
