@@ -46,5 +46,23 @@ export function deriveStrongCp004WrongWorkingsV6(
     return Object.freeze(rows);
   }
 
+  const recoverFaster =
+    mode === "findFasterSpeedFromCatchUpState" ||
+    (mode === "findIndividualSpeedFromRelativeSpeedAndOtherSpeed" && input.directionCase === "SAME" && input.unknownBody === "A");
+
+  if (recoverFaster) {
+    const slower = input.speedB!;
+    const closing = mode === "findFasterSpeedFromCatchUpState"
+      ? divide(input.headStartDistance!, input.meetingTime!)
+      : input.relativeSpeed!;
+    const { rows, push } = rowsFor(solution.answer);
+    push("COPY_KNOWN_SPEED", slower, "copy the known slower speed", "The learner stops at the given speed and never incorporates the closing speed needed to recover the faster vehicle's actual speed.");
+    push("USE_AVERAGE_SPEED", add(slower, divide(closing, rational(2))), "slower speed + half of closing speed", "Only half of the reconstructed closing speed is added to the slower vehicle, so the final individual-speed decomposition is incomplete.");
+    push("REVERSE_RELATIVE_DECOMPOSITION", add(slower, multiply(closing, rational(2))), "slower speed + twice the closing speed", "The learner double-counts the relative-speed component while converting the catch-up state back into the faster vehicle's speed.");
+    push("USE_TARGET_RELATIVE_SPEED_AS_BODY_SPEED", closing, "report closing speed as the faster vehicle's speed", "The relative speed is treated as an absolute vehicle speed instead of being combined with the known slower speed.");
+    if (rows.length < 3) throw new Error(`${mode}: V6 produced only ${rows.length} competitive faster-speed distractors`);
+    return Object.freeze(rows);
+  }
+
   return deriveStrongCp004WrongWorkingsV5(mode, input, solution);
 }
