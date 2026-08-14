@@ -1,0 +1,103 @@
+name: Validate INT-CP-003 Hindi Punjabi Final V2
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-**"
+      - ".github/workflows/int-cp003-hi-pa-final-v2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: int-cp003-hi-pa-final-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp003-hi-pa-final-v2:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle approved English freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-english-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp003-english-freeze-audit.mjs
+
+      - name: Run approved English freeze audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp003-english-freeze-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-english-freeze-audit.log
+
+      - name: Bundle multilingual final V2 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-hi-pa-final-v2-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp003-hi-pa-final-v2-audit.mjs
+
+      - name: Run multilingual final V2 audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp003-hi-pa-final-v2-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-hi-pa-final-v2-audit.log
+
+      - name: Bundle bilingual review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-hi-pa-final-v2-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp003-hi-pa-final-v2-review-export.mjs
+
+      - name: Export Hindi Punjabi review packs
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          rm -rf dist/quant-v4/int-cp003-hi-pa-final-v2-review
+          node dist/quant-v4/int-001-cp003-hi-pa-final-v2-review-export.mjs dist/quant-v4/int-cp003-hi-pa-final-v2-review 2>&1 | tee dist/quant-v4/int-001-cp003-hi-pa-final-v2-review-export.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify final V2 evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          grep -q 'PASS_INT_CP003' artifacts/api-server/dist/quant-v4/int-001-cp003-english-freeze-audit.log
+          grep -q 'PASS_INT_CP003_HI_PA_FINAL_V2' artifacts/api-server/dist/quant-v4/int-001-cp003-hi-pa-final-v2-audit.log
+          test -f artifacts/api-server/dist/quant-v4/int-cp003-hi-pa-final-v2-review/INT-CP-003-Hindi-Final-V2-Review.md
+          test -f artifacts/api-server/dist/quant-v4/int-cp003-hi-pa-final-v2-review/INT-CP-003-Punjabi-Final-V2-Review.md
+
+      - name: Upload CP003 final V2 review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp003-hi-pa-final-v2-review
+          path: |
+            artifacts/api-server/dist/quant-v4/int-cp003-hi-pa-final-v2-review
+            artifacts/api-server/dist/quant-v4/int-001-cp003-hi-pa-final-v2-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp003-hi-pa-final-v2-review-export.log
+            artifacts/api-server/dist/quant-v4/int-001-cp003-english-freeze-audit.log
+          retention-days: 30
