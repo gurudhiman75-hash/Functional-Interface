@@ -6,6 +6,19 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function assertNoNamedPersonGenderAgreement(text: string, locale: Sea001TranslatedLocale): void {
+  for (const canonicalName of SEA001_REVIEW_CANONICAL_NAMES) {
+    const person = localizedSea001Name(canonicalName, locale);
+    if (locale === "hi-IN") {
+      if (text.includes(`${person} मिलता है`) || text.includes(`अदला-बदली में ${person} वहाँ आ जाता है`)) {
+        throw new Error(`SEA-001 explanation language polish left gender-assuming Hindi agreement for ${person}`);
+      }
+    } else if (text.includes(`${person} ਮਿਲਦਾ ਹੈ`) || text.includes(`ਅਦਲਾ-ਬਦਲੀ ਵਿੱਚ ${person} ਉੱਥੇ ਆ ਜਾਂਦਾ ਹੈ`)) {
+      throw new Error(`SEA-001 explanation language polish left gender-assuming Punjabi agreement for ${person}`);
+    }
+  }
+}
+
 function neutralizeNamedPersonAgreement(text: string, locale: Sea001TranslatedLocale): string {
   let output = text;
   for (const canonicalName of SEA001_REVIEW_CANONICAL_NAMES) {
@@ -21,6 +34,7 @@ function neutralizeNamedPersonAgreement(text: string, locale: Sea001TranslatedLo
         .replace(new RegExp(`ਅਦਲਾ-ਬਦਲੀ ਵਿੱਚ ${escaped} ਉੱਥੇ ਆ ਜਾਂਦਾ ਹੈ`, "g"), `ਅਦਲਾ-ਬਦਲੀ ਤੋਂ ਬਾਅਦ ਉਸ ਸੀਟ 'ਤੇ ${person} ਹੈ`);
     }
   }
+  assertNoNamedPersonGenderAgreement(output, locale);
   return output;
 }
 
@@ -33,7 +47,7 @@ export function polishSea001ExplanationParityLanguage(
   candidate: Sea001LocalizedReviewCaselet,
   locale: Sea001TranslatedLocale,
 ): Sea001LocalizedReviewCaselet {
-  return {
+  const polished: Sea001LocalizedReviewCaselet = {
     ...candidate,
     sharedExplanation: neutralizeNamedPersonAgreement(candidate.sharedExplanation, locale),
     children: candidate.children.map((child) => ({
@@ -45,4 +59,11 @@ export function polishSea001ExplanationParityLanguage(
       })),
     })),
   };
+
+  assertNoNamedPersonGenderAgreement(polished.sharedExplanation, locale);
+  for (const child of polished.children) {
+    assertNoNamedPersonGenderAgreement(child.explanation, locale);
+    for (const option of child.options) assertNoNamedPersonGenderAgreement(option.explanation, locale);
+  }
+  return polished;
 }
