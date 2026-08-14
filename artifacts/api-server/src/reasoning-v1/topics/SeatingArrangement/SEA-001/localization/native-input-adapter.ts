@@ -19,12 +19,24 @@ const WORD_ORDINALS: Readonly<Record<string, string>> = Object.freeze({
 
 const WORD_ORDINAL_PATTERN = "first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth";
 
-function normalizeNativeClueInput(clue: string): string {
-  let normalized = clue;
+function normalizeDirectionalCountToClockwise(clue: string): string {
+  const match = clue.match(
+    /^Exactly (\d+) (person sits|persons sit) between ([A-Z][a-z]+) and ([A-Z][a-z]+) when counted anticlockwise from ([A-Z][a-z]+)\.$/,
+  );
+  if (!match || match[3] !== match[5]) return clue;
 
-  // The generic linear/circular-between renderer accepts "persons sit", while the
-  // directional clockwise renderer intentionally owns the grammatical singular
-  // form "Exactly 1 person sits ... when counted clockwise from ...".
+  const count = match[1]!;
+  const grammar = match[2]!;
+  const first = match[3]!;
+  const second = match[4]!;
+  return `Exactly ${count} ${grammar} between ${second} and ${first} when counted clockwise from ${second}.`;
+}
+
+function normalizeNativeClueInput(clue: string): string {
+  let normalized = normalizeDirectionalCountToClockwise(clue);
+
+  // The generic non-directional between renderer accepts "persons sit", while the
+  // directional clockwise renderer owns the grammatical singular form.
   if (
     normalized.startsWith("Exactly 1 person sits between ") &&
     !normalized.includes(" when counted clockwise from ")
