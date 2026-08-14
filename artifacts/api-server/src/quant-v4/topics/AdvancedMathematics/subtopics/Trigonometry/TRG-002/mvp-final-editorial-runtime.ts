@@ -31,9 +31,36 @@ function polishStem(qlId: string, stem: string) {
   }
 }
 
+function polishExactPresentation(text: string) {
+  return text
+    .replace(/-(\d+) \+ (\d+)√3/g, (_match, rational: string, surd: string) =>
+      rational === surd ? `${rational}(√3−1)` : `${surd}√3−${rational}`,
+    )
+    .replace(/\b(\d+)\/2 m\b/g, (_match, numerator: string) => {
+      const value = Number(numerator) / 2;
+      return `${Number.isInteger(value) ? value : value.toFixed(1)} m`;
+    })
+    .replace(/(\d+√3)=\1 m/g, "$1 m");
+}
+
+function polishStudentPresentation(question: any) {
+  return {
+    ...question,
+    answer: polishExactPresentation(question.answer),
+    options: question.options.map((option: any) => ({ ...option, display: polishExactPresentation(option.display) })),
+    explanation: {
+      ...question.explanation,
+      keyRule: polishExactPresentation(question.explanation.keyRule),
+      shortcut: polishExactPresentation(question.explanation.shortcut),
+      traps: question.explanation.traps.map((trap: string) => polishExactPresentation(trap)),
+      steps: question.explanation.steps.map((step: any) => ({ ...step, body: polishExactPresentation(step.body) })),
+    },
+  };
+}
+
 export function generateFinalEditorialTrg002Mvp48Question(qlId: Trg002Mvp48Id, seed: string) {
   const question: any = generateLabelledTrg002Mvp48Question(qlId, seed);
-  return {
+  return polishStudentPresentation({
     ...question,
     stem: polishStem(qlId, question.stem),
     reviewStatus: "AI_REVIEWED" as const,
@@ -50,5 +77,5 @@ export function generateFinalEditorialTrg002Mvp48Question(qlId: Trg002Mvp48Id, s
       renderedVisualInspection: "PENDING" as const,
       humanReviewSubstituted: false,
     },
-  };
+  });
 }
