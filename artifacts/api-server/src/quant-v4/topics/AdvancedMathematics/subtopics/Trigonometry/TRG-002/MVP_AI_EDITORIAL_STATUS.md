@@ -1,6 +1,6 @@
 # TRG-002 48-QL MVP AI Editorial Status
 
-Status: **48/48 AI/EDITORIAL PASS — EXECUTION / RENDERED VISUAL INSPECTION / HUMAN REVIEW PENDING**
+Status: **48/48 AI/EDITORIAL PASS — STATIC RENDERER REMEDIATION COMPLETE — EXECUTION / RENDERED VISUAL INSPECTION / HUMAN REVIEW PENDING**
 
 ## Review scope
 
@@ -10,7 +10,7 @@ The 48-QL MVP now has an explicit AI/editorial review layer.
 - 20 proof anchors: carried from the previously completed proof-stage AI review because their generator content is unchanged by the 48-QL expansion.
 - total AI/editorial reviewed: **48 / 48**.
 - human reviewed: **0 / 48**.
-- rendered solution-diagram inspection: **PENDING**.
+- actual rendered solution-diagram inspection: **PENDING**.
 - freeze eligible: **NO**.
 
 The active AI/editorial delivery surface is `mvp-final-editorial-runtime.ts`.
@@ -28,7 +28,7 @@ The review checked:
 - consistency between prose and canonical spatial state;
 - preservation of solution-only diagram disclosure.
 
-No known mathematical or answer-key blocker remains on the active route after the prior static remediation.
+No known mathematical or answer-key blocker remains on the active route after remediation.
 
 ## Wording refinements added in the final editorial layer
 
@@ -42,6 +42,21 @@ The following stems were polished without changing their mathematics or canonica
 - QL-035: uses “angle of elevation of the sun” and clearer changed-angle wording.
 - QL-048: replaces the ambiguous pronoun in the wire statement with **angle of 45° with the ground**.
 - QL-095: explicitly places the observer **on level ground** and measures distance **from the foot of the building**.
+
+## Static renderer remediation
+
+A post-editorial audit of the actual diagram projector found and corrected two delivery gaps:
+
+1. **QL-035 changed shadow:** the canonical state already contained old and new shadow tips plus both solar rays, but the generic SHADOW projector emitted only one explicit shadow segment. The projector now emits one SHADOW segment for every canonical shadow tip, so old and new shadows are both represented.
+2. **Missing key givens in solution labels:**
+   - QL-020 now carries the exact target-pole height as a named canonical measurement, so the solution figure can show both vertical levels and the solved horizontal distance.
+   - QL-038 now carries the exact ladder length as a named canonical measurement, so the solution figure can show the given ladder length, 60° angle and solved foot distance.
+
+Named measurements are included in the canonical state fingerprint. They are not parsed back from prose.
+
+`mvp-special-render-projection.test.ts` now structurally gates QL-020, QL-035, QL-038, QL-041 and QL-095.
+
+This is still a **static projection audit**, not screenshot evidence. Actual app-rendered inspection remains pending.
 
 ## Difficulty outcome
 
@@ -69,19 +84,18 @@ The remaining added QLs retain their existing difficulty after review.
 
 This metadata deliberately does not claim visual or human approval.
 
-## Final editorial gate target
+## Gate targets
 
-`mvp-final-editorial.test.ts` targets:
+Committed targets include:
 
+- 12 seeds × 48 = **576 MVP canonical cases**;
+- 50 seeds × 48 = **2,400 MVP sweep cases**;
 - 12 seeds × 48 = **576 final-editorial cases**;
-- underlying MVP validation remains valid;
-- 48/48 AI review metadata is present;
-- human review remains pending;
-- rendered visual inspection remains pending;
-- activation remains OFF;
-- the wording refinements above do not regress.
+- all 28 added solution-label plans;
+- all 14 locked diagram strategies;
+- high-risk projection checks for depression levels, changed-shadow, ladder, broken object and composite geometry.
 
-This is a committed gate target. No execution pass is claimed without an observed run.
+No execution pass is claimed without an observed run.
 
 ## Execution / visual truth
 
@@ -91,6 +105,7 @@ At this checkpoint:
 - 576-case MVP gate: **NOT CLAIMED**;
 - 2,400-case sweep: **NOT CLAIMED**;
 - 576-case final-editorial gate: **NOT CLAIMED**;
+- special render-projection gate: **NOT CLAIMED**;
 - actual app-rendered diagram inspection: **NOT COMPLETED**.
 
 A direct local clone/run attempt from the assistant environment could not proceed because that runtime cannot resolve GitHub; this is not treated as code failure.
@@ -110,5 +125,5 @@ Still OFF:
 Do not expand to the 96-QL production set yet. First obtain:
 
 1. actual execution evidence for the committed gates;
-2. rendered inspection of all 14 strategy representatives plus the four high-risk special forms;
+2. rendered inspection of all 14 strategy representatives plus the high-risk forms;
 3. human/editorial review of the 48 MVP questions.
