@@ -1,4 +1,4 @@
-import { worExpandedFamiliesForDifficulty } from "../datasets/expanded-word-registry";
+import { worFamiliesForDifficulty } from "../datasets/word-registry";
 import type { WorDifficulty } from "./types";
 import type { WorRng } from "./prng";
 
@@ -23,7 +23,7 @@ export function wordCountForDifficulty(difficulty: WorDifficulty, rng: WorRng, r
 }
 
 export function buildWorWordSet(difficulty: WorDifficulty, count: number, rng: WorRng): BuiltWorWordSet {
-  const family = rng.pick(worExpandedFamiliesForDifficulty(difficulty));
+  const family = rng.pick(worFamiliesForDifficulty(difficulty));
   if (count > family.words.length - 2) throw new Error(`${family.id} cannot provide ${count} words plus distractor reserve.`);
   const shuffled = rng.shuffle(family.words.map((entry) => entry.word));
   return { familyId: family.id, selected: shuffled.slice(0, count), reserve: shuffled.slice(count) };
