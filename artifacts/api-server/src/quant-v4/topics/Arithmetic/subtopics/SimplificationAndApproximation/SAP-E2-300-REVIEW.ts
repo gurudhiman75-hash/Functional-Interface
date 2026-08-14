@@ -2,12 +2,12 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { SAP_CP011_E2_STRUCTURES, generateSapCp011E2 } from "./SAP-002/SAP-CP-011/runtime-final";
-import { SAP_CP012_E2_STRUCTURES, generateSapCp012E2 } from "./SAP-002/SAP-CP-012/runtime-final";
+import { SAP_CP012_E2_STRUCTURES, generateSapCp012E2 } from "./SAP-002/SAP-CP-012/runtime-release";
 import type { SapE2Package } from "./SAP-E2-TYPES";
 
 interface Family { readonly id: string; readonly target: number; readonly salt: number; readonly generate: (seed: number) => SapE2Package; }
-const cp011Targets = [15,10,10,15,5,5,8,8,4,5,3,2] as const;
-const cp012Targets = [22,20,18,25,22,20,18,25,12,8,8,12] as const;
+const cp011Targets = [20,12,12,20,3,3,5,5,2,4,2,2] as const;
+const cp012Targets = [20,20,18,30,25,20,15,38,8,4,4,8] as const;
 const cp011: Family[] = SAP_CP011_E2_STRUCTURES.map((id,i) => ({ id, target: cp011Targets[i]!, salt: i + 3, generate: seed => generateSapCp011E2(id, seed) }));
 const cp012: Family[] = SAP_CP012_E2_STRUCTURES.map((id,i) => ({ id, target: cp012Targets[i]!, salt: i + 31, generate: seed => generateSapCp012E2(id, seed) }));
 assert.equal(cp011.reduce((s,f)=>s+f.target,0),90);
@@ -58,6 +58,11 @@ assert.equal(records.filter(r=>r.checkpointId==="SAP-CP-011").length,90);
 assert.equal(records.filter(r=>r.checkpointId==="SAP-CP-012").length,210);
 for (const f of [...cp011,...cp012]) assert.equal(records.filter(r=>r.structureId===f.id).length,f.target,`${f.id}: wrong weight`);
 
+const cp011Theory = records.filter(r => ["CP011-E2-ABSOLUTE-ERROR","CP011-E2-PERCENTAGE-ERROR","CP011-E2-OVER-UNDER-DIRECTION","CP011-E2-COMPARE-ESTIMATE-ACCURACY","CP011-E2-COMPOSED-ROUNDING-BOUND","CP011-E2-OPTION-WITHIN-TOLERANCE","CP011-E2-GUARANTEED-NEAREST-FROM-INTERVAL","CP011-E2-AMBIGUOUS-OPTION-DIAGNOSIS"].includes(r.structureId)).length;
+const cp012BandTheory = records.filter(r => ["CP012-E2-UNIQUE-INTEGER-WITHIN-TOLERANCE","CP012-E2-COUNT-ADMISSIBLE-INTEGERS","CP012-E2-OUTCOME-CLASSIFICATION","CP012-E2-ROUNDED-OPERAND-SYNTHESIS"].includes(r.structureId)).length;
+assert.equal(cp011Theory,26);
+assert.equal(cp012BandTheory,24);
+
 const positions=[0,0,0,0];
 let hard=0,ssc=0,bank=0,last="",streak=0;
 for (const r of records) {
@@ -77,15 +82,15 @@ for (const r of records) {
 assert.deepEqual(positions,[75,75,75,75]);
 assert.ok(hard>=100);
 
-const summary=Object.freeze({reviewVersion:"SAP-E2-CP011-CP012-PRODUCTION-V1",questionCount:300,checkpoints:{cp011:90,cp012:210},profiles:{BANK:bank,SSC:ssc},structures:24,answerPositions:positions,hardQuestions:hard,lifecycle:"INACTIVE_HUMAN_REVIEW_CANDIDATE",permanentQlAllocation:"NONE"});
+const summary=Object.freeze({reviewVersion:"SAP-E2-CP011-CP012-PRODUCTION-V2",questionCount:300,checkpoints:{cp011:90,cp012:210},profiles:{BANK:bank,SSC:ssc},structures:24,answerPositions:positions,hardQuestions:hard,cp011TheoryDiagnosticQuestions:cp011Theory,cp012BandDiagnosticQuestions:cp012BandTheory,lifecycle:"INACTIVE_HUMAN_REVIEW_CANDIDATE",permanentQlAllocation:"NONE"});
 const outDir=path.join(process.cwd(),"artifacts/api-server/dist/quant-v4/sap-e2-review"); fs.mkdirSync(outDir,{recursive:true});
-const md:string[]=["# SAP E2 — CP011 + CP012 — 300-Question Review","",`Questions: **300**`,`Mix: **CP011 90 / CP012 210**`,`Profiles: **Bank ${bank} / SSC ${ssc}**`,`A/B/C/D: **${positions.join(" / ")}**`,"","> Human review only. All E2 questions are inactive and unallocated.",""];
+const md:string[]=["# SAP E2 — CP011 + CP012 — 300-Question Review V2","",`Questions: **300**`,`Mix: **CP011 90 / CP012 210**`,`Profiles: **Bank ${bank} / SSC ${ssc}**`,`A/B/C/D: **${positions.join(" / ")}**`,`Theory/diagnostic weight: **CP011 ${cp011Theory} / CP012 band-synthesis ${cp012BandTheory}**`,"","> Human review only. All E2 questions are inactive and unallocated.",""];
 for(const r of records){md.push(`## ${r.questionId} — ${r.profile} — ${r.difficulty}`,"",r.stem,"");r.options.forEach((o,i)=>md.push(`${String.fromCharCode(65+i)}. ${o.value}`));md.push("",`**Correct:** ${String.fromCharCode(65+r.correctIndex)} — ${r.canonicalAnswer}`,"",`**Idea:** ${r.explanation.coreConcept}`,"","**Working:**");r.explanation.steps.forEach((s,i)=>md.push(`${i+1}. ${s}`));md.push("",`**Final:** ${r.explanation.finalAnswer}`,"");}
 fs.writeFileSync(path.join(outDir,"SAP-E2-300-REVIEW.md"),md.join("\n"));
 fs.writeFileSync(path.join(outDir,"SAP-E2-300-REVIEW.json"),JSON.stringify({summary,records},null,2));
 fs.writeFileSync(path.join(outDir,"summary.json"),JSON.stringify(summary,null,2));
 const esc=(s:string)=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const cards=records.map(r=>`<section><h2>${r.questionId} — ${r.profile}</h2><p class="tag">${r.difficulty}</p><p class="stem">${esc(r.stem)}</p><ol type="A">${r.options.map(o=>`<li>${esc(o.value)}</li>`).join("")}</ol><div class="solution"><p><b>Correct:</b> ${String.fromCharCode(65+r.correctIndex)} — ${esc(r.canonicalAnswer)}</p><p><b>Idea:</b> ${esc(r.explanation.coreConcept)}</p><ol>${r.explanation.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol><p><b>Final:</b> ${esc(r.explanation.finalAnswer)}</p></div></section>`).join("\n");
-const html=`<!doctype html><html><head><meta charset="utf-8"><title>SAP E2 300 Review</title><script>MathJax={tex:{inlineMath:[['\\\\(','\\\\)']]},svg:{fontCache:'global'}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script><style>body{font-family:Arial,sans-serif;max-width:1000px;margin:24px auto;padding:0 20px;line-height:1.55;background:#fafafa}header,section{background:#fff;border:1px solid #e2e2e2;border-radius:8px;padding:18px;margin:14px 0}h2{font-size:1rem}.tag{font-size:.8rem;font-weight:700;color:#555}.stem{font-size:1.05rem}.solution{border-top:1px dashed #ddd;margin-top:14px;padding-top:10px}li{margin:.25rem 0}</style></head><body><header><h1>SAP E2 — CP011 + CP012 Review</h1><p>300 questions · CP011 90 · CP012 210 · Bank ${bank} · SSC ${ssc} · A/B/C/D ${positions.join(" / ")}</p></header>${cards}</body></html>`;
+const html=`<!doctype html><html><head><meta charset="utf-8"><title>SAP E2 300 Review V2</title><script>MathJax={tex:{inlineMath:[['\\\\(','\\\\)']]},svg:{fontCache:'global'}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script><style>body{font-family:Arial,sans-serif;max-width:1000px;margin:24px auto;padding:0 20px;line-height:1.55;background:#fafafa}header,section{background:#fff;border:1px solid #e2e2e2;border-radius:8px;padding:18px;margin:14px 0}h2{font-size:1rem}.tag{font-size:.8rem;font-weight:700;color:#555}.stem{font-size:1.05rem}.solution{border-top:1px dashed #ddd;margin-top:14px;padding-top:10px}li{margin:.25rem 0}</style></head><body><header><h1>SAP E2 — CP011 + CP012 Review V2</h1><p>300 questions · CP011 90 · CP012 210 · Bank ${bank} · SSC ${ssc} · A/B/C/D ${positions.join(" / ")}</p></header>${cards}</body></html>`;
 fs.writeFileSync(path.join(outDir,"SAP-E2-300-REVIEW.html"),html);
 console.log(JSON.stringify(summary));
