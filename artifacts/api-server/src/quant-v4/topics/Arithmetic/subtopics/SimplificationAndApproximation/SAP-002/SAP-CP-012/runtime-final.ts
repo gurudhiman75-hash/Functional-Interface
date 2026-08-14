@@ -61,6 +61,25 @@ function missingPercentage(seed: number): SapE2Package {
   });
 }
 
+function missingCubeRoot(seed: number): SapE2Package {
+  const { p, c, correctIndex } = common(seed);
+  const answer = 4 + (p % 8);
+  const base = 6 + (p % 25);
+  const target = answer ** 3 + base ** 2 - c;
+  const bD = base + off(seed, 1), cD = c + off(seed, 3), tD = target + off(seed, 6);
+  const answerText = String(answer);
+  return packageE2({
+    profile: "BANK", checkpointId: "SAP-CP-012", structureId: "CP012-E2-MISSING-CUBE-ROOT", seed,
+    difficulty: "HARD", decisionCount: 5,
+    stem: `What approximate value should replace ? in ${e2Math(`?^{3} + (${fmt(bD)})^{2} - ${fmt(cD)} = ${fmt(tD)}`)}?`,
+    canonicalAnswer: answerText,
+    options: optionSet(answerText, correctIndex, [wrong(String(answer - 1), "CUBE_LOW", "The recovered cube was matched to the lower cube root."), wrong(String(answer + 1), "CUBE_HIGH", "The recovered cube was matched to the higher cube root."), wrong(String(answer + 2), "ARITHMETIC_SLIP", "A square or subtraction slip changed the recovered cube.")]),
+    correctIndex,
+    explanation: Object.freeze({ coreConcept: "Approximate the known terms, isolate the cube and identify its cube root.", steps: Object.freeze([`Using nearby integers: ?³ + ${base}² - ${c} ≈ ${target}.`, `So ?³ ≈ ${target - base ** 2 + c} = ${answer ** 3}, hence ? ≈ ${answer}.`]), finalAnswer: `Therefore, ? ≈ ${answer}.` }),
+    oracle: Object.freeze({ kind: "CP012-E2-MISSING-CUBE-ROOT", data: Object.freeze({ base, c, target, answer, cube: answer ** 3, b100: Math.round(bD * 100), c100: Math.round(cD * 100), target100: Math.round(tD * 100) }) }),
+  });
+}
+
 function uniqueTolerance(seed: number): SapE2Package {
   const { a, c, correctIndex } = common(seed);
   const answer = 6 + (seed % 13);
@@ -122,6 +141,7 @@ export function generateSapCp012E2(structureId: SapCp012E2Structure, seed: numbe
   switch (structureId) {
     case "CP012-E2-MISSING-ROOT-RATIO": return rootRatio(seed);
     case "CP012-E2-MISSING-PERCENTAGE": return missingPercentage(seed);
+    case "CP012-E2-MISSING-CUBE-ROOT": return missingCubeRoot(seed);
     case "CP012-E2-UNIQUE-INTEGER-WITHIN-TOLERANCE": return uniqueTolerance(seed);
     case "CP012-E2-COUNT-ADMISSIBLE-INTEGERS": return countAdmissible(seed);
     case "CP012-E2-OUTCOME-CLASSIFICATION": return outcomeClassification(seed);
