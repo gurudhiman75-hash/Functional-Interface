@@ -34,7 +34,8 @@ function ql032(seed: string) {
     explanation: mvpExplanation("At 45°, height and shadow are equal legs.", [`tan45°=${formatExactPlain(h)}/s=1.`, `So s=${formatExactPlain(h)} m.`], "The shadow is horizontal, not the sloping solar ray.") });
 }
 function ql035(seed: string) {
-  const h = exactInteger(mvpPick(seed, "035-h", [8, 10, 12] as const)); const oldShadow = h; const newShadow = exactSurd(h, 3);
+  const coefficient = mvpPick(seed, "035-h", [8, 10, 12] as const);
+  const h = exactInteger(coefficient); const oldShadow = h; const newShadow = exactSurd(coefficient, 3);
   return buildTrg002MvpQuestion({ qlId: "TRG-002-QL-035", cpId: "TRG-CP-008", lockedFamily: "CHANGED_SHADOW", solveMode: "findLongerShadowAfterSolarAngleFalls", seed, difficulty: "Medium", target: "LENGTH",
     stem: `A pole casts a ${formatExactPlain(oldShadow)} m shadow when the sun's elevation is 45°. Later the elevation becomes 30°. Find the new shadow length.`, state: shadowState(h, newShadow, 30, "SHADOW"), correct: mvpNumberAnswer(newShadow),
     wrong: [{ value: mvpNumberAnswer(oldShadow), misconceptionId: "KEPT_SHADOW_UNCHANGED" }, { value: mvpNumberAnswer(multiplyExact(h, exactInteger(3))), misconceptionId: "TRIPLED_OLD_SHADOW" }, { value: mvpNumberAnswer(div(h, exactInteger(2))), misconceptionId: "USED_SINE_FOR_SHADOW" }],
