@@ -1,4 +1,4 @@
-import { add, divide, multiply, rational } from "../foundation/rational";
+import { add, divide, multiply, rational, subtract } from "../foundation/rational";
 import { generateCp004StateV4 } from "./state-v4";
 import type { TsdCp004GeneratedState } from "./runtime-types";
 
@@ -8,23 +8,22 @@ export function generateCp004StateV5(authorityKey: string, seed: string): TsdCp0
 
   const speedA = base.input.speedA!;
   const speedB = base.input.speedB!;
-  const correctTime = base.solutionHintTime ?? base.input.elapsedTime;
-
-  // state-v3 encoded the answer through gap change; recover the intended duration
-  // from the existing initial/target pair and relative speed without changing authority.
   const relativeSpeed = base.input.directionCase === "SAME"
-    ? { numerator: speedA.numerator * speedB.denominator - speedB.numerator * speedA.denominator, denominator: speedA.denominator * speedB.denominator }
-    : { numerator: speedA.numerator * speedB.denominator + speedB.numerator * speedA.denominator, denominator: speedA.denominator * speedB.denominator };
+    ? subtract(speedA, speedB)
+    : add(speedA, speedB);
 
   const initial = base.input.initialSeparation!;
   const target = base.input.specifiedSeparation!;
   const change = base.input.directionCase === "SAME"
-    ? { numerator: initial.numerator * target.denominator - target.numerator * initial.denominator, denominator: initial.denominator * target.denominator }
-    : { numerator: target.numerator * initial.denominator - initial.numerator * target.denominator, denominator: target.denominator * initial.denominator };
-
+    ? subtract(initial, target)
+    : subtract(target, initial);
   const time = divide(change, relativeSpeed);
-  const balancedBaseGap = divide(multiply(relativeSpeed, time), rational(2));
+
+  // Choose the non-changing portion of the gap as half the required change.
+  // This keeps authentic "use initial gap", "use final gap" and "add the gaps"
+  // errors numerically competitive without altering the correct time.
   const balancedChange = multiply(relativeSpeed, time);
+  const balancedBaseGap = divide(balancedChange, rational(2));
 
   return Object.freeze({
     ...base,
