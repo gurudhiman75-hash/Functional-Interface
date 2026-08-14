@@ -14,43 +14,41 @@ interface Family {
   readonly generate: (seed: number) => SapE1R2Package;
 }
 
-const sscFamilies: Family[] = [
-  ...SAP_CP004_E1_R2_STRUCTURES.map((id, index) => ({
-    id,
-    profile: "SSC" as const,
-    target: 11,
-    salt: index + 1,
-    generate: (seed: number) => generateSapCp004E1R2(id, seed),
-  })),
-  ...SAP_CP005_E1_R2_STRUCTURES.map((id, index) => ({
-    id,
-    profile: "SSC" as const,
-    target: 3,
-    salt: index + 17,
-    generate: (seed: number) => generateSapCp005E1R2(id, seed),
-  })),
-];
+const sscMainstreamFamilies: Family[] = SAP_CP004_E1_R2_STRUCTURES.map((id, index) => ({
+  id,
+  profile: "SSC" as const,
+  target: 11,
+  salt: index + 1,
+  generate: (seed: number) => generateSapCp004E1R2(id, seed),
+}));
+const sscSpecialistFamilies: Family[] = SAP_CP005_E1_R2_STRUCTURES.map((id, index) => ({
+  id,
+  profile: "SSC" as const,
+  target: 3,
+  salt: index + 17,
+  generate: (seed: number) => generateSapCp005E1R2(id, seed),
+}));
+const sscFamilies = [...sscMainstreamFamilies, ...sscSpecialistFamilies];
 
 const bankUnguided = SAP_CP010_E1_R2_STRUCTURES.slice(0, 6);
 const bankSupplied = SAP_CP010_E1_R2_STRUCTURES.slice(6);
 const unguidedTargets = [30, 30, 29, 29, 29, 29] as const;
 const suppliedTargets = [4, 4, 4, 4, 4, 4] as const;
-const bankFamilies: Family[] = [
-  ...bankUnguided.map((id, index) => ({
-    id,
-    profile: "BANK" as const,
-    target: unguidedTargets[index]!,
-    salt: index + 31,
-    generate: (seed: number) => generateSapCp010E1R2(id, seed),
-  })),
-  ...bankSupplied.map((id, index) => ({
-    id,
-    profile: "BANK" as const,
-    target: suppliedTargets[index]!,
-    salt: index + 47,
-    generate: (seed: number) => generateSapCp010E1R2(id, seed),
-  })),
-];
+const bankUnguidedFamilies: Family[] = bankUnguided.map((id, index) => ({
+  id,
+  profile: "BANK" as const,
+  target: unguidedTargets[index]!,
+  salt: index + 31,
+  generate: (seed: number) => generateSapCp010E1R2(id, seed),
+}));
+const bankSuppliedFamilies: Family[] = bankSupplied.map((id, index) => ({
+  id,
+  profile: "BANK" as const,
+  target: suppliedTargets[index]!,
+  salt: index + 47,
+  generate: (seed: number) => generateSapCp010E1R2(id, seed),
+}));
+const bankFamilies = [...bankUnguidedFamilies, ...bankSuppliedFamilies];
 
 assert.equal(sscFamilies.reduce((sum, f) => sum + f.target, 0), 100);
 assert.equal(bankFamilies.reduce((sum, f) => sum + f.target, 0), 200);
@@ -59,22 +57,20 @@ assert.equal(sscFamilies.length + bankFamilies.length, 24);
 const familyUsage = new Map<string, number>();
 const usedSeeds = new Map<string, Set<number>>();
 const remaining = new Map<string, number>([...sscFamilies, ...bankFamilies].map(f => [f.id, f.target]));
-let sscCursor = 0;
-let bankCursor = 0;
+const cursors = new Map<string, number>();
 
-function nextFamily(pool: readonly Family[], profile: "SSC" | "BANK"): Family {
-  let cursor = profile === "SSC" ? sscCursor : bankCursor;
+function nextFamily(pool: readonly Family[], poolKey: string): Family {
+  const cursor = cursors.get(poolKey) ?? 0;
   for (let attempt = 0; attempt < pool.length; attempt += 1) {
     const index = (cursor + attempt) % pool.length;
     const family = pool[index]!;
     if ((remaining.get(family.id) ?? 0) > 0) {
-      if (profile === "SSC") sscCursor = (index + 1) % pool.length;
-      else bankCursor = (index + 1) % pool.length;
+      cursors.set(poolKey, (index + 1) % pool.length);
       remaining.set(family.id, (remaining.get(family.id) ?? 0) - 1);
       return family;
     }
   }
-  throw new Error(`No ${profile} review family has remaining quota.`);
+  throw new Error(`No review family has remaining quota in ${poolKey}.`);
 }
 
 function stratifiedSeed(family: Family, targetCorrectIndex: number): number {
@@ -94,14 +90,37 @@ function stratifiedSeed(family: Family, targetCorrectIndex: number): number {
   throw new Error(`${family.id}: exhausted seed bucket for answer index ${targetCorrectIndex}.`);
 }
 
+function evenlySpreadSlots(total: number, specialCount: number): ReadonlySet<number> {
+  const slots = new Set<number>();
+  for (let k = 0; k < specialCount; k += 1) {
+    slots.add(Math.floor(((k + 0.5) * total) / specialCount));
+  }
+  assert.equal(slots.size, specialCount);
+  return slots;
+}
+
+const sscSpecialistSlots = evenlySpreadSlots(100, 12);
+const bankSuppliedSlots = evenlySpreadSlots(200, 24);
+
 interface ReviewRecord extends SapE1R2Package {
   readonly questionId: string;
 }
 
 const records: ReviewRecord[] = [];
+let sscOrdinal = 0;
+let bankOrdinal = 0;
 for (let index = 0; index < 300; index += 1) {
   const profile: "SSC" | "BANK" = index % 3 === 2 ? "SSC" : "BANK";
-  const family = nextFamily(profile === "SSC" ? sscFamilies : bankFamilies, profile);
+  let family: Family;
+  if (profile === "SSC") {
+    const specialist = sscSpecialistSlots.has(sscOrdinal);
+    family = nextFamily(specialist ? sscSpecialistFamilies : sscMainstreamFamilies, specialist ? "SSC_SPECIALIST" : "SSC_MAINSTREAM");
+    sscOrdinal += 1;
+  } else {
+    const supplied = bankSuppliedSlots.has(bankOrdinal);
+    family = nextFamily(supplied ? bankSuppliedFamilies : bankUnguidedFamilies, supplied ? "BANK_SUPPLIED" : "BANK_UNGUIDED");
+    bankOrdinal += 1;
+  }
   const targetCorrectIndex = index % 4;
   const seed = stratifiedSeed(family, targetCorrectIndex);
   const q = family.generate(seed);
@@ -109,6 +128,8 @@ for (let index = 0; index < 300; index += 1) {
   records.push(Object.freeze({ ...q, questionId: `SAP-E1-R2-${String(index + 1).padStart(3, "0")}` }));
 }
 
+assert.equal(sscOrdinal, 100);
+assert.equal(bankOrdinal, 200);
 assert.equal(records.length, 300, "V4 review must contain 300 records.");
 assert.equal(new Set(records.map(r => r.stem)).size, 300, "V4 review must contain 300 unique visible stems.");
 assert.equal(new Set(records.map(r => r.canonicalPayloadKey)).size, 300, "V4 review must contain 300 unique payloads.");
@@ -134,6 +155,15 @@ assert.equal(cp005Count, 12);
 assert.equal(suppliedCount, 24);
 assert.equal(unguidedBankCount, 176);
 assert.equal(records.filter(r => r.checkpointId === "SAP-CP-007").length, 0);
+
+const suppliedPositions = records.flatMap((r, index) => r.structureId.includes("SUPPLIED-ROOT") ? [index] : []);
+const cp005Positions = records.flatMap((r, index) => r.checkpointId === "SAP-CP-005" ? [index] : []);
+for (let i = 1; i < suppliedPositions.length; i += 1) {
+  assert.ok(suppliedPositions[i]! - suppliedPositions[i - 1]! >= 9, "Supplied-root questions clustered too closely in V4 review.");
+}
+for (let i = 1; i < cp005Positions.length; i += 1) {
+  assert.ok(cp005Positions[i]! - cp005Positions[i - 1]! >= 21, "CP005 specialist questions clustered too closely in V4 review.");
+}
 
 const weightedRootQuotients = records.filter(r => r.structureId === "CP004-R2-WEIGHTED-ROOT-QUOTIENT");
 const suppliedRootQuotients = records.filter(r => r.structureId === "CP010-R2-SUPPLIED-ROOT-QUOTIENT");
@@ -185,7 +215,7 @@ const summary = Object.freeze({
   suppliedRootQuestions: suppliedCount,
   unguidedBankApproximationQuestions: unguidedBankCount,
   cp007NormalMockQuestions: 0,
-  sampler: "FULL_RANGE_STRATIFIED_INTERLEAVED_UNIQUE_SEEDS",
+  sampler: "FULL_RANGE_STRATIFIED_EVEN_NICHE_SPREAD_UNIQUE_SEEDS",
   lifecycle: "INACTIVE_HUMAN_REVIEW_CANDIDATE",
   permanentQlAllocation: "NONE",
 });
