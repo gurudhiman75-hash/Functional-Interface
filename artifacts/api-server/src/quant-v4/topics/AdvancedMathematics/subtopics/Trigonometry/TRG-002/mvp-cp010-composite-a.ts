@@ -70,13 +70,18 @@ export function generateTrg002MvpQl096(seed: string) {
   return buildTrg002MvpQuestion({
     qlId: "TRG-002-QL-096", cpId: "TRG-CP-010", lockedFamily: "COMPOSITE_VERTICAL_OBJECT_RELATIONS", solveMode: "findDistanceFromUpperHeightAndTwoAngles",
     seed, difficulty: "Hard", target: "LENGTH",
-    stem: `A ${formatExactPlain(upperH)} m mast stands on a building. From a point on level ground, the angles of elevation of the roof and mast top are 45° and 60° respectively. Find the horizontal distance from the building.`,
+    stem: `A ${formatExactPlain(upperH)} m mast stands vertically on the roof of a building. From a point on level ground, the angles of elevation of the roof and the top of the mast are 45° and 60° respectively. Find the horizontal distance from the foot of the building to the observation point.`,
     state, correct: mvpNumberAnswer(d),
     wrong: [
       { value: mvpNumberAnswer(upperH), misconceptionId: "RETURNED_UPPER_HEIGHT" },
       { value: mvpNumberAnswer(exactSurd(k, 3)), misconceptionId: "OMITTED_RATIONAL_PART" },
       { value: mvpNumberAnswer(exactInteger(k)), misconceptionId: "FAILED_TO_RATIONALIZE" }
     ],
-    explanation: mvpExplanation("The upper height is the difference between the two sight-line levels.", [`Let distance be x. Roof height=x and total height=x√3.`, `So ${formatExactPlain(upperH)}=x(√3−1).`, `Hence x=${formatExactPlain(d)} m.`], "Both angles are required because the upper segment is a difference of two heights.")
+    explanation: mvpExplanation("The mast height is the difference between the two sight-line levels, so solve the resulting surd equation exactly.", [
+      `Let the horizontal distance be x. Since tan45°=1, building height=x; since tan60°=√3, total height=x√3.`,
+      `Therefore mast height=x√3−x=x(√3−1), so ${formatExactPlain(upperH)}=x(√3−1).`,
+      `Thus x=${formatExactPlain(upperH)}/(√3−1). Rationalize: x=${formatExactPlain(upperH)}(√3+1)/[(√3−1)(√3+1)]=${formatExactPlain(upperH)}(√3+1)/2.`,
+      `Hence x=${formatExactPlain(d)} m.`,
+    ], "Do not stop at x=given/(√3−1); rationalize the denominator to obtain the exact option form.")
   });
 }
