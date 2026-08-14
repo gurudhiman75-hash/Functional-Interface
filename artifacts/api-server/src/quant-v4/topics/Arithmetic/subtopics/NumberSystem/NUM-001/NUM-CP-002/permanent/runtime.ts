@@ -166,26 +166,26 @@ export function independentlyVerifyNumCp002TemporaryAuthority(
 }
 
 const DIFFICULTY_BANDS: Readonly<Record<NumCp002PermanentQlId, readonly NumCp002PermanentDifficulty[]>> = Object.freeze({
-  "NUM-QL-145": ["EASY", "MEDIUM"],
-  "NUM-QL-146": ["EASY", "MEDIUM"],
-  "NUM-QL-147": ["EASY", "MEDIUM"],
-  "NUM-QL-148": ["MEDIUM", "HARD"],
-  "NUM-QL-149": ["EASY", "MEDIUM"],
+  "NUM-QL-145": ["EASY"],
+  "NUM-QL-146": ["EASY"],
+  "NUM-QL-147": ["EASY"],
+  "NUM-QL-148": ["EASY", "MEDIUM", "HARD"],
+  "NUM-QL-149": ["EASY"],
   "NUM-QL-150": ["MEDIUM", "HARD"],
   "NUM-QL-151": ["MEDIUM"],
   "NUM-QL-152": ["MEDIUM", "HARD"],
   "NUM-QL-153": ["MEDIUM"],
-  "NUM-QL-154": ["EASY", "MEDIUM"],
-  "NUM-QL-155": ["MEDIUM", "HARD"],
-  "NUM-QL-156": ["MEDIUM", "HARD"],
+  "NUM-QL-154": ["MEDIUM"],
+  "NUM-QL-155": ["MEDIUM"],
+  "NUM-QL-156": ["MEDIUM"],
   "NUM-QL-157": ["MEDIUM", "HARD"],
   "NUM-QL-158": ["HARD"],
   "NUM-QL-159": ["HARD"],
-  "NUM-QL-160": ["MEDIUM", "HARD"],
+  "NUM-QL-160": ["MEDIUM"],
   "NUM-QL-161": ["MEDIUM", "HARD"],
-  "NUM-QL-162": ["HARD"],
-  "NUM-QL-163": ["MEDIUM", "HARD"],
-  "NUM-QL-164": ["MEDIUM", "HARD"],
+  "NUM-QL-162": ["MEDIUM", "HARD"],
+  "NUM-QL-163": ["MEDIUM"],
+  "NUM-QL-164": ["MEDIUM"],
   "NUM-QL-165": ["HARD"],
 });
 
@@ -193,9 +193,71 @@ export function getNumCp002PermanentDifficultyBands(qlId: NumCp002PermanentQlId)
   return DIFFICULTY_BANDS[qlId];
 }
 
-function permanentDifficulty(qlId: NumCp002PermanentQlId, seed: number): NumCp002PermanentDifficulty {
-  const bands = DIFFICULTY_BANDS[qlId];
-  return bands[(seed - 1) % bands.length]!;
+function stripTwoFive(value: number): number {
+  let n = Math.abs(value);
+  while (n > 0 && n % 2 === 0) n /= 2;
+  while (n > 0 && n % 5 === 0) n /= 5;
+  return n;
+}
+
+function distinctPrimeFactorCount(value: number): number {
+  let n = Math.abs(value);
+  let count = 0;
+  for (let p = 2; p * p <= n; p += 1) {
+    if (n % p !== 0) continue;
+    count += 1;
+    while (n % p === 0) n /= p;
+  }
+  if (n > 1) count += 1;
+  return count;
+}
+
+function recurringBlockLength(text: string): number {
+  const match = text.match(/\\overline\{([^}]+)\}/u);
+  return match ? match[1]!.replace("?", "").length : 0;
+}
+
+function integerMathAnswer(text: string): number {
+  const match = text.match(/^\\\((-?\d+)\\\)$/u);
+  return match ? Number(match[1]) : Number.NaN;
+}
+
+function permanentDifficulty(
+  qlId: NumCp002PermanentQlId,
+  prototypeId: string,
+  temporary: NumCp002TemporaryPackage,
+): NumCp002PermanentDifficulty {
+  const h = temporary.hiddenState as Record<string, unknown>;
+  switch (qlId) {
+    case "NUM-QL-145":
+    case "NUM-QL-146":
+    case "NUM-QL-147":
+    case "NUM-QL-149": return "EASY";
+    case "NUM-QL-148": {
+      if (prototypeId === "NUM-CP002-PROT-022" || prototypeId === "NUM-CP002-PROT-029") return "EASY";
+      if (prototypeId === "NUM-CP002-PROT-006" && (Number(h.prefixDigits) > 1 || Number(h.blockDigits) > 1)) return "HARD";
+      return "MEDIUM";
+    }
+    case "NUM-QL-150": return recurringBlockLength(temporary.canonicalAnswer) >= 5 ? "HARD" : "MEDIUM";
+    case "NUM-QL-151": return "MEDIUM";
+    case "NUM-QL-152": return prototypeId === "NUM-CP002-PROT-024" ? "HARD" : "MEDIUM";
+    case "NUM-QL-153":
+    case "NUM-QL-154":
+    case "NUM-QL-155":
+    case "NUM-QL-156": return "MEDIUM";
+    case "NUM-QL-157": {
+      const reduced = rational(Number(h.n), Number(h.d));
+      return distinctPrimeFactorCount(denominatorPrimeProfile(reduced).rest) >= 2 ? "HARD" : "MEDIUM";
+    }
+    case "NUM-QL-158":
+    case "NUM-QL-159": return "HARD";
+    case "NUM-QL-160": return "MEDIUM";
+    case "NUM-QL-161": return recurringBlockLength(temporary.stem) >= 5 ? "HARD" : "MEDIUM";
+    case "NUM-QL-162": return integerMathAnswer(temporary.canonicalAnswer) >= 5 ? "HARD" : "MEDIUM";
+    case "NUM-QL-163":
+    case "NUM-QL-164": return "MEDIUM";
+    case "NUM-QL-165": return "HARD";
+  }
 }
 
 function validBoundedDenominators(numerator: number, maxD: number): number[] {
@@ -210,8 +272,8 @@ function setLatex(values: readonly number[]): string {
   return math(`\\{${values.join(",")}\\}`);
 }
 
-function primeFactorisation(value: number): string {
-  if (value <= 1) return math(String(value));
+function primeFactorisationBody(value: number): string {
+  if (value <= 1) return String(value);
   let n = value;
   const parts: string[] = [];
   for (let p = 2; p * p <= n; p += 1) {
@@ -221,7 +283,11 @@ function primeFactorisation(value: number): string {
     parts.push(exponent === 1 ? String(p) : `${p}^{${exponent}}`);
   }
   if (n > 1) parts.push(String(n));
-  return math(parts.join("\\times"));
+  return parts.join("\\times");
+}
+
+function primeFactorisation(value: number): string {
+  return math(primeFactorisationBody(value));
 }
 
 function remodelStatementStem(stem: string): string {
@@ -230,6 +296,7 @@ function remodelStatementStem(stem: string): string {
       "A rational decimal may terminate after common factors are cancelled first.",
       "A rational number may have a terminating decimal after common factors are cancelled.",
     )
+    .replace("powers of 2 and 5", `powers of ${math("2")} and ${math("5")}`)
     .replace(/denominator (\d+)/g, (_match, digits: string) => `denominator ${math(digits)}`);
 }
 
@@ -258,7 +325,59 @@ function cleanConcept(concept: string | undefined): string | undefined {
   return concept
     .replace(/non-\\\(2,5\\\) part/gi, `factor made of primes other than ${math("2")} and ${math("5")}`)
     .replace(/non-\\\(2,5\\\) factor/gi, `factor made of primes other than ${math("2")} and ${math("5")}`)
-    .replace("rational decimal", "rational number");
+    .replace("rational decimal", "rational number")
+    .replace("length k", `length ${math("k")}`);
+}
+
+function statementReason(statement: string, label: "I" | "II" | "III"): string {
+  if (statement.includes("denominator 40")) return `${label}. ${math("40=2^3\\times5")}, so the decimal terminates. The statement is true.`;
+  if (statement.includes("denominator 21")) return `${label}. ${math("21=3\\times7")}; the reduced denominator contains primes other than ${math("2")} and ${math("5")}. The statement is false.`;
+  if (statement.includes("0.\\overline{9}") && statement.includes("exactly")) return `${label}. ${math("0.\\overline{9}=1")}. The statement is true.`;
+  if (statement.includes("only powers of 2 and 5")) return `${label}. A reduced denominator containing only ${math("2")} and ${math("5")} gives a terminating decimal. The statement is true.`;
+  if (statement.includes("Every non-terminating decimal is irrational")) return `${label}. Recurring non-terminating decimals are rational, so the statement is false.`;
+  if (statement.includes("0.\\overline{3}") && statement.includes("3}{10")) return `${label}. ${math("0.\\overline{3}=\\frac{1}{3}")}, not ${math("\\frac{3}{10}")}. The statement is false.`;
+  if (statement.includes("denominator 6")) return `${label}. ${math("6=2\\times3")}; the factor ${math("3")} makes the decimal recurring. The statement is false.`;
+  if (statement.includes("0.125") && statement.includes("1}{8")) return `${label}. ${math("0.125=\\frac{1}{8}")}. The statement is true.`;
+  if (statement.includes("Every recurring decimal is irrational")) return `${label}. Every recurring decimal represents a rational number. The statement is false.`;
+  if (statement.includes("may terminate after common factors")) return `${label}. Decimal nature is decided after reducing the fraction, so the statement is true.`;
+  if (statement.includes("0.375") && statement.includes("3}{8")) return `${label}. ${math("0.375=\\frac{3}{8}")}. The statement is true.`;
+  if (statement.includes("Every recurring decimal represents a rational number")) return `${label}. A recurring decimal can be converted exactly to a fraction. The statement is true.`;
+  return `${label}. Check the statement using the exact fraction/decimal rule.`;
+}
+
+function statementExplanation(temporary: NumCp002TemporaryPackage): NumCp002PermanentExplanation {
+  const statements = temporary.stem.split("\n")
+    .filter((line) => /^(I|II|III)\.\s/u.test(line))
+    .map((line) => line.replace(/^(I|II|III)\.\s/u, ""));
+  const labels = ["I", "II", "III"] as const;
+  return {
+    concept: "Check each statement separately using exact fraction and decimal rules.",
+    solution: statements.slice(0, 3).map((statement, index) => statementReason(statement, labels[index]!)),
+    finalAnswer: temporary.canonicalAnswer,
+  };
+}
+
+function dsExplanation(temporary: NumCp002TemporaryPackage): NumCp002PermanentExplanation {
+  const h = temporary.hiddenState as Record<string, unknown>;
+  const d = Number(h.d), k1 = Number(h.k1), k2 = Number(h.k2);
+  const badPart = stripTwoFive(d);
+  const combined = Math.abs(k1 * k2) / gcd(k1, k2);
+  const concept = badPart === 1
+    ? `The denominator already contains only ${math("2")} and ${math("5")}.`
+    : `For ${math(`\\frac{n}{${d}}`)} to terminate, ${math("n")} must cancel the denominator factor ${math(String(badPart))} made from primes other than ${math("2")} and ${math("5")}.`;
+  let solution: readonly string[];
+  if (badPart === 1) {
+    solution = ["The fraction terminates for every positive numerator, so no extra statement is needed."];
+  } else if (k1 % badPart === 0) {
+    solution = [`Statement I forces ${math("n")} to be divisible by ${math(String(badPart))}, so Statement I alone is sufficient.`];
+  } else if (k2 % badPart === 0) {
+    solution = [`Statement II forces ${math("n")} to be divisible by ${math(String(badPart))}, so Statement II alone is sufficient.`];
+  } else if (combined % badPart === 0) {
+    solution = [`Neither statement alone forces cancellation of ${math(String(badPart))}, but together they make ${math("n")} divisible by ${math(String(combined))}, which does.`];
+  } else {
+    solution = [`Together the statements force divisibility only by ${math(String(combined))}, which does not force cancellation of ${math(String(badPart))}; therefore even together they are insufficient.`];
+  }
+  return { concept, solution, finalAnswer: temporary.canonicalAnswer };
 }
 
 function remodelExplanation(temporary: NumCp002TemporaryPackage): NumCp002PermanentExplanation {
@@ -283,46 +402,45 @@ function remodelExplanation(temporary: NumCp002TemporaryPackage): NumCp002Perman
   if (id === "NUM-CP002-PROT-017" || id === "NUM-CP002-PROT-018") {
     const numerator = Number(h.numerator), maxD = Number(h.maxD);
     const valid = validBoundedDenominators(numerator, maxD);
-    const answerLine = id === "NUM-CP002-PROT-017"
-      ? `This gives ${math(String(valid.length))} valid denominators.`
-      : `Hence the complete set is ${setLatex(valid)}.`;
+    const cancellable = stripTwoFive(numerator);
     return {
-      concept: `After cancelling common factors, the denominator may contain only ${math("2")} and ${math("5")}.`,
-      solution: [
-        `So any prime factor of ${math("d")} other than ${math("2")} or ${math("5")} must be completely cancelled by the numerator ${math(String(numerator))}.`,
-        `Applying this condition for ${math(`2\\le d\\le${maxD}`)} gives ${setLatex(valid)}. ${answerLine}`,
-      ],
+      concept: `After reduction, the denominator may contain only ${math("2")} and ${math("5")}.`,
+      solution: id === "NUM-CP002-PROT-017"
+        ? [
+            `Any part of ${math("d")} built from other primes must divide ${math(String(cancellable))}, the corresponding cancellable part of the numerator.`,
+            `For ${math(`2\\le d\\le${maxD}`)}, the valid denominators are ${setLatex(valid)}, giving ${math(String(valid.length))} values.`,
+          ]
+        : [
+            `Any part of ${math("d")} built from other primes must divide ${math(String(cancellable))}, the corresponding cancellable part of the numerator.`,
+            `For ${math(`2\\le d\\le${maxD}`)}, the complete set is ${setLatex(valid)}.`,
+          ],
       finalAnswer: temporary.canonicalAnswer,
     };
   }
 
   if (id === "NUM-CP002-PROT-019") {
     const d = Number(h.d);
+    const unwanted = stripTwoFive(d);
     return {
       concept: `The numerator must cancel every denominator prime factor other than ${math("2")} and ${math("5")}.`,
       solution: [
-        `${math(String(d))}=${primeFactorisation(d)}. Remove all denominator primes other than ${math("2")} and ${math("5")} through cancellation.`,
-        `Among the options, ${temporary.canonicalAnswer} supplies the complete required cancellation.`,
+        `${math(`${d}=${primeFactorisationBody(d)}`)}; therefore the factor ${math(String(unwanted))} must be cancelled by the numerator.`,
+        `Among the options, ${temporary.canonicalAnswer} supplies that complete cancellation.`,
       ],
       finalAnswer: temporary.canonicalAnswer,
     };
   }
 
-  if (id === "NUM-CP002-PROT-031") {
+  if (id === "NUM-CP002-PROT-030") {
     return {
-      concept: "Check each statement separately using exact fraction and decimal rules.",
+      concept: `Every denominator prime other than ${math("2")} and ${math("5")} must be cancelled completely.`,
       solution: temporary.explanation.solution.slice(0, 3),
       finalAnswer: temporary.canonicalAnswer,
     };
   }
 
-  if (id === "NUM-CP002-PROT-032") {
-    return {
-      concept: `A statement is sufficient only if it fixes the yes/no answer for every allowed value of ${math("n")}.`,
-      solution: temporary.explanation.solution.slice(0, 3),
-      finalAnswer: temporary.canonicalAnswer,
-    };
-  }
+  if (id === "NUM-CP002-PROT-031") return statementExplanation(temporary);
+  if (id === "NUM-CP002-PROT-032") return dsExplanation(temporary);
 
   return {
     concept: cleanConcept(temporary.explanation.concept),
@@ -333,6 +451,19 @@ function remodelExplanation(temporary: NumCp002TemporaryPackage): NumCp002Perman
 
 function authorityPrototypeIds(allocation: NumCp002PermanentAllocationEntry): readonly string[] {
   return Object.freeze([...allocation.corePrototypeIds, ...allocation.adapterPrototypeIds]);
+}
+
+function generateEditoriallyStrongTemporary(
+  prototypeId: string,
+  initialSourceSeed: number,
+): { readonly temporary: NumCp002TemporaryPackage; readonly sourceSeed: number } {
+  let sourceSeed = initialSourceSeed;
+  for (let attempt = 0; attempt < 24; attempt += 1, sourceSeed += 1) {
+    const temporary = generateNumCp002TemporaryAuthorityPackage(prototypeId, sourceSeed);
+    if (prototypeId === "NUM-CP002-PROT-009" && temporary.canonicalAnswer === math("=")) continue;
+    return { temporary, sourceSeed };
+  }
+  throw new Error(`${prototypeId}: unable to find an editorially strong permanent state`);
 }
 
 export function runNumCp002PermanentPipeline(
@@ -350,13 +481,13 @@ export function runNumCp002PermanentPipeline(
   const variants = authorityPrototypeIds(allocation);
   if (variants.length < 1) throw new Error(`${questionLanguageId}: no runtime prototype variants`);
   const variantIndex = (seed - 1) % variants.length;
-  const sourceSeed = Math.floor((seed - 1) / variants.length) + 1;
+  const initialSourceSeed = Math.floor((seed - 1) / variants.length) + 1;
   const runtimePrototypeId = variants[variantIndex]!;
   if (runtimePrototypeId === "NUM-CP002-PROT-027" || runtimePrototypeId === "NUM-CP002-PROT-028") {
     throw new Error(`${questionLanguageId}: delegated Algebra prototype reached permanent Number System runtime`);
   }
 
-  const temporary = generateNumCp002TemporaryAuthorityPackage(runtimePrototypeId, sourceSeed);
+  const { temporary, sourceSeed } = generateEditoriallyStrongTemporary(runtimePrototypeId, initialSourceSeed);
   const independent = independentlyVerifyNumCp002TemporaryAuthority(runtimePrototypeId, temporary.hiddenState);
   if (temporary.temporaryPrototypeId !== runtimePrototypeId) {
     throw new Error(`${questionLanguageId}/${seed}: temporary-prototype mismatch`);
@@ -376,7 +507,7 @@ export function runNumCp002PermanentPipeline(
     throw new Error(`${questionLanguageId}/${seed}: discovery lifecycle boundary violated`);
   }
 
-  const difficulty = permanentDifficulty(allocation.qlId, seed);
+  const difficulty = permanentDifficulty(allocation.qlId, runtimePrototypeId, temporary);
   const stem = remodelStem(temporary);
   const explanation = remodelExplanation(temporary);
   const lifecycle: NumCp002PermanentLifecycle = {
