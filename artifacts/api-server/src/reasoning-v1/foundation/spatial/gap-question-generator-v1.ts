@@ -1,5 +1,6 @@
 import { getSpatialGapAuthorityV1 } from "./gap-authority-v1";
 import { applySpatialEditorialMaterialV2 } from "./gap-question-editorial-material-v2";
+import { buildSpatialFclSubfigureRelationQuestionV3 } from "./fcl-subfigure-relation-v3";
 import {
   buildSpatialCanonicalQuestionV2,
 } from "./gap-question-remediation-v2";
@@ -85,7 +86,9 @@ export function generateSpatialGapLearnerQuestionV1(input: {
     throw new Error(`${input.gapId}: runtime authority is not scale validated.`);
   }
 
-  const canonical = buildSpatialCanonicalQuestionV2(input.gapId, input.seed);
+  const canonical = input.gapId === "FCL-GAP-06"
+    ? buildSpatialFclSubfigureRelationQuestionV3(input.seed)
+    : buildSpatialCanonicalQuestionV2(input.gapId, input.seed);
   if (authority.chapterCode === "FCL-001") {
     if (!canonical.fclCueAudit) throw new Error(`${input.gapId}: learner-remediated FCL build is missing its cue audit.`);
     const cueAudit = validateSpatialFclCueAuditV2(canonical.fclCueAudit);
