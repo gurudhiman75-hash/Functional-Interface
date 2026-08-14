@@ -172,8 +172,10 @@ export function assertCp004ReviewV3(
   if (!INVERSE_PRINCIPAL_QLS.has(state.qlId)) return;
 
   const text = explanation.steps.join(" ");
-  if (!text.includes("reference principal of ₹100")) {
-    throw new Error(`${state.qlId}: inverse-principal explanation does not derive the scale from ₹100.`);
+  const usesHundredExample = /(?:Suppose the original sum were ₹100|₹100 becomes|₹100 ×|every ₹100)/u.test(text);
+  const solvesForPrincipal = /Principal\s*=|principal\s*=|scale back|scaling/u.test(text);
+  if (!usesHundredExample || !solvesForPrincipal) {
+    throw new Error(`${state.qlId}: inverse-principal explanation does not derive the scale from a ₹100 example.`);
   }
   if (/(?:A\/P|CI\/P).*÷\s*₹/u.test(text)) {
     throw new Error(`${state.qlId}: circular ratio working reached the explanation.`);

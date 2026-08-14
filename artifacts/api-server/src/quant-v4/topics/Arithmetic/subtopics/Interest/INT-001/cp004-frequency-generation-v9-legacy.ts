@@ -27,7 +27,7 @@ function requiredMultiplier(state: Omit<Cp004MathematicalState, "principal">): R
 function compatiblePrincipal(seed: string, state: Omit<Cp004MathematicalState, "principal">): Rational {
   const exactEvidenceQl = new Set<IntCp004QlId>([
     "INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072",
-    "INT-QL-081", "INT-QL-082", "INT-QL-083", "INT-QL-084", "INT-QL-085",
+    "INT-QL-081", "INT-QL-082", "INT-QL-083",
   ]);
   if (!exactEvidenceQl.has(state.qlId)) return rat(pick(FRIENDLY_BASES, seed, `${state.qlId}:principal`));
   const denominator = requiredMultiplier(state).denominator;
@@ -54,8 +54,8 @@ function periodsForFrequency(seed: string, frequency: Cp004Frequency): number {
   const pools: Readonly<Record<Cp004Frequency, readonly number[]>> = {
     1: [2, 3, 4],
     2: [2, 3, 4, 5, 6],
-    4: [2, 3, 4, 6],
-    12: [3, 6],
+    4: [2, 3, 4, 6, 8],
+    12: [3, 6, 9, 12, 18],
   };
   return pick(pools[frequency], seed, "periods");
 }
@@ -65,10 +65,7 @@ function chooseFrequency(seed: string, qlId: IntCp004QlId): Cp004Frequency {
     return pick([2, 4] as const, seed, `${qlId}:frequency`);
   }
   if (qlId === "INT-QL-077") return pick([2, 4] as const, seed, `${qlId}:frequency`);
-  if (qlId === "INT-QL-075" || qlId === "INT-QL-078") {
-    return pick([1, 2, 4, 12] as const, seed, `${qlId}:frequency`);
-  }
-  if (qlId === "INT-QL-076") {
+  if (["INT-QL-075", "INT-QL-076", "INT-QL-078"].includes(qlId)) {
     return pick([2, 4, 12] as const, seed, `${qlId}:frequency`);
   }
   if (["INT-QL-079", "INT-QL-080", "INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(qlId)) return 1;
@@ -77,34 +74,30 @@ function chooseFrequency(seed: string, qlId: IntCp004QlId): Cp004Frequency {
 
 function inverseRatePool(frequency: Cp004Frequency): readonly Rational[] {
   if (frequency === 2) return Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24), rat(30)]);
-  return Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24)]);
+  return Object.freeze([rat(8), rat(16), rat(20), rat(24), rat(32), rat(40)]);
 }
 
 function nominalRatePoolFor(
   qlId: IntCp004QlId,
   frequency: Cp004Frequency,
-  _firstFrequency: Cp004Frequency,
-  _secondFrequency: Cp004Frequency,
+  firstFrequency: Cp004Frequency,
+  secondFrequency: Cp004Frequency,
 ): readonly Rational[] {
   if (["INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072"].includes(qlId)) return inverseRatePool(frequency);
-  if (qlId === "INT-QL-077") {
-    return frequency === 4 ? Object.freeze([rat(40)]) : inverseRatePool(frequency);
-  }
+  if (qlId === "INT-QL-077") return inverseRatePool(frequency);
   if (["INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(qlId)) return Object.freeze([rat(10), rat(20), rat(25)]);
-  if (["INT-QL-084", "INT-QL-085"].includes(qlId)) return Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24)]);
+  if (["INT-QL-084", "INT-QL-085"].includes(qlId)) {
+    return firstFrequency === 12 || secondFrequency === 12
+      ? Object.freeze([rat(12), rat(24)])
+      : Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24)]);
+  }
   return NOMINAL_RATE_POOLS[frequency];
 }
 
 export function generateCp004State(qlId: IntCp004QlId, seed: string): Cp004MathematicalState {
   const frequency = chooseFrequency(seed, qlId);
-  const mixedFrequencyPool = [1, 2, 4] as const;
-  const isMixed = qlId === "INT-QL-084" || qlId === "INT-QL-085";
-  const firstFrequency = isMixed
-    ? pick(mixedFrequencyPool, seed, `${qlId}:first-frequency`)
-    : pick(FREQUENCIES, seed, `${qlId}:first-frequency`);
-  const secondFrequency = isMixed
-    ? pick(mixedFrequencyPool.filter((item) => item !== firstFrequency), seed, `${qlId}:second-frequency`)
-    : pick(FREQUENCIES.filter((item) => item !== firstFrequency), seed, `${qlId}:second-frequency`);
+  const firstFrequency = pick(FREQUENCIES, seed, `${qlId}:first-frequency`);
+  const secondFrequency = pick(FREQUENCIES.filter((item) => item !== firstFrequency), seed, `${qlId}:second-frequency`);
   const nominalAnnualRatePercent = pick(
     nominalRatePoolFor(qlId, frequency, firstFrequency, secondFrequency),
     seed,
@@ -124,8 +117,8 @@ export function generateCp004State(qlId: IntCp004QlId, seed: string): Cp004Mathe
     : pick([1, 2, 3, 4] as const, seed, `${qlId}:full-years`);
   const tailMonths = pick(TAIL_MONTHS, seed, `${qlId}:tail-months`);
   const comparisonFrequency = pick(FREQUENCIES.filter((item) => item !== frequency), seed, `${qlId}:comparison-frequency`);
-  const firstYears = isMixed ? 1 : pick([1, 2] as const, seed, `${qlId}:first-years`);
-  const secondYears = isMixed ? 1 : pick([1, 2] as const, seed, `${qlId}:second-years`);
+  const firstYears = pick([1, 2] as const, seed, `${qlId}:first-years`);
+  const secondYears = pick([1, 2] as const, seed, `${qlId}:second-years`);
 
   const withoutPrincipal: Omit<Cp004MathematicalState, "principal"> = {
     qlId,
