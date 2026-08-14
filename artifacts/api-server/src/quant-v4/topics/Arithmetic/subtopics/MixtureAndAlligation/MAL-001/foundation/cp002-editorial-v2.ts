@@ -30,6 +30,8 @@ export {
   MAL_CP002_EDITORIAL_V2_ID,
 } from "./cp002-editorial-v2-common";
 
+const MAX_EXAM_RATIO_COMPONENT = 250;
+
 function customEditorial(
   question: MalCp002ReleasedQuestion,
 ): { stem: string; explanation: Explanation } {
@@ -84,7 +86,7 @@ function contextualThirdLabel(labels: readonly string[]): string | null {
   if (has("diesel", "kerosene")) return "petrol";
   if (has("mustard oil", "sunflower oil")) return "groundnut oil";
   if (has("apple juice", "grape juice")) return "orange juice";
-  return normalized.includes("third liquid") ? "a third liquid" : "a third ingredient";
+  return normalized.includes("third liquid") ? "liquid C" : "ingredient C";
 }
 
 function normaliseLearnerText(
@@ -166,6 +168,29 @@ function normaliseExplanation(
   };
 }
 
+function ratioComponentsAreExamNatural(stem: string): boolean {
+  for (const match of stem.matchAll(/\b(\d+)\s*:\s*(\d+)\b/gu)) {
+    if (
+      Math.max(Number(match[1]), Number(match[2])) >
+      MAX_EXAM_RATIO_COMPONENT
+    ) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function isExamNatural(question: MalCp002ReleasedQuestion): boolean {
+  if (!ratioComponentsAreExamNatural(question.stem)) return false;
+  if (
+    question.permanentQlId === "MAL-QL-026" &&
+    /\\frac\{\d+\}\{\d+\}[^.!?]*(?:kg|litres?)/u.test(question.stem)
+  ) {
+    return false;
+  }
+  return true;
+}
+
 function assertEditorialV2(
   question: MalCp002ReleasedQuestion,
 ): void {
@@ -224,20 +249,18 @@ function assertEditorialV2(
       `${question.questionId}: a worked step has no MathJax.`,
     );
   }
+  if (!isExamNatural(question)) {
+    throw new Error(`${question.questionId}: editorial V2 exam-realism constraints failed.`);
+  }
 }
 
-export function runMalCp002EnglishEditorialV2Pipeline(
-  input: {
-    questionLanguageId?: MalCp002PermanentQlId;
-    seed?: string;
-    language?: "en";
-  } = {},
+function buildEditorialV2Question(
+  base: MalCp002ReleasedQuestion,
 ): MalCp002ReleasedQuestion {
-  const base = runMalCp002EnglishReleasePipelineV1(input);
   const editorial = customEditorial(base);
   const labels = base.diagram.before.map((entry) => entry.label);
   const explanation = normaliseExplanation(editorial.explanation, labels);
-  const question: MalCp002ReleasedQuestion = {
+  return {
     ...base,
     stem: sentenceCase(normaliseLearnerText(editorial.stem, labels)),
     explanationId: `${base.permanentQlId}-EN-CONSERVED-PART-MATHJAX-V2`,
@@ -273,11 +296,40 @@ export function runMalCp002EnglishEditorialV2Pipeline(
           passed: true,
           message: "Plural material labels, singular ratio-part wording and generic third-component labels are normalized on the learner surface.",
         },
+        {
+          name: "editorial-v2-exam-realism",
+          passed: true,
+          message: `Ratio components stay at or below ${MAX_EXAM_RATIO_COMPONENT}, and the Easy invariance family avoids unnecessary fractional removals.`,
+        },
       ],
     },
   };
-  assertEditorialV2(question);
-  return question;
+}
+
+export function runMalCp002EnglishEditorialV2Pipeline(
+  input: {
+    questionLanguageId?: MalCp002PermanentQlId;
+    seed?: string;
+    language?: "en";
+  } = {},
+): MalCp002ReleasedQuestion {
+  for (let attempt = 0; attempt < 80; attempt += 1) {
+    const candidateSeed =
+      attempt === 0
+        ? input.seed
+        : `${input.seed ?? "mal-cp002-editorial-v2"}:exam-retry:${attempt}`;
+    const base = runMalCp002EnglishReleasePipelineV1({
+      ...input,
+      seed: candidateSeed,
+    });
+    const question = buildEditorialV2Question(base);
+    if (!isExamNatural(question)) continue;
+    assertEditorialV2(question);
+    return question;
+  }
+  throw new Error(
+    `${input.questionLanguageId ?? "MAL-CP-002"}: no exam-natural editorial V2 state survived.`,
+  );
 }
 
 export const MAL_CP002_EDITORIAL_V2_QL_IDS =
