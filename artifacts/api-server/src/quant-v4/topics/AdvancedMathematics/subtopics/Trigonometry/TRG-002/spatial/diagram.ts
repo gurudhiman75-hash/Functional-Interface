@@ -41,6 +41,9 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
     const target = raw.find((point) => point.id === observation.targetPointId);
     if (!eye || !target) throw new Error(`Diagram cannot resolve observation ${observation.id}.`);
     raw.push({ id: `eye-level-${observation.id}`, x: target.x, y: eye.y, role: "AUXILIARY", label: undefined });
+    if (observation.classification === "DEPRESSION" && Math.abs(eye.y - target.y) > 1e-9) {
+      raw.push({ id: `target-level-${observation.id}`, x: eye.x, y: target.y, role: "AUXILIARY", label: undefined });
+    }
   }
 
   const xs = raw.map((point) => point.x);
@@ -89,6 +92,15 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
         toPointId: observation.targetPointId,
         kind: "AUXILIARY",
       });
+      const targetLevelId = `target-level-${observation.id}`;
+      if (points.some((point) => point.id === targetLevelId)) {
+        segments.push({
+          id: `depression-height-transfer-${observation.id}`,
+          fromPointId: targetLevelId,
+          toPointId: observation.targetPointId,
+          kind: "AUXILIARY",
+        });
+      }
     }
   }
 
