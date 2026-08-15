@@ -36,27 +36,32 @@ export function generateMenCp010ExamReadyEnglishQuestion(
   seed: string,
 ): MenCp010ExamReadyEnglishQuestion {
   const base = generateV2Question(qlId, seed);
-  const rawOverlay = shouldUseMenCp010ExamRealismSourceV2(qlId, seed)
-    ? buildMenCp010ExamRealismOverlayV2(qlId, seed, base.correctIndex)
-    : null;
-  const diversifiedOverlay = diversifyMenCp010ExamRealismOverlayV2(
-    qlId,
-    seed,
-    base.correctIndex,
-    rawOverlay,
-  );
-  const capacityOverlay = diversifyMenCp010CapacityOverlayV2(
-    qlId,
-    seed,
-    base.correctIndex,
-    diversifiedOverlay,
-  );
-  const overlay = diversifyMenCp010ScalingOverlayV2(
-    qlId,
-    seed,
-    base.correctIndex,
-    capacityOverlay,
-  );
+  const forceBaseAuditLane = seed.includes("base-v2-review");
+
+  let overlay = null;
+  if (!forceBaseAuditLane) {
+    const rawOverlay = shouldUseMenCp010ExamRealismSourceV2(qlId, seed)
+      ? buildMenCp010ExamRealismOverlayV2(qlId, seed, base.correctIndex)
+      : null;
+    const diversifiedOverlay = diversifyMenCp010ExamRealismOverlayV2(
+      qlId,
+      seed,
+      base.correctIndex,
+      rawOverlay,
+    );
+    const capacityOverlay = diversifyMenCp010CapacityOverlayV2(
+      qlId,
+      seed,
+      base.correctIndex,
+      diversifiedOverlay,
+    );
+    overlay = diversifyMenCp010ScalingOverlayV2(
+      qlId,
+      seed,
+      base.correctIndex,
+      capacityOverlay,
+    );
+  }
 
   const question = overlay
     ? {
