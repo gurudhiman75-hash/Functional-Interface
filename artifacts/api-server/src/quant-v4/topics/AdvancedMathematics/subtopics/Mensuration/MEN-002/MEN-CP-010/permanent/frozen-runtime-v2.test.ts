@@ -57,7 +57,7 @@ let generated = 0;
 for (const allocation of MEN_CP_010_PERMANENT_ALLOCATION) {
   const qlPositions = new Set<number>();
   for (let index = 0; index < 256; index += 1) {
-    for (const mode of ["base", "exam-v2"] as const) {
+    for (const mode of ["base-v2-review", "exam-v2"] as const) {
       const seed = `${mode}-freeze-v2-${allocation.qlId}-${String(index).padStart(4, "0")}`;
       const q = generateMenCp010FrozenEnglishQuestionV2(allocation.qlId, seed);
       generated += 1;
@@ -91,11 +91,9 @@ for (const declared of declaredSources) {
   assert.equal(sourceHits.has(declared), true, `V2 frozen runtime did not exercise ${declared}`);
 }
 
-// Regression for the defect found during setter audit: a 3.14 state must show
-// 3.14 in the worked substitution, not the integer prefix 3.
 let decimalPiProbe: ReturnType<typeof generateMenCp010ExamReadyEnglishQuestion> | null = null;
 for (let index = 0; index < 4096 && !decimalPiProbe; index += 1) {
-  const q = generateMenCp010ExamReadyEnglishQuestion("MEN-002-QL-129", `decimal-pi-regression-${index}`);
+  const q = generateMenCp010ExamReadyEnglishQuestion("MEN-002-QL-129", `base-v2-review-decimal-pi-regression-${index}`);
   if (q.sourceId === "MEN-CP010-PROT-CONICAL-FRUSTUM-VOLUME" && q.stem.includes("π = 3.14")) decimalPiProbe = q;
 }
 assert.ok(decimalPiProbe, "Expected to find a base conical-frustum π=3.14 state");
