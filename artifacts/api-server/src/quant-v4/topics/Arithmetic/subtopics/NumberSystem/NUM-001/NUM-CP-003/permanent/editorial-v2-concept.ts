@@ -28,25 +28,25 @@ function digitSumExpression(template: string): string {
 
 function compactRule(divisor: number): string {
   switch (divisor) {
-    case 2: return `${math(2)}→last digit`;
-    case 3: return `${math(3)}→digit sum`;
-    case 4: return `${math(4)}→last two digits`;
-    case 5: return `${math(5)}→last digit ${math("0/5")}`;
-    case 6: return `${math(6)}→${math(2)} and ${math(3)}`;
-    case 8: return `${math(8)}→last three digits`;
-    case 9: return `${math(9)}→digit sum`;
-    case 10: return `${math(10)}→last digit ${math(0)}`;
-    case 11: return `${math(11)}→alternating sums`;
-    case 12: return `${math(12)}→${math(3)} and ${math(4)}`;
-    case 15: return `${math(15)}→${math(3)} and ${math(5)}`;
-    case 18: return `${math(18)}→${math(2)} and ${math(9)}`;
-    case 24: return `${math(24)}→${math(3)} and ${math(8)}`;
-    case 25: return `${math(25)}→last two digits`;
-    case 36: return `${math(36)}→${math(4)} and ${math(9)}`;
-    case 45: return `${math(45)}→${math(5)} and ${math(9)}`;
-    case 72: return `${math(72)}→${math(8)} and ${math(9)}`;
-    case 99: return `${math(99)}→${math(9)} and ${math(11)}`;
-    default: return `${math(divisor)}→exact remainder`;
+    case 2: return `${math(2)}:last digit`;
+    case 3: return `${math(3)}:digit sum`;
+    case 4: return `${math(4)}:last 2 digits`;
+    case 5: return `${math(5)}:last digit`;
+    case 6: return `${math(6)}:${math("2+3")}`;
+    case 8: return `${math(8)}:last 3 digits`;
+    case 9: return `${math(9)}:digit sum`;
+    case 10: return `${math(10)}:last digit`;
+    case 11: return `${math(11)}:alternating sums`;
+    case 12: return `${math(12)}:${math("3+4")}`;
+    case 15: return `${math(15)}:${math("3+5")}`;
+    case 18: return `${math(18)}:${math("2+9")}`;
+    case 24: return `${math(24)}:${math("3+8")}`;
+    case 25: return `${math(25)}:last 2 digits`;
+    case 36: return `${math(36)}:${math("4+9")}`;
+    case 45: return `${math(45)}:${math("5+9")}`;
+    case 72: return `${math(72)}:${math("8+9")}`;
+    case 99: return `${math(99)}:${math("9+11")}`;
+    default: return `${math(divisor)}:remainder`;
   }
 }
 
@@ -55,25 +55,25 @@ function templateRule(template: string, divisor: number): string {
   const lastTwo = template.slice(-2);
   const lastThree = template.slice(-3);
   switch (divisor) {
-    case 2: return `${math(2)} uses last digit ${math(last)}`;
-    case 3: return `${math(3)} uses digit sum ${math(digitSumExpression(template))}`;
-    case 4: return `${math(4)} uses suffix ${math(lastTwo)}`;
-    case 5: return `${math(5)} uses last digit ${math(last)}`;
-    case 6: return `${math(6)} needs both ${math(2)} and ${math(3)}`;
-    case 8: return `${math(8)} uses suffix ${math(lastThree)}`;
-    case 9: return `${math(9)} uses digit sum ${math(digitSumExpression(template))}`;
-    case 10: return `${math(10)} uses last digit ${math(last)}`;
-    case 11: return `${math(11)} uses alternating sums`;
-    case 12: return `${math(12)} needs ${math(3)} and ${math(4)}`;
-    case 15: return `${math(15)} needs ${math(3)} and ${math(5)}`;
-    case 18: return `${math(18)} needs ${math(2)} and ${math(9)}`;
-    case 24: return `${math(24)} needs ${math(3)} and ${math(8)}`;
-    case 25: return `${math(25)} uses suffix ${math(lastTwo)}`;
-    case 36: return `${math(36)} needs ${math(4)} and ${math(9)}`;
-    case 45: return `${math(45)} needs ${math(5)} and ${math(9)}`;
-    case 72: return `${math(72)} needs ${math(8)} and ${math(9)}`;
-    case 99: return `${math(99)} needs ${math(9)} and ${math(11)}`;
-    default: return `${math(divisor)} uses an exact remainder check`;
+    case 2: return `${math(2)}→last digit ${math(last)}`;
+    case 3: return `${math(3)}→sum ${math(digitSumExpression(template))}`;
+    case 4: return `${math(4)}→suffix ${math(lastTwo)}`;
+    case 5: return `${math(5)}→last digit ${math(last)}`;
+    case 6: return `${math(6)}→${math("2+3")}`;
+    case 8: return `${math(8)}→suffix ${math(lastThree)}`;
+    case 9: return `${math(9)}→sum ${math(digitSumExpression(template))}`;
+    case 10: return `${math(10)}→last digit ${math(last)}`;
+    case 11: return `${math(11)}→alternating sums`;
+    case 12: return `${math(12)}→${math("3+4")}`;
+    case 15: return `${math(15)}→${math("3+5")}`;
+    case 18: return `${math(18)}→${math("2+9")}`;
+    case 24: return `${math(24)}→${math("3+8")}`;
+    case 25: return `${math(25)}→suffix ${math(lastTwo)}`;
+    case 36: return `${math(36)}→${math("4+9")}`;
+    case 45: return `${math(45)}→${math("5+9")}`;
+    case 72: return `${math(72)}→${math("8+9")}`;
+    case 99: return `${math(99)}→${math("9+11")}`;
+    default: return `${math(divisor)}→remainder`;
   }
 }
 
@@ -82,12 +82,12 @@ function singleGoal(
 ): string {
   switch (state.projection) {
     case "UNIQUE_VALID_DIGIT": return "the unique missing digit";
-    case "EXTREMUM_VALID_DIGIT": return "the required largest/smallest valid digit";
-    case "VALID_DIGIT_COUNT": return "the count of all valid missing digits";
-    case "VALID_DIGIT_SUM": return "the sum of all valid missing digits";
+    case "EXTREMUM_VALID_DIGIT": return "the extreme valid digit";
+    case "VALID_DIGIT_COUNT": return "counting all valid digits";
+    case "VALID_DIGIT_SUM": return "summing all valid digits";
     case "COMPLETE_VALID_DIGIT_SET": return "the complete valid digit set";
-    case "EXTREMUM_COMPLETED_NUMBER": return "the required largest/smallest completed number";
-    default: return "the valid missing digit values";
+    case "EXTREMUM_COMPLETED_NUMBER": return "the extreme completed number";
+    default: return "the valid missing digits";
   }
 }
 
@@ -96,10 +96,10 @@ function pairGoal(
 ): string {
   switch (state.projection) {
     case "UNIQUE_VALID_ORDERED_PAIR": return "the unique ordered pair";
-    case "VALID_ORDERED_PAIR_COUNT": return "the number of valid ordered pairs";
+    case "VALID_ORDERED_PAIR_COUNT": return "counting valid ordered pairs";
     case "COMPLETE_VALID_ORDERED_PAIR_SET": return "the complete ordered-pair set";
-    case "PAIR_SOLUTION_CLASS": return "whether the system has none, one or multiple ordered-pair solutions";
-    default: return "the valid ordered-pair solutions";
+    case "PAIR_SOLUTION_CLASS": return "classifying the number of ordered-pair solutions";
+    default: return "the ordered-pair solutions";
   }
 }
 
@@ -108,62 +108,62 @@ function directConcept(
 ): string {
   const target = state.requestedPolarity === "DIVISIBLE" ? "divisor" : "non-divisor";
   const rules = state.divisorOptions.map((value) => compactRule(Number(value))).join(", ");
-  return `This question tests ${target} selection for ${math(formatInteger(state.number))}: ${rules}. Each option must pass its own complete divisibility test.`;
+  return `This question tests ${target} selection for ${math(formatInteger(state.number))}: ${rules}. Composite options must pass every component rule.`;
 }
 
 function singleConcept(
   state: Extract<NumCp003RetainedHiddenState, { kind: "SINGLE_DIGIT_CANDIDATE_SET" }>,
 ): string {
   const rules = state.divisors.map((value) => templateRule(state.template, Number(value))).join("; ");
-  return `This question tests ${singleGoal(state)} in ${math(state.template)}: ${rules}. Apply all stated divisibility conditions together.`;
+  return `This question tests ${singleGoal(state)} in ${math(state.template)}: ${rules}. Apply all conditions together.`;
 }
 
 function pairConcept(
   state: Extract<NumCp003RetainedHiddenState, { kind: "ORDERED_PAIR_CANDIDATE_SET" }>,
 ): string {
   const rules = state.divisors.map((value) => templateRule(state.template, Number(value))).join("; ");
-  const relation = state.relation?.kind === "DIGIT_SUM" ? `; also ${math(`X+Y=${state.relation.value}`)}` : "";
-  return `This question tests ${pairGoal(state)} in ${math(state.template)}: ${rules}${relation}. The positions of ${math("X")} and ${math("Y")} are distinct.`;
+  const relation = state.relation?.kind === "DIGIT_SUM" ? `; ${math(`X+Y=${state.relation.value}`)}` : "";
+  return `This question tests ${pairGoal(state)} in ${math(state.template)}: ${rules}${relation}. ${math("(X,Y)")} is ordered.`;
 }
 
 function boundaryConcept(
   state: Extract<NumCp003RetainedHiddenState, { kind: "DIGIT_BOUND_MULTIPLE" }>,
 ): string {
   const boundary = state.direction === "LEAST" ? state.lowerBoundary : state.upperBoundary;
-  const move = state.direction === "LEAST" ? "move upward by the remainder complement" : "move downward by the remainder";
-  return `This question tests the ${state.direction.toLowerCase()} ${state.digits}-digit multiple of ${math(state.divisor)}: start at boundary ${math(formatInteger(boundary))} and ${move}.`;
+  const move = state.direction === "LEAST" ? "add the remainder complement" : "subtract the remainder";
+  return `This question tests the ${state.direction.toLowerCase()} ${state.digits}-digit multiple of ${math(state.divisor)}: start at ${math(formatInteger(boundary))} and ${move}.`;
 }
 
 function rangeConcept(
   state: Extract<NumCp003RetainedHiddenState, { kind: "ONE_DIVISOR_RANGE" }>,
 ): string {
-  return `This question tests inclusive counting of multiples of ${math(state.divisor)} from ${math(formatInteger(state.lower))} to ${math(formatInteger(state.upper))}; both endpoints must be handled correctly.`;
+  return `This question tests inclusive counting of multiples of ${math(state.divisor)} from ${math(formatInteger(state.lower))} to ${math(formatInteger(state.upper))}, with both endpoints handled correctly.`;
 }
 
 function repeatedConcept(
   state: Extract<NumCp003RetainedHiddenState, { kind: "IMPLICIT_REPEATED_NUMERAL" }>,
 ): string {
-  return `This question tests repeated-block place value: first form the numeral by writing block ${math(state.block)} exactly ${state.repeats} times, then apply divisibility rules to that number.`;
+  return `This question tests repeated-block place value: write ${math(state.block)} exactly ${state.repeats} times to form one numeral, then test that numeral for divisibility.`;
 }
 
 function linkedConcept(
   state: Extract<NumCp003RetainedHiddenState, { kind: "LINKED_ARITHMETIC_DIVISIBILITY" }>,
 ): string {
   const target = state.direction === "LARGEST" ? "largest" : "smallest";
-  return `This question tests linked digit reconstruction: ${math(state.sourcePattern)} + ${math(formatInteger(state.addend))} must match ${math(state.resultPattern)}, and the result must be divisible by ${math(state.divisor)}; then choose the ${target} ${math("A")}.`;
+  return `This question tests linked digits: ${math(state.sourcePattern)} + ${math(formatInteger(state.addend))} = ${math(state.resultPattern)}, and the result must be divisible by ${math(state.divisor)}; then choose the ${target} ${math("A")}.`;
 }
 
 function dsConcept(
   state: Extract<NumCp003RetainedHiddenState, { kind: "DATA_SUFFICIENCY" }>,
 ): string {
-  return `This question tests data sufficiency for the missing digit in ${math(state.template)}: judge each statement separately by whether it determines exactly one value of ${math("X")}, then combine only if needed.`;
+  return `This question tests data sufficiency in ${math(state.template)}: a statement is sufficient only if it alone fixes one value of ${math("X")}; combine statements only if required.`;
 }
 
 function claimConcept(
   state: Extract<NumCp003RetainedHiddenState, { kind: "CLAIM_VALIDATION" }>,
 ): string {
   const requested = state.requestedPolarity === "CORRECT" ? "correct" : "incorrect";
-  return `This question tests claim verification: check whether each stated divisible/not-divisible claim matches the actual divisibility result, then select the ${requested} statement.`;
+  return `This question tests claim verification: compare each stated divisible/not-divisible claim with the actual divisibility result, then select the ${requested} statement.`;
 }
 
 export function buildNumCp003QuestionSpecificConcept(state: NumCp003RetainedHiddenState): string {
