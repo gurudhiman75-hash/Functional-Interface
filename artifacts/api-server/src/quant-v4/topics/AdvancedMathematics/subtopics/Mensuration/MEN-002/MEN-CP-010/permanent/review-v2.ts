@@ -52,20 +52,6 @@ function candidatesForPosition(qlId: QlId, targetPosition: number) {
   return candidates;
 }
 
-function allCandidates(qlId: QlId) {
-  const seen = new Set<string>();
-  const all: MenCp010ExamReadyEnglishQuestion[] = [];
-  for (let position = 0; position < 4; position += 1) {
-    for (const q of candidatesForPosition(qlId, position)) {
-      const identity = `${q.sourceId}|${q.stem}`;
-      if (seen.has(identity)) continue;
-      seen.add(identity);
-      all.push(q);
-    }
-  }
-  return all;
-}
-
 function requiredHumanSourceCount(declaredCount: number) {
   return Math.min(2, declaredCount);
 }
@@ -83,13 +69,28 @@ function chooseBest(
   );
 }
 
-function buildForQl(qlId: QlId) {
+function positionOrder(extraPositionCounts: readonly number[], qlIndex: number, extraIndex: number) {
+  return [0, 1, 2, 3].sort((a, b) => {
+    const countDelta = extraPositionCounts[a]! - extraPositionCounts[b]!;
+    if (countDelta !== 0) return countDelta;
+    const aRank = (a - qlIndex - extraIndex + 8) % 4;
+    const bRank = (b - qlIndex - extraIndex + 8) % 4;
+    return aRank - bRank;
+  });
+}
+
+function buildForQl(
+  qlId: QlId,
+  qlIndex: number,
+  extraPositionCounts: number[],
+) {
   const selected: MenCp010ExamReadyEnglishQuestion[] = [];
   const usedStems = new Set<string>();
   const usedSources = new Set<string>();
   const declared = [...new Set(DECLARED_BY_QL.get(qlId) ?? [])];
   const requiredSourceCount = requiredHumanSourceCount(declared.length);
 
+  // First four records guarantee one A/B/C/D example for every permanent QL.
   for (let targetPosition = 0; targetPosition < 4; targetPosition += 1) {
     const q = chooseBest(candidatesForPosition(qlId, targetPosition), usedSources, usedStems);
     if (!q) throw new Error(`Cannot select V2 answer-position review state for ${qlId}/${targetPosition}`);
@@ -98,13 +99,27 @@ function buildForQl(qlId: QlId) {
     usedStems.add(q.stem);
   }
 
-  const pool = allCandidates(qlId);
-  while (selected.length < 8) {
-    const q = chooseBest(pool, usedSources, usedStems);
-    if (!q) throw new Error(`Cannot reach 8 distinct V2 review states for ${qlId}; reached ${selected.length}`);
-    selected.push(q);
-    usedSources.add(q.sourceId);
-    usedStems.add(q.stem);
+  // The remaining four maximize content breadth while keeping the setter
+  // artifact globally balanced. Position is a preference, not a per-QL quota:
+  // if a preferred position has insufficient distinct states, another position
+  // is used rather than repeating a stem.
+  for (let extraIndex = 0; extraIndex < 4; extraIndex += 1) {
+    let selectedExtra: MenCp010ExamReadyEnglishQuestion | null = null;
+    let selectedPosition = -1;
+    for (const position of positionOrder(extraPositionCounts, qlIndex, extraIndex)) {
+      const candidate = chooseBest(candidatesForPosition(qlId, position), usedSources, usedStems);
+      if (!candidate) continue;
+      selectedExtra = candidate;
+      selectedPosition = position;
+      break;
+    }
+    if (!selectedExtra || selectedPosition < 0) {
+      throw new Error(`Cannot reach 8 distinct V2 review states for ${qlId}; reached ${selected.length}`);
+    }
+    selected.push(selectedExtra);
+    usedSources.add(selectedExtra.sourceId);
+    usedStems.add(selectedExtra.stem);
+    extraPositionCounts[selectedPosition] = (extraPositionCounts[selectedPosition] ?? 0) + 1;
   }
 
   if (usedSources.size < requiredSourceCount) {
@@ -114,7 +129,9 @@ function buildForQl(qlId: QlId) {
 }
 
 export function buildMenCp010ExamRealismReviewV2() {
-  return MEN_CP_010_PERMANENT_ALLOCATION.flatMap((allocation) => buildForQl(allocation.qlId));
+  const extraPositionCounts = [0, 0, 0, 0];
+  return MEN_CP_010_PERMANENT_ALLOCATION.flatMap((allocation, qlIndex) =>
+    buildForQl(allocation.qlId, qlIndex, extraPositionCounts));
 }
 
 export function auditMenCp010ExamRealismReviewV2() {
@@ -153,9 +170,15 @@ export function auditMenCp010ExamRealismReviewV2() {
     const work = q.explanation.steps.find((step) => step.title === "Substitute and calculate")?.body ?? "";
     return work.includes(q.answer) && /[=×√]/.test(work);
   });
-  const noGenericCrossTermTrapOnPyramid = examRecords
+  // Match the mathematical cross-term token only. The old `/Rr/i` pattern
+  // falsely matched ordinary words containing `rr`, such as "correct".
+  const irrelevantPyramidTrapRecords = examRecords
     .filter((q) => q.sourceId.includes("PYRAMID"))
-    .every((q) => !q.explanation.traps.some((trap) => /Rr|mixed frustum/i.test(trap)));
+    .filter((q) => q.explanation.traps.some((trap) => /\bRr\b|mixed frustum/i.test(trap)))
+    .map((q) => ({ qlId: q.permanentQlId, sourceId: q.sourceId, traps: q.explanation.traps }));
+  const noGenericCrossTermTrapOnPyramid = irrelevantPyramidTrapRecords.length === 0;
+  const maxPositionCount = Math.max(...positions);
+  const minPositionCount = Math.min(...positions);
 
   return {
     authority: MEN_CP_010_EXAM_REALISM_REVIEW_V2_AUTHORITY,
@@ -163,6 +186,7 @@ export function auditMenCp010ExamRealismReviewV2() {
     permanentQlCount: new Set(records.map((q) => q.permanentQlId)).size,
     recordsPerQl: records.length / MEN_CP_010_PERMANENT_ALLOCATION.length,
     correctPositions: { A: positions[0], B: positions[1], C: positions[2], D: positions[3] },
+    answerPositionSpread: maxPositionCount - minPositionCount,
     everyQlHasAllFourPositions: MEN_CP_010_PERMANENT_ALLOCATION.every((allocation) => {
       const slice = records.filter((q) => q.permanentQlId === allocation.qlId);
       return new Set(slice.map((q) => q.correctIndex)).size === 4;
@@ -178,6 +202,7 @@ export function auditMenCp010ExamRealismReviewV2() {
     cleanSscFrustumArithmetic,
     multiStepWorked,
     noGenericCrossTermTrapOnPyramid,
+    irrelevantPyramidTrapRecords,
     sourceCoverage,
     productLocked: records.every((q) =>
       !q.active &&
