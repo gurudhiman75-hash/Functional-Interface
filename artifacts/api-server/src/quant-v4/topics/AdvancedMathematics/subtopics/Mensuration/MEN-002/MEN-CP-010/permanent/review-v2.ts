@@ -29,7 +29,7 @@ function candidatesForPosition(qlId: QlId, targetPosition: number) {
 
   const candidates: MenCp010ExamReadyEnglishQuestion[] = [];
   const seen = new Set<string>();
-  for (let attempt = targetPosition; attempt < 8192 && candidates.length < 512; attempt += 4) {
+  for (let attempt = targetPosition; attempt < 4096 && candidates.length < 256; attempt += 4) {
     const suffix = String(attempt).padStart(5, "0");
     const seeds = [
       `exam-v2-review-${qlId}-${targetPosition}-${suffix}`,
@@ -42,7 +42,7 @@ function candidatesForPosition(qlId: QlId, targetPosition: number) {
       if (seen.has(identity)) continue;
       seen.add(identity);
       candidates.push(q);
-      if (candidates.length >= 512) break;
+      if (candidates.length >= 256) break;
     }
   }
   if (!candidates.length) throw new Error(`No V2 review candidates for ${qlId} at position ${targetPosition}`);
@@ -50,10 +50,35 @@ function candidatesForPosition(qlId: QlId, targetPosition: number) {
   return candidates;
 }
 
+function allCandidates(qlId: QlId) {
+  const seen = new Set<string>();
+  const all: MenCp010ExamReadyEnglishQuestion[] = [];
+  for (let position = 0; position < 4; position += 1) {
+    for (const q of candidatesForPosition(qlId, position)) {
+      const identity = `${q.sourceId}|${q.stem}`;
+      if (seen.has(identity)) continue;
+      seen.add(identity);
+      all.push(q);
+    }
+  }
+  return all;
+}
+
 function requiredHumanSourceCount(declaredCount: number) {
-  // The machine freeze proof exercises every declared source. Human review
-  // requires at least two distinct representations plus every named exam source.
   return Math.min(2, declaredCount);
+}
+
+function chooseBest(
+  candidates: readonly MenCp010ExamReadyEnglishQuestion[],
+  usedSources: Set<string>,
+  usedStems: Set<string>,
+) {
+  return (
+    candidates.find((q) => EXAM_SOURCE_IDS.has(q.sourceId) && !usedSources.has(q.sourceId) && !usedStems.has(q.stem)) ??
+    candidates.find((q) => !usedSources.has(q.sourceId) && !usedStems.has(q.stem)) ??
+    candidates.find((q) => !usedStems.has(q.stem)) ??
+    null
+  );
 }
 
 function buildForQl(qlId: QlId) {
@@ -63,22 +88,24 @@ function buildForQl(qlId: QlId) {
   const declared = [...new Set(DECLARED_BY_QL.get(qlId) ?? [])];
   const requiredSourceCount = requiredHumanSourceCount(declared.length);
 
-  for (let round = 0; round < 2; round += 1) {
-    for (let targetPosition = 0; targetPosition < 4; targetPosition += 1) {
-      const candidates = candidatesForPosition(qlId, targetPosition);
-      const unrepresentedExam = candidates.find((q) =>
-        EXAM_SOURCE_IDS.has(q.sourceId) && !usedSources.has(q.sourceId) && !usedStems.has(q.stem),
-      );
-      const unrepresentedAny = candidates.find((q) =>
-        !usedSources.has(q.sourceId) && !usedStems.has(q.stem),
-      );
-      const distinct = candidates.find((q) => !usedStems.has(q.stem));
-      const q = unrepresentedExam ?? unrepresentedAny ?? distinct;
-      if (!q) throw new Error(`Cannot select V2 review state for ${qlId}/${targetPosition}/${round}`);
-      selected.push(q);
-      usedSources.add(q.sourceId);
-      usedStems.add(q.stem);
-    }
+  // First four records guarantee one A/B/C/D example for every permanent QL.
+  for (let targetPosition = 0; targetPosition < 4; targetPosition += 1) {
+    const q = chooseBest(candidatesForPosition(qlId, targetPosition), usedSources, usedStems);
+    if (!q) throw new Error(`Cannot select V2 answer-position review state for ${qlId}/${targetPosition}`);
+    selected.push(q);
+    usedSources.add(q.sourceId);
+    usedStems.add(q.stem);
+  }
+
+  // Next four records maximize distinct exam/source/state breadth without
+  // imposing another artificial A/B/C/D cycle. Machine proof handles that.
+  const pool = allCandidates(qlId);
+  while (selected.length < 8) {
+    const q = chooseBest(pool, usedSources, usedStems);
+    if (!q) throw new Error(`Cannot reach 8 distinct V2 review states for ${qlId}; reached ${selected.length}`);
+    selected.push(q);
+    usedSources.add(q.sourceId);
+    usedStems.add(q.stem);
   }
 
   if (usedSources.size < requiredSourceCount) {
@@ -137,6 +164,10 @@ export function auditMenCp010ExamRealismReviewV2() {
     permanentQlCount: new Set(records.map((q) => q.permanentQlId)).size,
     recordsPerQl: records.length / MEN_CP_010_PERMANENT_ALLOCATION.length,
     correctPositions: { A: positions[0], B: positions[1], C: positions[2], D: positions[3] },
+    everyQlHasAllFourPositions: MEN_CP_010_PERMANENT_ALLOCATION.every((allocation) => {
+      const slice = records.filter((q) => q.permanentQlId === allocation.qlId);
+      return new Set(slice.map((q) => q.correctIndex)).size === 4;
+    }),
     allVerified: records.every((q) => q.verification.valid),
     allFourOptions: records.every((q) => q.options.length === 4),
     allUniqueOptions: records.every((q) => new Set(q.options.map((o) => o.display)).size === 4),
