@@ -5,6 +5,7 @@ import {
   spatialSceneSemanticFingerprint,
   transformSceneByRequestedOperation,
   validateSpatialOptionUniqueness,
+  type SpatialNode,
   type SpatialTransformProofQuestion,
 } from "../foundation/spatial";
 import { validateSpatialPerceptualOptionUniquenessV2 } from "../foundation/spatial/gap-question-perceptual-v2";
@@ -45,13 +46,32 @@ function assertLifecycleLocked(question: SpatialTransformProofQuestion): void {
   assert.equal(question.lifecycle.publiclyPublishable, false);
 }
 
+function nodeBounds(node: SpatialNode | undefined): [number, number, number, number] | null {
+  if (!node) return null;
+  if (node.kind === "circle" || node.kind === "arc") {
+    return [
+      node.center.x - node.radius,
+      node.center.y - node.radius,
+      node.center.x + node.radius,
+      node.center.y + node.radius,
+    ];
+  }
+  const points = node.kind === "line" ? [node.start, node.end] : node.points;
+  return [
+    Math.min(...points.map((point) => point.x)),
+    Math.min(...points.map((point) => point.y)),
+    Math.max(...points.map((point) => point.x)),
+    Math.max(...points.map((point) => point.y)),
+  ];
+}
+
 function assertPremiumMirrorDistractor(question: SpatialTransformProofQuestion): void {
   const correct = question.options.find((option) => option.label === "CORRECT_REFLECTION");
   const premium = question.options.find(
-    (option) => option.label === "OUTER_SHAPE_CORRECT_INNER_ORIENTATION_WRONG",
+    (option) => option.label === "OUTER_SHAPE_CORRECT_INNER_PROPERTY_WRONG",
   );
   assert(correct, "Mirror question is missing the correct option.");
-  assert(premium, "Mirror question is missing the outer-matched premium distractor.");
+  assert(premium, "Mirror question is missing the strict inner-property distractor.");
 
   const correctById = new Map(correct.scene.nodes.map((node) => [node.id, node] as const));
   const premiumById = new Map(premium.scene.nodes.map((node) => [node.id, node] as const));
@@ -60,23 +80,25 @@ function assertPremiumMirrorDistractor(question: SpatialTransformProofQuestion):
     .map((node) => node.id);
 
   assert.deepEqual(
-    premiumById.get("primary-shape"),
-    correctById.get("primary-shape"),
-    "Premium MIR distractor must preserve the correct mirrored outer/main shape exactly.",
+    changedNodeIds,
+    ["secondary-shape"],
+    `Premium MIR distractor must change only the internal secondary feature; changed ${changedNodeIds.join(",")}.`,
   );
+  for (const protectedNodeId of ["primary-shape", "marker", "orientation-mark"] as const) {
+    assert.deepEqual(
+      premiumById.get(protectedNodeId),
+      correctById.get(protectedNodeId),
+      `Premium MIR distractor must preserve '${protectedNodeId}' exactly.`,
+    );
+  }
+
+  const correctSecondary = correctById.get("secondary-shape");
+  const premiumSecondary = premiumById.get("secondary-shape");
+  assert(correctSecondary && premiumSecondary);
   assert.deepEqual(
-    premiumById.get("marker"),
-    correctById.get("marker"),
-    "Premium MIR distractor must not move the marker while changing the inner orientation.",
-  );
-  assert.equal(
-    changedNodeIds.length,
-    1,
-    `Premium MIR distractor must change exactly one inner node; changed ${changedNodeIds.join(",")}.`,
-  );
-  assert(
-    changedNodeIds[0] === "orientation-mark" || changedNodeIds[0] === "secondary-shape",
-    `Premium MIR distractor changed unexpected node '${changedNodeIds[0]}'.`,
+    nodeBounds(premiumSecondary),
+    nodeBounds(correctSecondary),
+    "The changed inner feature must keep the exact same footprint; only its internal property/orientation may change.",
   );
   assert.notEqual(
     spatialSceneSemanticFingerprint(correct.scene),
@@ -116,7 +138,7 @@ function assertQuestion(
     ? [
         "AXIS_CONFUSION",
         "CORRECT_REFLECTION",
-        "OUTER_SHAPE_CORRECT_INNER_ORIENTATION_WRONG",
+        "OUTER_SHAPE_CORRECT_INNER_PROPERTY_WRONG",
         "ROTATION_SUBSTITUTED_FOR_REFLECTION",
       ]
     : [
@@ -233,8 +255,9 @@ console.log(
         independentTransformSolve: true,
         fourUniqueOptions: true,
         misconceptionOwnership: true,
-        mirrorOuterMatchedPremiumDistractor: true,
-        mirrorExactlyOneInnerOrientationChanged: true,
+        mirrorOuterFigureByteIdentical: true,
+        mirrorOnlySecondaryInnerFeatureChanged: true,
+        mirrorInnerFeatureFootprintUnchanged: true,
         mirrorPremiumDistractorPerceptuallyDistinct: true,
         balancedAnswerPositions: true,
         explanationEvidence: true,
