@@ -19,6 +19,7 @@ import {
   diversifyMenCp010ScalingOverlayV2,
 } from "./exam-realism-scaling-diversity-v2";
 import { polishMenCp010EditorialPresentationV2 } from "./exam-realism-editorial-polish-v2";
+import { polishMenCp010FrustumTsaDisplayV2 } from "./exam-realism-surface-polish-v2";
 
 export const MEN_CP_010_PERMANENT_ENGLISH_RUNTIME_V3_AUTHORITY =
   "MEN-CP010-PERMANENT-ENGLISH-RUNTIME-V3-EXAM-REALISM" as const;
@@ -76,7 +77,8 @@ export function generateMenCp010ExamReadyEnglishQuestion(
         verification: overlay.verification,
       }
     : base;
-  const question = polishMenCp010EditorialPresentationV2(rawQuestion);
+  const editorialQuestion = polishMenCp010EditorialPresentationV2(rawQuestion);
+  const question = polishMenCp010FrustumTsaDisplayV2(editorialQuestion);
 
   if (
     !question.verification.valid ||
