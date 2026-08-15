@@ -1,0 +1,117 @@
+name: Validate INT-CP-005 Variable Growth Decay V14 Freeze
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp005-variable-growth-decay-v14-frozen.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v14-freeze-audit.ts"
+      - ".github/workflows/int-cp005-variable-growth-decay-v14-freeze.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: int-cp005-variable-growth-decay-v14-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp005-variable-growth-decay-v14-freeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle hardened V10 baseline
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v10-release-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp005-variable-growth-decay-v10-release-audit.mjs
+      - name: Run hardened V10 baseline
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp005-variable-growth-decay-v10-release-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp005-variable-growth-decay-v10-release-audit.log
+      - name: Bundle V11 localization baseline
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v11-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp005-variable-growth-decay-v11-audit.mjs
+      - name: Run V11 localization baseline
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp005-variable-growth-decay-v11-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp005-variable-growth-decay-v11-audit.log
+      - name: Bundle V14 final authority audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v14-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp005-variable-growth-decay-v14-audit.mjs
+      - name: Run V14 final authority audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp005-variable-growth-decay-v14-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp005-variable-growth-decay-v14-audit.log
+      - name: Bundle V14 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v14-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp005-variable-growth-decay-v14-review-export.mjs
+      - name: Export V14 multilingual review packs
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp005-variable-growth-decay-v14-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp005-variable-growth-decay-v14-review-export.log
+      - name: Bundle V14 immutable freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v14-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp005-variable-growth-decay-v14-freeze-audit.mjs
+      - name: Run V14 immutable freeze audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp005-variable-growth-decay-v14-freeze-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp005-variable-growth-decay-v14-freeze-audit.log
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Verify V14 freeze evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          grep -q 'PASS_INT_CP005_VARIABLE_GROWTH_DECAY_V10_RELEASE' artifacts/api-server/dist/quant-v4/int-001-cp005-variable-growth-decay-v10-release-audit.log
+          grep -q 'PASS_INT_CP005_VARIABLE_GROWTH_DECAY_V11' artifacts/api-server/dist/quant-v4/int-001-cp005-variable-growth-decay-v11-audit.log
+          grep -q 'PASS_INT_CP005_VARIABLE_GROWTH_DECAY_V14' artifacts/api-server/dist/quant-v4/int-001-cp005-variable-growth-decay-v14-audit.log
+          grep -q 'PASS_INT_CP005_VARIABLE_GROWTH_DECAY_V14_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp005-variable-growth-decay-v14-review-export.log
+          grep -q 'PASS_INT_CP005_VARIABLE_GROWTH_DECAY_V14_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp005-variable-growth-decay-v14-freeze-audit.log
+      - name: Upload V14 freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp005-variable-growth-decay-v14-freeze-evidence
+          path: |
+            artifacts/api-server/dist/quant-v4/int-cp005-review-v14
+            artifacts/api-server/dist/quant-v4/int-001-cp005-variable-growth-decay-v10-release-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp005-variable-growth-decay-v11-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp005-variable-growth-decay-v14-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp005-variable-growth-decay-v14-review-export.log
+            artifacts/api-server/dist/quant-v4/int-001-cp005-variable-growth-decay-v14-freeze-audit.log
+          retention-days: 30
