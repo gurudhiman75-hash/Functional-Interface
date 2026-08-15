@@ -65,6 +65,7 @@ export function finalizeTmwCp013MultilingualEditorialReview(question: any, langu
 
   return {
     ...question,
+    classValue: question.canonicalClass,
     stem: polishTerms(question.stem, language),
     explanation: {
       ...explanation,
