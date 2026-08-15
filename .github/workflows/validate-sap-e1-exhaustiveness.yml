@@ -66,5 +66,9 @@ jobs:
         run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-R4-MIXED-SYNTHESIS-AUTHORITY.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e2-r4-synthesis.mjs
       - name: Run E2 R4 mixed-synthesis authority
         run: node artifacts/api-server/dist/quant-v4/sap-e2-r4-synthesis.mjs
+      - name: Bundle E2 R5 presentation semantics authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-R5-PRESENTATION-AUTHORITY.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e2-r5-presentation.mjs
+      - name: Run E2 R5 presentation semantics authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e2-r5-presentation.mjs
 
 # E1/E2 remain review-only; no lifecycle changes are performed by this workflow.
