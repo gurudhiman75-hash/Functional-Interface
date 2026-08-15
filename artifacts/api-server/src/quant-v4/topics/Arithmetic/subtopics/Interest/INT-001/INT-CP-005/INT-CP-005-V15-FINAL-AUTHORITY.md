@@ -5,12 +5,13 @@
 - Final runtime: `INT-CP-005-VARIABLE-GROWTH-DECAY-v15`
 - Immutable freeze: `INT-CP-005-EN-HI-PA-v15-frozen`
 - Locales: `en-IN`, `hi-IN`, `pa-IN`
-- Final validated source head: `93dad8b2455c5255ad2fdc5542710c3f63f9d69d`
-- V15 validation run: `31865877872` — PASS
-- Review/freeze artifact: `9242007125`
-- Artifact digest: `sha256:1f01c8ef22e0a7810505d3675b9a728cbb21048eaf94ee5dcef070117338ba50`
-- Render production build run: `31865877853` — PASS
-- Integrated admin/student run: `31865877888` — PASS
+- Approved learner-source head: `93dad8b2455c5255ad2fdc5542710c3f63f9d69d`
+- Final PR validation head: `2e5ddb6b5e5b0ff1cc956df20e1959cb59d6f512`
+- Final V15 validation run: `31866119559` — PASS
+- Final review/freeze artifact: `9242051486`
+- Final artifact digest: `sha256:ac5a603842abd2ffac74ee422d2a929e7438fe578eb21aee4b2b00a7669c1a10`
+- Final Render production build run: `31866119604` — PASS
+- Final integrated admin/student run: `31866119578` — PASS
 
 ## V15 manual-review remediation
 
