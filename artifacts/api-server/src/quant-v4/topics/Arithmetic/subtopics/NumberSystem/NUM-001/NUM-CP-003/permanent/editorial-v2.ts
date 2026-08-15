@@ -53,23 +53,41 @@ export type NumCp003EditorialV2Question = Omit<NumCp003PermanentQuestion, Replac
   readonly allocationStatus: "EDITORIAL_V2_CONTROLLED_REVIEW";
 };
 
+function humaniseLearnerWording(value: string): string {
+  return value
+    .replace(/\bIn this question,?\s*/giu, "")
+    .replace(/\bCompute or infer\b/giu, "Find")
+    .replace(/\bExact testing leaves\b/giu, "Checking gives")
+    .replace(/\badmissible domain\b/giu, "possible digit range")
+    .replace(/\badmissible\b/giu, "possible")
+    .replace(/\bcandidate[- ]set\b/giu, "possible values")
+    .replace(/\bcardinality\b/giu, "number of values")
+    .replace(/\bremainder status\b/giu, "remainder")
+    .replace(/\btopology\b/giu, "pattern")
+    .replace(/\buniversal guarantee\b/giu, "always-true result");
+}
+
 function cleanInline(value: unknown): string {
   return latexifyNumCp003LearnerText(
-    String(value ?? "")
-      .replace(/\*\*/gu, "")
-      .replace(/[ \t]+/gu, " ")
-      .trim(),
+    humaniseLearnerWording(
+      String(value ?? "")
+        .replace(/\*\*/gu, "")
+        .replace(/[ \t]+/gu, " ")
+        .trim(),
+    ),
   );
 }
 
 function cleanStem(value: unknown): string {
   return latexifyNumCp003LearnerText(
-    String(value ?? "")
-      .replace(/\*\*/gu, "")
-      .split("\n")
-      .map((line) => line.replace(/[ \t]+/gu, " ").trimEnd())
-      .join("\n")
-      .trim(),
+    humaniseLearnerWording(
+      String(value ?? "")
+        .replace(/\*\*/gu, "")
+        .split("\n")
+        .map((line) => line.replace(/[ \t]+/gu, " ").trimEnd())
+        .join("\n")
+        .trim(),
+    ),
   );
 }
 
