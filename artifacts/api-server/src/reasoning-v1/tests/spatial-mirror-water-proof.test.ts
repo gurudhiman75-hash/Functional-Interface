@@ -65,6 +65,35 @@ function nodeBounds(node: SpatialNode | undefined): [number, number, number, num
   ];
 }
 
+function nodePoints(node: SpatialNode): Array<{ x: number; y: number }> | null {
+  if (node.kind === "line") return [node.start, node.end];
+  if (node.kind === "polygon" || node.kind === "polyline") return node.points;
+  return null;
+}
+
+function pointSetDistance(left: SpatialNode, right: SpatialNode): number | null {
+  const leftPoints = nodePoints(left);
+  const rightPoints = nodePoints(right);
+  if (!leftPoints || !rightPoints) return null;
+  const directed = (
+    from: Array<{ x: number; y: number }>,
+    to: Array<{ x: number; y: number }>,
+  ): number =>
+    Math.max(
+      ...from.map((point) =>
+        Math.min(
+          ...to.map((other) =>
+            Math.hypot(point.x - other.x, point.y - other.y),
+          ),
+        ),
+      ),
+    );
+  return Math.max(
+    directed(leftPoints, rightPoints),
+    directed(rightPoints, leftPoints),
+  );
+}
+
 function assertPremiumMirrorDistractor(question: SpatialTransformProofQuestion): void {
   const correct = question.options.find((option) => option.label === "CORRECT_REFLECTION");
   const premium = question.options.find(
@@ -100,6 +129,23 @@ function assertPremiumMirrorDistractor(question: SpatialTransformProofQuestion):
     nodeBounds(correctSecondary),
     "The changed inner feature must keep the exact same footprint; only its internal property/orientation may change.",
   );
+
+  const geometricSeparation = pointSetDistance(correctSecondary, premiumSecondary);
+  if (geometricSeparation !== null) {
+    assert(
+      geometricSeparation >= 6,
+      `Premium MIR inner outline is too visually similar (${geometricSeparation.toFixed(2)} SVG units); require at least 6.`,
+    );
+  } else {
+    assert.equal(correctSecondary.kind, "circle");
+    assert.equal(premiumSecondary.kind, "circle");
+    assert.notEqual(
+      correctSecondary.style?.fill ?? "none",
+      premiumSecondary.style?.fill ?? "none",
+      "Circular inner-feature distractor must change a clearly visible fill property.",
+    );
+  }
+
   assert.notEqual(
     spatialSceneSemanticFingerprint(correct.scene),
     spatialSceneSemanticFingerprint(premium.scene),
@@ -258,6 +304,7 @@ console.log(
         mirrorOuterFigureByteIdentical: true,
         mirrorOnlySecondaryInnerFeatureChanged: true,
         mirrorInnerFeatureFootprintUnchanged: true,
+        mirrorInnerOutlineMinimumSixUnitSeparation: true,
         mirrorPremiumDistractorPerceptuallyDistinct: true,
         balancedAnswerPositions: true,
         explanationEvidence: true,
