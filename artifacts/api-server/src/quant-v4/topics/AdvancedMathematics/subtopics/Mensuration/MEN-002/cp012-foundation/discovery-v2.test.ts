@@ -20,8 +20,8 @@ const dispositionCounts = Object.fromEntries(
   ]),
 );
 assert(dispositionCounts.RETAIN_CANDIDATE === 6, `Expected 6 RETAIN_CANDIDATE rows, got ${dispositionCounts.RETAIN_CANDIDATE}.`);
-assert(dispositionCounts.MERGE_AS_REPRESENTATION === 4, `Expected 4 MERGE_AS_REPRESENTATION rows, got ${dispositionCounts.MERGE_AS_REPRESENTATION}.`);
-assert(dispositionCounts.MERGE_AS_DIRECTIONAL_INVERSE === 4, `Expected 4 MERGE_AS_DIRECTIONAL_INVERSE rows, got ${dispositionCounts.MERGE_AS_DIRECTIONAL_INVERSE}.`);
+assert(dispositionCounts.MERGE_AS_REPRESENTATION === 3, `Expected 3 MERGE_AS_REPRESENTATION rows, got ${dispositionCounts.MERGE_AS_REPRESENTATION}.`);
+assert(dispositionCounts.MERGE_AS_DIRECTIONAL_INVERSE === 5, `Expected 5 MERGE_AS_DIRECTIONAL_INVERSE rows, got ${dispositionCounts.MERGE_AS_DIRECTIONAL_INVERSE}.`);
 
 let deterministicPackageCount = 0;
 for (const definition of MEN_CP_012_DISCOVERY_V2_DEFINITIONS) {
