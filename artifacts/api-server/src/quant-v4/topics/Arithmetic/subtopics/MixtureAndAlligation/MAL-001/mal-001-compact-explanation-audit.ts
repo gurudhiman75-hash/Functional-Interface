@@ -30,6 +30,30 @@ function visibleLines(question: any): string[] {
   return stringArray(explanation.steps);
 }
 
+function count(value: string, token: string): number {
+  return value.split(token).length - 1;
+}
+
+function assertMathWellFormed(qlId: string, seed: string, line: string): void {
+  if (line.startsWith("[[EXAMTREE_ALLIGATION_SVG_V1:")) return;
+  assert(
+    count(line, "{") === count(line, "}"),
+    `${qlId}/${seed}: unbalanced MathJax braces in '${line}'.`,
+  );
+  assert(
+    count(line, "\\[") === count(line, "\\]"),
+    `${qlId}/${seed}: unbalanced display-MathJax delimiters in '${line}'.`,
+  );
+  assert(
+    count(line, "\\(") === count(line, "\\)"),
+    `${qlId}/${seed}: unbalanced inline-MathJax delimiters in '${line}'.`,
+  );
+  assert(
+    !/\\frac\{[^{}]*\{\\,\\text\{(?:kg|litres?)\}\}\{/u.test(line),
+    `${qlId}/${seed}: malformed unit embedded inside a fraction numerator.`,
+  );
+}
+
 const CP001_ALLIGATION_PRIMARY = new Set([
   "MAL-QL-001",
   "MAL-QL-005",
@@ -63,6 +87,7 @@ const forbiddenClutter = [
 ];
 
 let generated = 0;
+let mathSurfaceChecks = 0;
 let alligationPrimaryChecks = 0;
 let selectiveCp004AlligationChecks = 0;
 const samplesPerQl = 20;
@@ -103,12 +128,17 @@ for (const allocation of allocations) {
         `${allocation.qlId}/${seed}: learner explanation contains clutter ${pattern}.`,
       );
     }
+    for (const line of lines) {
+      assertMathWellFormed(allocation.qlId, seed, line);
+      mathSurfaceChecks += 1;
+    }
 
     if (CP001_ALLIGATION_PRIMARY.has(allocation.qlId)) {
       assert(
         lines.some((line) => line.startsWith("[[EXAMTREE_ALLIGATION_SVG_V1:")),
         `${allocation.qlId}/${seed}: primary alligation visual is missing.`,
       );
+      assert(lines.length >= 3, `${allocation.qlId}/${seed}: alligation explanation is too terse.`);
       assert(lines.length <= 4, `${allocation.qlId}/${seed}: alligation solution is not compact.`);
       alligationPrimaryChecks += 1;
     }
@@ -137,6 +167,7 @@ console.log(JSON.stringify({
   permanentQls: 67,
   samplesPerQl,
   generated,
+  mathSurfaceChecks,
   cp001AlligationPrimaryQls: [...CP001_ALLIGATION_PRIMARY],
   cp001AlligationPrimaryChecks: alligationPrimaryChecks,
   cp004SelectiveAlligationQls: ["MAL-QL-041", "MAL-QL-042"],
