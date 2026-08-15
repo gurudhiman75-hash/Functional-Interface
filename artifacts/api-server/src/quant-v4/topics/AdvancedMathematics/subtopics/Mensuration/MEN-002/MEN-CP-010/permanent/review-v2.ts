@@ -23,14 +23,20 @@ const EXAM_SOURCE_IDS = new Set(listMenCp010ExamRealismSourcesV2().map((row) => 
 function candidatesForPosition(qlId: QlId, targetPosition: number) {
   const candidates: MenCp010ExamReadyEnglishQuestion[] = [];
   const seen = new Set<string>();
-  for (let attempt = targetPosition; attempt < 16384 && candidates.length < 512; attempt += 4) {
-    const seed = `exam-v2-review-${qlId}-${targetPosition}-${String(attempt).padStart(5, "0")}`;
-    const q = generateMenCp010ExamReadyEnglishQuestion(qlId, seed);
-    if (q.correctIndex !== targetPosition) continue;
-    const identity = `${q.sourceId}|${q.stem}`;
-    if (seen.has(identity)) continue;
-    seen.add(identity);
-    candidates.push(q);
+  for (let attempt = targetPosition; attempt < 16384 && candidates.length < 768; attempt += 4) {
+    const suffix = String(attempt).padStart(5, "0");
+    const seeds = [
+      `exam-v2-review-${qlId}-${targetPosition}-${suffix}`,
+      `review-v2-base-${qlId}-${targetPosition}-${suffix}`,
+    ];
+    for (const seed of seeds) {
+      const q = generateMenCp010ExamReadyEnglishQuestion(qlId, seed);
+      if (q.correctIndex !== targetPosition) continue;
+      const identity = `${q.sourceId}|${q.stem}`;
+      if (seen.has(identity)) continue;
+      seen.add(identity);
+      candidates.push(q);
+    }
   }
   if (!candidates.length) throw new Error(`No V2 review candidates for ${qlId} at position ${targetPosition}`);
   return candidates;
@@ -61,18 +67,13 @@ function buildForQl(qlId: QlId) {
     }
   }
 
-  // If greedy answer-position selection missed a declared source, swap within
-  // the same answer position so A/B/C/D balance is preserved.
   for (const sourceId of declared) {
-    if (usedSources.size >= requiredSourceCount && usedSources.has(sourceId)) continue;
     if (usedSources.has(sourceId)) continue;
     let swapped = false;
     for (let index = 0; index < selected.length && !swapped; index += 1) {
       const current = selected[index]!;
       const candidates = candidatesForPosition(qlId, current.correctIndex);
-      const replacement = candidates.find((q) =>
-        q.sourceId === sourceId && !usedStems.has(q.stem),
-      );
+      const replacement = candidates.find((q) => q.sourceId === sourceId && !usedStems.has(q.stem));
       if (!replacement) continue;
       const currentSourceStillUsed = selected.some((q, i) => i !== index && q.sourceId === current.sourceId);
       if (!currentSourceStillUsed && usedSources.size >= requiredSourceCount) continue;
@@ -116,7 +117,7 @@ export function auditMenCp010ExamRealismReviewV2() {
   });
 
   const pi314 = records.filter((q) => q.stem.includes("π = 3.14"));
-  const decimalPiTeachingCorrect = pi314.every((q) => {
+  const decimalPiTeachingCorrect = pi314.length > 0 && pi314.every((q) => {
     const work = q.explanation.steps.find((step) => step.title === "Substitute and calculate")?.body ?? "";
     return work.includes("3.14") && !/\bV = 3 ×/.test(work);
   });
@@ -139,7 +140,7 @@ export function auditMenCp010ExamRealismReviewV2() {
     return work.includes(q.answer) && /[=×√]/.test(work);
   });
   const noGenericCrossTermTrapOnPyramid = examRecords
-    .filter((q) => q.permanentQlId.startsWith("MEN-002-QL-") && q.sourceId.includes("PYRAMID"))
+    .filter((q) => q.sourceId.includes("PYRAMID"))
     .every((q) => !q.explanation.traps.some((trap) => /Rr|mixed frustum/i.test(trap)));
 
   return {
