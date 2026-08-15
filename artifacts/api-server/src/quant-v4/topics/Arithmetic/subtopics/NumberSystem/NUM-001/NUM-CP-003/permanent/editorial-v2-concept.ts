@@ -163,7 +163,7 @@ function claimConcept(
   state: Extract<NumCp003RetainedHiddenState, { kind: "CLAIM_VALIDATION" }>,
 ): string {
   const requested = state.requestedPolarity === "CORRECT" ? "correct" : "incorrect";
-  return `This question tests claim verification: compare each stated divisible/not-divisible claim with the actual divisibility result, then select the ${requested} statement.`;
+  return `This question tests checking divisibility claims: compare each stated divisible/not-divisible claim with the actual result, then select the ${requested} statement.`;
 }
 
 export function buildNumCp003QuestionSpecificConcept(state: NumCp003RetainedHiddenState): string {
