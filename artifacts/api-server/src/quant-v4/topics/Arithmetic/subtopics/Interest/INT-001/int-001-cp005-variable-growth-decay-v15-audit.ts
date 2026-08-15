@@ -8,35 +8,14 @@ import {
 } from "./cp005-variable-growth-decay-runtime-v15";
 
 const LOCALES = Object.freeze(["en-IN", "hi-IN", "pa-IN"] as const satisfies readonly IntCp005Locale[]);
-
-function stable(value: unknown): string {
-  return JSON.stringify(value, (_key, item) => typeof item === "bigint" ? `${item}n` : item);
-}
-
+function stable(value: unknown): string { return JSON.stringify(value, (_key, item) => typeof item === "bigint" ? `${item}n` : item); }
 function abs(value: bigint): bigint { return value < 0n ? -value : value; }
-function gcd(a: bigint, b: bigint): bigint {
-  a = abs(a); b = abs(b);
-  while (b !== 0n) [a, b] = [b, a % b];
-  return a || 1n;
-}
+function gcd(a: bigint, b: bigint): bigint { a = abs(a); b = abs(b); while (b !== 0n) [a, b] = [b, a % b]; return a || 1n; }
+function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
 
-function assert(condition: unknown, message: string): asserts condition {
-  if (!condition) throw new Error(message);
-}
-
-let questions = 0;
-let parityChecks = 0;
-let verifierChecks = 0;
-let realismChecks = 0;
-let lifecycleChecks = 0;
-let wrapperChecks = 0;
-let thresholdStates = 0;
-const thresholdInitial = new Set<string>();
-const thresholdFinal = new Set<string>();
-const thresholdRates = new Set<string>();
-const thresholdYears = new Set<number>();
-const thresholdDirections = new Set<string>();
-const thresholdTopologies = new Set<string>();
+let questions = 0, parityChecks = 0, verifierChecks = 0, realismChecks = 0, lifecycleChecks = 0, wrapperChecks = 0, thresholdStates = 0;
+const thresholdInitial = new Set<string>(), thresholdFinal = new Set<string>(), thresholdRates = new Set<string>();
+const thresholdYears = new Set<number>(), thresholdDirections = new Set<string>(), thresholdTopologies = new Set<string>();
 
 for (const qlId of INT_CP005_QL_IDS) {
   for (let index = 0; index < 100; index += 1) {
@@ -46,7 +25,6 @@ for (const qlId of INT_CP005_QL_IDS) {
       const replay = generateIntCp005QuestionV15(qlId, seed, locale);
       assert(stable(current) === stable(replay), `${qlId}/${seed}/${locale}: non-deterministic V15 replay`);
       questions += 1;
-
       assert(current.runtimeVersion === INT_CP005_RUNTIME_VERSION_V15, `${qlId}/${seed}/${locale}: wrong runtime version`);
       assert(verifyIntCp005Answer(current.mathematicalState, current.solution), `${qlId}/${seed}/${locale}: independent verifier failed`);
       verifierChecks += 1;
@@ -75,38 +53,33 @@ for (const qlId of INT_CP005_QL_IDS) {
         const previous = generateIntCp005QuestionV14(qlId, seed, locale);
         assert(current.solution.numerator === previous.solution.numerator && current.solution.denominator === previous.solution.denominator, `${qlId}/${seed}/${locale}: threshold solution changed`);
         assert(current.correctIndex === previous.correctIndex, `${qlId}/${seed}/${locale}: threshold correct index changed`);
-        assert(stable(current.options) === stable(previous.options), `${qlId}/${seed}/${locale}: threshold options changed`);
+        assert(current.options.length === previous.options.length, `${qlId}/${seed}/${locale}: threshold option count changed`);
+        current.options.forEach((option, optionIndex) => {
+          const old = previous.options[optionIndex]!;
+          assert(option.value.numerator === old.value.numerator && option.value.denominator === old.value.denominator, `${qlId}/${seed}/${locale}: threshold option value changed`);
+          assert(option.misconceptionId === old.misconceptionId && option.isCorrect === old.isCorrect, `${qlId}/${seed}/${locale}: threshold option ownership changed`);
+          if (locale === "en-IN") {
+            const year = Number(option.value.numerator);
+            assert(option.text === `${year} ${year === 1 ? "year" : "years"}`, `${qlId}/${seed}: English year-option grammar is wrong`);
+          }
+        });
         assert(state.rate.numerator === previous.mathematicalState.rate.numerator && state.rate.denominator === previous.mathematicalState.rate.denominator, `${qlId}/${seed}/${locale}: threshold rate changed`);
         assert(state.targetYear === previous.mathematicalState.targetYear && state.direction === previous.mathematicalState.direction, `${qlId}/${seed}/${locale}: threshold topology changed`);
         thresholdStates += 1;
-        thresholdInitial.add(`${state.initial.numerator}`);
-        thresholdFinal.add(`${state.threshold.numerator}`);
+        thresholdInitial.add(`${state.initial.numerator}`); thresholdFinal.add(`${state.threshold.numerator}`);
         const rateKey = `${state.rate.numerator}/${state.rate.denominator}`;
-        thresholdRates.add(rateKey);
-        thresholdYears.add(state.targetYear);
-        thresholdDirections.add(state.direction);
+        thresholdRates.add(rateKey); thresholdYears.add(state.targetYear); thresholdDirections.add(state.direction);
         thresholdTopologies.add(`${state.direction}|${rateKey}|${state.targetYear}`);
-        realismChecks += 12;
+        realismChecks += 16;
       }
 
       assert(current.options.length === 4, `${qlId}/${seed}/${locale}: option count changed`);
       assert(current.options.filter((option) => option.isCorrect).length === 1, `${qlId}/${seed}/${locale}: correct-option ownership failed`);
       assert(current.correctAnswer === current.options[current.correctIndex]!.text, `${qlId}/${seed}/${locale}: correct answer mismatch`);
-      assert(!current.enabled, `${qlId}/${seed}/${locale}: enabled unexpectedly`);
-      assert(current.stagingStatus === "NOT_STAGED", `${qlId}/${seed}/${locale}: staged unexpectedly`);
-      assert(current.registrationStatus === "NOT_REGISTERED", `${qlId}/${seed}/${locale}: registered unexpectedly`);
-      assert(!current.questionStudioDiscoverable, `${qlId}/${seed}/${locale}: Question Studio opened unexpectedly`);
-      assert(current.questionBankStatus === "NOT_STORED", `${qlId}/${seed}/${locale}: Question Bank opened unexpectedly`);
-      assert(current.testEligibility === "INELIGIBLE", `${qlId}/${seed}/${locale}: test eligibility opened unexpectedly`);
-      assert(!current.publiclyPublishable, `${qlId}/${seed}/${locale}: public delivery opened unexpectedly`);
+      assert(!current.enabled && current.stagingStatus === "NOT_STAGED" && current.registrationStatus === "NOT_REGISTERED", `${qlId}/${seed}/${locale}: lifecycle opened unexpectedly`);
+      assert(!current.questionStudioDiscoverable && current.questionBankStatus === "NOT_STORED" && current.testEligibility === "INELIGIBLE" && !current.publiclyPublishable, `${qlId}/${seed}/${locale}: delivery opened unexpectedly`);
       lifecycleChecks += 7;
-
-      const learner = [
-        current.presentation.markdown,
-        current.explanation.keyIdea,
-        ...current.explanation.steps,
-        current.explanation.commonMistake ?? "",
-      ].join("\n");
+      const learner = [current.presentation.markdown, current.explanation.keyIdea, ...current.explanation.steps, current.explanation.commonMistake ?? ""].join("\n");
       assert(!/\$[^\n]*\$/u.test(learner), `${qlId}/${seed}/${locale}: dollar MathJax delimiter reached V15 learner content`);
       assert(!/(?:^|[^\\])[=×÷−^]/u.test(learner.replace(/\\\([^]*?\\\)/gu, "")), `${qlId}/${seed}/${locale}: raw math leaked outside Examtree wrappers`);
       wrapperChecks += 1;
@@ -120,22 +93,5 @@ assert(thresholdRates.size >= 8, "INT-QL-093/V15: rate diversity regressed");
 assert(thresholdTopologies.size >= 20, "INT-QL-093/V15: genuine threshold topology diversity regressed");
 assert(thresholdInitial.size >= 8 && thresholdFinal.size >= 8, "INT-QL-093/V15: normalized threshold value diversity regressed");
 
-console.log(JSON.stringify({
-  runtimeVersion: INT_CP005_RUNTIME_VERSION_V15,
-  qls: INT_CP005_QL_IDS.length,
-  questions,
-  perLocale: questions / LOCALES.length,
-  parityChecks,
-  verifierChecks,
-  realismChecks,
-  lifecycleChecks,
-  wrapperChecks,
-  thresholdStates,
-  thresholdDirections: [...thresholdDirections].sort(),
-  thresholdYears: [...thresholdYears].sort(),
-  thresholdRates: thresholdRates.size,
-  thresholdTopologies: thresholdTopologies.size,
-  thresholdInitialValues: thresholdInitial.size,
-  thresholdFinalValues: thresholdFinal.size,
-}, null, 2));
+console.log(JSON.stringify({ runtimeVersion: INT_CP005_RUNTIME_VERSION_V15, qls: INT_CP005_QL_IDS.length, questions, perLocale: questions / LOCALES.length, parityChecks, verifierChecks, realismChecks, lifecycleChecks, wrapperChecks, thresholdStates, thresholdDirections: [...thresholdDirections].sort(), thresholdYears: [...thresholdYears].sort(), thresholdRates: thresholdRates.size, thresholdTopologies: thresholdTopologies.size, thresholdInitialValues: thresholdInitial.size, thresholdFinalValues: thresholdFinal.size }, null, 2));
 console.log("PASS_INT_CP005_VARIABLE_GROWTH_DECAY_V15");
