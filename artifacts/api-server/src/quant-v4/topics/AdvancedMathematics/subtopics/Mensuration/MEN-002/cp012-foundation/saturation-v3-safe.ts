@@ -130,6 +130,81 @@ function directRatioState(id:MenCp012SaturationV3Id,seed:string,position:number)
     return polishTeaching({...base,options:rebuildOptions(base,position)});
   }
 
+  if(id==="V3-UNEQUAL-SPHERES-TO-SPHERE-RADIUS"){
+    const triples=[[3,4,5,6],[1,6,8,9]] as const;
+    const triple=triples[variant%triples.length]!;
+    const scale=1+(Math.floor(variant/triples.length)%5);
+    const a=triple[0]*scale,b=triple[1]*scale,c=triple[2]*scale,R=triple[3]*scale;
+    const answer=`${R} cm`;
+    const stem=`Three solid metal spheres of radii ${a} cm, ${b} cm and ${c} cm are melted together and recast into one sphere. Find the radius of the new sphere.`;
+    const work=`R³ = ${a}³+${b}³+${c}³ = ${R*R*R}, hence R = ${R} cm.`;
+    const base:MenCp012SaturationQuestion={
+      authority:MEN_CP_012_SATURATION_V3_AUTHORITY,id,cluster:definition.cluster,disposition:definition.disposition,evidence:definition.evidence,seed,
+      stem,answer,options:[],correctIndex:position,
+      explanation:{steps:[
+        {title:"Add the source volumes",body:`The common (4/3)π factor cancels, so add ${a}³+${b}³+${c}³.`},
+        {title:"Recover the target radius",body:work},
+        {title:"Keep the cubic relation",body:"The new radius is the cube root of the sum of the three radius-cubes; do not add the radii."},
+        {title:"Check the target",body:`The new sphere radius is ${answer}.`},
+      ],traps:[]},verification:{valid:R*R*R===a*a*a+b*b*b+c*c*c,method:"exact combined-sphere cube-volume identity"},approximation:false,
+      permanentQlId:null,questionStudioDiscoverable:false,publiclyPublishable:false,
+    };
+    return polishTeaching({...base,options:rebuildOptions(base,position)});
+  }
+
+  if(id==="V3-COINS-DIAMETER-THICKNESS-TO-CUBOID-COUNT"){
+    const patterns=[
+      {d:3.5,tmm:4,l:21,b:11,h:7,n:420},
+      {d:7,tmm:2,l:11,b:7,h:10,n:100},
+      {d:7,tmm:4,l:22,b:7,h:10,n:100},
+    ] as const;
+    const p=patterns[variant%patterns.length]!;
+    const scale=1+(Math.floor(variant/patterns.length)%4);
+    const d=p.d*scale,tmm=p.tmm*scale,l=p.l*scale,b=p.b*scale,h=p.h*scale;
+    const r=d/2,t=tmm/10,coin=(22/7)*r*r*t,cuboid=l*b*h,calc=cuboid/coin;
+    const answer=`${p.n} coins`;
+    const stem=`Silver coins are ${tidy(d)} cm in diameter and ${tidy(tmm)} mm thick. How many such coins must be melted to form a cuboid of dimensions ${tidy(l)} cm × ${tidy(b)} cm × ${tidy(h)} cm? Use π = 22/7.`;
+    const work=`Thickness = ${tidy(t)} cm and radius = ${tidy(r)} cm. One coin volume = (22/7)×${tidy(r)}²×${tidy(t)} = ${tidy(coin)} cm³; cuboid volume = ${tidy(cuboid)} cm³; count = ${p.n}.`;
+    const base:MenCp012SaturationQuestion={
+      authority:MEN_CP_012_SATURATION_V3_AUTHORITY,id,cluster:definition.cluster,disposition:definition.disposition,evidence:definition.evidence,seed,
+      stem,answer,options:[],correctIndex:position,
+      explanation:{steps:[
+        {title:"Convert the coin thickness",body:`${tidy(tmm)} mm = ${tidy(t)} cm.`},
+        {title:"Find one coin and cuboid volume",body:work},
+        {title:"Form the count",body:"Number of coins = cuboid volume ÷ one coin volume."},
+        {title:"Check the target",body:`The required count is ${answer}.`},
+      ],traps:[]},verification:{valid:Math.abs(calc-p.n)<1e-8,method:"scaled coin-cylinder to cuboid volume count"},approximation:false,
+      permanentQlId:null,questionStudioDiscoverable:false,publiclyPublishable:false,
+    };
+    return polishTeaching({...base,options:rebuildOptions(base,position)});
+  }
+
+  if(id==="V3-COINS-CIRCUMFERENCE-THICKNESS-TO-CUBOID-COUNT"){
+    const patterns=[
+      {C:5.5,tmm:2,l:14,b:11,h:8,n:2560},
+      {C:11,tmm:4,l:21,b:11,h:7,n:420},
+    ] as const;
+    const p=patterns[variant%patterns.length]!;
+    const scale=1+(Math.floor(variant/patterns.length)%5);
+    const C=p.C*scale,tmm=p.tmm*scale,l=p.l*scale,b=p.b*scale,h=p.h*scale;
+    const r=C*7/44,t=tmm/10,coin=(22/7)*r*r*t,cuboid=l*b*h,calc=cuboid/coin;
+    const answer=`${p.n} coins`;
+    const stem=`Each silver coin has circumference ${tidy(C)} cm and thickness ${tidy(tmm)} mm. How many coins must be melted to form a cuboid ${tidy(l)} cm × ${tidy(b)} cm × ${tidy(h)} cm? Use π = 22/7.`;
+    const work=`From 2πr=${tidy(C)}, r=${tidy(r)} cm. Thickness=${tidy(t)} cm. One coin volume=${tidy(coin)} cm³ and cuboid volume=${tidy(cuboid)} cm³, so count=${p.n}.`;
+    const base:MenCp012SaturationQuestion={
+      authority:MEN_CP_012_SATURATION_V3_AUTHORITY,id,cluster:definition.cluster,disposition:definition.disposition,evidence:definition.evidence,seed,
+      stem,answer,options:[],correctIndex:position,
+      explanation:{steps:[
+        {title:"Recover radius and convert thickness",body:`Use 2πr=${tidy(C)} and ${tidy(tmm)} mm = ${tidy(t)} cm.`},
+        {title:"Find material volumes",body:work},
+        {title:"Form the count",body:"Divide the cuboid volume by one coin's cylindrical volume."},
+        {title:"Check the target",body:`The required count is ${answer}.`},
+      ],traps:[]},verification:{valid:Math.abs(calc-p.n)<1e-7,method:"scaled circumference-to-radius coin volume count"},approximation:false,
+      permanentQlId:null,questionStudioDiscoverable:false,publiclyPublishable:false,
+    };
+    return polishTeaching({...base,options:rebuildOptions(base,position)});
+  }
+
   return null;
 }
 
