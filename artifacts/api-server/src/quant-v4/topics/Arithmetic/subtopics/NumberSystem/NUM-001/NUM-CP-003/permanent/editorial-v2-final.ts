@@ -1,5 +1,6 @@
 import type { NumCp003RetainedHiddenState } from "../retained/runtime-types";
 import type { NumCp003PermanentQlId } from "./allocation";
+import { buildNumCp003QuestionSpecificConcept } from "./editorial-v2-concept";
 import {
   NUM_CP003_EDITORIAL_V2_RELEASE,
   runNumCp003EditorialV2,
@@ -81,10 +82,12 @@ function refineQuestion(question: NumCp003EditorialV2Question): NumCp003Editoria
   if (solution.length < 2 || solution.length > 4) {
     throw new Error(`${question.permanentQlId}/${question.seed}: final V2 solution must contain 2-4 lines`);
   }
+  const concept = buildNumCp003QuestionSpecificConcept(question.hiddenState);
   return Object.freeze({
     ...question,
     explanation: Object.freeze({
       ...question.explanation,
+      concept,
       solution,
     }),
   });
