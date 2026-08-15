@@ -32,6 +32,10 @@ function formatInteger(value: bigint | number): string {
     : Math.trunc(value).toLocaleString("en-IN");
 }
 
+function pairMath(pair: readonly [number, number]): string {
+  return math(`(${pair[0]}, ${pair[1]})`);
+}
+
 function pairSetMath(pairs: ReadonlyArray<readonly [number, number]>): string {
   if (pairs.length === 0) return math("\\varnothing");
   return math(`\\{${pairs.map(([x, y]) => `(${x}, ${y})`).join(", ")}\\}`);
@@ -144,11 +148,6 @@ function primitivePhrase(template: string, divisor: number): string {
     return `the last three digits ${math(suffix3)} must be divisible by ${math("8")}`;
   }
 
-  if (divisor === 9) {
-    const form = digitSumForm(template);
-    return `the digit sum ${math(`${form.expanded} = ${form.simplified}`)} must be a multiple of ${math("9")}`;
-  }
-
   if (divisor === 10) {
     if (/^\d$/u.test(last)) {
       return last === "0"
@@ -196,7 +195,7 @@ function exactVerification(state: OrderedPairState): string | null {
   const relation = state.relation
     ? ` and ${math(`${x} + ${y} = ${state.relation.value}`)}`
     : "";
-  return `With ${math(`(X, Y) = (${x}, ${y})`)}, ${checks.join(" and ")} are exact${relation}.`;
+  return `With ${math(`(X, Y) = (${x}, ${y})`)}, ${checks.join(" and ")} ${checks.length === 1 ? "is" : "are"} exact${relation}.`;
 }
 
 function noSolutionReason(state: OrderedPairState): string | null {
@@ -245,7 +244,7 @@ function outcomeSummary(state: OrderedPairState): string {
   const validSet = pairSetMath(state.validPairs);
   switch (state.projection) {
     case "UNIQUE_VALID_ORDERED_PAIR":
-      return `The only valid ordered pair is ${pairSetMath([state.validPairs[0]!])}.`;
+      return `The only valid ordered pair is ${pairMath(state.validPairs[0]!)}.`;
     case "VALID_ORDERED_PAIR_COUNT":
       return `The valid ordered pairs are ${validSet}, so the count is ${math(String(state.validPairs.length))}.`;
     case "COMPLETE_VALID_ORDERED_PAIR_SET":
@@ -253,7 +252,7 @@ function outcomeSummary(state: OrderedPairState): string {
     case "PAIR_SOLUTION_CLASS": {
       const count = state.validPairs.length;
       if (count === 0) return "No ordered pair satisfies every condition, so there is no solution.";
-      if (count === 1) return `The only valid ordered pair is ${validSet}, so there is exactly one solution.`;
+      if (count === 1) return `The only valid ordered pair is ${pairMath(state.validPairs[0]!)}; therefore there is exactly one solution.`;
       return `The valid ordered pairs are ${validSet}, so there are ${math(String(count))} solutions.`;
     }
     default:
