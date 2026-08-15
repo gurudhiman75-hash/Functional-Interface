@@ -54,13 +54,18 @@ function assertMathWellFormed(qlId: string, seed: string, line: string): void {
   );
 }
 
-const CP001_ALLIGATION_PRIMARY = new Set([
+const CP001_DUAL_METHOD_QLS = new Set([
   "MAL-QL-001",
   "MAL-QL-005",
   "MAL-QL-006",
   "MAL-QL-007",
   "MAL-QL-009",
   "MAL-QL-010",
+]);
+
+const CP004_DUAL_METHOD_QLS = new Set([
+  "MAL-QL-041",
+  "MAL-QL-042",
 ]);
 
 const allocations = [
@@ -76,8 +81,6 @@ assert(allocations.length === 67, `Expected 67 QLs, received ${allocations.lengt
 
 const forbiddenClutter = [
   /Core Concept/i,
-  /Method\s*1/i,
-  /Method\s*2/i,
   /Step-by-Step Solution/i,
   /Quick check\s*:/i,
   /Final answer\s*:/i,
@@ -88,14 +91,13 @@ const forbiddenClutter = [
 
 let generated = 0;
 let mathSurfaceChecks = 0;
-let alligationPrimaryChecks = 0;
-let selectiveCp004AlligationChecks = 0;
+let cp001DualMethodChecks = 0;
+let cp004DualMethodChecks = 0;
 const samplesPerQl = 20;
-const maxVisibleLines = 4;
 
 for (const allocation of allocations) {
   for (let index = 0; index < samplesPerQl; index += 1) {
-    const seed = `mal-001-compact-explanation:${allocation.qlId}:${index}`;
+    const seed = `mal-001-dual-method-explanation:${allocation.qlId}:${index}`;
     const question = allocation.cpId === "MAL-CP-006"
       ? runMalCp006EnglishReviewPipeline({
           questionLanguageId: allocation.qlId as never,
@@ -110,10 +112,68 @@ for (const allocation of allocations) {
 
     const lines = visibleLines(question);
     assert(lines.length >= 1, `${allocation.qlId}/${seed}: no learner-visible explanation.`);
-    assert(
-      lines.length <= maxVisibleLines,
-      `${allocation.qlId}/${seed}: ${lines.length} visible lines exceeds compact limit ${maxVisibleLines}.`,
-    );
+
+    const isCp001Dual = CP001_DUAL_METHOD_QLS.has(allocation.qlId);
+    const isCp004Dual = CP004_DUAL_METHOD_QLS.has(allocation.qlId);
+    const isDual = isCp001Dual || isCp004Dual;
+
+    if (isDual) {
+      assert(
+        lines[0] === "Method 1 — Simple Method",
+        `${allocation.qlId}/${seed}: dual-method explanation must start with the simple method.`,
+      );
+      const method2Index = lines.indexOf("Method 2 — Alligation Cross");
+      assert(
+        method2Index >= 3,
+        `${allocation.qlId}/${seed}: alligation method is missing or the simple method is too thin.`,
+      );
+      assert(
+        lines.length - method2Index >= 3,
+        `${allocation.qlId}/${seed}: alligation method needs a cross plus explanatory calculation.`,
+      );
+      assert(
+        lines.length <= 11,
+        `${allocation.qlId}/${seed}: ${lines.length} lines exceed the dual-method limit of 11.`,
+      );
+
+      const alligationLines = lines.slice(method2Index + 1);
+      if (isCp001Dual) {
+        assert(
+          alligationLines.some((line) => line.startsWith("[[EXAMTREE_ALLIGATION_SVG_V1:")),
+          `${allocation.qlId}/${seed}: CP001 alligation cross visual is missing.`,
+        );
+        cp001DualMethodChecks += 1;
+      }
+      if (isCp004Dual) {
+        assert(
+          alligationLines.some((line) => /[╲╱]/u.test(line)),
+          `${allocation.qlId}/${seed}: CP004 alligation cross is missing.`,
+        );
+        assert(
+          alligationLines.some((line) => /ratio|=/.test(line)),
+          `${allocation.qlId}/${seed}: CP004 alligation ratio/calculation is missing.`,
+        );
+        cp004DualMethodChecks += 1;
+      }
+    } else if (allocation.cpId !== "MAL-CP-006") {
+      assert(
+        lines[0] === "Simple Method",
+        `${allocation.qlId}/${seed}: non-alligation learner explanation should use one clear simple method.`,
+      );
+      assert(
+        lines.length >= 2 && lines.length <= 6,
+        `${allocation.qlId}/${seed}: simple explanation should contain 1-5 working lines.`,
+      );
+      assert(
+        !lines.some((line) => /Alligation Cross/i.test(line)),
+        `${allocation.qlId}/${seed}: alligation was forced into a non-natural family.`,
+      );
+    } else {
+      assert(
+        lines.length >= 1 && lines.length <= 4,
+        `${allocation.qlId}/${seed}: CP006 review solution should remain 1-4 natural transfer lines.`,
+      );
+    }
 
     const learnerExplanation = lines.join("\n");
     for (const pattern of forbiddenClutter) {
@@ -127,43 +187,23 @@ for (const allocation of allocations) {
       mathSurfaceChecks += 1;
     }
 
-    if (CP001_ALLIGATION_PRIMARY.has(allocation.qlId)) {
-      assert(
-        lines.some((line) => line.startsWith("[[EXAMTREE_ALLIGATION_SVG_V1:")),
-        `${allocation.qlId}/${seed}: primary alligation visual is missing.`,
-      );
-      assert(lines.length >= 3, `${allocation.qlId}/${seed}: alligation explanation is too terse.`);
-      alligationPrimaryChecks += 1;
-    }
-
-    if (allocation.qlId === "MAL-QL-041" || allocation.qlId === "MAL-QL-042") {
-      const serialized = JSON.stringify(question, (_key, value) =>
-        typeof value === "bigint" ? `${value}n` : value,
-      );
-      assert(
-        /alligation/i.test(serialized),
-        `${allocation.qlId}/${seed}: selective CP004 alligation help was lost.`,
-      );
-      selectiveCp004AlligationChecks += 1;
-    }
-
     generated += 1;
   }
 }
 
-assert(generated === 1340, `Expected 1,340 compact-explanation checks, received ${generated}.`);
-assert(alligationPrimaryChecks === 120, `Expected 120 CP001 alligation checks, received ${alligationPrimaryChecks}.`);
-assert(selectiveCp004AlligationChecks === 40, `Expected 40 CP004 selective-alligation checks, received ${selectiveCp004AlligationChecks}.`);
+assert(generated === 1340, `Expected 1,340 explanation checks, received ${generated}.`);
+assert(cp001DualMethodChecks === 120, `Expected 120 CP001 dual-method checks, received ${cp001DualMethodChecks}.`);
+assert(cp004DualMethodChecks === 40, `Expected 40 CP004 dual-method checks, received ${cp004DualMethodChecks}.`);
 
 console.log(JSON.stringify({
-  status: "PASS_MAL_001_COMPACT_EXPLANATION_V1",
+  status: "PASS_MAL_001_DUAL_METHOD_EXPLANATION_V2",
   permanentQls: 67,
   samplesPerQl,
   generated,
-  maxVisibleLines,
   mathSurfaceChecks,
-  cp001AlligationPrimaryQls: [...CP001_ALLIGATION_PRIMARY],
-  cp001AlligationPrimaryChecks: alligationPrimaryChecks,
-  cp004SelectiveAlligationQls: ["MAL-QL-041", "MAL-QL-042"],
-  cp004SelectiveAlligationChecks: selectiveCp004AlligationChecks,
+  cp001DualMethodQls: [...CP001_DUAL_METHOD_QLS],
+  cp001DualMethodChecks,
+  cp004DualMethodQls: [...CP004_DUAL_METHOD_QLS],
+  cp004DualMethodChecks,
+  policy: "Simple method first; alligation cross second only where mathematically natural.",
 }, null, 2));
