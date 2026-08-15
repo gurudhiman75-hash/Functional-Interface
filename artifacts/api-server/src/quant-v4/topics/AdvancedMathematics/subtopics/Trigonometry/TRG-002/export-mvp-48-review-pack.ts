@@ -122,9 +122,7 @@ function diagramSvg(question: any) {
   const segments = diagram.segments.map((segment: any) => segmentSvg(segment, points)).join("\n");
   const measurementArrows = (diagram.measurementArrows ?? []).map((arrow: any) => measurementArrowSvg(arrow, points)).join("\n");
   const dimensionEndpointKeys = new Set<string>(
-    (diagram.measurementArrows ?? [])
-      .filter((arrow: any) => arrow.kind === "TOTAL_HEIGHT")
-      .map((arrow: any) => endpointKey(arrow.fromPointId, arrow.toPointId)),
+    (diagram.measurementArrows ?? []).map((arrow: any) => endpointKey(arrow.fromPointId, arrow.toPointId)),
   );
   const annotations = (question.solutionAnnotations ?? [])
     .filter((annotation: any) => !dimensionEndpointKeys.has(endpointKey(annotation.fromPointId, annotation.toPointId)))
