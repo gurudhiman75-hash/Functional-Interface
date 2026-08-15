@@ -140,9 +140,9 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
     const target = state.points.find((point) => point.id === observation.targetPointId);
     const observerObject = state.verticalObjects.find((object) => object.topPointId === observation.eyePointId);
     const targetObject = state.verticalObjects.find((object) => object.topPointId === observation.targetPointId);
-    const targetLevelId = `target-level-${observation.id}`;
-    const targetLevel = points.find((point) => point.id === targetLevelId);
-    if (!eye || !target || !observerObject || !targetObject || !targetLevel) continue;
+    const eyeLevelId = `eye-level-${observation.id}`;
+    const eyeLevel = points.find((point) => point.id === eyeLevelId);
+    if (!eye || !target || !observerObject || !targetObject || !eyeLevel) continue;
 
     const observerBase = state.points.find((point) => point.id === observerObject.basePointId);
     const targetBase = state.points.find((point) => point.id === targetObject.basePointId);
@@ -154,7 +154,6 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
     if (eyeY <= targetY + 1e-9 || Math.abs(observerBaseY - targetBaseY) > 1e-9) continue;
 
     const targetOnRight = exactToNumber(target.x) >= exactToNumber(eye.x);
-    const observerSide = targetOnRight ? "RIGHT" as const : "LEFT" as const;
     const targetSide = targetOnRight ? "LEFT" as const : "RIGHT" as const;
     const drop = subtractExact(eye.y, target.y);
 
@@ -166,32 +165,23 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
         label: lengthLabel(state, targetObject.height),
         side: targetSide,
         lane: 0,
-        kind: "TOTAL_HEIGHT",
-      },
-      {
-        id: `height-arrow-observer-lower-${observation.id}`,
-        fromPointId: observerObject.basePointId,
-        toPointId: targetLevelId,
-        label: lengthLabel(state, targetObject.height),
-        side: observerSide,
-        lane: 0,
         kind: "HEIGHT_PART",
       },
       {
-        id: `height-arrow-observer-drop-${observation.id}`,
-        fromPointId: targetLevelId,
-        toPointId: observerObject.topPointId,
+        id: `height-arrow-target-drop-${observation.id}`,
+        fromPointId: targetObject.topPointId,
+        toPointId: eyeLevelId,
         label: lengthLabel(state, drop),
-        side: observerSide,
+        side: targetSide,
         lane: 0,
         kind: "HEIGHT_DIFFERENCE",
       },
       {
-        id: `height-arrow-observer-total-${observation.id}`,
-        fromPointId: observerObject.basePointId,
-        toPointId: observerObject.topPointId,
+        id: `height-arrow-target-combined-${observation.id}`,
+        fromPointId: targetObject.basePointId,
+        toPointId: eyeLevelId,
         label: lengthLabel(state, observerObject.height),
-        side: observerSide,
+        side: targetSide,
         lane: 1,
         kind: "TOTAL_HEIGHT",
       },
