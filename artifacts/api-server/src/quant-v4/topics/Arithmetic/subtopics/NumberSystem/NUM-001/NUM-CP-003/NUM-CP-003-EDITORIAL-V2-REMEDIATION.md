@@ -2,69 +2,78 @@
 
 ## Scope
 
-This change remediates the learner-facing English surface for `NUM-CP-003` (divisibility and missing digits) while preserving the already-approved permanent mathematical identities `NUM-QL-001..NUM-QL-017`.
+This controlled review remediates the learner-facing English surface for `NUM-CP-003` while preserving the approved permanent mathematical identities `NUM-QL-001..NUM-QL-017`.
 
-The permanent allocation, hidden-state mathematics, independent answer verification, solve-mode ownership and source evidence are not changed.
+Permanent allocation, hidden-state mathematics, independent answer verification, solve-mode ownership and source evidence remain unchanged.
 
-## Why V2 is required
+## Explanation contract
 
-The older combined CP003/CP004 editorial layer still used a forced four-tier explanation structure:
+The learner-facing explanation is:
 
-- Main Rule;
-- Step-by-Step Solution;
-- Exam Speed Trick;
-- Common Traps, including one rationale per wrong option.
+1. **Concept** — state the exact inference being tested in this generated question and name the governing rule(s).
+2. **Solution** — show the decisive question-specific calculation/evidence.
+3. **Answer** — show the exact correct option.
 
-That structure is more cluttered than the later Number System editorial standard established for CP001/CP002.
+A Concept must not be a generic chapter label such as “use divisibility rules” or “the missing digit must satisfy all conditions.” It must identify the actual answer burden and reasoning rule. Examples:
+
+- unique missing digit in `X572`: suffix `72` controls divisibility by `4`, while digit sum `14 + X` controls divisibility by `9`;
+- ordered-pair count under divisibility by `36`: the question tests pair counting using the last-two-digit and digit-sum rules;
+- boundary multiple: identify whether the least/greatest `n`-digit multiple is tested and how the boundary remainder is used;
+- data sufficiency: test whether each statement alone fixes one unique digit rather than merely solving the number;
+- claim checking: compare each stated divisible/not-divisible claim with the actual arithmetic fact.
+
+Concrete arithmetic belongs in **Solution**, so Concept remains concise rather than duplicating the working.
 
 ## Editorial V2 learner model
 
-The controlled-review surface now uses only:
+- concise Concept → Solution → Answer;
+- no forced shortcut section;
+- no forced wrong-option/trap rationales;
+- natural SSC/Banking learner language;
+- question-specific calculations;
+- MathJax-safe learner mathematics;
+- 2–4 direct solution lines;
+- Concept capped at 180 characters;
+- old four-tier headings and internal engine identities banned.
 
-1. **Concept** — one short question-relevant principle;
-2. **Solution** — 2 to 4 direct working lines;
-3. **Answer** — the exact visible correct option.
+## Self-review findings remediated
 
-No shortcut or trap section is forced. No internal engine terminology is exposed.
+Generated-pack review found and fixed issues that mechanical answer validation would not catch well, including:
 
-## Question-specific working
+- generic Concepts that did not identify what the individual question tested;
+- incomplete evidence before digit/pair counts;
+- symbolic rather than substituted linked-arithmetic checks;
+- a legacy false ordered-pair explanation that showed `66 ÷ 4 = 16.5` and then called the condition satisfied;
+- verbose nested wording such as `Check 36: Check 4 and 9`;
+- cryptic composite-rule shorthand such as `36 → 4 + 9`;
+- stale fixed-suffix wording and punctuation gaps.
 
-The V2 surface uses the verified CP003 hidden state and existing deterministic teacher calculations. It retains explicit working for:
+## Final English concept-specific evidence
 
-- direct divisibility checks;
-- one missing digit;
-- two ordered missing digits;
-- divisibility by 2, 3, 4, 5, 8, 9, 11 and supported composite rules;
-- greatest/least n-digit multiples;
-- inclusive range counts;
-- repeated-block divisibility;
-- linked arithmetic and divisibility constraints;
-- data sufficiency;
-- claim validation.
+Exact head: `d16bfffd98bc910ce23a7ebc900fbcbe3b695c49`
 
-## Math rendering
+Dedicated workflow: `Validate NUM-CP-003 English Editorial V2`
 
-Legacy `$...$` spans are normalized to `\(...\)`. Common raw learner expressions such as number templates, ordered pairs, sets, assignments and arithmetic workings are wrapped in MathJax-safe inline LaTeX.
+- run: `31880969581`
+- result: **SUCCESS**
+- artifact ID: `9246008629`
+- artifact SHA-256: `ca5d971fa9e0a89a1c8fa8477f8cee275adfb45540ab76dd24922c2845870bd8`
 
-## Executable audit
+Audit coverage:
 
-The Editorial V2 audit checks 80 deterministic seeds for each of the 17 permanent QLs (1,360 generated questions) and requires:
-
-- 17/17 permanent QLs represented;
-- concise 2–4-line solutions;
-- exact answer/index agreement;
-- no legacy four-tier wording;
-- no internal identity leakage;
-- balanced inline MathJax;
-- no targeted raw-math leakage;
-- at least four distinct learner surfaces and explanations per QL;
-- all downstream lifecycle gates still closed.
-
-The audit also exports a fixed 68-question human-review pack: four diverse questions per permanent QL.
+- `1,360` generated questions (`80 × 17` permanent QLs);
+- `68` human-review questions (`4` per QL);
+- `1,358` unique learner surfaces;
+- `1,342` unique explanations;
+- `0` raw-math violations;
+- `0` legacy four-tier leaks;
+- `0` internal identity leaks;
+- retained-runtime regression PASS;
+- permanent-allocation regression PASS.
 
 ## Lifecycle boundary
 
-This is a controlled editorial review only:
+This remains controlled English review only:
 
 ```text
 active: false
@@ -74,4 +83,4 @@ testEligible: false
 publiclyPublishable: false
 ```
 
-No Question Bank, scored-test, mock-test or public release is authorized by this remediation.
+No Question Bank, scored-test, mock-test or public release is authorized. Do not merge or localize until English human review is approved.
