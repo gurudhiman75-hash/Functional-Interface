@@ -111,6 +111,14 @@ function flattenNestedInlineMath(value: string): string {
   return output;
 }
 
+function polishFixedSuffixRule(value: string): string {
+  return value.replace(
+    /Use the last-(two|three)-digit rule for \\\((\d+)\\\)\. \\\((\d+) = \3,\\quad \3 \\div \2 = ([0-9.]+)\\\) This condition is satisfied for every possible missing digit\./gu,
+    (_match, word, divisor, suffix, quotient) =>
+      `Use the last-${word}-digit rule for ${inline(String(divisor))}. The last ${word} digits are fixed at ${inline(String(suffix))}, and ${inline(`${suffix} \\div ${divisor} = ${quotient}`)}.`,
+  );
+}
+
 export function latexifyNumCp003LearnerText(value: string): string {
   const spans: string[] = [];
   let output = protectExistingMath(convertDollarMath(String(value)), spans);
@@ -125,5 +133,5 @@ export function latexifyNumCp003LearnerText(value: string): string {
   output = protectExistingMath(output, spans);
 
   output = output.replace(/NUMCP003MATH(\d+)SPAN/gu, (_match, index) => spans[Number(index)] ?? "");
-  return flattenNestedInlineMath(output);
+  return polishFixedSuffixRule(flattenNestedInlineMath(output));
 }
