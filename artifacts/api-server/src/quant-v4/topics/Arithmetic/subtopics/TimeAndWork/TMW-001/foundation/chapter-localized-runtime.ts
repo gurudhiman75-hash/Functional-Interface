@@ -47,6 +47,7 @@ import { polishTmwCp008VisibleGivens } from "./cp008-visible-givens-final-polish
 import { finalizeTmwCp009MultilingualEditorialReview } from "./cp009-multilingual-editorial-review-finalizer";
 import { finalizeTmwCp010MultilingualEditorialReview } from "./cp010-multilingual-editorial-review-finalizer";
 import { polishTmwCp010EditorialReview } from "./cp010-editorial-final-polish";
+import { applyTmw001FinalExamReadinessRemediation } from "./final-exam-readiness-remediation";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -125,7 +126,7 @@ function finishLocalized(question: any, questionLanguageId: string, language: Tm
   return finishCp007(cp006Polished, questionLanguageId, language);
 }
 
-export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
+function runTmw001ChapterPipelineBase(input: Tmw001ChapterRequest): any {
   const ordinal = qlOrdinal(input.questionLanguageId);
   const base = { questionLanguageId: input.questionLanguageId, seed: input.seed };
 
@@ -197,4 +198,12 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   return input.language === "en"
     ? finishEnglish(runTmwCp011Pipeline(input.questionLanguageId, input.seed), input.questionLanguageId)
     : finishLocalized(runTmwCp011LocalizedPipeline({ ...base, language: input.language }), input.questionLanguageId, input.language);
+}
+
+export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
+  return applyTmw001FinalExamReadinessRemediation(
+    runTmw001ChapterPipelineBase(input),
+    input.questionLanguageId,
+    input.language,
+  );
 }
