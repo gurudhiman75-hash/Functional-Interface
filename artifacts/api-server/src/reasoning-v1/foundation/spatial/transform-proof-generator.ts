@@ -205,7 +205,7 @@ function buildOuterMatchedInnerPropertyCandidate(
     ]);
     if (!perceptual.ok) continue;
     const score = innerPropertyChangeScore(original, mutated);
-    if (score < 6) continue;
+    if (score < 5) continue;
     candidates.push({ scene, score });
   }
 
