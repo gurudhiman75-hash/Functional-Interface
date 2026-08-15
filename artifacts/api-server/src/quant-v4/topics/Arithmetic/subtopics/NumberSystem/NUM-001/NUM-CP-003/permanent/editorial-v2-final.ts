@@ -22,6 +22,16 @@ function formatInteger(value: bigint): string {
   return value.toLocaleString("en-IN");
 }
 
+function polishSolutionLine(value: string): string {
+  return value
+    .replace(
+      /This condition is satisfied for every possible missing digit\./giu,
+      `This divisibility condition does not restrict ${math("X")}.`,
+    )
+    .replace(/\\\)\s+(The|This|Their|It|So)\b/gu, "\\). $1")
+    .replace(/\\\)\s+\\\(/gu, "\\). \\\(");
+}
+
 function directSolution(
   state: Extract<NumCp003RetainedHiddenState, { kind: "DIRECT_DIVISIBILITY" }>,
 ): readonly string[] {
@@ -51,16 +61,19 @@ function claimSolution(
 
 function refineSolution(question: NumCp003EditorialV2Question): readonly string[] {
   const state = question.hiddenState;
-  switch (state.kind) {
-    case "DIRECT_DIVISIBILITY":
-      return directSolution(state);
-    case "IMPLICIT_REPEATED_NUMERAL":
-      return repeatedSolution(state);
-    case "CLAIM_VALIDATION":
-      return claimSolution(state);
-    default:
-      return question.explanation.solution;
-  }
+  const solution = (() => {
+    switch (state.kind) {
+      case "DIRECT_DIVISIBILITY":
+        return directSolution(state);
+      case "IMPLICIT_REPEATED_NUMERAL":
+        return repeatedSolution(state);
+      case "CLAIM_VALIDATION":
+        return claimSolution(state);
+      default:
+        return question.explanation.solution;
+    }
+  })();
+  return Object.freeze(solution.map(polishSolutionLine));
 }
 
 function refineQuestion(question: NumCp003EditorialV2Question): NumCp003EditorialV2Question {
