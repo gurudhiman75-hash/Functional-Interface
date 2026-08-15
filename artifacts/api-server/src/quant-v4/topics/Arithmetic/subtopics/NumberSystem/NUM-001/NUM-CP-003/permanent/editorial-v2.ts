@@ -64,7 +64,11 @@ function humaniseLearnerWording(value: string): string {
     .replace(/\bcardinality\b/giu, "number of values")
     .replace(/\bremainder status\b/giu, "remainder")
     .replace(/\btopology\b/giu, "pattern")
-    .replace(/\buniversal guarantee\b/giu, "always-true result");
+    .replace(/\buniversal guarantee\b/giu, "always-true result")
+    .replace(
+      /\$0\$ cannot be used because \$[^$]+\$ must remain a full number with the stated number of digits\./gu,
+      "$0$ cannot be used because $X$ is the leading digit.",
+    );
 }
 
 function cleanInline(value: unknown): string {
@@ -89,6 +93,128 @@ function cleanStem(value: unknown): string {
         .trim(),
     ),
   );
+}
+
+function math(value: string): string {
+  return `\\(${value}\\)`;
+}
+
+function setMath(values: readonly number[]): string {
+  return math(`\\{${values.join(", ")}\\}`);
+}
+
+function pairSetMath(pairs: ReadonlyArray<readonly [number, number]>): string {
+  if (pairs.length === 0) return math("\\varnothing");
+  return math(`\\{${pairs.map(([x, y]) => `(${x}, ${y})`).join(", ")}\\}`);
+}
+
+function formatInteger(value: bigint | number): string {
+  return typeof value === "bigint"
+    ? value.toLocaleString("en-IN")
+    : Math.trunc(value).toLocaleString("en-IN");
+}
+
+function fillSingleDigit(template: string, digit: number): string {
+  return template.replaceAll("X", String(digit));
+}
+
+function fillLinkedPattern(pattern: string, a: number, b: number): string {
+  return pattern.replaceAll("A", String(a)).replaceAll("B", String(b));
+}
+
+function singleCandidateSummary(
+  state: Extract<NumCp003RetainedHiddenState, { kind: "SINGLE_DIGIT_CANDIDATE_SET" }>,
+): string {
+  const valid = state.validDigits;
+  const validSet = setMath(valid);
+
+  switch (state.projection) {
+    case "UNIQUE_VALID_DIGIT":
+      return `The only valid digit is ${math(`X = ${valid[0]}`)}.`;
+
+    case "EXTREMUM_VALID_DIGIT": {
+      const largest = state.extremumDirection === "LARGEST" || state.extremumDirection === "GREATEST";
+      const answer = largest ? valid.at(-1) : valid[0];
+      return `The valid digits are ${validSet}, so the ${largest ? "largest" : "smallest"} is ${math(`X = ${answer}`)}.`;
+    }
+
+    case "VALID_DIGIT_COUNT":
+      return `The valid digits are ${validSet}, so the count is ${math(String(valid.length))}.`;
+
+    case "VALID_DIGIT_SUM": {
+      const total = valid.reduce((sum, digit) => sum + digit, 0);
+      const working = valid.length > 0 ? `${valid.join(" + ")} = ${total}` : "0";
+      return `The valid digits are ${validSet}; ${math(working)}.`;
+    }
+
+    case "COMPLETE_VALID_DIGIT_SET":
+      return `Therefore, the complete valid digit set is ${validSet}.`;
+
+    case "EXTREMUM_COMPLETED_NUMBER": {
+      const values = valid.map((digit) => BigInt(fillSingleDigit(state.template, digit)));
+      const greatest = state.extremumDirection === "GREATEST" || state.extremumDirection === "LARGEST";
+      const answer = greatest ? values.at(-1)! : values[0]!;
+      const rendered = values.map((value) => math(formatInteger(value))).join(", ");
+      return `The valid completed numbers are ${rendered}; the ${greatest ? "greatest" : "smallest"} is ${math(formatInteger(answer))}.`;
+    }
+
+    default:
+      return `The valid digits are ${validSet}.`;
+  }
+}
+
+function orderedPairSummary(
+  state: Extract<NumCp003RetainedHiddenState, { kind: "ORDERED_PAIR_CANDIDATE_SET" }>,
+): string {
+  const validSet = pairSetMath(state.validPairs);
+
+  switch (state.projection) {
+    case "UNIQUE_VALID_ORDERED_PAIR":
+      return `The only valid ordered pair is ${pairSetMath([state.validPairs[0]!])}.`;
+
+    case "VALID_ORDERED_PAIR_COUNT":
+      return `The valid ordered pairs are ${validSet}, so the count is ${math(String(state.validPairs.length))}.`;
+
+    case "COMPLETE_VALID_ORDERED_PAIR_SET":
+      return `Therefore, the complete valid ordered-pair set is ${validSet}.`;
+
+    case "PAIR_SOLUTION_CLASS": {
+      const count = state.validPairs.length;
+      if (count === 0) return "No ordered pair satisfies every condition, so there is no solution.";
+      if (count === 1) return `The only valid ordered pair is ${validSet}, so there is exactly one solution.`;
+      return `The valid ordered pairs are ${validSet}, so there are ${math(String(count))} solutions.`;
+    }
+
+    default:
+      return `The valid ordered pairs are ${validSet}.`;
+  }
+}
+
+function linkedArithmeticSolution(
+  state: Extract<NumCp003RetainedHiddenState, { kind: "LINKED_ARITHMETIC_DIVISIBILITY" }>,
+): readonly string[] {
+  const validSet = pairSetMath(state.validPairs);
+  const selected = state.validPairs.find(([a]) => a === state.answerDigit);
+  if (!selected) throw new Error(`Missing linked-arithmetic answer pair for A=${state.answerDigit}`);
+  const [a, b] = selected;
+  const source = BigInt(fillLinkedPattern(state.sourcePattern, a, b));
+  const result = BigInt(fillLinkedPattern(state.resultPattern, a, b));
+  const divisor = state.divisor;
+  const direction = state.direction === "LARGEST" ? "largest" : "smallest";
+  const validA = state.validPairs.map(([value]) => value);
+
+  return Object.freeze([
+    cleanInline(`The valid ${math("(A, B)")} pairs are ${validSet}.`),
+    cleanInline(
+      `For ${math(`A = ${a}`)} and ${math(`B = ${b}`)}, ${math(`${formatInteger(source)} + ${formatInteger(state.addend)} = ${formatInteger(result)}`)}.`,
+    ),
+    cleanInline(
+      `${math(`${formatInteger(result)} \\div ${formatInteger(divisor)} = ${formatInteger(result / divisor)}`)}, so the completed result is divisible by ${math(formatInteger(divisor))}.`,
+    ),
+    cleanInline(
+      `The valid ${math("A")} values are ${setMath(validA)}, so the ${direction} is ${math(`A = ${state.answerDigit}`)}.`,
+    ),
+  ]);
 }
 
 function conceptFor(state: NumCp003RetainedHiddenState): string {
@@ -123,13 +249,6 @@ function removeFinalRestatement(lines: readonly string[]): string[] {
     !/^(?:Therefore|So the correct choice|Only .* works, so that is the answer)/iu.test(line));
 }
 
-function lastMatching(lines: readonly string[], pattern: RegExp): string | undefined {
-  for (let index = lines.length - 1; index >= 0; index -= 1) {
-    if (pattern.test(lines[index]!)) return lines[index];
-  }
-  return undefined;
-}
-
 function uniqueLines(lines: readonly string[]): string[] {
   const seen = new Set<string>();
   const result: string[] = [];
@@ -145,17 +264,16 @@ function uniqueLines(lines: readonly string[]): string[] {
 function preferredWorkingWithResult(
   lines: readonly string[],
   preferred: readonly string[],
-  result: string | undefined,
+  result: string,
   excluded: RegExp,
 ): readonly string[] {
   const selected = uniqueLines(preferred.filter((line) => line !== result));
-  const workingTarget = result ? 1 : 2;
   for (const line of lines) {
-    if (selected.length >= workingTarget) break;
+    if (selected.length >= 1) break;
     if (line === result || excluded.test(line) || selected.includes(line)) continue;
     selected.push(line);
   }
-  if (result) selected.push(result);
+  selected.push(result);
   return Object.freeze(uniqueLines(selected).slice(0, 4));
 }
 
@@ -172,37 +290,37 @@ function compactSolution(
     }
 
     case "SINGLE_DIGIT_CANDIDATE_SET": {
-      const result = lastMatching(lines, /digits that satisfy|valid digits|completed numbers|complete set|required sum|required count/iu);
-      const calculations = lines.filter((line) =>
-        line !== result
-        && !/^(?:Choose the|Count the valid|Only .* works|Therefore)/iu.test(line)
-        && /divisib|digit sum|last[- ]digit|last[- ]two|last[- ]three|alternating|Split|cannot be used|rule for|\\div|\\times/iu.test(line));
-      return preferredWorkingWithResult(
-        lines,
-        calculations.slice(0, result ? 3 : 4),
-        result,
-        /^(?:Choose the|Count the valid|Only .* works|Therefore)/iu,
-      );
+      const summary = cleanInline(singleCandidateSummary(state));
+      const outcome = /^(?:Choose the|Count the valid|Only .* works|Therefore|The digits that satisfy|The completed numbers)/iu;
+      const highValue = lines.filter((line) =>
+        !outcome.test(line)
+        && /cannot be used|digit-sum|last[- ]two|last[- ]three|alternating|gives|difference|\\div|\\times/iu.test(line));
+      const secondary = lines.filter((line) =>
+        !outcome.test(line)
+        && /Split|last[- ]digit|rule for|divisib/iu.test(line));
+      const preferred = uniqueLines([...highValue, ...secondary]).slice(0, 3);
+      return preferredWorkingWithResult(lines, preferred, summary, outcome);
     }
 
     case "ORDERED_PAIR_CANDIDATE_SET": {
-      const result = lastMatching(lines, /valid ordered pairs|number of valid pairs|complete answer|There are .* valid ordered pairs/iu);
-      const calculations = lines.filter((line) =>
-        line !== result
-        && !/^(?:Only .* works|So the complete answer|Therefore)/iu.test(line)
-        && /X \+ Y|divisib|digit sum|last[- ]digit|last[- ]two|last[- ]three|alternating|both the|rule for|\\div|\\times/iu.test(line));
-      return preferredWorkingWithResult(
-        lines,
-        calculations.slice(0, result ? 3 : 4),
-        result,
-        /^(?:Only .* works|So the complete answer|Therefore)/iu,
-      );
+      const summary = cleanInline(orderedPairSummary(state));
+      const outcome = /^(?:Only .* works|So the complete answer|Therefore|The valid ordered pairs|There are |The number of valid pairs)/iu;
+      const highValue = lines.filter((line) =>
+        !outcome.test(line)
+        && /extra condition|digit-sum|last[- ]two|last[- ]three|alternating|gives|difference|\\div|\\times/iu.test(line));
+      const secondary = lines.filter((line) =>
+        !outcome.test(line)
+        && /both the|last[- ]digit|rule for|divisib/iu.test(line));
+      const preferred = uniqueLines([...highValue, ...secondary]).slice(0, 3);
+      return preferredWorkingWithResult(lines, preferred, summary, outcome);
     }
 
     case "DIGIT_BOUND_MULTIPLE":
     case "ONE_DIVISOR_RANGE":
-    case "LINKED_ARITHMETIC_DIVISIBILITY":
       return Object.freeze(removeFinalRestatement(lines).slice(0, 4));
+
+    case "LINKED_ARITHMETIC_DIVISIBILITY":
+      return linkedArithmeticSolution(state);
 
     case "IMPLICIT_REPEATED_NUMERAL": {
       const formation = lines.find((line) => /^Repeating\b/iu.test(line));
