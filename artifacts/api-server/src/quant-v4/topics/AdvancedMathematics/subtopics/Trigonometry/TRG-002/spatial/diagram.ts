@@ -1,7 +1,8 @@
-import { exactToNumber } from "../../foundation/exact";
+import { exactToNumber, formatExactPlain, subtractExact } from "../../foundation/exact";
 import { toDegrees } from "../../foundation/angle";
 import type {
   Trg002DiagramAngleMarker,
+  Trg002DiagramMeasurementArrow,
   Trg002DiagramPoint,
   Trg002DiagramRightAngleMarker,
   Trg002DiagramSegment,
@@ -25,6 +26,10 @@ function angleDegrees(angle: any) {
 
 function coordinateKey(x: number, y: number) {
   return `${x.toFixed(8)}|${y.toFixed(8)}`;
+}
+
+function lengthLabel(state: Trg002SpatialState, value: any) {
+  return `${formatExactPlain(value)} ${state.metadata.units}`;
 }
 
 export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002DiagramSpec {
@@ -128,6 +133,71 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
     segments.push({ id: `movement-${movement.id}`, fromPointId: movement.fromGroundPointId, toPointId: movement.toGroundPointId, kind: "MOVEMENT" });
   }
 
+  const measurementArrows: Trg002DiagramMeasurementArrow[] = [];
+  for (const observation of state.observations) {
+    if (observation.classification !== "DEPRESSION") continue;
+    const eye = state.points.find((point) => point.id === observation.eyePointId);
+    const target = state.points.find((point) => point.id === observation.targetPointId);
+    const observerObject = state.verticalObjects.find((object) => object.topPointId === observation.eyePointId);
+    const targetObject = state.verticalObjects.find((object) => object.topPointId === observation.targetPointId);
+    const targetLevelId = `target-level-${observation.id}`;
+    const targetLevel = points.find((point) => point.id === targetLevelId);
+    if (!eye || !target || !observerObject || !targetObject || !targetLevel) continue;
+
+    const observerBase = state.points.find((point) => point.id === observerObject.basePointId);
+    const targetBase = state.points.find((point) => point.id === targetObject.basePointId);
+    if (!observerBase || !targetBase) continue;
+    const eyeY = exactToNumber(eye.y);
+    const targetY = exactToNumber(target.y);
+    const observerBaseY = exactToNumber(observerBase.y);
+    const targetBaseY = exactToNumber(targetBase.y);
+    if (eyeY <= targetY + 1e-9 || Math.abs(observerBaseY - targetBaseY) > 1e-9) continue;
+
+    const targetOnRight = exactToNumber(target.x) >= exactToNumber(eye.x);
+    const observerSide = targetOnRight ? "RIGHT" as const : "LEFT" as const;
+    const targetSide = targetOnRight ? "LEFT" as const : "RIGHT" as const;
+    const drop = subtractExact(eye.y, target.y);
+
+    measurementArrows.push(
+      {
+        id: `height-arrow-target-total-${observation.id}`,
+        fromPointId: targetObject.basePointId,
+        toPointId: targetObject.topPointId,
+        label: lengthLabel(state, targetObject.height),
+        side: targetSide,
+        lane: 0,
+        kind: "TOTAL_HEIGHT",
+      },
+      {
+        id: `height-arrow-observer-lower-${observation.id}`,
+        fromPointId: observerObject.basePointId,
+        toPointId: targetLevelId,
+        label: lengthLabel(state, targetObject.height),
+        side: observerSide,
+        lane: 0,
+        kind: "HEIGHT_PART",
+      },
+      {
+        id: `height-arrow-observer-drop-${observation.id}`,
+        fromPointId: targetLevelId,
+        toPointId: observerObject.topPointId,
+        label: lengthLabel(state, drop),
+        side: observerSide,
+        lane: 0,
+        kind: "HEIGHT_DIFFERENCE",
+      },
+      {
+        id: `height-arrow-observer-total-${observation.id}`,
+        fromPointId: observerObject.basePointId,
+        toPointId: observerObject.topPointId,
+        label: lengthLabel(state, observerObject.height),
+        side: observerSide,
+        lane: 1,
+        kind: "TOTAL_HEIGHT",
+      },
+    );
+  }
+
   const angleMagnitudeById = new Map<string, number>();
   const angles: Trg002DiagramAngleMarker[] = state.observations.map((observation) => {
     const eye = state.points.find((point) => point.id === observation.eyePointId);
@@ -188,15 +258,22 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
     labels.push({ id: `label-${point.id}`, pointId: point.id, text: point.label! });
   }
 
-  return { strategy: state.diagramStrategy, width: WIDTH, height: HEIGHT, padding: PADDING, points, segments, angles, rightAngles, labels };
+  return { strategy: state.diagramStrategy, width: WIDTH, height: HEIGHT, padding: PADDING, points, segments, angles, rightAngles, measurementArrows, labels };
 }
 
 export function validateTrg002DiagramSpec(spec: Trg002DiagramSpec) {
   const pointIds = new Set(spec.points.map((point) => point.id));
+  const pointsById = new Map(spec.points.map((point) => [point.id, point]));
   const sharedVertexDistinctAnglesSeparated = spec.angles.every((angle) => spec.angles.every((other) => {
     if (angle.id === other.id || angle.vertexPointId !== other.vertexPointId || angle.label === other.label) return true;
     return angle.arcLane !== other.arcLane;
   }));
+  const measurementEndpointsResolve = spec.measurementArrows.every((arrow) => pointIds.has(arrow.fromPointId) && pointIds.has(arrow.toPointId));
+  const measurementArrowsVertical = spec.measurementArrows.every((arrow) => {
+    const from = pointsById.get(arrow.fromPointId);
+    const to = pointsById.get(arrow.toPointId);
+    return Boolean(from && to && Math.abs(from.x - to.x) <= 1e-6 && Math.abs(from.y - to.y) > 1e-6);
+  });
   const checks = [
     { name: "UNIQUE_POINTS", passed: pointIds.size === spec.points.length, message: "Diagram point IDs are unique." },
     { name: "POINTS_IN_VIEWPORT", passed: spec.points.every((point) => point.x >= spec.padding - 1e-6 && point.x <= spec.width - spec.padding + 1e-6 && point.y >= spec.padding - 1e-6 && point.y <= spec.height - spec.padding + 1e-6), message: "All diagram points lie inside the padded viewport." },
@@ -204,6 +281,11 @@ export function validateTrg002DiagramSpec(spec: Trg002DiagramSpec) {
     { name: "ANGLE_ENDPOINTS", passed: spec.angles.every((angle) => pointIds.has(angle.vertexPointId) && pointIds.has(angle.rayPointId)), message: "Every angle marker resolves its vertex and sight-line target." },
     { name: "ANGLE_ARC_LANES", passed: spec.angles.every((angle) => Number.isInteger(angle.arcLane) && angle.arcLane >= 0) && sharedVertexDistinctAnglesSeparated, message: "Angle arcs use valid lanes and distinct shared-vertex angles do not overlap." },
     { name: "RIGHT_ANGLE_ENDPOINTS", passed: spec.rightAngles.every((marker) => pointIds.has(marker.vertexPointId) && pointIds.has(marker.verticalRayPointId)), message: "Every right-angle marker resolves its ground vertex and vertical ray." },
+    { name: "MEASUREMENT_ARROW_ENDPOINTS", passed: measurementEndpointsResolve, message: "Every vertical measurement arrow resolves both endpoints." },
+    { name: "MEASUREMENT_ARROWS_VERTICAL", passed: measurementArrowsVertical, message: "Height measurement arrows remain vertical and have non-zero length." },
+    { name: "MEASUREMENT_ARROW_LABELS", passed: spec.measurementArrows.every((arrow) => arrow.label.trim().length > 0), message: "Every height measurement arrow has a non-empty exact label." },
+    { name: "MEASUREMENT_ARROW_LANES", passed: spec.measurementArrows.every((arrow) => Number.isInteger(arrow.lane) && arrow.lane >= 0), message: "Height measurement arrows use non-negative integer lanes." },
+    { name: "UNIQUE_MEASUREMENT_ARROW_IDS", passed: new Set(spec.measurementArrows.map((arrow) => arrow.id)).size === spec.measurementArrows.length, message: "Height measurement arrow IDs are unique." },
     { name: "LABEL_ANCHORS", passed: spec.labels.every((label) => pointIds.has(label.pointId) && label.text.trim().length > 0), message: "Every label has a valid anchor and non-empty text." },
     { name: "UNIQUE_LABEL_IDS", passed: new Set(spec.labels.map((label) => label.id)).size === spec.labels.length, message: "Diagram label IDs are unique." },
     { name: "SIGHT_LINE_PER_OBSERVATION", passed: spec.angles.every((angle) => spec.segments.some((segment) => segment.id === angle.id.replace("angle-", "sight-") && segment.kind === "SIGHT_LINE")), message: "Every angle marker has a matching sight line." },
