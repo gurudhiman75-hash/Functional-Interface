@@ -85,18 +85,33 @@ function localNodeCenter(node: SpatialNode): SpatialPoint | null {
   };
 }
 
-type InnerOrientationMutation = "LOCAL_VERTICAL_FLIP" | "LOCAL_HALF_TURN";
+type InnerPropertyMutation =
+  | "LOCAL_VERTICAL_FLIP"
+  | "LOCAL_HORIZONTAL_FLIP"
+  | "TOGGLE_FILL";
 
-function mutateInnerOrientation(
+function mutateInnerProperty(
   node: SpatialNode,
-  mutation: InnerOrientationMutation,
+  mutation: InnerPropertyMutation,
 ): SpatialNode | null {
+  if (mutation === "TOGGLE_FILL") {
+    if (node.kind !== "circle") return null;
+    const currentFill = node.style?.fill ?? "none";
+    return {
+      ...node,
+      style: {
+        ...(node.style ?? {}),
+        fill: currentFill === "none" ? "#d1d5db" : "none",
+      },
+    };
+  }
+
   const center = localNodeCenter(node);
   if (!center) return null;
   const mutatePoint = (point: SpatialPoint): SpatialPoint =>
     mutation === "LOCAL_VERTICAL_FLIP"
       ? { x: 2 * center.x - point.x, y: point.y }
-      : { x: 2 * center.x - point.x, y: 2 * center.y - point.y };
+      : { x: point.x, y: 2 * center.y - point.y };
 
   if (node.kind === "line") {
     return {
@@ -114,13 +129,15 @@ function mutateInnerOrientation(
   return null;
 }
 
-function innerOrientationDisplacement(
+function innerPropertyChangeScore(
   original: SpatialNode,
   mutated: SpatialNode,
 ): number {
   const before = orientableNodePoints(original);
   const after = orientableNodePoints(mutated);
-  if (!before || !after || before.length !== after.length) return 0;
+  if (!before || !after || before.length !== after.length) {
+    return JSON.stringify(original) === JSON.stringify(mutated) ? 0 : 6;
+  }
   return Math.max(
     ...before.map((point, index) => {
       const other = after[index]!;
@@ -129,52 +146,57 @@ function innerOrientationDisplacement(
   );
 }
 
-function buildOuterMatchedInnerOrientationCandidate(
+function buildOuterMatchedInnerPropertyCandidate(
   correctScene: SpatialScene,
   competingScenes: SpatialScene[],
 ): SpatialScene {
-  const candidateNodeIds = ["orientation-mark", "secondary-shape"] as const;
-  const mutationModes: InnerOrientationMutation[] = [
-    "LOCAL_VERTICAL_FLIP",
-    "LOCAL_HALF_TURN",
-  ];
+  const original = correctScene.nodes.find(
+    (node) => node.id === "secondary-shape",
+  );
+  if (!original) {
+    throw new Error(
+      `${correctScene.id}: missing internal secondary feature for premium mirror distractor.`,
+    );
+  }
+
+  const mutationModes: InnerPropertyMutation[] = original.kind === "circle"
+    ? ["TOGGLE_FILL"]
+    : ["LOCAL_VERTICAL_FLIP", "LOCAL_HORIZONTAL_FLIP"];
   const candidates: Array<{ scene: SpatialScene; score: number }> = [];
 
-  for (const nodeId of candidateNodeIds) {
-    const original = correctScene.nodes.find((node) => node.id === nodeId);
-    if (!original) continue;
-    for (const mutation of mutationModes) {
-      const mutated = mutateInnerOrientation(original, mutation);
-      if (!mutated) continue;
-      const scene = cloneSceneWithNodes(
-        correctScene,
-        correctScene.nodes.map((node) => (node.id === nodeId ? mutated : node)),
-        `${correctScene.id}-outer-match-inner-orientation-${nodeId}-${mutation.toLowerCase()}`,
-      );
-      if (
-        spatialSceneSemanticFingerprint(scene) ===
-        spatialSceneSemanticFingerprint(correctScene)
-      ) {
-        continue;
-      }
-      if (!validateMarkerClearance(scene).ok) continue;
-      const perceptual = validateSpatialPerceptualOptionUniquenessV2([
-        correctScene,
-        ...competingScenes,
-        scene,
-      ]);
-      if (!perceptual.ok) continue;
-      const score = innerOrientationDisplacement(original, mutated);
-      if (score < 4) continue;
-      candidates.push({ scene, score });
+  for (const mutation of mutationModes) {
+    const mutated = mutateInnerProperty(original, mutation);
+    if (!mutated) continue;
+    const scene = cloneSceneWithNodes(
+      correctScene,
+      correctScene.nodes.map((node) =>
+        node.id === "secondary-shape" ? mutated : node,
+      ),
+      `${correctScene.id}-outer-match-inner-property-${mutation.toLowerCase()}`,
+    );
+    if (
+      spatialSceneSemanticFingerprint(scene) ===
+      spatialSceneSemanticFingerprint(correctScene)
+    ) {
+      continue;
     }
+    if (!validateMarkerClearance(scene).ok) continue;
+    const perceptual = validateSpatialPerceptualOptionUniquenessV2([
+      correctScene,
+      ...competingScenes,
+      scene,
+    ]);
+    if (!perceptual.ok) continue;
+    const score = innerPropertyChangeScore(original, mutated);
+    if (score < 4) continue;
+    candidates.push({ scene, score });
   }
 
   candidates.sort((left, right) => right.score - left.score);
   const selected = candidates[0]?.scene;
   if (!selected) {
     throw new Error(
-      `${correctScene.id}: unable to build a visible outer-matched inner-orientation mirror distractor.`,
+      `${correctScene.id}: unable to build a visible inner-property mirror distractor without changing the outer figure.`,
     );
   }
   return selected;
@@ -190,7 +212,7 @@ function buildExplanationSteps(
     requestedTransform === "REFLECT_VERTICAL" ? "VERTICAL" : "HORIZONTAL";
   const finalMisconception =
     requestedTransform === "REFLECT_VERTICAL"
-      ? "OUTER_SHAPE_CORRECT_INNER_ORIENTATION_WRONG"
+      ? "OUTER_SHAPE_CORRECT_INNER_PROPERTY_WRONG"
       : "PARTIAL_REFLECTION_ERROR";
 
   return [
@@ -311,7 +333,7 @@ function buildLearnerExplanation(
       : "Exchange upper and lower positions for every part while keeping all left–right positions unchanged.",
     application: `${secondaryMovement} The orientation mark must also reverse with the complete figure; it cannot remain in its original orientation.`,
     check: isMirror
-      ? `Option ${correctOptionIndex + 1} is the only complete reflection. One tempting choice keeps the correct outer mirrored shape but changes an inner orientation incorrectly; the other choices use the wrong axis or rotate the whole figure.`
+      ? `Option ${correctOptionIndex + 1} is the only complete reflection. One tempting choice has the same outer mirrored figure and the same positions but exactly one inner detail is wrong. Check the inside of the figure before choosing.`
       : `Option ${correctOptionIndex + 1} is the only complete reflection. The other choices use the wrong axis, rotate the whole figure, or move only the black marker.`,
   };
 }
@@ -355,7 +377,7 @@ export function generateSpatialTransformProofQuestion(
   );
   const fourthScene =
     input.requestedTransform === "REFLECT_VERTICAL"
-      ? buildOuterMatchedInnerOrientationCandidate(correctScene, [
+      ? buildOuterMatchedInnerPropertyCandidate(correctScene, [
           axisConfusionScene,
           rotationScene,
         ])
@@ -382,7 +404,7 @@ export function generateSpatialTransformProofQuestion(
 
   const fourthLabel =
     input.requestedTransform === "REFLECT_VERTICAL"
-      ? "OUTER_SHAPE_CORRECT_INNER_ORIENTATION_WRONG"
+      ? "OUTER_SHAPE_CORRECT_INNER_PROPERTY_WRONG"
       : "PARTIAL_REFLECTION_ERROR";
   const unshuffledOptions: SpatialProofOption[] = [
     {
