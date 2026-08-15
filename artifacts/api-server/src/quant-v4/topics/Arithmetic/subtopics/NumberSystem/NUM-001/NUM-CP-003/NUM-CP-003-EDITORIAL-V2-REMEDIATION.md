@@ -48,11 +48,9 @@ Generated-pack review found and fixed issues that mechanical answer validation w
 - cryptic composite-rule shorthand such as `36 → 4 + 9`;
 - stale fixed-suffix wording and punctuation gaps.
 
-## Final English concept-specific evidence
+## Validated English concept-specific evidence
 
 Validated code head: `d16bfffd98bc910ce23a7ebc900fbcbe3b695c49`
-
-The subsequent repository-head changes are documentation-only and do not alter the validated runtime/editorial code.
 
 Dedicated workflow: `Validate NUM-CP-003 English Editorial V2`
 
