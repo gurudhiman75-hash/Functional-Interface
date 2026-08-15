@@ -34,6 +34,7 @@ function candidatesForPosition(qlId: QlId, targetPosition: number) {
     const suffix = String(attempt).padStart(5, "0");
     const seeds = [
       `exam-v2-review-${qlId}-${targetPosition}-${suffix}`,
+      ...SOURCE_SALTS.map((salt) => `base-v2-review-${salt}-${qlId}-${targetPosition}-${suffix}`),
       ...SOURCE_SALTS.map((salt) => `review-v2-${salt}-${qlId}-${targetPosition}-${suffix}`),
     ];
     for (const seed of seeds) {
@@ -89,7 +90,6 @@ function buildForQl(qlId: QlId) {
   const declared = [...new Set(DECLARED_BY_QL.get(qlId) ?? [])];
   const requiredSourceCount = requiredHumanSourceCount(declared.length);
 
-  // First four records guarantee one A/B/C/D example for every permanent QL.
   for (let targetPosition = 0; targetPosition < 4; targetPosition += 1) {
     const q = chooseBest(candidatesForPosition(qlId, targetPosition), usedSources, usedStems);
     if (!q) throw new Error(`Cannot select V2 answer-position review state for ${qlId}/${targetPosition}`);
@@ -98,8 +98,6 @@ function buildForQl(qlId: QlId) {
     usedStems.add(q.stem);
   }
 
-  // Next four records maximize distinct exam/source/state breadth. Machine
-  // proof separately handles exhaustive source and answer-position reachability.
   const pool = allCandidates(qlId);
   while (selected.length < 8) {
     const q = chooseBest(pool, usedSources, usedStems);
