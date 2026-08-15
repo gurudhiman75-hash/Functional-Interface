@@ -2,12 +2,13 @@ import { cp003Teacher } from "../../editorial/simple-teacher-voice-cp003";
 import type { NumCp003RetainedHiddenState } from "../retained/runtime-types";
 import { getNumCp003PermanentAllocation } from "./allocation";
 import type { NumCp003PermanentQlId } from "./allocation";
+import { buildNumCp003OrderedPairSolution } from "./editorial-v2-ordered-evidence";
+import { latexifyNumCp003LearnerText } from "./editorial-v2-math";
 import {
   runNumCp003PermanentPipeline,
   type NumCp003PermanentQuestion,
   type NumCp003PermanentRuntimeInput,
 } from "./runtime";
-import { latexifyNumCp003LearnerText } from "./editorial-v2-math";
 
 export const NUM_CP003_EDITORIAL_V2_RELEASE = Object.freeze({
   releaseId: "NUM-001-CP003-EN-EDITORIAL-V2-REVIEW",
@@ -131,25 +132,20 @@ function singleCandidateSummary(
   switch (state.projection) {
     case "UNIQUE_VALID_DIGIT":
       return `The only valid digit is ${math(`X = ${valid[0]}`)}.`;
-
     case "EXTREMUM_VALID_DIGIT": {
       const largest = state.extremumDirection === "LARGEST" || state.extremumDirection === "GREATEST";
       const answer = largest ? valid.at(-1) : valid[0];
       return `The valid digits are ${validSet}, so the ${largest ? "largest" : "smallest"} is ${math(`X = ${answer}`)}.`;
     }
-
     case "VALID_DIGIT_COUNT":
       return `The valid digits are ${validSet}, so the count is ${math(String(valid.length))}.`;
-
     case "VALID_DIGIT_SUM": {
       const total = valid.reduce((sum, digit) => sum + digit, 0);
       const working = valid.length > 0 ? `${valid.join(" + ")} = ${total}` : "0";
       return `The valid digits are ${validSet}; ${math(working)}.`;
     }
-
     case "COMPLETE_VALID_DIGIT_SET":
       return `Therefore, the complete valid digit set is ${validSet}.`;
-
     case "EXTREMUM_COMPLETED_NUMBER": {
       const values = valid.map((digit) => BigInt(fillSingleDigit(state.template, digit)));
       const greatest = state.extremumDirection === "GREATEST" || state.extremumDirection === "LARGEST";
@@ -157,43 +153,14 @@ function singleCandidateSummary(
       const rendered = values.map((value) => math(formatInteger(value))).join(", ");
       return `The valid completed numbers are ${rendered}; the ${greatest ? "greatest" : "smallest"} is ${math(formatInteger(answer))}.`;
     }
-
     default:
       return `The valid digits are ${validSet}.`;
-  }
-}
-
-function orderedPairSummary(
-  state: Extract<NumCp003RetainedHiddenState, { kind: "ORDERED_PAIR_CANDIDATE_SET" }>,
-): string {
-  const validSet = pairSetMath(state.validPairs);
-
-  switch (state.projection) {
-    case "UNIQUE_VALID_ORDERED_PAIR":
-      return `The only valid ordered pair is ${pairSetMath([state.validPairs[0]!])}.`;
-
-    case "VALID_ORDERED_PAIR_COUNT":
-      return `The valid ordered pairs are ${validSet}, so the count is ${math(String(state.validPairs.length))}.`;
-
-    case "COMPLETE_VALID_ORDERED_PAIR_SET":
-      return `Therefore, the complete valid ordered-pair set is ${validSet}.`;
-
-    case "PAIR_SOLUTION_CLASS": {
-      const count = state.validPairs.length;
-      if (count === 0) return "No ordered pair satisfies every condition, so there is no solution.";
-      if (count === 1) return `The only valid ordered pair is ${validSet}, so there is exactly one solution.`;
-      return `The valid ordered pairs are ${validSet}, so there are ${math(String(count))} solutions.`;
-    }
-
-    default:
-      return `The valid ordered pairs are ${validSet}.`;
   }
 }
 
 function linkedArithmeticSolution(
   state: Extract<NumCp003RetainedHiddenState, { kind: "LINKED_ARITHMETIC_DIVISIBILITY" }>,
 ): readonly string[] {
-  const validSet = pairSetMath(state.validPairs);
   const selected = state.validPairs.find(([a]) => a === state.answerDigit);
   if (!selected) throw new Error(`Missing linked-arithmetic answer pair for A=${state.answerDigit}`);
   const [a, b] = selected;
@@ -204,7 +171,7 @@ function linkedArithmeticSolution(
   const validA = state.validPairs.map(([value]) => value);
 
   return Object.freeze([
-    cleanInline(`The valid ${math("(A, B)")} pairs are ${validSet}.`),
+    cleanInline(`The valid ${math("(A, B)")} pairs are ${pairSetMath(state.validPairs)}.`),
     cleanInline(
       `For ${math(`A = ${a}`)} and ${math(`B = ${b}`)}, ${math(`${formatInteger(source)} + ${formatInteger(state.addend)} = ${formatInteger(result)}`)}.`,
     ),
@@ -302,18 +269,8 @@ function compactSolution(
       return preferredWorkingWithResult(lines, preferred, summary, outcome);
     }
 
-    case "ORDERED_PAIR_CANDIDATE_SET": {
-      const summary = cleanInline(orderedPairSummary(state));
-      const outcome = /^(?:Only .* works|So the complete answer|Therefore|The valid ordered pairs|There are |The number of valid pairs)/iu;
-      const highValue = lines.filter((line) =>
-        !outcome.test(line)
-        && /extra condition|digit-sum|last[- ]two|last[- ]three|alternating|gives|difference|\\div|\\times/iu.test(line));
-      const secondary = lines.filter((line) =>
-        !outcome.test(line)
-        && /both the|last[- ]digit|rule for|divisib/iu.test(line));
-      const preferred = uniqueLines([...highValue, ...secondary]).slice(0, 3);
-      return preferredWorkingWithResult(lines, preferred, summary, outcome);
-    }
+    case "ORDERED_PAIR_CANDIDATE_SET":
+      return buildNumCp003OrderedPairSolution(state);
 
     case "DIGIT_BOUND_MULTIPLE":
     case "ONE_DIVISOR_RANGE":
