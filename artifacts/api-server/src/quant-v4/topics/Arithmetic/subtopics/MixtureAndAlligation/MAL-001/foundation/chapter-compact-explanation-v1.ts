@@ -22,8 +22,15 @@ function stringArray(value: unknown): string[] {
     : [];
 }
 
+function normaliseCompactMath(value: string): string {
+  return value.replace(
+    /\\frac\{([^{}]+)\{\\,\\text\{(?:kg|litres?)\}\}\{([^{}]+)\}/gu,
+    "\\frac{$1}{$2}",
+  );
+}
+
 function cleanStep(value: string): string {
-  return value
+  return normaliseCompactMath(value)
     .replace(/^\s*Step\s+\d+\s*:\s*/iu, "")
     .replace(/^\s*Formula\s*:\s*/iu, "")
     .trim();
@@ -42,11 +49,10 @@ function alligationShortcutLines(explanation: Record<string, unknown>): string[]
     : "";
   return raw
     .split(/\r?\n/u)
-    .map((line) => line.trim())
+    .map((line) => normaliseCompactMath(line.trim()))
     .filter(Boolean)
     .filter((line) => !/^Method\s*2\b/iu.test(line))
     .filter((line) => !/^Place the opposite differences\b/iu.test(line))
-    .filter((line) => !/^Use the quantity ratio with those differences\b/iu.test(line))
     .slice(0, 3);
 }
 
@@ -88,7 +94,7 @@ function compactStepBased(explanation: Record<string, unknown>): Record<string, 
 
 function compactSolutionFirst(explanation: Record<string, unknown>): Record<string, unknown> {
   const visibleLines = stringArray(explanation.visibleLines)
-    .map((line) => line.trim())
+    .map((line) => normaliseCompactMath(line.trim()))
     .filter(Boolean)
     .filter((line) => !/^Answer\s*:/iu.test(line));
   if (visibleLines.length > 0) {
@@ -99,7 +105,7 @@ function compactSolutionFirst(explanation: Record<string, unknown>): Record<stri
   }
 
   const lines = stringArray(explanation.lines)
-    .map((line) => line.trim())
+    .map((line) => normaliseCompactMath(line.trim()))
     .filter(Boolean)
     .filter((line) => !/^Answer\s*:/iu.test(line));
   if (lines.length > 0) {
