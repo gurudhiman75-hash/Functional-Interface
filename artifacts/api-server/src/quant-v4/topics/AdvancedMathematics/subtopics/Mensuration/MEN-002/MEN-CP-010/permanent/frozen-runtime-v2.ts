@@ -12,7 +12,7 @@ export const MEN_CP_010_PERMANENT_ENGLISH_FREEZE_V2_AUTHORITY =
 
 export type MenCp010FrozenEnglishQuestionV2 = Omit<
   MenCp010ExamReadyEnglishQuestion,
-  "authority" | "maturity" | "reviewStatus" | "englishImplementationFrozen"
+  "authority" | "sourceRuntimeAuthority" | "maturity" | "reviewStatus" | "englishImplementationFrozen"
 > & {
   readonly authority: typeof MEN_CP_010_PERMANENT_ENGLISH_FREEZE_V2_AUTHORITY;
   readonly sourceRuntimeAuthority: MenCp010ExamReadyEnglishQuestion["authority"];
