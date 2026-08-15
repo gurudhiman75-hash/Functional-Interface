@@ -18,6 +18,7 @@ import {
   MEN_CP_010_SCALING_DIVERSITY_SOURCE_IDS,
   diversifyMenCp010ScalingOverlayV2,
 } from "./exam-realism-scaling-diversity-v2";
+import { polishMenCp010EditorialPresentationV2 } from "./exam-realism-editorial-polish-v2";
 
 export const MEN_CP_010_PERMANENT_ENGLISH_RUNTIME_V3_AUTHORITY =
   "MEN-CP010-PERMANENT-ENGLISH-RUNTIME-V3-EXAM-REALISM" as const;
@@ -63,7 +64,7 @@ export function generateMenCp010ExamReadyEnglishQuestion(
     );
   }
 
-  const question = overlay
+  const rawQuestion = overlay
     ? {
         ...base,
         sourceWave: "WAVE03" as const,
@@ -75,13 +76,15 @@ export function generateMenCp010ExamReadyEnglishQuestion(
         verification: overlay.verification,
       }
     : base;
+  const question = polishMenCp010EditorialPresentationV2(rawQuestion);
 
   if (
     !question.verification.valid ||
     question.options.length !== 4 ||
     new Set(question.options.map((option) => option.display)).size !== 4 ||
     question.options.filter((option) => option.isCorrect).length !== 1 ||
-    question.options[question.correctIndex]?.isCorrect !== true
+    question.options[question.correctIndex]?.isCorrect !== true ||
+    question.options[question.correctIndex]?.display !== question.answer
   ) {
     throw new Error(`MEN-CP-010 exam-ready runtime validation failed for ${qlId}/${seed}`);
   }
