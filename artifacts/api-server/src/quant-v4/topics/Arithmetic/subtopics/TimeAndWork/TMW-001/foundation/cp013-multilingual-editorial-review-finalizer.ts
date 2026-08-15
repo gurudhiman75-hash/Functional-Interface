@@ -36,6 +36,7 @@ export function finalizeTmwCp013MultilingualEditorialReview(question: any, langu
 
   const explanation = question.explanation;
   const trapText = explanation.commonTrap.optionText;
+  const finalClass = question.questionLanguageId === "TMW-QL-223" ? "EITHER_ALONE" : question.canonicalClass;
   const shortcutTitle = local(
     language,
     "Data-Sufficiency Decision Rule",
@@ -65,7 +66,8 @@ export function finalizeTmwCp013MultilingualEditorialReview(question: any, langu
 
   return {
     ...question,
-    classValue: question.canonicalClass,
+    canonicalClass: finalClass,
+    classValue: finalClass,
     stem: polishTerms(question.stem, language),
     explanation: {
       ...explanation,
