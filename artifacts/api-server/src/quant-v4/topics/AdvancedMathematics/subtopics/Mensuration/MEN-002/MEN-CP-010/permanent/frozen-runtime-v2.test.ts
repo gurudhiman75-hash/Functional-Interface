@@ -13,41 +13,66 @@ import { auditMenCp010ExecutableCoverageV2 } from "./executable-coverage-audit-v
 import { auditMenCp010ExamRealismProfiles } from "./exam-realism-profile-v2";
 
 const reviewAudit = auditMenCp010ExamRealismReviewV2();
-assert.equal(reviewAudit.reviewRecordCount, 208);
-assert.equal(reviewAudit.permanentQlCount, 26);
-assert.equal(reviewAudit.recordsPerQl, 8);
-assert.equal(Object.values(reviewAudit.correctPositions).reduce((sum, count) => sum + count, 0), 208);
-assert.equal(Object.values(reviewAudit.correctPositions).every((count) => count >= 26), true);
-assert.equal(reviewAudit.everyQlHasAllFourPositions, true);
-assert.equal(reviewAudit.allVerified, true);
-assert.equal(reviewAudit.allFourOptions, true);
-assert.equal(reviewAudit.allUniqueOptions, true);
-assert.equal(reviewAudit.allStatesDistinctWithinQl, true);
-assert.equal(reviewAudit.sourceCoverageSatisfied, true);
-assert.equal(reviewAudit.examSourcesCovered, true);
-assert.equal(reviewAudit.examReviewRecordCount > 0, true);
-assert.equal(reviewAudit.realisticBucketCapacity, true);
-assert.equal(reviewAudit.cleanSscFrustumArithmetic, true);
-assert.equal(reviewAudit.multiStepWorked, true);
-assert.equal(reviewAudit.noGenericCrossTermTrapOnPyramid, true);
-assert.equal(reviewAudit.productLocked, true);
+console.log(JSON.stringify({
+  phase: "setter-review-audit",
+  reviewRecordCount: reviewAudit.reviewRecordCount,
+  permanentQlCount: reviewAudit.permanentQlCount,
+  recordsPerQl: reviewAudit.recordsPerQl,
+  correctPositions: reviewAudit.correctPositions,
+  everyQlHasAllFourPositions: reviewAudit.everyQlHasAllFourPositions,
+  allVerified: reviewAudit.allVerified,
+  allFourOptions: reviewAudit.allFourOptions,
+  allUniqueOptions: reviewAudit.allUniqueOptions,
+  allStatesDistinctWithinQl: reviewAudit.allStatesDistinctWithinQl,
+  sourceCoverageSatisfied: reviewAudit.sourceCoverageSatisfied,
+  examSourcesCovered: reviewAudit.examSourcesCovered,
+  examReviewRecordCount: reviewAudit.examReviewRecordCount,
+  realisticBucketCapacity: reviewAudit.realisticBucketCapacity,
+  cleanSscFrustumArithmetic: reviewAudit.cleanSscFrustumArithmetic,
+  multiStepWorked: reviewAudit.multiStepWorked,
+  noGenericCrossTermTrapOnPyramid: reviewAudit.noGenericCrossTermTrapOnPyramid,
+  productLocked: reviewAudit.productLocked,
+  failingSourceCoverage: reviewAudit.sourceCoverage.filter((row) =>
+    row.uniqueStemCount !== 8 || row.reviewSourceCount < row.requiredReviewSourceCount),
+}, null, 2));
+
+assert.equal(reviewAudit.reviewRecordCount, 208, "reviewRecordCount");
+assert.equal(reviewAudit.permanentQlCount, 26, "permanentQlCount");
+assert.equal(reviewAudit.recordsPerQl, 8, "recordsPerQl");
+assert.equal(Object.values(reviewAudit.correctPositions).reduce((sum, count) => sum + count, 0), 208, "correctPositionTotal");
+assert.equal(Object.values(reviewAudit.correctPositions).every((count) => count >= 26), true, "globalPositionFloor");
+assert.equal(reviewAudit.everyQlHasAllFourPositions, true, "everyQlHasAllFourPositions");
+assert.equal(reviewAudit.allVerified, true, "allVerified");
+assert.equal(reviewAudit.allFourOptions, true, "allFourOptions");
+assert.equal(reviewAudit.allUniqueOptions, true, "allUniqueOptions");
+assert.equal(reviewAudit.allStatesDistinctWithinQl, true, "allStatesDistinctWithinQl");
+assert.equal(reviewAudit.sourceCoverageSatisfied, true, "sourceCoverageSatisfied");
+assert.equal(reviewAudit.examSourcesCovered, true, "examSourcesCovered");
+assert.equal(reviewAudit.examReviewRecordCount > 0, true, "examReviewRecordCount");
+assert.equal(reviewAudit.realisticBucketCapacity, true, "realisticBucketCapacity");
+assert.equal(reviewAudit.cleanSscFrustumArithmetic, true, "cleanSscFrustumArithmetic");
+assert.equal(reviewAudit.multiStepWorked, true, "multiStepWorked");
+assert.equal(reviewAudit.noGenericCrossTermTrapOnPyramid, true, "noGenericCrossTermTrapOnPyramid");
+assert.equal(reviewAudit.productLocked, true, "productLocked");
 
 const coverageAudit = auditMenCp010ExecutableCoverageV2();
-assert.equal(coverageAudit.wave02ExecutableCount, 21);
-assert.equal(coverageAudit.wave02ReplacementCount, 3);
-assert.equal(coverageAudit.wave02MissingCount, 0);
-assert.equal(coverageAudit.wave03ExecutableCount, 11);
-assert.equal(coverageAudit.wave03MissingCount, 0);
-assert.equal(coverageAudit.designRepresentationMissingCount, 0);
-assert.equal(coverageAudit.coverageClosed, true);
+console.log(JSON.stringify({ phase: "executable-coverage-audit", coverageAudit }, null, 2));
+assert.equal(coverageAudit.wave02ExecutableCount, 21, "wave02ExecutableCount");
+assert.equal(coverageAudit.wave02ReplacementCount, 3, "wave02ReplacementCount");
+assert.equal(coverageAudit.wave02MissingCount, 0, "wave02MissingCount");
+assert.equal(coverageAudit.wave03ExecutableCount, 11, "wave03ExecutableCount");
+assert.equal(coverageAudit.wave03MissingCount, 0, "wave03MissingCount");
+assert.equal(coverageAudit.designRepresentationMissingCount, 0, "designRepresentationMissingCount");
+assert.equal(coverageAudit.coverageClosed, true, "coverageClosed");
 
 const profileAudit = auditMenCp010ExamRealismProfiles();
-assert.equal(profileAudit.profileCount, 26);
+console.log(JSON.stringify({ phase: "exam-profile-audit", profileAudit }, null, 2));
+assert.equal(profileAudit.profileCount, 26, "profileCount");
 assert.deepEqual(profileAudit.priorities, { CORE: 7, STANDARD: 13, EXTENDED: 3, ENRICHMENT: 3 });
-assert.equal(profileAudit.sscDefaultEnabledCount, 23);
-assert.equal(profileAudit.bankingDefaultEnabledCount, 0);
-assert.equal(profileAudit.punjabStateDefaultEnabledCount, 0);
-assert.equal(profileAudit.productLocked, true);
+assert.equal(profileAudit.sscDefaultEnabledCount, 23, "sscDefaultEnabledCount");
+assert.equal(profileAudit.bankingDefaultEnabledCount, 0, "bankingDefaultEnabledCount");
+assert.equal(profileAudit.punjabStateDefaultEnabledCount, 0, "punjabStateDefaultEnabledCount");
+assert.equal(profileAudit.productLocked, true, "profileProductLocked");
 
 const declaredSources = new Set(listMenCp010ExamReadyEnglishSources().map((row) => `${row.qlId}:${row.sourceId}`));
 const sourceHits = new Set<string>();
@@ -87,9 +112,16 @@ for (const allocation of MEN_CP_010_PERMANENT_ALLOCATION) {
   assert.equal(qlPositions.size, 4, `${allocation.qlId}: V2 freeze must retain A/B/C/D coverage`);
 }
 
-for (const declared of declaredSources) {
-  assert.equal(sourceHits.has(declared), true, `V2 frozen runtime did not exercise ${declared}`);
-}
+const missingDeclaredSources = [...declaredSources].filter((declared) => !sourceHits.has(declared));
+console.log(JSON.stringify({
+  phase: "runtime-source-audit",
+  generated,
+  declaredRuntimeSourceCount: declaredSources.size,
+  exercisedRuntimeSourceCount: sourceHits.size,
+  missingDeclaredSources,
+  positions,
+}, null, 2));
+assert.deepEqual(missingDeclaredSources, [], "all declared runtime sources must be exercised");
 
 let decimalPiProbe: ReturnType<typeof generateMenCp010ExamReadyEnglishQuestion> | null = null;
 for (let index = 0; index < 4096 && !decimalPiProbe; index += 1) {
@@ -98,10 +130,10 @@ for (let index = 0; index < 4096 && !decimalPiProbe; index += 1) {
 }
 assert.ok(decimalPiProbe, "Expected to find a base conical-frustum π=3.14 state");
 const decimalPiWork = decimalPiProbe.explanation.steps.find((step) => step.title === "Substitute and calculate")?.body ?? "";
-assert.equal(decimalPiWork.includes("3.14"), true);
-assert.equal(/\bV = 3 ×/.test(decimalPiWork), false);
+assert.equal(decimalPiWork.includes("3.14"), true, "decimalPiWorkContains3.14");
+assert.equal(/\bV = 3 ×/.test(decimalPiWork), false, "decimalPiWorkDoesNotUseIntegerPrefix");
 
-assert.equal(positions.every((count) => count > 0), true);
+assert.equal(positions.every((count) => count > 0), true, "globalMachinePositionCoverage");
 
 console.log(JSON.stringify({
   authority: MEN_CP_010_PERMANENT_ENGLISH_FREEZE_V2_AUTHORITY,
