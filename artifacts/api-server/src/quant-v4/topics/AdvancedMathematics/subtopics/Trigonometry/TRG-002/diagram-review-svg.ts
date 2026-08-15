@@ -1,5 +1,6 @@
 import type {
   Trg002DiagramAngleMarker,
+  Trg002DiagramMeasurementArrow,
   Trg002DiagramPoint,
   Trg002DiagramSpec,
 } from "./spatial";
@@ -22,6 +23,10 @@ function pointOrThrow(points: Map<string, Trg002DiagramPoint>, id: string) {
   const point = points.get(id);
   if (!point) throw new Error(`TRG-002 SVG review renderer cannot resolve point ${id}.`);
   return point;
+}
+
+function endpointKey(fromPointId: string, toPointId: string) {
+  return [fromPointId, toPointId].sort().join("|");
 }
 
 function normalizeRadians(value: number) {
@@ -99,6 +104,24 @@ export function trg002ReviewAnnotationPosition(spec: Trg002DiagramSpec, annotati
   return position;
 }
 
+function measurementArrowSvg(arrow: Trg002DiagramMeasurementArrow, points: Map<string, Trg002DiagramPoint>) {
+  const from = pointOrThrow(points, arrow.fromPointId);
+  const to = pointOrThrow(points, arrow.toPointId);
+  const direction = arrow.side === "LEFT" ? -1 : 1;
+  const offset = 34 + arrow.lane * 58;
+  const arrowX = from.x + direction * offset;
+  const witnessEndX = arrowX - direction * 7;
+  const labelX = arrowX + direction * 46;
+  const midY = (from.y + to.y) / 2;
+  const kindClass = arrow.kind.toLowerCase().replace(/_/g, "-");
+  return [
+    `<line class="dimension-witness" x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${witnessEndX.toFixed(2)}" y2="${from.y.toFixed(2)}" />`,
+    `<line class="dimension-witness" x1="${to.x.toFixed(2)}" y1="${to.y.toFixed(2)}" x2="${witnessEndX.toFixed(2)}" y2="${to.y.toFixed(2)}" />`,
+    `<line class="dimension-arrow dimension-${kindClass}" x1="${arrowX.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${arrowX.toFixed(2)}" y2="${to.y.toFixed(2)}" marker-start="url(#dimension-arrow)" marker-end="url(#dimension-arrow)" data-measurement-arrow-id="${escapeXml(arrow.id)}" />`,
+    `<text class="dimension-label dimension-label-${kindClass}" x="${labelX.toFixed(2)}" y="${midY.toFixed(2)}" text-anchor="middle" dominant-baseline="middle">${escapeXml(arrow.label)}</text>`,
+  ].join("\n");
+}
+
 export interface Trg002SvgReviewOptions {
   title?: string;
   showPointDots?: boolean;
@@ -137,11 +160,19 @@ export function renderTrg002DiagramReviewSvg(spec: Trg002DiagramSpec, options: T
     return `<text class="point-label" x="${position.x.toFixed(2)}" y="${position.y.toFixed(2)}" data-label-id="${escapeXml(label.id)}">${escapeXml(label.text)}</text>`;
   }).join("\n");
 
-  const measurementLabels = annotations.map((annotation) => {
-    const position = trg002ReviewAnnotationPosition(spec, annotation);
-    const roleClass = annotation.role.toLowerCase().replace(/_/g, "-");
-    return `<text class="measurement-label measurement-${roleClass}" x="${position.x.toFixed(2)}" y="${position.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" data-annotation-id="${escapeXml(annotation.id)}" data-annotation-role="${escapeXml(annotation.role)}">${escapeXml(annotation.label)}</text>`;
-  }).join("\n");
+  const dimensionArrows = spec.measurementArrows.map((arrow) => measurementArrowSvg(arrow, points)).join("\n");
+  const dimensionEndpointKeys = new Set(
+    spec.measurementArrows
+      .filter((arrow) => arrow.kind === "TOTAL_HEIGHT")
+      .map((arrow) => endpointKey(arrow.fromPointId, arrow.toPointId)),
+  );
+  const measurementLabels = annotations
+    .filter((annotation) => !dimensionEndpointKeys.has(endpointKey(annotation.fromPointId, annotation.toPointId)))
+    .map((annotation) => {
+      const position = trg002ReviewAnnotationPosition(spec, annotation);
+      const roleClass = annotation.role.toLowerCase().replace(/_/g, "-");
+      return `<text class="measurement-label measurement-${roleClass}" x="${position.x.toFixed(2)}" y="${position.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" data-annotation-id="${escapeXml(annotation.id)}" data-annotation-role="${escapeXml(annotation.role)}">${escapeXml(annotation.label)}</text>`;
+    }).join("\n");
 
   const strategyCaption = showStrategyCaption
     ? `<text class="strategy-caption" x="${spec.width - spec.padding}" y="${spec.padding - 18}" text-anchor="end">${escapeXml(spec.strategy)}</text>`
@@ -153,6 +184,9 @@ export function renderTrg002DiagramReviewSvg(spec: Trg002DiagramSpec, options: T
   <defs>
     <marker id="movement-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" />
+    </marker>
+    <marker id="dimension-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 5 L 10 0 L 10 10 z" />
     </marker>
   </defs>
   <style>
@@ -166,7 +200,11 @@ export function renderTrg002DiagramReviewSvg(spec: Trg002DiagramSpec, options: T
     .segment-movement { stroke-width: 4; stroke-dasharray: 10 8; }
     .segment-ladder, .segment-wire { stroke-width: 6; }
     .segment-shadow { stroke-width: 7; }
-    #movement-arrow path { fill: #1f2937; }
+    #movement-arrow path, #dimension-arrow path { fill: #1f2937; }
+    .dimension-witness { stroke: #4b5563; stroke-width: 2; opacity: 0.72; vector-effect: non-scaling-stroke; }
+    .dimension-arrow { stroke: #1f2937; stroke-width: 2.5; fill: none; vector-effect: non-scaling-stroke; }
+    .dimension-label { font: 700 20px system-ui, sans-serif; fill: #111827; paint-order: stroke; stroke: #ffffff; stroke-width: 7px; stroke-linejoin: round; }
+    .dimension-label-height-difference { font-weight: 800; }
     .angle-arc { stroke: #4b5563; stroke-width: 3; fill: none; vector-effect: non-scaling-stroke; }
     .angle-label { font: 600 24px system-ui, sans-serif; fill: #111827; paint-order: stroke; stroke: #ffffff; stroke-width: 7px; stroke-linejoin: round; }
     .point { fill: #111827; stroke: #ffffff; stroke-width: 2; vector-effect: non-scaling-stroke; }
@@ -181,6 +219,7 @@ export function renderTrg002DiagramReviewSvg(spec: Trg002DiagramSpec, options: T
   ${angles}
   ${dots}
   ${labels}
+  ${dimensionArrows}
   ${measurementLabels}
   ${strategyCaption}
 </svg>`;
