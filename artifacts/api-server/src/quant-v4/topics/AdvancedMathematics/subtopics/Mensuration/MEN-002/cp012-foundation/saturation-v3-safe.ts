@@ -16,7 +16,10 @@ function gcd(a:number,b:number){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%
 function ratio(a:number,b:number){const g=gcd(a,b);return `${a/g}:${b/g}`;}
 function tidy(value:number,digits=4){return value.toFixed(digits).replace(/0+$/,'').replace(/\.$/,'');}
 function definitionFor(id:MenCp012SaturationV3Id){const row=MEN_CP_012_SATURATION_V3_DEFINITIONS.find((item)=>item.id===id);if(!row)throw new Error(`Missing Wave 03 definition for ${id}`);return row;}
-function numericDisplay(value:number,unit:string){const n=Number.isInteger(value)?`${value}`:tidy(value);return unit==="%"?`${n}%`:`${n}${unit?` ${unit}`:""}`;}
+function numericDisplay(value:number,unit:string,precision:number|null=null){
+  const n=precision!==null?value.toFixed(precision):(Number.isInteger(value)?`${value}`:tidy(value));
+  return unit==="%"?`${n}%`:`${n}${unit?` ${unit}`:""}`;
+}
 
 function safeDistractors(answer:string){
   const ratioMatch=/^(\d+):(\d+)$/.exec(answer);
@@ -30,6 +33,7 @@ function safeDistractors(answer:string){
   const numeric=/^(-?\d+(?:\.\d+)?)\s*(.*)$/.exec(answer);
   if(!numeric) throw new Error(`Cannot build Wave 03 distractors for ${answer}`);
   const value=Number(numeric[1]),unit=numeric[2];
+  const precision=numeric[1].includes(".")?numeric[1].split(".")[1]!.length:null;
   const countLike=unit==="coins"||unit==="spheres"||unit==="cubes"||unit==="cylinders"||unit==="";
   const candidates:number[]=countLike
     ? [value/2,value*2,value*3,value+1,value+2]
@@ -41,7 +45,7 @@ function safeDistractors(answer:string){
   for(const candidate of candidates){
     if(!Number.isFinite(candidate)||candidate<=0)continue;
     if(countLike&&!Number.isInteger(candidate))continue;
-    const display=numericDisplay(candidate,unit);
+    const display=numericDisplay(candidate,unit,precision);
     if(seen.has(display))continue;
     seen.add(display);result.push(display);
     if(result.length===3)break;
@@ -79,7 +83,11 @@ function teachingTraps(question:MenCp012SaturationQuestion){
 }
 
 function polishTeaching(question:MenCp012SaturationQuestion):MenCp012SaturationQuestion{
-  return {...question,explanation:{...question.explanation,traps:teachingTraps(question)}};
+  const steps=question.explanation.steps.map((step)=>({
+    ...step,
+    body:step.body.replace(/L = \[4(\d+(?:\.\d+)?)³\/3\]/g,"L = (4×$1³/3)"),
+  }));
+  return {...question,explanation:{...question.explanation,steps,traps:teachingTraps(question)}};
 }
 
 function directRatioState(id:MenCp012SaturationV3Id,seed:string,position:number):MenCp012SaturationQuestion|null{
@@ -154,17 +162,17 @@ function directRatioState(id:MenCp012SaturationV3Id,seed:string,position:number)
 
   if(id==="V3-COINS-DIAMETER-THICKNESS-TO-CUBOID-COUNT"){
     const patterns=[
-      {d:3.5,tmm:4,l:21,b:11,h:7,n:420},
-      {d:7,tmm:2,l:11,b:7,h:10,n:100},
-      {d:7,tmm:4,l:22,b:7,h:10,n:100},
+      {d:3.5,tmm:4,n:420,targets:[[21,11,7],[33,7,7],[49,11,3],[77,7,3]]},
+      {d:7,tmm:2,n:100,targets:[[11,7,10],[14,11,5],[22,7,5],[35,11,2]]},
+      {d:7,tmm:4,n:100,targets:[[22,7,10],[14,11,10],[28,11,5],[35,11,4]]},
     ] as const;
     const p=patterns[variant%patterns.length]!;
-    const scale=1+(Math.floor(variant/patterns.length)%4);
-    const d=p.d*scale,tmm=p.tmm*scale,l=p.l*scale,b=p.b*scale,h=p.h*scale;
+    const target=p.targets[Math.floor(variant/patterns.length)%p.targets.length]!;
+    const d=p.d,tmm=p.tmm,l=target[0],b=target[1],h=target[2];
     const r=d/2,t=tmm/10,coin=(22/7)*r*r*t,cuboid=l*b*h,calc=cuboid/coin;
     const answer=`${p.n} coins`;
     const stem=`Silver coins are ${tidy(d)} cm in diameter and ${tidy(tmm)} mm thick. How many such coins must be melted to form a cuboid of dimensions ${tidy(l)} cm × ${tidy(b)} cm × ${tidy(h)} cm? Use π = 22/7.`;
-    const work=`Thickness = ${tidy(t)} cm and radius = ${tidy(r)} cm. One coin volume = (22/7)×${tidy(r)}²×${tidy(t)} = ${tidy(coin)} cm³; cuboid volume = ${tidy(cuboid)} cm³; count = ${p.n}.`;
+    const work=`Thickness = ${tidy(t)} cm and radius = ${tidy(r)} cm. One coin volume = (22/7)×${tidy(r)}²×${tidy(t)} = ${tidy(coin,5)} cm³; cuboid volume = ${tidy(cuboid)} cm³; count = ${p.n}.`;
     const base:MenCp012SaturationQuestion={
       authority:MEN_CP_012_SATURATION_V3_AUTHORITY,id,cluster:definition.cluster,disposition:definition.disposition,evidence:definition.evidence,seed,
       stem,answer,options:[],correctIndex:position,
@@ -173,7 +181,7 @@ function directRatioState(id:MenCp012SaturationV3Id,seed:string,position:number)
         {title:"Find one coin and cuboid volume",body:work},
         {title:"Form the count",body:"Number of coins = cuboid volume ÷ one coin volume."},
         {title:"Check the target",body:`The required count is ${answer}.`},
-      ],traps:[]},verification:{valid:Math.abs(calc-p.n)<1e-8,method:"scaled coin-cylinder to cuboid volume count"},approximation:false,
+      ],traps:[]},verification:{valid:Math.abs(calc-p.n)<1e-8,method:"coin-cylinder to equal-volume cuboid count"},approximation:false,
       permanentQlId:null,questionStudioDiscoverable:false,publiclyPublishable:false,
     };
     return polishTeaching({...base,options:rebuildOptions(base,position)});
@@ -181,16 +189,16 @@ function directRatioState(id:MenCp012SaturationV3Id,seed:string,position:number)
 
   if(id==="V3-COINS-CIRCUMFERENCE-THICKNESS-TO-CUBOID-COUNT"){
     const patterns=[
-      {C:5.5,tmm:2,l:14,b:11,h:8,n:2560},
-      {C:11,tmm:4,l:21,b:11,h:7,n:420},
+      {C:5.5,tmm:2,n:2560,targets:[[14,11,8],[16,11,7],[22,8,7],[28,11,4]]},
+      {C:11,tmm:4,n:420,targets:[[21,11,7],[33,7,7],[49,11,3],[77,7,3]]},
     ] as const;
     const p=patterns[variant%patterns.length]!;
-    const scale=1+(Math.floor(variant/patterns.length)%5);
-    const C=p.C*scale,tmm=p.tmm*scale,l=p.l*scale,b=p.b*scale,h=p.h*scale;
+    const target=p.targets[Math.floor(variant/patterns.length)%p.targets.length]!;
+    const C=p.C,tmm=p.tmm,l=target[0],b=target[1],h=target[2];
     const r=C*7/44,t=tmm/10,coin=(22/7)*r*r*t,cuboid=l*b*h,calc=cuboid/coin;
     const answer=`${p.n} coins`;
     const stem=`Each silver coin has circumference ${tidy(C)} cm and thickness ${tidy(tmm)} mm. How many coins must be melted to form a cuboid ${tidy(l)} cm × ${tidy(b)} cm × ${tidy(h)} cm? Use π = 22/7.`;
-    const work=`From 2πr=${tidy(C)}, r=${tidy(r)} cm. Thickness=${tidy(t)} cm. One coin volume=${tidy(coin)} cm³ and cuboid volume=${tidy(cuboid)} cm³, so count=${p.n}.`;
+    const work=`From 2πr=${tidy(C)}, r=${tidy(r)} cm. Thickness=${tidy(t)} cm. One coin volume=${tidy(coin,5)} cm³ and cuboid volume=${tidy(cuboid)} cm³, so count=${p.n}.`;
     const base:MenCp012SaturationQuestion={
       authority:MEN_CP_012_SATURATION_V3_AUTHORITY,id,cluster:definition.cluster,disposition:definition.disposition,evidence:definition.evidence,seed,
       stem,answer,options:[],correctIndex:position,
@@ -199,7 +207,7 @@ function directRatioState(id:MenCp012SaturationV3Id,seed:string,position:number)
         {title:"Find material volumes",body:work},
         {title:"Form the count",body:"Divide the cuboid volume by one coin's cylindrical volume."},
         {title:"Check the target",body:`The required count is ${answer}.`},
-      ],traps:[]},verification:{valid:Math.abs(calc-p.n)<1e-7,method:"scaled circumference-to-radius coin volume count"},approximation:false,
+      ],traps:[]},verification:{valid:Math.abs(calc-p.n)<1e-7,method:"circumference-to-radius coin volume count"},approximation:false,
       permanentQlId:null,questionStudioDiscoverable:false,publiclyPublishable:false,
     };
     return polishTeaching({...base,options:rebuildOptions(base,position)});
