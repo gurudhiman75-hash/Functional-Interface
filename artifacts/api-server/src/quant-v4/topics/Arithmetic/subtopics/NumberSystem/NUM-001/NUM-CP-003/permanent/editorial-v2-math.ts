@@ -38,9 +38,10 @@ function wrapRawFormulae(value: string): string {
     (_match, variable, number) => inline(`${variable} = ${number}`),
   );
 
+  // Wrap a complete ordered-pair set before wrapping individual pairs.
   output = output.replace(
-    /\(\s*([XYAB]|-?\d+)\s*,\s*([XYAB]|-?\d+)\s*\)/gu,
-    (_match, first, second) => inline(`(${first}, ${second})`),
+    /\{\s*((?:\(\s*-?\d+\s*,\s*-?\d+\s*\)\s*,\s*)+\(\s*-?\d+\s*,\s*-?\d+\s*\))\s*\}/gu,
+    (_match, body) => inline(`\\{${String(body).replace(/\s+/gu, " ")}\\}`),
   );
 
   output = output.replace(
@@ -49,8 +50,8 @@ function wrapRawFormulae(value: string): string {
   );
 
   output = output.replace(
-    /\{\s*((?:\(\s*-?\d+\s*,\s*-?\d+\s*\)\s*,\s*)+\(\s*-?\d+\s*,\s*-?\d+\s*\))\s*\}/gu,
-    (_match, body) => inline(`\\{${String(body).replace(/\s+/gu, " ")}\\}`),
+    /\(\s*([XYAB]|-?\d+)\s*,\s*([XYAB]|-?\d+)\s*\)/gu,
+    (_match, first, second) => inline(`(${first}, ${second})`),
   );
 
   output = output.replace(
