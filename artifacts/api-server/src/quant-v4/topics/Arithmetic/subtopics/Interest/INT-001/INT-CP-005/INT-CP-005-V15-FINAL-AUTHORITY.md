@@ -6,12 +6,14 @@
 - Immutable freeze: `INT-CP-005-EN-HI-PA-v15-frozen`
 - Locales: `en-IN`, `hi-IN`, `pa-IN`
 - Approved learner-source head: `93dad8b2455c5255ad2fdc5542710c3f63f9d69d`
-- Final PR validation head: `2e5ddb6b5e5b0ff1cc956df20e1959cb59d6f512`
+- Exact runtime/freeze validation head: `2e5ddb6b5e5b0ff1cc956df20e1959cb59d6f512`
 - Final V15 validation run: `31866119559` — PASS
 - Final review/freeze artifact: `9242051486`
 - Final artifact digest: `sha256:ac5a603842abd2ffac74ee422d2a929e7438fe578eb21aee4b2b00a7669c1a10`
-- Final Render production build run: `31866119604` — PASS
-- Final integrated admin/student run: `31866119578` — PASS
+- Render production build run on that validation head: `31866119604` — PASS
+- Integrated admin/student run on that validation head: `31866119578` — PASS
+
+The later authority-document commit changes documentation only; it does not modify CP005 runtime, freeze, audit, review-export, registry, delivery, or application code.
 
 ## V15 manual-review remediation
 
