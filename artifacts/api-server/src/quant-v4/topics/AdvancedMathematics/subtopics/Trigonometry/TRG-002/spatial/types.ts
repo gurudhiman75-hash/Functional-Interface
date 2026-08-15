@@ -172,6 +172,16 @@ export interface Trg002DiagramRightAngleMarker {
   horizontalDirection: "LEFT" | "RIGHT";
 }
 
+export interface Trg002DiagramMeasurementArrow {
+  id: string;
+  fromPointId: string;
+  toPointId: string;
+  label: string;
+  side: "LEFT" | "RIGHT";
+  lane: number;
+  kind: "TOTAL_HEIGHT" | "HEIGHT_PART" | "HEIGHT_DIFFERENCE";
+}
+
 export interface Trg002DiagramSpec {
   strategy: Trg002DiagramStrategy;
   width: 1000;
@@ -181,5 +191,6 @@ export interface Trg002DiagramSpec {
   segments: Trg002DiagramSegment[];
   angles: Trg002DiagramAngleMarker[];
   rightAngles: Trg002DiagramRightAngleMarker[];
+  measurementArrows: Trg002DiagramMeasurementArrow[];
   labels: Array<{ id: string; pointId: string; text: string }>;
 }
