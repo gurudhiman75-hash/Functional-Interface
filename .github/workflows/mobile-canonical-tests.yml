@@ -43,7 +43,7 @@ jobs:
         run: pnpm --dir artifacts/api-server build
       - name: Run compatibility regression tests
         run: |
-          pnpm exec esbuild artifacts/api-server/src/lib/mobile-test-compat.test.ts \
+          pnpm --dir artifacts/api-server exec esbuild src/lib/mobile-test-compat.test.ts \
             --bundle \
             --platform=node \
             --format=esm \
