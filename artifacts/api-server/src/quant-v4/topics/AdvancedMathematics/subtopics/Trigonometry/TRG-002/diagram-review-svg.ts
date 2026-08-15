@@ -162,9 +162,7 @@ export function renderTrg002DiagramReviewSvg(spec: Trg002DiagramSpec, options: T
 
   const dimensionArrows = spec.measurementArrows.map((arrow) => measurementArrowSvg(arrow, points)).join("\n");
   const dimensionEndpointKeys = new Set(
-    spec.measurementArrows
-      .filter((arrow) => arrow.kind === "TOTAL_HEIGHT")
-      .map((arrow) => endpointKey(arrow.fromPointId, arrow.toPointId)),
+    spec.measurementArrows.map((arrow) => endpointKey(arrow.fromPointId, arrow.toPointId)),
   );
   const measurementLabels = annotations
     .filter((annotation) => !dimensionEndpointKeys.has(endpointKey(annotation.fromPointId, annotation.toPointId)))
