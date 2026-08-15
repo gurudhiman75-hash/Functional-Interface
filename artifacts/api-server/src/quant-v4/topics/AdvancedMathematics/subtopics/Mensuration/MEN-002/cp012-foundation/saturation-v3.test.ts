@@ -8,6 +8,7 @@ import {
 } from "./saturation-v3-safe";
 
 function assert(condition:unknown,message:string):asserts condition{if(!condition)throw new Error(message);}
+function decimalPlaces(display:string){const m=/^-?\d+(?:\.(\d+))?/.exec(display);return m?.[1]?.length??0;}
 
 assert(MEN_CP_012_SATURATION_V3_DEFINITIONS.length===12,`Expected 12 Wave 03 candidates, got ${MEN_CP_012_SATURATION_V3_DEFINITIONS.length}.`);
 assert(new Set(MEN_CP_012_SATURATION_V3_DEFINITIONS.map((row)=>row.id)).size===12,"Wave 03 IDs must be unique.");
@@ -44,6 +45,28 @@ for(const definition of MEN_CP_012_SATURATION_V3_DEFINITIONS){
     assert(first.options.filter((option)=>option.isCorrect).length===1,`${definition.id}/${seed}: expected one correct option.`);
     assert(first.options[first.correctIndex]?.display===first.answer,`${definition.id}/${seed}: displayed-answer parity failed.`);
     assert(first.explanation.steps.length===4,`${definition.id}/${seed}: expected four explanation steps.`);
+    assert(first.explanation.steps.every((step)=>!/L = \[4\d/.test(step.body)),`${definition.id}/${seed}: hollow-length multiplication sign is missing.`);
+    if(!definition.cluster.includes("HOLLOW")){
+      assert(first.explanation.traps.every((trap)=>! /hollow/i.test(trap)),`${definition.id}/${seed}: irrelevant hollow trap on non-hollow family.`);
+    }
+    if(first.answer.endsWith("%")){
+      assert(first.options.every((option)=>! /\s%$/.test(option.display)),`${definition.id}/${seed}: percentage option contains a synthetic space before %.`);
+    }
+    if(first.approximation){
+      const precision=decimalPlaces(first.answer);
+      assert(precision>0,`${definition.id}/${seed}: approximation answer must expose requested decimal precision.`);
+      assert(first.options.every((option)=>decimalPlaces(option.display)===precision),`${definition.id}/${seed}: approximation distractors must use the same decimal precision as the answer.`);
+    }
+    if(definition.id==="V3-COINS-DIAMETER-THICKNESS-TO-CUBOID-COUNT"){
+      const m=/Silver coins are ([\d.]+) cm in diameter and ([\d.]+) mm thick/.exec(first.stem);
+      assert(!!m,`${definition.id}/${seed}: coin dimensions missing from stem.`);
+      assert(Number(m![1])<=7&&Number(m![2])<=4,`${definition.id}/${seed}: source coin dimensions were inflated merely for diversity.`);
+    }
+    if(definition.id==="V3-COINS-CIRCUMFERENCE-THICKNESS-TO-CUBOID-COUNT"){
+      const m=/circumference ([\d.]+) cm and thickness ([\d.]+) mm/.exec(first.stem);
+      assert(!!m,`${definition.id}/${seed}: circumference coin dimensions missing from stem.`);
+      assert(Number(m![1])<=11&&Number(m![2])<=4,`${definition.id}/${seed}: source coin dimensions were inflated merely for diversity.`);
+    }
     assert(first.permanentQlId===null,`${definition.id}/${seed}: permanent QL leaked into saturation.`);
     assert(!first.questionStudioDiscoverable&&!first.publiclyPublishable,`${definition.id}/${seed}: product gate leaked.`);
     if(first.constructionSeed!==seed)rerouted+=1;
@@ -62,6 +85,7 @@ console.log(JSON.stringify({
   reroutedConstructionCount:rerouted,
   approximationStates,
   dispositionCounts,
+  setterPresentationAudit:"PASS",
   permanentQlCount:0,
   productLocked:true,
 },null,2));
