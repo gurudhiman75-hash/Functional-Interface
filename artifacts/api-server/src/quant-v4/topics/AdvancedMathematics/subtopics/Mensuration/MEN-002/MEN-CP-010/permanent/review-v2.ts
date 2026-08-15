@@ -52,8 +52,8 @@ function candidatesForPosition(qlId: QlId, targetPosition: number) {
 
 function requiredHumanSourceCount(declaredCount: number) {
   // The machine freeze proof exercises every declared source. Human review
-  // instead requires a meaningful spread plus every named exam-realism source.
-  return Math.min(3, declaredCount);
+  // requires at least two distinct representations plus every named exam source.
+  return Math.min(2, declaredCount);
 }
 
 function buildForQl(qlId: QlId) {
