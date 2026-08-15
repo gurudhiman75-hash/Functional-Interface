@@ -3,9 +3,9 @@ import { resolve } from "node:path";
 import { NUM_CP003_PERMANENT_QL_IDS } from "./allocation";
 import {
   NUM_CP003_EDITORIAL_V2_RELEASE,
-  runNumCp003EditorialV2ForQl,
+  runNumCp003EditorialV2FinalForQl,
   type NumCp003EditorialV2Question,
-} from "./editorial-v2";
+} from "./editorial-v2-final";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -14,15 +14,10 @@ function assert(condition: unknown, message: string): asserts condition {
 const bannedLearnerLanguage = /\b(?:In this question|admissible|topology|candidate[- ]set|cardinality|remainder status|Compute or infer|Exact testing leaves|universal guarantee|solve mode|authority id)\b/iu;
 const internalIdentityLeak = /NUM-(?:CP|QL)|PROT-|solveMode|authorityId|qlTemplateId|temporaryTemplateLabel/iu;
 const oldSectionLeak = /(?:Main Rule|Exam Speed Trick|Common Traps|Strategy:|Verification:|Conclusion:)/iu;
+const rejectedLegacySentence = /This condition is satisfied for every possible missing digit/iu;
 
 function learnerText(q: NumCp003EditorialV2Question): string {
-  return [
-    q.stem,
-    ...q.options,
-    q.explanation.concept,
-    ...q.explanation.solution,
-    q.explanation.finalAnswer,
-  ].join("\n");
+  return [q.stem, ...q.options, q.explanation.concept, ...q.explanation.solution, q.explanation.finalAnswer].join("\n");
 }
 
 function learnerSurface(q: NumCp003EditorialV2Question): string {
@@ -73,7 +68,7 @@ for (const qlId of NUM_CP003_PERMANENT_QL_IDS) {
   perQlDifficulties.set(qlId, new Set());
 
   for (let seed = 1; seed <= 80; seed += 1) {
-    const q = runNumCp003EditorialV2ForQl(qlId, `cp003-editorial-v2-audit:${seed}`);
+    const q = runNumCp003EditorialV2FinalForQl(qlId, `cp003-editorial-v2-audit:${seed}`);
     audited += 1;
     const label = `${qlId}/${seed}`;
     const learner = learnerText(q);
@@ -101,6 +96,7 @@ for (const qlId of NUM_CP003_PERMANENT_QL_IDS) {
 
     assert(!bannedLearnerLanguage.test(learner), `${label}: banned learner wording`);
     assert(!oldSectionLeak.test(learner), `${label}: legacy four-tier wording leaked`);
+    assert(!rejectedLegacySentence.test(learner), `${label}: rejected fixed-suffix sentence leaked`);
     assert(!internalIdentityLeak.test(learner), `${label}: internal identity leaked to learner text`);
     assert(inlineMathBalanced(learner), `${label}: unbalanced inline MathJax`);
     assert(!/\\\([^)]*\\\(/u.test(learner), `${label}: nested inline MathJax`);
@@ -126,7 +122,7 @@ assert(audited === NUM_CP003_PERMANENT_QL_IDS.length * 80, "unexpected audit cor
 
 function selectFourForReview(qlId: (typeof NUM_CP003_PERMANENT_QL_IDS)[number]): readonly NumCp003EditorialV2Question[] {
   const candidates = Array.from({ length: 320 }, (_, index) =>
-    runNumCp003EditorialV2ForQl(qlId, `cp003-editorial-v2-review:${index + 1}`));
+    runNumCp003EditorialV2FinalForQl(qlId, `cp003-editorial-v2-review:${index + 1}`));
   const selected: NumCp003EditorialV2Question[] = [];
   const seenDifficulties = new Set<string>();
   const seenCorrectIndices = new Set<number>();
