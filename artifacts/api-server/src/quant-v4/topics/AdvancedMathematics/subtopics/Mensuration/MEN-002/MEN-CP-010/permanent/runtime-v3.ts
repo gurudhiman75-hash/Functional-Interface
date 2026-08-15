@@ -9,6 +9,7 @@ import {
   listMenCp010ExamRealismSourcesV2,
   shouldUseMenCp010ExamRealismSourceV2,
 } from "./exam-realism-sources-v2";
+import { diversifyMenCp010ExamRealismOverlayV2 } from "./exam-realism-diversity-v2";
 
 export const MEN_CP_010_PERMANENT_ENGLISH_RUNTIME_V3_AUTHORITY =
   "MEN-CP010-PERMANENT-ENGLISH-RUNTIME-V3-EXAM-REALISM" as const;
@@ -27,9 +28,15 @@ export function generateMenCp010ExamReadyEnglishQuestion(
   seed: string,
 ): MenCp010ExamReadyEnglishQuestion {
   const base = generateV2Question(qlId, seed);
-  const overlay = shouldUseMenCp010ExamRealismSourceV2(qlId, seed)
+  const rawOverlay = shouldUseMenCp010ExamRealismSourceV2(qlId, seed)
     ? buildMenCp010ExamRealismOverlayV2(qlId, seed, base.correctIndex)
     : null;
+  const overlay = diversifyMenCp010ExamRealismOverlayV2(
+    qlId,
+    seed,
+    base.correctIndex,
+    rawOverlay,
+  );
 
   const question = overlay
     ? {
