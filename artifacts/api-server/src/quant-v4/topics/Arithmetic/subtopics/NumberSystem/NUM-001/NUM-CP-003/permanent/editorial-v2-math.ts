@@ -10,7 +10,11 @@ function mathBody(value: string): string {
 }
 
 function convertDollarMath(value: string): string {
-  return value.replace(/\$([^$\n]+)\$/gu, (_match, body) => inline(mathBody(String(body))));
+  // The legacy CP003 teacher uses both $...$ and $$...$$. Convert display
+  // delimiters first so the single-dollar pass cannot leave orphan dollars.
+  return value
+    .replace(/\$\$([\s\S]*?)\$\$/gu, (_match, body) => inline(mathBody(String(body))))
+    .replace(/\$([^$\n]+)\$/gu, (_match, body) => inline(mathBody(String(body))));
 }
 
 function protectExistingMath(value: string, spans: string[]): string {
