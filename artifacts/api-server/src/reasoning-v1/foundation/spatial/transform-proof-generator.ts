@@ -129,20 +129,37 @@ function mutateInnerProperty(
   return null;
 }
 
+function directedPointSetDistance(
+  from: readonly SpatialPoint[],
+  to: readonly SpatialPoint[],
+): number {
+  return Math.max(
+    ...from.map((point) =>
+      Math.min(
+        ...to.map((other) =>
+          Math.hypot(point.x - other.x, point.y - other.y),
+        ),
+      ),
+    ),
+  );
+}
+
 function innerPropertyChangeScore(
   original: SpatialNode,
   mutated: SpatialNode,
 ): number {
   const before = orientableNodePoints(original);
   const after = orientableNodePoints(mutated);
-  if (!before || !after || before.length !== after.length) {
-    return JSON.stringify(original) === JSON.stringify(mutated) ? 0 : 6;
+  if (!before || !after || !before.length || !after.length) {
+    return JSON.stringify(original) === JSON.stringify(mutated) ? 0 : 8;
   }
+
+  // Compare the rendered point sets rather than point indexes. Polygon vertex
+  // order can reverse after a local flip while the visible outline remains
+  // almost unchanged; index-wise displacement would badly overstate that case.
   return Math.max(
-    ...before.map((point, index) => {
-      const other = after[index]!;
-      return Math.hypot(point.x - other.x, point.y - other.y);
-    }),
+    directedPointSetDistance(before, after),
+    directedPointSetDistance(after, before),
   );
 }
 
@@ -188,7 +205,7 @@ function buildOuterMatchedInnerPropertyCandidate(
     ]);
     if (!perceptual.ok) continue;
     const score = innerPropertyChangeScore(original, mutated);
-    if (score < 4) continue;
+    if (score < 6) continue;
     candidates.push({ scene, score });
   }
 
@@ -196,7 +213,7 @@ function buildOuterMatchedInnerPropertyCandidate(
   const selected = candidates[0]?.scene;
   if (!selected) {
     throw new Error(
-      `${correctScene.id}: unable to build a visible inner-property mirror distractor without changing the outer figure.`,
+      `${correctScene.id}: unable to build a visibly distinct inner-property mirror distractor without changing the outer figure.`,
     );
   }
   return selected;
