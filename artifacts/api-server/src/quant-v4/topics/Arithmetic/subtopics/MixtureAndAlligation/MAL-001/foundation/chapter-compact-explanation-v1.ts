@@ -72,9 +72,7 @@ function alligationShortcutLines(explanation: Record<string, unknown>): string[]
     .map((line) => normaliseCompactMath(line.trim()))
     .filter(Boolean)
     .filter((line) => !/^Method\s*2\b/iu.test(line))
-    .filter((line) => !/^Place the opposite differences\b/iu.test(line))
-    .filter((line) => !/^Use the quantity ratio with those differences\b/iu.test(line))
-    .slice(0, 3);
+    .slice(0, 4);
 }
 
 function cp001DualMethod(
@@ -111,17 +109,31 @@ function simpleStepBased(explanation: Record<string, unknown>): Record<string, u
   };
 }
 
-function cp004DualMethod(explanation: Record<string, unknown>): Record<string, unknown> {
+function cp004SimpleIdea(qlId: string): string | null {
+  if (qlId === "MAL-QL-041") {
+    return "Only water is added, so the amount of solute remains unchanged.";
+  }
+  if (qlId === "MAL-QL-042") {
+    return "Pure solute is added, so the amount of solvent remains unchanged.";
+  }
+  return null;
+}
+
+function cp004DualMethod(
+  qlId: string,
+  explanation: Record<string, unknown>,
+): Record<string, unknown> {
   const normal = stringArray(explanation.visibleLines)
     .map((line) => normaliseCompactMath(line.trim()))
     .filter(Boolean)
     .filter((line) => !/^Answer\s*:/iu.test(line));
+  const idea = cp004SimpleIdea(qlId);
   const optionalHelp = asRecord(explanation.optionalHelp);
   const alternative = asRecord(optionalHelp?.alternativeMethod);
   if (!alternative) {
     return {
       ...explanation,
-      visibleLines: ["Simple Method", ...normal],
+      visibleLines: ["Simple Method", ...(idea ? [idea] : []), ...normal],
     };
   }
 
@@ -140,6 +152,7 @@ function cp004DualMethod(explanation: Record<string, unknown>): Record<string, u
     ...explanation,
     visibleLines: [
       "Method 1 — Simple Method",
+      ...(idea ? [idea] : []),
       ...normal,
       "Method 2 — Alligation Cross",
       ...(crossLines.length > 0 ? [crossLines.join("\n")] : []),
@@ -193,7 +206,7 @@ export function applyMal001DualMethodExplanationV2<T>(question: T): T {
   } else if (cpId === "MAL-CP-001" || cpId === "MAL-CP-002" || cpId === "MAL-CP-003") {
     learnerExplanation = simpleStepBased(explanation);
   } else if (cpId === "MAL-CP-004" && CP004_ALLIGATION_CROSS_QLS.has(qlId)) {
-    learnerExplanation = cp004DualMethod(explanation);
+    learnerExplanation = cp004DualMethod(qlId, explanation);
   } else if (cpId === "MAL-CP-004" || cpId === "MAL-CP-005" || cpId === "MAL-CP-006") {
     learnerExplanation = solutionFirstSimple(explanation);
   }
