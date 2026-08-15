@@ -13,7 +13,7 @@
 - Render production build run on validation head: `31866119604` — PASS
 - Integrated admin/student run on validation head: `31866119578` — PASS
 
-The commits after the exact validation head edit this authority document only. They do not change CP005 runtime, frozen learner content, audit logic, review exporter, Question Studio wiring, Question Bank wiring, tests, publication, or application code.
+Commits after the exact validation head are limited to this authority record. They do not change CP005 runtime, frozen learner content, audit logic, review exporter, Question Studio wiring, Question Bank wiring, tests, publication, or application code.
 
 ## V15 manual-review remediation
 
