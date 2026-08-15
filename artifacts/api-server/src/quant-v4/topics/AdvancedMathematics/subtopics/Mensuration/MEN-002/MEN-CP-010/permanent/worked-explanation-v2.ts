@@ -30,7 +30,10 @@ export function buildMenCp010WorkedExplanationV2(
     q.sourceId === "MEN-CP010-PROT-CONICAL-FRUSTUM-CSA" ||
     q.sourceId === "MEN-CP010-PROT-CONICAL-FRUSTUM-TSA"
   ) {
-    const pi = /Take π = ([0-9]+(?:\/[0-9]+)?|[0-9]+\.[0-9]+)/.exec(stem)?.[1];
+    // Decimal must be matched before the integer alternative. The V1 regex
+    // matched the leading "3" in "3.14", producing a mathematically correct
+    // answer with an incorrect displayed substitution.
+    const pi = /Take π = ([0-9]+\.[0-9]+|[0-9]+\/[0-9]+|[0-9]+)/.exec(stem)?.[1];
     if (pi) explanation = replaceWorkedStep(explanation, worked.replace("π", pi));
   }
 
