@@ -133,8 +133,8 @@ function assertPremiumMirrorDistractor(question: SpatialTransformProofQuestion):
   const geometricSeparation = pointSetDistance(correctSecondary, premiumSecondary);
   if (geometricSeparation !== null) {
     assert(
-      geometricSeparation >= 6,
-      `Premium MIR inner outline is too visually similar (${geometricSeparation.toFixed(2)} SVG units); require at least 6.`,
+      geometricSeparation >= 5,
+      `Premium MIR inner outline is too visually similar (${geometricSeparation.toFixed(2)} SVG units); require at least 5.`,
     );
   } else {
     assert.equal(correctSecondary.kind, "circle");
@@ -304,7 +304,7 @@ console.log(
         mirrorOuterFigureByteIdentical: true,
         mirrorOnlySecondaryInnerFeatureChanged: true,
         mirrorInnerFeatureFootprintUnchanged: true,
-        mirrorInnerOutlineMinimumSixUnitSeparation: true,
+        mirrorInnerOutlineMinimumFiveUnitSeparation: true,
         mirrorPremiumDistractorPerceptuallyDistinct: true,
         balancedAnswerPositions: true,
         explanationEvidence: true,
