@@ -17,7 +17,9 @@ type EditorialQuestion = {
   };
 };
 
-const CLUSTER_TEACHING: Readonly<Record<string, { shortcut: string; traps: readonly [string, string] }>> = {
+type TeachingPolicy = { readonly shortcut: string; readonly traps: readonly [string, string] };
+
+const CLUSTER_TEACHING: Readonly<Record<string, TeachingPolicy>> = {
   PYRAMID_VOLUME_DIRECT: {
     shortcut: "Construct the base area first, then multiply by vertical height and divide by 3.",
     traps: ["Use the base area, not a raw base side or diagonal.", "A pyramid has one-third the volume of the corresponding prism."],
@@ -36,7 +38,7 @@ const CLUSTER_TEACHING: Readonly<Record<string, { shortcut: string; traps: reado
   },
   PYRAMID_SURFACE_DIRECT: {
     shortcut: "For a regular pyramid, LSA = Pl/2; add the base area only when TSA is asked.",
-    traps: ["Use face slant height in the triangular faces, not vertical height.", "Do not add the base when only lateral surface area is required."],
+    traps: ["Use face slant height in the triangular faces, not vertical height.", "Match the exposed-surface formula to whether LSA or TSA is requested."],
   },
   CONICAL_FRUSTUM_VOLUME_DIRECT: {
     shortcut: "Compute R² + Rr + r² first, then multiply by πh/3.",
@@ -44,7 +46,7 @@ const CLUSTER_TEACHING: Readonly<Record<string, { shortcut: string; traps: reado
   },
   CONICAL_FRUSTUM_SURFACE_DIRECT: {
     shortcut: "CSA = π(R+r)l; add the two circular ends only if total surface area is required.",
-    traps: ["Use R+r, not R−r, in curved surface area.", "Do not include open circular ends in a sheet-area question."],
+    traps: ["Use R+r, not R−r, in curved surface area.", "Match the end-disc treatment to whether CSA or TSA is requested."],
   },
   POLYGONAL_FRUSTUM_VOLUME_DIRECT: {
     shortcut: "Use V = h(A₁+√(A₁A₂)+A₂)/3 with the two parallel-base areas.",
@@ -52,7 +54,7 @@ const CLUSTER_TEACHING: Readonly<Record<string, { shortcut: string; traps: reado
   },
   POLYGONAL_FRUSTUM_SURFACE_DIRECT: {
     shortcut: "LSA = (P₁+P₂)l/2; add the two base areas only for TSA.",
-    traps: ["Use the perimeters of both parallel bases in LSA.", "Do not add base areas unless the required surface includes them."],
+    traps: ["Use the perimeters of both parallel bases in LSA.", "Match base-area inclusion to whether LSA or TSA is requested."],
   },
   PYRAMID_VOLUME_INVERSE_BASE: {
     shortcut: "Recover base area from B = 3V/h, then convert that area into the requested side/length.",
@@ -124,6 +126,45 @@ const CLUSTER_TEACHING: Readonly<Record<string, { shortcut: string; traps: reado
   },
 };
 
+const SOURCE_TEACHING: Readonly<Record<string, TeachingPolicy>> = {
+  "MEN-CP010-PROT-SQUARE-PYRAMID-LSA": {
+    shortcut: "For a square pyramid, LSA = 2al.",
+    traps: ["Use face slant height l, not vertical height.", "Do not add the square base when lateral surface area is asked."],
+  },
+  "V3-REGULAR-PYRAMID-LSA": {
+    shortcut: "For a regular pyramid, LSA = Pl/2.",
+    traps: ["Use the base perimeter P, not the base area.", "Do not add the base area when lateral surface area is asked."],
+  },
+  "MEN-CP010-PROT-SQUARE-PYRAMID-TSA": {
+    shortcut: "For a square pyramid, TSA = a² + 2al.",
+    traps: ["Use face slant height l in the triangular faces.", "Include the square base exactly once for total surface area."],
+  },
+  "V3-REGULAR-PYRAMID-TSA": {
+    shortcut: "For a regular pyramid, TSA = B + Pl/2.",
+    traps: ["Use perimeter P in the lateral term Pl/2.", "Include the base area B exactly once for total surface area."],
+  },
+  "MEN-CP010-PROT-CONICAL-FRUSTUM-CSA": {
+    shortcut: "For a conical frustum, CSA = π(R+r)l.",
+    traps: ["Use R+r, not R−r, in the curved-area formula.", "Do not add either circular end when curved surface area is asked."],
+  },
+  "MEN-CP010-PROT-CONICAL-FRUSTUM-TSA": {
+    shortcut: "Find CSA = π(R+r)l, then add πR² and πr².",
+    traps: ["Use R+r, not R−r, in the curved-area term.", "Include both circular ends exactly once for total surface area."],
+  },
+  "MEN-CP010-PROT-SQUARE-FRUSTUM-LSA": {
+    shortcut: "For a square frustum, LSA = 2(A+a)l.",
+    traps: ["Use both parallel-base side lengths in A+a.", "Do not add either square base when lateral surface area is asked."],
+  },
+  "V3-REGULAR-FRUSTUM-LSA": {
+    shortcut: "For a regular-polygon frustum, LSA = (P₁+P₂)l/2.",
+    traps: ["Use both base perimeters P₁ and P₂.", "Do not add the parallel-base areas when lateral surface area is asked."],
+  },
+  "MEN-CP010-PROT-SQUARE-FRUSTUM-TSA": {
+    shortcut: "Find LSA = 2(A+a)l, then add A² and a².",
+    traps: ["Use both side lengths in the lateral-area term.", "Include both square bases exactly once for total surface area."],
+  },
+};
+
 function trimNumber(value: number) {
   return value.toFixed(6).replace(/0+$/, "").replace(/\.$/, "");
 }
@@ -134,7 +175,6 @@ function simpleLengthFractionToDecimal(display: string) {
   const denominator = Number(match[2]);
   if (!denominator) return display;
   const value = Number(match[1]) / denominator;
-  // Length answers such as 21/2 cm are clearer in exam options as 10.5 cm.
   return `${trimNumber(value)} ${match[3]}`;
 }
 
@@ -148,6 +188,12 @@ function improperAreaFractionToMixed(display: string) {
   const remainder = numerator % denominator;
   if (remainder === 0) return `${whole} ${match[3]}`;
   return `${whole} ${remainder}/${denominator} ${match[3]}`;
+}
+
+function roundMachinePrecisionDisplay(display: string) {
+  const match = /^(-?\d+\.\d{6,})(\s*(?:cm³|m³|cm²|m²|cm|m|litres))$/.exec(display.trim());
+  if (!match) return display;
+  return `${Number(match[1]).toFixed(2).replace(/0+$/, "").replace(/\.$/, "")}${match[2]}`;
 }
 
 function replaceDisplayInSteps(
@@ -203,8 +249,20 @@ export function polishMenCp010EditorialPresentationV2<T extends EditorialQuestio
     steps = replaceDisplayInSteps(steps, replacements);
   }
 
+  // Remove raw floating-point tails from learner-facing quantities while
+  // preserving mathematically meaningful exact values such as 95.3125%.
+  const precisionReplacements: [string, string][] = options.map((option) => [
+    option.display,
+    roundMachinePrecisionDisplay(option.display),
+  ]);
+  options = options.map((option, index) => ({ ...option, display: precisionReplacements[index]![1] }));
+  const roundedAnswer = roundMachinePrecisionDisplay(answer);
+  precisionReplacements.push([answer, roundedAnswer]);
+  answer = roundedAnswer;
+  steps = replaceDisplayInSteps(steps, precisionReplacements);
+
   const inheritedTeaching = !question.sourceId.startsWith("EXAM-V2");
-  const policy = CLUSTER_TEACHING[question.clusterId];
+  const policy = SOURCE_TEACHING[question.sourceId] ?? CLUSTER_TEACHING[question.clusterId];
   const explanation = inheritedTeaching && policy
     ? {
         ...question.explanation,
