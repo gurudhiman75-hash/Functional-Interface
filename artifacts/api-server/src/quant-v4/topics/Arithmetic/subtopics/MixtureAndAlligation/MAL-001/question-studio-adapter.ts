@@ -1,4 +1,4 @@
-import { applyMal001CompactExplanationV1 } from "./foundation/chapter-compact-explanation-v1";
+import { applyMal001DualMethodExplanationV2 } from "./foundation/chapter-compact-explanation-v1";
 import {
   MAL_CP001_PERMANENT_ALLOCATION,
   type MalCp001PermanentQlId,
@@ -135,7 +135,7 @@ export function runMal001QuestionStudioPipeline(
       MAL_CP001_PERMANENT_ALLOCATION,
       input,
     ) as MalCp001PermanentQlId;
-    return applyMal001CompactExplanationV1(
+    return applyMal001DualMethodExplanationV2(
       runMalCp001EnglishReleasePipeline({
         questionLanguageId,
         seed: input.seed,
@@ -150,7 +150,7 @@ export function runMal001QuestionStudioPipeline(
       MAL_CP002_PERMANENT_ALLOCATION,
       input,
     ) as MalCp002PermanentQlId;
-    return applyMal001CompactExplanationV1(
+    return applyMal001DualMethodExplanationV2(
       runMalCp002EnglishEditorialV2Pipeline({
         questionLanguageId,
         seed: input.seed,
@@ -165,7 +165,7 @@ export function runMal001QuestionStudioPipeline(
       MAL_CP003_PERMANENT_ALLOCATION,
       input,
     ) as MalCp003PermanentQlId;
-    return applyMal001CompactExplanationV1(
+    return applyMal001DualMethodExplanationV2(
       runMalCp003EnglishEditorialV2Pipeline({
         questionLanguageId,
         seed: input.seed,
@@ -180,7 +180,7 @@ export function runMal001QuestionStudioPipeline(
       MAL_CP004_PERMANENT_ALLOCATION,
       input,
     ) as MalCp004PermanentQlId;
-    return applyMal001CompactExplanationV1(
+    return applyMal001DualMethodExplanationV2(
       runMalCp004EnglishProductReviewV7Pipeline({
         questionLanguageId,
         seed: input.seed,
@@ -194,7 +194,7 @@ export function runMal001QuestionStudioPipeline(
     MAL_CP005_RELEASE_ALLOCATION,
     input,
   ) as MalCp005PermanentQlId;
-  return applyMal001CompactExplanationV1(
+  return applyMal001DualMethodExplanationV2(
     runMalCp005EnglishReleasePipeline({
       questionLanguageId,
       seed: input.seed,
