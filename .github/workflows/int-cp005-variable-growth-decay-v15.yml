@@ -1,3 +1,4 @@
+# Final-head validation trigger after V15 authority record.
 name: Validate INT-CP-005 Variable Growth Decay V15
 
 on:
