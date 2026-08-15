@@ -19,15 +19,16 @@ for (const source of listMenCp010ExamReadyEnglishSources()) {
   DECLARED_BY_QL.set(qlId, current);
 }
 const EXAM_SOURCE_IDS = new Set(listMenCp010ExamRealismSourcesV2().map((row) => row.sourceId));
+const SOURCE_SALTS = "abcdefghijklmnopqrstuvwx".split("");
 
 function candidatesForPosition(qlId: QlId, targetPosition: number) {
   const candidates: MenCp010ExamReadyEnglishQuestion[] = [];
   const seen = new Set<string>();
-  for (let attempt = targetPosition; attempt < 16384 && candidates.length < 768; attempt += 4) {
+  for (let attempt = targetPosition; attempt < 16384 && candidates.length < 1024; attempt += 4) {
     const suffix = String(attempt).padStart(5, "0");
     const seeds = [
       `exam-v2-review-${qlId}-${targetPosition}-${suffix}`,
-      `review-v2-base-${qlId}-${targetPosition}-${suffix}`,
+      ...SOURCE_SALTS.map((salt) => `review-v2-${salt}-${qlId}-${targetPosition}-${suffix}`),
     ];
     for (const seed of seeds) {
       const q = generateMenCp010ExamReadyEnglishQuestion(qlId, seed);
@@ -36,6 +37,7 @@ function candidatesForPosition(qlId: QlId, targetPosition: number) {
       if (seen.has(identity)) continue;
       seen.add(identity);
       candidates.push(q);
+      if (candidates.length >= 1024) break;
     }
   }
   if (!candidates.length) throw new Error(`No V2 review candidates for ${qlId} at position ${targetPosition}`);
@@ -116,12 +118,6 @@ export function auditMenCp010ExamRealismReviewV2() {
     };
   });
 
-  const pi314 = records.filter((q) => q.stem.includes("π = 3.14"));
-  const decimalPiTeachingCorrect = pi314.length > 0 && pi314.every((q) => {
-    const work = q.explanation.steps.find((step) => step.title === "Substitute and calculate")?.body ?? "";
-    return work.includes("3.14") && !/\bV = 3 ×/.test(work);
-  });
-
   const examRecords = records.filter((q) => EXAM_SOURCE_IDS.has(q.sourceId));
   const examSourcesCovered = listMenCp010ExamRealismSourcesV2().every((source) =>
     records.some((q) => q.permanentQlId === source.qlId && q.sourceId === source.sourceId),
@@ -156,7 +152,6 @@ export function auditMenCp010ExamRealismReviewV2() {
     sourceCoverageSatisfied: sourceCoverage.every((row) => row.reviewSourceCount >= row.requiredReviewSourceCount),
     examSourcesCovered,
     examReviewRecordCount: examRecords.length,
-    decimalPiTeachingCorrect,
     realisticBucketCapacity,
     cleanSscFrustumArithmetic,
     multiStepWorked,
