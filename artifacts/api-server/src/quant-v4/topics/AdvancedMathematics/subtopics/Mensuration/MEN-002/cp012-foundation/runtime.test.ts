@@ -1,6 +1,6 @@
 import { exactKey } from "../foundation/exact";
 import { auditMenCp012Registry, MEN_CP_012_PROTOTYPES } from "./registry";
-import { generateMenCp012Question } from "./runtime";
+import { MEN_CP_012_PRESENTATION_V2_AUTHORITY, generateMenCp012QuestionV2 } from "./presentation-v2";
 import { buildMenCp012ReviewBatch } from "./review";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -21,9 +21,10 @@ for (const definition of MEN_CP_012_PROTOTYPES) {
   const positions = new Set<number>();
   for (let index = 0; index < 64; index += 1) {
     const seed = `proof:${definition.prototypeId}:${String(index).padStart(3, "0")}`;
-    const first = generateMenCp012Question(definition.prototypeId, seed);
-    const second = generateMenCp012Question(definition.prototypeId, seed);
+    const first = generateMenCp012QuestionV2(definition.prototypeId, seed);
+    const second = generateMenCp012QuestionV2(definition.prototypeId, seed);
 
+    assert(first.presentationAuthority === MEN_CP_012_PRESENTATION_V2_AUTHORITY, `${definition.prototypeId}/${seed}: presentation V2 authority missing.`);
     assert(first.validation.valid, `${definition.prototypeId}/${seed}: validation failed: ${JSON.stringify(first.validation.checks)}`);
     assert(first.verification.valid, `${definition.prototypeId}/${seed}: conservation verification failed.`);
     assert(first.stem === second.stem, `${definition.prototypeId}/${seed}: deterministic stem replay drift.`);
@@ -40,6 +41,14 @@ for (const definition of MEN_CP_012_PROTOTYPES) {
     assert(!first.questionStudioDiscoverable && !first.publiclyPublishable, `${definition.prototypeId}/${seed}: product lifecycle leaked.`);
     assert(first.questionBankStatus === "NOT_STORED" && first.testEligibility === "INELIGIBLE", `${definition.prototypeId}/${seed}: downstream delivery gate leaked.`);
     assert(first.state.conservationStatement.length > 0, `${definition.prototypeId}/${seed}: conservation statement missing.`);
+    assert(first.options.every((option) => !/\d+\/2\s+(?:cm|m)$/.test(option.display)), `${definition.prototypeId}/${seed}: learner-facing half-length should use decimal display.`);
+    if (definition.prototypeId === "MEN-CP012-PROT-WASTAGE-INVERSE-CYLINDER-HEIGHT") {
+      assert(first.explanation.traps.every((trap) => !/Do not use \d+% as the retained fraction/.test(trap)), `${definition.prototypeId}/${seed}: ambiguous loss/retained trap survived.`);
+    }
+    if (definition.prototypeId === "MEN-CP012-PROT-SLAB-TO-THIN-SHEET-LENGTH") {
+      assert(first.stem.includes("thinner rectangular plate"), `${definition.prototypeId}/${seed}: slab context must use realistic plate wording.`);
+      assert(!first.stem.includes("new sheet length"), `${definition.prototypeId}/${seed}: old sheet wording survived.`);
+    }
     if (first.state.lossPercent.numerator > 0n) lossStateCount += 1;
 
     positions.add(first.correctIndex);
@@ -55,9 +64,11 @@ const correctPositions = [0,1,2,3].map((position) => review.filter((question) =>
 assert(correctPositions.every((count) => count === 16), `Review answer balance must be 16/16/16/16; got ${correctPositions.join("/")}.`);
 assert(review.every((question) => question.verification.valid && question.validation.valid), "Every review record must verify and validate.");
 assert(review.every((question) => !question.questionStudioDiscoverable && !question.publiclyPublishable), "Review evidence must remain product-locked.");
+assert(review.every((question) => question.options.every((option) => !/\d+\/2\s+(?:cm|m)$/.test(option.display))), "Review must not expose simple half-length fractions.");
 
 console.log(JSON.stringify({
   authority: "MEN-CP012-FOUNDATION-WAVE-01-V1",
+  presentationAuthority: MEN_CP_012_PRESENTATION_V2_AUTHORITY,
   prototypeCount: registry.prototypeCount,
   reasoningClusterCount: registry.reasoningClusterCount,
   deterministicPackages: deterministicPackageCount,
