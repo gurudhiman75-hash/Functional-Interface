@@ -142,6 +142,23 @@ function uniqueLines(lines: readonly string[]): string[] {
   return result;
 }
 
+function preferredWorkingWithResult(
+  lines: readonly string[],
+  preferred: readonly string[],
+  result: string | undefined,
+  excluded: RegExp,
+): readonly string[] {
+  const selected = uniqueLines(preferred.filter((line) => line !== result));
+  const workingTarget = result ? 1 : 2;
+  for (const line of lines) {
+    if (selected.length >= workingTarget) break;
+    if (line === result || excluded.test(line) || selected.includes(line)) continue;
+    selected.push(line);
+  }
+  if (result) selected.push(result);
+  return Object.freeze(uniqueLines(selected).slice(0, 4));
+}
+
 function compactSolution(
   state: NumCp003RetainedHiddenState,
   rawSteps: readonly unknown[],
@@ -159,10 +176,13 @@ function compactSolution(
       const calculations = lines.filter((line) =>
         line !== result
         && !/^(?:Choose the|Count the valid|Only .* works|Therefore)/iu.test(line)
-        && /divisib|digit sum|last digit|last two|last three|alternating|Split|cannot be used|\\div|\\times/iu.test(line));
-      const selected = calculations.slice(0, result ? 3 : 4);
-      if (result) selected.push(result);
-      return Object.freeze(uniqueLines(selected).slice(0, 4));
+        && /divisib|digit sum|last[- ]digit|last[- ]two|last[- ]three|alternating|Split|cannot be used|rule for|\\div|\\times/iu.test(line));
+      return preferredWorkingWithResult(
+        lines,
+        calculations.slice(0, result ? 3 : 4),
+        result,
+        /^(?:Choose the|Count the valid|Only .* works|Therefore)/iu,
+      );
     }
 
     case "ORDERED_PAIR_CANDIDATE_SET": {
@@ -170,10 +190,13 @@ function compactSolution(
       const calculations = lines.filter((line) =>
         line !== result
         && !/^(?:Only .* works|So the complete answer|Therefore)/iu.test(line)
-        && /X \+ Y|divisib|digit sum|last two|last three|alternating|both the|\\div|\\times/iu.test(line));
-      const selected = calculations.slice(0, result ? 3 : 4);
-      if (result) selected.push(result);
-      return Object.freeze(uniqueLines(selected).slice(0, 4));
+        && /X \+ Y|divisib|digit sum|last[- ]digit|last[- ]two|last[- ]three|alternating|both the|rule for|\\div|\\times/iu.test(line));
+      return preferredWorkingWithResult(
+        lines,
+        calculations.slice(0, result ? 3 : 4),
+        result,
+        /^(?:Only .* works|So the complete answer|Therefore)/iu,
+      );
     }
 
     case "DIGIT_BOUND_MULTIPLE":
