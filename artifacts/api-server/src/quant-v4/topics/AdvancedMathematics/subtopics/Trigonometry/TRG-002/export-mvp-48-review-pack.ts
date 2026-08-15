@@ -18,6 +18,10 @@ function pointMap(diagram: any) {
   return new Map<string, any>(diagram.points.map((point: any) => [point.id, point]));
 }
 
+function endpointKey(fromPointId: string, toPointId: string) {
+  return [fromPointId, toPointId].sort().join("|");
+}
+
 function segmentSvg(segment: any, points: Map<string, any>) {
   const a = points.get(segment.fromPointId);
   const b = points.get(segment.toPointId);
@@ -44,6 +48,25 @@ function annotationSvg(annotation: any, points: Map<string, any>) {
   if (annotation.placement === "LEFT") x -= offset;
   if (annotation.placement === "RIGHT") x += offset;
   return `<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" class="measurement">${esc(annotation.label)}</text>`;
+}
+
+function measurementArrowSvg(arrow: any, points: Map<string, any>) {
+  const a = points.get(arrow.fromPointId);
+  const b = points.get(arrow.toPointId);
+  if (!a || !b) return "";
+  const direction = arrow.side === "LEFT" ? -1 : 1;
+  const offset = 34 + Number(arrow.lane ?? 0) * 58;
+  const arrowX = a.x + direction * offset;
+  const witnessEndX = arrowX - direction * 7;
+  const labelX = arrowX + direction * 46;
+  const midY = (a.y + b.y) / 2;
+  const kindClass = String(arrow.kind).toLowerCase().replaceAll("_", "-");
+  return [
+    `<line class="dimension-witness" x1="${a.x}" y1="${a.y}" x2="${witnessEndX}" y2="${a.y}"/>`,
+    `<line class="dimension-witness" x1="${b.x}" y1="${b.y}" x2="${witnessEndX}" y2="${b.y}"/>`,
+    `<line class="dimension-arrow dimension-${kindClass}" data-measurement-arrow-id="${esc(arrow.id)}" x1="${arrowX}" y1="${a.y}" x2="${arrowX}" y2="${b.y}" marker-start="url(#dimensionArrow)" marker-end="url(#dimensionArrow)"/>`,
+    `<text class="dimension-label dimension-label-${kindClass}" x="${labelX}" y="${midY}" text-anchor="middle" dominant-baseline="middle">${esc(arrow.label)}</text>`,
+  ].join("\n");
 }
 
 function normalizeSignedRadians(value: number) {
@@ -97,7 +120,15 @@ function diagramSvg(question: any) {
   const diagram = question.solutionDiagram;
   const points = pointMap(diagram);
   const segments = diagram.segments.map((segment: any) => segmentSvg(segment, points)).join("\n");
-  const annotations = (question.solutionAnnotations ?? []).map((annotation: any) => annotationSvg(annotation, points)).join("\n");
+  const measurementArrows = (diagram.measurementArrows ?? []).map((arrow: any) => measurementArrowSvg(arrow, points)).join("\n");
+  const dimensionEndpointKeys = new Set<string>(
+    (diagram.measurementArrows ?? [])
+      .filter((arrow: any) => arrow.kind === "TOTAL_HEIGHT")
+      .map((arrow: any) => endpointKey(arrow.fromPointId, arrow.toPointId)),
+  );
+  const annotations = (question.solutionAnnotations ?? [])
+    .filter((annotation: any) => !dimensionEndpointKeys.has(endpointKey(annotation.fromPointId, annotation.toPointId)))
+    .map((annotation: any) => annotationSvg(annotation, points)).join("\n");
   const angles = diagram.angles.map((angle: any) => angleSvg(angle, points)).join("\n");
   const rightAngles = (diagram.rightAngles ?? []).map((marker: any) => rightAngleSvg(marker, points)).join("\n");
   const pointLabels = diagram.labels.map((label: any) => {
@@ -105,12 +136,15 @@ function diagramSvg(question: any) {
     return p ? `<text x="${p.x + 10}" y="${p.y - 10}" class="point-label">${esc(label.text)}</text>` : "";
   }).join("\n");
   const pointDots = diagram.points
-    .filter((point: any) => !String(point.id).startsWith("eye-level-"))
+    .filter((point: any) => point.role !== "AUXILIARY")
     .map((point: any) => `<circle cx="${point.x}" cy="${point.y}" r="4" fill="currentColor"/>`)
     .join("\n");
   return `<svg viewBox="0 0 ${diagram.width} ${diagram.height}" role="img" aria-label="${esc(question.qlId)} solution diagram">
-    <defs><marker id="movementArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/></marker></defs>
-    ${segments}${pointDots}${rightAngles}${angles}${annotations}${pointLabels}
+    <defs>
+      <marker id="movementArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/></marker>
+      <marker id="dimensionArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 5 L 10 0 L 10 10 z" fill="currentColor"/></marker>
+    </defs>
+    ${segments}${pointDots}${rightAngles}${angles}${measurementArrows}${annotations}${pointLabels}
   </svg>`;
 }
 
@@ -129,7 +163,7 @@ const rows = TRG_002_MVP_48_IDS.map((qlId, index) => {
 });
 
 const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TRG-002 48-QL Runtime Review Pack</title><style>
-body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f5f5f5;color:#111}.page{max-width:1500px;margin:auto;padding:24px}.summary,.question-card{background:white;border:1px solid #ddd;border-radius:10px;padding:20px;margin:0 0 20px}.question-card h2{margin:0 0 6px;font-size:20px}.family{color:#555;font-size:13px}.stem{font-size:17px;line-height:1.45}.columns{display:grid;grid-template-columns:0.9fr 1.1fr;gap:24px}.options{list-style:none;padding:0}.options li{padding:5px 0}.options .correct{font-weight:700}.diagram svg{width:100%;height:auto;border:1px solid #ccc;background:white;color:#111}.measurement{font-size:22px;font-weight:700;paint-order:stroke;stroke:white;stroke-width:5px;stroke-linejoin:round}.angle-arc{fill:none;stroke:currentColor;stroke-width:3}.right-angle-marker{fill:none;stroke:currentColor;stroke-width:3}.angle{font-size:22px;font-weight:700;paint-order:stroke;stroke:white;stroke-width:5px}.point-label{font-size:20px;font-weight:700;paint-order:stroke;stroke:white;stroke-width:5px}@media(max-width:900px){.columns{grid-template-columns:1fr}}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f5f5f5;color:#111}.page{max-width:1500px;margin:auto;padding:24px}.summary,.question-card{background:white;border:1px solid #ddd;border-radius:10px;padding:20px;margin:0 0 20px}.question-card h2{margin:0 0 6px;font-size:20px}.family{color:#555;font-size:13px}.stem{font-size:17px;line-height:1.45}.columns{display:grid;grid-template-columns:0.9fr 1.1fr;gap:24px}.options{list-style:none;padding:0}.options li{padding:5px 0}.options .correct{font-weight:700}.diagram svg{width:100%;height:auto;border:1px solid #ccc;background:white;color:#111}.measurement,.dimension-label{font-size:22px;font-weight:700;paint-order:stroke;stroke:white;stroke-width:5px;stroke-linejoin:round}.dimension-witness{stroke:currentColor;stroke-width:1.7;opacity:.65}.dimension-arrow{stroke:currentColor;stroke-width:2.2;fill:none}.dimension-label-height-difference{font-weight:800}.angle-arc{fill:none;stroke:currentColor;stroke-width:3}.right-angle-marker{fill:none;stroke:currentColor;stroke-width:3}.angle{font-size:22px;font-weight:700;paint-order:stroke;stroke:white;stroke-width:5px}.point-label{font-size:20px;font-weight:700;paint-order:stroke;stroke:white;stroke-width:5px}@media(max-width:900px){.columns{grid-template-columns:1fr}}
 </style></head><body><main class="page"><section class="summary"><h1>TRG-002 48-QL Runtime Review Pack</h1><p>Generated from <code>mvp-final-editorial-runtime.ts</code>. All diagrams are solution-stage projections from the same canonical spatial state used by the solver and explanation.</p><p><b>Count:</b> 48 QLs · <b>solution diagrams:</b> 48 · <b>stem diagrams:</b> 0 automatic</p></section>${rows.join("\n")}</main></body></html>`;
 
 const json = TRG_002_MVP_48_IDS.map((qlId, index) => {
