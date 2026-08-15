@@ -13,7 +13,8 @@ The setter-level V2 audit found:
 3. missing chained representations inside existing permanent reasoning families;
 4. a source-coverage audit blind spot: ledger/merge evidence could be counted as represented even when it was not routed by the permanent runtime;
 5. no explicit exam-profile weighting, which risked treating CP-010 as equally relevant to SSC, banking and Punjab-state blueprints;
-6. low state diversity in several mathematically valid families: parallel cuts, similarity ratios, capacity and percentage scaling.
+6. low state diversity in several mathematically valid families: parallel cuts, similarity ratios, capacity and percentage scaling;
+7. residual generator-like presentation in inherited states: generic shortcuts/traps unrelated to the actual reasoning family, assignment-style capacity wording, raw half-length fractions and improper frustum-surface fractions.
 
 ## Benchmark conclusion
 
@@ -105,18 +106,38 @@ The hardened families include:
 
 This distinguishes **formula coverage** from **question-bank entropy**: both must be acceptable before freeze approval.
 
+## Final editorial-realism polish
+
+The exact setter artifact was inspected after the structural V2 proof. That pass found inherited questions which were mathematically correct but still looked generated rather than authored for an exam platform.
+
+V2 therefore adds a final presentation layer with the following invariants:
+
+- inherited questions receive **reasoning-family-specific shortcuts and traps** across all 26 canonical clusters;
+- obsolete generic trap text such as “do not confuse vertical height with slant height” is prohibited where it is not relevant to that family;
+- capacity stems use natural prose such as “larger radius 14 cm” rather than assignment notation such as `larger radius = 14 cm`;
+- cross-section lengths such as `21/2 cm` are shown naturally as `10.5 cm`;
+- conical-frustum surface answers produced with `π = 22/7` are shown as exact mixed numbers instead of raw improper fractions when appropriate;
+- any display normalization must update the correct option, canonical displayed answer and worked explanation together;
+- the full deterministic proof asserts that the displayed correct option equals the displayed answer after polishing.
+
+These changes affect learner presentation only; the independently verified mathematics remains the authority.
+
 ## Human-review gate
 
 V2 expands the setter artifact from 104 to **208 English questions**:
 
 ```text
 26 QLs × 8 review states = 208
+A = 52
+B = 52
+C = 52
+D = 52
 ```
 
 For each permanent QL:
 
 - the first four review records guarantee one correct answer at A, B, C and D;
-- the remaining four maximize distinct stem/source/exam-representation breadth rather than forcing an artificial second answer-position cycle;
+- the remaining four maximize distinct stem/source/exam-representation breadth while the selector keeps the overall setter artifact balanced;
 - all eight stems must be distinct;
 - all named V2 exam-realism sources must appear in the setter artifact;
 - multi-source QLs must expose both inherited and exam-facing representations where applicable.
@@ -137,6 +158,8 @@ The V2 frozen proof generates:
 ```text
 26 QLs × 256 states × 2 lanes = 13,312 questions
 ```
+
+Across that proof the final editorial rules are also enforced, including answer-display parity, natural capacity syntax, tailored teaching text, and normalized length/surface displays.
 
 Ordinary production seeds remain mixed; the special lanes exist only to make the audit unambiguous.
 
