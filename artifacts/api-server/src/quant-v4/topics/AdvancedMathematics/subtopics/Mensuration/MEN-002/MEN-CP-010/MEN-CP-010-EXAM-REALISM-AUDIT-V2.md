@@ -12,7 +12,8 @@ The setter-level V2 audit found:
 2. an over-formulaic question mix compared with SSC pyramid previous-paper patterns;
 3. missing chained representations inside existing permanent reasoning families;
 4. a source-coverage audit blind spot: ledger/merge evidence could be counted as represented even when it was not routed by the permanent runtime;
-5. no explicit exam-profile weighting, which risked treating CP-010 as equally relevant to SSC, banking and Punjab-state blueprints.
+5. no explicit exam-profile weighting, which risked treating CP-010 as equally relevant to SSC, banking and Punjab-state blueprints;
+6. low state diversity in several mathematically valid families: parallel cuts, similarity ratios, capacity and percentage scaling.
 
 ## Benchmark conclusion
 
@@ -43,19 +44,21 @@ Current Punjab-state quant evidence used for this audit is dominated by 2D mensu
 
 The permanent identity map remains `MEN-002-QL-124..MEN-002-QL-149`; no artificial QLs are added.
 
-V2 adds exam-facing representations inside existing reasoning families:
+V2 adds or broadens exam-facing representations inside existing reasoning families:
 
-| QL | Added exam-realism representation |
+| QL | Added / broadened exam-realism representation |
 |---|---|
 | `MEN-002-QL-124` | equilateral-base volume; square-diagonal base recovery; face-slant -> vertical height -> volume; slant-edge -> vertical height -> volume; TSA/base-share -> volume |
 | `MEN-002-QL-128` | base side + vertical height -> face slant -> LSA/TSA |
 | `MEN-002-QL-129` | clean SSC-style conical-frustum volume with `π = 22/7` |
 | `MEN-002-QL-130` | open lampshade/frustum sheet area |
 | `MEN-002-QL-131` | parallel-cut square pyramid -> full-minus-removed frustum volume |
-| `MEN-002-QL-136` | parallel-cut pyramid -> lower-frustum:top-pyramid volume ratio |
+| `MEN-002-QL-136` | parallel-cut pyramid -> lower-frustum:top-pyramid volume ratio; top-height fractions broadened |
+| `MEN-002-QL-137..139` | broader linear/area/volume similarity-ratio pairs and inverse recovery states |
 | `MEN-002-QL-141` | concrete conical-frustum parent-cone height reconstruction |
-| `MEN-002-QL-143` | realistic bucket-capacity range |
-| `MEN-002-QL-145` | independent base-side and vertical-height percentage changes |
+| `MEN-002-QL-143` | wider realistic bucket-capacity dimension pool |
+| `MEN-002-QL-145` | broader independent base-side and vertical-height percentage changes |
+| `MEN-002-QL-146` | broader similar-solid surface-area percentage scaling |
 
 ## π = 3.14 defect
 
@@ -88,19 +91,54 @@ CP010-D2-APP-PYRAMID-TENT-CANVAS
 
 The third replacement deliberately strengthens the reasoning burden beyond direct canvas substitution by requiring the candidate to recover face slant height first.
 
+## State-diversity correction
+
+Setter review exposed families whose formula coverage was correct but whose parameter pools were too small for a serious question bank. V2 expands those pools rather than allowing repeated stems with shuffled options.
+
+The hardened families include:
+
+- parallel-cut pyramid volume ratios;
+- similar-solid linear/area/volume ratios and inverse ratios;
+- frustum capacity dimensions;
+- independent pyramid volume percentage changes;
+- surface-area scaling percentage changes.
+
+This distinguishes **formula coverage** from **question-bank entropy**: both must be acceptable before freeze approval.
+
 ## Human-review gate
 
 V2 expands the setter artifact from 104 to **208 English questions**:
 
 ```text
 26 QLs × 8 review states = 208
-A = 52
-B = 52
-C = 52
-D = 52
 ```
 
-The review must include both inherited/base and exam-realism sources, distinct stems, worked calculations, realistic bucket capacity, clean SSC frustum arithmetic and all named V2 sources.
+For each permanent QL:
+
+- the first four review records guarantee one correct answer at A, B, C and D;
+- the remaining four maximize distinct stem/source/exam-representation breadth rather than forcing an artificial second answer-position cycle;
+- all eight stems must be distinct;
+- all named V2 exam-realism sources must appear in the setter artifact;
+- multi-source QLs must expose both inherited and exam-facing representations where applicable.
+
+The machine proof separately exercises every declared runtime source and all four answer positions per QL.
+
+## Deterministic proof lanes
+
+V2 uses explicit audit lanes so deterministic hashing cannot hide one surface:
+
+```text
+base-v2-review: bypass all V2 overlays and prove the inherited frozen runtime
+exam-v2:        force the SSC-facing exam-realism representation
+```
+
+The V2 frozen proof generates:
+
+```text
+26 QLs × 256 states × 2 lanes = 13,312 questions
+```
+
+Ordinary production seeds remain mixed; the special lanes exist only to make the audit unambiguous.
 
 ## Exam-profile policy
 
