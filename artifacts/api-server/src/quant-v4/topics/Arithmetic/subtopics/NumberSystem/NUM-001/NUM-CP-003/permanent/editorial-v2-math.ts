@@ -86,6 +86,31 @@ function wrapRemainingVariables(value: string): string {
   return output;
 }
 
+function flattenNestedInlineMath(value: string): string {
+  let output = "";
+  let depth = 0;
+  for (let index = 0; index < value.length; index += 1) {
+    if (value.startsWith("\\(", index)) {
+      if (depth === 0) output += "\\(";
+      depth += 1;
+      index += 1;
+      continue;
+    }
+    if (value.startsWith("\\)", index)) {
+      if (depth > 0) {
+        depth -= 1;
+        if (depth === 0) output += "\\)";
+      } else {
+        output += "\\)";
+      }
+      index += 1;
+      continue;
+    }
+    output += value[index];
+  }
+  return output;
+}
+
 export function latexifyNumCp003LearnerText(value: string): string {
   const spans: string[] = [];
   let output = protectExistingMath(convertDollarMath(String(value)), spans);
@@ -99,5 +124,6 @@ export function latexifyNumCp003LearnerText(value: string): string {
   output = wrapRemainingVariables(output);
   output = protectExistingMath(output, spans);
 
-  return output.replace(/NUMCP003MATH(\d+)SPAN/gu, (_match, index) => spans[Number(index)] ?? "");
+  output = output.replace(/NUMCP003MATH(\d+)SPAN/gu, (_match, index) => spans[Number(index)] ?? "");
+  return flattenNestedInlineMath(output);
 }
