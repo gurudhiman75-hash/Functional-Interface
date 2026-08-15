@@ -51,6 +51,17 @@ jobs:
           node artifacts/api-server/dist/quant-v4/men-cp010-exam-realism-v2.test.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp010-exam-realism-v2.test.log
 
+      - name: Prove final setter presentation quality
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-010/permanent/final-editorial-v2.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp010-final-editorial-v2.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp010-final-editorial-v2.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp010-final-editorial-v2.test.log
+
       - name: Export 208-question setter review
         shell: bash
         run: |
@@ -83,6 +94,7 @@ jobs:
           name: men-cp010-exam-realism-v2
           path: |
             artifacts/api-server/dist/quant-v4/men-cp010-exam-realism-v2.test.log
+            artifacts/api-server/dist/quant-v4/men-cp010-final-editorial-v2.test.log
             artifacts/api-server/dist/quant-v4/men-cp010-exam-realism-review-v2.json
             artifacts/api-server/dist/quant-v4/men-cp010-exam-realism-review-v2.md
           if-no-files-found: error
