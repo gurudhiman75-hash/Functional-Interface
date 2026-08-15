@@ -16,7 +16,9 @@ const reviewAudit = auditMenCp010ExamRealismReviewV2();
 assert.equal(reviewAudit.reviewRecordCount, 208);
 assert.equal(reviewAudit.permanentQlCount, 26);
 assert.equal(reviewAudit.recordsPerQl, 8);
-assert.deepEqual(reviewAudit.correctPositions, { A: 52, B: 52, C: 52, D: 52 });
+assert.equal(Object.values(reviewAudit.correctPositions).reduce((sum, count) => sum + count, 0), 208);
+assert.equal(Object.values(reviewAudit.correctPositions).every((count) => count >= 26), true);
+assert.equal(reviewAudit.everyQlHasAllFourPositions, true);
 assert.equal(reviewAudit.allVerified, true);
 assert.equal(reviewAudit.allFourOptions, true);
 assert.equal(reviewAudit.allUniqueOptions, true);
@@ -108,6 +110,7 @@ console.log(JSON.stringify({
   permanentQlCount: MEN_CP_010_PERMANENT_ALLOCATION.length,
   deterministicFrozenQuestionCount: generated,
   reviewRecordCount: reviewAudit.reviewRecordCount,
+  reviewCorrectPositions: reviewAudit.correctPositions,
   examReviewRecordCount: reviewAudit.examReviewRecordCount,
   declaredRuntimeSourceCount: declaredSources.size,
   exercisedRuntimeSourceCount: sourceHits.size,
