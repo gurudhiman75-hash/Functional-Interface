@@ -4,21 +4,22 @@ import {
   listMenCp010ExamReadyEnglishSources,
   type MenCp010ExamReadyEnglishQuestion,
 } from "./runtime-v3";
-import { listMenCp010ExamRealismSourcesV2 } from "./exam-realism-sources-v2";
 
 export const MEN_CP_010_EXAM_REALISM_REVIEW_V2_AUTHORITY =
   "MEN-CP010-EXAM-REALISM-REVIEW-V2" as const;
 
 type QlId = (typeof MEN_CP_010_PERMANENT_ALLOCATION)[number]["qlId"];
 
+const ALL_DECLARED_SOURCES = listMenCp010ExamReadyEnglishSources();
+const EXAM_SOURCE_ROWS = ALL_DECLARED_SOURCES.filter((row) => row.layer === "EXAM_REALISM_V2");
+const EXAM_SOURCE_IDS = new Set(EXAM_SOURCE_ROWS.map((row) => row.sourceId));
 const DECLARED_BY_QL = new Map<QlId, string[]>();
-for (const source of listMenCp010ExamReadyEnglishSources()) {
+for (const source of ALL_DECLARED_SOURCES) {
   const qlId = source.qlId as QlId;
   const current = DECLARED_BY_QL.get(qlId) ?? [];
   current.push(source.sourceId);
   DECLARED_BY_QL.set(qlId, current);
 }
-const EXAM_SOURCE_IDS = new Set(listMenCp010ExamRealismSourcesV2().map((row) => row.sourceId));
 const SOURCE_SALTS = "abcdefghijklmnopqrstuvwx".split("");
 const CANDIDATE_CACHE = new Map<string, readonly MenCp010ExamReadyEnglishQuestion[]>();
 
@@ -97,8 +98,8 @@ function buildForQl(qlId: QlId) {
     usedStems.add(q.stem);
   }
 
-  // Next four records maximize distinct exam/source/state breadth without
-  // imposing another artificial A/B/C/D cycle. Machine proof handles that.
+  // Next four records maximize distinct exam/source/state breadth. Machine
+  // proof separately handles exhaustive source and answer-position reachability.
   const pool = allCandidates(qlId);
   while (selected.length < 8) {
     const q = chooseBest(pool, usedSources, usedStems);
@@ -138,7 +139,7 @@ export function auditMenCp010ExamRealismReviewV2() {
   });
 
   const examRecords = records.filter((q) => EXAM_SOURCE_IDS.has(q.sourceId));
-  const examSourcesCovered = listMenCp010ExamRealismSourcesV2().every((source) =>
+  const examSourcesCovered = EXAM_SOURCE_ROWS.every((source) =>
     records.some((q) => q.permanentQlId === source.qlId && q.sourceId === source.sourceId),
   );
   const realisticBucketCapacity = records
