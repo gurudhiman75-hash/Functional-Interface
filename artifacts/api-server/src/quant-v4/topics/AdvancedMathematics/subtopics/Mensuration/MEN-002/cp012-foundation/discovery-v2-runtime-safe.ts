@@ -43,11 +43,11 @@ function uniqueWrongValues(answer: ExactRational, unit: string) {
   const percentUnit = unit === "%";
   const candidates: ExactRational[] = countUnit
     ? [
-        add(answer, rational(1)),
-        add(answer, rational(2)),
+        divide(answer, rational(2)),
         multiply(answer, rational(2)),
         multiply(answer, rational(3)),
-        answer.numerator > answer.denominator ? add(answer, rational(-1)) : add(answer, rational(3)),
+        add(answer, rational(1)),
+        add(answer, rational(2)),
       ]
     : percentUnit
       ? [
@@ -60,9 +60,9 @@ function uniqueWrongValues(answer: ExactRational, unit: string) {
       : [
           divide(answer, rational(2)),
           multiply(answer, rational(2)),
+          multiply(answer, rational(3)),
           add(answer, rational(1)),
           add(answer, rational(2)),
-          multiply(answer, rational(3)),
         ];
 
   const answerDisplay = `${natural(answer)} ${unit}`;
