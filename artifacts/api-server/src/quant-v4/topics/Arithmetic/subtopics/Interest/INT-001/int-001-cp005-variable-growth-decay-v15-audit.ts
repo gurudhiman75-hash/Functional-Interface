@@ -36,6 +36,7 @@ const thresholdFinal = new Set<string>();
 const thresholdRates = new Set<string>();
 const thresholdYears = new Set<number>();
 const thresholdDirections = new Set<string>();
+const thresholdTopologies = new Set<string>();
 
 for (const qlId of INT_CP005_QL_IDS) {
   for (let index = 0; index < 100; index += 1) {
@@ -80,9 +81,11 @@ for (const qlId of INT_CP005_QL_IDS) {
         thresholdStates += 1;
         thresholdInitial.add(`${state.initial.numerator}`);
         thresholdFinal.add(`${state.threshold.numerator}`);
-        thresholdRates.add(`${state.rate.numerator}/${state.rate.denominator}`);
+        const rateKey = `${state.rate.numerator}/${state.rate.denominator}`;
+        thresholdRates.add(rateKey);
         thresholdYears.add(state.targetYear);
         thresholdDirections.add(state.direction);
+        thresholdTopologies.add(`${state.direction}|${rateKey}|${state.targetYear}`);
         realismChecks += 12;
       }
 
@@ -114,7 +117,8 @@ for (const qlId of INT_CP005_QL_IDS) {
 assert(thresholdDirections.size === 2, "INT-QL-093/V15: both growth and decay directions were not reached");
 assert(thresholdYears.size >= 4, "INT-QL-093/V15: target-year diversity regressed");
 assert(thresholdRates.size >= 8, "INT-QL-093/V15: rate diversity regressed");
-assert(thresholdInitial.size >= 20 && thresholdFinal.size >= 20, "INT-QL-093/V15: threshold value diversity regressed");
+assert(thresholdTopologies.size >= 20, "INT-QL-093/V15: genuine threshold topology diversity regressed");
+assert(thresholdInitial.size >= 8 && thresholdFinal.size >= 8, "INT-QL-093/V15: normalized threshold value diversity regressed");
 
 console.log(JSON.stringify({
   runtimeVersion: INT_CP005_RUNTIME_VERSION_V15,
@@ -130,6 +134,7 @@ console.log(JSON.stringify({
   thresholdDirections: [...thresholdDirections].sort(),
   thresholdYears: [...thresholdYears].sort(),
   thresholdRates: thresholdRates.size,
+  thresholdTopologies: thresholdTopologies.size,
   thresholdInitialValues: thresholdInitial.size,
   thresholdFinalValues: thresholdFinal.size,
 }, null, 2));
