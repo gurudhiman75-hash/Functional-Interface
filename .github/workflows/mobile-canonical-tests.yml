@@ -1,0 +1,60 @@
+name: Validate Mobile Canonical Tests
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/tests.ts
+      - artifacts/api-server/src/lib/mobile-test-compat.ts
+      - artifacts/api-server/src/lib/mobile-test-compat.test.ts
+      - artifacts/api-server/src/lib/published-test-runner.ts
+      - artifacts/api-server/src/lib/canonical-commerce-entitlements.ts
+      - .github/workflows/mobile-canonical-tests.yml
+  push:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/tests.ts
+      - artifacts/api-server/src/lib/mobile-test-compat.ts
+      - artifacts/api-server/src/lib/mobile-test-compat.test.ts
+      - artifacts/api-server/src/lib/published-test-runner.ts
+      - artifacts/api-server/src/lib/canonical-commerce-entitlements.ts
+      - .github/workflows/mobile-canonical-tests.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobile-canonical-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Run compatibility regression tests
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/mobile-test-compat.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=/tmp/mobile-test-compat.test.mjs
+          node /tmp/mobile-test-compat.test.mjs
+      - name: Enforce canonical schema ownership
+        run: |
+          grep -F 'assessment.tests' artifacts/api-server/src/routes/tests.ts
+          grep -F 'assessment.test_questions' artifacts/api-server/src/routes/tests.ts
+          grep -F 'content.question_versions' artifacts/api-server/src/routes/tests.ts
+          grep -F 'content.question_options' artifacts/api-server/src/routes/tests.ts
+          grep -F 'tests:list:canonical-mobile-v2' artifacts/api-server/src/routes/tests.ts
+          ! grep -F 'FROM questions' artifacts/api-server/src/routes/tests.ts
+          ! grep -F 'FROM tests' artifacts/api-server/src/routes/tests.ts
