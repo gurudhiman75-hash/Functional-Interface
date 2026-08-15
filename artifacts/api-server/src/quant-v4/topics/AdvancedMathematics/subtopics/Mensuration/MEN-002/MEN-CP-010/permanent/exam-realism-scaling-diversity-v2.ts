@@ -18,6 +18,10 @@ function hash(text: string) {
 }
 function tidy(value: number) { return value.toFixed(3).replace(/0+$/, "").replace(/\.$/, ""); }
 function changeText(change: number) { return `${tidy(Math.abs(change))}% ${change >= 0 ? "increase" : "decrease"}`; }
+function useDiverse(seed: string, salt: string) {
+  if (seed.includes("exam-v2")) return true;
+  return hash(`${seed}:${salt}`) % 2 === 0;
+}
 
 function makeOptions(targetIndex: number, answer: string, wrong: readonly string[]) {
   const unique = [...new Set(wrong.filter((value) => value !== answer))];
@@ -28,6 +32,11 @@ function makeOptions(targetIndex: number, answer: string, wrong: readonly string
     : { label, display: unique[w]!, isCorrect: false, misconceptionId: `SCALING_DISTRACTOR_${++w}` });
 }
 
+export const MEN_CP_010_SCALING_DIVERSITY_SOURCE_IDS = [
+  { qlId: "MEN-002-QL-145" as const, sourceId: "EXAM-V2-PYRAMID-NONUNIFORM-VOLUME-SCALING" },
+  { qlId: "MEN-002-QL-146" as const, sourceId: "EXAM-V2-SIMILAR-AREA-PERCENT-SCALING-DIVERSE" },
+] as const;
+
 export function diversifyMenCp010ScalingOverlayV2(
   qlId: MenCp010PermanentQlId,
   seed: string,
@@ -35,7 +44,7 @@ export function diversifyMenCp010ScalingOverlayV2(
   overlay: MenCp010ExamRealismOverlay | null,
 ): MenCp010ExamRealismOverlay | null {
   if (qlId === "MEN-002-QL-145") {
-    if (!seed.includes("review-v2") && !seed.includes("exam-v2") && hash(`${seed}:volume-scaling-diversity`) % 3 !== 0) return overlay;
+    if (!useDiverse(seed, "volume-scaling-diversity")) return overlay;
     const [sidePct,heightPct] = VOLUME_CHANGES[hash(`${seed}:volume-change-pair`) % VOLUME_CHANGES.length]!;
     const sideFactor = 1 + sidePct/100;
     const heightFactor = 1 + heightPct/100;
@@ -68,7 +77,7 @@ export function diversifyMenCp010ScalingOverlayV2(
   }
 
   if (qlId === "MEN-002-QL-146") {
-    if (!seed.includes("review-v2") && !seed.includes("exam-v2") && hash(`${seed}:area-scaling-diversity`) % 3 !== 0) return overlay;
+    if (!useDiverse(seed, "area-scaling-diversity")) return overlay;
     const pct = AREA_LINEAR_CHANGES[hash(`${seed}:linear-change`) % AREA_LINEAR_CHANGES.length]!;
     const k = 1 + pct/100;
     const areaFactor = k*k;
