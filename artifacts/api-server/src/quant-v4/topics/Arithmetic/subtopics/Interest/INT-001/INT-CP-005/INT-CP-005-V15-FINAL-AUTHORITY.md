@@ -7,13 +7,13 @@
 - Locales: `en-IN`, `hi-IN`, `pa-IN`
 - Approved learner-source head: `93dad8b2455c5255ad2fdc5542710c3f63f9d69d`
 - Exact runtime/freeze validation head: `2e5ddb6b5e5b0ff1cc956df20e1959cb59d6f512`
-- Final V15 validation run: `31866119559` — PASS
-- Final review/freeze artifact: `9242051486`
-- Final artifact digest: `sha256:ac5a603842abd2ffac74ee422d2a929e7438fe578eb21aee4b2b00a7669c1a10`
-- Render production build run on that validation head: `31866119604` — PASS
-- Integrated admin/student run on that validation head: `31866119578` — PASS
+- V15 validation run: `31866119559` — PASS
+- Review/freeze artifact: `9242051486`
+- Artifact digest: `sha256:ac5a603842abd2ffac74ee422d2a929e7438fe578eb21aee4b2b00a7669c1a10`
+- Render production build run on validation head: `31866119604` — PASS
+- Integrated admin/student run on validation head: `31866119578` — PASS
 
-The later authority-document commit changes documentation only; it does not modify CP005 runtime, freeze, audit, review-export, registry, delivery, or application code.
+Subsequent commits after the exact validation head are documentation-only authority-record edits. They do not change CP005 runtime, frozen learner content, audit logic, review exporter, Question Studio wiring, Question Bank wiring, tests, publication, or application code.
 
 ## V15 manual-review remediation
 
