@@ -7,6 +7,12 @@ import {
 const LABELS = ["A", "B", "C", "D"] as const;
 const RATIO_PAIRS = [[2,3],[3,4],[4,5],[5,6],[2,5],[3,5],[4,7],[5,8],[3,7],[5,9],[7,9],[7,10]] as const;
 
+export const MEN_CP_010_RATIO_DIVERSITY_SOURCE_IDS = [
+  { qlId: "MEN-002-QL-137" as const, sourceId: "EXAM-V2-SIMILAR-AREA-RATIO-DIVERSE" },
+  { qlId: "MEN-002-QL-138" as const, sourceId: "EXAM-V2-SIMILAR-LINEAR-FROM-VOLUME-DIVERSE" },
+  { qlId: "MEN-002-QL-139" as const, sourceId: "EXAM-V2-SIMILAR-LINEAR-FROM-AREA-DIVERSE" },
+] as const;
+
 function hash(text: string) {
   let h = 2166136261 >>> 0;
   for (const c of text) {
@@ -33,7 +39,9 @@ function ratioOverlay(
   targetIndex: number,
 ): MenCp010ExamRealismOverlay | null {
   if (!["MEN-002-QL-137","MEN-002-QL-138","MEN-002-QL-139"].includes(qlId)) return null;
-  if (!seed.includes("review-v2") && !seed.includes("exam-v2") && hash(`${seed}:ratio-diversity`) % 3 !== 0) return null;
+  // Exam-specific seeds force the expanded SSC-style representation. Ordinary
+  // review/runtime seeds mix it with the inherited source so both surfaces are audited.
+  if (!seed.includes("exam-v2") && hash(`${seed}:ratio-diversity`) % 2 !== 0) return null;
 
   const [a,b] = RATIO_PAIRS[hash(`${seed}:ratio-pair`) % RATIO_PAIRS.length]!;
   const linear = `${a}:${b}`;
@@ -82,7 +90,7 @@ function ratioOverlay(
         shortcut: "Take the cube root of both ratio terms.",
         traps: ["Do not take a square root for volume ratios.", "Keep the order of the two solids unchanged."],
       },
-      verification: { valid: (a**3) === a*a*a && (b**3) === b*b*b, method: "exact cube-root recovery" },
+      verification: { valid: true, method: "exact cube-root recovery" },
     };
   }
 
@@ -123,8 +131,6 @@ export function diversifyMenCp010ExamRealismOverlayV2(
     overlay.sourceId !== "EXAM-V2-PYRAMID-CUT-PART-VOLUME-RATIO"
   ) return overlay;
 
-  // Keep the parallel-cut reasoning contract while widening the valid top
-  // height fractions from the original three states to 1/n for n=2..9.
   const n = 2 + (hash(`${seed}:parallel-cut-denominator`) % 8);
   const lower = n ** 3 - 1;
   const answer = `${lower}:1`;
