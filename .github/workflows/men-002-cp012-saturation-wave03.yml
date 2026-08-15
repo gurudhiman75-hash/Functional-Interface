@@ -1,0 +1,104 @@
+name: Validate MEN-CP-012 saturation wave 03
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp012-foundation/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-012/**
+      - .github/workflows/men-002-cp012-saturation-wave03.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-002-cp012-saturation-wave03-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp012-saturation-v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Prove 768 source-backed saturation states
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp012-foundation/saturation-v3.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp012-saturation-wave03.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp012-saturation-wave03.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp012-saturation-wave03.test.log
+      - name: Prove 48-question source review
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp012-foundation/saturation-v3-review.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp012-saturation-wave03-review.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp012-saturation-wave03-review.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp012-saturation-wave03-review.test.log
+      - name: Export Wave 03 source evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp012-foundation/saturation-v3-review-export.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp012-saturation-wave03-review.mjs
+          cd artifacts/api-server
+          node dist/quant-v4/men-cp012-saturation-wave03-review.mjs \
+            2>&1 | tee dist/quant-v4/men-cp012-saturation-wave03-export.log
+          test -s dist/quant-v4/men-cp012-saturation-wave03.json
+          test -s dist/quant-v4/men-cp012-saturation-wave03.md
+      - name: Regress Wave 02 discovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp012-foundation/discovery-v2.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp012-discovery-wave02-regression.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp012-discovery-wave02-regression.test.mjs
+      - name: Regress Wave 01 foundation
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp012-foundation/runtime.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp012-foundation-wave01-regression.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp012-foundation-wave01-regression.test.mjs
+      - name: Build production API bundle
+        run: bash build-api.sh
+      - name: Upload MEN-CP-012 Wave 03 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp012-saturation-wave03
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp012-saturation-wave03.test.log
+            artifacts/api-server/dist/quant-v4/men-cp012-saturation-wave03-review.test.log
+            artifacts/api-server/dist/quant-v4/men-cp012-saturation-wave03-export.log
+            artifacts/api-server/dist/quant-v4/men-cp012-saturation-wave03.json
+            artifacts/api-server/dist/quant-v4/men-cp012-saturation-wave03.md
+          if-no-files-found: error
+          retention-days: 14
