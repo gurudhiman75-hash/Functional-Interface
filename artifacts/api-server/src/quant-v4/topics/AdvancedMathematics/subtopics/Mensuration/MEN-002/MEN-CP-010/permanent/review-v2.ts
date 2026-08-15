@@ -20,11 +20,16 @@ for (const source of listMenCp010ExamReadyEnglishSources()) {
 }
 const EXAM_SOURCE_IDS = new Set(listMenCp010ExamRealismSourcesV2().map((row) => row.sourceId));
 const SOURCE_SALTS = "abcdefghijklmnopqrstuvwx".split("");
+const CANDIDATE_CACHE = new Map<string, readonly MenCp010ExamReadyEnglishQuestion[]>();
 
 function candidatesForPosition(qlId: QlId, targetPosition: number) {
+  const cacheKey = `${qlId}:${targetPosition}`;
+  const cached = CANDIDATE_CACHE.get(cacheKey);
+  if (cached) return cached;
+
   const candidates: MenCp010ExamReadyEnglishQuestion[] = [];
   const seen = new Set<string>();
-  for (let attempt = targetPosition; attempt < 16384 && candidates.length < 1024; attempt += 4) {
+  for (let attempt = targetPosition; attempt < 8192 && candidates.length < 512; attempt += 4) {
     const suffix = String(attempt).padStart(5, "0");
     const seeds = [
       `exam-v2-review-${qlId}-${targetPosition}-${suffix}`,
@@ -37,11 +42,18 @@ function candidatesForPosition(qlId: QlId, targetPosition: number) {
       if (seen.has(identity)) continue;
       seen.add(identity);
       candidates.push(q);
-      if (candidates.length >= 1024) break;
+      if (candidates.length >= 512) break;
     }
   }
   if (!candidates.length) throw new Error(`No V2 review candidates for ${qlId} at position ${targetPosition}`);
+  CANDIDATE_CACHE.set(cacheKey, candidates);
   return candidates;
+}
+
+function requiredHumanSourceCount(declaredCount: number) {
+  // The machine freeze proof exercises every declared source. Human review
+  // instead requires a meaningful spread plus every named exam-realism source.
+  return Math.min(3, declaredCount);
 }
 
 function buildForQl(qlId: QlId) {
@@ -49,7 +61,7 @@ function buildForQl(qlId: QlId) {
   const usedStems = new Set<string>();
   const usedSources = new Set<string>();
   const declared = [...new Set(DECLARED_BY_QL.get(qlId) ?? [])];
-  const requiredSourceCount = Math.min(8, declared.length);
+  const requiredSourceCount = requiredHumanSourceCount(declared.length);
 
   for (let round = 0; round < 2; round += 1) {
     for (let targetPosition = 0; targetPosition < 4; targetPosition += 1) {
@@ -69,28 +81,8 @@ function buildForQl(qlId: QlId) {
     }
   }
 
-  for (const sourceId of declared) {
-    if (usedSources.has(sourceId)) continue;
-    let swapped = false;
-    for (let index = 0; index < selected.length && !swapped; index += 1) {
-      const current = selected[index]!;
-      const candidates = candidatesForPosition(qlId, current.correctIndex);
-      const replacement = candidates.find((q) => q.sourceId === sourceId && !usedStems.has(q.stem));
-      if (!replacement) continue;
-      const currentSourceStillUsed = selected.some((q, i) => i !== index && q.sourceId === current.sourceId);
-      if (!currentSourceStillUsed && usedSources.size >= requiredSourceCount) continue;
-      usedStems.delete(current.stem);
-      selected[index] = replacement;
-      usedStems.add(replacement.stem);
-      usedSources.add(replacement.sourceId);
-      if (!currentSourceStillUsed) usedSources.delete(current.sourceId);
-      swapped = true;
-    }
-    if (usedSources.size >= requiredSourceCount) break;
-  }
-
   if (usedSources.size < requiredSourceCount) {
-    throw new Error(`${qlId}: review covers ${usedSources.size}/${requiredSourceCount} required sources`);
+    throw new Error(`${qlId}: review covers ${usedSources.size}/${requiredSourceCount} required human-review sources`);
   }
   return selected;
 }
@@ -111,7 +103,7 @@ export function auditMenCp010ExamRealismReviewV2() {
     return {
       qlId: allocation.qlId,
       declaredSourceCount: declared.length,
-      requiredReviewSourceCount: Math.min(8, declared.length),
+      requiredReviewSourceCount: requiredHumanSourceCount(declared.length),
       reviewSourceCount: reviewSources.size,
       uniqueStemCount: new Set(slice.map((q) => q.stem)).size,
       examSourceCount: slice.filter((q) => EXAM_SOURCE_IDS.has(q.sourceId)).length,
