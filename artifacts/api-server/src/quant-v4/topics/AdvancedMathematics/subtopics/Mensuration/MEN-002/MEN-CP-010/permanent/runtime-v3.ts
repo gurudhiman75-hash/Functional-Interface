@@ -11,6 +11,7 @@ import {
 } from "./exam-realism-sources-v2";
 import { diversifyMenCp010ExamRealismOverlayV2 } from "./exam-realism-diversity-v2";
 import { diversifyMenCp010CapacityOverlayV2 } from "./exam-realism-capacity-diversity-v2";
+import { diversifyMenCp010ScalingOverlayV2 } from "./exam-realism-scaling-diversity-v2";
 
 export const MEN_CP_010_PERMANENT_ENGLISH_RUNTIME_V3_AUTHORITY =
   "MEN-CP010-PERMANENT-ENGLISH-RUNTIME-V3-EXAM-REALISM" as const;
@@ -38,11 +39,17 @@ export function generateMenCp010ExamReadyEnglishQuestion(
     base.correctIndex,
     rawOverlay,
   );
-  const overlay = diversifyMenCp010CapacityOverlayV2(
+  const capacityOverlay = diversifyMenCp010CapacityOverlayV2(
     qlId,
     seed,
     base.correctIndex,
     diversifiedOverlay,
+  );
+  const overlay = diversifyMenCp010ScalingOverlayV2(
+    qlId,
+    seed,
+    base.correctIndex,
+    capacityOverlay,
   );
 
   const question = overlay
