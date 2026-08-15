@@ -38,47 +38,43 @@ function digitSum(template: string): string {
 
 function constraint(template: string, divisor: number): string {
   switch (divisor) {
-    case 2: return `${math(2)}: ${math(template.at(-1) ?? "")} even`;
-    case 3: return `${math(3)}: sum ${math(digitSum(template))} multiple of ${math(3)}`;
-    case 4: return `${math(4)}: suffix ${math(template.slice(-2))} divisible by ${math(4)}`;
-    case 5: return `${math(5)}: last digit ${math(template.at(-1) ?? "")} is ${math("0/5")}`;
-    case 8: return `${math(8)}: suffix ${math(template.slice(-3))} divisible by ${math(8)}`;
-    case 9: return `${math(9)}: sum ${math(digitSum(template))} multiple of ${math(9)}`;
-    case 10: return `${math(10)}: last digit ${math(template.at(-1) ?? "")} is ${math(0)}`;
-    case 11: return `${math(11)}: alternating-sum difference multiple of ${math(11)}`;
-    case 25: return `${math(25)}: suffix ${math(template.slice(-2))} is ${math("00/25/50/75")}`;
-    default: return `${math(divisor)}: remainder ${math(0)}`;
+    case 2: return `last digit ${math(template.at(-1) ?? "")} even`;
+    case 3: return `digit sum ${math(digitSum(template))} multiple of ${math(3)}`;
+    case 4: return `suffix ${math(template.slice(-2))} divisible by ${math(4)}`;
+    case 5: return `last digit ${math(template.at(-1) ?? "")} is ${math("0 or 5")}`;
+    case 8: return `suffix ${math(template.slice(-3))} divisible by ${math(8)}`;
+    case 9: return `digit sum ${math(digitSum(template))} multiple of ${math(9)}`;
+    case 10: return `last digit ${math(template.at(-1) ?? "")} is ${math(0)}`;
+    case 11: return `alternating-sum difference multiple of ${math(11)}`;
+    case 25: return `suffix ${math(template.slice(-2))} is ${math("00,25,50,75")}`;
+    default: return `remainder on division by ${math(divisor)} is ${math(0)}`;
   }
 }
 
-function divisorRule(template: string, divisor: number): string {
-  const parts = COMPOSITE_PARTS[divisor];
-  if (parts) return `${math(divisor)} needs ${constraint(template, parts[0])}; ${constraint(template, parts[1])}`;
-  return constraint(template, divisor);
+function primitiveDivisors(state: PairState): readonly number[] {
+  const values = state.divisors.flatMap((value) => {
+    const divisor = Number(value);
+    return COMPOSITE_PARTS[divisor] ?? [divisor];
+  });
+  return [...new Set(values)];
 }
 
 function target(state: PairState): string {
   switch (state.projection) {
     case "UNIQUE_VALID_ORDERED_PAIR": return "the unique ordered pair";
-    case "VALID_ORDERED_PAIR_COUNT": return "the valid-pair count";
+    case "VALID_ORDERED_PAIR_COUNT": return "the valid ordered-pair count";
     case "COMPLETE_VALID_ORDERED_PAIR_SET": return "all valid ordered pairs";
-    case "PAIR_SOLUTION_CLASS": return "whether there are 0, 1 or multiple solutions";
+    case "PAIR_SOLUTION_CLASS": return "whether there are 0, 1 or multiple ordered-pair solutions";
     default: return "the valid ordered pairs";
   }
 }
 
 export function buildNumCp003PairConcept(state: PairState): string {
-  const rules = state.divisors.map((value) => divisorRule(state.template, Number(value))).join("; ");
-  const relation = state.relation?.kind === "DIGIT_SUM" ? `; ${math(`X+Y=${state.relation.value}`)}` : "";
-  const concept = `This question tests ${target(state)} in ${math(state.template)}. ${rules}${relation}. Order matters.`;
-  if (concept.length <= 180) return concept;
-
-  // Preserve the exact tested rules while trimming repeated divisor labels for dense composite cases.
-  const compact = state.divisors.flatMap((value) => {
-    const divisor = Number(value);
-    return COMPOSITE_PARTS[divisor] ?? [divisor];
-  });
-  const unique = [...new Set(compact)];
-  const compactRules = unique.map((divisor) => constraint(state.template, divisor)).join("; ");
-  return `This question tests ${target(state)} in ${math(state.template)}. ${compactRules}${relation}. Order matters.`;
+  const rules = primitiveDivisors(state)
+    .map((divisor) => constraint(state.template, divisor))
+    .join("; ");
+  const relation = state.relation?.kind === "DIGIT_SUM"
+    ? `; ${math(`X+Y=${state.relation.value}`)}`
+    : "";
+  return `This question tests ${target(state)} in ${math(state.template)}: ${rules}${relation}.`;
 }
