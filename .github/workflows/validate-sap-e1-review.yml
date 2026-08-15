@@ -30,13 +30,13 @@ jobs:
           path: artifacts/api-server/dist/quant-v4/sap-e1-r2-review/**
           if-no-files-found: error
           retention-days: 30
-      - name: Bundle E2 CP011 CP012 production review R4
-        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-300-REVIEW-R4.ts --bundle --platform=node --format=esm --outfile=dist/e2-review.mjs
-      - name: Generate and validate E2 CP011 CP012 production review R4
+      - name: Bundle E2 CP011 CP012 production review R5
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-300-REVIEW-R5.ts --bundle --platform=node --format=esm --outfile=dist/e2-review.mjs
+      - name: Generate and validate E2 CP011 CP012 production review R5
         run: node artifacts/api-server/dist/e2-review.mjs
       - uses: actions/upload-artifact@v4
         with:
-          name: sap-e2-cp011-cp012-300-review-r4
+          name: sap-e2-cp011-cp012-300-review-r5
           path: artifacts/api-server/dist/quant-v4/sap-e2-review/**
           if-no-files-found: error
           retention-days: 30
