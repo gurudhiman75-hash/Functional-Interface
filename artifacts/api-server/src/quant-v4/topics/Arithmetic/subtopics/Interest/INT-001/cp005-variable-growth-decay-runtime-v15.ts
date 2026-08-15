@@ -79,7 +79,7 @@ function rateText(value: Rational): string {
 function answerText(year: number, locale: IntCp005Locale): string {
   if (locale === "hi-IN") return `${year} वर्ष`;
   if (locale === "pa-IN") return `${year} ਸਾਲ`;
-  return `${year} years`;
+  return `${year} ${year === 1 ? "year" : "years"}`;
 }
 
 function factor(state: ThresholdState): Rational {
@@ -107,6 +107,16 @@ function presentationFor(state: ThresholdState, locale: IntCp005Locale) {
       ? `एक संपत्ति का मूल्य ${initial} है। इसका मूल्य हर वर्ष ${rate} घटता है। कितने पूरे वर्षों बाद इसका मूल्य पहली बार ${threshold} या उससे कम होगा?`
       : `ਇੱਕ ਸੰਪਤੀ ਦਾ ਮੁੱਲ ${initial} ਹੈ। ਇਸ ਦਾ ਮੁੱਲ ਹਰ ਸਾਲ ${rate} ਘਟਦਾ ਹੈ। ਕਿੰਨੇ ਪੂਰੇ ਸਾਲਾਂ ਬਾਅਦ ਇਸ ਦਾ ਮੁੱਲ ਪਹਿਲੀ ਵਾਰ ${threshold} ਜਾਂ ਇਸ ਤੋਂ ਘੱਟ ਹੋਵੇਗਾ?`;
   return deepFreeze({ prompt, markdown: prompt });
+}
+
+function thresholdOptions(source: IntCp005QuestionV14, locale: IntCp005Locale) {
+  return deepFreeze(source.options.map((option) => {
+    if (option.value.denominator !== 1n) throw new Error("INT-QL-093/V15: non-integral year option");
+    return {
+      ...option,
+      text: answerText(Number(option.value.numerator), locale),
+    };
+  }));
 }
 
 function mathNumber(value: Rational): string {
@@ -153,6 +163,8 @@ export function generateIntCp005QuestionV15(
   if (!verifyIntCp005Answer(state, source.solution)) {
     throw new Error(`${qlId}/${seed}: V15 normalized threshold state fails independent verifier`);
   }
+  const options = thresholdOptions(source, locale);
+  const correctAnswer = options[source.correctIndex]!.text;
 
   return deepFreeze({
     ...source,
@@ -160,6 +172,8 @@ export function generateIntCp005QuestionV15(
     mathematicalState: state,
     mathematicalFingerprint: fingerprint(state),
     presentation: presentationFor(state, locale),
+    options,
+    correctAnswer,
     explanation: explanationFor(source, state, locale),
   });
 }
