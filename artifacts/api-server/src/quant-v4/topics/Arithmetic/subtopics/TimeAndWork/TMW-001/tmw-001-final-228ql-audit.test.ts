@@ -142,11 +142,12 @@ for (const qlId of QL_IDS) {
       assert(question.answerSemantic === "DATA_SUFFICIENCY_CLASS", `${label}: DS answer semantic mismatch`);
       assert(question.learnerExplanationVersion === "TMW_DS_V1", `${label}: DS learner version mismatch`);
       assert(question.canonicalAnswer === question.verifierAnswer, `${label}: DS independent verifier mismatch`);
+      assert(question.canonicalClass === question.classValue, `${label}: DS canonical/public class mismatch`);
       assert(question.dataSufficiencyOptionCount === 5, `${label}: DS five-outcome contract missing`);
       assert(Array.isArray(question.dataSufficiencyClasses) && question.dataSufficiencyClasses.includes("EITHER_ALONE"), `${label}: DS either-alone class missing`);
       if (qlId === "TMW-QL-223") {
         assert(question.classValue === "EITHER_ALONE", `${label}: QL-223 must exercise the either-alone class`);
-        assert(/either|कोई भी|ਕੋਈ ਵੀ/u.test(question.canonicalAnswer), `${label}: QL-223 either-alone answer is not learner-readable`);
+        assert(/either|कोई भी|ਕੋਈ ਵੀ/iu.test(question.canonicalAnswer), `${label}: QL-223 either-alone answer is not learner-readable`);
       }
     } else {
       assert(question.canonicalProblemId === "TMW-CP-014", `${label}: CP014 routing mismatch`);
