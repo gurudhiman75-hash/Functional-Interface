@@ -1,5 +1,6 @@
 import type { NumCp003RetainedHiddenState } from "../retained/runtime-types";
 import { buildNumCp003QuestionSpecificConcept } from "./editorial-v2-concept";
+import { buildNumCp003PairConcept } from "./editorial-v2-pair-concept";
 
 function directConcept(
   state: Extract<NumCp003RetainedHiddenState, { kind: "DIRECT_DIVISIBILITY" }>,
@@ -11,7 +12,7 @@ function directConcept(
 }
 
 export function buildNumCp003FinalQuestionSpecificConcept(state: NumCp003RetainedHiddenState): string {
-  return state.kind === "DIRECT_DIVISIBILITY"
-    ? directConcept(state)
-    : buildNumCp003QuestionSpecificConcept(state);
+  if (state.kind === "DIRECT_DIVISIBILITY") return directConcept(state);
+  if (state.kind === "ORDERED_PAIR_CANDIDATE_SET") return buildNumCp003PairConcept(state);
+  return buildNumCp003QuestionSpecificConcept(state);
 }
