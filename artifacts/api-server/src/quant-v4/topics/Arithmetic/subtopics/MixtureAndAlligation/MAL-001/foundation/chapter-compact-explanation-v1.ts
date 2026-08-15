@@ -43,6 +43,14 @@ function cleanSteps(value: unknown): string[] {
     .filter((line) => !/^Write each quantity and price clearly\b/iu.test(line));
 }
 
+function joinGroups(
+  steps: readonly string[],
+  groups: readonly (readonly number[])[],
+): string[] {
+  if (groups.some((group) => group.some((index) => !steps[index]))) return [...steps];
+  return groups.map((group) => group.map((index) => steps[index]!).join(" "));
+}
+
 function alligationShortcutLines(explanation: Record<string, unknown>): string[] {
   const raw = typeof explanation.examShortcut === "string"
     ? explanation.examShortcut
@@ -54,6 +62,66 @@ function alligationShortcutLines(explanation: Record<string, unknown>): string[]
     .filter((line) => !/^Method\s*2\b/iu.test(line))
     .filter((line) => !/^Place the opposite differences\b/iu.test(line))
     .slice(0, 3);
+}
+
+function compactCp001Steps(qlId: string, steps: string[]): string[] {
+  switch (qlId) {
+    case "MAL-QL-002":
+      return joinGroups(steps, [[0, 1], [2], [3], [4]]);
+    case "MAL-QL-003":
+      return joinGroups(steps, [[0], [1, 2], [3, 4], [5]]);
+    case "MAL-QL-004":
+      return joinGroups(steps, [[0, 1, 2], [3], [4], [5]]);
+    case "MAL-QL-008":
+      return joinGroups(steps, [[0, 1], [2, 3], [4], [5]]);
+    case "MAL-QL-011":
+      return joinGroups(steps, [[0, 1], [2, 3], [4, 5], [6, 7]]);
+    default:
+      return steps;
+  }
+}
+
+function compactCp002Steps(qlId: string, steps: string[]): string[] {
+  switch (qlId) {
+    case "MAL-QL-012":
+    case "MAL-QL-013":
+      return joinGroups(steps, [[0, 1], [2], [3], [4]]);
+    case "MAL-QL-019":
+      return joinGroups(steps, [[0, 1], [2, 3], [4, 5]]);
+    case "MAL-QL-020":
+    case "MAL-QL-021":
+      return joinGroups(steps, [[0, 1], [2, 3], [4], [5]]);
+    case "MAL-QL-023":
+    case "MAL-QL-024":
+      return joinGroups(steps, [[0, 1], [2], [3, 4], [5, 6]]);
+    case "MAL-QL-025":
+      return joinGroups(steps, [[0, 1], [2, 3], [4, 5]]);
+    case "MAL-QL-026":
+      return joinGroups(steps, [[0, 1], [2, 3]]);
+    case "MAL-QL-027":
+      return joinGroups(steps, [[0, 1], [2], [3], [4, 5]]);
+    case "MAL-QL-028":
+      return joinGroups(steps, [[0, 1], [2], [4]]);
+    default:
+      return steps;
+  }
+}
+
+function compactCp003Steps(qlId: string, steps: string[]): string[] {
+  switch (qlId) {
+    case "MAL-QL-031":
+      return joinGroups(steps, [[0, 1], [2, 3], [4]]);
+    case "MAL-QL-034":
+      return joinGroups(steps, [[0, 1], [2], [3], [4]]);
+    case "MAL-QL-035":
+      return joinGroups(steps, [[0, 1], [2, 3], [4]]);
+    case "MAL-QL-036":
+      return joinGroups(steps, [[0, 1], [2, 3], [4]]);
+    case "MAL-QL-037":
+      return joinGroups(steps, [[0, 1], [2], [3, 4]]);
+    default:
+      return steps;
+  }
 }
 
 function compactCp001(
@@ -77,15 +145,23 @@ function compactCp001(
     };
   }
 
+  const steps = compactCp001Steps(qlId, cleanSteps(explanation.steps));
   return {
     ...explanation,
-    lines: cleanSteps(explanation.steps),
+    lines: steps,
   };
 }
 
-function compactStepBased(explanation: Record<string, unknown>): Record<string, unknown> {
-  const steps = cleanSteps(explanation.steps);
-  if (steps.length === 0) return explanation;
+function compactStepBased(
+  cpId: string,
+  qlId: string,
+  explanation: Record<string, unknown>,
+): Record<string, unknown> {
+  const rawSteps = cleanSteps(explanation.steps);
+  if (rawSteps.length === 0) return explanation;
+  const steps = cpId === "MAL-CP-002"
+    ? compactCp002Steps(qlId, rawSteps)
+    : compactCp003Steps(qlId, rawSteps);
   return {
     ...explanation,
     lines: steps,
@@ -134,7 +210,7 @@ export function applyMal001CompactExplanationV1<T>(question: T): T {
   if (cpId === "MAL-CP-001") {
     compact = compactCp001(qlId, explanation);
   } else if (cpId === "MAL-CP-002" || cpId === "MAL-CP-003") {
-    compact = compactStepBased(explanation);
+    compact = compactStepBased(cpId, qlId, explanation);
   } else if (
     cpId === "MAL-CP-004" ||
     cpId === "MAL-CP-005" ||
