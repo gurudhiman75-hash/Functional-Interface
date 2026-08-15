@@ -1,0 +1,83 @@
+import {
+  generateMenCp010PermanentEnglishQuestion as generateV2Question,
+  listMenCp010PermanentEnglishSources,
+  type MenCp010PermanentEnglishQuestion,
+} from "./runtime-v2";
+import type { MenCp010PermanentQlId } from "./allocation";
+import {
+  buildMenCp010ExamRealismOverlayV2,
+  listMenCp010ExamRealismSourcesV2,
+  shouldUseMenCp010ExamRealismSourceV2,
+} from "./exam-realism-sources-v2";
+
+export const MEN_CP_010_PERMANENT_ENGLISH_RUNTIME_V3_AUTHORITY =
+  "MEN-CP010-PERMANENT-ENGLISH-RUNTIME-V3-EXAM-REALISM" as const;
+
+export type MenCp010ExamReadyEnglishQuestion = Omit<
+  MenCp010PermanentEnglishQuestion,
+  "authority"
+> & {
+  readonly authority: typeof MEN_CP_010_PERMANENT_ENGLISH_RUNTIME_V3_AUTHORITY;
+  readonly sourceRuntimeAuthority: MenCp010PermanentEnglishQuestion["authority"];
+  readonly examRealismVersion: "V2";
+};
+
+export function generateMenCp010ExamReadyEnglishQuestion(
+  qlId: MenCp010PermanentQlId,
+  seed: string,
+): MenCp010ExamReadyEnglishQuestion {
+  const base = generateV2Question(qlId, seed);
+  const overlay = shouldUseMenCp010ExamRealismSourceV2(qlId, seed)
+    ? buildMenCp010ExamRealismOverlayV2(qlId, seed, base.correctIndex)
+    : null;
+
+  const question = overlay
+    ? {
+        ...base,
+        sourceWave: "WAVE03" as const,
+        sourceId: overlay.sourceId,
+        stem: overlay.stem,
+        answer: overlay.answer,
+        options: overlay.options,
+        explanation: overlay.explanation,
+        verification: overlay.verification,
+      }
+    : base;
+
+  if (
+    !question.verification.valid ||
+    question.options.length !== 4 ||
+    new Set(question.options.map((option) => option.display)).size !== 4 ||
+    question.options.filter((option) => option.isCorrect).length !== 1 ||
+    question.options[question.correctIndex]?.isCorrect !== true
+  ) {
+    throw new Error(`MEN-CP-010 exam-ready runtime validation failed for ${qlId}/${seed}`);
+  }
+
+  return {
+    ...question,
+    authority: MEN_CP_010_PERMANENT_ENGLISH_RUNTIME_V3_AUTHORITY,
+    sourceRuntimeAuthority: base.authority,
+    examRealismVersion: "V2",
+  };
+}
+
+export function listMenCp010ExamReadyEnglishSources() {
+  const base = listMenCp010PermanentEnglishSources().flatMap((row) =>
+    row.sources.map((source) => ({
+      qlId: row.qlId,
+      clusterId: row.clusterId,
+      sourceId: source.id,
+      sourceKind: source.kind,
+      layer: "BASE_V2" as const,
+    })),
+  );
+  const exam = listMenCp010ExamRealismSourcesV2().map((source) => ({
+    qlId: source.qlId,
+    clusterId: null,
+    sourceId: source.sourceId,
+    sourceKind: "EXAM_V2" as const,
+    layer: "EXAM_REALISM_V2" as const,
+  }));
+  return [...base, ...exam] as const;
+}
