@@ -77,7 +77,8 @@ jobs:
           grep -q 'class="right-angle-marker"' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
           grep -q 'depression-drop-' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
           grep -q 'data-measurement-arrow-id="height-arrow-target-total-' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
-          grep -q 'data-measurement-arrow-id="height-arrow-observer-drop-' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          grep -q 'data-measurement-arrow-id="height-arrow-target-drop-' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          grep -q 'data-measurement-arrow-id="height-arrow-target-combined-' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
           grep -q 'marker-start="url(#dimensionArrow)"' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
 
       - name: Upload TRG-002 runtime review pack
