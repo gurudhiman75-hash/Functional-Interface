@@ -1,5 +1,5 @@
 import { MEN_CP_012_PROTOTYPES } from "./registry";
-import { generateMenCp012Question } from "./runtime";
+import { generateMenCp012QuestionV2 } from "./presentation-v2";
 
 export function buildMenCp012ReviewBatch() {
   const review = [];
@@ -7,10 +7,10 @@ export function buildMenCp012ReviewBatch() {
 
   for (const definition of MEN_CP_012_PROTOTYPES) {
     for (let targetPosition = 0; targetPosition < 4; targetPosition += 1) {
-      let selected: ReturnType<typeof generateMenCp012Question> | null = null;
+      let selected: ReturnType<typeof generateMenCp012QuestionV2> | null = null;
       for (let attempt = targetPosition; attempt < 4096; attempt += 4) {
         const seed = `review:${definition.prototypeId}:${attempt}`;
-        const question = generateMenCp012Question(definition.prototypeId, seed);
+        const question = generateMenCp012QuestionV2(definition.prototypeId, seed);
         if (question.correctIndex !== targetPosition) continue;
         if (globallyUsedStems.has(question.stem)) continue;
         selected = question;
