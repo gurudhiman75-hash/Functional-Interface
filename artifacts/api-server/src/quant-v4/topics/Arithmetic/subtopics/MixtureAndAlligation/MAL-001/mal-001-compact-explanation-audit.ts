@@ -91,6 +91,7 @@ let mathSurfaceChecks = 0;
 let alligationPrimaryChecks = 0;
 let selectiveCp004AlligationChecks = 0;
 const samplesPerQl = 20;
+const maxVisibleLines = 4;
 
 for (const allocation of allocations) {
   for (let index = 0; index < samplesPerQl; index += 1) {
@@ -109,16 +110,9 @@ for (const allocation of allocations) {
 
     const lines = visibleLines(question);
     assert(lines.length >= 1, `${allocation.qlId}/${seed}: no learner-visible explanation.`);
-
-    const maxLines =
-      allocation.cpId === "MAL-CP-004" ||
-      allocation.cpId === "MAL-CP-005" ||
-      allocation.cpId === "MAL-CP-006"
-        ? 4
-        : 8;
     assert(
-      lines.length <= maxLines,
-      `${allocation.qlId}/${seed}: ${lines.length} visible lines exceeds compact limit ${maxLines}.`,
+      lines.length <= maxVisibleLines,
+      `${allocation.qlId}/${seed}: ${lines.length} visible lines exceeds compact limit ${maxVisibleLines}.`,
     );
 
     const learnerExplanation = lines.join("\n");
@@ -139,7 +133,6 @@ for (const allocation of allocations) {
         `${allocation.qlId}/${seed}: primary alligation visual is missing.`,
       );
       assert(lines.length >= 3, `${allocation.qlId}/${seed}: alligation explanation is too terse.`);
-      assert(lines.length <= 4, `${allocation.qlId}/${seed}: alligation solution is not compact.`);
       alligationPrimaryChecks += 1;
     }
 
@@ -167,6 +160,7 @@ console.log(JSON.stringify({
   permanentQls: 67,
   samplesPerQl,
   generated,
+  maxVisibleLines,
   mathSurfaceChecks,
   cp001AlligationPrimaryQls: [...CP001_ALLIGATION_PRIMARY],
   cp001AlligationPrimaryChecks: alligationPrimaryChecks,
