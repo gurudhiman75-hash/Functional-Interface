@@ -9,9 +9,15 @@ import {
   listMenCp010ExamRealismSourcesV2,
   shouldUseMenCp010ExamRealismSourceV2,
 } from "./exam-realism-sources-v2";
-import { diversifyMenCp010ExamRealismOverlayV2 } from "./exam-realism-diversity-v2";
+import {
+  MEN_CP_010_RATIO_DIVERSITY_SOURCE_IDS,
+  diversifyMenCp010ExamRealismOverlayV2,
+} from "./exam-realism-diversity-v2";
 import { diversifyMenCp010CapacityOverlayV2 } from "./exam-realism-capacity-diversity-v2";
-import { diversifyMenCp010ScalingOverlayV2 } from "./exam-realism-scaling-diversity-v2";
+import {
+  MEN_CP_010_SCALING_DIVERSITY_SOURCE_IDS,
+  diversifyMenCp010ScalingOverlayV2,
+} from "./exam-realism-scaling-diversity-v2";
 
 export const MEN_CP_010_PERMANENT_ENGLISH_RUNTIME_V3_AUTHORITY =
   "MEN-CP010-PERMANENT-ENGLISH-RUNTIME-V3-EXAM-REALISM" as const;
@@ -93,12 +99,28 @@ export function listMenCp010ExamReadyEnglishSources() {
       layer: "BASE_V2" as const,
     })),
   );
-  const exam = listMenCp010ExamRealismSourcesV2().map((source) => ({
+  const primaryExam = listMenCp010ExamRealismSourcesV2().map((source) => ({
     qlId: source.qlId,
     clusterId: null,
     sourceId: source.sourceId,
     sourceKind: "EXAM_V2" as const,
     layer: "EXAM_REALISM_V2" as const,
   }));
-  return [...base, ...exam] as const;
+  const additionalExam = [
+    ...MEN_CP_010_RATIO_DIVERSITY_SOURCE_IDS,
+    ...MEN_CP_010_SCALING_DIVERSITY_SOURCE_IDS,
+  ].map((source) => ({
+    qlId: source.qlId,
+    clusterId: null,
+    sourceId: source.sourceId,
+    sourceKind: "EXAM_V2" as const,
+    layer: "EXAM_REALISM_V2" as const,
+  }));
+  const seen = new Set<string>();
+  return [...base, ...primaryExam, ...additionalExam].filter((row) => {
+    const key = `${row.qlId}:${row.sourceId}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
