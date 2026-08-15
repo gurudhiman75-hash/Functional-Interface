@@ -7,6 +7,7 @@ import {
   validateSpatialOptionUniqueness,
   type SpatialTransformProofQuestion,
 } from "../foundation/spatial";
+import { validateSpatialPerceptualOptionUniquenessV2 } from "../foundation/spatial/gap-question-perceptual-v2";
 import { generateMirrorGeometricProofQuestion } from "../topics/Non-Verbal-Reasoning/Mirror-Images/MIR-001/runtime/mirror-proof-generator";
 import { generateWaterGeometricProofQuestion } from "../topics/Non-Verbal-Reasoning/Water-Images/WAT-001/runtime/water-proof-generator";
 
@@ -44,6 +45,50 @@ function assertLifecycleLocked(question: SpatialTransformProofQuestion): void {
   assert.equal(question.lifecycle.publiclyPublishable, false);
 }
 
+function assertPremiumMirrorDistractor(question: SpatialTransformProofQuestion): void {
+  const correct = question.options.find((option) => option.label === "CORRECT_REFLECTION");
+  const premium = question.options.find(
+    (option) => option.label === "OUTER_SHAPE_CORRECT_INNER_ORIENTATION_WRONG",
+  );
+  assert(correct, "Mirror question is missing the correct option.");
+  assert(premium, "Mirror question is missing the outer-matched premium distractor.");
+
+  const correctById = new Map(correct.scene.nodes.map((node) => [node.id, node] as const));
+  const premiumById = new Map(premium.scene.nodes.map((node) => [node.id, node] as const));
+  const changedNodeIds = correct.scene.nodes
+    .filter((node) => JSON.stringify(node) !== JSON.stringify(premiumById.get(node.id)))
+    .map((node) => node.id);
+
+  assert.deepEqual(
+    premiumById.get("primary-shape"),
+    correctById.get("primary-shape"),
+    "Premium MIR distractor must preserve the correct mirrored outer/main shape exactly.",
+  );
+  assert.deepEqual(
+    premiumById.get("marker"),
+    correctById.get("marker"),
+    "Premium MIR distractor must not move the marker while changing the inner orientation.",
+  );
+  assert.equal(
+    changedNodeIds.length,
+    1,
+    `Premium MIR distractor must change exactly one inner node; changed ${changedNodeIds.join(",")}.`,
+  );
+  assert(
+    changedNodeIds[0] === "orientation-mark" || changedNodeIds[0] === "secondary-shape",
+    `Premium MIR distractor changed unexpected node '${changedNodeIds[0]}'.`,
+  );
+  assert.notEqual(
+    spatialSceneSemanticFingerprint(correct.scene),
+    spatialSceneSemanticFingerprint(premium.scene),
+  );
+
+  const perceptual = validateSpatialPerceptualOptionUniquenessV2(
+    question.options.map((option) => option.scene),
+  );
+  assert.equal(perceptual.ok, true, JSON.stringify(perceptual.duplicatePairs));
+}
+
 function assertQuestion(
   question: SpatialTransformProofQuestion,
   expectedChapter: "MIR-001" | "WAT-001",
@@ -67,15 +112,22 @@ function assertQuestion(
   );
   assert.equal(optionValidation.ok, true, JSON.stringify(optionValidation.errors));
   assert.equal(new Set(question.options.map((option) => option.fingerprint)).size, 4);
-  assert.deepEqual(
-    question.options.map((option) => option.label).sort(),
-    [
-      "AXIS_CONFUSION",
-      "CORRECT_REFLECTION",
-      "PARTIAL_REFLECTION_ERROR",
-      "ROTATION_SUBSTITUTED_FOR_REFLECTION",
-    ],
-  );
+  const expectedLabels = expectedChapter === "MIR-001"
+    ? [
+        "AXIS_CONFUSION",
+        "CORRECT_REFLECTION",
+        "OUTER_SHAPE_CORRECT_INNER_ORIENTATION_WRONG",
+        "ROTATION_SUBSTITUTED_FOR_REFLECTION",
+      ]
+    : [
+        "AXIS_CONFUSION",
+        "CORRECT_REFLECTION",
+        "PARTIAL_REFLECTION_ERROR",
+        "ROTATION_SUBSTITUTED_FOR_REFLECTION",
+      ];
+  assert.deepEqual(question.options.map((option) => option.label).sort(), expectedLabels);
+
+  if (expectedChapter === "MIR-001") assertPremiumMirrorDistractor(question);
 
   const independentlySolved = transformSceneByRequestedOperation(
     question.sourceScene,
@@ -181,6 +233,9 @@ console.log(
         independentTransformSolve: true,
         fourUniqueOptions: true,
         misconceptionOwnership: true,
+        mirrorOuterMatchedPremiumDistractor: true,
+        mirrorExactlyOneInnerOrientationChanged: true,
+        mirrorPremiumDistractorPerceptuallyDistinct: true,
         balancedAnswerPositions: true,
         explanationEvidence: true,
         lifecycleIsolation: true,
