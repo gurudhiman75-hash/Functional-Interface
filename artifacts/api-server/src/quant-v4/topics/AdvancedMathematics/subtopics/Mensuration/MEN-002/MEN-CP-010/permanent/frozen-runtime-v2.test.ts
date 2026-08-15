@@ -12,6 +12,14 @@ import { auditMenCp010ExamRealismReviewV2 } from "./review-v2";
 import { auditMenCp010ExecutableCoverageV2 } from "./executable-coverage-audit-v2";
 import { auditMenCp010ExamRealismProfiles } from "./exam-realism-profile-v2";
 
+const LEGACY_GENERIC_TRAPS = new Set([
+  "Do not confuse vertical height with slant height.",
+  "Do not omit the one-third factor or the mixed frustum term.",
+  "Include only the surfaces or dimensions requested by the question.",
+]);
+const LEGACY_GENERIC_SHORTCUT =
+  "Sketch or mentally mark the vertical height, slant height and corresponding base dimensions before calculating.";
+
 const reviewAudit = auditMenCp010ExamRealismReviewV2();
 console.log(JSON.stringify({
   phase: "setter-review-audit",
@@ -19,6 +27,7 @@ console.log(JSON.stringify({
   permanentQlCount: reviewAudit.permanentQlCount,
   recordsPerQl: reviewAudit.recordsPerQl,
   correctPositions: reviewAudit.correctPositions,
+  answerPositionSpread: reviewAudit.answerPositionSpread,
   everyQlHasAllFourPositions: reviewAudit.everyQlHasAllFourPositions,
   allVerified: reviewAudit.allVerified,
   allFourOptions: reviewAudit.allFourOptions,
@@ -40,7 +49,7 @@ assert.equal(reviewAudit.reviewRecordCount, 208, "reviewRecordCount");
 assert.equal(reviewAudit.permanentQlCount, 26, "permanentQlCount");
 assert.equal(reviewAudit.recordsPerQl, 8, "recordsPerQl");
 assert.equal(Object.values(reviewAudit.correctPositions).reduce((sum, count) => sum + count, 0), 208, "correctPositionTotal");
-assert.equal(Object.values(reviewAudit.correctPositions).every((count) => count >= 26), true, "globalPositionFloor");
+assert.equal(reviewAudit.answerPositionSpread <= 2, true, "setterAnswerPositionBalance");
 assert.equal(reviewAudit.everyQlHasAllFourPositions, true, "everyQlHasAllFourPositions");
 assert.equal(reviewAudit.allVerified, true, "allVerified");
 assert.equal(reviewAudit.allFourOptions, true, "allFourOptions");
@@ -102,6 +111,26 @@ for (const allocation of MEN_CP_010_PERMANENT_ALLOCATION) {
       assert.equal(new Set(q.options.map((option) => option.display)).size, 4);
       assert.equal(q.options.filter((option) => option.isCorrect).length, 1);
       assert.equal(q.options[q.correctIndex]?.isCorrect, true);
+      assert.equal(q.options[q.correctIndex]?.display, q.answer, `${allocation.qlId}/${seed}: displayed answer parity`);
+      assert.equal(
+        q.explanation.traps.some((trap) => LEGACY_GENERIC_TRAPS.has(trap)),
+        false,
+        `${allocation.qlId}/${seed}: legacy generic trap survived V2 polish`,
+      );
+      assert.notEqual(
+        q.explanation.shortcut,
+        LEGACY_GENERIC_SHORTCUT,
+        `${allocation.qlId}/${seed}: legacy generic shortcut survived V2 polish`,
+      );
+      if (q.permanentQlId === "MEN-002-QL-143") {
+        assert.equal(/(?:radius|height)\s*=/.test(q.stem), false, `${seed}: capacity stem must use natural prose`);
+      }
+      if (q.permanentQlId === "MEN-002-QL-142") {
+        assert.equal(/^\d+\/\d+\s+(?:cm|m)$/.test(q.answer), false, `${seed}: cross-section length should not use raw improper fraction display`);
+      }
+      if (q.permanentQlId === "MEN-002-QL-130") {
+        assert.equal(/^\d+\/\d+\s+(?:cm²|m²)$/.test(q.answer), false, `${seed}: frustum surface answer should not use raw improper fraction display`);
+      }
       assert.equal(q.active, false);
       assert.equal(q.questionStudioDiscoverable, false);
       assert.equal(q.questionBankStatus, "NOT_STORED");
@@ -151,5 +180,6 @@ console.log(JSON.stringify({
   bankingDefaultEnabledQlCount: profileAudit.bankingDefaultEnabledCount,
   punjabStateDefaultEnabledQlCount: profileAudit.punjabStateDefaultEnabledCount,
   decimalPiRegression: "PASS",
+  editorialPolishRegression: "PASS",
   productLocked: true,
 }, null, 2));
