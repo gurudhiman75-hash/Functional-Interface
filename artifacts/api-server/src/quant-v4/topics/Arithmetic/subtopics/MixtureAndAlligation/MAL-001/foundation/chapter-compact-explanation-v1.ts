@@ -1,13 +1,18 @@
-export const MAL_001_COMPACT_EXPLANATION_V1 =
-  "MAL-001-EN-COMPACT-EXPLANATION-V1" as const;
+export const MAL_001_DUAL_METHOD_EXPLANATION_V2 =
+  "MAL-001-EN-DUAL-METHOD-EXPLANATION-V2" as const;
 
-const ALLIGATION_PRIMARY_QLS = new Set([
+const CP001_ALLIGATION_CROSS_QLS = new Set([
   "MAL-QL-001",
   "MAL-QL-005",
   "MAL-QL-006",
   "MAL-QL-007",
   "MAL-QL-009",
   "MAL-QL-010",
+]);
+
+const CP004_ALLIGATION_CROSS_QLS = new Set([
+  "MAL-QL-041",
+  "MAL-QL-042",
 ]);
 
 function asRecord(value: unknown): Record<string, unknown> | null {
@@ -43,12 +48,19 @@ function cleanSteps(value: unknown): string[] {
     .filter((line) => !/^Write each quantity and price clearly\b/iu.test(line));
 }
 
-function joinGroups(
-  steps: readonly string[],
-  groups: readonly (readonly number[])[],
-): string[] {
-  if (groups.some((group) => group.some((index) => !steps[index]))) return [...steps];
-  return groups.map((group) => group.map((index) => steps[index]!).join(" "));
+function compressSteps(steps: readonly string[], maxLines: number): string[] {
+  if (steps.length <= maxLines) return [...steps];
+  const groups: string[][] = Array.from({ length: maxLines }, () => []);
+  for (let index = 0; index < steps.length; index += 1) {
+    const groupIndex = Math.min(
+      maxLines - 1,
+      Math.floor((index * maxLines) / steps.length),
+    );
+    groups[groupIndex]!.push(steps[index]!);
+  }
+  return groups
+    .filter((group) => group.length > 0)
+    .map((group) => group.join(" "));
 }
 
 function alligationShortcutLines(explanation: Record<string, unknown>): string[] {
@@ -61,114 +73,83 @@ function alligationShortcutLines(explanation: Record<string, unknown>): string[]
     .filter(Boolean)
     .filter((line) => !/^Method\s*2\b/iu.test(line))
     .filter((line) => !/^Place the opposite differences\b/iu.test(line))
+    .filter((line) => !/^Use the quantity ratio with those differences\b/iu.test(line))
     .slice(0, 3);
 }
 
-function compactCp001Steps(qlId: string, steps: string[]): string[] {
-  switch (qlId) {
-    case "MAL-QL-002":
-      return joinGroups(steps, [[0, 1], [2], [3], [4]]);
-    case "MAL-QL-003":
-      return joinGroups(steps, [[0], [1, 2], [3, 4], [5]]);
-    case "MAL-QL-004":
-      return joinGroups(steps, [[0, 1, 2], [3], [4], [5]]);
-    case "MAL-QL-008":
-      return joinGroups(steps, [[0, 1], [2, 3], [4], [5]]);
-    case "MAL-QL-011":
-      return joinGroups(steps, [[0, 1], [2, 3], [4, 5], [6, 7]]);
-    default:
-      return steps;
-  }
-}
-
-function compactCp002Steps(qlId: string, steps: string[]): string[] {
-  switch (qlId) {
-    case "MAL-QL-012":
-    case "MAL-QL-013":
-      return joinGroups(steps, [[0, 1], [2], [3], [4]]);
-    case "MAL-QL-019":
-      return joinGroups(steps, [[0, 1], [2, 3], [4, 5]]);
-    case "MAL-QL-020":
-    case "MAL-QL-021":
-      return joinGroups(steps, [[0, 1], [2, 3], [4], [5]]);
-    case "MAL-QL-023":
-    case "MAL-QL-024":
-      return joinGroups(steps, [[0, 1], [2], [3, 4], [5, 6]]);
-    case "MAL-QL-025":
-      return joinGroups(steps, [[0, 1], [2, 3], [4, 5]]);
-    case "MAL-QL-026":
-      return joinGroups(steps, [[0, 1], [2, 3]]);
-    case "MAL-QL-027":
-      return joinGroups(steps, [[0, 1], [2], [3], [4, 5]]);
-    case "MAL-QL-028":
-      return joinGroups(steps, [[0, 1], [2], [4]]);
-    default:
-      return steps;
-  }
-}
-
-function compactCp003Steps(qlId: string, steps: string[]): string[] {
-  switch (qlId) {
-    case "MAL-QL-031":
-      return joinGroups(steps, [[0, 1], [2, 3], [4]]);
-    case "MAL-QL-034":
-      return joinGroups(steps, [[0, 1], [2], [3], [4]]);
-    case "MAL-QL-035":
-      return joinGroups(steps, [[0, 1], [2, 3], [4]]);
-    case "MAL-QL-036":
-      return joinGroups(steps, [[0, 1], [2, 3], [4]]);
-    case "MAL-QL-037":
-      return joinGroups(steps, [[0, 1], [2], [3, 4]]);
-    default:
-      return steps;
-  }
-}
-
-function compactCp001(
-  qlId: string,
+function cp001DualMethod(
   explanation: Record<string, unknown>,
 ): Record<string, unknown> {
-  if (ALLIGATION_PRIMARY_QLS.has(qlId)) {
-    const currentLines = stringArray(explanation.lines);
-    const visual = currentLines.find((line) =>
-      line.startsWith("[[EXAMTREE_ALLIGATION_SVG_V1:"),
-    );
-    const shortcut = alligationShortcutLines(explanation);
-    const fallback = cleanSteps(explanation.steps).slice(-3);
-    const lines = [
+  const currentLines = stringArray(explanation.lines);
+  const visual = currentLines.find((line) =>
+    line.startsWith("[[EXAMTREE_ALLIGATION_SVG_V1:"),
+  );
+  const normal = compressSteps(cleanSteps(explanation.steps), 4);
+  const shortcut = alligationShortcutLines(explanation);
+  const alligation = shortcut.length > 0
+    ? shortcut
+    : compressSteps(cleanSteps(explanation.steps).slice(-3), 3);
+
+  return {
+    ...explanation,
+    lines: [
+      "Method 1 — Simple Method",
+      ...normal,
+      "Method 2 — Alligation Cross",
       ...(visual ? [visual] : []),
-      ...(shortcut.length > 0 ? shortcut : fallback),
-    ].slice(0, 4);
+      ...alligation,
+    ],
+  };
+}
+
+function simpleStepBased(explanation: Record<string, unknown>): Record<string, unknown> {
+  const steps = compressSteps(cleanSteps(explanation.steps), 5);
+  if (steps.length === 0) return explanation;
+  return {
+    ...explanation,
+    lines: ["Simple Method", ...steps],
+  };
+}
+
+function cp004DualMethod(explanation: Record<string, unknown>): Record<string, unknown> {
+  const normal = stringArray(explanation.visibleLines)
+    .map((line) => normaliseCompactMath(line.trim()))
+    .filter(Boolean)
+    .filter((line) => !/^Answer\s*:/iu.test(line));
+  const optionalHelp = asRecord(explanation.optionalHelp);
+  const alternative = asRecord(optionalHelp?.alternativeMethod);
+  if (!alternative) {
     return {
       ...explanation,
-      lines,
+      visibleLines: ["Simple Method", ...normal],
     };
   }
 
-  const steps = compactCp001Steps(qlId, cleanSteps(explanation.steps));
+  const crossLines = stringArray(alternative.crossLines);
+  const ratioLabel = typeof alternative.ratioLabel === "string"
+    ? alternative.ratioLabel
+    : "Required ratio";
+  const ratio = typeof alternative.ratio === "string"
+    ? alternative.ratio
+    : "";
+  const calculation = typeof alternative.calculation === "string"
+    ? normaliseCompactMath(alternative.calculation)
+    : "";
+
   return {
     ...explanation,
-    lines: steps,
+    visibleLines: [
+      "Method 1 — Simple Method",
+      ...normal,
+      "Method 2 — Alligation Cross",
+      ...(crossLines.length > 0 ? [crossLines.join("\n")] : []),
+      ...(ratio ? [`${ratioLabel} = ${ratio}.`] : []),
+      ...(calculation ? [calculation] : []),
+    ],
   };
 }
 
-function compactStepBased(
-  cpId: string,
-  qlId: string,
-  explanation: Record<string, unknown>,
-): Record<string, unknown> {
-  const rawSteps = cleanSteps(explanation.steps);
-  if (rawSteps.length === 0) return explanation;
-  const steps = cpId === "MAL-CP-002"
-    ? compactCp002Steps(qlId, rawSteps)
-    : compactCp003Steps(qlId, rawSteps);
-  return {
-    ...explanation,
-    lines: steps,
-  };
-}
-
-function compactSolutionFirst(explanation: Record<string, unknown>): Record<string, unknown> {
+function solutionFirstSimple(explanation: Record<string, unknown>): Record<string, unknown> {
   const visibleLines = stringArray(explanation.visibleLines)
     .map((line) => normaliseCompactMath(line.trim()))
     .filter(Boolean)
@@ -176,7 +157,7 @@ function compactSolutionFirst(explanation: Record<string, unknown>): Record<stri
   if (visibleLines.length > 0) {
     return {
       ...explanation,
-      visibleLines,
+      visibleLines: ["Simple Method", ...visibleLines],
     };
   }
 
@@ -187,13 +168,13 @@ function compactSolutionFirst(explanation: Record<string, unknown>): Record<stri
   if (lines.length > 0) {
     return {
       ...explanation,
-      lines,
+      lines: ["Simple Method", ...lines],
     };
   }
   return explanation;
 }
 
-export function applyMal001CompactExplanationV1<T>(question: T): T {
+export function applyMal001DualMethodExplanationV2<T>(question: T): T {
   const record = asRecord(question);
   if (!record) return question;
   const explanation = asRecord(record.explanation);
@@ -206,21 +187,22 @@ export function applyMal001CompactExplanationV1<T>(question: T): T {
     ? record.permanentQlId
     : "";
 
-  let compact = explanation;
-  if (cpId === "MAL-CP-001") {
-    compact = compactCp001(qlId, explanation);
-  } else if (cpId === "MAL-CP-002" || cpId === "MAL-CP-003") {
-    compact = compactStepBased(cpId, qlId, explanation);
-  } else if (
-    cpId === "MAL-CP-004" ||
-    cpId === "MAL-CP-005" ||
-    cpId === "MAL-CP-006"
-  ) {
-    compact = compactSolutionFirst(explanation);
+  let learnerExplanation = explanation;
+  if (cpId === "MAL-CP-001" && CP001_ALLIGATION_CROSS_QLS.has(qlId)) {
+    learnerExplanation = cp001DualMethod(explanation);
+  } else if (cpId === "MAL-CP-001" || cpId === "MAL-CP-002" || cpId === "MAL-CP-003") {
+    learnerExplanation = simpleStepBased(explanation);
+  } else if (cpId === "MAL-CP-004" && CP004_ALLIGATION_CROSS_QLS.has(qlId)) {
+    learnerExplanation = cp004DualMethod(explanation);
+  } else if (cpId === "MAL-CP-004" || cpId === "MAL-CP-005" || cpId === "MAL-CP-006") {
+    learnerExplanation = solutionFirstSimple(explanation);
   }
 
   return {
     ...(record as T & Record<string, unknown>),
-    explanation: compact,
+    explanation: learnerExplanation,
   } as T;
 }
+
+// Temporary compatibility alias for callers outside MAL-001 while the review branch is open.
+export const applyMal001CompactExplanationV1 = applyMal001DualMethodExplanationV2;
