@@ -24,3 +24,4 @@ for (const pattern of MENSURATION_QUESTION_STUDIO_PATTERNS) {
   }
 }
 console.log(JSON.stringify({ count: findings.length, findings }, null, 2));
+if (findings.length) process.exitCode = 2;
