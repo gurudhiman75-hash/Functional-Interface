@@ -11,6 +11,10 @@ on:
       - '.github/workflows/mensuration-hi-pa-localization-v1.yml'
   workflow_dispatch:
 
+concurrency:
+  group: mensuration-hi-pa-localization-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
