@@ -49,14 +49,14 @@ jobs:
         working-directory: artifacts/api-server
         run: node dist/quant-v4/num-cp003-localization-english-regression.mjs
 
-      - name: Bundle Hindi Punjabi parity audit
+      - name: Bundle Hindi Punjabi final parity audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-003/localization/runtime-parity.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-003/localization/runtime-final-parity.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/num-cp003-hi-pa-parity.mjs
 
-      - name: Run Hindi Punjabi parity audit
+      - name: Run Hindi Punjabi final parity audit
         working-directory: artifacts/api-server
         shell: bash
         run: |
