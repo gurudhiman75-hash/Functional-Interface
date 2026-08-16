@@ -27,6 +27,11 @@ jobs:
       - name: Run E3 source-saturation authority
         run: node artifacts/api-server/dist/quant-v4/sap-e3-source-saturation-authority.mjs
 
+      - name: Bundle final allocation proposal checker
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-FINAL-ALLOCATION-PROPOSAL.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-final-allocation-proposal.mjs
+      - name: Validate final allocation proposal without applying it
+        run: node artifacts/api-server/dist/quant-v4/sap-final-allocation-proposal.mjs
+
       - name: Bundle E3 source-saturation review
         run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E3-SOURCE-SATURATION-REVIEW.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e3-source-saturation-review.mjs
       - name: Generate E3 source-saturation review
@@ -39,4 +44,4 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-# E3 remains review-only. This workflow performs no allocation, lifecycle activation, merge, freeze or publication.
+# E3 remains review-only. This workflow validates the proposal but performs no allocation, lifecycle activation, merge, freeze or publication.
