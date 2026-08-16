@@ -64,6 +64,8 @@ export interface BankingPossibilityShellQuestionV2 {
     possibilitySemanticProfile: "BANKING_EXAM_POSSIBILITY_V2";
     possibilityConclusionCount: 1;
     definiteConclusionCount: 1;
+    answerPositionPolicy: "FIXED_BANK_FIVE_OPTION_TEMPLATE_V2";
+    answerBalancePolicy: "BALANCE_SEMANTIC_QUESTION_TYPES_NOT_OPTION_LABELS_V2";
     legacyQlChanged: false;
     registeredQlCreated: false;
     connectedToProfilePlanner: false;
@@ -84,13 +86,15 @@ interface SelectedPairV2 {
   possibility: EvaluatedConclusion;
 }
 
-const PAIR_OPTIONS: readonly PairSemanticStatus[] = [
+export const BANKING_POSSIBILITY_FIXED_OPTION_ORDER_V2: readonly PairSemanticStatus[] = Object.freeze([
   "ONLY_FIRST_FOLLOWS",
   "ONLY_SECOND_FOLLOWS",
   "BOTH_FOLLOW",
   "NEITHER_FOLLOWS",
   "EITHER_OR_FOLLOWS",
-];
+]);
+
+const PAIR_OPTIONS = BANKING_POSSIBILITY_FIXED_OPTION_ORDER_V2;
 
 const TARGET_STATUSES: readonly PairSemanticStatus[] = [
   "ONLY_FIRST_FOLLOWS",
@@ -308,17 +312,14 @@ function renderSelectedConclusion(
 function buildOptions(
   status: PairSemanticStatus,
   locale: SylLocale,
-  seed: number,
 ): readonly GeneratedSylOption[] {
-  const raw: readonly GeneratedSylOption[] = PAIR_OPTIONS.map((entry, index) => ({
-    optionId: `RAW-${index + 1}`,
+  return PAIR_OPTIONS.map((entry, index) => ({
+    optionId: `OPTION-${index + 1}`,
     semanticValue: entry,
     text: pairSemanticLabel(entry, locale),
     isCorrect: entry === status,
     errorLabel: entry === status ? null : "WRONG_COMBINATION_LABEL",
   }));
-  return shuffle(raw, createPrng(`SYL-PROTOTYPE-BANK-POSSIBILITY-002:${seed}:options`))
-    .map((entry, index) => ({ ...entry, optionId: `OPTION-${index + 1}` }));
 }
 
 function explanationLine(
@@ -386,7 +387,7 @@ export function generateBankingPossibilityShellV2(
     renderSelectedConclusion(selected.first, selected.firstMode, locale, assignment),
     renderSelectedConclusion(selected.second, selected.secondMode, locale, assignment),
   ] as const;
-  const options = buildOptions(selected.status, locale, seed);
+  const options = buildOptions(selected.status, locale);
   const correctIndexes = options
     .map((entry, index) => entry.isCorrect ? index : -1)
     .filter((index) => index >= 0);
@@ -415,6 +416,8 @@ export function generateBankingPossibilityShellV2(
       possibilitySemanticProfile: "BANKING_EXAM_POSSIBILITY_V2",
       possibilityConclusionCount: 1,
       definiteConclusionCount: 1,
+      answerPositionPolicy: "FIXED_BANK_FIVE_OPTION_TEMPLATE_V2",
+      answerBalancePolicy: "BALANCE_SEMANTIC_QUESTION_TYPES_NOT_OPTION_LABELS_V2",
       legacyQlChanged: false,
       registeredQlCreated: false,
       connectedToProfilePlanner: false,
@@ -434,5 +437,7 @@ export const SYL_BANKING_POSSIBILITY_SHELL_V2 = Object.freeze({
   allowedPossibilityForms: ["ALL", "SOME", "SOME_NOT"] as const,
   possibilityFollowsWhen: "UNDETERMINED && canBeTrue && canBeFalse",
   alreadyDefinitePossibilityAccepted: false,
+  answerPositionPolicy: "FIXED_BANK_FIVE_OPTION_TEMPLATE_V2",
+  answerBalancePolicy: "BALANCE_SEMANTIC_QUESTION_TYPES_NOT_OPTION_LABELS_V2",
   activationPermitted: false,
 });
