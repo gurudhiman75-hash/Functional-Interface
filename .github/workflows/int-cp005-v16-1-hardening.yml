@@ -34,7 +34,7 @@ jobs:
       - name: Bundle V16.1 diversity audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-1-hardening-audit.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-1-hardening-audit-v2.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-cp005-v16-1-hardening-audit.mjs
       - name: Run V16.1 diversity audit
@@ -68,7 +68,7 @@ jobs:
         run: pnpm --dir artifacts/api-server build
       - name: Verify V16.1 markers
         run: |
-          grep -q 'PASS_INT_CP005_V16_1_DIVERSITY_HARDENING' artifacts/api-server/dist/quant-v4/int-cp005-v16-1-hardening-audit.log
+          grep -q 'PASS_INT_CP005_V16_1_DIVERSITY_HARDENING_V2' artifacts/api-server/dist/quant-v4/int-cp005-v16-1-hardening-audit.log
           grep -q 'PASS_INT_CP005_V16_1_MULTILINGUAL_HARDENING' artifacts/api-server/dist/quant-v4/int-cp005-v16-1-localized-audit.log
           grep -q 'PASS_INT_CP005_V16_1_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-cp005-v16-1-review-export.log
       - name: Upload V16.1 audit evidence
