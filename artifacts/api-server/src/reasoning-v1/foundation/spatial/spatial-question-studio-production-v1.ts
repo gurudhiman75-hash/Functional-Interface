@@ -3,15 +3,19 @@ import {
   generateSpatialStudioQuestionV1,
   type SpatialPermanentQlIdV1,
   type SpatialStudioBatchRequestV1,
-  type SpatialStudioQuestionV1,
 } from "./spatial-question-studio-runtime-v1";
+import {
+  localizeSpatialStudioQuestionV1,
+  type SpatialLocalizedStudioQuestionV1,
+  type SpatialQuestionStudioLanguageV1,
+} from "./spatial-question-studio-localization-v1";
 import {
   SPATIAL_QUESTION_STUDIO_PACKAGE_V1,
   SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1,
 } from "./spatial-question-studio-integration-v1";
 
 export type SpatialProductionStudioQuestionV1 = Omit<
-  SpatialStudioQuestionV1,
+  SpatialLocalizedStudioQuestionV1,
   "lifecycle"
 > & {
   lifecycle: {
@@ -29,8 +33,12 @@ export type SpatialProductionStudioQuestionV1 = Omit<
   };
 };
 
+export type SpatialProductionStudioBatchRequestV1 = SpatialStudioBatchRequestV1 & {
+  language?: SpatialQuestionStudioLanguageV1;
+};
+
 function productionQuestion(
-  question: SpatialStudioQuestionV1,
+  question: SpatialLocalizedStudioQuestionV1,
 ): SpatialProductionStudioQuestionV1 {
   const { lifecycle: _sourceLifecycle, ...content } = question;
   return {
@@ -60,23 +68,31 @@ function productionQuestion(
 export function generateSpatialProductionStudioQuestionV1(input: {
   qlId: SpatialPermanentQlIdV1;
   seed: string;
+  language?: SpatialQuestionStudioLanguageV1;
 }): SpatialProductionStudioQuestionV1 {
-  return productionQuestion(generateSpatialStudioQuestionV1(input));
+  const source = generateSpatialStudioQuestionV1({ qlId: input.qlId, seed: input.seed });
+  return productionQuestion(
+    localizeSpatialStudioQuestionV1(source, input.language ?? "en"),
+  );
 }
 
 export function generateSpatialProductionStudioBatchV1(
-  request: SpatialStudioBatchRequestV1,
+  request: SpatialProductionStudioBatchRequestV1,
 ) {
-  const generated = generateSpatialStudioBatchV1(request);
+  const { language = "en", ...sourceRequest } = request;
+  const generated = generateSpatialStudioBatchV1(sourceRequest);
   return {
     generationContext: {
       packageId: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.packageId,
       generationDomain: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.generationDomain,
       seed: generated.generationContext.seed,
       count: generated.generationContext.count,
+      language,
+      locale: language === "hi" ? "hi-IN" as const : language === "pa" ? "pa-IN" as const : "en-IN" as const,
       runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
       reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
       integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
+      localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
       releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
       questionStudioDiscoverable: true as const,
       registrationStatus: "REGISTERED" as const,
@@ -93,6 +109,7 @@ export function generateSpatialProductionStudioBatchV1(
       manualApprovalRequired: true as const,
       automaticStudentPublication: false as const,
     },
-    questions: generated.questions.map(productionQuestion),
+    questions: generated.questions.map((question) =>
+      productionQuestion(localizeSpatialStudioQuestionV1(question, language))),
   } as const;
 }
