@@ -1,7 +1,10 @@
-import { MENSURATION_QUESTION_STUDIO_PATTERNS, generateMensurationLocalizedQuestionV1 } from "./mensuration-localization-runtime-v1";
-import type { MensurationLocalizedLanguage } from "./mensuration-localization-foundation-v3";
+import {
+  MENSURATION_QUESTION_STUDIO_PATTERNS,
+  generateMensurationLocalizedQuestionV1,
+  type MensurationStudioLanguage,
+} from "./mensuration-localization-runtime-v1";
 
-const languages: readonly MensurationLocalizedLanguage[] = ["hi", "pa"];
+const languages: readonly MensurationStudioLanguage[] = ["en", "hi", "pa"];
 const findings: Array<Record<string, unknown>> = [];
 for (const pattern of MENSURATION_QUESTION_STUDIO_PATTERNS) {
   for (let index = 0; index < 4; index += 1) {
@@ -23,5 +26,10 @@ for (const pattern of MENSURATION_QUESTION_STUDIO_PATTERNS) {
     }
   }
 }
-console.log(JSON.stringify({ count: findings.length, findings }, null, 2));
+console.log(JSON.stringify({
+  languageCount: languages.length,
+  generatedQuestionCount: MENSURATION_QUESTION_STUDIO_PATTERNS.length * 4 * languages.length,
+  count: findings.length,
+  findings,
+}, null, 2));
 if (findings.length) process.exitCode = 2;
