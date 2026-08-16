@@ -6,6 +6,10 @@ const requireText = (path, text, label) => {
   const content = read(path);
   checks.push([label, content.includes(text)]);
 };
+const requirePattern = (path, pattern, label) => {
+  const content = read(path);
+  checks.push([label, pattern.test(content)]);
+};
 const rejectText = (path, text, label) => {
   const content = read(path);
   checks.push([label, !content.includes(text)]);
@@ -36,7 +40,7 @@ requireText(analytics, 'WITH paid_items AS', 'product revenue preaggregation');
 requireText(analytics, 'currencyConversion: false', 'no implicit currency conversion');
 requireText(analytics, 'safeCsvCell', 'CSV injection protection');
 rejectText(analytics, 'identity.users', 'business analytics excludes PII joins');
-requireText(app, "path: '/analytics/business'", 'business analytics route');
+requirePattern(app, /path:\s*['"]\/analytics\/business['"]/, 'business analytics route');
 requireText(nav, "permission: 'commerce.orders.read'", 'business analytics permission-bound navigation');
 
 const failed = checks.filter(([, ok]) => !ok);
