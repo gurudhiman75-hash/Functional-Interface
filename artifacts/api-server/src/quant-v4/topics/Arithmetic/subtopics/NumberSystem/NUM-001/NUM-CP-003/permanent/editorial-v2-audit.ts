@@ -15,6 +15,7 @@ const bannedLearnerLanguage = /\b(?:In this question|admissible|topology|candida
 const internalIdentityLeak = /NUM-(?:CP|QL)|PROT-|solveMode|authorityId|qlTemplateId|temporaryTemplateLabel/iu;
 const oldSectionLeak = /(?:Main Rule|Exam Speed Trick|Common Traps|Strategy:|Verification:|Conclusion:)/iu;
 const rejectedLegacySentence = /This condition is satisfied for every possible missing digit/iu;
+const terseCheckLanguage = /\b(?:Check \(|Use the .*rule|rule is satisfied)\b/iu;
 
 function learnerText(q: NumCp003EditorialV2Question): string {
   return [q.stem, ...q.options, q.explanation.concept, ...q.explanation.solution, q.explanation.finalAnswer].join("\n");
@@ -26,6 +27,10 @@ function learnerSurface(q: NumCp003EditorialV2Question): string {
 
 function explanationSurface(q: NumCp003EditorialV2Question): string {
   return [q.explanation.concept, ...q.explanation.solution, q.explanation.finalAnswer].join("\n");
+}
+
+function solutionText(q: NumCp003EditorialV2Question): string {
+  return q.explanation.solution.join("\n");
 }
 
 function removeInlineMath(text: string): string {
@@ -52,6 +57,28 @@ function rawMathViolation(text: string): string | null {
   return null;
 }
 
+function requiresDivisibilityTeaching(q: NumCp003EditorialV2Question): boolean {
+  switch (q.hiddenState.kind) {
+    case "DIRECT_DIVISIBILITY":
+    case "SINGLE_DIGIT_CANDIDATE_SET":
+    case "ORDERED_PAIR_CANDIDATE_SET":
+    case "IMPLICIT_REPEATED_NUMERAL":
+    case "LINKED_ARITHMETIC_DIVISIBILITY":
+    case "CLAIM_VALIDATION":
+      return true;
+    case "DATA_SUFFICIENCY":
+      return /completed number[\s\S]*?divisible by\s+\d+/iu.test(q.hiddenState.statementI)
+        || /completed number[\s\S]*?divisible by\s+\d+/iu.test(q.hiddenState.statementII);
+    case "DIGIT_BOUND_MULTIPLE":
+    case "ONE_DIVISOR_RANGE":
+      return false;
+    default: {
+      const unreachable: never = q.hiddenState;
+      return unreachable;
+    }
+  }
+}
+
 const exactSurfaceCounts = new Map<string, number>();
 const exactExplanationCounts = new Map<string, number>();
 const perQlSurfaces = new Map<string, Set<string>>();
@@ -74,6 +101,7 @@ for (const qlId of NUM_CP003_PERMANENT_QL_IDS) {
     const learner = learnerText(q);
     const surface = learnerSurface(q);
     const explanation = explanationSurface(q);
+    const solution = solutionText(q);
 
     assert(q.editorialVersion === "NUM-CP-003-EDITORIAL-V2", `${label}: wrong editorial version`);
     assert(q.reviewStatus === "EDITORIAL_V2_CONTROLLED_REVIEW", `${label}: wrong review status`);
@@ -93,6 +121,11 @@ for (const qlId of NUM_CP003_PERMANENT_QL_IDS) {
     assert(q.explanation.concept.length > 0 && q.explanation.concept.length <= 180, `${label}: concept is not concise`);
     assert(q.explanation.solution.length >= 2 && q.explanation.solution.length <= 4, `${label}: solution must have 2-4 lines`);
     assert(q.explanation.solution.every((line) => line.trim().length >= 8), `${label}: empty or trivial solution line`);
+
+    if (requiresDivisibilityTeaching(q)) {
+      assert(/For a number to be divisible by/iu.test(solution), `${label}: divisibility rule is not taught before application`);
+    }
+    assert(!terseCheckLanguage.test(solution), `${label}: terse rule/check wording leaked into final solution`);
 
     assert(!bannedLearnerLanguage.test(learner), `${label}: banned learner wording`);
     assert(!oldSectionLeak.test(learner), `${label}: legacy four-tier wording leaked`);
@@ -189,7 +222,7 @@ writeFileSync(markdownPath, [
   "",
   "Scope: divisibility and missing digits. Permanent mathematical identities NUM-QL-001..017 remain unchanged.",
   "",
-  "Explanation model: concise Concept → Solution → Answer. No forced shortcut or distractor-trap sections.",
+  "Explanation model: Concept → simple rule-first Solution → Answer. Divisibility solutions teach the rule before applying it to the given number or number pattern.",
   "",
   "Lifecycle: controlled review only. Question Studio, Question Bank, tests and public publication remain disabled.",
   "",
@@ -237,7 +270,7 @@ const csvRows = [
 writeFileSync(csvPath, `${csvRows.map((row) => row.map(csvCell).join(",")).join("\n")}\n`, "utf8");
 
 const audit = {
-  status: "PASS_NUM_CP003_EDITORIAL_V2_AUDIT",
+  status: "PASS_NUM_CP003_EDITORIAL_V2_RULE_FIRST_TEACHING_AUDIT",
   auditedQuestions: audited,
   permanentQlCount: NUM_CP003_PERMANENT_QL_IDS.length,
   reviewQuestionCount: reviewQuestions.length,
@@ -251,6 +284,8 @@ const audit = {
     NUM_CP003_PERMANENT_QL_IDS.map((qlId) => [qlId, [...perQlDifficulties.get(qlId)!].sort()]),
   ),
   lifecycle: NUM_CP003_EDITORIAL_V2_RELEASE,
+  ruleFirstTeachingViolations: 0,
+  terseCheckLanguageLeaks: 0,
   rawMathViolations: 0,
   legacyFourTierLeaks: 0,
   internalIdentityLeaks: 0,
