@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { INT_CP006_QL_IDS, generateIntCp006Question, type IntCp006Question, type IntCp006QlId } from "./cp006-si-ci-relations-runtime-v1";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
@@ -70,7 +69,7 @@ for (const qlId of INT_CP006_QL_IDS) {
   for (const question of pickReviewQuestions(qlId)) sections.push(renderQuestion(question, ordinal++));
 }
 
-const outputDirectory = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../../../../../../../../dist/quant-v4");
+const outputDirectory = path.resolve(process.cwd(), "dist/quant-v4");
 fs.mkdirSync(outputDirectory, { recursive: true });
 const output = path.join(outputDirectory, "INT-CP-006-V1-ENGLISH-REVIEW.md");
 fs.writeFileSync(output, `${sections.join("\n")}\n`, "utf8");
