@@ -64,12 +64,57 @@ function preserveDisplayMath(question: MensurationQuestionStudioQuestionV2): Men
   };
 }
 
+function targetAnswerPosition(seed: string) {
+  const trailing = /(?:^|:)(\d+)$/.exec(seed)?.[1];
+  return trailing === undefined ? mixedHash(`${seed}:answer-position`) % 4 : Number(trailing) % 4;
+}
+
+function balanceAnswerPosition(
+  question: MensurationQuestionStudioQuestionV2,
+  seed: string,
+): MensurationQuestionStudioQuestionV2 {
+  const target = targetAnswerPosition(seed);
+  const current = question.correctIndex;
+  if (current === target) return question;
+
+  const options = [...question.options];
+  [options[current], options[target]] = [options[target]!, options[current]!];
+
+  const details = question.optionDetails.map((detail) => ({ ...detail }));
+  [details[current], details[target]] = [details[target]!, details[current]!];
+  const relabelled = details.map((detail, index) => ({
+    ...detail,
+    label: ["A", "B", "C", "D"][index]!,
+  }));
+
+  if (options[target] !== question.answer) {
+    throw new Error(`${question.patternId}/${seed}: answer-position balancing lost answer parity.`);
+  }
+  if (relabelled.filter((detail) => detail.isCorrect).length !== 1 || !relabelled[target]?.isCorrect) {
+    throw new Error(`${question.patternId}/${seed}: answer-position balancing lost correct-option metadata.`);
+  }
+
+  return {
+    ...question,
+    options,
+    optionDetails: relabelled,
+    correctIndex: target,
+    validation: {
+      ...question.validation,
+      fourDistinctOptions: options.length === 4 && new Set(options).size === 4,
+      exactlyOneCorrect: relabelled.filter((detail) => detail.isCorrect).length === 1,
+      answerParity: options[target] === question.answer,
+    },
+  };
+}
+
 export function generateMensurationStudioQuestionV2(input: {
   patternId: string;
   seed: string;
   examProfile?: MensurationQuestionStudioExamProfile;
 }): MensurationQuestionStudioQuestionV2 {
-  return preserveDisplayMath(generateMensurationStudioQuestionV2Base(input));
+  const repaired = preserveDisplayMath(generateMensurationStudioQuestionV2Base(input));
+  return balanceAnswerPosition(repaired, input.seed);
 }
 
 function weightedPattern(
