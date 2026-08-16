@@ -1,0 +1,19 @@
+{
+  "packageId": "TRG-001",
+  "scope": "FINAL_144_PERMANENT_ENGLISH_QLS",
+  "status": "HUMAN_APPROVED",
+  "approvedQlCount": 144,
+  "approvedBy": "gurudhiman75-hash",
+  "approvedAt": "2026-08-16T21:20:00+05:30",
+  "approvalSource": "explicit user approval after review of the generated 144-QL pack",
+  "approvedContentSourceHead": "7b429306793e7403d024f2090f94f7b9501a4869",
+  "approvedWorkflowRunId": "31954437996",
+  "approvedReviewArtifactId": "9265556167",
+  "approvedReviewArtifactDigest": "sha256:17e1a54dbf3045f749cc0b93d6cdc173ce75e73e02877c57c85e3b2fb1152198",
+  "approvedContentFingerprintAlgorithm": "sha256(JSON.stringify(review-projection[144]))",
+  "approvedContentFingerprint": "31772b314a4d9f1f47b85a54e0596eab9a0dd450a14c380b001376099ac50611",
+  "freezeEligible": true,
+  "activationAuthorized": false,
+  "mergeAuthorized": false,
+  "notes": "Approval is bound to the exact deterministic 144-record review content. Later changes to question content require a new human approval. Freeze eligibility does not authorize merge, activation, storage, Test Builder, Question Studio, localization runtime, or publication."
+}
