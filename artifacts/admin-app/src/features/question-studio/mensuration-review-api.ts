@@ -1,6 +1,6 @@
 import { adminRequest } from '@/lib/admin-request';
 
-export type MensurationReviewLanguage = 'en';
+export type MensurationReviewLanguage = 'en' | 'hi' | 'pa';
 export type MensurationReviewDifficulty = 'Easy' | 'Medium' | 'Hard';
 export type MensurationReviewExamProfile = 'SSC_CORE' | 'SSC_ADVANCED' | 'BANKING' | 'PUNJAB_STATE';
 export type MensurationPatternKind = 'QL' | 'PROTOTYPE';
@@ -38,7 +38,7 @@ export interface MensurationReviewQuestion {
   canonicalItemId: string;
   questionLanguageId: string;
   language: MensurationReviewLanguage;
-  locale: string;
+  locale: 'en-IN' | 'hi-IN' | 'pa-IN';
   difficultyBand: MensurationReviewDifficulty;
   stem: string;
   options: string[];
@@ -80,6 +80,22 @@ export interface MensurationReviewQuestion {
     stemVariantId: string;
     numericalStateSignature: string;
   };
+  localization?: {
+    authority: string;
+    canonicalLanguage: 'en';
+    canonicalLocale: 'en-IN';
+    canonicalQuestionId: string;
+    canonicalItemId: string;
+    language: 'hi' | 'pa';
+    locale: 'hi-IN' | 'pa-IN';
+    mathematicalStatePreserved: true;
+    optionOrderPreserved: true;
+    correctIndexPreserved: true;
+    misconceptionMappingPreserved: true;
+    realismMetadataPreserved: true;
+    lifecycleLocked: true;
+    residualInstructionalLatin: string[];
+  };
 }
 
 export interface MensurationReviewPackage {
@@ -99,6 +115,8 @@ export interface MensurationReviewPackage {
   reviewStatus: string;
   integrationAuthority: string;
   realismAuthority: string;
+  localizationAuthority: string;
+  localizationStatus: string;
   questionStudioDiscoverable: true;
   persistenceAllowed: true;
   questionBankStatus: 'NOT_STORED';
@@ -127,8 +145,10 @@ export interface MensurationReviewStatus {
   questionBankCount: number;
   integrationAuthority: string;
   realismAuthority: string;
+  localizationAuthority: string;
   defaultExamProfile: MensurationReviewExamProfile;
   supportedExamProfiles: MensurationReviewExamProfile[];
+  supportedLanguages: MensurationReviewLanguage[];
   questionStudioDiscoverable: true;
   persistenceAllowed: true;
   reviewOnly: true;
@@ -179,6 +199,7 @@ export function createMensurationReviewRun(input: MensurationReviewInput) {
     generationSystem: 'quant-v4';
     chapter: 'Mensuration';
     examProfile: MensurationReviewExamProfile;
+    language: MensurationReviewLanguage;
     reviewOnly: true;
   }>('/admin/question-studio/quant/mensuration/runs', {
     method: 'POST',
