@@ -32,6 +32,22 @@ function selectionValue(token: IopAdvancedToken, key: IopAdvancedSelectionKey): 
   return Math.abs(numericValue(token.visibleValue)) % 10;
 }
 
+function assertDistinctSelectionValues(
+  tokens: readonly IopAdvancedToken[],
+  eligibleKind: IopAdvancedToken["kind"],
+  key: IopAdvancedSelectionKey,
+  operationId: string,
+): void {
+  const eligible = tokens.filter((token) => token.kind === eligibleKind);
+  const values = eligible.map((token) => {
+    const value = selectionValue(token, key);
+    return typeof value === "number" ? `N:${value}` : `S:${value}`;
+  });
+  if (new Set(values).size !== values.length) {
+    throw new Error(`Operation ${operationId} has a tied ${key} selection key; hidden tie-breaks are not allowed`);
+  }
+}
+
 function compareByKey(
   first: IopAdvancedToken,
   second: IopAdvancedToken,
@@ -50,6 +66,10 @@ function compareByKey(
 
 export function advancedStateFingerprint(tokens: readonly IopAdvancedToken[]): string {
   return tokens.map((token) => `${token.id}:${token.visibleValue}`).join("|");
+}
+
+function visibleRowFingerprint(tokens: readonly IopAdvancedToken[]): string {
+  return tokens.map((token) => token.visibleValue).join("|");
 }
 
 function operationFingerprint(operation: IopAdvancedOperation): string {
@@ -92,6 +112,12 @@ function cloneWithValue(token: IopAdvancedToken, visibleValue: string): IopAdvan
   return { ...token, visibleValue };
 }
 
+function assertUniqueVisibleValues(tokens: readonly IopAdvancedToken[], context: string): void {
+  if (new Set(tokens.map((token) => token.visibleValue)).size !== tokens.length) {
+    throw new Error(`${context} contains duplicate learner-visible token values`);
+  }
+}
+
 function appendStep(
   steps: IopAdvancedStep[],
   operation: IopAdvancedOperation,
@@ -99,6 +125,7 @@ function appendStep(
   actions: readonly IopAdvancedActionTrace[],
   priorFingerprint: string,
 ): string {
+  assertUniqueVisibleValues(tokens, `Operation ${operation.id}`);
   const fingerprint = advancedStateFingerprint(tokens);
   if (fingerprint === priorFingerprint) return priorFingerprint;
   steps.push({
@@ -118,6 +145,7 @@ function executeIterativeMove(
   steps: IopAdvancedStep[],
   startingFingerprint: string,
 ): string {
+  assertDistinctSelectionValues(mutable, operation.eligibleKind, operation.selectionKey, operation.id);
   const fixed = new Set<string>();
   let leftFixed = 0;
   let rightFixed = 0;
@@ -182,6 +210,7 @@ function executeSortAll(
   steps: IopAdvancedStep[],
   startingFingerprint: string,
 ): string {
+  assertDistinctSelectionValues(mutable, operation.eligibleKind, operation.selectionKey, operation.id);
   const indexes = mutable.flatMap((token, index) => token.kind === operation.eligibleKind ? [index] : []);
   const sorted = indexes.map((index) => mutable[index]!).sort((a, b) => compareByKey(a, b, operation.selectionKey, operation.direction));
   for (let offset = 0; offset < indexes.length; offset += 1) mutable[indexes[offset]!] = sorted[offset]!;
@@ -248,6 +277,7 @@ function executeSwapPairs(
 
 export function executeAdvancedProgram(program: IopAdvancedProgram, input: readonly IopAdvancedToken[]): IopAdvancedTrace {
   if (input.length < 4) throw new Error("Advanced IOP machines require at least four tokens");
+  assertUniqueVisibleValues(input, "Advanced input");
   const mutable = [...input];
   const steps: IopAdvancedStep[] = [];
   let fingerprint = advancedStateFingerprint(mutable);
@@ -273,7 +303,9 @@ export function executeAdvancedProgram(program: IopAdvancedProgram, input: reado
   }
 
   const stateFingerprints = [advancedStateFingerprint(input), ...steps.map((step) => step.stateFingerprint)];
-  if (new Set(stateFingerprints).size !== stateFingerprints.length) throw new Error(`Program ${program.id} emitted a duplicate visible state`);
+  if (new Set(stateFingerprints).size !== stateFingerprints.length) throw new Error(`Program ${program.id} emitted a duplicate canonical state`);
+  const visibleFingerprints = [visibleRowFingerprint(input), ...steps.map((step) => visibleRowFingerprint(step.tokens))];
+  if (new Set(visibleFingerprints).size !== visibleFingerprints.length) throw new Error(`Program ${program.id} emitted a duplicate learner-visible state`);
   const final = steps.length ? steps.at(-1)!.tokens : [...input];
   return {
     layout: program.layout,
