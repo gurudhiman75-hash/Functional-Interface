@@ -15,11 +15,14 @@ function ipow(base: number, exponent: number): number { return base ** exponent;
 
 function powerChain(seed: number): SapE2Package {
   const p = seed - 1, correctIndex = p % 4;
-  const g = 3 + (p % 2);
-  const a = 4 + (p % 2), b = 2 + ((p * 3) % 3), c = 2 + (p % 2);
+  const q = seed / 2 - 1;
+  const g = 3 + (q % 3);
+  const a = 3 + (q % 4);
+  const b = 2 + ((q * 2) % 5);
+  const c = 1 + (q % 2);
   const leftExponent = a + b - c;
-  const missingExponent = 2 + ((p * 5) % 3);
-  const rightPower = 2;
+  const missingExponent = 2 + ((q * 3) % 4);
+  const rightPower = 1 + (q % 3);
   const rightExponent = leftExponent + missingExponent - rightPower;
   const answer = ipow(g, missingExponent);
   const g1 = g + off(seed, 0), g2 = g + off(seed, 1), leftDen = ipow(g, c) + off(seed, 2);
@@ -59,9 +62,11 @@ function powerChain(seed: number): SapE2Package {
 
 function powerRootChain(seed: number): SapE2Package {
   const p = seed - 1, correctIndex = p % 4;
-  const g = 3 + (p % 2), root = 6 + ((p * 5) % 9);
-  const denominatorExponent = 2 + (p % 2);
-  const missingExponent = 2 + ((p * 7) % 3);
+  const q = (seed - 1) / 2;
+  const g = 3 + (q % 3);
+  const root = 6 + ((q * 5) % 17);
+  const denominatorExponent = 1 + (q % 3);
+  const missingExponent = 2 + ((q * 3) % 4);
   const numeratorExponent = denominatorExponent + missingExponent;
   const radicand = root * root + off(seed, 0);
   const g1 = g + off(seed, 1), g2 = g + off(seed, 2), scale = root + off(seed, 3);
