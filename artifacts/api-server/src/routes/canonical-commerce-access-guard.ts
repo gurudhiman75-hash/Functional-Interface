@@ -6,7 +6,7 @@ import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
 const router = Router();
-const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{12}$/i;
 
 async function canonicalTestId(identifier: string): Promise<string | null> {
   const isUuid = uuid.test(identifier);
@@ -23,18 +23,20 @@ async function canonicalTestId(identifier: string): Promise<string | null> {
 async function recordUnresolvedStudentIdentity(req: Request, testIdentifier: string): Promise<void> {
   const firebaseUid = req.user?.id ?? "";
   const email = String(req.user?.email ?? "").trim().toLowerCase();
-  if (!firebaseUid || !email) return;
+  if (!firebaseUid) return;
 
   try {
     const [userRows, testId] = await Promise.all([
-      sqlClient`
-        SELECT u.id::text AS id
-        FROM identity.users u
-        JOIN identity.student_profiles sp ON sp.user_id = u.id
-        WHERE lower(u.email) = ${email}
-          AND u.deleted_at IS NULL
-        LIMIT 1
-      `,
+      email
+        ? sqlClient`
+            SELECT u.id::text AS id
+            FROM identity.users u
+            JOIN identity.student_profiles sp ON sp.user_id = u.id
+            WHERE lower(u.email) = ${email}
+              AND u.deleted_at IS NULL
+            LIMIT 1
+          `
+        : Promise.resolve([]),
       canonicalTestId(testIdentifier),
     ]);
 
@@ -46,7 +48,8 @@ async function recordUnresolvedStudentIdentity(req: Request, testIdentifier: str
     const metadata = JSON.stringify({
       provider: "firebase",
       providerSubject: firebaseUid,
-      tokenEmail: email,
+      tokenEmail: email || null,
+      tokenEmailPresent: Boolean(email),
       emailVerified: req.user?.emailVerified === true,
       canonicalEmailMatch: Boolean(canonicalUserId),
       testIdentifier,
