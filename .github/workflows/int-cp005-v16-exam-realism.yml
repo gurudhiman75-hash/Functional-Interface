@@ -53,17 +53,39 @@ jobs:
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/int-cp005-v16-editorial-final-audit.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-editorial-final-audit.log
-      - name: Bundle final V16 review exporter
+      - name: Bundle final V16 English review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-editorial-final-review-export.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-cp005-v16-editorial-final-review-export.mjs
-      - name: Export final V16 review markdown
+      - name: Export final V16 English review markdown
         run: |
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/int-cp005-v16-editorial-final-review-export.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-editorial-final-review-export.log
+      - name: Bundle V16 Hindi Punjabi localization audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-localized-final-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp005-v16-localized-final-audit.mjs
+      - name: Run V16 Hindi Punjabi localization audit
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp005-v16-localized-final-audit.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-localized-final-audit.log
+      - name: Bundle V16 Hindi Punjabi review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-multilingual-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp005-v16-multilingual-review-export.mjs
+      - name: Export V16 Hindi Punjabi review markdown
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp005-v16-multilingual-review-export.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-multilingual-review-export.log
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Verify V16 evidence markers
@@ -71,12 +93,16 @@ jobs:
           grep -q 'PASS_INT_CP005_V16_FINAL_EXAM_REALISM' artifacts/api-server/dist/quant-v4/int-cp005-v16-final-audit.log
           grep -q 'PASS_INT_CP005_V16_EDITORIAL_FINAL_DISTRACTORS' artifacts/api-server/dist/quant-v4/int-cp005-v16-editorial-final-audit.log
           grep -q 'PASS_INT_CP005_V16_EDITORIAL_FINAL_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-cp005-v16-editorial-final-review-export.log
-      - name: Upload V16 English review evidence
+          grep -q 'PASS_INT_CP005_V16_HI_PA_FINAL_LOCALIZATION' artifacts/api-server/dist/quant-v4/int-cp005-v16-localized-final-audit.log
+          grep -q 'PASS_INT_CP005_V16_HI_PA_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-cp005-v16-multilingual-review-export.log
+      - name: Upload V16 review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: int-cp005-v16-english-review
+          name: int-cp005-v16-review
           path: |
             artifacts/api-server/dist/quant-v4/INT-CP-005-V16-ENGLISH-REVIEW.md
+            artifacts/api-server/dist/quant-v4/INT-CP-005-V16-HI-PA-REVIEW.md
             artifacts/api-server/dist/quant-v4/int-cp005-v16-final-audit.log
             artifacts/api-server/dist/quant-v4/int-cp005-v16-editorial-final-audit.log
+            artifacts/api-server/dist/quant-v4/int-cp005-v16-localized-final-audit.log
           if-no-files-found: error
