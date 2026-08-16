@@ -16,6 +16,7 @@ for (const question of generated) {
   assert(!/\bfind\b/.test(stem), `${question.qlId}: generator-like imperative 'find' must be removed from the final stem.`);
   assert(!/seen at \d+° depression/.test(stem), `${question.qlId}: compressed 'seen at ... depression' phrasing is not acceptable.`);
   assert(!/seen at an elevation of/.test(stem), `${question.qlId}: avoid mechanical 'seen at an elevation of' wording in final exam stems.`);
+  assert(!/\ba 8\b/.test(stem), `${question.qlId}: numeric height wording must not produce the article error 'a 8'.`);
   assert(stem.length >= 55, `${question.qlId}: remodeled stem is unexpectedly terse.`);
 }
 
@@ -24,6 +25,13 @@ assert(q15, "QL-015 must be present in the 48-QL stem regression set.");
 assert(
   /^From the top of a .+? m high building, the angle of depression of the top of a vertical pole is .+?°\. If the horizontal distance between the building and the pole is .+? m, what is the height of the pole\?$/.test(q15.stem),
   "QL-015 must use conventional exam wording with height, depression angle, horizontal distance and a direct ask.",
+);
+
+const q24 = generated.find((question) => question.qlId === "TRG-002-QL-024");
+assert(q24, "QL-024 must be present in the 48-QL stem regression set.");
+assert(
+  /^From a point on level ground, the angle of elevation of the top of a building .+? m high is .+?°\. What is the distance from the observer to the top of the building\?$/.test(q24.stem),
+  "QL-024 must use article-safe, conventional building-height wording.",
 );
 
 const q49 = generated.find((question) => question.qlId === "TRG-002-QL-049");
