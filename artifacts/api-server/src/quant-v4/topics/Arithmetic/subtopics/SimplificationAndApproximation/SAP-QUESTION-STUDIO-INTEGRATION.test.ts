@@ -7,7 +7,7 @@ import {
   SAP_QUESTION_STUDIO_QLS,
   generateSapQuestionStudioBatch,
   generateSapQuestionStudioQuestion,
-} from "./sap-question-studio-runtime-v1";
+} from "./sap-question-studio-release-v1";
 
 assert.equal(SAP_QUESTION_STUDIO_INTEGRATION_AUTHORITY, "SAP-QUESTION-STUDIO-INTEGRATION-V1-QL001-211");
 assert.equal(SAP_QUESTION_STUDIO_QLS.length, 211);
@@ -62,11 +62,22 @@ assert.equal(batch.questions.length, 20);
 assert.ok(batch.questions.every((question) => question.examProfile === "BANKING"));
 assert.ok(batch.questions.every((question) => question.qlId !== "SAP-QL-185"), "Default mix leaked zero-weight QL185.");
 
+const hardBatch = generateSapQuestionStudioBatch({
+  count: 12,
+  seed: "sap-studio-hard-count-authority",
+  qlId: "SAP-QL-183",
+  difficulty: "HARD",
+  examProfile: "SSC",
+});
+assert.equal(hardBatch.questions.length, 12, "Difficulty-filtered batch did not preserve requested count.");
+assert.ok(hardBatch.questions.every((question) => question.qlId === "SAP-QL-183" && question.difficultyBand === "HARD"));
+
 console.log(JSON.stringify({
   authority: SAP_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
   qlCount: SAP_QUESTION_STUDIO_QLS.length,
   checkpointCount: SAP_QUESTION_STUDIO_CHECKPOINTS.length,
   generatedStates: generated,
+  exactCountDifficultyBatch: hardBatch.questions.length,
   reviewQueueEnabled: SAP_QUESTION_STUDIO_PACKAGE_V1.persistenceAllowed,
   questionBankWritable: SAP_QUESTION_STUDIO_PACKAGE_V1.questionBankWritable,
   testEligible: SAP_QUESTION_STUDIO_PACKAGE_V1.testEligible,
