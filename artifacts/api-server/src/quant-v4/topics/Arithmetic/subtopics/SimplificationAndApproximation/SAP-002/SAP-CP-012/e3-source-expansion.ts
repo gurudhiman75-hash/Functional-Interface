@@ -38,7 +38,7 @@ function powerChain(seed: number): SapE2Package {
     options: optionSet(answerText, correctIndex, [
       wrong(String(lower), "MISSING_EXPONENT_ONE_LOW", "The common-base exponents are combined correctly except that the recovered missing exponent is one too low."),
       wrong(String(higher), "MISSING_EXPONENT_ONE_HIGH", "The common-base exponents are combined correctly except that the recovered missing exponent is one too high."),
-      wrong(String(g * missingExponent), "EXPONENT_AS_MULTIPLIER", "The missing power is treated as base multiplied by exponent instead of repeated multiplication."),
+      wrong(String(missingExponent), "REPORT_EXPONENT_NOT_POWER", "The correct missing exponent is recovered, but the exponent itself is reported instead of evaluating the corresponding power of the common base."),
     ]), correctIndex,
     explanation: Object.freeze({
       coreConcept: "Round the near-common bases first, combine the numeric exponents on each side, then invert the remaining power ratio to recover the missing value.",
@@ -76,7 +76,7 @@ function powerRootChain(seed: number): SapE2Package {
     options: optionSet(answerText, correctIndex, [
       wrong(String(ipow(g, Math.max(1, missingExponent - 1))), "POWER_DIFFERENCE_ONE_LOW", "The root is handled correctly, but the difference of the two explicit exponents is taken one too low."),
       wrong(String(ipow(g, missingExponent + 1)), "POWER_DIFFERENCE_ONE_HIGH", "The root is handled correctly, but the difference of the two explicit exponents is taken one too high."),
-      wrong(String(g * missingExponent), "POWER_AS_MULTIPLICATION", "The remaining power is replaced by base multiplied by exponent rather than repeated multiplication."),
+      wrong(String(missingExponent), "REPORT_EXPONENT_NOT_POWER", "The exponent difference is found correctly, but that exponent is reported instead of evaluating the remaining power of the common base."),
     ]), correctIndex,
     explanation: Object.freeze({
       coreConcept: "Use the nearby perfect square, cancel the matching scale, and subtract the explicit common-base exponents before evaluating the remaining power.",
