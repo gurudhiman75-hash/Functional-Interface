@@ -45,6 +45,9 @@ for (const qlId of qls) for (const language of languages) for (const namespace o
   assert(!solverTrace(learnerPresentation), `${label}: solver trace or prose-in-MathJax remains in learner working`);
   assert(!proseInsideMath(presentation), `${label}: localized prose remains inside MathJax on the learner surface`);
   assert(!/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/u.test(presentation), `${label}: control character remains`);
+  assert(!/(?:=1\\\)|\\\(1\\\)) hours\b/u.test(learnerText), `${label}: singular English hour rendered as plural`);
+  assert(!/(?:=1\\\)|\\\(1\\\)) घंटे\b/u.test(learnerText), `${label}: singular Hindi hour rendered as plural`);
+  assert(!/(?:=1\\\)|\\\(1\\\)) ਘੰਟੇ\b/u.test(learnerText), `${label}: singular Punjabi hour rendered as plural`);
 
   if (language !== "en") {
     assert(!/\$\d/u.test(question.stem), `${label}: replacement capture token leaked into localized stem`);
@@ -89,4 +92,4 @@ for (const qlId of qls) for (const language of languages) for (const namespace o
 }
 
 assert(checked === 864, `Expected 864 CP010 corpus-integrity cases, got ${checked}`);
-console.log(JSON.stringify({ chapter: "TMW-001", checkpoint: "TMW-CP-010", checked, publicationLocked: true, manualFindingsGuarded: true, verdict: "PASS" }, null, 2));
+console.log(JSON.stringify({ chapter: "TMW-001", checkpoint: "TMW-CP-010", checked, publicationLocked: true, manualFindingsGuarded: true, singularHourAgreementGuarded: true, verdict: "PASS" }, null, 2));
