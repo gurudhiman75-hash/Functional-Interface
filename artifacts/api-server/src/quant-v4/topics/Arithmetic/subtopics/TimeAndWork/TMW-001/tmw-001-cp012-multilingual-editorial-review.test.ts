@@ -41,17 +41,22 @@ for (const qlId of qls) {
         const label = `${qlId}:${language}:${namespace}:${suffix}`;
         const text = visible(q);
         const e = q.explanation ?? {};
+        const l = q.learnerExplanation;
         ok(q.canonicalProblemId === "TMW-CP-012", `${label}: checkpoint mismatch`);
         ok(q.questionLanguageId === qlId, `${label}: QL mismatch`);
         ok(q.validation?.valid, `${label}: validation failed: ${(q.validation?.errors ?? []).join(" | ")}`);
         ok(q.publiclyPublishable === false, `${label}: publication lock lost`);
         ok(q.learnerExplanationVersion === "TMW_COVERAGE_V1", `${label}: learner version mismatch`);
+        ok(q.editorialStatus === "ASSISTANT_EDITORIAL_REVIEW", `${label}: editorial review state missing`);
+        ok(l && typeof l.method === "string", `${label}: learnerExplanation missing`);
+        ok(Array.isArray(l.solution) && l.solution.length >= 4 && l.solution.length <= 5, `${label}: learner solution depth mismatch`);
+        ok(typeof l.answer === "string" && l.answer.includes(q.solution.answerText), `${label}: learner answer mismatch`);
         ok(q.options?.length === 4 && new Set(q.options).size === 4, `${label}: option contract failed`);
         ok(q.correctIndex >= 0 && q.correctIndex < 4, `${label}: invalid correctIndex`);
         ok(q.options[q.correctIndex] === q.solution.answerText, `${label}: answer-option mismatch`);
         ok(q.optionAudit?.[q.correctIndex]?.misconceptionId === "CORRECT", `${label}: correct option audit mismatch`);
         ok((e.givens?.length ?? 0) >= 2 && (e.steps?.length ?? 0) >= 3, `${label}: worked explanation too brief`);
-        ok((e.shortcut?.steps?.length ?? 0) >= 1, `${label}: shortcut missing`);
+        ok((e.shortcut?.steps?.length ?? 0) === 2, `${label}: shortcut must have two teaching steps`);
         ok(!/10-Second|10-सेकंड|10-ਸਕਿੰਟ/u.test(text), `${label}: gimmicky shortcut wording remains`);
         ok(!/undefined|null|NaN|Infinity|\{\{|\$\{/u.test(text), `${label}: unresolved value`);
         ok(!/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/u.test(text), `${label}: control character remains`);
@@ -60,10 +65,22 @@ for (const qlId of qls) {
         if (language === "pa") ok(/[\u0A00-\u0A7F]/u.test(text), `${label}: Punjabi script missing`);
         if (e.commonTrap?.explanation && e.commonTrap?.optionText) ok(e.commonTrap.explanation.includes(e.commonTrap.optionText), `${label}: trap option not identified`);
         if (e.conclusion) ok(e.conclusion.includes(q.solution.answerText), `${label}: conclusion omits answer`);
-        if (qlId === "TMW-QL-212" && e.conclusion) ok(/C alone|C अकेला|C ਇਕੱਲਾ/u.test(e.conclusion), `${label}: C-alone conclusion vague`);
-        if (qlId === "TMW-QL-213" && e.conclusion) ok(/new combined completion time|नया संयुक्त समय|ਨਵਾਂ ਸਾਂਝਾ ਸਮਾਂ/u.test(e.conclusion), `${label}: new-time conclusion vague`);
-        if (qlId === "TMW-QL-214" && e.conclusion) ok(/time saved|बचा हुआ समय|ਬਚਿਆ ਹੋਇਆ ਸਮਾਂ/u.test(e.conclusion), `${label}: saved-time conclusion vague`);
-        if (qlId === "TMW-QL-215" && e.conclusion) ok(/delayed by|देरी|ਦੇਰੀ/u.test(e.conclusion), `${label}: delay conclusion vague`);
+        if (qlId === "TMW-QL-212") {
+          ok(/C alone|C अकेला|C ਇਕੱਲਾ/u.test(e.conclusion), `${label}: C-alone conclusion vague`);
+          ok(/work rates|कार्य-दर|ਕੰਮ-ਦਰ/u.test(l.method), `${label}: learner method does not teach rate subtraction`);
+        }
+        if (qlId === "TMW-QL-213") {
+          ok(/new combined completion time|नया संयुक्त समय|ਨਵਾਂ ਸਾਂਝਾ ਸਮਾਂ/u.test(e.conclusion), `${label}: new-time conclusion vague`);
+          ok(/efficiency|दक्षता|ਕੁਸ਼ਲਤਾ/u.test(l.method), `${label}: learner method does not teach efficiency units`);
+        }
+        if (qlId === "TMW-QL-214") {
+          ok(/time saved|बचा हुआ समय|ਬਚਿਆ ਹੋਇਆ ਸਮਾਂ/u.test(e.conclusion), `${label}: saved-time conclusion vague`);
+          ok(/saving|समय-बचत|ਸਮਾਂ-ਬਚਤ/u.test(l.method), `${label}: learner method does not identify saving`);
+        }
+        if (qlId === "TMW-QL-215") {
+          ok(/delayed by|देरी|ਦੇਰੀ/u.test(e.conclusion), `${label}: delay conclusion vague`);
+          ok(/delay|देरी|ਦੇਰੀ/u.test(l.method), `${label}: learner method does not identify delay`);
+        }
       }
       const en = generated.get("en"), hi = generated.get("hi"), pa = generated.get("pa");
       ok(en && hi && pa, `${qlId}:${namespace}:${suffix}: missing language output`);
