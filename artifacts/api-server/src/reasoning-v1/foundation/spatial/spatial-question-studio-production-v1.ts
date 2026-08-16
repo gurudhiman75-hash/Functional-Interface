@@ -37,10 +37,29 @@ export type SpatialProductionStudioBatchRequestV1 = SpatialStudioBatchRequestV1 
   language?: SpatialQuestionStudioLanguageV1;
 };
 
+function normalizeSharedIndicPunctuation(
+  question: SpatialLocalizedStudioQuestionV1,
+): SpatialLocalizedStudioQuestionV1 {
+  if (question.language !== "pa") return question;
+  const normalize = (value: string) => value.replaceAll("।", ".").replaceAll("॥", ".");
+  return {
+    ...question,
+    qlName: normalize(question.qlName),
+    stem: normalize(question.stem),
+    explanation: {
+      observation: normalize(question.explanation.observation),
+      rule: normalize(question.explanation.rule),
+      application: normalize(question.explanation.application),
+      check: normalize(question.explanation.check),
+    },
+  };
+}
+
 function productionQuestion(
   question: SpatialLocalizedStudioQuestionV1,
 ): SpatialProductionStudioQuestionV1 {
-  const { lifecycle: _sourceLifecycle, ...content } = question;
+  const normalizedQuestion = normalizeSharedIndicPunctuation(question);
+  const { lifecycle: _sourceLifecycle, ...content } = normalizedQuestion;
   return {
     ...content,
     lifecycle: {
