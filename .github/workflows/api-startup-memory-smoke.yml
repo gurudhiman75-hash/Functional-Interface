@@ -1,0 +1,72 @@
+name: Diagnose API Startup Memory Headroom
+
+on:
+  push:
+    branches: [diagnose/render-startup-memory-fixed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  memory-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - name: Build API once
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm --dir artifacts/api-server build
+      - name: Probe constrained heaps with source maps enabled
+        shell: bash
+        env:
+          NODE_ENV: development
+          DATABASE_URL: postgresql://smoke:smoke@127.0.0.1:1/smoke
+          GENERATION_JOB_POLL_INTERVAL_MS: '600000'
+        run: |
+          set -u
+          probe() {
+            HEAP="$1"
+            PORT="$2"
+            LOG="/tmp/api-${HEAP}.log"
+            echo "=== heap=${HEAP}MB ==="
+            START=$(date +%s)
+            PORT="$PORT" node --max-old-space-size="$HEAP" --enable-source-maps artifacts/api-server/dist/index.mjs >"$LOG" 2>&1 &
+            PID=$!
+            READY=0
+            for i in $(seq 1 45); do
+              if ! kill -0 "$PID" 2>/dev/null; then
+                break
+              fi
+              if curl --silent --fail --max-time 1 "http://127.0.0.1:${PORT}/health" >/dev/null 2>&1; then
+                READY=1
+                break
+              fi
+              sleep 1
+            done
+            END=$(date +%s)
+            if [ "$READY" = "1" ]; then
+              echo "heap=${HEAP} result=READY startup_seconds=$((END-START))"
+            else
+              if kill -0 "$PID" 2>/dev/null; then
+                echo "heap=${HEAP} result=NOT_READY process_alive=true elapsed_seconds=$((END-START))"
+              else
+                wait "$PID" 2>/dev/null
+                CODE=$?
+                echo "heap=${HEAP} result=EXITED exit_code=${CODE} elapsed_seconds=$((END-START))"
+              fi
+            fi
+            tail -n 30 "$LOG" || true
+            kill "$PID" 2>/dev/null || true
+            wait "$PID" 2>/dev/null || true
+          }
+
+          probe 96 3196
+          probe 128 3228
+          probe 192 3292
+          probe 256 3356
