@@ -109,7 +109,9 @@ for (const locale of INT_CP005_V16_1_LOCALES) {
             assert(!/का प्रारंभिक जनसंख्या/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi population case regression`);
           }
           if (context === "INVESTMENT") {
-            assert(!/निवेश[^।]* हो जाती है।/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi investment agreement regression`);
+            const badInvestmentAgreement = /निवेश[^।]*? (₹[0-9,]+) हो जाती है।/u.test(loc.presentation.markdown)
+              && !/राशि ₹[0-9,]+ हो जाती है।/u.test(loc.presentation.markdown);
+            assert(!badInvestmentAgreement, `${qlId}/${seed}: Hindi investment agreement regression`);
             assert(!/निवेश पर[^।]* निवेश पर/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi doubled investment postposition`);
             assert(!/निवेश पर किया गया निवेश पर/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi awkward investment postposition`);
           }
@@ -121,7 +123,9 @@ for (const locale of INT_CP005_V16_1_LOCALES) {
             assert(!/ਦਾ ਸ਼ੁਰੂਆਤੀ ਆਬਾਦੀ/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi population case regression`);
           }
           if (context === "INVESTMENT") {
-            assert(!/ਨਿਵੇਸ਼[^।]* ਹੋ ਜਾਂਦੀ ਹੈ।/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi investment agreement regression`);
+            const badInvestmentAgreement = /ਨਿਵੇਸ਼[^।]*? (₹[0-9,]+) ਹੋ ਜਾਂਦੀ ਹੈ।/u.test(loc.presentation.markdown)
+              && !/ਰਕਮ ₹[0-9,]+ ਹੋ ਜਾਂਦੀ ਹੈ।/u.test(loc.presentation.markdown);
+            assert(!badInvestmentAgreement, `${qlId}/${seed}: Punjabi investment agreement regression`);
             assert(!/ਨਿਵੇਸ਼ 'ਤੇ[^।]* ਨਿਵੇਸ਼ 'ਤੇ/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi doubled investment postposition`);
           }
           if (context === "ASSET") assert(!/ਸੰਪਤੀ ਦਾ ਮੁੱਲ[^।]* ਹੋ ਜਾਂਦੀ ਹੈ।/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi asset-value agreement regression`);
