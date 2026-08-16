@@ -1,0 +1,61 @@
+name: Audit Mensuration chapter-wide gap and realism V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/**'
+      - '.github/workflows/mensuration-chapter-wide-realism-audit-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-mensuration-chapter-wide-realism:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Generate 1596-question chapter-wide audit corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-chapter-wide-realism-audit-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-chapter-wide-realism-audit-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-realism-audit-v1.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-realism-audit-v1.log
+      - name: Generate 6384-question saturation and seed-sensitivity audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-chapter-wide-saturation-audit-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-chapter-wide-saturation-audit-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-saturation-audit-v1.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-saturation-audit-v1.log
+      - name: Verify review artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-realism-audit-v1.json
+          test -s artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-realism-audit-v1.md
+          test -s artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-realism-audit-v1.log
+          test -s artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-saturation-audit-v1.json
+          test -s artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-saturation-audit-v1.log
+      - name: Upload audit evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: mensuration-chapter-wide-realism-audit-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-realism-audit-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-realism-audit-v1.md
+            artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-realism-audit-v1.log
+            artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-saturation-audit-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-chapter-wide-saturation-audit-v1.log
+          retention-days: 14
