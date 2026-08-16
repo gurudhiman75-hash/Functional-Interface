@@ -54,8 +54,10 @@ function cleanStem(value:string,mode:string,language:Cp010ReviewLanguage):string
       .replace(/(\d+) घंटों में/gu,"$1 घंटे में")
       .replace(/इनलेट ([A-Z])/gu,"भरने वाली पाइप $1")
       .replace(/आउटलेट ([A-Z])/gu,"निकासी पाइप $1")
+      .replace(/आउटलेट/gu,"निकासी पाइप")
+      .replace(/(जलाशय शुरू में [^।]+?) भरी है/gu,"$1 भरा है")
       .replace(/((?:भरने वाली|निकासी) पाइप [A-Z]|रिसाव [A-Z]) चलती है ([^;।?]+?) तक/gu,"$1 $2 तक चलती है")
-      .replace(/(((?:भरने वाली|निकासी) पाइप [A-Z]|रिसाव [A-Z]) और ((?:भरने वाली|निकासी) पाइप [A-Z]|रिसाव [A-Z])) एक साथ चलते हैं ([^;।?]+?) तक/gu,"$1 $5 तक एक साथ चलते हैं");
+      .replace(/(((?:भरने वाली|निकासी) पाइप [A-Z]|रिसाव [A-Z]) और ((?:भरने वाली|निकासी) पाइप [A-Z]|रिसाव [A-Z])) एक साथ चलते हैं ([^;।?]+?) तक/gu,"$1 $4 तक एक साथ चलते हैं");
     if(mode==="findRequiredFinalStageRate"){
       stem=stem
         .replace(/जलाशय शुरू में खाली है और ([^।]+?) में भरनी है/gu,"जलाशय शुरू में खाली है और $1 में भरना है")
@@ -69,8 +71,10 @@ function cleanStem(value:string,mode:string,language:Cp010ReviewLanguage):string
       .replace(/(\d+) ਘੰਟਿਆਂ ਵਿੱਚ/gu,"$1 ਘੰਟੇ ਵਿੱਚ")
       .replace(/ਇਨਲੈਟ ([A-Z])/gu,"ਭਰਨ ਵਾਲੀ ਪਾਈਪ $1")
       .replace(/ਆਉਟਲੈਟ ([A-Z])/gu,"ਨਿਕਾਸੀ ਪਾਈਪ $1")
+      .replace(/ਆਉਟਲੈਟ/gu,"ਨਿਕਾਸੀ ਪਾਈਪ")
+      .replace(/(ਜਲਾਸ਼ਯ ਸ਼ੁਰੂ ਵਿੱਚ [^।]+?) ਭਰੀ ਹੈ/gu,"$1 ਭਰਿਆ ਹੈ")
       .replace(/((?:ਭਰਨ ਵਾਲੀ|ਨਿਕਾਸੀ) ਪਾਈਪ [A-Z]|ਰਿਸਾਅ [A-Z]) ਚੱਲਦੀ ਹੈ ([^;।?]+?) ਲਈ/gu,"$1 $2 ਲਈ ਚੱਲਦੀ ਹੈ")
-      .replace(/(((?:ਭਰਨ ਵਾਲੀ|ਨਿਕਾਸੀ) ਪਾਈਪ [A-Z]|ਰਿਸਾਅ [A-Z]) ਅਤੇ ((?:ਭਰਨ ਵਾਲੀ|ਨਿਕਾਸੀ) ਪਾਈਪ [A-Z]|ਰਿਸਾਅ [A-Z])) ਇਕੱਠੇ ਚੱਲਦੇ ਹਨ ([^;।?]+?) ਲਈ/gu,"$1 $5 ਲਈ ਇਕੱਠੇ ਚੱਲਦੇ ਹਨ");
+      .replace(/(((?:ਭਰਨ ਵਾਲੀ|ਨਿਕਾਸੀ) ਪਾਈਪ [A-Z]|ਰਿਸਾਅ [A-Z]) ਅਤੇ ((?:ਭਰਨ ਵਾਲੀ|ਨਿਕਾਸੀ) ਪਾਈਪ [A-Z]|ਰਿਸਾਅ [A-Z])) ਇਕੱਠੇ ਚੱਲਦੇ ਹਨ ([^;।?]+?) ਲਈ/gu,"$1 $4 ਲਈ ਇਕੱਠੇ ਚੱਲਦੇ ਹਨ");
     if(mode==="findRequiredFinalStageRate"){
       stem=stem
         .replace(/ਫਿਰ ਅਣਜਾਣ ਦਰ ਵਾਲਾ ਅੰਤਿਮ ਭਰਾਅ ਇਕੱਲਾ ਚੱਲਦਾ ਹੈ।/gu,"ਫਿਰ ਅਣਜਾਣ ਦਰ ਵਾਲੀ ਅੰਤਿਮ ਭਰਨ ਵਾਲੀ ਪਾਈਪ ਇਕੱਲੀ ਚੱਲਦੀ ਹੈ।")
@@ -185,6 +189,17 @@ function cycleWorking(question:Cp010Question,language:Cp010ReviewLanguage):strin
   out.push(`${t(language,["Terminal part in","अंतिम भाग","ਅੰਤਿਮ ਭਾਗ"])} ${terminalLabel}: ${math(`${toLatex(remaining)}\\div${toLatex(terminalRate)}=${toLatex(terminalTime)}`)} ${unit(language,"hours")}; ${t(language,["total time","कुल समय","ਕੁੱਲ ਸਮਾਂ"])} ${math(`${toLatex(fullTime)}+${toLatex(prefixAndTerminal)}=${toLatex(result.time)}`)} ${unit(language,"hours")}${stop(language)}`);
   return out;
 }
+function eventTimeWorking(question:Cp010Question,language:Cp010ReviewLanguage):string[]{
+  const q=question.parameters,s=question.solution;if(!q?.stages||q.stages.length<2||!q.knownCompletionTime||!s)return[];
+  const first=tmwCp009NetRate(q.stages[0].pipes),later=tmwCp009NetRate(q.stages[1].pipes),need=subtract(targetLevel(question),q.initialLevel),allLater=multiply(later,q.knownCompletionTime);
+  const difference=absR(subtract(allLater,need)),rateGap=absR(subtract(first,later)),eventTime=divide(difference,rateGap);
+  const relation=compare(allLater,need)>=0?t(language,["above the required change by","आवश्यक परिवर्तन से अधिक है","ਲੋੜੀਂਦੇ ਬਦਲਾਅ ਤੋਂ ਵੱਧ ਹੈ"]):t(language,["below the required change by","आवश्यक परिवर्तन से कम है","ਲੋੜੀਂਦੇ ਬਦਲਾਅ ਤੋਂ ਘੱਟ ਹੈ"]);
+  return [
+    `${t(language,["Required tank-level change","आवश्यक टंकी-स्तर परिवर्तन","ਲੋੜੀਂਦਾ ਟੈਂਕੀ-ਪੱਧਰ ਬਦਲਾਅ"])}: ${math(toLatex(need))}${stop(language)}`,
+    `${t(language,["If the later-stage rate ran for the whole known time","यदि बाद वाले चरण की दर पूरे ज्ञात समय तक चले","ਜੇ ਬਾਅਦਲੇ ਪੜਾਅ ਦੀ ਦਰ ਪੂਰੇ ਪਤਾ ਸਮੇਂ ਤੱਕ ਚੱਲੇ"])}: ${math(`${toLatex(later)}\\times${toLatex(q.knownCompletionTime)}=${toLatex(allLater)}`)}, ${relation} ${math(toLatex(difference))}${stop(language)}`,
+    `${t(language,["The two stage rates differ by","दोनों चरणों की प्रति घंटे दरों का अंतर","ਦੋਨਾਂ ਪੜਾਵਾਂ ਦੀ ਪ੍ਰਤੀ ਘੰਟਾ ਦਰ ਦਾ ਫਰਕ"])} ${math(toLatex(rateGap))}; ${t(language,["event time","बदलाव का समय","ਬਦਲਾਅ ਦਾ ਸਮਾਂ"])}: ${math(`${toLatex(difference)}\\div${toLatex(rateGap)}=${toLatex(eventTime)}`)} ${unit(language,"hours")}${stop(language)}`,
+  ];
+}
 function deadlineWorking(question:Cp010Question,language:Cp010ReviewLanguage):string[]{
   const q=question.parameters,s=question.solution;if(!q?.stages||q.stages.length<2||!q.requiredDeadline||!q.adjustmentBaseDuration||!s)return[];
   const first=tmwCp009NetRate(q.stages[0].pipes),later=tmwCp009NetRate(q.stages[1].pipes),need=subtract(targetLevel(question),q.initialLevel),allLater=multiply(later,q.requiredDeadline);
@@ -203,6 +218,7 @@ function improvedWorking(question:Cp010Question,language:Cp010ReviewLanguage):st
   if(["findCompletionAfterDelayedActivation","findCompletionAfterDelayedDeactivation","findCompletionWithMultipleStaggeredEvents","findCompletionWithInterruptedFlow","findCompletionFromPartialLevelAndStages","findCompletionAfterThresholdSwitch"].includes(mode))return fullStageWorking(question,language);
   if(mode==="findCapacityFromStagedPhysicalFlows")return capacityWorking(question,language);
   if(["findCompletionWithAlternatingPipes","findCompletionWithPeriodicSchedule","findCompletionFromArbitraryCyclePhase","findFullCycleCountToBoundary","findTerminalActiveSegment","findBoundaryEventTimeUnderSchedule"].includes(mode))return cycleWorking(question,language);
+  if(mode==="findEventTimeFromKnownCompletion")return eventTimeWorking(question,language);
   if(mode==="findScheduleAdjustmentForDeadline")return deadlineWorking(question,language);
   return buildCp010SemanticWorking(question,language);
 }
