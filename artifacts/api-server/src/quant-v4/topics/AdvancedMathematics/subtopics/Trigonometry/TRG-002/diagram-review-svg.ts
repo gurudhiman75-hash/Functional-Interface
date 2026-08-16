@@ -104,20 +104,32 @@ export function trg002ReviewAnnotationPosition(spec: Trg002DiagramSpec, annotati
   return position;
 }
 
-function measurementArrowSvg(arrow: Trg002DiagramMeasurementArrow, points: Map<string, Trg002DiagramPoint>) {
+function insetSharedEndpoint(endpointY: number, otherY: number, shared: boolean) {
+  if (!shared) return endpointY;
+  const direction = Math.sign(otherY - endpointY);
+  return endpointY + direction * 6;
+}
+
+function measurementArrowSvg(
+  arrow: Trg002DiagramMeasurementArrow,
+  points: Map<string, Trg002DiagramPoint>,
+  sharedEndpointIds: Set<string>,
+) {
   const from = pointOrThrow(points, arrow.fromPointId);
   const to = pointOrThrow(points, arrow.toPointId);
   const direction = arrow.side === "LEFT" ? -1 : 1;
-  const offset = 34 + arrow.lane * 58;
+  const offset = 38 + arrow.lane * 58;
   const arrowX = from.x + direction * offset;
   const witnessEndX = arrowX - direction * 7;
   const labelX = arrowX + direction * 46;
   const midY = (from.y + to.y) / 2;
+  const renderedFromY = insetSharedEndpoint(from.y, to.y, sharedEndpointIds.has(arrow.fromPointId));
+  const renderedToY = insetSharedEndpoint(to.y, from.y, sharedEndpointIds.has(arrow.toPointId));
   const kindClass = arrow.kind.toLowerCase().replace(/_/g, "-");
   return [
     `<line class="dimension-witness" x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${witnessEndX.toFixed(2)}" y2="${from.y.toFixed(2)}" />`,
     `<line class="dimension-witness" x1="${to.x.toFixed(2)}" y1="${to.y.toFixed(2)}" x2="${witnessEndX.toFixed(2)}" y2="${to.y.toFixed(2)}" />`,
-    `<line class="dimension-arrow dimension-${kindClass}" x1="${arrowX.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${arrowX.toFixed(2)}" y2="${to.y.toFixed(2)}" marker-start="url(#dimension-arrow)" marker-end="url(#dimension-arrow)" data-measurement-arrow-id="${escapeXml(arrow.id)}" />`,
+    `<line class="dimension-arrow dimension-${kindClass}" x1="${arrowX.toFixed(2)}" y1="${renderedFromY.toFixed(2)}" x2="${arrowX.toFixed(2)}" y2="${renderedToY.toFixed(2)}" marker-start="url(#dimension-arrow)" marker-end="url(#dimension-arrow)" data-measurement-arrow-id="${escapeXml(arrow.id)}" />`,
     `<text class="dimension-label dimension-label-${kindClass}" x="${labelX.toFixed(2)}" y="${midY.toFixed(2)}" text-anchor="middle" dominant-baseline="middle">${escapeXml(arrow.label)}</text>`,
   ].join("\n");
 }
@@ -160,7 +172,17 @@ export function renderTrg002DiagramReviewSvg(spec: Trg002DiagramSpec, options: T
     return `<text class="point-label" x="${position.x.toFixed(2)}" y="${position.y.toFixed(2)}" data-label-id="${escapeXml(label.id)}">${escapeXml(label.text)}</text>`;
   }).join("\n");
 
-  const dimensionArrows = spec.measurementArrows.map((arrow) => measurementArrowSvg(arrow, points)).join("\n");
+  const endpointCounts = new Map<string, number>();
+  for (const arrow of spec.measurementArrows) {
+    endpointCounts.set(arrow.fromPointId, (endpointCounts.get(arrow.fromPointId) ?? 0) + 1);
+    endpointCounts.set(arrow.toPointId, (endpointCounts.get(arrow.toPointId) ?? 0) + 1);
+  }
+  const sharedEndpointIds = new Set(
+    [...endpointCounts.entries()].filter(([, count]) => count > 1).map(([id]) => id),
+  );
+  const dimensionArrows = spec.measurementArrows
+    .map((arrow) => measurementArrowSvg(arrow, points, sharedEndpointIds))
+    .join("\n");
   const dimensionEndpointKeys = new Set(
     spec.measurementArrows.map((arrow) => endpointKey(arrow.fromPointId, arrow.toPointId)),
   );
