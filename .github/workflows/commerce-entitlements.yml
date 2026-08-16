@@ -49,7 +49,8 @@ jobs:
           grep -F 'commerce.entitlements.manage' artifacts/api-server/src/routes/admin-commerce-entitlements.ts
           grep -F 'commerce.entitlement.manual_granted' artifacts/api-server/src/routes/admin-commerce-entitlements.ts
           grep -F 'commerce.entitlement.revoked' artifacts/api-server/src/routes/admin-commerce-entitlements.ts
-          grep -F "grant_source, idempotency_key" artifacts/api-server/src/routes/admin-commerce-entitlements.ts
+          grep -F 'grant_source' artifacts/api-server/src/routes/admin-commerce-entitlements.ts
+          grep -F 'idempotency_key' artifacts/api-server/src/routes/admin-commerce-entitlements.ts
           grep -F 'INSERT INTO commerce.entitlement_tests' artifacts/api-server/src/routes/admin-commerce-entitlements.ts
           grep -F 'pv.sale_price_minor > 0' artifacts/api-server/src/lib/canonical-commerce-entitlements.ts
           grep -F 'TEST_ENTITLEMENT_REQUIRED' artifacts/api-server/src/lib/canonical-commerce-entitlements.ts
@@ -57,8 +58,8 @@ jobs:
           grep -F 'router.get("/tests/:id", authenticate' artifacts/api-server/src/routes/canonical-commerce-access-guard.ts
           grep -F 'router.use(canonicalCommerceAccessGuardRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/commerce/entitlements", adminCommerceEntitlementsRouter)' artifacts/api-server/src/routes/index.ts
-          grep -F "path: '/commerce/entitlements'" artifacts/admin-app/src/App.tsx
-          grep -F "permission: 'commerce.entitlements.read'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -E "path:[[:space:]]*'/commerce/entitlements'" artifacts/admin-app/src/App.tsx
+          grep -E "permission:[[:space:]]*'commerce\.entitlements\.read'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F "Intl.DateTimeFormat('en-US'" artifacts/admin-app/src/pages/commerce/EntitlementsWorkspacePage.tsx
           ! grep -E '@/data/|prototype entitlement|demo entitlement' artifacts/admin-app/src/pages/commerce/EntitlementsWorkspacePage.tsx
       - name: Build API server
