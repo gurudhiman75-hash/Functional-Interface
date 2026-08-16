@@ -125,6 +125,10 @@ export function normalizeGeneratedQuestionPayload(
     );
   }
 
+  const proceduralLogic = asRecord(payload.proceduralLogic);
+  const solutionDiagram =
+    payload.solutionDiagram ?? proceduralLogic.solutionDiagram ?? null;
+
   return {
     stem,
     explanation,
@@ -141,11 +145,16 @@ export function normalizeGeneratedQuestionPayload(
         generationItemId: context.itemId,
         generationRunCode: context.generationRunCode,
         providerQuestionId: payload.questionId ?? null,
-        packageId: payload.packageId ?? null,
+        packageId: payload.packageId ?? proceduralLogic.packageId ?? null,
         patternId: payload.patternId ?? null,
         topic: payload.topic ?? null,
         subtopic: payload.subtopic ?? null,
         language: payload.language ?? "en",
+        cpId: payload.cpId ?? proceduralLogic.cpId ?? null,
+        qlId: payload.qlId ?? proceduralLogic.qlId ?? null,
+        approvedBaselineHead:
+          payload.approvedBaselineHead ?? proceduralLogic.approvedBaselineHead ?? null,
+        solutionDiagram,
       },
     },
   };
