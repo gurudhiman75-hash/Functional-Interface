@@ -139,9 +139,23 @@ function modeSpecificApplication(
     ? HINDI_MODE_DETAIL[question.mode]
     : PUNJABI_MODE_DETAIL[question.mode];
   if (!detail) return null;
+  if (question.chapterCode === "FCL-001") {
+    return question.language === "hi"
+      ? `${detail}। इस तुलना में विकल्प ${answer} बाकी तीन से अलग है।`
+      : `${detail}. ਇਸ ਤੁਲਨਾ ਵਿੱਚ ਵਿਕਲਪ ${answer} ਬਾਕੀ ਤਿੰਨਾਂ ਤੋਂ ਵੱਖ ਹੈ.`;
+  }
   return question.language === "hi"
     ? `${detail}। इस विशेष नियम को पूरा करने वाला विकल्प ${answer} है।`
     : `${detail}. ਇਸ ਖਾਸ ਨਿਯਮ ਨੂੰ ਪੂਰਾ ਕਰਨ ਵਾਲਾ ਵਿਕਲਪ ${answer} ਹੈ.`;
+}
+
+function localizedClassificationCheck(
+  question: SpatialLocalizedStudioQuestionV1,
+): string | null {
+  if (question.language === "en" || question.chapterCode !== "FCL-001") return null;
+  return question.language === "hi"
+    ? `विकल्प ${question.answer} समूह के सामान्य नियम को तोड़ता है; बाकी तीन विकल्प निर्णायक गुण या संबंध साझा करते हैं।`
+    : `ਵਿਕਲਪ ${question.answer} ਸਮੂਹ ਦੇ ਸਾਂਝੇ ਨਿਯਮ ਨੂੰ ਤੋੜਦਾ ਹੈ; ਬਾਕੀ ਤਿੰਨ ਵਿਕਲਪ ਨਿਰਣਾਇਕ ਗੁਣ ਜਾਂ ਸੰਬੰਧ ਸਾਂਝਾ ਕਰਦੇ ਹਨ.`;
 }
 
 function normalizeLocalizedProductionText(
@@ -152,6 +166,7 @@ function normalizeLocalizedProductionText(
     ? value.replaceAll("।", ".").replaceAll("॥", ".")
     : value;
   const specificApplication = modeSpecificApplication(question);
+  const specificCheck = localizedClassificationCheck(question);
   return {
     ...question,
     qlName: punctuation(question.qlName),
@@ -160,7 +175,7 @@ function normalizeLocalizedProductionText(
       observation: punctuation(question.explanation.observation),
       rule: punctuation(question.explanation.rule),
       application: punctuation(specificApplication ?? question.explanation.application),
-      check: punctuation(question.explanation.check),
+      check: punctuation(specificCheck ?? question.explanation.check),
     },
   };
 }
