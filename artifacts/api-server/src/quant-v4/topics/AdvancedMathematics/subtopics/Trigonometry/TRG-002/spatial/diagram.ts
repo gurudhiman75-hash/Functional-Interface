@@ -51,6 +51,14 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
     }
   }
 
+  const hasExternalHeightBreakup = state.observations.some((observation) =>
+    observation.classification === "DEPRESSION"
+      && state.verticalObjects.some((object) => object.topPointId === observation.eyePointId)
+      && state.verticalObjects.some((object) => object.topPointId === observation.targetPointId)
+      && raw.some((point) => point.id === `target-level-${observation.id}`),
+  );
+  const horizontalPadding = hasExternalHeightBreakup ? 140 : PADDING;
+
   const xs = raw.map((point) => point.x);
   const ys = raw.map((point) => point.y);
   const minX = Math.min(...xs);
@@ -59,7 +67,7 @@ export function buildTrg002DiagramSpec(state: Trg002SpatialState): Trg002Diagram
   const maxY = Math.max(...ys, exactToNumber(state.groundY));
   const spanX = Math.max(maxX - minX, 1);
   const spanY = Math.max(maxY - minY, 1);
-  const scaleX = (WIDTH - 2 * PADDING) / spanX;
+  const scaleX = (WIDTH - 2 * horizontalPadding) / spanX;
   const scaleY = (HEIGHT - 2 * PADDING) / spanY;
   const scale = Math.min(scaleX, scaleY);
   const usedWidth = spanX * scale;
