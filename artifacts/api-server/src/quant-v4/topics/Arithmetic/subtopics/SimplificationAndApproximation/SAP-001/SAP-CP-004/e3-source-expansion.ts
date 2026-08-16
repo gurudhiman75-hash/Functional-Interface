@@ -88,9 +88,9 @@ function heterogeneousRootChain(seed: number): SapE1CandidatePackage {
     stem,
     answer,
     wrongs: [
-      { value: String(answerN - sixth), misconceptionId: "SIXTH_ROOT_TERM_DROPPED", analysis: "The fourth, cube and square roots are evaluated, but the sixth-root term is omitted from the final sum." },
-      { value: String(answerN + fourth), misconceptionId: "FOURTH_ROOT_AS_SQUARE_ROOT", analysis: "The fourth root is effectively treated as a square root, making that contribution too large." },
-      { value: String(answerN + cubeRad - cube), misconceptionId: "CUBE_RADICAND_NOT_ROOTED", analysis: "The cube-root block is left as its radicand instead of being reduced to its exact cube root." },
+      { value: String(answerN - sixth + sixth * sixth), misconceptionId: "SIXTH_ROOT_AS_CUBE_ROOT", analysis: "The sixth root is incorrectly treated as a cube root, so the first contribution becomes the square of the true sixth-root value." },
+      { value: String(answerN - fourth + fourth * fourth), misconceptionId: "FOURTH_ROOT_AS_SQUARE_ROOT", analysis: "The fourth root is incorrectly treated as a square root, so that contribution becomes the square of the true fourth-root value." },
+      { value: String(answerN - cube), misconceptionId: "CUBE_ROOT_TERM_DROPPED", analysis: "The sixth, fourth and square roots are evaluated correctly, but the cube-root term is omitted from the final addition." },
     ],
     concept: "Evaluate each perfect root at its own index, then combine the exact integer results.",
     steps: [
