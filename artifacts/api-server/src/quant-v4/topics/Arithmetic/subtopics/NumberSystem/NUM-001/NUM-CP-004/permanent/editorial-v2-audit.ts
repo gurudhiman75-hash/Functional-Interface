@@ -3,9 +3,9 @@ import path from "node:path";
 import { NUM_CP004_PERMANENT_QL_IDS } from "./allocation";
 import {
   NUM_CP004_EDITORIAL_V2_RELEASE,
-  runNumCp004EditorialV2,
   type NumCp004EditorialV2Question,
 } from "./editorial-v2";
+import { runNumCp004EditorialV2Final } from "./editorial-v2-final";
 
 const SEEDS_PER_QL = 80;
 const REVIEW_SEEDS = [1, 2, 3, 4] as const;
@@ -53,6 +53,8 @@ function auditQuestion(question: NumCp004EditorialV2Question): void {
     /requested metric/iu,
     /use its positive-divisor structure/iu,
     /resulting class/iu,
+    /candidate:HCF/iu,
+    /possible value\(s\)/iu,
     /exam speed method/iu,
     /common traps/iu,
     /misconceptionId/iu,
@@ -133,7 +135,7 @@ let maxExplanationChars = 0;
 
 for (const questionLanguageId of NUM_CP004_PERMANENT_QL_IDS) {
   for (let seed = 1; seed <= SEEDS_PER_QL; seed += 1) {
-    const question = runNumCp004EditorialV2({ questionLanguageId, seed, language: "en" });
+    const question = runNumCp004EditorialV2Final({ questionLanguageId, seed, language: "en" });
     auditQuestion(question);
     auditedQuestions += 1;
     surfaces.add(learnerSurface(question));
