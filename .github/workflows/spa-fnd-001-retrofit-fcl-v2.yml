@@ -1,0 +1,82 @@
+name: Validate SPA-FND-001 Primitive Retrofit FCL V2
+
+on:
+  pull_request:
+    branches:
+      - feat/spa-fnd-001-primitive-library-v2
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/**
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-foundation.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-glyph-digit-clock-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-figure-analogy-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-figure-classification-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-primitive-library-v2.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-primitive-retrofit-fcl-v2.test.ts
+      - .github/workflows/spa-fnd-001-retrofit-fcl-v2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: spa-fnd-001-retrofit-fcl-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-retrofit-fcl-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle spatial proof tests
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          for test in \
+            spatial-foundation \
+            spatial-mirror-water-proof \
+            spatial-glyph-digit-clock-proof \
+            spatial-figure-analogy-proof \
+            spatial-figure-classification-proof \
+            spatial-primitive-library-v2 \
+            spatial-primitive-retrofit-fcl-v2
+          do
+            pnpm --dir artifacts/api-server exec esbuild \
+              src/reasoning-v1/tests/${test}.test.ts \
+              --bundle --platform=node --format=esm \
+              --outfile=dist/reasoning-v1/spatial/${test}.test.mjs
+          done
+      - name: Run foundation regression proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+      - name: Run Wave 02 regression corpus
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
+      - name: Run remediated Wave 03 regression corpus
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
+      - name: Run FAN-001 visual-remediation regression
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-analogy-proof.test.mjs
+      - name: Run FCL-001 ambiguity-remediation regression
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-classification-proof.test.mjs
+      - name: Run Primitive Library V2 regression
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-primitive-library-v2.test.mjs
+      - name: Run primitive retrofit and FCL V2 proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-primitive-retrofit-fcl-v2.test.mjs
+      - name: Upload retrofit and FCL V2 editorial review
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-primitive-retrofit-fcl-v2-review
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-primitive-retrofit-fcl-v2-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-primitive-retrofit-fcl-v2-review.html
+          if-no-files-found: error

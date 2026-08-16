@@ -1,0 +1,94 @@
+name: Validate SPA-FND-001 FCL-001 proof
+
+on:
+  pull_request:
+    branches:
+      - feat/fan-001-figure-analogy-proof
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/**
+      - artifacts/api-server/src/reasoning-v1/proofs/spa-fnd-001-fcl-001-corpus.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-foundation.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-glyph-digit-clock-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-figure-analogy-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-figure-classification-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Non-Verbal-Reasoning/Figure-Classification/**
+      - .github/workflows/spa-fnd-001-fcl-001-proof.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: spa-fnd-001-fcl-001-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-fcl-001:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle spatial proof tests
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-glyph-digit-clock-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-figure-analogy-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-figure-analogy-proof.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-figure-classification-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-figure-classification-proof.test.mjs
+      - name: Run foundation regression proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+      - name: Run Wave 02 regression corpus
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
+      - name: Run remediated Wave 03 regression corpus
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
+      - name: Run FAN-001 visual-remediation regression
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-figure-analogy-proof.test.mjs
+      - name: Run FCL-001 proof corpus
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-figure-classification-proof.test.mjs
+      - name: Upload FCL-001 editorial review
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-fcl-001-editorial-review
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fcl-001-editorial-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fcl-001-editorial-review.html
+          if-no-files-found: error

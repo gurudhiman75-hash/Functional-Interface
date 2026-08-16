@@ -1,0 +1,44 @@
+name: Validate SPA-FND-001 Gap Runtime Remediation V1
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-gap-runtime-remediation-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Revalidate production authority
+        run: node artifacts/api-server/src/reasoning-v1/foundation/spatial/validate-production-authority-v1.mjs
+      - name: Revalidate source saturation audit
+        run: node artifacts/api-server/src/reasoning-v1/foundation/spatial/validate-source-saturation-audit-v1.mjs
+      - name: Bundle gap runtime remediation proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-gap-runtime-remediation-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-gap-runtime-remediation-v1.test.mjs
+      - name: Run 19-gap runtime scale proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-gap-runtime-remediation-v1.test.mjs
+      - name: Upload gap runtime remediation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-gap-runtime-remediation-v1-evidence
+          path: artifacts/api-server/dist/reasoning-v1/spatial/spa-gap-runtime-remediation-v1-evidence.json
+          if-no-files-found: error
