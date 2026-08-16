@@ -23,7 +23,10 @@ import {
   type MensurationLocalizedLanguage,
   type MensurationStudioLanguage,
 } from "./mensuration-localization-foundation-v3";
-import { polishMensurationLocalizedText } from "./mensuration-localization-editorial-v1";
+import {
+  polishMensurationLocalizedText,
+  protectMensurationFormulaIdentifiers,
+} from "./mensuration-localization-editorial-v1";
 
 export type MensurationLocalizedQuestionV1 = Omit<
   MensurationQuestionStudioQuestionV2,
@@ -69,7 +72,9 @@ export const MENSURATION_LOCALIZED_PACKAGE_V1 = {
 } as const;
 
 function translate(text: string, language: MensurationLocalizedLanguage) {
-  return polishMensurationLocalizedText(localizeMensurationProse(text, language), language);
+  const protectedFormula = protectMensurationFormulaIdentifiers(text);
+  const localized = localizeMensurationProse(protectedFormula.text, language);
+  return polishMensurationLocalizedText(protectedFormula.restore(localized), language);
 }
 
 function localizeQuestion(
