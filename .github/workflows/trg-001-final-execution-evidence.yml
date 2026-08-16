@@ -1,0 +1,67 @@
+name: Verify TRG-001 Final Execution Evidence
+
+on:
+  push:
+    branches:
+      - feat/trg-001-production-144
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**
+      - .github/workflows/trg-001-final-execution-evidence.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trg-001-final-evidence-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Targeted TRG-001 TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg001-final.json <<'EOF'
+          {
+            "extends": "./tsconfig.json",
+            "compilerOptions": {
+              "noEmit": true
+            },
+            "include": [
+              "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/**/*.ts"
+            ],
+            "references": []
+          }
+          EOF
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg001-final.json --pretty false
+
+      - name: Execute structural and semantic diversity gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-diversity-remediated.test.ts
+
+      - name: Execute final editorial gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-final-editorial.test.ts
+
+      - name: Preserve governance evidence
+        run: |
+          mkdir -p trg-001-final-evidence
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/PRODUCTION_FINAL_EDITORIAL_STATUS.md trg-001-final-evidence/
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/PRODUCTION_DIVERSITY_REMEDIATION_STATUS.md trg-001-final-evidence/
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-final-editorial.manifest.json trg-001-final-evidence/
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-diversity-remediation.manifest.json trg-001-final-evidence/
+
+      - name: Upload TRG-001 final evidence records
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-001-final-execution-evidence
+          path: trg-001-final-evidence/
+          if-no-files-found: error
+          retention-days: 14
