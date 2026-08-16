@@ -44,6 +44,22 @@ const PUNJABI_RESIDUALS: Readonly<Record<string, string>> = Object.freeze({
   "The product of two primes can itself be prime.": "ਦੋ ਅਭਾਜ ਸੰਖਿਆਵਾਂ ਦਾ ਗੁਣਨਫਲ ਆਪ ਅਭਾਜ ਹੋ ਸਕਦਾ ਹੈ।",
 });
 
+function math(value: string | number): string {
+  return `\\(${String(value)}\\)`;
+}
+
+function gcd(a: number, b: number): number {
+  let x = Math.abs(a);
+  let y = Math.abs(b);
+  while (y !== 0) [x, y] = [y, x % y];
+  return x;
+}
+
+function integers(value: unknown): number[] {
+  if (!Array.isArray(value) || value.some((item) => typeof item !== "number" || !Number.isSafeInteger(item))) return [];
+  return [...value] as number[];
+}
+
 function translateResidualAnswer(value: string, language: NumCp004TranslatedLanguage): string {
   let result = value;
   const fixed = language === "hi" ? HINDI_RESIDUALS : PUNJABI_RESIDUALS;
@@ -76,18 +92,69 @@ function polish(value: string, language: NumCp004TranslatedLanguage): string {
     .replaceAll("ਪਰਯਾਪਤਾ", "ਕਾਫ਼ੀ ਜਾਣਕਾਰੀ");
 }
 
+function exactEvidence(q: NumCp004LocalizedQuestion, language: NumCp004TranslatedLanguage): string | null {
+  const state = q.hiddenState as Readonly<Record<string, unknown>>;
+  const mode = typeof state.mode === "string" ? state.mode : "";
+  const hi = language === "hi";
+
+  if (mode === "COPRIME_CLASS") {
+    const [a, b, c] = integers(state.values);
+    if (a === undefined || b === undefined || c === undefined) return null;
+    const all = gcd(gcd(a, b), c);
+    return hi
+      ? `${math(`\\operatorname{HCF}(${a},${b})=${gcd(a, b)}`)}, ${math(`\\operatorname{HCF}(${a},${c})=${gcd(a, c)}`)} और ${math(`\\operatorname{HCF}(${b},${c})=${gcd(b, c)}`)}; तीनों का HCF ${math(all)} है।`
+      : `${math(`\\operatorname{HCF}(${a},${b})=${gcd(a, b)}`)}, ${math(`\\operatorname{HCF}(${a},${c})=${gcd(a, c)}`)} ਅਤੇ ${math(`\\operatorname{HCF}(${b},${c})=${gcd(b, c)}`)}; ਤਿੰਨਾਂ ਦਾ HCF ${math(all)} ਹੈ।`;
+  }
+
+  if (mode === "COPRIME_CLAIM" && Array.isArray(state.claims)) {
+    const evidence: string[] = [];
+    for (const row of state.claims) {
+      if (!row || typeof row !== "object") continue;
+      const claim = row as Readonly<Record<string, unknown>>;
+      const kind = typeof claim.kind === "string" ? claim.kind : "";
+      const values = integers(claim.values);
+      if (kind === "PAIR" && values.length === 2) {
+        evidence.push(math(`\\operatorname{HCF}(${values[0]},${values[1]})=${gcd(values[0]!, values[1]!)}`));
+      } else if (kind === "PAIRWISE_TRIPLE" && values.length === 3) {
+        const [a, b, c] = values;
+        evidence.push(`${math(`\\operatorname{HCF}(${a},${b})=${gcd(a!, b!)}`)}, ${math(`\\operatorname{HCF}(${a},${c})=${gcd(a!, c!)}`)}, ${math(`\\operatorname{HCF}(${b},${c})=${gcd(b!, c!)}`)}`);
+      } else if (kind === "UNIVERSAL_ODD") {
+        evidence.push(hi
+          ? `${math(9)} और ${math(15)} दोनों विषम हैं, पर ${math("\\operatorname{HCF}(9,15)=3")}`
+          : `${math(9)} ਅਤੇ ${math(15)} ਦੋਵੇਂ ਵਿਸਮ ਹਨ, ਪਰ ${math("\\operatorname{HCF}(9,15)=3")}`);
+      }
+    }
+    if (evidence.length > 0) return hi ? `दावों की HCF जाँच: ${evidence.join("; ")}।` : `ਕਥਨਾਂ ਦੀ HCF ਜਾਂਚ: ${evidence.join("; ")}।`;
+  }
+
+  if (mode === "DATA_SUFFICIENCY") {
+    const statementI = integers(state.statementI);
+    const statementII = integers(state.statementII);
+    const intersection = statementI.filter((value) => statementII.includes(value));
+    return hi
+      ? `कथन I ${statementI.length} संभव मान छोड़ता है; कथन II ${statementII.length} संभव मान छोड़ता है; दोनों का साझा समुच्चय ${intersection.length} मान छोड़ता है।`
+      : `ਕਥਨ I ${statementI.length} ਸੰਭਵ ਮੁੱਲ ਛੱਡਦਾ ਹੈ; ਕਥਨ II ${statementII.length} ਸੰਭਵ ਮੁੱਲ ਛੱਡਦਾ ਹੈ; ਦੋਵੇਂ ਮਿਲ ਕੇ ${intersection.length} ਮੁੱਲ ਛੱਡਦੇ ਹਨ।`;
+  }
+
+  return null;
+}
+
 export function runNumCp004LocalizedFinalForQl(
   questionLanguageId: NumCp004PermanentQlId,
   seed: number,
   language: NumCp004TranslatedLanguage,
 ): NumCp004LocalizedQuestion {
   const q = runNumCp004LocalizedForQl(questionLanguageId, seed, language);
+  const solution = q.explanation.solution.map((line) => polish(line, language));
+  const evidence = exactEvidence(q, language);
+  if (evidence) solution[1] = evidence;
+
   return Object.freeze({
     ...q,
     stem: polish(q.stem, language),
     explanation: Object.freeze({
       concept: polish(q.explanation.concept, language),
-      solution: Object.freeze(q.explanation.solution.map((line) => polish(line, language))),
+      solution: Object.freeze(solution),
       finalAnswer: polish(q.explanation.finalAnswer, language),
     }),
   });
