@@ -69,26 +69,37 @@ function ql098Question(seed: string): IntCp006Question {
   const answer = solveIntCp006(state);
   if (!verifyIntCp006Answer(state, answer)) throw new Error(`INT-QL-098/${seed}: canonical answer rejected`);
 
-  const wrongCandidates = Object.freeze([
+  const candidatePool = [
     Object.freeze({
       value: div(mul(state.difference2, rat(100)), state.ratePercent),
       misconceptionId: "TREAT_DIFFERENCE_AS_FIRST_YEAR_SI",
     }),
     Object.freeze({
       value: div(answer, rat(2)),
-      misconceptionId: "ASSUME_D2_EQUALS_TWO_RATE_SQUARE_LAYERS",
+      misconceptionId: "ASSUME_D2_HAS_TWO_RATE_SQUARE_LAYERS",
     }),
     Object.freeze({
       value: div(answer, rat(4)),
       misconceptionId: "SQUARE_TWO_YEAR_RATE_INSTEAD_OF_ANNUAL_RATE",
     }),
-  ] as const);
-  if (wrongCandidates.some((item) => eq(item.value, answer))) throw new Error(`INT-QL-098/${seed}: distractor collided with answer`);
-  if (new Set(wrongCandidates.map((item) => key(item.value))).size !== 3) throw new Error(`INT-QL-098/${seed}: distractor collision`);
-  for (const item of wrongCandidates) {
+    Object.freeze({
+      value: mul(answer, rat(2)),
+      misconceptionId: "ASSUME_D2_HAS_HALF_A_RATE_SQUARE_LAYER",
+    }),
+  ] as const;
+  const wrongCandidates: Array<{ value: Rational; misconceptionId: string }> = [];
+  const seen = new Set<string>();
+  for (const item of candidatePool) {
+    if (eq(item.value, answer)) continue;
+    const valueKey = key(item.value);
+    if (seen.has(valueKey)) continue;
     decimal(item.value);
-    if (verifyIntCp006Answer(state, item.value)) throw new Error(`INT-QL-098/${seed}: distractor independently verifies`);
+    if (verifyIntCp006Answer(state, item.value)) continue;
+    seen.add(valueKey);
+    wrongCandidates.push(item);
   }
+  if (wrongCandidates.length < 3) throw new Error(`INT-QL-098/${seed}: only ${wrongCandidates.length} distinct exact misconception distractors`);
+  const selectedWrong = Object.freeze(wrongCandidates.slice(0, 3).map((item) => deepFreeze(item)));
 
   const template = hash(`${seed}:cp006:template`) % 3;
   const frames = [
@@ -103,7 +114,7 @@ function ql098Question(seed: string): IntCp006Question {
   for (let index = 0; index < 4; index += 1) {
     if (index === correctIndex) options.push(deepFreeze({ text: money(answer), value: answer, misconceptionId: "CORRECT" }));
     else {
-      const wrong = wrongCandidates[wrongIndex++]!;
+      const wrong = selectedWrong[wrongIndex++]!;
       options.push(deepFreeze({ text: money(wrong.value), value: wrong.value, misconceptionId: wrong.misconceptionId }));
     }
   }
@@ -127,7 +138,7 @@ function ql098Question(seed: string): IntCp006Question {
       finalAnswer: money(answer),
       commonMistake: "The two-year excess contains the square of the annual rate; do not treat it as one year of simple interest or square the two-year rate.",
     }),
-    mathematicalFingerprint: `INT-QL-098|difference2=${key(state.difference2)}|ratePercent=${key(state.ratePercent)}|answer=${key(answer)}|DISTRACTOR_V2`,
+    mathematicalFingerprint: `INT-QL-098|difference2=${key(state.difference2)}|ratePercent=${key(state.ratePercent)}|answer=${key(answer)}|DISTRACTOR_V3`,
     enabled: false,
     stagingStatus: "NOT_STAGED",
     registrationStatus: "NOT_REGISTERED",
