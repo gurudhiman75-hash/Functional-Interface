@@ -6,7 +6,7 @@ import {
   INT_CP005_V16_1_LOCALES,
   INT_CP005_V16_1_LOCALIZED_VERSION,
   generateIntCp005QuestionV16_1Localized,
-} from "./cp005-variable-growth-decay-runtime-v16-1-localized-v4";
+} from "./cp005-variable-growth-decay-runtime-v16-1-localized-v5";
 import { verifyIntCp005Answer } from "./cp005-variable-growth-decay-runtime";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
@@ -108,7 +108,11 @@ for (const locale of INT_CP005_V16_1_LOCALES) {
             assert(!/प्रारंभिक जनसंख्या कितना था/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi population gender regression`);
             assert(!/का प्रारंभिक जनसंख्या/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi population case regression`);
           }
-          if (context === "INVESTMENT") assert(!/निवेश[^।]* हो जाती है।/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi investment agreement regression`);
+          if (context === "INVESTMENT") {
+            assert(!/निवेश[^।]* हो जाती है।/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi investment agreement regression`);
+            assert(!/निवेश पर[^।]* निवेश पर/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi doubled investment postposition`);
+            assert(!/निवेश पर किया गया निवेश पर/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi awkward investment postposition`);
+          }
           if (context === "ASSET") assert(!/संपत्ति का मूल्य[^।]* हो जाती है।/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi asset-value agreement regression`);
         } else {
           if (context === "POPULATION") {
@@ -116,9 +120,20 @@ for (const locale of INT_CP005_V16_1_LOCALES) {
             assert(!/ਸ਼ੁਰੂਆਤੀ ਆਬਾਦੀ ਕਿੰਨਾ ਸੀ/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi population gender regression`);
             assert(!/ਦਾ ਸ਼ੁਰੂਆਤੀ ਆਬਾਦੀ/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi population case regression`);
           }
-          if (context === "INVESTMENT") assert(!/ਨਿਵੇਸ਼[^।]* ਹੋ ਜਾਂਦੀ ਹੈ।/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi investment agreement regression`);
+          if (context === "INVESTMENT") {
+            assert(!/ਨਿਵੇਸ਼[^।]* ਹੋ ਜਾਂਦੀ ਹੈ।/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi investment agreement regression`);
+            assert(!/ਨਿਵੇਸ਼ 'ਤੇ[^।]* ਨਿਵੇਸ਼ 'ਤੇ/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi doubled investment postposition`);
+          }
           if (context === "ASSET") assert(!/ਸੰਪਤੀ ਦਾ ਮੁੱਲ[^।]* ਹੋ ਜਾਂਦੀ ਹੈ।/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi asset-value agreement regression`);
         }
+      }
+      if (loc.mathematicalState.qlId === "INT-QL-090" && loc.mathematicalState.context === "VEHICLE") {
+        if (locale === "hi-IN") assert(!/मूल्य की वाहन में/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi vehicle case regression`);
+        else assert(!/ਮੁੱਲ ਦੀ ਵਾਹਨ ਵਿੱਚ/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi vehicle case regression`);
+      }
+      if (loc.mathematicalState.qlId === "INT-QL-093") {
+        if (locale === "hi-IN") assert(!/या कम होने में/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi threshold phrasing regression`);
+        else assert(!/ਜਾਂ ਘੱਟ ਹੋਣ ਵਿੱਚ/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi threshold phrasing regression`);
       }
 
       if (locale === "pa-IN") {
