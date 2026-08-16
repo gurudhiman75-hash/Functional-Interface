@@ -1,0 +1,94 @@
+name: Validate MEN-CP-013 permanent English V2
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp013-foundation/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-013/**
+      - .github/workflows/men-cp013-permanent-english-v2.yml
+      - build-api.sh
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-cp013-permanent-english-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp013-permanent-english:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Prove 1,920 permanent English questions and source forcing
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-013/permanent/runtime-v2.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp013-permanent-english-v2.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp013-permanent-english-v2.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp013-permanent-english-v2.test.log
+      - name: Prove 64-question source-complete review
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-013/permanent/review-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp013-permanent-review-v1.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp013-permanent-review-v1.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp013-permanent-review-v1.test.log
+      - name: Export 64-question setter artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-013/permanent/review-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp013-permanent-review-export-v1.mjs
+          cd artifacts/api-server
+          node dist/quant-v4/men-cp013-permanent-review-export-v1.mjs \
+            2>&1 | tee dist/quant-v4/men-cp013-permanent-review-export-v1.log
+          test -s dist/quant-v4/men-cp013-permanent-english-review-v1.json
+          test -s dist/quant-v4/men-cp013-permanent-english-review-v1.md
+      - name: Regress permanent allocation
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-013/permanent/allocation.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp013-allocation-regression.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp013-allocation-regression.test.mjs
+      - name: Build production API bundle
+        run: bash build-api.sh
+      - name: Upload permanent English review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp013-permanent-english-review-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp013-permanent-english-v2.test.log
+            artifacts/api-server/dist/quant-v4/men-cp013-permanent-review-v1.test.log
+            artifacts/api-server/dist/quant-v4/men-cp013-permanent-review-export-v1.log
+            artifacts/api-server/dist/quant-v4/men-cp013-permanent-english-review-v1.json
+            artifacts/api-server/dist/quant-v4/men-cp013-permanent-english-review-v1.md
+          if-no-files-found: error
+          retention-days: 14
