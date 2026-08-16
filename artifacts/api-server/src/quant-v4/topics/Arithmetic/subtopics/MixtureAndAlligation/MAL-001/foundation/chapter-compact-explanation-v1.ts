@@ -300,7 +300,7 @@ function cp005DualMethod(
   const simpleLines = [
     ...(first ? [first] : []),
     `Let x and y be the quantities of the two ingredients in the order asked. Their weighted-average cost must equal ₹${targetMean}.`,
-    `So \(\\frac{${firstCost}x+${secondCost}y}{x+y}=${targetMean}\\). Solving this equation gives \(x:y=${answer}\\).`,
+    `So \\(\\frac{${firstCost}x+${secondCost}y}{x+y}=${targetMean}\\). Solving this equation gives \\(x:y=${answer}\\).`,
   ];
   const alligation = alternativeAlligationLines(explanation);
 
