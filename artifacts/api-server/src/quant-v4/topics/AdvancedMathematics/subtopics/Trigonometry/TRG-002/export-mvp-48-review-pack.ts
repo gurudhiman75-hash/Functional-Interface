@@ -50,21 +50,29 @@ function annotationSvg(annotation: any, points: Map<string, any>) {
   return `<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" class="measurement">${esc(annotation.label)}</text>`;
 }
 
-function measurementArrowSvg(arrow: any, points: Map<string, any>) {
+function insetSharedEndpoint(endpointY: number, otherY: number, shared: boolean) {
+  if (!shared) return endpointY;
+  const direction = Math.sign(otherY - endpointY);
+  return endpointY + direction * 6;
+}
+
+function measurementArrowSvg(arrow: any, points: Map<string, any>, sharedEndpointIds: Set<string>) {
   const a = points.get(arrow.fromPointId);
   const b = points.get(arrow.toPointId);
   if (!a || !b) return "";
   const direction = arrow.side === "LEFT" ? -1 : 1;
-  const offset = 34 + Number(arrow.lane ?? 0) * 58;
+  const offset = 38 + Number(arrow.lane ?? 0) * 58;
   const arrowX = a.x + direction * offset;
   const witnessEndX = arrowX - direction * 7;
   const labelX = arrowX + direction * 46;
   const midY = (a.y + b.y) / 2;
+  const renderedAY = insetSharedEndpoint(a.y, b.y, sharedEndpointIds.has(arrow.fromPointId));
+  const renderedBY = insetSharedEndpoint(b.y, a.y, sharedEndpointIds.has(arrow.toPointId));
   const kindClass = String(arrow.kind).toLowerCase().replaceAll("_", "-");
   return [
     `<line class="dimension-witness" x1="${a.x}" y1="${a.y}" x2="${witnessEndX}" y2="${a.y}"/>`,
     `<line class="dimension-witness" x1="${b.x}" y1="${b.y}" x2="${witnessEndX}" y2="${b.y}"/>`,
-    `<line class="dimension-arrow dimension-${kindClass}" data-measurement-arrow-id="${esc(arrow.id)}" x1="${arrowX}" y1="${a.y}" x2="${arrowX}" y2="${b.y}" marker-start="url(#dimensionArrow)" marker-end="url(#dimensionArrow)"/>`,
+    `<line class="dimension-arrow dimension-${kindClass}" data-measurement-arrow-id="${esc(arrow.id)}" x1="${arrowX}" y1="${renderedAY}" x2="${arrowX}" y2="${renderedBY}" marker-start="url(#dimensionArrow)" marker-end="url(#dimensionArrow)"/>`,
     `<text class="dimension-label dimension-label-${kindClass}" x="${labelX}" y="${midY}" text-anchor="middle" dominant-baseline="middle">${esc(arrow.label)}</text>`,
   ].join("\n");
 }
@@ -120,7 +128,17 @@ function diagramSvg(question: any) {
   const diagram = question.solutionDiagram;
   const points = pointMap(diagram);
   const segments = diagram.segments.map((segment: any) => segmentSvg(segment, points)).join("\n");
-  const measurementArrows = (diagram.measurementArrows ?? []).map((arrow: any) => measurementArrowSvg(arrow, points)).join("\n");
+  const endpointCounts = new Map<string, number>();
+  for (const arrow of diagram.measurementArrows ?? []) {
+    endpointCounts.set(arrow.fromPointId, (endpointCounts.get(arrow.fromPointId) ?? 0) + 1);
+    endpointCounts.set(arrow.toPointId, (endpointCounts.get(arrow.toPointId) ?? 0) + 1);
+  }
+  const sharedEndpointIds = new Set<string>(
+    [...endpointCounts.entries()].filter(([, count]) => count > 1).map(([id]) => id),
+  );
+  const measurementArrows = (diagram.measurementArrows ?? [])
+    .map((arrow: any) => measurementArrowSvg(arrow, points, sharedEndpointIds))
+    .join("\n");
   const dimensionEndpointKeys = new Set<string>(
     (diagram.measurementArrows ?? []).map((arrow: any) => endpointKey(arrow.fromPointId, arrow.toPointId)),
   );
