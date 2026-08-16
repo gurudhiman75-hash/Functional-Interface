@@ -17,7 +17,7 @@ The 20 proof anchors remain permanent and the MVP adds 28 roles from the Phase-0
 
 ## Current review truth
 
-The current 48-QL candidate completed the post-self-review remediation cycle, full runtime verification, exam-style stem remodeling, representative artifact review, human approval and the real ExamTree/browser-wrapper gate.
+The current 48-QL candidate completed post-self-review remediation, full runtime verification, exam-style stem remodeling, representative artifact review, human approval and the real ExamTree/browser-wrapper gate.
 
 - AI/editorial remediation: **PASS for approved candidate**
 - known active blocker from the completed remediation pass: **0**
@@ -29,7 +29,7 @@ The current 48-QL candidate completed the post-self-review remediation cycle, fu
 - per-generated-seed visual PASS: **not claimed**
 - freeze eligible: **YES**
 
-Human-review approval remains pinned in `HUMAN_REVIEW_APPROVAL.md` to source head `60e289ee6c89a3f595ad75038ac563daf2a5fc5f` and artifact id `9259815578`. The later ExamTree wrapper commits are integration-only and do not change the approved question mathematics, stems, options, explanations, difficulty or canonical solution-diagram specifications.
+Human-review approval remains pinned in `HUMAN_REVIEW_APPROVAL.md` to source head `60e289ee6c89a3f595ad75038ac563daf2a5fc5f` and artifact id `9259815578`. Later ExamTree wrapper commits are integration-only and do not change the approved question mathematics, stems, options, explanations, difficulty or canonical solution-diagram specifications.
 
 Real-wrapper evidence is pinned in `EXAMTREE_WRAPPER_VALIDATION.md` to successful browser run `31945456581` and integration head `e0480a63188327fb4a4521f0ade2efc1970557cf`.
 
