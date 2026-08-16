@@ -2,6 +2,7 @@ import { adminRequest } from '@/lib/admin-request';
 
 export type SpatialReviewDifficulty = 'Easy' | 'Medium' | 'Hard';
 export type SpatialReviewChapter = 'MIR-001' | 'WAT-001' | 'FAN-001' | 'FCL-001' | 'FSR-001';
+export type SpatialReviewLanguage = 'en' | 'hi' | 'pa';
 
 export interface SpatialReviewQl {
   permanentQlId: string;
@@ -19,11 +20,12 @@ export interface SpatialReviewPackage {
   qlIds: string[];
   qls: SpatialReviewQl[];
   chapters: SpatialReviewChapter[];
-  supportedLanguages: ['en'];
+  supportedLanguages: SpatialReviewLanguage[];
   supportedDifficulties: SpatialReviewDifficulty[];
   runtimeMode: 'CANONICAL_REVIEW';
   reviewStatus: 'APPROVED_EDITORIAL_CANONICAL';
   integrationAuthority: string;
+  localizationAuthority: string;
   releaseAuthority: string;
   permanentQlCount: number;
   questionStudioVisible: true;
@@ -45,8 +47,8 @@ export interface SpatialReviewQuestion {
   proposalId: string;
   chapterCode: SpatialReviewChapter;
   qlName: string;
-  language: 'en';
-  locale: 'en-IN';
+  language: SpatialReviewLanguage;
+  locale: 'en-IN' | 'hi-IN' | 'pa-IN';
   difficultyBand: SpatialReviewDifficulty;
   seed: string;
   generationSeed: string;
@@ -67,6 +69,12 @@ export interface SpatialReviewQuestion {
   canonicalItemId: string;
   questionLanguageId: string;
   contentFingerprint: string;
+  localization: {
+    authority: string;
+    canonicalLanguage: 'en';
+    targetLanguage: SpatialReviewLanguage;
+    semanticParity: 'GEOMETRY_AND_ANSWER_EXACT';
+  };
   lifecycle: {
     questionBankStatus: 'READY_FOR_STORAGE';
     testEligibility: 'ELIGIBLE';
@@ -85,6 +93,7 @@ export interface SpatialReviewQuestion {
 }
 
 export interface SpatialReviewInput {
+  language: SpatialReviewLanguage;
   qlId?: string;
   chapterCode?: SpatialReviewChapter;
   difficulty?: SpatialReviewDifficulty;
@@ -95,10 +104,12 @@ export interface SpatialReviewInput {
 export interface SpatialReviewStatus {
   packageId: 'SPA-001';
   permanentQlCount: number;
+  supportedLanguages: SpatialReviewLanguage[];
   generationItemCount: number;
   approvedItemCount: number;
   questionBankCount: number;
   integrationAuthority: string;
+  localizationAuthority: string;
   releaseAuthority: string;
   questionBankConversionEligibleAfterApproval: true;
   testEligibleAfterApproval: true;
@@ -107,7 +118,7 @@ export interface SpatialReviewStatus {
 }
 
 function paramsFor(input: SpatialReviewInput) {
-  const params = new URLSearchParams({ language: 'en', count: String(input.count) });
+  const params = new URLSearchParams({ language: input.language, count: String(input.count) });
   if (input.qlId) params.set('qlId', input.qlId);
   if (input.chapterCode) params.set('chapterCode', input.chapterCode);
   if (input.difficulty) params.set('difficulty', input.difficulty);
@@ -141,6 +152,7 @@ export function previewSpatialReview(input: SpatialReviewInput) {
     questions: SpatialReviewQuestion[];
     productionEligible: true;
     integrationAuthority: string;
+    localizationAuthority: string;
     releaseAuthority: string;
   }>(
     `/admin/question-studio/reasoning/spatial/preview?${paramsFor(input).toString()}`,
@@ -157,10 +169,12 @@ export function createSpatialReviewRun(input: SpatialReviewInput) {
     itemCount: number;
     generationSystem: 'reasoning-v1';
     packageId: 'SPA-001';
+    language: SpatialReviewLanguage;
+    localizationAuthority: string;
     releaseAuthority: string;
   }>(
     '/admin/question-studio/reasoning/spatial/runs',
-    { method: 'POST', body: JSON.stringify({ ...input, language: 'en' }) },
+    { method: 'POST', body: JSON.stringify(input) },
     { fallbackMessage: 'Unable to create the Spatial Reasoning review run.' },
   );
 }
