@@ -169,7 +169,7 @@ function storedSolutionDiagram(qlId: Trg002Mvp48Id, question: any): Trg002Stored
   const annotations = Array.isArray(question.solutionAnnotations)
     ? question.solutionAnnotations
     : buildTrg002SolutionAnnotations(question).annotations;
-  return {
+  const stored: Trg002StoredSolutionDiagram = {
     kind: "TRG002_HEIGHTS_DISTANCES",
     version: 1,
     qlId,
@@ -180,6 +180,8 @@ function storedSolutionDiagram(qlId: Trg002Mvp48Id, question: any): Trg002Stored
     diagram: question.solutionDiagram,
     annotations,
   };
+  JSON.stringify(stored);
+  return stored;
 }
 
 function previewQuestion(qlId: Trg002Mvp48Id, question: any, seed: string, index: number, count: number) {
@@ -195,7 +197,6 @@ function previewQuestion(qlId: Trg002Mvp48Id, question: any, seed: string, index
     kind: "single_choice",
     options,
     correctOptionIndex: question.correctIndex,
-    exactAnswer: question.exactAnswer,
     solutionDiagram,
   };
   const traceability = {
@@ -252,7 +253,7 @@ function previewQuestion(qlId: Trg002Mvp48Id, question: any, seed: string, index
     packageSource: "trg-002-approved-runtime",
     packageId: TRG_002_QUESTION_STUDIO_PACKAGE_ID,
     taskKind: question.solveMode,
-    scenarioId: question.canonicalSpatialState?.scenario,
+    scenarioId: String(question.canonicalSpatialState?.scenario ?? ""),
     language: "en",
     metadata: {
       language: "en",
@@ -276,15 +277,14 @@ function previewQuestion(qlId: Trg002Mvp48Id, question: any, seed: string, index
     explanationId: `${qlId}-EXP-EN`,
     proceduralLogic: {
       qlId,
-      lockedFamily: question.lockedFamily,
-      solveMode: question.solveMode,
-      target: question.target,
-      canonicalSpatialState: question.canonicalSpatialState,
+      lockedFamily: String(question.lockedFamily ?? ""),
+      solveMode: String(question.solveMode ?? ""),
+      target: String(question.target ?? ""),
     },
     logic: {
       qlId,
-      lockedFamily: question.lockedFamily,
-      solveMode: question.solveMode,
+      lockedFamily: String(question.lockedFamily ?? ""),
+      solveMode: String(question.solveMode ?? ""),
     },
     debugMetadata: {
       generationDomain: "quant-v4",
@@ -307,7 +307,7 @@ function previewQuestion(qlId: Trg002Mvp48Id, question: any, seed: string, index
 export async function generateTrg002QuestionStudioBatch(request: Trg002QuestionStudioRequest = {}) {
   const language = request.language ?? "en";
   if (language !== "en") {
-    throw new Error(`TRG-002 currently supports Question Studio language 'en' only.`);
+    throw new Error("TRG-002 currently supports Question Studio language 'en' only.");
   }
   const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
   const batchSeed = request.seed ?? `trg-002:${Date.now()}:${Math.random().toString(36).slice(2)}`;
@@ -319,19 +319,27 @@ export async function generateTrg002QuestionStudioBatch(request: Trg002QuestionS
     const itemSeed = `${batchSeed}:${index}`;
     const { qlId, question } = chooseQl(request, itemSeed, index);
     const preview = previewQuestion(qlId, question, itemSeed, index, count);
+    JSON.stringify(preview);
     questions.push(preview);
     questionPackages.push({
-      ...question,
-      reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
-      humanReviewStatus: "APPROVED",
-      questionBankStatus: "WRITABLE",
-      testEligibility: "ELIGIBLE",
-      publiclyPublishable: true,
-      questionStudioDiscoverable: true,
-      mvpOnly: false,
+      packageId: TRG_002_QUESTION_STUDIO_PACKAGE_ID,
+      qlId,
+      cpId: preview.canonicalProblemId,
+      seed: itemSeed,
+      stem: preview.stem,
+      options: preview.options,
+      correctIndex: preview.correctIndex,
+      answer: preview.answer,
+      difficulty: preview.difficulty,
+      explanation: preview.explanation,
       solutionDiagram: preview.solutionDiagram,
       answerModel: preview.answerModel,
-      explanationForStudent: preview.explanation,
+      reviewStatus: preview.reviewStatus,
+      humanReviewStatus: preview.humanReviewStatus,
+      questionBankStatus: preview.questionBankStatus,
+      testEligibility: preview.testEligibility,
+      publiclyPublishable: preview.publiclyPublishable,
+      questionStudioDiscoverable: true,
     });
   }
 
