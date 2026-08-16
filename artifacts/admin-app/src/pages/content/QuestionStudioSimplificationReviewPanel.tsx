@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import { SapReviewMathText } from '@/features/question-studio/SapReviewMathText';
 import {
   createSapReviewRun,
   getSapReviewPackage,
@@ -154,17 +155,22 @@ export function QuestionStudioSimplificationReviewPanel() {
               <div className="flex flex-wrap gap-2 text-xs text-slate-500">
                 <span>Q{questionIndex + 1}</span><span>{question.qlId}</span><span>{question.checkpointId}</span><span>{question.difficultyBand}</span><span>{question.examProfile}</span>
               </div>
-              <p className="mt-2 whitespace-pre-wrap text-sm font-medium text-slate-900">{question.stem}</p>
+              <p className="mt-2 whitespace-pre-wrap text-sm font-medium text-slate-900"><SapReviewMathText value={question.stem} /></p>
               <ol className="mt-3 grid gap-2 md:grid-cols-2">
                 {question.options.map((option, index) => (
                   <li key={`${question.questionId}-${index}`} className={`rounded-md border px-3 py-2 text-sm ${index === question.correctIndex ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200'}`}>
-                    {String.fromCharCode(65 + index)}. {option}
+                    {String.fromCharCode(65 + index)}. <SapReviewMathText value={option} />
                   </li>
                 ))}
               </ol>
               <div className="mt-3 text-sm text-slate-700">
-                <strong>Answer:</strong> {question.answer}
-                {question.explanation.steps.length ? <ol className="mt-2 list-decimal space-y-1 pl-5">{question.explanation.steps.map((step, index) => <li key={index}>{step}</li>)}</ol> : null}
+                <strong>Answer:</strong> <SapReviewMathText value={question.answer} />
+                {question.explanation.steps.length ? (
+                  <ol className="mt-2 list-decimal space-y-1 pl-5">
+                    {question.explanation.steps.map((step, index) => <li key={index}><SapReviewMathText value={step} /></li>)}
+                  </ol>
+                ) : null}
+                {question.explanation.finalAnswer ? <p className="mt-2 font-medium"><SapReviewMathText value={question.explanation.finalAnswer} /></p> : null}
               </div>
             </article>
           ))}
