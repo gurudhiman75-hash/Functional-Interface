@@ -1,5 +1,32 @@
 import type { MensurationLocalizedLanguage } from "./mensuration-localization-foundation-v3";
 
+export function protectMensurationFormulaIdentifiers(text: string) {
+  const values: string[] = [];
+  const save = (value: string) => {
+    const token = `⟦V${values.length}⟧`;
+    values.push(value);
+    return token;
+  };
+  let protectedText = text.replace(
+    /\b([A-Za-z])\b(?=\s*(?:[_²³^=+×÷−\-*/)]))/g,
+    (match) => save(match),
+  );
+  protectedText = protectedText.replace(
+    /([=+×÷−\-*/(]\s*)([A-Za-z])\b/g,
+    (_match, prefix: string, variable: string) => `${prefix}${save(variable)}`,
+  );
+  return {
+    text: protectedText,
+    restore(value: string) {
+      let restored = value;
+      values.forEach((variable, index) => {
+        restored = restored.replace(`⟦V${index}⟧`, variable);
+      });
+      return restored;
+    },
+  };
+}
+
 /**
  * Final learner-language polish that must not add or remove mathematical
  * notation relative to the English authority. Keep these rewrites semantic:
