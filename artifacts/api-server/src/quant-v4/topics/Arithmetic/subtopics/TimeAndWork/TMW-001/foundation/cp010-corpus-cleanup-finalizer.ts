@@ -106,8 +106,7 @@ function fullStageWorking(question:Cp010Question,language:Cp010ReviewLanguage):s
     const stage=q.stages[i],rate=tmwCp009NetRate(stage.pipes);
     if(i===result.terminalIndex){
       const remaining=absR(subtract(target,level)),needed=divide(remaining,absR(rate));
-      out.push(`${t(language,["Before the final stage, level still required","अंतिम चरण से पहले बचा स्तर","ਅੰਤਿਮ ਪੜਾਅ ਤੋਂ ਪਹਿਲਾਂ ਲੋੜੀਂਦਾ ਪੱਧਰ"])}: ${math(toLatex(remaining))}${stop(language)}`);
-      out.push(`${t(language,["Final-stage time","अंतिम चरण का समय","ਅੰਤਿਮ ਪੜਾਅ ਦਾ ਸਮਾਂ"])}: ${math(`${toLatex(remaining)}\\div${toLatex(absR(rate))}=${toLatex(needed)}`)} ${unit(language,"hours")}; ${t(language,["total time","कुल समय","ਕੁੱਲ ਸਮਾਂ"])}: ${math(`${toLatex(elapsed)}+${toLatex(needed)}=${toLatex(result.time)}`)} ${unit(language,"hours")}${stop(language)}`);
+      out.push(`${t(language,["Before the final stage, level still required","अंतिम चरण से पहले बचा स्तर","ਅੰਤਿਮ ਪੜਾਅ ਤੋਂ ਪਹਿਲਾਂ ਲੋੜੀਂਦਾ ਪੱਧਰ"])}: ${math(toLatex(remaining))}; ${t(language,["final-stage time","अंतिम चरण का समय","ਅੰਤਿਮ ਪੜਾਅ ਦਾ ਸਮਾਂ"])}: ${math(`${toLatex(remaining)}\\div${toLatex(absR(rate))}=${toLatex(needed)}`)} ${unit(language,"hours")}; ${t(language,["total time","कुल समय","ਕੁੱਲ ਸਮਾਂ"])}: ${math(`${toLatex(elapsed)}+${toLatex(needed)}=${toLatex(result.time)}`)} ${unit(language,"hours")}${stop(language)}`);
       break;
     }
     if(!stage.duration)continue;
