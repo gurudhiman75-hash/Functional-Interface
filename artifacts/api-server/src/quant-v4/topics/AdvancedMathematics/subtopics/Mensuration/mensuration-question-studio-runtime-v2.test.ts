@@ -4,7 +4,7 @@ import {
   MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY,
   generateMensurationStudioBatchV2,
   generateMensurationStudioQuestionV2,
-} from "./mensuration-question-studio-runtime-v2";
+} from "./mensuration-question-studio-selection-v2";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
