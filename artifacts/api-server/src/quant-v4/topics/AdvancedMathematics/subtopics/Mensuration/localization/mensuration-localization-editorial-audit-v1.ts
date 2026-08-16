@@ -25,11 +25,9 @@ function learnerFields(question: ReturnType<typeof generateMensurationLocalizedQ
   ] as const;
 }
 
-function learnerText(question: ReturnType<typeof generateMensurationLocalizedQuestionV1>) {
-  return learnerFields(question).map(([, value]) => value).join("\n");
-}
-
 const languages: readonly MensurationLocalizedLanguage[] = ["hi", "pa"];
+const mixedTokenPattern = /[A-Za-z][\u0900-\u097F\u0A00-\u0A7F]|[\u0900-\u097F\u0A00-\u0A7F][A-Za-z]/u;
+const internalIdPattern = /\[[A-Z0-9_:-]{3,}\]/;
 let crossScriptLeakage = 0;
 let mixedTokenCorruption = 0;
 let internalIdLeakage = 0;
@@ -42,19 +40,77 @@ const optionLatinOccurrences = new Map<string, number>();
 const examples = new Map<string, Array<Record<string, string>>>();
 const fieldExamples = new Map<string, Array<Record<string, string>>>();
 const worstQuestions: Array<Record<string, unknown>> = [];
+const hardGateExamples = {
+  crossScriptLeakage: [] as Array<Record<string, string>>,
+  mixedTokenCorruption: [] as Array<Record<string, string>>,
+  internalIdLeakage: [] as Array<Record<string, string>>,
+};
+
+function pushHardGateExample(
+  bucket: Array<Record<string, string>>,
+  row: Record<string, string>,
+) {
+  if (bucket.length < 100) bucket.push(row);
+}
 
 for (const pattern of MENSURATION_QUESTION_STUDIO_PATTERNS) {
   for (let index = 0; index < 4; index += 1) {
     const seed = `mensuration-localization-editorial:${pattern.patternId}:${index}`;
     for (const language of languages) {
       const question = generateMensurationLocalizedQuestionV1({ patternId: pattern.patternId, seed, language, examProfile: "SSC_CORE" });
-      const text = learnerText(question);
-      if (language === "hi" ? hasGurmukhiScript(text) : hasHindiScript(text)) crossScriptLeakage += 1;
-      if (/[A-Za-z][\u0900-\u097F\u0A00-\u0A7F]|[\u0900-\u097F\u0A00-\u0A7F][A-Za-z]/u.test(text)) mixedTokenCorruption += 1;
-      if (/\[[A-Z0-9_:-]{3,}\]/.test(question.explanation.traps.join("\n"))) internalIdLeakage += 1;
+      const fieldsForQuestion = learnerFields(question);
+      const text = fieldsForQuestion.map(([, value]) => value).join("\n");
+      const hasWrongScript = language === "hi" ? hasGurmukhiScript(text) : hasHindiScript(text);
+      if (hasWrongScript) {
+        crossScriptLeakage += 1;
+        for (const [field, value] of fieldsForQuestion) {
+          const fieldHasWrongScript = language === "hi" ? hasGurmukhiScript(value) : hasHindiScript(value);
+          if (fieldHasWrongScript) {
+            pushHardGateExample(hardGateExamples.crossScriptLeakage, {
+              language,
+              cpId: question.cpId,
+              patternId: question.patternId,
+              seed,
+              field,
+              text: value,
+            });
+          }
+        }
+      }
+      if (mixedTokenPattern.test(text)) {
+        mixedTokenCorruption += 1;
+        for (const [field, value] of fieldsForQuestion) {
+          if (mixedTokenPattern.test(value)) {
+            pushHardGateExample(hardGateExamples.mixedTokenCorruption, {
+              language,
+              cpId: question.cpId,
+              patternId: question.patternId,
+              seed,
+              field,
+              text: value,
+            });
+          }
+        }
+      }
+      const trapText = question.explanation.traps.join("\n");
+      if (internalIdPattern.test(trapText)) {
+        internalIdLeakage += 1;
+        question.explanation.traps.forEach((value, trapIndex) => {
+          if (internalIdPattern.test(value)) {
+            pushHardGateExample(hardGateExamples.internalIdLeakage, {
+              language,
+              cpId: question.cpId,
+              patternId: question.patternId,
+              seed,
+              field: `trap-${trapIndex + 1}`,
+              text: value,
+            });
+          }
+        });
+      }
 
       const questionLeaks = new Set<string>();
-      for (const [field, value] of learnerFields(question)) {
+      for (const [field, value] of fieldsForQuestion) {
         const leaks = instructionalLatinLeaks(value);
         if (field.startsWith("option-") && leaks.length) optionFieldsWithResidualLatin += 1;
         for (const leak of leaks) {
@@ -88,9 +144,6 @@ const top = [...latinQuestionCounts.entries()].sort((a, b) => b[1] - a[1] || a[0
 const topFields = [...latinFieldOccurrences.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 const topOption = [...optionLatinOccurrences.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 const fields = [...fieldLatinOccurrences.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
-assert(crossScriptLeakage === 0, `${crossScriptLeakage} localized questions contain the wrong Indic script.`);
-assert(mixedTokenCorruption === 0, `${mixedTokenCorruption} localized questions contain joined Latin/Indic token corruption.`);
-assert(internalIdLeakage === 0, `${internalIdLeakage} localized questions expose internal misconception IDs.`);
 
 const report = {
   authority: "MENSURATION-HI-PA-EDITORIAL-AUDIT-V1",
@@ -98,6 +151,7 @@ const report = {
   crossScriptLeakage,
   mixedTokenCorruption,
   internalIdLeakage,
+  hardGateExamples,
   questionsWithResidualLatin,
   optionFieldsWithResidualLatin,
   residualInstructionalLatinUnique: top.length,
@@ -144,3 +198,7 @@ console.log(JSON.stringify({
   topOptionResidualInstructionalLatin: report.topOptionResidualInstructionalLatin.slice(0, 60),
   worstQuestions: report.worstQuestions.slice(0, 30),
 }, null, 2));
+
+assert(crossScriptLeakage === 0, `${crossScriptLeakage} localized questions contain the wrong Indic script.`);
+assert(mixedTokenCorruption === 0, `${mixedTokenCorruption} localized questions contain joined Latin/Indic token corruption.`);
+assert(internalIdLeakage === 0, `${internalIdLeakage} localized questions expose internal misconception IDs.`);
