@@ -1,0 +1,104 @@
+name: Validate TMW-001 CP013 multilingual editorial review
+
+on:
+  push:
+    branches:
+      - fix/tmw-001-cp013-multilingual-editorial-review
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-cp013-multilingual-editorial-review.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tmw-cp013-editorial-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp013-editorial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec tsc
+          --noEmit
+          --target es2022
+          --module esnext
+          --moduleResolution bundler
+          --strictNullChecks
+          --noImplicitAny
+          --noImplicitReturns
+          --noFallthroughCasesInSwitch
+          --skipLibCheck
+          --types node
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp013-data-sufficiency-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp013-data-sufficiency.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp013-multilingual-editorial-review.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts
+      - name: Bundle CP013 multilingual editorial proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp013-multilingual-editorial-review.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp013-multilingual-editorial-review.test.mjs
+      - name: Run 768 CP013 multilingual editorial cases
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp013-multilingual-editorial-review.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp013-multilingual-editorial-review.log
+      - name: Bundle CP013 mathematical baseline
+        if: success()
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp013-data-sufficiency.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp013-baseline.test.mjs
+      - name: Run CP013 mathematical baseline
+        if: success()
+        run: node artifacts/api-server/dist/quant-v4/tmw-001-cp013-baseline.test.mjs
+      - name: Bundle final 228-QL multilingual audit
+        if: success()
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-final-228ql-cp013-regression.test.mjs
+      - name: Run final 228-QL multilingual audit
+        if: success()
+        run: node artifacts/api-server/dist/quant-v4/tmw-001-final-228ql-cp013-regression.test.mjs
+      - name: Bundle chapter multilingual parity regression
+        if: success()
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-chapter-parity.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-multilingual-cp013-regression.test.mjs
+      - name: Run chapter multilingual parity regression
+        if: success()
+        run: node artifacts/api-server/dist/quant-v4/tmw-001-multilingual-cp013-regression.test.mjs
+      - name: Upload CP013 editorial evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-001-cp013-multilingual-editorial-review
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-cp013-multilingual-editorial-review.log
+          if-no-files-found: warn
+          retention-days: 14
