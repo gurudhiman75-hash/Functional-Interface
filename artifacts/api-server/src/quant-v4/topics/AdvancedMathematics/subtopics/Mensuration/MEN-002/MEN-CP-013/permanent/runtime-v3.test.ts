@@ -26,7 +26,7 @@ for(const allocation of MEN_CP_013_PERMANENT_ALLOCATION){
     }
     if(allocation.clusterId==='DISPLACEMENT_INVERSE_BASE_AREA'){
       inverseAreaAnswers.add(q.answer);
-      const match=/rises the water level by ([\d.]+) cm/.exec(q.stem);if(match)inverseAreaRises.add(match[1]!);
+      const match=/raises the water level by ([\d.]+) cm/.exec(q.stem);if(match)inverseAreaRises.add(match[1]!);
     }
     positions.add(q.correctIndex);sources.add(q.sourceId);generated++;
   }
