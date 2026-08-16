@@ -25,6 +25,12 @@ import {
 } from "./mensuration-localization-foundation-v3";
 import { prelocalizeMensurationEditorialSource } from "./mensuration-localization-source-editorial-v1";
 import { prelocalizeMensurationStructuredInstructionSource } from "./mensuration-localization-structured-instructions-v1";
+import { prelocalizeMensurationStemSourceCoreV1 } from "./mensuration-localization-stem-source-core-v1";
+import { prelocalizeMensurationStemSource2dV1 } from "./mensuration-localization-stem-source-2d-v1";
+import { prelocalizeMensurationStemSourceSolidsV1 } from "./mensuration-localization-stem-source-solids-v1";
+import { prelocalizeMensurationStemSourceAdvancedV1 } from "./mensuration-localization-stem-source-advanced-v1";
+import { prelocalizeMensurationStemWordsV1 } from "./mensuration-localization-stem-words-v1";
+import { prelocalizeMensurationStemWordsAdvancedV1 } from "./mensuration-localization-stem-words-advanced-v1";
 import { repairMensurationLocalizedHardGateSurface } from "./mensuration-localization-hard-gate-repair-v1";
 import {
   polishMensurationLocalizedOption,
@@ -85,6 +91,16 @@ function translate(text: string, language: MensurationLocalizedLanguage) {
   return repairMensurationLocalizedHardGateSurface(polished, language);
 }
 
+function translateStem(text: string, language: MensurationLocalizedLanguage) {
+  let source = prelocalizeMensurationStemSourceCoreV1(text, language);
+  source = prelocalizeMensurationStemSource2dV1(source, language);
+  source = prelocalizeMensurationStemSourceSolidsV1(source, language);
+  source = prelocalizeMensurationStemSourceAdvancedV1(source, language);
+  source = prelocalizeMensurationStemWordsV1(source, language);
+  source = prelocalizeMensurationStemWordsAdvancedV1(source, language);
+  return translate(source, language);
+}
+
 function normalizeCanonicalQuestion(
   canonical: MensurationQuestionStudioQuestionV2,
 ): MensurationLocalizedQuestionV1 {
@@ -123,7 +139,7 @@ function localizeQuestion(
     ...option,
     text: options[index]!,
   }));
-  const stem = translate(source.stem, language);
+  const stem = translateStem(source.stem, language);
   const explanation = {
     steps: source.explanation.steps.map((step) => translate(step, language)),
     shortcut: translate(source.explanation.shortcut, language),
