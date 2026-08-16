@@ -36,6 +36,12 @@ jobs:
           mkdir -p artifacts/api-server/dist/quant-v4
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-runtime-v2.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-question-studio-runtime-v2.test.mjs
           node artifacts/api-server/dist/quant-v4/mensuration-question-studio-runtime-v2.test.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-question-studio-runtime-v2.test.log
+      - name: Diagnose residual learner math
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-malformed-math-diagnostic-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-malformed-math-diagnostic-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-malformed-math-diagnostic-v1.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-malformed-math-diagnostic-v1.log
       - name: Rerun 1596 plus 6384 chapter audit
         shell: bash
         run: |
@@ -64,6 +70,7 @@ jobs:
           name: mensuration-final-realism-remediation-v1
           path: |
             artifacts/api-server/dist/quant-v4/mensuration-question-studio-runtime-v2.test.log
+            artifacts/api-server/dist/quant-v4/mensuration-malformed-math-diagnostic-v1.log
             artifacts/api-server/dist/quant-v4/mensuration-final-realism-remediation-audit-v1.json
             artifacts/api-server/dist/quant-v4/mensuration-final-realism-remediation-audit-v1.md
             artifacts/api-server/dist/quant-v4/mensuration-final-realism-remediation-audit-v1.log
