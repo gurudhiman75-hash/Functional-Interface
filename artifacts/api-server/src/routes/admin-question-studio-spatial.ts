@@ -10,10 +10,10 @@ import {
   type SpatialQuestionStudioDifficultyV1,
 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v1";
 import {
-  generateSpatialStudioBatchV1,
-  type SpatialPermanentQlIdV1,
-  type SpatialStudioQuestionV1,
-} from "../reasoning-v1/foundation/spatial/spatial-question-studio-runtime-v1";
+  generateSpatialProductionStudioBatchV1,
+  type SpatialProductionStudioQuestionV1,
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v1";
+import type { SpatialPermanentQlIdV1 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-runtime-v1";
 import type { SpatialPermanentChapterCodeV1 } from "../reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v1";
 
 const router = Router();
@@ -35,7 +35,7 @@ function publicRunCode(): string {
   return `SPA-${date}-${randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}`;
 }
 
-function explanationText(question: SpatialStudioQuestionV1): string {
+function explanationText(question: SpatialProductionStudioQuestionV1): string {
   return [
     `Observe: ${question.explanation.observation}`,
     `Rule: ${question.explanation.rule}`,
@@ -44,7 +44,7 @@ function explanationText(question: SpatialStudioQuestionV1): string {
   ].join("\n\n");
 }
 
-function productionPayload(question: SpatialStudioQuestionV1) {
+function productionPayload(question: SpatialProductionStudioQuestionV1) {
   return {
     text: question.stem,
     stem: question.stem,
@@ -116,7 +116,7 @@ function productionPayload(question: SpatialStudioQuestionV1) {
 }
 
 async function persistRun(
-  questions: readonly SpatialStudioQuestionV1[],
+  questions: readonly SpatialProductionStudioQuestionV1[],
   requestSnapshot: Record<string, unknown>,
   actorUserId: string,
 ) {
@@ -248,7 +248,7 @@ router.get(
   (req, res) => {
     try {
       const filters = requestFilters(req.query as Record<string, unknown>);
-      const result = generateSpatialStudioBatchV1({
+      const result = generateSpatialProductionStudioBatchV1({
         ...filters,
         seed: asString(req.query.seed) || "spa-question-studio-preview",
         count: asCount(req.query.count, 1, 20),
@@ -280,7 +280,7 @@ router.post(
       const filters = requestFilters((req.body ?? {}) as Record<string, unknown>);
       const count = asCount(req.body?.count, 5, 50);
       const seed = asString(req.body?.seed) || `spa-review-${Date.now()}`;
-      const result = generateSpatialStudioBatchV1({ ...filters, seed, count });
+      const result = generateSpatialProductionStudioBatchV1({ ...filters, seed, count });
       const requestSnapshot = {
         packageId: "SPA-001",
         language: "en",
