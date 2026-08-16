@@ -23,7 +23,7 @@ Examples:
 - divisibility by `9`: first state that the digit sum must be divisible by `9`; then calculate the digit sum of the given number;
 - divisibility by `4`: first state that the last two digits must form a number divisible by `4`; then test the actual last two digits;
 - divisibility by `36`: first state that the number must be divisible by both `4` and `9`; then apply the last-two-digit and digit-sum rules to the given number;
-- missing digit: state the divisibility rule, convert it into a condition on `X`, then identify the valid digit(s);
+- missing digit: state the divisibility rule, convert it into a condition on `X`, identify the valid digit(s), and for a unique answer substitute the digit back into the completed number and verify the division exactly;
 - ordered pair: state the rule, apply it to the `X/Y` number pattern, then use any extra relation such as `X + Y = k`;
 - claim validation: teach and apply only the rule needed to establish the requested correct/incorrect claim, rather than explaining every option unnecessarily.
 
@@ -35,6 +35,7 @@ Generic wording such as “use the rule”, “check the options”, or “the r
 - natural SSC/Banking learner language;
 - rule before calculation;
 - actual digits/sum/suffix/remainder shown in the application;
+- unique missing-digit answers substituted back and verified exactly;
 - no forced shortcut section;
 - no forced wrong-option/trap rationales;
 - question-specific calculations;
@@ -49,22 +50,23 @@ Generated-pack review found and fixed issues that mechanical answer validation w
 - generic Concepts that did not identify what the individual question tested;
 - terse solutions such as `Use the digit-sum rule` without teaching the rule;
 - direct-divisor questions that became too long by fully explaining every wrong option;
+- unique missing-digit solutions that identified a set but did not substitute the answer back into the completed number;
 - incomplete evidence before digit/pair counts;
 - symbolic rather than substituted linked-arithmetic checks;
 - a legacy false ordered-pair explanation that showed `66 ÷ 4 = 16.5` and then called the condition satisfied;
 - cryptic composite-rule shorthand such as `36 → 4 + 9`;
 - stale fixed-suffix wording and punctuation gaps.
 
-## Validated rule-first English evidence
+## Final validated rule-first English evidence
 
-Validated code head: `efa7c18cdf5e906b81a2ae1a122aadf7e4eb142e`
+Validated code head: `04fbd163f30b747e219c69f9a5770137bacb3ddd`
 
 Dedicated workflow: `Validate NUM-CP-003 English Editorial V2`
 
-- run: `31935486003`
+- run: `31935605227`
 - result: **SUCCESS**
-- artifact ID: `9260514303`
-- artifact SHA-256: `6aea63b1cea8eca39447a2d3c0ea1bf375a68b3d719bb93d2e1c9de708eb5da0`
+- artifact ID: `9260544252`
+- artifact SHA-256: `de655a358b234fa18585ff809898bcbccc773672522dacd637a6944585730309`
 
 Audit coverage:
 
