@@ -50,6 +50,21 @@ jobs:
       - name: Execute final editorial gate
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-final-editorial.test.ts
 
+      - name: Generate 144-QL human review pack
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/export-final-144-review-pack.ts
+
+      - name: Verify human review pack
+        run: |
+          HTML=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/review-artifacts/TRG-001-FINAL-144-HUMAN-REVIEW.html
+          JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/review-artifacts/TRG-001-FINAL-144-HUMAN-REVIEW.json
+          test -s "$HTML"
+          test -s "$JSON"
+          grep -q 'TRG-001-QL-001' "$HTML"
+          grep -q 'TRG-001-QL-144' "$HTML"
+          grep -q 'Human review:</b> PENDING' "$HTML"
+          test "$(grep -o 'class=\"question-card\"' "$HTML" | wc -l | tr -d ' ')" = "144"
+          node -e 'const fs=require("fs"); const p=process.argv[1]; const rows=JSON.parse(fs.readFileSync(p,"utf8")); if(rows.length!==144) throw new Error(`Expected 144 rows, found ${rows.length}`); if(rows.some(r=>r.humanReviewStatus!=="PENDING")) throw new Error("Human review was substituted"); if(rows.some(r=>r.activationLocks.questionBankStatus!=="NOT_STORED"||r.activationLocks.testEligibility!=="INELIGIBLE"||r.activationLocks.publiclyPublishable||r.activationLocks.questionStudioDiscoverable)) throw new Error("Activation lock failed");' "$JSON"
+
       - name: Preserve governance evidence
         run: |
           mkdir -p trg-001-final-evidence
@@ -63,5 +78,13 @@ jobs:
         with:
           name: trg-001-final-execution-evidence
           path: trg-001-final-evidence/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload TRG-001 human review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-001-final-144-human-review
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/review-artifacts/
           if-no-files-found: error
           retention-days: 14
