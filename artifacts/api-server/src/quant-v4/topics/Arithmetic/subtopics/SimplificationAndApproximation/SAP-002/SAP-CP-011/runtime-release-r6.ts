@@ -15,7 +15,7 @@ function compareAccuracy(seed: number): SapE2Package {
   const exact100 = anchor * 100 + 37;
   const small = 20 + (seed % 6) * 5;
   const large = small + 15 + (seed % 4) * 5;
-  const estimate1IsBetter = (block + correctIndex) % 2 === 0;
+  const estimate1IsBetter = (block + 2 * correctIndex) % 4 < 2;
   const d1 = estimate1IsBetter ? small : large;
   const d2 = estimate1IsBetter ? large : small;
   const e1 = exact100 + (seed % 3 === 0 ? -d1 : d1);
