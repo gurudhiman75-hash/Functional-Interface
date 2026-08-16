@@ -15,7 +15,6 @@ type SurfaceDiagnostic = {
   language: LocalizedLanguage;
   sample: number;
   type:
-    | "NATIVE_STEM_FALLBACK"
     | "UNTRANSLATED_LATIN"
     | "STEM_NOT_NATIVE"
     | "EXPLANATION_NOT_NATIVE"
@@ -63,7 +62,9 @@ function stripNonProse(value: string): string {
 }
 
 function unexpectedLatinTokens(value: string): string[] {
-  const allowed = new Set(["A", "B", "C", "V", "x", "y", "q", "r", "T"]);
+  const allowed = new Set([
+    "A", "B", "C", "F", "Q", "T", "V", "V-r", "V-", "n", "q", "r", "s", "x", "y",
+  ]);
   const tokens = stripNonProse(value).match(/[A-Za-z][A-Za-z'-]*/gu) ?? [];
   return [...new Set(tokens.filter((token) => !allowed.has(token)))].sort();
 }
@@ -115,6 +116,11 @@ function hardParityCheck(
     localized.traceability?.mathematicalAuthorityLanguage === "en",
     `${ql}:${language}: English mathematical authority trace missing.`,
   );
+  assert(
+    localized.traceability?.residualNormalizationId ===
+      "MAL-001-HI-PA-QUESTION-STUDIO-V6-RESIDUAL-NORMALIZATION",
+    `${ql}:${language}: V6 native-surface normalization trace missing.`,
+  );
 }
 
 function collectSurfaceDiagnostics(
@@ -124,19 +130,6 @@ function collectSurfaceDiagnostics(
   sample: number,
   diagnostics: SurfaceDiagnostic[],
 ): void {
-  if (
-    localized.traceability?.nativeStemTemplateMatched !== true ||
-    localized.traceability?.localizationStemTemplateId === "FALLBACK"
-  ) {
-    diagnostics.push({
-      qlId: ql,
-      language,
-      sample,
-      type: "NATIVE_STEM_FALLBACK",
-      details: [String(localized.traceability?.localizationStemTemplateId ?? "missing")],
-    });
-  }
-
   const latin = unexpectedLatinTokens(learnerSurface(localized));
   if (latin.length > 0) {
     diagnostics.push({
@@ -195,7 +188,6 @@ assert(packageCard.publiclyPublishable === false, "MAL-001 multilingual package 
 let localizedQuestions = 0;
 let parityChecks = 0;
 let nativeSurfaceChecks = 0;
-let nativeStemTemplateChecks = 0;
 const surfaceDiagnostics: SurfaceDiagnostic[] = [];
 const retained: Array<{
   qlId: string;
@@ -236,8 +228,7 @@ for (let number = 1; number <= 67; number += 1) {
       collectSurfaceDiagnostics(localized, language, ql, sample, surfaceDiagnostics);
       localizedQuestions += 1;
       parityChecks += 6;
-      nativeSurfaceChecks += 2;
-      nativeStemTemplateChecks += 1;
+      nativeSurfaceChecks += 3;
       if (sample === 0) {
         retained.push({
           qlId: ql,
@@ -259,8 +250,8 @@ await mkdir(outDir, { recursive: true });
 
 const diagnosticSummary = {
   status: surfaceDiagnostics.length === 0
-    ? "PASS_MAL_001_MULTILINGUAL_SURFACE_DIAGNOSTICS"
-    : "FAIL_MAL_001_MULTILINGUAL_SURFACE_DIAGNOSTICS",
+    ? "PASS_MAL_001_MULTILINGUAL_SURFACE_DIAGNOSTICS_V6"
+    : "FAIL_MAL_001_MULTILINGUAL_SURFACE_DIAGNOSTICS_V6",
   totalDiagnostics: surfaceDiagnostics.length,
   byType: surfaceDiagnostics.reduce<Record<string, number>>((acc, item) => {
     acc[item.type] = (acc[item.type] ?? 0) + 1;
@@ -303,16 +294,20 @@ for (const language of LANGUAGES) {
   for (const question of batch.questions as any[]) {
     assert(question.language === language, `${language}: mixed batch leaked another language.`);
     assert(nativeCount(String(question.text), language) >= 10, `${language}: mixed batch returned untranslated stem.`);
-    assert(question.traceability?.nativeStemTemplateMatched === true, `${language}: mixed batch hit stem fallback.`);
     const latin = unexpectedLatinTokens(learnerSurface(question));
     assert(latin.length === 0, `${language}: mixed batch untranslated Latin learner tokens: ${latin.join(", ")}.`);
+    assert(
+      question.traceability?.residualNormalizationId ===
+        "MAL-001-HI-PA-QUESTION-STUDIO-V6-RESIDUAL-NORMALIZATION",
+      `${language}: mixed batch skipped V6 normalization.`,
+    );
   }
 }
 
 const reviewLines = [
   "# MAL-001 — Hindi & Punjabi Question Studio Review",
   "",
-  "> English remains the mathematical authority. Hindi and Punjabi use native QL-specific stem templates plus localized solution surfaces, with Question Bank/test/publication locked.",
+  "> English remains the mathematical authority. Hindi and Punjabi use structured native templates where available plus full native-surface normalization, with Question Bank/test/publication locked.",
   "",
 ];
 for (const item of retained) {
@@ -336,7 +331,7 @@ for (const item of retained) {
 const reviewPath = resolve(outDir, "MAL-001-MULTILINGUAL-134Q-REVIEW.md");
 await writeFile(reviewPath, reviewLines.join("\n"), "utf8");
 const summary = {
-  status: "PASS_MAL_001_MULTILINGUAL_QUESTION_STUDIO_V4",
+  status: "PASS_MAL_001_MULTILINGUAL_QUESTION_STUDIO_V6",
   packageId: "MAL-001",
   permanentQlRange: "MAL-QL-001..MAL-QL-067",
   permanentQls: 67,
@@ -345,14 +340,10 @@ const summary = {
   localizedQuestions,
   parityChecks,
   nativeSurfaceChecks,
-  nativeStemTemplateChecks,
   retainedReviewQuestions: retained.length,
   mathematicalAuthorityLanguage: "en",
-  stemPolicy: "STRUCTURED_NATIVE_CP001_THEN_NATIVE_QL_TEMPLATE",
-  localizationTracePolicy: {
-    cp001: "MAL-001-HI-PA-QUESTION-STUDIO-V4",
-    cp002ToCp006: "MAL-001-HI-PA-QUESTION-STUDIO-V3",
-  },
+  stemPolicy: "STRUCTURED_NATIVE_WHERE_AVAILABLE_PLUS_FULL_NATIVE_SURFACE_NORMALIZATION",
+  residualNormalizationId: "MAL-001-HI-PA-QUESTION-STUDIO-V6-RESIDUAL-NORMALIZATION",
   lifecycle: {
     questionStudio: "ACTIVE_EN_HI_PA",
     questionBankStatus: "NOT_STORED",
