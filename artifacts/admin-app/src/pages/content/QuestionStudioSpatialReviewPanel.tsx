@@ -22,6 +22,7 @@ import {
   previewSpatialReview,
   type SpatialReviewChapter,
   type SpatialReviewDifficulty,
+  type SpatialReviewLanguage,
   type SpatialReviewPackage,
   type SpatialReviewQuestion,
   type SpatialReviewStatus,
@@ -34,6 +35,11 @@ const CHAPTER_LABELS: Record<SpatialReviewChapter, string> = {
   'FAN-001': 'Figure Analogy',
   'FCL-001': 'Figure Classification',
   'FSR-001': 'Figure Series',
+};
+const LANGUAGE_LABELS: Record<SpatialReviewLanguage, string> = {
+  en: 'English',
+  hi: 'हिन्दी',
+  pa: 'ਪੰਜਾਬੀ',
 };
 
 function Metric({ label, value }: { label: string; value: number | string }) {
@@ -62,7 +68,14 @@ function SvgFigure({ svg, label }: { svg: string; label: string }) {
   );
 }
 
+function explanationLabels(language: SpatialReviewLanguage) {
+  if (language === 'hi') return { observe: 'अवलोकन', rule: 'नियम', apply: 'प्रयोग', check: 'जाँच' };
+  if (language === 'pa') return { observe: 'ਨਿਰੀਖਣ', rule: 'ਨਿਯਮ', apply: 'ਲਾਗੂ ਕਰੋ', check: 'ਜਾਂਚ' };
+  return { observe: 'Observe', rule: 'Rule', apply: 'Apply', check: 'Check' };
+}
+
 function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) {
+  const labels = explanationLabels(question.language);
   return (
     <Card className="border-primary/15 bg-background">
       <CardHeader className="space-y-2 pb-3">
@@ -70,7 +83,7 @@ function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) 
           <Badge variant="outline">{question.qlId}</Badge>
           <Badge variant="outline">{CHAPTER_LABELS[question.chapterCode]}</Badge>
           <Badge variant="secondary">{question.difficultyBand}</Badge>
-          <Badge variant="outline">English</Badge>
+          <Badge variant="outline">{LANGUAGE_LABELS[question.language]}</Badge>
           {question.validation.valid && (
             <Badge className="gap-1 bg-success/10 text-success hover:bg-success/10">
               <CheckCircle2 className="h-3 w-3" /> Validated geometry
@@ -115,10 +128,10 @@ function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) 
         <details className="rounded-lg border p-3">
           <summary className="cursor-pointer font-semibold">Learner explanation</summary>
           <div className="mt-3 space-y-2 leading-6 text-muted-foreground">
-            <p><strong className="text-foreground">Observe:</strong> {question.explanation.observation}</p>
-            <p><strong className="text-foreground">Rule:</strong> {question.explanation.rule}</p>
-            <p><strong className="text-foreground">Apply:</strong> {question.explanation.application}</p>
-            <p><strong className="text-foreground">Check:</strong> {question.explanation.check}</p>
+            <p><strong className="text-foreground">{labels.observe}:</strong> {question.explanation.observation}</p>
+            <p><strong className="text-foreground">{labels.rule}:</strong> {question.explanation.rule}</p>
+            <p><strong className="text-foreground">{labels.apply}:</strong> {question.explanation.application}</p>
+            <p><strong className="text-foreground">{labels.check}:</strong> {question.explanation.check}</p>
           </div>
         </details>
       </CardContent>
@@ -132,6 +145,7 @@ export function QuestionStudioSpatialReviewPanel() {
   const [chapterCode, setChapterCode] = useState(ALL);
   const [qlId, setQlId] = useState(ALL);
   const [difficulty, setDifficulty] = useState(ALL);
+  const [language, setLanguage] = useState<SpatialReviewLanguage>('en');
   const [count, setCount] = useState(5);
   const [seed, setSeed] = useState('');
   const [questions, setQuestions] = useState<SpatialReviewQuestion[]>([]);
@@ -172,20 +186,25 @@ export function QuestionStudioSpatialReviewPanel() {
     if (qlId !== ALL && !visibleQls.some((ql) => ql.permanentQlId === qlId)) setQlId(ALL);
   }, [qlId, visibleQls]);
 
+  useEffect(() => {
+    if (pkg && !pkg.supportedLanguages.includes(language)) setLanguage(pkg.supportedLanguages[0] ?? 'en');
+  }, [language, pkg]);
+
   const request = useMemo(() => ({
+    language,
     chapterCode: chapterCode === ALL ? undefined : chapterCode as SpatialReviewChapter,
     qlId: qlId === ALL ? undefined : qlId,
     difficulty: difficulty === ALL ? undefined : difficulty as SpatialReviewDifficulty,
     count: Math.min(50, Math.max(1, count)),
     seed: seed.trim() || undefined,
-  }), [chapterCode, count, difficulty, qlId, seed]);
+  }), [chapterCode, count, difficulty, language, qlId, seed]);
 
   const handlePreview = async () => {
     setWorking('preview');
     try {
       const result = await previewSpatialReview({ ...request, count: Math.min(20, request.count) });
       setQuestions(result.questions);
-      showToast.success('Spatial preview loaded', `${result.questions.length} validated question(s) generated.`);
+      showToast.success('Spatial preview loaded', `${result.questions.length} validated ${LANGUAGE_LABELS[language]} question(s) generated.`);
     } catch (error) {
       showToast.error('Preview failed', error instanceof Error ? error.message : 'Unable to preview Spatial questions.');
     } finally {
@@ -201,7 +220,7 @@ export function QuestionStudioSpatialReviewPanel() {
       await refreshStatus();
       showToast.success(
         'Spatial review run created',
-        `${result.publicCode} contains ${result.itemCount} question(s) ready for normal Question Studio review.`,
+        `${result.publicCode} contains ${result.itemCount} ${LANGUAGE_LABELS[language]} question(s) ready for normal Question Studio review.`,
       );
     } catch (error) {
       showToast.error('Run creation failed', error instanceof Error ? error.message : 'Unable to create the Spatial review run.');
@@ -221,11 +240,11 @@ export function QuestionStudioSpatialReviewPanel() {
             <Badge variant="outline" className="gap-1">
               <ShieldAlert className="h-3 w-3" /> Standard Question Studio lifecycle
             </Badge>
-            <Badge variant="outline">30 permanent QLs · English</Badge>
+            <Badge variant="outline">30 permanent QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate approved Mirror Image, Water Image, Figure Analogy, Figure Classification and Figure Series questions directly into the normal Question Studio review queue. SVG geometry, distractors and learner explanations are validated before an item is accepted.
+          Generate approved Mirror Image, Water Image, Figure Analogy, Figure Classification and Figure Series questions in English, Hindi or Punjabi directly into the normal Question Studio review queue. Geometry and answers stay identical across languages; only learner-facing text is localized.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -240,10 +259,10 @@ export function QuestionStudioSpatialReviewPanel() {
 
         <div className="rounded-lg border border-success/30 bg-background/60 p-3 text-sm">
           <div className="flex items-center gap-2 font-medium">
-            <ShieldAlert className="h-4 w-4" /> Standard approval handoff
+            <ShieldAlert className="h-4 w-4" /> Multilingual standard approval handoff
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            After the quality gate and manual approval, Question Studio converts the item into Question Bank through the shared lifecycle. Test/mock and publication eligibility then follow the normal global controls; automatic student publication stays disabled. Spatial generation is currently English-only until Hindi/Punjabi content is separately available.
+            English, Hindi and Punjabi use the same canonical geometry, option order, answer and semantic fingerprint. After the quality gate and manual approval, Question Studio converts the selected language item into Question Bank through the shared lifecycle. Automatic student publication stays disabled.
           </p>
         </div>
 
@@ -252,7 +271,7 @@ export function QuestionStudioSpatialReviewPanel() {
             <Loader2 className="h-4 w-4 animate-spin" /> Loading Spatial Reasoning package…
           </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
             <Field label="Chapter">
               <Select value={chapterCode} onValueChange={setChapterCode}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
@@ -284,6 +303,16 @@ export function QuestionStudioSpatialReviewPanel() {
                   <SelectItem value={ALL}>All difficulties</SelectItem>
                   {(pkg?.supportedDifficulties ?? []).map((entry) => (
                     <SelectItem key={entry} value={entry}>{entry}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </Field>
+            <Field label="Language">
+              <Select value={language} onValueChange={(value) => setLanguage(value as SpatialReviewLanguage)}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {(pkg?.supportedLanguages ?? ['en']).map((entry) => (
+                    <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry]}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>

@@ -50,10 +50,11 @@ export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = Object.freeze({
   domain: "reasoning" as const,
   topic: "Reasoning" as const,
   subtopic: "Spatial Reasoning" as const,
-  name: "Spatial Reasoning — Approved English Production Runtime" as const,
+  name: "Spatial Reasoning — Approved Multilingual Production Runtime" as const,
   label: "Spatial Reasoning — 30 Permanent QLs" as const,
   generationDomain: "reasoning-v1" as const,
   integrationAuthority: "SPA-FND-001-QUESTION-STUDIO-INTEGRATION-V1" as const,
+  localizationAuthority: "SPA_001_HI_PA_LOCALIZATION_APPROVED_2026_08_16" as const,
   releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
   sourceAllocationAuthority:
     SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.authorityId,
@@ -62,7 +63,7 @@ export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = Object.freeze({
   qlIds: SPATIAL_QUESTION_STUDIO_QLS_V1.map((entry) => entry.permanentQlId),
   qls: SPATIAL_QUESTION_STUDIO_QLS_V1,
   chapters: ["MIR-001", "WAT-001", "FAN-001", "FCL-001", "FSR-001"] as const,
-  supportedLanguages: ["en"] as const,
+  supportedLanguages: ["en", "hi", "pa"] as const,
   supportedDifficulties: ["Easy", "Medium", "Hard"] as const,
   enabled: true,
   active: true,
@@ -83,7 +84,7 @@ export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = Object.freeze({
     SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.automaticStudentPublication,
   manualApprovalRequired:
     SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.manualApprovalRequired,
-  hindiPunjabiGeneration: false,
+  hindiPunjabiGeneration: true,
   bulkSyncSupported: false,
   permanentQlCount: SPATIAL_QUESTION_STUDIO_QLS_V1.length,
   holdsUnallocated:

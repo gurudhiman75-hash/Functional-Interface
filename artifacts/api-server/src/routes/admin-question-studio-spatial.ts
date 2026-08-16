@@ -10,6 +10,10 @@ import {
   type SpatialQuestionStudioDifficultyV1,
 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v1";
 import {
+  SPATIAL_QUESTION_STUDIO_LANGUAGES_V1,
+  type SpatialQuestionStudioLanguageV1,
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-localization-v1";
+import {
   generateSpatialProductionStudioBatchV1,
   type SpatialProductionStudioQuestionV1,
 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v1";
@@ -20,6 +24,7 @@ const router = Router();
 const QL_IDS = new Set<string>(SPATIAL_QUESTION_STUDIO_PACKAGE_V1.qlIds);
 const CHAPTERS = new Set<string>(SPATIAL_QUESTION_STUDIO_PACKAGE_V1.chapters);
 const DIFFICULTIES = new Set<string>(SPATIAL_QUESTION_STUDIO_PACKAGE_V1.supportedDifficulties);
+const LANGUAGES = new Set<string>(SPATIAL_QUESTION_STUDIO_LANGUAGES_V1);
 
 function asString(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
@@ -36,11 +41,16 @@ function publicRunCode(): string {
 }
 
 function explanationText(question: SpatialProductionStudioQuestionV1): string {
+  const labels = question.language === "hi"
+    ? ["अवलोकन", "नियम", "प्रयोग", "जाँच"]
+    : question.language === "pa"
+      ? ["ਨਿਰੀਖਣ", "ਨਿਯਮ", "ਲਾਗੂ ਕਰੋ", "ਜਾਂਚ"]
+      : ["Observe", "Rule", "Apply", "Check"];
   return [
-    `Observe: ${question.explanation.observation}`,
-    `Rule: ${question.explanation.rule}`,
-    `Apply: ${question.explanation.application}`,
-    `Check: ${question.explanation.check}`,
+    `${labels[0]}: ${question.explanation.observation}`,
+    `${labels[1]}: ${question.explanation.rule}`,
+    `${labels[2]}: ${question.explanation.application}`,
+    `${labels[3]}: ${question.explanation.check}`,
   ].join("\n\n");
 }
 
@@ -79,6 +89,8 @@ function productionPayload(question: SpatialProductionStudioQuestionV1) {
     generationSeed: question.generationSeed,
     mode: question.mode,
     contentFingerprint: question.contentFingerprint,
+    localization: question.localization,
+    localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
     runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
     reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
     questionBankStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.questionBankStatus,
@@ -97,9 +109,12 @@ function productionPayload(question: SpatialProductionStudioQuestionV1) {
       packageId: question.packageId,
       qlId: question.qlId,
       chapterCode: question.chapterCode,
+      language: question.language,
+      locale: question.locale,
       runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
       reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
       integrationAuthority: question.integrationAuthority,
+      localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
       releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
       questionStudioDiscoverable: true as const,
       registrationStatus: "REGISTERED" as const,
@@ -170,11 +185,12 @@ async function persistRun(
       ) VALUES (
         ${randomUUID()}::uuid, 'user'::audit_actor_type, ${actorUserId}::uuid,
         'question_studio.spatial_run.created', 'generation_run', ${runId}::uuid,
-        'Approved SPA-001 generator entered the standard Question Studio lifecycle',
+        'Approved multilingual SPA-001 generator entered the standard Question Studio lifecycle',
         ${`Created ${questions.length} SPA-001 review items in ${publicCode}`},
         ${JSON.stringify({
           requestSnapshot,
           integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
+          localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
           releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
           manualApprovalRequired: true,
           automaticStudentPublication: false,
@@ -193,6 +209,8 @@ async function persistRun(
           publicCode,
           itemCount: questions.length,
           packageId: "SPA-001",
+          language: questions[0]?.language,
+          localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
           releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         })}::jsonb
       )
@@ -207,12 +225,12 @@ function requestFilters(source: Record<string, unknown>) {
   const qlId = asString(source.qlId);
   const chapterCode = asString(source.chapterCode);
   const difficulty = asString(source.difficulty);
-  if (language !== "en") throw new Error("Spatial Question Studio currently supports English only.");
+  if (!LANGUAGES.has(language)) throw new Error(`Unsupported Spatial language '${language}'.`);
   if (qlId && !QL_IDS.has(qlId)) throw new Error(`Unsupported Spatial QL '${qlId}'.`);
   if (chapterCode && !CHAPTERS.has(chapterCode)) throw new Error(`Unsupported Spatial chapter '${chapterCode}'.`);
   if (difficulty && !DIFFICULTIES.has(difficulty)) throw new Error(`Unsupported difficulty '${difficulty}'.`);
   return {
-    language: "en" as const,
+    language: language as SpatialQuestionStudioLanguageV1,
     qlId: qlId ? qlId as SpatialPermanentQlIdV1 : undefined,
     chapterCode: chapterCode ? chapterCode as SpatialPermanentChapterCodeV1 : undefined,
     difficulty: difficulty ? difficulty as SpatialQuestionStudioDifficultyV1 : undefined,
@@ -256,6 +274,7 @@ router.get(
       res.json({
         ...result,
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
+        localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         productionEligible: true,
       });
@@ -283,13 +302,14 @@ router.post(
       const result = generateSpatialProductionStudioBatchV1({ ...filters, seed, count });
       const requestSnapshot = {
         packageId: "SPA-001",
-        language: "en",
+        language: filters.language,
         difficulty: filters.difficulty ?? null,
         qlId: filters.qlId ?? null,
         chapterCode: filters.chapterCode ?? null,
         count,
         seed,
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
+        localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         manualApprovalRequired: true,
         automaticStudentPublication: false,
@@ -300,6 +320,8 @@ router.post(
         ...persisted,
         generationSystem: "reasoning-v1",
         packageId: "SPA-001",
+        language: filters.language,
+        localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
       });
     } catch (error) {
@@ -330,10 +352,12 @@ router.get(
       res.json({
         packageId: "SPA-001",
         permanentQlCount: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.permanentQlCount,
+        supportedLanguages: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.supportedLanguages,
         generationItemCount: Number(rows[0]?.generationItemCount ?? 0),
         approvedItemCount: Number(rows[0]?.approvedItemCount ?? 0),
         questionBankCount: Number(rows[0]?.questionBankCount ?? 0),
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
+        localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         questionBankConversionEligibleAfterApproval: true,
         testEligibleAfterApproval: true,
