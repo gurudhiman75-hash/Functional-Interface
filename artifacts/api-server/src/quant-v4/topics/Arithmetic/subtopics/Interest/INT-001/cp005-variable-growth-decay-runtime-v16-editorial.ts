@@ -25,7 +25,6 @@ function factor(rate: Rational, direction: "GROWTH" | "DECAY" = "GROWTH"): Ratio
 }
 function product(values: readonly Rational[]): Rational { return values.reduce((acc, value) => mul(acc, value), rat(1n)); }
 function growthProduct(rates: readonly Rational[]): Rational { return product(rates.map((rate) => factor(rate))); }
-function decayProduct(rates: readonly Rational[]): Rational { return product(rates.map((rate) => factor(rate, "DECAY"))); }
 function abs(value: Rational): Rational { return value.numerator < 0n ? rat(-value.numerator, value.denominator) : value; }
 function key(value: Rational): string { return `${value.numerator}/${value.denominator}`; }
 function integer(value: Rational): bigint {
@@ -66,6 +65,9 @@ function exactUnique(correct: Rational, candidates: readonly Candidate[]): reado
 function omissionValues(initial: Rational, rates: readonly Rational[]): readonly Rational[] {
   return Object.freeze(rates.map((_rate, omittedIndex) => mul(initial, growthProduct(rates.filter((_r, index) => index !== omittedIndex)))));
 }
+function singleYearValues(initial: Rational, rates: readonly Rational[]): readonly Rational[] {
+  return Object.freeze(rates.map((rate) => mul(initial, factor(rate))));
+}
 function reverseOneFactorValues(finalValue: Rational, rates: readonly Rational[], direction: "GROWTH" | "DECAY"): readonly Rational[] {
   return Object.freeze(rates.map((rate) => div(finalValue, factor(rate, direction))));
 }
@@ -84,9 +86,11 @@ function candidatesFor(question: IntCp005QuestionV16): readonly Candidate[] | nu
       const sumRates = state.rates.reduce((acc, rate) => add(acc, rate), rat(0n));
       const linear = mul(state.initial, add(rat(1n), div(sumRates, rat(100n))));
       const omitted = omissionValues(state.initial, state.rates);
+      const oneYearOnly = singleYearValues(state.initial, state.rates);
       return exactUnique(question.solution, [
         { value: linear, misconceptionId: "ADD_RATES", feedback: "This adds the yearly rates as if every rate acted on the original principal." },
         ...omitted.map((value, index) => ({ value, misconceptionId: `OMIT_YEAR_${index + 1}`, feedback: `The ${index + 1}${index === 0 ? "st" : index === 1 ? "nd" : "rd"} year's compound factor has been omitted.` })),
+        ...oneYearOnly.map((value, index) => ({ value, misconceptionId: `ONLY_YEAR_${index + 1}`, feedback: `Only the ${index + 1}${index === 0 ? "st" : index === 1 ? "nd" : "rd"} year's rate has been applied.` })),
       ]);
     }
     case "INT-QL-088": {
