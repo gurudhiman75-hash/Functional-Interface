@@ -51,6 +51,8 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-final-editorial.test.ts
 
       - name: Generate 144-QL human review pack
+        env:
+          TRG001_REVIEW_SOURCE_SHA: ${{ github.sha }}
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/export-final-144-review-pack.ts
 
       - name: Verify human review pack
@@ -61,15 +63,50 @@ jobs:
           test -s "$JSON"
           grep -q 'TRG-001-QL-001' "$HTML"
           grep -q 'TRG-001-QL-144' "$HTML"
+          grep -q "${GITHUB_SHA}" "$HTML"
           grep -q 'Human review:</b> PENDING' "$HTML"
           test "$(grep -o 'class=\"question-card\"' "$HTML" | wc -l | tr -d ' ')" = "144"
-          node -e 'const fs=require("fs"); const p=process.argv[1]; const rows=JSON.parse(fs.readFileSync(p,"utf8")); if(rows.length!==144) throw new Error(`Expected 144 rows, found ${rows.length}`); if(rows.some(r=>r.humanReviewStatus!=="PENDING")) throw new Error("Human review was substituted"); if(rows.some(r=>r.activationLocks.questionBankStatus!=="NOT_STORED"||r.activationLocks.testEligibility!=="INELIGIBLE"||r.activationLocks.publiclyPublishable||r.activationLocks.questionStudioDiscoverable)) throw new Error("Activation lock failed");' "$JSON"
+          node -e 'const fs=require("fs"); const p=process.argv[1]; const rows=JSON.parse(fs.readFileSync(p,"utf8")); if(rows.length!==144) throw new Error(`Expected 144 rows, found ${rows.length}`); if(rows.some(r=>r.sourceSha!==process.env.GITHUB_SHA)) throw new Error("Review pack is not pinned to the executing source head"); if(rows.some(r=>r.humanReviewStatus!=="PENDING")) throw new Error("Human review was substituted"); if(rows.some(r=>r.activationLocks.questionBankStatus!=="NOT_STORED"||r.activationLocks.testEligibility!=="INELIGIBLE"||r.activationLocks.publiclyPublishable||r.activationLocks.questionStudioDiscoverable)) throw new Error("Activation lock failed");' "$JSON"
+
+      - name: Create execution and review provenance records
+        run: |
+          REVIEW_DIR=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/review-artifacts
+          HTML="$REVIEW_DIR/TRG-001-FINAL-144-HUMAN-REVIEW.html"
+          JSON="$REVIEW_DIR/TRG-001-FINAL-144-HUMAN-REVIEW.json"
+          HTML_SHA="$(sha256sum "$HTML" | awk '{print $1}')"
+          JSON_SHA="$(sha256sum "$JSON" | awk '{print $1}')"
+          cat > "$REVIEW_DIR/TRG-001-FINAL-144-HUMAN-REVIEW-MANIFEST.json" <<EOF
+          {
+            "packageId": "TRG-001",
+            "scope": "FINAL_144_HUMAN_REVIEW",
+            "sourceHead": "${GITHUB_SHA}",
+            "workflowRunId": "${GITHUB_RUN_ID}",
+            "humanReviewStatus": "PENDING",
+            "htmlSha256": "${HTML_SHA}",
+            "jsonSha256": "${JSON_SHA}"
+          }
+          EOF
+
+          mkdir -p trg-001-final-evidence
+          cat > trg-001-final-evidence/TRG-001-EXECUTION-EVIDENCE.md <<EOF
+          # TRG-001 Final Execution Evidence
+
+          - Source head: \`${GITHUB_SHA}\`
+          - Workflow run: \`${GITHUB_RUN_ID}\`
+          - Targeted TypeScript compile: PASS
+          - Structural/semantic diversity gate: PASS
+          - Final editorial gate: PASS
+          - Human-review pack generation/verification: PASS
+          - Human review: PENDING (not substituted)
+          - Activation/publication: OFF
+
+          This record is emitted only after every preceding executable gate in this job has passed.
+          EOF
 
       - name: Preserve governance evidence
         run: |
-          mkdir -p trg-001-final-evidence
-          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/PRODUCTION_FINAL_EDITORIAL_STATUS.md trg-001-final-evidence/
-          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/PRODUCTION_DIVERSITY_REMEDIATION_STATUS.md trg-001-final-evidence/
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/PRODUCTION_FINAL_EDITORIAL_STATUS.md trg-001-final-evidence/DECLARED_PRODUCTION_FINAL_EDITORIAL_STATUS.md
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/PRODUCTION_DIVERSITY_REMEDIATION_STATUS.md trg-001-final-evidence/DECLARED_PRODUCTION_DIVERSITY_REMEDIATION_STATUS.md
           cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-final-editorial.manifest.json trg-001-final-evidence/
           cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-diversity-remediation.manifest.json trg-001-final-evidence/
 
