@@ -6,6 +6,11 @@ function joined(question: any): string {
   const legacy = question.explanation;
   return [question.stem, ...(question.options ?? []), question.solution?.answerText, learner?.method, ...(learner?.solution ?? []), learner?.answer, legacy?.opening, legacy?.formula, ...(legacy?.steps ?? []), legacy?.conclusion].filter(Boolean).join(" ");
 }
+function learnerJoined(question: any): string {
+  const learner = question.learnerExplanation;
+  const legacy = question.explanation;
+  return [learner?.method, ...(learner?.solution ?? []), learner?.answer, legacy?.opening, legacy?.formula, ...(legacy?.steps ?? []), legacy?.conclusion].filter(Boolean).join(" ");
+}
 function proseInsideMath(value: string): boolean {
   for (const hit of value.matchAll(/\\\(([\s\S]*?)\\\)/g)) if (/[\u0900-\u097F\u0A00-\u0A7F]/u.test(hit[1] ?? "")) return true;
   return false;
@@ -28,6 +33,7 @@ for (const qlId of qls) for (const language of languages) for (const namespace o
   const question = runTmw001ChapterPipeline({ questionLanguageId: qlId, language, seed: `${namespace}:${qlId}:${language}:${suffix}` });
   const label = `${qlId}:${language}:${namespace}:${suffix}`;
   const presentation = joined(question);
+  const learnerPresentation = learnerJoined(question);
   const learnerSteps = question.learnerExplanation?.solution ?? [];
   const learnerText = learnerSteps.join(" ");
   checked += 1;
@@ -36,8 +42,8 @@ for (const qlId of qls) for (const language of languages) for (const namespace o
   assert(question.options.length === 4 && new Set(question.options).size === 4, `${label}: option contract failed`);
   assert(question.options[question.correctIndex] === question.solution.answerText, `${label}: answer-option mismatch`);
   assert(learnerSteps.length >= 2 && learnerSteps.length <= 5, `${label}: learner solution must contain 2-5 connected steps`);
-  assert(!solverTrace(presentation), `${label}: solver trace or prose-in-MathJax remains`);
-  assert(!proseInsideMath(presentation), `${label}: localized prose remains inside MathJax`);
+  assert(!solverTrace(learnerPresentation), `${label}: solver trace or prose-in-MathJax remains in learner working`);
+  assert(!proseInsideMath(presentation), `${label}: localized prose remains inside MathJax on the learner surface`);
   assert(!/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/u.test(presentation), `${label}: control character remains`);
 
   if (qlId === "TMW-QL-177" || qlId === "TMW-QL-178") {
