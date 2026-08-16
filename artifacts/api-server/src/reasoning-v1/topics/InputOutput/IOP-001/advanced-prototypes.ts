@@ -53,7 +53,7 @@ export const IOP_CP005_PROTOTYPES: readonly IopAdvancedPrototypeAuthority[] = [
     checkpointId: "IOP-CP-005",
     title: "Arrange words by increasing length, one at a time from the left",
     program: program("IOP-ADV-RULE-CP005-001", "IOP-CP-005", "LINEAR", [move("P1", "WORD", "WORD_LENGTH", "ASC", "LEFT_FIXED")]),
-    tokenKind: "WORD", tokenCount: 7, sourceStatus: SOURCE,
+    tokenKind: "WORD", tokenCount: 6, sourceStatus: SOURCE,
   },
   {
     prototypeId: "IOP-CP005-PROT-002",
@@ -67,7 +67,7 @@ export const IOP_CP005_PROTOTYPES: readonly IopAdvancedPrototypeAuthority[] = [
     checkpointId: "IOP-CP-005",
     title: "Arrange words by decreasing vowel count, one at a time from the right",
     program: program("IOP-ADV-RULE-CP005-003", "IOP-CP-005", "LINEAR", [move("P1", "WORD", "VOWEL_COUNT", "DESC", "RIGHT_FIXED")]),
-    tokenKind: "WORD", tokenCount: 7, sourceStatus: SOURCE,
+    tokenKind: "WORD", tokenCount: 5, sourceStatus: SOURCE,
   },
 ] as const;
 
@@ -118,9 +118,9 @@ export const IOP_CP007_PROTOTYPES: readonly IopAdvancedPrototypeAuthority[] = [
   {
     prototypeId: "IOP-CP007-PROT-002",
     checkpointId: "IOP-CP-007",
-    title: "Rotate each word left, arrange by vowel count, reverse each word, then reverse the row",
+    title: "Rotate each word left, arrange by word length, reverse each word, then reverse the row",
     program: program("IOP-ADV-RULE-CP007-002", "IOP-CP-007", "LINEAR", [
-      transform("P1", "WORD", "ROTATE_WORD_LEFT"), sort("P2", "WORD", "VOWEL_COUNT", "ASC"),
+      transform("P1", "WORD", "ROTATE_WORD_LEFT"), sort("P2", "WORD", "WORD_LENGTH", "ASC"),
       transform("P3", "WORD", "REVERSE_WORD"), reverseOrder("P4"),
     ]),
     tokenKind: "WORD", tokenCount: 6, sourceStatus: SOURCE,
@@ -153,10 +153,10 @@ export const IOP_CP008_PROTOTYPES: readonly IopAdvancedPrototypeAuthority[] = [
     checkpointId: "IOP-CP-008",
     title: "Word multi-stage transform followed by length-based iterative placement",
     program: program("IOP-ADV-RULE-CP008-002", "IOP-CP-008", "LINEAR", [
-      transform("P1", "WORD", "ROTATE_WORD_LEFT"), sort("P2", "WORD", "VOWEL_COUNT", "DESC"),
+      transform("P1", "WORD", "ROTATE_WORD_LEFT"), sort("P2", "WORD", "ALPHABETICAL", "DESC"),
       transform("P3", "WORD", "SWAP_WORD_ENDS"), move("P4", "WORD", "WORD_LENGTH", "ASC", "RIGHT_FIXED"),
     ]),
-    tokenKind: "WORD", tokenCount: 7, sourceStatus: SOURCE,
+    tokenKind: "WORD", tokenCount: 6, sourceStatus: SOURCE,
   },
   {
     prototypeId: "IOP-CP008-PROT-003",
@@ -217,7 +217,7 @@ export const IOP_CP010_PROTOTYPES: readonly IopAdvancedPrototypeAuthority[] = [
     title: "Reverse and missing-state synthesis over a word transformation machine",
     program: program("IOP-ADV-RULE-CP010-002", "IOP-CP-010", "LINEAR", [
       transform("P1", "WORD", "ROTATE_WORD_LEFT"), sort("P2", "WORD", "ALPHABETICAL", "ASC"),
-      transform("P3", "WORD", "SWAP_WORD_ENDS"), reverseOrder("P4"), sort("P5", "WORD", "VOWEL_COUNT", "ASC"),
+      transform("P3", "WORD", "SWAP_WORD_ENDS"), reverseOrder("P4"), sort("P5", "WORD", "WORD_LENGTH", "ASC"),
     ]),
     tokenKind: "WORD", tokenCount: 6, sourceStatus: SOURCE,
   },
