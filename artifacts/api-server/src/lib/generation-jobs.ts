@@ -9,12 +9,10 @@ import {
 } from "@workspace/db";
 import { db } from "./db";
 import { logger } from "./logger";
-import {
-  generateFromPattern,
-  inferGenerationDomain,
-  type GeneratorOptions,
-  type GeneratorResult,
-  type Pattern,
+import type {
+  GeneratorOptions,
+  GeneratorResult,
+  Pattern,
 } from "./generator";
 import {
   buildReasoningErrorMetadata,
@@ -59,6 +57,19 @@ export type GenerationJobRecord = {
   completedAt: string | null;
   updatedAt: string;
 };
+
+type GeneratorModule = typeof import("./generator");
+let generatorModulePromise: Promise<GeneratorModule> | null = null;
+
+function loadGeneratorModule() {
+  generatorModulePromise ??= import("./generator");
+  return generatorModulePromise;
+}
+
+async function generationDomainFor(pattern: Pattern) {
+  const { inferGenerationDomain } = await loadGeneratorModule();
+  return inferGenerationDomain(pattern);
+}
 
 const JOB_POLL_INTERVAL_MS =
   Number(
@@ -266,6 +277,10 @@ async function processJob(
   const startedAt = Date.now();
 
   try {
+    const {
+      generateFromPattern,
+      inferGenerationDomain,
+    } = await loadGeneratorModule();
     const result =
       await generateFromPattern(
         job.patternSnapshot,
@@ -334,12 +349,15 @@ async function processJob(
             }),
           cause: error,
         });
+    let generationDomain: string | undefined;
+    try {
+      generationDomain = await generationDomainFor(job.patternSnapshot);
+    } catch {
+      generationDomain = job.generationMetadata?.generationDomain;
+    }
     const generationMetadata: GenerationJobMetadata =
       {
-        generationDomain:
-          inferGenerationDomain(
-            job.patternSnapshot,
-          ),
+        generationDomain,
         seed:
           job.requestPayload.options?.seed,
         requestedCount:
@@ -468,7 +486,7 @@ export async function enqueueGenerationJob(
   const generationMetadata: GenerationJobMetadata =
     {
       generationDomain:
-        inferGenerationDomain(
+        await generationDomainFor(
           input.pattern,
         ),
       seed:
