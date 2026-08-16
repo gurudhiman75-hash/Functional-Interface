@@ -19,6 +19,7 @@ let diagrams = 0;
 let omittedDiagrams = 0;
 let genericEnglishLines = 0;
 let nonEnglishEnglishConventionLeaks = 0;
+let localizedAsciiSeparatorLeaks = 0;
 const schemaCounts: Record<string, number> = {};
 const geometryCounts: Record<string, number> = {};
 
@@ -65,6 +66,9 @@ for (const seed of seeds) {
       termSpecificLines += 1;
       if (locale === "en-IN" && /The relation is|The ordinary conclusion/u.test(line)) genericEnglishLines += 1;
       if (locale !== "en-IN" && /Banking possibility convention/u.test(line)) nonEnglishEnglishConventionLeaks += 1;
+      if (locale === "hi-IN" && /\. इसलिए/u.test(line)) localizedAsciiSeparatorLeaks += 1;
+      if (locale === "pa-IN" && /\. ਇਸ ਲਈ/u.test(line)) localizedAsciiSeparatorLeaks += 1;
+      if (locale !== "en-IN") assert.match(line, /। (इसलिए|ਇਸ ਲਈ)/u);
     });
 
     const diagram = editorial.diagram;
@@ -98,6 +102,7 @@ assert.equal(diagrams, 240);
 assert.equal(omittedDiagrams, 0);
 assert.equal(genericEnglishLines, 0);
 assert.equal(nonEnglishEnglishConventionLeaks, 0);
+assert.equal(localizedAsciiSeparatorLeaks, 0);
 assert.equal(SYL_BANKING_POSSIBILITY_EDITORIAL_V3.registeredQlCreated, false);
 assert.equal(SYL_BANKING_POSSIBILITY_EDITORIAL_V3.connectedToProductionGenerator, false);
 assert.equal(SYL_BANKING_POSSIBILITY_EDITORIAL_V3.questionStudioVisible, false);
@@ -113,6 +118,7 @@ console.log(JSON.stringify({
   termSpecificExplanationLines: termSpecificLines,
   genericEnglishLines,
   nonEnglishEnglishConventionLeaks,
+  localizedAsciiSeparatorLeaks,
   diagrams,
   omittedDiagrams,
   schemaCounts,
