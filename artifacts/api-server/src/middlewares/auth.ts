@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { type Request, type Response, type NextFunction } from "express";
 import { auth } from "../lib/firebase-admin";
 import type { AdminSession } from "../lib/admin-rbac";
@@ -15,6 +16,118 @@ declare global {
       adminSession?: AdminSession;
     }
   }
+}
+
+async function reconcileVerifiedFirebaseStudentIdentity(req: Request): Promise<boolean> {
+  const firebaseUid = req.user?.id?.trim() ?? "";
+  const email = req.user?.email?.trim().toLowerCase() ?? "";
+  if (!firebaseUid || !email || req.user?.emailVerified !== true) return false;
+
+  return sqlClient.begin(async (sql) => {
+    const currentRows = await sql`
+      SELECT ai.user_id::text AS "userId"
+      FROM identity.auth_identities ai
+      WHERE ai.provider = 'firebase'
+        AND ai.provider_subject = ${firebaseUid}
+      LIMIT 1
+      FOR UPDATE
+    `;
+    if (currentRows[0]) return false;
+
+    const candidates = await sql`
+      SELECT u.id::text AS id
+      FROM identity.users u
+      JOIN identity.student_profiles sp ON sp.user_id = u.id
+      WHERE lower(u.email) = ${email}
+        AND u.deleted_at IS NULL
+        AND u.status = 'active'::user_status
+      ORDER BY u.created_at ASC
+      LIMIT 2
+      FOR UPDATE OF u
+    `;
+    if (candidates.length !== 1) return false;
+
+    const canonicalUserId = String(candidates[0]!.id);
+    const identityRows = await sql`
+      SELECT id::text AS id, provider_subject AS "providerSubject"
+      FROM identity.auth_identities
+      WHERE provider = 'firebase'
+        AND user_id = ${canonicalUserId}::uuid
+      LIMIT 1
+      FOR UPDATE
+    `;
+
+    const previousSubject = identityRows[0]?.providerSubject
+      ? String(identityRows[0].providerSubject)
+      : null;
+
+    if (identityRows[0]) {
+      await sql`
+        UPDATE identity.auth_identities
+        SET provider_subject = ${firebaseUid},
+            updated_at = now()
+        WHERE id = ${String(identityRows[0].id)}::uuid
+      `;
+    } else {
+      await sql`
+        INSERT INTO identity.auth_identities (
+          user_id,
+          provider,
+          provider_subject,
+          created_at,
+          updated_at
+        ) VALUES (
+          ${canonicalUserId}::uuid,
+          'firebase',
+          ${firebaseUid},
+          now(),
+          now()
+        )
+      `;
+    }
+
+    await sql`
+      UPDATE identity.users
+      SET last_login_at = now(),
+          updated_at = now()
+      WHERE id = ${canonicalUserId}::uuid
+    `;
+
+    await sql`
+      INSERT INTO platform.audit_events (
+        id,
+        actor_type,
+        actor_user_id,
+        action_key,
+        entity_type,
+        entity_id,
+        reason,
+        summary,
+        metadata
+      ) VALUES (
+        ${randomUUID()}::uuid,
+        'user'::audit_actor_type,
+        ${canonicalUserId}::uuid,
+        'student.identity.firebase_uid_reconciled',
+        'student_profile',
+        ${canonicalUserId}::uuid,
+        'Verified Firebase email matched one active canonical student while the token UID had no canonical mapping',
+        'Reconciled stale Firebase UID for active student login',
+        ${JSON.stringify({
+          provider: 'firebase',
+          verifiedEmail: email,
+          previousProviderSubject: previousSubject,
+          newProviderSubject: firebaseUid,
+          source: 'auth-middleware',
+        })}::jsonb
+      )
+    `;
+
+    return true;
+  }).catch((error) => {
+    console.error("Unable to reconcile verified Firebase student identity", error);
+    return false;
+  });
 }
 
 async function enforceCanonicalStudentStatus(req: Request, res: Response): Promise<boolean> {
@@ -89,6 +202,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
   // server-populated identity, but still enforce the latest canonical status.
   if (req.user?.id) {
     try {
+      await reconcileVerifiedFirebaseStudentIdentity(req);
       if (await enforceCanonicalStudentStatus(req, res)) next();
     } catch (error) {
       console.error("Unable to enforce canonical account status", error);
@@ -128,6 +242,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
   }
 
   try {
+    await reconcileVerifiedFirebaseStudentIdentity(req);
     if (await enforceCanonicalStudentStatus(req, res)) next();
   } catch (error) {
     console.error("Unable to enforce canonical account status", error);
