@@ -42,35 +42,35 @@ jobs:
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/int-cp005-v16-final-audit.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-final-audit.log
-      - name: Bundle V16 editorial distractor audit
+      - name: Bundle final V16 editorial distractor audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-editorial-audit.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-editorial-final-audit.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/int-cp005-v16-editorial-audit.mjs
-      - name: Run V16 editorial distractor audit
+          --outfile=dist/quant-v4/int-cp005-v16-editorial-final-audit.mjs
+      - name: Run final V16 editorial distractor audit
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/quant-v4/int-cp005-v16-editorial-audit.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-editorial-audit.log
-      - name: Bundle V16 editorial review exporter
+          node dist/quant-v4/int-cp005-v16-editorial-final-audit.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-editorial-final-audit.log
+      - name: Bundle final V16 review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-editorial-review-export.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-editorial-final-review-export.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/int-cp005-v16-editorial-review-export.mjs
-      - name: Export V16 editorial review markdown
+          --outfile=dist/quant-v4/int-cp005-v16-editorial-final-review-export.mjs
+      - name: Export final V16 review markdown
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/quant-v4/int-cp005-v16-editorial-review-export.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-editorial-review-export.log
+          node dist/quant-v4/int-cp005-v16-editorial-final-review-export.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-editorial-final-review-export.log
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Verify V16 evidence markers
         run: |
           grep -q 'PASS_INT_CP005_V16_FINAL_EXAM_REALISM' artifacts/api-server/dist/quant-v4/int-cp005-v16-final-audit.log
-          grep -q 'PASS_INT_CP005_V16_EDITORIAL_DISTRACTORS' artifacts/api-server/dist/quant-v4/int-cp005-v16-editorial-audit.log
-          grep -q 'PASS_INT_CP005_V16_EDITORIAL_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-cp005-v16-editorial-review-export.log
+          grep -q 'PASS_INT_CP005_V16_EDITORIAL_FINAL_DISTRACTORS' artifacts/api-server/dist/quant-v4/int-cp005-v16-editorial-final-audit.log
+          grep -q 'PASS_INT_CP005_V16_EDITORIAL_FINAL_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-cp005-v16-editorial-final-review-export.log
       - name: Upload V16 English review evidence
         uses: actions/upload-artifact@v4
         with:
@@ -78,5 +78,5 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/INT-CP-005-V16-ENGLISH-REVIEW.md
             artifacts/api-server/dist/quant-v4/int-cp005-v16-final-audit.log
-            artifacts/api-server/dist/quant-v4/int-cp005-v16-editorial-audit.log
+            artifacts/api-server/dist/quant-v4/int-cp005-v16-editorial-final-audit.log
           if-no-files-found: error
