@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { INT_CP006_QL_IDS, generateIntCp006Question, type IntCp006Question, type IntCp006QlId } from "./cp006-si-ci-relations-runtime-v3-final";
+import { INT_CP006_QL_IDS, generateIntCp006Question, type IntCp006Question, type IntCp006QlId } from "./cp006-si-ci-relations-runtime-v4-final";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
 
