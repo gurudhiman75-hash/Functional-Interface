@@ -126,8 +126,15 @@ export function normalizeGeneratedQuestionPayload(
   }
 
   const proceduralLogic = asRecord(payload.proceduralLogic);
-  const solutionDiagram =
-    payload.solutionDiagram ?? proceduralLogic.solutionDiagram ?? null;
+  const providedAnswerModel = asRecord(payload.answerModel);
+  const directSolutionDiagram = asRecord(payload.solutionDiagram);
+  const nestedSolutionDiagram = asRecord(providedAnswerModel.solutionDiagram);
+  const legacySolutionDiagram = asRecord(proceduralLogic.solutionDiagram);
+  const solutionDiagram = Object.keys(directSolutionDiagram).length
+    ? directSolutionDiagram
+    : Object.keys(nestedSolutionDiagram).length
+      ? nestedSolutionDiagram
+      : legacySolutionDiagram;
 
   return {
     stem,
@@ -136,25 +143,31 @@ export function normalizeGeneratedQuestionPayload(
     options,
     correctIndex,
     answerModel: {
+      ...providedAnswerModel,
       kind: "single_choice",
+      options,
       correctIndex,
+      correctOptionIndex: correctIndex,
       correctOptionKey: optionKey(correctIndex),
       canonicalAnswer:
         payload.canonicalAnswer ?? payload.answer ?? options[correctIndex],
+      ...(Object.keys(solutionDiagram).length ? { solutionDiagram } : {}),
       generation: {
+        ...asRecord(providedAnswerModel.generation),
         generationItemId: context.itemId,
         generationRunCode: context.generationRunCode,
-        providerQuestionId: payload.questionId ?? null,
+        providerQuestionId: payload.questionId ?? payload.id ?? null,
         packageId: payload.packageId ?? proceduralLogic.packageId ?? null,
         patternId: payload.patternId ?? null,
         topic: payload.topic ?? null,
         subtopic: payload.subtopic ?? null,
         language: payload.language ?? "en",
-        cpId: payload.cpId ?? proceduralLogic.cpId ?? null,
-        qlId: payload.qlId ?? proceduralLogic.qlId ?? null,
+        canonicalProblemId:
+          payload.canonicalProblemId ?? payload.cpId ?? proceduralLogic.cpId ?? null,
+        questionLanguageId:
+          payload.questionLanguageId ?? proceduralLogic.qlId ?? null,
         approvedBaselineHead:
           payload.approvedBaselineHead ?? proceduralLogic.approvedBaselineHead ?? null,
-        solutionDiagram,
       },
     },
   };
