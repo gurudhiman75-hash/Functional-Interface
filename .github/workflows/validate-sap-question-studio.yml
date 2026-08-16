@@ -1,0 +1,29 @@
+name: Validate SAP Question Studio
+
+on:
+  pull_request:
+    branches:
+      - audit/sap-e3-source-saturation-2026-08
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle SAP Question Studio authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-INTEGRATION.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-question-studio-authority.mjs
+      - name: Run SAP Question Studio authority
+        run: node artifacts/api-server/dist/quant-v4/sap-question-studio-authority.mjs
+
+# This gate enables Question Studio review-queue discovery only; bank/test/public delivery remains disabled.
