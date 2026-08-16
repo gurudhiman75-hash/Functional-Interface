@@ -1,0 +1,58 @@
+name: Validate Mensuration Hindi Punjabi localization V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/**'
+      - 'artifacts/api-server/src/routes/admin-question-studio-mensuration-full.ts'
+      - 'artifacts/admin-app/src/features/question-studio/mensuration-review-api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioMensurationReviewPanel.tsx'
+      - '.github/workflows/mensuration-hi-pa-localization-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-mensuration-localization:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Export English localization corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-corpus-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-corpus-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-localization-corpus-v1.mjs
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-corpus-v1.json
+      - name: Run localization parity proof when available
+        shell: bash
+        run: |
+          set -euo pipefail
+          if test -f artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-parity-v1.test.ts; then
+            pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-parity-v1.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-parity-v1.test.mjs
+            node artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.test.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.test.log
+          fi
+      - name: Build production application
+        run: bash build-api.sh
+      - name: Upload localization evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: mensuration-hi-pa-localization-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/mensuration-localization-corpus-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.test.log
+          if-no-files-found: error
+          retention-days: 14
