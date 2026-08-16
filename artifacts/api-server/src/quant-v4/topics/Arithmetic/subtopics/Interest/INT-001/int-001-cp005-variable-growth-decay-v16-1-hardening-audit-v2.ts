@@ -5,7 +5,7 @@ import {
   INT_CP005_V16_1_QL_IDS,
   generateIntCp005QuestionV16_1Final,
   intCp005V16_1TopologyKey,
-} from "./cp005-variable-growth-decay-runtime-v16-1-final";
+} from "./cp005-variable-growth-decay-runtime-v16-1-final-v2";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
 function r(value: { numerator: bigint; denominator: bigint }): string { return `${value.numerator}/${value.denominator}`; }
@@ -33,7 +33,7 @@ const thresholdDirections = new Set<string>();
 const thresholdBoundaries = new Set<string>();
 const mixedOutcomes = new Set<string>();
 const planDirections = new Set<string>();
-let questions = 0; let deterministicChecks = 0; let verifierChecks = 0; let optionChecks = 0; let plausibilityChecks = 0; let lifecycleChecks = 0;
+let questions = 0; let deterministicChecks = 0; let verifierChecks = 0; let optionChecks = 0; let plausibilityChecks = 0; let lifecycleChecks = 0; let selfContainedChecks = 0;
 
 for (const qlId of INT_CP005_V16_1_QL_IDS) {
   for (let index = 0; index < 640; index += 1) {
@@ -54,7 +54,19 @@ for (const qlId of INT_CP005_V16_1_QL_IDS) {
     assert(!/production|capacity|salary|employee|executive/iu.test(learner), `${qlId}/${seed}: rejected context leaked`);
     assert(!/NEARBY_ARITHMETIC|RATE_PLUS_|RATE_MINUS_/u.test(q.options.map((o) => o.misconceptionId).join("|")), `${qlId}/${seed}: synthetic distractor returned`);
     assert(!/₹[0-9]+,[0-9]{2},[0-9]{2},[0-9]{3}/u.test(learner), `${qlId}/${seed}: crore-scale value leaked`);
-    assert(q.presentation.markdown.length <= 380, `${qlId}/${seed}: stem too long`);
+    assert(q.presentation.markdown.length <= 420, `${qlId}/${seed}: stem too long`);
+
+    if (q.mathematicalState.qlId === "INT-QL-086" || q.mathematicalState.qlId === "INT-QL-088") {
+      const context = q.mathematicalState.context;
+      if (context === "INVESTMENT") assert(/compound/iu.test(q.presentation.markdown), `${qlId}/${seed}: investment stem does not name compound interest`);
+      if (context === "POPULATION") assert(/growth|grow/iu.test(q.presentation.markdown), `${qlId}/${seed}: population stem does not name growth`);
+      if (context === "ASSET") assert(/appreciat|growth/iu.test(q.presentation.markdown), `${qlId}/${seed}: asset stem does not name appreciation/growth`);
+      selfContainedChecks += 1;
+    }
+    if (q.mathematicalState.qlId === "INT-QL-095") {
+      assert(/compound/iu.test(q.presentation.markdown), `${qlId}/${seed}: plan comparison stem does not name compound interest`);
+      selfContainedChecks += 1;
+    }
 
     topology.get(qlId)!.add(intCp005V16_1TopologyKey(q.mathematicalState));
     skeletons.get(qlId)!.add(normalizeStem(q.presentation.markdown));
@@ -111,7 +123,7 @@ let ql094Rejected = false; try { generateIntCp005QuestionV16_1Final("INT-QL-094"
 assert(ql094Rejected, "QL094 did not remain rejected");
 
 console.log(JSON.stringify({
-  runtimeVersion: INT_CP005_RUNTIME_VERSION_V16_1, qls: INT_CP005_V16_1_QL_IDS.length, questions, deterministicChecks, verifierChecks, optionChecks, plausibilityChecks, lifecycleChecks,
+  runtimeVersion: INT_CP005_RUNTIME_VERSION_V16_1, qls: INT_CP005_V16_1_QL_IDS.length, questions, deterministicChecks, verifierChecks, optionChecks, plausibilityChecks, lifecycleChecks, selfContainedChecks,
   normalizedStemFrames: Object.fromEntries([...skeletons].map(([ql, set]) => [ql, set.size])),
   genuineTopologies: Object.fromEntries([...topology].map(([ql, set]) => [ql, set.size])),
   answerDiversity: Object.fromEntries([...answers].map(([ql, set]) => [ql, set.size])),
