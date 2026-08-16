@@ -1,8 +1,10 @@
 import {
   MAL_001_QUESTION_STUDIO_CP_IDS,
+  MAL_001_QUESTION_STUDIO_LANGUAGES,
   listMal001QuestionStudioCpIdsForDifficulty,
   runMal001QuestionStudioPipeline,
   type Mal001QuestionStudioCpId,
+  type Mal001QuestionStudioLanguage,
 } from "./question-studio-adapter";
 
 export type Mal001StandardQuestionStudioRequest = {
@@ -28,7 +30,7 @@ const MAL_PACKAGE_DEFINITION = Object.freeze({
   subtopic: "Mixture & Alligation" as const,
   label: "Mixture & Alligation" as const,
   cpIds: MAL_001_QUESTION_STUDIO_CP_IDS,
-  supportedLanguages: ["en"] as const,
+  supportedLanguages: MAL_001_QUESTION_STUDIO_LANGUAGES,
 });
 
 function normalizeSelector(value: unknown): string {
@@ -50,6 +52,14 @@ function normalizeDifficulty(value: unknown): Difficulty | undefined {
     return "Easy";
   }
   return undefined;
+}
+
+function normalizeLanguage(value: unknown): Mal001QuestionStudioLanguage {
+  const language = String(value ?? "en").trim().toLowerCase();
+  if (!MAL_001_QUESTION_STUDIO_LANGUAGES.includes(language as Mal001QuestionStudioLanguage)) {
+    throw new Error(`MAL-001 does not support Question Studio language ${language}.`);
+  }
+  return language as Mal001QuestionStudioLanguage;
 }
 
 function seededHash(value: string): number {
@@ -120,9 +130,10 @@ export function listMal001StandardQuestionStudioPackages() {
       enabled: true,
       runtimeMode: "QUESTION_STUDIO_ACTIVE",
       supportedRuntimeModes: ["QUESTION_STUDIO_ACTIVE"],
-      reviewStatus: "APPROVED_EDITORIAL_ENGLISH_V3",
-      questionBankStatus: "PER_QUESTION",
-      testEligibility: "PER_QUESTION",
+      reviewStatus: "APPROVED_MULTILINGUAL_QUESTION_STUDIO",
+      questionBankStatus: "NOT_STORED",
+      questionBankWritable: false,
+      testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
     },
   ];
@@ -239,11 +250,7 @@ function toQuestionStudioPreview(
 export async function generateMal001StandardQuestionStudioBatch(
   request: Mal001StandardQuestionStudioRequest = {},
 ) {
-  const language = String(request.language ?? "en").trim().toLowerCase();
-  if (language !== "en") {
-    throw new Error("MAL-001 supports English generation only in Question Studio.");
-  }
-
+  const language = normalizeLanguage(request.language);
   const count = Math.min(
     1000,
     Math.max(1, Math.floor(Number(request.count ?? 1) || 1)),
@@ -280,7 +287,7 @@ export async function generateMal001StandardQuestionStudioBatch(
 
   const batchSeed =
     request.seed ??
-    `quant-v4:MAL-001:${fixedCp ?? "mixed"}:${Date.now()}:${Math.random()
+    `quant-v4:MAL-001:${language}:${fixedCp ?? "mixed"}:${Date.now()}:${Math.random()
       .toString(36)
       .slice(2)}`;
   const cpOffset = seededHash(`${batchSeed}:cp-offset`) % eligibleCpIds.length;
@@ -295,7 +302,7 @@ export async function generateMal001StandardQuestionStudioBatch(
     const seed = `${batchSeed}:${cpId}:${index}`;
     const pkg = runMal001QuestionStudioPipeline(cpId, {
       difficulty,
-      language: "en",
+      language,
       questionLanguageId:
         request.questionLanguageId === undefined
           ? undefined
@@ -319,16 +326,20 @@ export async function generateMal001StandardQuestionStudioBatch(
       seed: batchSeed,
       timestamp: Date.now(),
       runtimeMode: "QUESTION_STUDIO_ACTIVE",
-      reviewStatus: "APPROVED_EDITORIAL_ENGLISH_V3",
+      reviewStatus:
+        language === "en"
+          ? "APPROVED_EDITORIAL_ENGLISH_V3"
+          : "APPROVED_MULTILINGUAL_QUESTION_STUDIO",
       questionBankStatus: "NOT_STORED",
       questionBankWritable: false,
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
       releaseId: first?.traceability?.releaseId,
-      language: "en",
+      language,
       packageId: "MAL-001",
       canonicalProblemId: fixedCp ?? "MIXED",
-      lifecyclePolicy: "PER_QUESTION_AUTHORITY_WITH_CONSERVATIVE_BATCH_FALLBACK",
+      mathematicalAuthorityLanguage: "en",
+      lifecyclePolicy: "QUESTION_STUDIO_ONLY_MULTILINGUAL",
     },
     questionPackages,
     questions,
