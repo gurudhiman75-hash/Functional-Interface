@@ -12,6 +12,10 @@ function ordinal(qlId: string): number {
   return Number(qlId.slice(-3));
 }
 
+function optionCountFor(qlOrdinal: number): number {
+  return qlOrdinal >= 216 && qlOrdinal <= 223 ? 5 : 4;
+}
+
 function visibleExplanation(question: any): string {
   if (question.learnerExplanation) {
     return [question.learnerExplanation.method, ...question.learnerExplanation.solution, question.learnerExplanation.answer].join(" ");
@@ -53,6 +57,7 @@ for (const qlId of QL_IDS) {
     const question = runTmw001ChapterPipeline({ questionLanguageId: qlId, language, seed });
     const label = `${qlId}:${language}`;
     const qlOrdinal = ordinal(qlId);
+    const expectedOptions = optionCountFor(qlOrdinal);
     const explanation = visibleExplanation(question);
     const answer = solvedAnswer(question);
     const stemTokens = String(question.stem ?? "").trim().split(/\s+/u).filter(Boolean).length;
@@ -64,9 +69,9 @@ for (const qlId of QL_IDS) {
     assert(question.language === language || qlOrdinal <= 211, `${label}: language identity mismatch`);
     assert(question.validation?.valid, `${label}: validation failed: ${(question.validation?.errors ?? []).join(" | ")}`);
     assert(question.publiclyPublishable === false, `${label}: publication lock changed before final GO`);
-    assert(Array.isArray(question.options) && question.options.length === 4, `${label}: expected four options`);
-    assert(new Set(question.options).size === 4, `${label}: options are not unique`);
-    assert(Number.isInteger(question.correctIndex) && question.correctIndex >= 0 && question.correctIndex <= 3, `${label}: invalid correctIndex`);
+    assert(Array.isArray(question.options) && question.options.length === expectedOptions, `${label}: expected ${expectedOptions} options`);
+    assert(new Set(question.options).size === expectedOptions, `${label}: options are not unique`);
+    assert(Number.isInteger(question.correctIndex) && question.correctIndex >= 0 && question.correctIndex < expectedOptions, `${label}: invalid correctIndex`);
     assert(answer !== null, `${label}: solved/canonical answer is missing`);
     assert(question.options[question.correctIndex] === answer, `${label}: correct option does not equal solved/canonical answer`);
     assert(typeof question.stem === "string" && question.stem.trim().length > 20, `${label}: stem is missing or too short`);
@@ -94,8 +99,10 @@ for (const qlId of QL_IDS) {
       assert(question.canonicalProblemId === "TMW-CP-013", `${label}: CP013 routing mismatch`);
       assert(question.representation === "DATA_SUFFICIENCY", `${label}: DS representation missing`);
       assert(question.answerSemantic === "DATA_SUFFICIENCY_CLASS", `${label}: DS answer semantic mismatch`);
-      assert(question.learnerExplanationVersion === "TMW_DS_V1", `${label}: DS learner version mismatch`);
+      assert(question.learnerExplanationVersion === "TMW_DS_V2", `${label}: DS learner version mismatch`);
+      assert(question.learnerExplanation?.solution?.length >= 4, `${label}: DS learner explanation missing or too thin`);
       assert(question.canonicalAnswer === question.verifierAnswer, `${label}: DS independent verifier mismatch`);
+      assert(new Set((question.optionAudit ?? []).map((option: any) => option.value)).size === 5, `${label}: DS five-class option scheme incomplete`);
     } else {
       assert(question.canonicalProblemId === "TMW-CP-014", `${label}: CP014 routing mismatch`);
       assert(question.representation === "TABLE" || question.representation === "CASELET", `${label}: structured representation missing`);
@@ -121,20 +128,28 @@ assert(cases === 684, `Expected 684 final audit packages, got ${cases}`);
 assert(byLanguage.get("en") === 228 && byLanguage.get("hi") === 228 && byLanguage.get("pa") === 228, "Final language parity count mismatch");
 assert(learnerVersions.get("TMW_LEARNER_V2") === 633, `Expected 633 legacy R4 packages, got ${learnerVersions.get("TMW_LEARNER_V2") ?? 0}`);
 assert(learnerVersions.get("TMW_COVERAGE_V1") === 12, `Expected 12 CP012 packages, got ${learnerVersions.get("TMW_COVERAGE_V1") ?? 0}`);
-assert(learnerVersions.get("TMW_DS_V1") === 24, `Expected 24 CP013 packages, got ${learnerVersions.get("TMW_DS_V1") ?? 0}`);
+assert(learnerVersions.get("TMW_DS_V2") === 24, `Expected 24 CP013 packages, got ${learnerVersions.get("TMW_DS_V2") ?? 0}`);
 assert(learnerVersions.get("TMW_PRESENTATION_V1") === 15, `Expected 15 CP014 packages, got ${learnerVersions.get("TMW_PRESENTATION_V1") ?? 0}`);
 
 const distributionPositions = new Map<number, number>();
+const cp013DistributionPositions = new Map<number, number>();
 let distributionCases = 0;
+let cp013DistributionCases = 0;
 for (const qlId of QL_IDS) {
+  const qlOrdinal = ordinal(qlId);
+  const expectedOptions = optionCountFor(qlOrdinal);
   for (const language of LANGUAGES) {
     for (const seedSuffix of DISTRIBUTION_SEEDS) {
       const seed = `tmw-position-audit:${qlId}:${language}:${seedSuffix}`;
       const question = runTmw001ChapterPipeline({ questionLanguageId: qlId, language, seed });
       assert(question.validation?.valid, `${qlId}:${language}:${seedSuffix}: distribution sample is invalid`);
-      assert(Number.isInteger(question.correctIndex) && question.correctIndex >= 0 && question.correctIndex <= 3, `${qlId}:${language}:${seedSuffix}: invalid distribution correctIndex`);
+      assert(Number.isInteger(question.correctIndex) && question.correctIndex >= 0 && question.correctIndex < expectedOptions, `${qlId}:${language}:${seedSuffix}: invalid distribution correctIndex`);
       distributionPositions.set(question.correctIndex, (distributionPositions.get(question.correctIndex) ?? 0) + 1);
       distributionCases += 1;
+      if (qlOrdinal >= 216 && qlOrdinal <= 223) {
+        cp013DistributionPositions.set(question.correctIndex, (cp013DistributionPositions.get(question.correctIndex) ?? 0) + 1);
+        cp013DistributionCases += 1;
+      }
     }
   }
 }
@@ -143,6 +158,12 @@ for (const index of [0, 1, 2, 3]) {
   const count = distributionPositions.get(index) ?? 0;
   const share = count / distributionCases;
   assert(share >= 0.20 && share <= 0.30, `Correct-option position ${index} has biased multi-seed share ${(share * 100).toFixed(2)}% (${count}/${distributionCases})`);
+}
+assert(cp013DistributionCases === 192, `Expected 192 CP013 position samples, got ${cp013DistributionCases}`);
+for (const index of [0, 1, 2, 3, 4]) {
+  const count = cp013DistributionPositions.get(index) ?? 0;
+  const share = count / cp013DistributionCases;
+  assert(share >= 0.10 && share <= 0.30, `CP013 correct-option position ${index} has biased share ${(share * 100).toFixed(2)}% (${count}/${cp013DistributionCases})`);
 }
 
 console.log(JSON.stringify({
@@ -157,6 +178,8 @@ console.log(JSON.stringify({
   snapshotAnswerPositions: Object.fromEntries([...snapshotAnswerPositions.entries()].sort(([a], [b]) => a - b)),
   multiSeedDistributionCases: distributionCases,
   multiSeedAnswerPositions: Object.fromEntries([...distributionPositions.entries()].sort(([a], [b]) => a - b)),
+  cp013DistributionCases,
+  cp013AnswerPositions: Object.fromEntries([...cp013DistributionPositions.entries()].sort(([a], [b]) => a - b)),
   uniqueSameLanguageContractFingerprints: contractFingerprints.size,
   maxStemTokens,
   maxStemLabel,
