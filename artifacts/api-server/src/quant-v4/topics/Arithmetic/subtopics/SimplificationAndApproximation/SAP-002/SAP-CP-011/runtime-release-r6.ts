@@ -11,10 +11,11 @@ function compareAccuracy(seed: number): SapE2Package {
   const p = seed - 1;
   const anchor = 18 + p;
   const correctIndex = p % 4;
+  const block = Math.floor(p / 4);
   const exact100 = anchor * 100 + 37;
   const small = 20 + (seed % 6) * 5;
   const large = small + 15 + (seed % 4) * 5;
-  const estimate1IsBetter = seed % 2 === 0;
+  const estimate1IsBetter = (block + correctIndex) % 2 === 0;
   const d1 = estimate1IsBetter ? small : large;
   const d2 = estimate1IsBetter ? large : small;
   const e1 = exact100 + (seed % 3 === 0 ? -d1 : d1);
@@ -39,7 +40,7 @@ function compareAccuracy(seed: number): SapE2Package {
       ]),
       finalAnswer: `Therefore, ${answer} is the correct choice.`,
     }),
-    oracle: Object.freeze({ kind: "CP011-E2-COMPARE-ESTIMATE-ACCURACY", data: Object.freeze({ exact100, e1, e2, d1, d2, better: estimate1IsBetter ? 1 : 2 }) }),
+    oracle: Object.freeze({ kind: "CP011-E2-COMPARE-ESTIMATE-ACCURACY", data: Object.freeze({ exact100, e1, e2, d1, d2, better: estimate1IsBetter ? 1 : 2, block }) }),
   });
 }
 
