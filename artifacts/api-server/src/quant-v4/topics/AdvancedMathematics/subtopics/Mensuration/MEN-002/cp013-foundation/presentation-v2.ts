@@ -52,6 +52,17 @@ function polishText(text:string){
     .replace(/17\.333333333333336 cm/g,'17.333 cm');
 }
 
+function polishStem(id:string,stem:string){
+  const polished=polishText(stem);
+  if(id==='CP013-W3-SSC-CYL-HEMI-TOY-VOLUME'){
+    return polished.replace(
+      /^A toy is a cylinder surmounted by a hemisphere/,
+      'A decorative metal toy consists of a cylinder surmounted by a hemisphere',
+    );
+  }
+  return polished;
+}
+
 export type MenCp013PresentationV2Question = MenCp013Question & {
   readonly presentationAuthority: typeof MEN_CP_013_DISCOVERY_PRESENTATION_V2_AUTHORITY;
 };
@@ -65,7 +76,7 @@ export function generateMenCp013QuestionV2(id:string,seed:string):MenCp013Presen
   }));
   const result:MenCp013PresentationV2Question={
     ...base,
-    stem:polishText(base.stem),
+    stem:polishStem(id,base.stem),
     answer,
     options,
     explanation:{
