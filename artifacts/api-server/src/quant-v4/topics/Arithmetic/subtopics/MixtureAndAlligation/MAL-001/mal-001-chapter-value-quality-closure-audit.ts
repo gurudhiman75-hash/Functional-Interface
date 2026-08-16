@@ -44,17 +44,17 @@ function assertOptionPackage(question: {
   );
 }
 
-function assertReducedSmallRatios(questionId: string, stem: string): void {
-  for (const match of stem.matchAll(/\b(\d+)\s*:\s*(\d+)\b/gu)) {
+function assertReducedSmallRatios(questionId: string, learnerChoices: string): void {
+  for (const match of learnerChoices.matchAll(/\b(\d+)\s*:\s*(\d+)\b/gu)) {
     const left = Number(match[1]);
     const right = Number(match[2]);
     assert(
       Math.max(left, right) <= 99,
-      `${questionId}: synthetic large ratio survived (${match[0]}).`,
+      `${questionId}: synthetic large learner-visible ratio survived (${match[0]}).`,
     );
     assert(
       left === 0 || right === 0 || gcd(left, right) === 1,
-      `${questionId}: unreduced ratio survived (${match[0]}).`,
+      `${questionId}: unreduced learner-visible ratio survived (${match[0]}).`,
     );
     realismChecks += 2;
   }
@@ -70,15 +70,18 @@ function assertEasyMagnitudeAndQuantity(
   questionId: string,
   stem: string,
 ): void {
-  assert(
-    !/\b(?:[5-9]\d{2}|\d{4,})\b/u.test(stem),
-    `${questionId}: Easy question contains an unnecessarily large 500+ value.`,
-  );
+  for (const match of stem.matchAll(/\b\d+\b/gu)) {
+    assert(
+      Number(match[0]) <= 250,
+      `${questionId}: Easy question contains an unnecessarily large value above 250 (${match[0]}).`,
+    );
+    realismChecks += 1;
+  }
   assert(
     !hasFractionalQuantity(stem),
     `${questionId}: Easy question contains an unnecessary fractional quantity.`,
   );
-  realismChecks += 2;
+  realismChecks += 1;
 }
 
 function assertMixedQuantityDenominator(
@@ -121,7 +124,8 @@ for (const allocation of MAL_CP002_PERMANENT_ALLOCATION) {
     });
     assert(question.permanentQlId === allocation.qlId, `${allocation.qlId}: CP002 identity drift.`);
     assertOptionPackage(question);
-    assertReducedSmallRatios(question.questionId, question.stem);
+    const learnerChoices = [question.stem, ...question.options, question.answer].join(" ");
+    assertReducedSmallRatios(question.questionId, learnerChoices);
     if (allocation.difficulty === "Easy") {
       assertEasyMagnitudeAndQuantity(question.questionId, question.stem);
     }
@@ -148,12 +152,11 @@ for (const allocation of MAL_CP003_PERMANENT_ALLOCATION) {
     });
     assert(question.permanentQlId === allocation.qlId, `${allocation.qlId}: CP003 identity drift.`);
     assertOptionPackage(question);
-    assertReducedSmallRatios(question.questionId, question.stem);
-    assertMixedQuantityDenominator(
-      question.questionId,
-      [question.stem, ...question.options, question.answer].join(" "),
-      16,
-    );
+    const learnerChoices = [question.stem, ...question.options, question.answer].join(" ");
+    assertReducedSmallRatios(question.questionId, learnerChoices);
+    assertMixedQuantityDenominator(question.questionId, learnerChoices, 12);
+    assert(!/\b1 operations\b/iu.test(learnerChoices), `${question.questionId}: singular operation grammar survived.`);
+    realismChecks += 1;
     states.add(question.stateKey);
     stems.add(question.stem);
     answers.add(question.answer);
@@ -178,7 +181,7 @@ for (const allocation of MAL_CP004_PERMANENT_ALLOCATION) {
     assert(question.permanentQlId === allocation.qlId, `${allocation.qlId}: CP004 identity drift.`);
     assertOptionPackage(question);
     const learnerChoices = [question.stem, ...question.options, question.answer].join(" ");
-    assertMixedQuantityDenominator(question.questionId, learnerChoices, 16);
+    assertMixedQuantityDenominator(question.questionId, learnerChoices, 12);
     assertMixedPercentDenominator(question.questionId, learnerChoices, 12);
     if (allocation.difficulty === "Easy") {
       assertEasyMagnitudeAndQuantity(question.questionId, question.stem);
@@ -204,7 +207,7 @@ const jsonPath = resolve(outputDirectory, "mal-001-chapter-value-quality-closure
 const markdownPath = resolve(outputDirectory, "MAL-001-CHAPTER-VALUE-QUALITY-CLOSURE-36Q.md");
 
 const summary = {
-  status: "PASS_MAL_001_CHAPTER_VALUE_QUALITY_CLOSURE_V2",
+  status: "PASS_MAL_001_CHAPTER_VALUE_QUALITY_CLOSURE_V3",
   runtimeCandidates: {
     cp002: "MAL-CP002-EN-CHAPTER-CLOSURE-RUNTIME-V4",
     cp003: "MAL-CP003-EN-CHAPTER-CLOSURE-EDITORIAL-V3",
@@ -215,12 +218,13 @@ const summary = {
   generated,
   realismChecks,
   policy: {
-    ratioComponentMaximum: 99,
-    ratiosMustBeReduced: true,
-    easyMaximumAbsoluteInteger: 499,
+    learnerVisibleRatioComponentMaximum: 99,
+    learnerVisibleRatiosMustBeReduced: true,
+    easyMaximumAbsoluteInteger: 250,
     easyFractionalQuantitiesAllowed: false,
-    mixedQuantityDenominatorMaximum: 16,
+    mixedQuantityDenominatorMaximum: 12,
     mixedPercentDenominatorMaximum: 12,
+    singularOperationGrammar: true,
   },
   evidence,
   lifecycle: "REVIEW_ONLY_CHAPTER_CLOSURE_EVIDENCE",
@@ -243,7 +247,7 @@ const lines = [
   `Generated proof: ${generated} questions (${samplesPerQl} per QL).`,
   `Executed exam-realism assertions: ${realismChecks}.`,
   "",
-  "Policy: ratios use reduced components ≤99; Easy questions avoid 500+ values and fractional quantities; mixed quantity denominators are ≤16; mixed percentage denominators are ≤12.",
+  "Policy: every learner-visible 2-way ratio is reduced with components ≤99; Easy stems keep integers ≤250 and avoid fractional quantities; mixed quantity/percentage denominators are ≤12; singular operation counts use singular grammar.",
   "",
 ];
 for (const question of review as any[]) {
