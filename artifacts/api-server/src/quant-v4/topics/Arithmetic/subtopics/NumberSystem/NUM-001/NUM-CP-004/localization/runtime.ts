@@ -25,6 +25,13 @@ function capture(text: string, pattern: RegExp, label: string): RegExpMatchArray
   return match;
 }
 
+function extractDelimited(text: string, prefix: string, suffix: string, label: string): string {
+  if (!text.startsWith(prefix) || !text.endsWith(suffix)) {
+    throw new Error(`NUM-CP-004 localization could not parse ${label}: ${text}`);
+  }
+  return text.slice(prefix.length, text.length - suffix.length);
+}
+
 function localizeStem(
   qlId: NumCp004PermanentQlId,
   sourceText: string,
@@ -101,11 +108,11 @@ function localizeStem(
       return hi ? `${a} और ${b} दिए हैं। ${question}?` : `${a} ਅਤੇ ${b} ਦਿੱਤੇ ਹਨ। ${question}?`;
     }
     case "NUM-QL-030": {
-      const [, equation] = capture(source, /^Given (\\\(.+\\\)), what is the prime \\(p\\\)\?$/u, qlId);
+      const equation = extractDelimited(source, "Given ", ", what is the prime \\(p\\)?", qlId);
       return hi ? `${equation} दिया है। अभाज्य संख्या ${math("p")} क्या है?` : `${equation} ਦਿੱਤਾ ਹੈ। ਅਭਾਜ ਸੰਖਿਆ ${math("p")} ਕੀ ਹੈ?`;
     }
     case "NUM-QL-031": {
-      const [, equation] = capture(source, /^Given (\\\(.+\\\)), what is the exponent \\(x\\\)\?$/u, qlId);
+      const equation = extractDelimited(source, "Given ", ", what is the exponent \\(x\\)?", qlId);
       return hi ? `${equation} दिया है। घातांक ${math("x")} क्या है?` : `${equation} ਦਿੱਤਾ ਹੈ। ਘਾਤ ${math("x")} ਕੀ ਹੈ?`;
     }
     case "NUM-QL-032":
