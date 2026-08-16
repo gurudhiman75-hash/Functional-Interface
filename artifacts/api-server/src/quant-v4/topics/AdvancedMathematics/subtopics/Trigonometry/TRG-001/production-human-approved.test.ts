@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { TRG_001_AUTHORITY_ALIGNED_IDS, authorityFamilyForTrg001Ql } from "./production-authority-runtime";
 import { generateFinalEditorialTrg001Question } from "./production-final-editorial-runtime";
 import {
+  TRG_001_FREEZE,
   TRG_001_HUMAN_APPROVAL,
   generateHumanApprovedTrg001Question,
 } from "./production-human-approved-runtime";
@@ -38,6 +39,11 @@ function reviewProjection(question: any, qlId: string, seed: string) {
 }
 
 assert(TRG_001_AUTHORITY_ALIGNED_IDS.length === 144, "Human approval must bind all 144 permanent QLs.");
+assert(TRG_001_FREEZE.status === "FROZEN", "TRG-001 freeze record is not FROZEN.");
+assert(
+  TRG_001_FREEZE.approvedContentFingerprint === TRG_001_HUMAN_APPROVAL.approvedContentFingerprint,
+  "TRG-001 freeze fingerprint does not match the human-approved fingerprint.",
+);
 
 const approvedProjection = TRG_001_AUTHORITY_ALIGNED_IDS.map((qlId, index) => {
   const seed = `trg001-human-review-${String(index + 1).padStart(3, "0")}`;
@@ -62,12 +68,20 @@ for (let index = 0; index < TRG_001_AUTHORITY_ALIGNED_IDS.length; index += 1) {
 
   assert(
     JSON.stringify(reviewProjection(approved, qlId, seed)) === JSON.stringify(reviewProjection(base, qlId, seed)),
-    `${qlId}: human-approved overlay changed reviewed question content.`,
+    `${qlId}: frozen human-approved overlay changed reviewed question content.`,
   );
   assert(approved.reviewStatus === "HUMAN_APPROVED", `${qlId}: reviewStatus is not HUMAN_APPROVED.`);
   assert(approved.humanReviewStatus === "APPROVED", `${qlId}: humanReviewStatus is not APPROVED.`);
   assert(approved.humanReview?.humanReviewSubstituted === false, `${qlId}: human approval was marked as substituted.`);
   assert(approved.freezeEligible === true, `${qlId}: approved QL is not freeze eligible.`);
+  assert(approved.frozen === true && approved.freezeStatus === "FROZEN", `${qlId}: QL is not marked FROZEN.`);
+  assert(approved.freeze?.status === "FROZEN", `${qlId}: freeze provenance is missing.`);
+  assert(
+    approved.freeze?.approvedContentFingerprint === fingerprint,
+    `${qlId}: freeze provenance is not bound to the approved content fingerprint.`,
+  );
+  assert(approved.freeze?.contentChangeRequiresNewHumanApproval === true, `${qlId}: freeze drift policy is missing.`);
+  assert(approved.freeze?.mergeAuthorized === false && approved.freeze?.activationAuthorized === false, `${qlId}: freeze must not authorize merge or activation.`);
   assert(approved.aiEditorialStatus === "PASS", `${qlId}: AI editorial PASS was lost.`);
   assert(approved.validation?.valid === true && approved.verification?.valid === true, `${qlId}: validation/verification regressed.`);
   assert(
@@ -75,8 +89,8 @@ for (let index = 0; index < TRG_001_AUTHORITY_ALIGNED_IDS.length; index += 1) {
       && approved.testEligibility === "INELIGIBLE"
       && approved.publiclyPublishable === false
       && approved.questionStudioDiscoverable === false,
-    `${qlId}: approval must not activate storage, tests, publication, or Question Studio.`,
+    `${qlId}: freeze must not activate storage, tests, publication, or Question Studio.`,
   );
 }
 
-console.log(`TRG001_HUMAN_APPROVAL_BINDING_PASS count=144 fingerprint=${fingerprint} approvedBy=${TRG_001_HUMAN_APPROVAL.approvedBy}`);
+console.log(`TRG001_HUMAN_APPROVAL_BINDING_PASS count=144 fingerprint=${fingerprint} approvedBy=${TRG_001_HUMAN_APPROVAL.approvedBy} freeze=FROZEN`);
