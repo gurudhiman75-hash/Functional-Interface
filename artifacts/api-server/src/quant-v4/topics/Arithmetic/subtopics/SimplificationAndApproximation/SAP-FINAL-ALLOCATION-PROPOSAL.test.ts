@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { SAP_CP010_CATALOGUE, SAP_CP010_PROTOTYPE_IDS } from "./SAP-002/SAP-CP-010/runtime";
 import { SAP_CP011_E2_STRUCTURES } from "./SAP-002/SAP-CP-011/runtime-release-r6";
-import { SAP_CP012_E2_STRUCTURES } from "./SAP-002/SAP-CP-012/runtime-release-e6";
+import { SAP_CP012_E2_STRUCTURES } from "./SAP-002/SAP-CP-012/runtime-release-e3";
 import { SAP_CP004_E1_NESTED_ADDITIVE_CANDIDATE_ID } from "./SAP-001/SAP-CP-004/e1-runtime";
 import { SAP_CP005_E1_TELESCOPING_CANDIDATE_ID } from "./SAP-001/SAP-CP-005/e1-runtime";
 import { SAP_CP007_E1_SIGFIG_CANDIDATE_ID } from "./SAP-001/SAP-CP-007/e1-runtime";
