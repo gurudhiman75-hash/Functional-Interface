@@ -14,11 +14,12 @@ async function main() {
   assert.equal(pkg.questionBankStatus, "WRITABLE");
   assert.equal(pkg.testEligibility, "ELIGIBLE");
   assert.equal(pkg.publiclyPublishable, true);
-  assert.equal(pkg.cpIds.length, 48);
+  assert.equal(pkg.cpIds.length, 4);
+  assert.deepEqual(pkg.cpIds, ["TRG-CP-007", "TRG-CP-008", "TRG-CP-009", "TRG-CP-010"]);
 
   const result: any = await generateQuestion({
     packageId: "TRG-002" as any,
-    canonicalProblemId: "TRG-002-QL-015",
+    questionLanguageId: "TRG-002-QL-015",
     language: "en",
     count: 1,
     seed: "trg002-question-studio-storage-regression",
@@ -27,14 +28,17 @@ async function main() {
   assert.equal(result.questions.length, 1);
   const question = result.questions[0];
   assert.equal(question.packageId, "TRG-002");
+  assert.equal(question.questionLanguageId, "TRG-002-QL-015");
   assert.equal(question.proceduralLogic.qlId, "TRG-002-QL-015");
   assert.equal(question.questionBankStatus, "WRITABLE");
   assert.equal(question.testEligibility, "ELIGIBLE");
   assert.equal(question.publiclyPublishable, true);
   assert.ok(question.explanation.includes(TRG_002_EXAMTREE_DIRECTIVE_PREFIX));
-  assert.equal(question.solutionDiagram.family, "TRG-002");
+  assert.equal(question.solutionDiagram.kind, "TRG002_HEIGHTS_DISTANCES");
+  assert.equal(question.solutionDiagram.version, 1);
   assert.equal(question.solutionDiagram.qlId, "TRG-002-QL-015");
-  assert.deepEqual(question.solutionDiagram, question.proceduralLogic.solutionDiagram);
+  assert.equal(question.solutionDiagram.disclosure, "AFTER_ATTEMPT");
+  assert.deepEqual(question.answerModel.solutionDiagram, question.solutionDiagram);
   assert.ok(question.solutionDiagram.diagram);
   assert.equal(question.solutionDiagram.diagram.segments.some((segment: any) =>
     String(segment.id).startsWith("depression-height-transfer-")), false);
