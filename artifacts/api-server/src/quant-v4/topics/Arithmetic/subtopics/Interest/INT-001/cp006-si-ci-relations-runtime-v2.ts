@@ -6,6 +6,7 @@ import {
   INT_CP006_RUNTIME_VERSION,
   constructIntCp006State,
   generateIntCp006Question as generateBase,
+  siCiDifference,
   solveIntCp006,
   verifyIntCp006Answer,
   type IntCp006AnswerSemantic,
@@ -22,6 +23,7 @@ export {
   INT_CP006_QL_IDS,
   INT_CP006_RUNTIME_VERSION,
   constructIntCp006State,
+  siCiDifference,
   solveIntCp006,
   verifyIntCp006Answer,
 };
