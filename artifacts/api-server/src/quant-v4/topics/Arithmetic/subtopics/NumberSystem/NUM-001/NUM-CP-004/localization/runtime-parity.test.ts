@@ -2,7 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { NUM_CP004_PERMANENT_QL_IDS } from "../permanent/allocation";
 import { runNumCp004EditorialV2ReviewFinal } from "../permanent/editorial-v2-review-final";
-import { runNumCp004LocalizedFinalForQl } from "./runtime-final";
+import { runNumCp004LocalizedReviewFinalForQl } from "./runtime-review-final";
 import type { NumCp004TranslatedLanguage } from "./types";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -20,7 +20,7 @@ const ENGLISH_PROSE = /\b(?:Which|What|How|Given|Statement|Rule|prime|composite|
 const HINDI_REJECTED = /(?:डेटा-पर्याप्तता|माता नोड)/u;
 const PUNJABI_REJECTED = /(?:ਡਾਟਾ-ਪਰਯਾਪਤਾ|ਮਾਪੇ ਨੋਡ|ਪਰਯਾਪਤਾ)/u;
 
-function learnerText(q: ReturnType<typeof runNumCp004LocalizedFinalForQl>): string {
+function learnerText(q: ReturnType<typeof runNumCp004LocalizedReviewFinalForQl>): string {
   return [
     q.stem,
     ...q.options.map((option) => option.value),
@@ -39,15 +39,15 @@ let replayChecks = 0;
 let parityChecks = 0;
 let linguisticChecks = 0;
 let teachingChecks = 0;
-const reviewRows: Array<ReturnType<typeof runNumCp004LocalizedFinalForQl>> = [];
+const reviewRows: Array<ReturnType<typeof runNumCp004LocalizedReviewFinalForQl>> = [];
 
 for (const qlId of NUM_CP004_PERMANENT_QL_IDS) {
   for (let seed = 1; seed <= 80; seed += 1) {
     const canonical = runNumCp004EditorialV2ReviewFinal({ questionLanguageId: qlId, seed, language: "en" });
 
     for (const language of LANGUAGES) {
-      const q = runNumCp004LocalizedFinalForQl(qlId, seed, language);
-      const replay = runNumCp004LocalizedFinalForQl(qlId, seed, language);
+      const q = runNumCp004LocalizedReviewFinalForQl(qlId, seed, language);
+      const replay = runNumCp004LocalizedReviewFinalForQl(qlId, seed, language);
       const label = `${qlId}/${seed}/${language}`;
       audited += 1;
 
