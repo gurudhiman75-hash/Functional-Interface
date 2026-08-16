@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [New-main]
     paths:
+      - artifacts/api-server/src/routes/index.ts
       - artifacts/api-server/src/routes/tests.ts
       - artifacts/api-server/src/lib/mobile-test-compat.ts
       - artifacts/api-server/src/lib/mobile-test-compat.test.ts
@@ -13,6 +14,7 @@ on:
   push:
     branches: [New-main]
     paths:
+      - artifacts/api-server/src/routes/index.ts
       - artifacts/api-server/src/routes/tests.ts
       - artifacts/api-server/src/lib/mobile-test-compat.ts
       - artifacts/api-server/src/lib/mobile-test-compat.test.ts
@@ -49,12 +51,24 @@ jobs:
             --format=esm \
             --outfile=/tmp/mobile-test-compat.test.mjs
           node /tmp/mobile-test-compat.test.mjs
-      - name: Enforce canonical schema ownership
+      - name: Enforce canonical mobile route ownership
         run: |
           grep -F 'assessment.tests' artifacts/api-server/src/routes/tests.ts
           grep -F 'assessment.test_questions' artifacts/api-server/src/routes/tests.ts
           grep -F 'content.question_versions' artifacts/api-server/src/routes/tests.ts
           grep -F 'content.question_options' artifacts/api-server/src/routes/tests.ts
           grep -F 'tests:list:canonical-mobile-v2' artifacts/api-server/src/routes/tests.ts
+          grep -F 'import testsRouter from "./tests";' artifacts/api-server/src/routes/index.ts
+          grep -F 'router.use("/tests", testsRouter);' artifacts/api-server/src/routes/index.ts
           ! grep -F 'FROM questions' artifacts/api-server/src/routes/tests.ts
           ! grep -F 'FROM tests' artifacts/api-server/src/routes/tests.ts
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const source = fs.readFileSync('artifacts/api-server/src/routes/index.ts', 'utf8');
+          const mobile = source.indexOf('router.use("/tests", testsRouter);');
+          const commerce = source.indexOf('router.use(canonicalCommerceAccessGuardRouter);');
+          const published = source.indexOf('router.use(publishedTestRunnerRouter);');
+          if (mobile < 0 || commerce < 0 || published < 0 || !(mobile < commerce && mobile < published)) {
+            throw new Error('Canonical mobile /tests compatibility router must be mounted before commerce and published-test guards');
+          }
+          NODE
