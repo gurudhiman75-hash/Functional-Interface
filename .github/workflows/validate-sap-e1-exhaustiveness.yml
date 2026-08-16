@@ -1,8 +1,10 @@
-name: Validate SAP E1 Exhaustiveness Remediation
+name: Validate SAP E1 E2 Exhaustiveness
 
 on:
   pull_request:
-    branches: [audit/sap-exhaustiveness-2026-08]
+    branches:
+      - audit/sap-exhaustiveness-2026-08
+      - feat/sap-e1-r2-exam-remodel
     types: [opened, reopened, synchronize]
   workflow_dispatch:
 
@@ -48,5 +50,25 @@ jobs:
         run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E1-R2-RELEASE-CALIBRATION-V4.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e1-r2-release-calibration.mjs
       - name: Run E1 R2 release calibration authority V4
         run: node artifacts/api-server/dist/quant-v4/sap-e1-r2-release-calibration.mjs
+      - name: Bundle E2 CP011 CP012 authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-AUTHORITY.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e2.mjs
+      - name: Run E2 CP011 CP012 authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e2.mjs
+      - name: Bundle E2 CP012 release-realism authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-RELEASE-AUTHORITY.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e2-release.mjs
+      - name: Run E2 CP012 release-realism authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e2-release.mjs
+      - name: Bundle E2 R3B exam-depth authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-R3B-EXAM-DEPTH-AUTHORITY.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e2-r3-depth.mjs
+      - name: Run E2 R3B exam-depth authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e2-r3-depth.mjs
+      - name: Bundle E2 R4 mixed-synthesis authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-R4-MIXED-SYNTHESIS-AUTHORITY.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e2-r4-synthesis.mjs
+      - name: Run E2 R4 mixed-synthesis authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e2-r4-synthesis.mjs
+      - name: Bundle E2 R5 presentation semantics authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-R5-PRESENTATION-AUTHORITY.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e2-r5-presentation.mjs
+      - name: Run E2 R5 presentation semantics authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e2-r5-presentation.mjs
 
-# E1-R2 is review-only; no lifecycle changes are performed by this workflow.
+# E1/E2 remain review-only; no lifecycle changes are performed by this workflow.

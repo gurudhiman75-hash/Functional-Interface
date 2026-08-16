@@ -1,0 +1,39 @@
+name: Validate SAP E2 R6 Exam Readiness
+
+on:
+  pull_request:
+    branches:
+      - feat/sap-e1-r2-exam-remodel
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle R6 exam-readiness authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-R6-EXAM-READINESS-AUTHORITY.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e2-r6-authority.mjs
+      - name: Run R6 exam-readiness authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e2-r6-authority.mjs
+      - name: Bundle R6 300-question review
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E2-300-REVIEW-R6.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e2-r6-review.mjs
+      - name: Generate and validate R6 review
+        run: node artifacts/api-server/dist/quant-v4/sap-e2-r6-review.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sap-e2-cp011-cp012-300-review-r6
+          path: artifacts/api-server/dist/quant-v4/sap-e2-review/**
+          if-no-files-found: error
+          retention-days: 30
+
+# R6 remains inactive human-review content only.
