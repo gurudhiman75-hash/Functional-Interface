@@ -5,14 +5,14 @@ import {
   runNumCp003EditorialV2,
   type NumCp003EditorialV2Question,
 } from "./editorial-v2";
-import { buildNumCp003PlainTeachingSolution } from "./editorial-v2-teaching-solution";
+import { buildNumCp003FinalTeachingSolution } from "./editorial-v2-teaching-solution-final";
 import type { NumCp003PermanentRuntimeInput } from "./runtime";
 
 export { NUM_CP003_EDITORIAL_V2_RELEASE };
 export type { NumCp003EditorialV2Question };
 
 function refineQuestion(question: NumCp003EditorialV2Question): NumCp003EditorialV2Question {
-  const solution = buildNumCp003PlainTeachingSolution(question.hiddenState);
+  const solution = buildNumCp003FinalTeachingSolution(question.hiddenState);
   if (solution.length < 2 || solution.length > 4) {
     throw new Error(`${question.permanentQlId}/${question.seed}: final V2 solution must contain 2-4 lines`);
   }
