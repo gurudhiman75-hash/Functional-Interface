@@ -105,7 +105,6 @@ for (const locale of locales) {
     ) coverage.invalidLocks += 1;
 
     assert.ok("editorialAuthority" in binding.question);
-    assert.ok("semanticAuthority" in binding.question);
     assert.ok("diagram" in binding.question);
     assert.ok("visualPolicy" in binding.question);
     if (
@@ -126,6 +125,7 @@ for (const locale of locales) {
       coverage.ordinaryPossibility += 1;
       assert.equal(binding.candidateAuthority, "SYL_001_BANKING_POSSIBILITY_EDITORIAL_V3");
       assert.equal(binding.question.authority, "SYL_001_BANKING_POSSIBILITY_SHELL_V2");
+      assert.ok("semanticAuthority" in binding.question);
       if ("editorialAuthority" in binding.question) {
         assert.equal(binding.question.editorialAuthority, "SYL_001_BANKING_POSSIBILITY_EDITORIAL_V3");
       }
@@ -135,6 +135,7 @@ for (const locale of locales) {
     } else {
       coverage.canNever += 1;
       assert.equal(binding.candidateAuthority, "SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V4");
+      assert.equal(binding.question.authority, "SYL_001_BANKING_CAN_NEVER_BE_SHELL_V2");
       if ("editorialAuthority" in binding.question) {
         assert.equal(binding.question.editorialAuthority, "SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V4");
       }
