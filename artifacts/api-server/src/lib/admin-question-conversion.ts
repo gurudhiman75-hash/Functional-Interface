@@ -93,20 +93,95 @@ export function questionPublicCode(
   return `Q-${date}-${suffix}`;
 }
 
+const SPATIAL_SVG_ALLOWED_TAGS = new Set([
+  "svg",
+  "line",
+  "circle",
+  "polygon",
+  "polyline",
+  "path",
+]);
+
+function safeSpatialSvg(value: unknown, label: string): string {
+  const svg = asText(value);
+  if (!svg || svg.length > 100_000 || !/^<svg\b/i.test(svg) || !/<\/svg>$/i.test(svg)) {
+    throw new Error(`${label} is not a bounded Spatial SVG document`);
+  }
+  if (
+    /<\s*(?:script|foreignObject|iframe|object|embed|image|use|style|a)\b/i.test(svg) ||
+    /\bon[a-z]+\s*=|\b(?:href|xlink:href)\s*=|javascript:|data:/i.test(svg)
+  ) {
+    throw new Error(`${label} contains disallowed active SVG content`);
+  }
+  for (const match of svg.matchAll(/<\/?\s*([a-zA-Z][a-zA-Z0-9:-]*)\b/g)) {
+    const tag = String(match[1] ?? "").toLowerCase();
+    if (!SPATIAL_SVG_ALLOWED_TAGS.has(tag)) {
+      throw new Error(`${label} contains unsupported SVG element <${tag}>`);
+    }
+  }
+  return svg;
+}
+
+function escapeHtmlAttribute(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+export function encodeGeneratedSpatialSvgImage(
+  value: unknown,
+  alt: string,
+): string {
+  const svg = safeSpatialSvg(value, alt);
+  const encoded = Buffer.from(svg, "utf8").toString("base64");
+  return `<img src="data:image/svg+xml;base64,${encoded}" alt="${escapeHtmlAttribute(alt)}" loading="lazy" />`;
+}
+
+function spatialVisualContent(payload: Record<string, unknown>): {
+  stimulus: string[];
+  options: string[];
+} | null {
+  const packageId = asText(payload.packageId).toUpperCase();
+  const hasSpatialFields = Array.isArray(payload.optionSvgs) || Array.isArray(payload.stimulusSvgs);
+  if (packageId !== "SPA-001" && !hasSpatialFields) return null;
+
+  const optionSvgs = Array.isArray(payload.optionSvgs) ? payload.optionSvgs : [];
+  if (optionSvgs.length !== 4) {
+    throw new Error("SPA-001 approval requires exactly four rendered SVG options");
+  }
+  const stimulusSvgs = Array.isArray(payload.stimulusSvgs) ? payload.stimulusSvgs : [];
+  return {
+    stimulus: stimulusSvgs.map((svg, index) =>
+      encodeGeneratedSpatialSvgImage(svg, `Spatial question figure ${index + 1}`),
+    ),
+    options: optionSvgs.map((svg, index) =>
+      encodeGeneratedSpatialSvgImage(svg, `Spatial option ${optionKey(index)}`),
+    ),
+  };
+}
+
 export function normalizeGeneratedQuestionPayload(
   value: unknown,
   context: { itemId: string; generationRunCode: string },
 ): NormalizedGeneratedQuestion {
   const payload = asRecord(value);
   assertGeneratedQuestionBankEligible(payload);
-  const stem = asText(payload.text) || asText(payload.stem);
+  const baseStem = asText(payload.text) || asText(payload.stem);
   const explanation =
     asText(payload.explanation) || "Explanation pending editorial review.";
   const difficulty =
     asText(payload.difficultyLabel) || asText(payload.difficulty) || "Medium";
-  const options = Array.isArray(payload.options)
-    ? payload.options.map((entry) => String(entry ?? "").trim()).filter(Boolean)
-    : [];
+  const visualContent = spatialVisualContent(payload);
+  const options = visualContent
+    ? visualContent.options
+    : Array.isArray(payload.options)
+      ? payload.options.map((entry) => String(entry ?? "").trim()).filter(Boolean)
+      : [];
+  const stem = visualContent && visualContent.stimulus.length > 0
+    ? [baseStem, ...visualContent.stimulus].filter(Boolean).join("\n\n")
+    : baseStem;
   const correctIndexRaw = Number(payload.correctIndex ?? payload.correct);
   const correctIndex = Number.isInteger(correctIndexRaw) ? correctIndexRaw : -1;
 
@@ -146,6 +221,7 @@ export function normalizeGeneratedQuestionPayload(
         topic: payload.topic ?? null,
         subtopic: payload.subtopic ?? null,
         language: payload.language ?? "en",
+        visualContent: visualContent ? "spatial_svg_data_image_v1" : null,
       },
     },
   };
