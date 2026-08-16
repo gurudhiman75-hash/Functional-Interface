@@ -1,0 +1,44 @@
+name: Validate SPA-001 Hindi Punjabi Human Review V1
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-hi-pa-human-review-pack-v1.test.ts"
+      - ".github/workflows/spa-hi-pa-human-review-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-spa-hi-pa-human-review-v1:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle and generate multilingual human review pack
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/spatial-hi-pa-human-review-pack-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/spatial/spatial-hi-pa-human-review-pack-v1.test.mjs
+          cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-hi-pa-human-review-pack-v1.test.mjs
+      - name: Upload Hindi Punjabi human review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-hi-pa-human-review-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-hi-pa-human-review-pack-v1.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-hi-pa-human-review-pack-v1.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-hi-pa-human-review-pack-v1-evidence.json
+          if-no-files-found: error

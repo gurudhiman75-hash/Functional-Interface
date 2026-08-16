@@ -42,9 +42,9 @@ function publicRunCode(): string {
 
 function explanationText(question: SpatialProductionStudioQuestionV1): string {
   const labels = question.language === "hi"
-    ? ["अवलोकन", "नियम", "प्रयोग", "जाँच"]
+    ? ["क्या देखें", "नियम", "कैसे लगाएँ", "जाँच"]
     : question.language === "pa"
-      ? ["ਨਿਰੀਖਣ", "ਨਿਯਮ", "ਲਾਗੂ ਕਰੋ", "ਜਾਂਚ"]
+      ? ["ਕੀ ਵੇਖਣਾ", "ਨਿਯਮ", "ਕਿਵੇਂ ਲਗਾਉਣਾ", "ਜਾਂਚ"]
       : ["Observe", "Rule", "Apply", "Check"];
   return [
     `${labels[0]}: ${question.explanation.observation}`,
@@ -150,7 +150,7 @@ async function persistRun(
         ${runId}::uuid, ${publicCode}, 'review'::generation_run_status, 1,
         ${JSON.stringify(requestSnapshot)}::jsonb, ${JSON.stringify(requestSnapshot)}::jsonb,
         'examtree', 'reasoning-v1-spa-001', 0, 0, 0, 0,
-        ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
+        ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
       )
     `;
 
