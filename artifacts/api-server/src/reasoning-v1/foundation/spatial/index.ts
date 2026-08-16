@@ -72,4 +72,6 @@ export * from "./gap-question-types-v1";
 export * from "./gap-question-generator-v1";
 export * from "./gap-question-engine-v1";
 export * from "./gap-question-editorial-export-v1";
+export * from "./spatial-human-review-approval-v1";
+export * from "./spatial-permanent-ql-allocation-v1";
 export * from "./svg-renderer";
