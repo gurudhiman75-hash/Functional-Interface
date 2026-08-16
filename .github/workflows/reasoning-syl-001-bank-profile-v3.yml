@@ -9,6 +9,8 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/profile-plan-v3.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-overlay-v1.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-overlay-v1-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v3.ts
       - .github/workflows/reasoning-syl-001-bank-profile-v3.yml
   workflow_dispatch:
@@ -47,6 +49,19 @@ jobs:
           console.log(JSON.stringify({ status: 'PASS_SYL_001_PROFILE_PLAN_V3', readiness: plan.readinessCounts, candidateSlots: slots.length, candidateAuthorities: m.SYL_PROFILE_PLAN_V3.candidateAuthorities, registered: false, connectedToGenerator: false, activationPermitted: false }, null, 2));
           NODE
 
+      - name: Bundle inactive Banking modal candidate overlay audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-overlay-v1-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-banking-modal-candidate-overlay-v1-audit.test.mjs
+      - name: Audit deterministic inactive Banking modal bindings
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-banking-modal-candidate-overlay-v1-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-banking-modal-candidate-overlay-v1-audit.log
+          grep -q '"SYL-QL-018"' artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/types.ts
+          if grep -q '"SYL-QL-019"' artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/types.ts; then
+            echo 'Unexpected permanent SYL-QL-019 registration.' >&2
+            exit 1
+          fi
+
       - name: Bundle freeze readiness V3
         run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v3.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-freeze-readiness-v3.mjs
       - name: Audit post-remodel freeze decision
@@ -77,6 +92,7 @@ jobs:
           name: syl-001-bank-profile-v3
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-profile-plan-v3-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-banking-modal-candidate-overlay-v1-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v3-audit.log
           if-no-files-found: error
           retention-days: 30
