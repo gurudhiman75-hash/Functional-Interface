@@ -100,8 +100,17 @@ function auditHumanReviewRegressions(question: NumCp004EditorialV2Question): voi
     }
   }
 
+  if (question.permanentQlId === "NUM-QL-032") {
+    assert(question.stem === "Which of the following pairs is co-prime?", `${tag}: co-prime pair stem falsely narrows distractors to one shared member`);
+  }
+
   if (mode === "COPRIME_CLAIM") {
     assert(question.stem === "Which of the following co-prime statements is correct?", `${tag}: co-prime claim stem narrows the option universe`);
+  }
+
+  if (question.permanentQlId === "NUM-QL-019" && question.canonicalAnswer === "{}") {
+    assert((solution[1] ?? "").includes("finds no prime numbers"), `${tag}: empty prime interval must use natural no-primes wording`);
+    assert(!(solution[1] ?? "").includes("leaves exactly"), `${tag}: empty prime interval leaked awkward set grammar`);
   }
 
   if (mode === "FEASIBILITY") {
