@@ -30,7 +30,6 @@ const r = (value: number | bigint): Rational => rat(value);
 const key = (value: Rational): string => `${value.numerator}/${value.denominator}`;
 const factor = (ratePercent: Rational): Rational => add(rat(1), div(ratePercent, rat(100)));
 const rateDecimal = (ratePercent: Rational): Rational => div(ratePercent, rat(100));
-const abs = (value: Rational): Rational => value.numerator < 0n ? rat(-value.numerator, value.denominator) : value;
 
 function cmp(left: Rational, right: Rational): number {
   const delta = left.numerator * right.denominator - right.numerator * left.denominator;
@@ -206,7 +205,7 @@ export function constructIntCp006State(qlId: IntCp006QlId, seed: string): IntCp0
 }
 
 function exactRateFromTwoYearDifference(principal: Rational, difference2: Rational): Rational {
-  const matches = RATES.map(rat).filter((candidate) => eq(siCiDifference(principal, candidate, 2), difference2));
+  const matches = RATES.map((value) => rat(value)).filter((candidate) => eq(siCiDifference(principal, candidate, 2), difference2));
   if (matches.length !== 1) throw new Error(`expected one exact rate, found ${matches.length}`);
   return matches[0]!;
 }
@@ -260,7 +259,7 @@ export function solveIntCp006(state: IntCp006State): Rational {
 function inferredPrincipalFromSimpleInterest(simple2: Rational, ratePercent: Rational): Rational {
   return div(mul(simple2, rat(100)), mul(rat(2), ratePercent));
 }
-function principalCandidates(): readonly Rational[] { return PRINCIPALS.map(rat); }
+function principalCandidates(): readonly Rational[] { return PRINCIPALS.map((value) => rat(value)); }
 
 export function verifyIntCp006Answer(state: IntCp006State, candidate: Rational): boolean {
   if (!positiveVisible(candidate)) return false;
@@ -275,7 +274,7 @@ export function verifyIntCp006Answer(state: IntCp006State, candidate: Rational):
       return eq(observations.simpleInterest, state.simpleInterest2) && eq(observations.compoundInterest, state.compoundInterest2);
     }
     case "INT-QL-101": {
-      const matches = RATES.map(rat).filter((ratePercent) => {
+      const matches = RATES.map((value) => rat(value)).filter((ratePercent) => {
         const observations = ledgerObservations(candidate, ratePercent, 2);
         return eq(observations.simpleInterest, state.simpleInterest2) && eq(observations.compoundInterest, state.compoundInterest2);
       });
@@ -295,7 +294,7 @@ export function verifyIntCp006Answer(state: IntCp006State, candidate: Rational):
       return matches.length === 1;
     }
     case "INT-QL-104": {
-      const matches = RATES.map(rat).filter((ratePercent) => {
+      const matches = RATES.map((value) => rat(value)).filter((ratePercent) => {
         const d2 = ledgerObservations(candidate, ratePercent, 2).difference;
         const d3 = ledgerObservations(candidate, ratePercent, 3).difference;
         return eq(d2, state.difference2) && eq(d3, state.difference3);
@@ -310,7 +309,7 @@ export function verifyIntCp006Answer(state: IntCp006State, candidate: Rational):
       return matches.length === 1;
     }
     case "INT-QL-106": {
-      const matches = RATES.map(rat).filter((ratePercent) => {
+      const matches = RATES.map((value) => rat(value)).filter((ratePercent) => {
         const ledger = ledgerObservations(candidate, ratePercent, state.yearNumber + 1).yearlyInterests;
         return eq(ledger[state.yearNumber - 1]!, state.earlierInterest) && eq(ledger[state.yearNumber]!, state.laterInterest);
       });
@@ -384,7 +383,6 @@ function distractors(state: IntCp006State, answer: Rational): readonly Distracto
       break;
     }
     case "INT-QL-102": {
-      const relation = add(rat(3), rateDecimal(state.ratePercent));
       if (state.knownYears === 2) {
         addCandidate(mul(state.knownDifference, rat(3)), "OMIT_CUBIC_TERM");
         addCandidate(mul(state.knownDifference, add(rat(2), rateDecimal(state.ratePercent))), "COUNT_TWO_LAYERS");
@@ -394,7 +392,6 @@ function distractors(state: IntCp006State, answer: Rational): readonly Distracto
         addCandidate(div(state.knownDifference, add(rat(2), rateDecimal(state.ratePercent))), "COUNT_TWO_LAYERS");
         addCandidate(div(state.knownDifference, add(rat(3), mul(rateDecimal(state.ratePercent), rat(2)))), "DOUBLE_CUBIC_TERM");
       }
-      void relation;
       break;
     }
     case "INT-QL-103":
@@ -434,7 +431,7 @@ function distractors(state: IntCp006State, answer: Rational): readonly Distracto
       break;
   }
   if (list.length < 3) throw new Error(`${state.qlId}: only ${list.length} distinct misconception distractors`);
-  return Object.freeze(list.slice(0, 3).map(deepFreeze));
+  return Object.freeze(list.slice(0, 3).map((item) => deepFreeze(item)));
 }
 
 function formatAnswer(value: Rational, semantic: IntCp006AnswerSemantic): string {
