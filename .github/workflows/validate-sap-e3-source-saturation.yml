@@ -1,0 +1,42 @@
+name: Validate SAP E3 Source Saturation
+
+on:
+  pull_request:
+    branches:
+      - feat/sap-e2-cp011-cp012
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Bundle E3 source-saturation authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E3-SOURCE-SATURATION-AUTHORITY.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e3-source-saturation-authority.mjs
+      - name: Run E3 source-saturation authority
+        run: node artifacts/api-server/dist/quant-v4/sap-e3-source-saturation-authority.mjs
+
+      - name: Bundle E3 source-saturation review
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-E3-SOURCE-SATURATION-REVIEW.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-e3-source-saturation-review.mjs
+      - name: Generate E3 source-saturation review
+        run: node artifacts/api-server/dist/quant-v4/sap-e3-source-saturation-review.mjs
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sap-e3-source-saturation-review
+          path: artifacts/api-server/dist/quant-v4/sap-e3-review/**
+          if-no-files-found: error
+          retention-days: 30
+
+# E3 remains review-only. This workflow performs no allocation, lifecycle activation, merge, freeze or publication.
