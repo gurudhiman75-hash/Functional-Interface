@@ -25,6 +25,8 @@ jobs:
         run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-INTEGRATION.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-question-studio-authority.mjs
       - name: Run SAP Question Studio authority
         run: node artifacts/api-server/dist/quant-v4/sap-question-studio-authority.mjs
+      - name: Test SAP review math display
+        run: pnpm --dir artifacts/admin-app exec vitest run src/features/question-studio/SapReviewMathText.test.tsx
       - name: Build API server with SAP Question Studio route
         run: pnpm --dir artifacts/api-server run build
       - name: Build admin app with SAP Question Studio panel
