@@ -47,6 +47,7 @@ function cleanStep(value: string): string {
       /Known total value = ([^.]+)\. Therefore, known total value = \1\.\s*/u,
       "Known total value = $1. ",
     )
+    .replace(/\s*Therefore, known total value = [^.]+\./u, "")
     .replace(/\bq litre\b/gu, "q litres")
     .replace(/Take the exact 2th root\s*:/iu, "Take the square root of the retained fraction:")
     .trim();
