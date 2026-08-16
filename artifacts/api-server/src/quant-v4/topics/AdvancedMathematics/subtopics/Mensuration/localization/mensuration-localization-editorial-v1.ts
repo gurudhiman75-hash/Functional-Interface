@@ -47,12 +47,34 @@ export function repairMensurationLearnerMathSurface(text: string) {
 }
 
 /**
+ * Phrase translation intentionally runs before the word dictionary. Older
+ * authority phrases such as "surface area" can therefore match the prefix of
+ * an English plural ("surface areas") and leave an impossible Latin `s`
+ * attached to the localized noun. Repair only the observed noun forms here;
+ * do not strip arbitrary Latin/Indic joins, because the hard-gate audit must
+ * continue to expose every other token-boundary defect.
+ */
+export function repairMensurationLocalizedPluralJoins(text: string, language: MensurationLocalizedLanguage) {
+  if (language === "hi") {
+    return text
+      .replace(/क्षेत्रफलs\b/g, "क्षेत्रफल")
+      .replace(/ऊँचाईs\b/g, "ऊँचाइयाँ")
+      .replace(/त्रिभुजs\b/g, "त्रिभुज");
+  }
+  return text
+    .replace(/ਖੇਤਰਫਲs\b/g, "ਖੇਤਰਫਲ")
+    .replace(/ਉਚਾਈs\b/g, "ਉਚਾਈਆਂ")
+    .replace(/ਤਿਕੋਣs\b/g, "ਤਿਕੋਣ");
+}
+
+/**
  * Final learner-language polish that must not add or remove mathematical
  * notation relative to the English authority. Keep these rewrites semantic:
  * worded relations remain worded relations rather than new symbols.
  */
 export function polishMensurationLocalizedText(text: string, language: MensurationLocalizedLanguage) {
-  const mathSafe = repairMensurationLearnerMathSurface(text);
+  const tokenSafe = repairMensurationLocalizedPluralJoins(text, language);
+  const mathSafe = repairMensurationLearnerMathSurface(tokenSafe);
   if (language === "hi") {
     return mathSafe
       .replace(/वक्र पृष्ठ क्षेत्रफल\s*=\s*परिधि\s*×\s*ऊँचाई/g, "वक्र पृष्ठ क्षेत्रफल परिधि × ऊँचाई के बराबर होता है")
