@@ -1,7 +1,8 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { hash } from "./cp003-exam-model";
 import { INT_CP005_V16_1_QL_IDS, generateIntCp005QuestionV16_1Final } from "./cp005-variable-growth-decay-runtime-v16-1-final-v2";
-import { INT_CP005_V16_1_LOCALIZED_VERSION, generateIntCp005QuestionV16_1Localized } from "./cp005-variable-growth-decay-runtime-v16-1-localized-v3";
+import { INT_CP005_V16_1_LOCALIZED_VERSION, generateIntCp005QuestionV16_1Localized } from "./cp005-variable-growth-decay-runtime-v16-1-localized-v4";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
 function templateId(fingerprint: string): string {
@@ -9,23 +10,26 @@ function templateId(fingerprint: string): string {
   if (!match) throw new Error(`template marker missing from fingerprint: ${fingerprint}`);
   return `T${match[1]}`;
 }
+function localizedTemplateId(seed: string): string {
+  return `T${((hash(`${seed}:cp005-v16.1:localized-stem`) >>> 0) % 3) + 1}`;
+}
 
 const selected: { qlId: typeof INT_CP005_V16_1_QL_IDS[number]; seed: string; template: string }[] = [];
 for (const qlId of INT_CP005_V16_1_QL_IDS) {
   const found = new Map<string, string>();
   const desiredThresholdDirection: Readonly<Record<string, "GROWTH" | "DECAY">> = { T1: "DECAY", T2: "GROWTH", T3: "DECAY" };
-  for (let index = 0; index < 4000 && found.size < 3; index += 1) {
+  for (let index = 0; index < 12000 && found.size < 3; index += 1) {
     const seed = `int-cp005-v16.1-review-${qlId}-${index}`;
     const en = generateIntCp005QuestionV16_1Final(qlId, seed);
     const t = templateId(en.mathematicalFingerprint);
-    if (found.has(t)) continue;
+    if (found.has(t) || localizedTemplateId(seed) !== t) continue;
     if (qlId === "INT-QL-093") {
       assert(en.mathematicalState.qlId === "INT-QL-093", "QL093 narrowing failure");
       if (en.mathematicalState.direction !== desiredThresholdDirection[t]) continue;
     }
     found.set(t, seed);
   }
-  assert(found.size === 3, `${qlId}: could not capture all three English templates`);
+  assert(found.size === 3, `${qlId}: could not capture aligned English/localized T1/T2/T3 review states`);
   for (const t of ["T1", "T2", "T3"]) selected.push({ qlId, seed: found.get(t)!, template: t });
 }
 
@@ -36,7 +40,7 @@ lines.push(`Localization: \`${INT_CP005_V16_1_LOCALIZED_VERSION}\``);
 lines.push("");
 lines.push("**Status:** hardening candidate; not frozen, not merged, not Question-Studio activated.");
 lines.push("");
-lines.push("**Review design:** one matched mathematical state for every QL × each of the three English stem templates, shown in English, Hindi and Punjabi. QL-093 deliberately includes both growth and decay threshold states.");
+lines.push("**Review design:** one matched mathematical state for every QL × T1/T2/T3, with the English and localized stem-template indices aligned. Each state is shown in English, Hindi and Punjabi. QL-093 deliberately includes both growth and decay threshold states.");
 lines.push("");
 
 function writeQuestion(title: string, q: ReturnType<typeof generateIntCp005QuestionV16_1Final> | ReturnType<typeof generateIntCp005QuestionV16_1Localized>) {
@@ -78,7 +82,7 @@ lines.push("");
 lines.push(`- QLs: ${INT_CP005_V16_1_QL_IDS.length}`);
 lines.push(`- English template states: ${selected.length}`);
 lines.push(`- Learner surfaces shown: ${selected.length * 3}`);
-lines.push("- Three English stem templates captured for every retained QL");
+lines.push("- T1/T2/T3 are aligned between English and the Hindi/Punjabi localized template selector");
 lines.push("- QL-093 review evidence includes both growth and decay threshold states");
 lines.push("- Hindi/Punjabi use exactly the same mathematical state, option values/order and correct index");
 lines.push("- QL-094 remains excluded");
