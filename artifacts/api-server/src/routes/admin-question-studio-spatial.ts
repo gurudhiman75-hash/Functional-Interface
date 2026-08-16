@@ -6,6 +6,7 @@ import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 import {
   SPATIAL_QUESTION_STUDIO_PACKAGE_V1,
+  SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1,
   type SpatialQuestionStudioDifficultyV1,
 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v1";
 import {
@@ -43,7 +44,7 @@ function explanationText(question: SpatialStudioQuestionV1): string {
   ].join("\n\n");
 }
 
-function reviewPayload(question: SpatialStudioQuestionV1) {
+function productionPayload(question: SpatialStudioQuestionV1) {
   return {
     text: question.stem,
     stem: question.stem,
@@ -78,35 +79,37 @@ function reviewPayload(question: SpatialStudioQuestionV1) {
     generationSeed: question.generationSeed,
     mode: question.mode,
     contentFingerprint: question.contentFingerprint,
-    runtimeMode: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.runtimeMode,
-    reviewStatus: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.reviewStatus,
-    questionBankStatus: "NOT_STORED" as const,
-    questionBankWritable: false as const,
-    testEligibility: "INELIGIBLE" as const,
-    testEligible: false as const,
-    publiclyPublishable: false as const,
-    mockTestEligible: false as const,
-    manualApprovalRequired: true as const,
-    automaticStudentPublication: false as const,
+    runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
+    reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
+    questionBankStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.questionBankStatus,
+    testEligibility: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.testEligibility,
+    testEligible: true as const,
+    publiclyPublishable: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.publiclyPublishable,
+    mockTestEligible: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.mockTestEligible,
+    manualApprovalRequired: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.manualApprovalRequired,
+    automaticStudentPublication:
+      SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.automaticStudentPublication,
     integrationAuthority: question.integrationAuthority,
+    releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
     sourceValidation: question.validation,
     generationContext: {
       generationDomain: "reasoning-v1" as const,
       packageId: question.packageId,
       qlId: question.qlId,
       chapterCode: question.chapterCode,
-      runtimeMode: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.runtimeMode,
-      reviewStatus: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.reviewStatus,
+      runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
+      reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
       integrationAuthority: question.integrationAuthority,
+      releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
       questionStudioDiscoverable: true as const,
       registrationStatus: "REGISTERED" as const,
       persistenceAllowed: true as const,
-      questionBankStatus: "NOT_STORED" as const,
-      questionBankWritable: false as const,
-      testEligibility: "INELIGIBLE" as const,
-      testEligible: false as const,
-      publiclyPublishable: false as const,
-      reviewOnly: true as const,
+      questionBankStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.questionBankStatus,
+      testEligibility: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.testEligibility,
+      testEligible: true as const,
+      publiclyPublishable: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.publiclyPublishable,
+      mockTestEligible: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.mockTestEligible,
+      manualApprovalRequired: true as const,
       automaticStudentPublication: false as const,
     },
   };
@@ -140,7 +143,7 @@ async function persistRun(
       const question = questions[index]!;
       const itemId = randomUUID();
       const versionId = randomUUID();
-      const payload = reviewPayload(question);
+      const payload = productionPayload(question);
       await tx`
         INSERT INTO content.generation_run_items (
           id, generation_run_id, item_number, status, current_version_number,
@@ -167,14 +170,14 @@ async function persistRun(
       ) VALUES (
         ${randomUUID()}::uuid, 'user'::audit_actor_type, ${actorUserId}::uuid,
         'question_studio.spatial_run.created', 'generation_run', ${runId}::uuid,
-        'SPA-001 entered the Question Studio review queue with downstream release locks preserved',
+        'Approved SPA-001 generator entered the standard Question Studio lifecycle',
         ${`Created ${questions.length} SPA-001 review items in ${publicCode}`},
         ${JSON.stringify({
           requestSnapshot,
           integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
-          questionBankWritable: false,
-          testEligible: false,
-          publiclyPublishable: false,
+          releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
+          manualApprovalRequired: true,
+          automaticStudentPublication: false,
         })}::jsonb
       )
     `;
@@ -190,7 +193,7 @@ async function persistRun(
           publicCode,
           itemCount: questions.length,
           packageId: "SPA-001",
-          reviewOnly: true,
+          releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         })}::jsonb
       )
     `;
@@ -224,15 +227,16 @@ router.get(
   (_req, res) => {
     res.json({
       generationSystem: "reasoning-v1",
-      activationMode: "REVIEW_ONLY",
+      activationMode: "PRODUCTION_REVIEW",
       package: SPATIAL_QUESTION_STUDIO_PACKAGE_V1,
       maxBatchSize: 50,
       permanentQlCount: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.permanentQlCount,
       databaseWriteEnabled: true,
       persistenceAllowed: true,
-      questionBankWriteEnabled: false,
-      testEligible: false,
-      publiclyPublishable: false,
+      questionBankConversionEligibleAfterApproval: true,
+      testEligibleAfterApproval: true,
+      publiclyPublishableAfterApproval: true,
+      automaticStudentPublication: false,
       bulkSyncSupported: false,
     });
   },
@@ -252,8 +256,8 @@ router.get(
       res.json({
         ...result,
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
-        productionEligible: false,
-        reviewOnly: true,
+        releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
+        productionEligible: true,
       });
     } catch (error) {
       res.status(400).json({
@@ -286,10 +290,9 @@ router.post(
         count,
         seed,
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
-        reviewOnly: true,
-        questionBankWritable: false,
-        testEligible: false,
-        publiclyPublishable: false,
+        releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
+        manualApprovalRequired: true,
+        automaticStudentPublication: false,
         requestedByFirebaseUid: req.user?.id,
       };
       const persisted = await persistRun(result.questions, requestSnapshot, actorUserId);
@@ -297,10 +300,7 @@ router.post(
         ...persisted,
         generationSystem: "reasoning-v1",
         packageId: "SPA-001",
-        reviewOnly: true,
-        questionBankWritable: false,
-        testEligible: false,
-        publiclyPublishable: false,
+        releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
       });
     } catch (error) {
       console.error("Spatial Question Studio run failed", error);
@@ -334,10 +334,10 @@ router.get(
         approvedItemCount: Number(rows[0]?.approvedItemCount ?? 0),
         questionBankCount: Number(rows[0]?.questionBankCount ?? 0),
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
-        reviewOnly: true,
-        questionBankWritable: false,
-        testEligible: false,
-        publiclyPublishable: false,
+        releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
+        questionBankConversionEligibleAfterApproval: true,
+        testEligibleAfterApproval: true,
+        publiclyPublishableAfterApproval: true,
         automaticStudentPublication: false,
       });
     } catch (error) {
