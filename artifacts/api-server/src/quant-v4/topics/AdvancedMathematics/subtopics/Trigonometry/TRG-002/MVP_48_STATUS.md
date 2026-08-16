@@ -31,7 +31,7 @@ The current 48-QL candidate completed the post-self-review remediation cycle, fu
 
 Human-review approval remains pinned in `HUMAN_REVIEW_APPROVAL.md` to source head `60e289ee6c89a3f595ad75038ac563daf2a5fc5f` and artifact id `9259815578`. The later ExamTree wrapper commits are integration-only and do not change the approved question mathematics, stems, options, explanations, difficulty or canonical solution-diagram specifications.
 
-Real-wrapper evidence is recorded in `EXAMTREE_WRAPPER_VALIDATION.md`.
+Real-wrapper evidence is pinned in `EXAMTREE_WRAPPER_VALIDATION.md` to successful browser run `31945456581` and integration head `e0480a63188327fb4a4521f0ade2efc1970557cf`.
 
 ## Exam-readiness remediation
 
