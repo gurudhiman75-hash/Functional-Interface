@@ -162,6 +162,21 @@ export function listMal001QuestionStudioCpIdsForDifficulty(
   );
 }
 
+function inferCpFromQl(
+  value: Mal001QuestionStudioQlId | string | undefined,
+): Mal001QuestionStudioCpId | undefined {
+  const match = /^MAL-QL-(\d{3})$/u.exec(String(value ?? ""));
+  if (!match) return undefined;
+  const number = Number(match[1]);
+  if (number >= 1 && number <= 11) return "MAL-CP-001";
+  if (number >= 12 && number <= 28) return "MAL-CP-002";
+  if (number >= 29 && number <= 37) return "MAL-CP-003";
+  if (number >= 38 && number <= 47) return "MAL-CP-004";
+  if (number >= 48 && number <= 60) return "MAL-CP-005";
+  if (number >= 61 && number <= 67) return "MAL-CP-006";
+  return undefined;
+}
+
 function hash(value: string): number {
   let result = 2166136261;
   for (let index = 0; index < value.length; index += 1) {
@@ -169,6 +184,34 @@ function hash(value: string): number {
     result = Math.imul(result, 16777619);
   }
   return result >>> 0;
+}
+
+function resolveCpId(
+  requestedCpId: Mal001QuestionStudioCpId,
+  input: {
+    difficulty?: Difficulty;
+    questionLanguageId?: Mal001QuestionStudioQlId | string;
+    seed?: string;
+  },
+): Mal001QuestionStudioCpId {
+  const inferredFromQl = inferCpFromQl(input.questionLanguageId);
+  if (inferredFromQl) return inferredFromQl;
+  if (!input.difficulty) return requestedCpId;
+  if (
+    ALLOCATIONS_BY_CP[requestedCpId].some(
+      (entry) => entry.difficulty === input.difficulty,
+    )
+  ) {
+    return requestedCpId;
+  }
+  const eligibleCpIds = listMal001QuestionStudioCpIdsForDifficulty(
+    input.difficulty,
+  );
+  if (eligibleCpIds.length === 0) {
+    throw new Error(`MAL-001 has no Question Studio QLs for ${input.difficulty}.`);
+  }
+  const seed = input.seed ?? `mal-001-question-studio:${input.difficulty}`;
+  return eligibleCpIds[hash(`${seed}:difficulty-cp`) % eligibleCpIds.length]!;
 }
 
 function chooseQl<T extends AllocationEntry>(
@@ -227,9 +270,11 @@ export function runMal001QuestionStudioPipeline(
     );
   }
 
-  if (cpId === "MAL-CP-001") {
+  const selectedCpId = resolveCpId(cpId, input);
+
+  if (selectedCpId === "MAL-CP-001") {
     const questionLanguageId = chooseQl(
-      cpId,
+      selectedCpId,
       MAL_CP001_PERMANENT_ALLOCATION,
       input,
     ) as MalCp001PermanentQlId;
@@ -242,9 +287,9 @@ export function runMal001QuestionStudioPipeline(
     );
   }
 
-  if (cpId === "MAL-CP-002") {
+  if (selectedCpId === "MAL-CP-002") {
     const questionLanguageId = chooseQl(
-      cpId,
+      selectedCpId,
       MAL_CP002_PERMANENT_ALLOCATION,
       input,
     ) as MalCp002PermanentQlId;
@@ -257,9 +302,9 @@ export function runMal001QuestionStudioPipeline(
     );
   }
 
-  if (cpId === "MAL-CP-003") {
+  if (selectedCpId === "MAL-CP-003") {
     const questionLanguageId = chooseQl(
-      cpId,
+      selectedCpId,
       MAL_CP003_PERMANENT_ALLOCATION,
       input,
     ) as MalCp003PermanentQlId;
@@ -272,9 +317,9 @@ export function runMal001QuestionStudioPipeline(
     );
   }
 
-  if (cpId === "MAL-CP-004") {
+  if (selectedCpId === "MAL-CP-004") {
     const questionLanguageId = chooseQl(
-      cpId,
+      selectedCpId,
       MAL_CP004_PERMANENT_ALLOCATION,
       input,
     ) as MalCp004PermanentQlId;
@@ -287,9 +332,9 @@ export function runMal001QuestionStudioPipeline(
     );
   }
 
-  if (cpId === "MAL-CP-005") {
+  if (selectedCpId === "MAL-CP-005") {
     const questionLanguageId = chooseQl(
-      cpId,
+      selectedCpId,
       MAL_CP005_RELEASE_ALLOCATION,
       input,
     ) as MalCp005PermanentQlId;
@@ -303,7 +348,7 @@ export function runMal001QuestionStudioPipeline(
   }
 
   const questionLanguageId = chooseQl(
-    cpId,
+    selectedCpId,
     MAL_CP006_REVIEW_ALLOCATION,
     input,
   ) as MalCp006PermanentQlId;
