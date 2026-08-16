@@ -18,6 +18,8 @@ for (let seed = 1; seed <= 100; seed += 1) {
   assert.match(rounded.stem, /exact interval of possible values/i);
   assert.doesNotMatch(rounded.stem, /Which interval can contain/i);
   assert.equal(rounded.explanation.finalAnswer, `Therefore, ${rounded.canonicalAnswer}.`);
+  const roundedPayload = JSON.parse(rounded.canonicalPayloadKey);
+  assert.equal(roundedPayload.stem, rounded.stem, `rounded/${seed}: canonical payload retained stale stem`);
 
   const count = generateSapCp012E2("CP012-E2-COUNT-ADMISSIBLE-INTEGERS", seed);
   assert.equal(count.difficulty, "MEDIUM");
@@ -28,4 +30,4 @@ for (let seed = 1; seed <= 100; seed += 1) {
 assert.equal(estimate1, 50);
 assert.equal(estimate2, 50);
 assert.deepEqual([...classes].sort(), ["Impossible", "Multiple", "Unique"]);
-console.log(JSON.stringify({authority:"SAP-E2-R6-EXAM-READINESS",states:400,estimateAccuracy:{estimate1,estimate2},outcomeClasses:[...classes].sort(),difficultyCalibration:{count:"MEDIUM",outcome:"MEDIUM",roundedOperand:"MEDIUM"},roundedOperandStem:"UNAMBIGUOUS_EXACT_INTERVAL",lifecycle:"INACTIVE"}));
+console.log(JSON.stringify({authority:"SAP-E2-R6-EXAM-READINESS",states:400,estimateAccuracy:{estimate1,estimate2},outcomeClasses:[...classes].sort(),difficultyCalibration:{count:"MEDIUM",outcome:"MEDIUM",roundedOperand:"MEDIUM"},roundedOperandStem:"UNAMBIGUOUS_EXACT_INTERVAL",canonicalPayloadStemBinding:true,lifecycle:"INACTIVE"}));
