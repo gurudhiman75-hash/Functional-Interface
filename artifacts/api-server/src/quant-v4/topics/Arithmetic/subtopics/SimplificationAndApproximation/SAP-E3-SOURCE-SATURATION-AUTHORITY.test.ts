@@ -40,14 +40,25 @@ for (const id of SAP_CP004_E3_CANDIDATE_IDS) {
     local.add(q.stem); cp004Stems.add(q.stem);
     if (id === SAP_CP004_E3_HETEROGENEOUS_ROOT_CHAIN) {
       const d = q.oracle.data;
-      assert.equal(Number(q.canonicalAnswer), n(d.sixth,"sixth") + n(d.fourth,"fourth") + n(d.cube,"cube") + n(d.square,"square"));
-      assert.equal(n(d.sixthRad,"sixthRad"), n(d.sixth,"sixth") ** 6);
-      assert.equal(n(d.fourthRad,"fourthRad"), n(d.fourth,"fourth") ** 4);
+      const sixth = n(d.sixth,"sixth"), fourth = n(d.fourth,"fourth"), cube = n(d.cube,"cube"), square = n(d.square,"square");
+      const answer = sixth + fourth + cube + square;
+      assert.equal(Number(q.canonicalAnswer), answer);
+      assert.equal(n(d.sixthRad,"sixthRad"), sixth ** 6);
+      assert.equal(n(d.fourthRad,"fourthRad"), fourth ** 4);
+      const sixthAsCube = q.options.find(o => o.misconceptionId === "SIXTH_ROOT_AS_CUBE_ROOT");
+      const fourthAsSquare = q.options.find(o => o.misconceptionId === "FOURTH_ROOT_AS_SQUARE_ROOT");
+      const cubeDropped = q.options.find(o => o.misconceptionId === "CUBE_ROOT_TERM_DROPPED");
+      assert.equal(Number(sixthAsCube?.value), answer - sixth + sixth ** 2, `${id}/${seed}: sixth-root misconception value mismatch`);
+      assert.equal(Number(fourthAsSquare?.value), answer - fourth + fourth ** 2, `${id}/${seed}: fourth-root misconception value mismatch`);
+      assert.equal(Number(cubeDropped?.value), answer - cube, `${id}/${seed}: cube-drop misconception value mismatch`);
       heterogeneous += 1;
     } else if (id === SAP_CP004_E3_DECIMAL_ROOT_QUOTIENT) {
       const d = q.oracle.data;
-      assert.equal(n(d.numeratorRootMilli,"numRoot"), n(d.denominatorRootMilli,"denRoot") * n(d.ratio,"ratio"));
-      assert.equal(Number(q.canonicalAnswer), n(d.ratio,"ratio"));
+      const ratio = n(d.ratio,"ratio");
+      assert.equal(n(d.numeratorRootMilli,"numRoot"), n(d.denominatorRootMilli,"denRoot") * ratio);
+      assert.equal(Number(q.canonicalAnswer), ratio);
+      const rawRatio = q.options.find(o => o.misconceptionId === "RADICAND_RATIO_NOT_ROOTED");
+      assert.equal(Number(rawRatio?.value), ratio ** 2, `${id}/${seed}: radicand-ratio misconception value mismatch`);
       decimalQuotient += 1;
     }
   }
@@ -80,6 +91,9 @@ for (let seed = 1; seed <= 100; seed += 1) {
   answerPositions[q.correctIndex]! += 1;
   q.oracle.data.mode === "POWER_CHAIN" ? powerChain++ : powerRootChain++;
   assert.equal(q.oracle.data.e3Disposition, "EXPAND_EXISTING_CP012_MIXED_SYNTHESIS_NO_NEW_QL");
+  const exponent = n(q.oracle.data.missingExponent,"missingExponent");
+  const reportExponent = q.options.find(o => o.misconceptionId === "REPORT_EXPONENT_NOT_POWER");
+  assert.equal(Number(reportExponent?.value), exponent, `CP012-E3/${seed}: exponent-report distractor does not report the exponent`);
 }
 assert.equal(cp012Stems.size, 100);
 assert.equal(powerChain, 50); assert.equal(powerRootChain, 50);
@@ -97,8 +111,8 @@ for (let seed = 1; seed <= 100; seed += 1) {
 
 console.log(JSON.stringify({
   authority: "SAP-E3-SOURCE-SATURATION",
-  cp004: { heterogeneousExactRootStates: heterogeneous, decimalRootQuotientStates: decimalQuotient },
-  cp012: { explicitPowerReverseStates: 100, powerChain, powerRootChain, answerPositions, maxDisplayedDrift },
+  cp004: { heterogeneousExactRootStates: heterogeneous, decimalRootQuotientStates: decimalQuotient, misconceptionSemanticProof: true },
+  cp012: { explicitPowerReverseStates: 100, powerChain, powerRootChain, answerPositions, maxDisplayedDrift, misconceptionSemanticProof: true },
   editorialPolish: { uniqueIntegerExactConclusionStates: 100 },
   qlDisposition: "NO_NEW_PERMANENT_QL; EXPAND_EXISTING_CP004_CP012_IDENTITIES",
   lifecycle: "INACTIVE",
