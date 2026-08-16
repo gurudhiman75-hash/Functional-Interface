@@ -46,7 +46,7 @@ function cleanAnswer(value:string):string{
   return current.replace(/\s{2,}/g," ").trim();
 }
 function cleanStem(value:string,mode:string,language:Cp010ReviewLanguage):string{
-  let stem=value;
+  let stem=cleanAnswer(value);
   if(language==="hi"){
     stem=stem
       .replace(/अकेले समय:/gu,"अकेले काम करने पर समय:")
@@ -142,7 +142,7 @@ function pipeName(pipe:{label:string;kind:string},language:Cp010ReviewLanguage):
 }
 function segmentName(segment:{pipes:Array<{label:string;kind:string}>},language:Cp010ReviewLanguage):string{
   const names=segment.pipes.map(pipe=>pipeName(pipe,language));
-  const joined=names.length<=1?names[0]??t(language,["terminal segment","अंतिम खंड","ਅੰਤਿਮ ਹਿੱਸਾ"]):names.join(t(language,[" + "," + "," + "]));
+  const joined=names.length<=1?names[0]??t(language,["terminal segment","अंतिम खंड","ਅੰਤਿਮ ਹਿੱਸਾ"]):names.join(" + ");
   return t(language,[`${joined} interval`,`${joined} का अंतराल`,`${joined} ਦਾ ਅੰਤਰਾਲ`]);
 }
 function signedCycleExpression(question:Cp010Question):string{
@@ -218,11 +218,12 @@ export function finalizeTmwCp010CorpusCleanup<T extends Cp010Question>(question:
   const learner:TmwLearnerExplanationV2={...question.learnerExplanation,solution:[...working.slice(0,4),answer],answer};
   const explanation=question.explanation?{...question.explanation,opening:learner.method,formula:legacyFormula(language,question.solveMode??""),steps:working.slice(0,4),conclusion:answer}:question.explanation;
   const editorialErrors=validateTmwLearnerExplanationV2(learner);
-  const presentation=[stem,...(options??[]),solution?.answerText,learner.method,...learner.solution,learner.answer].filter(Boolean).join(" ");
+  const learnerPresentation=[learner.method,...learner.solution,learner.answer].join(" ");
+  const surface=[stem,...(options??[]),solution?.answerText,learnerPresentation].filter(Boolean).join(" ");
   const legacy=explanation?[explanation.opening,explanation.formula,...explanation.steps,explanation.conclusion].join(" "):"";
   if(!working.length)editorialErrors.push("No semantic worked solution rendered");
-  if(solverTrace(presentation)||solverTrace(legacy))editorialErrors.push("Solver-style symbols or prose-in-MathJax remain");
-  if(localizedProseInMath(presentation)||localizedProseInMath(legacy))editorialErrors.push("Localized prose remains inside MathJax");
+  if(solverTrace(learnerPresentation)||solverTrace(legacy))editorialErrors.push("Solver-style symbols or prose-in-MathJax remain");
+  if(localizedProseInMath(surface)||localizedProseInMath(legacy))editorialErrors.push("Localized prose remains inside MathJax");
   const inherited=question.validation?.errors??[];
   const errors=[...inherited.filter(error=>!error.startsWith("CP010 corpus cleanup:")),...editorialErrors.map(error=>`CP010 corpus cleanup: ${error}`)];
   return{...question,stem,options,solution,learnerExplanation:learner,explanation,validation:{valid:errors.length===0,errors},publiclyPublishable:false}as T;
