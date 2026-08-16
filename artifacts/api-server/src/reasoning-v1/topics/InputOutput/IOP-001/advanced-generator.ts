@@ -310,6 +310,8 @@ function previousStepQuestion(trace: IopAdvancedTrace, seed: string): IopAdvance
 function missingStepQuestion(trace: IopAdvancedTrace, seed: string): IopAdvancedChildQuestion {
   const stepNumber = Math.min(2, trace.steps.length - 1);
   const step = trace.steps[stepNumber - 1]!;
+  const previous = stepNumber === 1 ? trace.input : trace.steps[stepNumber - 2]!.tokens;
+  const next = trace.steps[stepNumber]!.tokens;
   const wrong = shuffle(allStates(trace).filter((state) => state.fingerprint !== step.stateFingerprint), makeRng(`${seed}|MISS`))
     .map((state) => rowOption(trace, state.tokens, state.fingerprint, false));
   const options = optionSet(rowOption(trace, step.tokens, step.stateFingerprint, true), wrong, `${seed}|MISS-OPTIONS`);
@@ -318,11 +320,11 @@ function missingStepQuestion(trace: IopAdvancedTrace, seed: string): IopAdvanced
     questionOrder: 2,
     kind: "MISSING_STEP",
     evidence: { kind: "MISSING_STEP", stepNumber },
-    text: `If Step ${stepNumber} is omitted between the displayed neighbouring states, which arrangement correctly fills the gap?`,
+    text: `For the new input, Step ${stepNumber - 1} is ${renderAdvancedRow(previous, trace.layout)} and Step ${stepNumber + 1} is ${renderAdvancedRow(next, trace.layout)}. Which arrangement correctly fills Step ${stepNumber}?`,
     options,
     answerIndex,
     answerDisplay: renderAdvancedRow(step.tokens, trace.layout),
-    explanation: `Applying the next machine stage gives Step ${stepNumber}: ${renderAdvancedRow(step.tokens, trace.layout)}.`,
+    explanation: `Following the same machine stages between the two displayed states gives Step ${stepNumber}: ${renderAdvancedRow(step.tokens, trace.layout)}.`,
   };
 }
 
