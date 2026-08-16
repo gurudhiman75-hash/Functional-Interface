@@ -17,7 +17,7 @@ import {
   type MensurationQuestionStudioDifficulty,
   type MensurationQuestionStudioExamProfile,
   type MensurationQuestionStudioQuestionV2,
-} from "../quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-runtime-v2";
+} from "../quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-selection-v2";
 
 const router = Router();
 const CP_IDS = new Set<string>(MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS.map((row) => row.cpId));
@@ -147,7 +147,7 @@ async function persistRun(questions: readonly MensurationQuestionStudioQuestionV
         ${runId}::uuid, ${publicCode}, 'review'::generation_run_status, 1,
         ${JSON.stringify(requestSnapshot)}::jsonb, ${JSON.stringify(requestSnapshot)}::jsonb,
         'examtree', 'quant-v4-mensuration-full-chapter-realism-v2', 0, 0, 0, 0,
-        ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
+        ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
       )
     `;
     for (let index = 0; index < questions.length; index += 1) {
