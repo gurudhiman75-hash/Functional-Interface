@@ -128,6 +128,12 @@ function reviewRecord(binding: BankingModalCandidateBindingV1): ReviewRecord {
     if (binding.candidateAuthority !== "SYL_001_BANKING_POSSIBILITY_SHELL_V2") {
       throw new Error(`${binding.plannerSlotIndex}/${binding.locale}: ordinary candidate authority mismatch.`);
     }
+    if (
+      binding.locale !== "en-IN"
+      && question.explanation.some((line) => line.includes("Banking possibility convention"))
+    ) {
+      throw new Error(`${binding.plannerSlotIndex}/${binding.locale}: mixed-language Banking possibility convention leaked into learner explanation.`);
+    }
     return {
       binding,
       diagram: ordinaryPossibilityDiagram(question),
@@ -170,6 +176,7 @@ let canNeverRecords = 0;
 let diagramCount = 0;
 let omittedDiagrams = 0;
 let emittedQlIds = 0;
+let nonEnglishConventionLeaks = 0;
 
 for (const record of records) {
   const { binding, diagram } = record;
@@ -182,6 +189,10 @@ for (const record of records) {
   if (binding.candidateKind === "ORDINARY_POSSIBILITY") ordinaryPossibilityRecords += 1;
   else canNeverRecords += 1;
   if (binding.canonicalQlId !== null) emittedQlIds += 1;
+  if (
+    binding.locale !== "en-IN"
+    && record.explanation.some((line) => line.includes("Banking possibility convention"))
+  ) nonEnglishConventionLeaks += 1;
   if (!diagram.enabled || !diagram.svg || diagram.diagramCount !== 1) omittedDiagrams += 1;
   else diagramCount += 1;
   if (!diagram.premiseOnly || diagram.mobileViewBoxWidth !== 340) {
@@ -206,6 +217,7 @@ if (diagramCount !== records.length || omittedDiagrams !== 0) {
   throw new Error(`Every human-review record must have exactly one combined premise diagram.`);
 }
 if (emittedQlIds !== 0) throw new Error(`Human-review pack must emit zero canonical QL IDs.`);
+if (nonEnglishConventionLeaks !== 0) throw new Error(`Non-English possibility explanations must not leak the English convention phrase.`);
 
 const summary = {
   status: "HUMAN_REVIEW_REQUIRED_BANKING_MODAL_CANDIDATE_PACK_V1",
@@ -226,6 +238,7 @@ const summary = {
   diagramPolicy: "ONE_COMBINED_PREMISE_DIAGRAM_AFTER_ATTEMPT_FOR_HUMAN_REVIEW_V1",
   separateConclusionDiagrams: false,
   emittedQlIds,
+  nonEnglishConventionLeaks,
   sourceFrequencyClaim: false,
   humanEditorialStatus: "PENDING",
   humanLocalizationStatus: "PENDING",
