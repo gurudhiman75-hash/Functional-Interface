@@ -10,7 +10,7 @@ import {
   hasHindiScript,
   instructionalLatinLeaks,
   type MensurationLocalizedLanguage,
-} from "./mensuration-localization-foundation-v1";
+} from "./mensuration-localization-foundation-v3";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
