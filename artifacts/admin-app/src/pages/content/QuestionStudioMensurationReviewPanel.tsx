@@ -59,7 +59,7 @@ function QuestionCard({ question }: { question: MensurationReviewQuestion }) {
           <Badge variant="outline">{question.patternKind}</Badge>
           <Badge variant="outline">{question.difficultyBand}</Badge>
           <Badge variant="outline">{PROFILE_LABELS[question.realism.examProfile]}</Badge>
-          <Badge variant="outline">{question.realism.frequencyBand.replaceAll('_', ' ')}</Badge>
+          <Badge variant="outline">{question.realism.frequencyBand.replace(/_/g, ' ')}</Badge>
           <Badge variant="outline">English</Badge>
           {question.validation.valid && (
             <Badge className="gap-1 bg-success/10 text-success hover:bg-success/10">
@@ -264,7 +264,7 @@ export function QuestionStudioMensurationReviewPanel() {
                   <SelectItem value={ALL}>All patterns</SelectItem>
                   {visiblePatterns.map((entry) => (
                     <SelectItem key={entry.patternId} value={entry.patternId}>
-                      {entry.patternId} · {entry.title}{entry.realism ? ` · ${entry.realism.frequencyBand.replaceAll('_', ' ')}` : ''}
+                      {entry.patternId} · {entry.title}{entry.realism ? ` · ${entry.realism.frequencyBand.replace(/_/g, ' ')}` : ''}
                     </SelectItem>
                   ))}
                 </SelectContent>
