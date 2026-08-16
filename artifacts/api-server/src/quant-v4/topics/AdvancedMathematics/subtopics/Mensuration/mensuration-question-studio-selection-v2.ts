@@ -18,6 +18,7 @@ import {
 
 const LABELS = ["A", "B", "C", "D"] as const;
 const PI = 22 / 7;
+const CP010_FINAL_EASY = new Set(["MEN-002-QL-124", "MEN-002-QL-140"]);
 
 function hashText(text: string) {
   let hash = 2166136261 >>> 0;
@@ -395,6 +396,23 @@ function applyTargetedNumericalPool(
   }
 }
 
+function normalizeEmbeddedPromptCase(text: string) {
+  return text.replace(/([,;])\s+(Find|Determine|Calculate)\b/g, (_match, punctuation: string, verb: string) =>
+    `${punctuation} ${verb.toLowerCase()}`,
+  );
+}
+
+function finalizePresentation(question: MensurationQuestionStudioQuestionV2): MensurationQuestionStudioQuestionV2 {
+  return {
+    ...question,
+    stem: normalizeEmbeddedPromptCase(question.stem),
+    difficultyBand:
+      question.cpId === "MEN-CP-010" && CP010_FINAL_EASY.has(question.patternId)
+        ? "Easy"
+        : question.difficultyBand,
+  };
+}
+
 function targetAnswerPosition(seed: string) {
   const trailing = trailingIndex(seed);
   return trailing === null ? mixedHash(`${seed}:answer-position`) % 4 : trailing % 4;
@@ -446,7 +464,8 @@ export function generateMensurationStudioQuestionV2(input: {
 }): MensurationQuestionStudioQuestionV2 {
   const repaired = preserveDisplayMath(generateMensurationStudioQuestionV2Base(input));
   const pooled = applyTargetedNumericalPool(repaired, input.seed);
-  return balanceAnswerPosition(pooled, input.seed);
+  const presented = finalizePresentation(pooled);
+  return balanceAnswerPosition(presented, input.seed);
 }
 
 function weightedPattern(
