@@ -9,6 +9,20 @@ import {
 const LANGUAGES = ["hi", "pa"] as const;
 const SAMPLES_PER_QL = 10;
 
+type LocalizedLanguage = (typeof LANGUAGES)[number];
+type SurfaceDiagnostic = {
+  qlId: string;
+  language: LocalizedLanguage;
+  sample: number;
+  type:
+    | "NATIVE_STEM_FALLBACK"
+    | "UNTRANSLATED_LATIN"
+    | "STEM_NOT_NATIVE"
+    | "EXPLANATION_NOT_NATIVE"
+    | "LOCALIZATION_TRACE_DRIFT";
+  details: string[];
+};
+
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
@@ -54,7 +68,7 @@ function unexpectedLatinTokens(value: string): string[] {
   return [...new Set(tokens.filter((token) => !allowed.has(token)))].sort();
 }
 
-function nativeCount(value: string, language: "hi" | "pa"): number {
+function nativeCount(value: string, language: LocalizedLanguage): number {
   const pattern = language === "hi" ? /[\u0900-\u097F]/gu : /[\u0A00-\u0A7F]/gu;
   return (value.match(pattern) ?? []).length;
 }
@@ -67,7 +81,12 @@ function learnerSurface(question: any): string {
   ].join("\n");
 }
 
-function parityCheck(english: any, localized: any, language: "hi" | "pa", ql: string): void {
+function hardParityCheck(
+  english: any,
+  localized: any,
+  language: LocalizedLanguage,
+  ql: string,
+): void {
   assert(localized.packageId === "MAL-001", `${ql}:${language}: package drift.`);
   assert(localized.questionLanguageId === ql, `${ql}:${language}: QL drift.`);
   assert(localized.canonicalProblemId === english.canonicalProblemId, `${ql}:${language}: CP drift.`);
@@ -88,16 +107,6 @@ function parityCheck(english: any, localized: any, language: "hi" | "pa", ql: st
       `${ql}:${language}: option ${index + 1} numeric structure changed.`,
     );
   }
-  assert(
-    localized.traceability?.nativeStemTemplateMatched === true &&
-      localized.traceability?.localizationStemTemplateId !== "FALLBACK",
-    `${ql}:${language}: native QL stem template did not match this generated state.`,
-  );
-  const surface = learnerSurface(localized);
-  const latin = unexpectedLatinTokens(surface);
-  assert(latin.length === 0, `${ql}:${language}: untranslated Latin learner tokens: ${latin.join(", ")}.`);
-  assert(nativeCount(String(localized.text ?? ""), language) >= 10, `${ql}:${language}: stem is not genuinely localized.`);
-  assert(nativeCount(String(localized.explanation ?? ""), language) >= 10, `${ql}:${language}: explanation is not genuinely localized.`);
   assert(localized.questionBankStatus === "NOT_STORED", `${ql}:${language}: Question Bank boundary drift.`);
   assert(localized.questionBankWritable === false, `${ql}:${language}: Question Bank write unexpectedly enabled.`);
   assert(localized.testEligibility === "INELIGIBLE", `${ql}:${language}: test eligibility unexpectedly enabled.`);
@@ -106,11 +115,72 @@ function parityCheck(english: any, localized: any, language: "hi" | "pa", ql: st
     localized.traceability?.mathematicalAuthorityLanguage === "en",
     `${ql}:${language}: English mathematical authority trace missing.`,
   );
+}
+
+function collectSurfaceDiagnostics(
+  localized: any,
+  language: LocalizedLanguage,
+  ql: string,
+  sample: number,
+  diagnostics: SurfaceDiagnostic[],
+): void {
+  if (
+    localized.traceability?.nativeStemTemplateMatched !== true ||
+    localized.traceability?.localizationStemTemplateId === "FALLBACK"
+  ) {
+    diagnostics.push({
+      qlId: ql,
+      language,
+      sample,
+      type: "NATIVE_STEM_FALLBACK",
+      details: [String(localized.traceability?.localizationStemTemplateId ?? "missing")],
+    });
+  }
+
+  const latin = unexpectedLatinTokens(learnerSurface(localized));
+  if (latin.length > 0) {
+    diagnostics.push({
+      qlId: ql,
+      language,
+      sample,
+      type: "UNTRANSLATED_LATIN",
+      details: latin,
+    });
+  }
+
+  if (nativeCount(String(localized.text ?? ""), language) < 10) {
+    diagnostics.push({
+      qlId: ql,
+      language,
+      sample,
+      type: "STEM_NOT_NATIVE",
+      details: [String(localized.text ?? "")],
+    });
+  }
+
+  if (nativeCount(String(localized.explanation ?? ""), language) < 10) {
+    diagnostics.push({
+      qlId: ql,
+      language,
+      sample,
+      type: "EXPLANATION_NOT_NATIVE",
+      details: [String(localized.explanation ?? "")],
+    });
+  }
+
   const localizationId = expectedLocalizationId(ql);
-  assert(
-    localized.traceability?.localizationId === localizationId,
-    `${ql}:${language}: expected localization trace ${localizationId}, got ${String(localized.traceability?.localizationId)}.`,
-  );
+  if (localized.traceability?.localizationId !== localizationId) {
+    diagnostics.push({
+      qlId: ql,
+      language,
+      sample,
+      type: "LOCALIZATION_TRACE_DRIFT",
+      details: [
+        `expected=${localizationId}`,
+        `actual=${String(localized.traceability?.localizationId)}`,
+      ],
+    });
+  }
 }
 
 const packageCard = listQuantV4Packages().find((entry: any) => entry.packageId === "MAL-001") as any;
@@ -126,10 +196,11 @@ let localizedQuestions = 0;
 let parityChecks = 0;
 let nativeSurfaceChecks = 0;
 let nativeStemTemplateChecks = 0;
+const surfaceDiagnostics: SurfaceDiagnostic[] = [];
 const retained: Array<{
   qlId: string;
   cpId: string;
-  language: "hi" | "pa";
+  language: LocalizedLanguage;
   difficulty: string;
   stem: string;
   options: string[];
@@ -161,7 +232,8 @@ for (let number = 1; number <= 67; number += 1) {
       const localized = localizedResult.questions?.[0] as any;
       assert(english && localized, `${ql}:${language}:${sample}: missing generated preview.`);
       assert(english.canonicalProblemId === cpId, `${ql}: English CP routing drifted.`);
-      parityCheck(english, localized, language, ql);
+      hardParityCheck(english, localized, language, ql);
+      collectSurfaceDiagnostics(localized, language, ql, sample, surfaceDiagnostics);
       localizedQuestions += 1;
       parityChecks += 6;
       nativeSurfaceChecks += 2;
@@ -182,6 +254,41 @@ for (let number = 1; number <= 67; number += 1) {
   }
 }
 
+const outDir = resolve(process.cwd(), "dist/quant-v4");
+await mkdir(outDir, { recursive: true });
+
+const diagnosticSummary = {
+  status: surfaceDiagnostics.length === 0
+    ? "PASS_MAL_001_MULTILINGUAL_SURFACE_DIAGNOSTICS"
+    : "FAIL_MAL_001_MULTILINGUAL_SURFACE_DIAGNOSTICS",
+  totalDiagnostics: surfaceDiagnostics.length,
+  byType: surfaceDiagnostics.reduce<Record<string, number>>((acc, item) => {
+    acc[item.type] = (acc[item.type] ?? 0) + 1;
+    return acc;
+  }, {}),
+  byQl: surfaceDiagnostics.reduce<Record<string, number>>((acc, item) => {
+    acc[item.qlId] = (acc[item.qlId] ?? 0) + 1;
+    return acc;
+  }, {}),
+  uniqueLatinTokens: [...new Set(
+    surfaceDiagnostics
+      .filter((item) => item.type === "UNTRANSLATED_LATIN")
+      .flatMap((item) => item.details),
+  )].sort(),
+  diagnostics: surfaceDiagnostics,
+};
+await writeFile(
+  resolve(outDir, "mal-001-multilingual-surface-diagnostics.json"),
+  `${JSON.stringify(diagnosticSummary, null, 2)}\n`,
+  "utf8",
+);
+console.log(JSON.stringify(diagnosticSummary, null, 2));
+
+assert(
+  surfaceDiagnostics.length === 0,
+  `MAL-001 multilingual surface diagnostics found ${surfaceDiagnostics.length} blocking defects across ${Object.keys(diagnosticSummary.byQl).length} QLs.`,
+);
+
 for (const language of LANGUAGES) {
   const batch = await generateQuestion({
     packageId: "MAL-001",
@@ -197,6 +304,8 @@ for (const language of LANGUAGES) {
     assert(question.language === language, `${language}: mixed batch leaked another language.`);
     assert(nativeCount(String(question.text), language) >= 10, `${language}: mixed batch returned untranslated stem.`);
     assert(question.traceability?.nativeStemTemplateMatched === true, `${language}: mixed batch hit stem fallback.`);
+    const latin = unexpectedLatinTokens(learnerSurface(question));
+    assert(latin.length === 0, `${language}: mixed batch untranslated Latin learner tokens: ${latin.join(", ")}.`);
   }
 }
 
@@ -224,8 +333,6 @@ for (const item of retained) {
   );
 }
 
-const outDir = resolve(process.cwd(), "dist/quant-v4");
-await mkdir(outDir, { recursive: true });
 const reviewPath = resolve(outDir, "MAL-001-MULTILINGUAL-134Q-REVIEW.md");
 await writeFile(reviewPath, reviewLines.join("\n"), "utf8");
 const summary = {
