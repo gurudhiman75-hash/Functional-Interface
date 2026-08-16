@@ -178,6 +178,15 @@ function localizedProseInMath(value: string): boolean {
   return false;
 }
 
+function learnerMethod(qlId: string, language: Cp011ReviewLanguage, existing: string): string {
+  if (qlId !== "TMW-QL-207") return existing;
+  return pick(language, [
+    "Use the listed day-wise rate table in order; add complete days until the target would be crossed, then use only the required fraction of the final day's rate.",
+    "दी गई दिनवार दर-तालिका को क्रम से लें; पूरे दिनों का उत्पादन तब तक जोड़ें जब तक अगला पूरा दिन लक्ष्य पार कर दे, फिर अंतिम दिन की दर का केवल आवश्यक भाग लें।",
+    "ਦਿੱਤੀ ਦਿਨਵਾਰ ਦਰ-ਸਾਰਣੀ ਨੂੰ ਕ੍ਰਮ ਨਾਲ ਲਓ; ਪੂਰੇ ਦਿਨਾਂ ਦਾ ਉਤਪਾਦਨ ਤਦ ਤੱਕ ਜੋੜੋ ਜਦੋਂ ਤੱਕ ਅਗਲਾ ਪੂਰਾ ਦਿਨ ਟੀਚਾ ਪਾਰ ਕਰ ਦੇਵੇ, ਫਿਰ ਆਖਰੀ ਦਿਨ ਦੀ ਦਰ ਦਾ ਕੇਵਲ ਲੋੜੀਂਦਾ ਹਿੱਸਾ ਲਓ।",
+  ]);
+}
+
 export function finalizeTmwCp011CorpusReview<T extends AnyQuestion>(question: T, qlId: string, language: Cp011ReviewLanguage): T {
   if ((question.canonicalProblemId ?? question.cpId) !== "TMW-CP-011") return question;
   const stem = fixStem(question, qlId, language);
@@ -186,7 +195,8 @@ export function finalizeTmwCp011CorpusReview<T extends AnyQuestion>(question: T,
   const explanation = cleanExplanation(question.explanation, language);
   const existingLearner = question.learnerExplanation;
   const answer = cleanLine(existingLearner?.answer ?? solution?.answerText ?? "", language);
-  const method = cleanLine(explanation?.opening ?? existingLearner?.method ?? "", language);
+  const baseMethod = cleanLine(explanation?.opening ?? existingLearner?.method ?? "", language);
+  const method = learnerMethod(qlId, language, baseMethod);
   const working = learnerWorking({ ...question, explanation }, language);
   const learner: TmwLearnerExplanationV2 = { method, solution: [...working, answer].slice(0, 5), answer };
 
