@@ -30,7 +30,7 @@ export interface SylProfilePlanV3 {
 
 const BANKING_CANDIDATE_FAMILY = "BANK_POSSIBILITY_IN_CONCLUSION_SET";
 const BANKING_CANDIDATE_AUTHORITIES = Object.freeze([
-  "SYL_001_BANKING_POSSIBILITY_SHELL_V2",
+  "SYL_001_BANKING_POSSIBILITY_EDITORIAL_V3",
   "SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V4",
 ] as const);
 
@@ -89,6 +89,10 @@ export const SYL_PROFILE_PLAN_V3 = Object.freeze({
   supersedes: "SYL_001_PROFILE_PLAN_V2",
   candidateFamily: BANKING_CANDIDATE_FAMILY,
   candidateAuthorities: BANKING_CANDIDATE_AUTHORITIES,
+  candidateSemanticAuthorities: [
+    "SYL_001_BANKING_POSSIBILITY_SHELL_V2",
+    "SYL_001_BANKING_CAN_NEVER_BE_SHELL_V2",
+  ] as const,
   candidateRegistrationStatus: "NOT_REGISTERED",
   candidateHumanReviewStatus: "PENDING",
   candidateSourceProfileStatus: "PENDING_SOURCE_PROFILE_FREEZE",
