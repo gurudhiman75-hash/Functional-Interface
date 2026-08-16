@@ -24,6 +24,7 @@ import {
   type MensurationStudioLanguage,
 } from "./mensuration-localization-foundation-v3";
 import {
+  polishMensurationLocalizedOption,
   polishMensurationLocalizedText,
   protectMensurationFormulaIdentifiers,
   repairMensurationLearnerMathSurface,
@@ -108,7 +109,9 @@ function localizeQuestion(
 ): MensurationLocalizedQuestionV1 {
   const source = normalizeCanonicalQuestion(canonical);
   const options = source.options.map((option) =>
-    repairMensurationLearnerMathSurface(localizeMensurationOption(option, language)),
+    repairMensurationLearnerMathSurface(
+      polishMensurationLocalizedOption(localizeMensurationOption(option, language), language),
+    ),
   );
   const optionDetails = source.optionDetails.map((option, index) => ({
     ...option,
