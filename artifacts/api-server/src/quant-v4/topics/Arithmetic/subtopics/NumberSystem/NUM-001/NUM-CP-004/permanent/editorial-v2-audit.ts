@@ -11,12 +11,38 @@ const SEEDS_PER_QL = 80;
 const REVIEW_SEEDS = [1, 2, 3, 4] as const;
 const OUTPUT_DIR = path.resolve("dist/quant-v4/num-cp004-editorial-v2");
 
+type State = Readonly<Record<string, unknown>>;
+
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
 function normalized(value: string): string {
   return value.replace(/\s+/gu, " ").trim();
+}
+
+function modeOf(question: NumCp004EditorialV2Question): string {
+  const mode = (question.hiddenState as State).mode;
+  assert(typeof mode === "string", `${question.permanentQlId}/${question.seed}: hidden mode missing`);
+  return mode;
+}
+
+function numberArray(value: unknown, label: string): number[] {
+  assert(Array.isArray(value), `Expected array ${label}`);
+  assert(value.every((item) => typeof item === "number" && Number.isSafeInteger(item)), `Expected integer array ${label}`);
+  return [...value] as number[];
+}
+
+function integer(value: unknown, label: string): number {
+  assert(typeof value === "number" && Number.isSafeInteger(value), `Expected integer ${label}`);
+  return value;
+}
+
+function gcd(a: number, b: number): number {
+  let x = Math.abs(a);
+  let y = Math.abs(b);
+  while (y !== 0) [x, y] = [y, x % y];
+  return x;
 }
 
 function learnerSurface(question: NumCp004EditorialV2Question): string {
@@ -30,6 +56,60 @@ function explanationText(question: NumCp004EditorialV2Question): string {
     ...question.explanation.solution,
     question.explanation.finalAnswer,
   ].join(" "));
+}
+
+function auditHumanReviewRegressions(question: NumCp004EditorialV2Question): void {
+  const tag = `${question.permanentQlId}/${question.seed}`;
+  const mode = modeOf(question);
+  const state = question.hiddenState as State;
+  const solution = question.explanation.solution;
+
+  if (mode === "COPRIME_SET" || mode === "COPRIME_COUNT") {
+    const fixed = integer(state.fixed, `${tag}.fixed`);
+    const candidates = numberArray(state.candidates, `${tag}.candidates`);
+    const rejected = candidates.filter((candidate) => gcd(fixed, candidate) !== 1);
+    const evidence = solution[2] ?? "";
+    assert(!evidence.includes("\\(\\varnothing\\) share a prime factor"), `${tag}: empty-set grammar regression`);
+    if (rejected.length === 0) {
+      assert(evidence.includes("No listed candidate shares a prime factor"), `${tag}: empty rejected set must use natural prose`);
+    } else if (rejected.length === 1) {
+      assert(evidence.includes(" shares a prime factor with "), `${tag}: singleton rejected candidate must use singular grammar`);
+      assert(!evidence.includes(" share a prime factor with "), `${tag}: singleton rejected candidate used plural grammar`);
+    } else {
+      assert(evidence.includes(" share a prime factor with "), `${tag}: multiple rejected candidates must use plural grammar`);
+    }
+  }
+
+  if (mode === "ADJACENT_PRIME") {
+    const evidence = solution[1] ?? "";
+    if (evidence.includes(" are not prime")) {
+      assert(evidence.includes(","), `${tag}: singleton skipped value must not be rendered as a plural set`);
+    }
+  }
+
+  if (mode === "DATA_SUFFICIENCY") {
+    const statementI = numberArray(state.statementI, `${tag}.statementI`);
+    const statementII = numberArray(state.statementII, `${tag}.statementII`);
+    const eitherAloneSufficient = statementI.length === 1 || statementII.length === 1;
+    const decision = solution[2] ?? "";
+    if (eitherAloneSufficient) {
+      assert(!decision.startsWith("Together they leave"), `${tag}: DS combined statements after an alone-sufficient result`);
+      assert(decision.includes("sufficient"), `${tag}: DS alone-sufficient result is not stated explicitly`);
+    } else {
+      assert(decision.startsWith("Neither statement is sufficient alone. Together they leave"), `${tag}: DS must combine only after both statements fail alone`);
+    }
+  }
+
+  if (mode === "COPRIME_CLAIM") {
+    assert(question.stem === "Which of the following co-prime statements is correct?", `${tag}: co-prime claim stem narrows the option universe`);
+  }
+
+  if (mode === "FEASIBILITY") {
+    const text = explanationText(question);
+    assert(text.includes("even prime greater than"), `${tag}: feasibility explanation does not rule out the even-prime distractor`);
+    assert(text.includes("composite number cannot have no prime factor"), `${tag}: feasibility explanation does not rule out the composite-without-prime-factor distractor`);
+    assert(text.includes("product of two primes greater than"), `${tag}: feasibility explanation does not rule out the prime-product distractor`);
+  }
 }
 
 function auditQuestion(question: NumCp004EditorialV2Question): void {
@@ -64,6 +144,8 @@ function auditQuestion(question: NumCp004EditorialV2Question): void {
   for (const pattern of rejected) {
     assert(!pattern.test(text), `${tag}: rejected legacy/meta wording leaked: ${pattern}`);
   }
+
+  auditHumanReviewRegressions(question);
 
   assert(!question.lifecycle.active, `${tag}: active lifecycle leaked`);
   assert(!question.lifecycle.questionStudioDiscoverable, `${tag}: Question Studio exposure leaked`);
@@ -163,6 +245,7 @@ const audit = {
   maxExplanationChars,
   ruleFirstTeachingViolations: 0,
   legacyExplanationLeaks: 0,
+  humanReviewRegressionViolations: 0,
   internalIdentityLeaks: 0,
   lifecycle: NUM_CP004_EDITORIAL_V2_RELEASE,
 };
