@@ -121,14 +121,13 @@ function operationPhrase(operation: IopAdvancedOperation): string {
     return `repeatedly selects by ${key} in ${operation.direction === "ASC" ? "ascending" : "descending"} order and fixes each selected item at the ${operation.placement === "LEFT_FIXED" ? "left" : "right"}`;
   }
   if (operation.kind === "TRANSFORM_ALL") {
-    const phrase = operation.transform === "REVERSE_DIGITS" ? "reverses the digits of every number"
+    return operation.transform === "REVERSE_DIGITS" ? "reverses the digits of every number"
       : operation.transform === "ADD_DIGIT_SUM" ? "adds each number's digit sum to that number"
       : operation.transform === "REVERSE_WORD" ? "reverses every word"
       : operation.transform === "SWAP_WORD_ENDS" ? "interchanges the first and last letters of every word"
       : operation.transform === "ROTATE_WORD_LEFT" ? "moves the first letter of every word to its end"
       : operation.transform === "REVERSE_ALPHANUMERIC" ? "reverses every alphanumeric group"
       : "moves the first character of every alphanumeric group to its end";
-    return phrase;
   }
   if (operation.kind === "SORT_ALL") {
     const key = operation.selectionKey === "DIGIT_SUM" ? "digit sum" : operation.selectionKey === "LAST_DIGIT" ? "last digit"
@@ -246,7 +245,10 @@ function finalQuestion(trace: IopAdvancedTrace, seed: string): IopAdvancedChildQ
 
 function previousStepQuestion(trace: IopAdvancedTrace, seed: string): IopAdvancedChildQuestion {
   const stepNumber = Math.min(3, trace.steps.length);
-  const previous = stepNumber === 1 ? { tokens: trace.input, fingerprint: advancedStateFingerprint(trace.input) } : trace.steps[stepNumber - 2]!;
+  const previousStep = stepNumber > 1 ? trace.steps[stepNumber - 2]! : undefined;
+  const previous = previousStep
+    ? { tokens: previousStep.tokens, fingerprint: previousStep.stateFingerprint }
+    : { tokens: trace.input, fingerprint: advancedStateFingerprint(trace.input) };
   const wrong = shuffle(allStates(trace).filter((state) => state.fingerprint !== previous.fingerprint), makeRng(`${seed}|PREV`))
     .map((state) => rowOption(trace, state.tokens, state.fingerprint, false));
   const options = optionSet(rowOption(trace, previous.tokens, previous.fingerprint, true), wrong, `${seed}|PREV-OPTIONS`);
