@@ -152,7 +152,14 @@ router.get("/dashboard", requireAdminPermission("content.generation.read"), asyn
           'topic', v.payload -> 'topic',
           'subtopic', v.payload -> 'subtopic',
           'language', v.payload -> 'language',
-          'seed', v.payload -> 'seed'
+          'seed', v.payload -> 'seed',
+          'qlId', v.payload -> 'qlId',
+          'qlName', v.payload -> 'qlName',
+          'stimulusSvgs', v.payload -> 'stimulusSvgs',
+          'optionSvgs', v.payload -> 'optionSvgs',
+          'optionLabels', v.payload -> 'optionLabels',
+          'renderer', v.payload -> 'renderer',
+          'contentFingerprint', v.payload -> 'contentFingerprint'
         )) AS payload
       FROM content.generation_run_items i
       INNER JOIN content.generation_runs r ON r.id = i.generation_run_id
