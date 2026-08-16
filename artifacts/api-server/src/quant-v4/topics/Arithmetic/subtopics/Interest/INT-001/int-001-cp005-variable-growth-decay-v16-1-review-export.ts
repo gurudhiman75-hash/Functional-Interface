@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { INT_CP005_V16_1_QL_IDS, generateIntCp005QuestionV16_1Final } from "./cp005-variable-growth-decay-runtime-v16-1-final";
-import { INT_CP005_V16_1_LOCALIZED_VERSION, generateIntCp005QuestionV16_1Localized } from "./cp005-variable-growth-decay-runtime-v16-1-localized";
+import { INT_CP005_V16_1_LOCALIZED_VERSION, generateIntCp005QuestionV16_1Localized } from "./cp005-variable-growth-decay-runtime-v16-1-localized-v2";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
 function templateId(fingerprint: string): string {
