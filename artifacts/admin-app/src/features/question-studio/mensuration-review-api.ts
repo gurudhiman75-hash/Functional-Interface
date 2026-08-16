@@ -2,7 +2,9 @@ import { adminRequest } from '@/lib/admin-request';
 
 export type MensurationReviewLanguage = 'en';
 export type MensurationReviewDifficulty = 'Easy' | 'Medium' | 'Hard';
+export type MensurationReviewExamProfile = 'SSC_CORE' | 'SSC_ADVANCED' | 'BANKING' | 'PUNJAB_STATE';
 export type MensurationPatternKind = 'QL' | 'PROTOTYPE';
+export type MensurationFrequencyBand = 'CORE_HIGH' | 'STANDARD' | 'LOW_FREQUENCY' | 'ENRICHMENT';
 
 export interface MensurationReviewPattern {
   packageId: 'MEN-001' | 'MEN-002';
@@ -11,6 +13,10 @@ export interface MensurationReviewPattern {
   patternKind: MensurationPatternKind;
   qlId: string | null;
   title: string;
+  realism?: {
+    frequencyBand: MensurationFrequencyBand;
+    profileWeights: Record<MensurationReviewExamProfile, number>;
+  };
 }
 
 export interface MensurationCanonicalProblem {
@@ -64,6 +70,16 @@ export interface MensurationReviewQuestion {
   sourceReviewStatus: string;
   sourceMaturity: string;
   seed: string;
+  realism: {
+    authority: string;
+    examProfile: MensurationReviewExamProfile;
+    frequencyBand: MensurationFrequencyBand;
+    selectionWeight: number;
+    sourceSeed: string;
+    objectVariantId: string;
+    stemVariantId: string;
+    numericalStateSignature: string;
+  };
 }
 
 export interface MensurationReviewPackage {
@@ -77,9 +93,12 @@ export interface MensurationReviewPackage {
   prototypeCount: number;
   supportedLanguages: MensurationReviewLanguage[];
   supportedDifficulties: MensurationReviewDifficulty[];
+  supportedExamProfiles: MensurationReviewExamProfile[];
+  defaultExamProfile: MensurationReviewExamProfile;
   runtimeMode: string;
   reviewStatus: string;
   integrationAuthority: string;
+  realismAuthority: string;
   questionStudioDiscoverable: true;
   persistenceAllowed: true;
   questionBankStatus: 'NOT_STORED';
@@ -92,6 +111,7 @@ export interface MensurationReviewInput {
   cpId?: string;
   patternId?: string;
   difficulty?: MensurationReviewDifficulty;
+  examProfile?: MensurationReviewExamProfile;
   count: number;
   seed?: string;
 }
@@ -106,6 +126,9 @@ export interface MensurationReviewStatus {
   approvedItemCount: number;
   questionBankCount: number;
   integrationAuthority: string;
+  realismAuthority: string;
+  defaultExamProfile: MensurationReviewExamProfile;
+  supportedExamProfiles: MensurationReviewExamProfile[];
   questionStudioDiscoverable: true;
   persistenceAllowed: true;
   reviewOnly: true;
@@ -115,7 +138,11 @@ export interface MensurationReviewStatus {
 }
 
 function paramsFor(input: MensurationReviewInput) {
-  const params = new URLSearchParams({ language: input.language ?? 'en', count: String(input.count) });
+  const params = new URLSearchParams({
+    language: input.language ?? 'en',
+    count: String(input.count),
+    examProfile: input.examProfile ?? 'SSC_CORE',
+  });
   if (input.cpId) params.set('cpId', input.cpId);
   if (input.patternId) params.set('patternId', input.patternId);
   if (input.difficulty) params.set('difficulty', input.difficulty);
@@ -151,10 +178,11 @@ export function createMensurationReviewRun(input: MensurationReviewInput) {
     itemCount: number;
     generationSystem: 'quant-v4';
     chapter: 'Mensuration';
+    examProfile: MensurationReviewExamProfile;
     reviewOnly: true;
   }>('/admin/question-studio/quant/mensuration/runs', {
     method: 'POST',
-    body: JSON.stringify({ ...input, language: input.language ?? 'en' }),
+    body: JSON.stringify({ ...input, language: input.language ?? 'en', examProfile: input.examProfile ?? 'SSC_CORE' }),
   }, { fallbackMessage: 'Unable to create a Mensuration Question Studio run.' });
 }
 
