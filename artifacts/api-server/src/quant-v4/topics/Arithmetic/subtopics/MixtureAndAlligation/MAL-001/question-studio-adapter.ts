@@ -1,8 +1,6 @@
 import { applyMal001DualMethodExplanationV2 } from "./foundation/chapter-compact-explanation-v1";
-import {
-  applyMal001QuestionStudioLocalization,
-  type Mal001LocalizedLanguage,
-} from "./foundation/chapter-multilingual-question-studio-v1";
+import type { Mal001LocalizedLanguage } from "./foundation/chapter-multilingual-question-studio-v1";
+import { applyMal001QuestionStudioLocalizationV2 } from "./foundation/chapter-multilingual-question-studio-v2";
 import {
   MAL_CP001_PERMANENT_ALLOCATION,
   type MalCp001PermanentQlId,
@@ -373,7 +371,7 @@ export function runMal001QuestionStudioPipeline(
   const selectedCpId = resolveCpId(cpId, input);
   const base = englishQuestion(selectedCpId, input);
   if (language === "en") return base;
-  return applyMal001QuestionStudioLocalization(
+  return applyMal001QuestionStudioLocalizationV2(
     base as unknown as Record<string, any>,
     language as Mal001LocalizedLanguage,
   ) as unknown as Mal001QuestionStudioQuestion;
