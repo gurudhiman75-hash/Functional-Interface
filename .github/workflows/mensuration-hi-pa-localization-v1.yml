@@ -37,14 +37,15 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-corpus-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-corpus-v1.mjs
           node artifacts/api-server/dist/quant-v4/mensuration-localization-corpus-v1.mjs
           test -s artifacts/api-server/dist/quant-v4/mensuration-localization-corpus-v1.json
-      - name: Run localization parity proof when available
+      - name: Run localization parity proof
         shell: bash
         run: |
           set -euo pipefail
-          if test -f artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-parity-v1.test.ts; then
-            pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-parity-v1.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-parity-v1.test.mjs
-            node artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.test.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.test.log
-          fi
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-parity-v1.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-parity-v1.test.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.test.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.test.log
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.json
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.md
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-review-v1.json
       - name: Build production application
         run: bash build-api.sh
       - name: Upload localization evidence
@@ -54,5 +55,8 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/mensuration-localization-corpus-v1.json
             artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.test.log
+            artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.md
+            artifacts/api-server/dist/quant-v4/mensuration-localization-review-v1.json
           if-no-files-found: error
           retention-days: 14
