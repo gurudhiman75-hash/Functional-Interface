@@ -1,13 +1,36 @@
 import { adminRequest } from '@/lib/admin-request';
 
-export type MensurationReviewLanguage = 'en' | 'hi' | 'pa';
+export type MensurationReviewLanguage = 'en';
 export type MensurationReviewDifficulty = 'Easy' | 'Medium' | 'Hard';
+export type MensurationPatternKind = 'QL' | 'PROTOTYPE';
+
+export interface MensurationReviewPattern {
+  packageId: 'MEN-001' | 'MEN-002';
+  cpId: string;
+  patternId: string;
+  patternKind: MensurationPatternKind;
+  qlId: string | null;
+  title: string;
+}
+
+export interface MensurationCanonicalProblem {
+  cpId: string;
+  packageId: 'MEN-001' | 'MEN-002';
+  title: string;
+  patternCount: number;
+  qlCount: number;
+  prototypeCount: number;
+}
 
 export interface MensurationReviewQuestion {
+  packageId: 'MEN-001' | 'MEN-002';
+  cpId: string;
+  patternId: string;
+  patternKind: MensurationPatternKind;
+  qlId: string | null;
   questionId: string;
   canonicalItemId: string;
   questionLanguageId: string;
-  qlId: string;
   language: MensurationReviewLanguage;
   locale: string;
   difficultyBand: MensurationReviewDifficulty;
@@ -16,88 +39,85 @@ export interface MensurationReviewQuestion {
   optionDetails: Array<{
     label: string;
     text: string;
-    studentExplanation: string;
     isCorrect: boolean;
-    semanticKey: string;
+    misconceptionId: string | null;
   }>;
   correctIndex: number;
   answer: string;
   explanation: {
-    explanationId: string;
-    whatAsked: string;
     steps: string[];
-    conclusion: string;
     shortcut: string;
-    commonTrap: string;
+    traps: string[];
   };
-  runtimeMode: string;
-  reviewStatus: string;
+  solveMode: string;
+  renderer: 'TEXT_MATH';
   integrationAuthority: string;
   validation: {
     valid: boolean;
-    frozenAuthority: boolean;
     fourDistinctOptions: boolean;
     exactlyOneCorrect: boolean;
+    answerParity: boolean;
     teachingStepsPresent: boolean;
-    completeCalculation: boolean;
-    sourceValidationPassed: boolean;
-    sourceVerificationPassed: boolean;
     sourceLifecycleLocked: boolean;
-    punjabiSurfaceOrthographyLocked: boolean;
   };
+  sourceAuthority: string;
+  sourceReviewStatus: string;
+  sourceMaturity: string;
+  seed: string;
 }
 
 export interface MensurationReviewPackage {
-  packageId: 'MEN-002';
-  checkpointId: 'MEN-CP-009';
+  packageId: 'MENSURATION';
   label: string;
-  qlIds: string[];
+  canonicalProblems: MensurationCanonicalProblem[];
+  patterns: MensurationReviewPattern[];
+  canonicalProblemCount: 13;
+  patternCount: number;
+  qlCount: number;
+  prototypeCount: number;
   supportedLanguages: MensurationReviewLanguage[];
   supportedDifficulties: MensurationReviewDifficulty[];
   runtimeMode: string;
   reviewStatus: string;
-  questionStudioRegistrationStatus: 'REGISTERED_REVIEW_ONLY';
-  questionStudioStagingStatus: 'REVIEW_QUEUE_ENABLED';
   integrationAuthority: string;
-  frozenQlCount: number;
-  approvedReviewPayloadCount: number;
-  reviewOnly: true;
+  questionStudioDiscoverable: true;
+  persistenceAllowed: true;
   questionBankStatus: 'NOT_STORED';
   questionBankWritable: false;
-  testEligible: false;
   publiclyPublishable: false;
-  bulkSyncSupported: false;
 }
 
 export interface MensurationReviewInput {
-  language: MensurationReviewLanguage;
-  qlId?: string;
+  language?: MensurationReviewLanguage;
+  cpId?: string;
+  patternId?: string;
   difficulty?: MensurationReviewDifficulty;
   count: number;
   seed?: string;
 }
 
 export interface MensurationReviewStatus {
-  packageId: 'MEN-002';
-  checkpointId: 'MEN-CP-009';
-  permanentQlCount: number;
-  approvedReviewPayloadCount: number;
+  chapter: 'Mensuration';
+  canonicalProblemCount: number;
+  patternCount: number;
+  qlCount: number;
+  prototypeCount: number;
   generationItemCount: number;
   approvedItemCount: number;
   questionBankCount: number;
   integrationAuthority: string;
-  questionStudioRegistrationStatus: 'REGISTERED_REVIEW_ONLY';
-  questionStudioStagingStatus: 'REVIEW_QUEUE_ENABLED';
+  questionStudioDiscoverable: true;
+  persistenceAllowed: true;
   reviewOnly: true;
   questionBankWritable: false;
   testEligible: false;
   publiclyPublishable: false;
-  automaticStudentPublication: false;
 }
 
 function paramsFor(input: MensurationReviewInput) {
-  const params = new URLSearchParams({ language: input.language, count: String(input.count) });
-  if (input.qlId) params.set('qlId', input.qlId);
+  const params = new URLSearchParams({ language: input.language ?? 'en', count: String(input.count) });
+  if (input.cpId) params.set('cpId', input.cpId);
+  if (input.patternId) params.set('patternId', input.patternId);
   if (input.difficulty) params.set('difficulty', input.difficulty);
   if (input.seed?.trim()) params.set('seed', input.seed.trim());
   return params;
@@ -106,10 +126,10 @@ function paramsFor(input: MensurationReviewInput) {
 export function getMensurationReviewPackage() {
   return adminRequest<{
     generationSystem: 'quant-v4';
-    activationMode: 'REVIEW_ONLY';
+    activationMode: 'QUESTION_STUDIO_CONNECTED';
     package: MensurationReviewPackage;
-  }>('/admin/question-studio/quant/mensuration/cp009/package', undefined, {
-    fallbackMessage: 'Unable to load MEN-CP-009 review package.',
+  }>('/admin/question-studio/quant/mensuration/package', undefined, {
+    fallbackMessage: 'Unable to load the Mensuration Question Studio package.',
   });
 }
 
@@ -118,8 +138,8 @@ export function previewMensurationReview(input: MensurationReviewInput) {
     questions: MensurationReviewQuestion[];
     productionEligible: false;
     reviewOnly: true;
-  }>(`/admin/question-studio/quant/mensuration/cp009/preview?${paramsFor(input).toString()}`, undefined, {
-    fallbackMessage: 'Unable to preview MEN-CP-009 questions.',
+  }>(`/admin/question-studio/quant/mensuration/preview?${paramsFor(input).toString()}`, undefined, {
+    fallbackMessage: 'Unable to preview Mensuration questions.',
   });
 }
 
@@ -130,22 +150,18 @@ export function createMensurationReviewRun(input: MensurationReviewInput) {
     status: string;
     itemCount: number;
     generationSystem: 'quant-v4';
-    packageId: 'MEN-002';
-    checkpointId: 'MEN-CP-009';
+    chapter: 'Mensuration';
     reviewOnly: true;
-    questionBankWritable: false;
-    testEligible: false;
-    publiclyPublishable: false;
-  }>('/admin/question-studio/quant/mensuration/cp009/runs', {
+  }>('/admin/question-studio/quant/mensuration/runs', {
     method: 'POST',
-    body: JSON.stringify(input),
-  }, { fallbackMessage: 'Unable to create MEN-CP-009 review run.' });
+    body: JSON.stringify({ ...input, language: input.language ?? 'en' }),
+  }, { fallbackMessage: 'Unable to create a Mensuration Question Studio run.' });
 }
 
 export function getMensurationReviewStatus() {
   return adminRequest<MensurationReviewStatus>(
-    '/admin/question-studio/quant/mensuration/cp009/status',
+    '/admin/question-studio/quant/mensuration/status',
     undefined,
-    { fallbackMessage: 'Unable to load MEN-CP-009 review status.' },
+    { fallbackMessage: 'Unable to load Mensuration Question Studio status.' },
   );
 }
