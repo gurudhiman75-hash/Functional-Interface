@@ -26,22 +26,29 @@ async function recordUnresolvedStudentIdentity(req: Request, testIdentifier: str
   if (!firebaseUid || !email) return;
 
   try {
-    const rows = await sqlClient`
-      SELECT u.id::text AS id
-      FROM identity.users u
-      JOIN identity.student_profiles sp ON sp.user_id = u.id
-      WHERE lower(u.email) = ${email}
-        AND u.deleted_at IS NULL
-      LIMIT 1
-    `;
-    const canonicalUserId = rows[0]?.id ? String(rows[0].id) : "";
-    if (!canonicalUserId) return;
+    const [userRows, testId] = await Promise.all([
+      sqlClient`
+        SELECT u.id::text AS id
+        FROM identity.users u
+        JOIN identity.student_profiles sp ON sp.user_id = u.id
+        WHERE lower(u.email) = ${email}
+          AND u.deleted_at IS NULL
+        LIMIT 1
+      `,
+      canonicalTestId(testIdentifier),
+    ]);
+
+    const canonicalUserId = userRows[0]?.id ? String(userRows[0].id) : null;
+    const entityId = canonicalUserId ?? testId;
+    if (!entityId) return;
+    const entityType = canonicalUserId ? "student_profile" : "test";
 
     const metadata = JSON.stringify({
       provider: "firebase",
       providerSubject: firebaseUid,
       tokenEmail: email,
       emailVerified: req.user?.emailVerified === true,
+      canonicalEmailMatch: Boolean(canonicalUserId),
       testIdentifier,
       source: "mobile-attempt-access-guard",
     });
@@ -63,16 +70,16 @@ async function recordUnresolvedStudentIdentity(req: Request, testIdentifier: str
         'user'::audit_actor_type,
         NULL,
         'student.identity.unresolved',
-        'student_profile',
-        ${canonicalUserId}::uuid,
-        'Authenticated Firebase identity did not resolve to the canonical student profile',
+        ${entityType},
+        ${entityId}::uuid,
+        'Authenticated Firebase identity did not resolve to a canonical student profile',
         'Recorded unresolved Firebase identity during mobile attempt start',
         ${metadata}::jsonb
       WHERE NOT EXISTS (
         SELECT 1
         FROM platform.audit_events existing
         WHERE existing.action_key = 'student.identity.unresolved'
-          AND existing.entity_id = ${canonicalUserId}::uuid
+          AND existing.entity_id = ${entityId}::uuid
           AND existing.occurred_at > now() - interval '10 minutes'
           AND existing.metadata ->> 'providerSubject' = ${firebaseUid}
       )
