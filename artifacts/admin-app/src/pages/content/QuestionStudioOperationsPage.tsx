@@ -3,10 +3,12 @@ import { QuestionStudioDifficultyMixControls } from './QuestionStudioDifficultyM
 import { QuestionStudioExamProfileSummary } from './QuestionStudioExamProfileSummary';
 import { QuestionStudioProfileCalibration } from './QuestionStudioProfileCalibration';
 import { QuestionStudioRecoveryDock } from './QuestionStudioRecoveryDock';
+import { QuestionStudioSpatialReviewPanel } from './QuestionStudioSpatialReviewPanel';
 
 export function QuestionStudioOperationsPage() {
   return (
     <>
+      <QuestionStudioSpatialReviewPanel />
       <QuestionStudioExamProfileSummary />
       <QuestionStudioProfileCalibration />
       <QuestionStudioDifficultyMixControls />
