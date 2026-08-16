@@ -15,29 +15,61 @@ function deepMapStrings(value: any, transform: (text: string) => string): any {
   return value;
 }
 
+function polishLegacyCopy(question: AnyQuestion, mode: string, language: TmwLanguage): AnyQuestion {
+  return deepMapStrings(question, (value) => {
+    let text = value;
+    if (language === "hi") {
+      if (mode === "findExcludedIndividualTimeFromAllTogetherAndSubgroup") {
+        text = text
+          .replace(/इसलिए C अकेला दर का व्युत्क्रम लेकर ([^।]+) में काम पूरा करेगा।/gu, "अतः C का अकेले का समय = C की दर का व्युत्क्रम = $1।")
+          .replaceAll("पूरा करने के समय नहीं, कार्य-दरें घटाएँ", "पूरा होने के समयों को सीधे न घटाएँ; कार्य-दरें घटाएँ");
+      } else if (mode === "findDelayAfterMemberEfficiencyDecrease") {
+        text = text.replace(/A की दक्षता (\d+)% बदलती है/gu, "A की दक्षता $1% घटती है");
+      } else {
+        text = text.replace(/A की दक्षता (\d+)% बदलती है/gu, "A की दक्षता $1% बढ़ती है");
+      }
+    } else if (language === "pa") {
+      if (mode === "findExcludedIndividualTimeFromAllTogetherAndSubgroup") {
+        text = text
+          .replace(/ਇਸ ਲਈ C ਇਕੱਲਾ ਦਰ ਦਾ ਉਲਟ ਲੈ ਕੇ ([^।]+) ਵਿੱਚ ਕੰਮ ਪੂਰਾ ਕਰੇਗਾ।/gu, "ਇਸ ਲਈ C ਦਾ ਇਕੱਲੇ ਦਾ ਸਮਾਂ = C ਦੀ ਦਰ ਦਾ ਉਲਟ = $1।")
+          .replaceAll("ਪੂਰਾ ਕਰਨ ਦੇ ਸਮੇਂ ਨਹੀਂ, ਕੰਮ-ਦਰਾਂ ਘਟਾਓ", "ਪੂਰਾ ਹੋਣ ਦੇ ਸਮਿਆਂ ਨੂੰ ਸਿੱਧਾ ਨਾ ਘਟਾਓ; ਕੰਮ-ਦਰਾਂ ਘਟਾਓ");
+      } else if (mode === "findDelayAfterMemberEfficiencyDecrease") {
+        text = text.replace(/A ਦੀ ਕੁਸ਼ਲਤਾ (\d+)% ਬਦਲਦੀ ਹੈ/gu, "A ਦੀ ਕੁਸ਼ਲਤਾ $1% ਘਟਦੀ ਹੈ");
+      } else {
+        text = text.replace(/A ਦੀ ਕੁਸ਼ਲਤਾ (\d+)% ਬਦਲਦੀ ਹੈ/gu, "A ਦੀ ਕੁਸ਼ਲਤਾ $1% ਵਧਦੀ ਹੈ");
+      }
+    } else if (mode === "findDelayAfterMemberEfficiencyDecrease") {
+      text = text.replace(/A's efficiency changes by (\d+)%/g, "A's efficiency decreases by $1%");
+    } else if (mode !== "findExcludedIndividualTimeFromAllTogetherAndSubgroup") {
+      text = text.replace(/A's efficiency changes by (\d+)%/g, "A's efficiency increases by $1%");
+    }
+    return text;
+  });
+}
+
 function learnerMethod(mode: string, language: TmwLanguage): string {
   if (mode === "findExcludedIndividualTimeFromAllTogetherAndSubgroup") {
     return tr(
       language,
-      "Convert the two completion times to work rates, subtract the A+B rate from the A+B+C rate, then take the reciprocal of C's rate.",
-      "दोनों पूरा करने के समयों को कार्य-दर में बदलें, A+B की दर को A+B+C की दर से घटाएँ और फिर C की दर का व्युत्क्रम लें।",
-      "ਦੋਵੇਂ ਪੂਰਾ ਕਰਨ ਦੇ ਸਮਿਆਂ ਨੂੰ ਕੰਮ-ਦਰਾਂ ਵਿੱਚ ਬਦਲੋ, A+B ਦੀ ਦਰ ਨੂੰ A+B+C ਦੀ ਦਰ ਵਿੱਚੋਂ ਘਟਾਓ ਅਤੇ ਫਿਰ C ਦੀ ਦਰ ਦਾ ਉਲਟ ਲਓ।",
+      "Convert both completion times to work rates, subtract the A+B rate from the A+B+C rate, then take the reciprocal of C's rate.",
+      "काम पूरा होने के दोनों समयों को कार्य-दर में बदलें, A+B की दर को A+B+C की दर से घटाएँ और फिर C की दर का व्युत्क्रम लें।",
+      "ਕੰਮ ਪੂਰਾ ਹੋਣ ਦੇ ਦੋਵੇਂ ਸਮਿਆਂ ਨੂੰ ਕੰਮ-ਦਰਾਂ ਵਿੱਚ ਬਦਲੋ, A+B ਦੀ ਦਰ ਨੂੰ A+B+C ਦੀ ਦਰ ਵਿੱਚੋਂ ਘਟਾਓ ਅਤੇ ਫਿਰ C ਦੀ ਦਰ ਦਾ ਉਲਟ ਲਓ।",
     );
   }
   if (mode === "findNewCombinedTimeAfterMemberEfficiencyIncrease") {
     return tr(
       language,
-      "Keep total work fixed in efficiency units, change only A's efficiency by the stated percentage, add B's unchanged efficiency, and divide the same work by the new team efficiency.",
-      "कुल काम को दक्षता-इकाइयों में स्थिर रखें, केवल A की दक्षता को दिए प्रतिशत से बदलें, B की अपरिवर्तित दक्षता जोड़ें और उसी काम को नई टीम-दक्षता से भाग दें।",
-      "ਕੁੱਲ ਕੰਮ ਨੂੰ ਕੁਸ਼ਲਤਾ-ਇਕਾਈਆਂ ਵਿੱਚ ਸਥਿਰ ਰੱਖੋ, ਸਿਰਫ਼ A ਦੀ ਕੁਸ਼ਲਤਾ ਨੂੰ ਦਿੱਤੇ ਪ੍ਰਤੀਸ਼ਤ ਨਾਲ ਬਦਲੋ, B ਦੀ ਨਾ-ਬਦਲੀ ਕੁਸ਼ਲਤਾ ਜੋੜੋ ਅਤੇ ਉਸੇ ਕੰਮ ਨੂੰ ਨਵੀਂ ਟੀਮ-ਕੁਸ਼ਲਤਾ ਨਾਲ ਭਾਗ ਦਿਓ।",
+      "Keep total work fixed in efficiency units, increase only A's efficiency by the stated percentage, add B's unchanged efficiency, and divide the same work by the new team efficiency.",
+      "कुल काम को दक्षता-इकाइयों में स्थिर रखें, केवल A की दक्षता को दिए प्रतिशत से बढ़ाएँ, B की अपरिवर्तित दक्षता जोड़ें और उसी काम को नई टीम-दक्षता से भाग दें।",
+      "ਕੁੱਲ ਕੰਮ ਨੂੰ ਕੁਸ਼ਲਤਾ-ਇਕਾਈਆਂ ਵਿੱਚ ਸਥਿਰ ਰੱਖੋ, ਸਿਰਫ਼ A ਦੀ ਕੁਸ਼ਲਤਾ ਨੂੰ ਦਿੱਤੇ ਪ੍ਰਤੀਸ਼ਤ ਨਾਲ ਵਧਾਓ, B ਦੀ ਨਾ-ਬਦਲੀ ਕੁਸ਼ਲਤਾ ਜੋੜੋ ਅਤੇ ਉਸੇ ਕੰਮ ਨੂੰ ਨਵੀਂ ਟੀਮ-ਕੁਸ਼ਲਤਾ ਨਾਲ ਭਾਗ ਦਿਓ।",
     );
   }
   if (mode === "findTimeSavedAfterMemberEfficiencyIncrease") {
     return tr(
       language,
-      "Find the new team time after changing only A's efficiency, then subtract the new time from the original time to obtain the saving.",
-      "केवल A की दक्षता बदलने के बाद टीम का नया समय निकालें, फिर समय-बचत के लिए मूल समय में से नया समय घटाएँ।",
-      "ਸਿਰਫ਼ A ਦੀ ਕੁਸ਼ਲਤਾ ਬਦਲਣ ਤੋਂ ਬਾਅਦ ਟੀਮ ਦਾ ਨਵਾਂ ਸਮਾਂ ਕੱਢੋ, ਫਿਰ ਸਮਾਂ-ਬਚਤ ਲਈ ਮੂਲ ਸਮੇਂ ਵਿੱਚੋਂ ਨਵਾਂ ਸਮਾਂ ਘਟਾਓ।",
+      "Find the new team time after increasing only A's efficiency, then subtract the new time from the original time to obtain the saving.",
+      "केवल A की दक्षता बढ़ाने के बाद टीम का नया समय निकालें, फिर समय-बचत के लिए मूल समय में से नया समय घटाएँ।",
+      "ਸਿਰਫ਼ A ਦੀ ਕੁਸ਼ਲਤਾ ਵਧਾਉਣ ਤੋਂ ਬਾਅਦ ਟੀਮ ਦਾ ਨਵਾਂ ਸਮਾਂ ਕੱਢੋ, ਫਿਰ ਸਮਾਂ-ਬਚਤ ਲਈ ਮੂਲ ਸਮੇਂ ਵਿੱਚੋਂ ਨਵਾਂ ਸਮਾਂ ਘਟਾਓ।",
     );
   }
   return tr(
@@ -66,7 +98,7 @@ function shortcut(mode: string, language: TmwLanguage): { title: string; steps: 
     return {
       title: tr(language, "Quick Rate-Subtraction Method", "त्वरित दर-घटाव विधि", "ਤੇਜ਼ ਦਰ-ਘਟਾਓ ਵਿਧੀ"),
       steps: [
-        tr(language, "Subtract work rates, not completion times: rate of C = rate of (A+B+C) − rate of (A+B).", "पूरा करने के समय नहीं, कार्य-दरें घटाएँ: C की दर = (A+B+C) की दर − (A+B) की दर।", "ਪੂਰਾ ਕਰਨ ਦੇ ਸਮੇਂ ਨਹੀਂ, ਕੰਮ-ਦਰਾਂ ਘਟਾਓ: C ਦੀ ਦਰ = (A+B+C) ਦੀ ਦਰ − (A+B) ਦੀ ਦਰ।"),
+        tr(language, "Do not subtract completion times directly; subtract work rates: rate of C = rate of (A+B+C) − rate of (A+B).", "पूरा होने के समयों को सीधे न घटाएँ; कार्य-दरें घटाएँ: C की दर = (A+B+C) की दर − (A+B) की दर।", "ਪੂਰਾ ਹੋਣ ਦੇ ਸਮਿਆਂ ਨੂੰ ਸਿੱਧਾ ਨਾ ਘਟਾਓ; ਕੰਮ-ਦਰਾਂ ਘਟਾਓ: C ਦੀ ਦਰ = (A+B+C) ਦੀ ਦਰ − (A+B) ਦੀ ਦਰ।"),
         tr(language, "Take the reciprocal of C's remaining rate to get C's solo completion time.", "C की बची हुई दर का व्युत्क्रम लेने पर C का अकेले पूरा करने का समय मिलता है।", "C ਦੀ ਬਚੀ ਹੋਈ ਦਰ ਦਾ ਉਲਟ ਲੈਣ ਨਾਲ C ਦਾ ਇਕੱਲੇ ਪੂਰਾ ਕਰਨ ਦਾ ਸਮਾਂ ਮਿਲਦਾ ਹੈ।"),
       ],
     };
@@ -109,10 +141,11 @@ export function finalizeTmwCp012MultilingualEditorialReview(
   language: TmwLanguage,
 ): AnyQuestion {
   if (question?.canonicalProblemId !== "TMW-CP-012") return question;
-  const cleaned = language === "en"
+  const mode = question.solveMode ?? "";
+  const englishCleaned = language === "en"
     ? deepMapStrings(question, (value) => value.replaceAll("required saved", "required time saved"))
     : question;
-  const mode = cleaned.solveMode ?? "";
+  const cleaned = polishLegacyCopy(englishCleaned, mode, language);
   const answer = cleaned.solution?.answerText ?? "";
   const finalConclusion = conclusion(mode, answer, language);
   const finalShortcut = shortcut(mode, language);
