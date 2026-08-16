@@ -1,0 +1,69 @@
+name: Diagnose API Startup Readiness
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix/api-startup-port-readiness]
+    paths:
+      - artifacts/api-server/**
+      - .github/workflows/api-startup-smoke.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+
+permissions:
+  contents: read
+
+jobs:
+  startup-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - name: Build API bundle
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm --dir artifacts/api-server build
+      - name: Start built API and probe health
+        shell: bash
+        env:
+          PORT: '3100'
+          NODE_ENV: development
+          DATABASE_URL: postgresql://smoke:smoke@127.0.0.1:1/smoke
+          GENERATION_JOB_POLL_INTERVAL_MS: '600000'
+        run: |
+          set -uo pipefail
+          LOG=/tmp/api-startup.log
+          START=$(date +%s)
+          node --enable-source-maps artifacts/api-server/dist/index.mjs >"$LOG" 2>&1 &
+          PID=$!
+          echo "pid=$PID"
+          READY=0
+          for i in $(seq 1 120); do
+            if ! kill -0 "$PID" 2>/dev/null; then
+              echo "API process exited before readiness"
+              cat "$LOG"
+              wait "$PID"
+              exit $?
+            fi
+            if curl --silent --show-error --fail --max-time 1 http://127.0.0.1:3100/health >/tmp/health.json 2>/dev/null; then
+              READY=1
+              break
+            fi
+            sleep 1
+          done
+          END=$(date +%s)
+          echo "startup_seconds=$((END-START))"
+          cat "$LOG"
+          if [ "$READY" != "1" ]; then
+            echo "API did not become ready within 120 seconds"
+            kill "$PID" 2>/dev/null || true
+            exit 1
+          fi
+          cat /tmp/health.json
+          kill "$PID" 2>/dev/null || true
+          wait "$PID" 2>/dev/null || true
