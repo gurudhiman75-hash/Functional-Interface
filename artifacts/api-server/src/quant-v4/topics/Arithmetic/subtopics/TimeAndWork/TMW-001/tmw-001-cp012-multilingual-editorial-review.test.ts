@@ -42,6 +42,7 @@ for (const qlId of qls) {
         const text = visible(q);
         const e = q.explanation ?? {};
         const l = q.learnerExplanation;
+        const givens = (e.givens ?? []).join(" ");
         ok(q.canonicalProblemId === "TMW-CP-012", `${label}: checkpoint mismatch`);
         ok(q.questionLanguageId === qlId, `${label}: QL mismatch`);
         ok(q.validation?.valid, `${label}: validation failed: ${(q.validation?.errors ?? []).join(" | ")}`);
@@ -68,19 +69,24 @@ for (const qlId of qls) {
         if (qlId === "TMW-QL-212") {
           ok(/C alone|C अकेला|C ਇਕੱਲਾ/u.test(e.conclusion), `${label}: C-alone conclusion vague`);
           ok(/work rates|कार्य-दर|ਕੰਮ-ਦਰ/u.test(l.method), `${label}: learner method does not teach rate subtraction`);
+          ok(!/C अकेला दर का व्युत्क्रम|C ਇਕੱਲਾ ਦਰ ਦਾ ਉਲਟ/u.test(text), `${label}: awkward C-reciprocal wording remains`);
         }
         if (qlId === "TMW-QL-213") {
           ok(/new combined completion time|नया संयुक्त समय|ਨਵਾਂ ਸਾਂਝਾ ਸਮਾਂ/u.test(e.conclusion), `${label}: new-time conclusion vague`);
           ok(/efficiency|दक्षता|ਕੁਸ਼ਲਤਾ/u.test(l.method), `${label}: learner method does not teach efficiency units`);
+          ok(/increases by|बढ़ती है|ਵਧਦੀ ਹੈ/u.test(givens), `${label}: efficiency increase direction missing from givens`);
         }
         if (qlId === "TMW-QL-214") {
           ok(/time saved|बचा हुआ समय|ਬਚਿਆ ਹੋਇਆ ਸਮਾਂ/u.test(e.conclusion), `${label}: saved-time conclusion vague`);
           ok(/saving|समय-बचत|ਸਮਾਂ-ਬਚਤ/u.test(l.method), `${label}: learner method does not identify saving`);
+          ok(/increases by|बढ़ती है|ਵਧਦੀ ਹੈ/u.test(givens), `${label}: efficiency increase direction missing from givens`);
         }
         if (qlId === "TMW-QL-215") {
           ok(/delayed by|देरी|ਦੇਰੀ/u.test(e.conclusion), `${label}: delay conclusion vague`);
           ok(/delay|देरी|ਦੇਰੀ/u.test(l.method), `${label}: learner method does not identify delay`);
+          ok(/decreases by|घटती है|ਘਟਦੀ ਹੈ/u.test(givens), `${label}: efficiency decrease direction missing from givens`);
         }
+        ok(!/efficiency changes by|दक्षता \d+% बदलती है|ਕੁਸ਼ਲਤਾ \d+% ਬਦਲਦੀ ਹੈ/u.test(givens), `${label}: direction-vague efficiency given remains`);
       }
       const en = generated.get("en"), hi = generated.get("hi"), pa = generated.get("pa");
       ok(en && hi && pa, `${qlId}:${namespace}:${suffix}: missing language output`);
