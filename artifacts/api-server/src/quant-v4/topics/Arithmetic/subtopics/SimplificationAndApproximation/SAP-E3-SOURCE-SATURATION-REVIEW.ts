@@ -70,6 +70,7 @@ function add(q: Reviewable, sourceProfile: ReviewRecord["sourceProfile"], family
   assert.ok(!stems.has(q.stem), `${familyId}/${seed}: duplicate review stem`);
   assert.ok(!payloads.has(q.canonicalPayloadKey), `${familyId}/${seed}: duplicate payload`);
   assert.ok(!identities.has(q.generationIdentity), `${familyId}/${seed}: duplicate identity`);
+  assert.notEqual(records.at(-1)?.familyId, familyId, `${familyId}/${seed}: adjacent same-family review item`);
   stems.add(q.stem); payloads.add(q.canonicalPayloadKey); identities.add(q.generationIdentity);
   positions[q.correctIndex]! += 1;
   records.push(Object.freeze({
@@ -90,16 +91,19 @@ function add(q: Reviewable, sourceProfile: ReviewRecord["sourceProfile"], family
   }));
 }
 
-for (let seed = 1; seed <= 60; seed += 1) add(generateSapCp004E3(SAP_CP004_E3_HETEROGENEOUS_ROOT_CHAIN, seed), "SSC_RAILWAY", SAP_CP004_E3_HETEROGENEOUS_ROOT_CHAIN, seed);
-for (let seed = 1; seed <= 60; seed += 1) add(generateSapCp004E3(SAP_CP004_E3_DECIMAL_ROOT_QUOTIENT, seed), "SSC_RAILWAY", SAP_CP004_E3_DECIMAL_ROOT_QUOTIENT, seed);
-for (let seed = 1; seed <= 60; seed += 1) add(generateSapCp012E3(seed), "BANK", "CP012-E3-EXPLICIT-POWER-REVERSE-SYNTHESIS", seed);
-for (let seed = 1; seed <= 60; seed += 1) add(generateSapCp012E2("CP012-E2-UNIQUE-INTEGER-WITHIN-TOLERANCE", seed), "BANK", "CP012-E2-UNIQUE-INTEGER-WITHIN-TOLERANCE-E3-POLISH", seed);
+for (let seed = 1; seed <= 60; seed += 1) {
+  add(generateSapCp004E3(SAP_CP004_E3_HETEROGENEOUS_ROOT_CHAIN, seed), "SSC_RAILWAY", SAP_CP004_E3_HETEROGENEOUS_ROOT_CHAIN, seed);
+  add(generateSapCp004E3(SAP_CP004_E3_DECIMAL_ROOT_QUOTIENT, seed), "SSC_RAILWAY", SAP_CP004_E3_DECIMAL_ROOT_QUOTIENT, seed);
+  add(generateSapCp012E3(seed), "BANK", "CP012-E3-EXPLICIT-POWER-REVERSE-SYNTHESIS", seed);
+  add(generateSapCp012E2("CP012-E2-UNIQUE-INTEGER-WITHIN-TOLERANCE", seed), "BANK", "CP012-E2-UNIQUE-INTEGER-WITHIN-TOLERANCE-E3-POLISH", seed);
+}
 
 assert.equal(records.length, 240);
 assert.equal(stems.size, 240);
 assert.equal(payloads.size, 240);
 assert.equal(identities.size, 240);
 assert.deepEqual(positions, [60,60,60,60]);
+for (let i = 1; i < records.length; i += 1) assert.notEqual(records[i]!.familyId, records[i-1]!.familyId);
 
 const familyCounts = Object.fromEntries([...new Set(records.map(r => r.familyId))].map(id => [id, records.filter(r => r.familyId === id).length]));
 assert.equal(familyCounts[SAP_CP004_E3_HETEROGENEOUS_ROOT_CHAIN], 60);
@@ -127,6 +131,7 @@ const summary = Object.freeze({
   familyCounts,
   answerPositions: positions,
   difficulty: difficultyCounts,
+  scheduler: "SEED_INTERLEAVED_NO_ADJACENT_SAME_FAMILY",
   sourceWaveDisposition: "NO_NEW_PERMANENT_QL; EXPAND_EXISTING_CP004_CP012_IDENTITIES",
   lifecycle: "INACTIVE_SOURCE_SATURATION_REVIEW_CANDIDATE",
   finalFreezeReady: false,
@@ -144,6 +149,7 @@ const md: string[] = [
   `Source profile: **SSC/Railway ${profileCounts.SSC_RAILWAY} / Banking ${profileCounts.BANK}**`,
   `Checkpoint mix: **CP004 ${summary.checkpoints.cp004} / CP012 ${summary.checkpoints.cp012}**`,
   `A/B/C/D: **${positions.join(" / ")}**`,
+  "Scheduler: **seed-interleaved; no adjacent same family**",
   "",
   "> Source-saturation review only. No permanent QL allocation, activation, Question Studio discovery, bank write, test eligibility or publication is authorized.",
   "",
