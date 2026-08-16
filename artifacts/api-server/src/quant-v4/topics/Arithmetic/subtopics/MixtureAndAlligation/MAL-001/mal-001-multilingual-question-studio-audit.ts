@@ -1,5 +1,5 @@
 import { mkdir, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { resolve } from "node:path";
 
 import {
   generateQuestion,
@@ -78,6 +78,11 @@ function parityCheck(english: any, localized: any, language: "hi" | "pa", ql: st
       `${ql}:${language}: option ${index + 1} numeric structure changed.`,
     );
   }
+  assert(
+    localized.traceability?.nativeStemTemplateMatched === true &&
+      localized.traceability?.localizationStemTemplateId !== "FALLBACK",
+    `${ql}:${language}: native QL stem template did not match this generated state.`,
+  );
   const surface = learnerSurface(localized);
   const latin = unexpectedLatinTokens(surface);
   assert(latin.length === 0, `${ql}:${language}: untranslated Latin learner tokens: ${latin.join(", ")}.`);
@@ -90,6 +95,10 @@ function parityCheck(english: any, localized: any, language: "hi" | "pa", ql: st
   assert(
     localized.traceability?.mathematicalAuthorityLanguage === "en",
     `${ql}:${language}: English mathematical authority trace missing.`,
+  );
+  assert(
+    localized.traceability?.localizationId === "MAL-001-HI-PA-QUESTION-STUDIO-V3",
+    `${ql}:${language}: V3 localization trace missing.`,
   );
 }
 
@@ -105,6 +114,7 @@ assert(packageCard.publiclyPublishable === false, "MAL-001 multilingual package 
 let localizedQuestions = 0;
 let parityChecks = 0;
 let nativeSurfaceChecks = 0;
+let nativeStemTemplateChecks = 0;
 const retained: Array<{
   qlId: string;
   cpId: string;
@@ -144,6 +154,7 @@ for (let number = 1; number <= 67; number += 1) {
       localizedQuestions += 1;
       parityChecks += 6;
       nativeSurfaceChecks += 2;
+      nativeStemTemplateChecks += 1;
       if (sample === 0) {
         retained.push({
           qlId: ql,
@@ -174,13 +185,14 @@ for (const language of LANGUAGES) {
   for (const question of batch.questions as any[]) {
     assert(question.language === language, `${language}: mixed batch leaked another language.`);
     assert(nativeCount(String(question.text), language) >= 10, `${language}: mixed batch returned untranslated stem.`);
+    assert(question.traceability?.nativeStemTemplateMatched === true, `${language}: mixed batch hit stem fallback.`);
   }
 }
 
 const reviewLines = [
   "# MAL-001 — Hindi & Punjabi Question Studio Review",
   "",
-  "> English remains the mathematical authority. Hindi and Punjabi are deterministic learner-surface localizations with Question Bank/test/publication locked.",
+  "> English remains the mathematical authority. Hindi and Punjabi use native QL-specific stem templates plus localized solution surfaces, with Question Bank/test/publication locked.",
   "",
 ];
 for (const item of retained) {
@@ -206,7 +218,7 @@ await mkdir(outDir, { recursive: true });
 const reviewPath = resolve(outDir, "MAL-001-MULTILINGUAL-134Q-REVIEW.md");
 await writeFile(reviewPath, reviewLines.join("\n"), "utf8");
 const summary = {
-  status: "PASS_MAL_001_MULTILINGUAL_QUESTION_STUDIO_V1",
+  status: "PASS_MAL_001_MULTILINGUAL_QUESTION_STUDIO_V3",
   packageId: "MAL-001",
   permanentQlRange: "MAL-QL-001..MAL-QL-067",
   permanentQls: 67,
@@ -215,8 +227,10 @@ const summary = {
   localizedQuestions,
   parityChecks,
   nativeSurfaceChecks,
+  nativeStemTemplateChecks,
   retainedReviewQuestions: retained.length,
   mathematicalAuthorityLanguage: "en",
+  stemPolicy: "NATIVE_QL_TEMPLATE_REQUIRED",
   lifecycle: {
     questionStudio: "ACTIVE_EN_HI_PA",
     questionBankStatus: "NOT_STORED",
