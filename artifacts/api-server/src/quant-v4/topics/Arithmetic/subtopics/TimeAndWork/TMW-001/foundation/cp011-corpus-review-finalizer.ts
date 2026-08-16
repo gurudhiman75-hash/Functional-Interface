@@ -55,19 +55,19 @@ function localizeNames(value: string, language: Cp011ReviewLanguage): string {
 function singularizeKnownUnits(value: string, language: Cp011ReviewLanguage): string {
   if (language === "hi") {
     return value
-      .replace(/\b1 पुस्तिकाएँ\b/gu, "1 पुस्तिका")
-      .replace(/\b1 पेटियाँ\b/gu, "1 पेटी")
-      .replace(/\b1 फाइलें\b/gu, "1 फाइल")
-      .replace(/\b1 पुर्ज़े\b/gu, "1 पुर्ज़ा")
-      .replace(/\b1 सड़क के हिस्से\b/gu, "1 सड़क का हिस्सा");
+      .replace(/(?<!\d)1 पुस्तिकाएँ/gu, "1 पुस्तिका")
+      .replace(/(?<!\d)1 पेटियाँ/gu, "1 पेटी")
+      .replace(/(?<!\d)1 फाइलें/gu, "1 फाइल")
+      .replace(/(?<!\d)1 पुर्ज़े/gu, "1 पुर्ज़ा")
+      .replace(/(?<!\d)1 सड़क के हिस्से/gu, "1 सड़क का हिस्सा");
   }
   if (language === "pa") {
     return value
-      .replace(/\b1 ਪੁਸਤਿਕਾਵਾਂ\b/gu, "1 ਪੁਸਤਿਕਾ")
-      .replace(/\b1 ਪੇਟੀਆਂ\b/gu, "1 ਪੇਟੀ")
-      .replace(/\b1 ਫਾਈਲਾਂ\b/gu, "1 ਫਾਈਲ")
-      .replace(/\b1 ਪੁਰਜ਼ੇ\b/gu, "1 ਪੁਰਜ਼ਾ")
-      .replace(/\b1 ਸੜਕ ਦੇ ਹਿੱਸੇ\b/gu, "1 ਸੜਕ ਦਾ ਹਿੱਸਾ");
+      .replace(/(?<!\d)1 ਪੁਸਤਿਕਾਵਾਂ/gu, "1 ਪੁਸਤਿਕਾ")
+      .replace(/(?<!\d)1 ਪੇਟੀਆਂ/gu, "1 ਪੇਟੀ")
+      .replace(/(?<!\d)1 ਫਾਈਲਾਂ/gu, "1 ਫਾਈਲ")
+      .replace(/(?<!\d)1 ਪੁਰਜ਼ੇ/gu, "1 ਪੁਰਜ਼ਾ")
+      .replace(/(?<!\d)1 ਸੜਕ ਦੇ ਹਿੱਸੇ/gu, "1 ਸੜਕ ਦਾ ਹਿੱਸਾ");
   }
   return value;
 }
@@ -144,7 +144,9 @@ function fixStem(question: AnyQuestion, qlId: string, language: Cp011ReviewLangu
 }
 
 function cleanLine(value: string, language: Cp011ReviewLanguage): string {
-  return singularizeKnownUnits(cleanMathText(value), language);
+  return singularizeKnownUnits(cleanMathText(value), language)
+    .replace(/दिन दिन/gu, "दिन")
+    .replace(/ਦਿਨ ਦਿਨ/gu, "ਦਿਨ");
 }
 
 function learnerWorking(question: AnyQuestion, language: Cp011ReviewLanguage): string[] {
