@@ -11,6 +11,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/profile-plan-v3.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-overlay-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-overlay-v1-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-modal-candidate-review-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/banking-source-profile-v4.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v3.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v4.ts
@@ -65,6 +66,21 @@ jobs:
             echo 'Unexpected permanent SYL-QL-019 registration.' >&2
             exit 1
           fi
+
+      - name: Bundle Banking modal human review exporter
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-modal-candidate-review-v1.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/export-syl-001-bank-modal-candidate-review-v1.mjs
+      - name: Generate and audit Banking modal human review pack
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/export-syl-001-bank-modal-candidate-review-v1.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1.log
+          test -s dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/SYL-001-BANKING-MODAL-CANDIDATE-HUMAN-REVIEW-V1.html
+          test -s dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/SYL-001-BANKING-MODAL-CANDIDATE-HUMAN-REVIEW-V1.md
+          test -s dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/summary.json
+          grep -q '"localizedRecords": 60' dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/summary.json
+          grep -q '"omittedDiagrams": 0' dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/summary.json
+          grep -q '"emittedQlIds": 0' dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/summary.json
+          grep -q '"activationPermitted": false' dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/summary.json
 
       - name: Bundle freeze readiness V3 regression
         run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v3.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-freeze-readiness-v3.mjs
@@ -136,7 +152,9 @@ jobs:
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-profile-plan-v3-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-banking-modal-candidate-overlay-v1-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1.log
             artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v3-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v6-audit.log
+            dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/**
           if-no-files-found: error
           retention-days: 30
