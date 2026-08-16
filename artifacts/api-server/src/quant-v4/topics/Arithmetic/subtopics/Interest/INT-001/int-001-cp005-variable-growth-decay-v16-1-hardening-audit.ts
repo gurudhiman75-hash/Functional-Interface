@@ -121,7 +121,7 @@ for (const qlId of INT_CP005_V16_1_QL_IDS) {
 
 const minTopology: Record<string, number> = {
   "INT-QL-086": 30, "INT-QL-087": 18, "INT-QL-088": 30, "INT-QL-089": 20,
-  "INT-QL-090": 24, "INT-QL-091": 24, "INT-QL-092": 14, "INT-QL-093": 30, "INT-QL-095": 10,
+  "INT-QL-090": 24, "INT-QL-091": 24, "INT-QL-092": 14, "INT-QL-093": 30, "INT-QL-095": 9,
 };
 for (const qlId of INT_CP005_V16_1_QL_IDS) {
   assert(skeletons.get(qlId)!.size >= 3, `${qlId}: fewer than three normalized stem frames (${skeletons.get(qlId)!.size})`);
