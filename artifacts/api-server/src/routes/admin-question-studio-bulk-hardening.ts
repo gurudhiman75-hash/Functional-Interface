@@ -6,6 +6,10 @@ import {
   type ConvertedQuestion,
   type QuestionSqlExecutor,
 } from "../lib/admin-question-conversion";
+import {
+  getGeneratedItemApprovalDisposition,
+  type GeneratedItemApprovalMode,
+} from "../lib/admin-question-studio-approval-policy";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
@@ -22,6 +26,8 @@ type ItemResult = {
   ok: boolean;
   code?: string;
   message?: string;
+  approvalMode?: GeneratedItemApprovalMode | null;
+  conversionSkippedReason?: string | null;
   convertedQuestion?: ConvertedQuestion | null;
 };
 
@@ -96,13 +102,17 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
       const result = await sqlClient.begin(async (tx) => {
         const rows = await tx`
           SELECT
-            id::text AS id,
-            generation_run_id::text AS "generationRunId",
-            status::text AS status,
-            accepted_question_id::text AS "acceptedQuestionId"
-          FROM content.generation_run_items
-          WHERE id = ${itemId}::uuid
-          FOR UPDATE
+            i.id::text AS id,
+            i.generation_run_id::text AS "generationRunId",
+            i.status::text AS status,
+            i.accepted_question_id::text AS "acceptedQuestionId",
+            v.payload
+          FROM content.generation_run_items i
+          LEFT JOIN content.generation_item_versions v
+            ON v.generation_item_id = i.id
+           AND v.version_number = i.current_version_number
+          WHERE i.id = ${itemId}::uuid
+          FOR UPDATE OF i
         `;
         const item = rows[0];
         if (!item) throw Object.assign(new Error("Generated item not found"), { code: "ITEM_NOT_FOUND" });
@@ -119,15 +129,23 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
           WHERE id = ${itemId}::uuid
         `;
 
+        let approvalMode: GeneratedItemApprovalMode | null = null;
+        let conversionSkippedReason: string | null = null;
         let convertedQuestion: ConvertedQuestion | null = null;
         if (status === "approved") {
-          convertedQuestion = await convertApprovedGenerationItem(
-            tx as QuestionSqlExecutor,
-            itemId,
-            actorUserId,
-          );
-          if (!convertedQuestion) {
-            throw Object.assign(new Error("Approved item could not be converted to Question Bank"), { code: "CONVERSION_FAILED" });
+          const disposition = getGeneratedItemApprovalDisposition(item.payload);
+          approvalMode = disposition.mode;
+          conversionSkippedReason = disposition.reason;
+
+          if (disposition.mode === "question_bank") {
+            convertedQuestion = await convertApprovedGenerationItem(
+              tx as QuestionSqlExecutor,
+              itemId,
+              actorUserId,
+            );
+            if (!convertedQuestion) {
+              throw Object.assign(new Error("Approved item could not be converted to Question Bank"), { code: "CONVERSION_FAILED" });
+            }
           }
         }
 
@@ -143,11 +161,15 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
             'generation_item',
             ${itemId}::uuid,
             ${convertedQuestion?.questionVersionId ?? null}::uuid,
-            ${reason || null},
-            ${`Generated item moved from ${String(item.status)} to ${status}`},
+            ${reason || conversionSkippedReason || null},
+            ${approvalMode === "review_only"
+              ? `Generated item approved for editorial review only from ${String(item.status)}`
+              : `Generated item moved from ${String(item.status)} to ${status}`},
             ${tx.json({
               previousStatus: item.status,
               status,
+              approvalMode,
+              conversionSkippedReason,
               questionId: convertedQuestion?.questionId ?? null,
               questionVersionId: convertedQuestion?.questionVersionId ?? null,
             })}
@@ -160,6 +182,8 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
           previousStatus: String(item.status),
           status,
           ok: true,
+          approvalMode,
+          conversionSkippedReason,
           convertedQuestion,
         } satisfies ItemResult;
       });
@@ -187,11 +211,16 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
       generationRunId: result.generationRunId,
       previousStatus: result.previousStatus,
       status: result.status,
+      approvalMode: result.approvalMode ?? null,
+      conversionSkippedReason: result.conversionSkippedReason ?? null,
       convertedQuestion: result.convertedQuestion ?? null,
     })),
     updatedCount: succeeded,
     converted,
     convertedCount: converted.length,
+    reviewOnlyApprovedCount: results.filter(
+      (result) => result.ok && result.approvalMode === "review_only",
+    ).length,
     attempted: results.length,
     succeeded,
     failed,
