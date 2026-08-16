@@ -24,6 +24,7 @@ import {
   type MensurationStudioLanguage,
 } from "./mensuration-localization-foundation-v3";
 import { prelocalizeMensurationEditorialSource } from "./mensuration-localization-source-editorial-v1";
+import { prelocalizeMensurationStructuredInstructionSource } from "./mensuration-localization-structured-instructions-v1";
 import {
   polishMensurationLocalizedOption,
   polishMensurationLocalizedText,
@@ -76,7 +77,8 @@ export const MENSURATION_LOCALIZED_PACKAGE_V1 = {
 
 function translate(text: string, language: MensurationLocalizedLanguage) {
   const editorialSource = prelocalizeMensurationEditorialSource(text, language);
-  const protectedFormula = protectMensurationFormulaIdentifiers(editorialSource);
+  const structuredSource = prelocalizeMensurationStructuredInstructionSource(editorialSource, language);
+  const protectedFormula = protectMensurationFormulaIdentifiers(structuredSource);
   const localized = localizeMensurationProse(protectedFormula.text, language);
   return polishMensurationLocalizedText(protectedFormula.restore(localized), language);
 }
