@@ -1,0 +1,108 @@
+name: Validate INT-CP-005 V16 Exam Realism
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp005-variable-growth-decay-runtime-v16*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-*.ts"
+      - ".github/workflows/int-cp005-v16-exam-realism.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: int-cp005-v16-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp005-v16:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle final V16 structural audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-final-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp005-v16-final-audit.mjs
+      - name: Run final V16 structural audit
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp005-v16-final-audit.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-final-audit.log
+      - name: Bundle final V16 editorial distractor audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-editorial-final-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp005-v16-editorial-final-audit.mjs
+      - name: Run final V16 editorial distractor audit
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp005-v16-editorial-final-audit.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-editorial-final-audit.log
+      - name: Bundle final V16 English review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-editorial-final-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp005-v16-editorial-final-review-export.mjs
+      - name: Export final V16 English review markdown
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp005-v16-editorial-final-review-export.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-editorial-final-review-export.log
+      - name: Bundle V16 native Hindi Punjabi audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-localized-final-audit-v3.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp005-v16-localized-final-audit.mjs
+      - name: Run V16 native Hindi Punjabi audit
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp005-v16-localized-final-audit.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-localized-final-audit.log
+      - name: Bundle V16 native Hindi Punjabi review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-multilingual-review-export-v2.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp005-v16-multilingual-review-export.mjs
+      - name: Export V16 native Hindi Punjabi review markdown
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp005-v16-multilingual-review-export.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-multilingual-review-export.log
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Verify V16 evidence markers
+        run: |
+          grep -q 'PASS_INT_CP005_V16_FINAL_EXAM_REALISM' artifacts/api-server/dist/quant-v4/int-cp005-v16-final-audit.log
+          grep -q 'PASS_INT_CP005_V16_EDITORIAL_FINAL_DISTRACTORS' artifacts/api-server/dist/quant-v4/int-cp005-v16-editorial-final-audit.log
+          grep -q 'PASS_INT_CP005_V16_EDITORIAL_FINAL_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-cp005-v16-editorial-final-review-export.log
+          grep -q 'PASS_INT_CP005_V16_HI_PA_NATIVE_EDITORIAL_V2' artifacts/api-server/dist/quant-v4/int-cp005-v16-localized-final-audit.log
+          grep -q 'PASS_INT_CP005_V16_HI_PA_NATIVE_REVIEW_V2' artifacts/api-server/dist/quant-v4/int-cp005-v16-multilingual-review-export.log
+      - name: Upload V16 review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp005-v16-review
+          path: |
+            artifacts/api-server/dist/quant-v4/INT-CP-005-V16-ENGLISH-REVIEW.md
+            artifacts/api-server/dist/quant-v4/INT-CP-005-V16-HI-PA-REVIEW.md
+            artifacts/api-server/dist/quant-v4/int-cp005-v16-final-audit.log
+            artifacts/api-server/dist/quant-v4/int-cp005-v16-editorial-final-audit.log
+            artifacts/api-server/dist/quant-v4/int-cp005-v16-localized-final-audit.log
+          if-no-files-found: error
