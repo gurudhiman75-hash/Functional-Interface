@@ -1,8 +1,6 @@
 import { createHash } from "node:crypto";
 
-import { SAP_CP001_ALL_PROTOTYPE_IDS } from "./SAP-001/SAP-CP-001/SAP-CP-001-ENGLISH-TEMPLATE-PROPOSAL";
 import { generateSapCp001PermanentEnglishPackage } from "./SAP-001/SAP-CP-001/permanent-runtime/runtime";
-import { SAP_CP002_ALL_PROTOTYPE_IDS } from "./SAP-001/SAP-CP-002/SAP-CP-002-AUTHORITY-AND-TEMPLATE-MAP";
 import { generateSapCp002PermanentEnglishPackage } from "./SAP-001/SAP-CP-002/permanent-runtime/runtime";
 import { SAP_CP003_PROTOTYPE_IDS } from "./SAP-001/SAP-CP-003/types";
 import { generateSapCp003PermanentPackage } from "./SAP-001/SAP-CP-003/permanent-runtime/runtime";
@@ -104,6 +102,12 @@ function ql(number: number): SapStudioQlId {
   return `SAP-QL-${String(number).padStart(3, "0")}` as SapStudioQlId;
 }
 
+function qlNumber(permanentQlId: string): number {
+  const value = Number(permanentQlId.slice(-3));
+  if (!Number.isInteger(value) || value < 1 || value > 211) throw new Error(`Invalid frozen SAP QL '${permanentQlId}'.`);
+  return value;
+}
+
 function reg(
   number: number,
   checkpointId: SapStudioCheckpointId,
@@ -116,8 +120,35 @@ function reg(
 }
 
 const registrations: GeneratorRegistration[] = [];
-SAP_CP001_ALL_PROTOTYPE_IDS.forEach((id, index) => registrations.push(reg(1 + index, "SAP-CP-001", id, (seed) => generateSapCp001PermanentEnglishPackage(id, seed))));
-SAP_CP002_ALL_PROTOTYPE_IDS.forEach((id, index) => registrations.push(reg(17 + index, "SAP-CP-002", id, (seed) => generateSapCp002PermanentEnglishPackage(id, seed))));
+
+for (const frozen of SAP_PERMANENT_QL_REGISTRY.filter((entry) => entry.checkpointId === "SAP-CP-001")) {
+  const ancestry = frozen.prototypeAncestry;
+  if (!ancestry.length) throw new Error(`${frozen.permanentQlId}: CP001 prototype ancestry is empty.`);
+  registrations.push(reg(
+    qlNumber(frozen.permanentQlId),
+    "SAP-CP-001",
+    String(frozen.templateId),
+    (seed) => {
+      const prototypeId = ancestry[(seed - 1) % ancestry.length] as Parameters<typeof generateSapCp001PermanentEnglishPackage>[0];
+      return generateSapCp001PermanentEnglishPackage(prototypeId, seed);
+    },
+  ));
+}
+
+for (const frozen of SAP_PERMANENT_QL_REGISTRY.filter((entry) => entry.checkpointId === "SAP-CP-002")) {
+  const ancestry = frozen.prototypeAncestry;
+  if (!ancestry.length) throw new Error(`${frozen.permanentQlId}: CP002 prototype ancestry is empty.`);
+  registrations.push(reg(
+    qlNumber(frozen.permanentQlId),
+    "SAP-CP-002",
+    String(frozen.templateId),
+    (seed) => {
+      const prototypeId = ancestry[(seed - 1) % ancestry.length] as Parameters<typeof generateSapCp002PermanentEnglishPackage>[0];
+      return generateSapCp002PermanentEnglishPackage(prototypeId, seed);
+    },
+  ));
+}
+
 SAP_CP003_PROTOTYPE_IDS.forEach((id, index) => registrations.push(reg(34 + index, "SAP-CP-003", id, (seed) => generateSapCp003PermanentPackage(id, seed))));
 SAP_CP004_PROTOTYPE_IDS.forEach((id, index) => registrations.push(reg(53 + index, "SAP-CP-004", id, (seed) => generateSapCp004E1Existing(id, seed))));
 SAP_CP005_PROTOTYPE_IDS.forEach((id, index) => registrations.push(reg(72 + index, "SAP-CP-005", id, (seed) => generateSapCp005(id, seed))));
@@ -134,7 +165,7 @@ registrations.push(reg(183, "SAP-CP-004", "SAP-CP004-E1-CAND-NESTED-ADDITIVE-EXA
 registrations.push(reg(184, "SAP-CP-005", "SAP-CP005-E1-CAND-NUMERIC-PARTIAL-FRACTION-TELESCOPING", generateSapCp005E1Telescoping, 0.25, true));
 registrations.push(reg(185, "SAP-CP-007", "SAP-CP007-E1-CAND-ROUND-TO-SIGNIFICANT-FIGURES", generateSapCp007E1SignificantFigures, 0, true));
 registrations.push(reg(186, "SAP-CP-010", "SAP-CP010-E1-CAND-SUPPLIED-ROOT-SCALING", generateSapCp010E1SuppliedRootScaling, 0.25, true));
-SAP_CP011_E2_STRUCTURES.forEach((id, index) => registrations.push(reg(187 + index, "SAP-CP-011", id, (seed) => generateSapCp011E2(id, seed), index >= 8 ? 0.5 : 1, index >= 8)));
+SAP_CP011_E2_STRUCTURES.forEach((id, index) => registrations.push(reg(187 + index, "SAP-CP-011", id, (seed) => generateSapCp011E2(id, seed), index >= 8 ? 0.5 : 1, index >= 8));
 SAP_CP012_E2_STRUCTURES.forEach((id, index) => registrations.push(reg(199 + index, "SAP-CP-012", id, (seed) => generateSapCp012E2(id, seed))));
 
 const REGISTRATION_BY_QL = new Map<SapStudioQlId, GeneratorRegistration>(registrations.map((entry) => [entry.qlId, entry]));
@@ -207,6 +238,14 @@ function stringArray(value: unknown): readonly string[] {
   return Array.isArray(value) ? Object.freeze(value.map((item) => String(item))) : Object.freeze([]);
 }
 
+function firstStringArray(...values: unknown[]): readonly string[] {
+  for (const value of values) {
+    const result = stringArray(value);
+    if (result.length) return result;
+  }
+  return Object.freeze([]);
+}
+
 function normalizeDifficulty(value: unknown): SapStudioDifficulty {
   const normalized = text(value, "MEDIUM").toUpperCase();
   return normalized === "EASY" || normalized === "HARD" ? normalized : "MEDIUM";
@@ -241,6 +280,8 @@ function normalizeSource(
   const explanation = record(pkg.explanation);
   const validation = record(pkg.validation);
   const errors = Array.isArray(validation.errors) ? validation.errors.map(String) : [];
+  const steps = firstStringArray(explanation.steps, explanation.stepByStep);
+  const verification = firstStringArray(explanation.verification);
   const contentHash = createHash("sha256").update(JSON.stringify({ qlId: descriptor.qlId, requestSeed, numericSeed, stem: pkg.stem, answer, options })).digest("hex").slice(0, 20);
   const questionId = `SAP-${descriptor.qlId.slice(-3)}-${contentHash}`;
 
@@ -263,10 +304,10 @@ function normalizeSource(
     correctIndex,
     answer,
     explanation: Object.freeze({
-      coreConcept: text(explanation.coreConcept),
-      steps: stringArray(explanation.steps),
+      coreConcept: text(explanation.coreConcept, text(explanation.givenDataAndStrategy)),
+      steps,
       finalAnswer: text(explanation.finalAnswer, `Therefore, the answer is ${answer}.`),
-      verification: stringArray(explanation.verification),
+      verification,
     }),
     renderer: "TEXT_MATH" as const,
     seed: requestSeed,
