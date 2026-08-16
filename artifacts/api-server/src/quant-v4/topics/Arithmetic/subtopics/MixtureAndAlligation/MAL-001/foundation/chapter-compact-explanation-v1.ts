@@ -112,8 +112,9 @@ function cp001DualMethod(
 }
 
 function mixedFractionToDecimalLine(value: string): string {
-  return value.replace(
-    /After (\d+) operations, the original quantity is \\[([0-9]+) ([0-9]+)\/([0-9]+)\\], which is (not )?below ([0-9]+(?:\.[0-9]+)?)./u,
+  const plain = value.replaceAll("\\[", "").replaceAll("\\]", "");
+  return plain.replace(
+    /After (\d+) operations, the original quantity is ([0-9]+) ([0-9]+)\/([0-9]+), which is (not )?below ([0-9]+(?:\.[0-9]+)?)./u,
     (_match, stageText, wholeText, numeratorText, denominatorText, notText, thresholdText) => {
       const stage = Number(stageText);
       const whole = Number(wholeText);
