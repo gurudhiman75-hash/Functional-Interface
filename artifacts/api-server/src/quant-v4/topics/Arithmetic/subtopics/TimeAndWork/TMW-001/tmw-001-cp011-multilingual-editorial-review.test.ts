@@ -37,10 +37,12 @@ for(const qlId of qls)for(const namespace of namespaces)for(const seedSuffix of 
     assert(!proseInsideMath(text),`${label}: localized prose remains inside MathJax`);
     assert(!/\bS\}/.test(text),`${label}: malformed S brace remains`);
     assert(!/(?:^|\s)S=tr_1\+\(n-t\)r_2(?:\s|$)/.test(text),`${label}: raw threshold solver notation remains`);
+    assert(!/दिन दिन|ਦਿਨ ਦਿਨ/u.test(text),`${label}: duplicated day label remains`);
     if(language==="hi"){
       assert(/[\u0900-\u097F]/u.test(text),`${label}: Hindi script missing`);
       assert(!/\b(?:Asha|Bharat|Meera|Rohan|Priya|Raj|Kiran|Nitin|Simran|Arjun)\b/.test(q.stem),`${label}: Latin personal name remains in Hindi stem`);
       assert(!/(?:पुस्तिकाएँ|पेटियाँ|फाइलें) पूरे होते हैं|(?:पुर्ज़े|सड़क के हिस्से) पूरी होती हैं|(?:पुस्तिकाएँ|पेटियाँ|फाइलें) पूरा (?:होने|करने)|(?:पुर्ज़े|सड़क के हिस्से) पूरी (?:होने|करने)/u.test(q.stem),`${label}: Hindi object agreement defect remains`);
+      assert(!/(?<!\d)1 (?:पुस्तिकाएँ|पेटियाँ|फाइलें|पुर्ज़े|सड़क के हिस्से)/u.test(text),`${label}: Hindi singular quantity uses plural unit form`);
       const key=q.parameters?.context?.unit as keyof typeof unitTokens.hi|undefined;
       if(key){const expected=unitTokens.hi[key];for(const [k,token] of Object.entries(unitTokens.hi))if(k!==key)assert(!q.stem.includes(token),`${label}: wrong Hindi context unit ${token}; expected ${expected}`);}
     }
@@ -48,6 +50,7 @@ for(const qlId of qls)for(const namespace of namespaces)for(const seedSuffix of 
       assert(/[\u0A00-\u0A7F]/u.test(text),`${label}: Punjabi script missing`);
       assert(!/\b(?:Asha|Bharat|Meera|Rohan|Priya|Raj|Kiran|Nitin|Simran|Arjun)\b/.test(q.stem),`${label}: Latin personal name remains in Punjabi stem`);
       assert(!/(?:ਪੁਸਤਿਕਾਵਾਂ|ਪੇਟੀਆਂ|ਫਾਈਲਾਂ) ਪੂਰੇ ਹੁੰਦੇ ਹਨ|(?:ਪੁਰਜ਼ੇ|ਸੜਕ ਦੇ ਹਿੱਸੇ) ਪੂਰੀਆਂ ਹੁੰਦੀਆਂ ਹਨ|(?:ਪੁਸਤਿਕਾਵਾਂ|ਪੇਟੀਆਂ|ਫਾਈਲਾਂ) ਪੂਰੇ (?:ਹੋਣ|ਕਰਨ)|(?:ਪੁਰਜ਼ੇ|ਸੜਕ ਦੇ ਹਿੱਸੇ) ਪੂਰੀਆਂ (?:ਹੋਣ|ਕਰਨ)/u.test(q.stem),`${label}: Punjabi object agreement defect remains`);
+      assert(!/(?<!\d)1 (?:ਪੁਸਤਿਕਾਵਾਂ|ਪੇਟੀਆਂ|ਫਾਈਲਾਂ|ਪੁਰਜ਼ੇ|ਸੜਕ ਦੇ ਹਿੱਸੇ)/u.test(text),`${label}: Punjabi singular quantity uses plural unit form`);
       const key=q.parameters?.context?.unit as keyof typeof unitTokens.pa|undefined;
       if(key){const expected=unitTokens.pa[key];for(const [k,token] of Object.entries(unitTokens.pa))if(k!==key)assert(!q.stem.includes(token),`${label}: wrong Punjabi context unit ${token}; expected ${expected}`);}
     }
@@ -61,4 +64,4 @@ for(const qlId of qls)for(const namespace of namespaces)for(const seedSuffix of 
   assert(JSON.stringify(optionNumbers(en.options))===JSON.stringify(optionNumbers(pa.options)),`${qlId}:${namespace}:${seedSuffix}: Punjabi option-value mismatch`);
 }
 assert(checked===912,`Expected 912 cases, got ${checked}`); assert(modes.size===19,`Expected 19 solve modes, got ${modes.size}`);
-console.log(JSON.stringify({chapter:"TMW-001",checkpoint:"TMW-CP-011",checked,solveModes:modes.size,publicationLocked:true,manualFindingsGuarded:true,verdict:"PASS"},null,2));
+console.log(JSON.stringify({chapter:"TMW-001",checkpoint:"TMW-CP-011",checked,solveModes:modes.size,publicationLocked:true,manualFindingsGuarded:true,unicodeSingularUnitsGuarded:true,verdict:"PASS"},null,2));
