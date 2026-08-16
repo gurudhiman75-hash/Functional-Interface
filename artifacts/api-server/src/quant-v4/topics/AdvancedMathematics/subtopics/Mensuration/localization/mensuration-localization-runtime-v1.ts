@@ -23,6 +23,7 @@ import {
   type MensurationLocalizedLanguage,
   type MensurationStudioLanguage,
 } from "./mensuration-localization-foundation-v3";
+import { polishMensurationLocalizedText } from "./mensuration-localization-editorial-v1";
 
 export type MensurationLocalizedQuestionV1 = Omit<
   MensurationQuestionStudioQuestionV2,
@@ -67,6 +68,10 @@ export const MENSURATION_LOCALIZED_PACKAGE_V1 = {
   localizationStatus: "HINDI_PUNJABI_CONTROLLED_REVIEW" as const,
 } as const;
 
+function translate(text: string, language: MensurationLocalizedLanguage) {
+  return polishMensurationLocalizedText(localizeMensurationProse(text, language), language);
+}
+
 function localizeQuestion(
   canonical: MensurationQuestionStudioQuestionV2,
   language: MensurationLocalizedLanguage,
@@ -76,12 +81,12 @@ function localizeQuestion(
     ...option,
     text: options[index]!,
   }));
-  const stem = localizeMensurationProse(canonical.stem, language);
+  const stem = translate(canonical.stem, language);
   const explanation = {
-    steps: canonical.explanation.steps.map((step) => localizeMensurationProse(step, language)),
-    shortcut: localizeMensurationProse(canonical.explanation.shortcut, language),
+    steps: canonical.explanation.steps.map((step) => translate(step, language)),
+    shortcut: translate(canonical.explanation.shortcut, language),
     traps: canonical.explanation.traps.map((trap) =>
-      localizeMensurationProse(stripLearnerMisconceptionTag(trap), language),
+      translate(stripLearnerMisconceptionTag(trap), language),
     ),
   };
   const answer = options[canonical.correctIndex]!;
