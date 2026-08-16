@@ -15,7 +15,7 @@ function ipow(base: number, exponent: number): number { return base ** exponent;
 
 function powerChain(seed: number): SapE2Package {
   const p = seed - 1, correctIndex = p % 4;
-  const g = 2 + (p % 3);
+  const g = 3 + (p % 2);
   const a = 4 + (p % 2), b = 2 + ((p * 3) % 3), c = 2 + (p % 2);
   const leftExponent = a + b - c;
   const missingExponent = 2 + ((p * 5) % 3);
@@ -59,7 +59,7 @@ function powerChain(seed: number): SapE2Package {
 
 function powerRootChain(seed: number): SapE2Package {
   const p = seed - 1, correctIndex = p % 4;
-  const g = 2 + (p % 3), root = 6 + ((p * 5) % 9);
+  const g = 3 + (p % 2), root = 6 + ((p * 5) % 9);
   const denominatorExponent = 2 + (p % 2);
   const missingExponent = 2 + ((p * 7) % 3);
   const numeratorExponent = denominatorExponent + missingExponent;
