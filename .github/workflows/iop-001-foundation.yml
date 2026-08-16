@@ -1,4 +1,4 @@
-name: Validate IOP-001 CP001-CP004 foundation
+name: Validate IOP-001 CP001-CP010 discovery
 
 on:
   push:
@@ -59,12 +59,25 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Run 960-caselet CP001-CP004 proof
+      - name: Re-run CP001-CP004 foundation proof
         env:
           IOP_FOUNDATION_CASES: 80
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/foundation-proof.test.ts
 
-  review-export:
+  advanced-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run CP005-CP010 advanced proof
+        env:
+          IOP_ADVANCED_CASES: 40
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/advanced-proof.test.ts
+
+  foundation-review-export:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -80,6 +93,25 @@ jobs:
         with:
           name: iop-cp001-cp004-foundation-review
           path: /tmp/iop-foundation-review/**
+          if-no-files-found: error
+          retention-days: 14
+
+  advanced-review-export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generate CP005-CP010 English review pack
+        env:
+          IOP_ADVANCED_REVIEW_OUTPUT_DIR: /tmp/iop-advanced-review
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/advanced-review-export.ts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: iop-cp005-cp010-advanced-review
+          path: /tmp/iop-advanced-review/**
           if-no-files-found: error
           retention-days: 14
 
