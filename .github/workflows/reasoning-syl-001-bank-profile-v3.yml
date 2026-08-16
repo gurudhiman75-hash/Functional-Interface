@@ -9,6 +9,7 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/profile-plan-v3.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-overlay-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-overlay-v1-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-modal-candidate-review-v1.ts
@@ -80,6 +81,7 @@ jobs:
           grep -q '"localizedRecords": 60' dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/summary.json
           grep -q '"omittedDiagrams": 0' dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/summary.json
           grep -q '"emittedQlIds": 0' dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/summary.json
+          grep -q '"nonEnglishConventionLeaks": 0' dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/summary.json
           grep -q '"activationPermitted": false' dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1/summary.json
 
       - name: Bundle freeze readiness V3 regression
