@@ -6,7 +6,7 @@ import {
   INT_CP005_V16_1_LOCALES,
   INT_CP005_V16_1_LOCALIZED_VERSION,
   generateIntCp005QuestionV16_1Localized,
-} from "./cp005-variable-growth-decay-runtime-v16-1-localized";
+} from "./cp005-variable-growth-decay-runtime-v16-1-localized-v2";
 import { verifyIntCp005Answer } from "./cp005-variable-growth-decay-runtime";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
