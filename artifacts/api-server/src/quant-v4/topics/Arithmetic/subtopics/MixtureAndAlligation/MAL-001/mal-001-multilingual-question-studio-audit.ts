@@ -17,6 +17,10 @@ function qlId(number: number): string {
   return `MAL-QL-${String(number).padStart(3, "0")}`;
 }
 
+function qlNumber(value: string): number {
+  return Number(/^MAL-QL-(\d{3})$/u.exec(value)?.[1] ?? 0);
+}
+
 function expectedCp(number: number): string {
   if (number <= 11) return "MAL-CP-001";
   if (number <= 28) return "MAL-CP-002";
@@ -24,6 +28,12 @@ function expectedCp(number: number): string {
   if (number <= 47) return "MAL-CP-004";
   if (number <= 60) return "MAL-CP-005";
   return "MAL-CP-006";
+}
+
+function expectedLocalizationId(ql: string): string {
+  return qlNumber(ql) <= 11
+    ? "MAL-001-HI-PA-QUESTION-STUDIO-V4"
+    : "MAL-001-HI-PA-QUESTION-STUDIO-V3";
 }
 
 function numericSignature(value: unknown): string[] {
@@ -96,9 +106,10 @@ function parityCheck(english: any, localized: any, language: "hi" | "pa", ql: st
     localized.traceability?.mathematicalAuthorityLanguage === "en",
     `${ql}:${language}: English mathematical authority trace missing.`,
   );
+  const localizationId = expectedLocalizationId(ql);
   assert(
-    localized.traceability?.localizationId === "MAL-001-HI-PA-QUESTION-STUDIO-V4",
-    `${ql}:${language}: V4 localization trace missing.`,
+    localized.traceability?.localizationId === localizationId,
+    `${ql}:${language}: expected localization trace ${localizationId}, got ${String(localized.traceability?.localizationId)}.`,
   );
 }
 
@@ -231,6 +242,10 @@ const summary = {
   retainedReviewQuestions: retained.length,
   mathematicalAuthorityLanguage: "en",
   stemPolicy: "STRUCTURED_NATIVE_CP001_THEN_NATIVE_QL_TEMPLATE",
+  localizationTracePolicy: {
+    cp001: "MAL-001-HI-PA-QUESTION-STUDIO-V4",
+    cp002ToCp006: "MAL-001-HI-PA-QUESTION-STUDIO-V3",
+  },
   lifecycle: {
     questionStudio: "ACTIVE_EN_HI_PA",
     questionBankStatus: "NOT_STORED",
@@ -239,6 +254,6 @@ const summary = {
     publiclyPublishable: false,
   },
 };
-const summaryPath = resolve(process.cwd(), "dist/quant-v4/mal-001-multilingual-question-studio-audit.json");
+const summaryPath = resolve(outDir, "mal-001-multilingual-question-studio-audit.json");
 await writeFile(summaryPath, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
 console.log(JSON.stringify(summary, null, 2));
