@@ -9,7 +9,7 @@ const proofIds = new Set<string>(TRG_002_RUNTIME_PROOF_IDS);
 function normalizeProofStemForEditorial(qlId: Trg002Mvp48Id, question: any) {
   if (qlId !== "TRG-002-QL-092") return question;
   const stem = question.stem.replace(
-    /^A (.+?) m tower stands on one river bank\. From its top, the point directly opposite on the other bank is seen at (.+?)° depression\. Find the river width\.$/,
+    /^A (.+?) m tower stands on one river bank\. From its top, (?:the point directly opposite|a point directly opposite the tower) on the other bank is seen at (.+?)° depression\. Find the river width\.$/,
     "A tower $1 m high stands at the edge of a river bank. From its top, the angle of depression of a point directly opposite on the other bank is $2°. What is the width of the river?",
   );
   return { ...question, stem };
