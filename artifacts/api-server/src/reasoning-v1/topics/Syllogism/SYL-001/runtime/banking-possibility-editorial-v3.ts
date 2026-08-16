@@ -221,7 +221,8 @@ function explanationLine(
   const reason = conclusion.mode === "POSSIBILITY"
     ? possibilityReason(question.locale, conclusion, subject, predicate)
     : ordinaryReason(question.locale, conclusion, subject, predicate);
-  return `${reason}. ${verdict(question.locale, label, conclusion.follows)}`;
+  const separator = question.locale === "en-IN" ? ". " : "। ";
+  return `${reason}${separator}${verdict(question.locale, label, conclusion.follows)}`;
 }
 
 function v1Carrier(question: BankingPossibilityShellQuestionV2): BankingPossibilityShellQuestionV1 {
