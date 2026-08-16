@@ -33,9 +33,12 @@ const languages: readonly MensurationLocalizedLanguage[] = ["hi", "pa"];
 let crossScriptLeakage = 0;
 let mixedTokenCorruption = 0;
 let internalIdLeakage = 0;
-const latinCounts = new Map<string, number>();
-const fieldLatinCounts = new Map<string, number>();
-const optionLatinCounts = new Map<string, number>();
+let questionsWithResidualLatin = 0;
+let optionFieldsWithResidualLatin = 0;
+const latinQuestionCounts = new Map<string, number>();
+const latinFieldOccurrences = new Map<string, number>();
+const fieldLatinOccurrences = new Map<string, number>();
+const optionLatinOccurrences = new Map<string, number>();
 const examples = new Map<string, Array<Record<string, string>>>();
 const fieldExamples = new Map<string, Array<Record<string, string>>>();
 const worstQuestions: Array<Record<string, unknown>> = [];
@@ -53,10 +56,12 @@ for (const pattern of MENSURATION_QUESTION_STUDIO_PATTERNS) {
       const questionLeaks = new Set<string>();
       for (const [field, value] of learnerFields(question)) {
         const leaks = instructionalLatinLeaks(value);
+        if (field.startsWith("option-") && leaks.length) optionFieldsWithResidualLatin += 1;
         for (const leak of leaks) {
           questionLeaks.add(leak);
-          fieldLatinCounts.set(field, (fieldLatinCounts.get(field) ?? 0) + 1);
-          if (field.startsWith("option-")) optionLatinCounts.set(leak, (optionLatinCounts.get(leak) ?? 0) + 1);
+          latinFieldOccurrences.set(leak, (latinFieldOccurrences.get(leak) ?? 0) + 1);
+          fieldLatinOccurrences.set(field, (fieldLatinOccurrences.get(field) ?? 0) + 1);
+          if (field.startsWith("option-")) optionLatinOccurrences.set(leak, (optionLatinOccurrences.get(leak) ?? 0) + 1);
           const fieldKey = `${field}:${leak}`;
           const bucket = fieldExamples.get(fieldKey) ?? [];
           if (bucket.length < 3) bucket.push({ language, cpId: question.cpId, patternId: question.patternId, field, text: value });
@@ -65,8 +70,9 @@ for (const pattern of MENSURATION_QUESTION_STUDIO_PATTERNS) {
       }
 
       const leaks = [...questionLeaks].sort();
+      if (leaks.length) questionsWithResidualLatin += 1;
       for (const leak of leaks) {
-        latinCounts.set(leak, (latinCounts.get(leak) ?? 0) + 1);
+        latinQuestionCounts.set(leak, (latinQuestionCounts.get(leak) ?? 0) + 1);
         const bucket = examples.get(leak) ?? [];
         if (bucket.length < 3) bucket.push({ language, cpId: question.cpId, patternId: question.patternId, stem: question.stem });
         examples.set(leak, bucket);
@@ -78,9 +84,10 @@ for (const pattern of MENSURATION_QUESTION_STUDIO_PATTERNS) {
   }
 }
 
-const top = [...latinCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
-const topOption = [...optionLatinCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
-const fields = [...fieldLatinCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const top = [...latinQuestionCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const topFields = [...latinFieldOccurrences.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const topOption = [...optionLatinOccurrences.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const fields = [...fieldLatinOccurrences.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 assert(crossScriptLeakage === 0, `${crossScriptLeakage} localized questions contain the wrong Indic script.`);
 assert(mixedTokenCorruption === 0, `${mixedTokenCorruption} localized questions contain joined Latin/Indic token corruption.`);
 assert(internalIdLeakage === 0, `${internalIdLeakage} localized questions expose internal misconception IDs.`);
@@ -91,13 +98,21 @@ const report = {
   crossScriptLeakage,
   mixedTokenCorruption,
   internalIdLeakage,
+  questionsWithResidualLatin,
+  optionFieldsWithResidualLatin,
   residualInstructionalLatinUnique: top.length,
-  residualInstructionalLatinOccurrences: top.reduce((sum, [, count]) => sum + count, 0),
-  topResidualInstructionalLatin: top.slice(0, 250).map(([token, count]) => ({ token, count, examples: examples.get(token) ?? [] })),
-  residualInstructionalLatinByField: fields.map(([field, count]) => ({ field, count })),
-  topOptionResidualInstructionalLatin: topOption.slice(0, 150).map(([token, count]) => ({
+  residualInstructionalLatinQuestionOccurrences: top.reduce((sum, [, count]) => sum + count, 0),
+  residualInstructionalLatinFieldOccurrences: topFields.reduce((sum, [, count]) => sum + count, 0),
+  topResidualInstructionalLatin: top.slice(0, 250).map(([token, questionCount]) => ({
     token,
-    count,
+    questionCount,
+    fieldOccurrences: latinFieldOccurrences.get(token) ?? 0,
+    examples: examples.get(token) ?? [],
+  })),
+  residualInstructionalLatinByField: fields.map(([field, occurrences]) => ({ field, occurrences })),
+  topOptionResidualInstructionalLatin: topOption.slice(0, 150).map(([token, occurrences]) => ({
+    token,
+    occurrences,
     examples: [...fieldExamples.entries()]
       .filter(([key]) => key.startsWith("option-") && key.endsWith(`:${token}`))
       .flatMap(([, rows]) => rows)
@@ -115,7 +130,9 @@ fs.writeFileSync(path.join(outputDir, "mensuration-localization-editorial-audit-
   `- Wrong-script leakage: **${crossScriptLeakage}**`,
   `- Joined Latin/Indic corruption: **${mixedTokenCorruption}**`,
   `- Internal learner ID leakage: **${internalIdLeakage}**`,
-  `- Residual instructional Latin: **${report.residualInstructionalLatinUnique} unique / ${report.residualInstructionalLatinOccurrences} question-level occurrences**`,
+  `- Questions with residual instructional Latin: **${questionsWithResidualLatin}**`,
+  `- Residual instructional Latin: **${report.residualInstructionalLatinUnique} unique / ${report.residualInstructionalLatinQuestionOccurrences} question occurrences / ${report.residualInstructionalLatinFieldOccurrences} field occurrences**`,
+  `- Option fields with residual Latin: **${optionFieldsWithResidualLatin}**`,
   `- Option-specific residual Latin tokens: **${topOption.length} unique**`,
   "",
   "Residual Latin is reported by field for editorial remediation; technical abbreviations and unit symbols are filtered by the controlled allow-list.",
