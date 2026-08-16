@@ -48,6 +48,8 @@ for (const qlId of qls) for (const language of languages) for (const namespace o
 
   if (qlId === "TMW-QL-177" || qlId === "TMW-QL-178") {
     assert(/Stage 1|चरण 1|ਪੜਾਅ 1/u.test(learnerText), `${label}: first stage is omitted from learner working`);
+    assert(/final-stage time|अंतिम चरण का समय|ਅੰਤਿਮ ਪੜਾਅ ਦਾ ਸਮਾਂ/u.test(learnerText), `${label}: final-stage arithmetic is omitted from learner working`);
+    assert(/total time|कुल समय|ਕੁੱਲ ਸਮਾਂ/u.test(learnerText), `${label}: total-time calculation is omitted from learner working`);
   }
   if (qlId === "TMW-QL-180") assert(/final tank level|अंत में टंकी|ਅੰਤ ਵਿੱਚ ਟੈਂਕੀ/i.test(question.learnerExplanation.answer), `${label}: final-level answer label missing`);
   if (qlId === "TMW-QL-183") {
