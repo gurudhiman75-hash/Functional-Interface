@@ -119,6 +119,9 @@ for (let seed = 1; seed <= 100; seed += 1) {
   assert.equal(q.validation.ok, true);
   assert.equal(q.explanation.finalAnswer, `Therefore, ? = ${q.canonicalAnswer}.`);
   assert.doesNotMatch(q.explanation.finalAnswer, /≈/);
+  assert.ok(!q.options.some(o => o.misconceptionId === "BODMAS_OR_SCALE"), `unique-integer/${seed}: stale BODMAS distractor survived`);
+  assert.deepEqual(new Set(q.options.filter(o => !o.isCorrect).map(o => o.misconceptionId)), new Set(["TOLERANCE_INTEGER_ONE_LOW","TOLERANCE_INTEGER_ONE_HIGH","TOLERANCE_BAND_SHIFT_HIGH"]));
+  assert.ok(q.options.filter(o => !o.isCorrect).every(o => /tolerance|integer|band/i.test(o.analysis)), `unique-integer/${seed}: distractor rationale is not tolerance-specific`);
   const payload = JSON.parse(q.canonicalPayloadKey);
   assert.equal(payload.stem, q.stem);
   assertLifecycleOff(q);
@@ -128,7 +131,7 @@ console.log(JSON.stringify({
   authority: "SAP-E3-SOURCE-SATURATION",
   cp004: { heterogeneousExactRootStates: heterogeneous, decimalRootQuotientStates: decimalQuotient, misconceptionSemanticProof: true },
   cp012: { explicitPowerReverseStates: 100, powerChain, powerRootChain, missingExponent, answerPositions, maxDisplayedDrift, misconceptionSemanticProof: true },
-  editorialPolish: { uniqueIntegerExactConclusionStates: 100 },
+  editorialPolish: { uniqueIntegerExactConclusionStates: 100, uniqueIntegerDistractorSemantics: true },
   qlDisposition: "NO_NEW_PERMANENT_QL; EXPAND_EXISTING_CP004_CP012_IDENTITIES",
   lifecycle: "INACTIVE",
 }));
