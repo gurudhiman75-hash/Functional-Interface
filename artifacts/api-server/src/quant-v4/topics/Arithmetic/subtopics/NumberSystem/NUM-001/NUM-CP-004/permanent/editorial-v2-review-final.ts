@@ -103,6 +103,16 @@ function adjacentIntervalSolution(state: State): readonly string[] | null {
   ]);
 }
 
+function emptyPrimeIntervalSolution(state: State, original: readonly string[]): readonly string[] {
+  const lower = number(state.lower, "lower");
+  const upper = number(state.upper, "upper");
+  return Object.freeze([
+    original[0]!,
+    `Testing every integer from ${math(lower)} to ${math(upper)} finds no prime numbers.`,
+    `Therefore the complete prime set is ${math("\\varnothing")}.`,
+  ]);
+}
+
 function coprimeSetOrCountSolution(state: State, mode: string): readonly string[] {
   const fixed = number(state.fixed, "fixed");
   const candidates = numbers(state.candidates, "candidates");
@@ -192,6 +202,7 @@ function coprimeClaimSolution(state: State, answer: string): readonly string[] {
 }
 
 function refinedStem(question: NumCp004EditorialV2Question, mode: string): string {
+  if (question.permanentQlId === "NUM-QL-032") return "Which of the following pairs is co-prime?";
   if (mode === "COPRIME_CLAIM") return "Which of the following co-prime statements is correct?";
   return question.stem;
 }
@@ -211,6 +222,10 @@ function refine(question: NumCp004EditorialV2Question): NumCp004EditorialV2Quest
     solution = feasibilitySolution(state, question.canonicalAnswer);
   } else if (mode === "COPRIME_CLAIM") {
     solution = coprimeClaimSolution(state, question.canonicalAnswer);
+  }
+
+  if (question.permanentQlId === "NUM-QL-019" && question.canonicalAnswer === "{}") {
+    solution = emptyPrimeIntervalSolution(state, solution);
   }
 
   if (solution.length < 2 || solution.length > 4 || !solution[0]!.startsWith("Rule:")) {
