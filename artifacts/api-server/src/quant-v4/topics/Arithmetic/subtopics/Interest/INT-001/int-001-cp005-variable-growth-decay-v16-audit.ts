@@ -1,5 +1,5 @@
 import { INT_CP005_V16_QL_IDS, INT_CP005_RUNTIME_VERSION_V16, generateIntCp005QuestionV16 } from "./cp005-variable-growth-decay-runtime-v16";
-import { verifyIntCp005Answer, type IntCp005QlId } from "./cp005-variable-growth-decay-runtime";
+import { verifyIntCp005Answer } from "./cp005-variable-growth-decay-runtime";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -7,14 +7,17 @@ function assert(condition: unknown, message: string): asserts condition {
 function stable(value: unknown): string {
   return JSON.stringify(value, (_key, item) => typeof item === "bigint" ? `${item}n` : item);
 }
-function maxMoneyState(qlId: IntCp005QlId, question: ReturnType<typeof generateIntCp005QuestionV16>): bigint {
+function maxVisibleState(question: ReturnType<typeof generateIntCp005QuestionV16>): bigint {
   const state = question.mathematicalState;
-  switch (qlId) {
-    case "INT-QL-086": case "INT-QL-087": case "INT-QL-090": case "INT-QL-092": return state.initial.numerator;
-    case "INT-QL-088": case "INT-QL-089": case "INT-QL-091": return state.initial.numerator > state.finalValue.numerator ? state.initial.numerator : state.finalValue.numerator;
-    case "INT-QL-093": return state.initial.numerator > state.threshold.numerator ? state.initial.numerator : state.threshold.numerator;
-    case "INT-QL-095": return state.initial.numerator;
-    case "INT-QL-094": return 0n;
+  switch (state.qlId) {
+    case "INT-QL-086": case "INT-QL-087": case "INT-QL-090": case "INT-QL-092": case "INT-QL-095":
+      return state.initial.numerator;
+    case "INT-QL-088": case "INT-QL-089": case "INT-QL-091":
+      return state.initial.numerator > state.finalValue.numerator ? state.initial.numerator : state.finalValue.numerator;
+    case "INT-QL-093":
+      return state.initial.numerator > state.threshold.numerator ? state.initial.numerator : state.threshold.numerator;
+    case "INT-QL-094":
+      return 0n;
   }
 }
 
@@ -55,8 +58,9 @@ for (const qlId of INT_CP005_V16_QL_IDS) {
     assert(question.runtimeVersion === INT_CP005_RUNTIME_VERSION_V16, `${qlId}/${seed}: wrong runtime`);
     assert(question.locale === "en-IN", `${qlId}/${seed}: V16 candidate is not English`);
     assert(verifyIntCp005Answer(question.mathematicalState, question.solution), `${qlId}/${seed}: verifier failed`);
-    verifierChecks += 1;
     assert(question.solution.denominator === 1n, `${qlId}/${seed}: non-integral keyed answer`);
+    verifierChecks += 1;
+
     assert(question.options.length === 4, `${qlId}/${seed}: option count`);
     assert(new Set(question.options.map((option) => option.text)).size === 4, `${qlId}/${seed}: duplicate options`);
     assert(question.options.filter((option) => option.isCorrect).length === 1, `${qlId}/${seed}: correct ownership`);
@@ -71,29 +75,37 @@ for (const qlId of INT_CP005_V16_QL_IDS) {
     lifecycleChecks += 7;
 
     const stem = question.presentation.markdown;
-    assert(stem.length <= 285, `${qlId}/${seed}: stem is too long (${stem.length})`);
+    assert(stem.length <= 285, `${qlId}/${seed}: stem too long (${stem.length})`);
     assert(!bannedLeadIns.some((phrase) => stem.includes(phrase)), `${qlId}/${seed}: boilerplate lead-in returned`);
     assert(!/production|capacity|salary|employee|executive/iu.test(stem), `${qlId}/${seed}: out-of-scope context leaked`);
-    assert(!/1 years\b/u.test(stem + " " + question.options.map((o) => o.text).join(" ")), `${qlId}/${seed}: singular year grammar`);
-    assert(!/₹(?:[3-9]\d|\d{3,}),\d{2},\d{3}/u.test(stem), `${qlId}/${seed}: multi-million learner money leaked`);
+    assert(!/1 years\b/u.test(`${stem} ${question.options.map((o) => o.text).join(" ")}`), `${qlId}/${seed}: singular year grammar`);
+    assert(!/₹\d{2,},\d{2},\d{3}/u.test(stem), `${qlId}/${seed}: crore-scale learner money leaked`);
     editorialChecks += 5;
 
-    const maxState = maxMoneyState(qlId, question);
-    if (qlId !== "INT-QL-093") assert(maxState <= 300000n, `${qlId}/${seed}: learner value exceeds ₹3 lakh`);
-    if (["INT-QL-086", "INT-QL-087", "INT-QL-088", "INT-QL-089", "INT-QL-095"].includes(qlId)) {
-      assert(question.mathematicalState.context === "INVESTMENT", `${qlId}/${seed}: investment QL escaped context`);
+    if (qlId !== "INT-QL-093") assert(maxVisibleState(question) <= 300000n, `${qlId}/${seed}: learner value exceeds ₹3 lakh`);
+    const state = question.mathematicalState;
+    switch (state.qlId) {
+      case "INT-QL-086": case "INT-QL-087": case "INT-QL-088": case "INT-QL-089": case "INT-QL-095":
+        assert(state.context === "INVESTMENT", `${qlId}/${seed}: investment QL escaped context`);
+        break;
+      case "INT-QL-090": case "INT-QL-091":
+        assert(state.context === "MACHINE" || state.context === "VEHICLE", `${qlId}/${seed}: depreciation context escaped`);
+        break;
+      case "INT-QL-092":
+        assert(state.context === "ASSET", `${qlId}/${seed}: mixed-change context escaped`);
+        break;
+      case "INT-QL-093":
+        assert(state.context === "POPULATION" || state.context === "ASSET", `${qlId}/${seed}: threshold context escaped`);
+        break;
+      case "INT-QL-094": throw new Error("QL094 unexpectedly reached V16 audit");
     }
-    if (qlId === "INT-QL-090" || qlId === "INT-QL-091") {
-      assert(question.mathematicalState.context === "MACHINE" || question.mathematicalState.context === "VEHICLE", `${qlId}/${seed}: depreciation context escaped`);
+    if (state.qlId === "INT-QL-086" || state.qlId === "INT-QL-087" || state.qlId === "INT-QL-088") {
+      assert(state.rates.length >= 2 && state.rates.length <= 3, `${qlId}/${seed}: ordinary duration not 2-3 years`);
     }
-    if (qlId === "INT-QL-092") assert(question.mathematicalState.context === "ASSET", `${qlId}/${seed}: mixed-change context escaped`);
-    if (qlId === "INT-QL-086" || qlId === "INT-QL-087" || qlId === "INT-QL-088") {
-      assert(question.mathematicalState.rates.length >= 2 && question.mathematicalState.rates.length <= 3, `${qlId}/${seed}: ordinary duration not 2-3 years`);
+    if (state.qlId === "INT-QL-090" || state.qlId === "INT-QL-091") {
+      assert(state.decayRates.length >= 2 && state.decayRates.length <= 3, `${qlId}/${seed}: depreciation duration not 2-3 years`);
     }
-    if (qlId === "INT-QL-090" || qlId === "INT-QL-091") {
-      assert(question.mathematicalState.decayRates.length >= 2 && question.mathematicalState.decayRates.length <= 3, `${qlId}/${seed}: depreciation duration not 2-3 years`);
-    }
-    if (qlId === "INT-QL-092") assert(question.mathematicalState.signedRates.length >= 2 && question.mathematicalState.signedRates.length <= 3, `${qlId}/${seed}: mixed duration not 2-3 years`);
+    if (state.qlId === "INT-QL-092") assert(state.signedRates.length >= 2 && state.signedRates.length <= 3, `${qlId}/${seed}: mixed duration not 2-3 years`);
     editorialChecks += 2;
 
     const learner = [stem, question.explanation.keyIdea, ...question.explanation.steps, question.explanation.commonMistake].join("\n");
