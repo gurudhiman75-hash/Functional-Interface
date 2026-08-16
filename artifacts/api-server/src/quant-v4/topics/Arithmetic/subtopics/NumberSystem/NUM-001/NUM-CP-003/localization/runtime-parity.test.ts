@@ -9,6 +9,10 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function json(value: unknown, space?: number): string {
+  return JSON.stringify(value, (_key, item) => typeof item === "bigint" ? item.toString() : item, space);
+}
+
 const LANGUAGES = ["hi", "pa"] as const satisfies readonly NumCp003TranslatedLanguage[];
 const DEVANAGARI = /[\u0900-\u097F]/u;
 const GURMUKHI = /[\u0A00-\u0A7F]/u;
@@ -55,7 +59,7 @@ for (const qlId of NUM_CP003_PERMANENT_QL_IDS) {
       const label = `${qlId}/${seed}/${language}`;
       generated += 1;
 
-      assert(JSON.stringify(localized) === JSON.stringify(replay), `${label}: nondeterministic localized replay`);
+      assert(json(localized) === json(replay), `${label}: nondeterministic localized replay`);
       replayChecks += 1;
 
       assert(localized.permanentQlId === canonical.permanentQlId, `${label}: QL identity changed`);
@@ -65,7 +69,7 @@ for (const qlId of NUM_CP003_PERMANENT_QL_IDS) {
       assert(localized.difficulty === canonical.difficulty, `${label}: difficulty changed`);
       assert(localized.answerSemantic === canonical.answerSemantic, `${label}: answer semantic changed`);
       assert(localized.fingerprint === canonical.fingerprint, `${label}: mathematical fingerprint changed`);
-      assert(JSON.stringify(localized.hiddenState) === JSON.stringify(canonical.hiddenState), `${label}: hidden mathematical state changed`);
+      assert(json(localized.hiddenState) === json(canonical.hiddenState), `${label}: hidden mathematical state changed`);
       assert(localized.localization.canonicalAnswer === canonical.answer, `${label}: canonical answer trace lost`);
       mathematicalParityChecks += 1;
 
@@ -75,7 +79,7 @@ for (const qlId of NUM_CP003_PERMANENT_QL_IDS) {
       assert(localized.explanation.finalAnswer === localized.answer, `${label}: localized final answer mismatch`);
       assert(new Set(localized.options).size === localized.options.length, `${label}: localized duplicate options`);
       for (let index = 0; index < canonical.options.length; index += 1) {
-        assert(JSON.stringify(numbers(localized.options[index]!)) === JSON.stringify(numbers(canonical.options[index]!)), `${label}: numeric option semantics changed at ${index}`);
+        assert(json(numbers(localized.options[index]!)) === json(numbers(canonical.options[index]!)), `${label}: numeric option semantics changed at ${index}`);
       }
       optionChecks += 1;
 
@@ -119,7 +123,7 @@ const reviewJson = resolve(outputDirectory, "num-cp003-hi-pa-review.json");
 const reviewMarkdown = resolve(outputDirectory, "num-cp003-hi-pa-review.md");
 const auditJson = resolve(outputDirectory, "num-cp003-hi-pa-audit.json");
 
-writeFileSync(reviewJson, `${JSON.stringify(reviewRows, null, 2)}\n`, "utf8");
+writeFileSync(reviewJson, `${json(reviewRows, 2)}\n`, "utf8");
 writeFileSync(reviewMarkdown, [
   "# NUM-CP-003 Hindi/Punjabi Rule-First Localization Review",
   "",
@@ -162,5 +166,5 @@ const audit = {
   testEligibleCount: 0,
   publiclyPublishableCount: 0,
 };
-writeFileSync(auditJson, `${JSON.stringify(audit, null, 2)}\n`, "utf8");
-console.log(JSON.stringify({ ...audit, reviewJson, reviewMarkdown, auditJson }, null, 2));
+writeFileSync(auditJson, `${json(audit, 2)}\n`, "utf8");
+console.log(json({ ...audit, reviewJson, reviewMarkdown, auditJson }, 2));
