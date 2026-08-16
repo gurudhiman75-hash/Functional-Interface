@@ -225,7 +225,15 @@ const summary = {
   evidence,
   lifecycle: "REVIEW_ONLY_CHAPTER_CLOSURE_EVIDENCE",
 };
-writeFileSync(jsonPath, `${JSON.stringify({ ...summary, review }, null, 2)}\n`, "utf8");
+writeFileSync(
+  jsonPath,
+  `${JSON.stringify(
+    { ...summary, review },
+    (_key, value) => (typeof value === "bigint" ? value.toString() : value),
+    2,
+  )}\n`,
+  "utf8",
+);
 
 const lines = [
   "# MAL-001 — Exam-Realistic Value Closure 36Q",
