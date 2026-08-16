@@ -33,7 +33,13 @@ export function protectMensurationFormulaIdentifiers(text: string) {
  * worded relations remain worded relations rather than new symbols.
  */
 export function polishMensurationLocalizedText(text: string, language: MensurationLocalizedLanguage) {
-  const mathSafe = text.replace(/\\pih\b/g, "\\pi h");
+  const mathSafe = text
+    .replace(/\\pih\b/g, "\\pi h")
+    // CP008 QL077 can arrive as two adjacent MathJax spans around the same
+    // equality: `$TSA-CSA=$128\\pi...$`. Collapse only that duplicated middle
+    // delimiter so the learner sees one balanced span and the formula itself is
+    // unchanged: `$TSA-CSA=128\\pi...$`.
+    .replace(/\$TSA-CSA=\$(?=\d)/g, () => "$TSA-CSA=");
   if (language === "hi") {
     return mathSafe
       .replace(/वक्र पृष्ठ क्षेत्रफल\s*=\s*परिधि\s*×\s*ऊँचाई/g, "वक्र पृष्ठ क्षेत्रफल परिधि × ऊँचाई के बराबर होता है")
