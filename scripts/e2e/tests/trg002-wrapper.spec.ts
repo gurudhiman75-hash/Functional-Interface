@@ -312,8 +312,10 @@ test("TRG-002 solution diagram is disclosed only after Show Solution and preserv
     await expect(arrow).toHaveAttribute("marker-end", /url\(#trg002-dimension-/);
   }
 
-  await expect(figure.getByText("20 m", { exact: true })).toBeVisible();
-  await expect(figure.getByText("10 m", { exact: true })).toBeVisible();
+  const lowerSpan = svg.locator('[data-measurement-group-id="height-arrow-observer-lower-obs-1"]');
+  const upperSpan = svg.locator('[data-measurement-group-id="height-arrow-observer-upper-obs-1"]');
+  await expect(lowerSpan.getByText("20 m", { exact: true })).toBeVisible();
+  await expect(upperSpan.getByText("10 m", { exact: true })).toBeVisible();
 
   const arrowXs = await arrows.evaluateAll((elements) =>
     elements.map((element) => Number(element.getAttribute("x1"))),
