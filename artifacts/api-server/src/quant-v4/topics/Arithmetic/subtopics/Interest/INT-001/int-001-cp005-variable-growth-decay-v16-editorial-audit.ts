@@ -42,7 +42,9 @@ for (const qlId of INT_CP005_V16_QL_IDS) {
     }
     if (qlId === "INT-QL-086") {
       assert(question.options.some((option) => !option.isCorrect && option.misconceptionId === "ADD_RATES"), `${qlId}/${seed}: additive-rate misconception missing`);
-      assert(question.options.filter((option) => !option.isCorrect && option.misconceptionId.startsWith("OMIT_YEAR_")).length >= 2, `${qlId}/${seed}: omission distractors missing`);
+      const exactPeriodErrors = question.options.filter((option) => !option.isCorrect && (option.misconceptionId.startsWith("OMIT_YEAR_") || option.misconceptionId.startsWith("ONLY_YEAR_")));
+      assert(exactPeriodErrors.length >= 2, `${qlId}/${seed}: exact period-selection distractors missing`);
+      assert(exactPeriodErrors.some((option) => option.misconceptionId.startsWith("OMIT_YEAR_")), `${qlId}/${seed}: omission misconception missing`);
     }
     if (qlId === "INT-QL-088" || qlId === "INT-QL-091") {
       assert(question.options.some((option) => !option.isCorrect && option.misconceptionId === "NO_REVERSE"), `${qlId}/${seed}: no-reverse misconception missing`);
