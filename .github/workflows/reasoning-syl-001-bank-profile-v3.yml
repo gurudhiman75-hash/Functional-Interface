@@ -11,7 +11,11 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/profile-plan-v3.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-overlay-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-overlay-v1-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/banking-source-profile-v4.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v3.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v4.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v5.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v6.ts
       - .github/workflows/reasoning-syl-001-bank-profile-v3.yml
   workflow_dispatch:
 permissions:
@@ -62,9 +66,9 @@ jobs:
             exit 1
           fi
 
-      - name: Bundle freeze readiness V3
+      - name: Bundle freeze readiness V3 regression
         run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v3.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-freeze-readiness-v3.mjs
-      - name: Audit post-remodel freeze decision
+      - name: Audit post-remodel freeze decision regression
         shell: bash
         run: |
           set -o pipefail
@@ -82,7 +86,46 @@ jobs:
           assert.equal(m.SYL_FREEZE_READINESS_V3.permanentQlFreezePermitted, false);
           assert.equal(m.SYL_FREEZE_READINESS_V3.profileActivationPermitted, false);
           assert.equal(m.SYL_FREEZE_READINESS_V3.generatorIntegrationPermitted, false);
-          console.log(JSON.stringify({ status: 'PASS_SYL_001_FREEZE_READINESS_V3', decision: m.SYL_FREEZE_READINESS_V3.status, counts: m.SYL_FREEZE_READINESS_V3.counts, bankingProfileStatus: bank?.status, activationPermitted: false }, null, 2));
+          console.log(JSON.stringify({ status: 'PASS_SYL_001_FREEZE_READINESS_V3_REGRESSION', decision: m.SYL_FREEZE_READINESS_V3.status, counts: m.SYL_FREEZE_READINESS_V3.counts, bankingProfileStatus: bank?.status, activationPermitted: false }, null, 2));
+          NODE
+
+      - name: Bundle freeze readiness V6
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v6.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-freeze-readiness-v6.mjs
+      - name: Audit inactive adapter readiness supersession
+        shell: bash
+        run: |
+          set -o pipefail
+          node --input-type=module <<'NODE' 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v6-audit.log
+          import assert from 'node:assert/strict';
+          const m = await import('./artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v6.mjs');
+          const r = m.SYL_FREEZE_READINESS_V6;
+          assert.equal(r.status, 'NOT_READY_FOR_PROFILE_OR_QL_FREEZE');
+          assert.equal(r.requirementCount, 11);
+          assert.deepEqual(r.counts, { MET: 5, PARTIAL: 4, BLOCKED: 2 });
+          const inactiveAdapter = m.SYL_FREEZE_REQUIREMENTS_V6.find((entry) => entry.requirementId === 'INACTIVE_PROFILE_CANDIDATE_ADAPTER_PROVEN');
+          assert.equal(inactiveAdapter?.status, 'MET');
+          assert.match(inactiveAdapter?.evidence ?? '', /SYL_001_BANKING_MODAL_CANDIDATE_OVERLAY_V1/);
+          assert.equal(m.SYL_FREEZE_REQUIREMENTS_V6.some((entry) => entry.requirementId === 'PROFILE_PLANNER_CONNECTED_TO_GENERATOR'), false);
+          assert.equal(m.SYL_FREEZE_REQUIREMENTS_V6.find((entry) => entry.requirementId === 'DIFFICULTY_CALIBRATED')?.status, 'BLOCKED');
+          assert.equal(m.SYL_FREEZE_REQUIREMENTS_V6.find((entry) => entry.requirementId === 'SOURCE_PROFILE_FROZEN')?.status, 'BLOCKED');
+          assert.equal(r.inactiveProfileCandidateAdapterProven, true);
+          assert.equal(r.bankingCandidateSlotsPerHundred, 20);
+          assert.deepEqual(r.bankingEvaluationCoveragePerHundred, { ORDINARY_POSSIBILITY: 10, CAN_NEVER: 10 });
+          assert.equal(r.bankingEvaluationCoverageIsExamFrequencyClaim, false);
+          assert.equal(r.permanentQl019Created, false);
+          assert.equal(r.bankingExactWeightingFrozen, false);
+          assert.equal(r.exactPercentageWeightingPermitted, false);
+          assert.equal(r.connectedToProductionGenerator, false);
+          assert.equal(r.permanentQlFreezePermitted, false);
+          assert.equal(r.profileActivationPermitted, false);
+          assert.equal(r.generatorIntegrationPermitted, false);
+          assert.equal(r.questionStudioActivationPermitted, false);
+          assert.equal(r.questionBankWritePermitted, false);
+          assert.equal(r.testDeliveryPermitted, false);
+          assert.equal(r.publicPublishingPermitted, false);
+          assert.equal(r.difficultyActivationPermitted, false);
+          assert.equal(r.prMergeRecommended, false);
+          console.log(JSON.stringify({ status: 'PASS_SYL_001_FREEZE_READINESS_V6', decision: r.status, counts: r.counts, inactiveProfileCandidateAdapterProven: true, candidateSlotsPerHundred: r.bankingCandidateSlotsPerHundred, evaluationCoveragePerHundred: r.bankingEvaluationCoveragePerHundred, sourceFrequencyClaim: false, permanentQl019Created: false, exactWeightingFrozen: false, connectedToProductionGenerator: false, activationPermitted: false }, null, 2));
           NODE
 
       - name: Upload profile V3 evidence
@@ -94,5 +137,6 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/syl-001-profile-plan-v3-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-banking-modal-candidate-overlay-v1-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v3-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v6-audit.log
           if-no-files-found: error
           retention-days: 30
