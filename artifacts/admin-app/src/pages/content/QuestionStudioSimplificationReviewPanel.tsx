@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import { notifyQuestionStudioRefresh } from '@/features/question-studio/events';
 import { SapReviewMathText } from '@/features/question-studio/SapReviewMathText';
 import {
   createSapReviewRun,
@@ -78,6 +79,7 @@ export function QuestionStudioSimplificationReviewPanel() {
     setNotice('');
     try {
       const response = await createSapReviewRun(input());
+      notifyQuestionStudioRefresh();
       setNotice(`Created review run ${response.publicCode} with ${response.itemCount} unreviewed item${response.itemCount === 1 ? '' : 's'}.`);
       setStatus(await getSapReviewStatus());
     } catch (value) {
