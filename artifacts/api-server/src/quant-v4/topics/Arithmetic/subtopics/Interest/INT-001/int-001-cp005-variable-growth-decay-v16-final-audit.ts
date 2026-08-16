@@ -100,6 +100,7 @@ for (const qlId of INT_CP005_V16_QL_IDS) {
         break;
       case "INT-QL-093":
         assert(state.context === "POPULATION" || state.context === "ASSET", `${qlId}/${seed}: threshold context escaped`);
+        assert(state.targetYear >= 2 && state.targetYear <= 4, `${qlId}/${seed}: threshold year left exam-friendly 2-4 range`);
         break;
       case "INT-QL-095":
         assert(state.context === "INVESTMENT", `${qlId}/${seed}: comparison context escaped`);
@@ -133,7 +134,8 @@ assert(ql094Rejected, "INT-QL-094: final V16 authority did not reject out-of-sco
 for (const qlId of INT_CP005_V16_QL_IDS) {
   assert(answerPositions.get(qlId)!.size === 4, `${qlId}: not all answer positions reached`);
   assert(qlStems.get(qlId)!.size >= 8, `${qlId}: stem diversity too low`);
-  assert(qlAnswers.get(qlId)!.size >= 4, `${qlId}: answer diversity too low`);
+  const minimumAnswers = qlId === "INT-QL-093" ? 3 : 4;
+  assert(qlAnswers.get(qlId)!.size >= minimumAnswers, `${qlId}: answer diversity too low`);
 }
 assert(qlContexts.get("INT-QL-086")!.size === 1 && qlContexts.get("INT-QL-086")!.has("INVESTMENT"), "QL086 context not investment-only");
 assert(stems.size >= 90, "chapter-wide V16 stem diversity is too low");
@@ -149,6 +151,7 @@ console.log(JSON.stringify({
   genuinePlanChecks,
   uniqueStems: stems.size,
   answerPositions: Object.fromEntries([...answerPositions].map(([ql, positions]) => [ql, [...positions].sort()])),
+  answerDiversity: Object.fromEntries([...qlAnswers].map(([ql, answers]) => [ql, answers.size])),
   ql094Rejected,
 }, null, 2));
 console.log("PASS_INT_CP005_V16_FINAL_EXAM_REALISM");
