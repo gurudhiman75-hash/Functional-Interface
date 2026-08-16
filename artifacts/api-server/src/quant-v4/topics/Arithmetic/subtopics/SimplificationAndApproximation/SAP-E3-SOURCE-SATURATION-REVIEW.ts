@@ -112,8 +112,12 @@ assert.equal(familyCounts["CP012-E3-EXPLICIT-POWER-REVERSE-SYNTHESIS"], 60);
 assert.equal(familyCounts["CP012-E2-UNIQUE-INTEGER-WITHIN-TOLERANCE-E3-POLISH"], 60);
 
 const cp012E3 = records.filter(r => r.familyId === "CP012-E3-EXPLICIT-POWER-REVERSE-SYNTHESIS");
-assert.equal(cp012E3.filter(r => r.oracle.data.mode === "POWER_CHAIN").length, 30);
-assert.equal(cp012E3.filter(r => r.oracle.data.mode === "POWER_ROOT_CHAIN").length, 30);
+const cp012PowerModes = {
+  POWER_CHAIN: cp012E3.filter(r => r.oracle.data.mode === "POWER_CHAIN").length,
+  POWER_ROOT_CHAIN: cp012E3.filter(r => r.oracle.data.mode === "POWER_ROOT_CHAIN").length,
+  MISSING_EXPONENT: cp012E3.filter(r => r.oracle.data.mode === "MISSING_EXPONENT").length,
+};
+assert.deepEqual(cp012PowerModes, { POWER_CHAIN: 20, POWER_ROOT_CHAIN: 20, MISSING_EXPONENT: 20 });
 const uniqueInteger = records.filter(r => r.familyId === "CP012-E2-UNIQUE-INTEGER-WITHIN-TOLERANCE-E3-POLISH");
 assert.ok(uniqueInteger.every(r => r.explanation.finalAnswer === `Therefore, ? = ${r.canonicalAnswer}.`));
 assert.ok(uniqueInteger.every(r => !r.explanation.finalAnswer.includes("≈")));
@@ -129,6 +133,7 @@ const summary = Object.freeze({
   sourceProfiles: profileCounts,
   checkpoints: { cp004: records.filter(r => r.checkpointId === "SAP-CP-004").length, cp012: records.filter(r => r.checkpointId === "SAP-CP-012").length },
   familyCounts,
+  cp012PowerModes,
   answerPositions: positions,
   difficulty: difficultyCounts,
   scheduler: "SEED_INTERLEAVED_NO_ADJACENT_SAME_FAMILY",
@@ -148,6 +153,7 @@ const md: string[] = [
   `Questions: **${records.length}**`,
   `Source profile: **SSC/Railway ${profileCounts.SSC_RAILWAY} / Banking ${profileCounts.BANK}**`,
   `Checkpoint mix: **CP004 ${summary.checkpoints.cp004} / CP012 ${summary.checkpoints.cp012}**`,
+  `CP012 power modes: **power ${cp012PowerModes.POWER_CHAIN} / root+power ${cp012PowerModes.POWER_ROOT_CHAIN} / missing exponent ${cp012PowerModes.MISSING_EXPONENT}**`,
   `A/B/C/D: **${positions.join(" / ")}**`,
   "Scheduler: **seed-interleaved; no adjacent same family**",
   "",
