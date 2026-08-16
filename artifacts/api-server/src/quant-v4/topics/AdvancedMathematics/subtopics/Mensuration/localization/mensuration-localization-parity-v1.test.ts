@@ -16,8 +16,13 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function stripInternalIds(text: string) {
+  return text.replace(/\[[A-Z0-9_:-]{3,}\]/g, " ");
+}
+
 function mathSignature(text: string) {
-  return (text.match(/\d+(?:\.\d+)?(?:\/\d+)?|\\frac\{[^}]+\}\{[^}]+\}|π|\\pi|√\d*|\\sqrt\{[^}]+\}|²|³|%|₹|°|[=+×÷−]/g) ?? []).join("|");
+  const scrubbed = stripInternalIds(text);
+  return (scrubbed.match(/\d+(?:\.\d+)?(?:\/\d+)?|\\frac\{[^}]+\}\{[^}]+\}|π|\\pi|√\d*|\\sqrt\{[^}]+\}|²|³|%|₹|°|[=+×÷−]/g) ?? []).join("|");
 }
 
 function questionMathSignature(question: MensurationLocalizedQuestionV1) {
@@ -31,9 +36,10 @@ function questionMathSignature(question: MensurationLocalizedQuestionV1) {
 }
 
 function formulaVariableSignature(text: string) {
+  const scrubbed = stripInternalIds(text);
   const values: string[] = [];
-  for (const match of text.matchAll(/\b([A-Za-z])\b(?=\s*(?:[²³^=+×÷−\-*/)]))/g)) values.push(match[1]!);
-  for (const match of text.matchAll(/(?:[(=+×÷−\-*/]\s*)([A-Za-z])\b/g)) values.push(match[1]!);
+  for (const match of scrubbed.matchAll(/\b([A-Za-z])\b(?=\s*(?:[²³^=+×÷−\-*/)]))/g)) values.push(match[1]!);
+  for (const match of scrubbed.matchAll(/(?:[(=+×÷−\-*/]\s*)([A-Za-z])\b/g)) values.push(match[1]!);
   return values.sort().join("|");
 }
 
