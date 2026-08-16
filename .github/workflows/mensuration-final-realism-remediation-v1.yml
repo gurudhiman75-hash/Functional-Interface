@@ -1,0 +1,70 @@
+name: Validate Mensuration final realism remediation V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/**'
+      - 'artifacts/api-server/src/routes/admin-question-studio-mensuration-full.ts'
+      - 'artifacts/admin-app/src/features/question-studio/mensuration-review-api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioMensurationReviewPanel.tsx'
+      - '.github/workflows/mensuration-final-realism-remediation-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-mensuration-final-realism:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Prove realism V2 runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-runtime-v2.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-question-studio-runtime-v2.test.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-question-studio-runtime-v2.test.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-question-studio-runtime-v2.test.log
+      - name: Rerun 1596 plus 6384 chapter audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-final-realism-remediation-audit-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-final-realism-remediation-audit-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-final-realism-remediation-audit-v1.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-final-realism-remediation-audit-v1.log
+          test -s artifacts/api-server/dist/quant-v4/mensuration-final-realism-remediation-audit-v1.json
+          test -s artifacts/api-server/dist/quant-v4/mensuration-final-realism-remediation-audit-v1.md
+      - name: Regress original full-chapter connection
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-runtime-v1.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-full-question-studio-v1-regression.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-full-question-studio-v1-regression.mjs
+      - name: Build production application
+        run: bash build-api.sh
+      - name: Verify deployment artifacts
+        shell: bash
+        run: |
+          test -f artifacts/api-server/dist/index.mjs
+          test -f artifacts/examtree/dist/public/index.html
+          test -f artifacts/examtree/dist/public/admin/index.html
+      - name: Upload final realism evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: mensuration-final-realism-remediation-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/mensuration-question-studio-runtime-v2.test.log
+            artifacts/api-server/dist/quant-v4/mensuration-final-realism-remediation-audit-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-final-realism-remediation-audit-v1.md
+            artifacts/api-server/dist/quant-v4/mensuration-final-realism-remediation-audit-v1.log
+          retention-days: 14
