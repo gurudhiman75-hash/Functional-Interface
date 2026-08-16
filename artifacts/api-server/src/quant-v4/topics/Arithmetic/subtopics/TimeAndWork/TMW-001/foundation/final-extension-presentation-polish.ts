@@ -1,5 +1,6 @@
 import { add, compare, divide, equals, multiply, rational, rationalKey, subtract, toLatex } from "./rational";
 import { runTmwCp014PresentationPipeline } from "./cp014-presentation-runtime";
+import { finalizeTmwCp012MultilingualEditorialReview } from "./cp012-multilingual-editorial-finalizer";
 import type { TmwLanguage } from "./types";
 
 function deepMapStrings(value: any, transform: (text: string) => string): any {
@@ -75,9 +76,8 @@ function rebuildTankFractionOptions(question: any): any {
   };
 }
 
-function polishCp012(question: any, language: TmwLanguage): any {
-  if (language !== "en") return question;
-  return deepMapStrings(question, (value) => value.replaceAll("required saved", "required time saved"));
+function polishCp012(question: any, qlId: string, language: TmwLanguage): any {
+  return finalizeTmwCp012MultilingualEditorialReview(question, qlId, language);
 }
 
 function polishCp014(question: any, qlId: string, language: TmwLanguage): any {
@@ -120,7 +120,7 @@ function polishCp014(question: any, qlId: string, language: TmwLanguage): any {
 
 export function polishTmw001ExtensionQuestion(question: any, qlId: string, language: TmwLanguage): any {
   const ordinal = Number(qlId.slice(-3));
-  if (ordinal >= 212 && ordinal <= 215) return polishCp012(question, language);
+  if (ordinal >= 212 && ordinal <= 215) return polishCp012(question, qlId, language);
   if (ordinal >= 224 && ordinal <= 228) return polishCp014(question, qlId, language);
   return question;
 }
