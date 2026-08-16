@@ -36,16 +36,20 @@ function variableSignature(text: string) {
 
 function learnerFields(question: MensurationLocalizedQuestionV1) {
   return [
-    question.stem,
-    ...question.options,
-    ...question.explanation.steps,
-    question.explanation.shortcut,
-    ...question.explanation.traps,
+    ["stem", question.stem],
+    ...question.options.map((value, index) => [`option-${index + 1}`, value] as [string, string]),
+    ...question.explanation.steps.map((value, index) => [`step-${index + 1}`, value] as [string, string]),
+    ["shortcut", question.explanation.shortcut] as [string, string],
+    ...question.explanation.traps.map((value, index) => [`trap-${index + 1}`, value] as [string, string]),
   ];
 }
 
+function learnerText(question: MensurationLocalizedQuestionV1) {
+  return learnerFields(question).map(([, value]) => value);
+}
+
 function questionMathSignature(question: MensurationLocalizedQuestionV1) {
-  return learnerFields(question).map(mathSignature).join("||");
+  return learnerText(question).map(mathSignature).join("||");
 }
 
 function questionVariableSignature(question: MensurationLocalizedQuestionV1) {
@@ -54,10 +58,15 @@ function questionVariableSignature(question: MensurationLocalizedQuestionV1) {
     .join("||");
 }
 
+function malformedLearnerMath(text: string) {
+  return (text.match(/\$/g) ?? []).length % 2 !== 0 || /\\pih\b/.test(text);
+}
+
 const languages: readonly MensurationLocalizedLanguage[] = ["hi", "pa"];
 let localizedPairCount = 0;
 let mathParityFailures = 0;
 let variableParityFailures = 0;
+let malformedMathFailures = 0;
 let scriptFailures = 0;
 let internalIdFailures = 0;
 const residualLatinByProfile = new Map<string, Map<string, number>>();
@@ -97,17 +106,33 @@ for (const examProfile of MENSURATION_QUESTION_STUDIO_EXAM_PROFILES) {
       const localizedMath = questionMathSignature(localized);
       if (englishMath !== localizedMath) {
         mathParityFailures += 1;
-        if (failureExamples.length < 60) failureExamples.push({ examProfile, patternId: pattern.patternId, language, kind: "MATH", englishMath, localizedMath, stem: localized.stem });
+        if (failureExamples.length < 80) failureExamples.push({ examProfile, patternId: pattern.patternId, language, kind: "MATH", englishMath, localizedMath, stem: localized.stem });
       }
 
       const englishVariables = questionVariableSignature(english);
       const localizedVariables = questionVariableSignature(localized);
       if (englishVariables !== localizedVariables) {
         variableParityFailures += 1;
-        if (failureExamples.length < 60) failureExamples.push({ examProfile, patternId: pattern.patternId, language, kind: "VARIABLE", englishVariables, localizedVariables, stem: localized.stem });
+        if (failureExamples.length < 80) failureExamples.push({ examProfile, patternId: pattern.patternId, language, kind: "VARIABLE", englishVariables, localizedVariables, stem: localized.stem });
       }
 
-      const text = learnerFields(localized).join("\n");
+      for (const [field, value] of learnerFields(localized)) {
+        if (malformedLearnerMath(value)) {
+          malformedMathFailures += 1;
+          if (failureExamples.length < 80) failureExamples.push({
+            examProfile,
+            patternId: pattern.patternId,
+            language,
+            kind: "MALFORMED_MATH",
+            field,
+            dollarCount: (value.match(/\$/g) ?? []).length,
+            pih: /\\pih\b/.test(value),
+            text: value,
+          });
+        }
+      }
+
+      const text = learnerText(localized).join("\n");
       if (language === "hi" ? !hasHindiScript(text) : !hasGurmukhiScript(text)) scriptFailures += 1;
       if (/\[[A-Z0-9_:-]{3,}\]/.test(localized.explanation.traps.join("\n"))) internalIdFailures += 1;
       for (const leak of instructionalLatinLeaks(text)) profileLeaks.set(leak, (profileLeaks.get(leak) ?? 0) + 1);
@@ -119,6 +144,7 @@ const expectedPairs = MENSURATION_QUESTION_STUDIO_PATTERNS.length * MENSURATION_
 assert(localizedPairCount === expectedPairs, `Expected ${expectedPairs} cross-profile localized pairs, got ${localizedPairCount}.`);
 assert(mathParityFailures === 0, `Cross-profile localization has ${mathParityFailures} math-signature failures.`);
 assert(variableParityFailures === 0, `Cross-profile localization has ${variableParityFailures} formula-variable failures.`);
+assert(malformedMathFailures === 0, `Cross-profile localization has ${malformedMathFailures} malformed learner-math fields.`);
 assert(scriptFailures === 0, `Cross-profile localization has ${scriptFailures} script-presence failures.`);
 assert(internalIdFailures === 0, `Cross-profile localization exposes ${internalIdFailures} internal learner IDs.`);
 
@@ -138,6 +164,7 @@ const report = {
   localizedPairCount,
   mathParityFailures,
   variableParityFailures,
+  malformedMathFailures,
   scriptFailures,
   internalIdFailures,
   profiles,
@@ -155,6 +182,7 @@ fs.writeFileSync(path.join(outputDir, "mensuration-localization-exam-profile-aud
   `- Hindi/Punjabi parity pairs: **${localizedPairCount}**`,
   `- Math failures: **${mathParityFailures}**`,
   `- Formula-variable failures: **${variableParityFailures}**`,
+  `- Malformed learner-math fields: **${malformedMathFailures}**`,
   `- Script failures: **${scriptFailures}**`,
   `- Internal learner-ID failures: **${internalIdFailures}**`,
   "",
