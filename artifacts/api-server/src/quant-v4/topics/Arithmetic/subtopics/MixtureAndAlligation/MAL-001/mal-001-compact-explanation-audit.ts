@@ -98,7 +98,7 @@ const forbiddenEditorialDefects = [
   /\b2th root\b/i,
   /Therefore, known total value =/i,
   /\bq litre\b/i,
-  /After \d+ operations, the original quantity is \\[\d+ \d+\/\d+\\]/i,
+  /After \d+ operations, the original quantity is .*?\d+ \d+\/\d+/i,
 ];
 
 let generated = 0;
