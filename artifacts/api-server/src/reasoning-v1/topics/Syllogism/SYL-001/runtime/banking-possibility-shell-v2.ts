@@ -329,7 +329,7 @@ function explanationLine(
   if (conclusion.mode === "POSSIBILITY") {
     if (locale === "hi-IN") {
       if (conclusion.possibilityDisposition === "OPEN_POSSIBILITY") {
-        return `${label}: यह संबंध संभव है लेकिन निश्चित नहीं है; इसलिए Banking possibility convention में यह निष्कर्ष अनुसरण करता है।`;
+        return `${label}: यह संबंध संभव है लेकिन निश्चित नहीं है; इसलिए बैंकिंग परीक्षा की संभावना-आधारित पद्धति में यह निष्कर्ष अनुसरण करता है।`;
       }
       if (conclusion.possibilityDisposition === "ALREADY_DEFINITE") {
         return `${label}: यह संबंध कथनों से पहले ही निश्चित है; इसलिए इसे केवल संभावना बताने वाला निष्कर्ष स्वीकार नहीं किया जाता।`;
@@ -338,7 +338,7 @@ function explanationLine(
     }
     if (locale === "pa-IN") {
       if (conclusion.possibilityDisposition === "OPEN_POSSIBILITY") {
-        return `${label}: ਇਹ ਸੰਬੰਧ ਸੰਭਵ ਹੈ ਪਰ ਪੱਕਾ ਨਹੀਂ; ਇਸ ਲਈ Banking possibility convention ਵਿੱਚ ਇਹ ਨਤੀਜਾ ਸਹੀ ਹੈ।`;
+        return `${label}: ਇਹ ਸੰਬੰਧ ਸੰਭਵ ਹੈ ਪਰ ਪੱਕਾ ਨਹੀਂ; ਇਸ ਲਈ ਬੈਂਕਿੰਗ ਪ੍ਰੀਖਿਆ ਦੀ ਸੰਭਾਵਨਾ-ਆਧਾਰਿਤ ਰੀਤ ਅਨੁਸਾਰ ਇਹ ਨਤੀਜਾ ਸਹੀ ਹੈ।`;
       }
       if (conclusion.possibilityDisposition === "ALREADY_DEFINITE") {
         return `${label}: ਇਹ ਸੰਬੰਧ ਕਥਨਾਂ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਪੱਕਾ ਹੈ; ਇਸ ਲਈ ਇਸ ਨੂੰ ਕੇਵਲ ਸੰਭਾਵਨਾ ਵਾਲੇ ਨਤੀਜੇ ਵਜੋਂ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤਾ ਜਾਂਦਾ।`;
