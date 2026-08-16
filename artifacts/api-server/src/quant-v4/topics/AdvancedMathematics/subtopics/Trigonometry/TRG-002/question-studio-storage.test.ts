@@ -4,7 +4,7 @@ import {
   generateQuestion,
   listQuantV4Packages,
 } from "../../../../../generation-engine";
-import { normalizeGeneratedQuestionPayload } from "../../../../../../../lib/admin-question-conversion";
+import { normalizeGeneratedQuestionPayload } from "../../../../../../lib/admin-question-conversion";
 import { TRG_002_EXAMTREE_DIRECTIVE_PREFIX } from "./examtree-solution-directive";
 
 async function main() {
