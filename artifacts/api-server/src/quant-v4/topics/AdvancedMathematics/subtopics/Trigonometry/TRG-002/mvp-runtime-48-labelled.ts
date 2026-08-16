@@ -6,8 +6,18 @@ import { TRG_002_MVP_ADDED_LABEL_PLANS } from "./mvp-diagram-label-plans";
 
 const proofIds = new Set<string>(TRG_002_RUNTIME_PROOF_IDS);
 
+function normalizeProofStemForEditorial(qlId: Trg002Mvp48Id, question: any) {
+  if (qlId !== "TRG-002-QL-092") return question;
+  const stem = question.stem.replace(
+    /^A (.+?) m tower stands on one river bank\. From its top, the point directly opposite on the other bank is seen at (.+?)° depression\. Find the river width\.$/,
+    "A tower $1 m high stands at the edge of a river bank. From its top, the angle of depression of a point directly opposite on the other bank is $2°. What is the width of the river?",
+  );
+  return { ...question, stem };
+}
+
 export function generateLabelledTrg002Mvp48Question(qlId: Trg002Mvp48Id, seed: string) {
-  const question: any = generateTrg002Mvp48Question(qlId, seed);
+  const generated: any = generateTrg002Mvp48Question(qlId, seed);
+  const question: any = normalizeProofStemForEditorial(qlId, generated);
   if (proofIds.has(qlId)) return question;
   const evidence = resolveMvpDiagramLabels(question, TRG_002_MVP_ADDED_LABEL_PLANS);
   const hasRequestedLabel = question.target === "ANGLE" || evidence.annotations.some((item) => item.role === "TARGET_SOLVED" && item.source.kind === "ANSWER" && item.label.includes(question.answer));
