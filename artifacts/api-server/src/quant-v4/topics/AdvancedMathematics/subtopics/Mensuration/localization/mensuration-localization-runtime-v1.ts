@@ -22,7 +22,7 @@ import {
   stripLearnerMisconceptionTag,
   type MensurationLocalizedLanguage,
   type MensurationStudioLanguage,
-} from "./mensuration-localization-foundation-v1";
+} from "./mensuration-localization-foundation-v3";
 
 export type MensurationLocalizedQuestionV1 = Omit<
   MensurationQuestionStudioQuestionV2,
