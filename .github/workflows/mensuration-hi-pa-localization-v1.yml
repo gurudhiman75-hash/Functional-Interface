@@ -52,6 +52,14 @@ jobs:
           test -s artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.json
           test -s artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.md
           test -s artifacts/api-server/dist/quant-v4/mensuration-localization-review-v1.json
+      - name: Audit localized editorial leakage
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-editorial-audit-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-editorial-audit-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.log
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.json
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.md
       - name: Build production application
         run: bash build-api.sh
       - name: Upload localization evidence
@@ -65,5 +73,8 @@ jobs:
             artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.json
             artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.md
             artifacts/api-server/dist/quant-v4/mensuration-localization-review-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.log
+            artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.md
           if-no-files-found: error
           retention-days: 14
