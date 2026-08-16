@@ -1,0 +1,69 @@
+name: Validate API Startup Readiness V2
+
+on:
+  push:
+    branches: [fix/render-api-startup-readiness-v2]
+  pull_request:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/index.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/api-server/src/routes/lazy-router.ts
+      - artifacts/api-server/src/routes/admin-question-studio-stack.ts
+      - render.yaml
+      - .github/workflows/api-startup-readiness-v2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  startup-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - name: Install and build API
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm --dir artifacts/api-server build
+          ls -lh artifacts/api-server/dist/index.mjs artifacts/api-server/dist/index.mjs.map
+      - name: Prove health port opens from production bundle
+        shell: bash
+        env:
+          PORT: '3100'
+          NODE_ENV: development
+          DATABASE_URL: postgresql://smoke:smoke@127.0.0.1:1/smoke
+          GENERATION_JOB_POLL_INTERVAL_MS: '600000'
+        run: |
+          set -euo pipefail
+          LOG=/tmp/api-startup.log
+          START=$(date +%s)
+          node artifacts/api-server/dist/index.mjs >"$LOG" 2>&1 &
+          PID=$!
+          trap 'kill "$PID" 2>/dev/null || true' EXIT
+
+          for i in $(seq 1 60); do
+            if ! kill -0 "$PID" 2>/dev/null; then
+              echo "API exited before binding its health port"
+              cat "$LOG"
+              wait "$PID" || true
+              exit 1
+            fi
+            if curl --silent --show-error --fail --max-time 1 http://127.0.0.1:3100/health >/tmp/health.json 2>/dev/null; then
+              END=$(date +%s)
+              echo "startup_seconds=$((END-START))"
+              cat "$LOG"
+              cat /tmp/health.json
+              exit 0
+            fi
+            sleep 1
+          done
+
+          echo "API did not become healthy within 60 seconds"
+          cat "$LOG"
+          exit 1
