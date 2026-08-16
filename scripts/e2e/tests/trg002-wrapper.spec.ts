@@ -4,6 +4,7 @@ import { expect, test, type Page, type Route } from "@playwright/test";
 const FIREBASE_API_KEY = "examtree-e2e-api-key";
 const FIREBASE_TOKEN = "examtree-e2e-access-token";
 const TEST_ID = "trg-002-wrapper-e2e";
+const SESSION_ID = "trg002-wrapper-session";
 
 const student = {
   id: "e2e-student",
@@ -187,6 +188,28 @@ async function installApiFixtures(page: Page) {
     }
     if (path.includes("packages") || path.includes("bundles")) return fulfillJson(route, []);
     if (path === "/attempts" && method === "GET") return fulfillJson(route, []);
+
+    if (path === "/attempt-sessions" && method === "POST") {
+      return fulfillJson(route, {
+        id: SESSION_ID,
+        testId: TEST_ID,
+        revision: 1,
+        seriesId: null,
+        updatedAt: "2026-08-16T11:40:00.000Z",
+        state: null,
+      }, 201);
+    }
+    if (path === `/attempt-sessions/${SESSION_ID}` && method === "PATCH") {
+      const payload = request.postDataJSON() as Record<string, unknown>;
+      return fulfillJson(route, {
+        id: SESSION_ID,
+        testId: TEST_ID,
+        revision: Number(payload.expectedRevision ?? 1) + 1,
+        seriesId: null,
+        updatedAt: "2026-08-16T11:41:00.000Z",
+        state: payload.state ?? null,
+      });
+    }
 
     return fulfillJson(route, { error: `Unhandled TRG-002 E2E API route: ${method} ${path}` }, 404);
   });
