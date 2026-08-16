@@ -33,13 +33,14 @@ export function protectMensurationFormulaIdentifiers(text: string) {
  * worded relations remain worded relations rather than new symbols.
  */
 export function polishMensurationLocalizedText(text: string, language: MensurationLocalizedLanguage) {
+  const mathSafe = text.replace(/\\pih\b/g, "\\pi h");
   if (language === "hi") {
-    return text
+    return mathSafe
       .replace(/वक्र पृष्ठ क्षेत्रफल\s*=\s*परिधि\s*×\s*ऊँचाई/g, "वक्र पृष्ठ क्षेत्रफल परिधि × ऊँचाई के बराबर होता है")
       .replace(/\.\s*$/g, ".")
       .trim();
   }
-  return text
+  return mathSafe
     .replace(/ਵਕਰ ਸਤਹ ਖੇਤਰਫਲ\s*=\s*ਪਰਿਧੀ\s*×\s*ਉਚਾਈ/g, "ਵਕਰ ਸਤਹ ਖੇਤਰਫਲ ਪਰਿਧੀ × ਉਚਾਈ ਦੇ ਬਰਾਬਰ ਹੁੰਦਾ ਹੈ")
     .replace(/\.\s*$/g, ".")
     .trim();
