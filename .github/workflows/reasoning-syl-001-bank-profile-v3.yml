@@ -10,6 +10,7 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/profile-plan-v3.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-overlay-v1.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-overlay-v1-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-modal-candidate-review-v1.ts
@@ -33,6 +34,14 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
+
+      - name: Bundle ordinary Banking possibility V2 audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-shell-v2-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-banking-possibility-shell-v2-audit.test.mjs
+      - name: Audit ordinary Banking possibility V2
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-banking-possibility-shell-v2-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-banking-possibility-shell-v2-audit.log
 
       - name: Bundle profile planner V3
         run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/profile-plan-v3.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-profile-plan-v3.mjs
@@ -152,6 +161,7 @@ jobs:
         with:
           name: syl-001-bank-profile-v3
           path: |
+            artifacts/api-server/dist/reasoning-v1/syl-001-banking-possibility-shell-v2-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-profile-plan-v3-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-banking-modal-candidate-overlay-v1-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-bank-modal-candidate-review-v1.log
