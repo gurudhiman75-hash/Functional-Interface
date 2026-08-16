@@ -10,30 +10,36 @@ Permanent allocation, hidden-state mathematics, independent answer verification,
 
 The learner-facing explanation is:
 
-1. **Concept** — state the exact inference being tested in this generated question and name the governing rule(s).
-2. **Solution** — show the decisive question-specific calculation/evidence.
+1. **Concept** — briefly identify the exact skill being tested.
+2. **Solution** — teach the relevant rule first, then apply that rule to the actual number or number pattern in simple language.
 3. **Answer** — show the exact correct option.
 
-A Concept must not be a generic chapter label such as “use divisibility rules” or “the missing digit must satisfy all conditions.” It must identify the actual answer burden and reasoning rule. Examples:
+For divisibility questions, the preferred flow is explicitly:
 
-- unique missing digit in `X572`: suffix `72` controls divisibility by `4`, while digit sum `14 + X` controls divisibility by `9`;
-- ordered-pair count under divisibility by `36`: the question tests pair counting using the last-two-digit and digit-sum rules;
-- boundary multiple: identify whether the least/greatest `n`-digit multiple is tested and how the boundary remainder is used;
-- data sufficiency: test whether each statement alone fixes one unique digit rather than merely solving the number;
-- claim checking: compare each stated divisible/not-divisible claim with the actual arithmetic fact.
+> For a number to be divisible by the required divisor without a remainder, state the applicable rule. Then apply the rule to the given number and show why it passes or fails.
 
-Concrete arithmetic belongs in **Solution**, so Concept remains concise rather than duplicating the working.
+Examples:
+
+- divisibility by `9`: first state that the digit sum must be divisible by `9`; then calculate the digit sum of the given number;
+- divisibility by `4`: first state that the last two digits must form a number divisible by `4`; then test the actual last two digits;
+- divisibility by `36`: first state that the number must be divisible by both `4` and `9`; then apply the last-two-digit and digit-sum rules to the given number;
+- missing digit: state the divisibility rule, convert it into a condition on `X`, then identify the valid digit(s);
+- ordered pair: state the rule, apply it to the `X/Y` number pattern, then use any extra relation such as `X + Y = k`;
+- claim validation: teach and apply only the rule needed to establish the requested correct/incorrect claim, rather than explaining every option unnecessarily.
+
+Generic wording such as “use the rule”, “check the options”, or “the rule is satisfied” without showing the rule and its application is rejected.
 
 ## Editorial V2 learner model
 
-- concise Concept → Solution → Answer;
+- concise Concept → rule-first Solution → Answer;
+- natural SSC/Banking learner language;
+- rule before calculation;
+- actual digits/sum/suffix/remainder shown in the application;
 - no forced shortcut section;
 - no forced wrong-option/trap rationales;
-- natural SSC/Banking learner language;
 - question-specific calculations;
 - MathJax-safe learner mathematics;
 - 2–4 direct solution lines;
-- Concept capped at 180 characters;
 - old four-tier headings and internal engine identities banned.
 
 ## Self-review findings remediated
@@ -41,35 +47,34 @@ Concrete arithmetic belongs in **Solution**, so Concept remains concise rather t
 Generated-pack review found and fixed issues that mechanical answer validation would not catch well, including:
 
 - generic Concepts that did not identify what the individual question tested;
+- terse solutions such as `Use the digit-sum rule` without teaching the rule;
+- direct-divisor questions that became too long by fully explaining every wrong option;
 - incomplete evidence before digit/pair counts;
 - symbolic rather than substituted linked-arithmetic checks;
 - a legacy false ordered-pair explanation that showed `66 ÷ 4 = 16.5` and then called the condition satisfied;
-- verbose nested wording such as `Check 36: Check 4 and 9`;
 - cryptic composite-rule shorthand such as `36 → 4 + 9`;
 - stale fixed-suffix wording and punctuation gaps.
 
-## Validated English concept-specific evidence
+## Validated rule-first English evidence
 
-Validated code head: `d16bfffd98bc910ce23a7ebc900fbcbe3b695c49`
+Validated code head: `efa7c18cdf5e906b81a2ae1a122aadf7e4eb142e`
 
 Dedicated workflow: `Validate NUM-CP-003 English Editorial V2`
 
-- run: `31880969581`
+- run: `31935486003`
 - result: **SUCCESS**
-- artifact ID: `9246008629`
-- artifact SHA-256: `ca5d971fa9e0a89a1c8fa8477f8cee275adfb45540ab76dd24922c2845870bd8`
+- artifact ID: `9260514303`
+- artifact SHA-256: `6aea63b1cea8eca39447a2d3c0ea1bf375a68b3d719bb93d2e1c9de708eb5da0`
 
 Audit coverage:
 
 - `1,360` generated questions (`80 × 17` permanent QLs);
 - `68` human-review questions (`4` per QL);
-- `1,358` unique learner surfaces;
-- `1,342` unique explanations;
-- `0` raw-math violations;
-- `0` legacy four-tier leaks;
-- `0` internal identity leaks;
+- dedicated rule-first teaching gate enabled;
+- terse `Use the rule` / `rule is satisfied` wording rejected;
 - retained-runtime regression PASS;
-- permanent-allocation regression PASS.
+- permanent-allocation regression PASS;
+- lifecycle gates remain closed.
 
 ## Lifecycle boundary
 
