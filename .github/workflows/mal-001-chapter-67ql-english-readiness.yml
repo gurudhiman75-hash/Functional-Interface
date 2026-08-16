@@ -8,13 +8,17 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp001-permanent-runtime.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp001-release.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp002-editorial-v2.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp002-chapter-closure-runtime-v4.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp003-release-editorial-v2.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp003-release-editorial-v3.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp004-chapter-closure-runtime-v8.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp004-chapter-closure-runtime-v9.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-permanent-review-runtime-v1.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-wave01-learner-authority-final.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp006-wave02-final-authority-v4.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave06-permanent-english-review-audit.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-chapter-67ql-english-readiness-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-chapter-value-quality-closure-audit.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-compact-explanation-audit.ts"
       - ".github/workflows/mal-001-chapter-67ql-english-readiness.yml"
   workflow_dispatch:
@@ -40,6 +44,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave05-permanent-allocation-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-cp006-wave05-permanent-allocation-audit.mjs
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave06-permanent-english-review-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-cp006-wave06-permanent-english-review-audit.mjs
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-chapter-67ql-english-readiness-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-chapter-67ql-english-readiness-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-chapter-value-quality-closure-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-chapter-value-quality-closure-audit.mjs
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-compact-explanation-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-compact-explanation-audit.mjs
       - name: Run CP006 allocation regression
         run: |
@@ -57,6 +62,12 @@ jobs:
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/mal-001-chapter-67ql-english-readiness-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-chapter-67ql-english-readiness-audit.log
+      - name: Run exam-realistic value closure audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-chapter-value-quality-closure-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-chapter-value-quality-closure-audit.log
       - name: Run compact explanation and alligation audit
         shell: bash
         run: |
@@ -75,6 +86,9 @@ jobs:
             artifacts/api-server/dist/quant-v4/mal-001-chapter-67ql-english-readiness-audit.log
             artifacts/api-server/dist/quant-v4/MAL-001-CHAPTER-67QL-ENGLISH-READINESS-REVIEW.md
             artifacts/api-server/dist/quant-v4/mal-001-chapter-67ql-english-readiness.json
+            artifacts/api-server/dist/quant-v4/mal-001-chapter-value-quality-closure-audit.log
+            artifacts/api-server/dist/quant-v4/MAL-001-CHAPTER-VALUE-QUALITY-CLOSURE-36Q.md
+            artifacts/api-server/dist/quant-v4/mal-001-chapter-value-quality-closure.json
             artifacts/api-server/dist/quant-v4/mal-001-compact-explanation-audit.log
           if-no-files-found: warn
           retention-days: 14
