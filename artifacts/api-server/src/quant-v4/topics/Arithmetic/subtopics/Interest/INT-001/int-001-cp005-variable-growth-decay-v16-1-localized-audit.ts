@@ -1,12 +1,12 @@
 import {
   INT_CP005_V16_1_QL_IDS,
   generateIntCp005QuestionV16_1Final,
-} from "./cp005-variable-growth-decay-runtime-v16-1-final";
+} from "./cp005-variable-growth-decay-runtime-v16-1-final-v2";
 import {
   INT_CP005_V16_1_LOCALES,
   INT_CP005_V16_1_LOCALIZED_VERSION,
   generateIntCp005QuestionV16_1Localized,
-} from "./cp005-variable-growth-decay-runtime-v16-1-localized-v2";
+} from "./cp005-variable-growth-decay-runtime-v16-1-localized-v3";
 import { verifyIntCp005Answer } from "./cp005-variable-growth-decay-runtime";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
@@ -28,6 +28,7 @@ let parityChecks = 0;
 let optionChecks = 0;
 let lifecycleChecks = 0;
 let languageChecks = 0;
+let selfContainedChecks = 0;
 const skeletons = new Map<string, Set<string>>();
 const positions = new Map<string, Set<number>>();
 const contexts = new Map<string, Set<string>>();
@@ -74,7 +75,39 @@ for (const locale of INT_CP005_V16_1_LOCALES) {
       assert(!/production|capacity|salary|employee|executive/iu.test(learner), `${locale}/${qlId}/${seed}: rejected context leaked`);
       assert(!/\$[^\n]*\$/u.test(learner), `${locale}/${qlId}/${seed}: legacy MathJax leaked`);
       assert(!/₹[0-9]+,[0-9]{2},[0-9]{2},[0-9]{3}/u.test(learner), `${locale}/${qlId}/${seed}: crore-scale money leaked`);
-      assert(loc.presentation.markdown.length <= 430, `${locale}/${qlId}/${seed}: localized stem too long`);
+      assert(loc.presentation.markdown.length <= 460, `${locale}/${qlId}/${seed}: localized stem too long`);
+
+      if (loc.mathematicalState.qlId === "INT-QL-086" || loc.mathematicalState.qlId === "INT-QL-088") {
+        const context = loc.mathematicalState.context;
+        if (locale === "hi-IN") {
+          if (context === "INVESTMENT") assert(loc.presentation.markdown.includes("चक्रवृद्धि"), `${qlId}/${seed}: Hindi investment mechanism missing`);
+          if (context === "POPULATION") assert(loc.presentation.markdown.includes("वृद्धि"), `${qlId}/${seed}: Hindi population growth missing`);
+          if (context === "ASSET") assert(loc.presentation.markdown.includes("वृद्धि"), `${qlId}/${seed}: Hindi asset appreciation missing`);
+        } else {
+          if (context === "INVESTMENT") assert(loc.presentation.markdown.includes("ਮਿਸ਼ਰਤ"), `${qlId}/${seed}: Punjabi investment mechanism missing`);
+          if (context === "POPULATION") assert(/ਵਾਧ/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi population growth missing`);
+          if (context === "ASSET") assert(/ਵਾਧ/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi asset appreciation missing`);
+        }
+        selfContainedChecks += 1;
+      }
+      if (loc.mathematicalState.qlId === "INT-QL-095") {
+        if (locale === "hi-IN") assert(loc.presentation.markdown.includes("चक्रवृद्धि"), `${qlId}/${seed}: Hindi plan stem missing compound-interest mechanism`);
+        else assert(loc.presentation.markdown.includes("ਮਿਸ਼ਰਤ"), `${qlId}/${seed}: Punjabi plan stem missing compound-interest mechanism`);
+        selfContainedChecks += 1;
+      }
+      if (loc.mathematicalState.qlId === "INT-QL-092" && locale === "hi-IN") {
+        assert(!loc.presentation.markdown.includes(" होता है।"), `${qlId}/${seed}: Hindi feminine asset grammar regressed`);
+      }
+      if (loc.mathematicalState.qlId === "INT-QL-088" && loc.mathematicalState.context === "POPULATION") {
+        if (locale === "hi-IN") {
+          assert(!/प्रारंभिक जनसंख्या कितना था/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi population gender/case regression`);
+          assert(!/का प्रारंभिक जनसंख्या/u.test(loc.presentation.markdown), `${qlId}/${seed}: Hindi population case regression`);
+        } else {
+          assert(!/ਸ਼ੁਰੂਆਤੀ ਆਬਾਦੀ ਕਿੰਨਾ ਸੀ/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi population gender regression`);
+          assert(!/ਦਾ ਸ਼ੁਰੂਆਤੀ ਆਬਾਦੀ/u.test(loc.presentation.markdown), `${qlId}/${seed}: Punjabi population case regression`);
+        }
+      }
+
       if (locale === "pa-IN") {
         assert(!DEVANAGARI_LETTER_OR_SIGN.test(learner), `${qlId}/${seed}: Devanagari letter/sign leaked into Punjabi`);
         assert(!learner.includes("ਚੱਕਰਵੱਧੀ ਵਿਆਜ"), `${qlId}/${seed}: rejected Punjabi CI term returned`);
@@ -114,6 +147,7 @@ console.log(JSON.stringify({
   optionChecks,
   lifecycleChecks,
   languageChecks,
+  selfContainedChecks,
   normalizedStemFrames: Object.fromEntries([...skeletons].map(([key, value]) => [key, value.size])),
   contextCoverage: Object.fromEntries([...contexts].map(([key, value]) => [key, [...value].sort()])),
   ql094RejectedLocales: rejected,
