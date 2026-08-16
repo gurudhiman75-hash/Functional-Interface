@@ -134,11 +134,28 @@ function normalizeCp010CycleLabels(question: any, language: Tmw001ChapterLanguag
   return { ...question, learnerExplanation: learner, explanation };
 }
 
+function normalizeCp010HourAgreement(question: any, language: Tmw001ChapterLanguage): any {
+  if (question?.canonicalProblemId !== "TMW-CP-010") return question;
+  const mapLine = (line: string): string => {
+    if (language === "en") return line.replace(/(=1\\\)|\\\(1\\\)) hours/g, "$1 hour");
+    if (language === "hi") return line.replace(/(=1\\\)|\\\(1\\\)) घंटे/gu, "$1 घंटा");
+    return line.replace(/(=1\\\)|\\\(1\\\)) ਘੰਟੇ/gu, "$1 ਘੰਟਾ");
+  };
+  const learner = question.learnerExplanation
+    ? { ...question.learnerExplanation, solution: question.learnerExplanation.solution.map(mapLine) }
+    : question.learnerExplanation;
+  const explanation = question.explanation
+    ? { ...question.explanation, steps: question.explanation.steps.map(mapLine) }
+    : question.explanation;
+  return { ...question, learnerExplanation: learner, explanation };
+}
+
 function finishCp010(question: any, language: Tmw001ChapterLanguage): any {
   const reviewed = finalizeTmwCp010MultilingualEditorialReview(question, language);
   const polished = polishTmwCp010EditorialReview(reviewed, language);
   const cleaned = finalizeTmwCp010CorpusCleanup(polished, language);
-  return normalizeCp010CycleLabels(cleaned, language);
+  const cycleNormalized = normalizeCp010CycleLabels(cleaned, language);
+  return normalizeCp010HourAgreement(cycleNormalized, language);
 }
 
 function finishEnglish(question: any, questionLanguageId: string): any {
