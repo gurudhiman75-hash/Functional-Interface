@@ -46,15 +46,25 @@ for (const qlId of qls) for (const language of languages) for (const namespace o
   assert(!proseInsideMath(presentation), `${label}: localized prose remains inside MathJax on the learner surface`);
   assert(!/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/u.test(presentation), `${label}: control character remains`);
 
+  if (language !== "en") {
+    assert(!/\$\d/u.test(question.stem), `${label}: replacement capture token leaked into localized stem`);
+    assert(!/इनलेट|आउटलेट|ਇਨਲੈਟ|ਆਉਟਲੈਟ/u.test(question.stem), `${label}: English pipe-role loan label remains in localized stem`);
+    assert(!/जलाशय[^।]* भरी है/u.test(question.stem), `${label}: Hindi reservoir gender agreement remains`);
+    assert(!/ਜਲਾਸ਼ਯ[^।]* ਭਰੀ ਹੈ/u.test(question.stem), `${label}: Punjabi reservoir gender agreement remains`);
+  }
+
   if (qlId === "TMW-QL-177" || qlId === "TMW-QL-178") {
     assert(/Stage 1|चरण 1|ਪੜਾਅ 1/u.test(learnerText), `${label}: first stage is omitted from learner working`);
     assert(/final-stage time|अंतिम चरण का समय|ਅੰਤਿਮ ਪੜਾਅ ਦਾ ਸਮਾਂ/u.test(learnerText), `${label}: final-stage arithmetic is omitted from learner working`);
     assert(/total time|कुल समय|ਕੁੱਲ ਸਮਾਂ/u.test(learnerText), `${label}: total-time calculation is omitted from learner working`);
   }
   if (qlId === "TMW-QL-180") assert(/final tank level|अंत में टंकी|ਅੰਤ ਵਿੱਚ ਟੈਂਕੀ/i.test(question.learnerExplanation.answer), `${label}: final-level answer label missing`);
+  if (qlId === "TMW-QL-182") {
+    assert(!/-\\frac[^\n]*\\div-\\frac/u.test(learnerText), `${label}: opaque negative-over-negative event-time derivation remains`);
+    assert(/stage rates differ|चरणों की प्रति घंटे दरों का अंतर|ਪੜਾਵਾਂ ਦੀ ਪ੍ਰਤੀ ਘੰਟਾ ਦਰ ਦਾ ਫਰਕ/u.test(learnerText), `${label}: positive rate-gap event-time reasoning missing`);
+  }
   if (qlId === "TMW-QL-183") {
     assert(/final.*rate|अंतिम भराव.*दर|ਅੰਤਿਮ ਭਰਨ.*ਦਰ/i.test(question.learnerExplanation.answer), `${label}: final-rate answer label missing`);
-    assert(!/इनलेट|आउटलेट|ਇਨਲੈਟ|ਆਉਟਲੈਟ/u.test(question.stem), `${label}: English pipe-role loan label remains in localized stem`);
     assert(!/जलाशय[^।]*भरनी है/u.test(question.stem), `${label}: Hindi reservoir gender agreement remains`);
   }
   if (qlId === "TMW-QL-184") {
