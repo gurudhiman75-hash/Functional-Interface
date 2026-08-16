@@ -10,7 +10,7 @@
 A fresh SSC / Railway / Banking / Punjab-state source wave did **not** expose a new SAP learner objective that requires another permanent QL. It did expose two source-backed representation/topology expansions inside existing learner contracts:
 
 1. CP004 exact-root arithmetic needs stronger heterogeneous high-root and terminating-decimal root-quotient coverage.
-2. CP012 reverse approximation needs explicit common-base power chains, including root-plus-power equations, in addition to the existing root-heavy mixed synthesis.
+2. CP012 reverse approximation needs explicit common-base power chains, root-plus-power equations, and approximate **missing-exponent** equations in addition to the existing root-heavy mixed synthesis.
 
 These are implemented in E3 as **unallocated review-only expansions**. They do not change chapter ownership.
 
@@ -20,11 +20,12 @@ These are implemented in E3 as **unallocated review-only expansions**. They do n
 |---|---|---|
 | RRB NTPC Graduate CBT-I, 06 Jun 2025 Shift 1 | exact sixth + fourth + cube + square-root chain | CP004 representation expansion; same exact-root arithmetic inference; **no new QL** |
 | RRB NTPC Graduate CBT-I, 13 Jun 2025 Shift 3 | quotient of exact terminating-decimal square roots | CP004 decimal-root topology expansion; **no new QL** |
-| IBPS PO Prelims, 23 Aug 2025 Shift 1 memory-based | reverse approximation with square root plus explicit fifth powers | CP012 mixed reverse-synthesis expansion; **no new QL** |
-| IBPS PO Prelims, 20 Oct 2024 Shift 2 memory-based | reverse approximation with explicit eighth/fourth powers | CP012 mixed reverse-synthesis expansion; **no new QL** |
+| IBPS PO Prelims, 23 Aug 2025 Shift 1 memory-based | reverse approximation with square root plus explicit powers | CP012 mixed reverse-synthesis expansion; **no new QL** |
+| IBPS PO Prelims, 20 Oct 2024 Shift 2 memory-based | reverse approximation with explicit high powers | CP012 mixed reverse-synthesis expansion; **no new QL** |
+| SBI PO Prelims, 19 Dec 2022 Shift 1 memory-based | near-common bases with the unknown in the exponent | CP012 reverse approximation missing-exponent topology; **no new QL** |
 | Punjab Police Constable 2025 official-paper mirrors | BODMAS / bracket / signed arithmetic | already owned by CP001; retain |
 | Punjab Police 2023 official-paper mirrors | fraction-of / cancellation arithmetic | already owned by CP002/CP005 boundary; retain |
-| SSC CHSL 2023 algebraic decimal identity | algebraic identity rather than simplification mechanics | **reassign Algebra**, not SAP |
+| SSC/RRB algebraic decimal-identity questions | algebraic identities rather than simplification mechanics | **reassign Algebra**, not SAP |
 
 ### Evidence links
 
@@ -32,9 +33,10 @@ These are implemented in E3 as **unallocated review-only expansions**. They do n
 - RRB decimal-root quotient: https://testbook.com/question-answer/simplify-fracsqrt0-028224sqrt0--6874dadd49f1b8d36a795ac4
 - Banking root + explicit-power reverse approximation: https://testbook.com/question-answer/what-approximate-value-should-come-in-the-place-of--5ebc5ebff60d5d6b51e1d60a
 - Banking explicit-power reverse approximation: https://testbook.com/question-answer/what-approximate-value-should-come-in-place-the-of--5cafac6bfdb8bb62fd601bc1
+- Banking missing-exponent common-base approximation: https://testbook.com/question-answer/what-approximate-value-should-come-in-the-place-of--5ee297102a38034c0a2c71e8
 - Punjab BODMAS example: https://testbook.com/question-answer/simplify-the-following-53-44--68e78557adb5b037048cb232
 - Punjab fraction-of example: https://testbook.com/question-answer/simplify-the-following-1frac12-text-of--69eb28ac03ab19ae997334fb
-- SSC algebraic-identity boundary example: https://testbook.com/question-answer/simplify--64e893e24cfbc792f6037bf2
+- SSC/RRB algebraic-identity boundary examples remain Algebra-owned rather than SAP-owned.
 
 ## E3 implementation
 
@@ -54,12 +56,13 @@ Two review-only source surfaces were added:
 
 ### CP012 — explicit-power reverse synthesis
 
-Added review-only structure:
+Expanded review-only structure:
 
 - `CP012-E3-EXPLICIT-POWER-REVERSE-SYNTHESIS`
-  - `POWER_CHAIN`: near-common-base powers on both sides, missing value recovered by exponent combination/inversion;
+  - `POWER_CHAIN`: near-common-base powers on both sides, missing numeric value recovered by exponent combination/inversion;
   - `POWER_ROOT_CHAIN`: nearby perfect square plus explicit common-base powers and a matching scale;
-  - merges into the existing CP012 reverse/multi-authority synthesis identity.
+  - `MISSING_EXPONENT`: all near-equal bases are rounded to one common base and the unknown exponent is recovered by exponent arithmetic;
+  - all three modes merge into the existing CP012 reverse/multi-authority synthesis identity.
 
 ### Editorial closure
 
@@ -72,11 +75,12 @@ Added review-only structure:
 - heterogeneous high-root sums/chains -> merge into CP004 exact-root arithmetic;
 - decimal-root quotient -> merge into CP004 exact-decimal-root representation;
 - explicit-power reverse equations -> merge into CP012 mixed reverse synthesis;
+- approximate missing-exponent equations -> merge into CP012 reverse synthesis rather than split by answer representation;
 - algebraic identities remain outside SAP;
 - symbolic surds/rationalisation remain Surds and Indices;
 - coded/interchanged operators remain Reasoning Mathematical Operations.
 
-This preserves the anti-duplication principle: representation complexity alone is not a new learner contract.
+This preserves the anti-duplication principle: representation complexity or the location of the unknown alone is not a new learner contract.
 
 ## E3 validation gate
 
@@ -84,9 +88,11 @@ This preserves the anti-duplication principle: representation complexity alone i
 
 - 100 heterogeneous CP004 states;
 - 100 decimal-root quotient CP004 states;
-- 100 CP012 explicit-power reverse states split 50/50 across power-only and root+power modes;
-- displayed-equation nearest-option proof for every CP012 E3 state;
+- 100 CP012 explicit-power reverse states covering all three modes (`POWER_CHAIN`, `POWER_ROOT_CHAIN`, `MISSING_EXPONENT`);
+- 100 unique visible CP012 E3 stems;
+- displayed-equation nearest-option proof for every CP012 E3 state, including logarithmic recovery of the displayed missing exponent;
 - balanced A/B/C/D positions in the CP012 E3 authority;
+- misconception-to-option-value semantic proof;
 - 100 exact-conclusion checks for the unique-integer tolerance family;
 - all lifecycle switches OFF.
 
@@ -94,9 +100,10 @@ This preserves the anti-duplication principle: representation complexity alone i
 
 - CP004 heterogeneous exact roots: 60
 - CP004 decimal-root quotients: 60
-- CP012 explicit-power reverse synthesis: 60
+- CP012 explicit-power reverse synthesis: 60, split 20 / 20 / 20 across the three power modes
 - CP012 unique-integer editorial polish: 60
 - A/B/C/D: 60 / 60 / 60 / 60
+- seed-interleaved with no adjacent same-family item
 
 ## Current decision
 
