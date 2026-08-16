@@ -45,6 +45,11 @@ function cleanAnswer(value:string):string{
   for(let i=0;i<4;i+=1){const next=current.replace(/\\\(([^()]*)\\;\\text\{([^{}]+)\}\\\)/g,(_m,expr:string,label:string)=>`\\(${expr.trim()}\\) ${label.trim()}`);if(next===current)break;current=next;}
   return current.replace(/\s{2,}/g," ").trim();
 }
+function fixHourAgreement(value:string,language:Cp010ReviewLanguage):string{
+  if(language==="en")return value.replace(/(=1\\\)|\\\(1\\\)) hours\b/g,"$1 hour");
+  if(language==="hi")return value.replace(/(=1\\\)|\\\(1\\\)) घंटे\b/gu,"$1 घंटा");
+  return value.replace(/(=1\\\)|\\\(1\\\)) ਘੰਟੇ\b/gu,"$1 ਘੰਟਾ");
+}
 function cleanStem(value:string,mode:string,language:Cp010ReviewLanguage):string{
   let stem=cleanAnswer(value);
   if(language==="hi"){
@@ -225,7 +230,7 @@ function improvedWorking(question:Cp010Question,language:Cp010ReviewLanguage):st
 
 export function finalizeTmwCp010CorpusCleanup<T extends Cp010Question>(question:T,language:Cp010ReviewLanguage):T{
   if((question.canonicalProblemId??question.cpId)!=="TMW-CP-010"||!question.learnerExplanation)return question;
-  const working=improvedWorking(question,language);
+  const working=improvedWorking(question,language).map(line=>fixHourAgreement(line,language));
   const answer=cleanAnswer(question.learnerExplanation.answer);
   const options=question.options?.map(cleanAnswer);
   const solution=question.solution?{...question.solution,answerText:cleanAnswer(question.solution.answerText)}:question.solution;
