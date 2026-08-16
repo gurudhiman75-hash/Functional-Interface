@@ -68,7 +68,7 @@ assert.equal(heterogeneous, 100);
 assert.equal(decimalQuotient, 100);
 assert.equal(cp004Stems.size, 200);
 
-let powerChain = 0, powerRootChain = 0;
+let powerChain = 0, powerRootChain = 0, missingExponent = 0;
 const cp012Stems = new Set<string>();
 const answerPositions = [0,0,0,0];
 let maxDisplayedDrift = 0;
@@ -89,14 +89,29 @@ for (let seed = 1; seed <= 100; seed += 1) {
   assert.equal(distances[q.correctIndex], best, `CP012-E3/${seed}: keyed option is not nearest to displayed equation`);
   maxDisplayedDrift = Math.max(maxDisplayedDrift, Math.abs(Number(q.canonicalAnswer) - actual));
   answerPositions[q.correctIndex]! += 1;
-  q.oracle.data.mode === "POWER_CHAIN" ? powerChain++ : powerRootChain++;
+  const mode = String(q.oracle.data.mode);
+  if (mode === "POWER_CHAIN") {
+    powerChain += 1;
+    const exponent = n(q.oracle.data.missingExponent,"missingExponent");
+    const reportExponent = q.options.find(o => o.misconceptionId === "REPORT_EXPONENT_NOT_POWER");
+    assert.equal(Number(reportExponent?.value), exponent, `CP012-E3/${seed}: exponent-report distractor mismatch`);
+  } else if (mode === "POWER_ROOT_CHAIN") {
+    powerRootChain += 1;
+    const exponent = n(q.oracle.data.missingExponent,"missingExponent");
+    const reportExponent = q.options.find(o => o.misconceptionId === "REPORT_EXPONENT_NOT_POWER");
+    assert.equal(Number(reportExponent?.value), exponent, `CP012-E3/${seed}: exponent-report distractor mismatch`);
+  } else if (mode === "MISSING_EXPONENT") {
+    missingExponent += 1;
+    const answerExponent = n(q.oracle.data.answerExponent,"answerExponent");
+    const c = n(q.oracle.data.c,"c");
+    assert.equal(Number(q.canonicalAnswer), answerExponent);
+    const ignoreOuter = q.options.find(o => o.misconceptionId === "IGNORE_OUTER_DENOMINATOR_POWER");
+    assert.equal(Number(ignoreOuter?.value), answerExponent + c + 1, `CP012-E3/${seed}: outer-power distractor mismatch`);
+  } else throw new Error(`CP012-E3/${seed}: unknown mode ${mode}`);
   assert.equal(q.oracle.data.e3Disposition, "EXPAND_EXISTING_CP012_MIXED_SYNTHESIS_NO_NEW_QL");
-  const exponent = n(q.oracle.data.missingExponent,"missingExponent");
-  const reportExponent = q.options.find(o => o.misconceptionId === "REPORT_EXPONENT_NOT_POWER");
-  assert.equal(Number(reportExponent?.value), exponent, `CP012-E3/${seed}: exponent-report distractor does not report the exponent`);
 }
 assert.equal(cp012Stems.size, 100);
-assert.equal(powerChain, 50); assert.equal(powerRootChain, 50);
+assert.equal(powerChain, 33); assert.equal(powerRootChain, 34); assert.equal(missingExponent, 33);
 assert.deepEqual(answerPositions, [25,25,25,25]);
 
 for (let seed = 1; seed <= 100; seed += 1) {
@@ -112,7 +127,7 @@ for (let seed = 1; seed <= 100; seed += 1) {
 console.log(JSON.stringify({
   authority: "SAP-E3-SOURCE-SATURATION",
   cp004: { heterogeneousExactRootStates: heterogeneous, decimalRootQuotientStates: decimalQuotient, misconceptionSemanticProof: true },
-  cp012: { explicitPowerReverseStates: 100, powerChain, powerRootChain, answerPositions, maxDisplayedDrift, misconceptionSemanticProof: true },
+  cp012: { explicitPowerReverseStates: 100, powerChain, powerRootChain, missingExponent, answerPositions, maxDisplayedDrift, misconceptionSemanticProof: true },
   editorialPolish: { uniqueIntegerExactConclusionStates: 100 },
   qlDisposition: "NO_NEW_PERMANENT_QL; EXPAND_EXISTING_CP004_CP012_IDENTITIES",
   lifecycle: "INACTIVE",
