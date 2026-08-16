@@ -4,7 +4,9 @@ services:
     runtime: node
     rootDir: .
     buildCommand: bash build-api.sh
-    startCommand: NODE_ENV=production node --enable-source-maps artifacts/api-server/dist/index.mjs
+    # Keep linked source maps in the build artifact for offline diagnostics, but
+    # do not ask Node to load the 40+ MB API source map during Render startup.
+    startCommand: NODE_ENV=production node artifacts/api-server/dist/index.mjs
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
