@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import { INT_CP005_V16_1_QL_IDS, generateIntCp005QuestionV16_1Final } from "./cp005-variable-growth-decay-runtime-v16-1-final";
-import { INT_CP005_V16_1_LOCALIZED_VERSION, generateIntCp005QuestionV16_1Localized } from "./cp005-variable-growth-decay-runtime-v16-1-localized-v2";
+import { INT_CP005_V16_1_QL_IDS, generateIntCp005QuestionV16_1Final } from "./cp005-variable-growth-decay-runtime-v16-1-final-v2";
+import { INT_CP005_V16_1_LOCALIZED_VERSION, generateIntCp005QuestionV16_1Localized } from "./cp005-variable-growth-decay-runtime-v16-1-localized-v3";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
 function templateId(fingerprint: string): string {
@@ -13,11 +13,17 @@ function templateId(fingerprint: string): string {
 const selected: { qlId: typeof INT_CP005_V16_1_QL_IDS[number]; seed: string; template: string }[] = [];
 for (const qlId of INT_CP005_V16_1_QL_IDS) {
   const found = new Map<string, string>();
-  for (let index = 0; index < 1200 && found.size < 3; index += 1) {
+  const desiredThresholdDirection: Readonly<Record<string, "GROWTH" | "DECAY">> = { T1: "DECAY", T2: "GROWTH", T3: "DECAY" };
+  for (let index = 0; index < 4000 && found.size < 3; index += 1) {
     const seed = `int-cp005-v16.1-review-${qlId}-${index}`;
     const en = generateIntCp005QuestionV16_1Final(qlId, seed);
     const t = templateId(en.mathematicalFingerprint);
-    if (!found.has(t)) found.set(t, seed);
+    if (found.has(t)) continue;
+    if (qlId === "INT-QL-093") {
+      assert(en.mathematicalState.qlId === "INT-QL-093", "QL093 narrowing failure");
+      if (en.mathematicalState.direction !== desiredThresholdDirection[t]) continue;
+    }
+    found.set(t, seed);
   }
   assert(found.size === 3, `${qlId}: could not capture all three English templates`);
   for (const t of ["T1", "T2", "T3"]) selected.push({ qlId, seed: found.get(t)!, template: t });
@@ -30,19 +36,14 @@ lines.push(`Localization: \`${INT_CP005_V16_1_LOCALIZED_VERSION}\``);
 lines.push("");
 lines.push("**Status:** hardening candidate; not frozen, not merged, not Question-Studio activated.");
 lines.push("");
-lines.push("**Review design:** one matched mathematical state for every QL × each of the three English stem templates, shown in English, Hindi and Punjabi.");
+lines.push("**Review design:** one matched mathematical state for every QL × each of the three English stem templates, shown in English, Hindi and Punjabi. QL-093 deliberately includes both growth and decay threshold states.");
 lines.push("");
 
 function writeQuestion(title: string, q: ReturnType<typeof generateIntCp005QuestionV16_1Final> | ReturnType<typeof generateIntCp005QuestionV16_1Localized>) {
   lines.push(`### ${title}`);
   lines.push("");
+  // presentation.markdown is the complete learner surface; comparison tables are already embedded there.
   lines.push(q.presentation.markdown);
-  if (q.presentation.table) {
-    lines.push("");
-    lines.push(`| ${q.presentation.table.headers.join(" | ")} |`);
-    lines.push(`| ${q.presentation.table.headers.map(() => "---").join(" | ")} |`);
-    for (const row of q.presentation.table.rows) lines.push(`| ${row.join(" | ")} |`);
-  }
   lines.push("");
   q.options.forEach((option, index) => lines.push(`${String.fromCharCode(65 + index)}. ${option.text}`));
   lines.push("");
@@ -78,6 +79,7 @@ lines.push(`- QLs: ${INT_CP005_V16_1_QL_IDS.length}`);
 lines.push(`- English template states: ${selected.length}`);
 lines.push(`- Learner surfaces shown: ${selected.length * 3}`);
 lines.push("- Three English stem templates captured for every retained QL");
+lines.push("- QL-093 review evidence includes both growth and decay threshold states");
 lines.push("- Hindi/Punjabi use exactly the same mathematical state, option values/order and correct index");
 lines.push("- QL-094 remains excluded");
 lines.push("- Production/salary remain excluded");
