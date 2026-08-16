@@ -49,8 +49,9 @@ async function main() {
     generationRunCode: "GEN-TRG002-STORAGE-TEST",
   });
   const answerModel: any = normalized.answerModel;
-  assert.deepEqual(answerModel.generation.solutionDiagram, question.solutionDiagram);
-  assert.equal(answerModel.generation.qlId, "TRG-002-QL-015");
+  assert.deepEqual(answerModel.solutionDiagram, question.solutionDiagram);
+  assert.equal(answerModel.generation.questionLanguageId, "TRG-002-QL-015");
+  assert.equal(answerModel.generation.canonicalProblemId, "TRG-CP-007");
   assert.equal(answerModel.generation.packageId, "TRG-002");
   assert.ok(normalized.explanation.includes(TRG_002_EXAMTREE_DIRECTIVE_PREFIX));
 
