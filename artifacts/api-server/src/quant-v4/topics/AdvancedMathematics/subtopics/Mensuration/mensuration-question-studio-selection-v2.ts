@@ -7,7 +7,7 @@ import {
   MENSURATION_QUESTION_STUDIO_PACKAGE_V2,
   MENSURATION_QUESTION_STUDIO_PATTERNS,
   MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY,
-  generateMensurationStudioQuestionV2,
+  generateMensurationStudioQuestionV2 as generateMensurationStudioQuestionV2Base,
   getMensurationPatternRealismMetadataV2,
   type MensurationQuestionStudioCpId,
   type MensurationQuestionStudioDifficulty,
@@ -37,6 +37,39 @@ function mixedHash(text: string) {
 
 function unitInterval(seed: string) {
   return mixedHash(seed) / 0x100000000;
+}
+
+function repairNestedDisplayMath(text: string) {
+  return text.replace(
+    /\$\$([\s\S]*?)\$(\d+(?:\.\d+)?\\pi)\$\$/g,
+    (_match, prefix: string, value: string) => `$$${prefix}${value}$$`,
+  );
+}
+
+function preserveDisplayMath(question: MensurationQuestionStudioQuestionV2): MensurationQuestionStudioQuestionV2 {
+  return {
+    ...question,
+    stem: repairNestedDisplayMath(question.stem),
+    options: question.options.map(repairNestedDisplayMath),
+    optionDetails: question.optionDetails.map((option) => ({
+      ...option,
+      text: repairNestedDisplayMath(option.text),
+    })),
+    answer: repairNestedDisplayMath(question.answer),
+    explanation: {
+      steps: question.explanation.steps.map(repairNestedDisplayMath),
+      shortcut: repairNestedDisplayMath(question.explanation.shortcut),
+      traps: question.explanation.traps.map(repairNestedDisplayMath),
+    },
+  };
+}
+
+export function generateMensurationStudioQuestionV2(input: {
+  patternId: string;
+  seed: string;
+  examProfile?: MensurationQuestionStudioExamProfile;
+}): MensurationQuestionStudioQuestionV2 {
+  return preserveDisplayMath(generateMensurationStudioQuestionV2Base(input));
 }
 
 function weightedPattern(
@@ -132,7 +165,6 @@ export {
   MENSURATION_QUESTION_STUDIO_PACKAGE_V2,
   MENSURATION_QUESTION_STUDIO_PATTERNS,
   MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY,
-  generateMensurationStudioQuestionV2,
   getMensurationPatternRealismMetadataV2,
 };
 export type {
