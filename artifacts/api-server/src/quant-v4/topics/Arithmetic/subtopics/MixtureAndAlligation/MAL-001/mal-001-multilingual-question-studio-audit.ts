@@ -97,8 +97,8 @@ function parityCheck(english: any, localized: any, language: "hi" | "pa", ql: st
     `${ql}:${language}: English mathematical authority trace missing.`,
   );
   assert(
-    localized.traceability?.localizationId === "MAL-001-HI-PA-QUESTION-STUDIO-V3",
-    `${ql}:${language}: V3 localization trace missing.`,
+    localized.traceability?.localizationId === "MAL-001-HI-PA-QUESTION-STUDIO-V4",
+    `${ql}:${language}: V4 localization trace missing.`,
   );
 }
 
@@ -218,7 +218,7 @@ await mkdir(outDir, { recursive: true });
 const reviewPath = resolve(outDir, "MAL-001-MULTILINGUAL-134Q-REVIEW.md");
 await writeFile(reviewPath, reviewLines.join("\n"), "utf8");
 const summary = {
-  status: "PASS_MAL_001_MULTILINGUAL_QUESTION_STUDIO_V3",
+  status: "PASS_MAL_001_MULTILINGUAL_QUESTION_STUDIO_V4",
   packageId: "MAL-001",
   permanentQlRange: "MAL-QL-001..MAL-QL-067",
   permanentQls: 67,
@@ -230,7 +230,7 @@ const summary = {
   nativeStemTemplateChecks,
   retainedReviewQuestions: retained.length,
   mathematicalAuthorityLanguage: "en",
-  stemPolicy: "NATIVE_QL_TEMPLATE_REQUIRED",
+  stemPolicy: "STRUCTURED_NATIVE_CP001_THEN_NATIVE_QL_TEMPLATE",
   lifecycle: {
     questionStudio: "ACTIVE_EN_HI_PA",
     questionBankStatus: "NOT_STORED",
@@ -239,6 +239,6 @@ const summary = {
     publiclyPublishable: false,
   },
 };
-const summaryPath = resolve(outDir, "mal-001-multilingual-question-studio-audit.json");
+const summaryPath = resolve(process.cwd(), "dist/quant-v4/mal-001-multilingual-question-studio-audit.json");
 await writeFile(summaryPath, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
 console.log(JSON.stringify(summary, null, 2));
