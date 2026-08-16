@@ -45,15 +45,15 @@ jobs:
           pnpm exec tsc -p artifacts/api-server/tsconfig.trg001-final.json --pretty false
 
       - name: Execute structural and semantic diversity gate
-        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-diversity-remediated.test.ts
+        run: pnpm dlx tsx@4.21.0 ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-diversity-remediated.test.ts
 
       - name: Execute final editorial gate
-        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-final-editorial.test.ts
+        run: pnpm dlx tsx@4.21.0 ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-final-editorial.test.ts
 
       - name: Generate 144-QL human review pack
         env:
           TRG001_REVIEW_SOURCE_SHA: ${{ github.sha }}
-        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/export-final-144-review-pack.ts
+        run: pnpm dlx tsx@4.21.0 ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/export-final-144-review-pack.ts
 
       - name: Verify human review pack
         run: |
