@@ -68,6 +68,11 @@ const CP004_DUAL_METHOD_QLS = new Set([
   "MAL-QL-042",
 ]);
 
+const CP005_DUAL_METHOD_QLS = new Set([
+  "MAL-QL-055",
+  "MAL-QL-058",
+]);
+
 const allocations = [
   ...MAL_CP001_PERMANENT_ALLOCATION.map((entry) => ({ cpId: "MAL-CP-001" as const, qlId: entry.qlId })),
   ...MAL_CP002_PERMANENT_ALLOCATION.map((entry) => ({ cpId: "MAL-CP-002" as const, qlId: entry.qlId })),
@@ -89,15 +94,24 @@ const forbiddenClutter = [
   /Mistake Warning/i,
 ];
 
+const forbiddenEditorialDefects = [
+  /\b2th root\b/i,
+  /Therefore, known total value =/i,
+  /\bq litre\b/i,
+  /After \d+ operations, the original quantity is \\[\d+ \d+\/\d+\\]/i,
+];
+
 let generated = 0;
 let mathSurfaceChecks = 0;
 let cp001DualMethodChecks = 0;
 let cp004DualMethodChecks = 0;
+let cp005DualMethodChecks = 0;
+let enrichedCp004Cp005Checks = 0;
 const samplesPerQl = 20;
 
 for (const allocation of allocations) {
   for (let index = 0; index < samplesPerQl; index += 1) {
-    const seed = `mal-001-dual-method-explanation:${allocation.qlId}:${index}`;
+    const seed = `mal-001-dual-method-explanation-v3:${allocation.qlId}:${index}`;
     const question = allocation.cpId === "MAL-CP-006"
       ? runMalCp006EnglishReviewPipeline({
           questionLanguageId: allocation.qlId as never,
@@ -115,7 +129,8 @@ for (const allocation of allocations) {
 
     const isCp001Dual = CP001_DUAL_METHOD_QLS.has(allocation.qlId);
     const isCp004Dual = CP004_DUAL_METHOD_QLS.has(allocation.qlId);
-    const isDual = isCp001Dual || isCp004Dual;
+    const isCp005Dual = CP005_DUAL_METHOD_QLS.has(allocation.qlId);
+    const isDual = isCp001Dual || isCp004Dual || isCp005Dual;
 
     if (isDual) {
       assert(
@@ -132,8 +147,8 @@ for (const allocation of allocations) {
         `${allocation.qlId}/${seed}: alligation method needs a cross plus explanatory calculation.`,
       );
       assert(
-        lines.length <= 11,
-        `${allocation.qlId}/${seed}: ${lines.length} lines exceed the dual-method limit of 11.`,
+        lines.length <= 12,
+        `${allocation.qlId}/${seed}: ${lines.length} lines exceed the dual-method limit of 12.`,
       );
 
       const alligationLines = lines.slice(method2Index + 1);
@@ -155,19 +170,37 @@ for (const allocation of allocations) {
         );
         cp004DualMethodChecks += 1;
       }
+      if (isCp005Dual) {
+        assert(
+          alligationLines.some((line) => line.startsWith("[[EXAMTREE_ALLIGATION_SVG_V1:")),
+          `${allocation.qlId}/${seed}: CP005 alligation visual is missing.`,
+        );
+        assert(
+          lines.slice(1, method2Index).some((line) => /weighted-average/i.test(line)),
+          `${allocation.qlId}/${seed}: CP005 Method 1 must remain a genuinely separate normal method.`,
+        );
+        cp005DualMethodChecks += 1;
+      }
     } else if (allocation.cpId !== "MAL-CP-006") {
       assert(
         lines[0] === "Simple Method",
         `${allocation.qlId}/${seed}: non-alligation learner explanation should use one clear simple method.`,
       );
       assert(
-        lines.length >= 2 && lines.length <= 6,
-        `${allocation.qlId}/${seed}: simple explanation should contain 1-5 working lines.`,
+        lines.length >= 2 && lines.length <= 7,
+        `${allocation.qlId}/${seed}: simple explanation should contain 1-6 working lines.`,
       );
       assert(
         !lines.some((line) => /Alligation Cross/i.test(line)),
         `${allocation.qlId}/${seed}: alligation was forced into a non-natural family.`,
       );
+      if (allocation.cpId === "MAL-CP-004" || allocation.cpId === "MAL-CP-005") {
+        assert(
+          lines.length >= 3,
+          `${allocation.qlId}/${seed}: solution-first explanation is still too terse for learner review.`,
+        );
+        enrichedCp004Cp005Checks += 1;
+      }
     } else {
       assert(
         lines.length >= 1 && lines.length <= 4,
@@ -182,6 +215,12 @@ for (const allocation of allocations) {
         `${allocation.qlId}/${seed}: learner explanation contains clutter ${pattern}.`,
       );
     }
+    for (const pattern of forbiddenEditorialDefects) {
+      assert(
+        !pattern.test(learnerExplanation),
+        `${allocation.qlId}/${seed}: learner explanation contains known editorial defect ${pattern}.`,
+      );
+    }
     for (const line of lines) {
       assertMathWellFormed(allocation.qlId, seed, line);
       mathSurfaceChecks += 1;
@@ -194,9 +233,10 @@ for (const allocation of allocations) {
 assert(generated === 1340, `Expected 1,340 explanation checks, received ${generated}.`);
 assert(cp001DualMethodChecks === 120, `Expected 120 CP001 dual-method checks, received ${cp001DualMethodChecks}.`);
 assert(cp004DualMethodChecks === 40, `Expected 40 CP004 dual-method checks, received ${cp004DualMethodChecks}.`);
+assert(cp005DualMethodChecks === 40, `Expected 40 CP005 dual-method checks, received ${cp005DualMethodChecks}.`);
 
 console.log(JSON.stringify({
-  status: "PASS_MAL_001_DUAL_METHOD_EXPLANATION_V2",
+  status: "PASS_MAL_001_DUAL_METHOD_EXPLANATION_V3",
   permanentQls: 67,
   samplesPerQl,
   generated,
@@ -205,5 +245,8 @@ console.log(JSON.stringify({
   cp001DualMethodChecks,
   cp004DualMethodQls: [...CP004_DUAL_METHOD_QLS],
   cp004DualMethodChecks,
-  policy: "Simple method first; alligation cross second only where mathematically natural.",
+  cp005DualMethodQls: [...CP005_DUAL_METHOD_QLS],
+  cp005DualMethodChecks,
+  enrichedCp004Cp005Checks,
+  policy: "Teach the normal method first; show alligation cross second wherever the released authority already supports it naturally.",
 }, null, 2));
