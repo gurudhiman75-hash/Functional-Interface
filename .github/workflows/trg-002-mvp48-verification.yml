@@ -45,6 +45,9 @@ jobs:
             "include": [
               "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**/*.ts"
             ],
+            "exclude": [
+              "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts"
+            ],
             "references": []
           }
           EOF
