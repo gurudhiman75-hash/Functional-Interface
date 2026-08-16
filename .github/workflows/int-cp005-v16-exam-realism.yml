@@ -64,6 +64,14 @@ jobs:
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/int-cp005-v16-editorial-final-review-export.mjs 2>&1 | tee dist/quant-v4/int-cp005-v16-editorial-final-review-export.log
+      - name: Bundle V16 localization diagnostic
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v16-localized-diagnostic.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp005-v16-localized-diagnostic.mjs
+      - name: Run V16 localization diagnostic
+        run: pnpm --dir artifacts/api-server exec node dist/quant-v4/int-cp005-v16-localized-diagnostic.mjs
       - name: Bundle V16 Hindi Punjabi localization audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
