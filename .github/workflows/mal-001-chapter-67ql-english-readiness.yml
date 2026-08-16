@@ -1,4 +1,4 @@
-name: Validate MAL-001 67 QL English readiness
+name: Validate MAL-001 multilingual chapter readiness
 
 on:
   pull_request:
@@ -7,6 +7,7 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-standard-integration.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/chapter-compact-explanation-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/chapter-multilingual-question-studio-v1.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp001-permanent-runtime.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp001-release.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp002-editorial-v2.ts"
@@ -23,11 +24,12 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-chapter-value-quality-closure-audit.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-compact-explanation-audit.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-question-studio-complete-connection-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-multilingual-question-studio-audit.ts"
       - ".github/workflows/mal-001-chapter-67ql-english-readiness.yml"
   workflow_dispatch:
 
 concurrency:
-  group: mal-001-67ql-readiness-${{ github.event.pull_request.number || github.ref }}
+  group: mal-001-multilingual-readiness-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -42,7 +44,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server run build
-      - name: Bundle CP006 and chapter audits
+      - name: Bundle MAL chapter audits
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave05-permanent-allocation-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-cp006-wave05-permanent-allocation-audit.mjs
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp006-wave06-permanent-english-review-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-cp006-wave06-permanent-english-review-audit.mjs
@@ -50,6 +52,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-chapter-value-quality-closure-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-chapter-value-quality-closure-audit.mjs
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-compact-explanation-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-compact-explanation-audit.mjs
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-question-studio-complete-connection-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-question-studio-complete-connection-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-multilingual-question-studio-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/mal-001-multilingual-question-studio-audit.mjs
       - name: Run CP006 allocation regression
         run: |
           cd artifacts/api-server
@@ -60,7 +63,7 @@ jobs:
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/mal-001-cp006-wave06-permanent-english-review-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp006-wave06-permanent-english-review-audit.log
-      - name: Run 67 QL chapter readiness audit
+      - name: Run 67 QL English chapter readiness audit
         shell: bash
         run: |
           set -o pipefail
@@ -84,11 +87,17 @@ jobs:
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/mal-001-question-studio-complete-connection-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-question-studio-complete-connection-audit.log
+      - name: Run Hindi Punjabi 67 QL parity audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-multilingual-question-studio-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-multilingual-question-studio-audit.log
       - name: Upload review evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: mal-001-67ql-english-readiness
+          name: mal-001-multilingual-readiness
           path: |
             artifacts/api-server/dist/quant-v4/mal-001-cp006-wave06-permanent-english-review-audit.log
             artifacts/api-server/dist/quant-v4/MAL-CP-006-WAVE-06-PERMANENT-ENGLISH-56Q-REVIEW.md
@@ -101,5 +110,8 @@ jobs:
             artifacts/api-server/dist/quant-v4/mal-001-chapter-value-quality-closure.json
             artifacts/api-server/dist/quant-v4/mal-001-compact-explanation-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-question-studio-complete-connection-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-multilingual-question-studio-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-multilingual-question-studio-audit.json
+            artifacts/api-server/dist/quant-v4/MAL-001-MULTILINGUAL-134Q-REVIEW.md
           if-no-files-found: warn
           retention-days: 14
