@@ -2,6 +2,7 @@ import { add, compare, divide, equals, multiply, rational, rationalKey, subtract
 import { runTmwCp014PresentationPipeline } from "./cp014-presentation-runtime";
 import { finalizeTmwCp012MultilingualEditorialReview } from "./cp012-multilingual-editorial-finalizer";
 import { finalizeTmwCp014MultilingualEditorialReview } from "./cp014-multilingual-editorial-finalizer";
+import { finalizeTmwCp014ExplanationDepth } from "./cp014-explanation-depth-finalizer";
 import type { TmwLanguage } from "./types";
 
 function deepMapStrings(value: any, transform: (text: string) => string): any {
@@ -116,7 +117,8 @@ function polishCp014(question: any, qlId: string, language: TmwLanguage): any {
     };
   }
 
-  return finalizeTmwCp014MultilingualEditorialReview(polished, qlId, language);
+  const editorial = finalizeTmwCp014MultilingualEditorialReview(polished, qlId, language);
+  return finalizeTmwCp014ExplanationDepth(editorial, language);
 }
 
 export function polishTmw001ExtensionQuestion(question: any, qlId: string, language: TmwLanguage): any {
