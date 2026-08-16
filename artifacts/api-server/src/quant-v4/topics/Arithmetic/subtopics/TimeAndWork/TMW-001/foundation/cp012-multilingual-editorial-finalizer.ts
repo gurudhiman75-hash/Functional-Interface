@@ -38,10 +38,12 @@ function polishLegacyCopy(question: AnyQuestion, mode: string, language: TmwLang
       } else {
         text = text.replace(/A ਦੀ ਕੁਸ਼ਲਤਾ (\d+)% ਬਦਲਦੀ ਹੈ/gu, "A ਦੀ ਕੁਸ਼ਲਤਾ $1% ਵਧਦੀ ਹੈ");
       }
+    } else if (mode === "findExcludedIndividualTimeFromAllTogetherAndSubgroup") {
+      text = text.replace(/Therefore C alone takes the reciprocal: ([^.]+)\./g, "C's solo completion time is the reciprocal of C's rate: $1.");
     } else if (mode === "findDelayAfterMemberEfficiencyDecrease") {
-      text = text.replace(/A's efficiency changes by (\d+)%/g, "A's efficiency decreases by $1%");
-    } else if (mode !== "findExcludedIndividualTimeFromAllTogetherAndSubgroup") {
-      text = text.replace(/A's efficiency changes by (\d+)%/g, "A's efficiency increases by $1%");
+      text = text.replace(/A changes by (\d+)%; B is unchanged\./g, "A's efficiency decreases by $1%; B's efficiency is unchanged.");
+    } else {
+      text = text.replace(/A changes by (\d+)%; B is unchanged\./g, "A's efficiency increases by $1%; B's efficiency is unchanged.");
     }
     return text;
   });
