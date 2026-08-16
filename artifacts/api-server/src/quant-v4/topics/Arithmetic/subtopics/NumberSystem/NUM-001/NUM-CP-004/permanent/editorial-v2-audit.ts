@@ -5,7 +5,7 @@ import {
   NUM_CP004_EDITORIAL_V2_RELEASE,
   type NumCp004EditorialV2Question,
 } from "./editorial-v2";
-import { runNumCp004EditorialV2Final } from "./editorial-v2-final";
+import { runNumCp004EditorialV2ReviewFinal } from "./editorial-v2-review-final";
 
 const SEEDS_PER_QL = 80;
 const REVIEW_SEEDS = [1, 2, 3, 4] as const;
@@ -135,7 +135,7 @@ let maxExplanationChars = 0;
 
 for (const questionLanguageId of NUM_CP004_PERMANENT_QL_IDS) {
   for (let seed = 1; seed <= SEEDS_PER_QL; seed += 1) {
-    const question = runNumCp004EditorialV2Final({ questionLanguageId, seed, language: "en" });
+    const question = runNumCp004EditorialV2ReviewFinal({ questionLanguageId, seed, language: "en" });
     auditQuestion(question);
     auditedQuestions += 1;
     surfaces.add(learnerSurface(question));
