@@ -1,5 +1,9 @@
 import { applyMal001DualMethodExplanationV2 } from "./foundation/chapter-compact-explanation-v1";
 import {
+  applyMal001QuestionStudioLocalization,
+  type Mal001LocalizedLanguage,
+} from "./foundation/chapter-multilingual-question-studio-v1";
+import {
   MAL_CP001_PERMANENT_ALLOCATION,
   type MalCp001PermanentQlId,
 } from "./foundation/cp001-permanent-allocation";
@@ -46,6 +50,11 @@ export const MAL_001_QUESTION_STUDIO_CP_IDS = [
   "MAL-CP-005",
   "MAL-CP-006",
 ] as const;
+
+export const MAL_001_QUESTION_STUDIO_LANGUAGES = ["en", "hi", "pa"] as const;
+
+export type Mal001QuestionStudioLanguage =
+  (typeof MAL_001_QUESTION_STUDIO_LANGUAGES)[number];
 
 export type Mal001QuestionStudioCpId =
   (typeof MAL_001_QUESTION_STUDIO_CP_IDS)[number];
@@ -250,28 +259,14 @@ function chooseQl<T extends AllocationEntry>(
   return entries[hash(seed) % entries.length]!.qlId;
 }
 
-export function runMal001QuestionStudioPipeline(
-  cpId: Mal001QuestionStudioCpId,
+function englishQuestion(
+  selectedCpId: Mal001QuestionStudioCpId,
   input: {
     difficulty?: Difficulty;
-    language?: "en";
     questionLanguageId?: Mal001QuestionStudioQlId | string;
     seed?: string;
-  } = {},
+  },
 ): Mal001QuestionStudioQuestion {
-  if (!MAL_001_QUESTION_STUDIO_CP_IDS.includes(cpId)) {
-    throw new Error(`Unknown canonical problem '${cpId}' for package MAL-001.`);
-  }
-
-  const language = input.language ?? "en";
-  if (language !== "en") {
-    throw new Error(
-      `MAL-001 supports English generation only in Question Studio; received ${language}.`,
-    );
-  }
-
-  const selectedCpId = resolveCpId(cpId, input);
-
   if (selectedCpId === "MAL-CP-001") {
     const questionLanguageId = chooseQl(
       selectedCpId,
@@ -355,4 +350,31 @@ export function runMal001QuestionStudioPipeline(
   return toCp006QuestionStudioQuestion(
     generateMalCp006PermanentReviewQuestion(questionLanguageId, input.seed),
   );
+}
+
+export function runMal001QuestionStudioPipeline(
+  cpId: Mal001QuestionStudioCpId,
+  input: {
+    difficulty?: Difficulty;
+    language?: Mal001QuestionStudioLanguage;
+    questionLanguageId?: Mal001QuestionStudioQlId | string;
+    seed?: string;
+  } = {},
+): Mal001QuestionStudioQuestion {
+  if (!MAL_001_QUESTION_STUDIO_CP_IDS.includes(cpId)) {
+    throw new Error(`Unknown canonical problem '${cpId}' for package MAL-001.`);
+  }
+
+  const language = input.language ?? "en";
+  if (!MAL_001_QUESTION_STUDIO_LANGUAGES.includes(language)) {
+    throw new Error(`MAL-001 does not support Question Studio language ${language}.`);
+  }
+
+  const selectedCpId = resolveCpId(cpId, input);
+  const base = englishQuestion(selectedCpId, input);
+  if (language === "en") return base;
+  return applyMal001QuestionStudioLocalization(
+    base as unknown as Record<string, any>,
+    language as Mal001LocalizedLanguage,
+  ) as unknown as Mal001QuestionStudioQuestion;
 }
