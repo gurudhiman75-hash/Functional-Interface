@@ -1,0 +1,53 @@
+name: Validate SPA FGC-001 Discovery V1
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-fgc-001-discovery-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle controlled spatial proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          for test in \
+            spatial-foundation \
+            spatial-permanent-ql-allocation-v1 \
+            spatial-figure-completion-discovery-v1
+          do
+            pnpm --dir artifacts/api-server exec esbuild \
+              src/reasoning-v1/tests/${test}.test.ts \
+              --bundle --platform=node --format=esm \
+              --outfile=dist/reasoning-v1/spatial/${test}.test.mjs
+          done
+      - name: Guard frozen P0 foundation
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+      - name: Guard frozen SPA-QL-001..030 allocation
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-permanent-ql-allocation-v1.test.mjs
+      - name: Run FGC-001 executable discovery proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-discovery-v1.test.mjs
+      - name: Upload FGC-001 discovery review
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-fgc-001-discovery-v1-review
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-discovery-v1-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-discovery-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-discovery-v1-review.html
+          if-no-files-found: error
