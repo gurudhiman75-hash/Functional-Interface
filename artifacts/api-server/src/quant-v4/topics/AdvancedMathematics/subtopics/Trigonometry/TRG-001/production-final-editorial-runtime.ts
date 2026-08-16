@@ -10,6 +10,42 @@ const MEDIUM_RECALIBRATED = new Set([
   "TRG-001-QL-100",
 ]);
 
+function compactText(value: unknown) {
+  return String(value ?? "").replace(/\s+/g, "").toLowerCase();
+}
+
+function applyFinalExplanationPolish(question: any) {
+  const answerText = String(question.answer ?? "").trim();
+  const repeatedEcho = `=${answerText}=${answerText}`;
+  const steps = (question.explanation?.steps ?? []).map((step: any) => ({
+    ...step,
+    body: typeof step.body === "string"
+      ? step.body.split(repeatedEcho).join(`=${answerText}`)
+      : step.body,
+  }));
+
+  const explanationText = compactText([
+    question.explanation?.keyRule ?? "",
+    ...steps.map((step: any) => step.body ?? ""),
+  ].join(" "));
+  const mustStateAnswer = question.difficulty === "Medium" || question.difficulty === "Hard";
+
+  if (mustStateAnswer && answerText && !explanationText.includes(compactText(answerText))) {
+    steps.push({
+      title: "Answer",
+      body: `Therefore, the exact answer is ${answerText}.`,
+    });
+  }
+
+  return {
+    ...question,
+    explanation: {
+      ...question.explanation,
+      steps,
+    },
+  };
+}
+
 function applyFinalEditorialReview(question: any) {
   let reviewed = { ...question };
 
@@ -26,14 +62,34 @@ function applyFinalEditorialReview(question: any) {
     reviewed = { ...reviewed, difficulty: "Medium" };
   }
 
+  reviewed = applyFinalExplanationPolish(reviewed);
+
   const minimumSteps = reviewed.difficulty === "Hard" ? 3 : reviewed.difficulty === "Medium" ? 2 : 1;
   const inheritedChecks = (reviewed.validation?.checks ?? []).filter((check: any) => check.name !== "EXPLANATION_DEPTH");
+  const explanationText = compactText([
+    reviewed.explanation?.keyRule ?? "",
+    ...(reviewed.explanation?.steps ?? []).map((step: any) => step.body ?? ""),
+  ].join(" "));
+  const answerText = String(reviewed.answer ?? "").trim();
+  const repeatedEcho = `=${answerText}=${answerText}`;
   const checks = [
     ...inheritedChecks,
     {
       name: "EXPLANATION_DEPTH",
       passed: reviewed.explanation.steps.length >= minimumSteps,
       message: `Final editorial explanation meets ${reviewed.difficulty} depth floor.`,
+    },
+    {
+      name: "EXPLANATION_FINAL_ANSWER",
+      passed: reviewed.difficulty === "Easy" || !answerText || explanationText.includes(compactText(answerText)),
+      message: "Medium/Hard final explanation explicitly states the exact answer.",
+    },
+    {
+      name: "NO_REDUNDANT_ANSWER_ECHO",
+      passed: !(reviewed.explanation?.steps ?? []).some(
+        (step: any) => typeof step.body === "string" && step.body.includes(repeatedEcho),
+      ),
+      message: "Final explanation does not repeat the same exact answer on both sides of an equality.",
     },
     {
       name: "FINAL_AI_EDITORIAL",
