@@ -1,0 +1,31 @@
+name: Validate SAP Final QL166-211 Freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/sap-e2-cp011-cp012
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Bundle final SAP QL166-211 freeze authority
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QL166-211-PERMANENT-FREEZE.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/sap-final-ql166-211-freeze.mjs
+      - name: Run final SAP QL166-211 freeze authority
+        run: node artifacts/api-server/dist/quant-v4/sap-final-ql166-211-freeze.mjs
+
+# Product-owner approved identity/content freeze only.
+# Question Studio, bank writes, test eligibility, publication and merge authorization remain OFF.
