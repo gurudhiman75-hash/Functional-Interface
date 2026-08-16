@@ -15,7 +15,7 @@ function ipow(base: number, exponent: number): number { return base ** exponent;
 
 function powerChain(seed: number): SapE2Package {
   const p = seed - 1, correctIndex = p % 4;
-  const q = seed / 2 - 1;
+  const q = (seed - 2) / 3;
   const g = 3 + (q % 3);
   const a = 3 + (q % 4);
   const b = 2 + ((q * 2) % 5);
@@ -62,7 +62,7 @@ function powerChain(seed: number): SapE2Package {
 
 function powerRootChain(seed: number): SapE2Package {
   const p = seed - 1, correctIndex = p % 4;
-  const q = (seed - 1) / 2;
+  const q = (seed - 1) / 3;
   const g = 3 + (q % 3);
   const root = 6 + ((q * 5) % 17);
   const denominatorExponent = 1 + (q % 3);
@@ -99,7 +99,50 @@ function powerRootChain(seed: number): SapE2Package {
   });
 }
 
+function missingExponentChain(seed: number): SapE2Package {
+  const p = seed - 1, correctIndex = p % 4;
+  const q = seed / 3 - 1;
+  const g = 3 + (q % 4);
+  const a = 2 + (q % 3);
+  const b = 2 + (q % 2) * 2;
+  const c = 2 + (q % 5);
+  const outerExponent = 2;
+  const answerExponent = 3 + ((q * 7) % 6);
+  const finalExponent = answerExponent - a - b + outerExponent * (c + 1);
+  const g1 = g + off(seed, 0), g2 = g + off(seed, 1), g3 = g + off(seed, 2), g4 = g + off(seed, 3), g5 = g + off(seed, 4), g6 = g + off(seed, 5);
+  const denominatorBlock = (g3 ** c * g4) ** outerExponent;
+  const actualLeft = g1 ** a * g2 ** b / denominatorBlock * g5 ** finalExponent;
+  const actualExponent = Math.log(actualLeft) / Math.log(g6);
+  const answerText = String(answerExponent);
+  return packageE2({
+    profile: "BANK", checkpointId: "SAP-CP-012", structureId: SAP_CP012_E3_EXPLICIT_POWER_REVERSE, seed,
+    difficulty: "HARD", decisionCount: 9,
+    stem: `What approximate value should replace ? in ${e2Math(`\\frac{(${fmt(g1, 3)})^{${a}} \\times (${fmt(g2, 3)})^{${b}}}{\\left((${fmt(g3, 3)})^{${c}} \\times ${fmt(g4, 3)}\\right)^{${outerExponent}}} \\times (${fmt(g5, 3)})^{${finalExponent}} = (${fmt(g6, 3)})^{?}`)}?`,
+    canonicalAnswer: answerText,
+    options: optionSet(answerText, correctIndex, [
+      wrong(String(answerExponent - 1), "EXPONENT_ONE_LOW", "The common-base exponent arithmetic is carried through, but the final exponent is one too low."),
+      wrong(String(answerExponent + 1), "EXPONENT_ONE_HIGH", "The common-base exponent arithmetic is carried through, but the final exponent is one too high."),
+      wrong(String(answerExponent + c + 1), "IGNORE_OUTER_DENOMINATOR_POWER", "The outer power on the denominator block is ignored, so too little exponent is subtracted from the numerator total."),
+    ]), correctIndex,
+    explanation: Object.freeze({
+      coreConcept: "Round all near-equal bases to one common base, expand the power on the denominator block, then equate the resulting exponents.",
+      steps: Object.freeze([
+        `Using ${g} as the common base, the denominator contributes exponent ${outerExponent} × (${c}+1) = ${outerExponent * (c + 1)}.`,
+        `Hence ? ≈ ${a} + ${b} + ${finalExponent} - ${outerExponent * (c + 1)} = ${answerExponent}.`,
+      ]),
+      finalAnswer: `Therefore, ? ≈ ${answerExponent}.`,
+    }),
+    oracle: Object.freeze({ kind: SAP_CP012_E3_EXPLICIT_POWER_REVERSE, data: Object.freeze({
+      mode: "MISSING_EXPONENT", g, a, b, c, outerExponent, finalExponent, answerExponent,
+      g1_1000: Math.round(g1 * 1000), g2_1000: Math.round(g2 * 1000), g3_1000: Math.round(g3 * 1000), g4_1000: Math.round(g4 * 1000), g5_1000: Math.round(g5 * 1000), g6_1000: Math.round(g6 * 1000),
+      actualMissing_100000: Math.round(actualExponent * 100000), e3Disposition: "EXPAND_EXISTING_CP012_MIXED_SYNTHESIS_NO_NEW_QL",
+    }) }),
+  });
+}
+
 export function generateSapCp012E3(seed: number): SapE2Package {
   if (!Number.isInteger(seed) || seed < 1 || seed > 100) throw new Error("CP012 E3 seed must be 1..100.");
-  return seed % 2 === 0 ? powerChain(seed) : powerRootChain(seed);
+  if (seed % 3 === 0) return missingExponentChain(seed);
+  if (seed % 3 === 1) return powerRootChain(seed);
+  return powerChain(seed);
 }
