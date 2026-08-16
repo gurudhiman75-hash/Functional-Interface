@@ -21,18 +21,22 @@ export interface SpatialReviewPackage {
   chapters: SpatialReviewChapter[];
   supportedLanguages: ['en'];
   supportedDifficulties: SpatialReviewDifficulty[];
-  runtimeMode: string;
-  reviewStatus: string;
+  runtimeMode: 'CANONICAL_REVIEW';
+  reviewStatus: 'APPROVED_EDITORIAL_CANONICAL';
   integrationAuthority: string;
+  releaseAuthority: string;
   permanentQlCount: number;
-  reviewOnly: true;
   questionStudioVisible: true;
   questionStudioDiscoverable: true;
   registrationStatus: 'REGISTERED';
-  questionBankStatus: 'NOT_STORED';
-  questionBankWritable: false;
-  testEligible: false;
-  publiclyPublishable: false;
+  questionBankStatus: 'READY_FOR_STORAGE';
+  questionBankEligible: true;
+  testEligibility: 'ELIGIBLE';
+  testEligible: true;
+  mockTestEligible: true;
+  publiclyPublishable: true;
+  manualApprovalRequired: true;
+  automaticStudentPublication: false;
 }
 
 export interface SpatialReviewQuestion {
@@ -63,6 +67,15 @@ export interface SpatialReviewQuestion {
   canonicalItemId: string;
   questionLanguageId: string;
   contentFingerprint: string;
+  lifecycle: {
+    questionBankStatus: 'READY_FOR_STORAGE';
+    testEligibility: 'ELIGIBLE';
+    publiclyPublishable: true;
+    mockTestEligible: true;
+    manualApprovalRequired: true;
+    automaticStudentPublication: false;
+    releaseAuthority: string;
+  };
   validation: {
     valid: true;
     semanticOptionUniqueness: true;
@@ -86,10 +99,10 @@ export interface SpatialReviewStatus {
   approvedItemCount: number;
   questionBankCount: number;
   integrationAuthority: string;
-  reviewOnly: true;
-  questionBankWritable: false;
-  testEligible: false;
-  publiclyPublishable: false;
+  releaseAuthority: string;
+  questionBankConversionEligibleAfterApproval: true;
+  testEligibleAfterApproval: true;
+  publiclyPublishableAfterApproval: true;
   automaticStudentPublication: false;
 }
 
@@ -105,29 +118,30 @@ function paramsFor(input: SpatialReviewInput) {
 export function getSpatialReviewPackage() {
   return adminRequest<{
     generationSystem: 'reasoning-v1';
-    activationMode: 'REVIEW_ONLY';
+    activationMode: 'PRODUCTION_REVIEW';
     package: SpatialReviewPackage;
     maxBatchSize: number;
     permanentQlCount: number;
     databaseWriteEnabled: true;
     persistenceAllowed: true;
-    questionBankWriteEnabled: false;
-    testEligible: false;
-    publiclyPublishable: false;
+    questionBankConversionEligibleAfterApproval: true;
+    testEligibleAfterApproval: true;
+    publiclyPublishableAfterApproval: true;
+    automaticStudentPublication: false;
     bulkSyncSupported: false;
   }>(
     '/admin/question-studio/reasoning/spatial/package',
     undefined,
-    { fallbackMessage: 'Unable to load the Spatial Reasoning review package.' },
+    { fallbackMessage: 'Unable to load the Spatial Reasoning package.' },
   );
 }
 
 export function previewSpatialReview(input: SpatialReviewInput) {
   return adminRequest<{
     questions: SpatialReviewQuestion[];
-    productionEligible: false;
-    reviewOnly: true;
+    productionEligible: true;
     integrationAuthority: string;
+    releaseAuthority: string;
   }>(
     `/admin/question-studio/reasoning/spatial/preview?${paramsFor(input).toString()}`,
     undefined,
@@ -143,10 +157,7 @@ export function createSpatialReviewRun(input: SpatialReviewInput) {
     itemCount: number;
     generationSystem: 'reasoning-v1';
     packageId: 'SPA-001';
-    reviewOnly: true;
-    questionBankWritable: false;
-    testEligible: false;
-    publiclyPublishable: false;
+    releaseAuthority: string;
   }>(
     '/admin/question-studio/reasoning/spatial/runs',
     { method: 'POST', body: JSON.stringify({ ...input, language: 'en' }) },
@@ -158,6 +169,6 @@ export function getSpatialReviewStatus() {
   return adminRequest<SpatialReviewStatus>(
     '/admin/question-studio/reasoning/spatial/status',
     undefined,
-    { fallbackMessage: 'Unable to load Spatial Reasoning review status.' },
+    { fallbackMessage: 'Unable to load Spatial Reasoning status.' },
   );
 }
