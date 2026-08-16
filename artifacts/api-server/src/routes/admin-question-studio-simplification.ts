@@ -15,7 +15,7 @@ import {
   type SapStudioExamProfile,
   type SapStudioQlId,
   type SapStudioQuestion,
-} from "../quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/sap-question-studio-runtime-v1";
+} from "../quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/sap-question-studio-release-v1";
 
 const router = Router();
 const QL_IDS = new Set<string>(SAP_QUESTION_STUDIO_QLS.map((entry) => entry.qlId));
