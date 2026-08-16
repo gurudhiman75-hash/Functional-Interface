@@ -102,13 +102,16 @@ for (const qlId of QLS) {
         ok(!/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/u.test(text), `${label}: control character remains`);
         ok(!proseInsideMath(text), `${label}: localized prose inside MathJax`);
         ok(!/10-Second|10-सेकंड|10-ਸਕਿੰਟ/u.test(text), `${label}: gimmicky timing language remains`);
+        ok(!/(\d+:\d+)\s*=\s*\1/u.test(text), `${label}: redundant ratio equality remains`);
         if (language === "hi") {
           ok(/[\u0900-\u097F]/u.test(text), `${label}: Hindi script missing`);
           ok(!/\binlet\b|\bleak\b|\bnet\b/iu.test(text), `${label}: English pipe loan term remains in Hindi`);
+          ok(!/टीम-संख्य/u.test(text), `${label}: mechanical workforce-count wording remains in Hindi`);
         }
         if (language === "pa") {
           ok(/[\u0A00-\u0A7F]/u.test(text), `${label}: Punjabi script missing`);
           ok(!/\binlet\b|\bleak\b|\bnet\b/iu.test(text), `${label}: English pipe loan term remains in Punjabi`);
+          ok(!/ਉਤਨਾ|ਉਤਨੇ|ਅਕਾਫ਼ੀ|ਟੀਮ-ਗਿਣਤ/u.test(text), `${label}: non-native Punjabi learner wording remains`);
         }
         if (qlId === "TMW-QL-219") {
           ok(/assigned|लगाए गए|ਲਗਾਏ/u.test(q.stem), `${label}: workforce target remains ambiguous`);
