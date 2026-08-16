@@ -1,14 +1,21 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { MAL_CP002_PERMANENT_ALLOCATION } from "./foundation/cp002-permanent-runtime";
-import { runMalCp002EnglishChapterClosureV3Pipeline } from "./foundation/cp002-chapter-closure-runtime-v3";
+import { runMalCp002EnglishChapterClosureV4Pipeline } from "./foundation/cp002-chapter-closure-runtime-v4";
 import { MAL_CP003_PERMANENT_ALLOCATION } from "./foundation/cp003-permanent-runtime";
-import { runMalCp003EnglishEditorialV2Pipeline } from "./foundation/cp003-release-editorial-v2";
+import { runMalCp003EnglishEditorialV3Pipeline } from "./foundation/cp003-release-editorial-v3";
 import { MAL_CP004_PERMANENT_ALLOCATION } from "./foundation/cp004-permanent-runtime";
-import { runMalCp004EnglishChapterClosureV8Pipeline } from "./foundation/cp004-chapter-closure-runtime-v8";
+import { runMalCp004EnglishChapterClosureV9Pipeline } from "./foundation/cp004-chapter-closure-runtime-v9";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
+}
+
+function gcd(a: number, b: number): number {
+  let x = Math.abs(a);
+  let y = Math.abs(b);
+  while (y !== 0) [x, y] = [y, x % y];
+  return x;
 }
 
 const samplesPerQl = 50;
@@ -21,6 +28,7 @@ const evidence: Array<{
   answers: number;
 }> = [];
 let generated = 0;
+let realismChecks = 0;
 
 function assertOptionPackage(question: {
   questionId: string;
@@ -36,63 +44,68 @@ function assertOptionPackage(question: {
   );
 }
 
-function assertCp002ValueQuality(question: {
-  questionId: string;
-  permanentQlId: string;
-  stem: string;
-}): void {
-  for (const match of question.stem.matchAll(/\b(\d+)\s*:\s*(\d+)\b/gu)) {
+function assertReducedSmallRatios(questionId: string, stem: string): void {
+  for (const match of stem.matchAll(/\b(\d+)\s*:\s*(\d+)\b/gu)) {
+    const left = Number(match[1]);
+    const right = Number(match[2]);
     assert(
-      Math.max(Number(match[1]), Number(match[2])) <= 500,
-      `${question.questionId}: CP002 ratio component exceeds 500.`,
+      Math.max(left, right) <= 99,
+      `${questionId}: synthetic large ratio survived (${match[0]}).`,
     );
-  }
-  if (question.permanentQlId === "MAL-QL-026") {
     assert(
-      !/\\frac\{\d+\}\{\d+\}[^.!?]*(?:kg|litres?)/u.test(question.stem),
-      `${question.questionId}: Easy CP002 invariance uses an unnecessary fractional removal.`,
+      left === 0 || right === 0 || gcd(left, right) === 1,
+      `${questionId}: unreduced ratio survived (${match[0]}).`,
     );
+    realismChecks += 2;
   }
 }
 
-function assertCp003ValueQuality(question: {
-  questionId: string;
-  stem: string;
-  options: string[];
-}): void {
-  const learnerChoices = [question.stem, ...question.options].join(" ");
-  for (const match of learnerChoices.matchAll(/\b(\d+)\/(\d+)\b/gu)) {
+function hasFractionalQuantity(stem: string): boolean {
+  return /(?:\\frac\{\d+\}\{\d+\}|\b\d+\s+\d+\/\d+)\s*(?:\\,\\text\{(?:kg|litres?)\}|kg|litres?)/u.test(
+    stem,
+  );
+}
+
+function assertEasyMagnitudeAndQuantity(
+  questionId: string,
+  stem: string,
+): void {
+  assert(
+    !/\b(?:[5-9]\d{2}|\d{4,})\b/u.test(stem),
+    `${questionId}: Easy question contains an unnecessarily large 500+ value.`,
+  );
+  assert(
+    !hasFractionalQuantity(stem),
+    `${questionId}: Easy question contains an unnecessary fractional quantity.`,
+  );
+  realismChecks += 2;
+}
+
+function assertMixedQuantityDenominator(
+  questionId: string,
+  learnerChoices: string,
+  maximum: number,
+): void {
+  for (const match of learnerChoices.matchAll(/\b\d+\s+(\d+)\/(\d+)\s+(?:kg|litres?)\b/gu)) {
     assert(
-      Number(match[2]) <= 32,
-      `${question.questionId}: CP003 learner fraction denominator exceeds 32.`,
+      Number(match[2]) <= maximum,
+      `${questionId}: mixed quantity denominator exceeds ${maximum} (${match[0]}).`,
     );
-  }
-  for (const match of question.stem.matchAll(/\b(\d+)\s*:\s*(\d+)\b/gu)) {
-    assert(
-      Math.max(Number(match[1]), Number(match[2])) <= 300,
-      `${question.questionId}: CP003 stem ratio component exceeds 300.`,
-    );
+    realismChecks += 1;
   }
 }
 
-function assertCp004ValueQuality(question: {
-  questionId: string;
-  stem: string;
-  options: string[];
-  answer: string;
-}): void {
-  const learnerChoices = [question.stem, ...question.options, question.answer].join(" ");
-  for (const match of learnerChoices.matchAll(/(?<!\d)(\d+)\/(\d+)(?!\d)/gu)) {
+function assertMixedPercentDenominator(
+  questionId: string,
+  learnerChoices: string,
+  maximum: number,
+): void {
+  for (const match of learnerChoices.matchAll(/\b\d+\s+(\d+)\/(\d+)%/gu)) {
     assert(
-      Number(match[2]) <= 20,
-      `${question.questionId}: CP004 learner fraction denominator exceeds 20.`,
+      Number(match[2]) <= maximum,
+      `${questionId}: mixed percentage denominator exceeds ${maximum} (${match[0]}).`,
     );
-  }
-  for (const match of learnerChoices.matchAll(/\\frac\{(\d+)\}\{(\d+)\}/gu)) {
-    assert(
-      Number(match[2]) <= 20,
-      `${question.questionId}: CP004 MathJax fraction denominator exceeds 20.`,
-    );
+    realismChecks += 1;
   }
 }
 
@@ -101,14 +114,17 @@ for (const allocation of MAL_CP002_PERMANENT_ALLOCATION) {
   const stems = new Set<string>();
   const answers = new Set<string>();
   for (let index = 0; index < samplesPerQl; index += 1) {
-    const question = runMalCp002EnglishChapterClosureV3Pipeline({
+    const question = runMalCp002EnglishChapterClosureV4Pipeline({
       questionLanguageId: allocation.qlId,
-      seed: `mal-001-value-quality:${allocation.qlId}:${index}`,
+      seed: `mal-001-value-quality-v2:${allocation.qlId}:${index}`,
       language: "en",
     });
     assert(question.permanentQlId === allocation.qlId, `${allocation.qlId}: CP002 identity drift.`);
     assertOptionPackage(question);
-    assertCp002ValueQuality(question);
+    assertReducedSmallRatios(question.questionId, question.stem);
+    if (allocation.difficulty === "Easy") {
+      assertEasyMagnitudeAndQuantity(question.questionId, question.stem);
+    }
     states.add(question.stateKey);
     stems.add(question.stem);
     answers.add(question.answer);
@@ -125,14 +141,19 @@ for (const allocation of MAL_CP003_PERMANENT_ALLOCATION) {
   const stems = new Set<string>();
   const answers = new Set<string>();
   for (let index = 0; index < samplesPerQl; index += 1) {
-    const question = runMalCp003EnglishEditorialV2Pipeline({
+    const question = runMalCp003EnglishEditorialV3Pipeline({
       questionLanguageId: allocation.qlId,
-      seed: `mal-001-value-quality:${allocation.qlId}:${index}`,
+      seed: `mal-001-value-quality-v2:${allocation.qlId}:${index}`,
       language: "en",
     });
     assert(question.permanentQlId === allocation.qlId, `${allocation.qlId}: CP003 identity drift.`);
     assertOptionPackage(question);
-    assertCp003ValueQuality(question);
+    assertReducedSmallRatios(question.questionId, question.stem);
+    assertMixedQuantityDenominator(
+      question.questionId,
+      [question.stem, ...question.options, question.answer].join(" "),
+      16,
+    );
     states.add(question.stateKey);
     stems.add(question.stem);
     answers.add(question.answer);
@@ -149,14 +170,19 @@ for (const allocation of MAL_CP004_PERMANENT_ALLOCATION) {
   const stems = new Set<string>();
   const answers = new Set<string>();
   for (let index = 0; index < samplesPerQl; index += 1) {
-    const question = runMalCp004EnglishChapterClosureV8Pipeline({
+    const question = runMalCp004EnglishChapterClosureV9Pipeline({
       questionLanguageId: allocation.qlId,
-      seed: `mal-001-value-quality:${allocation.qlId}:${index}`,
+      seed: `mal-001-value-quality-v2:${allocation.qlId}:${index}`,
       language: "en",
     });
     assert(question.permanentQlId === allocation.qlId, `${allocation.qlId}: CP004 identity drift.`);
     assertOptionPackage(question);
-    assertCp004ValueQuality(question);
+    const learnerChoices = [question.stem, ...question.options, question.answer].join(" ");
+    assertMixedQuantityDenominator(question.questionId, learnerChoices, 16);
+    assertMixedPercentDenominator(question.questionId, learnerChoices, 12);
+    if (allocation.difficulty === "Easy") {
+      assertEasyMagnitudeAndQuantity(question.questionId, question.stem);
+    }
     states.add(question.stateKey);
     stems.add(question.stem);
     answers.add(question.answer);
@@ -170,6 +196,7 @@ for (const allocation of MAL_CP004_PERMANENT_ALLOCATION) {
 
 assert(generated === 1800, `Expected 1,800 value-quality questions, received ${generated}.`);
 assert(review.length === 36, `Expected 36 retained value-quality review questions, received ${review.length}.`);
+assert(realismChecks > 0, "Exam-realism checks did not execute.");
 
 const outputDirectory = resolve(process.cwd(), "dist/quant-v4");
 mkdirSync(outputDirectory, { recursive: true });
@@ -177,26 +204,38 @@ const jsonPath = resolve(outputDirectory, "mal-001-chapter-value-quality-closure
 const markdownPath = resolve(outputDirectory, "MAL-001-CHAPTER-VALUE-QUALITY-CLOSURE-36Q.md");
 
 const summary = {
-  status: "PASS_MAL_001_CHAPTER_VALUE_QUALITY_CLOSURE",
+  status: "PASS_MAL_001_CHAPTER_VALUE_QUALITY_CLOSURE_V2",
   runtimeCandidates: {
-    cp002: "MAL-CP002-EN-CHAPTER-CLOSURE-RUNTIME-V3",
-    cp003: "MAL-CP003-EN-CHAPTER-CLOSURE-EDITORIAL-V2",
-    cp004: "MAL-CP004-EN-CHAPTER-CLOSURE-RUNTIME-V8",
+    cp002: "MAL-CP002-EN-CHAPTER-CLOSURE-RUNTIME-V4",
+    cp003: "MAL-CP003-EN-CHAPTER-CLOSURE-EDITORIAL-V3",
+    cp004: "MAL-CP004-EN-CHAPTER-CLOSURE-RUNTIME-V9",
   },
   qlCount: 36,
   samplesPerQl,
   generated,
+  realismChecks,
+  policy: {
+    ratioComponentMaximum: 99,
+    ratiosMustBeReduced: true,
+    easyMaximumAbsoluteInteger: 499,
+    easyFractionalQuantitiesAllowed: false,
+    mixedQuantityDenominatorMaximum: 16,
+    mixedPercentDenominatorMaximum: 12,
+  },
   evidence,
   lifecycle: "REVIEW_ONLY_CHAPTER_CLOSURE_EVIDENCE",
 };
 writeFileSync(jsonPath, `${JSON.stringify({ ...summary, review }, null, 2)}\n`, "utf8");
 
 const lines = [
-  "# MAL-001 — Chapter Value-Quality Closure 36Q",
+  "# MAL-001 — Exam-Realistic Value Closure 36Q",
   "",
-  "> Review-only evidence for CP002 V3, CP003 V2 and CP004 V8. Existing seed-stable production/editorial authorities remain unchanged unless separately approved.",
+  "> Review-only evidence for CP002 V4, CP003 V3 and CP004 V9. Existing seed-stable Question Studio authorities remain unchanged unless separately approved.",
   "",
   `Generated proof: ${generated} questions (${samplesPerQl} per QL).`,
+  `Executed exam-realism assertions: ${realismChecks}.`,
+  "",
+  "Policy: ratios use reduced components ≤99; Easy questions avoid 500+ values and fractional quantities; mixed quantity denominators are ≤16; mixed percentage denominators are ≤12.",
   "",
 ];
 for (const question of review as any[]) {
