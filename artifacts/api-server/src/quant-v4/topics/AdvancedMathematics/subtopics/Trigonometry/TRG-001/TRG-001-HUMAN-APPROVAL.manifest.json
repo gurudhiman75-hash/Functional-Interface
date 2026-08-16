@@ -13,7 +13,10 @@
   "approvedContentFingerprintAlgorithm": "sha256(JSON.stringify(review-projection[144]))",
   "approvedContentFingerprint": "31772b314a4d9f1f47b85a54e0596eab9a0dd450a14c380b001376099ac50611",
   "freezeEligible": true,
+  "freezeStatus": "FROZEN",
+  "frozenAt": "2026-08-16T21:28:00+05:30",
+  "freezeRecord": "TRG-001-FREEZE.manifest.json",
   "activationAuthorized": false,
   "mergeAuthorized": false,
-  "notes": "Approval is bound to the exact deterministic 144-record review content. Later changes to question content require a new human approval. Freeze eligibility does not authorize merge, activation, storage, Test Builder, Question Studio, localization runtime, or publication."
+  "notes": "Approval is bound to the exact deterministic 144-record review content. The English package is frozen against that fingerprint. Later question-content changes require a new human approval and re-freeze. Freeze does not authorize merge, activation, storage, Test Builder, Question Studio, localization runtime, or publication."
 }
