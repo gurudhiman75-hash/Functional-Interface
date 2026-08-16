@@ -26,6 +26,7 @@ import {
 import {
   polishMensurationLocalizedText,
   protectMensurationFormulaIdentifiers,
+  repairMensurationLearnerMathSurface,
 } from "./mensuration-localization-editorial-v1";
 
 export type MensurationLocalizedQuestionV1 = Omit<
@@ -77,41 +78,68 @@ function translate(text: string, language: MensurationLocalizedLanguage) {
   return polishMensurationLocalizedText(protectedFormula.restore(localized), language);
 }
 
-function localizeQuestion(
+function normalizeCanonicalQuestion(
   canonical: MensurationQuestionStudioQuestionV2,
-  language: MensurationLocalizedLanguage,
 ): MensurationLocalizedQuestionV1 {
-  const options = canonical.options.map((option) => localizeMensurationOption(option, language));
+  const options = canonical.options.map(repairMensurationLearnerMathSurface);
   const optionDetails = canonical.optionDetails.map((option, index) => ({
     ...option,
     text: options[index]!,
   }));
-  const stem = translate(canonical.stem, language);
+  return {
+    ...canonical,
+    language: "en",
+    locale: "en-IN",
+    stem: repairMensurationLearnerMathSurface(canonical.stem),
+    options,
+    optionDetails,
+    answer: options[canonical.correctIndex]!,
+    explanation: {
+      steps: canonical.explanation.steps.map(repairMensurationLearnerMathSurface),
+      shortcut: repairMensurationLearnerMathSurface(canonical.explanation.shortcut),
+      traps: canonical.explanation.traps.map(repairMensurationLearnerMathSurface),
+    },
+  };
+}
+
+function localizeQuestion(
+  canonical: MensurationQuestionStudioQuestionV2,
+  language: MensurationLocalizedLanguage,
+): MensurationLocalizedQuestionV1 {
+  const source = normalizeCanonicalQuestion(canonical);
+  const options = source.options.map((option) =>
+    repairMensurationLearnerMathSurface(localizeMensurationOption(option, language)),
+  );
+  const optionDetails = source.optionDetails.map((option, index) => ({
+    ...option,
+    text: options[index]!,
+  }));
+  const stem = translate(source.stem, language);
   const explanation = {
-    steps: canonical.explanation.steps.map((step) => translate(step, language)),
-    shortcut: translate(canonical.explanation.shortcut, language),
-    traps: canonical.explanation.traps.map((trap) =>
+    steps: source.explanation.steps.map((step) => translate(step, language)),
+    shortcut: translate(source.explanation.shortcut, language),
+    traps: source.explanation.traps.map((trap) =>
       translate(stripLearnerMisconceptionTag(trap), language),
     ),
   };
-  const answer = options[canonical.correctIndex]!;
-  const learnerText = [stem, ...explanation.steps, explanation.shortcut, ...explanation.traps].join("\n");
+  const answer = options[source.correctIndex]!;
+  const learnerText = [stem, ...options, ...explanation.steps, explanation.shortcut, ...explanation.traps].join("\n");
   return {
-    ...canonical,
+    ...source,
     language,
     locale: localeForLanguage(language),
     stem,
     options,
     optionDetails,
-    correctIndex: canonical.correctIndex,
+    correctIndex: source.correctIndex,
     answer,
     explanation,
     localization: {
       authority: MENSURATION_LOCALIZATION_AUTHORITY,
       canonicalLanguage: "en",
       canonicalLocale: "en-IN",
-      canonicalQuestionId: canonical.questionId,
-      canonicalItemId: canonical.canonicalItemId,
+      canonicalQuestionId: source.questionId,
+      canonicalItemId: source.canonicalItemId,
       language,
       locale: localeForLanguage(language) as "hi-IN" | "pa-IN",
       mathematicalStatePreserved: true,
@@ -137,7 +165,7 @@ export function generateMensurationLocalizedQuestionV1(input: {
     examProfile: input.examProfile,
   });
   const language = input.language ?? "en";
-  if (language === "en") return canonical as MensurationLocalizedQuestionV1;
+  if (language === "en") return normalizeCanonicalQuestion(canonical);
   return localizeQuestion(canonical, language);
 }
 
@@ -160,7 +188,7 @@ export function generateMensurationLocalizedBatchV1(input: {
     count: input.count,
   });
   const questions = language === "en"
-    ? canonical.questions as MensurationLocalizedQuestionV1[]
+    ? canonical.questions.map(normalizeCanonicalQuestion)
     : canonical.questions.map((question) => localizeQuestion(question, language));
   return {
     ...canonical,
