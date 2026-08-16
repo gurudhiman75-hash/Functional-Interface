@@ -4,9 +4,9 @@ import {
   type BankingCanNeverEditorialV4Question,
 } from "./banking-can-never-be-editorial-v4";
 import {
-  generateBankingPossibilityShellV2,
-  type BankingPossibilityShellQuestionV2,
-} from "./banking-possibility-shell-v2";
+  generateBankingPossibilityEditorialV3,
+  type BankingPossibilityEditorialV3Question,
+} from "./banking-possibility-editorial-v3";
 import {
   buildSylProfilePlanV3,
   type SylProfilePlanV3,
@@ -15,7 +15,7 @@ import {
 
 export type BankingModalCandidateKindV1 = "ORDINARY_POSSIBILITY" | "CAN_NEVER";
 export type BankingModalCandidateQuestionV1 =
-  | BankingPossibilityShellQuestionV2
+  | BankingPossibilityEditorialV3Question
   | BankingCanNeverEditorialV4Question;
 
 export interface BankingModalCandidateBindingV1 {
@@ -31,7 +31,7 @@ export interface BankingModalCandidateBindingV1 {
   canonicalQlId: null;
   candidateKind: BankingModalCandidateKindV1;
   candidateAuthority:
-    | "SYL_001_BANKING_POSSIBILITY_SHELL_V2"
+    | "SYL_001_BANKING_POSSIBILITY_EDITORIAL_V3"
     | "SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V4";
   candidateSeed: number;
   locale: SylLocale;
@@ -50,7 +50,7 @@ export interface BankingModalCandidateBindingV1 {
 }
 
 const CANDIDATE_FAMILY = "BANK_POSSIBILITY_IN_CONCLUSION_SET" as const;
-const ORDINARY_AUTHORITY = "SYL_001_BANKING_POSSIBILITY_SHELL_V2" as const;
+const ORDINARY_AUTHORITY = "SYL_001_BANKING_POSSIBILITY_EDITORIAL_V3" as const;
 const CAN_NEVER_AUTHORITY = "SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V4" as const;
 
 const LOCKS = Object.freeze({
@@ -97,7 +97,7 @@ function assertCandidateSlot(slot: SylProfilePlanSlotV3): asserts slot is SylPro
     !slot.candidateAuthorities.includes(ORDINARY_AUTHORITY)
     || !slot.candidateAuthorities.includes(CAN_NEVER_AUTHORITY)
   ) {
-    throw new Error(`Slot ${slot.index} is missing one or more Banking modal candidate authorities.`);
+    throw new Error(`Slot ${slot.index} is missing one or more Banking modal candidate editorial authorities.`);
   }
 }
 
@@ -119,7 +119,7 @@ function bindCandidateSlot(
     ? ORDINARY_AUTHORITY
     : CAN_NEVER_AUTHORITY;
   const question = candidateKind === "ORDINARY_POSSIBILITY"
-    ? generateBankingPossibilityShellV2(candidateSeed, locale)
+    ? generateBankingPossibilityEditorialV3(candidateSeed, locale)
     : generateBankingCanNeverEditorialV4(candidateSeed, locale);
 
   return {
@@ -171,6 +171,10 @@ export const SYL_BANKING_MODAL_CANDIDATE_OVERLAY_V1 = Object.freeze({
   plannerAuthority: "SYL_001_PROFILE_PLAN_V3",
   familyId: CANDIDATE_FAMILY,
   candidateAuthorities: [ORDINARY_AUTHORITY, CAN_NEVER_AUTHORITY] as const,
+  semanticAuthorities: [
+    "SYL_001_BANKING_POSSIBILITY_SHELL_V2",
+    "SYL_001_BANKING_CAN_NEVER_BE_SHELL_V2",
+  ] as const,
   selectionPolicy: "DETERMINISTIC_EVALUATION_COVERAGE_NOT_SOURCE_FREQUENCY_V1",
   expectedCandidateSlotsPerBankingHundred: 20,
   evaluationCoverageSplitPerBankingHundred: {
