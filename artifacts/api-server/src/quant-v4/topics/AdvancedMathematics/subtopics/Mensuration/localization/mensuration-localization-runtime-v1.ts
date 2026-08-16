@@ -25,6 +25,7 @@ import {
 } from "./mensuration-localization-foundation-v3";
 import { prelocalizeMensurationEditorialSource } from "./mensuration-localization-source-editorial-v1";
 import { prelocalizeMensurationStructuredInstructionSource } from "./mensuration-localization-structured-instructions-v1";
+import { prelocalizeMensurationMen001TeachingSourceV1 } from "./mensuration-localization-men001-teaching-source-v1";
 import { prelocalizeMensurationStemSourceCoreV1 } from "./mensuration-localization-stem-source-core-v1";
 import { prelocalizeMensurationStemSource2dV1 } from "./mensuration-localization-stem-source-2d-v1";
 import { prelocalizeMensurationStemSourceSolidsV1 } from "./mensuration-localization-stem-source-solids-v1";
@@ -85,7 +86,8 @@ export const MENSURATION_LOCALIZED_PACKAGE_V1 = {
 function translate(text: string, language: MensurationLocalizedLanguage) {
   const editorialSource = prelocalizeMensurationEditorialSource(text, language);
   const structuredSource = prelocalizeMensurationStructuredInstructionSource(editorialSource, language);
-  const protectedFormula = protectMensurationFormulaIdentifiers(structuredSource);
+  const teachingSource = prelocalizeMensurationMen001TeachingSourceV1(structuredSource, language);
+  const protectedFormula = protectMensurationFormulaIdentifiers(teachingSource);
   const localized = localizeMensurationProse(protectedFormula.text, language);
   const polished = polishMensurationLocalizedText(protectedFormula.restore(localized), language);
   return repairMensurationLocalizedHardGateSurface(polished, language);
