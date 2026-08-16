@@ -100,11 +100,13 @@ function visibleInternalCode(text: string) {
   return /\b(?:MEN-(?:00[12]|CP|QL)|PROT-|TPL-|SM-|WAVE-|clusterId|sourceId|prototypeId|misconceptionId|integrationAuthority)\b/i.test(text);
 }
 
+/**
+ * $$...$$ is valid display math in legacy authorities. The audit only rejects
+ * truly unbalanced dollar delimiters and the known malformed \\pih command.
+ */
 function malformedTex(text: string) {
   if (text.includes("\\pih")) return true;
-  if ((text.match(/\$/g) ?? []).length % 2 !== 0) return true;
-  if (/\$\$/.test(text)) return true;
-  return false;
+  return (text.match(/\$/g) ?? []).length % 2 !== 0;
 }
 
 function engineeringStemShorthand(stem: string) {
@@ -213,7 +215,7 @@ for (const pattern of MENSURATION_QUESTION_STUDIO_PATTERNS) {
       addFinding(question, "HIGH", "EDITORIAL", "INTERNAL_CODE_LEAK", "Learner-visible text appears to expose an internal Mensuration identifier.");
     }
     if (malformedTex(visible)) {
-      addFinding(question, "HIGH", "EDITORIAL", "MALFORMED_TEX", "Learner-visible text has malformed or unbalanced TeX delimiters.");
+      addFinding(question, "HIGH", "EDITORIAL", "MALFORMED_TEX", "Learner-visible text has an unbalanced math delimiter or malformed \\pih command.");
     }
     if (engineeringStemShorthand(question.stem)) {
       addFinding(question, "MEDIUM", "EDITORIAL", "ENGINEERING_STEM_SHORTHAND", "Stem uses setter/probe-style assignment shorthand rather than normal exam prose.");
@@ -234,13 +236,13 @@ for (const pattern of MENSURATION_QUESTION_STUDIO_PATTERNS) {
       addFinding(question, "MEDIUM", "EXPLANATION", "NO_NUMERIC_WORKING", "Explanation does not visibly demonstrate at least two numerical quantities.");
     }
     if (genericShortcut(question.explanation.shortcut)) {
-      addFinding(question, "LOW", "EXPLANATION", "GENERIC_SHORTCUT_FALLBACK", "Question Studio had to use the generic Mensuration shortcut fallback.");
+      addFinding(question, "MEDIUM", "EXPLANATION", "GENERIC_SHORTCUT_FALLBACK", "Question Studio is exposing its generic shortcut fallback instead of a family-specific shortcut.");
     }
     if (question.explanation.steps.length < 2) {
       addFinding(question, "MEDIUM", "EXPLANATION", "THIN_EXPLANATION", "Explanation has fewer than two learner-facing steps.");
     }
     if (question.optionDetails.filter((option) => option.misconceptionId !== null).length === 0) {
-      addFinding(question, "LOW", "DISTRACTOR", "NO_EXPLICIT_DISTRACTOR_SEMANTICS", "No normalized option exposes misconception provenance; manually inspect whether wrong options are plausible mistakes.");
+      addFinding(question, "LOW", "DISTRACTOR", "NO_EXPLICIT_DISTRACTOR_SEMANTICS", "No normalized option exposes misconception provenance; this is diagnostic only because some legacy sources use strategy-based distractors without surfaced IDs.");
     }
   }
 }
@@ -252,12 +254,22 @@ for (const question of questions) {
   questionsByPattern.set(question.patternId, bucket);
 }
 
+const patternDiversity: Array<{
+  cpId: string;
+  patternId: string;
+  stateCount: number;
+  stemCount: number;
+  stemShapeCount: number;
+  explanationCount: number;
+}> = [];
+
 for (const [patternId, patternQuestions] of questionsByPattern) {
   const stateCount = new Set(patternQuestions.map(stateKey)).size;
   const stemCount = new Set(patternQuestions.map((question) => question.stem)).size;
   const explanationCount = new Set(patternQuestions.map(explanationKey)).size;
   const shapeCount = new Set(patternQuestions.map((question) => stemShape(question.stem))).size;
   const first = patternQuestions[0]!;
+  patternDiversity.push({ cpId: first.cpId, patternId, stateCount, stemCount, stemShapeCount: shapeCount, explanationCount });
   if (stateCount < SAMPLES_PER_PATTERN) {
     addFinding(first, "HIGH", "DUPLICATION", "REPEATED_QUESTION_STATE", `${patternId} produced only ${stateCount}/${SAMPLES_PER_PATTERN} distinct stem+option states.`);
   }
@@ -265,10 +277,10 @@ for (const [patternId, patternQuestions] of questionsByPattern) {
     addFinding(first, "MEDIUM", "DUPLICATION", "LOW_STEM_DIVERSITY", `${patternId} produced only ${stemCount}/${SAMPLES_PER_PATTERN} distinct stems.`);
   }
   if (shapeCount === 1 && stemCount === 1) {
-    addFinding(first, "LOW", "DUPLICATION", "SINGLE_STEM_SURFACE", `${patternId} exposes only one stem surface in this four-state audit.`);
+    addFinding(first, "LOW", "DUPLICATION", "SINGLE_STEM_SURFACE", `${patternId} exposes only one exact stem surface in this four-state audit.`);
   }
   if (explanationCount === 1) {
-    addFinding(first, "MEDIUM", "EXPLANATION", "REPEATED_EXPLANATION", `${patternId} repeats the same explanation across all four generated states.`);
+    addFinding(first, "MEDIUM", "EXPLANATION", "REPEATED_EXPLANATION", `${patternId} repeats the same normalized explanation across all four generated states.`);
   }
 }
 
@@ -308,12 +320,13 @@ const categoryCounts = countBy(findings, (finding) => finding.category);
 const codeCounts = countBy(findings, (finding) => finding.code);
 const difficultyCounts = countBy(records, (record) => record.difficulty);
 const answerPositionCounts = countBy(records, (record) => LABELS[record.correctIndex] ?? "?");
-const repeatedShapeCounts = countBy(records, (record) => `${record.cpId}:${stemShape(record.stem)}`);
-const repeatedShapes = Object.entries(repeatedShapeCounts)
-  .filter(([, count]) => count >= 8)
-  .sort((a, b) => b[1] - a[1])
-  .slice(0, 40)
-  .map(([shape, count]) => ({ shape, count }));
+
+const findingExamplesByCode = Object.fromEntries(
+  [...new Set(findings.map((finding) => finding.code))].map((code) => [
+    code,
+    findings.filter((finding) => finding.code === code).slice(0, 8),
+  ]),
+);
 
 const structuralCriticalCount = findings.filter((finding) => finding.severity === "CRITICAL").length;
 if (structuralCriticalCount > 0) {
@@ -332,10 +345,6 @@ for (const cp of MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS) {
     if (!reviewSample.some((row) => row.patternId === record.patternId)) reviewSample.push(record);
   }
 }
-
-const highMediumExamples = findings
-  .filter((finding) => finding.severity === "HIGH" || finding.severity === "MEDIUM")
-  .slice(0, 80);
 
 const report = {
   authority: MENSURATION_CHAPTER_WIDE_REALISM_AUDIT_V1_AUTHORITY,
@@ -357,8 +366,8 @@ const report = {
     codeCounts,
   },
   cpSummaries,
-  repeatedShapes,
-  highMediumExamples,
+  patternDiversity,
+  findingExamplesByCode,
   findings,
   reviewSample,
   records,
@@ -412,7 +421,7 @@ const md = [
   ...reviewSample.map(markdownQuestion),
 ].join("\n");
 
-const outDir = path.resolve(process.cwd(), "dist/quant-v4");
+const outDir = path.resolve(process.cwd(), "artifacts/api-server/dist/quant-v4");
 fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(path.join(outDir, "mensuration-chapter-wide-realism-audit-v1.json"), JSON.stringify(report, null, 2));
 fs.writeFileSync(path.join(outDir, "mensuration-chapter-wide-realism-audit-v1.md"), md);
@@ -434,5 +443,6 @@ console.log(JSON.stringify({
     findingCounts: row.findingCounts,
   })),
   topFindingCodes: Object.entries(codeCounts).sort((a, b) => b[1] - a[1]).slice(0, 20),
-  highMediumExamples: highMediumExamples.slice(0, 30),
+  duplicationPatterns: patternDiversity.filter((row) => row.stateCount < SAMPLES_PER_PATTERN || row.stemCount < 3 || row.explanationCount < 2),
+  findingExamplesByCode,
 }, null, 2));
