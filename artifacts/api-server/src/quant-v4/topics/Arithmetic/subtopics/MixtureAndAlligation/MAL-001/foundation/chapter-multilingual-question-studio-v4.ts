@@ -20,6 +20,84 @@ function renderNumber(value: any): string {
   return String(value ?? "");
 }
 
+const RESIDUAL_CONNECTORS: Record<
+  Mal001LocalizedLanguage,
+  readonly (readonly [RegExp, string])[]
+> = {
+  hi: [
+    [/\bTherefore\b/gu, "इसलिए"],
+    [/\bHence\b/gu, "अतः"],
+    [/\bThus\b/gu, "इसलिए"],
+    [/\bSo\b/gu, "इसलिए"],
+    [/\bNow\b/gu, "अब"],
+    [/\bThen\b/gu, "फिर"],
+    [/\bSince\b/gu, "क्योंकि"],
+    [/\bWe get\b/gu, "हमें मिलता है"],
+    [/\bThis gives\b/gu, "इससे मिलता है"],
+    [/\bwhich gives\b/gu, "जिससे मिलता है"],
+  ],
+  pa: [
+    [/\bTherefore\b/gu, "ਇਸ ਲਈ"],
+    [/\bHence\b/gu, "ਅਤੇ ਇਸ ਲਈ"],
+    [/\bThus\b/gu, "ਇਸ ਲਈ"],
+    [/\bSo\b/gu, "ਇਸ ਲਈ"],
+    [/\bNow\b/gu, "ਹੁਣ"],
+    [/\bThen\b/gu, "ਫਿਰ"],
+    [/\bSince\b/gu, "ਕਿਉਂਕਿ"],
+    [/\bWe get\b/gu, "ਸਾਨੂੰ ਮਿਲਦਾ ਹੈ"],
+    [/\bThis gives\b/gu, "ਇਸ ਤੋਂ ਮਿਲਦਾ ਹੈ"],
+    [/\bwhich gives\b/gu, "ਜਿਸ ਤੋਂ ਮਿਲਦਾ ਹੈ"],
+  ],
+};
+
+function cleanupResidualLearnerText(
+  value: unknown,
+  language: Mal001LocalizedLanguage,
+): unknown {
+  if (typeof value === "string") {
+    return RESIDUAL_CONNECTORS[language].reduce(
+      (text, [pattern, replacement]) => text.replace(pattern, replacement),
+      value,
+    );
+  }
+  if (Array.isArray(value)) {
+    return value.map((entry) => cleanupResidualLearnerText(entry, language));
+  }
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>).map(([key, entry]) => [
+        key,
+        cleanupResidualLearnerText(entry, language),
+      ]),
+    );
+  }
+  return value;
+}
+
+function cleanLearnerFields<T extends Record<string, any>>(
+  question: T,
+  language: Mal001LocalizedLanguage,
+): T {
+  return {
+    ...question,
+    stem: cleanupResidualLearnerText(question.stem, language),
+    options: cleanupResidualLearnerText(question.options, language),
+    answer: cleanupResidualLearnerText(question.answer, language),
+    explanation: cleanupResidualLearnerText(question.explanation, language),
+    reasoningGraph: question.reasoningGraph
+      ? {
+          ...question.reasoningGraph,
+          nodes: Array.isArray(question.reasoningGraph.nodes)
+            ? question.reasoningGraph.nodes.map((node: Record<string, any>) => ({
+                ...node,
+                text: cleanupResidualLearnerText(node.text, language),
+              }))
+            : question.reasoningGraph.nodes,
+        }
+      : question.reasoningGraph,
+  } as T;
+}
+
 function renderCp001StructuredStem(
   question: Record<string, any>,
   language: Mal001LocalizedLanguage,
@@ -145,7 +223,10 @@ export function applyMal001QuestionStudioLocalizationV4<T extends Record<string,
   question: T,
   language: Mal001LocalizedLanguage,
 ): T {
-  const localized = applyMal001QuestionStudioLocalizationV3(question, language) as T;
+  const localized = cleanLearnerFields(
+    applyMal001QuestionStudioLocalizationV3(question, language) as T,
+    language,
+  );
   const structuredStem = renderCp001StructuredStem(question, language);
   if (!structuredStem) return localized;
 
