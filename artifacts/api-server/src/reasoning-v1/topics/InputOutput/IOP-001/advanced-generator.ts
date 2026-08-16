@@ -23,6 +23,27 @@ const WORD_POOL = [
   "fabric", "globe", "hunter", "ivory", "jacket", "kingdom", "lemon", "magnet", "native", "ocean",
 ] as const;
 
+// Attribute machines must never rely on an unstated tie-break. These pools make
+// the primary learner-visible attribute unique before the machine is executed.
+const LENGTH_ATTRIBUTE_POOL = [
+  "ant",        // 3
+  "arch",       // 4
+  "lemon",      // 5
+  "garden",     // 6
+  "lantern",    // 7
+  "elephant",   // 8
+  "pineapple",  // 9
+  "strawberry", // 10
+] as const;
+
+const VOWEL_ATTRIBUTE_POOL = [
+  "rhythm", // 0
+  "brick",  // 1
+  "lemon",  // 2
+  "banana", // 3
+  "audio",  // 4
+] as const;
+
 const NUMBER_POOL = [
   17, 23, 29, 31, 38, 42, 46, 53, 57, 61, 68, 72, 74, 79, 83, 86, 91, 94, 37, 49,
   58, 63, 71, 76, 82, 89, 93, 27, 34, 44, 51, 56, 64, 69, 73, 78, 84, 87, 92, 96,
@@ -67,9 +88,23 @@ function pickDistinct<T>(pool: readonly T[], count: number, rng: () => number): 
   return shuffle(pool, rng).slice(0, count);
 }
 
+function usesSelectionKey(authority: IopAdvancedPrototypeAuthority, key: "WORD_LENGTH" | "VOWEL_COUNT"): boolean {
+  return authority.program.operations.some((operation) =>
+    (operation.kind === "ITERATIVE_MOVE" || operation.kind === "SORT_ALL") && operation.selectionKey === key,
+  );
+}
+
+function wordPoolFor(authority: IopAdvancedPrototypeAuthority): readonly string[] {
+  if (usesSelectionKey(authority, "VOWEL_COUNT")) return VOWEL_ATTRIBUTE_POOL;
+  if (usesSelectionKey(authority, "WORD_LENGTH")) return LENGTH_ATTRIBUTE_POOL;
+  return WORD_POOL;
+}
+
 function inputFor(authority: IopAdvancedPrototypeAuthority, seed: string): readonly IopAdvancedToken[] {
   const rng = makeRng(seed);
-  const pool = authority.tokenKind === "WORD" ? WORD_POOL : authority.tokenKind === "NUMBER" ? NUMBER_POOL : ALPHANUMERIC_POOL;
+  const pool: readonly (string | number)[] = authority.tokenKind === "WORD"
+    ? wordPoolFor(authority)
+    : authority.tokenKind === "NUMBER" ? NUMBER_POOL : ALPHANUMERIC_POOL;
   const selected = pickDistinct(pool, authority.tokenCount, rng).map((value) => String(value));
   return shuffle(selected, rng).map((value, originalPosition) => ({
     id: `${authority.tokenKind[0]}${originalPosition + 1}`,
@@ -187,7 +222,8 @@ function stepOutputQuestion(trace: IopAdvancedTrace, seed: string, order: 1 | 2 
     kind: "STEP_OUTPUT",
     evidence: { kind: "STEP_OUTPUT", stepNumber: step.stepNumber },
     text: `Which of the following is Step ${step.stepNumber} for the new input?`,
-    options, answerIndex,
+    options,
+    answerIndex,
     answerDisplay: renderAdvancedRow(step.tokens, trace.layout),
     explanation: `Apply the stages in the demonstrated order. Step ${step.stepNumber} is ${renderAdvancedRow(step.tokens, trace.layout)}.`,
   };
@@ -207,7 +243,9 @@ function elementQuestion(trace: IopAdvancedTrace, seed: string): IopAdvancedChil
     kind: "ELEMENT_AT_POSITION",
     evidence: { kind: "ELEMENT_AT_POSITION", stepNumber: step.stepNumber, position },
     text: `Which element is at position ${position} from the left in Step ${step.stepNumber}?`,
-    options, answerIndex, answerDisplay: correct.visibleValue,
+    options,
+    answerIndex,
+    answerDisplay: correct.visibleValue,
     explanation: `Step ${step.stepNumber} is ${renderAdvancedRow(step.tokens, trace.layout)}. Position ${position} contains ${correct.visibleValue}.`,
   };
 }
@@ -223,7 +261,9 @@ function stepNumberQuestion(trace: IopAdvancedTrace, seed: string, order: 1 | 2 
     kind: "STEP_NUMBER",
     evidence: { kind: "STEP_NUMBER", stateFingerprint: step.stateFingerprint },
     text: `At which step does the arrangement ${renderAdvancedRow(step.tokens, trace.layout)} occur?`,
-    options, answerIndex, answerDisplay: `Step ${step.stepNumber}`,
+    options,
+    answerIndex,
+    answerDisplay: `Step ${step.stepNumber}`,
     explanation: `Tracing the machine shows that this exact state first appears at Step ${step.stepNumber}.`,
   };
 }
@@ -238,7 +278,9 @@ function finalQuestion(trace: IopAdvancedTrace, seed: string): IopAdvancedChildQ
     kind: "FINAL_OUTPUT",
     evidence: { kind: "FINAL_OUTPUT" },
     text: "Which of the following is the final output of the machine?",
-    options, answerIndex, answerDisplay: renderAdvancedRow(trace.final, trace.layout),
+    options,
+    answerIndex,
+    answerDisplay: renderAdvancedRow(trace.final, trace.layout),
     explanation: `After all stages are completed, the final output is ${renderAdvancedRow(trace.final, trace.layout)}.`,
   };
 }
@@ -258,7 +300,9 @@ function previousStepQuestion(trace: IopAdvancedTrace, seed: string): IopAdvance
     kind: "PREVIOUS_STEP",
     evidence: { kind: "PREVIOUS_STEP", stepNumber },
     text: `The arrangement at Step ${stepNumber} is ${renderAdvancedRow(trace.steps[stepNumber - 1]!.tokens, trace.layout)}. Which arrangement occurred immediately before it?`,
-    options, answerIndex, answerDisplay: renderAdvancedRow(previous.tokens, trace.layout),
+    options,
+    answerIndex,
+    answerDisplay: renderAdvancedRow(previous.tokens, trace.layout),
     explanation: `The immediately preceding state is Step ${stepNumber - 1}, namely ${renderAdvancedRow(previous.tokens, trace.layout)}.`,
   };
 }
@@ -275,7 +319,9 @@ function missingStepQuestion(trace: IopAdvancedTrace, seed: string): IopAdvanced
     kind: "MISSING_STEP",
     evidence: { kind: "MISSING_STEP", stepNumber },
     text: `If Step ${stepNumber} is omitted between the displayed neighbouring states, which arrangement correctly fills the gap?`,
-    options, answerIndex, answerDisplay: renderAdvancedRow(step.tokens, trace.layout),
+    options,
+    answerIndex,
+    answerDisplay: renderAdvancedRow(step.tokens, trace.layout),
     explanation: `Applying the next machine stage gives Step ${stepNumber}: ${renderAdvancedRow(step.tokens, trace.layout)}.`,
   };
 }
@@ -298,7 +344,9 @@ function remainingStepsQuestion(trace: IopAdvancedTrace, seed: string): IopAdvan
     kind: "REMAINING_STEP_COUNT",
     evidence: { kind: "REMAINING_STEP_COUNT", stepNumber },
     text: `How many further steps are required after Step ${stepNumber} to reach the final output?`,
-    options, answerIndex, answerDisplay: String(correct),
+    options,
+    answerIndex,
+    answerDisplay: String(correct),
     explanation: `The final output occurs at Step ${trace.steps.length}. After Step ${stepNumber}, ${correct} further steps remain.`,
   };
 }
