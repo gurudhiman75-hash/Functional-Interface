@@ -50,12 +50,15 @@ jobs:
       - name: Execute final editorial gate
         run: pnpm dlx tsx@4.21.0 ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-final-editorial.test.ts
 
-      - name: Generate 144-QL human review pack
+      - name: Execute human approval binding gate
+        run: pnpm dlx tsx@4.21.0 ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved.test.ts
+
+      - name: Generate 144-QL approved review pack
         env:
           TRG001_REVIEW_SOURCE_SHA: ${{ github.sha }}
         run: pnpm dlx tsx@4.21.0 ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/export-final-144-review-pack.ts
 
-      - name: Verify human review pack
+      - name: Verify approved review pack
         run: |
           HTML=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/review-artifacts/TRG-001-FINAL-144-HUMAN-REVIEW.html
           JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/review-artifacts/TRG-001-FINAL-144-HUMAN-REVIEW.json
@@ -64,9 +67,10 @@ jobs:
           grep -q 'TRG-001-QL-001' "$HTML"
           grep -q 'TRG-001-QL-144' "$HTML"
           grep -q "${GITHUB_SHA}" "$HTML"
-          grep -q 'Human review:</b> PENDING' "$HTML"
+          grep -q 'Human review:</b> APPROVED' "$HTML"
+          grep -q 'Freeze eligible:</b> YES' "$HTML"
           test "$(grep -o 'class=\"question-card\"' "$HTML" | wc -l | tr -d ' ')" = "144"
-          node -e 'const fs=require("fs"); const p=process.argv[1]; const rows=JSON.parse(fs.readFileSync(p,"utf8")); if(rows.length!==144) throw new Error(`Expected 144 rows, found ${rows.length}`); if(rows.some(r=>r.sourceSha!==process.env.GITHUB_SHA)) throw new Error("Review pack is not pinned to the executing source head"); if(rows.some(r=>r.humanReviewStatus!=="PENDING")) throw new Error("Human review was substituted"); if(rows.some(r=>r.activationLocks.questionBankStatus!=="NOT_STORED"||r.activationLocks.testEligibility!=="INELIGIBLE"||r.activationLocks.publiclyPublishable||r.activationLocks.questionStudioDiscoverable)) throw new Error("Activation lock failed");' "$JSON"
+          node -e 'const fs=require("fs"); const p=process.argv[1]; const rows=JSON.parse(fs.readFileSync(p,"utf8")); if(rows.length!==144) throw new Error(`Expected 144 rows, found ${rows.length}`); if(rows.some(r=>r.sourceSha!==process.env.GITHUB_SHA)) throw new Error("Approved pack is not pinned to the executing source head"); if(rows.some(r=>r.humanReviewStatus!=="APPROVED"||r.reviewStatus!=="HUMAN_APPROVED"||r.freezeEligible!==true)) throw new Error("Human approval/freeze metadata missing"); if(rows.some(r=>r.activationLocks.questionBankStatus!=="NOT_STORED"||r.activationLocks.testEligibility!=="INELIGIBLE"||r.activationLocks.publiclyPublishable||r.activationLocks.questionStudioDiscoverable)) throw new Error("Activation lock failed");' "$JSON"
 
       - name: Create execution and review provenance records
         run: |
@@ -81,7 +85,10 @@ jobs:
             "scope": "FINAL_144_HUMAN_REVIEW",
             "sourceHead": "${GITHUB_SHA}",
             "workflowRunId": "${GITHUB_RUN_ID}",
-            "humanReviewStatus": "PENDING",
+            "humanReviewStatus": "APPROVED",
+            "freezeEligible": true,
+            "approvedContentSourceHead": "7b429306793e7403d024f2090f94f7b9501a4869",
+            "approvedContentFingerprint": "31772b314a4d9f1f47b85a54e0596eab9a0dd450a14c380b001376099ac50611",
             "htmlSha256": "${HTML_SHA}",
             "jsonSha256": "${JSON_SHA}"
           }
@@ -96,11 +103,14 @@ jobs:
           - Targeted TypeScript compile: PASS
           - Structural/semantic diversity gate: PASS
           - Final editorial gate: PASS
-          - Human-review pack generation/verification: PASS
-          - Human review: PENDING (not substituted)
+          - Human-approval content binding: PASS
+          - Approved 144-QL pack generation/verification: PASS
+          - Human review: 144/144 APPROVED
+          - Freeze eligible: YES
           - Activation/publication: OFF
+          - PR merge: NOT AUTHORIZED BY THIS RECORD
 
-          This record is emitted only after every preceding executable gate in this job has passed.
+          The human approval is bound to the exact reviewed content fingerprint. This record is emitted only after every preceding executable gate in this job has passed.
           EOF
 
       - name: Preserve governance evidence
@@ -109,6 +119,8 @@ jobs:
           cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/PRODUCTION_DIVERSITY_REMEDIATION_STATUS.md trg-001-final-evidence/DECLARED_PRODUCTION_DIVERSITY_REMEDIATION_STATUS.md
           cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-final-editorial.manifest.json trg-001-final-evidence/
           cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-diversity-remediation.manifest.json trg-001-final-evidence/
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/TRG-001-HUMAN-APPROVAL.manifest.json trg-001-final-evidence/
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/TRG-001-HUMAN-APPROVAL-AND-FREEZE.md trg-001-final-evidence/
 
       - name: Upload TRG-001 final evidence records
         uses: actions/upload-artifact@v4
@@ -118,7 +130,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-      - name: Upload TRG-001 human review pack
+      - name: Upload TRG-001 approved review pack
         uses: actions/upload-artifact@v4
         with:
           name: trg-001-final-144-human-review
