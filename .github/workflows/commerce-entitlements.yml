@@ -58,8 +58,8 @@ jobs:
           grep -F 'router.get("/tests/:id", authenticate' artifacts/api-server/src/routes/canonical-commerce-access-guard.ts
           grep -F 'router.use(canonicalCommerceAccessGuardRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/commerce/entitlements", adminCommerceEntitlementsRouter)' artifacts/api-server/src/routes/index.ts
-          grep -F "path: '/commerce/entitlements'" artifacts/admin-app/src/App.tsx
-          grep -F "permission: 'commerce.entitlements.read'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -E "path:[[:space:]]*'/commerce/entitlements'" artifacts/admin-app/src/App.tsx
+          grep -E "permission:[[:space:]]*'commerce\.entitlements\.read'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F "Intl.DateTimeFormat('en-US'" artifacts/admin-app/src/pages/commerce/EntitlementsWorkspacePage.tsx
           ! grep -E '@/data/|prototype entitlement|demo entitlement' artifacts/admin-app/src/pages/commerce/EntitlementsWorkspacePage.tsx
       - name: Build API server
