@@ -438,7 +438,7 @@ function reviewChecks(question: any) {
     { name: "EXPLANATION_DEPTH", passed: question.explanation.steps.length >= minSteps, message: `Explanation meets ${question.difficulty} depth floor.` },
     { name: "NO_INTERNAL_ASSIGNMENT_PROSE", passed: !/\b(opposite|adjacent)\s*=/.test(question.stem), message: "Stem does not expose internal variable-assignment prose." },
     { name: "NO_METHOD_LEAK", passed: !/\busing\s+(2\s*sin|cos²)/i.test(question.stem), message: "Stem does not prescribe the intended method." },
-    { name: "NO_CONJUGATE_ANGLE_LEAK", passed: !(["TRG-001-QL-103", "TRG-001-QL-104", "TRG-001-QL-107", "TRG-001-QL-108"].includes(question.qlId) && /θ\s*=/.test(question.stem)), message: "Conjugate questions do not reveal a bypass angle." },
+    { name: "NO_CONJUGATE_ANGLE_LEAK", passed: !(["TRG-001-QL-103", "TRG-001-QL-104", "TRG-001-QL-107", "TRG-001-QL-108"].includes(question.qlId) && /θ\s*=\s*-?\d+(?:\.\d+)?\s*(?:°|deg(?:ree)?s?\b)/i.test(question.stem)), message: "Conjugate questions do not reveal a bypass angle." },
     { name: "ACTIVATION_LOCK", passed: !question.publiclyPublishable && !question.questionStudioDiscoverable && question.testEligibility === "INELIGIBLE" && question.questionBankStatus === "NOT_STORED", message: "All production locks remain closed." },
   ];
 }
