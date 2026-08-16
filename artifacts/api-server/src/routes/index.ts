@@ -36,6 +36,7 @@ import adminQuestionStudioInterestRouter from "./admin-question-studio-interest"
 import adminQuestionStudioMensurationRouter from "./admin-question-studio-mensuration";
 import adminQuestionStudioProbabilityRouter from "./admin-question-studio-probability";
 import adminQuestionStudioCalendarRouter from "./admin-question-studio-calendar";
+import adminQuestionStudioSpatialRouter from "./admin-question-studio-spatial";
 import adminQuestionStudioRouter from "./admin-question-studio";
 import adminQuestionBulkWorkflowRouter from "./admin-question-bulk-workflow";
 import adminQuestionLifecycleHardeningRouter from "./admin-question-lifecycle-hardening";
@@ -142,6 +143,7 @@ router.use("/admin/question-studio", adminQuestionStudioInterestRouter);
 router.use("/admin/question-studio", adminQuestionStudioMensurationRouter);
 router.use("/admin/question-studio", adminQuestionStudioProbabilityRouter);
 router.use("/admin/question-studio", adminQuestionStudioCalendarRouter);
+router.use("/admin/question-studio", adminQuestionStudioSpatialRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/admin/questions", adminQuestionBulkWorkflowRouter);
 router.use("/admin/questions", adminQuestionLifecycleHardeningRouter);
