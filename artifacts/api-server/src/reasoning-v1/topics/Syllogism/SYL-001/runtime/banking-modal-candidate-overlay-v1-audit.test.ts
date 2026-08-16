@@ -31,6 +31,12 @@ assert.equal(plannerCandidateSlots.length, 20);
 assert.ok(plannerCandidateSlots.every((slot) => slot.readiness === "CANDIDATE_INACTIVE"));
 assert.ok(plannerCandidateSlots.every((slot) => slot.canonicalQlId === null));
 assert.ok(plannerCandidateSlots.every((slot) => slot.registrationRequired));
+assert.ok(plannerCandidateSlots.every((slot) =>
+  slot.candidateAuthorities.includes("SYL_001_BANKING_POSSIBILITY_EDITORIAL_V3")));
+assert.ok(plannerCandidateSlots.every((slot) =>
+  slot.candidateAuthorities.includes("SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V4")));
+assert.ok(plannerCandidateSlots.every((slot) =>
+  !slot.candidateAuthorities.includes("SYL_001_BANKING_POSSIBILITY_SHELL_V2")));
 
 const reference = bindBankingModalCandidatesV1(plan, "en-IN");
 assert.equal(reference.length, 20);
@@ -54,6 +60,7 @@ const coverage = {
   localizedBindings: 0,
   ordinaryPossibility: 0,
   canNever: 0,
+  diagrams: 0,
   emittedQlIds: 0,
   invalidLocks: 0,
 };
@@ -97,33 +104,48 @@ for (const locale of locales) {
       || locks.activationPermitted
     ) coverage.invalidLocks += 1;
 
+    assert.ok("editorialAuthority" in binding.question);
+    assert.ok("semanticAuthority" in binding.question);
+    assert.ok("diagram" in binding.question);
+    assert.ok("visualPolicy" in binding.question);
+    if (
+      "diagram" in binding.question
+      && "visualPolicy" in binding.question
+    ) {
+      assert.equal(binding.question.diagram.enabled, true);
+      assert.equal(binding.question.diagram.premiseOnly, true);
+      assert.equal(binding.question.diagram.diagramCount, 1);
+      assert.equal(binding.question.visualPolicy.stemDiagram, "NONE");
+      assert.equal(binding.question.visualPolicy.solutionDiagram, "ONE_COMBINED_PREMISE_DIAGRAM");
+      assert.equal(binding.question.visualPolicy.disclosure, "AFTER_ATTEMPT");
+      assert.equal(binding.question.visualPolicy.separateConclusionDiagrams, false);
+      coverage.diagrams += 1;
+    }
+
     if (binding.candidateKind === "ORDINARY_POSSIBILITY") {
       coverage.ordinaryPossibility += 1;
-      assert.equal(binding.candidateAuthority, "SYL_001_BANKING_POSSIBILITY_SHELL_V2");
+      assert.equal(binding.candidateAuthority, "SYL_001_BANKING_POSSIBILITY_EDITORIAL_V3");
       assert.equal(binding.question.authority, "SYL_001_BANKING_POSSIBILITY_SHELL_V2");
-      assert.equal(binding.question.metadata.registeredQlCreated, false);
-      assert.equal(binding.question.metadata.connectedToProfilePlanner, false);
-      assert.equal(binding.question.metadata.questionStudioVisible, false);
-      assert.equal(binding.question.metadata.questionBankWritable, false);
-      assert.equal(binding.question.metadata.testEligible, false);
-      assert.equal(binding.question.metadata.publiclyPublishable, false);
+      if ("editorialAuthority" in binding.question) {
+        assert.equal(binding.question.editorialAuthority, "SYL_001_BANKING_POSSIBILITY_EDITORIAL_V3");
+      }
+      if ("semanticAuthority" in binding.question) {
+        assert.equal(binding.question.semanticAuthority, "SYL_001_BANKING_POSSIBILITY_SHELL_V2");
+      }
     } else {
       coverage.canNever += 1;
       assert.equal(binding.candidateAuthority, "SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V4");
-      assert.ok("editorialAuthority" in binding.question);
       if ("editorialAuthority" in binding.question) {
         assert.equal(binding.question.editorialAuthority, "SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V4");
-        assert.equal(binding.question.visualPolicy.stemDiagram, "NONE");
-        assert.equal(binding.question.visualPolicy.solutionDiagram, "ONE_COMBINED_PREMISE_DIAGRAM");
-        assert.equal(binding.question.visualPolicy.separateConclusionDiagrams, false);
       }
-      assert.equal(binding.question.metadata.registeredQlCreated, false);
-      assert.equal(binding.question.metadata.connectedToProfilePlanner, false);
-      assert.equal(binding.question.metadata.questionStudioVisible, false);
-      assert.equal(binding.question.metadata.questionBankWritable, false);
-      assert.equal(binding.question.metadata.testEligible, false);
-      assert.equal(binding.question.metadata.publiclyPublishable, false);
     }
+
+    assert.equal(binding.question.metadata.registeredQlCreated, false);
+    assert.equal(binding.question.metadata.connectedToProfilePlanner, false);
+    assert.equal(binding.question.metadata.questionStudioVisible, false);
+    assert.equal(binding.question.metadata.questionBankWritable, false);
+    assert.equal(binding.question.metadata.testEligible, false);
+    assert.equal(binding.question.metadata.publiclyPublishable, false);
   });
 }
 
@@ -151,8 +173,17 @@ assert.throws(
 assert.equal(coverage.localizedBindings, 60);
 assert.equal(coverage.ordinaryPossibility, 30);
 assert.equal(coverage.canNever, 30);
+assert.equal(coverage.diagrams, 60);
 assert.equal(coverage.emittedQlIds, 0);
 assert.equal(coverage.invalidLocks, 0);
+assert.deepEqual(SYL_BANKING_MODAL_CANDIDATE_OVERLAY_V1.candidateAuthorities, [
+  "SYL_001_BANKING_POSSIBILITY_EDITORIAL_V3",
+  "SYL_001_BANKING_CAN_NEVER_BE_EDITORIAL_V4",
+]);
+assert.deepEqual(SYL_BANKING_MODAL_CANDIDATE_OVERLAY_V1.semanticAuthorities, [
+  "SYL_001_BANKING_POSSIBILITY_SHELL_V2",
+  "SYL_001_BANKING_CAN_NEVER_BE_SHELL_V2",
+]);
 assert.equal(SYL_BANKING_MODAL_CANDIDATE_OVERLAY_V1.evaluationCoverageIsExamFrequencyClaim, false);
 assert.equal(SYL_BANKING_MODAL_CANDIDATE_OVERLAY_V1.permanentQlIdCreated, false);
 assert.equal(SYL_BANKING_MODAL_CANDIDATE_OVERLAY_V1.connectedToProductionGenerator, false);
@@ -170,11 +201,14 @@ console.log(JSON.stringify({
   readiness: plan.readinessCounts,
   familyCounts: plan.familyCounts,
   candidateSlots: reference.length,
+  candidateAuthorities: SYL_BANKING_MODAL_CANDIDATE_OVERLAY_V1.candidateAuthorities,
+  semanticAuthorities: SYL_BANKING_MODAL_CANDIDATE_OVERLAY_V1.semanticAuthorities,
   evaluationCoveragePer100: {
     ORDINARY_POSSIBILITY: 10,
     CAN_NEVER: 10,
   },
   localizedBindingsAudited: coverage.localizedBindings,
+  diagrams: coverage.diagrams,
   localeBindingParity: true,
   deterministicRepeat: true,
   nonCandidateFamiliesIntercepted: 0,
