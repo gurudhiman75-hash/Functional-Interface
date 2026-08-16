@@ -1,0 +1,67 @@
+name: Monitor Mobile Production Catalogue
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/api-server/src/routes/tests.ts
+      - artifacts/api-server/src/routes/categories.ts
+      - artifacts/api-server/src/routes/subcategories.ts
+      - artifacts/api-server/src/lib/cache.ts
+      - .github/workflows/mobile-production-smoke.yml
+  push:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/api-server/src/routes/tests.ts
+      - artifacts/api-server/src/routes/categories.ts
+      - artifacts/api-server/src/routes/subcategories.ts
+      - artifacts/api-server/src/lib/cache.ts
+      - .github/workflows/mobile-production-smoke.yml
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      API_ORIGIN: https://examtree-new.onrender.com
+    steps:
+      - name: Probe live mobile catalogue
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          const endpoints = [
+            ['/api/tests', 'tests'],
+            ['/api/categories', 'categories'],
+            ['/api/subcategories', 'subcategories'],
+          ];
+          const failures = [];
+          for (const [path, name] of endpoints) {
+            const response = await fetch(`${process.env.API_ORIGIN}${path}`, {
+              headers: { accept: 'application/json' },
+            });
+            const text = await response.text();
+            let body;
+            try { body = JSON.parse(text); } catch { body = null; }
+            const isArray = Array.isArray(body);
+            const summary = {
+              path,
+              status: response.status,
+              jsonType: isArray ? 'array' : body === null ? 'invalid-json' : typeof body,
+              count: isArray ? body.length : null,
+              ids: isArray ? body.slice(0, 10).map((item) => item?.id ?? null) : [],
+              preview: isArray ? undefined : text.slice(0, 300),
+            };
+            console.log(JSON.stringify(summary));
+            if (!response.ok || !isArray) failures.push(`${name}: expected HTTP 2xx JSON array`);
+            if (name === 'tests' && isArray && body.length === 0) failures.push('tests: live catalogue is empty');
+          }
+          if (failures.length) throw new Error(failures.join('; '));
+          NODE
