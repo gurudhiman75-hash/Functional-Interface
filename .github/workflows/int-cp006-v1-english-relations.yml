@@ -5,6 +5,7 @@ on:
     paths:
       - ".github/workflows/int-cp006-v1-english-relations.yml"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp006-si-ci-relations-runtime-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp006-si-ci-relations-runtime-v2.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp006-si-ci-relations-v1-audit.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp006-si-ci-relations-v1-review-export.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-006/**"
