@@ -193,7 +193,7 @@ function stagedState(seed: string, language: TmwLanguage): DsState {
   const total = add(rational(state.join), divide(remaining, jointRate));
   const target = dayText(total, language);
   return {
-    stemLead: text(language, "A starts a job alone and B joins later. Can the total completion time be determined?", "A काम अकेले शुरू करता है और B बाद में जुड़ता है। क्या कुल पूरा होने का समय निर्धारित किया जा सकता है?", "A ਕੰਮ ਇਕੱਲਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ ਅਤੇ B ਬਾਅਦ ਵਿੱਚ ਜੁੜਦਾ ਹੈ। ਕੀ ਕੁੱਲ ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ ਨਿਰਧਾਰਤ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ?"),
+    stemLead: text(language, "A starts a job alone and B joins later. Can the total completion time be determined?", "A काम अकेले शुरू करता है और B बाद में जुड़ता है। क्या कुल पूरा होने का समय निर्धारित किया जा सकता है?", "A ਕੰਮ ਇਕੱਲਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ ਅਤੇ B ਬਾਅਦ ਵਿੱਚ ਜੁੜਦਾ ਹੈ। ਕੀ ਕੰਮ ਪੂਰਾ ਹੋਣ ਦਾ ਕੁੱਲ ਸਮਾਂ ਨਿਰਧਾਰਤ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ?"),
     statementI: text(language, `A alone takes ${state.a} days and B alone takes ${state.b} days.`, `A अकेला ${state.a} दिन और B अकेला ${state.b} दिन लेता है।`, `A ਇਕੱਲਾ ${state.a} ਦਿਨ ਅਤੇ B ਇਕੱਲਾ ${state.b} ਦਿਨ ਲੈਂਦਾ ਹੈ।`),
     statementII: text(language, `B joins A after ${state.join} days from the start.`, `B शुरुआत के ${state.join} दिन बाद A से जुड़ता है।`, `B ਸ਼ੁਰੂਆਤ ਤੋਂ ${state.join} ਦਿਨ ਬਾਅਦ A ਨਾਲ ਜੁੜਦਾ ਹੈ।`),
     targetLabel: target,
@@ -221,7 +221,7 @@ function workforceState(seed: string, language: TmwLanguage): DsState {
   ] as const, seed, "cp013-workforce");
   const work = state.workers * state.days;
   return {
-    stemLead: text(language, "All workers have equal efficiency and work equal hours per day. Can the exact number of workers assigned to a new schedule be determined?", "सभी कामगार समान दक्षता से और प्रतिदिन समान घंटे काम करते हैं। क्या नई समय-सारणी में लगाए गए कामगारों की सही संख्या निर्धारित की जा सकती है?", "ਸਾਰੇ ਮਜ਼ਦੂਰ ਇੱਕੋ ਕੁਸ਼ਲਤਾ ਨਾਲ ਅਤੇ ਹਰ ਰੋਜ਼ ਇੱਕੋ ਘੰਟੇ ਕੰਮ ਕਰਦੇ ਹਨ। ਕੀ ਨਵੀਂ ਸਮਾਂ-ਸਾਰਣੀ ਵਿੱਚ ਲਗਾਏ ਮਜ਼ਦੂਰਾਂ ਦੀ ਸਹੀ ਗਿਣਤੀ ਨਿਰਧਾਰਤ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ?"),
+    stemLead: text(language, "All workers have equal efficiency and work equal hours per day. Can the exact number of workers assigned to a new schedule be determined?", "सभी कामगार समान दक्षता से और प्रतिदिन समान घंटे काम करते हैं। क्या नई समय-सारणी में लगाए गए कामगारों की सही संख्या निर्धारित की जा सकती है?", "ਸਾਰੇ ਮਜ਼ਦੂਰ ਇੱਕੋ ਕੁਸ਼ਲਤਾ ਨਾਲ ਅਤੇ ਹਰ ਰੋਜ਼ ਇੱਕੋ ਜਿੰਨੇ ਘੰਟੇ ਕੰਮ ਕਰਦੇ ਹਨ। ਕੀ ਨਵੀਂ ਸਮਾਂ-ਸਾਰਣੀ ਲਈ ਅਸਲ ਵਿੱਚ ਲਗਾਏ ਮਜ਼ਦੂਰਾਂ ਦੀ ਗਿਣਤੀ ਨਿਰਧਾਰਤ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ?"),
     statementI: text(language, `${state.workers} workers complete the whole job in ${state.days} days.`, `${state.workers} कामगार पूरा काम ${state.days} दिनों में पूरा करते हैं।`, `${state.workers} ਮਜ਼ਦੂਰ ਪੂਰਾ ਕੰਮ ${state.days} ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ।`),
     statementII: text(language, `The new team finishes the same job in fewer than ${state.upper} days.`, `नई टीम वही काम ${state.upper} दिनों से कम में पूरा करती है।`, `ਨਵੀਂ ਟੀਮ ਉਹੀ ਕੰਮ ${state.upper} ਦਿਨਾਂ ਤੋਂ ਘੱਟ ਵਿੱਚ ਪੂਰਾ ਕਰਦੀ ਹੈ।`),
     targetLabel: "not unique",
@@ -230,10 +230,10 @@ function workforceState(seed: string, language: TmwLanguage): DsState {
     combinedUnique: false,
     iReason: text(language, `I fixes total work at ${work} worker-days, but says nothing about the new team's duration.`, `I कुल काम ${work} कामगार-दिन तय करता है, लेकिन नई टीम की अवधि नहीं बताता।`, `I ਕੁੱਲ ਕੰਮ ${work} ਮਜ਼ਦੂਰ-ਦਿਨ ਤੈਅ ਕਰਦਾ ਹੈ, ਪਰ ਨਵੀਂ ਟੀਮ ਦੀ ਮਿਆਦ ਨਹੀਂ ਦੱਸਦਾ।`),
     iiReason: text(language, `II gives only the inequality time < ${state.upper} days and no total-work value.`, `II केवल असमानता समय < ${state.upper} दिन देता है और कुल काम नहीं बताता।`, `II ਸਿਰਫ਼ ਅਸਮਾਨਤਾ ਸਮਾਂ < ${state.upper} ਦਿਨ ਦਿੰਦਾ ਹੈ ਅਤੇ ਕੁੱਲ ਕੰਮ ਨਹੀਂ ਦੱਸਦਾ।`),
-    combinedReason: text(language, "Even together, several different worker counts can satisfy the stated time bound, so the assigned count is not unique.", "दोनों कथनों को मिलाने पर भी कई अलग कामगार-संख्याएँ दी गई समय-सीमा पूरी कर सकती हैं, इसलिए लगाई गई संख्या निश्चित नहीं होती।", "ਦੋਵੇਂ ਕਥਨਾਂ ਨੂੰ ਮਿਲਾਉਣ ਤੇ ਵੀ ਕਈ ਵੱਖਰੀਆਂ ਮਜ਼ਦੂਰ-ਗਿਣਤੀਆਂ ਦਿੱਤੀ ਸਮਾਂ-ਸੀਮਾ ਪੂਰੀ ਕਰ ਸਕਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਲਗਾਈ ਗਿਣਤੀ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੁੰਦੀ।"),
+    combinedReason: text(language, "Even together, several different worker counts can satisfy the stated time bound, so the assigned count is not unique.", "दोनों कथनों को मिलाने पर भी कामगारों की कई अलग-अलग संख्याएँ दी गई समय-सीमा पूरी कर सकती हैं, इसलिए लगाई गई संख्या निश्चित नहीं होती।", "ਦੋਵੇਂ ਕਥਨਾਂ ਨੂੰ ਮਿਲਾਉਣ ਤੇ ਵੀ ਮਜ਼ਦੂਰਾਂ ਦੀਆਂ ਕਈ ਵੱਖ-ਵੱਖ ਗਿਣਤੀਆਂ ਦਿੱਤੀ ਸਮਾਂ-ਸੀਮਾ ਪੂਰੀ ਕਰ ਸਕਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਲਗਾਈ ਗਿਣਤੀ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੁੰਦੀ।"),
     calculationSteps: [
       text(language, `From I, total work = ${state.workers}×${state.days} = ${work} worker-days.`, `I से कुल काम = ${state.workers}×${state.days} = ${work} कामगार-दिन।`, `I ਤੋਂ ਕੁੱਲ ਕੰਮ = ${state.workers}×${state.days} = ${work} ਮਜ਼ਦੂਰ-ਦਿਨ।`),
-      text(language, `With only time < ${state.upper}, more than one crew size is possible; no exact assigned count follows.`, `केवल समय < ${state.upper} होने से एक से अधिक टीम-संख्याएँ संभव हैं; सही लगाई गई संख्या नहीं मिलती।`, `ਕੇਵਲ ਸਮਾਂ < ${state.upper} ਹੋਣ ਨਾਲ ਇੱਕ ਤੋਂ ਵੱਧ ਟੀਮ-ਗਿਣਤੀਆਂ ਸੰਭਵ ਹਨ; ਸਹੀ ਲਗਾਈ ਗਿਣਤੀ ਨਹੀਂ ਮਿਲਦੀ।`),
+      text(language, `With only time < ${state.upper}, more than one crew size is possible; no exact assigned count follows.`, `केवल समय < ${state.upper} होने से कामगारों की एक से अधिक संख्याएँ संभव हैं; लगाई गई सही संख्या नहीं मिलती।`, `ਕੇਵਲ ਸਮਾਂ < ${state.upper} ਹੋਣ ਨਾਲ ਮਜ਼ਦੂਰਾਂ ਦੀਆਂ ਇੱਕ ਤੋਂ ਵੱਧ ਗਿਣਤੀਆਂ ਸੰਭਵ ਹਨ; ਅਸਲ ਵਿੱਚ ਲਗਾਈ ਗਿਣਤੀ ਨਹੀਂ ਮਿਲਦੀ।`),
     ],
     verification: "Both statements still allow multiple assigned crew sizes.",
     fingerprint: `workforce:${state.workers}:${state.days}:${state.upper}`,
@@ -250,18 +250,18 @@ function heterogeneousState(seed: string, language: TmwLanguage): DsState {
   const ratio = `${state.women}:${state.men}`;
   return {
     stemLead: text(language, "Men and women have constant but possibly different individual efficiencies. Can the efficiency ratio of one man to one woman be determined?", "पुरुष और महिलाएँ स्थिर लेकिन संभवतः अलग व्यक्तिगत दक्षता से काम करते हैं। क्या एक पुरुष और एक महिला की दक्षता का अनुपात निर्धारित किया जा सकता है?", "ਮਰਦ ਅਤੇ ਔਰਤਾਂ ਸਥਿਰ ਪਰ ਸੰਭਵ ਤੌਰ ਤੇ ਵੱਖਰੀ ਵਿਅਕਤੀਗਤ ਕੁਸ਼ਲਤਾ ਨਾਲ ਕੰਮ ਕਰਦੇ ਹਨ। ਕੀ ਇੱਕ ਮਰਦ ਅਤੇ ਇੱਕ ਔਰਤ ਦੀ ਕੁਸ਼ਲਤਾ ਦਾ ਅਨੁਪਾਤ ਨਿਰਧਾਰਤ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ?"),
-    statementI: text(language, `${state.men} men complete the same amount of work in the same time as ${state.women} women.`, `${state.men} पुरुष उतना ही काम उतने ही समय में करते हैं जितना ${state.women} महिलाएँ।`, `${state.men} ਮਰਦ ਉਤਨਾ ਹੀ ਕੰਮ ਉਤਨੇ ਹੀ ਸਮੇਂ ਵਿੱਚ ਕਰਦੇ ਹਨ ਜਿੰਨਾ ${state.women} ਔਰਤਾਂ।`),
+    statementI: text(language, `${state.men} men complete the same amount of work in the same time as ${state.women} women.`, `${state.men} पुरुष उतना ही काम उतने ही समय में करते हैं जितना ${state.women} महिलाएँ।`, `${state.men} ਮਰਦ ਅਤੇ ${state.women} ਔਰਤਾਂ ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਇੱਕੋ ਜਿੰਨਾ ਕੰਮ ਕਰਦੇ ਹਨ।`),
     statementII: text(language, `One man alone completes a fixed job in ${state.men} days, while one woman alone completes the same job in ${state.women} days.`, `एक पुरुष अकेला एक निश्चित काम ${state.men} दिनों में और एक महिला अकेली वही काम ${state.women} दिनों में पूरा करती है।`, `ਇੱਕ ਮਰਦ ਇਕੱਲਾ ਇੱਕ ਨਿਸ਼ਚਿਤ ਕੰਮ ${state.men} ਦਿਨਾਂ ਵਿੱਚ ਅਤੇ ਇੱਕ ਔਰਤ ਇਕੱਲੀ ਉਹੀ ਕੰਮ ${state.women} ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਦੀ ਹੈ।`),
     targetLabel: ratio,
     iUnique: true,
     iiUnique: true,
     combinedUnique: true,
     iReason: text(language, `I gives ${state.men}E_m=${state.women}E_w, so the ratio is ${ratio}.`, `I से ${state.men}E_m=${state.women}E_w, इसलिए अनुपात ${ratio} है।`, `I ਤੋਂ ${state.men}E_m=${state.women}E_w, ਇਸ ਲਈ ਅਨੁਪਾਤ ${ratio} ਹੈ।`),
-    iiReason: text(language, `II gives efficiency ratio as inverse time ratio ${state.women}:${state.men} = ${ratio}.`, `II से दक्षता अनुपात समय-अनुपात के व्युत्क्रम के रूप में ${state.women}:${state.men} = ${ratio} मिलता है।`, `II ਤੋਂ ਕੁਸ਼ਲਤਾ ਅਨੁਪਾਤ ਸਮਾਂ-ਅਨੁਪਾਤ ਦੇ ਉਲਟ ਵਜੋਂ ${state.women}:${state.men} = ${ratio} ਮਿਲਦਾ ਹੈ।`),
+    iiReason: text(language, `II gives the efficiency ratio directly from the inverse solo-time ratio, so E_m:E_w = ${ratio}.`, `II अकेले समय के व्युत्क्रम अनुपात से सीधे दक्षता अनुपात देता है, इसलिए E_m:E_w = ${ratio}।`, `II ਇਕੱਲੇ ਸਮੇਂ ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਤੋਂ ਸਿੱਧਾ ਕੁਸ਼ਲਤਾ ਅਨੁਪਾਤ ਦਿੰਦਾ ਹੈ, ਇਸ ਲਈ E_m:E_w = ${ratio}।`),
     combinedReason: text(language, "Each statement already fixes the same ratio independently; combining them is unnecessary.", "दोनों में से प्रत्येक कथन अकेले वही अनुपात तय करता है; उन्हें मिलाना आवश्यक नहीं है।", "ਦੋਵਾਂ ਵਿੱਚੋਂ ਹਰ ਕਥਨ ਇਕੱਲਾ ਉਹੀ ਅਨੁਪਾਤ ਤੈਅ ਕਰਦਾ ਹੈ; ਉਨ੍ਹਾਂ ਨੂੰ ਮਿਲਾਉਣ ਦੀ ਲੋੜ ਨਹੀਂ ਹੈ।"),
     calculationSteps: [
       text(language, `From I: \\(${state.men}E_m=${state.women}E_w\\Rightarrow E_m:E_w=${ratio}\\).`, `I से: \\(${state.men}E_m=${state.women}E_w\\Rightarrow E_m:E_w=${ratio}\\)।`, `I ਤੋਂ: \\(${state.men}E_m=${state.women}E_w\\Rightarrow E_m:E_w=${ratio}\\)।`),
-      text(language, `From II: efficiency is inversely proportional to solo time, so \\(E_m:E_w=${state.women}:${state.men}=${ratio}\\).`, `II से: दक्षता अकेले समय के व्युत्क्रमानुपाती है, इसलिए \\(E_m:E_w=${state.women}:${state.men}=${ratio}\\)।`, `II ਤੋਂ: ਕੁਸ਼ਲਤਾ ਇਕੱਲੇ ਸਮੇਂ ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ, ਇਸ ਲਈ \\(E_m:E_w=${state.women}:${state.men}=${ratio}\\)।`),
+      text(language, `From II, efficiency is inversely proportional to solo time: \\(E_m:E_w=${ratio}\\).`, `II से दक्षता अकेले समय के व्युत्क्रमानुपाती है: \\(E_m:E_w=${ratio}\\)।`, `II ਤੋਂ ਕੁਸ਼ਲਤਾ ਇਕੱਲੇ ਸਮੇਂ ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ: \\(E_m:E_w=${ratio}\\)।`),
     ],
     verification: `I and II independently give ratio ${ratio}.`,
     fingerprint: `heterogeneous:${state.men}:${state.women}:${ratio}`,
@@ -319,7 +319,7 @@ function pipesState(seed: string, language: TmwLanguage): DsState {
     combinedUnique: true,
     iReason: text(language, "I gives the filling rate but not the leak rate, so the net rate is unknown.", "I भरने की दर देता है, लेकिन रिसाव की दर नहीं; इसलिए शुद्ध दर अज्ञात है।", "I ਭਰਨ ਦੀ ਦਰ ਦਿੰਦਾ ਹੈ, ਪਰ ਰਿਸਾਅ ਦੀ ਦਰ ਨਹੀਂ; ਇਸ ਲਈ ਸ਼ੁੱਧ ਦਰ ਅਣਜਾਣ ਹੈ।"),
     iiReason: text(language, "II gives the leak rate but not the filling rate, so the net rate is unknown.", "II रिसाव की दर देता है, लेकिन भरने की दर नहीं; इसलिए शुद्ध दर अज्ञात है।", "II ਰਿਸਾਅ ਦੀ ਦਰ ਦਿੰਦਾ ਹੈ, ਪਰ ਭਰਨ ਦੀ ਦਰ ਨਹੀਂ; ਇਸ ਲਈ ਸ਼ੁੱਧ ਦਰ ਅਣਜਾਣ ਹੈ।"),
-    combinedReason: text(language, `Together the signed rates give a unique net filling time of ${target}.`, `दोनों कथनों से धनात्मक भराव-दर और ऋणात्मक रिसाव-दर मिलती हैं, इसलिए शुद्ध भरने का समय निश्चित रूप से ${target} है।`, `ਦੋਵੇਂ ਕਥਨਾਂ ਤੋਂ ਧਨਾਤਮਕ ਭਰਾਵ-ਦਰ ਅਤੇ ਰਣਾਤਮਕ ਰਿਸਾਅ-ਦਰ ਮਿਲਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਸ਼ੁੱਧ ਭਰਨ ਦਾ ਸਮਾਂ ਨਿਸ਼ਚਿਤ ਤੌਰ ਤੇ ${target} ਹੈ।`),
+    combinedReason: text(language, `Together the signed rates give a unique net filling time of ${target}.`, `दोनों कथनों से धनात्मक भराव-दर और ऋणात्मक रिसाव-दर मिलती हैं, इसलिए शुद्ध भरने का समय निश्चित रूप से ${target} है।`, `ਦੋਵੇਂ ਕਥਨਾਂ ਤੋਂ ਭਰਾਵ-ਦਰ ਅਤੇ ਘਟਾਉਣ ਵਾਲੀ ਰਿਸਾਅ-ਦਰ ਮਿਲਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਸ਼ੁੱਧ ਭਰਨ ਦਾ ਸਮਾਂ ਨਿਸ਼ਚਿਤ ਤੌਰ ਤੇ ${target} ਹੈ।`),
     calculationSteps: [
       text(language, `Net rate = \\(${toLatex(inletRate)}-${toLatex(leakRate)}=${toLatex(netRate)}\\).`, `शुद्ध दर = \\(${toLatex(inletRate)}-${toLatex(leakRate)}=${toLatex(netRate)}\\)।`, `ਸ਼ੁੱਧ ਦਰ = \\(${toLatex(inletRate)}-${toLatex(leakRate)}=${toLatex(netRate)}\\)।`),
       text(language, `Therefore the tank fills in ${target}.`, `अतः टंकी ${target} में भरती है।`, `ਇਸ ਲਈ ਟੈਂਕ ${target} ਵਿੱਚ ਭਰਦਾ ਹੈ।`),
@@ -384,7 +384,7 @@ function shuffledOptions(answer: DsClass, seed: string, language: TmwLanguage) {
 function sufficiencyWord(value: boolean, language: TmwLanguage): string {
   return value
     ? text(language, "SUFFICIENT", "पर्याप्त", "ਕਾਫ਼ੀ")
-    : text(language, "NOT SUFFICIENT", "अपर्याप्त", "ਅਕਾਫ਼ੀ");
+    : text(language, "NOT SUFFICIENT", "अपर्याप्त", "ਕਾਫ਼ੀ ਨਹੀਂ");
 }
 
 function trapClass(answer: DsClass): DsClass {
@@ -408,7 +408,7 @@ function trapExplanation(answer: DsClass, language: TmwLanguage): string {
     case "TOGETHER_ONLY":
       return text(language, "Do not assume that a useful-looking statement is sufficient by itself; here each statement misses one required piece and only the pair fixes the target.", "किसी उपयोगी दिखने वाले कथन को अकेले पर्याप्त न मानें; यहाँ हर कथन में एक जरूरी जानकारी कम है और केवल दोनों मिलकर लक्ष्य तय करते हैं।", "ਕਿਸੇ ਲਾਭਦਾਇਕ ਦਿਖਦੇ ਕਥਨ ਨੂੰ ਇਕੱਲਾ ਕਾਫ਼ੀ ਨਾ ਮੰਨੋ; ਇੱਥੇ ਹਰ ਕਥਨ ਵਿੱਚ ਇੱਕ ਲੋੜੀਂਦੀ ਜਾਣਕਾਰੀ ਘੱਟ ਹੈ ਅਤੇ ਕੇਵਲ ਦੋਵੇਂ ਮਿਲ ਕੇ ਲਕਸ਼ ਤੈਅ ਕਰਦੇ ਹਨ।");
     case "EVEN_TOGETHER_INSUFFICIENT":
-      return text(language, "Do not assume that two statements must become sufficient when combined; if multiple target values still remain possible, the data are insufficient.", "यह न मानें कि दो कथन मिलकर अवश्य पर्याप्त हो जाएंगे; यदि लक्ष्य के कई मान अभी भी संभव हैं, तो डेटा अपर्याप्त है।", "ਇਹ ਨਾ ਮੰਨੋ ਕਿ ਦੋ ਕਥਨ ਮਿਲ ਕੇ ਜ਼ਰੂਰ ਕਾਫ਼ੀ ਹੋ ਜਾਣਗੇ; ਜੇ ਲਕਸ਼ ਦੇ ਕਈ ਮੁੱਲ ਹਾਲੇ ਵੀ ਸੰਭਵ ਹਨ, ਤਾਂ ਡਾਟਾ ਅਕਾਫ਼ੀ ਹੈ।");
+      return text(language, "Do not assume that two statements must become sufficient when combined; if multiple target values still remain possible, the data are insufficient.", "यह न मानें कि दो कथन मिलकर अवश्य पर्याप्त हो जाएंगे; यदि लक्ष्य के कई मान अभी भी संभव हैं, तो डेटा अपर्याप्त है।", "ਇਹ ਨਾ ਮੰਨੋ ਕਿ ਦੋ ਕਥਨ ਮਿਲ ਕੇ ਜ਼ਰੂਰ ਕਾਫ਼ੀ ਹੋ ਜਾਣਗੇ; ਜੇ ਲਕਸ਼ ਦੇ ਕਈ ਮੁੱਲ ਹਾਲੇ ਵੀ ਸੰਭਵ ਹਨ, ਤਾਂ ਡਾਟਾ ਕਾਫ਼ੀ ਨਹੀਂ ਹੈ।");
   }
 }
 
