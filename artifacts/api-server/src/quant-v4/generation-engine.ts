@@ -17,6 +17,12 @@ import {
   listBlr001StandardQuestionStudioPackages,
   type Blr001StandardQuestionStudioRequest,
 } from "../reasoning-v1/topics/Blood-Relations/BLR-001/question-studio-standard-integration";
+import {
+  generateMal001StandardQuestionStudioBatch,
+  isMal001StandardQuestionStudioRequest,
+  listMal001StandardQuestionStudioPackages,
+  type Mal001StandardQuestionStudioRequest,
+} from "./topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-standard-integration";
 
 export type {
   QuantV4Difficulty,
@@ -29,16 +35,29 @@ export { QUANT_V4_PERCENTAGE_ALL_PATTERN_ID, toQuestionStudioPreview };
 
 export function listQuantV4Packages() {
   const packages = listLegacyPackages().filter(
-    (entry) => entry.packageId !== "PRB-001" && entry.packageId !== "PRB-002",
+    (entry) =>
+      entry.packageId !== "PRB-001" &&
+      entry.packageId !== "PRB-002" &&
+      entry.packageId !== "MAL-001",
   );
   return [
     ...packages,
+    ...listMal001StandardQuestionStudioPackages(),
     ...listProbabilityStandardQuestionStudioPackages(),
     ...listBlr001StandardQuestionStudioPackages(),
   ].sort((left, right) => left.packageId.localeCompare(right.packageId));
 }
 
 export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
+  if (
+    isMal001StandardQuestionStudioRequest(
+      request as Mal001StandardQuestionStudioRequest,
+    )
+  ) {
+    return generateMal001StandardQuestionStudioBatch(
+      request as Mal001StandardQuestionStudioRequest,
+    );
+  }
   if (isBlr001StandardQuestionStudioRequest(request as Blr001StandardQuestionStudioRequest)) {
     return generateBlr001StandardQuestionStudioBatch(request as Blr001StandardQuestionStudioRequest);
   }
