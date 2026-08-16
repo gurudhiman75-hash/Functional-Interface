@@ -5,11 +5,15 @@ import {
   type Trg002Mvp48Id,
 } from "./mvp-48-registry";
 import { generateFinalEditorialTrg002Mvp48Question } from "./mvp-final-editorial-runtime";
+import { buildTrg002SolutionAnnotations } from "./solution-diagram-annotations";
 
 export const TRG_002_APPROVED_BASELINE_HEAD =
   "60e289ee6c89a3f595ad75038ac563daf2a5fc5f" as const;
 export const TRG_002_APPROVED_ARTIFACT_ID = 9259815578 as const;
 export const TRG_002_QUESTION_STUDIO_LANGUAGES = ["en"] as const;
+export const TRG_002_QUESTION_STUDIO_CP_IDS = Object.keys(
+  TRG_002_MVP_48_BY_CP,
+) as Array<keyof typeof TRG_002_MVP_48_BY_CP>;
 
 export const TRG_002_QUESTION_STUDIO_PACKAGE = {
   id: "TRG-002",
@@ -22,20 +26,24 @@ export const TRG_002_QUESTION_STUDIO_PACKAGE = {
   name: "TRG-002 Heights & Distances Applications",
   label: "Heights & Distances Applications",
   generationDomain: "quant-v4",
-  canonicalProblems: TRG_002_MVP_48_IDS.map((qlId) => ({ id: qlId, label: qlId })),
-  cpIds: [...TRG_002_MVP_48_IDS],
+  canonicalProblems: TRG_002_QUESTION_STUDIO_CP_IDS.map((cpId) => ({
+    id: cpId,
+    label: cpId,
+  })),
+  cpIds: [...TRG_002_QUESTION_STUDIO_CP_IDS],
   supportedDifficulties: ["easy", "medium", "hard"],
   supportedLanguages: [...TRG_002_QUESTION_STUDIO_LANGUAGES],
   enabled: true,
-  runtimeMode: "HUMAN_APPROVED_48",
-  reviewStatus: "HUMAN_APPROVED_48",
+  runtimeMode: "RELEASED",
+  reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+  humanReviewStatus: "APPROVED_48_OF_48",
   humanReviewed: 48,
   humanReviewTarget: 48,
   questionBankStatus: "WRITABLE",
   testEligibility: "ELIGIBLE",
   publiclyPublishable: true,
   freezeStatus: "APPROVED_BASELINE",
-  solutionDiagramPolicy: "REQUIRED",
+  solutionDiagramPolicy: "REQUIRED_AFTER_ATTEMPT",
   stemDiagramPolicy: "OPTIONAL_NOT_AUTOMATIC",
   approvedBaselineHead: TRG_002_APPROVED_BASELINE_HEAD,
   approvedArtifactId: TRG_002_APPROVED_ARTIFACT_ID,
@@ -54,6 +62,16 @@ export type Trg002QuestionStudioRequest = {
   questionLanguageId?: string;
   seed?: string;
   count?: number;
+};
+
+export type Trg002StoredSolutionDiagram = {
+  kind: "TRG002_HEIGHTS_DISTANCES";
+  version: 1;
+  qlId: Trg002Mvp48Id;
+  disclosure: "AFTER_ATTEMPT";
+  sourceStateFingerprint?: string;
+  diagram: unknown;
+  annotations: unknown[];
 };
 
 function normalize(value: unknown) {
@@ -90,7 +108,8 @@ function difficultyMatches(qlDifficulty: string, requested: unknown) {
     const band = requested >= 6 ? "hard" : requested >= 3 ? "medium" : "easy";
     return qlDifficulty.toLowerCase() === band;
   }
-  return qlDifficulty.toLowerCase() === String(requested).trim().toLowerCase();
+  const normalized = String(requested).trim().toLowerCase();
+  return qlDifficulty.toLowerCase() === (normalized === "moderate" ? "medium" : normalized);
 }
 
 export function isTrg002GenerationRequest(request: Trg002QuestionStudioRequest) {
@@ -110,6 +129,16 @@ export function isTrg002GenerationRequest(request: Trg002QuestionStudioRequest) 
 }
 
 function requestedQlIds(request: Trg002QuestionStudioRequest): readonly Trg002Mvp48Id[] {
+  const explicitQl = String(request.questionLanguageId ?? "").toUpperCase();
+  if (explicitQl) {
+    if ((TRG_002_MVP_48_IDS as readonly string[]).includes(explicitQl)) {
+      return [explicitQl as Trg002Mvp48Id];
+    }
+    throw Object.assign(new Error(`Unknown TRG-002 question language id '${explicitQl}'.`), {
+      statusCode: 400,
+    });
+  }
+
   const explicit = String(request.canonicalProblemId ?? request.cpId ?? "").toUpperCase();
   if (!explicit) return TRG_002_MVP_48_IDS;
   if ((TRG_002_MVP_48_IDS as readonly string[]).includes(explicit)) {
@@ -122,27 +151,61 @@ function requestedQlIds(request: Trg002QuestionStudioRequest): readonly Trg002Mv
   });
 }
 
-function storagePayload(question: any) {
-  return {
-    version: 1 as const,
-    family: "TRG-002" as const,
-    qlId: question.qlId,
+function storagePayload(question: any): Trg002StoredSolutionDiagram {
+  if (!question.solutionDiagram) {
+    throw new Error(`${question.qlId}: required TRG-002 solution diagram is missing.`);
+  }
+  const annotations = Array.isArray(question.solutionAnnotations)
+    ? question.solutionAnnotations
+    : buildTrg002SolutionAnnotations(question).annotations;
+  const payload: Trg002StoredSolutionDiagram = {
+    kind: "TRG002_HEIGHTS_DISTANCES",
+    version: 1,
+    qlId: question.qlId as Trg002Mvp48Id,
+    disclosure: "AFTER_ATTEMPT",
+    ...(question.diagramEvidence?.sourceStateFingerprint
+      ? { sourceStateFingerprint: String(question.diagramEvidence.sourceStateFingerprint) }
+      : {}),
     diagram: question.solutionDiagram,
-    annotations: question.solutionAnnotations ?? [],
+    annotations,
   };
+  JSON.stringify(payload);
+  return payload;
 }
 
 function questionStudioPreview(question: any, index: number, count: number, seed: string) {
-  const diagramPayload = storagePayload(question);
-  return {
+  const solutionDiagram = storagePayload(question);
+  const options = question.options.map((option: any) => String(option.display));
+  const explanation = buildTrg002ExamTreeExplanation({
+    ...question,
+    solutionAnnotations: solutionDiagram.annotations,
+  });
+  const answerModel = {
+    kind: "single_choice",
+    options,
+    correctOptionIndex: question.correctIndex,
+    solutionDiagram,
+  };
+
+  const preview = {
     id: `${question.qlId}:${seed}`,
+    questionId: `${question.qlId}:${seed}`,
     text: question.stem,
     stem: question.stem,
-    options: question.options.map((option: any) => option.display),
+    options,
     correct: question.correctIndex,
     correctIndex: question.correctIndex,
     answer: question.answer,
-    explanation: buildTrg002ExamTreeExplanation(question),
+    canonicalAnswer: {
+      kind: "symbolic",
+      value: question.answer,
+      display: question.answer,
+      rendered: question.answer,
+      rounding: "exact",
+    },
+    answerModel,
+    explanation,
+    packageExplanation: question.explanation,
     section: "Quant",
     topic: "Advanced Mathematics",
     subtopic: "Trigonometry — Heights & Distances",
@@ -151,30 +214,36 @@ function questionStudioPreview(question: any, index: number, count: number, seed
     packageId: "TRG-002",
     language: "en",
     seed,
-    patternId: null,
-    runtimeMode: "HUMAN_APPROVED_48",
-    reviewStatus: "HUMAN_APPROVED_48",
+    patternId: "TRG-002",
+    runtimeMode: "RELEASED",
+    reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+    humanReviewStatus: "APPROVED",
     questionBankStatus: "WRITABLE",
     testEligibility: "ELIGIBLE",
     publiclyPublishable: true,
-    solutionDiagram: diagramPayload,
+    solutionDiagram,
+    canonicalProblemId: question.cpId,
+    cpId: question.cpId,
+    questionLanguageId: question.qlId,
+    explanationId: `${question.qlId}-EXP-EN`,
+    taskKind: question.solveMode,
+    scenarioId: String(question.canonicalSpatialState?.scenario ?? ""),
     proceduralLogic: {
       generationSystem: "quant-v4",
       packageId: "TRG-002",
       cpId: question.cpId,
       qlId: question.qlId,
-      lockedFamily: question.lockedFamily,
-      solveMode: question.solveMode,
+      lockedFamily: String(question.lockedFamily ?? ""),
+      solveMode: String(question.solveMode ?? ""),
+      target: String(question.target ?? ""),
       seed,
       approvedBaselineHead: TRG_002_APPROVED_BASELINE_HEAD,
       approvedArtifactId: TRG_002_APPROVED_ARTIFACT_ID,
       humanReviewStatus: "APPROVED",
-      solutionDiagram: diagramPayload,
-      canonicalSpatialState: question.canonicalSpatialState,
+      solutionDiagramPolicy: "REQUIRED_AFTER_ATTEMPT",
     },
     motifs: ["TRG-002", question.cpId, question.qlId, question.lockedFamily],
     languages: ["en"],
-    questionLanguageId: question.qlId,
     generationMetadata: {
       packageId: "TRG-002",
       cpId: question.cpId,
@@ -182,14 +251,19 @@ function questionStudioPreview(question: any, index: number, count: number, seed
       questionIndex: index + 1,
       questionCount: count,
       seed,
-      reviewStatus: "HUMAN_APPROVED_48",
+      reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+      humanReviewStatus: "APPROVED",
       questionBankStatus: "WRITABLE",
       testEligibility: "ELIGIBLE",
       publiclyPublishable: true,
-      solutionDiagramStoredIn: "answerModel.generation.solutionDiagram",
+      approvedBaselineHead: TRG_002_APPROVED_BASELINE_HEAD,
+      approvedArtifactId: TRG_002_APPROVED_ARTIFACT_ID,
+      solutionDiagramStoredIn: "answerModel.solutionDiagram",
       solutionDiagramPresentation: "EXPLANATION_DIRECTIVE",
     },
   };
+  JSON.stringify(preview);
+  return preview;
 }
 
 export function generateTrg002QuestionStudioBatch(request: Trg002QuestionStudioRequest = {}) {
@@ -213,39 +287,62 @@ export function generateTrg002QuestionStudioBatch(request: Trg002QuestionStudioR
     });
   }
   const order = shuffled(difficultyPool, `${batchSeed}:ql-order`);
-  const generated: Array<{ questionPackage: any; question: any }> = [];
+  const questions: any[] = [];
+  const questionPackages: any[] = [];
 
   for (let index = 0; index < count; index += 1) {
     const qlId = order[index % order.length]!;
     const seed = `${batchSeed}:${qlId}:${index}`;
-    const questionPackage: any = generateFinalEditorialTrg002Mvp48Question(qlId, seed);
-    if (!questionPackage.validation?.valid || !questionPackage.solutionDiagram) {
+    const generated: any = generateFinalEditorialTrg002Mvp48Question(qlId, seed);
+    if (!generated.validation?.valid || !generated.solutionDiagram) {
       throw new Error(`${qlId}: approved TRG-002 generation failed validation before Question Studio projection.`);
     }
-    generated.push({
-      questionPackage,
-      question: questionStudioPreview(questionPackage, index, count, seed),
+    const preview = questionStudioPreview(generated, index, count, seed);
+    questions.push(preview);
+    questionPackages.push({
+      packageId: "TRG-002",
+      cpId: generated.cpId,
+      qlId: generated.qlId,
+      seed,
+      stem: preview.stem,
+      options: preview.options,
+      correctIndex: preview.correctIndex,
+      answer: preview.answer,
+      difficulty: preview.difficulty,
+      explanation: preview.explanation,
+      answerModel: preview.answerModel,
+      solutionDiagram: preview.solutionDiagram,
+      runtimeMode: preview.runtimeMode,
+      reviewStatus: preview.reviewStatus,
+      humanReviewStatus: preview.humanReviewStatus,
+      questionBankStatus: preview.questionBankStatus,
+      testEligibility: preview.testEligibility,
+      publiclyPublishable: preview.publiclyPublishable,
+      questionStudioDiscoverable: true,
     });
   }
 
-  return {
+  const result = {
     generationContext: {
       generationDomain: "quant-v4",
       packageId: "TRG-002",
       seed: batchSeed,
       timestamp: Date.now(),
-      runtimeMode: "HUMAN_APPROVED_48",
-      reviewStatus: "HUMAN_APPROVED_48",
+      runtimeMode: "RELEASED",
+      reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+      humanReviewStatus: "APPROVED_48_OF_48",
       humanReviewed: 48,
       questionBankStatus: "WRITABLE",
       testEligibility: "ELIGIBLE",
       publiclyPublishable: true,
       approvedBaselineHead: TRG_002_APPROVED_BASELINE_HEAD,
       approvedArtifactId: TRG_002_APPROVED_ARTIFACT_ID,
-      solutionDiagramStorage: "answerModel.generation.solutionDiagram + explanation directive",
+      solutionDiagramStorage: "answerModel.solutionDiagram",
       solutionDiagramPresentation: "stored explanation directive",
     },
-    questionPackages: generated.map((item) => item.questionPackage),
-    questions: generated.map((item) => item.question),
+    questionPackages,
+    questions,
   };
+  JSON.stringify(result);
+  return result;
 }
