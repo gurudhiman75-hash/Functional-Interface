@@ -25,6 +25,7 @@ import {
 } from "./mensuration-localization-foundation-v3";
 import { prelocalizeMensurationEditorialSource } from "./mensuration-localization-source-editorial-v1";
 import { prelocalizeMensurationStructuredInstructionSource } from "./mensuration-localization-structured-instructions-v1";
+import { repairMensurationLocalizedHardGateSurface } from "./mensuration-localization-hard-gate-repair-v1";
 import {
   polishMensurationLocalizedOption,
   polishMensurationLocalizedText,
@@ -80,7 +81,8 @@ function translate(text: string, language: MensurationLocalizedLanguage) {
   const structuredSource = prelocalizeMensurationStructuredInstructionSource(editorialSource, language);
   const protectedFormula = protectMensurationFormulaIdentifiers(structuredSource);
   const localized = localizeMensurationProse(protectedFormula.text, language);
-  return polishMensurationLocalizedText(protectedFormula.restore(localized), language);
+  const polished = polishMensurationLocalizedText(protectedFormula.restore(localized), language);
+  return repairMensurationLocalizedHardGateSurface(polished, language);
 }
 
 function normalizeCanonicalQuestion(
