@@ -224,10 +224,10 @@ export function QuestionStudioCockpitPage() {
   );
 
   const stats = useMemo(() => {
-    const values = { runs: dashboard.runs.length, total: allItems.length, unreviewed: 0, blocked: 0, duplicates: duplicates.size, approved: 0 };
+    const values = { runs: dashboard.runs.length, total: allItems.length, unreviewed: 0, blocked: 0, duplicates: duplicates.size, inQuestionBank: 0 };
     for (const { item } of allItems) {
       if (item.status === 'unreviewed') values.unreviewed += 1;
-      if (item.status === 'approved') values.approved += 1;
+      if (item.acceptedQuestionId) values.inQuestionBank += 1;
       if ((qualityByItem.get(item.id)?.blockerCount ?? 0) > 0) values.blocked += 1;
     }
     return values;
@@ -279,8 +279,16 @@ export function QuestionStudioCockpitPage() {
       const result = await updateItems({ itemIds: ids, status, reason: reason.trim() || undefined });
       setSelectedIds((current) => new Set([...current].filter((id) => !ids.includes(id))));
       setReason('');
-      const conversionText = result.convertedCount > 0 ? ` ${result.convertedCount} added to Question Bank.` : '';
-      showToast.success('Review state updated', `${result.updatedCount} item(s) moved to ${formatStatus(status)}.${conversionText}`);
+      const outcomeText = [
+        result.convertedCount > 0 ? `${result.convertedCount} added to Question Bank.` : '',
+        result.reviewOnlyApprovedCount > 0
+          ? `${result.reviewOnlyApprovedCount} approved for editorial review only; no Question Bank write.`
+          : '',
+      ].filter(Boolean).join(' ');
+      showToast.success(
+        'Review state updated',
+        `${result.updatedCount} item(s) moved to ${formatStatus(status)}.${outcomeText ? ` ${outcomeText}` : ''}`,
+      );
     } catch (caught) {
       showToast.error('Review update failed', caught instanceof Error ? caught.message : 'Unable to update review state.');
     }
@@ -300,7 +308,7 @@ export function QuestionStudioCockpitPage() {
     <div className="space-y-6">
       <PageHeader
         title="Question Studio"
-        description="Generate, quality-check, revise, approve, and convert exam-ready questions from one production cockpit."
+        description="Generate, quality-check, revise, approve, and route eligible questions to Question Bank from one production cockpit."
         icon={<Sparkles className="h-5 w-5" />}
         actions={(
           <>
@@ -320,7 +328,7 @@ export function QuestionStudioCockpitPage() {
         <Metric label="Awaiting review" value={stats.unreviewed} icon={<RefreshCw className="h-4 w-4" />} tone={stats.unreviewed ? 'info' : 'neutral'} />
         <Metric label="Approval blockers" value={stats.blocked} icon={<ShieldCheck className="h-4 w-4" />} tone={stats.blocked ? 'warning' : 'success'} />
         <Metric label="Duplicate signals" value={stats.duplicates} icon={<CircleAlert className="h-4 w-4" />} tone={stats.duplicates ? 'warning' : 'success'} />
-        <Metric label="In Question Bank" value={stats.approved} icon={<CheckCircle2 className="h-4 w-4" />} tone="success" />
+        <Metric label="In Question Bank" value={stats.inQuestionBank} icon={<CheckCircle2 className="h-4 w-4" />} tone="success" />
       </div>
 
       <Card>
@@ -343,7 +351,7 @@ export function QuestionStudioCockpitPage() {
 
       <Card>
         <CardHeader className="space-y-4">
-          <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Review cockpit</CardTitle><p className="mt-1 text-xs text-muted-foreground">Inspect quality signals, revise immutable payloads, make item-level decisions, and convert approved questions automatically.</p></div><Badge variant="outline">{selectedIds.size} selected</Badge></div>
+          <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Review cockpit</CardTitle><p className="mt-1 text-xs text-muted-foreground">Inspect quality signals, revise immutable payloads, make item-level decisions, and route only Question-Bank-eligible approvals to canonical storage.</p></div><Badge variant="outline">{selectedIds.size} selected</Badge></div>
           <div className="grid gap-3 xl:grid-cols-[1fr_190px_190px]">
             <div className="relative"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" /><Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search run code, stem, topic, package or exam" className="pl-9" /></div>
             <Select value={statusFilter} onValueChange={setStatusFilter}><SelectTrigger><Filter className="mr-2 h-4 w-4" /><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>All statuses</SelectItem><SelectItem value="unreviewed">Unreviewed</SelectItem><SelectItem value="needs_fix">Needs fix</SelectItem><SelectItem value="approved">Approved</SelectItem><SelectItem value="rejected">Rejected</SelectItem></SelectContent></Select>
@@ -351,7 +359,7 @@ export function QuestionStudioCockpitPage() {
           </div>
           <div className="grid gap-3 lg:grid-cols-[1fr_auto] lg:items-end">
             <Field label="Reason for needs-fix or rejection"><Textarea value={reason} onChange={(event) => setReason(event.target.value)} placeholder="State the accuracy, language, duplication, explanation, or policy issue" className="min-h-20" /></Field>
-            <div className="flex flex-wrap gap-2"><Button onClick={() => void applyStatus('approved')} disabled={updating || selectedIds.size === 0 || !canReview}><CheckCircle2 className="mr-1.5 h-4 w-4" /> Approve and convert</Button><Button variant="outline" onClick={() => void applyStatus('needs_fix')} disabled={updating || selectedIds.size === 0 || !canReview}><AlertTriangle className="mr-1.5 h-4 w-4" /> Needs fix</Button><Button variant="outline" onClick={() => void applyStatus('unreviewed')} disabled={updating || selectedIds.size === 0 || !canReview}><RefreshCw className="mr-1.5 h-4 w-4" /> Return</Button><Button variant="destructive" onClick={() => void applyStatus('rejected')} disabled={updating || selectedIds.size === 0 || !canReview}><XCircle className="mr-1.5 h-4 w-4" /> Reject</Button></div>
+            <div className="flex flex-wrap gap-2"><Button onClick={() => void applyStatus('approved')} disabled={updating || selectedIds.size === 0 || !canReview}><CheckCircle2 className="mr-1.5 h-4 w-4" /> Approve</Button><Button variant="outline" onClick={() => void applyStatus('needs_fix')} disabled={updating || selectedIds.size === 0 || !canReview}><AlertTriangle className="mr-1.5 h-4 w-4" /> Needs fix</Button><Button variant="outline" onClick={() => void applyStatus('unreviewed')} disabled={updating || selectedIds.size === 0 || !canReview}><RefreshCw className="mr-1.5 h-4 w-4" /> Return</Button><Button variant="destructive" onClick={() => void applyStatus('rejected')} disabled={updating || selectedIds.size === 0 || !canReview}><XCircle className="mr-1.5 h-4 w-4" /> Reject</Button></div>
           </div>
         </CardHeader>
         <CardContent className="p-0">
