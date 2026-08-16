@@ -31,6 +31,18 @@ export const SPATIAL_QUESTION_STUDIO_QLS_V1 = SPATIAL_PERMANENT_QL_ALLOCATIONS_V
   difficulty: SpatialQuestionStudioDifficultyV1;
 }>[];
 
+export const SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1 = Object.freeze({
+  authority: "SPA_001_PRODUCT_RELEASE_APPROVED_2026_08_16" as const,
+  runtimeMode: "CANONICAL_REVIEW" as const,
+  reviewStatus: "APPROVED_EDITORIAL_CANONICAL" as const,
+  questionBankStatus: "READY_FOR_STORAGE" as const,
+  testEligibility: "ELIGIBLE" as const,
+  publiclyPublishable: true,
+  mockTestEligible: true,
+  manualApprovalRequired: true,
+  automaticStudentPublication: false,
+});
+
 export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = Object.freeze({
   packageId: "SPA-001" as const,
   type: "reasoning-v1" as const,
@@ -38,10 +50,11 @@ export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = Object.freeze({
   domain: "reasoning" as const,
   topic: "Reasoning" as const,
   subtopic: "Spatial Reasoning" as const,
-  name: "Spatial Reasoning — Approved English Review Runtime" as const,
+  name: "Spatial Reasoning — Approved English Production Runtime" as const,
   label: "Spatial Reasoning — 30 Permanent QLs" as const,
   generationDomain: "reasoning-v1" as const,
   integrationAuthority: "SPA-FND-001-QUESTION-STUDIO-INTEGRATION-V1" as const,
+  releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
   sourceAllocationAuthority:
     SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.authorityId,
   approvedReviewHead:
@@ -53,23 +66,23 @@ export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = Object.freeze({
   supportedDifficulties: ["Easy", "Medium", "Hard"] as const,
   enabled: true,
   active: true,
-  reviewOnly: true,
-  runtimeMode: "APPROVED_PERMANENT_ENGLISH_SPATIAL_V1" as const,
-  reviewStatus: "QUESTION_STUDIO_REVIEW_REGISTERED" as const,
+  runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
+  reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
   questionStudioVisible: true,
   questionStudioDiscoverable: true,
   registrationStatus: "REGISTERED" as const,
   persistenceAllowed: true,
   databaseWriteEnabled: true,
-  questionBankStatus: "NOT_STORED" as const,
-  questionBankWritable: false,
-  questionBankEligible: false,
-  testEligibility: "INELIGIBLE" as const,
-  testEligible: false,
-  mockTestEligible: false,
-  publiclyPublishable: false,
-  automaticStudentPublication: false,
-  manualApprovalRequired: true,
+  questionBankStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.questionBankStatus,
+  questionBankEligible: true,
+  testEligibility: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.testEligibility,
+  testEligible: true,
+  mockTestEligible: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.mockTestEligible,
+  publiclyPublishable: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.publiclyPublishable,
+  automaticStudentPublication:
+    SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.automaticStudentPublication,
+  manualApprovalRequired:
+    SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.manualApprovalRequired,
   hindiPunjabiGeneration: false,
   bulkSyncSupported: false,
   permanentQlCount: SPATIAL_QUESTION_STUDIO_QLS_V1.length,

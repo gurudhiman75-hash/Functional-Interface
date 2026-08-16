@@ -35,6 +35,12 @@ function asText(value: unknown): string {
   return typeof value === 'string' ? value.trim() : '';
 }
 
+function stringArray(value: unknown): string[] {
+  return Array.isArray(value)
+    ? value.map((entry) => String(entry ?? '').trim())
+    : [];
+}
+
 export function itemStem(payload: Record<string, unknown> | null): string {
   return asText(payload?.text) || asText(payload?.stem);
 }
@@ -44,9 +50,15 @@ export function itemExplanation(payload: Record<string, unknown> | null): string
 }
 
 export function itemOptionValues(payload: Record<string, unknown> | null): string[] {
-  return Array.isArray(payload?.options)
-    ? payload.options.map((entry) => String(entry ?? '').trim())
-    : [];
+  return stringArray(payload?.options);
+}
+
+export function itemStimulusSvgs(payload: Record<string, unknown> | null): string[] {
+  return stringArray(payload?.stimulusSvgs).filter(Boolean);
+}
+
+export function itemOptionSvgs(payload: Record<string, unknown> | null): string[] {
+  return stringArray(payload?.optionSvgs).filter(Boolean);
 }
 
 export function itemCorrectIndex(payload: Record<string, unknown> | null): number {
@@ -62,11 +74,17 @@ function containsUnresolvedPlaceholder(value: string): boolean {
   return /{{[^}]*}}|__+[A-Z0-9_]+__+|\[[A-Z][A-Z0-9_ -]{2,}\]/.test(value);
 }
 
+function isSpatialPayload(payload: Record<string, unknown>): boolean {
+  return asText(payload.packageId).toUpperCase() === 'SPA-001' || itemOptionSvgs(payload).length > 0;
+}
+
 export function analyzeItemQuality(payloadValue: unknown): ItemQualityReport {
   const payload = asRecord(payloadValue);
   const stem = itemStem(payload);
   const explanation = itemExplanation(payload);
   const options = itemOptionValues(payload);
+  const spatialOptions = itemOptionSvgs(payload);
+  const effectiveOptions = spatialOptions.length > 0 ? spatialOptions : options;
   const correctIndex = itemCorrectIndex(payload);
   const issues: QualityIssue[] = [];
 
@@ -83,15 +101,24 @@ export function analyzeItemQuality(payloadValue: unknown): ItemQualityReport {
     if (containsUnresolvedPlaceholder(stem)) add('STEM_PLACEHOLDER', 'blocker', 'stem', 'Question stem contains an unresolved placeholder.');
   }
 
-  if (options.length < 2) add('OPTIONS_MISSING', 'blocker', 'options', 'At least two answer options are required.');
-  else {
-    if (options.some((option) => !option)) add('OPTION_EMPTY', 'blocker', 'options', 'One or more answer options are empty.');
-    const normalizedOptions = options.filter(Boolean).map(normalized);
-    if (new Set(normalizedOptions).size !== normalizedOptions.length) add('OPTION_DUPLICATE', 'blocker', 'options', 'Two or more answer options are duplicates.');
-    if (options.some(containsUnresolvedPlaceholder)) add('OPTION_PLACEHOLDER', 'blocker', 'options', 'An answer option contains an unresolved placeholder.');
+  if (isSpatialPayload(payload) && spatialOptions.length !== 4) {
+    add('SPATIAL_OPTIONS_MISSING', 'blocker', 'options', 'Spatial questions require four rendered SVG options.');
   }
 
-  if (correctIndex < 0 || correctIndex >= options.length) add('CORRECT_INDEX_INVALID', 'blocker', 'answer', 'Correct answer does not point to a valid option.');
+  if (effectiveOptions.length < 2) add('OPTIONS_MISSING', 'blocker', 'options', 'At least two answer options are required.');
+  else {
+    if (effectiveOptions.some((option) => !option)) add('OPTION_EMPTY', 'blocker', 'options', 'One or more answer options are empty.');
+    const normalizedOptions = spatialOptions.length > 0
+      ? effectiveOptions
+      : effectiveOptions.filter(Boolean).map(normalized);
+    if (new Set(normalizedOptions).size !== normalizedOptions.length) add('OPTION_DUPLICATE', 'blocker', 'options', 'Two or more answer options are duplicates.');
+    if (spatialOptions.length === 0 && effectiveOptions.some(containsUnresolvedPlaceholder)) add('OPTION_PLACEHOLDER', 'blocker', 'options', 'An answer option contains an unresolved placeholder.');
+    if (spatialOptions.some((svg) => !svg.includes('<svg') || !svg.includes('</svg>'))) {
+      add('SPATIAL_SVG_INVALID', 'blocker', 'options', 'One or more Spatial options are not valid SVG figures.');
+    }
+  }
+
+  if (correctIndex < 0 || correctIndex >= effectiveOptions.length) add('CORRECT_INDEX_INVALID', 'blocker', 'answer', 'Correct answer does not point to a valid option.');
 
   if (!explanation) add('EXPLANATION_MISSING', 'blocker', 'explanation', 'A question-specific explanation is required.');
   else {
@@ -127,6 +154,7 @@ export function findDuplicateMatches(runs: QuestionStudioRun[]): Map<string, Dup
     item,
     runCode: run.publicCode,
     stem: itemStem(item.payload),
+    visualFingerprint: asText(item.payload?.contentFingerprint),
   }))).filter((entry) => entry.stem);
   const result = new Map<string, DuplicateMatch>();
 
@@ -136,8 +164,16 @@ export function findDuplicateMatches(runs: QuestionStudioRun[]): Map<string, Dup
     const leftTokens = tokenSet(left.stem);
     for (let rightIndex = leftIndex + 1; rightIndex < entries.length; rightIndex += 1) {
       const right = entries[rightIndex]!;
+      if (
+        left.visualFingerprint &&
+        right.visualFingerprint &&
+        left.visualFingerprint !== right.visualFingerprint
+      ) {
+        continue;
+      }
       const rightNormalized = normalized(right.stem);
-      const exact = leftNormalized === rightNormalized;
+      const exact = leftNormalized === rightNormalized &&
+        (!left.visualFingerprint || !right.visualFingerprint || left.visualFingerprint === right.visualFingerprint);
       const similarity = exact ? 1 : jaccard(leftTokens, tokenSet(right.stem));
       if (!exact && (leftTokens.size < 7 || similarity < 0.86)) continue;
 

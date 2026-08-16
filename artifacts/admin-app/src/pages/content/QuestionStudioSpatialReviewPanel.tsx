@@ -201,7 +201,7 @@ export function QuestionStudioSpatialReviewPanel() {
       await refreshStatus();
       showToast.success(
         'Spatial review run created',
-        `${result.publicCode} contains ${result.itemCount} review-only question(s).`,
+        `${result.publicCode} contains ${result.itemCount} question(s) ready for normal Question Studio review.`,
       );
     } catch (error) {
       showToast.error('Run creation failed', error instanceof Error ? error.message : 'Unable to create the Spatial review run.');
@@ -219,13 +219,13 @@ export function QuestionStudioSpatialReviewPanel() {
           </CardTitle>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline" className="gap-1">
-              <ShieldAlert className="h-3 w-3" /> Review-only lifecycle
+              <ShieldAlert className="h-3 w-3" /> Standard Question Studio lifecycle
             </Badge>
             <Badge variant="outline">30 permanent QLs · English</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate approved Mirror Image, Water Image, Figure Analogy, Figure Classification and Figure Series questions directly into the Question Studio review queue. SVG geometry, distractors and learner explanations are validated before an item is accepted.
+          Generate approved Mirror Image, Water Image, Figure Analogy, Figure Classification and Figure Series questions directly into the normal Question Studio review queue. SVG geometry, distractors and learner explanations are validated before an item is accepted.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -238,12 +238,12 @@ export function QuestionStudioSpatialReviewPanel() {
           </div>
         )}
 
-        <div className="rounded-lg border border-warning/30 bg-background/60 p-3 text-sm">
+        <div className="rounded-lg border border-success/30 bg-background/60 p-3 text-sm">
           <div className="flex items-center gap-2 font-medium">
-            <ShieldAlert className="h-4 w-4" /> Downstream release lock
+            <ShieldAlert className="h-4 w-4" /> Standard approval handoff
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            Editorial approval stays inside Question Studio. It does not create a Question Bank record and does not make the question eligible for mock tests or public/student delivery. Hindi and Punjabi generation also remain locked.
+            After the quality gate and manual approval, Question Studio converts the item into Question Bank through the shared lifecycle. Test/mock and publication eligibility then follow the normal global controls; automatic student publication stays disabled. Spatial generation is currently English-only until Hindi/Punjabi content is separately available.
           </p>
         </div>
 

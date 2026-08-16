@@ -25,6 +25,12 @@ function asText(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function stringArray(value: unknown): string[] {
+  return Array.isArray(value)
+    ? value.map((entry) => String(entry ?? "").trim())
+    : [];
+}
+
 function normalized(value: string): string {
   return value.toLowerCase().replace(/\s+/g, " ").trim();
 }
@@ -37,8 +43,10 @@ export function analyzeGeneratedQuestionPayload(value: unknown): QuestionStudioQ
   const payload = asRecord(value);
   const stem = asText(payload.text) || asText(payload.stem);
   const explanation = asText(payload.explanation);
-  const rawOptions = Array.isArray(payload.options) ? payload.options : [];
-  const options = rawOptions.map((entry) => String(entry ?? "").trim());
+  const options = stringArray(payload.options);
+  const spatialOptions = stringArray(payload.optionSvgs).filter(Boolean);
+  const isSpatial = asText(payload.packageId).toUpperCase() === "SPA-001" || spatialOptions.length > 0;
+  const effectiveOptions = spatialOptions.length > 0 ? spatialOptions : options;
   const correctIndexRaw = Number(payload.correctIndex ?? payload.correct);
   const correctIndex = Number.isInteger(correctIndexRaw) ? correctIndexRaw : -1;
   const issues: QuestionStudioQualityIssue[] = [];
@@ -61,22 +69,31 @@ export function analyzeGeneratedQuestionPayload(value: unknown): QuestionStudioQ
     }
   }
 
-  if (options.length < 2) {
+  if (isSpatial && spatialOptions.length !== 4) {
+    add("SPATIAL_OPTIONS_MISSING", "blocker", "options", "Spatial questions require four rendered SVG options.");
+  }
+
+  if (effectiveOptions.length < 2) {
     add("OPTIONS_MISSING", "blocker", "options", "At least two answer options are required.");
   } else {
-    if (options.some((option) => !option)) {
+    if (effectiveOptions.some((option) => !option)) {
       add("OPTION_EMPTY", "blocker", "options", "One or more answer options are empty.");
     }
-    const nonEmptyNormalized = options.filter(Boolean).map(normalized);
-    if (new Set(nonEmptyNormalized).size !== nonEmptyNormalized.length) {
+    const comparable = spatialOptions.length > 0
+      ? effectiveOptions
+      : effectiveOptions.filter(Boolean).map(normalized);
+    if (new Set(comparable).size !== comparable.length) {
       add("OPTION_DUPLICATE", "blocker", "options", "Two or more answer options are duplicates.");
     }
-    if (options.some((option) => containsUnresolvedPlaceholder(option))) {
+    if (spatialOptions.length === 0 && effectiveOptions.some((option) => containsUnresolvedPlaceholder(option))) {
       add("OPTION_PLACEHOLDER", "blocker", "options", "An answer option contains an unresolved placeholder.");
+    }
+    if (spatialOptions.some((svg) => !svg.includes("<svg") || !svg.includes("</svg>"))) {
+      add("SPATIAL_SVG_INVALID", "blocker", "options", "One or more Spatial options are not valid SVG figures.");
     }
   }
 
-  if (correctIndex < 0 || correctIndex >= options.length) {
+  if (correctIndex < 0 || correctIndex >= effectiveOptions.length) {
     add("CORRECT_INDEX_INVALID", "blocker", "answer", "The correct-answer index does not point to a valid option.");
   }
 

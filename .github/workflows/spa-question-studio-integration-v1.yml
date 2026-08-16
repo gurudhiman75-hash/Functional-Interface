@@ -31,6 +31,9 @@ jobs:
       - name: Build admin app
         run: pnpm --dir artifacts/admin-app build
 
+      - name: Build student app
+        run: pnpm --dir artifacts/examtree build
+
       - name: Bundle Spatial Question Studio proofs
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
@@ -51,7 +54,7 @@ jobs:
       - name: Revalidate permanent QL allocation
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-permanent-ql-allocation-v1.test.mjs
 
-      - name: Validate Question Studio integration
+      - name: Validate standard Question Studio lifecycle
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-question-studio-integration-v1.test.mjs
 
       - name: Upload Question Studio evidence
