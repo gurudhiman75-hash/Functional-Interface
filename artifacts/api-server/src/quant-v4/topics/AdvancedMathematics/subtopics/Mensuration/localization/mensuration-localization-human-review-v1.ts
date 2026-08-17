@@ -61,6 +61,16 @@ const reviewItems: Array<{
   punjabi: MensurationLocalizedQuestionV1;
 }> = [];
 
+function assertSimpleSolution(question: MensurationLocalizedQuestionV1) {
+  assert(question.explanation.steps.length >= 1, `${question.patternId}/${question.language}: solution is empty.`);
+  assert(question.explanation.steps.length <= 9, `${question.patternId}/${question.language}: solution is still too long.`);
+  assert(question.explanation.shortcut === "", `${question.patternId}/${question.language}: shortcut surface must be removed.`);
+  assert(question.explanation.traps.length === 0, `${question.patternId}/${question.language}: learner trap list must be removed.`);
+  const joined = question.explanation.steps.join("\n");
+  assert(!/Key Rule|Step-by-Step|Exam Speed|Common Traps|मुख्य नियम|चरण-दर-चरण|परीक्षा शॉर्टकट|सामान्य गलतियाँ|ਮੁੱਖ ਨਿਯਮ|ਕਦਮ-ਦਰ-ਕਦਮ|ਪ੍ਰੀਖਿਆ ਸ਼ਾਰਟਕੱਟ|ਆਮ ਗਲਤੀਆਂ/i.test(joined), `${question.patternId}/${question.language}: legacy explanation scaffold leaked.`);
+  assert(!/\[[A-Z0-9_:-]{3,}\]/.test(joined), `${question.patternId}/${question.language}: internal misconception code leaked.`);
+}
+
 for (const cp of MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS) {
   const patterns = MENSURATION_QUESTION_STUDIO_PATTERNS.filter((pattern) => pattern.cpId === cp.cpId);
   assert(patterns.length > 0, `${cp.cpId}: no registered patterns available for human review.`);
@@ -77,6 +87,7 @@ for (const cp of MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS) {
       assert(localized.options.length === english.options.length, `${pattern.patternId}: option-count drift in review pack.`);
       assert(localized.realism.numericalStateSignature === english.realism.numericalStateSignature, `${pattern.patternId}: numerical-state drift in review pack.`);
     }
+    for (const question of [english, hindi, punjabi]) assertSimpleSolution(question);
     assert(hasHindiScript(learnerText(hindi)), `${pattern.patternId}: Hindi review surface has no Devanagari.`);
     assert(hasGurmukhiScript(learnerText(punjabi)), `${pattern.patternId}: Punjabi review surface has no Gurmukhi.`);
 
@@ -107,16 +118,14 @@ function renderLanguage(question: MensurationLocalizedQuestionV1) {
   const leaks = question.language === "en" ? [] : instructionalLatinLeaks(learnerText(question));
   return `<section class="language-card">
     <h4>${escapeHtml(languageLabels[question.language])} <span>${escapeHtml(question.locale)}</span></h4>
-    <div class="label">Stem</div>
     <p class="stem">${escapeHtml(question.stem)}</p>
     <ol class="options">${renderOptions(question)}</ol>
-    <div class="label">Worked explanation</div>
-    <ol class="steps">${question.explanation.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ol>
-    <div class="label">Exam shortcut</div>
-    <p>${escapeHtml(question.explanation.shortcut)}</p>
-    <div class="label">Common traps</div>
-    <ul class="traps">${question.explanation.traps.map((trap) => `<li>${escapeHtml(trap)}</li>`).join("")}</ul>
-    ${question.language === "en" ? "" : `<div class="leaks"><strong>Residual instructional Latin:</strong> ${leaks.length ? escapeHtml(leaks.join(", ")) : "none detected"}</div>`}
+    <div class="answer"><strong>Answer:</strong> ${escapeHtml(question.answer)}</div>
+    <div class="solution">
+      <div class="label">Solution</div>
+      ${question.explanation.steps.map((step) => `<p>${escapeHtml(step)}</p>`).join("")}
+    </div>
+    ${question.language === "en" || leaks.length === 0 ? "" : `<details class="diagnostics"><summary>Localization diagnostic</summary><div>${escapeHtml(leaks.join(", "))}</div></details>`}
   </section>`;
 }
 
@@ -125,7 +134,6 @@ const cards = reviewItems.map((item, index) => `<article class="question-card">
     <div><strong>#${index + 1}</strong> · ${escapeHtml(item.cpId)} · ${escapeHtml(item.patternId)}</div>
     <div>${escapeHtml(item.difficulty)} · ${escapeHtml(item.solveMode)}</div>
   </header>
-  <div class="review-checklist"><strong>Human check:</strong> semantic parity · natural wording · exam terminology · mathematical notation · option naturalness · explanation specificity · no literal/machine-like phrasing.</div>
   <div class="language-grid">
     ${renderLanguage(item.english)}
     ${renderLanguage(item.hindi)}
@@ -138,40 +146,45 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mensuration Hindi/Punjabi Human Editorial Review V1</title>
+<title>Mensuration Trilingual Final Human Review</title>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\\\(', '\\\\)']] } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <style>
   :root { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #18202a; background: #f4f6f8; }
-  body { margin: 0; padding: 24px; }
+  body { margin: 0; padding: 20px; }
   main { max-width: 1680px; margin: 0 auto; }
-  .summary, .question-card { background: white; border: 1px solid #d8dee6; border-radius: 12px; margin-bottom: 20px; }
-  .summary { padding: 20px; }
-  .summary h1 { margin-top: 0; }
-  .question-card > header { display: flex; justify-content: space-between; gap: 16px; padding: 14px 18px; border-bottom: 1px solid #e3e7ec; background: #fafbfc; border-radius: 12px 12px 0 0; }
-  .review-checklist { padding: 12px 18px; border-bottom: 1px solid #e3e7ec; font-size: 14px; }
+  .summary, .question-card { background: white; border: 1px solid #d8dee6; border-radius: 12px; margin-bottom: 18px; }
+  .summary { padding: 18px; }
+  .summary h1 { margin: 0 0 8px; }
+  .summary p { margin: 6px 0; }
+  .question-card > header { display: flex; justify-content: space-between; gap: 16px; padding: 12px 16px; border-bottom: 1px solid #e3e7ec; background: #fafbfc; border-radius: 12px 12px 0 0; font-size: 13px; }
   .language-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .language-card { padding: 18px; min-width: 0; border-right: 1px solid #e3e7ec; }
+  .language-card { padding: 16px; min-width: 0; border-right: 1px solid #e3e7ec; }
   .language-card:last-child { border-right: 0; }
-  .language-card h4 { margin: 0 0 14px; font-size: 18px; }
+  .language-card h4 { margin: 0 0 12px; font-size: 18px; }
   .language-card h4 span { font-size: 12px; font-weight: 500; opacity: .6; margin-left: 6px; }
-  .label { margin-top: 14px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; opacity: .65; }
-  .stem { font-size: 16px; line-height: 1.55; }
-  .options, .steps, .traps { padding-left: 22px; }
-  .option { padding: 7px 8px; margin: 5px 0; border-radius: 7px; }
+  .stem { font-size: 16px; line-height: 1.55; font-weight: 600; }
+  .options { padding-left: 22px; margin: 10px 0 12px; }
+  .option { padding: 6px 8px; margin: 4px 0; border-radius: 7px; }
   .option.correct { outline: 2px solid #9aa7b5; }
-  .answer-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; margin-left: 6px; opacity: .65; }
-  li, p { line-height: 1.55; }
-  .leaks { margin-top: 16px; padding: 9px 10px; background: #f6f7f9; border-radius: 8px; font-size: 12px; overflow-wrap: anywhere; }
-  code { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .answer-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; margin-left: 6px; opacity: .6; }
+  .answer { margin: 12px 0; padding: 9px 10px; border-radius: 8px; background: #f4f7f5; }
+  .solution { margin-top: 12px; padding-top: 10px; border-top: 1px solid #e5e7eb; }
+  .solution p { margin: 8px 0; line-height: 1.55; overflow-wrap: anywhere; }
+  .label { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; opacity: .65; margin-bottom: 8px; }
+  .diagnostics { margin-top: 14px; font-size: 11px; opacity: .7; }
+  .diagnostics div { margin-top: 6px; overflow-wrap: anywhere; }
   @media (max-width: 1050px) { .language-grid { grid-template-columns: 1fr; } .language-card { border-right: 0; border-bottom: 1px solid #e3e7ec; } }
 </style>
 </head>
 <body>
 <main>
   <section class="summary">
-    <h1>Mensuration Hindi/Punjabi Human Editorial Review V1</h1>
-    <p><strong>Status:</strong> review evidence only. This pack does not approve localization or student publication.</p>
-    <p><strong>Coverage:</strong> ${reviewItems.length} deterministic question identities sampled across all ${MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS.length} CPs; English, Hindi and Punjabi are shown side by side (${reviewItems.length * 3} language surfaces).</p>
-    <p>Machine parity protects identities, mathematics, answer position and numerical state. Human review must decide whether Hindi/Punjabi wording is natural, exam-appropriate and pedagogically clear.</p>
+    <h1>Mensuration Trilingual Final Human Review</h1>
+    <p><strong>Coverage:</strong> ${reviewItems.length} question identities across all ${MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS.length} CPs, shown in English, Hindi and Punjabi.</p>
+    <p><strong>Review focus:</strong> natural question wording, correct options, clean formula/calculation, and a short complete solution.</p>
   </section>
   ${cards}
 </main>
@@ -180,6 +193,7 @@ const html = `<!doctype html>
 
 const report = {
   authority: "MENSURATION-HI-PA-HUMAN-EDITORIAL-REVIEW-V1",
+  solutionAuthority: "MENSURATION-SIMPLE-HUMAN-SOLUTION-V1",
   status: "HUMAN_REVIEW_REQUIRED",
   cpCount: MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS.length,
   reviewedQuestionIdentityCount: reviewItems.length,
@@ -204,18 +218,18 @@ fs.mkdirSync(outputDir, { recursive: true });
 fs.writeFileSync(path.join(outputDir, "mensuration-localization-human-review-v1.html"), html);
 fs.writeFileSync(path.join(outputDir, "mensuration-localization-human-review-v1.json"), JSON.stringify(report, null, 2));
 fs.writeFileSync(path.join(outputDir, "mensuration-localization-human-review-v1.md"), [
-  "# Mensuration Hindi/Punjabi Human Editorial Review V1",
+  "# Mensuration Trilingual Final Human Review",
   "",
   `- Canonical problems: **${report.cpCount}**`,
   `- Question identities: **${report.reviewedQuestionIdentityCount}**`,
   `- English/Hindi/Punjabi surfaces: **${report.languageSurfaceCount}**`,
+  "- Explanation surface: **compact formula/calculation + answer only**",
   "- Status: **HUMAN_REVIEW_REQUIRED**",
-  "",
-  "Review the HTML artifact side by side for semantic parity, naturalness, terminology, notation, options and explanations.",
   "",
 ].join("\n"));
 console.log(JSON.stringify({
   authority: report.authority,
+  solutionAuthority: report.solutionAuthority,
   cpCount: report.cpCount,
   reviewedQuestionIdentityCount: report.reviewedQuestionIdentityCount,
   languageSurfaceCount: report.languageSurfaceCount,
