@@ -1,0 +1,77 @@
+{
+  "packageId": "TRG-002",
+  "checkpoint": "PHASE5_SPATIAL_DIAGRAM_FOUNDATION",
+  "status": "IMPLEMENTED_FOUNDATION_ONLY",
+  "base": "feat/trg-001-production-144@f07b92541d2f7262bd202c0cb893f7240ef23cc4",
+  "files": [
+    "spatial/types.ts",
+    "spatial/solver.ts",
+    "spatial/builders.ts",
+    "spatial/verifier.ts",
+    "spatial/diagram.ts",
+    "spatial/index.ts",
+    "spatial/foundation.test.ts",
+    "PHASE5_STATUS.md",
+    "PHASE5_SELF_REVIEW.md"
+  ],
+  "contracts": {
+    "canonicalCoordinatesBeforeProse": true,
+    "exactDistancesAndHeights": true,
+    "observerEyeHeightExplicit": true,
+    "elevationDepressionExplicit": true,
+    "sameOppositeSideStateExplicit": true,
+    "movementDirectionExplicit": true,
+    "diagramStrategyRequired": true,
+    "coordinateVerifierIndependentOfStem": true,
+    "physicalFeasibilityGuards": true,
+    "exactZeroEyeHeightSemantics": true
+  },
+  "diagramStrategies": 14,
+  "foundationBuilders": [
+    "singleElevation",
+    "singleDepression",
+    "observerHeightElevation",
+    "sameSideMoveCloser",
+    "oppositeSideObservations",
+    "ladderAgainstWall"
+  ],
+  "exactSolvers": [
+    "verticalDeltaFromHorizontal",
+    "horizontalFromVerticalDelta",
+    "singleElevationObjectHeight",
+    "singleDepressionTargetHeight",
+    "shadowObjectHeight",
+    "shadowLengthFromHeight",
+    "ladderAgainstWall",
+    "sameSideTwoObservationSystem",
+    "oppositeSideObservationSystem",
+    "findCleanStandardAngleFromRiseRun"
+  ],
+  "testFixturesCommitted": {
+    "positiveCanonicalSceneTypes": 6,
+    "negativeVerifierTamperCases": 3,
+    "physicalFeasibilityRejectionCases": 4,
+    "exactZeroStrategyRegression": 1,
+    "diagramStrategyNameLock": 14
+  },
+  "executionEvidence": {
+    "strictTypeScriptCompile": "NOT_CLAIMED",
+    "fixtureExecution": "NOT_CLAIMED",
+    "githubActionsObserved": false,
+    "reason": "No workflow run observed; local environment cannot resolve github.com for a repository clone."
+  },
+  "qlState": {
+    "implemented": 0,
+    "target": 96,
+    "aiReviewed": 0,
+    "humanReviewed": 0
+  },
+  "activation": {
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "publiclyPublishable": false,
+    "hindiPunjabiRuntime": false
+  },
+  "next": "Implement the representative 20-QL TRG-002 runtime proof using distributed permanent IDs across the locked subfamilies."
+}
