@@ -1,9 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import {
-  generateIopEnglishProductionCaselet,
-  IOP_ENGLISH_SOURCE_MODES,
-} from "./english-production.ts";
+import { generateIopEnglishReviewCaselet } from "./english-editorial.ts";
+import { IOP_ENGLISH_SOURCE_MODES } from "./english-production.ts";
 import type { IopEnglishProductionCaselet } from "./english-production-types.ts";
 
 const outputDir = process.env.IOP_ENGLISH_REVIEW_OUTPUT_DIR ?? "/tmp/iop-english-review";
@@ -18,13 +16,21 @@ function escapeHtml(value: string): string {
     .replaceAll("'", "&#039;");
 }
 
-function row(value: readonly string[]): string {
-  return value.join(" &nbsp; ");
+function renderToken(value: string): string {
+  const box = /^(B\d+)\[([^,]+),([^\]]+)\]$/.exec(value);
+  if (box) return `<span class="machine-box"><small>${escapeHtml(box[1]!)}</small><span>${escapeHtml(box[2]!)} <b>|</b> ${escapeHtml(box[3]!)}</span></span>`;
+  const group = /^(G\d+)\(([^,]+),([^\)]+)\)$/.exec(value);
+  if (group) return `<span class="machine-box"><small>${escapeHtml(group[1]!)}</small><span>${escapeHtml(group[2]!)} <b>|</b> ${escapeHtml(group[3]!)}</span></span>`;
+  return `<span class="token">${escapeHtml(value)}</span>`;
+}
+
+function traceRow(label: string, values: readonly string[]): string {
+  return `<div class="trace-row"><strong>${escapeHtml(label)}</strong><div class="token-row">${values.map(renderToken).join("")}</div></div>`;
 }
 
 function traceHtml(title: string, trace: IopEnglishProductionCaselet["target"]): string {
-  const steps = trace.steps.map((step, index) => `<div class="trace-row"><strong>Step ${index + 1}:</strong> ${escapeHtml(step.join("  "))}</div>`).join("");
-  return `<section class="trace"><h5>${escapeHtml(title)}</h5><div class="trace-row"><strong>Input:</strong> ${escapeHtml(trace.input.join("  "))}</div>${steps}</section>`;
+  const steps = trace.steps.map((step, index) => traceRow(`Step ${index + 1}:`, step)).join("");
+  return `<section class="trace"><h5>${escapeHtml(title)}</h5>${traceRow("Input:", trace.input)}${steps}</section>`;
 }
 
 function questionHtml(caselet: IopEnglishProductionCaselet): string {
@@ -35,7 +41,7 @@ function questionHtml(caselet: IopEnglishProductionCaselet): string {
       <p>${escapeHtml(child.text)}</p>
       <ol>${options}</ol>
       <p><strong>Answer:</strong> ${escapeHtml(child.answerDisplay)}</p>
-      <p><strong>Explanation:</strong> ${escapeHtml(child.explanation)}</p>
+      <p><strong>Question-specific explanation:</strong> ${escapeHtml(child.explanation)}</p>
     </article>`;
   }).join("");
 }
@@ -46,8 +52,8 @@ function caseletHtml(caselet: IopEnglishProductionCaselet): string {
     <p><strong>Sources:</strong> ${escapeHtml(caselet.sourceEvidenceIds.join(", "))}</p>
     <p><strong>Directions:</strong> ${escapeHtml(caselet.directions)}</p>
     ${traceHtml("Illustration", caselet.demonstration)}
-    <p><strong>Rule identified:</strong> ${escapeHtml(caselet.ruleExplanation)}</p>
-    ${traceHtml("New input", caselet.target)}
+    <p><strong>Shared machine rule:</strong> ${escapeHtml(caselet.ruleExplanation)}</p>
+    ${traceHtml("New input — reviewer trace", caselet.target)}
     ${questionHtml(caselet)}
   </article>`;
 }
@@ -55,7 +61,7 @@ function caseletHtml(caselet: IopEnglishProductionCaselet): string {
 const caselets: IopEnglishProductionCaselet[] = [];
 for (const mode of IOP_ENGLISH_SOURCE_MODES) {
   for (let index = 0; index < examplesPerMode; index += 1) {
-    caselets.push(generateIopEnglishProductionCaselet(
+    caselets.push(generateIopEnglishReviewCaselet(
       `IOP-EN-REVIEW-${mode.sourceModeId}-${String(index).padStart(2, "0")}`,
       mode.qlId,
       mode.sourceModeId,
@@ -84,11 +90,17 @@ const html = `<!doctype html>
   .ql { margin: 28px 0; }
   .caselet { border: 1px solid #bbb; border-radius: 10px; padding: 16px; margin: 16px 0; break-inside: avoid; }
   .trace { background: #f7f7f7; padding: 10px 12px; margin: 10px 0; border-radius: 8px; overflow-x: auto; }
-  .trace-row { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; margin: 4px 0; }
+  .trace-row { margin: 7px 0; }
+  .token-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 3px; }
+  .token { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; padding: 2px 4px; }
+  .machine-box { display: inline-flex; flex-direction: column; align-items: center; min-width: 58px; border: 1px solid #777; border-radius: 6px; padding: 4px 6px; background: white; }
+  .machine-box small { font-size: 10px; line-height: 1; margin-bottom: 3px; }
+  .machine-box span { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
   .question { border-top: 1px dashed #bbb; padding-top: 10px; margin-top: 14px; }
   ol { list-style: none; padding-left: 0; }
   li { padding: 3px 0; }
   .correct { font-weight: 700; }
+  @media (max-width: 640px) { body { margin: 12px; } .caselet { padding: 12px; } .machine-box { min-width: 52px; } }
 </style>
 </head>
 <body>
@@ -97,7 +109,8 @@ const html = `<!doctype html>
   <p><strong>Status:</strong> ENGLISH_REVIEW_CANDIDATE; not frozen.</p>
   <p><strong>Permanent QLs:</strong> 8 &nbsp; <strong>Whitelisted source modes:</strong> ${IOP_ENGLISH_SOURCE_MODES.length} &nbsp; <strong>Caselets:</strong> ${caselets.length}</p>
   <p><strong>Product lifecycle:</strong> Question Studio OFF · Question Bank OFF · tests OFF · public OFF.</p>
-  <p>Review rule inference, source realism, step correctness, distractors, explanation clarity and difficulty. A green automated proof is necessary but not a substitute for human editorial approval.</p>
+  <p>The shared machine rule is shown once. Each child then carries only its question-specific explanation. The full target trace is reviewer-only evidence and must not be exposed in student delivery.</p>
+  <p>Review rule inference, source realism, step correctness, distractors, explanation clarity, mobile readability and difficulty. A green automated proof is necessary but not a substitute for human editorial approval.</p>
 </div>
 ${sections}
 </body>
@@ -111,6 +124,7 @@ await writeFile(join(outputDir, "IOP-001-ENGLISH-PERMANENT-REVIEW.json"), JSON.s
   permanentQlCount: 8,
   sourceModeCount: IOP_ENGLISH_SOURCE_MODES.length,
   caseletCount: caselets.length,
+  reviewerTraceStudentVisible: false,
   questionStudioDiscoverable: false,
   caselets,
 }, null, 2), "utf8");
