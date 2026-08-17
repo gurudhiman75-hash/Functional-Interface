@@ -90,6 +90,17 @@ function usefulSentences(value: string) {
     .filter((sentence) => !/^(?:the result|the answer)\b/i.test(sentence));
 }
 
+function methodFragment(value: string) {
+  const dash = Math.max(value.indexOf(" — "), value.indexOf(" – "));
+  return dash >= 0 ? trimSentence(value.slice(dash + 3)) : trimSentence(value);
+}
+
+function joinMethodSentences(values: string[]) {
+  const selected = values.slice(0, 2).map(methodFragment).filter(Boolean);
+  if (selected.length === 0) return "";
+  return `${selected.join(". ").replace(/[.]+$/g, "")}.`;
+}
+
 function extractMethod(question: MensurationQuestionStudioQuestionV2) {
   const joined = question.explanation.steps.join("\n");
   const ruleSection = sectionBetween(
@@ -97,16 +108,19 @@ function extractMethod(question: MensurationQuestionStudioQuestionV2) {
     /###\s*📌[^\n]*(?:\n|$)/,
     /###\s*📝[^\n]*(?:\n|$)/,
   );
-  const candidates = usefulSentences(ruleSection);
-  if (candidates.length > 0) return candidates.slice(0, 2).join(" ");
+  const ruleMethod = joinMethodSentences(usefulSentences(ruleSection));
+  if (ruleMethod) return ruleMethod;
 
   const stepSection = sectionBetween(
     joined,
     /###\s*📝[^\n]*(?:\n|$)/,
     /###\s*(?:💡|⚠️)[^\n]*(?:\n|$)/,
   );
-  const fallback = usefulSentences(stepSection).find((sentence) => sentence.length >= 24);
-  return fallback ?? "Use the appropriate mensuration relation, substitute the given values, and simplify.";
+  const stepMethod = joinMethodSentences(usefulSentences(stepSection));
+  if (stepMethod) return stepMethod;
+
+  const directMethod = joinMethodSentences(usefulSentences(joined));
+  return directMethod || "Use the appropriate mensuration relation, substitute the given values, and simplify.";
 }
 
 function normalizeMathBody(value: string) {
@@ -172,14 +186,19 @@ function extractWorking(question: MensurationQuestionStudioQuestionV2) {
     /###\s*(?:💡|⚠️)[^\n]*(?:\n|$)/,
   );
 
-  const ruleMath = extractDisplayMath(ruleSection).slice(0, 2);
-  const stepMath = extractDisplayMath(stepSection);
   const seen = new Set<string>();
   const values: string[] = [];
-  for (const value of [...ruleMath, ...stepMath]) addUnique(values, seen, value);
+  for (const value of [...extractDisplayMath(ruleSection).slice(0, 2), ...extractDisplayMath(stepSection)]) {
+    addUnique(values, seen, value);
+  }
 
+  // Later CPs often use compact human-authored source lines instead of the
+  // MEN-001 heading scaffold. Preserve their displayed calculation directly.
+  if (values.length === 0) {
+    for (const value of extractDisplayMath(joined)) addUnique(values, seen, value);
+  }
   if (values.length < 2) {
-    for (const value of extractInlineMath(`${ruleSection}\n${stepSection}`)) addUnique(values, seen, value);
+    for (const value of extractInlineMath(joined)) addUnique(values, seen, value);
   }
 
   if (values.length <= 9) return values;
