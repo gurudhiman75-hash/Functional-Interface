@@ -1,8 +1,10 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { generateIopEnglishReviewCaselet } from "./english-review-generator.ts";
+import { IOP_001_PERMANENT_QL_AUTHORITIES } from "./permanent-authorities.ts";
 import { IOP_ENGLISH_SOURCE_MODES } from "./english-production.ts";
 import type { IopEnglishProductionCaselet } from "./english-production-types.ts";
+import type { IopPermanentSolveMode } from "./permanent-authorities.ts";
 
 const outputDir = process.env.IOP_ENGLISH_REVIEW_OUTPUT_DIR ?? "/tmp/iop-english-review";
 const examplesPerMode = Number(process.env.IOP_ENGLISH_REVIEW_EXAMPLES_PER_MODE ?? 2);
@@ -14,6 +16,20 @@ function escapeHtml(value: string): string {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function solveModeLabel(kind: IopPermanentSolveMode): string {
+  const labels: Record<IopPermanentSolveMode, string> = {
+    STEP_OUTPUT: "Find a step",
+    FINAL_OUTPUT: "Find the final arrangement",
+    ELEMENT_AT_POSITION: "Find an element at a position",
+    POSITION_OF_ELEMENT: "Find the position of an element",
+    STEP_NUMBER: "Identify the step number",
+    PREVIOUS_STEP: "Find the previous step",
+    MISSING_STEP: "Find the missing step",
+    REMAINING_STEP_COUNT: "Count the remaining steps",
+  };
+  return labels[kind];
 }
 
 function renderToken(value: string): string {
@@ -28,33 +44,72 @@ function traceRow(label: string, values: readonly string[]): string {
   return `<div class="trace-row"><strong>${escapeHtml(label)}</strong><div class="token-row">${values.map(renderToken).join("")}</div></div>`;
 }
 
-function traceHtml(title: string, trace: IopEnglishProductionCaselet["target"]): string {
+function fullTraceHtml(trace: IopEnglishProductionCaselet["target"]): string {
   const steps = trace.steps.map((step, index) => traceRow(`Step ${index + 1}:`, step)).join("");
-  return `<section class="trace"><h5>${escapeHtml(title)}</h5>${traceRow("Input:", trace.input)}${steps}</section>`;
+  return `${traceRow("Input:", trace.input)}${steps}`;
 }
 
 function questionHtml(caselet: IopEnglishProductionCaselet): string {
   return caselet.children.map((child) => {
-    const options = child.options.map((option, index) => `<li class="${option.isCorrect ? "correct" : ""}">${String.fromCharCode(65 + index)}. ${escapeHtml(option.display)}</li>`).join("");
+    const options = child.options
+      .map((option, index) => `<li><span class="option-letter">${String.fromCharCode(65 + index)}.</span> ${escapeHtml(option.display)}</li>`)
+      .join("");
+    const answerLetter = String.fromCharCode(65 + child.answerIndex);
     return `<article class="question">
-      <h5>Q${child.questionOrder} · ${escapeHtml(child.kind)}</h5>
-      <p>${escapeHtml(child.text)}</p>
-      <ol>${options}</ol>
-      <p><strong>Answer:</strong> ${escapeHtml(child.answerDisplay)}</p>
-      <p><strong>Question-specific explanation:</strong> ${escapeHtml(child.explanation)}</p>
+      <div class="question-heading">
+        <h4>Question ${child.questionOrder} of 4</h4>
+        <span class="question-type">Reviewer type: ${escapeHtml(solveModeLabel(child.kind))}</span>
+      </div>
+      <p class="question-text">${escapeHtml(child.text)}</p>
+      <ol class="options">${options}</ol>
+      <details class="answer-block">
+        <summary>Show answer and explanation</summary>
+        <p><strong>Answer:</strong> ${answerLetter}. ${escapeHtml(child.answerDisplay)}</p>
+        <p><strong>Why:</strong> ${escapeHtml(child.explanation)}</p>
+      </details>
     </article>`;
   }).join("");
 }
 
-function caseletHtml(caselet: IopEnglishProductionCaselet): string {
+function caseletHtml(caselet: IopEnglishProductionCaselet, exampleNumber: number): string {
   return `<article class="caselet">
-    <h4>${escapeHtml(caselet.qlId)} · ${escapeHtml(caselet.sourceModeId)} · ${escapeHtml(caselet.difficulty)}</h4>
-    <p><strong>Sources:</strong> ${escapeHtml(caselet.sourceEvidenceIds.join(", "))}</p>
-    <p><strong>Directions:</strong> ${escapeHtml(caselet.directions)}</p>
-    ${traceHtml("Illustration", caselet.demonstration)}
-    <p><strong>Shared machine rule:</strong> ${escapeHtml(caselet.ruleExplanation)}</p>
-    ${traceHtml("New input — reviewer trace", caselet.target)}
-    ${questionHtml(caselet)}
+    <div class="caselet-heading">
+      <h3>Example ${exampleNumber}</h3>
+      <span class="difficulty">${escapeHtml(caselet.difficulty)}</span>
+    </div>
+
+    <p class="directions"><strong>Directions:</strong> ${escapeHtml(caselet.directions)}</p>
+
+    <section class="student-block worked-example">
+      <h4>1. Study this machine</h4>
+      <p class="helper">The exam gives an input and its step-by-step rearrangement. Use it to understand the machine pattern.</p>
+      ${fullTraceHtml(caselet.demonstration)}
+    </section>
+
+    <section class="student-block new-input">
+      <h4>2. Apply the same machine to this new input</h4>
+      ${traceRow("New Input:", caselet.target.input)}
+      <p class="helper">The solved steps are intentionally hidden here. The four questions below are based on this same new input.</p>
+    </section>
+
+    <section class="question-set">
+      <h4>3. Questions based on the new input</h4>
+      ${questionHtml(caselet)}
+    </section>
+
+    <details class="reviewer-solution">
+      <summary>Reviewer only — show machine rule and complete solution trace</summary>
+      <p><strong>Machine rule:</strong> ${escapeHtml(caselet.ruleExplanation)}</p>
+      <div class="review-trace">${fullTraceHtml(caselet.target)}</div>
+    </details>
+
+    <details class="technical-details">
+      <summary>Technical audit details</summary>
+      <p><strong>QL:</strong> ${escapeHtml(caselet.qlId)}</p>
+      <p><strong>Source mode:</strong> ${escapeHtml(caselet.sourceModeId)}</p>
+      <p><strong>Caselet ID:</strong> ${escapeHtml(caselet.caseletId)}</p>
+      <p><strong>Sources:</strong> ${escapeHtml(caselet.sourceEvidenceIds.join(", "))}</p>
+    </details>
   </article>`;
 }
 
@@ -76,43 +131,99 @@ for (const caselet of caselets) {
   byQl.set(caselet.qlId, existing);
 }
 
-const sections = [...byQl.entries()].map(([qlId, values]) => `<section class="ql"><h2>${escapeHtml(qlId)}</h2>${values.map(caseletHtml).join("")}</section>`).join("");
+const sections = [...byQl.entries()].map(([qlId, values]) => {
+  const authority = IOP_001_PERMANENT_QL_AUTHORITIES.find((candidate) => candidate.qlId === qlId);
+  if (!authority) throw new Error(`Missing permanent authority for ${qlId}`);
+  const familyNumber = Number(qlId.slice(-3));
+  return `<section class="family">
+    <div class="family-heading">
+      <p class="eyebrow">Machine family ${familyNumber}</p>
+      <h2>${escapeHtml(authority.title)}</h2>
+      <p>Each example below contains one worked machine, one fresh input and four MCQs based on that fresh input.</p>
+    </div>
+    ${values.map((caselet, index) => caseletHtml(caselet, index + 1)).join("")}
+  </section>`;
+}).join("");
+
 const html = `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>IOP-001 English Permanent Authority Review</title>
+<title>IOP-001 Student-Facing English Review</title>
 <style>
-  body { font-family: Arial, sans-serif; line-height: 1.45; margin: 24px; color: #181818; }
-  h1, h2, h3, h4, h5 { margin-bottom: 8px; }
-  .summary { padding: 14px; border: 1px solid #bbb; border-radius: 8px; margin-bottom: 20px; }
-  .ql { margin: 28px 0; }
-  .caselet { border: 1px solid #bbb; border-radius: 10px; padding: 16px; margin: 16px 0; break-inside: avoid; }
-  .trace { background: #f7f7f7; padding: 10px 12px; margin: 10px 0; border-radius: 8px; overflow-x: auto; }
-  .trace-row { margin: 7px 0; }
-  .token-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 3px; }
-  .token { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; padding: 2px 4px; }
-  .machine-box { display: inline-flex; flex-direction: column; align-items: center; min-width: 58px; border: 1px solid #777; border-radius: 6px; padding: 4px 6px; background: white; }
+  * { box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; line-height: 1.5; margin: 0; color: #181818; background: #f4f5f7; }
+  main { max-width: 980px; margin: 0 auto; padding: 24px; }
+  h1, h2, h3, h4 { line-height: 1.25; margin-top: 0; }
+  .intro, .family-heading, .caselet { background: white; border: 1px solid #d8dadd; border-radius: 12px; }
+  .intro { padding: 20px; margin-bottom: 28px; }
+  .intro h1 { margin-bottom: 10px; }
+  .status-note { font-size: 14px; color: #555; }
+  .how-to-read { margin: 18px 0 0; padding: 14px 16px; background: #f7f7f7; border-radius: 9px; }
+  .how-to-read ol { margin: 8px 0 0 20px; padding: 0; }
+  .family { margin: 34px 0; }
+  .family-heading { padding: 18px 20px; margin-bottom: 14px; }
+  .family-heading h2 { margin-bottom: 6px; }
+  .eyebrow { margin: 0 0 5px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #555; }
+  .caselet { padding: 20px; margin: 16px 0; break-inside: avoid; }
+  .caselet-heading { display: flex; justify-content: space-between; gap: 12px; align-items: center; border-bottom: 1px solid #e4e4e4; padding-bottom: 12px; margin-bottom: 14px; }
+  .caselet-heading h3 { margin: 0; }
+  .difficulty, .question-type { font-size: 12px; border: 1px solid #bbb; border-radius: 999px; padding: 3px 8px; white-space: nowrap; }
+  .directions { font-size: 16px; margin: 14px 0 18px; }
+  .student-block { padding: 15px; border: 1px solid #ddd; border-radius: 10px; margin: 14px 0; overflow-x: auto; }
+  .student-block h4, .question-set > h4 { margin-bottom: 5px; }
+  .helper { margin: 0 0 12px; font-size: 14px; color: #555; }
+  .trace-row { margin: 9px 0; }
+  .token-row { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; margin-top: 4px; }
+  .token { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; padding: 3px 5px; }
+  .machine-box { display: inline-flex; flex-direction: column; align-items: center; min-width: 62px; border: 1px solid #777; border-radius: 6px; padding: 5px 7px; background: white; }
   .machine-box small { font-size: 10px; line-height: 1; margin-bottom: 3px; }
   .machine-box span { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
-  .question { border-top: 1px dashed #bbb; padding-top: 10px; margin-top: 14px; }
-  ol { list-style: none; padding-left: 0; }
-  li { padding: 3px 0; }
-  .correct { font-weight: 700; }
-  @media (max-width: 640px) { body { margin: 12px; } .caselet { padding: 12px; } .machine-box { min-width: 52px; } }
+  .question-set { margin-top: 22px; }
+  .question { border-top: 1px solid #ddd; padding: 17px 0 4px; }
+  .question:first-of-type { border-top: 0; }
+  .question-heading { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+  .question-heading h4 { margin: 0; }
+  .question-text { font-size: 16px; margin: 12px 0; }
+  .options { list-style: none; padding: 0; margin: 0 0 12px; }
+  .options li { padding: 7px 9px; margin: 5px 0; border: 1px solid #e1e1e1; border-radius: 7px; }
+  .option-letter { font-weight: 700; margin-right: 4px; }
+  details { margin-top: 10px; }
+  summary { cursor: pointer; font-weight: 700; }
+  .answer-block { padding: 10px 12px; background: #f7f7f7; border-radius: 8px; }
+  .answer-block p { margin: 8px 0 0; }
+  .reviewer-solution, .technical-details { margin-top: 18px; padding: 12px 14px; border: 1px dashed #aaa; border-radius: 8px; }
+  .review-trace { margin-top: 12px; padding-top: 4px; }
+  .technical-details { font-size: 13px; color: #555; }
+  .technical-details p { margin: 6px 0; }
+  @media (max-width: 640px) {
+    main { padding: 12px; }
+    .intro, .family-heading, .caselet { border-radius: 9px; }
+    .caselet { padding: 14px; }
+    .caselet-heading, .question-heading { align-items: flex-start; flex-direction: column; }
+    .machine-box { min-width: 54px; }
+  }
 </style>
 </head>
 <body>
-<h1>IOP-001 — English Permanent Authority Review</h1>
-<div class="summary">
-  <p><strong>Status:</strong> ENGLISH_REVIEW_CANDIDATE; not frozen.</p>
-  <p><strong>Permanent QLs:</strong> 8 &nbsp; <strong>Whitelisted source modes:</strong> ${IOP_ENGLISH_SOURCE_MODES.length} &nbsp; <strong>Caselets:</strong> ${caselets.length}</p>
-  <p><strong>Product lifecycle:</strong> Question Studio OFF · Question Bank OFF · tests OFF · public OFF.</p>
-  <p>The shared machine rule is shown once. Each child then carries only its question-specific explanation. The full target trace is reviewer-only evidence and must not be exposed in student delivery.</p>
-  <p>Review rule inference, source realism, step correctness, distractors, explanation clarity, mobile readability and difficulty. A green automated proof is necessary but not a substitute for human editorial approval.</p>
-</div>
-${sections}
+<main>
+  <section class="intro">
+    <h1>IOP-001 — Student-Facing English Review</h1>
+    <p>This file is designed to show the questions in the same logical order a student would understand them. Internal source IDs, QL IDs and solved target traces are hidden from the main view.</p>
+    <div class="how-to-read">
+      <strong>How to read each example</strong>
+      <ol>
+        <li>Study the worked machine: Input → Step 1 → Step 2 → …</li>
+        <li>Look at the new input.</li>
+        <li>Answer four MCQs by applying the same machine rule.</li>
+        <li>Open “Show answer and explanation” only when you want to audit the solution.</li>
+      </ol>
+    </div>
+    <p class="status-note"><strong>Review status:</strong> ENGLISH_REVIEW_CANDIDATE · English not frozen · Question Studio OFF.</p>
+  </section>
+  ${sections}
+</main>
 </body>
 </html>`;
 
