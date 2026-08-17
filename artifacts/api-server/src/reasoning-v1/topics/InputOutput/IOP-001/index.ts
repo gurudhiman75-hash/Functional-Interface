@@ -18,3 +18,4 @@ export * from "./permanent-authorities.ts";
 export * from "./english-production-types.ts";
 export * from "./english-source-engines.ts";
 export * from "./english-production.ts";
+export * from "./english-editorial.ts";
