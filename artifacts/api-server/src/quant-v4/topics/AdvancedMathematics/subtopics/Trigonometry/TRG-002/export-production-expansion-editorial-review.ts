@@ -61,7 +61,7 @@ if (records.length !== 48) throw new Error(`Expected 48 Phase-8 editorial record
 
 const cards = records.map((record) => {
   const options = record.options
-    .map((option) => `<li class="${option.isCorrect ? "correct" : ""}"><b>${esc(option.label)}.</b> ${esc(option.display)}${option.isCorrect ? " ✓" : ""}<span class="misconception">${esc(option.misconceptionId ?? "CORRECT")}</span></li>`)
+    .map((option: any) => `<li class="${option.isCorrect ? "correct" : ""}"><b>${esc(option.label)}.</b> ${esc(option.display)}${option.isCorrect ? " ✓" : ""}<span class="misconception">${esc(option.misconceptionId ?? "CORRECT")}</span></li>`)
     .join("");
   const steps = record.explanation.steps
     .map((step: any) => `<li><b>${esc(step.title)}:</b> ${esc(step.body)}</li>`)
