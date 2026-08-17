@@ -1,0 +1,1 @@
+export const SAP_E1_REVIEW_TARGET_COUNT = 300;

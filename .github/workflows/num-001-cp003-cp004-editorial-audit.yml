@@ -5,6 +5,7 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/**"
       - "artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts"
       - "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
@@ -30,7 +31,7 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle editorial audit and Question Studio release proof
+      - name: Bundle editorial audits and Question Studio release proofs
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/english-editorial-audit.test.ts \
@@ -44,6 +45,34 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/TMW-001-QUESTION-STUDIO-INTEGRATION.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/tmw-001-question-studio-integration.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-NEW-MAIN-QUESTION-STUDIO-INTEGRATION.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-new-main-question-studio-integration.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-REPETITION-DIAGNOSTIC.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-question-studio-repetition-diagnostic.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-CHAPTER-ACCEPTANCE.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-question-studio-chapter-acceptance.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-ENGLISH-POLISH-REGRESSION.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-english-polish-regression.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-LOCALIZATION-DIAGNOSTIC.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-localization-diagnostic.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-LOCALIZATION-RELEASE-AUDIT.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-localization-release-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-LOCALIZATION-HUMAN-QUALITY-AUDIT.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-localization-human-quality-audit.mjs
 
       - name: Run V3 editorial audit
         working-directory: artifacts/api-server
@@ -70,6 +99,68 @@ jobs:
             node dist/quant-v4/tmw-001-question-studio-integration.mjs \
             2>&1 | tee dist/quant-v4/tmw-001-question-studio-integration.log
 
+      - name: Run SAP current shared Question Studio integration proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-new-main-question-studio-integration.mjs \
+            2>&1 | tee dist/quant-v4/sap-new-main-question-studio-integration.log
+
+      - name: Diagnose SAP exact stem repetition
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-question-studio-repetition-diagnostic.mjs \
+            2>&1 | tee dist/quant-v4/sap-question-studio-repetition-diagnostic.log
+
+      - name: Run SAP chapter-wide English acceptance audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-question-studio-chapter-acceptance.mjs \
+            2>&1 | tee dist/quant-v4/sap-question-studio-chapter-acceptance.log
+
+      - name: Run SAP English polish regression
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/sap-english-polish-regression.mjs \
+            2>&1 | tee dist/quant-v4/sap-english-polish-regression.log
+
+      - name: Diagnose all SAP Hindi Punjabi authored gaps
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-localization-diagnostic.mjs \
+            2>&1 | tee dist/quant-v4/sap-localization-diagnostic.log
+
+      - name: Run SAP Hindi Punjabi authored release audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-localization-release-audit.mjs \
+            2>&1 | tee dist/quant-v4/sap-localization-release-audit.log
+
+      - name: Run SAP Hindi Punjabi two-seed human quality audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-localization-human-quality-audit.mjs \
+            2>&1 | tee dist/quant-v4/sap-localization-human-quality-audit.log
+
       - name: Upload release evidence and diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -79,11 +170,30 @@ jobs:
             artifacts/api-server/dist/quant-v4/number-system-generator-v3-audit.log
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release-audit.log
             artifacts/api-server/dist/quant-v4/tmw-001-question-studio-integration.log
+            artifacts/api-server/dist/quant-v4/sap-new-main-question-studio-integration.log
             artifacts/api-server/dist/quant-v4/number-system-generator-v3/number-system-generator-v3-review.json
             artifacts/api-server/dist/quant-v4/number-system-generator-v3/number-system-generator-v3-review.csv
             artifacts/api-server/dist/quant-v4/number-system-generator-v3/number-system-generator-v3-review.md
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.json
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.csv
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.md
+            artifacts/api-server/dist/quant-v4/sap-question-studio-repetition-diagnostic.log
+            artifacts/api-server/dist/quant-v4/sap-question-studio-repetition-diagnostic/sap-question-studio-repetition-diagnostic.json
+            artifacts/api-server/dist/quant-v4/sap-question-studio-repetition-diagnostic/sap-question-studio-repetition-diagnostic.md
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance.log
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance/sap-question-studio-chapter-acceptance.json
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance/sap-question-studio-chapter-acceptance.csv
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance/sap-question-studio-chapter-acceptance.md
+            artifacts/api-server/dist/quant-v4/sap-english-polish-regression.log
+            artifacts/api-server/dist/quant-v4/sap-localization-diagnostic.log
+            artifacts/api-server/dist/quant-v4/sap-localization-diagnostic/sap-localization-diagnostic.json
+            artifacts/api-server/dist/quant-v4/sap-localization-diagnostic/sap-localization-diagnostic.md
+            artifacts/api-server/dist/quant-v4/sap-localization-release-audit.log
+            artifacts/api-server/dist/quant-v4/sap-localization-release-review/sap-localization-release-review.json
+            artifacts/api-server/dist/quant-v4/sap-localization-release-review/sap-localization-release-review.csv
+            artifacts/api-server/dist/quant-v4/sap-localization-release-review/sap-localization-release-review.md
+            artifacts/api-server/dist/quant-v4/sap-localization-human-quality-audit.log
+            artifacts/api-server/dist/quant-v4/sap-localization-human-quality/sap-localization-human-quality.json
+            artifacts/api-server/dist/quant-v4/sap-localization-human-quality/sap-localization-human-quality.md
           if-no-files-found: warn
           retention-days: 30
