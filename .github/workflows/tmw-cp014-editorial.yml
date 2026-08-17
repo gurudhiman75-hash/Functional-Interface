@@ -28,6 +28,7 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/final-extension-presentation-polish.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp014-multilingual-editorial-review.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp014-multilingual-editorial-review-export.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-chapter-parity.test.ts
       - name: Run 480-case CP014 learner audit
@@ -36,3 +37,16 @@ jobs:
         run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-final.mjs && node artifacts/api-server/dist/quant-v4/tmw-final.mjs
       - name: Run chapter multilingual parity
         run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-chapter-parity.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-parity.mjs && node artifacts/api-server/dist/quant-v4/tmw-parity.mjs
+      - name: Export 40 Hindi/Punjabi review packages
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp014-multilingual-editorial-review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/cp014-review-export.mjs && cd artifacts/api-server && node dist/quant-v4/cp014-review-export.mjs
+      - name: Print representative learner packages
+        working-directory: artifacts/api-server
+        run: >-
+          node -e 'const fs=require("fs"); const d=JSON.parse(fs.readFileSync("dist/quant-v4/tmw-001-cp014-multilingual-editorial-review.json","utf8")); const rows=d.packages.filter(p=>p.seed.endsWith(":0")); console.log(JSON.stringify(rows.map(p=>({qlId:p.qlId,language:p.language,solveMode:p.solveMode,stem:p.stem,options:p.options,correctIndex:p.correctIndex,presentation:p.presentation,learnerExplanation:p.learnerExplanation,publiclyPublishable:p.publiclyPublishable})),null,2));'
+      - name: Upload CP014 review corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-001-cp014-multilingual-editorial-review-corpus
+          path: artifacts/api-server/dist/quant-v4/tmw-001-cp014-multilingual-editorial-review.json
+          if-no-files-found: error
+          retention-days: 14
