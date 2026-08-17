@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/**"
       - "artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
       - ".github/workflows/num-001-cp003-cp004-editorial-audit.yml"
@@ -28,7 +29,7 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle editorial audit and Question Studio release proof
+      - name: Bundle editorial audits and Question Studio release proofs
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/english-editorial-audit.test.ts \
@@ -38,6 +39,18 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/number-system-question-studio-release-audit.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/number-system-question-studio-release-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-REPETITION-DIAGNOSTIC.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-question-studio-repetition-diagnostic.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-CHAPTER-ACCEPTANCE.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-question-studio-chapter-acceptance.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-ENGLISH-POLISH-REGRESSION.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-english-polish-regression.mjs
 
       - name: Run V3 editorial audit
         working-directory: artifacts/api-server
@@ -55,6 +68,32 @@ jobs:
             node dist/quant-v4/number-system-question-studio-release-audit.mjs \
             2>&1 | tee dist/quant-v4/number-system-question-studio-release-audit.log
 
+      - name: Diagnose SAP exact stem repetition
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-question-studio-repetition-diagnostic.mjs \
+            2>&1 | tee dist/quant-v4/sap-question-studio-repetition-diagnostic.log
+
+      - name: Run SAP chapter-wide English acceptance audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-question-studio-chapter-acceptance.mjs \
+            2>&1 | tee dist/quant-v4/sap-question-studio-chapter-acceptance.log
+
+      - name: Run SAP English polish regression
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/sap-english-polish-regression.mjs \
+            2>&1 | tee dist/quant-v4/sap-english-polish-regression.log
+
       - name: Upload release evidence and diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -69,5 +108,13 @@ jobs:
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.json
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.csv
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.md
+            artifacts/api-server/dist/quant-v4/sap-question-studio-repetition-diagnostic.log
+            artifacts/api-server/dist/quant-v4/sap-question-studio-repetition-diagnostic/sap-question-studio-repetition-diagnostic.json
+            artifacts/api-server/dist/quant-v4/sap-question-studio-repetition-diagnostic/sap-question-studio-repetition-diagnostic.md
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance.log
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance/sap-question-studio-chapter-acceptance.json
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance/sap-question-studio-chapter-acceptance.csv
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance/sap-question-studio-chapter-acceptance.md
+            artifacts/api-server/dist/quant-v4/sap-english-polish-regression.log
           if-no-files-found: warn
           retention-days: 30
