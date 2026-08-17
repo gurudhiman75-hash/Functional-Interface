@@ -39,7 +39,8 @@ jobs:
             spatial-figure-completion-source-saturation-v1 \
             spatial-permanent-ql-allocation-v2 \
             spatial-figure-completion-permanent-english-runtime-v1 \
-            spatial-figure-completion-permanent-english-editorial-v1
+            spatial-figure-completion-permanent-english-editorial-v1 \
+            spatial-figure-completion-english-freeze-v1
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -72,6 +73,8 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-permanent-english-runtime-v1.test.mjs
       - name: Run FGC-001 student-specific English editorial gate
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-permanent-english-editorial-v1.test.mjs
+      - name: Prove FGC-001 English freeze authority
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-english-freeze-v1.test.mjs
       - name: Upload FGC-001 discovery review
         uses: actions/upload-artifact@v4
         with:
