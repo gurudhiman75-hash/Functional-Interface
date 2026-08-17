@@ -17,12 +17,28 @@ function ordinalHi(value: number): string {
   return values[value] ?? `${value}वाँ`;
 }
 
+function ordinalHiOblique(value: number): string {
+  const values: Record<number, string> = {
+    1: "पहले", 2: "दूसरे", 3: "तीसरे", 4: "चौथे", 5: "पाँचवें", 6: "छठे",
+    7: "सातवें", 8: "आठवें", 9: "नौवें", 10: "दसवें", 11: "ग्यारहवें", 12: "बारहवें",
+  };
+  return values[value] ?? `${value}वें`;
+}
+
 function ordinalPa(value: number): string {
   const values: Record<number, string> = {
     1: "ਪਹਿਲਾ", 2: "ਦੂਜਾ", 3: "ਤੀਜਾ", 4: "ਚੌਥਾ", 5: "ਪੰਜਵਾਂ", 6: "ਛੇਵਾਂ",
     7: "ਸੱਤਵਾਂ", 8: "ਅੱਠਵਾਂ", 9: "ਨੌਵਾਂ", 10: "ਦਸਵਾਂ", 11: "ਗਿਆਰਵਾਂ", 12: "ਬਾਰ੍ਹਵਾਂ",
   };
   return values[value] ?? `${value}ਵਾਂ`;
+}
+
+function ordinalPaOblique(value: number): string {
+  const values: Record<number, string> = {
+    1: "ਪਹਿਲੇ", 2: "ਦੂਜੇ", 3: "ਤੀਜੇ", 4: "ਚੌਥੇ", 5: "ਪੰਜਵੇਂ", 6: "ਛੇਵੇਂ",
+    7: "ਸੱਤਵੇਂ", 8: "ਅੱਠਵੇਂ", 9: "ਨੌਵੇਂ", 10: "ਦਸਵੇਂ", 11: "ਗਿਆਰਵੇਂ", 12: "ਬਾਰ੍ਹਵੇਂ",
+  };
+  return values[value] ?? `${value}ਵੇਂ`;
 }
 
 function indexFromSide(length: number, rank: number, side: WorBankingSide): number {
@@ -37,7 +53,7 @@ function sideText(side: WorBankingSide, locale: WorLocale): string {
 
 function directionText(trace: WorBankingTrace, locale: WorLocale): string {
   if (locale === "hi-IN") return trace.sortDirection === "ASCENDING" ? "सामान्य शब्दकोश क्रम" : "उल्टे शब्दकोश क्रम";
-  if (locale === "pa-IN") return trace.sortDirection === "ASCENDING" ? "ਸਧਾਰਣ ਸ਼ਬਦਕੋਸ਼ ਕ੍ਰਮ" : "ਉਲਟੇ ਸ਼ਬਦਕੋਸ਼ ਕ੍ਰਮ";
+  if (locale === "pa-IN") return trace.sortDirection === "ASCENDING" ? "ਸਧਾਰਣ ਸ਼ਬਦਕੋਸ਼ ਕ੍ਰਮ" : "ਉਲਟ ਸ਼ਬਦਕੋਸ਼ ਕ੍ਰਮ";
   return trace.sortDirection === "ASCENDING" ? "normal dictionary order" : "reverse dictionary order";
 }
 
@@ -120,7 +136,7 @@ function renderHindiStem(trace: WorBankingTrace): string {
     }
     case "BANK_TRANSFORM_SORT_POSITION": {
       const query = trace.answerMode === "ORIGINAL"
-        ? `${sideText(trace.wordRankSide!, "hi-IN")} से ${ordinalHi(trace.wordRank!)} बदले हुए समूह से संबंधित मूल समूह कौन-सा है?`
+        ? `${sideText(trace.wordRankSide!, "hi-IN")} से ${ordinalHiOblique(trace.wordRank!)} स्थान पर आने वाले बदले हुए समूह से संबंधित मूल समूह कौन-सा है?`
         : `${sideText(trace.wordRankSide!, "hi-IN")} से ${ordinalHi(trace.wordRank!)} बदला हुआ समूह कौन-सा है?`;
       return `${transformationText(trace.transformation, "hi-IN")} बने समूहों को ${direction} में लगाएँ। ${query}`;
     }
@@ -143,7 +159,7 @@ function renderPunjabiStem(trace: WorBankingTrace): string {
     }
     case "BANK_TRANSFORM_SORT_POSITION": {
       const query = trace.answerMode === "ORIGINAL"
-        ? `${sideText(trace.wordRankSide!, "pa-IN")} ਤੋਂ ${ordinalPa(trace.wordRank!)} ਬਦਲੇ ਹੋਏ ਸਮੂਹ ਨਾਲ ਸੰਬੰਧਤ ਮੂਲ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?`
+        ? `${sideText(trace.wordRankSide!, "pa-IN")} ਤੋਂ ${ordinalPaOblique(trace.wordRank!)} ਸਥਾਨ ਉੱਤੇ ਆਉਣ ਵਾਲੇ ਬਦਲੇ ਹੋਏ ਸਮੂਹ ਨਾਲ ਸੰਬੰਧਤ ਮੂਲ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?`
         : `${sideText(trace.wordRankSide!, "pa-IN")} ਤੋਂ ${ordinalPa(trace.wordRank!)} ਬਦਲਿਆ ਹੋਇਆ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?`;
       return `${transformationText(trace.transformation, "pa-IN")} ਬਣੇ ਸਮੂਹਾਂ ਨੂੰ ${direction} ਵਿੱਚ ਲਗਾਓ। ${query}`;
     }
@@ -176,7 +192,9 @@ function renderExplanation(trace: WorBankingTrace, answer: string, locale: WorLo
         return `${rule} क्रम ${order} है। ${sideText(trace.wordRankSide!, locale)} से ${ordinalHi(trace.wordRank!)} समूह ${selectedWord} है। उसमें ${sideText(trace.characterSide!, locale)} से ${ordinalHi(trace.characterIndex!)} अक्षर ${selectedLetter} है। ${finalStep}`;
       }
       case "BANK_TRANSFORM_SORT_POSITION":
-        return `${rule}${transform} बदले हुए समूहों का क्रम ${order} है। ${sideText(trace.wordRankSide!, locale)} से ${ordinalHi(trace.wordRank!)} स्थान पर ${trace.answerMode === "ORIGINAL" ? `संबंधित मूल समूह ${answer}` : `बदला हुआ समूह ${answer}`} है।`;
+        return trace.answerMode === "ORIGINAL"
+          ? `${rule}${transform} बदले हुए समूहों का क्रम ${order} है। ${sideText(trace.wordRankSide!, locale)} से ${ordinalHiOblique(trace.wordRank!)} स्थान पर आने वाले बदले हुए समूह से संबंधित मूल समूह ${answer} है।`
+          : `${rule}${transform} बदले हुए समूहों का क्रम ${order} है। ${sideText(trace.wordRankSide!, locale)} से ${ordinalHi(trace.wordRank!)} बदला हुआ समूह ${answer} है।`;
       case "BANK_TRANSFORM_SORT_LOCAL_CHAR":
         return `${rule}${transform} बदले हुए समूहों का क्रम ${order} है। ${sideText(trace.wordRankSide!, locale)} से ${ordinalHi(trace.wordRank!)} समूह ${selectedWord} है और उसमें ${sideText(trace.characterSide!, locale)} से ${ordinalHi(trace.characterIndex!)} अक्षर ${selectedLetter} है। इसलिए उत्तर ${answer} है।`;
     }
@@ -196,7 +214,9 @@ function renderExplanation(trace: WorBankingTrace, answer: string, locale: WorLo
         return `${rule} ਕ੍ਰਮ ${order} ਹੈ। ${sideText(trace.wordRankSide!, locale)} ਤੋਂ ${ordinalPa(trace.wordRank!)} ਸਮੂਹ ${selectedWord} ਹੈ। ਉਸ ਵਿੱਚ ${sideText(trace.characterSide!, locale)} ਤੋਂ ${ordinalPa(trace.characterIndex!)} ਅੱਖਰ ${selectedLetter} ਹੈ। ${finalStep}`;
       }
       case "BANK_TRANSFORM_SORT_POSITION":
-        return `${rule}${transform} ਬਦਲੇ ਹੋਏ ਸਮੂਹਾਂ ਦਾ ਕ੍ਰਮ ${order} ਹੈ। ${sideText(trace.wordRankSide!, locale)} ਤੋਂ ${ordinalPa(trace.wordRank!)} ਸਥਾਨ ਉੱਤੇ ${trace.answerMode === "ORIGINAL" ? `ਸੰਬੰਧਤ ਮੂਲ ਸਮੂਹ ${answer}` : `ਬਦਲਿਆ ਹੋਇਆ ਸਮੂਹ ${answer}`} ਹੈ।`;
+        return trace.answerMode === "ORIGINAL"
+          ? `${rule}${transform} ਬਦਲੇ ਹੋਏ ਸਮੂਹਾਂ ਦਾ ਕ੍ਰਮ ${order} ਹੈ। ${sideText(trace.wordRankSide!, locale)} ਤੋਂ ${ordinalPaOblique(trace.wordRank!)} ਸਥਾਨ ਉੱਤੇ ਆਉਣ ਵਾਲੇ ਬਦਲੇ ਹੋਏ ਸਮੂਹ ਨਾਲ ਸੰਬੰਧਤ ਮੂਲ ਸਮੂਹ ${answer} ਹੈ।`
+          : `${rule}${transform} ਬਦਲੇ ਹੋਏ ਸਮੂਹਾਂ ਦਾ ਕ੍ਰਮ ${order} ਹੈ। ${sideText(trace.wordRankSide!, locale)} ਤੋਂ ${ordinalPa(trace.wordRank!)} ਬਦਲਿਆ ਹੋਇਆ ਸਮੂਹ ${answer} ਹੈ।`;
       case "BANK_TRANSFORM_SORT_LOCAL_CHAR":
         return `${rule}${transform} ਬਦਲੇ ਹੋਏ ਸਮੂਹਾਂ ਦਾ ਕ੍ਰਮ ${order} ਹੈ। ${sideText(trace.wordRankSide!, locale)} ਤੋਂ ${ordinalPa(trace.wordRank!)} ਸਮੂਹ ${selectedWord} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ${sideText(trace.characterSide!, locale)} ਤੋਂ ${ordinalPa(trace.characterIndex!)} ਅੱਖਰ ${selectedLetter} ਹੈ। ਇਸ ਲਈ ਉੱਤਰ ${answer} ਹੈ।`;
     }
@@ -215,7 +235,9 @@ function renderExplanation(trace: WorBankingTrace, answer: string, locale: WorLo
       return `${rule} The order is ${order}. The ${ordinalEn(trace.wordRank!)} group from the ${sideText(trace.wordRankSide!, locale)} is ${selectedWord}. Its ${ordinalEn(trace.characterIndex!)} letter from the ${sideText(trace.characterSide!, locale)} is ${selectedLetter}. ${finalStep}`;
     }
     case "BANK_TRANSFORM_SORT_POSITION":
-      return `${rule}${transform} The transformed order is ${order}. The ${ordinalEn(trace.wordRank!)} transformed group from the ${sideText(trace.wordRankSide!, locale)} corresponds to ${trace.answerMode === "ORIGINAL" ? `the original group ${answer}` : `the transformed group ${answer}`}.`;
+      return trace.answerMode === "ORIGINAL"
+        ? `${rule}${transform} The transformed order is ${order}. The ${ordinalEn(trace.wordRank!)} transformed group from the ${sideText(trace.wordRankSide!, locale)} corresponds to the original group ${answer}.`
+        : `${rule}${transform} The transformed order is ${order}. The ${ordinalEn(trace.wordRank!)} transformed group from the ${sideText(trace.wordRankSide!, locale)} is ${answer}.`;
     case "BANK_TRANSFORM_SORT_LOCAL_CHAR":
       return `${rule}${transform} The transformed order is ${order}. The ${ordinalEn(trace.wordRank!)} group from the ${sideText(trace.wordRankSide!, locale)} is ${selectedWord}; its ${ordinalEn(trace.characterIndex!)} letter from the ${sideText(trace.characterSide!, locale)} is ${selectedLetter}. Therefore, the answer is ${answer}.`;
   }
