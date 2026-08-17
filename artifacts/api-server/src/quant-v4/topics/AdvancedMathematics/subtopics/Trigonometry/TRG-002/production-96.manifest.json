@@ -1,0 +1,46 @@
+{
+  "packageId": "TRG-002",
+  "checkpoint": "PHASE8_PRODUCTION_96_RUNTIME_GATED",
+  "status": "96_ENGLISH_QLS_IMPLEMENTED_RUNTIME_PASS_EDITORIAL_PENDING",
+  "activeRuntime": "production-runtime-96.ts",
+  "counts": {
+    "productionEnglishQlCount": 96,
+    "perCp": 24,
+    "frozenApprovedBaselineQlCount": 48,
+    "phase8ExpansionQlCount": 48
+  },
+  "frozenBaseline": {
+    "status": "FROZEN",
+    "humanReviewStatus": "APPROVED",
+    "approvedContentFingerprint": "b60217f9b29af79435ab065e4c64c40449dc43df2fa9646b055f41763bce04db",
+    "unchangedByPhase8": true
+  },
+  "phase8Expansion": {
+    "implementedQlCount": 48,
+    "runtimeGate": "PASS",
+    "aiEditorialStatus": "PENDING",
+    "humanReviewStatus": "PENDING",
+    "freezeStatus": "NOT_FROZEN"
+  },
+  "executionEvidence": {
+    "sourceHead": "f81e040c809c25141df8797d3d6fa66a639bc4b3",
+    "workflow": ".github/workflows/trg-002-production-96-verification.yml",
+    "workflowRunId": 31988969366,
+    "targetedTypeScriptCompile": "PASS",
+    "frozen48FingerprintGate": "PASS",
+    "production96RuntimeGate": "PASS",
+    "productionSweepCases": 1152,
+    "expansionSolveModes": 48,
+    "structuralDuplicateGroups": 0,
+    "artifactId": 9274671403,
+    "artifactDigest": "sha256:38b8da135b60f82cc2b76b87360b554bf6c34a7afd0c86d4d89af3cc679b5e25"
+  },
+  "activation": {
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "publiclyPublishable": false,
+    "hindiPunjabiRuntime": false
+  },
+  "next": "Run AI/editorial audit and remediation across the 48 Phase-8 expansion QLs. Do not mark them human-approved or frozen until dedicated review evidence exists."
+}
