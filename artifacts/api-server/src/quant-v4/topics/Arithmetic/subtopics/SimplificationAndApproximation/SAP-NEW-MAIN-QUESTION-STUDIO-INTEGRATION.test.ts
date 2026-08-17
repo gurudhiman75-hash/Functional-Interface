@@ -31,8 +31,8 @@ assert.equal(sap.questionBankWritable, true);
 assert.equal(sap.testEligibility, "ELIGIBLE");
 assert.equal(sap.publiclyPublishable, true);
 
-assert.ok(packages.some((entry: any) => entry.packageId === "NUM-001"), "Current Number System package disappeared during SAP restack.");
-assert.ok(packages.some((entry: any) => entry.packageId === "TMW-001"), "Current Time & Work package disappeared during SAP restack.");
+assert.ok(packages.some((entry: any) => entry.packageId === "NUM-001"), "Current Number System package disappeared during SAP lifecycle cleanup.");
+assert.ok(packages.some((entry: any) => entry.packageId === "TMW-001"), "Current Time & Work package disappeared during SAP lifecycle cleanup.");
 
 function assertStandardLifecycleQuestion(question: any, language: "en" | "hi" | "pa", qlId: string) {
   assert.equal(question.packageId, "SAP");
@@ -110,13 +110,21 @@ const routeSource = readFileSync(
   resolve(process.cwd(), "src/routes/admin-question-studio-average.ts"),
   "utf8",
 );
+const sharedGenerationSource = readFileSync(
+  resolve(process.cwd(), "src/question-studio/shared-generation-engine.ts"),
+  "utf8",
+);
 assert.ok(
-  routeSource.includes('from "../quant-v4/question-studio-review-engine"'),
-  "Shared /runs route must use the current Question Studio review engine.",
+  routeSource.includes('from "../question-studio/shared-generation-engine"'),
+  "Shared /runs route must use the current cross-domain Question Studio generation engine.",
+);
+assert.ok(
+  sharedGenerationSource.includes('from "../quant-v4/question-studio-review-engine"'),
+  "Shared cross-domain generation engine must delegate Quant packages to the current Quant review engine.",
 );
 assert.ok(routeSource.includes("isSimplificationRequest"));
 assert.ok(routeSource.includes('"SAP"'));
-assert.ok(routeSource.includes("isTimeAndWorkRequest"), "TMW shared route support was lost during SAP restack.");
+assert.ok(routeSource.includes("isTimeAndWorkRequest"), "TMW shared route support was lost during SAP lifecycle cleanup.");
 assert.ok(routeSource.includes("content.generation_runs"));
 assert.ok(routeSource.includes("content.generation_run_items"));
 assert.ok(routeSource.includes("content.generation_item_versions"));
@@ -133,6 +141,7 @@ console.log(JSON.stringify({
   testEligibility: sap.testEligibility,
   publiclyPublishable: sap.publiclyPublishable,
   standardQuestionBankPromotionVerified: true,
+  crossDomainSharedEngineVerified: true,
   reviewEngineDelegationVerified: true,
   sharedRunsRouteVerified: true,
   currentNumberSystemPreserved: true,
