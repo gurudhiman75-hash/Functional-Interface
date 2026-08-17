@@ -69,6 +69,26 @@ function isNumberSystemRequest(body: any) {
   );
 }
 
+function isSimplificationRequest(body: any) {
+  const packageId = normalizeSelector(body?.packageId ?? body?.archetypeId);
+  const patternId = normalizeSelector(body?.patternId);
+  const topic = normalizeSelector(body?.topic);
+  const subtopic = normalizeSelector(body?.subtopic);
+  const selectors = new Set([
+    "simplification approximation",
+    "simplification and approximation",
+    "simplification",
+    "approximation",
+  ]);
+  return (
+    packageId === "sap" ||
+    patternId === "sap" ||
+    patternId.includes("sap ql") ||
+    (selectors.has(topic) && !subtopic) ||
+    (topic === "arithmetic" && selectors.has(subtopic))
+  );
+}
+
 function isTimeAndWorkRequest(body: any) {
   const packageId = normalizeSelector(body?.packageId ?? body?.archetypeId);
   const patternId = normalizeSelector(body?.patternId);
@@ -156,19 +176,28 @@ router.post(
   "/runs",
   requireAdminPermission("content.generation.run"),
   async (req, res, next) => {
+    const simplificationRequest = isSimplificationRequest(req.body);
     const numberSystemRequest = isNumberSystemRequest(req.body);
     const averageRequest = isAverageRequest(req.body);
     const timeAndWorkRequest = isTimeAndWorkRequest(req.body);
-    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest) {
+    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest) {
       next();
       return;
     }
 
     const count = asPositiveInteger(req.body?.count, 5, 50);
     const defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001";
-    const selectedPackageId = timeAndWorkRequest ? "TMW-001" : defaultPackageId;
+    const selectedPackageId = simplificationRequest
+      ? "SAP"
+      : timeAndWorkRequest
+        ? "TMW-001"
+        : defaultPackageId;
     const defaultSubtopic = numberSystemRequest ? "Number System" : "Average";
-    const selectedSubtopic = timeAndWorkRequest ? "Time & Work" : defaultSubtopic;
+    const selectedSubtopic = simplificationRequest
+      ? "Simplification & Approximation"
+      : timeAndWorkRequest
+        ? "Time & Work"
+        : defaultSubtopic;
     const packageId = asString(req.body?.packageId) || selectedPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
     const topic = asString(req.body?.topic) || "Arithmetic";
