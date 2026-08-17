@@ -1,0 +1,47 @@
+name: Validate SYL-001 Banking paper census V1
+on:
+  pull_request:
+    branches:
+      - prototype/syl-001-bank-possibility-shell
+      - audit/syl-001-source-profile-freeze
+      - feat/syl-001-learner-v4
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/banking-paper-census-v1.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/banking-paper-census-v1-audit.test.ts
+      - .github/workflows/reasoning-syl-001-bank-paper-census-v1.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: validate-syl-001-bank-paper-census-v1-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate-paper-census-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Bundle Banking paper census V1 audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/banking-paper-census-v1-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-paper-census-v1-audit.test.mjs
+      - name: Run Banking paper census V1 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-bank-paper-census-v1-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-paper-census-v1-audit.log
+
+      - name: Upload Banking paper census V1 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: syl-001-bank-paper-census-v1
+          path: artifacts/api-server/dist/reasoning-v1/syl-001-bank-paper-census-v1-audit.log
+          if-no-files-found: error
+          retention-days: 30
