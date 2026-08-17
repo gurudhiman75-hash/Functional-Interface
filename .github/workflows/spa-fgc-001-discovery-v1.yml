@@ -31,6 +31,7 @@ jobs:
             spatial-permanent-ql-allocation-v1 \
             spatial-figure-completion-discovery-v1 \
             spatial-figure-completion-symmetry-discovery-v1 \
+            spatial-figure-completion-arc-discovery-v1 \
             spatial-figure-completion-visual-composition-v1
           do
             pnpm --dir artifacts/api-server exec esbuild \
@@ -46,6 +47,8 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-discovery-v1.test.mjs
       - name: Run FGC-001 symmetry discovery proof
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-symmetry-discovery-v1.test.mjs
+      - name: Run FGC-001 arc symmetry stress proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-arc-discovery-v1.test.mjs
       - name: Run FGC-001 learner-visible composition proof
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-visual-composition-v1.test.mjs
       - name: Upload FGC-001 discovery review
@@ -59,4 +62,7 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-symmetry-discovery-v1-review.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-symmetry-discovery-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-symmetry-discovery-v1-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-arc-discovery-v1-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-arc-discovery-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-arc-discovery-v1-review.html
           if-no-files-found: error
