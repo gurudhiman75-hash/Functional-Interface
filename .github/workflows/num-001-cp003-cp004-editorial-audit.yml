@@ -44,9 +44,9 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/sap-question-studio-repetition-diagnostic.mjs
           pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-INTEGRATION.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-CHAPTER-ACCEPTANCE.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=dist/quant-v4/sap-question-studio-chapter-review-audit.mjs
+            --outfile=dist/quant-v4/sap-question-studio-chapter-acceptance.mjs
 
       - name: Run V3 editorial audit
         working-directory: artifacts/api-server
@@ -73,14 +73,14 @@ jobs:
             node dist/quant-v4/sap-question-studio-repetition-diagnostic.mjs \
             2>&1 | tee dist/quant-v4/sap-question-studio-repetition-diagnostic.log
 
-      - name: Run SAP chapter-wide Question Studio review audit
+      - name: Run SAP chapter-wide English acceptance audit
         working-directory: artifacts/api-server
         shell: bash
         run: |
           set -o pipefail
           timeout --signal=TERM --kill-after=30s 12m \
-            node dist/quant-v4/sap-question-studio-chapter-review-audit.mjs \
-            2>&1 | tee dist/quant-v4/sap-question-studio-chapter-review-audit.log
+            node dist/quant-v4/sap-question-studio-chapter-acceptance.mjs \
+            2>&1 | tee dist/quant-v4/sap-question-studio-chapter-acceptance.log
 
       - name: Upload release evidence and diagnostics
         if: always()
@@ -99,9 +99,9 @@ jobs:
             artifacts/api-server/dist/quant-v4/sap-question-studio-repetition-diagnostic.log
             artifacts/api-server/dist/quant-v4/sap-question-studio-repetition-diagnostic/sap-question-studio-repetition-diagnostic.json
             artifacts/api-server/dist/quant-v4/sap-question-studio-repetition-diagnostic/sap-question-studio-repetition-diagnostic.md
-            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-review-audit.log
-            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-review/sap-question-studio-chapter-review.json
-            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-review/sap-question-studio-chapter-review.csv
-            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-review/sap-question-studio-chapter-review.md
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance.log
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance/sap-question-studio-chapter-acceptance.json
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance/sap-question-studio-chapter-acceptance.csv
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance/sap-question-studio-chapter-acceptance.md
           if-no-files-found: warn
           retention-days: 30
