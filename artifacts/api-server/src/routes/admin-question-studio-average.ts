@@ -69,6 +69,26 @@ function isNumberSystemRequest(body: any) {
   );
 }
 
+function isTimeAndWorkRequest(body: any) {
+  const packageId = normalizeSelector(body?.packageId ?? body?.archetypeId);
+  const patternId = normalizeSelector(body?.patternId);
+  const topic = normalizeSelector(body?.topic);
+  const subtopic = normalizeSelector(body?.subtopic);
+  const selectors = new Set([
+    "time work",
+    "time and work",
+    "work and time",
+    "pipes cisterns",
+    "pipes and cisterns",
+  ]);
+  return (
+    packageId === "tmw 001" ||
+    patternId.includes("tmw 001") ||
+    (selectors.has(topic) && !subtopic) ||
+    (topic === "arithmetic" && selectors.has(subtopic))
+  );
+}
+
 function inferNumberSystemCpFromQl(value: unknown) {
   const match = /^NUM-QL-(\d{3})$/u.exec(asString(value));
   if (!match) return undefined;
@@ -138,18 +158,21 @@ router.post(
   async (req, res, next) => {
     const numberSystemRequest = isNumberSystemRequest(req.body);
     const averageRequest = isAverageRequest(req.body);
-    if (!averageRequest && !numberSystemRequest) {
+    const timeAndWorkRequest = isTimeAndWorkRequest(req.body);
+    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest) {
       next();
       return;
     }
 
     const count = asPositiveInteger(req.body?.count, 5, 50);
     const defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001";
+    const selectedPackageId = timeAndWorkRequest ? "TMW-001" : defaultPackageId;
     const defaultSubtopic = numberSystemRequest ? "Number System" : "Average";
-    const packageId = asString(req.body?.packageId) || defaultPackageId;
+    const selectedSubtopic = timeAndWorkRequest ? "Time & Work" : defaultSubtopic;
+    const packageId = asString(req.body?.packageId) || selectedPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
     const topic = asString(req.body?.topic) || "Arithmetic";
-    const subtopic = asString(req.body?.subtopic) || defaultSubtopic;
+    const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
     const subject = asString(req.body?.subject) || "Quantitative Aptitude";
     const language = normalizeLanguage(req.body?.language);
@@ -204,7 +227,7 @@ router.post(
 
     try {
       const result = await generateQuantV4Questions({
-        packageId: defaultPackageId as "AVG-001" | "NUM-001",
+        packageId: selectedPackageId as any,
         patternId,
         topic,
         subtopic,
@@ -280,7 +303,7 @@ router.post(
             ${req.adminSession?.user.id ?? null}::uuid,
             'question_studio.generation_run.created', 'generation_run',
             ${runId}::uuid, 'Admin generated a Question Studio batch',
-            ${`Generated ${generatedQuestions.length} ${defaultPackageId} questions in ${code}`},
+            ${`Generated ${generatedQuestions.length} ${selectedPackageId} questions in ${code}`},
             ${JSON.stringify({ firebaseUid: req.user?.id, requestSnapshot })}
           )
         `;
@@ -304,7 +327,7 @@ router.post(
         generationSystem: "quant-v4",
       });
     } catch (error) {
-      console.error(`${defaultPackageId} Question Studio generation failed`, error);
+      console.error(`${selectedPackageId} Question Studio generation failed`, error);
       res.status(500).json({
         error: error instanceof Error ? error.message : "Question generation failed",
       });
