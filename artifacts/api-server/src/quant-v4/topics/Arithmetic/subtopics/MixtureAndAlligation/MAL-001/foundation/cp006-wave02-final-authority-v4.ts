@@ -54,6 +54,29 @@ function polishArticles(text: string): string {
   return text.replace(/\ba ([aeiou])/gu, (_match, vowel: string) => `an ${vowel}`);
 }
 
+function polishQuantityAgreement(text: string): string {
+  const bareAmount = "((?:[0-9]+(?:\\.[0-9]+)?(?:\\s+[0-9]+\\/[0-9]+)?|[0-9]*x))";
+  const amount = `(${bareAmount.slice(1, -1)} litres)`;
+  return text
+    .replace(
+      new RegExp(`\\b${bareAmount} litre (?=(?:sample|portion|batch|mixture|solution|transfer|return|amount|quantity|container|vessel|tank|drum)\\b)`, "giu"),
+      "$1-litre ",
+    )
+    .replace(
+      new RegExp(`\\b${bareAmount} litre\\b`, "giu"),
+      (_match, numericAmount: string) =>
+        `${numericAmount} ${numericAmount === "1" ? "litre" : "litres"}`,
+    )
+    .replace(
+      new RegExp(`${amount} of ([^,.;?]+) is (transferred|sent|moved|poured|added|returned|removed)`, "giu"),
+      "$1 of $2 are $3",
+    )
+    .replace(
+      new RegExp(`${amount} is (transferred|sent|moved|poured|added|returned|removed)`, "giu"),
+      "$1 are $2",
+    );
+}
+
 function applyMaterialContext(
   text: string,
   context: (typeof MAL_CP006_WAVE02_OBJECT_CONTEXTS)[number],
@@ -86,7 +109,10 @@ function applyObjects(
   const h = hashSeed(`${seed}:wave02-object-pool-v4`);
   const context = MAL_CP006_WAVE02_OBJECT_CONTEXTS[h % MAL_CP006_WAVE02_OBJECT_CONTEXTS.length];
   const container = context.containers[(h >>> 8) % context.containers.length] as MalCp006Wave02ContainerObject;
-  const transform = (text: string) => applyContainerObject(applyMaterialContext(text, context), container);
+  const transform = (text: string) =>
+    polishQuantityAgreement(
+      applyContainerObject(applyMaterialContext(text, context), container),
+    );
   const stem = transform(q.stem);
   const options = q.options.map(transform);
   const answer = transform(q.answer);
@@ -100,6 +126,8 @@ function applyObjects(
   if (context.id !== "MILK_WATER" && /\bmilk\b/iu.test(learnerText)) errors.push("milk leaked outside milk-water context");
   if (context.secondary !== "water" && /\bwater\b/iu.test(learnerText)) errors.push("water leaked outside selected context");
   if (/litres of pure milk are kept/iu.test(learnerText)) errors.push("quantity-agreement regression");
+  if (/\b(?:[0-9]+(?:\.\d+)?(?:\s+[0-9]+\/[0-9]+)?|[0-9]*x) litres(?: of [^,.;?]+)? is (?:transferred|sent|moved|poured|added|returned|removed)/iu.test(learnerText)) errors.push("plural-transfer agreement regression");
+  if (/\b(?:[2-9]|\d{2,})(?:\.\d+)?(?:\s+\d+\/\d+)? litre\b/iu.test(learnerText)) errors.push("plural-litre regression");
   if (/\bpure (syrup|juice|honey|wine|vinegar)\b/iu.test(learnerText)) errors.push("unnatural pure-liquid wording");
   if (/\ba [aeiou]/u.test(learnerText)) errors.push("indefinite-article regression");
   if (/\bAn (and|ends|contains|starts|has|first|finally)\b/u.test(learnerText)) errors.push("vessel-A label corrupted by article polish");
