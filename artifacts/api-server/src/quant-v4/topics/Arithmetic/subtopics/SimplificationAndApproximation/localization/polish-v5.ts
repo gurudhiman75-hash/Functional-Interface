@@ -74,27 +74,32 @@ function naturalnessErrors(pkg: any, language: SapTranslationLanguage) {
 export function applySapLocalizationPolishV5(pkg: any, language: SapTranslationLanguage) {
   const base = applySapLocalizationPolishV6(pkg, language);
   const naturalness = naturalnessErrors(base, language);
+  if (naturalness.errors.length > 0) {
+    throw new Error(
+      `${String(base.questionLanguageId ?? "SAP-QL-UNKNOWN")}/${language}: ${naturalness.errors.join(" | ")}`,
+    );
+  }
   const inheritedLocalizationErrors = Array.isArray(base.localizationValidation?.errors)
     ? base.localizationValidation.errors.map(String)
     : [];
   const inheritedValidationErrors = Array.isArray(base.validation?.errors)
     ? base.validation.errors.map(String)
     : [];
-  const localizationErrors = [...inheritedLocalizationErrors, ...naturalness.errors];
-  const validationErrors = [...inheritedValidationErrors, ...naturalness.errors];
+  const localizationErrors = [...inheritedLocalizationErrors];
+  const validationErrors = [...inheritedValidationErrors];
 
   return Object.freeze({
     ...base,
     localizationValidation: Object.freeze({
       ...(base.localizationValidation ?? {}),
-      ok: Boolean(base.localizationValidation?.ok) && naturalness.errors.length === 0,
+      ok: Boolean(base.localizationValidation?.ok),
       errors: Object.freeze(localizationErrors),
-      naturalnessOk: naturalness.errors.length === 0,
+      naturalnessOk: true,
       optionMathPreserved: naturalness.optionMathPreserved,
     }),
     validation: Object.freeze({
       ...(base.validation ?? {}),
-      ok: Boolean(base.validation?.ok) && naturalness.errors.length === 0,
+      ok: Boolean(base.validation?.ok),
       errors: Object.freeze(validationErrors),
     }),
     traceability: Object.freeze({
