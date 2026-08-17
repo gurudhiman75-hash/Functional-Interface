@@ -72,16 +72,19 @@ jobs:
           if (rows.length !== 48) throw new Error(`Expected 48 editorial review rows, found ${rows.length}`);
           for (const row of rows) {
             if (row.reviewStatus !== 'AI_REVIEWED' || row.aiEditorialStatus !== 'PASS') throw new Error(`${row.qlId}: AI editorial PASS missing`);
-            if (row.humanReviewStatus !== 'PENDING') throw new Error(`${row.qlId}: human review must remain PENDING`);
-            if (row.freezeStatus !== 'NOT_FROZEN') throw new Error(`${row.qlId}: expansion must remain NOT_FROZEN`);
+            if (row.humanReviewStatus !== 'PENDING') throw new Error(`${row.qlId}: approved source artifact must remain the pre-approval PENDING snapshot`);
+            if (row.freezeStatus !== 'NOT_FROZEN') throw new Error(`${row.qlId}: approved source artifact must remain the pre-freeze snapshot`);
             if (row.finalEditorialReview?.status !== 'PASS') throw new Error(`${row.qlId}: final editorial status missing`);
             if (row.finalEditorialReview?.runtimeSpecVisualInspection !== 'NOT_ASSERTED_PER_INSTANCE') throw new Error(`${row.qlId}: per-instance visual claim is invalid`);
-            if (row.finalEditorialReview?.appUiRenderedInspection !== 'PENDING' || row.finalEditorialReview?.renderedVisualInspection !== 'PENDING') throw new Error(`${row.qlId}: rendered visual/app inspection must remain PENDING`);
+            if (row.finalEditorialReview?.appUiRenderedInspection !== 'PENDING' || row.finalEditorialReview?.renderedVisualInspection !== 'PENDING') throw new Error(`${row.qlId}: approved source artifact must preserve pre-approval visual metadata`);
             if (row.finalEditorialReview?.humanReviewSubstituted !== false) throw new Error(`${row.qlId}: AI review must not substitute for human review`);
             if (row.validation?.valid !== true) throw new Error(`${row.qlId}: validation is not PASS`);
           }
-          console.log(`TRG002_PHASE8_EDITORIAL_PACK_PASS count=${rows.length} ai=PASS human=PENDING visual=PENDING freeze=NOT_FROZEN`);
+          console.log(`TRG002_PHASE8_APPROVED_SOURCE_PACK_PASS count=${rows.length} ai=PASS sourceHuman=PENDING sourceFreeze=NOT_FROZEN`);
           NODE
+
+      - name: Execute Phase 8 human approval and production freeze gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-freeze-96.test.ts
 
       - name: Create Phase 8 execution evidence
         if: success()
@@ -93,19 +96,21 @@ jobs:
           - Source head: \`${GITHUB_SHA}\`
           - Workflow run: \`${GITHUB_RUN_ID}\`
           - Permanent English QLs: **96**
-          - Frozen approved baseline: **48 unchanged**
-          - New Phase-8 expansion QLs: **48**
+          - Original frozen approved baseline: **48 unchanged**
+          - Phase-8 expansion QLs: **48 human-approved and frozen**
+          - Complete frozen production surface: **96 / 96**
           - Per CP: **24**
           - Targeted TypeScript compile: **PASS**
-          - Frozen 48 approval fingerprint gate: **PASS**
+          - Original 48 approval fingerprint gate: **PASS**
           - 96-QL production runtime gate: **PASS**
           - Production sweep cases: **1152**
           - Phase-8 AI/editorial gate: **PASS**
           - Phase-8 editorial cases: **576**
-          - Phase-8 editorial review pack: **48 designated runtime records**
-          - New expansion human review: **PENDING**
+          - Approved Phase-8 source review fingerprint: **PASS**
+          - Phase-8 human review: **APPROVED**
+          - Phase-8 freeze gate: **PASS**
+          - Per-generated-seed visual PASS claimed: **NO**
           - Representative real-app visual gate: **separate browser-expansion job**
-          - New expansion freeze status: **NOT FROZEN**
           - Question Studio/Test Builder/storage/publication: **OFF**
           EOF
 
@@ -163,7 +168,7 @@ jobs:
           JSON_COUNT=$(find test-results/trg002-production-visual -maxdepth 1 -name 'TRG-002-QL-*.json' | wc -l)
           test "$PNG_COUNT" -eq 14
           test "$JSON_COUNT" -eq 14
-          echo "TRG002_PHASE8_REAL_APP_VISUAL_PASS representatives=14 strategies=14 screenshots=$PNG_COUNT mobile=390x844 humanVisual=PENDING"
+          echo "TRG002_PHASE8_REAL_APP_VISUAL_PASS representatives=14 strategies=14 screenshots=$PNG_COUNT mobile=390x844 humanVisualApproval=PINNED exhaustiveVisualClaim=false"
       - name: Upload Phase 8 real-app visual evidence
         if: success()
         uses: actions/upload-artifact@v4
