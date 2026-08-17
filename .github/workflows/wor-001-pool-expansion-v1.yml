@@ -1,0 +1,67 @@
+name: WOR-001 Validation and English Editorial V2
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**"
+      - ".github/workflows/wor-001-pool-expansion-v1.yml"
+  push:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**"
+      - ".github/workflows/wor-001-pool-expansion-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-wor-001:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle and run WOR-001 validation suite
+        shell: bash
+        working-directory: artifacts/api-server
+        run: |
+          set -euo pipefail
+          mkdir -p dist/reasoning-v1/wor-001-tests
+          tests=(
+            wor-001.test.ts
+            wor-001-banking.test.ts
+            wor-001-corpus.test.ts
+            wor-001-pool-expansion.test.ts
+            wor-001-source-evidence.test.ts
+            wor-001-editorial-quality.test.ts
+          )
+          for test_file in "${tests[@]}"; do
+            base="${test_file%.ts}"
+            pnpm exec esbuild \
+              "src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/${test_file}" \
+              --bundle --platform=node --format=esm \
+              --outfile="dist/reasoning-v1/wor-001-tests/${base}.mjs"
+            node "dist/reasoning-v1/wor-001-tests/${base}.mjs"
+          done
+
+      - name: Upload English editorial review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: wor-001-english-editorial-review-v2
+          path: |
+            artifacts/api-server/dist/reasoning-v1/wor-001-editorial-review-v2/wor-001-english-classic-review.md
+            artifacts/api-server/dist/reasoning-v1/wor-001-editorial-review-v2/wor-001-english-banking-review.md
+            artifacts/api-server/dist/reasoning-v1/wor-001-editorial-review-v2/wor-001-english-editorial-evidence.json
+          if-no-files-found: error

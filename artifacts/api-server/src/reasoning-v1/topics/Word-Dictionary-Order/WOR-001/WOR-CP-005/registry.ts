@@ -1,0 +1,61 @@
+import type { WorPrototypeContract } from "../foundation/types";
+
+const FIVE_OPTION_BANKING = 5 as const;
+
+export const WOR_CP005_PROTOTYPES: readonly WorPrototypeContract[] = [
+  {
+    prototypeId: "WOR-PROT-020",
+    checkpointId: "WOR-CP-005",
+    taskKind: "BANK_PLAIN_CLUSTER_POSITION",
+    answerType: "WORD",
+    title: "Banking three-letter clusters: word at position",
+    allocationDecision: "MERGE_AS_INSTANCE_VARIANT",
+    sourceEvidenceStatus: "PYQ_SUPPORTED",
+    optionCount: FIVE_OPTION_BANKING,
+    supportedDifficulties: ["EASY", "MEDIUM", "HARD"],
+  },
+  {
+    prototypeId: "WOR-PROT-021",
+    checkpointId: "WOR-CP-005",
+    taskKind: "BANK_SORT_CONCAT_CHAR",
+    answerType: "LETTER",
+    title: "Sort, concatenate and query a global character",
+    allocationDecision: "RETAIN",
+    sourceEvidenceStatus: "PYQ_SUPPORTED",
+    optionCount: FIVE_OPTION_BANKING,
+    supportedDifficulties: ["MEDIUM", "HARD"],
+  },
+  {
+    prototypeId: "WOR-PROT-022",
+    checkpointId: "WOR-CP-005",
+    taskKind: "BANK_SORT_LOCAL_CHAR",
+    answerType: "LETTER",
+    title: "Sort, select a ranked cluster and query a local character",
+    allocationDecision: "RETAIN",
+    sourceEvidenceStatus: "PYQ_SUPPORTED",
+    optionCount: FIVE_OPTION_BANKING,
+    supportedDifficulties: ["MEDIUM", "HARD"],
+  },
+  {
+    prototypeId: "WOR-PROT-023",
+    checkpointId: "WOR-CP-005",
+    taskKind: "BANK_TRANSFORM_SORT_POSITION",
+    answerType: "WORD",
+    title: "Transform every cluster, sort and query a position",
+    allocationDecision: "RETAIN",
+    sourceEvidenceStatus: "PYQ_SUPPORTED",
+    optionCount: FIVE_OPTION_BANKING,
+    supportedDifficulties: ["MEDIUM", "HARD"],
+  },
+  {
+    prototypeId: "WOR-PROT-024",
+    checkpointId: "WOR-CP-005",
+    taskKind: "BANK_TRANSFORM_SORT_LOCAL_CHAR",
+    answerType: "LETTER",
+    title: "Transform every cluster, sort and query a local character",
+    allocationDecision: "RETAIN",
+    sourceEvidenceStatus: "PYQ_SUPPORTED",
+    optionCount: FIVE_OPTION_BANKING,
+    supportedDifficulties: ["MEDIUM", "HARD"],
+  },
+];
