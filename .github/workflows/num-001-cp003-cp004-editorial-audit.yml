@@ -59,6 +59,10 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-LOCALIZATION-RELEASE-AUDIT.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/sap-localization-release-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-LOCALIZATION-HUMAN-QUALITY-AUDIT.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-localization-human-quality-audit.mjs
 
       - name: Run V3 editorial audit
         working-directory: artifacts/api-server
@@ -120,6 +124,15 @@ jobs:
             node dist/quant-v4/sap-localization-release-audit.mjs \
             2>&1 | tee dist/quant-v4/sap-localization-release-audit.log
 
+      - name: Run SAP Hindi Punjabi two-seed human quality audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-localization-human-quality-audit.mjs \
+            2>&1 | tee dist/quant-v4/sap-localization-human-quality-audit.log
+
       - name: Upload release evidence and diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -149,5 +162,8 @@ jobs:
             artifacts/api-server/dist/quant-v4/sap-localization-release-review/sap-localization-release-review.json
             artifacts/api-server/dist/quant-v4/sap-localization-release-review/sap-localization-release-review.csv
             artifacts/api-server/dist/quant-v4/sap-localization-release-review/sap-localization-release-review.md
+            artifacts/api-server/dist/quant-v4/sap-localization-human-quality-audit.log
+            artifacts/api-server/dist/quant-v4/sap-localization-human-quality/sap-localization-human-quality.json
+            artifacts/api-server/dist/quant-v4/sap-localization-human-quality/sap-localization-human-quality.md
           if-no-files-found: warn
           retention-days: 30
