@@ -1,0 +1,108 @@
+name: Validate SAP CP-004 English Candidate
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/**"
+      - ".github/workflows/validate-sap-cp004-english-candidate.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-sap-cp004-english-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP-004 final authority
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/final-authority.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/sap-cp004-final-diversified-english-authority.test.mjs
+
+      - name: Run CP-004 final authority
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/sap-cp004-final-diversified-english-authority.test.mjs \
+            | tee dist/quant-v4/sap-cp004-final-diversified-english-authority.log
+
+      - name: Bundle CP-004 explanation authority
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/explanation-authority-v3.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/sap-cp004-explanation-remediation-v3-authority.test.mjs
+
+      - name: Run CP-004 explanation authority
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/sap-cp004-explanation-remediation-v3-authority.test.mjs \
+            | tee dist/quant-v4/sap-cp004-explanation-remediation-v3-authority.log
+
+      - name: Bundle CP-004 review exporter
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/generate-review.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/generate-sap-cp004-review.mjs
+
+      - name: Generate Markdown and HTML review
+        working-directory: artifacts/api-server
+        run: >-
+          node dist/quant-v4/generate-sap-cp004-review.mjs
+          dist/quant-v4/SAP-CP-004-300-FULL-ENGLISH-REVIEW.md
+          dist/quant-v4/SAP-CP-004-300-FULL-ENGLISH-REVIEW.html
+
+      - name: Bundle HTML rendering verifier
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/fix-review-html.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/fix-sap-cp004-review-html.mjs
+
+      - name: Fix and verify HTML math rendering
+        working-directory: artifacts/api-server
+        run: >-
+          node dist/quant-v4/fix-sap-cp004-review-html.mjs
+          dist/quant-v4/SAP-CP-004-300-FULL-ENGLISH-REVIEW.html
+
+      - name: Upload CP-004 review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp004-explanation-remediation-v3-review
+          path: |
+            artifacts/api-server/dist/quant-v4/SAP-CP-004-300-FULL-ENGLISH-REVIEW.md
+            artifacts/api-server/dist/quant-v4/SAP-CP-004-300-FULL-ENGLISH-REVIEW.html
+            artifacts/api-server/dist/quant-v4/sap-cp004-final-diversified-english-authority.log
+            artifacts/api-server/dist/quant-v4/sap-cp004-explanation-remediation-v3-authority.log
+          if-no-files-found: error
+          retention-days: 30
