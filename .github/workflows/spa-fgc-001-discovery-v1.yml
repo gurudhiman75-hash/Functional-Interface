@@ -35,7 +35,8 @@ jobs:
             spatial-figure-completion-source-gap-discovery-v2 \
             spatial-figure-completion-visual-composition-v1 \
             spatial-figure-completion-rule-geometry-v2 \
-            spatial-figure-completion-merge-split-proposal-v1
+            spatial-figure-completion-merge-split-proposal-v1 \
+            spatial-figure-completion-source-saturation-v1
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -60,6 +61,8 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-rule-geometry-v2.test.mjs
       - name: Prove FGC-001 anti-duplication merge split proposal
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-merge-split-proposal-v1.test.mjs
+      - name: Decide FGC-001 scoped source saturation
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-source-saturation-v1.test.mjs
       - name: Upload FGC-001 discovery review
         uses: actions/upload-artifact@v4
         with:
