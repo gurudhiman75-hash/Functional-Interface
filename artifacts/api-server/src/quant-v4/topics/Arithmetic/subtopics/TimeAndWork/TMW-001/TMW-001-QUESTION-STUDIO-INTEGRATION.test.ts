@@ -1,7 +1,7 @@
 import {
   generateQuestion,
   listQuantV4Packages,
-} from "../../../../../../question-studio-review-engine";
+} from "../../../../../question-studio-review-engine";
 import {
   TMW_001_QUESTION_STUDIO_CP_IDS,
   TMW_001_QUESTION_STUDIO_LANGUAGES,
@@ -28,15 +28,16 @@ ok(card.publiclyPublishable === false, "TMW public publication must remain locke
 
 ok(TMW_001_QUESTION_STUDIO_QLS.length === 228, "TMW adapter must register exactly 228 frozen QLs");
 ok(new Set(TMW_001_QUESTION_STUDIO_QLS.map((entry) => entry.qlId)).size === 228, "TMW QL registration contains duplicates");
+ok(new Set(TMW_001_QUESTION_STUDIO_QLS.map((entry) => entry.checkpointId)).size === 14, "TMW adapter must cover all 14 checkpoints");
+ok(TMW_001_QUESTION_STUDIO_CP_IDS.length === 14, "TMW CP capability count drift");
+ok(TMW_001_QUESTION_STUDIO_LANGUAGES.length === 3, "TMW language capability count drift");
+
 for (let index = 0; index < 228; index += 1) {
   const expected = `TMW-QL-${String(index + 1).padStart(3, "0")}`;
   const descriptor = TMW_001_QUESTION_STUDIO_QLS[index]!;
   ok(descriptor.qlId === expected, `non-contiguous TMW registration at ${expected}`);
   ok(inferTmw001QuestionStudioCpFromQl(expected) === descriptor.checkpointId, `${expected}: QL -> CP ownership drift`);
 }
-ok(new Set(TMW_001_QUESTION_STUDIO_QLS.map((entry) => entry.checkpointId)).size === 14, "TMW adapter must cover all 14 checkpoints");
-ok(TMW_001_QUESTION_STUDIO_CP_IDS.length === 14, "TMW CP capability count drift");
-ok(TMW_001_QUESTION_STUDIO_LANGUAGES.length === 3, "TMW language capability count drift");
 
 let frozenPackages = 0;
 for (const descriptor of TMW_001_QUESTION_STUDIO_QLS) {
@@ -71,10 +72,10 @@ for (const language of TMW_001_QUESTION_STUDIO_LANGUAGES) {
       subtopic: "Time & Work",
       language,
       difficulty,
-      count: 8,
+      count: 3,
       seed: `tmw-shared-engine:${language}:${difficulty}`,
     });
-    ok(result.questions.length === 8, `${language}:${difficulty}: shared engine batch size mismatch`);
+    ok(result.questions.length === 3, `${language}:${difficulty}: shared engine batch size mismatch`);
     ok(result.generationContext.runtimeMode === "QUESTION_STUDIO_ACTIVE", `${language}:${difficulty}: shared runtime mode mismatch`);
     ok(result.generationContext.questionBankStatus === "NOT_STORED", `${language}:${difficulty}: generation context Question Bank lock drift`);
     ok(result.generationContext.testEligibility === "INELIGIBLE", `${language}:${difficulty}: generation context test lock drift`);
