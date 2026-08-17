@@ -1,0 +1,103 @@
+import {
+  WOR_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
+  WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE,
+  type WorQuestionStudioReviewQuestion,
+} from "./question-studio-review";
+
+export const WOR_001_QUESTION_STUDIO_REVISION_POLICY = "SOURCE_GENERATOR_ONLY" as const;
+export const WOR_001_QUESTION_STUDIO_RELEASE_FREEZE = "PENDING_NATIVE_SIGNOFF_AND_PERMANENT_QL" as const;
+
+export interface WorQuestionStudioRegenerationMetadata {
+  readonly sourceVersionNumber: number;
+  readonly sourceRunCode: string;
+  readonly reason: string;
+  readonly regeneratedAt: string;
+}
+
+export function buildWor001QuestionStudioPayload(
+  question: WorQuestionStudioReviewQuestion,
+  regeneration?: WorQuestionStudioRegenerationMetadata,
+) {
+  return {
+    text: question.displayStem,
+    stem: question.displayStem,
+    instruction: question.instruction,
+    structuredPrompt: question.structuredPrompt,
+    options: question.options,
+    optionDetails: question.optionDetails,
+    correct: question.correctIndex,
+    correctIndex: question.correctIndex,
+    answer: question.answer,
+    canonicalAnswer: question.answer,
+    explanation: question.explanation,
+    renderer: question.renderer,
+    difficulty: question.difficultyBand,
+    difficultyLabel: question.difficultyBand,
+    patternId: question.prototypeId,
+    prototypeId: question.prototypeId,
+    qlId: null,
+    permanentQlId: null,
+    packageId: question.packageId,
+    chapterId: question.chapterId,
+    checkpointId: question.checkpointId,
+    canonicalProblemId: question.prototypeId,
+    canonicalItemId: question.canonicalItemId,
+    questionLanguageId: question.questionLanguageId,
+    questionId: question.questionId,
+    taskKind: question.taskKind,
+    topic: "Reasoning",
+    subtopic: "Word & Dictionary Order",
+    subject: "Reasoning Ability",
+    language: question.language,
+    locale: question.locale,
+    seed: String(question.seed),
+    runtimeMode: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.runtimeMode,
+    reviewStatus: question.reviewStatus,
+    lifecycleStatus: question.lifecycleStatus,
+    questionStudioVisible: true as const,
+    questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
+    questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED" as const,
+    revisionPolicy: WOR_001_QUESTION_STUDIO_REVISION_POLICY,
+    questionBankStatus: "NOT_STORED" as const,
+    questionBankWritable: false as const,
+    testEligibility: "INELIGIBLE" as const,
+    testEligible: false as const,
+    mockTestEligible: false as const,
+    publiclyPublishable: false as const,
+    manualApprovalRequired: true as const,
+    automaticStudentPublication: false as const,
+    releaseFreezeStatus: WOR_001_QUESTION_STUDIO_RELEASE_FREEZE,
+    integrationAuthority: WOR_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
+    sourceValidation: question.validation,
+    sourceEvidence: question.source,
+    ...(regeneration ? { regeneration } : {}),
+    generationContext: {
+      generationDomain: "reasoning-v1" as const,
+      packageId: question.packageId,
+      chapterId: question.chapterId,
+      checkpointId: question.checkpointId,
+      prototypeId: question.prototypeId,
+      patternId: question.prototypeId,
+      permanentQlId: null,
+      runtimeMode: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.runtimeMode,
+      reviewStatus: question.reviewStatus,
+      lifecycleStatus: question.lifecycleStatus,
+      questionStudioVisible: true as const,
+      questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
+      questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED" as const,
+      revisionPolicy: WOR_001_QUESTION_STUDIO_REVISION_POLICY,
+      integrationAuthority: WOR_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
+      questionBankStatus: "NOT_STORED" as const,
+      questionBankWritable: false as const,
+      testEligibility: "INELIGIBLE" as const,
+      testEligible: false as const,
+      mockTestEligible: false as const,
+      publiclyPublishable: false as const,
+      persistenceAllowed: true as const,
+      reviewOnly: true as const,
+      manualApprovalRequired: true as const,
+      automaticStudentPublication: false as const,
+      releaseFreezeStatus: WOR_001_QUESTION_STUDIO_RELEASE_FREEZE,
+    },
+  };
+}

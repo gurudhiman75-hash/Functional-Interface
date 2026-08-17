@@ -1,0 +1,65 @@
+name: Validate WOR-001 Question Studio Integration V1
+
+on:
+  push:
+    branches:
+      - feature/wor-001-question-studio-integration-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-word-dictionary-order.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-wor-lifecycle.ts'
+      - 'artifacts/api-server/src/routes/index.ts'
+      - 'artifacts/admin-app/src/features/question-studio/word-dictionary-order-review-api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioWordDictionaryOrderReviewPanel.tsx'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx'
+      - '.github/workflows/wor-001-question-studio-integration-v1.yml'
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-word-dictionary-order.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-wor-lifecycle.ts'
+      - 'artifacts/api-server/src/routes/index.ts'
+      - 'artifacts/admin-app/src/features/question-studio/word-dictionary-order-review-api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioWordDictionaryOrderReviewPanel.tsx'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx'
+      - '.github/workflows/wor-001-question-studio-integration-v1.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: wor-001-question-studio-integration-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-wor-001-question-studio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Run WOR-001 deterministic multilingual audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001.test.ts
+      - name: Run WOR-CP-005 Banking audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-banking.test.ts
+      - name: Run WOR-001 editorial quality audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-editorial.test.ts
+      - name: Run WOR-001 corpus audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-corpus.test.ts
+      - name: Run WOR-001 Banking pool audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-pool-expansion.test.ts
+      - name: Run WOR-001 source-governance audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-source-evidence.test.ts
+      - name: Run WOR-001 Question Studio contract audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-question-studio.test.ts
+      - name: Run WOR-001 shared Question Studio registry audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-shared-question-studio.test.ts
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
