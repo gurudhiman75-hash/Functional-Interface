@@ -7,16 +7,16 @@ import type { FigureCompletionPermanentQlIdV1 } from "./figure-completion-perman
 
 const HI_QL_NAMES: Record<FigureCompletionPermanentQlIdV1, string> = {
   "SPA-QL-031": "रेखाओं और जोड़ को पूरा करना",
-  "SPA-QL-032": "बिंदु, गिनती और दिशा का नियम पूरा करना",
+  "SPA-QL-032": "बिंदु, गिनती और दिशा वाला भाग पूरा करना",
   "SPA-QL-033": "चार हिस्सों की एक जैसी बनावट पूरी करना",
-  "SPA-QL-034": "आकृति और भरे/खाली भाग का नियम पूरा करना",
+  "SPA-QL-034": "आकृति और भरे/खाली हिस्से को पूरा करना",
 };
 
 const PA_QL_NAMES: Record<FigureCompletionPermanentQlIdV1, string> = {
   "SPA-QL-031": "ਰੇਖਾਵਾਂ ਅਤੇ ਜੋੜ ਪੂਰੇ ਕਰਨਾ",
-  "SPA-QL-032": "ਬਿੰਦੂ, ਗਿਣਤੀ ਅਤੇ ਦਿਸ਼ਾ ਦਾ ਨਿਯਮ ਪੂਰਾ ਕਰਨਾ",
+  "SPA-QL-032": "ਬਿੰਦੂ, ਗਿਣਤੀ ਅਤੇ ਦਿਸ਼ਾ ਵਾਲਾ ਹਿੱਸਾ ਪੂਰਾ ਕਰਨਾ",
   "SPA-QL-033": "ਚਾਰ ਹਿੱਸਿਆਂ ਦੀ ਇੱਕੋ ਬਣਤਰ ਪੂਰੀ ਕਰਨੀ",
-  "SPA-QL-034": "ਆਕ੍ਰਿਤੀ ਅਤੇ ਭਰੇ/ਖਾਲੀ ਹਿੱਸੇ ਦਾ ਨਿਯਮ ਪੂਰਾ ਕਰਨਾ",
+  "SPA-QL-034": "ਆਕ੍ਰਿਤੀ ਅਤੇ ਭਰੇ/ਖਾਲੀ ਹਿੱਸੇ ਨੂੰ ਪੂਰਾ ਕਰਨਾ",
 };
 
 function remediateHindi(question: FigureCompletionLocalizedQuestionV1): FigureCompletionLocalizedQuestionV1 {
@@ -35,6 +35,7 @@ function remediateHindi(question: FigureCompletionLocalizedQuestionV1): FigureCo
         ...explanation,
         rule: "आकृति को दाएँ-बाएँ पलटें और भरा/खाली रूप भी बदलें।",
         application: "नीचे-बाएँ आकृति को दाएँ तरफ पलटें और उसका भरा/खाली रूप बदलें।",
+        check: `विकल्प ${question.answer} में आकृति सही दिशा में पलटी है और भरा/खाली रूप भी सही है।`,
       };
       break;
     case "FGC-PROT-10-SHAPE-CONTACT-STATE":
@@ -69,6 +70,7 @@ function remediatePunjabi(question: FigureCompletionLocalizedQuestionV1): Figure
         ...explanation,
         rule: "ਆਕ੍ਰਿਤੀ ਨੂੰ ਸੱਜੇ-ਖੱਬੇ ਉਲਟੋ ਅਤੇ ਭਰਿਆ/ਖਾਲੀ ਰੂਪ ਵੀ ਬਦਲੋ।",
         application: "ਹੇਠਾਂ-ਖੱਬੇ ਆਕ੍ਰਿਤੀ ਨੂੰ ਸੱਜੇ ਪਾਸੇ ਉਲਟੋ ਅਤੇ ਉਸਦਾ ਭਰਿਆ/ਖਾਲੀ ਰੂਪ ਬਦਲੋ।",
+        check: `ਵਿਕਲਪ ${question.answer} ਵਿੱਚ ਆਕ੍ਰਿਤੀ ਠੀਕ ਦਿਸ਼ਾ ਵਿੱਚ ਉਲਟੀ ਹੈ ਅਤੇ ਭਰਿਆ/ਖਾਲੀ ਰੂਪ ਵੀ ਠੀਕ ਹੈ।`,
       };
       break;
     case "FGC-PROT-10-SHAPE-CONTACT-STATE":
