@@ -5,6 +5,8 @@ on:
     branches: [New-main]
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp006-si-ci-relations-localized-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp006-si-ci-relations-localized-v2.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp006-si-ci-relations-localized-v3.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp006-localized-v1-audit.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp006-localized-v1-review-export.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-006/INT-CP-006-SCOPE-v1.md"
