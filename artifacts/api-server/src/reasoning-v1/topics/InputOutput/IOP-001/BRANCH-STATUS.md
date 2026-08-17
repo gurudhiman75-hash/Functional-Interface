@@ -1,4 +1,4 @@
-# IOP-001 Checkpoint C Branch Status
+# IOP-001 English Review Candidate Branch Status
 
 Branch: `feat/iop-001-foundation-cp001-cp004`
 PR: `#840`
@@ -7,8 +7,12 @@ PR: `#840`
 
 ```text
 sourceFamilySaturation:       PASS_V1
-maturity:                     PERMANENT_QL_ALLOCATED
+maturity:                     ENGLISH_REVIEW_CANDIDATE
 permanentQlCount:             8
+whitelistedSourceModeCount:   19
+English automated proof:      PASS
+English audit pack:           PASS
+English artifact audit:       PASS
 English freeze:               false
 Question Studio:              false
 Question Bank writes:         false
@@ -30,31 +34,55 @@ IOP-QL-007  Mixed Word–Number Transformed-Pair Machine
 IOP-QL-008  Box / Table Arithmetic Machine
 ```
 
-The earlier 30 CP001–CP010 prototypes remain executable discovery evidence; they are not 30 permanent QLs.
+The 30 CP001–CP010 prototypes remain executable discovery evidence; they are not 30 permanent QLs. CP010 remains a solve/query overlay and creates zero extra machine QLs.
 
-CP010 reverse/missing-state work is represented as solve/query modes over compatible machine QLs, not separate machine authorities.
+## English V1
 
-## Source-backed gap closure
+Nineteen source-whitelisted production modes are implemented across the eight QLs. The advanced V1 boundary is deliberately narrow:
 
-A dedicated CP008 mixed word-number transformation authority was added from the normalized RBI Grade B Phase 1, 8 Sep 2024 Shift 1 PYQ family. Its 160-case proof and 144-rule identifiability grammar passed before permanent allocation.
+- QL005 numeric: source-backed odd-reverse / even-increment two-ended family;
+- QL006: source-backed RBI-style text pipeline; alphanumeric production is not yet V1-authorized;
+- QL007: source-pinned RBI Grade B 2024 mixed transformed-pair family;
+- QL008: source-backed constructive box arithmetic authority.
 
-## Validation state
+## Latest proof
 
-Pre-allocation exact-head proof passed all jobs:
+The final learner-facing implementation passed the serialized chapter gate end-to-end:
 
-- 960 classical caselets / 3,840 children;
-- 720 advanced caselets / 2,880 children;
-- 18,400 competing-program executions;
-- 160 RBI mixed-source caselets / 640 children;
-- 23,040 competing-rule executions;
-- strict TypeScript;
-- review exports;
-- production API build.
+```text
+foundation caselets             960
+foundation child questions    3,840
+advanced caselets               720
+advanced child questions      2,880
+RBI mixed caselets              160
+RBI mixed children              640
+English scaled caselets          96
+English scaled children         384
+English review caselets          38
+English review questions        152
+solve modes                        8
+box visible arithmetic          PASS
+strict TypeScript               PASS
+production API build            PASS
+```
 
-The final allocation head additionally contains `permanent-authorities.test.ts`; the dedicated allocation proof must remain green before this Checkpoint C state is treated as exact-head verified.
+The permanent review pack has exact query balance:
 
-## Next gate
+```text
+STEP_OUTPUT              20
+FINAL_OUTPUT             20
+ELEMENT_AT_POSITION      18
+POSITION_OF_ELEMENT      18
+STEP_NUMBER              19
+PREVIOUS_STEP            19
+MISSING_STEP             19
+REMAINING_STEP_COUNT     19
+```
 
-English permanent-authority implementation and human exam-readiness review.
+Artifact evidence and SHA-256 are recorded in `ENGLISH-REVIEW-CANDIDATE-EVIDENCE-V1.md`.
 
-Advanced production modes for numeric transformation, text/alphanumeric transformation and box/table arithmetic remain source-whitelist gated. Whole-chapter Question Studio integration remains deferred.
+## Remaining gate
+
+**Human/product-owner English approval and explicit freeze.**
+
+Until that approval, localization and all product-delivery surfaces remain locked. Whole-chapter Question Studio integration remains deferred.
