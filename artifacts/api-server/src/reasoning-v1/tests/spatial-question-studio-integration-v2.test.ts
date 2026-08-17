@@ -76,8 +76,12 @@ function assertTargetScript(question: SpatialProductionStudioQuestionV1) {
     assert(!/\b(choose|select|figure|mirror|water|series|rule|apply|check|option)\b/i.test(text), `${question.qlId}: Hindi learner text leaked core English instruction wording.`);
   }
   if (question.language === "pa") {
+    // U+0964/U+0965 (danda/double danda) are shared Indic punctuation even though
+    // Unicode places them in the Devanagari block. Ignore only those punctuation
+    // marks when checking for actual Devanagari-script leakage into Punjabi.
+    const scriptLeakText = text.replaceAll("।", "").replaceAll("॥", "");
     assert(/[\u0a00-\u0a7f]/u.test(text), `${question.qlId}: Punjabi learner text has no Gurmukhi.`);
-    assert(!/[\u0900-\u097f]/u.test(text), `${question.qlId}: Punjabi learner text leaked Devanagari.`);
+    assert(!/[\u0900-\u097f]/u.test(scriptLeakText), `${question.qlId}: Punjabi learner text leaked Devanagari.`);
     assert(!/\b(choose|select|figure|mirror|water|series|rule|apply|check|option)\b/i.test(text), `${question.qlId}: Punjabi learner text leaked core English instruction wording.`);
   }
 }
