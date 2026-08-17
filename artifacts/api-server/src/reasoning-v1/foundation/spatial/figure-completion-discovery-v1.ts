@@ -78,7 +78,7 @@ export interface FigureCompletionQuestionV1 {
   };
 }
 
-const PATCH_ORIGIN = { x: 58, y: 34 } as const;
+const PATCH_ORIGIN = { x: 34, y: 34 } as const;
 const PATCH_SIZE = 32;
 const STIMULUS_VIEW_BOX = { minX: 0, minY: 0, width: 100, height: 100 } as const;
 const OPTION_VIEW_BOX = { minX: 0, minY: 0, width: PATCH_SIZE, height: PATCH_SIZE } as const;
@@ -215,7 +215,7 @@ function buildCurvedContinuity(rng: SpatialSeededRandom): PrototypeMaterialV1 {
     polyline("curve-2", [{ x: 0, y: second }, { x: 16, y: second + 5 }, { x: 32, y: second + 1 }]),
   ];
   const contextNodes = [
-    polyline("curve-left-1", [{ x: 12, y: PATCH_ORIGIN.y + y + 5 }, { x: 35, y: PATCH_ORIGIN.y + y - 2 }, { x: PATCH_ORIGIN.x, y: PATCH_ORIGIN.y + y }]),
+    polyline("curve-left-1", [{ x: 12, y: PATCH_ORIGIN.y + y + 5 }, { x: 22, y: PATCH_ORIGIN.y + y - 2 }, { x: PATCH_ORIGIN.x, y: PATCH_ORIGIN.y + y }]),
     polyline("curve-right-1", [{ x: PATCH_ORIGIN.x + 32, y: PATCH_ORIGIN.y + y + 1 }, { x: 94, y: PATCH_ORIGIN.y + y + 7 }]),
     polyline("curve-left-2", [{ x: 13, y: PATCH_ORIGIN.y + second - 4 }, { x: PATCH_ORIGIN.x, y: PATCH_ORIGIN.y + second }]),
     polyline("curve-right-2", [{ x: PATCH_ORIGIN.x + 32, y: PATCH_ORIGIN.y + second + 1 }, { x: 95, y: PATCH_ORIGIN.y + second - 5 }]),
@@ -285,8 +285,8 @@ function buildNestedContour(rng: SpatialSeededRandom): PrototypeMaterialV1 {
     line("outer-right", gx + 32, gy + 32 - outerA, 95, gy + 32 - outerA - 10),
     line("inner-left", 16, gy + innerA + 7, gx, gy + innerA),
     line("inner-right", gx + 32, gy + 32 - innerA, 93, gy + 32 - innerA - 5),
-    line("parallel-cue-1", 17, 18, 45, 32),
-    line("parallel-cue-2", 21, 25, 47, 38),
+    line("parallel-cue-1", 17, 18, 29, 30),
+    line("parallel-cue-2", 21, 25, 31, 35),
   ];
   return {
     contextNodes,
@@ -315,8 +315,8 @@ function buildCompoundMarker(rng: SpatialSeededRandom): PrototypeMaterialV1 {
   const contextNodes = [
     line("path-left", 10, gy + y - 8, gx, gy + y),
     line("path-right", gx + 32, gy + y + delta, 95, gy + y + delta + 6),
-    circle("marker-left", 38, gy + y - 4, 2.2),
-    circle("marker-right", 94, gy + y + delta + 6, 2.2),
+    circle("marker-left", 24, gy + y - 4, 2.2),
+    circle("marker-right", 90, gy + y + delta + 6, 2.2),
   ];
   return {
     contextNodes,
