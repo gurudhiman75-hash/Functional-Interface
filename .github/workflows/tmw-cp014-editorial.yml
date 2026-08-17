@@ -5,6 +5,9 @@ on:
   pull_request:
     branches: [fix/tmw-001-cp013-multilingual-editorial-review]
   workflow_dispatch:
+concurrency:
+  group: tmw-001-cp014-multilingual-editorial-review
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
