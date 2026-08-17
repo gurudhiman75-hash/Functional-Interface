@@ -1,0 +1,40 @@
+name: Validate SYL-001 freeze readiness V7
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/banking-cross-exam-census-v4.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v6.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v7.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v7-audit.test.ts"
+      - ".github/workflows/reasoning-syl-001-freeze-readiness-v7.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-freeze-readiness-v7:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle freeze readiness V7 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/source-authority/freeze-readiness-v7-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-freeze-readiness-v7-audit.test.mjs
+      - name: Run freeze readiness V7 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v7-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v7-audit.log
+      - name: Upload freeze readiness V7 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: syl-001-freeze-readiness-v7
+          path: artifacts/api-server/dist/reasoning-v1/syl-001-freeze-readiness-v7-audit.log
+          if-no-files-found: error
+          retention-days: 30
