@@ -21,6 +21,9 @@ import {
   applySapAuthoredFinalFixesV5,
 } from "./authored-final-fixes-v5";
 import {
+  applySapAuthoredSeedVariantV6,
+} from "./authored-seed-variant-v6";
+import {
   applySapAuthoredPresentationV3,
 } from "./authored-presentation-v3";
 import type { SapTranslationLanguage } from "./types";
@@ -36,5 +39,6 @@ export function localizeSapQuestionPackage(base: any, language: SapTranslationLa
   const authoredV2 = applySapAuthoredPresentationV2(base, authoredV1, language);
   const authoredStemV4 = applySapAuthoredStemV4(base, authoredV2, language);
   const authoredFinalV5 = applySapAuthoredFinalFixesV5(base, authoredStemV4, language);
-  return applySapAuthoredPresentationV3(base, authoredFinalV5, language);
+  const authoredSeedV6 = applySapAuthoredSeedVariantV6(base, authoredFinalV5, language);
+  return applySapAuthoredPresentationV3(base, authoredSeedV6, language);
 }
