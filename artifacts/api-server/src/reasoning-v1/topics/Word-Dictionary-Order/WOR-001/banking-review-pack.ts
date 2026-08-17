@@ -21,9 +21,60 @@ function titleFor(locale: WorLocale): string {
 }
 
 function labels(locale: WorLocale) {
-  if (locale === "hi-IN") return { groups: "अक्षर-समूह", transformed: "परिवर्तित समूह", answer: "उत्तर", explanation: "व्याख्या" };
-  if (locale === "pa-IN") return { groups: "ਅੱਖਰ-ਸਮੂਹ", transformed: "ਬਦਲੇ ਸਮੂਹ", answer: "ਉੱਤਰ", explanation: "ਵਿਆਖਿਆ" };
-  return { groups: "Letter groups", transformed: "Transformed groups", answer: "Answer", explanation: "Explanation" };
+  if (locale === "hi-IN") return {
+    questions: "प्रश्न",
+    prototypes: "प्रोटोटाइप",
+    objectMode: "वस्तु प्रकार",
+    optionProfile: "विकल्प मानक",
+    lifecycle: "जीवनचक्र",
+    groups: "अक्षर-समूह",
+    transformed: "परिवर्तित समूह (केवल आंतरिक समीक्षा)",
+    answer: "उत्तर",
+    explanation: "व्याख्या",
+    task: "कार्य",
+    sourceEvidence: "स्रोत प्रमाण",
+    allocation: "आवंटन",
+    transformation: "परिवर्तन",
+    orderedTokens: "क्रमबद्ध समूह",
+    difficultyScore: "कठिनाई स्कोर",
+    options: "विकल्पों की संख्या",
+  };
+  if (locale === "pa-IN") return {
+    questions: "ਪ੍ਰਸ਼ਨ",
+    prototypes: "ਪ੍ਰੋਟੋਟਾਈਪ",
+    objectMode: "ਵਸਤੂ ਕਿਸਮ",
+    optionProfile: "ਵਿਕਲਪ ਮਿਆਰ",
+    lifecycle: "ਜੀਵਨਚੱਕਰ",
+    groups: "ਅੱਖਰ-ਸਮੂਹ",
+    transformed: "ਬਦਲੇ ਸਮੂਹ (ਕੇਵਲ ਅੰਦਰੂਨੀ ਸਮੀਖਿਆ)",
+    answer: "ਉੱਤਰ",
+    explanation: "ਵਿਆਖਿਆ",
+    task: "ਕਾਰਜ",
+    sourceEvidence: "ਸਰੋਤ ਸਬੂਤ",
+    allocation: "ਅਲਾਟਮੈਂਟ",
+    transformation: "ਤਬਦੀਲੀ",
+    orderedTokens: "ਕ੍ਰਮਬੱਧ ਸਮੂਹ",
+    difficultyScore: "ਮੁਸ਼ਕਲ ਸਕੋਰ",
+    options: "ਵਿਕਲਪਾਂ ਦੀ ਗਿਣਤੀ",
+  };
+  return {
+    questions: "Questions",
+    prototypes: "Prototypes",
+    objectMode: "Object mode",
+    optionProfile: "Option profile",
+    lifecycle: "Lifecycle",
+    groups: "Letter groups",
+    transformed: "Transformed groups (internal review only)",
+    answer: "Answer",
+    explanation: "Explanation",
+    task: "Task",
+    sourceEvidence: "Source evidence",
+    allocation: "Allocation",
+    transformation: "Transformation",
+    orderedTokens: "Ordered tokens",
+    difficultyScore: "Difficulty score",
+    options: "Options",
+  };
 }
 
 export function renderWorBankingReviewMarkdown(locale: WorLocale, questions = buildWorBankingReviewPack(locale)): string {
@@ -31,26 +82,26 @@ export function renderWorBankingReviewMarkdown(locale: WorLocale, questions = bu
   const lines = [
     `# ${titleFor(locale)}`,
     "",
-    `- Questions: ${questions.length}`,
-    `- Prototypes: ${WOR_CP005_PROTOTYPES.length}`,
-    "- Object mode: LETTER_CLUSTER",
-    "- Option profile: BANKING_FIVE_OPTION",
-    "- Lifecycle: REVIEW_ONLY",
+    `- ${l.questions}: ${questions.length}`,
+    `- ${l.prototypes}: ${WOR_CP005_PROTOTYPES.length}`,
+    `- ${l.objectMode}: LETTER_CLUSTER`,
+    `- ${l.optionProfile}: BANKING_FIVE_OPTION`,
+    `- ${l.lifecycle}: REVIEW_ONLY`,
     "",
   ];
   questions.forEach((question, index) => {
-    lines.push(`## ${index + 1}. ${question.prototypeId} / ${question.difficulty}`, "", question.stem, "", `**${l.groups}:** ${question.structuredPrompt.words.join(", ")}`);
-    if (question.structuredPrompt.transformedWords) lines.push(`**${l.transformed}:** ${question.structuredPrompt.transformedWords.join(", ")}`);
-    lines.push("");
+    lines.push(`## ${index + 1}. ${question.prototypeId} / ${question.difficulty}`, "", question.stem, "", `**${l.groups}:** ${question.structuredPrompt.words.join(", ")}`, "");
     question.options.forEach((option, optionIndex) => lines.push(`${optionIndex + 1}. ${option.value}`));
     lines.push("", `**${l.answer}:** ${question.correctIndex + 1}. ${question.answer}`, "", `**${l.explanation}:** ${question.explanation}`, "", "<details><summary>Internal review metadata</summary>", "");
-    lines.push(`- Task: ${question.taskKind}`);
-    lines.push(`- Source evidence: ${question.metadata.sourceEvidenceStatus}`);
-    lines.push(`- Allocation: ${question.metadata.allocationDecision}`);
-    lines.push(`- Transformation: ${question.metadata.bankingTrace?.transformation ?? "NONE"}`);
-    lines.push(`- Ordered tokens: ${question.metadata.bankingTrace?.orderedTokens.join(" → ") ?? ""}`);
-    lines.push(`- Difficulty score: ${question.metadata.difficultyFeatures.score}`);
-    lines.push(`- Options: ${question.metadata.optionCount}`);
+    const trace = question.metadata.bankingTrace;
+    lines.push(`- ${l.task}: ${question.taskKind}`);
+    lines.push(`- ${l.sourceEvidence}: ${question.metadata.sourceEvidenceStatus}`);
+    lines.push(`- ${l.allocation}: ${question.metadata.allocationDecision}`);
+    lines.push(`- ${l.transformation}: ${trace?.transformation ?? "NONE"}`);
+    if (trace?.transformation !== "NONE") lines.push(`- ${l.transformed}: ${trace?.transformedTokens.join(", ") ?? ""}`);
+    lines.push(`- ${l.orderedTokens}: ${trace?.orderedTokens.join(" → ") ?? ""}`);
+    lines.push(`- ${l.difficultyScore}: ${question.metadata.difficultyFeatures.score}`);
+    lines.push(`- ${l.options}: ${question.metadata.optionCount}`);
     lines.push("", "</details>", "");
   });
   return `${lines.join("\n").trimEnd()}\n`;
