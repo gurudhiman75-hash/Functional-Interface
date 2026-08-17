@@ -1,0 +1,49 @@
+name: Validate INT-CP-006 V1 English Freeze
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp006-si-ci-relations-v1-frozen.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp006-v1-freeze-audit.ts"
+      - ".github/workflows/int-cp006-v1-freeze.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp006-v1-freeze:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP006 English freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp006-v1-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp006-v1-freeze-audit.mjs
+      - name: Run CP006 English freeze replay
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp006-v1-freeze-audit.mjs 2>&1 | tee dist/quant-v4/int-cp006-v1-freeze-audit.log
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Verify freeze marker
+        run: grep -q 'PASS_INT_CP006_V1_ENGLISH_FREEZE' artifacts/api-server/dist/quant-v4/int-cp006-v1-freeze-audit.log
+      - name: Upload freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp006-v1-english-freeze
+          path: artifacts/api-server/dist/quant-v4/int-cp006-v1-freeze-audit.log
+          if-no-files-found: error
