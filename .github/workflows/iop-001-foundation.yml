@@ -1,4 +1,4 @@
-name: Validate IOP-001 CP001-CP010 discovery + source gap
+name: Validate IOP-001 source saturation + permanent allocation
 
 on:
   push:
@@ -89,6 +89,17 @@ jobs:
         env:
           IOP_MIXED_SOURCE_CASES: 160
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/mixed-source-gap-proof.test.ts
+
+  permanent-allocation-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prove source-normalized permanent QL allocation
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/permanent-authorities.test.ts
 
   foundation-review-export:
     runs-on: ubuntu-latest
