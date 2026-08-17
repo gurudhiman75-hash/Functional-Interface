@@ -4,6 +4,17 @@ import {
   runTmw001ChapterPipeline,
   type Tmw001ChapterLanguage,
 } from "./foundation/chapter-localized-runtime";
+import { TMW_CP001_REGISTRY } from "./foundation/cp001-registry";
+import { TMW_CP002_REGISTRY } from "./foundation/cp002-registry";
+import { TMW_CP003_REGISTRY } from "./foundation/cp003-registry";
+import { TMW_CP004_REGISTRY } from "./foundation/cp004-registry";
+import { TMW_CP005_REGISTRY } from "./foundation/cp005-registry";
+import { TMW_CP006_REGISTRY } from "./foundation/cp006-registry";
+import { TMW_CP007_REGISTRY } from "./foundation/cp007-registry";
+import { TMW_CP008_REGISTRY } from "./foundation/cp008-registry";
+import { TMW_CP009_REGISTRY } from "./foundation/cp009-registry";
+import { TMW_CP010_REGISTRY } from "./foundation/cp010-registry";
+import { TMW_CP_011_REGISTRY } from "./foundation/cp011-registry";
 import { TMW_001_FINAL_FREEZE_AUTHORITY } from "./foundation/final-freeze-authority";
 
 export const TMW_001_QUESTION_STUDIO_PACKAGE_ID = "TMW-001" as const;
@@ -41,6 +52,7 @@ export interface Tmw001QuestionStudioOptions {
 export interface Tmw001QuestionStudioQlDescriptor {
   qlId: Tmw001QuestionStudioQlId;
   checkpointId: Tmw001QuestionStudioCpId;
+  difficulty: Tmw001QuestionStudioDifficulty;
 }
 
 const CHECKPOINT_RANGES: ReadonlyArray<readonly [Tmw001QuestionStudioCpId, number, number]> = [
@@ -64,14 +76,78 @@ function ql(number: number): Tmw001QuestionStudioQlId {
   return `TMW-QL-${String(number).padStart(3, "0")}` as Tmw001QuestionStudioQlId;
 }
 
+const LEGACY_FROZEN_REGISTRIES = [
+  TMW_CP001_REGISTRY,
+  TMW_CP002_REGISTRY,
+  TMW_CP003_REGISTRY,
+  TMW_CP004_REGISTRY,
+  TMW_CP005_REGISTRY,
+  TMW_CP006_REGISTRY,
+  TMW_CP007_REGISTRY,
+  TMW_CP008_REGISTRY,
+  TMW_CP009_REGISTRY,
+  TMW_CP010_REGISTRY,
+  TMW_CP_011_REGISTRY,
+] as const;
+
+const EXTENSION_DIFFICULTIES: ReadonlyArray<readonly [Tmw001QuestionStudioQlId, Tmw001QuestionStudioDifficulty]> = [
+  ["TMW-QL-212", "Medium"],
+  ["TMW-QL-213", "Hard"],
+  ["TMW-QL-214", "Hard"],
+  ["TMW-QL-215", "Hard"],
+  ["TMW-QL-216", "Medium"],
+  ["TMW-QL-217", "Medium"],
+  ["TMW-QL-218", "Hard"],
+  ["TMW-QL-219", "Medium"],
+  ["TMW-QL-220", "Medium"],
+  ["TMW-QL-221", "Medium"],
+  ["TMW-QL-222", "Hard"],
+  ["TMW-QL-223", "Hard"],
+  ["TMW-QL-224", "Medium"],
+  ["TMW-QL-225", "Medium"],
+  ["TMW-QL-226", "Hard"],
+  ["TMW-QL-227", "Medium"],
+  ["TMW-QL-228", "Hard"],
+];
+
+const FROZEN_DIFFICULTY_BY_QL = new Map<string, Tmw001QuestionStudioDifficulty>();
+for (const registry of LEGACY_FROZEN_REGISTRIES) {
+  for (const entry of registry) {
+    const difficulty = entry.difficulty as Tmw001QuestionStudioDifficulty;
+    if (!(["Easy", "Medium", "Hard"] as const).includes(difficulty)) {
+      throw new Error(`${entry.qlId}: unsupported frozen difficulty ${String(entry.difficulty)}.`);
+    }
+    if (FROZEN_DIFFICULTY_BY_QL.has(entry.qlId)) {
+      throw new Error(`${entry.qlId}: duplicate frozen difficulty registration.`);
+    }
+    FROZEN_DIFFICULTY_BY_QL.set(entry.qlId, difficulty);
+  }
+}
+for (const [qlId, difficulty] of EXTENSION_DIFFICULTIES) {
+  if (FROZEN_DIFFICULTY_BY_QL.has(qlId)) {
+    throw new Error(`${qlId}: duplicate extension difficulty registration.`);
+  }
+  FROZEN_DIFFICULTY_BY_QL.set(qlId, difficulty);
+}
+
+function frozenDifficulty(qlId: Tmw001QuestionStudioQlId): Tmw001QuestionStudioDifficulty {
+  const difficulty = FROZEN_DIFFICULTY_BY_QL.get(qlId);
+  if (!difficulty) throw new Error(`${qlId}: frozen difficulty metadata is missing.`);
+  return difficulty;
+}
+
 export const TMW_001_QUESTION_STUDIO_QLS: readonly Tmw001QuestionStudioQlDescriptor[] = Object.freeze(
   CHECKPOINT_RANGES.flatMap(([checkpointId, start, end]) =>
-    Array.from({ length: end - start + 1 }, (_, index) =>
-      Object.freeze({ qlId: ql(start + index), checkpointId }),
-    ),
+    Array.from({ length: end - start + 1 }, (_, index) => {
+      const qlId = ql(start + index);
+      return Object.freeze({ qlId, checkpointId, difficulty: frozenDifficulty(qlId) });
+    }),
   ),
 );
 
+if (FROZEN_DIFFICULTY_BY_QL.size !== TMW_001_FINAL_FREEZE_AUTHORITY.qlCount) {
+  throw new Error(`TMW Question Studio expected ${TMW_001_FINAL_FREEZE_AUTHORITY.qlCount} frozen difficulty records, found ${FROZEN_DIFFICULTY_BY_QL.size}.`);
+}
 if (TMW_001_QUESTION_STUDIO_QLS.length !== TMW_001_FINAL_FREEZE_AUTHORITY.qlCount) {
   throw new Error(`TMW Question Studio expected ${TMW_001_FINAL_FREEZE_AUTHORITY.qlCount} frozen QLs, found ${TMW_001_QUESTION_STUDIO_QLS.length}.`);
 }
@@ -90,18 +166,6 @@ export function getTmw001QuestionStudioQlIds(checkpointId?: Tmw001QuestionStudio
 function seededHash(value: string) {
   const digest = createHash("sha256").update(value).digest();
   return digest.readUInt32BE(0);
-}
-
-function normalizeDifficulty(value: unknown): Tmw001QuestionStudioDifficulty {
-  if (typeof value === "number" && Number.isFinite(value)) {
-    if (value >= 6) return "Hard";
-    if (value >= 3) return "Medium";
-    return "Easy";
-  }
-  const text = String(value ?? "").trim().toLowerCase();
-  if (text === "easy") return "Easy";
-  if (text === "hard") return "Hard";
-  return "Medium";
 }
 
 function visibleExplanation(question: any): string[] {
@@ -134,12 +198,14 @@ function solvedAnswer(question: any): string {
   );
 }
 
-function normalizePackage(question: any, language: Tmw001QuestionStudioLanguage, seed: string) {
+function normalizePackage(
+  question: any,
+  language: Tmw001QuestionStudioLanguage,
+  seed: string,
+  difficultyBand: Tmw001QuestionStudioDifficulty,
+) {
   const answer = solvedAnswer(question);
   const explanationLines = visibleExplanation(question);
-  const difficultyBand = normalizeDifficulty(
-    question?.difficulty ?? question?.difficultyBand ?? question?.difficultyLevel,
-  );
   const originalValidation = question?.validation ?? {};
   const validationErrors = Array.isArray(originalValidation.errors)
     ? originalValidation.errors.map(String)
@@ -197,6 +263,7 @@ function normalizePackage(question: any, language: Tmw001QuestionStudioLanguage,
       freezeStatus: TMW_001_FINAL_FREEZE_AUTHORITY.status,
       permanentQlId: question.questionLanguageId,
       checkpointId: question.canonicalProblemId,
+      frozenDifficulty: difficultyBand,
       mathematicalFingerprint: question.mathematicalFingerprint,
       solveMode: question.solveMode,
       representation: question.representation,
@@ -226,7 +293,7 @@ function generateDescriptor(
   if (question?.publiclyPublishable !== false) {
     throw new Error(`${descriptor.qlId}: frozen publication lock is open.`);
   }
-  return normalizePackage(question, language, seed);
+  return normalizePackage(question, language, seed, descriptor.difficulty);
 }
 
 export function runTmw001QuestionStudioPipeline(options: Tmw001QuestionStudioOptions = {}) {
@@ -247,29 +314,28 @@ export function runTmw001QuestionStudioPipeline(options: Tmw001QuestionStudioOpt
   if (options.canonicalProblemId && !TMW_001_QUESTION_STUDIO_CP_IDS.includes(options.canonicalProblemId)) {
     throw new Error(`Unknown canonical problem '${options.canonicalProblemId}' for package TMW-001.`);
   }
+  if (explicitDescriptor && options.difficulty && explicitDescriptor.difficulty !== options.difficulty) {
+    throw new Error(`${explicitDescriptor.qlId} is frozen as ${explicitDescriptor.difficulty}, not ${options.difficulty}.`);
+  }
 
   const pool = explicitDescriptor
     ? [explicitDescriptor]
     : TMW_001_QUESTION_STUDIO_QLS.filter(
-      (entry) => !options.canonicalProblemId || entry.checkpointId === options.canonicalProblemId,
+      (entry) =>
+        (!options.canonicalProblemId || entry.checkpointId === options.canonicalProblemId)
+        && (!options.difficulty || entry.difficulty === options.difficulty),
     );
-  if (!pool.length) throw new Error("No frozen TMW Question Studio QLs match the requested scope.");
-
-  const baseSeed = options.seed?.trim() || `quant-v4:TMW-001:${options.canonicalProblemId ?? "mixed"}:${language}`;
-  const offset = seededHash(`${baseSeed}:ql-offset`) % pool.length;
-  const attempts = explicitDescriptor ? 80 : Math.max(600, pool.length * 16);
-
-  for (let attempt = 0; attempt < attempts; attempt += 1) {
-    const descriptor = pool[(offset + attempt) % pool.length]!;
-    const seed = `${baseSeed}:${descriptor.checkpointId}:${descriptor.qlId}:${attempt}`;
-    const pkg = generateDescriptor(descriptor, language, seed);
-    if (!options.difficulty || pkg.difficultyBand === options.difficulty) return pkg;
+  if (!pool.length) {
+    const scope = options.canonicalProblemId ?? "full chapter";
+    throw new Error(
+      options.difficulty
+        ? `No ${options.difficulty} frozen TMW-001 QLs are registered in ${scope}.`
+        : `No frozen TMW-001 Question Studio QLs match ${scope}.`,
+    );
   }
 
-  const scope = explicitQl ?? options.canonicalProblemId ?? "full chapter";
-  throw new Error(
-    options.difficulty
-      ? `Unable to generate ${options.difficulty} TMW-001 content from ${scope}.`
-      : `Unable to generate TMW-001 content from ${scope}.`,
-  );
+  const baseSeed = options.seed?.trim() || `quant-v4:TMW-001:${options.canonicalProblemId ?? "mixed"}:${language}`;
+  const descriptor = pool[seededHash(`${baseSeed}:ql-offset`) % pool.length]!;
+  const seed = `${baseSeed}:${descriptor.checkpointId}:${descriptor.qlId}`;
+  return generateDescriptor(descriptor, language, seed);
 }
