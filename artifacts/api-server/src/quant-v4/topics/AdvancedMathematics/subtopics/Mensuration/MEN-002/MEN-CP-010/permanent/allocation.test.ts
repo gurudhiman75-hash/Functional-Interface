@@ -28,7 +28,7 @@ assert.equal(allocationAudit.uniqueClusterCount, 26);
 assert.equal(allocationAudit.firstQlId, "MEN-002-QL-124");
 assert.equal(allocationAudit.lastQlId, "MEN-002-QL-149");
 assert.equal(allocationAudit.contiguousQlRange, true);
-assert.equal(allocationAudit.englishImplementationFrozen, false);
+assert.equal(allocationAudit.englishImplementationFrozen, true);
 assert.equal(allocationAudit.lifecycleLocked, true);
 
 const allocatedEvidence = new Set(
@@ -100,5 +100,6 @@ console.log(JSON.stringify({
   wave03ExecutableCount: wave03Executable.length,
   deferredSourceGatedCount: mergeAudit.deferredSourceGatedCount,
   reassignedOwnershipCount: mergeAudit.reassignedOwnershipCount,
+  englishImplementationFrozen: allocationAudit.englishImplementationFrozen,
   lifecycleLocked: allocationAudit.lifecycleLocked,
 }, null, 2));

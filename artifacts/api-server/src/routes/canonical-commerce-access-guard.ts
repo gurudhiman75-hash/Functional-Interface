@@ -1,11 +1,12 @@
-import { Router, type Response } from "express";
+import { randomUUID } from "node:crypto";
+import { Router, type Request, type Response } from "express";
 
 import { CommerceEntitlementError, requireTestAccess } from "../lib/canonical-commerce-entitlements";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
 const router = Router();
-const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{12}$/i;
 
 async function canonicalTestId(identifier: string): Promise<string | null> {
   const isUuid = uuid.test(identifier);
@@ -17,6 +18,78 @@ async function canonicalTestId(identifier: string): Promise<string | null> {
     LIMIT 1
   `;
   return rows[0] ? String(rows[0].id) : null;
+}
+
+async function recordUnresolvedStudentIdentity(req: Request, testIdentifier: string): Promise<void> {
+  const firebaseUid = req.user?.id ?? "";
+  const email = String(req.user?.email ?? "").trim().toLowerCase();
+  if (!firebaseUid) return;
+
+  try {
+    const [userRows, testId] = await Promise.all([
+      email
+        ? sqlClient`
+            SELECT u.id::text AS id
+            FROM identity.users u
+            JOIN identity.student_profiles sp ON sp.user_id = u.id
+            WHERE lower(u.email) = ${email}
+              AND u.deleted_at IS NULL
+            LIMIT 1
+          `
+        : Promise.resolve([]),
+      canonicalTestId(testIdentifier),
+    ]);
+
+    const canonicalUserId = userRows[0]?.id ? String(userRows[0].id) : null;
+    const entityId = canonicalUserId ?? testId;
+    if (!entityId) return;
+    const entityType = canonicalUserId ? "student_profile" : "test";
+
+    const metadata = JSON.stringify({
+      provider: "firebase",
+      providerSubject: firebaseUid,
+      tokenEmail: email || null,
+      tokenEmailPresent: Boolean(email),
+      emailVerified: req.user?.emailVerified === true,
+      canonicalEmailMatch: Boolean(canonicalUserId),
+      testIdentifier,
+      source: "mobile-attempt-access-guard",
+    });
+
+    await sqlClient`
+      INSERT INTO platform.audit_events (
+        id,
+        actor_type,
+        actor_user_id,
+        action_key,
+        entity_type,
+        entity_id,
+        reason,
+        summary,
+        metadata
+      )
+      SELECT
+        ${randomUUID()}::uuid,
+        'user'::audit_actor_type,
+        NULL,
+        'student.identity.unresolved',
+        ${entityType},
+        ${entityId}::uuid,
+        'Authenticated Firebase identity did not resolve to a canonical student profile',
+        'Recorded unresolved Firebase identity during mobile attempt start',
+        ${metadata}::jsonb
+      WHERE NOT EXISTS (
+        SELECT 1
+        FROM platform.audit_events existing
+        WHERE existing.action_key = 'student.identity.unresolved'
+          AND existing.entity_id = ${entityId}::uuid
+          AND existing.occurred_at > now() - interval '10 minutes'
+          AND existing.metadata ->> 'providerSubject' = ${firebaseUid}
+      )
+    `;
+  } catch (error) {
+    console.error("Unable to record unresolved student identity diagnostic", error);
+  }
 }
 
 function sendAccessError(res: Response, error: unknown): void {
@@ -56,7 +129,12 @@ router.post("/attempt-sessions", authenticate, async (req, res, next) => {
     const access = await guard(identifier, req.user!.id);
     if (!access) return next();
     next();
-  } catch (error) { sendAccessError(res, error); }
+  } catch (error) {
+    if (error instanceof CommerceEntitlementError && error.code === "STUDENT_IDENTITY_REQUIRED") {
+      await recordUnresolvedStudentIdentity(req, identifier);
+    }
+    sendAccessError(res, error);
+  }
 });
 
 router.get("/tests/:id", authenticate, async (req, res, next) => {

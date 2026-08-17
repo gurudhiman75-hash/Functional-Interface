@@ -1,0 +1,56 @@
+name: Validate Mensuration full Question Studio V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/**'
+      - 'artifacts/api-server/src/routes/admin-question-studio-mensuration.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-mensuration-full.ts'
+      - 'artifacts/api-server/src/routes/index.ts'
+      - 'artifacts/admin-app/src/features/question-studio/mensuration-review-api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioMensurationReviewPanel.tsx'
+      - '.github/workflows/mensuration-full-question-studio-v1.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-mensuration-full-question-studio:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Prove all Mensuration Question Studio patterns
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-runtime-v1.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-full-question-studio-v1.test.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-full-question-studio-v1.test.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-full-question-studio-v1.test.log
+      - name: Regress CP009 legacy Question Studio adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/question-studio-review-adapter.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/men-cp009-question-studio-review-regression.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp009-question-studio-review-regression.mjs
+      - name: Build production application
+        run: bash build-api.sh
+      - name: Verify deployment artifacts
+        shell: bash
+        run: |
+          test -f artifacts/api-server/dist/index.mjs
+          test -f artifacts/examtree/dist/public/index.html
+          test -f artifacts/examtree/dist/public/admin/index.html
+      - name: Upload integration proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: mensuration-full-question-studio-v1
+          path: artifacts/api-server/dist/quant-v4/mensuration-full-question-studio-v1.test.log
+          retention-days: 14

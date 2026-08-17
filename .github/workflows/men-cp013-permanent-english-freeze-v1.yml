@@ -1,0 +1,83 @@
+name: Validate MEN-CP-013 permanent English freeze V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-013/**
+      - .github/workflows/men-cp013-permanent-english-freeze-v1.yml
+      - build-api.sh
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-cp013-permanent-english-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp013-english-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Prove 1,920 frozen English questions and source forcing
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-013/permanent/frozen-runtime-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp013-english-freeze-v1.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp013-english-freeze-v1.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp013-english-freeze-v1.test.log
+      - name: Regress editorial-final V4 runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-013/permanent/runtime-v4.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp013-v4-freeze-regression.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp013-v4-freeze-regression.test.mjs
+      - name: Regress 64-question editorial-final review
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-013/permanent/review-v4.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp013-review-v4-freeze-regression.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp013-review-v4-freeze-regression.test.mjs
+      - name: Regress permanent allocation
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-013/permanent/allocation.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp013-allocation-freeze-regression.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp013-allocation-freeze-regression.test.mjs
+      - name: Build production API bundle
+        run: bash build-api.sh
+      - name: Upload freeze proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp013-permanent-english-freeze-v1
+          path: artifacts/api-server/dist/quant-v4/men-cp013-english-freeze-v1.test.log
+          if-no-files-found: error
+          retention-days: 14

@@ -54,6 +54,7 @@ function stripMathDelimiters(value: string) {
     .replace(/\$\$$/, "")
     .replace(/^\$/, "")
     .replace(/\$$/, "")
+    .replace(/\$/g, "")
     .trim();
 }
 
@@ -204,7 +205,7 @@ export function toMen001LatexEquation(input: string) {
 }
 
 export function isMen001LatexEquation(value: string) {
-  if (!value.trim() || /\$\$/.test(value)) return false;
+  if (!value.trim() || /\$/.test(value)) return false;
   if (/[×÷π√²₁₂¼½°]/.test(value)) return false;
   if (/(^|[^\\])%/.test(value)) return false;
   if (value.includes("/")) return false;

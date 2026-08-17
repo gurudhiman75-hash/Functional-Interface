@@ -1,0 +1,71 @@
+name: Validate MEN-CP-013 permanent allocation V2
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp013-foundation/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-013/**
+      - .github/workflows/men-cp013-permanent-allocation-v2.yml
+      - build-api.sh
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-cp013-permanent-allocation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp013-permanent-allocation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Prove merge split and permanent allocation
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-013/permanent/allocation.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp013-permanent-allocation-v2.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp013-permanent-allocation-v2.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp013-permanent-allocation-v2.test.log
+      - name: Regress discovery closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp013-foundation/discovery.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp013-discovery-regression.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp013-discovery-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp013-foundation/review.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp013-review-regression.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp013-review-regression.test.mjs
+      - name: Build production API bundle
+        run: bash build-api.sh
+      - name: Upload allocation proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp013-permanent-allocation-v2
+          path: artifacts/api-server/dist/quant-v4/men-cp013-permanent-allocation-v2.test.log
+          if-no-files-found: error
+          retention-days: 14

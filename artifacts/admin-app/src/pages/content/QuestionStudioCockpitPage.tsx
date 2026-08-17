@@ -51,8 +51,10 @@ import {
   findDuplicateMatches,
   itemCorrectIndex,
   itemExplanation,
+  itemOptionSvgs,
   itemOptionValues,
   itemStem,
+  itemStimulusSvgs,
   qualityWithDuplicate,
   type DuplicateMatch,
   type ItemQualityReport,
@@ -106,6 +108,11 @@ function qualityTone(report: ItemQualityReport) {
   if (report.blockerCount > 0) return 'border-destructive/30 bg-destructive/5 text-destructive';
   if (report.warningCount > 0) return 'border-warning/30 bg-warning/5 text-warning';
   return 'border-success/30 bg-success/5 text-success';
+}
+
+function SpatialSvgFigure({ svg, label }: { svg: string; label: string }) {
+  const src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+  return <div className="rounded-lg border bg-white p-2 text-center text-slate-950"><div className="mb-1 text-[10px] font-semibold text-slate-500">{label}</div><img src={src} alt={label} className="mx-auto h-auto w-full max-w-[150px] object-contain" /></div>;
 }
 
 export function QuestionStudioCockpitPage() {
@@ -217,10 +224,10 @@ export function QuestionStudioCockpitPage() {
   );
 
   const stats = useMemo(() => {
-    const values = { runs: dashboard.runs.length, total: allItems.length, unreviewed: 0, blocked: 0, duplicates: duplicates.size, approved: 0 };
+    const values = { runs: dashboard.runs.length, total: allItems.length, unreviewed: 0, blocked: 0, duplicates: duplicates.size, inQuestionBank: 0 };
     for (const { item } of allItems) {
       if (item.status === 'unreviewed') values.unreviewed += 1;
-      if (item.status === 'approved') values.approved += 1;
+      if (item.acceptedQuestionId) values.inQuestionBank += 1;
       if ((qualityByItem.get(item.id)?.blockerCount ?? 0) > 0) values.blocked += 1;
     }
     return values;
@@ -272,8 +279,16 @@ export function QuestionStudioCockpitPage() {
       const result = await updateItems({ itemIds: ids, status, reason: reason.trim() || undefined });
       setSelectedIds((current) => new Set([...current].filter((id) => !ids.includes(id))));
       setReason('');
-      const conversionText = result.convertedCount > 0 ? ` ${result.convertedCount} added to Question Bank.` : '';
-      showToast.success('Review state updated', `${result.updatedCount} item(s) moved to ${formatStatus(status)}.${conversionText}`);
+      const outcomeText = [
+        result.convertedCount > 0 ? `${result.convertedCount} added to Question Bank.` : '',
+        result.reviewOnlyApprovedCount > 0
+          ? `${result.reviewOnlyApprovedCount} approved for editorial review only; no Question Bank write.`
+          : '',
+      ].filter(Boolean).join(' ');
+      showToast.success(
+        'Review state updated',
+        `${result.updatedCount} item(s) moved to ${formatStatus(status)}.${outcomeText ? ` ${outcomeText}` : ''}`,
+      );
     } catch (caught) {
       showToast.error('Review update failed', caught instanceof Error ? caught.message : 'Unable to update review state.');
     }
@@ -293,7 +308,7 @@ export function QuestionStudioCockpitPage() {
     <div className="space-y-6">
       <PageHeader
         title="Question Studio"
-        description="Generate, quality-check, revise, approve, and convert exam-ready questions from one production cockpit."
+        description="Generate, quality-check, revise, approve, and route eligible questions to Question Bank from one production cockpit."
         icon={<Sparkles className="h-5 w-5" />}
         actions={(
           <>
@@ -313,7 +328,7 @@ export function QuestionStudioCockpitPage() {
         <Metric label="Awaiting review" value={stats.unreviewed} icon={<RefreshCw className="h-4 w-4" />} tone={stats.unreviewed ? 'info' : 'neutral'} />
         <Metric label="Approval blockers" value={stats.blocked} icon={<ShieldCheck className="h-4 w-4" />} tone={stats.blocked ? 'warning' : 'success'} />
         <Metric label="Duplicate signals" value={stats.duplicates} icon={<CircleAlert className="h-4 w-4" />} tone={stats.duplicates ? 'warning' : 'success'} />
-        <Metric label="In Question Bank" value={stats.approved} icon={<CheckCircle2 className="h-4 w-4" />} tone="success" />
+        <Metric label="In Question Bank" value={stats.inQuestionBank} icon={<CheckCircle2 className="h-4 w-4" />} tone="success" />
       </div>
 
       <Card>
@@ -336,7 +351,7 @@ export function QuestionStudioCockpitPage() {
 
       <Card>
         <CardHeader className="space-y-4">
-          <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Review cockpit</CardTitle><p className="mt-1 text-xs text-muted-foreground">Inspect quality signals, revise immutable payloads, make item-level decisions, and convert approved questions automatically.</p></div><Badge variant="outline">{selectedIds.size} selected</Badge></div>
+          <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Review cockpit</CardTitle><p className="mt-1 text-xs text-muted-foreground">Inspect quality signals, revise immutable payloads, make item-level decisions, and route only Question-Bank-eligible approvals to canonical storage.</p></div><Badge variant="outline">{selectedIds.size} selected</Badge></div>
           <div className="grid gap-3 xl:grid-cols-[1fr_190px_190px]">
             <div className="relative"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" /><Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search run code, stem, topic, package or exam" className="pl-9" /></div>
             <Select value={statusFilter} onValueChange={setStatusFilter}><SelectTrigger><Filter className="mr-2 h-4 w-4" /><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>All statuses</SelectItem><SelectItem value="unreviewed">Unreviewed</SelectItem><SelectItem value="needs_fix">Needs fix</SelectItem><SelectItem value="approved">Approved</SelectItem><SelectItem value="rejected">Rejected</SelectItem></SelectContent></Select>
@@ -344,7 +359,7 @@ export function QuestionStudioCockpitPage() {
           </div>
           <div className="grid gap-3 lg:grid-cols-[1fr_auto] lg:items-end">
             <Field label="Reason for needs-fix or rejection"><Textarea value={reason} onChange={(event) => setReason(event.target.value)} placeholder="State the accuracy, language, duplication, explanation, or policy issue" className="min-h-20" /></Field>
-            <div className="flex flex-wrap gap-2"><Button onClick={() => void applyStatus('approved')} disabled={updating || selectedIds.size === 0 || !canReview}><CheckCircle2 className="mr-1.5 h-4 w-4" /> Approve and convert</Button><Button variant="outline" onClick={() => void applyStatus('needs_fix')} disabled={updating || selectedIds.size === 0 || !canReview}><AlertTriangle className="mr-1.5 h-4 w-4" /> Needs fix</Button><Button variant="outline" onClick={() => void applyStatus('unreviewed')} disabled={updating || selectedIds.size === 0 || !canReview}><RefreshCw className="mr-1.5 h-4 w-4" /> Return</Button><Button variant="destructive" onClick={() => void applyStatus('rejected')} disabled={updating || selectedIds.size === 0 || !canReview}><XCircle className="mr-1.5 h-4 w-4" /> Reject</Button></div>
+            <div className="flex flex-wrap gap-2"><Button onClick={() => void applyStatus('approved')} disabled={updating || selectedIds.size === 0 || !canReview}><CheckCircle2 className="mr-1.5 h-4 w-4" /> Approve</Button><Button variant="outline" onClick={() => void applyStatus('needs_fix')} disabled={updating || selectedIds.size === 0 || !canReview}><AlertTriangle className="mr-1.5 h-4 w-4" /> Needs fix</Button><Button variant="outline" onClick={() => void applyStatus('unreviewed')} disabled={updating || selectedIds.size === 0 || !canReview}><RefreshCw className="mr-1.5 h-4 w-4" /> Return</Button><Button variant="destructive" onClick={() => void applyStatus('rejected')} disabled={updating || selectedIds.size === 0 || !canReview}><XCircle className="mr-1.5 h-4 w-4" /> Reject</Button></div>
           </div>
         </CardHeader>
         <CardContent className="p-0">
@@ -369,19 +384,23 @@ function ReviewItem({ item, quality, duplicate, selected, expanded, editing, rev
 
 function ItemInspection({ item, quality, duplicate }: { item: QuestionStudioItem; quality: ItemQualityReport; duplicate?: DuplicateMatch }) {
   const options = itemOptionValues(item.payload);
+  const stimulusSvgs = itemStimulusSvgs(item.payload);
+  const optionSvgs = itemOptionSvgs(item.payload);
   const correctIndex = itemCorrectIndex(item.payload);
-  return <div className="ml-8 mt-4 grid gap-4 rounded-xl border bg-background p-4 lg:ml-16 lg:grid-cols-[1fr_1fr]"><div><p className="mb-2 text-xs font-semibold">Answer options</p><div className="space-y-2">{options.map((option, index) => <div key={`${item.id}-${index}`} className={cn('rounded-md border px-3 py-2 text-xs', index === correctIndex && 'border-success/40 bg-success/5 text-success')}><span className="mr-2 font-mono font-bold">{String.fromCharCode(65 + index)}.</span>{option || <span className="italic">Empty option</span>}</div>)}</div><p className="mt-4 text-xs font-semibold">Explanation</p><p className="mt-2 whitespace-pre-wrap text-xs leading-relaxed text-muted-foreground">{itemExplanation(item.payload) || 'No explanation recorded.'}</p></div><div><div className={cn('rounded-lg border p-3', qualityTone(quality))}><div className="flex items-center justify-between gap-3"><p className="text-xs font-semibold">Production quality gate</p><span className="text-lg font-bold">{quality.score}</span></div><p className="mt-1 text-[11px]">{quality.blockerCount} blocker(s) · {quality.warningCount} warning(s)</p></div><div className="mt-3 space-y-2">{quality.issues.length === 0 ? <div className="flex items-center gap-2 rounded-md border border-success/30 bg-success/5 p-3 text-xs text-success"><CheckCircle2 className="h-4 w-4" /> No automatic quality issues detected.</div> : quality.issues.map((issue) => <div key={`${issue.code}-${issue.field}`} className={cn('flex items-start gap-2 rounded-md border p-3 text-xs', issue.severity === 'blocker' ? 'border-destructive/30 bg-destructive/5 text-destructive' : 'border-warning/30 bg-warning/5 text-warning')}><AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" /><div><p className="font-semibold">{issue.message}</p><p className="mt-0.5 text-[10px] uppercase tracking-wide opacity-70">{issue.field} · {issue.code}</p></div></div>)}</div>{duplicate && <p className="mt-3 text-[11px] text-muted-foreground">Closest match: {duplicate.matchedRunCode} · {Math.round(duplicate.similarity * 100)}% similarity</p>}</div></div>;
+  const visual = optionSvgs.length > 0;
+  return <div className="ml-8 mt-4 grid gap-4 rounded-xl border bg-background p-4 lg:ml-16 lg:grid-cols-[1fr_1fr]"><div>{stimulusSvgs.length > 0 && <div className="mb-4"><p className="mb-2 text-xs font-semibold">Question figures</p><div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{stimulusSvgs.map((svg, index) => <SpatialSvgFigure key={`${item.id}-stimulus-${index}`} svg={svg} label={`Figure ${index + 1}`} />)}</div></div>}<p className="mb-2 text-xs font-semibold">Answer options</p>{visual ? <div className="grid gap-2 sm:grid-cols-2">{optionSvgs.map((svg, index) => <div key={`${item.id}-${index}`} className={cn('rounded-lg', index === correctIndex && 'ring-2 ring-success/50')}><SpatialSvgFigure svg={svg} label={`Option ${String.fromCharCode(65 + index)}`} /></div>)}</div> : <div className="space-y-2">{options.map((option, index) => <div key={`${item.id}-${index}`} className={cn('rounded-md border px-3 py-2 text-xs', index === correctIndex && 'border-success/40 bg-success/5 text-success')}><span className="mr-2 font-mono font-bold">{String.fromCharCode(65 + index)}.</span>{option || <span className="italic">Empty option</span>}</div>)}</div>}<p className="mt-4 text-xs font-semibold">Explanation</p><p className="mt-2 whitespace-pre-wrap text-xs leading-relaxed text-muted-foreground">{itemExplanation(item.payload) || 'No explanation recorded.'}</p></div><div><div className={cn('rounded-lg border p-3', qualityTone(quality))}><div className="flex items-center justify-between gap-3"><p className="text-xs font-semibold">Production quality gate</p><span className="text-lg font-bold">{quality.score}</span></div><p className="mt-1 text-[11px]">{quality.blockerCount} blocker(s) · {quality.warningCount} warning(s)</p></div><div className="mt-3 space-y-2">{quality.issues.length === 0 ? <div className="flex items-center gap-2 rounded-md border border-success/30 bg-success/5 p-3 text-xs text-success"><CheckCircle2 className="h-4 w-4" /> No automatic quality issues detected.</div> : quality.issues.map((issue) => <div key={`${issue.code}-${issue.field}`} className={cn('flex items-start gap-2 rounded-md border p-3 text-xs', issue.severity === 'blocker' ? 'border-destructive/30 bg-destructive/5 text-destructive' : 'border-warning/30 bg-warning/5 text-warning')}><AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" /><div><p className="font-semibold">{issue.message}</p><p className="mt-0.5 text-[10px] uppercase tracking-wide opacity-70">{issue.field} · {issue.code}</p></div></div>)}</div>{duplicate && <p className="mt-3 text-[11px] text-muted-foreground">Closest match: {duplicate.matchedRunCode} · {Math.round(duplicate.similarity * 100)}% similarity</p>}</div></div>;
 }
 
 function RevisionEditor({ item, saving, onCancel, onSave }: { item: QuestionStudioItem; saving: boolean; onCancel: () => void; onSave: (input: { itemId: string; stem: string; explanation: string; options: string[]; correctIndex: number; changeReason: string }) => Promise<void> }) {
+  const visualOptions = itemOptionSvgs(item.payload);
   const [stem, setStem] = useState(() => itemStem(item.payload));
   const [explanation, setExplanation] = useState(() => itemExplanation(item.payload));
   const [options, setOptions] = useState(() => { const current = itemOptionValues(item.payload); return current.length >= 2 ? current : ['', '', '', '']; });
   const [correctIndex, setCorrectIndex] = useState(() => Math.max(0, itemCorrectIndex(item.payload)));
   const [changeReason, setChangeReason] = useState('Editorial correction during generated-question review');
-  const draftQuality = analyzeItemQuality({ stem, text: stem, explanation, options, correctIndex });
+  const draftQuality = analyzeItemQuality({ ...(item.payload ?? {}), stem, text: stem, explanation, options, correctIndex });
   const updateOption = (index: number, value: string) => setOptions((current) => current.map((option, optionIndex) => optionIndex === index ? value : option));
-  return <div className="ml-8 mt-4 rounded-xl border border-primary/20 bg-primary/[0.03] p-4 lg:ml-16"><div className="flex items-center justify-between gap-3"><div><p className="text-sm font-semibold">Create immutable revision</p><p className="mt-1 text-xs text-muted-foreground">Saving creates version {item.currentVersionNumber + 1}; the previous payload remains unchanged.</p></div><Button size="icon" variant="ghost" onClick={onCancel}><X className="h-4 w-4" /></Button></div><div className="mt-4 grid gap-4 lg:grid-cols-2"><Field label="Question stem"><Textarea value={stem} onChange={(event) => setStem(event.target.value)} className="min-h-32" /></Field><Field label="Question-specific explanation"><Textarea value={explanation} onChange={(event) => setExplanation(event.target.value)} className="min-h-32" /></Field></div><div className="mt-4 grid gap-3 md:grid-cols-2">{options.map((option, index) => <div key={index} className="flex items-center gap-2"><button type="button" onClick={() => setCorrectIndex(index)} className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-md border text-xs font-bold', correctIndex === index ? 'border-success bg-success/10 text-success' : 'bg-background text-muted-foreground')}>{String.fromCharCode(65 + index)}</button><Input value={option} onChange={(event) => updateOption(index, event.target.value)} placeholder={`Option ${String.fromCharCode(65 + index)}`} /></div>)}</div><div className="mt-4 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end"><Field label="Revision reason"><Input value={changeReason} onChange={(event) => setChangeReason(event.target.value)} /></Field><div className="flex flex-wrap gap-2"><Badge variant="outline" className={cn('h-9 px-3', qualityTone(draftQuality))}>{draftQuality.readyForApproval ? `Quality ${draftQuality.score}` : `${draftQuality.blockerCount} blocker(s)`}</Badge><Button variant="outline" onClick={onCancel}>Cancel</Button><Button disabled={saving || !draftQuality.readyForApproval || !changeReason.trim()} onClick={() => void onSave({ itemId: item.id, stem, explanation, options, correctIndex, changeReason })}>{saving ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Save className="mr-1.5 h-4 w-4" />} Save revision</Button></div></div>{draftQuality.issues.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{draftQuality.issues.map((issue) => <Badge key={`${issue.code}-${issue.field}`} variant="outline" className={issue.severity === 'blocker' ? 'border-destructive/30 text-destructive' : 'border-warning/30 text-warning'}>{issue.message}</Badge>)}</div>}</div>;
+  return <div className="ml-8 mt-4 rounded-xl border border-primary/20 bg-primary/[0.03] p-4 lg:ml-16"><div className="flex items-center justify-between gap-3"><div><p className="text-sm font-semibold">Create immutable revision</p><p className="mt-1 text-xs text-muted-foreground">Saving creates version {item.currentVersionNumber + 1}; the previous payload remains unchanged.</p></div><Button size="icon" variant="ghost" onClick={onCancel}><X className="h-4 w-4" /></Button></div><div className="mt-4 grid gap-4 lg:grid-cols-2"><Field label="Question stem"><Textarea value={stem} onChange={(event) => setStem(event.target.value)} className="min-h-32" /></Field><Field label="Question-specific explanation"><Textarea value={explanation} onChange={(event) => setExplanation(event.target.value)} className="min-h-32" /></Field></div>{visualOptions.length > 0 ? <div className="mt-4"><p className="mb-2 text-xs font-semibold">Correct visual option</p><div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">{visualOptions.map((svg, index) => <button type="button" key={index} onClick={() => setCorrectIndex(index)} className={cn('rounded-lg text-left', correctIndex === index ? 'ring-2 ring-success/60' : 'ring-1 ring-border')}><SpatialSvgFigure svg={svg} label={`Option ${String.fromCharCode(65 + index)}`} /></button>)}</div><p className="mt-2 text-[11px] text-muted-foreground">Spatial figures remain immutable in this editor; regenerate the item if the geometry itself needs correction.</p></div> : <div className="mt-4 grid gap-3 md:grid-cols-2">{options.map((option, index) => <div key={index} className="flex items-center gap-2"><button type="button" onClick={() => setCorrectIndex(index)} className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-md border text-xs font-bold', correctIndex === index ? 'border-success bg-success/10 text-success' : 'bg-background text-muted-foreground')}>{String.fromCharCode(65 + index)}</button><Input value={option} onChange={(event) => updateOption(index, event.target.value)} placeholder={`Option ${String.fromCharCode(65 + index)}`} /></div>)}</div>}<div className="mt-4 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end"><Field label="Revision reason"><Input value={changeReason} onChange={(event) => setChangeReason(event.target.value)} /></Field><div className="flex flex-wrap gap-2"><Badge variant="outline" className={cn('h-9 px-3', qualityTone(draftQuality))}>{draftQuality.readyForApproval ? `Quality ${draftQuality.score}` : `${draftQuality.blockerCount} blocker(s)`}</Badge><Button variant="outline" onClick={onCancel}>Cancel</Button><Button disabled={saving || !draftQuality.readyForApproval || !changeReason.trim()} onClick={() => void onSave({ itemId: item.id, stem, explanation, options, correctIndex, changeReason })}>{saving ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Save className="mr-1.5 h-4 w-4" />} Save revision</Button></div></div>{draftQuality.issues.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{draftQuality.issues.map((issue) => <Badge key={`${issue.code}-${issue.field}`} variant="outline" className={issue.severity === 'blocker' ? 'border-destructive/30 text-destructive' : 'border-warning/30 text-warning'}>{issue.message}</Badge>)}</div>}</div>;
 }
 
 function Field({ label, children, className }: { label: string; children: ReactNode; className?: string }) { return <div className={className}><Label className="mb-1.5 block text-xs">{label}</Label>{children}</div>; }

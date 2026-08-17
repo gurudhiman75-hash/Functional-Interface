@@ -1,0 +1,71 @@
+name: Validate SPA-FND-001 Proposed QL Human Review V1
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
+      - "artifacts/api-server/src/reasoning-v1/proofs/**"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-proposed-ql-coverage-v1.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-proposed-ql-incomplete-slice-scale-v1.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-proposed-ql-string-modality-balance-v1.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-fcl-geometric-form-safe-scale-v1.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-fcl-subfigure-relation-mode-scale-v1.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-proposed-ql-human-review-pack-v1.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-proposed-ql-human-review-editorial-cleanup-v1.test.ts"
+      - ".github/workflows/spa-proposed-ql-human-review-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-proposed-ql-human-review-v1:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle and run balanced string proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/spatial-proposed-ql-string-modality-balance-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/spatial/spatial-proposed-ql-string-modality-balance-v1.test.mjs
+          cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-proposed-ql-string-modality-balance-v1.test.mjs
+      - name: Bundle and run learner-safe FCL geometric scale
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/spatial-fcl-geometric-form-safe-scale-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/spatial/spatial-fcl-geometric-form-safe-scale-v1.test.mjs
+          cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-fcl-geometric-form-safe-scale-v1.test.mjs
+      - name: Bundle and run FCL subfigure relation mode scale
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/spatial-fcl-subfigure-relation-mode-scale-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/spatial/spatial-fcl-subfigure-relation-mode-scale-v1.test.mjs
+          cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-fcl-subfigure-relation-mode-scale-v1.test.mjs
+      - name: Bundle and run incomplete-slice scale completion
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/spatial-proposed-ql-incomplete-slice-scale-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/spatial/spatial-proposed-ql-incomplete-slice-scale-v1.test.mjs
+          cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-proposed-ql-incomplete-slice-scale-v1.test.mjs
+      - name: Bundle and build final 120-question human review pack
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/spatial-proposed-ql-human-review-editorial-cleanup-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/spatial/spatial-proposed-ql-human-review-editorial-cleanup-v1.test.mjs
+          cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-proposed-ql-human-review-editorial-cleanup-v1.test.mjs
+      - name: Upload final proposed QL human review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-proposed-ql-human-review-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-proposed-ql-human-review-pack-v1.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-proposed-ql-human-review-pack-v1.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-proposed-ql-human-review-pack-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-proposed-ql-string-modality-balance-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fcl-pql-03-learner-safe-scale-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fcl-pql-09-relation-mode-scale-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-proposed-ql-incomplete-slice-scale-v1-evidence.json
+          if-no-files-found: error

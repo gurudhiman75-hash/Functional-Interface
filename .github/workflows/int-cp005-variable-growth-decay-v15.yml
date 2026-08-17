@@ -1,0 +1,105 @@
+# Final-head validation trigger after V15 authority record.
+name: Validate INT-CP-005 Variable Growth Decay V15
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp005-variable-growth-decay-runtime-v15.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp005-variable-growth-decay-v15-frozen.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v15-*.ts"
+      - ".github/workflows/int-cp005-variable-growth-decay-v15.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: int-cp005-v15-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp005-v15:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle V14 regression audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v14-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp005-v14-regression.mjs
+      - name: Run V14 regression audit
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp005-v14-regression.mjs 2>&1 | tee dist/quant-v4/int-cp005-v14-regression.log
+
+      - name: Bundle V15 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v15-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp005-v15-audit.mjs
+      - name: Run V15 audit
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp005-v15-audit.mjs 2>&1 | tee dist/quant-v4/int-cp005-v15-audit.log
+
+      - name: Bundle V15 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v15-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp005-v15-review-export.mjs
+      - name: Export V15 review pack
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp005-v15-review-export.mjs 2>&1 | tee dist/quant-v4/int-cp005-v15-review-export.log
+
+      - name: Bundle V15 freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp005-variable-growth-decay-v15-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp005-v15-freeze-audit.mjs
+      - name: Run V15 freeze audit
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp005-v15-freeze-audit.mjs 2>&1 | tee dist/quant-v4/int-cp005-v15-freeze-audit.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify evidence markers
+        run: |
+          grep -q 'PASS_INT_CP005_VARIABLE_GROWTH_DECAY_V14' artifacts/api-server/dist/quant-v4/int-cp005-v14-regression.log
+          grep -q 'PASS_INT_CP005_VARIABLE_GROWTH_DECAY_V15' artifacts/api-server/dist/quant-v4/int-cp005-v15-audit.log
+          grep -q 'PASS_INT_CP005_VARIABLE_GROWTH_DECAY_V15_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-cp005-v15-review-export.log
+          grep -q 'PASS_INT_CP005_VARIABLE_GROWTH_DECAY_V15_FREEZE' artifacts/api-server/dist/quant-v4/int-cp005-v15-freeze-audit.log
+
+      - name: Upload V15 review and freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp005-variable-growth-decay-v15-review-freeze
+          path: |
+            artifacts/api-server/dist/quant-v4/int-cp005-review-v15
+            artifacts/api-server/dist/quant-v4/int-cp005-v15-audit.log
+            artifacts/api-server/dist/quant-v4/int-cp005-v15-review-export.log
+            artifacts/api-server/dist/quant-v4/int-cp005-v15-freeze-audit.log
+          if-no-files-found: error

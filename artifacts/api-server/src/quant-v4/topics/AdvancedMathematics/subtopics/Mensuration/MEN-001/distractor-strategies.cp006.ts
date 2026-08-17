@@ -175,5 +175,4 @@ export const MEN_001_CP006_DISTRACTOR_STRATEGIES = {
   "cp006-square-area-report-circle-area": ({ solver }: Context) =>
     option(22 * number(solver, "radius") ** 2 / 7, solver),
   "cp006-square-area-use-radius-square": ({ solver }: Context) => option(number(solver, "radius") ** 2, solver),
-  "cp006-square-area-use-wire-square-over-eight": ({ solver }: Context) => option(number(solver, "wireLength") ** 2 / 8, solver),
 } as const satisfies Record<string, Strategy>;

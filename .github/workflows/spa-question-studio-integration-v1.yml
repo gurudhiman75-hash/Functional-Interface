@@ -1,0 +1,67 @@
+name: Validate SPA-FND-001 Question Studio Integration V1
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-question-studio-integration-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+
+      - name: Build student app
+        run: pnpm --dir artifacts/examtree build
+
+      - name: Bundle Spatial Question Studio proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          for test in \
+            spatial-mirror-water-proof \
+            spatial-permanent-ql-allocation-v1 \
+            spatial-question-studio-integration-v1
+          do
+            pnpm --dir artifacts/api-server exec esbuild \
+              src/reasoning-v1/tests/${test}.test.ts \
+              --bundle --platform=node --format=esm \
+              --outfile=dist/reasoning-v1/spatial/${test}.test.mjs
+          done
+
+      - name: Revalidate approved MIR/WAT geometry
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
+
+      - name: Revalidate permanent QL allocation
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-permanent-ql-allocation-v1.test.mjs
+
+      - name: Validate standard Question Studio lifecycle
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-question-studio-integration-v1.test.mjs
+
+      - name: Upload Question Studio evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-question-studio-integration-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-question-studio-integration-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-permanent-ql-allocation-v1-evidence.json
+          if-no-files-found: error

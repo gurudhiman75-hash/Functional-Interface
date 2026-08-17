@@ -1,0 +1,39 @@
+name: Validate NUM-CP-002 Hindi Punjabi localization
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/**"
+      - ".github/workflows/num-001-cp002-hi-pa-localization.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-num-cp002-hi-pa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle permanent English regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/permanent/runtime-proof.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp002-hi-pa-english-regression.mjs
+      - name: Run permanent English regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp002-hi-pa-english-regression.mjs
+      - name: Bundle Hindi Punjabi parity proof
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-002/localization/runtime-parity.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp002-hi-pa-localization.test.mjs
+      - name: Run Hindi Punjabi parity proof
+        run: node artifacts/api-server/dist/quant-v4/num-cp002-hi-pa-localization.test.mjs | tee artifacts/api-server/dist/quant-v4/num-cp002-hi-pa-localization.log
+      - name: Upload multilingual evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp002-hi-pa-localization
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp002-hi-pa-localization.log
+            artifacts/api-server/dist/quant-v4/num-cp002-localization/num-cp002-hi-pa-review.json
+          retention-days: 14

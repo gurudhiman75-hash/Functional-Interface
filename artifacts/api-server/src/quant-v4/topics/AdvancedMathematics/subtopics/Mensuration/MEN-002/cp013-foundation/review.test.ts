@@ -1,0 +1,15 @@
+import { auditMenCp013DiscoveryReview, buildMenCp013DiscoveryReview } from './review';
+function assert(c:unknown,m:string):asserts c{if(!c)throw new Error(m)}
+const rows=buildMenCp013DiscoveryReview(),a=auditMenCp013DiscoveryReview();
+assert(a.records===136,`expected 136 review rows, got ${a.records}`);
+assert(a.uniqueStems===136,`expected 136 unique review stems, got ${a.uniqueStems}`);
+assert(JSON.stringify(a.answerPositions)==='[34,34,34,34]','review answer balance failed');
+for(const d of new Set(rows.map(r=>r.definition.id))){const p=rows.filter(r=>r.definition.id===d).map(r=>r.question.correctIndex).sort();assert(JSON.stringify(p)==='[0,1,2,3]',`${d}: positions not balanced`)}
+for(const {question} of rows){
+  assert(!question.stem.includes('edge of edge'),'presentation wording regression');
+  assert(!question.options.some(o=>/\b1 spheres\b/.test(o.display)),'singular sphere option regression');
+  assert(!question.options.some(o=>/\d+\.\d{4,}/.test(o.display)),'long-decimal option regression');
+  assert(new Set(question.options.map(o=>o.display)).size===4,'review option uniqueness regression');
+  assert(question.options[question.correctIndex]?.display===question.answer,'review answer parity regression');
+}
+console.log(JSON.stringify(a,null,2));

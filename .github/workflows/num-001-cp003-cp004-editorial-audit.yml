@@ -4,7 +4,9 @@ on:
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/**"
       - "artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
       - ".github/workflows/num-001-cp003-cp004-editorial-audit.yml"
   workflow_dispatch:
@@ -38,6 +40,10 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/number-system-question-studio-release-audit.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/number-system-question-studio-release-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/TMW-001-QUESTION-STUDIO-INTEGRATION.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/tmw-001-question-studio-integration.mjs
 
       - name: Run V3 editorial audit
         working-directory: artifacts/api-server
@@ -55,6 +61,15 @@ jobs:
             node dist/quant-v4/number-system-question-studio-release-audit.mjs \
             2>&1 | tee dist/quant-v4/number-system-question-studio-release-audit.log
 
+      - name: Run frozen TMW shared Question Studio integration proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/tmw-001-question-studio-integration.mjs \
+            2>&1 | tee dist/quant-v4/tmw-001-question-studio-integration.log
+
       - name: Upload release evidence and diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -63,6 +78,7 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/number-system-generator-v3-audit.log
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release-audit.log
+            artifacts/api-server/dist/quant-v4/tmw-001-question-studio-integration.log
             artifacts/api-server/dist/quant-v4/number-system-generator-v3/number-system-generator-v3-review.json
             artifacts/api-server/dist/quant-v4/number-system-generator-v3/number-system-generator-v3-review.csv
             artifacts/api-server/dist/quant-v4/number-system-generator-v3/number-system-generator-v3-review.md

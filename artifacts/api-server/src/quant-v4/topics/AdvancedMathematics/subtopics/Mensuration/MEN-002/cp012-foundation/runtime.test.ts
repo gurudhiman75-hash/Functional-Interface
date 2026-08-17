@@ -1,0 +1,80 @@
+import { exactKey } from "../foundation/exact";
+import { auditMenCp012Registry, MEN_CP_012_PROTOTYPES } from "./registry";
+import { MEN_CP_012_PRESENTATION_V2_AUTHORITY, generateMenCp012QuestionV2 } from "./presentation-v2";
+import { buildMenCp012ReviewBatch } from "./review";
+
+function assert(condition: unknown, message: string): asserts condition {
+  if (!condition) throw new Error(message);
+}
+
+const registry = auditMenCp012Registry();
+assert(registry.prototypeCount === 16, `Expected 16 prototypes, got ${registry.prototypeCount}.`);
+assert(registry.uniquePrototypeCount === 16, "Prototype IDs must be unique.");
+assert(registry.uniqueSolveModeCount === 16, "Solve modes must be unique in Wave 01.");
+assert(registry.reasoningClusterCount === 7, `Expected 7 provisional reasoning clusters, got ${registry.reasoningClusterCount}.`);
+assert(registry.permanentQlCount === 0, "Wave 01 must not allocate permanent QLs.");
+assert(registry.lifecycleLocked, "Wave 01 must remain product-locked.");
+
+let deterministicPackageCount = 0;
+let lossStateCount = 0;
+for (const definition of MEN_CP_012_PROTOTYPES) {
+  const positions = new Set<number>();
+  for (let index = 0; index < 64; index += 1) {
+    const seed = `proof:${definition.prototypeId}:${String(index).padStart(3, "0")}`;
+    const first = generateMenCp012QuestionV2(definition.prototypeId, seed);
+    const second = generateMenCp012QuestionV2(definition.prototypeId, seed);
+
+    assert(first.presentationAuthority === MEN_CP_012_PRESENTATION_V2_AUTHORITY, `${definition.prototypeId}/${seed}: presentation V2 authority missing.`);
+    assert(first.validation.valid, `${definition.prototypeId}/${seed}: validation failed: ${JSON.stringify(first.validation.checks)}`);
+    assert(first.verification.valid, `${definition.prototypeId}/${seed}: conservation verification failed.`);
+    assert(first.stem === second.stem, `${definition.prototypeId}/${seed}: deterministic stem replay drift.`);
+    assert(first.correctIndex === second.correctIndex, `${definition.prototypeId}/${seed}: correct-position replay drift.`);
+    assert(exactKey(first.exactAnswer) === exactKey(second.exactAnswer), `${definition.prototypeId}/${seed}: exact answer replay drift.`);
+    assert(JSON.stringify(first.options.map((option) => option.display)) === JSON.stringify(second.options.map((option) => option.display)), `${definition.prototypeId}/${seed}: option replay drift.`);
+    assert(first.options.length === 4, `${definition.prototypeId}/${seed}: must have four options.`);
+    assert(new Set(first.options.map((option) => option.display)).size === 4, `${definition.prototypeId}/${seed}: option displays must be unique.`);
+    assert(first.options.filter((option) => option.isCorrect).length === 1, `${definition.prototypeId}/${seed}: must have exactly one correct option.`);
+    assert(first.options[first.correctIndex]?.display === first.answer, `${definition.prototypeId}/${seed}: displayed answer parity failed.`);
+    assert(first.explanation.steps.length === 4, `${definition.prototypeId}/${seed}: explanation must have four connected steps.`);
+    assert(first.explanation.traps.length >= 2, `${definition.prototypeId}/${seed}: explanation needs at least two misconception traps.`);
+    assert(first.permanentQlId === null, `${definition.prototypeId}/${seed}: permanent QL allocated during discovery.`);
+    assert(!first.questionStudioDiscoverable && !first.publiclyPublishable, `${definition.prototypeId}/${seed}: product lifecycle leaked.`);
+    assert(first.questionBankStatus === "NOT_STORED" && first.testEligibility === "INELIGIBLE", `${definition.prototypeId}/${seed}: downstream delivery gate leaked.`);
+    assert(first.state.conservationStatement.length > 0, `${definition.prototypeId}/${seed}: conservation statement missing.`);
+    assert(first.options.every((option) => !/\d+\/2\s+(?:cm|m)$/.test(option.display)), `${definition.prototypeId}/${seed}: learner-facing half-length should use decimal display.`);
+    if (definition.prototypeId === "MEN-CP012-PROT-WASTAGE-INVERSE-CYLINDER-HEIGHT") {
+      assert(first.explanation.traps.every((trap) => !/Do not use \d+% as the retained fraction/.test(trap)), `${definition.prototypeId}/${seed}: ambiguous loss/retained trap survived.`);
+    }
+    if (definition.prototypeId === "MEN-CP012-PROT-SLAB-TO-THIN-SHEET-LENGTH") {
+      assert(first.stem.includes("thinner rectangular plate"), `${definition.prototypeId}/${seed}: slab context must use realistic plate wording.`);
+      assert(!first.stem.includes("new sheet length"), `${definition.prototypeId}/${seed}: old sheet wording survived.`);
+    }
+    if (first.state.lossPercent.numerator > 0n) lossStateCount += 1;
+
+    positions.add(first.correctIndex);
+    deterministicPackageCount += 1;
+  }
+  assert(positions.size === 4, `${definition.prototypeId}: all four answer positions were not reached.`);
+}
+
+const review = buildMenCp012ReviewBatch();
+assert(review.length === 64, `Expected 64 review records, got ${review.length}.`);
+assert(new Set(review.map((question) => question.stem)).size === 64, "Wave 01 review stems must be distinct.");
+const correctPositions = [0,1,2,3].map((position) => review.filter((question) => question.correctIndex === position).length);
+assert(correctPositions.every((count) => count === 16), `Review answer balance must be 16/16/16/16; got ${correctPositions.join("/")}.`);
+assert(review.every((question) => question.verification.valid && question.validation.valid), "Every review record must verify and validate.");
+assert(review.every((question) => !question.questionStudioDiscoverable && !question.publiclyPublishable), "Review evidence must remain product-locked.");
+assert(review.every((question) => question.options.every((option) => !/\d+\/2\s+(?:cm|m)$/.test(option.display))), "Review must not expose simple half-length fractions.");
+
+console.log(JSON.stringify({
+  authority: "MEN-CP012-FOUNDATION-WAVE-01-V1",
+  presentationAuthority: MEN_CP_012_PRESENTATION_V2_AUTHORITY,
+  prototypeCount: registry.prototypeCount,
+  reasoningClusterCount: registry.reasoningClusterCount,
+  deterministicPackages: deterministicPackageCount,
+  reviewRecords: review.length,
+  correctPositions: { A: correctPositions[0], B: correctPositions[1], C: correctPositions[2], D: correctPositions[3] },
+  lossAwarePackages: lossStateCount,
+  permanentQlCount: registry.permanentQlCount,
+  lifecycleLocked: registry.lifecycleLocked,
+}, null, 2));
