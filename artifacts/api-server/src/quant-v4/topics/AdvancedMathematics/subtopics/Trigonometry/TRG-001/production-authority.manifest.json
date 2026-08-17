@@ -1,0 +1,85 @@
+{
+  "packageId": "TRG-001",
+  "checkpoint": "PRODUCTION_144_AUTHORITY_ALIGNED_AI_REVIEWED",
+  "status": "AI_EDITORIAL_PASS_EXECUTION_PENDING_HUMAN_PENDING",
+  "supersedesCandidate": "production-candidate-runtime.ts",
+  "candidateRuntime": "production-authority-candidate-runtime.ts",
+  "authorityRuntime": "production-authority-runtime.ts",
+  "gateSuite": "production-authority.test.ts",
+  "authorityAudit": "PRODUCTION_AUTHORITY_AUDIT.md",
+  "authorityStatus": "PRODUCTION_AUTHORITY_STATUS.md",
+  "editorialStatus": "PRODUCTION_AUTHORITY_EDITORIAL_STATUS.md",
+  "editorialManifest": "production-authority-editorial.manifest.json",
+  "qlCounts": {
+    "total": 144,
+    "perCp": 24,
+    "phase0Subfamilies": 39,
+    "uniqueTraceTemplateReuses": 112,
+    "customAuthorityRoles": 32
+  },
+  "ranges": {
+    "TRG-CP-001": ["TRG-001-QL-001", "TRG-001-QL-024"],
+    "TRG-CP-002": ["TRG-001-QL-025", "TRG-001-QL-048"],
+    "TRG-CP-003": ["TRG-001-QL-049", "TRG-001-QL-072"],
+    "TRG-CP-004": ["TRG-001-QL-073", "TRG-001-QL-096"],
+    "TRG-CP-005": ["TRG-001-QL-097", "TRG-001-QL-120"],
+    "TRG-CP-006": ["TRG-001-QL-121", "TRG-001-QL-144"]
+  },
+  "reconciliation": {
+    "phase0FamilyAllocation": "ALIGNED_BY_CONSTRUCTION",
+    "oldRowLevelEditorialStatusCarriedForward": false,
+    "customQlIds": [
+      "TRG-001-QL-001", "TRG-001-QL-002", "TRG-001-QL-003", "TRG-001-QL-004",
+      "TRG-001-QL-011", "TRG-001-QL-012", "TRG-001-QL-024", "TRG-001-QL-032",
+      "TRG-001-QL-038", "TRG-001-QL-039", "TRG-001-QL-040", "TRG-001-QL-045",
+      "TRG-001-QL-046", "TRG-001-QL-057", "TRG-001-QL-058", "TRG-001-QL-062",
+      "TRG-001-QL-063", "TRG-001-QL-066", "TRG-001-QL-093", "TRG-001-QL-094",
+      "TRG-001-QL-095", "TRG-001-QL-098", "TRG-001-QL-112", "TRG-001-QL-115",
+      "TRG-001-QL-116", "TRG-001-QL-119", "TRG-001-QL-120", "TRG-001-QL-134",
+      "TRG-001-QL-135", "TRG-001-QL-136", "TRG-001-QL-137", "TRG-001-QL-144"
+    ],
+    "semanticHardening": {
+      "TRG-001-QL-066": "270-degree reduction restored within the locked 270/360 family",
+      "TRG-001-QL-095": "replaced non-ratio identity with expression derived from a given sine ratio",
+      "TRG-001-QL-098": "replaced supplied sum relation with expression derived from a tangent ratio",
+      "TRG-001-QL-135": "equivalent distractor collision removed"
+    },
+    "ql062ExactHalfDegreeHardening": "REUSED_FROM_ENGINEERING_CANDIDATE"
+  },
+  "gateTargets": {
+    "canonicalSeedsPerQl": 12,
+    "canonicalCases": 1728,
+    "minimumDistinctStemsPerQl": 2,
+    "sweepSeeds": 50,
+    "fullSweepCases": 7200
+  },
+  "executionEvidence": {
+    "githubActionsObserved": false,
+    "localCloneExecutionAvailable": false,
+    "strictTypeScriptCompile": "NOT_CLAIMED",
+    "authorityGateExecution": "NOT_CLAIMED",
+    "note": "Executable authority gates are committed. The environment could not resolve github.com for a local clone, and no GitHub Actions run exists for the reviewed authority head."
+  },
+  "editorial": {
+    "aiReviewed": 144,
+    "aiPass": 144,
+    "aiBlockers": 0,
+    "aiTotal": 144,
+    "humanReviewed": 0,
+    "humanTotal": 144,
+    "freezeEligible": false,
+    "reviewProvenance": {
+      "reusedMvpTemplatesRechecked": 59,
+      "reusedProductionTemplatesReviewed": 53,
+      "customAuthorityRolesReviewed": 32
+    }
+  },
+  "activation": {
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "publiclyPublishable": false,
+    "hindiPunjabiRuntime": false
+  },
+  "next": "Obtain execution evidence for production-authority.test.ts and complete mandatory human review before production freeze or activation."
+}
