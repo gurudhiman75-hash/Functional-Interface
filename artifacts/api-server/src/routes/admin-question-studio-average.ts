@@ -69,6 +69,26 @@ function isNumberSystemRequest(body: any) {
   );
 }
 
+function isTimeAndWorkRequest(body: any) {
+  const packageId = normalizeSelector(body?.packageId ?? body?.archetypeId);
+  const patternId = normalizeSelector(body?.patternId);
+  const topic = normalizeSelector(body?.topic);
+  const subtopic = normalizeSelector(body?.subtopic);
+  const selectors = new Set([
+    "time work",
+    "time and work",
+    "work and time",
+    "pipes cisterns",
+    "pipes and cisterns",
+  ]);
+  return (
+    packageId === "tmw 001" ||
+    patternId.includes("tmw 001") ||
+    (selectors.has(topic) && !subtopic) ||
+    (topic === "arithmetic" && selectors.has(subtopic))
+  );
+}
+
 function inferNumberSystemCpFromQl(value: unknown) {
   const match = /^NUM-QL-(\d{3})$/u.exec(asString(value));
   if (!match) return undefined;
@@ -138,14 +158,23 @@ router.post(
   async (req, res, next) => {
     const numberSystemRequest = isNumberSystemRequest(req.body);
     const averageRequest = isAverageRequest(req.body);
-    if (!averageRequest && !numberSystemRequest) {
+    const timeAndWorkRequest = isTimeAndWorkRequest(req.body);
+    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest) {
       next();
       return;
     }
 
     const count = asPositiveInteger(req.body?.count, 5, 50);
-    const defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001";
-    const defaultSubtopic = numberSystemRequest ? "Number System" : "Average";
+    const defaultPackageId = numberSystemRequest
+      ? "NUM-001"
+      : timeAndWorkRequest
+        ? "TMW-001"
+        : "AVG-001";
+    const defaultSubtopic = numberSystemRequest
+      ? "Number System"
+      : timeAndWorkRequest
+        ? "Time & Work"
+        : "Average";
     const packageId = asString(req.body?.packageId) || defaultPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
     const topic = asString(req.body?.topic) || "Arithmetic";
@@ -204,7 +233,7 @@ router.post(
 
     try {
       const result = await generateQuantV4Questions({
-        packageId: defaultPackageId as "AVG-001" | "NUM-001",
+        packageId: defaultPackageId as any,
         patternId,
         topic,
         subtopic,
