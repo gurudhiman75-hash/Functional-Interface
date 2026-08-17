@@ -29,7 +29,7 @@ jobs:
           for test in \
             spatial-foundation \
             spatial-permanent-ql-allocation-v1 \
-            spatial-figure-completion-discovery-v2 \
+            spatial-figure-completion-discovery-v2-hardened \
             spatial-figure-completion-symmetry-discovery-v1 \
             spatial-figure-completion-arc-discovery-v1 \
             spatial-figure-completion-visual-composition-v1 \
@@ -45,7 +45,7 @@ jobs:
       - name: Guard frozen SPA-QL-001..030 allocation
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-permanent-ql-allocation-v1.test.mjs
       - name: Run FGC-001 human-remediated continuity discovery proof V2
-        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-discovery-v2.test.mjs
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-discovery-v2-hardened.test.mjs
       - name: Run FGC-001 symmetry discovery proof
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-symmetry-discovery-v1.test.mjs
       - name: Run FGC-001 arc symmetry stress proof
