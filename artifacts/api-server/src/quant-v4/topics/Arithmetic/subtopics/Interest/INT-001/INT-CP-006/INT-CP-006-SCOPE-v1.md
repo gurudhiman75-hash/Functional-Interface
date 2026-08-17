@@ -1,8 +1,23 @@
 # INT-CP-006 — SI–CI Differences and Successive-Interest Relations
 
-Status: **English implementation candidate; inactive delivery boundary**
+Status: **English product-owner approved; freeze validation in progress; inactive delivery boundary**
+
+## Approval authority
+
+The 52-question English review artifact was approved by the product owner on **2026-08-17**.
+
+Approved learner source:
+- source head: `a1179b6e584a7ce8c1e842a290a3cb8fccc47068`
+- review workflow run: `31959447968` — PASS
+- review artifact: `9266878505` (`int-cp006-v1-english-review`)
+- artifact digest: `sha256:2d3516a3fa308f4e85d1673218b65be4647fd13a406e1cf949a9d67a15aa4f90`
+- freeze authority: `INT-CP-006-EN-v1-frozen`
+
+The freeze wrapper must preserve the approved English learner projection exactly. Hindi/Punjabi localization is a later checkpoint.
 
 ## Permanent learner QLs
+
+The following 13 identities are approved for the CP006 English authority.
 
 | QL | Contract | Given → answer |
 |---|---|---|
