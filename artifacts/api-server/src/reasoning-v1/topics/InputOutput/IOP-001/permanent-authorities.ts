@@ -149,14 +149,9 @@ export const IOP_001_PERMANENT_QL_AUTHORITIES: readonly IopPermanentQlAuthority[
     ["IOP-CP-009"],
     "Transform structured cells or boxes through inferable arithmetic relationships across cells and stages.",
     ["IOP-CP009-PROT-001", "IOP-CP009-PROT-002", "IOP-CP009-PROT-003"],
-    "SOURCE_MODE_WHITELIST_V1" as never,
+    "SOURCE_MODE_WHITELISTED_V1",
   ),
 ] as const);
-
-// Keep the closed V1 source-mode status explicit for QL008 without widening the
-// source-status contract above. This assignment is checked immediately below.
-const ql008 = IOP_001_PERMANENT_QL_AUTHORITIES.find((candidate) => candidate.qlId === "IOP-QL-008");
-if (!ql008) throw new Error("IOP-QL-008 missing from frozen permanent allocation");
 
 export const IOP_001_PERMANENT_ALLOCATION = Object.freeze({
   packageId: "IOP-001" as const,
