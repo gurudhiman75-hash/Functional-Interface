@@ -118,7 +118,8 @@ function extractPlainMath(core: string) {
       const candidate = cleanPlainCandidate(sentence);
       if (!candidate) continue;
       if (!/[=×÷π√²³%]/.test(candidate) && !/\b\d+\s*:\s*\d+\b/.test(candidate)) continue;
-      if (/^(?:Unit check|Check the result|Check the logic|Interpret the result)/i.test(candidate)) continue;
+      if (/^(?:Unit check|Check the result|Check the logic|Interpret the result|The result is)/i.test(candidate)) continue;
+      if (!candidate.includes("=") && /^(?:the|so the|therefore the)\s+/i.test(candidate)) continue;
       addUnique(values, seen, candidate.replace(/\s+/g, " "));
     }
   }
@@ -140,7 +141,8 @@ export function buildMensurationSimpleExplanationV1(
   const seen = new Set<string>();
   const working: string[] = [];
 
-  for (const value of [...delimited, ...plain]) addUnique(working, seen, value);
+  const sourceValues = delimited.length >= 3 ? delimited : [...delimited, ...plain];
+  for (const value of sourceValues) addUnique(working, seen, value);
 
   const compact = chooseCompactWorking(working);
   const answer = stripInternalIds(question.options[question.correctIndex] ?? question.answer ?? "");
