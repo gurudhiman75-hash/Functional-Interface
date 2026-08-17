@@ -5,7 +5,7 @@ import {
   generateFigureCompletionSourceGapQuestionV2,
   type FigureCompletionSourceGapPrototypeV1,
   type FigureCompletionSourceGapQuestionV2,
-} from "../foundation/spatial/figure-completion-source-gap-discovery-v2-hardened";
+} from "../foundation/spatial/figure-completion-source-gap-discovery-v2-exam-ready";
 import { renderSpatialSceneToSvg } from "../foundation/spatial/svg-renderer";
 import { validateLearnerVisibleExplanationV2, validateSpatialPerceptualOptionUniquenessV2 } from "../foundation/spatial/gap-question-perceptual-v2";
 import { validateSpatialOptionUniqueness, validateSpatialScene } from "../foundation/spatial/validator";
@@ -51,6 +51,11 @@ function assertP09Layout(question: FigureCompletionSourceGapQuestionV2): void {
   assert(evidence.correctGlobalCircleCount === 3, `${question.seed}: P09 must retain three-circle authority.`);
   assert(evidence.referenceArrowDirection === "LEFT" || evidence.referenceArrowDirection === "RIGHT", `${question.seed}: P09 V2 must use learner-clear horizontal reference arrows.`);
   assert(evidence.requiredArrowDirection === (evidence.referenceArrowDirection === "LEFT" ? "RIGHT" : "LEFT"), `${question.seed}: P09 arrow direction is not opposite.`);
+  assert(question.stimulusScene.nodes.filter((node) => node.role === "p09-reference-circle").length === 3, `${question.seed}: P09 must visibly show one completed three-circle reference row.`);
+  assert(question.stimulusScene.nodes.filter((node) => node.role === "p09-completed-reference-arrow").length === 6, `${question.seed}: P09 must visibly show one completed opposite-arrow reference pair.`);
+  assert(question.stimulusScene.nodes.filter((node) => node.role === "p09-active-visible-arrow").length === 3, `${question.seed}: P09 unfinished lower arrow pair must expose one visible arrow.`);
+  assert(question.explanation.observation.includes("completed example"), `${question.seed}: P09 explanation must point the learner to the visible completed example.`);
+  assert(question.explanation.rule.includes("visible lower arrow") || question.explanation.application.includes("lower arrow"), `${question.seed}: P09 explanation must apply the opposite-direction rule to the unfinished pair.`);
   const correct = question.options[question.correctOptionIndex]!.scene;
   const completionCircles = correct.nodes.filter((node): node is SpatialCircleNode => node.kind === "circle" && node.role === "completion-circle");
   const completionArrow = correct.nodes.filter((node): node is SpatialLineNode => node.kind === "line" && node.role === "completion-arrow");
@@ -169,6 +174,7 @@ const proof = {
   status: "PASS_FGC_001_SSC_SOURCE_GAP_EXECUTABLE_DISCOVERY_V2",
   permanentQlCount: 0,
   humanRemediation: {
+    p09RuleLearnerDerivableFromCompletedReferenceMotifs: true,
     p09HorizontalArrowCircleSeparation: true,
     p10IndependentContactPartnersSeparated: true,
     p10MatchingContactState: true,
@@ -193,7 +199,7 @@ mkdirSync(output, { recursive: true });
 writeFileSync(resolve(output, "spa-fgc-001-source-gap-discovery-v2-review.json"), JSON.stringify(review, null, 2));
 writeFileSync(resolve(output, "spa-fgc-001-source-gap-discovery-v2-evidence.json"), JSON.stringify(proof, null, 2));
 const cards = review.map((question, index) => card(question, index + 1)).join("\n");
-writeFileSync(resolve(output, "spa-fgc-001-source-gap-discovery-v2-review.html"), `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FGC-001 Source Gap V2</title><style>body{font-family:Arial,sans-serif;margin:20px;line-height:1.45}.card{max-width:900px;margin:0 auto 36px;padding:20px;border:1px solid #bbb;border-radius:10px}.stimulus{max-width:460px;margin:16px auto}.stimulus svg{width:100%;height:auto}.options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.option{border:1px solid #ccc;padding:8px;text-align:center}.option svg{width:100%;min-width:104px;height:auto}.option small,.source,.seed{display:block;font-size:12px;color:#555;overflow-wrap:anywhere}@media(max-width:640px){.options{grid-template-columns:repeat(2,minmax(0,1fr))}.option svg{min-width:104px}}</style></head><body><h1>FGC-001 — SSC Source-Gap Discovery V2</h1><p>16 learner-review questions after direct mobile-geometry remediation. Permanent QLs and downstream lifecycle remain off.</p>${cards}</body></html>`);
+writeFileSync(resolve(output, "spa-fgc-001-source-gap-discovery-v2-review.html"), `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FGC-001 Source Gap V2</title><style>body{font-family:Arial,sans-serif;margin:20px;line-height:1.45}.card{max-width:900px;margin:0 auto 36px;padding:20px;border:1px solid #bbb;border-radius:10px}.stimulus{max-width:460px;margin:16px auto}.stimulus svg{width:100%;height:auto}.options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.option{border:1px solid #ccc;padding:8px;text-align:center}.option svg{width:100%;min-width:104px;height:auto}.option small,.source,.seed{display:block;font-size:12px;color:#555;overflow-wrap:anywhere}@media(max-width:640px){.options{grid-template-columns:repeat(2,minmax(0,1fr))}.option svg{min-width:104px}}</style></head><body><h1>FGC-001 — SSC Source-Gap Discovery V2</h1><p>16 learner-review questions after direct mobile-geometry and visible-rule remediation. Permanent QLs and downstream lifecycle remain off.</p>${cards}</body></html>`);
 
 console.log(JSON.stringify(proof, null, 2));
 console.log("PASS_FGC_001_SSC_SOURCE_GAP_EXECUTABLE_DISCOVERY_V2");
