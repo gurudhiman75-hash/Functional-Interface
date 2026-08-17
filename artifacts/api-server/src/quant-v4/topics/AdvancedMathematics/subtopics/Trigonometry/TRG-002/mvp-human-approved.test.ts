@@ -77,7 +77,12 @@ for (let index = 0; index < TRG_002_MVP_48_IDS.length; index += 1) {
   assert(approved.freeze?.expansionAuthorizedByFreeze === false, `${qlId}: freeze must not authorize 48→96 expansion.`);
   assert(approved.freeze?.mergeAuthorized === false && approved.freeze?.activationAuthorized === false, `${qlId}: freeze must not authorize merge or activation.`);
   assert(approved.aiEditorialStatus === "PASS", `${qlId}: AI editorial PASS was lost.`);
-  assert(approved.validation?.valid === true && approved.verification?.valid === true, `${qlId}: validation/verification regressed.`);
+  assert(
+    approved.validation?.valid === true
+      && approved.verification?.spatial?.valid === true
+      && approved.verification?.answer?.valid === true,
+    `${qlId}: validation/verification regressed.`,
+  );
   assert(
     approved.questionBankStatus === "NOT_STORED"
       && approved.testEligibility === "INELIGIBLE"
