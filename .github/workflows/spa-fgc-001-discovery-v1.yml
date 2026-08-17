@@ -30,7 +30,8 @@ jobs:
             spatial-foundation \
             spatial-permanent-ql-allocation-v1 \
             spatial-figure-completion-discovery-v1 \
-            spatial-figure-completion-symmetry-discovery-v1
+            spatial-figure-completion-symmetry-discovery-v1 \
+            spatial-figure-completion-visual-composition-v1
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -45,6 +46,8 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-discovery-v1.test.mjs
       - name: Run FGC-001 symmetry discovery proof
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-symmetry-discovery-v1.test.mjs
+      - name: Run FGC-001 learner-visible composition proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-visual-composition-v1.test.mjs
       - name: Upload FGC-001 discovery review
         uses: actions/upload-artifact@v4
         with:
