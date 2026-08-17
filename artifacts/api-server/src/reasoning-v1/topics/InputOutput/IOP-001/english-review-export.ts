@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { generateIopEnglishReviewCaselet } from "./english-editorial.ts";
+import { generateIopEnglishReviewCaselet } from "./english-review-generator.ts";
 import { IOP_ENGLISH_SOURCE_MODES } from "./english-production.ts";
 import type { IopEnglishProductionCaselet } from "./english-production-types.ts";
 
