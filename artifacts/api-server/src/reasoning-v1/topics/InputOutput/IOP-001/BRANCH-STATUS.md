@@ -1,19 +1,21 @@
-# IOP-001 English Review Candidate Branch Status
+# IOP-001 English Frozen Branch Status
 
-Branch: `feat/iop-001-foundation-cp001-cp004`
-PR: `#840`
+Branch: `feat/iop-001-foundation-cp001-cp004`  
+PR: `#840`  
+PR state: **draft / unmerged**
 
 ## Current maturity
 
 ```text
 sourceFamilySaturation:       PASS_V1
-maturity:                     ENGLISH_REVIEW_CANDIDATE
+maturity:                     ENGLISH_FROZEN
 permanentQlCount:             8
 whitelistedSourceModeCount:   19
 English automated proof:      PASS
 English audit pack:           PASS
 English artifact audit:       PASS
-English freeze:               false
+English human approval:       APPROVED_2026_08_18
+English freeze:               true
 Question Studio:              false
 Question Bank writes:         false
 test eligibility:             false
@@ -34,39 +36,48 @@ IOP-QL-007  Mixed Word–Number Transformed-Pair Machine
 IOP-QL-008  Box / Table Arithmetic Machine
 ```
 
+All eight have `englishProductionStatus: ENGLISH_FROZEN`.
+
 The 30 CP001–CP010 prototypes remain executable discovery evidence; they are not 30 permanent QLs. CP010 remains a solve/query overlay and creates zero extra machine QLs.
 
-## English V1
+## Frozen English V1
 
-Nineteen source-whitelisted production modes are implemented across the eight QLs. The advanced V1 boundary is deliberately narrow:
+Nineteen source-whitelisted modes are frozen across the eight QLs. The advanced V1 boundary remains deliberately narrow:
 
 - QL005 numeric: source-backed odd-reverse / even-increment two-ended family;
-- QL006: source-backed RBI-style text pipeline; alphanumeric production is not yet V1-authorized;
+- QL006: source-backed RBI-style text pipeline; alphanumeric production is outside frozen V1;
 - QL007: source-pinned RBI Grade B 2024 mixed transformed-pair family;
 - QL008: source-backed constructive box arithmetic authority.
 
-## Latest proof
+Human approval was granted after the richer object authorities and full worked explanations were reviewed.
 
-The final learner-facing implementation passed the serialized chapter gate end-to-end:
+## Approved artifact authority
 
 ```text
-foundation caselets             960
-foundation child questions    3,840
-advanced caselets               720
-advanced child questions      2,880
-RBI mixed caselets              160
-RBI mixed children              640
+reviewed head:        c0bde9aa516571e3adf71bbc99b83d2d2e7e8f3f
+workflow:             32031090452
+artifact:             9288927949
+archive digest:       sha256:a407a19e24aeeb343690799a3b73ebd1ef5fbf45d945b43840724cb241dc0211
+HTML sha256:          a889a98086633330f0619eabd30a06067c79c52780599108591c8ed388657079
+JSON sha256:          94b5c9b31fb497c972fccba79f948e37db22d6e945a5311f0f7036e52f7fc936
+learner-content hash: 58a91a0dd0b5faeb0e601e8d5b587a0f7768a65c246530f5bb316b73b9232413
+```
+
+`english-freeze-authority.test.ts` must reproduce the learner-content hash from the same 38 review caselets. Learner-content changes require a new human approval.
+
+## Frozen review volume
+
+```text
 English scaled caselets          96
 English scaled children         384
 English review caselets          38
 English review questions        152
 solve modes                        8
+rich object/explanation audit   PASS
 box visible arithmetic          PASS
-strict TypeScript               PASS
-production API build            PASS
 ```
 
-The permanent review pack has exact query balance:
+Query distribution:
 
 ```text
 STEP_OUTPUT              20
@@ -79,10 +90,10 @@ MISSING_STEP             19
 REMAINING_STEP_COUNT     19
 ```
 
-Artifact evidence and SHA-256 are recorded in `ENGLISH-REVIEW-CANDIDATE-EVIDENCE-V1.md`.
+## Next gate
 
-## Remaining gate
+**Hindi/Punjabi localization over the frozen English authority.**
 
-**Human/product-owner English approval and explicit freeze.**
+Localization may now begin, but it must pass semantic parity and human-language review/freeze independently.
 
-Until that approval, localization and all product-delivery surfaces remain locked. Whole-chapter Question Studio integration remains deferred.
+Question Studio, Question Bank, test/mock delivery, public publication, PR merge and automatic activation remain outside this approval and stay locked.
