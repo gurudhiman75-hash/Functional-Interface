@@ -30,6 +30,9 @@ import {
   applySapHumanReviewPolishV8,
 } from "./human-review-polish-v8";
 import {
+  applySapHumanReviewFinalV9,
+} from "./human-review-final-v9";
+import {
   applySapAuthoredPresentationV3,
 } from "./authored-presentation-v3";
 import type { SapTranslationLanguage } from "./types";
@@ -48,5 +51,6 @@ export function localizeSapQuestionPackage(base: any, language: SapTranslationLa
   const authoredSeedV6 = applySapAuthoredSeedVariantV6(base, authoredFinalV5, language);
   const authoredLastV7 = applySapAuthoredLastVariantsV7(base, authoredSeedV6, language);
   const humanReviewedV8 = applySapHumanReviewPolishV8(base, authoredLastV7, language);
-  return applySapAuthoredPresentationV3(base, humanReviewedV8, language);
+  const humanReviewedV9 = applySapHumanReviewFinalV9(base, humanReviewedV8, language);
+  return applySapAuthoredPresentationV3(base, humanReviewedV9, language);
 }
