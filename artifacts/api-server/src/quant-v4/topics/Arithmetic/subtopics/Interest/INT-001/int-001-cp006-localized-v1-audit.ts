@@ -11,7 +11,7 @@ import {
   INT_CP006_LOCALIZED_VERSION,
   generateIntCp006LocalizedQuestion,
   type IntCp006LocalizedLocale,
-} from "./cp006-si-ci-relations-localized-v1";
+} from "./cp006-si-ci-relations-localized-v2";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
