@@ -23,12 +23,26 @@ import {
   runNum001QuestionStudioPipeline,
   type Num001QuestionStudioCpId,
 } from "./topics/Arithmetic/subtopics/NumberSystem/NUM-001/question-studio-adapter";
+import {
+  SAP_QUESTION_STUDIO_CP_IDS,
+  inferSapQuestionStudioCpFromQl,
+  runSapQuestionStudioPipeline,
+  type SapQuestionStudioCpId,
+} from "./topics/Arithmetic/subtopics/SimplificationAndApproximation/question-studio-adapter";
+import {
+  localizeSapQuestionPackage,
+} from "./topics/Arithmetic/subtopics/SimplificationAndApproximation/localization/runtime";
+import {
+  SAP_LOCALIZED_LANGUAGES,
+  type SapTranslationLanguage,
+} from "./topics/Arithmetic/subtopics/SimplificationAndApproximation/localization/types";
 
 export type QuestionStudioQuantV4PackageId =
   | NonNullable<QuantV4GenerationRequest["packageId"]>
   | "AVG-001"
   | "MAL-001"
-  | "NUM-001";
+  | "NUM-001"
+  | "SAP";
 
 export type QuestionStudioQuantV4GenerationRequest = Omit<
   QuantV4GenerationRequest,
@@ -63,6 +77,15 @@ const NUM_PACKAGE_DEFINITION = {
   label: "Number System",
   cpIds: NUM_001_QUESTION_STUDIO_CP_IDS,
   supportedLanguages: NUM_001_QUESTION_STUDIO_LANGUAGES,
+};
+
+const SAP_PACKAGE_DEFINITION = {
+  packageId: "SAP",
+  topic: "Arithmetic",
+  subtopic: "Simplification & Approximation",
+  label: "Simplification & Approximation",
+  cpIds: SAP_QUESTION_STUDIO_CP_IDS,
+  supportedLanguages: SAP_LOCALIZED_LANGUAGES,
 };
 
 function normalizeSelector(value: unknown) {
@@ -120,6 +143,28 @@ function isNumberSystemRequest(
   return (
     packageId === "num 001" ||
     patternId.includes("num 001") ||
+    (selectors.has(topic) && !subtopic) ||
+    (topic === "arithmetic" && selectors.has(subtopic))
+  );
+}
+
+function isSimplificationRequest(
+  request: QuestionStudioQuantV4GenerationRequest,
+) {
+  const packageId = normalizeSelector(request.packageId ?? request.archetypeId);
+  const patternId = normalizeSelector(request.patternId);
+  const topic = normalizeSelector(request.topic);
+  const subtopic = normalizeSelector(request.subtopic);
+  const selectors = new Set([
+    "simplification approximation",
+    "simplification and approximation",
+    "simplification",
+    "approximation",
+  ]);
+  return (
+    packageId === "sap" ||
+    patternId === "sap" ||
+    patternId.includes("sap ql") ||
     (selectors.has(topic) && !subtopic) ||
     (topic === "arithmetic" && selectors.has(subtopic))
   );
@@ -209,6 +254,35 @@ function numberSystemPackageCard() {
   };
 }
 
+function simplificationPackageCard() {
+  return {
+    id: SAP_PACKAGE_DEFINITION.packageId,
+    packageId: SAP_PACKAGE_DEFINITION.packageId,
+    type: "quant-v4",
+    section: "Quant",
+    domain: "quant",
+    topic: SAP_PACKAGE_DEFINITION.topic,
+    subtopic: SAP_PACKAGE_DEFINITION.subtopic,
+    name: `${SAP_PACKAGE_DEFINITION.packageId} ${SAP_PACKAGE_DEFINITION.label}`,
+    label: SAP_PACKAGE_DEFINITION.label,
+    generationDomain: "quant-v4",
+    cpIds: [...SAP_PACKAGE_DEFINITION.cpIds],
+    canonicalProblems: SAP_PACKAGE_DEFINITION.cpIds.map((cpId) => ({
+      id: cpId,
+      label: cpId,
+    })),
+    supportedDifficulties: ["easy", "medium", "hard"],
+    supportedLanguages: [...SAP_PACKAGE_DEFINITION.supportedLanguages],
+    enabled: true,
+    runtimeMode: "QUESTION_STUDIO_ACTIVE",
+    supportedRuntimeModes: ["QUESTION_STUDIO_ACTIVE"],
+    reviewStatus: "LOCALIZATION_CONTENT_APPROVED_REVIEW_READY",
+    questionBankStatus: "NOT_STORED",
+    testEligibility: "INELIGIBLE",
+    publiclyPublishable: false,
+  };
+}
+
 export function listQuantV4Packages() {
   const existing = listBasePackages();
   const additions = [];
@@ -220,6 +294,9 @@ export function listQuantV4Packages() {
   }
   if (!existing.some((pkg: any) => pkg.packageId === "NUM-001")) {
     additions.push(numberSystemPackageCard());
+  }
+  if (!existing.some((pkg: any) => pkg.packageId === "SAP")) {
+    additions.push(simplificationPackageCard());
   }
   return [...existing, ...additions].sort((left: any, right: any) =>
     String(left.packageId).localeCompare(String(right.packageId)),
@@ -421,6 +498,106 @@ function toNumQuestionStudioPreview(
       reasoningGraph: pkg.reasoningGraph,
       semanticMetadata: traceability,
       validatorReports: pkg.validation,
+      releaseId: traceability.releaseId,
+    },
+  };
+}
+
+function toSapQuestionStudioPreview(
+  pkg: any,
+  context: {
+    questionIndex: number;
+    questionCount: number;
+    seed: string;
+  },
+) {
+  const traceability = pkg.traceability ?? {};
+  const explanationLines = Array.isArray(pkg.explanation?.lines)
+    ? pkg.explanation.lines.map((line: unknown) => String(line ?? ""))
+    : [];
+  const taskKind = traceability.sourceIdentity ?? traceability.permanentQlId;
+  const canonicalAnswer = {
+    kind: "symbolic",
+    value: pkg.answer,
+    display: pkg.answer,
+    rendered: pkg.answer,
+    rounding: "exact",
+  };
+
+  return {
+    text: pkg.stem,
+    options: [...pkg.options],
+    correct: pkg.correctIndex,
+    correctIndex: pkg.correctIndex,
+    explanation: explanationLines.join("\n\n"),
+    packageExplanation: pkg.explanation,
+    difficulty: pkg.difficultyBand,
+    difficultyLabel: pkg.difficultyBand,
+    patternId: "SAP",
+    section: "Quant",
+    topic: SAP_PACKAGE_DEFINITION.topic,
+    subtopic: SAP_PACKAGE_DEFINITION.subtopic,
+    generationBackend: "quant-v4",
+    debugSource: "quant-v4-package-runtime",
+    semanticMetadata: traceability,
+    traceability,
+    validation: pkg.validation,
+    localizationValidation: pkg.localizationValidation,
+    questionId: pkg.questionId,
+    seed: context.seed,
+    answer: pkg.answer,
+    canonicalAnswer,
+    runtimeMode: pkg.runtimeMode,
+    reviewStatus: pkg.reviewStatus,
+    questionBankStatus: pkg.questionBankStatus,
+    testEligibility: pkg.testEligibility,
+    publiclyPublishable: pkg.publiclyPublishable,
+    packageSource: "quant-v4-package-runtime",
+    packageId: "SAP",
+    taskKind,
+    scenarioId: undefined,
+    language: pkg.language,
+    metadata: {
+      language: pkg.language,
+      packageId: "SAP",
+      canonicalProblemId: pkg.canonicalProblemId,
+      questionLanguageId: pkg.questionLanguageId,
+      explanationId: pkg.explanationId,
+      taskKind,
+      scenarioId: undefined,
+      runtimeMode: pkg.runtimeMode,
+      reviewStatus: pkg.reviewStatus,
+      questionBankStatus: pkg.questionBankStatus,
+      testEligibility: pkg.testEligibility,
+      publiclyPublishable: pkg.publiclyPublishable,
+      releaseId: traceability.releaseId,
+      localizationVersion: traceability.localizationVersion,
+    },
+    questionIndex: context.questionIndex,
+    questionCount: context.questionCount,
+    canonicalProblemId: pkg.canonicalProblemId,
+    questionLanguageId: pkg.questionLanguageId,
+    explanationId: pkg.explanationId,
+    proceduralLogic: {},
+    logic: {},
+    debugMetadata: {
+      generationDomain: "quant-v4",
+      selectedPattern: "SAP",
+      selectedArchetype: "SAP",
+      selectedMotif: pkg.canonicalProblemId,
+      canonicalProblemId: pkg.canonicalProblemId,
+      questionLanguageId: pkg.questionLanguageId,
+      explanationId: pkg.explanationId,
+      taskKind,
+      scenarioId: undefined,
+      questionIndex: context.questionIndex,
+      questionCount: context.questionCount,
+      questionId: pkg.questionId,
+      packageSource: "quant-v4-package-runtime",
+      seed: context.seed,
+      semanticMetadata: traceability,
+      validatorReports: pkg.validation,
+      localizationValidation: pkg.localizationValidation,
       releaseId: traceability.releaseId,
     },
   };
@@ -708,9 +885,97 @@ async function generateNumberSystemQuestion(
   };
 }
 
+async function generateSimplificationQuestion(
+  request: QuestionStudioQuantV4GenerationRequest,
+) {
+  const language = (request.language ?? "en") as QuantV4Language;
+  if (!SAP_LOCALIZED_LANGUAGES.includes(language as "en" | "hi" | "pa")) {
+    throw new Error(`SAP does not support Question Studio language ${language}.`);
+  }
+
+  const count = Math.min(
+    1000,
+    Math.max(1, Math.floor(Number(request.count ?? 1) || 1)),
+  );
+  const difficulty = normalizeDifficulty(request.difficulty);
+  const explicitCp = request.canonicalProblemId ?? request.cpId;
+  if (
+    explicitCp &&
+    !SAP_QUESTION_STUDIO_CP_IDS.includes(explicitCp as SapQuestionStudioCpId)
+  ) {
+    throw new Error(`Unknown canonical problem '${explicitCp}' for package SAP`);
+  }
+
+  const inferredCp = inferSapQuestionStudioCpFromQl(request.questionLanguageId);
+  if (explicitCp && inferredCp && explicitCp !== inferredCp) {
+    throw new Error(`${String(request.questionLanguageId)} is owned by ${inferredCp}, not ${explicitCp}.`);
+  }
+  const fixedCp = (explicitCp ?? inferredCp) as SapQuestionStudioCpId | undefined;
+  const batchSeed =
+    request.seed ??
+    `quant-v4:SAP:${language}:${fixedCp ?? "mixed"}:${Date.now()}:${Math.random()
+      .toString(36)
+      .slice(2)}`;
+  const cpOffset =
+    seededHash(`${batchSeed}:cp-offset`) % SAP_QUESTION_STUDIO_CP_IDS.length;
+  const questionPackages = [];
+  const questions = [];
+
+  for (let index = 0; index < count; index += 1) {
+    if (index > 0 && index % 100 === 0) {
+      await new Promise((resolve) => setImmediate(resolve));
+    }
+    const cpId = (fixedCp ??
+      SAP_QUESTION_STUDIO_CP_IDS[
+        (cpOffset + index) % SAP_QUESTION_STUDIO_CP_IDS.length
+      ]) as SapQuestionStudioCpId;
+    const seed = `${batchSeed}:${cpId}:${index}`;
+    const englishPackage = runSapQuestionStudioPipeline(cpId, {
+      difficulty,
+      language: "en",
+      questionLanguageId: request.questionLanguageId,
+      seed,
+    });
+    const pkg = language === "en"
+      ? englishPackage
+      : localizeSapQuestionPackage(englishPackage, language as SapTranslationLanguage);
+    questionPackages.push(pkg);
+    questions.push(
+      toSapQuestionStudioPreview(pkg, {
+        questionIndex: index + 1,
+        questionCount: count,
+        seed,
+      }),
+    );
+  }
+
+  const first = questionPackages[0] as any;
+  return {
+    generationContext: {
+      generationDomain: "quant-v4",
+      seed: batchSeed,
+      timestamp: Date.now(),
+      runtimeMode: "QUESTION_STUDIO_ACTIVE",
+      reviewStatus: "LOCALIZATION_CONTENT_APPROVED_REVIEW_READY",
+      questionBankStatus: "NOT_STORED",
+      testEligibility: "INELIGIBLE",
+      publiclyPublishable: false,
+      releaseId: first?.traceability?.releaseId,
+      language,
+      localizationVersion: first?.traceability?.localizationVersion,
+      canonicalProblemId: fixedCp ?? "MIXED",
+    },
+    questionPackages,
+    questions,
+  };
+}
+
 export async function generateQuestion(
   request: QuestionStudioQuantV4GenerationRequest = {},
 ) {
+  if (isSimplificationRequest(request)) {
+    return generateSimplificationQuestion(request);
+  }
   if (isNumberSystemRequest(request)) {
     return generateNumberSystemQuestion(request);
   }
