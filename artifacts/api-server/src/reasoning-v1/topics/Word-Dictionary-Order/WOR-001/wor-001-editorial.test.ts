@@ -17,6 +17,9 @@ for (const prototype of WOR_CP005_PROTOTYPES) {
     assert.deepEqual(student.options, internal.options);
     assert.equal(student.answer, internal.answer);
     assert.deepEqual(student.metadata.bankingTrace, internal.metadata.bankingTrace);
+    assert.doesNotMatch(student.stem, /character \d+ from/i, `${prototype.prototypeId} retained mechanical character-position wording.`);
+    assert.doesNotMatch(student.stem, /move 1 places/i, `${prototype.prototypeId} retained a singular/plural error.`);
+    assert.doesNotMatch(student.explanation, /alphabet offset/i, `${prototype.prototypeId} exposed implementation-style offset language.`);
 
     if (internal.metadata.bankingTrace?.transformation !== "NONE") {
       transformedCases += 1;
@@ -31,13 +34,14 @@ const englishPack = buildWorBankingReviewPack("en-IN");
 const englishMarkdown = renderWorBankingReviewMarkdown("en-IN", englishPack);
 assert.match(englishMarkdown, /BANKING_FIVE_OPTION/);
 assert.match(englishMarkdown, /Transformed groups \(internal review only\)/);
+assert.ok(englishPack.every((question) => question.structuredPrompt.transformedWords === undefined));
+assert.doesNotMatch(englishMarkdown, /character \d+ from|move 1 places|alphabet offset/i);
 assert.ok(
   englishMarkdown.indexOf("Transformed groups (internal review only)") > englishMarkdown.indexOf("**Answer:**"),
   "Banking review pack exposes transformed groups before the answer section.",
 );
-assert.doesNotMatch(englishMarkdown, /\*\*Transformed groups \(internal review only\):\*\*[\s\S]*\n\n1\./);
 
-console.log("WOR-001 editorial leakage audit passed.", {
+console.log("WOR-001 editorial quality audit passed.", {
   prototypes: WOR_CP005_PROTOTYPES.length,
   transformedCases,
   reviewQuestions: englishPack.length,
