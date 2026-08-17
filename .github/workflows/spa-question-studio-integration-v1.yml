@@ -41,8 +41,8 @@ jobs:
             spatial-mirror-water-proof \
             spatial-permanent-ql-allocation-v1 \
             spatial-permanent-ql-allocation-v2 \
-            figure-completion-english-freeze-v1 \
-            figure-completion-hi-pa-localization-freeze-v1 \
+            spatial-figure-completion-english-freeze-v1 \
+            spatial-figure-completion-hi-pa-localization-freeze-v1 \
             spatial-question-studio-p0-regression-v2 \
             spatial-question-studio-p0-parity-v2 \
             spatial-question-studio-integration-v1
@@ -63,10 +63,10 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-permanent-ql-allocation-v2.test.mjs
 
       - name: Revalidate frozen FGC English runtime
-        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/figure-completion-english-freeze-v1.test.mjs
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-english-freeze-v1.test.mjs
 
       - name: Revalidate frozen FGC Hindi Punjabi runtime
-        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/figure-completion-hi-pa-localization-freeze-v1.test.mjs
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-hi-pa-localization-freeze-v1.test.mjs
 
       - name: Revalidate frozen P0 Question Studio behavior
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-question-studio-p0-regression-v2.test.mjs
