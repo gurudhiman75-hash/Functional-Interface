@@ -91,25 +91,16 @@ function QuestionCard({ question }: { question: MensurationReviewQuestion }) {
         <div className="rounded-lg border border-success/25 bg-success/5 p-3">
           <strong>Answer:</strong> {question.answer}
         </div>
-        <details className="rounded-lg border p-3" open>
-          <summary className="cursor-pointer font-semibold">Teaching solution</summary>
-          <ol className="mt-3 space-y-2 leading-6 text-muted-foreground">
+        <div className="rounded-lg border p-3">
+          <p className="font-semibold">Solution</p>
+          <div className="mt-3 space-y-2 leading-6 text-muted-foreground">
             {question.explanation.steps.map((step, index) => (
-              <li key={`${question.questionId}-step-${index}`}>{index + 1}. {step}</li>
+              <p key={`${question.questionId}-step-${index}`} className={index === question.explanation.steps.length - 1 ? 'font-medium text-foreground' : ''}>
+                {step}
+              </p>
             ))}
-          </ol>
-          {question.explanation.shortcut && (
-            <p className="mt-3 text-xs text-muted-foreground"><strong>Shortcut:</strong> {question.explanation.shortcut}</p>
-          )}
-          {question.explanation.traps.length > 0 && (
-            <div className="mt-3 text-xs text-muted-foreground">
-              <strong>Common traps:</strong>
-              <ul className="mt-1 list-disc space-y-1 pl-5">
-                {question.explanation.traps.map((trap, index) => <li key={`${question.questionId}-trap-${index}`}>{trap}</li>)}
-              </ul>
-            </div>
-          )}
-        </details>
+          </div>
+        </div>
         {question.localization && question.localization.residualInstructionalLatin.length > 0 && (
           <p className="text-xs text-amber-700">
             Localization diagnostic: {question.localization.residualInstructionalLatin.join(', ')}
