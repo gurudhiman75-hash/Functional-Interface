@@ -1,6 +1,6 @@
 # TRG-002 Production-96 Status
 
-Status: **96 ENGLISH PERMANENT QLS IMPLEMENTED — RUNTIME PASS — NEW 48 AI/EDITORIAL PASS — REPRESENTATIVE REAL-APP VISUAL CI PASS — HUMAN REVIEW PENDING**
+Status: **96 ENGLISH PERMANENT QLS IMPLEMENTED — RUNTIME PASS — 96 / 96 HUMAN-APPROVED AND FROZEN — REPRESENTATIVE REAL-APP VISUAL CI PASS — ACTIVATION OFF**
 
 ## Production allocation
 
@@ -12,130 +12,114 @@ Status: **96 ENGLISH PERMANENT QLS IMPLEMENTED — RUNTIME PASS — NEW 48 AI/ED
 - `TRG-CP-010`: QL-073..096 — **24 / 24**
 - total permanent English QLs: **96 / 96**
 
-The surface remains split into:
+The frozen production surface consists of:
 
-- **48 previously human-approved and frozen QLs**;
-- **48 Phase-8 expansion QLs**, runtime-gated and AI/editorially gated, but still human-review pending and unfrozen.
+- **48 original MVP QLs** — human-approved and frozen under the original approval record;
+- **48 Phase-8 expansion QLs** — human-approved on 2026-08-17 and now frozen under the Phase-8 approval record.
 
-## Frozen baseline integrity
+## Approval and fingerprint integrity
 
-The frozen 48 remain bound to approved content fingerprint:
+### Original frozen 48
+
+Approved content fingerprint:
 
 `b60217f9b29af79435ab065e4c64c40449dc43df2fa9646b055f41763bce04db`
 
-The production gate re-verifies that baseline and fails on drift.
+The existing frozen-48 fingerprint gate remains unchanged and green.
 
-## Latest substantive green checkpoint
+### Phase-8 frozen 48
 
-Source head:
+Human approval is recorded in `PHASE8_HUMAN_REVIEW_APPROVAL.md` and pinned to the exact reviewed pre-approval candidate:
 
-`64e270debbc15442add122867d0f6158a7c5be33`
+- approved source head: `495f7c99dcb6d5d2b5716ab85f3cdf32a9ad8b49`
+- approved workflow run: `32027888513`
+- approved 48-record editorial artifact id: `9287752010`
+- approved editorial artifact digest: `sha256:e2a6625214aa674a451115650b1d0386f5ba1d8aa6c6ed22202f9bf9c4016f4d`
+- approved review JSON fingerprint: `3f3d265a0d14349d1ada055244cb73a7a123f1aa28b4ec33a72c33bfa95cb8fc`
+- approved 14-strategy visual artifact id: `9287800342`
+- approved visual artifact digest: `sha256:3f6463c2a986f57e9e02f114d5a0f3c9c26a7f2abaddbd6d7b7e18d6086205f2`
+
+Any material content or diagram drift causes the new freeze gate to fail and requires new human approval for the affected scope.
+
+## Freeze implementation
+
+Freeze implementation commit:
+
+`8a4a72745039db59ed9c28dd32c057fdced6c1e0`
+
+The branch now contains:
+
+- `phase8-human-approved-runtime.ts` — applies the explicit Phase-8 human approval and freeze metadata;
+- `production-frozen-96-runtime.ts` — canonical frozen runtime surface for all 96 English QLs;
+- `production-freeze-96.test.ts` — verifies the approved Phase-8 fingerprint and 96 / 96 freeze invariants.
+
+The freeze layer changes governance metadata only. It does not rewrite the approved stems, options, answers, explanations, validation geometry, or solution diagrams.
+
+## Freeze verification evidence
 
 Workflow run:
 
-`32027641399` — `Verify TRG-002 Production 96` — **SUCCESS**
+`32031567567` — `Verify TRG-002 Production 96` — **SUCCESS**
 
-Passed on that head:
+The run passed:
 
 - targeted TRG-002 TypeScript compile;
-- frozen-48 approval fingerprint re-verification;
-- 96-ID registry reconciliation;
-- exact 48 frozen + 48 expansion partition;
-- 24 QLs per CP;
-- all 48 expansion generator preflights;
-- 48 distinct expansion solve modes;
-- zero normalized expansion-stem duplicate groups;
-- canonical spatial validation;
-- independent answer reconstruction;
-- solution-diagram and diagram-policy verification;
-- unique four-option structure with exactly one correct option;
+- original frozen-48 approval fingerprint re-verification;
+- 96-QL production runtime gate;
+- **1,152 production sweep cases**;
+- **576 Phase-8 AI/editorial cases**;
+- regeneration and validation of the exact approved-source 48-record review pack;
+- Phase-8 approved-content fingerprint verification;
+- Phase-8 human approval/freeze gate;
+- complete frozen production runtime check: **96 / 96 HUMAN_APPROVED + FROZEN**;
 - activation-lock checks;
-- **1,152 production sweep cases** across all 96 QLs;
-- **576 Phase-8 editorial cases**;
-- exact-presentation and normalized-stem uniqueness checks;
-- named/distinct distractor misconception checks;
-- hard-question explanation-depth checks;
-- numeric article-grammar regression coverage across the Phase-8 seed sweep;
-- deterministic **48-record** editorial review export and verification.
+- real ExamTree browser regression for all 14 Phase-8 solution-diagram strategies.
 
-The editorial polish now covers generated vowel-sound numeric wording such as `an 8 m tower` and `an 18 m ...`; the regression gate caught and prevented additional seed variants rather than only patching one designated record.
+Freeze-run artifacts:
 
-### Exact-head artifacts
+Production/freeze execution evidence:
 
-Production execution evidence:
+- id: `9289079994`
+- digest: `sha256:21491057c0dc9412130b8fc7ff6a562f0afe5a0eb655075c87896c4cbb72f248`
 
-- id: `9287666578`
-- digest: `sha256:a4c58e75ffabac2fb637cd66bde8a9168f81d50ef6b2230ef8c1bd21cc8e9b1d`
+Regenerated approved-source editorial pack:
 
-Phase-8 editorial review pack:
+- id: `9289080378`
+- digest: `sha256:ef6273ae13e77f7c91023483beeb919ed40a039f29887d9dbade9e943ae8decb`
 
-- id: `9287666964`
-- digest: `sha256:cc4039e89affec7b136471139bfc63db6c7b5cceaf81ad0e4fcd79db3d07b866`
+Post-freeze representative real-app visual evidence:
 
-Representative real-app visual evidence:
+- id: `9289128495`
+- digest: `sha256:61cde1c6ae89c23c6b2ffe4862b4ec533e00bc6023717a6698562293f980f658`
 
-- id: `9287715888`
-- digest: `sha256:a745380e8208041103989f8cccff93f6237a13a7c2be44eb78f591c4bee13ac0`
+## Human-review truth
 
-## Representative real ExamTree visual gate
+Current governance state:
 
-The browser gate covers **14 new QLs representing all 14 Phase-8 solution-diagram strategies**:
-
-- single elevation;
-- single depression;
-- shadow;
-- ladder;
-- broken tree;
-- guy wire;
-- same-side two observations;
-- observer moves closer;
-- observer moves farther;
-- building-to-building;
-- observer-height correction;
-- opposite-side observations;
-- combined elevation and depression;
-- river width.
-
-For every representative, CI:
-
-- builds the real ExamTree student app with the E2E auth path;
-- opens the real `/test/:id` student route and enters Practice mode;
-- answers the exact runtime-derived question;
-- proves the solution diagram is hidden before `Show Solution`;
-- renders the exact runtime-derived solution directive after disclosure;
-- verifies QL and strategy metadata;
-- verifies visible SVG geometry and no diagram horizontal overflow at **390 × 844**;
-- saves one mobile screenshot and one evidence JSON record.
-
-Latest result: **PASS — 14 / 14 representatives, 14 / 14 screenshot records, 14 / 14 evidence JSON records.**
-
-This is representative automated render evidence only. It does not claim visual approval for every generated seed and does not substitute for human visual review.
-
-## Review truth for the new 48
-
-Current governance boundary:
-
-- runtime validation: **PASS**
-- AI/editorial review: **PASS**
-- representative automated real-app visual gate: **PASS**
-- human editorial review: **PENDING**
-- human visual review: **PENDING**
-- freeze status: **NOT FROZEN**
-- freeze eligible: **false**
+- original 48 human review: **APPROVED**
+- original 48 freeze: **FROZEN**
+- Phase-8 48 AI/editorial review: **PASS**
+- Phase-8 48 human editorial review: **APPROVED**
+- Phase-8 representative human visual review: **APPROVED**
+- Phase-8 48 freeze: **FROZEN**
+- complete English production surface: **96 / 96 FROZEN**
 - per-generated-seed visual PASS: **NOT CLAIMED**
 
-No automated or AI result is treated as explicit human approval.
+The human visual approval is scoped to the reviewed representative evidence; it does not claim exhaustive visual inspection of every possible generated seed.
 
 ## Activation boundary
 
-Still OFF for the complete 96-QL package:
+Still **OFF** for the complete 96-QL package:
 
 - Question Studio discovery
 - Test Builder eligibility
 - question-bank storage
 - public publication
 - Hindi/Punjabi runtime
+- automatic merge authorization
+
+Freeze does not imply activation.
 
 ## Next controlled checkpoint
 
-Perform human editorial and visual review of the **48 Phase-8 expansion QLs** using the regenerated review pack and representative screenshot evidence. Only explicit human approval may authorize freezing those 48. Activation remains a separate later decision and must stay OFF unless specifically authorized.
+TRG-002 English production content is now at the **fully human-approved and frozen 96-QL checkpoint**. The next work should be treated as a separate phase: merge/integration and activation planning, or Hindi/Punjabi localization, only when explicitly authorized.
