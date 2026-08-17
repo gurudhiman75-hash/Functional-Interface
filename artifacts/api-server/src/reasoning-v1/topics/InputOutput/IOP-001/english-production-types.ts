@@ -66,9 +66,9 @@ export interface IopEnglishProductionCaselet {
   };
   readonly children: readonly [IopEnglishChildQuestion, IopEnglishChildQuestion, IopEnglishChildQuestion, IopEnglishChildQuestion];
   readonly lifecycle: {
-    readonly maturity: "ENGLISH_REVIEW_CANDIDATE";
+    readonly maturity: "ENGLISH_REVIEW_CANDIDATE" | "ENGLISH_FROZEN";
     readonly permanentQlCount: 8;
-    readonly englishFreeze: false;
+    readonly englishFreeze: boolean;
     readonly questionStudioDiscoverable: false;
     readonly questionBankWritable: false;
     readonly testEligible: false;
