@@ -78,6 +78,7 @@ async function ensureCanonicalUser(input: {
   firebaseUid: string;
   email: string;
   displayName: string;
+  emailVerified: boolean;
 }): Promise<CanonicalUserRow> {
   const normalizedEmail = input.email.trim().toLowerCase();
   const displayName = input.displayName.trim() || normalizedEmail.split("@")[0] || "User";
@@ -100,7 +101,7 @@ async function ensureCanonicalUser(input: {
       WHERE u.deleted_at IS NULL
         AND (
           ai.provider_subject = ${input.firebaseUid}
-          OR lower(u.email) = ${normalizedEmail}
+          OR (${input.emailVerified}::boolean AND lower(u.email) = ${normalizedEmail})
         )
       ORDER BY (ai.provider_subject = ${input.firebaseUid}) DESC
       LIMIT 1
@@ -138,12 +139,69 @@ async function ensureCanonicalUser(input: {
       throw new Error("Firebase identity is already linked to another canonical account");
     }
 
-    await tx`
-      INSERT INTO identity.auth_identities (user_id, provider, provider_subject)
-      VALUES (${userId}::uuid, 'firebase', ${input.firebaseUid})
-      ON CONFLICT (provider, provider_subject)
-      DO UPDATE SET updated_at = now()
+    const existingUserIdentity = await tx`
+      SELECT id::text AS id, provider_subject AS "providerSubject"
+      FROM identity.auth_identities
+      WHERE user_id = ${userId}::uuid
+        AND provider = 'firebase'
+      LIMIT 1
+      FOR UPDATE
     `;
+
+    const existingIdentityId = existingUserIdentity[0]?.id
+      ? String(existingUserIdentity[0].id)
+      : null;
+    const previousProviderSubject = existingUserIdentity[0]?.providerSubject
+      ? String(existingUserIdentity[0].providerSubject)
+      : null;
+
+    if (existingIdentityId) {
+      if (previousProviderSubject !== input.firebaseUid) {
+        if (!input.emailVerified) {
+          throw new Error("Verified Firebase email is required to relink an existing canonical account");
+        }
+        await tx`
+          UPDATE identity.auth_identities
+          SET provider_subject = ${input.firebaseUid},
+              updated_at = now()
+          WHERE id = ${existingIdentityId}::uuid
+        `;
+
+        await tx`
+          INSERT INTO platform.audit_events (
+            id, actor_type, actor_user_id, action_key, entity_type, entity_id,
+            reason, summary, metadata
+          ) VALUES (
+            ${randomUUID()}::uuid,
+            'user'::audit_actor_type,
+            ${userId}::uuid,
+            'student.identity.firebase_uid_reconciled',
+            'student_profile',
+            ${userId}::uuid,
+            'Verified Firebase email matched an existing canonical account during /users/me provisioning',
+            'Reconciled Firebase UID during student profile sync',
+            ${tx.json({
+              provider: "firebase",
+              verifiedEmail: normalizedEmail,
+              previousProviderSubject,
+              newProviderSubject: input.firebaseUid,
+              source: "users-me-provisioning",
+            })}
+          )
+        `;
+      } else {
+        await tx`
+          UPDATE identity.auth_identities
+          SET updated_at = now()
+          WHERE id = ${existingIdentityId}::uuid
+        `;
+      }
+    } else {
+      await tx`
+        INSERT INTO identity.auth_identities (user_id, provider, provider_subject)
+        VALUES (${userId}::uuid, 'firebase', ${input.firebaseUid})
+      `;
+    }
 
     const existingProfile = await tx`
       SELECT user_id FROM identity.student_profiles
@@ -215,7 +273,12 @@ async function userFromRequest(req: Parameters<typeof authenticate>[0]) {
   const firebaseUid = req.user?.id ?? "";
   const email = req.user?.email ?? "";
   const displayName = req.user?.displayName ?? email.split("@")[0] ?? "User";
-  const row = await ensureCanonicalUser({ firebaseUid, email, displayName });
+  const row = await ensureCanonicalUser({
+    firebaseUid,
+    email,
+    displayName,
+    emailVerified: req.user?.emailVerified === true,
+  });
 
   if (!row.isAdmin && row.status !== "active") {
     throw new CanonicalAccountAccessError(row.status);
