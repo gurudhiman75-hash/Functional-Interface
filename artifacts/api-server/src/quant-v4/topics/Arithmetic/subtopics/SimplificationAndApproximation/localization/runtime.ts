@@ -14,6 +14,9 @@ import {
 import {
   applySapAuthoredPresentationV2,
 } from "./authored-presentation-v2";
+import {
+  applySapAuthoredPresentationV3,
+} from "./authored-presentation-v3";
 import type { SapTranslationLanguage } from "./types";
 
 export { translateSapLearnerText, polishSapLocalizedTextV2 };
@@ -24,5 +27,6 @@ export function localizeSapQuestionPackage(base: any, language: SapTranslationLa
     language,
   );
   const authoredV1 = applySapAuthoredPresentationV1(base, generic, language);
-  return applySapAuthoredPresentationV2(base, authoredV1, language);
+  const authoredV2 = applySapAuthoredPresentationV2(base, authoredV1, language);
+  return applySapAuthoredPresentationV3(base, authoredV2, language);
 }
