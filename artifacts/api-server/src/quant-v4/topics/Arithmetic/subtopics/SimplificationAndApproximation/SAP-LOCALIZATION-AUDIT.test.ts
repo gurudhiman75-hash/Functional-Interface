@@ -51,10 +51,12 @@ interface ReviewRow {
   answer: string;
   explanation: string;
   latinLeaks: string[];
+  wrongScript: boolean;
 }
 
 const rows: ReviewRow[] = [];
 const leaks: Array<{ qlId: string; language: string; words: string[]; text: string }> = [];
+const scriptLeaks: Array<{ qlId: string; language: string; text: string }> = [];
 
 for (const descriptor of SAP_QUESTION_STUDIO_QLS) {
   const seed = `sap-localization-parity:${descriptor.qlId}`;
@@ -101,13 +103,10 @@ for (const descriptor of SAP_QUESTION_STUDIO_QLS) {
     assert.equal(localized.localizationValidation?.ok, true, `${descriptor.qlId}/${language}: localization validation failed.`);
 
     const text = learnerText(localized);
-    if (language === "hi") {
-      assert.ok(DEVANAGARI.test(text), `${descriptor.qlId}/hi: Devanagari learner prose is missing.`);
-      assert.ok(!GURMUKHI.test(text), `${descriptor.qlId}/hi: Gurmukhi leaked into Hindi.`);
-    } else {
-      assert.ok(GURMUKHI.test(text), `${descriptor.qlId}/pa: Gurmukhi learner prose is missing.`);
-      assert.ok(!DEVANAGARI.test(text), `${descriptor.qlId}/pa: Devanagari leaked into Punjabi.`);
-    }
+    const requiredScriptPresent = language === "hi" ? DEVANAGARI.test(text) : GURMUKHI.test(text);
+    assert.ok(requiredScriptPresent, `${descriptor.qlId}/${language}: required script is missing.`);
+    const wrongScript = language === "hi" ? GURMUKHI.test(text) : DEVANAGARI.test(text);
+    if (wrongScript) scriptLeaks.push({ qlId: descriptor.qlId, language, text });
 
     const prose = proseForLeakCheck(text);
     const latinLeaks = [...new Set(prose.match(LATIN_WORD) ?? [])]
@@ -130,6 +129,7 @@ for (const descriptor of SAP_QUESTION_STUDIO_QLS) {
       answer: String(localized.answer),
       explanation: String(localized.explanation),
       latinLeaks,
+      wrongScript,
     });
   }
 }
@@ -156,14 +156,16 @@ for (const language of ["hi", "pa"] as const) {
   }
 }
 
+const localizationClean = leaks.length === 0 && scriptLeaks.length === 0;
 const summary = {
-  status: leaks.length === 0 ? "PASS_SAP_HI_PA_LOCALIZATION" : "BLOCKED_ENGLISH_PROSE_LEAKAGE",
+  status: localizationClean ? "PASS_SAP_HI_PA_LOCALIZATION" : "BLOCKED_LOCALIZATION_EDITORIAL_LEAKAGE",
   qlCount: SAP_QUESTION_STUDIO_QLS.length,
   localizedQuestionCount: rows.length,
   hindiCount: rows.filter((row) => row.language === "hi").length,
   punjabiCount: rows.filter((row) => row.language === "pa").length,
   canonicalParityCount: rows.length,
   englishLeakCount: leaks.length,
+  wrongScriptCount: scriptLeaks.length,
   cockpitRuns,
   questionBankStatus: "NOT_STORED",
   testEligibility: "INELIGIBLE",
@@ -173,14 +175,14 @@ const summary = {
 const jsonPath = resolve(OUTPUT_DIRECTORY, "sap-localization-review.json");
 const markdownPath = resolve(OUTPUT_DIRECTORY, "sap-localization-review.md");
 const csvPath = resolve(OUTPUT_DIRECTORY, "sap-localization-review.csv");
-writeFileSync(jsonPath, `${JSON.stringify({ summary, leaks, rows }, null, 2)}\n`, "utf8");
+writeFileSync(jsonPath, `${JSON.stringify({ summary, leaks, scriptLeaks, rows }, null, 2)}\n`, "utf8");
 
 const csvEscape = (value: unknown) => `"${String(value ?? "").replaceAll('"', '""')}"`;
-const csvHeader = ["qlId", "cpId", "language", "difficulty", "sourceSeed", "stem", "A", "B", "C", "D", "correctIndex", "answer", "explanation", "latinLeaks"].join(",");
+const csvHeader = ["qlId", "cpId", "language", "difficulty", "sourceSeed", "stem", "A", "B", "C", "D", "correctIndex", "answer", "explanation", "latinLeaks", "wrongScript"].join(",");
 const csvRows = rows.map((row) => [
   row.qlId, row.cpId, row.language, row.difficulty, row.sourceSeed, row.stem,
   row.options[0], row.options[1], row.options[2], row.options[3], row.correctIndex,
-  row.answer, row.explanation, row.latinLeaks.join(" | "),
+  row.answer, row.explanation, row.latinLeaks.join(" | "), row.wrongScript,
 ].map(csvEscape).join(","));
 writeFileSync(csvPath, `${csvHeader}\n${csvRows.join("\n")}\n`, "utf8");
 
@@ -202,7 +204,12 @@ const markdown = [
   `- Punjabi localized questions: ${summary.punjabiCount}`,
   `- Canonical parity checks: ${summary.canonicalParityCount}`,
   `- English prose leakage cases: ${summary.englishLeakCount}`,
+  `- Wrong-script cases: ${summary.wrongScriptCount}`,
   `- Shared Cockpit batches: ${JSON.stringify(summary.cockpitRuns)}`,
+  "",
+  "## Wrong-script diagnostics",
+  "",
+  ...(scriptLeaks.length ? scriptLeaks.slice(0, 100).map((leak) => `- ${leak.qlId}/${leak.language}: ${leak.text}`) : ["- None"]),
   "",
   "## English leakage diagnostics",
   "",
@@ -225,5 +232,13 @@ const markdown = [
 ].join("\n");
 writeFileSync(markdownPath, `${markdown}\n`, "utf8");
 
-console.log(JSON.stringify({ ...summary, jsonPath, markdownPath, csvPath, leakPreview: leaks.slice(0, 20) }));
+console.log(JSON.stringify({
+  ...summary,
+  jsonPath,
+  markdownPath,
+  csvPath,
+  scriptLeakPreview: scriptLeaks.slice(0, 10),
+  englishLeakPreview: leaks.slice(0, 20),
+}));
+assert.equal(scriptLeaks.length, 0, `Wrong-script text remains in ${scriptLeaks.length} QL/language cases.`);
 assert.equal(leaks.length, 0, `Localized learner prose still contains English words in ${leaks.length} QL/language cases.`);
