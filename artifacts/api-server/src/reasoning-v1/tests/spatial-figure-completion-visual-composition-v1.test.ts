@@ -2,7 +2,7 @@ import {
   FGC_001_PROTOTYPES_V1,
   generateFigureCompletionDiscoveryQuestionV2,
   type FigureCompletionPrototypeV1,
-} from "../foundation/spatial/figure-completion-discovery-v2";
+} from "../foundation/spatial/figure-completion-discovery-v2-hardened";
 import type { SpatialNode, SpatialPoint } from "../foundation/spatial/types";
 
 const PATCH = { left: 34, top: 34, right: 66, bottom: 66 } as const;
@@ -36,15 +36,11 @@ function onPatchBoundary(point: SpatialPoint): boolean {
 
 function nodePoints(node: SpatialNode): SpatialPoint[] {
   switch (node.kind) {
-    case "line":
-      return [node.start, node.end];
-    case "circle":
-      return [node.center];
+    case "line": return [node.start, node.end];
+    case "circle": return [node.center];
     case "polygon":
-    case "polyline":
-      return node.points;
-    case "arc":
-      return [node.center];
+    case "polyline": return node.points;
+    case "arc": return [node.center];
   }
 }
 
@@ -68,12 +64,7 @@ function boundaryCueSegments(node: SpatialNode): Array<[SpatialPoint, SpatialPoi
 }
 
 function auditQuestion(prototypeId: FigureCompletionPrototypeV1, seed: string): void {
-  const question = generateFigureCompletionDiscoveryQuestionV2({
-    prototypeId,
-    seed,
-    desiredCorrectOptionIndex: 0,
-  });
-
+  const question = generateFigureCompletionDiscoveryQuestionV2({ prototypeId, seed, desiredCorrectOptionIndex: 0 });
   assert(question.solverEvidence.patchOrigin.x === PATCH.left, `${prototypeId}/${seed}: patch must be horizontally centered at x=34.`);
   assert(question.solverEvidence.patchOrigin.y === PATCH.top, `${prototypeId}/${seed}: patch must start at y=34.`);
   assert(question.solverEvidence.patchSize === 32, `${prototypeId}/${seed}: patch size drifted.`);
@@ -81,27 +72,14 @@ function auditQuestion(prototypeId: FigureCompletionPrototypeV1, seed: string): 
   const missing = question.stimulusScene.nodes.find((node) => node.id === "missing-box");
   assert(missing?.kind === "polygon", `${prototypeId}/${seed}: missing-box polygon absent.`);
   const expectedBoundary = new Set(["34,34", "66,34", "66,66", "34,66"]);
-  assert(
-    missing.points.length === 4 && missing.points.every((point) => expectedBoundary.has(`${point.x},${point.y}`)),
-    `${prototypeId}/${seed}: missing-box geometry is not the centered 32x32 window.`,
-  );
+  assert(missing.points.length === 4 && missing.points.every((point) => expectedBoundary.has(`${point.x},${point.y}`)), `${prototypeId}/${seed}: missing-box geometry is not the centered 32x32 window.`);
 
   const visibleNodes = question.stimulusScene.nodes.filter((node) => node.id !== "missing-box" && node.id !== "outer-frame");
   for (const node of visibleNodes) {
-    assert(
-      !nodePoints(node).some(strictlyInsidePatch),
-      `${prototypeId}/${seed}/${node.id}: visible context leaks inside the missing region.`,
-    );
-
+    assert(!nodePoints(node).some(strictlyInsidePatch), `${prototypeId}/${seed}/${node.id}: visible context leaks inside the missing region.`);
     for (const [boundaryPoint, outsidePoint] of boundaryCueSegments(node)) {
-      assert(
-        !strictlyInsidePatch(outsidePoint),
-        `${prototypeId}/${seed}/${node.id}: boundary cue points back inside the hidden patch.`,
-      );
-      assert(
-        distance(boundaryPoint, outsidePoint) >= MIN_VISIBLE_CUE_LENGTH,
-        `${prototypeId}/${seed}/${node.id}: boundary cue is too short for learner-visible evidence.`,
-      );
+      assert(!strictlyInsidePatch(outsidePoint), `${prototypeId}/${seed}/${node.id}: boundary cue points back inside the hidden patch.`);
+      assert(distance(boundaryPoint, outsidePoint) >= MIN_VISIBLE_CUE_LENGTH, `${prototypeId}/${seed}/${node.id}: boundary cue is too short for learner-visible evidence.`);
     }
   }
 }
@@ -109,13 +87,12 @@ function auditQuestion(prototypeId: FigureCompletionPrototypeV1, seed: string): 
 let audited = 0;
 let generationRejects = 0;
 const attemptsByPrototype: Record<string, number> = {};
-
 for (const prototypeId of FGC_001_PROTOTYPES_V1) {
   let acceptedForPrototype = 0;
   let attempts = 0;
   for (let index = 0; index < MAX_ATTEMPTS_PER_PROTOTYPE && acceptedForPrototype < ACCEPTED_PER_PROTOTYPE; index += 1) {
     attempts += 1;
-    const seed = `FGC-VISUAL-COMPOSITION-V2:${prototypeId}:${String(index).padStart(3, "0")}`;
+    const seed = `FGC-VISUAL-COMPOSITION-HARDENED:${prototypeId}:${String(index).padStart(3, "0")}`;
     try {
       auditQuestion(prototypeId, seed);
     } catch (error) {
@@ -129,14 +106,11 @@ for (const prototypeId of FGC_001_PROTOTYPES_V1) {
     audited += 1;
   }
   attemptsByPrototype[prototypeId] = attempts;
-  assert(
-    acceptedForPrototype === ACCEPTED_PER_PROTOTYPE,
-    `${prototypeId}: visual composition audit reached ${acceptedForPrototype}/${ACCEPTED_PER_PROTOTYPE} accepted questions after ${attempts} attempts.`,
-  );
+  assert(acceptedForPrototype === ACCEPTED_PER_PROTOTYPE, `${prototypeId}: visual composition audit reached ${acceptedForPrototype}/${ACCEPTED_PER_PROTOTYPE} accepted questions after ${attempts} attempts.`);
 }
 
 console.log(JSON.stringify({
-  status: "PASS_FGC_001_VISUAL_COMPOSITION_V2",
+  status: "PASS_FGC_001_VISUAL_COMPOSITION_V2_HARDENED",
   prototypes: FGC_001_PROTOTYPES_V1.length,
   acceptedPerPrototype: ACCEPTED_PER_PROTOTYPE,
   audited,
