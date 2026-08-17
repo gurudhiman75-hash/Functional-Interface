@@ -1,0 +1,66 @@
+name: Validate SYL-001 Banking modal review V3
+on:
+  pull_request:
+    branches:
+      - prototype/syl-001-bank-possibility-shell
+      - audit/syl-001-source-profile-freeze
+      - feat/syl-001-learner-v4
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-editorial-v4.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-editorial-v4-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-review-overlay-v3.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-review-overlay-v3-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-modal-candidate-review-v3.ts
+      - .github/workflows/reasoning-syl-001-bank-modal-review-v3.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: validate-syl-001-bank-modal-review-v3-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate-modal-review-v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Bundle ordinary possibility Editorial V4 audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-possibility-editorial-v4-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-possibility-editorial-v4-audit.test.mjs
+      - name: Run ordinary possibility Editorial V4 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-editorial-v4-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-editorial-v4-audit.log
+
+      - name: Bundle modal review overlay V3 audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/banking-modal-candidate-review-overlay-v3-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/syl-001-bank-modal-review-overlay-v3-audit.test.mjs
+      - name: Run modal review overlay V3 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-bank-modal-review-overlay-v3-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-bank-modal-review-overlay-v3-audit.log
+
+      - name: Bundle modal human-review V3 exporter
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-banking-modal-candidate-review-v3.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/export-syl-001-bank-modal-review-v3.mjs
+      - name: Generate modal human-review V3 pack
+        run: node artifacts/api-server/dist/reasoning-v1/export-syl-001-bank-modal-review-v3.mjs
+
+      - name: Upload modal review V3 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: syl-001-bank-modal-review-v3
+          path: |
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-possibility-editorial-v4-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-bank-modal-review-overlay-v3-audit.log
+            dist/reasoning-v1/syl-001-bank-modal-candidate-review-v3/**
+          if-no-files-found: error
+          retention-days: 30
