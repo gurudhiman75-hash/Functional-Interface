@@ -11,14 +11,8 @@ const casesPerQl = Number(process.env.IOP_ENGLISH_CASES_PER_QL ?? 12);
 const started = performance.now();
 
 const qlIds: readonly IopPermanentQlId[] = [
-  "IOP-QL-001",
-  "IOP-QL-002",
-  "IOP-QL-003",
-  "IOP-QL-004",
-  "IOP-QL-005",
-  "IOP-QL-006",
-  "IOP-QL-007",
-  "IOP-QL-008",
+  "IOP-QL-001", "IOP-QL-002", "IOP-QL-003", "IOP-QL-004",
+  "IOP-QL-005", "IOP-QL-006", "IOP-QL-007", "IOP-QL-008",
 ] as const;
 
 const solveModes = new Set<IopPermanentSolveMode>();
@@ -45,7 +39,6 @@ assert.equal(IOP_ENGLISH_SOURCE_MODES.length, 19, "English V1 should expose exac
 assert.equal(new Set(IOP_ENGLISH_SOURCE_MODES.map((mode) => mode.sourceModeId)).size, 19, "Source-mode IDs must be unique");
 for (const qlId of qlIds) assert.ok(IOP_ENGLISH_SOURCE_MODES.some((mode) => mode.qlId === qlId), `${qlId} has no English source mode`);
 
-// Prove every whitelisted source mode explicitly at least once.
 for (const mode of IOP_ENGLISH_SOURCE_MODES) {
   const seed = `IOP-EN-MODE-${mode.sourceModeId}`;
   const first = generateIopEnglishReviewCaselet(seed, mode.qlId, mode.sourceModeId);
@@ -54,10 +47,11 @@ for (const mode of IOP_ENGLISH_SOURCE_MODES) {
   assertIopEnglishReviewCaseletIntegrity(first);
   assert.equal(first.sourceModeId, mode.sourceModeId);
   assert.ok(first.sourceEvidenceIds.length > 0, `${mode.sourceModeId} has no source evidence`);
+  assert.equal(first.lifecycle.maturity, "ENGLISH_FROZEN");
+  assert.equal(first.lifecycle.englishFreeze, true);
   modeCounts.set(mode.sourceModeId, (modeCounts.get(mode.sourceModeId) ?? 0) + 1);
 }
 
-// Prove normal permanent-QL generation and query overlays at scale.
 for (const qlId of qlIds) {
   for (let index = 0; index < casesPerQl; index += 1) {
     const seed = `IOP-EN-PROOF-${qlId}-${String(index).padStart(4, "0")}`;
@@ -84,30 +78,23 @@ for (const qlId of qlIds) {
       assert.ok(!child.explanation.startsWith(first.ruleExplanation), `${qlId}/${child.kind} repeats the shared rule`);
     }
 
-    assert.equal(first.lifecycle.maturity, "ENGLISH_REVIEW_CANDIDATE");
+    assert.equal(first.lifecycle.maturity, "ENGLISH_FROZEN");
     assert.equal(first.lifecycle.permanentQlCount, 8);
-    assert.equal(first.lifecycle.englishFreeze, false);
+    assert.equal(first.lifecycle.englishFreeze, true);
     assert.equal(first.lifecycle.questionStudioDiscoverable, false);
     assert.equal(first.lifecycle.questionBankWritable, false);
     assert.equal(first.lifecycle.testEligible, false);
     assert.equal(first.lifecycle.publiclyPublishable, false);
+    assert.equal(first.lifecycle.hindiPunjabiStatus, "NOT_STARTED");
   }
 }
 
 for (const qlId of qlIds) assert.equal(qlCounts.get(qlId), casesPerQl, `Unexpected English coverage for ${qlId}`);
 for (const mode of IOP_ENGLISH_SOURCE_MODES) assert.ok((modeCounts.get(mode.sourceModeId) ?? 0) > 0, `${mode.sourceModeId} was never generated`);
 for (const solveMode of [
-  "STEP_OUTPUT",
-  "FINAL_OUTPUT",
-  "ELEMENT_AT_POSITION",
-  "POSITION_OF_ELEMENT",
-  "STEP_NUMBER",
-  "PREVIOUS_STEP",
-  "MISSING_STEP",
-  "REMAINING_STEP_COUNT",
-] as const) {
-  assert.ok(solveModes.has(solveMode), `${solveMode} was not reached by English production proof`);
-}
+  "STEP_OUTPUT", "FINAL_OUTPUT", "ELEMENT_AT_POSITION", "POSITION_OF_ELEMENT",
+  "STEP_NUMBER", "PREVIOUS_STEP", "MISSING_STEP", "REMAINING_STEP_COUNT",
+] as const) assert.ok(solveModes.has(solveMode), `${solveMode} was not reached by English production proof`);
 assert.ok(answerPositions.every((count) => count > 0), `English proof did not reach all four answer positions: ${answerPositions.join(",")}`);
 
 console.log("PASS_IOP_001_ENGLISH_PRODUCTION_AUTHORITIES");
@@ -119,5 +106,5 @@ console.log(`solve modes covered ${solveModes.size}`);
 console.log(`unique scaled caselets ${visibleFingerprints.size}`);
 console.log(`answer positions ${answerPositions.join(",")}`);
 console.log(`elapsed milliseconds ${Math.round(performance.now() - started)}`);
-console.log("English freeze false");
+console.log("English freeze true");
 console.log("Question Studio false");
