@@ -1,13 +1,14 @@
 import { generateIopEnglishBoxProductionCaselet } from "./english-box-production.ts";
 import { withBalancedIopEnglishQueries } from "./english-balanced-queries.ts";
 import {
-  assertIopEnglishReviewCaseletIntegrity,
+  assertIopEnglishReviewCaseletIntegrity as assertEditorialReviewCaseletIntegrity,
   generateIopEnglishReviewCaselet as generateStandardReviewCaselet,
 } from "./english-editorial.ts";
 import {
   assertIopEnglishExplanationQuality,
   withFullIopEnglishExplanations,
 } from "./english-review-explanations.ts";
+import { withIop001EnglishFrozenLifecycle } from "./english-freeze-authority.ts";
 import { generateIopRichEnglishSource } from "./english-rich-sources.ts";
 import { IOP_ENGLISH_SOURCE_MODES } from "./english-production.ts";
 import type { IopPermanentQlId } from "./permanent-authorities.ts";
@@ -70,6 +71,23 @@ function richStandardCaselet(
   };
 }
 
+export function assertIopEnglishReviewCaseletIntegrity(caselet: IopEnglishProductionCaselet): void {
+  // The editorial invariant predates the human freeze and intentionally rejects
+  // product activation. For frozen caselets, normalize only the lifecycle view
+  // back to the review-candidate state before replaying that content invariant.
+  const editorialView: IopEnglishProductionCaselet = caselet.lifecycle.englishFreeze
+    ? {
+        ...caselet,
+        lifecycle: {
+          ...caselet.lifecycle,
+          maturity: "ENGLISH_REVIEW_CANDIDATE",
+          englishFreeze: false,
+        },
+      }
+    : caselet;
+  assertEditorialReviewCaseletIntegrity(editorialView);
+}
+
 export function generateIopEnglishReviewCaselet(
   seed: string,
   qlId: IopPermanentQlId,
@@ -90,7 +108,5 @@ export function generateIopEnglishReviewCaselet(
   const explained = withFullIopEnglishExplanations(balanced);
   assertIopEnglishReviewCaseletIntegrity(explained);
   assertIopEnglishExplanationQuality(explained);
-  return explained;
+  return withIop001EnglishFrozenLifecycle(explained);
 }
-
-export { assertIopEnglishReviewCaseletIntegrity } from "./english-editorial.ts";
