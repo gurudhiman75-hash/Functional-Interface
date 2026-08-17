@@ -72,7 +72,7 @@ function expectedMethodMarker(qlId: string, language: Tmw001ChapterLanguage): st
   const markers: Record<string, Record<Tmw001ChapterLanguage, string>> = {
     "TMW-QL-224": { en: "worker-days", hi: "कामगार-दिन", pa: "ਮਜ਼ਦੂਰ-ਦਿਨ" },
     "TMW-QL-225": { en: "relative efficiency", hi: "सापेक्ष दक्षता", pa: "ਸਾਪੇਖ ਕੁਸ਼ਲਤਾ" },
-    "TMW-QL-226": { en: "emptying", hi: "खाली करने वाली पाइप", pa: "ਖਾਲੀ ਕਰਨ ਵਾਲੀ ਪਾਈਪ" },
+    "TMW-QL-226": { en: "emptying", hi: "निकासी पाइप", pa: "ਨਿਕਾਸੀ ਪਾਈਪ" },
     "TMW-QL-227": { en: "only Team A", hi: "केवल टीम A", pa: "ਸਿਰਫ਼ ਟੀਮ A" },
     "TMW-QL-228": { en: "remaining work", hi: "शेष काम", pa: "ਬਾਕੀ ਕੰਮ" },
   };
@@ -129,20 +129,29 @@ for (const qlId of qlIds) {
         ok(!/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/u.test(text), `${label}: control character`);
         ok(noIndicInsideMathJax(text), `${label}: localized prose inside MathJax`);
 
-        if (language === "pa") ok(!/ਪੜਾਅਾਂ/u.test(text), `${label}: Punjabi spelling regression`);
+        if (language === "pa") {
+          ok(!/ਪੜਾਅਾਂ|ਅਵਧੀ|ਰਿਣਾਤਮਕ/u.test(text), `${label}: Punjabi editorial regression`);
+        }
 
         if (qlId === "TMW-QL-225") {
           ok(q.solution.answerType === "base-work-units", `${label}: normalized contribution unit`);
+          if (language === "hi") ok(!/दल योगदान रिकॉर्ड|कुशल योगदान =|सहायक योगदान =/u.test(text), `${label}: Hindi contribution wording regression`);
+          if (language === "pa") ok(!/ਟੀਮ ਯੋਗਦਾਨ ਰਿਕਾਰਡ|ਕੁਸ਼ਲ ਯੋਗਦਾਨ =|ਸਹਾਇਕ ਯੋਗਦਾਨ =/u.test(text), `${label}: Punjabi contribution wording regression`);
         }
         if (qlId === "TMW-QL-226") {
           ok(q.optionAudit.every((option: any) => option.value.numerator > 0 && option.value.numerator <= option.value.denominator), `${label}: non-physical tank option`);
+          ok(!/\\\([^)]*\d+\/\d+/u.test(text), `${label}: raw slash fraction inside MathJax`);
           if (language !== "en") {
             ok(!/(^|[^A-Za-z])(?:inlet|outlet|net)(?=$|[^A-Za-z])|\d+ h(?=$|[^A-Za-z])/iu.test(text), `${label}: English pipe leakage`);
           }
+          if (language === "hi") ok(!/भरने वाली पाइप|खाली करने वाली पाइप|अकेला टंकी|टंकी-दर/u.test(text), `${label}: Hindi pipe wording regression`);
+          if (language === "pa") ok(!/ਭਰਨ ਵਾਲੀ ਪਾਈਪ|ਖਾਲੀ ਕਰਨ ਵਾਲੀ ਪਾਈਪ|ਇਕੱਲਾ ਟੈਂਕ|ਟੈਂਕ-ਦਰ/u.test(text), `${label}: Punjabi pipe wording regression`);
         }
         if (qlId === "TMW-QL-227" || qlId === "TMW-QL-228") {
           ok(q.caseletGroupId === "TMW-CASELET-001" && q.groupGenerationRequired === true, `${label}: caselet group contract`);
           ok(q.caseletItemIndex === (qlId === "TMW-QL-227" ? 0 : 1), `${label}: caselet order`);
+          if (language === "hi") ok(!/परियोजना केसलेट|इकाइयाँ\/दिन/u.test(text), `${label}: Hindi caselet wording regression`);
+          if (language === "pa") ok(!/ਪ੍ਰੋਜੈਕਟ ਕੇਸਲੈਟ|ਇਕਾਈਆਂ\/ਦਿਨ|ਦਰਾਂ ਤੇ/u.test(text), `${label}: Punjabi caselet wording regression`);
         }
 
         const positionKey = `${qlId}:${language}`;
