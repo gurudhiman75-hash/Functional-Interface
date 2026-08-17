@@ -88,6 +88,29 @@ assert.equal(sharedResult.generationContext.questionBankStatus, "NOT_STORED");
 assert.equal(sharedResult.generationContext.testEligibility, "INELIGIBLE");
 assert.equal(sharedResult.generationContext.publiclyPublishable, false);
 
+const difficultyRuns: Record<string, number> = {};
+for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+  const result = await generateQuestion({
+    packageId: "SAP",
+    topic: "Arithmetic",
+    subtopic: "Simplification & Approximation",
+    language: "en",
+    difficulty,
+    count: 8,
+    seed: `sap-shared-cockpit-${difficulty.toLowerCase()}`,
+  });
+  assert.equal(result.questions.length, 8, `${difficulty}: shared Cockpit batch under-filled.`);
+  assert.ok(result.questions.every((question: any) => question.packageId === "SAP"));
+  assert.ok(
+    result.questions.every((question: any) => question.difficultyLabel === difficulty),
+    `${difficulty}: chapter mix did not honor the existing Cockpit difficulty control.`,
+  );
+  assert.ok(result.questions.every((question: any) => question.questionBankStatus === "NOT_STORED"));
+  assert.ok(result.questions.every((question: any) => question.testEligibility === "INELIGIBLE"));
+  assert.ok(result.questions.every((question: any) => question.publiclyPublishable === false));
+  difficultyRuns[difficulty] = result.questions.length;
+}
+
 console.log(JSON.stringify({
   authority: "SAP-SHARED-QUESTION-STUDIO-INTEGRATION",
   qlCount: SAP_QUESTION_STUDIO_QLS.length,
@@ -95,6 +118,7 @@ console.log(JSON.stringify({
   generatedStates: generated,
   centralPackageDiscovered: true,
   sharedRunCount: sharedResult.questions.length,
+  difficultyRuns,
   questionBankStatus: sharedResult.generationContext.questionBankStatus,
   testEligibility: sharedResult.generationContext.testEligibility,
   publiclyPublishable: sharedResult.generationContext.publiclyPublishable,
