@@ -70,7 +70,7 @@ jobs:
       - name: Prove source-normalized permanent QL allocation
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/permanent-authorities.test.ts
 
-      - name: Prove all eight English permanent authorities
+      - name: Prove all eight frozen English permanent authorities
         env:
           IOP_ENGLISH_CASES_PER_QL: 12
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-production.test.ts
@@ -81,11 +81,14 @@ jobs:
       - name: Audit rich object pools and explanation substance
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-review-quality.test.ts
 
-      - name: Generate permanent English review pack
+      - name: Prove content-addressed human English freeze
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-freeze-authority.test.ts
+
+      - name: Generate frozen English review pack
         env:
           IOP_ENGLISH_REVIEW_OUTPUT_DIR: /tmp/iop-english-permanent-review
           IOP_ENGLISH_REVIEW_EXAMPLES_PER_MODE: 2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-review-export.ts
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-frozen-review-export.ts
 
       - name: Generate CP001-CP004 discovery review pack
         env:
