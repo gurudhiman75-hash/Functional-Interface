@@ -24,6 +24,7 @@ function cleanupString(
     .replace(/\brepeated\b/giu, repeated)
     .replace(/\bI(?=\s*=)/gu, "Q_0")
     .replace(/\bx-(?=[\u0900-\u097F\u0A00-\u0A7F])/gu, "x ")
+    .replace(/x-(?=\d)/gu, "x - ")
     .replace(/\bx-/gu, "x - ")
     .replace(/(\d+)th\b/gu, `$1${ordinalSuffix}`)
     .replace(/\b([A-Za-z])-th\b/gu, `$1-${ordinalSuffix}`)
