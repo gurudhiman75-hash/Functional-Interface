@@ -133,6 +133,10 @@ router.patch(
         }
 
         const previousPayload = asPayloadRecord(current.payload);
+        if (asString(previousPayload.revisionPolicy) === "SOURCE_GENERATOR_ONLY") {
+          return { kind: "source_controlled" as const };
+        }
+
         const nextPayload = {
           ...previousPayload,
           text: stem,
@@ -242,6 +246,14 @@ router.patch(
         res.status(409).json({
           error: "This generated item is already in Question Bank. Edit the canonical question instead.",
           code: "GENERATION_ITEM_ALREADY_CONVERTED",
+        });
+        return;
+      }
+      if (result.kind === "source_controlled") {
+        res.status(409).json({
+          error: "This Question Studio package is source-controlled. Mark the item Needs fix, correct its generator/localization source, then regenerate it.",
+          code: "SOURCE_GENERATOR_ONLY",
+          revisionPolicy: "SOURCE_GENERATOR_ONLY",
         });
         return;
       }
