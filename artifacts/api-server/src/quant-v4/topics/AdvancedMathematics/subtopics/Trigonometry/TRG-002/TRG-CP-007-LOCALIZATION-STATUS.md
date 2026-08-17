@@ -1,6 +1,6 @@
 # TRG-002 · TRG-CP-007 Localization Status
 
-Status: **HINDI/PUNJABI LOCALIZATION V1 IMPLEMENTED — CI PENDING — HUMAN LANGUAGE REVIEW PENDING — MULTILINGUAL FREEZE OFF — ACTIVATION OFF**
+Status: **HINDI/PUNJABI LOCALIZATION V1 IMPLEMENTED — SEMANTIC PARITY PASS — REVIEW PACK READY — HUMAN LANGUAGE REVIEW PENDING — MULTILINGUAL FREEZE OFF — ACTIVATION OFF**
 
 ## Scope
 
@@ -45,29 +45,22 @@ Every localized instance carries:
 - `multilingualFreezeGranted: false`;
 - `productDeliveryUnlocked: false`.
 
-## Governance boundary
+## Green verification checkpoint
 
-Localized Hindi/Punjabi records are **REVIEW CANDIDATE V1**, not frozen production content.
+Verified source head:
 
-Still OFF:
+`17d9b8b7e4832b1200afb540ddd0ac049e0bc870`
 
-- multilingual freeze;
-- Hindi/Punjabi runtime activation;
-- Question Studio discovery;
-- Test Builder eligibility;
-- question-bank storage;
-- public publication;
-- automatic product delivery.
+Workflow run:
 
-English remains independently frozen and governed by the existing 96-QL freeze gates.
+`32034210819` — `Verify TRG-002 CP007 Localization V1` — **SUCCESS**
 
-## V1 verification target
+Passed:
 
-The dedicated gate executes:
-
-- frozen English 96-QL approval/fingerprint verification;
-- 24 CP007 QLs × 12 deterministic seeds × 2 locales = **576 localization parity cases**;
-- exact answer equality;
+- targeted Trigonometry TypeScript compile;
+- frozen English **96 / 96** approval/fingerprint gate;
+- **24 CP007 QLs × 12 deterministic seeds × 2 locales = 576 localization parity cases**;
+- exact-answer equality;
 - option semantic equality;
 - correct-index equality;
 - canonical spatial-state equality;
@@ -75,14 +68,43 @@ The dedicated gate executes:
 - Devanagari/Gurmukhi learner-text presence;
 - English stem-fragment leak checks;
 - localization lifecycle/activation locks;
-- deterministic 48-record Hindi/Punjabi human-review pack export.
+- deterministic **48-record** Hindi/Punjabi human-review pack export and verification.
+
+Review artifact:
+
+- name: `trg-002-cp007-hi-pa-localization-review-v1`
+- id: `9290028436`
+- digest: `sha256:4bbd3d1b568115d476f3e562e72c19406b7d05f960fa6a8418f36f816d1b6fd3`
+
+The first two failed CI attempts exposed an incorrect assumption that every frozen proof projection must expose a target vertical-object record. The final localizer removes that dependency: numeric learner wording is derived directly from canonical points/angles, while object type is only presentation metadata. The English freeze gate remained green throughout.
+
+## Governance boundary
+
+Localized Hindi/Punjabi records are **REVIEW CANDIDATE V1**, not frozen production content.
+
+Current state:
+
+- English source: **HUMAN-APPROVED + FROZEN**
+- Hindi/Punjabi semantic parity: **PASS**
+- Hindi/Punjabi human language review: **PENDING**
+- multilingual freeze: **NOT GRANTED**
+- product delivery: **LOCKED**
+
+Still OFF:
+
+- Hindi/Punjabi runtime activation;
+- Question Studio discovery;
+- Test Builder eligibility;
+- question-bank storage;
+- public publication;
+- automatic product delivery.
 
 ## Human review
 
 Human language review: **PENDING**.
 
-The review artifact is deliberately bilingual and pairs one designated Hindi and Punjabi instance for every one of the 24 CP007 QLs. Approval of this slice must be explicit and does not automatically approve CP008, CP009 or CP010.
+The review artifact pairs one designated Hindi and Punjabi instance for every one of the 24 CP007 QLs. Approval of this slice must be explicit and does not automatically approve CP008, CP009 or CP010.
 
 ## Next checkpoint
 
-Obtain a green dedicated localization workflow, inspect the 48-record review artifact, remediate any Hindi/Punjabi editorial issues found, then request explicit human-language approval for CP007 before any multilingual freeze. After CP007 is stable, continue localization with CP008.
+Review/remediate the 48 bilingual records, then request explicit human-language approval for CP007 before any multilingual freeze. CP008 localization can proceed as the next implementation slice while CP007 remains review-gated.
