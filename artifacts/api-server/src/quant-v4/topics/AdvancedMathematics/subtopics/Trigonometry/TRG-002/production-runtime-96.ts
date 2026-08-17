@@ -35,6 +35,7 @@ import {
 } from "./production-cp010-clean-overrides";
 import { generateTrg002ProductionQl019Clean } from "./production-ql019-clean";
 import { generateTrg002ProductionQl021Clean } from "./production-ql021-clean";
+import { generateTrg002ProductionQl022Clean } from "./production-ql022-clean";
 import { generateTrg002ProductionQl026Clean } from "./production-ql026-clean";
 import { generateTrg002ProductionQl042Clean } from "./production-ql042-clean";
 import { generateTrg002ProductionQl089Clean } from "./production-ql089-clean";
@@ -50,6 +51,7 @@ function numericId(qlId: string) {
 function expansionQuestion(qlId: string, seed: string) {
   if (qlId === "TRG-002-QL-019") return generateTrg002ProductionQl019Clean(seed);
   if (qlId === "TRG-002-QL-021") return generateTrg002ProductionQl021Clean(seed);
+  if (qlId === "TRG-002-QL-022") return generateTrg002ProductionQl022Clean(seed);
   if (qlId === "TRG-002-QL-026") return generateTrg002ProductionQl026Clean(seed);
   if (qlId === "TRG-002-QL-042") return generateTrg002ProductionQl042Clean(seed);
   if (qlId === "TRG-002-QL-089") return generateTrg002ProductionQl089Clean(seed);
