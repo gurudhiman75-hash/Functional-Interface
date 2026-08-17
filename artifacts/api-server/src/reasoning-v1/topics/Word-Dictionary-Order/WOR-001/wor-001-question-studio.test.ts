@@ -13,9 +13,11 @@ import {
   previewWor001QuestionStudioReview,
 } from "./question-studio-review";
 
-assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.questionStudioVisible, true);
+assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.questionStudioVisible, false);
+assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.questionStudioReviewVisible, true);
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.publicReleaseEnabled, false);
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.permanentQlCount, 0);
+assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioVisible, true);
 assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.checkpointCount, 5);
 assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.prototypeCount, 24);
 assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 0);
