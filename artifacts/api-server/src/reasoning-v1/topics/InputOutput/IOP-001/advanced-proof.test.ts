@@ -24,51 +24,56 @@ const answerPositions = new Map<IopAdvancedQueryKind, number[]>([
   ["REMAINING_STEP_COUNT", [0, 0, 0, 0]],
 ]);
 
+function actionError(message: string): never {
+  console.error(`::error title=IOP advanced proof::${message.replaceAll("%", "%25").replaceAll("\r", "%0D").replaceAll("\n", "%0A")}`);
+  throw new Error(message);
+}
+
 assert.equal(IOP_ADVANCED_PROTOTYPES.length, 18, "Checkpoint B should begin with 18 temporary authorities");
 
 for (const authority of IOP_ADVANCED_PROTOTYPES) {
   for (let index = 0; index < casesPerPrototype; index += 1) {
     const seed = `IOP-ADV-PROOF-${authority.prototypeId}-${String(index).padStart(4, "0")}`;
-    let first: ReturnType<typeof generateIopAdvancedCaselet>;
-    let replay: ReturnType<typeof generateIopAdvancedCaselet>;
     try {
-      first = generateIopAdvancedCaselet(seed, authority.prototypeId);
-      replay = generateIopAdvancedCaselet(seed, authority.prototypeId);
+      const first = generateIopAdvancedCaselet(seed, authority.prototypeId);
+      const replay = generateIopAdvancedCaselet(seed, authority.prototypeId);
       assert.deepEqual(first, replay, `${authority.prototypeId}/${seed} was not deterministic`);
       assertIopAdvancedCaseletIntegrity(first);
+
+      generated += 1;
+      childQuestions += first.children.length;
+      competingProgramExecutions += first.identifiability.candidateProgramsTested;
+      rejectedAlternativeExecutions += first.identifiability.candidateProgramsTested - 1;
+      checkpointCounts.set(authority.checkpointId, (checkpointCounts.get(authority.checkpointId) ?? 0) + 1);
+
+      if (caseletIds.has(first.caseletId)) actionError(`Duplicate caselet id at ${authority.prototypeId}/${seed}: ${first.caseletId}`);
+      caseletIds.add(first.caseletId);
+      const visible = [
+        authority.prototypeId,
+        first.demonstration.layout,
+        advancedStateFingerprint(first.demonstration.input),
+        first.demonstration.steps.map((step) => step.stateFingerprint).join("/"),
+        advancedStateFingerprint(first.target.input),
+      ].join("|");
+      if (visibleCaselets.has(visible)) actionError(`Duplicate visible caselet at ${authority.prototypeId}/${seed}`);
+      visibleCaselets.add(visible);
+
+      for (const child of first.children) answerPositions.get(child.kind)![child.answerIndex] += 1;
     } catch (error) {
       const message = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
-      throw new Error(`IOP advanced proof failed at ${authority.prototypeId}/${seed}: ${message}`, { cause: error });
+      actionError(`Failed at ${authority.prototypeId}/${seed}: ${message}`);
     }
-
-    generated += 1;
-    childQuestions += first.children.length;
-    competingProgramExecutions += first.identifiability.candidateProgramsTested;
-    rejectedAlternativeExecutions += first.identifiability.candidateProgramsTested - 1;
-    checkpointCounts.set(authority.checkpointId, (checkpointCounts.get(authority.checkpointId) ?? 0) + 1);
-
-    assert.ok(!caseletIds.has(first.caseletId), `Duplicate caselet id ${first.caseletId}`);
-    caseletIds.add(first.caseletId);
-    const visible = [
-      authority.prototypeId,
-      first.demonstration.layout,
-      advancedStateFingerprint(first.demonstration.input),
-      first.demonstration.steps.map((step) => step.stateFingerprint).join("/"),
-      advancedStateFingerprint(first.target.input),
-    ].join("|");
-    assert.ok(!visibleCaselets.has(visible), `Duplicate visible caselet ${authority.prototypeId}/${seed}`);
-    visibleCaselets.add(visible);
-
-    for (const child of first.children) answerPositions.get(child.kind)![child.answerIndex] += 1;
   }
 }
 
 for (const checkpoint of ["IOP-CP-005", "IOP-CP-006", "IOP-CP-007", "IOP-CP-008", "IOP-CP-009", "IOP-CP-010"] as const) {
-  assert.equal(checkpointCounts.get(checkpoint), 3 * casesPerPrototype, `Unexpected coverage for ${checkpoint}`);
+  const actual = checkpointCounts.get(checkpoint);
+  const expected = 3 * casesPerPrototype;
+  if (actual !== expected) actionError(`Unexpected coverage for ${checkpoint}: ${actual ?? 0}/${expected}`);
 }
 
 for (const [kind, counts] of answerPositions) {
-  assert.ok(counts.every((count) => count > 0), `${kind} did not reach all four answer positions: ${counts.join(",")}`);
+  if (!counts.every((count) => count > 0)) actionError(`${kind} did not reach all four answer positions: ${counts.join(",")}`);
 }
 
 console.log("PASS_IOP_001_CP005_CP010_ADVANCED_DISCOVERY");
