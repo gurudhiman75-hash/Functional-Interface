@@ -1,122 +1,155 @@
 # IOP-001 — Machine Input–Output & Sequential Rearrangement
 
-Status: **Checkpoint B — CP001–CP010 executable discovery implemented**.
+Status: **Checkpoint C — source-family saturated and 8 permanent QLs allocated; English production not frozen**.
 
-`IOP-001` is the Reasoning V1 implementation package for the student-facing **Input–Output** chapter (`REAS-INP`). It follows the Reasoning master-blueprint requirement that Input–Output use sequence-of-states transformation engines rather than static rearrangement templates.
+`IOP-001` is the Reasoning V1 implementation package for student-facing **Input–Output** (`REAS-INP`). The chapter uses explicit sequence-of-states machine engines rather than static rearrangement templates.
 
-## Current implementation
+## Permanent machine authorities
 
-Two isolated but compatible runtime layers are now executable:
+Strict source normalization and semantic merge/split reduce 30 temporary discovery prototypes plus the source-backed mixed gap to **8 permanent machine QLs**:
+
+```text
+IOP-QL-001  Single Select-and-Fix Rearrangement
+IOP-QL-002  Blocked Multi-Category Rearrangement
+IOP-QL-003  Simultaneous Multi-Action Rearrangement
+IOP-QL-004  Alternating / Interleaved Rearrangement
+IOP-QL-005  Numeric Transformation Pipeline
+IOP-QL-006  Text / Alphanumeric Transformation Pipeline
+IOP-QL-007  Mixed Word–Number Transformed-Pair Machine
+IOP-QL-008  Box / Table Arithmetic Machine
+```
+
+CP010 contributes solve/query modes rather than duplicate machine QLs.
+
+Authority: `permanent-authorities.ts` and `CHECKPOINT-C-MERGE-SPLIT-V2.md`.
+
+## Runtime layers
 
 ### Classical foundation — CP001–CP004
 
-- deterministic placement engine;
+- deterministic select/place machine engine;
+- stable token identity and step provenance;
 - independent full-trace oracle;
 - semantic rule fingerprints;
 - simultaneous-action canonicalization;
-- adversarial rule-identifiability gate;
-- four target-query forms;
-- 12 temporary prototype authorities.
+- adversarial competing-rule identifiability;
+- target-query oracle.
+
+Scale proof:
+
+```text
+12 temporary authorities × 80 seeds
+= 960 deterministic caselets
+= 3,840 child questions
+```
 
 ### Advanced program layer — CP005–CP010
 
 - attribute-based iterative selection;
-- numeric whole-row transformations;
-- word transformations;
-- alphanumeric transformations;
-- stage pipelines combining transform, sort and iterative placement;
-- structured `LINEAR`, `BOX_ROW` and `TABLE_2XN` layouts;
-- adjacent-pair swaps;
-- pairwise sum/absolute-difference rewrites;
-- reverse/missing-state synthesis queries;
+- numeric transformations;
+- word/alphanumeric transformations;
+- multi-stage transform/sort/place programs;
+- structured LINEAR / BOX_ROW / TABLE_2XN layouts;
 - independent advanced trace oracle;
-- independent advanced query oracle;
-- mutated competing-program grammar for ambiguity rejection;
-- 18 temporary prototype authorities.
+- independent child-query oracle;
+- adversarial competing-program grammar;
+- reverse/missing-state query synthesis.
 
-Current temporary discovery inventory:
+Scale proof:
 
 ```text
-IOP-CP-001   Basic One-Sided Rearrangement                    3
-IOP-CP-002   Mixed Word–Number Blocked Rearrangement          3
-IOP-CP-003   Double-Ended / Simultaneous Rearrangement        3
-IOP-CP-004   Alternating / Interleaved Rearrangement          3
-IOP-CP-005   Attribute-Based Selection & Rearrangement        3
-IOP-CP-006   Numeric Operation Machines                       3
-IOP-CP-007   Word & Alphanumeric Transformation Machines      3
-IOP-CP-008   Multi-Stage Transformation Machines              3
-IOP-CP-009   Box / Table / Cell Input–Output                  3
-IOP-CP-010   Reverse, Missing-State & Machine Synthesis       3
-TOTAL                                                         30
+18 temporary authorities × 40 seeds
+= 720 deterministic caselets
+= 2,880 child questions
+= 18,400 competing-program executions audited
 ```
 
-These are **temporary executable discovery authorities**, not permanent QLs. Checkpoint boundaries and prototype distinctions remain open to source-driven merge/split review.
+## Source-backed mixed transformation gap
 
-## Defining safety rule
+Source saturation identified a missing advanced Banking family represented by RBI Grade B Phase 1, 8 Sep 2024 Shift 1 PYQ reconstruction.
 
-A correct trace is insufficient if the demonstration can reasonably imply another rule.
-
-Classical demonstrations are tested against a competing rule grammar. Advanced demonstrations are additionally tested against mutated alternatives covering:
-
-- attribute-key substitutions;
-- ascending/descending reversal;
-- left/right placement reversal;
-- competing transformation choices;
-- pair-swap versus whole-row reversal;
-- reordered stage pipelines;
-- other advanced prototype programs.
-
-A caselet is accepted only when:
+`IOP-CP008-GAP-PROT-001` implements the normalized family:
 
 ```text
-matching semantic fingerprints = 1
-matching fingerprint = intended fingerprint
+alphabetically first remaining word
++
+smallest remaining number
+→ transform word
+→ transform number to digit sum
+→ fix transformed number-word pair
+→ repeat
 ```
 
-The production executor and oracle are separate implementations. Child answers are also recomputed by separate query oracles.
+The demonstration is checked against **144 competing semantic rules**.
 
-## Query coverage
-
-Foundation target questions currently cover:
-
-- step output;
-- element at position;
-- position of element;
-- final output.
-
-Advanced target questions add:
-
-- identify the step number from a state;
-- previous-step reconstruction;
-- missing-step reconstruction;
-- remaining-step count.
-
-CP010 owns the reverse/missing-state synthesis layer rather than duplicating machine semantics already represented in CP005–CP009.
-
-## Review evidence
-
-The dedicated workflow now runs:
-
-- strict TypeScript over the complete IOP package;
-- CP001–CP004 deterministic scale proof;
-- CP005–CP010 deterministic advanced scale proof;
-- CP001–CP004 HTML/JSON review export;
-- CP005–CP010 HTML/JSON review export;
-- production API build.
-
-## Current lifecycle
+Scale proof:
 
 ```text
-maturity:                    EXECUTABLE_DISCOVERY_PROOF
-permanent QLs:               0
-source saturation:           OPEN
-merge/split review:          OPEN
-English freeze:              NOT_STARTED
+160 deterministic caselets
+640 child questions
+23,040 competing-rule executions audited
+```
+
+This source-pinned family is the primary authority for `IOP-QL-007`.
+
+## Defining safety rules
+
+A caselet is rejected unless:
+
+- the visible machine has exactly one supported semantic interpretation;
+- independent executor/oracle traces agree;
+- child answers independently recompute;
+- visible states do not repeat;
+- token identity/provenance is conserved;
+- learner-visible selection keys have no hidden ties;
+- option semantics are unique;
+- lifecycle flags remain fail-closed.
+
+A stress proof exposed a low-entropy vowel-count prototype. The duplicate gate was retained and the weak prototype was replaced rather than loosening validation.
+
+## Solve/query modes
+
+Permanent query modes currently include:
+
+- `STEP_OUTPUT`
+- `FINAL_OUTPUT`
+- `ELEMENT_AT_POSITION`
+- `POSITION_OF_ELEMENT`
+- `STEP_NUMBER`
+- `PREVIOUS_STEP`
+- `MISSING_STEP`
+- `REMAINING_STEP_COUNT`
+
+These do not create extra machine QLs.
+
+## Source saturation
+
+`SOURCE FAMILY SATURATION = PASS_V1` for permanent family allocation.
+
+Important distinction: exact advanced transformation modes are still individually source-whitelisted before English freeze. In particular:
+
+- `IOP-QL-005` numeric operation modes are whitelist-gated;
+- `IOP-QL-006` text/alphanumeric transformation modes are whitelist-gated;
+- `IOP-QL-008` box/table arithmetic modes are whitelist-gated.
+
+Executable synthetic operation chains remain engine evidence, not automatic production content.
+
+See `CHECKPOINT-C-SOURCE-SATURATION-CLOSURE-V2.md`.
+
+## Question Studio / delivery lifecycle
+
+Permanent QL allocation is **not** product activation.
+
+```text
+maturity:                    PERMANENT_QL_ALLOCATED
+sourceFamilySaturation:      PASS_V1
+permanent QLs:               8
+English freeze:              false
 Question Studio:             false
 Question Bank writes:        false
 test eligibility:            false
 public publication:          false
-Hindi/Punjabi:               not started
+Hindi/Punjabi:               NOT_STARTED
 ```
 
-Whole-chapter Question Studio integration remains deliberately deferred until source saturation, gap audit, permanent allocation and English review are complete.
+The next chapter gate is **English permanent-authority implementation + human exam-readiness review**, followed later by localization and whole-chapter Question Studio registration.
