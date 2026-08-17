@@ -155,11 +155,8 @@ router.post(
     }
 
     const count = asPositiveInteger(req.body?.count, 5, 50);
-    const defaultPackageId = simplificationRequest
-      ? "SAP"
-      : numberSystemRequest
-        ? "NUM-001"
-        : "AVG-001";
+    let defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001";
+    if (simplificationRequest) defaultPackageId = "SAP";
     const defaultSubtopic = simplificationRequest
       ? "Simplification & Approximation"
       : numberSystemRequest
