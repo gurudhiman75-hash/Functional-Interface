@@ -50,6 +50,12 @@ const languageLabels = {
   pa: "ਪੰਜਾਬੀ",
 } as const;
 
+const calculationLabels = {
+  en: "Calculation",
+  hi: "गणना",
+  pa: "ਗਣਨਾ",
+} as const;
+
 const reviewItems: Array<{
   cpId: string;
   patternId: string;
@@ -62,13 +68,14 @@ const reviewItems: Array<{
 }> = [];
 
 function assertSimpleSolution(question: MensurationLocalizedQuestionV1) {
-  assert(question.explanation.steps.length >= 1, `${question.patternId}/${question.language}: solution is empty.`);
-  assert(question.explanation.steps.length <= 9, `${question.patternId}/${question.language}: solution is still too long.`);
+  assert(question.explanation.steps.length >= 5, `${question.patternId}/${question.language}: solution is incomplete.`);
+  assert(question.explanation.steps.length <= 13, `${question.patternId}/${question.language}: solution is still too long.`);
   assert(question.explanation.shortcut === "", `${question.patternId}/${question.language}: shortcut surface must be removed.`);
   assert(question.explanation.traps.length === 0, `${question.patternId}/${question.language}: learner trap list must be removed.`);
   const joined = question.explanation.steps.join("\n");
   assert(!/Key Rule|Step-by-Step|Exam Speed|Common Traps|मुख्य नियम|चरण-दर-चरण|परीक्षा शॉर्टकट|सामान्य गलतियाँ|ਮੁੱਖ ਨਿਯਮ|ਕਦਮ-ਦਰ-ਕਦਮ|ਪ੍ਰੀਖਿਆ ਸ਼ਾਰਟਕੱਟ|ਆਮ ਗਲਤੀਆਂ/i.test(joined), `${question.patternId}/${question.language}: legacy explanation scaffold leaked.`);
   assert(!/\[[A-Z0-9_:-]{3,}\]/.test(joined), `${question.patternId}/${question.language}: internal misconception code leaked.`);
+  assert(question.explanation.steps[2]!.trim().length > 10, `${question.patternId}/${question.language}: method line is empty or trivial.`);
 }
 
 for (const cp of MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS) {
@@ -116,14 +123,19 @@ function renderOptions(question: MensurationLocalizedQuestionV1) {
 
 function renderLanguage(question: MensurationLocalizedQuestionV1) {
   const leaks = question.language === "en" ? [] : instructionalLatinLeaks(learnerText(question));
+  const narrative = question.explanation.steps.slice(0, 3);
+  const calculation = question.explanation.steps.slice(3, -1);
+  const finalLine = question.explanation.steps[question.explanation.steps.length - 1]!;
   return `<section class="language-card">
     <h4>${escapeHtml(languageLabels[question.language])} <span>${escapeHtml(question.locale)}</span></h4>
     <p class="stem">${escapeHtml(question.stem)}</p>
     <ol class="options">${renderOptions(question)}</ol>
-    <div class="answer"><strong>Answer:</strong> ${escapeHtml(question.answer)}</div>
     <div class="solution">
       <div class="label">Solution</div>
-      ${question.explanation.steps.map((step) => `<p>${escapeHtml(step)}</p>`).join("")}
+      ${narrative.map((step) => `<p class="narrative">${escapeHtml(step)}</p>`).join("")}
+      <div class="calculation-label">${escapeHtml(calculationLabels[question.language])}</div>
+      ${calculation.map((step) => `<p class="calculation">${escapeHtml(step)}</p>`).join("")}
+      <p class="final-answer">${escapeHtml(finalLine)}</p>
     </div>
     ${question.language === "en" || leaks.length === 0 ? "" : `<details class="diagnostics"><summary>Localization diagnostic</summary><div>${escapeHtml(leaks.join(", "))}</div></details>`}
   </section>`;
@@ -146,7 +158,7 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mensuration Trilingual Final Human Review</title>
+<title>Mensuration Trilingual Human Solution V2 Review</title>
 <script>
   window.MathJax = { tex: { inlineMath: [['\\\\(', '\\\\)']] } };
 </script>
@@ -170,10 +182,12 @@ const html = `<!doctype html>
   .option { padding: 6px 8px; margin: 4px 0; border-radius: 7px; }
   .option.correct { outline: 2px solid #9aa7b5; }
   .answer-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; margin-left: 6px; opacity: .6; }
-  .answer { margin: 12px 0; padding: 9px 10px; border-radius: 8px; background: #f4f7f5; }
-  .solution { margin-top: 12px; padding-top: 10px; border-top: 1px solid #e5e7eb; }
+  .solution { margin-top: 12px; padding: 12px 13px; border: 1px solid #e5e7eb; border-radius: 9px; background: #fafbfc; }
   .solution p { margin: 8px 0; line-height: 1.55; overflow-wrap: anywhere; }
-  .label { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; opacity: .65; margin-bottom: 8px; }
+  .label, .calculation-label { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; opacity: .65; }
+  .calculation-label { margin-top: 12px; padding-top: 10px; border-top: 1px solid #e5e7eb; }
+  .calculation { margin: 7px 0 !important; }
+  .final-answer { margin-top: 12px !important; font-weight: 700; }
   .diagnostics { margin-top: 14px; font-size: 11px; opacity: .7; }
   .diagnostics div { margin-top: 6px; overflow-wrap: anywhere; }
   @media (max-width: 1050px) { .language-grid { grid-template-columns: 1fr; } .language-card { border-right: 0; border-bottom: 1px solid #e3e7ec; } }
@@ -182,9 +196,10 @@ const html = `<!doctype html>
 <body>
 <main>
   <section class="summary">
-    <h1>Mensuration Trilingual Final Human Review</h1>
+    <h1>Mensuration Trilingual Human Solution V2 Review</h1>
     <p><strong>Coverage:</strong> ${reviewItems.length} question identities across all ${MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS.length} CPs, shown in English, Hindi and Punjabi.</p>
-    <p><strong>Review focus:</strong> natural question wording, correct options, clean formula/calculation, and a short complete solution.</p>
+    <p><strong>Solution standard:</strong> what is given → what is asked → why the method/formula applies → complete calculation → answer.</p>
+    <p>Shortcut and common-trap sections remain removed; the solution must still read like a human explanation rather than a formula dump.</p>
   </section>
   ${cards}
 </main>
@@ -193,7 +208,7 @@ const html = `<!doctype html>
 
 const report = {
   authority: "MENSURATION-HI-PA-HUMAN-EDITORIAL-REVIEW-V1",
-  solutionAuthority: "MENSURATION-SIMPLE-HUMAN-SOLUTION-V1",
+  solutionAuthority: "MENSURATION-SIMPLE-HUMAN-SOLUTION-V2",
   status: "HUMAN_REVIEW_REQUIRED",
   cpCount: MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS.length,
   reviewedQuestionIdentityCount: reviewItems.length,
@@ -218,12 +233,12 @@ fs.mkdirSync(outputDir, { recursive: true });
 fs.writeFileSync(path.join(outputDir, "mensuration-localization-human-review-v1.html"), html);
 fs.writeFileSync(path.join(outputDir, "mensuration-localization-human-review-v1.json"), JSON.stringify(report, null, 2));
 fs.writeFileSync(path.join(outputDir, "mensuration-localization-human-review-v1.md"), [
-  "# Mensuration Trilingual Final Human Review",
+  "# Mensuration Trilingual Human Solution V2 Review",
   "",
   `- Canonical problems: **${report.cpCount}**`,
   `- Question identities: **${report.reviewedQuestionIdentityCount}**`,
   `- English/Hindi/Punjabi surfaces: **${report.languageSurfaceCount}**`,
-  "- Explanation surface: **compact formula/calculation + answer only**",
+  "- Explanation surface: **given → asked → method → calculation → answer**",
   "- Status: **HUMAN_REVIEW_REQUIRED**",
   "",
 ].join("\n"));
