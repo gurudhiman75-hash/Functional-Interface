@@ -43,10 +43,21 @@ function repositionPowerNearest(base: SapCp010Package, seed: number, sourceSeed:
   });
 }
 
+function polishCp010English(base: SapCp010Package): SapCp010Package {
+  const finalAnswer = base.explanation.finalAnswer.replace(/\.{2,}$/u, ".");
+  if (finalAnswer === base.explanation.finalAnswer) return base;
+  return Object.freeze({
+    ...base,
+    explanation: Object.freeze({ ...base.explanation, finalAnswer }),
+    generationIdentity: `${base.generationIdentity}:E1:ENGLISH-PUNCTUATION-POLISH`,
+  });
+}
+
 export function generateSapCp010E1Existing(prototypeId: SapCp010PrototypeId, seed: number): SapCp010Package {
-  if (prototypeId !== SAP_CP010_PROTOTYPE_IDS[14]) return generateV6(prototypeId, seed);
-  const sourceSeed = seed * 2;
-  return repositionPowerNearest(generateV6(prototypeId, sourceSeed), seed, sourceSeed);
+  const base = prototypeId !== SAP_CP010_PROTOTYPE_IDS[14]
+    ? generateV6(prototypeId, seed)
+    : repositionPowerNearest(generateV6(prototypeId, seed * 2), seed, seed * 2);
+  return polishCp010English(base);
 }
 
 export const SAP_CP010_E1_SUPPLIED_ROOT_CANDIDATE_ID = "SAP-CP010-E1-CAND-SUPPLIED-ROOT-SCALING" as const;
