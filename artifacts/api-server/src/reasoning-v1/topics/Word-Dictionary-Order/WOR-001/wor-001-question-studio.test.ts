@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 
+import { getGeneratedItemApprovalDisposition } from "../../../../lib/admin-question-studio-approval-policy";
+import { analyzeGeneratedQuestionPayload } from "../../../../lib/question-studio-quality";
 import { WOR_001_QUESTION_STUDIO_ADAPTER } from "./question-studio-adapter";
+import {
+  buildWor001QuestionStudioPayload,
+  WOR_001_QUESTION_STUDIO_REVISION_POLICY,
+} from "./question-studio-payload";
 import {
   WOR_001_QUESTION_STUDIO_CATALOG,
   WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE,
@@ -58,6 +64,17 @@ assert.ok(cp005.questions.every((question) => question.checkpointId === "WOR-CP-
 assert.ok(cp005.questions.every((question) => question.options.length === 5));
 assert.ok(cp005.questions.every((question) => question.source.objectMode === "LETTER_CLUSTER"));
 
+const persistedPayload = buildWor001QuestionStudioPayload(cp005.questions[0]!);
+const quality = analyzeGeneratedQuestionPayload(persistedPayload);
+assert.equal(quality.readyForApproval, true);
+assert.equal(getGeneratedItemApprovalDisposition(persistedPayload).mode, "review_only");
+assert.equal(persistedPayload.questionBankStatus, "NOT_STORED");
+assert.equal(persistedPayload.questionBankWritable, false);
+assert.equal(persistedPayload.testEligibility, "INELIGIBLE");
+assert.equal(persistedPayload.publiclyPublishable, false);
+assert.equal(persistedPayload.revisionPolicy, WOR_001_QUESTION_STUDIO_REVISION_POLICY);
+assert.ok(persistedPayload.text.includes(cp005.questions[0]!.structuredPrompt.words[0]!));
+
 assert.throws(
   () => previewWor001QuestionStudioReview({ prototypeId: "WOR-PROT-021", difficulty: "Easy" }),
   /does not support Easy difficulty/,
@@ -71,4 +88,6 @@ console.log("WOR-001 Question Studio review contract passed.", {
   checkpoints: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.checkpointCount,
   prototypes: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.prototypeCount,
   permanentQlCount: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount,
+  approvalMode: getGeneratedItemApprovalDisposition(persistedPayload).mode,
+  qualityScore: quality.score,
 });
