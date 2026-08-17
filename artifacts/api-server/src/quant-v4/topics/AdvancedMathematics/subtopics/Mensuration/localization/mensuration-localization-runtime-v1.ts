@@ -19,7 +19,6 @@ import {
   localeForLanguage,
   localizeMensurationOption,
   localizeMensurationProse,
-  stripLearnerMisconceptionTag,
   type MensurationLocalizedLanguage,
   type MensurationStudioLanguage,
 } from "./mensuration-localization-foundation-v3";
@@ -39,6 +38,7 @@ import {
   protectMensurationFormulaIdentifiers,
   repairMensurationLearnerMathSurface,
 } from "./mensuration-localization-editorial-v1";
+import { buildMensurationSimpleExplanationV1 } from "./mensuration-localization-simple-solution-v1";
 
 export type MensurationLocalizedQuestionV1 = Omit<
   MensurationQuestionStudioQuestionV2,
@@ -111,6 +111,7 @@ function normalizeCanonicalQuestion(
     ...option,
     text: options[index]!,
   }));
+  const simpleExplanation = buildMensurationSimpleExplanationV1(canonical);
   return {
     ...canonical,
     language: "en",
@@ -120,9 +121,9 @@ function normalizeCanonicalQuestion(
     optionDetails,
     answer: options[canonical.correctIndex]!,
     explanation: {
-      steps: canonical.explanation.steps.map(repairMensurationLearnerMathSurface),
-      shortcut: repairMensurationLearnerMathSurface(canonical.explanation.shortcut),
-      traps: canonical.explanation.traps.map(repairMensurationLearnerMathSurface),
+      steps: simpleExplanation.steps.map(repairMensurationLearnerMathSurface),
+      shortcut: "",
+      traps: [],
     },
   };
 }
@@ -144,13 +145,11 @@ function localizeQuestion(
   const stem = translateStem(source.stem, language);
   const explanation = {
     steps: source.explanation.steps.map((step) => translate(step, language)),
-    shortcut: translate(source.explanation.shortcut, language),
-    traps: source.explanation.traps.map((trap) =>
-      translate(stripLearnerMisconceptionTag(trap), language),
-    ),
+    shortcut: "",
+    traps: [],
   };
   const answer = options[source.correctIndex]!;
-  const learnerText = [stem, ...options, ...explanation.steps, explanation.shortcut, ...explanation.traps].join("\n");
+  const learnerText = [stem, ...options, ...explanation.steps].join("\n");
   return {
     ...source,
     language,
