@@ -28,6 +28,10 @@ for (const prototype of WOR_CP005_PROTOTYPES) {
     assert.doesNotMatch(english.explanation, /alphabet offset/i, `${prototype.prototypeId} exposed implementation-style offset language.`);
     assert.doesNotMatch(hindi.explanation, /वर्णमाला परिवर्तन\s*-?\d+/i, `${prototype.prototypeId} retained implementation-style Hindi offset language.`);
     assert.doesNotMatch(punjabi.explanation, /ਵਰਣਮਾਲਾ ਤਬਦੀਲੀ\s*-?\d+/i, `${prototype.prototypeId} retained implementation-style Punjabi offset language.`);
+    assert.doesNotMatch(hindi.stem, /(?:पहला|दूसरा|तीसरा|चौथा) बदले हुए समूह में/);
+    assert.doesNotMatch(hindi.explanation, /(?:पहला|दूसरा|तीसरा|चौथा) स्थान पर/);
+    assert.doesNotMatch(punjabi.stem, /(?:ਪਹਿਲਾ|ਦੂਜਾ|ਤੀਜਾ|ਚੌਥਾ) ਬਦਲੇ ਹੋਏ ਸਮੂਹ ਵਿੱਚ/);
+    assert.doesNotMatch(punjabi.explanation, /(?:ਪਹਿਲਾ|ਦੂਜਾ|ਤੀਜਾ|ਚੌਥਾ) ਸਥਾਨ ਉੱਤੇ/);
     assert.match(hindi.stem, /[\u0900-\u097F]/);
     assert.match(punjabi.stem, /[\u0A00-\u0A7F]/);
 
@@ -45,7 +49,7 @@ for (const locale of ["en-IN", "hi-IN", "pa-IN"] as const) {
   const markdown = renderWorBankingReviewMarkdown(locale, pack);
   assert.match(markdown, /BANKING_FIVE_OPTION/);
   assert.ok(pack.every((question) => question.structuredPrompt.transformedWords === undefined));
-  assert.equal(pack.length, locale === "en-IN" ? 33 : pack.length);
+  assert.equal(pack.length, 33);
   if (locale === "en-IN") {
     assert.match(markdown, /Transformed groups \(internal review only\)/);
     assert.doesNotMatch(markdown, /character \d+ from|move 1 places|alphabet offset/i);
@@ -54,8 +58,14 @@ for (const locale of ["en-IN", "hi-IN", "pa-IN"] as const) {
       "Banking review pack exposes transformed groups before the answer section.",
     );
   }
-  if (locale === "hi-IN") assert.doesNotMatch(markdown, /वर्णमाला परिवर्तन\s*-?\d+/i);
-  if (locale === "pa-IN") assert.doesNotMatch(markdown, /ਵਰਣਮਾਲਾ ਤਬਦੀਲੀ\s*-?\d+/i);
+  if (locale === "hi-IN") {
+    assert.doesNotMatch(markdown, /वर्णमाला परिवर्तन\s*-?\d+/i);
+    assert.doesNotMatch(markdown, /(?:पहला|दूसरा|तीसरा|चौथा) बदले हुए समूह में|(?:पहला|दूसरा|तीसरा|चौथा) स्थान पर/);
+  }
+  if (locale === "pa-IN") {
+    assert.doesNotMatch(markdown, /ਵਰਣਮਾਲਾ ਤਬਦੀਲੀ\s*-?\d+/i);
+    assert.doesNotMatch(markdown, /(?:ਪਹਿਲਾ|ਦੂਜਾ|ਤੀਜਾ|ਚੌਥਾ) ਬਦਲੇ ਹੋਏ ਸਮੂਹ ਵਿੱਚ|(?:ਪਹਿਲਾ|ਦੂਜਾ|ਤੀਜਾ|ਚੌਥਾ) ਸਥਾਨ ਉੱਤੇ/);
+  }
 }
 
 console.log("WOR-001 multilingual editorial quality audit passed.", {
