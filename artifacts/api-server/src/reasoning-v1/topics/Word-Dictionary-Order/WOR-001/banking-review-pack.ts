@@ -1,12 +1,13 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { WOR_CP005_PROTOTYPES } from "./WOR-CP-005/registry";
+import { toWorStudentFacingQuestion } from "./editorial";
 import type { GeneratedWorQuestion, WorDifficulty, WorLocale } from "./foundation/types";
 import { generateWor001Question } from "./runtime";
 
 function samplesFor(prototypeId: string, difficulties: readonly WorDifficulty[], locale: WorLocale): GeneratedWorQuestion[] {
   return difficulties.flatMap((difficulty, difficultyIndex) => [0, 1, 2].map((sampleIndex) =>
-    generateWor001Question(prototypeId, 30000 + difficultyIndex * 1000 + sampleIndex * 113 + Number(prototypeId.slice(-3)), locale, difficulty),
+    toWorStudentFacingQuestion(generateWor001Question(prototypeId, 30000 + difficultyIndex * 1000 + sampleIndex * 113 + Number(prototypeId.slice(-3)), locale, difficulty)),
   ));
 }
 
@@ -98,7 +99,7 @@ export function renderWorBankingReviewMarkdown(locale: WorLocale, questions = bu
     lines.push(`- ${l.sourceEvidence}: ${question.metadata.sourceEvidenceStatus}`);
     lines.push(`- ${l.allocation}: ${question.metadata.allocationDecision}`);
     lines.push(`- ${l.transformation}: ${trace?.transformation ?? "NONE"}`);
-    if (trace?.transformation !== "NONE") lines.push(`- ${l.transformed}: ${trace?.transformedTokens.join(", ") ?? ""}`);
+    if (trace && trace.transformation !== "NONE") lines.push(`- ${l.transformed}: ${trace.transformedTokens.join(", ")}`);
     lines.push(`- ${l.orderedTokens}: ${trace?.orderedTokens.join(" → ") ?? ""}`);
     lines.push(`- ${l.difficultyScore}: ${question.metadata.difficultyFeatures.score}`);
     lines.push(`- ${l.options}: ${question.metadata.optionCount}`);
