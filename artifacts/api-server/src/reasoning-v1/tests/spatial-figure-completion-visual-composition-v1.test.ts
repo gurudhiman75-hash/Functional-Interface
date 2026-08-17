@@ -1,8 +1,8 @@
 import {
   FGC_001_PROTOTYPES_V1,
-  generateFigureCompletionDiscoveryQuestionV1Remediated,
+  generateFigureCompletionDiscoveryQuestionV2,
   type FigureCompletionPrototypeV1,
-} from "../foundation/spatial/figure-completion-discovery-v1-remediated";
+} from "../foundation/spatial/figure-completion-discovery-v2";
 import type { SpatialNode, SpatialPoint } from "../foundation/spatial/types";
 
 const PATCH = { left: 34, top: 34, right: 66, bottom: 66 } as const;
@@ -68,7 +68,7 @@ function boundaryCueSegments(node: SpatialNode): Array<[SpatialPoint, SpatialPoi
 }
 
 function auditQuestion(prototypeId: FigureCompletionPrototypeV1, seed: string): void {
-  const question = generateFigureCompletionDiscoveryQuestionV1Remediated({
+  const question = generateFigureCompletionDiscoveryQuestionV2({
     prototypeId,
     seed,
     desiredCorrectOptionIndex: 0,
@@ -115,7 +115,7 @@ for (const prototypeId of FGC_001_PROTOTYPES_V1) {
   let attempts = 0;
   for (let index = 0; index < MAX_ATTEMPTS_PER_PROTOTYPE && acceptedForPrototype < ACCEPTED_PER_PROTOTYPE; index += 1) {
     attempts += 1;
-    const seed = `FGC-VISUAL-COMPOSITION:${prototypeId}:${String(index).padStart(3, "0")}`;
+    const seed = `FGC-VISUAL-COMPOSITION-V2:${prototypeId}:${String(index).padStart(3, "0")}`;
     try {
       auditQuestion(prototypeId, seed);
     } catch (error) {
@@ -136,7 +136,7 @@ for (const prototypeId of FGC_001_PROTOTYPES_V1) {
 }
 
 console.log(JSON.stringify({
-  status: "PASS_FGC_001_VISUAL_COMPOSITION_V1",
+  status: "PASS_FGC_001_VISUAL_COMPOSITION_V2",
   prototypes: FGC_001_PROTOTYPES_V1.length,
   acceptedPerPrototype: ACCEPTED_PER_PROTOTYPE,
   audited,
