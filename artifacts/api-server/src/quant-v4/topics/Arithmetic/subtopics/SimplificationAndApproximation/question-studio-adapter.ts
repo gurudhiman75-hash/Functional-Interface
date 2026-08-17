@@ -165,7 +165,7 @@ registrations.push(registration(183, "SAP-CP-004", "SAP-CP004-E1-CAND-NESTED-ADD
 registrations.push(registration(184, "SAP-CP-005", "SAP-CP005-E1-CAND-NUMERIC-PARTIAL-FRACTION-TELESCOPING", generateSapCp005E1Telescoping, 0.25, true));
 registrations.push(registration(185, "SAP-CP-007", "SAP-CP007-E1-CAND-ROUND-TO-SIGNIFICANT-FIGURES", generateSapCp007E1SignificantFigures, 0, true));
 registrations.push(registration(186, "SAP-CP-010", "SAP-CP010-E1-CAND-SUPPLIED-ROOT-SCALING", generateSapCp010E1SuppliedRootScaling, 0.25, true));
-SAP_CP011_E2_STRUCTURES.forEach((id, index) => registrations.push(registration(187 + index, "SAP-CP-011", id, (seed) => generateSapCp011E2(id, seed), index >= 8 ? 0.5 : 1, index >= 8));
+SAP_CP011_E2_STRUCTURES.forEach((id, index) => registrations.push(registration(187 + index, "SAP-CP-011", id, (seed) => generateSapCp011E2(id, seed), index >= 8 ? 0.5 : 1, index >= 8)));
 SAP_CP012_E2_STRUCTURES.forEach((id, index) => registrations.push(registration(199 + index, "SAP-CP-012", id, (seed) => generateSapCp012E2(id, seed))));
 
 const REGISTRATION_BY_QL = new Map(registrations.map((entry) => [entry.qlId, entry]));
