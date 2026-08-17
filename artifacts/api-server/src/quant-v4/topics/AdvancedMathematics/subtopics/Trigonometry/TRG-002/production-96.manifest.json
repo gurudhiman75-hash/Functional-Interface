@@ -1,13 +1,17 @@
 {
   "packageId": "TRG-002",
-  "checkpoint": "PHASE8_PRODUCTION_96_RUNTIME_GATED",
-  "status": "96_ENGLISH_QLS_IMPLEMENTED_RUNTIME_PASS_EDITORIAL_PENDING",
+  "checkpoint": "PHASE8_PRODUCTION_96_EDITORIAL_GATED_VISUAL_PENDING",
+  "status": "96_ENGLISH_QLS_IMPLEMENTED_RUNTIME_PASS_EDITORIAL_PASS_REPRESENTATIVE_REAL_APP_VISUAL_PENDING",
   "activeRuntime": "production-runtime-96.ts",
+  "editorialRuntime": "production-final-editorial-runtime.ts",
   "counts": {
     "productionEnglishQlCount": 96,
     "perCp": 24,
     "frozenApprovedBaselineQlCount": 48,
-    "phase8ExpansionQlCount": 48
+    "phase8ExpansionQlCount": 48,
+    "phase8EditorialReviewRecordCount": 48,
+    "representativeVisualQlCount": 14,
+    "representedSolutionDiagramStrategies": 14
   },
   "frozenBaseline": {
     "status": "FROZEN",
@@ -18,11 +22,15 @@
   "phase8Expansion": {
     "implementedQlCount": 48,
     "runtimeGate": "PASS",
-    "aiEditorialStatus": "PENDING",
+    "latestGreenAiEditorialStatus": "PASS",
+    "latestGreenEditorialHead": "7f6cc189ba13101e3ae968a5e301c4aad95f6799",
+    "currentHeadEditorialReverification": "PENDING_AFTER_MINOR_PRESENTATION_POLISH_AND_VISUAL_GATE_WIRING",
     "humanReviewStatus": "PENDING",
-    "freezeStatus": "NOT_FROZEN"
+    "freezeStatus": "NOT_FROZEN",
+    "freezeEligible": false,
+    "perGeneratedSeedVisualPassClaimed": false
   },
-  "executionEvidence": {
+  "runtimeEvidence": {
     "sourceHead": "f81e040c809c25141df8797d3d6fa66a639bc4b3",
     "workflow": ".github/workflows/trg-002-production-96-verification.yml",
     "workflowRunId": 31988969366,
@@ -35,6 +43,34 @@
     "artifactId": 9274671403,
     "artifactDigest": "sha256:38b8da135b60f82cc2b76b87360b554bf6c34a7afd0c86d4d89af3cc679b5e25"
   },
+  "editorialEvidence": {
+    "sourceHead": "7f6cc189ba13101e3ae968a5e301c4aad95f6799",
+    "workflowRunId": 31989332232,
+    "editorialGate": "PASS",
+    "editorialCases": 576,
+    "reviewPackVerification": "PASS",
+    "reviewPackArtifactId": 9274809344,
+    "reviewPackArtifactDigest": "sha256:a31168279eee73d42e5ad172855781f78b8dd5ca4ef3966e8660639d5a2d6542",
+    "executionArtifactId": 9274809311,
+    "executionArtifactDigest": "sha256:183f7f46ff3f47da70c7517547a17018ec041b5cc1515a137c3bc5510d9d6212",
+    "renderedVisualInspection": "PENDING",
+    "appUiRenderedInspection": "PENDING_AT_LATEST_GREEN_EDITORIAL_CHECKPOINT",
+    "humanReviewSubstituted": false
+  },
+  "representativeRealAppVisualGate": {
+    "status": "IMPLEMENTED_CI_PENDING",
+    "spec": "scripts/e2e/tests/trg002-production-wrapper.spec.ts",
+    "workflowJob": "browser-expansion",
+    "representativeQlCount": 14,
+    "solutionDiagramStrategyCount": 14,
+    "coverage": "ALL_PHASE8_SOLUTION_DIAGRAM_STRATEGIES",
+    "route": "/test/:id",
+    "disclosure": "AFTER_SHOW_SOLUTION",
+    "mobileViewport": "390x844",
+    "screenshotEvidencePlanned": 14,
+    "automatedBrowserRenderResult": "PENDING",
+    "humanVisualReview": "PENDING"
+  },
   "activation": {
     "questionStudioDiscoverable": false,
     "testBuilderEligible": false,
@@ -42,5 +78,5 @@
     "publiclyPublishable": false,
     "hindiPunjabiRuntime": false
   },
-  "next": "Run AI/editorial audit and remediation across the 48 Phase-8 expansion QLs. Do not mark them human-approved or frozen until dedicated review evidence exists."
+  "next": "Complete exact-head CI including the 14-strategy representative real ExamTree browser gate. If green, record the browser artifact separately; human review and freeze of the new 48 must remain pending until explicit human approval exists."
 }
