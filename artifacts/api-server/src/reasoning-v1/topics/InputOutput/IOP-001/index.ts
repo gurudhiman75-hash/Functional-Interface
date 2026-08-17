@@ -13,3 +13,4 @@ export * from "./advanced-identifiability.ts";
 export * from "./advanced-prototypes.ts";
 export * from "./advanced-query-oracle.ts";
 export * from "./advanced-generator.ts";
+export * from "./mixed-source-gap.ts";
