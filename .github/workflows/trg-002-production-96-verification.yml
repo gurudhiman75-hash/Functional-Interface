@@ -1,0 +1,82 @@
+name: Verify TRG-002 Production 96
+
+on:
+  push:
+    branches:
+      - feat/trg-002-production-96
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-production-96-verification.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trg-002-production-96-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Targeted TRG-002 TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg002-production96.json <<'EOF'
+          {
+            "extends": "./tsconfig.json",
+            "compilerOptions": { "noEmit": true },
+            "include": [
+              "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**/*.ts"
+            ],
+            "exclude": [
+              "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts"
+            ],
+            "references": []
+          }
+          EOF
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg002-production96.json --pretty false
+
+      - name: Re-verify frozen 48 approval fingerprint
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-human-approved.test.ts
+
+      - name: Execute 96-QL production gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-runtime-96.test.ts
+
+      - name: Create Phase 8 execution evidence
+        if: success()
+        run: |
+          mkdir -p trg-002-production96-evidence
+          cat > trg-002-production96-evidence/TRG-002-PHASE8-EXECUTION-EVIDENCE.md <<EOF
+          # TRG-002 Phase 8 Production-96 Execution Evidence
+
+          - Source head: \`${GITHUB_SHA}\`
+          - Workflow run: \`${GITHUB_RUN_ID}\`
+          - Permanent English QLs: **96**
+          - Frozen approved baseline: **48 unchanged**
+          - New Phase-8 expansion QLs: **48**
+          - Per CP: **24**
+          - Targeted TypeScript compile: **PASS**
+          - Frozen 48 approval fingerprint gate: **PASS**
+          - 96-QL production runtime gate: **PASS**
+          - Production sweep cases: **1152**
+          - New expansion review status: **UNREVIEWED / AI PENDING / HUMAN PENDING**
+          - Question Studio/Test Builder/storage/publication: **OFF**
+          EOF
+
+      - name: Upload Phase 8 evidence
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-production96-execution-evidence
+          path: trg-002-production96-evidence/
+          if-no-files-found: error
+          retention-days: 14
