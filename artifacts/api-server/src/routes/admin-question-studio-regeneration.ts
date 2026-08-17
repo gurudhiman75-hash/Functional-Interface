@@ -11,7 +11,7 @@ import {
   type RegenerationSource,
 } from "../lib/question-studio-regeneration";
 import { authenticate } from "../middlewares/auth";
-import { generateQuestion as generateQuantV4Questions } from "../quant-v4/generation-engine";
+import { generateQuestion as generateQuestionStudioQuestion } from "../question-studio/shared-generation-engine";
 
 const router = Router();
 
@@ -114,7 +114,7 @@ router.post(
 
         try {
           const request = buildRegenerationRequest(source, seed);
-          const generated = await generateQuantV4Questions(request);
+          const generated = await generateQuestionStudioQuestion(request);
           const generatedQuestion = Array.isArray(generated.questions)
             ? generated.questions[0]
             : null;
