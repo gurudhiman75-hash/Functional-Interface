@@ -57,14 +57,20 @@ function addUnique(target: string[], seen: Set<string>, value: string) {
 }
 
 function extractDelimitedMath(core: string) {
-  const values: string[] = [];
-  const seen = new Set<string>();
+  const displayValues: string[] = [];
+  const displaySeen = new Set<string>();
 
   for (const match of core.matchAll(/\$\$([\s\S]*?)\$\$/g)) {
     const body = normalizeMathBody(match[1] ?? "");
-    if (body) addUnique(values, seen, `$$${body}$$`);
+    if (body) addUnique(displayValues, displaySeen, `$$${body}$$`);
   }
 
+  // A complete display-math chain is already the cleanest learner solution.
+  // Do not add inline references to the same formula again.
+  if (displayValues.length >= 3) return displayValues;
+
+  const values = [...displayValues];
+  const seen = new Set(values.map(normalizedKey));
   const withoutDisplay = core.replace(/\$\$[\s\S]*?\$\$/g, " ");
   for (const match of withoutDisplay.matchAll(/\$([^$\n]+?)\$/g)) {
     const body = normalizeMathBody(match[1] ?? "");
