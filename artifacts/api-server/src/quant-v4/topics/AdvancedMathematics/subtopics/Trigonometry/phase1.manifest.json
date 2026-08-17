@@ -1,0 +1,54 @@
+{
+  "chapter": "Trigonometry",
+  "phase": 1,
+  "status": "MATHEMATICAL_FOUNDATION_IMPLEMENTED",
+  "runtimeActivated": false,
+  "questionStudioDiscoverable": false,
+  "testBuilderEligible": false,
+  "productionPublishable": false,
+  "foundation": {
+    "exactArithmetic": {
+      "implemented": true,
+      "representation": "CANONICAL_RADICAL_SUM",
+      "bigintRationals": true,
+      "supportsRational": true,
+      "supportsSurd": true,
+      "supportsRationalSurd": true,
+      "supportsMultiSurd": true,
+      "supportsExactReciprocal": true,
+      "maxIndependentRadicalPrimes": 6
+    },
+    "angleAuthority": {
+      "implemented": true,
+      "degrees": true,
+      "radianPiMultiples": true,
+      "normalization": true,
+      "referenceAngle": true,
+      "quadrant": true,
+      "quadrantSign": true
+    },
+    "standardValues": {
+      "implemented": true,
+      "referenceAnglesDegrees": [0, 30, 45, 60, 90],
+      "functions": ["SIN", "COS", "TAN", "COT", "SEC", "COSEC"],
+      "undefinedExplicit": true
+    },
+    "expressionEngine": {
+      "implemented": true,
+      "nodeKinds": ["CONST", "TRIG", "ADD", "SUBTRACT", "MULTIPLY", "DIVIDE", "POWER", "NEGATE"]
+    },
+    "independentVerification": {
+      "implemented": true,
+      "primaryMethod": "RIGHT_TRIANGLE_RECONSTRUCTION",
+      "secondaryMethod": "NUMERIC_EXPRESSION_CHECK"
+    }
+  },
+  "verification": {
+    "strictTypeScriptCompile": "PASS",
+    "standardValueVerifierCases": 102,
+    "deterministicReciprocalStressCases": 149,
+    "directRadianInputCases": 4,
+    "foundationTests": "PASS"
+  },
+  "next": "TRG-001_RUNTIME_PROOF"
+}
