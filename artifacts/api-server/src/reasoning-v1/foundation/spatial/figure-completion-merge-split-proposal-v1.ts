@@ -7,18 +7,24 @@ import {
   type FigureCompletionSymmetryPrototypeV1,
 } from "./figure-completion-symmetry-discovery-v1";
 import { FGC_001_ARC_PROTOTYPE_V1 } from "./figure-completion-arc-discovery-v1";
+import {
+  FGC_001_SOURCE_GAP_PROTOTYPES_V1,
+  type FigureCompletionSourceGapPrototypeV1,
+} from "./figure-completion-source-gap-discovery-v1";
 
 export const FGC_001_MERGE_SPLIT_PROPOSAL_VERSION_V1 = "FGC-001-MERGE-SPLIT-PROPOSAL-V1" as const;
 
 export type FigureCompletionExecutablePrototypeV1 =
   | FigureCompletionPrototypeV1
   | FigureCompletionSymmetryPrototypeV1
-  | typeof FGC_001_ARC_PROTOTYPE_V1;
+  | typeof FGC_001_ARC_PROTOTYPE_V1
+  | FigureCompletionSourceGapPrototypeV1;
 
 export const FGC_001_EXECUTABLE_PROTOTYPES_V1: readonly FigureCompletionExecutablePrototypeV1[] = [
   ...FGC_001_PROTOTYPES_V1,
   ...FGC_001_SYMMETRY_PROTOTYPES_V1,
   FGC_001_ARC_PROTOTYPE_V1,
+  ...FGC_001_SOURCE_GAP_PROTOTYPES_V1,
 ] as const;
 
 export const FGC_001_CANDIDATE_AUTHORITY_IDS_V1 = [
@@ -67,18 +73,19 @@ export const FGC_001_CANDIDATE_AUTHORITIES_V1: readonly FigureCompletionCandidat
     candidateId: "FGC-CAND-B-FEATURE-PROPERTY-COMPLETION",
     title: "Feature and local property placement completion",
     permanentQlId: null,
-    executablePrototypes: ["FGC-PROT-05-COMPOUND-CONTOUR-MARKER"],
+    executablePrototypes: [
+      "FGC-PROT-05-COMPOUND-CONTOUR-MARKER",
+      "FGC-PROT-09-COMPONENT-COUNT-ORIENTATION",
+    ],
     reasoningIdentity:
-      "Recover a missing non-boundary feature or local property, such as a marker position, while also respecting the surrounding structure.",
+      "Recover a missing non-boundary feature or local property, including marker placement, component count or orientation, while also respecting the surrounding structure.",
     mergeDecision:
-      "RETAIN AS A DISTINCT CANDIDATE: unlike pure connectivity, the answer depends on a feature/property relation that is not determined by boundary endpoints alone.",
+      "MERGE P09 INTO B: marker placement and count/orientation use different visual objects, but both require recovering a local feature/property that is not determined by boundary connectivity alone.",
     sourceEvidence: [
       "SSC MTS 2017 Shift 3: correct completion depends on dots being placed diagonally and away from the centre/intersection.",
-      "SSC MTS 2017 Shift 3 material also includes component-count/orientation completion (three circles and opposite arrow directions).",
+      "SSC MTS 2017 Shift 3: another completion is solved by preserving three circles and arrows in opposite directions.",
     ],
-    knownRepresentationGaps: [
-      "SOURCE_EVIDENCED_NOT_EXECUTABLE: component-count/orientation completion with repeated symbols/arrows.",
-    ],
+    knownRepresentationGaps: [],
   },
   {
     candidateId: "FGC-CAND-C-QUADRANT-SYMMETRY",
@@ -100,34 +107,35 @@ export const FGC_001_CANDIDATE_AUTHORITIES_V1: readonly FigureCompletionCandidat
   },
   {
     candidateId: "FGC-CAND-D-COMPOUND-SYMMETRY-STATE",
-    title: "Compound symmetry with visual-state completion",
+    title: "Compound geometry with visual-state completion",
     permanentQlId: null,
-    executablePrototypes: ["FGC-PROT-07-MIRROR-STATE-REVERSAL"],
+    executablePrototypes: [
+      "FGC-PROT-07-MIRROR-STATE-REVERSAL",
+      "FGC-PROT-10-SHAPE-CONTACT-STATE",
+    ],
     reasoningIdentity:
-      "Apply a geometric relation and an independent visual-state/property change together to recover the missing part.",
+      "Apply a geometric relation and an independent visual-state/property rule together to recover the missing part.",
     mergeDecision:
-      "RETAIN AS A DISTINCT CANDIDATE: the learner must satisfy both geometry and a second state rule; geometry alone is insufficient.",
+      "MERGE P10 INTO D: mirror-plus-state reversal and shape/contact/flip completion use different geometry, but both require geometry and an independent state/property constraint simultaneously.",
     sourceEvidence: [
       "SSC MTS 2024 Shift 3: black/white reversal is combined with a mirror relation.",
-      "SSC GD 2024 Shift 1: shading/contact state and vertical-flip errors distinguish wrong completion options.",
+      "SSC GD 2024 Shift 1: wrong completions are distinguished by rhombus-vs-square shape, shaded/non-shaded contact and vertical flip.",
     ],
-    knownRepresentationGaps: [
-      "SOURCE_EVIDENCED_NOT_EXECUTABLE: additional shape-class/contact-state variants beyond the current filled/outline representation.",
-    ],
+    knownRepresentationGaps: [],
   },
 ] as const;
 
 export const FGC_001_MERGE_SPLIT_GOVERNANCE_V1 = {
   version: FGC_001_MERGE_SPLIT_PROPOSAL_VERSION_V1,
   chapterCode: "FGC-001" as const,
-  status: "MERGE_SPLIT_PROPOSAL_READY_SOURCE_SATURATION_OPEN" as const,
-  executablePrototypeCount: 8,
+  status: "MERGE_SPLIT_PROPOSAL_READY_SSC_REPRESENTATION_GAPS_CLOSED_REVIEW_OPEN" as const,
+  executablePrototypeCount: 10,
   candidateAuthorityCount: 4,
   permanentQlCount: 0,
   nextSpatialQlCoordinateReserved: false,
   proposedFirstCoordinateIfLaterApproved: "SPA-QL-031" as const,
   sourcePosture: {
-    SSC: "CONTROLLED_FAMILY_EVIDENCE_PRESENT_NOT_FULLY_SATURATED" as const,
+    SSC: "CONTROLLED_EXECUTABLE_REPRESENTATION_GAPS_CLOSED_PENDING_SATURATION_DECISION" as const,
     Banking: "NOT_ESTABLISHED" as const,
     PunjabState: "NOT_ESTABLISHED" as const,
   },
