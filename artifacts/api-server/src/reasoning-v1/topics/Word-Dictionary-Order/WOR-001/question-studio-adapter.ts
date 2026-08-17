@@ -1,6 +1,13 @@
 import { WOR_001_ALL_CHECKPOINTS, WOR_001_ALL_PROTOTYPES, worPrototypesForCheckpoint } from "./prototype-registry";
 import { generateWor001Question } from "./runtime";
-import type { WorCheckpointId, WorDifficulty, WorLocale } from "./foundation/types";
+import type { GeneratedWorQuestion, WorCheckpointId, WorDifficulty, WorLocale } from "./foundation/types";
+
+function toStudentFacingQuestion(question: GeneratedWorQuestion): GeneratedWorQuestion {
+  if (!question.structuredPrompt.transformedWords) return question;
+  const studentPrompt = { ...question.structuredPrompt };
+  delete studentPrompt.transformedWords;
+  return { ...question, structuredPrompt: studentPrompt };
+}
 
 export const WOR_001_QUESTION_STUDIO_ADAPTER = {
   subject: "Reasoning",
@@ -21,6 +28,6 @@ export const WOR_001_QUESTION_STUDIO_ADAPTER = {
     return checkpointId ? worPrototypesForCheckpoint(checkpointId) : WOR_001_ALL_PROTOTYPES;
   },
   generate(prototypeId: string, seed: number, locale: WorLocale, difficulty?: WorDifficulty) {
-    return generateWor001Question(prototypeId, seed, locale, difficulty);
+    return toStudentFacingQuestion(generateWor001Question(prototypeId, seed, locale, difficulty));
   },
 } as const;
