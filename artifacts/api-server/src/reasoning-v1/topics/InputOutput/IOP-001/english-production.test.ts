@@ -3,7 +3,7 @@ import { performance } from "node:perf_hooks";
 import {
   assertIopEnglishReviewCaseletIntegrity,
   generateIopEnglishReviewCaselet,
-} from "./english-editorial.ts";
+} from "./english-review-generator.ts";
 import { IOP_ENGLISH_SOURCE_MODES } from "./english-production.ts";
 import type { IopPermanentQlId, IopPermanentSolveMode } from "./permanent-authorities.ts";
 
