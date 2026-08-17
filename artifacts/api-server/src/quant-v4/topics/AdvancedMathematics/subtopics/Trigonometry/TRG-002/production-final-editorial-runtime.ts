@@ -76,6 +76,7 @@ function polishExactPresentation(text: string) {
     })
     .replace(/\bcasts a (8|18) m shadow\b/g, "casts an $1 m shadow")
     .replace(/^A 18 m supporting wire\b/, "An 18 m supporting wire")
+    .replace(/\ba 8 m tower\b/g, "an 8 m tower")
     .replace(/(\d+√3)=\1 m/g, "$1 m");
 }
 
