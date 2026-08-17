@@ -1,3 +1,5 @@
+export {};
+
 function escapeWorkflowMessage(value: string) {
   return value
     .replace(/%/g, "%25")
