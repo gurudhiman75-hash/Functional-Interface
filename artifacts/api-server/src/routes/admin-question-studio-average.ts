@@ -5,9 +5,10 @@ import { sqlClient } from "../lib/db";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
 import {
-  generateQuestion as generateQuantV4Questions,
-  listQuantV4Packages,
-} from "../quant-v4/question-studio-review-engine";
+  generateQuestion as generateQuestionStudioQuestions,
+  isWor001QuestionStudioRequest,
+  listQuestionStudioPackages,
+} from "../question-studio/shared-generation-engine";
 
 const router = Router();
 const LANGUAGES = new Set(["en", "hi", "pa"]);
@@ -132,10 +133,11 @@ router.get(
   requireAdminPermission("content.generation.read"),
   async (_req, res) => {
     try {
-      const packages = listQuantV4Packages().map((pkg: any) => ({
+      const packages = listQuestionStudioPackages().map((pkg: any) => ({
         packageId: String(pkg.packageId),
         topic: String(pkg.topic),
         subtopic: String(pkg.subtopic),
+        subject: asString(pkg.subject) || undefined,
         label: String(pkg.label),
         enabled: Boolean(pkg.enabled),
         cpIds: Array.isArray(pkg.cpIds)
@@ -159,7 +161,7 @@ router.get(
       }));
 
       res.json({
-        generationSystem: "quant-v4",
+        generationSystem: "question-studio",
         packages,
         difficulties: ["Easy", "Medium", "Hard"],
         languages: ["en", "hi", "pa"],
@@ -180,30 +182,35 @@ router.post(
     const numberSystemRequest = isNumberSystemRequest(req.body);
     const averageRequest = isAverageRequest(req.body);
     const timeAndWorkRequest = isTimeAndWorkRequest(req.body);
-    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest) {
+    const worRequest = isWor001QuestionStudioRequest(req.body ?? {});
+    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !worRequest) {
       next();
       return;
     }
 
     const count = asPositiveInteger(req.body?.count, 5, 50);
     const defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001";
-    const selectedPackageId = simplificationRequest
-      ? "SAP"
-      : timeAndWorkRequest
-        ? "TMW-001"
-        : defaultPackageId;
+    const selectedPackageId = worRequest
+      ? "WOR-001"
+      : simplificationRequest
+        ? "SAP"
+        : timeAndWorkRequest
+          ? "TMW-001"
+          : defaultPackageId;
     const defaultSubtopic = numberSystemRequest ? "Number System" : "Average";
-    const selectedSubtopic = simplificationRequest
-      ? "Simplification & Approximation"
-      : timeAndWorkRequest
-        ? "Time & Work"
-        : defaultSubtopic;
+    const selectedSubtopic = worRequest
+      ? "Word & Dictionary Order"
+      : simplificationRequest
+        ? "Simplification & Approximation"
+        : timeAndWorkRequest
+          ? "Time & Work"
+          : defaultSubtopic;
     const packageId = asString(req.body?.packageId) || selectedPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
-    const topic = asString(req.body?.topic) || "Arithmetic";
+    const topic = worRequest ? "Reasoning" : asString(req.body?.topic) || "Arithmetic";
     const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
-    const subject = asString(req.body?.subject) || "Quantitative Aptitude";
+    const subject = worRequest ? "Reasoning Ability" : asString(req.body?.subject) || "Quantitative Aptitude";
     const language = normalizeLanguage(req.body?.language);
     const difficulty = normalizeDifficulty(req.body?.difficulty);
     const seed = asString(req.body?.seed) || undefined;
@@ -255,15 +262,15 @@ router.post(
     };
 
     try {
-      const result = await generateQuantV4Questions({
-        packageId: selectedPackageId as any,
+      const result = await generateQuestionStudioQuestions({
+        packageId: selectedPackageId,
         patternId,
         topic,
         subtopic,
         canonicalProblemId,
         questionLanguageId,
         difficulty,
-        language: language as "en" | "hi" | "pa",
+        language,
         seed,
         count,
       });
@@ -286,7 +293,7 @@ router.post(
           ) VALUES (
             ${runId}::uuid, ${code}, 'review'::generation_run_status, 1,
             ${JSON.stringify(requestSnapshot)}, ${JSON.stringify(requestSnapshot)},
-            'examtree', 'quant-v4', 0, 0, 0, 0,
+            'examtree', ${worRequest ? "reasoning-v1-wor-001" : "quant-v4"}, 0, 0, 0, 0,
             ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
           )
         `;
@@ -353,7 +360,7 @@ router.post(
         publicCode: code,
         status: "review",
         itemCount: generatedQuestions.length,
-        generationSystem: "quant-v4",
+        generationSystem: worRequest ? "reasoning-v1" : "quant-v4",
       });
     } catch (error) {
       console.error(`${selectedPackageId} Question Studio generation failed`, error);
