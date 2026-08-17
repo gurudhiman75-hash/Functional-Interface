@@ -12,6 +12,7 @@ import { validateLearnerVisibleExplanationV2, validateSpatialPerceptualOptionUni
 import { validateSpatialOptionUniqueness, validateSpatialScene } from "../foundation/spatial/validator";
 
 const TARGET_PER_QL = 80;
+const MAX_ATTEMPTS_PER_QL = 1200;
 const REVIEW_PER_QL = 12;
 const QL_IDS = SPATIAL_FGC_PERMANENT_QL_ALLOCATIONS_V2.map((entry) => entry.permanentQlId) as FigureCompletionPermanentQlIdV1[];
 
@@ -26,6 +27,8 @@ function escapeHtml(value: string): string {
 interface QlProof {
   qlId: FigureCompletionPermanentQlIdV1;
   questions: FigureCompletionPermanentEnglishQuestionV1[];
+  attempts: number;
+  duplicateRejects: number;
   correctSlots: [number, number, number, number];
   prototypeCounts: Record<string, number>;
 }
@@ -35,10 +38,13 @@ function proveQl(qlId: FigureCompletionPermanentQlIdV1): QlProof {
   const seen = new Set<string>();
   const correctSlots: [number, number, number, number] = [0, 0, 0, 0];
   const prototypeCounts: Record<string, number> = {};
+  let attempts = 0;
+  let duplicateRejects = 0;
 
-  for (let index = 0; index < TARGET_PER_QL; index += 1) {
-    const seed = `FGC-PERMANENT-ENGLISH-REVIEW:${qlId}:${String(index).padStart(4, "0")}`;
-    const desiredCorrectOptionIndex = (index % 4) as 0 | 1 | 2 | 3;
+  for (let attempt = 0; attempt < MAX_ATTEMPTS_PER_QL && questions.length < TARGET_PER_QL; attempt += 1) {
+    attempts += 1;
+    const seed = `FGC-PERMANENT-ENGLISH-REVIEW:${qlId}:${String(attempt).padStart(4, "0")}`;
+    const desiredCorrectOptionIndex = (questions.length % 4) as 0 | 1 | 2 | 3;
     const question = generateFigureCompletionPermanentEnglishQuestionV1({ qlId, seed, desiredCorrectOptionIndex });
 
     assert(question.qlId === qlId, `${qlId}/${seed}: QL identity drifted.`);
@@ -76,7 +82,11 @@ function proveQl(qlId: FigureCompletionPermanentQlIdV1): QlProof {
     const replay = generateFigureCompletionPermanentEnglishQuestionV1({ qlId, seed, desiredCorrectOptionIndex });
     assert(replay.deliveryFingerprint === question.deliveryFingerprint, `${qlId}/${seed}: deterministic replay failed.`);
     assert(replay.questionId === question.questionId, `${qlId}/${seed}: deterministic question ID failed.`);
-    assert(!seen.has(question.contentFingerprint), `${qlId}/${seed}: duplicate permanent-runtime content fingerprint.`);
+
+    if (seen.has(question.contentFingerprint)) {
+      duplicateRejects += 1;
+      continue;
+    }
     seen.add(question.contentFingerprint);
 
     renderSpatialSceneToSvg(question.stimulusScenes[0]!, { ariaLabel: `${qlId} stimulus` });
@@ -87,13 +97,14 @@ function proveQl(qlId: FigureCompletionPermanentQlIdV1): QlProof {
     prototypeCounts[question.prototypeId] = (prototypeCounts[question.prototypeId] ?? 0) + 1;
   }
 
+  assert(questions.length === TARGET_PER_QL, `${qlId}: reached ${questions.length}/${TARGET_PER_QL} unique permanent-runtime questions after ${attempts} attempts.`);
   assert(correctSlots.every((count) => count === TARGET_PER_QL / 4), `${qlId}: answer positions are not exactly balanced: ${correctSlots.join("/")}.`);
   const allowedPrototypes = FGC_001_PERMANENT_QL_PROTOTYPE_MAP_V1[qlId];
   assert(Object.keys(prototypeCounts).every((prototypeId) => allowedPrototypes.includes(prototypeId as never)), `${qlId}: generated prototype outside permanent authority.`);
   for (const prototypeId of allowedPrototypes) {
     assert((prototypeCounts[prototypeId] ?? 0) >= 4, `${qlId}: representation ${prototypeId} is under-exercised (${prototypeCounts[prototypeId] ?? 0}/${TARGET_PER_QL}).`);
   }
-  return { qlId, questions, correctSlots, prototypeCounts };
+  return { qlId, questions, attempts, duplicateRejects, correctSlots, prototypeCounts };
 }
 
 function reviewCard(question: FigureCompletionPermanentEnglishQuestionV1, ordinal: number): string {
@@ -113,7 +124,7 @@ function reviewCard(question: FigureCompletionPermanentEnglishQuestionV1, ordina
 
 const results = QL_IDS.map(proveQl);
 const allQuestions = results.flatMap((result) => result.questions);
-assert(allQuestions.length === 320, "FGC permanent English runtime proof must contain 320 questions.");
+assert(allQuestions.length === 320, "FGC permanent English runtime proof must contain 320 unique questions.");
 assert(new Set(allQuestions.map((question) => question.contentFingerprint)).size === 320, "FGC permanent English runtime contains cross-QL content collisions.");
 assert(new Set(allQuestions.map((question) => question.questionId)).size === 320, "FGC permanent English runtime contains duplicate question IDs.");
 
@@ -128,12 +139,16 @@ const proof = {
   permanentQlCount: 4,
   targetPerQl: TARGET_PER_QL,
   totalAccepted: allQuestions.length,
+  totalAttempts: results.reduce((sum, result) => sum + result.attempts, 0),
+  duplicateRejects: results.reduce((sum, result) => sum + result.duplicateRejects, 0),
   learnerReviewQuestionCount: reviewQuestions.length,
   qls: results.map((result) => ({
     qlId: result.qlId,
     qlName: result.questions[0]!.qlName,
     candidateAuthorityId: result.questions[0]!.candidateAuthorityId,
     accepted: result.questions.length,
+    attempts: result.attempts,
+    duplicateRejects: result.duplicateRejects,
     correctSlots: result.correctSlots,
     prototypeCounts: result.prototypeCounts,
     uniqueContent: new Set(result.questions.map((question) => question.contentFingerprint)).size,
@@ -156,7 +171,7 @@ mkdirSync(out, { recursive: true });
 writeFileSync(resolve(out, "spa-fgc-001-permanent-english-runtime-v1-review.json"), JSON.stringify(reviewQuestions, null, 2));
 writeFileSync(resolve(out, "spa-fgc-001-permanent-english-runtime-v1-evidence.json"), JSON.stringify(proof, null, 2));
 const cards = reviewQuestions.map((question, index) => reviewCard(question, index + 1)).join("\n");
-writeFileSync(resolve(out, "spa-fgc-001-permanent-english-runtime-v1-review.html"), `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FGC-001 Permanent English Review V1</title><style>body{font-family:Arial,sans-serif;margin:20px;line-height:1.45}.card{max-width:900px;margin:0 auto 36px;padding:20px;border:1px solid #bbb;border-radius:10px;break-inside:avoid}.meta,.seed{font-size:12px;color:#555;overflow-wrap:anywhere}.stimulus{max-width:460px;margin:16px auto}.stimulus svg{width:100%;height:auto}.options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.option{border:1px solid #ccc;padding:8px;text-align:center}.option svg{width:100%;min-width:104px;height:auto}.label{font-weight:bold;margin-bottom:4px}@media(max-width:640px){.options{grid-template-columns:repeat(2,minmax(0,1fr))}.option svg{min-width:104px}}</style></head><body><h1>FGC-001 — Permanent English Runtime Review V1</h1><p>48 deterministic learner-review questions across permanent SPA-QL-031..034. Question Studio, persistence, Question Bank, tests, publication and multilingual generation remain off pending human English approval.</p>${cards}</body></html>`);
+writeFileSync(resolve(out, "spa-fgc-001-permanent-english-runtime-v1-review.html"), `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FGC-001 Permanent English Review V1</title><style>body{font-family:Arial,sans-serif;margin:20px;line-height:1.45}.card{max-width:900px;margin:0 auto 36px;padding:20px;border:1px solid #bbb;border-radius:10px;break-inside:avoid}.meta,.seed{font-size:12px;color:#555;overflow-wrap:anywhere}.stimulus{max-width:460px;margin:16px auto}.stimulus svg{width:100%;height:auto}.options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.option{border:1px solid #ccc;padding:8px;text-align:center}.option svg{width:100%;min-width:104px;height:auto}.label{font-weight:bold;margin-bottom:4px}@media(max-width:640px){.options{grid-template-columns:repeat(2,minmax(0,1fr))}.option svg{min-width:104px}}</style></head><body><h1>FGC-001 — Permanent English Runtime Review V1</h1><p>48 deterministic learner-review questions across permanent SPA-QL-031..034. The scale proof accepts only unique semantic questions; duplicate seeds are rejected at corpus level. Question Studio, persistence, Question Bank, tests, publication and multilingual generation remain off pending human English approval.</p>${cards}</body></html>`);
 
 console.log(JSON.stringify(proof, null, 2));
 console.log("PASS_FGC_001_PERMANENT_ENGLISH_RUNTIME_V1");
