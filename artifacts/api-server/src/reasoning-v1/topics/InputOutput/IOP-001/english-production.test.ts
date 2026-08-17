@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 import { performance } from "node:perf_hooks";
 import {
-  assertIopEnglishProductionCaseletIntegrity,
-  generateIopEnglishProductionCaselet,
-  IOP_ENGLISH_SOURCE_MODES,
-} from "./english-production.ts";
+  assertIopEnglishReviewCaseletIntegrity,
+  generateIopEnglishReviewCaselet,
+} from "./english-editorial.ts";
+import { IOP_ENGLISH_SOURCE_MODES } from "./english-production.ts";
 import type { IopPermanentQlId, IopPermanentSolveMode } from "./permanent-authorities.ts";
 
 const casesPerQl = Number(process.env.IOP_ENGLISH_CASES_PER_QL ?? 12);
@@ -30,7 +30,7 @@ const visibleFingerprints = new Set<string>();
 let generated = 0;
 let childQuestions = 0;
 
-function visibleFingerprint(caselet: ReturnType<typeof generateIopEnglishProductionCaselet>): string {
+function visibleFingerprint(caselet: ReturnType<typeof generateIopEnglishReviewCaselet>): string {
   return [
     caselet.qlId,
     caselet.sourceModeId,
@@ -48,10 +48,10 @@ for (const qlId of qlIds) assert.ok(IOP_ENGLISH_SOURCE_MODES.some((mode) => mode
 // Prove every whitelisted source mode explicitly at least once.
 for (const mode of IOP_ENGLISH_SOURCE_MODES) {
   const seed = `IOP-EN-MODE-${mode.sourceModeId}`;
-  const first = generateIopEnglishProductionCaselet(seed, mode.qlId, mode.sourceModeId);
-  const replay = generateIopEnglishProductionCaselet(seed, mode.qlId, mode.sourceModeId);
+  const first = generateIopEnglishReviewCaselet(seed, mode.qlId, mode.sourceModeId);
+  const replay = generateIopEnglishReviewCaselet(seed, mode.qlId, mode.sourceModeId);
   assert.deepEqual(first, replay, `${mode.sourceModeId} is not deterministic`);
-  assertIopEnglishProductionCaseletIntegrity(first);
+  assertIopEnglishReviewCaseletIntegrity(first);
   assert.equal(first.sourceModeId, mode.sourceModeId);
   assert.ok(first.sourceEvidenceIds.length > 0, `${mode.sourceModeId} has no source evidence`);
   modeCounts.set(mode.sourceModeId, (modeCounts.get(mode.sourceModeId) ?? 0) + 1);
@@ -61,10 +61,10 @@ for (const mode of IOP_ENGLISH_SOURCE_MODES) {
 for (const qlId of qlIds) {
   for (let index = 0; index < casesPerQl; index += 1) {
     const seed = `IOP-EN-PROOF-${qlId}-${String(index).padStart(4, "0")}`;
-    const first = generateIopEnglishProductionCaselet(seed, qlId);
-    const replay = generateIopEnglishProductionCaselet(seed, qlId);
+    const first = generateIopEnglishReviewCaselet(seed, qlId);
+    const replay = generateIopEnglishReviewCaselet(seed, qlId);
     assert.deepEqual(first, replay, `${qlId}/${seed} is not deterministic`);
-    assertIopEnglishProductionCaseletIntegrity(first);
+    assertIopEnglishReviewCaseletIntegrity(first);
 
     generated += 1;
     childQuestions += first.children.length;
@@ -81,6 +81,7 @@ for (const qlId of qlIds) {
       solveModes.add(child.kind);
       answerPositions[child.answerIndex] += 1;
       assert.ok(child.explanation.includes(child.answerDisplay), `${qlId}/${child.kind} explanation is not answer-specific`);
+      assert.ok(!child.explanation.startsWith(first.ruleExplanation), `${qlId}/${child.kind} repeats the shared rule`);
     }
 
     assert.equal(first.lifecycle.maturity, "ENGLISH_REVIEW_CANDIDATE");
