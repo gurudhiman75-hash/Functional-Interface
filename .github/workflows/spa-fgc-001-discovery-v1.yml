@@ -37,7 +37,8 @@ jobs:
             spatial-figure-completion-rule-geometry-v2 \
             spatial-figure-completion-merge-split-proposal-v1 \
             spatial-figure-completion-source-saturation-v1 \
-            spatial-permanent-ql-allocation-v2
+            spatial-permanent-ql-allocation-v2 \
+            spatial-figure-completion-permanent-english-runtime-v1
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -66,6 +67,8 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-source-saturation-v1.test.mjs
       - name: Allocate FGC-001 permanent QLs without mutating P0
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-permanent-ql-allocation-v2.test.mjs
+      - name: Run FGC-001 permanent English review runtime
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-permanent-english-runtime-v1.test.mjs
       - name: Upload FGC-001 discovery review
         uses: actions/upload-artifact@v4
         with:
@@ -83,4 +86,7 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-source-gap-discovery-v2-review.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-source-gap-discovery-v2-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-source-gap-discovery-v2-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-permanent-english-runtime-v1-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-permanent-english-runtime-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-permanent-english-runtime-v1-review.html
           if-no-files-found: error
