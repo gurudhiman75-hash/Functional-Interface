@@ -18,41 +18,45 @@ function object(state: Trg002SpatialState, id: string) {
 }
 
 export function canonicalRequestedTargetNumericValue(state: Trg002SpatialState): number {
-  switch (state.requested.kind) {
+  const requested = state.requested;
+  switch (requested.kind) {
     case "OBJECT_HEIGHT":
-      return exactToNumber(object(state, state.requested.objectId).height);
+      return exactToNumber(object(state, requested.objectId).height);
     case "HORIZONTAL_DISTANCE": {
-      const first = point(state, state.requested.fromPointId);
-      const second = point(state, state.requested.toPointId);
+      const first = point(state, requested.fromPointId);
+      const second = point(state, requested.toPointId);
       return Math.abs(exactToNumber(first.x) - exactToNumber(second.x));
     }
     case "ANGLE": {
-      const observation = state.observations.find((item) => item.id === state.requested.observationId);
-      if (!observation) throw new Error(`TRG-002 canonical-target verifier cannot resolve observation ${state.requested.observationId}.`);
+      const observationId = requested.observationId;
+      const observation = state.observations.find((item) => item.id === observationId);
+      if (!observation) throw new Error(`TRG-002 canonical-target verifier cannot resolve observation ${observationId}.`);
       const degrees = toDegrees(observation.angle);
       return Number(degrees.numerator) / Number(degrees.denominator);
     }
     case "MOVEMENT_DISTANCE": {
-      const movement = state.movements.find((item) => item.id === state.requested.movementId);
-      if (!movement) throw new Error(`TRG-002 canonical-target verifier cannot resolve movement ${state.requested.movementId}.`);
+      const movementId = requested.movementId;
+      const movement = state.movements.find((item) => item.id === movementId);
+      if (!movement) throw new Error(`TRG-002 canonical-target verifier cannot resolve movement ${movementId}.`);
       return exactToNumber(movement.distance);
     }
     case "SIGHT_LINE_LENGTH": {
-      const first = point(state, state.requested.fromPointId);
-      const second = point(state, state.requested.toPointId);
+      const first = point(state, requested.fromPointId);
+      const second = point(state, requested.toPointId);
       const dx = exactToNumber(first.x) - exactToNumber(second.x);
       const dy = exactToNumber(first.y) - exactToNumber(second.y);
       return Math.hypot(dx, dy);
     }
     case "EYE_HEIGHT": {
-      const observer = state.observers.find((item) => item.id === state.requested.observerId);
-      if (!observer) throw new Error(`TRG-002 canonical-target verifier cannot resolve observer ${state.requested.observerId}.`);
+      const observerId = requested.observerId;
+      const observer = state.observers.find((item) => item.id === observerId);
+      if (!observer) throw new Error(`TRG-002 canonical-target verifier cannot resolve observer ${observerId}.`);
       return exactToNumber(observer.eyeHeight);
     }
     case "SHADOW_LENGTH": {
-      const targetObject = object(state, state.requested.objectId);
+      const targetObject = object(state, requested.objectId);
       const base = point(state, targetObject.basePointId);
-      const tip = point(state, state.requested.shadowTipPointId);
+      const tip = point(state, requested.shadowTipPointId);
       return Math.abs(exactToNumber(base.x) - exactToNumber(tip.x));
     }
   }

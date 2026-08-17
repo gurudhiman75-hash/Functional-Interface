@@ -1,0 +1,190 @@
+name: Verify TRG-002 Production 96
+
+on:
+  push:
+    branches:
+      - feat/trg-002-production-96
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - artifacts/examtree/src/components/QuestionRichText.tsx
+      - artifacts/examtree/src/components/math/Trg002SolutionDiagram.tsx
+      - scripts/e2e/tests/trg002-production-wrapper.spec.ts
+      - .github/workflows/trg-002-production-96-verification.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trg-002-production-96-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Targeted TRG-002 TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg002-production96.json <<'EOF'
+          {
+            "extends": "./tsconfig.json",
+            "compilerOptions": { "noEmit": true },
+            "include": [
+              "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**/*.ts"
+            ],
+            "exclude": [
+              "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts"
+            ],
+            "references": []
+          }
+          EOF
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg002-production96.json --pretty false
+
+      - name: Re-verify frozen 48 approval fingerprint
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-human-approved.test.ts
+
+      - name: Execute 96-QL production gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-runtime-96-diagnostic.ts
+
+      - name: Execute Phase 8 editorial gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-final-editorial-diagnostic.ts
+
+      - name: Export Phase 8 editorial review pack
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-production-expansion-editorial-review.ts
+
+      - name: Verify Phase 8 editorial review pack
+        run: |
+          JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/production-expansion-48/TRG-002-PHASE8-48-EDITORIAL-REVIEW.json
+          HTML=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/production-expansion-48/TRG-002-PHASE8-48-EDITORIAL-REVIEW.html
+          test -s "$JSON" && test -s "$HTML"
+          node - "$JSON" <<'NODE'
+          const fs = require('fs');
+          const p = process.argv[2];
+          const rows = JSON.parse(fs.readFileSync(p, 'utf8'));
+          if (rows.length !== 48) throw new Error(`Expected 48 editorial review rows, found ${rows.length}`);
+          for (const row of rows) {
+            if (row.reviewStatus !== 'AI_REVIEWED' || row.aiEditorialStatus !== 'PASS') throw new Error(`${row.qlId}: AI editorial PASS missing`);
+            if (row.humanReviewStatus !== 'PENDING') throw new Error(`${row.qlId}: approved source artifact must remain the pre-approval PENDING snapshot`);
+            if (row.freezeStatus !== 'NOT_FROZEN') throw new Error(`${row.qlId}: approved source artifact must remain the pre-freeze snapshot`);
+            if (row.finalEditorialReview?.status !== 'PASS') throw new Error(`${row.qlId}: final editorial status missing`);
+            if (row.finalEditorialReview?.runtimeSpecVisualInspection !== 'NOT_ASSERTED_PER_INSTANCE') throw new Error(`${row.qlId}: per-instance visual claim is invalid`);
+            if (row.finalEditorialReview?.appUiRenderedInspection !== 'PENDING' || row.finalEditorialReview?.renderedVisualInspection !== 'PENDING') throw new Error(`${row.qlId}: approved source artifact must preserve pre-approval visual metadata`);
+            if (row.finalEditorialReview?.humanReviewSubstituted !== false) throw new Error(`${row.qlId}: AI review must not substitute for human review`);
+            if (row.validation?.valid !== true) throw new Error(`${row.qlId}: validation is not PASS`);
+          }
+          console.log(`TRG002_PHASE8_APPROVED_SOURCE_PACK_PASS count=${rows.length} ai=PASS sourceHuman=PENDING sourceFreeze=NOT_FROZEN`);
+          NODE
+
+      - name: Execute Phase 8 human approval and production freeze gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-freeze-96.test.ts
+
+      - name: Create Phase 8 execution evidence
+        if: success()
+        run: |
+          mkdir -p trg-002-production96-evidence
+          cat > trg-002-production96-evidence/TRG-002-PHASE8-EXECUTION-EVIDENCE.md <<EOF
+          # TRG-002 Phase 8 Production-96 Execution Evidence
+
+          - Source head: \`${GITHUB_SHA}\`
+          - Workflow run: \`${GITHUB_RUN_ID}\`
+          - Permanent English QLs: **96**
+          - Original frozen approved baseline: **48 unchanged**
+          - Phase-8 expansion QLs: **48 human-approved and frozen**
+          - Complete frozen production surface: **96 / 96**
+          - Per CP: **24**
+          - Targeted TypeScript compile: **PASS**
+          - Original 48 approval fingerprint gate: **PASS**
+          - 96-QL production runtime gate: **PASS**
+          - Production sweep cases: **1152**
+          - Phase-8 AI/editorial gate: **PASS**
+          - Phase-8 editorial cases: **576**
+          - Approved Phase-8 source review fingerprint: **PASS**
+          - Phase-8 human review: **APPROVED**
+          - Phase-8 freeze gate: **PASS**
+          - Per-generated-seed visual PASS claimed: **NO**
+          - Representative real-app visual gate: **separate browser-expansion job**
+          - Question Studio/Test Builder/storage/publication: **OFF**
+          EOF
+
+      - name: Upload Phase 8 evidence
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-production96-execution-evidence
+          path: trg-002-production96-evidence/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload Phase 8 editorial review pack
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-production48-editorial-review
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/production-expansion-48/
+          if-no-files-found: error
+          retention-days: 14
+
+  browser-expansion:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install isolated Playwright runner
+        run: npm install --prefix scripts/e2e --no-package-lock --no-save
+      - name: Install Chromium
+        run: scripts/e2e/node_modules/.bin/playwright install --with-deps chromium
+      - name: Typecheck ExamTree student app
+        run: pnpm --dir artifacts/examtree typecheck
+      - name: Generate exact Phase 8 editorial browser fixtures
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-production-expansion-editorial-review.ts
+      - name: Build ExamTree student app
+        env:
+          VITE_E2E_AUTH_TOKEN: examtree-e2e-access-token
+          VITE_E2E_AUTH_UID: e2e-student
+          VITE_E2E_AUTH_EMAIL: student.e2e@examtree.local
+          VITE_E2E_AUTH_NAME: E2E Student
+        run: pnpm run build:web
+      - name: Execute Phase 8 representative real ExamTree visual gate
+        run: scripts/e2e/node_modules/.bin/playwright test trg002-production-wrapper.spec.ts --config scripts/e2e/playwright.config.ts
+      - name: Verify representative visual evidence count
+        run: |
+          test -d test-results/trg002-production-visual
+          PNG_COUNT=$(find test-results/trg002-production-visual -maxdepth 1 -name 'TRG-002-QL-*.png' | wc -l)
+          JSON_COUNT=$(find test-results/trg002-production-visual -maxdepth 1 -name 'TRG-002-QL-*.json' | wc -l)
+          test "$PNG_COUNT" -eq 14
+          test "$JSON_COUNT" -eq 14
+          echo "TRG002_PHASE8_REAL_APP_VISUAL_PASS representatives=14 strategies=14 screenshots=$PNG_COUNT mobile=390x844 humanVisualApproval=PINNED exhaustiveVisualClaim=false"
+      - name: Upload Phase 8 real-app visual evidence
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-production48-real-app-visual-evidence
+          path: test-results/trg002-production-visual/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload Phase 8 browser diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-production48-browser-diagnostics
+          path: |
+            playwright-report/student-e2e
+            test-results/student-e2e
+            test-results/trg002-production-visual
+          if-no-files-found: ignore
+          retention-days: 5

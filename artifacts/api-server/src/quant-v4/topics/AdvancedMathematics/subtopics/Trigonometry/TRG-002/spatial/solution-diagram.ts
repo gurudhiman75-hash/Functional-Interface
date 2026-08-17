@@ -68,6 +68,9 @@ function stableStatePayload(state: Trg002SpatialState) {
       oppositeSide: state.metadata.oppositeSide ?? null,
       observerOrder: state.metadata.observerOrder ?? [],
       notes: state.metadata.notes ?? [],
+      measurements: Object.entries(state.metadata.measurements ?? {})
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([key, value]) => [key, exactKey(value)]),
     },
   };
 }

@@ -1,0 +1,148 @@
+name: Verify TRG-002 48-QL MVP
+
+on:
+  push:
+    branches:
+      - feat/trg-002-mvp-48
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**
+      - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/api-server/src/quant-v4/generation-engine-base.ts
+      - artifacts/api-server/src/lib/admin-question-conversion.ts
+      - artifacts/examtree/src/components/QuestionRichText.tsx
+      - artifacts/examtree/src/components/math/Trg002SolutionDiagram.tsx
+      - scripts/e2e/tests/trg002-wrapper.spec.ts
+      - .github/workflows/trg-002-mvp48-verification.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trg-002-mvp48-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Targeted TRG-002 TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg002-mvp48.json <<'EOF'
+          {
+            "extends": "./tsconfig.json",
+            "compilerOptions": {
+              "noEmit": true
+            },
+            "include": [
+              "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**/*.ts"
+            ],
+            "exclude": [
+              "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts"
+            ],
+            "references": []
+          }
+          EOF
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg002-mvp48.json --pretty false
+
+      - name: Execute 48-QL canonical and sweep gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-runtime-48.test.ts
+
+      - name: Execute exact diagram-label gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-label-smoke.test.ts
+
+      - name: Execute difficulty regression gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-difficulty-regression.test.ts
+
+      - name: Execute 14-strategy diagram gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-visual-review-14.test.ts
+
+      - name: Execute depression helper-line gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/depression-helper-line.test.ts
+
+      - name: Execute high-risk projection gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-special-render-projection.test.ts
+
+      - name: Execute final editorial gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-final-editorial.test.ts
+
+      - name: Execute exam-style stem gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-exam-stem-regression.test.ts
+
+      - name: Execute ExamTree solution-directive bridge gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/examtree-solution-directive.test.ts
+
+      - name: Execute Question Studio storage bridge gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts
+
+      - name: Generate actual-runtime 48-QL HTML and JSON review pack
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-mvp-48-review-pack.ts
+
+      - name: Verify review pack
+        run: |
+          test -s ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          test -s ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.json
+          grep -q 'TRG-002-QL-096' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          grep -q 'class="angle-arc"' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          grep -q 'class="right-angle-marker"' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          grep -q 'depression-drop-' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          ! grep -q 'depression-height-transfer-' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          grep -q 'data-measurement-arrow-id="height-arrow-observer-lower-' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          grep -q 'data-measurement-arrow-id="height-arrow-observer-upper-' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          ! grep -q 'height-arrow-target-combined-' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          grep -q 'marker-start="url(#dimensionArrow)"' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          grep -q 'what is the height of the pole?' ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+
+      - name: Upload TRG-002 runtime review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-mvp48-runtime-review
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/
+          if-no-files-found: error
+          retention-days: 14
+
+  browser-wrapper:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install isolated Playwright runner
+        run: npm install --prefix scripts/e2e --no-package-lock
+      - name: Install Chromium
+        run: scripts/e2e/node_modules/.bin/playwright install --with-deps chromium
+      - name: Typecheck ExamTree student app
+        run: pnpm --dir artifacts/examtree typecheck
+      - name: Build ExamTree student app
+        env:
+          VITE_E2E_AUTH_TOKEN: examtree-e2e-access-token
+          VITE_E2E_AUTH_UID: e2e-student
+          VITE_E2E_AUTH_EMAIL: student.e2e@examtree.local
+          VITE_E2E_AUTH_NAME: E2E Student
+        run: pnpm run build:web
+      - name: Execute TRG-002 real browser wrapper gate
+        run: scripts/e2e/node_modules/.bin/playwright test trg002-wrapper.spec.ts --config scripts/e2e/playwright.config.ts
+      - name: Upload TRG-002 browser diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-examtree-wrapper-diagnostics
+          path: |
+            playwright-report/student-e2e
+            test-results/student-e2e
+          if-no-files-found: ignore
+          retention-days: 5

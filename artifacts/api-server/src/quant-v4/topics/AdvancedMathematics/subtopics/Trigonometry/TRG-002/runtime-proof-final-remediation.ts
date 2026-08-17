@@ -1,8 +1,10 @@
 import { degree } from "../foundation/angle";
 import {
   exactKey,
+  exactSurd,
   exactToNumber,
   formatExactPlain,
+  multiplyExact,
   subtractExact,
 } from "../foundation/exact";
 import {
@@ -25,6 +27,12 @@ function assert(condition: unknown, message: string): asserts condition {
 function object(state: Trg002SpatialState, id: string) {
   const found = state.verticalObjects.find((item) => item.id === id);
   if (!found) throw new Error(`Missing canonical object ${id}.`);
+  return found;
+}
+
+function point(state: Trg002SpatialState, id: string) {
+  const found = state.points.find((item) => item.id === id);
+  if (!found) throw new Error(`Missing canonical point ${id}.`);
   return found;
 }
 
@@ -105,22 +113,71 @@ function ql015NaturalDepression(question: Trg002ProofQuestion): Trg002ProofQuest
   return result;
 }
 
+function friendlierThirdSurd(text: string) {
+  return text.replace(/(\d+)√3\/3/g, "$1/√3");
+}
+
+function strengthenRiverDistractors(question: Trg002ProofQuestion): Trg002ProofQuestion {
+  if (question.qlId !== "TRG-002-QL-092" || question.exactAnswer.kind !== "NUMBER") return question;
+  const width = question.exactAnswer.value;
+  const wrongValues = [
+    { value: multiplyExact(width, exactSurd(1, 2)), misconceptionId: "RETURNED_LINE_OF_SIGHT_USING_SIN45" },
+    { value: multiplyExact(width, exactSurd(1, 2, 2)), misconceptionId: "TREATED_TOWER_HEIGHT_AS_HYPOTENUSE" },
+    { value: multiplyExact(width, exactSurd(1, 3, 3)), misconceptionId: "USED_60_DEGREE_RATIO_INSTEAD_OF_45" },
+  ];
+  let wrongIndex = 0;
+  const options = question.options.map((option) => {
+    if (option.isCorrect) return option;
+    const replacement = wrongValues[wrongIndex++];
+    return {
+      ...option,
+      value: { kind: "NUMBER" as const, value: replacement.value, unit: "m" as const },
+      display: `${formatExactPlain(replacement.value)} m`,
+      misconceptionId: replacement.misconceptionId,
+    };
+  });
+  return { ...question, options };
+}
+
 function finalEditorialPolish(question: Trg002ProofQuestion): Trg002ProofQuestion {
+  if (question.qlId === "TRG-002-QL-007") {
+    return {
+      ...question,
+      stem: friendlierThirdSurd(question.stem),
+      explanation: {
+        ...question.explanation,
+        steps: question.explanation.steps.map((step) => ({ ...step, body: friendlierThirdSurd(step.body) })),
+      },
+    };
+  }
+
   if (question.qlId === "TRG-002-QL-049") {
     return {
       ...question,
-      stem: question.stem.replace("Two points A and B on the same side of a tower are", "Two observation points on the same side of a tower are"),
+      stem: question.stem
+        .replace("Two points A and B on the same side of a tower are", "Two observation points A and B on the same side of a tower are")
+        .replace("Their elevation angles are 30° and 60°.", "The angle of elevation is 30° at A, the farther point, and 60° at B, the nearer point."),
     };
+  }
+
+  if (question.qlId === "TRG-002-QL-061") {
+    return { ...question, difficulty: "Medium" };
   }
 
   if (question.qlId === "TRG-002-QL-083") {
+    const state = question.canonicalSpatialState;
+    const first = object(state, "building-1");
+    const firstBase = point(state, first.basePointId);
+    const second = object(state, "building-2");
+    const secondBase = point(state, second.basePointId);
+    const run = subtractExact(secondBase.x, firstBase.x);
     return {
       ...question,
-      stem: question.stem.replace("a second building", "another building"),
+      stem: `From the top of a ${formatExactPlain(first.height)} m building, the top of a second building is seen at an angle of elevation of 45°. The horizontal distance between the feet of the two buildings is ${formatExactPlain(run)} m. Find the height of the second building.`,
     };
   }
 
-  return question;
+  return strengthenRiverDistractors(question);
 }
 
 export function generateFinalRemediatedTrg002RuntimeProofQuestion(qlId: Trg002ProofQlId, seed: string) {

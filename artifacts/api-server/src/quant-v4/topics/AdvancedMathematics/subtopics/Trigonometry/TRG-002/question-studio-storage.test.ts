@@ -1,0 +1,61 @@
+import assert from "node:assert/strict";
+
+import {
+  generateQuestion,
+  listQuantV4Packages,
+} from "../../../../../generation-engine";
+import { normalizeGeneratedQuestionPayload } from "../../../../../../lib/admin-question-conversion";
+import { TRG_002_EXAMTREE_DIRECTIVE_PREFIX } from "./examtree-solution-directive";
+
+async function main() {
+  const pkg = listQuantV4Packages().find((entry: any) => entry.packageId === "TRG-002") as any;
+  assert.ok(pkg, "TRG-002 must be discoverable in Question Studio");
+  assert.equal(pkg.enabled, true);
+  assert.equal(pkg.questionBankStatus, "WRITABLE");
+  assert.equal(pkg.testEligibility, "ELIGIBLE");
+  assert.equal(pkg.publiclyPublishable, true);
+  assert.equal(pkg.cpIds.length, 4);
+  assert.deepEqual(pkg.cpIds, ["TRG-CP-007", "TRG-CP-008", "TRG-CP-009", "TRG-CP-010"]);
+
+  const result: any = await generateQuestion({
+    packageId: "TRG-002" as any,
+    questionLanguageId: "TRG-002-QL-015",
+    language: "en",
+    count: 1,
+    seed: "trg002-question-studio-storage-regression",
+  });
+
+  assert.equal(result.questions.length, 1);
+  const question = result.questions[0];
+  assert.equal(question.packageId, "TRG-002");
+  assert.equal(question.questionLanguageId, "TRG-002-QL-015");
+  assert.equal(question.proceduralLogic.qlId, "TRG-002-QL-015");
+  assert.equal(question.questionBankStatus, "WRITABLE");
+  assert.equal(question.testEligibility, "ELIGIBLE");
+  assert.equal(question.publiclyPublishable, true);
+  assert.ok(question.explanation.includes(TRG_002_EXAMTREE_DIRECTIVE_PREFIX));
+  assert.equal(question.solutionDiagram.kind, "TRG002_HEIGHTS_DISTANCES");
+  assert.equal(question.solutionDiagram.version, 1);
+  assert.equal(question.solutionDiagram.qlId, "TRG-002-QL-015");
+  assert.equal(question.solutionDiagram.disclosure, "AFTER_ATTEMPT");
+  assert.deepEqual(question.answerModel.solutionDiagram, question.solutionDiagram);
+  assert.ok(question.solutionDiagram.diagram);
+  assert.equal(question.solutionDiagram.diagram.segments.some((segment: any) =>
+    String(segment.id).startsWith("depression-height-transfer-")), false);
+  assert.equal(question.solutionDiagram.diagram.measurementArrows.length, 2);
+
+  const normalized = normalizeGeneratedQuestionPayload(question, {
+    itemId: "00000000-0000-0000-0000-000000000015",
+    generationRunCode: "GEN-TRG002-STORAGE-TEST",
+  });
+  const answerModel: any = normalized.answerModel;
+  assert.deepEqual(answerModel.solutionDiagram, question.solutionDiagram);
+  assert.equal(answerModel.generation.questionLanguageId, "TRG-002-QL-015");
+  assert.equal(answerModel.generation.canonicalProblemId, "TRG-CP-007");
+  assert.equal(answerModel.generation.packageId, "TRG-002");
+  assert.ok(normalized.explanation.includes(TRG_002_EXAMTREE_DIRECTIVE_PREFIX));
+
+  console.log("TRG-002 Question Studio storage bridge: PASS");
+}
+
+void main();

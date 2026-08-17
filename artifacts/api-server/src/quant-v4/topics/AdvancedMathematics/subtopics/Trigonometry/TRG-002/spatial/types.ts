@@ -92,14 +92,20 @@ export interface Trg002Movement {
   distance: ExactTrigNumber;
 }
 
+type NoIndirectRequestedIds = {
+  observationId?: never;
+  movementId?: never;
+  observerId?: never;
+};
+
 export type Trg002RequestedTarget =
-  | { kind: "OBJECT_HEIGHT"; objectId: string }
-  | { kind: "HORIZONTAL_DISTANCE"; fromPointId: string; toPointId: string }
-  | { kind: "ANGLE"; observationId: string }
-  | { kind: "MOVEMENT_DISTANCE"; movementId: string }
-  | { kind: "SIGHT_LINE_LENGTH"; fromPointId: string; toPointId: string }
-  | { kind: "EYE_HEIGHT"; observerId: string }
-  | { kind: "SHADOW_LENGTH"; objectId: string; shadowTipPointId: string };
+  | (NoIndirectRequestedIds & { kind: "OBJECT_HEIGHT"; objectId: string })
+  | (NoIndirectRequestedIds & { kind: "HORIZONTAL_DISTANCE"; fromPointId: string; toPointId: string })
+  | ({ kind: "ANGLE"; observationId: string; movementId?: never; observerId?: never })
+  | ({ kind: "MOVEMENT_DISTANCE"; movementId: string; observationId?: never; observerId?: never })
+  | (NoIndirectRequestedIds & { kind: "SIGHT_LINE_LENGTH"; fromPointId: string; toPointId: string })
+  | ({ kind: "EYE_HEIGHT"; observerId: string; observationId?: never; movementId?: never })
+  | (NoIndirectRequestedIds & { kind: "SHADOW_LENGTH"; objectId: string; shadowTipPointId: string });
 
 export interface Trg002SpatialState {
   packageId: "TRG-002";
@@ -118,6 +124,7 @@ export interface Trg002SpatialState {
     oppositeSide?: boolean;
     observerOrder?: string[];
     notes?: string[];
+    measurements?: Record<string, ExactTrigNumber>;
   };
 }
 
@@ -155,6 +162,24 @@ export interface Trg002DiagramAngleMarker {
   referenceDirection: "LEFT" | "RIGHT";
   classification: "ELEVATION" | "DEPRESSION";
   label: string;
+  arcLane: number;
+}
+
+export interface Trg002DiagramRightAngleMarker {
+  id: string;
+  vertexPointId: string;
+  verticalRayPointId: string;
+  horizontalDirection: "LEFT" | "RIGHT";
+}
+
+export interface Trg002DiagramMeasurementArrow {
+  id: string;
+  fromPointId: string;
+  toPointId: string;
+  label: string;
+  side: "LEFT" | "RIGHT";
+  lane: number;
+  kind: "TOTAL_HEIGHT" | "HEIGHT_PART" | "HEIGHT_DIFFERENCE";
 }
 
 export interface Trg002DiagramSpec {
@@ -165,5 +190,7 @@ export interface Trg002DiagramSpec {
   points: Trg002DiagramPoint[];
   segments: Trg002DiagramSegment[];
   angles: Trg002DiagramAngleMarker[];
+  rightAngles: Trg002DiagramRightAngleMarker[];
+  measurementArrows: Trg002DiagramMeasurementArrow[];
   labels: Array<{ id: string; pointId: string; text: string }>;
 }

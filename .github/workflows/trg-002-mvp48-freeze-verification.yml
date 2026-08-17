@@ -1,0 +1,152 @@
+name: Verify TRG-002 MVP48 Freeze
+
+on:
+  push:
+    branches:
+      - feat/trg-002-mvp48-freeze
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-mvp48-freeze-verification.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trg-002-mvp48-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Targeted TRG-002 TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg002-freeze.json <<'EOF'
+          {
+            "extends": "./tsconfig.json",
+            "compilerOptions": {
+              "noEmit": true
+            },
+            "include": [
+              "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**/*.ts"
+            ],
+            "exclude": [
+              "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts"
+            ],
+            "references": []
+          }
+          EOF
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg002-freeze.json --pretty false
+
+      - name: Execute 48-QL canonical and sweep gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-runtime-48.test.ts
+
+      - name: Execute final editorial gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-final-editorial.test.ts
+
+      - name: Execute exam-style stem gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-exam-stem-regression.test.ts
+
+      - name: Execute solution-directive bridge gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/examtree-solution-directive.test.ts
+
+      - name: Execute Question Studio storage lock gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts
+
+      - name: Execute human approval and freeze binding gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-human-approved.test.ts
+
+      - name: Verify freeze manifests
+        run: |
+          APPROVAL=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/TRG-002-HUMAN-APPROVAL.manifest.json
+          FREEZE=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/TRG-002-FREEZE.manifest.json
+          MVP=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-48.manifest.json
+          test -s "$APPROVAL" && test -s "$FREEZE" && test -s "$MVP"
+          node - "$APPROVAL" "$FREEZE" "$MVP" <<'NODE'
+          const fs = require('fs');
+          const [approvalPath, freezePath, mvpPath] = process.argv.slice(2);
+          const approval = JSON.parse(fs.readFileSync(approvalPath, 'utf8'));
+          const freeze = JSON.parse(fs.readFileSync(freezePath, 'utf8'));
+          const mvp = JSON.parse(fs.readFileSync(mvpPath, 'utf8'));
+          const fp = 'b60217f9b29af79435ab065e4c64c40449dc43df2fa9646b055f41763bce04db';
+          if (approval.packageId !== 'TRG-002' || approval.status !== 'HUMAN_APPROVED' || approval.approvedQlCount !== 48) throw new Error('Human approval manifest identity/count invalid');
+          if (approval.approvedContentFingerprint !== fp || approval.perGeneratedSeedVisualPassClaimed !== false) throw new Error('Human approval fingerprint/evidence boundary invalid');
+          if (freeze.packageId !== 'TRG-002' || freeze.scope !== 'MVP_48_PERMANENT_ENGLISH_QLS' || freeze.status !== 'FROZEN') throw new Error('Freeze identity/status invalid');
+          if (freeze.approvedQlCount !== 48 || freeze.humanReviewStatus !== 'APPROVED' || freeze.approvedContentFingerprint !== fp) throw new Error('Freeze human approval binding invalid');
+          if (freeze.contentChangeRequiresNewHumanApproval !== true || freeze.perGeneratedSeedVisualPassClaimed !== false || freeze.expansionAuthorized !== false || freeze.mergeAuthorized !== false) throw new Error('Freeze governance policy invalid');
+          const a = freeze.activation || {};
+          if (a.questionStudio || a.testBuilder || a.questionBankStorage || a.publicPublication || a.localizationRuntime) throw new Error('Freeze unexpectedly activates runtime surfaces');
+          if (mvp.review?.humanReviewed !== 48 || mvp.review?.freezeStatus !== 'FROZEN' || mvp.freeze?.approvedContentFingerprint !== fp) throw new Error('MVP manifest is not reconciled to frozen state');
+          NODE
+
+      - name: Regenerate exact approved 48-record payload
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-mvp-48-review-pack.ts
+
+      - name: Verify approved payload fingerprint
+        run: |
+          JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.json
+          HTML=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/TRG-002-MVP-48-RUNTIME-REVIEW.html
+          test -s "$JSON" && test -s "$HTML"
+          node - "$JSON" <<'NODE'
+          const fs = require('fs');
+          const crypto = require('crypto');
+          const p = process.argv[2];
+          const rows = JSON.parse(fs.readFileSync(p, 'utf8'));
+          if (rows.length !== 48) throw new Error(`Expected 48 rows, found ${rows.length}`);
+          const fingerprint = crypto.createHash('sha256').update(JSON.stringify(rows), 'utf8').digest('hex');
+          const expected = 'b60217f9b29af79435ab065e4c64c40449dc43df2fa9646b055f41763bce04db';
+          if (fingerprint !== expected) throw new Error(`Approved review payload drifted: expected ${expected}, got ${fingerprint}`);
+          console.log(`TRG002_FROZEN_REVIEW_PAYLOAD_PASS count=48 fingerprint=${fingerprint}`);
+          NODE
+
+      - name: Create exact-head freeze evidence
+        run: |
+          mkdir -p trg-002-mvp48-freeze-evidence
+          cat > trg-002-mvp48-freeze-evidence/TRG-002-MVP48-FREEZE-EXECUTION-EVIDENCE.md <<EOF
+          # TRG-002 MVP48 Freeze Execution Evidence
+
+          - Source head: \`${GITHUB_SHA}\`
+          - Workflow run: \`${GITHUB_RUN_ID}\`
+          - Targeted TypeScript compile: PASS
+          - 48-QL canonical/sweep regression: PASS
+          - Final editorial gate: PASS
+          - Exam-style stem gate: PASS
+          - ExamTree solution-directive bridge: PASS
+          - Question Studio storage lock gate: PASS
+          - Human approval/freeze binding: PASS
+          - Approved 48-record fingerprint: \`b60217f9b29af79435ab065e4c64c40449dc43df2fa9646b055f41763bce04db\`
+          - Human review: 48/48 APPROVED
+          - Freeze status: FROZEN
+          - Per-generated-seed visual PASS: NOT CLAIMED
+          - Activation/publication: OFF
+          - 48→96 expansion: NOT AUTHORIZED BY FREEZE ITSELF
+          - PR merge: NOT AUTHORIZED BY THIS RECORD
+          EOF
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/TRG-002-HUMAN-APPROVAL.manifest.json trg-002-mvp48-freeze-evidence/
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/TRG-002-FREEZE.manifest.json trg-002-mvp48-freeze-evidence/
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/MVP_48_STATUS.md trg-002-mvp48-freeze-evidence/
+
+      - name: Upload exact-head freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-mvp48-freeze-evidence
+          path: trg-002-mvp48-freeze-evidence/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload frozen approved review payload
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-mvp48-frozen-review-payload
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/
+          if-no-files-found: error
+          retention-days: 14

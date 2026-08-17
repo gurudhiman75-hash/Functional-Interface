@@ -15,12 +15,17 @@ import {
   RatioAdjustmentDiagram,
   type RatioAdjustmentDiagramData,
 } from "@/components/math/RatioAdjustmentDiagram";
+import {
+  isTrg002SolutionDiagramData,
+  Trg002SolutionDiagram,
+  type Trg002SolutionDiagramData,
+} from "@/components/math/Trg002SolutionDiagram";
 import { cn } from "@/lib/utils";
 
 const STANDALONE_IMAGE_URL =
   /^\s*(https?:\/\/\S+\.(?:png|jpe?g|gif|webp|svg)(?:\?\S*)?)\s*$/i;
 const STRUCTURED_DIAGRAM_DIRECTIVE_RE =
-  /\[\[(EXAMTREE_ALLIGATION_SVG_V1|EXAMTREE_RATIO_ADJUSTMENT_SVG_V1):([A-Za-z0-9_-]+)\]\]/g;
+  /\[\[(EXAMTREE_ALLIGATION_SVG_V1|EXAMTREE_RATIO_ADJUSTMENT_SVG_V1|EXAMTREE_TRIG_HEIGHTS_SVG_V1):([A-Za-z0-9_-]+)\]\]/g;
 const MAX_STRUCTURED_DIRECTIVE_LENGTH = 32_768;
 
 export function safeImgUrl(src: string): string | null {
@@ -38,7 +43,8 @@ type Piece =
   | { kind: "img"; src: string; alt: string }
   | { kind: "html"; value: string }
   | { kind: "alligation"; value: AlligationDiagramData }
-  | { kind: "ratio-adjustment"; value: RatioAdjustmentDiagramData };
+  | { kind: "ratio-adjustment"; value: RatioAdjustmentDiagramData }
+  | { kind: "trg002-solution"; value: Trg002SolutionDiagramData };
 
 type MathToken =
   | { kind: "text"; value: string }
@@ -100,6 +106,12 @@ function parseStructuredDiagram(
       isRatioAdjustmentDiagramData(value)
     ) {
       return { kind: "ratio-adjustment", value };
+    }
+    if (
+      directive === "EXAMTREE_TRIG_HEIGHTS_SVG_V1" &&
+      isTrg002SolutionDiagramData(value)
+    ) {
+      return { kind: "trg002-solution", value };
     }
     return null;
   } catch {
@@ -393,7 +405,7 @@ function renderMathContent(
 /**
  * Renders question, option or explanation text with MathJax, safe images,
  * sanitized basic HTML, logic icons, and versioned ExamTree inline-SVG
- * directives for alligation and ratio adjustment.
+ * directives for alligation, ratio adjustment, and TRG-002 solution figures.
  */
 export function QuestionRichText({
   content,
@@ -442,6 +454,15 @@ export function QuestionRichText({
             <RatioAdjustmentDiagram
               key={index}
               diagram={piece.value}
+              className="my-2"
+            />
+          );
+        }
+        if (piece.kind === "trg002-solution") {
+          return (
+            <Trg002SolutionDiagram
+              key={index}
+              data={piece.value}
               className="my-2"
             />
           );
