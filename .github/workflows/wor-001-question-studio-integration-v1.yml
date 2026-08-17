@@ -1,17 +1,17 @@
-name: Validate WOR-001 Question Studio Integration V1
+name: Validate WOR-001 Shared Question Studio Integration
 
 on:
   push:
     branches:
-      - feature/wor-001-question-studio-integration-v1
+      - fix/wor-001-shared-question-studio-only
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**'
       - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
-      - 'artifacts/api-server/src/routes/admin-question-studio-word-dictionary-order.ts'
-      - 'artifacts/api-server/src/routes/admin-question-studio-wor-lifecycle.ts'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-average.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-regeneration.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-quality.ts'
       - 'artifacts/api-server/src/routes/index.ts'
-      - 'artifacts/admin-app/src/features/question-studio/word-dictionary-order-review-api.ts'
-      - 'artifacts/admin-app/src/pages/content/QuestionStudioWordDictionaryOrderReviewPanel.tsx'
       - 'artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx'
       - '.github/workflows/wor-001-question-studio-integration-v1.yml'
   pull_request:
@@ -20,17 +20,17 @@ on:
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**'
       - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
-      - 'artifacts/api-server/src/routes/admin-question-studio-word-dictionary-order.ts'
-      - 'artifacts/api-server/src/routes/admin-question-studio-wor-lifecycle.ts'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-average.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-regeneration.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-quality.ts'
       - 'artifacts/api-server/src/routes/index.ts'
-      - 'artifacts/admin-app/src/features/question-studio/word-dictionary-order-review-api.ts'
-      - 'artifacts/admin-app/src/pages/content/QuestionStudioWordDictionaryOrderReviewPanel.tsx'
       - 'artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx'
       - '.github/workflows/wor-001-question-studio-integration-v1.yml'
   workflow_dispatch:
 
 concurrency:
-  group: wor-001-question-studio-integration-v1-${{ github.ref }}
+  group: wor-001-shared-question-studio-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -57,7 +57,7 @@ jobs:
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-source-evidence.test.ts
       - name: Run WOR-001 Question Studio contract audit
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-question-studio.test.ts
-      - name: Run WOR-001 shared Question Studio registry audit
+      - name: Run shared Question Studio package/dispatch audit
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-shared-question-studio.test.ts
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
