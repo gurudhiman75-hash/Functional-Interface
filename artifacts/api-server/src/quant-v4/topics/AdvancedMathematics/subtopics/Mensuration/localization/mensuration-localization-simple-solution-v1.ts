@@ -14,7 +14,8 @@ export type MensurationPromptSummaryV1 = {
   asked: string;
 };
 
-const QUERY_START = /\b(?:find|determine|calculate|compute|evaluate|obtain|what\s+is|what\s+are|how\s+many|how\s+much)\b/gi;
+const QUERY_START = /(?:\b(?:find|determine|calculate|compute|evaluate|obtain|what\s+is|what\s+are|how\s+many|how\s+much)\b|ज्ञात\s+कीजिए|पता\s+कीजिए|निकालिए|क्या\s+है|कितना|कितनी|कितने|ਪਤਾ\s+ਕਰੋ|ਕੱਢੋ|ਕੀ\s+ਹੈ|ਕਿੰਨਾ|ਕਿੰਨੀ|ਕਿੰਨੇ)/gi;
+const QUERY_CUE = /(?:\b(?:find|determine|calculate|compute|evaluate|obtain|what|how)\b|ज्ञात\s+कीजिए|पता\s+कीजिए|निकालिए|क्या\s+है|कितना|कितनी|कितने|ਪਤਾ\s+ਕਰੋ|ਕੱਢੋ|ਕੀ\s+ਹੈ|ਕਿੰਨਾ|ਕਿੰਨੀ|ਕਿੰਨੇ)/i;
 
 function stripInternalIds(value: string) {
   return value.replace(/\s*\[[A-Z0-9_:-]{3,}\]\s*/g, " ").trim();
@@ -24,20 +25,18 @@ function trimSentence(value: string) {
   return value.replace(/^[\s,;:.-]+/, "").replace(/[\s,;:.-]+$/, "").trim();
 }
 
+function fallbackAsked(text: string) {
+  if (/\p{Script=Devanagari}/u.test(text)) return "माँगा गया मान ज्ञात कीजिए";
+  if (/\p{Script=Gurmukhi}/u.test(text)) return "ਮੰਗਿਆ ਗਿਆ ਮੁੱਲ ਪਤਾ ਕਰੋ";
+  return "Find the required value";
+}
+
 export function splitMensurationPromptV1(stem: string): MensurationPromptSummaryV1 {
   const text = repairWhitespace(stem);
-  const matches = [...text.matchAll(QUERY_START)];
-  const last = matches.at(-1);
-  if (last && typeof last.index === "number" && last.index > 8) {
-    const given = trimSentence(text.slice(0, last.index));
-    const asked = trimSentence(text.slice(last.index));
-    if (given && asked) return { given, asked };
-  }
-
-  const sentenceParts = text.split(/(?<=[.!?])\s+/).filter(Boolean);
+  const sentenceParts = text.split(/(?<=[.!?।])\s+/).filter(Boolean);
   if (sentenceParts.length >= 2) {
-    const finalSentence = sentenceParts.at(-1)!;
-    if (/^(?:find|determine|calculate|compute|evaluate|obtain|what|how)\b/i.test(finalSentence)) {
+    const finalSentence = sentenceParts[sentenceParts.length - 1]!;
+    if (QUERY_CUE.test(finalSentence)) {
       return {
         given: trimSentence(sentenceParts.slice(0, -1).join(" ")),
         asked: trimSentence(finalSentence),
@@ -45,9 +44,17 @@ export function splitMensurationPromptV1(stem: string): MensurationPromptSummary
     }
   }
 
+  const matches = [...text.matchAll(QUERY_START)];
+  const last = matches[matches.length - 1];
+  if (last && typeof last.index === "number" && last.index > 8) {
+    const given = trimSentence(text.slice(0, last.index));
+    const asked = trimSentence(text.slice(last.index));
+    if (given && asked) return { given, asked };
+  }
+
   return {
     given: trimSentence(text),
-    asked: "Find the required value",
+    asked: fallbackAsked(text),
   };
 }
 
@@ -175,8 +182,6 @@ function extractWorking(question: MensurationQuestionStudioQuestionV2) {
     for (const value of extractInlineMath(`${ruleSection}\n${stepSection}`)) addUnique(values, seen, value);
   }
 
-  // Keep the governing relation and the full numerical path, but avoid turning
-  // the solution back into a long technical worksheet.
   if (values.length <= 9) return values;
   return [...values.slice(0, 2), ...values.slice(-7)];
 }
