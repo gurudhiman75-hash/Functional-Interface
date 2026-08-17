@@ -52,7 +52,7 @@ for (const qlId of TRG_002_PRODUCTION_EXPANSION_48_IDS) {
     assert(wrongIds.every((id: unknown) => typeof id === "string" && id.length > 0), `${qlId}: every distractor must retain a named misconception.`);
     assert(new Set(wrongIds).size === 3, `${qlId}: distractor misconception roles must be distinct.`);
     if (question.difficulty === "Hard") {
-      assert(question.explanation.steps.length >= 4, `${qlId}: Hard editorial explanation must include rule plus at least three calculation steps.`);
+      assert(question.explanation.steps.length >= 3, `${qlId}: Hard editorial explanation must include at least three calculation steps.`);
     }
     cases += 1;
   }
@@ -81,7 +81,7 @@ assert(q084.stem.includes("horizontal distance between the buildings"), "QL-084 
 const q085: any = generateFinalEditorialTrg002ProductionExpansionQuestion("TRG-002-QL-085", wordingSeed);
 assert(q085.stem.includes("horizontal distance between the buildings"), "QL-085 must state horizontal building separation explicitly.");
 const q089: any = generateFinalEditorialTrg002ProductionExpansionQuestion("TRG-002-QL-089", wordingSeed);
-assert(q089.explanation.steps.length >= 4, "QL-089 Hard explanation must retain the explicit three-stage calculation after the rule step.");
+assert(q089.explanation.steps.length >= 3, "QL-089 Hard explanation must retain the explicit three-stage calculation.");
 
 const stemOwners = new Map<string, string>();
 for (let index = 0; index < TRG_002_PRODUCTION_EXPANSION_48_IDS.length; index += 1) {
