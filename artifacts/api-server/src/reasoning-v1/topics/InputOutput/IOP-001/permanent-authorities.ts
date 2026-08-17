@@ -21,7 +21,7 @@ export type IopPermanentSolveMode =
 export type IopPermanentSourceStatus =
   | "SOURCE_BACKED_V1"
   | "SOURCE_PINNED_RBI_GRADE_B_2024"
-  | "SOURCE_BACKED_FAMILY_MODE_WHITELIST_REQUIRED";
+  | "SOURCE_MODE_WHITELISTED_V1";
 
 export interface IopPermanentQlAuthority {
   readonly qlId: IopPermanentQlId;
@@ -34,7 +34,7 @@ export interface IopPermanentQlAuthority {
   readonly primaryExamFamily: "BANKING";
   readonly nonBankingWeighting: "SOURCE_GATED";
   readonly allocationStatus: "PERMANENT_ALLOCATED";
-  readonly englishProductionStatus: "NOT_FROZEN" | "MODE_WHITELIST_REQUIRED";
+  readonly englishProductionStatus: "ENGLISH_REVIEW_CANDIDATE";
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
   readonly testEligible: false;
@@ -67,7 +67,7 @@ export const IOP_001_PERMANENT_QL_AUTHORITIES: readonly IopPermanentQlAuthority[
     primaryExamFamily: "BANKING",
     nonBankingWeighting: "SOURCE_GATED",
     allocationStatus: "PERMANENT_ALLOCATED",
-    englishProductionStatus: "NOT_FROZEN",
+    englishProductionStatus: "ENGLISH_REVIEW_CANDIDATE",
     questionStudioDiscoverable: false,
     questionBankWritable: false,
     testEligible: false,
@@ -84,7 +84,7 @@ export const IOP_001_PERMANENT_QL_AUTHORITIES: readonly IopPermanentQlAuthority[
     primaryExamFamily: "BANKING",
     nonBankingWeighting: "SOURCE_GATED",
     allocationStatus: "PERMANENT_ALLOCATED",
-    englishProductionStatus: "NOT_FROZEN",
+    englishProductionStatus: "ENGLISH_REVIEW_CANDIDATE",
     questionStudioDiscoverable: false,
     questionBankWritable: false,
     testEligible: false,
@@ -101,7 +101,7 @@ export const IOP_001_PERMANENT_QL_AUTHORITIES: readonly IopPermanentQlAuthority[
     primaryExamFamily: "BANKING",
     nonBankingWeighting: "SOURCE_GATED",
     allocationStatus: "PERMANENT_ALLOCATED",
-    englishProductionStatus: "NOT_FROZEN",
+    englishProductionStatus: "ENGLISH_REVIEW_CANDIDATE",
     questionStudioDiscoverable: false,
     questionBankWritable: false,
     testEligible: false,
@@ -118,7 +118,7 @@ export const IOP_001_PERMANENT_QL_AUTHORITIES: readonly IopPermanentQlAuthority[
     primaryExamFamily: "BANKING",
     nonBankingWeighting: "SOURCE_GATED",
     allocationStatus: "PERMANENT_ALLOCATED",
-    englishProductionStatus: "NOT_FROZEN",
+    englishProductionStatus: "ENGLISH_REVIEW_CANDIDATE",
     questionStudioDiscoverable: false,
     questionBankWritable: false,
     testEligible: false,
@@ -133,12 +133,12 @@ export const IOP_001_PERMANENT_QL_AUTHORITIES: readonly IopPermanentQlAuthority[
       "IOP-CP006-PROT-001", "IOP-CP006-PROT-002", "IOP-CP006-PROT-003",
       "IOP-CP008-PROT-001",
     ],
-    sourceStatus: "SOURCE_BACKED_FAMILY_MODE_WHITELIST_REQUIRED",
+    sourceStatus: "SOURCE_MODE_WHITELISTED_V1",
     allowedSolveModes: STANDARD_SOLVE_MODES,
     primaryExamFamily: "BANKING",
     nonBankingWeighting: "SOURCE_GATED",
     allocationStatus: "PERMANENT_ALLOCATED",
-    englishProductionStatus: "MODE_WHITELIST_REQUIRED",
+    englishProductionStatus: "ENGLISH_REVIEW_CANDIDATE",
     questionStudioDiscoverable: false,
     questionBankWritable: false,
     testEligible: false,
@@ -153,12 +153,12 @@ export const IOP_001_PERMANENT_QL_AUTHORITIES: readonly IopPermanentQlAuthority[
       "IOP-CP007-PROT-001", "IOP-CP007-PROT-002", "IOP-CP007-PROT-003",
       "IOP-CP008-PROT-002", "IOP-CP008-PROT-003",
     ],
-    sourceStatus: "SOURCE_BACKED_FAMILY_MODE_WHITELIST_REQUIRED",
+    sourceStatus: "SOURCE_MODE_WHITELISTED_V1",
     allowedSolveModes: STANDARD_SOLVE_MODES,
     primaryExamFamily: "BANKING",
     nonBankingWeighting: "SOURCE_GATED",
     allocationStatus: "PERMANENT_ALLOCATED",
-    englishProductionStatus: "MODE_WHITELIST_REQUIRED",
+    englishProductionStatus: "ENGLISH_REVIEW_CANDIDATE",
     questionStudioDiscoverable: false,
     questionBankWritable: false,
     testEligible: false,
@@ -175,7 +175,7 @@ export const IOP_001_PERMANENT_QL_AUTHORITIES: readonly IopPermanentQlAuthority[
     primaryExamFamily: "BANKING",
     nonBankingWeighting: "SOURCE_GATED",
     allocationStatus: "PERMANENT_ALLOCATED",
-    englishProductionStatus: "NOT_FROZEN",
+    englishProductionStatus: "ENGLISH_REVIEW_CANDIDATE",
     questionStudioDiscoverable: false,
     questionBankWritable: false,
     testEligible: false,
@@ -187,12 +187,12 @@ export const IOP_001_PERMANENT_QL_AUTHORITIES: readonly IopPermanentQlAuthority[
     checkpoints: ["IOP-CP-009"],
     semanticContract: "Transform structured cells or boxes through inferable arithmetic relationships across cells and stages.",
     discoveryAuthorities: ["IOP-CP009-PROT-001", "IOP-CP009-PROT-002", "IOP-CP009-PROT-003"],
-    sourceStatus: "SOURCE_BACKED_FAMILY_MODE_WHITELIST_REQUIRED",
+    sourceStatus: "SOURCE_MODE_WHITELISTED_V1",
     allowedSolveModes: STANDARD_SOLVE_MODES,
     primaryExamFamily: "BANKING",
     nonBankingWeighting: "SOURCE_GATED",
     allocationStatus: "PERMANENT_ALLOCATED",
-    englishProductionStatus: "MODE_WHITELIST_REQUIRED",
+    englishProductionStatus: "ENGLISH_REVIEW_CANDIDATE",
     questionStudioDiscoverable: false,
     questionBankWritable: false,
     testEligible: false,
@@ -203,9 +203,13 @@ export const IOP_001_PERMANENT_QL_AUTHORITIES: readonly IopPermanentQlAuthority[
 export const IOP_001_PERMANENT_ALLOCATION = Object.freeze({
   packageId: "IOP-001" as const,
   chapterId: "REAS-INP" as const,
-  maturity: "PERMANENT_QL_ALLOCATED" as const,
+  maturity: "ENGLISH_REVIEW_CANDIDATE" as const,
   sourceFamilySaturation: "PASS_V1" as const,
   permanentQlCount: IOP_001_PERMANENT_QL_AUTHORITIES.length,
+  whitelistedSourceModeCount: 19 as const,
+  englishAutomatedScaleProof: "PASS" as const,
+  englishHumanAuditPack: "PASS" as const,
+  englishArtifactAudit: "PASS" as const,
   englishFreeze: false as const,
   questionStudioDiscoverable: false as const,
   questionBankWritable: false as const,
@@ -221,5 +225,5 @@ export function getIopPermanentAuthority(qlId: IopPermanentQlId): IopPermanentQl
 }
 
 export function assertIop001ProductActivationAllowed(): never {
-  throw new Error("IOP-001 has permanent QLs but English production freeze and product activation remain locked.");
+  throw new Error("IOP-001 is an English review candidate but remains unfrozen; localization and product activation are locked.");
 }
