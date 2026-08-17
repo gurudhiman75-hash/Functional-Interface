@@ -46,6 +46,10 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/tmw-001-question-studio-integration.mjs
           pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-NEW-MAIN-QUESTION-STUDIO-INTEGRATION.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-new-main-question-studio-integration.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-REPETITION-DIAGNOSTIC.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/sap-question-studio-repetition-diagnostic.mjs
@@ -94,6 +98,15 @@ jobs:
           timeout --signal=TERM --kill-after=30s 12m \
             node dist/quant-v4/tmw-001-question-studio-integration.mjs \
             2>&1 | tee dist/quant-v4/tmw-001-question-studio-integration.log
+
+      - name: Run SAP current shared Question Studio integration proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-new-main-question-studio-integration.mjs \
+            2>&1 | tee dist/quant-v4/sap-new-main-question-studio-integration.log
 
       - name: Diagnose SAP exact stem repetition
         working-directory: artifacts/api-server
@@ -157,6 +170,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/number-system-generator-v3-audit.log
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release-audit.log
             artifacts/api-server/dist/quant-v4/tmw-001-question-studio-integration.log
+            artifacts/api-server/dist/quant-v4/sap-new-main-question-studio-integration.log
             artifacts/api-server/dist/quant-v4/number-system-generator-v3/number-system-generator-v3-review.json
             artifacts/api-server/dist/quant-v4/number-system-generator-v3/number-system-generator-v3-review.csv
             artifacts/api-server/dist/quant-v4/number-system-generator-v3/number-system-generator-v3-review.md
