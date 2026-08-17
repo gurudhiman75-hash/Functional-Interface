@@ -45,7 +45,8 @@ jobs:
             spatial-figure-completion-hi-pa-localization-freeze-v1 \
             spatial-question-studio-p0-regression-v2 \
             spatial-question-studio-p0-parity-v2 \
-            spatial-question-studio-integration-v1
+            spatial-question-studio-integration-v1 \
+            spatial-fgc-question-studio-operator-review-v1
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -77,6 +78,9 @@ jobs:
       - name: Validate 34-QL standard Question Studio lifecycle
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-question-studio-integration-v1.test.mjs
 
+      - name: Validate FGC operator learner review authority
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-fgc-question-studio-operator-review-v1.test.mjs
+
       - name: Upload Question Studio evidence
         uses: actions/upload-artifact@v4
         with:
@@ -85,4 +89,5 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-p0-question-studio-regression-v2-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-p0-multilingual-parity-v2-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-question-studio-integration-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-question-studio-operator-review-v1-evidence.json
           if-no-files-found: error
