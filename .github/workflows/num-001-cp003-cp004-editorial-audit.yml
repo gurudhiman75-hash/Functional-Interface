@@ -52,6 +52,10 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/sap-english-polish-regression.mjs
           pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-LOCALIZATION-DIAGNOSTIC.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-localization-diagnostic.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-LOCALIZATION-AUDIT.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/sap-localization-audit.mjs
@@ -98,6 +102,15 @@ jobs:
           node dist/quant-v4/sap-english-polish-regression.mjs \
             2>&1 | tee dist/quant-v4/sap-english-polish-regression.log
 
+      - name: Diagnose all SAP Hindi Punjabi authored gaps
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-localization-diagnostic.mjs \
+            2>&1 | tee dist/quant-v4/sap-localization-diagnostic.log
+
       - name: Run SAP Hindi Punjabi localization parity audit
         working-directory: artifacts/api-server
         shell: bash
@@ -129,6 +142,9 @@ jobs:
             artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance/sap-question-studio-chapter-acceptance.csv
             artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-acceptance/sap-question-studio-chapter-acceptance.md
             artifacts/api-server/dist/quant-v4/sap-english-polish-regression.log
+            artifacts/api-server/dist/quant-v4/sap-localization-diagnostic.log
+            artifacts/api-server/dist/quant-v4/sap-localization-diagnostic/sap-localization-diagnostic.json
+            artifacts/api-server/dist/quant-v4/sap-localization-diagnostic/sap-localization-diagnostic.md
             artifacts/api-server/dist/quant-v4/sap-localization-audit.log
             artifacts/api-server/dist/quant-v4/sap-localization-review/sap-localization-review.json
             artifacts/api-server/dist/quant-v4/sap-localization-review/sap-localization-review.csv
