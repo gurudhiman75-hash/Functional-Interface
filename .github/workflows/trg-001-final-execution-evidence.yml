@@ -1,0 +1,150 @@
+name: Verify TRG-001 Final Execution Evidence
+
+on:
+  push:
+    branches:
+      - feat/trg-001-production-144
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**
+      - .github/workflows/trg-001-final-execution-evidence.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trg-001-final-evidence-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Targeted TRG-001 TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg001-final.json <<'EOF'
+          {
+            "extends": "./tsconfig.json",
+            "compilerOptions": {
+              "noEmit": true
+            },
+            "include": [
+              "src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/**/*.ts"
+            ],
+            "references": []
+          }
+          EOF
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg001-final.json --pretty false
+
+      - name: Execute structural and semantic diversity gate
+        run: pnpm dlx tsx@4.21.0 ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-diversity-remediated.test.ts
+
+      - name: Execute final editorial gate
+        run: pnpm dlx tsx@4.21.0 ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-final-editorial.test.ts
+
+      - name: Execute human approval and freeze binding gate
+        run: pnpm dlx tsx@4.21.0 ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved.test.ts
+
+      - name: Verify freeze record
+        run: |
+          FREEZE=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/TRG-001-FREEZE.manifest.json
+          test -s "$FREEZE"
+          node -e 'const fs=require("fs"); const p=process.argv[1]; const r=JSON.parse(fs.readFileSync(p,"utf8")); if(r.packageId!=="TRG-001"||r.scope!=="FINAL_144_PERMANENT_ENGLISH_QLS"||r.status!=="FROZEN") throw new Error("Freeze identity/status invalid"); if(r.approvedQlCount!==144||r.humanReviewStatus!=="APPROVED") throw new Error("Freeze lacks 144/144 human approval"); if(r.approvedContentFingerprint!=="31772b314a4d9f1f47b85a54e0596eab9a0dd450a14c380b001376099ac50611") throw new Error("Freeze fingerprint changed"); if(r.contentChangeRequiresNewHumanApproval!==true) throw new Error("Freeze drift policy missing"); if(r.mergeAuthorized!==false) throw new Error("Freeze unexpectedly authorizes merge"); const a=r.activation||{}; if(a.questionStudio||a.testBuilder||a.questionBankStorage||a.publicPublication||a.localizationRuntime) throw new Error("Freeze unexpectedly activates runtime surfaces");' "$FREEZE"
+
+      - name: Generate 144-QL frozen review pack
+        env:
+          TRG001_REVIEW_SOURCE_SHA: ${{ github.sha }}
+        run: pnpm dlx tsx@4.21.0 ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/export-final-144-review-pack.ts
+
+      - name: Verify frozen review pack
+        run: |
+          HTML=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/review-artifacts/TRG-001-FINAL-144-HUMAN-REVIEW.html
+          JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/review-artifacts/TRG-001-FINAL-144-HUMAN-REVIEW.json
+          test -s "$HTML"
+          test -s "$JSON"
+          grep -q 'TRG-001-QL-001' "$HTML"
+          grep -q 'TRG-001-QL-144' "$HTML"
+          grep -q "${GITHUB_SHA}" "$HTML"
+          grep -q 'Human review:</b> APPROVED' "$HTML"
+          grep -q 'Freeze status:</b> FROZEN' "$HTML"
+          test "$(grep -o 'class=\"question-card\"' "$HTML" | wc -l | tr -d ' ')" = "144"
+          node -e 'const fs=require("fs"); const p=process.argv[1]; const rows=JSON.parse(fs.readFileSync(p,"utf8")); if(rows.length!==144) throw new Error(`Expected 144 rows, found ${rows.length}`); if(rows.some(r=>r.sourceSha!==process.env.GITHUB_SHA)) throw new Error("Frozen pack is not pinned to the executing source head"); if(rows.some(r=>r.humanReviewStatus!=="APPROVED"||r.reviewStatus!=="HUMAN_APPROVED"||r.freezeEligible!==true||r.frozen!==true||r.freezeStatus!=="FROZEN")) throw new Error("Human approval/freeze metadata missing"); if(rows.some(r=>r.freeze?.approvedContentFingerprint!=="31772b314a4d9f1f47b85a54e0596eab9a0dd450a14c380b001376099ac50611")) throw new Error("Frozen rows are not bound to the approved fingerprint"); if(rows.some(r=>r.activationLocks.questionBankStatus!=="NOT_STORED"||r.activationLocks.testEligibility!=="INELIGIBLE"||r.activationLocks.publiclyPublishable||r.activationLocks.questionStudioDiscoverable)) throw new Error("Activation lock failed");' "$JSON"
+
+      - name: Create execution and freeze provenance records
+        run: |
+          REVIEW_DIR=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/review-artifacts
+          HTML="$REVIEW_DIR/TRG-001-FINAL-144-HUMAN-REVIEW.html"
+          JSON="$REVIEW_DIR/TRG-001-FINAL-144-HUMAN-REVIEW.json"
+          HTML_SHA="$(sha256sum "$HTML" | awk '{print $1}')"
+          JSON_SHA="$(sha256sum "$JSON" | awk '{print $1}')"
+          cat > "$REVIEW_DIR/TRG-001-FINAL-144-HUMAN-REVIEW-MANIFEST.json" <<EOF
+          {
+            "packageId": "TRG-001",
+            "scope": "FINAL_144_HUMAN_REVIEW",
+            "sourceHead": "${GITHUB_SHA}",
+            "workflowRunId": "${GITHUB_RUN_ID}",
+            "humanReviewStatus": "APPROVED",
+            "freezeEligible": true,
+            "frozen": true,
+            "freezeStatus": "FROZEN",
+            "frozenAt": "2026-08-16T21:28:00+05:30",
+            "approvedContentSourceHead": "7b429306793e7403d024f2090f94f7b9501a4869",
+            "approvedContentFingerprint": "31772b314a4d9f1f47b85a54e0596eab9a0dd450a14c380b001376099ac50611",
+            "htmlSha256": "${HTML_SHA}",
+            "jsonSha256": "${JSON_SHA}"
+          }
+          EOF
+
+          mkdir -p trg-001-final-evidence
+          cat > trg-001-final-evidence/TRG-001-EXECUTION-EVIDENCE.md <<EOF
+          # TRG-001 Final Execution and Freeze Evidence
+
+          - Source head: \`${GITHUB_SHA}\`
+          - Workflow run: \`${GITHUB_RUN_ID}\`
+          - Targeted TypeScript compile: PASS
+          - Structural/semantic diversity gate: PASS
+          - Final editorial gate: PASS
+          - Human-approval and freeze content binding: PASS
+          - Freeze manifest verification: PASS
+          - Frozen 144-QL pack generation/verification: PASS
+          - Human review: 144/144 APPROVED
+          - Freeze status: FROZEN
+          - Activation/publication: OFF
+          - PR merge: NOT AUTHORIZED BY THIS RECORD
+
+          The freeze is bound to the exact human-approved content fingerprint. This record is emitted only after every preceding executable gate in this job has passed.
+          EOF
+
+      - name: Preserve governance evidence
+        run: |
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/PRODUCTION_FINAL_EDITORIAL_STATUS.md trg-001-final-evidence/DECLARED_PRODUCTION_FINAL_EDITORIAL_STATUS.md
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/PRODUCTION_DIVERSITY_REMEDIATION_STATUS.md trg-001-final-evidence/DECLARED_PRODUCTION_DIVERSITY_REMEDIATION_STATUS.md
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-final-editorial.manifest.json trg-001-final-evidence/
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-diversity-remediation.manifest.json trg-001-final-evidence/
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/TRG-001-HUMAN-APPROVAL.manifest.json trg-001-final-evidence/
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/TRG-001-HUMAN-APPROVAL-AND-FREEZE.md trg-001-final-evidence/
+          cp artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/TRG-001-FREEZE.manifest.json trg-001-final-evidence/
+
+      - name: Upload TRG-001 final evidence records
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-001-final-execution-evidence
+          path: trg-001-final-evidence/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload TRG-001 frozen review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-001-final-144-human-review
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/review-artifacts/
+          if-no-files-found: error
+          retention-days: 14

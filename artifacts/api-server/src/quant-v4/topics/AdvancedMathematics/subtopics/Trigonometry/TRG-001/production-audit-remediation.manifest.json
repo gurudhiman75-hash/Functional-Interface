@@ -1,0 +1,37 @@
+{
+  "packageId": "TRG-001",
+  "status": "REMEDIATION_IMPLEMENTED_REVIEW_PENDING",
+  "activeRuntime": "production-audit-remediated-runtime.ts",
+  "gate": "production-audit-remediated.test.ts",
+  "permanentQlCount": 144,
+  "remediatedQlIds": [
+    "TRG-001-QL-048",
+    "TRG-001-QL-112",
+    "TRG-001-QL-122",
+    "TRG-001-QL-123",
+    "TRG-001-QL-125",
+    "TRG-001-QL-126",
+    "TRG-001-QL-136",
+    "TRG-001-QL-137",
+    "TRG-001-QL-142"
+  ],
+  "canonicalSeedTarget": 12,
+  "canonicalCaseTarget": 1728,
+  "sweepSeedTarget": 50,
+  "sweepCaseTarget": 7200,
+  "executionEvidence": "PENDING",
+  "freshAiEditorialReview": "PENDING",
+  "humanReview": "0/144_PENDING",
+  "freezeEligible": false,
+  "activation": {
+    "questionStudio": false,
+    "testBuilder": false,
+    "questionBankStorage": false,
+    "publicPublication": false,
+    "localizationRuntime": false
+  },
+  "unresolvedAuditGates": [
+    "RIGHT_TRIANGLE_ORIENTATION_DIVERSITY",
+    "CHAPTER_WIDE_STRUCTURAL_STEM_STATE_DIVERSITY"
+  ]
+}

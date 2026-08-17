@@ -1,0 +1,54 @@
+{
+  "packageId": "TRG-001",
+  "checkpoint": "MVP_EDITORIAL_V1",
+  "status": "AI_EDITORIAL_PASS_COMPLETE_HUMAN_REVIEW_PENDING",
+  "qlCoverage": {
+    "reviewed": 72,
+    "engineeringMvpTarget": 72,
+    "productionTarget": 144
+  },
+  "remediation": {
+    "semanticGeneratorRemodels": 5,
+    "difficultyIntegrityFixes": 4,
+    "minorStemEditorialFixes": 5,
+    "standaloneHardExplanationUpgrades": 11,
+    "noChangeRequired": 47,
+    "unresolvedAiEditorialBlockers": 0
+  },
+  "semanticReplacements": [
+    "TRG-001-QL-034",
+    "TRG-001-QL-073",
+    "TRG-001-QL-080",
+    "TRG-001-QL-102",
+    "TRG-001-QL-129"
+  ],
+  "difficultyIntegrityRemediation": [
+    "TRG-001-QL-103",
+    "TRG-001-QL-104",
+    "TRG-001-QL-107",
+    "TRG-001-QL-108"
+  ],
+  "reviewedGateTargets": {
+    "canonicalSeedsPerQl": 12,
+    "canonicalCases": 864,
+    "sweepSeeds": 50,
+    "sweepCases": 3600,
+    "gitHubActionsExecutionClaimed": false
+  },
+  "humanReview": {
+    "requiredByAuthority": true,
+    "completed": 0,
+    "target": 72,
+    "status": "PENDING"
+  },
+  "activation": {
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "publiclyPublishable": false,
+    "productionActivated": false
+  },
+  "candidateRuntime": "mvp-reviewed-runtime.ts",
+  "reviewLedger": "mvp-ai-editorial-review.csv",
+  "next": "TRG-001_EXPAND_TO_144_USING_REVIEWED_MVP_AS_ANCHOR"
+}

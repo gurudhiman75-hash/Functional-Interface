@@ -1,0 +1,41 @@
+{
+  "packageId": "TRG-001",
+  "checkpoint": "PRODUCTION_144_ENGINEERING_TRACE",
+  "status": "SUPERSEDED_AS_CANDIDATE",
+  "supersededBy": "production-authority.manifest.json",
+  "reason": "The initial 144-QL engineering surface reached correct package/CP counts but a later Phase 0 ledger audit found detailed permanent-QL family allocation drift. The trace runtime and gates are retained as engineering evidence only.",
+  "traceRuntime": "production-runtime.ts",
+  "traceCandidateRuntime": "production-candidate-runtime.ts",
+  "traceGateSuite": "production-runtime.test.ts",
+  "qlCounts": {
+    "engineeringTotal": 144,
+    "perCp": 24
+  },
+  "historicalHardening": {
+    "ql062ExactHalfDegreeDistractor": "225/2 degrees",
+    "fixedTemplateStemVariants": 23
+  },
+  "historicalGateTargets": {
+    "canonicalSeedsPerQl": 12,
+    "canonicalCases": 1728,
+    "sweepSeeds": 50,
+    "fullSweepCases": 7200
+  },
+  "executionEvidence": {
+    "strictTypeScriptCompile": "NOT_CLAIMED",
+    "runtimeGateExecution": "NOT_CLAIMED"
+  },
+  "editorial": {
+    "historicalReviewedMvpEvidence": 72,
+    "carriedForwardAsFinalRowApproval": false,
+    "reason": "Authority reconciliation changes permanent QL-to-family assignment, so the reconciled 144-row surface must be reviewed afresh."
+  },
+  "activation": {
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "publiclyPublishable": false,
+    "hindiPunjabiRuntime": false
+  },
+  "next": "Use production-authority.manifest.json and production-authority-candidate-runtime.ts as the active 144-QL candidate authority."
+}

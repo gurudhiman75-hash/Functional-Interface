@@ -1,0 +1,73 @@
+qlId,aiEditorialStatus,remediationClass,notes,humanReviewStatus
+TRG-001-QL-001,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-002,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-003,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-004,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-005,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-006,PASS,MINOR_EDITORIAL_REMEDIATION,"Rewrote internal variable-assignment stem into normal exam prose.",PENDING
+TRG-001-QL-007,PASS,MINOR_EDITORIAL_REMEDIATION,"Rewrote internal variable-assignment stem into normal exam prose.",PENDING
+TRG-001-QL-008,PASS,MINOR_EDITORIAL_REMEDIATION,"Added normal right-triangle prose and explicit units.",PENDING
+TRG-001-QL-009,PASS,MINOR_EDITORIAL_REMEDIATION,"Added normal right-triangle prose and explicit units.",PENDING
+TRG-001-QL-010,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-011,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-012,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-025,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-026,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-027,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-028,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-029,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-030,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-031,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-032,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-033,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-034,PASS,MAJOR_GENERATOR_REMODEL,"Replaced semantic duplicate with different-angle square-sum pattern.",PENDING
+TRG-001-QL-035,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-036,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-049,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-050,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-051,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-052,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-053,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-054,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-055,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-056,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-057,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-058,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-059,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-060,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-073,PASS,MAJOR_GENERATOR_REMODEL,"Replaced CP-001 duplicate with cos² identity target.",PENDING
+TRG-001-QL-074,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-075,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-076,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-077,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-078,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-079,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-080,PASS,MAJOR_GENERATOR_REMODEL,"Replaced duplicate sec²-from-tan pattern with reverse sec→tan² identity.",PENDING
+TRG-001-QL-081,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-082,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-083,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-084,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-097,PASS,EXPLANATION_DEPTH_UPGRADE,"Expanded multi-step explanation for a substantive Hard pattern.",PENDING
+TRG-001-QL-098,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-099,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-100,PASS,EXPLANATION_DEPTH_UPGRADE,"Expanded multi-step explanation for a substantive Hard pattern.",PENDING
+TRG-001-QL-101,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-102,PASS,MAJOR_GENERATOR_REMODEL,"Replaced duplicate derived ratio with direct sinθ+cosθ recovery from tanθ.",PENDING
+TRG-001-QL-103,PASS,DIFFICULTY_INTEGRITY_REMEDIATION,"Removed standard-angle leakage; conjugate identity is now necessary.",PENDING
+TRG-001-QL-104,PASS,DIFFICULTY_INTEGRITY_REMEDIATION,"Removed standard-angle leakage; conjugate identity is now necessary.",PENDING
+TRG-001-QL-105,PASS,EXPLANATION_DEPTH_UPGRADE,"Expanded multi-step explanation for a substantive Hard pattern.",PENDING
+TRG-001-QL-106,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-107,PASS,DIFFICULTY_INTEGRITY_REMEDIATION,"Removed standard-angle leakage; conjugate identity is now necessary.",PENDING
+TRG-001-QL-108,PASS,DIFFICULTY_INTEGRITY_REMEDIATION,"Removed standard-angle leakage; conjugate identity is now necessary.",PENDING
+TRG-001-QL-121,PASS,EXPLANATION_DEPTH_UPGRADE,"Expanded multi-step explanation for a substantive Hard pattern.",PENDING
+TRG-001-QL-122,PASS,EXPLANATION_DEPTH_UPGRADE,"Expanded multi-step explanation for a substantive Hard pattern.",PENDING
+TRG-001-QL-123,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-124,PASS,NO_CHANGE_REQUIRED,"Stem, options, mathematics and difficulty fit passed the AI editorial review.",PENDING
+TRG-001-QL-125,PASS,EXPLANATION_DEPTH_UPGRADE,"Expanded multi-step explanation for a substantive Hard pattern.",PENDING
+TRG-001-QL-126,PASS,EXPLANATION_DEPTH_UPGRADE,"Expanded multi-step explanation for a substantive Hard pattern.",PENDING
+TRG-001-QL-127,PASS,EXPLANATION_DEPTH_UPGRADE,"Expanded multi-step explanation for a substantive Hard pattern.",PENDING
+TRG-001-QL-128,PASS,EXPLANATION_DEPTH_UPGRADE,"Expanded multi-step explanation for a substantive Hard pattern.",PENDING
+TRG-001-QL-129,PASS,MAJOR_GENERATOR_REMODEL,"Replaced duplicate 2sinθcosθ pattern with ratio-based sin2θ application.",PENDING
+TRG-001-QL-130,PASS,MINOR_EDITORIAL_REMEDIATION,"Removed method-prescribing wording from double-angle stem.",PENDING
+TRG-001-QL-131,PASS,EXPLANATION_DEPTH_UPGRADE,"Expanded multi-step explanation for a substantive Hard pattern.",PENDING
+TRG-001-QL-132,PASS,EXPLANATION_DEPTH_UPGRADE,"Expanded multi-step explanation for a substantive Hard pattern.",PENDING
