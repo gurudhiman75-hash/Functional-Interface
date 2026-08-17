@@ -75,6 +75,9 @@ jobs:
           IOP_ENGLISH_CASES_PER_QL: 12
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-production.test.ts
 
+      - name: Audit English review balance and visible box arithmetic
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-review-audit.test.ts
+
       - name: Generate permanent English review pack
         env:
           IOP_ENGLISH_REVIEW_OUTPUT_DIR: /tmp/iop-english-permanent-review
