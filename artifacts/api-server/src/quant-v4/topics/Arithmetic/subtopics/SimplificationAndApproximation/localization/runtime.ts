@@ -27,6 +27,9 @@ import {
   applySapAuthoredLastVariantsV7,
 } from "./authored-last-variants-v7";
 import {
+  applySapHumanReviewPolishV8,
+} from "./human-review-polish-v8";
+import {
   applySapAuthoredPresentationV3,
 } from "./authored-presentation-v3";
 import type { SapTranslationLanguage } from "./types";
@@ -44,5 +47,6 @@ export function localizeSapQuestionPackage(base: any, language: SapTranslationLa
   const authoredFinalV5 = applySapAuthoredFinalFixesV5(base, authoredStemV4, language);
   const authoredSeedV6 = applySapAuthoredSeedVariantV6(base, authoredFinalV5, language);
   const authoredLastV7 = applySapAuthoredLastVariantsV7(base, authoredSeedV6, language);
-  return applySapAuthoredPresentationV3(base, authoredLastV7, language);
+  const humanReviewedV8 = applySapHumanReviewPolishV8(base, authoredLastV7, language);
+  return applySapAuthoredPresentationV3(base, humanReviewedV8, language);
 }
