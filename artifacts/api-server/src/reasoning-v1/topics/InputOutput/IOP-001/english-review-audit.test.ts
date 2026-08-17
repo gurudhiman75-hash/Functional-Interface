@@ -30,6 +30,8 @@ for (const mode of IOP_ENGLISH_SOURCE_MODES) {
     const caselet = generateIopEnglishReviewCaselet(seed, mode.qlId, mode.sourceModeId);
     caselets.push(caselet);
     assert.equal(caselet.children.length, 4, `${mode.sourceModeId}/${example} should contain four review questions`);
+    assert.equal(caselet.lifecycle.maturity, "ENGLISH_FROZEN");
+    assert.equal(caselet.lifecycle.englishFreeze, true);
     for (const child of caselet.children) counts.set(child.kind, (counts.get(child.kind) ?? 0) + 1);
     if (caselet.qlId === "IOP-QL-008") assertBoxDisplayCoherent(caselet);
   }
@@ -58,5 +60,5 @@ console.log(`review caselets ${caselets.length}`);
 console.log(`review questions ${caselets.reduce((sum, caselet) => sum + caselet.children.length, 0)}`);
 console.log(`query distribution ${Object.entries(expected).map(([kind, count]) => `${kind}:${count}`).join(" | ")}`);
 console.log("box display coherence PASS");
-console.log("English freeze false");
+console.log("English freeze true");
 console.log("Question Studio false");
