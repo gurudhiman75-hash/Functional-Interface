@@ -44,6 +44,7 @@ jobs:
             figure-completion-english-freeze-v1 \
             figure-completion-hi-pa-localization-freeze-v1 \
             spatial-question-studio-p0-regression-v2 \
+            spatial-question-studio-p0-parity-v2 \
             spatial-question-studio-integration-v1
           do
             pnpm --dir artifacts/api-server exec esbuild \
@@ -70,6 +71,9 @@ jobs:
       - name: Revalidate frozen P0 Question Studio behavior
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-question-studio-p0-regression-v2.test.mjs
 
+      - name: Revalidate frozen P0 multilingual parity
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-question-studio-p0-parity-v2.test.mjs
+
       - name: Validate 34-QL standard Question Studio lifecycle
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-question-studio-integration-v1.test.mjs
 
@@ -79,5 +83,6 @@ jobs:
           name: spa-fgc-question-studio-integration-v1
           path: |
             artifacts/api-server/dist/reasoning-v1/spatial/spa-p0-question-studio-regression-v2-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-p0-multilingual-parity-v2-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-question-studio-integration-v1-evidence.json
           if-no-files-found: error
