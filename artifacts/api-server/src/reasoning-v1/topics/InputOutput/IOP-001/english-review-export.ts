@@ -62,11 +62,11 @@ function questionHtml(caselet: IopEnglishProductionCaselet): string {
       </div>
       <p class="question-text">${escapeHtml(child.text)}</p>
       <ol class="options">${options}</ol>
-      <details class="answer-block">
-        <summary>Show answer and explanation</summary>
-        <p><strong>Answer:</strong> ${answerLetter}. ${escapeHtml(child.answerDisplay)}</p>
-        <p><strong>Why:</strong> ${escapeHtml(child.explanation)}</p>
-      </details>
+      <section class="answer-block">
+        <p class="solution-title">Solution</p>
+        <p><strong>Correct answer:</strong> ${answerLetter}. ${escapeHtml(child.answerDisplay)}</p>
+        <p class="explanation"><strong>Explanation:</strong>\n${escapeHtml(child.explanation)}</p>
+      </section>
     </article>`;
   }).join("");
 }
@@ -89,11 +89,11 @@ function caseletHtml(caselet: IopEnglishProductionCaselet, exampleNumber: number
     <section class="student-block new-input">
       <h4>2. Apply the same machine to this new input</h4>
       ${traceRow("New Input:", caselet.target.input)}
-      <p class="helper">The solved steps are intentionally hidden here. The four questions below are based on this same new input.</p>
+      <p class="helper">The solved steps are not shown here before the questions. Each solution below explains how the required answer is obtained.</p>
     </section>
 
     <section class="question-set">
-      <h4>3. Questions based on the new input</h4>
+      <h4>3. Questions, answers and worked explanations</h4>
       ${questionHtml(caselet)}
     </section>
 
@@ -191,8 +191,10 @@ const html = `<!doctype html>
   .option-letter { font-weight: 700; margin-right: 4px; }
   details { margin-top: 10px; }
   summary { cursor: pointer; font-weight: 700; }
-  .answer-block { padding: 10px 12px; background: #f7f7f7; border-radius: 8px; }
-  .answer-block p { margin: 8px 0 0; }
+  .answer-block { padding: 12px 14px; margin-top: 12px; background: #f7f7f7; border-left: 4px solid #999; border-radius: 8px; }
+  .answer-block p { margin: 7px 0; }
+  .solution-title { font-weight: 700; font-size: 15px; margin-top: 0 !important; }
+  .explanation { white-space: pre-line; }
   .reviewer-solution, .technical-details { margin-top: 18px; padding: 12px 14px; border: 1px dashed #aaa; border-radius: 8px; }
   .review-trace { margin-top: 12px; padding-top: 4px; }
   .technical-details { font-size: 13px; color: #555; }
@@ -210,14 +212,14 @@ const html = `<!doctype html>
 <main>
   <section class="intro">
     <h1>IOP-001 — Student-Facing English Review</h1>
-    <p>This file is designed to show the questions in the same logical order a student would understand them. Internal source IDs, QL IDs and solved target traces are hidden from the main view.</p>
+    <p>This file shows the questions in the same logical order a student would understand them. Internal source IDs, QL IDs and solved target traces are kept out of the main question flow.</p>
     <div class="how-to-read">
       <strong>How to read each example</strong>
       <ol>
         <li>Study the worked machine: Input → Step 1 → Step 2 → …</li>
         <li>Look at the new input.</li>
-        <li>Answer four MCQs by applying the same machine rule.</li>
-        <li>Open “Show answer and explanation” only when you want to audit the solution.</li>
+        <li>Read the four MCQs based on that same input.</li>
+        <li>Audit the correct answer and full worked explanation shown directly below each MCQ.</li>
       </ol>
     </div>
     <p class="status-note"><strong>Review status:</strong> ENGLISH_REVIEW_CANDIDATE · English not frozen · Question Studio OFF.</p>
