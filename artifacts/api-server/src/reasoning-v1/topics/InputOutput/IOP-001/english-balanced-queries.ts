@@ -85,6 +85,22 @@ function mutateRow(row: readonly string[]): readonly (readonly string[])[] {
     const decimals = row[0]!.includes(".") ? 2 : 0;
     return [0.1, 0.5, 1, -0.5].map((delta) => [(value + delta).toFixed(decimals)]);
   }
+
+  if (row.length === 2) {
+    const first = Number(row[0]);
+    const second = Number(row[1]);
+    if (Number.isFinite(first) && Number.isFinite(second)) {
+      const firstDecimals = row[0]!.includes(".") ? 2 : 0;
+      const secondDecimals = row[1]!.includes(".") ? 2 : 0;
+      return [
+        [row[1]!, row[0]!],
+        [(first + 0.1).toFixed(firstDecimals), row[1]!],
+        [row[0]!, (second + 0.1).toFixed(secondDecimals)],
+        [(first - 0.1).toFixed(firstDecimals), row[1]!],
+      ];
+    }
+  }
+
   const result: string[][] = [];
   result.push([...row].reverse());
   result.push([...row.slice(1), row[0]!]);
@@ -99,11 +115,12 @@ function mutateRow(row: readonly string[]): readonly (readonly string[])[] {
 
 function rowOptions(trace: IopEnglishTrace, correct: readonly string[], seed: string): IopEnglishChildQuestion["options"] {
   const correctFp = rowFingerprint(correct);
-  const wrong = [...sameShapeRows(trace, correct), ...mutateRow(correct)].map((row) => option(
+  const sameShape = sameShapeRows(trace, correct);
+  const wrong = [...sameShape, ...mutateRow(correct)].map((row) => option(
     renderRow(row),
     `ROW:${rowFingerprint(row)}`,
     false,
-    sameShapeRows(trace, correct).some((state) => rowFingerprint(state) === rowFingerprint(row)) ? "wrong-machine-state" : "local-state-mutation",
+    sameShape.some((state) => rowFingerprint(state) === rowFingerprint(row)) ? "wrong-machine-state" : "local-state-mutation",
   ));
   return finaliseOptions(option(renderRow(correct), `ROW:${correctFp}`, true, "correct"), wrong, seed);
 }
