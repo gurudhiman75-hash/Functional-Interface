@@ -1,8 +1,6 @@
 import {
-  generateSpatialStudioBatchV1,
   generateSpatialStudioQuestionV1,
   type SpatialPermanentQlIdV1,
-  type SpatialStudioBatchRequestV1,
 } from "./spatial-question-studio-runtime-v1";
 import {
   localizeSpatialStudioQuestionV1,
@@ -10,34 +8,55 @@ import {
   type SpatialQuestionStudioLanguageV1,
 } from "./spatial-question-studio-localization-v1";
 import {
+  generateSpatialFgcStudioQuestionV1,
+  isSpatialFgcQuestionStudioQlIdV1,
+  type SpatialFgcStudioQuestionV1,
+} from "./spatial-question-studio-fgc-v1";
+import {
   SPATIAL_QUESTION_STUDIO_PACKAGE_V1,
   SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1,
+  spatialQuestionStudioDifficultyV1,
+  type SpatialQuestionStudioChapterCodeV1,
+  type SpatialQuestionStudioDifficultyV1,
+  type SpatialQuestionStudioPermanentQlIdV1,
 } from "./spatial-question-studio-integration-v1";
+import { SPATIAL_PERMANENT_QL_ALLOCATIONS_V2 } from "./spatial-permanent-ql-allocation-v2";
 
-export type SpatialProductionStudioQuestionV1 = Omit<
-  SpatialLocalizedStudioQuestionV1,
-  "lifecycle"
-> & {
-  lifecycle: {
-    questionStudioDiscoverable: true;
-    registrationStatus: "REGISTERED";
-    persistenceAllowed: true;
-    questionBankStatus: "READY_FOR_STORAGE";
-    testEligibility: "ELIGIBLE";
-    testEligible: true;
-    publiclyPublishable: true;
-    mockTestEligible: true;
-    manualApprovalRequired: true;
-    automaticStudentPublication: false;
-    releaseAuthority: typeof SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority;
-  };
+export type SpatialProductionSourceQuestionV1 =
+  | SpatialLocalizedStudioQuestionV1
+  | SpatialFgcStudioQuestionV1;
+
+type ProductionLifecycleV1 = {
+  questionStudioDiscoverable: true;
+  registrationStatus: "REGISTERED";
+  persistenceAllowed: true;
+  questionBankStatus: "READY_FOR_STORAGE";
+  testEligibility: "ELIGIBLE";
+  testEligible: true;
+  publiclyPublishable: true;
+  mockTestEligible: true;
+  manualApprovalRequired: true;
+  automaticStudentPublication: false;
+  releaseAuthority: typeof SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority;
 };
 
-export type SpatialProductionStudioBatchRequestV1 = SpatialStudioBatchRequestV1 & {
+type PromoteToProduction<T> = T extends { lifecycle: unknown }
+  ? Omit<T, "lifecycle"> & { lifecycle: ProductionLifecycleV1 }
+  : never;
+
+export type SpatialProductionStudioQuestionV1 = PromoteToProduction<SpatialProductionSourceQuestionV1>;
+
+export interface SpatialProductionStudioBatchRequestV1 {
+  seed: string;
+  count?: number;
+  qlId?: SpatialQuestionStudioPermanentQlIdV1;
+  chapterCode?: SpatialQuestionStudioChapterCodeV1;
+  difficulty?: SpatialQuestionStudioDifficultyV1;
   language?: SpatialQuestionStudioLanguageV1;
-};
+}
 
-// These phrases intentionally describe the generated operation in everyday learner language.
+// P0 localization remediation is retained byte-for-byte at the adapter boundary.
+// FGC learner text bypasses these maps because its EN/HI/PA wording is independently frozen.
 const HINDI_MODE_DETAIL: Record<string, string> = {
   GENERAL_COMPOSITION: "हर छोटे हिस्से को दर्पण या जल-रेखा के हिसाब से सही जगह पर रखें",
   LATIN_GLYPH_STRING: "हर अक्षर का रूप और पूरे समूह का क्रम सही तरह उलटें",
@@ -46,7 +65,7 @@ const HINDI_MODE_DETAIL: Record<string, string> = {
   "FAN-GAP-01": "बाहरी और अंदर वाले हिस्से में हुए बदलाव अलग-अलग पहचानकर C पर करें",
   "FAN-GAP-02": "हिस्से जिस क्रम से जगह बदल रहे हैं, उसी क्रम की अगली जगह रखें",
   "FAN-GAP-03": "जिस हिस्से का आकार बढ़ा या घटा है, C में भी उतना ही बदलें",
-  "FAN-GAP-04": "जो हिस्सा अंदर से बाहर या बाहर से अंदर गया है, C में भी वैसा ही करें",
+  "FAN-GAP-04": "जो हिस्सा अंदर से बाहर, बाहर से अंदर, बड़ा या छोटा हुआ है, C में भी वही बदलाव करें",
   "FAN-GAP-05": "दिशा, भराव और गिनती में हुए सभी बदलाव एक साथ C पर करें",
   ADD_SEGMENT: "पहली जोड़ी की तरह एक रेखा या हिस्सा जोड़ें और बाकी आकृति वैसी ही रखें",
   REMOVE_SEGMENT: "पहली जोड़ी की तरह एक रेखा या हिस्सा हटाएँ और बाकी आकृति वैसी ही रखें",
@@ -124,10 +143,8 @@ const PUNJABI_MODE_DETAIL: Record<string, string> = {
   ROTATE_90_CCW_MOVE_DOTS_CW: "ਮੁੱਖ ਆਕ੍ਰਿਤੀ ਨੂੰ 90° ਦੂਜੀ ਦਿਸ਼ਾ ਵਿੱਚ ਘੁਮਾਓ ਅਤੇ ਬਿੰਦੂਆਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੀ ਅਗਲੀ ਥਾਂ ’ਤੇ ਲਿਜਾਓ",
 };
 
-function modeSpecificApplication(
-  question: SpatialLocalizedStudioQuestionV1,
-): string | null {
-  if (question.language === "en") return null;
+function modeSpecificApplication(question: SpatialProductionSourceQuestionV1): string | null {
+  if (question.language === "en" || question.chapterCode === "FGC-001") return null;
   const answer = question.answer;
   const rotation = question.mode.match(/^WHOLE_FIGURE_ROTATION_(-?\d+)$/);
   if (rotation) {
@@ -150,19 +167,15 @@ function modeSpecificApplication(
     : `${detail}. ਸਹੀ ਵਿਕਲਪ ${answer} ਹੈ.`;
 }
 
-function localizedClassificationCheck(
-  question: SpatialLocalizedStudioQuestionV1,
-): string | null {
+function localizedClassificationCheck(question: SpatialProductionSourceQuestionV1): string | null {
   if (question.language === "en" || question.chapterCode !== "FCL-001") return null;
   return question.language === "hi"
     ? `विकल्प ${question.answer} बाकी तीन के नियम से अलग है। इसलिए वही उत्तर है।`
     : `ਵਿਕਲਪ ${question.answer} ਬਾਕੀ ਤਿੰਨਾਂ ਦੇ ਨਿਯਮ ਤੋਂ ਵੱਖ ਹੈ। ਇਸ ਲਈ ਉਹੀ ਉੱਤਰ ਹੈ.`;
 }
 
-function normalizeLocalizedProductionText(
-  question: SpatialLocalizedStudioQuestionV1,
-): SpatialLocalizedStudioQuestionV1 {
-  if (question.language === "en") return question;
+function normalizeLocalizedProductionText<T extends SpatialProductionSourceQuestionV1>(question: T): T {
+  if (question.language === "en" || question.chapterCode === "FGC-001") return question;
   const punctuation = (value: string) => question.language === "pa"
     ? value.replaceAll("।", ".").replaceAll("॥", ".")
     : value;
@@ -178,12 +191,12 @@ function normalizeLocalizedProductionText(
       application: punctuation(specificApplication ?? question.explanation.application),
       check: punctuation(specificCheck ?? question.explanation.check),
     },
-  };
+  } as T;
 }
 
-function productionQuestion(
-  question: SpatialLocalizedStudioQuestionV1,
-): SpatialProductionStudioQuestionV1 {
+function productionQuestion<T extends SpatialProductionSourceQuestionV1>(
+  question: T,
+): PromoteToProduction<T> {
   const normalizedQuestion = normalizeLocalizedProductionText(question);
   const { lifecycle: _sourceLifecycle, ...content } = normalizedQuestion;
   return {
@@ -192,69 +205,129 @@ function productionQuestion(
       questionStudioDiscoverable: true,
       registrationStatus: "REGISTERED",
       persistenceAllowed: true,
-      questionBankStatus:
-        SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.questionBankStatus,
-      testEligibility:
-        SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.testEligibility,
+      questionBankStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.questionBankStatus,
+      testEligibility: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.testEligibility,
       testEligible: true,
-      publiclyPublishable:
-        SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.publiclyPublishable,
-      mockTestEligible:
-        SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.mockTestEligible,
-      manualApprovalRequired:
-        SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.manualApprovalRequired,
-      automaticStudentPublication:
-        SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.automaticStudentPublication,
+      publiclyPublishable: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.publiclyPublishable,
+      mockTestEligible: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.mockTestEligible,
+      manualApprovalRequired: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.manualApprovalRequired,
+      automaticStudentPublication: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.automaticStudentPublication,
       releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
     },
-  };
+  } as PromoteToProduction<T>;
+}
+
+function sourceQuestion(input: {
+  qlId: SpatialQuestionStudioPermanentQlIdV1;
+  seed: string;
+  language: SpatialQuestionStudioLanguageV1;
+}): SpatialProductionSourceQuestionV1 {
+  if (isSpatialFgcQuestionStudioQlIdV1(input.qlId)) {
+    return generateSpatialFgcStudioQuestionV1(input);
+  }
+  const source = generateSpatialStudioQuestionV1({
+    qlId: input.qlId as SpatialPermanentQlIdV1,
+    seed: input.seed,
+  });
+  return localizeSpatialStudioQuestionV1(source, input.language);
 }
 
 export function generateSpatialProductionStudioQuestionV1(input: {
-  qlId: SpatialPermanentQlIdV1;
+  qlId: SpatialQuestionStudioPermanentQlIdV1;
   seed: string;
   language?: SpatialQuestionStudioLanguageV1;
 }): SpatialProductionStudioQuestionV1 {
-  const source = generateSpatialStudioQuestionV1({ qlId: input.qlId, seed: input.seed });
-  return productionQuestion(
-    localizeSpatialStudioQuestionV1(source, input.language ?? "en"),
-  );
+  return productionQuestion(sourceQuestion({
+    qlId: input.qlId,
+    seed: input.seed,
+    language: input.language ?? "en",
+  }));
+}
+
+function hash32(value: string): number {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function eligibleAllocations(request: SpatialProductionStudioBatchRequestV1) {
+  let allocations = [...SPATIAL_PERMANENT_QL_ALLOCATIONS_V2];
+  if (request.qlId) {
+    allocations = allocations.filter((entry) => entry.permanentQlId === request.qlId);
+  }
+  if (request.chapterCode) {
+    allocations = allocations.filter((entry) => entry.chapterCode === request.chapterCode);
+  }
+  if (request.difficulty) {
+    allocations = allocations.filter(
+      (entry) => spatialQuestionStudioDifficultyV1(entry.baseDifficulty) === request.difficulty,
+    );
+  }
+  if (!allocations.length) throw new Error("No permanent Spatial QLs match the requested filters.");
+  return allocations;
 }
 
 export function generateSpatialProductionStudioBatchV1(
   request: SpatialProductionStudioBatchRequestV1,
 ) {
-  const { language = "en", ...sourceRequest } = request;
-  const generated = generateSpatialStudioBatchV1(sourceRequest);
+  const seed = String(request.seed ?? "").trim();
+  if (!seed) throw new Error("Spatial Question Studio batch generation requires an explicit seed.");
+  const count = Math.min(50, Math.max(1, Math.floor(Number(request.count ?? 5) || 5)));
+  const language = request.language ?? "en";
+  const allocations = eligibleAllocations(request)
+    .map((entry) => ({ entry, score: hash32(`${seed}:${entry.permanentQlId}:order`) }))
+    .sort((left, right) => left.score - right.score || left.entry.permanentQlId.localeCompare(right.entry.permanentQlId))
+    .map(({ entry }) => entry);
+  const questions: SpatialProductionStudioQuestionV1[] = [];
+  const seen = new Set<string>();
+
+  for (let index = 0; index < count; index += 1) {
+    const allocation = allocations[index % allocations.length]!;
+    let accepted: SpatialProductionStudioQuestionV1 | null = null;
+    for (let retry = 0; retry < 80 && !accepted; retry += 1) {
+      const question = generateSpatialProductionStudioQuestionV1({
+        qlId: allocation.permanentQlId,
+        seed: `${seed}:${index}:R${retry}`,
+        language,
+      });
+      if (seen.has(question.contentFingerprint)) continue;
+      seen.add(question.contentFingerprint);
+      accepted = question;
+    }
+    if (!accepted) {
+      throw new Error(`${allocation.permanentQlId}: unable to produce a unique batch item at index ${index}.`);
+    }
+    questions.push(accepted);
+  }
+
   return {
     generationContext: {
       packageId: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.packageId,
       generationDomain: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.generationDomain,
-      seed: generated.generationContext.seed,
-      count: generated.generationContext.count,
+      seed,
+      count,
       language,
       locale: language === "hi" ? "hi-IN" as const : language === "pa" ? "pa-IN" as const : "en-IN" as const,
       runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
       reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
       integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
       localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
+      fgcLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.fgcLocalizationAuthority,
       releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
       questionStudioDiscoverable: true as const,
       registrationStatus: "REGISTERED" as const,
       persistenceAllowed: true as const,
-      questionBankStatus:
-        SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.questionBankStatus,
-      testEligibility:
-        SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.testEligibility,
+      questionBankStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.questionBankStatus,
+      testEligibility: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.testEligibility,
       testEligible: true as const,
-      publiclyPublishable:
-        SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.publiclyPublishable,
-      mockTestEligible:
-        SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.mockTestEligible,
+      publiclyPublishable: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.publiclyPublishable,
+      mockTestEligible: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.mockTestEligible,
       manualApprovalRequired: true as const,
       automaticStudentPublication: false as const,
     },
-    questions: generated.questions.map((question) =>
-      productionQuestion(localizeSpatialStudioQuestionV1(question, language))),
+    questions,
   } as const;
 }
