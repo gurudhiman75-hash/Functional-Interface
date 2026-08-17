@@ -40,7 +40,7 @@ export function buildWor001QuestionStudioPayload(
     packageId: question.packageId,
     chapterId: question.chapterId,
     checkpointId: question.checkpointId,
-    canonicalProblemId: question.checkpointId,
+    canonicalProblemId: question.prototypeId,
     canonicalItemId: question.canonicalItemId,
     questionLanguageId: question.questionLanguageId,
     questionId: question.questionId,
