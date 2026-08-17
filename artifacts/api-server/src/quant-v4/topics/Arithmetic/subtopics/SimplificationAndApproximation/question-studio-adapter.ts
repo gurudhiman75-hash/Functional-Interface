@@ -345,6 +345,23 @@ function normalizePackage(
   });
 }
 
+function attemptFromPool(
+  descriptors: readonly SapQuestionStudioQlDescriptor[],
+  seed: string,
+  difficulty: SapQuestionStudioDifficulty | undefined,
+  attempts: number,
+) {
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    const descriptor = weightedPick(descriptors, seed, attempt);
+    const sourceSeed = numericSeed(seed, descriptor.qlId, attempt);
+    const registered = REGISTRATION_BY_QL.get(descriptor.qlId);
+    if (!registered) throw new Error(`Missing SAP generator registration for ${descriptor.qlId}.`);
+    const normalized = normalizePackage(descriptor, registered.generate(sourceSeed), seed, sourceSeed);
+    if (!difficulty || normalized.difficultyBand === difficulty) return normalized;
+  }
+  return undefined;
+}
+
 export function runSapQuestionStudioPipeline(
   checkpointId: SapQuestionStudioCpId,
   options: SapQuestionStudioPipelineOptions = {},
@@ -371,20 +388,29 @@ export function runSapQuestionStudioPipeline(
   if (!scoped.length) throw new Error(`No active SAP QLs are registered for ${checkpointId}.`);
 
   const seed = options.seed?.trim() || `quant-v4:SAP:${checkpointId}`;
-  const maxAttempts = explicitDescriptor ? 100 : Math.max(200, scoped.length * 20);
-  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
-    const descriptor = explicitDescriptor ?? weightedPick(scoped, seed, attempt);
-    const sourceSeed = numericSeed(seed, descriptor.qlId, attempt);
-    const registration = REGISTRATION_BY_QL.get(descriptor.qlId);
-    if (!registration) throw new Error(`Missing SAP generator registration for ${descriptor.qlId}.`);
-    const normalized = normalizePackage(descriptor, registration.generate(sourceSeed), seed, sourceSeed);
-    if (!options.difficulty || normalized.difficultyBand === options.difficulty) return normalized;
+  const scopedResult = attemptFromPool(
+    scoped,
+    seed,
+    options.difficulty,
+    explicitDescriptor ? 100 : Math.max(200, scoped.length * 20),
+  );
+  if (scopedResult) return scopedResult;
+
+  if (!explicitDescriptor && options.difficulty) {
+    const chapterPool = SAP_QUESTION_STUDIO_QLS.filter((entry) => entry.defaultWeight > 0);
+    const chapterResult = attemptFromPool(
+      chapterPool,
+      `${seed}:chapter-difficulty-fallback`,
+      options.difficulty,
+      Math.max(800, chapterPool.length * 12),
+    );
+    if (chapterResult) return chapterResult;
   }
 
   const scope = explicitQl ?? checkpointId;
   throw new Error(
     options.difficulty
-      ? `Unable to generate ${options.difficulty} SAP content from ${scope}; choose another difficulty or QL.`
+      ? `Unable to generate ${options.difficulty} SAP content from ${scope} or the registered chapter mix.`
       : `Unable to generate SAP content from ${scope}.`,
   );
 }
