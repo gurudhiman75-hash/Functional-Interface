@@ -6,14 +6,14 @@ import {
   polishSapLocalizedTextV2,
 } from "./polish-v2";
 import {
-  applySapLocalizationPolishV3,
-} from "./polish-v3";
+  applySapLocalizationPolishV4,
+} from "./polish-v4";
 import type { SapTranslationLanguage } from "./types";
 
 export { translateSapLearnerText, polishSapLocalizedTextV2 };
 
 export function localizeSapQuestionPackage(base: any, language: SapTranslationLanguage) {
-  return applySapLocalizationPolishV3(
+  return applySapLocalizationPolishV4(
     localizeSapQuestionPackageV1(base, language),
     language,
   );
