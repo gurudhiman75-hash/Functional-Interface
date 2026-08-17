@@ -24,9 +24,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  typecheck:
+  chapter-gate:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -34,6 +34,7 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
+
       - name: Strict TypeScript check
         working-directory: artifacts/api-server
         run: |
@@ -51,82 +52,49 @@ jobs:
             --types node \
             $(find src/reasoning-v1/topics/InputOutput/IOP-001 -name '*.ts' -print)
 
-  foundation-proof:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
       - name: Re-run CP001-CP004 foundation proof
         env:
           IOP_FOUNDATION_CASES: 80
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/foundation-proof.test.ts
 
-  advanced-proof:
-    runs-on: ubuntu-latest
-    timeout-minutes: 40
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
       - name: Run CP005-CP010 advanced proof
         env:
           IOP_ADVANCED_CASES: 40
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/advanced-proof.test.ts
 
-  mixed-source-gap-proof:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Run source-backed CP008 mixed transformation gap proof
+      - name: Run source-backed CP008 mixed transformation proof
         env:
           IOP_MIXED_SOURCE_CASES: 160
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/mixed-source-gap-proof.test.ts
 
-  permanent-allocation-proof:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
       - name: Prove source-normalized permanent QL allocation
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/permanent-authorities.test.ts
 
-  english-production-proof:
-    runs-on: ubuntu-latest
-    timeout-minutes: 40
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
       - name: Prove all eight English permanent authorities
         env:
           IOP_ENGLISH_CASES_PER_QL: 12
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-production.test.ts
 
-  english-review-export:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
       - name: Generate permanent English review pack
         env:
           IOP_ENGLISH_REVIEW_OUTPUT_DIR: /tmp/iop-english-permanent-review
           IOP_ENGLISH_REVIEW_EXAMPLES_PER_MODE: 2
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-review-export.ts
+
+      - name: Generate CP001-CP004 discovery review pack
+        env:
+          IOP_FOUNDATION_REVIEW_OUTPUT_DIR: /tmp/iop-foundation-review
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/review-export.ts
+
+      - name: Generate CP005-CP010 discovery review pack
+        env:
+          IOP_ADVANCED_REVIEW_OUTPUT_DIR: /tmp/iop-advanced-review
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/advanced-review-export.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
       - uses: actions/upload-artifact@v4
         with:
           name: iop-001-english-permanent-review
@@ -134,18 +102,6 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-  foundation-review-export:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Generate CP001-CP004 discovery review pack
-        env:
-          IOP_FOUNDATION_REVIEW_OUTPUT_DIR: /tmp/iop-foundation-review
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/review-export.ts
       - uses: actions/upload-artifact@v4
         with:
           name: iop-cp001-cp004-foundation-review
@@ -153,35 +109,9 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-  advanced-review-export:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Generate CP005-CP010 discovery review pack
-        env:
-          IOP_ADVANCED_REVIEW_OUTPUT_DIR: /tmp/iop-advanced-review
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/advanced-review-export.ts
       - uses: actions/upload-artifact@v4
         with:
           name: iop-cp005-cp010-advanced-review
           path: /tmp/iop-advanced-review/**
           if-no-files-found: error
           retention-days: 14
-
-  api-build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: corepack enable
-      - run: pnpm install --frozen-lockfile
-      - name: Build production API
-        working-directory: artifacts/api-server
-        run: pnpm run build
