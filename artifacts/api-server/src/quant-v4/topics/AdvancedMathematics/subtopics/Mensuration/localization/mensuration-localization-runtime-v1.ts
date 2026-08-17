@@ -38,10 +38,7 @@ import {
   protectMensurationFormulaIdentifiers,
   repairMensurationLearnerMathSurface,
 } from "./mensuration-localization-editorial-v1";
-import {
-  buildMensurationSimpleExplanationV1,
-  splitMensurationPromptV1,
-} from "./mensuration-localization-simple-solution-v1";
+import { buildMensurationSimpleExplanationV1 } from "./mensuration-localization-simple-solution-v1";
 
 export type MensurationLocalizedQuestionV1 = Omit<
   MensurationQuestionStudioQuestionV2,
@@ -123,16 +120,20 @@ function translateStem(text: string, language: MensurationLocalizedLanguage) {
 
 function localizedExplanationSteps(
   source: MensurationLocalizedQuestionV1,
-  localizedStem: string,
   localizedAnswer: string,
   language: MensurationLocalizedLanguage,
 ) {
   const labels = SOLUTION_LABELS[language];
-  const prompt = splitMensurationPromptV1(localizedStem);
 
   return source.explanation.steps.map((step) => {
-    if (step.startsWith("Given:")) return `${labels.given}: ${prompt.given}`;
-    if (step.startsWith("Asked:")) return `${labels.asked}: ${prompt.asked}`;
+    if (step.startsWith("Given:")) {
+      const body = step.slice("Given:".length).trim();
+      return `${labels.given}: ${translateStem(body, language)}`;
+    }
+    if (step.startsWith("Asked:")) {
+      const body = step.slice("Asked:".length).trim();
+      return `${labels.asked}: ${translateStem(body, language)}`;
+    }
     if (step.startsWith("Method:")) {
       const body = step.slice("Method:".length).trim();
       return `${labels.method}: ${translate(body, language)}`;
@@ -184,7 +185,7 @@ function localizeQuestion(
   const stem = translateStem(source.stem, language);
   const answer = options[source.correctIndex]!;
   const explanation = {
-    steps: localizedExplanationSteps(source, stem, answer, language),
+    steps: localizedExplanationSteps(source, answer, language),
     shortcut: "",
     traps: [],
   };
