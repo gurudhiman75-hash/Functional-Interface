@@ -165,20 +165,14 @@ router.post(
     }
 
     const count = asPositiveInteger(req.body?.count, 5, 50);
-    const defaultPackageId = numberSystemRequest
-      ? "NUM-001"
-      : timeAndWorkRequest
-        ? "TMW-001"
-        : "AVG-001";
-    const defaultSubtopic = numberSystemRequest
-      ? "Number System"
-      : timeAndWorkRequest
-        ? "Time & Work"
-        : "Average";
-    const packageId = asString(req.body?.packageId) || defaultPackageId;
+    const defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001";
+    const selectedPackageId = timeAndWorkRequest ? "TMW-001" : defaultPackageId;
+    const defaultSubtopic = numberSystemRequest ? "Number System" : "Average";
+    const selectedSubtopic = timeAndWorkRequest ? "Time & Work" : defaultSubtopic;
+    const packageId = asString(req.body?.packageId) || selectedPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
     const topic = asString(req.body?.topic) || "Arithmetic";
-    const subtopic = asString(req.body?.subtopic) || defaultSubtopic;
+    const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
     const subject = asString(req.body?.subject) || "Quantitative Aptitude";
     const language = normalizeLanguage(req.body?.language);
@@ -233,7 +227,7 @@ router.post(
 
     try {
       const result = await generateQuantV4Questions({
-        packageId: defaultPackageId as any,
+        packageId: selectedPackageId as any,
         patternId,
         topic,
         subtopic,
@@ -309,7 +303,7 @@ router.post(
             ${req.adminSession?.user.id ?? null}::uuid,
             'question_studio.generation_run.created', 'generation_run',
             ${runId}::uuid, 'Admin generated a Question Studio batch',
-            ${`Generated ${generatedQuestions.length} ${defaultPackageId} questions in ${code}`},
+            ${`Generated ${generatedQuestions.length} ${selectedPackageId} questions in ${code}`},
             ${JSON.stringify({ firebaseUid: req.user?.id, requestSnapshot })}
           )
         `;
@@ -333,7 +327,7 @@ router.post(
         generationSystem: "quant-v4",
       });
     } catch (error) {
-      console.error(`${defaultPackageId} Question Studio generation failed`, error);
+      console.error(`${selectedPackageId} Question Studio generation failed`, error);
       res.status(500).json({
         error: error instanceof Error ? error.message : "Question generation failed",
       });
