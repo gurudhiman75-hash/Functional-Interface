@@ -56,9 +56,9 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/sap-localization-diagnostic.mjs
           pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-LOCALIZATION-AUDIT.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-LOCALIZATION-RELEASE-AUDIT.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=dist/quant-v4/sap-localization-audit.mjs
+            --outfile=dist/quant-v4/sap-localization-release-audit.mjs
 
       - name: Run V3 editorial audit
         working-directory: artifacts/api-server
@@ -111,14 +111,14 @@ jobs:
             node dist/quant-v4/sap-localization-diagnostic.mjs \
             2>&1 | tee dist/quant-v4/sap-localization-diagnostic.log
 
-      - name: Run SAP Hindi Punjabi localization parity audit
+      - name: Run SAP Hindi Punjabi authored release audit
         working-directory: artifacts/api-server
         shell: bash
         run: |
           set -o pipefail
           timeout --signal=TERM --kill-after=30s 12m \
-            node dist/quant-v4/sap-localization-audit.mjs \
-            2>&1 | tee dist/quant-v4/sap-localization-audit.log
+            node dist/quant-v4/sap-localization-release-audit.mjs \
+            2>&1 | tee dist/quant-v4/sap-localization-release-audit.log
 
       - name: Upload release evidence and diagnostics
         if: always()
@@ -145,9 +145,9 @@ jobs:
             artifacts/api-server/dist/quant-v4/sap-localization-diagnostic.log
             artifacts/api-server/dist/quant-v4/sap-localization-diagnostic/sap-localization-diagnostic.json
             artifacts/api-server/dist/quant-v4/sap-localization-diagnostic/sap-localization-diagnostic.md
-            artifacts/api-server/dist/quant-v4/sap-localization-audit.log
-            artifacts/api-server/dist/quant-v4/sap-localization-review/sap-localization-review.json
-            artifacts/api-server/dist/quant-v4/sap-localization-review/sap-localization-review.csv
-            artifacts/api-server/dist/quant-v4/sap-localization-review/sap-localization-review.md
+            artifacts/api-server/dist/quant-v4/sap-localization-release-audit.log
+            artifacts/api-server/dist/quant-v4/sap-localization-release-review/sap-localization-release-review.json
+            artifacts/api-server/dist/quant-v4/sap-localization-release-review/sap-localization-release-review.csv
+            artifacts/api-server/dist/quant-v4/sap-localization-release-review/sap-localization-release-review.md
           if-no-files-found: warn
           retention-days: 30
