@@ -65,9 +65,9 @@ export const IOP_CP005_PROTOTYPES: readonly IopAdvancedPrototypeAuthority[] = [
   {
     prototypeId: "IOP-CP005-PROT-003",
     checkpointId: "IOP-CP-005",
-    title: "Arrange words by decreasing vowel count, one at a time from the right",
-    program: program("IOP-ADV-RULE-CP005-003", "IOP-CP-005", "LINEAR", [move("P1", "WORD", "VOWEL_COUNT", "DESC", "RIGHT_FIXED")]),
-    tokenKind: "WORD", tokenCount: 5, sourceStatus: SOURCE,
+    title: "Arrange words by decreasing length, one at a time from the right",
+    program: program("IOP-ADV-RULE-CP005-003", "IOP-CP-005", "LINEAR", [move("P1", "WORD", "WORD_LENGTH", "DESC", "RIGHT_FIXED")]),
+    tokenKind: "WORD", tokenCount: 6, sourceStatus: SOURCE,
   },
 ] as const;
 
