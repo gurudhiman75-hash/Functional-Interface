@@ -1,4 +1,4 @@
-import { applySapLocalizationPolishV4 } from "./polish-v4";
+import { applySapLocalizationPolishV6 } from "./polish-v6";
 import type { SapTranslationLanguage } from "./types";
 
 const PROTECTED_MATH = /\\\([\s\S]*?\\\)/gu;
@@ -72,7 +72,7 @@ function naturalnessErrors(pkg: any, language: SapTranslationLanguage) {
 }
 
 export function applySapLocalizationPolishV5(pkg: any, language: SapTranslationLanguage) {
-  const base = applySapLocalizationPolishV4(pkg, language);
+  const base = applySapLocalizationPolishV6(pkg, language);
   const naturalness = naturalnessErrors(base, language);
   const inheritedLocalizationErrors = Array.isArray(base.localizationValidation?.errors)
     ? base.localizationValidation.errors.map(String)
@@ -99,7 +99,7 @@ export function applySapLocalizationPolishV5(pkg: any, language: SapTranslationL
     }),
     traceability: Object.freeze({
       ...(base.traceability ?? {}),
-      localizationEditorialPolish: "SAP-HI-PA-EDITORIAL-POLISH-V5",
+      localizationEditorialPolish: "SAP-HI-PA-EDITORIAL-POLISH-V6+V5-GATE",
     }),
   });
 }
