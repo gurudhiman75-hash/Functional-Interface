@@ -49,7 +49,7 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/mvp-human-approved.test.ts
 
       - name: Execute 96-QL production gate
-        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-runtime-96.test.ts
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-runtime-96-diagnostic.ts
 
       - name: Create Phase 8 execution evidence
         if: success()
