@@ -40,8 +40,8 @@ function governingFormula(mode: string, language: TmwLanguage): string {
       return tr(
         language,
         "Filled fraction = Σ(interval net rate × duration); with both pipes open, net rate = filling-pipe rate − emptying-pipe rate.",
-        "भरा भाग = Σ(हर अवधि की शुद्ध दर × समय); दोनों पाइप खुले हों तो शुद्ध दर = भरने वाली पाइप की दर − खाली करने वाली पाइप की दर।",
-        "ਭਰਿਆ ਹਿੱਸਾ = Σ(ਹਰ ਅਵਧੀ ਦੀ ਸ਼ੁੱਧ ਦਰ × ਸਮਾਂ); ਦੋਵੇਂ ਪਾਈਪ ਖੁੱਲ੍ਹੇ ਹੋਣ ਤਾਂ ਸ਼ੁੱਧ ਦਰ = ਭਰਨ ਵਾਲੀ ਪਾਈਪ ਦੀ ਦਰ − ਖਾਲੀ ਕਰਨ ਵਾਲੀ ਪਾਈਪ ਦੀ ਦਰ।",
+        "भरा भाग = Σ(हर अंतराल की शुद्ध दर × समय); दोनों पाइप खुले हों तो शुद्ध दर = भराव पाइप की दर − निकासी पाइप की दर।",
+        "ਭਰਿਆ ਹਿੱਸਾ = Σ(ਹਰ ਅੰਤਰਾਲ ਦੀ ਸ਼ੁੱਧ ਦਰ × ਸਮਾਂ); ਦੋਵੇਂ ਪਾਈਪ ਖੁੱਲ੍ਹੇ ਹੋਣ ਤਾਂ ਸ਼ੁੱਧ ਦਰ = ਭਰਾਵ ਪਾਈਪ ਦੀ ਦਰ − ਨਿਕਾਸੀ ਪਾਈਪ ਦੀ ਦਰ।",
       );
     case "caseletStageOneOutput":
       return tr(
