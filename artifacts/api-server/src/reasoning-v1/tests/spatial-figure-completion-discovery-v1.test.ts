@@ -2,10 +2,10 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import {
   FGC_001_PROTOTYPES_V1,
-  generateFigureCompletionDiscoveryQuestionV1,
+  generateFigureCompletionDiscoveryQuestionV1Remediated,
   type FigureCompletionPrototypeV1,
   type FigureCompletionQuestionV1,
-} from "../foundation/spatial/figure-completion-discovery-v1";
+} from "../foundation/spatial/figure-completion-discovery-v1-remediated";
 import { renderSpatialSceneToSvg } from "../foundation/spatial/svg-renderer";
 import { validateSpatialScene, validateSpatialOptionUniqueness } from "../foundation/spatial/validator";
 import { validateSpatialPerceptualOptionUniquenessV2, validateLearnerVisibleExplanationV2 } from "../foundation/spatial/gap-question-perceptual-v2";
@@ -55,7 +55,7 @@ function provePrototype(prototypeId: FigureCompletionPrototypeV1): PrototypeProo
     const desiredCorrectOptionIndex = (accepted.length % 4) as 0 | 1 | 2 | 3;
     let question: FigureCompletionQuestionV1;
     try {
-      question = generateFigureCompletionDiscoveryQuestionV1({ prototypeId, seed, desiredCorrectOptionIndex });
+      question = generateFigureCompletionDiscoveryQuestionV1Remediated({ prototypeId, seed, desiredCorrectOptionIndex });
     } catch (error) {
       if (!isRetryableGenerationReject(error)) throw error;
       generationRejects += 1;
@@ -94,7 +94,7 @@ function provePrototype(prototypeId: FigureCompletionPrototypeV1): PrototypeProo
     ]);
     assert(explanationValidation.ok, `${prototypeId}: explanation visibility failed: ${explanationValidation.errors.join(", ")}`);
 
-    const replay = generateFigureCompletionDiscoveryQuestionV1({ prototypeId, seed, desiredCorrectOptionIndex });
+    const replay = generateFigureCompletionDiscoveryQuestionV1Remediated({ prototypeId, seed, desiredCorrectOptionIndex });
     assert(replay.deliveryFingerprint === question.deliveryFingerprint, `${prototypeId}: deterministic replay failed.`);
 
     renderSpatialSceneToSvg(question.stimulusScene, { ariaLabel: "Figure completion stimulus" });
