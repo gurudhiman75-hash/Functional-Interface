@@ -11,10 +11,74 @@ import type {
   IopEnglishProductionCaselet,
 } from "./english-production-types.ts";
 
+function hashSeed(seed: string): number {
+  let hash = 2166136261 >>> 0;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash ^= seed.charCodeAt(index);
+    hash = Math.imul(hash, 16777619) >>> 0;
+  }
+  return hash || 0x9e3779b9;
+}
+
+function makeRng(seed: string): () => number {
+  let state = hashSeed(seed);
+  return () => {
+    state ^= state << 13;
+    state ^= state >>> 17;
+    state ^= state << 5;
+    state >>>= 0;
+    return state / 0x100000000;
+  };
+}
+
+function shuffle<T>(values: readonly T[], rng: () => number): T[] {
+  const result = [...values];
+  for (let index = result.length - 1; index > 0; index -= 1) {
+    const other = Math.floor(rng() * (index + 1));
+    [result[index], result[other]] = [result[other]!, result[index]!];
+  }
+  return result;
+}
+
+function ordinal(value: number): string {
+  if (value % 100 >= 11 && value % 100 <= 13) return `${value}th`;
+  if (value % 10 === 1) return `${value}st`;
+  if (value % 10 === 2) return `${value}nd`;
+  if (value % 10 === 3) return `${value}rd`;
+  return `${value}th`;
+}
+
 function sourceMode(caselet: IopEnglishProductionCaselet): IopEnglishSourceModeAuthority {
   const mode = IOP_ENGLISH_SOURCE_MODES.find((candidate) => candidate.sourceModeId === caselet.sourceModeId);
   if (!mode) throw new Error(`Unknown English source mode ${caselet.sourceModeId}`);
   return mode;
+}
+
+function desiredSourceMode(qlId: IopPermanentQlId, seed: string, requested?: string): IopEnglishSourceModeAuthority {
+  const modes = IOP_ENGLISH_SOURCE_MODES.filter((mode) => mode.qlId === qlId);
+  if (modes.length === 0) throw new Error(`${qlId} has no English source mode`);
+  if (requested) {
+    const exact = modes.find((mode) => mode.sourceModeId === requested);
+    if (!exact) throw new Error(`${requested} is not whitelisted for ${qlId}`);
+    return exact;
+  }
+  return modes[hashSeed(`${seed}|MODE`) % modes.length]!;
+}
+
+function safeRawCaselet(seed: string, qlId: IopPermanentQlId, mode: IopEnglishSourceModeAuthority): IopEnglishProductionCaselet {
+  let lastError: unknown;
+  // The lower-level candidate currently rejects its old POSITION_OF_ELEMENT
+  // wording before the editorial layer can normalize it. Preserve the strict
+  // gate by regenerating the raw query mix, then add a clean position query
+  // explicitly below. No rule/trace failure is accepted through this retry.
+  for (let attempt = 0; attempt < 64; attempt += 1) {
+    try {
+      return generateIopEnglishProductionCaselet(`${seed}|RAW|${attempt}`, qlId, mode.sourceModeId);
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw new Error(`Unable to create a base English caselet for ${mode.sourceModeId}/${seed}: ${String(lastError)}`);
 }
 
 function learnerDirections(mode: IopEnglishSourceModeAuthority): string {
@@ -85,18 +149,58 @@ function polishChild(caselet: IopEnglishProductionCaselet, child: IopEnglishChil
   };
 }
 
+function positionQuestion(caselet: IopEnglishProductionCaselet, seed: string): IopEnglishChildQuestion {
+  const eligible = caselet.target.steps
+    .map((row, index) => ({ row, stepNumber: index + 1 }))
+    .filter(({ row }) => row.length >= 4 && new Set(row).size === row.length);
+  if (eligible.length === 0) throw new Error(`${caselet.sourceModeId} has no step suitable for a position query`);
+  const selected = eligible[hashSeed(`${seed}|STEP`) % eligible.length]!;
+  const position = 1 + (hashSeed(`${seed}|POSITION`) % selected.row.length);
+  const element = selected.row[position - 1]!;
+  const answerDisplay = `${ordinal(position)} from the left`;
+  const candidatePositions = Array.from({ length: selected.row.length }, (_, index) => index + 1).filter((value) => value !== position);
+  const wrongPositions = shuffle(candidatePositions, makeRng(`${seed}|WRONG`)).slice(0, 3);
+  if (wrongPositions.length < 3) throw new Error(`${caselet.sourceModeId} cannot support four position options`);
+  const options = shuffle([
+    { display: answerDisplay, semanticFingerprint: `POSITION:${position}`, isCorrect: true, misconception: "correct" },
+    ...wrongPositions.map((value) => ({
+      display: `${ordinal(value)} from the left`,
+      semanticFingerprint: `POSITION:${value}`,
+      isCorrect: false,
+      misconception: "off-by-one-position",
+    })),
+  ], makeRng(`${seed}|OPTIONS`)) as IopEnglishOption[];
+  const typedOptions = [options[0]!, options[1]!, options[2]!, options[3]!] as IopEnglishChildQuestion["options"];
+  const answerIndex = typedOptions.findIndex((option) => option.isCorrect) as 0 | 1 | 2 | 3;
+  return {
+    questionOrder: 4,
+    kind: "POSITION_OF_ELEMENT",
+    evidence: { kind: "POSITION_OF_ELEMENT", stepNumber: selected.stepNumber, element },
+    text: `What is the position of ${element} from the left in Step ${selected.stepNumber}?`,
+    options: typedOptions,
+    answerIndex,
+    answerDisplay,
+    explanation: `In Step ${selected.stepNumber}, ${element} is ${answerDisplay}.`,
+  };
+}
+
 export function generateIopEnglishReviewCaselet(
   seed: string,
   qlId: IopPermanentQlId,
   requestedSourceModeId?: string,
 ): IopEnglishProductionCaselet {
-  const raw = generateIopEnglishProductionCaselet(seed, qlId, requestedSourceModeId);
-  const mode = sourceMode(raw);
+  const mode = desiredSourceMode(qlId, seed, requestedSourceModeId);
+  const raw = safeRawCaselet(seed, qlId, mode);
+  let children = raw.children.map((child) => polishChild(raw, child)) as unknown as IopEnglishProductionCaselet["children"];
+  if (qlId === "IOP-QL-001" && mode.supportedSolveModes.includes("POSITION_OF_ELEMENT")) {
+    children = [children[0], children[1], children[2], positionQuestion(raw, `${seed}|POSITION-QUERY`)] as IopEnglishProductionCaselet["children"];
+  }
   const polished: IopEnglishProductionCaselet = {
     ...raw,
+    seed,
     difficulty: learnerDifficulty(mode),
     directions: learnerDirections(mode),
-    children: raw.children.map((child) => polishChild(raw, child)) as unknown as IopEnglishProductionCaselet["children"],
+    children,
   };
   assertIopEnglishReviewCaseletIntegrity(polished);
   return polished;
@@ -114,6 +218,7 @@ export function assertIopEnglishReviewCaseletIntegrity(caselet: IopEnglishProduc
   )) throw new Error(`${mode.sourceModeId} retained a mismatched generic direction`);
 
   for (const child of caselet.children) {
+    if (!mode.supportedSolveModes.includes(child.kind)) throw new Error(`${child.kind} is not supported by ${mode.sourceModeId}`);
     if (child.options.length !== 4 || new Set(child.options.map((option) => option.semanticFingerprint)).size !== 4) {
       throw new Error("English review child has duplicate semantic options");
     }
