@@ -38,7 +38,10 @@ import {
   protectMensurationFormulaIdentifiers,
   repairMensurationLearnerMathSurface,
 } from "./mensuration-localization-editorial-v1";
-import { buildMensurationSimpleExplanationV1 } from "./mensuration-localization-simple-solution-v1";
+import {
+  buildMensurationSimpleExplanationV1,
+  splitMensurationPromptV1,
+} from "./mensuration-localization-simple-solution-v1";
 
 export type MensurationLocalizedQuestionV1 = Omit<
   MensurationQuestionStudioQuestionV2,
@@ -83,6 +86,21 @@ export const MENSURATION_LOCALIZED_PACKAGE_V1 = {
   localizationStatus: "HINDI_PUNJABI_CONTROLLED_REVIEW" as const,
 } as const;
 
+const SOLUTION_LABELS = {
+  hi: {
+    given: "दिया है",
+    asked: "ज्ञात करना है",
+    method: "तरीका",
+    answer: "उत्तर",
+  },
+  pa: {
+    given: "ਦਿੱਤਾ ਹੈ",
+    asked: "ਪਤਾ ਕਰਨਾ ਹੈ",
+    method: "ਤਰੀਕਾ",
+    answer: "ਉੱਤਰ",
+  },
+} as const;
+
 function translate(text: string, language: MensurationLocalizedLanguage) {
   const editorialSource = prelocalizeMensurationEditorialSource(text, language);
   const structuredSource = prelocalizeMensurationStructuredInstructionSource(editorialSource, language);
@@ -101,6 +119,27 @@ function translateStem(text: string, language: MensurationLocalizedLanguage) {
   source = prelocalizeMensurationStemWordsV1(source, language);
   source = prelocalizeMensurationStemWordsAdvancedV1(source, language);
   return translate(source, language);
+}
+
+function localizedExplanationSteps(
+  source: MensurationLocalizedQuestionV1,
+  localizedStem: string,
+  localizedAnswer: string,
+  language: MensurationLocalizedLanguage,
+) {
+  const labels = SOLUTION_LABELS[language];
+  const prompt = splitMensurationPromptV1(localizedStem);
+
+  return source.explanation.steps.map((step) => {
+    if (step.startsWith("Given:")) return `${labels.given}: ${prompt.given}`;
+    if (step.startsWith("Asked:")) return `${labels.asked}: ${prompt.asked}`;
+    if (step.startsWith("Method:")) {
+      const body = step.slice("Method:".length).trim();
+      return `${labels.method}: ${translate(body, language)}`;
+    }
+    if (step.startsWith("Answer:")) return `${labels.answer}: ${localizedAnswer}`;
+    return translate(step, language);
+  });
 }
 
 function normalizeCanonicalQuestion(
@@ -143,12 +182,12 @@ function localizeQuestion(
     text: options[index]!,
   }));
   const stem = translateStem(source.stem, language);
+  const answer = options[source.correctIndex]!;
   const explanation = {
-    steps: source.explanation.steps.map((step) => translate(step, language)),
+    steps: localizedExplanationSteps(source, stem, answer, language),
     shortcut: "",
     traps: [],
   };
-  const answer = options[source.correctIndex]!;
   const learnerText = [stem, ...options, ...explanation.steps].join("\n");
   return {
     ...source,
