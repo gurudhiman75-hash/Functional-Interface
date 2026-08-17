@@ -9,7 +9,7 @@ import {
   INT_CP006_LOCALIZED_VERSION,
   generateIntCp006LocalizedQuestion,
   type IntCp006LocalizedLocale,
-} from "./cp006-si-ci-relations-localized-v1";
+} from "./cp006-si-ci-relations-localized-v2";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
 
@@ -46,7 +46,7 @@ function renderQuestion(question: ReviewQuestion, label: string): string {
 }
 
 const sections: string[] = [];
-sections.push("# INT-CP-006 V1 — Matched English / Hindi / Punjabi Review");
+sections.push("# INT-CP-006 — Matched English / Hindi / Punjabi Review");
 sections.push("");
 sections.push(`Localized runtime: **${INT_CP006_LOCALIZED_VERSION}**`);
 sections.push("");
@@ -79,7 +79,7 @@ for (const qlId of INT_CP006_QL_IDS) {
 
 const outputDirectory = path.resolve(process.cwd(), "dist/quant-v4");
 fs.mkdirSync(outputDirectory, { recursive: true });
-const output = path.join(outputDirectory, "INT-CP-006-V1-HI-PA-MATCHED-REVIEW.md");
+const output = path.join(outputDirectory, "INT-CP-006-HI-PA-MATCHED-REVIEW.md");
 fs.writeFileSync(output, `${sections.join("\n")}\n`, "utf8");
 console.log(JSON.stringify({ output, qls: INT_CP006_QL_IDS.length, matchedStates: states, learnerSurfaces: states * 3 }, null, 2));
 console.log("PASS_INT_CP006_V1_HI_PA_REVIEW_EXPORT");
