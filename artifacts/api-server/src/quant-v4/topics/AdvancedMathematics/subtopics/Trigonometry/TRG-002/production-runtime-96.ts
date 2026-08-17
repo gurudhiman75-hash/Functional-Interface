@@ -23,9 +23,20 @@ import {
   generateTrg002ProductionCp010ExpansionQuestion,
   type Trg002ProductionCp010ExpansionId,
 } from "./production-cp010-expansion";
+import {
+  TRG_002_CP009_CLEAN_OVERRIDE_IDS,
+  generateTrg002ProductionCp009CleanOverride,
+  type Trg002Cp009CleanOverrideId,
+} from "./production-cp009-clean-overrides";
+import {
+  TRG_002_CP010_CLEAN_OVERRIDE_IDS,
+  generateTrg002ProductionCp010CleanOverride,
+  type Trg002Cp010CleanOverrideId,
+} from "./production-cp010-clean-overrides";
 import { generateTrg002ProductionQl019Clean } from "./production-ql019-clean";
 import { generateTrg002ProductionQl021Clean } from "./production-ql021-clean";
 import { generateTrg002ProductionQl026Clean } from "./production-ql026-clean";
+import { generateTrg002ProductionQl042Clean } from "./production-ql042-clean";
 
 assertTrg002ProductionRegistry();
 
@@ -39,6 +50,13 @@ function expansionQuestion(qlId: string, seed: string) {
   if (qlId === "TRG-002-QL-019") return generateTrg002ProductionQl019Clean(seed);
   if (qlId === "TRG-002-QL-021") return generateTrg002ProductionQl021Clean(seed);
   if (qlId === "TRG-002-QL-026") return generateTrg002ProductionQl026Clean(seed);
+  if (qlId === "TRG-002-QL-042") return generateTrg002ProductionQl042Clean(seed);
+  if ((TRG_002_CP009_CLEAN_OVERRIDE_IDS as readonly string[]).includes(qlId)) {
+    return generateTrg002ProductionCp009CleanOverride(qlId as Trg002Cp009CleanOverrideId, seed);
+  }
+  if ((TRG_002_CP010_CLEAN_OVERRIDE_IDS as readonly string[]).includes(qlId)) {
+    return generateTrg002ProductionCp010CleanOverride(qlId as Trg002Cp010CleanOverrideId, seed);
+  }
   const n = numericId(qlId);
   if (n <= 24) return generateTrg002ProductionCp007ExpansionQuestion(qlId as Trg002ProductionCp007ExpansionId, seed);
   if (n <= 48) return generateTrg002ProductionCp008ExpansionQuestion(qlId as Trg002ProductionCp008ExpansionId, seed);
