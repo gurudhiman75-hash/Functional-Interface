@@ -7,6 +7,7 @@ on:
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**'
       - 'artifacts/api-server/src/routes/admin-question-studio-word-dictionary-order.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-wor-lifecycle.ts'
       - 'artifacts/api-server/src/routes/index.ts'
       - 'artifacts/admin-app/src/features/question-studio/word-dictionary-order-review-api.ts'
       - 'artifacts/admin-app/src/pages/content/QuestionStudioWordDictionaryOrderReviewPanel.tsx'
@@ -18,6 +19,7 @@ on:
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**'
       - 'artifacts/api-server/src/routes/admin-question-studio-word-dictionary-order.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-wor-lifecycle.ts'
       - 'artifacts/api-server/src/routes/index.ts'
       - 'artifacts/admin-app/src/features/question-studio/word-dictionary-order-review-api.ts'
       - 'artifacts/admin-app/src/pages/content/QuestionStudioWordDictionaryOrderReviewPanel.tsx'
