@@ -62,9 +62,10 @@ interface Row {
 const packageCard = listQuantV4Packages().find((entry: any) => entry.packageId === "SAP") as any;
 assert.ok(packageCard);
 assert.deepEqual(packageCard.supportedLanguages, ["en", "hi", "pa"]);
-assert.equal(packageCard.questionBankStatus, "NOT_STORED");
-assert.equal(packageCard.testEligibility, "INELIGIBLE");
-assert.equal(packageCard.publiclyPublishable, false);
+assert.equal(packageCard.questionBankStatus, "WRITABLE");
+assert.equal(packageCard.questionBankWritable, true);
+assert.equal(packageCard.testEligibility, "ELIGIBLE");
+assert.equal(packageCard.publiclyPublishable, true);
 
 const rows: Row[] = [];
 const failures: Array<{ qlId: string; language: string; reasons: string[] }> = [];
@@ -101,9 +102,11 @@ for (const descriptor of SAP_QUESTION_STUDIO_QLS) {
     if (localized.traceability?.localizedStemAuthorship !== "SAP-QL-FAMILY-STEM-V4") reasons.push("V4 authored stem missing");
     if (localized.localizationValidation?.ok !== true) reasons.push("package localization validation failed");
     if (localized.options?.[localized.correctIndex] !== localized.answer) reasons.push("answer binding failed");
-    if (localized.questionBankStatus !== "NOT_STORED") reasons.push("question bank unexpectedly writable");
-    if (localized.testEligibility !== "INELIGIBLE") reasons.push("test eligibility unexpectedly enabled");
-    if (localized.publiclyPublishable !== false) reasons.push("public publication unexpectedly enabled");
+    if (localized.questionBankStatus !== "WRITABLE") reasons.push("question bank lifecycle is not writable");
+    if (localized.questionBankWritable !== true) reasons.push("question bank write capability missing");
+    if (localized.testEligibility !== "ELIGIBLE") reasons.push("test eligibility is not enabled");
+    if (localized.testEligible !== true) reasons.push("test-eligible capability missing");
+    if (localized.publiclyPublishable !== true) reasons.push("standard downstream publishability missing");
 
     const text = learnerText(localized);
     const leaks = latinLeaks(text);
@@ -149,9 +152,11 @@ for (const language of ["hi", "pa"] as const) {
     assert.equal(result.questions.length, 50, `${language}/${difficulty}: Cockpit batch under-filled.`);
     assert.ok(result.questions.every((q: any) => q.language === language));
     assert.ok(result.questions.every((q: any) => q.difficultyLabel === difficulty));
-    assert.ok(result.questions.every((q: any) => q.questionBankStatus === "NOT_STORED"));
-    assert.ok(result.questions.every((q: any) => q.testEligibility === "INELIGIBLE"));
-    assert.ok(result.questions.every((q: any) => q.publiclyPublishable === false));
+    assert.ok(result.questions.every((q: any) => q.questionBankStatus === "WRITABLE"));
+    assert.ok(result.questions.every((q: any) => q.questionBankWritable === true));
+    assert.ok(result.questions.every((q: any) => q.testEligibility === "ELIGIBLE"));
+    assert.ok(result.questions.every((q: any) => q.testEligible === true));
+    assert.ok(result.questions.every((q: any) => q.publiclyPublishable === true));
     cockpitRuns[`${language}-${difficulty}`] = result.questions.length;
   }
 }
@@ -165,9 +170,10 @@ const summary = {
   failureCount: failures.length,
   failedQlCount: new Set(failures.map((f) => f.qlId)).size,
   cockpitRuns,
-  questionBankStatus: "NOT_STORED",
-  testEligibility: "INELIGIBLE",
-  publiclyPublishable: false,
+  questionBankStatus: "WRITABLE",
+  questionBankWritable: true,
+  testEligibility: "ELIGIBLE",
+  publiclyPublishable: true,
 };
 
 const jsonPath = resolve(OUTPUT, "sap-localization-release-review.json");

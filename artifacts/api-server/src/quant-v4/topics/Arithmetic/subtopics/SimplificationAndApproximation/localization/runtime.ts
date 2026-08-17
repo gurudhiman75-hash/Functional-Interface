@@ -56,5 +56,20 @@ export function localizeSapQuestionPackage(base: any, language: SapTranslationLa
   const humanReviewedV8 = applySapHumanReviewPolishV8(base, authoredLastV7, language);
   const humanReviewedV9 = applySapHumanReviewFinalV9(base, humanReviewedV8, language);
   const ql062FinalV10 = applySapQl062FinalV10(base, humanReviewedV9, language);
-  return applySapAuthoredPresentationV3(base, ql062FinalV10, language);
+  const authoredFinal = applySapAuthoredPresentationV3(base, ql062FinalV10, language);
+
+  return Object.freeze({
+    ...authoredFinal,
+    questionBankStatus: "WRITABLE" as const,
+    questionBankWritable: true as const,
+    testEligibility: "ELIGIBLE" as const,
+    testEligible: true as const,
+    publiclyPublishable: true as const,
+    traceability: Object.freeze({
+      ...(authoredFinal.traceability ?? {}),
+      questionBankWritable: true,
+      testEligible: true,
+      publiclyPublishable: true,
+    }),
+  });
 }
