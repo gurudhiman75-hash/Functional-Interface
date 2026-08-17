@@ -39,7 +39,7 @@ function explainChild(caselet: IopEnglishProductionCaselet, child: IopEnglishChi
     return [
       "We need the final output for the new input.",
       ruleParagraph(caselet),
-      `Applying the same rule until the machine is complete gives:\n${traceLines(trace, trace.steps.length)}`,
+      `Applying the same rule to the new input until the machine is complete gives:\n${traceLines(trace, trace.steps.length)}`,
       `The last generated step is the final output: ${child.answerDisplay}.`,
       finalAnswer(child.answerDisplay),
     ].join("\n\n");
@@ -98,9 +98,9 @@ function explainChild(caselet: IopEnglishProductionCaselet, child: IopEnglishChi
     const missing = trace.steps[evidence.missingStepNumber - 1]!;
     const after = trace.steps[evidence.missingStepNumber]!;
     return [
-      `We have to fill the missing Step ${evidence.missingStepNumber}.`,
+      `We have to fill the missing Step ${evidence.missingStepNumber} for the new input.`,
       ruleParagraph(caselet),
-      `The relevant part of the new-input trace is:\nStep ${evidence.missingStepNumber - 1}: ${renderRow(before)}\nStep ${evidence.missingStepNumber}: ${renderRow(missing)}\nStep ${evidence.missingStepNumber + 1}: ${renderRow(after)}`,
+      `For the new input, the relevant consecutive states are:\nStep ${evidence.missingStepNumber - 1}: ${renderRow(before)}\nStep ${evidence.missingStepNumber}: ${renderRow(missing)}\nStep ${evidence.missingStepNumber + 1}: ${renderRow(after)}`,
       `Applying one machine step to the printed previous state gives ${child.answerDisplay}; applying the rule once more reaches the printed following state.`,
       finalAnswer(child.answerDisplay),
     ].join("\n\n");
