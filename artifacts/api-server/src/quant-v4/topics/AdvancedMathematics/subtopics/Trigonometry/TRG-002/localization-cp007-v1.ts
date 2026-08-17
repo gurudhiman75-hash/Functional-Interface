@@ -75,31 +75,29 @@ function sameCoordinate(first: AnyQuestion, second: AnyQuestion) {
     && Math.abs(exactToNumber(first.y) - exactToNumber(second.y)) <= 1e-9;
 }
 
-function targetObjectFor(state: State, observation: AnyQuestion) {
+function targetObjectIfPresent(state: State, observation: AnyQuestion, target: AnyQuestion) {
   const direct = state.verticalObjects.find((item: AnyQuestion) => item.topPointId === observation.targetPointId);
   if (direct) return direct;
-
   if (state.requested?.kind === "OBJECT_HEIGHT") {
     const requested = state.verticalObjects.find((item: AnyQuestion) => item.id === state.requested.objectId);
     if (requested) return requested;
   }
-
-  const target = point(state, observation.targetPointId);
-  const coordinateMatch = state.verticalObjects.find((item: AnyQuestion) => {
+  return state.verticalObjects.find((item: AnyQuestion) => {
     const top = state.points.find((candidate: AnyQuestion) => candidate.id === item.topPointId);
     return top ? sameCoordinate(top, target) : false;
   });
-  if (coordinateMatch) return coordinateMatch;
-
-  const nonObserverObjects = state.verticalObjects.filter((item: AnyQuestion) => item.topPointId !== observation.eyePointId);
-  if (nonObserverObjects.length === 1) return nonObserverObjects[0];
-  if (state.verticalObjects.length === 1) return state.verticalObjects[0];
-
-  throw new Error(`TRG-002 localization: cannot resolve target object for ${observation.targetPointId}.`);
 }
 
-function objectName(kind: string, locale: Trg002LocalizedLocale) {
-  return OBJECT_NAMES[locale][kind as NativeObjectKind] ?? native(locale, "वस्तु", "ਵਸਤੂ");
+function fallbackKind(state: State, observation: AnyQuestion): NativeObjectKind {
+  const scenario = state.scenario as string;
+  if (["TOWER", "BUILDING", "POLE", "FLAGPOLE", "TREE", "CHIMNEY", "MAST", "WALL"].includes(scenario)) {
+    return scenario as NativeObjectKind;
+  }
+  return observation.classification === "DEPRESSION" ? "POLE" : "TOWER";
+}
+
+function objectName(kind: NativeObjectKind, locale: Trg002LocalizedLocale) {
+  return OBJECT_NAMES[locale][kind];
 }
 
 function cp007Geometry(question: AnyQuestion) {
@@ -110,18 +108,20 @@ function cp007Geometry(question: AnyQuestion) {
   const observer = observerFor(state, observation);
   const eye = point(state, observation.eyePointId);
   const target = point(state, observation.targetPointId);
-  const targetObject = targetObjectFor(state, observation);
+  const targetObject = targetObjectIfPresent(state, observation, target);
   const horizontal = absoluteExactDifference(eye.x, target.x);
   const verticalDelta = absoluteExactDifference(eye.y, target.y);
+  const targetHeight = absoluteExactDifference(target.y, state.groundY);
   const sightLine = assertDefined(divideExact(verticalDelta, requireTrigExact("SIN", observation.angle)));
-  return { state, observation, observer, eye, target, targetObject, horizontal, verticalDelta, sightLine, angleText: degreesText(observation.angle) };
+  const targetKind = (targetObject?.kind as NativeObjectKind | undefined) ?? fallbackKind(state, observation);
+  return { state, observation, observer, eye, target, horizontal, verticalDelta, targetHeight, sightLine, targetKind, angleText: degreesText(observation.angle) };
 }
 
 function localizedStem(question: AnyQuestion, locale: Trg002LocalizedLocale) {
   const g = cp007Geometry(question);
-  const object = objectName(g.targetObject.kind, locale);
+  const object = objectName(g.targetKind, locale);
   const horizontal = exactText(g.horizontal);
-  const height = exactText(g.targetObject.height);
+  const height = exactText(g.targetHeight);
   const observerHeight = exactText(g.observer.eyeHeight);
   const sight = exactText(g.sightLine);
   const angle = g.angleText;
@@ -162,7 +162,7 @@ function localizedStem(question: AnyQuestion, locale: Trg002LocalizedLocale) {
         `ਜ਼ਮੀਨ ਤੋਂ ${observerHeight} m ਉੱਚੇ ਨਿਰੀਖਣ ਬਿੰਦੂ ਤੋਂ ${horizontal} m ਦੂਰ ਸਥਿਤ ${object} ਦੀ ਚੋਟੀ ਦਾ ਅਵਨਮਨ ਕੋਣ ${angle} ਹੈ। ${object} ਦੀ ਉਚਾਈ ਕੱਢੋ।`);
     }
     if (g.state.requested.kind === "HORIZONTAL_DISTANCE") {
-      if (Math.abs(exactToNumber(g.targetObject.height)) <= 1e-12) {
+      if (Math.abs(exactToNumber(g.targetHeight)) <= 1e-12) {
         return native(locale,
           `${observerHeight} m ऊँचे अवलोकन बिंदु से समतल जमीन पर एक बिंदु ${angle} के अवनमन कोण पर दिखाई देता है। उस बिंदु तक क्षैतिज दूरी ज्ञात कीजिए।`,
           `${observerHeight} m ਉੱਚੇ ਨਿਰੀਖਣ ਬਿੰਦੂ ਤੋਂ ਸਮਤਲ ਜ਼ਮੀਨ ਉੱਤੇ ਇੱਕ ਬਿੰਦੂ ${angle} ਦੇ ਅਵਨਮਨ ਕੋਣ 'ਤੇ ਦਿਸਦਾ ਹੈ। ਉਸ ਬਿੰਦੂ ਤੱਕ ਖਿਤਿਜੀ ਦੂਰੀ ਕੱਢੋ।`);
@@ -178,7 +178,7 @@ function localizedStem(question: AnyQuestion, locale: Trg002LocalizedLocale) {
 function localizedExplanation(question: AnyQuestion, locale: Trg002LocalizedLocale) {
   const g = cp007Geometry(question);
   const horizontal = exactText(g.horizontal);
-  const height = exactText(g.targetObject.height);
+  const height = exactText(g.targetHeight);
   const observerHeight = exactText(g.observer.eyeHeight);
   const drop = exactText(g.verticalDelta);
   const sight = exactText(g.sightLine);
