@@ -1,0 +1,83 @@
+import type { Trg002Mvp48Id } from "./mvp-48-registry";
+import { generateHumanApprovedTrg002Mvp48Question } from "./mvp-human-approved-runtime";
+import {
+  TRG_002_FROZEN_MVP_48_ID_SET,
+  TRG_002_PRODUCTION_96_IDS,
+  TRG_002_PRODUCTION_EXPANSION_48_ID_SET,
+  assertTrg002ProductionRegistry,
+  type Trg002Production96Id,
+} from "./production-96-registry";
+import {
+  generateTrg002ProductionCp007ExpansionQuestion,
+  type Trg002ProductionCp007ExpansionId,
+} from "./production-cp007-expansion";
+import {
+  generateTrg002ProductionCp008ExpansionQuestion,
+  type Trg002ProductionCp008ExpansionId,
+} from "./production-cp008-expansion";
+import {
+  generateTrg002ProductionCp009ExpansionQuestion,
+  type Trg002ProductionCp009ExpansionId,
+} from "./production-cp009-expansion";
+import {
+  generateTrg002ProductionCp010ExpansionQuestion,
+  type Trg002ProductionCp010ExpansionId,
+} from "./production-cp010-expansion";
+
+assertTrg002ProductionRegistry();
+
+function numericId(qlId: string) {
+  const value = Number(qlId.slice(-3));
+  if (!Number.isInteger(value)) throw new Error(`Invalid TRG-002 production ID ${qlId}.`);
+  return value;
+}
+
+function expansionQuestion(qlId: string, seed: string) {
+  const n = numericId(qlId);
+  if (n <= 24) return generateTrg002ProductionCp007ExpansionQuestion(qlId as Trg002ProductionCp007ExpansionId, seed);
+  if (n <= 48) return generateTrg002ProductionCp008ExpansionQuestion(qlId as Trg002ProductionCp008ExpansionId, seed);
+  if (n <= 72) return generateTrg002ProductionCp009ExpansionQuestion(qlId as Trg002ProductionCp009ExpansionId, seed);
+  return generateTrg002ProductionCp010ExpansionQuestion(qlId as Trg002ProductionCp010ExpansionId, seed);
+}
+
+export function generateTrg002Production96Question(qlId: Trg002Production96Id, seed: string) {
+  if (!TRG_002_PRODUCTION_96_IDS.includes(qlId)) throw new Error(`Unknown TRG-002 production QL ${qlId}.`);
+  if (TRG_002_FROZEN_MVP_48_ID_SET.has(qlId)) {
+    const question: any = generateHumanApprovedTrg002Mvp48Question(qlId as Trg002Mvp48Id, seed);
+    return {
+      ...question,
+      productionCandidate: true,
+      productionBaseline: "FROZEN_MVP_48" as const,
+      productionExpansion: false,
+      productionQlTarget: 96,
+      activationAuthorized: false,
+    };
+  }
+  if (!TRG_002_PRODUCTION_EXPANSION_48_ID_SET.has(qlId)) throw new Error(`${qlId}: missing from TRG-002 production expansion registry.`);
+  const question: any = expansionQuestion(qlId, seed);
+  return {
+    ...question,
+    productionCandidate: true,
+    productionBaseline: "PHASE8_EXPANSION_48" as const,
+    productionExpansion: true,
+    productionQlTarget: 96,
+    frozen: false,
+    freezeStatus: "NOT_FROZEN" as const,
+    freezeEligible: false,
+    reviewStatus: "UNREVIEWED" as const,
+    aiEditorialStatus: "PENDING" as const,
+    humanReviewStatus: "PENDING" as const,
+    activationAuthorized: false,
+    questionBankStatus: "NOT_STORED",
+    testEligibility: "INELIGIBLE",
+    publiclyPublishable: false,
+    questionStudioDiscoverable: false,
+  };
+}
+
+export function generateAllTrg002Production96Questions(seedPrefix = "trg002-production") {
+  return TRG_002_PRODUCTION_96_IDS.map((qlId, index) => {
+    const seed = `${seedPrefix}-${String(index + 1).padStart(3, "0")}`;
+    return generateTrg002Production96Question(qlId, seed);
+  });
+}
