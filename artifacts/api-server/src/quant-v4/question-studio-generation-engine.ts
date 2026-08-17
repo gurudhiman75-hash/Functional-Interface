@@ -25,11 +25,17 @@ import {
 } from "./topics/Arithmetic/subtopics/NumberSystem/NUM-001/question-studio-adapter";
 import {
   SAP_QUESTION_STUDIO_CP_IDS,
-  SAP_QUESTION_STUDIO_LANGUAGES,
   inferSapQuestionStudioCpFromQl,
   runSapQuestionStudioPipeline,
   type SapQuestionStudioCpId,
 } from "./topics/Arithmetic/subtopics/SimplificationAndApproximation/question-studio-adapter";
+import {
+  localizeSapQuestionPackage,
+} from "./topics/Arithmetic/subtopics/SimplificationAndApproximation/localization/runtime";
+import {
+  SAP_LOCALIZED_LANGUAGES,
+  type SapTranslationLanguage,
+} from "./topics/Arithmetic/subtopics/SimplificationAndApproximation/localization/types";
 
 export type QuestionStudioQuantV4PackageId =
   | NonNullable<QuantV4GenerationRequest["packageId"]>
@@ -79,7 +85,7 @@ const SAP_PACKAGE_DEFINITION = {
   subtopic: "Simplification & Approximation",
   label: "Simplification & Approximation",
   cpIds: SAP_QUESTION_STUDIO_CP_IDS,
-  supportedLanguages: SAP_QUESTION_STUDIO_LANGUAGES,
+  supportedLanguages: SAP_LOCALIZED_LANGUAGES,
 };
 
 function normalizeSelector(value: unknown) {
@@ -270,7 +276,7 @@ function simplificationPackageCard() {
     enabled: true,
     runtimeMode: "QUESTION_STUDIO_ACTIVE",
     supportedRuntimeModes: ["QUESTION_STUDIO_ACTIVE"],
-    reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+    reviewStatus: "ENGLISH_APPROVED_LOCALIZATION_REVIEW",
     questionBankStatus: "NOT_STORED",
     testEligibility: "INELIGIBLE",
     publiclyPublishable: false,
@@ -536,6 +542,7 @@ function toSapQuestionStudioPreview(
     semanticMetadata: traceability,
     traceability,
     validation: pkg.validation,
+    localizationValidation: pkg.localizationValidation,
     questionId: pkg.questionId,
     seed: context.seed,
     answer: pkg.answer,
@@ -564,6 +571,7 @@ function toSapQuestionStudioPreview(
       testEligibility: pkg.testEligibility,
       publiclyPublishable: pkg.publiclyPublishable,
       releaseId: traceability.releaseId,
+      localizationVersion: traceability.localizationVersion,
     },
     questionIndex: context.questionIndex,
     questionCount: context.questionCount,
@@ -589,6 +597,7 @@ function toSapQuestionStudioPreview(
       seed: context.seed,
       semanticMetadata: traceability,
       validatorReports: pkg.validation,
+      localizationValidation: pkg.localizationValidation,
       releaseId: traceability.releaseId,
     },
   };
@@ -880,8 +889,8 @@ async function generateSimplificationQuestion(
   request: QuestionStudioQuantV4GenerationRequest,
 ) {
   const language = (request.language ?? "en") as QuantV4Language;
-  if (language !== "en") {
-    throw new Error("SAP supports English generation only in Question Studio.");
+  if (!SAP_LOCALIZED_LANGUAGES.includes(language as "en" | "hi" | "pa")) {
+    throw new Error(`SAP does not support Question Studio language ${language}.`);
   }
 
   const count = Math.min(
@@ -904,7 +913,7 @@ async function generateSimplificationQuestion(
   const fixedCp = (explicitCp ?? inferredCp) as SapQuestionStudioCpId | undefined;
   const batchSeed =
     request.seed ??
-    `quant-v4:SAP:${fixedCp ?? "mixed"}:${Date.now()}:${Math.random()
+    `quant-v4:SAP:${language}:${fixedCp ?? "mixed"}:${Date.now()}:${Math.random()
       .toString(36)
       .slice(2)}`;
   const cpOffset =
@@ -921,12 +930,15 @@ async function generateSimplificationQuestion(
         (cpOffset + index) % SAP_QUESTION_STUDIO_CP_IDS.length
       ]) as SapQuestionStudioCpId;
     const seed = `${batchSeed}:${cpId}:${index}`;
-    const pkg = runSapQuestionStudioPipeline(cpId, {
+    const englishPackage = runSapQuestionStudioPipeline(cpId, {
       difficulty,
       language: "en",
       questionLanguageId: request.questionLanguageId,
       seed,
     });
+    const pkg = language === "en"
+      ? englishPackage
+      : localizeSapQuestionPackage(englishPackage, language as SapTranslationLanguage);
     questionPackages.push(pkg);
     questions.push(
       toSapQuestionStudioPreview(pkg, {
@@ -944,12 +956,15 @@ async function generateSimplificationQuestion(
       seed: batchSeed,
       timestamp: Date.now(),
       runtimeMode: "QUESTION_STUDIO_ACTIVE",
-      reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+      reviewStatus: language === "en"
+        ? "APPROVED_EDITORIAL_ENGLISH"
+        : "LOCALIZATION_REVIEW_CANDIDATE",
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
       releaseId: first?.traceability?.releaseId,
-      language: "en",
+      language,
+      localizationVersion: first?.traceability?.localizationVersion,
       canonicalProblemId: fixedCp ?? "MIXED",
     },
     questionPackages,

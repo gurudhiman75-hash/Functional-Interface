@@ -177,12 +177,6 @@ router.post(
       });
       return;
     }
-    if (simplificationRequest && language !== "en") {
-      res.status(400).json({
-        error: "SAP supports English Question Studio generation only.",
-      });
-      return;
-    }
 
     const runId = randomUUID();
     const code = publicRunCode();
