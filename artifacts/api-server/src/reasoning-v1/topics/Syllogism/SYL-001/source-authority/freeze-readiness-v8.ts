@@ -14,8 +14,8 @@ function supersedeRequirement(requirement: SylFreezeRequirementV7): SylFreezeReq
     return {
       ...requirement,
       status: "BLOCKED",
-      evidence: `${SYL_BANKING_CROSS_EXAM_CENSUS_V5.authorityId} now spans ${SYL_BANKING_CROSS_EXAM_CENSUS_V5.examSeriesCount} Banking exam series and ${SYL_BANKING_CROSS_EXAM_CENSUS_V5.structuralQuestionRecordsObserved} structural question records, including ${SYL_BANKING_CROSS_EXAM_CENSUS_V5.archiveCompleteOfficerLevelShiftCount} archive-complete officer-level shifts. The second complete RRB PO shift also proves that complementary Either/Or is an independent conclusion-set relationship rather than a conclusion semantic feature, increasing the minimum factorized weighting architecture from three to ${SYL_BANKING_CROSS_EXAM_CENSUS_V5.minimumIndependentDimensions} independent dimensions. Exact source-profile percentages remain blocked pending broader systematic sampling, independent count corroboration where missing, conflict resolution where possible, and product-owner sign-off.`,
-      unblockAction: "Complete broader systematic paper-day sampling using separate conclusion-structure, conclusion-semantic-feature, premise-overlay and conclusion-set-relationship dimensions; independently corroborate single-source complete-shift counts where possible; reconcile known source conflicts; then obtain product-owner sign-off on a separate inactive factorized weighting model before any production-profile change.",
+      evidence: `${SYL_BANKING_CROSS_EXAM_CENSUS_V5.authorityId} now spans ${SYL_BANKING_CROSS_EXAM_CENSUS_V5.examSeriesCount} Banking exam series and ${SYL_BANKING_CROSS_EXAM_CENSUS_V5.structuralQuestionRecordsObserved} structural question records, including ${SYL_BANKING_CROSS_EXAM_CENSUS_V5.archiveCompleteOfficerLevelShiftCount} complete, independently count-corroborated officer-level shifts. The second complete RRB PO shift also proves that complementary Either/Or is an independent conclusion-set relationship rather than a conclusion semantic feature, increasing the minimum factorized weighting architecture from three to ${SYL_BANKING_CROSS_EXAM_CENSUS_V5.minimumIndependentDimensions} independent dimensions. Exact source-profile percentages remain blocked pending broader systematic sampling, conflict resolution where possible, and product-owner sign-off.`,
+      unblockAction: "Complete broader systematic paper-day sampling using separate conclusion-structure, conclusion-semantic-feature, premise-overlay and conclusion-set-relationship dimensions; reconcile known source conflicts where possible; then obtain product-owner sign-off on a separate inactive factorized weighting model before any production-profile change.",
     };
   }
 
@@ -53,7 +53,7 @@ export const SYL_FREEZE_READINESS_V8 = Object.freeze({
   bankingWeightModelArchitectureClarified: true,
   bankingSystematicCrossSeriesWeightSampleComplete: false,
   bankingKnownSourceConflictsRemain: true,
-  bankingSingleCountSourceCompleteShiftNeedsIndependentCorroboration: true,
+  bankingSingleCountSourceCompleteShiftNeedsIndependentCorroboration: false,
   bankingExactWeightingFrozen: false,
   exactPercentageWeightingPermitted: false,
   currentProvisionalBankingMixChanged: false,
@@ -73,7 +73,6 @@ export const SYL_FREEZE_READINESS_V8 = Object.freeze({
   nextCriticalPath: [
     "Complete human EN/HI/PA editorial and visual review of ordinary Banking possibility and can-never candidates.",
     "Expand the four-factor Banking census across additional SBI PO and IBPS PO paper-days; retain unresolved or conflicting source counts explicitly instead of imputing them.",
-    "Seek independent count corroboration for the archive-complete IBPS RRB PO 04-Aug-2024 Shift-4 sample.",
     "After systematic sampling is sufficient, design a separate inactive four-factor Banking planner candidate; do not mutate the current provisional production mix inside source-evidence work.",
     "Resolve SSC adapted-practice and Punjab source-coverage gaps before broader profile freeze.",
     "Calibrate difficulty after controlled learner accuracy and solve-time evidence exists.",
