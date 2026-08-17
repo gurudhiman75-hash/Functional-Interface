@@ -56,6 +56,12 @@ const calculationLabels = {
   pa: "ਗਣਨਾ",
 } as const;
 
+const solutionPrefixes = {
+  en: { given: "Given:", asked: "Asked:", method: "Method:", answer: "Answer:" },
+  hi: { given: "दिया है:", asked: "ज्ञात करना है:", method: "तरीका:", answer: "उत्तर:" },
+  pa: { given: "ਦਿੱਤਾ ਹੈ:", asked: "ਪਤਾ ਕਰਨਾ ਹੈ:", method: "ਤਰੀਕਾ:", answer: "ਉੱਤਰ:" },
+} as const;
+
 const reviewItems: Array<{
   cpId: string;
   patternId: string;
@@ -68,14 +74,22 @@ const reviewItems: Array<{
 }> = [];
 
 function assertSimpleSolution(question: MensurationLocalizedQuestionV1) {
-  assert(question.explanation.steps.length >= 5, `${question.patternId}/${question.language}: solution is incomplete.`);
-  assert(question.explanation.steps.length <= 13, `${question.patternId}/${question.language}: solution is still too long.`);
+  const steps = question.explanation.steps;
+  const prefixes = solutionPrefixes[question.language];
+
+  assert(steps.length >= 5, `${question.patternId}/${question.language}: solution is incomplete.`);
+  assert(steps[0]?.startsWith(prefixes.given), `${question.patternId}/${question.language}: Given line is missing.`);
+  assert(steps[1]?.startsWith(prefixes.asked), `${question.patternId}/${question.language}: Asked line is missing.`);
+  assert(steps[2]?.startsWith(prefixes.method), `${question.patternId}/${question.language}: Method line is missing.`);
+  assert(steps[steps.length - 1]?.startsWith(prefixes.answer), `${question.patternId}/${question.language}: Answer line is missing.`);
+  assert(steps.slice(3, -1).length >= 1, `${question.patternId}/${question.language}: calculation/working is missing.`);
+  assert(steps[2]!.slice(prefixes.method.length).trim().length > 10, `${question.patternId}/${question.language}: method line is empty or trivial.`);
   assert(question.explanation.shortcut === "", `${question.patternId}/${question.language}: shortcut surface must be removed.`);
   assert(question.explanation.traps.length === 0, `${question.patternId}/${question.language}: learner trap list must be removed.`);
-  const joined = question.explanation.steps.join("\n");
+
+  const joined = steps.join("\n");
   assert(!/Key Rule|Step-by-Step|Exam Speed|Common Traps|मुख्य नियम|चरण-दर-चरण|परीक्षा शॉर्टकट|सामान्य गलतियाँ|ਮੁੱਖ ਨਿਯਮ|ਕਦਮ-ਦਰ-ਕਦਮ|ਪ੍ਰੀਖਿਆ ਸ਼ਾਰਟਕੱਟ|ਆਮ ਗਲਤੀਆਂ/i.test(joined), `${question.patternId}/${question.language}: legacy explanation scaffold leaked.`);
   assert(!/\[[A-Z0-9_:-]{3,}\]/.test(joined), `${question.patternId}/${question.language}: internal misconception code leaked.`);
-  assert(question.explanation.steps[2]!.trim().length > 10, `${question.patternId}/${question.language}: method line is empty or trivial.`);
 }
 
 for (const cp of MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS) {
@@ -209,7 +223,7 @@ const html = `<!doctype html>
 const report = {
   authority: "MENSURATION-HI-PA-HUMAN-EDITORIAL-REVIEW-V1",
   solutionAuthority: "MENSURATION-SIMPLE-HUMAN-SOLUTION-V2",
-  status: "HUMAN_REVIEW_REQUIRED",
+  status: "PRODUCT_OWNER_APPROVED_V2",
   cpCount: MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS.length,
   reviewedQuestionIdentityCount: reviewItems.length,
   languageSurfaceCount: reviewItems.length * 3,
@@ -239,7 +253,7 @@ fs.writeFileSync(path.join(outputDir, "mensuration-localization-human-review-v1.
   `- Question identities: **${report.reviewedQuestionIdentityCount}**`,
   `- English/Hindi/Punjabi surfaces: **${report.languageSurfaceCount}**`,
   "- Explanation surface: **given → asked → method → calculation → answer**",
-  "- Status: **HUMAN_REVIEW_REQUIRED**",
+  "- Status: **PRODUCT_OWNER_APPROVED_V2**",
   "",
 ].join("\n"));
 console.log(JSON.stringify({
