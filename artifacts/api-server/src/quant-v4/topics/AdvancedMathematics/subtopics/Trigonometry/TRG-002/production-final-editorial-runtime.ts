@@ -74,6 +74,8 @@ function polishExactPresentation(text: string) {
       const value = Number(numerator) / 2;
       return `${Number.isInteger(value) ? value : value.toFixed(1)} m`;
     })
+    .replace(/\bcasts a (8|18) m shadow\b/g, "casts an $1 m shadow")
+    .replace(/^A 18 m supporting wire\b/, "An 18 m supporting wire")
     .replace(/(\d+√3)=\1 m/g, "$1 m");
 }
 
