@@ -141,7 +141,7 @@ function renderHindiStem(trace: WorBankingTrace): string {
       return `${transformationText(trace.transformation, "hi-IN")} बने समूहों को ${direction} में लगाएँ। ${query}`;
     }
     case "BANK_TRANSFORM_SORT_LOCAL_CHAR":
-      return `${transformationText(trace.transformation, "hi-IN")} बने समूहों को ${direction} में लगाएँ। ${sideText(trace.wordRankSide!, "hi-IN")} से ${ordinalHi(trace.wordRank!)} बदले हुए समूह में ${sideText(trace.characterSide!, "hi-IN")} से ${ordinalHi(trace.characterIndex!)} अक्षर कौन-सा है?`;
+      return `${transformationText(trace.transformation, "hi-IN")} बने समूहों को ${direction} में लगाएँ। ${sideText(trace.wordRankSide!, "hi-IN")} से ${ordinalHiOblique(trace.wordRank!)} बदले हुए समूह में ${sideText(trace.characterSide!, "hi-IN")} से ${ordinalHi(trace.characterIndex!)} अक्षर कौन-सा है?`;
   }
 }
 
@@ -164,7 +164,7 @@ function renderPunjabiStem(trace: WorBankingTrace): string {
       return `${transformationText(trace.transformation, "pa-IN")} ਬਣੇ ਸਮੂਹਾਂ ਨੂੰ ${direction} ਵਿੱਚ ਲਗਾਓ। ${query}`;
     }
     case "BANK_TRANSFORM_SORT_LOCAL_CHAR":
-      return `${transformationText(trace.transformation, "pa-IN")} ਬਣੇ ਸਮੂਹਾਂ ਨੂੰ ${direction} ਵਿੱਚ ਲਗਾਓ। ${sideText(trace.wordRankSide!, "pa-IN")} ਤੋਂ ${ordinalPa(trace.wordRank!)} ਬਦਲੇ ਹੋਏ ਸਮੂਹ ਵਿੱਚ ${sideText(trace.characterSide!, "pa-IN")} ਤੋਂ ${ordinalPa(trace.characterIndex!)} ਅੱਖਰ ਕਿਹੜਾ ਹੈ?`;
+      return `${transformationText(trace.transformation, "pa-IN")} ਬਣੇ ਸਮੂਹਾਂ ਨੂੰ ${direction} ਵਿੱਚ ਲਗਾਓ। ${sideText(trace.wordRankSide!, "pa-IN")} ਤੋਂ ${ordinalPaOblique(trace.wordRank!)} ਬਦਲੇ ਹੋਏ ਸਮੂਹ ਵਿੱਚ ${sideText(trace.characterSide!, "pa-IN")} ਤੋਂ ${ordinalPa(trace.characterIndex!)} ਅੱਖਰ ਕਿਹੜਾ ਹੈ?`;
   }
 }
 
