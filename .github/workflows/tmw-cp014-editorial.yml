@@ -2,6 +2,8 @@ name: Validate TMW-001 CP014 multilingual editorial review
 on:
   push:
     branches: [fix/tmw-001-cp014-multilingual-editorial-review]
+  pull_request:
+    branches: [fix/tmw-001-cp013-multilingual-editorial-review]
   workflow_dispatch:
 permissions:
   contents: read
