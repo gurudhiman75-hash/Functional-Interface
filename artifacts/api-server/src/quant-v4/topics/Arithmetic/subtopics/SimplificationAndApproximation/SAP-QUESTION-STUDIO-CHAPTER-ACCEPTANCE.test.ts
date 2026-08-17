@@ -22,7 +22,7 @@ const packageCard = listQuantV4Packages().find((entry: any) => entry.packageId =
 assert.ok(packageCard, "SAP is missing from the shared Question Studio registry.");
 assert.equal(packageCard.enabled, true);
 assert.equal(packageCard.subtopic, "Simplification & Approximation");
-assert.deepEqual(packageCard.supportedLanguages, ["en"]);
+assert.deepEqual(packageCard.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(packageCard.cpIds, [...SAP_QUESTION_STUDIO_CP_IDS]);
 assert.equal(packageCard.questionBankStatus, "NOT_STORED");
 assert.equal(packageCard.testEligibility, "INELIGIBLE");
