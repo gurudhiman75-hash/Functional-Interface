@@ -40,6 +40,9 @@ jobs:
           for test in \
             spatial-mirror-water-proof \
             spatial-permanent-ql-allocation-v1 \
+            spatial-permanent-ql-allocation-v2 \
+            figure-completion-english-freeze-v1 \
+            figure-completion-hi-pa-localization-freeze-v1 \
             spatial-question-studio-integration-v1
           do
             pnpm --dir artifacts/api-server exec esbuild \
@@ -51,17 +54,24 @@ jobs:
       - name: Revalidate approved MIR/WAT geometry
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
 
-      - name: Revalidate permanent QL allocation
+      - name: Revalidate frozen P0 permanent allocation
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-permanent-ql-allocation-v1.test.mjs
 
-      - name: Validate standard Question Studio lifecycle
+      - name: Revalidate combined Spatial allocation V2
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-permanent-ql-allocation-v2.test.mjs
+
+      - name: Revalidate frozen FGC English runtime
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/figure-completion-english-freeze-v1.test.mjs
+
+      - name: Revalidate frozen FGC Hindi Punjabi runtime
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/figure-completion-hi-pa-localization-freeze-v1.test.mjs
+
+      - name: Validate 34-QL standard Question Studio lifecycle
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-question-studio-integration-v1.test.mjs
 
       - name: Upload Question Studio evidence
         uses: actions/upload-artifact@v4
         with:
-          name: spa-question-studio-integration-v1
-          path: |
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-question-studio-integration-v1-evidence.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-permanent-ql-allocation-v1-evidence.json
+          name: spa-fgc-question-studio-integration-v1
+          path: artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-question-studio-integration-v1-evidence.json
           if-no-files-found: error
