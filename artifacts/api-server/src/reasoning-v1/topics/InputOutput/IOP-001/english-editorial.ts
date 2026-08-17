@@ -65,20 +65,26 @@ function desiredSourceMode(qlId: IopPermanentQlId, seed: string, requested?: str
   return modes[hashSeed(`${seed}|MODE`) % modes.length]!;
 }
 
+function isKnownLegacyPositionWordingError(error: unknown): boolean {
+  return error instanceof Error
+    && error.message === "English explanation is not customized for POSITION_OF_ELEMENT";
+}
+
 function safeRawCaselet(seed: string, qlId: IopPermanentQlId, mode: IopEnglishSourceModeAuthority): IopEnglishProductionCaselet {
   let lastError: unknown;
-  // The lower-level candidate currently rejects its old POSITION_OF_ELEMENT
-  // wording before the editorial layer can normalize it. Preserve the strict
-  // gate by regenerating the raw query mix, then add a clean position query
-  // explicitly below. No rule/trace failure is accepted through this retry.
+  // The lower-level candidate currently rejects only its old POSITION_OF_ELEMENT
+  // wording before the editorial layer can normalize it. Retry that one known
+  // editorial defect. Any trace, oracle, source-engine, option or lifecycle
+  // failure is rethrown immediately and therefore remains fail-closed.
   for (let attempt = 0; attempt < 64; attempt += 1) {
     try {
       return generateIopEnglishProductionCaselet(`${seed}|RAW|${attempt}`, qlId, mode.sourceModeId);
     } catch (error) {
+      if (!isKnownLegacyPositionWordingError(error)) throw error;
       lastError = error;
     }
   }
-  throw new Error(`Unable to create a base English caselet for ${mode.sourceModeId}/${seed}: ${String(lastError)}`);
+  throw new Error(`Unable to avoid the legacy position wording path for ${mode.sourceModeId}/${seed}: ${String(lastError)}`);
 }
 
 function learnerDirections(mode: IopEnglishSourceModeAuthority): string {
