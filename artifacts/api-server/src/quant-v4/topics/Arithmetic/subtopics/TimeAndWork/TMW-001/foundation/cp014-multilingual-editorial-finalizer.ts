@@ -116,7 +116,7 @@ function conclusion(mode: string, answer: string, language: TmwLanguage): string
       return tr(language, `Therefore, the fresh crew completes the same total work in ${answer}.`, `अतः नई टीम उसी कुल काम को ${answer} में पूरा करेगी।`, `ਇਸ ਲਈ ਨਵੀਂ ਟੀਮ ਉਹੀ ਕੁੱਲ ਕੰਮ ${localizedAnswer} ਵਿੱਚ ਪੂਰਾ ਕਰੇਗੀ।`);
     }
     case "tableHeterogeneousContribution":
-      return tr(language, `Therefore, the crew's total contribution is ${answer}.`, `अतः दल का कुल योगदान ${answer} के बराबर है।`, `ਇਸ ਲਈ ਟੀਮ ਦਾ ਕੁੱਲ ਯੋਗਦਾਨ ${answer} ਦੇ ਬਰਾਬਰ ਹੈ।`);
+      return tr(language, `Therefore, the crew's total contribution is ${answer}.`, `अतः कुल योगदान = ${answer}।`, `ਇਸ ਲਈ ਕੁੱਲ ਯੋਗਦਾਨ = ${answer}।`);
     case "tablePipeOperatingSchedule":
       return tr(language, `Therefore, the fraction of the tank filled at the end of the schedule is ${answer}.`, `अतः समय-सारणी के अंत में टंकी का भरा हुआ भाग ${answer} है।`, `ਇਸ ਲਈ ਸਮਾਂ-ਸਾਰਣੀ ਦੇ ਅੰਤ ਵਿੱਚ ਟੈਂਕ ਦਾ ਭਰਿਆ ਹੋਇਆ ਹਿੱਸਾ ${answer} ਹੈ।`);
     case "caseletStageOneOutput":
