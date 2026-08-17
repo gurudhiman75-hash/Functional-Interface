@@ -5,7 +5,7 @@ import {
   generateFigureCompletionSourceGapQuestionV2,
   type FigureCompletionSourceGapPrototypeV1,
   type FigureCompletionSourceGapQuestionV2,
-} from "../foundation/spatial/figure-completion-source-gap-discovery-v2";
+} from "../foundation/spatial/figure-completion-source-gap-discovery-v2-hardened";
 import { renderSpatialSceneToSvg } from "../foundation/spatial/svg-renderer";
 import { validateLearnerVisibleExplanationV2, validateSpatialPerceptualOptionUniquenessV2 } from "../foundation/spatial/gap-question-perceptual-v2";
 import { validateSpatialOptionUniqueness, validateSpatialScene } from "../foundation/spatial/validator";
@@ -175,7 +175,7 @@ const proof = {
     p10OrthogonalShapeClass: true,
     p10VerticalFlipTrap: true,
   },
-  sourceScope: { SSC: "DIRECT_PREVIOUS_PAPER_GAP_EVIDENCE_EXECUTABLE", Banking: "NOT_ESTABLISHED", PunjabState: "NOT_ESTABLISHED" },
+  sourceScope: { SSC: "DIRECT_PREVIOUS_PAPER_GAP_EVIDENCE_EXECUTABLE", Banking: "NOT_ESTABLISHED", PunjabState: "DIRECT_FGC_EVIDENCE_PRESENT_RULE_CLASSIFICATION_PENDING" },
   totalAccepted: all.length,
   targetPerPrototype: TARGET,
   reviewQuestionCount: review.length,
