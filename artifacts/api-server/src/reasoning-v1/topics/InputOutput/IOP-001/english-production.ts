@@ -505,7 +505,7 @@ function makeQuestion(
     answerDisplay = `${remaining} steps`;
     options = boundedNumericOptions(remaining, 0, trace.steps.length - 1, "", " steps", `${seed}|OPTIONS`);
     text = `After Step ${stepNumber}, how many more steps are required to reach the final output?`;
-    detail = `The final state is Step ${trace.steps.length}, so ${trace.steps.length} - ${stepNumber} = ${remaining} more steps are required.`;
+    detail = `The final state is Step ${trace.steps.length}, so ${trace.steps.length} - ${stepNumber} = ${remaining}. Therefore the answer is ${answerDisplay}.`;
   }
 
   const answerIndex = options.findIndex((option) => option.isCorrect) as 0 | 1 | 2 | 3;
