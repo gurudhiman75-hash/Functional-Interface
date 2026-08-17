@@ -21,6 +21,8 @@ function normalizeMathFragment(value: string) {
   return value
     .replace(/\\text\{[^}]*\}/gu, "\\text{…}")
     .replace(/\s+/gu, " ")
+    .replace(/\\\(\s*/gu, "\\(")
+    .replace(/\s*\\\)/gu, "\\)")
     .trim();
 }
 
