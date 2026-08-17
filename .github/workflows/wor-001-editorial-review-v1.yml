@@ -1,0 +1,55 @@
+name: Validate WOR-001 Editorial Review V1
+
+on:
+  push:
+    branches:
+      - feature/wor-001-editorial-review-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**'
+      - '.github/workflows/wor-001-editorial-review-v1.yml'
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**'
+      - '.github/workflows/wor-001-editorial-review-v1.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: wor-001-editorial-review-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-wor-001:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Run WOR-001 deterministic multilingual audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001.test.ts
+      - name: Run WOR-CP-005 Banking composite audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-banking.test.ts
+      - name: Run WOR-001 editorial leakage audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-editorial.test.ts
+      - name: Run WOR-001 source-governance audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-source-evidence.test.ts
+      - name: Run expanded real-word corpus audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-corpus.test.ts
+      - name: Run expanded Banking pool audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-pool-expansion.test.ts
+      - name: Generate WOR-001 review packs
+        env:
+          WOR_REVIEW_OUTPUT: ${{ runner.temp }}/wor-001-review
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/export-review-cli.ts
+      - name: Upload WOR-001 review packs
+        uses: actions/upload-artifact@v4
+        with:
+          name: wor-001-editorial-review-packs
+          path: ${{ runner.temp }}/wor-001-review
+          if-no-files-found: error
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
