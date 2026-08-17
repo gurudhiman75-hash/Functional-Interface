@@ -1,64 +1,59 @@
-# SPA FGC-001 Question Studio Integration V1 — Status
+# SPA FGC-001 Question Studio Integration V1 - Status
 
-## Purpose
+## Integrated scope
 
-Connect the frozen `FGC-001 — Figure Completion` curriculum (`SPA-QL-031..034`) to the existing shared `SPA-001` Question Studio lifecycle without modifying the approved FGC geometry/content runtime or introducing an FGC-specific downstream store/workflow.
+FGC-001 is connected to the shared SPA-001 Question Studio lifecycle as SPA-QL-031..034. The existing 30 frozen P0 QLs remain unchanged, giving SPA-001 a combined 34 permanent QLs.
+
+FGC uses the existing Spatial API route, review persistence, cockpit, approval converter and Question Bank handoff. No FGC-specific downstream store or approval path was introduced. Manual generated-item approval remains required and automatic student publication remains disabled.
 
 ## Frozen source authorities
 
-- P0 Spatial allocation remains frozen as `SPA-QL-001..030`.
-- FGC English runtime authority: `FGC-001-ENGLISH-FREEZE-V1`.
-- FGC Hindi/Punjabi authority: `FGC_001_HI_PA_LOCALIZATION_APPROVED_V1`.
-- Combined allocation authority: `SPA-FND-001-PERMANENT-QL-ALLOCATION-V2` (`SPA-QL-001..034`).
+- English: FGC-001-ENGLISH-FREEZE-V1
+- Hindi/Punjabi: FGC_001_HI_PA_LOCALIZATION_APPROVED_V1
+- Combined allocation: SPA-FND-001-PERMANENT-QL-ALLOCATION-V2
 
-## Integration architecture
+FGC canonical IDs, geometry, option order, answer authority and fingerprints remain frozen through integration.
 
-- `SPA-001` remains the only package.
-- FGC uses the same Spatial API route, review persistence, shared cockpit, approval converter and Question Bank handoff as P0.
-- The FGC adapter consumes the frozen multilingual generator and renders its language-neutral scenes to SVG.
-- Frozen FGC canonical IDs, answer, geometry, option order and content/delivery fingerprints are not rewritten by integration.
-- Source FGC lifecycle remains review-only/not-registered; registration/persistence/downstream eligibility is applied only at the shared Question Studio adapter boundary.
-- Manual approval remains required and automatic student publication remains disabled.
+## Question Studio presentation
 
-## Registered surface candidate
+- Recommended FGC stimulus review size: 384 px
+- Mobile option floor: 104 px
+- Languages: English, Hindi, Punjabi
 
-```text
-Package:                   SPA-001
-Permanent QLs:             SPA-QL-001..034
-P0 frozen QLs:             30
-FGC QLs:                    4
-Chapters:                   MIR / WAT / FAN / FCL / FSR / FGC
-Languages:                  English / Hindi / Punjabi
-Question Studio:            REGISTERED / DISCOVERABLE
-Review persistence:         standard shared lifecycle
-Question Bank:              READY_FOR_STORAGE after manual approval
-Test/mock eligibility:      standard shared lifecycle after approval
-Automatic publication:      disabled
-```
+## Exact integration evidence
 
-## Learner review surface
+The integrated 34-QL surface passed exact-head CI on d1235666788e4d2b83b3e3579424dba0c6ca9492.
 
-- FGC keeps its 384 px recommended stimulus review size rather than the old 150 px Spatial panel cap.
-- Option mobile floor remains 104 px.
-- Hindi/Punjabi explanation labels use the approved simple wording (`क्या देखें / नियम / कैसे लगाएँ / जाँच` and `ਕੀ ਵੇਖਣਾ / ਨਿਯਮ / ਕਿਵੇਂ ਲਗਾਉਣਾ / ਜਾਂਚ`).
+- Workflow: Validate SPA-FND-001 Question Studio Integration V1
+- Run: 32034757693 - SUCCESS
+- Artifact: 9290248586
+- Digest: sha256:a7755f18d9a29cbc58aebc001540851c1a3cce7db164a03e228f78d3a2f74d88
+- Marker: PASS_SPA_FGC_001_STANDARD_QUESTION_STUDIO_INTEGRATION_V1
 
-## Validation gate
+## Operator learner review
 
-The existing `Validate SPA-FND-001 Question Studio Integration V1` workflow is extended to rebuild API/admin/student apps and revalidate:
+Repository authority: SPA-FGC-001-QUESTION-STUDIO-OPERATOR-REVIEW-V1
 
-1. MIR/WAT geometry regression;
-2. frozen P0 allocation V1;
-3. combined Spatial allocation V2;
-4. frozen FGC English runtime;
-5. frozen FGC Hindi/Punjabi runtime;
-6. 34-QL standard Question Studio integration.
+The retained learner packs and integrated Question Studio surface were reviewed for all four FGC QLs in English, Hindi and Punjabi.
 
-The integration proof exercises FGC in all three languages, deterministic replay, geometry/answer/fingerprint parity, standard Question Bank conversion, FGC chapter filtering, full 34-QL batch coverage, P0 dispatch non-regression and UI review sizing.
+- SPA-QL-031 continuity/junction: clear; no blocker found.
+- SPA-QL-032 count/direction/marker: subtle but distinguishable at 104 px; no blocker found.
+- SPA-QL-033 quadrant symmetry: clear; no blocker found.
+- SPA-QL-034 compound symmetry/state/contact: abstract but distinguishable; no blocker found.
+- English/Hindi/Punjabi wording: acceptable; no blocker found.
+- Explanations: question-specific and learner-usable; no blocker found.
 
-## Current truth
+Pinned learner-review artifacts:
 
-Implementation is a **candidate until exact-head CI passes**. No CI success, merge, production deployment or generated-item human approval is claimed by this file.
+- English: 9281170371; sha256:9e2acb8f13355afc59f9ecd01276e7086855e410186bb456e8e4eed340f77135
+- Hindi/Punjabi: 9281720797; sha256:388a4fd770bea9eab0c31538a112a31fbdcaf075a9770d84fbdbd174f2b1f9b5
+
+The operator review authority passed CI on head 45c702dc2f7b4d85ccf753bbb2221d44a90cc612 in run 32040724972 with marker PASS_SPA_FGC_001_OPERATOR_QUESTION_STUDIO_REVIEW_V1.
+
+## Governance boundary
+
+This is an assistant/operator review, not product-owner approval. It does not authorize merge, deployment, generated-item approval or automatic publication. Manual generated-item approval remains required.
 
 ## Next gate
 
-`EXACT_HEAD_CI_AND_HUMAN_QUESTION_STUDIO_REVIEW`
+EXPLICIT_PRODUCT_OWNER_QUESTION_STUDIO_APPROVAL
