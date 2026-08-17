@@ -48,6 +48,7 @@ for (const qlId of TRG_002_PRODUCTION_EXPANSION_48_IDS) {
     ].join(" | ");
     assert(!/\b\d+\/2 m\b/.test(studentText), `${qlId}: half-metre values must use natural decimal presentation.`);
     assert(!/-\d+ \+ \d+√3/.test(studentText), `${qlId}: exact surd differences must use positive-first notation.`);
+    assert(!/\ba (?:8|11|18|80|800)(?:\b|(?=√))/i.test(studentText), `${qlId}: numeric article grammar must use an before vowel-sound values.`);
     const wrongIds = question.options.filter((option: any) => !option.isCorrect).map((option: any) => option.misconceptionId);
     assert(wrongIds.every((id: unknown) => typeof id === "string" && id.length > 0), `${qlId}: every distractor must retain a named misconception.`);
     assert(new Set(wrongIds).size === 3, `${qlId}: distractor misconception roles must be distinct.`);
@@ -69,6 +70,8 @@ for (const qlId of ["TRG-002-QL-050", "TRG-002-QL-051", "TRG-002-QL-053", "TRG-0
   assert(question.stem.includes("same straight line with its foot"), `${qlId}: same-side system must state collinearity explicitly.`);
   assert(!/-\d+ \+ \d+√3/.test(question.stem), `${qlId}: point separation must use conventional positive-first surd notation.`);
 }
+const q070: any = generateFinalEditorialTrg002ProductionExpansionQuestion("TRG-002-QL-070", "trg002-production-editorial-review-35");
+assert(q070.stem.includes("an 8 m tower"), "QL-070 must use natural article grammar for the 8 m tower variant.");
 const q072: any = generateFinalEditorialTrg002ProductionExpansionQuestion("TRG-002-QL-072", wordingSeed);
 assert(q072.stem.includes("point and both tower feet are collinear"), "QL-072 must state the collinearity required to subtract tower distances.");
 assert(/^\d+\(√3−1\) m$/.test(q072.answer), "QL-072 answer must use factored positive-first surd notation.");
