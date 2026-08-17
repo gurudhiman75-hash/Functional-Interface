@@ -152,14 +152,73 @@ function normalizeOptions(options: readonly { scene: SpatialScene }[]): [Spatial
   return [options[0]!.scene, options[1]!.scene, options[2]!.scene, options[3]!.scene];
 }
 
+function editorializeExplanation(question: NormalizedSourceQuestion): NormalizedSourceQuestion {
+  const answer = question.answer;
+  switch (question.prototypeId) {
+    case "FGC-PROT-04-NESTED-CONTOUR-CONTINUITY":
+      return {
+        ...question,
+        explanation: {
+          observation: "Two parallel lines reach the missing square and continue on the other side.",
+          rule: "Both lines must keep the same direction and the same gap between them through the missing square.",
+          application: "Continue both lines at their visible angle without flattening, reversing, or shifting either line.",
+          check: `Option ${answer} is the only piece that reconnects both lines with the same direction and spacing.`,
+        },
+      };
+    case "FGC-PROT-06-QUADRANT-MIRROR-SYMMETRY":
+      return {
+        ...question,
+        explanation: {
+          observation: "The three visible quadrants contain the same crossed lines and dot, reflected across the centre lines.",
+          rule: "The right quadrant is the left quadrant reflected sideways, and the lower quadrant is the upper quadrant reflected downward.",
+          application: "Reflect the top-left crossed lines and dot across both centre lines to get the missing bottom-right quadrant.",
+          check: `Option ${answer} alone puts both crossed lines and the dot in the positions required by those two reflections.`,
+        },
+      };
+    case "FGC-PROT-07-MIRROR-STATE-REVERSAL":
+      return {
+        ...question,
+        explanation: {
+          observation: "Across each row the figure is mirrored; from the upper row to the lower row, outline parts become filled and filled parts become outline.",
+          rule: "Use the mirror position and the filled/outline reversal together.",
+          application: "Mirror the lower-left figure into the missing bottom-right quadrant and keep the lower-row fill reversal.",
+          check: `Option ${answer} is the only one with the correct mirrored position and the required filled/outline state.`,
+        },
+      };
+    case "FGC-PROT-08-ARC-QUADRANT-SYMMETRY":
+      return {
+        ...question,
+        explanation: {
+          observation: "The three visible quadrants repeat two circular arcs and one diagonal around the centre.",
+          rule: "The missing quadrant must continue the same two curve sizes around the centre and continue the diagonal toward the outer corner.",
+          application: "Place both matching arcs in the bottom-right quadrant and extend the diagonal from the centre to the bottom-right corner.",
+          check: `Option ${answer} is the only figure that completes both arcs and the diagonal in the correct positions.`,
+        },
+      };
+    case "FGC-PROT-10-SHAPE-CONTACT-STATE":
+      return {
+        ...question,
+        explanation: {
+          observation: "The completed pairs show that a circle touching a filled circle is also filled, while a circle touching an outline circle is also outline; two straight guide lines also enter the blank.",
+          rule: "Match the fill of each touching circle and join the two guide lines with the same unflipped right-angle corner.",
+          application: "Use a filled circle at the left contact, an outline circle at the top contact, and the right-angle corner that joins the visible guides without flipping it.",
+          check: `Option ${answer} alone has the correct filled/outline contacts and the correct unflipped right-angle corner.`,
+        },
+      };
+    default:
+      return question;
+  }
+}
+
 function generateSourceQuestion(
   prototypeId: FigureCompletionPermanentPrototypeV1,
   generationSeed: string,
   desiredCorrectOptionIndex?: 0 | 1 | 2 | 3,
 ): NormalizedSourceQuestion {
+  let normalized: NormalizedSourceQuestion;
   if (prototypeId === FGC_001_ARC_PROTOTYPE_V1) {
     const question = generateFigureCompletionArcQuestionV1({ seed: generationSeed, desiredCorrectOptionIndex });
-    return {
+    normalized = {
       prototypeId,
       stem: question.stem,
       stimulusScene: question.stimulusScene,
@@ -171,11 +230,9 @@ function generateSourceQuestion(
       deliveryFingerprint: question.deliveryFingerprint,
       matchingOptionIndexes: question.solverEvidence.matchingOptionIndexes,
     };
-  }
-
-  if (prototypeId === "FGC-PROT-06-QUADRANT-MIRROR-SYMMETRY" || prototypeId === "FGC-PROT-07-MIRROR-STATE-REVERSAL") {
+  } else if (prototypeId === "FGC-PROT-06-QUADRANT-MIRROR-SYMMETRY" || prototypeId === "FGC-PROT-07-MIRROR-STATE-REVERSAL") {
     const question = generateFigureCompletionSymmetryQuestionV1({ prototypeId, seed: generationSeed, desiredCorrectOptionIndex });
-    return {
+    normalized = {
       prototypeId,
       stem: question.stem,
       stimulusScene: question.stimulusScene,
@@ -187,11 +244,23 @@ function generateSourceQuestion(
       deliveryFingerprint: question.deliveryFingerprint,
       matchingOptionIndexes: question.solverEvidence.matchingOptionIndexes,
     };
-  }
-
-  if (prototypeId === "FGC-PROT-09-COMPONENT-COUNT-ORIENTATION" || prototypeId === "FGC-PROT-10-SHAPE-CONTACT-STATE") {
+  } else if (prototypeId === "FGC-PROT-09-COMPONENT-COUNT-ORIENTATION" || prototypeId === "FGC-PROT-10-SHAPE-CONTACT-STATE") {
     const question = generateFigureCompletionSourceGapQuestionV2({ prototypeId, seed: generationSeed, desiredCorrectOptionIndex });
-    return {
+    normalized = {
+      prototypeId,
+      stem: question.stem,
+      stimulusScene: question.stimulusScene,
+      optionScenes: normalizeOptions(question.options),
+      correctOptionIndex: question.correctOptionIndex,
+      answer: question.answer,
+      explanation: question.explanation,
+      contentFingerprint: question.contentFingerprint,
+      deliveryFingerprint: question.deliveryFingerprint,
+      matchingOptionIndexes: question.solverEvidence.matchingOptionIndexes,
+    };
+  } else {
+    const question = generateFigureCompletionDiscoveryQuestionV2({ prototypeId, seed: generationSeed, desiredCorrectOptionIndex });
+    normalized = {
       prototypeId,
       stem: question.stem,
       stimulusScene: question.stimulusScene,
@@ -204,20 +273,7 @@ function generateSourceQuestion(
       matchingOptionIndexes: question.solverEvidence.matchingOptionIndexes,
     };
   }
-
-  const question = generateFigureCompletionDiscoveryQuestionV2({ prototypeId, seed: generationSeed, desiredCorrectOptionIndex });
-  return {
-    prototypeId,
-    stem: question.stem,
-    stimulusScene: question.stimulusScene,
-    optionScenes: normalizeOptions(question.options),
-    correctOptionIndex: question.correctOptionIndex,
-    answer: question.answer,
-    explanation: question.explanation,
-    contentFingerprint: question.contentFingerprint,
-    deliveryFingerprint: question.deliveryFingerprint,
-    matchingOptionIndexes: question.solverEvidence.matchingOptionIndexes,
-  };
+  return editorializeExplanation(normalized);
 }
 
 function sourceQuestionIsValid(question: NormalizedSourceQuestion): boolean {
