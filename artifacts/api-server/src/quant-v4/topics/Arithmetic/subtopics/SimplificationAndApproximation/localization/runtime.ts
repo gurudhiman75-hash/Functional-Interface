@@ -6,8 +6,8 @@ import {
   polishSapLocalizedTextV2,
 } from "./polish-v2";
 import {
-  applySapLocalizationPolishV5,
-} from "./polish-v5";
+  applySapLocalizationPolishV6,
+} from "./polish-v6";
 import {
   applySapAuthoredPresentationV1,
 } from "./authored-presentation-v1";
@@ -25,11 +25,11 @@ import type { SapTranslationLanguage } from "./types";
 export { translateSapLearnerText, polishSapLocalizedTextV2 };
 
 export function localizeSapQuestionPackage(base: any, language: SapTranslationLanguage) {
-  const generic = applySapLocalizationPolishV5(
+  const genericIntermediate = applySapLocalizationPolishV6(
     localizeSapQuestionPackageV1(base, language),
     language,
   );
-  const authoredV1 = applySapAuthoredPresentationV1(base, generic, language);
+  const authoredV1 = applySapAuthoredPresentationV1(base, genericIntermediate, language);
   const authoredV2 = applySapAuthoredPresentationV2(base, authoredV1, language);
   const authoredStemV4 = applySapAuthoredStemV4(base, authoredV2, language);
   return applySapAuthoredPresentationV3(base, authoredStemV4, language);
