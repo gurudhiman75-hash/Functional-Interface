@@ -17,7 +17,10 @@ export const WOR_001_QUESTION_STUDIO_ADAPTER = {
   localeMode: "TRANSLATABLE",
   locales: ["en-IN", "hi-IN", "pa-IN"] as const,
   lifecycleStatus: "REVIEW_ONLY",
-  questionStudioVisible: true,
+  // The original adapter stays dormant as a release surface. The registered
+  // review package owns Question Studio visibility and downstream lifecycle locks.
+  questionStudioVisible: false,
+  questionStudioReviewVisible: true,
   publicReleaseEnabled: false,
   permanentQlCount: 0,
   checkpoints: WOR_001_ALL_CHECKPOINTS,
