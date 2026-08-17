@@ -1,0 +1,37 @@
+name: Verify TMW-001 Final Multilingual Freeze
+on:
+  push:
+    branches: [freeze/tmw-001-final-multilingual-v1]
+  pull_request:
+    branches: [fix/tmw-001-cp014-multilingual-editorial-review]
+  workflow_dispatch:
+concurrency:
+  group: tmw-final-multilingual-freeze
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: TypeScript freeze authority
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler --strictNullChecks --noImplicitAny --noImplicitReturns --skipLibCheck --types node
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/final-freeze-authority.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-freeze.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp014-multilingual-editorial-review.test.ts
+      - name: Verify freeze authority across all 684 language packages
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-freeze.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-final-freeze.mjs && node artifacts/api-server/dist/quant-v4/tmw-final-freeze.mjs
+      - name: Re-run final 228-QL multilingual audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-final.mjs && node artifacts/api-server/dist/quant-v4/tmw-final.mjs
+      - name: Re-run CP014 deep regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp014-multilingual-editorial-review.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/cp014-editorial.mjs && node artifacts/api-server/dist/quant-v4/cp014-editorial.mjs
