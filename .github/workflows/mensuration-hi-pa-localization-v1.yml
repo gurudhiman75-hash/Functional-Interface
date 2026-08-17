@@ -1,0 +1,133 @@
+name: Validate Mensuration Hindi Punjabi localization V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/**'
+      - 'artifacts/api-server/src/routes/admin-question-studio-mensuration-full.ts'
+      - 'artifacts/admin-app/src/features/question-studio/mensuration-review-api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioMensurationReviewPanel.tsx'
+      - '.github/workflows/mensuration-hi-pa-localization-v1.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: mensuration-hi-pa-localization-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-mensuration-localization:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Export English localization corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-corpus-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-corpus-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-localization-corpus-v1.mjs
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-corpus-v1.json
+      - name: Diagnose math parity mismatches
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-math-diagnostic-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-math-diagnostic-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-localization-math-diagnostic-v1.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-localization-math-diagnostic-v1.log
+      - name: Diagnose formula-variable mismatches
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-variable-diagnostic-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-variable-diagnostic-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-localization-variable-diagnostic-v1.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-localization-variable-diagnostic-v1.log
+      - name: Diagnose malformed localized math
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-malformed-diagnostic-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-malformed-diagnostic-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-localization-malformed-diagnostic-v1.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-localization-malformed-diagnostic-v1.log
+      - name: Run localization parity proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-parity-v1.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-parity-v1.test.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.test.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.test.log
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.json
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.md
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-review-v1.json
+      - name: Audit localization across exam profiles
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-exam-profile-audit-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-exam-profile-audit-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-localization-exam-profile-audit-v1.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-localization-exam-profile-audit-v1.log
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-exam-profile-audit-v1.json
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-exam-profile-audit-v1.md
+      - name: Audit localized editorial leakage
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-editorial-audit-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-editorial-audit-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.log
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.json
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.md
+      - name: Upload editorial audit diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mensuration-hi-pa-editorial-audit-diagnostic-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.log
+            artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.md
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Export trilingual human editorial review pack
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-human-review-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-localization-human-review-v1.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-localization-human-review-v1.mjs | tee artifacts/api-server/dist/quant-v4/mensuration-localization-human-review-v1.log
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-human-review-v1.html
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-human-review-v1.json
+          test -s artifacts/api-server/dist/quant-v4/mensuration-localization-human-review-v1.md
+      - name: Build production application
+        run: bash build-api.sh
+      - name: Upload localization evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: mensuration-hi-pa-localization-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/mensuration-localization-corpus-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-localization-math-diagnostic-v1.log
+            artifacts/api-server/dist/quant-v4/mensuration-localization-variable-diagnostic-v1.log
+            artifacts/api-server/dist/quant-v4/mensuration-localization-malformed-diagnostic-v1.log
+            artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.test.log
+            artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-localization-parity-v1.md
+            artifacts/api-server/dist/quant-v4/mensuration-localization-review-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-localization-exam-profile-audit-v1.log
+            artifacts/api-server/dist/quant-v4/mensuration-localization-exam-profile-audit-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-localization-exam-profile-audit-v1.md
+            artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.log
+            artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-localization-editorial-audit-v1.md
+            artifacts/api-server/dist/quant-v4/mensuration-localization-human-review-v1.log
+            artifacts/api-server/dist/quant-v4/mensuration-localization-human-review-v1.html
+            artifacts/api-server/dist/quant-v4/mensuration-localization-human-review-v1.json
+            artifacts/api-server/dist/quant-v4/mensuration-localization-human-review-v1.md
+          if-no-files-found: error
+          retention-days: 14
