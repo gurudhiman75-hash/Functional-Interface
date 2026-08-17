@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/**"
       - "artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
       - ".github/workflows/num-001-cp003-cp004-editorial-audit.yml"
@@ -28,7 +29,7 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle editorial audit and Question Studio release proof
+      - name: Bundle editorial audits and Question Studio release proofs
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/english-editorial-audit.test.ts \
@@ -38,6 +39,10 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/number-system-question-studio-release-audit.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/number-system-question-studio-release-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-INTEGRATION.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-question-studio-chapter-review-audit.mjs
 
       - name: Run V3 editorial audit
         working-directory: artifacts/api-server
@@ -55,6 +60,15 @@ jobs:
             node dist/quant-v4/number-system-question-studio-release-audit.mjs \
             2>&1 | tee dist/quant-v4/number-system-question-studio-release-audit.log
 
+      - name: Run SAP chapter-wide Question Studio review audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-question-studio-chapter-review-audit.mjs \
+            2>&1 | tee dist/quant-v4/sap-question-studio-chapter-review-audit.log
+
       - name: Upload release evidence and diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -69,5 +83,9 @@ jobs:
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.json
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.csv
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.md
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-review-audit.log
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-review/sap-question-studio-chapter-review.json
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-review/sap-question-studio-chapter-review.csv
+            artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-review/sap-question-studio-chapter-review.md
           if-no-files-found: warn
           retention-days: 30
