@@ -50,7 +50,7 @@ function WorQuestionCard({ question }: { question: WorReviewQuestion }) {
           <Badge variant="outline">{question.prototypeId}</Badge>
           <Badge variant="secondary">{question.difficultyBand}</Badge>
           <Badge variant="outline">{LANGUAGE_LABELS[question.language]}</Badge>
-          <Badge variant="outline">{question.source.objectMode.replaceAll('_', ' ')}</Badge>
+          <Badge variant="outline">{question.source.objectMode.replace(/_/g, ' ')}</Badge>
           {question.validation.valid && (
             <Badge className="gap-1 bg-success/10 text-success hover:bg-success/10">
               <CheckCircle2 className="h-3 w-3" /> Independently verified
