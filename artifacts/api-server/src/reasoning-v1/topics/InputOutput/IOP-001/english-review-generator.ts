@@ -4,6 +4,12 @@ import {
   assertIopEnglishReviewCaseletIntegrity,
   generateIopEnglishReviewCaselet as generateStandardReviewCaselet,
 } from "./english-editorial.ts";
+import {
+  assertIopEnglishExplanationQuality,
+  withFullIopEnglishExplanations,
+} from "./english-review-explanations.ts";
+import { generateIopRichEnglishSource } from "./english-rich-sources.ts";
+import { IOP_ENGLISH_SOURCE_MODES } from "./english-production.ts";
 import type { IopPermanentQlId } from "./permanent-authorities.ts";
 import type { IopEnglishProductionCaselet } from "./english-production-types.ts";
 
@@ -41,8 +47,27 @@ function removeRepeatedRule(caselet: IopEnglishProductionCaselet): IopEnglishPro
   return { ...caselet, children };
 }
 
-function standardCaselet(seed: string, qlId: IopPermanentQlId, requestedSourceModeId?: string): IopEnglishProductionCaselet {
-  return generateStandardReviewCaselet(seed, qlId, requestedSourceModeId);
+function richStandardCaselet(
+  seed: string,
+  qlId: IopPermanentQlId,
+  requestedSourceModeId?: string,
+): IopEnglishProductionCaselet {
+  const base = generateStandardReviewCaselet(seed, qlId, requestedSourceModeId);
+  const mode = IOP_ENGLISH_SOURCE_MODES.find((candidate) => candidate.sourceModeId === base.sourceModeId);
+  if (!mode) throw new Error(`No English source authority for ${base.sourceModeId}`);
+  const rich = generateIopRichEnglishSource(`${seed}|RICH`, mode);
+  return {
+    ...base,
+    demonstration: rich.demonstration,
+    target: rich.target,
+    ruleExplanation: rich.ruleExplanation,
+    safeguards: {
+      sourceWhitelisted: true,
+      ruleIdentifiable: true,
+      oracleParity: true,
+      queryOracleParity: true,
+    },
+  };
 }
 
 export function generateIopEnglishReviewCaselet(
@@ -58,12 +83,14 @@ export function generateIopEnglishReviewCaselet(
     base = removeRepeatedRule(coherentBoxCaselet(seed));
     base = { ...base, seed };
   } else {
-    base = standardCaselet(seed, qlId, requestedSourceModeId);
+    base = richStandardCaselet(seed, qlId, requestedSourceModeId);
   }
 
   const balanced = withBalancedIopEnglishQueries(base, seed);
-  assertIopEnglishReviewCaseletIntegrity(balanced);
-  return balanced;
+  const explained = withFullIopEnglishExplanations(balanced);
+  assertIopEnglishReviewCaseletIntegrity(explained);
+  assertIopEnglishExplanationQuality(explained);
+  return explained;
 }
 
 export { assertIopEnglishReviewCaseletIntegrity } from "./english-editorial.ts";
