@@ -32,7 +32,7 @@ jobs:
             spatial-figure-completion-discovery-v2-hardened \
             spatial-figure-completion-symmetry-discovery-v1 \
             spatial-figure-completion-arc-discovery-v1 \
-            spatial-figure-completion-source-gap-discovery-v1 \
+            spatial-figure-completion-source-gap-discovery-v2 \
             spatial-figure-completion-visual-composition-v1 \
             spatial-figure-completion-rule-geometry-v2 \
             spatial-figure-completion-merge-split-proposal-v1
@@ -52,8 +52,8 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-symmetry-discovery-v1.test.mjs
       - name: Run FGC-001 arc symmetry stress proof
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-arc-discovery-v1.test.mjs
-      - name: Run FGC-001 SSC source-gap closure proof
-        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-source-gap-discovery-v1.test.mjs
+      - name: Run FGC-001 SSC source-gap closure proof V2
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-source-gap-discovery-v2.test.mjs
       - name: Run FGC-001 learner-visible composition proof
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-visual-composition-v1.test.mjs
       - name: Run FGC-001 independent visible-rule geometry proof
@@ -74,7 +74,7 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-arc-discovery-v1-review.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-arc-discovery-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-arc-discovery-v1-review.html
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-source-gap-discovery-v1-review.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-source-gap-discovery-v1-evidence.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-source-gap-discovery-v1-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-source-gap-discovery-v2-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-source-gap-discovery-v2-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-source-gap-discovery-v2-review.html
           if-no-files-found: error
