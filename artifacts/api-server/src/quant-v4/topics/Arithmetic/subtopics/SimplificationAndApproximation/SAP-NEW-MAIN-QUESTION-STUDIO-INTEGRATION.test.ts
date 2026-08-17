@@ -3,6 +3,12 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import {
+  getGeneratedQuestionBankEligibilityIssue,
+} from "../../../../../lib/admin-question-conversion";
+import {
+  getGeneratedItemApprovalDisposition,
+} from "../../../../../lib/admin-question-studio-approval-policy";
+import {
   generateQuestion,
   listQuantV4Packages,
 } from "../../../../question-studio-review-engine";
@@ -20,14 +26,15 @@ assert.equal(sap.cpIds.length, 12);
 assert.equal(sap.enabled, true);
 assert.equal(sap.runtimeMode, "QUESTION_STUDIO_ACTIVE");
 assert.equal(sap.reviewStatus, "LOCALIZATION_CONTENT_APPROVED_REVIEW_READY");
-assert.equal(sap.questionBankStatus, "NOT_STORED");
-assert.equal(sap.testEligibility, "INELIGIBLE");
-assert.equal(sap.publiclyPublishable, false);
+assert.equal(sap.questionBankStatus, "WRITABLE");
+assert.equal(sap.questionBankWritable, true);
+assert.equal(sap.testEligibility, "ELIGIBLE");
+assert.equal(sap.publiclyPublishable, true);
 
 assert.ok(packages.some((entry: any) => entry.packageId === "NUM-001"), "Current Number System package disappeared during SAP restack.");
 assert.ok(packages.some((entry: any) => entry.packageId === "TMW-001"), "Current Time & Work package disappeared during SAP restack.");
 
-function assertReviewOnlyQuestion(question: any, language: "en" | "hi" | "pa", qlId: string) {
+function assertStandardLifecycleQuestion(question: any, language: "en" | "hi" | "pa", qlId: string) {
   assert.equal(question.packageId, "SAP");
   assert.equal(question.language, language);
   assert.equal(question.questionLanguageId, qlId);
@@ -39,9 +46,11 @@ function assertReviewOnlyQuestion(question: any, language: "en" | "hi" | "pa", q
   assert.equal(question.options[question.correctIndex], question.answer);
   assert.ok(String(question.text ?? "").trim().length > 0);
   assert.ok(String(question.explanation ?? "").trim().length > 0);
-  assert.equal(question.questionBankStatus, "NOT_STORED");
-  assert.equal(question.testEligibility, "INELIGIBLE");
-  assert.equal(question.publiclyPublishable, false);
+  assert.equal(question.questionBankStatus, "WRITABLE");
+  assert.equal(question.questionBankWritable, true);
+  assert.equal(question.testEligibility, "ELIGIBLE");
+  assert.equal(question.testEligible, true);
+  assert.equal(question.publiclyPublishable, true);
 }
 
 for (const language of ["en", "hi", "pa"] as const) {
@@ -59,13 +68,28 @@ for (const language of ["en", "hi", "pa"] as const) {
   assert.equal(result.questions.length, 2, `${language}: current review engine under-filled SAP batch.`);
   assert.equal(result.generationContext.runtimeMode, "QUESTION_STUDIO_ACTIVE");
   assert.equal(result.generationContext.reviewStatus, "LOCALIZATION_CONTENT_APPROVED_REVIEW_READY");
-  assert.equal(result.generationContext.questionBankStatus, "NOT_STORED");
-  assert.equal(result.generationContext.testEligibility, "INELIGIBLE");
-  assert.equal(result.generationContext.publiclyPublishable, false);
+  assert.equal(result.generationContext.questionBankStatus, "WRITABLE");
+  assert.equal(result.generationContext.questionBankWritable, true);
+  assert.equal(result.generationContext.testEligibility, "ELIGIBLE");
+  assert.equal(result.generationContext.publiclyPublishable, true);
   assert.equal(result.generationContext.language, language);
 
   for (const question of result.questions as any[]) {
-    assertReviewOnlyQuestion(question, language, qlId);
+    assertStandardLifecycleQuestion(question, language, qlId);
+    const storedPayload = {
+      ...question,
+      generationContext: result.generationContext,
+    };
+    assert.equal(
+      getGeneratedItemApprovalDisposition(storedPayload).mode,
+      "question_bank",
+      `${language}: standard Question Studio approval must route SAP to Question Bank conversion.`,
+    );
+    assert.equal(
+      getGeneratedQuestionBankEligibilityIssue(storedPayload),
+      null,
+      `${language}: standard Question Bank conversion guard must accept SAP after admin approval.`,
+    );
   }
 }
 
@@ -105,8 +129,10 @@ console.log(JSON.stringify({
   supportedLanguages: sap.supportedLanguages,
   reviewStatus: sap.reviewStatus,
   questionBankStatus: sap.questionBankStatus,
+  questionBankWritable: sap.questionBankWritable,
   testEligibility: sap.testEligibility,
   publiclyPublishable: sap.publiclyPublishable,
+  standardQuestionBankPromotionVerified: true,
   reviewEngineDelegationVerified: true,
   sharedRunsRouteVerified: true,
   currentNumberSystemPreserved: true,

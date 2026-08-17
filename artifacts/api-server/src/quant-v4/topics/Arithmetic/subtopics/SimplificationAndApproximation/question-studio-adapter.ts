@@ -325,9 +325,11 @@ function normalizePackage(
     locale: "en-IN" as const,
     runtimeMode: "QUESTION_STUDIO_ACTIVE" as const,
     reviewStatus: "APPROVED_EDITORIAL_ENGLISH" as const,
-    questionBankStatus: "NOT_STORED" as const,
-    testEligibility: "INELIGIBLE" as const,
-    publiclyPublishable: false as const,
+    questionBankStatus: "WRITABLE" as const,
+    questionBankWritable: true as const,
+    testEligibility: "ELIGIBLE" as const,
+    testEligible: true as const,
+    publiclyPublishable: true as const,
     explanation: Object.freeze({ lines: Object.freeze(explanationLines) }),
     validation: Object.freeze({ ok: validationOk && validationErrors.length === 0, errors: Object.freeze(validationErrors) }),
     traceability: Object.freeze({
@@ -338,9 +340,9 @@ function normalizePackage(
       qlTitle: descriptor.title,
       sourceSeed,
       specialist: descriptor.specialist,
-      questionBankWritable: false,
-      testEligible: false,
-      publiclyPublishable: false,
+      questionBankWritable: true,
+      testEligible: true,
+      publiclyPublishable: true,
     }),
   });
 }

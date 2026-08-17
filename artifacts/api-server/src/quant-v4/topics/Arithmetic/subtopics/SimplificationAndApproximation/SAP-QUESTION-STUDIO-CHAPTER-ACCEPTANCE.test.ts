@@ -24,9 +24,10 @@ assert.equal(packageCard.enabled, true);
 assert.equal(packageCard.subtopic, "Simplification & Approximation");
 assert.deepEqual(packageCard.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(packageCard.cpIds, [...SAP_QUESTION_STUDIO_CP_IDS]);
-assert.equal(packageCard.questionBankStatus, "NOT_STORED");
-assert.equal(packageCard.testEligibility, "INELIGIBLE");
-assert.equal(packageCard.publiclyPublishable, false);
+assert.equal(packageCard.questionBankStatus, "WRITABLE");
+assert.equal(packageCard.questionBankWritable, true);
+assert.equal(packageCard.testEligibility, "ELIGIBLE");
+assert.equal(packageCard.publiclyPublishable, true);
 
 assert.equal(SAP_QUESTION_STUDIO_CP_IDS.length, 12);
 assert.equal(SAP_QUESTION_STUDIO_QLS.length, 211);
@@ -64,9 +65,11 @@ function auditLearnerQuestion(question: any, label: string) {
   assert.ok(Array.isArray(question.explanation?.lines) && question.explanation.lines.length >= 1, `${label}: explanation missing.`);
   assert.ok(question.explanation.lines.some((line: unknown) => String(line).trim().length >= 8), `${label}: explanation is not substantive.`);
   assert.equal(question.validation?.ok, true, `${label}: source validation failed: ${(question.validation?.errors ?? []).join(" | ")}`);
-  assert.equal(question.questionBankStatus, "NOT_STORED", `${label}: Question Bank gate drifted.`);
-  assert.equal(question.testEligibility, "INELIGIBLE", `${label}: test gate drifted.`);
-  assert.equal(question.publiclyPublishable, false, `${label}: public gate drifted.`);
+  assert.equal(question.questionBankStatus, "WRITABLE", `${label}: Question Bank lifecycle drifted.`);
+  assert.equal(question.questionBankWritable, true, `${label}: Question Bank write capability drifted.`);
+  assert.equal(question.testEligibility, "ELIGIBLE", `${label}: test eligibility drifted.`);
+  assert.equal(question.testEligible, true, `${label}: test-eligible capability drifted.`);
+  assert.equal(question.publiclyPublishable, true, `${label}: downstream publishability drifted.`);
 
   const learnerText = [question.stem, ...question.options, ...question.explanation.lines].join("\n");
   assert.ok(!/\b(?:undefined|TODO|TBD|PLACEHOLDER)\b/iu.test(learnerText), `${label}: placeholder/undefined leaked.`);
@@ -167,9 +170,10 @@ const mixedResult = await generateQuestion({
 });
 assert.equal(mixedResult.questions.length, COCKPIT_COUNT);
 assert.ok(mixedResult.questions.every((question: any) => question.packageId === "SAP"));
-assert.equal(mixedResult.generationContext.questionBankStatus, "NOT_STORED");
-assert.equal(mixedResult.generationContext.testEligibility, "INELIGIBLE");
-assert.equal(mixedResult.generationContext.publiclyPublishable, false);
+assert.equal(mixedResult.generationContext.questionBankStatus, "WRITABLE");
+assert.equal(mixedResult.generationContext.questionBankWritable, true);
+assert.equal(mixedResult.generationContext.testEligibility, "ELIGIBLE");
+assert.equal(mixedResult.generationContext.publiclyPublishable, true);
 
 const cockpitQuestions: any[] = [];
 const cockpitDifficultyCounts: Record<string, number> = {};
@@ -186,9 +190,11 @@ for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
   assert.equal(result.questions.length, COCKPIT_COUNT, `${difficulty}: shared Cockpit batch under-filled.`);
   assert.ok(result.questions.every((question: any) => question.packageId === "SAP"));
   assert.ok(result.questions.every((question: any) => question.difficultyLabel === difficulty), `${difficulty}: requested difficulty not preserved.`);
-  assert.ok(result.questions.every((question: any) => question.questionBankStatus === "NOT_STORED"));
-  assert.ok(result.questions.every((question: any) => question.testEligibility === "INELIGIBLE"));
-  assert.ok(result.questions.every((question: any) => question.publiclyPublishable === false));
+  assert.ok(result.questions.every((question: any) => question.questionBankStatus === "WRITABLE"));
+  assert.ok(result.questions.every((question: any) => question.questionBankWritable === true));
+  assert.ok(result.questions.every((question: any) => question.testEligibility === "ELIGIBLE"));
+  assert.ok(result.questions.every((question: any) => question.testEligible === true));
+  assert.ok(result.questions.every((question: any) => question.publiclyPublishable === true));
   cockpitDifficultyCounts[difficulty] = result.questions.length;
   cockpitQuestions.push(...result.questions.map((question: any, index: number) => ({
     reviewKind: "COCKPIT_BATCH",
@@ -219,6 +225,7 @@ const summary = {
   ql180PowerOnly: true,
   ql185DefaultMixExcluded: true,
   questionBankStatus: mixedResult.generationContext.questionBankStatus,
+  questionBankWritable: mixedResult.generationContext.questionBankWritable,
   testEligibility: mixedResult.generationContext.testEligibility,
   publiclyPublishable: mixedResult.generationContext.publiclyPublishable,
 };

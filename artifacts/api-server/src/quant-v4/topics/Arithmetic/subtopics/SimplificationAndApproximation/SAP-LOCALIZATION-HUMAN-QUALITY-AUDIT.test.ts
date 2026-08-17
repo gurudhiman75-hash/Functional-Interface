@@ -66,7 +66,13 @@ for (const descriptor of SAP_QUESTION_STUDIO_QLS) {
       }
       if (descriptor.qlId === "SAP-QL-178" && /(?:ऊपर|ਉੱਪਰ)\s+\d+.*(?:वर्गमूल|ਵਰਗਮੂਲ)/u.test(question.text)) reasons.push("QL178 retains English word order");
       if (question.options?.[question.correctIndex] !== question.answer) reasons.push("answer binding changed");
-      if (question.questionBankStatus !== "NOT_STORED" || question.testEligibility !== "INELIGIBLE" || question.publiclyPublishable !== false) reasons.push("inactive lifecycle changed");
+      if (
+        question.questionBankStatus !== "WRITABLE"
+        || question.questionBankWritable !== true
+        || question.testEligibility !== "ELIGIBLE"
+        || question.testEligible !== true
+        || question.publiclyPublishable !== true
+      ) reasons.push("standard Question Studio lifecycle changed");
       if (reasons.length) failures.push({ qlId: descriptor.qlId, language, seedKind, reasons, stem: String(question.text) });
     }
   }
@@ -81,6 +87,10 @@ const summary = {
   failedQlCount: new Set(failures.map((f) => f.qlId)).size,
   seedKinds: ["parity", "release"],
   languages: ["hi", "pa"],
+  questionBankStatus: "WRITABLE",
+  questionBankWritable: true,
+  testEligibility: "ELIGIBLE",
+  publiclyPublishable: true,
 };
 
 const jsonPath = resolve(OUTPUT, "sap-localization-human-quality.json");
