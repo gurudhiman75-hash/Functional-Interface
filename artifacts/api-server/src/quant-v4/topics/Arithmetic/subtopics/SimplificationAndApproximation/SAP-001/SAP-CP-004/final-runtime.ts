@@ -7,7 +7,7 @@ import {
   type SapCp004Package,
   type SapCp004PrototypeId,
 } from "./editorial-runtime";
-import { applySapCp004ExplanationRemediationV3 } from "./explanation-remediation-v3";
+import { applySapCp004ExplanationRemediationV4 } from "./explanation-remediation-v4";
 
 export {
   SAP_CP004_CATALOGUE,
@@ -157,7 +157,7 @@ export function generateSapCp004Package(
   seed: number,
   targetCorrectIndex?: number,
 ): SapCp004Package {
-  return applySapCp004ExplanationRemediationV3(
+  return applySapCp004ExplanationRemediationV4(
     generateSapCp004PreExplanationPackage(prototypeId, seed, targetCorrectIndex),
   );
 }
