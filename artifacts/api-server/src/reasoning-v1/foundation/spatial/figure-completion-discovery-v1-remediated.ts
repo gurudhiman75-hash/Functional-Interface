@@ -16,7 +16,7 @@ import {
 export { FGC_001_PROTOTYPES_V1 };
 export type { FigureCompletionPrototypeV1, FigureCompletionQuestionV1 };
 
-const PATCH_ORIGIN = { x: 58, y: 34 } as const;
+const PATCH_ORIGIN = { x: 34, y: 34 } as const;
 const PATCH_SIZE = 32;
 const STIMULUS_VIEW_BOX = { minX: 0, minY: 0, width: 100, height: 100 } as const;
 const OPTION_VIEW_BOX = { minX: 0, minY: 0, width: PATCH_SIZE, height: PATCH_SIZE } as const;
