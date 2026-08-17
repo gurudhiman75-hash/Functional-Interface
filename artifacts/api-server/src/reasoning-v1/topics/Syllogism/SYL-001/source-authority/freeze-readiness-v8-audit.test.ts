@@ -14,7 +14,7 @@ assert.equal(sourceProfileRequirement.status, "BLOCKED");
 assert.ok(sourceProfileRequirement.evidence.includes(SYL_BANKING_CROSS_EXAM_CENSUS_V5.authorityId));
 assert.ok(sourceProfileRequirement.evidence.includes("37 structural question records"));
 assert.ok(sourceProfileRequirement.evidence.includes("2 complete, independently count-corroborated officer-level shifts"));
-assert.ok(sourceProfileRequirement.evidence.includes("four"));
+assert.ok(sourceProfileRequirement.evidence.includes("4 independent dimensions"));
 assert.ok(sourceProfileRequirement.evidence.includes("Either/Or"));
 assert.ok(sourceProfileRequirement.unblockAction?.includes("conclusion-set-relationship"));
 assert.equal(sourceProfileRequirement.unblockAction?.includes("independently corroborate"), false);
