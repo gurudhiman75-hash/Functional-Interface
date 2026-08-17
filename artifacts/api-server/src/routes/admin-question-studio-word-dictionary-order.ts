@@ -5,6 +5,7 @@ import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 import type { WorCheckpointId } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/foundation/types";
+import { buildWor001QuestionStudioPayload } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/question-studio-payload";
 import {
   WOR_001_QUESTION_STUDIO_CATALOG,
   WOR_001_QUESTION_STUDIO_DIFFICULTIES,
@@ -37,88 +38,6 @@ function publicRunCode() {
   return `WOR-${date}-${randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}`;
 }
 
-function reviewPayload(question: WorQuestionStudioReviewQuestion) {
-  return {
-    text: question.displayStem,
-    stem: question.displayStem,
-    instruction: question.instruction,
-    structuredPrompt: question.structuredPrompt,
-    options: question.options,
-    optionDetails: question.optionDetails,
-    correct: question.correctIndex,
-    correctIndex: question.correctIndex,
-    answer: question.answer,
-    canonicalAnswer: question.answer,
-    explanation: question.explanation,
-    renderer: question.renderer,
-    difficulty: question.difficultyBand,
-    difficultyLabel: question.difficultyBand,
-    patternId: question.prototypeId,
-    prototypeId: question.prototypeId,
-    qlId: null,
-    permanentQlId: null,
-    packageId: question.packageId,
-    chapterId: question.chapterId,
-    checkpointId: question.checkpointId,
-    canonicalProblemId: question.checkpointId,
-    canonicalItemId: question.canonicalItemId,
-    questionLanguageId: question.questionLanguageId,
-    questionId: question.questionId,
-    taskKind: question.taskKind,
-    topic: "Reasoning",
-    subtopic: "Word & Dictionary Order",
-    subject: "Reasoning Ability",
-    language: question.language,
-    locale: question.locale,
-    seed: String(question.seed),
-    runtimeMode: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.runtimeMode,
-    reviewStatus: question.reviewStatus,
-    lifecycleStatus: question.lifecycleStatus,
-    questionStudioVisible: true as const,
-    questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
-    questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED" as const,
-    questionBankStatus: "NOT_STORED" as const,
-    questionBankWritable: false as const,
-    testEligibility: "INELIGIBLE" as const,
-    testEligible: false as const,
-    mockTestEligible: false as const,
-    publiclyPublishable: false as const,
-    manualApprovalRequired: true as const,
-    automaticStudentPublication: false as const,
-    releaseFreezeStatus: "PENDING_NATIVE_SIGNOFF_AND_PERMANENT_QL" as const,
-    integrationAuthority: WOR_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
-    sourceValidation: question.validation,
-    sourceEvidence: question.source,
-    generationContext: {
-      generationDomain: "reasoning-v1" as const,
-      packageId: question.packageId,
-      chapterId: question.chapterId,
-      checkpointId: question.checkpointId,
-      prototypeId: question.prototypeId,
-      patternId: question.prototypeId,
-      permanentQlId: null,
-      runtimeMode: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.runtimeMode,
-      reviewStatus: question.reviewStatus,
-      lifecycleStatus: question.lifecycleStatus,
-      questionStudioVisible: true as const,
-      questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
-      questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED" as const,
-      integrationAuthority: WOR_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
-      questionBankStatus: "NOT_STORED" as const,
-      questionBankWritable: false as const,
-      testEligibility: "INELIGIBLE" as const,
-      testEligible: false as const,
-      mockTestEligible: false as const,
-      publiclyPublishable: false as const,
-      persistenceAllowed: true as const,
-      reviewOnly: true as const,
-      manualApprovalRequired: true as const,
-      automaticStudentPublication: false as const,
-      releaseFreezeStatus: "PENDING_NATIVE_SIGNOFF_AND_PERMANENT_QL" as const,
-    },
-  };
-}
-
 async function persistRun(
   questions: readonly WorQuestionStudioReviewQuestion[],
   requestSnapshot: Record<string, unknown>,
@@ -147,7 +66,7 @@ async function persistRun(
       const question = questions[index]!;
       const itemId = randomUUID();
       const versionId = randomUUID();
-      const payload = reviewPayload(question);
+      const payload = buildWor001QuestionStudioPayload(question);
       await tx`
         INSERT INTO content.generation_run_items (
           id, generation_run_id, item_number, status, current_version_number,
