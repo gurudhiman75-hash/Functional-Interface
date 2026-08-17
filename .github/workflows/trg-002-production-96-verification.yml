@@ -140,19 +140,28 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
       - name: Install isolated Playwright runner
-        run: npm install --prefix scripts/e2e --no-package-lock
+        run: npm install --prefix scripts/e2e --no-package-lock --no-save
       - name: Install Chromium
         run: scripts/e2e/node_modules/.bin/playwright install --with-deps chromium
       - name: Typecheck ExamTree student app
         run: pnpm --dir artifacts/examtree typecheck
       - name: Generate exact Phase 8 editorial browser fixtures
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-production-expansion-editorial-review.ts
+      - name: Create production-mode E2E environment
+        run: |
+          cat > .env.production <<'EOF'
+          VITE_FIREBASE_API_KEY=examtree-e2e-api-key
+          VITE_FIREBASE_AUTH_DOMAIN=examtree-e2e.firebaseapp.com
+          VITE_FIREBASE_PROJECT_ID=examtree-e2e
+          VITE_FIREBASE_STORAGE_BUCKET=examtree-e2e.appspot.com
+          VITE_FIREBASE_MESSAGING_SENDER_ID=1234567890
+          VITE_FIREBASE_APP_ID=1:1234567890:web:e2e
+          VITE_E2E_AUTH_TOKEN=examtree-e2e-access-token
+          VITE_E2E_AUTH_UID=e2e-student
+          VITE_E2E_AUTH_EMAIL=student.e2e@examtree.local
+          VITE_E2E_AUTH_NAME=E2E Student
+          EOF
       - name: Build ExamTree student app
-        env:
-          VITE_E2E_AUTH_TOKEN: examtree-e2e-access-token
-          VITE_E2E_AUTH_UID: e2e-student
-          VITE_E2E_AUTH_EMAIL: student.e2e@examtree.local
-          VITE_E2E_AUTH_NAME: E2E Student
         run: pnpm run build:web
       - name: Execute Phase 8 representative real ExamTree visual gate
         run: scripts/e2e/node_modules/.bin/playwright test trg002-production-wrapper.spec.ts --config scripts/e2e/playwright.config.ts
@@ -163,7 +172,7 @@ jobs:
           JSON_COUNT=$(find test-results/trg002-production-visual -maxdepth 1 -name 'TRG-002-QL-*.json' | wc -l)
           test "$PNG_COUNT" -eq 14
           test "$JSON_COUNT" -eq 14
-          echo "TRG002_PHASE8_REAL_APP_VISUAL_PASS representatives=14 screenshots=$PNG_COUNT mobile=390x844 humanVisual=PENDING"
+          echo "TRG002_PHASE8_REAL_APP_VISUAL_PASS representatives=14 strategies=14 screenshots=$PNG_COUNT mobile=390x844 humanVisual=PENDING"
       - name: Upload Phase 8 real-app visual evidence
         if: success()
         uses: actions/upload-artifact@v4
