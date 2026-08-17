@@ -24,7 +24,6 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp014-multilingual-editorial-finalizer.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp014-explanation-depth-finalizer.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/final-extension-presentation-polish.ts
-          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/final-exam-readiness-remediation.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp014-multilingual-editorial-review.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts
