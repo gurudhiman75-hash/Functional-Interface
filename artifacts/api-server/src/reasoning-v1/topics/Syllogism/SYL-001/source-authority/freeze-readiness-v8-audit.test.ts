@@ -13,17 +13,17 @@ assert.ok(sourceProfileRequirement);
 assert.equal(sourceProfileRequirement.status, "BLOCKED");
 assert.ok(sourceProfileRequirement.evidence.includes(SYL_BANKING_CROSS_EXAM_CENSUS_V5.authorityId));
 assert.ok(sourceProfileRequirement.evidence.includes("37 structural question records"));
-assert.ok(sourceProfileRequirement.evidence.includes("2 archive-complete officer-level shifts"));
+assert.ok(sourceProfileRequirement.evidence.includes("2 complete, independently count-corroborated officer-level shifts"));
 assert.ok(sourceProfileRequirement.evidence.includes("four"));
 assert.ok(sourceProfileRequirement.evidence.includes("Either/Or"));
 assert.ok(sourceProfileRequirement.unblockAction?.includes("conclusion-set-relationship"));
-assert.ok(sourceProfileRequirement.unblockAction?.includes("independently corroborate"));
+assert.equal(sourceProfileRequirement.unblockAction?.includes("independently corroborate"), false);
 
 assert.equal(SYL_FREEZE_READINESS_V8.bankingCrossExamCensusAuthority, SYL_BANKING_CROSS_EXAM_CENSUS_V5.authorityId);
 assert.equal(SYL_FREEZE_READINESS_V8.bankingCrossExamSeriesCount, 5);
 assert.equal(SYL_FREEZE_READINESS_V8.bankingStructuralQuestionRecordsObserved, 37);
 assert.equal(SYL_FREEZE_READINESS_V8.bankingArchiveCompleteOfficerLevelShiftCount, 2);
-assert.equal(SYL_FREEZE_READINESS_V8.bankingIndependentlyCountCorroboratedCompleteOfficerLevelShiftCount, 1);
+assert.equal(SYL_FREEZE_READINESS_V8.bankingIndependentlyCountCorroboratedCompleteOfficerLevelShiftCount, 2);
 assert.equal(SYL_FREEZE_READINESS_V8.bankingFactorizedWeightModelRequired, true);
 assert.equal(SYL_FREEZE_READINESS_V8.bankingMinimumIndependentWeightDimensions, 4);
 assert.deepEqual(SYL_FREEZE_READINESS_V8.bankingWeightDimensions, [
@@ -37,7 +37,7 @@ assert.equal(SYL_FREEZE_READINESS_V8.bankingLegacyProvisionalFamiliesMixIndepend
 assert.equal(SYL_FREEZE_READINESS_V8.bankingWeightModelArchitectureClarified, true);
 assert.equal(SYL_FREEZE_READINESS_V8.bankingSystematicCrossSeriesWeightSampleComplete, false);
 assert.equal(SYL_FREEZE_READINESS_V8.bankingKnownSourceConflictsRemain, true);
-assert.equal(SYL_FREEZE_READINESS_V8.bankingSingleCountSourceCompleteShiftNeedsIndependentCorroboration, true);
+assert.equal(SYL_FREEZE_READINESS_V8.bankingSingleCountSourceCompleteShiftNeedsIndependentCorroboration, false);
 assert.equal(SYL_FREEZE_READINESS_V8.bankingExactWeightingFrozen, false);
 assert.equal(SYL_FREEZE_READINESS_V8.exactPercentageWeightingPermitted, false);
 assert.equal(SYL_FREEZE_READINESS_V8.currentProvisionalBankingMixChanged, false);
@@ -66,6 +66,8 @@ console.log(JSON.stringify({
   bankingMinimumIndependentWeightDimensions: SYL_FREEZE_READINESS_V8.bankingMinimumIndependentWeightDimensions,
   bankingWeightDimensions: SYL_FREEZE_READINESS_V8.bankingWeightDimensions,
   bankingSystematicCrossSeriesWeightSampleComplete: SYL_FREEZE_READINESS_V8.bankingSystematicCrossSeriesWeightSampleComplete,
+  bankingKnownSourceConflictsRemain: SYL_FREEZE_READINESS_V8.bankingKnownSourceConflictsRemain,
+  bankingSingleCountSourceCompleteShiftNeedsIndependentCorroboration: SYL_FREEZE_READINESS_V8.bankingSingleCountSourceCompleteShiftNeedsIndependentCorroboration,
   bankingExactWeightingFrozen: SYL_FREEZE_READINESS_V8.bankingExactWeightingFrozen,
   currentProvisionalBankingMixChanged: SYL_FREEZE_READINESS_V8.currentProvisionalBankingMixChanged,
   factorizedPlannerRedesignImplemented: SYL_FREEZE_READINESS_V8.factorizedPlannerRedesignImplemented,
