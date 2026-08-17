@@ -1,0 +1,121 @@
+import { mkdir, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import {
+  generateIopEnglishProductionCaselet,
+  IOP_ENGLISH_SOURCE_MODES,
+} from "./english-production.ts";
+import type { IopEnglishProductionCaselet } from "./english-production-types.ts";
+
+const outputDir = process.env.IOP_ENGLISH_REVIEW_OUTPUT_DIR ?? "/tmp/iop-english-review";
+const examplesPerMode = Number(process.env.IOP_ENGLISH_REVIEW_EXAMPLES_PER_MODE ?? 2);
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function row(value: readonly string[]): string {
+  return value.join(" &nbsp; ");
+}
+
+function traceHtml(title: string, trace: IopEnglishProductionCaselet["target"]): string {
+  const steps = trace.steps.map((step, index) => `<div class="trace-row"><strong>Step ${index + 1}:</strong> ${escapeHtml(step.join("  "))}</div>`).join("");
+  return `<section class="trace"><h5>${escapeHtml(title)}</h5><div class="trace-row"><strong>Input:</strong> ${escapeHtml(trace.input.join("  "))}</div>${steps}</section>`;
+}
+
+function questionHtml(caselet: IopEnglishProductionCaselet): string {
+  return caselet.children.map((child) => {
+    const options = child.options.map((option, index) => `<li class="${option.isCorrect ? "correct" : ""}">${String.fromCharCode(65 + index)}. ${escapeHtml(option.display)}</li>`).join("");
+    return `<article class="question">
+      <h5>Q${child.questionOrder} · ${escapeHtml(child.kind)}</h5>
+      <p>${escapeHtml(child.text)}</p>
+      <ol>${options}</ol>
+      <p><strong>Answer:</strong> ${escapeHtml(child.answerDisplay)}</p>
+      <p><strong>Explanation:</strong> ${escapeHtml(child.explanation)}</p>
+    </article>`;
+  }).join("");
+}
+
+function caseletHtml(caselet: IopEnglishProductionCaselet): string {
+  return `<article class="caselet">
+    <h4>${escapeHtml(caselet.qlId)} · ${escapeHtml(caselet.sourceModeId)} · ${escapeHtml(caselet.difficulty)}</h4>
+    <p><strong>Sources:</strong> ${escapeHtml(caselet.sourceEvidenceIds.join(", "))}</p>
+    <p><strong>Directions:</strong> ${escapeHtml(caselet.directions)}</p>
+    ${traceHtml("Illustration", caselet.demonstration)}
+    <p><strong>Rule identified:</strong> ${escapeHtml(caselet.ruleExplanation)}</p>
+    ${traceHtml("New input", caselet.target)}
+    ${questionHtml(caselet)}
+  </article>`;
+}
+
+const caselets: IopEnglishProductionCaselet[] = [];
+for (const mode of IOP_ENGLISH_SOURCE_MODES) {
+  for (let index = 0; index < examplesPerMode; index += 1) {
+    caselets.push(generateIopEnglishProductionCaselet(
+      `IOP-EN-REVIEW-${mode.sourceModeId}-${String(index).padStart(2, "0")}`,
+      mode.qlId,
+      mode.sourceModeId,
+    ));
+  }
+}
+
+const byQl = new Map<string, IopEnglishProductionCaselet[]>();
+for (const caselet of caselets) {
+  const existing = byQl.get(caselet.qlId) ?? [];
+  existing.push(caselet);
+  byQl.set(caselet.qlId, existing);
+}
+
+const sections = [...byQl.entries()].map(([qlId, values]) => `<section class="ql"><h2>${escapeHtml(qlId)}</h2>${values.map(caseletHtml).join("")}</section>`).join("");
+const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>IOP-001 English Permanent Authority Review</title>
+<style>
+  body { font-family: Arial, sans-serif; line-height: 1.45; margin: 24px; color: #181818; }
+  h1, h2, h3, h4, h5 { margin-bottom: 8px; }
+  .summary { padding: 14px; border: 1px solid #bbb; border-radius: 8px; margin-bottom: 20px; }
+  .ql { margin: 28px 0; }
+  .caselet { border: 1px solid #bbb; border-radius: 10px; padding: 16px; margin: 16px 0; break-inside: avoid; }
+  .trace { background: #f7f7f7; padding: 10px 12px; margin: 10px 0; border-radius: 8px; overflow-x: auto; }
+  .trace-row { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; margin: 4px 0; }
+  .question { border-top: 1px dashed #bbb; padding-top: 10px; margin-top: 14px; }
+  ol { list-style: none; padding-left: 0; }
+  li { padding: 3px 0; }
+  .correct { font-weight: 700; }
+</style>
+</head>
+<body>
+<h1>IOP-001 — English Permanent Authority Review</h1>
+<div class="summary">
+  <p><strong>Status:</strong> ENGLISH_REVIEW_CANDIDATE; not frozen.</p>
+  <p><strong>Permanent QLs:</strong> 8 &nbsp; <strong>Whitelisted source modes:</strong> ${IOP_ENGLISH_SOURCE_MODES.length} &nbsp; <strong>Caselets:</strong> ${caselets.length}</p>
+  <p><strong>Product lifecycle:</strong> Question Studio OFF · Question Bank OFF · tests OFF · public OFF.</p>
+  <p>Review rule inference, source realism, step correctness, distractors, explanation clarity and difficulty. A green automated proof is necessary but not a substitute for human editorial approval.</p>
+</div>
+${sections}
+</body>
+</html>`;
+
+await mkdir(outputDir, { recursive: true });
+await writeFile(join(outputDir, "IOP-001-ENGLISH-PERMANENT-REVIEW.html"), html, "utf8");
+await writeFile(join(outputDir, "IOP-001-ENGLISH-PERMANENT-REVIEW.json"), JSON.stringify({
+  packageId: "IOP-001",
+  status: "ENGLISH_REVIEW_CANDIDATE",
+  permanentQlCount: 8,
+  sourceModeCount: IOP_ENGLISH_SOURCE_MODES.length,
+  caseletCount: caselets.length,
+  questionStudioDiscoverable: false,
+  caselets,
+}, null, 2), "utf8");
+
+console.log("PASS_IOP_001_ENGLISH_REVIEW_EXPORT");
+console.log(`output ${outputDir}`);
+console.log(`caselets ${caselets.length}`);
+console.log(`questions ${caselets.reduce((sum, caselet) => sum + caselet.children.length, 0)}`);
