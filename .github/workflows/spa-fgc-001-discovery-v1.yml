@@ -40,7 +40,8 @@ jobs:
             spatial-permanent-ql-allocation-v2 \
             spatial-figure-completion-permanent-english-runtime-v1 \
             spatial-figure-completion-permanent-english-editorial-v1 \
-            spatial-figure-completion-english-freeze-v1
+            spatial-figure-completion-english-freeze-v1 \
+            spatial-figure-completion-localization-v1
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -75,6 +76,8 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-permanent-english-editorial-v1.test.mjs
       - name: Prove FGC-001 English freeze authority
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-english-freeze-v1.test.mjs
+      - name: Run FGC-001 Hindi Punjabi localization parity and review proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-localization-v1.test.mjs
       - name: Upload FGC-001 discovery review
         uses: actions/upload-artifact@v4
         with:
@@ -95,4 +98,7 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-permanent-english-runtime-v1-review.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-permanent-english-runtime-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-permanent-english-runtime-v1-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-localization-v1-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-localization-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-localization-v1-review.html
           if-no-files-found: error
