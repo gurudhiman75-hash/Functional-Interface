@@ -1,8 +1,8 @@
 {
   "packageId": "TRG-002",
-  "checkpoint": "PHASE7_MVP_48_POST_SELF_REVIEW_REMEDIATED",
-  "status": "MVP_48_REMEDIATION_PASS_EXECUTION_PASS_REPRESENTATIVE_RUNTIME_VISUAL_PASS_APP_UI_AND_HUMAN_REVIEW_PENDING",
-  "activeRuntime": "mvp-final-editorial-runtime.ts",
+  "checkpoint": "PHASE7_MVP_48_HUMAN_APPROVED_BROWSER_VALIDATED_FROZEN",
+  "status": "MVP_48_HUMAN_APPROVED_BROWSER_WRAPPER_PASS_FROZEN",
+  "activeRuntime": "mvp-human-approved-runtime.ts",
   "counts": {
     "perCp": 12,
     "mvpPermanentQlCount": 48,
@@ -15,10 +15,13 @@
     "knownActiveBlockers": 0,
     "representativeRuntimeVisualInspection": "PASS",
     "perSeedVisualInspection": "NOT_ASSERTED",
-    "appUiRenderedInspection": "PENDING",
-    "humanReviewed": 0,
+    "appUiRenderedInspection": "PASS",
+    "humanReviewed": 48,
     "humanReviewTarget": 48,
-    "freezeEligible": false
+    "humanReviewStatus": "APPROVED",
+    "freezeEligible": true,
+    "freezeStatus": "FROZEN",
+    "approvedContentFingerprint": "b60217f9b29af79435ab065e4c64c40449dc43df2fa9646b055f41763bce04db"
   },
   "coverage": {
     "brokenObjectQlIds": ["TRG-002-QL-041", "TRG-002-QL-043"],
@@ -74,9 +77,10 @@
   },
   "executionEvidence": {
     "workflow": ".github/workflows/trg-002-mvp48-verification.yml",
-    "successfulRemediationRunId": 31820489042,
-    "successfulRemediationHead": "0a0b0fbe72bd053252d7dd05c33721a9aab522d2",
-    "artifactId": 9226750393,
+    "approvedContentRunId": 31932920092,
+    "approvedContentSourceHead": "60e289ee6c89a3f595ad75038ac563daf2a5fc5f",
+    "artifactId": 9259815578,
+    "artifactDigest": "sha256:2e49ac250376d38fcd7fa21aa7be4d9906f9fed6d6ccc8a036dfe69bcad2788f",
     "strictTypeScriptCompile": "PASS",
     "mvpCanonicalCases": 576,
     "mvpCanonicalGate": "PASS",
@@ -88,8 +92,26 @@
     "specialProjectionGate": "PASS",
     "finalEditorialCases": 576,
     "finalEditorialGate": "PASS",
+    "examStyleStemGate": "PASS",
     "runtimeReviewExport": "PASS",
     "artifactName": "trg-002-mvp48-runtime-review"
+  },
+  "browserEvidence": {
+    "workflowRunId": 31945456581,
+    "integrationHead": "e0480a63188327fb4a4521f0ade2efc1970557cf",
+    "verifyJob": "PASS",
+    "browserWrapperJob": "PASS",
+    "responsive390x844": "PASS"
+  },
+  "freeze": {
+    "status": "FROZEN",
+    "frozenAt": "2026-08-17T07:47:00+05:30",
+    "freezeGovernanceBaseHead": "828782170a15779f6b039668b254ec19647ec9c5",
+    "approvedContentFingerprint": "b60217f9b29af79435ab065e4c64c40449dc43df2fa9646b055f41763bce04db",
+    "contentChangeRequiresNewHumanApproval": true,
+    "perGeneratedSeedVisualPassClaimed": false,
+    "expansionAuthorized": false,
+    "mergeAuthorized": false
   },
   "activation": {
     "questionStudioDiscoverable": false,
@@ -98,5 +120,5 @@
     "publiclyPublishable": false,
     "hindiPunjabiRuntime": false
   },
-  "next": "Inspect the real ExamTree/browser UI wrapper and complete human review of all 48 QLs before production freeze or 48-to-96 expansion under the current plan."
+  "next": "Verify the freeze on its exact branch head. After a green freeze gate, use this frozen 48-QL baseline as the controlled base for the planned 48-to-96 English expansion without activating product surfaces."
 }
