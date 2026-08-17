@@ -32,8 +32,8 @@ function coreExplanationText(question: MensurationQuestionStudioQuestionV2) {
 
 function normalizeMathBody(value: string) {
   let body = value.trim();
-  // Remove learner-facing English labels at the beginning of a math block while
-  // preserving formula text, variables and unit \text{...} fragments later on.
+  // Drop only leading prose labels. Formula variables and unit \text{...}
+  // fragments later in the expression remain untouched.
   body = body.replace(/^(?:\\text\{[^}]+\}\s*[:\-–—]?\s*)+/g, "").trim();
   body = body.replace(/^[=:;\-–—\s]+/, "").trim();
   return body;
@@ -68,7 +68,7 @@ function extractDelimitedMath(core: string) {
   const withoutDisplay = core.replace(/\$\$[\s\S]*?\$\$/g, " ");
   for (const match of withoutDisplay.matchAll(/\$([^$\n]+?)\$/g)) {
     const body = normalizeMathBody(match[1] ?? "");
-    if (body) addUnique(values, seen, `$${body}$`);
+    if (body) addUnique(values, seen, `\\(${body}\\)`);
   }
 
   const withoutDollarMath = withoutDisplay.replace(/\$[^$\n]+?\$/g, " ");
