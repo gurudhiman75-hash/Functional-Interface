@@ -5,8 +5,12 @@ import { IOP_FOUNDATION_PROTOTYPES } from "./prototypes.ts";
 
 assert.equal(IOP_001_PERMANENT_QL_AUTHORITIES.length, 8, "IOP permanent allocation must contain exactly eight semantic machine QLs");
 assert.equal(IOP_001_PERMANENT_ALLOCATION.permanentQlCount, 8, "Package permanent QL count drifted");
-assert.equal(IOP_001_PERMANENT_ALLOCATION.maturity, "PERMANENT_QL_ALLOCATED");
+assert.equal(IOP_001_PERMANENT_ALLOCATION.maturity, "ENGLISH_REVIEW_CANDIDATE");
 assert.equal(IOP_001_PERMANENT_ALLOCATION.sourceFamilySaturation, "PASS_V1");
+assert.equal(IOP_001_PERMANENT_ALLOCATION.whitelistedSourceModeCount, 19);
+assert.equal(IOP_001_PERMANENT_ALLOCATION.englishAutomatedScaleProof, "PASS");
+assert.equal(IOP_001_PERMANENT_ALLOCATION.englishHumanAuditPack, "PASS");
+assert.equal(IOP_001_PERMANENT_ALLOCATION.englishArtifactAudit, "PASS");
 
 const expectedIds = Array.from({ length: 8 }, (_, index) => `IOP-QL-${String(index + 1).padStart(3, "0")}`);
 assert.deepEqual(IOP_001_PERMANENT_QL_AUTHORITIES.map((authority) => authority.qlId), expectedIds, "IOP permanent QL IDs must be contiguous and stable");
@@ -35,6 +39,7 @@ for (const authorityId of expectedDiscoveryAuthorities) {
 
 for (const authority of IOP_001_PERMANENT_QL_AUTHORITIES) {
   assert.equal(authority.allocationStatus, "PERMANENT_ALLOCATED", `${authority.qlId} is not permanently allocated`);
+  assert.equal(authority.englishProductionStatus, "ENGLISH_REVIEW_CANDIDATE", `${authority.qlId} is not at the English review-candidate gate`);
   assert.equal(authority.primaryExamFamily, "BANKING", `${authority.qlId} lost Banking ownership`);
   assert.equal(authority.nonBankingWeighting, "SOURCE_GATED", `${authority.qlId} leaked non-Banking weighting`);
   assert.ok(authority.allowedSolveModes.length > 0, `${authority.qlId} has no solve modes`);
@@ -53,7 +58,8 @@ assert.deepEqual(mixedAuthority.discoveryAuthorities, ["IOP-CP008-GAP-PROT-001"]
 for (const qlId of ["IOP-QL-005", "IOP-QL-006", "IOP-QL-008"] as const) {
   const authority = IOP_001_PERMANENT_QL_AUTHORITIES.find((candidate) => candidate.qlId === qlId);
   assert.ok(authority, `${qlId} missing`);
-  assert.equal(authority.englishProductionStatus, "MODE_WHITELIST_REQUIRED", `${qlId} must remain mode-whitelist gated`);
+  assert.equal(authority.sourceStatus, "SOURCE_MODE_WHITELISTED_V1", `${qlId} should have a closed V1 source-mode whitelist`);
+  assert.equal(authority.englishProductionStatus, "ENGLISH_REVIEW_CANDIDATE", `${qlId} should be English review-ready but unfrozen`);
 }
 
 assert.equal(IOP_001_PERMANENT_ALLOCATION.englishFreeze, false);
@@ -66,6 +72,9 @@ assert.equal(IOP_001_PERMANENT_ALLOCATION.hindiPunjabiStatus, "NOT_STARTED");
 console.log("PASS_IOP_001_PERMANENT_QL_ALLOCATION");
 console.log(`permanent QLs ${IOP_001_PERMANENT_QL_AUTHORITIES.length}`);
 console.log(`mapped discovery authorities ${mappedDiscoveryAuthorities.length}`);
+console.log("whitelisted source modes 19");
+console.log("English review candidate true");
+console.log("English freeze false");
 console.log("CP010 machine QLs 0");
 console.log("Question Studio false");
 console.log("Question Bank false");
