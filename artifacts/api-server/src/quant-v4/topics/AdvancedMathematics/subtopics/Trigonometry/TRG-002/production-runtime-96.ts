@@ -23,6 +23,7 @@ import {
   generateTrg002ProductionCp010ExpansionQuestion,
   type Trg002ProductionCp010ExpansionId,
 } from "./production-cp010-expansion";
+import { generateTrg002ProductionQl019Clean } from "./production-ql019-clean";
 import { generateTrg002ProductionQl021Clean } from "./production-ql021-clean";
 import { generateTrg002ProductionQl026Clean } from "./production-ql026-clean";
 
@@ -35,6 +36,7 @@ function numericId(qlId: string) {
 }
 
 function expansionQuestion(qlId: string, seed: string) {
+  if (qlId === "TRG-002-QL-019") return generateTrg002ProductionQl019Clean(seed);
   if (qlId === "TRG-002-QL-021") return generateTrg002ProductionQl021Clean(seed);
   if (qlId === "TRG-002-QL-026") return generateTrg002ProductionQl026Clean(seed);
   const n = numericId(qlId);
