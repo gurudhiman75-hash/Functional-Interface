@@ -69,6 +69,26 @@ function isNumberSystemRequest(body: any) {
   );
 }
 
+function isSimplificationRequest(body: any) {
+  const packageId = normalizeSelector(body?.packageId ?? body?.archetypeId);
+  const patternId = normalizeSelector(body?.patternId);
+  const topic = normalizeSelector(body?.topic);
+  const subtopic = normalizeSelector(body?.subtopic);
+  const selectors = new Set([
+    "simplification approximation",
+    "simplification and approximation",
+    "simplification",
+    "approximation",
+  ]);
+  return (
+    packageId === "sap" ||
+    patternId === "sap" ||
+    patternId.includes("sap ql") ||
+    (selectors.has(topic) && !subtopic) ||
+    (topic === "arithmetic" && selectors.has(subtopic))
+  );
+}
+
 function publicRunCode() {
   const date = new Date().toISOString().slice(0, 10).replaceAll("-", "");
   const suffix = randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase();
@@ -126,16 +146,25 @@ router.post(
   "/runs",
   requireAdminPermission("content.generation.run"),
   async (req, res, next) => {
+    const simplificationRequest = isSimplificationRequest(req.body);
     const numberSystemRequest = isNumberSystemRequest(req.body);
     const averageRequest = isAverageRequest(req.body);
-    if (!averageRequest && !numberSystemRequest) {
+    if (!averageRequest && !numberSystemRequest && !simplificationRequest) {
       next();
       return;
     }
 
     const count = asPositiveInteger(req.body?.count, 5, 50);
-    const defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001";
-    const defaultSubtopic = numberSystemRequest ? "Number System" : "Average";
+    const defaultPackageId = simplificationRequest
+      ? "SAP"
+      : numberSystemRequest
+        ? "NUM-001"
+        : "AVG-001";
+    const defaultSubtopic = simplificationRequest
+      ? "Simplification & Approximation"
+      : numberSystemRequest
+        ? "Number System"
+        : "Average";
     const packageId = asString(req.body?.packageId) || defaultPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
     const topic = asString(req.body?.topic) || "Arithmetic";
@@ -151,6 +180,12 @@ router.post(
     if (numberSystemRequest && language !== "en") {
       res.status(400).json({
         error: "NUM-001 supports English Question Studio generation only.",
+      });
+      return;
+    }
+    if (simplificationRequest && language !== "en") {
+      res.status(400).json({
+        error: "SAP supports English Question Studio generation only.",
       });
       return;
     }
@@ -176,7 +211,7 @@ router.post(
 
     try {
       const result = await generateQuantV4Questions({
-        packageId: defaultPackageId as "AVG-001" | "NUM-001",
+        packageId: defaultPackageId as "AVG-001" | "NUM-001" | "SAP",
         patternId,
         topic,
         subtopic,
