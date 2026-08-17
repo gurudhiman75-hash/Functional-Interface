@@ -51,6 +51,35 @@ jobs:
       - name: Execute 96-QL production gate
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-runtime-96-diagnostic.ts
 
+      - name: Execute Phase 8 editorial gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-final-editorial-diagnostic.ts
+
+      - name: Export Phase 8 editorial review pack
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-production-expansion-editorial-review.ts
+
+      - name: Verify Phase 8 editorial review pack
+        run: |
+          JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/production-expansion-48/TRG-002-PHASE8-48-EDITORIAL-REVIEW.json
+          HTML=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/production-expansion-48/TRG-002-PHASE8-48-EDITORIAL-REVIEW.html
+          test -s "$JSON" && test -s "$HTML"
+          node - "$JSON" <<'NODE'
+          const fs = require('fs');
+          const p = process.argv[2];
+          const rows = JSON.parse(fs.readFileSync(p, 'utf8'));
+          if (rows.length !== 48) throw new Error(`Expected 48 editorial review rows, found ${rows.length}`);
+          for (const row of rows) {
+            if (row.reviewStatus !== 'AI_REVIEWED' || row.aiEditorialStatus !== 'PASS') throw new Error(`${row.qlId}: AI editorial PASS missing`);
+            if (row.humanReviewStatus !== 'PENDING') throw new Error(`${row.qlId}: human review must remain PENDING`);
+            if (row.freezeStatus !== 'NOT_FROZEN') throw new Error(`${row.qlId}: expansion must remain NOT_FROZEN`);
+            if (row.finalEditorialReview?.status !== 'PASS') throw new Error(`${row.qlId}: final editorial status missing`);
+            if (row.finalEditorialReview?.runtimeSpecVisualInspection !== 'NOT_ASSERTED_PER_INSTANCE') throw new Error(`${row.qlId}: per-instance visual claim is invalid`);
+            if (row.finalEditorialReview?.appUiRenderedInspection !== 'PENDING' || row.finalEditorialReview?.renderedVisualInspection !== 'PENDING') throw new Error(`${row.qlId}: rendered visual/app inspection must remain PENDING`);
+            if (row.finalEditorialReview?.humanReviewSubstituted !== false) throw new Error(`${row.qlId}: AI review must not substitute for human review`);
+            if (row.validation?.valid !== true) throw new Error(`${row.qlId}: validation is not PASS`);
+          }
+          console.log(`TRG002_PHASE8_EDITORIAL_PACK_PASS count=${rows.length} ai=PASS human=PENDING visual=PENDING freeze=NOT_FROZEN`);
+          NODE
+
       - name: Create Phase 8 execution evidence
         if: success()
         run: |
@@ -68,7 +97,12 @@ jobs:
           - Frozen 48 approval fingerprint gate: **PASS**
           - 96-QL production runtime gate: **PASS**
           - Production sweep cases: **1152**
-          - New expansion review status: **UNREVIEWED / AI PENDING / HUMAN PENDING**
+          - Phase-8 AI/editorial gate: **PASS**
+          - Phase-8 editorial cases: **576**
+          - Phase-8 editorial review pack: **48 designated runtime records**
+          - New expansion human review: **PENDING**
+          - Rendered visual/app UI inspection: **PENDING**
+          - New expansion freeze status: **NOT FROZEN**
           - Question Studio/Test Builder/storage/publication: **OFF**
           EOF
 
@@ -78,5 +112,14 @@ jobs:
         with:
           name: trg-002-production96-execution-evidence
           path: trg-002-production96-evidence/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload Phase 8 editorial review pack
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-production48-editorial-review
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/production-expansion-48/
           if-no-files-found: error
           retention-days: 14
