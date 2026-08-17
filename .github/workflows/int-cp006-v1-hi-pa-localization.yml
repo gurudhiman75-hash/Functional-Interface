@@ -61,7 +61,7 @@ jobs:
         with:
           name: int-cp006-v1-hi-pa-review
           path: |
-            artifacts/api-server/dist/quant-v4/INT-CP-006-V1-HI-PA-MATCHED-REVIEW.md
+            artifacts/api-server/dist/quant-v4/INT-CP-006-HI-PA-MATCHED-REVIEW.md
             artifacts/api-server/dist/quant-v4/int-cp006-v1-hi-pa-audit.log
             artifacts/api-server/dist/quant-v4/int-cp006-v1-hi-pa-review-export.log
           if-no-files-found: error
