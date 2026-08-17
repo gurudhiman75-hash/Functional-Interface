@@ -11,7 +11,7 @@ import {
   INT_CP006_LOCALIZED_VERSION,
   generateIntCp006LocalizedQuestion,
   type IntCp006LocalizedLocale,
-} from "./cp006-si-ci-relations-localized-v2";
+} from "./cp006-si-ci-relations-localized-v3";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -34,6 +34,7 @@ let deterministicChecks = 0;
 let semanticParityChecks = 0;
 let lifecycleChecks = 0;
 let nativeScriptChecks = 0;
+let editorialChecks = 0;
 let deepFreezeChecks = 0;
 let familyCoverageChecks = 0;
 let positionCoverageChecks = 0;
@@ -73,6 +74,16 @@ for (const locale of INT_CP006_LOCALIZED_LOCALES) {
       assert(hasNativeScript(localized.explanation.commonMistake, locale), `${locale}/${qlId}/${seed}: common mistake missing native script`);
       assert(localized.explanation.steps.some((step) => hasNativeScript(step, locale)), `${locale}/${qlId}/${seed}: solution missing native script`);
       nativeScriptChecks += 5;
+
+      if (qlId === "INT-QL-102") {
+        assert(!localized.presentation.markdown.includes("SI−CI"), `${locale}/${qlId}/${seed}: signed difference wording reversed`);
+        editorialChecks += 1;
+      }
+      if (qlId === "INT-QL-106") {
+        const duplicatedPrincipal = locale === "hi-IN" ? "मूल मूलधन" : "ਮੂਲ ਮੂਲਧਨ";
+        assert(!localized.presentation.markdown.includes(duplicatedPrincipal), `${locale}/${qlId}/${seed}: duplicated principal wording`);
+        editorialChecks += 1;
+      }
 
       assert(!localized.enabled, `${locale}/${qlId}/${seed}: enabled opened`);
       assert(localized.stagingStatus === "NOT_STAGED", `${locale}/${qlId}/${seed}: staging opened`);
@@ -119,6 +130,7 @@ console.log(JSON.stringify({
   semanticParityChecks,
   lifecycleChecks,
   nativeScriptChecks,
+  editorialChecks,
   deepFreezeChecks,
   familyCoverageChecks,
   positionCoverageChecks,
