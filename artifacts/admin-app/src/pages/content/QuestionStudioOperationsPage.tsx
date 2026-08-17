@@ -3,7 +3,6 @@ import { QuestionStudioDifficultyMixControls } from './QuestionStudioDifficultyM
 import { QuestionStudioExamProfileSummary } from './QuestionStudioExamProfileSummary';
 import { QuestionStudioProfileCalibration } from './QuestionStudioProfileCalibration';
 import { QuestionStudioRecoveryDock } from './QuestionStudioRecoveryDock';
-import { QuestionStudioSimplificationReviewPanel } from './QuestionStudioSimplificationReviewPanel';
 
 export function QuestionStudioOperationsPage() {
   return (
@@ -11,7 +10,6 @@ export function QuestionStudioOperationsPage() {
       <QuestionStudioExamProfileSummary />
       <QuestionStudioProfileCalibration />
       <QuestionStudioDifficultyMixControls />
-      <QuestionStudioSimplificationReviewPanel />
       <QuestionStudioCockpitPage />
       <QuestionStudioRecoveryDock />
     </>
