@@ -6,6 +6,7 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp006-si-ci-relations-v1-frozen.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp006-v1-freeze-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-006/**"
       - ".github/workflows/int-cp006-v1-freeze.yml"
   workflow_dispatch:
 
