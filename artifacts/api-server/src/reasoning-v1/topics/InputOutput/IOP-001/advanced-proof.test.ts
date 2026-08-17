@@ -29,10 +29,17 @@ assert.equal(IOP_ADVANCED_PROTOTYPES.length, 18, "Checkpoint B should begin with
 for (const authority of IOP_ADVANCED_PROTOTYPES) {
   for (let index = 0; index < casesPerPrototype; index += 1) {
     const seed = `IOP-ADV-PROOF-${authority.prototypeId}-${String(index).padStart(4, "0")}`;
-    const first = generateIopAdvancedCaselet(seed, authority.prototypeId);
-    const replay = generateIopAdvancedCaselet(seed, authority.prototypeId);
-    assert.deepEqual(first, replay, `${authority.prototypeId}/${seed} was not deterministic`);
-    assertIopAdvancedCaseletIntegrity(first);
+    let first: ReturnType<typeof generateIopAdvancedCaselet>;
+    let replay: ReturnType<typeof generateIopAdvancedCaselet>;
+    try {
+      first = generateIopAdvancedCaselet(seed, authority.prototypeId);
+      replay = generateIopAdvancedCaselet(seed, authority.prototypeId);
+      assert.deepEqual(first, replay, `${authority.prototypeId}/${seed} was not deterministic`);
+      assertIopAdvancedCaseletIntegrity(first);
+    } catch (error) {
+      const message = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
+      throw new Error(`IOP advanced proof failed at ${authority.prototypeId}/${seed}: ${message}`, { cause: error });
+    }
 
     generated += 1;
     childQuestions += first.children.length;
