@@ -78,6 +78,9 @@ jobs:
       - name: Audit English review balance and visible box arithmetic
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-review-audit.test.ts
 
+      - name: Audit rich object pools and explanation substance
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-review-quality.test.ts
+
       - name: Generate permanent English review pack
         env:
           IOP_ENGLISH_REVIEW_OUTPUT_DIR: /tmp/iop-english-permanent-review
