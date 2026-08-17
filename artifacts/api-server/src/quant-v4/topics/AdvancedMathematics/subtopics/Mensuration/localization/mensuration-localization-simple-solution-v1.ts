@@ -173,6 +173,25 @@ function extractInlineMath(value: string) {
   return result;
 }
 
+function extractPlainWorking(value: string) {
+  const result: string[] = [];
+  const seen = new Set<string>();
+  for (const rawLine of value.split(/\n+/)) {
+    const line = stripInternalIds(rawLine)
+      .replace(/^\s*[-*•]+\s*/, "")
+      .replace(/\*\*/g, "")
+      .trim();
+    if (!line || /^#{1,6}\s/.test(line)) continue;
+    if (/\$\$|\$[^$]+\$|\\\(|\\\)/.test(line)) continue;
+
+    const hasNumber = /\d/.test(line);
+    const hasWorkingSignal = /=|[×÷√∛π²³]|\b(?:square|cube|radius|diameter|area|volume|perimeter|surface|circumference)\b.*\d/i.test(line);
+    if (!hasNumber || !hasWorkingSignal) continue;
+    addUnique(result, seen, line);
+  }
+  return result;
+}
+
 function extractWorking(question: MensurationQuestionStudioQuestionV2) {
   const joined = question.explanation.steps.join("\n");
   const ruleSection = sectionBetween(
@@ -199,6 +218,14 @@ function extractWorking(question: MensurationQuestionStudioQuestionV2) {
   }
   if (values.length < 2) {
     for (const value of extractInlineMath(joined)) addUnique(values, seen, value);
+  }
+
+  // Some approved later-CP teaching sources deliberately use plain Unicode
+  // equations rather than Markdown/LaTeX delimiters (for example CP-009).
+  // Preserve those human-authored working lines so V2 never collapses to
+  // Given/Asked/Method/Answer without a visible calculation.
+  if (values.length === 0) {
+    for (const value of extractPlainWorking(joined)) addUnique(values, seen, value);
   }
 
   if (values.length <= 9) return values;
