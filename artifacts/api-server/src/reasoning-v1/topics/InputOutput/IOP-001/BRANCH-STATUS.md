@@ -63,7 +63,49 @@ JSON sha256:          94b5c9b31fb497c972fccba79f948e37db22d6e945a5311f0f7036e52f
 learner-content hash: 58a91a0dd0b5faeb0e601e8d5b587a0f7768a65c246530f5bb316b73b9232413
 ```
 
-`english-freeze-authority.test.ts` must reproduce the learner-content hash from the same 38 review caselets. Learner-content changes require a new human approval.
+`english-freeze-authority.test.ts` regenerates the same 38 approved caselets and must reproduce the learner-content hash. Learner-content changes require a new human approval.
+
+## Final freeze verification
+
+Final freeze implementation head before this metadata-only status pin:
+
+```text
+817516fc98c06a27bc300aa73a98c628b1dc9e29
+```
+
+Serialized chapter gate:
+
+```text
+workflow run: 32075856144
+chapter-gate: SUCCESS
+```
+
+Passed:
+
+```text
+strict TypeScript                          PASS
+CP001–CP004 foundation proof               PASS
+CP005–CP010 advanced proof                 PASS
+RBI mixed-source proof                     PASS
+permanent frozen QL allocation             PASS
+8-QL frozen English scale proof            PASS
+English query-balance/box audit            PASS
+rich object/explanation audit              PASS
+content-addressed human English freeze     PASS
+frozen English review export               PASS
+discovery review exports                   PASS
+production API build                       PASS
+artifact uploads                           PASS
+```
+
+Frozen review artifact from run `32075856144`:
+
+```text
+artifact id: 9303419552
+name:        iop-001-english-permanent-review
+archive digest:
+sha256:87b9e4bddd896d75d7406b97bbeb91e167b4ffdbdecf45c5c86f2adde9e3cd65
+```
 
 ## Frozen review volume
 
