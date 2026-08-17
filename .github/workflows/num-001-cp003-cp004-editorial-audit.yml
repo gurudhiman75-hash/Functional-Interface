@@ -40,6 +40,10 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/number-system-question-studio-release-audit.mjs
           pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-REPETITION-DIAGNOSTIC.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sap-question-studio-repetition-diagnostic.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-INTEGRATION.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/sap-question-studio-chapter-review-audit.mjs
@@ -59,6 +63,15 @@ jobs:
           timeout --signal=TERM --kill-after=30s 12m \
             node dist/quant-v4/number-system-question-studio-release-audit.mjs \
             2>&1 | tee dist/quant-v4/number-system-question-studio-release-audit.log
+
+      - name: Diagnose SAP exact stem repetition
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/sap-question-studio-repetition-diagnostic.mjs \
+            2>&1 | tee dist/quant-v4/sap-question-studio-repetition-diagnostic.log
 
       - name: Run SAP chapter-wide Question Studio review audit
         working-directory: artifacts/api-server
@@ -83,6 +96,9 @@ jobs:
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.json
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.csv
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.md
+            artifacts/api-server/dist/quant-v4/sap-question-studio-repetition-diagnostic.log
+            artifacts/api-server/dist/quant-v4/sap-question-studio-repetition-diagnostic/sap-question-studio-repetition-diagnostic.json
+            artifacts/api-server/dist/quant-v4/sap-question-studio-repetition-diagnostic/sap-question-studio-repetition-diagnostic.md
             artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-review-audit.log
             artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-review/sap-question-studio-chapter-review.json
             artifacts/api-server/dist/quant-v4/sap-question-studio-chapter-review/sap-question-studio-chapter-review.csv
