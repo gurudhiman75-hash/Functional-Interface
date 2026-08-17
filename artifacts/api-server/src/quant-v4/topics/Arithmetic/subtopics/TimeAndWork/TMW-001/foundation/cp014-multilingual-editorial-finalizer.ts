@@ -15,25 +15,58 @@ function deepMapStrings(value: any, transform: (text: string) => string): any {
   return value;
 }
 
-function localizePipeTerms(question: AnyQuestion, language: TmwLanguage): AnyQuestion {
-  if (language === "en") return question;
+function polishLocalizedSurface(question: AnyQuestion, language: Exclude<TmwLanguage, "en">): AnyQuestion {
   return deepMapStrings(question, (value) => {
     let text = value;
     if (language === "hi") {
       text = text
-        .replace(/\binlet\b/giu, "भरने वाली पाइप")
-        .replace(/\boutlet\b/giu, "खाली करने वाली पाइप")
+        .replace(
+          /एक inlet अकेला टंकी को (\d+) घंटे में भरता है और outlet अकेला उसे (\d+) घंटे में खाली करता है।/gu,
+          "भराव पाइप से टंकी $1 घंटे में भर जाती है और निकासी पाइप से $2 घंटे में खाली हो जाती है।",
+        )
+        .replace(/\binlet\b/giu, "भराव पाइप")
+        .replace(/\boutlet\b/giu, "निकासी पाइप")
         .replace(/\bnet\b/giu, "शुद्ध")
-        .replace(/(\d+) h\b/gu, "$1 घंटे");
+        .replace(/(\d+) h\b/gu, "$1 घंटे")
+        .replace(/दल योगदान रिकॉर्ड/gu, "दल का योगदान विवरण")
+        .replace(/परियोजना केसलेट/gu, "परियोजना संबंधी जानकारी")
+        .replace(/कुशल योगदान =/gu, "कुशल कामगारों का योगदान =")
+        .replace(/सहायक योगदान =/gu, "सहायकों का योगदान =")
+        .replace(/इकाइयाँ\/दिन/gu, "इकाइयाँ प्रति दिन");
     } else {
       text = text
-        .replace(/\binlet\b/giu, "ਭਰਨ ਵਾਲੀ ਪਾਈਪ")
-        .replace(/\boutlet\b/giu, "ਖਾਲੀ ਕਰਨ ਵਾਲੀ ਪਾਈਪ")
+        .replace(
+          /ਇੱਕ inlet ਇਕੱਲਾ ਟੈਂਕ ਨੂੰ (\d+) ਘੰਟਿਆਂ ਵਿੱਚ ਭਰਦਾ ਹੈ ਅਤੇ outlet ਇਕੱਲਾ ਇਸ ਨੂੰ (\d+) ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਕਰਦਾ ਹੈ।/gu,
+          "ਭਰਾਵ ਪਾਈਪ ਨਾਲ ਟੈਂਕ $1 ਘੰਟਿਆਂ ਵਿੱਚ ਭਰ ਜਾਂਦਾ ਹੈ ਅਤੇ ਨਿਕਾਸੀ ਪਾਈਪ ਨਾਲ $2 ਘੰਟਿਆਂ ਵਿੱਚ ਖਾਲੀ ਹੋ ਜਾਂਦਾ ਹੈ।",
+        )
+        .replace(/\binlet\b/giu, "ਭਰਾਵ ਪਾਈਪ")
+        .replace(/\boutlet\b/giu, "ਨਿਕਾਸੀ ਪਾਈਪ")
         .replace(/\bnet\b/giu, "ਸ਼ੁੱਧ")
-        .replace(/(\d+) h\b/gu, "$1 ਘੰਟੇ");
+        .replace(/(\d+) h\b/gu, "$1 ਘੰਟੇ")
+        .replace(/ਪੜਾਅਾਂ/gu, "ਪੜਾਵਾਂ")
+        .replace(/ਅਵਧੀ/gu, "ਅੰਤਰਾਲ")
+        .replace(/ਰਿਣਾਤਮਕ/gu, "ਨਕਾਰਾਤਮਕ")
+        .replace(/ਟੀਮ ਯੋਗਦਾਨ ਰਿਕਾਰਡ/gu, "ਟੀਮ ਦੇ ਯੋਗਦਾਨ ਦਾ ਵੇਰਵਾ")
+        .replace(/ਪ੍ਰੋਜੈਕਟ ਕੇਸਲੈਟ/gu, "ਪ੍ਰੋਜੈਕਟ ਸੰਬੰਧੀ ਜਾਣਕਾਰੀ")
+        .replace(/ਕੁਸ਼ਲ ਯੋਗਦਾਨ =/gu, "ਕੁਸ਼ਲ ਮਜ਼ਦੂਰਾਂ ਦਾ ਯੋਗਦਾਨ =")
+        .replace(/ਸਹਾਇਕ ਯੋਗਦਾਨ =/gu, "ਸਹਾਇਕਾਂ ਦਾ ਯੋਗਦਾਨ =")
+        .replace(/ਇਕਾਈਆਂ\/ਦਿਨ/gu, "ਇਕਾਈਆਂ ਪ੍ਰਤੀ ਦਿਨ")
+        .replace(/ਦਰਾਂ ਤੇ/gu, "ਦਰਾਂ 'ਤੇ");
     }
     return text;
   });
+}
+
+function polishPipeMath(question: AnyQuestion): AnyQuestion {
+  if (!question.explanation || !Array.isArray(question.explanation.steps)) return question;
+  const fix = (line: string): string => line.replace(/(\d+)\/(\d+)/gu, "\\frac{$1}{$2}");
+  return {
+    ...question,
+    explanation: {
+      ...question.explanation,
+      steps: question.explanation.steps.map((line: string) => fix(line)),
+    },
+  };
 }
 
 function learnerMethod(mode: string, language: TmwLanguage): string {
@@ -56,8 +89,8 @@ function learnerMethod(mode: string, language: TmwLanguage): string {
       return tr(
         language,
         "Convert the filling and emptying times to per-hour tank rates. Apply the active-pipe rate separately in each interval; when both pipes are open, subtract the outlet rate from the inlet rate, then add the filled fractions from the intervals.",
-        "भरने और खाली करने के समय को प्रति घंटा टंकी-दर में बदलें। हर अवधि में केवल चालू पाइपों की दर लगाएँ; दोनों पाइप खुले हों तो खाली करने वाली पाइप की दर को भरने वाली पाइप की दर से घटाएँ, फिर दोनों अवधियों में भरे भाग जोड़ें।",
-        "ਭਰਨ ਅਤੇ ਖਾਲੀ ਕਰਨ ਦੇ ਸਮੇਂ ਨੂੰ ਪ੍ਰਤੀ ਘੰਟਾ ਟੈਂਕ-ਦਰ ਵਿੱਚ ਬਦਲੋ। ਹਰ ਅਵਧੀ ਵਿੱਚ ਸਿਰਫ਼ ਚਾਲੂ ਪਾਈਪਾਂ ਦੀ ਦਰ ਲਗਾਓ; ਦੋਵੇਂ ਪਾਈਪ ਖੁੱਲ੍ਹੇ ਹੋਣ ਤਾਂ ਖਾਲੀ ਕਰਨ ਵਾਲੀ ਪਾਈਪ ਦੀ ਦਰ ਨੂੰ ਭਰਨ ਵਾਲੀ ਪਾਈਪ ਦੀ ਦਰ ਵਿੱਚੋਂ ਘਟਾਓ, ਫਿਰ ਦੋਵੇਂ ਅਵਧੀਆਂ ਵਿੱਚ ਭਰੇ ਹਿੱਸੇ ਜੋੜੋ।",
+        "भराव और निकासी पाइप के दिए समय से उनकी प्रति घंटे की दर निकालें। हर अंतराल में केवल चालू पाइपों की दर लें; दोनों खुले हों तो निकासी पाइप की दर को भराव पाइप की दर से घटाएँ, फिर सभी अंतरालों में भरे भाग जोड़ें।",
+        "ਭਰਾਵ ਅਤੇ ਨਿਕਾਸੀ ਪਾਈਪ ਦੇ ਦਿੱਤੇ ਸਮਿਆਂ ਤੋਂ ਉਹਨਾਂ ਦੀ ਪ੍ਰਤੀ ਘੰਟਾ ਦਰ ਕੱਢੋ। ਹਰ ਅੰਤਰਾਲ ਵਿੱਚ ਸਿਰਫ਼ ਚਾਲੂ ਪਾਈਪਾਂ ਦੀ ਦਰ ਲਓ; ਦੋਵੇਂ ਖੁੱਲ੍ਹੇ ਹੋਣ ਤਾਂ ਨਿਕਾਸੀ ਪਾਈਪ ਦੀ ਦਰ ਨੂੰ ਭਰਾਵ ਪਾਈਪ ਦੀ ਦਰ ਵਿੱਚੋਂ ਘਟਾਓ, ਫਿਰ ਸਾਰੇ ਅੰਤਰਾਲਾਂ ਵਿੱਚ ਭਰੇ ਹਿੱਸੇ ਜੋੜੋ।",
       );
     case "caseletStageOneOutput":
       return tr(
@@ -78,10 +111,12 @@ function learnerMethod(mode: string, language: TmwLanguage): string {
 
 function conclusion(mode: string, answer: string, language: TmwLanguage): string {
   switch (mode) {
-    case "tableWorkforceSchedule":
-      return tr(language, `Therefore, the fresh crew completes the same total work in ${answer}.`, `अतः नई टीम उसी कुल काम को ${answer} में पूरा करेगी।`, `ਇਸ ਲਈ ਨਵੀਂ ਟੀਮ ਉਹੀ ਕੁੱਲ ਕੰਮ ${answer} ਵਿੱਚ ਪੂਰਾ ਕਰੇਗੀ।`);
+    case "tableWorkforceSchedule": {
+      const localizedAnswer = language === "pa" ? answer.replace(/ ਦਿਨ$/u, " ਦਿਨਾਂ") : answer;
+      return tr(language, `Therefore, the fresh crew completes the same total work in ${answer}.`, `अतः नई टीम उसी कुल काम को ${answer} में पूरा करेगी।`, `ਇਸ ਲਈ ਨਵੀਂ ਟੀਮ ਉਹੀ ਕੁੱਲ ਕੰਮ ${localizedAnswer} ਵਿੱਚ ਪੂਰਾ ਕਰੇਗੀ।`);
+    }
     case "tableHeterogeneousContribution":
-      return tr(language, `Therefore, the crew's total contribution is ${answer}.`, `अतः दल का कुल योगदान ${answer} है।`, `ਇਸ ਲਈ ਟੀਮ ਦਾ ਕੁੱਲ ਯੋਗਦਾਨ ${answer} ਹੈ।`);
+      return tr(language, `Therefore, the crew's total contribution is ${answer}.`, `अतः दल का कुल योगदान ${answer} के बराबर है।`, `ਇਸ ਲਈ ਟੀਮ ਦਾ ਕੁੱਲ ਯੋਗਦਾਨ ${answer} ਦੇ ਬਰਾਬਰ ਹੈ।`);
     case "tablePipeOperatingSchedule":
       return tr(language, `Therefore, the fraction of the tank filled at the end of the schedule is ${answer}.`, `अतः समय-सारणी के अंत में टंकी का भरा हुआ भाग ${answer} है।`, `ਇਸ ਲਈ ਸਮਾਂ-ਸਾਰਣੀ ਦੇ ਅੰਤ ਵਿੱਚ ਟੈਂਕ ਦਾ ਭਰਿਆ ਹੋਇਆ ਹਿੱਸਾ ${answer} ਹੈ।`);
     case "caseletStageOneOutput":
@@ -111,10 +146,10 @@ function shortcut(mode: string, language: TmwLanguage): { title: string; steps: 
       };
     case "tablePipeOperatingSchedule":
       return {
-        title: tr(language, "Quick Interval-Rate Method", "त्वरित अवधि-दर विधि", "ਤੇਜ਼ ਅਵਧੀ-ਦਰ ਵਿਧੀ"),
+        title: tr(language, "Quick Interval-Rate Method", "त्वरित अंतराल-दर विधि", "ਤੇਜ਼ ਅੰਤਰਾਲ-ਦਰ ਵਿਧੀ"),
         steps: [
-          tr(language, "Write inlet rate as positive and outlet rate as negative; use only the pipes active in that interval.", "भरने वाली पाइप की दर धनात्मक और खाली करने वाली पाइप की दर ऋणात्मक लें; हर अवधि में केवल चालू पाइपों की दर लगाएँ।", "ਭਰਨ ਵਾਲੀ ਪਾਈਪ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਖਾਲੀ ਕਰਨ ਵਾਲੀ ਪਾਈਪ ਦੀ ਦਰ ਰਿਣਾਤਮਕ ਲਓ; ਹਰ ਅਵਧੀ ਵਿੱਚ ਸਿਰਫ਼ ਚਾਲੂ ਪਾਈਪਾਂ ਦੀ ਦਰ ਲਗਾਓ।"),
-          tr(language, "Multiply each interval's net rate by its duration and add the resulting tank fractions.", "हर अवधि की शुद्ध दर को उसके समय से गुणा करें और प्राप्त टंकी-भागों को जोड़ें।", "ਹਰ ਅਵਧੀ ਦੀ ਸ਼ੁੱਧ ਦਰ ਨੂੰ ਉਸ ਦੇ ਸਮੇਂ ਨਾਲ ਗੁਣਾ ਕਰੋ ਅਤੇ ਮਿਲੇ ਟੈਂਕ-ਹਿੱਸਿਆਂ ਨੂੰ ਜੋੜੋ।"),
+          tr(language, "Write inlet rate as positive and outlet rate as negative; use only the pipes active in that interval.", "भराव पाइप की दर धनात्मक और निकासी पाइप की दर ऋणात्मक लें; हर अंतराल में केवल चालू पाइपों की दर लें।", "ਭਰਾਵ ਪਾਈਪ ਦੀ ਦਰ ਧਨਾਤਮਕ ਅਤੇ ਨਿਕਾਸੀ ਪਾਈਪ ਦੀ ਦਰ ਨਕਾਰਾਤਮਕ ਲਓ; ਹਰ ਅੰਤਰਾਲ ਵਿੱਚ ਸਿਰਫ਼ ਚਾਲੂ ਪਾਈਪਾਂ ਦੀ ਦਰ ਲਓ।"),
+          tr(language, "Multiply each interval's net rate by its duration and add the resulting tank fractions.", "हर अंतराल की शुद्ध दर को उसके समय से गुणा करें और प्राप्त टंकी-भागों को जोड़ें।", "ਹਰ ਅੰਤਰਾਲ ਦੀ ਸ਼ੁੱਧ ਦਰ ਨੂੰ ਉਸ ਦੇ ਸਮੇਂ ਨਾਲ ਗੁਣਾ ਕਰੋ ਅਤੇ ਮਿਲੇ ਟੈਂਕ-ਹਿੱਸਿਆਂ ਨੂੰ ਜੋੜੋ।"),
         ],
       };
     case "caseletStageOneOutput":
@@ -144,7 +179,7 @@ function trapExplanation(question: AnyQuestion, mode: string, language: TmwLangu
     case "tableHeterogeneousContribution":
       return tr(language, `Choosing ${option} ignores at least one of count, relative efficiency or days worked. Every row's contribution is count × efficiency × days in the same base unit.`, `${option} चुनना संख्या, सापेक्ष दक्षता या काम के दिनों में से किसी एक को छोड़ने की गलती से मिलता है। हर पंक्ति का योगदान संख्या × दक्षता × दिन है।`, `${option} ਚੁਣਨਾ ਗਿਣਤੀ, ਸਾਪੇਖ ਕੁਸ਼ਲਤਾ ਜਾਂ ਕੰਮ ਦੇ ਦਿਨਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਇੱਕ ਨੂੰ ਛੱਡਣ ਦੀ ਗਲਤੀ ਨਾਲ ਮਿਲਦਾ ਹੈ। ਹਰ ਕਤਾਰ ਦਾ ਯੋਗਦਾਨ ਗਿਣਤੀ × ਕੁਸ਼ਲਤਾ × ਦਿਨ ਹੈ।`);
     case "tablePipeOperatingSchedule":
-      return tr(language, `Choosing ${option} comes from mishandling the pipe direction or schedule. The outlet removes water, so its rate is subtracted only during the interval in which it is open.`, `${option} चुनना पाइप की दिशा या समय-सारणी को गलत पढ़ने से मिलता है। खाली करने वाली पाइप पानी निकालती है, इसलिए उसकी दर केवल उसके चालू रहने वाली अवधि में घटती है।`, `${option} ਚੁਣਨਾ ਪਾਈਪ ਦੀ ਦਿਸ਼ਾ ਜਾਂ ਸਮਾਂ-ਸਾਰਣੀ ਨੂੰ ਗਲਤ ਪੜ੍ਹਨ ਨਾਲ ਮਿਲਦਾ ਹੈ। ਖਾਲੀ ਕਰਨ ਵਾਲੀ ਪਾਈਪ ਪਾਣੀ ਕੱਢਦੀ ਹੈ, ਇਸ ਲਈ ਉਸ ਦੀ ਦਰ ਸਿਰਫ਼ ਉਸ ਅਵਧੀ ਵਿੱਚ ਘਟਾਈ ਜਾਂਦੀ ਹੈ ਜਿਸ ਵਿੱਚ ਉਹ ਚਾਲੂ ਹੈ।`);
+      return tr(language, `Choosing ${option} comes from mishandling the pipe direction or schedule. The outlet removes water, so its rate is subtracted only during the interval in which it is open.`, `${option} चुनना पाइप की दिशा या समय-सारणी को गलत पढ़ने से मिलता है। निकासी पाइप पानी निकालता है, इसलिए उसकी दर केवल उसी अंतराल में घटाई जाती है जिसमें वह चालू है।`, `${option} ਚੁਣਨਾ ਪਾਈਪ ਦੀ ਦਿਸ਼ਾ ਜਾਂ ਸਮਾਂ-ਸਾਰਣੀ ਨੂੰ ਗਲਤ ਪੜ੍ਹਨ ਨਾਲ ਮਿਲਦਾ ਹੈ। ਨਿਕਾਸੀ ਪਾਈਪ ਪਾਣੀ ਕੱਢਦਾ ਹੈ, ਇਸ ਲਈ ਉਸ ਦੀ ਦਰ ਸਿਰਫ਼ ਉਸੇ ਅੰਤਰਾਲ ਵਿੱਚ ਘਟਾਈ ਜਾਂਦੀ ਹੈ ਜਿਸ ਵਿੱਚ ਉਹ ਚਾਲੂ ਹੈ।`);
     case "caseletStageOneOutput":
       return tr(language, `Choosing ${option} uses Team B before it joins. During the first stage only Team A works, so only A's rate belongs in the calculation.`, `${option} चुनना टीम B को उसके जुड़ने से पहले ही काम में शामिल कर देता है। पहले चरण में केवल टीम A काम करती है, इसलिए केवल A की दर लें।`, `${option} ਚੁਣਨਾ ਟੀਮ B ਨੂੰ ਉਸ ਦੇ ਸ਼ਾਮਲ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਕੰਮ ਵਿੱਚ ਜੋੜ ਦਿੰਦਾ ਹੈ। ਪਹਿਲੇ ਪੜਾਅ ਵਿੱਚ ਸਿਰਫ਼ ਟੀਮ A ਕੰਮ ਕਰਦੀ ਹੈ, ਇਸ ਲਈ ਸਿਰਫ਼ A ਦੀ ਦਰ ਲਓ।`);
     default:
@@ -160,8 +195,8 @@ export function finalizeTmwCp014MultilingualEditorialReview(
   if (question?.canonicalProblemId !== "TMW-CP-014") return question;
   const mode = question.solveMode ?? "";
   let cleaned = question;
-  if (language === "pa") cleaned = deepMapStrings(cleaned, (value) => value.replaceAll("ਪੜਾਅਾਂ", "ਪੜਾਵਾਂ"));
-  if (qlId === "TMW-QL-226") cleaned = localizePipeTerms(cleaned, language);
+  if (language !== "en") cleaned = polishLocalizedSurface(cleaned, language);
+  if (qlId === "TMW-QL-226") cleaned = polishPipeMath(cleaned);
 
   const answer = cleaned.solution?.answerText ?? "";
   const finalConclusion = conclusion(mode, answer, language);
