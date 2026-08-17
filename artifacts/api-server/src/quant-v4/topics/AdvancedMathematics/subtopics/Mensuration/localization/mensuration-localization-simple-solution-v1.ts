@@ -1,7 +1,7 @@
 import type { MensurationQuestionStudioQuestionV2 } from "../mensuration-question-studio-selection-v2";
 
 export const MENSURATION_SIMPLE_SOLUTION_AUTHORITY =
-  "MENSURATION-SIMPLE-HUMAN-SOLUTION-V1" as const;
+  "MENSURATION-SIMPLE-HUMAN-SOLUTION-V2" as const;
 
 type SimpleExplanation = {
   steps: string[];
@@ -9,31 +9,101 @@ type SimpleExplanation = {
   traps: string[];
 };
 
-const STRUCTURE_STOP_MARKERS = [
-  "### 💡",
-  "### ⚠️",
-  "Exam Speed Shortcut",
-  "Common Traps",
-] as const;
+export type MensurationPromptSummaryV1 = {
+  given: string;
+  asked: string;
+};
+
+const QUERY_START = /\b(?:find|determine|calculate|compute|evaluate|obtain|what\s+is|what\s+are|how\s+many|how\s+much)\b/gi;
 
 function stripInternalIds(value: string) {
   return value.replace(/\s*\[[A-Z0-9_:-]{3,}\]\s*/g, " ").trim();
 }
 
-function coreExplanationText(question: MensurationQuestionStudioQuestionV2) {
-  const joined = question.explanation.steps.join("\n");
-  let stop = joined.length;
-  for (const marker of STRUCTURE_STOP_MARKERS) {
-    const index = joined.indexOf(marker);
-    if (index >= 0) stop = Math.min(stop, index);
+function trimSentence(value: string) {
+  return value.replace(/^[\s,;:.-]+/, "").replace(/[\s,;:.-]+$/, "").trim();
+}
+
+export function splitMensurationPromptV1(stem: string): MensurationPromptSummaryV1 {
+  const text = repairWhitespace(stem);
+  const matches = [...text.matchAll(QUERY_START)];
+  const last = matches.at(-1);
+  if (last && typeof last.index === "number" && last.index > 8) {
+    const given = trimSentence(text.slice(0, last.index));
+    const asked = trimSentence(text.slice(last.index));
+    if (given && asked) return { given, asked };
   }
-  return joined.slice(0, stop);
+
+  const sentenceParts = text.split(/(?<=[.!?])\s+/).filter(Boolean);
+  if (sentenceParts.length >= 2) {
+    const finalSentence = sentenceParts.at(-1)!;
+    if (/^(?:find|determine|calculate|compute|evaluate|obtain|what|how)\b/i.test(finalSentence)) {
+      return {
+        given: trimSentence(sentenceParts.slice(0, -1).join(" ")),
+        asked: trimSentence(finalSentence),
+      };
+    }
+  }
+
+  return {
+    given: trimSentence(text),
+    asked: "Find the required value",
+  };
+}
+
+function repairWhitespace(value: string) {
+  return value.replace(/\s+/g, " ").trim();
+}
+
+function sectionBetween(text: string, start: RegExp, end: RegExp) {
+  const startMatch = start.exec(text);
+  if (!startMatch || startMatch.index == null) return "";
+  const afterStart = text.slice(startMatch.index + startMatch[0].length);
+  const endMatch = end.exec(afterStart);
+  return endMatch && endMatch.index != null ? afterStart.slice(0, endMatch.index) : afterStart;
+}
+
+function removeMath(value: string) {
+  return value
+    .replace(/\$\$[\s\S]*?\$\$/g, " ")
+    .replace(/\$[^$\n]+?\$/g, " ")
+    .replace(/\\\([\s\S]*?\\\)/g, " ")
+    .replace(/#{1,6}[^\n]*/g, " ")
+    .replace(/\*\*/g, " ");
+}
+
+function usefulSentences(value: string) {
+  return repairWhitespace(removeMath(value))
+    .split(/(?<=[.!?])\s+/)
+    .map((sentence) => trimSentence(sentence))
+    .filter(Boolean)
+    .filter((sentence) => !/^picture\b/i.test(sentence))
+    .filter((sentence) => !/^here\b/i.test(sentence))
+    .filter((sentence) => !/^unit check\b/i.test(sentence))
+    .filter((sentence) => !/^(?:the result|the answer)\b/i.test(sentence));
+}
+
+function extractMethod(question: MensurationQuestionStudioQuestionV2) {
+  const joined = question.explanation.steps.join("\n");
+  const ruleSection = sectionBetween(
+    joined,
+    /###\s*📌[^\n]*(?:\n|$)/,
+    /###\s*📝[^\n]*(?:\n|$)/,
+  );
+  const candidates = usefulSentences(ruleSection);
+  if (candidates.length > 0) return candidates.slice(0, 2).join(" ");
+
+  const stepSection = sectionBetween(
+    joined,
+    /###\s*📝[^\n]*(?:\n|$)/,
+    /###\s*(?:💡|⚠️)[^\n]*(?:\n|$)/,
+  );
+  const fallback = usefulSentences(stepSection).find((sentence) => sentence.length >= 24);
+  return fallback ?? "Use the appropriate mensuration relation, substitute the given values, and simplify.";
 }
 
 function normalizeMathBody(value: string) {
   let body = value.trim();
-  // Drop only leading prose labels. Formula variables and unit \text{...}
-  // fragments later in the expression remain untouched.
   body = body.replace(/^(?:\\text\{[^}]+\}\s*[:\-–—]?\s*)+/g, "").trim();
   body = body.replace(/^[=:;\-–—\s]+/, "").trim();
   return body;
@@ -43,6 +113,7 @@ function normalizedKey(value: string) {
   return value
     .replace(/\$+/g, "")
     .replace(/\\\(|\\\)/g, "")
+    .replace(/\\text\{[^}]+\}/g, "")
     .replace(/\s+/g, "")
     .toLowerCase();
 }
@@ -56,106 +127,76 @@ function addUnique(target: string[], seen: Set<string>, value: string) {
   target.push(cleaned);
 }
 
-function extractDelimitedMath(core: string) {
-  const displayValues: string[] = [];
-  const displaySeen = new Set<string>();
-
-  for (const match of core.matchAll(/\$\$([\s\S]*?)\$\$/g)) {
+function extractDisplayMath(value: string) {
+  const result: string[] = [];
+  const seen = new Set<string>();
+  for (const match of value.matchAll(/\$\$([\s\S]*?)\$\$/g)) {
     const body = normalizeMathBody(match[1] ?? "");
-    if (body) addUnique(displayValues, displaySeen, `$$${body}$$`);
+    if (body) addUnique(result, seen, `$$${body}$$`);
   }
+  return result;
+}
 
-  // A complete display-math chain is already the cleanest learner solution.
-  // Do not add inline references to the same formula again.
-  if (displayValues.length >= 3) return displayValues;
-
-  const values = [...displayValues];
-  const seen = new Set(values.map(normalizedKey));
-  const withoutDisplay = core.replace(/\$\$[\s\S]*?\$\$/g, " ");
+function extractInlineMath(value: string) {
+  const result: string[] = [];
+  const seen = new Set<string>();
+  const withoutDisplay = value.replace(/\$\$[\s\S]*?\$\$/g, " ");
   for (const match of withoutDisplay.matchAll(/\$([^$\n]+?)\$/g)) {
     const body = normalizeMathBody(match[1] ?? "");
-    if (body) addUnique(values, seen, `\\(${body}\\)`);
+    if (body) addUnique(result, seen, `\\(${body}\\)`);
   }
-
-  const withoutDollarMath = withoutDisplay.replace(/\$[^$\n]+?\$/g, " ");
-  for (const match of withoutDollarMath.matchAll(/\\\(([\s\S]*?)\\\)/g)) {
+  for (const match of withoutDisplay.matchAll(/\\\(([\s\S]*?)\\\)/g)) {
     const body = normalizeMathBody(match[1] ?? "");
-    if (body) addUnique(values, seen, `\\(${body}\\)`);
+    if (body) addUnique(result, seen, `\\(${body}\\)`);
   }
-
-  return values;
+  return result;
 }
 
-function cleanPlainCandidate(value: string) {
-  let line = stripInternalIds(value)
-    .replace(/^[-*]\s+/, "")
-    .replace(/^\d+\.\s+\*\*[^*]+\*\*\s*/, "")
-    .replace(/^#{1,6}\s+/, "")
-    .trim();
-  if (!line) return "";
+function extractWorking(question: MensurationQuestionStudioQuestionV2) {
+  const joined = question.explanation.steps.join("\n");
+  const ruleSection = sectionBetween(
+    joined,
+    /###\s*📌[^\n]*(?:\n|$)/,
+    /###\s*📝[^\n]*(?:\n|$)/,
+  );
+  const stepSection = sectionBetween(
+    joined,
+    /###\s*📝[^\n]*(?:\n|$)/,
+    /###\s*(?:💡|⚠️)[^\n]*(?:\n|$)/,
+  );
 
-  const dash = Math.max(line.lastIndexOf(" — "), line.lastIndexOf(" – "));
-  if (dash >= 0) {
-    const right = line.slice(dash + 3).trim();
-    if (/[=×÷π√²³%]/.test(right)) line = right;
-  }
-
-  line = line
-    .replace(/^(?:Substitute(?: the values)?|Calculate|Calculation|Use|Apply|Write|Choose the formula|Putting the values into the formula gives|So|Thus|Hence|Therefore)\s*[:—-]?\s*/i, "")
-    .trim();
-
-  return line;
-}
-
-function extractPlainMath(core: string) {
-  const stripped = core
-    .replace(/\$\$[\s\S]*?\$\$/g, " ")
-    .replace(/\$[^$\n]+?\$/g, " ")
-    .replace(/\\\([\s\S]*?\\\)/g, " ");
-  const values: string[] = [];
+  const ruleMath = extractDisplayMath(ruleSection).slice(0, 2);
+  const stepMath = extractDisplayMath(stepSection);
   const seen = new Set<string>();
+  const values: string[] = [];
+  for (const value of [...ruleMath, ...stepMath]) addUnique(values, seen, value);
 
-  for (const rawLine of stripped.split(/\n+/)) {
-    const line = cleanPlainCandidate(rawLine);
-    if (!line || /^#{1,6}/.test(line)) continue;
-
-    const sentences = line.split(/(?<=[.!?])\s+/);
-    for (const sentence of sentences) {
-      const candidate = cleanPlainCandidate(sentence);
-      if (!candidate) continue;
-      if (!/[=×÷π√²³%]/.test(candidate) && !/\b\d+\s*:\s*\d+\b/.test(candidate)) continue;
-      if (/^(?:Unit check|Check the result|Check the logic|Interpret the result|The result is)/i.test(candidate)) continue;
-      if (!candidate.includes("=") && /^(?:the|so the|therefore the)\s+/i.test(candidate)) continue;
-      addUnique(values, seen, candidate.replace(/\s+/g, " "));
-    }
+  if (values.length < 2) {
+    for (const value of extractInlineMath(`${ruleSection}\n${stepSection}`)) addUnique(values, seen, value);
   }
 
-  return values;
-}
-
-function chooseCompactWorking(values: string[]) {
-  if (values.length <= 8) return values;
-  return [...values.slice(0, 4), ...values.slice(-4)];
+  // Keep the governing relation and the full numerical path, but avoid turning
+  // the solution back into a long technical worksheet.
+  if (values.length <= 9) return values;
+  return [...values.slice(0, 2), ...values.slice(-7)];
 }
 
 export function buildMensurationSimpleExplanationV1(
   question: MensurationQuestionStudioQuestionV2,
 ): SimpleExplanation {
-  const core = coreExplanationText(question);
-  const delimited = extractDelimitedMath(core);
-  const plain = extractPlainMath(core);
-  const seen = new Set<string>();
-  const working: string[] = [];
-
-  const sourceValues = delimited.length >= 3 ? delimited : [...delimited, ...plain];
-  for (const value of sourceValues) addUnique(working, seen, value);
-
-  const compact = chooseCompactWorking(working);
+  const prompt = splitMensurationPromptV1(question.stem);
+  const method = extractMethod(question);
+  const working = extractWorking(question);
   const answer = stripInternalIds(question.options[question.correctIndex] ?? question.answer ?? "");
-  const steps = compact.length > 0 ? [...compact, `Answer: ${answer}`] : [`Answer: ${answer}`];
 
   return {
-    steps,
+    steps: [
+      `Given: ${prompt.given}`,
+      `Asked: ${prompt.asked}`,
+      `Method: ${method}`,
+      ...working,
+      `Answer: ${answer}`,
+    ],
     shortcut: "",
     traps: [],
   };
