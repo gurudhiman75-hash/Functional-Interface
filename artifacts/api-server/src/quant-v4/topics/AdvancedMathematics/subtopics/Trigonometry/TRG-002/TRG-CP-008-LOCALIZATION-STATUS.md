@@ -14,13 +14,13 @@ Status: **HINDI/PUNJABI LOCALIZATION V1 IMPLEMENTED — SEMANTIC PARITY PASS —
 
 Localization is layered over the human-approved frozen English 96-QL runtime. English answers, exact answers, option semantics, correct positions, canonical spatial states, diagram evidence and solution diagrams are unchanged.
 
-`localization-cp008-v1.ts` renders learner text from canonical geometry for all six CP008 application families. `localization-cp008-v1-compat.ts` handles one historical naming boundary without altering frozen identity: original QL-045 remains `GUY_WIRE_ANCHOR`, while the Phase-8 wire QLs use `GUY_WIRE_MAST_ANCHOR`. The adapter uses the expanded label only as a rendering alias, restores the frozen family label, and recomputes the localization fingerprint against the exact canonical semantic fingerprint.
+`localization-cp008-v1.ts` renders learner text from canonical geometry for all six CP008 application families. `localization-cp008-v1-compat.ts` preserves the historical naming boundary: frozen QL-045 remains `GUY_WIRE_ANCHOR`, while Phase-8 QL-046..048 use `GUY_WIRE_MAST_ANCHOR`. The expanded label is used only as a rendering alias; the adapter restores the frozen family identity and binds the localized fingerprint to the exact canonical semantic fingerprint.
 
 Changed-shadow questions use canonical old/new observations where available and reconstruct a missing prior shadow from the frozen height-angle relation when a projection stores only the requested state. Ladder angles are recovered from canonical right-triangle geometry when no redundant observation is stored.
 
 ## Green verification checkpoint
 
-Verified head: `4993ea1525562a1040f80beda0cc89bd7d5be1d7`
+Content/gate head: `4993ea1525562a1040f80beda0cc89bd7d5be1d7`
 
 Workflow: `32055500732` — `Verify TRG-002 CP008 Localization V1` — **SUCCESS**
 
