@@ -7,7 +7,6 @@ import { QuestionStudioProfileCalibration } from './QuestionStudioProfileCalibra
 import { QuestionStudioRecoveryDock } from './QuestionStudioRecoveryDock';
 import { QuestionStudioSeriesReviewPanel } from './QuestionStudioSeriesReviewPanel';
 import { QuestionStudioSpatialReviewPanel } from './QuestionStudioSpatialReviewPanel';
-import { QuestionStudioWordDictionaryOrderReviewPanel } from './QuestionStudioWordDictionaryOrderReviewPanel';
 
 export function QuestionStudioOperationsPage() {
   return (
@@ -15,7 +14,6 @@ export function QuestionStudioOperationsPage() {
       <QuestionStudioSpatialReviewPanel />
       <QuestionStudioInterestReviewPanel />
       <QuestionStudioSeriesReviewPanel />
-      <QuestionStudioWordDictionaryOrderReviewPanel />
       <QuestionStudioCalendarReviewPanel />
       <QuestionStudioExamProfileSummary />
       <QuestionStudioProfileCalibration />
