@@ -1,0 +1,285 @@
+import {
+  MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS,
+  MENSURATION_QUESTION_STUDIO_DIFFICULTIES,
+  MENSURATION_QUESTION_STUDIO_EXAM_PROFILES,
+  MENSURATION_QUESTION_STUDIO_PACKAGE_V2,
+  MENSURATION_QUESTION_STUDIO_PATTERNS,
+  MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY,
+  generateMensurationStudioBatchV2,
+  generateMensurationStudioQuestionV2,
+  type MensurationQuestionStudioCpId,
+  type MensurationQuestionStudioDifficulty,
+  type MensurationQuestionStudioExamProfile,
+  type MensurationQuestionStudioQuestionV2,
+} from "../mensuration-question-studio-selection-v2";
+import {
+  MENSURATION_LOCALIZATION_AUTHORITY,
+  MENSURATION_LOCALIZED_LANGUAGES,
+  instructionalLatinLeaks,
+  localeForLanguage,
+  localizeMensurationOption,
+  localizeMensurationProse,
+  type MensurationLocalizedLanguage,
+  type MensurationStudioLanguage,
+} from "./mensuration-localization-foundation-v3";
+import { prelocalizeMensurationEditorialSource } from "./mensuration-localization-source-editorial-v1";
+import { prelocalizeMensurationStructuredInstructionSource } from "./mensuration-localization-structured-instructions-v1";
+import { prelocalizeMensurationMen001TeachingSourceV1 } from "./mensuration-localization-men001-teaching-source-v1";
+import { prelocalizeMensurationStemSourceCoreV1 } from "./mensuration-localization-stem-source-core-v1";
+import { prelocalizeMensurationStemSource2dV1 } from "./mensuration-localization-stem-source-2d-v1";
+import { prelocalizeMensurationStemSourceSolidsV1 } from "./mensuration-localization-stem-source-solids-v1";
+import { prelocalizeMensurationStemSourceAdvancedV1 } from "./mensuration-localization-stem-source-advanced-v1";
+import { prelocalizeMensurationStemWordsV1 } from "./mensuration-localization-stem-words-v1";
+import { prelocalizeMensurationStemWordsAdvancedV1 } from "./mensuration-localization-stem-words-advanced-v1";
+import { repairMensurationLocalizedHardGateSurface } from "./mensuration-localization-hard-gate-repair-v1";
+import {
+  polishMensurationLocalizedOption,
+  polishMensurationLocalizedText,
+  protectMensurationFormulaIdentifiers,
+  repairMensurationLearnerMathSurface,
+} from "./mensuration-localization-editorial-v1";
+import { buildMensurationSimpleExplanationV1 } from "./mensuration-localization-simple-solution-v1";
+
+export type MensurationLocalizedQuestionV1 = Omit<
+  MensurationQuestionStudioQuestionV2,
+  "language" | "locale" | "stem" | "options" | "optionDetails" | "answer" | "explanation"
+> & {
+  language: MensurationStudioLanguage;
+  locale: "en-IN" | "hi-IN" | "pa-IN";
+  stem: string;
+  options: string[];
+  optionDetails: Array<{
+    label: "A" | "B" | "C" | "D";
+    text: string;
+    isCorrect: boolean;
+    misconceptionId: string | null;
+  }>;
+  correctIndex: number;
+  answer: string;
+  explanation: { steps: string[]; shortcut: string; traps: string[] };
+  localization?: {
+    authority: typeof MENSURATION_LOCALIZATION_AUTHORITY;
+    canonicalLanguage: "en";
+    canonicalLocale: "en-IN";
+    canonicalQuestionId: string;
+    canonicalItemId: string;
+    language: MensurationLocalizedLanguage;
+    locale: "hi-IN" | "pa-IN";
+    mathematicalStatePreserved: true;
+    optionOrderPreserved: true;
+    correctIndexPreserved: true;
+    misconceptionMappingPreserved: true;
+    realismMetadataPreserved: true;
+    lifecycleLocked: true;
+    residualInstructionalLatin: string[];
+  };
+};
+
+export const MENSURATION_LOCALIZED_PACKAGE_V1 = {
+  ...MENSURATION_QUESTION_STUDIO_PACKAGE_V2,
+  label: "Mensuration · Full Chapter · English/Hindi/Punjabi",
+  supportedLanguages: MENSURATION_LOCALIZED_LANGUAGES,
+  localizationAuthority: MENSURATION_LOCALIZATION_AUTHORITY,
+  localizationStatus: "HINDI_PUNJABI_CONTROLLED_REVIEW" as const,
+} as const;
+
+const SOLUTION_LABELS = {
+  hi: {
+    given: "दिया है",
+    asked: "ज्ञात करना है",
+    method: "तरीका",
+    answer: "उत्तर",
+  },
+  pa: {
+    given: "ਦਿੱਤਾ ਹੈ",
+    asked: "ਪਤਾ ਕਰਨਾ ਹੈ",
+    method: "ਤਰੀਕਾ",
+    answer: "ਉੱਤਰ",
+  },
+} as const;
+
+function translate(text: string, language: MensurationLocalizedLanguage) {
+  const editorialSource = prelocalizeMensurationEditorialSource(text, language);
+  const structuredSource = prelocalizeMensurationStructuredInstructionSource(editorialSource, language);
+  const teachingSource = prelocalizeMensurationMen001TeachingSourceV1(structuredSource, language);
+  const protectedFormula = protectMensurationFormulaIdentifiers(teachingSource);
+  const localized = localizeMensurationProse(protectedFormula.text, language);
+  const polished = polishMensurationLocalizedText(protectedFormula.restore(localized), language);
+  return repairMensurationLocalizedHardGateSurface(polished, language);
+}
+
+function translateStem(text: string, language: MensurationLocalizedLanguage) {
+  let source = prelocalizeMensurationStemSourceCoreV1(text, language);
+  source = prelocalizeMensurationStemSource2dV1(source, language);
+  source = prelocalizeMensurationStemSourceSolidsV1(source, language);
+  source = prelocalizeMensurationStemSourceAdvancedV1(source, language);
+  source = prelocalizeMensurationStemWordsV1(source, language);
+  source = prelocalizeMensurationStemWordsAdvancedV1(source, language);
+  return translate(source, language);
+}
+
+function localizedExplanationSteps(
+  source: MensurationLocalizedQuestionV1,
+  localizedAnswer: string,
+  language: MensurationLocalizedLanguage,
+) {
+  const labels = SOLUTION_LABELS[language];
+
+  return source.explanation.steps.map((step) => {
+    if (step.startsWith("Given:")) {
+      const body = step.slice("Given:".length).trim();
+      return `${labels.given}: ${translateStem(body, language)}`;
+    }
+    if (step.startsWith("Asked:")) {
+      const body = step.slice("Asked:".length).trim();
+      return `${labels.asked}: ${translateStem(body, language)}`;
+    }
+    if (step.startsWith("Method:")) {
+      const body = step.slice("Method:".length).trim();
+      return `${labels.method}: ${translate(body, language)}`;
+    }
+    if (step.startsWith("Answer:")) return `${labels.answer}: ${localizedAnswer}`;
+    return translate(step, language);
+  });
+}
+
+function normalizeCanonicalQuestion(
+  canonical: MensurationQuestionStudioQuestionV2,
+): MensurationLocalizedQuestionV1 {
+  const options = canonical.options.map(repairMensurationLearnerMathSurface);
+  const optionDetails = canonical.optionDetails.map((option, index) => ({
+    ...option,
+    text: options[index]!,
+  }));
+  const simpleExplanation = buildMensurationSimpleExplanationV1(canonical);
+  return {
+    ...canonical,
+    language: "en",
+    locale: "en-IN",
+    stem: repairMensurationLearnerMathSurface(canonical.stem),
+    options,
+    optionDetails,
+    answer: options[canonical.correctIndex]!,
+    explanation: {
+      steps: simpleExplanation.steps.map(repairMensurationLearnerMathSurface),
+      shortcut: "",
+      traps: [],
+    },
+  };
+}
+
+function localizeQuestion(
+  canonical: MensurationQuestionStudioQuestionV2,
+  language: MensurationLocalizedLanguage,
+): MensurationLocalizedQuestionV1 {
+  const source = normalizeCanonicalQuestion(canonical);
+  const options = source.options.map((option) =>
+    repairMensurationLearnerMathSurface(
+      polishMensurationLocalizedOption(localizeMensurationOption(option, language), language),
+    ),
+  );
+  const optionDetails = source.optionDetails.map((option, index) => ({
+    ...option,
+    text: options[index]!,
+  }));
+  const stem = translateStem(source.stem, language);
+  const answer = options[source.correctIndex]!;
+  const explanation = {
+    steps: localizedExplanationSteps(source, answer, language),
+    shortcut: "",
+    traps: [],
+  };
+  const learnerText = [stem, ...options, ...explanation.steps].join("\n");
+  return {
+    ...source,
+    language,
+    locale: localeForLanguage(language),
+    stem,
+    options,
+    optionDetails,
+    correctIndex: source.correctIndex,
+    answer,
+    explanation,
+    localization: {
+      authority: MENSURATION_LOCALIZATION_AUTHORITY,
+      canonicalLanguage: "en",
+      canonicalLocale: "en-IN",
+      canonicalQuestionId: source.questionId,
+      canonicalItemId: source.canonicalItemId,
+      language,
+      locale: localeForLanguage(language) as "hi-IN" | "pa-IN",
+      mathematicalStatePreserved: true,
+      optionOrderPreserved: true,
+      correctIndexPreserved: true,
+      misconceptionMappingPreserved: true,
+      realismMetadataPreserved: true,
+      lifecycleLocked: true,
+      residualInstructionalLatin: instructionalLatinLeaks(learnerText),
+    },
+  };
+}
+
+export function generateMensurationLocalizedQuestionV1(input: {
+  patternId: string;
+  seed: string;
+  examProfile?: MensurationQuestionStudioExamProfile;
+  language?: MensurationStudioLanguage;
+}): MensurationLocalizedQuestionV1 {
+  const canonical = generateMensurationStudioQuestionV2({
+    patternId: input.patternId,
+    seed: input.seed,
+    examProfile: input.examProfile,
+  });
+  const language = input.language ?? "en";
+  if (language === "en") return normalizeCanonicalQuestion(canonical);
+  return localizeQuestion(canonical, language);
+}
+
+export function generateMensurationLocalizedBatchV1(input: {
+  cpId?: MensurationQuestionStudioCpId;
+  patternId?: string;
+  difficulty?: MensurationQuestionStudioDifficulty;
+  examProfile?: MensurationQuestionStudioExamProfile;
+  seed?: string;
+  count?: number;
+  language?: MensurationStudioLanguage;
+}) {
+  const language = input.language ?? "en";
+  const canonical = generateMensurationStudioBatchV2({
+    cpId: input.cpId,
+    patternId: input.patternId,
+    difficulty: input.difficulty,
+    examProfile: input.examProfile,
+    seed: input.seed,
+    count: input.count,
+  });
+  const questions = language === "en"
+    ? canonical.questions.map(normalizeCanonicalQuestion)
+    : canonical.questions.map((question) => localizeQuestion(question, language));
+  return {
+    ...canonical,
+    package: MENSURATION_LOCALIZED_PACKAGE_V1,
+    questions,
+    filters: {
+      ...canonical.filters,
+      language,
+    },
+    localizationAuthority: language === "en" ? null : MENSURATION_LOCALIZATION_AUTHORITY,
+  };
+}
+
+export {
+  MENSURATION_LOCALIZATION_AUTHORITY,
+  MENSURATION_LOCALIZED_LANGUAGES,
+  MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS,
+  MENSURATION_QUESTION_STUDIO_DIFFICULTIES,
+  MENSURATION_QUESTION_STUDIO_EXAM_PROFILES,
+  MENSURATION_QUESTION_STUDIO_PATTERNS,
+  MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY,
+};
+export type {
+  MensurationQuestionStudioCpId,
+  MensurationQuestionStudioDifficulty,
+  MensurationQuestionStudioExamProfile,
+  MensurationStudioLanguage,
+};

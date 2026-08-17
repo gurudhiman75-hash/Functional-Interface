@@ -22,6 +22,7 @@ import {
   previewMensurationReview,
   type MensurationReviewDifficulty,
   type MensurationReviewExamProfile,
+  type MensurationReviewLanguage,
   type MensurationReviewPackage,
   type MensurationReviewQuestion,
   type MensurationReviewStatus,
@@ -34,6 +35,12 @@ const PROFILE_LABELS: Record<MensurationReviewExamProfile, string> = {
   SSC_ADVANCED: 'SSC · Advanced',
   BANKING: 'Banking',
   PUNJAB_STATE: 'Punjab State',
+};
+
+const LANGUAGE_LABELS: Record<MensurationReviewLanguage, string> = {
+  en: 'English',
+  hi: 'हिन्दी',
+  pa: 'ਪੰਜਾਬੀ',
 };
 
 function Metric({ label, value }: { label: string; value: number | string }) {
@@ -60,7 +67,7 @@ function QuestionCard({ question }: { question: MensurationReviewQuestion }) {
           <Badge variant="outline">{question.difficultyBand}</Badge>
           <Badge variant="outline">{PROFILE_LABELS[question.realism.examProfile]}</Badge>
           <Badge variant="outline">{question.realism.frequencyBand.replace(/_/g, ' ')}</Badge>
-          <Badge variant="outline">English</Badge>
+          <Badge variant="outline">{LANGUAGE_LABELS[question.language]} · {question.locale}</Badge>
           {question.validation.valid && (
             <Badge className="gap-1 bg-success/10 text-success hover:bg-success/10">
               <CheckCircle2 className="h-3 w-3" /> Source validated
@@ -84,25 +91,21 @@ function QuestionCard({ question }: { question: MensurationReviewQuestion }) {
         <div className="rounded-lg border border-success/25 bg-success/5 p-3">
           <strong>Answer:</strong> {question.answer}
         </div>
-        <details className="rounded-lg border p-3" open>
-          <summary className="cursor-pointer font-semibold">Teaching solution</summary>
-          <ol className="mt-3 space-y-2 leading-6 text-muted-foreground">
+        <div className="rounded-lg border p-3">
+          <p className="font-semibold">Solution</p>
+          <div className="mt-3 space-y-2 leading-6 text-muted-foreground">
             {question.explanation.steps.map((step, index) => (
-              <li key={`${question.questionId}-step-${index}`}>{index + 1}. {step}</li>
+              <p key={`${question.questionId}-step-${index}`} className={index === question.explanation.steps.length - 1 ? 'font-medium text-foreground' : ''}>
+                {step}
+              </p>
             ))}
-          </ol>
-          {question.explanation.shortcut && (
-            <p className="mt-3 text-xs text-muted-foreground"><strong>Shortcut:</strong> {question.explanation.shortcut}</p>
-          )}
-          {question.explanation.traps.length > 0 && (
-            <div className="mt-3 text-xs text-muted-foreground">
-              <strong>Common traps:</strong>
-              <ul className="mt-1 list-disc space-y-1 pl-5">
-                {question.explanation.traps.map((trap, index) => <li key={`${question.questionId}-trap-${index}`}>{trap}</li>)}
-              </ul>
-            </div>
-          )}
-        </details>
+          </div>
+        </div>
+        {question.localization && question.localization.residualInstructionalLatin.length > 0 && (
+          <p className="text-xs text-amber-700">
+            Localization diagnostic: {question.localization.residualInstructionalLatin.join(', ')}
+          </p>
+        )}
       </CardContent>
     </Card>
   );
@@ -111,6 +114,7 @@ function QuestionCard({ question }: { question: MensurationReviewQuestion }) {
 export function QuestionStudioMensurationReviewPanel() {
   const [pkg, setPkg] = useState<MensurationReviewPackage | null>(null);
   const [status, setStatus] = useState<MensurationReviewStatus | null>(null);
+  const [language, setLanguage] = useState<MensurationReviewLanguage>('en');
   const [examProfile, setExamProfile] = useState<MensurationReviewExamProfile>('SSC_CORE');
   const [cpId, setCpId] = useState(ALL);
   const [patternId, setPatternId] = useState(ALL);
@@ -153,14 +157,14 @@ export function QuestionStudioMensurationReviewPanel() {
   );
 
   const request = useMemo(() => ({
-    language: 'en' as const,
+    language,
     examProfile,
     cpId: cpId === ALL ? undefined : cpId,
     patternId: patternId === ALL ? undefined : patternId,
     difficulty: difficulty === ALL ? undefined : difficulty as MensurationReviewDifficulty,
     count: Math.min(50, Math.max(1, count)),
     seed: seed.trim() || undefined,
-  }), [count, cpId, difficulty, examProfile, patternId, seed]);
+  }), [count, cpId, difficulty, examProfile, language, patternId, seed]);
 
   const handleCpChange = (value: string) => {
     setCpId(value);
@@ -172,7 +176,7 @@ export function QuestionStudioMensurationReviewPanel() {
     try {
       const result = await previewMensurationReview({ ...request, count: Math.min(20, request.count) });
       setQuestions(result.questions);
-      showToast.success('Mensuration preview loaded', `${result.questions.length} ${PROFILE_LABELS[examProfile]} question(s) validated.`);
+      showToast.success('Mensuration preview loaded', `${result.questions.length} ${LANGUAGE_LABELS[language]} · ${PROFILE_LABELS[examProfile]} question(s) validated.`);
     } catch (error) {
       showToast.error('Preview failed', error instanceof Error ? error.message : 'Unable to preview Mensuration questions.');
     } finally {
@@ -186,7 +190,7 @@ export function QuestionStudioMensurationReviewPanel() {
       const result = await createMensurationReviewRun(request);
       window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
       await refreshStatus();
-      showToast.success('Mensuration run created', `${result.publicCode} contains ${result.itemCount} ${PROFILE_LABELS[result.examProfile]} question(s).`);
+      showToast.success('Mensuration run created', `${result.publicCode} contains ${result.itemCount} ${LANGUAGE_LABELS[result.language]} · ${PROFILE_LABELS[result.examProfile]} question(s).`);
     } catch (error) {
       showToast.error('Run creation failed', error instanceof Error ? error.message : 'Unable to create a Mensuration Question Studio run.');
     } finally {
@@ -205,12 +209,12 @@ export function QuestionStudioMensurationReviewPanel() {
             <Badge variant="outline">MEN-001 + MEN-002</Badge>
             <Badge variant="outline">13 canonical problems</Badge>
             <Badge variant="outline">4 exam profiles</Badge>
-            <Badge variant="outline">English</Badge>
+            <Badge variant="outline">EN · हिन्दी · ਪੰਜਾਬੀ</Badge>
             <Badge variant="outline" className="gap-1"><ShieldAlert className="h-3 w-3" /> Realism V2</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate across the complete Mensuration chapter with exam-profile weighting, calibrated difficulty, short-batch anti-repetition and safe object/stem variation. Frozen QL identities and chapter mathematics remain unchanged; CP011 retains its verified prototype identities until a separate permanent allocation exists.
+          Generate across the complete Mensuration chapter with exam-profile weighting, calibrated difficulty, short-batch anti-repetition and English/Hindi/Punjabi presentation. All three languages use the same canonical mathematical state, answer position and misconception mapping.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -224,9 +228,9 @@ export function QuestionStudioMensurationReviewPanel() {
         )}
 
         <div className="rounded-lg border border-primary/20 bg-background/60 p-3 text-sm">
-          <div className="flex items-center gap-2 font-medium"><ShieldAlert className="h-4 w-4" /> Realism boundary</div>
+          <div className="flex items-center gap-2 font-medium"><ShieldAlert className="h-4 w-4" /> Localization and realism boundary</div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            Exam profiles change selection frequency, not mathematical ownership. Explicit CP/pattern selection remains available. Source-level Question Bank, scored-test and public-publication lifecycle is still owned by the normal downstream Question Studio workflow.
+            Language changes presentation only; exam profiles change selection frequency only. Frozen identities, numerical state, correct answer, distractor misconception mapping and downstream Question Bank/test/publication lifecycle remain unchanged.
           </p>
         </div>
 
@@ -235,7 +239,17 @@ export function QuestionStudioMensurationReviewPanel() {
             <Loader2 className="h-4 w-4 animate-spin" /> Loading full Mensuration package…
           </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-7">
+            <Field label="Language">
+              <Select value={language} onValueChange={(value) => { setLanguage(value as MensurationReviewLanguage); setQuestions([]); }}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {(pkg?.supportedLanguages ?? ['en', 'hi', 'pa']).map((entry) => (
+                    <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry]}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </Field>
             <Field label="Exam profile">
               <Select value={examProfile} onValueChange={(value) => setExamProfile(value as MensurationReviewExamProfile)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
@@ -300,7 +314,7 @@ export function QuestionStudioMensurationReviewPanel() {
         {questions.length > 0 && (
           <div className="space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <h3 className="font-semibold">Learner preview</h3>
+              <h3 className="font-semibold">Learner preview · {LANGUAGE_LABELS[language]}</h3>
               <Badge variant="outline">{questions.length} question(s)</Badge>
             </div>
             {questions.map((question) => <QuestionCard key={question.questionId} question={question} />)}
