@@ -14,7 +14,8 @@ export type AlgCp015SolveMode =
   | "quadraticThenAbsoluteRootGap"
   | "rationalEquationThenAbsoluteTarget"
   | "factorDivisionThenEvaluateQuotient"
-  | "sharedSystemDerivedCaselet";
+  | "sharedSystemDerivedCaselet"
+  | "boundedPositiveIntegerCubicRoot";
 
 export type AlgCp015AnswerKind = "RATIONAL" | "QUANTITY_RELATION" | "RATIONAL_PAIR";
 
@@ -34,7 +35,8 @@ export type AlgCp015MathState =
   | { kind: "QUADRATIC_ROOT_GAP"; equation: QuadraticEquation }
   | { kind: "RATIONAL_ABS"; equation: RationalEquation1; p: Rational; d: Rational; q: Rational; offset: Rational }
   | { kind: "DIVISION_EVAL"; polynomial: Polynomial1; factorRoot: Rational; evaluationPoint: Rational }
-  | { kind: "SYSTEM_CASELET"; system: LinearSystem2V };
+  | { kind: "SYSTEM_CASELET"; system: LinearSystem2V }
+  | { kind: "BOUNDED_CUBIC_ROOT"; polynomial: Polynomial1; positiveIntegerDomain: true; upperScanBound: number };
 
 export type AlgCp015Answer =
   | { kind: "RATIONAL"; value: Rational; text: string }
