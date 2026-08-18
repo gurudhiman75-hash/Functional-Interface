@@ -1,161 +1,142 @@
-# WOR-001 Implementation Status — Question Studio Review Connected
+# WOR-001 Implementation Status — Technical Chapter Freeze
 
-## Current implementation
+Date: 2026-08-18
 
-- five-checkpoint, review-only runtime;
-- **24 prototypes / 20 task kinds**;
-- **8 recommended permanent QL roots**;
-- **8 source-deferred contracts**;
-- **8 instance variants**;
-- **60 real-word families / 720 globally unique provisional words**;
-- real-word split: **18 Easy / 20 Medium / 22 Hard**;
-- **60 Banking cluster families / 720 globally unique three-letter clusters**;
-- Banking split: **20 Easy / 20 Medium / 20 Hard**;
+## Current maturity
+
+`TECHNICALLY_COMPLETE_PERMANENT_QLS_ALLOCATED_INACTIVE_HUMAN_REVIEW_PENDING`
+
+WOR-001 has completed its chapter-design, source-governance, content-pool, generator, multilingual automation, verification and shared Question Studio implementation work.
+
+The only remaining gates are human editorial/release gates. They are intentionally not represented as completed.
+
+## Frozen technical authority
+
+- 5 checkpoints;
+- 24 executable prototypes / 20 task kinds;
+- 8 permanent QL roots allocated as stable inactive IDs;
+- 15 prototypes mapped to those roots;
+- 9 source-deferred/research prototypes remain executable but unallocated;
+- 60 real-word families / 720 globally unique words;
+- real-word split: 18 Easy / 20 Medium / 22 Hard;
+- 60 Banking cluster families / 720 globally unique clusters;
+- Banking split: 20 Easy / 20 Medium / 20 Hard;
 - classic four-option and Banking five-option profiles;
+- EN/HI/PA student-facing generation;
 - independent classic and Banking verification;
-- EN/HI/PA generation;
-- student-facing Banking editorial layer in EN/HI/PA;
-- **Question Studio review package connected to the current shared workflow**;
-- public release, Question Bank conversion and scored-test eligibility remain disabled.
+- editorial remediation retained;
+- shared Question Studio path connected.
 
-## Pool and editorial status
+## Permanent QL allocation
 
-The pool-expansion checkpoint remains valid and was not reopened. The chapter retains 60 real-word families / 720 words and 60 Banking families / 720 clusters with the existing Easy/Medium/Hard saturation and uniqueness evidence.
+The source/ownership audit's eight-root recommendation is now frozen as:
 
-The Editorial Review V1 remediation also remains valid. CP-005 Banking student-facing output:
+1. `WOR-QL-001` — Complete dictionary order — root `WOR-PROT-001`;
+2. `WOR-QL-002` — Endpoint after ordering — root `WOR-PROT-003`;
+3. `WOR-QL-003` — Word/cluster at a specified position — root `WOR-PROT-005`;
+4. `WOR-QL-004` — Position of a specified word — root `WOR-PROT-006`;
+5. `WOR-QL-005` — Sort → concatenate → global character — root `WOR-PROT-021`;
+6. `WOR-QL-006` — Sort → ranked cluster → local character/alphabet offset — root `WOR-PROT-022`;
+7. `WOR-QL-007` — Transform each → sort → positional word query — root `WOR-PROT-023`;
+8. `WOR-QL-008` — Transform each → sort → local character query — root `WOR-PROT-024`.
 
-- does not expose transformed groups before the student solves the transformation;
-- uses natural English ordinal/letter wording;
-- avoids implementation-style numeric alphabet-offset language;
-- uses remediated Hindi/Punjabi wording and ordinal case forms;
-- keeps full transformation and independent-verification traces in internal metadata only.
+Allocation is **inactive identity allocation**, not release approval. Every registry entry explicitly remains:
 
-Detailed editorial evidence: `WOR-001-EDITORIAL-REVIEW-V1.md`.
+- `PERMANENT_ID_ALLOCATED_INACTIVE`;
+- human content review pending;
+- native human sign-off pending;
+- Question Bank write false;
+- test/mock eligibility false;
+- public publication false.
 
-## Question Studio integration result
+`WOR-PROT-020` maps to `WOR-QL-003` because Banking plain-cluster position is the same learner solve contract as classic kth-position selection.
 
-WOR-001 is now connected as a **review-visible, release-locked** package on branch `feature/wor-001-question-studio-integration-v1`, based directly on the then-current `New-main` rather than the stale editorial branch.
+## Source-deferred posture
 
-### Registered review surface
+The chapter keeps nine executable prototype instances without permanent QL identity:
 
-The registered package exposes:
+- `WOR-PROT-007` / `008` — predecessor/successor;
+- `WOR-PROT-010` … `015` — insertion/correction/partial-order research contracts;
+- `WOR-PROT-019` — hard insertion instance variant.
 
-- package/chapter: `WOR-001`;
-- 5 checkpoints and all 24 prototypes;
-- English, Hindi and Punjabi;
-- Easy/Medium/Hard filtering with prototype-compatibility enforcement;
-- deterministic seed control;
-- specialist preview in the Question Studio operations page;
-- persistent review-run creation;
-- status counts for Studio items, approvals, needs-fix, rejections and Question Bank conversions.
+These all descend from eight source-deferred solve contracts identified by the source audit. They stay review/research-only unless stronger recurring exam evidence is added later.
 
-The legacy/raw runtime adapter remains dormant as a release surface (`questionStudioVisible: false`). The **registered review package** is explicitly review-visible (`questionStudioVisible: true`). This separates editorial visibility from product/public visibility.
+## Shared Question Studio integration
 
-### Shared workflow persistence
+WOR-001 now uses only the existing shared Question Studio architecture:
 
-Created WOR review runs use the existing Question Studio persistence model:
+`Question Studio Cockpit → shared capabilities + /runs → shared package dispatcher → native WOR generator → shared persistence/review queue`
 
-- `content.generation_runs`;
-- `content.generation_run_items`;
-- immutable `content.generation_item_versions`;
-- `platform.audit_events`;
-- `platform.outbox_events`.
+There is no WOR-specific Question Studio panel, admin client, generation route or lifecycle router.
 
-The persisted review stem is self-contained: it includes the instruction plus the actual word/order/insertion prompt. This prevents incomplete cockpit rendering and false duplicate detection that would occur if only the instruction were stored.
+Shared behavior includes:
 
-### Shared review lifecycle
+- package discovery/capabilities;
+- run creation and persistence;
+- immutable item versions;
+- quality and duplicate analysis;
+- review decisions;
+- generic regeneration routed back to the native WOR generator;
+- generic `SOURCE_GENERATOR_ONLY` revision enforcement.
 
-WOR items participate in the existing common cockpit for:
-
-- unreviewed / needs-fix / rejected / approved decisions;
-- automatic quality analysis;
-- duplicate analysis using the complete persisted prompt;
-- review-only bulk approval through the existing approval-policy hardening route.
-
-Approval is deliberately classified as `review_only`. It records editorial approval but **does not convert the item to Question Bank**.
-
-### Source-controlled correction policy
-
-WOR carries independent solver/verifier evidence. Free-form editing of a generated stem/options would invalidate that evidence while leaving stale verification metadata behind. Therefore:
-
-- persisted policy: `SOURCE_GENERATOR_ONLY`;
-- ad-hoc shared-cockpit revision requests for WOR are rejected with `WOR_SOURCE_GENERATOR_ONLY`;
-- editors should mark the item `Needs fix`, correct the WOR generator/localization source, then regenerate;
-- WOR regeneration is intercepted before the generic Quant V4 regeneration route and is executed by the native WOR deterministic generator;
-- regeneration writes a new immutable version and preserves all review/release locks;
-- mixed WOR/non-WOR regeneration selections are rejected with `MIXED_GENERATION_ENGINES` so no item can be routed to the wrong generation engine.
-
-The generic cockpit does not yet have a cross-package `revisionPolicy` UI contract, so its generic Revise control may still be visible. The backend source-control guard is authoritative; the dedicated WOR panel exposes only supported generation/review actions. A future shared-cockpit UX enhancement can consume `revisionPolicy` across all source-controlled packages without changing WOR correctness.
+Supported prototypes carry their frozen QL ID in Question Studio review/persistence payloads. Prototype identity is retained separately for source-level regeneration traceability.
 
 ## Release locks
 
-Every persisted WOR review payload explicitly carries:
+The technical freeze deliberately keeps the chapter non-releasable:
 
-- permanent QL / QL: `null`;
-- `questionBankStatus: NOT_STORED`;
-- `questionBankWritable: false`;
-- `testEligibility: INELIGIBLE`;
-- `testEligible: false`;
-- `mockTestEligible: false`;
-- `publiclyPublishable: false`;
-- `automaticStudentPublication: false`;
-- `manualApprovalRequired: true`;
-- release freeze: `PENDING_NATIVE_SIGNOFF_AND_PERMANENT_QL`.
+- lifecycle: `REVIEW_ONLY`;
+- Question Bank: `NOT_STORED`;
+- Question Bank writable: false;
+- test eligibility: `INELIGIBLE`;
+- test eligible: false;
+- mock test eligible: false;
+- publicly publishable: false;
+- automatic student publication: false;
+- manual approval required: true;
+- human content review: pending;
+- native Hindi/Punjabi human sign-off: pending;
+- release freeze: `PENDING_HUMAN_CONTENT_REVIEW_AND_NATIVE_SIGNOFF`.
 
-Question Studio review visibility therefore **does not mean release eligibility**.
+Question Studio visibility and permanent QL identity therefore do not mean release eligibility.
 
-## Automated evidence
+## Automated evidence retained
 
 ### Classic runtime
 
 - 6,840 localized generations;
-- four answer positions: `[570, 570, 570, 570]`;
-- **60/60 real-word families reached**;
-- source/difficulty/independent-solver gates passed.
+- balanced four answer positions;
+- all 60 real-word families reached;
+- independent solver parity passed.
 
-### Expanded real-word saturation
+### Real-word saturation
 
 - 60 families / 720 words;
-- tier counts: `{ EASY: 18, MEDIUM: 20, HARD: 22 }`;
 - all family/token/ID uniqueness gates passed;
-- all families reached in the 900-seed-per-tier audit;
-- visible-set uniqueness >= 90% per tier;
-- Easy shared-prefix question rate: **0.322**.
+- Easy shared-prefix realism remediation retained.
 
 ### Banking runtime and reservoir
 
-- CP-005: 1,980 localized generations;
-- answer positions: `[131, 134, 135, 126, 134]`;
-- every Banking task and transformation covered;
+- 1,980 localized Banking generations in the full audit;
+- all five Banking task kinds exercised;
+- all explicit transform operators covered;
+- five answer positions covered;
 - 60 families / 720 clusters;
-- tier counts `{ EASY: 20, MEDIUM: 20, HARD: 20 }`;
-- unique visible sets over 1,000 builds: Easy **974**, Medium **963**, Hard **975**;
 - independent transform/sort/answer parity passed.
 
-### Editorial and Question Studio validation
+### Question Studio
 
-- 136-question classic English review pack retained;
-- 33-question CP-005 review pack generated per locale;
-- EN/HI/PA editorial leakage and wording guards passed;
-- all 24 prototypes exercised through the Studio review authority in each locale;
-- Studio persisted-payload quality score: **100** in the contract audit sample;
-- shared approval disposition asserted as **`review_only`**;
-- unsupported prototype/difficulty combinations rejected rather than silently remapped;
-- API production build passed;
-- admin-app production build passed.
+- all 24 prototypes exercised through the review authority;
+- EN/HI/PA supported;
+- source-generator-only correction policy enforced;
+- shared package dispatch validated;
+- release locks asserted in persisted payload contracts.
 
-Full green integration validation: GitHub Actions run `31990234535` on 2026-08-17. The first full-stack attempt correctly caught an admin-app JavaScript-target incompatibility (`replaceAll`); it was fixed and the complete suite was rerun green.
+## Remaining human/release gates
 
-## Current maturity
+1. User/human English content sampling and approval.
+2. Native Hindi and Punjabi human editorial sign-off.
+3. Explicit release checkpoint after those reviews.
+4. Only at that checkpoint may approved QLs be activated for Question Bank/test/mock/public use.
 
-`ARCHITECTURE_COMPLETE_POOLS_SATURATED_EDITORIAL_REMEDIATED_QUESTION_STUDIO_REVIEW_CONNECTED`
-
-## Remaining gates
-
-1. Native Hindi and Punjabi human editorial sign-off.
-2. Final human English release sampling if desired before freeze.
-3. Allocate and freeze the eight recommended permanent QL roots after editorial acceptance.
-4. Convert the approved/frozen contracts from review-only to canonical Question Bank eligibility under an explicit release checkpoint.
-5. Enable scored-test/mock/public use only after that release checkpoint passes.
-
-No further raw object-pool expansion or Question Studio plumbing is currently required for WOR-001. The next substantive chapter checkpoint is **native sign-off + permanent QL freeze/release activation**.
+No further chapter taxonomy, generator, pool expansion, permanent QL allocation or Question Studio plumbing is required before the user's later review.
