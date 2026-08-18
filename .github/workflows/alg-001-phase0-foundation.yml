@@ -1,0 +1,48 @@
+name: Validate Algebra Phase 0 foundation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/shared/algebra/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/**
+      - .github/workflows/alg-001-phase0-foundation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alg-001-phase0-foundation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle Algebra Phase 0 test
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/algebra
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/phase0-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/phase0-foundation.test.mjs
+      - name: Run Algebra Phase 0 test
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/algebra/phase0-foundation.test.mjs
