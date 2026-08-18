@@ -116,7 +116,7 @@ function ql050(seed: string) {
     wrong: [
       { value: mvpNumberAnswer(g.movement), misconceptionId: "RETURNED_POINT_SEPARATION" },
       { value: mvpNumberAnswer(g.far), misconceptionId: "RETURNED_FAR_DISTANCE" },
-      { value: mvpNumberAnswer(addExact(g.height, g.movement)), misconceptionId: "ADDED_MOVEMENT_TO_HEIGHT" },
+      { value: mvpNumberAnswer(multiplyExact(g.movement, exactInteger(2))), misconceptionId: "DOUBLED_POINT_SEPARATION" },
     ],
     explanation: mvpExplanation(
       "Use the common tower height in the 45° and 30° tangent relations.",
