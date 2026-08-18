@@ -20,7 +20,12 @@ function ordinal(seed: string): number {
 function base(seed: string) {
   const index = ordinal(seed);
   const [a, b] = SPEED_PAIRS[index % SPEED_PAIRS.length]!;
-  const route = rational(120 + 60 * (index % 5));
+  // Preserve the approved discovery/review states, but give the large English audit
+  // surface a wider route lattice so 30 cases per learner authority are genuinely
+  // mathematically distinct rather than cycling through the original 5-route grid.
+  const route = seed.startsWith("cp005-audit-v")
+    ? rational(120 + 5 * index)
+    : rational(120 + 60 * (index % 5));
   const speedA = rational(a);
   const speedB = rational(b);
   const totalSpeed = add(speedA, speedB);
