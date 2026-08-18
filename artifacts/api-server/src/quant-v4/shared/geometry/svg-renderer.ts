@@ -117,7 +117,7 @@ function renderAngleMark(
   const labelAngle = startAngle + sweep / 2;
   const labelRadius = radius + 10;
   const label = mark.label
-    ? `<text x="${vertex.x + Math.cos(labelAngle) * labelRadius}" y="${vertex.y + Math.sin(labelAngle) * labelRadius}">${escapeXml(mark.label)}</text>`
+    ? `<text fill="currentColor" stroke="none" x="${vertex.x + Math.cos(labelAngle) * labelRadius}" y="${vertex.y + Math.sin(labelAngle) * labelRadius}">${escapeXml(mark.label)}</text>`
     : "";
   return `<g data-geo-kind="angle-mark" data-geo-id="${escapeXml(mark.id)}" data-vertex="${escapeXml(mark.vertexPointId)}"${mark.label ? ` data-label="${escapeXml(mark.label)}"` : ""}><path d="M ${start.x} ${start.y} A ${radius} ${radius} 0 0 ${sweepFlag} ${end.x} ${end.y}" />${label}</g>`;
 }
@@ -174,10 +174,10 @@ export function renderGeometrySvg(model: GeoDiagramModel): string {
     body.push(`<g data-geo-kind="arc" data-geo-id="${escapeXml(arc.id)}" data-circle="${escapeXml(arc.circleId)}"></g>`);
   }
   for (const point of model.points) {
-    body.push(`<g data-geo-kind="point" data-geo-id="${escapeXml(point.id)}"><circle cx="${point.x}" cy="${point.y}" r="2"/><text x="${point.x + 4}" y="${point.y - 4}">${escapeXml(point.label)}</text></g>`);
+    body.push(`<g data-geo-kind="point" data-geo-id="${escapeXml(point.id)}"><circle cx="${point.x}" cy="${point.y}" r="2" fill="currentColor" stroke="none"/><text fill="currentColor" stroke="none" x="${point.x + 4}" y="${point.y - 4}">${escapeXml(point.label)}</text></g>`);
   }
   for (const label of model.labels) {
-    body.push(`<text data-geo-kind="label" data-geo-id="${escapeXml(label.id)}" x="${label.x}" y="${label.y}">${escapeXml(label.text)}</text>`);
+    body.push(`<text data-geo-kind="label" data-geo-id="${escapeXml(label.id)}" fill="currentColor" stroke="none" x="${label.x}" y="${label.y}">${escapeXml(label.text)}</text>`);
   }
 
   const description = model.notToScale ? "Geometry diagram, not to scale" : "Geometry diagram";
