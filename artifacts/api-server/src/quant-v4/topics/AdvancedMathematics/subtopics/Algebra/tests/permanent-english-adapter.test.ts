@@ -57,10 +57,10 @@ const allCandidateIds = [...ordinaryCandidateIds, ...compositionCandidateIds];
 const categorized = [...mappedPrototypeIds, ...engineOnlyIds, ...compositionCandidateIds];
 
 assert(ALG_PERMANENT_ALLOCATION.length === 43, "Permanent English adapter must cover 43 allocated QLs");
-assert(allCandidateIds.length === 117, `Current Algebra registries must contain 117 candidates, got ${allCandidateIds.length}`);
+assert(allCandidateIds.length === 118, `Current Algebra registries must contain 118 candidates, got ${allCandidateIds.length}`);
 assert(mappedPrototypeIds.length === 109, `Expected 109 permanent-mapped prototype variants, got ${mappedPrototypeIds.length}`);
 assert(engineOnlyIds.length === 2, "Exactly two CP-006 degenerate candidates must remain engine-only");
-assert(compositionCandidateIds.length === 6, "CP-015 must contain six composition-only candidates");
+assert(compositionCandidateIds.length === 7, "CP-015 must contain seven composition-only candidates");
 assert(new Set(allCandidateIds).size === allCandidateIds.length, "Discovery candidate IDs must be globally unique");
 assert(new Set(mappedPrototypeIds).size === mappedPrototypeIds.length, "A discovery prototype must not map to two permanent QLs");
 assert(new Set(categorized).size === categorized.length, "Mapped/engine/composition categories must be disjoint");
@@ -94,4 +94,4 @@ for (const allocation of ALG_PERMANENT_ALLOCATION) {
   }
 }
 
-console.log("Algebra permanent English adapter V2 audit passed: 43 QLs, 109 mapped variants, 2 engine-only, 6 composition-only, 117 total candidates");
+console.log("Algebra permanent English adapter V2 audit passed: 43 QLs, 109 mapped variants, 2 engine-only, 7 composition-only, 118 total candidates");
