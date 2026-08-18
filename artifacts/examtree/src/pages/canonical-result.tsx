@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { QuestionRichText } from "@/components/QuestionRichText";
 import { getAttemptById } from "@/lib/data";
-import { getAttempts, type TestAttempt } from "@/lib/storage";
+import type { TestAttempt } from "@/lib/storage";
 
 type ReviewFilter = "all" | "wrong" | "flagged" | "unanswered";
 type CanonicalResult = TestAttempt & {
@@ -45,21 +45,10 @@ export default function CanonicalResult() {
   const requestedTestId = params?.get("testId") ?? null;
   const [filter, setFilter] = useState<ReviewFilter>("all");
 
-  // Older internal links sometimes carry only testId. Browser history may help us
-  // recover the committed attempt identifier, but never supplies score content.
-  const cachedAttemptId = useMemo(() => {
-    if (!requestedTestId) return null;
-    const candidate = getAttempts().find(
-      (attempt) => attempt.testId === requestedTestId && typeof attempt.id === "string" && attempt.id.length > 0,
-    );
-    return candidate?.id ?? null;
-  }, [requestedTestId]);
-  const resolvedAttemptId = attemptId ?? cachedAttemptId;
-
   const resultQuery = useQuery({
-    queryKey: ["canonical-attempt-result", resolvedAttemptId],
-    queryFn: () => getAttemptById(resolvedAttemptId!),
-    enabled: Boolean(resolvedAttemptId),
+    queryKey: ["canonical-attempt-result", attemptId],
+    queryFn: () => getAttemptById(attemptId!),
+    enabled: Boolean(attemptId),
     staleTime: Infinity,
     retry: false,
   });
@@ -78,14 +67,14 @@ export default function CanonicalResult() {
     return reviewState(item) === filter;
   }), [filter, review]);
 
-  if (!resolvedAttemptId) {
+  if (!attemptId) {
     return (
       <div className="mx-auto flex min-h-[70vh] max-w-xl items-center px-4">
         <div className="w-full rounded-2xl border border-amber-200 bg-card p-8 text-center shadow-sm">
           <Clock3 className="mx-auto h-10 w-10 text-amber-600" />
           <h1 className="mt-4 text-xl font-semibold">Submission is not confirmed yet</h1>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            ExamTree only shows a score after the server has committed your attempt. If your connection dropped during submission, your saved attempt remains recoverable and no local estimate is presented as an official result.
+            ExamTree only shows a score after the server has committed your attempt. If your connection dropped during submission, your saved attempt remains recoverable and no earlier or local score is presented as this attempt's official result.
           </p>
           <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:justify-center">
             {requestedTestId && (
