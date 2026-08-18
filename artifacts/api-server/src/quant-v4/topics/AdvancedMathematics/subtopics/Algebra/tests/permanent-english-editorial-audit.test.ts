@@ -24,6 +24,11 @@ const obviousFormattingDefects: Array<[RegExp, string]> = [
   [/\bNaN\b/g, "NaN"],
 ];
 
+const failures: string[] = [];
+function review(condition: boolean, message: string): void {
+  if (!condition) failures.push(message);
+}
+
 let reviewed = 0;
 for (const allocation of ALG_PERMANENT_ALLOCATION) {
   const variants = getAlgPermanentPrototypeIds(allocation.qlId);
@@ -34,27 +39,37 @@ for (const allocation of ALG_PERMANENT_ALLOCATION) {
       const question = item.question.trim();
       const explanation = item.explanation.trim();
       const combined = `${question}\n${explanation}`;
+      const prefix = `${allocation.qlId}/${item.prototypeId}/seed-${seed}`;
 
-      assert(question.length >= 12, `${allocation.qlId}/${item.prototypeId}/seed-${seed}: question too short`);
-      assert(explanation.length >= 35, `${allocation.qlId}/${item.prototypeId}/seed-${seed}: explanation too short`);
-      assert(/[A-Za-z]/.test(question), `${allocation.qlId}/${item.prototypeId}/seed-${seed}: question has no readable English text`);
-      assert(/[A-Za-z]/.test(explanation), `${allocation.qlId}/${item.prototypeId}/seed-${seed}: explanation has no readable English prose`);
-      assert(question !== explanation, `${allocation.qlId}/${item.prototypeId}/seed-${seed}: explanation merely repeats question`);
-      assert(explanation.split(/\s+/).length >= 7, `${allocation.qlId}/${item.prototypeId}/seed-${seed}: explanation is too formula-only`);
+      review(question.length >= 12, `${prefix}: question too short`);
+      review(explanation.length >= 35, `${prefix}: explanation too short`);
+      review(/[A-Za-z]/.test(question), `${prefix}: question has no readable English text`);
+      review(/[A-Za-z]/.test(explanation), `${prefix}: explanation has no readable English prose`);
+      review(question !== explanation, `${prefix}: explanation merely repeats question`);
+      review(explanation.split(/\s+/).length >= 7, `${prefix}: explanation is too formula-only`);
 
       for (const token of forbiddenInternalTokens) {
-        assert(!combined.includes(token), `${allocation.qlId}/${item.prototypeId}/seed-${seed}: leaked internal token ${token}`);
+        review(!combined.includes(token), `${prefix}: leaked internal token ${token}`);
       }
       for (const [pattern, label] of obviousFormattingDefects) {
         pattern.lastIndex = 0;
-        assert(!pattern.test(combined), `${allocation.qlId}/${item.prototypeId}/seed-${seed}: ${label}`);
+        review(!pattern.test(combined), `${prefix}: ${label}`);
       }
 
-      assert(!item.englishImplementationFrozen, `${allocation.qlId}: editorial audit must not imply English freeze`);
-      assert(!item.active && !item.questionStudioDiscoverable, `${allocation.qlId}: editorial audit leaked downstream lifecycle`);
+      review(!item.englishImplementationFrozen, `${allocation.qlId}: editorial audit must not imply English freeze`);
+      review(!item.active && !item.questionStudioDiscoverable, `${allocation.qlId}: editorial audit leaked downstream lifecycle`);
     }
   }
 }
 
 assert(reviewed === 1308, `Expected 1,308 permanent-English editorial samples, reviewed ${reviewed}`);
+if (failures.length > 0) {
+  const uniqueFailures = [...new Set(failures)];
+  const shown = uniqueFailures.slice(0, 200);
+  throw new Error(
+    `Algebra permanent English editorial audit found ${uniqueFailures.length} violation(s):\n${shown.join("\n")}` +
+    (uniqueFailures.length > shown.length ? `\n...and ${uniqueFailures.length - shown.length} more` : ""),
+  );
+}
+
 console.log(`Algebra permanent English editorial audit V2 passed for ${reviewed} generated samples across 43 permanent QLs and 109 mapped variants`);
