@@ -10,7 +10,8 @@ export type AlgCp010SolveMode =
   | "constructEquationWithShiftedRoots"
   | "constructEquationWithReciprocalRoots"
   | "findOtherRootFromKnownRoot"
-  | "constructEquationWithProductPlusMinusSumRoots";
+  | "constructEquationWithProductPlusMinusSumRoots"
+  | "constructEquationWithReciprocalThenShiftedRoots";
 
 export type AlgCp010Answer =
   | { kind: "RATIONAL"; value: Rational }
@@ -39,6 +40,7 @@ export interface AlgCp010DiscoveryItem {
   transformEvidence?:
     | { kind: "SHIFT"; value: Rational }
     | { kind: "RECIPROCAL" }
-    | { kind: "PRODUCT_PLUS_MINUS_SUM" };
+    | { kind: "PRODUCT_PLUS_MINUS_SUM" }
+    | { kind: "RECIPROCAL_THEN_SHIFT"; value: Rational };
   knownRootEvidence?: Rational;
 }
