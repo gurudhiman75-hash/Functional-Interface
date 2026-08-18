@@ -48,6 +48,11 @@ function hiddenParameterRowText(b: number, c: number): string {
   return `kx${yPart} = ${c}`;
 }
 
+function integerValue(value: Rational): number {
+  if (value.denominator !== 1n) throw new Error("CP-007 discovery trace expects integer system coefficients");
+  return Number(value.numerator);
+}
+
 function uniqueSystem(seed: number, salt: number): { system: LinearSystem2V; x: Rational; y: Rational; display: [string, string] } {
   const x = nonZeroInt(seed, -7, 7, salt + 1);
   const y = nonZeroInt(seed, -7, 7, salt + 2);
@@ -71,6 +76,29 @@ function systemStem(lines: [string, string], target: string): string {
   return `Given the system ${lines[0]} and ${lines[1]}, ${target}`;
 }
 
+function uniqueSystemTrace(system: LinearSystem2V, x: Rational, y: Rational): string {
+  const a1 = integerValue(system.a1);
+  const b1 = integerValue(system.b1);
+  const c1 = integerValue(system.c1);
+  const a2 = integerValue(system.a2);
+  const b2 = integerValue(system.b2);
+  const c2 = integerValue(system.c2);
+  const yCoefficient = a1 * b2 - a2 * b1;
+  const yRhs = a1 * c2 - a2 * c1;
+  const yEquation = `${termText(yCoefficient, "y", true)} = ${yRhs}`;
+  const yText = formatRational(y);
+  const xText = formatRational(x);
+  const substitutedY = b1 === 0 ? "" : ` ${b1 < 0 ? "-" : "+"} ${Math.abs(b1) === 1 ? `(${yText})` : `${Math.abs(b1)}(${yText})`}`;
+  return `Eliminate x by combining the two equations; this gives ${yEquation}, so y = ${yText}. Substitute into the first equation: ${termText(a1, "x", true)}${substitutedY} = ${c1}. Solving gives x = ${xText}.`;
+}
+
+function sumText(left: Rational, right: Rational, result: Rational): string {
+  const leftText = formatRational(left);
+  const rightText = formatRational(right);
+  if (right.numerator < 0n) return `${leftText} - ${formatRational(rational(-right.numerator, right.denominator))} = ${formatRational(result)}`;
+  return `${leftText} + ${rightText} = ${formatRational(result)}`;
+}
+
 export function generateAlgCp007DiscoveryItem(candidateId: string, seed: number): AlgCp007DiscoveryItem {
   const candidate = getAlgCp007Candidate(candidateId);
 
@@ -82,7 +110,7 @@ export function generateAlgCp007DiscoveryItem(candidateId: string, seed: number)
         stem: systemStem(built.display, "find x and y."),
         system: built.system,
         answer: { kind: "ORDERED_PAIR", x: built.x, y: built.y },
-        explanation: `Eliminate one variable from the two equations, then substitute back into either original equation. This gives x = ${formatRational(built.x)} and y = ${formatRational(built.y)}. Substitution in both equations confirms the pair.`,
+        explanation: `${uniqueSystemTrace(built.system, built.x, built.y)} Therefore x = ${formatRational(built.x)} and y = ${formatRational(built.y)}. Substitution in both original equations confirms the pair.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -95,7 +123,7 @@ export function generateAlgCp007DiscoveryItem(candidateId: string, seed: number)
         stem: systemStem(built.display, "find x + y."),
         system: built.system,
         answer: { kind: "RATIONAL", value: answer },
-        explanation: `Solving the two equations gives x = ${formatRational(built.x)} and y = ${formatRational(built.y)}. Therefore x + y = ${formatRational(built.x)} + ${formatRational(built.y)} = ${formatRational(answer)}.`,
+        explanation: `${uniqueSystemTrace(built.system, built.x, built.y)} Now x + y = ${sumText(built.x, built.y, answer)}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -108,7 +136,7 @@ export function generateAlgCp007DiscoveryItem(candidateId: string, seed: number)
         stem: systemStem(built.display, "find x - y."),
         system: built.system,
         answer: { kind: "RATIONAL", value: answer },
-        explanation: `Use elimination and substitution to get x = ${formatRational(built.x)} and y = ${formatRational(built.y)}. Hence x - y = ${formatRational(answer)}.`,
+        explanation: `${uniqueSystemTrace(built.system, built.x, built.y)} Hence x - y = ${formatRational(built.x)} - (${formatRational(built.y)}) = ${formatRational(answer)}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -120,7 +148,7 @@ export function generateAlgCp007DiscoveryItem(candidateId: string, seed: number)
         stem: systemStem(built.display, "find x."),
         system: built.system,
         answer: { kind: "RATIONAL", value: built.x },
-        explanation: `Eliminate y from the two equations. The resulting one-variable equation gives x = ${formatRational(built.x)}. Substituting this value back also gives y = ${formatRational(built.y)}, confirming the system is satisfied.`,
+        explanation: `${uniqueSystemTrace(built.system, built.x, built.y)} Therefore the required value is x = ${formatRational(built.x)}; substitution in both original equations verifies it.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -185,7 +213,7 @@ export function generateAlgCp007DiscoveryItem(candidateId: string, seed: number)
         stem: `For what value of k does the system ${rowText(a, b, c)} and ${hiddenParameterRowText(secondB, secondC)} have no solution?`,
         system,
         answer: { kind: "PARAMETER_VALUE", value: rational(hiddenK) },
-        explanation: `For no solution, the x- and y-coefficients must be proportional while the constants are not. The y-coefficient in the second equation is ${scale} times the first, so its x-coefficient must also be ${scale} times ${a}. Thus k = ${hiddenK}. The constants are not in that same ratio, so this value makes the lines parallel and distinct.`,
+        explanation: `For no solution, the x- and y-coefficients must be proportional while the constants are not. The y-coefficient in the second equation is ${scale} times the first, so its x-coefficient must also be ${scale} times ${a}: k = ${scale}(${a}) = ${hiddenK}. The constants are not in that same ratio, so this value makes the lines parallel and distinct.`,
         sourceStatus: "UNVERIFIED_DRAFT",
         parameterEvidence: { hiddenSecondXCoefficient: true },
       };
