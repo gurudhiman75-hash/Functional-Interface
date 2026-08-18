@@ -25,6 +25,17 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+      - name: Verify Rev-2 design authority bytes
+        run: |
+          set -euo pipefail
+          ROOT=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry
+          cat \
+            "$ROOT/design-authority-rev2/part-01.md" \
+            "$ROOT/design-authority-rev2/part-02.md" \
+            "$ROOT/design-authority-rev2/part-03.md" \
+            "$ROOT/design-authority-rev2/part-04.md" \
+            > /tmp/GEO-END-TO-END-DESIGN-REV2.reconstructed.md
+          echo "1790e494167121d2541145deea128d202feb125496ac72533a3340f09edf10d8  /tmp/GEO-END-TO-END-DESIGN-REV2.reconstructed.md" | sha256sum -c -
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
