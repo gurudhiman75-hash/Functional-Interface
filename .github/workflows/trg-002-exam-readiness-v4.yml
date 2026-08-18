@@ -39,7 +39,11 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-freeze-96.test.ts
       - name: Verify V4 scenario catalog and baseline blocker discovery
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-audit.test.ts
-      - name: Verify V4 candidate exact-math protection
+      - name: Verify QL013 exact-math repair
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-candidate.test.ts
+      - name: Verify Wave1 physical scenario text
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-wave1-surface.test.ts
+      - name: Verify 2304 V4 candidate cases
         run: |
           pnpm dlx tsx -e '
             import { generateTrg002V4CandidateQuestion } from "./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-candidate.ts";
@@ -57,7 +61,7 @@ jobs:
               }
             }
             if(total!==2304) throw new Error(`Expected 2304 V4 candidate cases, got ${total}`);
-            console.log(`TRG002_V4_CANDIDATE_EXACT_MATH_PASS total=${total}`);
+            console.log(`TRG002_V4_CANDIDATE_PASS total=${total}`);
           '
       - name: Export tri-language visual review pack
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-exam-readiness-v4-review.ts
