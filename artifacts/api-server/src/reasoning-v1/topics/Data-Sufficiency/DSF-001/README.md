@@ -4,7 +4,7 @@ This package is the implementation root for ExamTree `REAS-DSF`.
 
 Current status: **DSF-CP-000 executable foundation/discovery**.
 
-The package intentionally contains no permanent `DSF-QL-*` identities. CP-000 proves information-sufficiency semantics and source-adapter reuse first; permanent Question Languages are allocated only after executable discovery, source-pattern evidence, and merge/split review.
+The package intentionally contains no permanent `DSF-QL-*` identities. CP-000 proves information-sufficiency semantics and cross-domain adapter behavior first; permanent Question Languages are allocated only after executable discovery, source-pattern evidence, and merge/split review.
 
 Core rule:
 
@@ -22,10 +22,18 @@ Implemented in CP-000:
 - generic finite-domain adapter bridge;
 - audit of existing Number System, Time & Work, and Simplification DS runtimes;
 - 12-row Quant/Reasoning architectural coverage matrix;
-- executable Number System adapter prototype using the actual `NUM-001` divisibility foundation;
-- six Number System proof prototypes covering all five classes plus a multi-world target-projection case;
-- executable foundation and discovery tests;
+- Number System adapter prototype reusing actual `NUM-001` divisibility helpers;
+- Algebra target-function prototype proving a unique asked value with multiple complete `(x,y)` worlds;
+- Ranking & Order adapter prototype covering all five classes and verifying target rank sets through `RNK-CP-007/exactRankSet`;
+- executable foundation, Number System, and cross-domain discovery tests;
 - dedicated GitHub Actions proof workflow.
+
+Coverage status:
+
+- 3 executable prototype groups: Number System, Algebra, Ranking and Order;
+- 2 existing-runtime audits: Simplification and Time & Work;
+- 5 further prototype-required groups;
+- 2 constraint-heavy groups deferred.
 
 Still locked:
 
@@ -34,4 +42,4 @@ Still locked:
 - question-bank writes;
 - mock-test eligibility.
 
-Next CP-000 targets are Algebra target-function proof, first relational adapter (Ranking and Order), and source/PYQ merge-split discovery before permanent QL allocation.
+Remaining CP-000 work is source/PYQ pattern evidence, merge/split analysis, and ownership reconciliation of existing chapter-local DS runtimes before permanent QL allocation.
