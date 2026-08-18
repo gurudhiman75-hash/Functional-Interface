@@ -210,5 +210,22 @@ export function generateAlgCp010DiscoveryItem(candidateId: string, seed: number)
         transformEvidence: { kind: "PRODUCT_PLUS_MINUS_SUM" },
       };
     }
+
+    case "constructEquationWithReciprocalThenShiftedRoots": {
+      const shift = rational(nonZeroInt(seed, -4, 4, 91));
+      const reciprocalEquation = reciprocalQuadraticRoots(base.equation);
+      const answer = shiftQuadraticRoots(reciprocalEquation, shift);
+      const magnitude = rational(shift.numerator < 0n ? -shift.numerator : shift.numerator, shift.denominator);
+      return {
+        cpId: "ALG-CP-010", candidateId, solveMode: candidate.solveMode, seed,
+        stem: `If α and β are the roots of ${equationText(base.equation)}, form the monic quadratic whose roots are 1/α ${shift.numerator < 0n ? "-" : "+"} ${formatRational(magnitude)} and 1/β ${shift.numerator < 0n ? "-" : "+"} ${formatRational(magnitude)}.`,
+        originalEquation: base.equation,
+        answer: { kind: "QUADRATIC_EQUATION", value: answer },
+        explanation: `First use Vieta to transform the roots to 1/α and 1/β. Their sum is (α + β)/(αβ) and their product is 1/(αβ). Then shift both reciprocal roots by ${formatRational(shift)}. Applying the ordinary shifted-root formulas to those reciprocal-root invariants gives ${equationText(answer)}.`,
+        sourceStatus: "UNVERIFIED_DRAFT",
+        hiddenRoots: base.roots,
+        transformEvidence: { kind: "RECIPROCAL_THEN_SHIFT", value: shift },
+      };
+    }
   }
 }
