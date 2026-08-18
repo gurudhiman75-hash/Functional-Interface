@@ -49,6 +49,11 @@ const bannedPhrases = Object.freeze([
   "maturity amount, in rupees",
   "complete accumulation factor",
   "complete maturity factor",
+  "accumulation factor",
+  "present-principal ratio",
+  "present principals",
+  "present principal",
+  "present share",
 ]);
 
 let questions = 0;
