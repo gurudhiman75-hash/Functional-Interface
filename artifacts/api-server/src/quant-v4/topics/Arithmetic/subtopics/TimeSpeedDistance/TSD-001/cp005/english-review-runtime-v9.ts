@@ -22,7 +22,6 @@ function ordinal(value: number): string {
     default: return `${value}th`;
   }
 }
-
 function oppositeStart(i: TsdCp005EnglishReviewQuestion["input"]): string {
   return `Traveller A starts from P at ${kmph(required(i.speedA, "speedA"))} and traveller B starts simultaneously from Q at ${kmph(required(i.speedB, "speedB"))}. The distance PQ is ${km(required(i.routeDistance, "routeDistance"))}.`;
 }
@@ -43,7 +42,6 @@ function renderExamStem(question: TsdCp005EnglishReviewQuestion): string {
       return `Travellers A and B start simultaneously from opposite ends P and Q of a ${km(required(i.routeDistance, "routeDistance"))} route. After their first meeting, A takes ${duration(required(i.postMeetingTimeA, "postMeetingTimeA"))} to reach Q and B takes ${duration(required(i.postMeetingTimeB, "postMeetingTimeB"))} to reach P. Find their speeds, A first and B second.`;
     case "findMeetingPointFromPostMeetingTimes":
       return `Travellers A and B start simultaneously from opposite ends P and Q of a ${km(required(i.routeDistance, "routeDistance"))} route. After their first meeting, A takes ${duration(required(i.postMeetingTimeA, "postMeetingTimeA"))} to reach Q and B takes ${duration(required(i.postMeetingTimeB, "postMeetingTimeB"))} to reach P. How far from P did their first meeting occur?`;
-
     case "findSecondMeetingTimeAfterEndpointTurnaround":
       return `${oppositeStart(i)} Both reverse direction immediately whenever they reach an endpoint. How long after the start will they meet for the second time?`;
     case "findMeetingAfterBothTurnAtEndpoints":
@@ -55,7 +53,6 @@ function renderExamStem(question: TsdCp005EnglishReviewQuestion): string {
     }
     case "findTimeBetweenFirstAndSecondMeetings":
       return `${oppositeStart(i)} Both reverse immediately at the endpoints and continue moving. Find the time interval between their first and second meetings.`;
-
     case "findSecondMeetingPointAfterEndpointTurnaround":
       return `${oppositeStart(i)} Both reverse immediately at each endpoint. How far from P is their second meeting point?`;
     case "findNthMeetingPointOnLine": {
@@ -65,7 +62,6 @@ function renderExamStem(question: TsdCp005EnglishReviewQuestion): string {
     }
     case "findRepeatedMeetingCountInTimeWindow":
       return `${oppositeStart(i)} Both reverse immediately at each endpoint. How many times do they meet during the first ${duration(required(i.timeWindow, "timeWindow"))}?`;
-
     case "findMeetingAfterOneTravellerTurnsBack":
       return `${sameStart(i)} A reaches Q first and immediately turns back, while B continues towards Q. When will A meet B on the return journey?`;
     case "findShuttleMeetingTime":
@@ -76,12 +72,10 @@ function renderExamStem(question: TsdCp005EnglishReviewQuestion): string {
       return `${sameStart(i)} A reaches Q first and immediately turns back. Find the total distance travelled by A before A and B meet.`;
     case "findReturnJourneyMeetingPoint":
       return `${sameStart(i)} A reaches Q first, turns back immediately and later meets B. How far from P is their meeting point?`;
-
     case "findEndpointRestTimeFromNextMeeting":
       return `${oppositeStart(i)} A rests at Q before turning back, while B reverses immediately on reaching P. Their second meeting occurs ${duration(required(i.observedSecondMeetingTime, "observedSecondMeetingTime"))} after the start. How long does A rest at Q?`;
     case "findRouteReversalScheduleParameter":
       return `${oppositeStart(i)} A follows a schedule that includes a halt at Q before reversing; B reverses immediately at P. Their next recorded meeting is ${duration(required(i.observedSecondMeetingTime, "observedSecondMeetingTime"))} after the start. Determine A's halt time at Q.`;
-
     case "findDistanceBetweenEndpointsFromRepeatedMeetings":
       return `Traveller A starts from P at ${kmph(required(i.speedA, "speedA"))} and traveller B starts simultaneously from Q at ${kmph(required(i.speedB, "speedB"))}. Both reverse immediately at the endpoints. They meet for the first time after ${duration(required(i.observedFirstMeetingTime, "observedFirstMeetingTime"))} and for the second time after ${duration(required(i.observedSecondMeetingTime, "observedSecondMeetingTime"))}. Find the distance PQ.`;
     default:
@@ -89,8 +83,21 @@ function renderExamStem(question: TsdCp005EnglishReviewQuestion): string {
   }
 }
 
+function normalizeEndpointNotation(text: string): string {
+  return text
+    .replace(/from A's starting end/g, "from P")
+    .replace(/from A's end/g, "from P")
+    .replace(/A's starting end/g, "P");
+}
+
 function normalizeSelected(question: TsdCp005EnglishReviewQuestion): TsdCp005EnglishReviewQuestion {
-  return Object.freeze({ ...question, stem: renderExamStem(question) });
+  const explanation = Object.freeze({
+    method: normalizeEndpointNotation(question.explanation.method),
+    steps: Object.freeze(question.explanation.steps.map(normalizeEndpointNotation)),
+    shortcut: normalizeEndpointNotation(question.explanation.shortcut),
+    finalAnswer: normalizeEndpointNotation(question.explanation.finalAnswer),
+  });
+  return Object.freeze({ ...question, stem: renderExamStem(question), explanation });
 }
 
 export function generateCp005ReviewSetV9(perAuthority = 6): readonly TsdCp005EnglishReviewQuestion[] {
