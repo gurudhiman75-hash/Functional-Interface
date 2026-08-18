@@ -1,5 +1,6 @@
 import {
   base,
+  boundedNumericOptions,
   countClassInRange,
   createRng,
   crtMany,
@@ -8,6 +9,7 @@ import {
   leastPositive,
   mod,
   numericOptions,
+  residueOptions,
   sources,
   systemSolutions,
   textOptions,
@@ -117,7 +119,7 @@ function p026(seed: number): NumCp008Wave04Package {
   const exact = BigInt(String(block).repeat(repeats));
   const verifier = Number(exact % BigInt(modulus));
   const previous = residues.length > 1 ? residues[residues.length - 2]! : mod(block, modulus);
-  const options = numericOptions(answer, [
+  const options = residueOptions(answer, modulus, [
     { value: previous, misconceptionId: "USED_ONE_FEWER_BLOCK" },
     { value: mod(answer + mod(block, modulus), modulus), misconceptionId: "ADDED_BLOCK_WITHOUT_PLACE_SHIFT" },
     { value: mod(block * repeats, modulus), misconceptionId: "TREATED_CONCATENATION_AS_SUM" },
@@ -164,10 +166,10 @@ function p027(seed: number): NumCp008Wave04Package {
   const answer = first + Math.floor((upper - first) / merged.period) * merged.period;
   const verifierSet = systemSolutions(constraints, 1, upper);
   const verifier = verifierSet[verifierSet.length - 1];
-  const options = numericOptions(answer, [
-    { value: Math.max(1, answer - merged.period), misconceptionId: "USED_PREVIOUS_PERIODIC_SOLUTION" },
-    { value: answer + merged.period, misconceptionId: "EXCEEDED_UPPER_BOUND" },
+  const options = boundedNumericOptions(answer, 1, upper, [
+    { value: answer - merged.period, misconceptionId: "USED_PREVIOUS_PERIODIC_SOLUTION" },
     { value: upper, misconceptionId: "USED_BOUND_WITHOUT_CHECKING_SYSTEM" },
+    { value: answer - 1, misconceptionId: "USED_NEARBY_UNVERIFIED_VALUE" },
   ], rng);
   const hiddenState = Object.freeze({ mode: "GREATEST_BOUNDED_SYSTEM_SOLUTION", constraints, residue: merged.residue, period: merged.period, upper, first, answer });
   const systemText = constraints.map((item) => `x ≡ ${item.residue} (mod ${item.modulus})`).join(", ");
@@ -188,7 +190,7 @@ function p027(seed: number): NumCp008Wave04Package {
       steps: [
         `The system combines to x ≡ ${merged.residue} (mod ${merged.period}); its least positive representative is ${first}.`,
         `${first} + floor((${upper}-${first})/${merged.period})×${merged.period} = ${answer}.`,
-        `${answer} satisfies every congruence, while ${answer + merged.period} exceeds ${upper}.`,
+        `${answer} satisfies every congruence, while the next periodic solution ${answer + merged.period} exceeds ${upper}.`,
       ],
       finalAnswer: String(answer),
     },
