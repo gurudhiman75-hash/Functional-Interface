@@ -11,6 +11,8 @@ export const ALG_CP012_DISCOVERY_CANDIDATES: AlgCp012Candidate[] = [
   { candidateId: "ALG-CP012-CAND-008", solveMode: "findQuadraticMaximum", status: "DISCOVERY", permanentQlId: null, answerKind: "EXTREMUM", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP012-CAND-009", solveMode: "findParameterRangeForGlobalQuadraticSign", status: "DISCOVERY", permanentQlId: null, answerKind: "PARAMETER_RANGE", difficulty: "Hard", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP012-CAND-010", solveMode: "countIntegerSolutionsInQuadraticInterval", status: "DISCOVERY", permanentQlId: null, answerKind: "INTEGER_COUNT", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
+  { candidateId: "ALG-CP012-CAND-011", solveMode: "findMinimumReciprocalSumUnderPositiveFixedSum", status: "DISCOVERY", permanentQlId: null, answerKind: "SYMMETRIC_EXTREMUM", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
+  { candidateId: "ALG-CP012-CAND-012", solveMode: "findMinimumSquareSumUnderPositiveFixedSum", status: "DISCOVERY", permanentQlId: null, answerKind: "SYMMETRIC_EXTREMUM", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
 ];
 
 export function getAlgCp012Candidate(candidateId: string): AlgCp012Candidate {
