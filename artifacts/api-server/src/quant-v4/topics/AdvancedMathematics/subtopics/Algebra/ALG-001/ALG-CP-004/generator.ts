@@ -33,8 +33,14 @@ function linearFactor(leading: number, constant: number): Polynomial1 {
   return polynomial("x", [rational(constant), rational(leading)]);
 }
 
+function variableText(coefficient: number): string {
+  if (coefficient === 1) return "x";
+  if (coefficient === -1) return "-x";
+  return `${coefficient}x`;
+}
+
 function factorText(leading: number, constant: number): string {
-  const xTerm = leading === 1 ? "x" : leading === -1 ? "-x" : `${leading}x`;
+  const xTerm = variableText(leading);
   if (constant === 0) return xTerm;
   return `(${xTerm} ${constant < 0 ? "-" : "+"} ${Math.abs(constant)})`;
 }
@@ -127,7 +133,8 @@ export function generateAlgCp004DiscoveryItem(candidateId: string, seed: number)
       const firstMiddle = m * q;
       const secondMiddle = n * p;
       const splitText = `${firstMiddle} ${secondMiddle < 0 ? "-" : "+"} ${Math.abs(secondMiddle)}`;
-      return item(candidateId, candidate.solveMode, seed, original, factorization, text, `The middle coefficient is ${firstMiddle + secondMiddle}. Split it as ${splitText}. Then group the terms: ${m * p}x² ${firstMiddle < 0 ? "-" : "+"} ${Math.abs(firstMiddle)}x = ${m}x(${p}x ${q < 0 ? "-" : "+"} ${Math.abs(q)}), and ${secondMiddle}x ${n * q < 0 ? "-" : "+"} ${Math.abs(n * q)} = ${n}(${p}x ${q < 0 ? "-" : "+"} ${Math.abs(q)}). Taking the common bracket gives ${text}.`);
+      const commonBracket = `${variableText(p)} ${q < 0 ? "-" : "+"} ${Math.abs(q)}`;
+      return item(candidateId, candidate.solveMode, seed, original, factorization, text, `The middle coefficient is ${firstMiddle + secondMiddle}. Split it as ${splitText}. Then group the terms: ${m * p}x² ${firstMiddle < 0 ? "-" : "+"} ${Math.abs(firstMiddle)}x = ${m}x(${commonBracket}), and ${secondMiddle}x ${n * q < 0 ? "-" : "+"} ${Math.abs(n * q)} = ${n}(${commonBracket}). Taking the common bracket gives ${text}.`);
     }
   }
 }
