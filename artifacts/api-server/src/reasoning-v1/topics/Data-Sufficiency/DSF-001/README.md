@@ -2,9 +2,9 @@
 
 This package is the implementation root for ExamTree `REAS-DSF`.
 
-Current status: **DSF-CP-000 foundation/discovery**.
+Current status: **DSF-CP-000 executable foundation/discovery**.
 
-The foundation intentionally contains no permanent `DSF-QL-*` identities. CP-000 proves information-sufficiency semantics first; domain adapters and permanent Question Languages are allocated only after executable discovery and merge/split review.
+The package intentionally contains no permanent `DSF-QL-*` identities. CP-000 proves information-sufficiency semantics and source-adapter reuse first; permanent Question Languages are allocated only after executable discovery, source-pattern evidence, and merge/split review.
 
 Core rule:
 
@@ -19,5 +19,19 @@ Implemented in CP-000:
 - monotonicity and answer-agreement invariants;
 - minimal sufficient statement subsets;
 - standard five-option English semantic contract;
-- discovery-only prototype registry;
-- executable foundation tests.
+- generic finite-domain adapter bridge;
+- audit of existing Number System, Time & Work, and Simplification DS runtimes;
+- 12-row Quant/Reasoning architectural coverage matrix;
+- executable Number System adapter prototype using the actual `NUM-001` divisibility foundation;
+- six Number System proof prototypes covering all five classes plus a multi-world target-projection case;
+- executable foundation and discovery tests;
+- dedicated GitHub Actions proof workflow.
+
+Still locked:
+
+- permanent `DSF-QL-*` allocation;
+- Question Studio publication;
+- question-bank writes;
+- mock-test eligibility.
+
+Next CP-000 targets are Algebra target-function proof, first relational adapter (Ranking and Order), and source/PYQ merge-split discovery before permanent QL allocation.
