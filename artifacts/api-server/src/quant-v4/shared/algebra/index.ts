@@ -4,6 +4,7 @@ export * from "./power-sum";
 export * from "./expression-ast";
 export * from "./polynomial";
 export * from "./linear-equation";
+export * from "./linear-system";
 export * from "./quadratic";
 export * from "./factorisation";
 export * from "./polynomial-division";
