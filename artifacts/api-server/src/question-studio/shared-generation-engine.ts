@@ -8,6 +8,17 @@ import {
   WOR_001_QUESTION_STUDIO_RELEASE_FREEZE,
 } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/question-studio-payload";
 import {
+  assertWor001ProductionQuestionStudioCheckpoint,
+  assertWor001ProductionQuestionStudioPrototype,
+  isWor001ProductionQuestionStudioPrototype,
+  WOR_001_QUESTION_STUDIO_ENGLISH_REVIEW_STATUS,
+  WOR_001_QUESTION_STUDIO_EXAM_READINESS_STATUS,
+  WOR_001_QUESTION_STUDIO_PRODUCTION_CHECKPOINTS,
+  WOR_001_QUESTION_STUDIO_PRODUCTION_PROTOTYPES,
+  WOR_001_QUESTION_STUDIO_PRODUCTION_REVIEW_STATUS,
+  WOR_001_QUESTION_STUDIO_SOURCE_DEFERRED_PROTOTYPE_IDS,
+} from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/question-studio-production-authority";
+import {
   WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   previewWor001QuestionStudioReview,
   type WorQuestionStudioDifficulty,
@@ -79,9 +90,12 @@ function stableHash(value: string): number {
 function orderedWorPrototypeIds(
   batchSeed: string,
   difficulty: WorQuestionStudioDifficulty | undefined,
+  checkpointId?: WorCheckpointId,
 ): string[] {
   const prototypes = WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.prototypes.filter((prototype) =>
-    !difficulty || prototype.supportedDifficulties.includes(difficulty),
+    isWor001ProductionQuestionStudioPrototype(prototype.prototypeId)
+    && (!checkpointId || prototype.checkpointId === checkpointId)
+    && (!difficulty || prototype.supportedDifficulties.includes(difficulty)),
   );
   return [...prototypes]
     .sort((left, right) => {
@@ -106,17 +120,22 @@ function worPackageCapability() {
     name: `${pkg.packageId} ${pkg.label}`,
     label: pkg.label,
     generationDomain: "reasoning-v1",
-    cpIds: pkg.checkpoints.map((entry) => entry.checkpointId),
-    canonicalProblems: pkg.checkpoints.map((entry) => ({
+    cpIds: WOR_001_QUESTION_STUDIO_PRODUCTION_CHECKPOINTS.map((entry) => entry.checkpointId),
+    canonicalProblems: WOR_001_QUESTION_STUDIO_PRODUCTION_CHECKPOINTS.map((entry) => ({
       id: entry.checkpointId,
       label: entry.title,
     })),
+    prototypeCount: WOR_001_QUESTION_STUDIO_PRODUCTION_PROTOTYPES.length,
+    sourceDeferredPrototypeCount: WOR_001_QUESTION_STUDIO_SOURCE_DEFERRED_PROTOTYPE_IDS.length,
     supportedDifficulties: [...pkg.supportedDifficulties],
     supportedLanguages: [...pkg.supportedLanguages],
     enabled: pkg.questionStudioVisible,
     runtimeMode: pkg.runtimeMode,
     supportedRuntimeModes: [pkg.runtimeMode],
-    reviewStatus: pkg.reviewStatus,
+    reviewStatus: WOR_001_QUESTION_STUDIO_PRODUCTION_REVIEW_STATUS,
+    examReadinessStatus: WOR_001_QUESTION_STUDIO_EXAM_READINESS_STATUS,
+    englishContentReviewStatus: WOR_001_QUESTION_STUDIO_ENGLISH_REVIEW_STATUS,
+    releaseFreezeStatus: WOR_001_QUESTION_STUDIO_RELEASE_FREEZE,
     reviewOnly: pkg.reviewOnly,
     permanentQlCount: pkg.permanentQlCount,
     permanentQlAllocationStatus: pkg.permanentQlAllocationStatus,
@@ -138,6 +157,29 @@ export function listQuestionStudioPackages() {
   );
 }
 
+function generateWorProductionBatch(
+  prototypeIds: readonly string[],
+  language: WorQuestionStudioLanguage,
+  difficulty: WorQuestionStudioDifficulty | undefined,
+  batchSeed: string,
+  count: number,
+): readonly WorQuestionStudioReviewQuestion[] {
+  if (prototypeIds.length === 0) {
+    throw new Error("No frozen WOR-001 production prototypes support the requested Question Studio filters.");
+  }
+  return Array.from({ length: count }, (_, index) => {
+    const prototypeId = prototypeIds[index % prototypeIds.length]!;
+    const preview = previewWor001QuestionStudioReview({
+      language,
+      prototypeId,
+      difficulty,
+      seed: `${batchSeed}:item:${index}`,
+      count: 1,
+    });
+    return preview.questions[0]!;
+  });
+}
+
 async function generateWor001QuestionStudioQuestions(request: SharedQuestionStudioGenerationRequest) {
   const language = normalizeWorLanguage(request.language);
   const difficulty = normalizeWorDifficulty(request.difficulty);
@@ -155,31 +197,25 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
     || `question-studio:WOR-001:${language}:${Date.now()}:${Math.random().toString(36).slice(2)}`;
 
   let questionPackages: readonly WorQuestionStudioReviewQuestion[];
-  if (requestedPrototypeId || checkpointId) {
+  if (requestedPrototypeId) {
+    assertWor001ProductionQuestionStudioPrototype(requestedPrototypeId);
     questionPackages = previewWor001QuestionStudioReview({
       language,
-      checkpointId,
       prototypeId: requestedPrototypeId,
       difficulty,
       seed: batchSeed,
       count,
     }).questions;
   } else {
-    const prototypeIds = orderedWorPrototypeIds(batchSeed, difficulty);
-    if (prototypeIds.length === 0) {
-      throw new Error("No WOR-001 prototypes support the requested difficulty.");
-    }
-    questionPackages = Array.from({ length: count }, (_, index) => {
-      const prototypeId = prototypeIds[index % prototypeIds.length]!;
-      const preview = previewWor001QuestionStudioReview({
-        language,
-        prototypeId,
-        difficulty,
-        seed: `${batchSeed}:item:${index}`,
-        count: 1,
-      });
-      return preview.questions[0]!;
-    });
+    if (checkpointId) assertWor001ProductionQuestionStudioCheckpoint(checkpointId);
+    const prototypeIds = orderedWorPrototypeIds(batchSeed, difficulty, checkpointId);
+    questionPackages = generateWorProductionBatch(
+      prototypeIds,
+      language,
+      difficulty,
+      batchSeed,
+      count,
+    );
   }
 
   const questions = questionPackages.map((question) => buildWor001QuestionStudioPayload(question));
@@ -192,8 +228,12 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
       seed: batchSeed,
       timestamp: Date.now(),
       runtimeMode: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.runtimeMode,
-      reviewStatus: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.reviewStatus,
+      reviewStatus: WOR_001_QUESTION_STUDIO_PRODUCTION_REVIEW_STATUS,
+      examReadinessStatus: WOR_001_QUESTION_STUDIO_EXAM_READINESS_STATUS,
+      englishContentReviewStatus: WOR_001_QUESTION_STUDIO_ENGLISH_REVIEW_STATUS,
       lifecycleStatus: "REVIEW_ONLY",
+      productionPrototypeCount: WOR_001_QUESTION_STUDIO_PRODUCTION_PROTOTYPES.length,
+      sourceDeferredPrototypeCount: WOR_001_QUESTION_STUDIO_SOURCE_DEFERRED_PROTOTYPE_IDS.length,
       permanentQlCount: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount,
       permanentQlAllocationStatus: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlAllocationStatus,
       revisionPolicy: "SOURCE_GENERATOR_ONLY",
