@@ -4,10 +4,12 @@ import {
 } from "./spatial-permanent-ql-allocation-v3";
 import {
   generatePfcDiscoveryQuestionV3,
-  renderPfcDiscoveryOptionSvgV1,
   renderPfcDiscoveryStimulusSvgV3,
 } from "./paper-folding-discovery-presentation-v3";
-import type { PfcDiscoveryQuestionV1 } from "./paper-folding-discovery-v1";
+import {
+  renderPfcDiscoveryOptionSvgV1,
+  type PfcDiscoveryQuestionV1,
+} from "./paper-folding-discovery-v1";
 
 export const PFC_001_PERMANENT_ENGLISH_RUNTIME_AUTHORITY_V1 = Object.freeze({
   authorityId: "PFC-001-PERMANENT-ENGLISH-RUNTIME-V1" as const,
