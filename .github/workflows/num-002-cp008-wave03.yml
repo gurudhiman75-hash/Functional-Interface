@@ -1,0 +1,114 @@
+name: Validate NUM-CP-008 Wave 03 exam systems and recurrence
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/num-002-cp008-wave02.yml"
+      - ".github/workflows/num-002-cp008-wave03.yml"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp008-wave03-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp008-wave03:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle retained Wave 02 authority regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/wave02/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-wave02-regression.mjs
+
+      - name: Run retained Wave 02 authority regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp008-wave02-regression.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp008-wave02-regression.log
+
+      - name: Bundle Wave 03 runtime authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/wave03/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-wave03-runtime-authority.mjs
+
+      - name: Run Wave 03 runtime authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-runtime-authority.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-runtime-authority.log
+
+      - name: Bundle Wave 03 structural audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/wave03/runtime-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-wave03-runtime-audit.mjs
+
+      - name: Run Wave 03 structural audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-runtime-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-runtime-audit.log
+
+      - name: Bundle Wave 03 review-quality audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/wave03/runtime-review-quality.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-wave03-review-quality.mjs
+
+      - name: Run Wave 03 review-quality audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-review-quality.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-review-quality.log
+
+      - name: Bundle Wave 03 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/wave03/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-wave03-review-export.mjs
+
+      - name: Generate Wave 03 English review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-002-cp008-wave03-review-export.mjs
+
+      - name: Upload Wave 03 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp008-wave03-exam-systems-recurrence
+          retention-days: 14
+          path: |
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave02-regression.log
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-runtime-authority.log
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-runtime-audit.log
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-review-quality.log
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-review.json
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-review.md
+          if-no-files-found: warn
