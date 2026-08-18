@@ -4,11 +4,16 @@ import {
   saveActiveTestSession,
   type ActiveTestSession,
 } from "@/lib/storage";
+import {
+  inferExamTimerMode,
+  reconcileExamTimer,
+  type ExamTimerMode,
+  type RecoverableTimerSession,
+} from "@/lib/timer-recovery";
 
 const ACTIVE_TEST_SESSIONS_KEY = "active_test_sessions";
 const originalSet = Storage.set.bind(Storage);
-type TimerMode = "overall" | "sectional";
-const timerModeByTest = new Map<string, TimerMode>();
+const timerModeByTest = new Map<string, ExamTimerMode>();
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -24,6 +29,20 @@ function readStoredActiveSessions(): Record<string, Record<string, unknown>> {
   }
 }
 
+function timerShape(value: Record<string, unknown>): RecoverableTimerSession | null {
+  const sections = value.sectionTimeLeftByName;
+  if (!isRecord(sections)) return null;
+  const sectionTimes = Object.fromEntries(
+    Object.entries(sections).map(([name, remaining]) => [name, Number(remaining)]),
+  );
+  return {
+    timeLeft: Number(value.timeLeft),
+    currentSectionIndex: Number(value.currentSectionIndex),
+    currentQuestionIndex: Number(value.currentQuestionIndex),
+    sectionTimeLeftByName: sectionTimes,
+  };
+}
+
 function inferTimerModes(value: unknown): void {
   if (!isRecord(value)) return;
   const previous = readStoredActiveSessions();
@@ -32,24 +51,12 @@ function inferTimerModes(value: unknown): void {
     if (!isRecord(nextValue)) continue;
     const before = previous[testId];
     if (!isRecord(before)) continue;
+    const beforeShape = timerShape(before);
+    const nextShape = timerShape(nextValue);
+    if (!beforeShape || !nextShape) continue;
 
-    const nextTimeLeft = Number(nextValue.timeLeft);
-    const beforeTimeLeft = Number(before.timeLeft);
-    if (Number.isFinite(nextTimeLeft) && Number.isFinite(beforeTimeLeft) && nextTimeLeft < beforeTimeLeft) {
-      timerModeByTest.set(testId, "overall");
-      continue;
-    }
-
-    const nextSections = nextValue.sectionTimeLeftByName;
-    const beforeSections = before.sectionTimeLeftByName;
-    if (!isRecord(nextSections) || !isRecord(beforeSections)) continue;
-
-    const sectionalTicked = Object.keys(nextSections).some((name) => {
-      const next = Number(nextSections[name]);
-      const prior = Number(beforeSections[name]);
-      return Number.isFinite(next) && Number.isFinite(prior) && next < prior;
-    });
-    if (sectionalTicked) timerModeByTest.set(testId, "sectional");
+    const mode = inferExamTimerMode(beforeShape, nextShape);
+    if (mode) timerModeByTest.set(testId, mode);
   }
 }
 
@@ -89,7 +96,7 @@ Storage.set = (key: string, value: unknown): void => {
 // updatedAt prevents double-counting seconds that continued to tick while hidden.
 type HiddenActiveTest = {
   testId: string;
-  mode: TimerMode;
+  mode: ExamTimerMode;
   updatedAtWhenHidden: number;
 };
 
@@ -104,43 +111,6 @@ function currentTestId(): string | null {
   } catch {
     return match[1];
   }
-}
-
-function reconcileSectionalTimer(
-  session: ActiveTestSession,
-  elapsedSeconds: number,
-): ActiveTestSession {
-  const names = Object.keys(session.sectionTimeLeftByName ?? {});
-  if (names.length === 0) return session;
-
-  const nextTimes = { ...session.sectionTimeLeftByName };
-  let sectionIndex = Math.min(Math.max(session.currentSectionIndex, 0), names.length - 1);
-  let remainingElapsed = elapsedSeconds;
-  let movedSection = false;
-
-  while (remainingElapsed > 0 && sectionIndex < names.length) {
-    const name = names[sectionIndex]!;
-    const current = Math.max(0, Number(nextTimes[name] ?? 0));
-
-    if (current > remainingElapsed) {
-      nextTimes[name] = current - remainingElapsed;
-      remainingElapsed = 0;
-      break;
-    }
-
-    nextTimes[name] = 0;
-    remainingElapsed -= current;
-    if (sectionIndex >= names.length - 1) break;
-    sectionIndex += 1;
-    movedSection = true;
-  }
-
-  return {
-    ...session,
-    currentSectionIndex: sectionIndex,
-    currentQuestionIndex: movedSection ? 0 : session.currentQuestionIndex,
-    sectionTimeLeftByName: nextTimes,
-  };
 }
 
 function reconcileVisibleTestTimer(): void {
@@ -161,10 +131,7 @@ function reconcileVisibleTestTimer(): void {
   const elapsedSeconds = Math.floor(Math.max(0, now - anchor) / 1000);
   if (elapsedSeconds < 2) return;
 
-  const reconciled = marker.mode === "sectional"
-    ? reconcileSectionalTimer(session, elapsedSeconds)
-    : { ...session, timeLeft: Math.max(0, session.timeLeft - elapsedSeconds) };
-
+  const reconciled = reconcileExamTimer(session, elapsedSeconds, marker.mode) as ActiveTestSession;
   saveActiveTestSession({ ...reconciled, updatedAt: now });
 
   // Reload from the reconciled draft so React state and the visible clock cannot
