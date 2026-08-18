@@ -1,0 +1,86 @@
+name: Verify TRG-002 Exam Readiness V4
+
+on:
+  push:
+    branches:
+      - feat/trg-002-localization-hi-pa-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-exam-readiness-v4.yml
+  pull_request:
+    branches:
+      - feat/trg-002-mvp48-freeze
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-exam-readiness-v4.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Targeted Trigonometry TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg002-v4.json <<'JSON'
+          {"extends":"./tsconfig.json","compilerOptions":{"noEmit":true},"include":["src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**/*.ts"],"exclude":["src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts"],"references":[]}
+          JSON
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg002-v4.json --pretty false
+      - name: Protect historical frozen English 96 authority
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-freeze-96.test.ts
+      - name: Verify V4 scenario catalog and baseline blocker discovery
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-audit.test.ts
+      - name: Verify V4 candidate exact-math protection
+        run: |
+          pnpm dlx tsx -e '
+            import { generateTrg002V4CandidateQuestion } from "./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-candidate.ts";
+            let total=0;
+            for(let n=1;n<=96;n++){
+              const id=`TRG-002-QL-${String(n).padStart(3,"0")}`;
+              for(const locale of ["hi-IN","pa-IN"]){
+                for(let s=1;s<=12;s++){
+                  const q=generateTrg002V4CandidateQuestion(id,`trg002-v4-${s}`,locale);
+                  const text=[q.stem,q.explanation.keyRule,...q.explanation.steps.map((x:any)=>x.body),q.explanation.shortcut,...q.explanation.traps].join(" ");
+                  if(/√\d+\.\d+/.test(text)) throw new Error(`${id}:${locale}: decimal radicand remains`);
+                  if(q.activationAuthorized!==false||q.freezeStatus!=="NOT_FROZEN") throw new Error(`${id}:${locale}: lifecycle lock regression`);
+                  total++;
+                }
+              }
+            }
+            if(total!==2304) throw new Error(`Expected 2304 V4 candidate cases, got ${total}`);
+            console.log(`TRG002_V4_CANDIDATE_EXACT_MATH_PASS total=${total}`);
+          '
+      - name: Export tri-language visual review pack
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-exam-readiness-v4-review.ts
+      - name: Verify V4 review artifact
+        run: |
+          JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-readiness-v4/TRG-002-V4-EXAM-READINESS-REVIEW.json
+          HTML=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-readiness-v4/TRG-002-V4-EXAM-READINESS-REVIEW.html
+          test -s "$JSON" && test -s "$HTML"
+          node - "$JSON" <<'NODE'
+          const fs=require('fs');
+          const pack=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(pack.records.length!==96) throw new Error(`Expected 96 tri-language records, got ${pack.records.length}`);
+          for(const row of pack.records){
+            if(!('solutionDiagram' in row)) throw new Error(`${row.qlId}: missing solutionDiagram`);
+            if(!('diagramEvidence' in row)) throw new Error(`${row.qlId}: missing diagramEvidence`);
+            if(row.lifecycle.multilingualFreezeGranted!==false||row.lifecycle.activationAuthorized!==false) throw new Error(`${row.qlId}: V4 lifecycle lock regression`);
+          }
+          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length}`);
+          NODE
+      - name: Upload V4 audit and review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-exam-readiness-v4
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-readiness-v4/
+          if-no-files-found: error
+          retention-days: 14
