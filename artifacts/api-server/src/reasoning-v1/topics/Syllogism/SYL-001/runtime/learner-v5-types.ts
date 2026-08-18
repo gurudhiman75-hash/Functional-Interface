@@ -15,6 +15,9 @@ import type {
 } from "./structured-proof-v3-types";
 
 export const SYL_LEARNER_V5_AUTHORITY = "SYL_001_EXAM_READINESS_REMEDIATION_V5" as const;
+export const SYL_LEARNER_V5_APPROVAL_AUTHORITY = "SYL_001_V5_PRODUCT_OWNER_APPROVAL_2026_08_08" as const;
+export const SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT = "cf14902141176f09bff0b8524773ad173fc480cd" as const;
+export const SYL_LEARNER_V5_APPROVED_ON = "2026-08-08" as const;
 
 export type SylLearnerExplanationModeV5 =
   | SylLearnerExplanationV4["mode"]
@@ -92,6 +95,9 @@ export interface SylLearnerRemediationEvidenceV5 {
   nativeHindiEditorialStatus: SylEditorialReviewStatusV5;
   nativePunjabiEditorialStatus: SylEditorialReviewStatusV5;
   humanViewportStatus: SylViewportReviewStatusV5;
+  approvalAuthority: typeof SYL_LEARNER_V5_APPROVAL_AUTHORITY | null;
+  approvedContentCommit: typeof SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT | null;
+  approvedOn: typeof SYL_LEARNER_V5_APPROVED_ON | null;
   deadOptionRemediationStatus:
     | "PENDING_SEPARATE_SOURCE_DECISION"
     | "REMOVED_THREE_STATUS_DIAGNOSTIC";
