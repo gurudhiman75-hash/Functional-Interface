@@ -111,7 +111,7 @@ export function generateAlgCp004DiscoveryItem(candidateId: string, seed: number)
       const text = `${factorText(1, -r1)}${factorText(1, -r2)}`;
       const p = -r1;
       const q = -r2;
-      return item(candidateId, candidate.solveMode, seed, original, source, text, `For a monic quadratic, find two numbers whose sum is the coefficient of x and whose product is the constant term. Here ${p} + ${q} = ${p + q} and (${p})(${q}) = ${p * q}. Therefore ${polynomialText(original)} = ${text}.`);
+      return item(candidateId, candidate.solveMode, seed, original, source, text, `For a monic quadratic, find two numbers whose sum is the coefficient of x and whose product is the constant term. Here ${p} ${q < 0 ? "-" : "+"} ${Math.abs(q)} = ${p + q} and (${p})(${q}) = ${p * q}. Therefore ${polynomialText(original)} = ${text}.`);
     }
 
     case "factorNonMonicQuadratic": {
@@ -126,7 +126,8 @@ export function generateAlgCp004DiscoveryItem(candidateId: string, seed: number)
       const text = `${factorText(m, n)}${factorText(p, q)}`;
       const firstMiddle = m * q;
       const secondMiddle = n * p;
-      return item(candidateId, candidate.solveMode, seed, original, factorization, text, `The middle coefficient is ${firstMiddle + secondMiddle}. Split it as ${firstMiddle} + ${secondMiddle}. Then group the terms: ${m * p}x² + ${firstMiddle}x = ${m}x(${p}x ${q < 0 ? "-" : "+"} ${Math.abs(q)}), and ${secondMiddle}x ${n * q < 0 ? "-" : "+"} ${Math.abs(n * q)} = ${n}(${p}x ${q < 0 ? "-" : "+"} ${Math.abs(q)}). Taking the common bracket gives ${text}.`);
+      const splitText = `${firstMiddle} ${secondMiddle < 0 ? "-" : "+"} ${Math.abs(secondMiddle)}`;
+      return item(candidateId, candidate.solveMode, seed, original, factorization, text, `The middle coefficient is ${firstMiddle + secondMiddle}. Split it as ${splitText}. Then group the terms: ${m * p}x² ${firstMiddle < 0 ? "-" : "+"} ${Math.abs(firstMiddle)}x = ${m}x(${p}x ${q < 0 ? "-" : "+"} ${Math.abs(q)}), and ${secondMiddle}x ${n * q < 0 ? "-" : "+"} ${Math.abs(n * q)} = ${n}(${p}x ${q < 0 ? "-" : "+"} ${Math.abs(q)}). Taking the common bracket gives ${text}.`);
     }
   }
 }
