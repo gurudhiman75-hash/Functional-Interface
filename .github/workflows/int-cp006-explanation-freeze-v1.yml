@@ -19,6 +19,7 @@ permissions:
 jobs:
   validate-int-cp006-explanation-freeze:
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
