@@ -9,6 +9,13 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 const RAW_FRACTION = /\b\d+\/\d+\b/;
+function hasAwkwardFraction(text: string): boolean {
+  for (const match of text.matchAll(/\b(\d+)\/(\d+)\b/g)) {
+    if (Number(match[1]) > 10 || Number(match[2]) > 10) return true;
+  }
+  return false;
+}
+
 const audit = generateCp005EnglishAuditPoolV8(30);
 const selected = generateCp005ReviewSetV8(6);
 
@@ -29,10 +36,10 @@ assert(new Set(selected.map((row) => row.mathematicalFingerprint)).size === 78, 
 assert(new Set(selected.map((row) => row.stem)).size === 78, "CP005 V8 selected stems are not globally unique");
 assert(new Set(selected.map((row) => row.permanentQlId)).size === 13, "CP005 V8 selected review does not cover all permanent QLs");
 assert(new Set(selected.map((row) => row.solveMode)).size === 20, "CP005 V8 selected review does not cover all 20 learner solve modes");
-assert(selected.every(isCp005ExamFriendlySelectedState), "CP005 V8 selected review contains an exam-unfriendly raw-fraction/prose state");
+assert(selected.every(isCp005ExamFriendlySelectedState), "CP005 V8 selected review contains an exam-unfriendly value/prose state");
 assert(selected.every((row) => !RAW_FRACTION.test(row.stem)), "CP005 V8 selected stem contains raw fraction");
 assert(selected.every((row) => !RAW_FRACTION.test(row.answerText)), "CP005 V8 selected correct answer contains raw fraction");
-assert(selected.every((row) => !RAW_FRACTION.test([row.explanation.method, ...row.explanation.steps, row.explanation.shortcut, row.explanation.finalAnswer].join(" "))), "CP005 V8 selected explanation contains raw fraction");
+assert(selected.every((row) => !hasAwkwardFraction([row.explanation.method, ...row.explanation.steps, row.explanation.shortcut, row.explanation.finalAnswer].join(" "))), "CP005 V8 selected explanation contains an awkward large raw fraction");
 assert(selected.every((row) => !row.seed.includes("semantic-retry")) && audit.every((row) => !row.seed.includes("semantic-retry")), "CP005 V8 relies on semantic retry rows");
 
 for (const ql of TSD_CP005_PERMANENT_QL_IDS) {
@@ -85,13 +92,13 @@ console.log(JSON.stringify({
   selectedUniqueFingerprints: 78,
   selectedRawFractionStems: 0,
   selectedRawFractionCorrectAnswers: 0,
-  selectedRawFractionExplanations: 0,
+  selectedAwkwardFractionExplanations: 0,
   rawFractionDistractorRows,
   semanticRetryRows: 0,
   exactWrongWorkings,
   correctOptionPositions,
   difficulty,
-  explanationContract: "GIVEN_REASON_ACTUAL_NUMBERS_SHORTCUT_FINAL_ANSWER",
+  explanationContract: "GIVEN_REASON_ACTUAL_NUMBERS_SIMPLE_RATIO_ARITHMETIC_SHORTCUT_FINAL_ANSWER",
   englishFreezeStatus: "UNFROZEN",
   questionStudioEnabled: false,
   questionBankStatus: "NOT_STORED",
