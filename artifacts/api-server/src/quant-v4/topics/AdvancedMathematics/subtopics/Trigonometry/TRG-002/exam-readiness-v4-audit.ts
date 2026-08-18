@@ -1,4 +1,5 @@
-import { TRG_002_EXAM_REALNESS_LOCALIZATION_QL_IDS, generateExamRealLocalizedTrg002Question } from "./localization-exam-realness-v2";
+import { TRG_002_EXAM_REALNESS_LOCALIZATION_QL_IDS } from "./localization-exam-realness-v2";
+import { generateTrg002V4CandidateQuestion } from "./exam-readiness-v4-candidate";
 import { assertTrg002V4ScenarioCatalog } from "./exam-readiness-v4-scenario-engine";
 
 type AuditRecord = {
@@ -39,7 +40,7 @@ export function buildTrg002V4BaselineAudit(seed = "trg002-v4-baseline-audit") {
   const records: AuditRecord[] = [];
   for (const qlId of TRG_002_EXAM_REALNESS_LOCALIZATION_QL_IDS) {
     for (const locale of ["hi-IN", "pa-IN"] as const) {
-      const q: any = generateExamRealLocalizedTrg002Question(qlId, seed, locale);
+      const q: any = generateTrg002V4CandidateQuestion(qlId, seed, locale);
       records.push({ qlId, locale, stem: q.stem, difficulty: q.difficulty, explanation: q.explanation });
     }
   }
@@ -75,12 +76,15 @@ export function buildTrg002V4BaselineAudit(seed = "trg002-v4-baseline-audit") {
   };
 
   return {
-    version: "TRG002_EXAM_READINESS_V4_BASELINE",
+    version: "TRG002_EXAM_READINESS_V4_CURRENT_CANDIDATE",
     qls: 96,
     bilingualRecords: records.length,
     scenarioCatalog: catalog,
     currentScenarioDomainCounts: Object.fromEntries([...scenarioCounts.entries()].sort()),
     blockers,
+    repaired: {
+      ql013ExactMath: !blockers.malformedExactMath.some((id) => id.startsWith("TRG-002-QL-013:")),
+    },
     readyForV4Freeze: false,
     governance: {
       mutatesFrozenEnglishAuthority: false,
