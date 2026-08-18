@@ -49,6 +49,10 @@ jobs:
             src/reasoning-v1/topics/Data-Sufficiency/DSF-001/tests/dsf-cp000-cross-domain-discovery.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/dsf/dsf-cp000-cross-domain-discovery.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/tests/dsf-cp000-source-pattern-audit.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp000-source-pattern-audit.test.mjs
       - name: Run DSF CP-000 foundation proof
         run: |
           cd artifacts/api-server
@@ -61,3 +65,7 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/dsf/dsf-cp000-cross-domain-discovery.test.mjs
+      - name: Run DSF CP-000 source pattern audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp000-source-pattern-audit.test.mjs
