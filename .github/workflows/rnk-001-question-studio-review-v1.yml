@@ -12,6 +12,7 @@ on:
   pull_request:
     branches:
       - New-main
+      - audit/rnk-001-exam-readiness-v1
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
       - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
