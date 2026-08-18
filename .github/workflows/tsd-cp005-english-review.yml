@@ -1,0 +1,64 @@
+name: Validate TSD CP-005 English Review Candidate
+
+on:
+  pull_request:
+    branches:
+      - feat/tsd-cp005-post-meeting-discovery
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp005/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
+      - .github/workflows/tsd-cp005-english-review.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cp005-english-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP005 English review evidence and export
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/cp005-english-review
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-evidence.ts" --bundle --platform=node --format=esm --outfile="$OUT/evidence.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/export.mjs"
+
+      - name: Run CP005 English review evidence
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp005-english-review
+          node "$OUT/evidence.mjs" 2>&1 | tee "$OUT/evidence.log"
+          node "$OUT/export.mjs" > "$OUT/cp005-english-review-78q.json"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload CP005 English review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp005-english-review-78q
+          path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-english-review/evidence.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-english-review/cp005-english-review-78q.json
+          if-no-files-found: error
