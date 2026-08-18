@@ -48,6 +48,12 @@ function editorialPolish(text: string, locale: Trg002ExamRealnessLocale) {
       .replaceAll("ऊपरी वस्तु की ऊँचाई पाने के लिए दो कुल स्तर घटाएँ।", "मस्तूल की ऊँचाई के लिए मस्तूल के शीर्ष की कुल ऊँचाई में से छत की ऊँचाई घटाएँ।")
       .replaceAll("मस्तूल की ऊँचाई = d(tan ऊपरी कोण − tan छत कोण); इसी से d निकालें।", "मस्तूल की ऊँचाई = d[tan(मस्तूल के शीर्ष का कोण) − tan(छत का कोण)]; इससे d निकालें।")
       .replaceAll("दोनों tan मान का अंतर लें; यही मस्तूल का लंबवत हिस्सा है।", "दोनों tan मानों का अंतर लें; इसे d से गुणा करने पर मस्तूल की ऊँचाई मिलती है।")
+      .replaceAll("सीढ़ी के पाद की दीवार से क्षैतिज दूरी", "सीढ़ी के निचले सिरे से दीवार की क्षैतिज दूरी")
+      .replaceAll("दीवार से पाद की दूरी", "दीवार से सीढ़ी के निचले सिरे की दूरी")
+      .replaceAll("पाद की दूरी चाहिए", "सीढ़ी के निचले सिरे की दूरी चाहिए")
+      .replaceAll("पाद की दूरी नहीं", "सीढ़ी के निचले सिरे की दूरी नहीं")
+      .replaceAll("पादों", "आधारों")
+      .replaceAll("पाद", "आधार")
       .replaceAll("टैन", "tan")
       .replaceAll("tan θ में लंबवत भुजा आँख के स्तर से इमारत के शीर्ष तक की ऊँचाई होती है।", "tan θ = आँख के स्तर से इमारत के शीर्ष तक की ऊँचाई / क्षैतिज दूरी।");
   }
@@ -84,6 +90,12 @@ function editorialPolish(text: string, locale: Trg002ExamRealnessLocale) {
     .replaceAll("ਉੱਪਰੀ ਵਸਤੂ ਦੀ ਉਚਾਈ ਲਈ ਦੋ ਕੁੱਲ ਪੱਧਰ ਘਟਾਓ।", "ਮਸਤੂਲ ਦੀ ਉਚਾਈ ਲਈ ਮਸਤੂਲ ਦੀ ਚੋਟੀ ਦੀ ਕੁੱਲ ਉਚਾਈ ਵਿੱਚੋਂ ਛੱਤ ਦੀ ਉਚਾਈ ਘਟਾਓ।")
     .replaceAll("ਮਸਤੂਲ ਦੀ ਉਚਾਈ = d(tan ਉੱਪਰਲਾ ਕੋਣ − tan ਛੱਤ ਕੋਣ); ਇਸੇ ਤੋਂ d ਕੱਢੋ।", "ਮਸਤੂਲ ਦੀ ਉਚਾਈ = d[tan(ਮਸਤੂਲ ਦੀ ਚੋਟੀ ਦਾ ਕੋਣ) − tan(ਛੱਤ ਦਾ ਕੋਣ)]; ਇੱਥੋਂ d ਕੱਢੋ।")
     .replaceAll("ਦੋਵੇਂ tan ਮੁੱਲ ਦਾ ਅੰਤਰ ਲਓ; ਇਹੀ ਮਸਤੂਲ ਦਾ ਲੰਬਵਾਂ ਹਿੱਸਾ ਹੈ।", "ਦੋਵੇਂ tan ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ਲਓ; ਇਸ ਨੂੰ d ਨਾਲ ਗੁਣਾ ਕਰਨ 'ਤੇ ਮਸਤੂਲ ਦੀ ਉਚਾਈ ਮਿਲਦੀ ਹੈ।")
+    .replaceAll("ਸੀੜ੍ਹੀ ਦੇ ਪੈਰ ਦੀ ਕੰਧ ਤੋਂ ਖਿਤਿਜੀ ਦੂਰੀ", "ਸੀੜ੍ਹੀ ਦੇ ਹੇਠਲੇ ਸਿਰੇ ਤੋਂ ਕੰਧ ਦੀ ਖਿਤਿਜੀ ਦੂਰੀ")
+    .replaceAll("ਕੰਧ ਤੋਂ ਪੈਰ ਦੀ ਦੂਰੀ", "ਕੰਧ ਤੋਂ ਸੀੜ੍ਹੀ ਦੇ ਹੇਠਲੇ ਸਿਰੇ ਦੀ ਦੂਰੀ")
+    .replaceAll("ਪੈਰ ਦੀ ਦੂਰੀ ਚਾਹੀਦੀ ਹੋਵੇ", "ਸੀੜ੍ਹੀ ਦੇ ਹੇਠਲੇ ਸਿਰੇ ਦੀ ਦੂਰੀ ਚਾਹੀਦੀ ਹੋਵੇ")
+    .replaceAll("ਪੈਰ ਦੀ ਦੂਰੀ ਨਹੀਂ", "ਸੀੜ੍ਹੀ ਦੇ ਹੇਠਲੇ ਸਿਰੇ ਦੀ ਦੂਰੀ ਨਹੀਂ")
+    .replaceAll("ਪੈਰਾਂ", "ਅਧਾਰਾਂ")
+    .replaceAll("ਪੈਰ", "ਅਧਾਰ")
     .replaceAll("ਟੈਨ", "tan")
     .replaceAll("tan θ ਵਿੱਚ ਲੰਬ ਭੁਜਾ ਅੱਖ ਦੇ ਪੱਧਰ ਤੋਂ ਇਮਾਰਤ ਦੀ ਚੋਟੀ ਤੱਕ ਦੀ ਉਚਾਈ ਹੁੰਦੀ ਹੈ।", "tan θ = ਅੱਖ ਦੇ ਪੱਧਰ ਤੋਂ ਇਮਾਰਤ ਦੀ ਚੋਟੀ ਤੱਕ ਦੀ ਉਚਾਈ / ਖਿਤਿਜੀ ਦੂਰੀ।");
 }
@@ -121,12 +133,14 @@ export function generateExamRealLocalizedTrg002Question(qlId: string, seed: stri
       finalExamLanguageEditorialPolish: true,
       grammarRemediationV3: true,
       grammarManualPolishV31: true,
+      learnerVocabularyRemediationV32: true,
     },
     realnessRemediation: {
       ...base.realnessRemediation,
       finalExamLanguageEditorialPolish: true,
       grammarRemediationV3: true,
       grammarManualPolishV31: true,
+      learnerVocabularyRemediationV32: true,
     },
   };
 }
