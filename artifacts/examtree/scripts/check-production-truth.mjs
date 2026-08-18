@@ -27,6 +27,7 @@ const forbidden = [
   ["tests", "API expected at", "Student-facing errors must not expose backend configuration details."],
   ["result", "const localResult", "Canonical results must not render browser-local score content as official."],
   ["result", "attemptId ? resultQuery.data :", "Canonical results must not branch to local score content when an attempt id is absent."],
+  ["result", "cachedAttemptId", "A test id alone must never be mapped to an older browser-cached attempt."],
 ];
 
 const required = [
@@ -36,8 +37,8 @@ const required = [
   ["home", "attemptId=", "Resume/review link must carry the canonical attempt id."],
   ["tests", "The test catalog is temporarily unavailable.", "Catalog errors should use student-safe recovery copy."],
   ["result", "Submission is not confirmed yet", "A missing committed attempt id must render a truthful recovery state."],
-  ["result", "const resolvedAttemptId = attemptId ?? cachedAttemptId", "Legacy test-only links may recover an identifier but not local score content."],
-  ["result", "getAttemptById(resolvedAttemptId!)", "Every displayed result must be fetched from the canonical attempt endpoint."],
+  ["result", "getAttemptById(attemptId!)", "Every displayed result must be fetched by its exact canonical attempt id."],
+  ["result", "enabled: Boolean(attemptId)", "Canonical result fetching must remain disabled without a committed attempt id."],
   ["result", "Canonical saved result", "Committed result pages should retain explicit canonical provenance."],
 ];
 
