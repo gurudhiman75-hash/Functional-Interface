@@ -34,14 +34,22 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Bundle DSF CP-000 proof
+      - name: Bundle DSF CP-000 proofs
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/dsf
           pnpm --dir artifacts/api-server exec esbuild \
             src/reasoning-v1/topics/Data-Sufficiency/DSF-001/tests/dsf-cp000-foundation.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/dsf/dsf-cp000-foundation.test.mjs
-      - name: Run DSF CP-000 proof
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/tests/dsf-cp000-number-system-discovery.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp000-number-system-discovery.test.mjs
+      - name: Run DSF CP-000 foundation proof
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/dsf/dsf-cp000-foundation.test.mjs
+      - name: Run DSF CP-000 Number System discovery proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp000-number-system-discovery.test.mjs
