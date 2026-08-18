@@ -69,10 +69,11 @@ export function dsfMergeSplitSummary(): Readonly<Record<DsMergeSplitDecision, nu
 }
 
 export const DSF_PERMANENT_QL_ALLOCATION_DECISION = {
-  status: "READY_FOR_CP000_FREEZE_REVIEW" as const,
-  initialPermanentQlCandidateCount: 1,
-  initialCandidateId: "DSF-QL-CAND-001" as const,
-  permanentIdsAllocated: false,
+  status: "CP000_FROZEN_INITIAL_QL_ALLOCATED" as const,
+  initialPermanentQlCount: 1,
+  candidateId: "DSF-QL-CAND-001" as const,
+  permanentQlId: "DSF-QL-001" as const,
+  nextAvailableQlId: "DSF-QL-002" as const,
   nonBlockingDeferredProfiles: [
     "Punjab-state official answer-contract profile remains disabled until verified",
     "constraint-heavy Seating/Puzzle adapters are deferred from the first permanent allocation",
@@ -84,6 +85,6 @@ export const DSF_PERMANENT_QL_ALLOCATION_DECISION = {
     "SSC CGL two-statement four-option profiles across reasoning and quantitative examples",
     "PSSSB Clerk preparation signal confirming Punjab-state DS relevance",
     "TMW/SAP/NUM existing-runtime ownership reconciled without reassigning permanent source QLs",
-    "initial QL boundary inventory freezes all two-statement target types into one adapter-driven task contract",
+    "all initial two-statement target types frozen into one adapter-driven permanent QL contract",
   ] as const,
-};
+} as const;
