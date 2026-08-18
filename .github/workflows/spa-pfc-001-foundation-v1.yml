@@ -28,7 +28,7 @@ jobs:
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Bundle PFC proofs
+      - name: Bundle PFC historical proofs and current source-saturation gate
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
           for test in \
@@ -40,9 +40,7 @@ jobs:
             spatial-paper-folding-english-freeze-v1 \
             spatial-paper-folding-localization-v1 \
             spatial-paper-folding-localization-freeze-v1 \
-            spatial-paper-folding-visual-taxonomy-remediation-v4-2 \
-            spatial-paper-folding-exam-standard-v5 \
-            spatial-paper-folding-permanent-english-runtime-v2-3
+            spatial-paper-folding-source-saturation-v2
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -50,7 +48,7 @@ jobs:
               --outfile=dist/reasoning-v1/spatial/${test}.test.mjs
           done
 
-      - name: Run PFC foundation proof
+      - name: Run historical PFC foundation proof
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-foundation-v1.test.mjs
 
       - name: Run historical 800-question PFC discovery proof
@@ -59,7 +57,7 @@ jobs:
       - name: Run historical PFC discovery coverage audit
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-discovery-audit-v1.test.mjs
 
-      - name: Validate permanent PFC QL allocation
+      - name: Validate historical PFC QL allocation record
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-permanent-ql-allocation-v3.test.mjs
 
       - name: Validate historical PFC permanent English runtime V1
@@ -74,19 +72,13 @@ jobs:
       - name: Validate historical PFC Hindi Punjabi freeze authority V1
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-localization-freeze-v1.test.mjs
 
-      - name: Validate PFC visual taxonomy remediation V4.2
-        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-visual-taxonomy-remediation-v4-2.test.mjs
+      - name: Validate current PFC source saturation and multi-shape V2 boundary
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-source-saturation-v2.test.mjs
 
-      - name: Validate PFC exam-standard presentation V5
-        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-exam-standard-v5.test.mjs
-
-      - name: Validate PFC permanent English runtime V2.3 candidate
-        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-permanent-english-runtime-v2-3.test.mjs
-
-      - name: Upload PFC foundation and remediation evidence
+      - name: Upload PFC historical and source-saturation evidence
         uses: actions/upload-artifact@v4
         with:
-          name: spa-pfc-001-foundation-v1
+          name: spa-pfc-001-source-saturation-v2
           path: |
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-foundation-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-discovery-v3-evidence.json
@@ -99,10 +91,5 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-hi-pa-localization-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-hi-pa-localization-v1-review.html
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-hi-pa-localization-freeze-v1-evidence.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-visual-taxonomy-v4-2-evidence.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-visual-taxonomy-v4-2-review.html
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-exam-standard-v5-evidence.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-exam-standard-v5-review.html
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-permanent-english-runtime-v2-3-evidence.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-permanent-english-runtime-v2-3-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-source-saturation-v2-evidence.json
           if-no-files-found: error
