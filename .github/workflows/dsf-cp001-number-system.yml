@@ -36,14 +36,22 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Bundle CP-001 production proof
+      - name: Bundle CP-001 production proofs
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/dsf
           pnpm --dir artifacts/api-server exec esbuild \
             src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-number-system-runtime.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/dsf/dsf-cp001-number-system-runtime.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-editorial-review.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp001-editorial-review.test.mjs
       - name: Run CP-001 production stress proof
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/dsf/dsf-cp001-number-system-runtime.test.mjs
+      - name: Run CP-001 English editorial review gate
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp001-editorial-review.test.mjs
