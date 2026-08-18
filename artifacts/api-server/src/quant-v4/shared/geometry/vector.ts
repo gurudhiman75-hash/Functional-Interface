@@ -31,10 +31,16 @@ export function squaredMagnitude(vector: ExactVector): Rational {
   return dot(vector, vector);
 }
 
+export function isZeroVector(vector: ExactVector): boolean {
+  return isZero(vector.x) && isZero(vector.y);
+}
+
 export function areParallelVectors(a: ExactVector, b: ExactVector): boolean {
+  if (isZeroVector(a) || isZeroVector(b)) return false;
   return isZero(cross(a, b));
 }
 
 export function arePerpendicularVectors(a: ExactVector, b: ExactVector): boolean {
+  if (isZeroVector(a) || isZeroVector(b)) return false;
   return isZero(dot(a, b));
 }

@@ -10,4 +10,6 @@ const oracle = new CoordinateOracle({
 });
 assert(oracle.parallel("A", "B", "C", "D"), "Parallel vectors were not recognized");
 assert(oracle.perpendicular("A", "B", "A", "E"), "Perpendicular vectors were not recognized");
+assert(!oracle.parallel("A", "A", "C", "D"), "Zero-length vector was accepted as parallel");
+assert(!oracle.perpendicular("A", "A", "A", "E"), "Zero-length vector was accepted as perpendicular");
 pass("parallel-perpendicular");
