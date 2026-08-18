@@ -90,4 +90,5 @@ export * from "./paper-folding-discovery-presentation-v3";
 export * from "./paper-folding-discovery-audit-v1";
 export * from "./paper-folding-source-audit-v1";
 export * from "./paper-folding-discovery-operator-review-v1";
+export * from "./paper-folding-permanent-english-runtime-v1";
 export * from "./svg-renderer";
