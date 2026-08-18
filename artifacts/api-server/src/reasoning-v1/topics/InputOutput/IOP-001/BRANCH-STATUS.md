@@ -102,15 +102,32 @@ Runtime/content validation run:
 
 `32112415757 — SUCCESS`
 
-Metadata status head:
+The metadata-only status commit then produced head:
 
 `9ff194263118e4b424aa4ff7e7321af2b88aaabe`
 
-Metadata validation run:
+That exact metadata head was independently revalidated end-to-end by:
 
 `32112827782 — SUCCESS`
 
-This current file content is unchanged in substance from that validated metadata status; learner content and runtime behavior remain unchanged.
+Passed on the exact metadata head:
+
+- strict TypeScript for IOP-owned modules
+- frozen English learner-content proof
+- frozen Hindi/Punjabi learner-content proof
+- permanent QL Question Studio exposure
+- standard Question Studio adapter
+- Banking-only exam-profile routing
+- source-mode difficulty routing
+- 720-question QL006 vocabulary safety
+- 456-question all-mode/all-language scale
+- 684-question Banking exam-readiness audit
+- global generation-engine routing
+- admin Question Studio typecheck
+- production API build
+- admin production build
+
+This file is metadata only; learner content and runtime behavior are unchanged from the validated runtime/content head.
 
 ## Non-blocking future V2 editorial opportunities
 
