@@ -69,8 +69,24 @@ export function negateSurd(value: QuadraticSurd): QuadraticSurd {
 export function addSurd(a: QuadraticSurd, b: QuadraticSurd): QuadraticSurd {
   if (isZeroRational(a.q)) return quadraticSurd(addRational(a.p, b.p), b.q, b.d);
   if (isZeroRational(b.q)) return quadraticSurd(addRational(a.p, b.p), a.q, a.d);
-  if (a.d !== b.d) throw new Error("Addition of unlike quadratic surds is outside the Phase 0 canonical form");
+  if (a.d !== b.d) throw new Error("Addition of unlike quadratic surds is outside the canonical form");
   return quadraticSurd(addRational(a.p, b.p), addRational(a.q, b.q), a.d);
+}
+
+export function subtractSurd(a: QuadraticSurd, b: QuadraticSurd): QuadraticSurd {
+  return addSurd(a, negateSurd(b));
+}
+
+export function multiplySurd(a: QuadraticSurd, b: QuadraticSurd): QuadraticSurd {
+  if (isZeroRational(a.q)) return scaleSurd(b, a.p);
+  if (isZeroRational(b.q)) return scaleSurd(a, b.p);
+  if (a.d !== b.d) throw new Error("Multiplication of unlike non-rational quadratic surds is outside the canonical form");
+  const rationalPart = addRational(
+    multiplyRational(a.p, b.p),
+    multiplyRational(multiplyRational(a.q, b.q), rational(a.d)),
+  );
+  const radicalPart = addRational(multiplyRational(a.p, b.q), multiplyRational(a.q, b.p));
+  return quadraticSurd(rationalPart, radicalPart, a.d);
 }
 
 export function scaleSurd(value: QuadraticSurd, scalar: Rational): QuadraticSurd {
