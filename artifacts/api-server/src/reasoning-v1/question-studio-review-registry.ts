@@ -6,6 +6,11 @@ import {
   type BlrCp007QuestionStudioReviewRequest,
 } from "./topics/Blood-Relations/BLR-001/BLR-CP-007/question-studio-review-adapter";
 import {
+  RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE,
+  previewRnk001QuestionStudioReview,
+  type PreviewRnk001QuestionStudioInput,
+} from "./topics/Ranking-and-Order/RNK-001/question-studio-review";
+import {
   SYL_001_QUESTION_STUDIO_PACKAGE,
   SYL_001_QUESTION_STUDIO_PACKAGE_ID,
   assertSyl001QuestionStudioPersistenceAllowed,
@@ -20,12 +25,16 @@ import {
 
 export type ReasoningV1QuestionStudioReviewPackageId =
   | typeof BLR_CP007_QUESTION_STUDIO_PACKAGE_ID
+  | typeof RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId
   | typeof SYL_001_QUESTION_STUDIO_PACKAGE_ID
   | typeof WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId;
 
 export type ReasoningV1QuestionStudioReviewRequest =
   | (BlrCp007QuestionStudioReviewRequest & Readonly<{
       packageId: typeof BLR_CP007_QUESTION_STUDIO_PACKAGE_ID;
+    }>)
+  | (PreviewRnk001QuestionStudioInput & Readonly<{
+      packageId: typeof RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId;
     }>)
   | (Syl001QuestionStudioRequest & Readonly<{
       packageId: typeof SYL_001_QUESTION_STUDIO_PACKAGE_ID;
@@ -36,6 +45,7 @@ export type ReasoningV1QuestionStudioReviewRequest =
 
 const REVIEW_PACKAGES = [
   BLR_CP007_QUESTION_STUDIO_REVIEW_PACKAGE,
+  RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   SYL_001_QUESTION_STUDIO_PACKAGE,
   WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE,
 ] as const;
@@ -56,6 +66,10 @@ export function previewReasoningV1QuestionStudioReview(
   if (request.packageId === BLR_CP007_QUESTION_STUDIO_PACKAGE_ID) {
     return previewBlrCp007QuestionStudioReview(request);
   }
+  if (request.packageId === RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
+    const { packageId: _packageId, ...input } = request;
+    return previewRnk001QuestionStudioReview(input);
+  }
   if (request.packageId === SYL_001_QUESTION_STUDIO_PACKAGE_ID) {
     return previewSyl001QuestionStudio(request);
   }
@@ -71,6 +85,11 @@ export function persistReasoningV1QuestionStudioReview(
 ): never {
   if (request.packageId === BLR_CP007_QUESTION_STUDIO_PACKAGE_ID) {
     return assertBlrCp007QuestionStudioPersistenceAllowed();
+  }
+  if (request.packageId === RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
+    throw new Error(
+      "RNK-001 persistence is enabled only through the authenticated shared Question Studio review-run route; Question Bank/publication locks remain closed.",
+    );
   }
   if (request.packageId === SYL_001_QUESTION_STUDIO_PACKAGE_ID) {
     return assertSyl001QuestionStudioPersistenceAllowed();
