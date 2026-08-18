@@ -1,5 +1,6 @@
 import { add, div, mul, pow, rat, sub, type Rational } from "./cp003-exam-model";
-import { siCiDifference, type IntCp006QlId, type IntCp006State } from "./cp006-si-ci-relations-runtime-v4-final";
+import { siCiDifference } from "./cp006-si-ci-relations-runtime-v2";
+import { type IntCp006QlId, type IntCp006State } from "./cp006-si-ci-relations-runtime-v4-final";
 
 export const INT_CP006_EXPANDED_EXPLANATION_VERSION = "INT-CP-006-EXPL-v1-review" as const;
 export type IntCp006ExplanationLocale = "en-IN" | "hi-IN" | "pa-IN";
