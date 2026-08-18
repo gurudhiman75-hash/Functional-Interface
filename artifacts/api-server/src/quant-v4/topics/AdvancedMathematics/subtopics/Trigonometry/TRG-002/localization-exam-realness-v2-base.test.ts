@@ -47,7 +47,7 @@ function assertNoExamRealnessLeaks(question: any, locale: Trg002ExamRealnessLoca
   if (["TRG-002-QL-083", "TRG-002-QL-084", "TRG-002-QL-085"].includes(question.qlId)) {
     assert(!/उसके शीर्ष से .+ m दूर दूसरी इमारत/u.test(stem), `${question.qlId}: ambiguous top-to-top distance wording remains.`);
     assert(!/ਇਸ ਦੀ ਛੱਤ ਤੋਂ .+ m ਦੂਰ ਦੂਜੀ ਇਮਾਰਤ/u.test(stem), `${question.qlId}: ambiguous Punjabi top-to-top distance wording remains.`);
-    assert(locale === "hi-IN" ? stem.includes("पादों के बीच क्षैतिज दूरी") : stem.includes("ਪੈਰਾਂ ਵਿਚਕਾਰ ਖਿਤਿਜੀ ਦੂਰੀ"), `${question.qlId}:${locale}: horizontal foot-to-foot separation must be explicit.`);
+    assert(locale === "hi-IN" ? stem.includes("आधारों के बीच क्षैतिज दूरी") : stem.includes("ਅਧਾਰਾਂ ਵਿਚਕਾਰ ਖਿਤਿਜੀ ਦੂਰੀ"), `${question.qlId}:${locale}: horizontal base-to-base separation must be explicit.`);
   }
 
   const latinTokens = text.match(/[A-Za-z][A-Za-z-]*/g) ?? [];
