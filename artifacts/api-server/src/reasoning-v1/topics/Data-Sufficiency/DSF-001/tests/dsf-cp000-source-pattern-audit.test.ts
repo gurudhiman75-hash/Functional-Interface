@@ -25,18 +25,11 @@ assert(DSF_TWO_STATEMENT_SOURCE_PATTERNS.every((entry) => entry.sourceUrl.starts
 
 assert.deepEqual(new Set(DSF_BANK_STANDARD_ORDER), new Set(SUFFICIENCY_CLASSES));
 assert.deepEqual(new Set(DSF_BANK_BOB_2015_ORDER), new Set(SUFFICIENCY_CLASSES));
-assert.notEqual(
-  semanticOrderFingerprint(DSF_BANK_STANDARD_ORDER),
-  semanticOrderFingerprint(DSF_BANK_BOB_2015_ORDER),
-  "Banking source patterns should prove that option display order can vary while semantic coverage stays constant.",
-);
+assert.notEqual(semanticOrderFingerprint(DSF_BANK_STANDARD_ORDER), semanticOrderFingerprint(DSF_BANK_BOB_2015_ORDER));
 
 assert.equal(DSF_SSC_CGL_2023_FOUR_ORDER.length, 4);
 assert.equal(DSF_SSC_CGL_2024_FOUR_ORDER.length, 4);
-assert.notEqual(
-  semanticOrderFingerprint(DSF_SSC_CGL_2023_FOUR_ORDER),
-  semanticOrderFingerprint(DSF_SSC_CGL_2024_FOUR_ORDER),
-);
+assert.notEqual(semanticOrderFingerprint(DSF_SSC_CGL_2023_FOUR_ORDER), semanticOrderFingerprint(DSF_SSC_CGL_2024_FOUR_ORDER));
 assert(!DSF_SSC_CGL_2023_FOUR_ORDER.includes("EACH_STATEMENT_ALONE"));
 assert(!DSF_SSC_CGL_2024_FOUR_ORDER.includes("EACH_STATEMENT_ALONE"));
 assert.equal(DSF_PSSSB_PREP_FOUR_ORDER.length, 4);
@@ -68,10 +61,13 @@ assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("option orde
 assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("Three-statement") && entry.decision === "SPLIT_CONTRACT"));
 assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("Punjab-state") && entry.decision === "DEFER"));
 
-assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.status, "BLOCKED_PENDING_OWNERSHIP_AND_PROFILE_FREEZE");
-assert(DSF_PERMANENT_QL_ALLOCATION_DECISION.reasons.some((reason) => reason.includes("Punjab")));
-assert(!DSF_PERMANENT_QL_ALLOCATION_DECISION.reasons.some((reason) => reason.includes("SSC direct")));
+assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.status, "READY_FOR_CP000_FREEZE_REVIEW");
+assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.initialPermanentQlCandidateCount, 1);
+assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.initialCandidateId, "DSF-QL-CAND-001");
+assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.permanentIdsAllocated, false);
+assert(DSF_PERMANENT_QL_ALLOCATION_DECISION.nonBlockingDeferredProfiles.some((reason) => reason.includes("Punjab")));
 assert(DSF_PERMANENT_QL_ALLOCATION_DECISION.resolvedEvidence.some((reason) => reason.includes("SSC CGL")));
+assert(DSF_PERMANENT_QL_ALLOCATION_DECISION.resolvedEvidence.some((reason) => reason.includes("ownership reconciled")));
 
 console.log(JSON.stringify({
   status: "PASS_DSF_CP_000_SOURCE_PATTERN_AUDIT",
