@@ -56,13 +56,13 @@ jobs:
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-freeze-authority.test.ts
 
       - name: Audit Hindi Punjabi semantic parity and language quality
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/localization-v1.test.ts
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/localization-final.test.ts
 
       - name: Generate Hindi Punjabi human review pack
         env:
           IOP_LOCALIZATION_REVIEW_OUTPUT_DIR: /tmp/iop-localization-review
           IOP_LOCALIZATION_REVIEW_EXAMPLES_PER_MODE: 2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/localization-review-export.ts
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/localization-review-export-final.ts
 
       - name: Build production API
         working-directory: artifacts/api-server
