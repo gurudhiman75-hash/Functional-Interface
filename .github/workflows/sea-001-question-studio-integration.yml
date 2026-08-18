@@ -1,0 +1,61 @@
+name: Validate SEA-001 Question Studio integration
+
+on:
+  push:
+    branches:
+      - feat/sea-001-wave5-saturation-audits
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
+      - artifacts/api-server/src/routes/admin-question-studio-seating.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/question-studio/seating-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioSeatingReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
+      - .github/workflows/sea-001-question-studio-integration.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
+      - artifacts/api-server/src/routes/admin-question-studio-seating.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/question-studio/seating-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioSeatingReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
+      - .github/workflows/sea-001-question-studio-integration.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-sea-001-question-studio-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Re-prove SEA-001 multilingual freeze
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-multilingual-freeze-proof.test.ts
+
+      - name: Prove SEA-001 Question Studio dynamic review runtime
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-question-studio-integration-proof.test.ts
+
+      - name: Re-prove permanent QL allocation and English freeze
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-permanent-allocation-freeze-proof.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
