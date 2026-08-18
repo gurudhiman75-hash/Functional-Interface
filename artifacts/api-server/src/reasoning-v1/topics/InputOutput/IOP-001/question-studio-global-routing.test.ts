@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { generateQuestion, listQuantV4Packages } from "../../../quant-v4/generation-engine.ts";
+import { generateQuestion, listQuantV4Packages } from "../../../../quant-v4/generation-engine.ts";
 
 const packages = listQuantV4Packages();
 const iopPackages = packages.filter((entry) => entry.packageId === "IOP-001");
