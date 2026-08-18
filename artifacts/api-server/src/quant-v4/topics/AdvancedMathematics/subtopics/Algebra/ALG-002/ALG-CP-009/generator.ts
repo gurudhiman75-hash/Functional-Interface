@@ -51,10 +51,7 @@ function equationText(equation: QuadraticEquation): string {
   const a = Number(equation.a.numerator);
   const b = Number(equation.b.numerator);
   const c = Number(equation.c.numerator);
-  const first = termText(a, 2, true);
-  const second = termText(b, 1, false);
-  const third = termText(c, 0, false);
-  return `${first}${second}${third} = 0`;
+  return `${termText(a, 2, true)}${termText(b, 1, false)}${termText(c, 0, false)} = 0`;
 }
 
 export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number): AlgCp009DiscoveryItem {
@@ -74,8 +71,7 @@ export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number)
       if (solved.kind !== "TWO_RATIONAL_ROOTS") throw new Error("Factorable quadratic construction failed");
       return {
         cpId: "ALG-CP-009", candidateId, solveMode: candidate.solveMode, seed,
-        stem: `Solve ${equationText(equation)}.`,
-        equation,
+        stem: `Solve ${equationText(equation)}.`, equation,
         answer: { kind: "RATIONAL_ROOT_SET", values: solved.roots },
         explanation: `Factor the quadratic into two linear factors. The zero-product rule gives x = ${r1} or x = ${r2}. Both values satisfy the original equation.`,
         sourceStatus: "UNVERIFIED_DRAFT",
@@ -85,17 +81,12 @@ export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number)
     case "solveRepeatedRootQuadratic": {
       const root = nonZeroInt(seed, -8, 8, 1);
       const a = pickInt(seed, 1, 3, 2);
-      const equation: QuadraticEquation = {
-        a: rational(a),
-        b: rational(-2 * a * root),
-        c: rational(a * root * root),
-      };
+      const equation: QuadraticEquation = { a: rational(a), b: rational(-2 * a * root), c: rational(a * root * root) };
       const solved = solveQuadraticEquation(equation);
       if (solved.kind !== "REPEATED_ROOT" || !equalsRational(solved.root, rational(root))) throw new Error("Repeated-root construction failed");
       return {
         cpId: "ALG-CP-009", candidateId, solveMode: candidate.solveMode, seed,
-        stem: `Solve ${equationText(equation)}.`,
-        equation,
+        stem: `Solve ${equationText(equation)}.`, equation,
         answer: { kind: "RATIONAL_ROOT_SET", values: [solved.root] },
         explanation: `The quadratic is a perfect square, so both roots coincide. Its repeated root is x = ${root}. Substitution gives zero, confirming the result.`,
         sourceStatus: "UNVERIFIED_DRAFT",
@@ -106,19 +97,14 @@ export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number)
       const nonSquares = [2, 3, 5, 6, 7, 10, 11, 13];
       const n = nonSquares[mixSeed(seed ^ 0x734a2) % nonSquares.length]!;
       const shift = pickInt(seed, -5, 5, 2);
-      const equation: QuadraticEquation = {
-        a: rational(1n),
-        b: rational(-2 * shift),
-        c: rational(shift * shift - n),
-      };
+      const equation: QuadraticEquation = { a: rational(1n), b: rational(-2 * shift), c: rational(shift * shift - n) };
       const solved = solveQuadraticEquation(equation);
       if (solved.kind !== "TWO_IRRATIONAL_ROOTS") throw new Error("Irrational-root construction failed");
       return {
         cpId: "ALG-CP-009", candidateId, solveMode: candidate.solveMode, seed,
-        stem: `Solve ${equationText(equation)} and give the roots in exact form.`,
-        equation,
+        stem: `Solve ${equationText(equation)} and give the roots in exact form.`, equation,
         answer: { kind: "SURD_ROOT_SET", values: solved.roots },
-        explanation: `Using the quadratic formula, the discriminant is ${4 * n}. Its square root simplifies exactly, giving the two roots ${formatSurd(solved.roots[0])} and ${formatSurd(solved.roots[1])}. No decimal approximation is needed.`,
+        explanation: `The discriminant is ${4 * n}, so the quadratic formula gives the exact roots ${formatSurd(solved.roots[0])} and ${formatSurd(solved.roots[1])}. No decimal approximation is needed.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -132,27 +118,27 @@ export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number)
       if (discriminant.numerator >= 0n || solveQuadraticEquation(equation).kind !== "NO_REAL_ROOTS") throw new Error("No-real-root construction failed");
       return {
         cpId: "ALG-CP-009", candidateId, solveMode: candidate.solveMode, seed,
-        stem: `How many real roots does ${equationText(equation)} have?`,
-        equation,
+        stem: `How many real roots does ${equationText(equation)} have?`, equation,
         answer: { kind: "NO_REAL_ROOTS" },
-        explanation: `Compute the discriminant D = b² - 4ac. Here D = ${formatRational(discriminant)}, which is negative. Therefore the quadratic has no real roots.`,
+        explanation: `The discriminant is D = ${formatRational(discriminant)}. Since D < 0, the quadratic has no real roots.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
 
     case "findParameterForEqualRoots": {
-      const repeatedRoot = nonZeroInt(seed, -7, 7, 1);
-      const k = -2 * repeatedRoot;
-      const c = repeatedRoot * repeatedRoot;
-      const equation: QuadraticEquation = { a: rational(1n), b: rational(k), c: rational(c) };
+      const halfB = nonZeroInt(seed, -7, 7, 1);
+      const b = 2 * halfB;
+      const k = halfB * halfB;
+      const equation: QuadraticEquation = { a: rational(1n), b: rational(b), c: rational(k) };
       const discriminant = quadraticDiscriminant(equation);
-      if (discriminant.numerator !== 0n) throw new Error("Equal-root parameter construction failed");
+      const solved = solveQuadraticEquation(equation);
+      if (discriminant.numerator !== 0n || solved.kind !== "REPEATED_ROOT") throw new Error("Equal-root parameter construction failed");
       return {
         cpId: "ALG-CP-009", candidateId, solveMode: candidate.solveMode, seed,
-        stem: `For what value of k does x² ${k < 0 ? "-" : "+"} kx + ${c} = 0 have equal roots?`,
+        stem: `For what value of k does x² ${b < 0 ? "-" : "+"} ${Math.abs(b)}x + k = 0 have equal roots?`,
         equation,
         answer: { kind: "PARAMETER_VALUE", value: rational(k) },
-        explanation: `Equal roots require the discriminant to be zero. So k² - 4(${c}) = 0. The generated branch corresponds to k = ${k}; substituting it gives D = 0 and the repeated root x = ${repeatedRoot}.`,
+        explanation: `Equal roots require D = 0. Thus ${b}² - 4k = 0, so k = ${k}. With this value, the repeated root is x = ${formatRational(solved.root)}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -176,7 +162,7 @@ export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number)
         stem: `If x = ${root} is a root of ${a === 1 ? "x²" : `${a}x²`} + kx ${c < 0 ? "-" : "+"} ${Math.abs(c)} = 0, find k.`,
         equation,
         answer: { kind: "PARAMETER_VALUE", value: rational(k) },
-        explanation: `A root must make the polynomial zero. Substitute x = ${root}: ${a}(${root})² + k(${root}) ${c < 0 ? "-" : "+"} ${Math.abs(c)} = 0. Solving this linear equation in k gives k = ${k}.`,
+        explanation: `A root makes the polynomial zero. Substituting x = ${root} gives a linear equation in k; solving it gives k = ${k}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
         knownRootEvidence: rational(root),
       };
