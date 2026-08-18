@@ -18,9 +18,11 @@ export type AlgCp012SolveMode =
   | "findQuadraticMinimum"
   | "findQuadraticMaximum"
   | "findParameterRangeForGlobalQuadraticSign"
-  | "countIntegerSolutionsInQuadraticInterval";
+  | "countIntegerSolutionsInQuadraticInterval"
+  | "findMinimumReciprocalSumUnderPositiveFixedSum"
+  | "findMinimumSquareSumUnderPositiveFixedSum";
 
-export type AlgCp012AnswerKind = "INTERVAL_SET" | "EXTREMUM" | "PARAMETER_RANGE" | "INTEGER_COUNT";
+export type AlgCp012AnswerKind = "INTERVAL_SET" | "EXTREMUM" | "PARAMETER_RANGE" | "INTEGER_COUNT" | "SYMMETRIC_EXTREMUM";
 
 export interface AlgCp012Candidate {
   candidateId: string;
@@ -66,13 +68,21 @@ export type AlgCp012MathState =
       kind: "INTEGER_COUNT";
       equation: QuadraticEquation;
       operator: InequalityOperator;
+    }
+  | {
+      kind: "SYMMETRIC_FIXED_SUM";
+      variableCount: 3;
+      positiveDomain: true;
+      sum: Rational;
+      target: "RECIPROCAL_SUM" | "SQUARE_SUM";
     };
 
 export type AlgCp012Answer =
   | { kind: "INTERVAL_SET"; value: RationalIntervalSet; text: string }
   | { kind: "EXTREMUM"; value: QuadraticExtremum; text: string }
   | { kind: "PARAMETER_RANGE"; value: ParameterRange; text: string }
-  | { kind: "INTEGER_COUNT"; value: bigint; text: string };
+  | { kind: "INTEGER_COUNT"; value: bigint; text: string }
+  | { kind: "SYMMETRIC_EXTREMUM"; value: Rational; balancedVariable: Rational; text: string };
 
 export interface AlgCp012DiscoveryItem {
   cpId: "ALG-CP-012";
