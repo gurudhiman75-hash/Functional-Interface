@@ -3,7 +3,7 @@ import { generateIntCp006EnglishFrozenQuestion } from "./cp006-si-ci-relations-v
 import {
   INT_CP006_EXPANDED_EXPLANATION_VERSION,
   buildIntCp006ExpandedExplanation,
-} from "./cp006-expanded-explanation-v2";
+} from "./cp006-expanded-explanation-v3";
 
 export const INT_CP006_ENGLISH_EXPLANATION_AMENDMENT = "INT-CP-006-EN-EXPL-v1-review" as const;
 
