@@ -1,142 +1,105 @@
-# WOR-001 Implementation Status — Technical Chapter Freeze
+# WOR-001 Implementation Status — Final Exam-Readiness Freeze
 
 Date: 2026-08-18
 
 ## Current maturity
 
-`TECHNICALLY_COMPLETE_PERMANENT_QLS_ALLOCATED_INACTIVE_HUMAN_REVIEW_PENDING`
+`EXAM_READY_CONTENT_AUTHORITY_FROZEN__RELEASE_LOCKED_PENDING_NATIVE_SIGNOFF`
 
-WOR-001 has completed its chapter-design, source-governance, content-pool, generator, multilingual automation, verification and shared Question Studio implementation work.
+WOR-001 has completed chapter design, source governance, content pools, deterministic generation, independent verification, English exam-readiness review, permanent-QL identity allocation and shared Question Studio integration.
 
-The only remaining gates are human editorial/release gates. They are intentionally not represented as completed.
+The release-candidate content authority is now frozen. Hindi/Punjabi native-human sign-off and a later explicit release checkpoint remain intentionally open.
 
-## Frozen technical authority
+## Frozen authority
 
 - 5 checkpoints;
-- 24 executable prototypes / 20 task kinds;
+- 24 executable prototypes / 20 task kinds in the full research architecture;
 - 8 permanent QL roots allocated as stable inactive IDs;
-- 15 prototypes mapped to those roots;
-- 9 source-deferred/research prototypes remain executable but unallocated;
+- 15 release-candidate prototypes mapped to those roots;
+- 9 source-deferred/research prototypes executable but excluded from release identity;
 - 60 real-word families / 720 globally unique words;
 - real-word split: 18 Easy / 20 Medium / 22 Hard;
 - 60 Banking cluster families / 720 globally unique clusters;
 - Banking split: 20 Easy / 20 Medium / 20 Hard;
 - classic four-option and Banking five-option profiles;
-- EN/HI/PA student-facing generation;
+- EN/HI/PA deterministic generation;
 - independent classic and Banking verification;
-- editorial remediation retained;
-- shared Question Studio path connected.
+- shared Question Studio path connected;
+- final exam-readiness freeze regression enabled in CI.
 
-## Permanent QL allocation
+## Permanent QLs
 
-The source/ownership audit's eight-root recommendation is now frozen as:
+1. `WOR-QL-001` — Complete dictionary order;
+2. `WOR-QL-002` — Endpoint after ordering;
+3. `WOR-QL-003` — Word/cluster at specified position;
+4. `WOR-QL-004` — Position of specified word;
+5. `WOR-QL-005` — Sort → concatenate → global character;
+6. `WOR-QL-006` — Sort → ranked cluster → local character/alphabet movement;
+7. `WOR-QL-007` — Transform each → sort → positional query;
+8. `WOR-QL-008` — Transform each → sort → local-character query.
 
-1. `WOR-QL-001` — Complete dictionary order — root `WOR-PROT-001`;
-2. `WOR-QL-002` — Endpoint after ordering — root `WOR-PROT-003`;
-3. `WOR-QL-003` — Word/cluster at a specified position — root `WOR-PROT-005`;
-4. `WOR-QL-004` — Position of a specified word — root `WOR-PROT-006`;
-5. `WOR-QL-005` — Sort → concatenate → global character — root `WOR-PROT-021`;
-6. `WOR-QL-006` — Sort → ranked cluster → local character/alphabet offset — root `WOR-PROT-022`;
-7. `WOR-QL-007` — Transform each → sort → positional word query — root `WOR-PROT-023`;
-8. `WOR-QL-008` — Transform each → sort → local character query — root `WOR-PROT-024`.
+The IDs remain inactive. Identity freeze is not publication activation.
 
-Allocation is **inactive identity allocation**, not release approval. Every registry entry explicitly remains:
+## Final exam-readiness audit
 
-- `PERMANENT_ID_ALLOCATED_INACTIVE`;
-- human content review pending;
-- native human sign-off pending;
-- Question Bank write false;
-- test/mock eligibility false;
-- public publication false.
+Verdict: **PASS**.
 
-`WOR-PROT-020` maps to `WOR-QL-003` because Banking plain-cluster position is the same learner solve contract as classic kth-position selection.
+The frozen candidate surface passed checks for:
 
-## Source-deferred posture
+- source-backed solve-contract coverage;
+- permanent-QL/prototype ownership integrity;
+- exclusion of exploratory source gaps from permanent identity;
+- answer presence and exactly-one-correct behavior;
+- unique options;
+- four-option classic and five-option Banking contracts;
+- independent solver parity;
+- substantive answer-aligned explanations;
+- learner-surface placeholder/internal-token leakage;
+- Banking transformed-state leakage;
+- answer-position coverage;
+- multilingual structural parity;
+- deterministic generation;
+- real-word and Banking reservoir saturation;
+- shared Question Studio dispatch and lifecycle locks.
 
-The chapter keeps nine executable prototype instances without permanent QL identity:
+The retained release-candidate editorial evidence contains 101 questions per language: 68 classic + 33 Banking.
 
-- `WOR-PROT-007` / `008` — predecessor/successor;
-- `WOR-PROT-010` … `015` — insertion/correction/partial-order research contracts;
-- `WOR-PROT-019` — hard insertion instance variant.
+See `WOR-001-FINAL-EXAM-READINESS-FREEZE.md` for the freeze record.
 
-These all descend from eight source-deferred solve contracts identified by the source audit. They stay review/research-only unless stronger recurring exam evidence is added later.
+## Source-deferred boundary
 
-## Shared Question Studio integration
+These remain research/review-only and must not silently acquire permanent QLs:
 
-WOR-001 now uses only the existing shared Question Studio architecture:
+- `WOR-PROT-007`, `WOR-PROT-008`;
+- `WOR-PROT-010` through `WOR-PROT-015`;
+- `WOR-PROT-019`.
+
+Reopening them requires stronger recurring exam evidence.
+
+## Shared Question Studio
+
+Architecture remains:
 
 `Question Studio Cockpit → shared capabilities + /runs → shared package dispatcher → native WOR generator → shared persistence/review queue`
 
-There is no WOR-specific Question Studio panel, admin client, generation route or lifecycle router.
-
-Shared behavior includes:
-
-- package discovery/capabilities;
-- run creation and persistence;
-- immutable item versions;
-- quality and duplicate analysis;
-- review decisions;
-- generic regeneration routed back to the native WOR generator;
-- generic `SOURCE_GENERATOR_ONLY` revision enforcement.
-
-Supported prototypes carry their frozen QL ID in Question Studio review/persistence payloads. Prototype identity is retained separately for source-level regeneration traceability.
+The latest merged hardening removes small-batch prototype bias, honors checkpoint selectors and preserves real Mixed difficulty behavior. No dedicated WOR Question Studio route/panel/lifecycle fork exists.
 
 ## Release locks
 
-The technical freeze deliberately keeps the chapter non-releasable:
+Still enforced:
 
 - lifecycle: `REVIEW_ONLY`;
 - Question Bank: `NOT_STORED`;
 - Question Bank writable: false;
-- test eligibility: `INELIGIBLE`;
-- test eligible: false;
-- mock test eligible: false;
+- scored-test eligibility: false;
+- mock-test eligibility: false;
 - publicly publishable: false;
 - automatic student publication: false;
-- manual approval required: true;
-- human content review: pending;
 - native Hindi/Punjabi human sign-off: pending;
-- release freeze: `PENDING_HUMAN_CONTENT_REVIEW_AND_NATIVE_SIGNOFF`.
+- explicit downstream release checkpoint required.
 
-Question Studio visibility and permanent QL identity therefore do not mean release eligibility.
+## Change-control rule
 
-## Automated evidence retained
+Do not reopen taxonomy, solve contracts, pools, permanent-QL mapping or learner wording for speculative improvement after this freeze.
 
-### Classic runtime
-
-- 6,840 localized generations;
-- balanced four answer positions;
-- all 60 real-word families reached;
-- independent solver parity passed.
-
-### Real-word saturation
-
-- 60 families / 720 words;
-- all family/token/ID uniqueness gates passed;
-- Easy shared-prefix realism remediation retained.
-
-### Banking runtime and reservoir
-
-- 1,980 localized Banking generations in the full audit;
-- all five Banking task kinds exercised;
-- all explicit transform operators covered;
-- five answer positions covered;
-- 60 families / 720 clusters;
-- independent transform/sort/answer parity passed.
-
-### Question Studio
-
-- all 24 prototypes exercised through the review authority;
-- EN/HI/PA supported;
-- source-generator-only correction policy enforced;
-- shared package dispatch validated;
-- release locks asserted in persisted payload contracts.
-
-## Remaining human/release gates
-
-1. User/human English content sampling and approval.
-2. Native Hindi and Punjabi human editorial sign-off.
-3. Explicit release checkpoint after those reviews.
-4. Only at that checkpoint may approved QLs be activated for Question Bank/test/mock/public use.
-
-No further chapter taxonomy, generator, pool expansion, permanent QL allocation or Question Studio plumbing is required before the user's later review.
+A change requires new exam/source evidence, a reproduced correctness/editorial defect, native-language sign-off remediation, or an explicit later lifecycle/release decision, followed by the complete WOR CI suite including `wor-001-exam-readiness.test.ts`.
