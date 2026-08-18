@@ -17,14 +17,15 @@ const q = (value: number, denominator = 1) => rational(value, denominator);
 const lengthText = (value: ReturnType<typeof rational>) => value.denominator === 1n ? `${value.numerator} cm` : `${value.numerator}/${value.denominator} cm`;
 
 function intersectingChordsDiagram(): GeoDiagramModel {
-  const polar = (id: string, degrees: number) => {
-    const r = degrees * Math.PI / 180;
-    return { id, label: id, x: 100 + 75 * Math.cos(r), y: 100 + 75 * Math.sin(r) };
-  };
   return {
-    points: [{ id: "O", label: "O", x: 100, y: 100 }, { id: "P", label: "P", x: 100, y: 100 }, polar("A", 190), polar("B", 10), polar("C", 260), polar("D", 80)],
+    points: [
+      { id: "O", label: "O", x: 100, y: 100 },
+      { id: "P", label: "P", x: 90, y: 80 },
+      { id: "A", label: "A", x: 43.431, y: 80 }, { id: "B", label: "B", x: 156.569, y: 80 },
+      { id: "C", label: "C", x: 90, y: 40.839 }, { id: "D", label: "D", x: 90, y: 159.161 },
+    ],
     segments: [{ id: "AB", fromPointId: "A", toPointId: "B" }, { id: "CD", fromPointId: "C", toPointId: "D" }],
-    circles: [{ id: "circle-o", centerPointId: "O", radius: 75 }],
+    circles: [{ id: "circle-o", centerPointId: "O", radius: 60 }],
     angleMarks: [], rightAngleMarks: [], equalLengthMarks: [], parallelMarks: [], arcs: [], labels: [], disclosure: "STEM", notToScale: true,
   };
 }
