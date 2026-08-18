@@ -65,7 +65,7 @@ function ql079(seed: string) {
   const height = exactSurd(k, 3);
   const state: Trg002SpatialState = {
     packageId: "TRG-002",
-    scenario: "TWO_OBJECTS",
+    scenario: "POLE",
     groundY: ZERO,
     points: [
       p("left-base", ZERO, ZERO, "OBJECT_BASE", "A"),
@@ -82,8 +82,8 @@ function ql079(seed: string) {
     ],
     movements: [],
     requested: { kind: "OBJECT_HEIGHT", objectId: "pillar-left" },
-    diagramStrategy: "TWO_OBJECTS",
-    metadata: { units: "m", sameSide: false, notes: ["V4 roadway: two equal pillars at opposite road edges, observer between them."] },
+    diagramStrategy: "OPPOSITE_SIDE_OBSERVATIONS",
+    metadata: { units: "m", oppositeSide: true, observerOrder: ["left-base", "observer", "right-base"], notes: ["V4 roadway: two equal pillars at opposite road edges, observer between them."] },
   };
   return buildTrg002MvpQuestion({
     qlId: "TRG-002-QL-079", cpId: "TRG-CP-010", lockedFamily: "OPPOSITE_SIDE_OBSERVATIONS", solveMode: "equalRoadsidePillarsObserverBetween30And60", seed, difficulty: "Hard", target: "LENGTH",
