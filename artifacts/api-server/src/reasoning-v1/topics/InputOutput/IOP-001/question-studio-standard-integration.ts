@@ -51,6 +51,24 @@ const SOLVE_MODES: readonly IopPermanentSolveMode[] = [
   "REMAINING_STEP_COUNT",
 ] as const;
 
+const QL001_MEDIUM_SOURCE_MODES = new Set([
+  "QL001_WORD_LENGTH_ASC_LEFT",
+  "QL001_NUMBER_DIGIT_SUM_ASC_LEFT",
+  "QL001_WORD_LENGTH_DESC_RIGHT",
+]);
+
+export function getIop001SourceModeDifficulty(sourceModeId: string): Iop001QuestionStudioDifficulty {
+  if (sourceModeId.startsWith("QL001_")) {
+    return QL001_MEDIUM_SOURCE_MODES.has(sourceModeId) ? "Medium" : "Easy";
+  }
+  if (/^QL00[234]_/.test(sourceModeId)) return "Medium";
+  return "Hard";
+}
+
+function supportedDifficultiesForQl(qlId: IopPermanentQlId): readonly Iop001QuestionStudioDifficulty[] {
+  return [...new Set(getIopEnglishSourceModes(qlId).map((mode) => getIop001SourceModeDifficulty(mode.sourceModeId)))];
+}
+
 export const IOP_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   id: IOP_001_QUESTION_STUDIO_PACKAGE_ID,
   packageId: IOP_001_QUESTION_STUDIO_PACKAGE_ID,
@@ -68,11 +86,13 @@ export const IOP_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   canonicalProblems: IOP_001_PERMANENT_QL_AUTHORITIES.map((authority) => ({
     id: authority.qlId,
     label: `${authority.qlId} — ${authority.title}`,
+    supportedDifficulties: supportedDifficultiesForQl(authority.qlId),
   })),
   sourceModes: IOP_ENGLISH_SOURCE_MODES.map((mode) => ({
     id: mode.sourceModeId,
     qlId: mode.qlId,
     label: mode.title,
+    difficulty: getIop001SourceModeDifficulty(mode.sourceModeId),
     solveModes: [...mode.supportedSolveModes],
   })),
   supportedDifficulties: ["Easy", "Medium", "Hard"],
@@ -122,12 +142,6 @@ function normalizeDifficulty(value: unknown): Iop001QuestionStudioDifficulty | u
   return undefined;
 }
 
-function difficultyForQl(qlId: IopPermanentQlId): Iop001QuestionStudioDifficulty {
-  if (qlId === "IOP-QL-001") return "Easy";
-  if (["IOP-QL-002", "IOP-QL-003", "IOP-QL-004"].includes(qlId)) return "Medium";
-  return "Hard";
-}
-
 function normalizeSolveMode(value: unknown): IopPermanentSolveMode | undefined {
   const normalized = String(value ?? "").trim().toUpperCase().replace(/[\s-]+/g, "_");
   return SOLVE_MODES.find((mode) => mode === normalized);
@@ -153,6 +167,16 @@ function requestedQl(request: Iop001QuestionStudioRequest): IopPermanentQlId | u
   return mode.qlId;
 }
 
+function modeMatches(
+  mode: (typeof IOP_ENGLISH_SOURCE_MODES)[number],
+  difficulty?: Iop001QuestionStudioDifficulty,
+  solveMode?: IopPermanentSolveMode,
+): boolean {
+  if (difficulty && getIop001SourceModeDifficulty(mode.sourceModeId) !== difficulty) return false;
+  if (solveMode && !mode.supportedSolveModes.includes(solveMode)) return false;
+  return true;
+}
+
 function qlCandidates(request: Iop001QuestionStudioRequest): readonly IopPermanentQlId[] {
   const explicit = requestedQl(request);
   const difficulty = normalizeDifficulty(request.difficulty);
@@ -160,9 +184,10 @@ function qlCandidates(request: Iop001QuestionStudioRequest): readonly IopPermane
   if (request.solveMode && !solveMode) throw new Error(`Unknown IOP solve mode '${String(request.solveMode)}'.`);
 
   let candidates = explicit ? [explicit] : [...QL_IDS];
-  if (difficulty) candidates = candidates.filter((qlId) => difficultyForQl(qlId) === difficulty);
-  if (solveMode) {
-    candidates = candidates.filter((qlId) => getIopEnglishSourceModes(qlId).some((mode) => mode.supportedSolveModes.includes(solveMode)));
+  if (difficulty || solveMode) {
+    candidates = candidates.filter((qlId) =>
+      getIopEnglishSourceModes(qlId).some((mode) => modeMatches(mode, difficulty, solveMode)),
+    );
   }
   if (candidates.length === 0) {
     throw new Error("No IOP Question Studio machine family matches the requested QL, difficulty and solve mode.");
@@ -175,11 +200,15 @@ function modeFor(
   seed: string,
   requested?: string,
   solveMode?: IopPermanentSolveMode,
+  difficulty?: Iop001QuestionStudioDifficulty,
 ) {
-  const modes = getIopEnglishSourceModes(qlId).filter((mode) => !solveMode || mode.supportedSolveModes.includes(solveMode));
+  const modes = getIopEnglishSourceModes(qlId).filter((mode) => modeMatches(mode, difficulty, solveMode));
   if (requested) {
     const exact = modes.find((mode) => mode.sourceModeId === requested);
-    if (!exact) throw new Error(`${requested} is not available for ${qlId}${solveMode ? ` / ${solveMode}` : ""}.`);
+    if (!exact) {
+      const qualifiers = [difficulty, solveMode].filter(Boolean).join(" / ");
+      throw new Error(`${requested} is not available for ${qlId}${qualifiers ? ` / ${qualifiers}` : ""}.`);
+    }
     return exact;
   }
   if (modes.length === 0) throw new Error(`No source mode available for ${qlId}.`);
@@ -347,6 +376,7 @@ export function generateIop001StandardQuestionStudioBatch(
   const count = Math.max(1, Math.min(100, Math.floor(Number(request.count ?? 10) || 10)));
   const requestedMode = requestedSourceMode(request);
   const solveMode = normalizeSolveMode(request.solveMode);
+  const difficulty = normalizeDifficulty(request.difficulty);
   const candidates = qlCandidates(request);
   const baseSeed = String(request.seed ?? "IOP-001:QUESTION-STUDIO");
   const questions: ReturnType<typeof standardQuestion>[] = [];
@@ -355,7 +385,7 @@ export function generateIop001StandardQuestionStudioBatch(
   for (let attempt = 0; questions.length < count && attempt < count * 12 + 64; attempt += 1) {
     const qlId = candidates[hashSeed(`${baseSeed}|QL|${attempt}`) % candidates.length]!;
     const caseletSeed = `${baseSeed}|${language}|${qlId}|${attempt}`;
-    const mode = modeFor(qlId, caseletSeed, requestedMode, solveMode);
+    const mode = modeFor(qlId, caseletSeed, requestedMode, solveMode, difficulty);
     const caselet = sourceCaselet(caseletSeed, qlId, mode.sourceModeId, language);
     usedCaselets.push({ qlId, sourceModeId: mode.sourceModeId, seed: caseletSeed });
     for (const child of caselet.children) {
@@ -377,6 +407,7 @@ export function generateIop001StandardQuestionStudioBatch(
       qlId: requestedQl(request),
       sourceModeId: requestedMode,
       solveMode,
+      difficulty,
       language,
       locale: localeFor(language),
       requestedCount: count,
