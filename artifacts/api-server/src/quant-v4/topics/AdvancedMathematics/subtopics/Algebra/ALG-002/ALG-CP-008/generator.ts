@@ -203,7 +203,7 @@ export function generateAlgCp008DiscoveryItem(candidateId: string, seed: number)
     case "solveReciprocalPlusConstant": {
       const excluded = nonZeroInt(seed, -7, 7, 1);
       const target = distinctInt(seed, -8, 8, 2, excluded);
-      const offset = pickInt(seed, -5, 5, 3);
+      const offset = nonZeroInt(seed, -5, 5, 3);
       const rhs = rational(offset * (target - excluded) + 1, target - excluded);
       const numerator = linear(offset, 1 - offset * excluded);
       const equation: RationalEquation1 = {
