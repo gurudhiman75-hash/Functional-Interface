@@ -95,9 +95,9 @@ export interface SylLearnerRemediationEvidenceV5 {
   nativeHindiEditorialStatus: SylEditorialReviewStatusV5;
   nativePunjabiEditorialStatus: SylEditorialReviewStatusV5;
   humanViewportStatus: SylViewportReviewStatusV5;
-  approvalAuthority: typeof SYL_LEARNER_V5_APPROVAL_AUTHORITY | null;
-  approvedContentCommit: typeof SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT | null;
-  approvedOn: typeof SYL_LEARNER_V5_APPROVED_ON | null;
+  approvalAuthority?: typeof SYL_LEARNER_V5_APPROVAL_AUTHORITY | null;
+  approvedContentCommit?: typeof SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT | null;
+  approvedOn?: typeof SYL_LEARNER_V5_APPROVED_ON | null;
   deadOptionRemediationStatus:
     | "PENDING_SEPARATE_SOURCE_DECISION"
     | "REMOVED_THREE_STATUS_DIAGNOSTIC";
