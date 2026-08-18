@@ -1,0 +1,90 @@
+name: Verify TRG-002 Hindi Punjabi Chapter Localization V1
+
+on:
+  push:
+    branches:
+      - feat/trg-002-localization-hi-pa-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-localization-chapter-v1.yml
+  pull_request:
+    branches:
+      - feat/trg-002-mvp48-freeze
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-localization-chapter-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+concurrency:
+  group: trg-002-localization-chapter-v1-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Targeted Trigonometry TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg002-localization.json <<'EOF'
+          {"extends":"./tsconfig.json","compilerOptions":{"noEmit":true},"include":["src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**/*.ts"],"exclude":["src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts"],"references":[]}
+          EOF
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg002-localization.json --pretty false
+      - name: Protect frozen English 96-QL authority
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-freeze-96.test.ts
+      - name: Rerun CP007 localization parity
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-cp007-v1.test.ts
+      - name: Rerun CP008 localization parity
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-cp008-v1.test.ts
+      - name: Rerun CP009 localization parity
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-cp009-v1.test.ts
+      - name: Rerun CP010 localization parity
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-cp010-v1.test.ts
+      - name: Execute chapter-level 96-QL localization audit
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-chapter-v1.test.ts
+      - name: Export combined 192-record bilingual chapter review pack
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-localization-chapter-review-v1.ts
+      - name: Verify chapter review artifact
+        run: |
+          JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/localization-chapter-v1/TRG-002-HI-PA-CHAPTER-REVIEW-V1.json
+          HTML=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/localization-chapter-v1/TRG-002-HI-PA-CHAPTER-REVIEW-V1.html
+          test -s "$JSON" && test -s "$HTML"
+          node - "$JSON" <<'NODE'
+          const fs = require('fs');
+          const rows = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+          if (rows.length !== 192) throw new Error(`Expected 192 review records, got ${rows.length}`);
+          const qls = new Set(rows.map((row) => row.qlId));
+          if (qls.size !== 96) throw new Error(`Expected 96 QLs, got ${qls.size}`);
+          const cps = new Map();
+          for (const qlId of qls) {
+            const qlRows = rows.filter((row) => row.qlId === qlId);
+            if (qlRows.length !== 2) throw new Error(`${qlId}: expected exactly two localized review records`);
+            if (!qlRows.some((row) => row.locale === 'hi-IN')) throw new Error(`${qlId}: Hindi record missing`);
+            if (!qlRows.some((row) => row.locale === 'pa-IN')) throw new Error(`${qlId}: Punjabi record missing`);
+          }
+          for (const row of rows) {
+            cps.set(row.cpId, (cps.get(row.cpId) || 0) + 1);
+            if (row.humanReviewStatus !== 'PENDING') throw new Error(`${row.qlId}:${row.locale}: human review must remain PENDING`);
+            if (row.freezeStatus !== 'NOT_FROZEN') throw new Error(`${row.qlId}:${row.locale}: multilingual candidate must remain NOT_FROZEN`);
+            if (row.activationAuthorized !== false || row.questionStudioDiscoverable !== false || row.publiclyPublishable !== false) throw new Error(`${row.qlId}:${row.locale}: delivery lock drift`);
+            if (row.questionBankStatus !== 'NOT_STORED' || row.testEligibility !== 'INELIGIBLE') throw new Error(`${row.qlId}:${row.locale}: downstream lifecycle drift`);
+            if (row.localizationLifecycle?.multilingualFreezeGranted !== false || row.localizationLifecycle?.productDeliveryUnlocked !== false) throw new Error(`${row.qlId}:${row.locale}: multilingual lifecycle drift`);
+          }
+          for (const cp of ['TRG-CP-007','TRG-CP-008','TRG-CP-009','TRG-CP-010']) if (cps.get(cp) !== 48) throw new Error(`${cp}: expected 48 locale records, got ${cps.get(cp) || 0}`);
+          console.log(`TRG002_LOCALIZATION_CHAPTER_REVIEW_PACK_PASS records=${rows.length} qls=${qls.size} cps=${cps.size} locales=2 human=PENDING freeze=NO activation=OFF`);
+          NODE
+      - name: Upload chapter localization review pack
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-hi-pa-localization-chapter-review-v1
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/localization-chapter-v1/
+          if-no-files-found: error
+          retention-days: 14
