@@ -8,6 +8,7 @@ export const ALG_CP007_DISCOVERY_CANDIDATES: AlgCp007Candidate[] = [
   { candidateId: "ALG-CP007-CAND-005", solveMode: "classifyNoSolutionSystem", status: "DISCOVERY", permanentQlId: null, difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP007-CAND-006", solveMode: "classifyInfiniteSolutionSystem", status: "DISCOVERY", permanentQlId: null, difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP007-CAND-007", solveMode: "findParameterForNoSolutionSystem", status: "DISCOVERY", permanentQlId: null, difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
+  { candidateId: "ALG-CP007-CAND-008", solveMode: "solveThreeByThreeSystem", status: "DISCOVERY", permanentQlId: null, difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
 ];
 
 export function getAlgCp007Candidate(candidateId: string): AlgCp007Candidate {
