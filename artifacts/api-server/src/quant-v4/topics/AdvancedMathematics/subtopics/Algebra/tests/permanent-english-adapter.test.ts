@@ -33,25 +33,24 @@ function assert(condition: boolean, message: string): void {
   if (!condition) throw new Error(message);
 }
 
-const ordinaryRegistries = [
-  ALG_CP001_DISCOVERY_CANDIDATES,
-  ALG_CP002_DISCOVERY_CANDIDATES,
-  ALG_CP003_DISCOVERY_CANDIDATES,
-  ALG_CP004_DISCOVERY_CANDIDATES,
-  ALG_CP005_DISCOVERY_CANDIDATES,
-  ALG_CP006_DISCOVERY_CANDIDATES,
-  ALG_CP007_DISCOVERY_CANDIDATES,
-  ALG_CP008_DISCOVERY_CANDIDATES,
-  ALG_CP009_DISCOVERY_CANDIDATES,
-  ALG_CP010_DISCOVERY_CANDIDATES,
-  ALG_CP011_DISCOVERY_CANDIDATES,
-  ALG_CP012_DISCOVERY_CANDIDATES,
-  ALG_CP013_DISCOVERY_CANDIDATES,
-  ALG_CP014_DISCOVERY_CANDIDATES,
-] as const;
-
-const ordinaryCandidateIds = ordinaryRegistries.flatMap((registry) => registry.map((row) => row.candidateId));
-const compositionCandidateIds = ALG_CP015_DISCOVERY_CANDIDATES.map((row) => row.candidateId);
+const ids = (rows: readonly { candidateId: string }[]) => rows.map((row) => row.candidateId);
+const ordinaryCandidateIds = [
+  ...ids(ALG_CP001_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP002_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP003_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP004_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP005_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP006_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP007_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP008_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP009_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP010_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP011_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP012_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP013_DISCOVERY_CANDIDATES),
+  ...ids(ALG_CP014_DISCOVERY_CANDIDATES),
+];
+const compositionCandidateIds = ids(ALG_CP015_DISCOVERY_CANDIDATES);
 const mappedPrototypeIds = Object.values(ALG_PERMANENT_PROTOTYPE_MAP).flat();
 const engineOnlyIds = [...ALG_ENGINE_ONLY_DISCOVERY_CANDIDATE_IDS];
 const allCandidateIds = [...ordinaryCandidateIds, ...compositionCandidateIds];
@@ -75,16 +74,16 @@ for (const id of compositionCandidateIds) {
 }
 
 for (const allocation of ALG_PERMANENT_ALLOCATION) {
-  const ids = getAlgPermanentPrototypeIds(allocation.qlId);
-  assert(ids.length >= 1, `${allocation.qlId} has no permanent English prototype`);
-  for (let variantIndex = 0; variantIndex < ids.length; variantIndex += 1) {
+  const prototypeIds = getAlgPermanentPrototypeIds(allocation.qlId);
+  assert(prototypeIds.length >= 1, `${allocation.qlId} has no permanent English prototype`);
+  for (let variantIndex = 0; variantIndex < prototypeIds.length; variantIndex += 1) {
     const first = generateAlgPermanentEnglishCandidate(allocation.qlId, 17, variantIndex);
     const replay = generateAlgPermanentEnglishCandidate(allocation.qlId, 17, variantIndex);
     assert(stable(first) === stable(replay), `${allocation.qlId} variant ${variantIndex} is not deterministic`);
     assert(first.qlId === allocation.qlId, `${allocation.qlId} wrapper identity mismatch`);
     assert(first.freezeKey === allocation.freezeKey, `${allocation.qlId} freeze-key mismatch`);
-    assert(first.prototypeId === ids[variantIndex], `${allocation.qlId} prototype selection mismatch`);
-    assert(first.rawDiscoveryItem.candidateId === ids[variantIndex], `${allocation.qlId} raw prototype mismatch`);
+    assert(first.prototypeId === prototypeIds[variantIndex], `${allocation.qlId} prototype selection mismatch`);
+    assert(first.rawDiscoveryItem.candidateId === prototypeIds[variantIndex], `${allocation.qlId} raw prototype mismatch`);
     assert(first.question.length > 10, `${allocation.qlId} emitted an empty English question`);
     assert(first.explanation.length > 25, `${allocation.qlId} emitted an incomplete English explanation`);
     assert(first.maturity === "PERMANENT_IDENTITY_ENGLISH_CANDIDATE", `${allocation.qlId} leaked maturity`);
