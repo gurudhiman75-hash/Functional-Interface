@@ -1,15 +1,15 @@
 import { TSD_CP004_ENGLISH_APPROVED_SOURCE_HEAD, TSD_CP004_ENGLISH_FREEZE_ID, TSD_CP004_ENGLISH_FREEZE_STATUS } from "../cp004/english-approved-freeze";
 import { TSD_CP005_AUTHORITY_APPROVAL, TSD_CP005_APPROVED_LEARNER_AUTHORITIES } from "./approved-authority-registry";
 import { TSD_CP005_HELD_CROSS_CHECKPOINT_MODES, TSD_CP005_INTERNAL_QA_MODES } from "./final-ownership-candidate";
-import { generateCp005EnglishAuditPool, generateCp005ReviewSet } from "./english-review-runtime";
+import { generateCp005EnglishAuditPoolV2, generateCp005ReviewSetV2 } from "./english-review-runtime-v2";
 import { TSD_CP005_NEXT_PERMANENT_QL_ID, TSD_CP005_PERMANENT_QL_IDS } from "./ql-allocation";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-const audit = generateCp005EnglishAuditPool(30);
-const selected = generateCp005ReviewSet(6);
+const audit = generateCp005EnglishAuditPoolV2(30);
+const selected = generateCp005ReviewSetV2(6);
 
 assert(TSD_CP005_AUTHORITY_APPROVAL.status === "PRODUCT_OWNER_APPROVED_AUTHORITY_BOUNDARY", "CP005 authority approval status changed");
 assert(TSD_CP005_AUTHORITY_APPROVAL.approvedSourceHead === "62f73932b763f8535ce9bc162a03798ae74b8be3", "CP005 approved source head changed");
@@ -72,7 +72,7 @@ assert(TSD_CP004_ENGLISH_APPROVED_SOURCE_HEAD === "99b65d54c87bfe456182bbcbad596
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "TSD_CP005_ENGLISH_REVIEW_CANDIDATE_V1",
+  phase: "TSD_CP005_ENGLISH_REVIEW_CANDIDATE_V2",
   productOwnerAuthorityApproval: true,
   permanentQlRange: "TSD-QL-058..TSD-QL-070",
   nextPermanentQl: TSD_CP005_NEXT_PERMANENT_QL_ID,
@@ -87,6 +87,7 @@ console.log(JSON.stringify({
   exactWrongWorkings,
   correctOptionPositions,
   difficulty,
+  distractorContract: "THREE_DISTINCT_SEMANTIC_PATHS_WITH_COLLISION_RETRY",
   publicExplanationContract: "METHOD_CONTEXT_NUMERIC_DERIVATION_SHORTCUT_ANSWER",
   optionAnalysisPublic: false,
   englishFreezeStatus: "UNFROZEN",
