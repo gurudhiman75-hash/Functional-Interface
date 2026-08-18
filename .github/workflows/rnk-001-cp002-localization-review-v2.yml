@@ -1,0 +1,59 @@
+name: Validate RNK-001 CP002 Native Editorial V2
+
+on:
+  push:
+    branches:
+      - feature/rnk-cp002-localization-review-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-cp002-localization-review-v2.yml'
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-cp002-localization-review-v2.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: rnk-001-cp002-native-editorial-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-cp002-native-editorial-v2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove V2 native genitive copula and semantic invariance
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-localization-review-v2.test.ts
+
+      - name: Re-prove V1 structured-evidence localization baseline
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-localization-review-v1.test.ts
+
+      - name: Generate CP002 V2 human-review pack
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-localization-review-export-v2.ts /tmp/RNK-CP-002-HI-PA-LOCALIZATION-REVIEW-V2-128Q.md
+
+      - name: Retain CP002 V2 human-review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-cp002-hi-pa-native-editorial-v2-128q
+          path: /tmp/RNK-CP-002-HI-PA-LOCALIZATION-REVIEW-V2-128Q.md
+          if-no-files-found: error
+
+      - name: Re-prove CP002 frozen English permanent runtime
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-permanent-runtime.test.ts
+
+      - name: Re-prove chapter-wide English closure
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+
+      - name: Re-prove Ranking Object Pool V2
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/foundation/rnk-object-pool-v2.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
