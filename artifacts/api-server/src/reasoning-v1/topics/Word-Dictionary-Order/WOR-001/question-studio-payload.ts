@@ -5,7 +5,7 @@ import {
 } from "./question-studio-review";
 
 export const WOR_001_QUESTION_STUDIO_REVISION_POLICY = "SOURCE_GENERATOR_ONLY" as const;
-export const WOR_001_QUESTION_STUDIO_RELEASE_FREEZE = "PENDING_NATIVE_SIGNOFF_AND_PERMANENT_QL" as const;
+export const WOR_001_QUESTION_STUDIO_RELEASE_FREEZE = "PENDING_HUMAN_CONTENT_REVIEW_AND_NATIVE_SIGNOFF" as const;
 
 export interface WorQuestionStudioRegenerationMetadata {
   readonly sourceVersionNumber: number;
@@ -35,8 +35,11 @@ export function buildWor001QuestionStudioPayload(
     difficultyLabel: question.difficultyBand,
     patternId: question.prototypeId,
     prototypeId: question.prototypeId,
-    qlId: null,
-    permanentQlId: null,
+    qlId: question.qlId,
+    permanentQlId: question.permanentQlId,
+    permanentQlAllocationStatus: "ALLOCATED_INACTIVE" as const,
+    humanContentReviewStatus: "PENDING" as const,
+    nativeHumanSignoffStatus: "PENDING" as const,
     packageId: question.packageId,
     chapterId: question.chapterId,
     checkpointId: question.checkpointId,
@@ -78,7 +81,10 @@ export function buildWor001QuestionStudioPayload(
       checkpointId: question.checkpointId,
       prototypeId: question.prototypeId,
       patternId: question.prototypeId,
-      permanentQlId: null,
+      permanentQlId: question.permanentQlId,
+      permanentQlAllocationStatus: "ALLOCATED_INACTIVE" as const,
+      humanContentReviewStatus: "PENDING" as const,
+      nativeHumanSignoffStatus: "PENDING" as const,
       runtimeMode: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.runtimeMode,
       reviewStatus: question.reviewStatus,
       lifecycleStatus: question.lifecycleStatus,
