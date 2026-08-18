@@ -11,6 +11,12 @@ import {
   SYL_001_QUESTION_STUDIO_QL_IDS,
   previewSyl001QuestionStudio,
 } from "./question-studio-adapter";
+import {
+  SYL_LEARNER_V5_APPROVAL_AUTHORITY,
+  SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT,
+  SYL_LEARNER_V5_APPROVED_ON,
+} from "./runtime/learner-v5-types";
+import { getSylQlDefinition } from "./runtime/ql-registry";
 
 assert.equal(SYL_001_CHAPTER_AUTHORITY.status, "CLOSED_FOR_QUESTION_STUDIO__DELIVERY_LOCKED");
 assert.equal(SYL_001_CHAPTER_AUTHORITY.acceptedGeneratorVersion, "generator-v5");
@@ -34,8 +40,18 @@ assert.equal(SYL_001_QUESTION_STUDIO_PACKAGE.persistenceAllowed, false);
 assert.equal(SYL_001_QUESTION_STUDIO_PACKAGE.questionBankEligible, false);
 assert.equal(SYL_001_QUESTION_STUDIO_PACKAGE.mockTestEligible, false);
 assert.equal(SYL_001_QUESTION_STUDIO_PACKAGE.publiclyPublishable, false);
+assert.equal(SYL_001_QUESTION_STUDIO_PACKAGE.approvalAuthority, SYL_LEARNER_V5_APPROVAL_AUTHORITY);
+assert.equal(SYL_001_QUESTION_STUDIO_PACKAGE.approvedContentCommit, SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT);
+assert.equal(SYL_001_QUESTION_STUDIO_PACKAGE.approvedOn, SYL_LEARNER_V5_APPROVED_ON);
 assert.equal(SYL_001_QUESTION_STUDIO_QL_IDS.length, 18);
 assert.equal(new Set(SYL_001_QUESTION_STUDIO_QL_IDS).size, 18);
+
+const diagnosticQlIds = ["SYL-QL-007", "SYL-QL-012", "SYL-QL-014", "SYL-QL-018"] as const;
+for (const qlId of diagnosticQlIds) {
+  const definition = getSylQlDefinition(qlId);
+  assert.equal(definition.optionCount, 3);
+  assert.equal(definition.answerTemplateId, "DIAGNOSTIC_THREE_OPTION_V1");
+}
 
 const allPackages = listReasoningV1QuestionStudioReviewPackages();
 const enabledPackages = listEnabledReasoningV1QuestionStudioPackages();
@@ -56,11 +72,17 @@ for (const [languageIndex, language] of languages.entries()) {
       count: 1,
     });
     assert.equal(result.questions.length, 1);
+    assert.equal(result.generationContext.approvalAuthority, SYL_LEARNER_V5_APPROVAL_AUTHORITY);
+    assert.equal(result.generationContext.approvedContentCommit, SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT);
+    assert.equal(result.generationContext.approvedOn, SYL_LEARNER_V5_APPROVED_ON);
     const question = result.questions[0]!;
     assert.equal(question.packageId, SYL_001_QUESTION_STUDIO_PACKAGE_ID);
     assert.equal(question.qlId, qlId);
     assert.equal(question.locale, locales[languageIndex]);
     assert.equal(question.validation.valid, true);
+    assert.equal(question.parameters.approvalAuthority, SYL_LEARNER_V5_APPROVAL_AUTHORITY);
+    assert.equal(question.parameters.approvedContentCommit, SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT);
+    assert.equal(question.parameters.approvedOn, SYL_LEARNER_V5_APPROVED_ON);
     assert.equal(question.safety.questionStudioVisible, true);
     assert.equal(question.safety.questionStudioGenerationEnabled, true);
     assert.equal(question.safety.persistenceAllowed, false);
@@ -69,9 +91,8 @@ for (const [languageIndex, language] of languages.entries()) {
     assert.equal(question.safety.publiclyPublishable, false);
     assert.ok(question.stem.length > 0);
     assert.ok(question.statements.length > 0);
-    // SYL modal-diagnostic QLs intentionally use an exhaustive three-way option space;
-    // other approved QLs use four or five options. Do not manufacture distractors for Studio.
-    assert.ok(question.options.length >= 3);
+    const qlDefinition = getSylQlDefinition(qlId);
+    assert.equal(question.options.length, qlDefinition.optionCount);
     assert.ok(question.correctIndex >= 0 && question.correctIndex < question.options.length);
     assert.ok(question.explanation.shortReasoning.length > 0);
     assert.ok(question.explanation.conclusion.length > 0);
@@ -97,6 +118,9 @@ console.log(JSON.stringify({
   locales: languages.length,
   generatedAuditRecords: generatedCount,
   diagramsObserved,
+  approvalAuthority: SYL_LEARNER_V5_APPROVAL_AUTHORITY,
+  approvedContentCommit: SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT,
+  approvedOn: SYL_LEARNER_V5_APPROVED_ON,
   questionStudioVisible: SYL_001_QUESTION_STUDIO_PACKAGE.questionStudioVisible,
   questionStudioGenerationEnabled: SYL_001_QUESTION_STUDIO_PACKAGE.questionStudioGenerationEnabled,
   persistenceAllowed: SYL_001_QUESTION_STUDIO_PACKAGE.persistenceAllowed,
