@@ -3,7 +3,7 @@ import { generateExamRealLocalizedTrg002Question, type Trg002ExamRealnessLocale 
 import { TRG_002_V4_SCENARIO_SHELLS, selectTrg002V4ScenarioShell, type Trg002SpatialTopology } from "./exam-readiness-v4-scenario-engine";
 import { applyTrg002V4Wave1ScenarioText } from "./exam-readiness-v4-wave1-surface";
 import { isTrg002V4CanonicalOverride } from "./exam-readiness-v4-canonical";
-import { generateLocalizedTrg002V4CanonicalOverride } from "./exam-readiness-v4-override-localization";
+import { generateLocalizedTrg002V4CanonicalOverrideSafe } from "./exam-readiness-v4-override-localization-safe";
 import {
   applyTrg002V4PhysicalSupportMigration,
   TRG_002_V4_ROOFTOP_SURFACE_IDS,
@@ -18,10 +18,6 @@ function sha256(value: unknown) {
   return createHash("sha256").update(stableJson(value), "utf8").digest("hex");
 }
 
-// V3.2 inherited a historical formatter that could replace the substring "3/2"
-// inside an exact expression such as √3/24, producing √1.54. V4 treats exact
-// mathematical tokens as protected content. This repair remains as a compatibility
-// shield until the historical V2 formatter is retired from the V4 path entirely.
 function repairHistoricalExactMathArtifact(text: string) {
   return text.replace(/√1\.5(\d+)/g, (_match, trailing: string) => `√3/2${trailing}`);
 }
@@ -71,7 +67,7 @@ function isRooftopSurface(qlId: string) {
 export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, locale: Trg002ExamRealnessLocale) {
   const canonicalOverride = isTrg002V4CanonicalOverride(qlId);
   const rawBase: AnyQuestion = canonicalOverride
-    ? generateLocalizedTrg002V4CanonicalOverride(qlId, seed, locale)
+    ? generateLocalizedTrg002V4CanonicalOverrideSafe(qlId, seed, locale)
     : generateExamRealLocalizedTrg002Question(qlId, seed, locale);
   const physicalSupport = applyTrg002V4PhysicalSupportMigration(rawBase);
   const base: AnyQuestion = physicalSupport.question;
@@ -90,9 +86,6 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
   if (!scenario) throw new Error(`${qlId}: missing explicit V4 scenario shell ${explicitScenarioId}.`);
   if (scenario.topology !== topology) throw new Error(`${qlId}: explicit V4 scenario topology ${scenario.topology} does not match ${topology}.`);
 
-  // A rooftop surface is complete when the canonical eye point is physically bound
-  // to a vertical support object. Bridge/river scenarios remain pending because a
-  // generic support alone would not depict their scenario semantics honestly.
   const rooftopDiagramAligned = isRooftopSurface(qlId) && physicalSupport.supported;
   const diagramMigrationRequired = wave1.diagramMigrationRequired && !rooftopDiagramAligned;
   const scenarioSurfaceApplied = canonicalOverride || (wave1.scenarioTextApplied && !diagramMigrationRequired);
