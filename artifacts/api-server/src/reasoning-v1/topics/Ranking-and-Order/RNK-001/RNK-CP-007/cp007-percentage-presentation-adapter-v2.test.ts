@@ -40,9 +40,11 @@ const english = buildRnkCp007PercentagePresentationBankV2("en-IN");
 const hindi = buildRnkCp007PercentagePresentationBankV2("hi-IN");
 const punjabi = buildRnkCp007PercentagePresentationBankV2("pa-IN");
 
-for (const question of english as readonly Record<string, any>[]) {
-  assert.doesNotMatch(question.stem, /\.\s+(?:boys|girls) are/u, question.stem);
-}
+const englishText = (english as readonly Record<string, any>[])
+  .map((question) => `${question.stem}\n${question.explanation}`)
+  .join("\n");
+assert.doesNotMatch(englishText, /\.\s+(?:boys|girls) are/u);
+assert.doesNotMatch(englishText, /\.\s+(?:boys|girls) (?:ahead|behind)\s*=/u);
 
 const hindiText = (hindi as readonly Record<string, any>[])
   .map((question) => `${question.stem}\n${question.explanation}`)
@@ -53,6 +55,7 @@ assert.doesNotMatch(hindiText, /कितने लड़कियाँ/u);
 assert.doesNotMatch(hindiText, /(?:लड़कियाँ|लड़के) पहले से आगे दिए गए हैं/u);
 assert.doesNotMatch(hindiText, /आगे (?:लड़कियाँ|लड़के) =/u);
 assert.doesNotMatch(hindiText, /पीछे (?:लड़कियाँ|लड़के) =/u);
+assert.doesNotMatch(hindiText, /(?:लड़कियाँ|लड़के) (?:आगे|पीछे)\s*=/u);
 assert.match(hindiText, /जो लड़कियों में से एक है/u);
 assert.match(hindiText, /कितनी लड़कियाँ/u);
 
@@ -64,6 +67,7 @@ assert.doesNotMatch(punjabiText, /ਕਿੰਨੇ ਕੁੜੀਆਂ/u);
 assert.doesNotMatch(punjabiText, /(?:ਕੁੜੀਆਂ|ਮੁੰਡੇ) ਪਹਿਲਾਂ ਹੀ ਅੱਗੇ ਦਿੱਤੇ ਹਨ/u);
 assert.doesNotMatch(punjabiText, /ਅੱਗੇ (?:ਕੁੜੀਆਂ|ਮੁੰਡੇ) =/u);
 assert.doesNotMatch(punjabiText, /ਪਿੱਛੇ (?:ਕੁੜੀਆਂ|ਮੁੰਡੇ) =/u);
+assert.doesNotMatch(punjabiText, /(?:ਕੁੜੀਆਂ|ਮੁੰਡੇ) (?:ਅੱਗੇ|ਪਿੱਛੇ)\s*=/u);
 assert.match(punjabiText, /ਜੋ ਕੁੜੀਆਂ ਵਿੱਚੋਂ ਇੱਕ ਹੈ/u);
 assert.match(punjabiText, /ਕਿੰਨੀਆਂ ਕੁੜੀਆਂ/u);
 
@@ -72,6 +76,7 @@ console.log(JSON.stringify({
   version: RNK_CP007_PERCENTAGE_PRESENTATION_ADAPTER_V2_VERSION,
   eligibleQuestionsPerLocale: english.length,
   nativeGrammarOverlay: true,
+  residualCategorySideFragments: false,
   frozenMathematicsPreserved: true,
   newQlAllocated: false,
 }, null, 2));
