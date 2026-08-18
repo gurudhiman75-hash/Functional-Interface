@@ -151,6 +151,52 @@ const genericMinimal = findMinimalSufficientSubsets([
 ]);
 assert.deepEqual(genericMinimal, [["I", "II"], ["II", "III"]]);
 
+// Exhaustive finite-domain property sweep over every non-empty statement subset.
+const propertyBase = [0, 1, 2, 3] as const;
+const swappedClass = (value: string): string => value === "STATEMENT_I_ONLY"
+  ? "STATEMENT_II_ONLY"
+  : value === "STATEMENT_II_ONLY"
+    ? "STATEMENT_I_ONLY"
+    : value;
+let propertyCases = 0;
+for (let maskI = 1; maskI < 16; maskI += 1) {
+  for (let maskII = 1; maskII < 16; maskII += 1) {
+    const predicateI = (value: number): boolean => (maskI & (1 << value)) !== 0;
+    const predicateII = (value: number): boolean => (maskII & (1 << value)) !== 0;
+    const intersection = propertyBase.filter((value) => predicateI(value) && predicateII(value));
+    if (intersection.length === 0) continue;
+
+    for (const target of [
+      (value: number) => value,
+      (value: number) => value % 2 === 0,
+    ] as const) {
+      const normalizer = (value: number | boolean): string => String(value);
+      const forward = evaluateTwoStatementSufficiency({
+        baseWorlds: propertyBase,
+        statementI: predicateI,
+        statementII: predicateII,
+        evaluateTarget: target,
+        normalizeAnswer: normalizer,
+      });
+      const reverse = evaluateTwoStatementSufficiency({
+        baseWorlds: propertyBase,
+        statementI: predicateII,
+        statementII: predicateI,
+        evaluateTarget: target,
+        normalizeAnswer: normalizer,
+      });
+
+      assert.equal(reverse.classification, swappedClass(forward.classification));
+      assert(forward.together.worldCount <= forward.statementI.worldCount);
+      assert(forward.together.worldCount <= forward.statementII.worldCount);
+      assert(forward.together.normalizedTargetAnswers.every((answer) => forward.statementI.normalizedTargetAnswers.includes(answer)));
+      assert(forward.together.normalizedTargetAnswers.every((answer) => forward.statementII.normalizedTargetAnswers.includes(answer)));
+      propertyCases += 1;
+    }
+  }
+}
+assert(propertyCases > 300);
+
 validateAnswerContract(DS_STANDARD_5_EN);
 assert.equal(DS_STANDARD_5_EN.options.length, 5);
 assert.equal(new Set(DS_STANDARD_5_EN.options.map((option) => option.semanticClass)).size, 5);
@@ -169,5 +215,6 @@ console.log(JSON.stringify({
     answerAgreementInvariant: true,
     minimalSufficientSubsets: true,
     exclusiveStandardFiveContract: true,
+    exhaustiveFiniteDomainProperties: propertyCases,
   },
 }, null, 2));
