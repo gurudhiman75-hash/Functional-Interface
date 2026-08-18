@@ -6,8 +6,8 @@ import {
   INT_CP006_LOCALIZED_EXPLANATION_VERSION,
   generateIntCp006LocalizedExplanationReviewQuestion,
   type IntCp006LocalizedLocale,
-} from "./cp006-si-ci-relations-localized-v5";
-import { INT_CP006_EXPANDED_EXPLANATION_VERSION } from "./cp006-expanded-explanation-v3";
+} from "./cp006-si-ci-relations-localized-v6";
+import { INT_CP006_EXPANDED_EXPLANATION_VERSION } from "./cp006-expanded-explanation-v4";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -51,6 +51,10 @@ function assertNativeGrammar(question: any, label: string, locale: IntCp006Local
         "तीसरे क्रम का चक्रवृद्धि पद",
         "अतिरिक्त पद आता है",
         "दूसरे क्रम के तीन चक्रवृद्धि योगदानों",
+        "तीसरे वर्ष की अतिरिक्त चक्रवृद्धि",
+        "केवल पूर्णांक गुणज",
+        "पीछे की गणना",
+        "दूसरे वर्ष का अतिरिक्त ब्याज, पहले वर्ष के ब्याज पर वार्षिक दर से मिलने वाले ब्याज",
       ]
     : [
         "ਵਿਆਜ ਦੀ ਵਾਧਾ",
@@ -61,10 +65,19 @@ function assertNativeGrammar(question: any, label: string, locale: IntCp006Local
         "ਵਾਧੂ ਪਦ",
         "ਪਹਿਲੇ ਵਾਲੇ ਸਾਲ ਦਾ ਵਿਆਜ ਹੈ",
         "ਦੂਜੇ ਕ੍ਰਮ ਦੇ ਤਿੰਨ ਚੱਕਰਵੱਧੀ ਯੋਗਦਾਨਾਂ",
+        "ਤੀਜੇ ਸਾਲ ਦੀ ਵਾਧੂ ਚੱਕਰਵੱਧੀ",
+        "ਪੂਰਨ ਅੰਕ ਗੁਣਾ",
+        "ਪਿੱਛੇ ਦੀ ਗਿਣਤੀ",
+        "ਦੂਜੇ ਸਾਲ ਦਾ ਵਾਧੂ ਵਿਆਜ, ਪਹਿਲੇ ਸਾਲ ਦੇ ਵਿਆਜ ਉੱਤੇ ਸਾਲਾਨਾ ਦਰ ਨਾਲ ਮਿਲਣ ਵਾਲੇ ਵਿਆਜ",
       ];
-  for (const phrase of banned) assert(!learnerExplanation.includes(phrase), `${label}: native grammar regression '${phrase}'`);
-  if (locale === "hi-IN") assert(!/पहला पूर्ण वर्ष \d+ वर्ष है/u.test(learnerExplanation), `${label}: awkward Hindi year agreement`);
-  else assert(!/ਪਹਿਲਾ ਪੂਰਾ ਸਾਲ \d+ ਸਾਲ ਹੈ/u.test(learnerExplanation), `${label}: awkward Punjabi year agreement`);
+  for (const phrase of banned) assert(!learnerExplanation.includes(phrase), `${label}: native editorial regression '${phrase}'`);
+  if (locale === "hi-IN") {
+    assert(!/पहला पूर्ण वर्ष \d+ वर्ष है/u.test(learnerExplanation), `${label}: awkward Hindi year agreement`);
+    assert(!/(?:पहले|अब) \d+ वर्ष जाँचें/u.test(learnerExplanation), `${label}: awkward Hindi threshold instruction`);
+  } else {
+    assert(!/ਪਹਿਲਾ ਪੂਰਾ ਸਾਲ \d+ ਸਾਲ ਹੈ/u.test(learnerExplanation), `${label}: awkward Punjabi year agreement`);
+    assert(!/(?:ਪਹਿਲਾਂ|ਹੁਣ) \d+ ਸਾਲ ਜਾਂਚੋ/u.test(learnerExplanation), `${label}: awkward Punjabi threshold instruction`);
+  }
 }
 function auditExpanded(question: any, source: any, label: string, locale?: IntCp006LocalizedLocale) {
   assert(stable(preservedProjection(question)) === stable(preservedProjection(source)), `${label}: non-explanation learner surface drift`);
@@ -136,7 +149,7 @@ for (const qlId of INT_CP006_QL_IDS) {
       calculationRichnessChecks += 2;
       lifecycleChecks += 7;
       nativeScriptChecks += 5;
-      nativeGrammarChecks += 9;
+      nativeGrammarChecks += 15;
     }
   }
 }
