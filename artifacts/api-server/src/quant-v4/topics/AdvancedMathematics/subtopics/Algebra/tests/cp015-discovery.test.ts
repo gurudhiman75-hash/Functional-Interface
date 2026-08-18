@@ -126,6 +126,24 @@ for (const candidate of ALG_CP015_DISCOVERY_CANDIDATES) {
       continue;
     }
 
+    if (first.math.kind === "BOUNDED_CUBIC_ROOT") {
+      assert(first.answer.kind === "RATIONAL", `${candidate.candidateId} seed ${seed} has wrong cubic-root answer kind`);
+      if (first.answer.kind !== "RATIONAL") continue;
+      assert(evaluatePolynomial(first.math.polynomial, first.answer.value).numerator === 0n, `${candidate.candidateId} seed ${seed} answer is not a polynomial root`);
+      let count = 0;
+      let matched: Rational | null = null;
+      for (let x = 1; x <= first.math.upperScanBound; x += 1) {
+        const candidateX = rational(x);
+        if (evaluatePolynomial(first.math.polynomial, candidateX).numerator === 0n) {
+          count += 1;
+          matched = candidateX;
+        }
+      }
+      assert(count === 1 && matched !== null, `${candidate.candidateId} seed ${seed} must have exactly one bounded positive integer root`);
+      assert(equalsRational(first.answer.value, matched!), `${candidate.candidateId} seed ${seed} bounded cubic-root mismatch`);
+      continue;
+    }
+
     throw new Error(`${candidate.candidateId} seed ${seed} has unsupported mixed state`);
   }
 }
