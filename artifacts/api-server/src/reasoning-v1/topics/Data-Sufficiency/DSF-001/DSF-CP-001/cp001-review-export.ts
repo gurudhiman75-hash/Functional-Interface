@@ -1,13 +1,11 @@
 import { mkdirSync, writeFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { resolve } from "node:path";
 import { SUFFICIENCY_CLASSES } from "../foundation/index.ts";
-import {
-  generateDsfCp001NumberSystemQuestion,
-  type DsfCp001NumberSystemQuestion,
-} from "./cp001-number-system-runtime.ts";
+import { generateDsfCp001NumberSystemEnglish } from "./cp001-editorial-runtime.ts";
 
 const REVIEW_SEEDS = Array.from({ length: 60 }, (_, index) => index);
-const questions = REVIEW_SEEDS.map(generateDsfCp001NumberSystemQuestion);
+const questions = REVIEW_SEEDS.map(generateDsfCp001NumberSystemEnglish);
+type ReviewQuestion = (typeof questions)[number];
 
 function escapeHtml(value: unknown): string {
   return String(value)
@@ -22,12 +20,12 @@ function classBadge(semanticClass: string): string {
   return `<span class="badge">${escapeHtml(semanticClass.replaceAll("_", " "))}</span>`;
 }
 
-function renderOption(question: DsfCp001NumberSystemQuestion, index: number): string {
+function renderOption(question: ReviewQuestion, index: number): string {
   const option = question.options[index]!;
   return `<li class="${option.isCorrect ? "correct" : ""}"><strong>${option.key}.</strong> ${escapeHtml(option.value)}${option.isCorrect ? " <span class=\"tick\">✓</span>" : ""}</li>`;
 }
 
-function renderQuestion(question: DsfCp001NumberSystemQuestion, ordinal: number): string {
+function renderQuestion(question: ReviewQuestion, ordinal: number): string {
   const proof = question.proof;
   return `
     <article class="question">
@@ -41,7 +39,7 @@ function renderQuestion(question: DsfCp001NumberSystemQuestion, ordinal: number)
       <ol class="options" type="A">${question.options.map((_option, index) => renderOption(question, index)).join("")}</ol>
       <section class="solution">
         <h3>Solution</h3>
-        <p><strong>Asked:</strong> ${escapeHtml(question.explanation.askedTarget)}</p>
+        <p>${escapeHtml(question.explanation.askedTarget)}</p>
         <p>${escapeHtml(question.explanation.statementI)}</p>
         <p>${escapeHtml(question.explanation.statementII)}</p>
         ${question.explanation.together ? `<p>${escapeHtml(question.explanation.together)}</p>` : ""}
@@ -105,7 +103,7 @@ const html = `<!doctype html>
 <main>
   <section class="top">
     <h1>Data Sufficiency · CP-001 Number System Review</h1>
-    <p class="note">English review candidate. This pack is for editorial/semantic inspection only; Question Studio, question-bank and mock-test publication remain locked.</p>
+    <p class="note">Naturalized English review candidate. This pack is for editorial/semantic inspection only; Question Studio, question-bank and mock-test publication remain locked.</p>
     <div class="summary">
       <span>Questions: ${questions.length}</span>
       <span>QL: DSF-QL-001</span>
@@ -129,6 +127,7 @@ writeFileSync(jsonPath, JSON.stringify({
   packageId: "DSF-001",
   checkpointId: "DSF-CP-001",
   qlId: "DSF-QL-001",
+  editorialVersion: questions[0]?.editorialVersion,
   classCounts,
   questions,
 }, null, 2), "utf8");
@@ -138,5 +137,6 @@ console.log(JSON.stringify({
   htmlPath,
   jsonPath,
   questions: questions.length,
+  editorialVersion: questions[0]?.editorialVersion,
   classCounts,
 }, null, 2));
