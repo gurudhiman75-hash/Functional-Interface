@@ -1,0 +1,53 @@
+import { PFC_001_DISCOVERY_PRESENTATION_AUTHORITY_V3 } from "./paper-folding-discovery-presentation-v3";
+import { PFC_001_DISCOVERY_AUDIT_V1 } from "./paper-folding-discovery-audit-v1";
+import { PFC_001_SOURCE_AUDIT_V1 } from "./paper-folding-source-audit-v1";
+
+export const PFC_001_DISCOVERY_OPERATOR_REVIEW_V1 = Object.freeze({
+  reviewId: "PFC-001-DISCOVERY-OPERATOR-REVIEW-V1" as const,
+  chapterCode: "PFC-001" as const,
+  reviewerClass: "OPERATOR_ASSISTANT_REVIEW" as const,
+  reviewMethod: "DIRECT_RENDERED_LEARNER_VIEW_PLUS_EXPLANATION_AUDIT" as const,
+  presentationAuthorityId: PFC_001_DISCOVERY_PRESENTATION_AUTHORITY_V3.authorityId,
+  discoveryAuditAuthorityId: PFC_001_DISCOVERY_AUDIT_V1.authorityId,
+  sourceAuditAuthorityId: PFC_001_SOURCE_AUDIT_V1.authorityId,
+  reviewedIntegrationHead: "ad501d8363b3c8d613801e9c6d15028aff5df4fe" as const,
+  workflowRunId: 32101041478,
+  artifactId: 9311565223,
+  artifactDigest: "sha256:39741c1aa7fad43c89720e10617119253ad8b00cefa31cc56786efe1a5d0bcbc" as const,
+  reviewedQuestionCount: 40,
+  reviewedRepresentationCount: 10,
+  optionReviewPixels: 112,
+  stimulusReviewPixels: 520,
+  findings: {
+    foldDirectionArrows: "VISIBLE_AND_DIRECTIONALLY_CONSISTENT_NO_BLOCKER" as const,
+    singleAxial: "CLEAR_NO_BLOCKER" as const,
+    boundaryNotch: "CLEAR_ENOUGH_FOR_DISCOVERY_NO_BLOCKER" as const,
+    perpendicularDoubleFold: "CLEAR_NO_BLOCKER" as const,
+    repeatedSameDirection: "CLEAR_NO_BLOCKER" as const,
+    cornerFold: "CLEAR_NO_BLOCKER" as const,
+    diagonalFold: "CLEAR_NO_BLOCKER" as const,
+    diagonalPlusAxial: "CLEAR_NO_BLOCKER" as const,
+    multipleCuts: "CLEAR_NO_BLOCKER" as const,
+    multiFoldEdgeNotch: "CLEAR_NO_BLOCKER" as const,
+    threeFoldAdvanced: "DENSE_BUT_DISTINGUISHABLE_NO_BLOCKER" as const,
+    optionReadability: "ACCEPTABLE_AT_112PX_NO_BLOCKER" as const,
+    explanations: "HUMAN_READABLE_RULE_BASED_NO_RAW_COORDINATE_BLOCKER" as const,
+  },
+  semanticCorpus: {
+    totalQuestions: 800,
+    uniqueSemanticQuestions: 800,
+    totalOptions: 3200,
+    mobileReadableOptions: 3200,
+    correctAnswerBalance: { A: 200, B: 200, C: 200, D: 200 } as const,
+  },
+  verdict: "DISCOVERY_LEARNER_REVIEW_COMPLETED_NO_BLOCKER" as const,
+  governance: {
+    productOwnerApprovalGranted: false,
+    permanentEnglishFreezeGranted: false,
+    questionStudioRegistrationAuthorized: false,
+    mergeAuthorized: false,
+    deploymentAuthorized: false,
+    automaticPublicationAuthorized: false,
+  },
+  nextGate: "PERMANENT_QL_ALLOCATION_THEN_ENGLISH_RUNTIME_REVIEW" as const,
+} as const);
