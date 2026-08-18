@@ -7,7 +7,9 @@ import {
   multiplyPolynomials,
   polynomial,
   rational,
+  solveLinearSystem2V,
   verifyLinearPolynomialDivision,
+  verifyLinearSystemSolution,
   type Polynomial1,
   type Rational,
 } from "../../../../../../shared/algebra";
@@ -76,6 +78,11 @@ function signedKnownTerm(value: number, variable: string): string {
 function symbolicCubicText(c3: number, c1: number, c0: number): string {
   const leading = c3 === 1 ? "x³" : `${c3}x³`;
   return `${leading} + kx²${signedKnownTerm(c1, "x")}${signedKnownTerm(c0, "")}`;
+}
+
+function symbolicTwoCoefficientCubicText(c3: number, c0: number): string {
+  const leading = c3 === 1 ? "x³" : `${c3}x³`;
+  return `${leading} + kx² + mx${signedKnownTerm(c0, "")}`;
 }
 
 function divisionFor(value: Polynomial1, root: Rational) {
@@ -241,6 +248,45 @@ export function generateAlgCp005DiscoveryItem(candidateId: string, seed: number)
         answer: { kind: "BOOLEAN", value: isFactor },
         explanation: `By the Factor Theorem, ${xMinusRootText(root)} is a factor exactly when P(${root}) = 0. Here P(${root}) = ${formatRational(division.remainder)}, so the statement is ${isFactor ? "true" : "false"}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
+      };
+    }
+
+    case "findTwoCoefficientsFromTwoRemainderConditions": {
+      const root1 = nonZeroInt(seed, -5, 5, 1);
+      let root2 = nonZeroInt(seed, -5, 5, 2);
+      if (root2 === root1) root2 = root1 === 5 ? 4 : root1 + 1;
+      if (root2 === 0) root2 = root1 === 1 ? -1 : 1;
+      const c3 = pickInt(seed, 1, 3, 3);
+      const k = nonZeroInt(seed, -5, 5, 4);
+      const m = nonZeroInt(seed, -7, 7, 5);
+      const c0 = -(c3 * root1 ** 3 + k * root1 ** 2 + m * root1);
+      const value = polynomial("x", [rational(c0), rational(m), rational(k), rational(c3)]);
+      const firstDivision = divisionFor(value, rational(root1));
+      if (firstDivision.remainder.numerator !== 0n) throw new Error("First condition must be an exact factor");
+      const secondRemainder = evaluatePolynomial(value, rational(root2));
+
+      const system = {
+        a1: rational(root1 ** 2), b1: rational(root1), c1: rational(-c3 * root1 ** 3 - c0),
+        a2: rational(root2 ** 2), b2: rational(root2), c2: rational(Number(secondRemainder.numerator) - c3 * root2 ** 3 - c0),
+      };
+      if (secondRemainder.denominator !== 1n) throw new Error("Constructed second remainder should be integral");
+      system.c2 = rational(secondRemainder.numerator - BigInt(c3 * root2 ** 3 + c0));
+      const solved = solveLinearSystem2V(system);
+      if (solved.kind !== "UNIQUE" || !verifyLinearSystemSolution(system, solved.x, solved.y)) throw new Error("Two-condition coefficient system must be uniquely solvable");
+      if (!equalsRational(solved.x, rational(k)) || !equalsRational(solved.y, rational(m))) throw new Error("Recovered coefficients do not match construction");
+
+      return {
+        cpId: "ALG-CP-005",
+        candidateId,
+        solveMode: candidate.solveMode,
+        seed,
+        stem: `For P(x) = ${symbolicTwoCoefficientCubicText(c3, c0)}, ${xMinusRootText(root1)} is a factor and division by ${xMinusRootText(root2)} leaves remainder ${formatRational(secondRemainder)}. Find k and m.`,
+        polynomial: value,
+        divisor: { a: rational(1n), b: rational(-root1), root: rational(root1) },
+        answer: { kind: "COEFFICIENT_PAIR", k: solved.x, m: solved.y },
+        explanation: `The factor condition gives P(${root1}) = 0, while the second condition gives P(${root2}) = ${formatRational(secondRemainder)}. Substituting these two x-values creates two linear equations in k and m. Solving that system gives k = ${k} and m = ${m}. Both remainder conditions then verify exactly.`,
+        sourceStatus: "UNVERIFIED_DRAFT",
+        conditionEvidence: { secondRoot: rational(root2), secondRemainder },
       };
     }
   }
