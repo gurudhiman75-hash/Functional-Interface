@@ -85,6 +85,26 @@ function symbolicTwoCoefficientCubicText(c3: number, c0: number): string {
   return `${leading} + kx² + mx${signedKnownTerm(c0, "")}`;
 }
 
+function variableTerm(coefficient: number, variable: string, first: boolean): string {
+  if (coefficient === 0) return "";
+  const absolute = Math.abs(coefficient);
+  const magnitude = absolute === 1 ? variable : `${absolute}${variable}`;
+  if (first) return coefficient < 0 ? `-${magnitude}` : magnitude;
+  return ` ${coefficient < 0 ? "-" : "+"} ${magnitude}`;
+}
+
+function linearParameterEquationText(coefficient: number, constant: number, rhs: number): string {
+  const parameter = variableTerm(coefficient, "k", true);
+  const constantText = constant === 0 ? "" : ` ${constant < 0 ? "-" : "+"} ${Math.abs(constant)}`;
+  return `${parameter}${constantText} = ${rhs}`;
+}
+
+function twoCoefficientEquationText(kCoefficient: number, mCoefficient: number, rhs: number): string {
+  const kTerm = variableTerm(kCoefficient, "k", true);
+  const mTerm = variableTerm(mCoefficient, "m", kTerm.length === 0);
+  return `${kTerm}${mTerm} = ${rhs}`;
+}
+
 function divisionFor(value: Polynomial1, root: Rational) {
   const division = dividePolynomialByLinearFactor(value, root);
   if (!verifyLinearPolynomialDivision(value, division)) throw new Error("Generated polynomial division failed recomposition verification");
@@ -99,7 +119,7 @@ function remainderItem(candidateId: string, solveMode: AlgCp005DiscoveryItem["so
     cpId: "ALG-CP-005", candidateId, solveMode, seed, stem, polynomial: value,
     divisor: { a, b, root },
     answer: { kind: "RATIONAL", value: division.remainder },
-    explanation: `${explanationPrefix} Substituting gives P(${formatRational(root)}) = ${formatRational(division.remainder)}. Therefore the remainder is ${formatRational(division.remainder)}.`,
+    explanation: `${explanationPrefix} Substitute x = ${formatRational(root)} into P(x) = ${polynomialText(value)}. Exact evaluation gives P(${formatRational(root)}) = ${formatRational(division.remainder)}, so the remainder is ${formatRational(division.remainder)}.`,
     sourceStatus: "UNVERIFIED_DRAFT",
   };
 }
@@ -130,10 +150,13 @@ export function generateAlgCp005DiscoveryItem(candidateId: string, seed: number)
       const value = polynomial("x", [rational(c0), rational(c1), rational(k), rational(c3)]);
       const division = divisionFor(value, rational(root));
       if (division.remainder.numerator !== 0n) throw new Error("Constructed factor condition is not exact");
+      const kCoefficient = root ** 2;
+      const knownPart = c3 * root ** 3 + c1 * root + c0;
+      const isolated = -knownPart;
       return { cpId: "ALG-CP-005", candidateId, solveMode: candidate.solveMode, seed,
         stem: `If ${xMinusRootText(root)} is a factor of P(x) = ${symbolicCubicText(c3, c1, c0)}, find k.`, polynomial: value,
         divisor: { a: rational(1n), b: rational(-root), root: rational(root) }, answer: { kind: "RATIONAL", value: rational(k) },
-        explanation: `Because ${xMinusRootText(root)} is a factor, the Factor Theorem gives P(${root}) = 0. Substituting x = ${root} in ${symbolicCubicText(c3, c1, c0)} and solving the resulting linear equation gives k = ${k}. Synthetic division then gives remainder 0, confirming the factor.`, sourceStatus: "UNVERIFIED_DRAFT" };
+        explanation: `Because ${xMinusRootText(root)} is a factor, P(${root}) = 0. After substituting x = ${root}, the known terms combine to ${knownPart}, so ${linearParameterEquationText(kCoefficient, knownPart, 0)}. Hence ${variableTerm(kCoefficient, "k", true)} = ${isolated}, giving k = ${k}. Synthetic division then gives remainder 0, confirming the factor.`, sourceStatus: "UNVERIFIED_DRAFT" };
     }
 
     case "findUnknownCoefficientFromGivenRemainder": {
@@ -146,10 +169,13 @@ export function generateAlgCp005DiscoveryItem(candidateId: string, seed: number)
       const value = polynomial("x", [rational(c0), rational(c1), rational(k), rational(c3)]);
       const division = divisionFor(value, rational(root));
       if (!equalsRational(division.remainder, rational(wantedRemainder))) throw new Error("Constructed remainder condition is not exact");
+      const kCoefficient = root ** 2;
+      const knownPart = c3 * root ** 3 + c1 * root + c0;
+      const isolated = wantedRemainder - knownPart;
       return { cpId: "ALG-CP-005", candidateId, solveMode: candidate.solveMode, seed,
         stem: `When P(x) = ${symbolicCubicText(c3, c1, c0)} is divided by ${xMinusRootText(root)}, the remainder is ${wantedRemainder}. Find k.`, polynomial: value,
         divisor: { a: rational(1n), b: rational(-root), root: rational(root) }, answer: { kind: "RATIONAL", value: rational(k) },
-        explanation: `The Remainder Theorem gives P(${root}) = ${wantedRemainder}. Substitute x = ${root}, equate the result to ${wantedRemainder}, and solve the resulting linear equation. This gives k = ${k}. Substituting that value back reproduces the stated remainder.`, sourceStatus: "UNVERIFIED_DRAFT" };
+        explanation: `The Remainder Theorem gives P(${root}) = ${wantedRemainder}. Substitution combines the known terms to ${knownPart}, so ${linearParameterEquationText(kCoefficient, knownPart, wantedRemainder)}. Therefore ${variableTerm(kCoefficient, "k", true)} = ${isolated}, and k = ${k}. Substitution back gives the stated remainder exactly.`, sourceStatus: "UNVERIFIED_DRAFT" };
     }
 
     case "findRemainderForGeneralLinearDivisor": {
@@ -173,7 +199,7 @@ export function generateAlgCp005DiscoveryItem(candidateId: string, seed: number)
       return { cpId: "ALG-CP-005", candidateId, solveMode: candidate.solveMode, seed,
         stem: `Is ${xMinusRootText(root)} a factor of P(x) = ${polynomialText(value)}?`, polynomial: value,
         divisor: { a: rational(1n), b: rational(-root), root: rational(root) }, answer: { kind: "BOOLEAN", value: isFactor },
-        explanation: `By the Factor Theorem, ${xMinusRootText(root)} is a factor exactly when P(${root}) = 0. Here P(${root}) = ${formatRational(division.remainder)}, so the statement is ${isFactor ? "true" : "false"}.`, sourceStatus: "UNVERIFIED_DRAFT" };
+        explanation: `By the Factor Theorem, ${xMinusRootText(root)} is a factor exactly when P(${root}) = 0. Substituting x = ${root} into ${polynomialText(value)} gives P(${root}) = ${formatRational(division.remainder)}. Therefore the statement is ${isFactor ? "true" : "false"}.`, sourceStatus: "UNVERIFIED_DRAFT" };
     }
 
     case "findTwoCoefficientsFromTwoRemainderConditions": {
@@ -190,14 +216,18 @@ export function generateAlgCp005DiscoveryItem(candidateId: string, seed: number)
       if (firstDivision.remainder.numerator !== 0n) throw new Error("First condition must be an exact factor");
       const secondRemainder = evaluatePolynomial(value, rational(root2));
       if (secondRemainder.denominator !== 1n) throw new Error("Constructed second remainder should be integral");
-      const system = { a1: rational(root1 ** 2), b1: rational(root1), c1: rational(-c3 * root1 ** 3 - c0), a2: rational(root2 ** 2), b2: rational(root2), c2: rational(secondRemainder.numerator - BigInt(c3 * root2 ** 3 + c0)) };
+      const firstRhs = -c3 * root1 ** 3 - c0;
+      const secondRhs = Number(secondRemainder.numerator) - (c3 * root2 ** 3 + c0);
+      const system = { a1: rational(root1 ** 2), b1: rational(root1), c1: rational(firstRhs), a2: rational(root2 ** 2), b2: rational(root2), c2: rational(secondRhs) };
       const solved = solveLinearSystem2V(system);
       if (solved.kind !== "UNIQUE" || !verifyLinearSystemSolution(system, solved.x, solved.y)) throw new Error("Two-condition coefficient system must be uniquely solvable");
       if (!equalsRational(solved.x, rational(k)) || !equalsRational(solved.y, rational(m))) throw new Error("Recovered coefficients do not match construction");
+      const equation1 = twoCoefficientEquationText(root1 ** 2, root1, firstRhs);
+      const equation2 = twoCoefficientEquationText(root2 ** 2, root2, secondRhs);
       return { cpId: "ALG-CP-005", candidateId, solveMode: candidate.solveMode, seed,
         stem: `For P(x) = ${symbolicTwoCoefficientCubicText(c3, c0)}, ${xMinusRootText(root1)} is a factor and division by ${xMinusRootText(root2)} leaves remainder ${formatRational(secondRemainder)}. Find k and m.`, polynomial: value,
         divisor: { a: rational(1n), b: rational(-root1), root: rational(root1) }, answer: { kind: "COEFFICIENT_PAIR", k: solved.x, m: solved.y },
-        explanation: `The factor condition gives P(${root1}) = 0, while the second condition gives P(${root2}) = ${formatRational(secondRemainder)}. Substituting these two x-values creates two linear equations in k and m. Solving that system gives k = ${k} and m = ${m}. Both remainder conditions then verify exactly.`, sourceStatus: "UNVERIFIED_DRAFT", conditionEvidence: { secondRoot: rational(root2), secondRemainder } };
+        explanation: `The factor condition gives P(${root1}) = 0, which simplifies to ${equation1}. The second remainder condition gives P(${root2}) = ${formatRational(secondRemainder)}, which simplifies to ${equation2}. Solving these two linear equations gives k = ${k} and m = ${m}. Substitution verifies both original remainder conditions.`, sourceStatus: "UNVERIFIED_DRAFT", conditionEvidence: { secondRoot: rational(root2), secondRemainder } };
     }
 
     case "findParameterAndCommonRemainderAcrossPolynomials": {
@@ -216,6 +246,11 @@ export function generateAlgCp005DiscoveryItem(candidateId: string, seed: number)
       const second = polynomial("x", [rational(q0), rational(q1), rational(q2), rational(q3)]);
       const secondRemainder = evaluatePolynomial(second, rational(root));
       if (!equalsRational(commonRemainder, secondRemainder)) throw new Error("Equal-remainder construction mismatch");
+      if (commonRemainder.denominator !== 1n) throw new Error("Equal-remainder construction expects an integer remainder");
+      const kCoefficient = root ** 2;
+      const knownPart = p3 * root ** 3 + p1 * root + p0;
+      const rhs = Number(commonRemainder.numerator);
+      const isolated = rhs - knownPart;
 
       return {
         cpId: "ALG-CP-005", candidateId, solveMode: candidate.solveMode, seed,
@@ -223,7 +258,7 @@ export function generateAlgCp005DiscoveryItem(candidateId: string, seed: number)
         polynomial: first,
         divisor: { a: rational(1n), b: rational(-root), root: rational(root) },
         answer: { kind: "PARAMETER_REMAINDER", parameter: rational(k), remainder: commonRemainder },
-        explanation: `Equal remainders mean P(${root}) = Q(${root}). Substitute x = ${root} in both polynomials and solve the resulting linear equation for k; this gives k = ${k}. Substituting that value back gives the common remainder ${formatRational(commonRemainder)}.`,
+        explanation: `Equal remainders mean P(${root}) = Q(${root}). Evaluating Q(${root}) gives ${formatRational(commonRemainder)}. For P, the known terms total ${knownPart}, so ${linearParameterEquationText(kCoefficient, knownPart, rhs)}. Hence ${variableTerm(kCoefficient, "k", true)} = ${isolated}, giving k = ${k}. Substitution into either polynomial gives the common remainder ${formatRational(commonRemainder)}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
         equalRemainderEvidence: { secondPolynomial: second, parameterCoefficientDegree: 2, commonRemainder },
       };
