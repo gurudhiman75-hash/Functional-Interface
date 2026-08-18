@@ -1,5 +1,6 @@
 import { toWorStudentFacingQuestion } from "./editorial";
 import type { GeneratedWorQuestion, WorCheckpointId, WorDifficulty, WorLocale } from "./foundation/types";
+import { WOR_001_PERMANENT_QL_REGISTRY, worPermanentQlIdForPrototype } from "./permanent-ql-registry";
 import { WOR_001_ALL_CHECKPOINTS, WOR_001_ALL_PROTOTYPES, worPrototypesForCheckpoint } from "./prototype-registry";
 import { generateWor001Question } from "./runtime";
 
@@ -22,7 +23,8 @@ export const WOR_001_QUESTION_STUDIO_ADAPTER = {
   questionStudioVisible: false,
   questionStudioReviewVisible: true,
   publicReleaseEnabled: false,
-  permanentQlCount: 0,
+  permanentQlCount: WOR_001_PERMANENT_QL_REGISTRY.length,
+  permanentQlActivationStatus: "ALLOCATED_INACTIVE_PENDING_HUMAN_REVIEW" as const,
   checkpoints: WOR_001_ALL_CHECKPOINTS,
   controls: ["checkpoint", "prototype", "locale", "difficulty", "seed", "generate", "regenerate", "export-review"] as const,
   listPrototypes(checkpointId?: WorCheckpointId) {
@@ -30,6 +32,10 @@ export const WOR_001_QUESTION_STUDIO_ADAPTER = {
   },
   generate(prototypeId: string, seed: number, locale: WorLocale, difficulty?: WorDifficulty): WorQuestionStudioGeneratedQuestion {
     const question = toWorStudentFacingQuestion(generateWor001Question(prototypeId, seed, locale, difficulty));
-    return { ...question, questionStudioVisible: true };
+    return {
+      ...question,
+      permanentQlId: worPermanentQlIdForPrototype(prototypeId),
+      questionStudioVisible: true,
+    };
   },
 } as const;
