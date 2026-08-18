@@ -42,11 +42,28 @@ jobs:
       - name: Run 2304-case grammar V3 gate
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-grammar-v3.test.ts
       - name: Export final 192-record review pack
-        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-exam-realness-v2-review.ts
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-localization-exam-realness-v2-review.ts
+      - name: Verify final review artifact
+        run: |
+          JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/localization-exam-realness-v2/TRG-002-HI-PA-EXAM-REALNESS-REMEDIATION-V2.json
+          HTML=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/localization-exam-realness-v2/TRG-002-HI-PA-EXAM-REALNESS-REMEDIATION-V2.html
+          test -s "$JSON" && test -s "$HTML"
+          node - "$JSON" <<'NODE'
+          const fs = require('fs');
+          const rows = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+          if (rows.length !== 192) throw new Error(`Expected 192 grammar-remediated records, got ${rows.length}`);
+          if (new Set(rows.map((row) => row.qlId)).size !== 96) throw new Error('Expected all 96 QLs');
+          for (const row of rows) {
+            if (row.humanReviewStatus !== 'PENDING') throw new Error(`${row.qlId}:${row.locale}: human review must remain PENDING`);
+            if (row.freezeStatus !== 'NOT_FROZEN') throw new Error(`${row.qlId}:${row.locale}: multilingual freeze must remain OFF`);
+            if (row.activationAuthorized !== false) throw new Error(`${row.qlId}:${row.locale}: activation must remain OFF`);
+          }
+          console.log(`TRG002_GRAMMAR_V3_REVIEW_PACK_PASS records=${rows.length} qls=96 locales=2`);
+          NODE
       - name: Upload grammar-remediated review pack
         uses: actions/upload-artifact@v4
         with:
           name: trg-002-hi-pa-grammar-remediation-v3
-          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-realness-v2/
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/localization-exam-realness-v2/
           if-no-files-found: error
           retention-days: 14
