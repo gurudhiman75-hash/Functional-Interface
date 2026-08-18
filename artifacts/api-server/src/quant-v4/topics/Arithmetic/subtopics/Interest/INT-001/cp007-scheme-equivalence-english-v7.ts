@@ -33,25 +33,36 @@ function latexRatio(answer: string): string {
   return `$P_A:P_B=${answer}$`;
 }
 
+function replaceSinglePlainAnswer(step: string, answer: string, wrapped: string, label: string): string {
+  const token = `${answer}.`;
+  const parts = step.split(token);
+  if (parts.length !== 2) {
+    throw new Error(`${label}: expected exactly one plain final-answer token, found ${parts.length - 1}`);
+  }
+  return `${parts[0]}${wrapped}.${parts[1]}`;
+}
+
 function completeResultWrapping(question: IntCp007EnglishQuestionV6): IntCp007EnglishQuestionV6["explanation"] {
   const steps = [...question.explanation.steps];
 
   if (question.qlId === "INT-QL-111") {
-    const plain = `The required annual rate is ${question.correctAnswer}.`;
-    const wrapped = `The required annual rate is ${latexPercent(question.correctAnswer)}.`;
-    if (!steps[4]?.includes(plain)) {
-      throw new Error(`${question.qlId}/${question.seed}: V7 could not find the plain final-rate sentence`);
-    }
-    steps[4] = steps[4]!.replace(plain, wrapped);
+    if (!steps[4]) throw new Error(`${question.qlId}/${question.seed}: V7 missing final rate step`);
+    steps[4] = replaceSinglePlainAnswer(
+      steps[4],
+      question.correctAnswer,
+      latexPercent(question.correctAnswer),
+      `${question.qlId}/${question.seed}: final rate`,
+    );
   }
 
   if (question.qlId === "INT-QL-113") {
-    const plain = `Hence Principal A : Principal B is ${question.correctAnswer}.`;
-    const wrapped = `Hence the required present-principal ratio is ${latexRatio(question.correctAnswer)}.`;
-    if (!steps[4]?.includes(plain)) {
-      throw new Error(`${question.qlId}/${question.seed}: V7 could not find the plain final-ratio sentence`);
-    }
-    steps[4] = steps[4]!.replace(plain, wrapped);
+    if (!steps[4]) throw new Error(`${question.qlId}/${question.seed}: V7 missing final ratio step`);
+    steps[4] = replaceSinglePlainAnswer(
+      steps[4],
+      question.correctAnswer,
+      latexRatio(question.correctAnswer),
+      `${question.qlId}/${question.seed}: final ratio`,
+    );
   }
 
   return deepFreeze({
