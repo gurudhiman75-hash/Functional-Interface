@@ -44,6 +44,10 @@ function absoluteText(a: number, b: number): string {
   return `|${linearText(a, b)}|`;
 }
 
+function signedSumText(left: number, right: number): string {
+  return `${left} ${right < 0 ? "-" : "+"} ${Math.abs(right)}`;
+}
+
 export function generateAlgCp013DiscoveryItem(candidateId: string, seed: number): AlgCp013DiscoveryItem {
   const candidate = getAlgCp013Candidate(candidateId);
 
@@ -53,12 +57,14 @@ export function generateAlgCp013DiscoveryItem(candidateId: string, seed: number)
       const distance = pickInt(seed, 1, 7, 2);
       const inside = center < 0 ? `x + ${Math.abs(center)}` : `x - ${center}`;
       const solution = solveAbsoluteLinearEquation(rational(1n), rational(-center), rational(distance));
+      const first = center + distance;
+      const second = center - distance;
       return {
         cpId: "ALG-CP-013", candidateId, solveMode: candidate.solveMode, seed,
         stem: `Solve |${inside}| = ${distance}.`,
         math: { kind: "ABS_EQUATION", a: rational(1n), b: rational(-center), rhs: rational(distance) },
         answer: { kind: "ABSOLUTE_SOLUTION", value: solution, text: formatAbsoluteEquationSolution(solution) },
-        explanation: `The absolute value equals ${distance}, so the expression inside can be ${distance} or -${distance}. Solve ${inside} = ${distance} and ${inside} = -${distance}. The two branches give ${formatAbsoluteEquationSolution(solution)}.`,
+        explanation: `The expression inside the absolute value can be ${distance} or -${distance}. Thus ${inside} = ${distance} gives x = ${center} + ${distance} = ${first}, while ${inside} = -${distance} gives x = ${center} - ${distance} = ${second}. Therefore ${formatAbsoluteEquationSolution(solution)}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -68,12 +74,14 @@ export function generateAlgCp013DiscoveryItem(candidateId: string, seed: number)
       const b = pickInt(seed, -9, 9, 2);
       const rhs = pickInt(seed, 1, 9, 3);
       const solution = solveAbsoluteLinearEquation(rational(a), rational(b), rational(rhs));
+      const first = rational(rhs - b, a);
+      const second = rational(-rhs - b, a);
       return {
         cpId: "ALG-CP-013", candidateId, solveMode: candidate.solveMode, seed,
         stem: `Solve ${absoluteText(a, b)} = ${rhs}.`,
         math: { kind: "ABS_EQUATION", a: rational(a), b: rational(b), rhs: rational(rhs) },
         answer: { kind: "ABSOLUTE_SOLUTION", value: solution, text: formatAbsoluteEquationSolution(solution) },
-        explanation: `For an absolute value to equal ${rhs}, the expression inside can be ${rhs} or -${rhs}. Solve ${linearText(a, b)} = ${rhs} and ${linearText(a, b)} = -${rhs}. This gives ${formatAbsoluteEquationSolution(solution)}.`,
+        explanation: `Use two branches. From ${linearText(a, b)} = ${rhs}, we get ${a === 1 ? "x" : a === -1 ? "-x" : `${a}x`} = ${rhs - b}, so x = ${formatRational(first)}. From ${linearText(a, b)} = -${rhs}, we get ${a === 1 ? "x" : a === -1 ? "-x" : `${a}x`} = ${-rhs - b}, so x = ${formatRational(second)}. Therefore ${formatAbsoluteEquationSolution(solution)}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -82,12 +90,13 @@ export function generateAlgCp013DiscoveryItem(candidateId: string, seed: number)
       const a = nonZeroInt(seed, -6, 6, 1);
       const b = nonZeroInt(seed, -10, 10, 2);
       const solution = solveAbsoluteLinearEquation(rational(a), rational(b), rational(0n));
+      const root = rational(-b, a);
       return {
         cpId: "ALG-CP-013", candidateId, solveMode: candidate.solveMode, seed,
         stem: `Solve ${absoluteText(a, b)} = 0.`,
         math: { kind: "ABS_EQUATION", a: rational(a), b: rational(b), rhs: rational(0n) },
         answer: { kind: "ABSOLUTE_SOLUTION", value: solution, text: formatAbsoluteEquationSolution(solution) },
-        explanation: `An absolute value is zero only when the expression inside it is exactly zero. Therefore solve ${linearText(a, b)} = 0, which gives ${formatAbsoluteEquationSolution(solution)}.`,
+        explanation: `An absolute value is zero only when its inside expression is zero. So ${linearText(a, b)} = 0, hence ${a === 1 ? "x" : a === -1 ? "-x" : `${a}x`} = ${-b} and x = ${formatRational(root)}. Therefore ${formatAbsoluteEquationSolution(solution)}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -118,7 +127,7 @@ export function generateAlgCp013DiscoveryItem(candidateId: string, seed: number)
         stem: `Solve ${absoluteText(a, b)} ${relationSymbol(operator)} ${rhs}.`,
         math: { kind: "ABS_INEQUALITY", a: rational(a), b: rational(b), rhs: rational(rhs), operator },
         answer: { kind: "INTERVAL_SET", value: set, text: formatIntervalSet(set) },
-        explanation: `Being ${operator === "LT" ? "less than" : "at most"} ${rhs} means the inside expression must stay between -${rhs} and ${rhs}. Solve -${rhs} ${operator === "LT" ? "<" : "≤"} ${linearText(a, b)} ${operator === "LT" ? "<" : "≤"} ${rhs}. The resulting interval is ${formatIntervalSet(set)}.`,
+        explanation: `Being ${operator === "LT" ? "less than" : "at most"} ${rhs} means the inside expression must stay between -${rhs} and ${rhs}. Solve -${rhs} ${operator === "LT" ? "<" : "≤"} ${linearText(a, b)} ${operator === "LT" ? "<" : "≤"} ${rhs}. Solving this compound inequality for x gives ${formatIntervalSet(set)}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -134,7 +143,7 @@ export function generateAlgCp013DiscoveryItem(candidateId: string, seed: number)
         stem: `Solve ${absoluteText(a, b)} ${relationSymbol(operator)} ${rhs}.`,
         math: { kind: "ABS_INEQUALITY", a: rational(a), b: rational(b), rhs: rational(rhs), operator },
         answer: { kind: "INTERVAL_SET", value: set, text: formatIntervalSet(set) },
-        explanation: `The absolute value is ${operator === "GT" ? "greater than" : "at least"} ${rhs} when the inside expression lies beyond either boundary: ${linearText(a, b)} ${operator === "GT" ? ">" : "≥"} ${rhs} or ${linearText(a, b)} ${operator === "GT" ? "<" : "≤"} -${rhs}. Solving both branches gives ${formatIntervalSet(set)}.`,
+        explanation: `The absolute value is ${operator === "GT" ? "greater than" : "at least"} ${rhs} when the inside expression lies beyond either boundary: ${linearText(a, b)} ${operator === "GT" ? ">" : "≥"} ${rhs} or ${linearText(a, b)} ${operator === "GT" ? "<" : "≤"} -${rhs}. Solving both linear branches and taking their union gives ${formatIntervalSet(set)}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -161,12 +170,13 @@ export function generateAlgCp013DiscoveryItem(candidateId: string, seed: number)
       let right = nonZeroInt(seed, -8, 9, 2);
       if (left === right) right = left === 9 ? 8 : left + 1;
       const solution = solveEqualAbsoluteDistances(rational(left), rational(right));
+      const midpoint = solution.kind === "FINITE" ? formatRational(solution.values[0]!) : "undefined";
       return {
         cpId: "ALG-CP-013", candidateId, solveMode: candidate.solveMode, seed,
         stem: `Solve |x ${left < 0 ? "+" : "-"} ${Math.abs(left)}| = |x ${right < 0 ? "+" : "-"} ${Math.abs(right)}|.`,
         math: { kind: "EQUAL_DISTANCE", leftCenter: rational(left), rightCenter: rational(right) },
         answer: { kind: "ABSOLUTE_SOLUTION", value: solution, text: formatAbsoluteEquationSolution(solution) },
-        explanation: `The two absolute values are the distances from x to ${left} and ${right}. A point is equally distant from two distinct numbers only at their midpoint. Their midpoint is (${left} + ${right})/2 = ${solution.kind === "FINITE" ? formatRational(solution.values[0]!) : "undefined"}, so ${formatAbsoluteEquationSolution(solution)}.`,
+        explanation: `The two absolute values are the distances from x to ${left} and ${right}. An equally distant point lies at their midpoint: (${signedSumText(left, right)})/2 = ${midpoint}. Therefore ${formatAbsoluteEquationSolution(solution)}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
