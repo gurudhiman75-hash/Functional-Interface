@@ -75,14 +75,33 @@ export interface QuestionStudioDashboard {
   generatedAt: string;
 }
 
+export interface GenerationCanonicalProblem {
+  id: string;
+  label: string;
+}
+
 export interface GenerationPackage {
   packageId: string;
   topic: string;
   subtopic: string;
+  subject?: string;
   label: string;
   enabled: boolean;
   cpIds: string[];
+  canonicalProblems?: GenerationCanonicalProblem[];
+  supportedDifficulties?: string[];
   supportedLanguages: string[];
+  supportedExamProfiles?: string[];
+  runtimeMode?: string;
+  supportedRuntimeModes?: string[];
+  reviewOnly?: boolean;
+  releaseFreezeStatus?: string;
+  permanentQlCount?: number;
+  permanentQlRange?: string;
+  questionBankStatus?: string;
+  questionBankWritable?: boolean;
+  testEligibility?: string;
+  publiclyPublishable?: boolean;
 }
 
 export interface QuestionStudioCapabilities {
@@ -105,6 +124,9 @@ export interface CreateGenerationRunInput {
   language: string;
   seed?: string;
   canonicalProblemId?: string;
+  cpId?: string;
+  questionLanguageId?: string;
+  examProfileId?: string;
 }
 
 export interface ConvertedQuestion {
@@ -172,6 +194,19 @@ function probabilityExamProfile(exam: string) {
   return 'GENERIC_PRACTICE';
 }
 
+function rankingExamProfile(exam: string) {
+  const value = exam.trim().toLowerCase();
+  if (/ssc\s+cgl/.test(value)) return 'SSC_CGL_T1';
+  if (/ssc\s+chsl/.test(value)) return 'SSC_CHSL_T1';
+  if (/ssc\s+mts/.test(value)) return 'SSC_MTS';
+  if (/ibps\s+po/.test(value)) return 'IBPS_PO_PRE';
+  if (/ibps\s+clerk/.test(value)) return 'IBPS_CLERK_PRE';
+  if (/punjab.*psssb.*clerk|psssb.*clerk/.test(value)) return 'PUNJAB_PSSSB_CLERK';
+  if (/punjab.*excise.*inspector|excise.*inspector/.test(value)) return 'PUNJAB_EXCISE_INSP';
+  if (/punjab.*police/.test(value)) return 'PUNJAB_POLICE';
+  return 'CHAPTER_COVERAGE';
+}
+
 export function getQuestionStudioCapabilities() {
   return adminRequest<QuestionStudioCapabilities>(
     '/admin/question-studio/capabilities',
@@ -189,9 +224,17 @@ export function getQuestionStudioDashboard() {
 }
 
 export function createGenerationRun(input: CreateGenerationRunInput) {
-  const body = input.packageId === 'PRB-001' || input.packageId === 'PRB-002'
-    ? { ...input, runtimeMode: probabilityExamProfile(input.exam) }
-    : input;
+  let body: CreateGenerationRunInput = input;
+  if (input.packageId === 'PRB-001' || input.packageId === 'PRB-002') {
+    body = { ...input, runtimeMode: probabilityExamProfile(input.exam) } as CreateGenerationRunInput & { runtimeMode: string };
+  } else if (input.packageId === 'RNK-001') {
+    body = {
+      ...input,
+      subject: 'Reasoning Ability',
+      examProfileId: input.examProfileId ?? rankingExamProfile(input.exam),
+    };
+  }
+
   return adminRequest<{
     id: string;
     publicCode: string;
