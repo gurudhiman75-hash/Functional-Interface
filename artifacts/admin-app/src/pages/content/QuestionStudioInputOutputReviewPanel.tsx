@@ -20,16 +20,22 @@ import { useQuestionStudio } from '@/features/question-studio/useQuestionStudio'
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 
 const IOP_PACKAGE_ID = 'IOP-001';
+type IopDifficulty = 'Easy' | 'Medium' | 'Hard';
 
-const IOP_FAMILIES: Record<string, { label: string; difficulty: 'Easy' | 'Medium' | 'Hard' }> = {
-  'IOP-QL-001': { label: 'Single Select-and-Fix Rearrangement', difficulty: 'Easy' },
-  'IOP-QL-002': { label: 'Blocked Multi-Category Rearrangement', difficulty: 'Medium' },
-  'IOP-QL-003': { label: 'Simultaneous Multi-Action Rearrangement', difficulty: 'Medium' },
-  'IOP-QL-004': { label: 'Alternating / Interleaved Rearrangement', difficulty: 'Medium' },
-  'IOP-QL-005': { label: 'Numeric Transformation Pipeline', difficulty: 'Hard' },
-  'IOP-QL-006': { label: 'Text / Alphanumeric Transformation Pipeline', difficulty: 'Hard' },
-  'IOP-QL-007': { label: 'Mixed Word–Number Transformed-Pair Machine', difficulty: 'Hard' },
-  'IOP-QL-008': { label: 'Box / Table Arithmetic Machine', difficulty: 'Hard' },
+type IopFamily = {
+  label: string;
+  difficulties: readonly IopDifficulty[];
+};
+
+const IOP_FAMILIES: Record<string, IopFamily> = {
+  'IOP-QL-001': { label: 'Single Select-and-Fix Rearrangement', difficulties: ['Easy', 'Medium'] },
+  'IOP-QL-002': { label: 'Blocked Multi-Category Rearrangement', difficulties: ['Medium'] },
+  'IOP-QL-003': { label: 'Simultaneous Multi-Action Rearrangement', difficulties: ['Medium'] },
+  'IOP-QL-004': { label: 'Alternating / Interleaved Rearrangement', difficulties: ['Medium'] },
+  'IOP-QL-005': { label: 'Numeric Transformation Pipeline', difficulties: ['Hard'] },
+  'IOP-QL-006': { label: 'Text / Alphanumeric Transformation Pipeline', difficulties: ['Hard'] },
+  'IOP-QL-007': { label: 'Mixed Word–Number Transformed-Pair Machine', difficulties: ['Hard'] },
+  'IOP-QL-008': { label: 'Box / Table Arithmetic Machine', difficulties: ['Hard'] },
 };
 
 const LANGUAGE_LABELS: Record<string, string> = {
@@ -65,6 +71,7 @@ export function QuestionStudioInputOutputReviewPanel() {
 
   const [exam, setExam] = useState(EXAMS[0]?.code ?? 'SSC_CGL');
   const [familyId, setFamilyId] = useState('');
+  const [difficulty, setDifficulty] = useState<IopDifficulty>('Easy');
   const [language, setLanguage] = useState('en');
   const [count, setCount] = useState(10);
   const [seed, setSeed] = useState('');
@@ -84,12 +91,18 @@ export function QuestionStudioInputOutputReviewPanel() {
     if (familyId && !availableFamilies.includes(familyId)) setFamilyId(availableFamilies[0] ?? '');
   }, [availableFamilies, familyId]);
 
+  const family = familyId ? IOP_FAMILIES[familyId] : undefined;
+
+  useEffect(() => {
+    if (!family) return;
+    if (!family.difficulties.includes(difficulty)) setDifficulty(family.difficulties[0]);
+  }, [difficulty, family]);
+
   useEffect(() => {
     const supported = pkg?.supportedLanguages ?? ['en'];
     if (!supported.includes(language)) setLanguage(supported[0] ?? 'en');
   }, [language, pkg]);
 
-  const family = familyId ? IOP_FAMILIES[familyId] : undefined;
   const iopRuns = useMemo(
     () => dashboard.runs.filter((run) => run.requestSnapshot?.packageId === IOP_PACKAGE_ID),
     [dashboard.runs],
@@ -106,7 +119,7 @@ export function QuestionStudioInputOutputReviewPanel() {
       const result = await generate({
         exam: selectedExam?.name ?? exam,
         subject: 'Reasoning Ability',
-        difficulty: family.difficulty,
+        difficulty,
         count: Math.min(capabilities.maxBatchSize, Math.max(1, count)),
         packageId: IOP_PACKAGE_ID,
         canonicalProblemId: familyId,
@@ -118,7 +131,7 @@ export function QuestionStudioInputOutputReviewPanel() {
       window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
       showToast.success(
         'Input–Output review run created',
-        `${result.publicCode} produced ${result.itemCount} ${familyId} question(s).`,
+        `${result.publicCode} produced ${result.itemCount} ${familyId} ${difficulty} question(s).`,
       );
     } catch (caught) {
       showToast.error(
@@ -143,7 +156,7 @@ export function QuestionStudioInputOutputReviewPanel() {
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate exam-style Machine Input–Output questions from the approved English, Hindi and Punjabi authorities. Choose the machine family first; its reviewed difficulty band is applied automatically. Generated items enter the normal Question Studio review queue only.
+          Generate exam-style Machine Input–Output questions from the approved English, Hindi and Punjabi authorities. Choose a machine family and one of its valid reviewed difficulty bands. Generated items enter the normal Question Studio review queue only.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -190,7 +203,12 @@ export function QuestionStudioInputOutputReviewPanel() {
               </Select>
             </Field>
             <Field label="Difficulty">
-              <Input value={family?.difficulty ?? ''} readOnly aria-readonly="true" />
+              <Select value={difficulty} onValueChange={(value) => setDifficulty(value as IopDifficulty)} disabled={!family || family.difficulties.length === 1}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {(family?.difficulties ?? ['Easy']).map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}
+                </SelectContent>
+              </Select>
             </Field>
             <Field label="Language">
               <Select value={language} onValueChange={setLanguage}>
@@ -218,7 +236,7 @@ export function QuestionStudioInputOutputReviewPanel() {
             {generating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Database className="mr-2 h-4 w-4" />}
             {generating ? 'Generating…' : 'Create IOP review run'}
           </Button>
-          {family && <span className="text-xs text-muted-foreground">{familyId} · {family.label} · {family.difficulty}</span>}
+          {family && <span className="text-xs text-muted-foreground">{familyId} · {family.label} · {difficulty}</span>}
         </div>
       </CardContent>
     </Card>
