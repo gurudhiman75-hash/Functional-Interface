@@ -45,6 +45,8 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-canonical.test.ts
       - name: Verify Wave1 physical scenario text
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-wave1-surface.test.ts
+      - name: Verify rooftop physical-support diagrams
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-physical-support.test.ts
       - name: Verify 2304 V4 candidate cases
         run: |
           pnpm dlx tsx -e '
@@ -77,12 +79,13 @@ jobs:
           const pack=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
           if(pack.records.length!==96) throw new Error(`Expected 96 tri-language records, got ${pack.records.length}`);
           if(pack.records.filter((r)=>r.v4CanonicalOverride).length!==5) throw new Error('Expected 5 V4 canonical overrides after redesign wave two');
+          if(pack.records.filter((r)=>r.v4PhysicalSupportMigrated).length!==4) throw new Error('Expected 4 V4 rooftop physical-support state migrations');
           for(const row of pack.records){
             if(!('solutionDiagram' in row)) throw new Error(`${row.qlId}: missing solutionDiagram`);
             if(!('diagramEvidence' in row)) throw new Error(`${row.qlId}: missing diagramEvidence`);
             if(row.lifecycle.multilingualFreezeGranted!==false||row.lifecycle.activationAuthorized!==false) throw new Error(`${row.qlId}: V4 lifecycle lock regression`);
           }
-          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} canonicalOverrides=5`);
+          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} canonicalOverrides=5 physicalSupportMigrations=4`);
           NODE
       - name: Upload V4 audit and review pack
         uses: actions/upload-artifact@v4
