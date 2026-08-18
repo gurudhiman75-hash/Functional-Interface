@@ -57,7 +57,7 @@ jobs:
           name: spa-pfc-001-foundation-v1
           path: |
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-foundation-v1-evidence.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-discovery-v2-evidence.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-discovery-v2-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-discovery-v3-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-discovery-v3-review.html
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-discovery-audit-v1-evidence.json
           if-no-files-found: error
