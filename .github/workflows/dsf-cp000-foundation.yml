@@ -42,7 +42,8 @@ jobs:
             dsf-cp000-number-system-discovery.test.ts \
             dsf-cp000-cross-domain-discovery.test.ts \
             dsf-cp000-source-pattern-audit.test.ts \
-            dsf-cp000-ownership-ql-boundary.test.ts
+            dsf-cp000-ownership-ql-boundary.test.ts \
+            dsf-cp000-freeze-allocation.test.ts
           do
             output="${test%.ts}.mjs"
             pnpm --dir artifacts/api-server exec esbuild \
@@ -58,3 +59,4 @@ jobs:
           node dist/reasoning-v1/dsf/dsf-cp000-cross-domain-discovery.test.mjs
           node dist/reasoning-v1/dsf/dsf-cp000-source-pattern-audit.test.mjs
           node dist/reasoning-v1/dsf/dsf-cp000-ownership-ql-boundary.test.mjs
+          node dist/reasoning-v1/dsf/dsf-cp000-freeze-allocation.test.mjs
