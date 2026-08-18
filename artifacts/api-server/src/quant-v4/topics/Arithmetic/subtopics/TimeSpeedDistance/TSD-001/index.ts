@@ -45,7 +45,7 @@ export * from "./cp005/authority-overlap-audit";
 export * from "./cp005/final-ownership-candidate";
 export * from "./cp005/approved-authority-registry";
 export * from "./cp005/ql-allocation";
-export * from "./cp005/english-review-runtime-v7";
+export * from "./cp005/english-review-runtime-v8";
 export * from "./authority-overlap-audit";
 export * from "./final-authority-registry";
 export * from "./final-authority-review";
