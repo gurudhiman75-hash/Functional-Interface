@@ -1,0 +1,65 @@
+name: Validate RNK-001 CP001 Native Editorial V4
+
+on:
+  push:
+    branches:
+      - feature/rnk-cp001-localization-review-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-cp001-localization-review-v4.yml'
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-cp001-localization-review-v4.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: rnk-001-cp001-native-editorial-v4-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-cp001-native-editorial-v4:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove V4 natural visible count labels and semantic invariance
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-localization-review-v4.test.ts
+
+      - name: Re-prove V3 boundary-safe ordinal baseline
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-localization-review-v3.test.ts
+
+      - name: Re-prove V2 grammar context and evidence-only baseline
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-localization-review-v2.test.ts
+
+      - name: Re-prove V1 semantic baseline
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-localization-review-v1.test.ts
+
+      - name: Generate V4 human-review pack
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-localization-review-export-v4.ts /tmp/RNK-CP-001-HI-PA-LOCALIZATION-REVIEW-V4-108Q.md
+
+      - name: Retain V4 human-review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-cp001-hi-pa-native-editorial-v4-108q
+          path: /tmp/RNK-CP-001-HI-PA-LOCALIZATION-REVIEW-V4-108Q.md
+          if-no-files-found: error
+
+      - name: Re-prove CP001 frozen English permanent runtime
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-permanent-runtime.test.ts
+
+      - name: Re-prove chapter-wide English closure
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+
+      - name: Re-prove Ranking Object Pool V2
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/foundation/rnk-object-pool-v2.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
