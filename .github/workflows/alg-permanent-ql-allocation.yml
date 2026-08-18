@@ -8,9 +8,11 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/**
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-allocation.test.ts
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/ALG-FINAL-RETAINED-CONTRACT-MATRIX.md
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/ALG-FINAL-SOURCE-FIXTURE-LEDGER.md
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/ALG-FINAL-SOURCE-GAP-AUDIT.md
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/ALG-FREEZE-REOPEN-AUDIT-V2.md
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/ALG-FINAL-RETAINED-CONTRACT-MATRIX-V2.md
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/ALG-FINAL-SOURCE-FIXTURE-LEDGER-V2.md
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/ALG-FINAL-SOURCE-GAP-AUDIT-V2.md
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/ALG-PERMANENT-QL-ALLOCATION-V2.md
       - .github/workflows/alg-permanent-ql-allocation.yml
   workflow_dispatch:
 
