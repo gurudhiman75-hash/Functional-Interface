@@ -2,6 +2,7 @@ import {
   generateQuestion as generateQuantQuestionStudioQuestion,
   listQuantV4Packages,
 } from "../quant-v4/question-studio-review-engine";
+import type { WorCheckpointId } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/foundation/types";
 import {
   buildWor001QuestionStudioPayload,
   WOR_001_QUESTION_STUDIO_RELEASE_FREEZE,
@@ -11,6 +12,7 @@ import {
   previewWor001QuestionStudioReview,
   type WorQuestionStudioDifficulty,
   type WorQuestionStudioLanguage,
+  type WorQuestionStudioReviewQuestion,
 } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/question-studio-review";
 
 export type SharedQuestionStudioGenerationRequest = {
@@ -65,6 +67,31 @@ function normalizeWorLanguage(value: unknown): WorQuestionStudioLanguage {
   throw new Error(`WOR-001 does not support Question Studio language ${language}.`);
 }
 
+function stableHash(value: string): number {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619) >>> 0;
+  }
+  return hash >>> 0;
+}
+
+function orderedWorPrototypeIds(
+  batchSeed: string,
+  difficulty: WorQuestionStudioDifficulty | undefined,
+): string[] {
+  const prototypes = WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.prototypes.filter((prototype) =>
+    !difficulty || prototype.supportedDifficulties.includes(difficulty),
+  );
+  return [...prototypes]
+    .sort((left, right) => {
+      const leftRank = stableHash(`${batchSeed}:prototype:${left.prototypeId}`);
+      const rightRank = stableHash(`${batchSeed}:prototype:${right.prototypeId}`);
+      return leftRank - rightRank || left.prototypeId.localeCompare(right.prototypeId);
+    })
+    .map((prototype) => prototype.prototypeId);
+}
+
 function worPackageCapability() {
   const pkg = WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE;
   return {
@@ -114,23 +141,48 @@ export function listQuestionStudioPackages() {
 async function generateWor001QuestionStudioQuestions(request: SharedQuestionStudioGenerationRequest) {
   const language = normalizeWorLanguage(request.language);
   const difficulty = normalizeWorDifficulty(request.difficulty);
-  const prototypeId = String(request.patternId ?? "").startsWith("WOR-PROT-")
+  const requestedPrototypeId = String(request.patternId ?? "").startsWith("WOR-PROT-")
     ? String(request.patternId)
     : String(request.canonicalProblemId ?? "").startsWith("WOR-PROT-")
       ? String(request.canonicalProblemId)
       : undefined;
+  const checkpointSelector = String(request.cpId ?? request.canonicalProblemId ?? "");
+  const checkpointId: WorCheckpointId | undefined = checkpointSelector.startsWith("WOR-CP-")
+    ? checkpointSelector as WorCheckpointId
+    : undefined;
   const count = Math.min(50, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
   const batchSeed = request.seed?.trim()
     || `question-studio:WOR-001:${language}:${Date.now()}:${Math.random().toString(36).slice(2)}`;
 
-  const preview = previewWor001QuestionStudioReview({
-    language,
-    prototypeId,
-    difficulty,
-    seed: batchSeed,
-    count,
-  });
-  const questions = preview.questions.map((question) => buildWor001QuestionStudioPayload(question));
+  let questionPackages: readonly WorQuestionStudioReviewQuestion[];
+  if (requestedPrototypeId || checkpointId) {
+    questionPackages = previewWor001QuestionStudioReview({
+      language,
+      checkpointId,
+      prototypeId: requestedPrototypeId,
+      difficulty,
+      seed: batchSeed,
+      count,
+    }).questions;
+  } else {
+    const prototypeIds = orderedWorPrototypeIds(batchSeed, difficulty);
+    if (prototypeIds.length === 0) {
+      throw new Error("No WOR-001 prototypes support the requested difficulty.");
+    }
+    questionPackages = Array.from({ length: count }, (_, index) => {
+      const prototypeId = prototypeIds[index % prototypeIds.length]!;
+      const preview = previewWor001QuestionStudioReview({
+        language,
+        prototypeId,
+        difficulty,
+        seed: `${batchSeed}:item:${index}`,
+        count: 1,
+      });
+      return preview.questions[0]!;
+    });
+  }
+
+  const questions = questionPackages.map((question) => buildWor001QuestionStudioPayload(question));
 
   return {
     generationContext: {
@@ -154,8 +206,10 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
       automaticStudentPublication: false,
       releaseFreezeStatus: WOR_001_QUESTION_STUDIO_RELEASE_FREEZE,
       language,
+      checkpointId: checkpointId ?? null,
+      prototypeId: requestedPrototypeId ?? null,
     },
-    questionPackages: preview.questions,
+    questionPackages,
     questions,
   };
 }

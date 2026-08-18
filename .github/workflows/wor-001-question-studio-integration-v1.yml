@@ -5,6 +5,7 @@ on:
     branches:
       - fix/wor-001-shared-question-studio-only
       - feature/wor-001-permanent-ql-freeze-v1
+      - fix/wor-001-question-studio-self-review-v1
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**'
       - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
