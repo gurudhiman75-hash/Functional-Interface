@@ -35,6 +35,7 @@ export * from "./cp004/final-ownership-candidate";
 export * from "./cp004/ql-allocation";
 export * from "./cp004/runtime-types";
 export * from "./cp004/runtime-engine";
+export * from "./cp004/english-approved-freeze";
 export * from "./authority-overlap-audit";
 export * from "./final-authority-registry";
 export * from "./final-authority-review";
