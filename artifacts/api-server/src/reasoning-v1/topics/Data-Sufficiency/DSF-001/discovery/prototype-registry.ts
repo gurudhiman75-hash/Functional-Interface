@@ -1,5 +1,5 @@
 export type DsDiscoveryDomainFamily = "QUANT" | "REASONING";
-export type DsDiscoveryStatus = "EXISTING_RUNTIME_TO_AUDIT" | "PROTOTYPE_REQUIRED" | "DEFERRED";
+export type DsDiscoveryStatus = "EXECUTABLE_PROTOTYPE" | "EXISTING_RUNTIME_TO_AUDIT" | "PROTOTYPE_REQUIRED" | "DEFERRED";
 
 export interface DsDiscoveryPrototype {
   readonly prototypeId: string;
@@ -21,11 +21,11 @@ export const DSF_DISCOVERY_PROTOTYPES: readonly DsDiscoveryPrototype[] = [
     prototypeId: "DSF-PROT-001",
     domainFamily: "QUANT",
     sourceChapter: "Number System",
-    sourcePath: "quant-v4/topics/Arithmetic/subtopics/NumberSystem",
-    targetKinds: ["INTEGER", "DIVISIBILITY_PROPERTY", "REMAINDER", "COUNT"],
-    status: "EXISTING_RUNTIME_TO_AUDIT",
+    sourcePath: "quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/foundation/divisibility.ts",
+    targetKinds: ["MISSING_DIGIT", "DIGIT_PARITY", "DIVISIBILITY_PROPERTY", "REMAINDER", "COUNT"],
+    status: "EXECUTABLE_PROTOTYPE",
     permanentQlId: null,
-    notes: "Existing Number System DS assets should be audited for reusable target-set and statement semantics.",
+    notes: "Executable adapter now reuses NUM-001 divisibility helpers and routes all sufficiency truth through the shared DSF target-projection evaluator.",
   },
   {
     prototypeId: "DSF-PROT-002",
