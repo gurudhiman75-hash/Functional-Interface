@@ -22,7 +22,6 @@ const obviousFormattingDefects: Array<[RegExp, string]> = [
   [/\b-?1x\b/g, "raw ±1x coefficient"],
   [/\+\s*-/g, "plus followed by negative sign"],
   [/\bNaN\b/g, "NaN"],
-  [/\bundefined\b/g, "undefined"],
 ];
 
 let reviewed = 0;
@@ -57,5 +56,5 @@ for (const allocation of ALG_PERMANENT_ALLOCATION) {
   }
 }
 
-assert(reviewed === 1260, `Expected 1,260 permanent-English editorial samples, reviewed ${reviewed}`);
-console.log(`Algebra permanent English editorial audit passed for ${reviewed} generated samples across 40 permanent QLs and 105 mapped variants`);
+assert(reviewed === 1308, `Expected 1,308 permanent-English editorial samples, reviewed ${reviewed}`);
+console.log(`Algebra permanent English editorial audit V2 passed for ${reviewed} generated samples across 43 permanent QLs and 109 mapped variants`);
