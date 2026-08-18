@@ -34,9 +34,9 @@ function polishLearnerProse(text: string): string {
       return `compound interest with annual compounding for ${years} ${unit}`;
     })
     .replace(/Using rupees, /gu, "")
-    .replace(/The required-principal scheme has factor/gu, "The second scheme has accumulation factor")
-    .replace(/Known-scheme accumulation factor:/gu, "Known scheme's accumulation factor:")
-    .replace(/Known-scheme factor:/gu, "Known scheme's accumulation factor:")
+    .replace(/The required-principal scheme has factor/gu, "The second scheme's growth factor is")
+    .replace(/Known-scheme accumulation factor:/gu, "The known scheme's growth factor is")
+    .replace(/Known-scheme factor:/gu, "The known scheme's growth factor is")
     .replace(/Its maturity amount, in rupees, is/gu, "So its maturity amount is")
     .replace(/each complete scheme at the stated comparison date/gu, "each scheme for the given time")
     .replace(/two complete schemes/gu, "two schemes")
@@ -44,21 +44,30 @@ function polishLearnerProse(text: string): string {
     .replace(/complete accumulation factor/gu, "overall growth factor")
     .replace(/complete maturity factors/gu, "overall growth factors")
     .replace(/complete maturity factor/gu, "overall growth factor")
+    .replace(/accumulation factors/gu, "growth factors")
+    .replace(/accumulation factor/gu, "growth factor")
     .replace(/The required annual rate must make the second scheme produce exactly the same maturity factor as the known scheme for the same principal\./gu,
       "The two schemes start with the same principal, so the required rate must make their maturity amounts equal.")
     .replace(/Equal principal and equal maturity amount mean the two schemes must have the same overall growth factor\./gu,
       "Because the starting principal and maturity amount are the same, both schemes must have the same overall growth factor.")
     .replace(/Represent Scheme A's present share by a variable and the other share by the remaining part of the total\./gu,
-      "Let Scheme A's present investment be a variable; Scheme B then receives the remaining part of the total.")
+      "Let Scheme A's starting amount be a variable; Scheme B then receives the remaining part of the total.")
+    .replace(/present-principal ratio A:B/gu, "ratio of the present investments, A:B")
+    .replace(/present-principal ratio/gu, "ratio of the present investments")
     .replace(/Let the two present principals be represented by separate variables\./gu,
       "Let the two starting principals be represented by separate variables.")
+    .replace(/present principals/gu, "starting principals")
+    .replace(/present principal/gu, "starting principal")
+    .replace(/present share/gu, "starting amount")
     .replace(/The required principal ratio comes from the overall growth factors/gu,
       "The required principal ratio comes from the schemes' overall growth factors")
-    .replace(/First calculate the maturity value produced by the known present principal\./gu,
+    .replace(/First calculate the maturity value produced by the known starting principal\./gu,
       "First calculate the maturity amount produced by the known starting principal.")
-    .replace(/The known present principal is/gu, "The known starting principal is")
-    .replace(/required present principal/gu, "required starting principal")
-    .replace(/present principal required/gu, "starting principal required");
+    .replace(/What present sum must be invested/gu, "What amount must be invested")
+    .replace(/Determine the present amount under/gu, "Determine the amount that should be invested under")
+    .replace(/A present investment of/gu, "An investment of")
+    .replace(/required starting principal/gu, "required initial principal")
+    .replace(/starting principal required/gu, "initial principal required");
 }
 
 function polishExplanation(explanation: IntCp007EnglishQuestionV7["explanation"]): IntCp007EnglishQuestionV7["explanation"] {
