@@ -7,10 +7,6 @@ export interface DsMergeSplitAuditEntry {
   readonly permanentQlEffect: "NO_NEW_QL" | "QL_BOUNDARY_CANDIDATE" | "QL_ALLOCATION_BLOCKED";
 }
 
-/**
- * CP-000 merge/split policy. A QL represents a distinct solving/task contract,
- * not a cosmetic presentation difference.
- */
 export const DSF_MERGE_SPLIT_AUDIT: readonly DsMergeSplitAuditEntry[] = [
   {
     concern: "Two-statement option order varies by exam",
@@ -45,8 +41,8 @@ export const DSF_MERGE_SPLIT_AUDIT: readonly DsMergeSplitAuditEntry[] = [
   {
     concern: "Different target semantics: scalar value, yes/no proposition, rank, identity, direction, relation",
     decision: "SPLIT_CONTRACT",
-    rationale: "Target normalization and explanation proof can differ materially. Executable discovery must determine which target kinds share one QL contract and which require distinct permanent QLs.",
-    permanentQlEffect: "QL_BOUNDARY_CANDIDATE",
+    rationale: "Executable CP-000 discovery shows scalar, categorical and rank targets can share the same two-statement target-projection contract. They remain solve-mode metadata in the initial allocation; a future split requires evidence of materially different task behavior.",
+    permanentQlEffect: "NO_NEW_QL",
   },
   {
     concern: "Seating and general puzzle DS",
@@ -73,13 +69,14 @@ export function dsfMergeSplitSummary(): Readonly<Record<DsMergeSplitDecision, nu
 }
 
 export const DSF_PERMANENT_QL_ALLOCATION_DECISION = {
-  status: "LOCKED_PENDING_QL_BOUNDARY_FREEZE" as const,
-  reasons: [
-    "initial target-semantic QL boundary candidates still require an explicit freeze inventory",
-  ] as const,
+  status: "READY_FOR_CP000_FREEZE_REVIEW" as const,
+  initialPermanentQlCandidateCount: 1,
+  initialCandidateId: "DSF-QL-CAND-001" as const,
+  permanentIdsAllocated: false,
   nonBlockingDeferredProfiles: [
     "Punjab-state official answer-contract profile remains disabled until verified",
     "constraint-heavy Seating/Puzzle adapters are deferred from the first permanent allocation",
+    "three-statement DS is a source-supported future contract and is deferred until its renderer/QA are implemented",
   ] as const,
   resolvedEvidence: [
     "banking two-statement five-class semantics and option-order variation",
@@ -87,5 +84,6 @@ export const DSF_PERMANENT_QL_ALLOCATION_DECISION = {
     "SSC CGL two-statement four-option profiles across reasoning and quantitative examples",
     "PSSSB Clerk preparation signal confirming Punjab-state DS relevance",
     "TMW/SAP/NUM existing-runtime ownership reconciled without reassigning permanent source QLs",
+    "initial QL boundary inventory freezes all two-statement target types into one adapter-driven task contract",
   ] as const,
 };
