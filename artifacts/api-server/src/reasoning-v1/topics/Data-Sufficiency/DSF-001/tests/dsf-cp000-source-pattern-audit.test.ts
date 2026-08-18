@@ -51,14 +51,15 @@ assert.equal(railwayStatus.status, "PARTIAL_SIGNAL_ONLY");
 assert.equal(punjabStatus.status, "PARTIAL_SIGNAL_ONLY");
 
 assert.deepEqual(dsfMergeSplitSummary(), {
-  MERGE: 2,
-  SPLIT_CONTRACT: 2,
+  MERGE: 3,
+  SPLIT_CONTRACT: 1,
   SPLIT_ADAPTER: 2,
   DEFER: 2,
 });
 assert.equal(DSF_MERGE_SPLIT_AUDIT.length, 8);
 assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("option order") && entry.permanentQlEffect === "NO_NEW_QL"));
 assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("Three-statement") && entry.decision === "SPLIT_CONTRACT"));
+assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("target semantics") && entry.decision === "MERGE"));
 assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("Punjab-state") && entry.decision === "DEFER"));
 
 assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.status, "READY_FOR_CP000_FREEZE_REVIEW");
