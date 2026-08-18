@@ -7,6 +7,7 @@ export const ALG_CP011_DISCOVERY_CANDIDATES: AlgCp011Candidate[] = [
   { candidateId: "ALG-CP011-CAND-004", solveMode: "compareLessOrEqualRootSets", status: "DISCOVERY", permanentQlId: null, difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP011-CAND-005", solveMode: "compareEqualRepeatedRoots", status: "DISCOVERY", permanentQlId: null, difficulty: "Easy", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP011-CAND-006", solveMode: "compareOverlappingIndeterminateRootSets", status: "DISCOVERY", permanentQlId: null, difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
+  { candidateId: "ALG-CP011-CAND-007", solveMode: "compareIrrationalConjugateRootSets", status: "DISCOVERY", permanentQlId: null, difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
 ];
 
 export function getAlgCp011Candidate(candidateId: string): AlgCp011Candidate {

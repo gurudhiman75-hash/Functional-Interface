@@ -1,4 +1,4 @@
-import type { QuadraticEquation, Rational, RootSetRelation } from "../../../../../../shared/algebra";
+import type { QuadraticEquation, QuadraticSurd, RootSetRelation } from "../../../../../../shared/algebra";
 
 export type AlgCp011SolveMode =
   | "compareAlwaysGreaterRootSets"
@@ -6,7 +6,8 @@ export type AlgCp011SolveMode =
   | "compareGreaterOrEqualRootSets"
   | "compareLessOrEqualRootSets"
   | "compareEqualRepeatedRoots"
-  | "compareOverlappingIndeterminateRootSets";
+  | "compareOverlappingIndeterminateRootSets"
+  | "compareIrrationalConjugateRootSets";
 
 export interface AlgCp011Candidate {
   candidateId: string;
@@ -27,6 +28,6 @@ export interface AlgCp011DiscoveryItem {
   stem: string;
   answer: RootSetRelation;
   explanation: string;
-  rootEvidence: { xRoots: Rational[]; yRoots: Rational[] };
+  rootEvidence: { xRoots: QuadraticSurd[]; yRoots: QuadraticSurd[] };
   sourceStatus: "UNVERIFIED_DRAFT";
 }

@@ -1,9 +1,9 @@
 import {
-  compareRational,
-  equalsRational,
-  rationalRootsFromQuadraticState,
+  compareQuadraticSurdExact,
+  equalsSurd,
+  exactRootsFromQuadraticState,
   solveQuadraticEquation,
-  type Rational,
+  type QuadraticSurd,
   type RootSetRelation,
 } from "../../../../../shared/algebra";
 import { ALG_CP011_DISCOVERY_CANDIDATES, generateAlgCp011DiscoveryItem } from "../ALG-002/ALG-CP-011";
@@ -16,9 +16,9 @@ function assert(condition: boolean, message: string): void {
   if (!condition) throw new Error(message);
 }
 
-function manualRelation(xRoots: Rational[], yRoots: Rational[]): RootSetRelation {
+function manualRelation(xRoots: QuadraticSurd[], yRoots: QuadraticSurd[]): RootSetRelation {
   const comparisons: number[] = [];
-  for (const x of xRoots) for (const y of yRoots) comparisons.push(compareRational(x, y));
+  for (const x of xRoots) for (const y of yRoots) comparisons.push(compareQuadraticSurdExact(x, y));
   if (comparisons.every((value) => value === 0)) return "X_EQUAL_TO_Y";
   if (comparisons.every((value) => value > 0)) return "X_GREATER_THAN_Y";
   if (comparisons.every((value) => value < 0)) return "X_LESS_THAN_Y";
@@ -38,15 +38,21 @@ for (const candidate of ALG_CP011_DISCOVERY_CANDIDATES) {
     assert(first.stem.length > 30, `${candidate.candidateId} seed ${seed} has empty stem`);
     assert(first.explanation.length > 50, `${candidate.candidateId} seed ${seed} has incomplete explanation`);
 
-    const xRoots = rationalRootsFromQuadraticState(solveQuadraticEquation(first.equationX));
-    const yRoots = rationalRootsFromQuadraticState(solveQuadraticEquation(first.equationY));
+    const xRoots = exactRootsFromQuadraticState(solveQuadraticEquation(first.equationX));
+    const yRoots = exactRootsFromQuadraticState(solveQuadraticEquation(first.equationY));
     assert(xRoots.length === first.rootEvidence.xRoots.length, `${candidate.candidateId} seed ${seed} x-root count mismatch`);
     assert(yRoots.length === first.rootEvidence.yRoots.length, `${candidate.candidateId} seed ${seed} y-root count mismatch`);
-    for (const root of xRoots) assert(first.rootEvidence.xRoots.some((value) => equalsRational(value, root)), `${candidate.candidateId} seed ${seed} x-root evidence mismatch`);
-    for (const root of yRoots) assert(first.rootEvidence.yRoots.some((value) => equalsRational(value, root)), `${candidate.candidateId} seed ${seed} y-root evidence mismatch`);
+    for (const root of xRoots) assert(first.rootEvidence.xRoots.some((value) => equalsSurd(value, root)), `${candidate.candidateId} seed ${seed} x-root evidence mismatch`);
+    for (const root of yRoots) assert(first.rootEvidence.yRoots.some((value) => equalsSurd(value, root)), `${candidate.candidateId} seed ${seed} y-root evidence mismatch`);
 
     const expected = manualRelation(xRoots, yRoots);
     assert(first.answer === expected, `${candidate.candidateId} seed ${seed} Banking relation mismatch`);
+
+    if (candidate.solveMode === "compareIrrationalConjugateRootSets") {
+      assert(xRoots.every((root) => root.q.numerator !== 0n), `${candidate.candidateId} seed ${seed} x roots should be irrational`);
+      assert(yRoots.every((root) => root.q.numerator !== 0n), `${candidate.candidateId} seed ${seed} y roots should be irrational`);
+      assert(xRoots[0]!.d === yRoots[0]!.d, `${candidate.candidateId} seed ${seed} expected shared radicand`);
+    }
   }
 }
 

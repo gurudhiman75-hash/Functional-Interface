@@ -1,5 +1,6 @@
 export * from "./rational";
 export * from "./quadratic-surd";
+export * from "./exact-real";
 export * from "./power-sum";
 export * from "./expression-ast";
 export * from "./polynomial";

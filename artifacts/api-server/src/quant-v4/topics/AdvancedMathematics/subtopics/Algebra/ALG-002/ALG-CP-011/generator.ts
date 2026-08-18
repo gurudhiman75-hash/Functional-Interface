@@ -1,11 +1,10 @@
 import {
-  compareRootSets,
-  formatRational,
+  compareExactRootSets,
+  exactRootsFromQuadraticState,
+  formatSurd,
   rational,
-  rationalRootsFromQuadraticState,
   solveQuadraticEquation,
   type QuadraticEquation,
-  type Rational,
   type RootSetRelation,
 } from "../../../../../../shared/algebra";
 import { getAlgCp011Candidate } from "./registry";
@@ -25,6 +24,10 @@ function base(seed: number): number {
 
 function equationFromRoots(r1: number, r2: number): QuadraticEquation {
   return { a: rational(1n), b: rational(-(r1 + r2)), c: rational(r1 * r2) };
+}
+
+function equationFromConjugateRoots(center: number, radicand: number): QuadraticEquation {
+  return { a: rational(1n), b: rational(-2 * center), c: rational(center * center - radicand) };
 }
 
 function term(coefficient: bigint, variable: string, first: boolean): string {
@@ -52,27 +55,22 @@ function relationText(relation: RootSetRelation): string {
   }
 }
 
-function buildItem(
-  candidateId: string,
-  solveMode: AlgCp011DiscoveryItem["solveMode"],
-  seed: number,
-  xPair: [number, number],
-  yPair: [number, number],
-): AlgCp011DiscoveryItem {
-  const equationX = equationFromRoots(xPair[0], xPair[1]);
-  const equationY = equationFromRoots(yPair[0], yPair[1]);
-  const xRoots = rationalRootsFromQuadraticState(solveQuadraticEquation(equationX));
-  const yRoots = rationalRootsFromQuadraticState(solveQuadraticEquation(equationY));
-  const answer = compareRootSets(xRoots, yRoots);
+function buildFromEquations(candidateId: string, solveMode: AlgCp011DiscoveryItem["solveMode"], seed: number, equationX: QuadraticEquation, equationY: QuadraticEquation): AlgCp011DiscoveryItem {
+  const xRoots = exactRootsFromQuadraticState(solveQuadraticEquation(equationX));
+  const yRoots = exactRootsFromQuadraticState(solveQuadraticEquation(equationY));
+  const answer = compareExactRootSets(xRoots, yRoots);
   return {
-    cpId: "ALG-CP-011", candidateId, solveMode, seed,
-    equationX, equationY,
+    cpId: "ALG-CP-011", candidateId, solveMode, seed, equationX, equationY,
     stem: `Equation I: ${equationText(equationX, "x")}  Equation II: ${equationText(equationY, "y")}  Compare x and y.`,
     answer,
-    explanation: `Equation I gives x ∈ {${xRoots.map(formatRational).join(", ")}} and Equation II gives y ∈ {${yRoots.map(formatRational).join(", ")}}. Comparing every possible x–y pair shows that ${relationText(answer)}.`,
+    explanation: `Equation I gives x ∈ {${xRoots.map(formatSurd).join(", ")}} and Equation II gives y ∈ {${yRoots.map(formatSurd).join(", ")}}. Comparing every possible x–y pair exactly shows that ${relationText(answer)}.`,
     rootEvidence: { xRoots, yRoots },
     sourceStatus: "UNVERIFIED_DRAFT",
   };
+}
+
+function buildItem(candidateId: string, solveMode: AlgCp011DiscoveryItem["solveMode"], seed: number, xPair: [number, number], yPair: [number, number]): AlgCp011DiscoveryItem {
+  return buildFromEquations(candidateId, solveMode, seed, equationFromRoots(xPair[0], xPair[1]), equationFromRoots(yPair[0], yPair[1]));
 }
 
 export function generateAlgCp011DiscoveryItem(candidateId: string, seed: number): AlgCp011DiscoveryItem {
@@ -99,6 +97,11 @@ export function generateAlgCp011DiscoveryItem(candidateId: string, seed: number)
     case "compareOverlappingIndeterminateRootSets":
       item = buildItem(candidateId, candidate.solveMode, seed, [b, b + 5], [b + 1, b + 4]);
       break;
+    case "compareIrrationalConjugateRootSets": {
+      const radicand = mixSeed(seed ^ 0x1107) % 2 === 0 ? 2 : 3;
+      item = buildFromEquations(candidateId, candidate.solveMode, seed, equationFromConjugateRoots(b + 5, radicand), equationFromConjugateRoots(b, radicand));
+      break;
+    }
   }
 
   const expected: Record<AlgCp011DiscoveryItem["solveMode"], RootSetRelation> = {
@@ -108,6 +111,7 @@ export function generateAlgCp011DiscoveryItem(candidateId: string, seed: number)
     compareLessOrEqualRootSets: "X_LESS_THAN_OR_EQUAL_TO_Y",
     compareEqualRepeatedRoots: "X_EQUAL_TO_Y",
     compareOverlappingIndeterminateRootSets: "RELATION_CANNOT_BE_ESTABLISHED",
+    compareIrrationalConjugateRootSets: "X_GREATER_THAN_Y",
   };
   if (item.answer !== expected[candidate.solveMode]) throw new Error(`${candidateId} constructed the wrong Banking relation`);
   return item;
