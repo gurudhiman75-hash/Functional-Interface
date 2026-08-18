@@ -40,11 +40,7 @@ function preservedProjection(question: any) {
   };
 }
 function assertNativeGrammar(question: any, label: string, locale: IntCp006LocalizedLocale) {
-  const learnerExplanation = [
-    question.explanation.keyIdea,
-    ...question.explanation.steps,
-    question.explanation.commonMistake,
-  ].join(" ");
+  const learnerExplanation = [question.explanation.keyIdea, ...question.explanation.steps, question.explanation.commonMistake].join(" ");
   const banned = locale === "hi-IN"
     ? [
         "D₂/P, वार्षिक",
@@ -54,6 +50,7 @@ function assertNativeGrammar(question: any, label: string, locale: IntCp006Local
         "वार्षिक दर के बराबर होता है",
         "तीसरे क्रम का चक्रवृद्धि पद",
         "अतिरिक्त पद आता है",
+        "दूसरे क्रम के तीन चक्रवृद्धि योगदानों",
       ]
     : [
         "ਵਿਆਜ ਦੀ ਵਾਧਾ",
@@ -63,8 +60,11 @@ function assertNativeGrammar(question: any, label: string, locale: IntCp006Local
         "ਚੱਕਰਵੱਧੀ ਪਦ",
         "ਵਾਧੂ ਪਦ",
         "ਪਹਿਲੇ ਵਾਲੇ ਸਾਲ ਦਾ ਵਿਆਜ ਹੈ",
+        "ਦੂਜੇ ਕ੍ਰਮ ਦੇ ਤਿੰਨ ਚੱਕਰਵੱਧੀ ਯੋਗਦਾਨਾਂ",
       ];
   for (const phrase of banned) assert(!learnerExplanation.includes(phrase), `${label}: native grammar regression '${phrase}'`);
+  if (locale === "hi-IN") assert(!/पहला पूर्ण वर्ष \d+ वर्ष है/u.test(learnerExplanation), `${label}: awkward Hindi year agreement`);
+  else assert(!/ਪਹਿਲਾ ਪੂਰਾ ਸਾਲ \d+ ਸਾਲ ਹੈ/u.test(learnerExplanation), `${label}: awkward Punjabi year agreement`);
 }
 function auditExpanded(question: any, source: any, label: string, locale?: IntCp006LocalizedLocale) {
   assert(stable(preservedProjection(question)) === stable(preservedProjection(source)), `${label}: non-explanation learner surface drift`);
@@ -136,7 +136,7 @@ for (const qlId of INT_CP006_QL_IDS) {
       calculationRichnessChecks += 2;
       lifecycleChecks += 7;
       nativeScriptChecks += 5;
-      nativeGrammarChecks += 7;
+      nativeGrammarChecks += 9;
     }
   }
 }
