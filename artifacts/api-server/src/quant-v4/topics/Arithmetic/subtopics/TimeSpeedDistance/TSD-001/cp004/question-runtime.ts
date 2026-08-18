@@ -1,5 +1,6 @@
 import { compare, toCanonicalString, type Rational } from "../foundation/rational";
 import { deriveStrongCp004WrongWorkingsV8 } from "./distractor-engine-v8";
+import { remediateCp004ExamReadyStem } from "./exam-readiness-stem-remediation";
 import { independentlyVerifyCp004 } from "./independent-verifier";
 import { cp004PermanentQlForAuthority } from "./ql-allocation";
 import { buildCp004Options, cp004DifficultyForAuthority } from "./options";
@@ -84,7 +85,7 @@ export function generateCp004Question(authorityKey: string, seed: string): TsdCp
   const wrongWorkings = deriveStrongCp004WrongWorkingsV8(state.solveMode, state.input, solution);
   const built = buildCp004Options(solution, wrongWorkings, state.permanentQlId, seed);
   const answerText = built.options[built.correctIndex];
-  const stem = renderCp004StemV4(state);
+  const stem = remediateCp004ExamReadyStem(state, renderCp004StemV4(state));
   const fingerprintValues = rationals(state.input).map(toCanonicalString).join("|");
   const draft = {
     chapterId: "TSD-001" as const,
