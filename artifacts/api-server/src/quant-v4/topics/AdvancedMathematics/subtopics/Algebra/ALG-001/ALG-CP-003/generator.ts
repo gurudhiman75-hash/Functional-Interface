@@ -1,5 +1,7 @@
 import {
+  addRational,
   divideRational,
+  equalsRational,
   formatRational,
   multiplyRational,
   powRational,
@@ -118,6 +120,27 @@ export function generateAlgCp003DiscoveryItem(candidateId: string, seed: number)
         answer: { kind: "RATIONAL", value: target },
         explanation: `Expanding the three squares gives 2(a² + b² + c² - ab - bc - ca). Therefore the value is 2(${squareSum} - (${pairwise})) = ${formatRational(target)}.`,
         sourceStatus: candidate.sourceStatus,
+      };
+    }
+
+    case "solveCyclicReciprocalRelation": {
+      const k = mixSeed(seed ^ 0xc003) % 2 === 0 ? 1 : -1;
+      const aPool = [-5, -4, -3, -2, 2, 3, 4, 5] as const;
+      const aValue = aPool[mixSeed(seed ^ 0x3c03) % aPool.length]!;
+      const a = r(aValue);
+      const kR = r(k);
+      const b = divideRational(r(1), subtractRational(kR, a));
+      const c = divideRational(r(1), subtractRational(kR, b));
+      const target = addRational(c, divideRational(r(1), a));
+      if (!equalsRational(target, kR)) throw new Error("Cyclic reciprocal construction failed exact target verification");
+      const kText = k === 1 ? "1" : "-1";
+      return {
+        cpId: "ALG-CP-003", candidateId, solveMode: candidate.solveMode, seed,
+        stem: `If a + 1/b = ${kText} and b + 1/c = ${kText}, find c + 1/a.`,
+        answer: { kind: "RATIONAL", value: target },
+        explanation: `From a + 1/b = ${kText}, we get b = 1/(${kText} - a). Substitute this into b + 1/c = ${kText}. Since (${kText})² = 1, simplification gives c = ${kText} - 1/a. Therefore c + 1/a = ${kText}.`,
+        sourceStatus: candidate.sourceStatus,
+        evidence: { a, b, c, k: kR },
       };
     }
   }
