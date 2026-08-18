@@ -25,10 +25,12 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-      - name: Verify Rev-2 design authority bytes
+      - name: Verify composite Revision-3 design authority bytes
         run: |
           set -euo pipefail
           ROOT=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry
+
+          # Preserve and verify the original Revision-2 authority exactly.
           echo "aaf04f001b231c1c6548eb126d7788206239ce55c22613c1ef5f0630db263829  $ROOT/design-authority-rev2/part-01.md" | sha256sum -c -
           echo "b4ffa720d118f479928d6a12858a2f331d6371ffba38ab8005cc1d46a0de1e2e  $ROOT/design-authority-rev2/part-02.md" | sha256sum -c -
           echo "7166d89e7d6b88926121bc1e4d70772289b0a797abcc8016ff6600a4ee99f969  $ROOT/design-authority-rev2/part-03.md" | sha256sum -c -
@@ -42,6 +44,21 @@ jobs:
             cat "$ROOT/design-authority-rev2/part-04.md"
           } > /tmp/GEO-END-TO-END-DESIGN-REV2.reconstructed.md
           echo "1790e494167121d2541145deea128d202feb125496ac72533a3340f09edf10d8  /tmp/GEO-END-TO-END-DESIGN-REV2.reconstructed.md" | sha256sum -c -
+
+          # Verify the Revision-3 diagram-policy amendment and its critical governance clauses.
+          AMENDMENT="$ROOT/design-authority-rev3/diagram-policy-amendment.md"
+          echo "08b8560c195b0bc090ef1c9c5ced5d0723c076db3bf7096fb01a108df2b06bf2  $AMENDMENT" | sha256sum -c -
+          grep -F 'NO_DIAGRAM' "$AMENDMENT"
+          grep -F 'OPTIONAL_STEM_DIAGRAM' "$AMENDMENT"
+          grep -F 'REQUIRED_STEM_DIAGRAM' "$AMENDMENT"
+          grep -F 'REQUIRED_SOLUTION_DIAGRAM' "$AMENDMENT"
+          grep -F 'REQUIRED_BOTH' "$AMENDMENT"
+          grep -F 'notToScale = true' "$AMENDMENT"
+          grep -F 'Before permanent QL freeze' "$AMENDMENT"
+
+          # Confirm the human-facing authority manifest points to the composite Revision-3 authority.
+          grep -F 'End-to-End Design Authority Revision 3' "$ROOT/GEO-END-TO-END-DESIGN.md"
+          grep -F 'design-authority-rev3/diagram-policy-amendment.md' "$ROOT/GEO-END-TO-END-DESIGN.md"
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
