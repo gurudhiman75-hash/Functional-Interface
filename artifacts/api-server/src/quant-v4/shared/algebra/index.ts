@@ -9,3 +9,4 @@ export * from "./quadratic";
 export * from "./factorisation";
 export * from "./polynomial-division";
 export * from "./rational-equation";
+export * from "./root-relations";
