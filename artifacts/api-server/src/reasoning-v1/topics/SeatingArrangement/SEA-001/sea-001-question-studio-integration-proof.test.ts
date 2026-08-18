@@ -1,5 +1,5 @@
 import { strict as assert } from "node:assert";
-import { getGeneratedQuestionBankEligibilityIssue } from "../../../lib/admin-question-conversion.ts";
+import { getGeneratedQuestionBankEligibilityIssue } from "../../../../lib/admin-question-conversion.ts";
 import { SEA001_MULTILINGUAL_FREEZE_AUTHORITY } from "./localization/multilingual-freeze.ts";
 import { SEA001_PERMANENT_QL_IDS } from "./permanent/registry.ts";
 import {
