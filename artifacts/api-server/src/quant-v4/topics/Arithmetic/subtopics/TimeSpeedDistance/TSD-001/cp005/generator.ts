@@ -67,11 +67,13 @@ export function buildCp005Input(mode: TsdCp005SolveMode, seed: string): TsdCp005
 
     case "findNthMeetingTimeOnLine":
     case "findNthMeetingPointOnLine":
+      return Object.freeze({ ...common, nthMeeting: 2 + (state.index % 5) });
+
     case "reconstructCompleteLinearItinerary":
       return Object.freeze({ ...common, nthMeeting: 1 + (state.index % 5) });
 
     case "findRepeatedMeetingCountInTimeWindow": {
-      const targetCount = 2 + (state.index % 5);
+      const targetCount = 3 + (state.index % 5);
       const targetTime = nthTime(state.route, state.totalSpeed, targetCount);
       const nextTime = nthTime(state.route, state.totalSpeed, targetCount + 1);
       const window = divide(add(targetTime, nextTime), rational(2));
