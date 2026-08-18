@@ -79,6 +79,7 @@ function polishLearnerProse(text: string): string {
     .replace(/starting principal required/gu, "initial principal required")
     .replace(/Determine the amount that should be invested under compound interest at ([0-9.]+)% p\.a\., compounded annually for (\d+) (year|years) that will produce an equal maturity value\./gu,
       (_match, rate: string, years: string, unit: string) => `What amount should be invested at ${rate}% p.a. compound interest, compounded annually for ${years} ${unit}, to reach the same maturity value?`)
+    .replace(/that will produce an equal maturity value/gu, "to reach the same maturity value")
     .replace(/Find the initial principal required in Plan B to finish with the same future value as Plan A\./gu,
       "How much should be invested initially in Plan B to reach the same future value as Plan A?")
     .replace(/A first-overtake answer needs two consecutive checks: Scheme B must not be ahead at the previous whole year, and it must be ahead at the selected whole year\./gu,
