@@ -1,4 +1,4 @@
-import type { LinearSystem2V, Rational } from "../../../../../../shared/algebra";
+import type { LinearSystem2V, LinearSystem3V, Rational } from "../../../../../../shared/algebra";
 
 export type AlgCp007SolveMode =
   | "solveTwoByTwoSystem"
@@ -7,10 +7,12 @@ export type AlgCp007SolveMode =
   | "findOneVariableFromSystem"
   | "classifyNoSolutionSystem"
   | "classifyInfiniteSolutionSystem"
-  | "findParameterForNoSolutionSystem";
+  | "findParameterForNoSolutionSystem"
+  | "solveThreeByThreeSystem";
 
 export type AlgCp007Answer =
   | { kind: "ORDERED_PAIR"; x: Rational; y: Rational }
+  | { kind: "ORDERED_TRIPLE"; x: Rational; y: Rational; z: Rational }
   | { kind: "RATIONAL"; value: Rational }
   | { kind: "NO_SOLUTION" }
   | { kind: "INFINITE_SOLUTIONS" }
@@ -31,7 +33,7 @@ export interface AlgCp007DiscoveryItem {
   solveMode: AlgCp007SolveMode;
   seed: number;
   stem: string;
-  system: LinearSystem2V;
+  system: LinearSystem2V | LinearSystem3V;
   answer: AlgCp007Answer;
   explanation: string;
   sourceStatus: "UNVERIFIED_DRAFT";
