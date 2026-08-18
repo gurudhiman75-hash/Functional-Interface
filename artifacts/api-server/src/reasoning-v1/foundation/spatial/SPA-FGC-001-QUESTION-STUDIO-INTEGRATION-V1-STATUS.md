@@ -42,11 +42,7 @@ Repository authority: SPA-FGC-001-QUESTION-STUDIO-PRODUCT-OWNER-APPROVAL-V1
 
 On 2026-08-18 the product owner explicitly approved the reviewed FGC-001 Question Studio learner surface in project chat after viewing the supplied review files.
 
-Approval covers:
-
-- FGC-001 Question Studio integration for SPA-QL-031..034;
-- reviewed English, Hindi and Punjabi learner surface;
-- the reviewed visual sizing and question-specific explanations represented by the pinned evidence.
+Approval covers FGC-001 Question Studio integration for SPA-QL-031..034, the reviewed English/Hindi/Punjabi learner surface, visual sizing and question-specific explanations represented by the pinned evidence.
 
 Approval does not cover automatic approval of questions generated later in Question Studio, automatic student publication, or deployment. Manual review/approval of future generated items remains required.
 
@@ -54,19 +50,29 @@ The approval-record head c242ed4a3d72a475ea5984893a88eb3aebbd26ad passed the ded
 
 ## Authorized stacked merge sequence
 
-On 2026-08-18 the product owner explicitly authorized proceeding with the previously stated stacked PR merge sequence.
+On 2026-08-18 the product owner explicitly authorized proceeding with the stated stacked PR merge sequence.
 
 - PR #847 was validated at head 7665570ea0a3ff72536c2d68de051969018aca94.
 - PR #847 was merged first into New-main with merge commit 33614a087c22776f7b99cd26ec0b9b7e55137056.
-- PR #861 was then retargeted from feat/spa-fgc-001-discovery-v1 to New-main.
-- PR #861 remains subject to a fresh post-retarget CI pass before final merge.
+- PR #861 was retargeted from feat/spa-fgc-001-discovery-v1 to New-main.
 
 This merge authorization does not authorize deployment or automatic publication.
 
+## Post-retarget validation
+
+Post-retarget head 4314df892d4ac681f73d268a8bb9b1d2fad8df91 passed the dedicated Question Studio integration workflow against New-main.
+
+- Workflow: Validate SPA-FND-001 Question Studio Integration V1
+- Run: 32097458295 - SUCCESS
+- Artifact: 9310432735
+- Digest: sha256:b3c5a1c6757f2210ca555627117211598883eef3135528c72db25030301bcfe2
+
+The same post-retarget head also passed the returned Render production build, integrated admin panel, FGC discovery, localization, production authority, production synthesis, permanent allocation, source-saturation, proposed-QL, gap, FSR and Production Scale V2 workflows. No returned workflow failed.
+
 ## Current boundary
 
-Source/freeze PR #847 is merged. Product-owner learner-surface approval and merge authorization are recorded. PR #861 is retargeted to New-main and awaiting fresh post-retarget validation before final merge.
+Source/freeze PR #847 is merged. Product-owner learner-surface approval and merge authorization are recorded. PR #861 is retargeted to New-main and has passed post-retarget validation. A documentation-only final status commit follows this evidence pin and must pass the dedicated Question Studio gate before merge.
 
 ## Next gate
 
-POST_RETARGET_CI_THEN_MERGE_PR_861
+FINAL_HEAD_QUESTION_STUDIO_CI_THEN_MERGE_PR_861
