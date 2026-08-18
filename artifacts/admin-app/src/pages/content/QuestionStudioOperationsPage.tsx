@@ -2,6 +2,7 @@ import { QuestionStudioCalendarReviewPanel } from './QuestionStudioCalendarRevie
 import { QuestionStudioCockpitPage } from './QuestionStudioCockpitPage';
 import { QuestionStudioDifficultyMixControls } from './QuestionStudioDifficultyMixControls';
 import { QuestionStudioExamProfileSummary } from './QuestionStudioExamProfileSummary';
+import { QuestionStudioInputOutputReviewPanel } from './QuestionStudioInputOutputReviewPanel';
 import { QuestionStudioInterestReviewPanel } from './QuestionStudioInterestReviewPanel';
 import { QuestionStudioProfileCalibration } from './QuestionStudioProfileCalibration';
 import { QuestionStudioRecoveryDock } from './QuestionStudioRecoveryDock';
@@ -15,6 +16,7 @@ export function QuestionStudioOperationsPage() {
       <QuestionStudioInterestReviewPanel />
       <QuestionStudioSeriesReviewPanel />
       <QuestionStudioCalendarReviewPanel />
+      <QuestionStudioInputOutputReviewPanel />
       <QuestionStudioExamProfileSummary />
       <QuestionStudioProfileCalibration />
       <QuestionStudioDifficultyMixControls />
