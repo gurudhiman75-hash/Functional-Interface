@@ -73,6 +73,9 @@ jobs:
       - name: Prove IOP standard Question Studio adapter
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-standard-integration.test.ts
 
+      - name: Prove source-mode difficulty routing
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-difficulty-routing.test.ts
+
       - name: Scale Question Studio across all source modes and languages
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-scale.test.ts
 
