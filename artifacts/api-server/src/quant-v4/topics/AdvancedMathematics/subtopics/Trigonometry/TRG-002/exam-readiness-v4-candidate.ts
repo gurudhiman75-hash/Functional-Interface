@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { generateExamRealLocalizedTrg002Question, type Trg002ExamRealnessLocale } from "./localization-exam-realness-v2";
-import { selectTrg002V4ScenarioShell, type Trg002SpatialTopology } from "./exam-readiness-v4-scenario-engine";
+import { TRG_002_V4_SCENARIO_SHELLS, selectTrg002V4ScenarioShell, type Trg002SpatialTopology } from "./exam-readiness-v4-scenario-engine";
 import { applyTrg002V4Wave1ScenarioText } from "./exam-readiness-v4-wave1-surface";
 import { isTrg002V4CanonicalOverride } from "./exam-readiness-v4-canonical";
 import { generateLocalizedTrg002V4CanonicalOverride } from "./exam-readiness-v4-override-localization";
@@ -33,8 +33,11 @@ function repairExplanation(explanation: AnyQuestion) {
 }
 
 function inferTopology(qlId: string, stem: string): Trg002SpatialTopology {
+  if (qlId === "TRG-002-QL-005") return "COMPOSITE_VERTICAL";
   if (qlId === "TRG-002-QL-027") return "SHADOW_CHANGE";
+  if (qlId === "TRG-002-QL-028") return "SHADOW_COMPARISON";
   if (qlId === "TRG-002-QL-079") return "OBSERVER_BETWEEN_TARGETS";
+  if (qlId === "TRG-002-QL-087") return "TWO_VERTICAL_OBJECTS";
   if (/छाया|ਪਰਛਾਂਵ|ਛਾਂ|ਛਾਵ/u.test(stem)) return /दो|ਦੋ/u.test(stem) ? "SHADOW_CHANGE" : "SHADOW_COMPARISON";
   if (/सीढ़ी|ਸੀੜ੍ਹੀ|guy|तार|ਤਾਰ/u.test(stem)) return "SUPPORT_TRIANGLE";
   if (/नदी|ਨਦੀ/u.test(stem)) return "RIVER_WIDTH";
@@ -46,6 +49,17 @@ function inferTopology(qlId: string, stem: string): Trg002SpatialTopology {
   return "SINGLE_RIGHT_TRIANGLE";
 }
 
+function canonicalScenarioId(qlId: string) {
+  const ids: Record<string, string> = {
+    "TRG-002-QL-005": "URBAN_BUILDING_AND_FLAGPOLE",
+    "TRG-002-QL-027": "SHADOW_DIFFERENCE_TWO_TIMES",
+    "TRG-002-QL-028": "SHADOW_TOWER_DIRECT",
+    "TRG-002-QL-079": "ROAD_EQUAL_PILLARS",
+    "TRG-002-QL-087": "URBAN_TWO_BUILDINGS",
+  };
+  return ids[qlId];
+}
+
 export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, locale: Trg002ExamRealnessLocale) {
   const canonicalOverride = isTrg002V4CanonicalOverride(qlId);
   const base: AnyQuestion = canonicalOverride
@@ -53,12 +67,18 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
     : generateExamRealLocalizedTrg002Question(qlId, seed, locale);
   const exactStem = repairHistoricalExactMathArtifact(base.stem);
   const explanation = repairExplanation(base.explanation);
+  const explicitScenarioId = canonicalOverride ? canonicalScenarioId(qlId) : undefined;
   const wave1 = canonicalOverride
-    ? { stem: exactStem, scenarioTextApplied: true, scenarioId: qlId === "TRG-002-QL-027" ? "SHADOW_DIFFERENCE_TWO_TIMES" : "ROAD_EQUAL_PILLARS", diagramMigrationRequired: false }
+    ? { stem: exactStem, scenarioTextApplied: true, scenarioId: explicitScenarioId, diagramMigrationRequired: false }
     : applyTrg002V4Wave1ScenarioText(qlId, locale, exactStem);
   const stem = wave1.stem;
   const topology = inferTopology(qlId, stem);
-  const scenario = selectTrg002V4ScenarioShell({ qlId, seed, topology });
+  const selectedScenario = selectTrg002V4ScenarioShell({ qlId, seed, topology });
+  const scenario = explicitScenarioId
+    ? TRG_002_V4_SCENARIO_SHELLS.find((shell) => shell.id === explicitScenarioId)
+    : selectedScenario;
+  if (!scenario) throw new Error(`${qlId}: missing explicit V4 scenario shell ${explicitScenarioId}.`);
+  if (scenario.topology !== topology) throw new Error(`${qlId}: explicit V4 scenario topology ${scenario.topology} does not match ${topology}.`);
   const learnerText = [stem, explanation.keyRule, ...explanation.steps.map((s: AnyQuestion) => s.body), explanation.shortcut, ...explanation.traps].join(" ");
   if (/√\d+\.\d+/u.test(learnerText)) throw new Error(`${qlId}:${locale}: V4 forbids decimal radicands in exact learner math.`);
 
