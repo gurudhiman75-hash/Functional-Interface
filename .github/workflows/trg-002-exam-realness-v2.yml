@@ -1,0 +1,83 @@
+name: Verify TRG-002 Exam Realness Remediation V2
+
+on:
+  push:
+    branches:
+      - feat/trg-002-localization-hi-pa-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-exam-realness-v2.yml
+  pull_request:
+    branches:
+      - feat/trg-002-mvp48-freeze
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-exam-realness-v2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trg-002-exam-realness-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Targeted Trigonometry TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg002-realness-v2.json <<'JSON'
+          {"extends":"./tsconfig.json","compilerOptions":{"noEmit":true},"include":["src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**/*.ts"],"exclude":["src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts"],"references":[]}
+          JSON
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg002-realness-v2.json --pretty false
+
+      - name: Protect historical frozen English 96 authority
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-freeze-96.test.ts
+
+      - name: Execute 96-QL Hindi Punjabi exam-realness V2 gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-exam-realness-v2.test.ts
+
+      - name: Export 192-record V2 human-review pack
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-localization-exam-realness-v2-review.ts
+
+      - name: Verify V2 review artifact
+        run: |
+          JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/localization-exam-realness-v2/TRG-002-HI-PA-EXAM-REALNESS-REMEDIATION-V2.json
+          HTML=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/localization-exam-realness-v2/TRG-002-HI-PA-EXAM-REALNESS-REMEDIATION-V2.html
+          test -s "$JSON" && test -s "$HTML"
+          node - "$JSON" <<'NODE'
+          const fs = require('fs');
+          const rows = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+          if (rows.length !== 192) throw new Error(`Expected 192 V2 review records, got ${rows.length}`);
+          const qls = new Set(rows.map((row) => row.qlId));
+          if (qls.size !== 96) throw new Error(`Expected 96 QLs, got ${qls.size}`);
+          for (const qlId of qls) {
+            const pair = rows.filter((row) => row.qlId === qlId);
+            if (pair.length !== 2 || !pair.some((row) => row.locale === 'hi-IN') || !pair.some((row) => row.locale === 'pa-IN')) throw new Error(`${qlId}: Hindi/Punjabi pair incomplete`);
+          }
+          for (const row of rows) {
+            if (row.humanReviewStatus !== 'PENDING') throw new Error(`${row.qlId}:${row.locale}: human review must remain PENDING`);
+            if (row.freezeStatus !== 'NOT_FROZEN') throw new Error(`${row.qlId}:${row.locale}: V2 must remain NOT_FROZEN`);
+            if (row.activationAuthorized !== false) throw new Error(`${row.qlId}:${row.locale}: activation must remain OFF`);
+          }
+          console.log(`TRG002_EXAM_REALNESS_V2_REVIEW_PACK_PASS records=${rows.length} qls=${qls.size} locales=2 human=PENDING freeze=NO activation=OFF`);
+          NODE
+
+      - name: Upload V2 exam-realness review pack
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-hi-pa-exam-realness-remediation-v2
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/localization-exam-realness-v2/
+          if-no-files-found: error
+          retention-days: 14
