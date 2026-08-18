@@ -6,7 +6,7 @@ import { generateIntCp006EnglishExplanationReviewQuestion } from "./cp006-englis
 import {
   INT_CP006_LOCALIZED_EXPLANATION_VERSION,
   generateIntCp006LocalizedExplanationReviewQuestion,
-} from "./cp006-si-ci-relations-localized-v6";
+} from "./cp006-si-ci-relations-localized-v7";
 import { INT_CP006_EXPANDED_EXPLANATION_VERSION } from "./cp006-expanded-explanation-v4";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
@@ -46,9 +46,9 @@ sections.push(`Hindi/Punjabi candidate: **${INT_CP006_LOCALIZED_EXPLANATION_VERS
 sections.push("");
 sections.push("Scope: 13 QLs × 3 matched stem families × English/Hindi/Punjabi = **117 learner-facing explanation surfaces**.");
 sections.push("");
-sections.push("Hindi and Punjabi explanation wording has received a second manual native-editorial pass after the grammar-remediation review. The pass targets natural teacher-style phrasing, not literal translation. Question identity, mathematical state, stems, options, answers and delivery flags remain unchanged.");
+sections.push("Punjabi compound-interest terminology is standardized to **ਮਿਸ਼ਰਤ ਵਿਆਜ** across question and explanation surfaces. The earlier `ਚੱਕਰਵੱਧੀ` wording is deprecated and rejected by the audit. Other V6 native-editorial improvements remain intact.");
 sections.push("");
-sections.push("The English source remains frozen. This document presents an explicit explanation-amendment candidate; it does not silently mutate the frozen English authority.");
+sections.push("The English source remains frozen. This document presents an explicit explanation/localization amendment candidate; it does not silently mutate the frozen English authority.");
 sections.push("");
 
 let matchedStates = 0;
@@ -68,15 +68,15 @@ for (const qlId of INT_CP006_QL_IDS) {
     sections.push(`### ${qlId}-T${template} — seed \`${seed}\``);
     sections.push("");
     sections.push(render(en, "English — explanation amendment candidate"));
-    sections.push(render(hi, "Hindi — native-editorial V6 explanation candidate"));
-    sections.push(render(pa, "Punjabi — native-editorial V6 explanation candidate"));
+    sections.push(render(hi, "Hindi — native-editorial explanation candidate"));
+    sections.push(render(pa, "Punjabi — PSEB-style terminology V7 candidate"));
     matchedStates += 1;
     learnerSurfaces += 3;
   }
 }
 sections.push("---");
 sections.push("");
-sections.push("Status: **EXPLANATION / NATIVE EDITORIAL REVIEW ONLY**. No freeze, Question Studio activation, registration, Question Bank storage, test eligibility or public publication is authorized by this file.");
+sections.push("Status: **EXPLANATION / NATIVE EDITORIAL / PUNJABI TERMINOLOGY REVIEW ONLY**. No freeze, Question Studio activation, registration, Question Bank storage, test eligibility or public publication is authorized by this file.");
 sections.push("");
 
 const outputDirectory = path.resolve(process.cwd(), "dist/quant-v4");
