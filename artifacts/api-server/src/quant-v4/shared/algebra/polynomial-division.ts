@@ -4,13 +4,15 @@ import {
   equalsRational,
   multiplyRational,
   negateRational,
-  polynomial,
-  multiplyPolynomials,
-  addPolynomials,
   rational,
-  type Polynomial1,
   type Rational,
-} from "./index-internal";
+} from "./rational";
+import {
+  addPolynomials,
+  multiplyPolynomials,
+  polynomial,
+  type Polynomial1,
+} from "./polynomial";
 
 export interface LinearPolynomialDivision {
   quotient: Polynomial1;
@@ -18,9 +20,7 @@ export interface LinearPolynomialDivision {
   root: Rational;
 }
 
-/**
- * Divide P(x) by the monic linear factor x - root using exact synthetic division.
- */
+/** Divide P(x) by the monic factor x - root using exact synthetic division. */
 export function dividePolynomialByLinearFactor(value: Polynomial1, root: Rational): LinearPolynomialDivision {
   if (value.coefficients.length <= 1) {
     return { quotient: polynomial(value.variable, [ZERO]), remainder: value.coefficients[0] ?? ZERO, root };
