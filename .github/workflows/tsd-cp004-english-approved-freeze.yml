@@ -3,7 +3,7 @@ name: Validate TSD CP-004 Approved English Freeze
 on:
   pull_request:
     branches:
-      - feat/tsd-cp004-relative-motion-discovery
+      - fix/tsd-cp004-final-exam-readiness-v3
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp004/**
