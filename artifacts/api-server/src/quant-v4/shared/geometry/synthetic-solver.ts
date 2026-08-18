@@ -77,7 +77,30 @@ export function solveConstraintGraph(graph: ConstraintGraph): SyntheticSolveResu
   });
 }
 
+export interface TriangleRef {
+  readonly id: string;
+  readonly vertexIds: readonly [string, string, string];
+}
+
+export interface VertexCorrespondence {
+  readonly pairs: readonly (readonly [string, string])[];
+}
+
+export interface SegmentProductRef {
+  readonly firstSegmentId: string;
+  readonly secondSegmentId: string;
+}
+
 export type GeoProofEvent =
   | Readonly<{ kind: "ANGLE_EQUALITY"; leftAngleId: string; rightAngleId: string; reason: TheoremId }>
   | Readonly<{ kind: "ANGLE_SUM"; angleIds: readonly string[]; total: Rational; reason: TheoremId }>
-  | Readonly<{ kind: "SEGMENT_RATIO"; left: string; right: string; ratio: Rational; reason: TheoremId }>;
+  | Readonly<{ kind: "SEGMENT_RATIO"; left: string; right: string; ratio: Rational; reason: TheoremId }>
+  | Readonly<{ kind: "SEGMENT_PRODUCT"; left: SegmentProductRef; right: SegmentProductRef; reason: TheoremId }>
+  | Readonly<{ kind: "CONGRUENCE"; triangle1: TriangleRef; triangle2: TriangleRef; criterion: TheoremId }>
+  | Readonly<{
+      kind: "SIMILARITY";
+      triangle1: TriangleRef;
+      triangle2: TriangleRef;
+      criterion: TheoremId;
+      correspondence: VertexCorrespondence;
+    }>;
