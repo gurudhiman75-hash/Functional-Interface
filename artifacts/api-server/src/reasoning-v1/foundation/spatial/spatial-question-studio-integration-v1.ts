@@ -5,15 +5,21 @@ import {
 } from "./spatial-permanent-ql-allocation-v1";
 import {
   SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V2,
-  SPATIAL_PERMANENT_QL_ALLOCATIONS_V2,
 } from "./spatial-permanent-ql-allocation-v2";
+import {
+  SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V3,
+  SPATIAL_PERMANENT_QL_ALLOCATIONS_V3,
+} from "./spatial-permanent-ql-allocation-v3";
 import { FGC_001_ENGLISH_FREEZE_AUTHORITY_V1 } from "./figure-completion-english-freeze-v1";
 import { FGC_001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1 } from "./figure-completion-hi-pa-localization-freeze-v1";
+import { PFC_001_ENGLISH_FREEZE_AUTHORITY_V1 } from "./paper-folding-english-freeze-v1";
+import { PFC_001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1 } from "./paper-folding-localization-freeze-v1";
+import { PFC_001_SOURCE_AUDIT_V1 } from "./paper-folding-source-audit-v1";
 
 export type SpatialQuestionStudioDifficultyV1 = "Easy" | "Medium" | "Hard";
-export type SpatialQuestionStudioChapterCodeV1 = SpatialPermanentChapterCodeV1 | "FGC-001";
+export type SpatialQuestionStudioChapterCodeV1 = SpatialPermanentChapterCodeV1 | "FGC-001" | "PFC-001";
 export type SpatialQuestionStudioPermanentQlIdV1 =
-  (typeof SPATIAL_PERMANENT_QL_ALLOCATIONS_V2)[number]["permanentQlId"];
+  (typeof SPATIAL_PERMANENT_QL_ALLOCATIONS_V3)[number]["permanentQlId"];
 
 export function spatialQuestionStudioDifficultyV1(
   difficulty: SpatialPermanentDifficultyV1,
@@ -23,7 +29,7 @@ export function spatialQuestionStudioDifficultyV1(
   return "Medium";
 }
 
-export const SPATIAL_QUESTION_STUDIO_QLS_V1 = SPATIAL_PERMANENT_QL_ALLOCATIONS_V2.map(
+export const SPATIAL_QUESTION_STUDIO_QLS_V1 = SPATIAL_PERMANENT_QL_ALLOCATIONS_V3.map(
   (allocation) => Object.freeze({
     permanentQlId: allocation.permanentQlId,
     proposalId: allocation.proposalId,
@@ -59,23 +65,29 @@ export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = Object.freeze({
   topic: "Reasoning" as const,
   subtopic: "Spatial Reasoning" as const,
   name: "Spatial Reasoning — Approved Multilingual Production Runtime" as const,
-  label: "Spatial Reasoning — 34 Permanent QLs" as const,
+  label: "Spatial Reasoning — 38 Permanent QLs" as const,
   generationDomain: "reasoning-v1" as const,
-  integrationAuthority: "SPA-FND-001-QUESTION-STUDIO-INTEGRATION-V2-FGC" as const,
-  supersedesIntegrationAuthority: "SPA-FND-001-QUESTION-STUDIO-INTEGRATION-V1" as const,
+  integrationAuthority: "SPA-FND-001-QUESTION-STUDIO-INTEGRATION-V3-PFC" as const,
+  supersedesIntegrationAuthority: "SPA-FND-001-QUESTION-STUDIO-INTEGRATION-V2-FGC" as const,
   localizationAuthority: "SPA_001_HI_PA_LOCALIZATION_APPROVED_2026_08_16" as const,
   fgcLocalizationAuthority: FGC_001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
   fgcEnglishFreezeAuthority: FGC_001_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,
+  pfcLocalizationAuthority: PFC_001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
+  pfcEnglishFreezeAuthority: PFC_001_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,
   releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
-  sourceAllocationAuthority: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V2.authorityId,
+  sourceAllocationAuthority: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V3.authorityId,
   frozenBaseAllocationAuthority: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.authorityId,
+  previousFgcAllocationAuthority: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V2.authorityId,
   approvedReviewHead: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.approvedReviewHead,
   fgcApprovedEnglishHead: FGC_001_ENGLISH_FREEZE_AUTHORITY_V1.exactReviewedAuthority.headSha,
   fgcApprovedLocalizationHead:
     FGC_001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1.exactReviewedAuthority.headSha,
+  pfcApprovedEnglishHead: PFC_001_ENGLISH_FREEZE_AUTHORITY_V1.exactReviewedAuthority.headSha,
+  pfcApprovedLocalizationHead:
+    PFC_001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1.exactReviewedAuthority.headSha,
   qlIds: SPATIAL_QUESTION_STUDIO_QLS_V1.map((entry) => entry.permanentQlId),
   qls: SPATIAL_QUESTION_STUDIO_QLS_V1,
-  chapters: ["MIR-001", "WAT-001", "FAN-001", "FCL-001", "FSR-001", "FGC-001"] as const,
+  chapters: ["MIR-001", "WAT-001", "FAN-001", "FCL-001", "FSR-001", "FGC-001", "PFC-001"] as const,
   supportedLanguages: ["en", "hi", "pa"] as const,
   supportedDifficulties: ["Easy", "Medium", "Hard"] as const,
   enabled: true,
@@ -102,6 +114,7 @@ export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = Object.freeze({
   permanentQlCount: SPATIAL_QUESTION_STUDIO_QLS_V1.length,
   frozenBasePermanentQlCount: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.permanentQlCount,
   fgcPermanentQlCount: 4,
+  pfcPermanentQlCount: 4,
   holdsUnallocated: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.holdsUnallocated,
   sourceScope: {
     SSC: "CONTROLLED_TAXONOMY_EVIDENCE_ESTABLISHED" as const,
@@ -110,4 +123,9 @@ export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = Object.freeze({
     PUNJAB_STATE: "NOT_ESTABLISHED" as const,
   },
   fgcSourceScope: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V2.sourceScope,
+  pfcSourceScope: {
+    SSC: PFC_001_SOURCE_AUDIT_V1.ssc.status,
+    BANKING: PFC_001_SOURCE_AUDIT_V1.banking.status,
+    PUNJAB_STATE: PFC_001_SOURCE_AUDIT_V1.punjabState.status,
+  },
 }) as const;
