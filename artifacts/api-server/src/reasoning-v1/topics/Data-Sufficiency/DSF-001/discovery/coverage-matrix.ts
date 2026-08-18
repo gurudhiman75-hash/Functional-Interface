@@ -25,7 +25,7 @@ export const DSF_COVERAGE_MATRIX: readonly DsCoverageRow[] = [
     targetKinds: ["MISSING_DIGIT", "DIGIT_PARITY", "DIVISIBILITY_PROPERTY", "REMAINDER", "COUNT"],
     readiness: "EXECUTABLE_PROTOTYPE",
     ownership: "SOURCE_CAPABILITY_REUSE",
-    notes: "First DSF adapter prototype reuses NUM-001 divisibility helpers while shared DSF owns sufficiency classification.",
+    notes: "DSF adapter reuses NUM-001 divisibility helpers while shared DSF owns sufficiency classification.",
   },
   {
     domainFamily: "QUANT",
@@ -55,9 +55,9 @@ export const DSF_COVERAGE_MATRIX: readonly DsCoverageRow[] = [
     domainFamily: "QUANT",
     sourceChapter: "Algebra",
     targetKinds: ["SCALAR", "BOOLEAN", "FUNCTION_OF_VARIABLES"],
-    readiness: "PROTOTYPE_REQUIRED",
+    readiness: "EXECUTABLE_PROTOTYPE",
     ownership: "SOURCE_CHAPTER_SOLVER",
-    notes: "Priority prototype because it proves unique target functions while multiple complete variable assignments survive.",
+    notes: "Discovery prototype proves x+y can be unique while two ordered-pair worlds survive. Production source-runtime integration remains pending because Algebra runtime is not yet available on New-main.",
   },
   {
     domainFamily: "QUANT",
@@ -71,9 +71,9 @@ export const DSF_COVERAGE_MATRIX: readonly DsCoverageRow[] = [
     domainFamily: "REASONING",
     sourceChapter: "Ranking and Order",
     targetKinds: ["RANK", "COUNT", "RELATIVE_ORDER"],
-    readiness: "PROTOTYPE_REQUIRED",
-    ownership: "SOURCE_CHAPTER_SOLVER",
-    notes: "First relational prototype candidate; project the asked rank/order fact over every valid order.",
+    readiness: "EXECUTABLE_PROTOTYPE",
+    ownership: "SOURCE_CAPABILITY_REUSE",
+    notes: "Executable relational adapter projects rank across all valid total orders and independently checks the answer set with RNK-CP-007 exactRankSet.",
   },
   {
     domainFamily: "REASONING",
