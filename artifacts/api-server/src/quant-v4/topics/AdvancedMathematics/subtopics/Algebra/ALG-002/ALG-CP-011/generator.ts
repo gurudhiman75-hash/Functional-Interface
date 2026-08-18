@@ -1,5 +1,6 @@
 import {
   compareExactRootSets,
+  compareQuadraticSurdExact,
   exactRootsFromQuadraticState,
   formatSurd,
   rational,
@@ -55,15 +56,34 @@ function relationText(relation: RootSetRelation): string {
   }
 }
 
+function comparisonSymbol(value: -1 | 0 | 1): "<" | "=" | ">" {
+  return value < 0 ? "<" : value > 0 ? ">" : "=";
+}
+
+function pairwiseEvidence(
+  xRoots: ReturnType<typeof exactRootsFromQuadraticState>,
+  yRoots: ReturnType<typeof exactRootsFromQuadraticState>,
+): string {
+  const comparisons: string[] = [];
+  for (const x of xRoots) {
+    for (const y of yRoots) {
+      const relation = compareQuadraticSurdExact(x, y);
+      comparisons.push(`${formatSurd(x)} ${comparisonSymbol(relation)} ${formatSurd(y)}`);
+    }
+  }
+  return comparisons.join("; ");
+}
+
 function buildFromEquations(candidateId: string, solveMode: AlgCp011DiscoveryItem["solveMode"], seed: number, equationX: QuadraticEquation, equationY: QuadraticEquation): AlgCp011DiscoveryItem {
   const xRoots = exactRootsFromQuadraticState(solveQuadraticEquation(equationX));
   const yRoots = exactRootsFromQuadraticState(solveQuadraticEquation(equationY));
   const answer = compareExactRootSets(xRoots, yRoots);
+  const pairEvidence = pairwiseEvidence(xRoots, yRoots);
   return {
     cpId: "ALG-CP-011", candidateId, solveMode, seed, equationX, equationY,
     stem: `Equation I: ${equationText(equationX, "x")}  Equation II: ${equationText(equationY, "y")}  Compare x and y.`,
     answer,
-    explanation: `Equation I gives x ∈ {${xRoots.map(formatSurd).join(", ")}} and Equation II gives y ∈ {${yRoots.map(formatSurd).join(", ")}}. Comparing every possible x–y pair exactly shows that ${relationText(answer)}.`,
+    explanation: `Equation I gives x ∈ {${xRoots.map(formatSurd).join(", ")}} and Equation II gives y ∈ {${yRoots.map(formatSurd).join(", ")}}. Check every admissible pair exactly: ${pairEvidence}. Therefore ${relationText(answer)}.`,
     rootEvidence: { xRoots, yRoots },
     sourceStatus: "UNVERIFIED_DRAFT",
   };
