@@ -47,6 +47,8 @@ const CP005 = buildRnkCp005PermanentRuntime() as readonly AnyQuestion[];
 const CP006 = buildRnkCp006PermanentRuntime() as readonly AnyQuestion[];
 const CP007 = buildRnkCp007PermanentRuntime() as readonly AnyQuestion[];
 
+const TIER_ORDER = ["CORE", "SECONDARY", "ADVANCED", "SOURCE_SPECIFIC"] as const;
+
 const TIER_QLS: Readonly<Record<RnkExamRealismTier, readonly string[]>> = Object.freeze({
   CORE: ALL_QL_IDS.filter((qlId) => rnkExamRealismTier(qlId) === "CORE"),
   SECONDARY: ALL_QL_IDS.filter((qlId) => rnkExamRealismTier(qlId) === "SECONDARY"),
@@ -106,6 +108,15 @@ function stableHash(value: string): number {
   return hash >>> 0;
 }
 
+function deterministicShuffle<T>(items: readonly T[], seed: string): T[] {
+  const output = [...items];
+  for (let index = output.length - 1; index > 0; index -= 1) {
+    const swap = stableHash(`${seed}:shuffle:${index}`) % (index + 1);
+    [output[index], output[swap]] = [output[swap]!, output[index]!];
+  }
+  return output;
+}
+
 function normalizeDifficulty(value: unknown): RnkQuestionStudioDifficulty | undefined {
   const text = String(value ?? "").trim().toLowerCase();
   if (!text || text === "mixed") return undefined;
@@ -156,22 +167,54 @@ function questionForQl(qlId: string, seed: number, difficulty?: RnkQuestionStudi
   throw new Error(`${qlId} could not produce ${difficulty} within the bounded RNK review search.`);
 }
 
-function weightedTier(profileId: Exclude<RnkQuestionStudioExamProfileId, "CHAPTER_COVERAGE">, seed: string): RnkExamRealismTier {
+function profileTierPlan(
+  profileId: Exclude<RnkQuestionStudioExamProfileId, "CHAPTER_COVERAGE">,
+  count: number,
+  seed: string,
+): readonly RnkExamRealismTier[] {
   const weights = PROFILE_WEIGHTS[profileId];
-  const draw = stableHash(`${profileId}:${seed}:tier`) % 100;
-  let cursor = 0;
-  for (const tier of ["CORE", "SECONDARY", "ADVANCED", "SOURCE_SPECIFIC"] as const) {
-    cursor += weights[tier];
-    if (draw < cursor) return tier;
-  }
-  return "CORE";
+  const allocations = TIER_ORDER.map((tier, order) => {
+    const exact = (count * weights[tier]) / 100;
+    const base = Math.floor(exact);
+    return { tier, order, count: base, remainder: exact - base };
+  });
+  let remaining = count - allocations.reduce((sum, entry) => sum + entry.count, 0);
+  allocations
+    .slice()
+    .sort((left, right) => right.remainder - left.remainder || left.order - right.order)
+    .forEach((entry) => {
+      if (remaining > 0) {
+        entry.count += 1;
+        remaining -= 1;
+      }
+    });
+  const plan = allocations.flatMap((entry) => Array.from({ length: entry.count }, () => entry.tier));
+  if (plan.length !== count) throw new Error(`${profileId} tier allocation produced ${plan.length}/${count}`);
+  return deterministicShuffle(plan, `${profileId}:${seed}:tier-plan`);
 }
 
-function chooseQl(profileId: RnkQuestionStudioExamProfileId, seed: string, index: number): string {
-  if (profileId === "CHAPTER_COVERAGE") return ALL_QL_IDS[index % ALL_QL_IDS.length]!;
-  const tier = weightedTier(profileId, `${seed}:${index}`);
-  const pool = TIER_QLS[tier];
-  return pool[stableHash(`${seed}:${index}:ql`) % pool.length]!;
+function questionForTier(
+  tier: RnkExamRealismTier,
+  seed: string,
+  index: number,
+  difficulty?: RnkQuestionStudioDifficulty,
+): { qlId: string; question: AnyQuestion } {
+  const primary = deterministicShuffle(TIER_QLS[tier], `${seed}:${index}:${tier}:ql-order`);
+  const fallback = tier === "CORE"
+    ? []
+    : deterministicShuffle(TIER_QLS.CORE, `${seed}:${index}:${tier}:core-fallback`);
+  let lastError: unknown = null;
+  for (const qlId of [...primary, ...fallback]) {
+    try {
+      const numericSeed = stableHash(`${seed}:${index}:${qlId}`);
+      return { qlId, question: questionForQl(qlId, numericSeed, difficulty) };
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw lastError instanceof Error
+    ? lastError
+    : new Error(`No RNK-001 ${tier} authority supports the requested filters.`);
 }
 
 function optionText(option: unknown): string {
@@ -251,9 +294,9 @@ function reviewQuestion(rawInput: AnyQuestion, qlId: string, seed: number, examP
   if (!Number.isInteger(correctIndex) || correctIndex < 0 || correctIndex >= options.length) {
     throw new Error(`${qlId} produced an invalid correct option index.`);
   }
-  const answer = String(raw.answer ?? options[correctIndex]);
+  const answer = options[correctIndex]!;
   const optionsDistinct = new Set(options).size === options.length;
-  const exactlyOneCorrect = options[correctIndex] === answer || String(raw.answerKey ?? "") !== "";
+  const exactlyOneCorrect = options.filter((option) => option === answer).length === 1;
   const stem = String(raw.stem ?? raw.instruction ?? "");
   return {
     packageId: "RNK-001",
@@ -285,7 +328,7 @@ function reviewQuestion(rawInput: AnyQuestion, qlId: string, seed: number, examP
     questionStudioVisible: true,
     lifecycleStatus: "REVIEW_ONLY",
     validation: {
-      valid: optionsDistinct && exactlyOneCorrect,
+      valid: optionsDistinct && exactlyOneCorrect && stem.length > 0,
       optionsDistinct,
       exactlyOneCorrect,
       frozenQl: true,
@@ -317,11 +360,26 @@ export function previewRnk001QuestionStudioReview(input: PreviewRnk001QuestionSt
   const count = Math.min(50, Math.max(1, Math.floor(Number(input.count ?? 5) || 5)));
   const seedText = input.seed?.trim() || "rnk-001-question-studio-review";
 
-  const questions = Array.from({ length: count }, (_, index) => {
-    const qlId = input.qlId ?? chooseQl(profileId, seedText, index);
-    const seed = stableHash(`${seedText}:${qlId}:${index}`);
-    return reviewQuestion(questionForQl(qlId, seed, difficulty), qlId, seed, profileId);
-  });
+  const questions: RnkQuestionStudioReviewQuestion[] = [];
+  if (input.qlId) {
+    for (let index = 0; index < count; index += 1) {
+      const seed = stableHash(`${seedText}:${input.qlId}:${index}`);
+      questions.push(reviewQuestion(questionForQl(input.qlId, seed, difficulty), input.qlId, seed, profileId));
+    }
+  } else if (profileId === "CHAPTER_COVERAGE") {
+    for (let index = 0; index < count; index += 1) {
+      const qlId = ALL_QL_IDS[index % ALL_QL_IDS.length]!;
+      const seed = stableHash(`${seedText}:${qlId}:${index}`);
+      questions.push(reviewQuestion(questionForQl(qlId, seed, difficulty), qlId, seed, profileId));
+    }
+  } else {
+    const tierPlan = profileTierPlan(profileId, count, seedText);
+    tierPlan.forEach((tier, index) => {
+      const selected = questionForTier(tier, seedText, index, difficulty);
+      const seed = stableHash(`${seedText}:${selected.qlId}:${index}`);
+      questions.push(reviewQuestion(selected.question, selected.qlId, seed, profileId));
+    });
+  }
 
   if (profileId !== "CHAPTER_COVERAGE" && count >= 20) {
     const mix = auditRnkExamModeMix(questions.map((question) => question.qlId));
