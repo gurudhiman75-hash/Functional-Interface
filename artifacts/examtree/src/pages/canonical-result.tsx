@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { QuestionRichText } from "@/components/QuestionRichText";
 import { getAttemptById } from "@/lib/data";
-import type { TestAttempt } from "@/lib/storage";
+import { getAttempts, type TestAttempt } from "@/lib/storage";
 
 type ReviewFilter = "all" | "wrong" | "flagged" | "unanswered";
 type CanonicalResult = TestAttempt & {
@@ -45,10 +45,21 @@ export default function CanonicalResult() {
   const requestedTestId = params?.get("testId") ?? null;
   const [filter, setFilter] = useState<ReviewFilter>("all");
 
+  // Older internal links sometimes carry only testId. Browser history may help us
+  // recover the committed attempt identifier, but never supplies score content.
+  const cachedAttemptId = useMemo(() => {
+    if (!requestedTestId) return null;
+    const candidate = getAttempts().find(
+      (attempt) => attempt.testId === requestedTestId && typeof attempt.id === "string" && attempt.id.length > 0,
+    );
+    return candidate?.id ?? null;
+  }, [requestedTestId]);
+  const resolvedAttemptId = attemptId ?? cachedAttemptId;
+
   const resultQuery = useQuery({
-    queryKey: ["canonical-attempt-result", attemptId],
-    queryFn: () => getAttemptById(attemptId!),
-    enabled: Boolean(attemptId),
+    queryKey: ["canonical-attempt-result", resolvedAttemptId],
+    queryFn: () => getAttemptById(resolvedAttemptId!),
+    enabled: Boolean(resolvedAttemptId),
     staleTime: Infinity,
     retry: false,
   });
@@ -67,7 +78,7 @@ export default function CanonicalResult() {
     return reviewState(item) === filter;
   }), [filter, review]);
 
-  if (!attemptId) {
+  if (!resolvedAttemptId) {
     return (
       <div className="mx-auto flex min-h-[70vh] max-w-xl items-center px-4">
         <div className="w-full rounded-2xl border border-amber-200 bg-card p-8 text-center shadow-sm">
