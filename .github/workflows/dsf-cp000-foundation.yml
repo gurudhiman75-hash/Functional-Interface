@@ -37,35 +37,24 @@ jobs:
       - name: Bundle DSF CP-000 proofs
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/dsf
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/tests/dsf-cp000-foundation.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/reasoning-v1/dsf/dsf-cp000-foundation.test.mjs
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/tests/dsf-cp000-number-system-discovery.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/reasoning-v1/dsf/dsf-cp000-number-system-discovery.test.mjs
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/tests/dsf-cp000-cross-domain-discovery.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/reasoning-v1/dsf/dsf-cp000-cross-domain-discovery.test.mjs
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/tests/dsf-cp000-source-pattern-audit.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/reasoning-v1/dsf/dsf-cp000-source-pattern-audit.test.mjs
-      - name: Run DSF CP-000 foundation proof
+          for test in \
+            dsf-cp000-foundation.test.ts \
+            dsf-cp000-number-system-discovery.test.ts \
+            dsf-cp000-cross-domain-discovery.test.ts \
+            dsf-cp000-source-pattern-audit.test.ts \
+            dsf-cp000-ownership-ql-boundary.test.ts
+          do
+            output="${test%.ts}.mjs"
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/reasoning-v1/topics/Data-Sufficiency/DSF-001/tests/$test" \
+              --bundle --platform=node --format=esm \
+              --outfile="dist/reasoning-v1/dsf/$output"
+          done
+      - name: Run DSF CP-000 proof suite
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/dsf/dsf-cp000-foundation.test.mjs
-      - name: Run DSF CP-000 Number System discovery proof
-        run: |
-          cd artifacts/api-server
           node dist/reasoning-v1/dsf/dsf-cp000-number-system-discovery.test.mjs
-      - name: Run DSF CP-000 cross-domain discovery proof
-        run: |
-          cd artifacts/api-server
           node dist/reasoning-v1/dsf/dsf-cp000-cross-domain-discovery.test.mjs
-      - name: Run DSF CP-000 source pattern audit
-        run: |
-          cd artifacts/api-server
           node dist/reasoning-v1/dsf/dsf-cp000-source-pattern-audit.test.mjs
+          node dist/reasoning-v1/dsf/dsf-cp000-ownership-ql-boundary.test.mjs
