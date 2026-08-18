@@ -98,7 +98,7 @@ export function generateAlgCp006DiscoveryItem(candidateId: string, seed: number)
       return solvedItem(
         candidateId, candidate.solveMode, seed, equation,
         `Solve for x: ${equationText(equation)}.`,
-        `Move the constant term to the other side: ${a}x = ${remaining}. Divide both sides by ${a}, giving x = ${x}. Substitution in the original equation confirms the value.`,
+        `Move the constant term to the other side: ${coefficientText(rational(a))} = ${remaining}. Divide both sides by ${a}, giving x = ${x}. Substitution in the original equation confirms the value.`,
       );
     }
 
@@ -116,7 +116,7 @@ export function generateAlgCp006DiscoveryItem(candidateId: string, seed: number)
       return solvedItem(
         candidateId, candidate.solveMode, seed, equation,
         `Solve for x: ${equationText(equation)}.`,
-        `Bring the x-terms to one side and constants to the other. This gives ${leftA - rightA}x = ${rightB - leftB}. Dividing by ${leftA - rightA} gives x = ${x}.`,
+        `Bring the x-terms to one side and constants to the other. This gives ${coefficientText(rational(leftA - rightA))} = ${rightB - leftB}. Dividing by ${leftA - rightA} gives x = ${x}.`,
       );
     }
 
