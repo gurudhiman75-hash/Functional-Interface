@@ -74,6 +74,19 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-002-cp008-wave02-runtime-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp008-wave02-runtime-audit.log
 
+      - name: Bundle Wave 02 review-quality audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/wave02/runtime-review-quality.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-wave02-review-quality.mjs
+
+      - name: Run Wave 02 review-quality audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp008-wave02-review-quality.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp008-wave02-review-quality.log
+
       - name: Bundle Wave 02 review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -95,6 +108,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/num-002-cp008-wave01-regression.log
             artifacts/api-server/dist/quant-v4/num-002-cp008-wave02-runtime-authority.log
             artifacts/api-server/dist/quant-v4/num-002-cp008-wave02-runtime-audit.log
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave02-review-quality.log
             artifacts/api-server/dist/quant-v4/num-002-cp008-wave02-review.json
             artifacts/api-server/dist/quant-v4/num-002-cp008-wave02-review.md
           if-no-files-found: warn
