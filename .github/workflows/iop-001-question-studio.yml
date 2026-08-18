@@ -76,6 +76,9 @@ jobs:
       - name: Prove source-mode difficulty routing
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-difficulty-routing.test.ts
 
+      - name: Prove exam vocabulary safety for word transformation
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-vocabulary-safety.test.ts
+
       - name: Scale Question Studio across all source modes and languages
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-scale.test.ts
 
