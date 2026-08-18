@@ -41,6 +41,8 @@ export * from "./cp005/types";
 export * from "./cp005/solver";
 export * from "./cp005/verifier";
 export * from "./cp005/generator";
+export * from "./cp005/authority-overlap-audit";
+export * from "./cp005/final-ownership-candidate";
 export * from "./authority-overlap-audit";
 export * from "./final-authority-registry";
 export * from "./final-authority-review";
