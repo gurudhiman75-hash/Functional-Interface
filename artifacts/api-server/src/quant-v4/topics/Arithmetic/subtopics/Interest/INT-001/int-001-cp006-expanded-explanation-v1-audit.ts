@@ -1,12 +1,15 @@
 import { INT_CP006_QL_IDS } from "./cp006-si-ci-relations-runtime-v4-final";
 import { generateIntCp006EnglishFrozenQuestion } from "./cp006-si-ci-relations-v1-frozen";
 import { generateIntCp006LocalizedQuestion as generateLocalizedV3 } from "./cp006-si-ci-relations-localized-v3";
+import { generateIntCp006LocalizedExplanationReviewQuestion as generateLocalizedV6 } from "./cp006-si-ci-relations-localized-v6";
 import { generateIntCp006EnglishExplanationReviewQuestion } from "./cp006-english-explanation-amendment-v1";
 import {
   INT_CP006_LOCALIZED_EXPLANATION_VERSION,
   generateIntCp006LocalizedExplanationReviewQuestion,
   type IntCp006LocalizedLocale,
-} from "./cp006-si-ci-relations-localized-v6";
+  standardizeIntCp006PunjabiCompoundInterest,
+  containsDeprecatedPunjabiCompoundInterestTerm,
+} from "./cp006-si-ci-relations-localized-v7";
 import { INT_CP006_EXPANDED_EXPLANATION_VERSION } from "./cp006-expanded-explanation-v4";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -18,18 +21,30 @@ function stable(value: unknown): string {
 function hasNativeScript(text: string, locale: IntCp006LocalizedLocale): boolean {
   return locale === "hi-IN" ? /[\u0900-\u097F]/u.test(text) : /[\u0A00-\u0A7F]/u.test(text);
 }
-function preservedProjection(question: any) {
+function transformPunjabiExpected<T>(value: T): T {
+  if (typeof value === "string") return standardizeIntCp006PunjabiCompoundInterest(value) as T;
+  if (Array.isArray(value)) return value.map((item) => transformPunjabiExpected(item)) as T;
+  if (typeof value === "object" && value !== null) {
+    const result: Record<PropertyKey, unknown> = {};
+    for (const key of Reflect.ownKeys(value as object)) {
+      result[key] = transformPunjabiExpected((value as Record<PropertyKey, unknown>)[key]);
+    }
+    return result as T;
+  }
+  return value;
+}
+function preservedProjection(question: any, locale?: IntCp006LocalizedLocale) {
   return {
     qlId: question.qlId,
     seed: question.seed,
     locale: question.locale,
     mathematicalState: question.mathematicalState,
     answerSemantic: question.answerSemantic,
-    presentation: question.presentation,
+    presentation: locale === "pa-IN" ? transformPunjabiExpected(question.presentation) : question.presentation,
     options: question.options,
     correctIndex: question.correctIndex,
     correctAnswer: question.correctAnswer,
-    finalAnswer: question.explanation.finalAnswer,
+    finalAnswer: locale === "pa-IN" ? standardizeIntCp006PunjabiCompoundInterest(question.explanation.finalAnswer) : question.explanation.finalAnswer,
     enabled: question.enabled,
     stagingStatus: question.stagingStatus,
     registrationStatus: question.registrationStatus,
@@ -61,11 +76,8 @@ function assertNativeGrammar(question: any, label: string, locale: IntCp006Local
         "ਮੂਲਧਨ ਕੱਟ ਜਾਂਦਾ",
         "ਜਵਾਬ ਵਾਲੇ ਸਾਲ",
         "ਸਾਲਾਨਾ ਦਰ ਦੇ ਬਰਾਬਰ ਹੁੰਦਾ ਹੈ",
-        "ਚੱਕਰਵੱਧੀ ਪਦ",
         "ਵਾਧੂ ਪਦ",
         "ਪਹਿਲੇ ਵਾਲੇ ਸਾਲ ਦਾ ਵਿਆਜ ਹੈ",
-        "ਦੂਜੇ ਕ੍ਰਮ ਦੇ ਤਿੰਨ ਚੱਕਰਵੱਧੀ ਯੋਗਦਾਨਾਂ",
-        "ਤੀਜੇ ਸਾਲ ਦੀ ਵਾਧੂ ਚੱਕਰਵੱਧੀ",
         "ਪੂਰਨ ਅੰਕ ਗੁਣਾ",
         "ਪਿੱਛੇ ਦੀ ਗਿਣਤੀ",
         "ਦੂਜੇ ਸਾਲ ਦਾ ਵਾਧੂ ਵਿਆਜ, ਪਹਿਲੇ ਸਾਲ ਦੇ ਵਿਆਜ ਉੱਤੇ ਸਾਲਾਨਾ ਦਰ ਨਾਲ ਮਿਲਣ ਵਾਲੇ ਵਿਆਜ",
@@ -79,11 +91,11 @@ function assertNativeGrammar(question: any, label: string, locale: IntCp006Local
     assert(!/(?:ਪਹਿਲਾਂ|ਹੁਣ) \d+ ਸਾਲ ਜਾਂਚੋ/u.test(learnerExplanation), `${label}: awkward Punjabi threshold instruction`);
   }
 }
-function auditExpanded(question: any, source: any, label: string, locale?: IntCp006LocalizedLocale) {
-  assert(stable(preservedProjection(question)) === stable(preservedProjection(source)), `${label}: non-explanation learner surface drift`);
+function auditExpanded(question: any, baseline: any, previous: any, label: string, locale?: IntCp006LocalizedLocale) {
+  assert(stable(preservedProjection(question)) === stable(preservedProjection(previous, locale)), `${label}: learner surface drift outside approved terminology substitution`);
   assert(question.explanationReviewVersion === INT_CP006_EXPANDED_EXPLANATION_VERSION, `${label}: explanation version drift`);
-  assert(question.explanation.keyIdea !== source.explanation.keyIdea, `${label}: key idea was not expanded`);
-  assert(stable(question.explanation.steps) !== stable(source.explanation.steps), `${label}: steps were not expanded`);
+  assert(question.explanation.keyIdea !== baseline.explanation.keyIdea, `${label}: key idea was not expanded`);
+  assert(stable(question.explanation.steps) !== stable(baseline.explanation.steps), `${label}: steps were not expanded`);
   assert(question.explanation.steps.length >= 4, `${label}: expected at least 4 explanation steps`);
   const calculationSteps = question.explanation.steps.filter((step: string) => /[0-9₹%×÷=−√]/u.test(step));
   assert(calculationSteps.length >= 2, `${label}: explanation is not sufficiently calculative`);
@@ -108,6 +120,10 @@ function auditExpanded(question: any, source: any, label: string, locale?: IntCp
     assert(question.explanation.steps.filter((step: string) => hasNativeScript(step, locale)).length >= 3, `${label}: too few native-language solution steps`);
     assert(hasNativeScript(question.explanation.commonMistake, locale), `${label}: common mistake missing native script`);
     assertNativeGrammar(question, label, locale);
+    if (locale === "pa-IN") {
+      const learnerText = `${stable(question.presentation)} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")} ${question.explanation.commonMistake} ${question.explanation.finalAnswer}`;
+      assert(!containsDeprecatedPunjabiCompoundInterestTerm(learnerText), `${label}: deprecated Punjabi compound-interest term survived`);
+    }
   }
 }
 
@@ -119,6 +135,7 @@ let calculationRichnessChecks = 0;
 let lifecycleChecks = 0;
 let nativeScriptChecks = 0;
 let nativeGrammarChecks = 0;
+let punjabiTerminologyChecks = 0;
 let deterministicChecks = 0;
 
 for (const qlId of INT_CP006_QL_IDS) {
@@ -128,7 +145,7 @@ for (const qlId of INT_CP006_QL_IDS) {
     const english = generateIntCp006EnglishExplanationReviewQuestion(qlId, seed);
     const englishReplay = generateIntCp006EnglishExplanationReviewQuestion(qlId, seed);
     assert(stable(english) === stable(englishReplay), `en/${qlId}/${seed}: deterministic drift`);
-    auditExpanded(english, frozen, `en/${qlId}/${seed}`);
+    auditExpanded(english, frozen, english, `en/${qlId}/${seed}`);
     englishQuestions += 1;
     deterministicChecks += 1;
     preservationChecks += 1;
@@ -137,11 +154,12 @@ for (const qlId of INT_CP006_QL_IDS) {
     lifecycleChecks += 7;
 
     for (const locale of ["hi-IN", "pa-IN"] as const) {
-      const localizedSource = generateLocalizedV3(qlId, seed, locale);
+      const baseline = generateLocalizedV3(qlId, seed, locale);
+      const previous = generateLocalizedV6(qlId, seed, locale);
       const localized = generateIntCp006LocalizedExplanationReviewQuestion(qlId, seed, locale);
       const replay = generateIntCp006LocalizedExplanationReviewQuestion(qlId, seed, locale);
       assert(stable(localized) === stable(replay), `${locale}/${qlId}/${seed}: deterministic drift`);
-      auditExpanded(localized, localizedSource, `${locale}/${qlId}/${seed}`, locale);
+      auditExpanded(localized, baseline, previous, `${locale}/${qlId}/${seed}`, locale);
       localizedQuestions += 1;
       deterministicChecks += 1;
       preservationChecks += 1;
@@ -150,6 +168,7 @@ for (const qlId of INT_CP006_QL_IDS) {
       lifecycleChecks += 7;
       nativeScriptChecks += 5;
       nativeGrammarChecks += 15;
+      if (locale === "pa-IN") punjabiTerminologyChecks += 1;
     }
   }
 }
@@ -168,5 +187,6 @@ console.log(JSON.stringify({
   lifecycleChecks,
   nativeScriptChecks,
   nativeGrammarChecks,
+  punjabiTerminologyChecks,
 }, null, 2));
 console.log("PASS_INT_CP006_EXPANDED_EXPLANATION_V1_AUDIT");
