@@ -1,8 +1,12 @@
 # Statement-Based Logic — Design Wave Status
 
-Status: **DESIGN WAVE COMPLETE / SELF-REVIEW REQUIRED BEFORE IMPLEMENTATION**
+Status: **DESIGN WAVE COMPLETE / CRITICAL SELF-REVIEW PASSED**
 
 This status file records the coordinated pre-implementation design wave for the natural-language Family C chapters.
+
+Critical review authority:
+
+- `STATEMENT-BASED-LOGIC-DESIGN-SELF-REVIEW.md`
 
 ## 1. Designed chapters
 
@@ -27,9 +31,7 @@ A standalone `Inference` chapter is **not** created because the current authorit
 
 Source-backed inference questions are provisionally represented inside `STC-001` when the task is entailment from supplied information. A future split requires evidence of a materially different solving contract.
 
-## 3. Semantic separation freeze candidate
-
-Before implementation, the following boundaries must survive self-review:
+## 3. Semantic separation — REVIEWED
 
 ```text
 STA: candidate must be an unstated required dependency
@@ -44,7 +46,7 @@ No implementation may replace these with one generic natural-language classifier
 
 ## 4. Shared infrastructure allowed
 
-Safe to share after design review:
+Safe to share after real reuse is demonstrated:
 
 - proposition/entity IR;
 - scope/quantifier/time types;
@@ -65,15 +67,19 @@ Must remain chapter-owned:
 - explanation semantics;
 - final QL registry.
 
-## 5. Permanent QL policy
+Shared abstractions should be extracted after at least two executable chapters prove the overlap rather than by building a universal critical-reasoning engine first.
 
-All six designs remain in discovery authority.
+## 5. Checkpoint / QL governance
+
+No permanent QL count has been allocated.
 
 ```text
 permanentQlCount: 0 for new/unallocated designs
 ```
 
-No QL count is to be invented before source saturation and merge/split review.
+The current planned CP labels are discovery authorities only.
+
+In particular, multi-I/II/III, coded and negative presentation tracks such as current `*-CP-006` labels do **not** automatically survive as permanent checkpoints or QLs. Source saturation must merge them when they are merely representation variants.
 
 ## 6. Downstream lifecycle
 
@@ -87,15 +93,15 @@ public publication: CLOSED
 Hindi/Punjabi production: NOT STARTED
 ```
 
-## 7. Required next gate
+## 7. Next program gate
 
-Before coding any chapter:
+The design wave itself is complete. Before permanent allocation or production integration:
 
-1. critical cross-design self-review;
-2. source-pattern / ownership audit plan for all six;
-3. normalize shared proposition IR where genuinely common;
-4. verify no checkpoint is merely a presentation variant masquerading as semantics;
-5. identify unsupported speculative checkpoints and mark them source-dependent;
-6. freeze the family boundary document.
+1. plan source-pattern and ownership audits for all six chapters;
+2. run executable discovery one chapter at a time;
+3. normalize shared proposition IR only where real runtime overlap is proven;
+4. merge or reject speculative checkpoint/format branches during source saturation;
+5. allocate permanent QLs only after no-known-gap review;
+6. complete English and Hindi/Punjabi freezes before Question Studio exposure.
 
-Only then should implementation begin, ideally one chapter at a time while shared primitives are extracted only after real reuse is proven.
+Design completion does **not** mean source saturation or production readiness.
