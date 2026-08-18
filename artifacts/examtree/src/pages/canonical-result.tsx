@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { QuestionRichText } from "@/components/QuestionRichText";
 import { getAttemptById } from "@/lib/data";
-import { getAttempts, type TestAttempt } from "@/lib/storage";
+import type { TestAttempt } from "@/lib/storage";
 
 type ReviewFilter = "all" | "wrong" | "flagged" | "unanswered";
 type CanonicalResult = TestAttempt & {
@@ -53,14 +53,7 @@ export default function CanonicalResult() {
     retry: false,
   });
 
-  const localResult = useMemo(() => {
-    const attempts = getAttempts();
-    return requestedTestId
-      ? attempts.find((attempt) => attempt.testId === requestedTestId) ?? null
-      : attempts[0] ?? null;
-  }, [requestedTestId]);
-
-  const result = (attemptId ? resultQuery.data : localResult) as CanonicalResult | null | undefined;
+  const result = resultQuery.data as CanonicalResult | undefined;
   const review = result?.questionReview ?? [];
   const counts = useMemo(() => ({
     all: review.length,
@@ -74,11 +67,33 @@ export default function CanonicalResult() {
     return reviewState(item) === filter;
   }), [filter, review]);
 
-  if (attemptId && resultQuery.isLoading) {
+  if (!attemptId) {
+    return (
+      <div className="mx-auto flex min-h-[70vh] max-w-xl items-center px-4">
+        <div className="w-full rounded-2xl border border-amber-200 bg-card p-8 text-center shadow-sm">
+          <Clock3 className="mx-auto h-10 w-10 text-amber-600" />
+          <h1 className="mt-4 text-xl font-semibold">Submission is not confirmed yet</h1>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            ExamTree only shows a score after the server has committed your attempt. If your connection dropped during submission, your saved attempt remains recoverable and no local estimate is presented as an official result.
+          </p>
+          <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:justify-center">
+            {requestedTestId && (
+              <Button onClick={() => setLocation(`/test/${encodeURIComponent(requestedTestId)}`)}>
+                Return to saved test
+              </Button>
+            )}
+            <Button variant="outline" onClick={() => setLocation("/dashboard")}>Open My Activity</Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (resultQuery.isLoading) {
     return <div className="flex min-h-[70vh] items-center justify-center text-muted-foreground">Loading your saved result…</div>;
   }
 
-  if (!result || (attemptId && resultQuery.isError)) {
+  if (!result || resultQuery.isError) {
     return (
       <div className="mx-auto flex min-h-[70vh] max-w-xl items-center px-4">
         <div className="w-full rounded-2xl border bg-card p-8 text-center shadow-sm">
