@@ -1,45 +1,40 @@
 # DSF-001 — Data Sufficiency
 
-This package is the implementation root for ExamTree `REAS-DSF`.
+Implementation root for ExamTree `REAS-DSF`.
 
-Current status: **DSF-CP-000 executable foundation/discovery**.
-
-The package intentionally contains no permanent `DSF-QL-*` identities. CP-000 proves information-sufficiency semantics and cross-domain adapter behavior first; permanent Question Languages are allocated only after executable discovery, source-pattern evidence, and merge/split review.
+Current status: **DSF-CP-000 FREEZE-REVIEW CANDIDATE**.
 
 Core rule:
 
-> Solve enough of the underlying problem to know every possible answer to the asked target. Evaluate Statement I, Statement II, and their conjunction independently. Sufficiency is uniqueness of the target answer, not uniqueness of the complete hidden world.
+> Evaluate Statement I, Statement II and their conjunction independently over the valid underlying worlds. A statement set is sufficient when every surviving world gives the same normalized answer to the asked target; the complete hidden world does not need to be unique.
 
-Implemented in CP-000:
+CP-000 now contains:
 
-- five canonical sufficiency classes;
-- finite-world target projection;
-- independent I / II / I+II evaluation;
-- consistency rejection;
-- monotonicity and answer-agreement invariants;
-- minimal sufficient statement subsets;
-- standard five-option English semantic contract;
-- generic finite-domain adapter bridge;
-- audit of existing Number System, Time & Work, and Simplification DS runtimes;
-- 12-row Quant/Reasoning architectural coverage matrix;
-- Number System adapter prototype reusing actual `NUM-001` divisibility helpers;
-- Algebra target-function prototype proving a unique asked value with multiple complete `(x,y)` worlds;
-- Ranking & Order adapter prototype covering all five classes and verifying target rank sets through `RNK-CP-007/exactRankSet`;
-- executable foundation, Number System, and cross-domain discovery tests;
-- dedicated GitHub Actions proof workflow.
+- five canonical two-statement sufficiency classes;
+- target-answer projection, consistency rejection and invariants;
+- minimal sufficient subsets for future 3+ statement DS;
+- shared answer-contract semantics separated from displayed option position;
+- finite-domain adapter bridge;
+- executable Number System, Algebra and Ranking discovery proofs;
+- existing NUM/TMW/SAP DS-runtime audit and ownership reconciliation;
+- 12-row Quant/Reasoning coverage matrix;
+- Banking five-option and three-statement source patterns;
+- SSC four-option source profiles from PYQ platforms;
+- PSSSB Clerk preparation signal retained as partial evidence pending official-profile verification;
+- merge/split audit;
+- QL-boundary candidate inventory;
+- dedicated five-test GitHub Actions proof suite.
 
-Coverage status:
+Initial QL boundary proposal:
 
-- 3 executable prototype groups: Number System, Algebra, Ranking and Order;
-- 2 existing-runtime audits: Simplification and Time & Work;
-- 5 further prototype-required groups;
-- 2 constraint-heavy groups deferred.
+- one initial two-statement task contract: `DSF-QL-CAND-001 / TWO_STATEMENT_TARGET_DETERMINACY`;
+- source chapters and target kinds remain solve-mode/adapter metadata;
+- three-statement DS is `DSF-QL-CAND-002` and is deferred until subset-rendering QA is implemented.
 
-Still locked:
+No permanent `DSF-QL-*` identity has been allocated yet. Question Studio publication, question-bank writes and mock-test eligibility remain locked until CP-000 freeze review passes.
 
-- permanent `DSF-QL-*` allocation;
-- Question Studio publication;
-- question-bank writes;
-- mock-test eligibility.
+Non-blocking deferrals from the first allocation:
 
-Remaining CP-000 work is source/PYQ pattern evidence, merge/split analysis, and ownership reconciliation of existing chapter-local DS runtimes before permanent QL allocation.
+- Seating / general puzzle DS;
+- three-statement production rendering;
+- Punjab-specific answer-contract profile until official-paper semantics are verified.
