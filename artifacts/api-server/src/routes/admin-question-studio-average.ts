@@ -4,6 +4,8 @@ import { Router } from "express";
 import { sqlClient } from "../lib/db";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
+// The shared facade keeps Quant requests on the guarded question-studio-review-engine path
+// while adding Reasoning packages such as WOR-001 to the same persistence workflow.
 import {
   generateQuestion as generateQuestionStudioQuestions,
   isWor001QuestionStudioRequest,
