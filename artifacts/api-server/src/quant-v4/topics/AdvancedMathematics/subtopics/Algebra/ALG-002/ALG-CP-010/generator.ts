@@ -3,6 +3,7 @@ import {
   equalsRational,
   formatRational,
   monicQuadraticFromRootInvariants,
+  productPlusMinusSumRootEquation,
   quadraticRootInvariants,
   rational,
   reciprocalQuadraticRoots,
@@ -152,9 +153,10 @@ export function generateAlgCp010DiscoveryItem(candidateId: string, seed: number)
     case "constructEquationWithShiftedRoots": {
       const shift = rational(nonZeroInt(seed, -5, 5, 70));
       const answer = shiftQuadraticRoots(base.equation, shift);
+      const magnitude = rational(shift.numerator < 0n ? -shift.numerator : shift.numerator, shift.denominator);
       return {
         cpId: "ALG-CP-010", candidateId, solveMode: candidate.solveMode, seed,
-        stem: `If α and β are the roots of ${equationText(base.equation)}, form the monic quadratic whose roots are α ${shift.numerator < 0n ? "-" : "+"} ${formatRational(rational(shift.numerator < 0n ? -shift.numerator : shift.numerator, shift.denominator))} and β ${shift.numerator < 0n ? "-" : "+"} ${formatRational(rational(shift.numerator < 0n ? -shift.numerator : shift.numerator, shift.denominator))}.`,
+        stem: `If α and β are the roots of ${equationText(base.equation)}, form the monic quadratic whose roots are α ${shift.numerator < 0n ? "-" : "+"} ${formatRational(magnitude)} and β ${shift.numerator < 0n ? "-" : "+"} ${formatRational(magnitude)}.`,
         originalEquation: base.equation,
         answer: { kind: "QUADRATIC_EQUATION", value: answer },
         explanation: `The new root sum is (α + β) + 2(${formatRational(shift)}) and the new product is αβ + ${formatRational(shift)}(α + β) + (${formatRational(shift)})². Using Vieta gives the transformed equation ${equationText(answer)}.`,
@@ -192,6 +194,20 @@ export function generateAlgCp010DiscoveryItem(candidateId: string, seed: number)
         sourceStatus: "UNVERIFIED_DRAFT",
         hiddenRoots: base.roots,
         knownRootEvidence: known,
+      };
+    }
+
+    case "constructEquationWithProductPlusMinusSumRoots": {
+      const answer = productPlusMinusSumRootEquation(base.equation);
+      return {
+        cpId: "ALG-CP-010", candidateId, solveMode: candidate.solveMode, seed,
+        stem: `If α and β are the roots of ${equationText(base.equation)}, form the monic quadratic whose roots are αβ + α + β and αβ - α - β.`,
+        originalEquation: base.equation,
+        answer: { kind: "QUADRATIC_EQUATION", value: answer },
+        explanation: `Let S = α + β = ${formatRational(invariants.sum)} and P = αβ = ${formatRational(invariants.product)}. The new roots are P + S and P - S. Their sum is 2P and their product is P² - S², so Vieta gives ${equationText(answer)}.`,
+        sourceStatus: "UNVERIFIED_DRAFT",
+        hiddenRoots: base.roots,
+        transformEvidence: { kind: "PRODUCT_PLUS_MINUS_SUM" },
       };
     }
   }

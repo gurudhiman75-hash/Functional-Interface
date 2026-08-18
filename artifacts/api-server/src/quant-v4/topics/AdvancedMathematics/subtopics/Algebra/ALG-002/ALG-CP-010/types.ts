@@ -9,7 +9,8 @@ export type AlgCp010SolveMode =
   | "constructEquationFromSumAndProduct"
   | "constructEquationWithShiftedRoots"
   | "constructEquationWithReciprocalRoots"
-  | "findOtherRootFromKnownRoot";
+  | "findOtherRootFromKnownRoot"
+  | "constructEquationWithProductPlusMinusSumRoots";
 
 export type AlgCp010Answer =
   | { kind: "RATIONAL"; value: Rational }
@@ -35,6 +36,9 @@ export interface AlgCp010DiscoveryItem {
   explanation: string;
   sourceStatus: "UNVERIFIED_DRAFT";
   hiddenRoots?: [Rational, Rational];
-  transformEvidence?: { kind: "SHIFT"; value: Rational } | { kind: "RECIPROCAL" };
+  transformEvidence?:
+    | { kind: "SHIFT"; value: Rational }
+    | { kind: "RECIPROCAL" }
+    | { kind: "PRODUCT_PLUS_MINUS_SUM" };
   knownRootEvidence?: Rational;
 }

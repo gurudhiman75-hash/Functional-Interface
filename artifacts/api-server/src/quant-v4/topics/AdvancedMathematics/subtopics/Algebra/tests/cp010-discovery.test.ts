@@ -5,6 +5,7 @@ import {
   equalsRational,
   multiplyRational,
   rational,
+  subtractRational,
   type QuadraticEquation,
   type Rational,
 } from "../../../../../shared/algebra";
@@ -84,6 +85,11 @@ for (const candidate of ALG_CP010_DISCOVERY_CANDIDATES) {
         transformedRoots = [addRational(alpha, shift), addRational(beta, shift)];
       } else if (candidate.solveMode === "constructEquationWithReciprocalRoots") {
         transformedRoots = [divideRational(rational(1n), alpha), divideRational(rational(1n), beta)];
+      } else if (candidate.solveMode === "constructEquationWithProductPlusMinusSumRoots") {
+        assert(first.transformEvidence?.kind === "PRODUCT_PLUS_MINUS_SUM", `${candidate.candidateId} seed ${seed} lacks symmetric-transform evidence`);
+        const sum = addRational(alpha, beta);
+        const product = multiplyRational(alpha, beta);
+        transformedRoots = [addRational(product, sum), subtractRational(product, sum)];
       } else {
         transformedRoots = [alpha, beta];
       }

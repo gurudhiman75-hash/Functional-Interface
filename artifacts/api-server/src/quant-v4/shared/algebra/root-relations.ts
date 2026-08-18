@@ -71,3 +71,16 @@ export function reciprocalQuadraticRoots(equation: QuadraticEquation): Quadratic
   if (product.numerator === 0n) throw new Error("Cannot form reciprocal-root equation when a root is zero");
   return monicQuadraticFromRootInvariants(divideRational(sum, product), divideRational(ONE, product));
 }
+
+/**
+ * If the original roots are α, β with S = α+β and P = αβ, construct the
+ * monic quadratic whose roots are P+S and P-S. This is a symmetric-root
+ * transform used in SSC previous-year Algebra questions and is not an
+ * affine transform of each individual root.
+ */
+export function productPlusMinusSumRootEquation(equation: QuadraticEquation): QuadraticEquation {
+  const { sum, product } = quadraticRootInvariants(equation);
+  const newSum = multiplyRational(rational(2n), product);
+  const newProduct = subtractRational(multiplyRational(product, product), multiplyRational(sum, sum));
+  return monicQuadraticFromRootInvariants(newSum, newProduct);
+}
