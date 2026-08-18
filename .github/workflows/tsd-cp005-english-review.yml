@@ -33,41 +33,45 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle CP005 English V4 review evidence, diagnostic and export
+      - name: Bundle CP005 discovery regressions and English V5 review evidence
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
-          OUT=dist/quant-v4/tsd-001/cp005-english-review
-          mkdir -p artifacts/api-server/$OUT
+          DISCOVERY_OUT=dist/quant-v4/tsd-001/cp005-discovery-regression
+          REVIEW_OUT=dist/quant-v4/tsd-001/cp005-english-review
+          mkdir -p artifacts/api-server/$DISCOVERY_OUT artifacts/api-server/$REVIEW_OUT
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-duplicate-diagnostic-v4.ts" --bundle --platform=node --format=esm --outfile="$OUT/diagnostic.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-evidence-v4.ts" --bundle --platform=node --format=esm --outfile="$OUT/evidence.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-export-v4.ts" --bundle --platform=node --format=esm --outfile="$OUT/export.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/proof.ts" --bundle --platform=node --format=esm --outfile="$DISCOVERY_OUT/proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/authority-overlap-proof.ts" --bundle --platform=node --format=esm --outfile="$DISCOVERY_OUT/authority-overlap-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-evidence-v5.ts" --bundle --platform=node --format=esm --outfile="$REVIEW_OUT/evidence.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-export-v5.ts" --bundle --platform=node --format=esm --outfile="$REVIEW_OUT/export.mjs"
 
-      - name: Diagnose CP005 English V4 selected stems
+      - name: Run CP005 discovery regressions
         run: |
           set -o pipefail
           cd artifacts/api-server
-          OUT=dist/quant-v4/tsd-001/cp005-english-review
-          node "$OUT/diagnostic.mjs" 2>&1 | tee "$OUT/diagnostic.log"
+          OUT=dist/quant-v4/tsd-001/cp005-discovery-regression
+          node "$OUT/proof.mjs" 2>&1 | tee "$OUT/proof.log"
+          node "$OUT/authority-overlap-proof.mjs" 2>&1 | tee "$OUT/authority-overlap-proof.log"
 
-      - name: Run CP005 English V4 review evidence
+      - name: Run CP005 English V5 review evidence and export
         run: |
           set -o pipefail
           cd artifacts/api-server
           OUT=dist/quant-v4/tsd-001/cp005-english-review
           node "$OUT/evidence.mjs" 2>&1 | tee "$OUT/evidence.log"
-          node "$OUT/export.mjs" > "$OUT/cp005-english-review-v4-78q.json"
+          node "$OUT/export.mjs" > "$OUT/cp005-english-review-v5-78q.json"
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Upload CP005 English V4 review evidence
+      - name: Upload CP005 English V5 review evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp005-english-review-v4-78q
+          name: tsd-cp005-english-review-v5-78q
           path: |
-            artifacts/api-server/dist/quant-v4/tsd-001/cp005-english-review/diagnostic.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-discovery-regression/proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-discovery-regression/authority-overlap-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-english-review/evidence.log
-            artifacts/api-server/dist/quant-v4/tsd-001/cp005-english-review/cp005-english-review-v4-78q.json
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-english-review/cp005-english-review-v5-78q.json
           if-no-files-found: error
