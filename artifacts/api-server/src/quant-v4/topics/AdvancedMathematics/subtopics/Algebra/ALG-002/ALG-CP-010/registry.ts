@@ -12,6 +12,7 @@ export const ALG_CP010_DISCOVERY_CANDIDATES: AlgCp010Candidate[] = [
   { candidateId: "ALG-CP010-CAND-009", solveMode: "findOtherRootFromKnownRoot", status: "DISCOVERY", permanentQlId: null, difficulty: "Easy", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP010-CAND-010", solveMode: "constructEquationWithProductPlusMinusSumRoots", status: "DISCOVERY", permanentQlId: null, difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP010-CAND-011", solveMode: "constructEquationWithReciprocalThenShiftedRoots", status: "DISCOVERY", permanentQlId: null, difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
+  { candidateId: "ALG-CP010-CAND-012", solveMode: "findCubicRootSumByVieta", status: "DISCOVERY", permanentQlId: null, difficulty: "Easy", sourceStatus: "UNVERIFIED_DRAFT" },
 ];
 
 export function getAlgCp010Candidate(candidateId: string): AlgCp010Candidate {
