@@ -23,9 +23,9 @@ const q = (value: number) => rational(value);
 function classificationDiagram(): GeoDiagramModel {
   return {
     points: [
-      { id: "A", label: "A", x: 25, y: 135 },
-      { id: "B", label: "B", x: 25, y: 30 },
-      { id: "C", label: "C", x: 165, y: 135 },
+      { id: "A", label: "A", x: 30, y: 130 },
+      { id: "B", label: "B", x: 55, y: 25 },
+      { id: "C", label: "C", x: 170, y: 105 },
     ],
     segments: [
       { id: "AB", fromPointId: "A", toPointId: "B" },
@@ -34,9 +34,9 @@ function classificationDiagram(): GeoDiagramModel {
     ],
     circles: [], angleMarks: [], rightAngleMarks: [], equalLengthMarks: [], parallelMarks: [], arcs: [],
     labels: [
-      { id: "label-ab", text: "7", x: 12, y: 82 },
-      { id: "label-ac", text: "24", x: 90, y: 151 },
-      { id: "label-bc", text: "25", x: 99, y: 78 },
+      { id: "label-ab", text: "7", x: 30, y: 75 },
+      { id: "label-ac", text: "24", x: 101, y: 130 },
+      { id: "label-bc", text: "25", x: 111, y: 57 },
     ],
     disclosure: "STEM", notToScale: true,
   };
@@ -46,9 +46,9 @@ function medianDiagram(): GeoDiagramModel {
   return {
     points: [
       { id: "A", label: "A", x: 105, y: 25 },
-      { id: "B", label: "B", x: 30, y: 145 },
-      { id: "C", label: "C", x: 180, y: 145 },
-      { id: "M", label: "M", x: 105, y: 145 },
+      { id: "B", label: "B", x: 30, y: 100 },
+      { id: "C", label: "C", x: 180, y: 100 },
+      { id: "M", label: "M", x: 105, y: 100 },
     ],
     segments: [
       { id: "AB", fromPointId: "A", toPointId: "B" },
