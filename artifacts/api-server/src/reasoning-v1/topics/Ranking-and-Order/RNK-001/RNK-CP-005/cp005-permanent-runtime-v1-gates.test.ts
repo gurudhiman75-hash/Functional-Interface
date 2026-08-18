@@ -174,6 +174,15 @@ function explanationChains(text: string): readonly string[][] {
   return chains;
 }
 
+function isExactValidOrder(
+  state: RnkCp005EditorialV3State,
+  chain: readonly string[],
+): boolean {
+  return state.validOrders.some((order) =>
+    order.length === chain.length &&
+    order.every((entity, index) => entity === chain[index]));
+}
+
 const qlCounts: Record<string, number> = {};
 const authorityCounts: Record<string, number> = {};
 const answerPositionsByQl: Record<string, number[]> = {};
@@ -182,6 +191,7 @@ const permanentFingerprints = new Set<string>();
 const learnerFingerprints = new Set<string>();
 let independentlyReproved = 0;
 let explanationChainsChecked = 0;
+let compulsoryProofChainsChecked = 0;
 let fullWitnessOrdersChecked = 0;
 let rankBoundaryProofsChecked = 0;
 
@@ -256,21 +266,30 @@ for (let index = 0; index < runtime.length; index += 1) {
     ...question.options.map((option) => option.explanation),
   ].join("\n");
   for (const chain of explanationChains(allExplanationText)) {
-    for (let chainIndex = 0; chainIndex + 1 < chain.length; chainIndex += 1) {
+    const isFullWitness = (
+      chain.length === state.entities.length &&
+      new Set(chain).size === state.entities.length
+    );
+
+    if (isFullWitness) {
+      assert.deepEqual(new Set(chain), new Set(state.entities));
       assert.equal(
-        relationAlways(state, chain[chainIndex]!, chain[chainIndex + 1]!),
+        isExactValidOrder(state, chain),
         true,
-        `${question.discoveryId}: explanation chain is not compulsory: ${chain.join(" > ")}`,
+        `${question.discoveryId}: explanation witness is not a valid order: ${chain.join(" > ")}`,
       );
+      fullWitnessOrdersChecked += 1;
+    } else {
+      for (let chainIndex = 0; chainIndex + 1 < chain.length; chainIndex += 1) {
+        assert.equal(
+          relationAlways(state, chain[chainIndex]!, chain[chainIndex + 1]!),
+          true,
+          `${question.discoveryId}: explanation proof chain is not compulsory: ${chain.join(" > ")}`,
+        );
+      }
+      compulsoryProofChainsChecked += 1;
     }
     explanationChainsChecked += 1;
-    if (chain.length === state.entities.length && new Set(chain).size === state.entities.length) {
-      assert.deepEqual(new Set(chain), new Set(state.entities));
-      for (const edge of state.edges) {
-        assert.ok(chain.indexOf(edge.higher) < chain.indexOf(edge.lower));
-      }
-      fullWitnessOrdersChecked += 1;
-    }
   }
 
   if (candidateProfile.mode === "HIGHEST_POSSIBLE" || candidateProfile.mode === "LOWEST_POSSIBLE") {
@@ -333,6 +352,7 @@ assert.equal(permanentFingerprints.size, 576);
 assert.equal(learnerFingerprints.size, 576);
 assert.equal(rankBoundaryProofsChecked, 192);
 assert.ok(explanationChainsChecked > 0);
+assert.ok(compulsoryProofChainsChecked > 0);
 assert.ok(fullWitnessOrdersChecked > 0);
 
 const projectionSha256 = rnkCp005PermanentProjectionSha256(runtime);
@@ -356,6 +376,7 @@ console.log(JSON.stringify({
   modeCounts,
   answerPositionsByQl,
   explanationChainsChecked,
+  compulsoryProofChainsChecked,
   fullWitnessOrdersChecked,
   rankBoundaryProofsChecked,
   permanentRuntimeFingerprints: permanentFingerprints.size,

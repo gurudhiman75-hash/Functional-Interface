@@ -1,0 +1,68 @@
+name: Validate RNK-001 CP005 Localization Review V3
+
+on:
+  push:
+    branches:
+      - feature/rnk-cp005-localization-review-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-cp005-localization-review-v1.yml'
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-cp005-localization-review-v1.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: rnk-001-cp005-localization-review-v3-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-cp005-localization-review-v3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove CP005 exhaustive Hindi Punjabi V2 structured baseline
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-v2-final.test.ts
+
+      - name: Prove CP005 V3 native rank explanation refinement
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-v3.test.ts
+
+      - name: Generate CP005 V3 mode-complete human-review pack
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-export-v3.ts /tmp/RNK-CP-005-HI-PA-LOCALIZATION-REVIEW-V3-48Q.md
+
+      - name: Retain CP005 V3 human-review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-cp005-hi-pa-localization-review-v3-48q
+          path: /tmp/RNK-CP-005-HI-PA-LOCALIZATION-REVIEW-V3-48Q.md
+          if-no-files-found: error
+
+      - name: Re-prove CP005 frozen permanent runtime gates
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-gates.test.ts
+
+      - name: Re-prove CP005 English freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-freeze.test.ts
+
+      - name: Record CP005 versus QL034 ownership boundary
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/rnk-cp005-ql034-ownership-audit.ts
+
+      - name: Re-prove Ranking frozen projection compatibility
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-frozen-projection-compatibility.test.ts
+
+      - name: Re-prove chapter-wide English closure
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+
+      - name: Re-prove Ranking Object Pool V2
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/foundation/rnk-object-pool-v2.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
