@@ -1,0 +1,25 @@
+name: Validate RNK-001 Exam Readiness Audit V1
+
+on:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-exam-readiness-audit-v1.yml'
+
+jobs:
+  validate-rnk-exam-readiness-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Prove RNK exam-readiness authority boundary
+        run: pnpm --filter api-server exec vitest run src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-readiness-audit-v1.test.ts
+      - name: Re-prove RNK chapter-wide English closure
+        run: pnpm --filter api-server exec vitest run src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+      - name: Build API server
+        run: pnpm --filter api-server build
