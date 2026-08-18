@@ -84,22 +84,42 @@ function freezeLocalizedCaselet(
   };
 }
 
-function canonicalApprovedReviewCorpus() {
-  return selectManualReviewCorpus(buildSea001SaturationCorpus(40).caselets, 5);
-}
+const CANONICAL_APPROVED_REVIEW_CORPUS = Object.freeze(
+  selectManualReviewCorpus(buildSea001SaturationCorpus(40).caselets, 5),
+);
+const approvedLocalizedCache = new Map<
+  Sea001TranslatedLocale,
+  readonly Sea001LocalizedReviewCaselet[]
+>();
+const multilingualFrozenCache = new Map<
+  Sea001TranslatedLocale,
+  readonly Sea001MultilingualFrozenCaselet[]
+>();
 
 export function generateSea001ApprovedLocalizedReviewCorpus(
   locale: Sea001TranslatedLocale,
 ): readonly Sea001LocalizedReviewCaselet[] {
-  return canonicalApprovedReviewCorpus().map((source) =>
-    buildSea001ExplanationParityCandidate(source, locale)
+  const cached = approvedLocalizedCache.get(locale);
+  if (cached) return cached;
+  const generated = Object.freeze(
+    CANONICAL_APPROVED_REVIEW_CORPUS.map((source) =>
+      buildSea001ExplanationParityCandidate(source, locale)
+    ),
   );
+  approvedLocalizedCache.set(locale, generated);
+  return generated;
 }
 
 export function generateSea001MultilingualFrozenReviewCorpus(
   locale: Sea001TranslatedLocale,
 ): readonly Sea001MultilingualFrozenCaselet[] {
-  return generateSea001ApprovedLocalizedReviewCorpus(locale).map(freezeLocalizedCaselet);
+  const cached = multilingualFrozenCache.get(locale);
+  if (cached) return cached;
+  const generated = Object.freeze(
+    generateSea001ApprovedLocalizedReviewCorpus(locale).map(freezeLocalizedCaselet),
+  );
+  multilingualFrozenCache.set(locale, generated);
+  return generated;
 }
 
 type ProjectionSource = Sea001LocalizedReviewCaselet | Sea001MultilingualFrozenCaselet;
