@@ -1,4 +1,4 @@
-name: Validate RNK-001 CP007 Native Editorial V4 + Percentage Adapter
+name: Validate RNK-001 CP007 Native Editorial V4 + Percentage Adapter V2
 
 on:
   push:
@@ -16,11 +16,11 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: rnk-001-cp007-native-editorial-v4-percentage-${{ github.ref }}
+  group: rnk-001-cp007-native-editorial-v4-percentage-v2-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-rnk-cp007-native-editorial-v4-percentage:
+  validate-rnk-cp007-native-editorial-v4-percentage-v2:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,8 +39,11 @@ jobs:
       - name: Re-prove V2 native grammar baseline
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-localization-review-v2.test.ts
 
-      - name: Prove QL042 percentage presentation adapter
+      - name: Re-prove QL042 percentage semantic adapter V1
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-percentage-presentation-adapter-v1.test.ts
+
+      - name: Prove QL042 percentage native grammar V2
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-percentage-presentation-adapter-v2.test.ts
 
       - name: Generate V4 human-review pack
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-localization-review-export-v4.ts /tmp/RNK-CP-007-HI-PA-LOCALIZATION-REVIEW-V4-64Q.md
@@ -52,14 +55,14 @@ jobs:
           path: /tmp/RNK-CP-007-HI-PA-LOCALIZATION-REVIEW-V4-64Q.md
           if-no-files-found: error
 
-      - name: Generate percentage-adapter learner-review pack
-        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-percentage-presentation-export-v1.ts /tmp/RNK-CP-007-PERCENTAGE-PRESENTATION-ADAPTER-V1.md
+      - name: Generate percentage-adapter V2 learner-review pack
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-percentage-presentation-export-v2.ts /tmp/RNK-CP-007-PERCENTAGE-PRESENTATION-ADAPTER-V2.md
 
-      - name: Retain percentage-adapter learner-review pack
+      - name: Retain percentage-adapter V2 learner-review pack
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-cp007-percentage-presentation-adapter-v1
-          path: /tmp/RNK-CP-007-PERCENTAGE-PRESENTATION-ADAPTER-V1.md
+          name: rnk-cp007-percentage-presentation-adapter-v2
+          path: /tmp/RNK-CP-007-PERCENTAGE-PRESENTATION-ADAPTER-V2.md
           if-no-files-found: error
 
       - name: Re-prove V1 semantic-parity baseline
