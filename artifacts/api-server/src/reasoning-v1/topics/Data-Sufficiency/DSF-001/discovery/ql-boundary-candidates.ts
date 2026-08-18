@@ -1,8 +1,8 @@
-export type DsQlCandidateStatus = "INITIAL_ALLOCATION_READY" | "DEFERRED_FUTURE_CONTRACT";
+export type DsQlCandidateStatus = "PERMANENTLY_ALLOCATED" | "DEFERRED_FUTURE_CONTRACT";
 
 export interface DsQlBoundaryCandidate {
   readonly candidateId: string;
-  readonly permanentQlId: null;
+  readonly permanentQlId: `DSF-QL-${string}` | null;
   readonly status: DsQlCandidateStatus;
   readonly statementCount: 2 | 3;
   readonly taskContract: string;
@@ -15,14 +15,15 @@ export interface DsQlBoundaryCandidate {
 }
 
 /**
- * CP-000 boundary freeze candidate inventory.
- * Candidate IDs are disposable; no DSF-QL-* permanent identity is assigned here.
+ * CP-000 frozen boundary inventory. Candidate 001 is now permanently allocated
+ * as DSF-QL-001. Candidate 002 remains a future contract and must not be
+ * exposed through production registries yet.
  */
 export const DSF_QL_BOUNDARY_CANDIDATES: readonly DsQlBoundaryCandidate[] = [
   {
     candidateId: "DSF-QL-CAND-001",
-    permanentQlId: null,
-    status: "INITIAL_ALLOCATION_READY",
+    permanentQlId: "DSF-QL-001",
+    status: "PERMANENTLY_ALLOCATED",
     statementCount: 2,
     taskContract: "TWO_STATEMENT_TARGET_DETERMINACY",
     ruleId: "INFORMATION_SUFFICIENCY_TWO_STATEMENT",
@@ -70,8 +71,10 @@ export const DSF_QL_BOUNDARY_CANDIDATES: readonly DsQlBoundaryCandidate[] = [
 
 export const DSF_INITIAL_QL_ALLOCATION_PLAN = {
   candidateIds: ["DSF-QL-CAND-001"] as const,
+  permanentQlIds: ["DSF-QL-001"] as const,
   permanentQlCount: 1,
   deferredCandidateIds: ["DSF-QL-CAND-002"] as const,
-  permanentIdsAllocated: false,
-  reason: "Freeze one canonical two-statement QL first; expand domain coverage through adapters/solve modes. Add the separate three-statement contract only after its renderer and subset-combination QA are implemented.",
+  permanentIdsAllocated: true,
+  nextAvailableQlId: "DSF-QL-002" as const,
+  reason: "CP-000 froze one canonical two-statement QL. Domain coverage expands through adapters/solve modes. The three-statement contract remains deferred until its renderer and subset-combination QA are implemented.",
 } as const;
