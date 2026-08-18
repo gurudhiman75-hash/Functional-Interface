@@ -96,14 +96,18 @@ const FAMILY_BY_PREFIX: readonly [string, TheoremFamily][] = [
 
 function humanize(id: string): string {
   const names: Partial<Record<TheoremId, string>> = {
-    GIVEN_ANGLE: "given angle",
+    GIVEN_ANGLE: "the stated angle measure",
     LINEAR_PAIR_SUM: "angles in a linear pair add to 180°",
     VERTICAL_OPPOSITE_ANGLES: "vertically opposite angles are equal",
     ANGLE_AROUND_POINT: "angles around a point add to 360°",
-    CORRESPONDING_ANGLES_PARALLEL: "corresponding angles are equal when lines are parallel",
-    ALTERNATE_INTERIOR_ANGLES: "alternate interior angles are equal when lines are parallel",
-    CO_INTERIOR_SUPPLEMENTARY: "co-interior angles add to 180° when lines are parallel",
-    TRIANGLE_ANGLE_SUM: "angles in a triangle add to 180°",
+    CORRESPONDING_ANGLES_PARALLEL: "corresponding angles are equal when the lines are parallel",
+    ALTERNATE_INTERIOR_ANGLES: "alternate interior angles are equal when the lines are parallel",
+    CO_INTERIOR_SUPPLEMENTARY: "co-interior angles add to 180° when the lines are parallel",
+    TRIANGLE_ANGLE_SUM: "the interior angles of a triangle add to 180°",
+    TRIANGLE_EXTERIOR_ANGLE: "an exterior angle equals the sum of the two remote interior angles",
+    ISOSCELES_BASE_ANGLES: "the base angles of an isosceles triangle are equal",
+    ISOSCELES_CONVERSE: "equal angles in a triangle stand opposite equal sides",
+    TRIANGLE_INEQUALITY: "the third side is greater than the difference and less than the sum of the other two sides",
   };
   return names[id as TheoremId] ?? id.toLowerCase().replaceAll("_", " ");
 }
