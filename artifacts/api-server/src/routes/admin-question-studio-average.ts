@@ -5,9 +5,10 @@ import { sqlClient } from "../lib/db";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
 // The shared facade keeps Quant requests on the guarded question-studio-review-engine path
-// while adding Reasoning packages such as WOR-001 to the same persistence workflow.
+// while adding frozen Reasoning packages to the same review-run persistence workflow.
 import {
   generateQuestion as generateQuestionStudioQuestions,
+  isRnk001QuestionStudioRequest,
   isWor001QuestionStudioRequest,
   listQuestionStudioPackages,
 } from "../question-studio/shared-generation-engine";
@@ -122,6 +123,10 @@ function inferNumberSystemCpFromQl(value: unknown) {
   return undefined;
 }
 
+function firstSelector(prefix: string, ...values: unknown[]) {
+  return values.map(asString).find((value) => value.startsWith(prefix)) || undefined;
+}
+
 function publicRunCode() {
   const date = new Date().toISOString().slice(0, 10).replaceAll("-", "");
   const suffix = randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase();
@@ -147,14 +152,36 @@ router.get(
           : Array.isArray(pkg.canonicalProblems)
             ? pkg.canonicalProblems.map((item: any) => String(item?.id ?? "")).filter(Boolean)
             : [],
+        canonicalProblems: Array.isArray(pkg.canonicalProblems)
+          ? pkg.canonicalProblems.map((item: any) => ({
+              id: String(item?.id ?? ""),
+              label: String(item?.label ?? item?.id ?? ""),
+            })).filter((item: any) => item.id)
+          : [],
+        supportedDifficulties: Array.isArray(pkg.supportedDifficulties)
+          ? pkg.supportedDifficulties.map(String)
+          : ["Easy", "Medium", "Hard"],
         supportedLanguages: Array.isArray(pkg.supportedLanguages)
           ? pkg.supportedLanguages.map(String)
           : ["en"],
+        supportedExamProfiles: Array.isArray(pkg.supportedExamProfiles)
+          ? pkg.supportedExamProfiles.map(String)
+          : [],
         runtimeMode: asString(pkg.runtimeMode) || undefined,
         supportedRuntimeModes: Array.isArray(pkg.supportedRuntimeModes)
           ? pkg.supportedRuntimeModes.map(String)
           : [],
+        reviewOnly: typeof pkg.reviewOnly === "boolean" ? pkg.reviewOnly : undefined,
+        releaseFreezeStatus: asString(pkg.releaseFreezeStatus) || undefined,
+        permanentQlCount: Number.isFinite(Number(pkg.permanentQlCount))
+          ? Number(pkg.permanentQlCount)
+          : undefined,
+        permanentQlRange: asString(pkg.permanentQlRange) || undefined,
         questionBankStatus: asString(pkg.questionBankStatus) || undefined,
+        questionBankWritable:
+          typeof pkg.questionBankWritable === "boolean"
+            ? pkg.questionBankWritable
+            : undefined,
         testEligibility: asString(pkg.testEligibility) || undefined,
         publiclyPublishable:
           typeof pkg.publiclyPublishable === "boolean"
@@ -185,42 +212,55 @@ router.post(
     const averageRequest = isAverageRequest(req.body);
     const timeAndWorkRequest = isTimeAndWorkRequest(req.body);
     const worRequest = isWor001QuestionStudioRequest(req.body ?? {});
-    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !worRequest) {
+    const rnkRequest = isRnk001QuestionStudioRequest(req.body ?? {});
+    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !worRequest && !rnkRequest) {
       next();
       return;
     }
 
     const count = asPositiveInteger(req.body?.count, 5, 50);
     const defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001";
-    const selectedPackageId = worRequest
-      ? "WOR-001"
-      : simplificationRequest
-        ? "SAP"
-        : timeAndWorkRequest
-          ? "TMW-001"
-          : defaultPackageId;
+    const selectedPackageId = rnkRequest
+      ? "RNK-001"
+      : worRequest
+        ? "WOR-001"
+        : simplificationRequest
+          ? "SAP"
+          : timeAndWorkRequest
+            ? "TMW-001"
+            : defaultPackageId;
     const defaultSubtopic = numberSystemRequest ? "Number System" : "Average";
-    const selectedSubtopic = worRequest
-      ? "Word & Dictionary Order"
-      : simplificationRequest
-        ? "Simplification & Approximation"
-        : timeAndWorkRequest
-          ? "Time & Work"
-          : defaultSubtopic;
+    const selectedSubtopic = rnkRequest
+      ? "Ranking & Order"
+      : worRequest
+        ? "Word & Dictionary Order"
+        : simplificationRequest
+          ? "Simplification & Approximation"
+          : timeAndWorkRequest
+            ? "Time & Work"
+            : defaultSubtopic;
     const packageId = asString(req.body?.packageId) || selectedPackageId;
-    const patternId = asString(req.body?.patternId) || undefined;
-    const topic = worRequest ? "Reasoning" : asString(req.body?.topic) || "Arithmetic";
+    const requestedPatternId = asString(req.body?.patternId) || undefined;
+    const topic = rnkRequest || worRequest ? "Reasoning" : asString(req.body?.topic) || "Arithmetic";
     const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
-    const subject = worRequest ? "Reasoning Ability" : asString(req.body?.subject) || "Quantitative Aptitude";
+    const subject = rnkRequest || worRequest ? "Reasoning Ability" : asString(req.body?.subject) || "Quantitative Aptitude";
     const language = normalizeLanguage(req.body?.language);
     const requestedDifficulty = asString(req.body?.difficulty);
-    const difficulty = worRequest && requestedDifficulty.toLowerCase() === "mixed"
+    const difficulty = (rnkRequest || worRequest) && requestedDifficulty.toLowerCase() === "mixed"
       ? "Mixed"
       : normalizeDifficulty(requestedDifficulty);
     const seed = asString(req.body?.seed) || undefined;
     const canonicalProblemId = asString(req.body?.canonicalProblemId) || undefined;
     const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;
+    const examProfileId = asString(req.body?.examProfileId) || undefined;
+    const rnkQlId = rnkRequest
+      ? firstSelector("RNK-QL-", requestedPatternId, canonicalProblemId, questionLanguageId)
+      : undefined;
+    const rnkCpId = rnkRequest
+      ? firstSelector("RNK-CP-", req.body?.cpId, canonicalProblemId)
+      : undefined;
+    const patternId = rnkQlId ?? requestedPatternId;
     const inferredNumberSystemCp = numberSystemRequest
       ? inferNumberSystemCpFromQl(questionLanguageId)
       : undefined;
@@ -247,11 +287,19 @@ router.post(
       }
     }
 
+    if (rnkRequest && language !== "en") {
+      res.status(400).json({
+        error: "RNK-001 Hindi/Punjabi Question Studio delivery remains locked until the chapter multilingual lineage is consolidated and approved.",
+      });
+      return;
+    }
+
     const runId = randomUUID();
     const code = publicRunCode();
     const timestamp = new Date().toISOString();
     const requestSnapshot = {
       exam,
+      examProfileId,
       subject,
       difficulty,
       count,
@@ -261,6 +309,7 @@ router.post(
       subtopic,
       canonicalProblemId,
       questionLanguageId,
+      cpId: rnkCpId,
       language,
       seed,
       requestedByFirebaseUid: req.user?.id,
@@ -272,12 +321,14 @@ router.post(
         patternId,
         topic,
         subtopic,
-        canonicalProblemId,
+        canonicalProblemId: rnkQlId ?? canonicalProblemId,
+        cpId: rnkCpId,
         questionLanguageId,
         difficulty,
         language,
         seed,
         count,
+        examProfileId,
       });
       const generatedQuestions = Array.isArray(result.questions)
         ? result.questions
@@ -298,7 +349,7 @@ router.post(
           ) VALUES (
             ${runId}::uuid, ${code}, 'review'::generation_run_status, 1,
             ${JSON.stringify(requestSnapshot)}, ${JSON.stringify(requestSnapshot)},
-            'examtree', ${worRequest ? "reasoning-v1-wor-001" : "quant-v4"}, 0, 0, 0, 0,
+            'examtree', ${rnkRequest ? "reasoning-v1-rnk-001" : worRequest ? "reasoning-v1-wor-001" : "quant-v4"}, 0, 0, 0, 0,
             ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
           )
         `;
@@ -307,9 +358,15 @@ router.post(
           const itemId = randomUUID();
           const versionId = randomUUID();
           const question = generatedQuestions[index] as Record<string, unknown>;
+          const sourceGenerationContext = question.generationContext && typeof question.generationContext === "object"
+            ? question.generationContext as Record<string, unknown>
+            : {};
           const payload = {
             ...question,
-            generationContext: result.generationContext,
+            generationContext: {
+              ...sourceGenerationContext,
+              ...(result.generationContext ?? {}),
+            },
             validationResult: "pending",
           };
 
@@ -365,7 +422,7 @@ router.post(
         publicCode: code,
         status: "review",
         itemCount: generatedQuestions.length,
-        generationSystem: worRequest ? "reasoning-v1" : "quant-v4",
+        generationSystem: rnkRequest || worRequest ? "reasoning-v1" : "quant-v4",
       });
     } catch (error) {
       console.error(`${selectedPackageId} Question Studio generation failed`, error);
