@@ -1,0 +1,56 @@
+name: Validate RNK-001 CP006 Localization Review V1
+
+on:
+  push:
+    branches:
+      - feature/rnk-cp006-localization-review-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-cp006-localization-review-v1.yml'
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-cp006-localization-review-v1.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: rnk-001-cp006-localization-review-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-cp006-localization-review-v1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove CP006 exhaustive Hindi Punjabi structured localization
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-localization-review-v1.test.ts
+
+      - name: Generate CP006 human-review pack
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-localization-review-export-v1.ts /tmp/RNK-CP-006-HI-PA-LOCALIZATION-REVIEW-V1-48Q.md
+
+      - name: Retain CP006 human-review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-cp006-hi-pa-localization-review-v1-48q
+          path: /tmp/RNK-CP-006-HI-PA-LOCALIZATION-REVIEW-V1-48Q.md
+          if-no-files-found: error
+
+      - name: Re-prove CP006 frozen English runtime
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-permanent-runtime-v1-freeze.test.ts
+
+      - name: Re-prove chapter-wide English closure
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+
+      - name: Re-prove Ranking Object Pool V2
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/foundation/rnk-object-pool-v2.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
