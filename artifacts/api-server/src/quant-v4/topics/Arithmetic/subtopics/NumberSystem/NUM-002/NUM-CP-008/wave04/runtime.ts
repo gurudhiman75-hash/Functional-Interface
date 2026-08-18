@@ -42,25 +42,39 @@ function leastRepeatedDigitLengthExact(digit: number, modulus: number, limit: nu
   return -1;
 }
 
-const REPEATED_DIGIT_CASES = [
-  { digit: 2, modulus: 18, maxLength: 12 },
-  { digit: 5, modulus: 13, maxLength: 12 },
-  { digit: 1, modulus: 7, maxLength: 12 },
-  { digit: 3, modulus: 37, maxLength: 8 },
-  { digit: 7, modulus: 13, maxLength: 12 },
-  { digit: 4, modulus: 11, maxLength: 8 },
-  { digit: 8, modulus: 73, maxLength: 12 },
-  { digit: 6, modulus: 7, maxLength: 12 },
-] as const;
+type RepeatedDigitCase = Readonly<{ digit: number; modulus: number; maxLength: number; answer: number }>;
+
+const REPEATED_DIGIT_MODULI = [3, 7, 9, 11, 13, 21, 33, 37, 39, 41, 73, 77, 91, 101, 111, 137, 143] as const;
+
+function buildRepeatedDigitCases(): readonly RepeatedDigitCase[] {
+  const cases: RepeatedDigitCase[] = [];
+  for (let digit = 1; digit <= 9; digit += 1) {
+    for (const modulus of REPEATED_DIGIT_MODULI) {
+      const residues = repeatedDigitResidues(digit, modulus, 12);
+      const answer = residues.findIndex((residue) => residue === 0) + 1;
+      if (answer >= 2) cases.push(Object.freeze({ digit, modulus, maxLength: 12, answer }));
+    }
+  }
+  const sourceCase = Object.freeze({ digit: 2, modulus: 18, maxLength: 12, answer: 9 });
+  cases.push(sourceCase);
+  return Object.freeze(cases);
+}
+
+const REPEATED_DIGIT_CASES = buildRepeatedDigitCases();
 
 function p025(seed: number): NumCp008Wave04Package {
   const rng = createRng(seed * 223 + 8);
   const t = tier(seed);
-  const band = t === 0 ? REPEATED_DIGIT_CASES.slice(0, 3) : t === 1 ? REPEATED_DIGIT_CASES.slice(2, 6) : REPEATED_DIGIT_CASES.slice(4);
+  const band = REPEATED_DIGIT_CASES.filter((item) =>
+    t === 0 ? item.answer <= 4 : t === 1 ? item.answer >= 5 && item.answer <= 6 : item.answer >= 7,
+  );
+  if (band.length < 4) throw new Error(`Insufficient repeated-digit source states for tier ${t}`);
   const chosen = rng.pick(band);
   const residues = repeatedDigitResidues(chosen.digit, chosen.modulus, chosen.maxLength);
-  const answer = residues.findIndex((residue) => residue === 0) + 1;
-  if (answer <= 0) throw new Error(`No repeated-digit divisibility state for ${chosen.digit}/${chosen.modulus}`);
+  const answer = chosen.answer;
+  if (residues[answer - 1] !== 0 || residues.slice(0, answer - 1).some((residue) => residue === 0)) {
+    throw new Error(`Repeated-digit minimum-state construction failed for ${chosen.digit}/${chosen.modulus}`);
+  }
   const verifier = leastRepeatedDigitLengthExact(chosen.digit, chosen.modulus, chosen.maxLength);
   const options = numericOptions(answer, [
     { value: Math.max(1, answer - 1), misconceptionId: "STOPPED_ONE_DIGIT_EARLY" },
