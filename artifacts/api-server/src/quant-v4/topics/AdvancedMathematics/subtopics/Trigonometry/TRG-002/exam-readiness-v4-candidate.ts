@@ -4,6 +4,10 @@ import { TRG_002_V4_SCENARIO_SHELLS, selectTrg002V4ScenarioShell, type Trg002Spa
 import { applyTrg002V4Wave1ScenarioText } from "./exam-readiness-v4-wave1-surface";
 import { isTrg002V4CanonicalOverride } from "./exam-readiness-v4-canonical";
 import { generateLocalizedTrg002V4CanonicalOverride } from "./exam-readiness-v4-override-localization";
+import {
+  applyTrg002V4PhysicalSupportMigration,
+  TRG_002_V4_ROOFTOP_SURFACE_IDS,
+} from "./exam-readiness-v4-physical-support";
 
 type AnyQuestion = Record<string, any>;
 
@@ -60,11 +64,17 @@ function canonicalScenarioId(qlId: string) {
   return ids[qlId];
 }
 
+function isRooftopSurface(qlId: string) {
+  return (TRG_002_V4_ROOFTOP_SURFACE_IDS as readonly string[]).includes(qlId);
+}
+
 export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, locale: Trg002ExamRealnessLocale) {
   const canonicalOverride = isTrg002V4CanonicalOverride(qlId);
-  const base: AnyQuestion = canonicalOverride
+  const rawBase: AnyQuestion = canonicalOverride
     ? generateLocalizedTrg002V4CanonicalOverride(qlId, seed, locale)
     : generateExamRealLocalizedTrg002Question(qlId, seed, locale);
+  const physicalSupport = applyTrg002V4PhysicalSupportMigration(rawBase);
+  const base: AnyQuestion = physicalSupport.question;
   const exactStem = repairHistoricalExactMathArtifact(base.stem);
   const explanation = repairExplanation(base.explanation);
   const explicitScenarioId = canonicalOverride ? canonicalScenarioId(qlId) : undefined;
@@ -79,10 +89,29 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
     : selectedScenario;
   if (!scenario) throw new Error(`${qlId}: missing explicit V4 scenario shell ${explicitScenarioId}.`);
   if (scenario.topology !== topology) throw new Error(`${qlId}: explicit V4 scenario topology ${scenario.topology} does not match ${topology}.`);
+
+  // A rooftop surface is complete when the canonical eye point is physically bound
+  // to a vertical support object. Bridge/river scenarios remain pending because a
+  // generic support alone would not depict their scenario semantics honestly.
+  const rooftopDiagramAligned = isRooftopSurface(qlId) && physicalSupport.supported;
+  const diagramMigrationRequired = wave1.diagramMigrationRequired && !rooftopDiagramAligned;
+  const scenarioSurfaceApplied = canonicalOverride || (wave1.scenarioTextApplied && !diagramMigrationRequired);
+
   const learnerText = [stem, explanation.keyRule, ...explanation.steps.map((s: AnyQuestion) => s.body), explanation.shortcut, ...explanation.traps].join(" ");
   if (/√\d+\.\d+/u.test(learnerText)) throw new Error(`${qlId}:${locale}: V4 forbids decimal radicands in exact learner math.`);
 
-  const v4Fingerprint = sha256({ qlId, seed, locale, stem, explanation, topology, scenarioId: wave1.scenarioId ?? scenario.id, canonicalOverride });
+  const v4Fingerprint = sha256({
+    qlId,
+    seed,
+    locale,
+    stem,
+    explanation,
+    topology,
+    scenarioId: wave1.scenarioId ?? scenario.id,
+    canonicalOverride,
+    physicalObserverSupport: physicalSupport.supported,
+    diagramMigrationRequired,
+  });
   return {
     ...base,
     stem,
@@ -96,8 +125,10 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
       recommendedScenarioDomain: scenario.domain,
       recommendedVisualStrategy: scenario.visualStrategy,
       scenarioTextApplied: wave1.scenarioTextApplied,
-      scenarioSurfaceApplied: canonicalOverride || (wave1.scenarioTextApplied && !wave1.diagramMigrationRequired),
-      diagramMigrationRequired: wave1.diagramMigrationRequired,
+      scenarioSurfaceApplied,
+      diagramMigrationRequired,
+      physicalObserverSupport: physicalSupport.supported,
+      physicalSupportMigratedInV4: physicalSupport.migrated,
       exactMathProtected: true,
       comprehensiveVisualReviewRequired: true,
       qlRepurposingAllowedInV4Candidate: true,
