@@ -8,7 +8,7 @@ function assert(condition: unknown, message: string): asserts condition {
 
 const LANGUAGES = ["hi", "pa"] as const satisfies readonly NumCp004TranslatedLanguage[];
 const RESIDUAL_ENGLISH_AND = /\band\b/iu;
-const KNOWN_MECHANICAL = /(?:से सख़्ती से बड़ी|ਤੋਂ ਸਖ਼ਤੀ ਨਾਲ ਵੱਡੀ|दिए हैं। में किसके|ਦਿੱਤੇ ਹਨ। ਵਿੱਚੋਂ ਕਿਸਦੇ|कौन-सा पर्याप्त जानकारी निष्कर्ष सही है|ਕਿਹੜਾ ਕਾਫ਼ੀ ਜਾਣਕਾਰੀ ਨਤੀਜਾ ਸਹੀ ਹੈ|पूर्ण अभाज्य गुणनखंड क्या है|ਪੂਰਾ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕੀ ਹੈ)/u;
+const KNOWN_MECHANICAL = /(?:से सख़्ती से बड़ी|ਤੋਂ ਸਖ਼ਤੀ ਨਾਲ ਵੱਡੀ|दिए हैं। में किस|ਦਿੱਤੇ ਹਨ। ਵਿੱਚੋਂ ਕਿਸ|कौन-सा पर्याप्त जानकारी निष्कर्ष सही है|ਕਿਹੜਾ ਕਾਫ਼ੀ ਜਾਣਕਾਰੀ ਨਤੀਜਾ ਸਹੀ ਹੈ|पूर्ण अभाज्य गुणनखंड क्या है|ਪੂਰਾ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕੀ ਹੈ)/u;
 const DOUBLE_COPULA = /(?:।\s*है।|।\s*ਹੈ।)/u;
 const META_CONCEPT = /(?:यह प्रश्न|ਇਹ ਪ੍ਰਸ਼ਨ|की जाँच करता है|ਦੀ ਜਾਂਚ ਕਰਦਾ ਹੈ)/u;
 const GENERATOR_EVIDENCE = /(?:निर्णायक मान मिलते हैं|ਨਿਰਣਾਇਕ ਮੁੱਲ ਮਿਲਦੇ ਹਨ|गणना से .* मिलता है|ਗਣਨਾ ਤੋਂ .* ਮਿਲਦਾ ਹੈ)/u;
@@ -22,13 +22,7 @@ for (const qlId of NUM_CP004_PERMANENT_QL_IDS) {
     for (const language of LANGUAGES) {
       const q = runNumCp004LocalizedReviewFinalForQl(qlId, seed, language);
       const label = `${qlId}/${seed}/${language}`;
-      const learner = [
-        q.stem,
-        ...q.options.map((option) => option.value),
-        q.explanation.concept,
-        ...q.explanation.solution,
-        q.explanation.finalAnswer,
-      ].join("\n");
+      const learner = [q.stem, ...q.options.map((option) => option.value), q.explanation.concept, ...q.explanation.solution, q.explanation.finalAnswer].join("\n");
 
       assert(!RESIDUAL_ENGLISH_AND.test(learner), `${label}: residual English 'and' leaked`);
       assert(!KNOWN_MECHANICAL.test(learner), `${label}: known mechanical learner wording leaked`);
@@ -53,8 +47,8 @@ for (const qlId of NUM_CP004_PERMANENT_QL_IDS) {
         }
       }
       if (qlId === "NUM-QL-023") assert(!/\band\b/iu.test(q.stem), `${label}: QL023 conjunction remains English`);
-      if (qlId === "NUM-QL-029" && language === "hi") assert(q.stem.includes("इनमें किसके"), `${label}: QL029 Hindi comparison grammar not repaired`);
-      if (qlId === "NUM-QL-029" && language === "pa") assert(q.stem.includes("ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ"), `${label}: QL029 Punjabi comparison grammar not repaired`);
+      if (qlId === "NUM-QL-029" && language === "hi") assert(q.stem.includes("दिए हैं। इनमें किस"), `${label}: QL029 Hindi comparison grammar not repaired`);
+      if (qlId === "NUM-QL-029" && language === "pa") assert(q.stem.includes("ਦਿੱਤੇ ਹਨ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸ"), `${label}: QL029 Punjabi comparison grammar not repaired`);
       if (qlId === "NUM-QL-044") assert(language === "hi" ? q.stem.includes("कौन-सा निष्कर्ष सही है?") : q.stem.includes("ਕਿਹੜਾ ਨਤੀਜਾ ਸਹੀ ਹੈ?"), `${label}: DS question remains mechanical`);
 
       audited += 1;
@@ -81,4 +75,5 @@ console.log(JSON.stringify({
   answerBindingViolations: 0,
   optionCollapseViolations: 0,
   intervalPrimeEvidenceViolations: 0,
+  comparisonGrammarViolations: 0,
 }, null, 2));
