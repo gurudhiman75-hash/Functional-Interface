@@ -92,21 +92,25 @@ Hindi/Punjabi localized learner-content SHA256:
 
 Both hashes remain unchanged by Question Studio exam-profile and vocabulary-selection hardening.
 
-## Validation authority before this metadata commit
+## Validation authority
 
-Feature head validated by the complete gate:
+Runtime/content head validated before the final metadata pin:
 
 `31d1c1b62a57b3c15bfd0c7eec6c99d37308a6d9`
 
-Workflow:
-
-`Validate IOP-001 Question Studio integration`
-
-Run:
+Runtime/content validation run:
 
 `32112415757 — SUCCESS`
 
-Passed:
+The metadata-only status commit then produced head:
+
+`9ff194263118e4b424aa4ff7e7321af2b88aaabe`
+
+That exact metadata head was independently revalidated end-to-end by:
+
+`32112827782 — SUCCESS`
+
+Passed on the exact metadata head:
 
 - strict TypeScript for IOP-owned modules
 - frozen English learner-content proof
@@ -123,7 +127,7 @@ Passed:
 - production API build
 - admin production build
 
-This status-file commit changes metadata only; learner content and runtime behavior are unchanged.
+This file is metadata only; learner content and runtime behavior are unchanged from the validated runtime/content head.
 
 ## Non-blocking future V2 editorial opportunities
 
