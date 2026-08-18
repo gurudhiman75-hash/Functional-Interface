@@ -3,6 +3,7 @@ import {
   addRational,
   divideRational,
   equalsRational,
+  evaluatePolynomial,
   multiplyRational,
   rational,
   subtractRational,
@@ -39,9 +40,25 @@ for (const candidate of ALG_CP010_DISCOVERY_CANDIDATES) {
     assert(stable(first) === stable(replay), `${candidate.candidateId} seed ${seed} is not deterministic`);
     assert(first.stem.length > 18, `${candidate.candidateId} seed ${seed} has empty stem`);
     assert(first.explanation.length > 40, `${candidate.candidateId} seed ${seed} has incomplete explanation`);
-    assert(first.hiddenRoots !== undefined, `${candidate.candidateId} seed ${seed} lacks hidden-root evidence`);
 
-    const [alpha, beta] = first.hiddenRoots!;
+    if (candidate.solveMode === "findCubicRootSumByVieta") {
+      assert(first.originalPolynomial !== undefined, `${candidate.candidateId} seed ${seed} lacks cubic polynomial evidence`);
+      assert(first.hiddenCubicRoots !== undefined, `${candidate.candidateId} seed ${seed} lacks cubic roots`);
+      assert(first.answer.kind === "RATIONAL", `${candidate.candidateId} seed ${seed} cubic Vieta answer must be rational`);
+      if (!first.originalPolynomial || !first.hiddenCubicRoots || first.answer.kind !== "RATIONAL") continue;
+      const [alpha, beta, gamma] = first.hiddenCubicRoots;
+      for (const root of first.hiddenCubicRoots) {
+        assert(equalsRational(evaluatePolynomial(first.originalPolynomial, root), ZERO), `${candidate.candidateId} seed ${seed} hidden cubic root fails substitution`);
+      }
+      const expected = addRational(addRational(alpha, beta), gamma);
+      assert(equalsRational(first.answer.value, expected), `${candidate.candidateId} seed ${seed} cubic root-sum mismatch`);
+      continue;
+    }
+
+    assert(first.originalEquation !== undefined, `${candidate.candidateId} seed ${seed} lacks quadratic equation evidence`);
+    assert(first.hiddenRoots !== undefined, `${candidate.candidateId} seed ${seed} lacks hidden-root evidence`);
+    if (!first.originalEquation || !first.hiddenRoots) continue;
+    const [alpha, beta] = first.hiddenRoots;
     assert(equalsRational(evaluateQuadratic(first.originalEquation, alpha), ZERO), `${candidate.candidateId} seed ${seed} alpha is not an original root`);
     assert(equalsRational(evaluateQuadratic(first.originalEquation, beta), ZERO), `${candidate.candidateId} seed ${seed} beta is not an original root`);
 
