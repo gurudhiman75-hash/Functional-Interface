@@ -1,0 +1,52 @@
+name: Verify TRG-002 Grammar Remediation V3
+
+on:
+  push:
+    branches:
+      - feat/trg-002-localization-hi-pa-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-grammar-remediation-v3.yml
+  pull_request:
+    branches:
+      - feat/trg-002-mvp48-freeze
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-grammar-remediation-v3.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Targeted Trigonometry TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg002-grammar-v3.json <<'JSON'
+          {"extends":"./tsconfig.json","compilerOptions":{"noEmit":true},"include":["src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**/*.ts"],"exclude":["src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts"],"references":[]}
+          JSON
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg002-grammar-v3.json --pretty false
+      - name: Protect historical frozen English 96 authority
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-freeze-96.test.ts
+      - name: Run V2 semantic and realness suite
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-exam-realness-v2.test.ts
+      - name: Run 2304-case grammar V3 gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-grammar-v3.test.ts
+      - name: Export final 192-record review pack
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-exam-realness-v2-review.ts
+      - name: Upload grammar-remediated review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-hi-pa-grammar-remediation-v3
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-realness-v2/
+          if-no-files-found: error
+          retention-days: 14
