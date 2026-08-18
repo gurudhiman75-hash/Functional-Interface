@@ -30,6 +30,8 @@ function evaluateQuadratic(equation: QuadraticEquation, x: Rational): Rational {
   );
 }
 
+const cubicTargetsSeen = new Set<string>();
+
 for (const candidate of ALG_CP010_DISCOVERY_CANDIDATES) {
   assert(candidate.permanentQlId === null, `${candidate.candidateId} must remain provisional`);
   assert(candidate.sourceStatus === "UNVERIFIED_DRAFT", `${candidate.candidateId} must not claim source audit`);
@@ -41,17 +43,23 @@ for (const candidate of ALG_CP010_DISCOVERY_CANDIDATES) {
     assert(first.stem.length > 18, `${candidate.candidateId} seed ${seed} has empty stem`);
     assert(first.explanation.length > 40, `${candidate.candidateId} seed ${seed} has incomplete explanation`);
 
-    if (candidate.solveMode === "findCubicRootSumByVieta") {
+    if (candidate.solveMode === "findDirectCubicVietaInvariant") {
       assert(first.originalPolynomial !== undefined, `${candidate.candidateId} seed ${seed} lacks cubic polynomial evidence`);
       assert(first.hiddenCubicRoots !== undefined, `${candidate.candidateId} seed ${seed} lacks cubic roots`);
+      assert(first.cubicInvariantTarget !== undefined, `${candidate.candidateId} seed ${seed} lacks cubic target evidence`);
       assert(first.answer.kind === "RATIONAL", `${candidate.candidateId} seed ${seed} cubic Vieta answer must be rational`);
-      if (!first.originalPolynomial || !first.hiddenCubicRoots || first.answer.kind !== "RATIONAL") continue;
+      if (!first.originalPolynomial || !first.hiddenCubicRoots || !first.cubicInvariantTarget || first.answer.kind !== "RATIONAL") continue;
       const [alpha, beta, gamma] = first.hiddenCubicRoots;
       for (const root of first.hiddenCubicRoots) {
         assert(equalsRational(evaluatePolynomial(first.originalPolynomial, root), ZERO), `${candidate.candidateId} seed ${seed} hidden cubic root fails substitution`);
       }
-      const expected = addRational(addRational(alpha, beta), gamma);
-      assert(equalsRational(first.answer.value, expected), `${candidate.candidateId} seed ${seed} cubic root-sum mismatch`);
+      const expected = first.cubicInvariantTarget === "SUM"
+        ? addRational(addRational(alpha, beta), gamma)
+        : first.cubicInvariantTarget === "PAIRWISE_PRODUCT_SUM"
+          ? addRational(addRational(multiplyRational(alpha, beta), multiplyRational(beta, gamma)), multiplyRational(gamma, alpha))
+          : multiplyRational(multiplyRational(alpha, beta), gamma);
+      cubicTargetsSeen.add(first.cubicInvariantTarget);
+      assert(equalsRational(first.answer.value, expected), `${candidate.candidateId} seed ${seed} cubic invariant mismatch`);
       continue;
     }
 
@@ -123,4 +131,5 @@ for (const candidate of ALG_CP010_DISCOVERY_CANDIDATES) {
   }
 }
 
+assert(cubicTargetsSeen.size === 3, `Cubic Vieta discovery must exercise sum, pairwise-product sum and product; saw ${[...cubicTargetsSeen].join(", ")}`);
 console.log(`ALG-CP-010 executable discovery passed for ${ALG_CP010_DISCOVERY_CANDIDATES.length} provisional candidates × 50 seeds`);
