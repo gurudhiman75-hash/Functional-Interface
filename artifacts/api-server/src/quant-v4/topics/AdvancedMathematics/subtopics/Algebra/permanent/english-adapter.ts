@@ -71,8 +71,10 @@ export const ALG_COMPOSITION_ONLY_CP015_PREFIX = "ALG-CP015-" as const;
 interface DiscoveryLike {
   cpId: string;
   candidateId: string;
+  solveMode: string;
   seed: number;
   stem: string;
+  answer: unknown;
   explanation: string;
   sourceStatus: string;
 }
@@ -102,9 +104,11 @@ export interface AlgPermanentEnglishCandidateItem {
   cpId: string;
   title: string;
   prototypeId: string;
+  prototypeSolveMode: string;
   variantIndex: number;
   seed: number;
   question: string;
+  canonicalAnswer: unknown;
   explanation: string;
   rawDiscoveryItem: DiscoveryLike;
   maturity: "PERMANENT_IDENTITY_ENGLISH_CANDIDATE";
@@ -141,9 +145,11 @@ export function generateAlgPermanentEnglishCandidate(
     cpId: allocation.cpId,
     title: allocation.title,
     prototypeId,
+    prototypeSolveMode: raw.solveMode,
     variantIndex,
     seed,
     question: raw.stem,
+    canonicalAnswer: raw.answer,
     explanation: raw.explanation,
     rawDiscoveryItem: raw,
     maturity: "PERMANENT_IDENTITY_ENGLISH_CANDIDATE",
