@@ -81,4 +81,5 @@ export * from "./figure-completion-localization-v1";
 export * from "./spatial-question-studio-integration-v1";
 export * from "./spatial-question-studio-runtime-v1";
 export * from "./spatial-fgc-question-studio-operator-review-v1";
+export * from "./spatial-fgc-question-studio-product-owner-approval-v1";
 export * from "./svg-renderer";
