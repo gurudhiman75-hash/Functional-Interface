@@ -9,7 +9,7 @@
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "audit:production-truth": "node scripts/check-production-truth.mjs",
-    "audit:timer-recovery": "node scripts/check-timer-recovery.mjs",
+    "audit:timer-recovery": "node --experimental-strip-types scripts/check-timer-recovery.mjs",
     "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run build"
   },
   "devDependencies": {
