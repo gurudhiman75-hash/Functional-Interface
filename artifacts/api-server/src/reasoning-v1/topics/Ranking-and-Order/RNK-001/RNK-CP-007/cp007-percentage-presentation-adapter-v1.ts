@@ -24,6 +24,15 @@ function sha256(value: unknown): string {
     .digest("hex");
 }
 
+function ordinal(value: number): string {
+  const mod100 = value % 100;
+  if (mod100 >= 11 && mod100 <= 13) return `${value}th`;
+  if (value % 10 === 1) return `${value}st`;
+  if (value % 10 === 2) return `${value}nd`;
+  if (value % 10 === 3) return `${value}rd`;
+  return `${value}th`;
+}
+
 function percentPart(part: number, total: number): number | null {
   const scaled = part * 100;
   if (scaled % total !== 0) return null;
@@ -93,9 +102,9 @@ function renderStem(
 
   if (locale === "en-IN") {
     return [
-      `A ranked class has ${canonical.state.total} ${labels.whole}.`,
-      `${labels.a} make up ${percentA}% and ${labels.b} ${percentB}% of the class.`,
-      `${name}, who is one of the ${targetLabel}, is ${canonical.state.targetRankFromTop}th from the top.`,
+      `A class has ${canonical.state.total} ${labels.whole}.`,
+      `${labels.a} are ${percentA}% and ${labels.b} are ${percentB}% of the class.`,
+      `${name}, who is one of the ${targetLabel}, is ${ordinal(canonical.state.targetRankFromTop)} from the top.`,
       `Exactly ${canonical.evidence.count} ${evidenceLabel} are ${evidenceSide} ${name}.`,
       `How many ${requestedLabel} are ${requestedSide} ${name}?`,
     ].join(" ");
@@ -103,7 +112,7 @@ function renderStem(
 
   if (locale === "hi-IN") {
     return [
-      `एक रैंक की गई कक्षा में कुल ${canonical.state.total} ${labels.whole} हैं।`,
+      `एक कक्षा में कुल ${canonical.state.total} ${labels.whole} हैं।`,
       `इनमें ${percentA}% ${labels.a} और ${percentB}% ${labels.b} हैं।`,
       `${name}, जो ${targetLabel} में से है, ऊपर से ${canonical.state.targetRankFromTop}वें स्थान पर है।`,
       `ठीक ${canonical.evidence.count} ${evidenceLabel} ${name} से ${evidenceSide} हैं।`,
@@ -112,7 +121,7 @@ function renderStem(
   }
 
   return [
-    `ਇੱਕ ਦਰਜਾਬੰਦੀ ਵਾਲੀ ਕਲਾਸ ਵਿੱਚ ਕੁੱਲ ${canonical.state.total} ${labels.whole} ਹਨ।`,
+    `ਇੱਕ ਕਲਾਸ ਵਿੱਚ ਕੁੱਲ ${canonical.state.total} ${labels.whole} ਹਨ।`,
     `ਇਨ੍ਹਾਂ ਵਿੱਚ ${percentA}% ${labels.a} ਅਤੇ ${percentB}% ${labels.b} ਹਨ।`,
     `${name}, ਜੋ ${targetLabel} ਵਿੱਚੋਂ ਹੈ, ਉੱਪਰੋਂ ${canonical.state.targetRankFromTop}ਵੇਂ ਸਥਾਨ ਉੱਤੇ ਹੈ।`,
     `ਠੀਕ ${canonical.evidence.count} ${evidenceLabel} ${name} ਤੋਂ ${evidenceSide} ਹਨ।`,
@@ -142,7 +151,7 @@ function renderExplanation(
   const requestedTotal = categoryTotal(canonical, canonical.reviewMetadata.requestedCategory);
 
   if (locale === "en-IN") {
-    const intro = `${percentA}% of ${canonical.state.total} = ${canonical.state.categoryATotal} ${labels.a}, and ${percentB}% = ${canonical.state.categoryBTotal} ${labels.b}. Rank ${canonical.state.targetRankFromTop} means ${totalAhead} people are ahead.`;
+    const intro = `${percentA}% of ${canonical.state.total} = ${canonical.state.categoryATotal} ${labels.a}, and ${percentB}% = ${canonical.state.categoryBTotal} ${labels.b}. Rank ${canonical.state.targetRankFromTop} means ${totalAhead} students are ahead.`;
     const evidence = canonical.evidence.side === "AHEAD"
       ? `${canonical.evidence.count} ${evidenceLabel} are given ahead.`
       : `${evidenceLabel} ahead = ${categoryTotal(canonical, canonical.evidence.category)} - ${canonical.evidence.count}${evidenceAdjustment ? " - 1" : ""} = ${evidenceAhead}.`;
@@ -153,7 +162,7 @@ function renderExplanation(
   }
 
   if (locale === "hi-IN") {
-    const intro = `${canonical.state.total} का ${percentA}% = ${canonical.state.categoryATotal} ${labels.a} और ${percentB}% = ${canonical.state.categoryBTotal} ${labels.b}। ऊपर से ${canonical.state.targetRankFromTop}वाँ स्थान होने से ${totalAhead} सदस्य आगे हैं।`;
+    const intro = `${canonical.state.total} का ${percentA}% = ${canonical.state.categoryATotal} ${labels.a} और ${percentB}% = ${canonical.state.categoryBTotal} ${labels.b}। ऊपर से ${canonical.state.targetRankFromTop}वाँ स्थान होने से ${totalAhead} विद्यार्थी आगे हैं।`;
     const evidence = canonical.evidence.side === "AHEAD"
       ? `${canonical.evidence.count} ${evidenceLabel} पहले से आगे दिए गए हैं।`
       : `${evidenceLabel} आगे = ${categoryTotal(canonical, canonical.evidence.category)} - ${canonical.evidence.count}${evidenceAdjustment ? " - 1" : ""} = ${evidenceAhead}।`;
@@ -163,7 +172,7 @@ function renderExplanation(
     return `${intro} ${evidence} इसलिए आगे ${requestedLabel} = ${requestedAhead}। अतः पीछे ${requestedLabel} = ${requestedTotal} - ${requestedAhead}${requestedAdjustment ? " - 1" : ""} = ${canonical.answer}।`;
   }
 
-  const intro = `${canonical.state.total} ਦਾ ${percentA}% = ${canonical.state.categoryATotal} ${labels.a} ਅਤੇ ${percentB}% = ${canonical.state.categoryBTotal} ${labels.b}। ਉੱਪਰੋਂ ${canonical.state.targetRankFromTop}ਵਾਂ ਸਥਾਨ ਹੋਣ ਕਰਕੇ ${totalAhead} ਮੈਂਬਰ ਅੱਗੇ ਹਨ।`;
+  const intro = `${canonical.state.total} ਦਾ ${percentA}% = ${canonical.state.categoryATotal} ${labels.a} ਅਤੇ ${percentB}% = ${canonical.state.categoryBTotal} ${labels.b}। ਉੱਪਰੋਂ ${canonical.state.targetRankFromTop}ਵਾਂ ਸਥਾਨ ਹੋਣ ਕਰਕੇ ${totalAhead} ਵਿਦਿਆਰਥੀ ਅੱਗੇ ਹਨ।`;
   const evidence = canonical.evidence.side === "AHEAD"
     ? `${canonical.evidence.count} ${evidenceLabel} ਪਹਿਲਾਂ ਹੀ ਅੱਗੇ ਦਿੱਤੇ ਹਨ।`
     : `${evidenceLabel} ਅੱਗੇ = ${categoryTotal(canonical, canonical.evidence.category)} - ${canonical.evidence.count}${evidenceAdjustment ? " - 1" : ""} = ${evidenceAhead}।`;
