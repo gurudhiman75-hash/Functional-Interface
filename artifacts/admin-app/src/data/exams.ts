@@ -13,6 +13,7 @@ export const EXAMS: Exam[] = [
   { code: 'RRB_GROUP_D', name: 'RRB Group D', family: 'Railway', stages: ['CBT', 'PET', 'Document Verification'], languages: ['English', 'Hindi'] },
   { code: 'PUNJAB_PSSSB_CLERK', name: 'Punjab PSSSB Clerk', family: 'Punjab State', stages: ['Written Exam', 'Typing Test'], languages: ['English', 'Punjabi'] },
   { code: 'PUNJAB_EXCISE_INSP', name: 'Punjab Excise Inspector', family: 'Punjab State', stages: ['Written Exam', 'Interview'], languages: ['English', 'Punjabi'] },
+  { code: 'PUNJAB_POLICE', name: 'Punjab Police', family: 'Punjab State', stages: ['Written Exam', 'Physical Screening'], languages: ['English', 'Punjabi'] },
 ];
 
 export const SUBJECTS = ['Quantitative Aptitude', 'Reasoning Ability', 'English Language', 'General Awareness', 'Computer Knowledge', 'Punjabi Language', 'Current Affairs'] as const;
