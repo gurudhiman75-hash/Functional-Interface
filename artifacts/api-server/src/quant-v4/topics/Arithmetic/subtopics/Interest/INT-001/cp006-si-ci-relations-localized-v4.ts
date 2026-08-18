@@ -6,7 +6,7 @@ import {
 import {
   INT_CP006_EXPANDED_EXPLANATION_VERSION,
   buildIntCp006ExpandedExplanation,
-} from "./cp006-expanded-explanation-v1";
+} from "./cp006-expanded-explanation-v2";
 
 export const INT_CP006_LOCALIZED_EXPLANATION_VERSION = "INT-CP-006-HI-PA-v4-explanation-review" as const;
 export type { IntCp006LocalizedLocale };
