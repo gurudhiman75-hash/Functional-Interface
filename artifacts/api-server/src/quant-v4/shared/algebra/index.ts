@@ -5,3 +5,4 @@ export * from "./expression-ast";
 export * from "./polynomial";
 export * from "./linear-equation";
 export * from "./quadratic";
+export * from "./factorisation";
