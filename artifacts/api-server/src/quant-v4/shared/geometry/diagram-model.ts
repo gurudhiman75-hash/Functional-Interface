@@ -72,17 +72,24 @@ export interface GeoDiagramModel {
   readonly notToScale: boolean;
 }
 
-function sortedIds<T extends { readonly id: string }>(values: readonly T[]): readonly string[] {
-  return [...values].map((value) => value.id).sort();
-}
-
 export function diagramSemanticFingerprint(model: GeoDiagramModel): string {
   return JSON.stringify({
     points: [...model.points].map((point) => [point.id, point.label]).sort(),
     segments: [...model.segments].map((segment) => [segment.id, segment.fromPointId, segment.toPointId]).sort(),
     circles: [...model.circles].map((circle) => [circle.id, circle.centerPointId]).sort(),
-    angleMarks: sortedIds(model.angleMarks),
-    rightAngleMarks: sortedIds(model.rightAngleMarks),
+    angleMarks: [...model.angleMarks].map((mark) => [
+      mark.id,
+      mark.firstPointId,
+      mark.vertexPointId,
+      mark.secondPointId,
+      mark.label ?? null,
+    ]).sort(),
+    rightAngleMarks: [...model.rightAngleMarks].map((mark) => [
+      mark.id,
+      mark.vertexPointId,
+      mark.firstRayPointId,
+      mark.secondRayPointId,
+    ]).sort(),
     equalLengthMarks: [...model.equalLengthMarks].map((mark) => [mark.id, [...mark.segmentIds].sort()]).sort(),
     parallelMarks: [...model.parallelMarks].map((mark) => [mark.id, [...mark.segmentIds].sort()]).sort(),
     arcs: [...model.arcs].map((arc) => [arc.id, arc.circleId, arc.fromPointId, arc.toPointId]).sort(),

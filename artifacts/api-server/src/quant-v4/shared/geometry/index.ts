@@ -18,3 +18,4 @@ export * from "./diagram-layout";
 export * from "./equivalence";
 export * from "./formatting";
 export * from "./svg-renderer";
+export * from "./triangle-inference";
