@@ -1,0 +1,65 @@
+name: Validate RNK-001 CP003 Localization Review V4
+
+on:
+  push:
+    branches:
+      - feature/rnk-cp003-localization-review-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-cp003-localization-review-v1.yml'
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-cp003-localization-review-v1.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: rnk-001-cp003-localization-review-v4-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-cp003-localization-review-v4:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove CP003 V1 structured-transformation semantic baseline
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-localization-review-v1.test.ts
+
+      - name: Prove CP003 V2 native editorial projection preserves V1 semantics
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-localization-review-v2.test.ts
+
+      - name: Prove CP003 V3 artifact-review projection preserves V2 semantics
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-localization-review-v3.test.ts
+
+      - name: Prove CP003 V4 final micro-editorial projection preserves V3 semantics
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-localization-review-v4.test.ts
+
+      - name: Generate CP003 V4 human-review pack
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-localization-review-export-v4.ts /tmp/RNK-CP-003-HI-PA-LOCALIZATION-REVIEW-V4-144Q.md
+
+      - name: Retain CP003 V4 human-review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-cp003-hi-pa-localization-review-v4-144q
+          path: /tmp/RNK-CP-003-HI-PA-LOCALIZATION-REVIEW-V4-144Q.md
+          if-no-files-found: error
+
+      - name: Re-prove CP003 frozen English permanent runtime
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-permanent-runtime.test.ts
+
+      - name: Re-prove chapter-wide English closure
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+
+      - name: Re-prove Ranking Object Pool V2
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/foundation/rnk-object-pool-v2.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
