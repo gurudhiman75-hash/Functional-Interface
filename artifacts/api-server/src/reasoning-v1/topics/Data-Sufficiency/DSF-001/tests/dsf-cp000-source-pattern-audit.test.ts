@@ -4,6 +4,9 @@ import {
   DSF_BANK_BOB_2015_ORDER,
   DSF_BANK_STANDARD_ORDER,
   DSF_EXAM_FAMILY_EVIDENCE_STATUS,
+  DSF_PSSSB_PREP_FOUR_ORDER,
+  DSF_SSC_CGL_2023_FOUR_ORDER,
+  DSF_SSC_CGL_2024_FOUR_ORDER,
   DSF_THREE_STATEMENT_SOURCE_PATTERNS,
   DSF_TWO_STATEMENT_SOURCE_PATTERNS,
   semanticOrderFingerprint,
@@ -14,9 +17,11 @@ import {
   dsfMergeSplitSummary,
 } from "../discovery/merge-split-audit.ts";
 
-assert.equal(DSF_TWO_STATEMENT_SOURCE_PATTERNS.length, 2);
-assert(DSF_TWO_STATEMENT_SOURCE_PATTERNS.every((entry) => entry.evidenceLevel === "CURATED_MEMORY_BASED_EXAM"));
-assert(DSF_TWO_STATEMENT_SOURCE_PATTERNS.every((entry) => entry.sourceUrl.startsWith("https://sathee.iitk.ac.in/")));
+assert.equal(DSF_TWO_STATEMENT_SOURCE_PATTERNS.length, 5);
+assert.equal(DSF_TWO_STATEMENT_SOURCE_PATTERNS.filter((entry) => entry.examFamily === "BANKING").length, 2);
+assert.equal(DSF_TWO_STATEMENT_SOURCE_PATTERNS.filter((entry) => entry.examFamily === "SSC").length, 2);
+assert.equal(DSF_TWO_STATEMENT_SOURCE_PATTERNS.filter((entry) => entry.examFamily === "PUNJAB_STATE").length, 1);
+assert(DSF_TWO_STATEMENT_SOURCE_PATTERNS.every((entry) => entry.sourceUrl.startsWith("https://")));
 
 assert.deepEqual(new Set(DSF_BANK_STANDARD_ORDER), new Set(SUFFICIENCY_CLASSES));
 assert.deepEqual(new Set(DSF_BANK_BOB_2015_ORDER), new Set(SUFFICIENCY_CLASSES));
@@ -25,6 +30,18 @@ assert.notEqual(
   semanticOrderFingerprint(DSF_BANK_BOB_2015_ORDER),
   "Banking source patterns should prove that option display order can vary while semantic coverage stays constant.",
 );
+
+assert.equal(DSF_SSC_CGL_2023_FOUR_ORDER.length, 4);
+assert.equal(DSF_SSC_CGL_2024_FOUR_ORDER.length, 4);
+assert.notEqual(
+  semanticOrderFingerprint(DSF_SSC_CGL_2023_FOUR_ORDER),
+  semanticOrderFingerprint(DSF_SSC_CGL_2024_FOUR_ORDER),
+);
+assert(!DSF_SSC_CGL_2023_FOUR_ORDER.includes("EACH_STATEMENT_ALONE"));
+assert(!DSF_SSC_CGL_2024_FOUR_ORDER.includes("EACH_STATEMENT_ALONE"));
+assert.equal(DSF_PSSSB_PREP_FOUR_ORDER.length, 4);
+assert(DSF_PSSSB_PREP_FOUR_ORDER.includes("EACH_STATEMENT_ALONE"));
+assert(!DSF_PSSSB_PREP_FOUR_ORDER.includes("BOTH_TOGETHER_ONLY"));
 
 assert.equal(DSF_THREE_STATEMENT_SOURCE_PATTERNS.length, 2);
 assert(DSF_THREE_STATEMENT_SOURCE_PATTERNS.every((entry) => entry.statementCount === 3));
@@ -36,9 +53,9 @@ const railwayStatus = DSF_EXAM_FAMILY_EVIDENCE_STATUS.find((entry) => entry.exam
 const sscStatus = DSF_EXAM_FAMILY_EVIDENCE_STATUS.find((entry) => entry.examFamily === "SSC")!;
 const punjabStatus = DSF_EXAM_FAMILY_EVIDENCE_STATUS.find((entry) => entry.examFamily === "PUNJAB_STATE")!;
 assert.equal(bankStatus.status, "SUPPORTED_FOR_DISCOVERY");
+assert.equal(sscStatus.status, "SUPPORTED_FOR_DISCOVERY");
 assert.equal(railwayStatus.status, "PARTIAL_SIGNAL_ONLY");
-assert.equal(sscStatus.status, "PENDING_DIRECT_DS_EVIDENCE");
-assert.equal(punjabStatus.status, "PENDING_DIRECT_DS_EVIDENCE");
+assert.equal(punjabStatus.status, "PARTIAL_SIGNAL_ONLY");
 
 assert.deepEqual(dsfMergeSplitSummary(), {
   MERGE: 2,
@@ -49,11 +66,12 @@ assert.deepEqual(dsfMergeSplitSummary(), {
 assert.equal(DSF_MERGE_SPLIT_AUDIT.length, 8);
 assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("option order") && entry.permanentQlEffect === "NO_NEW_QL"));
 assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("Three-statement") && entry.decision === "SPLIT_CONTRACT"));
-assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("SSC-specific") && entry.decision === "DEFER"));
+assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("Punjab-state") && entry.decision === "DEFER"));
 
-assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.status, "BLOCKED_PENDING_SOURCE_COMPLETION");
-assert(DSF_PERMANENT_QL_ALLOCATION_DECISION.reasons.some((reason) => reason.includes("SSC")));
+assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.status, "BLOCKED_PENDING_OWNERSHIP_AND_PROFILE_FREEZE");
 assert(DSF_PERMANENT_QL_ALLOCATION_DECISION.reasons.some((reason) => reason.includes("Punjab")));
+assert(!DSF_PERMANENT_QL_ALLOCATION_DECISION.reasons.some((reason) => reason.includes("SSC direct")));
+assert(DSF_PERMANENT_QL_ALLOCATION_DECISION.resolvedEvidence.some((reason) => reason.includes("SSC CGL")));
 
 console.log(JSON.stringify({
   status: "PASS_DSF_CP_000_SOURCE_PATTERN_AUDIT",
