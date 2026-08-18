@@ -6,19 +6,21 @@ import {
   pfcDiscoveryOptionIsReadableV1,
   validatePfcDiscoveryCutReachabilityV1,
 } from "../foundation/spatial/paper-folding-discovery-v1";
+import { PFC_001_DISCOVERY_REMEDIATION_AUTHORITY_V2 } from "../foundation/spatial/paper-folding-discovery-remediated-v2";
 import {
-  PFC_001_DISCOVERY_REMEDIATION_AUTHORITY_V2,
-  generatePfcDiscoveryCorpusV2,
-  generatePfcDiscoveryQuestionV2,
-  renderPfcDiscoveryReviewHtmlV2,
-} from "../foundation/spatial/paper-folding-discovery-remediated-v2";
+  PFC_001_DISCOVERY_PRESENTATION_AUTHORITY_V3,
+  generatePfcDiscoveryCorpusV3,
+  generatePfcDiscoveryQuestionV3,
+  renderPfcDiscoveryReviewHtmlV3,
+  renderPfcDiscoveryStimulusSvgV3,
+} from "../foundation/spatial/paper-folding-discovery-presentation-v3";
 
-const corpus = generatePfcDiscoveryCorpusV2();
+const corpus = generatePfcDiscoveryCorpusV3();
 assert.equal(corpus.length, 800);
 assert.equal(PFC_001_REPRESENTATION_CATALOG_V1.length, 10);
 assert.equal(PFC_001_DISCOVERY_AUTHORITY_V1.permanentQlAllocationStatus, "NOT_ALLOCATED_DISCOVERY_REVIEW_REQUIRED");
 assert.equal(PFC_001_DISCOVERY_REMEDIATION_AUTHORITY_V2.requiredUniqueSemanticQuestions, 800);
-assert.equal(PFC_001_DISCOVERY_REMEDIATION_AUTHORITY_V2.nextAvailableQl, "SPA-QL-035");
+assert.equal(PFC_001_DISCOVERY_PRESENTATION_AUTHORITY_V3.permanentQlAllocationStatus, "NOT_ALLOCATED_LEARNER_REVIEW_REQUIRED");
 
 const countsByRepresentation = new Map<string, number>();
 const countsByCorrectOption = new Map<string, number>();
@@ -47,7 +49,12 @@ for (const question of corpus) {
   assert.equal(question.options.length, 4);
   assert.ok(validatePfcDiscoveryCutReachabilityV1(question));
   assert.ok(question.explanation.includes(`option ${question.correctOptionId}`));
-  assert.ok(question.explanation.includes("Open the folds in reverse order"));
+  assert.ok(!/\(\d+(?:\.\d+)?,\s*\d/.test(question.explanation), `raw coordinates leaked into ${question.questionId}`);
+
+  const stimulusSvg = renderPfcDiscoveryStimulusSvgV3(question, 520);
+  assert.ok(stimulusSvg.includes("marker-end="), `fold direction arrow missing ${question.questionId}`);
+  assert.ok(stimulusSvg.includes("aria-label=\"Paper folding and cutting sequence\""));
+  assert.ok(!stimulusSvg.includes("<script"));
 
   assert.ok(!questionIds.has(question.questionId), `duplicate question id ${question.questionId}`);
   questionIds.add(question.questionId);
@@ -92,7 +99,7 @@ assert.equal(questionIds.size, 800);
 for (let representationIndex = 0; representationIndex < 10; representationIndex += 1) {
   for (const offset of [0, 17, 43, 79]) {
     const index = representationIndex * 80 + offset;
-    assert.deepEqual(generatePfcDiscoveryQuestionV2(index), generatePfcDiscoveryQuestionV2(index));
+    assert.deepEqual(generatePfcDiscoveryQuestionV3(index), generatePfcDiscoveryQuestionV3(index));
   }
 }
 
@@ -124,16 +131,18 @@ const reviewQuestions = PFC_001_REPRESENTATION_CATALOG_V1.flatMap((_, representa
   [0, 19, 41, 73].map((variantIndex) => corpus[representationIndex * 80 + variantIndex]),
 );
 assert.equal(reviewQuestions.length, 40);
-const reviewHtml = renderPfcDiscoveryReviewHtmlV2(reviewQuestions);
-assert.ok(reviewHtml.includes("PFC-001 Discovery Learner Review V2"));
+const reviewHtml = renderPfcDiscoveryReviewHtmlV3(reviewQuestions);
+assert.ok(reviewHtml.includes("PFC-001 Discovery Learner Review V3"));
 assert.ok(reviewHtml.includes("width=\"112\""));
+assert.ok(reviewHtml.includes("marker-end="));
 assert.ok(!reviewHtml.includes("<script"));
 assert.ok(!reviewHtml.includes("http://") || reviewHtml.includes("http://www.w3.org/2000/svg"));
 
 const evidence = {
-  authority: PFC_001_DISCOVERY_REMEDIATION_AUTHORITY_V2,
+  semanticAuthority: PFC_001_DISCOVERY_REMEDIATION_AUTHORITY_V2,
+  presentationAuthority: PFC_001_DISCOVERY_PRESENTATION_AUTHORITY_V3,
   sourceDiscoveryAuthority: PFC_001_DISCOVERY_AUTHORITY_V1.authorityId,
-  status: "PASS_PFC_001_EXECUTABLE_DISCOVERY_REMEDIATED_V2",
+  status: "PASS_PFC_001_EXECUTABLE_DISCOVERY_PRESENTATION_V3",
   corpus: {
     totalQuestions: corpus.length,
     representationCount: PFC_001_REPRESENTATION_CATALOG_V1.length,
@@ -145,6 +154,9 @@ const evidence = {
     difficultyDistribution: Object.fromEntries([...countsByDifficulty.entries()].sort()),
     learnerReviewQuestions: reviewQuestions.length,
     learnerOptionPixels: 112,
+    stimulusReviewPixels: 520,
+    visibleFoldDirectionArrows: true,
+    rawCoordinateExplanations: false,
   },
   coverage: PFC_001_REPRESENTATION_CATALOG_V1,
   governance: {
@@ -159,12 +171,12 @@ const evidence = {
 
 mkdirSync("dist/reasoning-v1/spatial", { recursive: true });
 writeFileSync(
-  "dist/reasoning-v1/spatial/spa-pfc-001-discovery-v2-evidence.json",
+  "dist/reasoning-v1/spatial/spa-pfc-001-discovery-v3-evidence.json",
   `${JSON.stringify(evidence, null, 2)}\n`,
   "utf8",
 );
 writeFileSync(
-  "dist/reasoning-v1/spatial/spa-pfc-001-discovery-v2-review.html",
+  "dist/reasoning-v1/spatial/spa-pfc-001-discovery-v3-review.html",
   reviewHtml,
   "utf8",
 );
