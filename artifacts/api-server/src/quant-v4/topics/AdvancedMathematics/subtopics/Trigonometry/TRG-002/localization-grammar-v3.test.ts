@@ -20,6 +20,7 @@ const hindiResidues = [
   "दो कुल स्तर घटाएँ",
   "tan ऊपरी कोण",
   "दोनों tan मान का अंतर",
+  "पाद",
 ] as const;
 const punjabiResidues = [
   "ਝੰਡੇ ਦਾ ਡੰਡਾ ਦੀ",
@@ -46,6 +47,7 @@ const punjabiResidues = [
   "ਦੋ ਕੁੱਲ ਪੱਧਰ ਘਟਾਓ",
   "tan ਉੱਪਰਲਾ ਕੋਣ",
   "ਦੋਵੇਂ tan ਮੁੱਲ ਦਾ ਅੰਤਰ",
+  "ਪੈਰ",
 ] as const;
 
 let total = 0;
@@ -55,14 +57,15 @@ for (const qlId of TRG_002_EXAM_REALNESS_LOCALIZATION_QL_IDS) {
       const q = generateExamRealLocalizedTrg002Question(qlId, `trg002-grammar-v3-${seedIndex}`, locale) as any;
       const text = [q.stem, q.explanation.keyRule, ...q.explanation.steps.map((s: any) => s.body), q.explanation.shortcut, ...q.explanation.traps].join(" ");
       for (const residue of locale === "hi-IN" ? hindiResidues : punjabiResidues) {
-        assert(!text.includes(residue), `${qlId}:${locale}: grammar residue remains: ${residue}`);
+        assert(!text.includes(residue), `${qlId}:${locale}: grammar/vocabulary residue remains: ${residue}`);
       }
       assert.equal(q.activationAuthorized, false);
       assert.equal(q.localizationLifecycle?.multilingualFreezeGranted, false);
       assert.equal(q.localizationProof?.grammarManualPolishV31, true);
+      assert.equal(q.localizationProof?.learnerVocabularyRemediationV32, true);
       total += 1;
     }
   }
 }
 assert.equal(total, 2304);
-console.log(`TRG002_GRAMMAR_V31_2304_PASS total=${total} qls=96 locales=2 seeds=12`);
+console.log(`TRG002_GRAMMAR_V32_2304_PASS total=${total} qls=96 locales=2 seeds=12`);
