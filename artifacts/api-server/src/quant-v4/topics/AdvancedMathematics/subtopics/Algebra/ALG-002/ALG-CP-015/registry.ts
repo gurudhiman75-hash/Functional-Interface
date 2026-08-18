@@ -7,6 +7,7 @@ export const ALG_CP015_DISCOVERY_CANDIDATES: AlgCp015Candidate[] = [
   { candidateId: "ALG-CP015-CAND-004", solveMode: "rationalEquationThenAbsoluteTarget", status: "DISCOVERY", permanentQlId: null, answerKind: "RATIONAL", difficulty: "Hard", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP015-CAND-005", solveMode: "factorDivisionThenEvaluateQuotient", status: "DISCOVERY", permanentQlId: null, answerKind: "RATIONAL", difficulty: "Hard", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP015-CAND-006", solveMode: "sharedSystemDerivedCaselet", status: "DISCOVERY", permanentQlId: null, answerKind: "RATIONAL_PAIR", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
+  { candidateId: "ALG-CP015-CAND-007", solveMode: "boundedPositiveIntegerCubicRoot", status: "DISCOVERY", permanentQlId: null, answerKind: "RATIONAL", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
 ];
 
 export function getAlgCp015Candidate(candidateId: string): AlgCp015Candidate {
