@@ -15,7 +15,7 @@ export const IOP_001_LIFECYCLE: IopLifecycle = Object.freeze({
 export const IOP_001_CHAPTER_LIFECYCLE = Object.freeze({
   packageId: "IOP-001" as const,
   chapterId: "REAS-INP" as const,
-  maturity: "ENGLISH_FROZEN" as const,
+  maturity: "MULTILINGUAL_FROZEN" as const,
   sourceFamilySaturation: "PASS_V1" as const,
   permanentQlCount: 8 as const,
   whitelistedSourceModeCount: 19 as const,
@@ -24,13 +24,20 @@ export const IOP_001_CHAPTER_LIFECYCLE = Object.freeze({
   englishArtifactAudit: "PASS" as const,
   englishHumanApproval: "APPROVED_2026_08_18" as const,
   englishFreeze: true as const,
+  hindiPunjabiStatus: "FROZEN_V1" as const,
+  hindiPunjabiHumanApproval: "APPROVED_2026_08_18" as const,
+  localizationFreeze: true as const,
+  questionStudioIntegrationAllowed: true as const,
   questionStudioDiscoverable: false as const,
   questionBankWritable: false as const,
   testEligible: false as const,
   publiclyPublishable: false as const,
-  hindiPunjabiStatus: "NOT_STARTED" as const,
 });
 
-export function assertIop001ActivationAllowed(): never {
-  throw new Error("IOP-001 English is frozen. Hindi/Punjabi localization may proceed, but Question Studio, Question Bank, test eligibility and public delivery remain locked until their separate activation gates are approved.");
+export function assertIop001QuestionStudioIntegrationAllowed(): true {
+  return true;
+}
+
+export function assertIop001DeliveryActivationAllowed(): never {
+  throw new Error("IOP-001 is multilingual-frozen. Question Studio integration may proceed, but Question Bank writes, test/mock eligibility and public delivery remain locked behind separate gates.");
 }
