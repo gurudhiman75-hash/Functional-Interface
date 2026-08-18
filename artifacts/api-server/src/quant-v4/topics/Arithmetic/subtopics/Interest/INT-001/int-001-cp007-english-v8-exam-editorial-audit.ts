@@ -54,6 +54,11 @@ const bannedPhrases = Object.freeze([
   "present principals",
   "present principal",
   "present share",
+  "Equal principal and equal maturity amount mean",
+  "Grow both shares to maturity",
+  "Find the initial principal required in Plan B",
+  "that will produce an equal maturity value",
+  "A first-overtake answer needs",
 ]);
 
 let questions = 0;
@@ -103,7 +108,7 @@ for (const qlId of INT_CP007_QL_IDS) {
 }
 
 assert.ok(changedQuestions > 0, "V8 editorial overlay made no learner-facing changes");
-for (const requiredQl of ["INT-QL-109", "INT-QL-110", "INT-QL-111", "INT-QL-112", "INT-QL-113", "INT-QL-115"]) {
+for (const requiredQl of ["INT-QL-109", "INT-QL-110", "INT-QL-111", "INT-QL-112", "INT-QL-113", "INT-QL-114", "INT-QL-115"]) {
   assert.ok((changedByQl.get(requiredQl) ?? 0) > 0, `${requiredQl}: V8 did not exercise expected prose polish`);
 }
 
