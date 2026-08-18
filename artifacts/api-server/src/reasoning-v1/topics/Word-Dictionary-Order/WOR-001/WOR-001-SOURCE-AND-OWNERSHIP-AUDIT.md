@@ -24,8 +24,8 @@ Prototype contracts use:
 
 Allocation is independent:
 
-- supported `RETAIN` → permanent-root candidate after editorial review;
-- source-gap `RETAIN` → `DEFER_SOURCE_GAP`;
+- supported `RETAIN` → permanent-root candidate after audit compression;
+- source-gap `RETAIN` → deferred from permanent allocation;
 - `MERGE_AS_INSTANCE_VARIANT` → no separate QL.
 
 ## Classic evidence summary
@@ -66,40 +66,48 @@ The full chapter audit sampled recurring IBPS/RBI/RRB-style five-word/three-lett
 
 These patterns are implemented in `WOR-CP-005` as `WOR-PROT-020` through `WOR-PROT-024`, all tagged `PYQ_SUPPORTED` in the registry.
 
-## Final recommended permanent-root architecture
+## Frozen permanent-root architecture
 
 ### Classic roots
 
-1. `WOR-PROT-001` — Complete dictionary order.
+1. `WOR-QL-001` / `WOR-PROT-001` — Complete dictionary order.
    - variants: reverse (`002`), hard/deep-prefix (`016`).
-2. `WOR-PROT-003` — Endpoint after ordering.
+2. `WOR-QL-002` / `WOR-PROT-003` — Endpoint after ordering.
    - variant: last (`004`).
-3. `WOR-PROT-005` — Word/cluster at a specified position.
+3. `WOR-QL-003` / `WOR-PROT-005` — Word/cluster at a specified position.
    - variants: middle (`009`), hard kth (`017`), Banking plain clusters (`020`).
-4. `WOR-PROT-006` — Position of a specified word.
+4. `WOR-QL-004` / `WOR-PROT-006` — Position of a specified word.
    - variant: hard rank (`018`).
 
 ### Banking composite roots
 
-5. `WOR-PROT-021` — Sort → concatenate → global character.
-6. `WOR-PROT-022` — Sort → ranked cluster → local character/alphabet offset.
-7. `WOR-PROT-023` — Transform each → sort → positional word query.
-8. `WOR-PROT-024` — Transform each → sort → local character query.
+5. `WOR-QL-005` / `WOR-PROT-021` — Sort → concatenate → global character.
+6. `WOR-QL-006` / `WOR-PROT-022` — Sort → ranked cluster → local character/alphabet offset.
+7. `WOR-QL-007` / `WOR-PROT-023` — Transform each → sort → positional word query.
+8. `WOR-QL-008` / `WOR-PROT-024` — Transform each → sort → local character query.
 
 `WOR-PROT-020` does not reserve a ninth root because the learner solves the same kth-position contract as classic root 3; only the object representation changes.
 
-## Current chapter posture
+## Allocation freeze result — 2026-08-18
+
+The eight source-backed/compressed root decisions are now represented by stable permanent identifiers in `permanent-ql-registry.ts`.
 
 ```text
-recommended permanent roots: 8
-classic source-deferred retained contracts: 8
-instance variants without separate QLs: 8
-permanent IDs allocated: 0
+permanent roots allocated: 8
+allocation posture: INACTIVE
+mapped executable prototypes: 15
+source-deferred/unallocated executable prototypes: 9
+classic source-deferred solve contracts: 8
 lifecycle: REVIEW_ONLY
+human content review: PENDING
+native Hindi/Punjabi human sign-off: PENDING
+Question Bank/test/public activation: OFF
 ```
 
-The content-model audit did not identify another major recurring SSC/Punjab/Banking solve family after CP-005 implementation. The remaining major work is pool breadth, repetition control and human/native-language editorial review.
+The nine unallocated prototype instances are `007`, `008`, `010`–`015`, and `019`. `019` is the hard instance variant of a source-deferred insertion contract, so it does not create a ninth source-deferred solve family.
+
+Permanent allocation here freezes identity only. It does **not** assert that the user has completed English content review, and it does **not** assert native Hindi/Punjabi sign-off.
 
 ## Source locator note
 
-The detailed paper/platform examples and URLs used to justify CP-005 are retained in `WOR-001-CONTENT-GAP-AUDIT-V1.md`. That audit remains the evidence inventory; this file records the resulting ownership and allocation decision.
+The detailed paper/platform examples and URLs used to justify CP-005 are retained in `WOR-001-CONTENT-GAP-AUDIT-V1.md`. That audit remains the evidence inventory; this file records the resulting ownership and permanent-allocation decision.
