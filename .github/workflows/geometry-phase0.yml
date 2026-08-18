@@ -29,6 +29,10 @@ jobs:
         run: |
           set -euo pipefail
           ROOT=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry
+          echo "a967cb8a28c966e8bca575a302862d05424e0002b840598661e4163ff03f7c12  $ROOT/design-authority-rev2/part-01.md" | sha256sum -c -
+          echo "b4ffa720d118f479928d6a12858a2f331d6371ffba38ab8005cc1d46a0de1e2e  $ROOT/design-authority-rev2/part-02.md" | sha256sum -c -
+          echo "83be39a8379c0ca75bf004d6be6008dc2d05169cc1f4ba9eefa2cc3ed730468b  $ROOT/design-authority-rev2/part-03.md" | sha256sum -c -
+          echo "90fc6bf15e319da3d82180a5943ffe4a68e71dd1d5bff00de7e33835ba0f3735  $ROOT/design-authority-rev2/part-04.md" | sha256sum -c -
           cat \
             "$ROOT/design-authority-rev2/part-01.md" \
             "$ROOT/design-authority-rev2/part-02.md" \
