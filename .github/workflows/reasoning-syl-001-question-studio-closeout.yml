@@ -51,6 +51,9 @@ jobs:
           mkdir -p "$OUT"
           : > "$OUT/combined.log"
 
+          # V2 diagram-proof audit is intentionally excluded: it asserts the
+          # pre-closure witness set. V3 is the final production contract after
+          # witness-closure finalization and supersedes that intermediate audit.
           tests=(
             "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-audit.test.ts"
             "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-model-target-audit.test.ts"
@@ -60,7 +63,6 @@ jobs:
             "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-review-status-audit.test.ts"
             "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-viewport-audit.test.ts"
             "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-proof-audit.test.ts"
-            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-proof-v2-audit.test.ts"
             "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-directional-containment-audit.test.ts"
             "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-proof-v3-audit.test.ts"
             "src/reasoning-v1/topics/Syllogism/SYL-001/question-studio-closeout-audit.test.ts"
