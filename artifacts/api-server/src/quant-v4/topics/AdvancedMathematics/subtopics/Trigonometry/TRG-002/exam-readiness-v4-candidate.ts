@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { generateExamRealLocalizedTrg002Question, type Trg002ExamRealnessLocale } from "./localization-exam-realness-v2";
 import { selectTrg002V4ScenarioShell, type Trg002SpatialTopology } from "./exam-readiness-v4-scenario-engine";
+import { applyTrg002V4Wave1ScenarioText } from "./exam-readiness-v4-wave1-surface";
 
 type AnyQuestion = Record<string, any>;
 
@@ -36,21 +37,23 @@ function inferTopology(stem: string): Trg002SpatialTopology {
   if (/मस्तूल|ਮਸਤੂਲ|झंडे का डंडा|ਝੰਡੇ ਦੇ ਡੰਡੇ/u.test(stem)) return "COMPOSITE_VERTICAL";
   if (/विपरीत|दोनों ओर|ਉਲਟ|ਦੋਵੇਂ ਪਾਸ/u.test(stem)) return "OPPOSITE_SIDES";
   if (/दो बिंदु|दो स्थान|दो स्थित|ਦੋ ਬਿੰਦੂ|ਦੋ ਥਾਵਾਂ|ਦੋ ਸਥਿਤ/u.test(stem)) return "SAME_SIDE_TWO_POSITIONS";
-  if (/अवलोकन बिंदु जमीन से|निरीक्षण बिंदु जमीन से|ਛੱਤ|छत|बालकनी|ਬਾਲਕਨੀ/u.test(stem)) return "ELEVATED_OBSERVER";
+  if (/छत|ਛੱਤ|बालकनी|ਬਾਲਕਨੀ|पुल|ਪੁਲ|अवलोकन मंच|ਨਿਰੀਖਣ ਮੰਚ/u.test(stem)) return "ELEVATED_OBSERVER";
   if (/दो इमारत|दो मीनार|ਦੋ ਇਮਾਰਤ|ਦੋ ਮੀਨਾਰ/u.test(stem)) return "TWO_VERTICAL_OBJECTS";
   return "SINGLE_RIGHT_TRIANGLE";
 }
 
 export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, locale: Trg002ExamRealnessLocale) {
   const base: AnyQuestion = generateExamRealLocalizedTrg002Question(qlId, seed, locale);
-  const stem = repairHistoricalExactMathArtifact(base.stem);
+  const exactStem = repairHistoricalExactMathArtifact(base.stem);
   const explanation = repairExplanation(base.explanation);
+  const wave1 = applyTrg002V4Wave1ScenarioText(qlId, locale, exactStem);
+  const stem = wave1.stem;
   const topology = inferTopology(stem);
   const scenario = selectTrg002V4ScenarioShell({ qlId, seed, topology });
   const learnerText = [stem, explanation.keyRule, ...explanation.steps.map((s: AnyQuestion) => s.body), explanation.shortcut, ...explanation.traps].join(" ");
   if (/√\d+\.\d+/u.test(learnerText)) throw new Error(`${qlId}:${locale}: V4 forbids decimal radicands in exact learner math.`);
 
-  const v4Fingerprint = sha256({ qlId, seed, locale, stem, explanation, topology, scenarioId: scenario.id });
+  const v4Fingerprint = sha256({ qlId, seed, locale, stem, explanation, topology, scenarioId: wave1.scenarioId ?? scenario.id });
   return {
     ...base,
     stem,
@@ -59,10 +62,12 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
       version: "TRG002_EXAM_READINESS_V4",
       status: "REMEDIATION_IN_PROGRESS" as const,
       spatialTopology: topology,
-      recommendedScenarioShell: scenario.id,
+      recommendedScenarioShell: wave1.scenarioId ?? scenario.id,
       recommendedScenarioDomain: scenario.domain,
       recommendedVisualStrategy: scenario.visualStrategy,
-      scenarioSurfaceApplied: false,
+      scenarioTextApplied: wave1.scenarioTextApplied,
+      scenarioSurfaceApplied: wave1.scenarioTextApplied && !wave1.diagramMigrationRequired,
+      diagramMigrationRequired: wave1.diagramMigrationRequired,
       exactMathProtected: true,
       comprehensiveVisualReviewRequired: true,
       qlRepurposingAllowedInV4Candidate: true,
