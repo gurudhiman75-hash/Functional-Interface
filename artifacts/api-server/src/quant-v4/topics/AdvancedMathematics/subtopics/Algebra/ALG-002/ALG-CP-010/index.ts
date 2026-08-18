@@ -1,3 +1,3 @@
 export * from "./types";
 export * from "./registry";
-export * from "./generator";
+export * from "./generator-current";
