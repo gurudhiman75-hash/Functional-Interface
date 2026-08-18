@@ -12,7 +12,7 @@ export type AlgCp010SolveMode =
   | "findOtherRootFromKnownRoot"
   | "constructEquationWithProductPlusMinusSumRoots"
   | "constructEquationWithReciprocalThenShiftedRoots"
-  | "findCubicRootSumByVieta";
+  | "findDirectCubicVietaInvariant";
 
 export type AlgCp010Answer =
   | { kind: "RATIONAL"; value: Rational }
@@ -40,6 +40,7 @@ export interface AlgCp010DiscoveryItem {
   sourceStatus: "UNVERIFIED_DRAFT";
   hiddenRoots?: [Rational, Rational];
   hiddenCubicRoots?: [Rational, Rational, Rational];
+  cubicInvariantTarget?: "SUM" | "PAIRWISE_PRODUCT_SUM" | "PRODUCT";
   transformEvidence?:
     | { kind: "SHIFT"; value: Rational }
     | { kind: "RECIPROCAL" }
