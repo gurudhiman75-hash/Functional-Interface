@@ -54,6 +54,16 @@ function equationText(equation: QuadraticEquation): string {
   return `${termText(a, 2, true)}${termText(b, 1, false)}${termText(c, 0, false)} = 0`;
 }
 
+function rootFactorText(root: number): string {
+  return root < 0 ? `(x + ${Math.abs(root)})` : `(x - ${root})`;
+}
+
+function linearKText(coefficient: number, constant: number): string {
+  const kPart = coefficient === 1 ? "k" : coefficient === -1 ? "-k" : `${coefficient}k`;
+  if (constant === 0) return kPart;
+  return `${kPart} ${constant < 0 ? "-" : "+"} ${Math.abs(constant)}`;
+}
+
 export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number): AlgCp009DiscoveryItem {
   const candidate = getAlgCp009Candidate(candidateId);
 
@@ -69,11 +79,13 @@ export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number)
       };
       const solved = solveQuadraticEquation(equation);
       if (solved.kind !== "TWO_RATIONAL_ROOTS") throw new Error("Factorable quadratic construction failed");
+      const scalar = a === 1 ? "" : `${a}`;
+      const factorisation = `${scalar}${rootFactorText(r1)}${rootFactorText(r2)} = 0`;
       return {
         cpId: "ALG-CP-009", candidateId, solveMode: candidate.solveMode, seed,
         stem: `Solve ${equationText(equation)}.`, equation,
         answer: { kind: "RATIONAL_ROOT_SET", values: solved.roots },
-        explanation: `Factor the quadratic into two linear factors. The zero-product rule gives x = ${r1} or x = ${r2}. Both values satisfy the original equation.`,
+        explanation: `Factor the quadratic: ${equationText(equation)} becomes ${factorisation}. Since the nonzero scalar does not affect the zeros, the zero-product rule gives ${rootFactorText(r1)} = 0 or ${rootFactorText(r2)} = 0. Hence x = ${r1} or x = ${r2}. Both values satisfy the original equation.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -84,11 +96,12 @@ export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number)
       const equation: QuadraticEquation = { a: rational(a), b: rational(-2 * a * root), c: rational(a * root * root) };
       const solved = solveQuadraticEquation(equation);
       if (solved.kind !== "REPEATED_ROOT" || !equalsRational(solved.root, rational(root))) throw new Error("Repeated-root construction failed");
+      const scalar = a === 1 ? "" : `${a}`;
       return {
         cpId: "ALG-CP-009", candidateId, solveMode: candidate.solveMode, seed,
         stem: `Solve ${equationText(equation)}.`, equation,
         answer: { kind: "RATIONAL_ROOT_SET", values: [solved.root] },
-        explanation: `The quadratic is a perfect square, so both roots coincide. Its repeated root is x = ${root}. Substitution gives zero, confirming the result.`,
+        explanation: `The quadratic is a perfect square: ${equationText(equation)} = ${scalar}${rootFactorText(root)}² = 0. Therefore ${rootFactorText(root)} = 0, so x = ${root}. The same factor occurs twice, hence this is a repeated root.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -100,11 +113,14 @@ export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number)
       const equation: QuadraticEquation = { a: rational(1n), b: rational(-2 * shift), c: rational(shift * shift - n) };
       const solved = solveQuadraticEquation(equation);
       if (solved.kind !== "TWO_IRRATIONAL_ROOTS") throw new Error("Irrational-root construction failed");
+      const b = -2 * shift;
+      const c = shift * shift - n;
+      const discriminant = b * b - 4 * c;
       return {
         cpId: "ALG-CP-009", candidateId, solveMode: candidate.solveMode, seed,
         stem: `Solve ${equationText(equation)} and give the roots in exact form.`, equation,
         answer: { kind: "SURD_ROOT_SET", values: solved.roots },
-        explanation: `The discriminant is ${4 * n}, so the quadratic formula gives the exact roots ${formatSurd(solved.roots[0])} and ${formatSurd(solved.roots[1])}. No decimal approximation is needed.`,
+        explanation: `For ${equationText(equation)}, D = b² - 4ac = (${b})² - 4(1)(${c}) = ${discriminant}. The quadratic formula gives x = (-(${b}) ± √${discriminant})/2, which simplifies to ${formatSurd(solved.roots[0])} and ${formatSurd(solved.roots[1])}. These are exact roots, so no decimal approximation is needed.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -120,7 +136,7 @@ export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number)
         cpId: "ALG-CP-009", candidateId, solveMode: candidate.solveMode, seed,
         stem: `How many real roots does ${equationText(equation)} have?`, equation,
         answer: { kind: "NO_REAL_ROOTS" },
-        explanation: `The discriminant is D = ${formatRational(discriminant)}. Since D < 0, the quadratic has no real roots.`,
+        explanation: `For a quadratic, real roots require D = b² - 4ac ≥ 0. Here D = (${b})² - 4(1)(${c}) = ${formatRational(discriminant)}, which is negative. Therefore the equation has no real roots.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -138,7 +154,7 @@ export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number)
         stem: `For what value of k does x² ${b < 0 ? "-" : "+"} ${Math.abs(b)}x + k = 0 have equal roots?`,
         equation,
         answer: { kind: "PARAMETER_VALUE", value: rational(k) },
-        explanation: `Equal roots require D = 0. Thus ${b}² - 4k = 0, so k = ${k}. With this value, the repeated root is x = ${formatRational(solved.root)}.`,
+        explanation: `Equal roots require D = 0. Here D = (${b})² - 4(1)(k), so (${b})² - 4k = 0. Thus 4k = ${b * b} and k = ${k}. With this value, the repeated root is x = ${formatRational(solved.root)}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -157,12 +173,14 @@ export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number)
           ? solved.roots.some((value) => equalsRational(value, rational(root)))
           : false;
       if (!rootAppears) throw new Error("Known-root coefficient construction failed");
+      const knownPart = a * root * root + c;
+      const isolated = -knownPart;
       return {
         cpId: "ALG-CP-009", candidateId, solveMode: candidate.solveMode, seed,
         stem: `If x = ${root} is a root of ${a === 1 ? "x²" : `${a}x²`} + kx ${c < 0 ? "-" : "+"} ${Math.abs(c)} = 0, find k.`,
         equation,
         answer: { kind: "PARAMETER_VALUE", value: rational(k) },
-        explanation: `A root makes the polynomial zero. Substituting x = ${root} gives a linear equation in k; solving it gives k = ${k}.`,
+        explanation: `A root makes the polynomial zero. Substitute x = ${root}: ${a}(${root})² + k(${root}) ${c < 0 ? "-" : "+"} ${Math.abs(c)} = 0. The known terms total ${knownPart}, so ${linearKText(root, knownPart)} = 0. Hence ${root === 1 ? "k" : root === -1 ? "-k" : `${root}k`} = ${isolated}, giving k = ${k}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
         knownRootEvidence: rational(root),
       };
