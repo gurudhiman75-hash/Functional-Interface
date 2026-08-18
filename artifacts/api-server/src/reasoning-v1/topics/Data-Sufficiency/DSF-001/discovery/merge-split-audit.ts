@@ -39,9 +39,9 @@ export const DSF_MERGE_SPLIT_AUDIT: readonly DsMergeSplitAuditEntry[] = [
     permanentQlEffect: "NO_NEW_QL",
   },
   {
-    concern: "Different target semantics: scalar value, yes/no proposition, rank, identity, direction, relation",
-    decision: "SPLIT_CONTRACT",
-    rationale: "Executable CP-000 discovery shows scalar, categorical and rank targets can share the same two-statement target-projection contract. They remain solve-mode metadata in the initial allocation; a future split requires evidence of materially different task behavior.",
+    concern: "Different two-statement target semantics: scalar value, yes/no property, rank, identity, direction, relation",
+    decision: "MERGE",
+    rationale: "Executable CP-000 discovery proves scalar, categorical and rank targets share the same target-projection evaluator and sufficiency truth table. They remain target-kind / solve-mode metadata unless future evidence demonstrates a materially different learner task.",
     permanentQlEffect: "NO_NEW_QL",
   },
   {
