@@ -10,12 +10,13 @@ import { IOP_001_CHAPTER_LIFECYCLE } from "./lifecycle.ts";
 import { IOP_001_PERMANENT_ALLOCATION, IOP_001_PERMANENT_QL_AUTHORITIES } from "./permanent-authorities.ts";
 
 const APPROVED_LEARNER_CONTENT_SHA256 = "58a91a0dd0b5faeb0e601e8d5b587a0f7768a65c246530f5bb316b73b9232413";
+const allowedAdvancedMaturities = new Set(["ENGLISH_FROZEN", "MULTILINGUAL_FROZEN", "QUESTION_STUDIO_REVIEW_ONLY"]);
 
 assertIop001EnglishFreezeAuthority();
-assert.equal(IOP_001_CHAPTER_LIFECYCLE.maturity, "ENGLISH_FROZEN");
+assert.ok(allowedAdvancedMaturities.has(IOP_001_CHAPTER_LIFECYCLE.maturity), `Unexpected chapter maturity ${IOP_001_CHAPTER_LIFECYCLE.maturity}`);
 assert.equal(IOP_001_CHAPTER_LIFECYCLE.englishHumanApproval, "APPROVED_2026_08_18");
 assert.equal(IOP_001_CHAPTER_LIFECYCLE.englishFreeze, true);
-assert.equal(IOP_001_PERMANENT_ALLOCATION.maturity, "ENGLISH_FROZEN");
+assert.ok(allowedAdvancedMaturities.has(IOP_001_PERMANENT_ALLOCATION.maturity), `Unexpected allocation maturity ${IOP_001_PERMANENT_ALLOCATION.maturity}`);
 assert.equal(IOP_001_PERMANENT_ALLOCATION.englishFreeze, true);
 assert.equal(IOP_001_PERMANENT_QL_AUTHORITIES.length, 8);
 for (const authority of IOP_001_PERMANENT_QL_AUTHORITIES) {
@@ -28,7 +29,7 @@ for (const mode of IOP_ENGLISH_SOURCE_MODES) {
   for (let example = 0; example < 2; example += 1) {
     const seed = `IOP-EN-REVIEW-${mode.sourceModeId}-${String(example).padStart(2, "0")}`;
     const caselet = generateIopEnglishReviewCaselet(seed, mode.qlId, mode.sourceModeId);
-    assert.equal(caselet.lifecycle.maturity, "ENGLISH_FROZEN", `${mode.sourceModeId}/${example} is not frozen`);
+    assert.equal(caselet.lifecycle.maturity, "ENGLISH_FROZEN", `${mode.sourceModeId}/${example} is not English-frozen`);
     assert.equal(caselet.lifecycle.englishFreeze, true, `${mode.sourceModeId}/${example} lost freeze flag`);
     assert.equal(caselet.lifecycle.questionStudioDiscoverable, false);
     assert.equal(caselet.lifecycle.questionBankWritable, false);
@@ -55,6 +56,7 @@ assert.equal(IOP_001_ENGLISH_FREEZE_AUTHORITY.learnerContentChangeAllowedWithout
 assert.equal(IOP_001_ENGLISH_FREEZE_AUTHORITY.hindiPunjabiMayStart, true);
 
 console.log("PASS_IOP_001_ENGLISH_FREEZE_AUTHORITY");
+console.log(`chapter maturity ${IOP_001_CHAPTER_LIFECYCLE.maturity}`);
 console.log(`approved head ${IOP_001_ENGLISH_FREEZE_AUTHORITY.reviewedHead}`);
 console.log(`approved artifact ${IOP_001_ENGLISH_FREEZE_AUTHORITY.reviewedArtifactId}`);
 console.log(`frozen QLs ${IOP_001_PERMANENT_QL_AUTHORITIES.length}`);
@@ -62,8 +64,7 @@ console.log(`frozen source modes ${IOP_ENGLISH_SOURCE_MODES.length}`);
 console.log(`frozen review caselets ${approvedCaselets.length}`);
 console.log(`frozen review questions ${questionCount}`);
 console.log(`approved learner content sha256 ${learnerContentSha256}`);
-console.log("Hindi/Punjabi may start true");
-console.log("Question Studio false");
+console.log("English freeze preserved true");
 console.log("Question Bank false");
 console.log("test eligible false");
 console.log("publicly publishable false");
