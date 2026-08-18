@@ -66,7 +66,7 @@ This resolves to:
 
 `.github/workflows/frontend-production-quality.yml` runs that command for relevant pull requests/pushes targeting `New-main`.
 
-The production-truth audit now guards the primary discovery/result chain against known regressions including fake telemetry/social proof, unverified freshness/official-parity claims, student-facing backend URLs, roadmap claims, result links without an exact attempt ID, and browser-local score fallback on canonical result pages.
+The production-truth audit now guards the primary discovery/result chain against known regressions including fake telemetry/social proof, unverified freshness/official-parity claims, student-facing backend URLs on catalog discovery, roadmap claims, result links without an exact attempt ID, and browser-local score fallback on canonical result pages.
 
 Separately, the pre-existing `.github/workflows/student-reliability-e2e.yml` remains the canonical browser-level suite. It already covers login protection, live Test Series + standalone discovery, score-gated locks, series-context delivery, canonical server-draft resume, duplicate-submit suppression, committed-result reload, next-test unlock, and fresh dashboard history.
 
@@ -83,6 +83,7 @@ Extend the existing Playwright suite rather than creating a competing E2E stack:
 7. Verify practice mode never unlocks score-gated progression.
 8. Verify language switching does not alter answer identity/scoring and unavailable language falls back safely.
 9. Run the core attempt flow at representative mobile widths and at least one constrained/low-end browser profile.
+10. Remove the remaining developer-oriented API diagnostic in the direct test-detail error path and migrate any legacy testId-only review buttons to exact attempt IDs; strict result handling already prevents these links from showing an incorrect canonical score.
 
 Already covered and therefore not duplicated in CP01B: student-login protection, canonical series discovery, score-gated lock reasons, series-context question delivery, canonical server-draft resume, duplicate-click submit suppression, committed-result reload, next-test unlock after a qualifying result, and fresh-navigation attempt history.
 
@@ -102,7 +103,7 @@ Already covered and therefore not duplicated in CP01B: student-login protection,
 ## Checkpoint sequence
 
 - **CP01:** production truth, canonical result integrity, background-timer recovery, automated frontend quality gate, preservation of existing reliability E2E.
-- **CP01B:** destructive runner/network/auth/tab/mobile browser matrix.
+- **CP01B:** destructive runner/network/auth/tab/mobile browser matrix plus remaining direct-runner error/review-link cleanup.
 - **CP02:** public/app shell split plus accessibility/mobile certification.
 - **CP03:** SEO/prerender/metadata/sitemap/robots.
 - **CP04:** catalog discovery/search/filter/pagination plus incomplete account/support journeys.
