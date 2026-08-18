@@ -3,9 +3,15 @@ import {
   WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   type WorQuestionStudioReviewQuestion,
 } from "./question-studio-review";
+import {
+  WOR_001_QUESTION_STUDIO_ENGLISH_REVIEW_STATUS,
+  WOR_001_QUESTION_STUDIO_EXAM_READINESS_STATUS,
+  WOR_001_QUESTION_STUDIO_PRODUCTION_REVIEW_STATUS,
+  WOR_001_QUESTION_STUDIO_RELEASE_FREEZE_STATUS,
+} from "./question-studio-production-authority";
 
 export const WOR_001_QUESTION_STUDIO_REVISION_POLICY = "SOURCE_GENERATOR_ONLY" as const;
-export const WOR_001_QUESTION_STUDIO_RELEASE_FREEZE = "PENDING_HUMAN_CONTENT_REVIEW_AND_NATIVE_SIGNOFF" as const;
+export const WOR_001_QUESTION_STUDIO_RELEASE_FREEZE = WOR_001_QUESTION_STUDIO_RELEASE_FREEZE_STATUS;
 
 export interface WorQuestionStudioRegenerationMetadata {
   readonly sourceVersionNumber: number;
@@ -38,6 +44,8 @@ export function buildWor001QuestionStudioPayload(
     qlId: question.qlId,
     permanentQlId: question.permanentQlId,
     permanentQlAllocationStatus: "ALLOCATED_INACTIVE" as const,
+    examReadinessStatus: WOR_001_QUESTION_STUDIO_EXAM_READINESS_STATUS,
+    englishContentReviewStatus: WOR_001_QUESTION_STUDIO_ENGLISH_REVIEW_STATUS,
     humanContentReviewStatus: "PENDING" as const,
     nativeHumanSignoffStatus: "PENDING" as const,
     packageId: question.packageId,
@@ -55,7 +63,7 @@ export function buildWor001QuestionStudioPayload(
     locale: question.locale,
     seed: String(question.seed),
     runtimeMode: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.runtimeMode,
-    reviewStatus: question.reviewStatus,
+    reviewStatus: WOR_001_QUESTION_STUDIO_PRODUCTION_REVIEW_STATUS,
     lifecycleStatus: question.lifecycleStatus,
     questionStudioVisible: true as const,
     questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
@@ -83,10 +91,12 @@ export function buildWor001QuestionStudioPayload(
       patternId: question.prototypeId,
       permanentQlId: question.permanentQlId,
       permanentQlAllocationStatus: "ALLOCATED_INACTIVE" as const,
+      examReadinessStatus: WOR_001_QUESTION_STUDIO_EXAM_READINESS_STATUS,
+      englishContentReviewStatus: WOR_001_QUESTION_STUDIO_ENGLISH_REVIEW_STATUS,
       humanContentReviewStatus: "PENDING" as const,
       nativeHumanSignoffStatus: "PENDING" as const,
       runtimeMode: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.runtimeMode,
-      reviewStatus: question.reviewStatus,
+      reviewStatus: WOR_001_QUESTION_STUDIO_PRODUCTION_REVIEW_STATUS,
       lifecycleStatus: question.lifecycleStatus,
       questionStudioVisible: true as const,
       questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
