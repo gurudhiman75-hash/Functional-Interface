@@ -264,13 +264,12 @@ export function generateAlgCp005DiscoveryItem(candidateId: string, seed: number)
       const firstDivision = divisionFor(value, rational(root1));
       if (firstDivision.remainder.numerator !== 0n) throw new Error("First condition must be an exact factor");
       const secondRemainder = evaluatePolynomial(value, rational(root2));
+      if (secondRemainder.denominator !== 1n) throw new Error("Constructed second remainder should be integral");
 
       const system = {
         a1: rational(root1 ** 2), b1: rational(root1), c1: rational(-c3 * root1 ** 3 - c0),
-        a2: rational(root2 ** 2), b2: rational(root2), c2: rational(Number(secondRemainder.numerator) - c3 * root2 ** 3 - c0),
+        a2: rational(root2 ** 2), b2: rational(root2), c2: rational(secondRemainder.numerator - BigInt(c3 * root2 ** 3 + c0)),
       };
-      if (secondRemainder.denominator !== 1n) throw new Error("Constructed second remainder should be integral");
-      system.c2 = rational(secondRemainder.numerator - BigInt(c3 * root2 ** 3 + c0));
       const solved = solveLinearSystem2V(system);
       if (solved.kind !== "UNIQUE" || !verifyLinearSystemSolution(system, solved.x, solved.y)) throw new Error("Two-condition coefficient system must be uniquely solvable");
       if (!equalsRational(solved.x, rational(k)) || !equalsRational(solved.y, rational(m))) throw new Error("Recovered coefficients do not match construction");
