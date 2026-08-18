@@ -3,18 +3,22 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import {
   PFC_001_DISCOVERY_AUTHORITY_V1,
   PFC_001_REPRESENTATION_CATALOG_V1,
-  generatePfcDiscoveryCorpusV1,
-  generatePfcDiscoveryQuestionV1,
   pfcDiscoveryOptionIsReadableV1,
-  renderPfcDiscoveryReviewHtmlV1,
   validatePfcDiscoveryCutReachabilityV1,
 } from "../foundation/spatial/paper-folding-discovery-v1";
+import {
+  PFC_001_DISCOVERY_REMEDIATION_AUTHORITY_V2,
+  generatePfcDiscoveryCorpusV2,
+  generatePfcDiscoveryQuestionV2,
+  renderPfcDiscoveryReviewHtmlV2,
+} from "../foundation/spatial/paper-folding-discovery-remediated-v2";
 
-const corpus = generatePfcDiscoveryCorpusV1();
+const corpus = generatePfcDiscoveryCorpusV2();
 assert.equal(corpus.length, 800);
 assert.equal(PFC_001_REPRESENTATION_CATALOG_V1.length, 10);
 assert.equal(PFC_001_DISCOVERY_AUTHORITY_V1.permanentQlAllocationStatus, "NOT_ALLOCATED_DISCOVERY_REVIEW_REQUIRED");
-assert.equal(PFC_001_DISCOVERY_AUTHORITY_V1.nextAvailableQl, "SPA-QL-035");
+assert.equal(PFC_001_DISCOVERY_REMEDIATION_AUTHORITY_V2.requiredUniqueSemanticQuestions, 800);
+assert.equal(PFC_001_DISCOVERY_REMEDIATION_AUTHORITY_V2.nextAvailableQl, "SPA-QL-035");
 
 const countsByRepresentation = new Map<string, number>();
 const countsByCorrectOption = new Map<string, number>();
@@ -85,15 +89,13 @@ assert.equal(readableOptionCount, 3200);
 assert.equal(semanticFingerprints.size, 800);
 assert.equal(questionIds.size, 800);
 
-// Replay representative questions from every prototype, including the advanced end of each 80-question block.
 for (let representationIndex = 0; representationIndex < 10; representationIndex += 1) {
   for (const offset of [0, 17, 43, 79]) {
     const index = representationIndex * 80 + offset;
-    assert.deepEqual(generatePfcDiscoveryQuestionV1(index), generatePfcDiscoveryQuestionV1(index));
+    assert.deepEqual(generatePfcDiscoveryQuestionV2(index), generatePfcDiscoveryQuestionV2(index));
   }
 }
 
-// Coverage invariants for the representation families.
 const prototype01 = corpus[0];
 assert.equal(prototype01.folds.length, 1);
 assert.equal(prototype01.options[prototype01.correctOptionIndex].imprints.length, 2);
@@ -122,15 +124,16 @@ const reviewQuestions = PFC_001_REPRESENTATION_CATALOG_V1.flatMap((_, representa
   [0, 19, 41, 73].map((variantIndex) => corpus[representationIndex * 80 + variantIndex]),
 );
 assert.equal(reviewQuestions.length, 40);
-const reviewHtml = renderPfcDiscoveryReviewHtmlV1(reviewQuestions);
-assert.ok(reviewHtml.includes("PFC-001 Discovery Learner Review V1"));
+const reviewHtml = renderPfcDiscoveryReviewHtmlV2(reviewQuestions);
+assert.ok(reviewHtml.includes("PFC-001 Discovery Learner Review V2"));
 assert.ok(reviewHtml.includes("width=\"112\""));
 assert.ok(!reviewHtml.includes("<script"));
 assert.ok(!reviewHtml.includes("http://") || reviewHtml.includes("http://www.w3.org/2000/svg"));
 
 const evidence = {
-  authority: PFC_001_DISCOVERY_AUTHORITY_V1,
-  status: "PASS_PFC_001_EXECUTABLE_DISCOVERY_V1",
+  authority: PFC_001_DISCOVERY_REMEDIATION_AUTHORITY_V2,
+  sourceDiscoveryAuthority: PFC_001_DISCOVERY_AUTHORITY_V1.authorityId,
+  status: "PASS_PFC_001_EXECUTABLE_DISCOVERY_REMEDIATED_V2",
   corpus: {
     totalQuestions: corpus.length,
     representationCount: PFC_001_REPRESENTATION_CATALOG_V1.length,
@@ -156,12 +159,12 @@ const evidence = {
 
 mkdirSync("dist/reasoning-v1/spatial", { recursive: true });
 writeFileSync(
-  "dist/reasoning-v1/spatial/spa-pfc-001-discovery-v1-evidence.json",
+  "dist/reasoning-v1/spatial/spa-pfc-001-discovery-v2-evidence.json",
   `${JSON.stringify(evidence, null, 2)}\n`,
   "utf8",
 );
 writeFileSync(
-  "dist/reasoning-v1/spatial/spa-pfc-001-discovery-v1-review.html",
+  "dist/reasoning-v1/spatial/spa-pfc-001-discovery-v2-review.html",
   reviewHtml,
   "utf8",
 );
