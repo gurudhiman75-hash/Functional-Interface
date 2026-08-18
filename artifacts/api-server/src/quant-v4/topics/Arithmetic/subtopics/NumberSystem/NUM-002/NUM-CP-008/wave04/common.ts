@@ -41,6 +41,32 @@ export function residueOptions(answer: number, modulus: number, candidates: read
   return { options, correctIndex: options.findIndex((option) => option.isCorrect), canonicalAnswer: String(answer) };
 }
 
+export function boundedNumericOptions(answer: number, lower: number, upper: number, candidates: readonly { value: number; misconceptionId: string }[], rng: Rng) {
+  if (!Number.isSafeInteger(answer) || answer < lower || answer > upper || lower > upper) throw new Error("Invalid bounded-option state");
+  const seen = new Set<number>([answer]);
+  const wrong: { value: number; misconceptionId: string }[] = [];
+  for (const candidate of candidates) {
+    if (!Number.isSafeInteger(candidate.value) || candidate.value < lower || candidate.value > upper || seen.has(candidate.value)) continue;
+    seen.add(candidate.value);
+    wrong.push(candidate);
+    if (wrong.length === 3) break;
+  }
+  for (let delta = 1; wrong.length < 3 && delta <= upper - lower; delta += 1) {
+    for (const value of [answer - delta, answer + delta]) {
+      if (value < lower || value > upper || seen.has(value)) continue;
+      seen.add(value);
+      wrong.push({ value, misconceptionId: "IN_RANGE_UNVERIFIED_VALUE" });
+      if (wrong.length === 3) break;
+    }
+  }
+  if (wrong.length !== 3) throw new Error("Need three distinct bounded distractors");
+  const options = shuffle<NumCp008Option>([
+    { value: String(answer), isCorrect: true, misconceptionId: "CORRECT" },
+    ...wrong.map((item) => ({ value: String(item.value), isCorrect: false, misconceptionId: item.misconceptionId })),
+  ], rng);
+  return { options, correctIndex: options.findIndex((option) => option.isCorrect), canonicalAnswer: String(answer) };
+}
+
 export function base(input: Omit<NumCp008Wave04Package, "packageId" | "checkpointId" | "permanentQlId" | "locale" | "lifecycle">): NumCp008Wave04Package {
   return {
     packageId: "NUM-002",
