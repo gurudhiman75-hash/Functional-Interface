@@ -13,9 +13,9 @@ export interface DsMergeSplitAuditEntry {
  */
 export const DSF_MERGE_SPLIT_AUDIT: readonly DsMergeSplitAuditEntry[] = [
   {
-    concern: "Two-statement five-class option order varies by exam",
+    concern: "Two-statement option order varies by exam",
     decision: "MERGE",
-    rationale: "Indian Bank PO 2011 and BOB JMG 2015 expose the same five semantic outcomes in different display orders. Option position is an answer-contract profile, not a new Question Logic.",
+    rationale: "Banking five-option profiles and SSC four-option profiles demonstrate that option position belongs to an answer-contract profile, not to the semantic Question Logic.",
     permanentQlEffect: "NO_NEW_QL",
   },
   {
@@ -55,9 +55,9 @@ export const DSF_MERGE_SPLIT_AUDIT: readonly DsMergeSplitAuditEntry[] = [
     permanentQlEffect: "QL_ALLOCATION_BLOCKED",
   },
   {
-    concern: "SSC-specific and Punjab-state-specific DS variants",
+    concern: "Punjab-state-specific answer-contract freeze",
     decision: "DEFER",
-    rationale: "Direct exam-source DS evidence has not yet been verified in CP-000. Exam-specific QL or answer-contract allocation would currently be speculative.",
+    rationale: "PSSSB Clerk preparation material confirms DS relevance, but the exact official-paper answer contract is not yet verified. Generic DS semantics may proceed; a Punjab-specific rendering profile must not be frozen from preparation material alone.",
     permanentQlEffect: "QL_ALLOCATION_BLOCKED",
   },
 ];
@@ -73,11 +73,16 @@ export function dsfMergeSplitSummary(): Readonly<Record<DsMergeSplitDecision, nu
 }
 
 export const DSF_PERMANENT_QL_ALLOCATION_DECISION = {
-  status: "BLOCKED_PENDING_SOURCE_COMPLETION" as const,
+  status: "BLOCKED_PENDING_OWNERSHIP_AND_PROFILE_FREEZE" as const,
   reasons: [
-    "SSC direct DS evidence not yet verified",
-    "Punjab-state direct DS evidence not yet verified",
     "existing TMW/SAP/NUM chapter-local DS ownership still requires reconciliation",
-    "constraint-heavy Seating/Puzzle adapters are intentionally deferred",
+    "Punjab-state official answer-contract profile is not yet verified",
+    "constraint-heavy Seating/Puzzle adapters are intentionally deferred from the first allocation",
+  ] as const,
+  resolvedEvidence: [
+    "banking two-statement five-class semantics and option-order variation",
+    "banking three-statement subset contracts",
+    "SSC CGL two-statement four-option profiles across reasoning and quantitative examples",
+    "PSSSB Clerk preparation signal confirming Punjab-state DS relevance",
   ] as const,
 };
