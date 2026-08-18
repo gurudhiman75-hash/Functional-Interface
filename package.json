@@ -11,6 +11,7 @@
     "preinstall": "node -e \"\"",
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
     "build:web": "pnpm --dir artifacts/examtree build",
+    "quality:web": "pnpm --dir artifacts/examtree quality",
     "deploy:web": "pnpm run build:hosting && pnpm dlx firebase-tools deploy --only hosting --project sarbedutech",
     "preview:web": "pnpm run build:hosting && pnpm dlx firebase-tools hosting:channel:deploy preview --project sarbedutech",
     "typecheck:libs": "tsc --build",
