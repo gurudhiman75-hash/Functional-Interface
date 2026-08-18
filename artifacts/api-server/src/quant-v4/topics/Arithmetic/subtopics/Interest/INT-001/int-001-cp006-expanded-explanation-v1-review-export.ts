@@ -7,7 +7,7 @@ import {
   INT_CP006_LOCALIZED_EXPLANATION_VERSION,
   generateIntCp006LocalizedExplanationReviewQuestion,
 } from "./cp006-si-ci-relations-localized-v4";
-import { INT_CP006_EXPANDED_EXPLANATION_VERSION } from "./cp006-expanded-explanation-v1";
+import { INT_CP006_EXPANDED_EXPLANATION_VERSION } from "./cp006-expanded-explanation-v2";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
 function pickSeed(qlId: IntCp006QlId, template: 1 | 2 | 3): string {
