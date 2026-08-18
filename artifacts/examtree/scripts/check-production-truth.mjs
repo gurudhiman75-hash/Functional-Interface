@@ -8,6 +8,7 @@ const files = {
   home: fs.readFileSync(path.join(appRoot, "src/pages/home.tsx"), "utf8"),
   activity: fs.readFileSync(path.join(appRoot, "src/pages/activity.tsx"), "utf8"),
   tests: fs.readFileSync(path.join(appRoot, "src/pages/tests.tsx"), "utf8"),
+  result: fs.readFileSync(path.join(appRoot, "src/pages/canonical-result.tsx"), "utf8"),
 };
 
 const forbidden = [
@@ -24,6 +25,8 @@ const forbidden = [
   ["activity", "Practice time", "Activity time is calculated from real attempts and must not be labelled practice time."],
   ["activity", "Analytics, rankings, packages, and payments will be enabled", "Production student UI must not advertise roadmap functionality."],
   ["tests", "API expected at", "Student-facing errors must not expose backend configuration details."],
+  ["result", "const localResult", "Canonical results must not silently fall back to browser-local attempt history."],
+  ["result", "getAttempts", "Canonical result rendering must not use local attempt history as an official score source."],
 ];
 
 const required = [
@@ -32,6 +35,8 @@ const required = [
   ["home", "Browse Live Tests", "Homepage primary CTA must lead to a live student journey."],
   ["home", "attemptId=", "Resume/review link must carry the canonical attempt id."],
   ["tests", "The test catalog is temporarily unavailable.", "Catalog errors should use student-safe recovery copy."],
+  ["result", "Submission is not confirmed yet", "A missing committed attempt id must render a truthful recovery state."],
+  ["result", "Canonical saved result", "Committed result pages should retain explicit canonical provenance."],
 ];
 
 const failures = [];
