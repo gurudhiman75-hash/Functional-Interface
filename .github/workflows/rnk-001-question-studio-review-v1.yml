@@ -8,6 +8,7 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
       - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
       - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-exam-profiles.ts'
       - '.github/workflows/rnk-001-question-studio-review-v1.yml'
   pull_request:
     branches:
@@ -17,6 +18,7 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
       - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
       - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-exam-profiles.ts'
       - '.github/workflows/rnk-001-question-studio-review-v1.yml'
   workflow_dispatch:
 
@@ -46,6 +48,9 @@ jobs:
 
       - name: Prove RNK shared Question Studio contract across all 42 QLs
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-shared-question-studio.test.ts
+
+      - name: Prove RNK admin exam-profile route uses shared review engine only for RNK
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-profile-route-contract.test.ts
 
       - name: Re-prove RNK chapter-wide English content freeze after lifecycle transition
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
