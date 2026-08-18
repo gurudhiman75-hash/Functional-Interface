@@ -1,32 +1,20 @@
 import { add, divide, multiply, rational, subtract, type Rational } from "../foundation/rational";
 import { formatDurationHours, formatExamNumber } from "../cp003/generation-support";
+import { TSD_CP005_APPROVED_LEARNER_AUTHORITIES } from "./approved-authority-registry";
 import type { TsdCp005EnglishReviewQuestion, TsdCp005ReviewExplanation } from "./english-review-runtime";
 import { generateCp005ReviewQuestionV6 } from "./english-review-runtime-v6";
+import { sqrtRationalExact } from "./solver";
 
 function required(value: Rational | undefined, name: string): Rational {
   if (!value) throw new Error(`CP005 V7 explanation missing ${name}`);
   return value;
 }
 
-function n(value: Rational): string {
-  return formatExamNumber(value);
-}
-
-function km(value: Rational): string {
-  return `${n(value)} km`;
-}
-
-function kmph(value: Rational): string {
-  return `${n(value)} km/h`;
-}
-
-function time(value: Rational): string {
-  return formatDurationHours(value);
-}
-
-function ratio(value: Rational): string {
-  return `${value.numerator}:${value.denominator}`;
-}
+function num(value: Rational): string { return formatExamNumber(value); }
+function km(value: Rational): string { return `${num(value)} km`; }
+function kmph(value: Rational): string { return `${num(value)} km/h`; }
+function duration(value: Rational): string { return formatDurationHours(value); }
+function ratio(value: Rational): string { return `${value.numerator}:${value.denominator}`; }
 
 function ordinal(value: number): string {
   const mod100 = value % 100;
@@ -43,10 +31,6 @@ function firstPoint(L: Rational, u: Rational, v: Rational): Rational {
   return divide(multiply(L, u), add(u, v));
 }
 
-function firstTime(L: Rational, u: Rational, v: Rational): Rational {
-  return divide(L, add(u, v));
-}
-
 function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005ReviewExplanation {
   const input = question.input;
   const solution = question.solution;
@@ -59,13 +43,13 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const squaredRatio = divide(tB, tA);
       const r = required(solution.value, "speed ratio");
       return Object.freeze({
-        method: "The two times are measured after the first meeting. In this situation, the ratio of those remaining times is the square of the opposite speed ratio.",
+        method: "The times are measured after the first meeting. For this setup, the ratio of the two remaining times equals the square of the opposite speed ratio.",
         steps: Object.freeze([
-          `A takes ${time(tA)} after the meeting, while B takes ${time(tB)}.`,
-          `So (A's speed / B's speed)^2 = ${n(tB)} / ${n(tA)} = ${n(squaredRatio)}.`,
-          `Taking the square root gives A's speed / B's speed = ${ratio(r)}.`,
+          `After meeting, A takes ${duration(tA)} and B takes ${duration(tB)} to reach the opposite endpoints.`,
+          `(A's speed / B's speed)^2 = ${num(tB)} / ${num(tA)} = ${num(squaredRatio)}.`,
+          `Taking the square root gives A's speed : B's speed = ${ratio(r)}.`,
         ]),
-        shortcut: "For two travellers who meet and then continue to the opposite endpoints, take the square root of (B's post-meeting time / A's post-meeting time).",
+        shortcut: "Take the square root of (B's post-meeting time / A's post-meeting time).",
         finalAnswer: `Therefore, the required speed ratio is ${answer}.`,
       });
     }
@@ -78,16 +62,17 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const x = firstPoint(L, u, v);
       const target = input.targetPostBody ?? "A";
       const remaining = target === "A" ? subtract(L, x) : x;
-      const speed = target === "A" ? u : v;
+      const targetSpeed = target === "A" ? u : v;
+      const result = required(solution.value, "post-meeting time");
       return Object.freeze({
-        method: "First recover the second speed and locate the first meeting. Then use only the distance that the asked traveller still has to cover after that meeting.",
+        method: "Recover B's speed, locate the first meeting, and then use only the distance still left for the traveller named in the question.",
         steps: Object.freeze([
-          `The route is ${km(L)}. A's speed is ${kmph(u)} and A:B = ${ratio(r)}, so B's speed = ${n(u)} / (${n(r.numerator)}/${n(r.denominator)}) = ${kmph(v)}.`,
-          `Their first meeting is ${km(x)} from A's end.`,
-          `${target} still has ${km(remaining)} to cover after the meeting, at ${kmph(speed)}.`,
-          `Required post-meeting time = ${n(remaining)} / ${n(speed)} = ${time(required(solution.value, "post-meeting time"))}.`,
+          `The route is ${km(L)}. A travels at ${kmph(u)} and A:B = ${ratio(r)}, so B's speed = ${num(u)} × ${r.denominator}/${r.numerator} = ${kmph(v)}.`,
+          `At the first meeting A has covered ${km(x)} from A's end.`,
+          `${target} still has ${km(remaining)} to cover at ${kmph(targetSpeed)}.`,
+          `Required time = ${num(remaining)} / ${num(targetSpeed)} = ${duration(result)}.`,
         ]),
-        shortcut: "Do not use the full-route time. Find the first meeting point first, then divide the remaining distance by the asked traveller's speed.",
+        shortcut: "Do not divide the full route by the speed; first find the remaining distance after the meeting.",
         finalAnswer: `Therefore, traveller ${target} takes ${answer} after the first meeting.`,
       });
     }
@@ -96,23 +81,21 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const u = required(input.speedA, "speedA");
       const tA = required(input.postMeetingTimeA, "postMeetingTimeA");
       const tB = required(input.postMeetingTimeB, "postMeetingTimeB");
-      const r = required(divide(required(solution.value, "route distance"), required(solution.value, "route distance")), "unit ratio");
-      // The actual speed ratio is recovered directly from the two post-meeting times.
-      const speedRatioSquared = divide(tB, tA);
-      const answerL = required(solution.value, "route distance");
-      const remainingA = multiply(u, tA);
-      const firstMeetingDistanceFromA = subtract(answerL, remainingA);
-      const v = divide(firstMeetingDistanceFromA, tB);
-      void r;
+      const r = sqrtRationalExact(divide(tB, tA));
+      const v = divide(u, r);
+      const aRemaining = multiply(u, tA);
+      const bRemaining = multiply(v, tB);
+      const L = add(aRemaining, bRemaining);
       return Object.freeze({
-        method: "A's post-meeting time gives A's remaining distance directly. B's post-meeting time corresponds to the distance from A's end to the meeting point; together those two pieces make the whole route.",
+        method: "The post-meeting times give the missing speed ratio. After the meeting, A's remaining leg and B's remaining leg are the two parts of the original route.",
         steps: Object.freeze([
-          `A travels at ${kmph(u)} for ${time(tA)} after the meeting, so A's remaining leg = ${n(u)} × ${n(tA)} = ${km(remainingA)}.`,
-          `From the paired post-meeting times, the speed-ratio square is ${n(tB)} / ${n(tA)} = ${n(speedRatioSquared)}; the corresponding B speed is ${kmph(v)}.`,
-          `B's post-meeting leg = ${n(v)} × ${n(tB)} = ${km(firstMeetingDistanceFromA)}.`,
-          `Whole route = ${n(remainingA)} + ${n(firstMeetingDistanceFromA)} = ${km(answerL)}.`,
+          `From the two post-meeting times, A:B speed ratio = sqrt(${num(tB)}/${num(tA)}) = ${ratio(r)}.`,
+          `A is ${kmph(u)}, so B's speed = ${num(u)} × ${r.denominator}/${r.numerator} = ${kmph(v)}.`,
+          `A's remaining leg = ${num(u)} × ${num(tA)} = ${km(aRemaining)}.`,
+          `B's remaining leg = ${num(v)} × ${num(tB)} = ${km(bRemaining)}.`,
+          `Total route = ${num(aRemaining)} + ${num(bRemaining)} = ${km(L)}.`,
         ]),
-        shortcut: "After the first meeting, the two remaining legs are exactly the two parts of the original route; recover the missing speed and add those two distances.",
+        shortcut: "Recover B's speed from the square-root time relation, then add u×tA and v×tB.",
         finalAnswer: `Therefore, the distance between the endpoints is ${answer}.`,
       });
     }
@@ -121,18 +104,20 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const L = required(input.routeDistance, "routeDistance");
       const tA = required(input.postMeetingTimeA, "postMeetingTimeA");
       const tB = required(input.postMeetingTimeB, "postMeetingTimeB");
-      const [u, v] = solution.values ?? [];
-      if (!u || !v) throw new Error("CP005 V7 speed-pair solution missing");
+      const values = solution.values;
+      if (!values || values.length !== 2) throw new Error("CP005 V7 speed-pair solution missing");
+      const u = values[0]!;
+      const v = values[1]!;
       const r = divide(u, v);
       return Object.freeze({
-        method: "The post-meeting times first tell us the speed ratio. Then use the fact that the two post-meeting distances together equal the full route.",
+        method: "First obtain the speed ratio from the two post-meeting times. Then use the fact that the two remaining legs together make the known route length.",
         steps: Object.freeze([
-          `After meeting, A takes ${time(tA)} and B takes ${time(tB)}, so A:B speed ratio = sqrt(${n(tB)}/${n(tA)}) = ${ratio(r)}.`,
-          `Let B's speed be v. Then A's speed is (${n(r.numerator)}/${n(r.denominator)})v.`,
-          `The two remaining legs make the ${km(L)} route: A-speed × ${n(tA)} + B-speed × ${n(tB)} = ${n(L)}.`,
-          `Solving gives B = ${kmph(v)} and A = ${kmph(u)}.`,
+          `A:B speed ratio = sqrt(${num(tB)}/${num(tA)}) = ${ratio(r)}.`,
+          `Let B's speed be s; then A's speed is (${r.numerator}/${r.denominator})s.`,
+          `The post-meeting legs make the ${km(L)} route, so A-speed × ${num(tA)} + B-speed × ${num(tB)} = ${num(L)}.`,
+          `Solving gives A = ${kmph(u)} and B = ${kmph(v)}.`,
         ]),
-        shortcut: "Use the square-root time relation for the ratio, then use L = u·tA + v·tB.",
+        shortcut: "Use the square-root time relation for A:B, then substitute that ratio into L = u×tA + v×tB.",
         finalAnswer: `Therefore, the speeds of A and B are ${answer}.`,
       });
     }
@@ -141,16 +126,16 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const L = required(input.routeDistance, "routeDistance");
       const tA = required(input.postMeetingTimeA, "postMeetingTimeA");
       const tB = required(input.postMeetingTimeB, "postMeetingTimeB");
+      const r = sqrtRationalExact(divide(tB, tA));
       const x = required(solution.value, "meeting point");
-      const ratioSquared = divide(tB, tA);
       return Object.freeze({
-        method: "Use the post-meeting times to recover the speed ratio. At the first meeting, the two distances already covered are in the same ratio as the speeds.",
+        method: "Convert the two post-meeting times into the speed ratio. At the first meeting, distances already covered are in the same ratio as the speeds.",
         steps: Object.freeze([
-          `The route is ${km(L)}. After the meeting A takes ${time(tA)} and B takes ${time(tB)}.`,
-          `Thus (A-speed/B-speed)^2 = ${n(tB)}/${n(tA)} = ${n(ratioSquared)}.`,
-          `Using that speed ratio to divide the ${km(L)} route places the first meeting ${km(x)} from A's end.`,
+          `A:B speed ratio = sqrt(${num(tB)}/${num(tA)}) = ${ratio(r)}.`,
+          `So the ${km(L)} route is divided at the first meeting in the ratio ${ratio(r)} from A's side to B's side.`,
+          `Distance from A's end = ${km(x)}.`,
         ]),
-        shortcut: "Post-meeting times give the speed ratio by a square root; then divide the route in that speed ratio.",
+        shortcut: "Square-root the reversed post-meeting time ratio, then divide the route in that speed ratio.",
         finalAnswer: `Therefore, the first meeting occurred ${answer} from A's end.`,
       });
     }
@@ -161,15 +146,16 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const u = required(input.speedA, "speedA");
       const v = required(input.speedB, "speedB");
       const sum = add(u, v);
-      const t = required(solution.value, "second meeting time");
+      const combinedPath = multiply(rational(3), L);
+      const result = required(solution.value, "second meeting time");
       return Object.freeze({
-        method: "After unfolding the endpoint reversals, the second meeting occurs when the two travellers have covered three route lengths in total.",
+        method: "Unfold the endpoint reversals into straight-line motion. By the second meeting, the two travellers have covered three route lengths in combined travel.",
         steps: Object.freeze([
-          `Route length = ${km(L)} and combined speed = ${n(u)} + ${n(v)} = ${kmph(sum)}.`,
-          `For the second meeting, combined distance = 3 × ${n(L)} = ${km(multiply(rational(3), L))}.`,
-          `Time = ${n(multiply(rational(3), L))} / ${n(sum)} = ${time(t)}.`,
+          `Route length = ${km(L)}; combined speed = ${num(u)} + ${num(v)} = ${kmph(sum)}.`,
+          `Combined distance for the second meeting = 3 × ${num(L)} = ${km(combinedPath)}.`,
+          `Time = ${num(combinedPath)} / ${num(sum)} = ${duration(result)}.`,
         ]),
-        shortcut: "With instant reversals at both endpoints, the second meeting time is 3L/(u+v).",
+        shortcut: "With instant endpoint reversals, second-meeting time = 3L/(u+v).",
         finalAnswer: `Therefore, they meet for the second time after ${answer}.`,
       });
     }
@@ -178,21 +164,22 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const L = required(input.routeDistance, "routeDistance");
       const u = required(input.speedA, "speedA");
       const v = required(input.speedB, "speedB");
-      const count = input.nthMeeting;
-      if (!count) throw new Error("CP005 V7 nth meeting missing");
-      const odd = 2 * count - 1;
+      const meetingNumber = input.nthMeeting;
+      if (!meetingNumber) throw new Error("CP005 V7 nth meeting missing");
+      const odd = 2 * meetingNumber - 1;
       const path = multiply(rational(odd), L);
       const sum = add(u, v);
+      const result = required(solution.value, "nth meeting time");
       return Object.freeze({
-        method: "Unfold the repeated reversals into straight-line motion. The nth meeting occurs after an odd multiple, (2n−1), of the route has been covered in combined travel.",
+        method: "Unfold the repeated reversals. The nth meeting occurs when the combined travel reaches the odd multiple (2n−1)L.",
         steps: Object.freeze([
-          `Here n = ${count}, so 2n−1 = ${odd}.`,
-          `Combined distance for the ${ordinal(count)} meeting = ${odd} × ${n(L)} = ${km(path)}.`,
-          `Combined speed = ${n(u)} + ${n(v)} = ${kmph(sum)}.`,
-          `Meeting time = ${n(path)} / ${n(sum)} = ${time(required(solution.value, "nth meeting time"))}.`,
+          `Here n = ${meetingNumber}, so 2n−1 = ${odd}.`,
+          `Combined distance for the ${ordinal(meetingNumber)} meeting = ${odd} × ${num(L)} = ${km(path)}.`,
+          `Combined speed = ${num(u)} + ${num(v)} = ${kmph(sum)}.`,
+          `Meeting time = ${num(path)} / ${num(sum)} = ${duration(result)}.`,
         ]),
-        shortcut: "For instant endpoint reversals, t_n = (2n−1)L/(u+v).",
-        finalAnswer: `Therefore, their ${ordinal(count)} meeting occurs after ${answer}.`,
+        shortcut: "For instant reversals, t_n = (2n−1)L/(u+v).",
+        finalAnswer: `Therefore, their ${ordinal(meetingNumber)} meeting occurs after ${answer}.`,
       });
     }
 
@@ -201,15 +188,16 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const u = required(input.speedA, "speedA");
       const v = required(input.speedB, "speedB");
       const sum = add(u, v);
-      const gap = required(solution.value, "meeting gap");
+      const path = multiply(rational(2), L);
+      const result = required(solution.value, "meeting interval");
       return Object.freeze({
-        method: "Between the first and second meetings, the two travellers together cover exactly two additional route lengths.",
+        method: "From the first meeting to the second, the two travellers together cover exactly two more route lengths.",
         steps: Object.freeze([
-          `Combined speed = ${n(u)} + ${n(v)} = ${kmph(sum)}.`,
-          `Combined distance from the first meeting to the second = 2 × ${n(L)} = ${km(multiply(rational(2), L))}.`,
-          `Time gap = ${n(multiply(rational(2), L))} / ${n(sum)} = ${time(gap)}.`,
+          `Combined speed = ${num(u)} + ${num(v)} = ${kmph(sum)}.`,
+          `Combined distance between these meetings = 2 × ${num(L)} = ${km(path)}.`,
+          `Time interval = ${num(path)} / ${num(sum)} = ${duration(result)}.`,
         ]),
-        shortcut: "The first-to-second meeting gap is 2L/(u+v).",
+        shortcut: "First-to-second meeting gap = 2L/(u+v).",
         finalAnswer: `Therefore, the time between the first and second meetings is ${answer}.`,
       });
     }
@@ -219,22 +207,23 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const L = required(input.routeDistance, "routeDistance");
       const u = required(input.speedA, "speedA");
       const v = required(input.speedB, "speedB");
-      const count = question.solveMode === "findSecondMeetingPointAfterEndpointTurnaround" ? 2 : input.nthMeeting!;
-      const odd = 2 * count - 1;
+      const meetingNumber = question.solveMode === "findSecondMeetingPointAfterEndpointTurnaround" ? 2 : input.nthMeeting;
+      if (!meetingNumber) throw new Error("CP005 V7 meeting-point ordinal missing");
+      const odd = 2 * meetingNumber - 1;
       const path = multiply(rational(odd), L);
       const sum = add(u, v);
-      const t = divide(path, sum);
-      const travelled = multiply(u, t);
+      const meetingTime = divide(path, sum);
+      const travelledByA = multiply(u, meetingTime);
       return Object.freeze({
-        method: "Find the repeated-meeting time on the unfolded route, then convert A's total travelled distance back to its physical position after endpoint reversals.",
+        method: "Find the repeated-meeting time on the unfolded route, then reflect A's total travelled path back inside the actual endpoint-to-endpoint route.",
         steps: Object.freeze([
-          `For the ${ordinal(count)} meeting, combined unfolded distance = ${odd} × ${n(L)} = ${km(path)}.`,
-          `At combined speed ${n(u)} + ${n(v)} = ${kmph(sum)}, this takes ${time(t)}.`,
-          `A travels ${n(u)} × ${n(t)} = ${km(travelled)} in total by then.`,
-          `After reflecting that path at the endpoints, the physical meeting point is ${answer} from A's starting end.`,
+          `For the ${ordinal(meetingNumber)} meeting, combined unfolded distance = ${odd} × ${num(L)} = ${km(path)}.`,
+          `At combined speed ${kmph(sum)}, the meeting occurs after ${duration(meetingTime)}.`,
+          `A has travelled ${num(u)} × ${num(meetingTime)} = ${km(travelledByA)} in total by then.`,
+          `After accounting for endpoint reversals, that total path places the meeting ${answer} from A's starting end.`,
         ]),
-        shortcut: "Use the odd-multiple meeting time first; total distance travelled is not the same as physical position once endpoint reversals have occurred.",
-        finalAnswer: `Therefore, their ${ordinal(count)} meeting point is ${answer} from A's starting end.`,
+        shortcut: "Total distance travelled is not the physical coordinate after a reversal; reflect it back into the route.",
+        finalAnswer: `Therefore, their ${ordinal(meetingNumber)} meeting point is ${answer} from A's starting end.`,
       });
     }
 
@@ -243,18 +232,19 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const u = required(input.speedA, "speedA");
       const v = required(input.speedB, "speedB");
       const window = required(input.timeWindow, "timeWindow");
-      const count = Number(required(solution.value, "meeting count").numerator);
+      const countValue = required(solution.value, "meeting count");
+      const count = Number(countValue.numerator / countValue.denominator);
       const sum = add(u, v);
       const last = divide(multiply(rational(2 * count - 1), L), sum);
       const next = divide(multiply(rational(2 * (count + 1) - 1), L), sum);
       return Object.freeze({
-        method: "List meeting times through the odd-multiple rule and stop when the next meeting would fall outside the given time window.",
+        method: "Use the odd-multiple meeting schedule and count only the meetings whose times lie inside the stated window.",
         steps: Object.freeze([
-          `Combined speed = ${kmph(sum)} and meeting times are (2n−1)×${n(L)}/${n(sum)}.`,
-          `The ${ordinal(count)} meeting occurs at ${time(last)}, which is within the ${time(window)} window.`,
-          `The ${ordinal(count + 1)} meeting would occur at ${time(next)}, which is after the window.`,
+          `Combined speed = ${kmph(sum)} and meeting n occurs at (2n−1)L/(u+v).`,
+          `The ${ordinal(count)} meeting is at ${duration(last)}, which is within ${duration(window)}.`,
+          `The ${ordinal(count + 1)} meeting is at ${duration(next)}, which is after the time limit.`,
         ]),
-        shortcut: "Count the odd-multiple meeting times that are not greater than the stated time limit.",
+        shortcut: "Find the largest n for which (2n−1)L/(u+v) does not exceed the time window.",
         finalAnswer: `Therefore, they meet ${answer} times in the stated interval.`,
       });
     }
@@ -266,16 +256,17 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const u = required(input.speedA, "speedA");
       const v = required(input.speedB, "speedB");
       const sum = add(u, v);
-      const t = required(solution.value, "turnaround meeting time");
+      const path = multiply(rational(2), L);
+      const result = required(solution.value, "turnaround meeting time");
       return Object.freeze({
-        method: "By the return meeting, A has travelled to the far endpoint and part of the way back, while B has travelled outward. Those two travelled distances add to twice the route length.",
+        method: "By the return meeting, A has gone to the far endpoint and part-way back while B has moved outward. Their two travelled distances therefore add to twice the route length.",
         steps: Object.freeze([
-          `Route length = ${km(L)}. A and B move at ${kmph(u)} and ${kmph(v)}.`,
-          `At the return meeting, total distance covered by A and B together = 2 × ${n(L)} = ${km(multiply(rational(2), L))}.`,
-          `Their combined speed is ${n(u)} + ${n(v)} = ${kmph(sum)}.`,
-          `Elapsed time = ${n(multiply(rational(2), L))} / ${n(sum)} = ${time(t)}.`,
+          `Route length = ${km(L)}; speeds are ${kmph(u)} and ${kmph(v)}.`,
+          `Total distance covered by A and B at the return meeting = 2 × ${num(L)} = ${km(path)}.`,
+          `Combined speed = ${num(u)} + ${num(v)} = ${kmph(sum)}.`,
+          `Elapsed time = ${num(path)} / ${num(sum)} = ${duration(result)}.`,
         ]),
-        shortcut: "For this one-turn same-start setup, use 2L/(u+v), not the ordinary first-meeting formula L/(u+v).",
+        shortcut: "For this one-turn same-start meeting, use 2L/(u+v), not the ordinary first-meeting formula.",
         finalAnswer: `Therefore, the return meeting occurs after ${answer}.`,
       });
     }
@@ -284,17 +275,17 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const L = required(input.routeDistance, "routeDistance");
       const u = required(input.speedA, "speedA");
       const v = required(input.speedB, "speedB");
-      const t = divide(multiply(rational(2), L), add(u, v));
-      const distance = required(solution.value, "shuttle distance");
+      const meetingTime = divide(multiply(rational(2), L), add(u, v));
+      const result = required(solution.value, "shuttle distance");
       return Object.freeze({
-        method: "First find when returning A meets B. Then multiply A's speed by that full elapsed time to get A's total outward-plus-return path.",
+        method: "First find the return-meeting time. A's requested distance is the complete path A travels during that time, including both the outward and return portions.",
         steps: Object.freeze([
-          `Return-meeting time = 2×${n(L)} / (${n(u)}+${n(v)}) = ${time(t)}.`,
-          `A travels at ${kmph(u)} for the whole ${time(t)}.`,
-          `A's total distance = ${n(u)} × ${n(t)} = ${km(distance)}.`,
+          `Return-meeting time = 2 × ${num(L)} / (${num(u)} + ${num(v)}) = ${duration(meetingTime)}.`,
+          `A moves at ${kmph(u)} for ${duration(meetingTime)}.`,
+          `Total distance travelled by A = ${num(u)} × ${num(meetingTime)} = ${km(result)}.`,
         ]),
-        shortcut: "Find the one-turn meeting time first; the requested shuttle distance is u×t, not the physical meeting coordinate.",
-        finalAnswer: `Therefore, A travels a total of ${answer} before meeting B on the return journey.`,
+        shortcut: "Find the one-turn meeting time first, then multiply it by A's speed.",
+        finalAnswer: `Therefore, A travels ${answer} before the return meeting.`,
       });
     }
 
@@ -302,16 +293,16 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const L = required(input.routeDistance, "routeDistance");
       const u = required(input.speedA, "speedA");
       const v = required(input.speedB, "speedB");
-      const t = divide(multiply(rational(2), L), add(u, v));
+      const meetingTime = divide(multiply(rational(2), L), add(u, v));
       const point = required(solution.value, "return meeting point");
       return Object.freeze({
-        method: "Find the return-meeting time. B never reverses before this meeting, so B's outward distance directly gives the physical meeting point from the common starting end.",
+        method: "Find the return-meeting time first. B has not reversed before that meeting, so B's outward distance directly gives the meeting point from the starting end.",
         steps: Object.freeze([
-          `Return-meeting time = 2×${n(L)} / (${n(u)}+${n(v)}) = ${time(t)}.`,
-          `B moves outward at ${kmph(v)} for ${time(t)}.`,
-          `Meeting point from the start = ${n(v)} × ${n(t)} = ${km(point)}.`,
+          `Return-meeting time = 2 × ${num(L)} / (${num(u)} + ${num(v)}) = ${duration(meetingTime)}.`,
+          `B travels at ${kmph(v)} for ${duration(meetingTime)}.`,
+          `Meeting point from the start = ${num(v)} × ${num(meetingTime)} = ${km(point)}.`,
         ]),
-        shortcut: "After finding the one-turn meeting time, use the slower traveller's uninterrupted outward distance to locate the point.",
+        shortcut: "After finding the return-meeting time, use the non-turning traveller's outward distance to locate the point.",
         finalAnswer: `Therefore, the return-journey meeting point is ${answer} from the starting end.`,
       });
     }
@@ -322,19 +313,19 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const u = required(input.speedA, "speedA");
       const v = required(input.speedB, "speedB");
       const observed = required(input.observedSecondMeetingTime, "observedSecondMeetingTime");
-      const rest = required(solution.value, "endpoint rest");
-      const combinedObserved = multiply(add(u, v), observed);
-      const requiredMovingPath = multiply(rational(3), L);
-      const missingAPath = subtract(combinedObserved, requiredMovingPath);
+      const rest = required(solution.value, "endpoint rest time");
+      const possibleCombined = multiply(add(u, v), observed);
+      const normalSecondPath = multiply(rational(3), L);
+      const missedByA = subtract(possibleCombined, normalSecondPath);
       return Object.freeze({
-        method: "For a normal second meeting the moving travellers account for three route lengths in combined travel. A's rest creates a shortfall equal to the distance A would have covered during that rest.",
+        method: "A normal second meeting corresponds to three route lengths of combined moving distance. Because A rests, A misses some distance; that missed distance equals A's speed multiplied by the rest time.",
         steps: Object.freeze([
-          `If nobody rested, the second-meeting combined path would be 3×${n(L)} = ${km(requiredMovingPath)}.`,
-          `Over the observed ${time(observed)}, the two speeds together correspond to ${n(add(u, v))} × ${n(observed)} = ${km(combinedObserved)}.`,
-          `The excess over 3L is ${n(combinedObserved)} − ${n(requiredMovingPath)} = ${km(missingAPath)}. This is exactly the distance A would have covered while resting.`,
-          `A's rest time = ${n(missingAPath)} / ${n(u)} = ${time(rest)}.`,
+          `Normal combined path for the second meeting = 3 × ${num(L)} = ${km(normalSecondPath)}.`,
+          `Over the observed ${duration(observed)}, the two speeds would account for ${num(add(u, v))} × ${num(observed)} = ${km(possibleCombined)} if both kept moving.`,
+          `The difference ${num(possibleCombined)} − ${num(normalSecondPath)} = ${km(missedByA)} is the distance A did not cover while resting.`,
+          `Rest time = ${num(missedByA)} / ${num(u)} = ${duration(rest)}.`,
         ]),
-        shortcut: "Use (u+v)×observed time − 3L to find A's missed distance, then divide by A's speed.",
+        shortcut: "Compute (u+v)×observed time − 3L, then divide that missed distance by A's speed.",
         finalAnswer: `Therefore, A rests at the endpoint for ${answer}.`,
       });
     }
@@ -346,20 +337,23 @@ function humanExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Revi
       const t2 = required(input.observedSecondMeetingTime, "observedSecondMeetingTime");
       const gap = subtract(t2, t1);
       const sum = add(u, v);
-      const combinedGapDistance = multiply(sum, gap);
+      const combinedDistance = multiply(sum, gap);
       const L = required(solution.value, "route distance");
       return Object.freeze({
-        method: "From the first meeting to the second, the two travellers together cover exactly two route lengths. The observed time gap therefore determines the route directly.",
+        method: "Between the first and second meetings, the two travellers together cover exactly two route lengths. The observed time gap therefore gives the route directly.",
         steps: Object.freeze([
-          `Time gap = ${time(t2)} − ${time(t1)} = ${time(gap)}.`,
-          `Combined speed = ${n(u)} + ${n(v)} = ${kmph(sum)}.`,
-          `Combined distance during the gap = ${n(sum)} × ${n(gap)} = ${km(combinedGapDistance)} = 2L.`,
-          `So L = ${n(combinedGapDistance)}/2 = ${km(L)}.`,
+          `Time gap = ${duration(t2)} − ${duration(t1)} = ${duration(gap)}.`,
+          `Combined speed = ${num(u)} + ${num(v)} = ${kmph(sum)}.`,
+          `Combined distance in that gap = ${num(sum)} × ${num(gap)} = ${km(combinedDistance)} = 2L.`,
+          `Therefore L = ${num(combinedDistance)} / 2 = ${km(L)}.`,
         ]),
-        shortcut: "For the first-to-second meeting gap, L = (u+v)(t2−t1)/2.",
+        shortcut: "Use L = (u+v)(t2−t1)/2.",
         finalAnswer: `Therefore, the distance between the endpoints is ${answer}.`,
       });
     }
+
+    default:
+      throw new Error(`${question.solveMode}: CP005 V7 has no learner explanation contract`);
   }
 }
 
@@ -373,41 +367,21 @@ function naturalizeStem(stem: string): string {
 
 export function generateCp005ReviewQuestionV7(authorityKey: string, seed: string, questionOrdinal = 0): TsdCp005EnglishReviewQuestion {
   const base = generateCp005ReviewQuestionV6(authorityKey, seed, questionOrdinal);
-  return Object.freeze({
-    ...base,
-    stem: naturalizeStem(base.stem),
-    explanation: humanExplanation(base),
-  });
+  return Object.freeze({ ...base, stem: naturalizeStem(base.stem), explanation: humanExplanation(base) });
 }
 
 export function generateCp005ReviewSetV7(perAuthority = 6): readonly TsdCp005EnglishReviewQuestion[] {
   if (!Number.isInteger(perAuthority) || perAuthority <= 0) throw new Error("CP005 V7 perAuthority must be a positive integer");
-  const authorities = [...new Set(Array.from({ length: 13 }, (_unused, index) => index))];
-  void authorities;
-  return Object.freeze((awaitlessAuthorities()).flatMap((authority, authorityIndex) =>
+  return Object.freeze(TSD_CP005_APPROVED_LEARNER_AUTHORITIES.flatMap((authority, authorityIndex) =>
     Array.from({ length: perAuthority }, (_unused, questionIndex) =>
       generateCp005ReviewQuestionV7(authority.authorityKey, `cp005-review-v7:${authorityIndex}:${questionIndex}`, questionIndex),
     ),
   ));
 }
 
-function awaitlessAuthorities() {
-  // Keep authority order sourced from the same approved registry used by V6 without introducing another lifecycle registry.
-  // Dynamic import is intentionally avoided so generation remains synchronous and deterministic.
-  return requireApprovedAuthorities();
-}
-
-function requireApprovedAuthorities() {
-  // This indirection keeps the exported generation functions compact while preserving strict synchronous execution.
-  // The value is injected below through the static import alias.
-  return APPROVED_AUTHORITIES;
-}
-
-import { TSD_CP005_APPROVED_LEARNER_AUTHORITIES as APPROVED_AUTHORITIES } from "./approved-authority-registry";
-
 export function generateCp005EnglishAuditPoolV7(perAuthority = 30): readonly TsdCp005EnglishReviewQuestion[] {
   if (!Number.isInteger(perAuthority) || perAuthority <= 0) throw new Error("CP005 V7 audit perAuthority must be a positive integer");
-  return Object.freeze(APPROVED_AUTHORITIES.flatMap((authority, authorityIndex) =>
+  return Object.freeze(TSD_CP005_APPROVED_LEARNER_AUTHORITIES.flatMap((authority, authorityIndex) =>
     Array.from({ length: perAuthority }, (_unused, questionIndex) =>
       generateCp005ReviewQuestionV7(authority.authorityKey, `cp005-audit-v7:${authorityIndex}:${questionIndex}`, questionIndex),
     ),
