@@ -34,10 +34,15 @@ function polishLearnerProse(text: string): string {
       return `compound interest with annual compounding for ${years} ${unit}`;
     })
     .replace(/compound interest compounded annually/gu, "compound interest with annual compounding")
+    .replace(/Scheme B runs for (\d+) years? under compound interest with annual compounding/gu, (_match, years: string) => {
+      const unit = years === "1" ? "year" : "years";
+      return `Scheme B uses compound interest with annual compounding for ${years} ${unit}`;
+    })
     .replace(/Scheme B runs for (\d+) years? under simple interest/gu, (_match, years: string) => {
       const unit = years === "1" ? "year" : "years";
       return `Scheme B uses simple interest for ${years} ${unit}`;
     })
+    .replace(/For equal principal and equal maturity value/gu, "For the same principal and equal maturity amount")
     .replace(/Using rupees, /gu, "")
     .replace(/The required-principal scheme has factor/gu, "The second scheme's growth factor is")
     .replace(/Known-scheme accumulation factor:/gu, "The known scheme's growth factor is")
@@ -70,6 +75,7 @@ function polishLearnerProse(text: string): string {
     .replace(/present share/gu, "starting amount")
     .replace(/The required principal ratio comes from the overall growth factors/gu,
       "The required principal ratio comes from the schemes' overall growth factors")
+    .replace(/Hence Principal A : Principal B is /gu, "Hence ")
     .replace(/First calculate the maturity value produced by the known starting principal\./gu,
       "First calculate the maturity amount produced by the known starting principal.")
     .replace(/What present sum must be invested/gu, "What amount must be invested")
@@ -78,7 +84,9 @@ function polishLearnerProse(text: string): string {
     .replace(/required starting principal/gu, "required initial principal")
     .replace(/starting principal required/gu, "initial principal required")
     .replace(/Determine the amount that should be invested under compound interest at ([0-9.]+)% p\.a\., compounded annually for (\d+) (year|years) that will produce an equal maturity value\./gu,
-      (_match, rate: string, years: string, unit: string) => `What amount should be invested at ${rate}% p.a. compound interest, compounded annually for ${years} ${unit}, to reach the same maturity value?`)
+      (_match, rate: string, years: string, unit: string) => `What amount should be invested under compound interest at ${rate}% p.a., compounded annually for ${years} ${unit}, to reach the same maturity value?`)
+    .replace(/What amount should be invested at ([0-9.]+)% p\.a\. compound interest, compounded annually for (\d+) (year|years), to reach the same maturity value\?/gu,
+      (_match, rate: string, years: string, unit: string) => `What amount should be invested under compound interest at ${rate}% p.a., compounded annually for ${years} ${unit}, to reach the same maturity value?`)
     .replace(/that will produce an equal maturity value/gu, "to reach the same maturity value")
     .replace(/Find the initial principal required in Plan B to finish with the same future value as Plan A\./gu,
       "How much should be invested initially in Plan B to reach the same future value as Plan A?")
