@@ -8,3 +8,4 @@ export * from "./linear-system";
 export * from "./quadratic";
 export * from "./factorisation";
 export * from "./polynomial-division";
+export * from "./rational-equation";
