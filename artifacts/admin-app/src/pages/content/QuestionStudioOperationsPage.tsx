@@ -4,10 +4,12 @@ import { QuestionStudioExamProfileSummary } from './QuestionStudioExamProfileSum
 import { QuestionStudioProfileCalibration } from './QuestionStudioProfileCalibration';
 import { QuestionStudioReasoningReviewPanel } from './QuestionStudioReasoningReviewPanel';
 import { QuestionStudioRecoveryDock } from './QuestionStudioRecoveryDock';
+import { QuestionStudioSeatingReviewPanel } from './QuestionStudioSeatingReviewPanel';
 
 export function QuestionStudioOperationsPage() {
   return (
     <>
+      <QuestionStudioSeatingReviewPanel />
       <QuestionStudioReasoningReviewPanel />
       <QuestionStudioExamProfileSummary />
       <QuestionStudioProfileCalibration />
