@@ -20,7 +20,7 @@ export const PFC_001_VISUAL_TAXONOMY_REMEDIATION_AUTHORITY_V4_1 = Object.freeze(
   authorityId: "PFC-001-VISUAL-TAXONOMY-REMEDIATION-V4.1" as const,
   supersedesAuthority: PFC_001_VISUAL_TAXONOMY_REMEDIATION_AUTHORITY_V4.authorityId,
   executableCoverageModeCount: 30,
-  fix: "OFF_CENTER_VERTICAL_PUNCH_RELOCATED_INSIDE_PHYSICAL_FOLDED_PACKET" as const,
+  fix: "OFF_CENTER_AXIAL_PUNCHES_RELOCATED_INSIDE_PHYSICAL_FOLDED_PACKET_AND_STABLE_OPTION_SET" as const,
   status: "REMEDIATED_REVIEW_CANDIDATE" as const,
 } as const);
 
@@ -121,6 +121,53 @@ function offCenterVerticalQuestion(discoveryIndex: number): PfcDiscoveryQuestion
   };
 }
 
+function offCenterHorizontalQuestion(discoveryIndex: number): PfcDiscoveryQuestionV4_1 {
+  const base = generatePfcDiscoveryQuestionV3(discoveryIndex);
+  const u = base.variantIndex;
+  const foldedX = q(12 + (u % 57) * 1.19);
+  const foldedY = q(28 + (u % 19) * 1.21);
+  const mirroredOriginalY = q(120 - foldedY);
+  const cuts: PfcVisualCutV4[] = [{
+    cutId: "C1",
+    kind: "POINT_HOLE",
+    center: { x: foldedX, y: foldedY },
+    radius: 2.2,
+    visualKind: "CIRCLE_HOLE",
+  }];
+  const correct: PfcVisualImprintV4[] = [
+    { x: foldedX, y: foldedY, kind: "POINT_HOLE", contact: "INTERIOR", visualKind: "CIRCLE_HOLE" },
+    { x: foldedX, y: mirroredOriginalY, kind: "POINT_HOLE", contact: "INTERIOR", visualKind: "CIRCLE_HOLE" },
+  ];
+  const { options, correctOptionIndex } = optionSet(correct, u);
+  const correctOptionId = options[correctOptionIndex].optionId;
+  const folds = [{
+    foldId: "F1",
+    kind: "HORIZONTAL" as const,
+    line: { a: { x: 0, y: 60 }, b: { x: 100, y: 60 } },
+    movingSide: "POSITIVE" as const,
+  }];
+  const unfoldedFingerprint = [
+    `C1|POINT_HOLE|CIRCLE_HOLE|INTERIOR|${foldedX},${foldedY}`,
+    `C1|POINT_HOLE|CIRCLE_HOLE|INTERIOR|${foldedX},${mirroredOriginalY}`,
+  ].sort().join(";");
+
+  return {
+    ...base,
+    folds,
+    cuts,
+    foldedLayerCounts: [2],
+    unfoldedFingerprint,
+    options,
+    correctOptionIndex,
+    correctOptionId,
+    explanation: `The horizontal fold is off-centre. The punch is made inside the overlapping folded packet. When the fold is opened, the second hole appears at the same distance on the other side of the crease, giving option ${correctOptionId}.`,
+    semanticFingerprint: `PFC-PROT-01-SINGLE-AXIAL-HOLE::OFF_CENTER_HORIZONTAL::F1@60::C1@${foldedX},${foldedY}::${unfoldedFingerprint}`,
+    coverageTags: ["OFF_CENTER_HORIZONTAL"],
+    remediationAuthorityId: PFC_001_VISUAL_TAXONOMY_REMEDIATION_AUTHORITY_V4.authorityId,
+    remediationPatchAuthorityId: PFC_001_VISUAL_TAXONOMY_REMEDIATION_AUTHORITY_V4_1.authorityId,
+  };
+}
+
 export function generatePfcDiscoveryQuestionV4_1(discoveryIndex: number): PfcDiscoveryQuestionV4_1 {
   if (!Number.isInteger(discoveryIndex) || discoveryIndex < 0 || discoveryIndex >= 800) {
     throw new RangeError("PFC discoveryIndex must be an integer from 0 to 799.");
@@ -129,6 +176,9 @@ export function generatePfcDiscoveryQuestionV4_1(discoveryIndex: number): PfcDis
   const variantIndex = discoveryIndex % 80;
   if (representationIndex === 0 && variantIndex % 4 === 2) {
     return offCenterVerticalQuestion(discoveryIndex);
+  }
+  if (representationIndex === 0 && variantIndex % 4 === 3) {
+    return offCenterHorizontalQuestion(discoveryIndex);
   }
   return {
     ...generatePfcDiscoveryQuestionV4(discoveryIndex),
