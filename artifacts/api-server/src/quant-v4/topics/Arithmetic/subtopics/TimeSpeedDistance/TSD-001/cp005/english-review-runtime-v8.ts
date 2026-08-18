@@ -4,6 +4,20 @@ import { generateCp005EnglishAuditPoolV7, generateCp005ReviewQuestionV7 } from "
 
 const RAW_FRACTION = /\b\d+\/\d+\b/;
 
+function explanationHasAwkwardFraction(question: TsdCp005EnglishReviewQuestion): boolean {
+  const text = [question.explanation.method, ...question.explanation.steps, question.explanation.shortcut, question.explanation.finalAnswer].join(" ");
+  const matches = text.matchAll(/\b(\d+)\/(\d+)\b/g);
+  for (const match of matches) {
+    const numerator = Number(match[1]);
+    const denominator = Number(match[2]);
+    // Simple ratio arithmetic such as 2/3, 3/2 or 5/8 is normal in a worked
+    // solution. Reject the large raw rational forms that read like generator
+    // output (for example 60/13 hours or 4800/13 km).
+    if (numerator > 10 || denominator > 10) return true;
+  }
+  return false;
+}
+
 function learnerText(question: TsdCp005EnglishReviewQuestion): string {
   return [
     question.stem,
@@ -17,7 +31,9 @@ function learnerText(question: TsdCp005EnglishReviewQuestion): string {
 
 export function isCp005ExamFriendlySelectedState(question: TsdCp005EnglishReviewQuestion): boolean {
   const text = learnerText(question);
-  return !RAW_FRACTION.test(text)
+  return !RAW_FRACTION.test(question.stem)
+    && !RAW_FRACTION.test(question.answerText)
+    && !explanationHasAwkwardFraction(question)
     && !text.includes("?")
     && !text.includes("road-study")
     && !text.includes("keep reflecting")
@@ -34,7 +50,7 @@ function selectQuestion(
 ): TsdCp005EnglishReviewQuestion {
   // The underlying selected-state generator has a 30-state route/speed cycle.
   // Search two full cycles from a deterministic offset so selection remains
-  // reproducible while rejecting exam-unfriendly raw-fraction surfaces.
+  // reproducible while rejecting exam-unfriendly learner surfaces.
   const start = (authorityIndex * 11 + questionOrdinal * 7) % 30;
   for (let attempt = 0; attempt < 60; attempt += 1) {
     const stateIndex = (start + attempt) % 30;
