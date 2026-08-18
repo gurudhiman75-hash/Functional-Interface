@@ -101,7 +101,7 @@ export function generateAlgCp009DiscoveryItem(candidateId: string, seed: number)
         cpId: "ALG-CP-009", candidateId, solveMode: candidate.solveMode, seed,
         stem: `Solve ${equationText(equation)}.`, equation,
         answer: { kind: "RATIONAL_ROOT_SET", values: [solved.root] },
-        explanation: `The quadratic is a perfect square: ${equationText(equation)} = ${scalar}${rootFactorText(root)}² = 0. Therefore ${rootFactorText(root)} = 0, so x = ${root}. The same factor occurs twice, hence this is a repeated root.`,
+        explanation: `The left side is a perfect square and factors as ${scalar}${rootFactorText(root)}². Therefore ${scalar}${rootFactorText(root)}² = 0, so ${rootFactorText(root)} = 0 and x = ${root}. The same factor occurs twice, hence this is a repeated root.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
