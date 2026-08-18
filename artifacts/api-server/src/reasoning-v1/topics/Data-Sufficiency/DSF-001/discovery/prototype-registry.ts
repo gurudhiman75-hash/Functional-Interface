@@ -40,6 +40,16 @@ export const DSF_DISCOVERY_PROTOTYPES: readonly DsDiscoveryPrototype[] = [
   {
     prototypeId: "DSF-PROT-003",
     domainFamily: "QUANT",
+    sourceChapter: "Simplification and Approximation",
+    sourcePath: "quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/runtime-wave3-v3.ts",
+    targetKinds: ["INTEGER", "ARITHMETIC_EXPRESSION"],
+    status: "EXISTING_RUNTIME_TO_AUDIT",
+    permanentQlId: null,
+    notes: "Existing SAP prototype uses candidate sets but only four DS classes; shared DSF semantics must preserve the missing EACH_STATEMENT_ALONE class.",
+  },
+  {
+    prototypeId: "DSF-PROT-004",
+    domainFamily: "QUANT",
     sourceChapter: "Algebra",
     targetKinds: ["SCALAR", "BOOLEAN", "FUNCTION_OF_VARIABLES"],
     status: "PROTOTYPE_REQUIRED",
@@ -47,7 +57,7 @@ export const DSF_DISCOVERY_PROTOTYPES: readonly DsDiscoveryPrototype[] = [
     notes: "Must prove that a target can be unique while the complete variable assignment is not unique.",
   },
   {
-    prototypeId: "DSF-PROT-004",
+    prototypeId: "DSF-PROT-005",
     domainFamily: "REASONING",
     sourceChapter: "Ranking and Order",
     targetKinds: ["RANK", "COUNT", "RELATIVE_ORDER"],
@@ -56,7 +66,7 @@ export const DSF_DISCOVERY_PROTOTYPES: readonly DsDiscoveryPrototype[] = [
     notes: "Finite-world adapter should reuse ranking constraints and project only the asked rank/order fact.",
   },
   {
-    prototypeId: "DSF-PROT-005",
+    prototypeId: "DSF-PROT-006",
     domainFamily: "REASONING",
     sourceChapter: "Direction and Distance",
     targetKinds: ["DIRECTION", "DISTANCE", "RELATIVE_POSITION"],
@@ -65,7 +75,7 @@ export const DSF_DISCOVERY_PROTOTYPES: readonly DsDiscoveryPrototype[] = [
     notes: "Multiple paths may survive while the asked direction or displacement is uniquely fixed.",
   },
   {
-    prototypeId: "DSF-PROT-006",
+    prototypeId: "DSF-PROT-007",
     domainFamily: "REASONING",
     sourceChapter: "Blood Relations",
     targetKinds: ["RELATION", "GENERATION", "GENDER"],
@@ -74,7 +84,7 @@ export const DSF_DISCOVERY_PROTOTYPES: readonly DsDiscoveryPrototype[] = [
     notes: "Adapter must project the asked relation across every valid family graph without cultural assumptions.",
   },
   {
-    prototypeId: "DSF-PROT-007",
+    prototypeId: "DSF-PROT-008",
     domainFamily: "REASONING",
     sourceChapter: "Seating Arrangement",
     targetKinds: ["IDENTITY", "POSITION", "NEIGHBOUR_RELATION"],
