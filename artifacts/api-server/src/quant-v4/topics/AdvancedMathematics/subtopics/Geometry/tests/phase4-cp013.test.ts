@@ -11,7 +11,14 @@ for (const prototype of GEO_CP_013_PHASE4_PROTOTYPES) {
   assertPhase4DiscoveryQuestion(question);
   assertPhase4(question.cpId === "GEO-CP-013", `${prototype.temporaryPrototypeId}: wrong CP ownership`);
   assertPhase4(question.proofEvents.some((event) => event.kind === "SEGMENT_PRODUCT"), `${prototype.temporaryPrototypeId}: power-of-point prototype lacks product proof event`);
-  if (prototype.temporaryPrototypeId.includes("INTERSECTING")) assertPhase4(question.answer === "4 cm", "Intersecting-chord answer changed");
+  if (prototype.temporaryPrototypeId.includes("INTERSECTING")) {
+    assertPhase4(question.answer === "4 cm", "Intersecting-chord answer changed");
+    const point = (id: string) => question.diagramModel!.points.find((candidate) => candidate.id === id)!;
+    const O = point("O"); const P = point("P");
+    assertPhase4(Math.hypot(O.x - P.x, O.y - P.y) > 5, "Intersecting-chord diagram overlaps centre O with intersection P");
+    assertPhase4(Math.abs(cross(point("A"), P, point("B"))) < 1e-8, "A-P-B chord topology is not collinear in learner diagram");
+    assertPhase4(Math.abs(cross(point("C"), P, point("D"))) < 1e-8, "C-P-D chord topology is not collinear in learner diagram");
+  }
   if (prototype.temporaryPrototypeId.includes("SECANT-SECANT")) {
     assertPhase4(question.answer === "6 cm", "Secant-secant answer changed");
     const point = (id: string) => question.diagramModel!.points.find((candidate) => candidate.id === id)!;
