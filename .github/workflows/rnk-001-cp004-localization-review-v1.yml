@@ -1,4 +1,4 @@
-name: Validate RNK-001 CP004 Localization Review V5 Final
+name: Validate RNK-001 CP004 Localization Review V6
 
 on:
   push:
@@ -16,11 +16,11 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: rnk-001-cp004-localization-review-v5-final-${{ github.ref }}
+  group: rnk-001-cp004-localization-review-v6-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-rnk-cp004-localization-review-v5-final:
+  validate-rnk-cp004-localization-review-v6:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,23 +42,23 @@ jobs:
       - name: Prove CP004 V5 moderate deterministic editorial diversity
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v5.test.ts
 
-      - name: Prove CP004 V5 final distinct clue surface refinement
+      - name: Prove CP004 V5 Final clue-surface baseline
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v5-final.test.ts
+
+      - name: Prove CP004 V6 endpoint and position option pedagogy
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v6.test.ts
 
       - name: Prove CP004 query and misconception contract coverage
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-v1-static-contract.test.ts
 
-      - name: Prove CP004 human-review sample coverage
-        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v1-sample-gates.test.ts
+      - name: Generate CP004 V6 targeted learner-review pack
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-export-v6.ts /tmp/RNK-CP-004-HI-PA-LOCALIZATION-REVIEW-V6-32Q.md
 
-      - name: Generate CP004 V5 final human-review pack
-        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-export-v5-final.ts /tmp/RNK-CP-004-HI-PA-LOCALIZATION-REVIEW-V5-FINAL-144Q.md
-
-      - name: Retain CP004 V5 final human-review pack
+      - name: Retain CP004 V6 targeted learner-review pack
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-cp004-hi-pa-localization-review-v5-final-144q
-          path: /tmp/RNK-CP-004-HI-PA-LOCALIZATION-REVIEW-V5-FINAL-144Q.md
+          name: rnk-cp004-hi-pa-localization-review-v6-32q
+          path: /tmp/RNK-CP-004-HI-PA-LOCALIZATION-REVIEW-V6-32Q.md
           if-no-files-found: error
 
       - name: Re-prove CP004 frozen English permanent runtime
