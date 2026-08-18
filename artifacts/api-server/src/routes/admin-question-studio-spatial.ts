@@ -7,7 +7,9 @@ import { authenticate } from "../middlewares/auth";
 import {
   SPATIAL_QUESTION_STUDIO_PACKAGE_V1,
   SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1,
+  type SpatialQuestionStudioChapterCodeV1,
   type SpatialQuestionStudioDifficultyV1,
+  type SpatialQuestionStudioPermanentQlIdV1,
 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v1";
 import {
   SPATIAL_QUESTION_STUDIO_LANGUAGES_V1,
@@ -17,8 +19,6 @@ import {
   generateSpatialProductionStudioBatchV1,
   type SpatialProductionStudioQuestionV1,
 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v1";
-import type { SpatialPermanentQlIdV1 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-runtime-v1";
-import type { SpatialPermanentChapterCodeV1 } from "../reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v1";
 
 const router = Router();
 const QL_IDS = new Set<string>(SPATIAL_QUESTION_STUDIO_PACKAGE_V1.qlIds);
@@ -90,7 +90,7 @@ function productionPayload(question: SpatialProductionStudioQuestionV1) {
     mode: question.mode,
     contentFingerprint: question.contentFingerprint,
     localization: question.localization,
-    localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
+    localizationAuthority: question.localization.authority,
     runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
     reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
     questionBankStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.questionBankStatus,
@@ -114,7 +114,7 @@ function productionPayload(question: SpatialProductionStudioQuestionV1) {
       runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
       reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
       integrationAuthority: question.integrationAuthority,
-      localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
+      localizationAuthority: question.localization.authority,
       releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
       questionStudioDiscoverable: true as const,
       registrationStatus: "REGISTERED" as const,
@@ -139,6 +139,7 @@ async function persistRun(
   const runId = randomUUID();
   const publicCode = publicRunCode();
   const timestamp = new Date().toISOString();
+  const localizationAuthorities = [...new Set(questions.map((question) => question.localization.authority))];
 
   await sqlClient.begin(async (tx) => {
     await tx`
@@ -190,7 +191,7 @@ async function persistRun(
         ${JSON.stringify({
           requestSnapshot,
           integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
-          localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
+          localizationAuthorities,
           releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
           manualApprovalRequired: true,
           automaticStudentPublication: false,
@@ -210,7 +211,7 @@ async function persistRun(
           itemCount: questions.length,
           packageId: "SPA-001",
           language: questions[0]?.language,
-          localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
+          localizationAuthorities,
           releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         })}::jsonb
       )
@@ -231,8 +232,8 @@ function requestFilters(source: Record<string, unknown>) {
   if (difficulty && !DIFFICULTIES.has(difficulty)) throw new Error(`Unsupported difficulty '${difficulty}'.`);
   return {
     language: language as SpatialQuestionStudioLanguageV1,
-    qlId: qlId ? qlId as SpatialPermanentQlIdV1 : undefined,
-    chapterCode: chapterCode ? chapterCode as SpatialPermanentChapterCodeV1 : undefined,
+    qlId: qlId ? qlId as SpatialQuestionStudioPermanentQlIdV1 : undefined,
+    chapterCode: chapterCode ? chapterCode as SpatialQuestionStudioChapterCodeV1 : undefined,
     difficulty: difficulty ? difficulty as SpatialQuestionStudioDifficultyV1 : undefined,
   };
 }
@@ -271,10 +272,12 @@ router.get(
         seed: asString(req.query.seed) || "spa-question-studio-preview",
         count: asCount(req.query.count, 1, 20),
       });
+      const localizationAuthorities = [...new Set(result.questions.map((question) => question.localization.authority))];
       res.json({
         ...result,
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
         localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
+        localizationAuthorities,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         productionEligible: true,
       });
@@ -300,6 +303,7 @@ router.post(
       const count = asCount(req.body?.count, 5, 50);
       const seed = asString(req.body?.seed) || `spa-review-${Date.now()}`;
       const result = generateSpatialProductionStudioBatchV1({ ...filters, seed, count });
+      const localizationAuthorities = [...new Set(result.questions.map((question) => question.localization.authority))];
       const requestSnapshot = {
         packageId: "SPA-001",
         language: filters.language,
@@ -310,6 +314,7 @@ router.post(
         seed,
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
         localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
+        localizationAuthorities,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         manualApprovalRequired: true,
         automaticStudentPublication: false,
@@ -322,6 +327,7 @@ router.post(
         packageId: "SPA-001",
         language: filters.language,
         localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
+        localizationAuthorities,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
       });
     } catch (error) {
@@ -358,6 +364,7 @@ router.get(
         questionBankCount: Number(rows[0]?.questionBankCount ?? 0),
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
         localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
+        fgcLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.fgcLocalizationAuthority,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         questionBankConversionEligibleAfterApproval: true,
         testEligibleAfterApproval: true,

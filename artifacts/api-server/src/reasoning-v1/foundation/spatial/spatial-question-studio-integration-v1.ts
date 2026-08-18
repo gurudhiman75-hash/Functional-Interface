@@ -1,11 +1,19 @@
 import {
   SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1,
-  SPATIAL_PERMANENT_QL_ALLOCATIONS_V1,
   type SpatialPermanentChapterCodeV1,
   type SpatialPermanentDifficultyV1,
 } from "./spatial-permanent-ql-allocation-v1";
+import {
+  SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V2,
+  SPATIAL_PERMANENT_QL_ALLOCATIONS_V2,
+} from "./spatial-permanent-ql-allocation-v2";
+import { FGC_001_ENGLISH_FREEZE_AUTHORITY_V1 } from "./figure-completion-english-freeze-v1";
+import { FGC_001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1 } from "./figure-completion-hi-pa-localization-freeze-v1";
 
 export type SpatialQuestionStudioDifficultyV1 = "Easy" | "Medium" | "Hard";
+export type SpatialQuestionStudioChapterCodeV1 = SpatialPermanentChapterCodeV1 | "FGC-001";
+export type SpatialQuestionStudioPermanentQlIdV1 =
+  (typeof SPATIAL_PERMANENT_QL_ALLOCATIONS_V2)[number]["permanentQlId"];
 
 export function spatialQuestionStudioDifficultyV1(
   difficulty: SpatialPermanentDifficultyV1,
@@ -15,7 +23,7 @@ export function spatialQuestionStudioDifficultyV1(
   return "Medium";
 }
 
-export const SPATIAL_QUESTION_STUDIO_QLS_V1 = SPATIAL_PERMANENT_QL_ALLOCATIONS_V1.map(
+export const SPATIAL_QUESTION_STUDIO_QLS_V1 = SPATIAL_PERMANENT_QL_ALLOCATIONS_V2.map(
   (allocation) => Object.freeze({
     permanentQlId: allocation.permanentQlId,
     proposalId: allocation.proposalId,
@@ -26,7 +34,7 @@ export const SPATIAL_QUESTION_STUDIO_QLS_V1 = SPATIAL_PERMANENT_QL_ALLOCATIONS_V
 ) as readonly Readonly<{
   permanentQlId: `SPA-QL-${string}`;
   proposalId: string;
-  chapterCode: SpatialPermanentChapterCodeV1;
+  chapterCode: SpatialQuestionStudioChapterCodeV1;
   name: string;
   difficulty: SpatialQuestionStudioDifficultyV1;
 }>[];
@@ -51,18 +59,23 @@ export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = Object.freeze({
   topic: "Reasoning" as const,
   subtopic: "Spatial Reasoning" as const,
   name: "Spatial Reasoning — Approved Multilingual Production Runtime" as const,
-  label: "Spatial Reasoning — 30 Permanent QLs" as const,
+  label: "Spatial Reasoning — 34 Permanent QLs" as const,
   generationDomain: "reasoning-v1" as const,
-  integrationAuthority: "SPA-FND-001-QUESTION-STUDIO-INTEGRATION-V1" as const,
+  integrationAuthority: "SPA-FND-001-QUESTION-STUDIO-INTEGRATION-V2-FGC" as const,
+  supersedesIntegrationAuthority: "SPA-FND-001-QUESTION-STUDIO-INTEGRATION-V1" as const,
   localizationAuthority: "SPA_001_HI_PA_LOCALIZATION_APPROVED_2026_08_16" as const,
+  fgcLocalizationAuthority: FGC_001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
+  fgcEnglishFreezeAuthority: FGC_001_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,
   releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
-  sourceAllocationAuthority:
-    SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.authorityId,
-  approvedReviewHead:
-    SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.approvedReviewHead,
+  sourceAllocationAuthority: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V2.authorityId,
+  frozenBaseAllocationAuthority: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.authorityId,
+  approvedReviewHead: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.approvedReviewHead,
+  fgcApprovedEnglishHead: FGC_001_ENGLISH_FREEZE_AUTHORITY_V1.exactReviewedAuthority.headSha,
+  fgcApprovedLocalizationHead:
+    FGC_001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1.exactReviewedAuthority.headSha,
   qlIds: SPATIAL_QUESTION_STUDIO_QLS_V1.map((entry) => entry.permanentQlId),
   qls: SPATIAL_QUESTION_STUDIO_QLS_V1,
-  chapters: ["MIR-001", "WAT-001", "FAN-001", "FCL-001", "FSR-001"] as const,
+  chapters: ["MIR-001", "WAT-001", "FAN-001", "FCL-001", "FSR-001", "FGC-001"] as const,
   supportedLanguages: ["en", "hi", "pa"] as const,
   supportedDifficulties: ["Easy", "Medium", "Hard"] as const,
   enabled: true,
@@ -87,12 +100,14 @@ export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = Object.freeze({
   hindiPunjabiGeneration: true,
   bulkSyncSupported: false,
   permanentQlCount: SPATIAL_QUESTION_STUDIO_QLS_V1.length,
-  holdsUnallocated:
-    SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.holdsUnallocated,
+  frozenBasePermanentQlCount: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.permanentQlCount,
+  fgcPermanentQlCount: 4,
+  holdsUnallocated: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V1.holdsUnallocated,
   sourceScope: {
     SSC: "CONTROLLED_TAXONOMY_EVIDENCE_ESTABLISHED" as const,
     RAILWAY_POLICE_DSSSB: "SUPPORTING_EVIDENCE_PRESENT" as const,
     BANKING: "NOT_ESTABLISHED" as const,
     PUNJAB_STATE: "NOT_ESTABLISHED" as const,
   },
+  fgcSourceScope: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V2.sourceScope,
 }) as const;
