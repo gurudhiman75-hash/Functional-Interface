@@ -13,7 +13,7 @@ assert.match(source, /examProfileId: profile\.id/u);
 assert.match(source, /generationSystem = reasoningRnk \? "reasoning-v1" : "quant-v4"/u);
 assert.match(source, /PUNJAB_POLICE/u);
 assert.match(source, /reasoning-v1-exam-profile/u);
-assert.match(source, /questionBankWritable/u, "RNK payload should retain release-lock metadata from shared generation");
+assert.match(source, /sourceGenerationContext/u, "RNK shared generation metadata must be preserved before exam-profile trace enrichment");
 assert.match(source, /content\.generation_runs/u);
 assert.match(source, /content\.generation_run_items/u);
 assert.match(source, /content\.generation_item_versions/u);
@@ -25,6 +25,7 @@ console.log(JSON.stringify({
   status: "PASS",
   sharedRnkExamProfileRoute: true,
   quantPathPreserved: true,
+  sharedGenerationContextPreserved: true,
   reviewRunPersistenceOnly: true,
   questionBankWriteDetected: false,
 }, null, 2));
