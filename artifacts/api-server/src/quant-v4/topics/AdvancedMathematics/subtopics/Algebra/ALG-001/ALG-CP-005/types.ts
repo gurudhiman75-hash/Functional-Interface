@@ -6,9 +6,10 @@ export type AlgCp005SolveMode =
   | "findUnknownCoefficientFromFactorCondition"
   | "findUnknownCoefficientFromGivenRemainder"
   | "findRemainderForGeneralLinearDivisor"
-  | "verifyDeclaredLinearFactor";
+  | "verifyDeclaredLinearFactor"
+  | "findTwoCoefficientsFromTwoRemainderConditions";
 
-export type AlgCp005AnswerKind = "RATIONAL" | "BOOLEAN";
+export type AlgCp005AnswerKind = "RATIONAL" | "BOOLEAN" | "COEFFICIENT_PAIR";
 
 export interface AlgCp005Candidate {
   candidateId: string;
@@ -30,7 +31,12 @@ export interface AlgCp005DiscoveryItem {
   divisor: { a: Rational; b: Rational; root: Rational };
   answer:
     | { kind: "RATIONAL"; value: Rational }
-    | { kind: "BOOLEAN"; value: boolean };
+    | { kind: "BOOLEAN"; value: boolean }
+    | { kind: "COEFFICIENT_PAIR"; k: Rational; m: Rational };
   explanation: string;
   sourceStatus: "UNVERIFIED_DRAFT";
+  conditionEvidence?: {
+    secondRoot: Rational;
+    secondRemainder: Rational;
+  };
 }
