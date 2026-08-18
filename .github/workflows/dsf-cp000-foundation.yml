@@ -1,0 +1,47 @@
+name: Validate DSF-CP-000 foundation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/**
+      - .github/workflows/dsf-cp000-foundation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp000-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-cp000:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle DSF CP-000 proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/dsf
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/tests/dsf-cp000-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp000-foundation.test.mjs
+      - name: Run DSF CP-000 proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp000-foundation.test.mjs
