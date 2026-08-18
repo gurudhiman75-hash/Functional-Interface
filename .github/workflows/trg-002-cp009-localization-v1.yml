@@ -7,6 +7,12 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
       - .github/workflows/trg-002-cp009-localization-v1.yml
+  pull_request:
+    branches:
+      - feat/trg-002-mvp48-freeze
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-cp009-localization-v1.yml
   workflow_dispatch:
 
 permissions:
