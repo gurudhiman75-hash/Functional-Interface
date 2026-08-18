@@ -15,6 +15,12 @@ function requirePositive(value: Rational, label: string): void {
   if (!isPositive(value)) throw new Error(`${label} must be positive`);
 }
 
+function requireInteriorAngle(value: ExactAngle, label: string): void {
+  if (compare(value, angle(0)) <= 0 || compare(value, ANGLE_180) >= 0) {
+    throw new Error(`${label} must lie strictly between 0° and 180°`);
+  }
+}
+
 export function chordHalfFromCentrePerpendicular(chordLength: Rational): Rational {
   requirePositive(chordLength, "Chord length");
   return divide(chordLength, rational(2));
@@ -26,18 +32,18 @@ export function equalChordLengthFromEqualCentreDistance(knownChordLength: Ration
 }
 
 export function centralAngleFromInscribed(inscribed: ExactAngle): ExactAngle {
-  if (compare(inscribed, angle(0)) <= 0 || compare(inscribed, ANGLE_180) >= 0) {
-    throw new Error("Inscribed angle must lie strictly between 0° and 180°");
-  }
+  requireInteriorAngle(inscribed, "Inscribed angle");
   const doubled = multiply(inscribed, rational(2));
   if (compare(doubled, ANGLE_180) > 0) throw new Error("Minor central angle exceeds 180°");
   return angle(doubled.numerator, doubled.denominator);
 }
 
+export function angleInSemicircle(): ExactAngle {
+  return angle(90);
+}
+
 export function cyclicOppositeAngle(knownInteriorAngle: ExactAngle): ExactAngle {
-  if (compare(knownInteriorAngle, angle(0)) <= 0 || compare(knownInteriorAngle, ANGLE_180) >= 0) {
-    throw new Error("Cyclic interior angle must lie strictly between 0° and 180°");
-  }
+  requireInteriorAngle(knownInteriorAngle, "Cyclic interior angle");
   const result = subtract(ANGLE_180, knownInteriorAngle);
   return angle(result.numerator, result.denominator);
 }
@@ -49,6 +55,17 @@ export function radiusTangentAngle(): ExactAngle {
 export function equalTangentLength(knownLength: Rational): Rational {
   requirePositive(knownLength, "Known tangent length");
   return knownLength;
+}
+
+export function angleBetweenTangentsFromCentral(centralAngle: ExactAngle): ExactAngle {
+  requireInteriorAngle(centralAngle, "Central angle between the radii to the tangent points");
+  const result = subtract(ANGLE_180, centralAngle);
+  return angle(result.numerator, result.denominator);
+}
+
+export function tangentChordAngleFromAlternateSegment(alternateSegmentAngle: ExactAngle): ExactAngle {
+  requireInteriorAngle(alternateSegmentAngle, "Alternate-segment angle");
+  return alternateSegmentAngle;
 }
 
 export function intersectingChordMissingSegment(
