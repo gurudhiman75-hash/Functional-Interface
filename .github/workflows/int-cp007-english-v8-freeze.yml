@@ -1,0 +1,60 @@
+name: Validate INT-CP-007 English V8 Freeze
+
+on:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp007-scheme-equivalence-english-v8-frozen.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp007-english-v8-freeze-audit.ts'
+      - '.github/workflows/int-cp007-english-v8-freeze.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-int-cp007-english-v8-freeze:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP007 English V8 freeze audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp007-english-v8-freeze-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/int-cp007-english-v8-freeze-audit.mjs
+      - name: Run CP007 English V8 freeze audit
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp007-english-v8-freeze-audit.mjs 2>&1 | tee dist/quant-v4/int-cp007-english-v8-freeze-audit.log
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Verify CP007 English V8 freeze marker
+        run: grep -q 'PASS_INT_CP007_ENGLISH_V8_FREEZE_AUDIT' artifacts/api-server/dist/quant-v4/int-cp007-english-v8-freeze-audit.log
+      - name: Write freeze evidence
+        run: |
+          cat > artifacts/api-server/dist/quant-v4/INT-CP-007-ENGLISH-V8-FREEZE-EVIDENCE.md <<'EOF'
+          # INT-CP-007 English V8 Freeze Evidence
+
+          Product-owner approval authority: `PRODUCT_OWNER_APPROVED_CP007_ENGLISH_V8_2026_08_19`
+
+          Approved review head: `c657dad54e2c8ecc5f7c451247bbf5db7114dc96`
+          Approved review run: `32165510413`
+          Approved review job: `95804042994`
+          Approved review artifact: `9335310867`
+          Approved review digest: `sha256:07985fc95a8d3a3a3f1fee43c559fbbe33fdd4033e47af6697e69ed00f7ffe97`
+
+          Freeze ID: `INT-CP-007-EN-v8-frozen`
+
+          Delivery remains closed: not staged, not registered, Question Studio hidden, Question Bank not stored, tests ineligible, public delivery false.
+          EOF
+      - name: Upload CP007 English V8 freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp007-english-v8-freeze
+          path: |
+            artifacts/api-server/dist/quant-v4/INT-CP-007-ENGLISH-V8-FREEZE-EVIDENCE.md
+            artifacts/api-server/dist/quant-v4/int-cp007-english-v8-freeze-audit.log
+          if-no-files-found: error
