@@ -33,14 +33,22 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle CP005 English V4 review evidence and export
+      - name: Bundle CP005 English V4 review evidence, diagnostic and export
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
           OUT=dist/quant-v4/tsd-001/cp005-english-review
           mkdir -p artifacts/api-server/$OUT
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-duplicate-diagnostic-v4.ts" --bundle --platform=node --format=esm --outfile="$OUT/diagnostic.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-evidence-v4.ts" --bundle --platform=node --format=esm --outfile="$OUT/evidence.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-export-v4.ts" --bundle --platform=node --format=esm --outfile="$OUT/export.mjs"
+
+      - name: Diagnose CP005 English V4 selected stems
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp005-english-review
+          node "$OUT/diagnostic.mjs" 2>&1 | tee "$OUT/diagnostic.log"
 
       - name: Run CP005 English V4 review evidence
         run: |
@@ -59,6 +67,7 @@ jobs:
         with:
           name: tsd-cp005-english-review-v4-78q
           path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-english-review/diagnostic.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-english-review/evidence.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-english-review/cp005-english-review-v4-78q.json
           if-no-files-found: error
