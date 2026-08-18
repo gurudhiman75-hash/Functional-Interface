@@ -78,7 +78,7 @@ export function generateAlgCp004DiscoveryItem(candidateId: string, seed: number)
       const primitive = polynomial("x", [rational(b), rational(a)]);
       const factorization: Factorization1 = { scalar: rational(g), factors: [primitive] };
       const original = expandFactorization(factorization, "x");
-      return item(candidateId, candidate.solveMode, seed, original, factorization, `${g}(${polynomialText(primitive)})`, `Both terms have a common factor ${g}. Taking it outside gives ${g}(${polynomialText(primitive)}).`);
+      return item(candidateId, candidate.solveMode, seed, original, factorization, `${g}(${polynomialText(primitive)})`, `Both terms have a common factor ${g}. Taking it outside gives ${g}(${polynomialText(primitive)}). Multiplying ${g} back into the bracket reproduces ${polynomialText(original)}, so the factorisation is complete.`);
     }
 
     case "factorDifferenceOfSquares": {
@@ -87,7 +87,7 @@ export function generateAlgCp004DiscoveryItem(candidateId: string, seed: number)
       const right = linearFactor(1, a);
       const factorization: Factorization1 = { scalar: rational(1n), factors: [left, right] };
       const original = multiplyPolynomials(left, right);
-      return item(candidateId, candidate.solveMode, seed, original, factorization, `(x - ${a})(x + ${a})`, `This is a difference of squares: x² - ${a * a} = x² - ${a}². Therefore it factors as (x - ${a})(x + ${a}).`);
+      return item(candidateId, candidate.solveMode, seed, original, factorization, `(x - ${a})(x + ${a})`, `This is a difference of squares: x² - ${a * a} = x² - ${a}². Using A² - B² = (A - B)(A + B), we get (x - ${a})(x + ${a}).`);
     }
 
     case "factorPerfectSquareTrinomial": {
@@ -97,7 +97,7 @@ export function generateAlgCp004DiscoveryItem(candidateId: string, seed: number)
       const original = multiplyPolynomials(factor, factor);
       const sign = -root;
       const factorDisplay = factorText(1, sign);
-      return item(candidateId, candidate.solveMode, seed, original, factorization, `${factorDisplay}²`, `The first and last terms are squares, and the middle term matches twice their product. So the trinomial is the perfect square ${factorDisplay}².`);
+      return item(candidateId, candidate.solveMode, seed, original, factorization, `${factorDisplay}²`, `The first and last terms are squares, and the middle term is twice their product. Thus the trinomial matches A² + 2AB + B² or A² - 2AB + B², giving the perfect square ${factorDisplay}².`);
     }
 
     case "factorMonicQuadratic": {
@@ -109,7 +109,9 @@ export function generateAlgCp004DiscoveryItem(candidateId: string, seed: number)
       const solved = factorQuadraticOverRationals(original);
       if (!solved || !verifyFactorization(original, solved)) throw new Error("Monic quadratic factor solver failed");
       const text = `${factorText(1, -r1)}${factorText(1, -r2)}`;
-      return item(candidateId, candidate.solveMode, seed, original, source, text, `We need two numbers whose product is the constant term and whose sum is the coefficient of x. Those numbers give the factors ${text}.`);
+      const p = -r1;
+      const q = -r2;
+      return item(candidateId, candidate.solveMode, seed, original, source, text, `For a monic quadratic, find two numbers whose sum is the coefficient of x and whose product is the constant term. Here ${p} + ${q} = ${p + q} and (${p})(${q}) = ${p * q}. Therefore ${polynomialText(original)} = ${text}.`);
     }
 
     case "factorNonMonicQuadratic": {
@@ -122,7 +124,9 @@ export function generateAlgCp004DiscoveryItem(candidateId: string, seed: number)
       const factorization: Factorization1 = { scalar: rational(1n), factors: [left, right] };
       const original = multiplyPolynomials(left, right);
       const text = `${factorText(m, n)}${factorText(p, q)}`;
-      return item(candidateId, candidate.solveMode, seed, original, factorization, text, `Split the middle term so the quadratic can be grouped into two common factors. This gives ${text}. Re-expanding these factors reproduces the original quadratic.`);
+      const firstMiddle = m * q;
+      const secondMiddle = n * p;
+      return item(candidateId, candidate.solveMode, seed, original, factorization, text, `The middle coefficient is ${firstMiddle + secondMiddle}. Split it as ${firstMiddle} + ${secondMiddle}. Then group the terms: ${m * p}x² + ${firstMiddle}x = ${m}x(${p}x ${q < 0 ? "-" : "+"} ${Math.abs(q)}), and ${secondMiddle}x ${n * q < 0 ? "-" : "+"} ${Math.abs(n * q)} = ${n}(${p}x ${q < 0 ? "-" : "+"} ${Math.abs(q)}). Taking the common bracket gives ${text}.`);
     }
   }
 }
