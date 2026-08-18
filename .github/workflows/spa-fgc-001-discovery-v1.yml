@@ -1,0 +1,110 @@
+name: Validate SPA FGC-001 Discovery V1
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-fgc-001-discovery-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle controlled spatial proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          for test in \
+            spatial-foundation \
+            spatial-permanent-ql-allocation-v1 \
+            spatial-figure-completion-discovery-v2-hardened \
+            spatial-figure-completion-symmetry-discovery-v1 \
+            spatial-figure-completion-arc-discovery-v1 \
+            spatial-figure-completion-source-gap-discovery-v2 \
+            spatial-figure-completion-visual-composition-v1 \
+            spatial-figure-completion-rule-geometry-v2 \
+            spatial-figure-completion-merge-split-proposal-v1 \
+            spatial-figure-completion-source-saturation-v1 \
+            spatial-permanent-ql-allocation-v2 \
+            spatial-figure-completion-permanent-english-runtime-v1 \
+            spatial-figure-completion-permanent-english-editorial-v1 \
+            spatial-figure-completion-english-freeze-v1 \
+            spatial-figure-completion-localization-v1 \
+            spatial-figure-completion-localization-remediated-v1
+          do
+            pnpm --dir artifacts/api-server exec esbuild \
+              src/reasoning-v1/tests/${test}.test.ts \
+              --bundle --platform=node --format=esm \
+              --outfile=dist/reasoning-v1/spatial/${test}.test.mjs
+          done
+      - name: Guard frozen P0 foundation
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+      - name: Guard frozen SPA-QL-001..030 allocation
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-permanent-ql-allocation-v1.test.mjs
+      - name: Run FGC-001 human-remediated continuity discovery proof V2
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-discovery-v2-hardened.test.mjs
+      - name: Run FGC-001 symmetry discovery proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-symmetry-discovery-v1.test.mjs
+      - name: Run FGC-001 arc symmetry stress proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-arc-discovery-v1.test.mjs
+      - name: Run FGC-001 SSC source-gap closure proof V2
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-source-gap-discovery-v2.test.mjs
+      - name: Run FGC-001 learner-visible composition proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-visual-composition-v1.test.mjs
+      - name: Run FGC-001 independent visible-rule geometry proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-rule-geometry-v2.test.mjs
+      - name: Prove FGC-001 anti-duplication merge split proposal
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-merge-split-proposal-v1.test.mjs
+      - name: Decide FGC-001 scoped source saturation
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-source-saturation-v1.test.mjs
+      - name: Allocate FGC-001 permanent QLs without mutating P0
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-permanent-ql-allocation-v2.test.mjs
+      - name: Run FGC-001 permanent English review runtime
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-permanent-english-runtime-v1.test.mjs
+      - name: Run FGC-001 student-specific English editorial gate
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-permanent-english-editorial-v1.test.mjs
+      - name: Prove FGC-001 English freeze authority
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-english-freeze-v1.test.mjs
+      - name: Run FGC-001 Hindi Punjabi localization parity and review proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-localization-v1.test.mjs
+      - name: Run FGC-001 remediated Hindi Punjabi learner-review proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-completion-localization-remediated-v1.test.mjs
+      - name: Upload FGC-001 discovery review
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-fgc-001-discovery-v1-review
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-discovery-v1-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-discovery-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-discovery-v1-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-symmetry-discovery-v1-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-symmetry-discovery-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-symmetry-discovery-v1-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-arc-discovery-v1-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-arc-discovery-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-arc-discovery-v1-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-source-gap-discovery-v2-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-source-gap-discovery-v2-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-source-gap-discovery-v2-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-permanent-english-runtime-v1-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-permanent-english-runtime-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-permanent-english-runtime-v1-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-localization-v1-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-localization-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-localization-v1-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-localization-remediated-v1-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-localization-remediated-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fgc-001-localization-remediated-v1-review.html
+          if-no-files-found: error
