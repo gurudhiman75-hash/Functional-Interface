@@ -6,8 +6,8 @@ import { generateIntCp006EnglishExplanationReviewQuestion } from "./cp006-englis
 import {
   INT_CP006_LOCALIZED_EXPLANATION_VERSION,
   generateIntCp006LocalizedExplanationReviewQuestion,
-} from "./cp006-si-ci-relations-localized-v4";
-import { INT_CP006_EXPANDED_EXPLANATION_VERSION } from "./cp006-expanded-explanation-v2";
+} from "./cp006-si-ci-relations-localized-v5";
+import { INT_CP006_EXPANDED_EXPLANATION_VERSION } from "./cp006-expanded-explanation-v3";
 
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
 function pickSeed(qlId: IntCp006QlId, template: 1 | 2 | 3): string {
@@ -46,7 +46,7 @@ sections.push(`Hindi/Punjabi candidate: **${INT_CP006_LOCALIZED_EXPLANATION_VERS
 sections.push("");
 sections.push("Scope: 13 QLs × 3 matched stem families × English/Hindi/Punjabi = **117 learner-facing explanation surfaces**.");
 sections.push("");
-sections.push("Only explanations are under amendment review. Permanent QL identity, mathematical state, question stem, options, correct index, correct answer and all delivery flags remain unchanged from their respective source authorities.");
+sections.push("Hindi and Punjabi explanation wording has received a manual grammar/naturalness remediation pass. Only explanation text is under amendment review; question identity, mathematical state, stems, options, answers and delivery flags remain unchanged.");
 sections.push("");
 sections.push("The English source remains frozen. This document presents an explicit explanation-amendment candidate; it does not silently mutate the frozen English authority.");
 sections.push("");
@@ -68,15 +68,15 @@ for (const qlId of INT_CP006_QL_IDS) {
     sections.push(`### ${qlId}-T${template} — seed \`${seed}\``);
     sections.push("");
     sections.push(render(en, "English — explanation amendment candidate"));
-    sections.push(render(hi, "Hindi — expanded explanation candidate"));
-    sections.push(render(pa, "Punjabi — expanded explanation candidate"));
+    sections.push(render(hi, "Hindi — grammar-polished explanation candidate"));
+    sections.push(render(pa, "Punjabi — grammar-polished explanation candidate"));
     matchedStates += 1;
     learnerSurfaces += 3;
   }
 }
 sections.push("---");
 sections.push("");
-sections.push("Status: **EXPLANATION REVIEW ONLY**. No freeze, Question Studio activation, registration, Question Bank storage, test eligibility or public publication is authorized by this file.");
+sections.push("Status: **EXPLANATION / NATIVE GRAMMAR REVIEW ONLY**. No freeze, Question Studio activation, registration, Question Bank storage, test eligibility or public publication is authorized by this file.");
 sections.push("");
 
 const outputDirectory = path.resolve(process.cwd(), "dist/quant-v4");
