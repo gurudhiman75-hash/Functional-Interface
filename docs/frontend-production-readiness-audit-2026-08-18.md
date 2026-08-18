@@ -1,0 +1,97 @@
+# ExamTree Frontend Production Readiness Audit
+
+Date: 2026-08-18
+Branch audited: `New-main`
+CP01 implementation branch: `feature/frontend-production-cp01`
+
+## Release judgement
+
+The student test engine and canonical test-series/result journeys are materially stronger than the public product shell around them. The frontend is suitable for controlled beta after CP01, but broad public launch remains blocked on dedicated exam-runner E2E/device coverage, accessibility/mobile certification, and SEO/public-shell work.
+
+## Severity model
+
+- **P0** — launch blocker or trust/reliability risk on a primary student journey.
+- **P1** — required for broad production quality but can follow a tightly controlled beta.
+- **P2** — scale, polish, performance, or maintainability improvement.
+
+## File-by-file gap audit
+
+| Surface / file | Severity | Finding | Required release condition | CP01 status |
+| --- | --- | --- | --- | --- |
+| `artifacts/examtree/src/pages/home.tsx` | P0 | Homepage contained forced million-question and active-user counters, hard-coded mastery percentages, prototype testimonials, a fixed challenge timer, stale pattern/PYQ claims, and a CTA to pending analytics. | All visible claims must be canonical, directly derivable from current catalog/session data, or removed. Pending capabilities must not be promoted. | **Implemented** |
+| `artifacts/examtree/src/pages/home.tsx` | P0 | Latest-attempt review navigation did not include the canonical `attemptId`. | Result/review navigation must identify the committed attempt snapshot. | **Implemented** |
+| `artifacts/examtree/src/pages/home.tsx` | P0 | Paid/unlock language was promoted while packages/payments remain pending. | Homepage must feature immediately usable journeys only. | **Implemented** — featured list is free-test only. |
+| `artifacts/examtree/src/pages/tests.tsx` | P0 | API load failure exposed backend configuration (`API_BASE_URL`) to students. | Student errors must be actionable, non-technical, and must not expose deployment configuration. | **Implemented** |
+| `artifacts/examtree/src/pages/activity.tsx` | P0 | Time derived from real attempts was labelled `Practice time`; roadmap features were advertised in the activity shell. | Labels must match their actual data source; unavailable roadmap functionality must not be marketed as product UI. | **Implemented** |
+| `artifacts/examtree/src/pages/test.tsx` | P0 | The runner owns timer, sectional timing, drafts, resume, language selection, practice/real modes, flags, submission, auth recovery, and multi-tab/multi-device state. The canonical backend protections are strong, but frontend failure-mode coverage is not yet an explicit release gate. | Automated coverage for timer expiry, refresh/resume, offline/retry, duplicate submission, stale tabs, sectional locking, session expiry, accidental navigation, and mobile viewport behaviour. | **OPEN — CP01B** |
+| `artifacts/examtree/package.json` | P0 | Student package had build/typecheck only and no production-specific release gate. | A repeatable student frontend quality command must run typecheck, production assertions, and production build. | **Implemented** |
+| `.github/workflows/frontend-production-quality.yml` | P0 | No dedicated student frontend PR quality workflow existed. | Frontend changes targeting `New-main` must automatically run the student production gate. | **Implemented** |
+| `artifacts/examtree/src/components/AppLayout.tsx` | P1 | Public/acquisition pages and authenticated app surfaces share the sidebar-oriented application shell. | Split public acquisition shell from logged-in preparation shell without changing test-runner behaviour. | OPEN — CP02 |
+| `artifacts/examtree/src/components/StickyHeader.tsx` | P1 | Custom exam selector needs formal focus, Escape, keyboard, zoom and mobile-overflow certification. | WCAG-oriented keyboard/screen-reader and 200% zoom pass. | OPEN — CP02 |
+| `artifacts/examtree/index.html` | P1 | Initial SPA document has generic title and constrains viewport zoom; public metadata is incomplete at first response. | Remove zoom restriction; establish complete route metadata strategy and SEO rendering. | OPEN — CP02/CP03 |
+| `artifacts/examtree/src/components/PublicPage.tsx` | P1 | Title/description are changed client-side only; canonical/OG/Twitter/schema coverage is incomplete. | Search-facing pages need canonical metadata and crawlable route output. | OPEN — CP03 |
+| `artifacts/examtree/public` | P1 | No complete sitemap/robots/manifest release package is established. | Production robots policy, sitemap generation and PWA decision must be explicit. | OPEN — CP03 |
+| `artifacts/examtree/src/pages/profile.tsx` | P1 | Profile remains live-incomplete until editable fields are canonically persisted. | No UI control may imply successful persistence unless server-backed. | OPEN |
+| `artifacts/examtree/src/pages/report-question.tsx` | P1 | Reporting UI exists but canonical support/content-quality persistence remains incomplete. | A submitted report must produce a durable server-side record and recoverable status. | OPEN |
+| `artifacts/examtree/src/pages/category.tsx`, `subcategory.tsx`, `tests.tsx` | P1 | Discovery needs scale work: search, filters, pagination, richer empty states, mobile layouts. | Large catalog remains navigable on low-width devices and with hundreds/thousands of tests. | OPEN — CP04 |
+| `artifacts/examtree/src/App.tsx` | P2 | Route lazy loading and global error boundary are good, but MathJax wraps the full application. | Measure bundle/runtime cost and load maths infrastructure only where useful if the gain is material. | OPEN — CP05 |
+| `artifacts/examtree/src/index.css` and visual components | P2 | Motion, blur and shadow usage has not been certified on low-end Android or reduced-motion settings. | Core Web Vitals/device budget and `prefers-reduced-motion` pass. | OPEN — CP05 |
+
+## CP01 production-truth contract
+
+`artifacts/examtree/scripts/check-production-truth.mjs` now fails the build if known prototype/trust regressions return. It specifically prevents:
+
+- fake active-user telemetry;
+- generated-question marketing counters without a canonical source;
+- unverifiable `Most Advanced` superlatives;
+- prototype testimonials;
+- hard-coded challenge countdowns;
+- stale pattern/PYQ marketing claims;
+- homepage promotion of pending analytics;
+- incorrect `Practice time` labelling;
+- roadmap advertising in the activity page;
+- student-facing backend URL diagnostics.
+
+It also requires the homepage to retain catalog-backed published-test/question counts, a live primary CTA, and canonical attempt-id result navigation.
+
+## CP01 quality command
+
+From repo root:
+
+```bash
+pnpm run quality:web
+```
+
+This resolves to:
+
+1. student TypeScript check;
+2. production-truth regression audit;
+3. production Vite build.
+
+The dedicated GitHub Actions workflow runs the same gate for pull requests into `New-main` when student frontend or relevant workspace files change.
+
+## CP01B — remaining P0 before broad launch
+
+CP01 is not complete until the exam runner is covered by real browser-level scenarios. Required minimum matrix:
+
+1. Start a real attempt, answer/flag/navigate, refresh, and resume with identical state.
+2. Expire overall timer while foregrounded and after background-tab sleep.
+3. Expire fixed sectional timer and enforce locked-section behaviour.
+4. Lose network during draft persistence; recover without losing the latest authoritative state.
+5. Lose network during final submit; retry idempotently and reach exactly one committed result.
+6. Open the same attempt in two tabs; stale revision must not silently overwrite the authoritative revision.
+7. Expire authentication during an active attempt and recover without false submission/data loss.
+8. Verify practice mode never unlocks score-gated progression.
+9. Verify language switching does not alter answer identity/scoring and unavailable language falls back safely.
+10. Run core attempt flow at representative mobile widths and on at least one low-end Android/browser profile.
+
+Until that matrix is automated and green, the frontend can be treated as **beta-ready after CP01**, not fully broad-production frozen.
+
+## Next checkpoints
+
+- **CP01A (this branch):** production truth, safe public CTAs/errors, canonical result navigation, automated typecheck/truth/build gate.
+- **CP01B:** exam-runner browser/E2E reliability matrix.
+- **CP02:** public/app shell split, accessibility and mobile certification.
+- **CP03:** SEO/prerender/metadata/sitemap/robots.
+- **CP04:** catalog discovery/search/filter/pagination plus incomplete account/support journeys.
+- **CP05:** performance budgets, low-end device validation, reduced motion, bundle/runtime optimization and final browser matrix.
