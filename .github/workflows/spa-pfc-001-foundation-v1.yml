@@ -41,7 +41,8 @@ jobs:
             spatial-paper-folding-localization-v1 \
             spatial-paper-folding-localization-freeze-v1 \
             spatial-paper-folding-visual-taxonomy-remediation-v4-2 \
-            spatial-paper-folding-permanent-english-runtime-v2-2
+            spatial-paper-folding-exam-standard-v5 \
+            spatial-paper-folding-permanent-english-runtime-v2-3
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -76,8 +77,11 @@ jobs:
       - name: Validate PFC visual taxonomy remediation V4.2
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-visual-taxonomy-remediation-v4-2.test.mjs
 
-      - name: Validate PFC permanent English runtime V2.2 candidate
-        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-permanent-english-runtime-v2-2.test.mjs
+      - name: Validate PFC exam-standard presentation V5
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-exam-standard-v5.test.mjs
+
+      - name: Validate PFC permanent English runtime V2.3 candidate
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-permanent-english-runtime-v2-3.test.mjs
 
       - name: Upload PFC foundation and remediation evidence
         uses: actions/upload-artifact@v4
@@ -97,6 +101,8 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-hi-pa-localization-freeze-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-visual-taxonomy-v4-2-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-visual-taxonomy-v4-2-review.html
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-permanent-english-runtime-v2-2-evidence.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-permanent-english-runtime-v2-2-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-exam-standard-v5-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-exam-standard-v5-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-permanent-english-runtime-v2-3-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-permanent-english-runtime-v2-3-review.html
           if-no-files-found: error
