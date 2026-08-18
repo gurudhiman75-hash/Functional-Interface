@@ -2,7 +2,10 @@ import {
   generateQuestion as generateQuantQuestionStudioQuestion,
   listQuantV4Packages,
 } from "../quant-v4/question-studio-review-engine";
-import { buildWor001QuestionStudioPayload } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/question-studio-payload";
+import {
+  buildWor001QuestionStudioPayload,
+  WOR_001_QUESTION_STUDIO_RELEASE_FREEZE,
+} from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/question-studio-payload";
 import {
   WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   previewWor001QuestionStudioReview,
@@ -88,6 +91,8 @@ function worPackageCapability() {
     supportedRuntimeModes: [pkg.runtimeMode],
     reviewStatus: pkg.reviewStatus,
     reviewOnly: pkg.reviewOnly,
+    permanentQlCount: pkg.permanentQlCount,
+    permanentQlAllocationStatus: pkg.permanentQlAllocationStatus,
     revisionPolicy: "SOURCE_GENERATOR_ONLY",
     questionBankStatus: pkg.questionBankStatus,
     questionBankWritable: pkg.questionBankWritable,
@@ -137,6 +142,8 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
       runtimeMode: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.runtimeMode,
       reviewStatus: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.reviewStatus,
       lifecycleStatus: "REVIEW_ONLY",
+      permanentQlCount: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount,
+      permanentQlAllocationStatus: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlAllocationStatus,
       revisionPolicy: "SOURCE_GENERATOR_ONLY",
       questionBankStatus: "NOT_STORED",
       questionBankWritable: false,
@@ -145,7 +152,7 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
       mockTestEligible: false,
       publiclyPublishable: false,
       automaticStudentPublication: false,
-      releaseFreezeStatus: "PENDING_NATIVE_SIGNOFF_AND_PERMANENT_QL",
+      releaseFreezeStatus: WOR_001_QUESTION_STUDIO_RELEASE_FREEZE,
       language,
     },
     questionPackages: preview.questions,

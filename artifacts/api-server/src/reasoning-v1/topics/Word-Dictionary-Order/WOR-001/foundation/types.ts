@@ -4,6 +4,15 @@ export type WorCheckpointId = "WOR-CP-001" | "WOR-CP-002" | "WOR-CP-003" | "WOR-
 export type WorSortDirection = "ASCENDING" | "DESCENDING";
 export type WorOptionCount = 4 | 5;
 export type WorObjectMode = "REAL_WORD" | "LETTER_CLUSTER";
+export type WorPermanentQlId =
+  | "WOR-QL-001"
+  | "WOR-QL-002"
+  | "WOR-QL-003"
+  | "WOR-QL-004"
+  | "WOR-QL-005"
+  | "WOR-QL-006"
+  | "WOR-QL-007"
+  | "WOR-QL-008";
 
 export type WorClassicTaskKind =
   | "SELECT_COMPLETE_ORDER"
@@ -139,7 +148,7 @@ export interface GeneratedWorQuestion {
   readonly chapterId: "WOR-001";
   readonly checkpointId: WorCheckpointId;
   readonly prototypeId: string;
-  readonly permanentQlId: null;
+  readonly permanentQlId: WorPermanentQlId | null;
   readonly lifecycleStatus: "REVIEW_ONLY";
   readonly questionStudioVisible: false;
   readonly locale: WorLocale;
