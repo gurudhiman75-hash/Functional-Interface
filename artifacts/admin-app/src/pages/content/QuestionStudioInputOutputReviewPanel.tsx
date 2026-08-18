@@ -14,12 +14,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { EXAMS } from '@/data/exams';
 import { QUESTION_STUDIO_REFRESH_EVENT } from '@/features/question-studio/events';
 import { useQuestionStudio } from '@/features/question-studio/useQuestionStudio';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 
 const IOP_PACKAGE_ID = 'IOP-001';
+const IOP_EXAM_PROFILE = 'Banking — Machine Input–Output';
 type IopDifficulty = 'Easy' | 'Medium' | 'Hard';
 
 type IopFamily = {
@@ -69,7 +69,6 @@ export function QuestionStudioInputOutputReviewPanel() {
     generate,
   } = useQuestionStudio();
 
-  const [exam, setExam] = useState(EXAMS[0]?.code ?? 'SSC_CGL');
   const [familyId, setFamilyId] = useState('');
   const [difficulty, setDifficulty] = useState<IopDifficulty>('Easy');
   const [language, setLanguage] = useState('en');
@@ -115,9 +114,8 @@ export function QuestionStudioInputOutputReviewPanel() {
       return;
     }
     try {
-      const selectedExam = EXAMS.find((entry) => entry.code === exam);
       const result = await generate({
-        exam: selectedExam?.name ?? exam,
+        exam: IOP_EXAM_PROFILE,
         subject: 'Reasoning Ability',
         difficulty,
         count: Math.min(capabilities.maxBatchSize, Math.max(1, count)),
@@ -131,7 +129,7 @@ export function QuestionStudioInputOutputReviewPanel() {
       window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
       showToast.success(
         'Input–Output review run created',
-        `${result.publicCode} produced ${result.itemCount} ${familyId} ${difficulty} question(s).`,
+        `${result.publicCode} produced ${result.itemCount} ${familyId} ${difficulty} Banking-profile question(s).`,
       );
     } catch (caught) {
       showToast.error(
@@ -152,27 +150,27 @@ export function QuestionStudioInputOutputReviewPanel() {
             <Badge className="gap-1 bg-success/10 text-success hover:bg-success/10">
               <Database className="h-3 w-3" /> Question Studio connected
             </Badge>
-            <Badge variant="outline">8 frozen families · 19 source modes · 3 languages</Badge>
+            <Badge variant="outline">Banking profile · 8 families · 19 source modes · 3 languages</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate exam-style Machine Input–Output questions from the approved English, Hindi and Punjabi authorities. Choose a machine family and one of its valid reviewed difficulty bands. Generated items enter the normal Question Studio review queue only.
+          Generate Banking-style Machine Input–Output questions from the approved English, Hindi and Punjabi authorities. This package is not currently validated for SSC, Railway or Punjab State tagging. Choose a machine family and one of its valid reviewed difficulty bands. Generated items enter the normal Question Studio review queue only.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Exam profile" value="Banking" />
           <Metric label="Permanent families" value={availableFamilies.length || 8} />
-          <Metric label="Studio runs" value={iopRuns.length} />
           <Metric label="Studio items" value={iopItems.length} />
           <Metric label="Question Bank" value="Locked" />
         </div>
 
         <div className="rounded-lg border border-success/25 bg-success/5 p-3 text-sm">
           <div className="flex items-center gap-2 font-medium">
-            <ShieldCheck className="h-4 w-4 text-success" /> Frozen learner content, review-only delivery
+            <ShieldCheck className="h-4 w-4 text-success" /> Banking-validated, frozen learner content, review-only delivery
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            English, Hindi and Punjabi wording is content-addressed and frozen. Question Bank storage, test/mock eligibility and public publication remain disabled for IOP-001.
+            English, Hindi and Punjabi wording is content-addressed and frozen. The runtime now fails closed if an explicit non-Banking exam tag is supplied. Question Bank storage, test/mock eligibility and public publication remain disabled for IOP-001.
           </p>
         </div>
 
@@ -185,13 +183,7 @@ export function QuestionStudioInputOutputReviewPanel() {
             IOP-001 is not present in Question Studio capabilities.
           </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
-            <Field label="Exam">
-              <Select value={exam} onValueChange={setExam}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>{EXAMS.map((entry) => <SelectItem key={entry.code} value={entry.code}>{entry.name}</SelectItem>)}</SelectContent>
-              </Select>
-            </Field>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
             <Field label="Machine family">
               <Select value={familyId} onValueChange={setFamilyId}>
                 <SelectTrigger><SelectValue placeholder="Select family" /></SelectTrigger>
@@ -236,7 +228,8 @@ export function QuestionStudioInputOutputReviewPanel() {
             {generating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Database className="mr-2 h-4 w-4" />}
             {generating ? 'Generating…' : 'Create IOP review run'}
           </Button>
-          {family && <span className="text-xs text-muted-foreground">{familyId} · {family.label} · {difficulty}</span>}
+          {family && <span className="text-xs text-muted-foreground">Banking · {familyId} · {family.label} · {difficulty}</span>}
+          {iopRuns.length > 0 && <span className="text-xs text-muted-foreground">{iopRuns.length} IOP run(s)</span>}
         </div>
       </CardContent>
     </Card>
