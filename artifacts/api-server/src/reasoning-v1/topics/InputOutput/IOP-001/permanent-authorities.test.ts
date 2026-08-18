@@ -5,7 +5,7 @@ import { IOP_FOUNDATION_PROTOTYPES } from "./prototypes.ts";
 
 assert.equal(IOP_001_PERMANENT_QL_AUTHORITIES.length, 8, "IOP permanent allocation must contain exactly eight semantic machine QLs");
 assert.equal(IOP_001_PERMANENT_ALLOCATION.permanentQlCount, 8, "Package permanent QL count drifted");
-assert.equal(IOP_001_PERMANENT_ALLOCATION.maturity, "QUESTION_STUDIO_REVIEW_ONLY");
+assert.equal(IOP_001_PERMANENT_ALLOCATION.maturity, "MULTILINGUAL_FROZEN");
 assert.equal(IOP_001_PERMANENT_ALLOCATION.sourceFamilySaturation, "PASS_V1");
 assert.equal(IOP_001_PERMANENT_ALLOCATION.whitelistedSourceModeCount, 19);
 assert.equal(IOP_001_PERMANENT_ALLOCATION.englishAutomatedScaleProof, "PASS");
@@ -17,9 +17,6 @@ assert.equal(IOP_001_PERMANENT_ALLOCATION.hindiPunjabiStatus, "FROZEN_V1");
 assert.equal(IOP_001_PERMANENT_ALLOCATION.hindiPunjabiHumanApproval, "APPROVED_2026_08_18");
 assert.equal(IOP_001_PERMANENT_ALLOCATION.localizationFreeze, true);
 assert.equal(IOP_001_PERMANENT_ALLOCATION.questionStudioIntegrationAllowed, true);
-assert.equal(IOP_001_PERMANENT_ALLOCATION.questionStudioDiscoverable, true);
-assert.equal(IOP_001_PERMANENT_ALLOCATION.questionStudioGeneratable, true);
-assert.equal(IOP_001_PERMANENT_ALLOCATION.questionStudioPersistenceAllowed, false);
 
 const expectedIds = Array.from({ length: 8 }, (_, index) => `IOP-QL-${String(index + 1).padStart(3, "0")}`);
 assert.deepEqual(IOP_001_PERMANENT_QL_AUTHORITIES.map((authority) => authority.qlId), expectedIds, "IOP permanent QL IDs must be contiguous and stable");
@@ -50,7 +47,7 @@ for (const authority of IOP_001_PERMANENT_QL_AUTHORITIES) {
   assert.equal(authority.nonBankingWeighting, "SOURCE_GATED", `${authority.qlId} leaked non-Banking weighting`);
   assert.ok(authority.allowedSolveModes.length > 0, `${authority.qlId} has no solve modes`);
   assert.equal(new Set(authority.allowedSolveModes).size, authority.allowedSolveModes.length, `${authority.qlId} has duplicate solve modes`);
-  assert.equal(authority.questionStudioDiscoverable, true, `${authority.qlId} is missing from Question Studio`);
+  assert.equal(authority.questionStudioDiscoverable, false, `${authority.qlId} leaked into Question Studio before integration`);
   assert.equal(authority.questionBankWritable, false, `${authority.qlId} leaked into Question Bank`);
   assert.equal(authority.testEligible, false, `${authority.qlId} leaked into tests`);
   assert.equal(authority.publiclyPublishable, false, `${authority.qlId} leaked into public delivery`);
@@ -69,6 +66,7 @@ for (const qlId of ["IOP-QL-005", "IOP-QL-006", "IOP-QL-008"] as const) {
   assert.equal(authority.localizationProductionStatus, "HI_PA_FROZEN_V1", `${qlId} should be Hindi/Punjabi-frozen`);
 }
 
+assert.equal(IOP_001_PERMANENT_ALLOCATION.questionStudioDiscoverable, false);
 assert.equal(IOP_001_PERMANENT_ALLOCATION.questionBankWritable, false);
 assert.equal(IOP_001_PERMANENT_ALLOCATION.testEligible, false);
 assert.equal(IOP_001_PERMANENT_ALLOCATION.publiclyPublishable, false);
@@ -81,8 +79,8 @@ console.log("English frozen true");
 console.log("Hindi Punjabi frozen true");
 console.log("human language approval APPROVED_2026_08_18");
 console.log("CP010 machine QLs 0");
-console.log("Question Studio discoverable true");
-console.log("Question Studio persistence false");
+console.log("Question Studio integration allowed true");
+console.log("Question Studio discoverable false");
 console.log("Question Bank false");
 console.log("test eligible false");
 console.log("publicly publishable false");
