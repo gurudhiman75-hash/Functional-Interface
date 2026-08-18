@@ -7,6 +7,9 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/**
       - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioInputOutputReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
       - .github/workflows/iop-001-question-studio.yml
   pull_request:
     branches:
@@ -15,6 +18,9 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/**
       - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioInputOutputReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
       - .github/workflows/iop-001-question-studio.yml
   workflow_dispatch:
 
@@ -70,6 +76,9 @@ jobs:
       - name: Scale Question Studio across all source modes and languages
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-scale.test.ts
 
+      - name: Audit exam readiness across all source modes and languages
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/exam-readiness-audit.test.ts
+
       - name: Prove global Question Studio routing through production-style bundle
         working-directory: artifacts/api-server
         run: |
@@ -81,6 +90,12 @@ jobs:
             --outfile=/tmp/iop-001-question-studio-global-routing.mjs
           node /tmp/iop-001-question-studio-global-routing.mjs
 
+      - name: Typecheck admin Question Studio connection
+        run: pnpm --dir artifacts/admin-app typecheck
+
       - name: Build production API
         working-directory: artifacts/api-server
         run: pnpm run build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
