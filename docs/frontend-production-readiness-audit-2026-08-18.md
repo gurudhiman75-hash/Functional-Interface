@@ -54,7 +54,7 @@ The live runner still uses its existing interval-driven display timer, but brows
 From repo root:
 
 ```bash
-pnpm run quality:web
+pnpm --dir artifacts/examtree quality
 ```
 
 This resolves to:
@@ -64,7 +64,7 @@ This resolves to:
 3. deterministic timer-recovery audit;
 4. production Vite build.
 
-`.github/workflows/frontend-production-quality.yml` runs that command for relevant pull requests/pushes targeting `New-main`.
+`.github/workflows/frontend-production-quality.yml` runs that app-level command for relevant pull requests/pushes targeting `New-main`. CP01 deliberately does not add a root `package.json` convenience script because that shared file is watched by many unrelated chapter workflows and would create unnecessary repository-wide CI fan-out.
 
 The production-truth audit now guards the primary discovery/result chain against known regressions including fake telemetry/social proof, unverified freshness/official-parity claims, student-facing backend URLs on catalog discovery, roadmap claims, result links without an exact attempt ID, and browser-local score fallback on canonical result pages.
 
@@ -75,7 +75,7 @@ Separately, the pre-existing `.github/workflows/student-reliability-e2e.yml` rem
 Extend the existing Playwright suite rather than creating a competing E2E stack:
 
 1. Prove overall timer expiry after a real background-tab/app sleep at browser level.
-2. Prove fixed sectional expiry/rollover and locked-section behaviour at browser level.
+2. Prove fixed sectional expiry/rollover and locked-section behaviour at browser level, including backgrounding before the first answer/flag creates a draft.
 3. Lose network during draft persistence; recover without losing the latest authoritative state.
 4. Lose network during final submit; retry idempotently and reach exactly one committed result.
 5. Open the same attempt in two tabs or simulate a stale revision; stale state must not silently overwrite the authoritative revision.
