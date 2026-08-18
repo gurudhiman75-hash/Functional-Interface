@@ -5,7 +5,8 @@ export type AlgCp003SolveMode =
   | "findSquareSumFromSumAndPairwiseProduct"
   | "findCubeSumWhenTotalSumIsZero"
   | "findPairwiseProductSumWhenTotalSumIsZero"
-  | "findPairwiseDifferenceSquareSum";
+  | "findPairwiseDifferenceSquareSum"
+  | "solveCyclicReciprocalRelation";
 
 export interface AlgCp003Candidate {
   candidateId: string;
@@ -26,4 +27,10 @@ export interface AlgCp003DiscoveryItem {
   answer: { kind: "RATIONAL"; value: Rational };
   explanation: string;
   sourceStatus: "UNVERIFIED_DRAFT";
+  evidence?: {
+    a: Rational;
+    b: Rational;
+    c: Rational;
+    k: Rational;
+  };
 }
