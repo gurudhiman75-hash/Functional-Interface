@@ -2,6 +2,7 @@ import {
   generateQuestion as generateQuantQuestionStudioQuestion,
   listQuantV4Packages,
 } from "../quant-v4/question-studio-review-engine";
+import type { WorCheckpointId } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/foundation/types";
 import {
   buildWor001QuestionStudioPayload,
   WOR_001_QUESTION_STUDIO_RELEASE_FREEZE,
@@ -145,8 +146,9 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
     : String(request.canonicalProblemId ?? "").startsWith("WOR-PROT-")
       ? String(request.canonicalProblemId)
       : undefined;
-  const checkpointId = String(request.cpId ?? request.canonicalProblemId ?? "").startsWith("WOR-CP-")
-    ? String(request.cpId ?? request.canonicalProblemId)
+  const checkpointSelector = String(request.cpId ?? request.canonicalProblemId ?? "");
+  const checkpointId: WorCheckpointId | undefined = checkpointSelector.startsWith("WOR-CP-")
+    ? checkpointSelector as WorCheckpointId
     : undefined;
   const count = Math.min(50, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
   const batchSeed = request.seed?.trim()
@@ -156,7 +158,7 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
   if (requestedPrototypeId || checkpointId) {
     questionPackages = previewWor001QuestionStudioReview({
       language,
-      checkpointId: checkpointId as any,
+      checkpointId,
       prototypeId: requestedPrototypeId,
       difficulty,
       seed: batchSeed,
