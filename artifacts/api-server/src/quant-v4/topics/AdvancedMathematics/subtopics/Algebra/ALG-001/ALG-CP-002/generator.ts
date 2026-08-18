@@ -60,6 +60,19 @@ function coefficientTerm(coefficient: number, body: string): string {
   return `${coefficient}${body}`;
 }
 
+function reciprocalPowerTrace(k: number, exponent: number): string {
+  let previous2 = r(2);
+  let previous1 = r(k);
+  const steps: string[] = [];
+  for (let n = 2; n <= exponent; n += 1) {
+    const current = subtractRational(multiplyRational(r(k), previous1), previous2);
+    steps.push(`P${subscript(n)} = ${k}(${formatRational(previous1)}) - ${formatRational(previous2)} = ${formatRational(current)}`);
+    previous2 = previous1;
+    previous1 = current;
+  }
+  return steps.join("; ");
+}
+
 export function generateAlgCp002DiscoveryItem(candidateId: string, seed: number): AlgCp002DiscoveryItem {
   const candidate = getAlgCp002Candidate(candidateId);
 
@@ -126,7 +139,7 @@ export function generateAlgCp002DiscoveryItem(candidateId: string, seed: number)
         cpId: "ALG-CP-002", candidateId, solveMode: candidate.solveMode, seed,
         stem: `If x + 1/x = ${k}, find x${superscript(exponent)} + 1/x${superscript(exponent)}.`,
         answer: { kind: "RATIONAL", value: target },
-        explanation: `Let Pₙ = xⁿ + 1/xⁿ. We know P₀ = 2 and P₁ = ${k}. Each next value is found from Pₙ = ${k}Pₙ₋₁ - Pₙ₋₂. Continuing this up to P${subscript(exponent)} gives ${formatRational(target)}.`,
+        explanation: `Let Pₙ = xⁿ + 1/xⁿ. Here P₀ = 2 and P₁ = ${k}, and Pₙ = ${k}Pₙ₋₁ - Pₙ₋₂. ${reciprocalPowerTrace(k, exponent)}. Therefore P${subscript(exponent)} = ${formatRational(target)}, which is the required value.`,
         sourceStatus: candidate.sourceStatus,
       };
     }
