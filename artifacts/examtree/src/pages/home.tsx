@@ -77,9 +77,7 @@ function buildExamGroups(
     icon: category.icon || "Landmark",
     tone: getTone(category.name),
     tests: category.tests,
-    subExams: category.subcategories
-      .map((subExam) => ({ id: subExam.id, name: subExam.name }))
-      .slice(0, 5),
+    subExams: category.subcategories.map((subExam) => ({ id: subExam.id, name: subExam.name })),
   }));
 }
 
