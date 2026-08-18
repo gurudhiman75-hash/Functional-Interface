@@ -1,12 +1,5 @@
 import type { SylQlDefinition, SylQlId } from "./types";
 
-// V5 introduces a three-option diagnostic modal template. The shared V1/V4 type
-// surface still models only four- and five-option source templates, so these two
-// constants preserve backward compile compatibility while carrying the correct
-// runtime values until the chapter-wide contract is promoted with V5.
-const DIAGNOSTIC_THREE_OPTION_COUNT = 3 as unknown as SylQlDefinition["optionCount"];
-const DIAGNOSTIC_THREE_OPTION_TEMPLATE = "DIAGNOSTIC_THREE_OPTION_V1" as unknown as SylQlDefinition["answerTemplateId"];
-
 export const SYL_QL_REGISTRY: readonly SylQlDefinition[] = Object.freeze([
   {
     qlId: "SYL-QL-001",
@@ -79,8 +72,8 @@ export const SYL_QL_REGISTRY: readonly SylQlDefinition[] = Object.freeze([
     checkpointId: "SYL-CP-003",
     taskKind: "CLASSIFY_CONCLUSION_MODALITY",
     scenarioGroup: "CORE",
-    optionCount: DIAGNOSTIC_THREE_OPTION_COUNT,
-    answerTemplateId: DIAGNOSTIC_THREE_OPTION_TEMPLATE,
+    optionCount: 3,
+    answerTemplateId: "DIAGNOSTIC_THREE_OPTION_V1",
     renderer: "MODAL_CLASSIFICATION",
     sourcePatternIds: ["SYL-SRC-BANK-CORE-001"],
     status: "IMPLEMENTED_MULTILINGUAL_REVIEW_RUNTIME",
@@ -134,8 +127,8 @@ export const SYL_QL_REGISTRY: readonly SylQlDefinition[] = Object.freeze([
     checkpointId: "SYL-CP-005",
     taskKind: "ONLY_MODAL_CLASSIFICATION",
     scenarioGroup: "ONLY",
-    optionCount: DIAGNOSTIC_THREE_OPTION_COUNT,
-    answerTemplateId: DIAGNOSTIC_THREE_OPTION_TEMPLATE,
+    optionCount: 3,
+    answerTemplateId: "DIAGNOSTIC_THREE_OPTION_V1",
     renderer: "MODAL_CLASSIFICATION",
     sourcePatternIds: ["SYL-SRC-BANK-ONLY-001"],
     status: "IMPLEMENTED_MULTILINGUAL_REVIEW_RUNTIME",
@@ -156,8 +149,8 @@ export const SYL_QL_REGISTRY: readonly SylQlDefinition[] = Object.freeze([
     checkpointId: "SYL-CP-006",
     taskKind: "FEW_MODAL_CLASSIFICATION",
     scenarioGroup: "FEW",
-    optionCount: DIAGNOSTIC_THREE_OPTION_COUNT,
-    answerTemplateId: DIAGNOSTIC_THREE_OPTION_TEMPLATE,
+    optionCount: 3,
+    answerTemplateId: "DIAGNOSTIC_THREE_OPTION_V1",
     renderer: "MODAL_CLASSIFICATION",
     sourcePatternIds: ["SYL-SRC-BANK-FEW-001"],
     status: "IMPLEMENTED_MULTILINGUAL_REVIEW_RUNTIME",
@@ -200,8 +193,8 @@ export const SYL_QL_REGISTRY: readonly SylQlDefinition[] = Object.freeze([
     checkpointId: "SYL-CP-007",
     taskKind: "MIXED_MODAL_CLASSIFICATION",
     scenarioGroup: "MIXED",
-    optionCount: DIAGNOSTIC_THREE_OPTION_COUNT,
-    answerTemplateId: DIAGNOSTIC_THREE_OPTION_TEMPLATE,
+    optionCount: 3,
+    answerTemplateId: "DIAGNOSTIC_THREE_OPTION_V1",
     renderer: "MODAL_CLASSIFICATION",
     sourcePatternIds: ["SYL-SRC-MULTILINGUAL-MIXED-001", "SYL-SRC-CROSS-ADV-001"],
     status: "IMPLEMENTED_MULTILINGUAL_REVIEW_RUNTIME",
