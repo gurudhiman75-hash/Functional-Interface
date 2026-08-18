@@ -39,7 +39,9 @@ jobs:
             spatial-paper-folding-permanent-english-runtime-v1 \
             spatial-paper-folding-english-freeze-v1 \
             spatial-paper-folding-localization-v1 \
-            spatial-paper-folding-localization-freeze-v1
+            spatial-paper-folding-localization-freeze-v1 \
+            spatial-paper-folding-visual-taxonomy-remediation-v4 \
+            spatial-paper-folding-permanent-english-runtime-v2
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -71,6 +73,12 @@ jobs:
       - name: Validate PFC Hindi Punjabi freeze authority
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-localization-freeze-v1.test.mjs
 
+      - name: Validate PFC visual taxonomy remediation V4
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-visual-taxonomy-remediation-v4.test.mjs
+
+      - name: Validate PFC permanent English runtime V2 candidate
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-permanent-english-runtime-v2.test.mjs
+
       - name: Upload PFC foundation and discovery evidence
         uses: actions/upload-artifact@v4
         with:
@@ -87,4 +95,8 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-hi-pa-localization-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-hi-pa-localization-v1-review.html
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-hi-pa-localization-freeze-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-visual-taxonomy-v4-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-visual-taxonomy-v4-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-permanent-english-runtime-v2-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-permanent-english-runtime-v2-review.html
           if-no-files-found: error
