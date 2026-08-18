@@ -25,3 +25,4 @@ export * from "./english-review-generator.ts";
 export * from "./localization-authority.ts";
 export * from "./localization-v1.ts";
 export * from "./localization-freeze-authority.ts";
+export * from "./question-studio-standard-integration.ts";

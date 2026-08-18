@@ -1,0 +1,107 @@
+name: Validate IOP-001 Question Studio integration
+
+on:
+  push:
+    branches:
+      - feat/iop-001-question-studio-v1
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/**
+      - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioInputOutputReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
+      - .github/workflows/iop-001-question-studio.yml
+  pull_request:
+    branches:
+      - feat/iop-001-localization-hi-pa-v1
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/**
+      - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioInputOutputReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
+      - .github/workflows/iop-001-question-studio.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-iop-001-question-studio-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  question-studio-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for IOP-owned modules
+        working-directory: artifacts/api-server
+        run: |
+          IOP_TS_FILES=$(find src/reasoning-v1/topics/InputOutput/IOP-001 -name '*.ts' ! -name 'question-studio-global-routing.test.ts' -print)
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $IOP_TS_FILES
+
+      - name: Re-prove frozen English learner content
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-freeze-authority.test.ts
+
+      - name: Re-prove frozen Hindi Punjabi learner content
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/localization-freeze-authority.test.ts
+
+      - name: Prove permanent QL Question Studio-only exposure
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/permanent-authorities.test.ts
+
+      - name: Prove IOP standard Question Studio adapter
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-standard-integration.test.ts
+
+      - name: Prove source-mode difficulty routing
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-difficulty-routing.test.ts
+
+      - name: Prove exam vocabulary safety for word transformation
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-vocabulary-safety.test.ts
+
+      - name: Scale Question Studio across all source modes and languages
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-scale.test.ts
+
+      - name: Audit exam readiness across all source modes and languages
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/exam-readiness-audit.test.ts
+
+      - name: Prove global Question Studio routing through production-style bundle
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-global-routing.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=/tmp/iop-001-question-studio-global-routing.mjs
+          node /tmp/iop-001-question-studio-global-routing.mjs
+
+      - name: Typecheck admin Question Studio connection
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build

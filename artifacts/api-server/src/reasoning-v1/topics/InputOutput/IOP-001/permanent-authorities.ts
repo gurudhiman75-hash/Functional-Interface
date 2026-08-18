@@ -36,7 +36,7 @@ export interface IopPermanentQlAuthority {
   readonly allocationStatus: "PERMANENT_ALLOCATED";
   readonly englishProductionStatus: "ENGLISH_FROZEN";
   readonly localizationProductionStatus: "HI_PA_FROZEN_V1";
-  readonly questionStudioDiscoverable: false;
+  readonly questionStudioDiscoverable: true;
   readonly questionBankWritable: false;
   readonly testEligible: false;
   readonly publiclyPublishable: false;
@@ -55,7 +55,7 @@ const STANDARD_SOLVE_MODES: readonly IopPermanentSolveMode[] = [
 
 const deliveryLocks = {
   localizationProductionStatus: "HI_PA_FROZEN_V1" as const,
-  questionStudioDiscoverable: false as const,
+  questionStudioDiscoverable: true as const,
   questionBankWritable: false as const,
   testEligible: false as const,
   publiclyPublishable: false as const,
@@ -158,7 +158,7 @@ export const IOP_001_PERMANENT_QL_AUTHORITIES: readonly IopPermanentQlAuthority[
 export const IOP_001_PERMANENT_ALLOCATION = Object.freeze({
   packageId: "IOP-001" as const,
   chapterId: "REAS-INP" as const,
-  maturity: "MULTILINGUAL_FROZEN" as const,
+  maturity: "QUESTION_STUDIO_REVIEW_ONLY" as const,
   sourceFamilySaturation: "PASS_V1" as const,
   permanentQlCount: IOP_001_PERMANENT_QL_AUTHORITIES.length,
   whitelistedSourceModeCount: 19 as const,
@@ -171,7 +171,9 @@ export const IOP_001_PERMANENT_ALLOCATION = Object.freeze({
   hindiPunjabiHumanApproval: "APPROVED_2026_08_18" as const,
   localizationFreeze: true as const,
   questionStudioIntegrationAllowed: true as const,
-  questionStudioDiscoverable: false as const,
+  questionStudioDiscoverable: true as const,
+  questionStudioGeneratable: true as const,
+  questionStudioPersistenceAllowed: false as const,
   questionBankWritable: false as const,
   testEligible: false as const,
   publiclyPublishable: false as const,
@@ -183,10 +185,10 @@ export function getIopPermanentAuthority(qlId: IopPermanentQlId): IopPermanentQl
   return result;
 }
 
-export function assertIop001QuestionStudioIntegrationAllowedByPermanentAuthority(): true {
+export function assertIop001QuestionStudioIntegratedByPermanentAuthority(): true {
   return true;
 }
 
 export function assertIop001ProductDeliveryActivationAllowed(): never {
-  throw new Error("IOP-001 English/Hindi/Punjabi content is frozen. Question Studio integration may proceed, but Question Bank, test/mock and public delivery remain separately locked.");
+  throw new Error("IOP-001 is multilingual-frozen and Question Studio discoverable in review-only mode. Question Bank, test/mock and public delivery remain separately locked.");
 }
