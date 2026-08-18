@@ -11,3 +11,4 @@ export * from "./polynomial-division";
 export * from "./rational-equation";
 export * from "./root-relations";
 export * from "./root-comparison";
+export * from "./inequality";
