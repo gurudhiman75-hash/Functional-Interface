@@ -1,0 +1,81 @@
+name: Verify TRG-002 CP010 Localization V1
+
+on:
+  push:
+    branches:
+      - feat/trg-002-localization-hi-pa-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-cp010-localization-v1.yml
+  pull_request:
+    branches:
+      - feat/trg-002-mvp48-freeze
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-cp010-localization-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trg-002-cp010-localization-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Targeted Trigonometry TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg002-localization.json <<'EOF'
+          {"extends":"./tsconfig.json","compilerOptions":{"noEmit":true},"include":["src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**/*.ts"],"exclude":["src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts"],"references":[]}
+          EOF
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg002-localization.json --pretty false
+      - name: Protect frozen English 96-QL content
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-freeze-96.test.ts
+      - name: Execute CP010 Hindi Punjabi semantic-parity gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-cp010-v1.test.ts
+      - name: Export CP010 bilingual human-review pack
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-localization-cp010-review-v1.ts
+      - name: Verify CP010 review artifact
+        run: |
+          JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/localization-cp010-v1/TRG-002-CP010-HI-PA-LOCALIZATION-REVIEW-V1.json
+          HTML=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/localization-cp010-v1/TRG-002-CP010-HI-PA-LOCALIZATION-REVIEW-V1.html
+          test -s "$JSON" && test -s "$HTML"
+          node - "$JSON" <<'NODE'
+          const fs = require('fs');
+          const rows = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+          if (rows.length !== 48) throw new Error(`Expected 48 bilingual review records, got ${rows.length}`);
+          const qls = new Set(rows.map((row) => row.qlId));
+          if (qls.size !== 24) throw new Error(`Expected 24 QLs, got ${qls.size}`);
+          for (const qlId of qls) {
+            const qlRows = rows.filter((row) => row.qlId === qlId);
+            if (qlRows.length !== 2) throw new Error(`${qlId}: expected Hindi + Punjabi records`);
+            if (!qlRows.some((row) => row.locale === 'hi-IN')) throw new Error(`${qlId}: Hindi record missing`);
+            if (!qlRows.some((row) => row.locale === 'pa-IN')) throw new Error(`${qlId}: Punjabi record missing`);
+          }
+          for (const row of rows) {
+            if (row.humanReviewStatus !== 'PENDING') throw new Error(`${row.qlId}:${row.locale}: human language review must remain PENDING`);
+            if (row.freezeStatus !== 'NOT_FROZEN') throw new Error(`${row.qlId}:${row.locale}: multilingual candidate must remain NOT_FROZEN`);
+            if (row.activationAuthorized !== false) throw new Error(`${row.qlId}:${row.locale}: activation must remain OFF`);
+            if (row.localizationLifecycle?.multilingualFreezeGranted !== false) throw new Error(`${row.qlId}:${row.locale}: multilingual freeze must remain false`);
+            if (row.localizationLifecycle?.productDeliveryUnlocked !== false) throw new Error(`${row.qlId}:${row.locale}: delivery must remain locked`);
+          }
+          console.log(`TRG002_CP010_LOCALIZATION_REVIEW_PACK_PASS records=${rows.length} qls=${qls.size} locales=2 human=PENDING freeze=NO activation=OFF`);
+          NODE
+      - name: Upload CP010 localization review pack
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-cp010-hi-pa-localization-review-v1
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/localization-cp010-v1/
+          if-no-files-found: error
+          retention-days: 14
