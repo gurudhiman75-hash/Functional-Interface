@@ -37,11 +37,11 @@ jobs:
           pnpm exec tsc -p artifacts/api-server/tsconfig.trg002-v4.json --pretty false
       - name: Protect historical frozen English 96 authority
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/production-freeze-96.test.ts
-      - name: Verify V4 scenario catalog and baseline blocker discovery
+      - name: Verify V4 scenario catalog and live blocker audit
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-audit.test.ts
       - name: Verify QL013 exact-math repair
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-candidate.test.ts
-      - name: Verify first canonical V4 repurposes
+      - name: Verify canonical V4 redesigns
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-canonical.test.ts
       - name: Verify Wave1 physical scenario text
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-wave1-surface.test.ts
@@ -76,13 +76,13 @@ jobs:
           const fs=require('fs');
           const pack=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
           if(pack.records.length!==96) throw new Error(`Expected 96 tri-language records, got ${pack.records.length}`);
-          if(pack.records.filter((r)=>r.v4CanonicalOverride).length!==2) throw new Error('Expected 2 V4 canonical overrides in wave 1');
+          if(pack.records.filter((r)=>r.v4CanonicalOverride).length!==5) throw new Error('Expected 5 V4 canonical overrides after redesign wave two');
           for(const row of pack.records){
             if(!('solutionDiagram' in row)) throw new Error(`${row.qlId}: missing solutionDiagram`);
             if(!('diagramEvidence' in row)) throw new Error(`${row.qlId}: missing diagramEvidence`);
             if(row.lifecycle.multilingualFreezeGranted!==false||row.lifecycle.activationAuthorized!==false) throw new Error(`${row.qlId}: V4 lifecycle lock regression`);
           }
-          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} canonicalOverrides=2`);
+          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} canonicalOverrides=5`);
           NODE
       - name: Upload V4 audit and review pack
         uses: actions/upload-artifact@v4
