@@ -10,6 +10,8 @@ on:
       - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-average.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-exam-profiles.ts'
+      - 'artifacts/admin-app/src/features/question-studio/api.ts'
+      - 'artifacts/admin-app/src/data/exams.ts'
       - '.github/workflows/rnk-001-question-studio-review-v1.yml'
   pull_request:
     branches:
@@ -21,6 +23,8 @@ on:
       - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-average.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-exam-profiles.ts'
+      - 'artifacts/admin-app/src/features/question-studio/api.ts'
+      - 'artifacts/admin-app/src/data/exams.ts'
       - '.github/workflows/rnk-001-question-studio-review-v1.yml'
   workflow_dispatch:
 
@@ -54,6 +58,9 @@ jobs:
       - name: Prove both RNK admin routes use the shared review engine safely
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-profile-route-contract.test.ts
 
+      - name: Prove RNK is selectable through the existing admin cockpit capability bridge
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-admin-ui-contract.test.ts
+
       - name: Re-prove RNK chapter-wide English content freeze after lifecycle transition
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
 
@@ -62,3 +69,6 @@ jobs:
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
