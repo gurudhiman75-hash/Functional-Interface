@@ -53,10 +53,10 @@ function parallelogramDiagram(): GeoDiagramModel {
 function rhombusDiagram(): GeoDiagramModel {
   return {
     points: [
-      { id: "A", label: "A", x: 25, y: 80 },
-      { id: "B", label: "B", x: 105, y: 25 },
-      { id: "C", label: "C", x: 185, y: 80 },
-      { id: "D", label: "D", x: 105, y: 135 },
+      { id: "A", label: "A", x: 25, y: 85 },
+      { id: "B", label: "B", x: 95, y: 25 },
+      { id: "C", label: "C", x: 185, y: 75 },
+      { id: "D", label: "D", x: 115, y: 135 },
       { id: "O", label: "O", x: 105, y: 80 },
     ],
     segments: [
