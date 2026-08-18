@@ -62,10 +62,11 @@ assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("Three-state
 assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("target semantics") && entry.decision === "MERGE"));
 assert(DSF_MERGE_SPLIT_AUDIT.some((entry) => entry.concern.includes("Punjab-state") && entry.decision === "DEFER"));
 
-assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.status, "READY_FOR_CP000_FREEZE_REVIEW");
-assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.initialPermanentQlCandidateCount, 1);
-assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.initialCandidateId, "DSF-QL-CAND-001");
-assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.permanentIdsAllocated, false);
+assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.status, "CP000_FROZEN_INITIAL_QL_ALLOCATED");
+assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.initialPermanentQlCount, 1);
+assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.candidateId, "DSF-QL-CAND-001");
+assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.permanentQlId, "DSF-QL-001");
+assert.equal(DSF_PERMANENT_QL_ALLOCATION_DECISION.nextAvailableQlId, "DSF-QL-002");
 assert(DSF_PERMANENT_QL_ALLOCATION_DECISION.nonBlockingDeferredProfiles.some((reason) => reason.includes("Punjab")));
 assert(DSF_PERMANENT_QL_ALLOCATION_DECISION.resolvedEvidence.some((reason) => reason.includes("SSC CGL")));
 assert(DSF_PERMANENT_QL_ALLOCATION_DECISION.resolvedEvidence.some((reason) => reason.includes("ownership reconciled")));
