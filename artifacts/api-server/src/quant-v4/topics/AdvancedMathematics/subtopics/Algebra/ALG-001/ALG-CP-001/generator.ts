@@ -108,7 +108,7 @@ export function generateAlgCp001DiscoveryItem(candidateId: string, seed: number)
         cpId: "ALG-CP-001", candidateId, solveMode: candidate.solveMode, seed,
         stem: `If x = ${x}, find the value of ${variableTerm(a, "x")} ${signedConstant(b)}.`,
         answer: { kind: "RATIONAL", value },
-        explanation: `Substitute x = ${x}: ${a}(${x}) ${signedConstant(b)} = ${formatRational(value)}.`,
+        explanation: `We are given x = ${x}, so replace x by ${x} in the expression. This gives ${a}(${x}) ${signedConstant(b)}. Carrying out the multiplication and then combining the constant term gives ${formatRational(value)}. Therefore the value of the expression is ${formatRational(value)}.`,
         sourceStatus: candidate.sourceStatus,
       };
     }
@@ -123,7 +123,7 @@ export function generateAlgCp001DiscoveryItem(candidateId: string, seed: number)
         cpId: "ALG-CP-001", candidateId, solveMode: candidate.solveMode, seed,
         stem: `If x = ${x} and y = ${y}, find ${variableTerm(a, "x")} ${signedVariableTerm(b, "y")}.`,
         answer: { kind: "RATIONAL", value },
-        explanation: `Substitute x = ${x} and y = ${y}: ${a}(${x}) ${b < 0 ? "-" : "+"} ${Math.abs(b)}(${y}) = ${formatRational(value)}.`,
+        explanation: `The values of both variables are known, so substitute x = ${x} and y = ${y}. The expression becomes ${a}(${x}) ${b < 0 ? "-" : "+"} ${Math.abs(b)}(${y}). Evaluate the two products and combine them to get ${formatRational(value)}. Therefore the required value is ${formatRational(value)}.`,
         sourceStatus: candidate.sourceStatus,
       };
     }
