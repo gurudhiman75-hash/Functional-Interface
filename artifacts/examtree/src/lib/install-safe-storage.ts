@@ -5,9 +5,57 @@ import {
   type ActiveTestSession,
 } from "@/lib/storage";
 
+const ACTIVE_TEST_SESSIONS_KEY = "active_test_sessions";
 const originalSet = Storage.set.bind(Storage);
+type TimerMode = "overall" | "sectional";
+const timerModeByTest = new Map<string, TimerMode>();
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function readStoredActiveSessions(): Record<string, Record<string, unknown>> {
+  try {
+    const raw = localStorage.getItem(ACTIVE_TEST_SESSIONS_KEY);
+    const parsed = raw ? JSON.parse(raw) as unknown : {};
+    return isRecord(parsed) ? parsed as Record<string, Record<string, unknown>> : {};
+  } catch {
+    return {};
+  }
+}
+
+function inferTimerModes(value: unknown): void {
+  if (!isRecord(value)) return;
+  const previous = readStoredActiveSessions();
+
+  for (const [testId, nextValue] of Object.entries(value)) {
+    if (!isRecord(nextValue)) continue;
+    const before = previous[testId];
+    if (!isRecord(before)) continue;
+
+    const nextTimeLeft = Number(nextValue.timeLeft);
+    const beforeTimeLeft = Number(before.timeLeft);
+    if (Number.isFinite(nextTimeLeft) && Number.isFinite(beforeTimeLeft) && nextTimeLeft < beforeTimeLeft) {
+      timerModeByTest.set(testId, "overall");
+      continue;
+    }
+
+    const nextSections = nextValue.sectionTimeLeftByName;
+    const beforeSections = before.sectionTimeLeftByName;
+    if (!isRecord(nextSections) || !isRecord(beforeSections)) continue;
+
+    const sectionalTicked = Object.keys(nextSections).some((name) => {
+      const next = Number(nextSections[name]);
+      const prior = Number(beforeSections[name]);
+      return Number.isFinite(next) && Number.isFinite(prior) && next < prior;
+    });
+    if (sectionalTicked) timerModeByTest.set(testId, "sectional");
+  }
+}
 
 Storage.set = (key: string, value: unknown): void => {
+  if (key === ACTIVE_TEST_SESSIONS_KEY) inferTimerModes(value);
+
   try {
     originalSet(key, value);
     return;
@@ -23,7 +71,7 @@ Storage.set = (key: string, value: unknown): void => {
       "attempts",
       "question_responses",
       "attempt_records",
-      "active_test_sessions",
+      ACTIVE_TEST_SESSIONS_KEY,
     ]) {
       if (cacheKey !== key) localStorage.removeItem(cacheKey);
     }
@@ -36,11 +84,12 @@ Storage.set = (key: string, value: unknown): void => {
 // Browser timers are aggressively throttled or suspended when a mobile tab is
 // backgrounded. The runner deliberately pauses only when the student chooses
 // "Save & Exit"; merely switching apps/tabs must not create free exam time.
-// Reconcile only sessions that were actively ticking immediately before the
-// tab became hidden, using the draft's own updatedAt as the clock anchor. This
-// avoids double-counting seconds that continued to tick while hidden.
+// Reconcile only sessions whose timer mode was proven by successive live draft
+// updates immediately before the tab became hidden. Using the latest draft's
+// updatedAt prevents double-counting seconds that continued to tick while hidden.
 type HiddenActiveTest = {
   testId: string;
+  mode: TimerMode;
   updatedAtWhenHidden: number;
 };
 
@@ -62,12 +111,7 @@ function reconcileSectionalTimer(
   elapsedSeconds: number,
 ): ActiveTestSession {
   const names = Object.keys(session.sectionTimeLeftByName ?? {});
-  if (names.length === 0) {
-    return {
-      ...session,
-      timeLeft: Math.max(0, session.timeLeft - elapsedSeconds),
-    };
-  }
+  if (names.length === 0) return session;
 
   const nextTimes = { ...session.sectionTimeLeftByName };
   let sectionIndex = Math.min(Math.max(session.currentSectionIndex, 0), names.length - 1);
@@ -110,14 +154,17 @@ function reconcileVisibleTestTimer(): void {
   const session = getActiveTestSession(testId);
   if (!session || session.attemptType !== "REAL") return;
 
-  // If another live tick/save happened after the tab was hidden, count only the
-  // interval since that most recent authoritative local draft update.
+  // If normal interval ticks continued after the tab was hidden, count only the
+  // interval since that most recent saved tick rather than the whole hidden span.
   const anchor = Math.max(marker.updatedAtWhenHidden, Number(session.updatedAt ?? 0));
   const now = Date.now();
   const elapsedSeconds = Math.floor(Math.max(0, now - anchor) / 1000);
   if (elapsedSeconds < 2) return;
 
-  const reconciled = reconcileSectionalTimer(session, elapsedSeconds);
+  const reconciled = marker.mode === "sectional"
+    ? reconcileSectionalTimer(session, elapsedSeconds)
+    : { ...session, timeLeft: Math.max(0, session.timeLeft - elapsedSeconds) };
+
   saveActiveTestSession({ ...reconciled, updatedAt: now });
 
   // Reload from the reconciled draft so React state and the visible clock cannot
@@ -130,7 +177,8 @@ if (typeof document !== "undefined") {
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       const testId = currentTestId();
-      if (!testId) {
+      const mode = testId ? timerModeByTest.get(testId) : undefined;
+      if (!testId || !mode) {
         hiddenActiveTest = null;
         return;
       }
@@ -143,7 +191,7 @@ if (typeof document !== "undefined") {
         session.timeLeft > 0 &&
         ageMs >= 0 &&
         ageMs <= 5_000
-          ? { testId, updatedAtWhenHidden: session.updatedAt }
+          ? { testId, mode, updatedAtWhenHidden: session.updatedAt }
           : null;
       return;
     }
