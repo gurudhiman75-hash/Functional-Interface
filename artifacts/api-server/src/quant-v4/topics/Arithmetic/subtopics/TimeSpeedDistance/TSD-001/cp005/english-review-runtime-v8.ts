@@ -9,8 +9,6 @@ function explanationHasAwkwardFraction(question: TsdCp005EnglishReviewQuestion):
   for (const match of text.matchAll(/\b(\d+)\/(\d+)\b/g)) {
     const numerator = Number(match[1]);
     const denominator = Number(match[2]);
-    // Simple ratio arithmetic such as 2/3, 3/2 or 5/8 is normal in a worked
-    // solution. Reject large raw rationals that read like generator output.
     if (numerator > 10 || denominator > 10) return true;
   }
   return false;
@@ -21,7 +19,6 @@ function normalizeExamStem(stem: string): string {
     .replace("Find the time of their next meeting after both-endpoint motion has begun.", "After their first meeting, how long after the start will they meet again?")
     .replace("A road trial follows two vehicles on the same bounded route.", "Two vehicles travel on a straight route between fixed endpoints A and B.")
     .replace("A motion log records repeated travel between two fixed checkpoints.", "Two travellers move repeatedly between two fixed checkpoints.")
-    .replace("A starts from P at", "A starts from P at")
     .replace("touches Q and immediately returns", "reaches Q and immediately returns");
 }
 
@@ -38,7 +35,10 @@ function learnerText(question: TsdCp005EnglishReviewQuestion): string {
 
 export function isCp005ExamFriendlySelectedState(question: TsdCp005EnglishReviewQuestion): boolean {
   const text = learnerText(question);
-  return !RAW_FRACTION.test(question.stem)
+  const nthIsNonDuplicate = (question.solveMode !== "findNthMeetingTimeOnLine" && question.solveMode !== "findNthMeetingPointOnLine")
+    || (question.input.nthMeeting ?? 0) >= 3;
+  return nthIsNonDuplicate
+    && !RAW_FRACTION.test(question.stem)
     && !RAW_FRACTION.test(question.answerText)
     && !explanationHasAwkwardFraction(question)
     && !text.includes("road-study")
