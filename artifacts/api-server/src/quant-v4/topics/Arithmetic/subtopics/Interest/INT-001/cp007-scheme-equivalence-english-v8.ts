@@ -33,6 +33,7 @@ function polishLearnerProse(text: string): string {
       const unit = years === "1" ? "year" : "years";
       return `compound interest with annual compounding for ${years} ${unit}`;
     })
+    .replace(/compound interest compounded annually/gu, "compound interest with annual compounding")
     .replace(/Scheme B runs for (\d+) years? under simple interest/gu, (_match, years: string) => {
       const unit = years === "1" ? "year" : "years";
       return `Scheme B uses simple interest for ${years} ${unit}`;
