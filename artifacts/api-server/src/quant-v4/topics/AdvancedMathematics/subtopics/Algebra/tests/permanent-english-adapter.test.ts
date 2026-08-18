@@ -84,6 +84,9 @@ for (const allocation of ALG_PERMANENT_ALLOCATION) {
     assert(first.freezeKey === allocation.freezeKey, `${allocation.qlId} freeze-key mismatch`);
     assert(first.prototypeId === prototypeIds[variantIndex], `${allocation.qlId} prototype selection mismatch`);
     assert(first.rawDiscoveryItem.candidateId === prototypeIds[variantIndex], `${allocation.qlId} raw prototype mismatch`);
+    assert(first.prototypeSolveMode === first.rawDiscoveryItem.solveMode, `${allocation.qlId} solve-mode provenance mismatch`);
+    assert(stable(first.canonicalAnswer) === stable(first.rawDiscoveryItem.answer), `${allocation.qlId} canonical-answer provenance mismatch`);
+    assert(first.canonicalAnswer !== undefined, `${allocation.qlId} dropped its canonical answer`);
     assert(first.question.length > 10, `${allocation.qlId} emitted an empty English question`);
     assert(first.explanation.length > 25, `${allocation.qlId} emitted an incomplete English explanation`);
     assert(first.maturity === "PERMANENT_IDENTITY_ENGLISH_CANDIDATE", `${allocation.qlId} leaked maturity`);
