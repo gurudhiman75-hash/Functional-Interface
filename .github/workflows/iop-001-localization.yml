@@ -1,0 +1,76 @@
+name: Validate IOP-001 Hindi Punjabi localization V1
+
+on:
+  push:
+    branches:
+      - feat/iop-001-localization-hi-pa-v1
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/**
+      - .github/workflows/iop-001-localization.yml
+  pull_request:
+    branches:
+      - feat/iop-001-foundation-cp001-cp004
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/**
+      - .github/workflows/iop-001-localization.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-iop-001-localization-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  localization-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/InputOutput/IOP-001 -name '*.ts' -print)
+
+      - name: Re-prove frozen English learner content
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-freeze-authority.test.ts
+
+      - name: Audit Hindi Punjabi semantic parity and language quality
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/localization-v1.test.ts
+
+      - name: Generate Hindi Punjabi human review pack
+        env:
+          IOP_LOCALIZATION_REVIEW_OUTPUT_DIR: /tmp/iop-localization-review
+          IOP_LOCALIZATION_REVIEW_EXAMPLES_PER_MODE: 2
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/localization-review-export.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: iop-001-hi-pa-localization-review-v1
+          path: /tmp/iop-localization-review/**
+          if-no-files-found: error
+          retention-days: 14
