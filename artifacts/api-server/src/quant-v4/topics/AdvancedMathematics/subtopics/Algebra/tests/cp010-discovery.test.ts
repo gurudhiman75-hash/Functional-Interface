@@ -90,6 +90,13 @@ for (const candidate of ALG_CP010_DISCOVERY_CANDIDATES) {
         const sum = addRational(alpha, beta);
         const product = multiplyRational(alpha, beta);
         transformedRoots = [addRational(product, sum), subtractRational(product, sum)];
+      } else if (candidate.solveMode === "constructEquationWithReciprocalThenShiftedRoots") {
+        assert(first.transformEvidence?.kind === "RECIPROCAL_THEN_SHIFT", `${candidate.candidateId} seed ${seed} lacks composed-transform evidence`);
+        const shift = first.transformEvidence!.kind === "RECIPROCAL_THEN_SHIFT" ? first.transformEvidence!.value : rational(0n);
+        transformedRoots = [
+          addRational(divideRational(rational(1n), alpha), shift),
+          addRational(divideRational(rational(1n), beta), shift),
+        ];
       } else {
         transformedRoots = [alpha, beta];
       }
