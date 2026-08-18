@@ -20,6 +20,7 @@ const forbidden = [
   "ਉਚਾਈ ਕੋਣ", "ਅਵਨਮਨ ਕੋਣ",
   "ਦਾ ਉਚਾਈ", "ਦੇ ਉਚਾਈ",
   "अंतर/ऊँचाई", "ਅੰਤਰ/ਉਚਾਈ",
+  "पाद", "ਪੈਰ",
 ];
 
 function learnerText(question: any) {
@@ -51,7 +52,7 @@ for (const [index, qlId] of TRG_002_EXAM_REALNESS_LOCALIZATION_QL_IDS.entries())
       assert(!text.includes("ਅਵਨਮਨ ਕੋਣ"), `${qlId}:${locale}: Punjabi depression term must use ਨਿਵਾਣ ਕੋਣ.`);
     }
     if (["TRG-002-QL-083", "TRG-002-QL-084", "TRG-002-QL-085"].includes(qlId)) {
-      assert(locale === "hi-IN" ? question.stem.includes("पादों के बीच क्षैतिज दूरी") : question.stem.includes("ਪੈਰਾਂ ਵਿਚਕਾਰ ਖਿਤਿਜੀ ਦੂਰੀ"), `${qlId}:${locale}: building foot-to-foot horizontal distance must be explicit.`);
+      assert(locale === "hi-IN" ? question.stem.includes("आधारों के बीच क्षैतिज दूरी") : question.stem.includes("ਅਧਾਰਾਂ ਵਿਚਕਾਰ ਖਿਤਿਜੀ ਦੂਰੀ"), `${qlId}:${locale}: building base-to-base horizontal distance must be explicit.`);
     }
     records += 1;
   }
