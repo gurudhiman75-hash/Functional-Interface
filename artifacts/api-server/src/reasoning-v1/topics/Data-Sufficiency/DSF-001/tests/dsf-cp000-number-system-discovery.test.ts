@@ -53,8 +53,6 @@ const neither = corpus.find((entry) => entry.prototypeId === "DSF-NUM-PROT-NEITH
 assert.deepEqual(neither.evaluation.together.normalizedTargetAnswers, ["0", "6"]);
 assert.equal(neither.evaluation.classification, "INSUFFICIENT_EVEN_TOGETHER");
 
-// Real adapter proof of the chapter-defining semantic: five complete digit worlds survive,
-// yet Statement I is sufficient because every one answers the asked parity target as EVEN.
 const projection = corpus.find((entry) => entry.prototypeId === "DSF-NUM-PROT-TARGET-PROJECTION")!;
 assert.equal(projection.problem.targetKind, "DIGIT_PARITY");
 assert.equal(projection.evaluation.statementI.worldCount, 5);
@@ -82,14 +80,15 @@ assert.deepEqual(coverage, {
   quant: 6,
   reasoning: 6,
   byReadiness: {
-    EXECUTABLE_PROTOTYPE: 1,
+    EXECUTABLE_PROTOTYPE: 3,
     EXISTING_RUNTIME_AUDIT: 2,
-    PROTOTYPE_REQUIRED: 7,
+    PROTOTYPE_REQUIRED: 5,
     DEFERRED: 2,
   },
 });
 assert(DSF_COVERAGE_MATRIX.every((row) => row.ownership !== "TO_BE_RESOLVED"));
-assert(DSF_COVERAGE_MATRIX.some((row) => row.domainFamily === "REASONING" && row.sourceChapter === "Ranking and Order"));
+assert(DSF_COVERAGE_MATRIX.some((row) => row.domainFamily === "REASONING" && row.sourceChapter === "Ranking and Order" && row.readiness === "EXECUTABLE_PROTOTYPE"));
+assert(DSF_COVERAGE_MATRIX.some((row) => row.domainFamily === "QUANT" && row.sourceChapter === "Algebra" && row.readiness === "EXECUTABLE_PROTOTYPE"));
 assert(DSF_COVERAGE_MATRIX.some((row) => row.domainFamily === "REASONING" && row.sourceChapter === "Seating Arrangement" && row.readiness === "DEFERRED"));
 
 console.log(JSON.stringify({
