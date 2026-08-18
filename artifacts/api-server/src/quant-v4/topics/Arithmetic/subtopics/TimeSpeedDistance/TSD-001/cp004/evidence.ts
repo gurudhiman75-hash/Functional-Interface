@@ -1,4 +1,5 @@
 import { TSD_CP003_HI_PA_APPROVED_SOURCE_HEAD, TSD_CP003_HI_PA_FREEZE_ID, TSD_CP003_HI_PA_FREEZE_STATUS } from "../cp003/localization/native-approved-freeze";
+import { assertCp004FinalExamReadiness } from "./exam-readiness-proof";
 import { TSD_CP004_PERMANENT_QL_IDS, TSD_CP004_NEXT_PERMANENT_QL_ID } from "./ql-allocation";
 import { TSD_CP004_REVIEW_AUTHORITIES } from "./generator";
 import { generateCp004AuditPool, generateCp004ReviewQuestions } from "./runtime-engine";
@@ -22,6 +23,8 @@ function wrongPaths(row: (typeof audit)[number]): readonly string[] {
 
 const audit = generateCp004AuditPool(40);
 const selected = generateCp004ReviewQuestions(6);
+
+assertCp004FinalExamReadiness(audit, selected);
 
 assert(TSD_CP004_REVIEW_AUTHORITIES.length === 10, "expected ten CP004 learner authorities");
 assert(TSD_CP004_PERMANENT_QL_IDS.length === 10, "expected ten CP004 permanent QLs");
@@ -84,7 +87,7 @@ assert(TSD_CP003_HI_PA_APPROVED_SOURCE_HEAD === "49965e649a7f688c2dd9f3ca5a2c909
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "TSD_CP004_ENGLISH_CANDIDATE_V2_EDITORIAL",
+  phase: "TSD_CP004_ENGLISH_CANDIDATE_V3_EXAM_READINESS",
   permanentQlRange: "TSD-QL-048..TSD-QL-057",
   nextPermanentQl: TSD_CP004_NEXT_PERMANENT_QL_ID,
   learnerAuthorities: TSD_CP004_REVIEW_AUTHORITIES.length,
@@ -101,6 +104,7 @@ console.log(JSON.stringify({
   difficulty,
   publicExplanationContract: "METHOD_CONNECTED_NUMERIC_STEPS_SHORTCUT_ANSWER",
   optionAnalysisPublic: false,
+  examReadinessSemanticProof: true,
   englishFreezeStatus: "UNFROZEN",
   questionStudioEnabled: false,
   questionBankStatus: "NOT_STORED",
