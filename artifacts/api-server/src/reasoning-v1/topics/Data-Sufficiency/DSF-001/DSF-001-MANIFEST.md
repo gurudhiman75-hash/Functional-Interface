@@ -29,7 +29,7 @@ Build and prove the chapter-level semantics before permanent domain content gene
 7. compute minimal sufficient statement subsets;
 8. keep answer-contract rendering separate from semantic truth;
 9. audit existing DS-shaped runtimes before reuse;
-10. prove source-chapter adapter reuse with executable prototypes;
+10. prove Quant and Reasoning adapter behavior with executable prototypes;
 11. keep permanent QLs and Question Studio publication locked during discovery.
 
 ## Canonical classes
@@ -67,16 +67,36 @@ Audited on `New-main`:
 - Time and Work `TMW-001`: reusable scenarios, but migrate intended `iUnique` flags to shared proof;
 - Simplification `SAP-001`: reusable bounded candidate solving, but its four-class contract omits `EACH_STATEMENT_ALONE` and must not become the canonical DS contract.
 
-### First source adapter
+### Executable Quant proof — Number System
 
-`DSF-NUM-PROT-*` now reuses the actual `NUM-001/foundation/divisibility.ts` capability and routes all sufficiency truth through the shared DSF evaluator.
+`DSF-NUM-PROT-*` reuses the actual `NUM-001/foundation/divisibility.ts` capability and routes all sufficiency truth through the shared DSF evaluator.
 
-The executable corpus proves:
+The corpus proves all five classes plus a target-projection case where five complete digit worlds remain but the asked parity answer is uniquely `EVEN`.
 
-- all five canonical classes;
-- real source-capability reuse;
-- no permanent QL identity;
-- target projection with multiple complete digit worlds: five possible even digits remain while the asked parity answer is uniquely `EVEN`.
+### Executable Quant proof — Algebra target function
+
+`DSF-ALG-PROT-TARGET-FUNCTION-BOTH-ONLY` uses bounded integer worlds to prove the important algebraic case:
+
+- Statement I: `xy = 24`;
+- Statement II: `|x-y| = 2`;
+- neither statement alone fixes `x+y`;
+- together the complete worlds `(4,6)` and `(6,4)` both survive;
+- the asked target `x+y` is nevertheless uniquely `10`.
+
+This is a discovery semantic proof only. Production Algebra source-runtime integration remains pending because a reusable Algebra runtime is not present on `New-main` yet.
+
+### Executable Reasoning proof — Ranking and Order
+
+`DSF-RNK-PROT-*` now provides the first relational adapter proof:
+
+- all 24 total orders of four entities form the finite discovery world-space;
+- DSF filters worlds independently under Statement I, Statement II and their conjunction;
+- the asked target is A's rank from the top;
+- target sets are independently checked with the existing `RNK-CP-007/exactRankSet` capability;
+- all five canonical sufficiency classes are covered;
+- a statement can leave six complete orders while fixing A's rank uniquely to `1`.
+
+The local permutation enumerator is discovery scaffolding, not a new production Ranking solver. Production integration should consume a source-owned valid-order enumeration/constraint interface when exposed by RNK.
 
 ### Coverage matrix
 
@@ -84,9 +104,9 @@ Architectural matrix currently tracks 12 source-domain groups:
 
 - 6 Quant;
 - 6 Reasoning;
-- 1 executable source adapter;
-- 2 existing-runtime audits;
-- 7 prototype-required groups;
+- 3 executable prototype groups: Number System, Algebra, Ranking and Order;
+- 2 existing-runtime audits: Simplification and Time & Work;
+- 5 prototype-required groups;
 - 2 constraint-heavy groups deferred.
 
 This matrix is architectural coverage only. Real exam/PYQ source-pattern discovery remains required before permanent QL allocation.
@@ -103,10 +123,10 @@ Until CP-000 discovery is reviewed:
 
 ## Remaining CP-000 work
 
-1. attach source/PYQ pattern evidence and perform merge/split analysis;
-2. build Algebra target-function prototype;
-3. build first relational prototype, preferably Ranking and Order;
-4. reconcile existing TMW/SAP/NUM DS ownership with the chapter-level adapter model;
+1. attach SSC / Banking / Punjab-state source or PYQ pattern evidence;
+2. perform prototype merge/split analysis and decide permanent QL boundaries;
+3. reconcile existing TMW/SAP/NUM DS ownership with the chapter-level adapter model;
+4. record the RNK production valid-order interface requirement discovered by the prototype;
 5. freeze the discovery coverage matrix before allocating `DSF-QL-*` IDs.
 
 ## Exit gate
@@ -119,7 +139,7 @@ CP-000 may advance only when:
 - contradiction/inconsistency tests pass;
 - monotonicity and answer-agreement invariants pass;
 - the standard five-option semantic contract is exclusive and exhaustive;
-- at least one Quant and one Reasoning adapter prove source-solver reuse;
+- Quant and Reasoning cross-domain adapter semantics are executable;
 - existing DS-shaped runtime ownership is reconciled;
 - source-pattern discovery and merge/split audit are reviewed;
 - permanent QL allocation remains locked until those gates pass.
