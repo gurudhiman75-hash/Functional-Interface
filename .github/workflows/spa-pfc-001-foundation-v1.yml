@@ -36,7 +36,9 @@ jobs:
             spatial-paper-folding-discovery-v1 \
             spatial-paper-folding-discovery-audit-v1 \
             spatial-permanent-ql-allocation-v3 \
-            spatial-paper-folding-permanent-english-runtime-v1
+            spatial-paper-folding-permanent-english-runtime-v1 \
+            spatial-paper-folding-english-freeze-v1 \
+            spatial-paper-folding-localization-v1
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -59,6 +61,12 @@ jobs:
       - name: Validate PFC permanent English runtime
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-permanent-english-runtime-v1.test.mjs
 
+      - name: Validate PFC English freeze authority
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-english-freeze-v1.test.mjs
+
+      - name: Validate PFC Hindi Punjabi localization parity
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-localization-v1.test.mjs
+
       - name: Upload PFC foundation and discovery evidence
         uses: actions/upload-artifact@v4
         with:
@@ -71,4 +79,7 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-permanent-ql-allocation-v3-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-permanent-english-runtime-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-permanent-english-runtime-v1-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-english-freeze-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-hi-pa-localization-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-hi-pa-localization-v1-review.html
           if-no-files-found: error
