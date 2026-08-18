@@ -25,6 +25,8 @@ const model: GeoDiagramModel = {
 const svg = renderGeometrySvg(model);
 assert((svg.match(/data-geo-kind="segment"/g) ?? []).length === 2, "Renderer changed segment count");
 assert((svg.match(/data-geo-kind="parallel-mark"/g) ?? []).length === 1, "Renderer failed to preserve explicit parallel mark");
+assert(svg.includes("<path"), "Parallel relation marker is semantic-only and not visibly rendered");
+assert(svg.includes("viewBox="), "Responsive Geometry viewBox is missing");
 assert(!svg.includes("right-angle-mark"), "Renderer invented a right-angle relation");
 assert(svg.includes('data-geometry-renderer="EXAMTREE_GEOMETRY_SVG_V1"'), "Renderer version marker missing");
 pass("diagram-semantic-parity");
