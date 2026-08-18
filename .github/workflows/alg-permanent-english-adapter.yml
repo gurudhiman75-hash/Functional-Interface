@@ -55,7 +55,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-editorial-audit.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=artifacts/api-server/dist/quant-v4/algebra/permanent-english-editorial-audit.test.mjs
+            --outfile=dist/quant-v4/algebra/permanent-english-editorial-audit.test.mjs
       - name: Run permanent English editorial audit
         run: |
           cd artifacts/api-server
