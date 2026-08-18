@@ -3,6 +3,7 @@ import {
   DS_STANDARD_5_EN,
   SufficiencyInvariantError,
   classifyTwoStatementResults,
+  evaluateFiniteDomainPair,
   evaluateTwoStatementSufficiency,
   evaluateWorldSet,
   findMinimalSufficientSubsets,
@@ -151,6 +152,23 @@ const genericMinimal = findMinimalSufficientSubsets([
 ]);
 assert.deepEqual(genericMinimal, [["I", "II"], ["II", "III"]]);
 
+const boundedIntegerAdapter = {
+  adapterId: "TEST_BOUNDED_INTEGER",
+  domainFamily: "QUANT" as const,
+  enumerateBaseWorlds: (problem: { min: number; max: number }) => range(problem.min, problem.max),
+  statementHolds: (_problem: { min: number; max: number }, world: number, statement: (value: number) => boolean) => statement(world),
+  evaluateTarget: (_problem: { min: number; max: number }, world: number) => world % 2 === 0,
+  normalizeAnswer: boolKey,
+};
+const adapterProof = evaluateFiniteDomainPair(
+  boundedIntegerAdapter,
+  { min: 1, max: 6 },
+  (x: number) => x >= 2 && x <= 4,
+  (x: number) => x !== 3 && x !== 6,
+);
+assert.equal(adapterProof.classification, "BOTH_TOGETHER_ONLY");
+assert.deepEqual(adapterProof.together.normalizedTargetAnswers, ["YES"]);
+
 // Exhaustive finite-domain property sweep over every non-empty statement subset.
 const propertyBase = [0, 1, 2, 3] as const;
 const swappedClass = (value: string): string => value === "STATEMENT_I_ONLY"
@@ -216,5 +234,6 @@ console.log(JSON.stringify({
     minimalSufficientSubsets: true,
     exclusiveStandardFiveContract: true,
     exhaustiveFiniteDomainProperties: propertyCases,
+    finiteDomainAdapterBridge: true,
   },
 }, null, 2));
