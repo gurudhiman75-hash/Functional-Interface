@@ -17,6 +17,8 @@ let lifecycleChecks = 0;
 let minimumLengthChecks = 0;
 let concatenationChecks = 0;
 let greatestBoundChecks = 0;
+let residueOptionRangeChecks = 0;
+let boundedOptionRangeChecks = 0;
 
 for (const prototypeId of NUM_CP008_WAVE04_PROTOTYPE_IDS) {
   positions.set(prototypeId, new Set());
@@ -66,15 +68,28 @@ for (const prototypeId of NUM_CP008_WAVE04_PROTOTYPE_IDS) {
       const residues = state.residues as number[];
       assert(residues[residues.length - 1] === 0, `${label}: final recurrence residue not zero`);
       assert(residues.slice(0, -1).every((value) => value !== 0), `${label}: minimum length not proven`);
+      assert(residues.length <= 12, `${label}: learner recurrence trail too long (${residues.length})`);
       minimumLengthChecks += 1;
     }
     if (prototypeId === "NUM-CP008-PROT-026") {
       assert((state.residues as number[]).length === Number(state.repeats), `${label}: block recurrence length drift`);
+      const modulus = Number(state.modulus);
+      for (const option of q.options) {
+        const value = Number(option.value);
+        assert(Number.isSafeInteger(value) && value >= 0 && value < modulus, `${label}: residue option ${option.value} outside [0, ${modulus - 1}]`);
+        residueOptionRangeChecks += 1;
+      }
       concatenationChecks += 1;
     }
     if (prototypeId === "NUM-CP008-PROT-027") {
-      assert(Number(state.answer) <= Number(state.upper), `${label}: greatest answer exceeds bound`);
-      assert(Number(state.answer) + Number(state.period) > Number(state.upper), `${label}: answer is not greatest`);
+      const upper = Number(state.upper);
+      assert(Number(state.answer) <= upper, `${label}: greatest answer exceeds bound`);
+      assert(Number(state.answer) + Number(state.period) > upper, `${label}: answer is not greatest`);
+      for (const option of q.options) {
+        const value = Number(option.value);
+        assert(Number.isSafeInteger(value) && value >= 1 && value <= upper, `${label}: bounded option ${option.value} outside [1, ${upper}]`);
+        boundedOptionRangeChecks += 1;
+      }
       greatestBoundChecks += 1;
     }
     if (prototypeId === "NUM-CP008-PROT-028") solutionClasses.add(q.canonicalAnswer);
@@ -94,6 +109,8 @@ assert(solutionClasses.size === 3, `Expected no/one/many bounded classes, got ${
 assert(minimumLengthChecks === 120, `Minimum-length checks ${minimumLengthChecks}`);
 assert(concatenationChecks === 120, `Concatenation checks ${concatenationChecks}`);
 assert(greatestBoundChecks === 120, `Greatest-bound checks ${greatestBoundChecks}`);
+assert(residueOptionRangeChecks === 480, `Residue option range checks ${residueOptionRangeChecks}`);
+assert(boundedOptionRangeChecks === 480, `Bounded option range checks ${boundedOptionRangeChecks}`);
 
 console.log(JSON.stringify({
   status: "PASS_NUM_CP008_WAVE04_RUNTIME_AUTHORITY",
@@ -106,6 +123,8 @@ console.log(JSON.stringify({
   minimumLengthChecks,
   concatenationChecks,
   greatestBoundChecks,
+  residueOptionRangeChecks,
+  boundedOptionRangeChecks,
   boundedSolutionClasses: [...solutionClasses].sort(),
   answerPositions: Object.fromEntries([...positions].map(([key, value]) => [key, [...value].sort()])),
   difficultyReach: Object.fromEntries([...difficulties].map(([key, value]) => [key, [...value].sort()])),
