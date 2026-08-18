@@ -29,16 +29,18 @@ jobs:
         run: |
           set -euo pipefail
           ROOT=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry
-          echo "a967cb8a28c966e8bca575a302862d05424e0002b840598661e4163ff03f7c12  $ROOT/design-authority-rev2/part-01.md" | sha256sum -c -
+          echo "aaf04f001b231c1c6548eb126d7788206239ce55c22613c1ef5f0630db263829  $ROOT/design-authority-rev2/part-01.md" | sha256sum -c -
           echo "b4ffa720d118f479928d6a12858a2f331d6371ffba38ab8005cc1d46a0de1e2e  $ROOT/design-authority-rev2/part-02.md" | sha256sum -c -
-          echo "83be39a8379c0ca75bf004d6be6008dc2d05169cc1f4ba9eefa2cc3ed730468b  $ROOT/design-authority-rev2/part-03.md" | sha256sum -c -
+          echo "7166d89e7d6b88926121bc1e4d70772289b0a797abcc8016ff6600a4ee99f969  $ROOT/design-authority-rev2/part-03.md" | sha256sum -c -
           echo "90fc6bf15e319da3d82180a5943ffe4a68e71dd1d5bff00de7e33835ba0f3735  $ROOT/design-authority-rev2/part-04.md" | sha256sum -c -
-          cat \
-            "$ROOT/design-authority-rev2/part-01.md" \
-            "$ROOT/design-authority-rev2/part-02.md" \
-            "$ROOT/design-authority-rev2/part-03.md" \
-            "$ROOT/design-authority-rev2/part-04.md" \
-            > /tmp/GEO-END-TO-END-DESIGN-REV2.reconstructed.md
+          {
+            cat "$ROOT/design-authority-rev2/part-01.md"
+            printf '\n'
+            cat "$ROOT/design-authority-rev2/part-02.md"
+            cat "$ROOT/design-authority-rev2/part-03.md"
+            printf '\n'
+            cat "$ROOT/design-authority-rev2/part-04.md"
+          } > /tmp/GEO-END-TO-END-DESIGN-REV2.reconstructed.md
           echo "1790e494167121d2541145deea128d202feb125496ac72533a3340f09edf10d8  /tmp/GEO-END-TO-END-DESIGN-REV2.reconstructed.md" | sha256sum -c -
       - name: Set up Node
         uses: actions/setup-node@v4
