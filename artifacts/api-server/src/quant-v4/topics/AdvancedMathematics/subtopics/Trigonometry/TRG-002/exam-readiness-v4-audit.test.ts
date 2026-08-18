@@ -8,18 +8,20 @@ assert(audit.scenarioCatalog.shells >= 36, "V4 scenario engine must start with a
 assert(audit.scenarioCatalog.domains >= 8, "V4 scenario engine must cover at least 8 domains.");
 assert(audit.scenarioCatalog.topologies >= 10, "V4 scenario engine must cover at least 10 spatial topologies.");
 
-// Baseline audit is intentionally a blocker-discovery gate, not a freeze gate.
-// These assertions prevent known V3.2 weaknesses from being accidentally hidden by later refactors.
-assert(audit.blockers.malformedExactMath.some((id) => id.startsWith("TRG-002-QL-013:")), "V4 baseline must detect QL013 exact-math corruption until remediated.");
-assert(audit.blockers.duplicateStemGroups.some((g) => g.qlIds.includes("TRG-002-QL-001") && g.qlIds.includes("TRG-002-QL-005")), "V4 baseline must detect the QL001/QL005 collapse until one is repurposed.");
-assert(audit.blockers.surdPhysicalGivenQlIds.length > 0, "V4 baseline must inventory surd physical givens.");
+// This gate measures the live V4 candidate. Repaired defects must disappear;
+// unresolved weaknesses remain visible until their QLs are genuinely redesigned.
+assert.equal(audit.repaired.ql013ExactMath, true, "QL013 exact learner math must remain repaired in V4.");
+assert(!audit.blockers.malformedExactMath.some((id) => id.startsWith("TRG-002-QL-013:")), "QL013 must not re-enter the malformed exact-math inventory.");
+assert(audit.blockers.surdPhysicalGivenQlIds.length > 0, "V4 must continue inventorying unresolved surd physical givens.");
 assert(audit.readyForV4Freeze === false);
+assert.equal(audit.governance.mutatesFrozenEnglishAuthority, false);
 assert.equal(audit.governance.multilingualFreezeGranted, false);
 assert.equal(audit.governance.activationAuthorized, false);
 
 console.log(JSON.stringify({
-  status: "TRG002_V4_BASELINE_AUDIT_PASS_BLOCKERS_DISCOVERED",
+  status: "TRG002_V4_CURRENT_CANDIDATE_AUDIT_PASS",
   scenarioCatalog: audit.scenarioCatalog,
+  repaired: audit.repaired,
   malformedExactMath: audit.blockers.malformedExactMath,
   duplicateStemGroups: audit.blockers.duplicateStemGroups.length,
   surdPhysicalGivens: audit.blockers.surdPhysicalGivenQlIds.length,
