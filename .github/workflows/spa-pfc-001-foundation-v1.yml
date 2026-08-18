@@ -41,7 +41,9 @@ jobs:
             spatial-paper-folding-localization-v1 \
             spatial-paper-folding-localization-freeze-v1 \
             spatial-paper-folding-source-saturation-v2 \
-            spatial-paper-folding-source-saturated-discovery-v1
+            spatial-paper-folding-source-saturated-discovery-v1 \
+            spatial-paper-folding-post-execution-source-gap-audit-v1 \
+            spatial-paper-folding-source-saturated-discovery-v2
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -79,6 +81,12 @@ jobs:
       - name: Validate PFC multi-shape reverse and TPF executable discovery Wave 1
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-source-saturated-discovery-v1.test.mjs
 
+      - name: Validate post-Wave-1 source gap audit
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-post-execution-source-gap-audit-v1.test.mjs
+
+      - name: Validate PFC and TPF executable gap closure Wave 2
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-source-saturated-discovery-v2.test.mjs
+
       - name: Upload PFC historical and source-saturation evidence
         uses: actions/upload-artifact@v4
         with:
@@ -97,4 +105,6 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-hi-pa-localization-freeze-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-001-source-saturation-v2-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-executable-discovery-wave1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-post-execution-source-gap-audit-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-executable-discovery-wave2-evidence.json
           if-no-files-found: error
