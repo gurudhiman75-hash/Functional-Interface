@@ -15,6 +15,10 @@ import {
   sea001MultilingualFrozenSemanticFingerprint,
 } from "./localization/multilingual-freeze.ts";
 import {
+  SEA001_MULTILINGUAL_FREEZE_LEARNER_FINGERPRINTS,
+  SEA001_MULTILINGUAL_FREEZE_SEMANTIC_FINGERPRINT,
+} from "./localization/multilingual-freeze-pins.ts";
+import {
   SEA001_LOCALIZATION_AUTHORITY,
   SEA001_TRANSLATION_TARGET_LOCALES,
 } from "./localization/readiness.ts";
@@ -40,6 +44,14 @@ for (const locale of SEA001_TRANSLATION_TARGET_LOCALES) {
   const sourceSemanticFingerprint = sea001ApprovedLocalizedSemanticFingerprint(locale);
   const frozenSemanticFingerprint = sea001MultilingualFrozenSemanticFingerprint(locale);
 
+  assert(
+    sourceLearnerFingerprint === SEA001_MULTILINGUAL_FREEZE_LEARNER_FINGERPRINTS[locale],
+    `${locale}: approved learner corpus no longer matches the product-owner freeze pin`,
+  );
+  assert(
+    sourceSemanticFingerprint === SEA001_MULTILINGUAL_FREEZE_SEMANTIC_FINGERPRINT,
+    `${locale}: approved semantic projection no longer matches the product-owner freeze pin`,
+  );
   assert(
     frozenLearnerFingerprint === sourceLearnerFingerprint,
     `${locale}: multilingual freeze changed the reviewed learner corpus`,
