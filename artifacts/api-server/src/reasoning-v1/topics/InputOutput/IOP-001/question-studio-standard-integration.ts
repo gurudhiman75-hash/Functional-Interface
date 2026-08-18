@@ -25,6 +25,8 @@ export type Iop001QuestionStudioRequest = Readonly<{
   patternId?: string;
   topic?: string;
   subtopic?: string;
+  exam?: string;
+  subject?: string;
   canonicalProblemId?: string;
   cpId?: string;
   qlId?: string;
@@ -57,7 +59,17 @@ const QL001_MEDIUM_SOURCE_MODES = new Set([
   "QL001_WORD_LENGTH_DESC_RIGHT",
 ]);
 
-export const IOP_001_QUESTION_STUDIO_BLOCKED_VOCABULARY = ["sphynx", "gypsy"] as const;
+export const IOP_001_QUESTION_STUDIO_BLOCKED_VOCABULARY = [
+  "sphynx",
+  "gypsy",
+  "syzygy",
+  "myrrh",
+  "psych",
+  "spryly",
+  "tryst",
+  "trysts",
+  "slyly",
+] as const;
 const BLOCKED_EXAM_VOCABULARY = new Set<string>(IOP_001_QUESTION_STUDIO_BLOCKED_VOCABULARY);
 
 export function getIop001SourceModeDifficulty(sourceModeId: string): Iop001QuestionStudioDifficulty {
@@ -81,6 +93,8 @@ export const IOP_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   topic: "Reasoning",
   subtopic: "Input Output",
   chapterId: "REAS-INP",
+  examProfile: "BANKING",
+  examProfileScope: "BANKING_INPUT_OUTPUT_GENERIC",
   name: "IOP-001 Machine Input–Output",
   label: "Input–Output — 8 Frozen Machine Families",
   generationDomain: "reasoning-v1",
@@ -148,6 +162,17 @@ function normalizeDifficulty(value: unknown): Iop001QuestionStudioDifficulty | u
 function normalizeSolveMode(value: unknown): IopPermanentSolveMode | undefined {
   const normalized = String(value ?? "").trim().toUpperCase().replace(/[\s-]+/g, "_");
   return SOLVE_MODES.find((mode) => mode === normalized);
+}
+
+function assertBankingExamProfile(request: Iop001QuestionStudioRequest): void {
+  const exam = String(request.exam ?? "").trim();
+  if (!exam) return;
+  const normalized = exam.toLowerCase();
+  if (/\b(?:bank|banking|ibps|sbi|rbi|nabard)\b/.test(normalized)) return;
+  throw new Error(
+    `IOP-001 is currently validated for Banking exam profiles only; '${exam}' is not an approved IOP exam profile. `
+    + "Do not tag these machine Input-Output questions to SSC, Railway or Punjab State exams without a separate source audit.",
+  );
 }
 
 function requestedSourceMode(request: Iop001QuestionStudioRequest): string | undefined {
@@ -290,6 +315,7 @@ function standardQuestion(
     },
     difficulty: caselet.difficulty,
     difficultyLabel: caselet.difficulty,
+    examProfile: "BANKING",
     patternId: caselet.sourceModeId,
     packageId: IOP_001_QUESTION_STUDIO_PACKAGE_ID,
     section: "Reasoning",
@@ -350,6 +376,7 @@ function standardQuestion(
       englishFrozen: true,
       localizationFrozen: true,
       examVocabularySafe: !caseletUsesBlockedExamVocabulary(caselet),
+      examProfileApproved: true,
       optionCount: child.options.length,
       exactlyOneCorrectOption: child.options.filter((option) => option.isCorrect).length === 1,
     },
@@ -378,6 +405,7 @@ export function generateIop001StandardQuestionStudioBatch(
   if (!isIop001StandardQuestionStudioRequest({ ...request, packageId: request.packageId ?? IOP_001_QUESTION_STUDIO_PACKAGE_ID })) {
     throw new Error("An IOP-001 Question Studio request is required.");
   }
+  assertBankingExamProfile(request);
   const language = request.language ?? "en";
   if (!(IOP_001_QUESTION_STUDIO_LANGUAGES as readonly string[]).includes(language)) {
     throw new Error(`IOP-001 does not support Question Studio language '${String(language)}'.`);
@@ -414,6 +442,8 @@ export function generateIop001StandardQuestionStudioBatch(
       generationDomain: "reasoning-v1" as const,
       packageId: IOP_001_QUESTION_STUDIO_PACKAGE_ID,
       chapterId: "REAS-INP" as const,
+      examProfile: "BANKING" as const,
+      requestedExam: String(request.exam ?? "").trim() || undefined,
       qlId: requestedQl(request),
       sourceModeId: requestedMode,
       solveMode,
