@@ -1,6 +1,13 @@
 import { GEO_CP_007_PHASE3_PROTOTYPES } from "../GEO-001/GEO-CP-007/prototypes";
 import { assertPhase3, assertPhase3DeterministicAndShuffled, assertPhase3DiscoveryQuestion, passPhase3 } from "./phase3-test-helpers";
 
+function visualDot(question: ReturnType<(typeof GEO_CP_007_PHASE3_PROTOTYPES)[number]["generate"]>, vertexId: string, firstId: string, secondId: string): number {
+  const point = (id: string) => question.diagramModel?.points.find((candidate) => candidate.id === id);
+  const vertex = point(vertexId); const first = point(firstId); const second = point(secondId);
+  if (!vertex || !first || !second) throw new Error(`Missing visual point for ${vertexId}`);
+  return (first.x - vertex.x) * (second.x - vertex.x) + (first.y - vertex.y) * (second.y - vertex.y);
+}
+
 assertPhase3(GEO_CP_007_PHASE3_PROTOTYPES.length === 2, "CP-007 Phase-3 Wave 1 count mismatch");
 for (const prototype of GEO_CP_007_PHASE3_PROTOTYPES) {
   const question = prototype.generate(`phase3-cp007:${prototype.temporaryPrototypeId}`);
@@ -12,10 +19,12 @@ for (const prototype of GEO_CP_007_PHASE3_PROTOTYPES) {
     assertPhase3(question.answer === "Right-angled at A", "Pythagorean-converse answer changed");
     assertPhase3(question.diagramModel?.rightAngleMarks.length === 0, "Converse-classification diagram leaked the right-angle conclusion");
     assertPhase3(!question.stemSvg?.includes('data-geo-kind="right-angle-mark"'), "Converse-classification SVG leaked the answer");
+    assertPhase3(visualDot(question, "A", "B", "C") !== 0, "Converse-classification layout visually leaked a 90° angle at A");
   } else {
     assertPhase3(question.answer === "7 cm", "Hypotenuse-median answer changed");
     assertPhase3(question.diagramModel?.rightAngleMarks.length === 1, "Hypotenuse-median diagram lacks the supplied right angle");
     assertPhase3(question.diagramModel?.equalLengthMarks.length === 1, "Hypotenuse-median diagram lacks the supplied midpoint relation");
+    assertPhase3(visualDot(question, "A", "B", "C") === 0, "Supplied right angle is visually inconsistent with its marker");
   }
   assertPhase3DeterministicAndShuffled(prototype.generate, prototype.temporaryPrototypeId);
 }
