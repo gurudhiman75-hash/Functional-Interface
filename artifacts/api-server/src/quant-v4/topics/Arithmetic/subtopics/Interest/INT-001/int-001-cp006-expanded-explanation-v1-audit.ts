@@ -6,8 +6,8 @@ import {
   INT_CP006_LOCALIZED_EXPLANATION_VERSION,
   generateIntCp006LocalizedExplanationReviewQuestion,
   type IntCp006LocalizedLocale,
-} from "./cp006-si-ci-relations-localized-v4";
-import { INT_CP006_EXPANDED_EXPLANATION_VERSION } from "./cp006-expanded-explanation-v2";
+} from "./cp006-si-ci-relations-localized-v5";
+import { INT_CP006_EXPANDED_EXPLANATION_VERSION } from "./cp006-expanded-explanation-v3";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -30,7 +30,6 @@ function preservedProjection(question: any) {
     correctIndex: question.correctIndex,
     correctAnswer: question.correctAnswer,
     finalAnswer: question.explanation.finalAnswer,
-    commonMistake: question.explanation.commonMistake,
     enabled: question.enabled,
     stagingStatus: question.stagingStatus,
     registrationStatus: question.registrationStatus,
@@ -39,6 +38,33 @@ function preservedProjection(question: any) {
     testEligibility: question.testEligibility,
     publiclyPublishable: question.publiclyPublishable,
   };
+}
+function assertNativeGrammar(question: any, label: string, locale: IntCp006LocalizedLocale) {
+  const learnerExplanation = [
+    question.explanation.keyIdea,
+    ...question.explanation.steps,
+    question.explanation.commonMistake,
+  ].join(" ");
+  const banned = locale === "hi-IN"
+    ? [
+        "D₂/P, वार्षिक",
+        "मूलधन कट जाता",
+        "अगले वर्ष के ब्याज की वृद्धि",
+        "उत्तर वाले वर्ष",
+        "वार्षिक दर के बराबर होता है",
+        "तीसरे क्रम का चक्रवृद्धि पद",
+        "अतिरिक्त पद आता है",
+      ]
+    : [
+        "ਵਿਆਜ ਦੀ ਵਾਧਾ",
+        "ਮੂਲਧਨ ਕੱਟ ਜਾਂਦਾ",
+        "ਜਵਾਬ ਵਾਲੇ ਸਾਲ",
+        "ਸਾਲਾਨਾ ਦਰ ਦੇ ਬਰਾਬਰ ਹੁੰਦਾ ਹੈ",
+        "ਚੱਕਰਵੱਧੀ ਪਦ",
+        "ਵਾਧੂ ਪਦ",
+        "ਪਹਿਲੇ ਵਾਲੇ ਸਾਲ ਦਾ ਵਿਆਜ ਹੈ",
+      ];
+  for (const phrase of banned) assert(!learnerExplanation.includes(phrase), `${label}: native grammar regression '${phrase}'`);
 }
 function auditExpanded(question: any, source: any, label: string, locale?: IntCp006LocalizedLocale) {
   assert(stable(preservedProjection(question)) === stable(preservedProjection(source)), `${label}: non-explanation learner surface drift`);
@@ -67,6 +93,8 @@ function auditExpanded(question: any, source: any, label: string, locale?: IntCp
     assert(question.localizedVersion === INT_CP006_LOCALIZED_EXPLANATION_VERSION, `${label}: localized explanation version drift`);
     assert(hasNativeScript(question.explanation.keyIdea, locale), `${label}: key idea missing native script`);
     assert(question.explanation.steps.filter((step: string) => hasNativeScript(step, locale)).length >= 3, `${label}: too few native-language solution steps`);
+    assert(hasNativeScript(question.explanation.commonMistake, locale), `${label}: common mistake missing native script`);
+    assertNativeGrammar(question, label, locale);
   }
 }
 
@@ -77,6 +105,7 @@ let explanationDepthChecks = 0;
 let calculationRichnessChecks = 0;
 let lifecycleChecks = 0;
 let nativeScriptChecks = 0;
+let nativeGrammarChecks = 0;
 let deterministicChecks = 0;
 
 for (const qlId of INT_CP006_QL_IDS) {
@@ -106,7 +135,8 @@ for (const qlId of INT_CP006_QL_IDS) {
       explanationDepthChecks += 3;
       calculationRichnessChecks += 2;
       lifecycleChecks += 7;
-      nativeScriptChecks += 4;
+      nativeScriptChecks += 5;
+      nativeGrammarChecks += 7;
     }
   }
 }
@@ -124,5 +154,6 @@ console.log(JSON.stringify({
   calculationRichnessChecks,
   lifecycleChecks,
   nativeScriptChecks,
+  nativeGrammarChecks,
 }, null, 2));
 console.log("PASS_INT_CP006_EXPANDED_EXPLANATION_V1_AUDIT");
