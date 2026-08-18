@@ -85,5 +85,6 @@ export * from "./spatial-fgc-question-studio-product-owner-approval-v1";
 export * from "./paper-folding-foundation-v1";
 export * from "./paper-folding-discovery-v1";
 export * from "./paper-folding-discovery-remediated-v2";
+export * from "./paper-folding-discovery-presentation-v3";
 export * from "./paper-folding-discovery-audit-v1";
 export * from "./svg-renderer";
