@@ -27,6 +27,7 @@ for (const language of languages) {
     for (let sample = 0; sample < 3; sample += 1) {
       const batch = generateIop001StandardQuestionStudioBatch({
         packageId: "IOP-001",
+        exam: "Banking — Machine Input–Output",
         qlId: mode.qlId,
         sourceModeId: mode.sourceModeId,
         language,
@@ -35,6 +36,8 @@ for (const language of languages) {
       });
 
       assert.equal(batch.questions.length, 4);
+      assert.equal(batch.generationContext.examProfile, "BANKING");
+      assert.equal(batch.generationContext.requestedExam, "Banking — Machine Input–Output");
       assert.equal(batch.generationContext.questionStudioDiscoverable, true);
       assert.equal(batch.generationContext.questionBankWritable, false);
       assert.equal(batch.generationContext.testEligible, false);
@@ -50,6 +53,8 @@ for (const language of languages) {
         maximumExplanationLength = Math.max(maximumExplanationLength, question.explanation.length);
         maximumSharedPromptLength = Math.max(maximumSharedPromptLength, question.sharedPrompt.length);
 
+        assert.equal(question.examProfile, "BANKING", `${language}/${mode.sourceModeId}: wrong exam profile`);
+        assert.equal(question.validation.examProfileApproved, true, `${language}/${mode.sourceModeId}: exam profile not approved`);
         assert.ok(question.stem.length >= 12, `${language}/${mode.sourceModeId}: stem is too short`);
         assert.ok(question.stem.length <= 220, `${language}/${mode.sourceModeId}: stem is too long for exam presentation`);
         assert.match(question.stem.trim(), /[?？]$/, `${language}/${mode.sourceModeId}: question should read as a direct exam question`);
@@ -109,6 +114,7 @@ for (const [index, count] of answerPositions.entries()) {
 }
 
 console.log("PASS_IOP_001_EXAM_READINESS_AUDIT");
+console.log("exam profile BANKING");
 console.log(`questions ${questions}`);
 console.log(`source modes ${sourceModes.size}`);
 console.log(`solve modes ${solveModes.size}`);
