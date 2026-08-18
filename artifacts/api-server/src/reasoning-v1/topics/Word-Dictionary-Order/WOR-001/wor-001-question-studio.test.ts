@@ -5,6 +5,7 @@ import { analyzeGeneratedQuestionPayload } from "../../../../lib/question-studio
 import { WOR_001_QUESTION_STUDIO_ADAPTER } from "./question-studio-adapter";
 import {
   buildWor001QuestionStudioPayload,
+  WOR_001_QUESTION_STUDIO_RELEASE_FREEZE,
   WOR_001_QUESTION_STUDIO_REVISION_POLICY,
 } from "./question-studio-payload";
 import {
@@ -17,10 +18,15 @@ assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.questionStudioVisible, false);
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.questionStudioReviewVisible, true);
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.publicReleaseEnabled, false);
 assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.permanentQlCount, 0);
+assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.allocatedPermanentQlCount, 8);
+assert.equal(WOR_001_QUESTION_STUDIO_ADAPTER.permanentQlActivationStatus, "ALLOCATED_INACTIVE_PENDING_HUMAN_REVIEW");
 assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioVisible, true);
 assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.checkpointCount, 5);
 assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.prototypeCount, 24);
-assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 0);
+assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 8);
+assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlAllocationStatus, "ALLOCATED_INACTIVE");
+assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlAllocationRequired, false);
+assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.nativeHumanSignoffRequired, true);
 assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable, false);
 assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.testEligible, false);
 assert.equal(WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.publiclyPublishable, false);
@@ -34,7 +40,10 @@ for (const language of ["en", "hi", "pa"] as const) {
   });
   assert.equal(result.questions.length, 24);
   assert.ok(result.questions.every((question) => question.questionStudioVisible));
-  assert.ok(result.questions.every((question) => question.qlId === null));
+  assert.equal(result.questions.filter((question) => question.qlId !== null).length, 15);
+  assert.ok(result.questions
+    .filter((question) => question.qlId === null)
+    .every((question) => question.source.evidenceStatus === "EXPLORATORY_SOURCE_GAP"));
   assert.ok(result.questions.every((question) => question.validation.valid));
   assert.ok(result.questions.every((question) => question.structuredPrompt.transformedWords === undefined));
   assert.ok(result.questions.every((question) => question.displayStem.includes("\n")));
@@ -65,6 +74,7 @@ const cp005 = previewWor001QuestionStudioReview({
 assert.ok(cp005.questions.every((question) => question.checkpointId === "WOR-CP-005"));
 assert.ok(cp005.questions.every((question) => question.options.length === 5));
 assert.ok(cp005.questions.every((question) => question.source.objectMode === "LETTER_CLUSTER"));
+assert.ok(cp005.questions.every((question) => question.permanentQlId !== null));
 
 const persistedPayload = buildWor001QuestionStudioPayload(cp005.questions[0]!);
 const quality = analyzeGeneratedQuestionPayload(persistedPayload);
@@ -74,6 +84,10 @@ assert.equal(persistedPayload.questionBankStatus, "NOT_STORED");
 assert.equal(persistedPayload.questionBankWritable, false);
 assert.equal(persistedPayload.testEligibility, "INELIGIBLE");
 assert.equal(persistedPayload.publiclyPublishable, false);
+assert.equal(persistedPayload.permanentQlAllocationStatus, "ALLOCATED_INACTIVE");
+assert.equal(persistedPayload.humanContentReviewStatus, "PENDING");
+assert.equal(persistedPayload.nativeHumanSignoffStatus, "PENDING");
+assert.equal(persistedPayload.releaseFreezeStatus, WOR_001_QUESTION_STUDIO_RELEASE_FREEZE);
 assert.equal(persistedPayload.revisionPolicy, WOR_001_QUESTION_STUDIO_REVISION_POLICY);
 assert.ok(persistedPayload.text.includes(cp005.questions[0]!.structuredPrompt.words[0]!));
 
@@ -89,7 +103,7 @@ assert.throws(
 console.log("WOR-001 Question Studio review contract passed.", {
   checkpoints: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.checkpointCount,
   prototypes: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.prototypeCount,
-  permanentQlCount: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount,
+  allocatedPermanentQlCount: WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount,
   approvalMode: getGeneratedItemApprovalDisposition(persistedPayload).mode,
   qualityScore: quality.score,
 });
