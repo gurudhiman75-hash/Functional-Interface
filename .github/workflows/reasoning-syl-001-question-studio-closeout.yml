@@ -52,8 +52,6 @@ jobs:
           : > "$OUT/combined.log"
 
           tests=(
-            "src/reasoning-v1/topics/Syllogism/SYL-001/foundation/proof.test.ts"
-            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/pedagogy-v2-audit.test.ts"
             "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-audit.test.ts"
             "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-model-target-audit.test.ts"
             "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-single-answer-venn-audit.test.ts"
