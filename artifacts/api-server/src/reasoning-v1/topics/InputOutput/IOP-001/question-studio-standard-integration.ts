@@ -57,6 +57,9 @@ const QL001_MEDIUM_SOURCE_MODES = new Set([
   "QL001_WORD_LENGTH_DESC_RIGHT",
 ]);
 
+export const IOP_001_QUESTION_STUDIO_BLOCKED_VOCABULARY = ["sphynx", "gypsy"] as const;
+const BLOCKED_EXAM_VOCABULARY = new Set<string>(IOP_001_QUESTION_STUDIO_BLOCKED_VOCABULARY);
+
 export function getIop001SourceModeDifficulty(sourceModeId: string): Iop001QuestionStudioDifficulty {
   if (sourceModeId.startsWith("QL001_")) {
     return QL001_MEDIUM_SOURCE_MODES.has(sourceModeId) ? "Medium" : "Easy";
@@ -231,6 +234,11 @@ function sourceCaselet(
   return generateIopFrozenLocalizedReviewCaselet(seed, qlId, sourceModeId, localeFor(language) as "hi-IN" | "pa-IN");
 }
 
+function caseletUsesBlockedExamVocabulary(caselet: SourceCaselet): boolean {
+  const visibleInput = [...caselet.demonstration.input, ...caselet.target.input];
+  return visibleInput.some((token) => BLOCKED_EXAM_VOCABULARY.has(String(token).trim().toLowerCase()));
+}
+
 function row(values: readonly string[]): string {
   return values.join("  ");
 }
@@ -341,6 +349,7 @@ function standardQuestion(
       queryOracleParity: caselet.safeguards.queryOracleParity,
       englishFrozen: true,
       localizationFrozen: true,
+      examVocabularySafe: !caseletUsesBlockedExamVocabulary(caselet),
       optionCount: child.options.length,
       exactlyOneCorrectOption: child.options.filter((option) => option.isCorrect).length === 1,
     },
@@ -387,6 +396,7 @@ export function generateIop001StandardQuestionStudioBatch(
     const caseletSeed = `${baseSeed}|${language}|${qlId}|${attempt}`;
     const mode = modeFor(qlId, caseletSeed, requestedMode, solveMode, difficulty);
     const caselet = sourceCaselet(caseletSeed, qlId, mode.sourceModeId, language);
+    if (caseletUsesBlockedExamVocabulary(caselet)) continue;
     usedCaselets.push({ qlId, sourceModeId: mode.sourceModeId, seed: caseletSeed });
     for (const child of caselet.children) {
       if (solveMode && child.kind !== solveMode) continue;
@@ -427,6 +437,7 @@ export function generateIop001StandardQuestionStudioBatch(
       publiclyPublishable: false as const,
       automaticStudentPublication: false as const,
       manualApprovalRequired: true as const,
+      blockedExamVocabulary: [...IOP_001_QUESTION_STUDIO_BLOCKED_VOCABULARY],
       englishFreezeSha256: IOP_001_ENGLISH_FREEZE_AUTHORITY.approvedLearnerContentSha256,
       localizationFreezeSha256: IOP_001_LOCALIZATION_FREEZE_AUTHORITY.canonicalLocalizedLearnerContentSha256,
       caselets: usedCaselets,
