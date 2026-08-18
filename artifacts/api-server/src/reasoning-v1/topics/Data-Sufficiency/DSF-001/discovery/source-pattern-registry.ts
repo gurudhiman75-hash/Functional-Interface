@@ -2,6 +2,7 @@ import type { SufficiencyClass } from "../foundation/index.ts";
 
 export type DsSourceEvidenceLevel =
   | "CURATED_MEMORY_BASED_EXAM"
+  | "CURATED_PYQ_PLATFORM"
   | "CURATED_PREPARATION_SIGNAL"
   | "PAPER_INDEX_ONLY"
   | "PENDING_DIRECT_DS_EVIDENCE";
@@ -56,11 +57,31 @@ export const DSF_BANK_BOB_2015_ORDER = [
   "STATEMENT_II_ONLY",
 ] as const satisfies readonly SufficiencyClass[];
 
+export const DSF_SSC_CGL_2023_FOUR_ORDER = [
+  "INSUFFICIENT_EVEN_TOGETHER",
+  "STATEMENT_II_ONLY",
+  "BOTH_TOGETHER_ONLY",
+  "STATEMENT_I_ONLY",
+] as const satisfies readonly SufficiencyClass[];
+
+export const DSF_SSC_CGL_2024_FOUR_ORDER = [
+  "STATEMENT_II_ONLY",
+  "STATEMENT_I_ONLY",
+  "BOTH_TOGETHER_ONLY",
+  "INSUFFICIENT_EVEN_TOGETHER",
+] as const satisfies readonly SufficiencyClass[];
+
+export const DSF_PSSSB_PREP_FOUR_ORDER = [
+  "STATEMENT_I_ONLY",
+  "STATEMENT_II_ONLY",
+  "EACH_STATEMENT_ALONE",
+  "INSUFFICIENT_EVEN_TOGETHER",
+] as const satisfies readonly SufficiencyClass[];
+
 /**
  * Evidence is intentionally stored as source metadata, not copied question text.
- * SATHEE pages identify these as memory-based banking questions. They are strong
- * enough for discovery of answer-contract shape, but are not represented here
- * as official question-paper scans.
+ * Memory-based and PYQ-platform sources are useful for discovery of answer
+ * contract shape but are not represented here as official-paper scans.
  */
 export const DSF_TWO_STATEMENT_SOURCE_PATTERNS: readonly DsTwoStatementSourcePattern[] = [
   {
@@ -86,6 +107,41 @@ export const DSF_TWO_STATEMENT_SOURCE_PATTERNS: readonly DsTwoStatementSourcePat
     sourceLabel: "SATHEE Data Sufficiency Question 43",
     sourceUrl: "https://sathee.iitk.ac.in/sathee-bank-exam/bank-exams/ibps-po/study-materials/memory-based-questions/data-sufficiency/data-sufficiency-question-43/",
     architecturalFinding: "The same five semantics are presented in a different option order, proving semantic truth must be separated from display position.",
+  },
+  {
+    patternId: "DSF-SRC-SSC-CGL-TIER2-2023-REASONING-FOUR",
+    examFamily: "SSC",
+    examLabel: "SSC CGL Tier II Reasoning and General Intelligence",
+    examDate: "2023-10-26",
+    statementCount: 2,
+    optionSemanticOrder: DSF_SSC_CGL_2023_FOUR_ORDER,
+    evidenceLevel: "CURATED_PYQ_PLATFORM",
+    sourceLabel: "Oliveboard SSC CGL Tier II PYP Data Sufficiency",
+    sourceUrl: "https://www.oliveboard.in/question-answer/pyq-a-question-is-given-followed-by-two-statements-labelled-i-and-ii",
+    architecturalFinding: "A four-option SSC reasoning DS contract omits EACH_STATEMENT_ALONE from this displayed profile; the underlying five-class truth model must therefore be independent from exam rendering.",
+  },
+  {
+    patternId: "DSF-SRC-SSC-CGL-TIER2-2024-QUANT-FOUR",
+    examFamily: "SSC",
+    examLabel: "SSC CGL 2024 Tier-II Official Paper-I",
+    examDate: "2025-01-18",
+    statementCount: 2,
+    optionSemanticOrder: DSF_SSC_CGL_2024_FOUR_ORDER,
+    evidenceLevel: "CURATED_PYQ_PLATFORM",
+    sourceLabel: "Testbook SSC CGL 2024 Tier-II Data Sufficiency",
+    sourceUrl: "https://testbook.com/question-answer/a-question-is-given-followed-by-two-statements-la--67942e6b645b49b7779624f3/amp",
+    architecturalFinding: "A four-option SSC quantitative DS example uses the same four represented semantics in another order, reinforcing exam-profile rendering rather than hard-coded option letters.",
+  },
+  {
+    patternId: "DSF-SRC-PSSSB-CLERK-PREP-DIRECTION-FOUR",
+    examFamily: "PUNJAB_STATE",
+    examLabel: "PSSSB Clerk Logical Reasoning question set",
+    statementCount: 2,
+    optionSemanticOrder: DSF_PSSSB_PREP_FOUR_ORDER,
+    evidenceLevel: "CURATED_PREPARATION_SIGNAL",
+    sourceLabel: "Testbook PSSSB Clerk LR Questions — Data Sufficiency",
+    sourceUrl: "https://testbook.com/questions/psssb-clerk-lr-questions--65e6d6ad0ef488717be8e15f",
+    architecturalFinding: "PSSSB-specific preparation material contains a four-option direction-sense DS surface including EACH_STATEMENT_ALONE, but this is not treated as verified official-paper provenance for freezing a Punjab answer profile.",
   },
 ];
 
@@ -120,7 +176,12 @@ export const DSF_EXAM_FAMILY_EVIDENCE_STATUS: readonly DsExamFamilyEvidenceStatu
   {
     examFamily: "BANKING",
     status: "SUPPORTED_FOR_DISCOVERY",
-    notes: "SATHEE memory-based material directly demonstrates two-statement five-class patterns, reordered option profiles, three-statement subset contracts, and Quant domains including geometry, algebra, ages, interest, boats and trains.",
+    notes: "SATHEE memory-based material directly demonstrates two-statement five-class patterns, reordered option profiles, three-statement subset contracts, and multiple Quant domains.",
+  },
+  {
+    examFamily: "SSC",
+    status: "SUPPORTED_FOR_DISCOVERY",
+    notes: "SSC CGL Tier-II PYQ platforms show both reasoning and quantitative two-statement DS with four-option exam profiles. Profile provenance remains external-platform rather than an official scan in this audit.",
   },
   {
     examFamily: "RAILWAY",
@@ -128,14 +189,9 @@ export const DSF_EXAM_FAMILY_EVIDENCE_STATUS: readonly DsExamFamilyEvidenceStatu
     notes: "SATHEE exposes a Railway Data Sufficiency practice section, which supports product relevance but is not treated as direct PYQ proof in this registry.",
   },
   {
-    examFamily: "SSC",
-    status: "PENDING_DIRECT_DS_EVIDENCE",
-    notes: "No direct SSC DS question was verified in the current CP-000 source pass. Do not allocate SSC-specific DS QLs from preparation-site assumptions.",
-  },
-  {
     examFamily: "PUNJAB_STATE",
-    status: "PENDING_DIRECT_DS_EVIDENCE",
-    notes: "PSSSB previous-paper indexes were located, but no direct Data Sufficiency question was verified in the current pass. Punjab-specific DS scope remains evidence-pending.",
+    status: "PARTIAL_SIGNAL_ONLY",
+    notes: "PSSSB Clerk-specific preparation material contains Data Sufficiency, including Direction Sense, but the exact Punjab official-paper answer contract is not yet verified. Do not freeze a Punjab-specific rendering profile from this signal alone.",
   },
 ];
 
