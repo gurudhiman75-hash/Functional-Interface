@@ -42,6 +42,19 @@ function rowText(row: readonly [number, number, number], d: number): string {
   return `${x}${y}${z} = ${d}`;
 }
 
+function reducedRowText(yCoefficient: number, zCoefficient: number, rhs: number): string {
+  const y = term(yCoefficient, "y", true);
+  const z = term(zCoefficient, "z", y.length === 0);
+  return `${y}${z} = ${rhs}`;
+}
+
+function backSubstitutionText(row: readonly [number, number, number], y: string, z: string, rhs: number): string {
+  const xPart = term(row[0], "x", true);
+  const yPart = row[1] === 0 ? "" : ` ${row[1] < 0 ? "-" : "+"} ${Math.abs(row[1]) === 1 ? `(${y})` : `${Math.abs(row[1])}(${y})`}`;
+  const zPart = row[2] === 0 ? "" : ` ${row[2] < 0 ? "-" : "+"} ${Math.abs(row[2]) === 1 ? `(${z})` : `${Math.abs(row[2])}(${z})`}`;
+  return `${xPart}${yPart}${zPart} = ${rhs}`;
+}
+
 function buildThreeByThree(seed: number): AlgCp007DiscoveryItem {
   const matrix = MATRICES[mixSeed(seed ^ 0x7008) % MATRICES.length]!;
   const x = pickInt(seed, -8, 8, 1);
@@ -56,6 +69,23 @@ function buildThreeByThree(seed: number): AlgCp007DiscoveryItem {
   const solved = solveLinearSystem3V(system);
   if (solved.kind !== "UNIQUE") throw new Error("CP-007 3x3 matrix library must remain nonsingular");
   if (!verifyLinearSystem3VSolution(system, solved.x, solved.y, solved.z)) throw new Error("CP-007 3x3 solution failed substitution verification");
+
+  const [r1, r2, r3] = matrix;
+  const [d1, d2, d3] = constants;
+  const reduced1 = {
+    y: r1[0] * r2[1] - r2[0] * r1[1],
+    z: r1[0] * r2[2] - r2[0] * r1[2],
+    d: r1[0] * d2 - r2[0] * d1,
+  };
+  const reduced2 = {
+    y: r1[0] * r3[1] - r3[0] * r1[1],
+    z: r1[0] * r3[2] - r3[0] * r1[2],
+    d: r1[0] * d3 - r3[0] * d1,
+  };
+  const yText = formatRational(solved.y);
+  const zText = formatRational(solved.z);
+  const xText = formatRational(solved.x);
+
   return {
     cpId: "ALG-CP-007",
     candidateId: "ALG-CP007-CAND-008",
@@ -64,7 +94,7 @@ function buildThreeByThree(seed: number): AlgCp007DiscoveryItem {
     stem: `Solve the system: ${rowText(matrix[0], constants[0])}; ${rowText(matrix[1], constants[1])}; ${rowText(matrix[2], constants[2])}.`,
     system,
     answer: { kind: "ORDERED_TRIPLE", x: solved.x, y: solved.y, z: solved.z },
-    explanation: `Eliminate one variable from pairs of equations to reduce the system to two equations in two variables. Solve that reduced pair, then substitute back into an original equation. This gives x = ${formatRational(solved.x)}, y = ${formatRational(solved.y)} and z = ${formatRational(solved.z)}. Substitution in all three original equations confirms the ordered triple.`,
+    explanation: `Call the three equations E1, E2 and E3. Eliminate x from E1 and E2 to get ${reducedRowText(reduced1.y, reduced1.z, reduced1.d)}. Eliminate x from E1 and E3 to get ${reducedRowText(reduced2.y, reduced2.z, reduced2.d)}. Solving these two equations gives y = ${yText} and z = ${zText}. Substitute these in E1: ${backSubstitutionText(r1, yText, zText, d1)}. This gives x = ${xText}. Therefore (x, y, z) = (${xText}, ${yText}, ${zText}); substitution satisfies all three original equations.`,
     sourceStatus: "UNVERIFIED_DRAFT",
   };
 }
