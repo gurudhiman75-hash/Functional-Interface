@@ -93,4 +93,5 @@ export * from "./paper-folding-discovery-operator-review-v1";
 export * from "./paper-folding-permanent-english-runtime-v1";
 export * from "./paper-folding-english-freeze-v1";
 export * from "./paper-folding-localization-v1";
+export * from "./paper-folding-localization-freeze-v1";
 export * from "./svg-renderer";
