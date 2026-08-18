@@ -1,0 +1,53 @@
+name: Validate RNK-001 Question Studio Review V1
+
+on:
+  push:
+    branches:
+      - feature/rnk-001-question-studio-review-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - '.github/workflows/rnk-001-question-studio-review-v1.yml'
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - '.github/workflows/rnk-001-question-studio-review-v1.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: rnk-001-question-studio-review-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-question-studio-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove RNK exam-readiness authority and delivery guards
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-readiness-audit-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-delivery-policy-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-banking-five-option-adapter-v1.test.ts
+
+      - name: Prove RNK shared Question Studio contract across all 42 QLs
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-shared-question-studio.test.ts
+
+      - name: Re-prove RNK chapter-wide English content freeze after lifecycle transition
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+
+      - name: Re-prove existing WOR shared Question Studio integration
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-shared-question-studio.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
