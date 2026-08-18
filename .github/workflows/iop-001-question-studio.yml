@@ -70,8 +70,16 @@ jobs:
       - name: Scale Question Studio across all source modes and languages
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-scale.test.ts
 
-      - name: Prove global Question Studio routing
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-global-routing.test.ts
+      - name: Prove global Question Studio routing through production-style bundle
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/InputOutput/IOP-001/question-studio-global-routing.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=/tmp/iop-001-question-studio-global-routing.mjs
+          node /tmp/iop-001-question-studio-global-routing.mjs
 
       - name: Build production API
         working-directory: artifacts/api-server
