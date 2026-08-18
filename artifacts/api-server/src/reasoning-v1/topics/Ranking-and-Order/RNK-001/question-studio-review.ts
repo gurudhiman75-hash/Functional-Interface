@@ -6,7 +6,7 @@ import { buildRnkCp005PermanentRuntime, RNK_CP005_PERMANENT_AUTHORITY_ASSIGNMENT
 import { buildRnkCp006PermanentRuntime, RNK_CP006_PERMANENT_AUTHORITY_ASSIGNMENTS } from "./RNK-CP-006/cp006-permanent-runtime-v1";
 import { buildRnkCp007PermanentRuntime, RNK_CP007_PERMANENT_QL_ID } from "./RNK-CP-007/cp007-permanent-runtime-v1";
 import { adaptRnkQuestionForBankingFiveOptions } from "./rnk-001-banking-five-option-adapter-v1";
-import { auditRnkExamModeMix, rnkExamRealismTier, type RnkExamRealismTier } from "./rnk-001-exam-delivery-policy-v1";
+import { RNK_EXAM_MODE_MIX_GUARD, auditRnkExamModeMix, rnkExamRealismTier, type RnkExamRealismTier } from "./rnk-001-exam-delivery-policy-v1";
 
 export const RNK_001_QUESTION_STUDIO_REVIEW_AUTHORITY =
   "RNK-001-QUESTION-STUDIO-REVIEW-V1" as const;
@@ -175,21 +175,36 @@ function profileTierPlan(
   const weights = PROFILE_WEIGHTS[profileId];
   const allocations = TIER_ORDER.map((tier, order) => {
     const exact = (count * weights[tier]) / 100;
-    const base = Math.floor(exact);
-    return { tier, order, count: base, remainder: exact - base };
+    return { tier, order, count: Math.floor(exact), remainder: exact - Math.floor(exact) };
   });
+
+  const core = allocations.find((entry) => entry.tier === "CORE")!;
+  const minimumCore = Math.ceil(count * RNK_EXAM_MODE_MIX_GUARD.coreMinimumShare);
+  if (core.count < minimumCore) core.count = minimumCore;
+
+  const caps: Record<RnkExamRealismTier, number> = {
+    CORE: count,
+    SECONDARY: Math.floor(count * RNK_EXAM_MODE_MIX_GUARD.secondaryMaximumShare),
+    ADVANCED: Math.floor(count * RNK_EXAM_MODE_MIX_GUARD.advancedMaximumShare),
+    SOURCE_SPECIFIC: Math.floor(count * RNK_EXAM_MODE_MIX_GUARD.sourceSpecificMaximumShare),
+  };
+
   let remaining = count - allocations.reduce((sum, entry) => sum + entry.count, 0);
-  allocations
-    .slice()
-    .sort((left, right) => right.remainder - left.remainder || left.order - right.order)
-    .forEach((entry) => {
-      if (remaining > 0) {
-        entry.count += 1;
-        remaining -= 1;
-      }
-    });
+  while (remaining > 0) {
+    const candidate = allocations
+      .filter((entry) => entry.count < caps[entry.tier])
+      .sort((left, right) => right.remainder - left.remainder || left.order - right.order)[0]
+      ?? core;
+    candidate.count += 1;
+    remaining -= 1;
+  }
+
   const plan = allocations.flatMap((entry) => Array.from({ length: entry.count }, () => entry.tier));
   if (plan.length !== count) throw new Error(`${profileId} tier allocation produced ${plan.length}/${count}`);
+  const audit = auditRnkExamModeMix(plan.map((tier) => TIER_QLS[tier][0]!));
+  if (count >= 20 && !audit.passesExamRealismGuard) {
+    throw new Error(`${profileId} quota allocation violates realism guard: ${audit.violations.join(", ")}`);
+  }
   return deterministicShuffle(plan, `${profileId}:${seed}:tier-plan`);
 }
 
