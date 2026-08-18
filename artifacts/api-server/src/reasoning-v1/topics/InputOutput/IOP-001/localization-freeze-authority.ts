@@ -1,4 +1,8 @@
-import { generateIopLocalizedReviewCaselet, type IopLocalizedCaselet, type IopLocalizedLocale } from "./localization-v1.ts";
+import {
+  generateIopLocalizedReviewCaseletV1,
+  type IopLocalizedCaselet,
+  type IopLocalizedLocale,
+} from "./localization-v1-final.ts";
 import type { IopPermanentQlId } from "./permanent-authorities.ts";
 
 export const IOP_001_LOCALIZATION_FREEZE_AUTHORITY = Object.freeze({
@@ -65,5 +69,5 @@ export function generateIopFrozenLocalizedReviewCaselet(
   sourceModeId: string,
   locale: IopLocalizedLocale,
 ): IopFrozenLocalizedCaselet {
-  return freezeIop001LocalizedCaselet(generateIopLocalizedReviewCaselet(seed, qlId, sourceModeId, locale));
+  return freezeIop001LocalizedCaselet(generateIopLocalizedReviewCaseletV1(seed, qlId, sourceModeId, locale));
 }
