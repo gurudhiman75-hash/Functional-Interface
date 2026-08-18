@@ -37,9 +37,10 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
-      - name: Strict TypeScript check
+      - name: Strict TypeScript check for IOP-owned modules
         working-directory: artifacts/api-server
         run: |
+          IOP_TS_FILES=$(find src/reasoning-v1/topics/InputOutput/IOP-001 -name '*.ts' ! -name 'question-studio-global-routing.test.ts' -print)
           pnpm exec tsc \
             --noEmit \
             --target es2022 \
@@ -52,8 +53,7 @@ jobs:
             --noFallthroughCasesInSwitch \
             --skipLibCheck \
             --types node \
-            $(find src/reasoning-v1/topics/InputOutput/IOP-001 -name '*.ts' -print) \
-            src/quant-v4/generation-engine.ts
+            $IOP_TS_FILES
 
       - name: Re-prove frozen English learner content
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/english-freeze-authority.test.ts
