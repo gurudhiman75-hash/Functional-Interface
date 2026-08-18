@@ -1,0 +1,32 @@
+name: Validate Geometry Source Saturation Audit V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/**
+      - .github/workflows/geometry-source-saturation-audit-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geometry-source-saturation-audit-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-geometry-source-saturation-audit-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Geometry source saturation audit V1
+        run: node artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/source-audit/validate-source-saturation-audit-v1.mjs
