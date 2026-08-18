@@ -47,7 +47,7 @@ const REPEATED_DIGIT_CASES = [
   { digit: 3, modulus: 37, maxLength: 8 },
   { digit: 7, modulus: 13, maxLength: 12 },
   { digit: 4, modulus: 11, maxLength: 8 },
-  { digit: 8, modulus: 27, maxLength: 18 },
+  { digit: 8, modulus: 27, maxLength: 30 },
   { digit: 6, modulus: 7, maxLength: 12 },
 ] as const;
 
