@@ -1,0 +1,87 @@
+name: Validate SYL-001 production regression
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/**"
+      - "artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts"
+      - ".github/workflows/reasoning-syl-001-production-regression.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-syl-001-production-regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Verify approved V5 learner source lock
+        shell: bash
+        run: |
+          set -euo pipefail
+          APPROVED_COMMIT="cf14902141176f09bff0b8524773ad173fc480cd"
+          git diff --exit-code "$APPROVED_COMMIT" HEAD -- \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/generator-v5.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-editorial-polish.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-dead-option-remediation.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-completion.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-model-target-remediation.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-exact-venn.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-exact-venn-safety.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-existential-completeness.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-directional-containment-safety.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-witness-closure-finalizer.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-witness-proof.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/term-assignment.ts
+
+      - name: Run exhaustive SYL-001 production regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="artifacts/api-server"
+          OUT_REL="dist/reasoning-v1/syl-001-production-regression"
+          OUT="$ROOT/$OUT_REL"
+          mkdir -p "$OUT"
+          : > "$OUT/combined.log"
+
+          tests=(
+            "src/reasoning-v1/topics/Syllogism/SYL-001/foundation/proof.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/pedagogy-v2-audit.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-audit.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-model-target-audit.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-single-answer-venn-audit.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-editorial-polish.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-dead-option-audit.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-review-status-audit.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-viewport-audit.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-proof-audit.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-proof-v2-audit.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-directional-containment-audit.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-proof-v3-audit.test.ts"
+            "src/reasoning-v1/topics/Syllogism/SYL-001/question-studio-closeout-audit.test.ts"
+          )
+
+          for test_file in "${tests[@]}"; do
+            test -f "$ROOT/$test_file"
+            slug="$(basename "$test_file" .ts)"
+            pnpm --dir "$ROOT" exec esbuild "$test_file" \
+              --bundle --platform=node --format=esm \
+              --outfile="$OUT_REL/$slug.mjs"
+            echo "=== $test_file ===" | tee -a "$OUT/combined.log"
+            node "$OUT/$slug.mjs" 2>&1 | tee -a "$OUT/combined.log"
+          done
+
+      - name: Upload SYL-001 production regression evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: syl-001-production-regression
+          path: artifacts/api-server/dist/reasoning-v1/syl-001-production-regression/combined.log
+          if-no-files-found: error
+          retention-days: 30
