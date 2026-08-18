@@ -18,7 +18,7 @@ function deepFreeze<T>(value: T, seen = new WeakSet<object>()): T {
   return Object.freeze(value);
 }
 
-function standardizePunjabiCompoundInterest(text: string): string {
+export function standardizeIntCp006PunjabiCompoundInterest(text: string): string {
   return text
     .replaceAll("ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਦਰ", "ਸਾਲਾਨਾ ਮਿਸ਼ਰਤ ਵਿਆਜ ਦੀ ਦਰ")
     .replaceAll("ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਦੀ ਸਾਲਾਨਾ ਦਰ", "ਮਿਸ਼ਰਤ ਵਿਆਜ ਦੀ ਸਾਲਾਨਾ ਦਰ")
@@ -37,7 +37,7 @@ function standardizePunjabiCompoundInterest(text: string): string {
 }
 
 function transformPunjabiLearnerValue<T>(value: T): T {
-  if (typeof value === "string") return standardizePunjabiCompoundInterest(value) as T;
+  if (typeof value === "string") return standardizeIntCp006PunjabiCompoundInterest(value) as T;
   if (Array.isArray(value)) return value.map((item) => transformPunjabiLearnerValue(item)) as T;
   if (typeof value === "object" && value !== null) {
     const result: Record<PropertyKey, unknown> = {};
