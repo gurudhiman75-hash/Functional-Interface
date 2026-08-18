@@ -1,4 +1,4 @@
-import type { QuadraticEquation, Rational } from "../../../../../../shared/algebra";
+import type { Polynomial1, QuadraticEquation, Rational } from "../../../../../../shared/algebra";
 
 export type AlgCp010SolveMode =
   | "findSumOfRootsByVieta"
@@ -11,7 +11,8 @@ export type AlgCp010SolveMode =
   | "constructEquationWithReciprocalRoots"
   | "findOtherRootFromKnownRoot"
   | "constructEquationWithProductPlusMinusSumRoots"
-  | "constructEquationWithReciprocalThenShiftedRoots";
+  | "constructEquationWithReciprocalThenShiftedRoots"
+  | "findCubicRootSumByVieta";
 
 export type AlgCp010Answer =
   | { kind: "RATIONAL"; value: Rational }
@@ -32,11 +33,13 @@ export interface AlgCp010DiscoveryItem {
   solveMode: AlgCp010SolveMode;
   seed: number;
   stem: string;
-  originalEquation: QuadraticEquation;
+  originalEquation?: QuadraticEquation;
+  originalPolynomial?: Polynomial1;
   answer: AlgCp010Answer;
   explanation: string;
   sourceStatus: "UNVERIFIED_DRAFT";
   hiddenRoots?: [Rational, Rational];
+  hiddenCubicRoots?: [Rational, Rational, Rational];
   transformEvidence?:
     | { kind: "SHIFT"; value: Rational }
     | { kind: "RECIPROCAL" }
