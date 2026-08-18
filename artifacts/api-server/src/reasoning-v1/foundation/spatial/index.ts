@@ -83,4 +83,5 @@ export * from "./spatial-question-studio-runtime-v1";
 export * from "./spatial-fgc-question-studio-operator-review-v1";
 export * from "./spatial-fgc-question-studio-product-owner-approval-v1";
 export * from "./paper-folding-foundation-v1";
+export * from "./paper-folding-discovery-v1";
 export * from "./svg-renderer";
