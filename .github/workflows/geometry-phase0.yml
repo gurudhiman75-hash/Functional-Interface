@@ -1,0 +1,45 @@
+name: Validate Geometry Phase 0 foundation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/shared/geometry/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/**
+      - .github/workflows/geometry-phase0.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geometry-phase0-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-geometry-phase0:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle Geometry Phase 0 proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/run-phase0.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/geometry-phase0.test.mjs
+      - name: Run Geometry Phase 0 proof
+        run: node artifacts/api-server/dist/quant-v4/geometry-phase0.test.mjs
