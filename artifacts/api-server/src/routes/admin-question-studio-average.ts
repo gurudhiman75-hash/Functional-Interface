@@ -4,6 +4,8 @@ import { Router } from "express";
 import { sqlClient } from "../lib/db";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
+// The shared facade keeps Quant requests on the guarded question-studio-review-engine path
+// while adding Reasoning packages such as WOR-001 to the same persistence workflow.
 import {
   generateQuestion as generateQuestionStudioQuestions,
   isWor001QuestionStudioRequest,
@@ -212,7 +214,10 @@ router.post(
     const exam = asString(req.body?.exam) || "SSC CGL";
     const subject = worRequest ? "Reasoning Ability" : asString(req.body?.subject) || "Quantitative Aptitude";
     const language = normalizeLanguage(req.body?.language);
-    const difficulty = normalizeDifficulty(req.body?.difficulty);
+    const requestedDifficulty = asString(req.body?.difficulty);
+    const difficulty = worRequest && requestedDifficulty.toLowerCase() === "mixed"
+      ? "Mixed"
+      : normalizeDifficulty(requestedDifficulty);
     const seed = asString(req.body?.seed) || undefined;
     const canonicalProblemId = asString(req.body?.canonicalProblemId) || undefined;
     const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;

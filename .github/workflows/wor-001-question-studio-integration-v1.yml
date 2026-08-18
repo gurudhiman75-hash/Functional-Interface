@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - fix/wor-001-shared-question-studio-only
+      - feature/wor-001-permanent-ql-freeze-v1
+      - fix/wor-001-question-studio-self-review-v1
+      - freeze/wor-001-final-exam-readiness-v1
+      - feat/wor-001-question-studio-production-plug-v1
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**'
       - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
@@ -55,10 +59,16 @@ jobs:
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-pool-expansion.test.ts
       - name: Run WOR-001 source-governance audit
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-source-evidence.test.ts
+      - name: Run WOR-001 permanent QL freeze audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-permanent-ql.test.ts
+      - name: Run WOR-001 final exam-readiness freeze audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-exam-readiness.test.ts
       - name: Run WOR-001 Question Studio contract audit
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-question-studio.test.ts
       - name: Run shared Question Studio package/dispatch audit
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-shared-question-studio.test.ts
+      - name: Run frozen production Question Studio plug audit
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-question-studio-production.test.ts
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Build admin app

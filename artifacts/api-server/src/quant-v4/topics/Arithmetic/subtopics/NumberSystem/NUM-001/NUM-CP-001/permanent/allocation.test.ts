@@ -64,7 +64,9 @@ assert.deepEqual(
 
 assert.equal(NUM_CP001_PERMANENT_QL_IDS[0], "NUM-QL-124");
 assert.equal(NUM_CP001_PERMANENT_QL_IDS[20], "NUM-QL-144");
-assert.equal(NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT, 145);
+// The chapter-wide next coordinate advances as later checkpoints are allocated.
+// CP001 only owns the invariant that every later allocation remains above QL144.
+assert.ok(NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT > 144);
 
 console.log(JSON.stringify({
   status: "PASS_NUM_CP001_MULTILINGUAL_FROZEN_ALLOCATION",
@@ -77,6 +79,7 @@ console.log(JSON.stringify({
   solveModeFrozen: true,
   englishImplementationFrozen: true,
   multilingualImplementationFrozen: true,
-  nextPermanentQl: "NUM-QL-145",
+  nextPermanentQlAtCp001Freeze: "NUM-QL-145",
+  currentChapterNextPermanentQl: `NUM-QL-${String(NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT).padStart(3, "0")}`,
   deliveryExposure: 0,
 }, null, 2));

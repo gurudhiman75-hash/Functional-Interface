@@ -18,6 +18,12 @@ import {
   type Blr001StandardQuestionStudioRequest,
 } from "../reasoning-v1/topics/Blood-Relations/BLR-001/question-studio-standard-integration";
 import {
+  generateIop001StandardQuestionStudioBatch,
+  isIop001StandardQuestionStudioRequest,
+  listIop001StandardQuestionStudioPackages,
+  type Iop001QuestionStudioRequest,
+} from "../reasoning-v1/topics/InputOutput/IOP-001/question-studio-standard-integration";
+import {
   generateMal001StandardQuestionStudioBatch,
   isMal001StandardQuestionStudioRequest,
   listMal001StandardQuestionStudioPackages,
@@ -45,10 +51,14 @@ export function listQuantV4Packages() {
     ...listMal001StandardQuestionStudioPackages(),
     ...listProbabilityStandardQuestionStudioPackages(),
     ...listBlr001StandardQuestionStudioPackages(),
+    ...listIop001StandardQuestionStudioPackages(),
   ].sort((left, right) => left.packageId.localeCompare(right.packageId));
 }
 
 export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
+  if (isIop001StandardQuestionStudioRequest(request as Iop001QuestionStudioRequest)) {
+    return generateIop001StandardQuestionStudioBatch(request as Iop001QuestionStudioRequest);
+  }
   if (
     isMal001StandardQuestionStudioRequest(
       request as Mal001StandardQuestionStudioRequest,

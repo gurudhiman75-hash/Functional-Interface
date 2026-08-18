@@ -2,8 +2,12 @@ import type {
   WorCheckpointId,
   WorDifficulty,
   WorLocale,
+  WorPermanentQlId,
   WorPrototypeContract,
 } from "./foundation/types";
+import {
+  WOR_001_PERMANENT_QL_REGISTRY,
+} from "./permanent-ql-registry";
 import {
   WOR_001_ALL_CHECKPOINTS,
   WOR_001_ALL_PROTOTYPES,
@@ -69,8 +73,9 @@ export const WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   subtopic: "Word & Dictionary Order",
   checkpointCount: WOR_001_ALL_CHECKPOINTS.length,
   prototypeCount: WOR_001_ALL_PROTOTYPES.length,
-  permanentQlCount: 0 as const,
+  permanentQlCount: WOR_001_PERMANENT_QL_REGISTRY.length,
   recommendedPermanentQlRootCount: 8 as const,
+  permanentQlAllocationStatus: "ALLOCATED_INACTIVE" as const,
   checkpoints: WOR_001_ALL_CHECKPOINTS,
   prototypes: WOR_001_QUESTION_STUDIO_CATALOG,
   supportedLanguages: WOR_001_QUESTION_STUDIO_LANGUAGES,
@@ -91,7 +96,7 @@ export const WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   automaticStudentPublication: false as const,
   manualApprovalRequired: true as const,
   nativeHumanSignoffRequired: true as const,
-  permanentQlAllocationRequired: true as const,
+  permanentQlAllocationRequired: false as const,
 });
 
 function stableSeed(value: string): number {
@@ -138,8 +143,8 @@ export interface WorQuestionStudioReviewQuestion {
   readonly checkpointId: WorCheckpointId;
   readonly prototypeId: string;
   readonly patternId: string;
-  readonly permanentQlId: null;
-  readonly qlId: null;
+  readonly permanentQlId: WorPermanentQlId | null;
+  readonly qlId: WorPermanentQlId | null;
   readonly questionId: string;
   readonly canonicalItemId: string;
   readonly questionLanguageId: string;
@@ -196,8 +201,8 @@ function reviewQuestion(
     checkpointId: question.checkpointId,
     prototypeId: question.prototypeId,
     patternId: question.prototypeId,
-    permanentQlId: null,
-    qlId: null,
+    permanentQlId: question.permanentQlId,
+    qlId: question.permanentQlId,
     questionId,
     canonicalItemId: `${question.checkpointId}:${question.prototypeId}`,
     questionLanguageId: questionId,

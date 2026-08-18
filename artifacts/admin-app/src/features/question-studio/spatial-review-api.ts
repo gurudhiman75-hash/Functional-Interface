@@ -1,7 +1,7 @@
 import { adminRequest } from '@/lib/admin-request';
 
 export type SpatialReviewDifficulty = 'Easy' | 'Medium' | 'Hard';
-export type SpatialReviewChapter = 'MIR-001' | 'WAT-001' | 'FAN-001' | 'FCL-001' | 'FSR-001';
+export type SpatialReviewChapter = 'MIR-001' | 'WAT-001' | 'FAN-001' | 'FCL-001' | 'FSR-001' | 'FGC-001';
 export type SpatialReviewLanguage = 'en' | 'hi' | 'pa';
 
 export interface SpatialReviewQl {
@@ -26,6 +26,7 @@ export interface SpatialReviewPackage {
   reviewStatus: 'APPROVED_EDITORIAL_CANONICAL';
   integrationAuthority: string;
   localizationAuthority: string;
+  fgcLocalizationAuthority?: string;
   releaseAuthority: string;
   permanentQlCount: number;
   questionStudioVisible: true;
@@ -89,6 +90,7 @@ export interface SpatialReviewQuestion {
     semanticOptionUniqueness: true;
     perceptualOptionUniqueness: true;
     learnerExplanationSafe: true;
+    uniqueAnswer?: true;
   };
 }
 

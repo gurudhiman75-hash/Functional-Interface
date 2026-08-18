@@ -1,0 +1,56 @@
+name: Validate INT-CP-006 Explanation Freeze V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp006-expanded-explanation-v4.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp006-english-explanation-amendment-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp006-english-explanation-amendment-v1-frozen.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp006-si-ci-relations-localized-v7.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp006-si-ci-relations-localized-v7-frozen.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp006-explanation-freeze-v1-audit.ts"
+      - ".github/workflows/int-cp006-explanation-freeze-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp006-explanation-freeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP006 explanation freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp006-explanation-freeze-v1-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp006-explanation-freeze-v1-audit.mjs
+      - name: Run CP006 explanation freeze audit
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp006-explanation-freeze-v1-audit.mjs 2>&1 | tee dist/quant-v4/int-cp006-explanation-freeze-v1-audit.log
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Verify freeze marker
+        run: grep -q 'PASS_INT_CP006_EXPLANATION_FREEZE_V1_AUDIT' artifacts/api-server/dist/quant-v4/int-cp006-explanation-freeze-v1-audit.log
+      - name: Upload CP006 explanation freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp006-explanation-freeze-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/INT-CP-006-EXPLANATION-FREEZE-EVIDENCE.md
+            artifacts/api-server/dist/quant-v4/int-cp006-explanation-freeze-v1-audit.log
+          if-no-files-found: error

@@ -10,7 +10,10 @@ import {
   generateQuestion as generateSharedQuestionStudioQuestion,
   listQuestionStudioPackages,
 } from "../../../../question-studio/shared-generation-engine";
-import { buildWor001QuestionStudioPayload } from "./question-studio-payload";
+import {
+  buildWor001QuestionStudioPayload,
+  WOR_001_QUESTION_STUDIO_RELEASE_FREEZE,
+} from "./question-studio-payload";
 
 async function run() {
   const packages = listReasoningV1QuestionStudioReviewPackages();
@@ -33,13 +36,21 @@ async function run() {
   assert.equal(question.packageId, "WOR-001");
   assert.equal(question.chapterId, "WOR-001");
   assert.equal(question.prototypeId, "WOR-PROT-020");
+  assert.equal(question.permanentQlId, "WOR-QL-003");
+  assert.equal(question.qlId, "WOR-QL-003");
   assert.equal(question.lifecycleStatus, "REVIEW_ONLY");
   assert.equal(question.questionStudioVisible, true);
   assert.equal(question.validation.valid, true);
 
   const payload = buildWor001QuestionStudioPayload(question);
-  assert.equal(payload.canonicalProblemId, question.prototypeId, "Canonical problem identity must stay at prototype level until permanent QLs are allocated.");
+  assert.equal(payload.canonicalProblemId, question.prototypeId, "Prototype identity must remain available for source-level regeneration traceability.");
   assert.equal(payload.checkpointId, question.checkpointId);
+  assert.equal(payload.permanentQlId, "WOR-QL-003");
+  assert.equal(payload.qlId, "WOR-QL-003");
+  assert.equal(payload.permanentQlAllocationStatus, "ALLOCATED_INACTIVE");
+  assert.equal(payload.humanContentReviewStatus, "PENDING");
+  assert.equal(payload.nativeHumanSignoffStatus, "PENDING");
+  assert.equal(payload.releaseFreezeStatus, WOR_001_QUESTION_STUDIO_RELEASE_FREEZE);
   assert.equal(payload.revisionPolicy, "SOURCE_GENERATOR_ONLY");
   assert.equal(payload.questionBankStatus, "NOT_STORED");
   assert.equal(payload.questionBankWritable, false);
@@ -48,7 +59,6 @@ async function run() {
   assert.equal(payload.mockTestEligible, false);
   assert.equal(payload.publiclyPublishable, false);
   assert.equal(payload.automaticStudentPublication, false);
-  assert.equal(payload.permanentQlId, null);
 
   assert.throws(
     () => persistReasoningV1QuestionStudioReview({
@@ -68,6 +78,9 @@ async function run() {
   assert.ok(cockpitWor, "WOR-001 must be exposed through the normal Question Studio capabilities list.");
   assert.equal(cockpitWor.enabled, true);
   assert.deepEqual(cockpitWor.supportedLanguages, ["en", "hi", "pa"]);
+  assert.deepEqual(cockpitWor.supportedDifficulties, ["Easy", "Medium", "Hard"]);
+  assert.equal(cockpitWor.permanentQlCount, 8);
+  assert.equal(cockpitWor.permanentQlAllocationStatus, "ALLOCATED_INACTIVE");
   assert.equal(cockpitWor.questionBankStatus, "NOT_STORED");
   assert.equal(cockpitWor.testEligibility, "INELIGIBLE");
   assert.equal(cockpitWor.publiclyPublishable, false);
@@ -84,17 +97,67 @@ async function run() {
   const generatedPayload = generated.questions[0] as Record<string, unknown>;
   assert.equal(generatedPayload.packageId, "WOR-001");
   assert.equal(generatedPayload.patternId, "WOR-PROT-020");
+  assert.equal(generatedPayload.permanentQlId, "WOR-QL-003");
   assert.equal(generatedPayload.revisionPolicy, "SOURCE_GENERATOR_ONLY");
   assert.equal(generatedPayload.questionBankWritable, false);
   assert.equal(generatedPayload.testEligible, false);
   assert.equal(generatedPayload.publiclyPublishable, false);
-  assert.equal((generated.generationContext as Record<string, unknown>).generationDomain, "reasoning-v1");
+  const generationContext = generated.generationContext as Record<string, unknown>;
+  assert.equal(generationContext.generationDomain, "reasoning-v1");
+  assert.equal(generationContext.permanentQlCount, 8);
+  assert.equal(generationContext.permanentQlAllocationStatus, "ALLOCATED_INACTIVE");
+  assert.equal(generationContext.releaseFreezeStatus, WOR_001_QUESTION_STUDIO_RELEASE_FREEZE);
+
+  const smallA = await generateSharedQuestionStudioQuestion({
+    packageId: "WOR-001",
+    difficulty: "Medium",
+    language: "en",
+    count: 5,
+    seed: "small-batch-a",
+  });
+  const smallB = await generateSharedQuestionStudioQuestion({
+    packageId: "WOR-001",
+    difficulty: "Medium",
+    language: "en",
+    count: 5,
+    seed: "small-batch-b",
+  });
+  const prototypesA = (smallA.questionPackages as Array<{ prototypeId: string }>).map((entry) => entry.prototypeId);
+  const prototypesB = (smallB.questionPackages as Array<{ prototypeId: string }>).map((entry) => entry.prototypeId);
+  assert.equal(new Set(prototypesA).size, 5, "A normal five-question WOR batch should not repeat a prototype while enough candidates exist.");
+  assert.equal(new Set(prototypesB).size, 5, "A second normal five-question WOR batch should not repeat a prototype while enough candidates exist.");
+  assert.notDeepEqual(prototypesA, prototypesB, "Changing the batch seed should change prototype sampling instead of always taking the first catalog entries.");
+
+  const checkpointBatch = await generateSharedQuestionStudioQuestion({
+    packageId: "WOR-001",
+    cpId: "WOR-CP-005",
+    difficulty: "Hard",
+    language: "en",
+    count: 5,
+    seed: "checkpoint-filter-contract",
+  });
+  assert.equal(checkpointBatch.questions.length, 5);
+  assert.ok((checkpointBatch.questionPackages as Array<{ checkpointId: string }>).every((entry) => entry.checkpointId === "WOR-CP-005"));
+
+  const mixed = await generateSharedQuestionStudioQuestion({
+    packageId: "WOR-001",
+    difficulty: "Mixed",
+    language: "en",
+    count: 24,
+    seed: "mixed-difficulty-contract",
+  });
+  const mixedBands = new Set((mixed.questionPackages as Array<{ difficultyBand: string }>).map((entry) => entry.difficultyBand));
+  assert.ok(mixedBands.size >= 2, "WOR Mixed generation must not collapse silently to one fixed difficulty band.");
 
   console.log("WOR-001 shared Question Studio contract passed.", {
     reasoningRegistryPackageCount: packages.length,
     cockpitPackageCount: cockpitPackages.length,
     prototypeId: question.prototypeId,
+    permanentQlId: payload.permanentQlId,
     canonicalProblemId: payload.canonicalProblemId,
+    smallBatchA: prototypesA,
+    smallBatchB: prototypesB,
+    mixedBands: [...mixedBands].sort(),
   });
 }
 
