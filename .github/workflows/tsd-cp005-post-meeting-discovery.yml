@@ -1,0 +1,60 @@
+name: Validate TSD CP-005 Post-Meeting Discovery
+
+on:
+  pull_request:
+    branches:
+      - freeze/tsd-cp004-english-approved
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp005/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
+      - .github/workflows/tsd-cp005-post-meeting-discovery.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cp005-discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP005 executable proof
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/cp005-discovery
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/proof.mjs"
+
+      - name: Run CP005 executable discovery proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp005-discovery
+          node "$OUT/proof.mjs" 2>&1 | tee "$OUT/proof.log"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload CP005 discovery evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp005-post-meeting-discovery-evidence
+          path: artifacts/api-server/dist/quant-v4/tsd-001/cp005-discovery/*.log
+          if-no-files-found: error
