@@ -1,8 +1,6 @@
 # Statement-Based Logic — Design Wave Status
 
-Status: **DESIGN COMPLETE / CRITICAL SELF-REVIEW PASSED / SOURCE AUDIT V1 COMPLETE**
-
-This status file records the coordinated pre-implementation design and source-audit wave for the natural-language Family C chapters.
+Status: **DESIGN COMPLETE / SOURCE AUDIT V1 COMPLETE / TARGETED SATURATION V2 COMPLETE / MERGE-SPLIT REVIEW COMPLETE**
 
 Authorities:
 
@@ -11,134 +9,100 @@ Authorities:
 - `STATEMENT-BASED-LOGIC-SOURCE-OWNERSHIP-AUDIT-V1.md`
 - `STATEMENT-BASED-LOGIC-SOURCE-AUDIT-V1-ADDENDUM.md`
 - `STATEMENT-BASED-LOGIC-SOURCE-AUDIT-DESIGN-AMENDMENTS-V1.md`
+- `STATEMENT-BASED-LOGIC-TARGETED-SATURATION-V2.md`
+- `STATEMENT-BASED-LOGIC-MERGE-SPLIT-QL-PROPOSAL-V1.md`
 
-## 1. Designed chapters
+## 1. Chapter state
 
-| Product code | Package | Design authority | Source-audit state |
-|---|---|---|---|
-| `REAS-STA` | `STA-001` | `topics/Statement-and-Assumption/STA-001/STA-001-END-TO-END-DESIGN.md` | STRONG PARTIAL SATURATION |
-| `REAS-STC` | `STC-001` | `topics/Statement-and-Conclusion/STC-001/STC-001-END-TO-END-DESIGN.md` | STRONG PARTIAL + SEMANTIC AMENDMENT |
-| `REAS-ARG` | `ARG-001` | `topics/Statement-and-Argument/ARG-001/ARG-001-END-TO-END-DESIGN.md` | STRONG PARTIAL SATURATION |
-| `REAS-COA` | `COA-001` | `topics/Course-of-Action/COA-001/COA-001-END-TO-END-DESIGN.md` | STRONG PARTIAL SATURATION |
-| `REAS-CAE` | `CAE-001` | `topics/Cause-and-Effect/CAE-001/CAE-001-END-TO-END-DESIGN.md` | STRONG CORE SATURATION |
-| `REAS-ASM` | `ASM-001` | `topics/Assertion-and-Reason/ASM-001/ASM-001-END-TO-END-DESIGN.md` | PARTIAL + OWNERSHIP AMENDMENT |
+| Product code | Package | Current state |
+|---|---|---|
+| `REAS-STA` | `STA-001` | STRONG PARTIAL / 4 QLs PROPOSED |
+| `REAS-STC` | `STC-001` | STRONG PARTIAL + SEMANTIC AMENDMENT / 3 QLs PROPOSED |
+| `REAS-ARG` | `ARG-001` | STRONG PARTIAL / 3 QLs PROPOSED |
+| `REAS-COA` | `COA-001` | STRONG PARTIAL / 2 QLs PROPOSED |
+| `REAS-CAE` | `CAE-001` | STRONG CORE / 1 QL PROPOSED |
+| `REAS-ASM` | `ASM-001` | BANKING OWNERSHIP CONFIRMED / PERMANENT QL ALLOCATION WITHHELD |
 
-No chapter is yet declared fully source-saturated for permanent QL allocation.
-
-## 2. Taxonomy decision
+## 2. Taxonomy freeze candidate
 
 These remain six separate chapters.
 
-A standalone `Inference` chapter is **not** created because the current authoritative Reasoning V1 taxonomy does not define `REAS-INF`.
+No standalone `Inference` chapter is created. Source-backed inference belongs in `STC-001` when the semantic task is conclusion/inference evaluation.
 
-Source audit showed that inference behavior belongs inside `STC-001`, but STC now has source-profiled inference standards rather than one universal entailment standard.
-
-## 3. Semantic separation — REVIEWED + SOURCE-AMENDED
-
-```text
-STA: candidate is an unstated required dependency
-STC: candidate is supported under the selected source-profile standard:
-     STRICT_ENTAILMENT or CONTROLLED_REASONABLE_INFERENCE
-ARG: candidate is a strong reason bearing materially on the issue
-COA: candidate is a suitable response, including evidence-sufficiency timing
-CAE: displayed events are classified by exact causal relation
-ASM: evaluate A truth, R truth, then R->A explanation, with source-section ownership
-```
-
-No implementation may replace these with one generic natural-language classifier.
-
-## 4. Major V1 source-audit corrections
-
-### STA
-
-Two- and three-assumption sets are both core source-profile dimensions. Candidate count does not define QL identity. Punjab and Banking evidence also confirm chapter ownership beyond SSC.
-
-### STC
-
-Source behavior requires:
+STC now explicitly distinguishes:
 
 ```text
 STRICT_ENTAILMENT
 CONTROLLED_REASONABLE_INFERENCE
 ```
 
-The second mode uses curated defeasible bridges and preserved modality; unrestricted commonsense inference remains prohibited.
+Formal categorical set reasoning routes to `SYL-001` regardless of visible `Statement/Conclusion` wording.
 
-Formal categorical set-conclusion questions route to `SYL-001` even when their visible heading says Statement/Conclusion.
+## 3. Major source-driven decisions
+
+### STA
+
+Two- and three-assumption candidate sets are core profile metadata, not QL identity.
+
+### STC
+
+Controlled reasonable inference is a real semantic mode, not merely alternate wording. Its bridge registry is curated and modality-preserving.
 
 ### ARG
 
-Banking evidence supports two- and three-argument sets. Material consequence conflicts require explicit rubric evidence rather than relevance alone. V1 status is upgraded to `STRONG PARTIAL SATURATION`.
+Two- and three-argument sets are representation metadata. Core permanent candidates are relevance/materiality, consequence/impact and feasibility/resource arguments.
 
 ### COA
 
-The oracle adds `EVIDENCE_SUFFICIENCY_BEFORE_INTERVENTION`; investigation may be correct when stronger remedial action is premature. Punjab and Banking evidence support chapter ownership.
+Investigation/verification receives a separate semantic QL candidate because `EVIDENCE_SUFFICIENCY_BEFORE_INTERVENTION` changes the proof operation. Other direct corrective/preventive/process actions remain one QL family with action-type metadata.
 
 ### CAE
 
-`INDEPENDENT_CAUSES`, `EFFECTS_OF_INDEPENDENT_CAUSES`, `EFFECTS_OF_COMMON_CAUSE` and unrelated events remain semantically distinct.
+Classic two-event relationship classification is allocation-ready as one semantic QL candidate. Immediate/principal, mediated and contributing-cause forms remain discovery reserve until target-exam evidence closes.
 
 ### ASM
 
-Assertion/Reason is a format as well as a reasoning task. Source-section ownership is mandatory so factual General-Awareness A/R items are not automatically counted as Reasoning. Curated stable knowledge is a first-class truth authority.
+Banking Logical Reasoning ownership is confirmed at section/topic level, but exact item semantics are not saturated enough for a stable QL. Temporary prototypes are allowed; permanent IDs are withheld.
 
-## 5. Shared infrastructure allowed
-
-Safe to share after real reuse is demonstrated:
-
-- proposition/entity IR;
-- scope/quantifier/time types;
-- polarity/negation utilities;
-- structured-text renderer;
-- deterministic seed utilities;
-- source-profile/evidence metadata;
-- localization framework;
-- semantic fingerprints;
-- review export infrastructure.
-
-Must remain chapter-owned:
-
-- answer oracle;
-- misconception-to-verdict rules;
-- source-pattern registry;
-- difficulty calibration;
-- explanation semantics;
-- final QL registry.
-
-Shared abstractions should be extracted after at least two executable chapters prove the overlap rather than by building a universal critical-reasoning engine first.
-
-## 6. Checkpoint / QL governance
-
-No permanent QL count has been allocated.
+## 4. Proposed QL count
 
 ```text
-permanentQlCount: 0 for new/unallocated designs
+STA: 4
+STC: 3
+ARG: 3
+COA: 2
+CAE: 1
+ASM: 0 allocated
+-------------
+Total proposed: 13
 ```
 
-The current planned CP labels are discovery authorities only.
+These are `PROPOSED`, not permanent/frozen IDs.
 
-Multi-I/II/III, coded and negative presentation tracks do **not** automatically survive as permanent checkpoints or QLs. Source saturation must merge them when they are merely representation variants.
+## 5. Permanent-allocation gate
 
-## 7. Downstream lifecycle
+Before the 13 candidates become permanent:
+
+1. implement temporary executable prototypes;
+2. prove materially independent oracle parity;
+3. run cross-QL collision tests;
+4. prove candidate count and option coding do not require splits;
+5. produce source-profile review corpora;
+6. run chapter-router collision tests;
+7. perform final no-known-gap review;
+8. then freeze permanent IDs.
+
+ASM must additionally recover/verify item-level Banking reasoning semantics before allocation.
+
+## 6. Downstream lifecycle
 
 ```text
-Question Studio: CLOSED
-Question Bank writes: CLOSED
-mock/test eligibility: CLOSED
-public publication: CLOSED
-Hindi/Punjabi production: NOT STARTED
+permanentQlAllocationAuthorized: false
+questionStudioDiscoverable:      false
+questionBankWritable:            false
+mock/test eligibility:           false
+public publication:              false
+Hindi/Punjabi production:        NOT STARTED
 ```
 
-## 8. Remaining source-saturation gate
-
-Before permanent allocation or production integration:
-
-1. enumerate and source-test STC controlled-reasonable-inference bridge families;
-2. isolate all Syllogism contamination from STC source pools;
-3. verify ASM section ownership before counting SSC factual A/R items;
-4. obtain Punjab-specific ARG evidence or explicitly mark that profile unsupported;
-5. find or reject advanced CAE mediated/contributing patterns;
-6. complete merge/split review and permanent-QL proposal;
-7. only then begin executable implementation.
-
-Design completion and Source Audit V1 do **not** mean source saturation or production readiness.
+Next program phase: **executable prototype + collision proof for the 13 proposed QLs, with temporary ASM discovery prototypes in parallel.**
