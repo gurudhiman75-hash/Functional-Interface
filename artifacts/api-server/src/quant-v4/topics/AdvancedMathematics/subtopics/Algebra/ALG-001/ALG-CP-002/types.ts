@@ -8,7 +8,8 @@ export type AlgCp002SolveMode =
   | "findReciprocalHigherPowerFromPlus"
   | "findReciprocalSquareFromMinus"
   | "findReciprocalCubeFromMinus"
-  | "findDifferenceOfSquaresFromSumAndDifference";
+  | "findDifferenceOfSquaresFromSumAndDifference"
+  | "findScaledReciprocalSquare";
 
 export interface AlgCp002Candidate {
   candidateId: string;
@@ -29,4 +30,9 @@ export interface AlgCp002DiscoveryItem {
   answer: { kind: "RATIONAL"; value: Rational };
   explanation: string;
   sourceStatus: "UNVERIFIED_DRAFT";
+  scaledReciprocalEvidence?: {
+    p: Rational;
+    q: Rational;
+    given: Rational;
+  };
 }

@@ -31,27 +31,19 @@ for (const candidate of ALG_CP005_DISCOVERY_CANDIDATES) {
 
     if (candidate.solveMode === "findRemainderForXMinusK" || candidate.solveMode === "findRemainderForXPlusK" || candidate.solveMode === "findRemainderForGeneralLinearDivisor") {
       assert(first.answer.kind === "RATIONAL", `${candidate.candidateId} seed ${seed} has wrong answer kind`);
-      if (first.answer.kind === "RATIONAL") {
-        assert(equalsRational(first.answer.value, division.remainder), `${candidate.candidateId} seed ${seed} has wrong remainder answer`);
-      }
+      if (first.answer.kind === "RATIONAL") assert(equalsRational(first.answer.value, division.remainder), `${candidate.candidateId} seed ${seed} has wrong remainder answer`);
     }
 
     if (candidate.solveMode === "findUnknownCoefficientFromFactorCondition" || candidate.solveMode === "findUnknownCoefficientFromGivenRemainder") {
       assert(first.answer.kind === "RATIONAL", `${candidate.candidateId} seed ${seed} has wrong coefficient answer kind`);
-      if (first.answer.kind === "RATIONAL") {
-        assert(equalsRational(first.answer.value, first.polynomial.coefficients[2]!), `${candidate.candidateId} seed ${seed} coefficient answer/state mismatch`);
-      }
+      if (first.answer.kind === "RATIONAL") assert(equalsRational(first.answer.value, first.polynomial.coefficients[2]!), `${candidate.candidateId} seed ${seed} coefficient answer/state mismatch`);
     }
 
-    if (candidate.solveMode === "findUnknownCoefficientFromFactorCondition") {
-      assert(division.remainder.numerator === 0n, `${candidate.candidateId} seed ${seed} violates factor condition`);
-    }
+    if (candidate.solveMode === "findUnknownCoefficientFromFactorCondition") assert(division.remainder.numerator === 0n, `${candidate.candidateId} seed ${seed} violates factor condition`);
 
     if (candidate.solveMode === "verifyDeclaredLinearFactor") {
       assert(first.answer.kind === "BOOLEAN", `${candidate.candidateId} seed ${seed} has wrong boolean answer kind`);
-      if (first.answer.kind === "BOOLEAN") {
-        assert(first.answer.value === (division.remainder.numerator === 0n), `${candidate.candidateId} seed ${seed} factor verdict mismatch`);
-      }
+      if (first.answer.kind === "BOOLEAN") assert(first.answer.value === (division.remainder.numerator === 0n), `${candidate.candidateId} seed ${seed} factor verdict mismatch`);
     }
 
     if (candidate.solveMode === "findTwoCoefficientsFromTwoRemainderConditions") {
@@ -61,10 +53,21 @@ for (const candidate of ALG_CP005_DISCOVERY_CANDIDATES) {
       if (first.answer.kind === "COEFFICIENT_PAIR" && first.conditionEvidence) {
         assert(equalsRational(first.answer.k, first.polynomial.coefficients[2]!), `${candidate.candidateId} seed ${seed} k mismatch`);
         assert(equalsRational(first.answer.m, first.polynomial.coefficients[1]!), `${candidate.candidateId} seed ${seed} m mismatch`);
-        assert(
-          equalsRational(evaluatePolynomial(first.polynomial, first.conditionEvidence.secondRoot), first.conditionEvidence.secondRemainder),
-          `${candidate.candidateId} seed ${seed} second remainder condition failed`,
-        );
+        assert(equalsRational(evaluatePolynomial(first.polynomial, first.conditionEvidence.secondRoot), first.conditionEvidence.secondRemainder), `${candidate.candidateId} seed ${seed} second remainder condition failed`);
+      }
+    }
+
+    if (candidate.solveMode === "findParameterAndCommonRemainderAcrossPolynomials") {
+      assert(first.answer.kind === "PARAMETER_REMAINDER", `${candidate.candidateId} seed ${seed} has wrong parameter/remainder answer kind`);
+      assert(first.equalRemainderEvidence !== undefined, `${candidate.candidateId} seed ${seed} lacks equal-remainder evidence`);
+      if (first.answer.kind === "PARAMETER_REMAINDER" && first.equalRemainderEvidence) {
+        const evidence = first.equalRemainderEvidence;
+        const firstRemainder = evaluatePolynomial(first.polynomial, first.divisor.root);
+        const secondRemainder = evaluatePolynomial(evidence.secondPolynomial, first.divisor.root);
+        assert(equalsRational(firstRemainder, secondRemainder), `${candidate.candidateId} seed ${seed} polynomials do not have equal remainders`);
+        assert(equalsRational(first.answer.remainder, firstRemainder), `${candidate.candidateId} seed ${seed} common remainder mismatch`);
+        assert(equalsRational(first.answer.parameter, first.polynomial.coefficients[evidence.parameterCoefficientDegree]!), `${candidate.candidateId} seed ${seed} parameter mismatch`);
+        assert(equalsRational(first.answer.remainder, evidence.commonRemainder), `${candidate.candidateId} seed ${seed} evidence remainder mismatch`);
       }
     }
   }

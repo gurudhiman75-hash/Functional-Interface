@@ -1,5 +1,6 @@
 import {
   addRational,
+  divideRational,
   formatRational,
   multiplyRational,
   powRational,
@@ -51,6 +52,12 @@ function subscript(exponent: number): string {
 function plusReciprocalGiven(seed: number): number {
   const magnitude = pickInt(seed, 2, 8, 1);
   return pickInt(seed, 0, 1, 2) === 0 ? magnitude : -magnitude;
+}
+
+function coefficientTerm(coefficient: number, body: string): string {
+  if (coefficient === 1) return body;
+  if (coefficient === -1) return `-${body}`;
+  return `${coefficient}${body}`;
 }
 
 export function generateAlgCp002DiscoveryItem(candidateId: string, seed: number): AlgCp002DiscoveryItem {
@@ -160,6 +167,26 @@ export function generateAlgCp002DiscoveryItem(candidateId: string, seed: number)
         answer: { kind: "RATIONAL", value: target },
         explanation: `Use a² - b² = (a + b)(a - b). So the value is (${sum})(${difference}) = ${formatRational(target)}.`,
         sourceStatus: candidate.sourceStatus,
+      };
+    }
+
+    case "findScaledReciprocalSquare": {
+      const p = nonZeroInt(seed, 1, 5, 1);
+      const q = nonZeroInt(seed, 1, 7, 2);
+      const x = nonZeroInt(seed, -5, 5, 3);
+      const px = multiplyRational(r(p), r(x));
+      const qOverX = divideRational(r(q), r(x));
+      const given = addRational(px, qOverX);
+      const target = addRational(powRational(px, 2), powRational(qOverX, 2));
+      const identityTarget = subtractRational(powRational(given, 2), multiplyRational(r(2 * p), r(q)));
+      if (formatRational(target) !== formatRational(identityTarget)) throw new Error("Scaled reciprocal identity construction mismatch");
+      return {
+        cpId: "ALG-CP-002", candidateId, solveMode: candidate.solveMode, seed,
+        stem: `If ${coefficientTerm(p, "x")} + ${q}/x = ${formatRational(given)}, find ${p === 1 ? "x²" : `${p * p}x²`} + ${q * q}/x².`,
+        answer: { kind: "RATIONAL", value: target },
+        explanation: `Let u = ${coefficientTerm(p, "x")} and v = ${q}/x. Then u + v = ${formatRational(given)} and uv = ${p * q}. Use u² + v² = (u + v)² - 2uv. Therefore the required value is (${formatRational(given)})² - 2(${p * q}) = ${formatRational(target)}.`,
+        sourceStatus: candidate.sourceStatus,
+        scaledReciprocalEvidence: { p: r(p), q: r(q), given },
       };
     }
   }

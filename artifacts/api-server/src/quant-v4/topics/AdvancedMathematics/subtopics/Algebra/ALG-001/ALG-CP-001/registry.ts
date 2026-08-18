@@ -7,6 +7,7 @@ export const ALG_CP001_DISCOVERY_CANDIDATES: AlgCp001Candidate[] = [
   { candidateId: "ALG-CP001-CAND-004", solveMode: "evaluateTwoVariableExpression", status: "DISCOVERY", permanentQlId: null, answerKind: "RATIONAL", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP001-CAND-005", solveMode: "findMissingCoefficientFromKnownValue", status: "DISCOVERY", permanentQlId: null, answerKind: "RATIONAL", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP001-CAND-006", solveMode: "detectUndefinedSubstitution", status: "DISCOVERY", permanentQlId: null, answerKind: "BOOLEAN", difficulty: "Easy", sourceStatus: "UNVERIFIED_DRAFT" },
+  { candidateId: "ALG-CP001-CAND-007", solveMode: "expandAndSimplifyExpression", status: "DISCOVERY", permanentQlId: null, answerKind: "POLYNOMIAL", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
 ];
 
 export function getAlgCp001Candidate(candidateId: string): AlgCp001Candidate {

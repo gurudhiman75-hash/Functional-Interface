@@ -1,4 +1,4 @@
-import { rationalKey } from "../../../../../shared/algebra";
+import { addRational, equalsRational, multiplyRational, rationalKey } from "../../../../../shared/algebra";
 import { ALG_CP001_DISCOVERY_CANDIDATES, generateAlgCp001DiscoveryItem } from "../ALG-001/ALG-CP-001";
 
 function stable(value: unknown): string {
@@ -23,6 +23,21 @@ for (const candidate of ALG_CP001_DISCOVERY_CANDIDATES) {
     if (first.answer.kind === "RATIONAL") {
       const key = rationalKey(first.answer.value);
       assert(!key.includes("/0"), `${candidate.candidateId} seed ${seed} produced an invalid rational`);
+    }
+
+    if (candidate.solveMode === "expandAndSimplifyExpression") {
+      assert(first.answer.kind === "POLYNOMIAL", `${candidate.candidateId} seed ${seed} must return polynomial`);
+      assert(first.expansionEvidence !== undefined, `${candidate.candidateId} seed ${seed} lacks expansion evidence`);
+      if (first.answer.kind === "POLYNOMIAL" && first.expansionEvidence) {
+        const evidence = first.expansionEvidence;
+        const expectedX = addRational(evidence.firstMultiplier, evidence.secondMultiplier);
+        const expectedConstant = addRational(
+          multiplyRational(evidence.firstMultiplier, evidence.firstShift),
+          multiplyRational(evidence.secondMultiplier, evidence.secondShift),
+        );
+        assert(equalsRational(first.answer.value.coefficients[1]!, expectedX), `${candidate.candidateId} seed ${seed} x coefficient mismatch`);
+        assert(equalsRational(first.answer.value.coefficients[0]!, expectedConstant), `${candidate.candidateId} seed ${seed} constant mismatch`);
+      }
     }
   }
 }

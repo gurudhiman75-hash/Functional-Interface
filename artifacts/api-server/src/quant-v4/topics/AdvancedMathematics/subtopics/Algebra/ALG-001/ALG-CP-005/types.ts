@@ -7,9 +7,10 @@ export type AlgCp005SolveMode =
   | "findUnknownCoefficientFromGivenRemainder"
   | "findRemainderForGeneralLinearDivisor"
   | "verifyDeclaredLinearFactor"
-  | "findTwoCoefficientsFromTwoRemainderConditions";
+  | "findTwoCoefficientsFromTwoRemainderConditions"
+  | "findParameterAndCommonRemainderAcrossPolynomials";
 
-export type AlgCp005AnswerKind = "RATIONAL" | "BOOLEAN" | "COEFFICIENT_PAIR";
+export type AlgCp005AnswerKind = "RATIONAL" | "BOOLEAN" | "COEFFICIENT_PAIR" | "PARAMETER_REMAINDER";
 
 export interface AlgCp005Candidate {
   candidateId: string;
@@ -32,11 +33,17 @@ export interface AlgCp005DiscoveryItem {
   answer:
     | { kind: "RATIONAL"; value: Rational }
     | { kind: "BOOLEAN"; value: boolean }
-    | { kind: "COEFFICIENT_PAIR"; k: Rational; m: Rational };
+    | { kind: "COEFFICIENT_PAIR"; k: Rational; m: Rational }
+    | { kind: "PARAMETER_REMAINDER"; parameter: Rational; remainder: Rational };
   explanation: string;
   sourceStatus: "UNVERIFIED_DRAFT";
   conditionEvidence?: {
     secondRoot: Rational;
     secondRemainder: Rational;
+  };
+  equalRemainderEvidence?: {
+    secondPolynomial: Polynomial1;
+    parameterCoefficientDegree: number;
+    commonRemainder: Rational;
   };
 }

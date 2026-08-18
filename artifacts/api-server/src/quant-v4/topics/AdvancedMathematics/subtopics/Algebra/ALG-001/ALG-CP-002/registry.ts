@@ -9,6 +9,7 @@ export const ALG_CP002_DISCOVERY_CANDIDATES: AlgCp002Candidate[] = [
   { candidateId: "ALG-CP002-CAND-006", solveMode: "findReciprocalSquareFromMinus", status: "DISCOVERY", permanentQlId: null, answerKind: "RATIONAL", difficulty: "Easy", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP002-CAND-007", solveMode: "findReciprocalCubeFromMinus", status: "DISCOVERY", permanentQlId: null, answerKind: "RATIONAL", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP002-CAND-008", solveMode: "findDifferenceOfSquaresFromSumAndDifference", status: "DISCOVERY", permanentQlId: null, answerKind: "RATIONAL", difficulty: "Easy", sourceStatus: "UNVERIFIED_DRAFT" },
+  { candidateId: "ALG-CP002-CAND-009", solveMode: "findScaledReciprocalSquare", status: "DISCOVERY", permanentQlId: null, answerKind: "RATIONAL", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
 ];
 
 export function getAlgCp002Candidate(candidateId: string): AlgCp002Candidate {
