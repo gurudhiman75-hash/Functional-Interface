@@ -33,6 +33,31 @@ function r(value: number): Rational {
   return rational(BigInt(value));
 }
 
+function variableTerm(coefficient: number, variable: string): string {
+  if (coefficient === 1) return variable;
+  if (coefficient === -1) return `-${variable}`;
+  return `${coefficient}${variable}`;
+}
+
+function signedVariableTerm(coefficient: number, variable: string): string {
+  const absolute = Math.abs(coefficient);
+  const body = absolute === 1 ? variable : `${absolute}${variable}`;
+  return `${coefficient < 0 ? "-" : "+"} ${body}`;
+}
+
+function signedConstant(value: number): string {
+  return `${value < 0 ? "-" : "+"} ${Math.abs(value)}`;
+}
+
+function scaledUnknown(multiplier: number, variable: string): string {
+  return variableTerm(multiplier, variable);
+}
+
+function denominatorText(forbidden: number): string {
+  if (forbidden === 0) return "x";
+  return forbidden < 0 ? `x + ${Math.abs(forbidden)}` : `x - ${forbidden}`;
+}
+
 export function generateAlgCp001DiscoveryItem(candidateId: string, seed: number): AlgCp001DiscoveryItem {
   const candidate = getAlgCp001Candidate(candidateId);
 
@@ -45,7 +70,7 @@ export function generateAlgCp001DiscoveryItem(candidateId: string, seed: number)
         candidateId,
         solveMode: candidate.solveMode,
         seed,
-        stem: `What is the coefficient of x in ${coefficient}x ${constant < 0 ? "-" : "+"} ${Math.abs(constant)}?`,
+        stem: `What is the coefficient of x in ${variableTerm(coefficient, "x")} ${signedConstant(constant)}?`,
         answer: { kind: "RATIONAL", value: r(coefficient) },
         explanation: `The coefficient is the number multiplying x. Here x is multiplied by ${coefficient}, so the coefficient is ${coefficient}.`,
         sourceStatus: candidate.sourceStatus,
@@ -61,7 +86,7 @@ export function generateAlgCp001DiscoveryItem(candidateId: string, seed: number)
         candidateId,
         solveMode: candidate.solveMode,
         seed,
-        stem: `Combine the like terms: ${a}x ${b < 0 ? "-" : "+"} ${Math.abs(b)}x. What is the coefficient of x after simplification?`,
+        stem: `Combine the like terms: ${variableTerm(a, "x")} ${signedVariableTerm(b, "x")}. What is the coefficient of x after simplification?`,
         answer: { kind: "RATIONAL", value: sum },
         explanation: `Both terms contain x, so add their coefficients: ${a} ${b < 0 ? "-" : "+"} ${Math.abs(b)} = ${formatRational(sum)}. The simplified expression is ${formatRational(sum)}x.`,
         sourceStatus: candidate.sourceStatus,
@@ -78,9 +103,9 @@ export function generateAlgCp001DiscoveryItem(candidateId: string, seed: number)
         candidateId,
         solveMode: candidate.solveMode,
         seed,
-        stem: `If x = ${x}, find the value of ${a}x ${b < 0 ? "-" : "+"} ${Math.abs(b)}.`,
+        stem: `If x = ${x}, find the value of ${variableTerm(a, "x")} ${signedConstant(b)}.`,
         answer: { kind: "RATIONAL", value },
-        explanation: `Substitute x = ${x}: ${a}(${x}) ${b < 0 ? "-" : "+"} ${Math.abs(b)} = ${formatRational(value)}.`,
+        explanation: `Substitute x = ${x}: ${a}(${x}) ${signedConstant(b)} = ${formatRational(value)}.`,
         sourceStatus: candidate.sourceStatus,
       };
     }
@@ -96,7 +121,7 @@ export function generateAlgCp001DiscoveryItem(candidateId: string, seed: number)
         candidateId,
         solveMode: candidate.solveMode,
         seed,
-        stem: `If x = ${x} and y = ${y}, find ${a}x ${b < 0 ? "-" : "+"} ${Math.abs(b)}y.`,
+        stem: `If x = ${x} and y = ${y}, find ${variableTerm(a, "x")} ${signedVariableTerm(b, "y")}.`,
         answer: { kind: "RATIONAL", value },
         explanation: `Substitute x = ${x} and y = ${y}: ${a}(${x}) ${b < 0 ? "-" : "+"} ${Math.abs(b)}(${y}) = ${formatRational(value)}.`,
         sourceStatus: candidate.sourceStatus,
@@ -114,9 +139,9 @@ export function generateAlgCp001DiscoveryItem(candidateId: string, seed: number)
         candidateId,
         solveMode: candidate.solveMode,
         seed,
-        stem: `For x = ${x}, the expression kx ${b < 0 ? "-" : "+"} ${Math.abs(b)} has value ${formatRational(target)}. Find k.`,
+        stem: `For x = ${x}, the expression kx ${signedConstant(b)} has value ${formatRational(target)}. Find k.`,
         answer: { kind: "RATIONAL", value: recovered },
-        explanation: `Substitute x = ${x}: ${x}k ${b < 0 ? "-" : "+"} ${Math.abs(b)} = ${formatRational(target)}. Isolating k gives k = ${formatRational(recovered)}.`,
+        explanation: `Substitute x = ${x}: ${scaledUnknown(x, "k")} ${signedConstant(b)} = ${formatRational(target)}. Isolating k gives k = ${formatRational(recovered)}.`,
         sourceStatus: candidate.sourceStatus,
       };
     }
@@ -130,7 +155,7 @@ export function generateAlgCp001DiscoveryItem(candidateId: string, seed: number)
         candidateId,
         solveMode: candidate.solveMode,
         seed,
-        stem: `Is the expression 1/(x ${forbidden < 0 ? "+" : "-"} ${Math.abs(forbidden)}) defined at x = ${testValue}?`,
+        stem: `Is the expression 1/(${denominatorText(forbidden)}) defined at x = ${testValue}?`,
         answer: { kind: "BOOLEAN", value: !undefined },
         explanation: undefined
           ? `At x = ${testValue}, the denominator becomes 0, so the expression is not defined.`
