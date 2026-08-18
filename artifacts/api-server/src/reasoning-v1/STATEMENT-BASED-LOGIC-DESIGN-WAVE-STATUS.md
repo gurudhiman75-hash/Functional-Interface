@@ -9,6 +9,7 @@ Authorities:
 - `STATEMENT-BASED-LOGIC-FAMILY-DESIGN.md`
 - `STATEMENT-BASED-LOGIC-DESIGN-SELF-REVIEW.md`
 - `STATEMENT-BASED-LOGIC-SOURCE-OWNERSHIP-AUDIT-V1.md`
+- `STATEMENT-BASED-LOGIC-SOURCE-AUDIT-V1-ADDENDUM.md`
 - `STATEMENT-BASED-LOGIC-SOURCE-AUDIT-DESIGN-AMENDMENTS-V1.md`
 
 ## 1. Designed chapters
@@ -17,7 +18,7 @@ Authorities:
 |---|---|---|---|
 | `REAS-STA` | `STA-001` | `topics/Statement-and-Assumption/STA-001/STA-001-END-TO-END-DESIGN.md` | STRONG PARTIAL SATURATION |
 | `REAS-STC` | `STC-001` | `topics/Statement-and-Conclusion/STC-001/STC-001-END-TO-END-DESIGN.md` | STRONG PARTIAL + SEMANTIC AMENDMENT |
-| `REAS-ARG` | `ARG-001` | `topics/Statement-and-Argument/ARG-001/ARG-001-END-TO-END-DESIGN.md` | PARTIAL SATURATION |
+| `REAS-ARG` | `ARG-001` | `topics/Statement-and-Argument/ARG-001/ARG-001-END-TO-END-DESIGN.md` | STRONG PARTIAL SATURATION |
 | `REAS-COA` | `COA-001` | `topics/Course-of-Action/COA-001/COA-001-END-TO-END-DESIGN.md` | STRONG PARTIAL SATURATION |
 | `REAS-CAE` | `CAE-001` | `topics/Cause-and-Effect/CAE-001/CAE-001-END-TO-END-DESIGN.md` | STRONG CORE SATURATION |
 | `REAS-ASM` | `ASM-001` | `topics/Assertion-and-Reason/ASM-001/ASM-001-END-TO-END-DESIGN.md` | PARTIAL + OWNERSHIP AMENDMENT |
@@ -50,11 +51,11 @@ No implementation may replace these with one generic natural-language classifier
 
 ### STA
 
-Two- and three-assumption sets are both core source-profile dimensions. Candidate count does not define QL identity.
+Two- and three-assumption sets are both core source-profile dimensions. Candidate count does not define QL identity. Punjab and Banking evidence also confirm chapter ownership beyond SSC.
 
 ### STC
 
-Recent source behavior requires:
+Source behavior requires:
 
 ```text
 STRICT_ENTAILMENT
@@ -67,11 +68,11 @@ Formal categorical set-conclusion questions route to `SYL-001` even when their v
 
 ### ARG
 
-Banking evidence supports two- and three-argument sets. Material consequence conflicts require explicit rubric evidence rather than relevance alone.
+Banking evidence supports two- and three-argument sets. Material consequence conflicts require explicit rubric evidence rather than relevance alone. V1 status is upgraded to `STRONG PARTIAL SATURATION`.
 
 ### COA
 
-The oracle adds `EVIDENCE_SUFFICIENCY_BEFORE_INTERVENTION`; investigation may be correct when stronger remedial action is premature.
+The oracle adds `EVIDENCE_SUFFICIENCY_BEFORE_INTERVENTION`; investigation may be correct when stronger remedial action is premature. Punjab and Banking evidence support chapter ownership.
 
 ### CAE
 
@@ -132,10 +133,10 @@ Hindi/Punjabi production: NOT STARTED
 
 Before permanent allocation or production integration:
 
-1. deepen current Banking and Punjab evidence for STA/STC/ARG/COA;
-2. source-test STC controlled-reasonable-inference bridge families;
-3. isolate all Syllogism contamination from STC source pools;
-4. verify ASM section ownership before counting SSC factual A/R items;
+1. enumerate and source-test STC controlled-reasonable-inference bridge families;
+2. isolate all Syllogism contamination from STC source pools;
+3. verify ASM section ownership before counting SSC factual A/R items;
+4. obtain Punjab-specific ARG evidence or explicitly mark that profile unsupported;
 5. find or reject advanced CAE mediated/contributing patterns;
 6. complete merge/split review and permanent-QL proposal;
 7. only then begin executable implementation.
