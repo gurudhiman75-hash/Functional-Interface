@@ -42,6 +42,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/proof.ts" --bundle --platform=node --format=esm --outfile="$DISCOVERY_OUT/proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/authority-overlap-proof.ts" --bundle --platform=node --format=esm --outfile="$DISCOVERY_OUT/authority-overlap-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-fingerprint-diagnostic-v5.ts" --bundle --platform=node --format=esm --outfile="$REVIEW_OUT/fingerprint-diagnostic.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-evidence-v5.ts" --bundle --platform=node --format=esm --outfile="$REVIEW_OUT/evidence.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-export-v5.ts" --bundle --platform=node --format=esm --outfile="$REVIEW_OUT/export.mjs"
 
@@ -52,6 +53,13 @@ jobs:
           OUT=dist/quant-v4/tsd-001/cp005-discovery-regression
           node "$OUT/proof.mjs" 2>&1 | tee "$OUT/proof.log"
           node "$OUT/authority-overlap-proof.mjs" 2>&1 | tee "$OUT/authority-overlap-proof.log"
+
+      - name: Diagnose CP005 V5 audit fingerprints
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp005-english-review
+          node "$OUT/fingerprint-diagnostic.mjs" 2>&1 | tee "$OUT/fingerprint-diagnostic.log"
 
       - name: Run CP005 English V5 review evidence and export
         run: |
@@ -72,6 +80,7 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-discovery-regression/proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-discovery-regression/authority-overlap-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-english-review/fingerprint-diagnostic.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-english-review/evidence.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-english-review/cp005-english-review-v5-78q.json
           if-no-files-found: error
