@@ -7,6 +7,7 @@ export const ALG_CP005_DISCOVERY_CANDIDATES: AlgCp005Candidate[] = [
   { candidateId: "ALG-CP005-CAND-004", solveMode: "findUnknownCoefficientFromGivenRemainder", status: "DISCOVERY", permanentQlId: null, answerKind: "RATIONAL", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP005-CAND-005", solveMode: "findRemainderForGeneralLinearDivisor", status: "DISCOVERY", permanentQlId: null, answerKind: "RATIONAL", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
   { candidateId: "ALG-CP005-CAND-006", solveMode: "verifyDeclaredLinearFactor", status: "DISCOVERY", permanentQlId: null, answerKind: "BOOLEAN", difficulty: "Easy", sourceStatus: "UNVERIFIED_DRAFT" },
+  { candidateId: "ALG-CP005-CAND-007", solveMode: "findTwoCoefficientsFromTwoRemainderConditions", status: "DISCOVERY", permanentQlId: null, answerKind: "COEFFICIENT_PAIR", difficulty: "Medium", sourceStatus: "UNVERIFIED_DRAFT" },
 ];
 
 export function getAlgCp005Candidate(candidateId: string): AlgCp005Candidate {
