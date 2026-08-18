@@ -20,9 +20,9 @@ FGC canonical IDs, geometry, option order, answer authority and fingerprints rem
 - Mobile option floor: 104 px
 - Languages: English, Hindi, Punjabi
 
-## Exact integration and learner-review evidence
+## Reviewed integration and learner-review evidence
 
-The integrated 34-QL surface passed final exact-head CI on 315ba2ef26e4615bd891a75374d85557150345c8.
+The reviewed 34-QL surface passed CI on 315ba2ef26e4615bd891a75374d85557150345c8.
 
 - Workflow: Validate SPA-FND-001 Question Studio Integration V1
 - Run: 32040861339 - SUCCESS
@@ -40,7 +40,7 @@ Pinned learner-review artifacts:
 
 Repository authority: SPA-FGC-001-QUESTION-STUDIO-PRODUCT-OWNER-APPROVAL-V1
 
-On 2026-08-18 at approximately 08:00 +05:30, the product owner explicitly approved the reviewed FGC-001 Question Studio learner surface in project chat after receiving the review files.
+On 2026-08-18 the product owner explicitly approved the reviewed FGC-001 Question Studio learner surface in project chat after viewing the supplied review files.
 
 Approval covers:
 
@@ -48,21 +48,25 @@ Approval covers:
 - reviewed English, Hindi and Punjabi learner surface;
 - the reviewed visual sizing and question-specific explanations represented by the pinned evidence.
 
-Approval does not cover:
+Approval does not cover automatic approval of questions generated later in Question Studio, automatic student publication, or deployment. Manual review/approval of future generated items remains required.
 
-- automatic approval of questions generated later in Question Studio;
-- automatic student publication;
-- deployment;
-- merging PR #847 or PR #861 without a separate explicit merge instruction.
+The approval-record head c242ed4a3d72a475ea5984893a88eb3aebbd26ad passed the dedicated workflow in run 32092183996 with artifact 9308766621 and digest sha256:490ad63fe0e04f57b0117e2f878f00a82e9e602d9a9f3234bf20848e77c0f4fc.
 
-Manual review/approval of future generated items remains required.
+## Authorized stacked merge sequence
+
+On 2026-08-18 the product owner explicitly authorized proceeding with the previously stated stacked PR merge sequence.
+
+- PR #847 was validated at head 7665570ea0a3ff72536c2d68de051969018aca94.
+- PR #847 was merged first into New-main with merge commit 33614a087c22776f7b99cd26ec0b9b7e55137056.
+- PR #861 was then retargeted from feat/spa-fgc-001-discovery-v1 to New-main.
+- PR #861 remains subject to a fresh post-retarget CI pass before final merge.
+
+This merge authorization does not authorize deployment or automatic publication.
 
 ## Current boundary
 
-Implementation, exact-head CI, operator learner review and explicit product-owner Question Studio approval are complete.
-
-PR #861 remains stacked on PR #847. No merge or deployment is authorized by this approval record.
+Source/freeze PR #847 is merged. Product-owner learner-surface approval and merge authorization are recorded. PR #861 is retargeted to New-main and awaiting fresh post-retarget validation before final merge.
 
 ## Next gate
 
-STACKED_PR_MERGE_SEQUENCE_WHEN_EXPLICITLY_AUTHORIZED
+POST_RETARGET_CI_THEN_MERGE_PR_861
