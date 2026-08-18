@@ -136,7 +136,7 @@ function humanPolish(value: string, language: NumCp004TranslatedLanguage): strin
     return value
       .replace(/\band\b/giu, "और")
       .replaceAll("से सख़्ती से बड़ी", "से बड़ी")
-      .replaceAll("दिए हैं। में किसके", "दिए हैं। इनमें किसके")
+      .replaceAll("दिए हैं। में किस", "दिए हैं। इनमें किस")
       .replaceAll("पूर्ण अभाज्य गुणनखंड क्या है?", "पूर्ण अभाज्य गुणनखंडन क्या है?")
       .replaceAll("का अभाज्य गुणनखंड ", "का अभाज्य गुणनखंडन ")
       .replaceAll("कौन-सा पर्याप्त जानकारी निष्कर्ष सही है?", "कौन-सा निष्कर्ष सही है?")
@@ -147,7 +147,7 @@ function humanPolish(value: string, language: NumCp004TranslatedLanguage): strin
   return value
     .replace(/\band\b/giu, "ਅਤੇ")
     .replaceAll("ਤੋਂ ਸਖ਼ਤੀ ਨਾਲ ਵੱਡੀ", "ਤੋਂ ਵੱਡੀ")
-    .replaceAll("ਦਿੱਤੇ ਹਨ। ਵਿੱਚੋਂ ਕਿਸਦੇ", "ਦਿੱਤੇ ਹਨ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸਦੇ")
+    .replaceAll("ਦਿੱਤੇ ਹਨ। ਵਿੱਚੋਂ ਕਿਸ", "ਦਿੱਤੇ ਹਨ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸ")
     .replaceAll("ਪੂਰਾ ਅਭਾਜ ਗੁਣਨਖੰਡ ਕੀ ਹੈ?", "ਪੂਰਾ ਅਭਾਜ ਗੁਣਨਖੰਡਨ ਕੀ ਹੈ?")
     .replaceAll("ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡ ", "ਦਾ ਅਭਾਜ ਗੁਣਨਖੰਡਨ ")
     .replaceAll("ਕਿਹੜਾ ਕਾਫ਼ੀ ਜਾਣਕਾਰੀ ਨਤੀਜਾ ਸਹੀ ਹੈ?", "ਕਿਹੜਾ ਨਤੀਜਾ ਸਹੀ ਹੈ?")
