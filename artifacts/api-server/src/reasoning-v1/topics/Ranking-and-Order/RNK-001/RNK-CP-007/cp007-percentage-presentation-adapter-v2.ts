@@ -22,7 +22,11 @@ function sha256(value: unknown): string {
 function polishEnglish(text: string): string {
   return text
     .replace(/(^|\.\s+)boys are/gu, "$1Boys are")
-    .replace(/(^|\.\s+)girls are/gu, "$1Girls are");
+    .replace(/(^|\.\s+)girls are/gu, "$1Girls are")
+    .replace(/(^|\.\s+)boys ahead/gu, "$1Boys ahead")
+    .replace(/(^|\.\s+)girls ahead/gu, "$1Girls ahead")
+    .replace(/(^|\.\s+)boys behind/gu, "$1Boys behind")
+    .replace(/(^|\.\s+)girls behind/gu, "$1Girls behind");
 }
 
 function polishHindi(text: string): string {
@@ -35,7 +39,11 @@ function polishHindi(text: string): string {
     .replace(/आगे लड़कियाँ =/gu, "आगे लड़कियों की संख्या =")
     .replace(/पीछे लड़कियाँ =/gu, "पीछे लड़कियों की संख्या =")
     .replace(/आगे लड़के =/gu, "आगे लड़कों की संख्या =")
-    .replace(/पीछे लड़के =/gu, "पीछे लड़कों की संख्या =");
+    .replace(/पीछे लड़के =/gu, "पीछे लड़कों की संख्या =")
+    .replace(/लड़कियाँ आगे =/gu, "आगे लड़कियों की संख्या =")
+    .replace(/लड़कियाँ पीछे =/gu, "पीछे लड़कियों की संख्या =")
+    .replace(/लड़के आगे =/gu, "आगे लड़कों की संख्या =")
+    .replace(/लड़के पीछे =/gu, "पीछे लड़कों की संख्या =");
 }
 
 function polishPunjabi(text: string): string {
@@ -48,7 +56,11 @@ function polishPunjabi(text: string): string {
     .replace(/ਅੱਗੇ ਕੁੜੀਆਂ =/gu, "ਅੱਗੇ ਵਾਲੀਆਂ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ =")
     .replace(/ਪਿੱਛੇ ਕੁੜੀਆਂ =/gu, "ਪਿੱਛੇ ਵਾਲੀਆਂ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ =")
     .replace(/ਅੱਗੇ ਮੁੰਡੇ =/gu, "ਅੱਗੇ ਵਾਲੇ ਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ =")
-    .replace(/ਪਿੱਛੇ ਮੁੰਡੇ =/gu, "ਪਿੱਛੇ ਵਾਲੇ ਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ =");
+    .replace(/ਪਿੱਛੇ ਮੁੰਡੇ =/gu, "ਪਿੱਛੇ ਵਾਲੇ ਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ =")
+    .replace(/ਕੁੜੀਆਂ ਅੱਗੇ =/gu, "ਅੱਗੇ ਵਾਲੀਆਂ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ =")
+    .replace(/ਕੁੜੀਆਂ ਪਿੱਛੇ =/gu, "ਪਿੱਛੇ ਵਾਲੀਆਂ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ =")
+    .replace(/ਮੁੰਡੇ ਅੱਗੇ =/gu, "ਅੱਗੇ ਵਾਲੇ ਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ =")
+    .replace(/ਮੁੰਡੇ ਪਿੱਛੇ =/gu, "ਪਿੱਛੇ ਵਾਲੇ ਮੁੰਡਿਆਂ ਦੀ ਗਿਣਤੀ =");
 }
 
 function polish(text: string, locale: RnkCp007PercentageAdapterLocale): string {
