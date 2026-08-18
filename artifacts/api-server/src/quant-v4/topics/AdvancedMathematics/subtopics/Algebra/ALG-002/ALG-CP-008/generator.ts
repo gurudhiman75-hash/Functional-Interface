@@ -67,6 +67,13 @@ function polynomialText(value: Polynomial1): string {
   return pieces.join(" ") || "0";
 }
 
+function linearText(a: number, b: number): string {
+  const xPart = a === 0 ? "" : a === 1 ? "x" : a === -1 ? "-x" : `${a}x`;
+  if (b === 0) return xPart || "0";
+  if (!xPart) return String(b);
+  return `${xPart} ${b < 0 ? "-" : "+"} ${Math.abs(b)}`;
+}
+
 function fractionText(value: RationalFunction1): string {
   return `(${polynomialText(value.numerator)})/(${polynomialText(value.denominator)})`;
 }
@@ -117,12 +124,14 @@ export function generateAlgCp008DiscoveryItem(candidateId: string, seed: number)
       };
       const solved = rootSetAnswer(equation);
       if (solved.values.length !== 1 || !equalsRational(solved.values[0]!, rational(target))) throw new Error("Linear fraction construction failed");
+      const collectedCoefficient = a - rhs;
+      const collectedRhs = -rhs * excluded - b;
       return {
         cpId: "ALG-CP-008", candidateId, solveMode: candidate.solveMode, seed,
         stem: `Solve ${equationText(equation)}.`,
         equation,
         answer: { kind: "ROOT_SET", values: solved.values },
-        explanation: `First note that x ≠ ${excluded}. Multiply both sides by the nonzero denominator ${polynomialText(equation.left.denominator)} and solve the resulting linear equation. This gives x = ${target}, which is not excluded and satisfies the original fraction equation.`,
+        explanation: `First note x ≠ ${excluded}. Multiply by the nonzero denominator ${polynomialText(equation.left.denominator)}: ${linearText(a, b)} = ${linearText(rhs, -rhs * excluded)}. Collecting x-terms gives ${linearText(collectedCoefficient, 0)} = ${collectedRhs}, so x = ${target}. This value is not excluded and satisfies the original fraction equation.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -140,12 +149,14 @@ export function generateAlgCp008DiscoveryItem(candidateId: string, seed: number)
       };
       const solved = rootSetAnswer(equation);
       if (solved.values.length !== 1) throw new Error("Two-reciprocal construction should have one valid root");
+      const collectedCoefficient = a - b;
+      const collectedRhs = a * f - b * e;
       return {
         cpId: "ALG-CP-008", candidateId, solveMode: candidate.solveMode, seed,
         stem: `Solve ${equationText(equation)}.`,
         equation,
         answer: { kind: "ROOT_SET", values: solved.values },
-        explanation: `The original denominators require x ≠ ${e} and x ≠ ${f}. Cross-multiply the two fractions and solve the resulting linear equation. The valid solution is x = ${formatRational(solved.values[0]!)}, and direct substitution in the original equation confirms it.`,
+        explanation: `The original denominators require x ≠ ${e} and x ≠ ${f}. Cross-multiplying gives ${a}(${polynomialText(xMinus(f))}) = ${b}(${polynomialText(xMinus(e))}). Expanding and collecting x-terms gives ${linearText(collectedCoefficient, 0)} = ${collectedRhs}, so x = ${formatRational(solved.values[0]!)}. Direct substitution in the original equation confirms the value is valid.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -165,7 +176,7 @@ export function generateAlgCp008DiscoveryItem(candidateId: string, seed: number)
         stem: `Solve ${equationText(equation)}.`,
         equation,
         answer: { kind: "ROOT_SET", values: solved.roots },
-        explanation: `From the original denominator, x = ${excluded} is not allowed. Cross-multiplication gives a numerator with candidate roots ${excluded} and ${validRoot}, but ${excluded} must be rejected because it makes the original denominator zero. Therefore the only valid solution is x = ${validRoot}.`,
+        explanation: `From the original denominator, x = ${excluded} is not allowed. The numerator factors as (${polynomialText(xMinus(excluded))})(${polynomialText(xMinus(validRoot))}), giving candidates x = ${excluded} and x = ${validRoot}. Reject ${excluded} because it makes the original denominator zero. Therefore the only valid solution is x = ${validRoot}.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -184,7 +195,7 @@ export function generateAlgCp008DiscoveryItem(candidateId: string, seed: number)
         stem: `Solve ${equationText(equation)}.`,
         equation,
         answer: { kind: "NO_SOLUTION" },
-        explanation: `The denominator makes x = ${excluded} invalid. The cross-multiplied equation has only x = ${excluded} as a candidate, so that candidate must be rejected. Hence the original rational equation has no solution.`,
+        explanation: `The denominator makes x = ${excluded} invalid. The numerator is (${polynomialText(factor)})², so the cross-multiplied equation gives only x = ${excluded}. That candidate is outside the original domain, hence the rational equation has no solution.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
@@ -201,12 +212,13 @@ export function generateAlgCp008DiscoveryItem(candidateId: string, seed: number)
       };
       const solved = rootSetAnswer(equation);
       if (solved.values.length !== 1 || !equalsRational(solved.values[0]!, rational(target))) throw new Error("Reciprocal-plus-constant construction failed");
+      const reciprocalValue = rational(1, target - excluded);
       return {
         cpId: "ALG-CP-008", candidateId, solveMode: candidate.solveMode, seed,
         stem: `Solve 1/(${polynomialText(xMinus(excluded))}) ${offset < 0 ? "-" : "+"} ${Math.abs(offset)} = ${formatRational(rhs)}.`,
         equation,
         answer: { kind: "ROOT_SET", values: solved.values },
-        explanation: `The denominator first gives x ≠ ${excluded}. Move the constant term to the right, then invert the remaining reciprocal relation. This gives x = ${target}. Since ${target} is not excluded, it is a valid solution.`,
+        explanation: `The denominator first gives x ≠ ${excluded}. Move ${offset} to the right: 1/(${polynomialText(xMinus(excluded))}) = ${formatRational(reciprocalValue)}. Invert both nonzero sides to get ${polynomialText(xMinus(excluded))} = ${target - excluded}, hence x = ${target}. Since ${target} is not excluded, it is valid.`,
         sourceStatus: "UNVERIFIED_DRAFT",
       };
     }
