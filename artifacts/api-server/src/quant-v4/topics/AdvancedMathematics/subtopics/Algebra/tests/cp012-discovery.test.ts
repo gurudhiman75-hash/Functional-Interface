@@ -174,6 +174,28 @@ for (const candidate of ALG_CP012_DISCOVERY_CANDIDATES) {
       continue;
     }
 
+    if (first.math.kind === "SYMMETRIC_FIXED_SUM") {
+      assert(first.answer.kind === "SYMMETRIC_EXTREMUM", `${candidate.candidateId} seed ${seed} has wrong symmetric-extremum answer kind`);
+      if (first.answer.kind !== "SYMMETRIC_EXTREMUM") continue;
+      const balanced = divideRational(first.math.sum, rational(3n));
+      assert(equalsRational(first.answer.balancedVariable, balanced), `${candidate.candidateId} seed ${seed} has wrong equality state`);
+      const expected = first.math.target === "RECIPROCAL_SUM"
+        ? divideRational(rational(9n), first.math.sum)
+        : divideRational(multiplyRational(first.math.sum, first.math.sum), rational(3n));
+      assert(equalsRational(first.answer.value, expected), `${candidate.candidateId} seed ${seed} has wrong symmetric minimum`);
+
+      const delta = divideRational(balanced, rational(2n));
+      const x = addRational(balanced, delta);
+      const y = subtractRational(balanced, delta);
+      const z = balanced;
+      assert(compareRational(y, ZERO) > 0, `${candidate.candidateId} seed ${seed} perturbation left positive domain`);
+      const perturbed = first.math.target === "RECIPROCAL_SUM"
+        ? addRational(addRational(divideRational(rational(1n), x), divideRational(rational(1n), y)), divideRational(rational(1n), z))
+        : addRational(addRational(multiplyRational(x, x), multiplyRational(y, y)), multiplyRational(z, z));
+      assert(compareRational(perturbed, expected) > 0, `${candidate.candidateId} seed ${seed} failed independent non-balanced minimum check`);
+      continue;
+    }
+
     throw new Error(`${candidate.candidateId} seed ${seed} has unverified math state ${first.math.kind}`);
   }
 }
