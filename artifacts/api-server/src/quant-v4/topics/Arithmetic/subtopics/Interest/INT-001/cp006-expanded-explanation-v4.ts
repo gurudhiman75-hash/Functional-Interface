@@ -48,8 +48,8 @@ function nativeSteps(
   if (qlId === "INT-QL-107" && state.qlId === "INT-QL-107") {
     const year = Number(answer.numerator / answer.denominator);
     const previousYear = year - 1;
-    const previousDifference = base[2]?.match(/CI−SI = ([^।]+)[।]?$/u)?.[1];
-    const currentDifference = base[4]?.match(/CI−SI = ([^।]+)[।]?$/u)?.[1];
+    const previousDifference = base[1]?.match(/CI−SI = ([^।]+)[।]?$/u)?.[1];
+    const currentDifference = base[3]?.match(/CI−SI = ([^।]+)[।]?$/u)?.[1];
     const previousSiCi = base[1]?.replace(/^पहले \d+ वर्ष जाँचें: /u, "").replace(/^ਪਹਿਲਾਂ \d+ ਸਾਲ ਜਾਂਚੋ: /u, "") ?? "";
     const currentSiCi = base[3]?.replace(/^अब \d+ वर्ष जाँचें: /u, "").replace(/^ਹੁਣ \d+ ਸਾਲ ਜਾਂਚੋ: /u, "") ?? "";
 
