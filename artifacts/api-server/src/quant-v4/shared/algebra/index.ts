@@ -13,3 +13,4 @@ export * from "./root-relations";
 export * from "./root-comparison";
 export * from "./inequality";
 export * from "./absolute-value";
+export * from "./evidence";
