@@ -1,0 +1,50 @@
+name: Validate INT-CP-007 Permanent Allocation V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp007-scheme-equivalence-runtime-v2.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp007-scheme-equivalence-runtime-v3-final.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp007-permanent-allocation-v1-audit.ts"
+      - ".github/workflows/int-cp007-permanent-allocation-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp007-permanent-allocation:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP007 permanent allocation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp007-permanent-allocation-v1-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-cp007-permanent-allocation-v1-audit.mjs
+      - name: Run CP007 permanent allocation audit
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp007-permanent-allocation-v1-audit.mjs 2>&1 | tee dist/quant-v4/int-cp007-permanent-allocation-v1-audit.log
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Verify CP007 allocation marker
+        run: grep -q 'PASS_INT_CP007_PERMANENT_ALLOCATION_V1_AUDIT' artifacts/api-server/dist/quant-v4/int-cp007-permanent-allocation-v1-audit.log
+      - name: Upload CP007 allocation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp007-permanent-allocation-v1
+          path: artifacts/api-server/dist/quant-v4/int-cp007-permanent-allocation-v1-audit.log
+          if-no-files-found: error
