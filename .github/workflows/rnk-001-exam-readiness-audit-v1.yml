@@ -27,6 +27,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Prove RNK exam-readiness authority boundary
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-readiness-audit-v1.test.ts
+      - name: Prove RNK exam-delivery realism guard
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-delivery-policy-v1.test.ts
       - name: Re-prove RNK chapter-wide English closure
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
       - name: Build API server
