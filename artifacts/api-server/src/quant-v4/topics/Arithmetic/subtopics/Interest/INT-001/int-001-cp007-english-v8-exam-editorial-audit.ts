@@ -42,6 +42,8 @@ function mathSegments(text: string): readonly string[] {
 
 const bannedPhrases = Object.freeze([
   "compound interest compounded annually",
+  "Scheme B runs for",
+  "For equal principal and equal maturity value",
   "Using rupees,",
   "required-principal scheme",
   "Known-scheme accumulation factor",
@@ -56,6 +58,8 @@ const bannedPhrases = Object.freeze([
   "present share",
   "Equal principal and equal maturity amount mean",
   "Grow both shares to maturity",
+  "Hence Principal A : Principal B is",
+  "p.a. compound interest",
   "Find the initial principal required in Plan B",
   "that will produce an equal maturity value",
   "A first-overtake answer needs",
