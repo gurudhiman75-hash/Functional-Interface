@@ -2,6 +2,8 @@ import { createHash } from "node:crypto";
 import { generateExamRealLocalizedTrg002Question, type Trg002ExamRealnessLocale } from "./localization-exam-realness-v2";
 import { selectTrg002V4ScenarioShell, type Trg002SpatialTopology } from "./exam-readiness-v4-scenario-engine";
 import { applyTrg002V4Wave1ScenarioText } from "./exam-readiness-v4-wave1-surface";
+import { isTrg002V4CanonicalOverride } from "./exam-readiness-v4-canonical";
+import { generateLocalizedTrg002V4CanonicalOverride } from "./exam-readiness-v4-override-localization";
 
 type AnyQuestion = Record<string, any>;
 
@@ -14,8 +16,8 @@ function sha256(value: unknown) {
 
 // V3.2 inherited a historical formatter that could replace the substring "3/2"
 // inside an exact expression such as √3/24, producing √1.54. V4 treats exact
-// mathematical tokens as protected content. This repair is intentionally narrow
-// and accompanied by a hard no-decimal-radicand gate.
+// mathematical tokens as protected content. This repair remains as a compatibility
+// shield until the historical V2 formatter is retired from the V4 path entirely.
 function repairHistoricalExactMathArtifact(text: string) {
   return text.replace(/√1\.5(\d+)/g, (_match, trailing: string) => `√3/2${trailing}`);
 }
@@ -30,8 +32,10 @@ function repairExplanation(explanation: AnyQuestion) {
   };
 }
 
-function inferTopology(stem: string): Trg002SpatialTopology {
-  if (/छाया|ਪਰਛਾਂਵ/u.test(stem)) return /दो|ਦੋ/u.test(stem) ? "SHADOW_CHANGE" : "SHADOW_COMPARISON";
+function inferTopology(qlId: string, stem: string): Trg002SpatialTopology {
+  if (qlId === "TRG-002-QL-027") return "SHADOW_CHANGE";
+  if (qlId === "TRG-002-QL-079") return "OBSERVER_BETWEEN_TARGETS";
+  if (/छाया|ਪਰਛਾਂਵ|ਛਾਂ|ਛਾਵ/u.test(stem)) return /दो|ਦੋ/u.test(stem) ? "SHADOW_CHANGE" : "SHADOW_COMPARISON";
   if (/सीढ़ी|ਸੀੜ੍ਹੀ|guy|तार|ਤਾਰ/u.test(stem)) return "SUPPORT_TRIANGLE";
   if (/नदी|ਨਦੀ/u.test(stem)) return "RIVER_WIDTH";
   if (/मस्तूल|ਮਸਤੂਲ|झंडे का डंडा|ਝੰਡੇ ਦੇ ਡੰਡੇ/u.test(stem)) return "COMPOSITE_VERTICAL";
@@ -43,17 +47,22 @@ function inferTopology(stem: string): Trg002SpatialTopology {
 }
 
 export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, locale: Trg002ExamRealnessLocale) {
-  const base: AnyQuestion = generateExamRealLocalizedTrg002Question(qlId, seed, locale);
+  const canonicalOverride = isTrg002V4CanonicalOverride(qlId);
+  const base: AnyQuestion = canonicalOverride
+    ? generateLocalizedTrg002V4CanonicalOverride(qlId, seed, locale)
+    : generateExamRealLocalizedTrg002Question(qlId, seed, locale);
   const exactStem = repairHistoricalExactMathArtifact(base.stem);
   const explanation = repairExplanation(base.explanation);
-  const wave1 = applyTrg002V4Wave1ScenarioText(qlId, locale, exactStem);
+  const wave1 = canonicalOverride
+    ? { stem: exactStem, scenarioTextApplied: true, scenarioId: qlId === "TRG-002-QL-027" ? "SHADOW_DIFFERENCE_TWO_TIMES" : "ROAD_EQUAL_PILLARS", diagramMigrationRequired: false }
+    : applyTrg002V4Wave1ScenarioText(qlId, locale, exactStem);
   const stem = wave1.stem;
-  const topology = inferTopology(stem);
+  const topology = inferTopology(qlId, stem);
   const scenario = selectTrg002V4ScenarioShell({ qlId, seed, topology });
   const learnerText = [stem, explanation.keyRule, ...explanation.steps.map((s: AnyQuestion) => s.body), explanation.shortcut, ...explanation.traps].join(" ");
   if (/√\d+\.\d+/u.test(learnerText)) throw new Error(`${qlId}:${locale}: V4 forbids decimal radicands in exact learner math.`);
 
-  const v4Fingerprint = sha256({ qlId, seed, locale, stem, explanation, topology, scenarioId: wave1.scenarioId ?? scenario.id });
+  const v4Fingerprint = sha256({ qlId, seed, locale, stem, explanation, topology, scenarioId: wave1.scenarioId ?? scenario.id, canonicalOverride });
   return {
     ...base,
     stem,
@@ -61,12 +70,13 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
     v4ExamReadiness: {
       version: "TRG002_EXAM_READINESS_V4",
       status: "REMEDIATION_IN_PROGRESS" as const,
+      canonicalOverride,
       spatialTopology: topology,
       recommendedScenarioShell: wave1.scenarioId ?? scenario.id,
       recommendedScenarioDomain: scenario.domain,
       recommendedVisualStrategy: scenario.visualStrategy,
       scenarioTextApplied: wave1.scenarioTextApplied,
-      scenarioSurfaceApplied: wave1.scenarioTextApplied && !wave1.diagramMigrationRequired,
+      scenarioSurfaceApplied: canonicalOverride || (wave1.scenarioTextApplied && !wave1.diagramMigrationRequired),
       diagramMigrationRequired: wave1.diagramMigrationRequired,
       exactMathProtected: true,
       comprehensiveVisualReviewRequired: true,
