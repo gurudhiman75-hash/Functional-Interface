@@ -1,8 +1,8 @@
 export const ALG_PERMANENT_ALLOCATION_AUTHORITY =
-  "ALG-PERMANENT-QL-ALLOCATION-V1" as const;
+  "ALG-PERMANENT-QL-ALLOCATION-V2" as const;
 
 export const ALG_PERMANENT_QL_IDS = Array.from(
-  { length: 40 },
+  { length: 43 },
   (_unused, index) => `ALG-QL-${String(index + 1).padStart(3, "0")}`,
 ) as readonly `ALG-QL-${string}`[];
 
@@ -48,10 +48,10 @@ export const ALG_RETAINED_CONTRACTS = [
   ["F-C025", "ALG-002", "ALG-CP-009", "Solve / classify quadratic across root states", "QUADRATIC-SOLVE-CLASSIFY", "DIRECT_OR_TARGET_EVIDENCE"],
   ["F-C026", "ALG-002", "ALG-CP-009", "Parameter for equal roots", "QUADRATIC-EQUAL-ROOT-PARAMETER", "DIRECT_OR_TARGET_EVIDENCE"],
   ["F-C027", "ALG-002", "ALG-CP-009", "Parameter / coefficient from root condition", "QUADRATIC-ROOT-CONDITION", "DIRECT_OR_TARGET_EVIDENCE"],
-  ["F-C028", "ALG-002", "ALG-CP-010", "Direct Vieta invariant / infer missing root", "VIETA-DIRECT", "DIRECT_OR_TARGET_EVIDENCE"],
-  ["F-C029", "ALG-002", "ALG-CP-010", "Derived symmetric root expression", "VIETA-DERIVED-SYMMETRIC", "DIRECT_OR_TARGET_EVIDENCE"],
-  ["F-C030", "ALG-002", "ALG-CP-010", "Construct equation from sum and product", "VIETA-CONSTRUCT-SUM-PRODUCT", "DIRECT_OR_TARGET_EVIDENCE"],
-  ["F-C031", "ALG-002", "ALG-CP-010", "Construct equation under controlled root transformation", "ROOT-TRANSFORMATION", "DIRECT_OR_TARGET_EVIDENCE"],
+  ["F-C028", "ALG-002", "ALG-CP-010", "Direct quadratic Vieta invariant / infer missing root", "VIETA-DIRECT-QUADRATIC", "DIRECT_OR_TARGET_EVIDENCE"],
+  ["F-C029", "ALG-002", "ALG-CP-010", "Derived symmetric quadratic-root expression", "VIETA-DERIVED-SYMMETRIC", "DIRECT_OR_TARGET_EVIDENCE"],
+  ["F-C030", "ALG-002", "ALG-CP-010", "Construct quadratic from sum and product", "VIETA-CONSTRUCT-SUM-PRODUCT", "DIRECT_OR_TARGET_EVIDENCE"],
+  ["F-C031", "ALG-002", "ALG-CP-010", "Construct quadratic under controlled root transformation", "ROOT-TRANSFORMATION", "DIRECT_OR_TARGET_EVIDENCE"],
   ["F-C032", "ALG-002", "ALG-CP-011", "Banking comparison of all admissible quadratic roots", "BANKING-QUADRATIC-COMPARISON", "TARGET_TAXONOMY"],
   ["F-C033", "ALG-002", "ALG-CP-012", "Solve linear inequality constraints", "LINEAR-INEQUALITY", "TARGET_TAXONOMY"],
   ["F-C034", "ALG-002", "ALG-CP-012", "Solve quadratic inequality / sign region", "QUADRATIC-INEQUALITY", "DIRECT_OR_TARGET_EVIDENCE"],
@@ -61,6 +61,9 @@ export const ALG_RETAINED_CONTRACTS = [
   ["F-C038", "ALG-002", "ALG-CP-013", "Solve absolute-value inequality", "ABSOLUTE-INEQUALITY", "COMPARABLE_RECRUITMENT_EVIDENCE"],
   ["F-C039", "ALG-002", "ALG-CP-014", "Quantity comparison across all admissible states", "QUANTITY-COMPARISON", "TARGET_TAXONOMY"],
   ["F-C040", "ALG-002", "ALG-CP-014", "Algebraic data sufficiency", "DATA-SUFFICIENCY", "DIRECT_OR_TARGET_EVIDENCE"],
+  ["F-C041", "ALG-002", "ALG-CP-007", "Solve unique 3×3 linear system", "LINEAR-SYSTEM-3X3", "DIRECT_OR_TARGET_EVIDENCE"],
+  ["F-C042", "ALG-002", "ALG-CP-010", "Direct cubic Vieta invariant", "VIETA-DIRECT-CUBIC", "DIRECT_OR_TARGET_EVIDENCE"],
+  ["F-C043", "ALG-002", "ALG-CP-012", "Symmetric positive-variable extremum under fixed sum", "SYMMETRIC-FIXED-SUM-EXTREMUM", "DIRECT_OR_TARGET_EVIDENCE"],
 ] as const satisfies readonly (readonly [AlgFreezeKey, "ALG-001" | "ALG-002", `ALG-CP-${string}`, string, string, AlgPermanentContractDefinition["evidenceLevel"]])[];
 
 export interface AlgPermanentAllocationEntry {
@@ -86,7 +89,7 @@ export interface AlgPermanentAllocationEntry {
   readonly publiclyPublishable: false;
 }
 
-if (ALG_RETAINED_CONTRACTS.length !== 40) throw new Error("Algebra retained contract count must be exactly 40");
+if (ALG_RETAINED_CONTRACTS.length !== 43) throw new Error("Algebra retained contract count must be exactly 43");
 if (ALG_PERMANENT_QL_IDS.length !== ALG_RETAINED_CONTRACTS.length) throw new Error("Algebra permanent QL allocation count mismatch");
 
 const cpCounters = new Map<string, number>();
@@ -107,9 +110,9 @@ export const ALG_PERMANENT_ALLOCATION: readonly AlgPermanentAllocationEntry[] = 
     title,
     evidenceLevel,
     sourceAuthority: [
-      "ALG-FINAL-RETAINED-CONTRACT-MATRIX",
-      "ALG-FINAL-SOURCE-FIXTURE-LEDGER",
-      "ALG-FINAL-SOURCE-GAP-AUDIT",
+      "ALG-FINAL-RETAINED-CONTRACT-MATRIX-V2",
+      "ALG-FINAL-SOURCE-FIXTURE-LEDGER-V2",
+      "ALG-FINAL-SOURCE-GAP-AUDIT-V2",
       freezeKey,
     ],
     allocationStatus: "SOURCE_AUDITED_PERMANENT_IDENTITY_ALLOCATED_INACTIVE",
@@ -143,7 +146,7 @@ export function getAlgPermanentAllocationForFreezeKey(freezeKey: AlgFreezeKey): 
 export function auditAlgPermanentAllocation() {
   const ids = ALG_PERMANENT_ALLOCATION.map((row) => row.qlId);
   const freezeKeys = ALG_PERMANENT_ALLOCATION.map((row) => row.freezeKey);
-  const expectedIds = Array.from({ length: 40 }, (_unused, index) => `ALG-QL-${String(index + 1).padStart(3, "0")}`);
+  const expectedIds = Array.from({ length: 43 }, (_unused, index) => `ALG-QL-${String(index + 1).padStart(3, "0")}`);
   return {
     authority: ALG_PERMANENT_ALLOCATION_AUTHORITY,
     permanentQlCount: ids.length,
