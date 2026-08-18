@@ -73,16 +73,19 @@ export function dsfMergeSplitSummary(): Readonly<Record<DsMergeSplitDecision, nu
 }
 
 export const DSF_PERMANENT_QL_ALLOCATION_DECISION = {
-  status: "BLOCKED_PENDING_OWNERSHIP_AND_PROFILE_FREEZE" as const,
+  status: "LOCKED_PENDING_QL_BOUNDARY_FREEZE" as const,
   reasons: [
-    "existing TMW/SAP/NUM chapter-local DS ownership still requires reconciliation",
-    "Punjab-state official answer-contract profile is not yet verified",
-    "constraint-heavy Seating/Puzzle adapters are intentionally deferred from the first allocation",
+    "initial target-semantic QL boundary candidates still require an explicit freeze inventory",
+  ] as const,
+  nonBlockingDeferredProfiles: [
+    "Punjab-state official answer-contract profile remains disabled until verified",
+    "constraint-heavy Seating/Puzzle adapters are deferred from the first permanent allocation",
   ] as const,
   resolvedEvidence: [
     "banking two-statement five-class semantics and option-order variation",
     "banking three-statement subset contracts",
     "SSC CGL two-statement four-option profiles across reasoning and quantitative examples",
     "PSSSB Clerk preparation signal confirming Punjab-state DS relevance",
+    "TMW/SAP/NUM existing-runtime ownership reconciled without reassigning permanent source QLs",
   ] as const,
 };
