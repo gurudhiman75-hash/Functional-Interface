@@ -53,6 +53,20 @@ for (const candidate of ALG_CP005_DISCOVERY_CANDIDATES) {
         assert(first.answer.value === (division.remainder.numerator === 0n), `${candidate.candidateId} seed ${seed} factor verdict mismatch`);
       }
     }
+
+    if (candidate.solveMode === "findTwoCoefficientsFromTwoRemainderConditions") {
+      assert(first.answer.kind === "COEFFICIENT_PAIR", `${candidate.candidateId} seed ${seed} has wrong pair answer kind`);
+      assert(division.remainder.numerator === 0n, `${candidate.candidateId} seed ${seed} first factor condition failed`);
+      assert(first.conditionEvidence !== undefined, `${candidate.candidateId} seed ${seed} lacks second condition evidence`);
+      if (first.answer.kind === "COEFFICIENT_PAIR" && first.conditionEvidence) {
+        assert(equalsRational(first.answer.k, first.polynomial.coefficients[2]!), `${candidate.candidateId} seed ${seed} k mismatch`);
+        assert(equalsRational(first.answer.m, first.polynomial.coefficients[1]!), `${candidate.candidateId} seed ${seed} m mismatch`);
+        assert(
+          equalsRational(evaluatePolynomial(first.polynomial, first.conditionEvidence.secondRoot), first.conditionEvidence.secondRemainder),
+          `${candidate.candidateId} seed ${seed} second remainder condition failed`,
+        );
+      }
+    }
   }
 }
 
