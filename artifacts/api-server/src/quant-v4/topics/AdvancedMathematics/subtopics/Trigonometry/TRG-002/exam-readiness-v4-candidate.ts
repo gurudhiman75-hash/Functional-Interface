@@ -34,6 +34,7 @@ import {
   trg002V4ScenarioWave4Topology,
 } from "./exam-readiness-v4-scenario-wave4";
 import { applyTrg002V4StemVariety } from "./exam-readiness-v4-stem-variety";
+import { deepenTrg002V4HardSolution } from "./exam-readiness-v4-hard-solutions";
 
 type AnyQuestion = Record<string, any>;
 
@@ -121,7 +122,9 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
   const riverSupport = applyTrg002V4RiverPlatformMigration(physicalSupport.question);
   const base: AnyQuestion = riverSupport.question;
   const exactStem = repairHistoricalExactMathArtifact(base.stem);
-  const explanation = repairExplanation(base.explanation);
+  const repairedExplanation = repairExplanation(base.explanation);
+  const hardSolution = deepenTrg002V4HardSolution(qlId, locale, exactStem, repairedExplanation);
+  const explanation = hardSolution.explanation;
   const explicitScenarioId = scenarioWave4Override
     ? trg002V4ScenarioWave4ScenarioId(qlId)
     : scenarioWave3Override
@@ -177,6 +180,7 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
     scenarioWave3Override,
     scenarioWave4Override,
     stemVarietyApplied: variety.applied,
+    hardSolutionRemediated: hardSolution.remediated,
     physicalObserverSupport,
     diagramMigrationRequired,
   });
@@ -192,6 +196,7 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
       scenarioWave3Override,
       scenarioWave4Override,
       stemVarietyApplied: variety.applied,
+      hardSolutionRemediated: hardSolution.remediated,
       spatialTopology: topology,
       recommendedScenarioShell: wave1.scenarioId ?? scenario.id,
       recommendedScenarioDomain: scenario.domain,
