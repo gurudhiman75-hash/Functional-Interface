@@ -134,6 +134,7 @@ function buildWave3Canonical(qlId: Trg002V4ScenarioWave3Id, seed: string): Built
       const length = exactInteger(lengthN);
       const height = exactSurd(lengthN / 2, 3);
       const state = buildLadderState({ ladderLength: length, angleAtGround: degree(60), units: "m" });
+      state.requested = { kind: "OBJECT_HEIGHT", objectId: "wall-1" };
       const question = buildTrg002MvpQuestion({
         qlId,
         cpId: "TRG-CP-008",
