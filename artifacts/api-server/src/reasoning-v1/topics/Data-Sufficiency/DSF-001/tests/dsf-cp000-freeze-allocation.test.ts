@@ -31,8 +31,18 @@ assert.equal(ql001.implementationCheckpoint, "DSF-CP-001");
 assert.equal(ql001.taskContract, "TWO_STATEMENT_TARGET_DETERMINACY");
 assert.equal(ql001.answerSemantic, "SUFFICIENCY_CLASS");
 assert.equal(ql001.statementCount, 2);
-assert.equal(ql001.lifecycle.englishContentStatus, "NOT_PRODUCTION_GENERATED");
+
+// CP-000 freezes identity/semantics and publication locks. Content lifecycle is allowed
+// to advance during later checkpoints without reopening the CP-000 allocation decision.
+assert.equal(
+  ql001.lifecycle.englishContentStatus,
+  "PARTIAL_PRODUCTION_GENERATION_REVIEW_CANDIDATE",
+);
+assert.deepEqual(ql001.lifecycle.productionBackedSourceChapters, ["NUM-001", "RAP-001", "PCT-001"]);
 assert.equal(ql001.lifecycle.questionStudioDiscoverable, false);
+assert.equal(ql001.lifecycle.questionBankWritable, false);
+assert.equal(ql001.lifecycle.testEligible, false);
+assert.equal(ql001.lifecycle.publiclyPublishable, false);
 assert.equal(DSF_NEXT_AVAILABLE_QL_ID, "DSF-QL-002");
 
 const allocatedCandidate = DSF_QL_BOUNDARY_CANDIDATES.find((entry) => entry.candidateId === "DSF-QL-CAND-001")!;
@@ -53,5 +63,6 @@ console.log(JSON.stringify({
   freezeAuthority: DSF_CP000_FREEZE_AUTHORITY.authorityId,
   permanentQlIds: DSF_PERMANENT_QL_REGISTRY.map((entry) => entry.qlId),
   nextAvailableQlId: DSF_NEXT_AVAILABLE_QL_ID,
-  cp001ReadyForProductionGeneration: true,
+  cp001Lifecycle: ql001.lifecycle.englishContentStatus,
+  publicationLocked: true,
 }, null, 2));
