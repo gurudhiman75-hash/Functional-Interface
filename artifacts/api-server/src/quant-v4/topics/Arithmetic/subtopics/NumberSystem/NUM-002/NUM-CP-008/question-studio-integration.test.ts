@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import {
   generateQuestion as generateSharedQuestionStudioQuestion,
   listQuestionStudioPackages,
-} from "../../../../../../../../question-studio/shared-generation-engine.ts";
+} from "../../../../../../../question-studio/shared-generation-engine.ts";
 import {
   generateNumCp008QuestionStudioBatch,
   isNumCp008QuestionStudioRequest,
