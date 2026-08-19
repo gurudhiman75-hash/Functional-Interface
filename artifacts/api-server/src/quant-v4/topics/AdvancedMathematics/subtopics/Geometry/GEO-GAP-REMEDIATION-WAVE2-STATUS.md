@@ -4,7 +4,8 @@
 **Renderer contract:** `EXAMTREE_GEOMETRY_SVG_V2`  
 **Predecessor:** approved Wave-1 diagram-quality remediation  
 **Lifecycle:** `DISCOVERY`  
-**Review decision:** `APPROVED` on 19 August 2026
+**Review decision:** `APPROVED` on 19 August 2026  
+**Temporary review state:** `FROZEN`
 
 ## Wave decision
 
