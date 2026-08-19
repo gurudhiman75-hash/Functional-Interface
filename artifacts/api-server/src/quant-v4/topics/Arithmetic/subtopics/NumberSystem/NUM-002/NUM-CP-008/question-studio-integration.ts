@@ -34,6 +34,7 @@ export type NumCp008QuestionStudioRequest = Readonly<{
 }>;
 
 const RELEASE_ID = "NUM-CP-008-QS-MULTILINGUAL-FROZEN-V1" as const;
+const DIFFICULTY_SEARCH_WINDOW = 240;
 
 function normalizeSelector(value: unknown) {
   return String(value ?? "")
@@ -91,18 +92,18 @@ function generateAuthority(
     : generateNumCp008LocalizedHumanFinal(qlId, seed, language as NumCp008LocalizedLanguage);
 }
 
-function generateMatchingDifficulty(
+function tryGenerateMatchingDifficulty(
   qlId: NumCp008PermanentQlId,
   initialSeed: number,
   language: NumCp008QuestionStudioLanguage,
   difficulty?: NumCp008QuestionStudioDifficulty,
 ) {
-  for (let offset = 0; offset < 240; offset += 1) {
+  for (let offset = 0; offset < DIFFICULTY_SEARCH_WINDOW; offset += 1) {
     const seed = initialSeed + offset;
     const pkg = generateAuthority(qlId, seed, language);
     if (!difficulty || titleDifficulty(pkg.difficulty) === difficulty) return pkg;
   }
-  throw new Error(`${qlId} could not satisfy requested ${difficulty} difficulty inside the frozen search window.`);
+  return undefined;
 }
 
 function normalizedPackage(pkg: ReturnType<typeof generateAuthority>, language: NumCp008QuestionStudioLanguage, seedText: string) {
@@ -315,12 +316,34 @@ export async function generateNumCp008QuestionStudioBatch(request: NumCp008Quest
   const questions = [];
 
   for (let index = 0; index < count; index += 1) {
-    const qlId = explicitQl as NumCp008PermanentQlId | undefined
-      ?? NUM_CP008_QUESTION_STUDIO_QL_IDS[(qlOffset + index) % NUM_CP008_QUESTION_STUDIO_QL_IDS.length]!;
-    const itemSeedText = `${batchSeed}:${qlId}:${index}`;
-    const initialSeed = stablePositiveSeed(itemSeedText);
-    const frozen = generateMatchingDifficulty(qlId, initialSeed, language, difficulty);
-    const pkg = normalizedPackage(frozen, language, itemSeedText);
+    let selectedFrozen: ReturnType<typeof generateAuthority> | undefined;
+    let itemSeedText = "";
+
+    const qlCandidates = explicitQl
+      ? [explicitQl as NumCp008PermanentQlId]
+      : Array.from({ length: NUM_CP008_QUESTION_STUDIO_QL_IDS.length }, (_, scan) =>
+          NUM_CP008_QUESTION_STUDIO_QL_IDS[(qlOffset + index + scan) % NUM_CP008_QUESTION_STUDIO_QL_IDS.length]!,
+        );
+
+    for (const qlId of qlCandidates) {
+      const candidateSeedText = `${batchSeed}:${qlId}:${index}`;
+      const candidateSeed = stablePositiveSeed(candidateSeedText);
+      const frozen = tryGenerateMatchingDifficulty(qlId, candidateSeed, language, difficulty);
+      if (frozen) {
+        selectedFrozen = frozen;
+        itemSeedText = candidateSeedText;
+        break;
+      }
+    }
+
+    if (!selectedFrozen) {
+      if (explicitQl && difficulty) {
+        throw new Error(`${explicitQl} does not expose ${difficulty} in its frozen difficulty reach.`);
+      }
+      throw new Error(`No NUM-CP-008 frozen QL can satisfy requested ${String(difficulty ?? "difficulty")} filter.`);
+    }
+
+    const pkg = normalizedPackage(selectedFrozen, language, itemSeedText);
     questionPackages.push(pkg);
     questions.push(toPreview(pkg, index, count));
   }
