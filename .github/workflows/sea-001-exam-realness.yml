@@ -52,6 +52,17 @@ jobs:
       - name: Measure 1,600-caselet role-graph, near-clone and lexical saturation
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-realness-saturation-proof.test.ts
 
+  exam-profile-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prove SSC, Banking and Punjab realness evidence boundaries
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-exam-profile-evidence-proof.test.ts
+
   frozen-authority-regression:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
