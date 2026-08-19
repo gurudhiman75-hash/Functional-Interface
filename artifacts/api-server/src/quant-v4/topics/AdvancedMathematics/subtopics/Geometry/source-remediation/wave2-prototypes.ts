@@ -52,7 +52,7 @@ function directCommonTangentDiagram(): GeoDiagramModel {
   return {
     points: [
       { id: "O1", label: "O1", x: 70, y: 84, labelPosition: "SW" },
-      { id: "O2", label: "O2", x: 142, y: 54, labelPosition: "SE" },
+      { id: "O2", label: "O2", x: 142, y: 54, labelPosition: "E" },
       { id: "A", label: "A", x: 70, y: 30, labelPosition: "NW" },
       { id: "B", label: "B", x: 142, y: 30, labelPosition: "NE" },
       { id: "X", label: "X", x: contactX.x, y: contactX.y, labelPosition: "S" },
