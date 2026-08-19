@@ -6,10 +6,13 @@ import type {
   StaCandidateAuthority,
   StaOption,
   StaProposedQlId,
+  StaQlId,
   StaQuestion,
   StaRenderedCandidate,
   StaScenarioAuthority,
 } from "./types.ts";
+
+export type StaScenarioPoolByQl = Readonly<Record<StaQlId, readonly StaScenarioAuthority[]>>;
 
 function hash32(input: string): number {
   let hash = 0x811c9dc5;
@@ -119,7 +122,6 @@ function renderCandidates(
 function buildExplanation(
   statement: string,
   rendered: StaQuestion["candidates"],
-  scenario: StaScenarioAuthority,
   selectedAuthorities: readonly StaCandidateAuthority[],
   answerSet: StaAnswerSet,
 ): string {
@@ -136,9 +138,13 @@ function buildExplanation(
   return lines.join("\n\n");
 }
 
-export function generateStaDiscoveryQuestion(seed: string, proposedQlId: StaProposedQlId): StaQuestion {
-  const scenarios = STA_SCENARIOS_BY_QL[proposedQlId];
-  const scenario = choose(scenarios, `${seed}:${proposedQlId}:scenario`);
+export function generateStaQuestionFromPool(
+  seed: string,
+  qlId: StaQlId,
+  scenarioPool: StaScenarioPoolByQl,
+): StaQuestion {
+  const scenarios = scenarioPool[qlId];
+  const scenario = choose(scenarios, `${seed}:${qlId}:scenario`);
   assertScenarioOracleParity(scenario);
 
   const candidateCount = choose(scenario.allowedCandidateCounts, `${seed}:${scenario.scenarioId}:candidate-count`);
@@ -152,12 +158,12 @@ export function generateStaDiscoveryQuestion(seed: string, proposedQlId: StaProp
   const answerIndex = rawAnswerIndex as 0 | 1 | 2 | 3;
 
   const question: StaQuestion = {
-    questionId: `STA-DISC-${hash32(`${seed}:${scenario.scenarioId}`).toString(16).padStart(8, "0")}`,
+    questionId: `STA-${hash32(`${seed}:${scenario.scenarioId}`).toString(16).padStart(8, "0")}`,
     packageId: "STA-001",
     chapterId: "REAS-STA",
     checkpointId: scenario.checkpointId,
-    qlId: proposedQlId,
-    proposedQlId,
+    qlId,
+    proposedQlId: qlId,
     scenarioId: scenario.scenarioId,
     seed,
     locale: "en-IN",
@@ -168,12 +174,16 @@ export function generateStaDiscoveryQuestion(seed: string, proposedQlId: StaProp
     options,
     answerIndex,
     answerSet,
-    explanation: buildExplanation(statement, rendered, scenario, selectedAuthorities, answerSet),
+    explanation: buildExplanation(statement, rendered, selectedAuthorities, answerSet),
     oracleParity: true,
     lifecycle: STA_EXECUTABLE_DISCOVERY_LIFECYCLE,
   };
   assertStaDiscoveryQuestionIntegrity(question);
   return question;
+}
+
+export function generateStaDiscoveryQuestion(seed: string, proposedQlId: StaProposedQlId): StaQuestion {
+  return generateStaQuestionFromPool(seed, proposedQlId, STA_SCENARIOS_BY_QL);
 }
 
 export function assertStaDiscoveryQuestionIntegrity(question: StaQuestion): void {
