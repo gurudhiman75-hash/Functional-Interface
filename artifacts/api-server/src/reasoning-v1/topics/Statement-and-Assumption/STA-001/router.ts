@@ -18,16 +18,17 @@ export function routeStaScenarioBySemantics(scenario: StaScenarioAuthority): Sta
 
   if (
     (scenario.discourseAct === "RECOMMENDATION" || scenario.discourseAct === "PROPOSAL" || scenario.discourseAct === "DECISION") &&
-    relations.has("EFFICACY") &&
+    (relations.has("EFFICACY") || relations.has("FEASIBILITY")) &&
     (
       relations.has("EXISTENCE") ||
       relations.has("RELEVANCE") ||
       scenario.explicitPropositionIds.length > 0
     )
   ) {
-    // QL-002 owns both hidden-need and explicitly-stated-problem forms. In the
-    // latter, the stated problem may legitimately appear as an
-    // EXPLICIT_RESTATEMENT distractor while efficacy remains the hidden bridge.
+    // QL-002 owns prescriptive acts whose rationale depends on a relevant
+    // need/problem plus feasibility or efficacy. The need/problem may itself
+    // be stated explicitly, in which case it can appear as an
+    // EXPLICIT_RESTATEMENT distractor while the operative bridge stays hidden.
     return "STA-QL-002";
   }
 
