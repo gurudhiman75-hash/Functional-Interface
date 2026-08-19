@@ -156,6 +156,7 @@ export function generateStaDiscoveryQuestion(seed: string, proposedQlId: StaProp
     packageId: "STA-001",
     chapterId: "REAS-STA",
     checkpointId: scenario.checkpointId,
+    qlId: proposedQlId,
     proposedQlId,
     scenarioId: scenario.scenarioId,
     seed,
@@ -176,6 +177,7 @@ export function generateStaDiscoveryQuestion(seed: string, proposedQlId: StaProp
 }
 
 export function assertStaDiscoveryQuestionIntegrity(question: StaQuestion): void {
+  if (question.qlId !== question.proposedQlId) throw new Error(`${question.questionId}: frozen QL identity mismatch`);
   if (question.candidates.length !== 2 && question.candidates.length !== 3) throw new Error(`${question.questionId}: invalid candidate count`);
   if (question.options.length !== 4) throw new Error(`${question.questionId}: expected four options`);
   if (question.options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${question.questionId}: option correctness is not unique`);
@@ -187,5 +189,5 @@ export function assertStaDiscoveryQuestionIntegrity(question: StaQuestion): void
   if (optionDisplays.size !== 4) throw new Error(`${question.questionId}: duplicate visible options`);
   if (question.candidates.some((candidate) => candidate.oracle.evidenceCode === "MISSING_SEMANTIC_NEGATION")) throw new Error(`${question.questionId}: missing semantic negation`);
   if (/STA-|BREAKS_|REQUIRED_HIDDEN_DEPENDENCY|NO_REQUIRED_DEPENDENCY/.test(question.explanation)) throw new Error(`${question.questionId}: internal authority leaked into explanation`);
-  if (question.lifecycle.permanentQlCount !== 0 || question.lifecycle.questionStudioDiscoverable) throw new Error(`${question.questionId}: discovery lifecycle gate opened`);
+  if (question.lifecycle.permanentQlCount !== 4 || question.lifecycle.questionStudioDiscoverable) throw new Error(`${question.questionId}: permanent-Ql lifecycle mismatch or downstream gate opened`);
 }
