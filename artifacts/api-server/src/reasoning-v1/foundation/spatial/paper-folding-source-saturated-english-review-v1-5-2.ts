@@ -101,14 +101,9 @@ function diamond(cx: number, cy: number, size = 4): string {
   return `<polygon points="${q(cx)},${q(cy - size)} ${q(cx + size)},${q(cy)} ${q(cx)},${q(cy + size)} ${q(cx - size)},${q(cy)}" fill="none" data-cutout="transparent" stroke="#111" stroke-width="1.2" stroke-linejoin="round"/>`;
 }
 
-function replaceWrongOptions(
-  question: PfcTpfEnglishReviewQuestionV1,
-  wrongSvgs: readonly string[],
-): PfcTpfEnglishReviewQuestionV1 {
+function replaceWrongOptions(question: PfcTpfEnglishReviewQuestionV1, wrongSvgs: readonly string[]): PfcTpfEnglishReviewQuestionV1 {
   let wrong = 0;
-  const options = question.options.map((option) => option.optionId === question.correctOptionId
-    ? option
-    : { ...option, svg: wrongSvgs[wrong++] });
+  const options = question.options.map((option) => option.optionId === question.correctOptionId ? option : { ...option, svg: wrongSvgs[wrong++] });
   const candidate = { ...question, options };
   const distance = minimumPatternOptionDistanceV1_5(candidate);
   if (distance + 1e-9 < PFC_TPF_REVIEW_V1_5_MIN_PATTERN_DISTANCE) {
@@ -192,13 +187,13 @@ function semanticTransparent(question: PfcTpfEnglishReviewQuestionV1): PfcTpfEng
     case "TPF-W1-VERTICAL-POINT-PAIR":
       wrong = [
         transparentSvg(hole(80,70,2.1,true)),
-        transparentSvg(hole(25,30,2.1,true)+hole(80,70,2.1,true)),
+        transparentSvg(hole(75,30,2.1,true)+hole(20,70,2.1,true)),
         transparentSvg(hole(25,70,2.1,true)+hole(80,30,2.1,true)),
       ]; break;
     case "TPF-W1-HORIZONTAL-POINT-PAIR":
       wrong = [
         transparentSvg(hole(72,76,2.1,true)),
-        transparentSvg(hole(28,22,2.1,true)+hole(72,76,2.1,true)),
+        transparentSvg(hole(28,78,2.1,true)+hole(72,24,2.1,true)),
         transparentSvg(hole(72,22,2.1,true)+hole(28,76,2.1,true)),
       ]; break;
     case "TPF-W2-VERTICAL-TRIANGLE-CIRCLE":
@@ -217,7 +212,7 @@ function semanticTransparent(question: PfcTpfEnglishReviewQuestionV1): PfcTpfEng
       wrong = [
         transparentSvg(line(50,40.875,52,42)+line(52,42,82,24)+line(50,72,76,72)),
         transparentSvg(polyline([[20,24],[52,42],[82,24]])+line(28,72,76,72)),
-        transparentSvg(polyline([[20,76],[52,58],[82,76]])+line(28,28,76,28)),
+        transparentSvg(line(20,76,52,58)+line(52,58,82,76)+line(28,28,76,28)),
       ]; break;
     case "TPF-W2-HORIZONTAL-CROSSING-POLYGON":
       wrong = [
