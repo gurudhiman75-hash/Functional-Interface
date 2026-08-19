@@ -18,10 +18,11 @@ import {
   Gift,
   Clock3,
   CheckCircle2,
+  ArrowRight,
 } from "lucide-react";
 
 export default function ProfilePage() {
-  const [location, setLocation] = useLocation();
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const user = getUser();
 
@@ -129,7 +130,7 @@ export default function ProfilePage() {
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.24em] text-muted-foreground">My Profile</p>
             <h1 className="mt-2 text-4xl font-bold text-foreground">Welcome back, {user.name}</h1>
-            <p className="mt-2 text-sm text-muted-foreground">Review your progress, package history, and account details.</p>
+            <p className="mt-2 text-sm text-muted-foreground">Review your saved attempts, package history, and account details.</p>
           </div>
           <Button variant="outline" className="w-full max-w-sm justify-center lg:w-auto" onClick={handleLogout}>
             <LogOut className="w-4 h-4 mr-2" />
@@ -162,8 +163,10 @@ export default function ProfilePage() {
                   <p className="mt-2 text-lg font-semibold text-foreground">{user.role ?? "Student"}</p>
                 </div>
                 <div className="rounded-2xl border border-border bg-muted/50 p-4">
-                  <p className="text-sm text-muted-foreground">Member since</p>
-                  <p className="mt-2 text-lg font-semibold text-foreground">{new Date().toLocaleDateString()}</p>
+                  <p className="text-sm text-muted-foreground">Account status</p>
+                  <p className="mt-2 inline-flex items-center gap-2 text-lg font-semibold text-foreground">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-600" /> Signed in
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -238,24 +241,32 @@ export default function ProfilePage() {
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    {attempts.slice(0, 4).map((attempt) => (
-                      <div key={`${attempt.testId}-${attempt.createdAt}`} className="rounded-2xl border border-border bg-card p-4">
-                        <div className="flex items-center justify-between gap-3">
-                          <div>
-                            <p className="font-semibold text-foreground">{attempt.testName}</p>
-                            <p className="text-xs text-muted-foreground">{attempt.category}</p>
+                    {attempts.slice(0, 4).map((attempt) => {
+                      const params = new URLSearchParams({ attemptId: attempt.id, testId: attempt.testId });
+                      return (
+                        <Link key={attempt.id} href={`/result?${params.toString()}`}>
+                          <div className="group rounded-2xl border border-border bg-card p-4 transition hover:border-primary/30 hover:shadow-sm">
+                            <div className="flex items-center justify-between gap-3">
+                              <div>
+                                <p className="font-semibold text-foreground">{attempt.testName}</p>
+                                <p className="text-xs text-muted-foreground">{attempt.category}</p>
+                              </div>
+                              <Badge className="bg-primary/10 text-primary">{attempt.score}%</Badge>
+                            </div>
+                            <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+                              <span>{attempt.correct}/{attempt.totalQuestions} correct</span>
+                              <span className="inline-flex items-center gap-1">
+                                {new Date(attempt.createdAt).toLocaleDateString()}
+                                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                              </span>
+                            </div>
                           </div>
-                          <Badge className="bg-primary/10 text-primary">{attempt.score}%</Badge>
-                        </div>
-                        <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
-                          <span>{attempt.correct}/{attempt.totalQuestions} correct</span>
-                          <span>{new Date(attempt.createdAt).toLocaleDateString()}</span>
-                        </div>
-                      </div>
-                    ))}
+                        </Link>
+                      );
+                    })}
                     {attempts.length > 4 ? (
                       <div className="text-right">
-                        <Link href="/result?testId=">
+                        <Link href="/dashboard">
                           <Button variant="outline" className="rounded-full px-4 py-2">
                             View all attempts
                           </Button>
@@ -278,10 +289,10 @@ export default function ProfilePage() {
                     My Packages
                   </Button>
                 </Link>
-                <Link href="/performance">
+                <Link href="/dashboard">
                   <Button variant="outline" className="w-full justify-start rounded-xl">
                     <BarChart3 className="w-4 h-4 mr-2" />
-                    Performance
+                    My Activity
                   </Button>
                 </Link>
               </CardContent>

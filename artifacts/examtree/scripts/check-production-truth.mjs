@@ -11,6 +11,7 @@ const files = {
   category: fs.readFileSync(path.join(appRoot, "src/pages/category.tsx"), "utf8"),
   subcategory: fs.readFileSync(path.join(appRoot, "src/pages/subcategory.tsx"), "utf8"),
   result: fs.readFileSync(path.join(appRoot, "src/pages/canonical-result.tsx"), "utf8"),
+  profile: fs.readFileSync(path.join(appRoot, "src/pages/profile.tsx"), "utf8"),
 };
 
 const forbidden = [
@@ -43,6 +44,10 @@ const forbidden = [
   ["result", "const localResult", "Canonical results must not render browser-local score content as official."],
   ["result", "attemptId ? resultQuery.data :", "Canonical results must not branch to local score content when an attempt id is absent."],
   ["result", "cachedAttemptId", "A test id alone must never be mapped to an older browser-cached attempt."],
+  ["profile", "Member since", "Do not manufacture account-age metadata from the browser clock."],
+  ["profile", "new Date().toLocaleDateString()", "Profile must not present today's date as account creation metadata."],
+  ["profile", 'href="/result?testId="', "Attempt-list navigation must never create an empty or test-only result link."],
+  ["profile", 'href="/performance"', "Pending analytics must not be promoted from the production profile."],
 ];
 
 const required = [
@@ -60,6 +65,9 @@ const required = [
   ["result", "getAttemptById(attemptId!)", "Every displayed result must be fetched by its exact canonical attempt id."],
   ["result", "enabled: Boolean(attemptId)", "Canonical result fetching must remain disabled without a committed attempt id."],
   ["result", "Canonical saved result", "Committed result pages should retain explicit canonical provenance."],
+  ["profile", "Account status", "Profile should expose a truthful account-state field rather than invented tenure."],
+  ["profile", "attemptId: attempt.id", "Profile attempt cards must build result links from exact canonical attempt IDs."],
+  ["profile", 'href="/dashboard"', "Profile should route full attempt history and analytics entry points to the live activity surface."],
 ];
 
 const failures = [];
