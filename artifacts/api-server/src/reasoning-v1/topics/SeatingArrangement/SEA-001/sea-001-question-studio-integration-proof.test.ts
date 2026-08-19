@@ -42,6 +42,7 @@ for (const language of ["en", "hi", "pa"] as const) {
   });
   assert.equal(batch.questions.length, 20);
   assert.equal(batch.generationContext.runtimeMode, "DYNAMIC_CANDIDATE");
+  assert.equal(batch.generationContext.seedSource, "EXPLICIT");
   assert.equal(batch.generationContext.persistenceAllowed, true);
   assert.equal(batch.generationContext.questionBankStatus, "NOT_STORED");
   assert.equal(batch.generationContext.testEligibility, "INELIGIBLE");
@@ -73,6 +74,7 @@ for (const language of ["en", "hi", "pa"] as const) {
     assert.equal(question.safety.mockTestEligible, false);
     assert.equal(question.safety.productionStagingApproved, false);
     assert.equal(question.safety.publiclyPublishable, false);
+    assert.notEqual(question.traceability.clueSetFingerprint, null);
 
     const conversionIssue = getGeneratedQuestionBankEligibilityIssue({
       runtimeMode: question.parameters.runtimeMode,
@@ -106,6 +108,8 @@ for (const qlId of SEA001_PERMANENT_QL_IDS) {
   });
   assert.equal(batch.questions.length, 4);
   assert(batch.questions.every((question) => question.qlId === qlId));
+  assert.equal(new Set(batch.questions.map((question) => question.caseletId)).size, 4);
+  assert.equal(new Set(batch.questions.map((question) => question.traceability.clueSetFingerprint)).size, 4);
   qlCoverage.add(qlId);
 }
 
@@ -118,9 +122,57 @@ assert.equal(questionIds.size, 60);
 
 const replayA = generateSea001QuestionStudioBatch({ language: "en", qlId: "SEA-QL-020", count: 4, seed: "sea001-replay" });
 const replayB = generateSea001QuestionStudioBatch({ language: "en", qlId: "SEA-QL-020", count: 4, seed: "sea001-replay" });
+assert.equal(replayA.generationContext.seedSource, "EXPLICIT");
+assert.equal(replayB.generationContext.seedSource, "EXPLICIT");
 assert.deepEqual(
   replayA.questions.map((question) => question.contentFingerprint),
   replayB.questions.map((question) => question.contentFingerprint),
+);
+
+const freshA = generateSea001QuestionStudioBatch({ language: "en", count: 4 });
+const freshB = generateSea001QuestionStudioBatch({ language: "en", count: 4 });
+assert.equal(freshA.generationContext.seedSource, "FRESH_NONCE");
+assert.equal(freshB.generationContext.seedSource, "FRESH_NONCE");
+assert.notEqual(freshA.generationContext.seed, freshB.generationContext.seed);
+assert.notDeepEqual(
+  freshA.questions.map((question) => question.contentFingerprint),
+  freshB.questions.map((question) => question.contentFingerprint),
+  "unseeded Question Studio requests must not replay the same deterministic batch",
+);
+assert.equal(new Set(freshA.questions.map((question) => question.qlId)).size, 4);
+assert.equal(new Set(freshA.questions.map((question) => question.caseletId)).size, 4);
+assert.equal(new Set(freshA.questions.map((question) => question.traceability.clueSetFingerprint)).size, 4);
+
+const firstFreshFingerprints = freshA.questions
+  .map((question) => question.traceability.clueSetFingerprint)
+  .filter((value): value is string => typeof value === "string");
+const historyAware = generateSea001QuestionStudioBatch({
+  language: "en",
+  count: 4,
+  excludeClueSetFingerprints: firstFreshFingerprints,
+});
+assert.equal(historyAware.generationContext.recentHistoryExclusionCount, firstFreshFingerprints.length);
+assert.equal(
+  historyAware.questions.some((question) => firstFreshFingerprints.includes(question.traceability.clueSetFingerprint ?? "")),
+  false,
+  "fresh generation must reject recent clue-set fingerprints",
+);
+
+const explicitIgnoresHistory = generateSea001QuestionStudioBatch({
+  language: "en",
+  count: 4,
+  seed: freshA.generationContext.seed,
+  excludeClueSetFingerprints: firstFreshFingerprints,
+});
+const explicitReplayOfFreshA = generateSea001QuestionStudioBatch({
+  language: "en",
+  count: 4,
+  seed: freshA.generationContext.seed,
+});
+assert.deepEqual(
+  explicitIgnoresHistory.questions.map((question) => question.contentFingerprint),
+  explicitReplayOfFreshA.questions.map((question) => question.contentFingerprint),
+  "explicit seeds must remain reproducible even when recent-history exclusions are supplied",
 );
 
 console.log("PASS_SEA_001_QUESTION_STUDIO_INTEGRATION");
@@ -128,7 +180,9 @@ console.log("package", SEA001_QUESTION_STUDIO_PACKAGE_ID);
 console.log("permanent QLs", SEA001_QUESTION_STUDIO_PACKAGE.permanentQlCount);
 console.log("languages", [...languageCoverage].join(","));
 console.log("checkpoints", [...checkpointCoverage].sort().join(","));
-console.log("validated dynamic questions", totalQuestions + 80);
+console.log("validated dynamic questions", totalQuestions + 80 + freshA.questions.length + freshB.questions.length + historyAware.questions.length);
+console.log("default freshness", freshA.generationContext.freshnessPolicy);
+console.log("default caselet mix", freshA.generationContext.caseletMixPolicy);
 console.log("Question Studio visible", SEA001_QUESTION_STUDIO_PACKAGE.questionStudioVisible);
 console.log("generation-run persistence", SEA001_QUESTION_STUDIO_PACKAGE.generationRunPersistenceAllowed);
 console.log("Question Bank eligible", SEA001_QUESTION_STUDIO_PACKAGE.questionBankEligible);
