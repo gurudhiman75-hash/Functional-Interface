@@ -90,10 +90,38 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-002-cp008-wave04-authority.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp008-wave04-authority.log
 
+      - name: Bundle Wave 04 final worked review
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/wave04/runtime-review-final.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-wave04-review-final-test.mjs
+
+      - name: Run Wave 04 final worked review
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp008-wave04-review-final-test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp008-wave04-review-final.log
+
+      - name: Bundle Wave 04 final review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/wave04/review-final-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-wave04-review-final-export.mjs
+
+      - name: Generate Wave 04 final review evidence
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-002-cp008-wave04-review-final-export.mjs
+
       - name: Upload Wave 04 evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: num-cp008-wave04-final-material-gaps
           retention-days: 14
-          path: artifacts/api-server/dist/quant-v4/num-002-cp008-wave04-authority.log
+          path: |
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave04-authority.log
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave04-review-final.log
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave04-review-final.json
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave04-review-final.md
