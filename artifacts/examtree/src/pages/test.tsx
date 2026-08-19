@@ -37,7 +37,7 @@ import { useMyEntitlements } from "@/hooks/use-my-entitlements";
 import { TestPaywall } from "@/components/TestPaywall";
 import { testHasInlineQuestions } from "@/lib/test-bank";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
-import { API_BASE_URL, ApiError, getApiErrorCode } from "@/lib/api";
+import { ApiError, getApiErrorCode } from "@/lib/api";
 import { checkPurchase } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -543,11 +543,11 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         return;
       } catch (err) {
         const msg = err instanceof Error ? err.message : "Unknown error";
-        console.warn("Failed to submit attempt to backend. Falling back to local result.", msg);
+        console.warn("Failed to submit attempt to backend; submission remains unconfirmed.", msg);
       }
     }
 
-    // Fallback: navigate using local storage only (offline / unauthenticated)
+    // Recovery: navigate without an attempt id so canonical result shows the explicit unconfirmed-submission state.
     if (attemptType === "PRACTICE") {
       const woParam = wrongOnly ? "&wrongOnly=true" : "";
       const secParam = sectionParam ? `&section=${encodeURIComponent(sectionParam)}` : "";
@@ -1053,7 +1053,6 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                   <div className={`mt-4 rounded-lg border ${
                     isCorrect ? "border-yellow-300 bg-yellow-50" : "border-red-300 bg-red-50"
                   }`}>
-                    {/* Correct / Incorrect header */}
                     <div className={`flex items-center gap-2 px-4 py-2.5 ${
                       isCorrect ? "text-yellow-800" : "text-red-800"
                     }`}>
@@ -1063,7 +1062,6 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                       <span className="text-sm font-semibold">{isCorrect ? "Correct!" : "Incorrect"}</span>
                     </div>
 
-                    {/* Answer comparison rows */}
                     <div className="border-t border-gray-200 divide-y divide-gray-100 bg-white rounded-b-lg">
                       {hasExamData && (
                         <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
@@ -1151,39 +1149,26 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                       })()}
                     </div>
 
-                    {/* Explanation */}
                     {(q.seatingExplanationFlow ||
                       q.seatingDiagram ||
                       q.explanation) && (
                       <div className="px-4 py-3 border-t border-gray-200">
                         {q.seatingExplanationFlow ? (
                           <div className="mb-3">
-                            <SeatingExplanationFlow
-                              flow={
-                                q.seatingExplanationFlow
-                              }
-                            />
+                            <SeatingExplanationFlow flow={q.seatingExplanationFlow} />
                           </div>
                         ) : q.seatingDiagram ? (
                           <div className="mb-3">
                             <SeatingDiagramRenderer
-                              diagram={
-                                q.seatingDiagram
-                              }
-                              inferenceTrace={
-                                (q as any)
-                                  .inferenceTrace
-                              }
+                              diagram={q.seatingDiagram}
+                              inferenceTrace={(q as any).inferenceTrace}
                               title="Seating arrangement solution diagram"
                             />
                           </div>
                         ) : null}
                         {q.explanation ? (
                           <div className="text-sm leading-relaxed text-gray-600">
-                            <QuestionRichText
-                              content={getLocalizedQuestion(q, lang).explanation}
-                              lang={lang}
-                            />
+                            <QuestionRichText content={getLocalizedQuestion(q, lang).explanation} lang={lang} />
                           </div>
                         ) : null}
                       </div>
@@ -1191,10 +1176,9 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                   </div>
                 );
               })()}
-              </div>{/* end .space-y-5 inner */}
-            </div>{/* end question card white box */}
+              </div>
+            </div>
 
-            {/* Bottom action bar - part of question card */}
             <div className="mt-0 flex flex-wrap items-center justify-between gap-2 rounded-b border-x border-b border-gray-300 bg-gray-50 px-5 py-3">
               <div className="flex flex-wrap gap-2">
                 <button
@@ -1235,7 +1219,6 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
             </div>
           </section>
 
-          {/* Sidebar toggle — between question and sidebar */}
           <div className="hidden lg:flex lg:items-start lg:justify-center lg:px-1 lg:pt-1">
             <button
               type="button"
@@ -1249,7 +1232,6 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
 
           {!sidebarCollapsed && (
           <aside className="min-w-0 space-y-3">
-            {/* Jump to Next Section */}
             {currentSectionIndex < effectiveSections.length - 1 && (
               <button
                 type="button"
@@ -1261,7 +1243,6 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               </button>
             )}
 
-            {/* Legend */}
             <div className="rounded border border-gray-300 bg-white shadow-sm">
               <div className="border-b border-gray-200 px-4 py-2.5">
                 <p className="text-sm font-bold text-gray-700">Legend</p>
@@ -1286,7 +1267,6 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               </div>
             </div>
 
-            {/* Question Palette */}
             <div className="rounded border border-gray-300 bg-white shadow-sm">
               <div className="flex items-center justify-between border-b border-gray-200 px-4 py-2.5">
                 <p className="text-sm font-bold text-gray-700">Question Palette:</p>
@@ -1484,20 +1464,16 @@ export default function Test() {
   }, [search]);
   const [selectedMode, setSelectedMode] = useState<"REAL" | "PRACTICE" | "PRACTICE_WRONG">(isWrongOnlyMode ? "PRACTICE_WRONG" : "REAL");
 
-  // Check for successful checkout
   useEffect(() => {
     if (search.includes("checkout=success")) {
       setShowSuccessMessage(true);
-      // Remove the query parameter from URL
       setLocation(`/test/${id}`, { replace: true });
-      // Hide success message after 5 seconds
       const timer = setTimeout(() => setShowSuccessMessage(false), 5000);
       return () => clearTimeout(timer);
-    } else {
-      // No cleanup needed when condition is false
-      return undefined;
     }
+    return undefined;
   }, [search, id, setLocation]);
+
   const listCandidate = useMemo(
     () => catalogTests.find((item) => item.id === id),
     [catalogTests, id],
@@ -1515,7 +1491,6 @@ export default function Test() {
     enabled: Boolean(id) && !hasInlineQuestions,
   });
 
-  // Check purchase status for paid tests
   const {
     data: purchaseStatus,
     isLoading: purchaseLoading,
@@ -1526,7 +1501,6 @@ export default function Test() {
     enabled: Boolean(id) && !hasInlineQuestions,
   });
 
-  // Find packages containing this test (used for locked UI)
   const { data: testPackages } = useQuery({
     queryKey: ["packages", "by-test", id],
     queryFn: () => getPackagesByTest(id!),
@@ -1560,12 +1534,10 @@ export default function Test() {
       const sub = catalogSubcategories.find((s) => s.id === subId);
       if (sub?.languages && sub.languages.length > 0) return sub.languages;
     }
-    // Fall back to test.languages from API (which inherits from subcategory via join)
     if (resolvedTest?.languages && resolvedTest.languages.length > 0) return resolvedTest.languages;
     return ["en"];
   }, [resolvedTest, catalogSubcategories]);
 
-  // Build back URL: go to the subcategory page where the Start button was clicked
   const backUrl = useMemo(() => {
     if (resolvedTest?.subcategoryId) return `/subcategory/${resolvedTest.subcategoryId}`;
     if (resolvedTest?.categoryId) return `/category/${resolvedTest.categoryId}`;
@@ -1577,7 +1549,6 @@ export default function Test() {
     const filteredSections = resolvedTest.sections
       .map((sec) => {
         const qs = sec.questions.filter((q) => wrongQuestionIds.has(q.id));
-        // Shuffle for smart retry
         const shuffled = [...qs].sort(() => Math.random() - 0.5);
         return { ...sec, questions: shuffled };
       })
@@ -1587,14 +1558,12 @@ export default function Test() {
     return { ...resolvedTest, sections: filteredSections, totalQuestions: totalFiltered };
   }, [resolvedTest, wrongQuestionIds]);
 
-  // Section practice filter (from performance page weak areas)
   const sectionFilteredTest = useMemo<Test | null>(() => {
     if (!resolvedTest || !sectionFilterParam) return null;
     const filtered = resolvedTest.sections.filter(
       (sec) => sec.name.toLowerCase() === sectionFilterParam.toLowerCase()
     );
     if (filtered.length === 0) return null;
-    // Randomly sample up to 15 questions per section
     const sampledSections = filtered.map((sec) => {
       const shuffled = [...sec.questions].sort(() => Math.random() - 0.5);
       const sampled = shuffled.slice(0, 15);
@@ -1604,14 +1573,12 @@ export default function Test() {
     return { ...resolvedTest, sections: sampledSections, totalQuestions: total };
   }, [resolvedTest, sectionFilterParam]);
 
-  // Auto-start in wrongOnly mode (bypass pre-start screen)
   useEffect(() => {
     if (isWrongOnlyMode && resolvedTest && !started) {
       setStarted(true);
     }
   }, [isWrongOnlyMode, resolvedTest, started]);
 
-  // Auto-start in section practice mode (bypass pre-start screen)
   useEffect(() => {
     if (sectionFilterParam && sectionFilteredTest && !started) {
       setStarted(true);
@@ -1626,9 +1593,11 @@ export default function Test() {
       <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4">
         <p className="font-medium text-destructive">Could not load test</p>
         <p className="mt-2 text-center text-sm text-muted-foreground">
-          Check that the API is running at{" "}
-          <code className="rounded bg-muted px-1 py-0.5 text-xs">{API_BASE_URL}</code>
+          The test catalog is temporarily unavailable. Please try again.
         </p>
+        <Button className="mt-4" variant="outline" onClick={() => window.location.reload()}>
+          Try again
+        </Button>
       </div>
     );
   }
@@ -1659,10 +1628,7 @@ export default function Test() {
       );
     }
 
-    // Check if user has purchased the test
     if (purchaseStatus?.purchased) {
-      // User has purchased but API still returns error - this shouldn't happen
-      // but let's show a retry option
       return (
         <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-4">
           <p className="text-lg font-semibold text-foreground">Access granted but test failed to load</p>
@@ -1761,7 +1727,6 @@ export default function Test() {
               ))}
             </div>
           )}
-          {/* Marking scheme */}
           {((resolvedTest.marksPerQuestion ?? 1) !== 1 || (resolvedTest.negativeMarks ?? 0) !== 0) && (
             <div className="mt-4 rounded border border-blue-100 bg-blue-50 px-4 py-3 text-sm">
               <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-blue-600">Marking Scheme</p>
@@ -1832,7 +1797,7 @@ export default function Test() {
               <Button
                 variant="outline"
                 className="w-full border-purple-300 text-purple-700 hover:bg-purple-50"
-                onClick={() => setLocation(`/result?testId=${encodeURIComponent(id!)}`)}
+                onClick={() => setLocation(`/result?testId=${encodeURIComponent(id!)}&attemptId=${encodeURIComponent(firstRealAttempt.id)}`)}
               >
                 View Solutions &amp; Review
               </Button>
@@ -1867,7 +1832,6 @@ export default function Test() {
 
   if (selectedMode === "PRACTICE_WRONG") {
     if (!filteredTest) {
-      // No wrong questions found — show friendly message
       return (
         <div className="flex min-h-screen flex-col items-center justify-center gap-5 bg-background px-4">
           <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
@@ -1881,7 +1845,11 @@ export default function Test() {
           </div>
           <div className="flex gap-3">
             <Button variant="outline" onClick={() => setLocation("/exams")}>Back to Tests</Button>
-            <Button onClick={() => setLocation(`/result?testId=${encodeURIComponent(id!)}`)}>View Result</Button>
+            {firstRealAttempt ? (
+              <Button onClick={() => setLocation(`/result?testId=${encodeURIComponent(id!)}&attemptId=${encodeURIComponent(firstRealAttempt.id)}`)}>
+                View Result
+              </Button>
+            ) : null}
           </div>
         </div>
       );
@@ -1895,4 +1863,3 @@ export default function Test() {
 
   return <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} initialMode="REAL" subcategoryLanguages={subcategoryLangs} backUrl={backUrl} />;
 }
-
