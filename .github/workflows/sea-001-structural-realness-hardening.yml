@@ -35,34 +35,39 @@ jobs:
           text = path.read_text()
           if 'answer-offset-v1' not in text:
               if 'answer-slot-v1' in text:
-                  start_marker = '    const random = new DeterministicRandom(\n      `${presentationSeed}:visible-distractors:'
+                  start_marker = '    const random = new DeterministicRandom(\n    `${presentationSeed}:visible-distractors:'
+                  end_marker = '  };\n  }) as T[];'
+                  end_token = '  };'
               else:
                   start_marker = '    const random = new DeterministicRandom(\n      `${presentationSeed}:visible-options:'
-              end_marker = '    };\n  }) as T[];'
+                  end_marker = '    };\n  }) as T[];'
+                  end_token = '    };'
               start = text.find(start_marker)
               end = text.find(end_marker, start)
               if start < 0 or end < 0:
                   raise SystemExit('Expected SEA-001 option placement boundaries not found; refusing broad edit')
-              end += len('    };')
-              new = '''    const random = new DeterministicRandom(
-              `${presentationSeed}:visible-options:${child.queryContractId}:${child.answerDeterminingFactFingerprint}:Q${questionOrder}`,
-            );
-            const shuffled = random.shuffle(child.options);
-            const shuffledAnswerIndex = shuffled.findIndex((option) => option.isCorrect);
-            if (shuffledAnswerIndex < 0) throw new Error(`SEA-001 child ${child.queryContractId} lost its correct option`);
-            const correctOption = shuffled[shuffledAnswerIndex]!;
-            const options = shuffled.filter((option) => !option.isCorrect);
-            const semanticOffset = stableNumber(
-              `${child.queryContractId}|${child.answerDeterminingFactFingerprint}|Q${questionOrder}|answer-offset-v1`,
-            ) % 4;
-            const answerIndex = ((shuffledAnswerIndex + semanticOffset) % 4) as 0 | 1 | 2 | 3;
-            options.splice(answerIndex, 0, correctOption);
-            return {
-              ...child,
-              questionOrder,
-              options,
-              answerIndex,
-            };'''
+              end += len(end_token)
+              new = "\n".join([
+                  '    const random = new DeterministicRandom(',
+                  '      `${presentationSeed}:visible-options:${child.queryContractId}:${child.answerDeterminingFactFingerprint}:Q${questionOrder}`,',
+                  '    );',
+                  '    const shuffled = random.shuffle(child.options);',
+                  '    const shuffledAnswerIndex = shuffled.findIndex((option) => option.isCorrect);',
+                  '    if (shuffledAnswerIndex < 0) throw new Error(`SEA-001 child ${child.queryContractId} lost its correct option`);',
+                  '    const correctOption = shuffled[shuffledAnswerIndex]!;',
+                  '    const options = shuffled.filter((option) => !option.isCorrect);',
+                  '    const semanticOffset = stableNumber(',
+                  '      `${child.queryContractId}|${child.answerDeterminingFactFingerprint}|Q${questionOrder}|answer-offset-v1`,',
+                  '    ) % 4;',
+                  '    const answerIndex = ((shuffledAnswerIndex + semanticOffset) % 4) as 0 | 1 | 2 | 3;',
+                  '    options.splice(answerIndex, 0, correctOption);',
+                  '    return {',
+                  '      ...child,',
+                  '      questionOrder,',
+                  '      options,',
+                  '      answerIndex,',
+                  '    };',
+              ])
               path.write_text(text[:start] + new + text[end:])
           PY
           git diff --check
