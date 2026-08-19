@@ -1,0 +1,86 @@
+name: Validate TSD CP-005 Approved English V13 Freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/tsd-cp005-english-review
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp005/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
+      - .github/workflows/tsd-cp005-approved-english-v13-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cp005-approved-english-v13-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP005 discovery, approved V13 review and freeze proof
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          DISCOVERY_OUT=dist/quant-v4/tsd-001/cp005-freeze-regression
+          FREEZE_OUT=dist/quant-v4/tsd-001/cp005-approved-english-v13-freeze
+          mkdir -p artifacts/api-server/$DISCOVERY_OUT artifacts/api-server/$FREEZE_OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/proof.ts" --bundle --platform=node --format=esm --outfile="$DISCOVERY_OUT/proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/authority-overlap-proof.ts" --bundle --platform=node --format=esm --outfile="$DISCOVERY_OUT/authority-overlap-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-evidence-v13.ts" --bundle --platform=node --format=esm --outfile="$FREEZE_OUT/review-evidence.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-approved-freeze-proof-v13.ts" --bundle --platform=node --format=esm --outfile="$FREEZE_OUT/freeze-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-approved-freeze-export-v13.ts" --bundle --platform=node --format=esm --outfile="$FREEZE_OUT/export.mjs"
+
+      - name: Run CP005 discovery regressions
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp005-freeze-regression
+          node "$OUT/proof.mjs" 2>&1 | tee "$OUT/proof.log"
+          node "$OUT/authority-overlap-proof.mjs" 2>&1 | tee "$OUT/authority-overlap-proof.log"
+
+      - name: Re-run approved V13 learner evidence
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp005-approved-english-v13-freeze
+          node "$OUT/review-evidence.mjs" 2>&1 | tee "$OUT/review-evidence.log"
+
+      - name: Prove approved V13 freeze identity
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp005-approved-english-v13-freeze
+          node "$OUT/freeze-proof.mjs" 2>&1 | tee "$OUT/freeze-proof.log"
+          node "$OUT/export.mjs" > "$OUT/cp005-approved-english-v13-frozen-78q.json"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload CP005 approved English V13 freeze evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp005-approved-english-v13-freeze-78q
+          path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-freeze-regression/proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-freeze-regression/authority-overlap-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-approved-english-v13-freeze/review-evidence.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-approved-english-v13-freeze/freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-approved-english-v13-freeze/cp005-approved-english-v13-frozen-78q.json
+          if-no-files-found: error
