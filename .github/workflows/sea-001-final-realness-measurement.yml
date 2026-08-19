@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   issues: write
   pull-requests: write
 
@@ -27,6 +27,8 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: feat/sea-001-realness-final-gate
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -39,8 +41,23 @@ jobs:
           code=$?
           echo "" >> /tmp/sea001-realness.txt
           echo "exit_code=$code" >> /tmp/sea001-realness.txt
+          echo "workflow_head=${GITHUB_SHA}" >> /tmp/sea001-realness.txt
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
+      - name: Persist measurement evidence on audit branch
+        shell: bash
+        run: |
+          mkdir -p .github/sea001-reports
+          cp /tmp/sea001-realness.txt .github/sea001-reports/final-realness-report.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/sea001-reports/final-realness-report.txt
+          if git diff --cached --quiet; then
+            echo "Measurement report unchanged."
+          else
+            git commit -m "chore(seating): persist measured SEA-001 realness telemetry"
+            git push origin HEAD:feat/sea-001-realness-final-gate
+          fi
       - name: Attach measurement evidence to audit PR
         env:
           GH_TOKEN: ${{ github.token }}
@@ -51,8 +68,6 @@ jobs:
             echo '```text'
             cat /tmp/sea001-realness.txt
             echo '```'
-            echo
-            echo "workflow_head=${GITHUB_SHA}"
           } > /tmp/sea001-comment.md
           gh pr comment 925 --repo "${GITHUB_REPOSITORY}" --body-file /tmp/sea001-comment.md
       - name: Enforce measurement process success
