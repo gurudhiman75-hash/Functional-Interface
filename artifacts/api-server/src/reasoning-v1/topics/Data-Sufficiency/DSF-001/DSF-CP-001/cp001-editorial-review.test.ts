@@ -23,6 +23,7 @@ for (const question of corpus) {
   assert.equal(question.editorialVersion, DSF_CP001_EDITORIAL_VERSION);
   assert(!/normalized|target projection|surviving world|world count|semantic class|ql-|dsf-|num-/i.test(text));
   assert(!/leaves possible X values/i.test(text));
+  assert(!/Even both statements together are not sufficient/i.test(text));
   assert.match(question.stem, /^In the three-digit number \d\dX, X is a digit\./);
   assert(question.stem.length < 120);
   assert(question.statements.every((statement) => statement.text.length < 100));
@@ -39,6 +40,12 @@ for (const question of corpus) {
   }
   if (question.canonicalAnswer === "EACH_STATEMENT_ALONE") {
     assert.equal(question.explanation.conclusion, "Each statement alone is sufficient.");
+  }
+  if (question.canonicalAnswer === "INSUFFICIENT_EVEN_TOGETHER") {
+    assert.equal(
+      question.explanation.conclusion,
+      "Even when both statements are used together, they are not sufficient.",
+    );
   }
   if (question.targetKind === "MISSING_DIGIT" && question.proof.statementITargetAnswers.length === 1) {
     assert.match(question.explanation.statementI, /gives X =/);
