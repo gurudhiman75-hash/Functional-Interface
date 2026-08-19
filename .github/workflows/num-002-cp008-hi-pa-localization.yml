@@ -64,6 +64,21 @@ jobs:
           node dist/quant-v4/num-002-cp008-hi-pa-parity.mjs \
             2>&1 | tee dist/quant-v4/num-002-cp008-hi-pa-parity.log
 
+      - name: Bundle Hindi Punjabi human-quality V2 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/localization/runtime-human-quality.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-hi-pa-human-quality.mjs
+
+      - name: Run Hindi Punjabi human-quality V2 audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/num-002-cp008-hi-pa-human-quality.mjs \
+            2>&1 | tee dist/quant-v4/num-002-cp008-hi-pa-human-quality.log
+
       - name: Upload Hindi Punjabi review evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -71,8 +86,11 @@ jobs:
           name: num-002-cp008-hi-pa-rule-first-review
           path: |
             artifacts/api-server/dist/quant-v4/num-002-cp008-hi-pa-parity.log
+            artifacts/api-server/dist/quant-v4/num-002-cp008-hi-pa-human-quality.log
             artifacts/api-server/dist/quant-v4/num-002-cp008-hi-pa-localization/num-cp008-hi-pa-audit.json
             artifacts/api-server/dist/quant-v4/num-002-cp008-hi-pa-localization/num-cp008-hi-pa-review.json
             artifacts/api-server/dist/quant-v4/num-002-cp008-hi-pa-localization/num-cp008-hi-pa-review.md
+            artifacts/api-server/dist/quant-v4/num-002-cp008-hi-pa-localization/num-cp008-hi-pa-human-review.json
+            artifacts/api-server/dist/quant-v4/num-002-cp008-hi-pa-localization/num-cp008-hi-pa-human-review.md
           if-no-files-found: warn
           retention-days: 30
