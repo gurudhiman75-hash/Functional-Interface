@@ -115,6 +115,8 @@ for (const index of [2, 3]) {
   assert.equal(question.diagramModel.angleMarks.length, 2);
   assert.ok(question.diagramModel.angleMarks.some((mark) => mark.label === "x"));
   assert.ok(question.diagramModel.angleMarks.some((mark) => mark.label?.endsWith("°")));
+  const incentrePoint = question.diagramModel.points.find((candidate) => candidate.id === "I");
+  assert.equal(incentrePoint?.labelPosition, "W", "the I label must stay on the clear side of the angle vertex, away from the angle arc");
   const p = (id: string) => {
     const point = question.diagramModel?.points.find((candidate) => candidate.id === id);
     if (!point) throw new Error(`Missing incentre-angle point ${id}`);
@@ -125,4 +127,4 @@ for (const index of [2, 3]) {
   assert.ok(Math.abs(atI - (90 + vertex / 2)) < 1e-6, "learner layout must satisfy the incentre-angle relation");
 }
 
-console.log("Geometry gap remediation Wave 3 PASS: 4 CP006 source-observed prototypes × 3 seeds with exact centre inference, Renderer V2 topology, angle-sign and collision QA.");
+console.log("Geometry gap remediation Wave 3 PASS: 4 CP006 source-observed prototypes × 3 seeds with exact centre inference, Renderer V2 topology, angle-sign, label-clearance and collision QA.");
