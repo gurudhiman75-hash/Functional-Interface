@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 import { canonicalDigest } from "../canonical.ts";
 import { sea001EnglishExplanationAuthority, buildSea001ExplanationParityCandidate } from "../localization/explanation-parity-candidate.ts";
 import { localizeSea001Names } from "../localization/name-pack.ts";
@@ -12,6 +14,7 @@ import {
   type Sea001PermanentQlId,
 } from "../permanent/registry.ts";
 import {
+  normalizedClueSetFingerprint,
   sea001BlueprintDescriptors,
   type AuditCaselet,
   type Sea001CheckpointId,
@@ -29,6 +32,7 @@ export type Sea001QuestionStudioRequest = Readonly<{
   checkpointId?: Sea001CheckpointId;
   count?: number;
   seed?: string;
+  excludeClueSetFingerprints?: readonly string[];
 }>;
 
 const CHECKPOINT_DIFFICULTY = Object.freeze({
@@ -90,6 +94,7 @@ type StudioCaselet = AuditCaselet & Partial<{
   humanLanguageReviewRequired: boolean;
   productDeliveryUnlocked: boolean;
   productionStagingApproved: boolean;
+  freshnessFingerprint: string;
 }>;
 
 const DESCRIPTORS = sea001BlueprintDescriptors();
@@ -147,6 +152,7 @@ function caseletForQl(
   language: Sea001QuestionStudioLanguage,
   batchSeed: string,
   caseletOrdinal: number,
+  excludedFingerprints: ReadonlySet<string>,
 ): StudioCaselet {
   const pba = PBA_BY_QL.get(qlId);
   if (!pba) throw new Error(`No SEA-001 blueprint mapping exists for ${qlId}.`);
@@ -154,16 +160,25 @@ function caseletForQl(
   if (!descriptor) throw new Error(`No SEA-001 generator exists for ${pba}.`);
 
   let lastError: unknown = null;
-  for (let attempt = 0; attempt < 24; attempt += 1) {
+  for (let attempt = 0; attempt < 48; attempt += 1) {
     const seed = `sea001-studio:${batchSeed}:${qlId}:${caseletOrdinal}:${attempt}`;
     try {
-      return localizeCaselet(descriptor.generate(seed), language);
+      const source = descriptor.generate(seed);
+      const freshnessFingerprint = normalizedClueSetFingerprint(source);
+      if (excludedFingerprints.has(freshnessFingerprint)) {
+        lastError = new Error(`${source.caseletId}: recent-history clue-set repeat rejected.`);
+        continue;
+      }
+      return {
+        ...localizeCaselet(source, language),
+        freshnessFingerprint,
+      };
     } catch (error) {
       lastError = error;
     }
   }
   throw new Error(
-    `${qlId}: unable to generate a valid ${language} Question Studio caselet after 24 attempts. ${lastError instanceof Error ? lastError.message : ""}`,
+    `${qlId}: unable to generate a fresh valid ${language} Question Studio caselet after 48 attempts. ${lastError instanceof Error ? lastError.message : ""}`,
   );
 }
 
@@ -301,7 +316,7 @@ function toStudioQuestion(
       qlId,
       checkpointId: caselet.checkpointId,
       blueprintAuthorityId: caselet.blueprintAuthorityId,
-      clueSetFingerprint: caselet.clueSetFingerprint ?? null,
+      clueSetFingerprint: caselet.freshnessFingerprint ?? caselet.clueSetFingerprint ?? null,
       canonicalParityFingerprint: sea001CanonicalParityFingerprint(caselet),
       answerDeterminingFactFingerprint: child.answerDeterminingFactFingerprint,
       contentFingerprint,
@@ -334,21 +349,25 @@ export function generateSea001QuestionStudioBatch(request: Sea001QuestionStudioR
     throw new Error(`Unsupported SEA-001 language '${language}'.`);
   }
   const qls = eligibleQls(request);
-  const batchSeed = request.seed?.trim() || [
-    SEA001_QUESTION_STUDIO_PACKAGE_ID,
-    language,
-    request.checkpointId ?? "all-checkpoints",
-    request.qlId ?? "all-qls",
-  ].join(":");
+  const explicitSeed = request.seed?.trim();
+  const batchSeed = explicitSeed || `sea001-fresh:${randomUUID()}`;
+  const seedSource = explicitSeed ? "EXPLICIT" as const : "FRESH_NONCE" as const;
+  const excludedFingerprints = new Set<string>(explicitSeed ? [] : (request.excludeClueSetFingerprints ?? []));
+  const recentHistoryExclusionCount = excludedFingerprints.size;
 
   const questions: ReturnType<typeof toStudioQuestion>[] = [];
   let caseletOrdinal = 0;
   while (questions.length < count) {
     const qlId = qls[caseletOrdinal % qls.length]!;
-    const caselet = caseletForQl(qlId, language, batchSeed, caseletOrdinal);
-    for (let childIndex = 0; childIndex < caselet.children.length && questions.length < count; childIndex += 1) {
-      questions.push(toStudioQuestion(caselet, childIndex, qlId, language));
-    }
+    const caselet = caseletForQl(qlId, language, batchSeed, caseletOrdinal, excludedFingerprints);
+    const freshnessFingerprint = caselet.freshnessFingerprint;
+    if (freshnessFingerprint) excludedFingerprints.add(freshnessFingerprint);
+
+    // Studio count means review questions, not a forced four-child exam bundle. Draw one
+    // child from each fresh caselet first so small default batches are not dominated by
+    // the first eligible QL/caselet. The frozen source caselet still owns four children.
+    const childIndex = caseletOrdinal % caselet.children.length;
+    questions.push(toStudioQuestion(caselet, childIndex, qlId, language));
     caseletOrdinal += 1;
   }
 
@@ -358,6 +377,10 @@ export function generateSea001QuestionStudioBatch(request: Sea001QuestionStudioR
       packageId: SEA001_QUESTION_STUDIO_PACKAGE_ID,
       packageCode: "SEA-001" as const,
       seed: batchSeed,
+      seedSource,
+      freshnessPolicy: "FRESH_NONCE_WITH_RECENT_CLUESET_REJECTION" as const,
+      recentHistoryExclusionCount,
+      caseletMixPolicy: "ONE_CHILD_PER_FRESH_CASELET_BEFORE_REUSE" as const,
       runtimeMode: SEA001_QUESTION_STUDIO_RUNTIME_MODE,
       reviewStatus: "UNREVIEWED_DYNAMIC" as const,
       integrationAuthority: SEA001_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
