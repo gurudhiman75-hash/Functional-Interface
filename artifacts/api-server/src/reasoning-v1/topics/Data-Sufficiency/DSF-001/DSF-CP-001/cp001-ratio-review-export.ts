@@ -1,10 +1,8 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { SUFFICIENCY_CLASSES } from "../foundation/index.ts";
-import {
-  generateDsfCp001RatioEnglish,
-  type DsfCp001RatioQuestion,
-} from "./cp001-ratio-editorial-runtime.ts";
+import { generateDsfCp001RatioEnglish } from "./cp001-ratio-editorial-runtime.ts";
+import type { DsfCp001RatioQuestion } from "./cp001-ratio-runtime.ts";
 
 const questions = Array.from({ length: 50 }, (_, seed) => generateDsfCp001RatioEnglish(seed));
 
