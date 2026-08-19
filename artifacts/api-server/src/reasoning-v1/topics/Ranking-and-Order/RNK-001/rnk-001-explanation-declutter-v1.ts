@@ -37,13 +37,13 @@ function normalizedForComparison(value: string): string {
 
 function isTrivialConclusion(value: string, answer?: string): boolean {
   const text = cleanWhitespace(value);
-  const conclusionLead = /^(?:therefore|hence|thus|so(?:\s+the)?|the required answer is|the answer is|इसलिए|अतः|इस प्रकार|इससे सही उत्तर|ਇਸ ਲਈ|ਇਸ ਕਰਕੇ|ਅਤੇ ਇਸ ਲਈ|ਸਹੀ ਉੱਤਰ)\b/iu;
+  const conclusionLead = /^(?:therefore|hence|thus|so(?:\s+the)?|the required answer is|the answer is|इसलिए|अतः|इस प्रकार|इससे सही उत्तर|ਇਸ ਲਈ|ਇਸ ਕਰਕੇ|ਅਤੇ ਇਸ ਲਈ|ਸਹੀ ਉੱਤਰ)(?:\s|[:：]|$)/iu;
   if (!conclusionLead.test(text)) return false;
 
   const compact = normalizedForComparison(text);
   if (answer && compact.includes(normalizedForComparison(answer))) return true;
 
-  return /(?:correct answer|required answer|सही उत्तर|आवश्यक उत्तर|ਲੋੜੀਂਦਾ ਉੱਤਰ|ਸਹੀ ਉੱਤਰ)/iu.test(text)
+  return /(?:correct answer|required answer|correct option|सही उत्तर|आवश्यक उत्तर|सही विकल्प|ਲੋੜੀਂਦਾ ਉੱਤਰ|ਸਹੀ ਉੱਤਰ|ਸਹੀ ਵਿਕਲਪ)/iu.test(text)
     && text.length < 180;
 }
 
