@@ -23,7 +23,7 @@ function hi(qlId: string, stem: string): SurfaceResult {
   }
   if (["TRG-002-QL-092","TRG-002-QL-093","TRG-002-QL-094"].includes(qlId)) {
     m = /^नदी के एक किनारे पर जमीन से (.+?) m ऊँचे बिंदु से दूसरे किनारे के ठीक सामने वाले बिंदु का अवनमन कोण (.+?)° है। नदी की चौड़ाई ज्ञात कीजिए।$/u.exec(stem);
-    if (m) return { stem: `नदी के एक किनारे पर बने ${m[1]} m ऊँचे अवलोकन मंच से दूसरे किनारे के ठीक सामने वाले बिंदु का अवनमन कोण ${m[2]}° है। नदी की चौड़ाई ज्ञात कीजिए।`, scenarioTextApplied: true, scenarioId: "WATER_BANK_OBSERVATION_PLATFORM", diagramMigrationRequired: true };
+    if (m) return { stem: `नदी के एक किनारे पर बना अवलोकन मंच ${m[1]} m ऊँचा है। मंच के शीर्ष से दूसरे किनारे के ठीक सामने वाले बिंदु का अवनमन कोण ${m[2]}° है। नदी की चौड़ाई ज्ञात कीजिए।`, scenarioTextApplied: true, scenarioId: "WATER_BRIDGE_RIVER_WIDTH", diagramMigrationRequired: true };
   }
   return { stem, scenarioTextApplied: false, scenarioId: null, diagramMigrationRequired: false };
 }
@@ -43,8 +43,8 @@ function pa(qlId: string, stem: string): SurfaceResult {
     if (m) return { stem: `ਸੜਕ ਦੇ ਉੱਪਰ ਬਣੇ ${m[1]} m ਉੱਚੇ ਪੈਦਲ ਪੁਲ ਦੇ ਕਿਨਾਰੇ ਤੋਂ ਸੜਕ ਉੱਤੇ ਇੱਕ ਬਿੰਦੂ ${m[2]}° ਦੇ ਨਿਵਾਣ ਕੋਣ 'ਤੇ ਦਿਸਦਾ ਹੈ। ਪੁਲ ਦੇ ਠੀਕ ਹੇਠਲੇ ਬਿੰਦੂ ਤੋਂ ਉਸ ਬਿੰਦੂ ਤੱਕ ਖਿਤਿਜੀ ਦੂਰੀ ਕੱਢੋ।`, scenarioTextApplied: true, scenarioId: "ROAD_BRIDGE_GROUND_POINT", diagramMigrationRequired: true };
   }
   if (["TRG-002-QL-092","TRG-002-QL-093","TRG-002-QL-094"].includes(qlId)) {
-    m = /^ਨਦੀ ਦੇ ਇੱਕ ਕੰਢੇ 'ਤੇ ਜ਼ਮੀਨ ਤੋਂ (.+?) m ਉੱਚੇ ਬਿੰਦੂ ਤੋਂ ਦੂਜੇ ਕੰਢੇ ਦੇ ਠੀਕ ਸਾਹਮਣੇ ਵਾਲੇ ਬਿੰਦੂ ਦਾ ਨਿਵਾਣ ਕੋਣ (.+?)° ਹੈ। ਨਦੀ ਦੀ ਚੌੜਾਈ ਕੱਢੋ।$/u.exec(stem);
-    if (m) return { stem: `ਨਦੀ ਦੇ ਇੱਕ ਕੰਢੇ 'ਤੇ ਬਣੇ ${m[1]} m ਉੱਚੇ ਨਿਰੀਖਣ ਮੰਚ ਤੋਂ ਦੂਜੇ ਕੰਢੇ ਦੇ ਠੀਕ ਸਾਹਮਣੇ ਵਾਲੇ ਬਿੰਦੂ ਦਾ ਨਿਵਾਣ ਕੋਣ ${m[2]}° ਹੈ। ਨਦੀ ਦੀ ਚੌੜਾਈ ਕੱਢੋ।`, scenarioTextApplied: true, scenarioId: "WATER_BANK_OBSERVATION_PLATFORM", diagramMigrationRequired: true };
+    m = /^ਨਦੀ ਦੇ ਇੱਕ (?:ਕਿਨਾਰੇ|ਕੰਢੇ) 'ਤੇ ਜ਼ਮੀਨ ਤੋਂ (.+?) m ਉੱਚੇ ਬਿੰਦੂ ਤੋਂ ਦੂਜੇ (?:ਕਿਨਾਰੇ|ਕੰਢੇ) ਦੇ (?:ਬਿਲਕੁਲ|ਠੀਕ) ਸਾਹਮਣੇ ਵਾਲੇ ਬਿੰਦੂ ਦਾ ਨਿਵਾਣ ਕੋਣ (.+?)° ਹੈ। ਨਦੀ ਦੀ ਚੌੜਾਈ ਕੱਢੋ।$/u.exec(stem);
+    if (m) return { stem: `ਨਦੀ ਦੇ ਇੱਕ ਕਿਨਾਰੇ 'ਤੇ ਬਣਿਆ ਨਿਰੀਖਣ ਮੰਚ ${m[1]} m ਉੱਚਾ ਹੈ। ਮੰਚ ਦੀ ਚੋਟੀ ਤੋਂ ਦੂਜੇ ਕਿਨਾਰੇ ਦੇ ਬਿਲਕੁਲ ਸਾਹਮਣੇ ਵਾਲੇ ਬਿੰਦੂ ਦਾ ਨਿਵਾਣ ਕੋਣ ${m[2]}° ਹੈ। ਨਦੀ ਦੀ ਚੌੜਾਈ ਕੱਢੋ।`, scenarioTextApplied: true, scenarioId: "WATER_BRIDGE_RIVER_WIDTH", diagramMigrationRequired: true };
   }
   return { stem, scenarioTextApplied: false, scenarioId: null, diagramMigrationRequired: false };
 }
