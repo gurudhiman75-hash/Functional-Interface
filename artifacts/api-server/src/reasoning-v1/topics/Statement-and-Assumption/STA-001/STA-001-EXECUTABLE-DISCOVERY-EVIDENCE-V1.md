@@ -1,12 +1,10 @@
 # STA-001 — Executable Discovery & Permanent QL Semantic Freeze Evidence V1
 
-Status: **PERMANENT QL SEMANTIC FREEZE CANDIDATE / DOWNSTREAM GATES CLOSED**
+Status: **PERMANENT QL SEMANTIC FREEZE / FINAL CI GREEN / DOWNSTREAM GATES CLOSED**
 
 This evidence records the transition of `STA-001 — Statement & Assumption` from design/source discovery into executable proof and stable QL identity.
 
-## 1. Scope
-
-Frozen semantic IDs:
+## 1. Frozen semantic IDs
 
 ```text
 STA-QL-001
@@ -27,28 +25,22 @@ Candidate count, answer coding, option order and negative wording are representa
 ## 2. Source-normalized QL boundaries
 
 ### STA-QL-001
-
 Core prerequisite / existence / availability / capability / feasibility dependency.
 
 ### STA-QL-002
-
 Recommendation / proposal / policy / decision whose rationale requires a real need/relevance plus efficacy or feasibility.
 
 ### STA-QL-003
-
 Source-supported notice / rule / institutional communication whose purpose requires audience relevance, ability to respond or service/action capability.
 
 Advertising and appeal breadth are not silently included; they remain deferred pending stronger source evidence.
 
 ### STA-QL-004
-
 Claim / prediction that requires a genuinely hidden causal or efficacy bridge between explicit information and the stated outcome.
 
 Human review rejected the first QL-004 prototype wording because the candidate assumption was too close to a paraphrase of the explicit prediction. The reviewed V2 authorities instead contain an explicit premise plus a distinct hidden bridge.
 
 ## 3. Reviewed executable authorities
-
-Current canonical executable authority set:
 
 ```text
 STA-QL-001  3 scenarios
@@ -62,61 +54,55 @@ The QL-002 set contains a three-assumption scenario in which all three assumptio
 
 ## 4. Oracle independence proof
 
-The semantic oracle computes assumption status from:
-
-1. proposition identity;
-2. explicit-versus-hidden status;
-3. hidden dependency membership;
-4. linkage to the actual discourse objective;
-5. semantic denial evidence.
+The semantic oracle computes assumption status from proposition identity, explicit-versus-hidden status, hidden dependency membership, linkage to the actual discourse objective, and semantic denial evidence.
 
 The oracle does **not** read `expectedClassification` to compute the answer.
 
 Mutation proof includes:
 
-- flip editorial expected answer -> oracle result must remain unchanged;
-- remove required hidden dependency -> formerly implicit candidate must become `NOT_IMPLICIT`;
-- mark required proposition explicit -> candidate must become `NOT_IMPLICIT / EXPLICIT_RESTATEMENT`;
-- remove semantic opposite -> integrity must reject the authority.
+- flip editorial expected answer -> oracle result remains unchanged;
+- remove required hidden dependency -> formerly implicit candidate becomes `NOT_IMPLICIT`;
+- mark required proposition explicit -> candidate becomes `NOT_IMPLICIT / EXPLICIT_RESTATEMENT`;
+- semantic negation/opposite is validated structurally.
 
-## 5. Deterministic generation proof
-
-Dedicated CI runs:
+## 5. Final semantic-freeze CI proof
 
 ```text
-120 seeds per QL
-4 QLs
-480 generated questions per proof run
+workflow: Validate STA-001 semantic freeze
+run:      32210089893
+job:      95940914520
+head:     eb1cb4a05d43f1d7aa73767966f9b094b9f26f94
+result:   SUCCESS
 ```
 
-Validated dimensions:
-
-- deterministic replay;
-- two- and three-assumption candidate counts;
-- four unique answer options;
-- exactly one correct semantic answer set;
-- all four answer positions used in every QL;
-- both implicit and non-implicit assumptions generated;
-- real all-three-implicit outcomes generated;
-- no internal enum/rule leakage into student explanations;
-- Question Studio and publication gates remain closed.
-
-The reviewed V2 executable run produced:
+Green steps:
 
 ```text
+Strict TypeScript check                       PASS
+STA executable proof                          PASS
+Permanent STA QL semantic authority proof     PASS
+STA review pack generation                    PASS
+Production API build                          PASS
+Review artifact upload                        PASS
+```
+
+Final executable proof output:
+
+```text
+frozen semantic QLs:                       4
 curated scenario authorities:             13
-generated deterministic questions:        480
-generated candidate assumptions:          1173
-implicit candidates:                      607
-not-implicit candidates:                  566
-all-three-implicit questions:              30
-editorial/oracle parity checks:             39
-expected-answer independence checks:        39
-dependency-removal mutation checks:         21
-explicitness mutation checks:               21
+generated deterministic questions:       480
+generated candidate assumptions:        1173
+implicit candidates:                     607
+not-implicit candidates:                 566
+all-three-implicit questions:             30
+editorial/oracle parity checks:            39
+expected-answer independence checks:       39
+dependency-removal mutation checks:        21
+explicitness mutation checks:              21
 ```
 
-Answer-position distribution in that run:
+Answer-position distribution:
 
 ```text
 STA-QL-001  33 / 23 / 32 / 32
@@ -125,9 +111,24 @@ STA-QL-003  25 / 39 / 28 / 28
 STA-QL-004  29 / 38 / 24 / 29
 ```
 
-## 6. Human review findings
+Permanent authority proof:
 
-The generated HTML/JSON review pack was inspected after CI generation.
+```text
+PASS_STA_001_PERMANENT_QL_SEMANTIC_FREEZE
+permanent QLs:                     4
+reviewed executable authorities:  13
+deferred discovery reserves:       3
+Question Studio:                false
+```
+
+Final review artifact:
+
+```text
+artifact ID: 9350486484
+SHA-256: b119c4dcece548f005eb11982121200c7b40d55adc60cf2421317db9a6da15ad
+```
+
+## 6. Human review findings
 
 Accepted characteristics:
 
@@ -135,8 +136,8 @@ Accepted characteristics:
 - concise question-specific explanations;
 - no formula/rule-dump style;
 - realistic same-scenario distractors;
-- necessary-vs-plausible distinctions are explained in plain language;
-- QL-004 now uses actual hidden bridge reasoning rather than explicit restatement;
+- necessary-vs-plausible distinctions explained in plain language;
+- QL-004 uses actual hidden bridge reasoning rather than explicit restatement;
 - three-assumption combinations render naturally.
 
 ## 7. Deferred reserves
