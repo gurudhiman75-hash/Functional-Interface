@@ -39,8 +39,8 @@ function pa(qlId: string, stem: string): SurfaceResult {
     if (m) return { stem: `${m[1]} m ਉੱਚੀ ਇਮਾਰਤ ਦੀ ਛੱਤ ਤੋਂ ਸਾਹਮਣੇ ਸਥਿਤ ${m[2]} m ਉੱਚੇ ਖੰਭੇ ਦੀ ਚੋਟੀ ${m[3]}° ਦੇ ਨਿਵਾਣ ਕੋਣ 'ਤੇ ਦਿਸਦੀ ਹੈ। ਇਮਾਰਤ ਅਤੇ ਖੰਭੇ ਦੇ ਅਧਾਰਾਂ ਵਿਚਕਾਰ ਖਿਤਿਜੀ ਦੂਰੀ ਕੱਢੋ।`, scenarioTextApplied: true, scenarioId: "URBAN_ROOFTOP_TO_POLE", diagramMigrationRequired: true };
   }
   if (qlId === "TRG-002-QL-021") {
-    m = /^(.+?) m ਉੱਚੇ ਨਿਰੀਖਣ ਬਿੰਦੂ ਤੋਂ ਸਮਤਲ ਜ਼ਮੀਨ ਉੱਤੇ ਇੱਕ ਬਿੰਦੂ (.+?)° ਦੇ ਨਿਵਾਣ ਕੋਣ 'ਤੇ ਦਿਖਾਈ ਦਿੰਦਾ ਹੈ। ਉਸ ਬਿੰਦੂ ਤੱਕ ਖਿਤਿਜੀ ਦੂਰੀ ਕੱਢੋ।$/u.exec(stem);
-    if (m) return { stem: `ਸੜਕ ਦੇ ਉੱਪਰ ਬਣੇ ${m[1]} m ਉੱਚੇ ਪੈਦਲ ਪੁਲ ਦੇ ਕਿਨਾਰੇ ਤੋਂ ਸੜਕ ਉੱਤੇ ਇੱਕ ਬਿੰਦੂ ${m[2]}° ਦੇ ਨਿਵਾਣ ਕੋਣ 'ਤੇ ਦਿਖਾਈ ਦਿੰਦਾ ਹੈ। ਪੁਲ ਦੇ ਠੀਕ ਹੇਠਲੇ ਬਿੰਦੂ ਤੋਂ ਉਸ ਬਿੰਦੂ ਤੱਕ ਖਿਤਿਜੀ ਦੂਰੀ ਕੱਢੋ।`, scenarioTextApplied: true, scenarioId: "ROAD_BRIDGE_GROUND_POINT", diagramMigrationRequired: true };
+    m = /^(.+?) m ਉੱਚੇ ਨਿਰੀਖਣ ਬਿੰਦੂ ਤੋਂ ਸਮਤਲ ਜ਼ਮੀਨ ਉੱਤੇ ਇੱਕ ਬਿੰਦੂ (.+?)° ਦੇ ਨਿਵਾਣ ਕੋਣ 'ਤੇ (?:ਦਿਖਾਈ ਦਿੰਦਾ|ਦਿਸਦਾ) ਹੈ। ਉਸ ਬਿੰਦੂ ਤੱਕ ਖਿਤਿਜੀ ਦੂਰੀ ਕੱਢੋ।$/u.exec(stem);
+    if (m) return { stem: `ਸੜਕ ਦੇ ਉੱਪਰ ਬਣੇ ${m[1]} m ਉੱਚੇ ਪੈਦਲ ਪੁਲ ਦੇ ਕਿਨਾਰੇ ਤੋਂ ਸੜਕ ਉੱਤੇ ਇੱਕ ਬਿੰਦੂ ${m[2]}° ਦੇ ਨਿਵਾਣ ਕੋਣ 'ਤੇ ਦਿਸਦਾ ਹੈ। ਪੁਲ ਦੇ ਠੀਕ ਹੇਠਲੇ ਬਿੰਦੂ ਤੋਂ ਉਸ ਬਿੰਦੂ ਤੱਕ ਖਿਤਿਜੀ ਦੂਰੀ ਕੱਢੋ।`, scenarioTextApplied: true, scenarioId: "ROAD_BRIDGE_GROUND_POINT", diagramMigrationRequired: true };
   }
   if (["TRG-002-QL-092","TRG-002-QL-093","TRG-002-QL-094"].includes(qlId)) {
     m = /^ਨਦੀ ਦੇ ਇੱਕ ਕੰਢੇ 'ਤੇ ਜ਼ਮੀਨ ਤੋਂ (.+?) m ਉੱਚੇ ਬਿੰਦੂ ਤੋਂ ਦੂਜੇ ਕੰਢੇ ਦੇ ਠੀਕ ਸਾਹਮਣੇ ਵਾਲੇ ਬਿੰਦੂ ਦਾ ਨਿਵਾਣ ਕੋਣ (.+?)° ਹੈ। ਨਦੀ ਦੀ ਚੌੜਾਈ ਕੱਢੋ।$/u.exec(stem);
