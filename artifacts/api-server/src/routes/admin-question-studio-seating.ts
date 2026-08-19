@@ -20,6 +20,7 @@ const router = Router();
 const QL_IDS = new Set<string>(SEA001_QUESTION_STUDIO_PACKAGE.qlIds);
 const CHECKPOINTS = new Set<string>(SEA001_QUESTION_STUDIO_PACKAGE.checkpoints);
 const LANGUAGES = new Set<string>(SEA001_QUESTION_STUDIO_LANGUAGES);
+const RECENT_FRESHNESS_WINDOW = 400;
 
 type StudioBatch = ReturnType<typeof generateSea001QuestionStudioBatch>;
 type StudioQuestion = StudioBatch["questions"][number];
@@ -52,6 +53,21 @@ function requestFilters(source: Record<string, unknown>) {
     qlId: qlId ? qlId as Sea001PermanentQlId : undefined,
     checkpointId: checkpointId ? checkpointId as Sea001CheckpointId : undefined,
   };
+}
+
+async function recentClueSetFingerprints(limit = RECENT_FRESHNESS_WINDOW): Promise<readonly string[]> {
+  const rows = await sqlClient`
+    SELECT v.payload #>> '{traceability,clueSetFingerprint}' AS "fingerprint"
+    FROM content.generation_item_versions v
+    WHERE v.payload ->> 'packageId' = ${SEA001_QUESTION_STUDIO_PACKAGE_ID}
+      AND v.payload ->> 'integrationAuthority' = ${SEA001_QUESTION_STUDIO_INTEGRATION_AUTHORITY}
+      AND COALESCE(v.payload #>> '{traceability,clueSetFingerprint}', '') <> ''
+    ORDER BY v.created_at DESC
+    LIMIT ${limit}
+  `;
+  return [...new Set(rows
+    .map((row) => asString(row.fingerprint))
+    .filter(Boolean))];
 }
 
 function explanationText(question: StudioQuestion): string {
@@ -232,6 +248,7 @@ router.get(
       permanentQlCount: SEA001_QUESTION_STUDIO_PACKAGE.permanentQlCount,
       databaseWriteEnabled: true,
       generationRunPersistenceAllowed: true,
+      freshnessWindowItems: RECENT_FRESHNESS_WINDOW,
       questionBankConversionEligibleAfterApproval: false,
       testEligibleAfterApproval: false,
       publiclyPublishableAfterApproval: false,
@@ -243,13 +260,16 @@ router.get(
 router.get(
   "/reasoning/seating/preview",
   requireAdminPermission("content.generation.read"),
-  (req, res) => {
+  async (req, res) => {
     try {
       const filters = requestFilters(req.query as Record<string, unknown>);
+      const requestedSeed = asString(req.query.seed);
+      const recentFingerprints = requestedSeed ? [] : await recentClueSetFingerprints();
       const result = generateSea001QuestionStudioBatch({
         ...filters,
-        seed: asString(req.query.seed) || "sea001-question-studio-preview",
+        seed: requestedSeed || undefined,
         count: asCount(req.query.count, 1, 20),
+        excludeClueSetFingerprints: recentFingerprints,
       });
       res.json({
         ...result,
@@ -277,15 +297,25 @@ router.post(
     try {
       const filters = requestFilters((req.body ?? {}) as Record<string, unknown>);
       const count = asCount(req.body?.count, 5, 50);
-      const seed = asString(req.body?.seed) || `sea001-review-${Date.now()}`;
-      const batch = generateSea001QuestionStudioBatch({ ...filters, seed, count });
+      const requestedSeed = asString(req.body?.seed);
+      const recentFingerprints = requestedSeed ? [] : await recentClueSetFingerprints();
+      const batch = generateSea001QuestionStudioBatch({
+        ...filters,
+        seed: requestedSeed || undefined,
+        count,
+        excludeClueSetFingerprints: recentFingerprints,
+      });
       const requestSnapshot = {
         packageId: SEA001_QUESTION_STUDIO_PACKAGE_ID,
         language: filters.language,
         qlId: filters.qlId ?? null,
         checkpointId: filters.checkpointId ?? null,
         count,
-        seed,
+        seed: batch.generationContext.seed,
+        seedSource: batch.generationContext.seedSource,
+        freshnessPolicy: batch.generationContext.freshnessPolicy,
+        recentHistoryExclusionCount: batch.generationContext.recentHistoryExclusionCount,
+        caseletMixPolicy: batch.generationContext.caseletMixPolicy,
         runtimeMode: SEA001_QUESTION_STUDIO_RUNTIME_MODE,
         integrationAuthority: SEA001_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
         questionBankStatus: "NOT_STORED",
@@ -300,6 +330,10 @@ router.post(
         packageId: SEA001_QUESTION_STUDIO_PACKAGE_ID,
         runtimeMode: SEA001_QUESTION_STUDIO_RUNTIME_MODE,
         integrationAuthority: SEA001_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
+        seed: batch.generationContext.seed,
+        seedSource: batch.generationContext.seedSource,
+        freshnessPolicy: batch.generationContext.freshnessPolicy,
+        recentHistoryExclusionCount: batch.generationContext.recentHistoryExclusionCount,
         questionBankStatus: "NOT_STORED",
         testEligibility: "INELIGIBLE",
         publiclyPublishable: false,
@@ -338,6 +372,7 @@ router.get(
         questionBankCount: Number(rows[0]?.questionBankCount ?? 0),
         runtimeMode: SEA001_QUESTION_STUDIO_RUNTIME_MODE,
         integrationAuthority: SEA001_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
+        freshnessWindowItems: RECENT_FRESHNESS_WINDOW,
         questionBankConversionEligibleAfterApproval: false,
         testEligibleAfterApproval: false,
         publiclyPublishableAfterApproval: false,
