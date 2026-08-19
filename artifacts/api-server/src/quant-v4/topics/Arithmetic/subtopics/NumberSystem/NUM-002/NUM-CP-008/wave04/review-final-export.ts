@@ -3,24 +3,35 @@ import { join } from "node:path";
 import { generateNumCp008Wave04Reviewed } from "./runtime-review-final.ts";
 import type { NumCp008Wave04Package, NumCp008Wave04PrototypeId } from "./types.ts";
 
+function fillToSix(selected: NumCp008Wave04Package[], prototypeId: NumCp008Wave04PrototypeId): void {
+  const usedSeeds = new Set(selected.map((q) => q.seed));
+  for (let seed = 1; seed <= 120 && selected.length < 6; seed += 1) {
+    if (usedSeeds.has(seed)) continue;
+    selected.push(generateNumCp008Wave04Reviewed(prototypeId, seed));
+    usedSeeds.add(seed);
+  }
+}
+
 function selectMultiplicity(): NumCp008Wave04Package[] {
   const selected: NumCp008Wave04Package[] = [];
   const seenAnswers = new Set<string>();
   const seenDifficulties = new Set<string>();
   const seenStemModes = new Set<number>();
 
-  for (let seed = 1; seed <= 120 && selected.length < 6; seed += 1) {
+  for (let seed = 1; seed <= 120; seed += 1) {
     const q = generateNumCp008Wave04Reviewed("NUM-CP008-PROT-025", seed);
     const stemMode = seed % 3;
     const addsCoverage = !seenAnswers.has(q.canonicalAnswer) || !seenDifficulties.has(q.difficulty) || !seenStemModes.has(stemMode);
-    if (!addsCoverage && selected.length >= 5) continue;
+    if (!addsCoverage) continue;
     selected.push(q);
     seenAnswers.add(q.canonicalAnswer);
     seenDifficulties.add(q.difficulty);
     seenStemModes.add(stemMode);
+    if (seenAnswers.size === 3 && seenDifficulties.size >= 2 && seenStemModes.size === 3) break;
   }
 
-  if (selected.length < 6 || seenAnswers.size !== 3 || seenDifficulties.size < 2 || seenStemModes.size !== 3) {
+  fillToSix(selected, "NUM-CP008-PROT-025");
+  if (selected.length !== 6 || seenAnswers.size !== 3 || seenDifficulties.size < 2 || seenStemModes.size !== 3) {
     throw new Error("Unable to build representative P025 review selection");
   }
   return selected;
@@ -31,17 +42,19 @@ function selectTripleSet(): NumCp008Wave04Package[] {
   const seenDifficulties = new Set<string>();
   const seenStemModes = new Set<number>();
 
-  for (let seed = 1; seed <= 120 && selected.length < 6; seed += 1) {
+  for (let seed = 1; seed <= 120; seed += 1) {
     const q = generateNumCp008Wave04Reviewed("NUM-CP008-PROT-026", seed);
     const stemMode = seed % 3;
     const addsCoverage = !seenDifficulties.has(q.difficulty) || !seenStemModes.has(stemMode);
-    if (!addsCoverage && selected.length >= 5) continue;
+    if (!addsCoverage) continue;
     selected.push(q);
     seenDifficulties.add(q.difficulty);
     seenStemModes.add(stemMode);
+    if (seenDifficulties.size >= 2 && seenStemModes.size === 3) break;
   }
 
-  if (selected.length < 6 || seenDifficulties.size < 2 || seenStemModes.size !== 3) {
+  fillToSix(selected, "NUM-CP008-PROT-026");
+  if (selected.length !== 6 || seenDifficulties.size < 2 || seenStemModes.size !== 3) {
     throw new Error("Unable to build representative P026 review selection");
   }
   return selected;
