@@ -46,7 +46,8 @@ jobs:
             spatial-paper-folding-source-saturated-discovery-v2 \
             spatial-paper-folding-merge-split-ql-proposal-v1 \
             spatial-paper-folding-source-saturated-english-review-v1 \
-            spatial-paper-folding-source-saturated-english-review-v1-1
+            spatial-paper-folding-source-saturated-english-review-v1-1 \
+            spatial-paper-folding-source-saturated-english-review-v1-2
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -99,6 +100,9 @@ jobs:
       - name: Validate learner-review V1.1 notch presentation remediation
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-source-saturated-english-review-v1-1.test.mjs
 
+      - name: Validate learner-review V1.2 loading, transparency and option distinctness
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-source-saturated-english-review-v1-2.test.mjs
+
       - name: Upload PFC historical and source-saturation evidence
         uses: actions/upload-artifact@v4
         with:
@@ -124,4 +128,6 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-source-saturated-english-review-v1.html
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-source-saturated-english-review-v1-1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-source-saturated-english-review-v1-1.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-source-saturated-english-review-v1-2-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-source-saturated-english-review-v1-2.html
           if-no-files-found: error
