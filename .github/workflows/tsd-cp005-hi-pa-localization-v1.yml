@@ -43,7 +43,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/authority-overlap-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/authority-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-evidence-v13.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-v13-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-approved-freeze-proof-v13.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-freeze-proof.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-review-proof-v1.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-review-proof-v4.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-review-export-v1.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-export.mjs"
 
       - name: Re-prove CP005 English authority
