@@ -1,10 +1,9 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useLocation, useParams } from "wouter";
 import { ArrowLeft, BookOpen, ChevronRight, Clock3, Hash, LayoutGrid, Lock, Package, RotateCcw, ShieldCheck } from "lucide-react";
 import { getRuntimeExamGroups } from "@/lib/test-bank";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { getAttempts } from "@/lib/storage";
-import { API_BASE_URL } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { CategoryIcon, isImageIcon } from "@/components/CategoryIcon";
 
@@ -64,8 +63,11 @@ export default function CategoryPage() {
         <main className="mx-auto max-w-lg px-4 py-24 text-center">
           <h1 className="text-xl font-semibold text-foreground">Could not load category</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            API expected at <code className="rounded bg-muted px-1 py-0.5 text-xs">{API_BASE_URL}</code>
+            The exam catalog is temporarily unavailable. Please try again.
           </p>
+          <Button className="mt-5" variant="outline" onClick={() => window.location.reload()}>
+            Retry
+          </Button>
         </main>
       </div>
     );
@@ -103,8 +105,6 @@ export default function CategoryPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
-
-      {/* Top nav */}
       <div className="border-b border-border/50 bg-background/80 backdrop-blur-sm">
         <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6">
           <button
@@ -118,7 +118,6 @@ export default function CategoryPage() {
         </div>
       </div>
 
-      {/* Category header — subtle hero banner */}
       <div className="mx-auto max-w-5xl px-4 pt-6 pb-2 sm:px-6">
         <div className="rounded-2xl overflow-hidden border border-sky-100 bg-gradient-to-br from-sky-50 via-slate-50 to-indigo-50 px-5 py-6 shadow-sm">
           <div className="flex items-start justify-between gap-4">
@@ -146,24 +145,21 @@ export default function CategoryPage() {
               className="shrink-0 rounded-xl border-violet-300 text-violet-700 hover:bg-violet-50 font-semibold hidden sm:flex text-[14px] px-4 h-auto py-2"
               onClick={() => setLocation("/packages")}
             >
-              <Package className="mr-1.5 h-4 w-4" />Buy Bundle
+              <Package className="mr-1.5 h-4 w-4" />Browse Packages
             </Button>
           </div>
         </div>
       </div>
 
       <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
-
-        {/* Mobile bundle CTA */}
         <Button
           variant="outline"
           className="mb-6 w-full rounded-xl border-violet-300 text-violet-700 hover:bg-violet-50 font-semibold sm:hidden text-[14px]"
           onClick={() => setLocation("/packages")}
         >
-          <Package className="mr-1.5 h-4 w-4" />Buy a Bundle & Save
+          <Package className="mr-1.5 h-4 w-4" />Browse Packages
         </Button>
 
-        {/* Exam grid */}
         {exams.length === 0 ? (
           <div className="rounded-xl border border-dashed border-border/60 px-6 py-14 text-center">
             <BookOpen className="mx-auto h-9 w-9 text-muted-foreground/40" />
@@ -181,12 +177,9 @@ export default function CategoryPage() {
                   onClick={() => setLocation(`/subcategory/${exam.id}`)}
                   data-testid={`btn-open-exam-${exam.id}`}
                 >
-                  {/* Gradient top strip */}
                   <div className="h-1.5 w-full" style={{ backgroundImage: gradient }} />
 
-                  {/* Card body */}
                   <div className="flex flex-col gap-3.5 p-5">
-                    {/* Icon + title */}
                     <div className="flex items-start gap-3">
                       <div
                         className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-sm ${isImageIcon(examIcon) ? "border border-slate-200 bg-white text-slate-700" : "text-white"}`}
@@ -196,11 +189,9 @@ export default function CategoryPage() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="text-[20px] font-bold text-slate-800 leading-snug">{exam.name}</p>
-                        <span className="mt-1 inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-semibold text-blue-600">Latest Pattern</span>
                       </div>
                     </div>
 
-                    {/* Meta row 1: test counts */}
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[14px] text-slate-500">
                       <span className="flex items-center gap-1 font-semibold text-slate-700"><LayoutGrid className="h-3.5 w-3.5 text-primary/60" />{exam.totalTests} tests</span>
                       {exam.fullLengthCount > 0 && <span>{exam.fullLengthCount} full-length</span>}
@@ -208,7 +199,6 @@ export default function CategoryPage() {
                       {exam.topicWiseCount > 0 && <span>{exam.topicWiseCount} topic-wise</span>}
                     </div>
 
-                    {/* Meta row 2: avg duration + questions */}
                     {(meta?.avgDuration || meta?.avgQuestions) && (
                       <div className="flex items-center gap-3 text-[14px] text-slate-400">
                         {meta.avgDuration && <span className="flex items-center gap-1"><Clock3 className="h-3.5 w-3.5 text-sky-400" />~{meta.avgDuration} min</span>}
@@ -216,7 +206,6 @@ export default function CategoryPage() {
                       </div>
                     )}
 
-                    {/* Progress bar */}
                     {meta && meta.totalCount > 0 && meta.attemptedCount > 0 && (
                       <div>
                         <div className="flex items-center justify-between mb-1.5">
@@ -232,7 +221,6 @@ export default function CategoryPage() {
                       </div>
                     )}
 
-                    {/* Access badges */}
                     <div className="flex flex-wrap items-center gap-2">
                       {meta && meta.freeCount > 0 && (
                         <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-[12px] font-medium text-emerald-700">
@@ -247,7 +235,6 @@ export default function CategoryPage() {
                     </div>
                   </div>
 
-                  {/* CTA footer */}
                   <div className="mt-auto border-t border-slate-100 bg-slate-50 px-5 py-3.5">
                     <Button
                       className="w-full rounded-xl text-[15px] font-semibold shadow-none h-10"

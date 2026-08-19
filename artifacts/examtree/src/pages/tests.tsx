@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/lib/api";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { useQuery } from "@tanstack/react-query";
 import { getPublishedTests } from "@/lib/published-tests";
@@ -25,8 +24,11 @@ export default function Tests() {
       <div className="mx-auto max-w-lg rounded-2xl border border-rose-200 bg-white p-8 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
         <h1 className="text-xl font-semibold text-slate-950">Could not load tests and exams</h1>
         <p className="mt-2 text-sm leading-relaxed text-slate-600">
-          API expected at <code className="rounded bg-slate-100 px-1 py-0.5 text-xs">{API_BASE_URL}</code>
+          The test catalog is temporarily unavailable. Your saved attempts are not affected.
         </p>
+        <Button className="mt-5" variant="outline" onClick={() => window.location.reload()}>
+          Try again
+        </Button>
       </div>
     );
   }
@@ -66,7 +68,7 @@ export default function Tests() {
                     <div><p className="text-xs font-medium text-muted-foreground">{series.examName}</p><h3 className="mt-1 font-semibold">{series.name}</h3></div>
                     <span className={`rounded-full px-2 py-1 text-[11px] font-semibold ${upcoming ? "bg-amber-100 text-amber-700" : "bg-emerald-100 text-emerald-700"}`}>{upcoming ? "Upcoming" : "Open"}</span>
                   </div>
-                  <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{series.description || "A canonical ExamTree mock-test sequence."}</p>
+                  <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{series.description || "An ExamTree mock-test sequence."}</p>
                   <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-muted-foreground">
                     <span className="inline-flex items-center gap-1"><Layers3 className="h-3.5 w-3.5" />{series.testCount} tests</span>
                     <span className="inline-flex items-center gap-1"><Target className="h-3.5 w-3.5" />{progressionLabel(series.progressionMode)}</span>
