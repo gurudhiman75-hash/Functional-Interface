@@ -1,9 +1,9 @@
-import { add, divide, multiply, rational, subtract, type Rational } from "../foundation/rational";
+import { add, divide, multiply, rational, subtract, toCanonicalString, type Rational } from "../foundation/rational";
 import { formatDurationHours, formatExamNumber } from "../cp003/generation-support";
 import type { TsdCp005EnglishReviewQuestion, TsdCp005ReviewExplanation, TsdCp005ReviewOptionAudit } from "./english-review-runtime";
-import { generateCp005ReviewQuestionV7 } from "./english-review-runtime-v7";
 import { generateCp005EnglishAuditPoolV10, generateCp005ReviewSetV10 } from "./english-review-runtime-v10";
-import { sqrtRationalExact } from "./solver";
+import { solveCp005, sqrtRationalExact } from "./solver";
+import { independentlyVerifyCp005 } from "./verifier";
 
 function required(value: Rational | undefined, name: string): Rational {
   if (!value) throw new Error(`CP005 V11 missing ${name}`);
@@ -219,18 +219,61 @@ function hardenSelectedQuestion(question: TsdCp005EnglishReviewQuestion): TsdCp0
   return Object.freeze({ ...result, stem: improveStem(result), explanation: improveExplanation(result) });
 }
 
-const QL058_V11_STATES = Object.freeze([0, 3, 4, 5, 9, 10] as const);
+const QL058_V11_MINUTE_PAIRS = Object.freeze([
+  [48, 108],
+  [36, 100],
+  [25, 64],
+  [32, 72],
+  [54, 150],
+  [50, 128],
+] as const);
+
+function buildQl058Question(template: TsdCp005EnglishReviewQuestion, ordinal: number): TsdCp005EnglishReviewQuestion {
+  const [aMinutes, bMinutes] = QL058_V11_MINUTE_PAIRS[ordinal]!;
+  const solveMode = "findSpeedRatioFromPostMeetingArrivalTimes" as const;
+  const postMeetingTimeA = rational(aMinutes, 60);
+  const postMeetingTimeB = rational(bMinutes, 60);
+  const input = Object.freeze({ postMeetingTimeA, postMeetingTimeB });
+  const solution = solveCp005(solveMode, input);
+  const verification = independentlyVerifyCp005(input, solution);
+  if (!verification.valid || solution.answerKind !== "VALUE" || !solution.value) throw new Error(`TSD-QL-058/V11-${ordinal}: custom ratio state failed exact verification`);
+  const answerText = ratio(solution.value);
+  const wrongs = [
+    { value: sqrtRationalExact(divide(postMeetingTimeA, postMeetingTimeB)), id: "REVERSE_POST_TIME_RATIO", calculation: "sqrt(tA/tB)", diagnosis: "The post-meeting time ratio was reversed before taking the square root." },
+    { value: divide(postMeetingTimeB, postMeetingTimeA), id: "SKIP_SQUARE_ROOT", calculation: "tB/tA", diagnosis: "The squared speed-ratio relation was used directly without taking its square root." },
+    { value: divide(postMeetingTimeA, postMeetingTimeB), id: "REVERSE_AND_SKIP_ROOT", calculation: "tA/tB", diagnosis: "Both the arrival-time order and the square-root step were mishandled." },
+  ];
+  const wrongAudits: TsdCp005ReviewOptionAudit[] = wrongs.map((entry) => Object.freeze({
+    text: ratio(entry.value), misconceptionId: entry.id, isCorrect: false,
+    wrongWorking: Object.freeze({ calculation: entry.calculation, diagnosis: entry.diagnosis }),
+  }));
+  const audits: TsdCp005ReviewOptionAudit[] = [];
+  let wrongIndex = 0;
+  for (let index = 0; index < 4; index += 1) {
+    if (index === template.correctIndex) audits.push(Object.freeze({ text: answerText, misconceptionId: "CORRECT", isCorrect: true, wrongWorking: null }));
+    else audits.push(wrongAudits[wrongIndex++]!);
+  }
+  const internalOptionAudit = Object.freeze(audits);
+  const options = Object.freeze(internalOptionAudit.map((entry) => entry.text));
+  if (new Set(options).size !== 4) throw new Error(`TSD-QL-058/V11-${ordinal}: custom ratio options collided`);
+  return Object.freeze({
+    ...template,
+    seed: `cp005-review-v11:ql058:${ordinal}`,
+    input,
+    solution,
+    answerText,
+    options,
+    internalOptionAudit,
+    mathematicalFingerprint: [template.authorityKey, solveMode, toCanonicalString(postMeetingTimeA), toCanonicalString(postMeetingTimeB)].join("|"),
+    validation: Object.freeze({ valid: true, errors: Object.freeze([] as string[]), warnings: Object.freeze([] as string[]) }),
+  });
+}
+
 function selectedBaseV11(perAuthority: number): readonly TsdCp005EnglishReviewQuestion[] {
   const base = [...generateCp005ReviewSetV10(perAuthority)];
   if (perAuthority !== 6) return Object.freeze(base);
   let ordinal = 0;
-  return Object.freeze(base.map((question) => {
-    if (question.permanentQlId !== "TSD-QL-058") return question;
-    const state = QL058_V11_STATES[ordinal]!;
-    const replacement = generateCp005ReviewQuestionV7(question.authorityKey, `cp005-review-v11:0:${ordinal}:state-${state}`, ordinal);
-    ordinal += 1;
-    return replacement;
-  }));
+  return Object.freeze(base.map((question) => question.permanentQlId === "TSD-QL-058" ? buildQl058Question(question, ordinal++) : question));
 }
 
 export function generateCp005ReviewSetV11(perAuthority = 6): readonly TsdCp005EnglishReviewQuestion[] {
