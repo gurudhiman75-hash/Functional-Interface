@@ -2,6 +2,11 @@ import {
   generateQuestion as generateQuantQuestionStudioQuestion,
   listQuantV4Packages,
 } from "../quant-v4/question-studio-review-engine";
+import {
+  generateNumCp008QuestionStudioBatch,
+  isNumCp008QuestionStudioRequest,
+  listNumCp008QuestionStudioPackages,
+} from "../quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/question-studio-integration";
 import type { WorCheckpointId } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/foundation/types";
 import {
   buildWor001QuestionStudioPayload,
@@ -49,6 +54,8 @@ function normalizeSelector(value: unknown) {
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 }
+
+export { isNumCp008QuestionStudioRequest };
 
 export function isWor001QuestionStudioRequest(request: SharedQuestionStudioGenerationRequest) {
   const packageId = normalizeSelector(request.packageId ?? request.archetypeId);
@@ -149,6 +156,11 @@ function worPackageCapability() {
 
 export function listQuestionStudioPackages() {
   const packages = [...listQuantV4Packages()] as any[];
+  for (const cp008Package of listNumCp008QuestionStudioPackages()) {
+    const existingIndex = packages.findIndex((entry) => String(entry.packageId) === cp008Package.packageId);
+    if (existingIndex >= 0) packages.splice(existingIndex, 1, cp008Package);
+    else packages.push(cp008Package);
+  }
   if (!packages.some((entry) => String(entry.packageId) === "WOR-001")) {
     packages.push(worPackageCapability());
   }
@@ -255,6 +267,9 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
 }
 
 export async function generateQuestion(request: SharedQuestionStudioGenerationRequest = {}) {
+  if (isNumCp008QuestionStudioRequest(request)) {
+    return generateNumCp008QuestionStudioBatch(request);
+  }
   if (isWor001QuestionStudioRequest(request)) {
     return generateWor001QuestionStudioQuestions(request);
   }
