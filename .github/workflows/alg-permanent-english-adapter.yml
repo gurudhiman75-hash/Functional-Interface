@@ -11,6 +11,7 @@ on:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/ALG-002/**
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/**
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-adapter.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v2.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-editorial-audit.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-export.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-freeze.test.ts
@@ -52,6 +53,16 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/quant-v4/algebra/permanent-english-adapter.test.mjs
+      - name: Bundle English V2 remediation proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v2.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/permanent-english-review-v2.test.mjs
+      - name: Run English V2 remediation proof
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/algebra/permanent-english-review-v2.test.mjs
       - name: Bundle permanent English editorial audit
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
@@ -68,25 +79,25 @@ jobs:
             src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-export.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/algebra/permanent-english-review-export.mjs
-      - name: Build permanent English human-review pack
+      - name: Build corrected English V2 human-review pack
         run: |
           cd artifacts/api-server
           node dist/quant-v4/algebra/permanent-english-review-export.mjs
-      - name: Upload permanent English human-review pack
+      - name: Upload corrected English V2 human-review pack
         uses: actions/upload-artifact@v4
         with:
-          name: algebra-permanent-english-review-109q
+          name: algebra-permanent-english-review-v2-109q
           path: |
-            artifacts/api-server/dist/quant-v4/algebra/algebra-permanent-english-review-109q.html
-            artifacts/api-server/dist/quant-v4/algebra/algebra-permanent-english-review-109q.json
+            artifacts/api-server/dist/quant-v4/algebra/algebra-permanent-english-review-v2-109q.html
+            artifacts/api-server/dist/quant-v4/algebra/algebra-permanent-english-review-v2-109q.json
           if-no-files-found: error
-      - name: Bundle inactive English freeze proof
+      - name: Bundle historical English V1 freeze proof
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-freeze.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/algebra/permanent-english-freeze.test.mjs
-      - name: Run inactive English freeze proof
+      - name: Run historical English V1 freeze proof
         run: |
           cd artifacts/api-server
           node dist/quant-v4/algebra/permanent-english-freeze.test.mjs
