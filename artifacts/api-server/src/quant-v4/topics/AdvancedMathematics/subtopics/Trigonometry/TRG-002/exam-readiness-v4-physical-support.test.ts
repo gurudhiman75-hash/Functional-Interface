@@ -41,11 +41,27 @@ for (const qlId of rooftopIds) {
   }
 }
 
-for (const locale of ["hi-IN", "pa-IN"] as const) {
-  const q21: any = generateTrg002V4CandidateQuestion("TRG-002-QL-021", "trg002-v4-bridge-pending", locale);
-  assert.equal(q21.v4ExamReadiness.scenarioTextApplied, true);
-  assert.equal(q21.v4ExamReadiness.scenarioSurfaceApplied, false, "QL021 bridge surface must remain pending until bridge-specific geometry is implemented.");
-  assert.equal(q21.v4ExamReadiness.diagramMigrationRequired, true);
+for (let seedIndex = 1; seedIndex <= 12; seedIndex += 1) {
+  const seed = `trg002-v4-bridge-support-${seedIndex}`;
+  for (const locale of ["hi-IN", "pa-IN"] as const) {
+    const q: any = generateTrg002V4CandidateQuestion("TRG-002-QL-021", seed, locale);
+    assert.equal(q.v4ExamReadiness.scenarioTextApplied, true);
+    assert.equal(q.v4ExamReadiness.recommendedScenarioShell, "ROAD_BRIDGE_GROUND_POINT");
+    assert.equal(q.v4ExamReadiness.recommendedScenarioDomain, "ROAD");
+    assert.equal(q.v4ExamReadiness.recommendedVisualStrategy, "pedestrian-overbridge-ground-target");
+    assert.equal(q.v4ExamReadiness.physicalObserverSupport, true);
+    assert.equal(q.v4ExamReadiness.scenarioSurfaceApplied, true);
+    assert.equal(q.v4ExamReadiness.diagramMigrationRequired, false);
+    assert.equal(q.v4ExamReadiness.physicalSupportMigratedInV4, true);
+    assert(q.canonicalSpatialState.points.some((point: any) => point.id === "v4-bridge-deck-end"), `${locale}: bridge deck point missing.`);
+    assert(q.solutionDiagram.segments.some((segment: any) => segment.id === "v4-bridge-deck" && segment.kind === "AUXILIARY"), `${locale}: bridge deck segment missing.`);
+    assert(q.canonicalSpatialState.verticalObjects.some((object: any) => object.id.startsWith("v4-bridge-support-")), `${locale}: bridge vertical support missing.`);
+    assert.equal(q.verification.spatial.valid, true);
+    assert.equal(q.verification.diagram.valid, true);
+    assert.equal(q.verification.diagramPolicy.valid, true);
+    assert.equal(q.activationAuthorized, false);
+    assert.equal(q.freezeStatus, "NOT_FROZEN");
+  }
 }
 
-console.log(`TRG002_V4_PHYSICAL_SUPPORT_PASS rooftopQls=${rooftopIds.length} seeds=12 locales=2 bridgeQl021=PENDING`);
+console.log(`TRG002_V4_PHYSICAL_SUPPORT_PASS rooftopQls=${rooftopIds.length} rooftopCases=${rooftopIds.length * 12 * 2} bridgeQl021Cases=24`);
