@@ -21,18 +21,14 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
       - name: Enable pnpm
         run: corepack enable
-
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-
       - name: Bundle frozen English authority and native review evidence
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
@@ -43,9 +39,8 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/authority-overlap-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/authority-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-review-evidence-v13.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-v13-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-approved-freeze-proof-v13.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-freeze-proof.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-review-proof-v4.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-review-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-review-export-v1.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-export.mjs"
-
       - name: Re-prove CP005 English authority
         run: |
           set -o pipefail
@@ -55,7 +50,6 @@ jobs:
           node "$OUT/authority-proof.mjs" 2>&1 | tee "$OUT/authority-proof.log"
           node "$OUT/english-v13-proof.mjs" 2>&1 | tee "$OUT/english-v13-proof.log"
           node "$OUT/english-freeze-proof.mjs" 2>&1 | tee "$OUT/english-freeze-proof.log"
-
       - name: Validate and export Hindi Punjabi review candidate
         run: |
           set -o pipefail
@@ -63,10 +57,8 @@ jobs:
           OUT=dist/quant-v4/tsd-001/cp005-hi-pa-v1
           node "$OUT/native-proof.mjs" 2>&1 | tee "$OUT/native-proof.log"
           node "$OUT/native-export.mjs" > "$OUT/cp005-hi-pa-review-v1-156q.json"
-
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-
       - name: Upload CP005 Hindi Punjabi V1 review artifact
         if: always()
         uses: actions/upload-artifact@v4
