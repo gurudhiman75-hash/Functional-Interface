@@ -22,6 +22,7 @@ export const GEOMETRY_THEOREM_IDS = Object.freeze([
   "AA_SIMILARITY",
   "SAS_SIMILARITY",
   "SSS_SIMILARITY",
+  "SIMILAR_TRIANGLES_PERIMETER_SCALE",
   "BASIC_PROPORTIONALITY_THEOREM",
   "BPT_CONVERSE",
   "CENTROID_DIVIDES_MEDIAN_2_TO_1",
@@ -84,6 +85,7 @@ export interface TheoremDefinition {
 }
 
 const FAMILY_BY_PREFIX: readonly [string, TheoremFamily][] = [
+  ["SIMILAR_TRIANGLES_", "SIMILARITY"],
   ["SSS_SIMILARITY", "SIMILARITY"], ["SAS_SIMILARITY", "SIMILARITY"], ["AA_", "SIMILARITY"],
   ["SSS_CONGRUENCE", "CONGRUENCE"], ["SAS_CONGRUENCE", "CONGRUENCE"], ["ASA_", "CONGRUENCE"],
   ["RHS_", "CONGRUENCE"], ["CPCT", "CONGRUENCE"], ["BASIC_", "SIMILARITY"],
@@ -126,6 +128,7 @@ function humanize(id: string): string {
     AA_SIMILARITY: "two matching angles establish triangle similarity",
     SAS_SIMILARITY: "proportional corresponding sides with the included angle equal establish similarity",
     SSS_SIMILARITY: "three proportional corresponding sides establish similarity",
+    SIMILAR_TRIANGLES_PERIMETER_SCALE: "in similar triangles, the ratio of the perimeters equals the ratio of any corresponding side pair",
     BASIC_PROPORTIONALITY_THEOREM: "a line parallel to one side of a triangle divides the other two sides proportionally",
     BPT_CONVERSE: "proportional division of two sides gives a line parallel to the third side",
     CENTROID_DIVIDES_MEDIAN_2_TO_1: "the centroid divides each median in the ratio 2:1 from the vertex",
