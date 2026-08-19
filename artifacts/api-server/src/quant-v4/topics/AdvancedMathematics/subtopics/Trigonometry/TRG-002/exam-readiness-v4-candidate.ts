@@ -21,6 +21,12 @@ import {
   trg002V4NaturalMeasurementScenarioId,
   trg002V4NaturalMeasurementTopology,
 } from "./exam-readiness-v4-natural-measurements";
+import {
+  generateTrg002V4ScenarioWave3Question,
+  isTrg002V4ScenarioWave3,
+  trg002V4ScenarioWave3ScenarioId,
+  trg002V4ScenarioWave3Topology,
+} from "./exam-readiness-v4-scenario-wave3";
 import { applyTrg002V4StemVariety } from "./exam-readiness-v4-stem-variety";
 
 type AnyQuestion = Record<string, any>;
@@ -88,28 +94,41 @@ function includesId(ids: readonly string[], qlId: string) {
 
 export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, locale: Trg002ExamRealnessLocale) {
   const naturalMeasurementOverride = isTrg002V4NaturalMeasurementOverride(qlId);
+  const scenarioWave3Override = isTrg002V4ScenarioWave3(qlId);
   const riverMathOverride = isTrg002V4RiverMathOverride(qlId);
   const canonicalOverride = isTrg002V4CanonicalOverride(qlId) || riverMathOverride;
-  const nativeV4Surface = naturalMeasurementOverride || canonicalOverride;
-  const rawBase: AnyQuestion = naturalMeasurementOverride
-    ? generateTrg002V4NaturalMeasurementQuestion(qlId, seed, locale)
-    : riverMathOverride
-      ? generateLocalizedTrg002V4RiverQl093(seed, locale)
-      : canonicalOverride
-        ? generateLocalizedTrg002V4CanonicalOverrideSafe(qlId, seed, locale)
-        : generateExamRealLocalizedTrg002Question(qlId, seed, locale);
+  const nativeV4Surface = naturalMeasurementOverride || canonicalOverride || scenarioWave3Override;
+  const rawBase: AnyQuestion = scenarioWave3Override
+    ? generateTrg002V4ScenarioWave3Question(qlId, seed, locale)
+    : naturalMeasurementOverride
+      ? generateTrg002V4NaturalMeasurementQuestion(qlId, seed, locale)
+      : riverMathOverride
+        ? generateLocalizedTrg002V4RiverQl093(seed, locale)
+        : canonicalOverride
+          ? generateLocalizedTrg002V4CanonicalOverrideSafe(qlId, seed, locale)
+          : generateExamRealLocalizedTrg002Question(qlId, seed, locale);
   const physicalSupport = applyTrg002V4PhysicalSupportMigration(rawBase);
   const riverSupport = applyTrg002V4RiverPlatformMigration(physicalSupport.question);
   const base: AnyQuestion = riverSupport.question;
   const exactStem = repairHistoricalExactMathArtifact(base.stem);
   const explanation = repairExplanation(base.explanation);
-  const explicitScenarioId = naturalMeasurementOverride ? trg002V4NaturalMeasurementScenarioId(qlId) : canonicalOverride ? canonicalScenarioId(qlId) : undefined;
+  const explicitScenarioId = scenarioWave3Override
+    ? trg002V4ScenarioWave3ScenarioId(qlId)
+    : naturalMeasurementOverride
+      ? trg002V4NaturalMeasurementScenarioId(qlId)
+      : canonicalOverride
+        ? canonicalScenarioId(qlId)
+        : undefined;
   const wave1 = nativeV4Surface
     ? { stem: exactStem, scenarioTextApplied: true, scenarioId: explicitScenarioId, diagramMigrationRequired: false }
     : applyTrg002V4Wave1ScenarioText(qlId, locale, exactStem);
-  const variety = applyTrg002V4StemVariety(qlId, locale, wave1.stem);
+  const variety = scenarioWave3Override
+    ? { stem: wave1.stem, applied: false }
+    : applyTrg002V4StemVariety(qlId, locale, wave1.stem);
   const stem = variety.stem;
-  const topology = trg002V4NaturalMeasurementTopology(qlId) ?? inferTopology(qlId, stem);
+  const topology = scenarioWave3Override
+    ? trg002V4ScenarioWave3Topology(qlId)
+    : trg002V4NaturalMeasurementTopology(qlId) ?? inferTopology(qlId, stem);
   const selectedScenario = selectTrg002V4ScenarioShell({ qlId, seed, topology });
   const scenario = explicitScenarioId
     ? TRG_002_V4_SCENARIO_SHELLS.find((shell) => shell.id === explicitScenarioId)
@@ -140,6 +159,7 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
     scenarioId: wave1.scenarioId ?? scenario.id,
     canonicalOverride,
     naturalMeasurementOverride,
+    scenarioWave3Override,
     stemVarietyApplied: variety.applied,
     physicalObserverSupport,
     diagramMigrationRequired,
@@ -153,6 +173,7 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
       status: "REMEDIATION_IN_PROGRESS" as const,
       canonicalOverride,
       naturalMeasurementOverride,
+      scenarioWave3Override,
       stemVarietyApplied: variety.applied,
       spatialTopology: topology,
       recommendedScenarioShell: wave1.scenarioId ?? scenario.id,
