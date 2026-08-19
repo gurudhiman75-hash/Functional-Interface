@@ -30,6 +30,17 @@ export function cp005V13ObjectContextFor(permanentQlId: string, ordinal: number)
   return pool[(start + ordinal) % pool.length]!;
 }
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function collapseRepeatedActorLabel(stem: string, actor: string): string {
+  const actorLetter = actor.endsWith(" A") ? "A" : "B";
+  const label = actor.slice(0, -2);
+  const repeated = new RegExp(`(?:${escapeRegExp(label)}\\s+){2,}${actorLetter}(?='s|\\b)`, "g");
+  return stem.replace(repeated, `${label} ${actorLetter}`);
+}
+
 function objectizeStem(base: string, context: Cp005V13ObjectContext): string {
   const ratioToken = "__CP005_RATIO_A_B__";
   let stem = base.replaceAll("A:B", ratioToken);
@@ -59,6 +70,12 @@ function objectizeStem(base: string, context: Cp005V13ObjectContext): string {
     .replace(/\bB\b/g, context.actorB)
     .replaceAll(ratioToken, "A:B");
 
+  stem = collapseRepeatedActorLabel(collapseRepeatedActorLabel(stem, context.actorA), context.actorB)
+    .replace(/\bhe\b/gi, "it")
+    .replace(/\bhim\b/gi, "it")
+    .replace(/\bhis\b/gi, "its")
+    .replace(new RegExp(`The faster ${escapeRegExp(context.actorA)}`, "g"), `${context.actorA}, being faster,`);
+
   if (context.routeKind === "RAIL") {
     stem = stem.replace(/\broad\b/g, "rail line");
   } else if (context.routeKind === "TRACK") {
@@ -66,9 +83,12 @@ function objectizeStem(base: string, context: Cp005V13ObjectContext): string {
   }
 
   stem = stem
-    .replace(new RegExp(`Given ${context.actorA} =`, "g"), `Given ${context.actorA}'s speed =`)
-    .replace(new RegExp(`, ${context.actorA} first\\.`, "g"), `, with ${context.actorA} first.`)
-    .replace(new RegExp(`the returning ${context.actorA}`, "g"), `returning ${context.actorA}`);
+    .replace(new RegExp(`Given ${escapeRegExp(context.actorA)} =`, "g"), `Given ${context.actorA}'s speed =`)
+    .replace(new RegExp(`, ${escapeRegExp(context.actorA)} first\\.`, "g"), `, with ${context.actorA} first.`)
+    .replace(new RegExp(`the returning ${escapeRegExp(context.actorA)}`, "g"), `returning ${context.actorA}`);
+
+  const pairPrefix = `${context.actorA} and ${context.actorB} `;
+  if (stem.startsWith(pairPrefix)) stem = `They ${stem.slice(pairPrefix.length)}`;
 
   if (/\btravellers?\b/i.test(stem)) {
     throw new Error(`${context.id}: CP005 V13 unhandled generic traveller wording: ${stem}`);
