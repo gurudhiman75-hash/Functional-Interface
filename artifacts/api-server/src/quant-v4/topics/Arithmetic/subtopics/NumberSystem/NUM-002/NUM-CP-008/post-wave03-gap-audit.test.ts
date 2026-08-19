@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   NUM_CP008_ADVANCED_DISPOSITIONS,
+  NUM_CP008_DESIGN_DIRECTION_DISPOSITIONS,
   NUM_CP008_DISCOVERED_PROTOTYPE_IDS,
   NUM_CP008_OWNERSHIP_HOLDS,
   NUM_CP008_POST_WAVE03_AUDIT,
@@ -27,6 +28,30 @@ assert.ok(
   ),
 );
 
+assert.equal(NUM_CP008_DESIGN_DIRECTION_DISPOSITIONS.length, 8);
+for (const required of [
+  "LARGE_MODULAR_EXPRESSION_REMAINDER",
+  "LEAST_POSITIVE_LINEAR_CONGRUENCE_REPRESENTATIVE",
+  "GREATEST_BOUNDED_SIMULTANEOUS_SYSTEM_SOLUTION",
+  "SAME_REMAINDER_ACROSS_SEVERAL_MODULI",
+  "RECONSTRUCT_NUMBER_FROM_SYSTEM_PLUS_RANGE",
+  "SINGLE_BOOLEAN_MODULAR_CLAIM",
+  "LEAST_REPUNIT_LENGTH_DIVISIBLE_BY_M",
+  "STRUCTURED_CONCATENATION_REMAINDER",
+]) {
+  assert.ok(NUM_CP008_DESIGN_DIRECTION_DISPOSITIONS.some((item) => item.form === required), `Missing design-direction disposition ${required}`);
+}
+assert.ok(
+  NUM_CP008_DESIGN_DIRECTION_DISPOSITIONS.some(
+    (item) => item.form === "LEAST_REPUNIT_LENGTH_DIVISIBLE_BY_M" && item.disposition === "SOURCE_HOLD_INVERSE_RECURRENCE",
+  ),
+);
+assert.ok(
+  NUM_CP008_DESIGN_DIRECTION_DISPOSITIONS.some(
+    (item) => item.form === "STRUCTURED_CONCATENATION_REMAINDER" && item.disposition === "REPRESENTED_RECURRENCE_ADAPTER_OR_CP010_HANDOFF",
+  ),
+);
+
 assert.equal(NUM_CP008_ADVANCED_DISPOSITIONS.length, 4);
 for (const required of [
   "DIRECT_MODULAR_INVERSE_AS_FINAL_TARGET",
@@ -46,6 +71,7 @@ assert.ok(NUM_CP008_OWNERSHIP_HOLDS.some((item) => item.owner === "ALGEBRA"));
 
 assert.equal(NUM_CP008_POST_WAVE03_AUDIT.discoveredPrototypeCount, 24);
 assert.equal(NUM_CP008_POST_WAVE03_AUDIT.materialWave04GapCount, 2);
+assert.equal(NUM_CP008_POST_WAVE03_AUDIT.designDirectionDispositionCount, 8);
 assert.equal(NUM_CP008_POST_WAVE03_AUDIT.permanentQlCount, 0);
 assert.equal(NUM_CP008_POST_WAVE03_AUDIT.nextAvailableQl, "NUM-QL-166");
 assert.equal(NUM_CP008_POST_WAVE03_AUDIT.sourceSaturation, false);
@@ -61,6 +87,7 @@ console.log(JSON.stringify({
   discoveredPrototypes: NUM_CP008_DISCOVERED_PROTOTYPE_IDS.length,
   materialWave04Gaps: NUM_CP008_POST_WAVE03_MATERIAL_GAPS.length,
   wave04PrototypeIds: NUM_CP008_POST_WAVE03_MATERIAL_GAPS.map((item) => item.proposedPrototypeId),
+  designDirectionDispositions: NUM_CP008_DESIGN_DIRECTION_DISPOSITIONS.length,
   advancedHolds: NUM_CP008_ADVANCED_DISPOSITIONS.length,
   ownershipHolds: NUM_CP008_OWNERSHIP_HOLDS.length,
   permanentQlCount: NUM_CP008_POST_WAVE03_AUDIT.permanentQlCount,
