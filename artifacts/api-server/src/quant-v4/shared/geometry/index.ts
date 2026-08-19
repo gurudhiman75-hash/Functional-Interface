@@ -24,3 +24,4 @@ export * from "./right-triangle-inference";
 export * from "./quadrilateral-inference";
 export * from "./polygon-inference";
 export * from "./circle-inference";
+export * from "./common-tangent-inference";
