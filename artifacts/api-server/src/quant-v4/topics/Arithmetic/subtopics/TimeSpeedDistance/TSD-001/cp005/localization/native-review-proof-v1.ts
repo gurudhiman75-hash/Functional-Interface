@@ -1,5 +1,5 @@
 import { TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q, TSD_CP005_ENGLISH_FREEZE_ID } from "../english-approved-freeze-v13";
-import { TSD_CP005_NATIVE_REVIEW_CANDIDATE_V1 } from "./native-review-candidate-v1";
+import { TSD_CP005_NATIVE_FINAL_REVIEW_V1 } from "./native-review-final-v1";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -9,7 +9,7 @@ function numericTokens(text: string): readonly string[] {
   return Object.freeze(text.match(/\d+(?:\.\d+)?/g) ?? []);
 }
 
-const rows = TSD_CP005_NATIVE_REVIEW_CANDIDATE_V1;
+const rows = TSD_CP005_NATIVE_FINAL_REVIEW_V1;
 const hi = rows.filter((row) => row.presentation.language === "hi");
 const pa = rows.filter((row) => row.presentation.language === "pa");
 
@@ -43,6 +43,7 @@ for (let index = 0; index < TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q.length; index 
     assert(native.presentation.correctIndex === source.correctIndex, `row ${index + 1}: correct index changed in ${native.presentation.language}`);
     assert(native.presentation.options.length === source.options.length, `row ${index + 1}: option count changed`);
     assert(native.presentation.options[source.correctIndex] === native.presentation.answerText, `row ${index + 1}: keyed native option does not equal native answer`);
+    assert(native.presentation.explanation.steps.length === 2, `row ${index + 1}: native explanation must retain exactly two connected steps`);
     for (let optionIndex = 0; optionIndex < source.options.length; optionIndex += 1) {
       assert(
         numericTokens(native.presentation.options[optionIndex]!).join("|") === numericTokens(source.options[optionIndex]!).join("|"),
@@ -54,6 +55,16 @@ for (let index = 0; index < TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q.length; index 
     for (const token of sourceStemNumbers) {
       assert(nativeStemNumbers.includes(token), `row ${index + 1}: source stem number ${token} missing in ${native.presentation.language}`);
     }
+    const allNativeText = [
+      native.presentation.stem,
+      ...native.presentation.options,
+      native.presentation.answerText,
+      native.presentation.explanation.method,
+      ...native.presentation.explanation.steps,
+      native.presentation.explanation.shortcut,
+      native.presentation.explanation.finalAnswer,
+    ].join("\n");
+    assert(!allNativeText.includes("3P–Q") && !allNativeText.includes("2P–Q"), `row ${index + 1}: ambiguous multiplied-route notation remains`);
     assert(native.presentation.lifecycle.multilingualFreezeStatus === "UNFROZEN", `row ${index + 1}: native candidate frozen without approval`);
     assert(!native.presentation.lifecycle.productOwnerApprovalRecorded, `row ${index + 1}: native approval recorded prematurely`);
     assert(!native.presentation.lifecycle.questionStudioEnabled, `row ${index + 1}: Question Studio unlocked`);
@@ -65,7 +76,7 @@ for (let index = 0; index < TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q.length; index 
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "TSD_CP005_HI_PA_NATIVE_REVIEW_CANDIDATE_V1",
+  phase: "TSD_CP005_HI_PA_NATIVE_FINAL_REVIEW_V1",
   englishAuthority: TSD_CP005_ENGLISH_FREEZE_ID,
   englishFrozenRows: 78,
   nativeRows: rows.length,
@@ -77,6 +88,8 @@ console.log(JSON.stringify({
   selectedObjectFamiliesPerLanguage: new Set(hi.map((row) => row.source.objectFamily)).size,
   selectedEndpointFamiliesPerLanguage: new Set(hi.map((row) => row.source.endpointFamily)).size,
   stemsPerQlPerLanguage: 6,
+  explanationStepsPerQuestion: 2,
+  strictScriptAndEnglishLeakGate: true,
   englishSourceMutation: false,
   multilingualFreezeStatus: "UNFROZEN",
   productOwnerApprovalRecorded: false,
