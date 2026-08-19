@@ -51,6 +51,12 @@ function normalizeReviewedEnglish(scenario: StaScenarioAuthority): StaScenarioAu
     ]);
     return normalized;
   }
+  if (scenario.scenarioId === "STA-DISC-QL003-002") {
+    return replaceCandidateText(scenario, "C2", [
+      "Customers can review their registered mobile number.",
+      "Customers have a way to check their registered mobile number.",
+    ]);
+  }
   return scenario;
 }
 
