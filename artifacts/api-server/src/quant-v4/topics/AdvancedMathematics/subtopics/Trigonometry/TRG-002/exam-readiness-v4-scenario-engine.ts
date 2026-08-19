@@ -60,6 +60,7 @@ export const TRG_002_V4_SCENARIO_SHELLS: readonly Trg002ScenarioShell[] = [
   { id:"URBAN_BUILDING_AND_MAST", domain:"URBAN", topology:"COMPOSITE_VERTICAL", capabilities:["COMPOSITE_HEIGHT","TWO_ANGLES","FIND_HEIGHT","FIND_DISTANCE"], objects:["building","mast"], visualStrategy:"composite-building-mast", realismNotes:"Show building and mast as distinct vertical segments." },
   { id:"URBAN_BUILDING_AND_FLAGPOLE", domain:"URBAN", topology:"COMPOSITE_VERTICAL", capabilities:["COMPOSITE_HEIGHT","TWO_ANGLES","FIND_HEIGHT"], objects:["building","flagpole"], visualStrategy:"composite-building-mast", realismNotes:"Answer may be pole-only or total height; wording must distinguish them." },
   { id:"URBAN_TWO_BUILDINGS", domain:"URBAN", topology:"TWO_VERTICAL_OBJECTS", capabilities:["TWO_ANGLES","ELEVATION_DEPRESSION","FIND_HEIGHT","FIND_DISTANCE"], objects:["building A","building B"], visualStrategy:"two-buildings-horizontal-separation", realismNotes:"Distance means horizontal distance between bases unless stated otherwise." },
+  { id:"URBAN_UNFINISHED_TOWER_EXTENSION", domain:"URBAN", topology:"COMPOSITE_VERTICAL", capabilities:["COMPOSITE_HEIGHT","TWO_ANGLES","FIND_HEIGHT"], objects:["unfinished tower","completed tower","fixed observation point"], visualStrategy:"tower-extension-two-rays", realismNotes:"Use the same fixed observation point before and after height extension; distinguish original height from added height." },
 
   { id:"ROAD_EQUAL_PILLARS", domain:"ROAD", topology:"OBSERVER_BETWEEN_TARGETS", capabilities:["TWO_ANGLES","EQUAL_HEIGHTS","FIND_HEIGHT","FIND_DISTANCE"], objects:["pillar A","pillar B","road point"], visualStrategy:"road-equal-pillars-intermediate", realismNotes:"Exam-real opposite sides of roadway; total road width/separation can be given." },
   { id:"ROAD_TWO_SIDES_TOWER_CARS", domain:"ROAD", topology:"OPPOSITE_SIDES", capabilities:["TWO_ANGLES","FIND_DISTANCE","MOVING_TARGET"], objects:["tower","car A","car B"], visualStrategy:"tower-opposite-side-targets", realismNotes:"Cars/points must be on a straight road through the tower base." },
@@ -84,6 +85,7 @@ export const TRG_002_V4_SCENARIO_SHELLS: readonly Trg002ScenarioShell[] = [
 
   { id:"NATURAL_TREE_OBSERVER", domain:"NATURAL", topology:"SINGLE_RIGHT_TRIANGLE", capabilities:["FIND_HEIGHT","FIND_DISTANCE","FIND_ANGLE"], objects:["tree","observer"], visualStrategy:"ground-single-vertical", realismNotes:"Use plausible tree heights and ordinary measurements." },
   { id:"NATURAL_HILL_VIEWPOINT", domain:"NATURAL", topology:"ELEVATED_OBSERVER", capabilities:["ELEVATION_DEPRESSION","FIND_DISTANCE"], objects:["hill viewpoint","ground target"], visualStrategy:"cliff-ground-target", realismNotes:"Observation height must be specified geometrically, not as a floating point." },
+  { id:"NATURAL_BROKEN_TREE", domain:"NATURAL", topology:"SUPPORT_TRIANGLE", capabilities:["FIND_HEIGHT","FIND_DISTANCE"], objects:["broken tree","break point","ground touch point"], visualStrategy:"broken-tree-reconstruction", realismNotes:"The standing part and fallen upper part must be distinguished; original height is their sum." },
 
   { id:"SUPPORT_LADDER_WALL", domain:"SUPPORT", topology:"SUPPORT_TRIANGLE", capabilities:["LADDER_OR_CABLE","FIND_HEIGHT","FIND_DISTANCE","FIND_ANGLE"], objects:["ladder","wall"], visualStrategy:"ladder-wall", realismNotes:"Use lower end/top end terminology; angle may be with ground or wall." },
   { id:"SUPPORT_GUY_WIRE_POLE", domain:"SUPPORT", topology:"SUPPORT_TRIANGLE", capabilities:["LADDER_OR_CABLE","FIND_HEIGHT","FIND_DISTANCE","FIND_ANGLE"], objects:["pole","guy wire","ground anchor"], visualStrategy:"guy-wire-pole", realismNotes:"Wire length is hypotenuse; anchor distance is horizontal." },
@@ -96,7 +98,7 @@ export const TRG_002_V4_SCENARIO_SHELLS: readonly Trg002ScenarioShell[] = [
 ] as const;
 
 export const TRG_002_V4_SCENARIO_POLICY = {
-  minimumShells: 36,
+  minimumShells: 38,
   minimumDomains: 8,
   minimumTopologies: 10,
   recommendedScenariosPerCoreArchetype: 3,
