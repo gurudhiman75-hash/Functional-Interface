@@ -40,7 +40,7 @@ export const DS_STANDARD_5_EN: DsAnswerContract = {
     {
       key: "D",
       semanticClass: "INSUFFICIENT_EVEN_TOGETHER",
-      text: "Even both statements together are not sufficient.",
+      text: "Even when both statements are used together, they are not sufficient.",
     },
     {
       key: "E",
