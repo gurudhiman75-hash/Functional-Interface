@@ -30,6 +30,17 @@ function ensureFrozenGivenParity(row: TsdCp005NativeReviewRowV1): TsdCp005Native
     }
   }
 
+  // Preserve explicit numeric meeting labels when the frozen English stem uses
+  // "meeting 1" / "meeting 2" rather than lexical first/second wording.
+  if (/\bmeeting 1\b/i.test(row.source.stem) && /\bmeeting 2\b/i.test(row.source.stem)) {
+    const labelsPresent = /(?:मुलाकात|ਮੁਲਾਕਾਤ)\s*1/u.test(stem) && /(?:मुलाकात|ਮੁਲਾਕਾਤ)\s*2/u.test(stem);
+    if (!labelsPresent) {
+      additions.push(language === "hi"
+        ? "दिया गया समय-अंतर मुलाकात 1 और मुलाकात 2 के बीच है।"
+        : "ਦਿੱਤਾ ਸਮਾਂ-ਅੰਤਰ ਮੁਲਾਕਾਤ 1 ਅਤੇ ਮੁਲਾਕਾਤ 2 ਵਿਚਕਾਰ ਹੈ।");
+    }
+  }
+
   if (!additions.length) return row;
   stem = `${additions.join(" ")} ${stem}`;
   return Object.freeze({
