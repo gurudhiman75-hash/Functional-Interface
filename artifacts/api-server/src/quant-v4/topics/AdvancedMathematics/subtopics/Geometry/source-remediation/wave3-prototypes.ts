@@ -43,6 +43,18 @@ function triangleIncentre(
   };
 }
 
+function uniqueAngleDistractors(correct: number, candidates: readonly number[]): readonly number[] {
+  const values = candidates.filter((value, index, all) =>
+    Number.isInteger(value)
+    && value > 0
+    && value < 180
+    && value !== correct
+    && all.indexOf(value) === index,
+  );
+  if (values.length < 3) throw new Error("Insufficient unique angle distractors");
+  return values.slice(0, 3);
+}
+
 function incentreIdentificationDiagram(): GeoDiagramModel {
   const A = { x: 42, y: 158 };
   const B = { x: 188, y: 148 };
@@ -256,11 +268,27 @@ function generateIncentreAngleDirect(seed: string): GapWave3Question {
   const passed = approximate(numericAngleDegrees(p("B"), p("A"), p("C")), variant.a, 1e-6)
     && approximate(numericAngleDegrees(p("B"), p("I"), p("C")), variant.target, 1e-6);
   const theoremTrace: TheoremId[] = ["TRIANGLE_CENTRE_INCENTRE_OPPOSITE_ANGLE"];
-  const optionSet = buildOptions(expected, [
-    { text: `${90 + variant.a}°`, misconceptionId: "INCENTRE_ANGLE_ADDS_FULL_VERTEX", rationale: "Adds the full vertex angle instead of half of it." },
-    { text: `${180 - variant.a}°`, misconceptionId: "INCENTRE_ANGLE_USES_SUPPLEMENT", rationale: "Uses a simple supplement instead of the incentre relation." },
-    { text: `${variant.a}°`, misconceptionId: "INCENTRE_ANGLE_COPIES_VERTEX", rationale: "Copies the vertex angle directly to the incentre." },
-  ], seed);
+  const distractors = uniqueAngleDistractors(variant.target, [
+    90 + variant.a,
+    180 - variant.a,
+    variant.a,
+    90 - variant.a / 2,
+    variant.target - 20,
+    variant.target + 20,
+  ]);
+  const optionSet = buildOptions(expected, distractors.map((value, index) => ({
+    text: `${value}°`,
+    misconceptionId: [
+      "INCENTRE_ANGLE_ADDS_FULL_VERTEX",
+      "INCENTRE_ANGLE_USES_WRONG_COMPLEMENT_OR_SUPPLEMENT",
+      "INCENTRE_ANGLE_COPIES_OR_SHIFTS_VERTEX",
+    ][index],
+    rationale: [
+      "Uses the full vertex angle instead of half, or otherwise over-adds it.",
+      "Uses a complement/supplement relation instead of the incentre relation.",
+      "Copies or shifts the given angle without applying the incentre theorem.",
+    ][index],
+  })), seed);
   return finalizeGapWave3Question({
     temporaryPrototypeId: "GEO-TMP-GAP-W3-CP006-INCENTRE-ANGLE-DIRECT-V1",
     sourceGapId: "GEO-CP-006/CIRCUMCENTRE_OR_INCENTRE_ANGLE_PROPERTY",
@@ -270,7 +298,7 @@ function generateIncentreAngleDirect(seed: string): GapWave3Question {
     stem: `In triangle ABC, I is the incentre and ∠A = ${variant.a}°. Find ∠BIC.`, ...optionSet,
     explanation: buildExplanation(theoremTrace, [
       "Because I is the incentre, BI and CI bisect angles B and C.",
-      `The angle between those two bisectors on the side opposite A is 90° plus half of ∠A. Half of ${variant.a}° is ${variant.a / 2}°.` ,
+      `The angle between those two bisectors on the side opposite A is 90° plus half of ∠A. Half of ${variant.a}° is ${variant.a / 2}°.`,
       `Therefore ∠BIC = 90° + ${variant.a / 2}° = ${variant.target}°.` ,
     ]),
     theoremTrace, proofEvents: [], displayedClueIds: clueIds,
@@ -309,11 +337,27 @@ function generateIncentreAngleInverse(seed: string): GapWave3Question {
   const passed = approximate(numericAngleDegrees(p("B"), p("I"), p("C")), variant.bic, 1e-6)
     && approximate(numericAngleDegrees(p("B"), p("A"), p("C")), variant.target, 1e-6);
   const theoremTrace: TheoremId[] = ["TRIANGLE_CENTRE_INCENTRE_OPPOSITE_ANGLE"];
-  const optionSet = buildOptions(expected, [
-    { text: `${variant.bic - 90}°`, misconceptionId: "INCENTRE_INVERSE_FORGETS_DOUBLE", rationale: "Subtracts 90 degrees but forgets to double the remainder." },
-    { text: `${180 - variant.bic}°`, misconceptionId: "INCENTRE_INVERSE_USES_SUPPLEMENT", rationale: "Uses the supplement of the incentre angle." },
-    { text: `${variant.bic / 2}°`, misconceptionId: "INCENTRE_INVERSE_HALVES_GIVEN", rationale: "Halves the given incentre angle directly." },
-  ], seed);
+  const distractors = uniqueAngleDistractors(variant.target, [
+    variant.bic - 90,
+    180 - variant.bic,
+    variant.bic / 2,
+    2 * (180 - variant.bic),
+    variant.target + 10,
+    variant.target - 10,
+  ]);
+  const optionSet = buildOptions(expected, distractors.map((value, index) => ({
+    text: `${value}°`,
+    misconceptionId: [
+      "INCENTRE_INVERSE_FORGETS_DOUBLE",
+      "INCENTRE_INVERSE_USES_SUPPLEMENT",
+      "INCENTRE_INVERSE_HALVES_OR_REARRANGES_WRONG_ANGLE",
+    ][index],
+    rationale: [
+      "Subtracts 90 degrees but does not complete the required inverse step.",
+      "Uses a supplement-style relation instead of inverting the incentre theorem.",
+      "Halves or rearranges the given angle directly rather than isolating the vertex angle.",
+    ][index],
+  })), seed);
   return finalizeGapWave3Question({
     temporaryPrototypeId: "GEO-TMP-GAP-W3-CP006-INCENTRE-ANGLE-INVERSE-V1",
     sourceGapId: "GEO-CP-006/CIRCUMCENTRE_OR_INCENTRE_ANGLE_PROPERTY_INVERSE",
