@@ -1,4 +1,4 @@
-name: Validate TSD CP-005 Hindi Punjabi Review V1
+name: Validate TSD CP-005 Hindi Punjabi Review V5
 
 on:
   pull_request:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 jobs:
-  validate-cp005-hi-pa-v1:
+  validate-cp005-hi-pa-v5:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -29,10 +29,10 @@ jobs:
         run: corepack enable
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-      - name: Bundle frozen English authority and native review evidence
+      - name: Bundle frozen English authority and native V5 evidence
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
-          OUT=dist/quant-v4/tsd-001/cp005-hi-pa-v1
+          OUT=dist/quant-v4/tsd-001/cp005-hi-pa-v5
           mkdir -p artifacts/api-server/$OUT
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/discovery-proof.mjs"
@@ -45,30 +45,30 @@ jobs:
         run: |
           set -o pipefail
           cd artifacts/api-server
-          OUT=dist/quant-v4/tsd-001/cp005-hi-pa-v1
+          OUT=dist/quant-v4/tsd-001/cp005-hi-pa-v5
           node "$OUT/discovery-proof.mjs" 2>&1 | tee "$OUT/discovery-proof.log"
           node "$OUT/authority-proof.mjs" 2>&1 | tee "$OUT/authority-proof.log"
           node "$OUT/english-v13-proof.mjs" 2>&1 | tee "$OUT/english-v13-proof.log"
           node "$OUT/english-freeze-proof.mjs" 2>&1 | tee "$OUT/english-freeze-proof.log"
-      - name: Validate and export Hindi Punjabi review candidate
+      - name: Validate and export Hindi Punjabi V5 review candidate
         run: |
           set -o pipefail
           cd artifacts/api-server
-          OUT=dist/quant-v4/tsd-001/cp005-hi-pa-v1
+          OUT=dist/quant-v4/tsd-001/cp005-hi-pa-v5
           node "$OUT/native-proof.mjs" 2>&1 | tee "$OUT/native-proof.log"
-          node "$OUT/native-export.mjs" > "$OUT/cp005-hi-pa-review-v1-156q.json"
+          node "$OUT/native-export.mjs" > "$OUT/cp005-hi-pa-review-v5-156q.json"
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Upload CP005 Hindi Punjabi V1 review artifact
+      - name: Upload CP005 Hindi Punjabi V5 review artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp005-hi-pa-review-v1-156q
+          name: tsd-cp005-hi-pa-review-v5-156q
           path: |
-            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v1/discovery-proof.log
-            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v1/authority-proof.log
-            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v1/english-v13-proof.log
-            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v1/english-freeze-proof.log
-            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v1/native-proof.log
-            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v1/cp005-hi-pa-review-v1-156q.json
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v5/discovery-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v5/authority-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v5/english-v13-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v5/english-freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v5/native-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v5/cp005-hi-pa-review-v5-156q.json
           if-no-files-found: error
