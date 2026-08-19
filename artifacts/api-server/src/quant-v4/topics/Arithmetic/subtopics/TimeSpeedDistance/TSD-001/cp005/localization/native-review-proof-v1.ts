@@ -1,5 +1,5 @@
 import { TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q, TSD_CP005_ENGLISH_FREEZE_ID } from "../english-approved-freeze-v13";
-import { TSD_CP005_NATIVE_FINAL_REVIEW_V1 } from "./native-review-final-v1";
+import { TSD_CP005_NATIVE_FINAL_PARITY_REVIEW_V1 } from "./native-review-final-parity-v1";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -9,7 +9,7 @@ function numericTokens(text: string): readonly string[] {
   return Object.freeze(text.match(/\d+(?:\.\d+)?/g) ?? []);
 }
 
-const rows = TSD_CP005_NATIVE_FINAL_REVIEW_V1;
+const rows = TSD_CP005_NATIVE_FINAL_PARITY_REVIEW_V1;
 const hi = rows.filter((row) => row.presentation.language === "hi");
 const pa = rows.filter((row) => row.presentation.language === "pa");
 
@@ -90,6 +90,7 @@ console.log(JSON.stringify({
   stemsPerQlPerLanguage: 6,
   explanationStepsPerQuestion: 2,
   strictScriptAndEnglishLeakGate: true,
+  frozenGivenNumericParityGate: true,
   englishSourceMutation: false,
   multilingualFreezeStatus: "UNFROZEN",
   productOwnerApprovalRecorded: false,
