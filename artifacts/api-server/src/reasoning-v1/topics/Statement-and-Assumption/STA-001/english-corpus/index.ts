@@ -38,9 +38,16 @@ function promoteReviewed(scenario: StaScenarioAuthority): StaEnglishCorpusScenar
   };
 }
 
+function normalizeExpansionDomain(scenario: StaEnglishCorpusScenario): StaEnglishCorpusScenario {
+  if (scenario.scenarioId === "STA-EN-QL001-COUPON-CODE") {
+    return { ...scenario, domain: "EVERYDAY_DECISION" };
+  }
+  return scenario;
+}
+
 export const STA_ENGLISH_CORPUS_V1: readonly StaEnglishCorpusScenario[] = [
   ...STA_EXECUTABLE_SCENARIOS.map(promoteReviewed),
-  ...STA_QL001_ENGLISH_EXPANSION,
+  ...STA_QL001_ENGLISH_EXPANSION.map(normalizeExpansionDomain),
   ...STA_QL002_ENGLISH_EXPANSION,
   ...STA_QL003_ENGLISH_EXPANSION,
   ...STA_QL004_ENGLISH_EXPANSION,
@@ -54,7 +61,6 @@ export const STA_ENGLISH_CORPUS_BY_QL: Readonly<Record<StaQlId, readonly StaEngl
 };
 
 export function getStaEnglishCorpusCoverage(): StaEnglishCorpusCoverage {
-  const qlIds: readonly StaQlId[] = ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004"];
   return {
     totalScenarios: STA_ENGLISH_CORPUS_V1.length,
     byQl: {
