@@ -68,7 +68,7 @@ for (const question of questions) {
     question.explanation.statementII,
     question.explanation.together ?? "",
     question.explanation.conclusion,
-  ].join(" "));
+  ].join(" ")));
   assert(!/Even both statements together are not sufficient/i.test(question.explanation.conclusion));
 
   if (question.canonicalAnswer === "INSUFFICIENT_EVEN_TOGETHER") {
