@@ -1,5 +1,5 @@
 import { TSD_CP005_NATIVE_REVIEW_CANDIDATE_V1, type TsdCp005NativeReviewRowV1 } from "./native-review-candidate-v1";
-import { localizeCp005Choice, type TsdCp005NativeLanguage } from "./native-primitives-v1";
+import { cp005Speed, localizeCp005Choice, type TsdCp005NativeLanguage } from "./native-primitives-v1";
 
 export const TSD_CP005_NATIVE_FINAL_REVIEW_STATUS = "READY_FOR_PRODUCT_OWNER_NATIVE_REVIEW_V1_FINAL" as const;
 
@@ -19,14 +19,28 @@ function polishNotation(text: string): string {
     .replaceAll("2P-Q", "2(P–Q)");
 }
 
-function polishStem(text: string, language: TsdCp005NativeLanguage): string {
-  let out = polishNotation(text);
+function polishStem(row: TsdCp005NativeReviewRowV1): string {
+  const language = row.presentation.language;
+  let out = polishNotation(row.presentation.stem);
   if (language === "pa") {
     out = out
       .replaceAll(" में ", " ਵਿੱਚ ")
       .replaceAll(" में।", " ਵਿੱਚ।")
       .replaceAll(" में,", " ਵਿੱਚ,")
       .replaceAll(" में?", " ਵਿੱਚ?");
+  }
+
+  // One QL065 structural variant intentionally varied its wording too far and
+  // dropped the two speed givens. Restore them from the immutable source input.
+  if (row.source.permanentQlId === "TSD-QL-065" && row.source.input.speedA && row.source.input.speedB) {
+    const speedA = cp005Speed(row.source.input.speedA);
+    const speedB = cp005Speed(row.source.input.speedB);
+    if (!out.includes(speedA) || !out.includes(speedB)) {
+      const speedSentence = language === "hi"
+        ? `A और B की गतियाँ क्रमशः ${speedA} और ${speedB} हैं।`
+        : `A ਅਤੇ B ਦੀਆਂ ਰਫ਼ਤਾਰਾਂ ਕ੍ਰਮਵਾਰ ${speedA} ਅਤੇ ${speedB} ਹਨ।`;
+      out = `${speedSentence} ${out}`;
+    }
   }
   return out.replace(/\s{2,}/g, " ").trim();
 }
@@ -154,7 +168,7 @@ function strictNativeText(text: string, language: TsdCp005NativeLanguage, label:
 
 function finalize(row: TsdCp005NativeReviewRowV1): TsdCp005NativeReviewRowV1 {
   const language = row.presentation.language;
-  const stem = polishStem(row.presentation.stem, language);
+  const stem = polishStem(row);
   const options = Object.freeze(row.presentation.options.map((option) => polishNotation(option)));
   const answerText = polishNotation(row.presentation.answerText);
   const explanation = Object.freeze({
