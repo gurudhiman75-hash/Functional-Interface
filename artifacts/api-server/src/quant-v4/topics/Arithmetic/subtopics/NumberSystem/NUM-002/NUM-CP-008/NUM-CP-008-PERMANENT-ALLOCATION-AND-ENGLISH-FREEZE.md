@@ -31,9 +31,9 @@ Downstream product lifecycle remains closed:
 - test/mock eligible: false
 - publicly publishable: false
 
-## Exact-head executable proof
+## Executable proof
 
-Exact branch head: `5cf6c194d32e507c39d3a21b803b5c57b084a375`
+Freeze certification head: `5cf6c194d32e507c39d3a21b803b5c57b084a375`
 
 Dedicated workflow: `Validate NUM-CP-008 permanent allocation and English freeze`
 
@@ -67,6 +67,16 @@ Evidence artifact:
 - ID: `9366778708`
 - name: `num-cp008-permanent-allocation-en-freeze`
 - digest: `sha256:37051a9d76e8aee1afe869a11a54bf3693c0557acaa6d01589481570b1d1e8d8`
+
+Repository-record head after documenting the freeze: `2bea0899f5610d341cf1b44b02cdf1cface73b00`.
+
+Docs-inclusive exact-head workflow run: `32257355455` — **SUCCESS**.
+
+Docs-inclusive evidence artifact:
+
+- ID: `9366819480`
+- name: `num-cp008-permanent-allocation-en-freeze`
+- digest: `sha256:c30daf05ad54948b45c3cc6d19d8c23d9a8a209086e35df87c82909a4b12ce07`
 
 ## Current gate
 
