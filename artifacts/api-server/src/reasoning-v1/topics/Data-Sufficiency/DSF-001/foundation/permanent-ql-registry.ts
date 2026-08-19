@@ -19,7 +19,8 @@ export const DSF_PERMANENT_QL_REGISTRY = [
       "COUNT",
     ],
     lifecycle: {
-      englishContentStatus: "NOT_PRODUCTION_GENERATED",
+      englishContentStatus: "PARTIAL_PRODUCTION_GENERATION_REVIEW_CANDIDATE",
+      productionBackedSourceChapters: ["NUM-001", "RAP-001", "PCT-001"],
       questionStudioDiscoverable: false,
       questionBankWritable: false,
       testEligible: false,
