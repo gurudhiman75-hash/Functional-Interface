@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import { fileURLToPath } from "node:url";
 import {
   inferExamTimerMode,
   reconcileExamTimer,
@@ -71,4 +73,58 @@ assert.equal(
   "zero elapsed time should not manufacture a new timer state",
 );
 
-console.log("Timer recovery audit passed (7 assertions).");
+const runnerSource = fs.readFileSync(
+  fileURLToPath(new URL("../src/pages/test.tsx", import.meta.url)),
+  "utf8",
+);
+const storageSource = fs.readFileSync(
+  fileURLToPath(new URL("../src/lib/storage.ts", import.meta.url)),
+  "utf8",
+);
+const safeStorageSource = fs.readFileSync(
+  fileURLToPath(new URL("../src/lib/install-safe-storage.ts", import.meta.url)),
+  "utf8",
+);
+
+assert.match(
+  storageSource,
+  /timerMode\?: "overall" \| "sectional"/,
+  "active test drafts must persist an explicit timer mode contract",
+);
+assert.match(
+  runnerSource,
+  /const \[attemptType, setAttemptType\] = useState<"REAL" \| "PRACTICE">\(initialMode \?\? "REAL"\)/,
+  "practice runners must not transiently initialise as real attempts",
+);
+assert.match(
+  runnerSource,
+  /saveActiveTestSession\(\{[\s\S]*?attemptType: "REAL",[\s\S]*?timerMode: hasSectionalTiming \? "sectional" : "overall"/,
+  "a fresh real runner must save a timer-typed draft before interaction",
+);
+assert.match(
+  runnerSource,
+  /const hasSectionTimerProgress =/,
+  "fixed-sectional clock movement must count as persisted attempt progress",
+);
+assert.match(
+  runnerSource,
+  /sessionHydrated && \(attemptType === "REAL" \|\| hasAttemptProgress\)/,
+  "navigation/storage guards must wait for draft hydration before protecting the active attempt",
+);
+assert.match(
+  safeStorageSource,
+  /session\?\.timerMode \?\? \(testId \? timerModeByTest\.get\(testId\) : undefined\)/,
+  "background recovery must prefer the explicit draft timer mode",
+);
+assert.match(
+  safeStorageSource,
+  /document\.addEventListener\("freeze"/,
+  "page lifecycle freeze must mark real timer suspension",
+);
+assert.match(
+  safeStorageSource,
+  /document\.addEventListener\("resume"/,
+  "page lifecycle resume must reconcile suspended real timers",
+);
+
+console.log("Timer recovery audit passed (15 assertions)." );
