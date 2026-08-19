@@ -71,7 +71,13 @@ export function getStaEnglishCorpusCoverage(): StaEnglishCorpusCoverage {
     },
     domains: [...new Set(STA_ENGLISH_CORPUS_V1.map((scenario) => scenario.domain))].sort(),
     familyCount: new Set(STA_ENGLISH_CORPUS_V1.map((scenario) => scenario.corpusFamilyId)).size,
-    misconceptionClasses: [...new Set(STA_ENGLISH_CORPUS_V1.flatMap((scenario) => scenario.candidates.map((candidate) => candidate.misconceptionClass).filter((value): value is string => Boolean(value))))].sort(),
+    misconceptionClasses: [
+      ...new Set(
+        STA_ENGLISH_CORPUS_V1.flatMap((scenario) =>
+          scenario.candidates.flatMap((candidate) => candidate.misconceptionClass ? [candidate.misconceptionClass] : []),
+        ),
+      ),
+    ].sort(),
     dependencyRelations: [...new Set(STA_ENGLISH_CORPUS_V1.flatMap((scenario) => scenario.hiddenDependencies.map((dependency) => dependency.relation)))].sort(),
   };
 }
