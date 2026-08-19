@@ -44,6 +44,12 @@ function objectizeStem(base: string, context: Cp005V13ObjectContext): string {
     .replace(/traveller B/g, context.actorB)
     .replace(/Traveller A/g, context.actorA)
     .replace(/Traveller B/g, context.actorB)
+    .replace(/the faster traveller/g, "the faster one")
+    .replace(/the slower traveller/g, "the slower one")
+    .replace(/both travellers/g, "both vehicles")
+    .replace(/the two travellers/g, "the two vehicles")
+    .replace(/each traveller/g, "each vehicle")
+    .replace(/one traveller/g, "one vehicle")
     .replace(/Given A =/g, `Given ${context.actorA}'s speed =`)
     .replace(/\bA's speed\b/g, `${context.actorA}'s speed`)
     .replace(/\bB's speed\b/g, `${context.actorB}'s speed`)
@@ -63,6 +69,10 @@ function objectizeStem(base: string, context: Cp005V13ObjectContext): string {
     .replace(new RegExp(`Given ${context.actorA} =`, "g"), `Given ${context.actorA}'s speed =`)
     .replace(new RegExp(`, ${context.actorA} first\\.`, "g"), `, with ${context.actorA} first.`)
     .replace(new RegExp(`the returning ${context.actorA}`, "g"), `returning ${context.actorA}`);
+
+  if (/\btravellers?\b/i.test(stem)) {
+    throw new Error(`${context.id}: CP005 V13 unhandled generic traveller wording: ${stem}`);
+  }
 
   return `${context.intro} ${stem}`;
 }
