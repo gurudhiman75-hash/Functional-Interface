@@ -163,6 +163,7 @@ export interface StaLifecycle {
   readonly maturity: "PERMANENT_QL_SEMANTIC_FREEZE";
   readonly permanentQlCount: 4;
   readonly proposedQlCount: 4;
+  readonly englishCorpusStatus: "FROZEN_V2";
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
   readonly testEligible: false;

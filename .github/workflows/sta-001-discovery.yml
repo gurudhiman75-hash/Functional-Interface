@@ -65,6 +65,9 @@ jobs:
       - name: Prove STA English V2 exam-readiness regressions
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-readiness-proof.test.ts
 
+      - name: Prove STA English V2 immutable freeze
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-freeze-proof.test.ts
+
       - name: Generate STA semantic-freeze review pack
         env:
           STA_DISCOVERY_REVIEW_OUTPUT_DIR: /tmp/sta-001-discovery-review

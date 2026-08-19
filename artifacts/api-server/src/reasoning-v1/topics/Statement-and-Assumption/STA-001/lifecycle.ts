@@ -4,6 +4,7 @@ export const STA_PERMANENT_QL_LIFECYCLE: StaLifecycle = {
   maturity: "PERMANENT_QL_SEMANTIC_FREEZE",
   permanentQlCount: 4,
   proposedQlCount: 4,
+  englishCorpusStatus: "FROZEN_V2",
   questionStudioDiscoverable: false,
   questionBankWritable: false,
   testEligible: false,
