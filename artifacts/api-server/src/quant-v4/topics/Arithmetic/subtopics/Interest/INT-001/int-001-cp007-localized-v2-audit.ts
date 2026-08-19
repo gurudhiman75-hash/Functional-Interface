@@ -19,6 +19,7 @@ function learnerText(question: any): string {
 
 const mathSegments = (text: string): string[] => text.match(/\$[^$]+\$/gu) ?? [];
 const stripMath = (text: string): string => text.replace(/\$[^$]+\$/gu, " ");
+const DEVANAGARI_CONTENT_RE = /[\u0900-\u0963\u0966-\u097F]/u;
 const bannedEnglishLearnerWords = Object.freeze([
   "Scheme ", "Plan ", "simple interest", "compound interest", "growth factor", "maturity amount",
   "present principal", "future value", "Common mistake", "Cannot be determined", "undefined", "null",
@@ -92,14 +93,15 @@ for (const qlId of INT_CP007_QL_IDS) {
 
       for (const banned of bannedEnglishLearnerWords) assert.ok(!proseOnly.includes(banned), `${qlId}/${seed}/${locale}: English learner phrase leaked: ${banned}`);
       if (locale === "hi-IN") {
-        assert.match(proseOnly, /[\u0900-\u097F]/u, `${qlId}/${seed}: Hindi content lacks Devanagari`);
+        assert.match(proseOnly, DEVANAGARI_CONTENT_RE, `${qlId}/${seed}: Hindi content lacks Devanagari letters/marks`);
         assert.ok(!/[\u0A00-\u0A7F]/u.test(proseOnly), `${qlId}/${seed}: Gurmukhi leaked into Hindi`);
         if ((english.presentation.markdown + english.explanation.steps.join(" ")).includes("compound interest")) {
           assert.ok(proseOnly.includes("चक्रवृद्धि ब्याज"), `${qlId}/${seed}: Hindi compound-interest state missing चक्रवृद्धि ब्याज`);
         }
       } else {
         assert.match(proseOnly, /[\u0A00-\u0A7F]/u, `${qlId}/${seed}: Punjabi content lacks Gurmukhi`);
-        assert.ok(!/[\u0900-\u097F]/u.test(proseOnly), `${qlId}/${seed}: Devanagari leaked into Punjabi`);
+        // U+0964/U+0965 danda punctuation is shared across Indic scripts and is valid in Punjabi prose.
+        assert.ok(!DEVANAGARI_CONTENT_RE.test(proseOnly), `${qlId}/${seed}: Devanagari letters/digits leaked into Punjabi`);
         assert.ok(!containsDeprecatedPunjabiCompoundInterestTerm(proseOnly), `${qlId}/${seed}: deprecated Punjabi compound-interest term leaked`);
         if ((english.presentation.markdown + english.explanation.steps.join(" ")).includes("compound interest")) {
           assert.ok(proseOnly.includes("ਮਿਸ਼ਰਤ ਵਿਆਜ"), `${qlId}/${seed}: Punjabi compound-interest state missing ਮਿਸ਼ਰਤ ਵਿਆਜ`);
