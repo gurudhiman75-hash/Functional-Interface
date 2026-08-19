@@ -119,13 +119,35 @@ function renderCandidates(
   throw new Error(`${scenario.scenarioId}: unsupported rendered candidate count ${rendered.length}`);
 }
 
+function explanationLead(scenario: StaScenarioAuthority, statement: string): string {
+  switch (scenario.discourseAct) {
+    case "INSTRUCTION":
+    case "REQUEST":
+      return `The instruction has to be workable as stated: “${statement}”`;
+    case "RECOMMENDATION":
+    case "PROPOSAL":
+    case "DECISION":
+      return `The proposal is meant to achieve the purpose stated here: “${statement}”`;
+    case "NOTICE":
+      return `The notice is meant to guide the people it addresses: “${statement}”`;
+    case "PREDICTION":
+      return `The prediction connects a stated change with an expected result: “${statement}”`;
+    case "ASSERTION":
+      return `The claim depends on the connection expressed here: “${statement}”`;
+    case "ADVERTISEMENT":
+    case "APPEAL":
+      return `The message is intended to influence its audience through this claim: “${statement}”`;
+  }
+}
+
 function buildExplanation(
   statement: string,
   rendered: StaQuestion["candidates"],
+  scenario: StaScenarioAuthority,
   selectedAuthorities: readonly StaCandidateAuthority[],
   answerSet: StaAnswerSet,
 ): string {
-  const lines: string[] = [`The statement says: “${statement}”`];
+  const lines: string[] = [explanationLead(scenario, statement)];
   rendered.forEach((candidate, index) => {
     const authority = selectedAuthorities[index]!;
     if (candidate.oracle.classification === "IMPLICIT") {
@@ -174,7 +196,7 @@ export function generateStaQuestionFromPool(
     options,
     answerIndex,
     answerSet,
-    explanation: buildExplanation(statement, rendered, selectedAuthorities, answerSet),
+    explanation: buildExplanation(statement, rendered, scenario, selectedAuthorities, answerSet),
     oracleParity: true,
     lifecycle: STA_EXECUTABLE_DISCOVERY_LIFECYCLE,
   };
