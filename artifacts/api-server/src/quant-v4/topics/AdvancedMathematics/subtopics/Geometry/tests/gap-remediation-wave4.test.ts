@@ -12,7 +12,7 @@ import { GEO_GAP_REMEDIATION_WAVE4_SOURCE_EVIDENCE } from "../source-remediation
 const seeds = ["wave4-a", "wave4-b", "wave4-c"] as const;
 
 assert.deepEqual(correspondingLengthFromPerimeterScale(rational(26), rational(39), rational(24)), rational(16));
-assert.deepEqual(correspondingLengthFromPerimeterScale(rational(56), rational(64), rational(16)), rational(14));
+assert.deepEqual(correspondingLengthFromPerimeterScale(rational(48), rational(72), rational(18)), rational(12));
 assert.deepEqual(perimeterFromCorrespondingSideScale(rational(8), rational(12), rational(54)), rational(36));
 assert.throws(() => correspondingLengthFromPerimeterScale(rational(0), rational(39), rational(24)));
 assert.throws(() => perimeterFromCorrespondingSideScale(rational(8), rational(0), rational(54)));
@@ -21,7 +21,7 @@ const perimeterTheorem = getTheoremDefinition("SIMILAR_TRIANGLES_PERIMETER_SCALE
 assert.equal(perimeterTheorem.family, "SIMILARITY");
 assert.equal(perimeterTheorem.learnerName, "in similar triangles, the ratio of the perimeters equals the ratio of any corresponding side pair");
 
-assert.equal(GEO_GAP_REMEDIATION_WAVE4_SOURCE_EVIDENCE.length, 2);
+assert.equal(GEO_GAP_REMEDIATION_WAVE4_SOURCE_EVIDENCE.length, 3);
 for (const source of GEO_GAP_REMEDIATION_WAVE4_SOURCE_EVIDENCE) {
   assert.ok(source.url.startsWith("https://testbook.com/question-answer/"));
   assert.ok(source.support.length > 40);
@@ -62,6 +62,11 @@ for (const prototype of GEO_GAP_REMEDIATION_WAVE4_PROTOTYPES) {
       assert.ok(GEO_GAP_REMEDIATION_WAVE4_SOURCE_EVIDENCE.some((source) => source.id === sourceId));
     }
 
+    for (const wrong of question.optionAnalysis.filter((option) => !option.correct)) {
+      assert.ok(wrong.misconceptionId);
+      assert.ok(wrong.rationale.length > 30, `${wrong.misconceptionId} needs an operation-specific rationale`);
+    }
+
     const learnerText = [...question.explanation.lines, ...question.explanation.theoremNames].join(" ");
     for (const theoremId of GEOMETRY_THEOREM_IDS) {
       assert.equal(learnerText.includes(theoremId), false, `${prototype.temporaryPrototypeId} leaked theorem ID ${theoremId}`);
@@ -83,9 +88,15 @@ for (const prototype of GEO_GAP_REMEDIATION_WAVE4_PROTOTYPES) {
 const direct = GEO_GAP_REMEDIATION_WAVE4_PROTOTYPES[0].generate("wave4-a");
 assert.equal(direct.answer, "16 cm");
 assert.ok(direct.explanation.lines.some((line) => line.includes("26/39")));
+assert.equal(direct.optionAnalysis.find((option) => option.misconceptionId === "SIMILARITY_SCALE_INVERTED")?.text, "36 cm");
+assert.equal(direct.optionAnalysis.find((option) => option.misconceptionId === "SIMILARITY_SCALE_COPIED")?.text, "24 cm");
+assert.equal(direct.optionAnalysis.find((option) => option.misconceptionId === "PERIMETER_DIFFERENCE_USED_AS_LENGTH")?.text, "13 cm");
 
-const inverse = GEO_GAP_REMEDIATION_WAVE4_PROTOTYPES[1].generate("wave4-a");
-assert.equal(inverse.answer, "36 cm");
-assert.ok(inverse.explanation.lines.some((line) => line.includes("12 + 18 + 24")));
+const perimeterFromSide = GEO_GAP_REMEDIATION_WAVE4_PROTOTYPES[1].generate("wave4-a");
+assert.equal(perimeterFromSide.answer, "36 cm");
+assert.ok(perimeterFromSide.explanation.lines.some((line) => line.includes("12 + 18 + 24")));
+assert.equal(perimeterFromSide.optionAnalysis.find((option) => option.misconceptionId === "SIMILARITY_PERIMETER_COPIED")?.text, "54 cm");
+assert.equal(perimeterFromSide.optionAnalysis.find((option) => option.misconceptionId === "SIMILARITY_SCALE_INVERTED")?.text, "81 cm");
+assert.equal(perimeterFromSide.optionAnalysis.find((option) => option.misconceptionId === "SIMILARITY_ADDITIVE_SCALING")?.text, "50 cm");
 
-console.log("Geometry gap remediation Wave 4 PASS: 2 CP005 perimeter-scale prototypes × 3 varied seeds with exact inference, independent cross-checks, clue minimality and NO_DIAGRAM policy QA.");
+console.log("Geometry gap remediation Wave 4 PASS: 2 CP005 perimeter-scale prototypes × 3 varied seeds with exact inference, operation-owned distractors, independent cross-checks, clue minimality and NO_DIAGRAM policy QA.");
