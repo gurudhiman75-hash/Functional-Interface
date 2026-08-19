@@ -74,7 +74,7 @@ export function generateStaQl001LocalizedQuestionV2(seed: string, locale: StaLoc
     candidates: source.candidates.map((candidate) => ({
       ...candidate,
       text: editorializeStaQl001LocalizedText(locale, candidate.text),
-    })) as StaLocalizedQuestion["candidates"],
+    })) as unknown as StaLocalizedQuestion["candidates"],
     options: source.options,
     explanation: editorializeExplanation(locale, source.explanation),
   };
