@@ -101,6 +101,7 @@ export * from "./paper-folding-merge-split-ql-proposal-v1";
 export * from "./paper-folding-source-saturated-english-review-v1";
 export * from "./paper-folding-source-saturated-english-review-v1-1";
 export * from "./paper-folding-source-saturated-english-review-v1-2";
+export * from "./paper-folding-source-saturated-english-review-v1-3";
 export * from "./paper-folding-discovery-operator-review-v1";
 export * from "./paper-folding-permanent-english-runtime-v1";
 export * from "./paper-folding-english-freeze-v1";
