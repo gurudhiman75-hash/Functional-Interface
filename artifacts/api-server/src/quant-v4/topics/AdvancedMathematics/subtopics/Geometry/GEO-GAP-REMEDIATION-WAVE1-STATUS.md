@@ -8,25 +8,28 @@
 **Current temporary executable prototypes:** `42`  
 **Permanent QLs:** `0`  
 **Frozen solve modes:** `0`  
-**Question Studio / Question Bank / test / public:** locked
+**Question Studio / Question Bank / test / public:** locked  
+**Wave-1 diagram remediation review:** `APPROVED`  
+**Approved renderer contract:** `EXAMTREE_GEOMETRY_SVG_V2`
 
 ## Wave decision
 
 Wave 1 remediates four high-priority source-observed Geometry gaps without claiming source saturation or allocating permanent identities.
 
-| CP | Temporary remediation prototype | Gap target | Diagram disposition |
-|---|---|---|---|
-| GEO-CP-006 | `GEO-TMP-GAP-CP006-CIRCUMCENTRE-IDENTIFY-V1` | centre identification through perpendicular-bisector concurrency | `REQUIRED_STEM_DIAGRAM` |
-| GEO-CP-011 | `GEO-TMP-GAP-CP011-SEMICIRCLE-ANGLE-V1` | angle in a semicircle | `REQUIRED_STEM_DIAGRAM` |
-| GEO-CP-012 | `GEO-TMP-GAP-CP012-ANGLE-BETWEEN-TANGENTS-V1` | angle between two tangents from a central angle | `REQUIRED_STEM_DIAGRAM` |
-| GEO-CP-012 | `GEO-TMP-GAP-CP012-TANGENT-CHORD-V1` | tangent–chord / alternate-segment angle | `REQUIRED_STEM_DIAGRAM` |
+| CP | Temporary remediation prototype | Gap target | Diagram disposition | Diagram review |
+|---|---|---|---|---|
+| GEO-CP-006 | `GEO-TMP-GAP-CP006-CIRCUMCENTRE-IDENTIFY-V1` | centre identification through perpendicular-bisector concurrency | `REQUIRED_STEM_DIAGRAM` | APPROVED V2 |
+| GEO-CP-011 | `GEO-TMP-GAP-CP011-SEMICIRCLE-ANGLE-V1` | angle in a semicircle | `REQUIRED_STEM_DIAGRAM` | APPROVED V2 |
+| GEO-CP-012 | `GEO-TMP-GAP-CP012-ANGLE-BETWEEN-TANGENTS-V1` | angle between two tangents from a central angle | `REQUIRED_STEM_DIAGRAM` | APPROVED V2 |
+| GEO-CP-012 | `GEO-TMP-GAP-CP012-TANGENT-CHORD-V1` | tangent–chord / alternate-segment angle | `REQUIRED_STEM_DIAGRAM` | APPROVED V2 |
 
 ## Shared-authority additions
 
 - triangle-centre concurrency is now a shared inference primitive rather than CP-private text logic;
 - the theorem registry contains a natural learner-facing circumcentre concurrency theorem identity;
-- circle inference now exposes exact helpers for angle in a semicircle, angle between tangents from the central angle and tangent–chord equality;
-- angle-between-tangents is solved transparently from two radius–tangent right angles plus the quadrilateral angle sum rather than hidden behind an unexplained formula.
+- circle inference exposes exact helpers for angle in a semicircle, angle between tangents from the central angle and tangent–chord equality;
+- angle-between-tangents is solved transparently from two radius–tangent right angles plus the quadrilateral angle sum rather than hidden behind an unexplained formula;
+- `EXAMTREE_GEOMETRY_SVG_V2` is the approved Wave-1 renderer contract for these reviewed temporary prototypes.
 
 ## Verification discipline
 
@@ -40,16 +43,38 @@ Every remediation prototype has:
 - explicit source-evidence IDs from the Wave-1 source audit;
 - explicit Rev-3 diagram disposition;
 - semantic SVG fingerprint and canonical question fingerprint;
+- exact visual-topology checks for required incidence/contact/perpendicular relations;
+- label-collision QA;
+- required angle-arc/sign QA;
 - all product lifecycle locks retained.
 
-## Diagram-policy remediation
+## Approved Diagram V2 remediation
 
-The stem diagrams intentionally distinguish **semantic givens** from **hidden verifier geometry**.
+The approved rule is now explicit:
 
-- Circumcentre: midpoint and perpendicular marks are shown because they are supplied facts; no circumcircle centred at O is drawn because that would leak the answer.
-- Semicircle: no right-angle mark or `90°` label is shown; the not-to-scale learner layout is deliberately perturbed away from an exact 90° visual angle while the hidden verifier uses an exact diameter/circle realization.
-- Two tangents: no derived radius–tangent right-angle marks and no derived equal-tangent marks are shown; the displayed learner layout is deliberately not the verifier geometry.
-- Tangent–chord: tangency and the supplied 38° alternate-segment angle are shown, but derived radius perpendicularity is not marked; learner layout is perturbed from the exact 38° target.
+> **Stated geometric incidence/contact/topology must be drawn faithfully. Anti-leak protection must withhold unstated semantic marks or answer values; it must never make the visible geometry false.**
+
+The approved four diagrams satisfy this rule:
+
+- **Circumcentre:** both perpendicular-bisector constructions pass through their actual side midpoints and visibly intersect at `O`; midpoint and right-angle marks correspond to true drawn relations; no answer-leaking circumcircle centred at `O` is drawn.
+- **Semicircle:** `A`, `B` and `P` genuinely lie on the drawn circle and `AB` is a diameter; the target angle has a clear angle arc and `x` label; no `90°` value or right-angle square is supplied in the stem.
+- **Two tangents:** `PA` and `PB` genuinely touch the circle at `A` and `B`; the stated `124°` central angle and target `x` both have clear angle arcs; derived radius–tangent right-angle squares and equal-tangent marks remain omitted.
+- **Tangent–chord:** the tangent is rendered as a true ray through contact point `T`; `T`, `A` and `B` genuinely lie on the circle; the supplied `38°` and target `x` have clear separated angle arcs/labels; no derived right-angle square is supplied.
+
+Point labels, angle values and target labels are placed using collision-aware V2 placement rather than the former fixed `(+4,-4)` text offset.
+
+## Review approval record
+
+The user reviewed the regenerated V2 HTML after requesting corrections for:
+
+- incorrect/missing intersections;
+- points not lying on or touching intended geometry;
+- overlapping point/angle text;
+- insufficiently clear angle signs.
+
+After the V2 renderer/topology remediation and green retained CI, the user explicitly marked the result **Approved** on 19 August 2026.
+
+This approval freezes the **Wave-1 diagram review result and renderer behavior for these four temporary prototypes**. It does **not** freeze permanent QL identities, solve modes, source saturation or product publication gates.
 
 ## Closure status
 
@@ -65,6 +90,8 @@ At executable-remediation level:
 ## Gates
 
 ```text
+wave1DiagramReviewApproved      = true
+wave1RendererContract           = EXAMTREE_GEOMETRY_SVG_V2
 sourceSaturationClaimAllowed    = false
 permanentQlAllocationAllowed    = false
 solveModeFreezeAllowed          = false
@@ -76,7 +103,7 @@ publicPublicationAllowed        = false
 
 ## Next remediation priority
 
-After Wave 1 proof/review, continue with source-observed architecture gaps rather than wrappers first:
+Continue with source-observed architecture gaps rather than wrappers first:
 
 1. CP-012 common tangent between two circles;
 2. CP-014 common-tangent + similarity synthesis;
