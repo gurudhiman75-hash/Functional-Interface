@@ -7,9 +7,18 @@ on:
       - ".github/workflows/num-002-cp008-permanent-allocation-en-freeze.yml"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp008-permanent-en-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate-num-cp008-permanent-en:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -53,7 +62,10 @@ jobs:
           --outfile=dist/quant-v4/num-002-cp008-permanent-en.mjs
 
       - name: Run permanent English runtime proof
-        run: node artifacts/api-server/dist/quant-v4/num-002-cp008-permanent-en.mjs | tee artifacts/api-server/dist/quant-v4/num-002-cp008-permanent-en.log
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp008-permanent-en.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp008-permanent-en.log
 
       - name: Upload permanent English evidence
         if: always()
