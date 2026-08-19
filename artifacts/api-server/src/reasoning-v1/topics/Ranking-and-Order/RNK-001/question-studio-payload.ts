@@ -5,6 +5,7 @@ import {
   RNK_001_QUESTION_STUDIO_REVIEW_STATUS,
   type RnkQuestionStudioReviewQuestion,
 } from "./question-studio-review";
+import { declutterRnkExplanation } from "./rnk-001-explanation-declutter-v1";
 
 export const RNK_001_QUESTION_STUDIO_REVISION_POLICY = "FROZEN_AUTHORITY_REGENERATION_ONLY" as const;
 
@@ -19,6 +20,16 @@ function sourceFingerprint(question: RnkQuestionStudioReviewQuestion): string {
   );
 }
 
+function learnerExplanation(question: RnkQuestionStudioReviewQuestion): string {
+  const source = question.source as Record<string, any>;
+  return declutterRnkExplanation({
+    explanation: source.explanation ?? question.explanation,
+    qlId: question.qlId,
+    locale: question.locale,
+    answer: question.answer,
+  });
+}
+
 export function buildRnk001QuestionStudioPayload(question: RnkQuestionStudioReviewQuestion) {
   return {
     text: question.displayStem,
@@ -29,7 +40,7 @@ export function buildRnk001QuestionStudioPayload(question: RnkQuestionStudioRevi
     correctIndex: question.correctIndex,
     answer: question.answer,
     canonicalAnswer: question.answer,
-    explanation: question.explanation,
+    explanation: learnerExplanation(question),
     renderer: "STRUCTURED_TEXT" as const,
     difficulty: question.difficultyBand,
     difficultyLabel: question.difficultyBand,
@@ -87,6 +98,7 @@ export function buildRnk001QuestionStudioPayload(question: RnkQuestionStudioRevi
       reviewOnly: true as const,
       englishOnlyUntilMultilingualConsolidation: true as const,
       percentageAdapterStatus: RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.percentageAdapterStatus,
+      explanationPresentation: "DECLUTTERED_V1" as const,
       reviewRunPersistenceAllowed: true as const,
       questionBankStatus: "NOT_STORED" as const,
       questionBankWritable: false as const,
