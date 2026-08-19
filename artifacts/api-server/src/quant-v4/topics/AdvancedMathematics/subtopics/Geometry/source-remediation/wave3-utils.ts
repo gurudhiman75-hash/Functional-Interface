@@ -64,6 +64,35 @@ export function extractSvgLabelCollisionScores(svg: string): readonly number[] {
   return Object.freeze([...svg.matchAll(/data-label-collision-score="([0-9.]+)"/g)].map((match) => Number(match[1])));
 }
 
+function expandAngleLabelRadii(model: GeoDiagramModel, expansion: number): GeoDiagramModel {
+  if (expansion === 0 || model.angleMarks.length === 0) return model;
+  return {
+    ...model,
+    angleMarks: model.angleMarks.map((mark) => ({
+      ...mark,
+      labelRadius: (mark.labelRadius ?? mark.radius ?? 18) + expansion,
+    })),
+  };
+}
+
+function resolveDiagramLabelCollisions(model: GeoDiagramModel): Readonly<{ model: GeoDiagramModel; svg: string }> {
+  const expansions = [0, 8, 16, 24, 32, 40] as const;
+  let lastModel = model;
+  let lastSvg = renderGeometrySvg(model);
+
+  for (const expansion of expansions) {
+    const candidate = expandAngleLabelRadii(model, expansion);
+    const svg = expansion === 0 ? lastSvg : renderGeometrySvg(candidate);
+    lastModel = candidate;
+    lastSvg = svg;
+    if (!extractSvgLabelCollisionScores(svg).some((score) => score > 0)) {
+      return Object.freeze({ model: candidate, svg });
+    }
+  }
+
+  return Object.freeze({ model: lastModel, svg: lastSvg });
+}
+
 export function finalizeGapWave3Question(input: Readonly<{
   temporaryPrototypeId: string;
   sourceGapId: string;
@@ -100,12 +129,14 @@ export function finalizeGapWave3Question(input: Readonly<{
   if (input.diagramModel && input.diagramModel.disclosure !== "STEM") errors.push("STEM_DIAGRAM_DISCLOSURE_INVALID");
   if (input.diagramModel && !input.diagramModel.notToScale) errors.push("GEOMETRY_V1_NOT_TO_SCALE_REQUIRED");
 
-  const stemSvg = input.diagramModel ? renderGeometrySvg(input.diagramModel) : undefined;
+  const resolvedDiagram = input.diagramModel ? resolveDiagramLabelCollisions(input.diagramModel) : undefined;
+  const diagramModel = resolvedDiagram?.model;
+  const stemSvg = resolvedDiagram?.svg;
   if (stemSvg) {
     if (!stemSvg.includes('data-geometry-renderer="EXAMTREE_GEOMETRY_SVG_V2"')) errors.push("RENDERER_V2_REQUIRED");
     if (extractSvgLabelCollisionScores(stemSvg).some((score) => score > 0)) errors.push("DIAGRAM_LABEL_COLLISION");
   }
-  const diagramFingerprint = input.diagramModel ? diagramSemanticFingerprint(input.diagramModel) : null;
+  const diagramFingerprint = diagramModel ? diagramSemanticFingerprint(diagramModel) : null;
 
   return Object.freeze({
     packageId: "GEO-001" as const,
@@ -131,7 +162,7 @@ export function finalizeGapWave3Question(input: Readonly<{
     minimalityProof: input.minimalityProof,
     independentVerifierResult: input.independentVerifierResult,
     diagramDisposition: input.diagramDisposition,
-    diagramModel: input.diagramModel,
+    diagramModel,
     stemSvg,
     canonicalGeometryFingerprint: fingerprint([
       "GEO-CP-006",
