@@ -169,7 +169,7 @@ expectThrow(
   "Ladder solver must reject zero ladder length.",
 );
 
-assert(TRG_002_DIAGRAM_STRATEGIES.length === 14, "The Phase 0 diagram strategy union must contain all 14 locked strategy families.");
-assert(new Set(TRG_002_DIAGRAM_STRATEGIES).size === 14, "Diagram strategy names must be unique.");
+assert(TRG_002_DIAGRAM_STRATEGIES.length === 15, "The TRG-002 spatial diagram strategy union must contain all 15 supported strategy families after V4 tower-extension support.");
+assert(new Set(TRG_002_DIAGRAM_STRATEGIES).size === 15, "Diagram strategy names must be unique.");
 
 console.log("TRG-002 spatial foundation fixtures passed: exact solvers, 6 canonical scenes, exact-zero strategy semantics, 3 verifier tamper checks and 4 physical-feasibility rejection checks.");
