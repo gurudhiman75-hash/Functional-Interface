@@ -49,6 +49,8 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-physical-support.test.ts
       - name: Verify river-platform state, math and diagrams
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-river.test.ts
+      - name: Verify Wave2 natural physical measurements
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-natural-measurements.test.ts
       - name: Verify 2304 V4 candidate cases
         run: |
           pnpm dlx tsx -e '
@@ -80,17 +82,20 @@ jobs:
           const fs=require('fs');
           const pack=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
           if(pack.records.length!==96) throw new Error(`Expected 96 tri-language records, got ${pack.records.length}`);
-          if(pack.records.filter((r)=>r.v4CanonicalOverride).length!==6) throw new Error('Expected 6 V4 canonical overrides after river QL093 redesign');
-          if(pack.records.filter((r)=>r.v4PhysicalSupportMigrated).length!==5) throw new Error('Expected 5 actual V4 support-state migrations after completing QL021 bridge geometry');
+          if(pack.records.filter((r)=>r.v4CanonicalOverride).length!==6) throw new Error('Expected 6 pre-Wave2 V4 canonical overrides');
+          if(pack.records.filter((r)=>r.v4NaturalMeasurementOverride).length!==19) throw new Error('Expected 19 Wave2 natural-measurement overrides');
+          if(pack.records.filter((r)=>r.v4PhysicalSupportMigrated).length!==3) throw new Error('Expected 3 runtime support-state migrations after QL016/017 become natively supported Wave2 canonicals');
+          if(pack.audit.blockers.surdPhysicalGivenQlIds.length!==0) throw new Error(`Expected zero V4 surd physical givens, got ${pack.audit.blockers.surdPhysicalGivenQlIds.length}`);
           const q21=pack.records.find((r)=>r.qlId==='TRG-002-QL-021');
           if(!q21||!q21.english.stem.includes('pedestrian overbridge')) throw new Error('QL021 English V4 review surface must use the pedestrian-overbridge scenario');
           if(!q21.solutionDiagram.segments.some((s)=>s.id==='v4-bridge-deck')) throw new Error('QL021 review diagram must include the bridge deck segment');
           for(const row of pack.records){
             if(!('solutionDiagram' in row)) throw new Error(`${row.qlId}: missing solutionDiagram`);
             if(!('diagramEvidence' in row)) throw new Error(`${row.qlId}: missing diagramEvidence`);
+            if(row.v4NaturalMeasurementOverride && (row.english.stem.includes('√')||row.hindi.stem.includes('√')||row.punjabi.stem.includes('√'))) throw new Error(`${row.qlId}: Wave2 review stem still exposes a surd physical measurement`);
             if(row.lifecycle.multilingualFreezeGranted!==false||row.lifecycle.activationAuthorized!==false) throw new Error(`${row.qlId}: V4 lifecycle lock regression`);
           }
-          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} canonicalOverrides=6 physicalSupportMigrations=5 wave1=11/11`);
+          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} canonicalOverrides=6 naturalMeasurementOverrides=19 physicalSupportMigrations=3 wave1=11/11 surdPhysicalGivens=0`);
           NODE
       - name: Upload V4 audit and review pack
         uses: actions/upload-artifact@v4
