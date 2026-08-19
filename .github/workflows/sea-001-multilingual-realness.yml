@@ -1,0 +1,36 @@
+name: Measure SEA-001 multilingual realness
+
+on:
+  push:
+    branches:
+      - feat/sea-001-wave5-saturation-audits
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/realness/multilingual-template-audit.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-multilingual-realness-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/question-studio/seating-question-studio-runtime.ts
+      - .github/workflows/sea-001-multilingual-realness.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/realness/multilingual-template-audit.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-multilingual-realness-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/question-studio/seating-question-studio-runtime.ts
+      - .github/workflows/sea-001-multilingual-realness.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  multilingual-realness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Measure dynamic Hindi/Punjabi template concentration across all 20 QLs
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-multilingual-realness-proof.test.ts
