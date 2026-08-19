@@ -47,6 +47,7 @@ export * from "./cp005/approved-authority-registry";
 export * from "./cp005/ql-allocation";
 export * from "./cp005/english-object-pool-v13";
 export * from "./cp005/english-review-runtime-v13";
+export * from "./cp005/english-approved-freeze-v13";
 export * from "./authority-overlap-audit";
 export * from "./final-authority-registry";
 export * from "./final-authority-review";
