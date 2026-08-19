@@ -68,6 +68,11 @@ jobs:
       - name: Prove STA English V2 immutable freeze
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-freeze-proof.test.ts
 
+      - name: Prove STA QL001 Hindi/Punjabi semantic parity candidate
+        env:
+          STA_QL001_LOCALIZATION_CASES_PER_LOCALE: 768
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-proof.test.ts
+
       - name: Generate STA semantic-freeze review pack
         env:
           STA_DISCOVERY_REVIEW_OUTPUT_DIR: /tmp/sta-001-discovery-review
@@ -79,6 +84,12 @@ jobs:
           STA_ENGLISH_REVIEW_OUTPUT_DIR: /tmp/sta-001-english-corpus-v2-review
           STA_ENGLISH_REVIEW_EXAMPLES_PER_AUTHORITY: 2
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-review-export.ts
+
+      - name: Generate STA QL001 Hindi/Punjabi native-review pack
+        env:
+          STA_QL001_LOCALIZATION_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql001-hi-pa-review-v1
+          STA_QL001_LOCALIZATION_EXAMPLES_PER_AUTHORITY: 2
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-review-export.ts
 
       - name: Build production API
         working-directory: artifacts/api-server
@@ -95,5 +106,12 @@ jobs:
         with:
           name: sta-001-english-corpus-v2-review
           path: /tmp/sta-001-english-corpus-v2-review/**
+          if-no-files-found: error
+          retention-days: 14
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sta-001-ql001-hi-pa-review-v1
+          path: /tmp/sta-001-ql001-hi-pa-review-v1/**
           if-no-files-found: error
           retention-days: 14
