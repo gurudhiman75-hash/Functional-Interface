@@ -28,7 +28,7 @@ assert.equal(NUM_CP008_ALLOCATION_STATUS.firstPermanentQl, "NUM-QL-166");
 assert.equal(NUM_CP008_ALLOCATION_STATUS.lastPermanentQl, "NUM-QL-184");
 assert.equal(NUM_CP008_ALLOCATION_STATUS.nextAvailableQl, "NUM-QL-185");
 assert.equal(NUM_CP008_ALLOCATION_STATUS.permanentIdentitiesAllocated, true);
-assert.equal(NUM_CP008_ALLOCATION_STATUS.englishRuntimeFrozen, false);
+assert.equal(NUM_CP008_ALLOCATION_STATUS.englishRuntimeFrozen, true);
 for (const locked of [
   NUM_CP008_ALLOCATION_STATUS.active,
   NUM_CP008_ALLOCATION_STATUS.questionStudioDiscoverable,
