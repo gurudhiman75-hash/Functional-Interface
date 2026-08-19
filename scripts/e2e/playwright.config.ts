@@ -30,5 +30,10 @@ export default defineConfig({
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
     },
+    {
+      name: "mobile-chromium",
+      testMatch: /student-production-hardening\.spec\.ts/,
+      use: { ...devices["Pixel 5"] },
+    },
   ],
 });
