@@ -44,7 +44,8 @@ jobs:
             spatial-paper-folding-source-saturated-discovery-v1 \
             spatial-paper-folding-post-execution-source-gap-audit-v1 \
             spatial-paper-folding-source-saturated-discovery-v2 \
-            spatial-paper-folding-merge-split-ql-proposal-v1
+            spatial-paper-folding-merge-split-ql-proposal-v1 \
+            spatial-paper-folding-source-saturated-english-review-v1
           do
             pnpm --dir artifacts/api-server exec esbuild \
               src/reasoning-v1/tests/${test}.test.ts \
@@ -91,6 +92,9 @@ jobs:
       - name: Validate source-saturated PFC/TPF merge-split and QL proposal
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-merge-split-ql-proposal-v1.test.mjs
 
+      - name: Generate and validate source-saturated English learner review
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-source-saturated-english-review-v1.test.mjs
+
       - name: Upload PFC historical and source-saturation evidence
         uses: actions/upload-artifact@v4
         with:
@@ -112,4 +116,6 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-post-execution-source-gap-audit-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-executable-discovery-wave2-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-merge-split-ql-proposal-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-source-saturated-english-review-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-source-saturated-english-review-v1.html
           if-no-files-found: error
