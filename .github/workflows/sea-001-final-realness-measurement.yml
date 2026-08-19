@@ -1,0 +1,25 @@
+name: Measure SEA-001 final realness gate
+
+on:
+  push:
+    branches:
+      - feat/sea-001-realness-final-gate
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
+      - .github/workflows/sea-001-final-realness-measurement.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  final-realness-measurement:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Measure source saturation, distribution, structural novelty and multilingual template realness
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-final-realness-measurement.test.ts
