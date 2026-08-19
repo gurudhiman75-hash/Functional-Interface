@@ -25,3 +25,4 @@ export * from "./quadrilateral-inference";
 export * from "./polygon-inference";
 export * from "./circle-inference";
 export * from "./common-tangent-inference";
+export * from "./similarity-scale-inference";
