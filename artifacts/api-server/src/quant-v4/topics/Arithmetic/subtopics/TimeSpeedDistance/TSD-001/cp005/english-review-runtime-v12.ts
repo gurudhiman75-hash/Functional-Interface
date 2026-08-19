@@ -77,7 +77,7 @@ function renderVariedStem(question: TsdCp005EnglishReviewQuestion, variant: numb
         `A and B start from opposite ends of a ${L} route and meet. After meeting, A reaches Q in ${a} and B reaches P in ${b}. Find their speeds, A first.`,
         `The distance PQ is ${L}. A leaves P and B leaves Q simultaneously. From their meeting point, A needs ${a} to reach Q and B needs ${b} to reach P. Determine both speeds.`,
         `Two travellers start together from P and Q, ${L} apart. Their post-meeting times are ${a} for A and ${b} for B. Calculate A's speed and B's speed.`,
-        `On a ${L} route, A and B move towards each other and meet once. A completes the remaining part in ${a}; B completes his remaining part in ${b}. Find their speeds.`,
+        `On a ${L} route, A and B move towards each other and meet once. A completes the remaining part in ${a}; B completes the remaining part in ${b}. Find their speeds.`,
         `P and Q are ${L} apart. A and B start simultaneously from the two ends. After crossing, A takes ${a} and B takes ${b} to reach the opposite ends. What are their speeds?`,
         `A travels P→Q and B travels Q→P on a ${L} road, starting at the same time. Their times after the meeting are ${a} and ${b}. Find the speeds of A and B.`,
       ], variant);
@@ -149,7 +149,7 @@ function renderVariedStem(question: TsdCp005EnglishReviewQuestion, variant: numb
       const v = kmph(required(i.speedB, "speedB"));
       const base = pick([
         `A and B leave P together for Q on a ${L} route. A travels at ${u} and B at ${v}.`,
-        `From P, A starts towards Q at ${u} while B starts with him at ${v}; PQ = ${L}.`,
+        `From P, A starts towards Q at ${u} while B starts at the same time at ${v}; PQ = ${L}.`,
         `Two travellers begin together at P on a ${L} P–Q route, moving at ${u} and ${v}.`,
         `On route PQ of length ${L}, A and B set out from P at ${u} and ${v}.`,
         `A and B start simultaneously from P towards Q. Their speeds are ${u} and ${v}, and PQ is ${L}.`,
@@ -166,9 +166,9 @@ function renderVariedStem(question: TsdCp005EnglishReviewQuestion, variant: numb
       return pick([
         `A and B leave P together for Q on a ${L} route at ${u} and ${v}. A turns back immediately at Q. Find A's total distance travelled before meeting B.`,
         `From P, A starts at ${u} and B at ${v} towards Q, ${L} away. A reaches Q first and returns at once. How far has A travelled when they meet?`,
-        `Two travellers start together from P on a ${L} route. A moves at ${u}, B at ${v}. After touching Q, A immediately comes back. Find A's distance covered up to the meeting.`,
+        `Two travellers start together from P on a ${L} route. A moves at ${u}, B at ${v}. After reaching Q, A immediately comes back. Find A's distance covered up to the meeting.`,
         `On route PQ (${L}), A and B set out from P at ${u} and ${v}. A reverses as soon as he reaches Q. Determine A's total path before he meets B.`,
-        `A leaves P for Q at ${u}; B starts with him at ${v}. PQ = ${L}. A reaches Q and turns back without stopping. What distance does A cover before the return meeting?`,
+        `A leaves P for Q at ${u}; B starts at the same time at ${v}. PQ = ${L}. A reaches Q and turns back without stopping. What distance does A cover before the return meeting?`,
         `P and Q are ${L} apart. A and B leave P simultaneously at ${u} and ${v}. A is the faster traveller and returns immediately from Q. Find A's travelled distance when they meet.`,
       ], variant);
     }
