@@ -1,6 +1,8 @@
 export type StaLocale = "en-IN";
 export type StaCheckpointId = "STA-CP-001" | "STA-CP-002";
-export type StaProposedQlId = "STA-QL-001" | "STA-QL-002" | "STA-QL-003" | "STA-QL-004";
+export type StaQlId = "STA-QL-001" | "STA-QL-002" | "STA-QL-003" | "STA-QL-004";
+/** Compatibility alias retained while discovery fixtures are migrated to permanent QL naming. */
+export type StaProposedQlId = StaQlId;
 export type StaDifficulty = "Easy" | "Medium" | "Hard";
 export type StaDiscourseAct =
   | "ASSERTION"
@@ -89,7 +91,7 @@ export interface StaCandidateAuthority {
 
 export interface StaScenarioAuthority {
   readonly scenarioId: string;
-  readonly proposedQlId: StaProposedQlId;
+  readonly proposedQlId: StaQlId;
   readonly checkpointId: StaCheckpointId;
   readonly sourceProfile: "SSC" | "BANKING" | "PUNJAB_STATE" | "CROSS_EXAM_DISCOVERY";
   readonly discourseAct: StaDiscourseAct;
@@ -140,7 +142,8 @@ export interface StaQuestion {
   readonly packageId: "STA-001";
   readonly chapterId: "REAS-STA";
   readonly checkpointId: StaCheckpointId;
-  readonly proposedQlId: StaProposedQlId;
+  readonly qlId: StaQlId;
+  readonly proposedQlId: StaQlId;
   readonly scenarioId: string;
   readonly seed: string;
   readonly locale: StaLocale;
@@ -157,8 +160,8 @@ export interface StaQuestion {
 }
 
 export interface StaLifecycle {
-  readonly maturity: "EXECUTABLE_DISCOVERY_PROOF";
-  readonly permanentQlCount: 0;
+  readonly maturity: "PERMANENT_QL_SEMANTIC_FREEZE";
+  readonly permanentQlCount: 4;
   readonly proposedQlCount: 4;
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
