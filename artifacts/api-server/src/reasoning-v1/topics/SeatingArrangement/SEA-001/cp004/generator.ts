@@ -110,13 +110,18 @@ function buildConstraints(
     excluded = new Set([oppositePerson]);
   } else if (blueprint === "SEA-PBA-014") {
     const start = random.integer(0, order.length - 1);
-    for (let offset = 0; offset < 3; offset += 1) {
-      protect(outwardRelation(
-        order,
-        (start + offset) % order.length,
-        (start + offset + 1) % order.length,
-        nextId(),
-      ));
+    const stepPattern = random.pick([
+      [1, 1, 1],
+      [1, 1, 2],
+      [1, 2, 1],
+      [2, 1, 1],
+      [1, 2, 2],
+    ] as const);
+    let referenceIndex = start;
+    for (const step of stepPattern) {
+      const subjectIndex = referenceIndex + step;
+      protect(outwardRelation(order, referenceIndex, subjectIndex, nextId()));
+      referenceIndex = subjectIndex;
     }
   } else if (blueprint === "SEA-PBA-015") {
     const start = random.integer(0, order.length - 5);
