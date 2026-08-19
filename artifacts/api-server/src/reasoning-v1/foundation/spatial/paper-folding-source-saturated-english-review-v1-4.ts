@@ -16,6 +16,7 @@ export const PFC_TPF_SOURCE_SATURATED_ENGLISH_REVIEW_AUTHORITY_V1_4 = Object.fre
   presentationRemediationV1_4: [
     "NO_SYNTHETIC_EXTRA_CUTOUT_DISTRACTOR_MARKS",
     "COHERENT_WHOLE_PATTERN_DISTRACTOR_DISPLACEMENT_ONLY",
+    "FOLD_EDGE_NOTCH_TOPOLOGY_DISTRACTORS",
     "FIXED_STIMULUS_STAGE_HEIGHT_BY_TASK",
     "FIXED_OPTION_ART_STAGE",
     "NO_RESPONSIVE_VIEWBOX_SHRINKING_OF_LEARNER_DIAGRAMS",
@@ -31,9 +32,10 @@ const esc = (value: string) => value
   .replaceAll("&", "&amp;")
   .replaceAll("<", "&lt;")
   .replaceAll(">", "&gt;");
+const q = (value: number) => Math.round(value * 1000) / 1000;
 
 function scaled(value: number, center: number, factor: number): number {
-  return Math.round((center + (value - center) * factor) * 1000) / 1000;
+  return q(center + (value - center) * factor);
 }
 
 function scalePairNumbers(raw: string, centerX: number, centerY: number, factor: number): string {
@@ -87,8 +89,52 @@ function removeSyntheticDistractorMarks(option: PfcTpfReviewOptionV1): PfcTpfRev
   return { ...option, svg: option.svg.replace(SYNTHETIC_MARK_RE, "") };
 }
 
+type FoldEdgeDistractorKind = "WRONG_POSITION_DIAMOND" | "DOUBLE_DIAMOND" | "BOUNDARY_V_NOTCH";
+
+function foldEdgeTopologyDistractorSvg(question: PfcTpfEnglishReviewQuestionV1, kind: FoldEdgeDistractorKind): string {
+  const rectangle = question.sourceShape === "RECTANGLE";
+  const width = rectangle ? 120 : 100;
+  const height = rectangle ? 80 : 100;
+  const pad = rectangle ? 9.6 : 8;
+  const viewWidth = width + 2 * pad;
+  const viewHeight = height + 2 * pad;
+  const boundary = `<rect x="0" y="0" width="${width}" height="${height}" fill="white" stroke="#111" stroke-width="1.4"/>`;
+  const diamond = (cx: number, cy: number, dx = 7, dy = 5) => `<polygon points="${q(cx - dx)},${q(cy)} ${q(cx)},${q(cy - dy)} ${q(cx + dx)},${q(cy)} ${q(cx)},${q(cy + dy)}" fill="none" data-cutout="transparent" stroke="#111" stroke-width="1.2" stroke-linejoin="round"/>`;
+  let marks = "";
+  if (kind === "WRONG_POSITION_DIAMOND") {
+    marks = diamond(width / 2, height * 0.68);
+  } else if (kind === "DOUBLE_DIAMOND") {
+    marks = `${diamond(width * 0.34, height * 0.34, 5.5, 4)}${diamond(width * 0.66, height * 0.34, 5.5, 4)}`;
+  } else {
+    const cx = width / 2;
+    const mouth = 7;
+    const depth = 9;
+    marks = `<line x1="${q(cx - mouth)}" y1="0" x2="${q(cx + mouth)}" y2="0" stroke="white" stroke-width="5" stroke-linecap="round"/><polyline points="${q(cx - mouth)},0 ${q(cx)},${depth} ${q(cx + mouth)},0" fill="none" data-cutout="transparent" stroke="#111" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${q(-pad)} ${q(-pad)} ${q(viewWidth)} ${q(viewHeight)}" width="150" height="150" style="background:#fff" role="img">${boundary}${marks}</svg>`;
+}
+
+function coherentFoldEdgeNotchDistractors(question: PfcTpfEnglishReviewQuestionV1): PfcTpfEnglishReviewQuestionV1 | null {
+  if (!question.sourceId.includes("FOLD-EDGE-V-NOTCH")) return null;
+  const kinds: FoldEdgeDistractorKind[] = ["WRONG_POSITION_DIAMOND", "DOUBLE_DIAMOND", "BOUNDARY_V_NOTCH"];
+  let wrongIndex = 0;
+  const options = question.options.map((option) => {
+    if (option.optionId === question.correctOptionId) return removeSyntheticDistractorMarks(option);
+    return { ...option, svg: foldEdgeTopologyDistractorSvg(question, kinds[wrongIndex++]) };
+  });
+  const candidate = { ...question, options };
+  const distance = minimumForwardOptionGeometricDistanceV1_3(candidate);
+  if (distance + 1e-9 < PFC_TPF_REVIEW_V1_3_FORWARD_MIN_GEOMETRIC_DISTANCE) {
+    throw new Error(`${question.reviewQuestionId} fold-edge topology distractors remain ambiguous at ${distance.toFixed(3)}.`);
+  }
+  return candidate;
+}
+
 function cleanForwardDistractors(question: PfcTpfEnglishReviewQuestionV1): PfcTpfEnglishReviewQuestionV1 {
   if (question.taskKind !== "LEGACY_FORWARD" && question.taskKind !== "MULTISHAPE_FORWARD") return question;
+  const topologyRemediation = coherentFoldEdgeNotchDistractors(question);
+  if (topologyRemediation) return topologyRemediation;
+
   const hadSynthetic = question.options.some((option) => SYNTHETIC_MARK_TEST_RE.test(option.svg));
   let options = question.options.map(removeSyntheticDistractorMarks);
   if (!hadSynthetic) return { ...question, options };
