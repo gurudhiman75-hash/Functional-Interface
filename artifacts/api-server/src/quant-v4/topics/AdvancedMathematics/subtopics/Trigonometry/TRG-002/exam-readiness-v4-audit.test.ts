@@ -6,13 +6,17 @@ assert.equal(audit.qls, 96);
 assert.equal(audit.bilingualRecords, 192);
 assert(audit.scenarioCatalog.shells >= 36, "V4 scenario engine must start with at least 36 approved shells.");
 assert(audit.scenarioCatalog.domains >= 8, "V4 scenario engine must cover at least 8 domains.");
-assert(audit.scenarioCatalog.topologies >= 10, "V4 scenario engine must cover at least 10 spatial topologies.");
+assert(audit.scenarioCatalog.topologies >= 10, "V4 spatial topology breadth must cover at least 10 spatial topologies.");
 
 // This gate measures the live V4 candidate. Repaired defects must disappear;
 // unresolved weaknesses remain visible until their QLs are genuinely redesigned.
 assert.equal(audit.repaired.ql013ExactMath, true, "QL013 exact learner math must remain repaired in V4.");
 assert(!audit.blockers.malformedExactMath.some((id) => id.startsWith("TRG-002-QL-013:")), "QL013 must not re-enter the malformed exact-math inventory.");
 assert(audit.blockers.surdPhysicalGivenQlIds.length > 0, "V4 must continue inventorying unresolved surd physical givens.");
+assert(!audit.blockers.surdPhysicalGivenQlIds.includes("TRG-002-QL-093"), "QL093 natural platform-height redesign must clear the surd physical-given blocker.");
+for (const qlId of ["TRG-002-QL-092", "TRG-002-QL-093", "TRG-002-QL-094"]) {
+  assert(!audit.blockers.floatingElevatedObserverQlIds.includes(qlId), `${qlId}: river-platform migration must clear the floating-observer blocker.`);
+}
 assert(audit.readyForV4Freeze === false);
 assert.equal(audit.governance.mutatesFrozenEnglishAuthority, false);
 assert.equal(audit.governance.multilingualFreezeGranted, false);
