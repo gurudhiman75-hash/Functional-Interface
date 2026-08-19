@@ -11,12 +11,21 @@ maturity:                    PERMANENT_QL_SEMANTIC_FREEZE
 permanentQlCount:            4
 sourceSaturation:            TARGETED_CORE_SATURATION_COMPLETE
 executableDiscovery:         GREEN
+permanentQlFreezeProof:      GREEN
 englishProductionCorpus:     NOT_FROZEN
 questionStudioDiscoverable:  false
 questionBankWritable:        false
 testEligible:                false
 publiclyPublishable:         false
 hindiPunjabi:                NOT_STARTED
+```
+
+Final semantic-freeze CI authority:
+
+```text
+workflow: Validate STA-001 semantic freeze
+run:      32210089893
+result:   SUCCESS
 ```
 
 Authoritative chapter design:
@@ -68,6 +77,8 @@ The chapter may share Family C proposition utilities later, but it retains its o
 
 ## Current implementation evidence
 
+Final CI proves:
+
 - independent oracle never reads the editorial expected-answer flag as answer authority;
 - removing a required hidden dependency makes the candidate fail;
 - making the same proposition explicit makes it cease to be an implicit assumption;
@@ -78,6 +89,19 @@ The chapter may share Family C proposition utilities later, but it retains its o
 - deterministic replay is enforced;
 - the production API build is part of the dedicated CI gate;
 - review HTML/JSON is generated as a CI artifact.
+
+Final 480-question proof:
+
+```text
+reviewed authorities:                  13
+generated candidates:                1173
+implicit / not implicit:          607 / 566
+all-three-implicit questions:          30
+editorial/oracle parity checks:        39
+expected-answer independence:          39
+dependency-removal mutations:          21
+explicitness mutations:                21
+```
 
 ## Next implementation step
 
