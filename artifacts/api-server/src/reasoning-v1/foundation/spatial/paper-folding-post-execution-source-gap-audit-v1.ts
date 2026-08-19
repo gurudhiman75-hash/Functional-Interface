@@ -1,5 +1,5 @@
 import { PFC_001_MULTISHAPE_DISCOVERY_WAVE1_AUTHORITY } from "./paper-folding-multishape-discovery-v1";
-import { PFC_001_SOURCE_SATURATION_AUDIT_V2 } from "./paper-folding-source-saturation-v2";
+import { PFC_001_SOURCE_SATURATION_AUTHORITY_V2 } from "./paper-folding-source-saturation-v2";
 import { TPF_001_DISCOVERY_WAVE1_AUTHORITY } from "./transparent-pattern-folding-discovery-v1";
 
 export type PfcTpfGapDispositionV1 =
@@ -103,7 +103,7 @@ export const PFC_TPF_POST_EXECUTION_GAPS_V1: readonly PfcTpfPostExecutionGapV1[]
 
 export const PFC_TPF_POST_EXECUTION_SOURCE_GAP_AUDIT_V1 = Object.freeze({
   authorityId: "PFC-TPF-POST-EXECUTION-SOURCE-GAP-AUDIT-V1" as const,
-  sourceAuthority: PFC_001_SOURCE_SATURATION_AUDIT_V2.authorityId,
+  sourceAuthority: PFC_001_SOURCE_SATURATION_AUTHORITY_V2.authorityId,
   pfcWave1Authority: PFC_001_MULTISHAPE_DISCOVERY_WAVE1_AUTHORITY.authorityId,
   tpfWave1Authority: TPF_001_DISCOVERY_WAVE1_AUTHORITY.authorityId,
   exactGreenWave1Head: "38b1d8047c3c5690d6e74ea7cf0d5e1d127590f0" as const,
