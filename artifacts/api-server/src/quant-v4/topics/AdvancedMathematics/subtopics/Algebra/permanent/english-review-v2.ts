@@ -17,9 +17,9 @@ export const ALG_ENGLISH_REVIEW_V2_REMEDIATION = Object.freeze({
   blockingFindings: [
     "ALG-QL-040 data-sufficiency stems omitted Statement I and Statement II from the learner question",
     "unit-coefficient rendering could surface forms such as -1x outside the original 1..12 audit seed window",
-    "exact surd roots could render rational integer parts as n/1",
+    "exact rational integers could render as n/1 in learner-facing surd/Vieta work",
     "negative-root factor text could render x - -a instead of x + a",
-    "several explanations contained duplicated result clauses",
+    "several explanations contained duplicated or mechanically unsimplified result clauses",
   ] as const,
   downstreamLocked: true as const,
 });
@@ -44,12 +44,17 @@ function cleanPresentation(text: string): string {
     .replace(/-1x\b/g, "-x")
     .replace(/\b1x\b/g, "x")
     .replace(/\+\s*-/g, "- ")
+    .replace(/\s-\s-([0-9])/g, " + $1")
     .replace(/\(x - -([0-9]+(?:\/[0-9]+)?)\)/g, "(x + $1)")
-    .replace(/(-?[0-9]+)\/1 ([+-]) √/g, "$1 $2 √")
+    .replace(/(-?[0-9]+)\/1\b/g, "$1")
+    .replace(/-1\(/g, "-(")
+    .replace(/(?<![0-9])1\(/g, "(")
     .replace(/Hence k = ([^.,;]+), giving k = \1\./g, "Hence k = $1.")
     .replace(/Therefore k = ([^.,;]+), giving k = \1\./g, "Therefore k = $1.")
     .replace(/≥ ([+-]?[0-9]+\/[0-9]+) = \1\./g, "≥ $1.")
-    .replace(/≤ ([+-]?[0-9]+\/[0-9]+) = \1\./g, "≤ $1.");
+    .replace(/≤ ([+-]?[0-9]+\/[0-9]+) = \1\./g, "≤ $1.")
+    .replace(/Therefore statement i alone/g, "Therefore Statement I alone")
+    .replace(/Therefore statement ii alone/g, "Therefore Statement II alone");
 }
 
 function rebuildDataSufficiencyQuestion(source: AlgPermanentEnglishCandidateItem): string {
