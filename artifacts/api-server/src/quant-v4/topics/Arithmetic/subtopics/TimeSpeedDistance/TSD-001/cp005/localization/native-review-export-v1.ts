@@ -1,4 +1,7 @@
-import { TSD_CP005_NATIVE_EDITORIAL_REVIEW_V5 } from "./native-review-editorial-v5";
+import {
+  TSD_CP005_NATIVE_EDITORIAL_REVIEW_V5,
+  TSD_CP005_NATIVE_EDITORIAL_V5_STATUS,
+} from "./native-review-editorial-v5";
 
 const exportRows = TSD_CP005_NATIVE_EDITORIAL_REVIEW_V5.map((row, index) => ({
   questionNo: Math.floor(index / 2) + 1,
@@ -15,7 +18,7 @@ const exportRows = TSD_CP005_NATIVE_EDITORIAL_REVIEW_V5.map((row, index) => ({
   correctOption: row.presentation.correctIndex + 1,
   answer: row.presentation.answerText,
   explanation: row.presentation.explanation,
-  nativeReviewStatus: row.presentation.lifecycle.nativeReviewStatus,
+  nativeReviewStatus: TSD_CP005_NATIVE_EDITORIAL_V5_STATUS,
   multilingualFreezeStatus: row.presentation.lifecycle.multilingualFreezeStatus,
 }));
 
