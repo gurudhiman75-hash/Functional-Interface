@@ -13,7 +13,8 @@
     "audit:accessibility": "node scripts/check-accessibility-foundation.mjs",
     "audit:public-shell": "node scripts/check-public-shell.mjs",
     "audit:app-chrome-accessibility": "node scripts/check-app-chrome-accessibility.mjs",
-    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run audit:public-shell && pnpm run audit:app-chrome-accessibility && pnpm run build"
+    "audit:zoom-contrast": "node scripts/check-zoom-contrast.mjs",
+    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run audit:public-shell && pnpm run audit:app-chrome-accessibility && pnpm run audit:zoom-contrast && pnpm run build"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",
