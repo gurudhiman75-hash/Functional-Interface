@@ -55,10 +55,10 @@ function cleanStepLines(text, answer) {
     if (answerText) {
       const escaped = answerText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       conciseBody = conciseBody
-        .replace(new RegExp(`(?:\\.\\s*)?(?:Correct answer|सही उत्तर|ਸਹੀ ਉੱਤਰ)\\s*[:：]\\s*${escaped}\\.?$`, 'iu'), '.')
-        .replace(/\s+\.$/u, '.');
+        .replace(new RegExp(`(?:[.।]\\s*)?(?:Correct answer|सही उत्तर|ਸਹੀ ਉੱਤਰ)\\s*[:：]\\s*${escaped}[.।]?$`, 'iu'), '।')
+        .replace(/\s+([.।])$/u, '$1');
     }
-    kept.push(`${match[1]}${conciseBody}`);
+    kept.push(`${match[1]}. ${conciseBody}`);
   }
   return kept.join('\n');
 }
