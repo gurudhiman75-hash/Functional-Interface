@@ -2,33 +2,41 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { STA_ENGLISH_CORPUS_BY_QL } from "./english-corpus/index.ts";
 import { generateStaQl001LocalizedQuestion } from "./localization-ql001.ts";
-import type { StaLocalizedLocale, StaLocalizedQuestion } from "./localization-types.ts";
+import { STA_QL001_HINDI_REVIEW_COPY, STA_QL001_PUNJABI_REVIEW_COPY } from "./localization-ql001-copy.ts";
+import type { StaLocalizedLocale, StaLocalizedQuestion, StaLocalizationBundle } from "./localization-types.ts";
 
 const OUTPUT_DIR = process.env.STA_QL001_LOCALIZATION_REVIEW_OUTPUT_DIR ?? "/tmp/sta-001-ql001-hi-pa-review-v1";
 const EXAMPLES_PER_AUTHORITY = Number(process.env.STA_QL001_LOCALIZATION_EXAMPLES_PER_AUTHORITY ?? 2);
 const MAX_SEARCH = 100_000;
 
+function bundleFor(locale: StaLocalizedLocale): StaLocalizationBundle {
+  return locale === "hi-IN" ? STA_QL001_HINDI_REVIEW_COPY : STA_QL001_PUNJABI_REVIEW_COPY;
+}
+
 function collect(locale: StaLocalizedLocale): StaLocalizedQuestion[] {
-  const byScenario = new Map<string, StaLocalizedQuestion[]>();
   const expectedIds = STA_ENGLISH_CORPUS_BY_QL["STA-QL-001"].map((scenario) => scenario.scenarioId);
-  expectedIds.forEach((id) => byScenario.set(id, []));
+  const baseByScenario = new Map<string, StaLocalizedQuestion>();
 
-  for (let index = 0; index < MAX_SEARCH; index += 1) {
-    const complete = [...byScenario.values()].every((rows) => rows.length >= EXAMPLES_PER_AUTHORITY);
-    if (complete) break;
+  for (let index = 0; index < MAX_SEARCH && baseByScenario.size < expectedIds.length; index += 1) {
     const question = generateStaQl001LocalizedQuestion(`sta-ql001-native-review:${locale}:${index}`, locale);
-    const rows = byScenario.get(question.scenarioId);
-    if (!rows || rows.length >= EXAMPLES_PER_AUTHORITY) continue;
-    if (rows.some((row) => row.statement === question.statement)) continue;
-    rows.push(question);
+    if (!baseByScenario.has(question.scenarioId)) baseByScenario.set(question.scenarioId, question);
   }
 
-  for (const [scenarioId, rows] of byScenario) {
-    if (rows.length !== EXAMPLES_PER_AUTHORITY) {
-      throw new Error(`${locale}:${scenarioId}: expected ${EXAMPLES_PER_AUTHORITY} distinct review stems, found ${rows.length}`);
+  const bundle = bundleFor(locale);
+  return expectedIds.flatMap((scenarioId) => {
+    const base = baseByScenario.get(scenarioId);
+    if (!base) throw new Error(`${locale}:${scenarioId}: no deterministic review seed found`);
+    const copy = bundle[scenarioId];
+    if (!copy) throw new Error(`${locale}:${scenarioId}: missing localization copy`);
+    if (copy.statementVariants.length < EXAMPLES_PER_AUTHORITY) {
+      throw new Error(`${locale}:${scenarioId}: requested ${EXAMPLES_PER_AUTHORITY} stems but only ${copy.statementVariants.length} are authored`);
     }
-  }
-  return expectedIds.flatMap((id) => byScenario.get(id)!);
+
+    return copy.statementVariants.slice(0, EXAMPLES_PER_AUTHORITY).map((statement) => ({
+      ...base,
+      statement,
+    }));
+  });
 }
 
 function escapeHtml(value: string): string {
@@ -67,5 +75,7 @@ console.log(JSON.stringify({
   examplesPerAuthority: EXAMPLES_PER_AUTHORITY,
   hindiQuestions: hindi.length,
   punjabiQuestions: punjabi.length,
+  uniqueHindiStems: new Set(hindi.map((question) => question.statement)).size,
+  uniquePunjabiStems: new Set(punjabi.map((question) => question.statement)).size,
   status: hindi[0]!.lifecycle.hindiPunjabiStatus,
 }, null, 2));
