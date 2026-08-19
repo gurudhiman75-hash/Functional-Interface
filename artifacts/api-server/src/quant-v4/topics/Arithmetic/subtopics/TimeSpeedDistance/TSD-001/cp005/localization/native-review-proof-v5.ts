@@ -77,6 +77,7 @@ for (let index = 0; index < 78; index += 1) {
     assert(!allText.includes("3P–Q") && !allText.includes("2P–Q"), `row ${index + 1}/${lang}: ambiguous multiplied-route notation remains`);
     assert(!native.presentation.stem.includes("दिया गया समय-अंतर") && !native.presentation.stem.includes("ਦਿੱਤਾ ਸਮਾਂ-ਅੰਤਰ"), `row ${index + 1}/${lang}: redundant meeting-label repair remains`);
     assert(!/घंटे है(?!ं)/u.test(native.presentation.stem) && !/ਘੰਟੇ ਹੈ/u.test(native.presentation.stem), `row ${index + 1}/${lang}: singular agreement used with plural hours`);
+    assert(!/लौटते रहती हैं/u.test(native.presentation.stem) && !/ਮੁੜਦੇ ਰਹਿੰਦੀਆਂ ਹਨ/u.test(native.presentation.stem), `row ${index + 1}/${lang}: mixed native return agreement remains`);
     if (lang === "hi") assert(!/km\/h पर/u.test(native.presentation.stem), `row ${index + 1}: awkward Hindi speed preposition remains`);
 
     if (FEMININE_OBJECTS.has(source.objectFamily)) {
@@ -112,6 +113,7 @@ console.log(JSON.stringify({
   explanationStepsPerQuestion: 2,
   frozenGivenNumericParityGate: true,
   nativeVehicleAgreementGate: true,
+  nativeHybridAgreementGate: true,
   nativeSpeedPhrasingGate: true,
   exactReviewSurfaceValidated: "V5",
   englishSourceMutation: false,
