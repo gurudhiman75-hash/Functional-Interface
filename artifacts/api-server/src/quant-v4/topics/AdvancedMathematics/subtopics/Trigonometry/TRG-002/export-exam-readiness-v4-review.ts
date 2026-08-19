@@ -44,6 +44,25 @@ function englishRiverQl093(seed: string) {
   };
 }
 
+function englishBridgeQl021(question: any) {
+  const observer = question.canonicalSpatialState.observers[0];
+  if (!observer) throw new Error("TRG-002-QL-021 V4 review: canonical observer missing.");
+  const height = formatExactPlain(observer.eyeHeight);
+  return {
+    ...question,
+    stem: `From the edge of a ${height} m high pedestrian overbridge above a level road, a point on the road is seen at an angle of depression of 45°. Find the horizontal distance from the point directly below the bridge edge to that road point.`,
+    explanation: {
+      keyRule: "The bridge height is the vertical drop. At a 45° angle of depression, the vertical drop and horizontal run are equal.",
+      steps: [
+        { title: "Given", body: `Bridge height = ${height} m and angle of depression = 45°.` },
+        { title: "Calculation", body: `Let the horizontal distance be d. tan45° = ${height}/d = 1, so d = ${height} m.` },
+      ],
+      shortcut: "At 45°, the vertical and horizontal legs of the right triangle are equal.",
+      traps: ["Do not use the sloping line of sight as the required horizontal road distance."],
+    },
+  };
+}
+
 const qlIds = Array.from({ length: 96 }, (_, index) => `TRG-002-QL-${String(index + 1).padStart(3, "0")}`);
 const records = qlIds.map((qlId, index) => {
   const seed = `trg002-v4-human-review-${String(index + 1).padStart(3, "0")}`;
@@ -52,7 +71,8 @@ const records = qlIds.map((qlId, index) => {
     : generateTrg002V4CanonicalQuestion(qlId, seed);
   const englishPhysicalSupport = applyTrg002V4PhysicalSupportMigration(rawEn);
   const englishRiverSupport = applyTrg002V4RiverPlatformMigration(englishPhysicalSupport.question);
-  const en: any = englishRiverSupport.question;
+  const enBase: any = englishRiverSupport.question;
+  const en: any = qlId === "TRG-002-QL-021" ? englishBridgeQl021(enBase) : enBase;
   const hi: any = generateTrg002V4CandidateQuestion(qlId, seed, "hi-IN");
   const pa: any = generateTrg002V4CandidateQuestion(qlId, seed, "pa-IN");
   return {
