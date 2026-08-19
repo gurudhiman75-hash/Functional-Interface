@@ -1,8 +1,8 @@
 import type { StaLifecycle } from "./types.ts";
 
-export const STA_EXECUTABLE_DISCOVERY_LIFECYCLE: StaLifecycle = {
-  maturity: "EXECUTABLE_DISCOVERY_PROOF",
-  permanentQlCount: 0,
+export const STA_PERMANENT_QL_LIFECYCLE: StaLifecycle = {
+  maturity: "PERMANENT_QL_SEMANTIC_FREEZE",
+  permanentQlCount: 4,
   proposedQlCount: 4,
   questionStudioDiscoverable: false,
   questionBankWritable: false,
@@ -10,3 +10,6 @@ export const STA_EXECUTABLE_DISCOVERY_LIFECYCLE: StaLifecycle = {
   publiclyPublishable: false,
   hindiPunjabiStatus: "NOT_STARTED",
 };
+
+/** Compatibility alias for discovery code paths; downstream gates remain closed. */
+export const STA_EXECUTABLE_DISCOVERY_LIFECYCLE = STA_PERMANENT_QL_LIFECYCLE;
