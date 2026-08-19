@@ -66,6 +66,18 @@ for (const scenario of STA_ENGLISH_CORPUS_V2) {
     }
   }
 
+  if (scenario.scenarioId === "STA-EN2-QL002-LOANER-DEVICES") {
+    for (const statement of scenario.statementVariants) {
+      assert.equal(/\b(?:without|lack(?:s|ing)?|do not have)\b[^.]{0,45}\b(?:device|tablet)\b/i.test(statement), false, `${scenario.scenarioId}: stem explicitly states the hidden device-access assumption`);
+    }
+  }
+
+  if (scenario.scenarioId === "STA-EN2-QL002-ROTATING-FIELD-TEAMS") {
+    for (const statement of scenario.statementVariants) {
+      assert.equal(/\bpostponements? caused by local team unavailability\b/i.test(statement), false, `${scenario.scenarioId}: stem explicitly states the hidden local-team relevance bridge`);
+    }
+  }
+
   for (let index = 0; index < 2; index += 1) {
     const singleAuthorityPool = {
       ...STA_ENGLISH_CORPUS_BY_QL,

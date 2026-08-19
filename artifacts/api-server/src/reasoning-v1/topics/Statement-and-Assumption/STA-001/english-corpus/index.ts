@@ -43,6 +43,13 @@ function replaceCandidateText(
   return { ...scenario, candidates };
 }
 
+function replaceStatementVariants(
+  scenario: StaScenarioAuthority,
+  statementVariants: readonly [string, ...string[]],
+): StaScenarioAuthority {
+  return { ...scenario, statementVariants };
+}
+
 function normalizeReviewedEnglish(scenario: StaScenarioAuthority): StaScenarioAuthority {
   if (scenario.scenarioId === "STA-DISC-QL003-001") {
     let normalized = replaceCandidateText(scenario, "C1", [
@@ -82,6 +89,18 @@ function normalizeExpansion(scenario: StaEnglishCorpusScenario): StaEnglishCorpu
 
   let normalized: StaScenarioAuthority = scenario;
   switch (scenario.scenarioId) {
+    case "STA-EN2-QL002-LOANER-DEVICES":
+      normalized = replaceStatementVariants(normalized, [
+        "The school should provide loaner tablets so more students can use the online practice portal from home.",
+        "To widen access to online practice outside school, the school should lend practice tablets to students.",
+      ]);
+      break;
+    case "STA-EN2-QL002-ROTATING-FIELD-TEAMS":
+      normalized = replaceStatementVariants(normalized, [
+        "The department will rotate nearby field teams to cover a zone whenever its assigned team is unavailable, aiming to reduce inspection postponements.",
+        "To reduce inspection postponements, the department will let nearby field teams cover a zone when its own team is unavailable.",
+      ]);
+      break;
     case "STA-EN-QL003-KYC-REMINDER":
       normalized = replaceCandidateText(normalized, "C1", [
         "Some customers have a KYC update due.",
