@@ -15,6 +15,7 @@ export const TRG_002_DIAGRAM_STRATEGIES = [
   "BUILDING_TO_BUILDING",
   "ELEVATION_AND_DEPRESSION",
   "RIVER_WIDTH",
+  "TOWER_EXTENSION",
 ] as const;
 
 export type Trg002DiagramStrategy = (typeof TRG_002_DIAGRAM_STRATEGIES)[number];
