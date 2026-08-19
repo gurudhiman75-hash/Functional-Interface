@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = path.resolve(appRoot, "../..");
+const packageJson = fs.readFileSync(path.join(appRoot, "package.json"), "utf8");
 const button = fs.readFileSync(path.join(appRoot, "src/components/ui/button.tsx"), "utf8");
 const accessibility = fs.readFileSync(path.join(appRoot, "src/accessibility.css"), "utf8");
 const login = fs.readFileSync(path.join(appRoot, "src/pages/login.tsx"), "utf8");
@@ -12,6 +13,9 @@ const activity = fs.readFileSync(path.join(appRoot, "src/pages/activity.tsx"), "
 const tests = fs.readFileSync(path.join(appRoot, "src/pages/tests.tsx"), "utf8");
 const result = fs.readFileSync(path.join(appRoot, "src/pages/canonical-result.tsx"), "utf8");
 const proof = fs.readFileSync(path.join(repoRoot, "scripts/e2e/tests/student-touch-target-hardening.spec.ts"), "utf8");
+
+assert.match(packageJson, /"audit:touch-targets": "node scripts\/check-touch-targets\.mjs"/, "touch-target audit must be runnable");
+assert.match(packageJson, /"quality": "[^"]*audit:touch-targets[^"]*"/, "standard frontend quality must include touch-target audit");
 
 assert.match(button, /default: "h-11 min-w-11 px-4 py-2"/, "default Button target must be at least 44px");
 assert.match(button, /sm: "h-11 min-w-11 rounded-md px-3"/, "small Button target must not shrink below 44px");
@@ -36,4 +40,4 @@ assert.match(proof, /Can’t access your account\?/, "browser proof must exercis
 assert.match(proof, /\/dashboard[\s\S]*?\/profile[\s\S]*?\/result/, "browser proof must exercise representative preparation/result actions");
 assert.match(proof, /scrollWidth - window\.innerWidth/, "touch-target hardening must retain mobile overflow protection");
 
-console.log("Page-level touch-target audit passed (19 assertions).");
+console.log("Page-level touch-target audit passed (21 assertions).");
