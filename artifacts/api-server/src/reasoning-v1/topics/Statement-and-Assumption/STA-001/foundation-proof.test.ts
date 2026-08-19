@@ -3,7 +3,7 @@ import { performance } from "node:perf_hooks";
 import { assertStaDiscoveryQuestionIntegrity, generateStaDiscoveryQuestion } from "./generator.ts";
 import { assertNegationPairs } from "./negation.ts";
 import { answerSetForSelectedCandidates, assertScenarioOracleParity, evaluateAssumptionOracle } from "./oracle.ts";
-import { STA_EXECUTABLE_SCENARIOS, STA_SCENARIOS_BY_QL } from "./prototypes.ts";
+import { STA_EXECUTABLE_SCENARIOS, STA_SCENARIOS_BY_QL } from "./prototype-authorities.ts";
 import { assertStaScenarioOwnership, routeStaScenarioBySemantics } from "./router.ts";
 import type { StaCandidateAuthority, StaProposedQlId, StaScenarioAuthority } from "./types.ts";
 
@@ -59,8 +59,11 @@ for (const scenario of STA_EXECUTABLE_SCENARIOS) {
   }
 }
 
-assert.equal(STA_EXECUTABLE_SCENARIOS.length, 12, "Expected three executable scenario authorities per proposed STA QL");
-for (const qlId of qlIds) assert.equal(STA_SCENARIOS_BY_QL[qlId].length, 3, `${qlId}: source scenario count changed unexpectedly`);
+assert.equal(STA_EXECUTABLE_SCENARIOS.length, 13, "Expected 13 reviewed STA executable scenario authorities");
+assert.equal(STA_SCENARIOS_BY_QL["STA-QL-001"].length, 3);
+assert.equal(STA_SCENARIOS_BY_QL["STA-QL-002"].length, 4);
+assert.equal(STA_SCENARIOS_BY_QL["STA-QL-003"].length, 3);
+assert.equal(STA_SCENARIOS_BY_QL["STA-QL-004"].length, 3);
 
 const answerPositions = new Map<StaProposedQlId, number[]>();
 const candidateCounts = new Map<StaProposedQlId, Set<number>>();
@@ -69,6 +72,7 @@ let generated = 0;
 let generatedCandidates = 0;
 let generatedImplicit = 0;
 let generatedNotImplicit = 0;
+let generatedAllThreeImplicit = 0;
 
 for (const qlId of qlIds) {
   answerPositions.set(qlId, [0, 0, 0, 0]);
@@ -101,6 +105,7 @@ for (const qlId of qlIds) {
     const selectedAuthorities = first.candidates.map((rendered) => selectedScenario.candidates.find((candidate) => candidate.candidateId === rendered.candidateId)!);
     assert.deepEqual(answerSetForSelectedCandidates(selectedScenario, selectedAuthorities), first.answerSet);
 
+    if (first.candidates.length === 3 && first.answerSet.length === 3) generatedAllThreeImplicit += 1;
     generated += 1;
     generatedCandidates += first.candidates.length;
     for (const candidate of first.candidates) {
@@ -117,6 +122,7 @@ for (const qlId of qlIds) {
 }
 
 assert.ok(generatedImplicit > 0 && generatedNotImplicit > 0, "Both implicit and non-implicit candidates must be generated");
+assert.ok(generatedAllThreeImplicit > 0, "SSC-style all-three-implicit answer outcome must be generated");
 
 console.log("PASS_STA_001_EXECUTABLE_DISCOVERY_QL001_QL004");
 console.log(`temporary proposed QLs ${qlIds.length}`);
@@ -125,6 +131,7 @@ console.log(`generated deterministic questions ${generated}`);
 console.log(`generated candidate assumptions ${generatedCandidates}`);
 console.log(`implicit candidates ${generatedImplicit}`);
 console.log(`not-implicit candidates ${generatedNotImplicit}`);
+console.log(`all-three-implicit questions ${generatedAllThreeImplicit}`);
 console.log(`editorial/oracle parity checks ${editorialOracleChecks}`);
 console.log(`expected-answer flag independence checks ${expectedFlagIndependenceChecks}`);
 console.log(`dependency-removal mutation checks ${dependencyRemovalChecks}`);
