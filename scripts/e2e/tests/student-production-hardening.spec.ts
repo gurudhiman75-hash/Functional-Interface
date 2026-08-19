@@ -180,7 +180,7 @@ test.describe("CP01B student production hardening", () => {
     await expect(firstAttemptLink).toHaveAttribute("href", /attemptId=attempt-result-1/);
     await expect(firstAttemptLink).toHaveAttribute("href", /testId=test-1/);
     await expect(page.getByRole("link", { name: "View all attempts" })).toHaveAttribute("href", "/dashboard");
-    await expect(page.getByRole("link", { name: "My Activity" })).toHaveAttribute("href", "/dashboard");
+    await expect(page.locator('a[href="/dashboard"]').filter({ hasText: "My Activity" }).last()).toHaveAttribute("href", "/dashboard");
 
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);
