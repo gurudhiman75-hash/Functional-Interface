@@ -1,6 +1,6 @@
 # DSF-001 Manifest Amendment — CP-001 Production Wave 1
 
-Amendment: `DSF_001_MANIFEST_AMENDMENT_CP001_WAVE1_V1`  
+Amendment: `DSF_001_MANIFEST_AMENDMENT_CP001_WAVE1_V2`  
 Applies to: `DSF-CP-001 — Production Generation for DSF-QL-001`  
 Permanent QL: `DSF-QL-001 / TWO_STATEMENT_TARGET_DETERMINACY`
 
@@ -26,7 +26,7 @@ For each deterministic seed the runtime:
 5. searches statement pairs and independently evaluates I, II and I+II through the shared DSF evaluator;
 6. rejects empty/inconsistent combinations;
 7. selects a high-quality valid pair;
-8. renders the frozen `DS_STANDARD_5` answer contract;
+8. renders the canonical `DS_STANDARD_5` answer contract;
 9. builds a question-specific human explanation from the actual surviving digits/target answers;
 10. emits hidden proof metadata and source ancestry.
 
@@ -65,7 +65,7 @@ Expected status: `PASS_DSF_CP_001_NUMBER_SYSTEM_PRODUCTION`.
 
 English packages are `ENGLISH_REVIEW_CANDIDATE`, not frozen content.
 
-Explanations follow:
+Student-facing realization is separated from semantic solving. Explanations follow:
 
 ```text
 What is asked
@@ -74,6 +74,22 @@ What is asked
 → both together only when needed
 → exclusive sufficiency conclusion
 ```
+
+CP-001 editorial review also corrects the English rendering of the canonical insufficient-even-together class from the awkward legacy phrase `Even both statements together are not sufficient.` to:
+
+> `Even when both statements are used together, they are not sufficient.`
+
+This is an English presentation correction only. It does not change the semantic class `INSUFFICIENT_EVEN_TOGETHER`, the `DS_STANDARD_5` contract identity, `DSF-QL-001`, option exclusivity, or any source-domain truth.
+
+## Human review gate
+
+The CP-001 workflow additionally:
+
+- reviews 200 generated English questions for jargon, length and explanation structure;
+- checks all five canonical answer classes;
+- checks multi-world parity target projection;
+- rejects the superseded awkward insufficient wording;
+- generates a 60-question HTML + JSON human-review pack with collapsible proof diagnostics.
 
 ## Product lifecycle
 
