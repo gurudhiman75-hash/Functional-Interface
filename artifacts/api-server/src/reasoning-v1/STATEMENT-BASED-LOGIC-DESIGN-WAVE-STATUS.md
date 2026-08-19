@@ -1,6 +1,8 @@
 # Statement-Based Logic — Design Wave Status
 
-Status: **DESIGN COMPLETE / SOURCE AUDIT V1 COMPLETE / TARGETED SATURATION V2 COMPLETE / MERGE-SPLIT REVIEW COMPLETE**
+Status: **FAMILY DESIGN/SOURCE AUDIT COMPLETE / STA IMPLEMENTATION ACTIVE ONE CHAPTER AT A TIME**
+
+This status file records the coordinated pre-implementation design/source work for the natural-language Family C chapters and the decision to implement chapters sequentially after family-wide ownership review.
 
 Authorities:
 
@@ -12,97 +14,118 @@ Authorities:
 - `STATEMENT-BASED-LOGIC-TARGETED-SATURATION-V2.md`
 - `STATEMENT-BASED-LOGIC-MERGE-SPLIT-QL-PROPOSAL-V1.md`
 
-## 1. Chapter state
+## 1. Current chapter states
 
 | Product code | Package | Current state |
 |---|---|---|
-| `REAS-STA` | `STA-001` | STRONG PARTIAL / 4 QLs PROPOSED |
-| `REAS-STC` | `STC-001` | STRONG PARTIAL + SEMANTIC AMENDMENT / 3 QLs PROPOSED |
-| `REAS-ARG` | `ARG-001` | STRONG PARTIAL / 3 QLs PROPOSED |
-| `REAS-COA` | `COA-001` | STRONG PARTIAL / 2 QLs PROPOSED |
-| `REAS-CAE` | `CAE-001` | STRONG CORE / 1 QL PROPOSED |
-| `REAS-ASM` | `ASM-001` | BANKING OWNERSHIP CONFIRMED / PERMANENT QL ALLOCATION WITHHELD |
+| `REAS-STA` | `STA-001` | **PERMANENT QL SEMANTIC FREEZE — 4 QLs / English corpus expansion next** |
+| `REAS-STC` | `STC-001` | DESIGNED + SOURCE-AUDITED / proposed 3 QLs / implementation not started |
+| `REAS-ARG` | `ARG-001` | DESIGNED + SOURCE-AUDITED / proposed 3 QLs / implementation not started |
+| `REAS-COA` | `COA-001` | DESIGNED + SOURCE-AUDITED / proposed 2 QLs / implementation not started |
+| `REAS-CAE` | `CAE-001` | DESIGNED + SOURCE-AUDITED / proposed 1 QL / implementation not started |
+| `REAS-ASM` | `ASM-001` | DESIGNED + SOURCE-AUDITED / permanent QLs withheld pending exact reasoning-item semantics |
 
-## 2. Taxonomy freeze candidate
+Implementation order is intentionally sequential:
+
+```text
+STA -> STC -> ARG -> COA -> CAE -> ASM
+```
+
+Family design/source work remains coordinated, but executable implementation proceeds one chapter at a time to expose real shared abstractions and prevent premature universal-engine design.
+
+## 2. STA semantic freeze
+
+`STA-001` now has four permanent semantic QL identities:
+
+```text
+STA-QL-001  Core hidden prerequisite/capability/feasibility dependency
+STA-QL-002  Recommendation/policy/proposal need-and-efficacy dependency
+STA-QL-003  Source-supported notice/rule/institutional communication audience-purpose dependency
+STA-QL-004  Claim/prediction hidden causal-or-efficacy bridge
+```
+
+Final dedicated CI:
+
+```text
+workflow: Validate STA-001 semantic freeze
+run:      32210089893
+result:   SUCCESS
+```
+
+The final proof validates four frozen QLs, 13 reviewed executable authorities, 480 deterministic questions, oracle independence/mutations, real three-assumption/all-three-implicit coverage, review export and production API build.
+
+This freezes **semantic QL identity only**. It does not freeze the English production corpus.
+
+## 3. Taxonomy decision
 
 These remain six separate chapters.
 
-No standalone `Inference` chapter is created. Source-backed inference belongs in `STC-001` when the semantic task is conclusion/inference evaluation.
+A standalone `Inference` chapter is not created because the current authoritative Reasoning V1 taxonomy does not define `REAS-INF`.
 
-STC now explicitly distinguishes:
+Source audit showed that inference behavior belongs inside `STC-001`, with source-profiled inference standards rather than one universal entailment standard.
 
-```text
-STRICT_ENTAILMENT
-CONTROLLED_REASONABLE_INFERENCE
-```
-
-Formal categorical set reasoning routes to `SYL-001` regardless of visible `Statement/Conclusion` wording.
-
-## 3. Major source-driven decisions
-
-### STA
-
-Two- and three-assumption candidate sets are core profile metadata, not QL identity.
-
-### STC
-
-Controlled reasonable inference is a real semantic mode, not merely alternate wording. Its bridge registry is curated and modality-preserving.
-
-### ARG
-
-Two- and three-argument sets are representation metadata. Core permanent candidates are relevance/materiality, consequence/impact and feasibility/resource arguments.
-
-### COA
-
-Investigation/verification receives a separate semantic QL candidate because `EVIDENCE_SUFFICIENCY_BEFORE_INTERVENTION` changes the proof operation. Other direct corrective/preventive/process actions remain one QL family with action-type metadata.
-
-### CAE
-
-Classic two-event relationship classification is allocation-ready as one semantic QL candidate. Immediate/principal, mediated and contributing-cause forms remain discovery reserve until target-exam evidence closes.
-
-### ASM
-
-Banking Logical Reasoning ownership is confirmed at section/topic level, but exact item semantics are not saturated enough for a stable QL. Temporary prototypes are allowed; permanent IDs are withheld.
-
-## 4. Proposed QL count
+## 4. Semantic separation
 
 ```text
-STA: 4
-STC: 3
-ARG: 3
-COA: 2
-CAE: 1
-ASM: 0 allocated
--------------
-Total proposed: 13
+STA: candidate is an unstated required dependency
+STC: candidate is supported under STRICT_ENTAILMENT or curated CONTROLLED_REASONABLE_INFERENCE
+ARG: candidate is a strong reason bearing materially on the issue
+COA: candidate is a suitable response, including evidence-sufficiency timing
+CAE: displayed events are classified by exact causal relation
+ASM: evaluate A truth, R truth, then R->A explanation, with source-section ownership
 ```
 
-These are `PROPOSED`, not permanent/frozen IDs.
+No implementation may replace these with one generic natural-language classifier.
 
-## 5. Permanent-allocation gate
+## 5. Shared infrastructure rule
 
-Before the 13 candidates become permanent:
+Safe to share after real reuse is demonstrated:
 
-1. implement temporary executable prototypes;
-2. prove materially independent oracle parity;
-3. run cross-QL collision tests;
-4. prove candidate count and option coding do not require splits;
-5. produce source-profile review corpora;
-6. run chapter-router collision tests;
-7. perform final no-known-gap review;
-8. then freeze permanent IDs.
+- proposition/entity IR;
+- scope/quantifier/time types;
+- polarity/negation utilities;
+- structured-text renderer;
+- deterministic seed utilities;
+- source-profile/evidence metadata;
+- localization framework;
+- semantic fingerprints;
+- review export infrastructure.
 
-ASM must additionally recover/verify item-level Banking reasoning semantics before allocation.
+Must remain chapter-owned:
+
+- answer oracle;
+- misconception-to-verdict rules;
+- source-pattern registry;
+- difficulty calibration;
+- explanation semantics;
+- final QL registry.
+
+Shared abstractions should be extracted after at least two executable chapters prove the overlap rather than by building a universal critical-reasoning engine first.
 
 ## 6. Downstream lifecycle
 
+Even after STA semantic QL freeze:
+
 ```text
-permanentQlAllocationAuthorized: false
-questionStudioDiscoverable:      false
-questionBankWritable:            false
-mock/test eligibility:           false
-public publication:              false
-Hindi/Punjabi production:        NOT STARTED
+STA English production corpus: NOT_FROZEN
+STA Question Studio:            CLOSED
+STA Question Bank writes:       CLOSED
+STA mock/test eligibility:      CLOSED
+STA public publication:         CLOSED
+STA Hindi/Punjabi:              NOT_STARTED
 ```
 
-Next program phase: **executable prototype + collision proof for the 13 proposed QLs, with temporary ASM discovery prototypes in parallel.**
+Other statement-based chapters remain closed at design/source-audit stage.
+
+## 7. Current next gate
+
+Stay inside `STA-001` and:
+
+1. expand English curated scenario/family coverage substantially inside the four frozen QLs;
+2. run semantic-diversity, ambiguity, misconception and cross-QL collision audits;
+3. perform a larger human exam-readiness review;
+4. freeze the English corpus only after no-known-content-gap review;
+5. localize Hindi/Punjabi;
+6. register the whole frozen STA chapter in Question Studio only after localization parity and final chapter freeze.
+
+Do not begin STC executable implementation until the current STA implementation gate is complete enough to justify moving forward.
