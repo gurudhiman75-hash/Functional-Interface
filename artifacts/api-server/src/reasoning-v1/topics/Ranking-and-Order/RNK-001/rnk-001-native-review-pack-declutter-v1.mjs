@@ -43,7 +43,8 @@ function renumberSteps(text, answer) {
       continue;
     }
     const body = match[2].trim();
-    const repeatsAnswer = answer && normalized(body).includes(normalized(answer.replace(/^[A-D1-5]\s*[—-]\s*/u, '')));
+    const answerText = answer.replace(/^[A-D1-5]\s*[—-]\s*/u, '');
+    const repeatsAnswer = answerText && normalized(body).includes(normalized(answerText));
     if (conclusionLead(body) && repeatsAnswer && body.length < 190) continue;
     step += 1;
     kept.push(`${step}. ${body}`);
@@ -77,9 +78,9 @@ function declutterSimple(section) {
     /^\*\*Option analysis(?::\*\*|\*\*)/m,
     [/^\*\*Conclusion(?::\*\*|\*\*)/m, /^\*\*Canonical outcome:/m, /^---$/m],
   );
+  text = removeBlock(text, /^\*\*Conclusion\*\*\s*$/m, [/^\*\*Canonical outcome:/m, /^---$/m]);
   text = text
     .replace(/^\*\*Conclusion:\*\*.*(?:\n|$)/gm, '')
-    .replace(/^\*\*Conclusion\*\*\s*\n+(?:(?!^\*\*|^---$)[\s\S])*?(?=^\*\*|^---$|\Z)/gmu, '')
     .replace(/^\*\*Key rule:\*\*/gm, '**Solution:**')
     .replace(/^\*\*Key rule\*\*$/gm, '**Solution**')
     .replace(/^\*\*Step-by-step:\*\*\s*$/gm, '')
