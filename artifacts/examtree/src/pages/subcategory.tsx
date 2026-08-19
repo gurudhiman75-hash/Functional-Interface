@@ -1,4 +1,4 @@
-﻿import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { useLocation, useParams } from "wouter";
 import {
@@ -15,7 +15,6 @@ import {
   Play,
   RotateCcw,
   ShieldCheck,
-  Star,
   Users,
   Zap,
 } from "lucide-react";
@@ -24,7 +23,7 @@ import { mockUnlockTest, getPackages, getUserPackages, getBundles, getPackagesBy
 import { openRazorpayCheckoutForTest } from "@/lib/razorpay-checkout";
 import { getRuntimeExamGroup } from "@/lib/test-bank";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
-import { API_BASE_URL, ApiError, getApiErrorCode } from "@/lib/api";
+import { ApiError, getApiErrorCode } from "@/lib/api";
 import { useMyEntitlements } from "@/hooks/use-my-entitlements";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -90,7 +89,13 @@ export default function SubcategoryPage() {
     staleTime: 5 * 60_000,
   });
   const attempts = useMemo(() => getAttempts(), []);
-  const attemptsByTestId = useMemo(() => new Map(attempts.map((attempt) => [attempt.testId, attempt])), [attempts]);
+  const attemptsByTestId = useMemo(() => {
+    const map = new Map<string, ReturnType<typeof getAttempts>[number]>();
+    for (const attempt of attempts) {
+      if (!map.has(attempt.testId)) map.set(attempt.testId, attempt);
+    }
+    return map;
+  }, [attempts]);
   const activeSessions = useMemo(() => getActiveTestSessions(), []);
   const { categories, subcategories, tests, isLoading, error } = useExamCatalog();
   const { data: entitlementPayload, refetch: refetchEntitlements } = useMyEntitlements();
@@ -106,7 +111,7 @@ export default function SubcategoryPage() {
     enabled: !!user,
   });
   const ownedPackageIds = useMemo(() => new Set(ownedPackages.map((p) => p.id)), [ownedPackages]);
-  // Map testId â†’ cheapest package containing it
+  // Map testId → cheapest package containing it
   const packageByTestId = useMemo(() => {
     const map = new Map<string, Package>();
     for (const pkg of allPackages) {
@@ -196,8 +201,11 @@ export default function SubcategoryPage() {
         <main className="mx-auto max-w-lg px-4 py-24 text-center">
           <h1 className="text-xl font-semibold text-foreground">Could not load exam</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            API expected at <code className="rounded bg-muted px-1 py-0.5 text-xs">{API_BASE_URL}</code>
+            The exam catalog is temporarily unavailable. Please try again.
           </p>
+          <Button className="mt-5" variant="outline" onClick={() => window.location.reload()}>
+            Retry
+          </Button>
         </main>
       </div>
     );
@@ -289,14 +297,10 @@ export default function SubcategoryPage() {
     }
   };
 
-
-
   const [viewMode, setViewMode] = useState<"list" | "grid">("grid");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
-
-      {/* Top nav */}
       <div className="border-b border-border/50 bg-background/80 backdrop-blur-sm">
         <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6">
           <button
@@ -312,11 +316,7 @@ export default function SubcategoryPage() {
 
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
         <div className="flex flex-col gap-8 xl:flex-row xl:items-start">
-
-          {/* Main column */}
           <div className="min-w-0 flex-1">
-
-            {/* Exam header — subtle hero banner */}
             <div className="mb-6 rounded-2xl overflow-hidden border border-sky-80 bg-gradient-to-br from-sky-50 via-slate-50 to-indigo-50 px-5 py-6 shadow-sm">
               <div className="inline-flex items-center rounded-full px-3 py-1 mb-3" style={{ backgroundImage: gradient }}>
                 <span className="text-[11px] font-bold uppercase tracking-widest text-white/90">{category?.name}</span>
@@ -351,12 +351,11 @@ export default function SubcategoryPage() {
                 </span>
                 {attempts.length > 0 && (
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700">
-                    <Users className="h-3.5 w-3.5" />{attempts.length} attempted
+                    <Users className="h-3.5 w-3.5" />{attempts.length} attempts saved
                   </span>
                 )}
               </div>
 
-              {/* Progress indicator */}
               {examTests.length > 0 && (() => {
                 const completedIds = new Set(attempts.map(a => a.testId));
                 const completed = examTests.filter(t => completedIds.has(t.id)).length;
@@ -377,21 +376,8 @@ export default function SubcategoryPage() {
                   </div>
                 );
               })()}
-
-              {/* Trust indicators */}
-              <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  {[1,2,3,4,5].map(i => (
-                    <Star key={i} className={`h-3 w-3 ${i <= 4 ? "fill-amber-400 text-amber-400" : "fill-amber-200 text-amber-200"}`} />
-                  ))}
-                  <span className="ml-1 font-semibold text-foreground">4.5</span>
-                  <span className="text-muted-foreground">(2.4k ratings)</span>
-                </span>
-                <span className="flex items-center gap-1"><Users className="h-3.5 w-3.5 text-primary/60" /><span className="font-semibold text-foreground">18,500+</span> students enrolled</span>
-              </div>
             </div>
 
-            {/* Tab selector */}
             <div className="flex gap-1 rounded-xl border border-border/60 bg-muted/40 p-1">
               {(Object.keys(TAB_LABELS) as ExamTab[]).map((tab) => {
                 const count = examTests.filter((t) => (t.kind ?? "full-length") === tab).length;
@@ -416,7 +402,6 @@ export default function SubcategoryPage() {
               })}
             </div>
 
-            {/* List/Grid toggle + count */}
             <div className="mt-4 mb-3 flex items-center justify-between">
               <p className="text-xs font-medium text-muted-foreground">
                 {tabTests.length} {TAB_LABELS[activeTab].toLowerCase()} test{tabTests.length !== 1 ? "s" : ""}
@@ -445,7 +430,6 @@ export default function SubcategoryPage() {
               </div>
             </div>
 
-            {/* Test list / grid */}
             {tabTests.length === 0 ? (
               <div className="rounded-xl border border-dashed border-border/60 px-6 py-14 text-center">
                 <BookOpen className="mx-auto h-9 w-9 text-muted-foreground/40" />
@@ -454,7 +438,8 @@ export default function SubcategoryPage() {
             ) : viewMode === "grid" ? (
               <div className="grid gap-3 sm:grid-cols-2">
                 {tabTests.map((test) => {
-                  const attempted = attemptsByTestId.has(test.id);
+                  const latestAttempt = attemptsByTestId.get(test.id);
+                  const attempted = Boolean(latestAttempt);
                   const activeSession = activeSessions[test.id];
                   const isFree = (test.access ?? "free") === "free";
                   const hasEntitlement = entitledIds.has(test.id);
@@ -482,21 +467,16 @@ export default function SubcategoryPage() {
                             <span className="flex items-center gap-1"><Clock3 className="h-3 w-3 text-primary/50" />{test.duration} min</span>
                             <span className="flex items-center gap-1"><Hash className="h-3 w-3 text-slate-400" />{test.totalQuestions} Qs</span>
                             <DifficultyBadge difficulty={test.difficulty} />
-                            <span className="rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-600">Latest Pattern</span>
                           </div>
                         </div>
                         <TestStatusBadge isFree={isFree} isLocked={isLocked} pkgOwned={pkgOwned} attempted={attempted} activeSession={!!activeSession} />
                       </div>
-                      {attempted && (() => {
-                        const att = attemptsByTestId.get(test.id);
-                        if (!att) return null;
-                        return (
-                          <p className="text-[11px] text-muted-foreground/70">
-                            Last attempt: {new Date(att.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
-                            {att.score != null && <> &middot; <span className={att.score >= 70 ? "text-emerald-600" : att.score >= 40 ? "text-amber-600" : "text-rose-600"}>{att.score}%</span></>}
-                          </p>
-                        );
-                      })()}
+                      {latestAttempt && (
+                        <p className="text-[11px] text-muted-foreground/70">
+                          Last attempt: {new Date(latestAttempt.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                          {latestAttempt.score != null && <> &middot; <span className={latestAttempt.score >= 70 ? "text-emerald-600" : latestAttempt.score >= 40 ? "text-amber-600" : "text-rose-600"}>{latestAttempt.score}%</span></>}
+                        </p>
+                      )}
                       <div className="mt-auto" onClick={(e) => e.stopPropagation()}>
                         <TestActionButton
                           test={test}
@@ -509,7 +489,7 @@ export default function SubcategoryPage() {
                           onStart={() => setLocation(`/test/${test.id}`)}
                           onBuy={() => setLocation("/packages")}
                           onUnlock={() => user ? void startPaidCheckout(test) : setLocation("/login/student")}
-                          onReview={() => setLocation(`/result?testId=${encodeURIComponent(test.id)}`)}
+                          onReview={() => latestAttempt && setLocation(`/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(test.id)}&tab=review`)}
                         />
                       </div>
                     </div>
@@ -519,7 +499,8 @@ export default function SubcategoryPage() {
             ) : (
               <div className="flex flex-col gap-2">
                 {tabTests.map((test) => {
-                  const attempted = attemptsByTestId.has(test.id);
+                  const latestAttempt = attemptsByTestId.get(test.id);
+                  const attempted = Boolean(latestAttempt);
                   const activeSession = activeSessions[test.id];
                   const isFree = (test.access ?? "free") === "free";
                   const hasEntitlement = entitledIds.has(test.id);
@@ -540,14 +521,12 @@ export default function SubcategoryPage() {
                       className={`group flex items-center gap-3 rounded-xl border border-slate-100 border-l-4 ${borderAccent} bg-white/80 px-4 py-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:translate-x-0.5 hover:bg-white cursor-pointer`}
                       onClick={() => !isLocked || pkgOwned ? setLocation(`/test/${test.id}`) : undefined}
                     >
-                      {/* Status icon */}
                       <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
                         isLocked && !pkgOwned ? "bg-amber-100 text-amber-600" : attempted ? "bg-sky-100 text-sky-600" : "bg-primary/10 text-primary"
                       }`}>
                         {isLocked && !pkgOwned ? <Lock className="h-4 w-4" /> : attempted ? <RotateCcw className="h-4 w-4" /> : <ShieldCheck className="h-4 w-4" />}
                       </div>
 
-                      {/* Name + meta */}
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-[18px] font-bold text-slate-800 leading-snug">{test.name}</p>
                         <div className="mt-0.5 flex flex-wrap items-center gap-2 text-[14px] text-slate-400">
@@ -555,22 +534,16 @@ export default function SubcategoryPage() {
                           <span className="flex items-center gap-0.5"><Clock3 className="h-3 w-3 text-primary/50" />{test.duration} min</span>
                           <span className="flex items-center gap-0.5"><Hash className="h-3 w-3 text-slate-400" />{test.totalQuestions} Qs</span>
                           <DifficultyBadge difficulty={test.difficulty} />
-                          <span className="rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-600">Latest Pattern</span>
                           {activeSession && <span className="font-medium text-sky-600">In progress</span>}
                         </div>
-                        {attempted && (() => {
-                          const att = attemptsByTestId.get(test.id);
-                          if (!att) return null;
-                          return (
-                            <p className="mt-0.5 text-[11px] text-muted-foreground/70">
-                              {new Date(att.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
-                              {att.score != null && <> &middot; <span className={att.score >= 70 ? "text-emerald-600 font-medium" : att.score >= 40 ? "text-amber-600 font-medium" : "text-rose-600 font-medium"}>{att.score}%</span></>}
-                            </p>
-                          );
-                        })()}
+                        {latestAttempt && (
+                          <p className="mt-0.5 text-[11px] text-muted-foreground/70">
+                            {new Date(latestAttempt.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                            {latestAttempt.score != null && <> &middot; <span className={latestAttempt.score >= 70 ? "text-emerald-600 font-medium" : latestAttempt.score >= 40 ? "text-amber-600 font-medium" : "text-rose-600 font-medium"}>{latestAttempt.score}%</span></>}
+                          </p>
+                        )}
                       </div>
 
-                      {/* Action */}
                       <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
                         <TestActionButton
                           test={test}
@@ -583,7 +556,7 @@ export default function SubcategoryPage() {
                           onStart={() => setLocation(`/test/${test.id}`)}
                           onBuy={() => setLocation("/packages")}
                           onUnlock={() => user ? void startPaidCheckout(test) : setLocation("/login/student")}
-                          onReview={() => setLocation(`/result?testId=${encodeURIComponent(test.id)}`)}
+                          onReview={() => latestAttempt && setLocation(`/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(test.id)}&tab=review`)}
                         />
                       </div>
                     </div>
@@ -593,7 +566,6 @@ export default function SubcategoryPage() {
             )}
           </div>
 
-          {/* Sticky sidebar */}
           {examPackages.length > 0 && (
             <div className="w-full xl:w-72 xl:shrink-0">
               <div className="sticky top-6 space-y-3">
@@ -612,7 +584,6 @@ export default function SubcategoryPage() {
                             : "border-border/60 shadow-md hover:shadow-lg"
                       }`}
                     >
-                      {/* Gradient header strip */}
                       <div className={`px-4 pt-4 pb-3 ${
                         owned
                           ? "bg-gradient-to-br from-emerald-50 to-teal-50/60"
@@ -646,16 +617,11 @@ export default function SubcategoryPage() {
                         </div>
                       </div>
 
-                      {/* Features list */}
                       <div className="bg-card px-4 py-3 border-t border-border/40">
-                        <div className="grid grid-cols-3 divide-x divide-border/40 mb-3 text-center">
+                        <div className="grid grid-cols-2 divide-x divide-border/40 mb-3 text-center">
                           <div className="pr-2">
                             <p className="text-sm font-black text-foreground">{ep.testIds.length}</p>
                             <p className="text-[10px] font-medium text-muted-foreground leading-tight">Tests</p>
-                          </div>
-                          <div className="px-2">
-                            <p className="text-sm font-black text-foreground">1 yr</p>
-                            <p className="text-[10px] font-medium text-muted-foreground leading-tight">Validity</p>
                           </div>
                           <div className="pl-2">
                             <p className="text-sm font-black text-foreground">Full</p>
@@ -665,11 +631,11 @@ export default function SubcategoryPage() {
                         <ul className="space-y-1 text-xs text-muted-foreground">
                           <li className="flex items-center gap-1.5">
                             <ShieldCheck className="h-3 w-3 shrink-0 text-emerald-600" />
-                            Attempts, solutions &amp; analytics
+                            Attempts and solution review
                           </li>
                           <li className="flex items-center gap-1.5">
                             <RotateCcw className="h-3 w-3 shrink-0 text-sky-600" />
-                            Unlimited retries
+                            Retake available tests
                           </li>
                         </ul>
                         <Button
@@ -692,16 +658,15 @@ export default function SubcategoryPage() {
                 })}
               </div>
 
-              {/* What you'll get */}
               <div className="mt-3 rounded-xl border border-border/50 bg-muted/25 px-4 py-3">
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">What you'll get</p>
                 <ul className="space-y-1.5">
                   {[
                     { icon: <ShieldCheck className="h-3 w-3 text-emerald-600" />, text: "Detailed answer explanations" },
-                    { icon: <RotateCcw className="h-3 w-3 text-sky-600" />,       text: "Unlimited retries" },
-                    { icon: <Clock3 className="h-3 w-3 text-primary/70" />,       text: "Timed exam-like environment" },
-                    { icon: <Hash className="h-3 w-3 text-violet-500" />,         text: "Performance score & analytics" },
-                    { icon: <BookOpen className="h-3 w-3 text-amber-600" />,      text: "Full & sectional coverage" },
+                    { icon: <RotateCcw className="h-3 w-3 text-sky-600" />, text: "Retake available tests" },
+                    { icon: <Clock3 className="h-3 w-3 text-primary/70" />, text: "Configured timed test environment" },
+                    { icon: <Hash className="h-3 w-3 text-violet-500" />, text: "Saved scores and solution review" },
+                    { icon: <BookOpen className="h-3 w-3 text-amber-600" />, text: "Published full and sectional coverage" },
                   ].map((item, i) => (
                     <li key={i} className="flex items-center gap-1.5 text-xs text-muted-foreground">
                       {item.icon}
@@ -734,7 +699,6 @@ type TestActionButtonProps = {
 
 function TestActionButton({ isLocked, pkgOwned, pkg, activeSession, attempted, user, onStart, onBuy, onUnlock, onReview }: TestActionButtonProps) {
   if (!isLocked || pkgOwned) {
-    // If already completed, always show Retry (even if a stale active session exists)
     if (activeSession && !attempted) {
       return (
         <Button size="sm" className="rounded-lg bg-sky-600 hover:bg-sky-700 text-white shadow-sm font-bold" onClick={onStart}>
@@ -772,7 +736,7 @@ function TestActionButton({ isLocked, pkgOwned, pkg, activeSession, attempted, u
     );
   }
   return (
-        <Button size="sm" variant="outline" className="rounded-lg border-muted-foreground/30 font-medium" onClick={onUnlock}>
+    <Button size="sm" variant="outline" className="rounded-lg border-muted-foreground/30 font-medium" onClick={onUnlock}>
       {user ? <><CreditCard className="mr-1.5 h-3.5 w-3.5" />Unlock</> : <><LogIn className="mr-1.5 h-3.5 w-3.5" />Sign in</>}
     </Button>
   );
@@ -848,7 +812,6 @@ function ExamDescription({
 }) {
   const [expanded, setExpanded] = useState(false);
 
-  // Clamp to ~2-3 lines (120 chars)
   const CLAMP = 120;
   const isLong = text.length > CLAMP;
   const shortText = isLong ? `${text.slice(0, CLAMP)}…` : text;
@@ -856,27 +819,27 @@ function ExamDescription({
   const bullets = [
     {
       icon: <BookOpen className="h-3.5 w-3.5 shrink-0 text-primary/70" />,
-      text: `Syllabus — ${examName} covers all major topics as per the latest official pattern.`,
+      text: `Coverage — ${examName} uses the current published test catalog and configured topic coverage.`,
     },
     {
       icon: <LayoutGrid className="h-3.5 w-3.5 shrink-0 text-violet-500" />,
-      text: `Exam pattern — ${
+      text: `Published formats — ${
         [fullLengthCount > 0 && `${fullLengthCount} full-length`, sectionalCount > 0 && `${sectionalCount} sectional`, topicWiseCount > 0 && `${topicWiseCount} topic-wise`]
           .filter(Boolean)
-          .join(", ")
-      } tests mirroring the official format.`,
+          .join(", ") || "no"
+      } tests are currently available.`,
     },
     {
       icon: <Clock3 className="h-3.5 w-3.5 shrink-0 text-sky-600" />,
-      text: `Timing — Tests are timed to match the official exam duration for realistic practice.`,
+      text: "Timing — Each published test uses its configured duration and section rules.",
     },
     {
       icon: <Zap className="h-3.5 w-3.5 shrink-0 text-amber-500" />,
-      text: `Difficulty levels — Questions range from foundational to advanced exam-standard.`,
+      text: "Difficulty — Published tests show the difficulty configured in the catalog.",
     },
     {
       icon: <Lock className="h-3.5 w-3.5 shrink-0 text-amber-600" />,
-      text: `Access — ${freeCount} free test${freeCount !== 1 ? "s" : ""} available instantly${paidCount > 0 ? `; ${paidCount} premium test${paidCount !== 1 ? "s" : ""} unlock via package` : ""}.`,
+      text: `Access — ${freeCount} free test${freeCount !== 1 ? "s" : ""} available${paidCount > 0 ? `; ${paidCount} locked test${paidCount !== 1 ? "s" : ""} require entitlement` : ""}.`,
     },
   ];
 

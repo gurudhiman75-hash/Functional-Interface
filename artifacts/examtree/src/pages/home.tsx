@@ -4,14 +4,13 @@ import {
   ArrowRight,
   BarChart3,
   BookOpenCheck,
-  BrainCircuit,
   CheckCircle2,
   ChevronRight,
   Clock3,
   ClipboardList,
+  Languages,
   Landmark,
   LineChart,
-  Lock,
   Search,
   ShieldCheck,
   Sparkles,
@@ -23,9 +22,7 @@ import { CategoryIcon } from "@/components/CategoryIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { Category, Subcategory, Test } from "@/lib/data";
-import {
-  buildExamTreeNodes,
-} from "@/lib/exam-tree";
+import { buildExamTreeNodes } from "@/lib/exam-tree";
 
 type ExamGroup = {
   id: string;
@@ -60,33 +57,6 @@ const toneClasses = {
   },
 };
 
-const skillNodes = [
-  { label: "Circular Logic", mastery: 76, tone: "bg-teal-500" },
-  { label: "Quant Motifs", mastery: 62, tone: "bg-indigo-600" },
-  { label: "Syllogism", mastery: 84, tone: "bg-emerald-500" },
-  { label: "DI Sets", mastery: 48, tone: "bg-amber-500" },
-  { label: "GK Recall", mastery: 71, tone: "bg-cyan-600" },
-  { label: "Punjabi QA", mastery: 58, tone: "bg-rose-500" },
-];
-
-const testimonials = [
-  {
-    name: "Amandeep K.",
-    exam: "Punjab State Exams",
-    text: "The logic playback made seating puzzles feel transparent instead of random.",
-  },
-  {
-    name: "Ritika S.",
-    exam: "SSC CGL",
-    text: "Mock analysis is sharper than a simple scorecard. I know exactly what to fix.",
-  },
-  {
-    name: "Harsh M.",
-    exam: "Banking",
-    text: "The speed and accuracy diagnosis helped me stop over-solving easy questions.",
-  },
-];
-
 function getTone(name: string): ExamGroup["tone"] {
   const normalized = name.toLowerCase();
   if (normalized.includes("ssc")) return "ssc";
@@ -100,30 +70,19 @@ function buildExamGroups(
   subcategories: Subcategory[],
   tests: Test[],
 ): ExamGroup[] {
-  return buildExamTreeNodes(
-    categories,
-    subcategories,
-    tests,
-  ).map((category) => ({
+  return buildExamTreeNodes(categories, subcategories, tests).map((category) => ({
     id: category.id,
     name: category.name,
     description: category.description,
     icon: category.icon || "Landmark",
     tone: getTone(category.name),
     tests: category.tests,
-    subExams: category.subcategories
-      .map((subExam) => ({
-        id: subExam.id,
-        name: subExam.name,
-      }))
-      .slice(0, 5),
+    subExams: category.subcategories.map((subExam) => ({ id: subExam.id, name: subExam.name })),
   }));
 }
 
-function formatCompactNumber(value: number) {
-  if (value >= 1000000) return `${(value / 1000000).toFixed(value % 1000000 === 0 ? 0 : 1)}M+`;
-  if (value >= 1000) return `${(value / 1000).toFixed(value % 1000 === 0 ? 0 : 1)}k+`;
-  return String(value);
+function formatCount(value: number) {
+  return new Intl.NumberFormat("en-IN").format(Math.max(0, value));
 }
 
 function ExamTypeIcon({ tone }: { tone: ExamGroup["tone"] }) {
@@ -145,12 +104,7 @@ export default function Home() {
   const activeSessionEntries = Object.values(activeSessions).slice(0, 2);
 
   const examGroups = useMemo(
-    () =>
-      buildExamGroups(
-        categories,
-        subcategories,
-        tests,
-      ),
+    () => buildExamGroups(categories, subcategories, tests),
     [categories, subcategories, tests],
   );
   const activeGroup = examGroups.find((group) => group.id === activeGroupId) ?? examGroups[0] ?? null;
@@ -171,9 +125,9 @@ export default function Home() {
       .filter((group) => group.name.toLowerCase().includes(normalized) || group.tests.length > 0);
   }, [examGroups, query]);
 
-  const activeGroupTests = activeGroup?.tests.slice(0, 4) ?? [];
-  const generatedQuestionCount = Math.max(1000000, tests.reduce((sum, test) => sum + test.totalQuestions, 0) * 160);
-  const activeUserCount = Math.max(12840, tests.reduce((sum, test) => sum + (test.attempts ?? 0), 0));
+  const activeGroupTests =
+    activeGroup?.tests.filter((test) => (test.access ?? "free") === "free").slice(0, 4) ?? [];
+  const catalogQuestionCount = tests.reduce((sum, test) => sum + Math.max(0, test.totalQuestions), 0);
 
   if (isLoading) {
     return (
@@ -194,12 +148,12 @@ export default function Home() {
       <section className="overflow-hidden rounded-2xl border border-slate-800 bg-[#1e1b4b] text-white shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
         <div className="grid gap-0 text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100 md:grid-cols-3">
           <div className="border-b border-white/10 px-5 py-3 md:border-b-0 md:border-r">
-            Questions Generated: {formatCompactNumber(generatedQuestionCount)}
+            Published tests: {formatCount(tests.length)}
           </div>
           <div className="border-b border-white/10 px-5 py-3 md:border-b-0 md:border-r">
-            Current Active Users: {formatCompactNumber(activeUserCount)}
+            Questions in live catalog: {formatCount(catalogQuestionCount)}
           </div>
-          <div className="px-5 py-3">Target Exams: SSC CGL, IBPS/SBI, Punjab State</div>
+          <div className="px-5 py-3">Exam families: {formatCount(examGroups.length)}</div>
         </div>
       </section>
 
@@ -210,13 +164,13 @@ export default function Home() {
             <div>
               <div className="inline-flex items-center gap-2 rounded-md border border-teal-200 bg-white/80 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-teal-700 backdrop-blur-xl">
                 <Sparkles className="h-3.5 w-3.5" />
-                Logic-first exam engine
+                Logic-first exam practice
               </div>
               <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-                India's Most Advanced Logic-Based Mock Test Series.
+                Structured mock tests for serious exam practice.
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-700">
-                Target: SSC CGL, Banking (IBPS/SBI), and Punjab State Exams with structured mocks, quant patterns, PYQs, multilingual review, and deep logic analysis.
+                Prepare for SSC, banking, and Punjab State exams with live published tests, multilingual question delivery, saved attempts, and solution review.
               </p>
               <div className="relative mt-7 max-w-2xl">
                 <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -231,14 +185,11 @@ export default function Home() {
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Button className="h-11 rounded-md bg-[#1e1b4b] px-5 text-white hover:bg-indigo-950" onClick={() => setLocation("/tests")}>
-                Unlock Mock Exam
+                Browse Live Tests
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button variant="outline" className="h-11 rounded-md border-slate-300 bg-white/80 px-5" onClick={() => setLocation("/dashboard")}>
-                let's practice
-              </Button>
-              <Button variant="outline" className="h-11 rounded-md border-slate-300 bg-white/80 px-5" onClick={() => setLocation("/performance")}>
-                View Detailed Analysis
+                View My Activity
               </Button>
             </div>
           </div>
@@ -247,42 +198,43 @@ export default function Home() {
             <div className="rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-[0_8px_30px_rgb(0,0,0,0.08)] backdrop-blur-xl">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Mastery Roadmap</p>
-                  <h2 className="mt-1 text-xl font-semibold text-slate-950">Your skill tree</h2>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Live student experience</p>
+                  <h2 className="mt-1 text-xl font-semibold text-slate-950">Built around real attempt data</h2>
                 </div>
-                <BrainCircuit className="h-6 w-6 text-indigo-700" />
+                <Target className="h-6 w-6 text-indigo-700" />
               </div>
-              <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {skillNodes.map((node) => (
-                  <div
-                    key={node.label}
-                    className="group relative flex min-h-28 flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-3 transition-all duration-300 hover:-translate-y-1 hover:ring-2 hover:ring-indigo-500 hover:ring-offset-2"
-                    style={{ clipPath: "polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%)" }}
-                  >
-                    <div className={`absolute inset-x-0 bottom-0 ${node.tone}`} style={{ height: `${node.mastery}%`, opacity: 0.14 }} />
-                    <p className="relative text-xs font-semibold text-slate-950">{node.label}</p>
-                    <p className="relative text-lg font-semibold text-slate-950">{node.mastery}%</p>
-                  </div>
-                ))}
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                  <ClipboardList className="h-5 w-5 text-indigo-700" />
+                  <p className="mt-3 text-sm font-semibold text-slate-950">Published test catalog</p>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-600">Browse the exam and test inventory currently available to students.</p>
+                </div>
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                  <Clock3 className="h-5 w-5 text-teal-700" />
+                  <p className="mt-3 text-sm font-semibold text-slate-950">Saved attempts</p>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-600">Resume an in-progress test and revisit completed attempts.</p>
+                </div>
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                  <Languages className="h-5 w-5 text-indigo-700" />
+                  <p className="mt-3 text-sm font-semibold text-slate-950">Multilingual delivery</p>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-600">Approved languages are shown when they are configured for a published test.</p>
+                </div>
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                  <CheckCircle2 className="h-5 w-5 text-teal-700" />
+                  <p className="mt-3 text-sm font-semibold text-slate-950">Solution review</p>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-600">Review evaluated attempts after submission without relying on demo analytics.</p>
+                </div>
               </div>
             </div>
 
             <div className="rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-[0_8px_30px_rgb(0,0,0,0.08)] backdrop-blur-xl">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700">Daily Logic Challenge</p>
-                  <h2 className="mt-1 text-xl font-semibold text-slate-950"> The Seating arrangement sprint</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                    Solve one high-yield arrangement puzzle before the timer resets.
-                  </p>
-                </div>
-                <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-right">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-700">Resets In</p>
-                  <p className="mt-1 text-sm font-semibold text-slate-950">08:42:10</p>
-                </div>
-              </div>
-              <Button className="mt-4 h-10 w-full rounded-md bg-teal-600 text-white hover:bg-teal-700" onClick={() => setLocation("/dashboard")}>
-                Attempt Challenge
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700">Start a focused session</p>
+              <h2 className="mt-1 text-xl font-semibold text-slate-950">Choose a live test when you are ready</h2>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                Use the test explorer to pick an exam, review its details, and start from the current published inventory.
+              </p>
+              <Button className="mt-4 h-10 w-full rounded-md bg-teal-600 text-white hover:bg-teal-700" onClick={() => setLocation("/tests")}>
+                Open Test Explorer
               </Button>
             </div>
           </div>
@@ -321,7 +273,6 @@ export default function Home() {
           <div className="grid gap-4 p-5 md:grid-cols-2">
             {(query ? filteredGroups : examGroups).slice(0, 6).map((group) => {
               const tone = toneClasses[group.tone];
-              const aspirants = Math.max(1200, group.tests.reduce((sum, test) => sum + (test.attempts ?? 0), 0));
               return (
                 <article
                   key={group.id}
@@ -341,19 +292,19 @@ export default function Home() {
                       <CategoryIcon icon={group.icon} className="h-5 w-5" />
                     </div>
                     <span className={`rounded-md border px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${tone.badge}`}>
-                      2024 patterns updated
+                      {group.tests.length} published {group.tests.length === 1 ? "test" : "tests"}
                     </span>
                   </div>
                   <h3 className="mt-4 text-lg font-semibold text-slate-950">{group.name}</h3>
                   <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">{group.description}</p>
                   <div className="mt-4 grid grid-cols-2 gap-2 rounded-2xl border border-slate-100 bg-slate-50 p-2 text-xs">
                     <div>
-                      <p className="font-semibold uppercase tracking-[0.12em] text-slate-400">Live</p>
-                      <p className="mt-1 font-semibold text-slate-950">{formatCompactNumber(aspirants)} aspirants</p>
+                      <p className="font-semibold uppercase tracking-[0.12em] text-slate-400">Tests</p>
+                      <p className="mt-1 font-semibold text-slate-950">{formatCount(group.tests.length)}</p>
                     </div>
                     <div>
-                      <p className="font-semibold uppercase tracking-[0.12em] text-slate-400">PYQs</p>
-                      <p className="mt-1 font-semibold text-teal-700">50+ added</p>
+                      <p className="font-semibold uppercase tracking-[0.12em] text-slate-400">Exam branches</p>
+                      <p className="mt-1 font-semibold text-teal-700">{formatCount(group.subExams.length)}</p>
                     </div>
                   </div>
                   <div className="mt-4 space-y-2">
@@ -392,10 +343,10 @@ export default function Home() {
               {activeSessionEntries.length === 0 && !latestAttempt ? (
                 <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center">
                   <Target className="mx-auto h-8 w-8 text-teal-700" />
-                  <p className="mt-3 text-sm font-semibold text-slate-950">No active mock yet</p>
-                  <p className="mt-1 text-sm text-slate-600">Choose an exam path and unlock your first mock exam.</p>
+                  <p className="mt-3 text-sm font-semibold text-slate-950">No active test yet</p>
+                  <p className="mt-1 text-sm text-slate-600">Choose an exam path and start with a published test.</p>
                   <Button className="mt-4 rounded-md bg-teal-600 text-white hover:bg-teal-700" onClick={() => setLocation("/tests")}>
-                    Unlock Mock Exam
+                    Browse Live Tests
                   </Button>
                 </div>
               ) : (
@@ -403,7 +354,11 @@ export default function Home() {
                   {latestAttempt && (
                     <button
                       type="button"
-                      onClick={() => setLocation(`/result?testId=${latestAttempt.testId}&tab=review`)}
+                      onClick={() =>
+                        setLocation(
+                          `/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(latestAttempt.testId)}&tab=review`,
+                        )
+                      }
                       className="flex w-full items-center justify-between rounded-2xl border border-slate-200 border-l-4 border-l-indigo-600 bg-white p-4 text-left transition-all duration-300 hover:-translate-y-0.5 hover:ring-2 hover:ring-indigo-500 hover:ring-offset-2"
                     >
                       <div>
@@ -433,21 +388,18 @@ export default function Home() {
           </div>
 
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Social proof</p>
-            <h2 className="mt-1 text-xl font-semibold text-slate-950">Aspirant feedback</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">What is live now</p>
+            <h2 className="mt-1 text-xl font-semibold text-slate-950">Production-backed student journeys</h2>
             <div className="mt-4 space-y-3">
-              {testimonials.map((item) => (
-                <div key={item.name} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                  <div className="mb-2 flex items-center gap-2">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-200 text-xs font-semibold text-slate-700 grayscale">
-                      {item.name.slice(0, 2)}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-slate-950">{item.name}</p>
-                      <p className="text-xs text-slate-500">{item.exam}</p>
-                    </div>
-                  </div>
-                  <p className="text-sm leading-relaxed text-slate-600">"{item.text}"</p>
+              {[
+                "Browse published tests and structured test series.",
+                "Resume an in-progress attempt after refresh.",
+                "Submit an attempt and reopen its saved result.",
+                "Use approved multilingual content when a test provides it.",
+              ].map((item) => (
+                <div key={item} className="flex gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" />
+                  <p className="text-sm leading-relaxed text-slate-600">{item}</p>
                 </div>
               ))}
             </div>
@@ -457,12 +409,11 @@ export default function Home() {
 
       <section className="rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
         <div className="rounded-t-2xl bg-[#1e1b4b] px-5 py-4 text-white">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100">Priority mock exams</p>
-          <h2 className="mt-1 text-2xl font-semibold">{activeGroup?.name ?? "Featured"} exam cards</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100">Featured free mocks</p>
+          <h2 className="mt-1 text-2xl font-semibold">{activeGroup?.name ?? "Featured"} tests</h2>
         </div>
         <div className="divide-y divide-slate-100">
           {activeGroupTests.map((test) => {
-            const isPaid = (test.access ?? "free") !== "free";
             const tone = toneClasses[activeGroup?.tone ?? "default"];
             return (
               <button
@@ -483,9 +434,9 @@ export default function Home() {
                   <Clock3 className="h-3.5 w-3.5" />
                   {test.duration} min
                 </span>
-                <span className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-1 text-xs font-semibold ${isPaid ? "border-amber-200 bg-amber-50 text-amber-700" : "border-teal-200 bg-teal-50 text-teal-700"}`}>
-                  {isPaid ? <Lock className="h-3.5 w-3.5" /> : <CheckCircle2 className="h-3.5 w-3.5" />}
-                  {isPaid ? "Unlock Mock Exam" : "Free Mock Exam"}
+                <span className="inline-flex items-center gap-1.5 rounded-md border border-teal-200 bg-teal-50 px-2 py-1 text-xs font-semibold text-teal-700">
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                  Free Mock Test
                 </span>
               </button>
             );
@@ -493,8 +444,13 @@ export default function Home() {
           {activeGroupTests.length === 0 && (
             <div className="p-8 text-center text-sm text-slate-600">
               <BookOpenCheck className="mx-auto h-8 w-8 text-teal-700" />
-              <p className="mt-3 font-semibold text-slate-950">No priority mock selected</p>
-              <p className="mt-1">Select a category above to view its exam cards.</p>
+              <p className="mt-3 font-semibold text-slate-950">No free featured test in this category yet</p>
+              <p className="mt-1">Open the category to see the current published inventory.</p>
+              {activeGroup && (
+                <Button variant="outline" className="mt-4" onClick={() => setLocation(`/category/${activeGroup.id}`)}>
+                  Open Category
+                </Button>
+              )}
             </div>
           )}
         </div>

@@ -99,7 +99,7 @@ export default function ActivityPage() {
         <Card><CardContent className="p-5"><Target className="h-5 w-5 text-indigo-600" /><p className="mt-4 text-2xl font-bold">{stats.count}</p><p className="text-sm text-muted-foreground">Real attempts</p></CardContent></Card>
         <Card><CardContent className="p-5"><BarChart3 className="h-5 w-5 text-indigo-600" /><p className="mt-4 text-2xl font-bold">{stats.averageScore}%</p><p className="text-sm text-muted-foreground">Average score</p></CardContent></Card>
         <Card><CardContent className="p-5"><CheckCircle2 className="h-5 w-5 text-emerald-600" /><p className="mt-4 text-2xl font-bold">{stats.accuracy}%</p><p className="text-sm text-muted-foreground">Overall accuracy</p></CardContent></Card>
-        <Card><CardContent className="p-5"><Clock3 className="h-5 w-5 text-amber-600" /><p className="mt-4 text-2xl font-bold">{stats.minutes}m</p><p className="text-sm text-muted-foreground">Practice time</p></CardContent></Card>
+        <Card><CardContent className="p-5"><Clock3 className="h-5 w-5 text-amber-600" /><p className="mt-4 text-2xl font-bold">{stats.minutes}m</p><p className="text-sm text-muted-foreground">Test time</p></CardContent></Card>
       </div>
 
       <Card>
@@ -130,7 +130,7 @@ export default function ActivityPage() {
         </CardContent>
       </Card>
 
-      <Card className="border-dashed"><CardContent className="flex flex-col justify-between gap-3 p-5 sm:flex-row sm:items-center"><div><p className="font-semibold">{testsQuery.data?.length ?? 0} published tests available</p><p className="text-sm text-muted-foreground">Analytics, rankings, packages, and payments will be enabled only after their canonical services are complete.</p></div><Button asChild variant="outline"><Link href="/tests">Open test explorer</Link></Button></CardContent></Card>
+      <Card className="border-dashed"><CardContent className="flex flex-col justify-between gap-3 p-5 sm:flex-row sm:items-center"><div><p className="font-semibold">{testsQuery.data?.length ?? 0} published tests available</p><p className="text-sm text-muted-foreground">Browse the current published catalog and continue from your saved attempt history.</p></div><Button asChild variant="outline"><Link href="/tests">Open test explorer</Link></Button></CardContent></Card>
     </div>
   );
 }
