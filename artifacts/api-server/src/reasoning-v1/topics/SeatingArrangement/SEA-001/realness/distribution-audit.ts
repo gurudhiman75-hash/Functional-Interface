@@ -57,7 +57,7 @@ function matrixFromChildIndexDistribution(
 }
 
 function spreadByChildIndex(
-  matrix: Readonly<Record<string, Readonly<Record<string, number>>>,
+  matrix: Readonly<Record<string, Readonly<Record<string, number>>>>,
 ): Readonly<Record<string, number>> {
   return Object.fromEntries(Object.entries(matrix).map(([childIndex, positions]) => {
     const counts = [0, 1, 2, 3].map((position) => positions[String(position)] ?? 0);
