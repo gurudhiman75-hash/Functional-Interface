@@ -84,9 +84,11 @@ for (const qlId of qlIds) {
     const replay = generateStaDiscoveryQuestion(seed, qlId);
     assert.deepEqual(first, replay, `${qlId}/${seed}: generation is not deterministic`);
     assertStaDiscoveryQuestionIntegrity(first);
+    assert.equal(first.qlId, qlId);
     assert.equal(first.proposedQlId, qlId);
     assert.equal(first.oracleParity, true);
-    assert.equal(first.lifecycle.permanentQlCount, 0);
+    assert.equal(first.lifecycle.maturity, "PERMANENT_QL_SEMANTIC_FREEZE");
+    assert.equal(first.lifecycle.permanentQlCount, 4);
     assert.equal(first.lifecycle.questionStudioDiscoverable, false);
     assert.equal(first.lifecycle.questionBankWritable, false);
     assert.equal(first.lifecycle.testEligible, false);
@@ -125,7 +127,7 @@ assert.ok(generatedImplicit > 0 && generatedNotImplicit > 0, "Both implicit and 
 assert.ok(generatedAllThreeImplicit > 0, "SSC-style all-three-implicit answer outcome must be generated");
 
 console.log("PASS_STA_001_EXECUTABLE_DISCOVERY_QL001_QL004");
-console.log(`temporary proposed QLs ${qlIds.length}`);
+console.log(`frozen semantic QLs ${qlIds.length}`);
 console.log(`curated scenario authorities ${STA_EXECUTABLE_SCENARIOS.length}`);
 console.log(`generated deterministic questions ${generated}`);
 console.log(`generated candidate assumptions ${generatedCandidates}`);
@@ -138,5 +140,5 @@ console.log(`dependency-removal mutation checks ${dependencyRemovalChecks}`);
 console.log(`explicitness mutation checks ${explicitnessMutationChecks}`);
 console.log(`answer positions ${qlIds.map((qlId) => `${qlId}:${answerPositions.get(qlId)!.join("/")}`).join(" | ")}`);
 console.log(`elapsed milliseconds ${Math.round(performance.now() - start)}`);
-console.log("permanent QLs 0");
+console.log("permanent QLs 4");
 console.log("Question Studio false");
