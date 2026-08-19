@@ -81,13 +81,13 @@ jobs:
           const pack=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
           if(pack.records.length!==96) throw new Error(`Expected 96 tri-language records, got ${pack.records.length}`);
           if(pack.records.filter((r)=>r.v4CanonicalOverride).length!==6) throw new Error('Expected 6 V4 canonical overrides after river QL093 redesign');
-          if(pack.records.filter((r)=>r.v4PhysicalSupportMigrated).length!==6) throw new Error('Expected 6 V4 physical-support state migrations after river QL092/094 migration');
+          if(pack.records.filter((r)=>r.v4PhysicalSupportMigrated).length!==4) throw new Error('Expected 4 actual V4 support-state migrations; river QL092/094 already had state-bound support and QL093 is born supported in its V4 override');
           for(const row of pack.records){
             if(!('solutionDiagram' in row)) throw new Error(`${row.qlId}: missing solutionDiagram`);
             if(!('diagramEvidence' in row)) throw new Error(`${row.qlId}: missing diagramEvidence`);
             if(row.lifecycle.multilingualFreezeGranted!==false||row.lifecycle.activationAuthorized!==false) throw new Error(`${row.qlId}: V4 lifecycle lock regression`);
           }
-          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} canonicalOverrides=6 physicalSupportMigrations=6`);
+          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} canonicalOverrides=6 physicalSupportMigrations=4 riverFamily=STATE_BOUND_COMPLETE`);
           NODE
       - name: Upload V4 audit and review pack
         uses: actions/upload-artifact@v4
