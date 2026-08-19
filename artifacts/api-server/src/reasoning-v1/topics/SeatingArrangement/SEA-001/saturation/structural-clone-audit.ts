@@ -1,4 +1,5 @@
 import { canonicalDigest } from "../canonical.ts";
+import { SEA_001_ENGLISH_NAME_POOL } from "../generation/name-pool.ts";
 import { seatCountOf, type AuditCaselet } from "./corpus.ts";
 
 export interface Sea001CloneClusterStats {
@@ -16,6 +17,7 @@ export interface Sea001StructuralCloneAudit {
   readonly lexicalTemplate: Sea001CloneClusterStats;
   readonly structuralQueryCombination: Sea001CloneClusterStats;
   readonly authorityStructureByBlueprint: Readonly<Record<string, Sea001CloneClusterStats>>;
+  readonly participantExtractionFailureCount: number;
   readonly methodology: "ROLE_GRAPH_V1_TELEMETRY_ONLY";
   readonly thresholdStatus: "UNSET_PENDING_MEASUREMENT";
 }
@@ -29,7 +31,11 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function participantsOf(caselet: AuditCaselet): readonly string[] {
+function containsWholeWord(text: string, value: string): boolean {
+  return new RegExp(`\\b${escapeRegExp(value)}\\b`, "u").test(text);
+}
+
+function solverParticipants(caselet: AuditCaselet): readonly string[] {
   const key = caselet.solverOracleAgreement.productionKeys[0] ?? "";
   const orderPart = key.split("|")[0] ?? "";
   const separator = orderPart.includes(">") ? ">" : ",";
@@ -37,6 +43,29 @@ function participantsOf(caselet: AuditCaselet): readonly string[] {
     .split(separator)
     .map((value) => value.trim())
     .filter(Boolean))];
+}
+
+/**
+ * Structural canonicalisation must operate on the names that actually occur in rendered
+ * clue text. Circular/mixed generators keep P1/P2/... inside solver keys but replace them
+ * with broad display names before learners see the caselet. Using solver IDs here would
+ * miss every rendered participant mention and falsely inflate novelty.
+ */
+function participantsOf(caselet: AuditCaselet): readonly string[] {
+  const learnerSurface = [
+    caselet.setupText,
+    ...caselet.clueTexts,
+    ...caselet.children.flatMap((child) => [
+      child.text,
+      ...child.options.map((option) => option.display),
+    ]),
+  ].join("\n");
+  const rendered = SEA_001_ENGLISH_NAME_POOL.filter((name) => containsWholeWord(learnerSurface, name));
+  return rendered.length ? rendered : solverParticipants(caselet);
+}
+
+function participantExtractionComplete(caselet: AuditCaselet): boolean {
+  return participantsOf(caselet).length === seatCountOf(caselet);
 }
 
 function swapDirectionalWords(value: string): string {
@@ -58,7 +87,7 @@ function clueRecords(
   mirror: boolean,
   maskNumbers: boolean,
 ): readonly ClueRecord[] {
-  const participants = participantsOf(caselet).sort((left, right) => right.length - left.length);
+  const participants = [...participantsOf(caselet)].sort((left, right) => right.length - left.length);
   return caselet.clueTexts.map((source) => {
     let text = mirror ? swapDirectionalWords(source) : source;
     const mentions: { id: string; index: number; ordinal: number }[] = [];
@@ -158,7 +187,7 @@ export function sea001StructuralQueryCombinationFingerprint(caselet: AuditCasele
 }
 
 export function sea001LexicalTemplateFingerprint(caselet: AuditCaselet): string {
-  const participants = participantsOf(caselet).sort((left, right) => right.length - left.length);
+  const participants = [...participantsOf(caselet)].sort((left, right) => right.length - left.length);
   const normalize = (source: string) => {
     let text = source;
     for (const personId of participants) {
@@ -198,8 +227,10 @@ export function auditSea001StructuralClones(caselets: readonly AuditCaselet[]): 
   const nearFingerprints: string[] = [];
   const lexicalFingerprints: string[] = [];
   const structuralQueryFingerprints: string[] = [];
+  let participantExtractionFailureCount = 0;
 
   for (const caselet of caselets) {
+    if (!participantExtractionComplete(caselet)) participantExtractionFailureCount += 1;
     const authority = sea001AuthorityStructureFingerprint(caselet);
     authorityFingerprints.push(authority);
     familyFingerprints.push(sea001FamilyStructureFingerprint(caselet));
@@ -221,6 +252,7 @@ export function auditSea001StructuralClones(caselets: readonly AuditCaselet[]): 
     authorityStructureByBlueprint: Object.fromEntries([...byBlueprint.entries()]
       .sort(([left], [right]) => left.localeCompare(right))
       .map(([blueprint, fingerprints]) => [blueprint, clusterStats(fingerprints)])),
+    participantExtractionFailureCount,
     methodology: "ROLE_GRAPH_V1_TELEMETRY_ONLY",
     thresholdStatus: "UNSET_PENDING_MEASUREMENT",
   };
