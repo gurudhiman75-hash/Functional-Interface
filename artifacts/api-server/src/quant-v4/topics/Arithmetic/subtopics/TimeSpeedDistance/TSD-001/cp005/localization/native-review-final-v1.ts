@@ -9,7 +9,7 @@ const GURMUKHI = /[\u0A00-\u0A7F]/u;
 const PLACEHOLDER = /\{[^}]+\}/u;
 const LATIN_WORD = /[A-Za-z]{2,}/gu;
 const ALLOWED_LATIN = new Set(["km", "PQ", "PM", "tA", "tB"]);
-const MATH_ONLY = /^[\d\s.,:;()+\-−–×/=A-Za-z]+$/u;
+const MATH_ONLY = /^[\d\s.,:;()+\-−–×/=A-Za-z।]+$/u;
 
 function polishNotation(text: string): string {
   return text
