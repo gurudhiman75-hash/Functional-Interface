@@ -23,6 +23,11 @@ const focus = Object.fromEntries(
 );
 
 console.log("SEA001_HARDENING_FOCUS", JSON.stringify(focus));
+console.log("SEA001_HARDENING_ANSWER_POSITIONS", JSON.stringify(distribution.answerPositions));
+console.log("SEA001_HARDENING_CHILD_INDEX_CONCENTRATION", JSON.stringify(distribution.answerPositionByChildIndex));
+console.log("SEA001_HARDENING_CHILD_INDEX_MATRIX", JSON.stringify(distribution.answerPositionByChildIndexMatrix));
+console.log("SEA001_HARDENING_HINDI_QUESTION_TEMPLATES", JSON.stringify(multilingual.Hindi.questionTemplates));
+console.log("SEA001_HARDENING_PUNJABI_QUESTION_TEMPLATES", JSON.stringify(multilingual.Punjabi.questionTemplates));
 console.log("SEA001_HARDENING_MACHINE_STATUS", assessment.status);
 console.log("SEA001_HARDENING_BLOCKERS", JSON.stringify(assessment.blockers));
 
