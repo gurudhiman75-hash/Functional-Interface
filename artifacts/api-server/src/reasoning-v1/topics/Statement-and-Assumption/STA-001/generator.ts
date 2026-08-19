@@ -1,6 +1,6 @@
 import { STA_EXECUTABLE_DISCOVERY_LIFECYCLE } from "./lifecycle.ts";
 import { answerSetForSelectedCandidates, assertScenarioOracleParity, evaluateAssumptionOracle } from "./oracle.ts";
-import { STA_SCENARIOS_BY_QL } from "./prototypes.ts";
+import { STA_SCENARIOS_BY_QL } from "./prototype-authorities.ts";
 import type {
   StaAnswerSet,
   StaCandidateAuthority,
