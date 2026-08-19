@@ -370,7 +370,8 @@ router.post(
             ${randomUUID()}::uuid, 'generation_run', ${runId}::uuid,
             'question_studio.generation_run.created',
             ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length })}
-          `;
+          )
+        `;
       });
 
       res.status(201).json({
