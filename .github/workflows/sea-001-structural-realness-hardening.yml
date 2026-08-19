@@ -1,0 +1,34 @@
+name: Validate SEA-001 structural realness hardening
+
+on:
+  push:
+    branches:
+      - feat/sea-001-structural-realness-hardening
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
+      - .github/workflows/sea-001-structural-realness-hardening.yml
+  pull_request:
+    branches:
+      - feat/sea-001-realness-final-gate
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  structural-realness-hardening:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate affected generators
+        run: |
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-source-audit-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/cp003-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/cp004-proof.test.ts
+      - name: Remeasure full 1,600-caselet realness gate
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-structural-hardening-proof.test.ts
