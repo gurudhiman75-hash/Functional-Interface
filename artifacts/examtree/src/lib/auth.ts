@@ -97,11 +97,14 @@ async function terminateStudentSession(input: {
     }
   }
 
+  // Canonical account state plus the cleared local student state are the
+  // authority for ejection. Firebase sign-out is best-effort cleanup and must
+  // never hold a revoked/suspended student inside an already-open test runner.
   clearAuth();
   clearStudentLocalData();
   const auth = getFirebaseAuth();
   if (auth?.currentUser) {
-    await signOut(auth).catch(() => undefined);
+    void signOut(auth).catch(() => undefined);
   }
   if (typeof window !== "undefined" && !window.location.pathname.startsWith("/login")) {
     window.location.replace(`/login?reason=${input.reason}`);
