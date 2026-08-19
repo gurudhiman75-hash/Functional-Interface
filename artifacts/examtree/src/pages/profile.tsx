@@ -81,7 +81,8 @@ export default function ProfilePage() {
     );
     const bestScore = analytics?.highestScore ?? (
       attempts && attempts.length > 0
-        ? Math.max(...attempts.map((item) => item.score))
+        ? Math.max(...attempts.map((item) => item.score)
+        )
         : 0
     );
 
@@ -124,7 +125,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto p-4 md:p-6">
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
