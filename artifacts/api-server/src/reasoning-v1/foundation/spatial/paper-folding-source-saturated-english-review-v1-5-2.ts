@@ -188,13 +188,13 @@ function semanticTransparent(question: PfcTpfEnglishReviewQuestionV1): PfcTpfEng
       wrong = [
         transparentSvg(hole(80,70,2.1,true)),
         transparentSvg(hole(75,30,2.1,true)+hole(20,70,2.1,true)),
-        transparentSvg(hole(25,70,2.1,true)+hole(80,30,2.1,true)),
+        transparentSvg(hole(25,70,2.1,true)+hole(20,30,2.1,true)),
       ]; break;
     case "TPF-W1-HORIZONTAL-POINT-PAIR":
       wrong = [
         transparentSvg(hole(72,76,2.1,true)),
         transparentSvg(hole(28,78,2.1,true)+hole(72,24,2.1,true)),
-        transparentSvg(hole(72,22,2.1,true)+hole(28,76,2.1,true)),
+        transparentSvg(hole(72,22,2.1,true)+hole(28,24,2.1,true)),
       ]; break;
     case "TPF-W2-VERTICAL-TRIANGLE-CIRCLE":
       wrong = [
@@ -212,7 +212,7 @@ function semanticTransparent(question: PfcTpfEnglishReviewQuestionV1): PfcTpfEng
       wrong = [
         transparentSvg(line(50,40.875,52,42)+line(52,42,82,24)+line(50,72,76,72)),
         transparentSvg(polyline([[20,24],[52,42],[82,24]])+line(28,72,76,72)),
-        transparentSvg(line(20,76,52,58)+line(52,58,82,76)+line(28,28,76,28)),
+        transparentSvg(polyline([[20,76],[52,58],[82,76]])),
       ]; break;
     case "TPF-W2-HORIZONTAL-CROSSING-POLYGON":
       wrong = [
