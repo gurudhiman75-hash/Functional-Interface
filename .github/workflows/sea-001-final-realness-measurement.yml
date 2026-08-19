@@ -7,6 +7,13 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
       - .github/workflows/sea-001-final-realness-measurement.yml
+  pull_request:
+    branches:
+      - feat/sea-001-wave5-saturation-audits
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
+      - .github/workflows/sea-001-final-realness-measurement.yml
   workflow_dispatch:
 
 permissions:
