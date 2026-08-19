@@ -13,6 +13,7 @@ export const PFC_TPF_SOURCE_SATURATED_ENGLISH_REVIEW_AUTHORITY_V1_5_3 = Object.f
     "STRUCTURAL_MULTI_SVG_STAGE_DETECTION",
     "NO_TASK_KIND_DEPENDENCY_FOR_STAGE_ZOOM",
     "PACKET_BOUNDS_FITTED_VIEWBOX_PER_STAGE",
+    "FOLDED_PACKET_FAFAFA_INCLUDED_IN_PAPER_BOUNDS",
     "THREE_FOLD_FORWARD_FIXED_STAGE_SCALE",
     "REVERSE_PROCESS_FIXED_STAGE_SCALE",
     "HORIZONTAL_SCROLL_INSTEAD_OF_PROGRESSIVE_SHRINK",
@@ -23,6 +24,7 @@ export const PFC_TPF_SOURCE_SATURATED_ENGLISH_REVIEW_AUTHORITY_V1_5_3 = Object.f
 const NUMBER_RE = /-?\d+(?:\.\d+)?/g;
 const SVG_RE = /<svg\b[\s\S]*?<\/svg>/g;
 const q = (value: number) => Math.round(value * 1000) / 1000;
+const PAPER_FILL_RE = /\bfill="(?:white|#fafafa)"/i;
 
 interface BoundsV1_5_3 {
   minX: number;
@@ -54,7 +56,7 @@ function paperBounds(svg: string): BoundsV1_5_3 | null {
   let bounds: BoundsV1_5_3 | null = null;
 
   for (const tag of svg.match(/<polygon\b[^>]*\/?\s*>/g) ?? []) {
-    if (!/\bfill="white"/i.test(tag) || !/\bstroke="(?:#111|black)"/i.test(tag)) continue;
+    if (!PAPER_FILL_RE.test(tag) || !/\bstroke="(?:#111|black)"/i.test(tag)) continue;
     const points = attrString(tag, "points")?.match(NUMBER_RE)?.map(Number) ?? [];
     for (let index = 0; index + 1 < points.length; index += 2) {
       bounds = includeBounds(bounds, points[index], points[index + 1]);
@@ -62,7 +64,7 @@ function paperBounds(svg: string): BoundsV1_5_3 | null {
   }
 
   for (const tag of svg.match(/<rect\b[^>]*\/?\s*>/g) ?? []) {
-    if (!/\bfill="white"/i.test(tag) || !/\bstroke="(?:#111|black)"/i.test(tag)) continue;
+    if (!PAPER_FILL_RE.test(tag) || !/\bstroke="(?:#111|black)"/i.test(tag)) continue;
     const x = attrNumber(tag, "x") ?? 0;
     const y = attrNumber(tag, "y") ?? 0;
     const width = attrNumber(tag, "width");
@@ -73,7 +75,7 @@ function paperBounds(svg: string): BoundsV1_5_3 | null {
   }
 
   for (const tag of svg.match(/<circle\b[^>]*\/?\s*>/g) ?? []) {
-    if (!/\bfill="white"/i.test(tag) || !/\bstroke="(?:#111|black)"/i.test(tag)) continue;
+    if (!PAPER_FILL_RE.test(tag) || !/\bstroke="(?:#111|black)"/i.test(tag)) continue;
     const cx = attrNumber(tag, "cx");
     const cy = attrNumber(tag, "cy");
     const radius = attrNumber(tag, "r");
