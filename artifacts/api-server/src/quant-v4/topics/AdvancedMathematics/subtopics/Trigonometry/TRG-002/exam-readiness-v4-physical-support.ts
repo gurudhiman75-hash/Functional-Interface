@@ -116,7 +116,9 @@ export function applyTrg002V4PhysicalSupportMigration(question: any) {
     };
   }
 
-  const diagram = validateTrg002DiagramSpec(diagramEvidence.solutionDiagram);
+  const solutionDiagram = diagramEvidence.solutionDiagram;
+  if (!solutionDiagram) throw new Error(`${qlId}: V4 physical-support migration lost solution diagram after augmentation.`);
+  const diagram = validateTrg002DiagramSpec(solutionDiagram);
   const diagramPolicy = validateTrg002DiagramEvidence(state, diagramEvidence);
   if (!spatial.valid || !diagram.valid || !diagramPolicy.valid) {
     throw new Error(`${qlId}: V4 physical-support migration failed canonical spatial/diagram validation.`);
@@ -134,7 +136,7 @@ export function applyTrg002V4PhysicalSupportMigration(question: any) {
     question: {
       ...question,
       canonicalSpatialState: state,
-      solutionDiagram: diagramEvidence.solutionDiagram,
+      solutionDiagram,
       diagramEvidence,
       verification: {
         ...question.verification,
