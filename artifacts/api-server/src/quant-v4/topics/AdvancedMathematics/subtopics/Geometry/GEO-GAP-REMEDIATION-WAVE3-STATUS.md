@@ -52,10 +52,29 @@ All four prototypes inherit the approved Renderer-V2 contract:
 - stated angle-bisector concurrency is visually faithful;
 - the right-triangle stem visibly shows the supplied right-angle mark;
 - direct and inverse incentre-angle diagrams show the supplied angle and the target angle with explicit angle arcs;
-- point and angle labels are collision checked;
+- point and angle labels are collision checked by the runtime validator when CI executes;
 - diagrams use independent high-precision geometry verification;
 - `notToScale = true` remains mandatory;
 - internal theorem IDs never appear in learner explanations.
+
+An independent geometry/self-review pass confirmed the intended layouts are topologically correct. During that pass a distractor collision in one incentre-angle seed was found and fixed before review handoff.
+
+## CI execution state
+
+A dedicated workflow exists: `Validate Geometry Gap Remediation Wave 3`.
+
+Current GitHub Actions runs on the implementation head terminate before any workflow step executes. The Wave-3 run therefore provides **no code-test evidence** yet and must not be counted as a failed Wave-3 proof. The same pre-step termination affected unrelated workflows on the same head.
+
+Until an Actions run actually executes the workflow steps:
+
+```text
+wave3ImplementationComplete = true
+wave3RuntimeProofPassed      = false
+wave3ReviewReady             = false
+wave3Approved                = false
+```
+
+No CI result will be fabricated or inferred from the independent self-review.
 
 ## Merge/split discipline
 
