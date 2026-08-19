@@ -15,6 +15,7 @@ export const PFC_TPF_SOURCE_SATURATED_ENGLISH_REVIEW_AUTHORITY_V1_5_1 = Object.f
   supersedesReviewCandidate: PFC_TPF_SOURCE_SATURATED_ENGLISH_REVIEW_AUTHORITY_V1_5.authorityId,
   distractorRemediationV1_5_1: [
     "WHOLE_WRONG_OPTION_FAMILY_SPREAD",
+    "DOUBLE_FOLD_TRIANGLE_LAYER_COUNT_AND_AXIS_ERRORS",
     "WRONG_LAYER_COUNT_RETAINED_AS_DISTINCT_ERROR",
     "WRONG_SYMMETRY_DISTANCE_RETAINED_AS_DISTINCT_ERROR",
     "NO_MARK_DELETION_FALLBACK_COLLAPSE",
@@ -52,6 +53,62 @@ function boundaryEnd(svg: string, question: PfcTpfEnglishReviewQuestionV1): numb
   }
   const rect = body.match(/<rect\b[^>]*\/?\s*>/);
   return rect?.index === undefined ? null : openEnd + 1 + rect.index + rect[0].length;
+}
+
+function triangle(cx: number, cy: number, direction: "UP" | "DOWN" | "LEFT" | "RIGHT", size = 4.5): string {
+  let points = "";
+  if (direction === "UP") points = `${q(cx)},${q(cy - size)} ${q(cx + size)},${q(cy + size)} ${q(cx - size)},${q(cy + size)}`;
+  else if (direction === "DOWN") points = `${q(cx)},${q(cy + size)} ${q(cx + size)},${q(cy - size)} ${q(cx - size)},${q(cy - size)}`;
+  else if (direction === "LEFT") points = `${q(cx - size)},${q(cy)} ${q(cx + size)},${q(cy - size)} ${q(cx + size)},${q(cy + size)}`;
+  else points = `${q(cx + size)},${q(cy)} ${q(cx - size)},${q(cy - size)} ${q(cx - size)},${q(cy + size)}`;
+  return `<polygon points="${points}" fill="none" data-cutout="transparent" stroke="#111" stroke-width="1.2" stroke-linejoin="round"/>`;
+}
+
+function doubleTriangleWrongSvg(question: PfcTpfEnglishReviewQuestionV1, kind: 0 | 1 | 2): string {
+  const circle = question.sourceShape === "CIRCLE";
+  const width = circle ? 100 : 120;
+  const height = circle ? 100 : 80;
+  const pad = circle ? 8 : 9.6;
+  const boundary = circle
+    ? `<circle cx="50" cy="50" r="50" fill="white" stroke="#111" stroke-width="1.4"/>`
+    : `<rect x="0" y="0" width="120" height="80" fill="white" stroke="#111" stroke-width="1.4"/>`;
+  let marks = "";
+
+  if (kind === 0) {
+    // Learner unfolds only the last fold: two reflected cuts remain on one side.
+    const x = circle ? 70 : 88;
+    const y1 = circle ? 32 : 22;
+    const y2 = circle ? 68 : 58;
+    marks = `${triangle(x, y1, "UP")}${triangle(x, y2, "DOWN")}`;
+  } else if (kind === 1) {
+    // Learner uses the wrong symmetry axes: four cuts appear on cardinal/extreme positions.
+    if (circle) {
+      marks = `${triangle(50, 9, "UP")}${triangle(91, 50, "RIGHT")}${triangle(50, 91, "DOWN")}${triangle(9, 50, "LEFT")}`;
+    } else {
+      marks = `${triangle(15, 10, "UP")}${triangle(105, 10, "UP")}${triangle(15, 70, "DOWN")}${triangle(105, 70, "DOWN")}`;
+    }
+  } else {
+    // Learner does not unfold either crease: only the original folded cut is shown.
+    const x = circle ? 69 : 87;
+    const y = circle ? 34 : 25;
+    marks = triangle(x, y, "UP", 5);
+  }
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${q(-pad)} ${q(-pad)} ${q(width + 2 * pad)} ${q(height + 2 * pad)}" width="150" height="150" style="background:#fff" role="img">${boundary}${marks}</svg>`;
+}
+
+function semanticDoubleTriangleChoices(question: PfcTpfEnglishReviewQuestionV1): PfcTpfEnglishReviewQuestionV1 | null {
+  if (!question.sourceId.includes("DOUBLE-TRIANGLE")) return null;
+  let wrong = 0;
+  const options = question.options.map((option) => option.optionId === question.correctOptionId
+    ? option
+    : { ...option, svg: doubleTriangleWrongSvg(question, wrong++ as 0 | 1 | 2) });
+  const candidate = { ...question, options };
+  const distance = minimumPatternOptionDistanceV1_5(candidate);
+  if (distance + 1e-9 < PFC_TPF_REVIEW_V1_5_MIN_PATTERN_DISTANCE) {
+    throw new Error(`${question.reviewQuestionId} semantic double-triangle choices remain too similar at ${distance.toFixed(3)}.`);
+  }
+  return candidate;
 }
 
 function affine(value: number, center: number, factor: number, shift: number): number {
@@ -103,6 +160,8 @@ function transformWrongOption(svg: string, question: PfcTpfEnglishReviewQuestion
 
 function spreadSimilarChoices(question: PfcTpfEnglishReviewQuestionV1): PfcTpfEnglishReviewQuestionV1 {
   if (question.taskKind === "REVERSE_INFERENCE") return question;
+  const semanticTriangles = semanticDoubleTriangleChoices(question);
+  if (semanticTriangles) return semanticTriangles;
   if (minimumPatternOptionDistanceV1_5(question) + 1e-9 >= PFC_TPF_REVIEW_V1_5_MIN_PATTERN_DISTANCE) return question;
 
   // Boundary notches use white eraser strokes tied to the paper edge; V1.4.1 already gives them topology-specific alternatives.
