@@ -35,8 +35,8 @@ function pa(qlId: string, stem: string): SurfaceResult {
     if (m) return { stem: `${m[1]} m ਉੱਚੀ ਇਮਾਰਤ ਦੀ ਛੱਤ ਤੋਂ ਸਾਹਮਣੇ ਸਥਿਤ ਇੱਕ ਖੰਭੇ ਦੀ ਚੋਟੀ ਦਾ ਨਿਵਾਣ ਕੋਣ ${m[3]}° ਹੈ। ਇਮਾਰਤ ਅਤੇ ਖੰਭੇ ਦੇ ਅਧਾਰਾਂ ਵਿਚਕਾਰ ਖਿਤਿਜੀ ਦੂਰੀ ${m[2]} m ਹੈ। ਖੰਭੇ ਦੀ ਉਚਾਈ ਕੱਢੋ।`, scenarioTextApplied: true, scenarioId: "URBAN_ROOFTOP_TO_POLE", diagramMigrationRequired: true };
   }
   if (["TRG-002-QL-019","TRG-002-QL-020","TRG-002-QL-022"].includes(qlId)) {
-    m = /^ਜ਼ਮੀਨ ਤੋਂ (.+?) m ਉੱਚੇ ਨਿਰੀਖਣ ਬਿੰਦੂ ਤੋਂ (.+?) m ਉੱਚੇ ਖੰਭੇ ਦੀ ਚੋਟੀ (.+?)° ਦੇ ਨਿਵਾਣ ਕੋਣ 'ਤੇ ਦਿਖਾਈ ਦਿੰਦੀ ਹੈ। ਖੰਭੇ ਤੱਕ ਖਿਤਿਜੀ ਦੂਰੀ ਕੱਢੋ।$/u.exec(stem);
-    if (m) return { stem: `${m[1]} m ਉੱਚੀ ਇਮਾਰਤ ਦੀ ਛੱਤ ਤੋਂ ਸਾਹਮਣੇ ਸਥਿਤ ${m[2]} m ਉੱਚੇ ਖੰਭੇ ਦੀ ਚੋਟੀ ${m[3]}° ਦੇ ਨਿਵਾਣ ਕੋਣ 'ਤੇ ਦਿਖਾਈ ਦਿੰਦੀ ਹੈ। ਇਮਾਰਤ ਅਤੇ ਖੰਭੇ ਦੇ ਅਧਾਰਾਂ ਵਿਚਕਾਰ ਖਿਤਿਜੀ ਦੂਰੀ ਕੱਢੋ।`, scenarioTextApplied: true, scenarioId: "URBAN_ROOFTOP_TO_POLE", diagramMigrationRequired: true };
+    m = /^ਜ਼ਮੀਨ ਤੋਂ (.+?) m ਉੱਚੇ ਨਿਰੀਖਣ ਬਿੰਦੂ ਤੋਂ (.+?) m ਉੱਚੇ ਖੰਭੇ ਦੀ ਚੋਟੀ (.+?)° ਦੇ ਨਿਵਾਣ ਕੋਣ 'ਤੇ (?:ਦਿਖਾਈ ਦਿੰਦੀ|ਦਿਸਦੀ) ਹੈ। ਖੰਭੇ ਤੱਕ ਖਿਤਿਜੀ ਦੂਰੀ ਕੱਢੋ।$/u.exec(stem);
+    if (m) return { stem: `${m[1]} m ਉੱਚੀ ਇਮਾਰਤ ਦੀ ਛੱਤ ਤੋਂ ਸਾਹਮਣੇ ਸਥਿਤ ${m[2]} m ਉੱਚੇ ਖੰਭੇ ਦੀ ਚੋਟੀ ${m[3]}° ਦੇ ਨਿਵਾਣ ਕੋਣ 'ਤੇ ਦਿਸਦੀ ਹੈ। ਇਮਾਰਤ ਅਤੇ ਖੰਭੇ ਦੇ ਅਧਾਰਾਂ ਵਿਚਕਾਰ ਖਿਤਿਜੀ ਦੂਰੀ ਕੱਢੋ।`, scenarioTextApplied: true, scenarioId: "URBAN_ROOFTOP_TO_POLE", diagramMigrationRequired: true };
   }
   if (qlId === "TRG-002-QL-021") {
     m = /^(.+?) m ਉੱਚੇ ਨਿਰੀਖਣ ਬਿੰਦੂ ਤੋਂ ਸਮਤਲ ਜ਼ਮੀਨ ਉੱਤੇ ਇੱਕ ਬਿੰਦੂ (.+?)° ਦੇ ਨਿਵਾਣ ਕੋਣ 'ਤੇ ਦਿਖਾਈ ਦਿੰਦਾ ਹੈ। ਉਸ ਬਿੰਦੂ ਤੱਕ ਖਿਤਿਜੀ ਦੂਰੀ ਕੱਢੋ।$/u.exec(stem);
