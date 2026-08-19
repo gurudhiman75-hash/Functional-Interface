@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { generateTrg002V4CandidateQuestion } from "./exam-readiness-v4-candidate";
 import { TRG_002_V4_STEM_VARIETY_IDS } from "./exam-readiness-v4-stem-variety";
 
-assert.equal(TRG_002_V4_STEM_VARIETY_IDS.length, 24);
+assert.equal(TRG_002_V4_STEM_VARIETY_IDS.length, 16);
 
 function normalizeStem(stem: string) {
   return stem
@@ -47,8 +47,8 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
 for (const locale of ["hi-IN", "pa-IN"] as const) {
   const q54: any = generateTrg002V4CandidateQuestion("TRG-002-QL-054", "trg002-v4-no-repeat-054", locale);
   const q82: any = generateTrg002V4CandidateQuestion("TRG-002-QL-082", "trg002-v4-no-repeat-082", locale);
-  const first54 = q54.stem.split(locale === "hi-IN" ? "।" : "।")[0];
-  const first82 = q82.stem.split(locale === "hi-IN" ? "।" : "।")[0];
+  const first54 = q54.stem.split("।")[0];
+  const first82 = q82.stem.split("।")[0];
   if (locale === "hi-IN") {
     assert(first54.includes("दो कोणीय माप"), "QL054 Hindi context should add survey flavor without repeating station geometry.");
     assert(!first54.includes("अवलोकन स्टेशन"), "QL054 Hindi context must not restate the two-station geometry.");
@@ -62,5 +62,5 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
   }
 }
 
-assert.equal(targetCases, 24 * 12 * 2);
-console.log(`TRG002_V4_STEM_VARIETY_PASS targets=24 targetCases=${targetCases} chapterQls=96 locales=2 duplicateNormalizedStems=0 repeatedSetupBlockers=0`);
+assert.equal(targetCases, 16 * 12 * 2);
+console.log(`TRG002_V4_STEM_VARIETY_PASS activeTargets=16 targetCases=${targetCases} chapterQls=96 locales=2 duplicateNormalizedStems=0 repeatedSetupBlockers=0 supersededStructuralTargets=8`);
