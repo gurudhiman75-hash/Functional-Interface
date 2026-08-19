@@ -43,10 +43,11 @@ const threeFold = threeFoldIds.map((sourceId) => {
 
 for (const question of threeFold) {
   assert.equal((question.stimulusSvg.match(/class="fixed-stage"/g) ?? []).length, 4, `${question.reviewQuestionId} must expose 4 fixed stage cards.`);
-  assert.equal((question.stimulusSvg.match(/data-stage-normalized="true"/g) ?? []).length, 4, `${question.reviewQuestionId} must independently normalize all 4 stage SVGs.`);
+  assert.equal((question.stimulusSvg.match(/data-stage-normalized="true"/g) ?? []).length, 4, `${question.reviewQuestionId} must independently normalize Fold 1, Fold 2, Fold 3 and Cut/Punch.`);
 }
 
 const NUMBER_RE = /-?\d+(?:\.\d+)?/g;
+const PAPER_FILL_RE = /\bfill="(?:white|#fafafa)"/i;
 function attr(tag: string, name: string): number | null {
   const match = tag.match(new RegExp(`\\b${name}="(-?\\d+(?:\\.\\d+)?)"`));
   return match ? Number(match[1]) : null;
@@ -55,18 +56,18 @@ function paperSpan(svg: string): number | null {
   const xs: number[] = [];
   const ys: number[] = [];
   for (const tag of svg.match(/<polygon\b[^>]*\/?\s*>/g) ?? []) {
-    if (!/\bfill="white"/i.test(tag) || !/\bstroke="(?:#111|black)"/i.test(tag)) continue;
+    if (!PAPER_FILL_RE.test(tag) || !/\bstroke="(?:#111|black)"/i.test(tag)) continue;
     const values = tag.match(/\bpoints="([^"]+)"/)?.[1]?.match(NUMBER_RE)?.map(Number) ?? [];
     for (let i = 0; i + 1 < values.length; i += 2) { xs.push(values[i]); ys.push(values[i + 1]); }
   }
   for (const tag of svg.match(/<rect\b[^>]*\/?\s*>/g) ?? []) {
-    if (!/\bfill="white"/i.test(tag) || !/\bstroke="(?:#111|black)"/i.test(tag)) continue;
+    if (!PAPER_FILL_RE.test(tag) || !/\bstroke="(?:#111|black)"/i.test(tag)) continue;
     const x = attr(tag,"x") ?? 0, y = attr(tag,"y") ?? 0, w = attr(tag,"width"), h = attr(tag,"height");
     if (w === null || h === null) continue;
     xs.push(x,x+w); ys.push(y,y+h);
   }
   for (const tag of svg.match(/<circle\b[^>]*\/?\s*>/g) ?? []) {
-    if (!/\bfill="white"/i.test(tag) || !/\bstroke="(?:#111|black)"/i.test(tag)) continue;
+    if (!PAPER_FILL_RE.test(tag) || !/\bstroke="(?:#111|black)"/i.test(tag)) continue;
     const cx=attr(tag,"cx"), cy=attr(tag,"cy"), r=attr(tag,"r");
     if(cx===null||cy===null||r===null||r<10) continue;
     xs.push(cx-r,cx+r); ys.push(cy-r,cy+r);
@@ -93,6 +94,7 @@ for (const question of threeFold) {
     assert.ok(Math.abs(ratio! - 1/1.30) <= 0.015, `${question.reviewQuestionId} stage fill ${ratio!.toFixed(3)} shows progressive shrinking.`);
   }
 }
+assert.equal(threeFoldRatios.length, 16);
 assert.ok(Math.max(...threeFoldRatios)-Math.min(...threeFoldRatios) <= 0.03, "Three-fold stage scale is not visually uniform.");
 
 let reverseMultiStageOptions = 0;
