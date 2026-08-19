@@ -1,4 +1,4 @@
-name: Validate STA-001 executable discovery
+name: Validate STA-001 semantic freeze
 
 on:
   pull_request:
@@ -46,12 +46,15 @@ jobs:
             --types node \
             $(find src/reasoning-v1/topics/Statement-and-Assumption/STA-001 -name '*.ts' -print)
 
-      - name: Run STA proposed-QL executable proof
+      - name: Run STA executable proof
         env:
           STA_DISCOVERY_CASES_PER_QL: 120
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/foundation-proof.test.ts
 
-      - name: Generate STA discovery review pack
+      - name: Prove permanent STA QL semantic authority
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/permanent-ql-proof.test.ts
+
+      - name: Generate STA review pack
         env:
           STA_DISCOVERY_REVIEW_OUTPUT_DIR: /tmp/sta-001-discovery-review
           STA_DISCOVERY_REVIEW_EXAMPLES_PER_QL: 8
