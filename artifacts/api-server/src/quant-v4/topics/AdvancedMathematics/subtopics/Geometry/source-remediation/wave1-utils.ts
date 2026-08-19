@@ -6,6 +6,7 @@ import {
 } from "../../../../../shared/geometry";
 import { buildExplanation, buildOptions, proveClueMinimality, seededShuffle } from "../GEO-001/discovery/phase1-utils";
 import type { ClueMinimalityProof, MisconceptionOptionAnalysis } from "../GEO-001/discovery/phase1-types";
+import { remediateWave1Diagram } from "./wave1-diagram-remediation";
 import type {
   DiagramDisposition,
   GapWave1CheckpointId,
@@ -85,15 +86,18 @@ export function finalizeGapWave1Question(input: Readonly<{
   if (input.optionAnalysis.filter((option) => option.correct).length !== 1) errors.push("CORRECT_OPTION_NOT_UNIQUE");
   if (input.sourceEvidenceIds.length === 0) errors.push("SOURCE_EVIDENCE_MISSING");
 
+  const remediatedDiagramModel = input.diagramModel
+    ? remediateWave1Diagram(input.temporaryPrototypeId, input.diagramModel)
+    : undefined;
   const stemRequiresDiagram = input.diagramDisposition === "REQUIRED_STEM_DIAGRAM" || input.diagramDisposition === "REQUIRED_BOTH";
   const stemForbidsDiagram = input.diagramDisposition === "NO_DIAGRAM" || input.diagramDisposition === "REQUIRED_SOLUTION_DIAGRAM";
-  if (stemRequiresDiagram && !input.diagramModel) errors.push("REQUIRED_STEM_DIAGRAM_MISSING");
-  if (stemForbidsDiagram && input.diagramModel) errors.push("STEM_DIAGRAM_FORBIDDEN_BY_DISPOSITION");
-  if (input.diagramModel && input.diagramModel.disclosure !== "STEM") errors.push("STEM_DIAGRAM_DISCLOSURE_INVALID");
-  if (input.diagramModel && !input.diagramModel.notToScale) errors.push("GEOMETRY_V1_NOT_TO_SCALE_REQUIRED");
+  if (stemRequiresDiagram && !remediatedDiagramModel) errors.push("REQUIRED_STEM_DIAGRAM_MISSING");
+  if (stemForbidsDiagram && remediatedDiagramModel) errors.push("STEM_DIAGRAM_FORBIDDEN_BY_DISPOSITION");
+  if (remediatedDiagramModel && remediatedDiagramModel.disclosure !== "STEM") errors.push("STEM_DIAGRAM_DISCLOSURE_INVALID");
+  if (remediatedDiagramModel && !remediatedDiagramModel.notToScale) errors.push("GEOMETRY_V1_NOT_TO_SCALE_REQUIRED");
 
-  const stemSvg = input.diagramModel ? renderGeometrySvg(input.diagramModel) : undefined;
-  const diagramFingerprint = input.diagramModel ? diagramSemanticFingerprint(input.diagramModel) : null;
+  const stemSvg = remediatedDiagramModel ? renderGeometrySvg(remediatedDiagramModel) : undefined;
+  const diagramFingerprint = remediatedDiagramModel ? diagramSemanticFingerprint(remediatedDiagramModel) : null;
   const packageId = input.cpId === "GEO-CP-006" ? "GEO-001" : "GEO-002";
 
   return Object.freeze({
@@ -120,7 +124,7 @@ export function finalizeGapWave1Question(input: Readonly<{
     minimalityProof: input.minimalityProof,
     independentVerifierResult: input.independentVerifierResult,
     diagramDisposition: input.diagramDisposition,
-    diagramModel: input.diagramModel,
+    diagramModel: remediatedDiagramModel,
     stemSvg,
     canonicalGeometryFingerprint: fingerprint([
       input.cpId,

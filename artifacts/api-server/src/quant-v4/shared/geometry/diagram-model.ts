@@ -1,16 +1,24 @@
 export type DiagramDisclosure = "STEM" | "SOLUTION";
+export type DiagramLabelPosition = "AUTO" | "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW";
+export type DiagramSegmentExtent = "SEGMENT" | "RAY" | "LINE";
+export type DiagramSegmentStyle = "PRIMARY" | "CONSTRUCTION";
 
 export interface DiagramPoint {
   readonly id: string;
   readonly label: string;
   readonly x: number;
   readonly y: number;
+  readonly labelPosition?: DiagramLabelPosition;
+  readonly showPoint?: boolean;
 }
 
 export interface DiagramSegment {
   readonly id: string;
   readonly fromPointId: string;
   readonly toPointId: string;
+  readonly extent?: DiagramSegmentExtent;
+  readonly style?: DiagramSegmentStyle;
+  readonly extension?: number;
 }
 
 export interface DiagramCircle {
@@ -25,6 +33,8 @@ export interface DiagramAngleMark {
   readonly vertexPointId: string;
   readonly secondPointId: string;
   readonly label?: string;
+  readonly radius?: number;
+  readonly labelRadius?: number;
 }
 
 export interface DiagramRightAngleMark {
@@ -75,7 +85,13 @@ export interface GeoDiagramModel {
 export function diagramSemanticFingerprint(model: GeoDiagramModel): string {
   return JSON.stringify({
     points: [...model.points].map((point) => [point.id, point.label]).sort(),
-    segments: [...model.segments].map((segment) => [segment.id, segment.fromPointId, segment.toPointId]).sort(),
+    segments: [...model.segments].map((segment) => [
+      segment.id,
+      segment.fromPointId,
+      segment.toPointId,
+      segment.extent ?? "SEGMENT",
+      segment.style ?? "PRIMARY",
+    ]).sort(),
     circles: [...model.circles].map((circle) => [circle.id, circle.centerPointId]).sort(),
     angleMarks: [...model.angleMarks].map((mark) => [
       mark.id,
