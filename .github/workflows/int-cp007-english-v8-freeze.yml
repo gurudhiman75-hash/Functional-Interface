@@ -17,6 +17,10 @@ on:
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp007-localized-v4-audit.ts'
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp007-localized-v4-review-export.ts'
       - '.github/workflows/int-cp007-localized-v4.yml'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp007-scheme-equivalence-localized-v5.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp007-localized-v5-audit.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp007-localized-v5-review-export.ts'
+      - '.github/workflows/int-cp007-localized-v5.yml'
       - '.github/workflows/int-cp007-english-v8-freeze.yml'
   workflow_dispatch:
 
