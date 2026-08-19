@@ -5,7 +5,7 @@ on:
     branches:
       - feat/sea-001-structural-realness-hardening
     paths:
-      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-english-review.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/**
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/cp003/**
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/cp004/**
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/generation/**
@@ -30,6 +30,8 @@ jobs:
           node-version: 22
       - name: Generate deterministic learner review corpus
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-english-review.ts /tmp/sea001-review
+      - name: Prove candidate fingerprint has not drifted
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-english-review-pin-proof.test.ts /tmp/sea001-review
       - name: Re-run pinned machine-realness gate before publishing review artifact
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-structural-hardening-proof.test.ts
       - name: Upload English review candidate
