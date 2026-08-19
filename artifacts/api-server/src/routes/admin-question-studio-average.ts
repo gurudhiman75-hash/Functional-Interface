@@ -66,7 +66,10 @@ function isNumberSystemRequest(body: any) {
   const selectors = new Set(["number system", "numbers", "number theory"]);
   return (
     packageId === "num 001" ||
+    packageId === "num 002" ||
     patternId.includes("num 001") ||
+    patternId.includes("num 002") ||
+    patternId.includes("num cp 008") ||
     (selectors.has(topic) && !subtopic) ||
     (topic === "arithmetic" && selectors.has(subtopic))
   );
@@ -119,6 +122,7 @@ function inferNumberSystemCpFromQl(value: unknown) {
   if (number >= 1 && number <= 17) return "NUM-CP-003";
   if (number >= 18 && number <= 45) return "NUM-CP-004";
   if (number >= 124 && number <= 144) return "NUM-CP-001";
+  if (number >= 166 && number <= 184) return "NUM-CP-008";
   return undefined;
 }
 
@@ -191,7 +195,17 @@ router.post(
     }
 
     const count = asPositiveInteger(req.body?.count, 5, 50);
-    const defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001";
+    const requestedNumberSystemPackage = normalizeSelector(req.body?.packageId ?? req.body?.archetypeId);
+    const requestedNumberSystemCp = asString(req.body?.canonicalProblemId) || asString(req.body?.cpId);
+    const requestedNumberSystemQlCp = inferNumberSystemCpFromQl(req.body?.questionLanguageId);
+    const cp008Request = numberSystemRequest && (
+      requestedNumberSystemPackage === "num 002"
+      || requestedNumberSystemCp === "NUM-CP-008"
+      || requestedNumberSystemQlCp === "NUM-CP-008"
+    );
+    const defaultPackageId = numberSystemRequest
+      ? cp008Request ? "NUM-002" : "NUM-001"
+      : "AVG-001";
     const selectedPackageId = worRequest
       ? "WOR-001"
       : simplificationRequest
@@ -238,10 +252,10 @@ router.post(
     }
 
     if (numberSystemRequest && language !== "en") {
-      const targetCp = canonicalProblemId ?? inferredNumberSystemCp ?? "NUM-CP-001";
-      if (targetCp !== "NUM-CP-001") {
+      const targetCp = canonicalProblemId ?? inferredNumberSystemCp ?? (cp008Request ? "NUM-CP-008" : "NUM-CP-001");
+      if (targetCp !== "NUM-CP-001" && targetCp !== "NUM-CP-008") {
         res.status(400).json({
-          error: "NUM-001 supports English Question Studio generation only for NUM-CP-003 and NUM-CP-004; Hindi/Punjabi controlled review is available for NUM-CP-001.",
+          error: "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001 and NUM-CP-008; the other currently routed checkpoints remain English-only.",
         });
         return;
       }
@@ -356,8 +370,7 @@ router.post(
             ${randomUUID()}::uuid, 'generation_run', ${runId}::uuid,
             'question_studio.generation_run.created',
             ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length })}
-          )
-        `;
+          `;
       });
 
       res.status(201).json({
