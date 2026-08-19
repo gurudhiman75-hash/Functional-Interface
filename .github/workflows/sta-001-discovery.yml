@@ -59,11 +59,17 @@ jobs:
           STA_ENGLISH_CORPUS_CASES_PER_QL: 200
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-corpus-proof.test.ts
 
-      - name: Generate STA review pack
+      - name: Generate STA semantic-freeze review pack
         env:
           STA_DISCOVERY_REVIEW_OUTPUT_DIR: /tmp/sta-001-discovery-review
           STA_DISCOVERY_REVIEW_EXAMPLES_PER_QL: 8
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/review-export.ts
+
+      - name: Generate STA English corpus review pack
+        env:
+          STA_ENGLISH_REVIEW_OUTPUT_DIR: /tmp/sta-001-english-corpus-review
+          STA_ENGLISH_REVIEW_EXAMPLES_PER_QL: 15
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-review-export.ts
 
       - name: Build production API
         working-directory: artifacts/api-server
@@ -73,5 +79,12 @@ jobs:
         with:
           name: sta-001-executable-discovery-review
           path: /tmp/sta-001-discovery-review/**
+          if-no-files-found: error
+          retention-days: 14
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sta-001-english-corpus-review
+          path: /tmp/sta-001-english-corpus-review/**
           if-no-files-found: error
           retention-days: 14
