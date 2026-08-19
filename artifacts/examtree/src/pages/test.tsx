@@ -114,7 +114,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   const [sectionTimeLeftByName, setSectionTimeLeftByName] = useState<Record<string, number>>({});
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [draftLoaded, setDraftLoaded] = useState(false);
-  const [attemptType, setAttemptType] = useState<"REAL" | "PRACTICE">("REAL");
+  const [sessionHydrated, setSessionHydrated] = useState(false);
+  const [attemptType, setAttemptType] = useState<"REAL" | "PRACTICE">(initialMode ?? "REAL");
   const [lockedSections, setLockedSections] = useState<number[]>([]);
   const [originalAttemptId, setOriginalAttemptId] = useState<string | undefined>();
   const [sectionCompletionTimes, setSectionCompletionTimes] = useState<Record<string, number>>({});
@@ -187,6 +188,21 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   const flagged = allQuestions.filter((question) => Boolean(flags[question.id])).length;
   const unanswered = totalQuestions - answered;
   const currentQuestionFlagged = Boolean(flags[q?.id]);
+  const hasSectionTimerProgress =
+    hasSectionalTiming &&
+    effectiveSections.some((section, index) => {
+      const initial = getSectionLimitSeconds(index);
+      const remaining = sectionTimeLeftByName[section.name] ?? initial;
+      return remaining < initial;
+    });
+  const hasAttemptProgress =
+    Object.keys(answers).length > 0 ||
+    Object.keys(flags).length > 0 ||
+    timeLeft < totalTime ||
+    hasSectionTimerProgress ||
+    draftLoaded;
+  const shouldProtectAttempt =
+    sessionHydrated && (attemptType === "REAL" || hasAttemptProgress);
   const [visitedQuestionIds, setVisitedQuestionIds] = useState<number[]>([]);
 
   useEffect(() => {
@@ -309,6 +325,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
       }
       setShowSubmitModal(false);
       setDraftLoaded(true);
+      setSessionHydrated(true);
       toast({
         title: "Saved test resumed",
         description: `Restored your ${draft.attemptType?.toLowerCase() ?? 'saved'} attempt for ${test.name}.`,
@@ -358,6 +375,23 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
           startTime: Date.now(),
           endTime: null,
         });
+        saveActiveTestSession({
+          testId: test.id,
+          testName: test.name,
+          category: test.category,
+          currentSectionIndex: 0,
+          currentQuestionIndex: 0,
+          answers: {},
+          flags: {},
+          timeLeft: totalTime,
+          sectionTimeLeftByName: defaultSectionTimes,
+          updatedAt: Date.now(),
+          attemptType: "REAL",
+          timerMode: hasSectionalTiming ? "sectional" : "overall",
+          lockedSections: [],
+          sectionCompletionTimes: {},
+          visitedQuestionIds: [],
+        });
       }
     }
 
@@ -371,7 +405,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     setLockedSections([]);
     setSectionCompletionTimes({});
     setDraftLoaded(false);
-  }, [getSectionLimitSeconds, id, test.id, test.name, effectiveSections, toast, totalTime]);
+    setSessionHydrated(true);
+  }, [getSectionLimitSeconds, hasSectionalTiming, id, initialMode, test.category, test.id, test.name, effectiveSections, toast, totalTime]);
 
   useEffect(() => {
     const normalizedQuestionIndex = Math.min(
@@ -385,15 +420,14 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   }, [currentQuestionIndex, questions.length]);
 
   useEffect(() => {
-    if (!user || !q) return;
+    if (!user || !q || !shouldProtectAttempt) return;
 
-    const hasProgress =
-      Object.keys(answers).length > 0 ||
-      Object.keys(flags).length > 0 ||
-      timeLeft < totalTime ||
-      draftLoaded;
-
-    if (!hasProgress) return;
+    const persistedSectionTimes = Object.fromEntries(
+      effectiveSections.map((section, index) => [
+        section.name,
+        sectionTimeLeftByName[section.name] ?? getSectionLimitSeconds(index),
+      ]),
+    );
 
     saveActiveTestSession({
       testId: test.id,
@@ -404,9 +438,10 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
       answers,
       flags,
       timeLeft,
-      sectionTimeLeftByName,
+      sectionTimeLeftByName: persistedSectionTimes,
       updatedAt: Date.now(),
       attemptType,
+      timerMode: hasSectionalTiming ? "sectional" : "overall",
       lockedSections,
       originalAttemptId,
       sectionCompletionTimes,
@@ -414,28 +449,29 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     });
   }, [
     answers,
+    attemptType,
     currentQuestionIndex,
     currentSectionIndex,
-    draftLoaded,
+    effectiveSections,
     flags,
+    getSectionLimitSeconds,
+    hasSectionalTiming,
+    lockedSections,
+    originalAttemptId,
     q,
+    sectionCompletionTimes,
     sectionTimeLeftByName,
+    shouldProtectAttempt,
     test.category,
     test.id,
     test.name,
     timeLeft,
-    totalTime,
     user,
+    visitedQuestionIds,
   ]);
 
   useEffect(() => {
-    const hasProgress =
-      Object.keys(answers).length > 0 ||
-      Object.keys(flags).length > 0 ||
-      timeLeft < totalTime ||
-      draftLoaded;
-
-    if (!hasProgress) return;
+    if (!shouldProtectAttempt) return;
 
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       event.preventDefault();
@@ -444,19 +480,14 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
 
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, [answers, draftLoaded, flags, timeLeft, totalTime]);
+  }, [shouldProtectAttempt]);
 
   // Intercept browser back button — show pause modal instead of silently navigating away
   useEffect(() => {
-    const hasProgress =
-      Object.keys(answers).length > 0 ||
-      Object.keys(flags).length > 0 ||
-      timeLeft < totalTime ||
-      draftLoaded;
+    if (!shouldProtectAttempt) return;
 
-    if (!hasProgress) return;
-
-    // Push a dummy history entry so we can catch the back navigation
+    // Push a dummy history entry so we can catch the back navigation. The guard
+    // is keyed to a stable active-attempt boolean, not a clock that changes each second.
     window.history.pushState({ testGuard: true }, "");
 
     const handlePopState = () => {
@@ -469,8 +500,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     return () => {
       window.removeEventListener("popstate", handlePopState);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [draftLoaded]);
+  }, [shouldProtectAttempt]);
 
   const handleSubmit = useCallback(async () => {
     if (isSubmitting) return;
