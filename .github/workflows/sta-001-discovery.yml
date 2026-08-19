@@ -1,0 +1,69 @@
+name: Validate STA-001 executable discovery
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/**
+      - .github/workflows/sta-001-discovery.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-sta-001-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  discovery-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Statement-and-Assumption/STA-001 -name '*.ts' -print)
+
+      - name: Run STA proposed-QL executable proof
+        env:
+          STA_DISCOVERY_CASES_PER_QL: 120
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/foundation-proof.test.ts
+
+      - name: Generate STA discovery review pack
+        env:
+          STA_DISCOVERY_REVIEW_OUTPUT_DIR: /tmp/sta-001-discovery-review
+          STA_DISCOVERY_REVIEW_EXAMPLES_PER_QL: 8
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/review-export.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sta-001-executable-discovery-review
+          path: /tmp/sta-001-discovery-review/**
+          if-no-files-found: error
+          retention-days: 14
