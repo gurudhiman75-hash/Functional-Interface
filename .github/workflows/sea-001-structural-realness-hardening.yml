@@ -27,14 +27,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Apply semantic answer-slot balancing
+      - name: Apply decorrelated answer-slot balancing
         run: |
           python - <<'PY'
           from pathlib import Path
           path = Path('artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/generation/person-presentation.ts')
           text = path.read_text()
-          if 'answer-slot-v1' not in text:
-              start_marker = '    const random = new DeterministicRandom(\n      `${presentationSeed}:visible-options:'
+          if 'answer-offset-v1' not in text:
+              if 'answer-slot-v1' in text:
+                  start_marker = '    const random = new DeterministicRandom(\n      `${presentationSeed}:visible-distractors:'
+              else:
+                  start_marker = '    const random = new DeterministicRandom(\n      `${presentationSeed}:visible-options:'
               end_marker = '    };\n  }) as T[];'
               start = text.find(start_marker)
               end = text.find(end_marker, start)
@@ -42,15 +45,17 @@ jobs:
                   raise SystemExit('Expected SEA-001 option placement boundaries not found; refusing broad edit')
               end += len('    };')
               new = '''    const random = new DeterministicRandom(
-              `${presentationSeed}:visible-distractors:${child.queryContractId}:${child.answerDeterminingFactFingerprint}:Q${questionOrder}`,
+              `${presentationSeed}:visible-options:${child.queryContractId}:${child.answerDeterminingFactFingerprint}:Q${questionOrder}`,
             );
             const shuffled = random.shuffle(child.options);
-            const correctOption = shuffled.find((option) => option.isCorrect);
-            if (!correctOption) throw new Error(`SEA-001 child ${child.queryContractId} lost its correct option`);
+            const shuffledAnswerIndex = shuffled.findIndex((option) => option.isCorrect);
+            if (shuffledAnswerIndex < 0) throw new Error(`SEA-001 child ${child.queryContractId} lost its correct option`);
+            const correctOption = shuffled[shuffledAnswerIndex]!;
             const options = shuffled.filter((option) => !option.isCorrect);
-            const answerIndex = (stableNumber(
-              `${child.queryContractId}|${child.answerDeterminingFactFingerprint}|Q${questionOrder}|answer-slot-v1`,
-            ) % 4) as 0 | 1 | 2 | 3;
+            const semanticOffset = stableNumber(
+              `${child.queryContractId}|${child.answerDeterminingFactFingerprint}|Q${questionOrder}|answer-offset-v1`,
+            ) % 4;
+            const answerIndex = ((shuffledAnswerIndex + semanticOffset) % 4) as 0 | 1 | 2 | 3;
             options.splice(answerIndex, 0, correctOption);
             return {
               ...child,
@@ -65,7 +70,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/generation/person-presentation.ts
-            git commit -m "fix(seating): decouple answer slots from display names"
+            git commit -m "fix(seating): decorrelate visible answer slots"
             git push origin HEAD:feat/sea-001-structural-realness-hardening
           fi
       - name: Validate affected generators
