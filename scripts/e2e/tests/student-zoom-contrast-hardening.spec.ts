@@ -1,5 +1,12 @@
 import { expect, test, type Locator, type Page, type Route } from "@playwright/test";
 
+const student = {
+  id: "e2e-zoom-student",
+  email: "zoom.student@examtree.local",
+  name: "Zoom Student",
+  role: "student" as const,
+};
+
 async function fulfillJson(route: Route, body: unknown, status = 200) {
   await route.fulfill({
     status,
@@ -24,6 +31,17 @@ async function installFixtures(page: Page) {
     if (path === "/test-series") {
       return fulfillJson(route, { series: [], generatedAt: "2026-08-19T10:00:00.000Z" });
     }
+    if (path === "/users/me" && method === "GET") return fulfillJson(route, student);
+    if (path === "/analytics") {
+      return fulfillJson(route, {
+        totalAttempts: 0,
+        averageScore: 0,
+        highestScore: 0,
+        recentAttempts: [],
+      });
+    }
+    if (path === "/attempts" && method === "GET") return fulfillJson(route, []);
+    if (path === "/packages/user/my-packages") return fulfillJson(route, []);
     if (path.includes("packages") || path.includes("bundles")) return fulfillJson(route, []);
 
     return fulfillJson(route, { error: `Unhandled zoom/contrast E2E route: ${method} ${path}` }, 404);
@@ -79,6 +97,13 @@ async function expectNoHorizontalOverflow(page: Page) {
   expect(overflow).toBeLessThanOrEqual(1);
 }
 
+async function seedProfile(page: Page) {
+  await page.goto("/login/student");
+  await page.evaluate((profile) => {
+    localStorage.setItem("user", JSON.stringify(profile));
+  }, student);
+}
+
 test.describe("CP02 zoom reflow and contrast", () => {
   test("keeps primary public and app controls readable at 2x Chromium page scale", async ({ page, context }) => {
     await installFixtures(page);
@@ -108,7 +133,7 @@ test.describe("CP02 zoom reflow and contrast", () => {
     expect(await contrastRatio(sidebarTests)).toBeGreaterThanOrEqual(4.5);
   });
 
-  test("reflows public and preparation shells at a 640px CSS viewport", async ({ page }) => {
+  test("reflows public, preparation, and profile surfaces at a 640px CSS viewport", async ({ page }) => {
     await page.setViewportSize({ width: 640, height: 900 });
     await installFixtures(page);
 
@@ -122,6 +147,30 @@ test.describe("CP02 zoom reflow and contrast", () => {
     await expect(page.getByRole("button", { name: "My activity" })).toBeVisible();
     await expect(page.getByRole("button", { name: "User profile" })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Your activity follows you across devices/i })).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+
+    await seedProfile(page);
+    await page.goto("/profile");
+    await expect(page.getByRole("heading", { name: "Welcome back, Zoom Student" })).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test("keeps profile heading and supporting copy AA-readable in dark theme", async ({ page }) => {
+    await page.setViewportSize({ width: 640, height: 900 });
+    await installFixtures(page);
+    await seedProfile(page);
+    await page.goto("/profile");
+
+    await page.evaluate(() => {
+      document.documentElement.classList.add("dark");
+    });
+
+    const heading = page.getByRole("heading", { name: "Welcome back, Zoom Student" });
+    const supportingCopy = page.getByText("Review your saved attempts, package history, and account details.");
+    await expect(heading).toBeVisible();
+    await expect(supportingCopy).toBeVisible();
+    expect(await contrastRatio(heading)).toBeGreaterThanOrEqual(4.5);
+    expect(await contrastRatio(supportingCopy)).toBeGreaterThanOrEqual(4.5);
     await expectNoHorizontalOverflow(page);
   });
 });
