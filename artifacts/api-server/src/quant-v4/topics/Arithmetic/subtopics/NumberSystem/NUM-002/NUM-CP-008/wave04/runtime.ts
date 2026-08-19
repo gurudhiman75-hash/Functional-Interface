@@ -45,6 +45,30 @@ function compatibleConstraints(seed: number): { constraints: Constraint[]; witne
   };
 }
 
+function multiplicityStem(seed: number, lower: number, upper: number, constraints: readonly Constraint[]): string {
+  const system = constraintText(constraints);
+  switch (seed % 3) {
+    case 0:
+      return `For integers $x$ with $${lower} \\le x \\le ${upper}$, consider ${system}. Which option correctly classifies the number of solutions in this interval?`;
+    case 1:
+      return `Consider the simultaneous congruences ${system} for $${lower} \\le x \\le ${upper}$. How should the number of integer solutions be classified?`;
+    default:
+      return `Within $${lower} \\le x \\le ${upper}$, integers $x$ must satisfy ${system}. Which statement about the number of solutions is correct?`;
+  }
+}
+
+function tripleSetStem(seed: number, lower: number, upper: number, constraints: readonly Constraint[]): string {
+  const system = constraintText(constraints);
+  switch (seed % 3) {
+    case 0:
+      return `Find the complete set of integers $x$ with $${lower} \\le x \\le ${upper}$ satisfying ${system}.`;
+    case 1:
+      return `Which option lists all integers $x$ in $[${lower}, ${upper}]$ that satisfy ${system}?`;
+    default:
+      return `Determine every integer $x$ with $${lower} \\le x \\le ${upper}$ for which ${system} hold simultaneously.`;
+  }
+}
+
 function generateMultiplicity(seed: number): NumCp008Wave04Package {
   const rng = createRng(seed * 97 + 25);
   const mode = seed % 3;
@@ -103,7 +127,7 @@ function generateMultiplicity(seed: number): NumCp008Wave04Package {
     difficulty: mode === 2 ? "HARD" : "MEDIUM",
     answerSemantic: "BOUNDED_SYSTEM_SOLUTION_MULTIPLICITY",
     representation: "SIMULTANEOUS_CONGRUENCES_WITH_INTERVAL",
-    stem: `For integers $x$ with $${lower} \\le x \\le ${upper}$, consider ${constraintText(constraints)}. How many solutions are possible in the stated interval?`,
+    stem: multiplicityStem(seed, lower, upper, constraints),
     options: optionData.options,
     correctIndex: optionData.correctIndex,
     canonicalAnswer,
@@ -149,7 +173,7 @@ function generateTripleSet(seed: number): NumCp008Wave04Package {
     difficulty: merged.period >= 120 ? "HARD" : "MEDIUM",
     answerSemantic: "COMPLETE_BOUNDED_TRIPLE_SYSTEM_SET",
     representation: "THREE_CONGRUENCES_WITH_COMPLETE_SET_OUTPUT",
-    stem: `Find the complete set of integers $x$ with $${lower} \\le x \\le ${upper}$ satisfying ${constraintText(compatible.constraints)}.`,
+    stem: tripleSetStem(seed, lower, upper, compatible.constraints),
     options: optionData.options,
     correctIndex: optionData.correctIndex,
     canonicalAnswer,
