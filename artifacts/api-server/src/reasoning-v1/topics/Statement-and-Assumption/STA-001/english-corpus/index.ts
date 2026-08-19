@@ -41,10 +41,15 @@ function replaceCandidateText(
 
 function normalizeReviewedEnglish(scenario: StaScenarioAuthority): StaScenarioAuthority {
   if (scenario.scenarioId === "STA-DISC-QL003-001") {
-    return replaceCandidateText(scenario, "C1", [
+    let normalized = replaceCandidateText(scenario, "C1", [
       "Some students may still have unpaid examination fees.",
       "There may still be students who need to pay the examination fee before Friday.",
     ]);
+    normalized = replaceCandidateText(normalized, "C2", [
+      "Students can still pay the examination fee before Friday.",
+      "The examination fee can still be paid before the Friday deadline.",
+    ]);
+    return normalized;
   }
   return scenario;
 }
@@ -64,14 +69,43 @@ function normalizeExpansion(scenario: StaEnglishCorpusScenario): StaEnglishCorpu
   if (scenario.scenarioId === "STA-EN-QL001-COUPON-CODE") {
     return { ...scenario, domain: "EVERYDAY_DECISION" };
   }
-  if (scenario.scenarioId === "STA-EN-QL003-ROUTE-DIVERSION") {
-    const normalized = replaceCandidateText(scenario, "C1", [
-      "Some passengers need to travel to Sector 4 today.",
-      "There are passengers travelling to Sector 4 who need the diversion information.",
-    ]);
-    return normalized as StaEnglishCorpusScenario;
+
+  let normalized: StaScenarioAuthority = scenario;
+  switch (scenario.scenarioId) {
+    case "STA-EN-QL003-KYC-REMINDER":
+      normalized = replaceCandidateText(normalized, "C1", [
+        "Some customers have a KYC update due.",
+        "There are customers whose KYC needs to be updated.",
+      ]);
+      break;
+    case "STA-EN-QL003-SYSTEM-MAINTENANCE":
+      normalized = replaceCandidateText(normalized, "C1", [
+        "Some users may still have unsaved work before 7 p.m.",
+        "Some users may need to save work before maintenance begins.",
+      ]);
+      break;
+    case "STA-EN-QL003-ROUTE-DIVERSION":
+      normalized = replaceCandidateText(normalized, "C1", [
+        "Some passengers need to travel to Sector 4 today.",
+        "There are passengers who need to travel on the Sector 4 route today.",
+      ]);
+      break;
+    case "STA-EN-QL003-DOCUMENT-COLLECTION":
+      normalized = replaceCandidateText(normalized, "C1", [
+        "Some applicants have certificates ready for collection.",
+        "There are applicants whose certificates are ready to be collected.",
+      ]);
+      break;
+    case "STA-EN-QL003-ORDER-PICKUP":
+      normalized = replaceCandidateText(normalized, "C1", [
+        "Some customers have orders ready for pickup.",
+        "There are customers whose orders are ready to collect.",
+      ]);
+      break;
+    default:
+      break;
   }
-  return scenario;
+  return normalized as StaEnglishCorpusScenario;
 }
 
 export const STA_ENGLISH_CORPUS_V1: readonly StaEnglishCorpusScenario[] = [
