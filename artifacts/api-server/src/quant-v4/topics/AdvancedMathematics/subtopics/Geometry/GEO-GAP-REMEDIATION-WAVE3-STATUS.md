@@ -4,7 +4,7 @@
 **Renderer contract:** `EXAMTREE_GEOMETRY_SVG_V2`  
 **Predecessors:** approved Wave 1 and approved Wave 2 discovery remediation  
 **Lifecycle:** `DISCOVERY`  
-**Wave 3 state:** `REVIEW_READY_CANDIDATE`
+**Wave 3 state:** `APPROVED_FROZEN_FOR_DISCOVERY`
 
 ## Wave decision
 
@@ -54,45 +54,51 @@ All four prototypes inherit the approved Renderer-V2 contract:
 - the right-triangle stem visibly shows the supplied right-angle mark;
 - direct and inverse incentre-angle diagrams show supplied/target angles with explicit arcs;
 - point and angle labels are collision checked;
+- the `I` label in incentre-angle diagrams is explicitly placed on the clear side of the angle vertex so it does not touch the ∠BIC arc/value region;
 - Wave-3 finalization deterministically expands angle-label radii when needed and rejects any residual collision;
+- a dedicated regression assertion protects `I`-label clearance in both direct and inverse incentre-angle prototypes;
 - diagrams use independent high-precision geometry verification;
 - `notToScale = true` remains mandatory;
 - internal theorem IDs never appear in learner explanations.
 
-A human visual self-review of all 12 exported questions passed after the runtime caught an inverse incentre-angle label collision. That collision was fixed at source/runtime level, then the entire proof was rerun.
+The first review-ready candidate was rejected during human review because the `I` label visually touched the angle region despite zero formal overlap. The representation was corrected at source level, the regression test was strengthened, and the entire proof/export pipeline was rerun. The corrected review candidate was explicitly approved by the user on **19 Aug 2026**.
 
-## CI evidence — PASS
+## Final corrected CI evidence — PASS
 
 `Validate Geometry Gap Remediation Wave 3` — **PASS**
 
-- run: `32257896830`
-- job: `96083851423`
-- head: `fa0f330b8a3d598559e14d783264600779137d02`
+- run: `32276958492`
+- job: `96146532495`
+- head: `fffcc8739765b79e3575f9d1f86bfde40657d350`
 - API build: PASS
 - retained Source Saturation Audit V1: PASS
 - retained Geometry Phases 0–5: PASS
 - retained Wave 1 proof: PASS
 - retained Wave 2 proof: PASS
 - Wave 3 proof: PASS
+- `I`-label clearance regression: PASS
 - review export: PASS
 - artifact upload: PASS
 
-Review artifact:
+Approved corrected review artifact:
 
-- id: `9367035341`
-- digest: `sha256:f6640b587ae7664a83829b0589e655f6719c27a2d1aff7832ccbf44aecb274b2`
+- id: `9374373065`
+- digest: `sha256:c1c7da42408096f48dcf52951a9e6bc74c9e5b2660c26fbf6f512dedd94a8f95`
 - four temporary prototypes × three review seeds = **12 review questions**
 
 ```text
 wave3ImplementationComplete = true
 wave3RuntimeProofPassed      = true
 wave3ReviewReady             = true
-wave3Approved                = false
+wave3Approved                = true
+wave3FrozenForDiscovery      = true
 ```
+
+The approval freezes only the reviewed temporary discovery prototypes and their corrected Renderer-V2 representation contract. It does **not** allocate permanent QLs, freeze solve modes, claim source saturation, activate Question Studio, or authorize merge.
 
 ## Merge/split discipline
 
-Direct and inverse incentre-angle forms remain separate temporary prototypes because the learner's unknown and algebraic direction are materially different. Wave 3 does not decide their eventual permanent-QL merge/split status.
+Direct and inverse incentre-angle forms remain separate temporary prototypes because the learner's unknown and algebraic direction are materially different. Wave 3 approval does not decide their eventual permanent-QL merge/split status.
 
 ## Gates
 
@@ -106,7 +112,7 @@ testEligibilityAllowed          = false
 publicPublicationAllowed        = false
 ```
 
-## Next priority after Wave 3 review
+## Next priority after approved Wave 3
 
 1. CP005 perimeter-ratio similarity scale;
 2. CP014 congruence + parallel synthesis;
