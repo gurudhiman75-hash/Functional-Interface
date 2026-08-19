@@ -10,6 +10,7 @@ function assert(condition: unknown, message: string): asserts condition {
 const rows = generateCp005ReviewSetV13(6);
 const v12 = generateCp005ReviewSetV12Final(6);
 const audit = generateCp005EnglishAuditPoolV13(30);
+const contextById = new Map(TSD_CP005_V13_OBJECT_CONTEXT_POOL.map((entry) => [entry.id, entry]));
 
 assert(rows.length === 78, `CP005 V13 expected 78 selected rows, received ${rows.length}`);
 assert(audit.length === 390, `CP005 V13 expected 390 audit rows, received ${audit.length}`);
@@ -42,8 +43,17 @@ const learnerText = rows.map((row) => row.stem).join("\n").toLowerCase();
 assert(!/\btravellers?\b/.test(learnerText), "CP005 V13 selected stems fell back to generic traveller wording");
 assert(!/\b(runner|runners|cyclist|cyclists|walker|walkers|pedestrian|pedestrians)\b/.test(learnerText), "CP005 V13 uses a human-powered object despite 36–90 km/h selected states");
 assert(!/\b(boat|boats|stream|current)\b/.test(learnerText), "CP005 V13 introduced boat/current semantics without a current variable");
+assert(!/\b(he|him|his)\b/.test(learnerText), "CP005 V13 vehicle stem retained a human pronoun");
 assert(rows.filter((row) => /train/i.test(row.stem)).every((row) => !/\broad\b/i.test(row.stem)), "CP005 V13 rail context leaked road wording");
 assert(rows.every((row) => row.stem.includes("P") && row.stem.includes("Q")), "CP005 V13 objectized stem lost endpoint labels");
+
+for (const row of rows) {
+  const context = contextById.get(row.objectContextId);
+  assert(context, `${row.objectContextId}: V13 selected context missing from registry`);
+  const actorLabel = context.actorA.slice(0, -2);
+  assert(!row.stem.includes(`${actorLabel} ${actorLabel}`), `${row.objectContextId}: repeated object label leaked into learner stem`);
+  assert(!row.stem.includes(`The faster ${context.actorA}`), `${row.objectContextId}: awkward faster-object construction leaked into learner stem`);
+}
 
 assert(rows.every((row, index) => row.permanentQlId === v12[index]!.permanentQlId), "CP005 V13 QL identity changed from V12");
 assert(rows.every((row, index) => row.solveMode === v12[index]!.solveMode), "CP005 V13 solve mode changed from V12");
@@ -68,6 +78,9 @@ console.log(JSON.stringify({
   objectContextsPerQl: 6,
   objectFamiliesPerQl: 6,
   minEndpointFamiliesPerQl: Math.min(...[...new Set(rows.map((row) => row.permanentQlId))].map((ql) => new Set(rows.filter((row) => row.permanentQlId === ql).map((row) => row.endpointFamily)).size)),
+  genericTravellerFallbacks: 0,
+  repeatedObjectLabels: 0,
+  humanPronounsOnVehicles: 0,
   mathematicsAndOptionsIdenticalToV12: true,
   explanationsIdenticalToV12: true,
   englishFreezeStatus: "UNFROZEN",
