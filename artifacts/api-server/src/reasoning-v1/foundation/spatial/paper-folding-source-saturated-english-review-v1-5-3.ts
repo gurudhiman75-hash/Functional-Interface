@@ -14,6 +14,7 @@ export const PFC_TPF_SOURCE_SATURATED_ENGLISH_REVIEW_AUTHORITY_V1_5_3 = Object.f
     "NO_TASK_KIND_DEPENDENCY_FOR_STAGE_ZOOM",
     "PACKET_BOUNDS_FITTED_VIEWBOX_PER_STAGE",
     "FOLDED_PACKET_FAFAFA_INCLUDED_IN_PAPER_BOUNDS",
+    "PARTIAL_SEQUENCE_SECOND_PASS_NORMALIZATION",
     "THREE_FOLD_FORWARD_FIXED_STAGE_SCALE",
     "REVERSE_PROCESS_FIXED_STAGE_SCALE",
     "HORIZONTAL_SCROLL_INSTEAD_OF_PROGRESSIVE_SHRINK",
@@ -117,7 +118,9 @@ function esc(value: string): string {
 }
 
 function normalizeSequence(markup: string): string {
-  if (/class="fixed-stage"/.test(markup) && /data-stage-normalized="true"/.test(markup)) return markup;
+  if (/class="fixed-stage"/.test(markup)) {
+    return markup.replace(SVG_RE, (svg) => normalizeStageSvg(svg));
+  }
   return markup.replace(SVG_RE, (svg) => {
     const label = esc(stageLabel(svg));
     return `<div class="fixed-stage"><div class="fixed-stage-label">${label}</div>${normalizeStageSvg(svg)}</div>`;
@@ -130,12 +133,12 @@ function svgCount(markup: string): number {
 
 function normalizeQuestionStages(question: PfcTpfEnglishReviewQuestionV1): PfcTpfEnglishReviewQuestionV1 {
   let stimulusSvg = question.stimulusSvg;
-  if (svgCount(stimulusSvg) >= 3 && !/data-stage-normalized="true"/.test(stimulusSvg)) {
+  if (svgCount(stimulusSvg) >= 3) {
     stimulusSvg = normalizeSequence(stimulusSvg);
   }
 
   const options = question.options.map((option) => {
-    if (svgCount(option.svg) < 2 || /data-stage-normalized="true"/.test(option.svg)) return option;
+    if (svgCount(option.svg) < 2) return option;
     return { ...option, svg: normalizeSequence(option.svg) };
   });
 
