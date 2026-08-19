@@ -8,7 +8,11 @@ if (!paths.length) {
 const SIMPLE_MAX_QL = 35;
 
 function clean(value) {
-  return value.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+  return value
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n---\n\n---\n/g, '\n---\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
 }
 
 function answerFrom(section) {
@@ -17,7 +21,7 @@ function answerFrom(section) {
 }
 
 function conclusionLead(text) {
-  return /^(?:therefore|hence|thus|so\b|the required answer|the answer|इसलिए|अतः|इस प्रकार|ਇਸ ਲਈ|ਇਸ ਕਰਕੇ|ਅਤੇ ਇਸ ਲਈ|ਸਹੀ ਉੱਤਰ)/iu.test(text.trim());
+  return /^(?:therefore|hence|thus|so(?:\s|:|$)|the required answer|the answer|इसलिए(?:\s|:|$)|अतः(?:\s|:|$)|इस प्रकार(?:\s|:|$)|ਇਸ ਲਈ(?:\s|:|$)|ਇਸ ਕਰਕੇ(?:\s|:|$)|ਅਤੇ ਇਸ ਲਈ(?:\s|:|$)|ਸਹੀ ਉੱਤਰ(?:\s|:|$))/iu.test(text.trim());
 }
 
 function normalized(value) {
@@ -31,10 +35,9 @@ function stripStepPrefix(line) {
     .replace(/^(\d+\.\s*)(?:ਦਿੱਤੇ ਤੱਥ|ਦਿੱਤਾ ਗਿਆ|ਹੁਣ ਸੰਬੰਧਿਤ ਨਿਯਮ ਲਗਾਓ|ਸੰਬੰਧਿਤ ਨਿਯਮ ਲਗਾਓ)\s*[:：]\s*/u, '$1');
 }
 
-function renumberSteps(text, answer) {
+function cleanStepLines(text, answer) {
   const lines = text.split('\n');
   const kept = [];
-  let step = 0;
   for (const raw of lines) {
     const prefixed = stripStepPrefix(raw);
     const match = prefixed.match(/^\s*(\d+)\.\s+(.+)$/u);
@@ -45,9 +48,17 @@ function renumberSteps(text, answer) {
     const body = match[2].trim();
     const answerText = answer.replace(/^[A-D1-5]\s*[—-]\s*/u, '');
     const repeatsAnswer = answerText && normalized(body).includes(normalized(answerText));
-    if (conclusionLead(body) && repeatsAnswer && body.length < 190) continue;
-    step += 1;
-    kept.push(`${step}. ${body}`);
+    const repeatsCorrectOption = /(?:correct option|सही विकल्प|ਸਹੀ ਵਿਕਲਪ)/iu.test(body);
+    if (conclusionLead(body) && (repeatsAnswer || repeatsCorrectOption) && body.length < 190) continue;
+
+    let conciseBody = body;
+    if (answerText) {
+      const escaped = answerText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      conciseBody = conciseBody
+        .replace(new RegExp(`(?:\\.\\s*)?(?:Correct answer|सही उत्तर|ਸਹੀ ਉੱਤਰ)\\s*[:：]\\s*${escaped}\\.?$`, 'iu'), '.')
+        .replace(/\s+\.$/u, '.');
+    }
+    kept.push(`${match[1]}${conciseBody}`);
   }
   return kept.join('\n');
 }
@@ -62,6 +73,18 @@ function removeBlock(text, headingPattern, nextPatterns) {
     if (match >= 0) endOffset = Math.min(endOffset, match + 1);
   }
   return text.slice(0, start) + text.slice(start + endOffset);
+}
+
+function ensureSingleSolutionHeading(text) {
+  const hasSolution = /^\*\*Solution(?::\*\*|\*\*)/m.test(text);
+  if (hasSolution) {
+    return text
+      .replace(/^\*\*Step-by-step:\*\*\s*$/gm, '')
+      .replace(/^\*\*Step-by-step solution\*\*\s*$/gm, '');
+  }
+  return text
+    .replace(/^\*\*Step-by-step:\*\*\s*$/gm, '**Solution**')
+    .replace(/^\*\*Step-by-step solution\*\*\s*$/gm, '**Solution**');
 }
 
 function declutterSimple(section) {
@@ -81,18 +104,22 @@ function declutterSimple(section) {
   text = removeBlock(text, /^\*\*Conclusion\*\*\s*$/m, [/^\*\*Canonical outcome:/m, /^---$/m]);
   text = text
     .replace(/^\*\*Conclusion:\*\*.*(?:\n|$)/gm, '')
+    .replace(/^\*\*Canonical outcome:\*\*.*(?:\n|$)/gm, '')
+    .replace(/^\*\*Canonical item:\*\*.*(?:\n|$)/gm, '')
     .replace(/^\*\*Key rule:\*\*/gm, '**Solution:**')
-    .replace(/^\*\*Key rule\*\*$/gm, '**Solution**')
-    .replace(/^\*\*Step-by-step:\*\*\s*$/gm, '')
-    .replace(/^\*\*Step-by-step solution\*\*\s*$/gm, '');
+    .replace(/^\*\*Key rule\*\*$/gm, '**Solution**');
 
-  text = renumberSteps(text, answer);
+  text = ensureSingleSolutionHeading(text);
+  text = cleanStepLines(text, answer);
   return `${clean(text)}\n`;
 }
 
 function declutterAdvanced(section) {
   const answer = answerFrom(section);
-  return `${clean(renumberSteps(section, answer))}\n`;
+  const text = section
+    .replace(/^\*\*Canonical outcome:\*\*.*(?:\n|$)/gm, '')
+    .replace(/^\*\*Canonical item:\*\*.*(?:\n|$)/gm, '');
+  return `${clean(cleanStepLines(text, answer))}\n`;
 }
 
 function transform(content) {
@@ -127,6 +154,7 @@ for (const path of paths) {
   const simplePart = after.split('### RNK-QL-036')[0];
   if (/\*\*Option analysis/u.test(simplePart)) throw new Error(`${path}: simple option-analysis clutter remains`);
   if (/\*\*Conclusion/u.test(simplePart)) throw new Error(`${path}: simple conclusion clutter remains`);
+  if (/\*\*Canonical (?:outcome|item)/u.test(after)) throw new Error(`${path}: internal canonical label remains`);
   writeFileSync(path, after, 'utf8');
   console.log(JSON.stringify({
     status: 'DECLUTTERED',
