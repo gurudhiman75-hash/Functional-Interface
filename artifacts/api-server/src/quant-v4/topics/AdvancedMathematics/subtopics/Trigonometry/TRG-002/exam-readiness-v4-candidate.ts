@@ -21,6 +21,7 @@ import {
   trg002V4NaturalMeasurementScenarioId,
   trg002V4NaturalMeasurementTopology,
 } from "./exam-readiness-v4-natural-measurements";
+import { applyTrg002V4StemVariety } from "./exam-readiness-v4-stem-variety";
 
 type AnyQuestion = Record<string, any>;
 
@@ -106,7 +107,8 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
   const wave1 = nativeV4Surface
     ? { stem: exactStem, scenarioTextApplied: true, scenarioId: explicitScenarioId, diagramMigrationRequired: false }
     : applyTrg002V4Wave1ScenarioText(qlId, locale, exactStem);
-  const stem = wave1.stem;
+  const variety = applyTrg002V4StemVariety(qlId, locale, wave1.stem);
+  const stem = variety.stem;
   const topology = trg002V4NaturalMeasurementTopology(qlId) ?? inferTopology(qlId, stem);
   const selectedScenario = selectTrg002V4ScenarioShell({ qlId, seed, topology });
   const scenario = explicitScenarioId
@@ -138,6 +140,7 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
     scenarioId: wave1.scenarioId ?? scenario.id,
     canonicalOverride,
     naturalMeasurementOverride,
+    stemVarietyApplied: variety.applied,
     physicalObserverSupport,
     diagramMigrationRequired,
   });
@@ -150,6 +153,7 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
       status: "REMEDIATION_IN_PROGRESS" as const,
       canonicalOverride,
       naturalMeasurementOverride,
+      stemVarietyApplied: variety.applied,
       spatialTopology: topology,
       recommendedScenarioShell: wave1.scenarioId ?? scenario.id,
       recommendedScenarioDomain: scenario.domain,
