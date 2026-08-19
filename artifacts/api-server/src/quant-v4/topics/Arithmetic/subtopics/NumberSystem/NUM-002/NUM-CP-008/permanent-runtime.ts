@@ -37,8 +37,8 @@ export interface NumCp008PermanentPackage {
   readonly prototypeAncestry: readonly string[];
   readonly lifecycle: Readonly<{
     permanentQlId: NumCp008PermanentQlId;
-    maturity: "PERMANENT_AUTHORITY";
-    reviewStatus: "ENGLISH_FROZEN";
+    maturity: "PERMANENT_AUTHORITY_CANDIDATE";
+    reviewStatus: "ENGLISH_FREEZE_CANDIDATE";
     questionBankStatus: "NOT_STORED";
     testEligibility: "INELIGIBLE";
     active: false;
@@ -76,8 +76,8 @@ export function generateNumCp008Permanent(qlId: NumCp008PermanentQlId, seed: num
     permanentQlId: qlId,
     lifecycle: Object.freeze({
       permanentQlId: qlId,
-      maturity: "PERMANENT_AUTHORITY" as const,
-      reviewStatus: "ENGLISH_FROZEN" as const,
+      maturity: "PERMANENT_AUTHORITY_CANDIDATE" as const,
+      reviewStatus: "ENGLISH_FREEZE_CANDIDATE" as const,
       questionBankStatus: "NOT_STORED" as const,
       testEligibility: "INELIGIBLE" as const,
       active: false as const,
