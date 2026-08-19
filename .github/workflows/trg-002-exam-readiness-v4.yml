@@ -51,6 +51,8 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-river.test.ts
       - name: Verify Wave2 natural physical measurements
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-natural-measurements.test.ts
+      - name: Verify Wave3 structural scenarios
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-scenario-wave3.test.ts
       - name: Verify 2304 V4 candidate cases
         run: |
           pnpm dlx tsx -e '
