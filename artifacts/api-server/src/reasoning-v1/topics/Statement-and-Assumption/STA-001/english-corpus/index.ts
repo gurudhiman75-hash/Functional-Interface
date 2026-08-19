@@ -28,29 +28,58 @@ const REVIEWED_METADATA: Readonly<Record<string, ReviewedMetadata>> = {
   "STA-DISC-QL004-003-V2": { corpusFamilyId: "QL004-REMINDER-TO-MEMORY-BRIDGE", domain: "PUBLIC_SERVICE", semanticShape: "EXPLICIT_PREMISE_PLUS_HIDDEN_BRIDGE" },
 };
 
+function replaceCandidateText(
+  scenario: StaScenarioAuthority,
+  candidateId: string,
+  textVariants: readonly [string, ...string[]],
+): StaScenarioAuthority {
+  const candidates = scenario.candidates.map((candidate) =>
+    candidate.candidateId === candidateId ? { ...candidate, textVariants } : candidate,
+  ) as unknown as StaScenarioAuthority["candidates"];
+  return { ...scenario, candidates };
+}
+
+function normalizeReviewedEnglish(scenario: StaScenarioAuthority): StaScenarioAuthority {
+  if (scenario.scenarioId === "STA-DISC-QL003-001") {
+    return replaceCandidateText(scenario, "C1", [
+      "Some students addressed by the reminder may still have unpaid examination fees.",
+      "There may still be students who need to pay the examination fee before Friday.",
+    ]);
+  }
+  return scenario;
+}
+
 function promoteReviewed(scenario: StaScenarioAuthority): StaEnglishCorpusScenario {
-  const metadata = REVIEWED_METADATA[scenario.scenarioId];
-  if (!metadata) throw new Error(`Missing English-corpus metadata for reviewed scenario ${scenario.scenarioId}`);
+  const normalized = normalizeReviewedEnglish(scenario);
+  const metadata = REVIEWED_METADATA[normalized.scenarioId];
+  if (!metadata) throw new Error(`Missing English-corpus metadata for reviewed scenario ${normalized.scenarioId}`);
   return {
-    ...scenario,
+    ...normalized,
     ...metadata,
     corpusStatus: "ENGLISH_CORPUS_CANDIDATE",
   };
 }
 
-function normalizeExpansionDomain(scenario: StaEnglishCorpusScenario): StaEnglishCorpusScenario {
+function normalizeExpansion(scenario: StaEnglishCorpusScenario): StaEnglishCorpusScenario {
   if (scenario.scenarioId === "STA-EN-QL001-COUPON-CODE") {
     return { ...scenario, domain: "EVERYDAY_DECISION" };
+  }
+  if (scenario.scenarioId === "STA-EN-QL003-ROUTE-DIVERSION") {
+    const normalized = replaceCandidateText(scenario, "C1", [
+      "Some passengers need to travel to Sector 4 today.",
+      "There are passengers travelling to Sector 4 who need the diversion information.",
+    ]);
+    return normalized as StaEnglishCorpusScenario;
   }
   return scenario;
 }
 
 export const STA_ENGLISH_CORPUS_V1: readonly StaEnglishCorpusScenario[] = [
   ...STA_EXECUTABLE_SCENARIOS.map(promoteReviewed),
-  ...STA_QL001_ENGLISH_EXPANSION.map(normalizeExpansionDomain),
-  ...STA_QL002_ENGLISH_EXPANSION,
-  ...STA_QL003_ENGLISH_EXPANSION,
-  ...STA_QL004_ENGLISH_EXPANSION,
+  ...STA_QL001_ENGLISH_EXPANSION.map(normalizeExpansion),
+  ...STA_QL002_ENGLISH_EXPANSION.map(normalizeExpansion),
+  ...STA_QL003_ENGLISH_EXPANSION.map(normalizeExpansion),
+  ...STA_QL004_ENGLISH_EXPANSION.map(normalizeExpansion),
 ];
 
 export const STA_ENGLISH_CORPUS_BY_QL: Readonly<Record<StaQlId, readonly StaEnglishCorpusScenario[]>> = {
