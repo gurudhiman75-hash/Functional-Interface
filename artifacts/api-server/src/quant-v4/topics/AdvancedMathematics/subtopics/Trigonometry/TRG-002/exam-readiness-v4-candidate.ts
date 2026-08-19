@@ -15,6 +15,12 @@ import {
   isTrg002V4RiverMathOverride,
   TRG_002_V4_RIVER_SURFACE_IDS,
 } from "./exam-readiness-v4-river";
+import {
+  generateTrg002V4NaturalMeasurementQuestion,
+  isTrg002V4NaturalMeasurementOverride,
+  trg002V4NaturalMeasurementScenarioId,
+  trg002V4NaturalMeasurementTopology,
+} from "./exam-readiness-v4-natural-measurements";
 
 type AnyQuestion = Record<string, any>;
 
@@ -80,24 +86,28 @@ function includesId(ids: readonly string[], qlId: string) {
 }
 
 export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, locale: Trg002ExamRealnessLocale) {
+  const naturalMeasurementOverride = isTrg002V4NaturalMeasurementOverride(qlId);
   const riverMathOverride = isTrg002V4RiverMathOverride(qlId);
   const canonicalOverride = isTrg002V4CanonicalOverride(qlId) || riverMathOverride;
-  const rawBase: AnyQuestion = riverMathOverride
-    ? generateLocalizedTrg002V4RiverQl093(seed, locale)
-    : canonicalOverride
-      ? generateLocalizedTrg002V4CanonicalOverrideSafe(qlId, seed, locale)
-      : generateExamRealLocalizedTrg002Question(qlId, seed, locale);
+  const nativeV4Surface = naturalMeasurementOverride || canonicalOverride;
+  const rawBase: AnyQuestion = naturalMeasurementOverride
+    ? generateTrg002V4NaturalMeasurementQuestion(qlId, seed, locale)
+    : riverMathOverride
+      ? generateLocalizedTrg002V4RiverQl093(seed, locale)
+      : canonicalOverride
+        ? generateLocalizedTrg002V4CanonicalOverrideSafe(qlId, seed, locale)
+        : generateExamRealLocalizedTrg002Question(qlId, seed, locale);
   const physicalSupport = applyTrg002V4PhysicalSupportMigration(rawBase);
   const riverSupport = applyTrg002V4RiverPlatformMigration(physicalSupport.question);
   const base: AnyQuestion = riverSupport.question;
   const exactStem = repairHistoricalExactMathArtifact(base.stem);
   const explanation = repairExplanation(base.explanation);
-  const explicitScenarioId = canonicalOverride ? canonicalScenarioId(qlId) : undefined;
-  const wave1 = canonicalOverride
+  const explicitScenarioId = naturalMeasurementOverride ? trg002V4NaturalMeasurementScenarioId(qlId) : canonicalOverride ? canonicalScenarioId(qlId) : undefined;
+  const wave1 = nativeV4Surface
     ? { stem: exactStem, scenarioTextApplied: true, scenarioId: explicitScenarioId, diagramMigrationRequired: false }
     : applyTrg002V4Wave1ScenarioText(qlId, locale, exactStem);
   const stem = wave1.stem;
-  const topology = inferTopology(qlId, stem);
+  const topology = trg002V4NaturalMeasurementTopology(qlId) ?? inferTopology(qlId, stem);
   const selectedScenario = selectTrg002V4ScenarioShell({ qlId, seed, topology });
   const scenario = explicitScenarioId
     ? TRG_002_V4_SCENARIO_SHELLS.find((shell) => shell.id === explicitScenarioId)
@@ -110,12 +120,13 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
   const physicalSurfaceAligned = (includesId(TRG_002_V4_ROOFTOP_SURFACE_IDS, qlId) || includesId(TRG_002_V4_BRIDGE_SURFACE_IDS, qlId)) && physicalSupport.supported;
   const riverDiagramAligned = includesId(TRG_002_V4_RIVER_SURFACE_IDS, qlId) && riverSupport.supported;
   const diagramMigrationRequired = wave1.diagramMigrationRequired && !physicalSurfaceAligned && !riverDiagramAligned;
-  const scenarioSurfaceApplied = canonicalOverride || (wave1.scenarioTextApplied && !diagramMigrationRequired);
+  const scenarioSurfaceApplied = nativeV4Surface || (wave1.scenarioTextApplied && !diagramMigrationRequired);
   const physicalObserverSupport = physicalSupport.supported || riverSupport.supported;
   const physicalSupportMigratedInV4 = physicalSupport.migrated || riverSupport.migrated;
 
   const learnerText = [stem, explanation.keyRule, ...explanation.steps.map((s: AnyQuestion) => s.body), explanation.shortcut, ...explanation.traps].join(" ");
   if (/√\d+\.\d+/u.test(learnerText)) throw new Error(`${qlId}:${locale}: V4 forbids decimal radicands in exact learner math.`);
+  if (naturalMeasurementOverride && /√/u.test(stem)) throw new Error(`${qlId}:${locale}: V4 natural-measurement stem must not expose a surd physical given.`);
 
   const v4Fingerprint = sha256({
     qlId,
@@ -126,6 +137,7 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
     topology,
     scenarioId: wave1.scenarioId ?? scenario.id,
     canonicalOverride,
+    naturalMeasurementOverride,
     physicalObserverSupport,
     diagramMigrationRequired,
   });
@@ -137,6 +149,7 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
       version: "TRG002_EXAM_READINESS_V4",
       status: "REMEDIATION_IN_PROGRESS" as const,
       canonicalOverride,
+      naturalMeasurementOverride,
       spatialTopology: topology,
       recommendedScenarioShell: wave1.scenarioId ?? scenario.id,
       recommendedScenarioDomain: scenario.domain,
