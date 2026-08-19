@@ -81,8 +81,7 @@ export default function ProfilePage() {
     );
     const bestScore = analytics?.highestScore ?? (
       attempts && attempts.length > 0
-        ? Math.max(...attempts.map((item) => item.score)
-        )
+        ? Math.max(...attempts.map((item) => item.score))
         : 0
     );
 
