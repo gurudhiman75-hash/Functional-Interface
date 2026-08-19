@@ -55,5 +55,10 @@ export function generateNumCp008LocalizedHumanFinal(
       steps: Object.freeze(q.explanation.steps.map((step) => polish(step, language))),
       finalAnswer: polish(q.explanation.finalAnswer, language),
     }),
+    lifecycle: Object.freeze({
+      ...q.lifecycle,
+      reviewStatus: "MULTILINGUAL_FROZEN" as const,
+      localizationStatus: "HI_PA_FROZEN" as const,
+    }),
   }) as NumCp008LocalizedPackage;
 }

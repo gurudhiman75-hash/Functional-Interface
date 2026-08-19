@@ -13,11 +13,13 @@ const targetScript = {
   pa: /[\u0A00-\u0A7F]/u,
 } as const;
 const ambiguousReduction = /से घटा(?:ने|एँ)|क्रमिक वर्गीकरण|घटे हुए समीकरण|ਨਾਲ ਘਟਾ(?:ਉਣ|ਓ)|ਘਟੇ ਸਮੀਕਰਨ/u;
+const oldDataSufficiencyProse = /1 संभव मान बचते हैं|पर्याप्तता का वर्ग|1 ਸੰਭਵ ਮੁੱਲ ਬਚਦੇ ਹਨ|ਕਾਫ਼ੀ ਜਾਣਕਾਰੀ ਦਾ ਵਰਗ/u;
 const implementationLeak = /prototype|generator|fingerprint|hidden state|authority package/iu;
 
 let packages = 0;
 let structuralParityChecks = 0;
 let wordingChecks = 0;
+let frozenLifecycleChecks = 0;
 
 for (const allocation of NUM_CP008_PERMANENT_ALLOCATION) {
   const qlId = allocation.qlId as NumCp008PermanentQlId;
@@ -43,7 +45,6 @@ for (const allocation of NUM_CP008_PERMANENT_ALLOCATION) {
       assert.deepEqual(first.sourceAncestry, source.sourceAncestry, `${label}: source ancestry drift`);
       assert.deepEqual(first.prototypeAncestry, source.prototypeAncestry, `${label}: prototype ancestry drift`);
       assert.deepEqual(first.localization, source.localization, `${label}: localization metadata drift`);
-      assert.deepEqual(first.lifecycle, source.lifecycle, `${label}: lifecycle drift`);
       assert.equal(first.canonicalAnswer, source.canonicalAnswer, `${label}: canonical-answer drift`);
       assert.equal(first.verifierAnswer, source.verifierAnswer, `${label}: verifier-answer drift`);
       assert.equal(first.explanation.finalAnswer, first.canonicalAnswer, `${label}: explanation answer binding`);
@@ -55,6 +56,22 @@ for (const allocation of NUM_CP008_PERMANENT_ALLOCATION) {
       assert.equal(first.options[first.correctIndex]?.value, first.canonicalAnswer, `${label}: correct option binding`);
       structuralParityChecks += 1;
 
+      assert.equal(source.lifecycle.reviewStatus, "MULTILINGUAL_REVIEW_CANDIDATE", `${label}: base review layer must remain candidate`);
+      assert.equal(source.lifecycle.localizationStatus, "HI_PA_REVIEW_CANDIDATE", `${label}: base localization layer must remain candidate`);
+      assert.equal(first.lifecycle.permanentQlId, source.lifecycle.permanentQlId, `${label}: lifecycle QL drift`);
+      assert.equal(first.lifecycle.maturity, "PERMANENT_AUTHORITY", `${label}: maturity drift`);
+      assert.equal(first.lifecycle.reviewStatus, "MULTILINGUAL_FROZEN", `${label}: multilingual freeze missing`);
+      assert.equal(first.lifecycle.englishAuthorityStatus, "ENGLISH_FROZEN", `${label}: English freeze regression`);
+      assert.equal(first.lifecycle.localizationStatus, "HI_PA_FROZEN", `${label}: Hindi/Punjabi freeze missing`);
+      assert.equal(first.lifecycle.questionBankStatus, "NOT_STORED", `${label}: Question Bank status drift`);
+      assert.equal(first.lifecycle.testEligibility, "INELIGIBLE", `${label}: test eligibility drift`);
+      assert.equal(first.lifecycle.active, false, `${label}: active flag opened`);
+      assert.equal(first.lifecycle.questionStudioDiscoverable, false, `${label}: Question Studio opened`);
+      assert.equal(first.lifecycle.questionBankWritable, false, `${label}: Question Bank writes opened`);
+      assert.equal(first.lifecycle.testEligible, false, `${label}: test eligibility opened`);
+      assert.equal(first.lifecycle.publiclyPublishable, false, `${label}: public publication opened`);
+      frozenLifecycleChecks += 1;
+
       const learnerText = [
         first.stem,
         ...first.options.map((option) => option.value),
@@ -65,6 +82,7 @@ for (const allocation of NUM_CP008_PERMANENT_ALLOCATION) {
       ].join(" ");
       assert.match(learnerText, targetScript[language], `${label}: target script missing`);
       assert.doesNotMatch(learnerText, ambiguousReduction, `${label}: ambiguous modular-reduction wording`);
+      assert.doesNotMatch(learnerText, oldDataSufficiencyProse, `${label}: superseded Data Sufficiency prose`);
       assert.doesNotMatch(learnerText, implementationLeak, `${label}: implementation vocabulary leak`);
       assert.doesNotMatch(learnerText, /\b(?:undefined|null|NaN)\b/u, `${label}: malformed learner value`);
       assert.ok(first.explanation.steps.length >= 2, `${label}: explanation too thin`);
@@ -79,6 +97,7 @@ for (const allocation of NUM_CP008_PERMANENT_ALLOCATION) {
 assert.equal(packages, 19 * 120 * 2);
 assert.equal(structuralParityChecks, packages);
 assert.equal(wordingChecks, packages);
+assert.equal(frozenLifecycleChecks, packages);
 
 const sampleSpecs = [
   { qlId: "NUM-QL-170", seed: 1, label: "compatible CRT" },
@@ -89,9 +108,9 @@ const sampleSpecs = [
 
 const samples: unknown[] = [];
 const markdown: string[] = [
-  "# NUM-CP-008 Hindi/Punjabi human-quality spot review",
+  "# NUM-CP-008 Hindi/Punjabi frozen human-quality spot review",
   "",
-  "Advanced representative modes after learner-wording hardening.",
+  "Advanced representative modes after learner-wording hardening and multilingual freeze promotion.",
   "",
 ];
 
@@ -105,6 +124,7 @@ for (const spec of sampleSpecs) {
       language,
       prototypeId: q.temporaryPrototypeId,
       difficulty: q.difficulty,
+      lifecycle: q.lifecycle,
       stem: q.stem,
       options: q.options,
       explanation: q.explanation,
@@ -133,10 +153,11 @@ writeFileSync(resolve(outDir, "num-cp008-hi-pa-human-review.json"), `${JSON.stri
 writeFileSync(resolve(outDir, "num-cp008-hi-pa-human-review.md"), `${markdown.join("\n")}\n`, "utf8");
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP008_HI_PA_HUMAN_QUALITY_V2",
+  status: "PASS_NUM_CP008_HI_PA_MULTILINGUAL_FROZEN",
   packages,
   structuralParityChecks,
   wordingChecks,
+  frozenLifecycleChecks,
   advancedReviewSamples: samples.length,
   downstreamLifecycleActivations: 0,
 }, null, 2));
