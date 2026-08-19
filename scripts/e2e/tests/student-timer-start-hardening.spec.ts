@@ -5,6 +5,7 @@ const FIREBASE_TOKEN = "examtree-e2e-access-token";
 const TEST_ID = "test-timer-start-1";
 const SESSION_ID = "attempt-session-timer-start-1";
 const RESULT_ATTEMPT_ID = "attempt-timer-final-1";
+const FIRST_DRAFT_PROBE = "examtree.e2e.first-active-draft";
 
 const student = {
   id: "e2e-student",
@@ -150,14 +151,13 @@ async function installTimerFixtures(
 
     if (path === "/attempt-sessions" && method === "POST") {
       observations.attemptSessionPosts += 1;
-      const payload = request.postDataJSON() as Record<string, unknown>;
       return fulfillJson(route, {
         id: SESSION_ID,
         testId: TEST_ID,
         revision,
         seriesId: null,
         updatedAt: "2026-08-19T10:00:00.000Z",
-        state: payload.state ?? null,
+        state: null,
       }, 201);
     }
 
@@ -190,11 +190,29 @@ async function installTimerFixtures(
   return observations;
 }
 
+async function installFirstDraftProbe(page: Page) {
+  await page.addInitScript(({ probeKey, testId }) => {
+    const nativeSetItem = Storage.prototype.setItem;
+    Storage.prototype.setItem = function setItem(key: string, value: string) {
+      if (key === "active_test_sessions" && !sessionStorage.getItem(probeKey)) {
+        try {
+          const parsed = JSON.parse(value) as Record<string, unknown>;
+          if (parsed[testId]) sessionStorage.setItem(probeKey, value);
+        } catch {
+          // Ignore malformed writes; the production storage wrapper owns recovery.
+        }
+      }
+      return nativeSetItem.call(this, key, value);
+    };
+  }, { probeKey: FIRST_DRAFT_PROBE, testId: TEST_ID });
+}
+
 async function seedStudentSession(page: Page) {
   await page.goto("/login/student");
-  await page.evaluate(async ({ apiKey, token, profile }) => {
+  await page.evaluate(async ({ apiKey, token, profile, probeKey }) => {
     localStorage.setItem("user", JSON.stringify(profile));
     localStorage.setItem("attempts", JSON.stringify([]));
+    sessionStorage.removeItem(probeKey);
 
     const now = Date.now();
     const firebaseUser = {
@@ -247,10 +265,11 @@ async function seedStudentSession(page: Page) {
         };
       };
     });
-  }, { apiKey: FIREBASE_API_KEY, token: FIREBASE_TOKEN, profile: student });
+  }, { apiKey: FIREBASE_API_KEY, token: FIREBASE_TOKEN, profile: student, probeKey: FIRST_DRAFT_PROBE });
 }
 
 async function openRunner(page: Page, testDetail: ReturnType<typeof fixedSectionTest>) {
+  await installFirstDraftProbe(page);
   const observations = await installTimerFixtures(page, testDetail);
   await seedStudentSession(page);
   await page.goto(`/test/${TEST_ID}`);
@@ -269,14 +288,21 @@ async function readSavedDraft(page: Page) {
   }, TEST_ID);
 }
 
+async function readFirstSavedDraft(page: Page) {
+  return page.evaluate(({ probeKey, testId }) => {
+    const raw = sessionStorage.getItem(probeKey);
+    if (!raw) return null;
+    const sessions = JSON.parse(raw) as Record<string, Record<string, unknown>>;
+    return sessions[testId] ?? null;
+  }, { probeKey: FIRST_DRAFT_PROBE, testId: TEST_ID });
+}
+
 test.describe("CP01B timer start and sectional expiry", () => {
   test("creates and advances a sectional real-attempt draft before the first answer", async ({ page }) => {
     const observations = await openRunner(page, fixedSectionTest(0.1));
 
-    const firstDraft = await expect.poll(async () => readSavedDraft(page)).not.toBeNull();
-    void firstDraft;
-
-    const initial = await readSavedDraft(page);
+    await expect.poll(async () => readFirstSavedDraft(page)).not.toBeNull();
+    const initial = await readFirstSavedDraft(page);
     expect(initial?.attemptType).toBe("REAL");
     expect(initial?.timerMode).toBe("sectional");
     expect(initial?.answers).toEqual({});
@@ -295,6 +321,32 @@ test.describe("CP01B timer start and sectional expiry", () => {
     const advanced = await readSavedDraft(page);
     expect(advanced?.answers).toEqual({});
     expect(advanced?.timerMode).toBe("sectional");
+  });
+
+  test("reconciles a Chromium lifecycle freeze before the first answer", async ({ page, context }) => {
+    const observations = await openRunner(page, fixedSectionTest(0.3));
+
+    await expect.poll(async () => readSavedDraft(page)).not.toBeNull();
+    const before = await readSavedDraft(page);
+    const beforeSections = before?.sectionTimeLeftByName as Record<string, number> | undefined;
+    const beforeRemaining = beforeSections?.["Quantitative Aptitude"] ?? 18;
+    expect(before?.answers).toEqual({});
+    expect(before?.timerMode).toBe("sectional");
+
+    const cdp = await context.newCDPSession(page);
+    await cdp.send("Page.setWebLifecycleState", { state: "frozen" });
+    await new Promise((resolve) => setTimeout(resolve, 3_500));
+    await cdp.send("Page.setWebLifecycleState", { state: "active" });
+
+    await expect(page.getByRole("button", { name: "Resume Test" })).toBeVisible({ timeout: 8_000 });
+    const after = await readSavedDraft(page);
+    const afterSections = after?.sectionTimeLeftByName as Record<string, number> | undefined;
+    const afterRemaining = afterSections?.["Quantitative Aptitude"] ?? beforeRemaining;
+
+    expect(after?.answers).toEqual({});
+    expect(after?.timerMode).toBe("sectional");
+    expect(beforeRemaining - afterRemaining).toBeGreaterThanOrEqual(2);
+    expect(observations.attemptPosts).toBe(0);
   });
 
   test("rolls across fixed sections and submits when the final sectional clock expires", async ({ page }) => {
