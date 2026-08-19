@@ -6,6 +6,7 @@ import { isTrg002V4CanonicalOverride } from "./exam-readiness-v4-canonical";
 import { generateLocalizedTrg002V4CanonicalOverrideSafe } from "./exam-readiness-v4-override-localization-safe";
 import {
   applyTrg002V4PhysicalSupportMigration,
+  TRG_002_V4_BRIDGE_SURFACE_IDS,
   TRG_002_V4_ROOFTOP_SURFACE_IDS,
 } from "./exam-readiness-v4-physical-support";
 import {
@@ -16,6 +17,13 @@ import {
 } from "./exam-readiness-v4-river";
 
 type AnyQuestion = Record<string, any>;
+
+const ROAD_BRIDGE_SCENARIO = {
+  id: "ROAD_BRIDGE_GROUND_POINT",
+  domain: "ROAD",
+  topology: "ELEVATED_OBSERVER",
+  visualStrategy: "pedestrian-overbridge-ground-target",
+} as const;
 
 function stableJson(value: unknown) {
   return JSON.stringify(value, (_key, current) => typeof current === "bigint" ? `bigint:${current}` : current);
@@ -67,11 +75,8 @@ function canonicalScenarioId(qlId: string) {
   return ids[qlId];
 }
 
-function isRooftopSurface(qlId: string) {
-  return (TRG_002_V4_ROOFTOP_SURFACE_IDS as readonly string[]).includes(qlId);
-}
-function isRiverSurface(qlId: string) {
-  return (TRG_002_V4_RIVER_SURFACE_IDS as readonly string[]).includes(qlId);
+function includesId(ids: readonly string[], qlId: string) {
+  return ids.includes(qlId);
 }
 
 export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, locale: Trg002ExamRealnessLocale) {
@@ -96,13 +101,15 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
   const selectedScenario = selectTrg002V4ScenarioShell({ qlId, seed, topology });
   const scenario = explicitScenarioId
     ? TRG_002_V4_SCENARIO_SHELLS.find((shell) => shell.id === explicitScenarioId)
-    : selectedScenario;
+    : wave1.scenarioId === ROAD_BRIDGE_SCENARIO.id
+      ? ROAD_BRIDGE_SCENARIO
+      : selectedScenario;
   if (!scenario) throw new Error(`${qlId}: missing explicit V4 scenario shell ${explicitScenarioId}.`);
   if (scenario.topology !== topology) throw new Error(`${qlId}: explicit V4 scenario topology ${scenario.topology} does not match ${topology}.`);
 
-  const rooftopDiagramAligned = isRooftopSurface(qlId) && physicalSupport.supported;
-  const riverDiagramAligned = isRiverSurface(qlId) && riverSupport.supported;
-  const diagramMigrationRequired = wave1.diagramMigrationRequired && !rooftopDiagramAligned && !riverDiagramAligned;
+  const physicalSurfaceAligned = (includesId(TRG_002_V4_ROOFTOP_SURFACE_IDS, qlId) || includesId(TRG_002_V4_BRIDGE_SURFACE_IDS, qlId)) && physicalSupport.supported;
+  const riverDiagramAligned = includesId(TRG_002_V4_RIVER_SURFACE_IDS, qlId) && riverSupport.supported;
+  const diagramMigrationRequired = wave1.diagramMigrationRequired && !physicalSurfaceAligned && !riverDiagramAligned;
   const scenarioSurfaceApplied = canonicalOverride || (wave1.scenarioTextApplied && !diagramMigrationRequired);
   const physicalObserverSupport = physicalSupport.supported || riverSupport.supported;
   const physicalSupportMigratedInV4 = physicalSupport.migrated || riverSupport.migrated;
