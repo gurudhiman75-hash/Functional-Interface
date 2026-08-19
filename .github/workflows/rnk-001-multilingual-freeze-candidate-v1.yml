@@ -1,0 +1,56 @@
+name: Validate RNK-001 Multilingual Freeze Candidate V1
+
+on:
+  push:
+    branches:
+      - freeze/rnk-001-multilingual-candidate-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-candidate-v1.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-candidate-v1.test.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-001-MULTILINGUAL-FREEZE-CANDIDATE-V1.md'
+      - '.github/workflows/rnk-001-multilingual-freeze-candidate-v1.yml'
+  pull_request:
+    branches:
+      - feature/rnk-001-question-studio-review-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-candidate-v1.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-candidate-v1.test.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-001-MULTILINGUAL-FREEZE-CANDIDATE-V1.md'
+      - '.github/workflows/rnk-001-multilingual-freeze-candidate-v1.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: rnk-001-multilingual-freeze-candidate-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-multilingual-freeze-candidate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove pinned multilingual candidate coverage and lifecycle locks
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-candidate-v1.test.ts
+
+      - name: Re-prove RNK exam-readiness authority and delivery boundary
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-readiness-audit-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-delivery-policy-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-banking-five-option-adapter-v1.test.ts
+
+      - name: Re-prove all 42 QLs through shared Question Studio review path
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-shared-question-studio.test.ts
+
+      - name: Re-prove chapter-wide English content freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
