@@ -1,5 +1,5 @@
 import { TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q, TSD_CP005_ENGLISH_FREEZE_ID } from "../english-approved-freeze-v13";
-import { TSD_CP005_NATIVE_FINAL_PARITY_REVIEW_V1 } from "./native-review-final-parity-v1";
+import { TSD_CP005_NATIVE_EDITORIAL_REVIEW_V3 } from "./native-review-editorial-v3";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -9,7 +9,13 @@ function numericTokens(text: string): readonly string[] {
   return Object.freeze(text.match(/\d+(?:\.\d+)?/g) ?? []);
 }
 
-const rows = TSD_CP005_NATIVE_FINAL_PARITY_REVIEW_V1;
+const FEMININE_OBJECTS = new Set([
+  "INTERCITY_BUS", "TAXI", "CAR", "DELIVERY_VAN", "COURIER_VAN", "PASSENGER_TRAIN", "EXPRESS_TRAIN",
+  "MINIBUS", "JEEP", "POSTAL_VAN", "COMPANY_CAR", "TRANSPORT_VAN", "SHUTTLE_BUS", "PATROL_CAR",
+  "SERVICE_VAN", "INSPECTION_JEEP", "TEST_CAR", "MAINTENANCE_VAN", "SHUTTLE_VAN", "MOTORCYCLE", "SERVICE_CAR",
+]);
+
+const rows = TSD_CP005_NATIVE_EDITORIAL_REVIEW_V3;
 const hi = rows.filter((row) => row.presentation.language === "hi");
 const pa = rows.filter((row) => row.presentation.language === "pa");
 
@@ -65,6 +71,16 @@ for (let index = 0; index < TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q.length; index 
       native.presentation.explanation.finalAnswer,
     ].join("\n");
     assert(!allNativeText.includes("3P–Q") && !allNativeText.includes("2P–Q"), `row ${index + 1}: ambiguous multiplied-route notation remains`);
+    assert(!native.presentation.stem.includes("दिया गया समय-अंतर") && !native.presentation.stem.includes("ਦਿੱਤਾ ਸਮਾਂ-ਅੰਤਰ"), `row ${index + 1}: redundant meeting-label repair prose remains`);
+    assert(!native.presentation.stem.includes("घंटे है") && !native.presentation.stem.includes("ਘੰਟੇ ਹੈ"), `row ${index + 1}: singular agreement used with plural hours`);
+    if (native.presentation.language === "hi") assert(!/km\/h पर/u.test(native.presentation.stem), `row ${index + 1}: awkward Hindi speed preposition remains`);
+    if (FEMININE_OBJECTS.has(source.objectFamily)) {
+      if (native.presentation.language === "hi") {
+        assert(!/(?:आते-जाते हैं|चलते हैं|चलता है|पहुँचता है|करता है|लौटता है|मुड़ता है|रुकता है|आता है|चलने वाले)/u.test(native.presentation.stem), `row ${index + 1}: masculine Hindi vehicle agreement remains`);
+      } else {
+        assert(!/(?:ਆਉਂਦੇ-ਜਾਂਦੇ ਹਨ|ਚਲਦੇ ਹਨ|ਚਲਦਾ ਹੈ|ਪਹੁੰਚਦਾ ਹੈ|ਕਰਦਾ ਹੈ|ਮੁੜਦਾ ਹੈ|ਰੁਕਦਾ ਹੈ|ਆਉਂਦਾ ਹੈ|ਚੱਲਣ ਵਾਲੇ)/u.test(native.presentation.stem), `row ${index + 1}: masculine Punjabi vehicle agreement remains`);
+      }
+    }
     assert(native.presentation.lifecycle.multilingualFreezeStatus === "UNFROZEN", `row ${index + 1}: native candidate frozen without approval`);
     assert(!native.presentation.lifecycle.productOwnerApprovalRecorded, `row ${index + 1}: native approval recorded prematurely`);
     assert(!native.presentation.lifecycle.questionStudioEnabled, `row ${index + 1}: Question Studio unlocked`);
@@ -76,7 +92,7 @@ for (let index = 0; index < TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q.length; index 
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "TSD_CP005_HI_PA_NATIVE_FINAL_REVIEW_V1",
+  phase: "TSD_CP005_HI_PA_NATIVE_EDITORIAL_REVIEW_V3",
   englishAuthority: TSD_CP005_ENGLISH_FREEZE_ID,
   englishFrozenRows: 78,
   nativeRows: rows.length,
@@ -91,6 +107,8 @@ console.log(JSON.stringify({
   explanationStepsPerQuestion: 2,
   strictScriptAndEnglishLeakGate: true,
   frozenGivenNumericParityGate: true,
+  nativeVehicleAgreementGate: true,
+  nativeSpeedPhrasingGate: true,
   englishSourceMutation: false,
   multilingualFreezeStatus: "UNFROZEN",
   productOwnerApprovalRecorded: false,
