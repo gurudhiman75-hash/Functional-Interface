@@ -64,6 +64,17 @@ export function extractSvgLabelCollisionScores(svg: string): readonly number[] {
   return Object.freeze([...svg.matchAll(/data-label-collision-score="([0-9.]+)"/g)].map((match) => Number(match[1])));
 }
 
+function separateIncentreLabelFromAngle(model: GeoDiagramModel): GeoDiagramModel {
+  const incentreIsAngleVertex = model.angleMarks.some((mark) => mark.vertexPointId === "I");
+  if (!incentreIsAngleVertex) return model;
+  return {
+    ...model,
+    points: model.points.map((point) => point.id === "I"
+      ? { ...point, labelPosition: "W" as const }
+      : point),
+  };
+}
+
 function expandAngleLabelRadii(model: GeoDiagramModel, expansion: number): GeoDiagramModel {
   if (expansion === 0 || model.angleMarks.length === 0) return model;
   return {
@@ -76,12 +87,13 @@ function expandAngleLabelRadii(model: GeoDiagramModel, expansion: number): GeoDi
 }
 
 function resolveDiagramLabelCollisions(model: GeoDiagramModel): Readonly<{ model: GeoDiagramModel; svg: string }> {
+  const prepared = separateIncentreLabelFromAngle(model);
   const expansions = [0, 8, 16, 24, 32, 40] as const;
-  let lastModel = model;
-  let lastSvg = renderGeometrySvg(model);
+  let lastModel = prepared;
+  let lastSvg = renderGeometrySvg(prepared);
 
   for (const expansion of expansions) {
-    const candidate = expandAngleLabelRadii(model, expansion);
+    const candidate = expandAngleLabelRadii(prepared, expansion);
     const svg = expansion === 0 ? lastSvg : renderGeometrySvg(candidate);
     lastModel = candidate;
     lastSvg = svg;
