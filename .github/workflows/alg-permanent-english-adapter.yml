@@ -12,6 +12,7 @@ on:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/**
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-adapter.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-editorial-audit.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-freeze.test.ts
       - .github/workflows/alg-permanent-english-adapter.yml
   workflow_dispatch:
 
@@ -60,3 +61,13 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/quant-v4/algebra/permanent-english-editorial-audit.test.mjs
+      - name: Bundle inactive English freeze proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-freeze.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/permanent-english-freeze.test.mjs
+      - name: Run inactive English freeze proof
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/algebra/permanent-english-freeze.test.mjs
