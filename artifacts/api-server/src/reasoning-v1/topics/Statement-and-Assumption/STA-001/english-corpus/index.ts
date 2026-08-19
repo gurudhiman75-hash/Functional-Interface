@@ -2,9 +2,13 @@ import type { StaEnglishCorpusCoverage, StaEnglishCorpusScenario, StaCorpusDomai
 import { STA_EXECUTABLE_SCENARIOS } from "../prototype-authorities.ts";
 import type { StaQlId, StaScenarioAuthority } from "../types.ts";
 import { STA_QL001_ENGLISH_EXPANSION } from "./ql001.ts";
+import { STA_QL001_V2_GAPFILL } from "./ql001-v2-gapfill.ts";
 import { STA_QL002_ENGLISH_EXPANSION } from "./ql002.ts";
+import { STA_QL002_V2_GAPFILL } from "./ql002-v2-gapfill.ts";
 import { STA_QL003_ENGLISH_EXPANSION } from "./ql003.ts";
+import { STA_QL003_V2_GAPFILL } from "./ql003-v2-gapfill.ts";
 import { STA_QL004_ENGLISH_EXPANSION } from "./ql004.ts";
+import { STA_QL004_V2_GAPFILL } from "./ql004-v2-gapfill.ts";
 
 interface ReviewedMetadata {
   readonly corpusFamilyId: string;
@@ -122,31 +126,39 @@ export const STA_ENGLISH_CORPUS_V1: readonly StaEnglishCorpusScenario[] = [
   ...STA_QL004_ENGLISH_EXPANSION.map(normalizeExpansion),
 ];
 
+export const STA_ENGLISH_CORPUS_V2: readonly StaEnglishCorpusScenario[] = [
+  ...STA_ENGLISH_CORPUS_V1,
+  ...STA_QL001_V2_GAPFILL.map(normalizeExpansion),
+  ...STA_QL002_V2_GAPFILL.map(normalizeExpansion),
+  ...STA_QL003_V2_GAPFILL.map(normalizeExpansion),
+  ...STA_QL004_V2_GAPFILL.map(normalizeExpansion),
+];
+
 export const STA_ENGLISH_CORPUS_BY_QL: Readonly<Record<StaQlId, readonly StaEnglishCorpusScenario[]>> = {
-  "STA-QL-001": STA_ENGLISH_CORPUS_V1.filter((scenario) => scenario.proposedQlId === "STA-QL-001"),
-  "STA-QL-002": STA_ENGLISH_CORPUS_V1.filter((scenario) => scenario.proposedQlId === "STA-QL-002"),
-  "STA-QL-003": STA_ENGLISH_CORPUS_V1.filter((scenario) => scenario.proposedQlId === "STA-QL-003"),
-  "STA-QL-004": STA_ENGLISH_CORPUS_V1.filter((scenario) => scenario.proposedQlId === "STA-QL-004"),
+  "STA-QL-001": STA_ENGLISH_CORPUS_V2.filter((scenario) => scenario.proposedQlId === "STA-QL-001"),
+  "STA-QL-002": STA_ENGLISH_CORPUS_V2.filter((scenario) => scenario.proposedQlId === "STA-QL-002"),
+  "STA-QL-003": STA_ENGLISH_CORPUS_V2.filter((scenario) => scenario.proposedQlId === "STA-QL-003"),
+  "STA-QL-004": STA_ENGLISH_CORPUS_V2.filter((scenario) => scenario.proposedQlId === "STA-QL-004"),
 };
 
 export function getStaEnglishCorpusCoverage(): StaEnglishCorpusCoverage {
   return {
-    totalScenarios: STA_ENGLISH_CORPUS_V1.length,
+    totalScenarios: STA_ENGLISH_CORPUS_V2.length,
     byQl: {
       "STA-QL-001": STA_ENGLISH_CORPUS_BY_QL["STA-QL-001"].length,
       "STA-QL-002": STA_ENGLISH_CORPUS_BY_QL["STA-QL-002"].length,
       "STA-QL-003": STA_ENGLISH_CORPUS_BY_QL["STA-QL-003"].length,
       "STA-QL-004": STA_ENGLISH_CORPUS_BY_QL["STA-QL-004"].length,
     },
-    domains: [...new Set(STA_ENGLISH_CORPUS_V1.map((scenario) => scenario.domain))].sort(),
-    familyCount: new Set(STA_ENGLISH_CORPUS_V1.map((scenario) => scenario.corpusFamilyId)).size,
+    domains: [...new Set(STA_ENGLISH_CORPUS_V2.map((scenario) => scenario.domain))].sort(),
+    familyCount: new Set(STA_ENGLISH_CORPUS_V2.map((scenario) => scenario.corpusFamilyId)).size,
     misconceptionClasses: [
       ...new Set(
-        STA_ENGLISH_CORPUS_V1.flatMap((scenario) =>
+        STA_ENGLISH_CORPUS_V2.flatMap((scenario) =>
           scenario.candidates.flatMap((candidate) => candidate.misconceptionClass ? [candidate.misconceptionClass] : []),
         ),
       ),
     ].sort(),
-    dependencyRelations: [...new Set(STA_ENGLISH_CORPUS_V1.flatMap((scenario) => scenario.hiddenDependencies.map((dependency) => dependency.relation)))].sort(),
+    dependencyRelations: [...new Set(STA_ENGLISH_CORPUS_V2.flatMap((scenario) => scenario.hiddenDependencies.map((dependency) => dependency.relation)))].sort(),
   };
 }

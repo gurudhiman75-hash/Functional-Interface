@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { STA_ENGLISH_CORPUS_V1 } from "./english-corpus/index.ts";
+import { STA_ENGLISH_CORPUS_V2 } from "./english-corpus/index.ts";
 import { evaluateAssumptionOracle } from "./oracle.ts";
 
 const STOP_WORDS = new Set([
@@ -37,7 +37,7 @@ let ql004RestatementChecks = 0;
 let rationaleChecks = 0;
 let candidateWordingChecks = 0;
 
-for (const scenario of STA_ENGLISH_CORPUS_V1) {
+for (const scenario of STA_ENGLISH_CORPUS_V2) {
   const candidateTextSet = new Set<string>();
   const statementTextSet = new Set<string>();
   let implicitInScenario = 0;
@@ -97,18 +97,18 @@ for (const scenario of STA_ENGLISH_CORPUS_V1) {
   }
 }
 
-assert.ok(implicitCandidates >= 55, `Too few implicit candidate authorities: ${implicitCandidates}`);
-assert.ok(rejectedCandidates >= 55, `Too few rejected candidate authorities: ${rejectedCandidates}`);
-assert.ok(ql003DirectPropositionChecks >= 60, `Too few QL003 direct-proposition checks: ${ql003DirectPropositionChecks}`);
-assert.ok(ql004RestatementChecks >= 20, `Too few QL004 restatement checks: ${ql004RestatementChecks}`);
-assert.ok(candidateWordingChecks >= 240, `Too few candidate wording checks: ${candidateWordingChecks}`);
+assert.ok(implicitCandidates >= 90, `Too few implicit candidate authorities for V2: ${implicitCandidates}`);
+assert.ok(rejectedCandidates >= 80, `Too few rejected candidate authorities for V2: ${rejectedCandidates}`);
+assert.ok(ql003DirectPropositionChecks >= 90, `Too few QL003 direct-proposition checks for V2: ${ql003DirectPropositionChecks}`);
+assert.ok(ql004RestatementChecks >= 30, `Too few QL004 restatement checks for V2: ${ql004RestatementChecks}`);
+assert.ok(candidateWordingChecks >= 360, `Too few candidate wording checks for V2: ${candidateWordingChecks}`);
 
-console.log("PASS_STA_001_ENGLISH_AMBIGUITY_PROOF");
+console.log("PASS_STA_001_ENGLISH_AMBIGUITY_PROOF_V2");
 console.log(`implicit candidate authorities ${implicitCandidates}`);
 console.log(`rejected candidate authorities ${rejectedCandidates}`);
 console.log(`rationale quality checks ${rationaleChecks}`);
 console.log(`candidate wording checks ${candidateWordingChecks}`);
 console.log(`QL003 direct-proposition checks ${ql003DirectPropositionChecks}`);
 console.log(`QL004 hidden-bridge restatement checks ${ql004RestatementChecks}`);
-console.log("English corpus status CANDIDATE_NOT_FROZEN");
+console.log("English corpus status V2_FREEZE_CANDIDATE_NOT_FROZEN");
 console.log("Question Studio false");

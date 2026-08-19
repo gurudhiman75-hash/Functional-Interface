@@ -31,7 +31,7 @@ export const STA_QL004_V2_GAPFILL = [
       c("C3", "P3", ["The floor markings will eliminate all waiting.", "Nobody will have to wait once the markings are added."], "NOT_IMPLICIT", "Reducing crowding near one area is not the same as eliminating the need to wait.", "CAUSE_EFFECT_OVERREACH"),
     ],
     allowedCandidateCounts: [2, 3],
-    difficulty: "Medium",
+    difficulty: "Easy",
     sourceStatus: SOURCE_SUPPORTED,
   },
   {
