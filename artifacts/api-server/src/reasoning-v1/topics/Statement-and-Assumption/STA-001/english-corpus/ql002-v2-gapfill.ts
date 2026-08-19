@@ -147,8 +147,8 @@ export const STA_QL002_V2_GAPFILL = [
     discourseAct: "PROPOSAL",
     objectiveIds: ["REDUCE_FORGOTTEN_APPOINTMENT_NOSHOWS"],
     statementVariants: [
-      "The centre should make reminder calls the day before appointments to reduce no-shows caused by people forgetting their slot.",
-      "To reduce appointments missed through forgetfulness, the centre should call customers the previous day as a reminder.",
+      "The centre should make reminder calls the day before appointments to reduce appointment no-shows.",
+      "To reduce missed appointments, the centre should call customers the previous day as a reminder.",
     ],
     propositions: [
       p("P1", "FORGETTING_CAUSES_SOME_APPOINTMENT_NOSHOWS", "FORGETTING_CAUSES_NO_APPOINTMENT_NOSHOWS", ["forgetting", "appointment no-shows"], "SOME"),
@@ -161,7 +161,7 @@ export const STA_QL002_V2_GAPFILL = [
       d("D2", "P2", "EFFICACY", ["REDUCE_FORGOTTEN_APPOINTMENT_NOSHOWS"], "BREAKS_RATIONALE"),
     ],
     candidates: [
-      c("C1", "P1", ["Forgetfulness causes at least some appointment no-shows.", "Some people miss appointments because they forget the slot."], "IMPLICIT", "The proposal specifically targets forgotten appointments, so forgetfulness must contribute to at least some of the no-shows."),
+      c("C1", "P1", ["Forgetfulness causes at least some appointment no-shows.", "Some people miss appointments because they forget the slot."], "IMPLICIT", "A reminder strategy is relevant to the no-show problem only if forgetting contributes to at least some missed appointments."),
       c("C2", "P2", ["A reminder call can reduce no-shows caused by forgetting.", "Calling customers before the appointment can prevent some forgotten no-shows."], "IMPLICIT", "The proposed calls must be capable of changing the problem they are intended to reduce."),
       c("C3", "P3", ["A fall in no-shows would itself cause reminder calls to be made.", "Reminder calls would happen because no-show numbers first decreased."], "NOT_IMPLICIT", "This reverses the intended dependency: the proposal treats reminder calls as a possible cause of fewer no-shows, not the reverse.", "REVERSE_DEPENDENCY"),
     ],
@@ -173,7 +173,7 @@ export const STA_QL002_V2_GAPFILL = [
     scenarioId: "STA-EN2-QL002-SUNDAY-MAINTENANCE",
     corpusFamilyId: "QL002-LOWER-DISRUPTION-MAINTENANCE-DECISION",
     domain: "DIGITAL_SERVICE",
-    semanticShape: "NEED_PLUS_FEASIBILITY_PLUS_EFFICACY",
+    semanticShape: "NEED_PLUS_FEASIBILITY",
     corpusStatus: CORPUS_CANDIDATE,
     proposedQlId: "STA-QL-002",
     checkpointId: "STA-CP-002",

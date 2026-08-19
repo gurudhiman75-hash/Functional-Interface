@@ -14,7 +14,7 @@ export const STA_QL003_V2_GAPFILL = [
     discourseAct: "NOTICE",
     objectiveIds: ["DIRECT_CERTIFICATE_USERS_TO_TEMP_WINDOW"],
     statementVariants: [
-      "Certificate service will operate from Window 9 today while Window 3 is under repair.",
+      "Certificate applicants should use Window 9 today while Window 3 is under repair.",
       "Today, certificate applicants should use Window 9 because Window 3 is temporarily unavailable.",
     ],
     propositions: [
@@ -49,7 +49,7 @@ export const STA_QL003_V2_GAPFILL = [
     objectiveIds: ["DIRECT_VERIFICATION_USERS_TO_DESK_B"],
     statementVariants: [
       "Applicants asked to verify original documents should report to Desk B between 11 a.m. and 1 p.m.",
-      "Original-document verification will be handled at Desk B from 11 a.m. to 1 p.m.",
+      "Applicants needing original-document verification should use Desk B from 11 a.m. to 1 p.m.",
     ],
     propositions: [
       p("P1", "SOME_APPLICANTS_REQUIRE_ORIGINAL_DOCUMENT_VERIFICATION", "NO_APPLICANT_REQUIRES_ORIGINAL_DOCUMENT_VERIFICATION", ["applicants", "document verification"], "SOME"),
@@ -82,7 +82,7 @@ export const STA_QL003_V2_GAPFILL = [
     discourseAct: "NOTICE",
     objectiveIds: ["DIRECT_EARLY_ROUTE8_PASSENGERS_TO_TEMP_STOP"],
     statementVariants: [
-      "Before 8 a.m. tomorrow, Route 8 buses will board from the temporary stop beside the depot gate.",
+      "Before 8 a.m. tomorrow, Route 8 passengers should board at the temporary stop beside the depot gate.",
       "Route 8 passengers travelling before 8 a.m. tomorrow should use the temporary stop beside the depot gate.",
     ],
     propositions: [
@@ -116,7 +116,7 @@ export const STA_QL003_V2_GAPFILL = [
     discourseAct: "NOTICE",
     objectiveIds: ["DIRECT_CASH_USERS_TO_ALTERNATIVE_ATM"],
     statementVariants: [
-      "The lobby ATM will be under maintenance from 3 p.m. to 5 p.m.; cash withdrawals can be made at the ATM beside the parking exit.",
+      "The lobby ATM will be under maintenance from 3 p.m. to 5 p.m.; customers needing cash should use the ATM beside the parking exit.",
       "During the lobby ATM maintenance window, customers needing cash should use the ATM beside the parking exit.",
     ],
     propositions: [
@@ -150,8 +150,8 @@ export const STA_QL003_V2_GAPFILL = [
     discourseAct: "NOTICE",
     objectiveIds: ["DIRECT_INCOMPLETE_UPLOAD_USERS_TO_CORRECTION_PORTAL"],
     statementVariants: [
-      "Applicants with an incomplete document upload may use the correction portal until 10 p.m. today.",
-      "The correction portal remains available until 10 p.m. today for applicants who need to complete a document upload.",
+      "Applicants with an incomplete document upload should use the correction portal before 10 p.m. today.",
+      "To complete a missing document upload today, applicants should use the correction portal before 10 p.m.",
     ],
     propositions: [
       p("P1", "SOME_APPLICANTS_HAVE_INCOMPLETE_DOCUMENT_UPLOAD", "NO_APPLICANT_HAS_INCOMPLETE_DOCUMENT_UPLOAD", ["applicants", "document upload"], "SOME"),
@@ -184,8 +184,8 @@ export const STA_QL003_V2_GAPFILL = [
     discourseAct: "NOTICE",
     objectiveIds: ["DIRECT_EVENING_USERS_TO_EXTENDED_HELPDESK"],
     statementVariants: [
-      "For month-end processing, the internal help desk will remain open until 8 p.m. today for access-related issues.",
-      "Employees needing help with access issues during month-end processing can contact the internal help desk until 8 p.m. today.",
+      "For month-end processing, employees with access-related issues should contact the internal help desk before 8 p.m. today.",
+      "Employees needing help with access issues during month-end processing should contact the internal help desk before 8 p.m. today.",
     ],
     propositions: [
       p("P1", "SOME_EMPLOYEES_MAY_HAVE_ACCESS_ISSUES_THIS_EVENING", "NO_EMPLOYEE_HAS_ACCESS_ISSUES_THIS_EVENING", ["employees", "access issues", "evening"], "SOME"),

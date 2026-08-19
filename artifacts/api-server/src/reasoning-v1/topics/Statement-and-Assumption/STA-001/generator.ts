@@ -119,35 +119,34 @@ function renderCandidates(
   throw new Error(`${scenario.scenarioId}: unsupported rendered candidate count ${rendered.length}`);
 }
 
-function explanationLead(scenario: StaScenarioAuthority, statement: string): string {
+function explanationLead(scenario: StaScenarioAuthority): string {
   switch (scenario.discourseAct) {
     case "INSTRUCTION":
     case "REQUEST":
-      return `The instruction has to be workable as stated: “${statement}”`;
+      return "Check which assumptions are required for the requested action to be workable.";
     case "RECOMMENDATION":
     case "PROPOSAL":
     case "DECISION":
-      return `The proposal is meant to achieve the purpose stated here: “${statement}”`;
+      return "Check which assumptions are required for the proposed action or decision to achieve its stated purpose.";
     case "NOTICE":
-      return `The notice is meant to guide the people it addresses: “${statement}”`;
+      return "Check which assumptions are required for the notice to guide its intended users.";
     case "PREDICTION":
-      return `The prediction connects a stated change with an expected result: “${statement}”`;
+      return "Check which assumptions are needed to connect the stated change with the predicted result.";
     case "ASSERTION":
-      return `The claim depends on the connection expressed here: “${statement}”`;
+      return "Check which assumptions are needed for the stated fact to support the claim.";
     case "ADVERTISEMENT":
     case "APPEAL":
-      return `The message is intended to influence its audience through this claim: “${statement}”`;
+      return "Check which assumptions are required for the message to support its intended claim.";
   }
 }
 
 function buildExplanation(
-  statement: string,
   rendered: StaQuestion["candidates"],
   scenario: StaScenarioAuthority,
   selectedAuthorities: readonly StaCandidateAuthority[],
   answerSet: StaAnswerSet,
 ): string {
-  const lines: string[] = [explanationLead(scenario, statement)];
+  const lines: string[] = [explanationLead(scenario)];
   rendered.forEach((candidate, index) => {
     const authority = selectedAuthorities[index]!;
     if (candidate.oracle.classification === "IMPLICIT") {
@@ -196,7 +195,7 @@ export function generateStaQuestionFromPool(
     options,
     answerIndex,
     answerSet,
-    explanation: buildExplanation(statement, rendered, scenario, selectedAuthorities, answerSet),
+    explanation: buildExplanation(rendered, scenario, selectedAuthorities, answerSet),
     oracleParity: true,
     lifecycle: STA_EXECUTABLE_DISCOVERY_LIFECYCLE,
   };
@@ -221,5 +220,6 @@ export function assertStaDiscoveryQuestionIntegrity(question: StaQuestion): void
   if (optionDisplays.size !== 4) throw new Error(`${question.questionId}: duplicate visible options`);
   if (question.candidates.some((candidate) => candidate.oracle.evidenceCode === "MISSING_SEMANTIC_NEGATION")) throw new Error(`${question.questionId}: missing semantic negation`);
   if (/STA-|BREAKS_|REQUIRED_HIDDEN_DEPENDENCY|NO_REQUIRED_DEPENDENCY/.test(question.explanation)) throw new Error(`${question.questionId}: internal authority leaked into explanation`);
+  if (question.explanation.includes(question.statement)) throw new Error(`${question.questionId}: explanation repeats full question statement`);
   if (question.lifecycle.permanentQlCount !== 4 || question.lifecycle.questionStudioDiscoverable) throw new Error(`${question.questionId}: permanent-Ql lifecycle mismatch or downstream gate opened`);
 }

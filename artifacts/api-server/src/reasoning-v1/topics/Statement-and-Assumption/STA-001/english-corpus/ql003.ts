@@ -14,7 +14,7 @@ export const STA_QL003_ENGLISH_EXPANSION = [
     discourseAct: "NOTICE",
     objectiveIds: ["DIRECT_RETURNING_USERS_TO_DROPBOX"],
     statementVariants: [
-      "Notice: While the library desk is closed for inventory, books due today may be returned through the entrance drop box.",
+      "Notice: While the library desk is closed for inventory, users with books due today should use the entrance drop box.",
       "During today's inventory closure, users returning books should use the drop box at the library entrance.",
     ],
     propositions: [
@@ -48,7 +48,7 @@ export const STA_QL003_ENGLISH_EXPANSION = [
     discourseAct: "NOTICE",
     objectiveIds: ["PROMPT_DUE_CUSTOMERS_TO_UPDATE_KYC"],
     statementVariants: [
-      "Reminder: Customers whose KYC update is due can complete it at any service desk before Friday.",
+      "Reminder: Customers whose KYC update is due should complete it at a service desk before Friday.",
       "Customers due for a KYC update are reminded to complete it at a service desk by Friday.",
     ],
     propositions: [
@@ -150,7 +150,7 @@ export const STA_QL003_ENGLISH_EXPANSION = [
     discourseAct: "NOTICE",
     objectiveIds: ["DIRECT_READY_APPLICANTS_TO_COLLECTION_DESK"],
     statementVariants: [
-      "Notice: Applicants who received the readiness message may collect their certificates from Window 6.",
+      "Notice: Applicants who received the readiness message should report to Window 6 to collect their certificates.",
       "Applicants notified that their certificates are ready should collect them from Window 6.",
     ],
     propositions: [
