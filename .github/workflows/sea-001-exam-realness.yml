@@ -1,0 +1,66 @@
+name: Audit SEA-001 exam realness
+
+on:
+  push:
+    branches:
+      - feat/sea-001-wave5-saturation-audits
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
+      - artifacts/api-server/src/routes/admin-question-studio-seating.ts
+      - .github/workflows/sea-001-exam-realness.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
+      - artifacts/api-server/src/routes/admin-question-studio-seating.ts
+      - .github/workflows/sea-001-exam-realness.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-sea-001-exam-realness-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  freshness-and-integration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Prove fresh-by-default Question Studio runtime and delivery locks
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-question-studio-integration-proof.test.ts
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+  structural-saturation-measurement:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Measure 1,600-caselet role-graph, near-clone and lexical saturation
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-realness-saturation-proof.test.ts
+
+  frozen-authority-regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Re-prove permanent QL/query/English freeze
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-permanent-allocation-freeze-proof.test.ts
+      - name: Re-prove multilingual freeze
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-multilingual-freeze-proof.test.ts
