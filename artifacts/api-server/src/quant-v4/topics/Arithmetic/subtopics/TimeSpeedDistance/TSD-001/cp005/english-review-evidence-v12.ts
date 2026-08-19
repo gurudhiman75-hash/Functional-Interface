@@ -1,6 +1,6 @@
 import "./english-review-evidence-v11";
 import { generateCp005ReviewSetV11 } from "./english-review-runtime-v11";
-import { generateCp005EnglishAuditPoolV12, generateCp005ReviewSetV12 } from "./english-review-runtime-v12";
+import { generateCp005EnglishAuditPoolV12Final, generateCp005ReviewSetV12Final } from "./english-review-runtime-v12-final";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -18,7 +18,7 @@ function words(text: string): number {
   return text.trim() ? text.trim().split(/\s+/).length : 0;
 }
 
-function explanationWords(row: ReturnType<typeof generateCp005ReviewSetV12>[number]): number {
+function explanationWords(row: ReturnType<typeof generateCp005ReviewSetV12Final>[number]): number {
   return words([
     row.explanation.method,
     ...row.explanation.steps,
@@ -27,9 +27,9 @@ function explanationWords(row: ReturnType<typeof generateCp005ReviewSetV12>[numb
   ].join(" "));
 }
 
-const rows = generateCp005ReviewSetV12(6);
+const rows = generateCp005ReviewSetV12Final(6);
 const v11 = generateCp005ReviewSetV11(6);
-const audit = generateCp005EnglishAuditPoolV12(30);
+const audit = generateCp005EnglishAuditPoolV12Final(30);
 
 assert(rows.length === 78, `CP005 V12 expected 78 selected questions, received ${rows.length}`);
 assert(audit.length === 390, `CP005 V12 expected 390 audit questions, received ${audit.length}`);
@@ -54,6 +54,19 @@ assert(rows.every((row) => words(row.explanation.method) <= 14), "CP005 V12 meth
 assert(rows.every((row) => words(row.explanation.shortcut) <= 12), "CP005 V12 shortcut line is too long");
 assert(rows.every((row) => row.explanation.finalAnswer.startsWith("Answer:")), "CP005 V12 final answer is not concise");
 
+const bannedStemPhrases = [
+  "speed :",
+  "at the same time at",
+  "takes a halt",
+  "again for the second time",
+  "his remaining",
+  "starts with him",
+  "touching Q",
+];
+for (const phrase of bannedStemPhrases) {
+  assert(rows.every((row) => !row.stem.includes(phrase)), `CP005 V12 retained awkward stem phrase: ${phrase}`);
+}
+
 assert(rows.every((row, index) => row.permanentQlId === v11[index]!.permanentQlId), "CP005 V12 QL identity changed from V11");
 assert(rows.every((row, index) => row.solveMode === v11[index]!.solveMode), "CP005 V12 solve-mode identity changed from V11");
 assert(rows.every((row, index) => row.answerText === v11[index]!.answerText), "CP005 V12 answer changed from V11");
@@ -74,7 +87,7 @@ assert(difficulty.EASY === 24 && difficulty.MEDIUM === 36 && difficulty.HARD ===
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "TSD_CP005_ENGLISH_REVIEW_CANDIDATE_V12",
+  phase: "TSD_CP005_ENGLISH_REVIEW_CANDIDATE_V12_FINAL",
   selectedQuestions: rows.length,
   auditQuestions: audit.length,
   learnerQLs: 13,
@@ -83,6 +96,7 @@ console.log(JSON.stringify({
   averageExplanationWords: Number(averageExplanationWords.toFixed(1)),
   maxExplanationWords: Math.max(...explanationLengths),
   explanationStepsPerQuestion: 2,
+  bannedStemPhrases: 0,
   mathSurfaceIdenticalToV11: true,
   difficulty,
   englishFreezeStatus: "UNFROZEN",
