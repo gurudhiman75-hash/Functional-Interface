@@ -1,67 +1,75 @@
 # NUM-CP-008 Permanent Allocation and English Freeze
 
-## Owner decision
+## Final authority decision
 
-The 19-authority source-saturation proposal is explicitly approved.
+The owner explicitly approved the final source-saturated count of **19 permanent authorities** from **26 discovery prototypes**.
 
-Permanent identities are allocated in approved conceptual order:
+Permanent identities are allocated contiguously as:
 
-- `NUM-QL-166` — Basic modular arithmetic and residue normalisation
-- `NUM-QL-167` — Exact power remainder
-- `NUM-QL-168` — Solvable linear congruence solution classes
-- `NUM-QL-169` — Unsolvable linear congruence classification
-- `NUM-QL-170` — Compatible simultaneous congruence construction
-- `NUM-QL-171` — Incompatible simultaneous congruence classification
-- `NUM-QL-172` — Bounded residue-class extremum
-- `NUM-QL-173` — Bounded residue or system solution count
-- `NUM-QL-174` — Complete bounded simultaneous-system solution set
-- `NUM-QL-175` — Missing modular coefficient reconstruction
-- `NUM-QL-176` — Missing modulus reconstruction
-- `NUM-QL-177` — Structured geometric-sum remainder
-- `NUM-QL-178` — Missing residue from modular-system evidence
-- `NUM-QL-179` — Nested modular expression
-- `NUM-QL-180` — Congruence-system candidate verification
-- `NUM-QL-181` — Modular statement combination
-- `NUM-QL-182` — Bounded modular Data Sufficiency
-- `NUM-QL-183` — Repeated-numeral modular recurrence
-- `NUM-QL-184` — Bounded simultaneous-system multiplicity classification
+- first: `NUM-QL-166`
+- last: `NUM-QL-184`
+- next free Number System identity: `NUM-QL-185`
 
-Next available Number System identity after this allocation: `NUM-QL-185`.
+The approved merge/split is the exact 26→19 authority proposal from the final source-saturation audit. Six merge groups are preserved and all protected non-merges remain intact.
 
-## Permanent English runtime architecture
+## English permanent runtime
 
-The permanent runtime does not fork or rewrite the proven mathematics. Each permanent QL selects one of its approved source prototypes deterministically from the seed, invokes that wave's final reviewed English generator, and then binds the permanent QL identity and permanent lifecycle metadata.
+The permanent English runtime is an adapter over the final reviewed Wave 01–04 generators. It does not fork the underlying mathematics. Each permanent QL selects only from the discovery prototypes approved for that authority; merged authorities rotate deterministically through their approved source modes by seed.
 
-This preserves:
+English lifecycle status is now:
 
-- canonical answer;
-- independent verifier answer;
-- option values, correct index and misconception labels;
-- hidden mathematical state;
-- mathematical fingerprint;
-- source/prototype ancestry;
-- final reviewed learner explanation.
+- maturity: `PERMANENT_AUTHORITY`
+- review status: `ENGLISH_FROZEN`
+- permanent identities allocated: true
+- English runtime frozen: true
 
-Merged authorities intentionally retain their approved source-mode breadth rather than collapsing to one presentation.
+Downstream product lifecycle remains closed:
 
-## Freeze proof target
+- active: false
+- Question Studio discoverable: false
+- Question Bank writable: false
+- test/mock eligible: false
+- publicly publishable: false
 
-For every permanent QL and seeds 1..120:
+## Exact-head executable proof
 
-- deterministic replay;
-- canonical answer equals verifier;
-- four unique options and exactly one keyed answer;
-- correct-index binding;
-- non-empty concept/strategy and at least two explanation steps;
-- no generator/prototype/fingerprint/hidden-state vocabulary in learner text;
-- all approved source prototypes for the authority are exercised;
-- at least two difficulty bands;
-- at least 60 distinct mathematical fingerprints;
-- permanent lifecycle identity is exact;
-- Question Studio, Question Bank writes, test/mock eligibility and public publication stay closed.
+Exact branch head: `5cf6c194d32e507c39d3a21b803b5c57b084a375`
 
-Total permanent English proof volume: **2,280 questions**.
+Dedicated workflow: `Validate NUM-CP-008 permanent allocation and English freeze`
 
-## Lifecycle
+Run: `32257238018` — **SUCCESS**
 
-Allocation and English freeze do not activate product surfaces. Activation/localisation remain later gates.
+The run proved:
+
+- final source saturation: PASS
+- discovered prototypes: 26
+- permanent authorities: 19
+- merge groups: 6
+- singleton authorities: 13
+- routine source gaps: 0
+- permanent allocation invariant: PASS
+- permanent range: `NUM-QL-166..NUM-QL-184`
+- next free identity: `NUM-QL-185`
+- source-prototype once-only coverage: 26
+- permanent English runtime: PASS
+- English packages exercised: 2,280 (`19 × 120`)
+- deterministic replay checks: 2,280
+- verifier parity checks: 2,280
+- option binding checks: 2,280
+- explanation binding / learner-text hygiene checks: 2,280
+- every approved merged source mode reached
+- at least two difficulty bands reached per permanent QL
+- distinct mathematical fingerprints per QL: minimum 69, maximum 120
+- Question Studio / Question Bank / test / public lifecycle activations: 0
+
+Evidence artifact:
+
+- ID: `9366778708`
+- name: `num-cp008-permanent-allocation-en-freeze`
+- digest: `sha256:37051a9d76e8aee1afe869a11a54bf3693c0557acaa6d01589481570b1d1e8d8`
+
+## Current gate
+
+**CP008 permanent allocation and English authority freeze are complete.**
+
+Hindi/Punjabi localization and downstream Question Studio integration remain separate later gates. This freeze does not authorize Question Bank writes, mock/test inclusion, or public publication.
