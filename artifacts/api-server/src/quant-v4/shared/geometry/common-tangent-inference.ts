@@ -2,35 +2,13 @@ import {
   RATIONAL_ZERO,
   add,
   compare,
+  divide,
   multiply,
-  rational,
   square,
   subtract,
   type Rational,
 } from "./exact";
-
-function exactBigIntSquareRoot(value: bigint): bigint | null {
-  if (value < 0n) return null;
-  if (value < 2n) return value;
-  let low = 1n;
-  let high = value;
-  while (low <= high) {
-    const mid = (low + high) >> 1n;
-    const squared = mid * mid;
-    if (squared === value) return mid;
-    if (squared < value) low = mid + 1n;
-    else high = mid - 1n;
-  }
-  return null;
-}
-
-export function exactRationalSquareRoot(value: Rational): Rational | null {
-  if (compare(value, RATIONAL_ZERO) < 0) return null;
-  const numerator = exactBigIntSquareRoot(value.numerator);
-  const denominator = exactBigIntSquareRoot(value.denominator);
-  if (numerator === null || denominator === null) return null;
-  return rational(numerator, denominator);
-}
+import { exactRationalSquareRoot } from "./circle-inference";
 
 export function externallyTangentCentreDistance(firstRadius: Rational, secondRadius: Rational): Rational {
   if (compare(firstRadius, RATIONAL_ZERO) <= 0 || compare(secondRadius, RATIONAL_ZERO) <= 0) {
@@ -55,9 +33,7 @@ export function directCommonTangentLength(
   firstRadius: Rational,
   secondRadius: Rational,
 ): Rational {
-  const exact = exactRationalSquareRoot(directCommonTangentLengthSquared(centreDistance, firstRadius, secondRadius));
-  if (!exact) throw new Error("Direct common tangent length is not rational in this exact helper");
-  return exact;
+  return exactRationalSquareRoot(directCommonTangentLengthSquared(centreDistance, firstRadius, secondRadius));
 }
 
 export function transverseCommonTangentLengthSquared(
@@ -75,14 +51,9 @@ export function commonTangentSimilarityRadiusFromOuterTangent(
   largerRadius: Rational,
   tangentLengthFromExternalCentre: Rational,
 ): Rational {
-  const externalCentreDistanceSquared = add(square(largerRadius), square(tangentLengthFromExternalCentre));
-  const externalCentreDistance = exactRationalSquareRoot(externalCentreDistanceSquared);
-  if (!externalCentreDistance) throw new Error("External-centre distance is not rational in this exact helper");
+  const externalCentreDistance = exactRationalSquareRoot(add(square(largerRadius), square(tangentLengthFromExternalCentre)));
   const numerator = multiply(largerRadius, subtract(externalCentreDistance, largerRadius));
   const denominator = add(externalCentreDistance, largerRadius);
   if (compare(denominator, RATIONAL_ZERO) <= 0) throw new Error("Invalid common-tangent similarity denominator");
-  return rational(
-    numerator.numerator * denominator.denominator,
-    numerator.denominator * denominator.numerator,
-  );
+  return divide(numerator, denominator);
 }
