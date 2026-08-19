@@ -1,10 +1,16 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { formatExactPlain } from "../foundation/exact";
 import { generateTrg002V4CanonicalQuestion, isTrg002V4CanonicalOverride } from "./exam-readiness-v4-canonical";
 import { generateTrg002V4CandidateQuestion } from "./exam-readiness-v4-candidate";
 import { buildTrg002V4BaselineAudit } from "./exam-readiness-v4-audit";
 import { applyTrg002V4PhysicalSupportMigration } from "./exam-readiness-v4-physical-support";
+import {
+  applyTrg002V4RiverPlatformMigration,
+  generateLocalizedTrg002V4RiverQl093,
+  isTrg002V4RiverMathOverride,
+} from "./exam-readiness-v4-river";
 
 const outDir = join(process.cwd(), "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-readiness-v4");
 mkdirSync(outDir, { recursive: true });
@@ -16,12 +22,37 @@ function stringify(value: unknown) {
   return JSON.stringify(value, (_key, current) => typeof current === "bigint" ? `bigint:${current}` : current, 2);
 }
 
+function englishRiverQl093(seed: string) {
+  const q: any = generateLocalizedTrg002V4RiverQl093(seed, "hi-IN");
+  const observer = q.canonicalSpatialState.observers[0];
+  if (!observer) throw new Error("TRG-002-QL-093 V4 review: canonical observer missing.");
+  const height = formatExactPlain(observer.eyeHeight);
+  const width = q.exactAnswer.kind === "NUMBER" ? formatExactPlain(q.exactAnswer.value) : q.answer.replace(/ m$/, "");
+  return {
+    ...q,
+    language: "en" as const,
+    stem: `An observation platform on one bank of a river is ${height} m high. From its top, the point directly opposite on the other bank is seen at an angle of depression of 60°. Find the exact width of the river.`,
+    explanation: {
+      keyRule: "The platform height is the vertical drop and the river width is the horizontal side of the depression triangle.",
+      steps: [
+        { title: "Given", body: `The platform height is ${height} m. Let the river width be w m.` },
+        { title: "Calculation", body: `tan60° = ${height}/w = √3, so w = ${height}/√3 = ${width} m.` },
+      ],
+      shortcut: "At 60°, river width = vertical platform height/√3.",
+      traps: ["The river width is the perpendicular horizontal distance between the banks, not the sloping line of sight."],
+    },
+  };
+}
+
 const qlIds = Array.from({ length: 96 }, (_, index) => `TRG-002-QL-${String(index + 1).padStart(3, "0")}`);
 const records = qlIds.map((qlId, index) => {
   const seed = `trg002-v4-human-review-${String(index + 1).padStart(3, "0")}`;
-  const rawEn: any = generateTrg002V4CanonicalQuestion(qlId, seed);
+  const rawEn: any = isTrg002V4RiverMathOverride(qlId)
+    ? englishRiverQl093(seed)
+    : generateTrg002V4CanonicalQuestion(qlId, seed);
   const englishPhysicalSupport = applyTrg002V4PhysicalSupportMigration(rawEn);
-  const en: any = englishPhysicalSupport.question;
+  const englishRiverSupport = applyTrg002V4RiverPlatformMigration(englishPhysicalSupport.question);
+  const en: any = englishRiverSupport.question;
   const hi: any = generateTrg002V4CandidateQuestion(qlId, seed, "hi-IN");
   const pa: any = generateTrg002V4CandidateQuestion(qlId, seed, "pa-IN");
   return {
@@ -31,8 +62,8 @@ const records = qlIds.map((qlId, index) => {
     lockedFamily: en.lockedFamily,
     solveMode: en.solveMode,
     seed,
-    v4CanonicalOverride: isTrg002V4CanonicalOverride(qlId),
-    v4PhysicalSupportMigrated: englishPhysicalSupport.migrated,
+    v4CanonicalOverride: isTrg002V4CanonicalOverride(qlId) || isTrg002V4RiverMathOverride(qlId),
+    v4PhysicalSupportMigrated: englishPhysicalSupport.migrated || englishRiverSupport.migrated,
     english: { stem: en.stem, options: en.options, answer: en.answer, explanation: en.explanation },
     hindi: { stem: hi.stem, options: hi.options, answer: hi.answer, explanation: hi.explanation, v4ExamReadiness: hi.v4ExamReadiness },
     punjabi: { stem: pa.stem, options: pa.options, answer: pa.answer, explanation: pa.explanation, v4ExamReadiness: pa.v4ExamReadiness },
