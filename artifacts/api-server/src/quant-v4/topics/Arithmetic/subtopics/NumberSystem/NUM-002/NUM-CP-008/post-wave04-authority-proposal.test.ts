@@ -6,8 +6,8 @@ import {
   NUM_CP008_PROPOSED_AUTHORITIES,
   NUM_CP008_PROTECTED_NON_MERGES,
 } from "./post-wave04-authority-proposal.ts";
-import { generateNumCp008Wave01Package } from "./wave01/runtime.ts";
-import { generateNumCp008Wave02Package } from "./wave02/runtime.ts";
+import { generateNumCp008Wave01 } from "./wave01/runtime.ts";
+import { generateNumCp008Wave02 } from "./wave02/runtime.ts";
 import { generateNumCp008Wave03 } from "./wave03/runtime.ts";
 import { generateNumCp008Wave04Package } from "./wave04/runtime.ts";
 
@@ -85,8 +85,8 @@ const wave02Ids = NUM_CP008_DISCOVERED_PROTOTYPE_IDS.slice(8, 16);
 const wave03Ids = NUM_CP008_DISCOVERED_PROTOTYPE_IDS.slice(16, 24);
 const wave04Ids = NUM_CP008_DISCOVERED_PROTOTYPE_IDS.slice(24, 26);
 const runtimeSamples = [
-  ...wave01Ids.map((id) => generateNumCp008Wave01Package(id as never, 17)),
-  ...wave02Ids.map((id) => generateNumCp008Wave02Package(id as never, 17)),
+  ...wave01Ids.map((id) => generateNumCp008Wave01(id as never, 17)),
+  ...wave02Ids.map((id) => generateNumCp008Wave02(id as never, 17)),
   ...wave03Ids.map((id) => generateNumCp008Wave03(id as never, 17)),
   ...wave04Ids.map((id) => generateNumCp008Wave04Package(id as never, 17)),
 ];
