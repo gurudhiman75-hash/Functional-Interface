@@ -42,7 +42,7 @@ function replaceCandidateText(
 function normalizeReviewedEnglish(scenario: StaScenarioAuthority): StaScenarioAuthority {
   if (scenario.scenarioId === "STA-DISC-QL003-001") {
     return replaceCandidateText(scenario, "C1", [
-      "Some students addressed by the reminder may still have unpaid examination fees.",
+      "Some students may still have unpaid examination fees.",
       "There may still be students who need to pay the examination fee before Friday.",
     ]);
   }
