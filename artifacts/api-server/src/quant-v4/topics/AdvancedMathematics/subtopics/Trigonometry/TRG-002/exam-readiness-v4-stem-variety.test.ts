@@ -44,5 +44,23 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
   assert.equal(seen.size, 96);
 }
 
+for (const locale of ["hi-IN", "pa-IN"] as const) {
+  const q54: any = generateTrg002V4CandidateQuestion("TRG-002-QL-054", "trg002-v4-no-repeat-054", locale);
+  const q82: any = generateTrg002V4CandidateQuestion("TRG-002-QL-082", "trg002-v4-no-repeat-082", locale);
+  const first54 = q54.stem.split(locale === "hi-IN" ? "।" : "।")[0];
+  const first82 = q82.stem.split(locale === "hi-IN" ? "।" : "।")[0];
+  if (locale === "hi-IN") {
+    assert(first54.includes("दो कोणीय माप"), "QL054 Hindi context should add survey flavor without repeating station geometry.");
+    assert(!first54.includes("अवलोकन स्टेशन"), "QL054 Hindi context must not restate the two-station geometry.");
+    assert(first82.includes("आधार-रेखा सर्वेक्षण"), "QL082 Hindi context should retain baseline-survey flavor.");
+    assert(!first82.includes("विपरीत ओर"), "QL082 Hindi context must not restate opposite-side geometry.");
+  } else {
+    assert(first54.includes("ਦੋ ਕੋਣੀ ਮਾਪ"), "QL054 Punjabi context should add survey flavor without repeating station geometry.");
+    assert(!first54.includes("ਨਿਰੀਖਣ ਸਟੇਸ਼ਨ"), "QL054 Punjabi context must not restate the two-station geometry.");
+    assert(first82.includes("ਅਧਾਰ-ਰੇਖਾ ਸਰਵੇਖਣ"), "QL082 Punjabi context should retain baseline-survey flavor.");
+    assert(!first82.includes("ਉਲਟ ਪਾਸ"), "QL082 Punjabi context must not restate opposite-side geometry.");
+  }
+}
+
 assert.equal(targetCases, 24 * 12 * 2);
-console.log(`TRG002_V4_STEM_VARIETY_PASS targets=24 targetCases=${targetCases} chapterQls=96 locales=2 duplicateNormalizedStems=0`);
+console.log(`TRG002_V4_STEM_VARIETY_PASS targets=24 targetCases=${targetCases} chapterQls=96 locales=2 duplicateNormalizedStems=0 repeatedSetupBlockers=0`);
