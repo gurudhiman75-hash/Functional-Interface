@@ -13,11 +13,13 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
   ].join(" ");
 
   assert(!learnerSurface.includes("√1.54"), `${locale}: historical √1.54 corruption must be absent from every learner-facing V4 surface.`);
-  assert(learnerSurface.includes("√3"), `${locale}: QL013 exact surd √3 must survive the localized exactness repair.`);
+  assert(!q.stem.includes("√"), `${locale}: QL013 Wave2 stem must use ordinary measured height and distance.`);
+  assert.equal(q.answer, "45°", `${locale}: equal natural height/distance must produce 45°.`);
   assert.equal(q.v4ExamReadiness.exactMathProtected, true);
-  assert.equal(q.v4ExamReadiness.scenarioSurfaceApplied, false, "Scenario metadata must not masquerade as an applied scenario surface.");
+  assert.equal(q.v4ExamReadiness.naturalMeasurementOverride, true);
+  assert.equal(q.v4ExamReadiness.scenarioSurfaceApplied, true, "QL013 V4 natural-measurement scenario is a fully applied candidate surface.");
   assert.equal(q.freezeStatus, "NOT_FROZEN");
   assert.equal(q.activationAuthorized, false);
 }
 
-console.log("TRG002_V4_Q013_EXACT_MATH_PASS locales=2 malformedSurd=absent exactSurd=preserved scenarioSurfaceApplied=false");
+console.log("TRG002_V4_Q013_EXACT_MATH_PASS locales=2 malformedSurd=absent naturalMeasurements=true answer=45deg scenarioSurfaceApplied=true");
