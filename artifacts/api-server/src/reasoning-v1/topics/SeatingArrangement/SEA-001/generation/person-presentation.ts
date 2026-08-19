@@ -262,21 +262,23 @@ export function presentSea001Children<T extends {
     }
 
     const random = new DeterministicRandom(
-    `${presentationSeed}:visible-distractors:${child.queryContractId}:${child.answerDeterminingFactFingerprint}:Q${questionOrder}`,
-  );
-  const shuffled = random.shuffle(child.options);
-  const correctOption = shuffled.find((option) => option.isCorrect);
-  if (!correctOption) throw new Error(`SEA-001 child ${child.queryContractId} lost its correct option`);
-  const options = shuffled.filter((option) => !option.isCorrect);
-  const answerIndex = (stableNumber(
-    `${child.queryContractId}|${child.answerDeterminingFactFingerprint}|Q${questionOrder}|answer-slot-v1`,
-  ) % 4) as 0 | 1 | 2 | 3;
-  options.splice(answerIndex, 0, correctOption);
-  return {
-    ...child,
-    questionOrder,
-    options,
-    answerIndex,
-  };
+      `${presentationSeed}:visible-options:${child.queryContractId}:${child.answerDeterminingFactFingerprint}:Q${questionOrder}`,
+    );
+    const shuffled = random.shuffle(child.options);
+    const shuffledAnswerIndex = shuffled.findIndex((option) => option.isCorrect);
+    if (shuffledAnswerIndex < 0) throw new Error(`SEA-001 child ${child.queryContractId} lost its correct option`);
+    const correctOption = shuffled[shuffledAnswerIndex]!;
+    const options = shuffled.filter((option) => !option.isCorrect);
+    const semanticOffset = stableNumber(
+      `${child.queryContractId}|${child.answerDeterminingFactFingerprint}|Q${questionOrder}|answer-offset-v1`,
+    ) % 4;
+    const answerIndex = ((shuffledAnswerIndex + semanticOffset) % 4) as 0 | 1 | 2 | 3;
+    options.splice(answerIndex, 0, correctOption);
+    return {
+      ...child,
+      questionOrder,
+      options,
+      answerIndex,
+    };
   }) as T[];
 }
