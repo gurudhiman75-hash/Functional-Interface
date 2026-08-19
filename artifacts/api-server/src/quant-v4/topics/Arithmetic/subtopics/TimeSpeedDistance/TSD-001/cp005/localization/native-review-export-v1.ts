@@ -1,6 +1,6 @@
-import { TSD_CP005_NATIVE_EDITORIAL_REVIEW_V4 } from "./native-review-editorial-v4";
+import { TSD_CP005_NATIVE_EDITORIAL_REVIEW_V5 } from "./native-review-editorial-v5";
 
-const exportRows = TSD_CP005_NATIVE_EDITORIAL_REVIEW_V4.map((row, index) => ({
+const exportRows = TSD_CP005_NATIVE_EDITORIAL_REVIEW_V5.map((row, index) => ({
   questionNo: Math.floor(index / 2) + 1,
   language: row.presentation.language,
   permanentQlId: row.source.permanentQlId,
