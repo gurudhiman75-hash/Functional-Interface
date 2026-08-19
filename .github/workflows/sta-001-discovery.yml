@@ -68,10 +68,15 @@ jobs:
       - name: Prove STA English V2 immutable freeze
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-freeze-proof.test.ts
 
-      - name: Prove STA QL001 Hindi/Punjabi semantic parity candidate
+      - name: Prove STA QL001 Hindi/Punjabi semantic parity candidate V1
         env:
           STA_QL001_LOCALIZATION_CASES_PER_LOCALE: 768
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-proof.test.ts
+
+      - name: Prove STA QL001 Hindi/Punjabi native editorial V2
+        env:
+          STA_QL001_LOCALIZATION_V2_CASES_PER_LOCALE: 768
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-editorial-v2-proof.test.ts
 
       - name: Generate STA semantic-freeze review pack
         env:
@@ -85,11 +90,17 @@ jobs:
           STA_ENGLISH_REVIEW_EXAMPLES_PER_AUTHORITY: 2
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-review-export.ts
 
-      - name: Generate STA QL001 Hindi/Punjabi native-review pack
+      - name: Generate STA QL001 Hindi/Punjabi V1 review pack
         env:
           STA_QL001_LOCALIZATION_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql001-hi-pa-review-v1
           STA_QL001_LOCALIZATION_EXAMPLES_PER_AUTHORITY: 2
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-review-export.ts
+
+      - name: Generate STA QL001 Hindi/Punjabi native editorial V2 review pack
+        env:
+          STA_QL001_LOCALIZATION_V2_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql001-hi-pa-review-v2
+          STA_QL001_LOCALIZATION_V2_EXAMPLES_PER_AUTHORITY: 2
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-editorial-v2-review-export.ts
 
       - name: Build production API
         working-directory: artifacts/api-server
@@ -113,5 +124,12 @@ jobs:
         with:
           name: sta-001-ql001-hi-pa-review-v1
           path: /tmp/sta-001-ql001-hi-pa-review-v1/**
+          if-no-files-found: error
+          retention-days: 14
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sta-001-ql001-hi-pa-review-v2
+          path: /tmp/sta-001-ql001-hi-pa-review-v2/**
           if-no-files-found: error
           retention-days: 14
