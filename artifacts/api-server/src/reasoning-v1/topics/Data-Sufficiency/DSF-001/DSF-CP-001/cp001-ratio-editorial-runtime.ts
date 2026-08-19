@@ -3,7 +3,7 @@ import {
   type DsfCp001RatioQuestion,
 } from "./cp001-ratio-runtime.ts";
 
-export const DSF_CP001_RATIO_EDITORIAL_VERSION = "DSF_CP001_RATIO_EDITORIAL_V1" as const;
+export const DSF_CP001_RATIO_EDITORIAL_VERSION = "DSF_CP001_RATIO_EDITORIAL_V2" as const;
 
 function naturalList(values: readonly string[]): string {
   if (values.length === 0) return "no valid answer";
@@ -40,7 +40,7 @@ function statementReasoning(
   }
 
   if (sufficient) {
-    return `${label} makes ${comparisonMeaning(targetAnswers[0]!)} in every valid case. So ${label} alone is sufficient.`;
+    return `${label} shows that ${comparisonMeaning(targetAnswers[0]!)} in every valid case. So ${label} alone is sufficient.`;
   }
   return `${label} allows cases with A greater than B and cases with B greater than A. So ${label} alone is not sufficient.`;
 }
@@ -72,6 +72,7 @@ export function realizeDsfCp001RatioEnglish(
     : "Which is greater, A or B?";
   const stem = `A and B are distinct positive integers between 2 and 18. ${prompt}`;
 
+  const together = togetherReasoning(semanticQuestion);
   const explanation = {
     askedTarget: `We need to determine ${targetDescription(semanticQuestion)}.`,
     statementI: statementReasoning(
@@ -86,7 +87,7 @@ export function realizeDsfCp001RatioEnglish(
       semanticQuestion.proof.statementIIWorldCount,
       semanticQuestion.proof.statementIITargetAnswers,
     ),
-    ...(togetherReasoning(semanticQuestion) ? { together: togetherReasoning(semanticQuestion) } : {}),
+    ...(together ? { together } : {}),
     conclusion: semanticQuestion.explanation.conclusion,
   };
 
