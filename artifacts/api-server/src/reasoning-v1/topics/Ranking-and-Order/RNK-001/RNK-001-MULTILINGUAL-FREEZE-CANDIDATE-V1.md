@@ -1,71 +1,90 @@
 # RNK-001 Multilingual Freeze Candidate V1
 
-Status: **TECHNICAL CONSOLIDATION CANDIDATE — FORMAL NATIVE/PRODUCT APPROVAL REQUIRED**
+## Current status
 
-This checkpoint consolidates the current Hindi/Punjabi review evidence for `RNK-001 Ranking & Order`. It does not merge the seven localization PRs, does not grant multilingual freeze, and does not enable Hindi/Punjabi Question Studio delivery.
+**TECHNICAL MULTILINGUAL CANDIDATE REMAINS VALID; FORMAL NATIVE/PRODUCT APPROVAL IS STILL REQUIRED.**
 
-## Permanent authority boundary
+The last candidate head that completed the full GitHub suite is `60c20f88eba87e2f7dcae07299b328a961ca9831` on workflow run `32229246885` — **SUCCESS**.
 
-- English authority remains frozen.
-- Permanent QLs remain `RNK-QL-001..042`.
-- `RNK-QL-043` remains unallocated.
-- CP008 adds no new permanent QL.
+The current head adds only approval-review tooling:
 
-## Pinned localization lineage
+- `rnk-001-native-approval-review-pack-v1.mjs`;
+- workflow steps that reconstruct one Hindi and one Punjabi approval pack from the pinned candidate evidence and retain them as an Actions artifact.
 
-| CP | QLs | PR | Current head | Exact-head run | Retained artifact evidence |
-| --- | --- | ---: | --- | ---: | --- |
-| CP001 | 001..009 | #793 | `d62bb7ea6bf8312a360318cf4939bd15bce057f0` | 32156515182 | `9332085480`, `sha256:ccc007d791c17b9d853e50d1f616f01320e402d896182c9113eb21b776d990c9` |
-| CP002 | 010..017 | #798 | `0e29a4760f80c638c5e318cdc5dcff621fe3b9a4` | 32156263287 | `9331950882`, `sha256:a94636e7f3e218e5adc8877f87a3f99d8c0ba9e7ec0c6a872a9dc3032ad1b6f5` |
-| CP003 | 018..026 | #803 | `618a5a8ebdc33eaad395a10297719cae030d8cc9` | 32156696225 | `9332197359`, `sha256:675d1f3573379907821af576d6ae824f4e9c30cfe9519c3d256dc3cd4dd1609a` |
-| CP004 | 027..035 | #839 | `7ac8eeeb76cd2c259957baa67d30c1acb329f36e` | 32162654654 | `9334465846`, `sha256:4b4c7675c5c4c027ca9ac634902da4c35bb5cc48f94d518d3a6e268b8f45cb65` |
-| CP005 | 036..038 | #879 | `7d28290d061329153935853cba28d5c3ffe63a43` | 32155944463 | `9332478402`, `sha256:9bfe10c5e7a56eef636a440f8ccdd9a48c9c6947a1e92b91331813dfb3eb1829` |
-| CP006 | 039..041 | #895 | `361cf571f138572caebfd0ecb0fa145e9afdfda3` | 32153076870 | `9331032696`, `sha256:8dff4e7ae8a9a9abf2a11422167c83e7c4d5fd60920bed2e70f90ec05475ed68` |
-| CP007 | 042 | #792 | `60d1fcca93efd27340f969ff8589b95195c2771e` | 32197317683 | native V4 `9346352174`, `sha256:2b15f9e0b198c9e674999b45430bc9c78929b0af656a52d173e9f860f8f02125`; percentage V2 `9346352864`, `sha256:404f45048e41f5e2ebd76f7e11546c8847d7735c7c5e325166895407180cbded` |
+No localization authority, learner generator, answer, QL ownership, exam-delivery policy, shared Question Studio runtime or lifecycle flag changed between the last green head and this review-tooling head.
 
-All listed artifacts were confirmed retained and tied to the listed current PR heads during this consolidation audit.
+The first workflow attempt on the review-tooling head (`32246887138`) ended before a runner executed any step: the job exposes no step list and no packaged job log. Multiple unrelated workflows on the same commit show the same pre-step failure. Therefore this attempt is classified as **RUNNER / ACTIONS INFRASTRUCTURE BLOCKED**, not as an RNK content or review-pack test failure.
 
-## Lineage corrections made during consolidation
+## Candidate boundary
 
-Two PR descriptions were found to cite successful artifacts from older branch heads:
-
-- CP003 PR #803 previously cited run `31866515389` / artifact `9242177842`. Current-head evidence is run `32156696225` / artifact `9332197359`.
-- CP005 PR #879 previously cited run `32121281416` / artifact `9318965989`. Current-head evidence is run `32155944463` / artifact `9332478402`.
-
-Those older artifacts remain useful historical editorial evidence, but they are not used as the exact-head freeze-candidate proof. The PR descriptions were corrected before this manifest was created.
-
-## File/branch independence audit
-
-The seven localization PRs are independently based on `New-main` and their changed-file sets are checkpoint-localized. No CP-to-CP localization branch dependency or cross-checkpoint file collision was found. CP007 additionally owns the QL042 percentage presentation adapter inside its own checkpoint directory.
-
-This means the review lineages can be approved independently. It does **not** mean they should be blindly merged without final current-base CI after approval.
-
-## Technical readiness verdict
-
-- CP001..CP007 Hindi/Punjabi technical candidates: **REVIEW_READY**
-- QL coverage: **001..042 exactly once**
-- learner artifact audit evidence: **present for every checkpoint**
-- CP004 pedagogy remediation: **included**
-- CP007 percentage real-exam surface: **included**
-- shared English Question Studio review integration: **already exact-head green on parent PR #899**
-
-## Explicitly ungranted gates
-
-- formal Hindi native/product-owner approval: **false**
-- formal Punjabi native/product-owner approval: **false**
+- English authority: **FROZEN / unchanged**
+- Permanent QLs: `RNK-QL-001..042`
+- `RNK-QL-043`: **unallocated**
+- Hindi technical coverage: **REVIEW_READY**
+- Punjabi technical coverage: **REVIEW_READY**
+- formal Hindi/Punjabi native/product approval: **NOT RECORDED**
 - chapter multilingual freeze: **false**
 - Hindi/Punjabi Question Studio delivery: **false**
 - Question Bank write: **false**
 - mock/test eligibility: **false**
 - public publication: **false**
-- product delivery unlock: **false**
 
-## Approval sequence after this candidate is green
+## Pinned checkpoint lineages
 
-1. Human/product-owner native-language review and explicit approval of the pinned CP001..CP007 candidate lineage.
-2. Re-check that none of the seven PR heads moved after approval.
-3. Integrate the approved localization branches in a controlled consolidation branch and rerun chapter-wide semantic/invariance/build gates on the combined tree.
-4. Only after the combined tree is green may the chapter multilingual freeze flag be changed.
-5. Hindi/Punjabi Question Studio delivery is a separate lifecycle transition after multilingual freeze; Question Bank, tests and public publication remain separate gates.
+| CP | Permanent QLs | PR | Candidate head | Exact-head run | Retained learner artifact |
+|---|---|---:|---|---:|---:|
+| CP001 | QL001..009 | #793 | `d62bb7ea6bf8312a360318cf4939bd15bce057f0` | `32156515182` | `9332085480` |
+| CP002 | QL010..017 | #798 | `0e29a4760f80c638c5e318cdc5dcff621fe3b9a4` | `32156263287` | `9331950882` |
+| CP003 | QL018..026 | #803 | `618a5a8ebdc33eaad395a10297719cae030d8cc9` | `32156696225` | `9332197359` |
+| CP004 | QL027..035 | #839 | `7ac8eeeb76cd2c259957baa67d30c1acb329f36e` | `32162654654` | `9334465846` |
+| CP005 | QL036..038 | #879 | `7d28290d061329153935853cba28d5c3ffe63a43` | `32155944463` | `9332478402` |
+| CP006 | QL039..041 | #895 | `361cf571f138572caebfd0ecb0fa145e9afdfda3` | `32153076870` | `9331032696` |
+| CP007 | QL042 | #792 | `60d1fcca93efd27340f969ff8589b95195c2771e` | `32197317683` | `9346352174`, percentage `9346352864` |
 
-This document is intentionally a **freeze candidate**, not a freeze declaration.
+## Provenance hardening
+
+The consolidation pass found stale artifact references in CP003 and CP005 PR descriptions. Both PRs were corrected to their current-head run/artifact evidence.
+
+The earlier directly audited learner packs were then compared with the current-head packs:
+
+- CP003: rendered 144Q Markdown is byte-for-byte identical;
+- CP005: rendered 48Q Markdown is byte-for-byte identical.
+
+Thus the direct learner audit transfers to the current pinned heads.
+
+## Approval-review bundle contract
+
+The review-pack generator is designed to produce:
+
+- one Hindi sample for every `RNK-QL-001..042`;
+- one Punjabi sample for every `RNK-QL-001..042`;
+- a separate QL042 40/60 percentage-presentation sample in each language;
+- exact checkpoint-head and artifact provenance beside every sample;
+- explicit unchecked approval/freeze locks.
+
+For CP004, QL027/028 are taken from the V6 retained artifact. QL029..035 are regenerated from the V5-Final exporter at the exact V6 candidate head; the V6 exhaustive test proves those non-target learner surfaces are unchanged from V5 Final.
+
+A local independent assembly pass over the same pinned inputs produced 42 unique QLs per language with no gap/overlap and the required 40/60 supplement. This is supporting review-tooling evidence only; the Actions-retained bundle remains pending a runner-executed workflow attempt.
+
+## Last fully green chapter-level proof
+
+Run `32229246885` passed:
+
+1. pinned multilingual candidate coverage and lifecycle locks;
+2. RNK exam-readiness authority/delivery boundary;
+3. banking five-option delivery guard;
+4. all 42 QLs through the shared Question Studio review path;
+5. chapter-wide English content freeze;
+6. API server build;
+7. admin app build.
+
+## Approval sequence
+
+1. Review the pinned Hindi/Punjabi learner lineage.
+2. Record explicit native/product approval for the exact pinned heads.
+3. Only after all seven checkpoint approvals, combine the approved locale branches on a controlled integration branch.
+4. Re-run combined-tree semantic/invariance/build gates.
+5. Only a green combined tree may set chapter multilingual freeze.
+6. Multilingual Question Studio activation remains a separate later product lifecycle transition.
+
+No merge into `New-main`, multilingual freeze, multilingual Question Studio activation, Question Bank storage, mock/test eligibility, public publication or deployment is authorized by this candidate.
