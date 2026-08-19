@@ -13,13 +13,25 @@ function stableJson(value: unknown): string {
   return JSON.stringify(value, (_key, item) => typeof item === "bigint" ? `${item}n` : item);
 }
 
-function approvedPayload(question: ReturnType<typeof generateFrozen>): unknown {
+function learnerPayload(question: ReturnType<typeof generateApproved> | ReturnType<typeof generateFrozen>): unknown {
   const source = question as any;
-  const { freezeId: _freezeId, freezeApproval: _freezeApproval, editorialStatus: _editorialStatus,
-    approvalStatus: _approvalStatus, allocationStatus: _allocationStatus,
-    permanentIdentityFrozen: _permanentIdentityFrozen, learnerContentFrozen: _learnerContentFrozen,
-    ...rest } = source;
-  return rest;
+  return {
+    id: source.id,
+    runtimeVersion: source.runtimeVersion,
+    englishVersion: source.englishVersion,
+    checkpointId: source.checkpointId,
+    qlId: source.qlId,
+    locale: source.locale,
+    seed: source.seed,
+    mathematicalState: source.mathematicalState,
+    answerSemantic: source.answerSemantic,
+    presentation: source.presentation,
+    options: source.options,
+    correctIndex: source.correctIndex,
+    correctAnswer: source.correctAnswer,
+    explanation: source.explanation,
+    mathematicalFingerprint: source.mathematicalFingerprint,
+  };
 }
 
 let questions = 0;
@@ -36,7 +48,7 @@ for (const qlId of INT_CP007_QL_IDS) {
     const frozen = generateFrozen(qlId, seed);
     const replay = generateFrozen(qlId, seed);
 
-    assert.equal(stableJson(approvedPayload(frozen)), stableJson(approved), `${qlId}/${seed}: frozen learner payload drifted from approved V8`);
+    assert.equal(stableJson(learnerPayload(frozen)), stableJson(learnerPayload(approved)), `${qlId}/${seed}: frozen learner payload drifted from approved V8`);
     identityChecks += 1;
     assert.equal(stableJson(replay), stableJson(frozen), `${qlId}/${seed}: frozen replay is not deterministic`);
     deterministicChecks += 1;
@@ -50,6 +62,12 @@ for (const qlId of INT_CP007_QL_IDS) {
     assert.equal(frozen.freezeApproval.reviewArtifactDigest, "sha256:07985fc95a8d3a3a3f1fee43c559fbbe33fdd4033e47af6697e69ed00f7ffe97");
     approvalEvidenceChecks += 7;
 
+    assert.equal(frozen.editorialStatus, "ENGLISH_FROZEN");
+    assert.equal(frozen.approvalStatus, "APPROVED_ENGLISH_FROZEN");
+    assert.equal(frozen.allocationStatus, "INACTIVE_ENGLISH_FROZEN");
+    assert.equal(frozen.permanentIdentityFrozen, true);
+    assert.equal(frozen.learnerContentFrozen, true);
+
     assert.equal(frozen.enabled, false);
     assert.equal(frozen.stagingStatus, "NOT_STAGED");
     assert.equal(frozen.registrationStatus, "NOT_REGISTERED");
@@ -57,17 +75,15 @@ for (const qlId of INT_CP007_QL_IDS) {
     assert.equal(frozen.questionBankStatus, "NOT_STORED");
     assert.equal(frozen.testEligibility, "INELIGIBLE");
     assert.equal(frozen.publiclyPublishable, false);
-    lifecycleChecks += 7;
+    lifecycleChecks += 12;
 
-    assert.equal(frozen.permanentIdentityFrozen, true);
-    assert.equal(frozen.learnerContentFrozen, true);
     assert.ok(Object.isFrozen(frozen));
     assert.ok(Object.isFrozen(frozen.presentation));
     assert.ok(Object.isFrozen(frozen.options));
     assert.ok(Object.isFrozen(frozen.explanation));
     assert.ok(Object.isFrozen(frozen.explanation.steps));
     assert.ok(Object.isFrozen(frozen.freezeApproval));
-    deepFreezeChecks += 8;
+    deepFreezeChecks += 6;
     questions += 1;
   }
 }
