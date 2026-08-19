@@ -1,6 +1,6 @@
-import { generateCp005ReviewSetV12 } from "./english-review-runtime-v12";
+import { generateCp005ReviewSetV12Final } from "./english-review-runtime-v12-final";
 
-const rows = generateCp005ReviewSetV12(6).map((row, index) => Object.freeze({
+const rows = generateCp005ReviewSetV12Final(6).map((row, index) => Object.freeze({
   questionNo: index + 1,
   permanentQlId: row.permanentQlId,
   authorityKey: row.authorityKey,
