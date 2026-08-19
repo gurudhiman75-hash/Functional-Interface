@@ -1,0 +1,107 @@
+name: Validate RNK-001 Explanation Declutter V1
+
+on:
+  push:
+    branches:
+      - feature/rnk-001-explanation-declutter-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-v1.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-v1.test.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-review-export-v1.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-native-review-pack-declutter-v1.mjs'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/question-studio-payload.ts'
+      - '.github/workflows/rnk-001-explanation-declutter-v1.yml'
+  pull_request:
+    branches:
+      - freeze/rnk-001-multilingual-candidate-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-v1.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-v1.test.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-review-export-v1.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-native-review-pack-declutter-v1.mjs'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/question-studio-payload.ts'
+      - '.github/workflows/rnk-001-explanation-declutter-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: rnk-001-explanation-declutter-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-explanation-declutter-v1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove EN HI PA declutter semantics and 42 QL English projection
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-v1.test.ts
+
+      - name: Re-prove all 42 QLs through shared Question Studio
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-shared-question-studio.test.ts
+
+      - name: Re-prove frozen English authority is unchanged
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+
+      - name: Export English declutter review pack
+        run: |
+          mkdir -p /tmp/rnk-declutter-output
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-review-export-v1.ts /tmp/rnk-declutter-output/RNK-001-ENGLISH-EXPLANATION-DECLUTTER-REVIEW-V1.md
+
+      - name: Download pinned Hindi Punjabi learner-review artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          root=/tmp/rnk-native-review
+          mkdir -p "$root"/{cp001,cp002,cp003,cp004,cp005,cp006,cp007,cp007-percentage,output}
+          gh run download 32156515182 -n rnk-cp001-hi-pa-native-editorial-v4-108q -D "$root/cp001"
+          gh run download 32156263287 -n rnk-cp002-hi-pa-native-editorial-v2-128q -D "$root/cp002"
+          gh run download 32156696225 -n rnk-cp003-hi-pa-localization-review-v4-144q -D "$root/cp003"
+          gh run download 32162654654 -n rnk-cp004-hi-pa-localization-review-v6-32q -D "$root/cp004"
+          gh run download 32155944463 -n rnk-cp005-hi-pa-localization-review-v3-48q -D "$root/cp005"
+          gh run download 32153076870 -n rnk-cp006-hi-pa-localization-review-v1-48q -D "$root/cp006"
+          gh run download 32197317683 -n rnk-cp007-hi-pa-native-editorial-v4-64q -D "$root/cp007"
+          gh run download 32197317683 -n rnk-cp007-percentage-presentation-adapter-v2 -D "$root/cp007-percentage"
+
+      - name: Generate CP004 full V5-Final baseline from exact V6 head
+        run: |
+          set -euo pipefail
+          expected=7ac8eeeb76cd2c259957baa67d30c1acb329f36e
+          git fetch --no-tags origin feature/rnk-cp004-localization-review-v1
+          actual="$(git rev-parse FETCH_HEAD)"
+          test "$actual" = "$expected"
+          git worktree add --detach /tmp/rnk-cp004 "$actual"
+          ln -s "$GITHUB_WORKSPACE/node_modules" /tmp/rnk-cp004/node_modules
+          ln -s "$GITHUB_WORKSPACE/artifacts/api-server/node_modules" /tmp/rnk-cp004/artifacts/api-server/node_modules
+          pnpm dlx tsx /tmp/rnk-cp004/artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-export-v5-final.ts /tmp/rnk-native-review/cp004/RNK-CP-004-HI-PA-LOCALIZATION-REVIEW-V5-FINAL-144Q.md
+
+      - name: Assemble and declutter Hindi Punjabi review packs
+        run: |
+          set -euo pipefail
+          node artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-native-approval-review-pack-v1.mjs /tmp/rnk-native-review /tmp/rnk-native-review/output
+          node artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-native-review-pack-declutter-v1.mjs \
+            /tmp/rnk-native-review/output/RNK-001-HINDI-NATIVE-APPROVAL-REVIEW-PACK-V1.md \
+            /tmp/rnk-native-review/output/RNK-001-PUNJABI-NATIVE-APPROVAL-REVIEW-PACK-V1.md
+          cp /tmp/rnk-native-review/output/RNK-001-HINDI-NATIVE-APPROVAL-REVIEW-PACK-V1.md /tmp/rnk-declutter-output/RNK-001-HINDI-EXPLANATION-DECLUTTER-REVIEW-V1.md
+          cp /tmp/rnk-native-review/output/RNK-001-PUNJABI-NATIVE-APPROVAL-REVIEW-PACK-V1.md /tmp/rnk-declutter-output/RNK-001-PUNJABI-EXPLANATION-DECLUTTER-REVIEW-V1.md
+
+      - name: Retain all-language declutter review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-explanation-declutter-review-v1
+          path: /tmp/rnk-declutter-output/*
+          if-no-files-found: error
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
