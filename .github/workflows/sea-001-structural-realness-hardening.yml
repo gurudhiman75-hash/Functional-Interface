@@ -28,7 +28,6 @@ jobs:
         with:
           node-version: 22
       - name: Apply semantic answer-slot balancing
-        if: github.event_name == 'push'
         run: |
           python - <<'PY'
           from pathlib import Path
