@@ -33,19 +33,15 @@ jobs:
           from pathlib import Path
           path = Path('artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/generation/person-presentation.ts')
           text = path.read_text()
-          old = '''    const random = new DeterministicRandom(
-              `${presentationSeed}:visible-options:${child.queryContractId}:${child.answerDeterminingFactFingerprint}:Q${questionOrder}`,
-            );
-            const options = random.shuffle(child.options);
-            const answerIndex = options.findIndex((option) => option.isCorrect);
-            if (answerIndex < 0) throw new Error(`SEA-001 child ${child.queryContractId} lost its correct option`);
-            return {
-              ...child,
-              questionOrder,
-              options,
-              answerIndex,
-            };'''
-          new = '''    const random = new DeterministicRandom(
+          if 'answer-slot-v1' not in text:
+              start_marker = '    const random = new DeterministicRandom(\n      `${presentationSeed}:visible-options:'
+              end_marker = '    };\n  }) as T[];'
+              start = text.find(start_marker)
+              end = text.find(end_marker, start)
+              if start < 0 or end < 0:
+                  raise SystemExit('Expected SEA-001 option placement boundaries not found; refusing broad edit')
+              end += len('    };')
+              new = '''    const random = new DeterministicRandom(
               `${presentationSeed}:visible-distractors:${child.queryContractId}:${child.answerDeterminingFactFingerprint}:Q${questionOrder}`,
             );
             const shuffled = random.shuffle(child.options);
@@ -62,10 +58,7 @@ jobs:
               options,
               answerIndex,
             };'''
-          if old in text:
-              path.write_text(text.replace(old, new, 1))
-          elif 'answer-slot-v1' not in text:
-              raise SystemExit('Expected SEA-001 option placement block not found; refusing broad edit')
+              path.write_text(text[:start] + new + text[end:])
           PY
           git diff --check
           if ! git diff --quiet -- artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/generation/person-presentation.ts; then
