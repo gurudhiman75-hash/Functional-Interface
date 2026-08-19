@@ -91,7 +91,7 @@ export const STA_QL004_ENGLISH_EXPANSION = [
     hiddenDependencies: [d("D1", "P1", "EFFICACY", ["PREDICT_LESS_COUNTER_CLUSTERING"], "BREAKS_RATIONALE")],
     candidates: [
       c("C1", "P1", ["Knowing one's queue position can reduce the need to remain beside the counter.", "Visible queue-position information can let customers wait away from the counter area."], "IMPLICIT", "The expected reduction in clustering requires the displayed information to change where customers feel they need to wait."),
-      c("C2", "P2", ["All customers dislike standing.", "Every customer dislikes waiting while standing."], "NOT_IMPLICIT", "The prediction does not require a universal preference about standing; it requires queue-position visibility to change waiting behaviour."),
+      c("C2", "P2", ["All customers dislike standing.", "Every customer dislikes waiting while standing."], "NOT_IMPLICIT", "The prediction does not require a universal preference about standing; it requires queue-position visibility to change waiting behaviour.", "TOO_STRONG_QUANTIFIER"),
       c("C3", "P3", ["The token display will eliminate all branch queues.", "No queue will remain once token positions are displayed."], "NOT_IMPLICIT", "Less clustering around counters is not the same as eliminating every queue.", "CAUSE_EFFECT_OVERREACH"),
     ],
     allowedCandidateCounts: [2, 3],
