@@ -107,11 +107,10 @@ Storage.set = (key: string, value: unknown): void => {
 };
 
 // Browser timers are aggressively throttled or suspended when a mobile tab is
-// backgrounded. The runner deliberately pauses only when the student chooses
-// "Save & Exit"; merely switching apps/tabs must not create free exam time.
-// New drafts carry an explicit timerMode from their first save; legacy drafts
-// retain successive-save inference. Using the latest draft's updatedAt prevents
-// double-counting seconds that continued to tick while hidden.
+// backgrounded or the page lifecycle is frozen. The runner deliberately pauses
+// only when the student chooses "Save & Exit"; switching apps/tabs or an OS
+// lifecycle freeze must not create free exam time. New drafts carry an explicit
+// timerMode from their first save; legacy drafts retain successive-save inference.
 type HiddenActiveTest = {
   testId: string;
   mode: ExamTimerMode;
@@ -129,6 +128,28 @@ function currentTestId(): string | null {
   } catch {
     return match[1];
   }
+}
+
+function markSuspendedTestTimer(): void {
+  if (hiddenActiveTest) return;
+
+  const testId = currentTestId();
+  const session = testId ? getActiveTestSession(testId) : null;
+  const mode = session?.timerMode ?? (testId ? timerModeByTest.get(testId) : undefined);
+  if (!testId || !mode) {
+    hiddenActiveTest = null;
+    return;
+  }
+
+  const ageMs = session ? Date.now() - Number(session.updatedAt ?? 0) : Number.POSITIVE_INFINITY;
+  hiddenActiveTest =
+    session &&
+    session.attemptType === "REAL" &&
+    session.timeLeft > 0 &&
+    ageMs >= 0 &&
+    ageMs <= 5_000
+      ? { testId, mode, updatedAtWhenHidden: session.updatedAt }
+      : null;
 }
 
 function reconcileVisibleTestTimer(): void {
@@ -153,7 +174,7 @@ function reconcileVisibleTestTimer(): void {
   saveActiveTestSession({ ...reconciled, timerMode: marker.mode, updatedAt: now });
 
   // Reload from the reconciled draft so React state and the visible clock cannot
-  // retain a throttled pre-background value. The canonical draft queue receives
+  // retain a throttled pre-suspension value. The canonical draft queue receives
   // the same corrected state through saveActiveTestSession.
   window.location.reload();
 }
@@ -161,26 +182,22 @@ function reconcileVisibleTestTimer(): void {
 if (typeof document !== "undefined") {
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
-      const testId = currentTestId();
-      const session = testId ? getActiveTestSession(testId) : null;
-      const mode = session?.timerMode ?? (testId ? timerModeByTest.get(testId) : undefined);
-      if (!testId || !mode) {
-        hiddenActiveTest = null;
-        return;
-      }
-
-      const ageMs = session ? Date.now() - Number(session.updatedAt ?? 0) : Number.POSITIVE_INFINITY;
-      hiddenActiveTest =
-        session &&
-        session.attemptType === "REAL" &&
-        session.timeLeft > 0 &&
-        ageMs >= 0 &&
-        ageMs <= 5_000
-          ? { testId, mode, updatedAtWhenHidden: session.updatedAt }
-          : null;
+      markSuspendedTestTimer();
       return;
     }
-
     reconcileVisibleTestTimer();
+  });
+
+  // Chromium/mobile lifecycle freezing can suspend JavaScript after a page has
+  // been backgrounded. Listening to freeze/resume as well makes recovery robust
+  // even when the browser exposes lifecycle suspension without a useful timer tick.
+  document.addEventListener("freeze", () => {
+    markSuspendedTestTimer();
+  });
+  document.addEventListener("resume", () => {
+    // A normal hidden-tab resume may occur before visibility becomes visible; in
+    // that case let the subsequent visibilitychange own reconciliation. CDP or
+    // lifecycle-only resumes can reconcile immediately when the page is visible.
+    if (!document.hidden) reconcileVisibleTestTimer();
   });
 }
