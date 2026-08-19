@@ -20,7 +20,7 @@ export const NUM_CP008_ALLOCATION_STATUS = {
   lastPermanentQl: "NUM-QL-184",
   nextAvailableQl: "NUM-QL-185",
   permanentIdentitiesAllocated: true,
-  englishRuntimeFrozen: false,
+  englishRuntimeFrozen: true,
   active: false,
   questionStudioDiscoverable: false,
   questionBankWritable: false,

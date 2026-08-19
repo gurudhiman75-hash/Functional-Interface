@@ -45,8 +45,8 @@ for (const allocation of NUM_CP008_PERMANENT_ALLOCATION) {
     explanationChecks += 1;
 
     assert.equal(first.lifecycle.permanentQlId, qlId, `${label}: lifecycle QL drift`);
-    assert.equal(first.lifecycle.maturity, "PERMANENT_AUTHORITY_CANDIDATE");
-    assert.equal(first.lifecycle.reviewStatus, "ENGLISH_FREEZE_CANDIDATE");
+    assert.equal(first.lifecycle.maturity, "PERMANENT_AUTHORITY");
+    assert.equal(first.lifecycle.reviewStatus, "ENGLISH_FROZEN");
     assert.equal(first.lifecycle.questionBankStatus, "NOT_STORED");
     assert.equal(first.lifecycle.testEligibility, "INELIGIBLE");
     assert.equal(first.lifecycle.active, false);
@@ -76,7 +76,7 @@ assert.equal(optionChecks, packages);
 assert.equal(explanationChecks, packages);
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP008_PERMANENT_ENGLISH_FREEZE_CANDIDATE",
+  status: "PASS_NUM_CP008_PERMANENT_ENGLISH_RUNTIME",
   permanentAuthorities: NUM_CP008_PERMANENT_ALLOCATION.length,
   packages,
   replayChecks,
