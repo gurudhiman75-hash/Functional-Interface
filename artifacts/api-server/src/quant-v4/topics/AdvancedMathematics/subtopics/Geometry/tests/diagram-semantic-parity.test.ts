@@ -28,5 +28,7 @@ assert((svg.match(/data-geo-kind="parallel-mark"/g) ?? []).length === 1, "Render
 assert(svg.includes("<path"), "Parallel relation marker is semantic-only and not visibly rendered");
 assert(svg.includes("viewBox="), "Responsive Geometry viewBox is missing");
 assert(!svg.includes("right-angle-mark"), "Renderer invented a right-angle relation");
-assert(svg.includes('data-geometry-renderer="EXAMTREE_GEOMETRY_SVG_V1"'), "Renderer version marker missing");
+assert(svg.includes('data-geometry-renderer="EXAMTREE_GEOMETRY_SVG_V2"'), "Renderer V2 version marker missing");
+assert(svg.includes('data-extent="SEGMENT"'), "Renderer must retain explicit default finite-segment semantics");
+assert(svg.includes('data-label-box="'), "Renderer V2 must instrument text placement for collision QA");
 pass("diagram-semantic-parity");
