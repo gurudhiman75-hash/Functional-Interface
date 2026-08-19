@@ -3,7 +3,8 @@
 **Authority:** Composite Geometry Revision 3  
 **Renderer contract:** `EXAMTREE_GEOMETRY_SVG_V2`  
 **Predecessor:** approved Wave-1 diagram-quality remediation  
-**Lifecycle:** `DISCOVERY`
+**Lifecycle:** `DISCOVERY`  
+**Review decision:** `APPROVED` on 19 August 2026
 
 ## Wave decision
 
@@ -20,6 +21,26 @@ Baseline executable discovery remains 38 temporary prototypes. Wave 1 added 4. W
 Permanent QLs = **0**.  
 Frozen solve modes = **0**.
 
+## Approval record
+
+The Wave-2 nine-question HTML review was explicitly approved by the user on **19 August 2026** after the final visual self-review and label-anchor correction.
+
+This approval freezes the **reviewed temporary Wave-2 prototype set and its Renderer-V2 representation contract** for continued discovery work:
+
+- `GEO-TMP-GAP-W2-CP012-DIRECT-COMMON-TANGENT-V1`
+- `GEO-TMP-GAP-W2-CP014-COMMON-TANGENT-SIMILARITY-V1`
+- `GEO-TMP-GAP-W2-CP014-TANGENT-CENTRAL-INSCRIBED-V1`
+
+Approved review evidence:
+
+- CI run: `32212235659`
+- CI job: `95947038971`
+- runtime head: `4231c285fbeeab9221576e852baa3c18d9f7703c`
+- review artifact id: `9351143154`
+- artifact digest: `sha256:461358fc8328dc45b0360738e19e4c0cf6b7997bb6501f7b1f94b2fd41691f41`
+
+The approval does **not** freeze permanent QL identities, solve modes, source saturation, package publication, or product gates.
+
 ## Source basis
 
 Wave 2 uses source-specific evidence in addition to the immutable Source Saturation Audit V1 baseline:
@@ -32,14 +53,15 @@ These observations support the current split: direct common-tangent measurement 
 
 ## Shared exact additions
 
-`common-tangent-inference.ts` now provides:
+`common-tangent-inference.ts` provides:
 
-- exact rational square-root validation for rational-square configurations;
 - externally tangent centre distance = sum of radii;
 - direct common-tangent squared length;
 - exact direct common-tangent length when rational;
 - transverse common-tangent squared length;
 - exact smaller-radius recovery for the external-homothety/common-tangent similarity configuration.
+
+It reuses the canonical exact rational-square-root helper already owned by the circle engine.
 
 The Wave-2 runtime does not use floating-point arithmetic as the primary solve authority. Floating/high-precision coordinate geometry is retained as an independent verifier.
 
@@ -83,7 +105,7 @@ testEligibilityAllowed          = false
 publicPublicationAllowed        = false
 ```
 
-## Next priority after Wave 2 review
+## Next remediation priority
 
 1. CP006 remaining centre-identification/property representations;
 2. CP005 perimeter-ratio similarity scale;
