@@ -8,6 +8,8 @@ const STOP_WORDS = new Set([
   "by", "as", "it", "its", "into", "through", "before", "after", "now", "new", "expected", "expects", "because",
 ]);
 
+const CANDIDATE_META_LANGUAGE = /\b(the notice|the reminder|the statement|the proposal|relevant audience)\b/i;
+
 function tokens(text: string): Set<string> {
   return new Set(
     text
@@ -31,6 +33,7 @@ let implicitCandidates = 0;
 let rejectedCandidates = 0;
 let ql004RestatementChecks = 0;
 let rationaleChecks = 0;
+let candidateWordingChecks = 0;
 
 for (const scenario of STA_ENGLISH_CORPUS_V1) {
   const candidateTextSet = new Set<string>();
@@ -57,7 +60,9 @@ for (const scenario of STA_ENGLISH_CORPUS_V1) {
       const normalized = text.trim().toLowerCase();
       assert.ok(normalized.length >= 12, `${scenario.scenarioId}/${candidate.candidateId}: candidate text too short`);
       assert.ok(!candidateTextSet.has(normalized), `${scenario.scenarioId}: duplicate candidate wording`);
+      assert.ok(!CANDIDATE_META_LANGUAGE.test(text), `${scenario.scenarioId}/${candidate.candidateId}: candidate uses meta-language: ${text}`);
       candidateTextSet.add(normalized);
+      candidateWordingChecks += 1;
     }
 
     if (candidate.expectedClassification === "IMPLICIT") {
@@ -89,11 +94,13 @@ for (const scenario of STA_ENGLISH_CORPUS_V1) {
 assert.ok(implicitCandidates >= 55, `Too few implicit candidate authorities: ${implicitCandidates}`);
 assert.ok(rejectedCandidates >= 55, `Too few rejected candidate authorities: ${rejectedCandidates}`);
 assert.ok(ql004RestatementChecks >= 20, `Too few QL004 restatement checks: ${ql004RestatementChecks}`);
+assert.ok(candidateWordingChecks >= 240, `Too few candidate wording checks: ${candidateWordingChecks}`);
 
 console.log("PASS_STA_001_ENGLISH_AMBIGUITY_PROOF");
 console.log(`implicit candidate authorities ${implicitCandidates}`);
 console.log(`rejected candidate authorities ${rejectedCandidates}`);
 console.log(`rationale quality checks ${rationaleChecks}`);
+console.log(`candidate wording checks ${candidateWordingChecks}`);
 console.log(`QL004 hidden-bridge restatement checks ${ql004RestatementChecks}`);
 console.log("English corpus status CANDIDATE_NOT_FROZEN");
 console.log("Question Studio false");
