@@ -8,6 +8,12 @@ import {
   applyTrg002V4PhysicalSupportMigration,
   TRG_002_V4_ROOFTOP_SURFACE_IDS,
 } from "./exam-readiness-v4-physical-support";
+import {
+  applyTrg002V4RiverPlatformMigration,
+  generateLocalizedTrg002V4RiverQl093,
+  isTrg002V4RiverMathOverride,
+  TRG_002_V4_RIVER_SURFACE_IDS,
+} from "./exam-readiness-v4-river";
 
 type AnyQuestion = Record<string, any>;
 
@@ -56,6 +62,7 @@ function canonicalScenarioId(qlId: string) {
     "TRG-002-QL-028": "SHADOW_TOWER_DIRECT",
     "TRG-002-QL-079": "ROAD_EQUAL_PILLARS",
     "TRG-002-QL-087": "URBAN_TWO_BUILDINGS",
+    "TRG-002-QL-093": "WATER_BRIDGE_RIVER_WIDTH",
   };
   return ids[qlId];
 }
@@ -63,14 +70,21 @@ function canonicalScenarioId(qlId: string) {
 function isRooftopSurface(qlId: string) {
   return (TRG_002_V4_ROOFTOP_SURFACE_IDS as readonly string[]).includes(qlId);
 }
+function isRiverSurface(qlId: string) {
+  return (TRG_002_V4_RIVER_SURFACE_IDS as readonly string[]).includes(qlId);
+}
 
 export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, locale: Trg002ExamRealnessLocale) {
-  const canonicalOverride = isTrg002V4CanonicalOverride(qlId);
-  const rawBase: AnyQuestion = canonicalOverride
-    ? generateLocalizedTrg002V4CanonicalOverrideSafe(qlId, seed, locale)
-    : generateExamRealLocalizedTrg002Question(qlId, seed, locale);
+  const riverMathOverride = isTrg002V4RiverMathOverride(qlId);
+  const canonicalOverride = isTrg002V4CanonicalOverride(qlId) || riverMathOverride;
+  const rawBase: AnyQuestion = riverMathOverride
+    ? generateLocalizedTrg002V4RiverQl093(seed, locale)
+    : canonicalOverride
+      ? generateLocalizedTrg002V4CanonicalOverrideSafe(qlId, seed, locale)
+      : generateExamRealLocalizedTrg002Question(qlId, seed, locale);
   const physicalSupport = applyTrg002V4PhysicalSupportMigration(rawBase);
-  const base: AnyQuestion = physicalSupport.question;
+  const riverSupport = applyTrg002V4RiverPlatformMigration(physicalSupport.question);
+  const base: AnyQuestion = riverSupport.question;
   const exactStem = repairHistoricalExactMathArtifact(base.stem);
   const explanation = repairExplanation(base.explanation);
   const explicitScenarioId = canonicalOverride ? canonicalScenarioId(qlId) : undefined;
@@ -87,8 +101,11 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
   if (scenario.topology !== topology) throw new Error(`${qlId}: explicit V4 scenario topology ${scenario.topology} does not match ${topology}.`);
 
   const rooftopDiagramAligned = isRooftopSurface(qlId) && physicalSupport.supported;
-  const diagramMigrationRequired = wave1.diagramMigrationRequired && !rooftopDiagramAligned;
+  const riverDiagramAligned = isRiverSurface(qlId) && riverSupport.supported;
+  const diagramMigrationRequired = wave1.diagramMigrationRequired && !rooftopDiagramAligned && !riverDiagramAligned;
   const scenarioSurfaceApplied = canonicalOverride || (wave1.scenarioTextApplied && !diagramMigrationRequired);
+  const physicalObserverSupport = physicalSupport.supported || riverSupport.supported;
+  const physicalSupportMigratedInV4 = physicalSupport.migrated || riverSupport.migrated;
 
   const learnerText = [stem, explanation.keyRule, ...explanation.steps.map((s: AnyQuestion) => s.body), explanation.shortcut, ...explanation.traps].join(" ");
   if (/√\d+\.\d+/u.test(learnerText)) throw new Error(`${qlId}:${locale}: V4 forbids decimal radicands in exact learner math.`);
@@ -102,7 +119,7 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
     topology,
     scenarioId: wave1.scenarioId ?? scenario.id,
     canonicalOverride,
-    physicalObserverSupport: physicalSupport.supported,
+    physicalObserverSupport,
     diagramMigrationRequired,
   });
   return {
@@ -120,8 +137,8 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
       scenarioTextApplied: wave1.scenarioTextApplied,
       scenarioSurfaceApplied,
       diagramMigrationRequired,
-      physicalObserverSupport: physicalSupport.supported,
-      physicalSupportMigratedInV4: physicalSupport.migrated,
+      physicalObserverSupport,
+      physicalSupportMigratedInV4,
       exactMathProtected: true,
       comprehensiveVisualReviewRequired: true,
       qlRepurposingAllowedInV4Candidate: true,
