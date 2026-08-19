@@ -70,6 +70,11 @@ for (const question of questions) {
     question.explanation.conclusion,
   ].join(" ")));
   assert(!/Even both statements together are not sufficient/i.test(question.explanation.conclusion));
+  assert(!/\bmakes (?:A|B) is greater than\b/i.test([
+    question.explanation.statementI,
+    question.explanation.statementII,
+    question.explanation.together ?? "",
+  ].join(" ")));
 
   if (question.canonicalAnswer === "INSUFFICIENT_EVEN_TOGETHER") {
     assert.equal(
