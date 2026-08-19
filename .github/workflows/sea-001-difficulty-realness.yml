@@ -1,0 +1,34 @@
+name: Measure SEA-001 difficulty realness
+
+on:
+  push:
+    branches:
+      - feat/sea-001-wave5-saturation-audits
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/realness/difficulty-features.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-difficulty-realness-proof.test.ts
+      - .github/workflows/sea-001-difficulty-realness.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/realness/difficulty-features.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-difficulty-realness-proof.test.ts
+      - .github/workflows/sea-001-difficulty-realness.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  difficulty-realness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Measure 1,600-caselet difficulty feature vectors
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-difficulty-realness-proof.test.ts
