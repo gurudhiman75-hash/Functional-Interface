@@ -9,7 +9,7 @@ export interface StaPermanentQlAuthority {
   readonly checkpointId: StaCheckpointId;
   readonly semanticAuthority: string;
   readonly oracleOperation: string;
-  readonly sourceState: "STRONG" | "PARTIAL_STRONG";
+  readonly sourceState: "STRONG";
   readonly executableScenarioIds: readonly string[];
   readonly candidateCountIsMetadata: true;
   readonly optionCodingIsMetadata: true;
@@ -45,9 +45,9 @@ export const STA_PERMANENT_QL_AUTHORITIES: readonly StaPermanentQlAuthority[] = 
   {
     qlId: "STA-QL-003",
     checkpointId: "STA-CP-002",
-    semanticAuthority: "Communication, notice, rule or request whose purpose depends on audience relevance, ability to respond or service/action capability.",
+    semanticAuthority: "Source-supported notice, rule and institutional communication whose purpose depends on audience relevance, ability to respond or service/action capability.",
     oracleOperation: "Identify unstated audience-purpose dependencies and prove that denial breaks communicative purpose rather than merely making the message less persuasive.",
-    sourceState: "PARTIAL_STRONG",
+    sourceState: "STRONG",
     executableScenarioIds: STA_SCENARIOS_BY_QL["STA-QL-003"].map((scenario) => scenario.scenarioId),
     candidateCountIsMetadata: true,
     optionCodingIsMetadata: true,
@@ -69,7 +69,7 @@ export const STA_PERMANENT_QL_AUTHORITIES: readonly StaPermanentQlAuthority[] = 
 ] as const;
 
 export const STA_DEFERRED_DISCOVERY_RESERVES = [
-  "ADVERTISING_SPECIFIC_AS_A_SEPARATE_QL",
+  "ADVERTISING_OR_APPEAL_BREADTH_AS_A_SEPARATE_QL",
   "COMPARISON_MEASUREMENT_REPRESENTATIVENESS_AS_A_SEPARATE_QL",
   "NEGATIVE_QUERY_AS_A_SEPARATE_QL",
 ] as const;
