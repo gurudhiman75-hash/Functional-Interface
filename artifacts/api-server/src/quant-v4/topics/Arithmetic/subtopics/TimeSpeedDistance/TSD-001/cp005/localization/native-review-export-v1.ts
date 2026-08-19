@@ -1,6 +1,6 @@
-import { TSD_CP005_NATIVE_FINAL_REVIEW_V1 } from "./native-review-final-v1";
+import { TSD_CP005_NATIVE_FINAL_PARITY_REVIEW_V1 } from "./native-review-final-parity-v1";
 
-const exportRows = TSD_CP005_NATIVE_FINAL_REVIEW_V1.map((row, index) => ({
+const exportRows = TSD_CP005_NATIVE_FINAL_PARITY_REVIEW_V1.map((row, index) => ({
   questionNo: Math.floor(index / 2) + 1,
   language: row.presentation.language,
   permanentQlId: row.source.permanentQlId,
