@@ -19,6 +19,13 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function explicitTimerMode(value: unknown): ExamTimerMode | null {
+  if (!isRecord(value)) return null;
+  return value.timerMode === "overall" || value.timerMode === "sectional"
+    ? value.timerMode
+    : null;
+}
+
 function readStoredActiveSessions(): Record<string, Record<string, unknown>> {
   try {
     const raw = localStorage.getItem(ACTIVE_TEST_SESSIONS_KEY);
@@ -43,25 +50,36 @@ function timerShape(value: Record<string, unknown>): RecoverableTimerSession | n
   };
 }
 
-function inferTimerModes(value: unknown): void {
+function observeTimerModes(value: unknown): void {
   if (!isRecord(value)) return;
   const previous = readStoredActiveSessions();
 
   for (const [testId, nextValue] of Object.entries(value)) {
     if (!isRecord(nextValue)) continue;
+
+    // New drafts declare their timer contract immediately, so backgrounding in
+    // the first second of a real attempt does not depend on observing two ticks.
+    const explicit = explicitTimerMode(nextValue);
+    if (explicit) {
+      timerModeByTest.set(testId, explicit);
+      continue;
+    }
+
+    // Legacy drafts did not persist timerMode. Keep inference as a compatibility
+    // fallback once two live draft snapshots prove which clock is ticking.
     const before = previous[testId];
     if (!isRecord(before)) continue;
     const beforeShape = timerShape(before);
     const nextShape = timerShape(nextValue);
     if (!beforeShape || !nextShape) continue;
 
-    const mode = inferExamTimerMode(beforeShape, nextShape);
-    if (mode) timerModeByTest.set(testId, mode);
+    const inferred = inferExamTimerMode(beforeShape, nextShape);
+    if (inferred) timerModeByTest.set(testId, inferred);
   }
 }
 
 Storage.set = (key: string, value: unknown): void => {
-  if (key === ACTIVE_TEST_SESSIONS_KEY) inferTimerModes(value);
+  if (key === ACTIVE_TEST_SESSIONS_KEY) observeTimerModes(value);
 
   try {
     originalSet(key, value);
@@ -91,9 +109,9 @@ Storage.set = (key: string, value: unknown): void => {
 // Browser timers are aggressively throttled or suspended when a mobile tab is
 // backgrounded. The runner deliberately pauses only when the student chooses
 // "Save & Exit"; merely switching apps/tabs must not create free exam time.
-// Reconcile only sessions whose timer mode was proven by successive live draft
-// updates immediately before the tab became hidden. Using the latest draft's
-// updatedAt prevents double-counting seconds that continued to tick while hidden.
+// New drafts carry an explicit timerMode from their first save; legacy drafts
+// retain successive-save inference. Using the latest draft's updatedAt prevents
+// double-counting seconds that continued to tick while hidden.
 type HiddenActiveTest = {
   testId: string;
   mode: ExamTimerMode;
@@ -132,7 +150,7 @@ function reconcileVisibleTestTimer(): void {
   if (elapsedSeconds < 2) return;
 
   const reconciled = reconcileExamTimer(session, elapsedSeconds, marker.mode) as ActiveTestSession;
-  saveActiveTestSession({ ...reconciled, updatedAt: now });
+  saveActiveTestSession({ ...reconciled, timerMode: marker.mode, updatedAt: now });
 
   // Reload from the reconciled draft so React state and the visible clock cannot
   // retain a throttled pre-background value. The canonical draft queue receives
@@ -144,13 +162,13 @@ if (typeof document !== "undefined") {
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       const testId = currentTestId();
-      const mode = testId ? timerModeByTest.get(testId) : undefined;
+      const session = testId ? getActiveTestSession(testId) : null;
+      const mode = session?.timerMode ?? (testId ? timerModeByTest.get(testId) : undefined);
       if (!testId || !mode) {
         hiddenActiveTest = null;
         return;
       }
 
-      const session = getActiveTestSession(testId);
       const ageMs = session ? Date.now() - Number(session.updatedAt ?? 0) : Number.POSITIVE_INFINITY;
       hiddenActiveTest =
         session &&
