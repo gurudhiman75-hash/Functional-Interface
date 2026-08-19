@@ -23,6 +23,10 @@ const banned: Record<StaLocalizedLocale, readonly string[]> = {
     "काउंटर समय के बाद",
     "लोकेशन पिन का अनुसरण",
     "बताया गया फोल्डर वही काम स्वीकार करता",
+    "संयोजन लैपटॉप की स्क्रीन दिखा सकती है",
+    "पोडियम वाला HDMI अडैप्टर",
+    "पोडियम पर उपयोग योग्य HDMI अडैप्टर",
+    "माँगा गया अपलोड",
   ],
   "pa-IN": [
     "ਮਾਨਤਾ I",
@@ -32,9 +36,16 @@ const banned: Record<StaLocalizedLocale, readonly string[]> = {
     "ਲੈਕਟਰਨ",
     "ਸੰਪਰਕਯੋਗ",
     "ਕਾਊਂਟਰ ਦੇ ਸਮੇਂ ਤੋਂ ਬਾਅਦ",
+    "ਕਾਊਂਟਰ ਸਮੇਂ ਤੋਂ ਬਾਅਦ",
     "ਫਾਲੋ ਕਰੋ",
     "ਉਪਕਰਣ ਜੋੜ",
     "ਸਾਰੇ ਅਸਥਾਈ ਬਿਆਂ",
+    "ਜੋੜ ਲੈਪਟਾਪ ਦੀ ਸਕ੍ਰੀਨ ਦਿਖਾ ਸਕਦੀ ਹੈ",
+    "ਪੋਡਿਅਮ ਵਾਲਾ HDMI ਅਡੈਪਟਰ",
+    "ਪੋਡਿਅਮ ਉੱਤੇ ਵਰਤਣਯੋਗ HDMI ਅਡੈਪਟਰ",
+    "ਈਮੇਲ ਵਾਲਾ ਰੀਸੈਟ ਲਿੰਕ",
+    "ਦੱਸਿਆ ਰਿਕਵਰੀ ਤਰੀਕਾ",
+    "ਮੰਗਿਆ ਅੱਪਲੋਡ",
   ],
 };
 
@@ -79,7 +90,7 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
 
     const learnerText = [v2.statement, ...v2.candidates.map((candidate) => candidate.text), v2.explanation].join("\n");
     for (const phrase of banned[locale]) {
-      assert.ok(!learnerText.includes(phrase), `${seed}: rejected V1 wording remains: ${phrase}`);
+      assert.ok(!learnerText.includes(phrase), `${seed}: rejected V1/V2 wording remains: ${phrase}`);
     }
     for (const term of requiredTerms[locale]) {
       assert.ok(v2.explanation.includes(term), `${seed}: expected exam-style explanation term missing: ${term}`);
