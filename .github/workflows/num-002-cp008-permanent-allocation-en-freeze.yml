@@ -9,7 +9,7 @@ on:
 
 jobs:
   validate-num-cp008-permanent-en:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
