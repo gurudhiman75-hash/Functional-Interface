@@ -1,6 +1,6 @@
 import {
   ALG_PERMANENT_ALLOCATION,
-  generateAlgPermanentEnglishCandidate,
+  generateAlgPermanentEnglishReviewV2,
   getAlgPermanentPrototypeIds,
 } from "../permanent";
 
@@ -18,9 +18,14 @@ const forbiddenInternalTokens = [
 ];
 
 const obviousFormattingDefects: Array<[RegExp, string]> = [
-  [/\b-?1x²\b/g, "raw ±1x² coefficient"],
-  [/\b-?1x\b/g, "raw ±1x coefficient"],
+  [/(^|\W)-?1x²\b/g, "raw ±1x² coefficient"],
+  [/(^|\W)-?1x\b/g, "raw ±1x coefficient"],
   [/\+\s*-/g, "plus followed by negative sign"],
+  [/\(x - -[0-9]/g, "double-negative factor"],
+  [/-?[0-9]+\/1 [+-] √/g, "integer surd rendered as n/1"],
+  [/Hence k = ([^.,;]+), giving k = \1\./g, "duplicated k result"],
+  [/hence x = ([^ .]+) and x = \1\. Therefore x = \1\./g, "duplicated absolute-value root"],
+  [/≥ ([+-]?[0-9]+\/[0-9]+) = \1\./g, "duplicated rational bound"],
   [/\bNaN\b/g, "NaN"],
 ];
 
@@ -30,12 +35,17 @@ function review(condition: boolean, message: string): void {
 }
 
 let reviewed = 0;
-for (const allocation of ALG_PERMANENT_ALLOCATION) {
+let reviewCoordinateSamples = 0;
+for (let allocationIndex = 0; allocationIndex < ALG_PERMANENT_ALLOCATION.length; allocationIndex += 1) {
+  const allocation = ALG_PERMANENT_ALLOCATION[allocationIndex]!;
   const variants = getAlgPermanentPrototypeIds(allocation.qlId);
   for (let variantIndex = 0; variantIndex < variants.length; variantIndex += 1) {
-    for (let seed = 1; seed <= 12; seed += 1) {
-      const item = generateAlgPermanentEnglishCandidate(allocation.qlId, seed, variantIndex);
+    const seeds = [...Array.from({ length: 12 }, (_, index) => index + 1), 101 + allocationIndex * 17 + variantIndex * 7];
+    for (let seedIndex = 0; seedIndex < seeds.length; seedIndex += 1) {
+      const seed = seeds[seedIndex]!;
+      const item = generateAlgPermanentEnglishReviewV2(allocation.qlId, seed, variantIndex);
       reviewed += 1;
+      if (seedIndex === 12) reviewCoordinateSamples += 1;
       const question = item.question.trim();
       const explanation = item.explanation.trim();
       const combined = `${question}\n${explanation}`;
@@ -56,20 +66,26 @@ for (const allocation of ALG_PERMANENT_ALLOCATION) {
         review(!pattern.test(combined), `${prefix}: ${label}`);
       }
 
+      if (["ALG-CP014-CAND-004", "ALG-CP014-CAND-005", "ALG-CP014-CAND-006", "ALG-CP014-CAND-007", "ALG-CP014-CAND-008"].includes(item.prototypeId)) {
+        review(question.includes("I. "), `${prefix}: Statement I missing from learner question`);
+        review(question.includes("II. "), `${prefix}: Statement II missing from learner question`);
+      }
+
       review(!item.englishImplementationFrozen, `${allocation.qlId}: editorial audit must not imply English freeze`);
       review(!item.active && !item.questionStudioDiscoverable, `${allocation.qlId}: editorial audit leaked downstream lifecycle`);
     }
   }
 }
 
-assert(reviewed === 1308, `Expected 1,308 permanent-English editorial samples, reviewed ${reviewed}`);
+assert(reviewed === 1417, `Expected 1,417 V2 editorial samples, reviewed ${reviewed}`);
+assert(reviewCoordinateSamples === 109, `Expected 109 all-variant review-coordinate samples, got ${reviewCoordinateSamples}`);
 if (failures.length > 0) {
   const uniqueFailures = [...new Set(failures)];
   const shown = uniqueFailures.slice(0, 200);
   throw new Error(
-    `Algebra permanent English editorial audit found ${uniqueFailures.length} violation(s):\n${shown.join("\n")}` +
+    `Algebra permanent English V2 editorial audit found ${uniqueFailures.length} violation(s):\n${shown.join("\n")}` +
     (uniqueFailures.length > shown.length ? `\n...and ${uniqueFailures.length - shown.length} more` : ""),
   );
 }
 
-console.log(`Algebra permanent English editorial audit V2 passed for ${reviewed} generated samples across 43 permanent QLs and 109 mapped variants`);
+console.log(`Algebra permanent English editorial audit V3 passed for ${reviewed} generated samples across 43 permanent QLs and 109 mapped variants`);
