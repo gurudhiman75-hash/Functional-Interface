@@ -8,6 +8,7 @@ function assert(condition: unknown, message: string): asserts condition {
 const rows = generateCp005ReviewSetV11(6);
 const audit = generateCp005EnglishAuditPoolV11(30);
 const RAW_FRACTION = /\b\d+\/\d+\b/;
+const LARGE_RAW_FRACTION = /\b\d{2,}\/\d{2,}\b/;
 
 assert(rows.length === 78, `CP005 V11 expected 78 selected questions, received ${rows.length}`);
 assert(audit.length === 390, `CP005 V11 expected 390 audit questions, received ${audit.length}`);
@@ -17,7 +18,10 @@ assert(new Set(rows.map((row) => row.permanentQlId)).size === 13, "CP005 V11 doe
 assert(new Set(rows.map((row) => row.solveMode)).size === 20, "CP005 V11 does not cover all twenty learner solve modes");
 assert(rows.every((row) => row.options.length === 4 && new Set(row.options).size === 4), "CP005 V11 selected option uniqueness failed");
 assert(rows.every((row) => row.options[row.correctIndex] === row.answerText), "CP005 V11 keyed option no longer matches the answer");
+assert(rows.every((row) => !RAW_FRACTION.test(row.stem)), "CP005 V11 selected stem contains a raw numeric fraction");
+assert(rows.every((row) => !RAW_FRACTION.test(row.answerText)), "CP005 V11 selected keyed answer contains a raw numeric fraction");
 assert(rows.every((row) => !row.options.some((option) => RAW_FRACTION.test(option))), "CP005 V11 selected options still contain raw numeric fractions");
+assert(rows.every((row) => !LARGE_RAW_FRACTION.test([row.explanation.method, ...row.explanation.steps, row.explanation.shortcut, row.explanation.finalAnswer].join(" "))), "CP005 V11 selected explanation contains a large generator-looking raw fraction");
 assert(rows.every((row) => !/sqrt\([^)]*\/[^)]*\/[^)]*\)/.test([row.explanation.method, ...row.explanation.steps, row.explanation.shortcut, row.explanation.finalAnswer].join(" "))), "CP005 V11 explanation contains an ambiguous chained fraction inside sqrt");
 assert(rows.every((row) => !row.stem.includes("next recorded meeting")), "CP005 V11 retained ambiguous next-recorded-meeting wording");
 
@@ -26,6 +30,7 @@ const ql058Answers = new Set(ql058.map((row) => row.answerText));
 assert(ql058.length === 6, "CP005 V11 expected six QL058 review rows");
 assert(ql058Answers.size >= 3, `CP005 V11 QL058 answer diversity too weak: ${[...ql058Answers].join(", ")}`);
 assert(["3:2", "5:3", "8:5"].every((answer) => ql058Answers.has(answer)), `CP005 V11 QL058 must exercise 3:2, 5:3 and 8:5; received ${[...ql058Answers].join(", ")}`);
+assert(ql058.every((row) => !RAW_FRACTION.test([row.stem, ...row.explanation.steps].join(" "))), "CP005 V11 QL058 diversity reintroduced raw-fraction learner times");
 
 const postMeetingRatioModes = new Set([
   "findSpeedRatioFromPostMeetingArrivalTimes",
@@ -99,6 +104,8 @@ console.log(JSON.stringify({
   selectedQuestions: rows.length,
   auditQuestions: audit.length,
   ql058AnswerRatios: [...ql058Answers].sort(),
+  rawFractionStems: 0,
+  rawFractionAnswers: 0,
   rawFractionOptions: 0,
   physicallyImpossiblePointOptions: 0,
   endpointRestRowsHardened: endpointRows.length,
