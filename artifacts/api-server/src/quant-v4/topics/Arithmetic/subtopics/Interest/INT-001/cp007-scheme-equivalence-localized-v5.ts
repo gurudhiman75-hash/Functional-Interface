@@ -23,11 +23,23 @@ function removeCiDefinitionClause(text: string, locale: IntCp007LocalizedLocale)
   if (locale === "hi-IN") {
     return text
       .replace(/ ?\(ब्याज हर वर्ष मूलधन में जुड़ता है\)/gu, "")
-      .replace(/, जिसमें ब्याज हर वर्ष मूलधन में जुड़ता है/gu, "");
+      .replace(/, जिसमें ब्याज हर वर्ष मूलधन में जुड़ता है/gu, "")
+      .replace(/ब्याज हर वर्ष मूलधन में जुड़ता है/gu, "");
   }
   return text
     .replace(/ ?\(ਵਿਆਜ ਹਰ ਸਾਲ ਮੂਲ ਵਿੱਚ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ\)/gu, "")
-    .replace(/, ਜਿਸ ਵਿੱਚ ਵਿਆਜ ਹਰ ਸਾਲ ਮੂਲ ਵਿੱਚ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ/gu, "");
+    .replace(/, ਜਿਸ ਵਿੱਚ ਵਿਆਜ ਹਰ ਸਾਲ ਮੂਲ ਵਿੱਚ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ/gu, "")
+    .replace(/ਵਿਆਜ ਹਰ ਸਾਲ ਮੂਲ ਵਿੱਚ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ/gu, "");
+}
+
+function cleanText(text: string, locale: IntCp007LocalizedLocale): string {
+  return removeCiDefinitionClause(text, locale)
+    .replace(/\(\s*\)/gu, "")
+    .replace(/\s+,/gu, ",")
+    .replace(/,\s*,/gu, ",")
+    .replace(/ {2,}/gu, " ")
+    .replace(/\s+([।.])/gu, "$1")
+    .trim();
 }
 
 export function generateIntCp007LocalizedReviewQuestion(
@@ -36,12 +48,12 @@ export function generateIntCp007LocalizedReviewQuestion(
   locale: IntCp007LocalizedLocale,
 ) {
   const source = generateV4(qlId, seed, locale) as any;
-  const markdown = removeCiDefinitionClause(source.presentation.markdown, locale);
+  const markdown = cleanText(source.presentation.markdown, locale);
   const explanation = deepFreeze({
-    keyIdea: removeCiDefinitionClause(source.explanation.keyIdea, locale),
-    steps: Object.freeze(source.explanation.steps.map((step: string) => removeCiDefinitionClause(step, locale))),
-    finalAnswer: removeCiDefinitionClause(source.explanation.finalAnswer, locale),
-    commonMistake: removeCiDefinitionClause(source.explanation.commonMistake, locale),
+    keyIdea: cleanText(source.explanation.keyIdea, locale),
+    steps: Object.freeze(source.explanation.steps.map((step: string) => cleanText(step, locale))),
+    finalAnswer: cleanText(source.explanation.finalAnswer, locale),
+    commonMistake: cleanText(source.explanation.commonMistake, locale),
   });
 
   return deepFreeze({
