@@ -160,15 +160,11 @@ function chooseLabelPlacement(
     }
   }
 
-  if (best) return best;
-  const fallback = candidates[0] ?? { x: width / 2, y: height / 2 };
-  const box: LabelBox = { ...fallback, ...dimensions };
-  return {
-    ...box,
-    lineHits: geometrySegments.filter((segment) => segmentIntersectsBox(segment, box)).length,
-    labelOverlaps: occupied.filter((other) => boxesOverlap(box, other)).length,
-    clearance: labelClearance(box, geometrySegments, occupied),
-  };
+  if (!best) throw new Error(`TRG-002 review diagram label "${text}" has no in-bounds placement candidate.`);
+  if (best.lineHits !== 0 || best.labelOverlaps !== 0) {
+    throw new Error(`TRG-002 review diagram label "${text}" could not be placed collision-free: lineHits=${best.lineHits} labelOverlaps=${best.labelOverlaps}.`);
+  }
+  return best;
 }
 
 function renderLabelBox(label: string, placement: LabelPlacement, className: string, fontSize: number, fill: string) {
@@ -267,8 +263,9 @@ function renderMeasurementArrow(
   if (length <= 0) return "";
   const ux = dx / length;
   const uy = dy / length;
-  let nx = -uy;
-  let ny = ux;
+  // SVG's y-axis points downward, so the screen-space LEFT normal is (uy, -ux).
+  let nx = uy;
+  let ny = -ux;
   if (arrow.side === "RIGHT") {
     nx *= -1;
     ny *= -1;
