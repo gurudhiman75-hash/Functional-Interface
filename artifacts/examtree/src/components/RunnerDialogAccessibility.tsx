@@ -100,14 +100,32 @@ export function RunnerDialogAccessibility() {
         ? currentFocus
         : null;
       const inertedSiblings: HTMLElement[] = [];
-      const parent = found.overlay.parentElement;
-      if (parent) {
-        Array.from(parent.children).forEach((child) => {
-          if (!(child instanceof HTMLElement) || child === found.overlay || child.hasAttribute("inert")) return;
-          child.setAttribute("inert", "");
-          inertedSiblings.push(child);
+      const markInert = (element: HTMLElement) => {
+        if (element.hasAttribute("inert") || inertedSiblings.includes(element)) return;
+        element.setAttribute("inert", "");
+        inertedSiblings.push(element);
+      };
+
+      const overlayParent = found.overlay.parentElement;
+      if (overlayParent) {
+        Array.from(overlayParent.children).forEach((child) => {
+          if (child instanceof HTMLElement && child !== found.overlay) markInert(child);
         });
       }
+
+      // The app root also owns global controls such as Exit fullscreen beside
+      // the routed application tree. Keep those controls out of the accessibility
+      // and keyboard order while a runner dialog is modal.
+      const root = document.getElementById("root");
+      if (root) {
+        Array.from(root.children).forEach((child) => {
+          if (child instanceof HTMLElement && !child.contains(found.overlay)) markInert(child);
+        });
+      }
+
+      Array.from(document.body.children).forEach((child) => {
+        if (child instanceof HTMLElement && !child.contains(found.overlay) && child.id !== "root") markInert(child);
+      });
 
       activeDialog = {
         panel: found.panel,
