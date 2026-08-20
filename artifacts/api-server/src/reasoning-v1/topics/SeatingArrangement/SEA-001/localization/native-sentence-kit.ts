@@ -143,10 +143,17 @@ export function renderNativeClue(clue: string, locale: Sea001TranslatedLocale): 
     return {text:left?tr(locale,`${p} पंक्ति के बाएँ छोर पर बैठा है।`,`${p} ਕਤਾਰ ਦੇ ਖੱਬੇ ਸਿਰੇ 'ਤੇ ਬੈਠਾ ਹੈ।`):tr(locale,`${p} पंक्ति के दाएँ छोर पर बैठा है।`,`${p} ਕਤਾਰ ਦੇ ਸੱਜੇ ਸਿਰੇ 'ਤੇ ਬੈਠਾ ਹੈ।`),action:left?tr(locale,`${p} को सबसे बाईं सीट पर रखें।`,`${p} ਨੂੰ ਸਭ ਤੋਂ ਖੱਬੀ ਸੀਟ 'ਤੇ ਰੱਖੋ।`):tr(locale,`${p} को सबसे दाईं सीट पर रखें।`,`${p} ਨੂੰ ਸਭ ਤੋਂ ਸੱਜੀ ਸੀਟ 'ਤੇ ਰੱਖੋ।`)};
   }
 
-  m = clue.match(new RegExp(`^${NAME_PATTERN} sits ${ORDINAL_PATTERN} from the left end\\.$`));
+  m = clue.match(new RegExp(`^${NAME_PATTERN} sits ${ORDINAL_PATTERN} from the (left|right) end\\.$`));
   if (m) {
-    const p=name(m[1]!,locale), n=ordinalNumber(m[2]!);
-    return {text:tr(locale,`${p} बाएँ छोर से ${nativeOrdinal(m[2]!,locale)} स्थान पर बैठा है।`,`${p} ਖੱਬੇ ਸਿਰੇ ਤੋਂ ${nativeOrdinal(m[2]!,locale)} ਸਥਾਨ 'ਤੇ ਬੈਠਾ ਹੈ।`),action:tr(locale,`बाएँ छोर से ${n}वीं सीट पर ${p} को रखें।`,`ਖੱਬੇ ਸਿਰੇ ਤੋਂ ${n}ਵੀਂ ਸੀਟ 'ਤੇ ${p} ਨੂੰ ਰੱਖੋ।`)};
+    const p=name(m[1]!,locale), n=ordinalNumber(m[2]!), side=m[3]! as "left"|"right", left=side==="left";
+    return {
+      text:left
+        ? tr(locale,`${p} बाएँ छोर से ${nativeOrdinal(m[2]!,locale)} स्थान पर बैठा है।`,`${p} ਖੱਬੇ ਸਿਰੇ ਤੋਂ ${nativeOrdinal(m[2]!,locale)} ਸਥਾਨ 'ਤੇ ਬੈਠਾ ਹੈ।`)
+        : tr(locale,`${p} दाएँ छोर से ${nativeOrdinal(m[2]!,locale)} स्थान पर बैठा है।`,`${p} ਸੱਜੇ ਸਿਰੇ ਤੋਂ ${nativeOrdinal(m[2]!,locale)} ਸਥਾਨ 'ਤੇ ਬੈਠਾ ਹੈ।`),
+      action:left
+        ? tr(locale,`बाएँ छोर से ${n}वीं सीट पर ${p} को रखें।`,`ਖੱਬੇ ਸਿਰੇ ਤੋਂ ${n}ਵੀਂ ਸੀਟ 'ਤੇ ${p} ਨੂੰ ਰੱਖੋ।`)
+        : tr(locale,`दाएँ छोर से ${n}वीं सीट पर ${p} को रखें।`,`ਸੱਜੇ ਸਿਰੇ ਤੋਂ ${n}ਵੀਂ ਸੀਟ 'ਤੇ ${p} ਨੂੰ ਰੱਖੋ।`),
+    };
   }
 
   m = clue.match(new RegExp(`^${NAME_PATTERN} sits in a middle seat\\.$`));
