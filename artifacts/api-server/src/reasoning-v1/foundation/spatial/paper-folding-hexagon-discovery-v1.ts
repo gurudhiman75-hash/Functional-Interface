@@ -116,9 +116,9 @@ export function pfcHexagonDiscoveryScenariosV1(): PfcHexagonScenarioV1[] {
   const sheet = createRegularHexagonalPfcSheetV4(CENTER, 48);
   return [
     { scenarioId:"PFC-HEX-01", sourceSheet:sheet, family:"HEXAGON_SINGLE_AXIS", fold:foldThroughCenter(90,"POSITIVE","F1"), cut:{cutId:"H1",kind:"CIRCLE_HOLE",center:{x:78,y:48},radius:2.3}, proposalId:"PFC-PROP-01" },
-    { scenarioId:"PFC-HEX-02", sourceSheet:sheet, family:"HEXAGON_SINGLE_AXIS", fold:foldThroughCenter(0,"POSITIVE","F2"), cut:{cutId:"H2",kind:"CIRCLE_HOLE",center:{x:48,y:78},radius:2.3}, proposalId:"PFC-PROP-01" },
-    { scenarioId:"PFC-HEX-03", sourceSheet:sheet, family:"HEXAGON_SINGLE_AXIS", fold:foldThroughCenter(30,"POSITIVE","F3"), cut:diamond("D1",72,67), proposalId:"PFC-PROP-03" },
-    { scenarioId:"PFC-HEX-04", sourceSheet:sheet, family:"HEXAGON_SINGLE_AXIS", fold:foldThroughCenter(-30,"NEGATIVE","F4"), cut:slit("S1",72,53), proposalId:"PFC-PROP-04" },
+    { scenarioId:"PFC-HEX-02", sourceSheet:sheet, family:"HEXAGON_SINGLE_AXIS", fold:foldThroughCenter(0,"POSITIVE","F2"), cut:{cutId:"H2",kind:"CIRCLE_HOLE",center:{x:48,y:42},radius:2.3}, proposalId:"PFC-PROP-01" },
+    { scenarioId:"PFC-HEX-03", sourceSheet:sheet, family:"HEXAGON_SINGLE_AXIS", fold:foldThroughCenter(30,"POSITIVE","F3"), cut:diamond("D1",72,57), proposalId:"PFC-PROP-03" },
+    { scenarioId:"PFC-HEX-04", sourceSheet:sheet, family:"HEXAGON_SINGLE_AXIS", fold:foldThroughCenter(-30,"NEGATIVE","F4"), cut:slit("S1",72,63), proposalId:"PFC-PROP-04" },
     { scenarioId:"PFC-HEX-05", sourceSheet:sheet, family:"HEXAGON_SIX_SECTOR_RADIAL", cut:{cutId:"H5",kind:"CIRCLE_HOLE",center:{x:82,y:60},radius:2.3}, proposalId:"PFC-PROP-02" },
     { scenarioId:"PFC-HEX-06", sourceSheet:sheet, family:"HEXAGON_SIX_SECTOR_RADIAL", cut:{cutId:"H6",kind:"CIRCLE_HOLE",center:{x:78,y:64},radius:2.3}, proposalId:"PFC-PROP-02" },
     { scenarioId:"PFC-HEX-07", sourceSheet:sheet, family:"HEXAGON_SIX_SECTOR_RADIAL", cut:diamond("D7",80,61), proposalId:"PFC-PROP-04" },
