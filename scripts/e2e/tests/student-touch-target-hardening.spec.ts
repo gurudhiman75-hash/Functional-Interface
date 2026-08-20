@@ -34,11 +34,25 @@ async function expectTouchTarget(locator: Locator) {
   expect(box!.height).toBeGreaterThanOrEqual(44);
 }
 
+async function expectNoHorizontalOverflow(page: Page) {
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+}
+
 test.describe("CP02 page-level touch targets", () => {
   test("login custom controls and recovery shortcut meet 44px targets", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await installFixtures(page);
+
+    // The reliability build intentionally supplies a synthetic Firebase currentUser.
+    // Keep its canonical profile lookup pending for this signed-out login-surface
+    // measurement so the auth listener cannot immediately navigate to Dashboard.
+    await page.route("**/api/users/me", async () => {
+      await new Promise<void>(() => {});
+    });
+
     await page.goto("/login/student");
+    await expect(page.getByRole("heading", { name: "Welcome to examtree" })).toBeVisible();
 
     await expectTouchTarget(page.getByTestId("tab-login"));
     await expectTouchTarget(page.getByTestId("tab-signup"));
@@ -48,9 +62,7 @@ test.describe("CP02 page-level touch targets", () => {
     await expectTouchTarget(page.getByTestId("btn-google-login"));
     await expectTouchTarget(page.getByTestId("btn-back"));
     await expectTouchTarget(page.getByRole("link", { name: "Can’t access your account?" }));
-
-    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-    expect(overflow).toBeLessThanOrEqual(1);
+    await expectNoHorizontalOverflow(page);
   });
 
   test("shared page actions keep 44px targets across preparation and result surfaces", async ({ page }) => {
@@ -59,14 +71,18 @@ test.describe("CP02 page-level touch targets", () => {
 
     await page.goto("/dashboard");
     await expectTouchTarget(page.getByRole("link", { name: "Sign in" }).last());
+    await expectTouchTarget(page.getByRole("button", { name: "My activity" }));
+    await expectTouchTarget(page.getByRole("button", { name: "User profile" }));
+    await expectNoHorizontalOverflow(page);
 
     await page.goto("/profile");
     await expectTouchTarget(page.getByRole("button", { name: "Go to Login" }));
+    await expectNoHorizontalOverflow(page);
 
     await page.goto("/result");
     await expectTouchTarget(page.getByRole("button", { name: "Open My Activity" }));
-
-    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-    expect(overflow).toBeLessThanOrEqual(1);
+    await expectTouchTarget(page.getByRole("button", { name: "My activity" }));
+    await expectTouchTarget(page.getByRole("button", { name: "User profile" }));
+    await expectNoHorizontalOverflow(page);
   });
 });
