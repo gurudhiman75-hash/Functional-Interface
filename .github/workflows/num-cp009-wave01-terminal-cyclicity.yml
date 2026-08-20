@@ -1,0 +1,67 @@
+name: Validate NUM-CP-009 Wave 01 terminal cyclicity foundation
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/**"
+      - ".github/workflows/num-cp009-wave01-terminal-cyclicity.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-num-cp009-wave01:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 01 authority proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/wave01/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-wave01-authority.mjs
+
+      - name: Run Wave 01 authority proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp009-wave01-authority.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp009-wave01-authority.log
+
+      - name: Bundle review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/wave01/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-wave01-review-export.mjs
+
+      - name: Generate English review candidate
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp009-wave01-review-export.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp009-wave01-review-export.log
+
+      - name: Upload Wave 01 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp009-wave01-terminal-cyclicity
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp009-wave01-authority.log
+            artifacts/api-server/dist/quant-v4/num-cp009-wave01-review-export.log
+            artifacts/api-server/dist/quant-v4/num-cp009-wave01/audit.json
+            artifacts/api-server/dist/quant-v4/num-cp009-wave01/review.json
+            artifacts/api-server/dist/quant-v4/num-cp009-wave01/review.md
+          retention-days: 30
