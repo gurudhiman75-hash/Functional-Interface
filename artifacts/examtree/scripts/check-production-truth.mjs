@@ -12,6 +12,7 @@ const files = {
   subcategory: fs.readFileSync(path.join(appRoot, "src/pages/subcategory.tsx"), "utf8"),
   result: fs.readFileSync(path.join(appRoot, "src/pages/canonical-result.tsx"), "utf8"),
   profile: fs.readFileSync(path.join(appRoot, "src/pages/profile.tsx"), "utf8"),
+  test: fs.readFileSync(path.join(appRoot, "src/pages/test.tsx"), "utf8"),
 };
 
 const forbidden = [
@@ -48,6 +49,10 @@ const forbidden = [
   ["profile", "new Date().toLocaleDateString()", "Profile must not present today's date as account creation metadata."],
   ["profile", 'href="/result?testId="', "Attempt-list navigation must never create an empty or test-only result link."],
   ["profile", 'href="/performance"', "Pending analytics must not be promoted from the production profile."],
+  ["test", "API_BASE_URL", "Direct runner errors must not expose backend configuration details."],
+  ["test", "Check that the API is running at", "Direct runner errors must use student-safe recovery copy."],
+  ["test", "Falling back to local result", "Submission failures must not claim a browser-local score is authoritative."],
+  ["test", 'onClick={() => setLocation(`/result?testId=${encodeURIComponent(id!)}`)}', "Direct runner review actions must identify the committed attempt, not only the test."],
 ];
 
 const required = [
@@ -68,6 +73,9 @@ const required = [
   ["profile", "Account status", "Profile should expose a truthful account-state field rather than invented tenure."],
   ["profile", "attemptId: attempt.id", "Profile attempt cards must build result links from exact canonical attempt IDs."],
   ["profile", 'href="/dashboard"', "Profile should route full attempt history and analytics entry points to the live activity surface."],
+  ["test", "The test catalog is temporarily unavailable. Please try again.", "Direct runner catalog errors should use student-safe recovery copy."],
+  ["test", "attemptId=${encodeURIComponent(firstRealAttempt.id)}", "Direct runner review actions must carry the exact saved attempt id."],
+  ["test", "submission remains unconfirmed", "Direct runner submission recovery must describe canonical uncertainty truthfully."],
 ];
 
 const failures = [];
