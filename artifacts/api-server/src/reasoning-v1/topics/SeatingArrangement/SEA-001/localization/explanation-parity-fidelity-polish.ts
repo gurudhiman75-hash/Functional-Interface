@@ -40,8 +40,8 @@ function translateSoAction(block:string,locale:Sea001TranslatedLocale):string|un
   m=block.match(/^So: ([A-Z][a-z]+) and ([A-Z][a-z]+) cannot sit next to each other\. If one is already placed, the other cannot take either seat beside that person\.$/);
   if(m)return tr(locale,`इसलिए: ${n(m[1]!,locale)} और ${n(m[2]!,locale)} पास-पास नहीं बैठ सकते। यदि एक पहले से रखा है, तो दूसरा उसके दोनों साथ वाली सीटों में से किसी पर नहीं बैठ सकता।`,`ਇਸ ਲਈ: ${n(m[1]!,locale)} ਅਤੇ ${n(m[2]!,locale)} ਨਾਲ-ਨਾਲ ਨਹੀਂ ਬੈਠ ਸਕਦੇ। ਜੇ ਇੱਕ ਪਹਿਲਾਂ ਹੀ ਰੱਖਿਆ ਹੈ, ਤਾਂ ਦੂਜਾ ਉਸਦੇ ਦੋਵੇਂ ਨਾਲ ਵਾਲੀਆਂ ਸੀਟਾਂ ਵਿੱਚੋਂ ਕਿਸੇ 'ਤੇ ਨਹੀਂ ਬੈਠ ਸਕਦਾ।`);
 
-  m=block.match(/^So: Count (\d+) seats from the left end and put ([A-Z][a-z]+) there\.$/);
-  if(m)return tr(locale,`इसलिए: बाएँ छोर से ${m[1]} सीट गिनें और ${n(m[2]!,locale)} को वहाँ रखें।`,`ਇਸ ਲਈ: ਖੱਬੇ ਸਿਰੇ ਤੋਂ ${m[1]} ਸੀਟਾਂ ਗਿਣੋ ਅਤੇ ${n(m[2]!,locale)} ਨੂੰ ਉੱਥੇ ਰੱਖੋ।`);
+  m=block.match(/^So: Count (\d+) seats from the (left|right) end and put ([A-Z][a-z]+) there\.$/);
+  if(m){const end=m[2]==="left"?tr(locale,"बाएँ","ਖੱਬੇ"):tr(locale,"दाएँ","ਸੱਜੇ");return tr(locale,`इसलिए: ${end} छोर से ${m[1]} सीट गिनें और ${n(m[3]!,locale)} को वहाँ रखें।`,`ਇਸ ਲਈ: ${end} ਸਿਰੇ ਤੋਂ ${m[1]} ਸੀਟਾਂ ਗਿਣੋ ਅਤੇ ${n(m[3]!,locale)} ਨੂੰ ਉੱਥੇ ਰੱਖੋ।`);}
 
   m=block.match(/^So: Draw ([A-Z][a-z]+)'s arrow facing (north|south|the centre|outward)\. Keep this arrow in mind whenever a left\/right clue uses \1\.$/);
   if(m)return tr(locale,`इसलिए: ${n(m[1]!,locale)} का तीर ${facing(m[2]!,locale)} बनाएं। आगे जब भी बाएँ/दाएँ वाला संकेत ${n(m[1]!,locale)} के संदर्भ में आए, इस मुख-दिशा को याद रखें।`,`ਇਸ ਲਈ: ${n(m[1]!,locale)} ਦਾ ਤੀਰ ${facing(m[2]!,locale)} ਬਣਾਓ। ਅੱਗੇ ਜਦੋਂ ਵੀ ਖੱਬੇ/ਸੱਜੇ ਵਾਲਾ ਸੰਕੇਤ ${n(m[1]!,locale)} ਦੇ ਹਵਾਲੇ ਨਾਲ ਆਵੇ, ਇਸ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ਨੂੰ ਯਾਦ ਰੱਖੋ।`);
