@@ -1,6 +1,5 @@
 import {
   GoogleAuthProvider,
-  deleteUser,
   getRedirectResult,
   onAuthStateChanged,
   signInWithPopup,
@@ -24,6 +23,13 @@ type DevelopmentSessionOptions = {
 };
 
 type BlockedAccountCode = "ACCOUNT_SUSPENDED" | "ACCOUNT_UNAVAILABLE" | "ACCOUNT_RECOVERY_COMPLETED";
+
+type StudentAccountDeletionResponse = {
+  status: "deleted" | "pending";
+  attemptsDeleted?: number;
+  entitlementsDeleted?: number;
+  retainedFinancialRecords?: boolean;
+};
 
 export function createDevelopmentSession({
   email,
@@ -269,17 +275,28 @@ export function syncAuthSession() {
   };
 }
 
-export async function deleteCurrentStudentAccount() {
+export async function deleteCurrentStudentAccount(): Promise<StudentAccountDeletionResponse> {
   const auth = getFirebaseAuth();
   if (!auth?.currentUser) {
-    clearAuth();
-    clearStudentLocalData();
-    return;
+    throw new Error("Sign in before requesting account deletion.");
   }
 
-  await deleteUser(auth.currentUser);
+  // The canonical API owns erasure of ExamTree data and the Firebase identity.
+  // Never delete Firebase first: that can strand canonical learning/commerce data
+  // without a verified identity capable of completing the server-side request.
+  const result = await apiRequest<StudentAccountDeletionResponse>("/users/me", {
+    method: "DELETE",
+    body: JSON.stringify({ confirmation: "DELETE MY ACCOUNT" }),
+  });
+
   clearAuth();
   clearStudentLocalData();
+  try {
+    await signOut(auth);
+  } catch {
+    // The server normally deletes the Firebase user before returning success.
+  }
+  return result;
 }
 
 export async function startGoogleRedirectSignIn() {
