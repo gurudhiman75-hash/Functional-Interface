@@ -27,10 +27,12 @@ export type Sea002Cp006Clue =
   | Readonly<{ kind: "OPPOSITE"; first: Sea002PersonId; second: Sea002PersonId }>
   | Readonly<{ kind: "NOT_OPPOSITE"; first: Sea002PersonId; second: Sea002PersonId }>
   | Readonly<{ kind: "SAME_ROW_RELATIVE"; target: Sea002PersonId; reference: Sea002PersonId; side: Sea002ParallelSide; steps: number }>
+  | Readonly<{ kind: "SAME_ROW_GAP"; first: Sea002PersonId; second: Sea002PersonId; between: number }>
+  | Readonly<{ kind: "FACING_REFERENT_RELATIVE"; targetFacee: Sea002PersonId; referenceFacee: Sea002PersonId; side: Sea002ParallelSide; steps: number }>
   | Readonly<{ kind: "END_POSITION"; person: Sea002PersonId; row: Sea002ParallelRow; end: "LEFT" | "RIGHT" }>
   | Readonly<{ kind: "DIAGONAL"; first: Sea002PersonId; second: Sea002PersonId }>;
 
-export type Sea002Cp006AnswerType = "PERSON" | "RELATION";
+export type Sea002Cp006AnswerType = "PERSON" | "PAIR" | "COUNT" | "RELATION";
 
 export interface Sea002Cp006Option {
   readonly value: string;
@@ -40,13 +42,15 @@ export interface Sea002Cp006Option {
     | "SEA-MC-ROW-DIAGONAL_FOR_OPPOSITE"
     | "SEA-MC-ROW-SAME_ROW_FOR_OTHER_ROW"
     | "SEA-MC-ROW-FACING_IGNORED"
-    | "SEA-MC-ROW-COLUMN_SHIFT";
+    | "SEA-MC-ROW-COLUMN_SHIFT"
+    | "SEA-MC-ROW-GAP_ENDPOINT_INCLUDED"
+    | "SEA-MC-ROW-FACING_REFERENT_IGNORED";
   readonly explanation: string;
 }
 
 export interface Sea002Cp006ChildQuestion {
   readonly questionOrder: 1 | 2 | 3 | 4;
-  readonly queryContractId: "SEA-QC-003" | "SEA-QC-010" | "SEA-QC-011" | "SEA-QC-012";
+  readonly queryContractId: "SEA-QC-003" | "SEA-QC-006" | "SEA-QC-009" | "SEA-QC-010" | "SEA-QC-011" | "SEA-QC-012";
   readonly answerType: Sea002Cp006AnswerType;
   readonly answerDeterminingFactFingerprint: string;
   readonly text: string;
