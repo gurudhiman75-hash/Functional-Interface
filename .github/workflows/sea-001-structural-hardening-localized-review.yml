@@ -8,6 +8,8 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/SEA-001-STRUCTURAL-HARDENING-ENGLISH-APPROVAL-EVIDENCE.md
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-english-review-pins.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-english-review-pin-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-multilingual-freeze.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-multilingual-freeze-proof.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/localization/**
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-export.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-candidate-proof.test.ts
@@ -44,6 +46,9 @@ jobs:
       - name: Re-run pinned structural and multilingual machine-realness gate
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-structural-hardening-proof.test.ts
 
+      - name: Prove approved Hindi Punjabi replacement freeze
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-multilingual-freeze-proof.test.ts
+
       - name: Export balanced 100-caselet Hindi and Punjabi review candidates
         env:
           SEA_001_LOCALIZED_REVIEW_OUTPUT_DIR: /tmp/sea001-hardening-localized-review
@@ -59,8 +64,8 @@ jobs:
           if (summary.canonicalCaselets !== 100) throw new Error('Expected 100 canonical caselets');
           if (summary.localizedCaselets !== 200) throw new Error('Expected 200 localized caselets');
           if (summary.localizedChildQuestions !== 800) throw new Error('Expected 800 localized child questions');
-          if (summary.humanLanguageReview !== 'PENDING') throw new Error('Human review must remain pending');
-          if (summary.questionStudioRegistered || summary.questionBankWritable || summary.testEligible || summary.publiclyPublishable) throw new Error('Product lifecycle unexpectedly unlocked');
+          if (summary.humanLanguageReview !== 'PENDING') throw new Error('Historical review artifact must remain marked pending');
+          if (summary.questionStudioRegistered || summary.questionBankWritable || summary.testEligible || summary.publiclyPublishable) throw new Error('Review artifact unexpectedly unlocked product lifecycle');
           NODE
 
       - name: Upload Hindi Punjabi replacement review candidate
