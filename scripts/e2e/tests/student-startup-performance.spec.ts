@@ -63,7 +63,7 @@ test.describe("CP05 route-scoped math runtime", () => {
   test("public acquisition pages do not download the MathJax bundle", async ({ page }) => {
     await installFixtures(page);
     await page.goto("/about");
-    await expect(page.getByRole("heading", { name: "Built for exam practice, not vanity metrics." })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "A serious mock-test platform for serious aspirants." })).toBeVisible();
     await page.waitForLoadState("networkidle");
     expect(await localMathChunks(page)).toEqual([]);
   });
