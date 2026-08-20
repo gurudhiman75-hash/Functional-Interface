@@ -3,7 +3,7 @@
 **Authority:** Composite Geometry Revision 3 + Solution-Diagram Dimension Policy Addendum  
 **Predecessors:** approved Waves 1–4 discovery remediation  
 **Lifecycle:** `DISCOVERY`  
-**Wave 5 state:** `REVIEW_READY_CANDIDATE`
+**Wave 5 state:** `APPROVED_FROZEN_FOR_DISCOVERY`
 
 Wave 5 addresses `GEO-CP-014/CONGRUENCE_PLUS_PARALLEL_SYNTHESIS` with two temporary prototypes:
 
@@ -26,7 +26,7 @@ SHA-256:
 
 The original Rev-3 diagram-policy amendment remains unchanged/hash-locked. The addendum supplements solution-diagram disclosure only and does not weaken stem anti-leak.
 
-Core contract:
+Approved core contract:
 - stem diagram = minimum semantic evidence needed to solve;
 - solution diagram = teaching projection;
 - metric solution diagrams normally show solve-relevant given dimensions, key derived dimensions, and the solved target after derivation;
@@ -81,11 +81,33 @@ Artifacts `9390786157` and `9391000694` are superseded for Wave-5 review.
 
 Human visual review of all 12 runtime figures: **PASS** for topology, point/label clearance, dimension readability, stem/solution disclosure separation, semantic-mark separation, anti-leak, and exam-standard readability.
 
+## User approval / freeze boundary
+
+Approved by user on **20 August 2026**.
+
+Approval scope is limited to discovery continuity and freezes:
+- the two temporary CP014 Wave-5 archetypes;
+- their current mixed theorem graphs and exact solver behavior;
+- the `REQUIRED_BOTH` stem/solution representation contract;
+- the solution-diagram dimension policy addendum above;
+- the reviewed stem/solution diagrams, explanations, distractor ownership, source mapping and verifier contract represented by artifact `9398730665`.
+
+This approval does **not** authorize:
+- permanent QL allocation;
+- permanent solve-mode freeze;
+- source-saturation or no-known-gap claims;
+- Question Studio activation;
+- Question Bank writes;
+- test eligibility;
+- public publication;
+- PR merge.
+
 ```text
 wave5ImplementationComplete = true
 wave5RuntimeProofPassedForCurrentRepresentation = true
 wave5ReviewReady = true
-wave5Approved = false
+wave5Approved = true
+wave5FrozenForDiscovery = true
 solutionDiagramDimensionPolicyActive = true
 sourceSaturationClaimAllowed = false
 permanentQlAllocationAllowed = false
@@ -96,4 +118,4 @@ testEligibilityAllowed = false
 publicPublicationAllowed = false
 ```
 
-Wave 5 is review-ready only. Explicit user approval is required before discovery freeze.
+Wave 5 is **APPROVED / FROZEN FOR DISCOVERY**. Continue remaining source-gap remediation under the same lifecycle locks.
