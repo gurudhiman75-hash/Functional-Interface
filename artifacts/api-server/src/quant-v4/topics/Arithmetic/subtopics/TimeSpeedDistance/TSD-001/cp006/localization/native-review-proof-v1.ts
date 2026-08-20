@@ -1,6 +1,7 @@
 import { TSD_CP006_ENGLISH_FREEZE_ID } from "../english-approved-freeze-v5";
 import { independentlyVerifyCp006 } from "../verifier";
 import { generateCp006NativeReviewV1, TSD_CP006_NATIVE_REVIEW_STATUS_V1 } from "./native-review-candidate-v1";
+import { hasDevanagariBeyondSharedDanda } from "./native-primitives-v1";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -65,7 +66,7 @@ for (const row of rows) {
     assert(!/[\u0A00-\u0A7F]/u.test(`${presentation.stem} ${presentation.explanation.steps.join(" ")}`), `${label}: Punjabi script leaked into Hindi`);
   } else {
     assert(/[\u0A00-\u0A7F]/u.test(presentation.stem), `${label}: Punjabi stem has no Gurmukhi`);
-    assert(!/[\u0900-\u097F]/u.test(`${presentation.stem} ${presentation.explanation.steps.join(" ")}`), `${label}: Devanagari leaked into Punjabi`);
+    assert(!hasDevanagariBeyondSharedDanda(`${presentation.stem} ${presentation.explanation.steps.join(" ")}`), `${label}: Devanagari leaked into Punjabi`);
   }
   assert(!/[A-Za-z]{2,}/.test(stripAllowedLatin(`${presentation.stem} ${presentation.explanation.steps.join(" ")}`)), `${label}: unresolved English word remains`);
 
