@@ -29,12 +29,25 @@ function assertDeepFrozen(value: unknown, label: string, seen = new WeakSet<obje
   }
 }
 
-function mathSegments(text: string): string[] {
-  return [...text.matchAll(/\$([^$]+)\$/gu)].map((match) => match[1]!);
-}
-
-function dollarDelimiterCount(text: string): number {
-  return [...text].filter((character) => character === "$").length;
+function parseInlineMath(text: string, label: string): string[] {
+  const segments: string[] = [];
+  let insideMath = false;
+  let buffer = "";
+  for (const character of text) {
+    if (character === "$") {
+      if (insideMath) {
+        assert(buffer.trim().length > 0, `${label}: empty MathJax segment`);
+        assert(!buffer.includes("₹"), `${label}: rupee symbol leaked inside MathJax`);
+        segments.push(buffer);
+        buffer = "";
+      }
+      insideMath = !insideMath;
+      continue;
+    }
+    if (insideMath) buffer += character;
+  }
+  assert(!insideMath, `${label}: unmatched MathJax delimiter`);
+  return segments;
 }
 
 const SEEDS_PER_QL = 200;
@@ -94,16 +107,6 @@ for (const qlId of INT_CP008_QL_IDS) {
       optionChecks += 2;
     }
 
-    const allLearnerText = [
-      question.presentation.prompt,
-      question.presentation.markdown,
-      question.explanation.keyIdea,
-      ...question.explanation.steps,
-      question.explanation.finalAnswer,
-      question.explanation.commonMistake,
-      ...question.options.map((option) => option.text),
-    ].join("\n");
-
     assert(question.presentation.prompt.length >= 80, `${qlId}/${seed}: stem is too thin`);
     assert(question.presentation.markdown === question.presentation.prompt, `${qlId}/${seed}: markdown/prompt drift`);
     assert(question.explanation.keyIdea.length >= 70, `${qlId}/${seed}: key idea is too thin`);
@@ -113,14 +116,20 @@ for (const qlId of INT_CP008_QL_IDS) {
     assert(question.explanation.finalAnswer === question.correctAnswer, `${qlId}/${seed}: final answer mismatch`);
     explanationChecks += 7;
 
-    const segments = mathSegments(allLearnerText);
-    const delimiters = dollarDelimiterCount(allLearnerText);
-    assert(segments.length >= 1, `${qlId}/${seed}: explanation has no MathJax segment`);
-    assert(delimiters === segments.length * 2, `${qlId}/${seed}: unbalanced or malformed MathJax delimiters`);
-    assert(segments.every((segment) => segment.trim().length > 0), `${qlId}/${seed}: empty MathJax segment`);
-    assert(segments.every((segment) => !segment.includes("₹")), `${qlId}/${seed}: rupee symbol leaked inside MathJax`);
-    latexChecks += 4;
+    const learnerFields: readonly Readonly<{ label: string; text: string }>[] = [
+      { label: "prompt", text: question.presentation.prompt },
+      { label: "markdown", text: question.presentation.markdown },
+      { label: "keyIdea", text: question.explanation.keyIdea },
+      ...question.explanation.steps.map((text, stepIndex) => ({ label: `step-${stepIndex + 1}`, text })),
+      { label: "finalAnswer", text: question.explanation.finalAnswer },
+      { label: "commonMistake", text: question.explanation.commonMistake },
+      ...question.options.map((option, optionIndex) => ({ label: `option-${optionIndex + 1}`, text: option.text })),
+    ];
+    const parsedSegments = learnerFields.flatMap((field) => parseInlineMath(field.text, `${qlId}/${seed}/${field.label}`));
+    assert(parsedSegments.length >= 1, `${qlId}/${seed}: explanation has no MathJax segment`);
+    latexChecks += learnerFields.length + parsedSegments.length;
 
+    const allLearnerText = learnerFields.map((field) => field.text).join("\n");
     assert(!/\b(?:undefined|null|NaN)\b/u.test(allLearnerText), `${qlId}/${seed}: invalid generated token`);
     assert(!/\b(?:obviously|trivially|simply just)\b/iu.test(allLearnerText), `${qlId}/${seed}: weak editorial phrasing`);
     assert(!/per annum per/iu.test(allLearnerText), `${qlId}/${seed}: duplicated rate unit`);
