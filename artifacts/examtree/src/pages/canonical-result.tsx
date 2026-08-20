@@ -119,7 +119,7 @@ export default function CanonicalResult() {
       <button
         type="button"
         onClick={() => setLocation(seriesUrl ?? "/dashboard")}
-        className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+        className="inline-flex items-center gap-2 text-sm font-medium text-foreground/90 hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
         {seriesUrl ? "Back to Test Series" : "Back to My Activity"}

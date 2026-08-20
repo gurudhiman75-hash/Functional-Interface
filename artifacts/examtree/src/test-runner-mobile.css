@@ -1,4 +1,18 @@
-/* Focused small-screen hardening for the full-screen student test runner. */
+/* Focused hardening for the full-screen student test runner. */
+
+/* The runner's Pause & Exit action previously used translucent white over the
+   blue header. Chromium measured that combination at ~4.44:1. Keep the action
+   visually integrated with the header while giving white text clear AA margin. */
+header.sticky.top-0.bg-blue-600 > div:first-child button {
+  background-color: #1d4ed8;
+  border-color: rgb(255 255 255 / 0.55);
+  color: #fff;
+}
+
+header.sticky.top-0.bg-blue-600 > div:first-child button:hover {
+  background-color: #1e40af;
+}
+
 @media (max-width: 639px) {
   header.sticky.top-0.bg-blue-600 > div:first-child {
     display: grid;
