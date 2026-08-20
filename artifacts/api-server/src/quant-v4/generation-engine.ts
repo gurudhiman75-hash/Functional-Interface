@@ -51,13 +51,20 @@ import {
   isCal001GenerationRequest,
   type Cal001QuestionStudioRequest,
 } from "../reasoning-v1/topics/Calendar/CAL-001/question-studio-runtime";
+import {
+  TSD_001_QUESTION_STUDIO_PACKAGE,
+  generateTsd001QuestionStudioBatch,
+  isTsd001QuestionStudioRequest,
+  type Tsd001QuestionStudioRequest,
+} from "./topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/question-studio-adapter";
 
 export type QuantV4PackageId =
   | CoreQuantV4PackageId
   | "PNL-001"
   | "PRB-001"
   | "PRB-002"
-  | "CAL-001";
+  | "CAL-001"
+  | "TSD-001";
 
 export type QuantV4GenerationRequest = Omit<
   CoreQuantV4GenerationRequest,
@@ -326,7 +333,6 @@ function resolvePrbPackage(request: QuantV4GenerationRequest) {
 function resolveRapPackage(request: QuantV4GenerationRequest) {
   return resolveByPackageOrPattern(request, RAP_RUNTIME_PACKAGES);
 }
-
 function resolveCpId(
   pkg: QuantV4PackageDefinition,
   request: QuantV4GenerationRequest,
@@ -421,7 +427,7 @@ function probabilityPackageForQuestionStudio(pkg: RuntimeDefinition) {
 }
 
 export function listQuantV4Packages() {
-  const specialIds = new Set(["PNL-001", "PRB-001", "PRB-002", "CAL-001"]);
+  const specialIds = new Set(["PNL-001", "PRB-001", "PRB-002", "CAL-001", "TSD-001"]);
   const corePackages = listCorePackages()
     .filter((pkg) => !isRawPnlCheckpointPackage(pkg))
     .filter((pkg) => !specialIds.has(pkg.packageId))
@@ -434,6 +440,7 @@ export function listQuantV4Packages() {
   return [
     ...corePackages,
     CAL_001_QUESTION_STUDIO_PACKAGE,
+    TSD_001_QUESTION_STUDIO_PACKAGE,
     pnlPackageForQuestionStudio(),
     ...PRB_RUNTIME_PACKAGES.map(probabilityPackageForQuestionStudio),
   ].sort((left, right) => left.packageId.localeCompare(right.packageId));
@@ -542,6 +549,10 @@ async function generateWithRuntimePackage(
 }
 
 export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
+  if (isTsd001QuestionStudioRequest(request as Tsd001QuestionStudioRequest)) {
+    return generateTsd001QuestionStudioBatch(request as Tsd001QuestionStudioRequest);
+  }
+
   if (isCal001GenerationRequest(request as Cal001QuestionStudioRequest)) {
     return generateCal001QuestionStudioBatch(
       request as Cal001QuestionStudioRequest,
