@@ -84,4 +84,14 @@ test.describe("CP03 public SEO metadata", () => {
     expect(meta.canonical).toBe(`${origin}/login/student`);
     expect(meta.ogUrl).toBe(meta.canonical);
   });
+
+  test("placeholder content stays noindex until real PYQ inventory is published", async ({ page }) => {
+    await page.goto("/pyqs");
+    await expect(page.getByRole("heading", { name: "A dedicated PYQ hub for exam-wise revision." })).toBeVisible();
+    const meta = await metadata(page);
+    const origin = new URL(page.url()).origin;
+    expect(meta.robots).toBe("noindex,follow");
+    expect(meta.canonical).toBe(`${origin}/pyqs`);
+    expect(meta.ogUrl).toBe(meta.canonical);
+  });
 });

@@ -23,7 +23,7 @@ const landingCopy: Record<string, { title: string; description: string; cta: str
 export default function SeoLanding() {
   const [location, setLocation] = useLocation();
   const copy = landingCopy[location] ?? landingCopy["/ssc-cgl-pyqs"];
-  usePageMeta(copy.title, copy.description);
+  usePageMeta(copy.title, copy.description, { robots: "noindex,follow" });
 
   return (
     <PublicPage eyebrow="SEO landing" title={copy.title} description={copy.description}>
@@ -38,4 +38,3 @@ export default function SeoLanding() {
     </PublicPage>
   );
 }
-
