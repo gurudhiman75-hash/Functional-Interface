@@ -9,7 +9,7 @@ import { RouteCatalogBoundary } from "@/components/RouteCatalogBoundary";
 import { RouteMathBoundary } from "@/components/RouteMathBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
-import { getUser } from "@/lib/storage";
+import { getSessionUser } from "@/lib/session-user";
 
 const AppLayout = lazy(() => import("@/components/AppLayout").then((module) => ({ default: module.AppLayout })));
 const Home = lazy(() => import("@/pages/home"));
@@ -106,7 +106,7 @@ type ProtectedRouteProps = {
 };
 
 function ProtectedRoute({ component: Component, layout = "app" }: ProtectedRouteProps) {
-  const user = getUser();
+  const user = getSessionUser();
   const [location] = useLocation();
   if (!user) return <Redirect to={`/login/student?next=${encodeURIComponent(location)}`} />;
 
