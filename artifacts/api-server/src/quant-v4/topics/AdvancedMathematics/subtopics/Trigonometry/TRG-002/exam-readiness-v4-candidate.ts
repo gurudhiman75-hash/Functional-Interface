@@ -35,6 +35,7 @@ import {
 } from "./exam-readiness-v4-scenario-wave4";
 import { applyTrg002V4StemVariety } from "./exam-readiness-v4-stem-variety";
 import { deepenTrg002V4HardSolution } from "./exam-readiness-v4-hard-solutions";
+import { applyTrg002V4StrictSemanticParity } from "./exam-readiness-v4-semantic-parity";
 
 type AnyQuestion = Record<string, any>;
 
@@ -124,7 +125,6 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
   const exactStem = repairHistoricalExactMathArtifact(base.stem);
   const repairedExplanation = repairExplanation(base.explanation);
   const hardSolution = deepenTrg002V4HardSolution(qlId, locale, exactStem, repairedExplanation);
-  const explanation = hardSolution.explanation;
   const explicitScenarioId = scenarioWave4Override
     ? trg002V4ScenarioWave4ScenarioId(qlId)
     : scenarioWave3Override
@@ -140,7 +140,9 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
   const variety = structuralScenarioOverride
     ? { stem: wave1.stem, applied: false }
     : applyTrg002V4StemVariety(qlId, locale, wave1.stem);
-  const stem = variety.stem;
+  const semanticParity = applyTrg002V4StrictSemanticParity(qlId, locale, variety.stem, hardSolution.explanation);
+  const stem = semanticParity.stem;
+  const explanation = semanticParity.explanation;
   const topology = scenarioWave4Override
     ? trg002V4ScenarioWave4Topology(qlId)
     : scenarioWave3Override
@@ -181,6 +183,7 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
     scenarioWave4Override,
     stemVarietyApplied: variety.applied,
     hardSolutionRemediated: hardSolution.remediated,
+    semanticParityRemediated: semanticParity.remediated,
     physicalObserverSupport,
     diagramMigrationRequired,
   });
@@ -197,6 +200,7 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
       scenarioWave4Override,
       stemVarietyApplied: variety.applied,
       hardSolutionRemediated: hardSolution.remediated,
+      semanticParityRemediated: semanticParity.remediated,
       spatialTopology: topology,
       recommendedScenarioShell: wave1.scenarioId ?? scenario.id,
       recommendedScenarioDomain: scenario.domain,
