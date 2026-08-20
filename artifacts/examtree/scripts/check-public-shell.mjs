@@ -10,10 +10,11 @@ const publicLayout = fs.readFileSync(path.join(appRoot, "src/components/PublicLa
 
 assert.match(appSource, /import \{ PublicLayout \} from "@\/components\/PublicLayout"/, "router must import the dedicated public shell");
 assert.match(appSource, /const renderPublicRoute = .*<PublicLayout><Component \/><\/PublicLayout>/, "router must expose a dedicated public-route renderer");
-assert.match(appSource, /path="\/" component=\{\(\) => renderPublicRoute\(Home\)\}/, "homepage must use the acquisition shell");
-assert.match(appSource, /path="\/exams" component=\{\(\) => renderPublicRoute\(Tests\)\}/, "test discovery must use the acquisition shell");
-assert.match(appSource, /path="\/category\/:id" component=\{\(\) => renderPublicRoute\(Category\)\}/, "category discovery must use the acquisition shell");
-assert.match(appSource, /path="\/subcategory\/:id" component=\{\(\) => renderPublicRoute\(Subcategory\)\}/, "exam discovery must use the acquisition shell");
+assert.match(appSource, /const renderCatalogPublicRoute = [\s\S]*?<RouteCatalogBoundary><PublicLayout><Component \/><\/PublicLayout><\/RouteCatalogBoundary>/, "catalog-backed acquisition routes must preserve the public shell inside the lazy catalog boundary");
+assert.match(appSource, /path="\/" component=\{\(\) => renderCatalogPublicRoute\(Home\)\}/, "homepage must use the acquisition shell while retaining catalog context");
+assert.match(appSource, /path="\/exams" component=\{\(\) => renderCatalogPublicRoute\(Tests\)\}/, "test discovery must use the acquisition shell while retaining catalog context");
+assert.match(appSource, /path="\/category\/:id" component=\{\(\) => renderCatalogPublicRoute\(Category\)\}/, "category discovery must use the acquisition shell while retaining catalog context");
+assert.match(appSource, /path="\/subcategory\/:id" component=\{\(\) => renderCatalogPublicRoute\(Subcategory\)\}/, "exam discovery must use the acquisition shell while retaining catalog context");
 assert.match(appSource, /path="\/login\/student" component=\{\(\) => renderPublicRoute\(Login\)\}/, "student login must not be trapped inside the preparation sidebar");
 assert.match(appSource, /path="\/dashboard" component=\{\(\) => renderAppRoute\(Dashboard\)\}/, "dashboard must stay in the preparation shell");
 assert.match(appSource, /path="\/result" component=\{\(\) => renderAppRoute\(Result\)\}/, "saved results must stay in the preparation shell");
@@ -35,4 +36,4 @@ for (const forbidden of ["Logic Engine v2.4", "Practice Motifs", "API Docs", "de
 assert.doesNotMatch(appLayout, /MiniFooter/, "preparation shell must not render the obsolete public footer");
 assert.equal(fs.existsSync(path.join(appRoot, "src/components/MiniFooter.tsx")), false, "obsolete prototype footer file must be removed");
 
-console.log("Public/app shell audit passed (25 assertions).");
+console.log("Public/app shell audit passed (26 assertions).");
