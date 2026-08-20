@@ -338,7 +338,19 @@ test.describe("CP01B timer start and sectional expiry", () => {
     await new Promise((resolve) => setTimeout(resolve, 3_500));
     await cdp.send("Page.setWebLifecycleState", { state: "active" });
 
-    await expect(page.getByRole("button", { name: "Resume Test" })).toBeVisible({ timeout: 8_000 });
+    await expect.poll(async () => {
+      try {
+        const draft = await readSavedDraft(page);
+        const sections = draft?.sectionTimeLeftByName as Record<string, number> | undefined;
+        return sections?.["Quantitative Aptitude"] ?? beforeRemaining;
+      } catch {
+        // The recovery contract reloads the runner after writing the corrected
+        // draft, so page.evaluate can briefly lose its execution context.
+        return beforeRemaining;
+      }
+    }, { timeout: 8_000 }).toBeLessThanOrEqual(beforeRemaining - 2);
+    await expect(page).toHaveURL(new RegExp(`/test/${TEST_ID}`));
+
     const after = await readSavedDraft(page);
     const afterSections = after?.sectionTimeLeftByName as Record<string, number> | undefined;
     const afterRemaining = afterSections?.["Quantitative Aptitude"] ?? beforeRemaining;
