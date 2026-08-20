@@ -52,4 +52,4 @@ assert.match(proof, /\/login\/student\?next=/, "browser proof must exercise noin
 assert.match(proof, /summary_large_image/);
 assert.match(proof, /opengraph\.jpg/);
 
-console.log("Public SEO metadata audit passed (46 assertions).");
+console.log("Public SEO metadata audit passed (50 assertions).");
