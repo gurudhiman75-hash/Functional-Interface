@@ -1,3 +1,4 @@
+import type { Rational } from "./cp003-exam-model";
 import {
   INT_CP008_ENGLISH_VERSION as INT_CP008_ENGLISH_VERSION_V2,
   generateIntCp008EnglishQuestion as generateV2,
@@ -37,14 +38,12 @@ function indianInteger(value: bigint): string {
   return `${groups.join(",")},${tail}`;
 }
 
-function roundedRupeeFraction(numeratorText: string, denominatorText: string): string {
-  const numerator = BigInt(numeratorText);
-  const denominator = BigInt(denominatorText);
-  if (denominator <= 0n || numerator < 0n) throw new Error(`CP008 V3 invalid money fraction ${numeratorText}/${denominatorText}`);
-  const scaled = numerator * 100n;
-  let paise = scaled / denominator;
-  const remainder = scaled % denominator;
-  if (remainder * 2n >= denominator) paise += 1n;
+function nearestPaiseText(value: Rational): string {
+  if (value.denominator <= 0n || value.numerator < 0n) throw new Error("CP008 V3 money value must be non-negative");
+  const scaled = value.numerator * 100n;
+  let paise = scaled / value.denominator;
+  const remainder = scaled % value.denominator;
+  if (remainder * 2n >= value.denominator) paise += 1n;
   const rupees = paise / 100n;
   const paisePart = paise % 100n;
   return paisePart === 0n
@@ -52,12 +51,30 @@ function roundedRupeeFraction(numeratorText: string, denominatorText: string): s
     : `₹${indianInteger(rupees)}.${paisePart.toString().padStart(2, "0")}`;
 }
 
-function hasFractionalRupee(text: string): boolean {
-  return /₹\d+\/\d+/u.test(text);
+function roundedRupeeFraction(numeratorText: string, denominatorText: string): string {
+  return nearestPaiseText({ numerator: BigInt(numeratorText), denominator: BigInt(denominatorText) });
+}
+
+function roundedRupeeDecimal(integerText: string, decimalText: string): string {
+  const cleanInteger = integerText.replace(/,/gu, "");
+  const denominator = 10n ** BigInt(decimalText.length);
+  const numerator = BigInt(cleanInteger) * denominator + BigInt(decimalText);
+  return nearestPaiseText({ numerator, denominator });
+}
+
+function needsMoneyRounding(text: string): boolean {
+  return /₹\d+\/\d+/u.test(text) || /₹[\d,]+\.\d{3,}/u.test(text);
 }
 
 function renderExamMoney(text: string): string {
-  return text.replace(/₹(\d+)\/(\d+)/gu, (_match, numerator: string, denominator: string) => roundedRupeeFraction(numerator, denominator));
+  const fractionsRendered = text.replace(
+    /₹(\d+)\/(\d+)/gu,
+    (_match, numerator: string, denominator: string) => roundedRupeeFraction(numerator, denominator),
+  );
+  return fractionsRendered.replace(
+    /₹([\d,]+)\.(\d{3,})/gu,
+    (_match, integerText: string, decimalText: string) => roundedRupeeDecimal(integerText, decimalText),
+  );
 }
 
 function polishRecurringDepositStep(step: string): string {
@@ -81,7 +98,7 @@ export function generateIntCp008EnglishQuestion(
     source.explanation.commonMistake,
     ...source.options.map((option) => option.text),
   ].join("\n");
-  const needsNearestPaise = hasFractionalRupee(rawLearnerText);
+  const needsNearestPaise = needsMoneyRounding(rawLearnerText);
   const roundingInstruction = " Give monetary answers to the nearest paise.";
 
   const promptBase = renderExamMoney(source.presentation.prompt);
@@ -90,7 +107,13 @@ export function generateIntCp008EnglishQuestion(
     const polished = qlId === "INT-QL-122" ? polishRecurringDepositStep(step) : step;
     return renderExamMoney(polished);
   }));
-  const finalAnswer = renderExamMoney(source.explanation.finalAnswer);
+
+  const monetaryOptions = source.answerSemantic !== "PERIODIC_RATE_PERCENT";
+  const options = Object.freeze(source.options.map((option) => deepFreeze({
+    ...option,
+    text: monetaryOptions ? nearestPaiseText(option.value) : option.text,
+  })));
+  const correctAnswer = options[source.correctIndex]!.text;
 
   return deepFreeze({
     ...source,
@@ -100,15 +123,12 @@ export function generateIntCp008EnglishQuestion(
       prompt,
       markdown: prompt,
     }),
-    options: Object.freeze(source.options.map((option) => deepFreeze({
-      ...option,
-      text: renderExamMoney(option.text),
-    }))),
-    correctAnswer: renderExamMoney(source.correctAnswer),
+    options,
+    correctAnswer,
     explanation: deepFreeze({
       keyIdea: renderExamMoney(source.explanation.keyIdea),
       steps,
-      finalAnswer,
+      finalAnswer: correctAnswer,
       commonMistake: renderExamMoney(source.explanation.commonMistake),
     }),
   });
