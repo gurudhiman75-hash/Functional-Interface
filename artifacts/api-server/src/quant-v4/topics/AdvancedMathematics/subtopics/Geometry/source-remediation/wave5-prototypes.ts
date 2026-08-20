@@ -71,7 +71,7 @@ function parallelogramExtensionSolutionDiagram(on: number, answer: number): GeoD
     parallelMarks: [{ id: "derived-op-parallel-mn", segmentIds: ["OP", "MN"] }],
     arcs: [],
     labels: [
-      { id: "given-on-dimension", text: `ON = ${on} cm`, x: 182, y: 48 },
+      { id: "given-on-dimension", text: `ON = ${on} cm`, x: 220, y: 30 },
       { id: "derived-halves-dimension", text: `OR = RN = ${answer} cm`, x: 95, y: 190 },
     ],
     disclosure: "SOLUTION", notToScale: true,
