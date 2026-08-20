@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "artifacts/examtree/dist/public",
+    "cleanUrls": true,
     "ignore": [
       "firebase.json",
       "**/.*",
