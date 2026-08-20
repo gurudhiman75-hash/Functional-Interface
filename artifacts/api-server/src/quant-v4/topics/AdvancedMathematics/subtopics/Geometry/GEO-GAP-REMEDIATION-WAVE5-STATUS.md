@@ -3,7 +3,7 @@
 **Authority:** Composite Geometry Revision 3 + Solution-Diagram Dimension Policy Addendum  
 **Predecessors:** approved Waves 1–4 discovery remediation  
 **Lifecycle:** `DISCOVERY`  
-**Wave 5 state:** `IMPLEMENTED_AWAITING_CI_AFTER_SOLUTION_DIAGRAM_POLICY`
+**Wave 5 state:** `REVIEW_READY_CANDIDATE`
 
 Wave 5 addresses `GEO-CP-014/CONGRUENCE_PLUS_PARALLEL_SYNTHESIS` with two temporary prototypes:
 
@@ -18,7 +18,7 @@ Current temporary executable count: **53**. Permanent QLs: **0**. Frozen permane
 
 ## Solution-diagram authority
 
-New Rev-3 addendum:
+Active Rev-3 addendum:
 `design-authority-rev3/solution-diagram-dimension-policy.md`
 
 SHA-256:
@@ -33,15 +33,13 @@ Core contract:
 - stem and solution semantic fingerprints are recorded separately;
 - both figures require Renderer-V2 zero-collision proof and human visual QA.
 
-## Wave-5 application
-
-The previously review-ready stem-only representation is superseded for review by this richer `REQUIRED_BOTH` candidate.
+## Wave-5 REQUIRED_BOTH application
 
 Parallelogram-extension solution figure:
 - preserves M,N,O,P,Q,R topology;
-- shows the solve-relevant whole dimension `ON`;
+- shows solve-relevant `ON` dimension;
 - after congruence/CPCT, marks `OR = RN` and displays the solved halves (`OR = RN = answer`);
-- shows derived parallelogram parallelism needed for the explanation;
+- shows the derived parallelogram parallel relation used in the teaching explanation;
 - keeps all derived answer-bearing dimensions absent from the stem.
 
 Equal-parallel-diagonal solution figure:
@@ -52,21 +50,41 @@ Equal-parallel-diagonal solution figure:
 - displays the given `AD` dimension and the CPCT-derived `BC` target dimension;
 - keeps `BC` absent from the stem.
 
-## Prior corrected stem-only evidence
+## REQUIRED_BOTH QA history
 
-Prior CI passed before this policy expansion:
-- run `32324466545`
-- job `96292787939`
-- proof head `48ccf2a35b2cb0956b2c43fce9c15e61b329ed40`
-- artifact `9391000694`
-- digest `sha256:d672c0432a84c7770ea2222be77ef546ca1ffac20f0c4ee78d3355739cf6fecd`
+The first REQUIRED_BOTH run correctly failed because the new `ON` dimension label collided with point O's label region. The zero-collision rule was retained; the dimension annotation was moved to clear whitespace and the full chain was rerun.
 
-That artifact is now **superseded for Wave-5 review** because the representation contract has materially changed from `REQUIRED_STEM_DIAGRAM` to `REQUIRED_BOTH`.
+### Final REQUIRED_BOTH CI — PASS
+
+`Validate Geometry Gap Remediation Wave 5`
+
+- run `32347922917`
+- job `96360537130`
+- proof head `fd362587849ee458fa2ba01064fa191a1169d34d`
+- API build: PASS
+- retained Geometry Source Saturation Audit V1: PASS
+- retained Geometry Phases 0–5: PASS
+- retained approved Waves 1–4: PASS
+- Wave 5 REQUIRED_BOTH proof: PASS
+- stem Renderer-V2 collision QA: PASS
+- solution Renderer-V2 collision QA: PASS
+- solution-dimension coverage regressions: PASS
+- forbidden stem-leak regressions: PASS
+- review export/upload: PASS
+
+Final REQUIRED_BOTH review artifact:
+- id `9398730665`
+- digest `sha256:fc686a72dede646c47b2d65226b4840d93596ff331644881385dc2a49773da54`
+- 2 prototypes × 3 seeds = **6 questions / 12 runtime figures**
+
+Artifacts `9390786157` and `9391000694` are superseded for Wave-5 review.
+
+Human visual review of all 12 runtime figures: **PASS** for topology, point/label clearance, dimension readability, stem/solution disclosure separation, semantic-mark separation, anti-leak, and exam-standard readability.
 
 ```text
 wave5ImplementationComplete = true
-wave5RuntimeProofPassedForCurrentRepresentation = false
-wave5ReviewReady = false
+wave5RuntimeProofPassedForCurrentRepresentation = true
+wave5ReviewReady = true
 wave5Approved = false
 solutionDiagramDimensionPolicyActive = true
 sourceSaturationClaimAllowed = false
@@ -78,4 +96,4 @@ testEligibilityAllowed = false
 publicPublicationAllowed = false
 ```
 
-Next gate: full retained source audit + Geometry Phases 0–5 + approved Waves 1–4 + Wave-5 REQUIRED_BOTH proof + six-question stem/solution visual review export.
+Wave 5 is review-ready only. Explicit user approval is required before discovery freeze.
