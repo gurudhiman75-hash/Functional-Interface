@@ -94,6 +94,7 @@ export * from "./paper-folding-polygon-learner-review-v1";
 export * from "./paper-folding-triangle-product-owner-approval-v1";
 export * from "./paper-folding-hexagon-discovery-v1";
 export * from "./paper-folding-hexagon-learner-review-v1";
+export * from "./paper-folding-hexagon-learner-review-v1-1";
 export * from "./paper-folding-discovery-v1";
 export * from "./paper-folding-discovery-remediated-v2";
 export * from "./paper-folding-discovery-presentation-v3";
