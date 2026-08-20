@@ -1,0 +1,75 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import { fileURLToPath } from "node:url";
+
+const read = (relative) => fs.readFileSync(fileURLToPath(new URL(relative, import.meta.url)), "utf8");
+const browser = read("../src/components/CatalogTestBrowser.tsx");
+const testsPage = read("../src/pages/tests.tsx");
+const proof = read("../../../scripts/e2e/tests/student-catalog-scale.spec.ts");
+const pkg = JSON.parse(read("../package.json"));
+
+assert.equal(pkg.scripts["audit:catalog-scale"], "node scripts/check-catalog-scale.mjs");
+assert.match(pkg.scripts.quality, /audit:catalog-scale/);
+
+assert.match(browser, /const PAGE_SIZE = 18/);
+assert.match(browser, /data-testid="catalog-test-browser"/);
+assert.match(browser, /data-testid="catalog-search"/);
+assert.match(browser, /data-testid="catalog-category-filter"/);
+assert.match(browser, /data-testid="catalog-access-filter"/);
+assert.match(browser, /data-testid="catalog-difficulty-filter"/);
+assert.match(browser, /data-testid="catalog-kind-filter"/);
+assert.match(browser, /data-testid="catalog-language-filter"/);
+assert.match(browser, /data-testid="catalog-sort"/);
+assert.match(browser, /category !== "all"/);
+assert.match(browser, /access !== "all"/);
+assert.match(browser, /difficulty !== "all"/);
+assert.match(browser, /kind !== "all"/);
+assert.match(browser, /language !== "all"/);
+assert.match(browser, /normalizedQuery/);
+assert.match(browser, /sort === "name"/);
+assert.match(browser, /sort === "duration"/);
+assert.match(browser, /sort === "questions"/);
+assert.match(browser, /right\.attempts/);
+assert.match(browser, /filteredTests\.slice\(\(currentPage - 1\) \* PAGE_SIZE, currentPage \* PAGE_SIZE\)/);
+assert.match(browser, /setPage\(1\)/, "changing search/filter/sort state must reset paging");
+assert.match(browser, /No catalog tests are published yet/);
+assert.match(browser, /No tests match these filters/);
+assert.match(browser, /aria-label="Catalog pagination"/);
+assert.match(browser, /data-testid="catalog-previous-page"/);
+assert.match(browser, /data-testid="catalog-next-page"/);
+assert.match(browser, /h-11 w-full/, "catalog selects must retain 44px-class height");
+
+assert.match(testsPage, /const PROMO_PAGE_SIZE = 6/);
+assert.match(testsPage, /const HIERARCHY_RENDER_LIMIT = 300/);
+assert.match(testsPage, /series\.slice\(\(activeSeriesPage - 1\) \* PROMO_PAGE_SIZE, activeSeriesPage \* PROMO_PAGE_SIZE\)/);
+assert.match(testsPage, /publishedTests\.slice\(\(activePublishedPage - 1\) \* PROMO_PAGE_SIZE, activePublishedPage \* PROMO_PAGE_SIZE\)/);
+assert.match(testsPage, /tests\.length > HIERARCHY_RENDER_LIMIT/);
+assert.match(testsPage, /data-testid="catalog-large-mode"/);
+assert.match(testsPage, /<CatalogTestBrowser tests=\{tests\} \/>/);
+assert.match(testsPage, /useCompactHierarchy \?/);
+assert.match(testsPage, /Retry series/);
+assert.match(testsPage, /Retry live tests/);
+assert.match(testsPage, /<ExamNavigator categories=\{categories\} subcategories=\{subcategories\} tests=\{tests\} \/>/);
+
+assert.match(proof, /length: 540/);
+assert.match(proof, /length: 13/);
+assert.match(proof, /Showing 1-18 of 540/);
+assert.match(proof, /toHaveCount\(18\)/);
+assert.match(proof, /catalog-large-mode/);
+assert.match(proof, /catalog-sort[\s\S]*?selectOption\("name"\)/);
+assert.match(proof, /catalog-next-page/);
+assert.match(proof, /Showing 19-36 of 540/);
+assert.match(proof, /Catalog Test 540/);
+assert.match(proof, /catalog-category-filter/);
+assert.match(proof, /catalog-access-filter/);
+assert.match(proof, /catalog-difficulty-filter/);
+assert.match(proof, /catalog-kind-filter/);
+assert.match(proof, /catalog-language-filter/);
+assert.match(proof, /No tests match these filters/);
+assert.match(proof, /seriesSection\.locator\("article"\)[\s\S]*?toHaveCount\(6\)/);
+assert.match(proof, /publishedSection\.locator\("article"\)[\s\S]*?toHaveCount\(6\)/);
+assert.match(proof, /width: 390, height: 844/);
+assert.match(proof, /toBeGreaterThanOrEqual\(44\)/);
+assert.match(proof, /scrollWidth - window\.innerWidth[\s\S]*?toBeLessThanOrEqual\(1\)/);
+
+console.log("Catalog scale audit passed (61 assertions).");
