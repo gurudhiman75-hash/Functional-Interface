@@ -2,7 +2,7 @@ import { DeterministicRandom } from "../../../../shared/constraint-core/random.t
 import { canonicalDigest } from "../../SEA-001/canonical.ts";
 import { generateSea002Cp006DiscoveryCaselet } from "./discovery.ts";
 import { auditOracleCp006, solveCp006 } from "./generator.ts";
-import { oppositePerson, sameRowMove, seatOf } from "./topology.ts";
+import { facingForRow, oppositePerson, sameRowMove, seatOf } from "./topology.ts";
 import type {
   Sea002Cp006BlueprintId,
   Sea002Cp006Caselet,
@@ -13,9 +13,20 @@ import type {
   Sea002ParallelSide,
 } from "./types.ts";
 
+function stableNumber(value:string):number {
+  let hash=0x811c9dc5;
+  for(const character of value) hash=Math.imul(hash^character.charCodeAt(0),0x01000193);
+  return hash>>>0;
+}
+
 function ordinal(steps:number):string {
   if(steps===1) return "immediately";
   return ({2:"second",3:"third",4:"fourth",5:"fifth"} as Record<number,string>)[steps] ?? `${steps}th`;
+}
+
+function relationDisplay(steps:number,side:Sea002ParallelSide):string {
+  const position=steps===1?"Immediate":({2:"Second",3:"Third",4:"Fourth",5:"Fifth"} as Record<number,string>)[steps]??`${steps}th`;
+  return `${position} to the ${side.toLowerCase()}`;
 }
 
 function atEitherEndDistance(column:number,n:number,positionFromEnd:number):boolean {
@@ -126,7 +137,7 @@ function neighbourQuestion(seed:string,state:Sea002Cp006State):Sea002Cp006ChildQ
 }
 
 function countBetweenQuestion(seed:string,state:Sea002Cp006State):Sea002Cp006ChildQuestion {
-  const rng=new DeterministicRandom(`${seed}:source-q4`);
+  const rng=new DeterministicRandom(`${seed}:source-q4-count`);
   const row=rng.pick([state.top,state.bottom] as const);
   const first=row[0]!,second=row.at(-1)!;
   const count=state.seatCountPerRow-2;
@@ -140,6 +151,34 @@ function countBetweenQuestion(seed:string,state:Sea002Cp006State):Sea002Cp006Chi
   const options=optionTuple(rng.shuffle(raw));
   const answerIndex=options.findIndex((option)=>option.isCorrect) as 0|1|2|3;
   return {questionOrder:4,queryContractId:"SEA-QC-009",answerType:"COUNT",answerDeterminingFactFingerprint:`COUNT_BETWEEN:${first}:${second}`,text:`How many persons sit between ${first} and ${second} in their row?`,options,answerIndex,answer,explanation};
+}
+
+function relativePositionQuestion(seed:string,state:Sea002Cp006State):Sea002Cp006ChildQuestion {
+  const rng=new DeterministicRandom(`${seed}:source-q4-relation`);
+  const row=rng.pick([state.top,state.bottom] as const);
+  const referenceIndex=rng.integer(0,state.seatCountPerRow-1);
+  let subjectIndex=rng.integer(0,state.seatCountPerRow-2);
+  if(subjectIndex>=referenceIndex) subjectIndex+=1;
+  const reference=row[referenceIndex]!,subject=row[subjectIndex]!;
+  const facing=facingForRow(seatOf(state,reference).row);
+  const physical=subjectIndex<referenceIndex?"LEFT":"RIGHT";
+  const side:Sea002ParallelSide=facing==="NORTH"?physical:(physical==="LEFT"?"RIGHT":"LEFT");
+  const steps=Math.abs(subjectIndex-referenceIndex);
+  const answer=relationDisplay(steps,side);
+  const alternatives:string[]=[];
+  for(const direction of ["LEFT","RIGHT"] as const) for(let distance=1;distance<state.seatCountPerRow;distance+=1) {
+    const value=relationDisplay(distance,direction);
+    if(value!==answer) alternatives.push(value);
+  }
+  const wrong=rng.shuffle([...new Set(alternatives)]).slice(0,3);
+  const explanation=`${reference} faces ${facing.toLowerCase()}. From ${reference}'s own facing, ${subject} is ${relationDisplay(steps,side).toLowerCase()}.`;
+  const raw:Sea002Cp006Option[]=[
+    {value:answer,isCorrect:true,explanation},
+    ...wrong.map((value,index)=>({value,isCorrect:false,misconceptionId:index===0?"SEA-MC-ROW-FACING_IGNORED" as const:"SEA-MC-ROW-COLUMN_SHIFT" as const,explanation:index===0?`${value} does not use ${reference}'s ${facing.toLowerCase()} facing correctly.`:`${value} has the wrong direction or seat distance from ${reference}.`})),
+  ];
+  const options=optionTuple(rng.shuffle(raw));
+  const answerIndex=options.findIndex((option)=>option.isCorrect) as 0|1|2|3;
+  return {questionOrder:4,queryContractId:"SEA-QC-015",answerType:"RELATION",answerDeterminingFactFingerprint:`RELATION:${subject}:${reference}:${facing}`,text:`What is the position of ${subject} with respect to ${reference}?`,options,answerIndex,answer,explanation};
 }
 
 export function generateSea002Cp006SourceRealCaselet(
@@ -157,7 +196,7 @@ export function generateSea002Cp006SourceRealCaselet(
     throw new Error(`${base.caseletId}: source-realness composition lost unique solver/oracle agreement.`);
   }
   const q3=neighbourQuestion(seed,base.state);
-  const q4=countBetweenQuestion(seed,base.state);
+  const q4=stableNumber(seed)%2===0?countBetweenQuestion(seed,base.state):relativePositionQuestion(seed,base.state);
   const children=[base.children[0],base.children[1],q3,q4] as const;
   if(new Set(children.map((child)=>child.queryContractId)).size!==4) throw new Error(`${base.caseletId}: source-realness query mix is not diverse.`);
   if(new Set(children.map((child)=>child.answerDeterminingFactFingerprint)).size!==4) throw new Error(`${base.caseletId}: duplicate source-realness answer fact.`);
