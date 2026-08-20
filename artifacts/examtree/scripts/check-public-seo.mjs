@@ -14,7 +14,10 @@ const pkg = JSON.parse(read("../package.json"));
 assert.equal(pkg.scripts["audit:public-seo"], "node scripts/check-public-seo.mjs");
 assert.match(pkg.scripts.quality, /audit:public-seo/);
 assert.match(publicPage, /window\.location\.origin/, "canonical metadata must derive from the deployed runtime origin");
-assert.match(publicPage, /canonicalPath \?\? window\.location\.pathname/, "canonical metadata must omit query strings by default");
+assert.match(publicPage, /canonicalPathFor\(window\.location\.pathname\)/, "canonical metadata must omit query strings and normalize known aliases");
+assert.match(publicPage, /"\/tests": "\/exams"/, "tests alias must canonicalize to exams");
+assert.match(publicPage, /"\/privacy": "\/privacy-policy"/, "privacy alias must canonicalize to the public policy route");
+assert.match(publicPage, /"\/login": "\/login\/student"/, "login alias must canonicalize to the student login route");
 assert.match(publicPage, /link\[rel="canonical"\]/, "metadata hook must manage a canonical link");
 assert.match(publicPage, /twitter:card[\s\S]*?summary_large_image/, "metadata hook must expose Twitter card metadata");
 for (const key of ["twitter:title", "twitter:description", "twitter:image", "og:title", "og:description", "og:type", "og:url", "og:image", "robots"]) {
@@ -44,8 +47,9 @@ for (const publicPath of ["/exams", "/mock-tests", "/pyqs", "/about"]) {
 }
 assert.match(proof, /origin.*canonical|canonical.*origin/is, "browser proof must verify runtime-origin canonical URLs");
 assert.match(proof, /\/about\?utm_source=e2e/, "browser proof must exercise query stripping on page-owned metadata");
+assert.match(proof, /\/tests\?source=e2e/, "browser proof must exercise canonical alias normalization");
 assert.match(proof, /\/login\/student\?next=/, "browser proof must exercise noindex utility metadata");
 assert.match(proof, /summary_large_image/);
 assert.match(proof, /opengraph\.jpg/);
 
-console.log("Public SEO metadata audit passed (42 assertions).");
+console.log("Public SEO metadata audit passed (46 assertions).");
