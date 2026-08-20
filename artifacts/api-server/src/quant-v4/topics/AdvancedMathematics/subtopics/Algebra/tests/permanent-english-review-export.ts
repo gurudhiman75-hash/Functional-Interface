@@ -46,6 +46,17 @@ const qlCounts = Object.fromEntries(ALG_PERMANENT_ALLOCATION.map((allocation) =>
   reviewRows.filter((row) => row.qlId === allocation.qlId).length,
 ]));
 
+function renderSolution(explanation: string): string {
+  const steps = explanation.split(/\n+/).map((step) => step.trim()).filter(Boolean);
+  if (steps.length === 0) return '<div class="step missing">Explanation unavailable</div>';
+  return steps.map((step) => {
+    const cls = step.startsWith("Given:") || step.startsWith("Required:") || step.startsWith("Why this method:")
+      ? "step guide"
+      : "step";
+    return `<div class="${cls}">${escapeHtml(step)}</div>`;
+  }).join("\n");
+}
+
 function renderQuestion(row: (typeof reviewRows)[number], ordinal: number): string {
   return `
   <article class="question">
@@ -64,7 +75,7 @@ function renderQuestion(row: (typeof reviewRows)[number], ordinal: number): stri
     </section>
     <section class="solution">
       <h3>Solution</h3>
-      <p>${escapeHtml(row.explanation)}</p>
+      <div class="steps">${renderSolution(row.explanation)}</div>
     </section>
   </article>`;
 }
@@ -76,12 +87,12 @@ const html = `<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Algebra English V2 Review</title>
 <style>
-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f5f5;color:#171717;margin:0}.wrap{max-width:1020px;margin:auto;padding:24px 14px 64px}.top,.question{background:#fff;border:1px solid #ddd;border-radius:12px;padding:18px;margin:14px 0}.question header{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid #eee;padding-bottom:10px}.meta{font-size:12px;color:#555}.stem,.solution p{font-size:16px;line-height:1.58;white-space:pre-wrap}.answer,.solution{border-top:1px solid #eee;margin-top:14px;padding-top:10px}.answer pre{white-space:pre-wrap;word-break:break-word;background:#fafafa;border:1px solid #eee;border-radius:8px;padding:10px}.summary{display:flex;gap:7px;flex-wrap:wrap}.summary span{border:1px solid #ccc;border-radius:999px;padding:4px 8px;font-size:12px}.lock{font-weight:600}</style>
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f5f5;color:#171717;margin:0}.wrap{max-width:1020px;margin:auto;padding:24px 14px 64px}.top,.question{background:#fff;border:1px solid #ddd;border-radius:12px;padding:18px;margin:14px 0}.question header{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid #eee;padding-bottom:10px}.meta{font-size:12px;color:#555}.stem{font-size:16px;line-height:1.62;white-space:pre-wrap}.answer,.solution{border-top:1px solid #eee;margin-top:14px;padding-top:10px}.answer pre{white-space:pre-wrap;word-break:break-word;background:#fafafa;border:1px solid #eee;border-radius:8px;padding:10px}.steps{display:grid;gap:8px}.step{font-size:16px;line-height:1.58;padding:8px 10px;border-left:3px solid #ddd;background:#fafafa;border-radius:4px;white-space:pre-wrap}.step.guide{font-weight:600;background:#f3f3f3}.step.missing{font-weight:700}.summary{display:flex;gap:7px;flex-wrap:wrap}.summary span{border:1px solid #ccc;border-radius:999px;padding:4px 8px;font-size:12px}.lock{font-weight:600}</style>
 </head>
 <body><main class="wrap">
 <section class="top">
 <h1>Algebra · English V2 Review</h1>
-<p>This pack contains exactly one deterministic learner-facing sample for every permanent-mapped English prototype variant after the post-freeze editorial remediation pass. Semantic QLs and solver authority are unchanged.</p>
+<p>One deterministic sample for every permanent-mapped English prototype variant. Formula-based solutions now show the given information, what is required, why the formula or method applies, and the calculation in visible steps.</p>
 <p class="lock">Lifecycle remains locked: corrected English freeze false · Question Studio false · Question Bank false · tests/publication false.</p>
 <div class="summary"><span>Review: ${ALG_ENGLISH_REVIEW_V2_ID}</span><span>Permanent QLs: ${ALG_PERMANENT_ALLOCATION.length}</span><span>Mapped variants: ${reviewRows.length}</span><span>ALG-001: ${reviewRows.filter((row) => row.packageId === "ALG-001").length}</span><span>ALG-002: ${reviewRows.filter((row) => row.packageId === "ALG-002").length}</span></div>
 </section>
