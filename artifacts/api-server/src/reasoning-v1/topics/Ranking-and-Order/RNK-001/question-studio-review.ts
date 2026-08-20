@@ -1,94 +1,51 @@
-import { generateRnkCp001PermanentQuestion, RNK_CP001_PERMANENT_QL_IDS } from "./RNK-CP-001/cp001-permanent-runtime";
-import { generateRnkCp002PermanentQuestion, RNK_CP002_PERMANENT_QL_IDS } from "./RNK-CP-002/cp002-permanent-runtime";
-import { generateRnkCp003PermanentQuestion, RNK_CP003_PERMANENT_QL_IDS } from "./RNK-CP-003/cp003-permanent-runtime";
-import { buildRnkCp004PermanentRuntime, RNK_CP004_PERMANENT_AUTHORITY_ASSIGNMENTS } from "./RNK-CP-004/cp004-permanent-runtime-v1";
-import { buildRnkCp005PermanentRuntime, RNK_CP005_PERMANENT_AUTHORITY_ASSIGNMENTS } from "./RNK-CP-005/cp005-permanent-runtime-v1";
-import { buildRnkCp006PermanentRuntime, RNK_CP006_PERMANENT_AUTHORITY_ASSIGNMENTS } from "./RNK-CP-006/cp006-permanent-runtime-v1";
-import { buildRnkCp007PermanentRuntime, RNK_CP007_PERMANENT_QL_ID } from "./RNK-CP-007/cp007-permanent-runtime-v1";
 import { adaptRnkQuestionForBankingFiveOptions } from "./rnk-001-banking-five-option-adapter-v1";
-import { RNK_EXAM_MODE_MIX_GUARD, auditRnkExamModeMix, rnkExamRealismTier, type RnkExamRealismTier } from "./rnk-001-exam-delivery-policy-v1";
+import { localizeRnkCp001PermanentQuestionV4 } from "./RNK-CP-001/cp001-localization-review-v4";
+import { localizeRnkCp002PermanentQuestionV2 } from "./RNK-CP-002/cp002-localization-review-v2";
+import { localizeRnkCp003PermanentQuestionV4 } from "./RNK-CP-003/cp003-localization-review-v4";
+import { localizeRnkCp004PermanentQuestionV6 } from "./RNK-CP-004/cp004-localization-review-v6";
+import { localizeRnkCp005PermanentQuestionV3 } from "./RNK-CP-005/cp005-localization-review-v3";
+import { localizeRnkCp006PermanentQuestionV1 } from "./RNK-CP-006/cp006-localization-review-v1";
+import { localizeRnkCp007PermanentQuestionV2 } from "./RNK-CP-007/cp007-localization-review-v2";
+import { localizeRnkCp007V2QuestionToV3 } from "./RNK-CP-007/cp007-localization-review-v3";
+import { localizeRnkCp007V3QuestionToV4 } from "./RNK-CP-007/cp007-localization-review-v4";
+import { buildRnkCp007PercentagePresentationBankV2 } from "./RNK-CP-007/cp007-percentage-presentation-adapter-v2";
+import {
+  RNK_001_QUESTION_STUDIO_DIFFICULTIES,
+  RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE as RNK_001_ENGLISH_QUESTION_STUDIO_REVIEW_PACKAGE,
+  listRnk001QuestionStudioQlIds,
+  previewRnk001QuestionStudioReview as previewRnk001EnglishQuestionStudioReview,
+  type PreviewRnk001QuestionStudioInput as PreviewRnk001EnglishQuestionStudioInput,
+  type RnkQuestionStudioDifficulty as RnkQuestionStudioEnglishDifficulty,
+  type RnkQuestionStudioExamProfileId as RnkQuestionStudioEnglishExamProfileId,
+  type RnkQuestionStudioReviewQuestion as RnkQuestionStudioEnglishReviewQuestion,
+} from "./question-studio-review-english-v1";
+
+export { RNK_001_QUESTION_STUDIO_DIFFICULTIES, listRnk001QuestionStudioQlIds };
+export type RnkQuestionStudioDifficulty = RnkQuestionStudioEnglishDifficulty;
+export type RnkQuestionStudioExamProfileId = RnkQuestionStudioEnglishExamProfileId;
 
 export const RNK_001_QUESTION_STUDIO_REVIEW_AUTHORITY =
-  "RNK-001-QUESTION-STUDIO-REVIEW-V1" as const;
+  "RNK-001-QUESTION-STUDIO-MULTILINGUAL-REVIEW-V1" as const;
 export const RNK_001_QUESTION_STUDIO_REVIEW_STATUS =
-  "ENGLISH_FROZEN_EXAM_PROFILE_REVIEW_ONLY" as const;
+  "MULTILINGUAL_FROZEN_AUTHORITY_REVIEW_ONLY" as const;
 export const RNK_001_QUESTION_STUDIO_RELEASE_FREEZE =
-  "ENGLISH_ONLY_REVIEW_PENDING_MULTILINGUAL_CONSOLIDATION" as const;
+  "MULTILINGUAL_REVIEW_ENABLED_PRODUCT_DELIVERY_LOCKED" as const;
 
-export const RNK_001_QUESTION_STUDIO_LANGUAGES = ["en"] as const;
-export const RNK_001_QUESTION_STUDIO_DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
+export const RNK_001_QUESTION_STUDIO_LANGUAGES = ["en", "hi", "pa"] as const;
 export type RnkQuestionStudioLanguage = typeof RNK_001_QUESTION_STUDIO_LANGUAGES[number];
-export type RnkQuestionStudioDifficulty = typeof RNK_001_QUESTION_STUDIO_DIFFICULTIES[number];
-export type RnkQuestionStudioExamProfileId =
-  | "CHAPTER_COVERAGE"
-  | "SSC_CGL_T1"
-  | "SSC_CHSL_T1"
-  | "SSC_MTS"
-  | "IBPS_PO_PRE"
-  | "IBPS_CLERK_PRE"
-  | "PUNJAB_PSSSB_CLERK"
-  | "PUNJAB_EXCISE_INSP"
-  | "PUNJAB_POLICE";
-
+export type RnkQuestionStudioLocale = "en-IN" | "hi-IN" | "pa-IN";
+type NativeLocale = Exclude<RnkQuestionStudioLocale, "en-IN">;
 type AnyQuestion = Record<string, any>;
 
-const ALL_QL_IDS = [
-  ...RNK_CP001_PERMANENT_QL_IDS,
-  ...RNK_CP002_PERMANENT_QL_IDS,
-  ...RNK_CP003_PERMANENT_QL_IDS,
-  ...RNK_CP004_PERMANENT_AUTHORITY_ASSIGNMENTS.map((entry) => entry.qlId),
-  ...RNK_CP005_PERMANENT_AUTHORITY_ASSIGNMENTS.map((entry) => entry.qlId),
-  ...RNK_CP006_PERMANENT_AUTHORITY_ASSIGNMENTS.map((entry) => entry.qlId),
-  RNK_CP007_PERMANENT_QL_ID,
-] as readonly string[];
-
-const CP004 = buildRnkCp004PermanentRuntime() as readonly AnyQuestion[];
-const CP005 = buildRnkCp005PermanentRuntime() as readonly AnyQuestion[];
-const CP006 = buildRnkCp006PermanentRuntime() as readonly AnyQuestion[];
-const CP007 = buildRnkCp007PermanentRuntime() as readonly AnyQuestion[];
-
-const TIER_ORDER = ["CORE", "SECONDARY", "ADVANCED", "SOURCE_SPECIFIC"] as const;
-
-const TIER_QLS: Readonly<Record<RnkExamRealismTier, readonly string[]>> = Object.freeze({
-  CORE: ALL_QL_IDS.filter((qlId) => rnkExamRealismTier(qlId) === "CORE"),
-  SECONDARY: ALL_QL_IDS.filter((qlId) => rnkExamRealismTier(qlId) === "SECONDARY"),
-  ADVANCED: ALL_QL_IDS.filter((qlId) => rnkExamRealismTier(qlId) === "ADVANCED"),
-  SOURCE_SPECIFIC: ALL_QL_IDS.filter((qlId) => rnkExamRealismTier(qlId) === "SOURCE_SPECIFIC"),
-});
-
-const PROFILE_WEIGHTS: Readonly<Record<Exclude<RnkQuestionStudioExamProfileId, "CHAPTER_COVERAGE">, Readonly<Record<RnkExamRealismTier, number>>>> = Object.freeze({
-  SSC_CGL_T1: { CORE: 80, SECONDARY: 15, ADVANCED: 4, SOURCE_SPECIFIC: 1 },
-  SSC_CHSL_T1: { CORE: 82, SECONDARY: 14, ADVANCED: 3, SOURCE_SPECIFIC: 1 },
-  SSC_MTS: { CORE: 88, SECONDARY: 10, ADVANCED: 1, SOURCE_SPECIFIC: 1 },
-  IBPS_PO_PRE: { CORE: 70, SECONDARY: 20, ADVANCED: 8, SOURCE_SPECIFIC: 2 },
-  IBPS_CLERK_PRE: { CORE: 75, SECONDARY: 18, ADVANCED: 6, SOURCE_SPECIFIC: 1 },
-  PUNJAB_PSSSB_CLERK: { CORE: 84, SECONDARY: 12, ADVANCED: 3, SOURCE_SPECIFIC: 1 },
-  PUNJAB_EXCISE_INSP: { CORE: 82, SECONDARY: 14, ADVANCED: 3, SOURCE_SPECIFIC: 1 },
-  PUNJAB_POLICE: { CORE: 88, SECONDARY: 10, ADVANCED: 1, SOURCE_SPECIFIC: 1 },
-});
-
 export const RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
-  packageId: "RNK-001" as const,
-  chapterId: "RNK-001" as const,
-  label: "Ranking & Order",
-  subject: "Reasoning Ability",
-  topic: "Reasoning",
-  subtopic: "Ranking & Order",
-  permanentQlCount: 42,
-  permanentQlRange: "RNK-QL-001..042",
-  permanentQlAllocationStatus: "ALLOCATED_FROZEN" as const,
+  ...RNK_001_ENGLISH_QUESTION_STUDIO_REVIEW_PACKAGE,
   supportedLanguages: RNK_001_QUESTION_STUDIO_LANGUAGES,
-  supportedDifficulties: RNK_001_QUESTION_STUDIO_DIFFICULTIES,
-  supportedExamProfiles: Object.keys(PROFILE_WEIGHTS) as readonly Exclude<RnkQuestionStudioExamProfileId, "CHAPTER_COVERAGE">[],
-  runtimeMode: "RNK-001-FROZEN-AUTHORITY-REVIEW-V1",
+  runtimeMode: "RNK-001-FROZEN-MULTILINGUAL-AUTHORITY-REVIEW-V1" as const,
   reviewStatus: RNK_001_QUESTION_STUDIO_REVIEW_STATUS,
   integrationAuthority: RNK_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
   releaseFreezeStatus: RNK_001_QUESTION_STUDIO_RELEASE_FREEZE,
-  questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
-  questionStudioVisible: true as const,
-  reviewOnly: true as const,
-  englishOnlyUntilMultilingualConsolidation: true as const,
-  percentageAdapterStatus: "V2_NATIVE_GRAMMAR_PENDING_BRANCH_CONSOLIDATION" as const,
+  englishOnlyUntilMultilingualConsolidation: false as const,
+  percentageAdapterStatus: "V2_NATIVE_GRAMMAR_ACTIVE_REVIEW_ONLY" as const,
   questionBankStatus: "NOT_STORED" as const,
   questionBankWritable: false as const,
   testEligibility: "INELIGIBLE" as const,
@@ -99,38 +56,27 @@ export const RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   manualApprovalRequired: true as const,
 });
 
-function stableHash(value: string): number {
-  let hash = 2166136261;
-  for (let index = 0; index < value.length; index += 1) {
-    hash ^= value.charCodeAt(index);
-    hash = Math.imul(hash, 16777619) >>> 0;
-  }
-  return hash >>> 0;
+export interface RnkQuestionStudioReviewQuestion extends Omit<
+  RnkQuestionStudioEnglishReviewQuestion,
+  "questionId" | "language" | "locale" | "source"
+> {
+  readonly questionId: string;
+  readonly language: RnkQuestionStudioLanguage;
+  readonly locale: RnkQuestionStudioLocale;
+  readonly source: AnyQuestion;
 }
 
-function deterministicShuffle<T>(items: readonly T[], seed: string): T[] {
-  const output = [...items];
-  for (let index = output.length - 1; index > 0; index -= 1) {
-    const swap = stableHash(`${seed}:shuffle:${index}`) % (index + 1);
-    [output[index], output[swap]] = [output[swap]!, output[index]!];
-  }
-  return output;
+export interface PreviewRnk001QuestionStudioInput extends Omit<
+  PreviewRnk001EnglishQuestionStudioInput,
+  "language"
+> {
+  readonly language?: RnkQuestionStudioLanguage;
 }
 
-function normalizeDifficulty(value: unknown): RnkQuestionStudioDifficulty | undefined {
-  const text = String(value ?? "").trim().toLowerCase();
-  if (!text || text === "mixed") return undefined;
-  if (text === "easy") return "Easy";
-  if (text === "medium" || text === "moderate") return "Medium";
-  if (text === "hard") return "Hard";
-  throw new Error(`Unsupported RNK-001 difficulty '${String(value)}'.`);
-}
-
-function questionDifficulty(question: AnyQuestion): RnkQuestionStudioDifficulty {
-  const text = String(question.difficulty ?? question.difficultyBand ?? "Medium").toLowerCase();
-  if (text.includes("easy")) return "Easy";
-  if (text.includes("hard")) return "Hard";
-  return "Medium";
+function studioLocale(language: RnkQuestionStudioLanguage): RnkQuestionStudioLocale {
+  if (language === "hi") return "hi-IN";
+  if (language === "pa") return "pa-IN";
+  return "en-IN";
 }
 
 function qlNumber(qlId: string): number {
@@ -139,97 +85,44 @@ function qlNumber(qlId: string): number {
   return Number(match[1]);
 }
 
-function selectFrozenBankQuestion(bank: readonly AnyQuestion[], qlId: string, seed: number): AnyQuestion {
-  const candidates = bank.filter((question) =>
-    String(question.permanentProfile?.permanentQlId ?? question.reviewMetadata?.permanentProfile?.permanentQlId) === qlId,
-  );
-  if (candidates.length === 0) throw new Error(`No frozen RNK question found for ${qlId}.`);
-  return candidates[stableHash(`${qlId}:${seed}`) % candidates.length]!;
-}
-
-function rawQuestionForQl(qlId: string, seed: number): AnyQuestion {
-  const number = qlNumber(qlId);
-  if (number <= 9) return generateRnkCp001PermanentQuestion(qlId as any, seed) as unknown as AnyQuestion;
-  if (number <= 17) return generateRnkCp002PermanentQuestion(qlId as any, seed) as unknown as AnyQuestion;
-  if (number <= 26) return generateRnkCp003PermanentQuestion(qlId as any, seed) as unknown as AnyQuestion;
-  if (number <= 35) return selectFrozenBankQuestion(CP004, qlId, seed);
-  if (number <= 38) return selectFrozenBankQuestion(CP005, qlId, seed);
-  if (number <= 41) return selectFrozenBankQuestion(CP006, qlId, seed);
-  return selectFrozenBankQuestion(CP007, qlId, seed);
-}
-
-function questionForQl(qlId: string, seed: number, difficulty?: RnkQuestionStudioDifficulty): AnyQuestion {
-  if (!difficulty) return rawQuestionForQl(qlId, seed);
-  for (let attempt = 0; attempt < 64; attempt += 1) {
-    const question = rawQuestionForQl(qlId, stableHash(`${seed}:difficulty:${attempt}`));
-    if (questionDifficulty(question) === difficulty) return question;
-  }
-  throw new Error(`${qlId} could not produce ${difficulty} within the bounded RNK review search.`);
-}
-
-function profileTierPlan(
-  profileId: Exclude<RnkQuestionStudioExamProfileId, "CHAPTER_COVERAGE">,
-  count: number,
-  seed: string,
-): readonly RnkExamRealismTier[] {
-  const weights = PROFILE_WEIGHTS[profileId];
-  const allocations = TIER_ORDER.map((tier, order) => {
-    const exact = (count * weights[tier]) / 100;
-    return { tier, order, count: Math.floor(exact), remainder: exact - Math.floor(exact) };
-  });
-
-  const core = allocations.find((entry) => entry.tier === "CORE")!;
-  const minimumCore = Math.ceil(count * RNK_EXAM_MODE_MIX_GUARD.coreMinimumShare);
-  if (core.count < minimumCore) core.count = minimumCore;
-
-  const caps: Record<RnkExamRealismTier, number> = {
-    CORE: count,
-    SECONDARY: Math.floor(count * RNK_EXAM_MODE_MIX_GUARD.secondaryMaximumShare),
-    ADVANCED: Math.floor(count * RNK_EXAM_MODE_MIX_GUARD.advancedMaximumShare),
-    SOURCE_SPECIFIC: Math.floor(count * RNK_EXAM_MODE_MIX_GUARD.sourceSpecificMaximumShare),
+function canonicalSource(question: RnkQuestionStudioEnglishReviewQuestion): AnyQuestion {
+  const source = question.source as AnyQuestion;
+  const delivery = source.bankingFiveOptionDelivery as AnyQuestion | undefined;
+  if (!delivery) return source;
+  const { bankingFiveOptionDelivery: _delivery, ...canonical } = source;
+  const sourceOptionCount = Number(delivery.sourceOptionCount ?? 4);
+  return {
+    ...canonical,
+    options: Array.isArray(source.options) ? source.options.slice(0, sourceOptionCount) : source.options,
   };
-
-  let remaining = count - allocations.reduce((sum, entry) => sum + entry.count, 0);
-  while (remaining > 0) {
-    const candidate = allocations
-      .filter((entry) => entry.count < caps[entry.tier])
-      .sort((left, right) => right.remainder - left.remainder || left.order - right.order)[0]
-      ?? core;
-    candidate.count += 1;
-    remaining -= 1;
-  }
-
-  const plan = allocations.flatMap((entry) => Array.from({ length: entry.count }, () => entry.tier));
-  if (plan.length !== count) throw new Error(`${profileId} tier allocation produced ${plan.length}/${count}`);
-  const audit = auditRnkExamModeMix(plan.map((tier) => TIER_QLS[tier][0]!));
-  if (count >= 20 && !audit.passesExamRealismGuard) {
-    throw new Error(`${profileId} quota allocation violates realism guard: ${audit.violations.join(", ")}`);
-  }
-  return deterministicShuffle(plan, `${profileId}:${seed}:tier-plan`);
 }
 
-function questionForTier(
-  tier: RnkExamRealismTier,
-  seed: string,
-  index: number,
-  difficulty?: RnkQuestionStudioDifficulty,
-): { qlId: string; question: AnyQuestion } {
-  const primary = deterministicShuffle(TIER_QLS[tier], `${seed}:${index}:${tier}:ql-order`);
-  const fallback = tier === "CORE"
-    ? []
-    : deterministicShuffle(TIER_QLS.CORE, `${seed}:${index}:${tier}:core-fallback`);
-  let lastError: unknown = null;
-  for (const qlId of [...primary, ...fallback]) {
-    try {
-      const numericSeed = stableHash(`${seed}:${index}:${qlId}`);
-      return { qlId, question: questionForQl(qlId, numericSeed, difficulty) };
-    } catch (error) {
-      lastError = error;
-    }
-  }
-  throw lastError instanceof Error
-    ? lastError
-    : new Error(`No RNK-001 ${tier} authority supports the requested filters.`);
+const percentageBanks = new Map<NativeLocale, readonly AnyQuestion[]>();
+function percentageBank(locale: NativeLocale): readonly AnyQuestion[] {
+  const cached = percentageBanks.get(locale);
+  if (cached) return cached;
+  const built = buildRnkCp007PercentagePresentationBankV2(locale) as readonly AnyQuestion[];
+  percentageBanks.set(locale, built);
+  return built;
+}
+
+function localizeCanonicalQuestion(raw: AnyQuestion, qlId: string, locale: NativeLocale): AnyQuestion {
+  const number = qlNumber(qlId);
+  if (number <= 9) return localizeRnkCp001PermanentQuestionV4(raw as any, locale) as unknown as AnyQuestion;
+  if (number <= 17) return localizeRnkCp002PermanentQuestionV2(raw as any, locale) as unknown as AnyQuestion;
+  if (number <= 26) return localizeRnkCp003PermanentQuestionV4(raw, locale) as unknown as AnyQuestion;
+  if (number <= 35) return localizeRnkCp004PermanentQuestionV6(raw as any, locale) as AnyQuestion;
+  if (number <= 38) return localizeRnkCp005PermanentQuestionV3(raw as any, locale) as unknown as AnyQuestion;
+  if (number <= 41) return localizeRnkCp006PermanentQuestionV1(raw as any, locale) as unknown as AnyQuestion;
+
+  const v2 = localizeRnkCp007PermanentQuestionV2(raw as any, locale);
+  const v3 = localizeRnkCp007V2QuestionToV3(v2);
+  const v4 = localizeRnkCp007V3QuestionToV4(v3) as unknown as AnyQuestion;
+  const sourceFingerprint = String(raw.permanentRuntimeFingerprint ?? "");
+  const percentage = percentageBank(locale).find((question) =>
+    String(question.percentagePresentation?.sourcePermanentRuntimeFingerprint ?? "") === sourceFingerprint,
+  );
+  return percentage ?? v4;
 }
 
 function optionText(option: unknown): string {
@@ -249,6 +142,7 @@ function misconceptionId(option: unknown): string | null {
 function explanationText(value: unknown): string {
   if (typeof value === "string") return value;
   if (!value || typeof value !== "object") return String(value ?? "");
+  if (Array.isArray(value)) return value.map(String).join("\n");
   const record = value as Record<string, unknown>;
   const parts: string[] = [];
   for (const key of ["mentalPicture", "keyRule", "examSpeedShortcut", "conclusion"] as const) {
@@ -260,70 +154,31 @@ function explanationText(value: unknown): string {
   return parts.length ? parts.join("\n") : JSON.stringify(value);
 }
 
-function checkpointForQl(qlId: string): string {
-  const value = qlNumber(qlId);
-  if (value <= 9) return "RNK-CP-001";
-  if (value <= 17) return "RNK-CP-002";
-  if (value <= 26) return "RNK-CP-003";
-  if (value <= 35) return "RNK-CP-004";
-  if (value <= 38) return "RNK-CP-005";
-  if (value <= 41) return "RNK-CP-006";
-  return "RNK-CP-007";
-}
-
-export interface RnkQuestionStudioReviewQuestion {
-  readonly packageId: "RNK-001";
-  readonly chapterId: "RNK-001";
-  readonly checkpointId: string;
-  readonly qlId: string;
-  readonly permanentQlId: string;
-  readonly patternId: string;
-  readonly questionId: string;
-  readonly language: "en";
-  readonly locale: "en-IN";
-  readonly difficultyBand: RnkQuestionStudioDifficulty;
-  readonly stem: string;
-  readonly displayStem: string;
-  readonly options: readonly string[];
-  readonly optionDetails: readonly { label: string; text: string; isCorrect: boolean; misconceptionId: string | null }[];
-  readonly correctIndex: number;
-  readonly answer: string;
-  readonly explanation: string;
-  readonly seed: number;
-  readonly examProfileId: RnkQuestionStudioExamProfileId;
-  readonly realismTier: RnkExamRealismTier;
-  readonly optionCount: number;
-  readonly questionStudioVisible: true;
-  readonly lifecycleStatus: "REVIEW_ONLY";
-  readonly validation: { valid: boolean; optionsDistinct: boolean; exactlyOneCorrect: boolean; frozenQl: true };
-  readonly source: AnyQuestion;
-}
-
-function reviewQuestion(rawInput: AnyQuestion, qlId: string, seed: number, examProfileId: RnkQuestionStudioExamProfileId): RnkQuestionStudioReviewQuestion {
-  const raw = examProfileId.startsWith("IBPS_")
-    ? adaptRnkQuestionForBankingFiveOptions(rawInput, "en-IN")
-    : rawInput;
+function localizedReviewQuestion(
+  english: RnkQuestionStudioEnglishReviewQuestion,
+  language: Exclude<RnkQuestionStudioLanguage, "en">,
+): RnkQuestionStudioReviewQuestion {
+  const locale = studioLocale(language) as NativeLocale;
+  const canonical = canonicalSource(english);
+  const localized = localizeCanonicalQuestion(canonical, english.qlId, locale);
+  const raw = english.examProfileId.startsWith("IBPS_")
+    ? adaptRnkQuestionForBankingFiveOptions(localized, locale)
+    : localized;
   const optionsRaw = raw.options as readonly unknown[];
   const options = optionsRaw.map(optionText);
   const correctIndex = Number.isInteger(raw.correctIndex) ? Number(raw.correctIndex) : Number(raw.answerIndex);
   if (!Number.isInteger(correctIndex) || correctIndex < 0 || correctIndex >= options.length) {
-    throw new Error(`${qlId} produced an invalid correct option index.`);
+    throw new Error(`${english.qlId} produced an invalid localized correct option index.`);
   }
   const answer = options[correctIndex]!;
   const optionsDistinct = new Set(options).size === options.length;
   const exactlyOneCorrect = options.filter((option) => option === answer).length === 1;
   const stem = String(raw.stem ?? raw.instruction ?? "");
   return {
-    packageId: "RNK-001",
-    chapterId: "RNK-001",
-    checkpointId: checkpointForQl(qlId),
-    qlId,
-    permanentQlId: qlId,
-    patternId: qlId,
-    questionId: `RNK-001:${qlId}:${seed}:en`,
-    language: "en",
-    locale: "en-IN",
-    difficultyBand: questionDifficulty(raw),
+    ...english,
+    questionId: `${english.questionId.replace(/:en$/u, "")}:${language}`,
+    language,
+    locale,
     stem,
     displayStem: stem,
     options,
@@ -336,12 +191,7 @@ function reviewQuestion(rawInput: AnyQuestion, qlId: string, seed: number, examP
     correctIndex,
     answer,
     explanation: explanationText(raw.explanation),
-    seed,
-    examProfileId,
-    realismTier: rnkExamRealismTier(qlId),
     optionCount: options.length,
-    questionStudioVisible: true,
-    lifecycleStatus: "REVIEW_ONLY",
     validation: {
       valid: optionsDistinct && exactlyOneCorrect && stem.length > 0,
       optionsDistinct,
@@ -352,66 +202,23 @@ function reviewQuestion(rawInput: AnyQuestion, qlId: string, seed: number, examP
   };
 }
 
-export interface PreviewRnk001QuestionStudioInput {
-  readonly language?: RnkQuestionStudioLanguage;
-  readonly qlId?: string;
-  readonly difficulty?: RnkQuestionStudioDifficulty | "Mixed";
-  readonly examProfileId?: RnkQuestionStudioExamProfileId;
-  readonly seed?: string;
-  readonly count?: number;
-}
-
 export function previewRnk001QuestionStudioReview(input: PreviewRnk001QuestionStudioInput = {}) {
   const language = input.language ?? "en";
-  if (language !== "en") {
-    throw new Error("RNK-001 Hindi/Punjabi Question Studio delivery remains locked until the multilingual lineage is consolidated.");
+  if (!RNK_001_QUESTION_STUDIO_LANGUAGES.includes(language)) {
+    throw new Error(`RNK-001 does not support Question Studio language '${String(language)}'.`);
   }
-  const profileId = input.examProfileId ?? "CHAPTER_COVERAGE";
-  if (profileId !== "CHAPTER_COVERAGE" && !(profileId in PROFILE_WEIGHTS)) {
-    throw new Error(`Unsupported RNK-001 exam profile '${String(profileId)}'.`);
-  }
-  if (input.qlId && !ALL_QL_IDS.includes(input.qlId)) throw new Error(`Unsupported RNK-001 QL '${input.qlId}'.`);
-  const difficulty = normalizeDifficulty(input.difficulty);
-  const count = Math.min(50, Math.max(1, Math.floor(Number(input.count ?? 5) || 5)));
-  const seedText = input.seed?.trim() || "rnk-001-question-studio-review";
-
-  const questions: RnkQuestionStudioReviewQuestion[] = [];
-  if (input.qlId) {
-    for (let index = 0; index < count; index += 1) {
-      const seed = stableHash(`${seedText}:${input.qlId}:${index}`);
-      questions.push(reviewQuestion(questionForQl(input.qlId, seed, difficulty), input.qlId, seed, profileId));
-    }
-  } else if (profileId === "CHAPTER_COVERAGE") {
-    for (let index = 0; index < count; index += 1) {
-      const qlId = ALL_QL_IDS[index % ALL_QL_IDS.length]!;
-      const seed = stableHash(`${seedText}:${qlId}:${index}`);
-      questions.push(reviewQuestion(questionForQl(qlId, seed, difficulty), qlId, seed, profileId));
-    }
-  } else {
-    const tierPlan = profileTierPlan(profileId, count, seedText);
-    tierPlan.forEach((tier, index) => {
-      const selected = questionForTier(tier, seedText, index, difficulty);
-      const seed = stableHash(`${seedText}:${selected.qlId}:${index}`);
-      questions.push(reviewQuestion(selected.question, selected.qlId, seed, profileId));
-    });
-  }
-
-  if (profileId !== "CHAPTER_COVERAGE" && count >= 20) {
-    const mix = auditRnkExamModeMix(questions.map((question) => question.qlId));
-    if (!mix.passesExamRealismGuard) {
-      throw new Error(`RNK-001 exam-profile batch failed realism guard: ${mix.violations.join(", ")}`);
-    }
-  }
-
+  const english = previewRnk001EnglishQuestionStudioReview({
+    ...input,
+    language: "en",
+  } as PreviewRnk001EnglishQuestionStudioInput);
+  const questions = language === "en"
+    ? english.questions as readonly RnkQuestionStudioReviewQuestion[]
+    : english.questions.map((question) => localizedReviewQuestion(question, language));
   return {
     questions,
     integrationAuthority: RNK_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
     reviewOnly: true as const,
-    examProfileId: profileId,
+    examProfileId: english.examProfileId,
     releaseFreezeStatus: RNK_001_QUESTION_STUDIO_RELEASE_FREEZE,
   };
-}
-
-export function listRnk001QuestionStudioQlIds() {
-  return [...ALL_QL_IDS];
 }
