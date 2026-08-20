@@ -31,6 +31,21 @@ export interface AlgPermanentEnglishReviewV3Item extends Omit<
   readonly reviewStatus: "STEPWISE_HUMAN_EDITORIAL_REVIEW";
 }
 
+function cleanV3Text(text: string): string {
+  return text
+    .replace(/\((-?[0-9]+)\)\/\(1\)/g, "$1")
+    .replace(/-\(([0-9]+)\)\/\(1\)/g, "-$1")
+    .replace(/\(([0-9]+)\)\/\(-1\)/g, "-$1");
+}
+
+function cleanV3Stem(question: string): string {
+  let value = cleanV3Text(question.trim());
+  value = value.replace(/^When (P\(x\) = .+?) is divided by /s, "$1 is divided by ");
+  value = value.replace(/^For (P\(x\) = .+?), ([A-Za-z0-9x])/s, "$1; $2");
+  value = value.replace(/^For the algebraic fraction (.+?), which value of x is not allowed\?$/s, "In the algebraic fraction $1, which value of x is not allowed?");
+  return value;
+}
+
 function removeRootSumProductAliases(prototypeId: string, explanation: string): string {
   let value = explanation;
 
@@ -181,14 +196,13 @@ function applySpecificReason(prototypeId: string, steps: readonly string[]): str
   const reason = specificMethodReason(prototypeId);
   if (!reason) return [...steps];
   let replaced = false;
-  const result = steps.map((step) => {
+  return steps.map((step) => {
     if (!replaced && step.startsWith("Why this method:")) {
       replaced = true;
       return `Why this method: ${reason}`;
     }
     return step;
   });
-  return result;
 }
 
 function clarifyCalculationSteps(prototypeId: string, steps: readonly string[]): string[] {
@@ -217,7 +231,7 @@ function buildV3Explanation(item: AlgPermanentEnglishReviewV2Item): string {
   const visible = splitVisibleSteps(withoutAliases);
   const reasoned = applySpecificReason(item.prototypeId, visible);
   const clarified = clarifyCalculationSteps(item.prototypeId, reasoned);
-  return clarified.join("\n");
+  return cleanV3Text(clarified.join("\n"));
 }
 
 export function generateAlgPermanentEnglishReviewV3(
@@ -229,6 +243,7 @@ export function generateAlgPermanentEnglishReviewV3(
   return {
     ...v2,
     reviewCandidateId: ALG_ENGLISH_REVIEW_V3_ID,
+    question: cleanV3Stem(v2.question),
     explanation: buildV3Explanation(v2),
     maturity: "ENGLISH_REVIEW_CANDIDATE_V3",
     reviewStatus: "STEPWISE_HUMAN_EDITORIAL_REVIEW",
