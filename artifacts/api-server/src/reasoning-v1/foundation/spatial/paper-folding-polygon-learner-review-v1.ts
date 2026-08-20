@@ -145,7 +145,13 @@ function arrowForFold(scenario: PfcTriangleScenarioV1): string {
 
 function foldStageSvg(scenario: PfcTriangleScenarioV1): string {
   const line = scenario.fold.line;
-  return paperSvg(`${triangleBoundary()}<line x1="${q(line.a.x)}" y1="${q(line.a.y)}" x2="${q(line.b.x)}" y2="${q(line.b.y)}" stroke="#111" stroke-width="1.3" stroke-dasharray="4 3"/>${arrowForFold(scenario)}`, "Triangular paper fold");
+  return paperSvg(
+    `${triangleBoundary()}<line x1="${q(line.a.x)}" y1="${q(line.a.y)}" x2="${q(line.b.x)}" y2="${q(line.b.y)}" stroke="#111" stroke-width="1.3" stroke-dasharray="4 3"/>${arrowForFold(scenario)}`,
+    "Triangular paper fold",
+    170,
+    150,
+    TRIANGLE,
+  );
 }
 
 function cutStageSvg(scenario: PfcTriangleScenarioV1): string {
