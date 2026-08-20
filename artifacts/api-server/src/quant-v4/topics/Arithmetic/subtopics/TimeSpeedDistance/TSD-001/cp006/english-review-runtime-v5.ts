@@ -25,9 +25,8 @@ const STEM_OVERRIDES = Object.freeze(new Map<string, string>([
 ]));
 
 function fixLapGrammar(text: string): string {
-  return text
-    .replace(/\b(\d+) (\d+\/\d+) lap\b/g, "$1 $2 laps")
-    .replace(/\b1\/2 laps\b/g, "1/2 lap");
+  const mixedFractionFixed = text.replace(/\b(\d+) (\d+\/\d+) lap\b/g, "$1 $2 laps");
+  return mixedFractionFixed === "1/2 laps" ? "1/2 lap" : mixedFractionFixed;
 }
 
 export function generateCp006EnglishReviewSetV5(): readonly TsdCp006EnglishReviewQuestionV5[] {
