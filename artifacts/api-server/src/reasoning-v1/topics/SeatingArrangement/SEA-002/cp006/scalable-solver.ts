@@ -1,4 +1,4 @@
-import type { Sea002Cp006Clue, Sea002Cp006State, Sea002ParallelRow } from "./types.ts";
+import type { Sea002Cp006Clue, Sea002Cp006State, Sea002ParallelRow, Sea002ParallelSide } from "./types.ts";
 
 type SeatIndex = number;
 type DomainMap = Map<string, readonly SeatIndex[]>;
@@ -10,8 +10,12 @@ function assertInput(people:readonly string[], seatCountPerRow:number):void {
   if(new Set(people).size!==people.length) throw new Error("CP006 people must be unique.");
 }
 function rowOfSeat(seat:SeatIndex,n:number):Sea002ParallelRow { return seat<n?"TOP":"BOTTOM"; }
+function oppositeRow(row:Sea002ParallelRow):Sea002ParallelRow { return row==="TOP"?"BOTTOM":"TOP"; }
 function colOfSeat(seat:SeatIndex,n:number):number { return seat%n; }
 function seatFor(row:Sea002ParallelRow,column:number,n:number):number { return row==="TOP"?column:n+column; }
+function relativeDelta(row:Sea002ParallelRow,side:Sea002ParallelSide,steps:number):number {
+  return row==="BOTTOM"?(side==="LEFT"?-steps:steps):(side==="LEFT"?steps:-steps);
+}
 function stateFromAssignment(people:readonly string[],n:number,assignment:ReadonlyMap<string,SeatIndex>):Sea002Cp006State {
   const top=Array<string>(n),bottom=Array<string>(n);
   for(const person of people){const seat=assignment.get(person);if(seat===undefined) throw new Error(`Missing CP006 assignment for ${person}.`); const col=colOfSeat(seat,n); if(rowOfSeat(seat,n)==="TOP") top[col]=person; else bottom[col]=person;}
@@ -21,23 +25,30 @@ function relatedPeople(clue:Sea002Cp006Clue):readonly string[] {
   switch(clue.kind){
     case "ROW_MEMBERSHIP": case "END_POSITION": return [clue.person];
     case "SAME_ROW_RELATIVE": return [clue.target,clue.reference];
+    case "FACING_REFERENT_RELATIVE": return [clue.targetFacee,clue.referenceFacee];
     default:return [clue.first,clue.second];
   }
 }
 function pairSatisfied(clue:Sea002Cp006Clue,a:string,aSeat:SeatIndex,b:string,bSeat:SeatIndex,n:number):boolean {
   if(clue.kind==="ROW_MEMBERSHIP"||clue.kind==="END_POSITION") return true;
-  if(clue.kind==="OPPOSITE"||clue.kind==="NOT_OPPOSITE"||clue.kind==="DIAGONAL"){
+  if(clue.kind==="OPPOSITE"||clue.kind==="NOT_OPPOSITE"||clue.kind==="DIAGONAL"||clue.kind==="SAME_ROW_GAP"){
     const firstSeat=clue.first===a?aSeat:bSeat,secondSeat=clue.second===a?aSeat:bSeat;
-    const different=rowOfSeat(firstSeat,n)!==rowOfSeat(secondSeat,n); const delta=Math.abs(colOfSeat(firstSeat,n)-colOfSeat(secondSeat,n));
-    if(clue.kind==="OPPOSITE") return different&&delta===0;
-    if(clue.kind==="NOT_OPPOSITE") return !(different&&delta===0);
-    return different&&delta===1;
+    const same=rowOfSeat(firstSeat,n)===rowOfSeat(secondSeat,n); const columnDelta=Math.abs(colOfSeat(firstSeat,n)-colOfSeat(secondSeat,n));
+    if(clue.kind==="OPPOSITE") return !same&&columnDelta===0;
+    if(clue.kind==="NOT_OPPOSITE") return !(!same&&columnDelta===0);
+    if(clue.kind==="DIAGONAL") return !same&&columnDelta===1;
+    return same&&columnDelta===clue.between+1;
+  }
+  if(clue.kind==="FACING_REFERENT_RELATIVE"){
+    const targetSeat=clue.targetFacee===a?aSeat:bSeat,refSeat=clue.referenceFacee===a?aSeat:bSeat;
+    const faceeRow=rowOfSeat(refSeat,n);
+    if(rowOfSeat(targetSeat,n)!==faceeRow)return false;
+    return colOfSeat(targetSeat,n)===colOfSeat(refSeat,n)+relativeDelta(oppositeRow(faceeRow),clue.side,clue.steps);
   }
   const targetSeat=clue.target===a?aSeat:bSeat,refSeat=clue.reference===a?aSeat:bSeat;
-  if(rowOfSeat(targetSeat,n)!==rowOfSeat(refSeat,n)) return false;
   const refRow=rowOfSeat(refSeat,n);
-  const delta=refRow==="BOTTOM"?(clue.side==="LEFT"?-clue.steps:clue.steps):(clue.side==="LEFT"?clue.steps:-clue.steps);
-  return colOfSeat(targetSeat,n)===colOfSeat(refSeat,n)+delta;
+  if(rowOfSeat(targetSeat,n)!==refRow) return false;
+  return colOfSeat(targetSeat,n)===colOfSeat(refSeat,n)+relativeDelta(refRow,clue.side,clue.steps);
 }
 function buildDomains(people:readonly string[],n:number,clues:readonly Sea002Cp006Clue[]):DomainMap {
   const all=Array.from({length:n*2},(_,i)=>i); const domains=new Map<string,number[]>();
@@ -85,14 +96,21 @@ export function auditOracleCp006Scalable(people:readonly string[],n:number,clues
   });
   const relationOkay=(clue:Sea002Cp006Clue):boolean=>{
     if(clue.kind==="ROW_MEMBERSHIP"||clue.kind==="END_POSITION")return true;
-    const firstName=clue.kind==="SAME_ROW_RELATIVE"?clue.target:clue.first;
-    const secondName=clue.kind==="SAME_ROW_RELATIVE"?clue.reference:clue.second;
+    const firstName=clue.kind==="SAME_ROW_RELATIVE"?clue.target:clue.kind==="FACING_REFERENT_RELATIVE"?clue.targetFacee:clue.first;
+    const secondName=clue.kind==="SAME_ROW_RELATIVE"?clue.reference:clue.kind==="FACING_REFERENT_RELATIVE"?clue.referenceFacee:clue.second;
     const a=personSeat.get(firstName),b=personSeat.get(secondName); if(a===undefined||b===undefined)return true;
     const ar=a<n?0:1,br=b<n?0:1,ac=a%n,bc=b%n;
     if(clue.kind==="OPPOSITE")return ar!==br&&ac===bc;
     if(clue.kind==="NOT_OPPOSITE")return !(ar!==br&&ac===bc);
     if(clue.kind==="DIAGONAL")return ar!==br&&Math.abs(ac-bc)===1;
-    if(ar!==br)return false; const refRow=br===0?"TOP":"BOTTOM"; const delta=refRow==="BOTTOM"?(clue.side==="LEFT"?-clue.steps:clue.steps):(clue.side==="LEFT"?clue.steps:-clue.steps); return ac===bc+delta;
+    if(clue.kind==="SAME_ROW_GAP")return ar===br&&Math.abs(ac-bc)===clue.between+1;
+    if(clue.kind==="FACING_REFERENT_RELATIVE"){
+      if(ar!==br)return false;
+      const oppositeReferenceRow:Sea002ParallelRow=br===0?"BOTTOM":"TOP";
+      return ac===bc+relativeDelta(oppositeReferenceRow,clue.side,clue.steps);
+    }
+    if(ar!==br)return false;
+    return ac===bc+relativeDelta(br===0?"TOP":"BOTTOM",clue.side,clue.steps);
   };
   const partialOkay=():boolean=>clues.every(relationOkay);
   const personHasSupport=(person:string):boolean=>{
