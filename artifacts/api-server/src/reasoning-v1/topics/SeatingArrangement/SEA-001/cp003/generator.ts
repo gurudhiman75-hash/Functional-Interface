@@ -114,11 +114,28 @@ function constraintsFor(
     }
   } else if (blueprint === "SEA-PBA-011") {
     const start = rng.integer(0, order.length - 1);
-    const anchor = personAt(order, start);
-    const leaf = personAt(order, start + 1);
-    protect({ id: nextId(), kind: "ADJACENT", firstId: anchor, secondId: leaf });
-    protect({ id: nextId(), kind: "NOT_ADJACENT", firstId: leaf, secondId: personAt(order, start - 2) });
-    protect({ id: nextId(), kind: "DIRECTIONAL_COUNT_BETWEEN", firstId: personAt(order, start + 2), secondId: personAt(order, start + 4), direction: "CLOCKWISE", count: 1 });
+    const adjacencyDirection = rng.pick([1, -1] as const);
+    const leaf = personAt(order, start + adjacencyDirection);
+    const nonAdjacentDistance = rng.pick([2, 3].filter((distance) => distance < order.length - 1));
+    const nonAdjacentDirection = rng.pick([1, -1] as const);
+    const nonAdjacentTarget = personAt(order, start + adjacencyDirection + nonAdjacentDirection * nonAdjacentDistance);
+    const gapCount = rng.pick([1, 2, 3].filter((count) => count + 1 < order.length - 1));
+    const gapDirection = rng.pick(["CLOCKWISE", "ANTICLOCKWISE"] as const);
+    const gapStartOffset = rng.integer(0, order.length - 1);
+    const gapStep = gapCount + 1;
+    const gapEndOffset = gapDirection === "CLOCKWISE"
+      ? gapStartOffset + gapStep
+      : gapStartOffset - gapStep;
+    protect({ id: nextId(), kind: "ADJACENT", firstId: personAt(order, start), secondId: leaf });
+    protect({ id: nextId(), kind: "NOT_ADJACENT", firstId: leaf, secondId: nonAdjacentTarget });
+    protect({
+      id: nextId(),
+      kind: "DIRECTIONAL_COUNT_BETWEEN",
+      firstId: personAt(order, gapStartOffset),
+      secondId: personAt(order, gapEndOffset),
+      direction: gapDirection,
+      count: gapCount,
+    });
     excluded = new Set([leaf]);
   } else {
     const landmark = topology.landmark;

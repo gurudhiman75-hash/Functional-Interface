@@ -31,6 +31,32 @@ function priority(blueprintId: SeatingBlueprintId, clue: CandidateClue): number 
   return preferred[blueprintId].indexOf(kind);
 }
 
+function seedRequiredPba001Clues(
+  candidates: readonly CandidateClue[],
+  random: DeterministicRandom,
+  preferredRelativeSteps: readonly number[],
+): CandidateClue[] {
+  const end = random.shuffle(candidates.filter((clue) => clue.constraint.kind === "AT_END"))[0];
+  if (!end || end.constraint.kind !== "AT_END") throw new Error("PBA-001 has no end-anchor candidate");
+
+  const relations = candidates.filter((clue) => clue.constraint.kind === "RELATIVE_POSITION");
+  if (relations.length === 0) throw new Error("PBA-001 has no relative-position candidate");
+  const preferredStep = preferredRelativeSteps[0] ?? 1;
+  const stepMatched = relations.filter((clue) =>
+    clue.constraint.kind === "RELATIVE_POSITION" && clue.constraint.steps === preferredStep);
+  const anchorLinked = stepMatched.filter((clue) => clue.entitiesMentioned.includes(end.constraint.personId));
+  const detached = stepMatched.filter((clue) => !clue.entitiesMentioned.includes(end.constraint.personId));
+  const preferDetached = random.integer(0, 1) === 1;
+  const pool = preferDetached
+    ? (detached.length ? detached : anchorLinked.length ? anchorLinked : stepMatched)
+    : (anchorLinked.length ? anchorLinked : detached.length ? detached : stepMatched);
+  const relation = random.shuffle(pool.length ? pool : relations)[0];
+  if (!relation || relation.constraint.kind !== "RELATIVE_POSITION") {
+    throw new Error("PBA-001 could not seed a relative-position clue");
+  }
+  return [end, relation];
+}
+
 function seedRequiredPba004Clues(
   candidates: readonly CandidateClue[],
   random: DeterministicRandom,
@@ -64,11 +90,39 @@ export function selectUniqueClueSet(input: {
   const facing = input.state.assignments[0]?.facing;
   if (!facing) throw new Error("Cannot select clues for an empty state");
   const random = new DeterministicRandom(`${input.seed}:${input.blueprintId}:clues`);
+  const pba001RelativeStepOrder = random.shuffle([1, 2, 3]);
   const seeded = input.blueprintId === "SEA-PBA-004"
     ? seedRequiredPba004Clues(input.candidates, random)
-    : [];
+    : input.blueprintId === "SEA-PBA-001"
+      ? seedRequiredPba001Clues(input.candidates, random, pba001RelativeStepOrder)
+      : [];
   const seededFingerprints = new Set(seeded.map((clue) => clue.semanticFingerprint));
   const ordered = random.shuffle(input.candidates.filter((clue) => !seededFingerprints.has(clue.semanticFingerprint))).sort((left, right) => {
+    if (input.blueprintId === "SEA-PBA-001") {
+      const pba001KindRank = (clue: CandidateClue): number => {
+        const ranks: readonly string[] = [
+          "RELATIVE_POSITION",
+          "ADJACENT",
+          "EXACT_COUNT_BETWEEN",
+          "AT_END",
+          "NOT_ADJACENT",
+          "AT_MIDDLE",
+          "ABSOLUTE_SEAT",
+        ];
+        return ranks.indexOf(clue.constraint.kind);
+      };
+      const byKind = pba001KindRank(left) - pba001KindRank(right);
+      if (byKind !== 0) return byKind;
+      if (left.constraint.kind === "RELATIVE_POSITION" && right.constraint.kind === "RELATIVE_POSITION") {
+        const leftRank = pba001RelativeStepOrder.indexOf(left.constraint.steps);
+        const rightRank = pba001RelativeStepOrder.indexOf(right.constraint.steps);
+        if (leftRank !== rightRank) return leftRank - rightRank;
+        return 0;
+      }
+      return right.informationGain - left.informationGain
+        || right.naturalnessScore - left.naturalnessScore;
+    }
+
     const byBlueprint = priority(input.blueprintId, left) - priority(input.blueprintId, right);
     if (byBlueprint !== 0) return byBlueprint;
     if (input.blueprintId === "SEA-PBA-004"

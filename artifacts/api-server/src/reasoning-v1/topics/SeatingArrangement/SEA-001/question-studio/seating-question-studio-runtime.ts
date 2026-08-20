@@ -3,16 +3,17 @@ import { randomUUID } from "node:crypto";
 import { canonicalDigest } from "../canonical.ts";
 import { sea001EnglishExplanationAuthority, buildSea001ExplanationParityCandidate } from "../localization/explanation-parity-candidate.ts";
 import { localizeSea001Names } from "../localization/name-pack.ts";
-import { SEA001_MULTILINGUAL_FREEZE_AUTHORITY } from "../localization/multilingual-freeze.ts";
 import type { Sea001TranslatedLocale } from "../localization/readiness.ts";
 import { sea001CanonicalParityFingerprint } from "../localization/readiness.ts";
-import { SEA001_ENGLISH_FREEZE, SEA001_FROZEN_QUERY_CONTRACTS_BY_CHECKPOINT } from "../permanent/freeze.ts";
+import { SEA001_FROZEN_QUERY_CONTRACTS_BY_CHECKPOINT } from "../permanent/freeze.ts";
 import {
   SEA001_BLUEPRINT_TO_PERMANENT_QL,
   SEA001_PERMANENT_QL_IDS,
   SEA001_PERMANENT_QL_REGISTRY,
   type Sea001PermanentQlId,
 } from "../permanent/registry.ts";
+import { SEA001_STRUCTURAL_HARDENING_ENGLISH_REVIEW_PIN } from "../review/structural-hardening-english-review-pins.ts";
+import { SEA001_STRUCTURAL_HARDENING_MULTILINGUAL_FREEZE } from "../review/structural-hardening-multilingual-freeze.ts";
 import {
   normalizedClueSetFingerprint,
   sea001BlueprintDescriptors,
@@ -21,10 +22,13 @@ import {
 } from "../saturation/corpus.ts";
 
 export const SEA001_QUESTION_STUDIO_PACKAGE_ID = "REASONING_V1_SEA_001" as const;
-export const SEA001_QUESTION_STUDIO_INTEGRATION_AUTHORITY = "SEA001_QUESTION_STUDIO_DYNAMIC_REVIEW_V1" as const;
+export const SEA001_QUESTION_STUDIO_INTEGRATION_AUTHORITY = "SEA001_QUESTION_STUDIO_DYNAMIC_REVIEW_V2_REPLACEMENT_FREEZE" as const;
 export const SEA001_QUESTION_STUDIO_RUNTIME_MODE = "DYNAMIC_CANDIDATE" as const;
 export const SEA001_QUESTION_STUDIO_LANGUAGES = ["en", "hi", "pa"] as const;
 export type Sea001QuestionStudioLanguage = (typeof SEA001_QUESTION_STUDIO_LANGUAGES)[number];
+
+const SEA001_STUDIO_ENGLISH_AUTHORITY = SEA001_STRUCTURAL_HARDENING_ENGLISH_REVIEW_PIN.candidateFingerprint;
+const SEA001_STUDIO_LOCALIZATION_AUTHORITY = SEA001_STRUCTURAL_HARDENING_MULTILINGUAL_FREEZE.authority;
 
 export type Sea001QuestionStudioRequest = Readonly<{
   language?: Sea001QuestionStudioLanguage;
@@ -74,8 +78,8 @@ export const SEA001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   registrationStatus: "REGISTERED" as const,
   runtimeMode: SEA001_QUESTION_STUDIO_RUNTIME_MODE,
   integrationAuthority: SEA001_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
-  sourceEnglishAuthority: SEA001_ENGLISH_FREEZE.approvedReviewFingerprint,
-  sourceLocalizationAuthority: SEA001_MULTILINGUAL_FREEZE_AUTHORITY,
+  sourceEnglishAuthority: SEA001_STUDIO_ENGLISH_AUTHORITY,
+  sourceLocalizationAuthority: SEA001_STUDIO_LOCALIZATION_AUTHORITY,
   generationRunPersistenceAllowed: true,
   databaseWriteEnabled: true,
   questionBankStatus: "NOT_STORED" as const,
@@ -304,8 +308,8 @@ function toStudioQuestion(
       seed: caselet.seed,
       runtimeMode: SEA001_QUESTION_STUDIO_RUNTIME_MODE,
       reviewStatus: "UNREVIEWED_DYNAMIC",
-      sourceEnglishFreeze: SEA001_ENGLISH_FREEZE.approvedReviewFingerprint,
-      sourceLocalizationFreeze: SEA001_MULTILINGUAL_FREEZE_AUTHORITY,
+      sourceEnglishFreeze: SEA001_STUDIO_ENGLISH_AUTHORITY,
+      sourceLocalizationFreeze: SEA001_STUDIO_LOCALIZATION_AUTHORITY,
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
@@ -384,8 +388,8 @@ export function generateSea001QuestionStudioBatch(request: Sea001QuestionStudioR
       runtimeMode: SEA001_QUESTION_STUDIO_RUNTIME_MODE,
       reviewStatus: "UNREVIEWED_DYNAMIC" as const,
       integrationAuthority: SEA001_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
-      sourceEnglishFreeze: SEA001_ENGLISH_FREEZE.approvedReviewFingerprint,
-      sourceLocalizationFreeze: SEA001_MULTILINGUAL_FREEZE_AUTHORITY,
+      sourceEnglishFreeze: SEA001_STUDIO_ENGLISH_AUTHORITY,
+      sourceLocalizationFreeze: SEA001_STUDIO_LOCALIZATION_AUTHORITY,
       questionStudioDiscoverable: true as const,
       registrationStatus: "REGISTERED" as const,
       persistenceAllowed: true as const,

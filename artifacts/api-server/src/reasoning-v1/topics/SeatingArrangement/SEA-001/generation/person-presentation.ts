@@ -264,9 +264,16 @@ export function presentSea001Children<T extends {
     const random = new DeterministicRandom(
       `${presentationSeed}:visible-options:${child.queryContractId}:${child.answerDeterminingFactFingerprint}:Q${questionOrder}`,
     );
-    const options = random.shuffle(child.options);
-    const answerIndex = options.findIndex((option) => option.isCorrect);
-    if (answerIndex < 0) throw new Error(`SEA-001 child ${child.queryContractId} lost its correct option`);
+    const shuffled = random.shuffle(child.options);
+    const shuffledAnswerIndex = shuffled.findIndex((option) => option.isCorrect);
+    if (shuffledAnswerIndex < 0) throw new Error(`SEA-001 child ${child.queryContractId} lost its correct option`);
+    const correctOption = shuffled[shuffledAnswerIndex]!;
+    const options = shuffled.filter((option) => !option.isCorrect);
+    const semanticOffset = stableNumber(
+      `${child.queryContractId}|${child.answerDeterminingFactFingerprint}|Q${questionOrder}|answer-offset-v1`,
+    ) % 4;
+    const answerIndex = ((shuffledAnswerIndex + semanticOffset) % 4) as 0 | 1 | 2 | 3;
+    options.splice(answerIndex, 0, correctOption);
     return {
       ...child,
       questionOrder,

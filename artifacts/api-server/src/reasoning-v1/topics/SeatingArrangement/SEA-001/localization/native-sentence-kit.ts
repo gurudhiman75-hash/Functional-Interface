@@ -143,10 +143,17 @@ export function renderNativeClue(clue: string, locale: Sea001TranslatedLocale): 
     return {text:left?tr(locale,`${p} पंक्ति के बाएँ छोर पर बैठा है।`,`${p} ਕਤਾਰ ਦੇ ਖੱਬੇ ਸਿਰੇ 'ਤੇ ਬੈਠਾ ਹੈ।`):tr(locale,`${p} पंक्ति के दाएँ छोर पर बैठा है।`,`${p} ਕਤਾਰ ਦੇ ਸੱਜੇ ਸਿਰੇ 'ਤੇ ਬੈਠਾ ਹੈ।`),action:left?tr(locale,`${p} को सबसे बाईं सीट पर रखें।`,`${p} ਨੂੰ ਸਭ ਤੋਂ ਖੱਬੀ ਸੀਟ 'ਤੇ ਰੱਖੋ।`):tr(locale,`${p} को सबसे दाईं सीट पर रखें।`,`${p} ਨੂੰ ਸਭ ਤੋਂ ਸੱਜੀ ਸੀਟ 'ਤੇ ਰੱਖੋ।`)};
   }
 
-  m = clue.match(new RegExp(`^${NAME_PATTERN} sits ${ORDINAL_PATTERN} from the left end\\.$`));
+  m = clue.match(new RegExp(`^${NAME_PATTERN} sits ${ORDINAL_PATTERN} from the (left|right) end\\.$`));
   if (m) {
-    const p=name(m[1]!,locale), n=ordinalNumber(m[2]!);
-    return {text:tr(locale,`${p} बाएँ छोर से ${nativeOrdinal(m[2]!,locale)} स्थान पर बैठा है।`,`${p} ਖੱਬੇ ਸਿਰੇ ਤੋਂ ${nativeOrdinal(m[2]!,locale)} ਸਥਾਨ 'ਤੇ ਬੈਠਾ ਹੈ।`),action:tr(locale,`बाएँ छोर से ${n}वीं सीट पर ${p} को रखें।`,`ਖੱਬੇ ਸਿਰੇ ਤੋਂ ${n}ਵੀਂ ਸੀਟ 'ਤੇ ${p} ਨੂੰ ਰੱਖੋ।`)};
+    const p=name(m[1]!,locale), n=ordinalNumber(m[2]!), side=m[3]! as "left"|"right", left=side==="left";
+    return {
+      text:left
+        ? tr(locale,`${p} बाएँ छोर से ${nativeOrdinal(m[2]!,locale)} स्थान पर बैठा है।`,`${p} ਖੱਬੇ ਸਿਰੇ ਤੋਂ ${nativeOrdinal(m[2]!,locale)} ਸਥਾਨ 'ਤੇ ਬੈਠਾ ਹੈ।`)
+        : tr(locale,`${p} दाएँ छोर से ${nativeOrdinal(m[2]!,locale)} स्थान पर बैठा है।`,`${p} ਸੱਜੇ ਸਿਰੇ ਤੋਂ ${nativeOrdinal(m[2]!,locale)} ਸਥਾਨ 'ਤੇ ਬੈਠਾ ਹੈ।`),
+      action:left
+        ? tr(locale,`बाएँ छोर से ${n}वीं सीट पर ${p} को रखें।`,`ਖੱਬੇ ਸਿਰੇ ਤੋਂ ${n}ਵੀਂ ਸੀਟ 'ਤੇ ${p} ਨੂੰ ਰੱਖੋ।`)
+        : tr(locale,`दाएँ छोर से ${n}वीं सीट पर ${p} को रखें।`,`ਸੱਜੇ ਸਿਰੇ ਤੋਂ ${n}ਵੀਂ ਸੀਟ 'ਤੇ ${p} ਨੂੰ ਰੱਖੋ।`),
+    };
   }
 
   m = clue.match(new RegExp(`^${NAME_PATTERN} sits in a middle seat\\.$`));
@@ -179,10 +186,15 @@ export function renderNativeClue(clue: string, locale: Sea001TranslatedLocale): 
     return {text:tr(locale,`${a} और ${b} के बीच ठीक ${n} व्यक्ति बैठे हैं।`,`${a} ਅਤੇ ${b} ਦੇ ਵਿਚਕਾਰ ਠੀਕ ${n} ਵਿਅਕਤੀ ਬੈਠੇ ਹਨ।`),action:tr(locale,`${n} व्यक्ति बीच में होने का अर्थ है कि ${a} और ${b} की सीटों में ${n+1} स्थान का अंतर होगा।`,`${n} ਵਿਅਕਤੀ ਵਿਚਕਾਰ ਹੋਣ ਦਾ ਅਰਥ ਹੈ ਕਿ ${a} ਅਤੇ ${b} ਦੀਆਂ ਸੀਟਾਂ ਵਿੱਚ ${n+1} ਸਥਾਨਾਂ ਦਾ ਫਰਕ ਹੋਵੇਗਾ।`)};
   }
 
-  m = clue.match(new RegExp(`^Exactly (\\d+) person sits between ${NAME_PATTERN} and ${NAME_PATTERN} when counted clockwise from ${NAME_PATTERN}\\.$`));
+  m = clue.match(new RegExp(`^Exactly (\\d+) (?:person sits|persons sit) between ${NAME_PATTERN} and ${NAME_PATTERN} when counted clockwise from ${NAME_PATTERN}\\.$`));
   if (m) {
-    const n=Number(m[1]), a=name(m[2]!,locale), b=name(m[3]!,locale), from=name(m[4]!,locale);
-    return {text:tr(locale,`${from} से घड़ी की दिशा में गिनने पर ${a} और ${b} के बीच ठीक ${n} व्यक्ति बैठा है।`,`${from} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਗਿਣਣ 'ਤੇ ${a} ਅਤੇ ${b} ਦੇ ਵਿਚਕਾਰ ਠੀਕ ${n} ਵਿਅਕਤੀ ਬੈਠਾ ਹੈ।`),action:tr(locale,`${from} से घड़ी की दिशा में ${n+1} सीट आगे बढ़ें; दूसरी दी गई व्यक्ति की सीट वहाँ होगी।`,`${from} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ${n+1} ਸੀਟਾਂ ਅੱਗੇ ਵਧੋ; ਦੂਜੇ ਦਿੱਤੇ ਵਿਅਕਤੀ ਦੀ ਸੀਟ ਉੱਥੇ ਹੋਵੇਗੀ।`)};
+    const n=Number(m[1]), a=name(m[2]!,locale), b=name(m[3]!,locale), from=name(m[4]!,locale), singular=n===1;
+    return {
+      text:singular
+        ? tr(locale,`${from} से घड़ी की दिशा में गिनने पर ${a} और ${b} के बीच ठीक 1 व्यक्ति बैठा है।`,`${from} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਗਿਣਣ 'ਤੇ ${a} ਅਤੇ ${b} ਦੇ ਵਿਚਕਾਰ ਠੀਕ 1 ਵਿਅਕਤੀ ਬੈਠਾ ਹੈ।`)
+        : tr(locale,`${from} से घड़ी की दिशा में गिनने पर ${a} और ${b} के बीच ठीक ${n} व्यक्ति बैठे हैं।`,`${from} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਗਿਣਣ 'ਤੇ ${a} ਅਤੇ ${b} ਦੇ ਵਿਚਕਾਰ ਠੀਕ ${n} ਵਿਅਕਤੀ ਬੈਠੇ ਹਨ।`),
+      action:tr(locale,`${from} से घड़ी की दिशा में ${n+1} सीट आगे बढ़ें; दूसरी दी गई व्यक्ति की सीट वहाँ होगी।`,`${from} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ${n+1} ਸੀਟਾਂ ਅੱਗੇ ਵਧੋ; ਦੂਜੇ ਦਿੱਤੇ ਵਿਅਕਤੀ ਦੀ ਸੀਟ ਉੱਥੇ ਹੋਵੇਗੀ।`),
+    };
   }
 
   m = clue.match(new RegExp(`^${NAME_PATTERN} sits at the seat nearest the (door|entrance|stage)\\.$`));
