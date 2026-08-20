@@ -77,6 +77,7 @@ export * from "./cp006/localization/native-primitives-v1";
 export * from "./cp006/localization/native-review-candidate-v1";
 export * from "./cp006/localization/native-review-editorial-v2";
 export * from "./cp006/localization/native-review-editorial-v3";
+export * from "./cp006/localization/native-review-editorial-v4";
 export * from "./authority-overlap-audit";
 export * from "./final-authority-registry";
 export * from "./final-authority-review";
