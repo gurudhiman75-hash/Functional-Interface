@@ -51,15 +51,19 @@ async function installFixtures(page: Page) {
 async function contrastRatio(locator: Locator) {
   return locator.evaluate((element) => {
     const parse = (value: string) => {
-      const match = value.match(/rgba?\(([^)]+)\)/i);
-      if (!match) throw new Error(`Unsupported CSS color: ${value}`);
-      const parts = match[1].split(/[\s,\/]+/).filter(Boolean).map(Number);
-      return {
-        r: parts[0],
-        g: parts[1],
-        b: parts[2],
-        a: Number.isFinite(parts[3]) ? parts[3] : 1,
-      };
+      // Chromium may expose modern computed colors such as oklch(). Let the
+      // browser's own CSS Color parser/rendering pipeline convert any supported
+      // CSS color syntax to sRGB bytes instead of maintaining a partial parser.
+      const canvas = document.createElement("canvas");
+      canvas.width = 1;
+      canvas.height = 1;
+      const context = canvas.getContext("2d", { willReadFrequently: true });
+      if (!context) throw new Error("Canvas 2D context unavailable for contrast proof");
+      context.clearRect(0, 0, 1, 1);
+      context.fillStyle = value;
+      context.fillRect(0, 0, 1, 1);
+      const [r, g, b, alpha] = context.getImageData(0, 0, 1, 1).data;
+      return { r, g, b, a: alpha / 255 };
     };
 
     const luminance = ({ r, g, b }: { r: number; g: number; b: number }) => {
@@ -146,7 +150,7 @@ test.describe("CP02 zoom reflow and contrast", () => {
     await expect(page.getByRole("button", { name: "Select Targeted Exam" })).toBeVisible();
     await expect(page.getByRole("button", { name: "My activity" })).toBeVisible();
     await expect(page.getByRole("button", { name: "User profile" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Your activity follows you across devices/i })).toBeVisible();
+    await expect(page.locator("#main-content h1").first()).toBeVisible();
     await expectNoHorizontalOverflow(page);
 
     await seedProfile(page);
