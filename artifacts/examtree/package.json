@@ -15,7 +15,8 @@
     "audit:app-chrome-accessibility": "node scripts/check-app-chrome-accessibility.mjs",
     "audit:zoom-contrast": "node scripts/check-zoom-contrast.mjs",
     "audit:touch-targets": "node scripts/check-touch-targets.mjs",
-    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run audit:public-shell && pnpm run audit:app-chrome-accessibility && pnpm run audit:zoom-contrast && pnpm run audit:touch-targets && pnpm run build"
+    "audit:runner-zoom-contrast": "node scripts/check-runner-zoom-contrast.mjs",
+    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run audit:public-shell && pnpm run audit:app-chrome-accessibility && pnpm run audit:zoom-contrast && pnpm run audit:touch-targets && pnpm run audit:runner-zoom-contrast && pnpm run build"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",
