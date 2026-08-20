@@ -1,4 +1,18 @@
 /* Cross-app accessibility preferences that should apply before React renders. */
+
+/* Native page-level buttons that do not use the shared Button primitive still need
+   a dependable coarse-pointer target. Shared Button/asChild controls carry their
+   own 44px contract so links styled as buttons are covered too. */
+button {
+  min-block-size: 2.75rem;
+  min-inline-size: 2.75rem;
+}
+
+/* Fixed account-recovery shortcut is an anchor rather than the shared Button. */
+a.fixed[href="/account-recovery"] {
+  min-block-size: 2.75rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
     scroll-behavior: auto;
