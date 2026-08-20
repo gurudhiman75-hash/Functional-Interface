@@ -38,6 +38,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-approved-freeze-proof-v13.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-freeze-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-approved-freeze-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-freeze-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/question-studio-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/studio-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/question-studio-engine-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/studio-engine-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-proof.mjs"
       - name: Re-prove frozen CP005 authority
         run: |
@@ -46,12 +47,13 @@ jobs:
           OUT=dist/quant-v4/tsd-001/cp005-studio-cp006-v1
           node "$OUT/english-freeze-proof.mjs" 2>&1 | tee "$OUT/english-freeze-proof.log"
           node "$OUT/native-freeze-proof.mjs" 2>&1 | tee "$OUT/native-freeze-proof.log"
-      - name: Prove CP005 Question Studio review adapter
+      - name: Prove CP005 Question Studio review adapter and engine registration
         run: |
           set -o pipefail
           cd artifacts/api-server
           OUT=dist/quant-v4/tsd-001/cp005-studio-cp006-v1
           node "$OUT/studio-proof.mjs" 2>&1 | tee "$OUT/studio-proof.log"
+          node "$OUT/studio-engine-proof.mjs" 2>&1 | tee "$OUT/studio-engine-proof.log"
       - name: Prove CP006 executable discovery foundation
         run: |
           set -o pipefail
@@ -69,5 +71,6 @@ jobs:
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/english-freeze-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/native-freeze-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/studio-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/studio-engine-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/cp006-proof.log
           if-no-files-found: error
