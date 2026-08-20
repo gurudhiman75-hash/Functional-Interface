@@ -89,9 +89,18 @@ function singularize(text: string): string {
     .replace(/\b1 overtakes\b/g, "1 overtake");
 }
 
+function objectFamilyPlural(family: string): string {
+  if (family.endsWith("runner")) return `${family}s`;
+  if (family.endsWith("athlete")) return `${family}s`;
+  if (family.endsWith("trainee")) return `${family}s`;
+  if (family.endsWith("walker")) return `${family}s`;
+  return `${family}s`;
+}
+
 function stemV3(row: TsdCp006EnglishReviewQuestionV2): string {
-  const { variant, routeFamily, a, b, c } = contextFor(row);
-  const L = value(row.input.trackLength, "trackLength");
+  const context = contextFor(row);
+  const { variant, objectFamily, routeFamily, a, b, c } = context;
+  const L = row.input.trackLength ? value(row.input.trackLength, "trackLength") : "";
   const u = value(row.input.speedA, "speedA");
   const v = value(row.input.speedB, "speedB");
   const w = row.input.speedC ? value(row.input.speedC, "speedC") : "";
@@ -107,7 +116,7 @@ function stemV3(row: TsdCp006EnglishReviewQuestionV2): string {
         `On a ${L} m ${routeFamily}, ${a} and ${b} start together from P at ${u} m/min and ${v} m/min in ${directionText}. How long after departure do they first meet again?`,
         `${a} moves at ${u} m/min and ${b} at ${v} m/min around a ${L} m ${routeFamily}. Starting together from the same mark and moving in ${directionText}, when is their next meeting?`,
         `${a} and ${b} begin together at P on a ${L} m ${routeFamily}. Their speeds are ${u} m/min and ${v} m/min and they move in ${directionText}. At what time from the start does their ${ordinal(n ?? 1)} meeting after departure occur?`,
-        `Two ${objectFamilyPlural(contextFor(row).objectFamily)} start together on a ${L} m ${routeFamily} and move in ${directionText} at ${u} m/min and ${v} m/min. Determine the time of the ${ordinal(n ?? 1)} meeting after the start.`,
+        `Two ${objectFamilyPlural(objectFamily)} start together on a ${L} m ${routeFamily} and move in ${directionText} at ${u} m/min and ${v} m/min. Determine the time of the ${ordinal(n ?? 1)} meeting after the start.`,
         `From the same point of a ${L} m ${routeFamily}, ${a} and ${b} set off simultaneously in ${directionText} with speeds ${u} m/min and ${v} m/min. Find the earliest positive time at which they coincide.`,
       ];
       return templates[variant]!;
@@ -159,13 +168,14 @@ function stemV3(row: TsdCp006EnglishReviewQuestionV2): string {
     }
     case "trackLengthFromCircularMeetingPeriod": {
       const mt = value(row.input.observedMeetingTime, "observedMeetingTime");
+      const unit = mt === "1" ? "minute" : "minutes";
       const templates = [
-        `${a} and ${b} start together and move in opposite directions around a closed track at ${u} m/min and ${v} m/min. Their first meeting after the start is ${mt} ${mt === "1" ? "minute" : "minutes"} later. Find the track length.`,
-        `Two participants leave the same point in opposite directions at ${u} m/min and ${v} m/min. If they meet again for the first time after ${mt} ${mt === "1" ? "minute" : "minutes"}, what is the length of the closed track?`,
-        `On an unknown-length circular track, ${a} and ${b} start together in opposite directions with speeds ${u} m/min and ${v} m/min. The first post-start meeting occurs after ${mt} ${mt === "1" ? "minute" : "minutes"}. Determine the circumference.`,
-        `${a} moves clockwise at ${u} m/min and ${b} anticlockwise at ${v} m/min from the same starting mark. They first come together again ${mt} ${mt === "1" ? "minute" : "minutes"} later. Find the length of their closed route.`,
-        `A circular route has unknown length. ${a} and ${b} begin together and move oppositely at ${u} m/min and ${v} m/min; their next meeting is after ${mt} ${mt === "1" ? "minute" : "minutes"}. Find the route length.`,
-        `Starting from one point of a closed track, ${a} and ${b} move in opposite directions at ${u} m/min and ${v} m/min. The first return to a common position occurs after ${mt} ${mt === "1" ? "minute" : "minutes"}. What is the track length?`,
+        `${a} and ${b} start together and move in opposite directions around a closed track at ${u} m/min and ${v} m/min. Their first meeting after the start is ${mt} ${unit} later. Find the track length.`,
+        `Two participants leave the same point in opposite directions at ${u} m/min and ${v} m/min. If they meet again for the first time after ${mt} ${unit}, what is the length of the closed track?`,
+        `On an unknown-length circular track, ${a} and ${b} start together in opposite directions with speeds ${u} m/min and ${v} m/min. The first post-start meeting occurs after ${mt} ${unit}. Determine the circumference.`,
+        `${a} moves clockwise at ${u} m/min and ${b} anticlockwise at ${v} m/min from the same starting mark. They first come together again ${mt} ${unit} later. Find the length of their closed route.`,
+        `A circular route has unknown length. ${a} and ${b} begin together and move oppositely at ${u} m/min and ${v} m/min; their next meeting is after ${mt} ${unit}. Find the route length.`,
+        `Starting from one point of a closed track, ${a} and ${b} move in opposite directions at ${u} m/min and ${v} m/min. The first return to a common position occurs after ${mt} ${unit}. What is the track length?`,
       ];
       return templates[variant]!;
     }
@@ -233,7 +243,7 @@ function stemV3(row: TsdCp006EnglishReviewQuestionV2): string {
         `${a} and ${b} move in the same direction on a ${L} m ${routeFamily}. Initially ${a} is at P and ${b} is ${gap} m clockwise from P; their speeds are ${u} m/min and ${v} m/min. How long until they first meet?`,
         `At time zero on a ${L} m ${routeFamily}, ${a} is at P and ${b} is at the point ${gap} m clockwise from P. They move clockwise at ${u} and ${v} m/min. Determine the first meeting time.`,
         `${b} has a ${gap} m clockwise position measured from P on a ${L} m ${routeFamily}, while ${a} starts at P. If both move clockwise at ${v} and ${u} m/min, when does the faster participant catch the other?`,
-        `A ${L} m ${routeFamily} has P as reference. ${a} starts at P at ${u} m/min; ${b} starts ${gap} m clockwise from P at ${v} m/min, both in the same direction. Find their earliest meeting time.` ,
+        `A ${L} m ${routeFamily} has P as reference. ${a} starts at P at ${u} m/min; ${b} starts ${gap} m clockwise from P at ${v} m/min, both in the same direction. Find their earliest meeting time.`,
       ];
       return templates[variant]!;
     }
@@ -245,7 +255,7 @@ function stemV3(row: TsdCp006EnglishReviewQuestionV2): string {
         `${a} begins circling a ${L} m ${routeFamily} from P at ${u} m/min. ${b} begins from P ${delay} minutes later at ${v} m/min in the same direction. How many minutes after ${a} started do they first coincide?`,
         `Two participants use a ${L} m ${routeFamily}. ${a} starts at P with speed ${u} m/min; ${b} starts from the same point ${delay} minutes later at ${v} m/min, following the same direction. Determine their first meeting time from the original start.`,
         `${a} sets off from P on a ${L} m ${routeFamily} at ${u} m/min. ${b}, travelling in the same direction at ${v} m/min, departs from P after ${delay} minutes. At what time from ${a}'s start do they meet first?`,
-        `From P on a ${L} m ${routeFamily}, ${a} starts at ${u} m/min and ${b} starts ${delay} minutes later at ${v} m/min in the same direction. Find the earliest common-position time measured from time zero.` ,
+        `From P on a ${L} m ${routeFamily}, ${a} starts at ${u} m/min and ${b} starts ${delay} minutes later at ${v} m/min in the same direction. Find the earliest common-position time measured from time zero.`,
       ];
       return templates[variant]!;
     }
@@ -257,7 +267,7 @@ function stemV3(row: TsdCp006EnglishReviewQuestionV2): string {
           `${a} travels around a ${L} m ${routeFamily} at ${u} m/min for ${t} minutes. How many whole circuits does this cover?`,
           `A ${L} m ${routeFamily} is covered continuously by ${a} at ${u} m/min. After ${t} minutes, how many complete laps have been made?`,
           `${a} maintains ${u} m/min for ${t} minutes on a ${L} m ${routeFamily}. Determine the count of completed laps, ignoring any unfinished part of the next lap.`,
-          `At ${u} m/min, ${a} moves for ${t} minutes around a ${L} m ${routeFamily}. Find the number of full laps completed in that time.` ,
+          `At ${u} m/min, ${a} moves for ${t} minutes around a ${L} m ${routeFamily}. Find the number of full laps completed in that time.`,
         ];
         return templates[variant]!;
       }
@@ -276,14 +286,6 @@ function stemV3(row: TsdCp006EnglishReviewQuestionV2): string {
     default:
       return row.stem;
   }
-}
-
-function objectFamilyPlural(family: string): string {
-  if (family.endsWith("runner")) return `${family}s`;
-  if (family.endsWith("athlete")) return `${family}s`;
-  if (family.endsWith("trainee")) return `${family}s`;
-  if (family.endsWith("walker")) return `${family}s`;
-  return `${family}s`;
 }
 
 function hash(value: string): number {
