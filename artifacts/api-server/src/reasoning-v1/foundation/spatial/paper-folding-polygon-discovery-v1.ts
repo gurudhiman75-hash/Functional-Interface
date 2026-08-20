@@ -118,11 +118,11 @@ export function solvePfcTriangleScenarioV1(scenario: PfcTriangleScenarioV1): Pfc
 }
 
 const TRIANGLE_VERTICES: SpatialPoint[] = [
-  { x: 60, y: 8 },
+  { x: 60, y: 98 - 52 * Math.sqrt(3) },
   { x: 112, y: 98 },
   { x: 8, y: 98 },
 ];
-const TRIANGLE_CENTROID = { x: 60, y: 68 };
+const TRIANGLE_CENTROID = centroid(TRIANGLE_VERTICES);
 
 function midpoint(a: SpatialPoint, b: SpatialPoint): SpatialPoint {
   return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
