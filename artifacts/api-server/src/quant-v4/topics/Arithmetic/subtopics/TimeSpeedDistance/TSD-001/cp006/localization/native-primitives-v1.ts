@@ -1,5 +1,4 @@
-import type { Rational } from "../../foundation/rational";
-import { formatExamNumber } from "../../cp003/generation-support";
+import { toMixedString, type Rational } from "../../foundation/rational";
 
 export type TsdCp006NativeLanguage = "hi" | "pa";
 export type TsdCp006NativePair = Readonly<{ hi: string; pa: string }>;
@@ -36,7 +35,7 @@ const ROUTES: Readonly<Record<string, TsdCp006NativePair>> = Object.freeze({
   "athletics loop": pair("एथलेटिक्स लूप", "ਐਥਲੈਟਿਕਸ ਲੂਪ"),
 });
 
-export const cp006Num = (value: Rational): string => formatExamNumber(value);
+export const cp006Num = (value: Rational): string => toMixedString(value);
 export const cp006Metres = (value: Rational): string => `${cp006Num(value)} m`;
 export const cp006Speed = (value: Rational): string => `${cp006Num(value)} m/min`;
 export const cp006Minutes = (value: Rational, language: TsdCp006NativeLanguage): string => `${cp006Num(value)} ${language === "hi" ? "मिनट" : "ਮਿੰਟ"}`;
