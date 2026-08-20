@@ -76,19 +76,19 @@ function generateSource(prototypeId: string, seed: number) {
   return generateNumCp009Wave03(prototypeId as NumCp009Wave03PrototypeId, seed);
 }
 
-function resolveSourceSlice(slice: NumCp009SourceSlice, requestedSeed: number) {
+function resolveSourceSlice(slice: NumCp009SourceSlice, baseSourceSeed: number) {
   if (!slice.requiredAnswerSemantic) {
-    return { source: generateSource(slice.prototypeId, requestedSeed), sourceSeed: requestedSeed };
+    return { source: generateSource(slice.prototypeId, baseSourceSeed), sourceSeed: baseSourceSeed };
   }
 
   for (let offset = 0; offset < 8; offset += 1) {
-    const sourceSeed = requestedSeed + offset;
+    const sourceSeed = baseSourceSeed + offset;
     const source = generateSource(slice.prototypeId, sourceSeed);
     if (source.answerSemantic === slice.requiredAnswerSemantic) return { source, sourceSeed };
   }
 
   throw new Error(
-    `${slice.prototypeId}: unable to resolve required answer semantic ${slice.requiredAnswerSemantic} from seed ${requestedSeed}`,
+    `${slice.prototypeId}: unable to resolve required answer semantic ${slice.requiredAnswerSemantic} from source seed ${baseSourceSeed}`,
   );
 }
 
@@ -103,8 +103,10 @@ export function generateNumCp009Permanent(
   const allocation = NUM_CP009_PERMANENT_ALLOCATION.find((item) => item.qlId === qlId);
   if (!allocation) throw new Error(`Unknown NUM-CP-009 permanent QL: ${qlId}`);
 
-  const sourceSlice = allocation.sourceSlices[(seed - 1) % allocation.sourceSlices.length]!;
-  const { source, sourceSeed } = resolveSourceSlice(sourceSlice, seed);
+  const sourceSliceIndex = (seed - 1) % allocation.sourceSlices.length;
+  const sourceSlice = allocation.sourceSlices[sourceSliceIndex]!;
+  const sourceRound = Math.floor((seed - 1) / allocation.sourceSlices.length) + 1;
+  const { source, sourceSeed } = resolveSourceSlice(sourceSlice, sourceRound);
 
   if (sourceSlice.requiredAnswerSemantic && source.answerSemantic !== sourceSlice.requiredAnswerSemantic) {
     throw new Error(
