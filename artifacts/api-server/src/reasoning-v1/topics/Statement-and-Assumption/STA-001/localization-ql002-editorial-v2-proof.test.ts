@@ -1,20 +1,20 @@
 import assert from "node:assert/strict";
 import { STA_QL001_HI_PA_FREEZE_V2_MANIFEST } from "./localization-ql001-freeze-manifest.ts";
+import { STA_QL002_HINDI_REVIEW_COPY, STA_QL002_PUNJABI_REVIEW_COPY } from "./localization-ql002-copy.ts";
 import { generateStaQl002LocalizedQuestion } from "./localization-ql002.ts";
 import {
+  editorializeStaQl002LocalizedText,
   generateStaQl002LocalizedQuestionV2,
   STA_QL002_LOCALIZATION_EDITORIAL_VERSION,
   STA_QL002_LOCALIZATION_LIFECYCLE_V2,
 } from "./localization-ql002-editorial-v2.ts";
-import type { StaLocalizedLocale } from "./localization-types.ts";
+import type { StaLocalizedLocale, StaLocalizationBundle } from "./localization-types.ts";
 
 const CASES_PER_LOCALE = Number(process.env.STA_QL002_LOCALIZATION_V2_CASES_PER_LOCALE ?? 768);
 
 const BLOCKED_HINDI = [
   "लंबित कतार",
-  "लक्षित कर्मचारियों",
-  "लक्षित विद्यार्थियों",
-  "लक्षित उधार",
+  "लक्षित",
   "स्टाफिंग",
   "व्यवहारिक रूप से",
   "बड़ी सिस्टम अपग्रेड",
@@ -23,8 +23,7 @@ const BLOCKED_HINDI = [
 
 const BLOCKED_PUNJABI = [
   "ਹਾਲਤ",
-  "ਨਿਸ਼ਾਨਾ ਬਣਾਏ",
-  "ਨਿਸ਼ਾਨਾ ਬਣਾਈ",
+  "ਨਿਸ਼ਾਨਾ",
   "ਸਟਾਫਿੰਗ",
   "ਬਕਾਇਆ ਅਰਜ਼ੀਆਂ ਦੀ ਕਤਾਰ",
   "ਵੱਡੀ ਸਿਸਟਮ ਅਪਗ੍ਰੇਡ",
@@ -39,6 +38,44 @@ assert.equal(STA_QL002_LOCALIZATION_LIFECYCLE_V2.questionStudioDiscoverable, fal
 assert.equal(STA_QL002_LOCALIZATION_LIFECYCLE_V2.questionBankWritable, false);
 assert.equal(STA_QL002_LOCALIZATION_LIFECYCLE_V2.testEligible, false);
 assert.equal(STA_QL002_LOCALIZATION_LIFECYCLE_V2.publiclyPublishable, false);
+
+function auditEveryAuthoredString(locale: StaLocalizedLocale, bundle: StaLocalizationBundle): number {
+  const blocked = locale === "hi-IN" ? BLOCKED_HINDI : BLOCKED_PUNJABI;
+  assert.equal(Object.keys(bundle).length, 16, `${locale}: source editorial audit must cover all 16 QL002 authorities`);
+
+  let checks = 0;
+  for (const [scenarioId, copy] of Object.entries(bundle)) {
+    const authored: string[] = [...copy.statementVariants];
+    for (const candidate of Object.values(copy.candidates)) {
+      authored.push(...candidate.textVariants, candidate.rationale);
+    }
+
+    for (const sourceText of authored) {
+      const transformed = editorializeStaQl002LocalizedText(locale, sourceText);
+      assert.ok(transformed.trim().length > 0, `${locale}/${scenarioId}: editorial transform produced empty learner text`);
+      for (const fragment of blocked) {
+        assert.equal(
+          transformed.includes(fragment),
+          false,
+          `${locale}/${scenarioId}: rejected wording remains in authored source after V2 transform: ${fragment}`,
+        );
+      }
+      if (locale === "hi-IN") {
+        assert.equal(transformed.includes("मान्यता"), false, `${locale}/${scenarioId}: rejected Hindi term मान्यता remains`);
+        assert.equal(transformed.includes("अंतर्निहित"), false, `${locale}/${scenarioId}: rejected Hindi term अंतर्निहित remains`);
+      } else {
+        assert.equal(transformed.includes("ਮਾਨਤਾ"), false, `${locale}/${scenarioId}: rejected Punjabi term ਮਾਨਤਾ remains`);
+        assert.equal(transformed.includes("ਅੰਤਰਿਨਿਹਿਤ"), false, `${locale}/${scenarioId}: rejected Punjabi term ਅੰਤਰਿਨਿਹਿਤ remains`);
+      }
+      checks += 1;
+    }
+  }
+  return checks;
+}
+
+const authoredSourceEditorialChecks =
+  auditEveryAuthoredString("hi-IN", STA_QL002_HINDI_REVIEW_COPY) +
+  auditEveryAuthoredString("pa-IN", STA_QL002_PUNJABI_REVIEW_COPY);
 
 let semanticParityChecks = 0;
 let editorialChecks = 0;
@@ -122,6 +159,7 @@ assert.ok(editorialMutations > 0, "V2 editorial overlay did not modify any learn
 console.log("PASS_STA_QL002_HI_PA_NATIVE_EDITORIAL_V2");
 console.log(JSON.stringify({
   editorialVersion: STA_QL002_LOCALIZATION_EDITORIAL_VERSION,
+  authoredSourceEditorialChecks,
   semanticParityChecks,
   editorialChecks,
   editorialMutations,
