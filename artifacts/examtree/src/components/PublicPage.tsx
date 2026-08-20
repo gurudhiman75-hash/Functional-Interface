@@ -16,6 +16,16 @@ type PageMetaOptions = {
   type?: "website" | "article";
 };
 
+const CANONICAL_ALIASES: Record<string, string> = {
+  "/tests": "/exams",
+  "/privacy": "/privacy-policy",
+  "/login": "/login/student",
+};
+
+function canonicalPathFor(pathname: string) {
+  return CANONICAL_ALIASES[pathname] ?? pathname;
+}
+
 function ensureMetaTag(attribute: "name" | "property", key: string) {
   let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
   const created = !element;
@@ -47,7 +57,8 @@ export function usePageMeta(title: string, description: string, options: PageMet
   useEffect(() => {
     const previousTitle = document.title;
     const fullTitle = title.includes("ExamTree") ? title : `${title} | ExamTree`;
-    const canonicalUrl = new URL(canonicalPath ?? window.location.pathname, window.location.origin).toString();
+    const resolvedCanonicalPath = canonicalPath ?? canonicalPathFor(window.location.pathname);
+    const canonicalUrl = new URL(resolvedCanonicalPath, window.location.origin).toString();
     const imageUrl = new URL(imagePath, window.location.origin).toString();
     document.title = fullTitle;
 
