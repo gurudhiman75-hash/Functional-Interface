@@ -10,7 +10,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "audit:production-truth": "node scripts/check-production-truth.mjs",
     "audit:timer-recovery": "node --experimental-strip-types scripts/check-timer-recovery.mjs",
-    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run build"
+    "audit:accessibility": "node scripts/check-accessibility-foundation.mjs",
+    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run build"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",
