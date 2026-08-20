@@ -16,9 +16,9 @@ const manifest = JSON.parse(await readFile(`${outputDir}/manifest.json`, "utf8")
   productActivationAuthorized: boolean;
 };
 
-// The generated artifact is immutable historical evidence: it was correctly
-// marked pending when produced. The separate authority pin records the later
-// explicit product-owner approval of that exact fingerprint.
+// The generated English artifact remains immutable historical evidence: it was
+// pending when produced. The authority pin records the later explicit approval
+// of that exact fingerprint and the subsequently approved multilingual freeze.
 assert.equal(manifest.candidateId, pin.candidateId);
 assert.equal(manifest.candidateFingerprint, pin.candidateFingerprint, "English review candidate drifted after approval");
 assert.equal(manifest.caseletCount, pin.caseletCount);
@@ -31,7 +31,10 @@ assert.equal(manifest.productActivationAuthorized, false);
 
 assert.equal(pin.approvalStatus, "APPROVED");
 assert.equal(pin.replacesEnglishAuthority, true);
-assert.equal(pin.multilingualReplacementStatus, "PENDING_HI_PA_REVIEW");
+assert.equal(pin.multilingualReplacementStatus, "APPROVED_FROZEN");
+assert.equal(pin.multilingualApprovalEvidence, "PR#926_COMMENT_5353895993");
+assert.equal(pin.multilingualFreezeAuthority, "SEA001_STRUCTURAL_HARDENING_MULTILINGUAL_FREEZE_V1");
+assert.equal(pin.questionStudioReviewOnlyAuthorized, true);
 assert.equal(pin.productActivationAuthorized, false);
 assert.notEqual(pin.candidateFingerprint, pin.previousApprovedEnglishFingerprint);
 
@@ -40,3 +43,4 @@ console.log("candidate", pin.candidateId);
 console.log("fingerprint", pin.candidateFingerprint);
 console.log("authority approval", pin.approvalStatus);
 console.log("multilingual replacement", pin.multilingualReplacementStatus);
+console.log("Question Studio review-only authorized", pin.questionStudioReviewOnlyAuthorized);
