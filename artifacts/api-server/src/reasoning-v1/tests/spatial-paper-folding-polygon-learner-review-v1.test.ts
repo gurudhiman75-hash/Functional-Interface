@@ -28,11 +28,15 @@ for (const question of questions) {
 
 const GRID = 120;
 const MIN_FORWARD_VISIBLE_MARK_DISTANCE = 0.40;
+const EXPECTED_STAGE_FILL_RATIO = 1 / 1.30;
+const STAGE_FILL_TOLERANCE = 0.015;
 const NUMBER_RE = /-?\d+(?:\.\d+)?/g;
+
 function num(tag: string, name: string): number | null {
   const match = tag.match(new RegExp(`\\b${name}="(-?\\d+(?:\\.\\d+)?)"`));
   return match ? Number(match[1]) : null;
 }
+
 function paint(set: Set<number>, x: number, y: number, radius = 1): void {
   const gx = Math.max(0, Math.min(GRID - 1, Math.round(x * (GRID - 1) / 120)));
   const gy = Math.max(0, Math.min(GRID - 1, Math.round(y * (GRID - 1) / 108)));
@@ -44,6 +48,7 @@ function paint(set: Set<number>, x: number, y: number, radius = 1): void {
     }
   }
 }
+
 function segment(set: Set<number>, x1: number, y1: number, x2: number, y2: number): void {
   const steps = Math.max(8, Math.ceil(Math.hypot(x2 - x1, y2 - y1) * 3));
   for (let index = 0; index <= steps; index += 1) {
@@ -51,6 +56,7 @@ function segment(set: Set<number>, x1: number, y1: number, x2: number, y2: numbe
     paint(set, x1 + (x2 - x1) * t, y1 + (y2 - y1) * t, 1);
   }
 }
+
 function visibleCutMask(svg: string): Set<number> {
   const set = new Set<number>();
   for (const tag of svg.match(/<circle\b[^>]*\/?\s*>/g) ?? []) {
@@ -82,6 +88,7 @@ function visibleCutMask(svg: string): Set<number> {
   }
   return set;
 }
+
 function jaccardDistance(a: Set<number>, b: Set<number>): number {
   const union = new Set([...a, ...b]);
   if (union.size === 0) return 0;
@@ -89,6 +96,7 @@ function jaccardDistance(a: Set<number>, b: Set<number>): number {
   for (const value of a) if (b.has(value)) intersection += 1;
   return 1 - intersection / union.size;
 }
+
 function minForwardVisibleDistance(question: typeof questions[number]): number {
   const masks = question.options.map((option) => visibleCutMask(option.svg));
   assert.ok(masks.every((mask) => mask.size > 0), `${question.reviewId} has an option with no visible cut marks.`);
@@ -99,7 +107,33 @@ function minForwardVisibleDistance(question: typeof questions[number]): number {
   return minimum;
 }
 
+function largestPaperPolygonSpan(svg: string): number | null {
+  let largest = 0;
+  for (const tag of svg.match(/<polygon\b[^>]*\/?\s*>/g) ?? []) {
+    const values = tag.match(/\bpoints="([^"]+)"/)?.[1]?.match(NUMBER_RE)?.map(Number) ?? [];
+    if (values.length < 6) continue;
+    const xs: number[] = [];
+    const ys: number[] = [];
+    for (let index = 0; index + 1 < values.length; index += 2) {
+      xs.push(values[index]);
+      ys.push(values[index + 1]);
+    }
+    const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    if (span > 20) largest = Math.max(largest, span);
+  }
+  return largest > 0 ? largest : null;
+}
+
+function stageFillRatio(svg: string): number | null {
+  const viewBox = svg.match(/\bviewBox="([^"]+)"/i)?.[1]?.match(NUMBER_RE)?.map(Number) ?? [];
+  if (viewBox.length !== 4) return null;
+  const paperSpan = largestPaperPolygonSpan(svg);
+  if (paperSpan === null) return null;
+  return paperSpan / Math.max(viewBox[2], viewBox[3]);
+}
+
 let minimumForwardVisibleDistance = 1;
+const stageFillRatios: number[] = [];
 for (const question of questions.filter((q) => q.task === "FORWARD_UNFOLD")) {
   const distance = minForwardVisibleDistance(question);
   minimumForwardVisibleDistance = Math.min(minimumForwardVisibleDistance, distance);
@@ -107,7 +141,24 @@ for (const question of questions.filter((q) => q.task === "FORWARD_UNFOLD")) {
     distance + 1e-9 >= MIN_FORWARD_VISIBLE_MARK_DISTANCE,
     `${question.reviewId} triangle choices remain visually near-duplicate at ${distance.toFixed(3)}.`,
   );
+
+  const stageSvgs = question.stimulusSvg.match(/<svg\b[\s\S]*?<\/svg>/g) ?? [];
+  assert.equal(stageSvgs.length, 2, `${question.reviewId} must contain exactly Fold and Cut/Punch stage SVGs.`);
+  for (const svg of stageSvgs) {
+    const ratio = stageFillRatio(svg);
+    assert.notEqual(ratio, null, `${question.reviewId} has a stage with no measurable paper polygon.`);
+    stageFillRatios.push(ratio!);
+    assert.ok(
+      Math.abs(ratio! - EXPECTED_STAGE_FILL_RATIO) <= STAGE_FILL_TOLERANCE,
+      `${question.reviewId} stage paper fill ${ratio!.toFixed(3)} indicates unequal internal diagram scale.`,
+    );
+  }
 }
+assert.equal(stageFillRatios.length, 16);
+assert.ok(
+  Math.max(...stageFillRatios) - Math.min(...stageFillRatios) <= 0.02,
+  "Triangle Fold and Cut/Punch stages do not maintain a uniform visual paper scale.",
+);
 
 const html = renderPfcPolygonLearnerReviewHtmlV1(questions);
 assert.ok(html.includes("PFC-001 Polygon Substrate Gap Review V1"));
@@ -129,9 +180,14 @@ const evidence = {
   optionArtUniqueWithinEveryQuestion: true,
   forwardVisibleMarkDistanceGate: MIN_FORWARD_VISIBLE_MARK_DISTANCE,
   minimumForwardVisibleMarkDistance: minimumForwardVisibleDistance,
+  normalizedForwardStageCount: stageFillRatios.length,
+  expectedStagePaperFillRatio: EXPECTED_STAGE_FILL_RATIO,
+  minStagePaperFillRatio: Math.min(...stageFillRatios),
+  maxStagePaperFillRatio: Math.max(...stageFillRatios),
   conceptualForwardDistractors: ["FORGOT_TO_UNFOLD", "WRONG_SYMMETRY_AXIS", "FALSE_FOUR_LAYER_PATTERN"],
   transparentCutouts: true,
   fixedStageSizing: true,
+  packetFittedInternalStageScale: true,
   governance: {
     permanentQlIdsAssigned: false,
     englishFrozen: false,
