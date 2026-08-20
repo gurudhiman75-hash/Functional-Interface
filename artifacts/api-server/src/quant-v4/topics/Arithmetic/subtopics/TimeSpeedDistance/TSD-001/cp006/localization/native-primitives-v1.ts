@@ -60,9 +60,13 @@ export function localizeCp006Choice(text: string, language: TsdCp006NativeLangua
   return text.replace(/\bminutes?\b/g, "ਮਿੰਟ").replace(/\blaps?\b/g, "ਚੱਕਰ");
 }
 
+export function hasDevanagariBeyondSharedDanda(text: string): boolean {
+  return /[\u0900-\u097F]/u.test(text.replace(/[।॥]/gu, ""));
+}
+
 export function assertTsdCp006NativeText(text: string, language: TsdCp006NativeLanguage, label: string): void {
   if (!text.trim()) throw new Error(`${label}: native text is empty`);
   if (/\{[^}]+\}/u.test(text)) throw new Error(`${label}: unresolved placeholder remains`);
   if (language === "hi" && /[\u0A00-\u0A7F]/u.test(text)) throw new Error(`${label}: Punjabi script leaked into Hindi`);
-  if (language === "pa" && /[\u0900-\u097F]/u.test(text)) throw new Error(`${label}: Devanagari leaked into Punjabi`);
+  if (language === "pa" && hasDevanagariBeyondSharedDanda(text)) throw new Error(`${label}: Devanagari leaked into Punjabi`);
 }
