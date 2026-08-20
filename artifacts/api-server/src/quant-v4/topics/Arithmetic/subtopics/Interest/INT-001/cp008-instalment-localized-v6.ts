@@ -19,17 +19,17 @@ function deepFreeze<T>(value: T, seen = new WeakSet<object>()): T {
 
 function polishText(text: string, locale: IntCp008LocalizedLocale): string {
   if (locale === "hi-IN") {
-    return text
-      .replace(
-        /कार्यक्रम में (\d+) बराबर भुगतान या निकासी (₹[\d,]+(?:\.\d+)?) की हैं और शुरुआती बकाया पूछा गया है।/gu,
-        "भुगतान क्रम में कुल $1 बराबर भुगतान या निकासी हैं और हर राशि $2 है। शुरुआती बकाया पूछा गया है।",
-      )
-      .replace(/इन नियमित भुगतानों के लिए/gu, "इन नियमित भुगतानों के लिए");
+    return text.replace(
+      /कार्यक्रम में (\d+) बराबर भुगतान या निकासी (₹[\d,]+(?:\.\d+)?) की हैं और शुरुआती बकाया पूछा गया है।/gu,
+      "भुगतान क्रम में कुल $1 बराबर भुगतान या निकासी हैं और हर राशि $2 है। शुरुआती बकाया पूछा गया है।",
+    );
   }
-  return text.replace(
-    /ਕਾਰਜਕ੍ਰਮ ਵਿੱਚ (\d+) ਬਰਾਬਰ ਅਦਾਇਗੀਆਂ ਜਾਂ ਨਿਕਾਸੀਆਂ (₹[\d,]+(?:\.\d+)?) ਦੀਆਂ ਹਨ ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਬਕਾਇਆ ਪੁੱਛਿਆ ਗਿਆ ਹੈ।/gu,
-    "ਅਦਾਇਗੀ ਕ੍ਰਮ ਵਿੱਚ ਕੁੱਲ $1 ਬਰਾਬਰ ਅਦਾਇਗੀਆਂ ਜਾਂ ਨਿਕਾਸੀਆਂ ਹਨ ਅਤੇ ਹਰ ਰਕਮ $2 ਹੈ। ਸ਼ੁਰੂਆਤੀ ਬਕਾਇਆ ਪੁੱਛਿਆ ਗਿਆ ਹੈ।",
-  );
+  return text
+    .replace(
+      /ਕਾਰਜਕ੍ਰਮ ਵਿੱਚ (\d+) ਬਰਾਬਰ ਅਦਾਇਗੀਆਂ ਜਾਂ ਨਿਕਾਸੀਆਂ (₹[\d,]+(?:\.\d+)?) ਦੀਆਂ ਹਨ ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਬਕਾਇਆ ਪੁੱਛਿਆ ਗਿਆ ਹੈ।/gu,
+      "ਅਦਾਇਗੀ ਕ੍ਰਮ ਵਿੱਚ ਕੁੱਲ $1 ਬਰਾਬਰ ਅਦਾਇਗੀਆਂ ਜਾਂ ਨਿਕਾਸੀਆਂ ਹਨ ਅਤੇ ਹਰ ਰਕਮ $2 ਹੈ। ਸ਼ੁਰੂਆਤੀ ਬਕਾਇਆ ਪੁੱਛਿਆ ਗਿਆ ਹੈ।",
+    )
+    .replace(/\b1 ਅਦਾਇਗੀਆਂ\b/gu, "1 ਅਦਾਇਗੀ");
 }
 
 function polishPrompt(source: any, locale: IntCp008LocalizedLocale): string {
@@ -61,13 +61,11 @@ function polishExplanation(source: any, locale: IntCp008LocalizedLocale) {
   if (source.qlId === "INT-QL-123") {
     const growthPeriods = c.periods - c.missedPaymentNumber;
     if (locale === "hi-IN") {
-      steps[1] = growthPeriods === 1
-        ? steps[1].replace(/1 पूरी ब्याज अवधि है/gu, "1 पूरी ब्याज अवधि है")
-        : steps[1].replace(new RegExp(`${growthPeriods} पूरी ब्याज अवधि है`, "gu"), `${growthPeriods} पूरी ब्याज अवधियाँ हैं`);
-    } else {
-      steps[1] = growthPeriods === 1
-        ? steps[1].replace(/1 ਪੂਰੀ ਵਿਆਜ ਮਿਆਦ ਹੈ/gu, "1 ਪੂਰੀ ਵਿਆਜ ਮਿਆਦ ਹੈ")
-        : steps[1].replace(new RegExp(`${growthPeriods} ਪੂਰੀ ਵਿਆਜ ਮਿਆਦ ਹੈ`, "gu"), `${growthPeriods} ਪੂਰੀਆਂ ਵਿਆਜ ਮਿਆਦਾਂ ਹਨ`);
+      if (growthPeriods > 1) {
+        steps[1] = steps[1].replace(new RegExp(`${growthPeriods} पूरी ब्याज अवधि है`, "gu"), `${growthPeriods} पूरी ब्याज अवधियाँ हैं`);
+      }
+    } else if (growthPeriods > 1) {
+      steps[1] = steps[1].replace(new RegExp(`${growthPeriods} ਪੂਰੀ ਵਿਆਜ ਮਿਆਦ ਹੈ`, "gu"), `${growthPeriods} ਪੂਰੀਆਂ ਵਿਆਜ ਮਿਆਦਾਂ ਹਨ`);
     }
   }
 
