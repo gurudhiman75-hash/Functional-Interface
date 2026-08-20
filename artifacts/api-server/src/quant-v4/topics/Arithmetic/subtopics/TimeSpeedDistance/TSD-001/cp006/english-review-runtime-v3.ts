@@ -102,7 +102,7 @@ function stemV3(row: TsdCp006EnglishReviewQuestionV2): string {
   const { variant, objectFamily, routeFamily, a, b, c } = context;
   const L = row.input.trackLength ? value(row.input.trackLength, "trackLength") : "";
   const u = value(row.input.speedA, "speedA");
-  const v = value(row.input.speedB, "speedB");
+  const v = row.input.speedB ? value(row.input.speedB, "speedB") : "";
   const w = row.input.speedC ? value(row.input.speedC, "speedC") : "";
   const t = row.input.timeWindow ? value(row.input.timeWindow, "timeWindow") : "";
   const opposite = row.input.directionB === -1;
