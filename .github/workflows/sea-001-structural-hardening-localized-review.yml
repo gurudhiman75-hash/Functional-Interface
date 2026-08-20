@@ -5,6 +5,7 @@ on:
     branches:
       - feat/sea-001-structural-realness-hardening
     paths:
+      - artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/SEA-001-STRUCTURAL-HARDENING-ENGLISH-APPROVAL-EVIDENCE.md
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-english-review-pins.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-english-review-pin-proof.test.ts
@@ -12,6 +13,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-multilingual-freeze-proof.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/question-studio/seating-question-studio-runtime.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/question-studio/sea-001-question-studio-replacement-authority-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/question-studio/sea-001-shared-question-studio-registry-proof.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/localization/**
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-export.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-candidate-proof.test.ts
@@ -53,6 +55,9 @@ jobs:
 
       - name: Prove Question Studio replacement authority and review-only locks
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/question-studio/sea-001-question-studio-replacement-authority-proof.test.ts
+
+      - name: Prove shared Reasoning Question Studio registration
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/question-studio/sea-001-shared-question-studio-registry-proof.test.ts
 
       - name: Export balanced 100-caselet Hindi and Punjabi review candidates
         env:
