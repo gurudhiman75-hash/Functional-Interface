@@ -19,15 +19,55 @@ function coefficient(token: string | undefined): string {
   return token.startsWith("+") ? token.slice(1) : token;
 }
 
+type SimpleRational = { readonly n: number; readonly d: number };
+
+function gcd(a: number, b: number): number {
+  let x = Math.abs(a);
+  let y = Math.abs(b);
+  while (y !== 0) {
+    const next = x % y;
+    x = y;
+    y = next;
+  }
+  return x || 1;
+}
+
+function simpleRational(n: number, d = 1): SimpleRational {
+  if (d === 0) throw new Error("Zero denominator in learner rendering");
+  const sign = d < 0 ? -1 : 1;
+  const divisor = gcd(n, d);
+  return { n: sign * n / divisor, d: Math.abs(d) / divisor };
+}
+
+function parseSimpleRational(value: string): SimpleRational | null {
+  const match = value.trim().match(/^(-?\d+)(?:\/(\d+))?$/);
+  if (!match) return null;
+  return simpleRational(Number(match[1]), match[2] ? Number(match[2]) : 1);
+}
+
+function formatSimpleRational(value: SimpleRational): string {
+  return value.d === 1 ? String(value.n) : `${value.n}/${value.d}`;
+}
+
+function formatRationalSum(values: readonly SimpleRational[]): string {
+  const nonZero = values.filter((value) => value.n !== 0);
+  if (nonZero.length === 0) return "0";
+  return nonZero.map((value, index) => {
+    const magnitude = formatSimpleRational({ n: Math.abs(value.n), d: value.d });
+    if (index === 0) return value.n < 0 ? `-${magnitude}` : magnitude;
+    return value.n < 0 ? `- ${magnitude}` : `+ ${magnitude}`;
+  }).join(" ");
+}
+
 function extractQuadraticExpression(question: string): string | null {
   const normalized = question.replace(/\s+/g, " ").trim();
   const patterns = [
-    /roots of (.+?x².+?) = 0/i,
-    /Solve (.+?x².+?) = 0/i,
-    /does (.+?x².+?) = 0/i,
-    /minimum value of (.+?x².+?) and the value/i,
-    /maximum value of (.+?x².+?) and the value/i,
-    /is (.+?x².+?) (?:≥|>|≤|<) 0 for every real x/i,
+    /roots of (.*?x².*?) = 0/i,
+    /Solve (.*?x².*?) = 0/i,
+    /does (.*?x².*?) = 0/i,
+    /minimum value of (.*?x².*?) and the value/i,
+    /maximum value of (.*?x².*?) and the value/i,
+    /is (.*?x².*?) (?:≥|>|≤|<) 0 for every real x/i,
   ];
   for (const pattern of patterns) {
     const match = normalized.match(pattern);
@@ -168,13 +208,21 @@ function expandVertexWorking(prototypeId: string, question: string, explanation:
 
   const xMatch = explanation.match(/(?:gives x =|x = -b\/\(2a\) =) ([^\.]+)\./);
   const valueMatch = explanation.match(/(?:minimum|maximum) value ([-0-9/]+)\./);
-  if (!xMatch?.[1] || !valueMatch?.[1]) return explanation;
+  const xRational = xMatch?.[1] ? parseSimpleRational(xMatch[1]) : null;
+  const numericA = Number(coeffs.a);
+  const numericB = Number(coeffs.b);
+  const numericC = Number(coeffs.c);
+  if (!xMatch?.[1] || !valueMatch?.[1] || !xRational || !Number.isFinite(numericA) || !Number.isFinite(numericB) || !Number.isFinite(numericC)) return explanation;
 
   const xValue = xMatch[1].trim();
   const finalValue = valueMatch[1].trim();
   const substituted = coeffs.expression
     .replace(/x²/g, `(${xValue})²`)
     .replace(/x/g, `(${xValue})`);
+  const term1 = simpleRational(numericA * xRational.n * xRational.n, xRational.d * xRational.d);
+  const term2 = simpleRational(numericB * xRational.n, xRational.d);
+  const term3 = simpleRational(numericC);
+  const simplifiedTerms = formatRationalSum([term1, term2, term3]);
 
   let value = explanation.replace(
     /(?:Using x = -b\/\(2a\) gives x =|The vertex occurs at x = -b\/\(2a\) =) [^\.]+\./,
@@ -182,26 +230,71 @@ function expandVertexWorking(prototypeId: string, question: string, explanation:
   );
   value = value.replace(
     /Substitut(?:ing|ion)(?: this x into the quadratic)? gives the (?:minimum|maximum) value [-0-9/]+\./,
-    `Now substitute x = ${xValue} into the quadratic: ${substituted}.\nEvaluate this expression step by step to get ${finalValue}.`,
+    `Now substitute x = ${xValue} into the quadratic: ${substituted}.\nSimplify the three terms: ${simplifiedTerms}.\nCombine them: ${finalValue}.`,
   );
   return value;
 }
 
+function expandGlobalQuadraticSign(prototypeId: string, question: string, explanation: string): string {
+  if (prototypeId !== "ALG-CP012-CAND-009") return explanation;
+  const coeffs = extractQuadraticCoefficients(question);
+  const operator = question.match(/([<>≤≥]) 0 for every real x/)?.[1];
+  if (!coeffs || coeffs.c !== "k" || !operator) return explanation;
+
+  const a = Number(coeffs.a);
+  const b = Number(coeffs.b);
+  if (!Number.isFinite(a) || !Number.isFinite(b) || a === 0) return explanation;
+
+  const strict = operator === ">" || operator === "<";
+  const target = operator === ">" ? "positive" : operator === "≥" ? "non-negative" : operator === "<" ? "negative" : "non-positive";
+  const direction = a > 0 ? "upward" : "downward";
+  const discriminantRelation = strict ? "<" : "≤";
+  const thresholdRelation = a > 0 ? (strict ? ">" : "≥") : (strict ? "<" : "≤");
+  const bSquared = b * b;
+  const multiplier = 4 * Math.abs(a);
+  const dExpression = a > 0 ? `${bSquared} - ${multiplier}k` : `${bSquared} + ${multiplier}k`;
+  const threshold = formatSimpleRational(simpleRational(a > 0 ? bSquared : -bSquared, multiplier));
+  const middle = a > 0
+    ? `${bSquared} ${strict ? "<" : "≤"} ${multiplier}k`
+    : `${multiplier}k ${strict ? "<" : "≤"} -${bSquared}`;
+
+  const steps = explanation.split(/\n+/).map((step) => step.trim()).filter(Boolean);
+  const whyIndex = steps.findIndex((step) => step.startsWith("Why this method:"));
+  const prefix = whyIndex >= 0 ? steps.slice(0, whyIndex) : [];
+  return [
+    ...prefix,
+    `Why this method: The quadratic must stay ${target} for every real x. It opens ${direction}, and ${strict ? "it must not touch or cross" : "it may touch but must not cross"} the x-axis; therefore the discriminant condition is D ${discriminantRelation} 0.`,
+    `Compare with ax² + bx + c: a = ${coeffs.a}, b = ${coeffs.b}, c = k.`,
+    `Use D = b² - 4ac. Here D = (${coeffs.b})² - 4(${coeffs.a})(k) = ${dExpression}.`,
+    `Apply the required discriminant condition: ${dExpression} ${discriminantRelation} 0.`,
+    `Rearrange: ${middle}.`,
+    `Divide by ${multiplier}: k ${thresholdRelation} ${threshold}.`,
+  ].join("\n");
+}
+
 function addQuadraticCoefficientContext(prototypeId: string, question: string, explanation: string): string {
-  if (!needsQuadraticAbc(prototypeId)) return explanation;
+  if (!needsQuadraticAbc(prototypeId) || prototypeId === "ALG-CP012-CAND-009") return explanation;
   const coeffs = extractQuadraticCoefficients(question);
   if (!coeffs) return explanation;
   const line = `Compare with ax² + bx + c: a = ${coeffs.a}, b = ${coeffs.b}, c = ${coeffs.c}.`;
   return insertAfterWhy(explanation, line);
 }
 
+function alignGivenWithStem(prototypeId: string, question: string, explanation: string): string {
+  if (prototypeId !== "ALG-CP005-CAND-004") return explanation;
+  const given = question.split(". Find ")[0];
+  return given ? explanation.replace(/^Given: .*$/m, `Given: ${given}.`) : explanation;
+}
+
 function polishExplanation(item: AlgPermanentEnglishReviewV3Item, question: string): string {
   let value = normalizeRenderedSigns(item.explanation);
+  value = alignGivenWithStem(item.prototypeId, question, value);
   value = expandReciprocalCube(item.prototypeId, value);
   value = expandThreeVariableIdentity(item.prototypeId, value);
   value = expandQuadraticFormula(item.prototypeId, value);
   value = removeVietaDuplication(item.prototypeId, value);
   value = expandVertexWorking(item.prototypeId, question, value);
+  value = expandGlobalQuadraticSign(item.prototypeId, question, value);
   value = addQuadraticCoefficientContext(item.prototypeId, question, value);
   return normalizeRenderedSigns(value);
 }
