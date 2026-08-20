@@ -118,10 +118,46 @@ function renderSharedExplanation(canonical: AuditCaselet, locale: Sea001Translat
   canonical.clueTexts.forEach((clue,index)=>{const rendered=renderNativeClue(clue,locale); lines.push(`${index+1}. ${rendered.text}`); lines.push(`   ${tr(locale,"करें","ਕਰੋ")}: ${rendered.action}`);});
   lines.push(tr(locale,"इन सभी संकेतों को मिलाने पर केवल एक व्यवस्था बचती है।","ਇਨ੍ਹਾਂ ਸਾਰੇ ਸੰਕੇਤਾਂ ਨੂੰ ਮਿਲਾਉਣ 'ਤੇ ਸਿਰਫ਼ ਇੱਕ ਵਿਵਸਥਾ ਬਚਦੀ ਹੈ।")); if(diagramText) lines.push(diagramText); return lines.join("\n");
 }
+
+function ordinalDistance(raw:string|undefined):number|undefined {
+  if(!raw) return undefined;
+  const value=Number.parseInt(raw,10);
+  return Number.isFinite(value)?value:undefined;
+}
+function renderVariedNativeQuestion(source:AuditChild,locale:Sea001TranslatedLocale):string {
+  const normalized=normalizedOrdinalQuestion(source);
+  const base=renderNativeQuestion(normalized,locale);
+  if(locale!=="hi-IN" || source.answerIndex%2===0) return base;
+  const people=nativeNamesIn(source.text).map((person)=>nativeName(person,locale));
+  const ord=qOrdinal(source.text); const distance=ordinalDistance(ord);
+  switch(source.queryContractId) {
+    case "SEA-QC-001": return "पंक्ति की सबसे बाईं सीट पर कौन बैठा है?";
+    case "SEA-QC-002": return people[0]?`${people[0]} का बाएँ छोर से क्रमांक क्या है?`:base;
+    case "SEA-QC-003": {
+      const direction=/ to the left of /i.test(source.text)?"बाईं ओर":/ to the right of /i.test(source.text)?"दाईं ओर":undefined;
+      return people[0]&&direction&&distance?`${people[0]} से ${direction} ${distance} सीट दूर कौन बैठा है?`:base;
+    }
+    case "SEA-QC-004": return people[0]&&distance?`${people[0]} से घड़ी की दिशा में ${distance} सीट आगे कौन बैठा है?`:base;
+    case "SEA-QC-005": return people[0]?`${people[0]} के दाईं तरफ बिल्कुल पास वाली सीट पर कौन बैठा है?`:base;
+    case "SEA-QC-006": return people[0]?`${people[0]} के ठीक दोनों ओर बैठे दो व्यक्ति कौन हैं?`:base;
+    case "SEA-QC-008": return people.length>=2?`${people[0]} और ${people[1]} के बीच बैठे व्यक्तियों की संख्या कितनी है?`:base;
+    case "SEA-QC-009": return people.length>=3?`${people[2]} से घड़ी की दिशा में गिनें तो ${people[0]} और ${people[1]} के बीच कितने व्यक्ति आते हैं?`:base;
+    case "SEA-QC-010": return people[0]?`${people[0]} के सामने वाली सीट पर कौन है?`:base;
+    case "SEA-QC-016": return "इनमें से कौन-सा कथन सही है?";
+    case "SEA-QC-017": return "इनमें से कौन-सा कथन गलत है?";
+    case "SEA-QC-019": return "बैठने के संबंध में कौन-सी जोड़ी बाकी तीन से भिन्न है?";
+    case "SEA-QC-020": return /clockwise/i.test(source.text)
+      ? (people[0]?`${people[0]} के बाद घड़ी की दिशा में अगली तीन सीटों का सही क्रम क्या है?`:base)
+      : "बाएँ छोर से पहले तीन व्यक्तियों का सही क्रम क्या है?";
+    case "SEA-QC-021": return people.length>=2?`यदि ${people[0]} और ${people[1]} की सीटें आपस में बदल दी जाएँ, तो बाएँ छोर की सीट पर कौन होगा?`:base;
+    case "SEA-QC-022": return people[0]&&distance?`सभी की मुख-दिशा उलटने के बाद ${people[0]} से बाईं ओर ${distance} सीट दूर कौन बैठेगा?`:base;
+    default: return base;
+  }
+}
 function renderNativeChild(canonical:AuditCaselet, source:AuditChild, base:AuditChild, locale:Sea001TranslatedLocale):AuditChild {
   const optionDisplays=source.options.map((option)=>renderNativeOptionDisplay(option.display,locale)); const correctDisplay=optionDisplays[source.answerIndex]!; const explanation=nativeChildExplanation(canonical,source,correctDisplay,locale);
   const options=base.options.map((option,index):AuditOption=>({...option,display:optionDisplays[index]!,explanation:option.isCorrect?explanation:wrongOptionExplanation(source,optionDisplays[index]!,correctDisplay,locale)}));
-  return {...base,text:renderNativeQuestion(normalizedOrdinalQuestion(source),locale),explanation,options};
+  return {...base,text:renderVariedNativeQuestion(source,locale),explanation,options};
 }
 export function buildSea001NativeReviewV2(canonical:AuditCaselet,locale:Sea001TranslatedLocale):Sea001LocalizedReviewCaselet {
   const base=buildSea001LocalizedReviewCandidate(canonical,locale); const clueTexts=canonical.clueTexts.map((clue)=>renderNativeClue(clue,locale).text); const diagramText=renderNativeDiagram(canonical,locale); const diagram=base.diagram?{...base.diagram,text:diagramText}:base.diagram;
