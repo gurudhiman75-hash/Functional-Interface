@@ -36,7 +36,7 @@ function removeRootSumProductAliases(prototypeId: string, explanation: string): 
 
   if (prototypeId === "ALG-CP010-CAND-010") {
     value = value.replace(
-      /Let S = ([^\s]+) and P = ([^\s.]+)\. The new roots are P \+ S = ([^\s]+) and P - S = ([^\s.]+)\. Their sum is ([^\s]+) and product is ([^\s,]+), so the required monic equation is ([^.]+)\./,
+      /Let S = ([^\s]+) and P = ([^\s.]+)\.\s+The new roots are P \+ S = ([^\s]+) and P - S = ([^\s.]+)\.\s+Their sum is ([^\s]+) and product is ([^\s,]+), so the required monic equation is ([^.]+)\./,
       "From Vieta, α + β = $1 and αβ = $2.\nThe required roots are αβ + α + β and αβ - α - β.\nFirst root = $2 + $1 = $3.\nSecond root = $2 - $1 = $4.\nTheir sum = $5 and their product = $6.\nTherefore the required monic equation is $7.",
     );
   }
