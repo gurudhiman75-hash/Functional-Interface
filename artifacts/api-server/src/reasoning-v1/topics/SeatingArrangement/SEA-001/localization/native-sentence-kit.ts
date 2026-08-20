@@ -186,10 +186,15 @@ export function renderNativeClue(clue: string, locale: Sea001TranslatedLocale): 
     return {text:tr(locale,`${a} और ${b} के बीच ठीक ${n} व्यक्ति बैठे हैं।`,`${a} ਅਤੇ ${b} ਦੇ ਵਿਚਕਾਰ ਠੀਕ ${n} ਵਿਅਕਤੀ ਬੈਠੇ ਹਨ।`),action:tr(locale,`${n} व्यक्ति बीच में होने का अर्थ है कि ${a} और ${b} की सीटों में ${n+1} स्थान का अंतर होगा।`,`${n} ਵਿਅਕਤੀ ਵਿਚਕਾਰ ਹੋਣ ਦਾ ਅਰਥ ਹੈ ਕਿ ${a} ਅਤੇ ${b} ਦੀਆਂ ਸੀਟਾਂ ਵਿੱਚ ${n+1} ਸਥਾਨਾਂ ਦਾ ਫਰਕ ਹੋਵੇਗਾ।`)};
   }
 
-  m = clue.match(new RegExp(`^Exactly (\\d+) person sits between ${NAME_PATTERN} and ${NAME_PATTERN} when counted clockwise from ${NAME_PATTERN}\\.$`));
+  m = clue.match(new RegExp(`^Exactly (\\d+) (?:person sits|persons sit) between ${NAME_PATTERN} and ${NAME_PATTERN} when counted clockwise from ${NAME_PATTERN}\\.$`));
   if (m) {
-    const n=Number(m[1]), a=name(m[2]!,locale), b=name(m[3]!,locale), from=name(m[4]!,locale);
-    return {text:tr(locale,`${from} से घड़ी की दिशा में गिनने पर ${a} और ${b} के बीच ठीक ${n} व्यक्ति बैठा है।`,`${from} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਗਿਣਣ 'ਤੇ ${a} ਅਤੇ ${b} ਦੇ ਵਿਚਕਾਰ ਠੀਕ ${n} ਵਿਅਕਤੀ ਬੈਠਾ ਹੈ।`),action:tr(locale,`${from} से घड़ी की दिशा में ${n+1} सीट आगे बढ़ें; दूसरी दी गई व्यक्ति की सीट वहाँ होगी।`,`${from} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ${n+1} ਸੀਟਾਂ ਅੱਗੇ ਵਧੋ; ਦੂਜੇ ਦਿੱਤੇ ਵਿਅਕਤੀ ਦੀ ਸੀਟ ਉੱਥੇ ਹੋਵੇਗੀ।`)};
+    const n=Number(m[1]), a=name(m[2]!,locale), b=name(m[3]!,locale), from=name(m[4]!,locale), singular=n===1;
+    return {
+      text:singular
+        ? tr(locale,`${from} से घड़ी की दिशा में गिनने पर ${a} और ${b} के बीच ठीक 1 व्यक्ति बैठा है।`,`${from} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਗਿਣਣ 'ਤੇ ${a} ਅਤੇ ${b} ਦੇ ਵਿਚਕਾਰ ਠੀਕ 1 ਵਿਅਕਤੀ ਬੈਠਾ ਹੈ।`)
+        : tr(locale,`${from} से घड़ी की दिशा में गिनने पर ${a} और ${b} के बीच ठीक ${n} व्यक्ति बैठे हैं।`,`${from} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਗਿਣਣ 'ਤੇ ${a} ਅਤੇ ${b} ਦੇ ਵਿਚਕਾਰ ਠੀਕ ${n} ਵਿਅਕਤੀ ਬੈਠੇ ਹਨ।`),
+      action:tr(locale,`${from} से घड़ी की दिशा में ${n+1} सीट आगे बढ़ें; दूसरी दी गई व्यक्ति की सीट वहाँ होगी।`,`${from} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ${n+1} ਸੀਟਾਂ ਅੱਗੇ ਵਧੋ; ਦੂਜੇ ਦਿੱਤੇ ਵਿਅਕਤੀ ਦੀ ਸੀਟ ਉੱਥੇ ਹੋਵੇਗੀ।`),
+    };
   }
 
   m = clue.match(new RegExp(`^${NAME_PATTERN} sits at the seat nearest the (door|entrance|stage)\\.$`));
