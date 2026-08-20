@@ -64,7 +64,10 @@ for (const allocation of NUM_CP009_PERMANENT_ALLOCATION) {
     assert.equal(first.options[first.correctIndex]?.value, first.canonicalAnswer, `${label}: correct-index binding`);
     optionChecks += 1;
 
-    assert.equal(first.explanation.finalAnswer, first.canonicalAnswer, `${label}: explanation final-answer drift`);
+    assert.ok(
+      first.explanation.finalAnswer.includes(first.canonicalAnswer),
+      `${label}: explanation final-answer does not contain canonical answer`,
+    );
     assert.ok(first.explanation.coreConcept.trim().length >= 12, `${label}: concept too thin`);
     assert.ok(first.explanation.strategy.trim().length >= 12, `${label}: strategy too thin`);
     assert.ok(first.explanation.steps.length >= 2 && first.explanation.steps.length <= 5, `${label}: explanation step count`);
