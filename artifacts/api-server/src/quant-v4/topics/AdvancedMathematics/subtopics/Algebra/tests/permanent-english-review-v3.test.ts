@@ -31,6 +31,8 @@ function needsFormulaReason(prototypeId: string): boolean {
 const forbidden: Array<[RegExp, string]> = [
   [/^If /, "unnecessary If stem opening"],
   [/^Given /, "unnecessary Given stem opening"],
+  [/^When P\(x\)/, "unnecessary When theorem stem opening"],
+  [/^For P\(x\)/, "unnecessary For theorem stem opening"],
   [/\bLet u\b|\bLet v\b/, "u/v temporary substitution"],
   [/\bLet S\s*=|\bLet P\s*=/, "S/P temporary root alias"],
   [/(^|\W)-?1x²\b/, "raw ±1x² coefficient"],
@@ -38,6 +40,7 @@ const forbidden: Array<[RegExp, string]> = [
   [/\+\s*-/, "plus followed by negative sign"],
   [/\(x - -[0-9]/, "double-negative factor"],
   [/(?<![0-9])-?[0-9]+\/1\b/, "rational integer rendered as n/1"],
+  [/\(-?[0-9]+\)\/\(1\)/, "parenthesized rational integer rendered over 1"],
   [/[<>][A-Za-z][^>]*>/, "raw HTML in learner text"],
   [/\bundefined\b|\bNaN\b/, "invalid rendered value"],
 ];
