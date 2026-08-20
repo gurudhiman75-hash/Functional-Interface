@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /result
+Disallow: /test/
+Disallow: /test-series/
+Disallow: /login
+Disallow: /account-recovery
+Disallow: /account-deletion
+Disallow: /report-question
+Disallow: /packages
+Disallow: /my-packages
