@@ -53,10 +53,10 @@ async function installFixtures(page: Page) {
   });
 }
 
-function localMathChunks(page: Page) {
+function localMathProviderChunks(page: Page) {
   return page.evaluate(() => performance.getEntriesByType("resource")
     .map((entry) => entry.name)
-    .filter((name) => /\/assets\/mathjax-[^/]+\.js(?:\?|$)/.test(name)));
+    .filter((name) => /\/assets\/MathJaxRouteProvider-[^/]+\.js(?:\?|$)/.test(name)));
 }
 
 test.describe("CP05 route-scoped math runtime", () => {
@@ -65,7 +65,7 @@ test.describe("CP05 route-scoped math runtime", () => {
     await page.goto("/about");
     await expect(page.getByRole("heading", { name: "A serious mock-test platform for serious aspirants." })).toBeVisible();
     await page.waitForLoadState("networkidle");
-    expect(await localMathChunks(page)).toEqual([]);
+    expect(await localMathProviderChunks(page)).toEqual([]);
   });
 
   test("saved question review loads the isolated MathJax bundle on demand", async ({ page }) => {
@@ -74,7 +74,7 @@ test.describe("CP05 route-scoped math runtime", () => {
     await expect(page.getByRole("heading", { name: "Math Rendering Performance Test" })).toBeVisible();
     await expect(page.getByText("Solution review")).toBeVisible();
 
-    await expect.poll(async () => (await localMathChunks(page)).length).toBeGreaterThan(0);
+    await expect.poll(async () => (await localMathProviderChunks(page)).length).toBeGreaterThan(0);
     await expect(page.getByText(/what is/i).first()).toBeVisible();
   });
 });
