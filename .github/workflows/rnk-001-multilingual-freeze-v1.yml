@@ -1,0 +1,116 @@
+name: Validate RNK-001 Multilingual Freeze V1
+
+on:
+  push:
+    branches:
+      - freeze/rnk-001-multilingual-approved-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-multilingual-freeze-v1.yml'
+  pull_request:
+    branches:
+      - integration/rnk-001-approved-multilingual-v2
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-multilingual-freeze-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rnk-001-multilingual-freeze-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-multilingual-freeze-v1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove freeze authority and delivery locks
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-v1.test.ts
+
+      - name: Materialize exact approved multilingual overlay
+        run: |
+          bash artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-materialize-approved-locales-v1.sh
+          mkdir -p /tmp/rnk-001-multilingual-freeze-v1
+          git diff --cached --name-status > /tmp/rnk-001-multilingual-freeze-v1/APPROVED-OVERLAY-FILES.txt
+          test "$(wc -l < /tmp/rnk-001-multilingual-freeze-v1/APPROVED-OVERLAY-FILES.txt)" -eq 68
+          git diff --cached --binary > /tmp/rnk-001-multilingual-freeze-v1/APPROVED-OVERLAY.patch
+          sha256sum /tmp/rnk-001-multilingual-freeze-v1/APPROVED-OVERLAY.patch > /tmp/rnk-001-multilingual-freeze-v1/APPROVED-OVERLAY.patch.sha256
+
+      - name: Validate CP001 final approved native authority
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-localization-review-v4.test.ts
+
+      - name: Validate CP002 final approved native authority
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-localization-review-v2.test.ts
+
+      - name: Validate CP003 final approved native authority
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-localization-review-v4.test.ts
+
+      - name: Validate CP004 final approved native authority
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v6.test.ts
+
+      - name: Validate CP005 final approved native authority
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-v2-final.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-v3.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-gates.test.ts
+
+      - name: Validate CP006 final approved native authority
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-localization-review-v1.test.ts
+
+      - name: Validate CP007 final approved native and percentage authority
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-localization-review-v4.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-percentage-presentation-adapter-v2.test.ts
+
+      - name: Re-prove declutter and frozen English authority
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-readiness-audit-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-delivery-policy-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-banking-five-option-adapter-v1.test.ts
+
+      - name: Re-prove all 42 QLs through shared Question Studio review path
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-shared-question-studio.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+
+      - name: Record freeze evidence
+        run: |
+          cat > /tmp/rnk-001-multilingual-freeze-v1/FREEZE-EVIDENCE.txt <<'EOF'
+          RNK-001 multilingual freeze V1
+          Formal Hindi/Punjabi product approval: TRUE
+          Combined-tree proof PR: 938
+          Combined-tree proof head: 07ed844d248411ddd385ec0d620d56cb2692571f
+          Combined-tree proof run: 32327889203 SUCCESS
+          Combined-tree proof artifact: 9392687777
+          Combined-tree proof artifact digest: sha256:6c08bbbcf39dc1c2d61f587623cc653c6bb25e3724e24761c891deaf8dfd0c8e
+          Multilingual freeze: TRUE
+          Question Studio multilingual enabled: FALSE
+          Question Bank writable: FALSE
+          Test/mock eligible: FALSE
+          Public publication: FALSE
+          RNK-QL-043 allocated: FALSE
+          EOF
+
+      - name: Retain multilingual freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-multilingual-freeze-v1
+          path: /tmp/rnk-001-multilingual-freeze-v1/*
+          if-no-files-found: error
