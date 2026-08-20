@@ -1,27 +1,16 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Redirect, Route, Router as WouterRouter, Switch, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { MathJaxContext } from "better-react-mathjax";
 
 import { AppErrorBoundary } from "@/components/AppErrorBoundary";
 import { AppLayout } from "@/components/AppLayout";
 import { PublicLayout } from "@/components/PublicLayout";
+import { RouteMathBoundary } from "@/components/RouteMathBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { syncAuthSession } from "@/lib/auth";
 import { getUser } from "@/lib/storage";
 import { ExamCatalogProvider } from "@/providers/ExamCatalogProvider";
-
-const MATH_JAX_CONFIG = {
-  loader: { load: ["input/tex", "output/chtml", "[tex]/ams", "[tex]/boldsymbol"] },
-  tex: {
-    inlineMath: [["$", "$"], ["\\(", "\\)"]],
-    displayMath: [["$$", "$$"], ["\\[", "\\]"]],
-    processEscapes: true,
-    packages: { "[+]": ["ams", "boldsymbol"] },
-  },
-  options: { ignoreHtmlClass: "tex2jax_ignore", processHtmlClass: "math-only" },
-};
 
 const Home = lazy(() => import("@/pages/home"));
 const Login = lazy(() => import("@/pages/login"));
@@ -245,18 +234,18 @@ function App() {
 
   return (
     <AppErrorBoundary>
-      <MathJaxContext version={3} config={MATH_JAX_CONFIG}>
-        <QueryClientProvider client={queryClient}>
-          <ExamCatalogProvider>
-            <TooltipProvider>
-              <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+      <QueryClientProvider client={queryClient}>
+        <ExamCatalogProvider>
+          <TooltipProvider>
+            <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+              <RouteMathBoundary>
                 <Router />
-              </WouterRouter>
-              <Toaster />
-            </TooltipProvider>
-          </ExamCatalogProvider>
-        </QueryClientProvider>
-      </MathJaxContext>
+              </RouteMathBoundary>
+            </WouterRouter>
+            <Toaster />
+          </TooltipProvider>
+        </ExamCatalogProvider>
+      </QueryClientProvider>
     </AppErrorBoundary>
   );
 }
