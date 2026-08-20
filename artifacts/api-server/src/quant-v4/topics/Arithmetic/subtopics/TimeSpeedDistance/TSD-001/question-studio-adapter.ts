@@ -14,6 +14,7 @@ export const TSD_001_QUESTION_STUDIO_REVIEW_STATUS = "FROZEN_MULTILINGUAL_REVIEW
 export type Tsd001QuestionStudioLanguage = typeof TSD_001_QUESTION_STUDIO_LANGUAGES[number];
 export type Tsd001QuestionStudioDifficulty = "Easy" | "Medium" | "Hard";
 export type Tsd001QuestionStudioQlId = `TSD-QL-${string}`;
+type TsdCp005EnglishFrozenRow = (typeof TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q)[number];
 
 export interface Tsd001QuestionStudioRequest {
   packageId?: string;
@@ -66,6 +67,17 @@ function hash(value: string): number {
   return result >>> 0;
 }
 
+function toJsonSafe(value: unknown): unknown {
+  if (typeof value === "bigint") return value.toString();
+  if (Array.isArray(value)) return value.map(toJsonSafe);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>).map(([key, item]) => [key, toJsonSafe(item)]),
+    );
+  }
+  return value;
+}
+
 export function isTsd001QuestionStudioRequest(request: Tsd001QuestionStudioRequest): boolean {
   const packageId = normalizeSelector(request.packageId ?? request.archetypeId);
   const patternId = normalizeSelector(request.patternId);
@@ -84,10 +96,10 @@ export function isTsd001QuestionStudioRequest(request: Tsd001QuestionStudioReque
     || (topic === "arithmetic" && selectors.has(subtopic));
 }
 
-const ENGLISH_BY_QL = new Map<string, typeof TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q>();
+const ENGLISH_BY_QL = new Map<string, readonly TsdCp005EnglishFrozenRow[]>();
 for (const row of TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q) {
   const bucket = ENGLISH_BY_QL.get(row.permanentQlId) ?? [];
-  ENGLISH_BY_QL.set(row.permanentQlId, Object.freeze([...bucket, row]) as typeof TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q);
+  ENGLISH_BY_QL.set(row.permanentQlId, Object.freeze([...bucket, row]));
 }
 
 const QL_IDS = Object.freeze([...ENGLISH_BY_QL.keys()].sort()) as readonly Tsd001QuestionStudioQlId[];
@@ -154,6 +166,9 @@ function normalizeRow(row: any, language: Tsd001QuestionStudioLanguage, itemSeed
     ? source.validation.errors.map(String)
     : [];
   const validationOk = source.validation?.valid !== false && validationErrors.length === 0;
+  const safeSourceInput = Object.freeze(toJsonSafe(source.input) as Record<string, unknown>);
+  const safeSourceValidation = Object.freeze(toJsonSafe(source.validation) as Record<string, unknown>);
+  const safeRepresentation = toJsonSafe(source.representation);
   const traceability = Object.freeze({
     releaseId: "TSD-CP005-MULTILINGUAL-FROZEN-STUDIO-REVIEW-V1",
     englishFreezeId: TSD_CP005_ENGLISH_FREEZE_ID,
@@ -193,8 +208,8 @@ function normalizeRow(row: any, language: Tsd001QuestionStudioLanguage, itemSeed
     questionStudioReviewOnly: true as const,
     explanation: Object.freeze({ lines: explanationLines }),
     solveMode: source.solveMode,
-    representation: source.representation,
-    validation: Object.freeze({ ok: validationOk, valid: validationOk, errors: Object.freeze(validationErrors), source: source.validation }),
+    representation: safeRepresentation,
+    validation: Object.freeze({ ok: validationOk, valid: validationOk, errors: Object.freeze(validationErrors), source: safeSourceValidation }),
     traceability,
   });
 
@@ -255,8 +270,8 @@ function normalizeRow(row: any, language: Tsd001QuestionStudioLanguage, itemSeed
     canonicalProblemId: "TSD-CP-005",
     questionLanguageId: source.permanentQlId,
     explanationId: questionPackage.explanationId,
-    proceduralLogic: source.input,
-    logic: source.input,
+    proceduralLogic: safeSourceInput,
+    logic: safeSourceInput,
   });
 
   return Object.freeze({ questionPackage, question });
