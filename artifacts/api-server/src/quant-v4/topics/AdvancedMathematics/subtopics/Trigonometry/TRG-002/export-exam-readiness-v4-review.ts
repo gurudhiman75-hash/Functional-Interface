@@ -36,16 +36,25 @@ function stringify(value: unknown) {
 }
 
 const SUBSCRIPT_DIGITS: Record<string, string> = { "₀": "0", "₁": "1", "₂": "2", "₃": "3", "₄": "4", "₅": "5", "₆": "6", "₇": "7", "₈": "8", "₉": "9" };
+const SUPERSCRIPT_DIGITS: Record<string, string> = { "²": "2", "³": "3" };
 const UNICODE_WORD = String.raw`[\p{L}\p{M}]+(?:[-‑][\p{L}\p{M}]+)*`;
 const WORD_PHRASE = String.raw`${UNICODE_WORD}(?:\s+${UNICODE_WORD}){0,1}`;
-const MATH_TOKEN = String.raw`(?:\b(?:tan|sin|cos|cot|sec|cosec)\s*(?:θ|\d+(?:\.\d+)?°?)|(?:horizontal|vertical)\s+(?:distance|run|drop)|[A-Za-z][A-Za-z₀-₉]*|\d+(?:\.\d+)?(?:√\d+)?|[A-Za-z]√\d+|√\d+|${WORD_PHRASE}|\([^()]{1,32}\))`;
-const MATH_EXPR = new RegExp(String.raw`${MATH_TOKEN}(?:\s*(?:=|\+|−|-|×|·|\/|⇒)\s*${MATH_TOKEN})+(?:\s*m)?|\b(?:tan|sin|cos|cot|sec|cosec)\s*(?:θ|\d+(?:\.\d+)?°?)|(?:-?\d+(?:\.\d+)?\s*(?:\+|−|-)\s*)?\d*√\d+(?:\/\d+)?(?:\s*m)?|\b\d+(?:\.\d+)?°`, "gu");
-const MATH_SIGNAL = /(?:[=√×⇒]|\b(?:tan|sin|cos|cot|sec|cosec)\s*(?:θ|\d)|\d+(?:\.\d+)?°)/u;
+const TRIG = String.raw`(?:tan|sin|cos|cot|sec|cosec)\s*(?:θ|\d+(?:\.\d+)?°?)`;
+const VARIABLE = String.raw`[A-Za-z][A-Za-z₀-₉²³]*`;
+const NUMBER = String.raw`[-−]?\d+(?:\.\d+)?(?:√\d+)?(?:[²³]+)?°?`;
+const PAREN = String.raw`\([^()]{1,40}\)`;
+const BRACKET_PRODUCT = String.raw`\[(?:\([^()]{1,40}\)){1,4}\]`;
+const IMPLICIT_TRIG_PRODUCT = String.raw`${VARIABLE}\s*${TRIG}`;
+const IMPLICIT_PAREN_PRODUCT = String.raw`${NUMBER}\s*${PAREN}`;
+const MATH_TOKEN = String.raw`(?:${IMPLICIT_TRIG_PRODUCT}|${IMPLICIT_PAREN_PRODUCT}|${TRIG}|${BRACKET_PRODUCT}|(?:horizontal|vertical)\s+(?:distance|run|drop)|${VARIABLE}|${NUMBER}|√\d+|${WORD_PHRASE}|${PAREN})`;
+const MATH_EXPR = new RegExp(String.raw`${MATH_TOKEN}(?:\s*(?:=|\+|−|-|×|·|\/|⇒)\s*${MATH_TOKEN})+(?:\s*m)?|${TRIG}|(?:-?\d+(?:\.\d+)?\s*(?:\+|−|-)\s*)?\d*√\d+(?:\/\d+)?(?:\s*m)?|\b\d+(?:\.\d+)?°`, "gu");
+const MATH_SIGNAL = /(?:[=√×⇒]|\b(?:tan|sin|cos|cot|sec|cosec)\s*(?:θ|\d)|\d+(?:\.\d+)?°|[A-Za-z0-9][²³])/u;
 const unformattedMathFragments: string[] = [];
 
 function toTex(value: unknown) {
   let text = String(value ?? "").trim();
   text = text.replace(/[₀₁₂₃₄₅₆₇₈₉]+/g, (digits) => `_{${Array.from(digits).map((digit) => SUBSCRIPT_DIGITS[digit] ?? digit).join("")}}`);
+  text = text.replace(/([A-Za-z0-9])([²³]+)/g, (_match, base, digits) => `${base}^{${Array.from(String(digits)).map((digit) => SUPERSCRIPT_DIGITS[digit] ?? digit).join("")}}`);
   text = text.replace(/√\s*\(([^()]+)\)/g, "\\sqrt{$1}");
   text = text.replace(/√\s*([A-Za-z0-9.]+)/g, "\\sqrt{$1}");
   text = text.replace(/\b(tan|sin|cos|cot|sec|cosec)\s*/g, "\\$1 ");
@@ -65,7 +74,7 @@ function mathMlRow(value: unknown): string {
   const raw = String(value ?? "");
   let i = 0;
   let out = "";
-  const operators = new Set(["=", "+", "−", "-", "×", "·", "/", "⇒", "(", ")", ","]);
+  const operators = new Set(["=", "+", "−", "-", "×", "·", "/", "⇒", "(", ")", "[", "]", ","]);
   const trig = ["cosec", "sin", "cos", "tan", "cot", "sec"];
 
   while (i < raw.length) {
@@ -109,11 +118,22 @@ function mathMlRow(value: unknown): string {
       continue;
     }
 
-    const number = rest.match(/^\d+(?:\.\d+)?/);
-    if (number) {
-      const degree = raw[i + number[0].length] === "°";
-      out += degree ? `<msup><mn>${number[0]}</mn><mo>°</mo></msup>` : `<mn>${number[0]}</mn>`;
-      i += number[0].length + (degree ? 1 : 0);
+    const signedNumber = rest.match(/^([−-]?)(\d+(?:\.\d+)?)/);
+    if (signedNumber) {
+      if (signedNumber[1]) out += `<mo>${signedNumber[1] === "−" ? "−" : "-"}</mo>`;
+      const base = signedNumber[2]!;
+      i += signedNumber[0].length;
+      const superscripts = raw.slice(i).match(/^[²³]+/);
+      if (superscripts) {
+        const exponent = Array.from(superscripts[0]).map((digit) => SUPERSCRIPT_DIGITS[digit] ?? digit).join("");
+        out += `<msup><mn>${base}</mn><mn>${exponent}</mn></msup>`;
+        i += superscripts[0].length;
+      } else if (raw[i] === "°") {
+        out += `<msup><mn>${base}</mn><mo>°</mo></msup>`;
+        i++;
+      } else {
+        out += `<mn>${base}</mn>`;
+      }
       continue;
     }
 
@@ -122,6 +142,14 @@ function mathMlRow(value: unknown): string {
       const subscript = Array.from(variableWithSubscript[2]).map((digit) => SUBSCRIPT_DIGITS[digit] ?? digit).join("");
       out += `<msub><mi>${esc(variableWithSubscript[1])}</mi><mn>${subscript}</mn></msub>`;
       i += variableWithSubscript[0].length;
+      continue;
+    }
+
+    const variableWithSuperscript = rest.match(/^([A-Za-z])([²³]+)/);
+    if (variableWithSuperscript) {
+      const exponent = Array.from(variableWithSuperscript[2]).map((digit) => SUPERSCRIPT_DIGITS[digit] ?? digit).join("");
+      out += `<msup><mi>${esc(variableWithSuperscript[1])}</mi><mn>${exponent}</mn></msup>`;
+      i += variableWithSuperscript[0].length;
       continue;
     }
 
