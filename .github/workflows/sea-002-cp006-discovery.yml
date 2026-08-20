@@ -1,0 +1,29 @@
+name: Validate SEA-002 CP006 discovery
+
+on:
+  push:
+    branches:
+      - feat/sea-002-cp006-discovery
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/**
+      - .github/workflows/sea-002-cp006-discovery.yml
+  pull_request:
+    branches:
+      - feat/sea-001-structural-realness-hardening
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cp006-discovery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prove CP006 topology, generators, solver/oracle and lifecycle locks
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-discovery-proof.test.ts
