@@ -88,4 +88,18 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
   assert(learner.includes("16.5−1.5=15"), `QL076:${locale}: eye-height correction must use 16.5−1.5=15.`);
 }
 
-console.log(`TRG002_V4_SEMANTIC_PARITY_PASS remediated=${TRG_002_V4_STRICT_SEMANTIC_PARITY_IDS.length} locales=2 exactness=7 entityChecks=5 loadBearingGeometry=9 factualCorruptions=2`);
+// All learner-facing numeric facts in strict stems must remain stable across seeds.
+for (const qlId of TRG_002_V4_STRICT_SEMANTIC_PARITY_IDS) {
+  for (const locale of ["hi-IN", "pa-IN"] as const) {
+    const stems = new Set(
+      Array.from({ length: 12 }, (_, index) => generateTrg002V4CandidateQuestion(
+        qlId,
+        `trg002-v4-semantic-stability-${index + 1}`,
+        locale,
+      ).stem),
+    );
+    assert.equal(stems.size, 1, `${qlId}:${locale}: strict semantic-authority stem must not drift across generated seeds.`);
+  }
+}
+
+console.log(`TRG002_V4_SEMANTIC_PARITY_PASS remediated=${TRG_002_V4_STRICT_SEMANTIC_PARITY_IDS.length} locales=2 exactness=7 entityChecks=5 loadBearingGeometry=9 factualCorruptions=2 seedStableCases=${TRG_002_V4_STRICT_SEMANTIC_PARITY_IDS.length * 12 * 2}`);
