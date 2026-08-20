@@ -2,7 +2,6 @@ import {
   absRational,
   add,
   divide,
-  floorRational,
   modulo,
   multiply,
   rational,
@@ -172,22 +171,51 @@ function countOptions(row: TsdCp006EnglishReviewQuestionV1): string[] {
   const raw = row.authorityKey === "distinctCircularMeetingPointCount"
     ? [c, 1, c + 1, Math.max(0, c - 1), c * 2]
     : [c, Math.max(0, c - 1), c + 1, c + 2];
-  return [...new Set(raw.map(String))].slice(0, 4);
+  return [...new Set(raw.map(String))];
 }
 
 function makeOptions(row: TsdCp006EnglishReviewQuestionV1): { options: readonly string[]; correctIndex: number; answerText: string } {
   const answerText = formatAnswer(row.solution);
-  let raw: string[];
-  if (row.solution.answerKind === "LIST") raw = listOptions(row);
-  else if (row.solution.answerKind === "COUNT") raw = countOptions(row);
-  else raw = distinctRationals(rationalCandidates(row)).map((value) => formatValue(value, row.solution));
-  if (!raw.includes(answerText)) raw.unshift(answerText);
-  for (let delta = 1; raw.length < 4; delta += 1) {
-    if (row.solution.answerKind === "COUNT") raw.push(String(row.solution.count! + delta));
-    else if (row.solution.value) raw.push(formatValue(add(row.solution.value, rational(3 + delta)), row.solution));
+  let authorityCandidates: string[];
+  if (row.solution.answerKind === "LIST") authorityCandidates = listOptions(row);
+  else if (row.solution.answerKind === "COUNT") authorityCandidates = countOptions(row);
+  else authorityCandidates = distinctRationals(rationalCandidates(row)).map((value) => formatValue(value, row.solution));
+
+  const unique: string[] = [];
+  const seen = new Set<string>();
+  const addOption = (candidate: string) => {
+    if (!candidate || seen.has(candidate)) return;
+    seen.add(candidate);
+    unique.push(candidate);
+  };
+
+  // Keep the exact answer first in the unshuffled pool, then preserve the strongest authority-specific misconceptions.
+  addOption(answerText);
+  for (const candidate of authorityCandidates) addOption(candidate);
+
+  // Some mathematically meaningful misconceptions coincide for special ratios. Fill only after exhausting those,
+  // and keep filling until the rendered option strings themselves are genuinely unique.
+  for (let delta = 1; unique.length < 4 && delta <= 64; delta += 1) {
+    if (row.solution.answerKind === "COUNT") {
+      const c = row.solution.count!;
+      addOption(String(c + delta));
+      if (c - delta >= 0) addOption(String(c - delta));
+      continue;
+    }
+    if (row.solution.answerKind === "LIST" && row.solution.values) {
+      const shifted = row.solution.values.map((value) => add(value, rational(delta)));
+      addOption(shifted.map((value, index) => `${["AB", "AC", "BC"][index] ?? index + 1} = ${formatValue(value, row.solution)}`).join(", "));
+      continue;
+    }
+    if (row.solution.value) {
+      addOption(formatValue(add(row.solution.value, rational(delta)), row.solution));
+      const lower = subtract(row.solution.value, rational(delta));
+      if (lower.numerator >= 0n) addOption(formatValue(lower, row.solution));
+    }
   }
-  raw = [...new Set(raw)].slice(0, 4);
-  if (raw.length !== 4) throw new Error(`${row.permanentQlId}/${row.seed}: V2 could not create four unique distractors`);
+
+  if (unique.length < 4) throw new Error(`${row.permanentQlId}/${row.seed}: V2 could not create four unique rendered options`);
+  const raw = unique.slice(0, 4);
   const order = [0, 1, 2, 3];
   let state = hash(`${row.seed}:v2-options`) || 1;
   for (let i = 3; i > 0; i -= 1) {
