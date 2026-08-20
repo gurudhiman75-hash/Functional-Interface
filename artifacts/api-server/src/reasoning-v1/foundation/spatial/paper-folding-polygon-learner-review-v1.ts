@@ -175,12 +175,12 @@ function makeForwardOptions(scenario: PfcTriangleScenarioV1, index: number): { o
   const correctMarks = solution.mappedCuts;
   const single = [correctMarks[0]];
   const wrongAxis = correctMarks.map((mark) => rotateMark(mark, 120));
-  const falseFour = [...correctMarks, ...wrongAxis];
+  const falseThree = [correctMarks[0], rotateMark(correctMarks[0], 120), rotateMark(correctMarks[0], 240)];
   const variants = [
     { semantic: "FORGOT_TO_UNFOLD", marks: single },
     { semantic: "CORRECT_TWO_LAYER_REFLECTION", marks: correctMarks },
     { semantic: "WRONG_SYMMETRY_AXIS", marks: wrongAxis },
-    { semantic: "FALSE_FOUR_LAYER_PATTERN", marks: falseFour },
+    { semantic: "FALSE_THREE_WAY_PATTERN", marks: falseThree },
   ];
   const correctSlot = [1, 3, 0, 2, 1, 0, 3, 2][index];
   const ordered = Array.from({ length: 4 }, (_, slot) => variants[(slot - correctSlot + 1 + 4) % 4]);
