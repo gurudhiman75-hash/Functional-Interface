@@ -68,8 +68,16 @@ test.describe("CP03 public SEO metadata", () => {
   });
 
   test("account utility metadata is explicitly noindex and strips next parameters", async ({ page }) => {
+    // The reliability build supplies a synthetic Firebase currentUser. Keep the
+    // profile lookup pending so this test measures the signed-out login route
+    // instead of being auto-redirected to Dashboard by the auth listener.
+    await page.route("**/api/users/me", async () => {
+      await new Promise<void>(() => {});
+    });
+
     await page.goto("/login/student?next=%2Fdashboard");
-    await expect(page.locator("main#main-content")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Welcome to examtree" })).toBeVisible();
+    expect(new URL(page.url()).pathname).toBe("/login/student");
     const meta = await metadata(page);
     const origin = new URL(page.url()).origin;
     expect(meta.robots).toBe("noindex,follow");
