@@ -1,0 +1,75 @@
+name: Validate INT-CP-008 English Review V1
+
+on:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-instalment-english-v1.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v1-audit.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v1-review-export.ts'
+      - '.github/workflows/int-cp008-english-v1-review.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: int-cp008-english-v1-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp008-english-v1-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Rerun CP008 permanent allocation audit
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-permanent-allocation-v1-audit.ts > int-cp008-permanent-allocation-regression.log
+
+      - name: Run CP008 English V1 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v1-audit.ts | tee int-cp008-english-v1.log
+
+      - name: Verify English V1 marker
+        run: grep -q 'PASS_INT_CP008_ENGLISH_V1_AUDIT' int-cp008-english-v1.log
+
+      - name: Export English V1 manual review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v1-review-export.ts > INT-CP-008-ENGLISH-V1-REVIEW.md
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact validation head
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-cp008-english-v1-head.log
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+
+      - name: Upload CP008 English V1 review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp008-english-v1-review
+          path: |
+            int-cp008-permanent-allocation-regression.log
+            int-cp008-english-v1.log
+            int-cp008-english-v1-head.log
+            INT-CP-008-ENGLISH-V1-REVIEW.md
+          retention-days: 30
