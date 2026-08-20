@@ -76,6 +76,15 @@ function compactStringExplanation(value: string, answer?: string): string {
   return uniqueLines(lines).join("\n").trim() || cleanWhitespace(value);
 }
 
+function isConclusionEquivalent(value: string, conclusion: string): boolean {
+  if (!conclusion) return false;
+  const line = normalizedForComparison(value);
+  const finalLine = normalizedForComparison(conclusion)
+    .replace(/^(?:therefore|hence|thus|so)/u, "");
+  if (!line || !finalLine) return false;
+  return line === finalLine || line === normalizedForComparison(conclusion);
+}
+
 function objectExplanation(
   record: Record<string, unknown>,
   qlId: string,
@@ -90,13 +99,17 @@ function objectExplanation(
   const keyRule = typeof record.keyRule === "string"
     ? stripPresentationPrefix(record.keyRule)
     : "";
+  const conclusion = typeof record.conclusion === "string"
+    ? stripPresentationPrefix(record.conclusion)
+    : "";
   const steps = [
     ...arrayOfStrings(record.steps),
     ...arrayOfStrings(record.stepByStepSolution),
   ]
     .map(stripPresentationPrefix)
     .filter(Boolean)
-    .filter((line) => !isTrivialConclusion(line, answer));
+    .filter((line) => !isTrivialConclusion(line, answer))
+    .filter((line) => !isConclusionEquivalent(line, conclusion));
 
   const shortcut = typeof record.examSpeedShortcut === "string"
     ? stripPresentationPrefix(record.examSpeedShortcut)
@@ -108,13 +121,14 @@ function objectExplanation(
 
   const core: string[] = [];
   if (mentalPicture && !simplePresentation) core.push(mentalPicture);
-  if (keyRule) core.push(keyRule);
+  if (keyRule && !isConclusionEquivalent(keyRule, conclusion)) core.push(keyRule);
   core.push(...steps);
 
   if (simplePresentation) {
     // Basic ranking questions already show the answer separately. Their old learner
-    // surface repeated the same calculation in shortcut, every option analysis line,
-    // and conclusion. Keep only the rule and the actual worked calculation/givens.
+    // surface repeated the same calculation in shortcut, option analysis and conclusion.
+    // Keep the rule and actual working, but drop any step that is merely the source
+    // conclusion repeated without a "Therefore" prefix.
     return uniqueLines(core).join("\n").trim();
   }
 
