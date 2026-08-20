@@ -61,15 +61,16 @@ test.describe("CP02 public and app shell split", () => {
     await menuButton.click();
     const closeButton = page.getByRole("button", { name: "Close navigation menu" });
     await expect(closeButton).toHaveAttribute("aria-expanded", "true");
-    await expect(page.getByRole("navigation", { name: "Mobile primary navigation" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Sign in" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Browse tests" })).toBeVisible();
+    const mobileNavigation = page.getByRole("navigation", { name: "Mobile primary navigation" });
+    await expect(mobileNavigation).toBeVisible();
+    await expect(mobileNavigation.getByRole("link", { name: "Sign in" })).toBeVisible();
+    await expect(mobileNavigation.getByRole("link", { name: "Browse tests", exact: true })).toBeVisible();
 
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);
 
     await page.keyboard.press("Escape");
     await expect(page.getByRole("button", { name: "Open navigation menu" })).toHaveAttribute("aria-expanded", "false");
-    await expect(page.getByRole("navigation", { name: "Mobile primary navigation" })).toBeHidden();
+    await expect(mobileNavigation).toBeHidden();
   });
 });

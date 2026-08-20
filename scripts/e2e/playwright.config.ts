@@ -28,11 +28,12 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
+      testIgnore: /student-timer-mobile-hardening\.spec\.ts/,
       use: { ...devices["Desktop Chrome"] },
     },
     {
       name: "mobile-chromium",
-      testMatch: /student-production-hardening\.spec\.ts/,
+      testMatch: /student-(production|timer-mobile)-hardening\.spec\.ts/,
       use: { ...devices["Pixel 5"] },
     },
   ],

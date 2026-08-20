@@ -1,0 +1,44 @@
+/* Focused small-screen hardening for the full-screen student test runner. */
+@media (max-width: 639px) {
+  header.sticky.top-0.bg-blue-600 > div:first-child {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: 0.5rem;
+    padding-block: 0.625rem;
+  }
+
+  header.sticky.top-0.bg-blue-600 > div:first-child > h1 {
+    min-width: 0;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    overflow-wrap: anywhere;
+  }
+
+  header.sticky.top-0.bg-blue-600 > div:first-child > div:last-child {
+    width: 100%;
+    min-width: 0;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  header.sticky.top-0.bg-blue-600 > div:first-child > div:last-child > div:first-child {
+    min-width: 0;
+    white-space: nowrap;
+    font-size: 0.75rem;
+  }
+
+  header.sticky.top-0.bg-blue-600 > div:first-child button {
+    min-height: 2.25rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  header.sticky.top-0.bg-blue-600 + main {
+    padding-bottom: 5.5rem;
+  }
+
+  header.sticky.top-0.bg-blue-600 + main + div.fixed.bottom-0 {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+}

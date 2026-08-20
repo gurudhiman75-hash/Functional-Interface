@@ -1,0 +1,50 @@
+name: Validate NUM-CP-008 Question Studio integration
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/**"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
+      - ".github/workflows/num-cp008-question-studio-integration-v1.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-num-cp008-question-studio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP008 Question Studio integration proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp008-question-studio-integration.mjs
+
+      - name: Run CP008 Question Studio integration proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp008-question-studio-integration.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp008-question-studio-integration.log
+
+      - name: Upload CP008 Question Studio evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp008-question-studio-integration-v1
+          path: artifacts/api-server/dist/quant-v4/num-cp008-question-studio-integration.log
+          retention-days: 30
