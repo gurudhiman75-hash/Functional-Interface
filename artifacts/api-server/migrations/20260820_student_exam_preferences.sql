@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS identity.student_exam_preferences (
-  user_id UUID NOT NULL REFERENCES identity.users(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES identity.student_profiles(user_id) ON DELETE CASCADE,
   exam_id UUID NOT NULL REFERENCES catalog.exams(id) ON DELETE CASCADE,
   position SMALLINT NOT NULL CHECK (position >= 0 AND position < 12),
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
