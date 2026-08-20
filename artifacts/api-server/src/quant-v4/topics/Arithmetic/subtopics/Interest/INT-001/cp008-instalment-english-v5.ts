@@ -48,7 +48,12 @@ function normalizeTinyFinanceWording(prompt: string): string {
     .replace(
       /^An instalment contract finances (₹[\d,]+(?:\.\d+)?) for /u,
       "An instalment schedule begins with an outstanding balance of $1 for ",
-    );
+    )
+    .replace(/\bfinanced balance\b/gu, "outstanding balance")
+    .replace(/\bfinanced purchase\b/gu, "instalment account")
+    .replace(/\bfinance offers\b/gu, "repayment plans")
+    .replace(/\bfinances (₹[\d,]+(?:\.\d+)?)/gu, "begins with an outstanding balance of $1")
+    .replace(/^A customer /u, "A borrower ");
 }
 
 function hasTinyFinanceWording(prompt: string): boolean {
@@ -68,7 +73,7 @@ export function generateIntCp008EnglishQuestion(
   const tinyFinanceRemoved = source.presentation.contextClass === "GENERIC_SCHEDULE"
     || !hasTinyFinanceWording(prompt);
   const contextClass = tinyFinanceRemoved && prompt !== source.presentation.prompt
-    && /outstanding balance|initial payment/iu.test(prompt)
+    && /outstanding balance|initial payment|repayment plan|instalment account/iu.test(prompt)
     ? "GENERIC_SCHEDULE" as const
     : source.presentation.contextClass;
 
