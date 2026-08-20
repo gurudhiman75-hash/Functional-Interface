@@ -73,6 +73,7 @@ export function finalizeGapWave5Question(input: Readonly<{
   minimalityProof: ClueMinimalityProof;
   independentVerifierResult: GapWave5VerifierResult;
   diagramModel: GeoDiagramModel;
+  solutionDiagramModel: GeoDiagramModel;
 }>): GapWave5Question {
   const answer = input.options[input.correctIndex];
   const errors: string[] = [];
@@ -83,12 +84,17 @@ export function finalizeGapWave5Question(input: Readonly<{
   if (!input.independentVerifierResult.passed) errors.push("INDEPENDENT_VERIFIER_FAILED");
   if (input.sourceEvidenceIds.length === 0) errors.push("SOURCE_EVIDENCE_MISSING");
   if (input.diagramModel.disclosure !== "STEM") errors.push("STEM_DIAGRAM_DISCLOSURE_INVALID");
-  if (!input.diagramModel.notToScale) errors.push("GEOMETRY_NOT_TO_SCALE_REQUIRED");
+  if (input.solutionDiagramModel.disclosure !== "SOLUTION") errors.push("SOLUTION_DIAGRAM_DISCLOSURE_INVALID");
+  if (!input.diagramModel.notToScale || !input.solutionDiagramModel.notToScale) errors.push("GEOMETRY_NOT_TO_SCALE_REQUIRED");
 
   const stemSvg = renderGeometrySvg(input.diagramModel);
-  if (!stemSvg.includes('data-geometry-renderer="EXAMTREE_GEOMETRY_SVG_V2"')) errors.push("RENDERER_V2_REQUIRED");
-  if (extractSvgLabelCollisionScores(stemSvg).some((score) => score > 0)) errors.push("DIAGRAM_LABEL_COLLISION");
+  const solutionSvg = renderGeometrySvg(input.solutionDiagramModel);
+  if (!stemSvg.includes('data-geometry-renderer="EXAMTREE_GEOMETRY_SVG_V2"')) errors.push("STEM_RENDERER_V2_REQUIRED");
+  if (!solutionSvg.includes('data-geometry-renderer="EXAMTREE_GEOMETRY_SVG_V2"')) errors.push("SOLUTION_RENDERER_V2_REQUIRED");
+  if (extractSvgLabelCollisionScores(stemSvg).some((score) => score > 0)) errors.push("STEM_DIAGRAM_LABEL_COLLISION");
+  if (extractSvgLabelCollisionScores(solutionSvg).some((score) => score > 0)) errors.push("SOLUTION_DIAGRAM_LABEL_COLLISION");
   const diagramFingerprint = diagramSemanticFingerprint(input.diagramModel);
+  const solutionDiagramFingerprint = diagramSemanticFingerprint(input.solutionDiagramModel);
 
   return Object.freeze({
     packageId: "GEO-002",
@@ -113,9 +119,11 @@ export function finalizeGapWave5Question(input: Readonly<{
     displayedClueIds: Object.freeze([...input.displayedClueIds]),
     minimalityProof: input.minimalityProof,
     independentVerifierResult: input.independentVerifierResult,
-    diagramDisposition: "REQUIRED_STEM_DIAGRAM",
+    diagramDisposition: "REQUIRED_BOTH",
     diagramModel: input.diagramModel,
     stemSvg,
+    solutionDiagramModel: input.solutionDiagramModel,
+    solutionSvg,
     canonicalGeometryFingerprint: fingerprint([
       "GEO-CP-014",
       input.temporaryPrototypeId,
@@ -125,8 +133,10 @@ export function finalizeGapWave5Question(input: Readonly<{
       answer,
       input.theoremTrace.join(","),
       diagramFingerprint,
+      solutionDiagramFingerprint,
     ]),
     diagramFingerprint,
+    solutionDiagramFingerprint,
     validation: Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors) }),
     lifecycle: Object.freeze({
       stage: "DISCOVERY",

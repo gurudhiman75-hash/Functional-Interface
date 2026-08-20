@@ -23,7 +23,7 @@ function variantIndex(seed: string, count: number): number {
   return hash % count;
 }
 
-function parallelogramExtensionDiagram(): GeoDiagramModel {
+function parallelogramExtensionStemDiagram(): GeoDiagramModel {
   return {
     points: [
       { id: "M", label: "M", x: 30, y: 150, labelPosition: "SW" },
@@ -41,19 +41,65 @@ function parallelogramExtensionDiagram(): GeoDiagramModel {
       { id: "NQ", fromPointId: "N", toPointId: "Q" },
       { id: "PQ", fromPointId: "P", toPointId: "Q" },
     ],
-    circles: [],
-    angleMarks: [],
-    rightAngleMarks: [],
+    circles: [], angleMarks: [], rightAngleMarks: [],
     equalLengthMarks: [{ id: "given-mn-nq", segmentIds: ["MN", "NQ"] }],
-    parallelMarks: [],
-    arcs: [],
-    labels: [],
-    disclosure: "STEM",
-    notToScale: true,
+    parallelMarks: [], arcs: [], labels: [], disclosure: "STEM", notToScale: true,
   };
 }
 
-function equalParallelDiagonalDiagram(): GeoDiagramModel {
+function parallelogramExtensionSolutionDiagram(on: number, answer: number): GeoDiagramModel {
+  return {
+    points: [
+      { id: "M", label: "M", x: 30, y: 150, labelPosition: "SW" },
+      { id: "N", label: "N", x: 90, y: 150, labelPosition: "S" },
+      { id: "O", label: "O", x: 135, y: 75, labelPosition: "NE" },
+      { id: "P", label: "P", x: 75, y: 75, labelPosition: "NW" },
+      { id: "Q", label: "Q", x: 150, y: 150, labelPosition: "SE" },
+      { id: "R", label: "R", x: 112.5, y: 112.5, labelPosition: "E" },
+    ],
+    segments: [
+      { id: "MN", fromPointId: "M", toPointId: "N" },
+      { id: "OR", fromPointId: "O", toPointId: "R" },
+      { id: "RN", fromPointId: "R", toPointId: "N" },
+      { id: "OP", fromPointId: "O", toPointId: "P" },
+      { id: "PM", fromPointId: "P", toPointId: "M" },
+      { id: "NQ", fromPointId: "N", toPointId: "Q" },
+      { id: "PQ", fromPointId: "P", toPointId: "Q" },
+    ],
+    circles: [], angleMarks: [], rightAngleMarks: [],
+    equalLengthMarks: [{ id: "derived-or-rn", segmentIds: ["OR", "RN"] }],
+    parallelMarks: [{ id: "derived-op-parallel-mn", segmentIds: ["OP", "MN"] }],
+    arcs: [],
+    labels: [
+      { id: "given-on-dimension", text: `ON = ${on} cm`, x: 182, y: 48 },
+      { id: "derived-halves-dimension", text: `OR = RN = ${answer} cm`, x: 95, y: 190 },
+    ],
+    disclosure: "SOLUTION", notToScale: true,
+  };
+}
+
+function equalParallelDiagonalStemDiagram(): GeoDiagramModel {
+  return {
+    points: [
+      { id: "A", label: "A", x: 30, y: 145, labelPosition: "SW" },
+      { id: "B", label: "B", x: 95, y: 145, labelPosition: "SE" },
+      { id: "C", label: "C", x: 140, y: 70, labelPosition: "NE" },
+      { id: "D", label: "D", x: 75, y: 70, labelPosition: "NW" },
+    ],
+    segments: [
+      { id: "AB", fromPointId: "A", toPointId: "B" },
+      { id: "BC", fromPointId: "B", toPointId: "C" },
+      { id: "CD", fromPointId: "C", toPointId: "D" },
+      { id: "DA", fromPointId: "D", toPointId: "A" },
+      { id: "AC", fromPointId: "A", toPointId: "C", style: "CONSTRUCTION" },
+    ],
+    circles: [], angleMarks: [], rightAngleMarks: [], equalLengthMarks: [],
+    parallelMarks: [{ id: "given-ab-parallel-cd", segmentIds: ["AB", "CD"] }],
+    arcs: [], labels: [], disclosure: "STEM", notToScale: true,
+  };
+}
+
+function equalParallelDiagonalSolutionDiagram(ad: number): GeoDiagramModel {
   return {
     points: [
       { id: "A", label: "A", x: 30, y: 145, labelPosition: "SW" },
@@ -69,14 +115,19 @@ function equalParallelDiagonalDiagram(): GeoDiagramModel {
       { id: "AC", fromPointId: "A", toPointId: "C", style: "CONSTRUCTION" },
     ],
     circles: [],
-    angleMarks: [],
-    rightAngleMarks: [],
-    equalLengthMarks: [],
+    angleMarks: [
+      { id: "derived-angle-bac", firstPointId: "B", vertexPointId: "A", secondPointId: "C", radius: 17 },
+      { id: "derived-angle-dca", firstPointId: "D", vertexPointId: "C", secondPointId: "A", radius: 17 },
+    ],
+    rightAngleMarks: [], equalLengthMarks: [],
     parallelMarks: [{ id: "given-ab-parallel-cd", segmentIds: ["AB", "CD"] }],
     arcs: [],
-    labels: [],
-    disclosure: "STEM",
-    notToScale: true,
+    labels: [
+      { id: "given-ab-cd-equality", text: "AB = CD", x: 85, y: 35 },
+      { id: "given-ad-dimension", text: `AD = ${ad} cm`, x: -35, y: 108 },
+      { id: "derived-bc-dimension", text: `BC = ${ad} cm`, x: 205, y: 108 },
+    ],
+    disclosure: "SOLUTION", notToScale: true,
   };
 }
 
@@ -95,13 +146,11 @@ function generateParallelogramExtensionMidpoint(seed: string): GapWave5Question 
   const variant = variants[variantIndex(seed, variants.length)];
   const expected = `${variant.answer} cm`;
   const clueIds = ["MNOP_IS_PARALLELOGRAM", "MN_EQUALS_NQ", "PQ_INTERSECTS_ON_AT_R", "ON_LENGTH_GIVEN", "TARGET_OR"] as const;
-  const solve = (active: ReadonlySet<string>): string | null => {
-    if (!clueIds.every((clue) => active.has(clue))) return null;
-    return `${variant.on / 2} cm`;
-  };
+  const solve = (active: ReadonlySet<string>): string | null => clueIds.every((clue) => active.has(clue)) ? `${variant.on / 2} cm` : null;
   if (solve(new Set(clueIds)) !== expected) throw new Error("Wave 5 parallelogram-extension fixture mismatch");
 
-  const model = parallelogramExtensionDiagram();
+  const model = parallelogramExtensionStemDiagram();
+  const solutionModel = parallelogramExtensionSolutionDiagram(variant.on, variant.answer);
   const M = point(model, "M"); const N = point(model, "N"); const O = point(model, "O");
   const P = point(model, "P"); const Q = point(model, "Q"); const R = point(model, "R");
   const visualPassed = approximate(pointDistance(M, N), pointDistance(N, Q))
@@ -121,25 +170,17 @@ function generateParallelogramExtensionMidpoint(seed: string): GapWave5Question 
     temporaryPrototypeId: "GEO-TMP-GAP-W5-CP014-PARALLELOGRAM-EXTENSION-MIDPOINT-V1",
     sourceGapId: "GEO-CP-014/CONGRUENCE_PLUS_PARALLEL_SYNTHESIS",
     sourceEvidenceIds: ["SRC-TESTBOOK-CGL-PARALLELOGRAM-EXTENSION-CONGRUENCE-PYQ-2024"],
-    solveMode: "parallelAnglesToAsaCongruenceToMidpointLength",
-    seed,
-    stem: variant.stem,
-    ...optionSet,
+    solveMode: "parallelAnglesToAsaCongruenceToMidpointLength", seed, stem: variant.stem, ...optionSet,
     explanation: buildExplanation(theoremTrace, [
       "Since MNOP is a parallelogram, OP is parallel to MN and OP = MN. Given MN = NQ, we also have OP = NQ.",
       "Because OP is parallel to NQ, the two transversals through R give two equal angle pairs. Thus triangles POR and QNR are congruent by ASA.",
       `By corresponding parts of congruent triangles, OR = RN. Hence R is the midpoint of ON, so OR = ${variant.on}/2 = ${variant.answer} cm.`,
     ]),
-    theoremTrace,
-    displayedClueIds: clueIds,
-    minimalityProof: proveClueMinimality(clueIds, solve, expected),
+    theoremTrace, displayedClueIds: clueIds, minimalityProof: proveClueMinimality(clueIds, solve, expected),
     independentVerifierResult: wave5Verifier("HIGH_PRECISION_COORDINATE", visualPassed, [
-      "MN and OP are parallel in the learner topology",
-      "MN and NQ are drawn with equal length as stated",
-      "R lies on both PQ and ON",
-      "the coordinate construction independently places R at the midpoint of ON",
+      "MN and OP are parallel in the learner topology", "MN and NQ are drawn with equal length as stated", "R lies on both PQ and ON", "the coordinate construction independently places R at the midpoint of ON",
     ]),
-    diagramModel: model,
+    diagramModel: model, solutionDiagramModel: solutionModel,
   });
 }
 
@@ -152,16 +193,12 @@ function generateEqualParallelDiagonalCpct(seed: string): GapWave5Question {
   const variant = variants[variantIndex(seed, variants.length)];
   const expected = `${variant.ad} cm`;
   const clueIds = ["AB_PARALLEL_CD", "AB_EQUALS_CD", "AC_IS_DIAGONAL", "AD_LENGTH_GIVEN", "TARGET_BC"] as const;
-  const solve = (active: ReadonlySet<string>): string | null => {
-    if (!clueIds.every((clue) => active.has(clue))) return null;
-    return expected;
-  };
+  const solve = (active: ReadonlySet<string>): string | null => clueIds.every((clue) => active.has(clue)) ? expected : null;
 
-  const model = equalParallelDiagonalDiagram();
+  const model = equalParallelDiagonalStemDiagram();
+  const solutionModel = equalParallelDiagonalSolutionDiagram(variant.ad);
   const A = point(model, "A"); const B = point(model, "B"); const C = point(model, "C"); const D = point(model, "D");
-  const visualPassed = parallel(A, B, D, C)
-    && approximate(pointDistance(A, B), pointDistance(D, C))
-    && approximate(pointDistance(B, C), pointDistance(D, A));
+  const visualPassed = parallel(A, B, D, C) && approximate(pointDistance(A, B), pointDistance(D, C)) && approximate(pointDistance(B, C), pointDistance(D, A));
   const theoremTrace: TheoremId[] = ["ALTERNATE_INTERIOR_ANGLES", "SAS_CONGRUENCE", "CPCT"];
   const optionSet = buildOptions(expected, [
     { text: `${2 * variant.ad} cm`, misconceptionId: "CONGRUENT_SIDE_DOUBLED", rationale: "Doubles the corresponding side instead of using equality from congruence." },
@@ -173,43 +210,23 @@ function generateEqualParallelDiagonalCpct(seed: string): GapWave5Question {
     temporaryPrototypeId: "GEO-TMP-GAP-W5-CP014-EQUAL-PARALLEL-DIAGONAL-CPCT-V1",
     sourceGapId: "GEO-CP-014/CONGRUENCE_PLUS_PARALLEL_SYNTHESIS",
     sourceEvidenceIds: ["SRC-TESTBOOK-CGL-EQUAL-PARALLEL-OPPOSITE-SIDES-PYQ-2025"],
-    solveMode: "parallelAngleToSasCongruenceToCorrespondingSide",
-    seed,
-    stem: variant.stem,
-    ...optionSet,
+    solveMode: "parallelAngleToSasCongruenceToCorrespondingSide", seed, stem: variant.stem, ...optionSet,
     explanation: buildExplanation(theoremTrace, [
       "Since AB is parallel to CD, diagonal AC makes equal alternate interior angles: ∠BAC = ∠DCA.",
       "Now AB = CD, AC is common to both triangles, and the included angles are equal. Therefore triangles BAC and DCA are congruent by SAS.",
       `So their corresponding sides BC and DA are equal. Since AD = ${variant.ad} cm, BC = ${variant.ad} cm.`,
     ]),
-    theoremTrace,
-    displayedClueIds: clueIds,
-    minimalityProof: proveClueMinimality(clueIds, solve, expected),
+    theoremTrace, displayedClueIds: clueIds, minimalityProof: proveClueMinimality(clueIds, solve, expected),
     independentVerifierResult: wave5Verifier("HIGH_PRECISION_COORDINATE", visualPassed, [
-      "AB and CD are exactly parallel in the coordinate construction",
-      "AB and CD have equal coordinate length as explicitly stated in the stem",
-      "AC is the shared diagonal of the two congruent triangles",
-      "the independent coordinate model gives BC = DA without displaying that derived equality mark",
+      "AB and CD are exactly parallel in the coordinate construction", "AB and CD have equal coordinate length as explicitly stated in the stem", "AC is the shared diagonal of the two congruent triangles", "the independent coordinate model gives BC = DA without displaying that derived equality in the stem",
     ]),
-    diagramModel: model,
+    diagramModel: model, solutionDiagramModel: solutionModel,
   });
 }
 
 export const GEO_GAP_REMEDIATION_WAVE5_PROTOTYPES: readonly GapWave5PrototypeDefinition[] = Object.freeze([
-  Object.freeze({
-    temporaryPrototypeId: "GEO-TMP-GAP-W5-CP014-PARALLELOGRAM-EXTENSION-MIDPOINT-V1",
-    cpId: "GEO-CP-014",
-    sourceGapId: "GEO-CP-014/CONGRUENCE_PLUS_PARALLEL_SYNTHESIS",
-    solveMode: "parallelAnglesToAsaCongruenceToMidpointLength",
-    generate: generateParallelogramExtensionMidpoint,
-  }),
-  Object.freeze({
-    temporaryPrototypeId: "GEO-TMP-GAP-W5-CP014-EQUAL-PARALLEL-DIAGONAL-CPCT-V1",
-    cpId: "GEO-CP-014",
-    sourceGapId: "GEO-CP-014/CONGRUENCE_PLUS_PARALLEL_SYNTHESIS",
-    solveMode: "parallelAngleToSasCongruenceToCorrespondingSide",
-    generate: generateEqualParallelDiagonalCpct,
-  }),
+  Object.freeze({ temporaryPrototypeId: "GEO-TMP-GAP-W5-CP014-PARALLELOGRAM-EXTENSION-MIDPOINT-V1", cpId: "GEO-CP-014", sourceGapId: "GEO-CP-014/CONGRUENCE_PLUS_PARALLEL_SYNTHESIS", solveMode: "parallelAnglesToAsaCongruenceToMidpointLength", generate: generateParallelogramExtensionMidpoint }),
+  Object.freeze({ temporaryPrototypeId: "GEO-TMP-GAP-W5-CP014-EQUAL-PARALLEL-DIAGONAL-CPCT-V1", cpId: "GEO-CP-014", sourceGapId: "GEO-CP-014/CONGRUENCE_PLUS_PARALLEL_SYNTHESIS", solveMode: "parallelAngleToSasCongruenceToCorrespondingSide", generate: generateEqualParallelDiagonalCpct }),
 ]);
 
 void getTheoremDefinition;

@@ -25,9 +25,14 @@ for (const prototype of GEO_GAP_REMEDIATION_WAVE5_PROTOTYPES) {
     assert.equal(question.cpId, "GEO-CP-014");
     assert.equal(question.permanentQlId, null);
     assert.equal(question.sourceStatus, "EXTERNAL_SOURCE_AUDIT_WAVE5__GAP_REMEDIATION");
-    assert.equal(question.diagramDisposition, "REQUIRED_STEM_DIAGRAM");
+    assert.equal(question.diagramDisposition, "REQUIRED_BOTH");
+    assert.equal(question.diagramModel.disclosure, "STEM");
+    assert.equal(question.solutionDiagramModel.disclosure, "SOLUTION");
     assert.ok(question.stemSvg.includes('data-geometry-renderer="EXAMTREE_GEOMETRY_SVG_V2"'));
+    assert.ok(question.solutionSvg.includes('data-geometry-renderer="EXAMTREE_GEOMETRY_SVG_V2"'));
     assert.ok(extractSvgLabelCollisionScores(question.stemSvg).every((score) => score === 0));
+    assert.ok(extractSvgLabelCollisionScores(question.solutionSvg).every((score) => score === 0));
+    assert.notEqual(question.diagramFingerprint, question.solutionDiagramFingerprint);
     assert.equal(question.options.length, 4);
     assert.equal(new Set(question.options).size, 4);
     assert.equal(question.answer, question.options[question.correctIndex]);
@@ -35,9 +40,7 @@ for (const prototype of GEO_GAP_REMEDIATION_WAVE5_PROTOTYPES) {
     assert.equal(question.minimalityProof.passed, true);
     assert.equal(question.independentVerifierResult.passed, true);
     assert.ok(question.sourceEvidenceIds.length > 0);
-    for (const sourceId of question.sourceEvidenceIds) {
-      assert.ok(GEO_GAP_REMEDIATION_WAVE5_SOURCE_EVIDENCE.some((source) => source.id === sourceId));
-    }
+    for (const sourceId of question.sourceEvidenceIds) assert.ok(GEO_GAP_REMEDIATION_WAVE5_SOURCE_EVIDENCE.some((source) => source.id === sourceId));
 
     const families = new Set(question.theoremTrace.map((id) => getTheoremDefinition(id).family).filter((family) => family !== "GENERIC"));
     assert.ok(families.size >= 2, `${prototype.temporaryPrototypeId} must remain materially mixed`);
@@ -46,9 +49,7 @@ for (const prototype of GEO_GAP_REMEDIATION_WAVE5_PROTOTYPES) {
     assert.ok(question.theoremTrace.includes("CPCT"));
 
     const learnerText = [...question.explanation.lines, ...question.explanation.theoremNames].join(" ");
-    for (const theoremId of GEOMETRY_THEOREM_IDS) {
-      assert.equal(learnerText.includes(theoremId), false, `${prototype.temporaryPrototypeId} leaked theorem ID ${theoremId}`);
-    }
+    for (const theoremId of GEOMETRY_THEOREM_IDS) assert.equal(learnerText.includes(theoremId), false, `${prototype.temporaryPrototypeId} leaked theorem ID ${theoremId}`);
 
     assert.equal(question.lifecycle.stage, "DISCOVERY");
     assert.equal(question.lifecycle.permanentQlAllocated, false);
@@ -66,19 +67,24 @@ const midpoint = GEO_GAP_REMEDIATION_WAVE5_PROTOTYPES[0].generate("wave5-a");
 assert.equal(midpoint.answer, "6 cm");
 assert.deepEqual(midpoint.theoremTrace, ["PARALLELOGRAM_OPPOSITE_SIDES", "ALTERNATE_INTERIOR_ANGLES", "ASA_AAS_CONGRUENCE", "CPCT"]);
 assert.deepEqual(midpoint.diagramModel.equalLengthMarks.map((mark) => [...mark.segmentIds]), [["MN", "NQ"]]);
-assert.equal(midpoint.diagramModel.parallelMarks.length, 0, "derived parallelogram parallelism should not be additionally marked");
-assert.equal(midpoint.optionAnalysis.find((option) => option.misconceptionId === "CPCT_MIDPOINT_COPIES_WHOLE_SIDE")?.text, "12 cm");
-assert.equal(midpoint.optionAnalysis.find((option) => option.misconceptionId === "CPCT_MIDPOINT_ASSUMES_THREE_EQUAL_PARTS")?.text, "4 cm");
-assert.equal(midpoint.optionAnalysis.find((option) => option.misconceptionId === "CPCT_MIDPOINT_USES_TWO_TO_ONE_RATIO")?.text, "8 cm");
+assert.equal(midpoint.diagramModel.parallelMarks.length, 0, "derived parallelogram parallelism must remain hidden in stem");
+assert.equal(midpoint.stemSvg.includes("OR = RN"), false, "derived midpoint equality must not leak into stem");
+assert.ok(midpoint.solutionSvg.includes("ON = 12 cm"), "solution must show solve-relevant given ON dimension");
+assert.ok(midpoint.solutionSvg.includes("OR = RN = 6 cm"), "solution must show derived equal halves and solved target dimension");
+assert.deepEqual(midpoint.solutionDiagramModel.equalLengthMarks.map((mark) => [...mark.segmentIds]), [["OR", "RN"]]);
+assert.deepEqual(midpoint.solutionDiagramModel.parallelMarks.map((mark) => [...mark.segmentIds]), [["OP", "MN"]]);
 
 const diagonal = GEO_GAP_REMEDIATION_WAVE5_PROTOTYPES[1].generate("wave5-a");
 assert.equal(diagonal.answer, "8 cm");
 assert.deepEqual(diagonal.theoremTrace, ["ALTERNATE_INTERIOR_ANGLES", "SAS_CONGRUENCE", "CPCT"]);
-assert.equal(diagonal.diagramModel.equalLengthMarks.length, 0, "AB = CD is carried in prose so its equal-length mark does not collide with the parallel mark");
+assert.equal(diagonal.diagramModel.equalLengthMarks.length, 0, "AB = CD remains prose-only in stem to avoid mark collision");
 assert.deepEqual(diagonal.diagramModel.parallelMarks.map((mark) => [...mark.segmentIds]), [["AB", "CD"]]);
-assert.ok(diagonal.stem.includes("AB = CD"), "the omitted equal-length diagram mark must remain explicit in the stem");
-assert.equal(diagonal.optionAnalysis.find((option) => option.misconceptionId === "CONGRUENT_SIDE_DOUBLED")?.text, "16 cm");
-assert.equal(diagonal.optionAnalysis.find((option) => option.misconceptionId === "DIAGONAL_HALVES_CORRESPONDING_SIDE")?.text, "4 cm");
-assert.equal(diagonal.optionAnalysis.find((option) => option.misconceptionId === "CONGRUENCE_TREATED_AS_THREE_TO_TWO_SCALE")?.text, "12 cm");
+assert.ok(diagonal.stem.includes("AB = CD"), "omitted equality mark must remain explicit in stem");
+assert.equal(diagonal.stemSvg.includes("BC = 8 cm"), false, "derived answer dimension must not leak into stem");
+assert.ok(diagonal.solutionSvg.includes("AB = CD"), "solution must restore the given equality as a readable annotation");
+assert.ok(diagonal.solutionSvg.includes("AD = 8 cm"), "solution must show the solve-relevant given side dimension");
+assert.ok(diagonal.solutionSvg.includes("BC = 8 cm"), "solution must show the CPCT-derived target dimension");
+assert.equal(diagonal.solutionDiagramModel.angleMarks.length, 2, "solution should visually expose the derived alternate-angle pair used for SAS");
+assert.deepEqual(diagonal.solutionDiagramModel.parallelMarks.map((mark) => [...mark.segmentIds]), [["AB", "CD"]]);
 
-console.log("Geometry gap remediation Wave 5 PASS: 2 CP014 congruence-plus-parallel prototypes × 3 varied seeds with mixed theorem-family traces, faithful Renderer-V2 topology, semantic-mark clearance, clue minimality and operation-owned distractors.");
+console.log("Geometry gap remediation Wave 5 PASS: 2 CP014 prototypes × 3 seeds with REQUIRED_BOTH stem/solution diagrams, dimension-rich solution disclosure, zero label collisions, stem anti-leak, mixed theorem-family traces, clue minimality and operation-owned distractors.");

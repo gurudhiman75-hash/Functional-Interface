@@ -4,7 +4,7 @@ import type { GapWave5SourceEvidenceId } from "./wave5-source-evidence";
 
 export type GapWave5CheckpointId = "GEO-CP-014";
 export type GapWave5PackageId = "GEO-002";
-export type GapWave5DiagramDisposition = "REQUIRED_STEM_DIAGRAM";
+export type GapWave5DiagramDisposition = "REQUIRED_BOTH";
 
 export interface GapWave5VerifierResult {
   readonly passed: boolean;
@@ -38,8 +38,11 @@ export interface GapWave5Question {
   readonly diagramDisposition: GapWave5DiagramDisposition;
   readonly diagramModel: GeoDiagramModel;
   readonly stemSvg: string;
+  readonly solutionDiagramModel: GeoDiagramModel;
+  readonly solutionSvg: string;
   readonly canonicalGeometryFingerprint: string;
   readonly diagramFingerprint: string;
+  readonly solutionDiagramFingerprint: string;
   readonly validation: Readonly<{ ok: boolean; errors: readonly string[] }>;
   readonly lifecycle: Readonly<{
     stage: "DISCOVERY";
