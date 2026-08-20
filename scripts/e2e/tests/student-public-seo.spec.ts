@@ -57,6 +57,16 @@ test.describe("CP03 public SEO metadata", () => {
     expect(meta.ogImage).toBe(`${origin}/opengraph.jpg`);
   });
 
+  test("discovery aliases resolve to a single canonical route", async ({ page }) => {
+    await page.goto("/tests?source=e2e");
+    await expect(page.locator("main#main-content")).toBeVisible();
+    const meta = await metadata(page);
+    const origin = new URL(page.url()).origin;
+    expect(meta.robots).toBe("index,follow");
+    expect(meta.canonical).toBe(`${origin}/exams`);
+    expect(meta.ogUrl).toBe(meta.canonical);
+  });
+
   test("account utility metadata is explicitly noindex and strips next parameters", async ({ page }) => {
     await page.goto("/login/student?next=%2Fdashboard");
     await expect(page.locator("main#main-content")).toBeVisible();
