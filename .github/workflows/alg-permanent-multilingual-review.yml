@@ -1,0 +1,67 @@
+name: Validate Algebra permanent multilingual review
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-multilingual-review-v1.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-multilingual-review-export.ts
+      - .github/workflows/alg-permanent-multilingual-review.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alg-permanent-multilingual-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-multilingual-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle multilingual V1 parity audit
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/algebra
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-multilingual-review-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/permanent-multilingual-review-v1.test.mjs
+      - name: Run multilingual V1 parity audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/algebra/permanent-multilingual-review-v1.test.mjs
+      - name: Bundle multilingual review exporter
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-multilingual-review-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/permanent-multilingual-review-export.mjs
+      - name: Build Hindi Punjabi human-review pack
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/algebra/permanent-multilingual-review-export.mjs
+      - name: Upload Hindi Punjabi human-review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: algebra-permanent-multilingual-review-v1-109q
+          path: |
+            artifacts/api-server/dist/quant-v4/algebra/algebra-permanent-multilingual-review-v1-109q.html
+            artifacts/api-server/dist/quant-v4/algebra/algebra-permanent-multilingual-review-v1-109q.json
+          if-no-files-found: error
