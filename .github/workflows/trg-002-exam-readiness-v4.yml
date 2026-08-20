@@ -45,8 +45,10 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-canonical.test.ts
       - name: Verify Wave1 physical scenario text
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-wave1-surface.test.ts
-      - name: Verify V4 stem variety and repeated-setup guard
+      - name: Verify V4 stem variety under English semantic authority
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-stem-variety.test.ts
+      - name: Verify English to Hindi Punjabi semantic parity
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-semantic-parity.test.ts
       - name: Verify rooftop and bridge physical-support diagrams
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-physical-support.test.ts
       - name: Verify river-platform state, math and diagrams
@@ -91,6 +93,8 @@ jobs:
           if(pack.records.filter((r)=>r.v4CanonicalOverride).length!==6) throw new Error('Expected 6 pre-Wave2 V4 canonical overrides');
           if(pack.records.filter((r)=>r.v4NaturalMeasurementOverride).length!==19) throw new Error('Expected 19 Wave2 natural-measurement overrides');
           if(pack.records.filter((r)=>r.v4PhysicalSupportMigrated).length!==3) throw new Error('Expected 3 runtime support-state migrations after QL016/017 become natively supported Wave2 canonicals');
+          if(pack.records.filter((r)=>r.hindi?.v4ExamReadiness?.semanticParityRemediated).length!==29) throw new Error('Expected 29 Hindi strict semantic-parity remediations');
+          if(pack.records.filter((r)=>r.punjabi?.v4ExamReadiness?.semanticParityRemediated).length!==29) throw new Error('Expected 29 Punjabi strict semantic-parity remediations');
           if(pack.audit.blockers.surdPhysicalGivenQlIds.length!==0) throw new Error(`Expected zero V4 surd physical givens, got ${pack.audit.blockers.surdPhysicalGivenQlIds.length}`);
           if(pack.audit.blockers.shallowHardSolutionQlIds.length!==0) throw new Error(`Expected zero shallow Hard solutions, got ${pack.audit.blockers.shallowHardSolutionQlIds.length}`);
           if(pack.audit.scenarioCatalog.shells<38) throw new Error(`Expected at least 38 V4 structural scenario shells, got ${pack.audit.scenarioCatalog.shells}`);
@@ -105,7 +109,7 @@ jobs:
             if(row.v4NaturalMeasurementOverride && (row.english.stem.includes('√')||row.hindi.stem.includes('√')||row.punjabi.stem.includes('√'))) throw new Error(`${row.qlId}: Wave2 review stem still exposes a surd physical measurement`);
             if(row.lifecycle.multilingualFreezeGranted!==false||row.lifecycle.activationAuthorized!==false) throw new Error(`${row.qlId}: V4 lifecycle lock regression`);
           }
-          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} catalog=${pack.audit.scenarioCatalog.shells} canonicalOverrides=6 naturalMeasurementOverrides=19 physicalSupportMigrations=3 wave1=11/11 surdPhysicalGivens=0 shallowHardSolutions=0`);
+          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} semanticParityRemediated=29 catalog=${pack.audit.scenarioCatalog.shells} canonicalOverrides=6 naturalMeasurementOverrides=19 physicalSupportMigrations=3 surdPhysicalGivens=0 shallowHardSolutions=0`);
           NODE
       - name: Upload V4 audit and review pack
         uses: actions/upload-artifact@v4
