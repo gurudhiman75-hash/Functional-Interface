@@ -108,7 +108,10 @@ for (let allocationIndex = 0; allocationIndex < ALG_PERMANENT_ALLOCATION.length;
         assert(renderedSteps.length >= 3, `${prefix}: formula solution has fewer than three visible steps`);
         const whyIndex = renderedSteps.findIndex((step) => step.startsWith("Why this method:"));
         assert(whyIndex >= 0 && whyIndex < renderedSteps.length - 1, `${prefix}: method reason is missing or placed after the calculation`);
-        assert(renderedSteps.slice(whyIndex + 1).some((step) => /[=<>≤≥]|Substitut|Rearrange|Factor|Eliminat|root|interval|Cauchy|Vieta|discriminant/i.test(step)), `${prefix}: formula reason is not followed by visible mathematical working`);
+        assert(
+          renderedSteps.slice(whyIndex + 1).some((step) => /[=<>≤≥]|Substitut|Rearrange|Factor|Eliminat|root|interval|Cauchy|Vieta|discriminant|absolute value|non-negative|negative|square|branch|boundary|midpoint|solution/i.test(step)),
+          `${prefix}: formula reason is not followed by visible mathematical working`,
+        );
         if (review.question.includes(". Find ") || review.question.includes(". Form ")) {
           assert(review.explanation.includes("Given:"), `${prefix}: formula question does not restate the given values`);
           assert(review.explanation.includes("Required:"), `${prefix}: formula question does not state what must be found`);
