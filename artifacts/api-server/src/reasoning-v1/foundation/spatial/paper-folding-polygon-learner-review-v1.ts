@@ -20,6 +20,7 @@ export const PFC_001_POLYGON_LEARNER_REVIEW_AUTHORITY_V1 = Object.freeze({
   forwardQuestionCount: 8,
   reverseQuestionCount: 4,
   sourceShape: "TRIANGLE" as const,
+  stageSizingAuthority: "PACKET_FITTED_VIEWBOX_WITH_FIXED_STAGE_CARD" as const,
   status: "FOCUSED_POLYGON_GAP_REVIEW_NOT_FROZEN" as const,
   permanentQlAllocationAllowed: false,
   questionStudioAllowed: false,
@@ -69,8 +70,27 @@ function triangleBoundary(fill = "white"): string {
   return `<polygon points="${pts(TRIANGLE)}" fill="${fill}" stroke="#111" stroke-width="1.8" stroke-linejoin="round"/>`;
 }
 
-function paperSvg(body: string, label: string, width = 170, height = 150): string {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 108" width="${width}" height="${height}" role="img" aria-label="${esc(label)}" style="background:#fff">${body}</svg>`;
+function fittedViewBox(points: readonly SpatialPoint[]): string {
+  const xs = points.map((point) => point.x);
+  const ys = points.map((point) => point.y);
+  const minX = Math.min(...xs), maxX = Math.max(...xs);
+  const minY = Math.min(...ys), maxY = Math.max(...ys);
+  const span = Math.max(maxX - minX, maxY - minY, 1);
+  const side = span * 1.30;
+  const cx = (minX + maxX) / 2;
+  const cy = (minY + maxY) / 2;
+  return `${q(cx - side / 2)} ${q(cy - side / 2)} ${q(side)} ${q(side)}`;
+}
+
+function paperSvg(
+  body: string,
+  label: string,
+  width = 170,
+  height = 150,
+  fitPoints?: readonly SpatialPoint[],
+): string {
+  const viewBox = fitPoints?.length ? fittedViewBox(fitPoints) : "0 0 120 108";
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" width="${width}" height="${height}" role="img" aria-label="${esc(label)}" style="background:#fff">${body}</svg>`;
 }
 
 function renderCut(cut: PfcCutGeometryV2 | PfcTriangleMappedCutV1): string {
@@ -106,9 +126,11 @@ function arrowForFold(scenario: PfcTriangleScenarioV1): string {
   const len = Math.hypot(dx, dy);
   const nx = -dy / len;
   const ny = dx / len;
+  const projectionT = ((CENTROID.x - line.a.x) * dx + (CENTROID.y - line.a.y) * dy) / (len * len);
+  const anchor = { x: line.a.x + projectionT * dx, y: line.a.y + projectionT * dy };
   const sign = scenario.fold.movingSide === "POSITIVE" ? 1 : -1;
-  const start = { x: CENTROID.x + nx * 23 * sign, y: CENTROID.y + ny * 23 * sign };
-  const end = { x: CENTROID.x + nx * 5 * sign, y: CENTROID.y + ny * 5 * sign };
+  const start = { x: anchor.x + nx * 23 * sign, y: anchor.y + ny * 23 * sign };
+  const end = { x: anchor.x - nx * 7 * sign, y: anchor.y - ny * 7 * sign };
   const ux = (end.x - start.x) / Math.hypot(end.x - start.x, end.y - start.y);
   const uy = (end.y - start.y) / Math.hypot(end.x - start.x, end.y - start.y);
   const px = -uy;
@@ -129,7 +151,13 @@ function foldStageSvg(scenario: PfcTriangleScenarioV1): string {
 function cutStageSvg(scenario: PfcTriangleScenarioV1): string {
   const stationary: PfcFoldSideV1 = scenario.fold.movingSide === "POSITIVE" ? "NEGATIVE" : "POSITIVE";
   const packet = clipPolygonToFoldSideV1(TRIANGLE, scenario.fold.line, stationary);
-  return paperSvg(`<polygon points="${pts(packet)}" fill="white" stroke="#111" stroke-width="1.8" stroke-linejoin="round"/>${renderCut(scenario.cut)}`, "Folded triangular packet with cut");
+  return paperSvg(
+    `<polygon points="${pts(packet)}" fill="white" stroke="#111" stroke-width="1.8" stroke-linejoin="round"/>${renderCut(scenario.cut)}`,
+    "Folded triangular packet with cut",
+    170,
+    150,
+    packet,
+  );
 }
 
 function sequenceSvg(scenario: PfcTriangleScenarioV1): string {
@@ -172,7 +200,7 @@ function forwardQuestion(scenario: PfcTriangleScenarioV1, index: number): PfcPol
     stimulusSvg: sequenceSvg(scenario),
     options: choice.options,
     correctOptionId: choice.correct,
-    explanation: "The fold is a symmetry axis of the triangular sheet. The cut passes through two layers, so opening the paper places one matching cut on each side of the crease at equal perpendicular distance.",
+    explanation: "The cut lies in the overlap of the folded packet. Open the fold by reflecting the cut through the shown crease. The correct option preserves both the source-paper boundary and the reflected cut positions.",
     sourceScenarioId: scenario.scenarioId,
   };
 }
@@ -194,7 +222,7 @@ function reverseQuestion(target: PfcTriangleScenarioV1, candidates: readonly Pfc
     stimulusSvg: `<div class="target-pattern">${patternSvg(targetSolution.mappedCuts, "Given unfolded triangular paper")}</div>`,
     options: ordered.map((candidate, optionIndex) => ({ optionId: LETTERS[optionIndex], svg: reverseOptionSvg(candidate), semantic: candidate.scenarioId })),
     correctOptionId: LETTERS[correctIndex],
-    explanation: "Work backwards from the two holes. Their perpendicular bisector must be the fold line, and the shown punch must lie at the matching folded position. Only one option satisfies both conditions.",
+    explanation: "Work backwards from the two holes. Their reflection relation identifies the crease, and the punch must lie inside the overlapping folded layers. Only one process satisfies both conditions.",
     sourceScenarioId: target.scenarioId,
   };
 }
