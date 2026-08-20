@@ -86,9 +86,10 @@ jobs:
           JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-readiness-v4/TRG-002-V4-EXAM-READINESS-REVIEW.json
           HTML=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-readiness-v4/TRG-002-V4-EXAM-READINESS-REVIEW.html
           test -s "$JSON" && test -s "$HTML"
-          node - "$JSON" <<'NODE'
+          node - "$JSON" "$HTML" <<'NODE'
           const fs=require('fs');
           const pack=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          const html=fs.readFileSync(process.argv[3],'utf8');
           if(pack.records.length!==96) throw new Error(`Expected 96 tri-language records, got ${pack.records.length}`);
           if(pack.records.filter((r)=>r.v4CanonicalOverride).length!==6) throw new Error('Expected 6 pre-Wave2 V4 canonical overrides');
           if(pack.records.filter((r)=>r.v4NaturalMeasurementOverride).length!==19) throw new Error('Expected 19 Wave2 natural-measurement overrides');
@@ -109,7 +110,13 @@ jobs:
             if(row.v4NaturalMeasurementOverride && (row.english.stem.includes('√')||row.hindi.stem.includes('√')||row.punjabi.stem.includes('√'))) throw new Error(`${row.qlId}: Wave2 review stem still exposes a surd physical measurement`);
             if(row.lifecycle.multilingualFreezeGranted!==false||row.lifecycle.activationAuthorized!==false) throw new Error(`${row.qlId}: V4 lifecycle lock regression`);
           }
-          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} semanticParityRemediated=30 catalog=${pack.audit.scenarioCatalog.shells} canonicalOverrides=6 naturalMeasurementOverrides=19 physicalSupportMigrations=3 surdPhysicalGivens=0 shallowHardSolutions=0`);
+          const svgs=html.match(/<svg class="solution-diagram"[\s\S]*?<\/svg>/g)??[];
+          if(svgs.length!==96) throw new Error(`Expected 96 rendered solution SVGs, got ${svgs.length}`);
+          const ids=svgs.map((svg)=>svg.match(/data-diagram-ql="([^"]+)"/)?.[1]).filter(Boolean);
+          if(new Set(ids).size!==96) throw new Error(`Expected 96 unique rendered diagram QL ids, got ${new Set(ids).size}`);
+          if(svgs.some((svg)=>/\b(?:NaN|Infinity|-Infinity)\b/.test(svg))) throw new Error('Rendered SVG contains a non-finite coordinate');
+          if(html.includes('diagram-missing')) throw new Error('At least one review card is missing its rendered diagram');
+          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} renderedSvgs=${svgs.length} semanticParityRemediated=30 catalog=${pack.audit.scenarioCatalog.shells} canonicalOverrides=6 naturalMeasurementOverrides=19 physicalSupportMigrations=3 surdPhysicalGivens=0 shallowHardSolutions=0`);
           NODE
       - name: Upload V4 audit and review pack
         uses: actions/upload-artifact@v4
