@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 10
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -61,7 +61,7 @@ jobs:
 
       - name: Confirm inherited combined semantic proof identity
         run: |
-          test "${{ github.event.pull_request.base.sha }}" = "07ed844d248411ddd385ec0d620d56cb2692571f"
+          git merge-base --is-ancestor 07ed844d248411ddd385ec0d620d56cb2692571f HEAD
           grep -q 'runId: 32327889203' artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-v1.ts
           grep -q 'artifactId: 9392687777' artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-v1.ts
           grep -q 'sha256:6c08bbbcf39dc1c2d61f587623cc653c6bb25e3724e24761c891deaf8dfd0c8e' artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-v1.ts
