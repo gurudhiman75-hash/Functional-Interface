@@ -1,0 +1,111 @@
+name: Validate RNK-001 Approved Multilingual Integration V1
+
+on:
+  pull_request:
+    branches:
+      - approval/rnk-001-native-product-approved-v1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: rnk-001-approved-multilingual-integration-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-approved-combined-tree:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove explicit native product approval and locks
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-native-product-approval-v1.test.ts
+
+      - name: Materialize seven approved locale heads into one tree
+        run: |
+          bash artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-materialize-approved-locales-v1.sh
+          mkdir -p /tmp/rnk-approved-integration
+          git diff --cached --name-status > /tmp/rnk-approved-integration/RNK-001-APPROVED-COMBINED-TREE-FILES.txt
+          git diff --cached --binary > /tmp/rnk-approved-integration/RNK-001-APPROVED-COMBINED-TREE.patch
+
+      - name: Validate CP001 approved Hindi Punjabi lineage
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-localization-review-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-localization-review-v2.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-localization-review-v3.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-localization-review-v4.test.ts
+
+      - name: Validate CP002 approved Hindi Punjabi lineage
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-localization-review-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-localization-review-v2.test.ts
+
+      - name: Validate CP003 approved Hindi Punjabi lineage
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-localization-review-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-localization-review-v2.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-localization-review-v3.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-localization-review-v4.test.ts
+
+      - name: Validate CP004 approved Hindi Punjabi lineage
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-v1-static-contract.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-v1-semantic-baseline.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v1-sample-gates.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v3.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v4.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v5.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v5-final.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v6.test.ts
+
+      - name: Validate CP005 approved Hindi Punjabi lineage
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-v2.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-v2-final.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-v3.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-gates.test.ts
+
+      - name: Validate CP006 approved Hindi Punjabi lineage
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-localization-review-v1.test.ts
+
+      - name: Validate CP007 approved Hindi Punjabi and percentage lineage
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-localization-review-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-localization-review-v2.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-localization-review-v3.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-localization-review-v4.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-percentage-presentation-adapter-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-percentage-presentation-adapter-v2.test.ts
+
+      - name: Re-prove decluttered presentation and frozen English authority
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-readiness-audit-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-exam-delivery-policy-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-banking-five-option-adapter-v1.test.ts
+
+      - name: Re-prove shared Question Studio review path
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-shared-question-studio.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+
+      - name: Retain approved combined-tree evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-approved-multilingual-combined-tree-v1
+          path: /tmp/rnk-approved-integration/*
+          if-no-files-found: error
