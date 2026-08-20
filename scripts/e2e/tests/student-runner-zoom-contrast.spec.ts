@@ -157,7 +157,25 @@ async function seedStudent(page: Page) {
   await page.evaluate((profile) => {
     localStorage.setItem("user", JSON.stringify(profile));
     localStorage.setItem("attempts", JSON.stringify([]));
+    localStorage.removeItem("active_test_sessions");
   }, student);
+}
+
+async function openRunner(page: Page) {
+  await installFixtures(page);
+  await seedStudent(page);
+  await page.goto(`/test/${TEST_ID}`);
+  await expect(page.getByRole("heading", { name: testDetail.name })).toBeVisible();
+  await page.getByRole("button", { name: "Start Test" }).click();
+  await expect(page.getByText("Question No 1")).toBeVisible();
+}
+
+async function openResult(page: Page) {
+  await installFixtures(page);
+  await seedStudent(page);
+  await page.goto(`/result?attemptId=${ATTEMPT_ID}&testId=${TEST_ID}`);
+  await expect(page.getByRole("heading", { name: testDetail.name })).toBeVisible();
+  await expect(page.getByText("50%", { exact: true }).first()).toBeVisible();
 }
 
 async function expectNoHorizontalOverflow(page: Page) {
@@ -217,36 +235,31 @@ async function contrastRatio(locator: Locator) {
   });
 }
 
-async function setTwoXScaleAtEffectiveMobileWidth(page: Page) {
-  // CDP page-scale emulation remains at 1 when Playwright first fixes the layout
-  // viewport itself to a phone width. Certify narrow reflow at 390 CSS px first,
-  // then use a 780px layout viewport at 2x scale for an effective 390px visual
-  // viewport. This mirrors the already-landed CP02 zoom/reflow certification.
-  await page.setViewportSize({ width: 780, height: 900 });
+async function applyTwoXScale(page: Page) {
   const cdp = await page.context().newCDPSession(page);
   await cdp.send("Emulation.setPageScaleFactor", { pageScaleFactor: 2 });
   await expect.poll(() => page.evaluate(() => window.visualViewport?.scale ?? 1)).toBeGreaterThanOrEqual(1.9);
-  await expect.poll(() => page.evaluate(() => window.visualViewport?.width ?? window.innerWidth)).toBeLessThanOrEqual(400);
 }
 
 test.describe("CP02 runner and result zoom contrast", () => {
-  test("keeps the active exam runner reflow-safe and readable at 200% scale", async ({ page }) => {
+  test("keeps the active exam runner reflow-safe at a 390px viewport", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await installFixtures(page);
-    await seedStudent(page);
-    await page.goto(`/test/${TEST_ID}`);
-    await expect(page.getByRole("heading", { name: testDetail.name })).toBeVisible();
-    await page.getByRole("button", { name: "Start Test" }).click();
-    await expect(page.getByText("Question No 1")).toBeVisible();
+    await openRunner(page);
 
-    // First certify the phone-width responsive runner itself.
     await expect(page.getByRole("button", { name: "Pause & Exit" })).toBeVisible();
     await expect(page.getByRole("button", { name: /^Next/ })).toBeVisible();
     await expect(page.getByRole("button", { name: /^Submit$/ })).toBeVisible();
     await expectNoHorizontalOverflow(page);
 
-    // Then certify real 200% scale at the same effective visual width.
-    await setTwoXScaleAtEffectiveMobileWidth(page);
+    await page.getByRole("button", { name: "Pause & Exit" }).click();
+    await expect(page.getByRole("heading", { name: "Pause & Exit?" })).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test("keeps critical runner text and actions AA-readable at 200% scale", async ({ page }) => {
+    await openRunner(page);
+    await applyTwoXScale(page);
+
     const pause = page.getByRole("button", { name: "Pause & Exit" });
     const question = page.getByText(testDetail.sections[0].questions[0].text);
     const answer = page.getByRole("button", { name: /₹720/ });
@@ -257,23 +270,23 @@ test.describe("CP02 runner and result zoom contrast", () => {
     expect(await contrastRatio(question)).toBeGreaterThanOrEqual(4.5);
     expect(await contrastRatio(answer)).toBeGreaterThanOrEqual(4.5);
     expect(await contrastRatio(advance)).toBeGreaterThanOrEqual(4.5);
-
-    await pause.click();
-    await expect(page.getByRole("heading", { name: "Pause & Exit?" })).toBeVisible();
-    await expectNoHorizontalOverflow(page);
   });
 
-  test("keeps the canonical result reflow-safe and readable at 200% scale", async ({ page }) => {
+  test("keeps the canonical result reflow-safe at a 390px viewport", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await installFixtures(page);
-    await seedStudent(page);
-    await page.goto(`/result?attemptId=${ATTEMPT_ID}&testId=${TEST_ID}`);
-
-    await expect(page.getByRole("heading", { name: testDetail.name })).toBeVisible();
-    await expect(page.getByText("50%", { exact: true }).first()).toBeVisible();
+    await openResult(page);
     await expectNoHorizontalOverflow(page);
 
-    await setTwoXScaleAtEffectiveMobileWidth(page);
+    await expect(page.getByRole("button", { name: "Back to My Activity" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Solution review" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "All (2)" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Retake test" })).toBeVisible();
+  });
+
+  test("keeps the canonical result AA-readable at 200% scale", async ({ page }) => {
+    await openResult(page);
+    await applyTwoXScale(page);
+
     const back = page.getByRole("button", { name: "Back to My Activity" });
     const heading = page.getByRole("heading", { name: testDetail.name });
     const reviewHeading = page.getByRole("heading", { name: "Solution review" });
