@@ -37,8 +37,8 @@ assert.match(result, /size="sm"[\s\S]*?setFilter/, "small result filter actions 
 assert.match(stickyHeader, /relative mx-auto min-w-0 flex-1 max-w-2xl/, "mobile exam selector must be allowed to shrink inside the preparation header");
 assert.match(stickyHeader, /ml-auto flex shrink-0 items-center gap-2/, "mobile Activity and Profile actions must retain their fixed touch-target space");
 
-assert.match(proof, /expect\(box!\.width\)\.toBeGreaterThanOrEqual\(44\)/, "browser proof must measure target width");
-assert.match(proof, /expect\(box!\.height\)\.toBeGreaterThanOrEqual\(44\)/, "browser proof must measure target height");
+assert.match(proof, /Math\.round\(box!\.width \* 1000\) \/ 1000[\s\S]*?expect\(width\)\.toBeGreaterThanOrEqual\(44\)/, "browser proof must normalize floating geometry while retaining a 44px width gate");
+assert.match(proof, /Math\.round\(box!\.height \* 1000\) \/ 1000[\s\S]*?expect\(height\)\.toBeGreaterThanOrEqual\(44\)/, "browser proof must normalize floating geometry while retaining a 44px height gate");
 assert.match(proof, /btn-toggle-password[\s\S]*?btn-forgot-password[\s\S]*?btn-submit[\s\S]*?btn-back/, "browser proof must exercise custom login controls");
 assert.match(proof, /Can’t access your account\?/, "browser proof must exercise the fixed recovery shortcut");
 assert.match(proof, /\/dashboard[\s\S]*?\/profile[\s\S]*?\/result/, "browser proof must exercise representative preparation/result actions");
