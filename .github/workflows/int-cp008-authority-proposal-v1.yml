@@ -1,0 +1,64 @@
+name: Validate INT-CP-008 Authority Proposal V1
+
+on:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-instalment-discovery-v1.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-post-wave01-source-ledger.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-authority-proposal-v1.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-authority-proposal-audit.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-008/INT-CP-008-AUTHORITY-PROPOSAL-v1.md'
+      - '.github/workflows/int-cp008-authority-proposal-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: int-cp008-authority-proposal-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp008-authority-proposal-v1:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Rerun source gap audit
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-post-wave01-source-gap-audit.ts > int-cp008-source-gap-regression.log
+      - name: Run authority proposal audit
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-authority-proposal-audit.ts | tee int-cp008-authority-proposal-v1.log
+      - name: Verify authority proposal marker
+        run: grep -q 'PASS_INT_CP008_AUTHORITY_PROPOSAL_AUDIT' int-cp008-authority-proposal-v1.log
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Record exact validation head
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-cp008-authority-proposal-v1-head.log
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Upload proposal evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp008-authority-proposal-v1
+          path: |
+            int-cp008-source-gap-regression.log
+            int-cp008-authority-proposal-v1.log
+            int-cp008-authority-proposal-v1-head.log
+          retention-days: 30
