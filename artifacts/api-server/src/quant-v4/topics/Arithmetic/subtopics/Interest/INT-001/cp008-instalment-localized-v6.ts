@@ -29,7 +29,7 @@ function polishText(text: string, locale: IntCp008LocalizedLocale): string {
       /ਕਾਰਜਕ੍ਰਮ ਵਿੱਚ (\d+) ਬਰਾਬਰ ਅਦਾਇਗੀਆਂ ਜਾਂ ਨਿਕਾਸੀਆਂ (₹[\d,]+(?:\.\d+)?) ਦੀਆਂ ਹਨ ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਬਕਾਇਆ ਪੁੱਛਿਆ ਗਿਆ ਹੈ।/gu,
       "ਅਦਾਇਗੀ ਕ੍ਰਮ ਵਿੱਚ ਕੁੱਲ $1 ਬਰਾਬਰ ਅਦਾਇਗੀਆਂ ਜਾਂ ਨਿਕਾਸੀਆਂ ਹਨ ਅਤੇ ਹਰ ਰਕਮ $2 ਹੈ। ਸ਼ੁਰੂਆਤੀ ਬਕਾਇਆ ਪੁੱਛਿਆ ਗਿਆ ਹੈ।",
     )
-    .replace(/\b1 ਅਦਾਇਗੀਆਂ\b/gu, "1 ਅਦਾਇਗੀ");
+    .replace(/1 ਅਦਾਇਗੀਆਂ/gu, "1 ਅਦਾਇਗੀ");
 }
 
 function polishPrompt(source: any, locale: IntCp008LocalizedLocale): string {
