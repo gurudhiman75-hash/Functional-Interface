@@ -140,7 +140,7 @@ export function generateTrg002V4CandidateQuestion(qlId: string, seed: string, lo
   const variety = structuralScenarioOverride
     ? { stem: wave1.stem, applied: false }
     : applyTrg002V4StemVariety(qlId, locale, wave1.stem);
-  const semanticParity = applyTrg002V4StrictSemanticParity(qlId, locale, variety.stem, hardSolution.explanation);
+  const semanticParity = applyTrg002V4StrictSemanticParity(qlId, locale, variety.stem, hardSolution.explanation as any);
   const stem = semanticParity.stem;
   const explanation = semanticParity.explanation;
   const topology = scenarioWave4Override
