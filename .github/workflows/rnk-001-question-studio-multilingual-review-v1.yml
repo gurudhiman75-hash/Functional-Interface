@@ -1,0 +1,123 @@
+name: Validate RNK-001 Question Studio Multilingual Review V1
+
+on:
+  push:
+    branches:
+      - feature/rnk-001-question-studio-multilingual-review-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - 'artifacts/api-server/src/question-studio/**'
+      - '.github/workflows/rnk-001-question-studio-multilingual-review-v1.yml'
+  pull_request:
+    branches:
+      - freeze/rnk-001-multilingual-approved-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - 'artifacts/api-server/src/question-studio/**'
+      - '.github/workflows/rnk-001-question-studio-multilingual-review-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rnk-001-question-studio-multilingual-review-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-question-studio-multilingual-review-v1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Verify exact frozen locale runtime blobs
+        shell: bash
+        run: |
+          set -euo pipefail
+          check_blob() {
+            local path="$1"
+            local expected="$2"
+            local actual
+            actual="$(git rev-parse "HEAD:${path}")"
+            test "$actual" = "$expected" || {
+              echo "Blob drift: $path expected $expected got $actual" >&2
+              exit 1
+            }
+          }
+          ROOT='artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001'
+          check_blob "$ROOT/RNK-CP-001/cp001-localization-review-v1.ts" 7891bbae5a3d5ab0f7fe75084542bd727c20a6c6
+          check_blob "$ROOT/RNK-CP-001/cp001-localization-review-v2.ts" e498e4766047b26a1a46696f29f5629835a7bd1f
+          check_blob "$ROOT/RNK-CP-001/cp001-localization-review-v3.ts" 0d5c4149fcc0cbba8960c45668ad166a6a90c695
+          check_blob "$ROOT/RNK-CP-001/cp001-localization-review-v4.ts" 6be26a02037cac49965afa0bc55beb628097d743
+          check_blob "$ROOT/RNK-CP-002/cp002-localization-review-v1.ts" b946becc6158cf18316998b10aeb338251006579
+          check_blob "$ROOT/RNK-CP-002/cp002-localization-review-v2.ts" e37b1fef818d28863a5d511e4f009867ebc0c17e
+          check_blob "$ROOT/RNK-CP-003/cp003-localization-review-v1.ts" 52f206ace2ad293eab24fac5896cc81b4f3a0028
+          check_blob "$ROOT/RNK-CP-003/cp003-localization-review-v2.ts" 0935c2ad123686c766255ab5da94ecc58330978a
+          check_blob "$ROOT/RNK-CP-003/cp003-localization-review-v3.ts" 8e69db312b0ba55a02a3ca657a3afbd2ccd5a94d
+          check_blob "$ROOT/RNK-CP-003/cp003-localization-review-v4.ts" 5c3e03fafc450e482ef87bdd5b699472dcabf6d7
+          check_blob "$ROOT/RNK-CP-004/cp004-localization-review-v1.ts" f24bbbb4f9d4284aba28c6e68de1d18908a8b4c5
+          check_blob "$ROOT/RNK-CP-004/cp004-localization-review-v2.ts" fe01bd949ad8142864ad2a667683830292ba8a63
+          check_blob "$ROOT/RNK-CP-004/cp004-localization-review-v3.ts" eb24e52d2755c6679cf08f22f22d76c0a407d254
+          check_blob "$ROOT/RNK-CP-004/cp004-localization-review-v4.ts" 29c40a88d7b87476c732014a5e5804649228bd1e
+          check_blob "$ROOT/RNK-CP-004/cp004-localization-review-v5.ts" a1f7e49206862f75aea6c3585cca245ee29f97a8
+          check_blob "$ROOT/RNK-CP-004/cp004-localization-review-v5-final.ts" 0913106e41a9d4b70ef7fdf86212bd665395fbc5
+          check_blob "$ROOT/RNK-CP-004/cp004-localization-review-v6.ts" 329b63e3b136f2cc3741d6799b10eae8da04b371
+          check_blob "$ROOT/RNK-CP-005/cp005-localization-review-v1.ts" 06f5dc1e45e9579b2a7968a94edd709f72407ef3
+          check_blob "$ROOT/RNK-CP-005/cp005-localization-review-v2.ts" a5cd5d83a73a37026ca0fdd77f66f04099bea27e
+          check_blob "$ROOT/RNK-CP-005/cp005-localization-review-v3.ts" df169975f7ceb28c849c8d6218baf158b1095e16
+          check_blob "$ROOT/RNK-CP-006/cp006-localization-review-v1.ts" 34f9a141b678fcf57950f0b0b750e58ae414e558
+          check_blob "$ROOT/RNK-CP-007/cp007-localization-review-v2.ts" 50f831e0846fcba93e2070ebf167f069767dae67
+          check_blob "$ROOT/RNK-CP-007/cp007-localization-review-v3.ts" 1bb9e3d78a0c44b8a4e260d4f6c7f306e5a5053e
+          check_blob "$ROOT/RNK-CP-007/cp007-localization-review-v4.ts" 8f9eca29a9bc225e4fc1694a9ba2c7874b12c591
+          check_blob "$ROOT/RNK-CP-007/cp007-percentage-presentation-adapter-v1.ts" 06930a162dc586caac027c6f693155fb3b5a768d
+          check_blob "$ROOT/RNK-CP-007/cp007-percentage-presentation-adapter-v2.ts" fb5d141f3fcb55238dc15ed9032d17d499e9c33d
+
+      - name: Prove multilingual Question Studio review across all 42 QLs
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-shared-question-studio.test.ts
+
+      - name: Re-prove frozen multilingual content and delivery locks
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-v1.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+
+      - name: Record activation evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/rnk-001-question-studio-multilingual-review-v1
+          cat > /tmp/rnk-001-question-studio-multilingual-review-v1/EVIDENCE.txt <<'EOF'
+          RNK-001 Question Studio multilingual review V1
+          Source content freeze PR: 945
+          Source freeze head: d73b445916d8c10b4551d1a05e75a7ca3973081c
+          Source freeze run: 32335249084 SUCCESS
+          Source freeze artifact: 9394423204
+          Source freeze digest: sha256:e83368ba7ae6e85e9aca493efcc529b36875b329c595babc212d92d52933f7cc
+          Supported review languages: en, hi, pa
+          Permanent QLs: RNK-QL-001..042
+          RNK-QL-043 allocated: FALSE
+          Frozen locale runtime source files: 26 exact blobs
+          Question Studio review generation: ENABLED
+          Question Bank writable: FALSE
+          Test eligible: FALSE
+          Mock-test eligible: FALSE
+          Publicly publishable: FALSE
+          Automatic student publication: FALSE
+          New-main merge authorized: FALSE
+          EOF
+          git rev-parse HEAD > /tmp/rnk-001-question-studio-multilingual-review-v1/HEAD.txt
+
+      - name: Retain activation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-question-studio-multilingual-review-v1
+          path: /tmp/rnk-001-question-studio-multilingual-review-v1/*
+          if-no-files-found: error
