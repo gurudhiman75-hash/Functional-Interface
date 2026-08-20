@@ -1,0 +1,115 @@
+name: Validate INT-CP-008 English V6 Freeze
+
+on:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-instalment-runtime-v1-final.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-instalment-english-v6.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v6-audit.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v6-money-audit.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-instalment-english-v6-frozen.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v6-freeze-audit.ts'
+      - '.github/workflows/int-cp008-english-v6-freeze.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: int-cp008-english-v6-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp008-english-v6-freeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Rerun CP008 permanent allocation audit
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-permanent-allocation-v1-audit.ts > int-cp008-permanent-allocation-regression.log
+
+      - name: Rerun approved English V6 editorial audit
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v6-audit.ts | tee int-cp008-english-v6-review-regression.log
+
+      - name: Verify approved English V6 marker
+        run: grep -q 'PASS_INT_CP008_ENGLISH_V6_AUDIT' int-cp008-english-v6-review-regression.log
+
+      - name: Rerun independent English V6 money audit
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v6-money-audit.ts | tee int-cp008-english-v6-money-regression.log
+
+      - name: Verify English V6 money marker
+        run: grep -q 'PASS_INT_CP008_ENGLISH_V6_MONEY_AUDIT' int-cp008-english-v6-money-regression.log
+
+      - name: Run CP008 English V6 freeze audit
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v6-freeze-audit.ts | tee int-cp008-english-v6-freeze.log
+
+      - name: Verify CP008 English V6 freeze marker
+        run: grep -q 'PASS_INT_CP008_ENGLISH_V6_FREEZE_AUDIT' int-cp008-english-v6-freeze.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact freeze head
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-cp008-english-v6-freeze-head.log
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+
+      - name: Write freeze evidence
+        run: |
+          cat > INT-CP-008-ENGLISH-V6-FREEZE-EVIDENCE.md <<'EOF'
+          # INT-CP-008 English V6 Freeze Evidence
+
+          Product-owner approval authority: `PRODUCT_OWNER_APPROVED_CP008_ENGLISH_V6_2026_08_20`
+
+          Approved English version: `INT-CP-008-EN-v6-final-review-candidate`
+          Approved review head: `eeb6020c3605785f8d10d98650f5b0735f660835`
+          Approved review run: `32339889054`
+          Approved review job: `96336688857`
+          Approved review artifact: `9395993328`
+          Approved review digest: `sha256:47febf3024cf0e9f450460c2e62ea6d249661b3e1af8ef0ec808f1310f7d4cba`
+
+          Freeze ID: `INT-CP-008-EN-v6-frozen`
+
+          Delivery remains closed: runtime disabled, not staged, not registered, Question Studio hidden, Question Bank not stored/not writable, tests ineligible, public delivery false, merge unauthorized.
+          EOF
+
+      - name: Upload CP008 English V6 freeze evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp008-english-v6-freeze
+          path: |
+            int-cp008-permanent-allocation-regression.log
+            int-cp008-english-v6-review-regression.log
+            int-cp008-english-v6-money-regression.log
+            int-cp008-english-v6-freeze.log
+            int-cp008-english-v6-freeze-head.log
+            INT-CP-008-ENGLISH-V6-FREEZE-EVIDENCE.md
+          retention-days: 30
+          if-no-files-found: warn
