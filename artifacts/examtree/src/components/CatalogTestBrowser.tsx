@@ -53,7 +53,7 @@ export function CatalogTestBrowser({ tests }: { tests: Test[] }) {
       ].some((value) => value.toLowerCase().includes(normalizedQuery));
     });
 
-    return matching.toSorted((left, right) => {
+    return [...matching].sort((left, right) => {
       if (sort === "name") return left.name.localeCompare(right.name);
       if (sort === "duration") return left.duration - right.duration || left.name.localeCompare(right.name);
       if (sort === "questions") return right.totalQuestions - left.totalQuestions || left.name.localeCompare(right.name);
@@ -203,9 +203,11 @@ export function CatalogTestBrowser({ tests }: { tests: Test[] }) {
         </div>
       ) : (
         <div className="mt-5 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center" data-testid="catalog-empty-state">
-          <h3 className="font-semibold text-slate-950">No tests match these filters</h3>
-          <p className="mt-2 text-sm text-slate-600">Clear one or more filters or try a broader search term.</p>
-          <Button className="mt-4" variant="outline" onClick={clearFilters}>Clear filters</Button>
+          <h3 className="font-semibold text-slate-950">{tests.length === 0 && !hasFilters ? "No catalog tests are published yet" : "No tests match these filters"}</h3>
+          <p className="mt-2 text-sm text-slate-600">
+            {tests.length === 0 && !hasFilters ? "Published tests will appear here when they are available." : "Clear one or more filters or try a broader search term."}
+          </p>
+          {hasFilters && <Button className="mt-4" variant="outline" onClick={clearFilters}>Clear filters</Button>}
         </div>
       )}
 
