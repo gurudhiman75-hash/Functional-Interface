@@ -44,14 +44,32 @@ function questionClues(section) {
   return [...question.matchAll(/^-\s+(.+)$/gmu)].map((match) => match[1].trim());
 }
 
-function relationForClue(clue, order) {
+function relationForClue(clue, order, locale) {
   const indices = new Map(order.map((name, index) => [name, index]));
-  const mentioned = order.filter((name) => clue.includes(name));
+  const mentioned = order
+    .filter((name) => clue.includes(name))
+    .sort((left, right) => clue.indexOf(left) - clue.indexOf(right));
   if (mentioned.length !== 2) {
     throw new Error(`Expected exactly two ordered names in clue '${clue}', found ${mentioned.length}`);
   }
-  const [left, right] = mentioned;
-  return indices.get(left) < indices.get(right) ? [left, right] : [right, left];
+
+  const [first, second] = mentioned;
+  let relation;
+  if (locale === 'hi') {
+    if (/नीचे/u.test(clue)) relation = [second, first];
+    else if (/(?:ऊपर|बेहतर|ऊँचा)/u.test(clue)) relation = [first, second];
+    else throw new Error(`Hindi clue direction not recognized: '${clue}'`);
+  } else {
+    if (/ਹੇਠਾਂ/u.test(clue)) relation = [second, first];
+    else if (/(?:ਉੱਪਰ|ਬਿਹਤਰ|ਉੱਚਾ)/u.test(clue)) relation = [first, second];
+    else throw new Error(`Punjabi clue direction not recognized: '${clue}'`);
+  }
+
+  const [higher, lower] = relation;
+  if (indices.get(higher) >= indices.get(lower)) {
+    throw new Error(`Native clue contradicts frozen order: '${clue}' -> ${higher} > ${lower}`);
+  }
+  return relation;
 }
 
 function longestPath(order, edges) {
@@ -102,7 +120,7 @@ function nativeSteps(section, locale) {
   let previousLongest = 0;
 
   clues.forEach((clue, index) => {
-    const relation = relationForClue(clue, order);
+    const relation = relationForClue(clue, order, locale);
     if (!edges.some(([a, b]) => a === relation[0] && b === relation[1])) edges.push(relation);
     const chain = longestPath(order, edges);
     const ordinal = ordinals[index] ?? `${index + 1}`;
