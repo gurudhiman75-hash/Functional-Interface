@@ -7,7 +7,7 @@ const posts = [
 ];
 
 export default function Blog() {
-  usePageMeta("Blog", "ExamTree preparation guides, notifications, cutoffs, syllabus updates, and current affairs hub.");
+  usePageMeta("Blog", "ExamTree preparation guides, notifications, cutoffs, syllabus updates, and current affairs hub.", { robots: "noindex,follow" });
 
   return (
     <PublicPage
@@ -19,4 +19,3 @@ export default function Blog() {
     </PublicPage>
   );
 }
-
