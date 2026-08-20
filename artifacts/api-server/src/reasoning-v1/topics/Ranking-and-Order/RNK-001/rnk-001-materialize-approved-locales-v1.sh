@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Combined-tree V2: exact approved locale pins; workflow gates mirror each checkpoint's final approved authority.
 ROOT="artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001"
 
 materialize() {
