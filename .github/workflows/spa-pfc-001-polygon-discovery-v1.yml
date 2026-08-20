@@ -1,0 +1,40 @@
+name: Validate SPA PFC-001 Polygon Discovery V1
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-pfc-polygon-discovery-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle polygon substrate gate
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-paper-folding-polygon-discovery-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-paper-folding-polygon-discovery-v1.test.mjs
+
+      - name: Validate source-backed triangular paper geometry
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-polygon-discovery-v1.test.mjs
