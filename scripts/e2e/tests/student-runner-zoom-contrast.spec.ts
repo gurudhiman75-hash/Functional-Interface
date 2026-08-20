@@ -256,7 +256,7 @@ test.describe("CP02 runner and result zoom contrast", () => {
     await expectNoHorizontalOverflow(page);
   });
 
-  test("keeps critical runner text and actions AA-readable at 200% scale after exiting immersive mode", async ({ page }) => {
+  test("keeps critical runner text and actions AA-readable at 200% scale after explicitly exiting immersive mode", async ({ page }) => {
     await openRunner(page);
 
     await expect.poll(
@@ -264,7 +264,15 @@ test.describe("CP02 runner and result zoom contrast", () => {
       { timeout: 5_000 },
     ).toBe(true);
 
-    await page.keyboard.press("Escape");
+    const exitFullscreen = page.getByRole("button", { name: "Exit fullscreen", exact: true });
+    await expect(exitFullscreen).toBeVisible();
+    const exitBox = await exitFullscreen.boundingBox();
+    expect(exitBox).not.toBeNull();
+    expect(Math.round(exitBox!.width * 1000) / 1000).toBeGreaterThanOrEqual(44);
+    expect(Math.round(exitBox!.height * 1000) / 1000).toBeGreaterThanOrEqual(44);
+    await exitFullscreen.focus();
+    await expect(exitFullscreen).toBeFocused();
+    await page.keyboard.press("Enter");
 
     await expect.poll(
       () => page.evaluate(() => Boolean(document.fullscreenElement)),
