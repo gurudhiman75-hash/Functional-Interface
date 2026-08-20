@@ -93,7 +93,9 @@ for (let allocationIndex = 0; allocationIndex < ALG_PERMANENT_ALLOCATION.length;
 
       assert(review.question.trim().length >= 10, `${prefix}: question too short`);
       assert(review.explanation.trim().length >= 35, `${prefix}: explanation too short`);
-      assert(review.explanation.split(/\n+/).every((line) => line.trim().length > 0), `${prefix}: blank solution step`);
+      const renderedSteps = review.explanation.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+      assert(renderedSteps.length > 0, `${prefix}: no rendered explanation steps`);
+      assert(renderedSteps.every((line) => line.length > 0), `${prefix}: blank solution step`);
 
       const combined = `${review.question}\n${review.explanation}`;
       for (const [pattern, label] of forbidden) {
@@ -102,9 +104,11 @@ for (let allocationIndex = 0; allocationIndex < ALG_PERMANENT_ALLOCATION.length;
 
       if (needsFormulaReason(source.prototypeId)) {
         formulaSamples += 1;
-        const steps = review.explanation.split(/\n+/);
         assert(review.explanation.includes("Why this method:"), `${prefix}: formula solution does not explain why the method applies`);
-        assert(steps.length >= 3, `${prefix}: formula solution has fewer than three visible steps`);
+        assert(renderedSteps.length >= 3, `${prefix}: formula solution has fewer than three visible steps`);
+        const whyIndex = renderedSteps.findIndex((step) => step.startsWith("Why this method:"));
+        assert(whyIndex >= 0 && whyIndex < renderedSteps.length - 1, `${prefix}: method reason is missing or placed after the calculation`);
+        assert(renderedSteps.slice(whyIndex + 1).some((step) => /[=<>≤≥]|Substitut|Rearrange|Factor|Eliminat|root|interval|Cauchy|Vieta|discriminant/i.test(step)), `${prefix}: formula reason is not followed by visible mathematical working`);
         if (review.question.includes(". Find ") || review.question.includes(". Form ")) {
           assert(review.explanation.includes("Given:"), `${prefix}: formula question does not restate the given values`);
           assert(review.explanation.includes("Required:"), `${prefix}: formula question does not state what must be found`);
