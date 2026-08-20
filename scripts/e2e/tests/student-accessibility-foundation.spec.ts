@@ -36,6 +36,12 @@ test.describe("CP02 accessibility foundation", () => {
     await installPublicFixtures(page);
     await page.goto("/about");
 
+    // Begin keyboard certification only after the lazy route has replaced its
+    // loading skeleton. Otherwise the focused tree can be remounted after Tab.
+    await expect(
+      page.getByRole("heading", { name: "A serious mock-test platform for serious aspirants." }),
+    ).toBeVisible();
+
     const viewport = await page.locator('meta[name="viewport"]').getAttribute("content");
     expect(viewport).toBe("width=device-width, initial-scale=1.0");
     expect(viewport).not.toContain("maximum-scale");
