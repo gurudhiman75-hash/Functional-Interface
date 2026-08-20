@@ -22,6 +22,7 @@ const allowedAsciiMathWords = new Set([
   "ab", "bc", "ca", "abc", "ax", "bx", "cx", "kx", "mx", "ac", "ii", "iii", "iv",
 ]);
 const residue = new Map<string, Set<string>>();
+const wrongScript = new Map<string, Set<string>>();
 
 function auditEnglishResidue(prefix: string, text: string): void {
   for (const raw of text.match(/[A-Za-z]{2,}/g) ?? []) {
@@ -30,6 +31,15 @@ function auditEnglishResidue(prefix: string, text: string): void {
     if (!residue.has(token)) residue.set(token, new Set());
     const examples = residue.get(token)!;
     if (examples.size < 4) examples.add(`${prefix}: ${text.slice(0, 220)}`);
+  }
+}
+function auditScriptPurity(locale: AlgReviewLocale, prefix: string, text: string): void {
+  const wrong = locale === "hi-IN" ? text.match(/[\u0A00-\u0A7F]+/g) : text.match(/[\u0900-\u097F]+/g);
+  for (const token of wrong ?? []) {
+    const key = `${locale}:${token}`;
+    if (!wrongScript.has(key)) wrongScript.set(key, new Set());
+    const examples = wrongScript.get(key)!;
+    if (examples.size < 3) examples.add(`${prefix}: ${text.slice(0, 220)}`);
   }
 }
 
@@ -69,10 +79,11 @@ for (const allocation of ALG_PERMANENT_ALLOCATION) {
         assert(item.question !== english.question && item.explanation !== english.explanation, `${prefix}: localization missing`);
         assert(locale === "hi-IN" ? devanagari.test(item.question + item.explanation) : gurmukhi.test(item.question + item.explanation), `${prefix}: target script missing`);
         assert(!/undefined|NaN|<script|<style/i.test(item.question + item.explanation), `${prefix}: render-unsafe token`);
-        assert(!/\b(?:Given|Required|Why this method|Find|Solve|Factorise|Compare|Classify)\b/i.test(item.question + item.explanation), `${prefix}: known English learner phrase leaked`);
 
         auditEnglishResidue(`${prefix}/question`, item.question);
         auditEnglishResidue(`${prefix}/explanation`, item.explanation);
+        auditScriptPurity(locale, `${prefix}/question`, item.question);
+        auditScriptPurity(locale, `${prefix}/explanation`, item.explanation);
 
         assert(item.permanentIdentityFrozen && item.semanticContractFrozen && item.solverAuthorityFrozen && item.englishImplementationFrozen, `${prefix}: frozen upstream authority lost`);
         assert(!item.multilingualImplementationFrozen, `${prefix}: multilingual freeze activated prematurely`);
@@ -94,12 +105,21 @@ assert(mappedVariants === 109, `Expected 109 mapped variants, found ${mappedVari
 assert(samples === 2616, `Expected 2,616 V2 samples, found ${samples}`);
 assert(deterministicSurfaces.size === 218, `Expected 218 deterministic locale surfaces, found ${deterministicSurfaces.size}`);
 
+const failures: string[] = [];
 if (residue.size > 0) {
   const details = [...residue.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([token, examples]) => `${token}: ${[...examples].join(" || ")}`)
     .join("\n");
-  throw new Error(`English prose residue remains in multilingual V2 (${residue.size} tokens):\n${details}`);
+  failures.push(`English prose residue remains (${residue.size} tokens):\n${details}`);
 }
+if (wrongScript.size > 0) {
+  const details = [...wrongScript.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([token, examples]) => `${token}: ${[...examples].join(" || ")}`)
+    .join("\n");
+  failures.push(`Cross-script residue remains (${wrongScript.size} tokens):\n${details}`);
+}
+if (failures.length > 0) throw new Error(`Multilingual V2 editorial purity failed:\n${failures.join("\n\n")}`);
 
-console.log(`Algebra multilingual review V2 passed: ${samples} samples, 43 QLs, 109 variants, 2 locales, zero English prose residue`);
+console.log(`Algebra multilingual review V2 passed: ${samples} samples, 43 QLs, 109 variants, 2 locales, zero English prose residue, zero cross-script residue`);
