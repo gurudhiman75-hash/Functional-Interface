@@ -23,6 +23,7 @@ export const PFC_001_TRIANGLE_DISCOVERY_AUTHORITY_V1 = Object.freeze({
   foundationAuthority: "PFC-001-FOUNDATION-V3-POLYGON-SUBSTRATE" as const,
   status: "EXECUTABLE_SOURCE_BACKED_POLYGON_GAP_CLOSURE" as const,
   activatedSourceShape: "TRIANGLE" as const,
+  foldCoverage: ["SYMMETRY_MEDIAN", "OFF_CENTRE_GENERAL_LINE"] as const,
   engineCapability: ["TRIANGLE", "REGULAR_HEXAGON", "GENERAL_CONVEX_POLYGON"] as const,
   learnerReviewActivation: ["TRIANGLE"] as const,
   permanentQlAllocationAllowed: false,
@@ -39,7 +40,12 @@ export interface PfcTriangleScenarioV1 {
   sourceSheet: PfcSourceSheetV3;
   fold: PfcFoldV1;
   cut: PfcCutGeometryV2;
-  family: "TRIANGLE_MEDIAN_HOLE" | "TRIANGLE_MEDIAN_POLYGON_CUT" | "TRIANGLE_MEDIAN_SLIT";
+  family:
+    | "TRIANGLE_MEDIAN_HOLE"
+    | "TRIANGLE_MEDIAN_POLYGON_CUT"
+    | "TRIANGLE_MEDIAN_SLIT"
+    | "TRIANGLE_GENERAL_LINE_HOLE"
+    | "TRIANGLE_GENERAL_LINE_POLYGON_CUT";
   proposalId: "PFC-PROP-01" | "PFC-PROP-03" | "PFC-PROP-04";
 }
 
@@ -153,6 +159,15 @@ function fold(axisIndex: number, movingSide: "POSITIVE" | "NEGATIVE", id: string
   return { foldId: id, kind: axisIndex === 0 ? "VERTICAL" : "GENERAL_LINE", line: AXES[axisIndex].line, movingSide };
 }
 
+function offCentreTipFold(id: string): PfcFoldV1 {
+  return {
+    foldId: id,
+    kind: "HORIZONTAL",
+    line: { a: { x: -20, y: 52 }, b: { x: 140, y: 52 } },
+    movingSide: "NEGATIVE",
+  };
+}
+
 function diamond(cutId: string, center: SpatialPoint, r = 3): PfcCutGeometryV2 {
   return { cutId, kind: "POLYGON_CUT", semanticShape: "DIAMOND", vertices: [
     { x: center.x, y: center.y - r }, { x: center.x + r, y: center.y },
@@ -183,6 +198,26 @@ export function pfcTriangleDiscoveryScenariosV1(): PfcTriangleScenarioV1[] {
     { axis: 0, offset: 10, along: 13, kind: "DIAMOND" as const, proposalId: "PFC-PROP-04" as const },
   ];
   return specs.map((spec, index) => {
+    if (index === 3) {
+      return {
+        scenarioId: "PFC-POLY-TRI-04",
+        sourceSheet: sheet,
+        fold: offCentreTipFold("F4"),
+        cut: { cutId: "C4", kind: "CIRCLE_HOLE", center: { x: 60, y: 70 }, radius: 2.4 },
+        family: "TRIANGLE_GENERAL_LINE_HOLE",
+        proposalId: spec.proposalId,
+      };
+    }
+    if (index === 7) {
+      return {
+        scenarioId: "PFC-POLY-TRI-08",
+        sourceSheet: sheet,
+        fold: offCentreTipFold("F8"),
+        cut: diamond("C8", { x: 60, y: 78 }),
+        family: "TRIANGLE_GENERAL_LINE_POLYGON_CUT",
+        proposalId: spec.proposalId,
+      };
+    }
     const placement = stationaryPunch(AXES[spec.axis].line, spec.offset, spec.along);
     const cut = spec.kind === "HOLE"
       ? { cutId: `C${index + 1}`, kind: "CIRCLE_HOLE" as const, center: placement.point, radius: 2.4 }
