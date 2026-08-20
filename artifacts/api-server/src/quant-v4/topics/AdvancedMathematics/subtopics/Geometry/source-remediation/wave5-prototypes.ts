@@ -71,7 +71,7 @@ function equalParallelDiagonalDiagram(): GeoDiagramModel {
     circles: [],
     angleMarks: [],
     rightAngleMarks: [],
-    equalLengthMarks: [{ id: "given-ab-cd", segmentIds: ["AB", "CD"] }],
+    equalLengthMarks: [],
     parallelMarks: [{ id: "given-ab-parallel-cd", segmentIds: ["AB", "CD"] }],
     arcs: [],
     labels: [],
@@ -187,7 +187,7 @@ function generateEqualParallelDiagonalCpct(seed: string): GapWave5Question {
     minimalityProof: proveClueMinimality(clueIds, solve, expected),
     independentVerifierResult: wave5Verifier("HIGH_PRECISION_COORDINATE", visualPassed, [
       "AB and CD are exactly parallel in the coordinate construction",
-      "AB and CD have equal drawn length as explicitly stated",
+      "AB and CD have equal coordinate length as explicitly stated in the stem",
       "AC is the shared diagonal of the two congruent triangles",
       "the independent coordinate model gives BC = DA without displaying that derived equality mark",
     ]),
