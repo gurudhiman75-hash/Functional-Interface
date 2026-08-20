@@ -13,7 +13,7 @@ function key(clue: Sea002Cp006Clue): string { return canonicalDigest(clue); }
 
 function supportiveClues(caselet: Sea002Cp006Caselet): readonly Sea002Cp006Clue[] {
   const { state, blueprintAuthorityId: blueprint } = caselet;
-  const top0=state.top[0]!, top1=state.top[1]!, bottom0=state.bottom[0]!, bottom1=state.bottom[1]!;
+  const top0=state.top[0]!, bottom0=state.bottom[0]!, bottom1=state.bottom[1]!;
   const relativeTarget=sameRowMove(state,top0,"LEFT",1);
   if(!relativeTarget) throw new Error(`${caselet.caseletId}: missing CP006 relative fixture`);
   const opposite:Sea002Cp006Clue={kind:"OPPOSITE",first:top0,second:bottom0};
@@ -46,8 +46,12 @@ function renderedClues(caselet:Sea002Cp006Caselet,clues:readonly Sea002Cp006Clue
   ];
 }
 
-export function generateSea002Cp006DiscoveryCaselet(blueprint:Sea002Cp006BlueprintId,seed:string):Sea002Cp006Caselet {
-  const base=generateSea002Cp006Caselet(blueprint,seed);
+export function generateSea002Cp006DiscoveryCaselet(
+  blueprint:Sea002Cp006BlueprintId,
+  seed:string,
+  seatCountPerRow=3,
+):Sea002Cp006Caselet {
+  const base=generateSea002Cp006Caselet(blueprint,seed,seatCountPerRow);
   const clues=[...base.clues];
   const existing=new Set(clues.map(key));
   for(const clue of supportiveClues(base)) {
