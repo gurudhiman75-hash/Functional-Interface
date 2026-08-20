@@ -18,10 +18,27 @@ function ordinal(steps:number):string {
   return ({2:"second",3:"third",4:"fourth",5:"fifth"} as Record<number,string>)[steps] ?? `${steps}th`;
 }
 
+function atEitherEndDistance(column:number,n:number,positionFromEnd:number):boolean {
+  return column===positionFromEnd-1||column===n-positionFromEnd;
+}
+
 export function cp006SourceClueTrue(state:Sea002Cp006State,clue:Sea002Cp006Clue):boolean {
   if(clue.kind==="SAME_ROW_GAP") {
     const first=seatOf(state,clue.first),second=seatOf(state,clue.second);
     return first.row===second.row && Math.abs(first.column-second.column)===clue.between+1;
+  }
+  if(clue.kind==="SAME_ROW_MIN_BETWEEN") {
+    const first=seatOf(state,clue.first),second=seatOf(state,clue.second);
+    return first.row===second.row && Math.abs(first.column-second.column)>=clue.minBetween+1;
+  }
+  if(clue.kind==="NOT_ADJACENT") {
+    const first=seatOf(state,clue.first),second=seatOf(state,clue.second);
+    return !(first.row===second.row&&Math.abs(first.column-second.column)===1);
+  }
+  if(clue.kind==="ROW_END_DISTANCE") {
+    const seat=seatOf(state,clue.person);
+    const at=atEitherEndDistance(seat.column,state.seatCountPerRow,clue.positionFromEnd);
+    return clue.mode==="AT_EITHER_END_DISTANCE"?at:!at;
   }
   if(clue.kind==="FACING_REFERENT_RELATIVE") {
     const targetFacing=oppositePerson(state,clue.targetFacee);
@@ -36,6 +53,15 @@ export function renderCp006SourceClue(clue:Sea002Cp006Clue):string {
     if(clue.between===0) return `${clue.first} and ${clue.second} are immediate neighbours in the same row.`;
     return `Exactly ${clue.between} ${clue.between===1?"person sits":"persons sit"} between ${clue.first} and ${clue.second} in the same row.`;
   }
+  if(clue.kind==="SAME_ROW_MIN_BETWEEN") {
+    if(clue.minBetween===1) return `At least one person sits between ${clue.first} and ${clue.second} in the same row.`;
+    return `At least ${clue.minBetween} persons sit between ${clue.first} and ${clue.second} in the same row.`;
+  }
+  if(clue.kind==="NOT_ADJACENT") return `${clue.first} and ${clue.second} are not immediate neighbours.`;
+  if(clue.kind==="ROW_END_DISTANCE") {
+    const phrase=`${ordinal(clue.positionFromEnd)} from either end of the row`;
+    return clue.mode==="AT_EITHER_END_DISTANCE"?`${clue.person} sits ${phrase}.`:`${clue.person} does not sit ${phrase}.`;
+  }
   if(clue.kind==="FACING_REFERENT_RELATIVE") {
     return `The person facing ${clue.targetFacee} sits ${ordinal(clue.steps)} to the ${clue.side.toLowerCase()} of the person facing ${clue.referenceFacee}.`;
   }
@@ -48,6 +74,10 @@ function sourceClues(state:Sea002Cp006State,seed:string):readonly Sea002Cp006Clu
   const gap:Sea002Cp006Clue={kind:"SAME_ROW_GAP",first:row[0]!,second:row.at(-1)!,between:state.seatCountPerRow-2};
   const adjacencyIndex=rng.integer(0,state.seatCountPerRow-2);
   const adjacent:Sea002Cp006Clue={kind:"SAME_ROW_GAP",first:row[adjacencyIndex]!,second:row[adjacencyIndex+1]!,between:0};
+  const nonAdjacent:Sea002Cp006Clue={kind:"NOT_ADJACENT",first:row[0]!,second:row[2]!};
+  const minimumGap:Sea002Cp006Clue={kind:"SAME_ROW_MIN_BETWEEN",first:row[0]!,second:row.at(-1)!,minBetween:Math.min(2,state.seatCountPerRow-2)};
+  const secondFromEnd:Sea002Cp006Clue={kind:"ROW_END_DISTANCE",person:row[1]!,positionFromEnd:2,mode:"AT_EITHER_END_DISTANCE"};
+  const notSecondFromEnd:Sea002Cp006Clue={kind:"ROW_END_DISTANCE",person:row[0]!,positionFromEnd:2,mode:"NOT_AT_EITHER_END_DISTANCE"};
 
   const candidates:{targetFacee:string;referenceFacee:string;side:Sea002ParallelSide;steps:number}[]=[];
   for(const referenceFacee of [...state.top,...state.bottom]) {
@@ -63,7 +93,7 @@ function sourceClues(state:Sea002Cp006State,seed:string):readonly Sea002Cp006Clu
   }
   const facing=rng.pick(candidates);
   const facingRelative:Sea002Cp006Clue={kind:"FACING_REFERENT_RELATIVE",...facing};
-  return [gap,adjacent,facingRelative];
+  return [gap,adjacent,nonAdjacent,minimumGap,secondFromEnd,notSecondFromEnd,facingRelative];
 }
 
 function optionTuple(values:readonly Sea002Cp006Option[]):Sea002Cp006ChildQuestion["options"] {
@@ -139,7 +169,7 @@ export function generateSea002Cp006SourceRealCaselet(
     children,
     structuralFingerprint:canonicalDigest({
       base:base.structuralFingerprint,
-      sourceFamilies:additions.map((clue)=>clue.kind==="SAME_ROW_GAP"?`${clue.kind}:${clue.between}`:`${clue.kind}:${clue.steps}`),
+      sourceFamilies:additions.map((clue)=>clue.kind==="SAME_ROW_GAP"?`${clue.kind}:${clue.between}`:clue.kind==="SAME_ROW_MIN_BETWEEN"?`${clue.kind}:${clue.minBetween}`:clue.kind==="ROW_END_DISTANCE"?`${clue.kind}:${clue.mode}:${clue.positionFromEnd}`:clue.kind==="FACING_REFERENT_RELATIVE"?`${clue.kind}:${clue.steps}`:clue.kind),
       queryContracts:children.map((child)=>child.queryContractId),
     }),
   };
