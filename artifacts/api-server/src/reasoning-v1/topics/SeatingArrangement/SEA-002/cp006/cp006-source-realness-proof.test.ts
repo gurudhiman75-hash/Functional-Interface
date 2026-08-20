@@ -20,12 +20,21 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS) {
       childCount+=caselet.children.length;
       structures.add(caselet.structuralFingerprint);
 
-      const sourceClues=caselet.clues.filter((clue)=>clue.kind==="SAME_ROW_GAP"||clue.kind==="FACING_REFERENT_RELATIVE");
-      assert.equal(sourceClues.length,3,`${caselet.caseletId}: expected exact-gap, adjacency and facing-referent clues`);
+      const sourceClues=caselet.clues.filter((clue)=>
+        clue.kind==="SAME_ROW_GAP"||
+        clue.kind==="SAME_ROW_MIN_BETWEEN"||
+        clue.kind==="NOT_ADJACENT"||
+        clue.kind==="ROW_END_DISTANCE"||
+        clue.kind==="FACING_REFERENT_RELATIVE");
+      assert.equal(sourceClues.length,7,`${caselet.caseletId}: incomplete source-realness clue bundle`);
       assert.ok(sourceClues.every((clue)=>cp006SourceClueTrue(caselet.state,clue)),`${caselet.caseletId}: source clue truth`);
       for(const clue of sourceClues) sourceKinds.add(clue.kind);
       assert.ok(sourceClues.some((clue)=>clue.kind==="SAME_ROW_GAP"&&clue.between===0),`${caselet.caseletId}: missing adjacency semantic`);
       assert.ok(sourceClues.some((clue)=>clue.kind==="SAME_ROW_GAP"&&clue.between===width-2),`${caselet.caseletId}: missing exact gap semantic`);
+      assert.ok(sourceClues.some((clue)=>clue.kind==="SAME_ROW_MIN_BETWEEN"&&clue.minBetween===2),`${caselet.caseletId}: missing minimum-gap semantic`);
+      assert.ok(sourceClues.some((clue)=>clue.kind==="NOT_ADJACENT"),`${caselet.caseletId}: missing negative adjacency`);
+      assert.ok(sourceClues.some((clue)=>clue.kind==="ROW_END_DISTANCE"&&clue.mode==="AT_EITHER_END_DISTANCE"&&clue.positionFromEnd===2),`${caselet.caseletId}: missing second-from-end semantic`);
+      assert.ok(sourceClues.some((clue)=>clue.kind==="ROW_END_DISTANCE"&&clue.mode==="NOT_AT_EITHER_END_DISTANCE"&&clue.positionFromEnd===2),`${caselet.caseletId}: missing negative end-distance semantic`);
       assert.ok(sourceClues.some((clue)=>clue.kind==="FACING_REFERENT_RELATIVE"),`${caselet.caseletId}: missing facing-referent chain`);
 
       const production=solveCp006(caselet.people,width,caselet.clues);
@@ -53,8 +62,11 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS) {
 
       const learnerSurface=[caselet.setupText,...caselet.clueTexts,...caselet.children.map((child)=>child.text)].join("\n");
       assert.match(learnerSurface,/immediate neighbours/i);
+      assert.match(learnerSurface,/not immediate neighbours/i);
       assert.match(learnerSurface,/person facing/i);
       assert.match(learnerSurface,/persons? sit between/i);
+      assert.match(learnerSurface,/at least 2 persons sit between/i);
+      assert.match(learnerSurface,/second from either end/i);
       assert.ok(!/SEA-PBA|SEA-QC|oracle|fingerprint/i.test(learnerSurface),`${caselet.caseletId}: internal language leaked`);
 
       assert.equal(caselet.permanentQlAllocated,false);
@@ -68,7 +80,7 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS) {
   }
 }
 
-assert.deepEqual([...sourceKinds].sort(),["FACING_REFERENT_RELATIVE","SAME_ROW_GAP"]);
+assert.deepEqual([...sourceKinds].sort(),["FACING_REFERENT_RELATIVE","NOT_ADJACENT","ROW_END_DISTANCE","SAME_ROW_GAP","SAME_ROW_MIN_BETWEEN"]);
 assert.deepEqual([...queryContracts].sort(),["SEA-QC-003","SEA-QC-006","SEA-QC-009","SEA-QC-010"]);
 assert.equal(caseletCount,24);
 assert.equal(childCount,96);
