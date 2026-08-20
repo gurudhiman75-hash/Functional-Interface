@@ -18,6 +18,6 @@ export {
 export { generateAlgPermanentMultilingualReviewV1 } from "./multilingual-review-v1-polish";
 export {
   ALG_MULTILINGUAL_REVIEW_V2_ID,
-  generateAlgPermanentMultilingualReviewV2,
   type AlgPermanentMultilingualReviewV2Item,
 } from "./multilingual-review-v2";
+export { generateAlgPermanentMultilingualReviewV2Editorial as generateAlgPermanentMultilingualReviewV2 } from "./multilingual-review-v2-editorial";
