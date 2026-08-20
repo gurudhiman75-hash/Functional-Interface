@@ -25,5 +25,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Prove CP006 topology, generators, solver/oracle and lifecycle locks
+      - name: Prove CP006 3+3 baseline topology, generator, solver/oracle and lifecycle locks
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-discovery-proof.test.ts
+      - name: Prove CP006 4+4, 5+5 and 6+6 scalable expansion
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-wide-proof.test.ts
