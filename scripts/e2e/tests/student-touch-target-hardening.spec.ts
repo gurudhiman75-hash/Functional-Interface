@@ -30,8 +30,14 @@ async function expectTouchTarget(locator: Locator) {
   await expect(locator).toBeVisible();
   const box = await locator.boundingBox();
   expect(box, "interactive control should have a measurable box").not.toBeNull();
-  expect(box!.width).toBeGreaterThanOrEqual(44);
-  expect(box!.height).toBeGreaterThanOrEqual(44);
+
+  // Chromium can report an exact 44 CSS-pixel box a few floating-point ulps
+  // below 44 (for example 43.9999847). Normalize geometry to 0.001 CSS px,
+  // then keep the production requirement at a true 44px minimum.
+  const width = Math.round(box!.width * 1000) / 1000;
+  const height = Math.round(box!.height * 1000) / 1000;
+  expect(width).toBeGreaterThanOrEqual(44);
+  expect(height).toBeGreaterThanOrEqual(44);
 }
 
 async function expectNoHorizontalOverflow(page: Page) {
@@ -71,8 +77,8 @@ test.describe("CP02 page-level touch targets", () => {
 
     await page.goto("/dashboard");
     await expectTouchTarget(page.getByRole("link", { name: "Sign in" }).last());
-    await expectTouchTarget(page.getByRole("button", { name: "My activity" }));
-    await expectTouchTarget(page.getByRole("button", { name: "User profile" }));
+    await expectTouchTarget(page.getByRole("button", { name: "My activity", exact: true }));
+    await expectTouchTarget(page.getByRole("button", { name: "User profile", exact: true }));
     await expectNoHorizontalOverflow(page);
 
     await page.goto("/profile");
@@ -81,8 +87,8 @@ test.describe("CP02 page-level touch targets", () => {
 
     await page.goto("/result");
     await expectTouchTarget(page.getByRole("button", { name: "Open My Activity" }));
-    await expectTouchTarget(page.getByRole("button", { name: "My activity" }));
-    await expectTouchTarget(page.getByRole("button", { name: "User profile" }));
+    await expectTouchTarget(page.getByRole("button", { name: "My activity", exact: true }));
+    await expectTouchTarget(page.getByRole("button", { name: "User profile", exact: true }));
     await expectNoHorizontalOverflow(page);
   });
 });
