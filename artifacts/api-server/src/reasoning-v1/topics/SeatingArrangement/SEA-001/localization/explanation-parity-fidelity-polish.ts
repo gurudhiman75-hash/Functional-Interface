@@ -55,8 +55,13 @@ function translateSoAction(block:string,locale:Sea001TranslatedLocale):string|un
   m=block.match(/^So: Start from ([A-Z][a-z]+)\. Count (two|three) seats clockwise and put ([A-Z][a-z]+) there\.$/);
   if(m){const c=countValue(m[2]!);return tr(locale,`इसलिए: ${n(m[1]!,locale)} से शुरू करें। घड़ी की दिशा में ${c} सीट गिनें और ${n(m[3]!,locale)} को वहाँ रखें।`,`ਇਸ ਲਈ: ${n(m[1]!,locale)} ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ। ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ${c} ਸੀਟਾਂ ਗਿਣੋ ਅਤੇ ${n(m[3]!,locale)} ਨੂੰ ਉੱਥੇ ਰੱਖੋ।`);}
 
-  m=block.match(/^So: One person in between means ([A-Z][a-z]+) is two seats away from ([A-Z][a-z]+)\. Count two seats clockwise from \2 and put \1 there\.$/);
-  if(m)return tr(locale,`इसलिए: बीच में एक व्यक्ति होने का अर्थ है कि ${n(m[1]!,locale)}, ${n(m[2]!,locale)} से दो सीट दूर है। ${n(m[2]!,locale)} से घड़ी की दिशा में दो सीट गिनें और ${n(m[1]!,locale)} को वहाँ रखें।`,`ਇਸ ਲਈ: ਵਿਚਕਾਰ ਇੱਕ ਵਿਅਕਤੀ ਹੋਣ ਦਾ ਮਤਲਬ ਹੈ ਕਿ ${n(m[1]!,locale)}, ${n(m[2]!,locale)} ਤੋਂ ਦੋ ਸੀਟਾਂ ਦੂਰ ਹੈ। ${n(m[2]!,locale)} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਦੋ ਸੀਟਾਂ ਗਿਣੋ ਅਤੇ ${n(m[1]!,locale)} ਨੂੰ ਉੱਥੇ ਰੱਖੋ।`);
+  m=block.match(/^So: (One|Two|Three|Four|Five) persons? in between means ([A-Z][a-z]+) is (two|three|four|five|six) seats away from ([A-Z][a-z]+)\. Count (two|three|four|five|six) seats (clockwise|anticlockwise) from ([A-Z][a-z]+) and put ([A-Z][a-z]+) there\.$/);
+  if(m){
+    if(m[3]!==m[5]||m[4]!==m[7]||m[2]!==m[8])throw new Error(`SEA-001 explanation fidelity: directional gap identity mismatch: ${block}`);
+    const between=countValue(m[1]!),distance=countValue(m[3]!),clockwise=m[6]==="clockwise";
+    const direction=clockwise?tr(locale,"घड़ी की दिशा","ਘੜੀ ਦੀ ਦਿਸ਼ਾ"):tr(locale,"घड़ी की विपरीत दिशा","ਘੜੀ ਦੀ ਉਲਟੀ ਦਿਸ਼ਾ");
+    return tr(locale,`इसलिए: बीच में ${between} व्यक्ति होने का अर्थ है कि ${n(m[2]!,locale)}, ${n(m[4]!,locale)} से ${distance} सीट दूर है। ${n(m[4]!,locale)} से ${direction} में ${distance} सीट गिनें और ${n(m[2]!,locale)} को वहाँ रखें।`,`ਇਸ ਲਈ: ਵਿਚਕਾਰ ${between} ਵਿਅਕਤੀ ਹੋਣ ਦਾ ਮਤਲਬ ਹੈ ਕਿ ${n(m[2]!,locale)}, ${n(m[4]!,locale)} ਤੋਂ ${distance} ਸੀਟਾਂ ਦੂਰ ਹੈ। ${n(m[4]!,locale)} ਤੋਂ ${direction} ਵਿੱਚ ${distance} ਸੀਟਾਂ ਗਿਣੋ ਅਤੇ ${n(m[2]!,locale)} ਨੂੰ ਉੱਥੇ ਰੱਖੋ।`);
+  }
 
   m=block.match(/^So: Put ([A-Z][a-z]+) in the seat nearest the (stage|door|entrance)\. Start the circle from this fixed seat\.$/);
   if(m){const place=m[2]==="stage"?tr(locale,"मंच","ਮੰਚ"):m[2]==="door"?tr(locale,"दरवाज़े","ਦਰਵਾਜ਼ੇ"):tr(locale,"प्रवेश-द्वार","ਦਾਖਲਾ");return tr(locale,`इसलिए: ${n(m[1]!,locale)} को ${place} के सबसे पास वाली सीट पर रखें। इसी तय सीट से गोल बनाना शुरू करें।`,`ਇਸ ਲਈ: ${n(m[1]!,locale)} ਨੂੰ ${place} ਦੇ ਸਭ ਤੋਂ ਨੇੜੇ ਵਾਲੀ ਸੀਟ 'ਤੇ ਰੱਖੋ। ਇਸੇ ਤੈਅ ਸੀਟ ਤੋਂ ਗੋਲ ਬਣਾਉਣਾ ਸ਼ੁਰੂ ਕਰੋ।`);}
