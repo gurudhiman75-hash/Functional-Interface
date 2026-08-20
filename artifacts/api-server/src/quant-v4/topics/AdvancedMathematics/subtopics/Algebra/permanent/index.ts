@@ -20,4 +20,4 @@ export {
   ALG_MULTILINGUAL_REVIEW_V2_ID,
   type AlgPermanentMultilingualReviewV2Item,
 } from "./multilingual-review-v2";
-export { generateAlgPermanentMultilingualReviewV2Editorial as generateAlgPermanentMultilingualReviewV2 } from "./multilingual-review-v2-editorial";
+export { generateAlgPermanentMultilingualReviewV2Final as generateAlgPermanentMultilingualReviewV2 } from "./multilingual-review-v2-final";
