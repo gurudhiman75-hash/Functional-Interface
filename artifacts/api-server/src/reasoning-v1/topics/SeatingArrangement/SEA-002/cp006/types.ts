@@ -28,8 +28,11 @@ export type Sea002Cp006Clue =
   | Readonly<{ kind: "NOT_OPPOSITE"; first: Sea002PersonId; second: Sea002PersonId }>
   | Readonly<{ kind: "SAME_ROW_RELATIVE"; target: Sea002PersonId; reference: Sea002PersonId; side: Sea002ParallelSide; steps: number }>
   | Readonly<{ kind: "SAME_ROW_GAP"; first: Sea002PersonId; second: Sea002PersonId; between: number }>
+  | Readonly<{ kind: "SAME_ROW_MIN_BETWEEN"; first: Sea002PersonId; second: Sea002PersonId; minBetween: number }>
+  | Readonly<{ kind: "NOT_ADJACENT"; first: Sea002PersonId; second: Sea002PersonId }>
   | Readonly<{ kind: "FACING_REFERENT_RELATIVE"; targetFacee: Sea002PersonId; referenceFacee: Sea002PersonId; side: Sea002ParallelSide; steps: number }>
   | Readonly<{ kind: "END_POSITION"; person: Sea002PersonId; row: Sea002ParallelRow; end: "LEFT" | "RIGHT" }>
+  | Readonly<{ kind: "ROW_END_DISTANCE"; person: Sea002PersonId; positionFromEnd: number; mode: "AT_EITHER_END_DISTANCE" | "NOT_AT_EITHER_END_DISTANCE" }>
   | Readonly<{ kind: "DIAGONAL"; first: Sea002PersonId; second: Sea002PersonId }>;
 
 export type Sea002Cp006AnswerType = "PERSON" | "PAIR" | "COUNT" | "RELATION";
