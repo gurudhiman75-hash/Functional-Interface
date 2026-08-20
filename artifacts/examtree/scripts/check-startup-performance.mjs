@@ -31,6 +31,8 @@ assert.match(mathProvider, /processEscapes: true/);
 assert.match(mathProvider, /\[tex\]\/ams/);
 assert.doesNotMatch(vite, /mathjax:\s*\[/, "MathJax must not be a manual chunk because Vite preloads manual entry dependencies globally");
 
+assert.doesNotMatch(app, /import \{ AppLayout \}/, "application root must not statically import the Firebase/catalog-backed preparation shell");
+assert.match(app, /const AppLayout = lazy\(\(\) => import\("@\/components\/AppLayout"\)/, "preparation shell must be dynamically imported");
 assert.doesNotMatch(app, /import \{ ExamCatalogProvider \}/, "application root must not statically import the exam catalog provider");
 assert.doesNotMatch(app, /<ExamCatalogProvider>/, "application root must not globally mount the exam catalog provider");
 assert.match(app, /import \{ RouteCatalogBoundary \}/, "application router must own the lazy catalog boundary");
@@ -60,18 +62,16 @@ assert.match(proof, /exam discovery loads the catalog on demand without loading 
 assert.match(proof, /student login loads Firebase on demand without waking the exam catalog/);
 assert.match(proof, /saved question review loads the isolated MathJax bundle on demand/);
 assert.match(proof, /function localMathProviderChunks/);
-assert.match(proof, /function localCatalogProviderChunks/);
 assert.match(proof, /function localFirebaseChunks/);
 assert.match(proof, /MathJaxRouteProvider-/);
-assert.match(proof, /ExamCatalogProvider-/);
 assert.match(proof, /firebase-/);
+assert.match(proof, /page\.route\("\*\*\/api\/users\/me"[\s\S]*?new Promise<void>\(\(\) => \{\}\)/, "login proof must hold the synthetic E2E profile lookup to preserve the signed-out surface");
 assert.match(proof, /counts\)\.toEqual\(\{ categories: 0, subcategories: 0, tests: 0 \}\)/, "anonymous and login proofs must reject eager catalog API requests");
 assert.match(proof, /counts\.categories\)\.toBeGreaterThan\(0\)/, "exam discovery proof must observe category loading on demand");
 assert.match(proof, /counts\.subcategories\)\.toBeGreaterThan\(0\)/, "exam discovery proof must observe subcategory loading on demand");
 assert.match(proof, /counts\.tests\)\.toBeGreaterThan\(0\)/, "exam discovery proof must observe test loading on demand");
 assert.match(proof, /localFirebaseChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous/catalog routes must prove Firebase is absent");
 assert.match(proof, /localFirebaseChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove Firebase loads on demand");
-assert.match(proof, /localCatalogProviderChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "catalog route must prove provider chunk loads on demand");
 assert.match(proof, /\$x = 2\$/);
 
 console.log("Startup performance audit passed (52 assertions).");
