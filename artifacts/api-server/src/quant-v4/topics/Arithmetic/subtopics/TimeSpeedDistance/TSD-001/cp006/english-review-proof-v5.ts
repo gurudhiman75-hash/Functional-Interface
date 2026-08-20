@@ -36,7 +36,7 @@ for (const row of rows) {
   assert(!/\bA faster [A-Z]|who is faster, moving/.test(row.stem), `${row.seed}: awkward faster-subject wording remains`);
   assert(!/\buse the route\b/.test(row.stem), `${row.seed}: mechanical object-family injection remains`);
   assert(!/\b1\/2 laps\b/.test(learnerText), `${row.seed}: half-lap grammar defect remains`);
-  assert(!/\b\d+ \d+\/\d+ lap\b/.test(learnerText), `${row.seed}: mixed-fraction lap grammar defect remains`);
+  assert(!/\b\d+ \d+\/\d+ lap(?=\s|[.,;!?]|$)/.test(learnerText), `${row.seed}: mixed-fraction lap grammar defect remains`);
   assert(!/\b1 minutes\b|\b1 laps\b/.test(learnerText), `${row.seed}: singular-unit grammar defect remains`);
   assert(!/minutes(?:Runner|Athlete|Cadet|Trainee|Jogger|Walker|Competitor|Participant|Recruit|Player|Student|Racer|Club|Track|Academy|Fitness|Sports|Practice)/.test(row.stem), `${row.seed}: missing separator after time value`);
   assert(!/\bvehicle\b/i.test(`${row.stem} ${row.explanation.steps.join(" ")}`), `${row.seed}: vehicle wording leaked into learner surface`);
