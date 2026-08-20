@@ -7,6 +7,7 @@ on:
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-instalment-english-v2.ts'
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-instalment-english-v3.ts'
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v3-audit.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v3-money-audit.ts'
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v3-review-export.ts'
       - '.github/workflows/int-cp008-english-v3-review.yml'
   workflow_dispatch:
@@ -53,6 +54,15 @@ jobs:
       - name: Verify English V3 marker
         run: grep -q 'PASS_INT_CP008_ENGLISH_V3_AUDIT' int-cp008-english-v3.log
 
+      - name: Run CP008 English V3 money precision audit
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v3-money-audit.ts | tee int-cp008-english-v3-money.log
+
+      - name: Verify English V3 money precision marker
+        run: grep -q 'PASS_INT_CP008_ENGLISH_V3_MONEY_AUDIT' int-cp008-english-v3-money.log
+
       - name: Export English V3 manual review pack
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v3-review-export.ts > INT-CP-008-ENGLISH-V3-REVIEW.md
 
@@ -72,6 +82,7 @@ jobs:
           path: |
             int-cp008-permanent-allocation-regression.log
             int-cp008-english-v3.log
+            int-cp008-english-v3-money.log
             int-cp008-english-v3-head.log
             INT-CP-008-ENGLISH-V3-REVIEW.md
           retention-days: 30
