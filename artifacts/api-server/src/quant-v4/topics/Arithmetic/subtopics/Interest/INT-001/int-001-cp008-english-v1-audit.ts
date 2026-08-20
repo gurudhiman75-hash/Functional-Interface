@@ -33,6 +33,10 @@ function mathSegments(text: string): string[] {
   return [...text.matchAll(/\$([^$]+)\$/gu)].map((match) => match[1]!);
 }
 
+function dollarDelimiterCount(text: string): number {
+  return [...text].filter((character) => character === "$").length;
+}
+
 const SEEDS_PER_QL = 200;
 const ids = new Set<string>();
 let questions = 0;
@@ -110,10 +114,12 @@ for (const qlId of INT_CP008_QL_IDS) {
     explanationChecks += 7;
 
     const segments = mathSegments(allLearnerText);
+    const delimiters = dollarDelimiterCount(allLearnerText);
     assert(segments.length >= 1, `${qlId}/${seed}: explanation has no MathJax segment`);
+    assert(delimiters === segments.length * 2, `${qlId}/${seed}: unbalanced or malformed MathJax delimiters`);
+    assert(segments.every((segment) => segment.trim().length > 0), `${qlId}/${seed}: empty MathJax segment`);
     assert(segments.every((segment) => !segment.includes("₹")), `${qlId}/${seed}: rupee symbol leaked inside MathJax`);
-    assert(!/₹[^\n$]*\$|\$[^\n$]*₹/u.test(allLearnerText), `${qlId}/${seed}: currency/math boundary is malformed`);
-    latexChecks += 3;
+    latexChecks += 4;
 
     assert(!/\b(?:undefined|null|NaN)\b/u.test(allLearnerText), `${qlId}/${seed}: invalid generated token`);
     assert(!/\b(?:obviously|trivially|simply just)\b/iu.test(allLearnerText), `${qlId}/${seed}: weak editorial phrasing`);
