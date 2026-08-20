@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Redirect, Route, Router as WouterRouter, Switch, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -55,7 +55,7 @@ function AdminRedirect({ to = "/admin/" }: { to?: string }) {
   const [loopDetected, setLoopDetected] = useState(false);
   const [destination, setDestination] = useState("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     const target = resolveAdminDestination(to);
     setDestination(target);
     const currentUrl = new URL(window.location.href);
