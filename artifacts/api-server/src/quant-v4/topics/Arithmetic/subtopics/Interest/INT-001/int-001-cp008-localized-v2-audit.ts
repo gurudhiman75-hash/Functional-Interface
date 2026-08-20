@@ -24,7 +24,11 @@ function protectedPayload(q: any) {
     options: q.options,
     correctIndex: q.correctIndex,
     correctAnswer: q.correctAnswer,
-    presentation: q.presentation,
+    presentationMeta: {
+      representation: q.presentation.representation,
+      contextClass: q.presentation.contextClass,
+      stemFamilyId: q.presentation.stemFamilyId,
+    },
   };
 }
 function v1PreservedPayload(q: any) {
