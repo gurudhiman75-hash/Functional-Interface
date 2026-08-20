@@ -1,0 +1,72 @@
+name: Export SEA-001 hardening Hindi Punjabi review
+
+on:
+  push:
+    branches:
+      - feat/sea-001-structural-realness-hardening
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/SEA-001-STRUCTURAL-HARDENING-ENGLISH-APPROVAL-EVIDENCE.md
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-english-review-pins.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-english-review-pin-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/localization/**
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-export.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-candidate-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-structural-hardening-proof.test.ts
+      - .github/workflows/sea-001-structural-hardening-localized-review.yml
+  pull_request:
+    branches:
+      - feat/sea-001-realness-final-gate
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  localized-review-candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Regenerate exact approved English audit candidate
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-english-review.ts /tmp/sea001-approved-en
+
+      - name: Prove approved English authority has not drifted
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-english-review-pin-proof.test.ts /tmp/sea001-approved-en
+
+      - name: Prove full Hindi Punjabi semantic and explanation parity
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-candidate-proof.test.ts
+
+      - name: Re-run pinned structural and multilingual machine-realness gate
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-structural-hardening-proof.test.ts
+
+      - name: Export balanced 100-caselet Hindi and Punjabi review candidates
+        env:
+          SEA_001_LOCALIZED_REVIEW_OUTPUT_DIR: /tmp/sea001-hardening-localized-review
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-export.ts
+
+      - name: Record immutable review-file digests
+        run: |
+          cd /tmp/sea001-hardening-localized-review
+          sha256sum sea-001-hi-review-100.html sea-001-hi-review-100.json sea-001-pa-review-100.html sea-001-pa-review-100.json sea-001-localized-review-ledger-template.json sea-001-localized-review-summary.json | tee SHA256SUMS
+          node - <<'NODE'
+          const fs = require('fs');
+          const summary = JSON.parse(fs.readFileSync('sea-001-localized-review-summary.json','utf8'));
+          if (summary.canonicalCaselets !== 100) throw new Error('Expected 100 canonical caselets');
+          if (summary.localizedCaselets !== 200) throw new Error('Expected 200 localized caselets');
+          if (summary.localizedChildQuestions !== 800) throw new Error('Expected 800 localized child questions');
+          if (summary.humanLanguageReview !== 'PENDING') throw new Error('Human review must remain pending');
+          if (summary.questionStudioRegistered || summary.questionBankWritable || summary.testEligible || summary.publiclyPublishable) throw new Error('Product lifecycle unexpectedly unlocked');
+          NODE
+
+      - name: Upload Hindi Punjabi replacement review candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-001-structural-hardening-hi-pa-review
+          path: /tmp/sea001-hardening-localized-review
+          if-no-files-found: error
+          retention-days: 30
