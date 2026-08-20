@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { ArrowRight, LayoutDashboard, Menu, X } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
+import { PublicSeoFallback } from "@/components/PublicSeoFallback";
 import { getUser } from "@/lib/storage";
 
 interface PublicLayoutProps {
@@ -67,6 +68,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-950">
+      <PublicSeoFallback />
       <a
         href="#main-content"
         className="sr-only z-[1000] rounded-md bg-white px-4 py-2 text-sm font-semibold text-slate-950 shadow-lg focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
