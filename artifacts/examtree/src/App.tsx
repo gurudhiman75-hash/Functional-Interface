@@ -1,16 +1,16 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Redirect, Route, Router as WouterRouter, Switch, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { AppErrorBoundary } from "@/components/AppErrorBoundary";
 import { AppLayout } from "@/components/AppLayout";
 import { PublicLayout } from "@/components/PublicLayout";
+import { RouteAuthSessionSync } from "@/components/RouteAuthSessionSync";
+import { RouteCatalogBoundary } from "@/components/RouteCatalogBoundary";
 import { RouteMathBoundary } from "@/components/RouteMathBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
-import { syncAuthSession } from "@/lib/auth";
 import { getUser } from "@/lib/storage";
-import { ExamCatalogProvider } from "@/providers/ExamCatalogProvider";
 
 const Home = lazy(() => import("@/pages/home"));
 const Login = lazy(() => import("@/pages/login"));
@@ -55,7 +55,7 @@ function AdminRedirect({ to = "/admin/" }: { to?: string }) {
   const [loopDetected, setLoopDetected] = useState(false);
   const [destination, setDestination] = useState("");
 
-  useEffect(() => {
+  React.useEffect(() => {
     const target = resolveAdminDestination(to);
     setDestination(target);
     const currentUrl = new URL(window.location.href);
@@ -109,8 +109,12 @@ function ProtectedRoute({ component: Component, layout = "app" }: ProtectedRoute
   const user = getUser();
   const [location] = useLocation();
   if (!user) return <Redirect to={`/login/student?next=${encodeURIComponent(location)}`} />;
-  if (layout === "none") return <Component />;
-  return <AppLayout><Component /></AppLayout>;
+
+  return (
+    <RouteCatalogBoundary>
+      {layout === "none" ? <Component /> : <AppLayout><Component /></AppLayout>}
+    </RouteCatalogBoundary>
+  );
 }
 
 function AnalyticsUnavailable() {
@@ -146,24 +150,29 @@ function LoginRecoveryShortcut({ location }: { location: string }) {
 function Router() {
   const [location] = useLocation();
   const renderPublicRoute = (Component: React.ComponentType) => <PublicLayout><Component /></PublicLayout>;
-  const renderAppRoute = (Component: React.ComponentType) => <AppLayout><Component /></AppLayout>;
+  const renderCatalogPublicRoute = (Component: React.ComponentType) => (
+    <RouteCatalogBoundary><PublicLayout><Component /></PublicLayout></RouteCatalogBoundary>
+  );
+  const renderAppRoute = (Component: React.ComponentType) => (
+    <RouteCatalogBoundary><AppLayout><Component /></AppLayout></RouteCatalogBoundary>
+  );
 
   return (
     <Suspense fallback={<RouteSkeleton />}>
       <div key={location} className="animate-fadeInUp">
         <Switch>
-          <Route path="/" component={() => renderPublicRoute(Home)} />
+          <Route path="/" component={() => renderCatalogPublicRoute(Home)} />
           <Route path="/login" component={() => renderPublicRoute(Login)} />
           <Route path="/login/student" component={() => renderPublicRoute(Login)} />
           <Route path="/login/admin" component={() => renderPublicRoute(Login)} />
           <Route path="/account-recovery" component={() => renderPublicRoute(AccountRecovery)} />
           <Route path="/account-deletion" component={() => renderPublicRoute(AccountDeletion)} />
 
-          <Route path="/exams" component={() => renderPublicRoute(Tests)} />
-          <Route path="/tests" component={() => renderPublicRoute(Tests)} />
+          <Route path="/exams" component={() => renderCatalogPublicRoute(Tests)} />
+          <Route path="/tests" component={() => renderCatalogPublicRoute(Tests)} />
           <Route path="/published-tests/:id" component={() => renderPublicRoute(PublishedTest)} />
-          <Route path="/category/:id" component={() => renderPublicRoute(Category)} />
-          <Route path="/subcategory/:id" component={() => renderPublicRoute(Subcategory)} />
+          <Route path="/category/:id" component={() => renderCatalogPublicRoute(Category)} />
+          <Route path="/subcategory/:id" component={() => renderCatalogPublicRoute(Subcategory)} />
 
           <Route path="/dashboard" component={() => renderAppRoute(Dashboard)} />
           <Route path="/test-series/:id" component={() => <ProtectedRoute component={TestSeries} />} />
@@ -186,7 +195,7 @@ function Router() {
           <Route path="/refund-policy" component={() => renderPublicRoute(RefundPolicy)} />
           <Route path="/faq" component={() => renderPublicRoute(FAQ)} />
           <Route path="/exams-covered" component={() => renderPublicRoute(ExamsCovered)} />
-          <Route path="/mock-tests" component={() => renderPublicRoute(MockTestsHub)} />
+          <Route path="/mock-tests" component={() => renderCatalogPublicRoute(MockTestsHub)} />
           <Route path="/pyqs" component={() => renderPublicRoute(PYQHub)} />
           <Route path="/blog" component={() => renderPublicRoute(Blog)} />
           <Route path="/ssc-cgl-pyqs" component={() => renderPublicRoute(SeoLanding)} />
@@ -222,29 +231,18 @@ function RouteSkeleton() {
 }
 
 function App() {
-  useEffect(() => {
-    let unsubscribe = () => {};
-    try {
-      unsubscribe = syncAuthSession();
-    } catch (error) {
-      console.warn("Auth sync failed, continuing without auth:", error);
-    }
-    return () => unsubscribe();
-  }, []);
-
   return (
     <AppErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <ExamCatalogProvider>
-          <TooltipProvider>
-            <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-              <RouteMathBoundary>
-                <Router />
-              </RouteMathBoundary>
-            </WouterRouter>
-            <Toaster />
-          </TooltipProvider>
-        </ExamCatalogProvider>
+        <TooltipProvider>
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+            <RouteAuthSessionSync />
+            <RouteMathBoundary>
+              <Router />
+            </RouteMathBoundary>
+          </WouterRouter>
+          <Toaster />
+        </TooltipProvider>
       </QueryClientProvider>
     </AppErrorBoundary>
   );
