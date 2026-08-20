@@ -1,0 +1,111 @@
+import type { Sea002Cp006Clue, Sea002Cp006State, Sea002ParallelRow } from "./types.ts";
+
+type SeatIndex = number;
+type DomainMap = Map<string, readonly SeatIndex[]>;
+const DEFAULT_SOLUTION_CAP = 2;
+
+function assertInput(people:readonly string[], seatCountPerRow:number):void {
+  if(!Number.isInteger(seatCountPerRow)||seatCountPerRow<1) throw new Error(`Invalid CP006 seat count ${seatCountPerRow}.`);
+  if(people.length!==seatCountPerRow*2) throw new Error(`CP006 expected ${seatCountPerRow*2} people, got ${people.length}.`);
+  if(new Set(people).size!==people.length) throw new Error("CP006 people must be unique.");
+}
+function rowOfSeat(seat:SeatIndex,n:number):Sea002ParallelRow { return seat<n?"TOP":"BOTTOM"; }
+function colOfSeat(seat:SeatIndex,n:number):number { return seat%n; }
+function seatFor(row:Sea002ParallelRow,column:number,n:number):number { return row==="TOP"?column:n+column; }
+function stateFromAssignment(people:readonly string[],n:number,assignment:ReadonlyMap<string,SeatIndex>):Sea002Cp006State {
+  const top=Array<string>(n),bottom=Array<string>(n);
+  for(const person of people){const seat=assignment.get(person);if(seat===undefined) throw new Error(`Missing CP006 assignment for ${person}.`); const col=colOfSeat(seat,n); if(rowOfSeat(seat,n)==="TOP") top[col]=person; else bottom[col]=person;}
+  return {seatCountPerRow:n,top,bottom};
+}
+function relatedPeople(clue:Sea002Cp006Clue):readonly string[] {
+  switch(clue.kind){
+    case "ROW_MEMBERSHIP": case "END_POSITION": return [clue.person];
+    case "SAME_ROW_RELATIVE": return [clue.target,clue.reference];
+    default:return [clue.first,clue.second];
+  }
+}
+function pairSatisfied(clue:Sea002Cp006Clue,a:string,aSeat:SeatIndex,b:string,bSeat:SeatIndex,n:number):boolean {
+  if(clue.kind==="ROW_MEMBERSHIP"||clue.kind==="END_POSITION") return true;
+  if(clue.kind==="OPPOSITE"||clue.kind==="NOT_OPPOSITE"||clue.kind==="DIAGONAL"){
+    const firstSeat=clue.first===a?aSeat:bSeat,secondSeat=clue.second===a?aSeat:bSeat;
+    const different=rowOfSeat(firstSeat,n)!==rowOfSeat(secondSeat,n); const delta=Math.abs(colOfSeat(firstSeat,n)-colOfSeat(secondSeat,n));
+    if(clue.kind==="OPPOSITE") return different&&delta===0;
+    if(clue.kind==="NOT_OPPOSITE") return !(different&&delta===0);
+    return different&&delta===1;
+  }
+  const targetSeat=clue.target===a?aSeat:bSeat,refSeat=clue.reference===a?aSeat:bSeat;
+  if(rowOfSeat(targetSeat,n)!==rowOfSeat(refSeat,n)) return false;
+  const refRow=rowOfSeat(refSeat,n);
+  const delta=refRow==="BOTTOM"?(clue.side==="LEFT"?-clue.steps:clue.steps):(clue.side==="LEFT"?clue.steps:-clue.steps);
+  return colOfSeat(targetSeat,n)===colOfSeat(refSeat,n)+delta;
+}
+function buildDomains(people:readonly string[],n:number,clues:readonly Sea002Cp006Clue[]):DomainMap {
+  const all=Array.from({length:n*2},(_,i)=>i); const domains=new Map<string,number[]>();
+  for(const person of people) domains.set(person,[...all]);
+  for(const clue of clues){
+    if(clue.kind==="ROW_MEMBERSHIP") domains.set(clue.person,domains.get(clue.person)!.filter(s=>rowOfSeat(s,n)===clue.row));
+    if(clue.kind==="END_POSITION") {const col=clue.end==="LEFT"?0:n-1; domains.set(clue.person,domains.get(clue.person)!.filter(s=>s===seatFor(clue.row,col,n)));}
+  }
+  return domains;
+}
+function supportsCandidate(person:string,seat:SeatIndex,assignment:ReadonlyMap<string,SeatIndex>,used:ReadonlySet<SeatIndex>,domains:DomainMap,clues:readonly Sea002Cp006Clue[],n:number):boolean {
+  for(const clue of clues){const people=relatedPeople(clue); if(!people.includes(person)) continue;
+    if(clue.kind==="ROW_MEMBERSHIP"){if(rowOfSeat(seat,n)!==clue.row)return false;continue;}
+    if(clue.kind==="END_POSITION"){if(seat!==seatFor(clue.row,clue.end==="LEFT"?0:n-1,n))return false;continue;}
+    const other=people[0]===person?people[1]!:people[0]!; const otherSeat=assignment.get(other);
+    if(otherSeat!==undefined){if(!pairSatisfied(clue,person,seat,other,otherSeat,n))return false;continue;}
+    const support=domains.get(other)?.some(candidate=>candidate!==seat&&!used.has(candidate)&&pairSatisfied(clue,person,seat,other,candidate,n));
+    if(!support)return false;
+  }
+  return true;
+}
+export function solveCp006Scalable(people:readonly string[],n:number,clues:readonly Sea002Cp006Clue[],maxSolutions:number=DEFAULT_SOLUTION_CAP):Sea002Cp006State[] {
+  assertInput(people,n); if(maxSolutions<1) return [];
+  const domains=buildDomains(people,n,clues); for(const person of people) if((domains.get(person)?.length??0)===0) return [];
+  const assignment=new Map<string,SeatIndex>(),used=new Set<SeatIndex>(),solutions:Sea002Cp006State[]=[];
+  const candidates=(person:string)=>domains.get(person)!.filter(seat=>!used.has(seat)&&supportsCandidate(person,seat,assignment,used,domains,clues,n));
+  function visit():void {
+    if(solutions.length>=maxSolutions)return;
+    if(assignment.size===people.length){solutions.push(stateFromAssignment(people,n,assignment));return;}
+    let chosen:string|undefined; let options:number[]|undefined;
+    for(const person of people){if(assignment.has(person))continue;const possible=candidates(person);if(possible.length===0)return;if(!options||possible.length<options.length){chosen=person;options=possible;if(options.length===1)break;}}
+    for(const seat of options!){assignment.set(chosen!,seat);used.add(seat);visit();used.delete(seat);assignment.delete(chosen!);if(solutions.length>=maxSolutions)return;}
+  }
+  visit(); return solutions;
+}
+
+// Independent audit oracle: seat-first search with its own clue feasibility evaluator.
+export function auditOracleCp006Scalable(people:readonly string[],n:number,clues:readonly Sea002Cp006Clue[],maxSolutions:number=DEFAULT_SOLUTION_CAP):Sea002Cp006State[] {
+  assertInput(people,n); if(maxSolutions<1)return[];
+  const personSeat=new Map<string,number>(),seatPerson=Array<string|undefined>(n*2),solutions:Sea002Cp006State[]=[];
+  const unaryAllowed=(person:string,seat:number):boolean=>clues.every(clue=>{
+    if(clue.kind==="ROW_MEMBERSHIP"&&clue.person===person)return (seat<n?"TOP":"BOTTOM")===clue.row;
+    if(clue.kind==="END_POSITION"&&clue.person===person){const expected=(clue.row==="TOP"?0:n)+(clue.end==="LEFT"?0:n-1);return seat===expected;}
+    return true;
+  });
+  const relationOkay=(clue:Sea002Cp006Clue):boolean=>{
+    if(clue.kind==="ROW_MEMBERSHIP"||clue.kind==="END_POSITION")return true;
+    const firstName=clue.kind==="SAME_ROW_RELATIVE"?clue.target:clue.first;
+    const secondName=clue.kind==="SAME_ROW_RELATIVE"?clue.reference:clue.second;
+    const a=personSeat.get(firstName),b=personSeat.get(secondName); if(a===undefined||b===undefined)return true;
+    const ar=a<n?0:1,br=b<n?0:1,ac=a%n,bc=b%n;
+    if(clue.kind==="OPPOSITE")return ar!==br&&ac===bc;
+    if(clue.kind==="NOT_OPPOSITE")return !(ar!==br&&ac===bc);
+    if(clue.kind==="DIAGONAL")return ar!==br&&Math.abs(ac-bc)===1;
+    if(ar!==br)return false; const refRow=br===0?"TOP":"BOTTOM"; const delta=refRow==="BOTTOM"?(clue.side==="LEFT"?-clue.steps:clue.steps):(clue.side==="LEFT"?clue.steps:-clue.steps); return ac===bc+delta;
+  };
+  const partialOkay=():boolean=>clues.every(relationOkay);
+  const personHasSupport=(person:string):boolean=>{
+    if(personSeat.has(person))return true;
+    for(let seat=0;seat<seatPerson.length;seat+=1){if(seatPerson[seat]!==undefined||!unaryAllowed(person,seat))continue; personSeat.set(person,seat);seatPerson[seat]=person;const okay=partialOkay();seatPerson[seat]=undefined;personSeat.delete(person);if(okay)return true;}
+    return false;
+  };
+  function visit(seat:number):void {
+    if(solutions.length>=maxSolutions)return;
+    while(seat<seatPerson.length&&seatPerson[seat]!==undefined)seat+=1;
+    if(seat===seatPerson.length){if(partialOkay())solutions.push({seatCountPerRow:n,top:seatPerson.slice(0,n) as string[],bottom:seatPerson.slice(n) as string[]});return;}
+    const remaining=people.filter(p=>!personSeat.has(p)&&unaryAllowed(p,seat));
+    for(const person of remaining){personSeat.set(person,seat);seatPerson[seat]=person;if(partialOkay()&&people.every(personHasSupport))visit(seat+1);seatPerson[seat]=undefined;personSeat.delete(person);if(solutions.length>=maxSolutions)return;}
+  }
+  visit(0);return solutions;
+}
