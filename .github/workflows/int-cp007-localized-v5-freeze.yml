@@ -1,0 +1,69 @@
+name: Validate INT-CP-007 Hindi Punjabi V5 Freeze
+
+on:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp007-scheme-equivalence-localized-v5.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp007-localized-v5-audit.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp007-localized-v5-review-export.ts'
+      - '.github/workflows/int-cp007-localized-v5.yml'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp007-scheme-equivalence-localized-v5-frozen.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp007-localized-v5-freeze-audit.ts'
+      - '.github/workflows/int-cp007-localized-v5-freeze.yml'
+      - '.github/workflows/int-cp007-english-v8-freeze.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-int-cp007-localized-v5-freeze:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP007 localized V5 freeze audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp007-localized-v5-freeze-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/int-cp007-localized-v5-freeze-audit.mjs
+      - name: Run CP007 localized V5 freeze audit
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-cp007-localized-v5-freeze-audit.mjs 2>&1 | tee dist/quant-v4/int-cp007-localized-v5-freeze-audit.log
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Verify CP007 localized V5 freeze marker
+        run: grep -q 'PASS_INT_CP007_LOCALIZED_V5_FREEZE_AUDIT' artifacts/api-server/dist/quant-v4/int-cp007-localized-v5-freeze-audit.log
+      - name: Write CP007 localized V5 freeze evidence
+        run: |
+          cat > artifacts/api-server/dist/quant-v4/INT-CP-007-HI-PA-V5-FREEZE-EVIDENCE.md <<'EOF'
+          # INT-CP-007 Hindi/Punjabi V5 Freeze Evidence
+
+          Product-owner approval authority: `PRODUCT_OWNER_APPROVED_CP007_HI_PA_V5_2026_08_20`
+
+          Approved review version: `INT-CP-007-HI-PA-v5-clean-ci-terminology-review`
+          Approved review head: `8d544bccc5aa1626ba3fb9408140b3491c41bb02`
+          Approved review run: `32276219492`
+          Approved review artifact: `9374241368`
+          Approved review digest: `sha256:712f6c7fda1c2d9707fd90b59221c0c9ff2f110ca7999b4396da4ced057da44b`
+
+          Freeze ID: `INT-CP-007-HI-PA-v5-frozen`
+
+          Hindi learner content does not contain `ब्याज हर वर्ष मूलधन में जुड़ता है`.
+          Punjabi learner content does not contain `ਵਿਆਜ ਹਰ ਸਾਲ ਮੂਲ ਵਿੱਚ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ`.
+          Punjabi Compound Interest authority remains `ਮਿਸ਼ਰਤ ਵਿਆਜ`.
+
+          Delivery remains closed: not staged, not registered, Question Studio hidden, Question Bank not stored, tests ineligible, public delivery false.
+          EOF
+      - name: Upload CP007 localized V5 freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp007-hi-pa-v5-freeze
+          path: |
+            artifacts/api-server/dist/quant-v4/INT-CP-007-HI-PA-V5-FREEZE-EVIDENCE.md
+            artifacts/api-server/dist/quant-v4/int-cp007-localized-v5-freeze-audit.log
+          if-no-files-found: error
