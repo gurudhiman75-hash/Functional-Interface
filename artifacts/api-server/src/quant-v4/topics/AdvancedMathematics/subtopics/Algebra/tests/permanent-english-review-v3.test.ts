@@ -32,7 +32,7 @@ const forbidden: Array<[RegExp, string]> = [
   [/^If /, "unnecessary If stem opening"],
   [/^Given /, "unnecessary Given stem opening"],
   [/\bLet u\b|\bLet v\b/, "u/v temporary substitution"],
-  [/\bLet S\b|\bLet P\b/, "S/P temporary root alias"],
+  [/\bLet S\s*=|\bLet P\s*=/, "S/P temporary root alias"],
   [/(^|\W)-?1x²\b/, "raw ±1x² coefficient"],
   [/(^|\W)-?1x\b/, "raw ±1x coefficient"],
   [/\+\s*-/, "plus followed by negative sign"],
