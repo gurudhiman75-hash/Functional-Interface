@@ -42,6 +42,8 @@ function normalizeTinyFinanceContext(prompt: string): string {
 }
 
 function polishQl122Step(step: string): string {
+  const setup = /^The fund starts at ₹0 and receives (.+)\.$/u.exec(step);
+  if (setup) return `The account begins with no opening balance and receives ${setup[1]}.`;
   const first = /^After deposit 1, interest has first been applied to the existing balance and the new deposit has then been added, so the fund stands at (.+)\.$/u.exec(step);
   if (first) return `The fund starts at ₹0, so after the first end-of-period deposit it stands at ${first[1]}.`;
   const later = /^After deposit (\d+), interest has first been applied to the existing balance and the new deposit has then been added, so the fund stands at (.+)\.$/u.exec(step);
