@@ -74,10 +74,11 @@ assert.equal(midpoint.optionAnalysis.find((option) => option.misconceptionId ===
 const diagonal = GEO_GAP_REMEDIATION_WAVE5_PROTOTYPES[1].generate("wave5-a");
 assert.equal(diagonal.answer, "8 cm");
 assert.deepEqual(diagonal.theoremTrace, ["ALTERNATE_INTERIOR_ANGLES", "SAS_CONGRUENCE", "CPCT"]);
-assert.deepEqual(diagonal.diagramModel.equalLengthMarks.map((mark) => [...mark.segmentIds]), [["AB", "CD"]]);
+assert.equal(diagonal.diagramModel.equalLengthMarks.length, 0, "AB = CD is carried in prose so its equal-length mark does not collide with the parallel mark");
 assert.deepEqual(diagonal.diagramModel.parallelMarks.map((mark) => [...mark.segmentIds]), [["AB", "CD"]]);
+assert.ok(diagonal.stem.includes("AB = CD"), "the omitted equal-length diagram mark must remain explicit in the stem");
 assert.equal(diagonal.optionAnalysis.find((option) => option.misconceptionId === "CONGRUENT_SIDE_DOUBLED")?.text, "16 cm");
 assert.equal(diagonal.optionAnalysis.find((option) => option.misconceptionId === "DIAGONAL_HALVES_CORRESPONDING_SIDE")?.text, "4 cm");
 assert.equal(diagonal.optionAnalysis.find((option) => option.misconceptionId === "CONGRUENCE_TREATED_AS_THREE_TO_TWO_SCALE")?.text, "12 cm");
 
-console.log("Geometry gap remediation Wave 5 PASS: 2 CP014 congruence-plus-parallel prototypes × 3 varied seeds with mixed theorem-family traces, faithful Renderer-V2 topology, anti-leak marks, clue minimality and operation-owned distractors.");
+console.log("Geometry gap remediation Wave 5 PASS: 2 CP014 congruence-plus-parallel prototypes × 3 varied seeds with mixed theorem-family traces, faithful Renderer-V2 topology, semantic-mark clearance, clue minimality and operation-owned distractors.");
