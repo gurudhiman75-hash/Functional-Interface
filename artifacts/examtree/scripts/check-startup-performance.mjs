@@ -9,6 +9,7 @@ const mathProvider = read("../src/providers/MathJaxRouteProvider.tsx");
 const catalogBoundary = read("../src/components/RouteCatalogBoundary.tsx");
 const catalogProvider = read("../src/providers/ExamCatalogProvider.tsx");
 const authBoundary = read("../src/components/RouteAuthSessionSync.tsx");
+const sessionUser = read("../src/lib/session-user.ts");
 const vite = read("../vite.config.ts");
 const proof = read("../../../scripts/e2e/tests/student-startup-performance.spec.ts");
 const pkg = JSON.parse(read("../package.json"));
@@ -47,6 +48,12 @@ assert.match(app, /path="\/mock-tests"[\s\S]*?renderCatalogPublicRoute\(MockTest
 assert.match(app, /renderAppRoute = [\s\S]*?<RouteCatalogBoundary><AppLayout>/, "preparation chrome must retain catalog context");
 assert.match(app, /<RouteCatalogBoundary>[\s\S]*?layout === "none"/, "protected runner routes must retain catalog context without app chrome");
 
+assert.doesNotMatch(app, /from "@\/lib\/storage"/, "application root must not import the API-backed storage graph for a local user check");
+assert.match(app, /import \{ getSessionUser \} from "@\/lib\/session-user"/, "protected route guard must use the dependency-free session user reader");
+assert.match(app, /const user = getSessionUser\(\)/, "protected route guard must preserve the local user gate");
+assert.match(sessionUser, /localStorage\.getItem\("user"\)/, "session user reader must use the same local user key");
+assert.doesNotMatch(sessionUser, /@\/lib\/api|@\/lib\/firebase|firebase\//, "session user reader must stay dependency-free from API and Firebase modules");
+
 assert.doesNotMatch(app, /import \{ syncAuthSession \}/, "application root must not statically import Firebase-backed auth synchronization");
 assert.match(app, /<RouteAuthSessionSync \/>/, "router must mount route-aware auth synchronization");
 assert.match(authBoundary, /import\("@\/lib\/auth"\)/, "auth synchronization must dynamically import the Firebase-backed auth module");
@@ -74,4 +81,4 @@ assert.match(proof, /localFirebaseChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous
 assert.match(proof, /localFirebaseChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove Firebase loads on demand");
 assert.match(proof, /\$x = 2\$/);
 
-console.log("Startup performance audit passed (52 assertions).");
+console.log("Startup performance audit passed (57 assertions).");
