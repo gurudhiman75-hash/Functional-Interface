@@ -69,10 +69,13 @@ jobs:
 
       - name: Validate CP005 approved Hindi Punjabi lineage
         run: |
-          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-v2.test.ts
+          # Mirror the exact approved CP005 V3 workflow. The older raw v2 test is a
+          # superseded intermediate gate; V2-final is the exhaustive approved baseline.
           pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-v2-final.test.ts
           pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-v3.test.ts
           pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-gates.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-freeze.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/rnk-cp005-ql034-ownership-audit.ts
 
       - name: Validate CP006 approved Hindi Punjabi lineage
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-localization-review-v1.test.ts
