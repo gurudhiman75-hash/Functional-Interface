@@ -9,7 +9,7 @@ on:
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-instalment-english-v4.ts'
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-instalment-english-v5.ts'
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v5-audit.ts'
-      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v4-money-audit.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v5-money-audit.ts'
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v5-review-export.ts'
       - '.github/workflows/int-cp008-english-v5-review.yml'
   workflow_dispatch:
@@ -56,15 +56,11 @@ jobs:
       - name: Verify English V5 marker
         run: grep -q 'PASS_INT_CP008_ENGLISH_V5_AUDIT' int-cp008-english-v5.log
 
-      - name: Rerun independent money precision audit through V5
+      - name: Run CP008 English V5 money precision audit
         shell: bash
         run: |
           set -o pipefail
-          sed 's#from "./cp008-instalment-english-v4"#from "./cp008-instalment-english-v5"#' artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v4-money-audit.ts > /tmp/int-001-cp008-english-v5-money-audit.ts
-          sed -i 's/PASS_INT_CP008_ENGLISH_V4_MONEY_AUDIT/PASS_INT_CP008_ENGLISH_V5_MONEY_AUDIT/g' /tmp/int-001-cp008-english-v5-money-audit.ts
-          cp /tmp/int-001-cp008-english-v5-money-audit.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/.int-001-cp008-english-v5-money-audit.ts
-          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/.int-001-cp008-english-v5-money-audit.ts | tee int-cp008-english-v5-money.log
-          rm artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/.int-001-cp008-english-v5-money-audit.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v5-money-audit.ts | tee int-cp008-english-v5-money.log
 
       - name: Verify V5 money precision marker
         run: grep -q 'PASS_INT_CP008_ENGLISH_V5_MONEY_AUDIT' int-cp008-english-v5-money.log
