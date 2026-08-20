@@ -27,4 +27,4 @@ assert.match(proof, /Payment%20or%20refund/);
 assert.match(proof, /Translation%20issue/);
 assert.match(proof, /toBeGreaterThanOrEqual\(44\)/);
 
-console.log("Support handoff audit passed (18 assertions).");
+console.log("Support handoff audit passed (22 assertions).");
