@@ -50,7 +50,6 @@ export default defineConfig({
         manualChunks: {
           charts: ["recharts"],
           firebase: ["firebase/app", "firebase/auth", "firebase/firestore"],
-          mathjax: ["better-react-mathjax"],
         },
       },
     },
