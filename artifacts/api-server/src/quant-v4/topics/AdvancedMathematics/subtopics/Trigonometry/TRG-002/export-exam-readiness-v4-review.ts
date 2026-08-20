@@ -36,7 +36,7 @@ function stringify(value: unknown) {
 }
 
 const SUBSCRIPT_DIGITS: Record<string, string> = { "₀": "0", "₁": "1", "₂": "2", "₃": "3", "₄": "4", "₅": "5", "₆": "6", "₇": "7", "₈": "8", "₉": "9" };
-const MATH_TOKEN = String.raw`(?:\b(?:tan|sin|cos|cot|sec|cosec)\s*(?:θ|\d+(?:\.\d+)?°?)|[A-Za-z][A-Za-z₀-₉]*|\d+(?:\.\d+)?(?:√\d+)?|[A-Za-z]√\d+|√\d+|\([^()]{1,32}\))`;
+const MATH_TOKEN = String.raw`(?:\b(?:tan|sin|cos|cot|sec|cosec)\s*(?:θ|\d+(?:\.\d+)?°?)|(?:horizontal|vertical)\s+(?:distance|run|drop)|[A-Za-z][A-Za-z₀-₉]*|\d+(?:\.\d+)?(?:√\d+)?|[A-Za-z]√\d+|√\d+|\([^()]{1,32}\))`;
 const MATH_EXPR = new RegExp(String.raw`${MATH_TOKEN}(?:\s*(?:=|\+|−|-|×|·|\/|⇒)\s*${MATH_TOKEN})+(?:\s*m)?|\b(?:tan|sin|cos|cot|sec|cosec)\s*(?:θ|\d+(?:\.\d+)?°?)|(?:-?\d+(?:\.\d+)?\s*(?:\+|−|-)\s*)?\d*√\d+(?:\/\d+)?(?:\s*m)?|\b\d+(?:\.\d+)?°`, "g");
 
 function toTex(value: unknown) {
@@ -51,13 +51,103 @@ function toTex(value: unknown) {
   text = text.replace(/·/g, "\\cdot ");
   text = text.replace(/⇒/g, "\\Rightarrow ");
   text = text.replace(/−/g, "-");
+  text = text.replace(/\b(horizontal|vertical)\s+(distance|run|drop)\b/g, "\\text{$1 $2}");
   text = text.replace(/\s+m$/g, "\\,\\mathrm{m}");
   return text;
 }
 
+function mathMlRow(value: unknown): string {
+  const raw = String(value ?? "");
+  let i = 0;
+  let out = "";
+  const operators = new Set(["=", "+", "−", "-", "×", "·", "/", "⇒", "(", ")", ","]);
+  const trig = ["cosec", "sin", "cos", "tan", "cot", "sec"];
+
+  while (i < raw.length) {
+    const rest = raw.slice(i);
+    const ws = rest.match(/^\s+/);
+    if (ws) {
+      out += `<mspace width="0.18em"/>`;
+      i += ws[0].length;
+      continue;
+    }
+
+    const trigName = trig.find((name) => rest.startsWith(name));
+    if (trigName) {
+      out += `<mi mathvariant="normal">${trigName}</mi>`;
+      i += trigName.length;
+      continue;
+    }
+
+    if (raw[i] === "θ") {
+      out += `<mi>θ</mi>`;
+      i++;
+      continue;
+    }
+
+    if (raw[i] === "√") {
+      const after = raw.slice(i + 1);
+      const paren = after.match(/^\(([^()]*)\)/);
+      if (paren) {
+        out += `<msqrt><mrow>${mathMlRow(paren[1])}</mrow></msqrt>`;
+        i += 1 + paren[0].length;
+        continue;
+      }
+      const radicand = after.match(/^[A-Za-z0-9.]+/);
+      if (radicand) {
+        out += `<msqrt><mrow>${mathMlRow(radicand[0])}</mrow></msqrt>`;
+        i += 1 + radicand[0].length;
+        continue;
+      }
+      out += `<mo>√</mo>`;
+      i++;
+      continue;
+    }
+
+    const number = rest.match(/^\d+(?:\.\d+)?/);
+    if (number) {
+      out += `<mn>${number[0]}</mn>`;
+      i += number[0].length;
+      if (raw[i] === "°") {
+        out += `<mo>°</mo>`;
+        i++;
+      }
+      continue;
+    }
+
+    const variableWithSubscript = rest.match(/^([A-Za-z])([₀₁₂₃₄₅₆₇₈₉]+)/);
+    if (variableWithSubscript) {
+      const subscript = Array.from(variableWithSubscript[2]).map((digit) => SUBSCRIPT_DIGITS[digit] ?? digit).join("");
+      out += `<msub><mi>${esc(variableWithSubscript[1])}</mi><mn>${subscript}</mn></msub>`;
+      i += variableWithSubscript[0].length;
+      continue;
+    }
+
+    const word = rest.match(/^[A-Za-z]+/);
+    if (word) {
+      const isUnit = word[0] === "m" && /^\s*$/.test(raw.slice(i + 1));
+      out += isUnit ? `<mtext>m</mtext>` : word[0].length === 1 ? `<mi>${esc(word[0])}</mi>` : `<mtext>${esc(word[0])}</mtext>`;
+      i += word[0].length;
+      continue;
+    }
+
+    const char = raw[i]!;
+    if (operators.has(char)) {
+      const op = char === "⇒" ? "⇒" : char === "−" ? "−" : char;
+      out += `<mo>${esc(op)}</mo>`;
+      i++;
+      continue;
+    }
+
+    out += `<mtext>${esc(char)}</mtext>`;
+    i++;
+  }
+  return out;
+}
+
 function mathSpan(value: unknown) {
   const raw = String(value ?? "");
-  return `<span class="math-inline" data-tex="${esc(toTex(raw))}">${esc(raw)}</span>`;
+  return `<span class="math-inline" data-tex="${esc(toTex(raw))}"><math class="mathml" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>${mathMlRow(raw)}</mrow></math></span>`;
 }
 
 function richMath(value: unknown) {
@@ -171,9 +261,16 @@ const cards = records.map((r) => {
   return `<article class="card"><header><h2>${esc(r.qlId)} · ${esc(r.difficulty)}${r.v4CanonicalOverride ? " · V4 CANONICAL OVERRIDE" : ""}${r.v4NaturalMeasurementOverride ? " · V4 NATURAL-MEASUREMENT OVERRIDE" : ""}${r.v4ScenarioWave3Override ? " · V4 STRUCTURAL WAVE3" : ""}${r.v4ScenarioWave4Override ? " · V4 STRUCTURAL WAVE4" : ""}${r.v4PhysicalSupportMigrated ? " · V4 PHYSICAL-SUPPORT MIGRATION" : ""}</h2><p>${esc(r.lockedFamily)} · ${esc(r.solveMode)}</p></header><div class="langs">${lang("English V4 candidate", r.english)}${lang("Hindi V4 candidate", r.hindi)}${lang("Punjabi V4 candidate", r.punjabi)}</div><section class="visual"><h3>Solution diagram</h3>${diagram}<details class="debug-spec"><summary>Diagram specification + evidence</summary><pre>${esc(stringify(r.solutionDiagram))}</pre><pre>${esc(stringify(r.diagramEvidence))}</pre></details><details class="debug-spec"><summary>Canonical spatial state</summary><pre>${esc(stringify(r.canonicalSpatialState))}</pre></details></section></article>`;
 }).join("\n");
 
-const mathBoot = `<script>window.MathJax={startup:{typeset:false},tex:{inlineMath:[["\\\\(","\\\\)"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code","svg"]},chtml:{scale:0.96}};window.ExamtreeMath={render:function(){if(!window.MathJax||!window.MathJax.typesetPromise)return;const nodes=Array.from(document.querySelectorAll(".math-inline[data-tex]"));for(const node of nodes){node.textContent="\\\\("+node.getAttribute("data-tex")+"\\\\)";}window.MathJax.typesetPromise(nodes).catch(function(error){console.warn("MathJax typesetting failed; keeping readable fallback math.",error);});}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js" onload="window.ExamtreeMath.render()"></script>`;
-const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TRG-002 V4 Exam Readiness Review</title>${mathBoot}<style>body{font-family:Arial,"Noto Sans Devanagari","Noto Sans Gurmukhi",sans-serif;background:#f4f4f4;color:#111;margin:0}.page{max-width:1600px;margin:auto;padding:20px}.summary,.card{background:white;border:1px solid #ddd;border-radius:10px;padding:18px;margin-bottom:18px}.langs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.lang{border:1px solid #e4e4e4;border-radius:8px;padding:14px}.stem{font-size:17px;line-height:1.55}.correct{font-weight:700}.math-inline{font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;white-space:nowrap}.math-inline mjx-container{margin:0!important}.visual{margin-top:16px;border-top:1px solid #ddd;padding-top:14px}.diagram-figure{margin:10px 0 14px}.diagram-caption{font-size:14px;color:#475569;margin:0 0 8px}.solution-diagram{display:block;width:100%;height:auto;max-height:520px;background:#fff;border-radius:10px}.solution-diagram text{font-family:Arial,"Noto Sans Devanagari","Noto Sans Gurmukhi",sans-serif;fill:#111827}.solution-diagram .point-label{font-weight:600}.solution-diagram .angle-label{font-weight:700;fill:#6d28d9}.solution-diagram .measurement-label{font-weight:700;fill:#0f766e}.solution-diagram .label-bg{vector-effect:non-scaling-stroke}.debug-spec{margin-top:10px}.debug-spec summary{cursor:pointer;font-weight:700;color:#475569}.visual pre{white-space:pre-wrap;background:#f7f7f7;border:1px solid #eee;border-radius:6px;padding:10px;overflow:auto}.diagram-missing{padding:18px;border:1px dashed #cbd5e1;border-radius:8px;color:#64748b}.blocker{color:#8a1c1c;font-weight:700}@media(max-width:1050px){.langs{grid-template-columns:1fr}.page{padding:10px}.solution-diagram .diagram-label text{font-size:20px}}</style></head><body><main class="page"><section class="summary"><h1>TRG-002 V4 · Comprehensive Exam-Readiness Review</h1><p><b>Scope:</b> 96 V4 candidate QLs shown side-by-side in English, Hindi and Punjabi, with MathJax-enabled mathematical notation, rendered solution geometry, canonical spatial state and diagram evidence.</p><p class="blocker">This remains a blocker-discovery artifact, not a freeze artifact. Historical frozen English authority is untouched; V4 canonical overrides, natural-measurement overrides, structural scenario waves and physical-support migrations are separate candidates.</p><pre>${esc(stringify(audit))}</pre></section>${cards}</main></body></html>`;
+const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TRG-002 V4 Exam Readiness Review</title><style>body{font-family:Arial,"Noto Sans Devanagari","Noto Sans Gurmukhi",sans-serif;background:#f4f4f4;color:#111;margin:0}.page{max-width:1600px;margin:auto;padding:20px}.summary,.card{background:white;border:1px solid #ddd;border-radius:10px;padding:18px;margin-bottom:18px}.langs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.lang{border:1px solid #e4e4e4;border-radius:8px;padding:14px}.stem{font-size:17px;line-height:1.55}.correct{font-weight:700}.math-inline{display:inline-flex;align-items:baseline;vertical-align:-0.08em;margin:0 .05em;white-space:nowrap}.math-inline math{font-family:"STIX Two Math","Cambria Math","Times New Roman",serif;font-size:1.04em}.visual{margin-top:16px;border-top:1px solid #ddd;padding-top:14px}.diagram-figure{margin:10px 0 14px}.diagram-caption{font-size:14px;color:#475569;margin:0 0 8px}.solution-diagram{display:block;width:100%;height:auto;max-height:520px;background:#fff;border-radius:10px}.solution-diagram text{font-family:Arial,"Noto Sans Devanagari","Noto Sans Gurmukhi",sans-serif;fill:#111827}.solution-diagram .point-label{font-weight:600}.solution-diagram .angle-label{font-weight:700;fill:#6d28d9}.solution-diagram .measurement-label{font-weight:700;fill:#0f766e}.solution-diagram .label-bg{vector-effect:non-scaling-stroke}.debug-spec{margin-top:10px}.debug-spec summary{cursor:pointer;font-weight:700;color:#475569}.visual pre{white-space:pre-wrap;background:#f7f7f7;border:1px solid #eee;border-radius:6px;padding:10px;overflow:auto}.diagram-missing{padding:18px;border:1px dashed #cbd5e1;border-radius:8px;color:#64748b}.blocker{color:#8a1c1c;font-weight:700}@media(max-width:1050px){.langs{grid-template-columns:1fr}.page{padding:10px}.solution-diagram .diagram-label text{font-size:20px}}</style></head><body><main class="page"><section class="summary"><h1>TRG-002 V4 · Comprehensive Exam-Readiness Review</h1><p><b>Scope:</b> 96 V4 candidate QLs shown side-by-side in English, Hindi and Punjabi, with self-contained MathML mathematical notation, rendered solution geometry, canonical spatial state and diagram evidence.</p><p class="blocker">This remains a blocker-discovery artifact, not a freeze artifact. Historical frozen English authority is untouched; V4 canonical overrides, natural-measurement overrides, structural scenario waves and physical-support migrations are separate candidates.</p><pre>${esc(stringify(audit))}</pre></section>${cards}</main></body></html>`;
+
+const renderedSvgs = html.match(/<svg class="solution-diagram"[\s\S]*?<\/svg>/g) ?? [];
+const mathNodes = html.match(/<math class="mathml"/g) ?? [];
+const textLabels = html.match(/class="(?:point-label|angle-label|measurement-label)"/g) ?? [];
+const labelBoxes = html.match(/data-label-box="true"/g) ?? [];
+if (renderedSvgs.length !== 96) throw new Error(`TRG-002 V4 review expected 96 SVGs, got ${renderedSvgs.length}.`);
+if (mathNodes.length < 1000) throw new Error(`TRG-002 V4 review expected broad math typesetting coverage, got only ${mathNodes.length} MathML nodes.`);
+if (textLabels.length === 0 || labelBoxes.length !== textLabels.length) throw new Error(`TRG-002 V4 review label collision protection mismatch: labels=${textLabels.length}, boxes=${labelBoxes.length}.`);
 
 writeFileSync(join(outDir, "TRG-002-V4-EXAM-READINESS-REVIEW.json"), stringify({ audit, records }), "utf8");
 writeFileSync(join(outDir, "TRG-002-V4-EXAM-READINESS-REVIEW.html"), html, "utf8");
-console.log(`TRG002_V4_REVIEW_EXPORT_PASS qls=${records.length} languages=3 canonicalOverrides=${records.filter((r) => r.v4CanonicalOverride).length} naturalMeasurementOverrides=${records.filter((r) => r.v4NaturalMeasurementOverride).length} wave3=${records.filter((r) => r.v4ScenarioWave3Override).length} wave4=${records.filter((r) => r.v4ScenarioWave4Override).length} physicalSupportMigrations=${records.filter((r) => r.v4PhysicalSupportMigrated).length} renderedSvgs=${records.length} math=LATEX_READY freeze=OFF activation=OFF`);
+console.log(`TRG002_V4_REVIEW_EXPORT_PASS qls=${records.length} languages=3 canonicalOverrides=${records.filter((r) => r.v4CanonicalOverride).length} naturalMeasurementOverrides=${records.filter((r) => r.v4NaturalMeasurementOverride).length} wave3=${records.filter((r) => r.v4ScenarioWave3Override).length} wave4=${records.filter((r) => r.v4ScenarioWave4Override).length} physicalSupportMigrations=${records.filter((r) => r.v4PhysicalSupportMigrated).length} renderedSvgs=${renderedSvgs.length} mathMlNodes=${mathNodes.length} collisionProtectedLabels=${labelBoxes.length} freeze=OFF activation=OFF`);
