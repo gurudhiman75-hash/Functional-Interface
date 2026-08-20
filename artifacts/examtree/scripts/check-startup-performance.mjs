@@ -28,9 +28,10 @@ assert.match(provider, /\[tex\]\/ams/);
 assert.match(vite, /mathjax: \["better-react-mathjax"\]/, "production bundle must expose an observable isolated MathJax chunk");
 assert.match(proof, /public acquisition pages do not download the MathJax bundle/);
 assert.match(proof, /saved question review loads the isolated MathJax bundle on demand/);
-assert.match(proof, /\/assets\/mathjax-/);
+assert.match(proof, /function localMathChunks/);
+assert.match(proof, /mathjax-\[\^\/\]\+\\\.js/);
 assert.match(proof, /toEqual\(\[\]\)/);
 assert.match(proof, /toBeGreaterThan\(0\)/);
 assert.match(proof, /\$x = 2\$/);
 
-console.log("Startup performance audit passed (22 assertions).");
+console.log("Startup performance audit passed (23 assertions).");
