@@ -40,7 +40,7 @@ assert.match(generator, /data-prerender-fallback/);
 assert.match(generator, /<h1/);
 assert.match(generator, /aria-label="Explore ExamTree"/);
 assert.match(generator, /`\$\{relativePath\}\.html`/);
-assert.doesNotMatch(generator, /path\.join\(DIST_DIR, route\.path\.replace\(\/\^\\\/\/.*?"index\.html"/s);
+assert.doesNotMatch(generator, /fs\.writeFileSync\(path\.join\(directory, "index\.html"\)/, "prerender routes must be emitted as flat clean-url .html files");
 
 assert.equal(firebase.hosting.cleanUrls, true, "Firebase Hosting must serve flat prerender .html files at clean URLs");
 assert.deepEqual(firebase.hosting.rewrites[0], { source: "/admin", destination: "/admin/index.html" });
@@ -58,9 +58,9 @@ assert.match(proof, /request\.get\("\/about\.html"\)/);
 assert.match(proof, /request\.get\("\/exams\.html"\)/);
 assert.match(proof, /https:\/\/sarbedutech\.web\.app\/opengraph\.jpg/);
 assert.match(proof, /data-prerender-fallback/);
-assert.match(proof, /not\.toContain\("https:\/\/sarbedutech\.web\.app\/pyqs"\)/);
+assert.match(proof, /not\.toContain\(`\$\{DEFAULT_ORIGIN\}\/pyqs`\)/);
 assert.match(seoProof, /placeholder content stays noindex/);
 assert.match(seoProof, /\/pyqs/);
 assert.match(seoProof, /noindex,follow/);
 
-console.log("Public sitemap/prerender audit passed (52 assertions).");
+console.log("Public sitemap/prerender audit passed (54 assertions).");
