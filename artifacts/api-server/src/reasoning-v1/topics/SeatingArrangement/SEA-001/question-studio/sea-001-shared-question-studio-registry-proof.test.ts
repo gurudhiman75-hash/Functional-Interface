@@ -5,7 +5,7 @@ import {
   listReasoningV1QuestionStudioReviewPackages,
   persistReasoningV1QuestionStudioReview,
   previewReasoningV1QuestionStudioReview,
-} from "../../../question-studio-review-registry.ts";
+} from "../../../../question-studio-review-registry.ts";
 import { SEA001_PERMANENT_QL_IDS } from "../permanent/registry.ts";
 import { SEA001_STRUCTURAL_HARDENING_ENGLISH_REVIEW_PIN } from "../review/structural-hardening-english-review-pins.ts";
 import { SEA001_STRUCTURAL_HARDENING_MULTILINGUAL_FREEZE } from "../review/structural-hardening-multilingual-freeze.ts";
