@@ -25,6 +25,7 @@ const MATH_JAX_CONFIG = {
 const Home = lazy(() => import("@/pages/home"));
 const Login = lazy(() => import("@/pages/login"));
 const AccountRecovery = lazy(() => import("@/pages/account-recovery"));
+const AccountDeletion = lazy(() => import("@/pages/account-deletion"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
 const Tests = lazy(() => import("@/pages/tests"));
 const TestSeries = lazy(() => import("@/pages/test-series"));
@@ -86,6 +87,7 @@ function Router() {
     <Route path="/login/student" component={() => renderRoute(Login)} />
     <Route path="/login/admin" component={() => renderRoute(Login)} />
     <Route path="/account-recovery" component={() => renderRoute(AccountRecovery)} />
+    <Route path="/account-deletion" component={() => renderRoute(AccountDeletion)} />
     <Route path="/dashboard" component={() => renderRoute(Dashboard)} />
     <Route path="/exams" component={() => renderRoute(Tests)} />
     <Route path="/tests" component={() => renderRoute(Tests)} />
@@ -103,6 +105,7 @@ function Router() {
     <Route path="/profile" component={() => renderRoute(Profile)} />
     <Route path="/about" component={() => renderRoute(About)} />
     <Route path="/contact" component={() => renderRoute(Contact)} />
+    <Route path="/privacy" component={() => renderRoute(PrivacyPolicy)} />
     <Route path="/privacy-policy" component={() => renderRoute(PrivacyPolicy)} />
     <Route path="/terms-and-conditions" component={() => renderRoute(TermsAndConditions)} />
     <Route path="/refund-policy" component={() => renderRoute(RefundPolicy)} />
