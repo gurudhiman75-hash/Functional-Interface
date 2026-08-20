@@ -9,6 +9,7 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-v1.test.ts'
       - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-review-export-v1.ts'
       - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-native-review-pack-declutter-v1.mjs'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-native-arrangement-construction-v1.mjs'
       - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/question-studio-payload.ts'
       - '.github/workflows/rnk-001-explanation-declutter-v1.yml'
   pull_request:
@@ -19,6 +20,7 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-v1.test.ts'
       - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-review-export-v1.ts'
       - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-native-review-pack-declutter-v1.mjs'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-native-arrangement-construction-v1.mjs'
       - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/question-studio-payload.ts'
       - '.github/workflows/rnk-001-explanation-declutter-v1.yml'
   workflow_dispatch:
@@ -86,13 +88,18 @@ jobs:
           ln -s "$GITHUB_WORKSPACE/artifacts/api-server/node_modules" /tmp/rnk-cp004/artifacts/api-server/node_modules
           pnpm dlx tsx /tmp/rnk-cp004/artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-export-v5-final.ts /tmp/rnk-native-review/cp004/RNK-CP-004-HI-PA-LOCALIZATION-REVIEW-V5-FINAL-144Q.md
 
-      - name: Assemble and declutter Hindi Punjabi review packs
+      - name: Assemble declutter and expand Hindi Punjabi arrangement construction
         run: |
           set -euo pipefail
           node artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-native-approval-review-pack-v1.mjs /tmp/rnk-native-review /tmp/rnk-native-review/output
           node artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-native-review-pack-declutter-v1.mjs \
             /tmp/rnk-native-review/output/RNK-001-HINDI-NATIVE-APPROVAL-REVIEW-PACK-V1.md \
             /tmp/rnk-native-review/output/RNK-001-PUNJABI-NATIVE-APPROVAL-REVIEW-PACK-V1.md
+          node artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-native-arrangement-construction-v1.mjs \
+            /tmp/rnk-native-review/output/RNK-001-HINDI-NATIVE-APPROVAL-REVIEW-PACK-V1.md \
+            /tmp/rnk-native-review/output/RNK-001-PUNJABI-NATIVE-APPROVAL-REVIEW-PACK-V1.md
+          grep -q 'पहली तुलना से:' /tmp/rnk-native-review/output/RNK-001-HINDI-NATIVE-APPROVAL-REVIEW-PACK-V1.md
+          grep -q 'ਸਾਰੇ ਸੰਬੰਧ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਪੂਰਾ ਕ੍ਰਮ ਹੈ:' /tmp/rnk-native-review/output/RNK-001-PUNJABI-NATIVE-APPROVAL-REVIEW-PACK-V1.md
           cp /tmp/rnk-native-review/output/RNK-001-HINDI-NATIVE-APPROVAL-REVIEW-PACK-V1.md /tmp/rnk-declutter-output/RNK-001-HINDI-EXPLANATION-DECLUTTER-REVIEW-V1.md
           cp /tmp/rnk-native-review/output/RNK-001-PUNJABI-NATIVE-APPROVAL-REVIEW-PACK-V1.md /tmp/rnk-declutter-output/RNK-001-PUNJABI-EXPLANATION-DECLUTTER-REVIEW-V1.md
 
