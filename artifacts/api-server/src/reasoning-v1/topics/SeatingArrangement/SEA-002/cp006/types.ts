@@ -53,7 +53,7 @@ export interface Sea002Cp006Option {
 
 export interface Sea002Cp006ChildQuestion {
   readonly questionOrder: 1 | 2 | 3 | 4;
-  readonly queryContractId: "SEA-QC-003" | "SEA-QC-006" | "SEA-QC-009" | "SEA-QC-010" | "SEA-QC-011" | "SEA-QC-012";
+  readonly queryContractId: "SEA-QC-003" | "SEA-QC-006" | "SEA-QC-009" | "SEA-QC-010" | "SEA-QC-011" | "SEA-QC-012" | "SEA-QC-015";
   readonly answerType: Sea002Cp006AnswerType;
   readonly answerDeterminingFactFingerprint: string;
   readonly text: string;
