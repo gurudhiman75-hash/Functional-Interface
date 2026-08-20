@@ -7,7 +7,7 @@ const categories = [
   { id: "cat-4", name: "Railways", description: "Railway exams", icon: "Train", color: "blue", testsCount: 135 },
 ];
 
-const subcategories = categories.flatMap((category, categoryIndex) => [1, 2].map((suffix) => ({
+const subcategories = categories.flatMap((category) => [1, 2].map((suffix) => ({
   id: `${category.id}-sub-${suffix}`,
   categoryId: category.id,
   categoryName: category.name,
@@ -139,8 +139,9 @@ test.describe("CP04 catalog scale", () => {
     await page.getByTestId("catalog-access-filter").selectOption("paid");
     await page.getByTestId("catalog-difficulty-filter").selectOption("Hard");
     await page.getByTestId("catalog-kind-filter").selectOption("topic-wise");
-    await page.getByTestId("catalog-language-filter").selectOption("pa");
-    await expect(page.getByTestId("catalog-result-count")).not.toHaveText("Showing 1-18 of 540");
+    await page.getByTestId("catalog-language-filter").selectOption("hi");
+    await expect(page.getByTestId("catalog-result-count")).not.toHaveText("0 matches");
+    expect(await grid.locator("article").count()).toBeGreaterThan(0);
     expect(await grid.locator("article").count()).toBeLessThanOrEqual(18);
 
     await page.getByTestId("catalog-search").fill("definitely-not-a-real-test");
