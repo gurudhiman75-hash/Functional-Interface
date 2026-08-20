@@ -209,13 +209,15 @@ for (const marker of engineMarkers) {
 
 const routeMarkers = [
   "isNumberSystemRequest",
-  'defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001"',
+  'requestedNumberSystemPackage === "num 002"',
+  '? cp008Request ? "NUM-002" : "NUM-001"',
   'defaultSubtopic = numberSystemRequest ? "Number System" : "Average"',
-  "NUM-001 supports English Question Studio generation only",
+  'targetCp !== "NUM-CP-001" && targetCp !== "NUM-CP-008"',
+  "other currently routed checkpoints remain English-only",
 ];
 for (const marker of routeMarkers) {
   assert(adminRouteSource.includes(marker),
-    `Admin Question Studio route is missing NUM-001 marker: ${marker}`);
+    `Admin Question Studio route is missing Number System routing invariant: ${marker}`);
 }
 stage("central-wiring-source:complete", {
   engineMarkerCount: engineMarkers.length,
