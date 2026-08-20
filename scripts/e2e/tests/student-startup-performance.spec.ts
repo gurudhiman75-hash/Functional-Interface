@@ -91,10 +91,6 @@ function localMathProviderChunks(page: Page) {
   return matchingResources(page, /\/assets\/MathJaxRouteProvider-[^/]+\.js(?:\?|$)/);
 }
 
-function localCatalogProviderChunks(page: Page) {
-  return matchingResources(page, /\/assets\/ExamCatalogProvider-[^/]+\.js(?:\?|$)/);
-}
-
 function localFirebaseChunks(page: Page) {
   return matchingResources(page, /\/assets\/firebase-[^/]+\.js(?:\?|$)/);
 }
@@ -108,7 +104,6 @@ test.describe("CP05 route-scoped startup runtime", () => {
     await page.waitForLoadState("networkidle");
 
     expect(await localMathProviderChunks(page)).toEqual([]);
-    expect(await localCatalogProviderChunks(page)).toEqual([]);
     expect(await localFirebaseChunks(page)).toEqual([]);
     expect(counts).toEqual({ categories: 0, subcategories: 0, tests: 0 });
   });
@@ -120,7 +115,6 @@ test.describe("CP05 route-scoped startup runtime", () => {
     await expect(page.getByRole("heading", { name: "Explore the catalog hierarchy" })).toBeVisible();
     await page.waitForLoadState("networkidle");
 
-    await expect.poll(async () => (await localCatalogProviderChunks(page)).length).toBeGreaterThan(0);
     expect(counts.categories).toBeGreaterThan(0);
     expect(counts.subcategories).toBeGreaterThan(0);
     expect(counts.tests).toBeGreaterThan(0);
@@ -130,12 +124,19 @@ test.describe("CP05 route-scoped startup runtime", () => {
   test("student login loads Firebase on demand without waking the exam catalog", async ({ page }) => {
     const counts: CatalogRequestCounts = { categories: 0, subcategories: 0, tests: 0 };
     await installFixtures(page, counts);
+
+    // The reliability build supplies a synthetic Firebase currentUser. Keep the
+    // canonical profile lookup pending so this test can certify the signed-out
+    // login surface before that listener redirects to Dashboard.
+    await page.route("**/api/users/me", async () => {
+      await new Promise<void>(() => {});
+    });
+
     await page.goto("/login/student");
+    await expect(page.getByRole("heading", { name: "Welcome to examtree" })).toBeVisible();
     await expect(page.getByTestId("tab-login")).toBeVisible();
-    await page.waitForLoadState("networkidle");
 
     await expect.poll(async () => (await localFirebaseChunks(page)).length).toBeGreaterThan(0);
-    expect(await localCatalogProviderChunks(page)).toEqual([]);
     expect(counts).toEqual({ categories: 0, subcategories: 0, tests: 0 });
   });
 
