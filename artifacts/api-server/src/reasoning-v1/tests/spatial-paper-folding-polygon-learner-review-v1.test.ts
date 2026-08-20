@@ -26,6 +26,89 @@ for (const question of questions) {
   }
 }
 
+const GRID = 120;
+const MIN_FORWARD_VISIBLE_MARK_DISTANCE = 0.40;
+const NUMBER_RE = /-?\d+(?:\.\d+)?/g;
+function num(tag: string, name: string): number | null {
+  const match = tag.match(new RegExp(`\\b${name}="(-?\\d+(?:\\.\\d+)?)"`));
+  return match ? Number(match[1]) : null;
+}
+function paint(set: Set<number>, x: number, y: number, radius = 1): void {
+  const gx = Math.max(0, Math.min(GRID - 1, Math.round(x * (GRID - 1) / 120)));
+  const gy = Math.max(0, Math.min(GRID - 1, Math.round(y * (GRID - 1) / 108)));
+  for (let dx = -radius; dx <= radius; dx += 1) {
+    for (let dy = -radius; dy <= radius; dy += 1) {
+      const xx = gx + dx;
+      const yy = gy + dy;
+      if (xx >= 0 && xx < GRID && yy >= 0 && yy < GRID) set.add(yy * GRID + xx);
+    }
+  }
+}
+function segment(set: Set<number>, x1: number, y1: number, x2: number, y2: number): void {
+  const steps = Math.max(8, Math.ceil(Math.hypot(x2 - x1, y2 - y1) * 3));
+  for (let index = 0; index <= steps; index += 1) {
+    const t = index / steps;
+    paint(set, x1 + (x2 - x1) * t, y1 + (y2 - y1) * t, 1);
+  }
+}
+function visibleCutMask(svg: string): Set<number> {
+  const set = new Set<number>();
+  for (const tag of svg.match(/<circle\b[^>]*\/?\s*>/g) ?? []) {
+    const cx = num(tag, "cx");
+    const cy = num(tag, "cy");
+    const r = num(tag, "r");
+    if (cx === null || cy === null || r === null || r > 10) continue;
+    for (let degree = 0; degree < 360; degree += 4) {
+      const rad = degree * Math.PI / 180;
+      paint(set, cx + r * Math.cos(rad), cy + r * Math.sin(rad), 1);
+    }
+  }
+  for (const tag of svg.match(/<line\b[^>]*\/?\s*>/g) ?? []) {
+    const x1 = num(tag, "x1"), y1 = num(tag, "y1"), x2 = num(tag, "x2"), y2 = num(tag, "y2");
+    if ([x1, y1, x2, y2].some((value) => value === null)) continue;
+    if (Math.hypot(x2! - x1!, y2! - y1!) > 20) continue;
+    segment(set, x1!, y1!, x2!, y2!);
+  }
+  for (const tag of svg.match(/<polygon\b[^>]*\/?\s*>/g) ?? []) {
+    const values = tag.match(/\bpoints="([^"]+)"/)?.[1]?.match(NUMBER_RE)?.map(Number) ?? [];
+    const points: Array<[number, number]> = [];
+    for (let index = 0; index + 1 < values.length; index += 2) points.push([values[index], values[index + 1]]);
+    if (points.length < 3) continue;
+    const xs = points.map(([x]) => x), ys = points.map(([, y]) => y);
+    if (Math.max(...xs) - Math.min(...xs) > 20 || Math.max(...ys) - Math.min(...ys) > 20) continue;
+    for (let index = 0; index < points.length; index += 1) {
+      segment(set, ...points[index], ...points[(index + 1) % points.length]);
+    }
+  }
+  return set;
+}
+function jaccardDistance(a: Set<number>, b: Set<number>): number {
+  const union = new Set([...a, ...b]);
+  if (union.size === 0) return 0;
+  let intersection = 0;
+  for (const value of a) if (b.has(value)) intersection += 1;
+  return 1 - intersection / union.size;
+}
+function minForwardVisibleDistance(question: typeof questions[number]): number {
+  const masks = question.options.map((option) => visibleCutMask(option.svg));
+  assert.ok(masks.every((mask) => mask.size > 0), `${question.reviewId} has an option with no visible cut marks.`);
+  let minimum = 1;
+  for (let i = 0; i < masks.length; i += 1) {
+    for (let j = i + 1; j < masks.length; j += 1) minimum = Math.min(minimum, jaccardDistance(masks[i], masks[j]));
+  }
+  return minimum;
+}
+
+let minimumForwardVisibleDistance = 1;
+for (const question of questions.filter((q) => q.task === "FORWARD_UNFOLD")) {
+  const distance = minForwardVisibleDistance(question);
+  minimumForwardVisibleDistance = Math.min(minimumForwardVisibleDistance, distance);
+  assert.ok(
+    distance + 1e-9 >= MIN_FORWARD_VISIBLE_MARK_DISTANCE,
+    `${question.reviewId} triangle choices remain visually near-duplicate at ${distance.toFixed(3)}.`,
+  );
+}
+
 const html = renderPfcPolygonLearnerReviewHtmlV1(questions);
 assert.ok(html.includes("PFC-001 Polygon Substrate Gap Review V1"));
 assert.ok(html.includes("Triangle source sheet"));
@@ -44,6 +127,8 @@ const evidence = {
   reverseQuestionCount: questions.filter((q) => q.task === "REVERSE_INFERENCE").length,
   sourceShape: "TRIANGLE",
   optionArtUniqueWithinEveryQuestion: true,
+  forwardVisibleMarkDistanceGate: MIN_FORWARD_VISIBLE_MARK_DISTANCE,
+  minimumForwardVisibleMarkDistance: minimumForwardVisibleDistance,
   conceptualForwardDistractors: ["FORGOT_TO_UNFOLD", "WRONG_SYMMETRY_AXIS", "FALSE_FOUR_LAYER_PATTERN"],
   transparentCutouts: true,
   fixedStageSizing: true,
