@@ -1,4 +1,4 @@
-name: Validate TSD CP006 Hindi Punjabi Review V5
+name: Validate TSD CP006 Hindi Punjabi Review V6
 
 on:
   pull_request:
@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 jobs:
-  validate-cp006-hi-pa-v5:
+  validate-cp006-hi-pa-v6:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -28,38 +28,38 @@ jobs:
         run: corepack enable
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-      - name: Bundle frozen English and native V5 evidence
+      - name: Bundle frozen English and native V6 evidence
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
-          OUT=dist/quant-v4/tsd-001/cp006-hi-pa-v5
+          OUT=dist/quant-v4/tsd-001/cp006-hi-pa-v6
           mkdir -p artifacts/api-server/$OUT
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-approved-freeze-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-freeze-proof.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/localization/native-review-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-v5-proof.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/localization/native-review-export-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-v5-export.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/localization/native-review-proof-v6.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-v6-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/localization/native-review-export-v6.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-v6-export.mjs"
       - name: Re-prove CP006 English V5 freeze
         run: |
           set -o pipefail
           cd artifacts/api-server
-          OUT=dist/quant-v4/tsd-001/cp006-hi-pa-v5
+          OUT=dist/quant-v4/tsd-001/cp006-hi-pa-v6
           node "$OUT/english-freeze-proof.mjs" 2>&1 | tee "$OUT/english-freeze-proof.log"
-      - name: Export and validate Hindi Punjabi V5
+      - name: Export and validate Hindi Punjabi V6
         run: |
           set -o pipefail
           cd artifacts/api-server
-          OUT=dist/quant-v4/tsd-001/cp006-hi-pa-v5
-          node "$OUT/native-v5-export.mjs" "$OUT/cp006-hi-pa-review-v5-156q.json" 2>&1 | tee "$OUT/native-v5-export.log"
-          node "$OUT/native-v5-proof.mjs" 2>&1 | tee "$OUT/native-v5-proof.log"
+          OUT=dist/quant-v4/tsd-001/cp006-hi-pa-v6
+          node "$OUT/native-v6-export.mjs" "$OUT/cp006-hi-pa-review-v6-156q.json" 2>&1 | tee "$OUT/native-v6-export.log"
+          node "$OUT/native-v6-proof.mjs" 2>&1 | tee "$OUT/native-v6-proof.log"
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Upload CP006 Hindi Punjabi V5 evidence
+      - name: Upload CP006 Hindi Punjabi V6 evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp006-hi-pa-review-v5-156q
+          name: tsd-cp006-hi-pa-review-v6-156q
           path: |
-            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v5/english-freeze-proof.log
-            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v5/native-v5-proof.log
-            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v5/native-v5-export.log
-            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v5/cp006-hi-pa-review-v5-156q.json
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v6/english-freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v6/native-v6-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v6/native-v6-export.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v6/cp006-hi-pa-review-v6-156q.json
           if-no-files-found: error
