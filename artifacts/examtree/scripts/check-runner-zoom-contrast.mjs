@@ -18,12 +18,16 @@ assert.match(proof, /scrollWidth - window\.innerWidth[\s\S]*?toBeLessThanOrEqual
 assert.match(proof, /contrastRatio[\s\S]*?toBeGreaterThanOrEqual\(4\.5\)/, "runner/result zoom certification must retain an AA 4.5:1 contrast gate");
 assert.match(proof, /Start Test[\s\S]*?Question No 1/, "runner certification must enter the real active exam surface");
 assert.match(proof, /runner reflow-safe at a 390px viewport[\s\S]*?Pause & Exit[\s\S]*?\^Next[\s\S]*?\^Submit/, "390px runner reflow proof must keep critical mobile navigation visible");
-assert.match(proof, /critical runner text and actions AA-readable at 200% scale[\s\S]*?₹720[\s\S]*?Save & Next/, "fresh-context 200% runner proof must cover answer and primary advance controls");
+assert.match(proof, /document\.fullscreenElement[\s\S]*?toBe\(true\)/, "runner zoom proof must verify REAL exam immersive mode is actually active");
+assert.match(proof, /keyboard\.press\("Escape"\)/, "runner zoom proof must verify the user can leave immersive mode with standard Escape");
+assert.match(proof, /document\.fullscreenElement[\s\S]*?toBe\(false\)/, "runner zoom proof must verify immersive mode exits before browser zoom");
+assert.match(proof, /toBe\(false\)[\s\S]*?Question No 1[\s\S]*?applyTwoXScale/, "exiting fullscreen must preserve the active attempt before 200% zoom is applied");
+assert.match(proof, /AA-readable at 200% scale after exiting immersive mode[\s\S]*?₹720[\s\S]*?Save & Next/, "200% runner proof must cover answer and primary advance controls after immersive-mode exit");
 assert.match(proof, /Pause & Exit\?/, "runner reflow certification must cover the pause overlay");
 assert.match(proof, /\/result\?attemptId=\$\{ATTEMPT_ID\}/, "result certification must use a canonical attempt id rather than local result fallback");
 assert.match(proof, /canonical result reflow-safe at a 390px viewport[\s\S]*?Back to My Activity[\s\S]*?Solution review[\s\S]*?Retake test/, "390px result proof must cover navigation, review, and retake surfaces");
-assert.match(proof, /canonical result AA-readable at 200% scale[\s\S]*?Back to My Activity[\s\S]*?All \(2\)[\s\S]*?Retake test/, "fresh-context 200% result proof must cover critical saved-result controls");
+assert.match(proof, /canonical result AA-readable at 200% scale[\s\S]*?Back to My Activity[\s\S]*?All \(2\)[\s\S]*?Retake test/, "200% result proof must cover critical saved-result controls");
 assert.match(proof, /canvas\.getContext\("2d"/, "contrast proof must use the browser CSS color parser for modern color syntax");
 assert.match(resultSource, /Back to My Activity[\s\S]*?text-foreground\/90|text-foreground\/90[\s\S]*?Back to My Activity/, "canonical result back navigation must use foreground-class contrast rather than muted text");
 
-console.log("Runner/result zoom and contrast audit passed (14 assertions).");
+console.log("Runner/result zoom and contrast audit passed (18 assertions).");
