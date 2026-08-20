@@ -22,7 +22,7 @@ for (const question of questions) {
     assert.ok(semantics.has("FORGOT_TO_UNFOLD"));
     assert.ok(semantics.has("CORRECT_TWO_LAYER_REFLECTION"));
     assert.ok(semantics.has("WRONG_SYMMETRY_AXIS"));
-    assert.ok(semantics.has("FALSE_FOUR_LAYER_PATTERN"));
+    assert.ok(semantics.has("FALSE_THREE_WAY_PATTERN"));
   }
 }
 
@@ -184,7 +184,8 @@ const evidence = {
   expectedStagePaperFillRatio: EXPECTED_STAGE_FILL_RATIO,
   minStagePaperFillRatio: Math.min(...stageFillRatios),
   maxStagePaperFillRatio: Math.max(...stageFillRatios),
-  conceptualForwardDistractors: ["FORGOT_TO_UNFOLD", "WRONG_SYMMETRY_AXIS", "FALSE_FOUR_LAYER_PATTERN"],
+  conceptualForwardDistractors: ["FORGOT_TO_UNFOLD", "WRONG_SYMMETRY_AXIS", "FALSE_THREE_WAY_PATTERN"],
+  overlappingSyntheticDistractorsAllowed: false,
   transparentCutouts: true,
   fixedStageSizing: true,
   packetFittedInternalStageScale: true,
