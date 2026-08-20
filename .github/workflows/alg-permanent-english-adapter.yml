@@ -15,6 +15,7 @@ on:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v3.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-editorial-audit.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-export.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-freeze-v3.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-freeze.test.ts
       - .github/workflows/alg-permanent-english-adapter.yml
   workflow_dispatch:
@@ -92,6 +93,16 @@ jobs:
             artifacts/api-server/dist/quant-v4/algebra/algebra-permanent-english-review-v3-109q.html
             artifacts/api-server/dist/quant-v4/algebra/algebra-permanent-english-review-v3-109q.json
           if-no-files-found: error
+      - name: Bundle approved English V3 freeze proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-freeze-v3.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/permanent-english-freeze-v3.test.mjs
+      - name: Run approved English V3 freeze proof
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/algebra/permanent-english-freeze-v3.test.mjs
       - name: Bundle historical English V1 freeze proof
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
