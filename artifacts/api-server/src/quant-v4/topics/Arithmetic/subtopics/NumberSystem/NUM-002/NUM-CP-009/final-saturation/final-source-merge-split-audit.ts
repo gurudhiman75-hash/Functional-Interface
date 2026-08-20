@@ -131,7 +131,7 @@ const normalContributions = new Map<string, string[]>();
 for (const authority of authorities) {
   assert(authority.prototypeContributions.length > 0, `${authority.id}: no source prototype contribution`);
   for (const contribution of authority.prototypeContributions) {
-    const prototypeId = contribution.split(":").slice(0, 3).join(":");
+    const prototypeId = contribution.split(":")[0]!;
     assert(expectedPrototypeIds.has(prototypeId as never), `${authority.id}: unknown contribution ${contribution}`);
     const list = normalContributions.get(prototypeId) ?? [];
     list.push(contribution);
