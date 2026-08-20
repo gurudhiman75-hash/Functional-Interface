@@ -70,6 +70,7 @@ export * from "./cp006/ql-allocation";
 export * from "./cp006/english-review-runtime-v1";
 export * from "./cp006/english-review-runtime-v2";
 export * from "./cp006/english-review-runtime-v3";
+export * from "./cp006/english-review-runtime-v4";
 export * from "./authority-overlap-audit";
 export * from "./final-authority-registry";
 export * from "./final-authority-review";
