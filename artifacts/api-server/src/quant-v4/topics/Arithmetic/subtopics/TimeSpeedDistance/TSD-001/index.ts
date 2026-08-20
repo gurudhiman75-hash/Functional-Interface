@@ -72,6 +72,7 @@ export * from "./cp006/english-review-runtime-v2";
 export * from "./cp006/english-review-runtime-v3";
 export * from "./cp006/english-review-runtime-v4";
 export * from "./cp006/english-review-runtime-v5";
+export * from "./cp006/english-approved-freeze-v5";
 export * from "./authority-overlap-audit";
 export * from "./final-authority-registry";
 export * from "./final-authority-review";
