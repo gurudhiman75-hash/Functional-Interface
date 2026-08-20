@@ -18,6 +18,10 @@ const mainSource = fs.readFileSync(
   fileURLToPath(new URL("../src/main.tsx", import.meta.url)),
   "utf8",
 );
+const runnerCss = fs.readFileSync(
+  fileURLToPath(new URL("../src/test-runner-mobile.css", import.meta.url)),
+  "utf8",
+);
 
 assert.match(proof, /page\.setViewportSize\(\{ width: 390, height: 844 \}\)/, "runner/result certification must retain a narrow 390px reflow viewport");
 assert.match(proof, /Emulation\.setPageScaleFactor[\s\S]*?pageScaleFactor: 2/, "runner/result certification must exercise 200% Chromium page scale");
@@ -45,5 +49,10 @@ assert.match(fullscreenExitSource, /document\.exitFullscreen/, "fullscreen exit 
 assert.match(fullscreenExitSource, /min-h-11/, "fullscreen exit control must retain a 44px-class minimum height");
 assert.match(fullscreenExitSource, /aria-label="Exit fullscreen"/, "fullscreen exit control must expose an explicit accessible name");
 assert.match(mainSource, /<ExamFullscreenExit \/>/, "the global student root must mount the exam fullscreen exit control");
+assert.match(
+  runnerCss,
+  /header\.sticky\.top-0\.bg-blue-600 > div:first-child button \{[\s\S]*?background-color: #1d4ed8;[\s\S]*?color: #fff;/,
+  "runner Pause & Exit must keep an opaque high-contrast foreground/background pair",
+);
 
-console.log("Runner/result zoom and contrast audit passed (25 assertions).");
+console.log("Runner/result zoom and contrast audit passed (26 assertions).");
