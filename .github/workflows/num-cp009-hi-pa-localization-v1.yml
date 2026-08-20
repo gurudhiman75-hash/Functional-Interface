@@ -55,10 +55,11 @@ jobs:
 
       - name: Run Hindi Punjabi parity proof
         shell: bash
+        working-directory: artifacts/api-server
         run: |
           set -o pipefail
-          node artifacts/api-server/dist/quant-v4/num-cp009-hi-pa-parity.mjs \
-            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp009-hi-pa-parity.log
+          node dist/quant-v4/num-cp009-hi-pa-parity.mjs \
+            2>&1 | tee dist/quant-v4/num-cp009-hi-pa-parity.log
 
       - name: Bundle frozen human-quality proof
         run: >-
@@ -69,10 +70,11 @@ jobs:
 
       - name: Run frozen human-quality proof
         shell: bash
+        working-directory: artifacts/api-server
         run: |
           set -o pipefail
-          node artifacts/api-server/dist/quant-v4/num-cp009-hi-pa-human-quality.mjs \
-            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp009-hi-pa-human-quality.log
+          node dist/quant-v4/num-cp009-hi-pa-human-quality.mjs \
+            2>&1 | tee dist/quant-v4/num-cp009-hi-pa-human-quality.log
 
       - name: Upload multilingual freeze evidence
         uses: actions/upload-artifact@v4
@@ -86,4 +88,5 @@ jobs:
             artifacts/api-server/dist/quant-v4/num-002-cp009-hi-pa-localization/num-cp009-hi-pa-review.md
             artifacts/api-server/dist/quant-v4/num-002-cp009-hi-pa-localization/num-cp009-hi-pa-human-review.json
             artifacts/api-server/dist/quant-v4/num-002-cp009-hi-pa-localization/num-cp009-hi-pa-human-review.md
+          if-no-files-found: error
           retention-days: 30
