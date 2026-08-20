@@ -80,18 +80,18 @@ export function StickyHeader() {
       className={`fixed inset-x-0 top-0 z-50 border-b border-slate-200 bg-white/80 font-sans backdrop-blur-xl transition-all duration-300 md:left-[var(--sidebar-width)] ${compact ? "py-2" : "py-4"}`}
     >
       <div className="flex items-center gap-3 px-4 sm:px-6">
-        <SidebarTrigger className="h-11 w-11 rounded-md border border-slate-200 text-slate-500 hover:bg-slate-100 hover:text-slate-950" />
+        <SidebarTrigger className="h-11 w-11 shrink-0 rounded-md border border-slate-200 text-slate-500 hover:bg-slate-100 hover:text-slate-950" />
 
         <div className="hidden items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400 lg:flex">
           <Compass className="h-4 w-4 text-teal-600" aria-hidden="true" />
           ExamTree
         </div>
 
-        <div className="relative mx-auto w-full max-w-2xl">
+        <div className="relative mx-auto min-w-0 flex-1 max-w-2xl">
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="flex h-11 w-full items-center justify-between gap-3 rounded-full border border-slate-200 bg-slate-50/90 px-4 text-left text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
+            className="flex h-11 w-full min-w-0 items-center justify-between gap-3 rounded-full border border-slate-200 bg-slate-50/90 px-4 text-left text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
             aria-expanded={open}
             aria-controls="exam-selector-panel"
             aria-haspopup="dialog"
@@ -167,7 +167,7 @@ export function StickyHeader() {
           )}
         </div>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2">
           <button
             type="button"
             onClick={() => setLocation("/dashboard")}
