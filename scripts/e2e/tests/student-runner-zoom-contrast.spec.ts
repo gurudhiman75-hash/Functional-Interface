@@ -217,14 +217,20 @@ async function contrastRatio(locator: Locator) {
   });
 }
 
-async function setTwoXScale(page: Page) {
+async function setTwoXScaleAtEffectiveMobileWidth(page: Page) {
+  // CDP page-scale emulation remains at 1 when Playwright first fixes the layout
+  // viewport itself to a phone width. Certify narrow reflow at 390 CSS px first,
+  // then use a 780px layout viewport at 2x scale for an effective 390px visual
+  // viewport. This mirrors the already-landed CP02 zoom/reflow certification.
+  await page.setViewportSize({ width: 780, height: 900 });
   const cdp = await page.context().newCDPSession(page);
   await cdp.send("Emulation.setPageScaleFactor", { pageScaleFactor: 2 });
   await expect.poll(() => page.evaluate(() => window.visualViewport?.scale ?? 1)).toBeGreaterThanOrEqual(1.9);
+  await expect.poll(() => page.evaluate(() => window.visualViewport?.width ?? window.innerWidth)).toBeLessThanOrEqual(400);
 }
 
 test.describe("CP02 runner and result zoom contrast", () => {
-  test("keeps the active exam runner usable and readable at 200% scale", async ({ page }) => {
+  test("keeps the active exam runner reflow-safe and readable at 200% scale", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await installFixtures(page);
     await seedStudent(page);
@@ -233,37 +239,41 @@ test.describe("CP02 runner and result zoom contrast", () => {
     await page.getByRole("button", { name: "Start Test" }).click();
     await expect(page.getByText("Question No 1")).toBeVisible();
 
-    await setTwoXScale(page);
+    // First certify the phone-width responsive runner itself.
+    await expect(page.getByRole("button", { name: "Pause & Exit" })).toBeVisible();
+    await expect(page.getByRole("button", { name: /^Next/ })).toBeVisible();
+    await expect(page.getByRole("button", { name: /^Submit$/ })).toBeVisible();
     await expectNoHorizontalOverflow(page);
 
+    // Then certify real 200% scale at the same effective visual width.
+    await setTwoXScaleAtEffectiveMobileWidth(page);
     const pause = page.getByRole("button", { name: "Pause & Exit" });
     const question = page.getByText(testDetail.sections[0].questions[0].text);
     const answer = page.getByRole("button", { name: /₹720/ });
-    const next = page.getByRole("button", { name: /^Next/ });
-    const submit = page.getByRole("button", { name: /^Submit$/ });
+    const advance = page.getByRole("button", { name: "Save & Next" });
 
-    for (const control of [pause, question, answer, next, submit]) await expect(control).toBeVisible();
+    for (const control of [pause, question, answer, advance]) await expect(control).toBeVisible();
     expect(await contrastRatio(pause)).toBeGreaterThanOrEqual(4.5);
     expect(await contrastRatio(question)).toBeGreaterThanOrEqual(4.5);
     expect(await contrastRatio(answer)).toBeGreaterThanOrEqual(4.5);
-    expect(await contrastRatio(next)).toBeGreaterThanOrEqual(4.5);
+    expect(await contrastRatio(advance)).toBeGreaterThanOrEqual(4.5);
 
     await pause.click();
     await expect(page.getByRole("heading", { name: "Pause & Exit?" })).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });
 
-  test("keeps the canonical result readable and reflow-safe at 200% scale", async ({ page }) => {
+  test("keeps the canonical result reflow-safe and readable at 200% scale", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await installFixtures(page);
     await seedStudent(page);
     await page.goto(`/result?attemptId=${ATTEMPT_ID}&testId=${TEST_ID}`);
 
     await expect(page.getByRole("heading", { name: testDetail.name })).toBeVisible();
-    await expect(page.getByText("50%")).toBeVisible();
-    await setTwoXScale(page);
+    await expect(page.getByText("50%", { exact: true }).first()).toBeVisible();
     await expectNoHorizontalOverflow(page);
 
+    await setTwoXScaleAtEffectiveMobileWidth(page);
     const back = page.getByRole("button", { name: "Back to My Activity" });
     const heading = page.getByRole("heading", { name: testDetail.name });
     const reviewHeading = page.getByRole("heading", { name: "Solution review" });
