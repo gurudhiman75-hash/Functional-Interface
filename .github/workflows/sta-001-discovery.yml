@@ -78,6 +78,9 @@ jobs:
           STA_QL001_LOCALIZATION_V2_CASES_PER_LOCALE: 768
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-editorial-v2-proof.test.ts
 
+      - name: Prove STA QL001 Hindi/Punjabi immutable freeze V2
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-freeze-proof.test.ts
+
       - name: Generate STA semantic-freeze review pack
         env:
           STA_DISCOVERY_REVIEW_OUTPUT_DIR: /tmp/sta-001-discovery-review
