@@ -10,6 +10,8 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-english-review-pin-proof.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-multilingual-freeze.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-multilingual-freeze-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/question-studio/seating-question-studio-runtime.ts
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/question-studio/sea-001-question-studio-replacement-authority-proof.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/localization/**
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-export.ts
       - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-localized-review-candidate-proof.test.ts
@@ -48,6 +50,9 @@ jobs:
 
       - name: Prove approved Hindi Punjabi replacement freeze
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/review/structural-hardening-multilingual-freeze-proof.test.ts
+
+      - name: Prove Question Studio replacement authority and review-only locks
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/question-studio/sea-001-question-studio-replacement-authority-proof.test.ts
 
       - name: Export balanced 100-caselet Hindi and Punjabi review candidates
         env:
