@@ -27,8 +27,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
-      - name: Check out repository
+      - name: Check out exact branch head
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -58,10 +60,17 @@ jobs:
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
+      - name: Record exact validation head
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-cp007-question-studio-head.log
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+
       - name: Upload CP007 Question Studio validation evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: int-cp007-question-studio-review-evidence
-          path: int-cp007-question-studio-review.log
+          path: |
+            int-cp007-question-studio-review.log
+            int-cp007-question-studio-head.log
           retention-days: 30
