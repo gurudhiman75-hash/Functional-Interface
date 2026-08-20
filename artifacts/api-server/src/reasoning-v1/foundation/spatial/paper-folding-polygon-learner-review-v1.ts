@@ -45,8 +45,15 @@ export interface PfcPolygonReviewQuestionV1 {
   sourceScenarioId: string;
 }
 
-const TRIANGLE = [{ x: 60, y: 8 }, { x: 112, y: 98 }, { x: 8, y: 98 }] as const;
-const CENTROID = { x: 60, y: 68 };
+const TRIANGLE = [
+  { x: 60, y: 98 - 52 * Math.sqrt(3) },
+  { x: 112, y: 98 },
+  { x: 8, y: 98 },
+] as const;
+const CENTROID = {
+  x: (TRIANGLE[0].x + TRIANGLE[1].x + TRIANGLE[2].x) / 3,
+  y: (TRIANGLE[0].y + TRIANGLE[1].y + TRIANGLE[2].y) / 3,
+};
 const LETTERS: OptionId[] = ["A", "B", "C", "D"];
 const q = (value: number) => Math.round(value * 1000) / 1000;
 
@@ -176,7 +183,6 @@ function reverseOptionSvg(scenario: PfcTriangleScenarioV1): string {
 
 function reverseQuestion(target: PfcTriangleScenarioV1, candidates: readonly PfcTriangleScenarioV1[], index: number): PfcPolygonReviewQuestionV1 {
   const targetSolution = solvePfcTriangleScenarioV1(target);
-  const correctCandidateIndex = candidates.findIndex((candidate) => solvePfcTriangleScenarioV1(candidate).fingerprint === targetSolution.fingerprint);
   const shift = index % 4;
   const ordered = Array.from({ length: 4 }, (_, slot) => candidates[(slot + shift) % 4]);
   const correctIndex = ordered.findIndex((candidate) => candidate.scenarioId === target.scenarioId);
