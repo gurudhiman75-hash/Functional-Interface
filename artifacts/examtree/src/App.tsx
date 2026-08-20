@@ -3,7 +3,6 @@ import { Redirect, Route, Router as WouterRouter, Switch, useLocation } from "wo
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { AppErrorBoundary } from "@/components/AppErrorBoundary";
-import { AppLayout } from "@/components/AppLayout";
 import { PublicLayout } from "@/components/PublicLayout";
 import { RouteAuthSessionSync } from "@/components/RouteAuthSessionSync";
 import { RouteCatalogBoundary } from "@/components/RouteCatalogBoundary";
@@ -12,6 +11,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { getUser } from "@/lib/storage";
 
+const AppLayout = lazy(() => import("@/components/AppLayout").then((module) => ({ default: module.AppLayout })));
 const Home = lazy(() => import("@/pages/home"));
 const Login = lazy(() => import("@/pages/login"));
 const AccountRecovery = lazy(() => import("@/pages/account-recovery"));
