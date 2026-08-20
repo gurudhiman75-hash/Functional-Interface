@@ -8,6 +8,7 @@ import {
   fixedWidthOptions,
   formatSet,
   mod,
+  numericOptions,
   optionsWithSlot,
   powMod,
   powModVerifier,
@@ -42,11 +43,9 @@ function generateP009(seed: number): NumCp009Wave02Package {
   const rng = createRng(seed * 149 + 37);
   const operator = rng.pick(["SUM", "DIFFERENCE", "PRODUCT"] as const);
   const termCount = seed % 4 === 0 ? 3 : 2;
-  const bases = [
-    rng.pick([3, 7, 9, 11, 13, 17, 19, 21, 27, 29, 31, 33, 37, 39, 41, 43, 47, 49]),
-    rng.pick([3, 7, 9, 11, 13, 17, 19, 21, 27, 29, 31, 33, 37, 39, 41, 43, 47, 49]),
-  ];
-  if (termCount === 3) bases.push(rng.pick([3, 7, 9, 11, 13, 17, 19, 21, 27, 29, 31, 33, 37, 39, 41, 43, 47, 49]));
+  const pool = [3, 7, 9, 11, 13, 17, 19, 21, 27, 29, 31, 33, 37, 39, 41, 43, 47, 49];
+  const bases = [rng.pick(pool), rng.pick(pool)];
+  if (termCount === 3) bases.push(rng.pick(pool));
   const terms = bases.map((baseValue) => ({ base: baseValue, exponent: rng.int(3, 140) }));
   const residues = terms.map((term) => powMod(term.base, term.exponent, 100));
   const answer = operator === "SUM"
@@ -98,8 +97,11 @@ function generateP009(seed: number): NumCp009Wave02Package {
 
 function generateP010(seed: number): NumCp009Wave02Package {
   const rng = createRng(seed * 151 + 41);
-  const baseValue = rng.pick([3, 7, 9, 11, 13, 17, 19, 21, 27, 29, 31, 33, 37, 39, 41, 43, 47, 49, 51, 53, 57, 59]);
-  const exponent = seed % 5 === 0 ? rng.int(2, 24) : rng.int(40, 220);
+  const forcedLeadingZero = seed % 7 === 0;
+  const baseValue = forcedLeadingZero
+    ? 3
+    : rng.pick([3, 7, 9, 11, 13, 17, 19, 21, 27, 29, 31, 33, 37, 39, 41, 43, 47, 49, 51, 53, 57, 59]);
+  const exponent = forcedLeadingZero ? 2 : seed % 5 === 0 ? rng.int(3, 24) : rng.int(40, 220);
   const answer = powMod(baseValue, exponent, 1000);
   const verifier = powModVerifier(baseValue, exponent, 1000);
   const options = fixedWidthOptions(answer, 3, [
@@ -197,7 +199,16 @@ function generateP011(seed: number): NumCp009Wave02Package {
   });
 }
 
-function exponentsForTarget(baseValue: number, targetDigit: number, lower: number, upper: number) {
+function cycleExponentsForTarget(lastDigit: number, targetDigit: number, lower: number, upper: number) {
+  const cycle = UNIT_DIGIT_CYCLES[lastDigit]!;
+  const values: number[] = [];
+  for (let exponent = lower; exponent <= upper; exponent += 1) {
+    if (cycle[mod(exponent - 1, cycle.length)] === targetDigit) values.push(exponent);
+  }
+  return values;
+}
+
+function directExponentsForTarget(baseValue: number, targetDigit: number, lower: number, upper: number) {
   const values: number[] = [];
   for (let exponent = lower; exponent <= upper; exponent += 1) {
     if (powModVerifier(baseValue, exponent, 10) === targetDigit) values.push(exponent);
@@ -205,11 +216,11 @@ function exponentsForTarget(baseValue: number, targetDigit: number, lower: numbe
   return values;
 }
 
-function setDistractors(correct: readonly number[], baseValue: number, lower: number, upper: number, rng: ReturnType<typeof createRng>) {
+function setDistractors(correct: readonly number[], lastDigit: number, lower: number, upper: number, rng: ReturnType<typeof createRng>) {
   const candidates: { value: string; misconceptionId: string }[] = [];
   const correctText = correct.length ? formatSet(correct) : "∅";
   for (let digit = 0; digit <= 9; digit += 1) {
-    const set = exponentsForTarget(baseValue, digit, lower, upper);
+    const set = cycleExponentsForTarget(lastDigit, digit, lower, upper);
     const text = set.length ? formatSet(set) : "∅";
     if (text !== correctText) candidates.push({ value: text, misconceptionId: "WRONG_CYCLE_CLASS" });
   }
@@ -217,17 +228,16 @@ function setDistractors(correct: readonly number[], baseValue: number, lower: nu
     candidates.push({ value: formatSet(correct.slice(0, -1)), misconceptionId: "DROPS_FINAL_VALID_EXPONENT" });
     candidates.push({ value: formatSet(correct.slice(1)), misconceptionId: "DROPS_FIRST_VALID_EXPONENT" });
   }
-  const fallback = [
-    [lower],
-    [upper],
-    [lower, upper],
-    [],
-  ];
+  const fallback = [[lower], [upper], [lower, upper], []] as const;
   for (const values of fallback) {
     const text = values.length ? formatSet(values) : "∅";
     if (text !== correctText) candidates.push({ value: text, misconceptionId: "UNVERIFIED_BOUNDARY_SET" });
   }
-  return candidates.sort(() => rng.next() - 0.5);
+  for (let index = candidates.length - 1; index > 0; index -= 1) {
+    const swapIndex = rng.int(0, index);
+    [candidates[index], candidates[swapIndex]] = [candidates[swapIndex]!, candidates[index]!];
+  }
+  return candidates;
 }
 
 function generateP012(seed: number): NumCp009Wave02Package {
@@ -239,11 +249,11 @@ function generateP012(seed: number): NumCp009Wave02Package {
   const lower = rng.int(1, 18);
   const span = seed % 5 === 0 ? rng.int(1, 3) : rng.int(5, 22);
   const upper = lower + span;
-  const answerValues = exponentsForTarget(baseValue, targetDigit, lower, upper);
+  const answerValues = cycleExponentsForTarget(lastDigit, targetDigit, lower, upper);
   const answer = answerValues.length ? formatSet(answerValues) : "∅";
-  const verifierValues = exponentsForTarget(baseValue, targetDigit, lower, upper);
+  const verifierValues = directExponentsForTarget(baseValue, targetDigit, lower, upper);
   const verifier = verifierValues.length ? formatSet(verifierValues) : "∅";
-  const options = optionsWithSlot(answer, setDistractors(answerValues, baseValue, lower, upper, rng), rng, seed);
+  const options = optionsWithSlot(answer, setDistractors(answerValues, lastDigit, lower, upper, rng), rng, seed);
   const wording = stemVariant(
     seed,
     `For ${lower} ≤ n ≤ ${upper}, what is the complete set of n for which ${baseValue}^n ends in ${targetDigit}?`,
@@ -301,6 +311,11 @@ function generateP013(seed: number): NumCp009Wave02Package {
     value: String(value),
     misconceptionId: asksImpossible ? "ACTUALLY_REACHABLE_CYCLE_DIGIT" : "NOT_IN_POWER_CYCLE",
   })), rng, seed);
+  const directReachable = new Set(Array.from({ length: 12 }, (_, index) => powModVerifier(baseValue, index + 1, 10)));
+  const verifierMatches = options.options.filter((option) => asksImpossible
+    ? !directReachable.has(Number(option.value))
+    : directReachable.has(Number(option.value)));
+  const verifier = verifierMatches.length === 1 ? verifierMatches[0]!.value : "AMBIGUOUS";
   const wording = asksImpossible
     ? stemVariant(
       seed,
@@ -325,7 +340,7 @@ function generateP013(seed: number): NumCp009Wave02Package {
     options: options.options,
     correctIndex: options.correctIndex,
     canonicalAnswer: options.canonicalAnswer,
-    verifierAnswer: String(answer),
+    verifierAnswer: verifier,
     hiddenState: state,
     mathematicalFingerprint: fingerprint("NUM-CP009-PROT-013", state),
     explanation: explanation(
@@ -356,11 +371,11 @@ function generateP014(seed: number): NumCp009Wave02Package {
   const verifier = powModVerifier(baseValue, exponent, 10);
   const lastDigit = mod(baseValue, 10);
   const cycle = UNIT_DIGIT_CYCLES[lastDigit]!;
-  const options = optionsWithSlot(String(answer), [
-    { value: String(unitDigitByCycle(baseValue, n)), misconceptionId: "USES_N_AS_EXPONENT" },
-    { value: String(lastDigit), misconceptionId: "IGNORES_STRUCTURED_EXPONENT" },
-    { value: String(mod(exponent, 10)), misconceptionId: "USES_EXPONENT_LAST_DIGIT" },
-    { value: String(cycle[0]!), misconceptionId: "USES_FIRST_CYCLE_MEMBER" },
+  const options = numericOptions(answer, [
+    { value: unitDigitByCycle(baseValue, n), misconceptionId: "USES_N_AS_EXPONENT" },
+    { value: lastDigit, misconceptionId: "IGNORES_STRUCTURED_EXPONENT" },
+    { value: mod(exponent, 10), misconceptionId: "USES_EXPONENT_LAST_DIGIT" },
+    { value: cycle[0]!, misconceptionId: "USES_FIRST_CYCLE_MEMBER" },
   ], rng, seed);
   const exponentText = squareSum ? `1^2 + 2^2 + ... + ${n}^2` : `1 + 2 + ... + ${n}`;
   const wording = stemVariant(
