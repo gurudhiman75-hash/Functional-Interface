@@ -63,6 +63,8 @@ export * from "./cp006/types";
 export * from "./cp006/solver";
 export * from "./cp006/verifier";
 export * from "./cp006/generator";
+export * from "./cp006/authority-overlap-audit";
+export * from "./cp006/final-ownership-candidate";
 export * from "./authority-overlap-audit";
 export * from "./final-authority-registry";
 export * from "./final-authority-review";
