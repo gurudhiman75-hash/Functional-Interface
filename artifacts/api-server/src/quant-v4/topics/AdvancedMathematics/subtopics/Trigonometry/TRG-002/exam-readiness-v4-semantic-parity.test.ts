@@ -5,7 +5,7 @@ import {
   TRG_002_V4_STRICT_SEMANTIC_PARITY_STEMS,
 } from "./exam-readiness-v4-semantic-parity";
 
-assert.equal(TRG_002_V4_STRICT_SEMANTIC_PARITY_IDS.length, 29, "Expected 29 audited V4 semantic-parity remediations.");
+assert.equal(TRG_002_V4_STRICT_SEMANTIC_PARITY_IDS.length, 30, "Expected 30 audited V4 semantic-parity remediations.");
 
 for (const qlId of TRG_002_V4_STRICT_SEMANTIC_PARITY_IDS) {
   const contract = TRG_002_V4_STRICT_SEMANTIC_PARITY_STEMS[qlId];
@@ -18,7 +18,6 @@ for (const qlId of TRG_002_V4_STRICT_SEMANTIC_PARITY_IDS) {
   }
 }
 
-// English "exact" must survive localization.
 for (const qlId of [
   "TRG-002-QL-003", "TRG-002-QL-004", "TRG-002-QL-026", "TRG-002-QL-051",
   "TRG-002-QL-054", "TRG-002-QL-062", "TRG-002-QL-077",
@@ -29,7 +28,6 @@ for (const qlId of [
   assert(pa.stem.includes("ਸਟੀਕ"), `${qlId}: Punjabi dropped the English exact-value requirement.`);
 }
 
-// Entity identity must match English authority.
 const entityChecks = [
   ["TRG-002-QL-032", /पेड़/u, /ਦਰੱਖਤ/u, /खंभ/u, /ਖੰਭ/u],
   ["TRG-002-QL-043", /खंभ/u, /ਖੰਭ/u, /पेड़/u, /ਦਰੱਖਤ/u],
@@ -46,7 +44,6 @@ for (const [qlId, hiRequired, paRequired, hiForbidden, paForbidden] of entityChe
   assert(!paForbidden.test(pa.stem), `${qlId}: Punjabi retained the wrong localized entity.`);
 }
 
-// Spatial constraints that are mathematically load-bearing may not disappear.
 for (const qlId of ["TRG-002-QL-049", "TRG-002-QL-052", "TRG-002-QL-055", "TRG-002-QL-071", "TRG-002-QL-072"]) {
   const hi: any = generateTrg002V4CandidateQuestion(qlId, "trg002-v4-semantic-collinear", "hi-IN");
   const pa: any = generateTrg002V4CandidateQuestion(qlId, "trg002-v4-semantic-collinear", "pa-IN");
@@ -65,8 +62,15 @@ for (const qlId of ["TRG-002-QL-088", "TRG-002-QL-091"]) {
   assert(hi.stem.includes("एक ही समतल जमीन"), `${qlId}: Hindi lost same-level-ground geometry.`);
   assert(pa.stem.includes("ਇੱਕੋ ਸਮਤਲ ਜ਼ਮੀਨ"), `${qlId}: Punjabi lost same-level-ground geometry.`);
 }
+{
+  const hi: any = generateTrg002V4CandidateQuestion("TRG-002-QL-082", "trg002-v4-semantic-opposite", "hi-IN");
+  const pa: any = generateTrg002V4CandidateQuestion("TRG-002-QL-082", "trg002-v4-semantic-opposite", "pa-IN");
+  assert(hi.stem.includes("विपरीत ओर"), "QL082 Hindi must preserve opposite-side geometry without adding a baseline-survey scenario.");
+  assert(pa.stem.includes("ਉਲਟ ਪਾਸਿਆਂ"), "QL082 Punjabi must preserve opposite-side geometry without adding a baseline-survey scenario.");
+  assert(!/आधार-रेखा सर्वेक्षण/u.test(hi.stem), "QL082 Hindi must not invent a baseline-survey scenario absent from English.");
+  assert(!/ਅਧਾਰ-ਰੇਖਾ ਸਰਵੇਖਣ/u.test(pa.stem), "QL082 Punjabi must not invent a baseline-survey scenario absent from English.");
+}
 
-// QL061: 10 m is derived, not a given.
 for (const locale of ["hi-IN", "pa-IN"] as const) {
   const q: any = generateTrg002V4CandidateQuestion("TRG-002-QL-061", "trg002-v4-semantic-061", locale);
   assert(!q.stem.includes("10 m"), `QL061:${locale}: derived 10 m must not be introduced into the stem as a given.`);
@@ -76,7 +80,6 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
   assert(solution.includes("x=10"), `QL061:${locale}: 10 m must appear only as the solved value.`);
 }
 
-// QL076: hard factual corruption 16.5 -> 31.5 is forbidden.
 for (const locale of ["hi-IN", "pa-IN"] as const) {
   const q: any = generateTrg002V4CandidateQuestion("TRG-002-QL-076", "trg002-v4-semantic-076", locale);
   const learner = [q.stem, q.explanation.keyRule, ...q.explanation.steps.map((step: any) => step.body), q.explanation.shortcut, ...q.explanation.traps].join(" ");
@@ -85,4 +88,4 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
   assert(learner.includes("16.5−1.5=15"), `QL076:${locale}: eye-height correction must use 16.5−1.5=15.`);
 }
 
-console.log(`TRG002_V4_SEMANTIC_PARITY_PASS remediated=${TRG_002_V4_STRICT_SEMANTIC_PARITY_IDS.length} locales=2 exactness=7 entityChecks=5 loadBearingGeometry=8 factualCorruptions=2`);
+console.log(`TRG002_V4_SEMANTIC_PARITY_PASS remediated=${TRG_002_V4_STRICT_SEMANTIC_PARITY_IDS.length} locales=2 exactness=7 entityChecks=5 loadBearingGeometry=9 factualCorruptions=2`);
