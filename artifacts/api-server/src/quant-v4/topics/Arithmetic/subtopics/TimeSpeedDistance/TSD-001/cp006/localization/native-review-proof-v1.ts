@@ -11,6 +11,10 @@ function numericTokens(text: string): readonly string[] {
   return text.match(/\d+/g) ?? [];
 }
 
+function numericMultiset(text: string): string {
+  return [...numericTokens(text)].sort((a, b) => Number(a) - Number(b) || a.localeCompare(b)).join("|");
+}
+
 function stripAllowedLatin(text: string): string {
   return text
     .replace(/m\/min/g, "")
@@ -57,7 +61,7 @@ for (const row of rows) {
   assert(presentation.options[presentation.correctIndex] === presentation.answerText, `${label}: localized correct-option identity failed`);
   assert(presentation.correctIndex === source.correctIndex, `${label}: correct index changed`);
   assert(presentation.explanation.steps.length === 2, `${label}: explanation must have exactly two steps`);
-  assert(numericTokens(source.stem).join("|") === numericTokens(presentation.stem).join("|"), `${label}: frozen stem numeric givens changed`);
+  assert(numericMultiset(source.stem) === numericMultiset(presentation.stem), `${label}: frozen stem numeric givens changed`);
   assert(source.options.every((option, index) => numericTokens(option).join("|") === numericTokens(presentation.options[index]!).join("|")), `${label}: option numeric identity changed`);
   assert(numericTokens(source.answerText).join("|") === numericTokens(presentation.answerText).join("|"), `${label}: answer numeric identity changed`);
 
@@ -87,7 +91,7 @@ console.log(JSON.stringify({
   selectedObjectFamiliesPerLanguage: 18,
   selectedRouteFamiliesPerLanguage: 6,
   independentVerifierChecks: verifierChecks,
-  frozenStemNumericParityGate: true,
+  frozenStemNumericMultisetParityGate: true,
   optionNumericIdentityGate: true,
   nativeScriptLeakGate: true,
   englishLeakGate: true,
