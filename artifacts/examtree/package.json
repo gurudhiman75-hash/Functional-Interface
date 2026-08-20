@@ -17,7 +17,8 @@
     "audit:touch-targets": "node scripts/check-touch-targets.mjs",
     "audit:runner-zoom-contrast": "node scripts/check-runner-zoom-contrast.mjs",
     "audit:runner-dialog-accessibility": "node scripts/check-runner-dialog-accessibility.mjs",
-    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run audit:public-shell && pnpm run audit:app-chrome-accessibility && pnpm run audit:zoom-contrast && pnpm run audit:touch-targets && pnpm run audit:runner-zoom-contrast && pnpm run audit:runner-dialog-accessibility && pnpm run build"
+    "audit:support-handoff": "node scripts/check-support-handoff.mjs",
+    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run audit:public-shell && pnpm run audit:app-chrome-accessibility && pnpm run audit:zoom-contrast && pnpm run audit:touch-targets && pnpm run audit:runner-zoom-contrast && pnpm run audit:runner-dialog-accessibility && pnpm run audit:support-handoff && pnpm run build"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -35,7 +36,7 @@
     "@radix-ui/react-menubar": "^1.1.7",
     "@radix-ui/react-navigation-menu": "^1.2.6",
     "@radix-ui/react-popover": "^1.1.7",
-    "@radix-ui/react-progress": "^1.1.3",
+    "@radix-ui/react-progress": "^1.2.4",
     "@radix-ui/react-radio-group": "^1.2.4",
     "@radix-ui/react-scroll-area": "^1.2.4",
     "@radix-ui/react-select": "^2.1.7",
