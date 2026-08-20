@@ -40,6 +40,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/question-studio-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/studio-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/question-studio-engine-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/studio-engine-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/authority-overlap-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-authority-proof.mjs"
       - name: Re-prove frozen CP005 authority
         run: |
           set -o pipefail
@@ -54,12 +55,13 @@ jobs:
           OUT=dist/quant-v4/tsd-001/cp005-studio-cp006-v1
           node "$OUT/studio-proof.mjs" 2>&1 | tee "$OUT/studio-proof.log"
           node "$OUT/studio-engine-proof.mjs" 2>&1 | tee "$OUT/studio-engine-proof.log"
-      - name: Prove CP006 executable discovery foundation
+      - name: Prove CP006 executable discovery and authority candidate
         run: |
           set -o pipefail
           cd artifacts/api-server
           OUT=dist/quant-v4/tsd-001/cp005-studio-cp006-v1
           node "$OUT/cp006-proof.mjs" 2>&1 | tee "$OUT/cp006-proof.log"
+          node "$OUT/cp006-authority-proof.mjs" 2>&1 | tee "$OUT/cp006-authority-proof.log"
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Upload TSD CP005 Studio and CP006 evidence
@@ -73,4 +75,5 @@ jobs:
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/studio-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/studio-engine-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/cp006-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/cp006-authority-proof.log
           if-no-files-found: error
