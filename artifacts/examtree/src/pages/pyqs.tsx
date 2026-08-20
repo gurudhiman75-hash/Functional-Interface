@@ -7,7 +7,7 @@ const filters = [
 ];
 
 export default function PYQHub() {
-  usePageMeta("PYQ Hub", "Discover previous year questions by exam, year, topic, and future PDF collections.");
+  usePageMeta("PYQ Hub", "Discover previous year questions by exam, year, topic, and future PDF collections.", { robots: "noindex,follow" });
 
   return (
     <PublicPage
@@ -23,4 +23,3 @@ export default function PYQHub() {
     </PublicPage>
   );
 }
-
