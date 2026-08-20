@@ -1,0 +1,89 @@
+name: Validate NUM-CP-009 Hindi Punjabi multilingual freeze
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/**"
+      - ".github/workflows/num-cp009-hi-pa-localization-v1.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-num-cp009-hi-pa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle permanent allocation regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/permanent-allocation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-permanent-allocation-localization-regression.mjs
+
+      - name: Run permanent allocation regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp009-permanent-allocation-localization-regression.mjs
+
+      - name: Bundle permanent English regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/permanent-runtime.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-permanent-english-localization-regression.mjs
+
+      - name: Run permanent English regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp009-permanent-english-localization-regression.mjs
+
+      - name: Bundle Hindi Punjabi parity proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/localization/runtime-parity.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-hi-pa-parity.mjs
+
+      - name: Run Hindi Punjabi parity proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp009-hi-pa-parity.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp009-hi-pa-parity.log
+
+      - name: Bundle frozen human-quality proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/localization/runtime-human-quality.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-hi-pa-human-quality.mjs
+
+      - name: Run frozen human-quality proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp009-hi-pa-human-quality.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp009-hi-pa-human-quality.log
+
+      - name: Upload multilingual freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp009-hi-pa-multilingual-freeze-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp009-hi-pa-parity.log
+            artifacts/api-server/dist/quant-v4/num-cp009-hi-pa-human-quality.log
+            artifacts/api-server/dist/quant-v4/num-002-cp009-hi-pa-localization/num-cp009-hi-pa-audit.json
+            artifacts/api-server/dist/quant-v4/num-002-cp009-hi-pa-localization/num-cp009-hi-pa-review.json
+            artifacts/api-server/dist/quant-v4/num-002-cp009-hi-pa-localization/num-cp009-hi-pa-review.md
+            artifacts/api-server/dist/quant-v4/num-002-cp009-hi-pa-localization/num-cp009-hi-pa-human-review.json
+            artifacts/api-server/dist/quant-v4/num-002-cp009-hi-pa-localization/num-cp009-hi-pa-human-review.md
+          retention-days: 30
