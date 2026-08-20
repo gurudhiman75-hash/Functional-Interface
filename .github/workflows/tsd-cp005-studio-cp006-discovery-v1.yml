@@ -1,4 +1,4 @@
-name: Validate TSD CP005 Studio and CP006 English V4
+name: Validate TSD CP005 Studio and CP006 English V5
 
 on:
   pull_request:
@@ -45,7 +45,8 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-review-proof-v2.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-english-v2-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-review-proof-v3.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-english-v3-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-review-proof-v4.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-english-v4-proof.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-review-export-v4.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-english-v4-export.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-review-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-english-v5-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-review-export-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-english-v5-export.mjs"
       - name: Re-prove frozen CP005 authority
         run: |
           set -o pipefail
@@ -60,7 +61,7 @@ jobs:
           OUT=dist/quant-v4/tsd-001/cp005-studio-cp006-v1
           node "$OUT/studio-proof.mjs" 2>&1 | tee "$OUT/studio-proof.log"
           node "$OUT/studio-engine-proof.mjs" 2>&1 | tee "$OUT/studio-engine-proof.log"
-      - name: Prove CP006 discovery, authority approval and English V4
+      - name: Prove CP006 discovery, authority approval and English V5
         run: |
           set -o pipefail
           cd artifacts/api-server
@@ -71,14 +72,15 @@ jobs:
           node "$OUT/cp006-english-v2-proof.mjs" 2>&1 | tee "$OUT/cp006-english-v2-proof.log"
           node "$OUT/cp006-english-v3-proof.mjs" 2>&1 | tee "$OUT/cp006-english-v3-proof.log"
           node "$OUT/cp006-english-v4-proof.mjs" 2>&1 | tee "$OUT/cp006-english-v4-proof.log"
-          node "$OUT/cp006-english-v4-export.mjs" "$OUT/cp006-english-review-v4-78q.json" 2>&1 | tee "$OUT/cp006-english-v4-export.log"
+          node "$OUT/cp006-english-v5-proof.mjs" 2>&1 | tee "$OUT/cp006-english-v5-proof.log"
+          node "$OUT/cp006-english-v5-export.mjs" "$OUT/cp006-english-review-v5-78q.json" 2>&1 | tee "$OUT/cp006-english-v5-export.log"
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Upload TSD CP005 Studio and CP006 evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp005-studio-cp006-english-v4
+          name: tsd-cp005-studio-cp006-english-v5
           path: |
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/english-freeze-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/native-freeze-proof.log
@@ -90,6 +92,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/cp006-english-v2-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/cp006-english-v3-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/cp006-english-v4-proof.log
-            artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/cp006-english-v4-export.log
-            artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/cp006-english-review-v4-78q.json
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/cp006-english-v5-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/cp006-english-v5-export.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-studio-cp006-v1/cp006-english-review-v5-78q.json
           if-no-files-found: error
