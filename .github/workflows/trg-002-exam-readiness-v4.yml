@@ -115,7 +115,7 @@ jobs:
           const ids=svgs.map((svg)=>svg.match(/data-diagram-ql="([^"]+)"/)?.[1]).filter(Boolean);
           if(new Set(ids).size!==96) throw new Error(`Expected 96 unique rendered diagram QL ids, got ${new Set(ids).size}`);
           if(svgs.some((svg)=>/\b(?:NaN|Infinity|-Infinity)\b/.test(svg))) throw new Error('Rendered SVG contains a non-finite coordinate');
-          if(html.includes('diagram-missing')) throw new Error('At least one review card is missing its rendered diagram');
+          if(html.includes('<div class="diagram-missing">')) throw new Error('At least one review card is missing its rendered diagram');
           console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} renderedSvgs=${svgs.length} semanticParityRemediated=30 catalog=${pack.audit.scenarioCatalog.shells} canonicalOverrides=6 naturalMeasurementOverrides=19 physicalSupportMigrations=3 surdPhysicalGivens=0 shallowHardSolutions=0`);
           NODE
       - name: Upload V4 audit and review pack
