@@ -131,9 +131,11 @@ function renderRoute(baseHtml, route, publicOrigin) {
   html = replaceTag(html, /<meta\s+name="twitter:title"[^>]*>/i, `<meta name="twitter:title" content="${escapeHtml(route.title)}" />`, "twitter:title meta");
   html = replaceTag(html, /<meta\s+name="twitter:description"[^>]*>/i, `<meta name="twitter:description" content="${escapeHtml(route.description)}" />`, "twitter:description meta");
   html = replaceTag(html, /<meta\s+name="twitter:image"[^>]*>/i, `<meta name="twitter:image" content="${escapeHtml(image)}" />`, "twitter:image meta");
-  html = html.replace(
+  html = replaceTag(
+    html,
     /<meta\s+property="og:type"[^>]*>/i,
     `<meta property="og:type" content="website" />\n    <meta property="og:url" content="${escapeHtml(canonical)}" />\n    <link rel="canonical" href="${escapeHtml(canonical)}" />`,
+    "og:type meta",
   );
   html = replaceTag(html, /<div id="root"><\/div>/i, buildFallbackMarkup(route), "empty application root");
   return html;
@@ -144,9 +146,10 @@ function writeRoute(route, html) {
     fs.writeFileSync(INDEX_PATH, html);
     return;
   }
-  const directory = path.join(DIST_DIR, route.path.replace(/^\//, ""));
-  fs.mkdirSync(directory, { recursive: true });
-  fs.writeFileSync(path.join(directory, "index.html"), html);
+  const relativePath = route.path.replace(/^\//, "");
+  const filePath = path.join(DIST_DIR, `${relativePath}.html`);
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, html);
 }
 
 function writeSitemap(publicOrigin) {
