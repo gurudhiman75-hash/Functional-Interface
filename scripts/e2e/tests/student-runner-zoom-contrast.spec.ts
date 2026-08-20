@@ -256,8 +256,22 @@ test.describe("CP02 runner and result zoom contrast", () => {
     await expectNoHorizontalOverflow(page);
   });
 
-  test("keeps critical runner text and actions AA-readable at 200% scale", async ({ page }) => {
+  test("keeps critical runner text and actions AA-readable at 200% scale after exiting immersive mode", async ({ page }) => {
     await openRunner(page);
+
+    await expect.poll(
+      () => page.evaluate(() => Boolean(document.fullscreenElement)),
+      { timeout: 5_000 },
+    ).toBe(true);
+
+    await page.keyboard.press("Escape");
+
+    await expect.poll(
+      () => page.evaluate(() => Boolean(document.fullscreenElement)),
+      { timeout: 5_000 },
+    ).toBe(false);
+    await expect(page.getByText("Question No 1")).toBeVisible();
+
     await applyTwoXScale(page);
 
     const pause = page.getByRole("button", { name: "Pause & Exit" });
