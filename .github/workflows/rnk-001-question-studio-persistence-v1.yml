@@ -1,0 +1,89 @@
+name: Validate RNK-001 Question Studio Persistence V1
+
+on:
+  push:
+    branches:
+      - feature/rnk-001-question-studio-persistence-v1
+    paths:
+      - 'artifacts/api-server/src/routes/admin-question-studio-rnk-persistence.ts'
+      - 'artifacts/api-server/src/routes/index.ts'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-question-studio-persistence-v1.yml'
+  pull_request:
+    branches:
+      - feature/rnk-001-question-studio-multilingual-v1
+    paths:
+      - 'artifacts/api-server/src/routes/admin-question-studio-rnk-persistence.ts'
+      - 'artifacts/api-server/src/routes/index.ts'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - '.github/workflows/rnk-001-question-studio-persistence-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rnk-001-question-studio-persistence-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-question-studio-persistence-v1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove RNK review persistence and downstream locks
+        run: |
+          mkdir -p /tmp/rnk-001-persistence-v1
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-question-studio-persistence-v1.test.ts \
+            | tee /tmp/rnk-001-persistence-v1/PERSISTENCE-GATE.txt
+
+      - name: Re-prove shared review-only approval policy
+        run: pnpm dlx tsx artifacts/api-server/src/lib/admin-question-studio-approval-policy.test.ts
+
+      - name: Re-prove multilingual activation authority
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-question-studio-multilingual-activation-v1.test.ts
+
+      - name: Re-prove shared RNK Question Studio generation
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-shared-question-studio.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+
+      - name: Record persistence evidence
+        run: |
+          cat > /tmp/rnk-001-persistence-v1/PERSISTENCE-EVIDENCE.txt <<'EOF'
+          RNK-001 Question Studio Persistence V1
+          Source multilingual activation PR: 966
+          Source activation head: 043b43e4ab469a03e9860078950203e5dd14e1ef
+          Persistence target: content.generation_runs + content.generation_run_items + content.generation_item_versions
+          Persisted lifecycle: REVIEW_ONLY_PERSISTED
+          Approval disposition: REVIEW_ONLY
+          Question Bank status: NOT_STORED
+          Question Bank writable: FALSE
+          Test eligible: FALSE
+          Mock-test eligible: FALSE
+          Publicly publishable: FALSE
+          Automatic student publication: FALSE
+          RNK-QL-043 allocated: FALSE
+          New-main merge authorized: FALSE
+          EOF
+
+      - name: Retain persistence evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-question-studio-persistence-v1
+          path: /tmp/rnk-001-persistence-v1/*
+          if-no-files-found: error
