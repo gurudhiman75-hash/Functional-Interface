@@ -38,23 +38,25 @@ function cleanDirectSolution(raw: GapWave6Question, model: GeoDiagramModel): Geo
     labels: model.labels
       .filter((label) => label.id !== "derived-equality-label")
       .map((label) => label.id === "answer-label"
-        ? { ...label, text: `∠TPQ = ∠PQR = ${answerText}`, x: 235, y: 205 }
+        ? { ...label, text: `∠TPQ = ∠PQR = ${answerText}`, x: 140, y: 205 }
         : label),
   };
 }
 
 function cleanRhombusSolution(model: GeoDiagramModel): GeoDiagramModel {
   const slots = new Map<string, Readonly<{ x: number; y: number }>>([
-    ["given-so", { x: 300, y: 55 }],
-    ["given-oq", { x: 300, y: 85 }],
-    ["derived-collinear", { x: 300, y: 115 }],
-    ["answer-sq", { x: 300, y: 145 }],
+    ["given-so", { x: 260, y: 55 }],
+    ["given-oq", { x: 260, y: 85 }],
+    ["derived-collinear", { x: 260, y: 115 }],
+    ["answer-sq", { x: 260, y: 145 }],
   ]);
   return {
     ...model,
     labels: model.labels.map((label) => {
       const slot = slots.get(label.id);
-      return slot ? { ...label, ...slot } : label;
+      if (!slot) return label;
+      if (label.id === "derived-collinear") return { ...label, text: "O lies on SQ", ...slot };
+      return { ...label, ...slot };
     }),
   };
 }
@@ -63,7 +65,7 @@ function cleanCentroidStem(model: GeoDiagramModel): GeoDiagramModel {
   return {
     ...model,
     labels: model.labels.map((label) => label.id === "given-centroid-segment"
-      ? { ...label, x: 250 }
+      ? { ...label, x: 220 }
       : label),
   };
 }
@@ -72,8 +74,8 @@ function cleanCentroidSolution(model: GeoDiagramModel): GeoDiagramModel {
   return {
     ...model,
     labels: model.labels.map((label) => {
-      if (label.id === "ag-label" || label.id === "gd-label") return { ...label, x: 250 };
-      if (label.id === "ratio-label") return { ...label, x: 310, y: 105 };
+      if (label.id === "ag-label" || label.id === "gd-label") return { ...label, x: 220 };
+      if (label.id === "ratio-label") return { ...label, text: "AG:GD = 2:1", x: 220, y: 105 };
       return label;
     }),
   };
@@ -85,7 +87,7 @@ function cleanMidpointSolution(model: GeoDiagramModel): GeoDiagramModel {
     labels: model.labels
       .filter((label) => label.id !== "derived-midpoint")
       .map((label) => label.id === "answer-ec"
-        ? { ...label, x: 300, y: 220 }
+        ? { ...label, x: 120, y: 220 }
         : label),
   };
 }
