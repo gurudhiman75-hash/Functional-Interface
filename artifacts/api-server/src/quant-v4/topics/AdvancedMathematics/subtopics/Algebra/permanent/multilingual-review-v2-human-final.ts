@@ -56,7 +56,26 @@ function finalEditorialCleanup(item: AlgPermanentMultilingualReviewV2Item): stri
     }
   }
 
+  if (item.prototypeId === "ALG-CP013-CAND-006") {
+    if (item.locale === "pa-IN") {
+      value = value.replace(/^ਪਰਮ ਮਾਨ ਹੈ ਤੇ ਸਬਤੋਂ ਛੋਟਾ .*ਕਿਸੇ ਇੱਕ ਸੀਮਾ: .*\.$/gm, "");
+    } else {
+      value = value.replace(/^परम मान है .*सबसे छोटा .*किसी एक सीमा: .*।$/gm, "");
+    }
+  }
+
+  if (item.prototypeId === "ALG-CP012-CAND-011") {
+    if (item.locale === "pa-IN") {
+      value = value.replace(/^.*(?:ਪ੍ਰਾਪਤ ਹੋਵੇਨੇ ਜੋੜ੍ਯ|ਸਗੋਂ ਤੋਂ ਕੇਵਲ).*$/gm,
+        "ਬਰਾਬਰੀ ਦੀ ਸਥਿਤੀ ਦਿਖਾਉਂਦੀ ਹੈ ਕਿ ਇਹ ਸੀਮਾ ਅਸਲ ਵਿੱਚ ਪ੍ਰਾਪਤ ਹੁੰਦੀ ਹੈ; ਇਸ ਲਈ ਇਹੀ ਅਸਲ ਘੱਟੋ-ਘੱਟ ਮਾਨ ਹੈ, ਕੇਵਲ ਹੇਠਲੀ ਸੀਮਾ ਨਹੀਂ.");
+    } else {
+      value = value.replace(/^.*बल्कि से केवल.*$/gm,
+        "समानता की स्थिति दिखाती है कि यह सीमा वास्तव में प्राप्त होती है; इसलिए यही वास्तविक न्यूनतम है, केवल निचली सीमा नहीं।");
+    }
+  }
+
   return value
+    .replace(/\n{3,}/g, "\n\n")
     .replace(/[ \t]+\n/g, "\n")
     .replace(/ {2,}/g, " ")
     .trim();
