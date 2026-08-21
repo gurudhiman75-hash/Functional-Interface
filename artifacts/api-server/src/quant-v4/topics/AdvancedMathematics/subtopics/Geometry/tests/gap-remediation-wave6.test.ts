@@ -69,7 +69,9 @@ assert.equal(direct.answer, "40°");
 assert.deepEqual(direct.theoremTrace, ["PERPENDICULAR_BISECTOR_EQUIDISTANT", "ISOSCELES_BASE_ANGLES", "TRIANGLE_ANGLE_SUM"]);
 assert.deepEqual(direct.diagramModel?.equalLengthMarks.map((mark) => [...mark.segmentIds]), [["PS", "SQ"]]);
 assert.equal(direct.stemSvg?.includes("TP = TQ"), false, "derived equal distances must not leak into the stem");
-assert.ok(direct.solutionSvg.includes("TP = TQ")); assert.ok(direct.solutionSvg.includes("∠PQR = 40°"));
+assert.ok(direct.solutionDiagramModel.equalLengthMarks.some((mark) => mark.segmentIds.includes("TP") && mark.segmentIds.includes("TQ")), "solution must show derived TP = TQ semantically with equal-length marks");
+assert.equal(direct.solutionSvg.includes("TP = TQ"), false, "redundant derived equality text is intentionally omitted to avoid clutter");
+assert.ok(direct.solutionSvg.includes("∠PQR = 40°"));
 
 const converse = GEO_GAP_REMEDIATION_WAVE6_PROTOTYPES[1].generate("wave6-a");
 assert.equal(converse.answer, "12 cm"); assert.equal(converse.diagramDisposition, "REQUIRED_SOLUTION_DIAGRAM");
@@ -90,6 +92,9 @@ const midpoint = GEO_GAP_REMEDIATION_WAVE6_PROTOTYPES[3].generate("wave6-a");
 assert.equal(midpoint.answer, "12 cm"); assert.deepEqual(midpoint.theoremTrace, ["MIDPOINT_CONVERSE"]);
 assert.deepEqual(midpoint.diagramModel?.equalLengthMarks.map((mark) => [...mark.segmentIds]), [["AD", "DB"]]);
 assert.deepEqual(midpoint.diagramModel?.parallelMarks.map((mark) => [...mark.segmentIds]), [["DE", "BC"]]);
-assert.equal(midpoint.stemSvg?.includes("AE = EC"), false); assert.ok(midpoint.solutionSvg.includes("AE = EC")); assert.ok(midpoint.solutionSvg.includes("EC = 12 cm"));
+assert.equal(midpoint.stemSvg?.includes("AE = EC"), false);
+assert.ok(midpoint.solutionDiagramModel.equalLengthMarks.some((mark) => mark.segmentIds.includes("AE") && mark.segmentIds.includes("EC")), "solution must show derived AE = EC semantically with equal-length marks");
+assert.equal(midpoint.solutionSvg.includes("AE = EC"), false, "redundant midpoint equality text is intentionally omitted to avoid clutter");
+assert.ok(midpoint.solutionSvg.includes("EC = 12 cm"));
 
 console.log("Geometry gap remediation Wave 6 PASS: 4 CP006 prototypes × 3 seeds with direct/converse perpendicular-bisector reasoning, centroid inverse, midpoint converse, selective stem disclosure, dimension-rich solution diagrams, zero label collisions, clue minimality, independent verification and lifecycle locks.");
