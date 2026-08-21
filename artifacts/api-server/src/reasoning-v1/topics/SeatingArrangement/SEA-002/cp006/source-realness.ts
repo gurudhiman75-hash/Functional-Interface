@@ -2,7 +2,7 @@ import { DeterministicRandom } from "../../../../shared/constraint-core/random.t
 import { canonicalDigest } from "../../SEA-001/canonical.ts";
 import { generateSea002Cp006DiscoveryCaselet } from "./discovery.ts";
 import { auditOracleCp006, solveCp006 } from "./generator.ts";
-import { facingForRow, oppositePerson, sameRowMove, seatOf } from "./topology.ts";
+import { areOpposite, facingForRow, oppositePerson, sameRowMove, seatOf } from "./topology.ts";
 import type {
   Sea002Cp006BlueprintId,
   Sea002Cp006Caselet,
@@ -42,6 +42,10 @@ export function cp006SourceClueTrue(state:Sea002Cp006State,clue:Sea002Cp006Clue)
     const first=seatOf(state,clue.first),second=seatOf(state,clue.second);
     return first.row===second.row && Math.abs(first.column-second.column)>=clue.minBetween+1;
   }
+  if(clue.kind==="SAME_ROW_EQUAL_GAP") {
+    const first=seatOf(state,clue.first),second=seatOf(state,clue.second),third=seatOf(state,clue.third),fourth=seatOf(state,clue.fourth);
+    return first.row===second.row && third.row===fourth.row && Math.abs(first.column-second.column)===Math.abs(third.column-fourth.column);
+  }
   if(clue.kind==="NOT_ADJACENT") {
     const first=seatOf(state,clue.first),second=seatOf(state,clue.second);
     return !(first.row===second.row&&Math.abs(first.column-second.column)===1);
@@ -68,6 +72,9 @@ export function renderCp006SourceClue(clue:Sea002Cp006Clue):string {
     if(clue.minBetween===1) return `At least one person sits between ${clue.first} and ${clue.second} in the same row.`;
     return `At least ${clue.minBetween} persons sit between ${clue.first} and ${clue.second} in the same row.`;
   }
+  if(clue.kind==="SAME_ROW_EQUAL_GAP") {
+    return `The number of persons sitting between ${clue.first} and ${clue.second} is the same as that between ${clue.third} and ${clue.fourth}.`;
+  }
   if(clue.kind==="NOT_ADJACENT") return `${clue.first} and ${clue.second} are not immediate neighbours.`;
   if(clue.kind==="ROW_END_DISTANCE") {
     const phrase=`${ordinal(clue.positionFromEnd)} from either end of the row`;
@@ -87,6 +94,7 @@ function sourceClues(state:Sea002Cp006State,seed:string):readonly Sea002Cp006Clu
   const adjacent:Sea002Cp006Clue={kind:"SAME_ROW_GAP",first:row[adjacencyIndex]!,second:row[adjacencyIndex+1]!,between:0};
   const nonAdjacent:Sea002Cp006Clue={kind:"NOT_ADJACENT",first:row[0]!,second:row[2]!};
   const minimumGap:Sea002Cp006Clue={kind:"SAME_ROW_MIN_BETWEEN",first:row[0]!,second:row.at(-1)!,minBetween:Math.min(2,state.seatCountPerRow-2)};
+  const equalGap:Sea002Cp006Clue={kind:"SAME_ROW_EQUAL_GAP",first:state.top[0]!,second:state.top[2]!,third:state.bottom[0]!,fourth:state.bottom[2]!};
   const secondFromEnd:Sea002Cp006Clue={kind:"ROW_END_DISTANCE",person:row[1]!,positionFromEnd:2,mode:"AT_EITHER_END_DISTANCE"};
   const notSecondFromEnd:Sea002Cp006Clue={kind:"ROW_END_DISTANCE",person:row[0]!,positionFromEnd:2,mode:"NOT_AT_EITHER_END_DISTANCE"};
 
@@ -104,7 +112,7 @@ function sourceClues(state:Sea002Cp006State,seed:string):readonly Sea002Cp006Clu
   }
   const facing=rng.pick(candidates);
   const facingRelative:Sea002Cp006Clue={kind:"FACING_REFERENT_RELATIVE",...facing};
-  return [gap,adjacent,nonAdjacent,minimumGap,secondFromEnd,notSecondFromEnd,facingRelative];
+  return [gap,adjacent,nonAdjacent,minimumGap,equalGap,secondFromEnd,notSecondFromEnd,facingRelative];
 }
 
 function optionTuple(values:readonly Sea002Cp006Option[]):Sea002Cp006ChildQuestion["options"] {
@@ -112,8 +120,27 @@ function optionTuple(values:readonly Sea002Cp006Option[]):Sea002Cp006ChildQuesti
   return values as unknown as Sea002Cp006ChildQuestion["options"];
 }
 
+function pairValue(first:string,second:string):string { return [first,second].sort().join(" and "); }
+
+function pairOptions(seed:string,state:Sea002Cp006State,answer:string,correctExplanation:string,eligible:(first:string,second:string)=>boolean):Pick<Sea002Cp006ChildQuestion,"options"|"answerIndex"> {
+  const rng=new DeterministicRandom(seed),people=[...state.top,...state.bottom],wrong:string[]=[];
+  for(let i=0;i<people.length;i+=1) for(let j=i+1;j<people.length;j+=1) {
+    if(!eligible(people[i]!,people[j]!)) continue;
+    const value=pairValue(people[i]!,people[j]!);
+    if(value!==answer) wrong.push(value);
+  }
+  const selected=rng.shuffle([...new Set(wrong)]).slice(0,3);
+  if(selected.length!==3) throw new Error("CP006 pair query could not build three distractors.");
+  const raw:Sea002Cp006Option[]=[
+    {value:answer,isCorrect:true,explanation:correctExplanation},
+    ...selected.map((value)=>({value,isCorrect:false,misconceptionId:"SEA-MC-ROW-COLUMN_SHIFT" as const,explanation:`${value} does not satisfy the requested pair relation in the solved rows.`})),
+  ];
+  const options=optionTuple(rng.shuffle(raw));
+  return {options,answerIndex:options.findIndex((option)=>option.isCorrect) as 0|1|2|3};
+}
+
 function neighbourQuestion(seed:string,state:Sea002Cp006State):Sea002Cp006ChildQuestion {
-  const rng=new DeterministicRandom(`${seed}:source-q3`);
+  const rng=new DeterministicRandom(`${seed}:source-q3-neighbours`);
   const row=rng.pick([state.top,state.bottom] as const);
   const index=rng.integer(1,state.seatCountPerRow-2);
   const reference=row[index]!;
@@ -136,6 +163,22 @@ function neighbourQuestion(seed:string,state:Sea002Cp006State):Sea002Cp006ChildQ
   return {questionOrder:3,queryContractId:"SEA-QC-006",answerType:"PAIR",answerDeterminingFactFingerprint:`NEIGHBOURS:${reference}`,text:`Who are the immediate neighbours of ${reference}?`,options,answerIndex,answer,explanation};
 }
 
+function facingPairQuestion(seed:string,state:Sea002Cp006State):Sea002Cp006ChildQuestion {
+  const rng=new DeterministicRandom(`${seed}:source-q3-facing-pair`),column=rng.integer(0,state.seatCountPerRow-1);
+  const first=state.top[column]!,second=state.bottom[column]!,answer=pairValue(first,second);
+  const explanation=`${first} and ${second} occupy the same vertical column in different rows, so they face each other.`;
+  const built=pairOptions(`${seed}:source-q3-facing-pair-options`,state,answer,explanation,(a,b)=>!areOpposite(state,a,b));
+  return {questionOrder:3,queryContractId:"SEA-QC-014",answerType:"PAIR",answerDeterminingFactFingerprint:`FACING_PAIR:${column}:${answer}`,text:"Which of the following pairs faces each other?",...built,answer,explanation};
+}
+
+function endPairQuestion(seed:string,state:Sea002Cp006State):Sea002Cp006ChildQuestion {
+  const rng=new DeterministicRandom(`${seed}:source-q3-end-pair`),rowName=rng.pick(["upper","lower"] as const),row=rowName==="upper"?state.top:state.bottom;
+  const answer=pairValue(row[0]!,row.at(-1)!);
+  const explanation=`${row[0]} and ${row.at(-1)} occupy the two extreme seats of the ${rowName} row.`;
+  const built=pairOptions(`${seed}:source-q3-end-pair-options`,state,answer,explanation,()=>true);
+  return {questionOrder:3,queryContractId:"SEA-QC-014",answerType:"PAIR",answerDeterminingFactFingerprint:`ROW_END_PAIR:${rowName}:${answer}`,text:`Which pair occupies the two ends of the ${rowName} row?`,...built,answer,explanation};
+}
+
 function countBetweenQuestion(seed:string,state:Sea002Cp006State):Sea002Cp006ChildQuestion {
   const rng=new DeterministicRandom(`${seed}:source-q4-count`);
   const row=rng.pick([state.top,state.bottom] as const);
@@ -150,7 +193,7 @@ function countBetweenQuestion(seed:string,state:Sea002Cp006State):Sea002Cp006Chi
   ];
   const options=optionTuple(rng.shuffle(raw));
   const answerIndex=options.findIndex((option)=>option.isCorrect) as 0|1|2|3;
-  return {questionOrder:4,queryContractId:"SEA-QC-009",answerType:"COUNT",answerDeterminingFactFingerprint:`COUNT_BETWEEN:${first}:${second}`,text:`How many persons sit between ${first} and ${second} in their row?`,options,answerIndex,answer,explanation};
+  return {questionOrder:4,queryContractId:"SEA-QC-008",answerType:"COUNT",answerDeterminingFactFingerprint:`COUNT_BETWEEN:${first}:${second}`,text:`How many persons sit between ${first} and ${second} in their row?`,options,answerIndex,answer,explanation};
 }
 
 function relativePositionQuestion(seed:string,state:Sea002Cp006State):Sea002Cp006ChildQuestion {
@@ -181,6 +224,11 @@ function relativePositionQuestion(seed:string,state:Sea002Cp006State):Sea002Cp00
   return {questionOrder:4,queryContractId:"SEA-QC-015",answerType:"RELATION",answerDeterminingFactFingerprint:`RELATION:${subject}:${reference}:${facing}`,text:`What is the position of ${subject} with respect to ${reference}?`,options,answerIndex,answer,explanation};
 }
 
+function thirdQuestion(seed:string,state:Sea002Cp006State):Sea002Cp006ChildQuestion {
+  const selector=stableNumber(`${seed}:source-q3-family`)%3;
+  return selector===0?neighbourQuestion(seed,state):selector===1?facingPairQuestion(seed,state):endPairQuestion(seed,state);
+}
+
 export function generateSea002Cp006SourceRealCaselet(
   blueprint:Sea002Cp006BlueprintId,
   seed:string,
@@ -195,7 +243,7 @@ export function generateSea002Cp006SourceRealCaselet(
   if(production.length!==1||oracle.length!==1||canonicalDigest(production[0])!==canonicalDigest(base.state)||canonicalDigest(oracle[0])!==canonicalDigest(base.state)) {
     throw new Error(`${base.caseletId}: source-realness composition lost unique solver/oracle agreement.`);
   }
-  const q3=neighbourQuestion(seed,base.state);
+  const q3=thirdQuestion(seed,base.state);
   const q4=stableNumber(seed)%2===0?countBetweenQuestion(seed,base.state):relativePositionQuestion(seed,base.state);
   const children=[base.children[0],base.children[1],q3,q4] as const;
   if(new Set(children.map((child)=>child.queryContractId)).size!==4) throw new Error(`${base.caseletId}: source-realness query mix is not diverse.`);
@@ -210,6 +258,7 @@ export function generateSea002Cp006SourceRealCaselet(
       base:base.structuralFingerprint,
       sourceFamilies:additions.map((clue)=>clue.kind==="SAME_ROW_GAP"?`${clue.kind}:${clue.between}`:clue.kind==="SAME_ROW_MIN_BETWEEN"?`${clue.kind}:${clue.minBetween}`:clue.kind==="ROW_END_DISTANCE"?`${clue.kind}:${clue.mode}:${clue.positionFromEnd}`:clue.kind==="FACING_REFERENT_RELATIVE"?`${clue.kind}:${clue.steps}`:clue.kind),
       queryContracts:children.map((child)=>child.queryContractId),
+      sourceQuestionFacts:children.slice(2).map((child)=>child.answerDeterminingFactFingerprint.split(":")[0]),
     }),
   };
 }
