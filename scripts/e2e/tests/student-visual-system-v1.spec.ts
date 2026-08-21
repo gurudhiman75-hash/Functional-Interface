@@ -114,7 +114,7 @@ test.describe("Visual System V1 responsive public journey", () => {
 
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1, name: "Prepare with tests that feel like the exam." })).toBeVisible();
-    await expect(page.getByText("Published tests")).toBeVisible();
+    await expect(page.getByText("Published tests", { exact: true })).toBeVisible();
     await expect(page.getByText("SSC CGL Full Mock 1").first()).toBeVisible();
     await expectNoHorizontalOverflow(page);
 
@@ -122,11 +122,11 @@ test.describe("Visual System V1 responsive public journey", () => {
     await expectTouchTarget(menuButton);
     await menuButton.click();
     await expect(page.getByRole("navigation", { name: "Mobile primary navigation" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Mock Tests" }).last()).toBeVisible();
+    await expect(page.getByRole("link", { name: "Mock Tests", exact: true }).last()).toBeVisible();
     await expectNoHorizontalOverflow(page);
 
     await page.goto("/category/cat-ssc");
-    await expect(page.getByRole("heading", { level: 1, name: "SSC" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: "SSC", exact: true })).toBeVisible();
     const seriesCard = page.getByTestId("btn-open-exam-ssc-cgl");
     await expect(seriesCard).toBeVisible();
     await expect(seriesCard).toContainText("SSC CGL");
@@ -134,13 +134,13 @@ test.describe("Visual System V1 responsive public journey", () => {
     await expectNoHorizontalOverflow(page);
     await seriesCard.click();
 
-    await expect(page.getByRole("heading", { level: 1, name: "SSC CGL" })).toBeVisible();
-    await expect(page.getByRole("heading", { level: 2, name: "Available tests" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: "SSC CGL", exact: true })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 2, name: "Available tests", exact: true })).toBeVisible();
     await expect(page.getByText("SSC CGL Full Mock 1").first()).toBeVisible();
     await expect(page.getByRole("button", { name: /Full Length 1/ })).toHaveAttribute("aria-pressed", "true");
     await expectTouchTarget(page.getByRole("button", { name: /Full Length 1/ }));
-    await expect(page.getByRole("button", { name: "List view" })).toHaveCount(0);
-    await expect(page.getByRole("button", { name: "Grid view" })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "List view", exact: true })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Grid view", exact: true })).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
   });
 
@@ -149,9 +149,10 @@ test.describe("Visual System V1 responsive public journey", () => {
     await installVisualFixtures(page);
 
     await page.goto("/");
-    await expect(page.getByRole("navigation", { name: "Primary navigation" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Exams" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Start a mock" })).toBeVisible();
+    const primaryNavigation = page.getByRole("navigation", { name: "Primary navigation" });
+    await expect(primaryNavigation).toBeVisible();
+    await expect(primaryNavigation.getByRole("link", { name: "Exams", exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Start a mock", exact: true })).toBeVisible();
     await expect(page.getByRole("heading", { level: 1, name: "Prepare with tests that feel like the exam." })).toBeVisible();
     await expectNoHorizontalOverflow(page);
 
@@ -160,9 +161,9 @@ test.describe("Visual System V1 responsive public journey", () => {
     await expectNoHorizontalOverflow(page);
 
     await page.goto("/subcategory/ssc-cgl");
-    await expect(page.getByRole("heading", { level: 2, name: "Available tests" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 2, name: "Available tests", exact: true })).toBeVisible();
     await expect(page.getByText("SSC CGL Full Mock 1").first()).toBeVisible();
-    await expect(page.getByText("Packages for this exam")).toHaveCount(0);
+    await expect(page.getByText("Packages for this exam", { exact: true })).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
   });
 });
