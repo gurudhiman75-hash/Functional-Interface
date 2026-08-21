@@ -249,8 +249,21 @@ function renderRightAngle(marker: any, points: Map<string, Point>) {
   return `<polyline class="right-angle" data-right-angle-id="${esc(marker.id)}" points="${p1[0].toFixed(2)},${p1[1].toFixed(2)} ${p2[0].toFixed(2)},${p2[1].toFixed(2)} ${p3[0].toFixed(2)},${p3[1].toFixed(2)}" fill="none" stroke="#111827" stroke-width="2"/>`;
 }
 
+function measurementPriority(arrow: any, points: Map<string, Point>) {
+  if (String(arrow.kind ?? "").includes("REQUESTED")) return 30;
+  const from = points.get(arrow.fromPointId);
+  const to = points.get(arrow.toPointId);
+  if (!from || !to) return 25;
+  const dx = Math.abs(to.x - from.x);
+  const dy = Math.abs(to.y - from.y);
+  if (dy < 1e-6) return 0;
+  if (dx < 1e-6) return 20;
+  return 10;
+}
+
 function renderMeasurementArrow(
   arrow: any,
+  qlId: string,
   points: Map<string, Point>,
   markerId: string,
   geometrySegments: GeometrySegment[],
@@ -279,7 +292,7 @@ function renderMeasurementArrow(
   const midpointY = (from.y + to.y) / 2;
   const label = String(arrow.label ?? "");
   const baseOffset = 34 + lane * 20;
-  const extraOffsets = [0, 18, 38, 62, 90, 122, 158];
+  const extraOffsets = [0, 18, 38, 62, 90, 122, 158, 198];
   const normalChoices = [
     { nx: preferredNx, ny: preferredNy },
     { nx: -preferredNx, ny: -preferredNy },
@@ -322,7 +335,7 @@ function renderMeasurementArrow(
     }
   }
 
-  if (!selected) throw new Error(`TRG-002 review measurement "${label}" could not find a collision-free dimension lane.`);
+  if (!selected) throw new Error(`${qlId}: review measurement "${label}" could not find a collision-free dimension lane.`);
   occupied.push(selected.placement);
   geometrySegments.push(...selected.geometry);
   const renderedLabel = label ? renderLabelBox(label, selected.placement, "measurement-label", 18, "#0f766e") : "";
@@ -332,14 +345,17 @@ function renderMeasurementArrow(
 
 export function renderTrg002SolutionDiagramSvg(diagram: AnyDiagram) {
   if (!diagram || typeof diagram !== "object") return `<div class="diagram-missing">No solution diagram specification is available.</div>`;
-  const width = finite(diagram.width ?? 1000, `${diagram.qlId ?? "diagram"}:width`);
-  const height = finite(diagram.height ?? 600, `${diagram.qlId ?? "diagram"}:height`);
   const qlId = String(diagram.qlId ?? "unknown");
+  const baseWidth = finite(diagram.width ?? 1000, `${qlId}:width`);
+  const baseHeight = finite(diagram.height ?? 600, `${qlId}:height`);
+  const reviewPadding = 90;
+  const width = baseWidth + reviewPadding * 2;
+  const height = baseHeight + reviewPadding * 2;
   const pointsArray: Point[] = Array.isArray(diagram.points)
     ? diagram.points.map((point: any) => ({
         ...point,
-        x: finite(point.x, `${qlId}:${point.id}:x`),
-        y: finite(point.y, `${qlId}:${point.id}:y`),
+        x: finite(point.x, `${qlId}:${point.id}:x`) + reviewPadding,
+        y: finite(point.y, `${qlId}:${point.id}:y`) + reviewPadding,
       }))
     : [];
   const points = new Map(pointsArray.map((point) => [point.id, point]));
@@ -359,7 +375,9 @@ export function renderTrg002SolutionDiagramSvg(diagram: AnyDiagram) {
   }).join("");
 
   const rightAngles = (Array.isArray(diagram.rightAngles) ? diagram.rightAngles : []).map((marker: any) => renderRightAngle(marker, points)).join("");
-  const measurements = (Array.isArray(diagram.measurementArrows) ? diagram.measurementArrows : []).map((arrow: any) => renderMeasurementArrow(arrow, points, markerId, geometrySegments, occupiedLabels, width, height)).join("");
+  const measurementArrows = [...(Array.isArray(diagram.measurementArrows) ? diagram.measurementArrows : [])]
+    .sort((a: any, b: any) => measurementPriority(a, points) - measurementPriority(b, points));
+  const measurements = measurementArrows.map((arrow: any) => renderMeasurementArrow(arrow, qlId, points, markerId, geometrySegments, occupiedLabels, width, height)).join("");
   const angles = (Array.isArray(diagram.angles) ? diagram.angles : []).map((angle: any) => renderAngle(angle, points, geometrySegments, occupiedLabels, width, height)).join("");
 
   const seenLabels = new Set<string>();
