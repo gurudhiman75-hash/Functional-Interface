@@ -159,8 +159,11 @@ function localizedReviewQuestion(
     localizedQuestion: localizedAuthority,
     answer,
   });
+  const nativeExplanationSource = Array.isArray(localizedAuthority.explanation)
+    ? localizedAuthority.explanation.map(String).join("\n")
+    : localizedAuthority.explanation;
   const explanation = arrangement ?? declutterRnkExplanation({
-    explanation: localizedAuthority.explanation,
+    explanation: nativeExplanationSource,
     qlId: english.qlId,
     locale,
     answer,
