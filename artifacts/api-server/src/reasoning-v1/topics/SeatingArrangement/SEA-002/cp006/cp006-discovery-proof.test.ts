@@ -28,11 +28,13 @@ const REQUIRED:Readonly<Record<Sea002Cp006BlueprintId,readonly string[]>>={
 const allCaseletIds=new Set<string>();
 const answerPositions=[0,0,0,0];
 const structures=new Map<Sea002Cp006BlueprintId,Set<string>>();
+const caseTeachingByBlueprint=new Map<Sea002Cp006BlueprintId,number>();
 let caseletCount=0;
 let childCount=0;
 
 for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
   const blueprintStructures=new Set<string>(); structures.set(blueprint,blueprintStructures);
+  caseTeachingByBlueprint.set(blueprint,0);
   for(let index=0;index<12;index+=1){
     const caselet=generateSea002Cp006DiscoveryCaselet(blueprint,`discovery-proof-${index}`);
     caseletCount+=1; childCount+=caselet.children.length;
@@ -78,13 +80,21 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
       answerPositions[child.answerIndex]+=1;
     }
 
+    assert.ok(caselet.setupText.includes("two parallel rows"));
     assert.ok(caselet.setupText.includes("upper row face south"));
     assert.ok(caselet.setupText.includes("lower row face north"));
     assert.ok(caselet.setupText.includes("same vertical column"));
+    assert.ok(!/observer coordinates|blueprint|hidden state/i.test(caselet.setupText));
     assert.ok(caselet.diagram.svg.includes("fill=\"white\""));
-    assert.ok(caselet.diagram.svg.includes("dashed lines join opposite seats"));
-    assert.ok(caselet.diagramText.includes("Observer columns"));
-    assert.ok(!/SEA-PBA|SEA-QC|blueprint|oracle|fingerprint/i.test([caselet.setupText,...caselet.clueTexts,caselet.sharedExplanation,...caselet.children.map((child)=>child.text)].join("\n")),`${caselet.caseletId}: internal implementation language leaked to learner surface`);
+    assert.ok(caselet.diagramText.includes("Seat columns"));
+    assert.ok(caselet.sharedExplanation.includes("Final arrangement:"));
+    assert.ok(caselet.sharedExplanation.includes("Step 1:"));
+    assert.ok(caselet.sharedExplanation.includes("Result:"));
+    assert.ok(caselet.sharedExplanation.includes("upper row faces south"));
+    assert.ok(caselet.sharedExplanation.includes("lower row faces north"));
+    assert.ok(caselet.sharedExplanation.length>500,`${caselet.caseletId}: detailed solution too thin`);
+    if(caselet.sharedExplanation.includes("Case 1:")) caseTeachingByBlueprint.set(blueprint,(caseTeachingByBlueprint.get(blueprint)??0)+1);
+    assert.ok(!/SEA-PBA|SEA-QC|blueprint|oracle|fingerprint|hidden state|observer coordinates/i.test([caselet.setupText,...caselet.clueTexts,caselet.sharedExplanation,...caselet.children.map((child)=>child.text)].join("\n")),`${caselet.caseletId}: internal implementation language leaked to learner surface`);
 
     assert.equal(caselet.permanentQlAllocated,false);
     assert.equal(caselet.englishFrozen,false);
@@ -96,7 +106,6 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
     assert.ok(!allCaseletIds.has(caselet.caseletId),`duplicate caselet id ${caselet.caseletId}`); allCaseletIds.add(caselet.caseletId);
     blueprintStructures.add(caselet.structuralFingerprint);
 
-    // Every generated person must have exactly one seat and exactly one opposite.
     for(const person of caselet.people){ const seat=seatOf(caselet.state,person); assert.ok(seat.column>=0&&seat.column<3); assert.notEqual(oppositePerson(caselet.state,person),person); }
   }
 }
@@ -105,12 +114,14 @@ for(const [blueprint,values] of structures) assert.ok(values.size>=3,`${blueprin
 assert.equal(caseletCount,48);
 assert.equal(childCount,192);
 assert.ok(answerPositions.every((count)=>count>=25),`answer-position discovery balance too thin: ${answerPositions.join(",")}`);
+assert.ok([...caseTeachingByBlueprint.values()].reduce((sum,value)=>sum+value,0)>=8,"case-formation teaching surface too thin across discovery corpus");
 
 console.log("PASS_SEA002_CP006_DISCOVERY");
 console.log("caselets",caseletCount);
 console.log("child questions",childCount);
 console.log("blueprints",SEA002_CP006_BLUEPRINT_IDS.join(","));
 console.log("structural signatures",Object.fromEntries([...structures].map(([id,set])=>[id,set.size])));
+console.log("case-teaching counts",Object.fromEntries(caseTeachingByBlueprint));
 console.log("answer positions",answerPositions);
 console.log("permanent QLs",0);
 console.log("English/localization/Studio/Bank/mock/public",false,false,false,false,false,false);
