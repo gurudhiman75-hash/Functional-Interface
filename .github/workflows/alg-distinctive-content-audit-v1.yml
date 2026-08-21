@@ -1,0 +1,61 @@
+name: Audit Algebra distinctive content V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/**'
+      - '.github/workflows/alg-distinctive-content-audit-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alg-distinctive-content-audit-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit-algebra-distinctive-content:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Generate 1744-question distinctive-content corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-distinctive-content-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra-distinctive-content-audit-v1.mjs
+          node artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v1.mjs \
+            | tee artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v1.log
+      - name: Verify audit evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v1.json
+          test -s artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v1.md
+          test -s artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v1.log
+      - name: Upload audit evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: algebra-distinctive-content-audit-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v1.json
+            artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v1.md
+            artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v1.log
+          retention-days: 14
