@@ -4,6 +4,14 @@ type GeometrySegment = { from: Point; to: Point };
 type LabelBox = { x: number; y: number; halfWidth: number; halfHeight: number };
 type LabelPlacement = LabelBox & { lineHits: number; labelOverlaps: number; clearance: number };
 type CoreBounds = { left: number; top: number; right: number; bottom: number };
+type LaneCandidate = {
+  ax1: number;
+  ay1: number;
+  ax2: number;
+  ay2: number;
+  outwardX: number;
+  outwardY: number;
+};
 
 function esc(value: unknown) {
   return String(value ?? "")
@@ -106,9 +114,9 @@ function segmentIntersectsBox(segment: GeometrySegment, box: LabelBox, gap = 5) 
   const q = [x1 - xmin, xmax - x1, y1 - ymin, ymax - y1];
   let u1 = 0;
   let u2 = 1;
-  for (let i = 0; i < 4; i++) {
-    const pi = p[i]!;
-    const qi = q[i]!;
+  for (let index = 0; index < 4; index += 1) {
+    const pi = p[index]!;
+    const qi = q[index]!;
     if (Math.abs(pi) < 1e-9) {
       if (qi < 0) return false;
       continue;
@@ -286,6 +294,72 @@ function measurementPriority(arrow: any, points: Map<string, Point>) {
   return 10;
 }
 
+function outsideLaneCandidates(
+  from: Point,
+  to: Point,
+  lane: number,
+  preferredNx: number,
+  preferredNy: number,
+  core: CoreBounds,
+  width: number,
+  height: number,
+): LaneCandidate[] {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const absDx = Math.abs(dx);
+  const absDy = Math.abs(dy);
+  const baseGap = 58 + lane * 28;
+  const candidates: LaneCandidate[] = [];
+
+  if (absDy < 1e-6) {
+    const preferredTop = preferredNy < 0;
+    const sides = preferredTop ? [-1, 1] : [1, -1];
+    for (const side of sides) {
+      for (let extra = 0; extra <= 150; extra += 26) {
+        const gap = baseGap + extra;
+        const y = side < 0 ? core.top - gap : core.bottom + gap;
+        if (y < 14 || y > height - 14) continue;
+        candidates.push({ ax1: from.x, ay1: y, ax2: to.x, ay2: y, outwardX: 0, outwardY: side });
+      }
+    }
+    return candidates;
+  }
+
+  if (absDx < 1e-6) {
+    const preferredLeft = preferredNx < 0;
+    const sides = preferredLeft ? [-1, 1] : [1, -1];
+    for (const side of sides) {
+      for (let extra = 0; extra <= 150; extra += 26) {
+        const gap = baseGap + extra;
+        const x = side < 0 ? core.left - gap : core.right + gap;
+        if (x < 14 || x > width - 14) continue;
+        candidates.push({ ax1: x, ay1: from.y, ax2: x, ay2: to.y, outwardX: side, outwardY: 0 });
+      }
+    }
+    return candidates;
+  }
+
+  const length = Math.hypot(dx, dy);
+  const ux = dx / length;
+  const uy = dy / length;
+  const normals = [
+    { x: preferredNx, y: preferredNy },
+    { x: -preferredNx, y: -preferredNy },
+  ];
+  const maxOffset = Math.max(width, height) * 1.2;
+  for (const normal of normals) {
+    for (let offset = baseGap; offset <= maxOffset; offset += 24) {
+      const ax1 = from.x + normal.x * offset;
+      const ay1 = from.y + normal.y * offset;
+      const ax2 = to.x + normal.x * offset;
+      const ay2 = to.y + normal.y * offset;
+      if ([ax1, ax2].some((x) => x < 14 || x > width - 14) || [ay1, ay2].some((y) => y < 14 || y > height - 14)) continue;
+      candidates.push({ ax1, ay1, ax2, ay2, outwardX: normal.x, outwardY: normal.y });
+    }
+  }
+  return candidates;
+}
+
 function renderMeasurementArrow(
   arrow: any,
   qlId: string,
@@ -315,67 +389,52 @@ function renderMeasurementArrow(
   const lane = Number.isFinite(Number(arrow.lane)) ? Number(arrow.lane) : 0;
   const label = String(arrow.label ?? "");
   const coreRegion = coreBox(core);
-  const baseOffset = 58 + lane * 26;
-  const maxOffset = Math.max(width, height) * 1.15;
-  const normalChoices = [
-    { nx: preferredNx, ny: preferredNy },
-    { nx: -preferredNx, ny: -preferredNy },
-  ];
 
   let selected: {
-    ax1: number; ay1: number; ax2: number; ay2: number;
-    geometry: GeometrySegment[]; dimensionLine: GeometrySegment; placement: LabelPlacement;
+    ax1: number;
+    ay1: number;
+    ax2: number;
+    ay2: number;
+    dimensionLine: GeometrySegment;
+    placement: LabelPlacement;
   } | null = null;
 
-  search: for (const normal of normalChoices) {
-    for (let offset = baseOffset; offset <= maxOffset; offset += 24) {
-      const ax1 = from.x + normal.nx * offset;
-      const ay1 = from.y + normal.ny * offset;
-      const ax2 = to.x + normal.nx * offset;
-      const ay2 = to.y + normal.ny * offset;
-      const margin = 14;
-      if ([ax1, ax2].some((x) => x < margin || x > width - margin) || [ay1, ay2].some((y) => y < margin || y > height - margin)) continue;
+  for (const laneCandidate of outsideLaneCandidates(from, to, lane, preferredNx, preferredNy, core, width, height)) {
+    const { ax1, ay1, ax2, ay2, outwardX, outwardY } = laneCandidate;
+    const dimensionLine: GeometrySegment = {
+      from: { id: `${arrow.id}-dimension-a`, x: ax1, y: ay1 },
+      to: { id: `${arrow.id}-dimension-b`, x: ax2, y: ay2 },
+    };
+    if (segmentIntersectsBox(dimensionLine, coreRegion, 26)) continue;
+    if (geometryIntersectsLabels([dimensionLine], occupied)) continue;
 
-      const dimensionLine: GeometrySegment = {
-        from: { id: `${arrow.id}-dimension-a`, x: ax1, y: ay1 },
-        to: { id: `${arrow.id}-dimension-b`, x: ax2, y: ay2 },
-      };
-      if (segmentIntersectsBox(dimensionLine, coreRegion, 26)) continue;
+    const dimensionMidX = (ax1 + ax2) / 2;
+    const dimensionMidY = (ay1 + ay2) / 2;
+    const candidates = [30, 48, 68, 92].flatMap((outward) => [0, 24, -24, 48, -48, 76, -76].map((tangent) => ({
+      x: dimensionMidX + outwardX * outward + ux * tangent,
+      y: dimensionMidY + outwardY * outward + uy * tangent,
+    })));
 
-      const extensionA: GeometrySegment = { from, to: { id: `${arrow.id}-extension-a`, x: ax1, y: ay1 } };
-      const extensionB: GeometrySegment = { from: to, to: { id: `${arrow.id}-extension-b`, x: ax2, y: ay2 } };
-      const dimensionGeometry = [extensionA, extensionB, dimensionLine];
-      if (geometryIntersectsLabels([dimensionLine], occupied)) continue;
-
-      const dimensionMidX = (ax1 + ax2) / 2;
-      const dimensionMidY = (ay1 + ay2) / 2;
-      const candidates = [30, 48, 68, 92].flatMap((outward) => [0, 24, -24, 48, -48, 76, -76].map((tangent) => ({
-        x: dimensionMidX + normal.nx * outward + ux * tangent,
-        y: dimensionMidY + normal.ny * outward + uy * tangent,
-      })));
-      try {
-        const placement = chooseLabelPlacement(
-          label,
-          18,
-          candidates,
-          [...geometrySegments, dimensionLine],
-          occupied,
-          width,
-          height,
-          [{ box: coreRegion, gap: 24 }],
-        );
-        selected = { ax1, ay1, ax2, ay2, geometry: dimensionGeometry, dimensionLine, placement };
-        break search;
-      } catch {
-        // Continue farther into the outer dimension band or try the other side.
-      }
+    try {
+      const placement = chooseLabelPlacement(
+        label,
+        18,
+        candidates,
+        [...geometrySegments, dimensionLine],
+        occupied,
+        width,
+        height,
+        [{ box: coreRegion, gap: 24 }],
+      );
+      selected = { ax1, ay1, ax2, ay2, dimensionLine, placement };
+      break;
+    } catch {
+      // Try the next edge band / parallel outside lane.
     }
   }
 
   if (!selected) throw new Error(`${qlId}: review measurement "${label}" could not find a clean outside dimension band.`);
   occupied.push(selected.placement);
-  // Underlay extension guides never reserve layout space; only the actual outside
-  // dimension line participates in subsequent collision avoidance.
   geometrySegments.push(selected.dimensionLine);
   const renderedLabel = label
     ? renderLabelBox(label, selected.placement, "measurement-label", 18, "#0f766e", ' data-dimension-label="true"')
@@ -389,7 +448,7 @@ export function renderTrg002SolutionDiagramSvg(diagram: AnyDiagram) {
   const qlId = String(diagram.qlId ?? "unknown");
   const baseWidth = finite(diagram.width ?? 1000, `${qlId}:width`);
   const baseHeight = finite(diagram.height ?? 600, `${qlId}:height`);
-  const reviewPadding = 190;
+  const reviewPadding = 240;
   const width = baseWidth + reviewPadding * 2;
   const height = baseHeight + reviewPadding * 2;
   const core: CoreBounds = {
