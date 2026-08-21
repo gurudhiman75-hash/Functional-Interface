@@ -2,7 +2,7 @@
 
 Status: **TECHNICALLY COMPLETE / ENGLISH REVIEW ARTIFACT PINNED — signed owner review pending before permanent allocation**
 
-This record covers `SEA-CP-006 — Two parallel rows facing each other`. It closes the solve/query/source/inverse/merge-gap implementation work. It deliberately does **not** fabricate the signed English-review gate and therefore does not yet allocate permanent `SEA-QL-*` IDs or activate localisation, Question Studio, Question Bank, mocks, staging or public delivery.
+This record covers `SEA-CP-006 — Two parallel rows facing each other`. It closes the solve/query/source/inverse/merge-gap implementation work and the learner-language / detailed-solution hardening. It deliberately does **not** fabricate the signed English-review gate and therefore does not yet allocate permanent `SEA-QL-*` IDs or activate localisation, Question Studio, Question Bank, mocks, staging or public delivery.
 
 ## Checkpoint boundary
 
@@ -90,8 +90,34 @@ That bundle is not the final learner-facing generation strategy.
 - includes a source-natural clue that is **solution-essential** rather than decorative;
 - proves removing that source clue changes the unique-solution policy;
 - preserves production-solver / independent-oracle agreement;
-- groups fixed row-membership facts for PBA-021 rather than printing one row sentence per person;
+- groups fixed row-membership facts rather than printing one row sentence per person;
 - avoids repeating the full clue list in the shared explanation.
+
+## Learner-language and solution contract
+
+The final learner-facing contract is intentionally different from internal solver terminology.
+
+### Question / passage language
+
+- uses ordinary SSC/Banking wording such as “two parallel rows”, “faces north/south”, “faces each other”, “immediate neighbour”, “persons between” and “second from either end”;
+- does not expose internal terms such as “observer coordinates”, solver, oracle, blueprint or fingerprint;
+- keeps the passage compact rather than explaining the solution inside the stem;
+- uses the white-background parallel-row diagram only as a clear seating aid.
+
+### Detailed shared solution
+
+The shared solution follows the established SEA-001 teaching style in simple English:
+
+1. state the north/south left-right rule;
+2. mark known row groups without deciding their order too early;
+3. use the early positional/opposite clues to form candidate cases where ambiguity exists;
+4. explicitly show `Case 1`, `Case 2` (and `Case 3` when required);
+5. apply a later deciding condition and mark surviving/rejected cases with clear reasons;
+6. continue the remaining deductions step by step with a short `Result:` after each deduction;
+7. show the final two-row arrangement;
+8. answer the child questions from that final arrangement with short, plain-language explanations.
+
+Row-membership givens are grouped during case formation when two or more are present, preventing long repetitive sequences such as “Put A in the upper row / Put B in the upper row ...”. The review gate also rejects awkward or technical learner wording including `observer` leakage and malformed direction phrases.
 
 ## Executable completion evidence
 
@@ -130,6 +156,7 @@ That bundle is not the final learner-facing generation strategy.
 - every caselet contains exactly one source-natural relation selected as solution-essential;
 - all six source-essential families are reached: facing-referent, not-adjacent, row-end-distance, equal-gap, exact/adjacent gap and minimum-gap;
 - maximum displayed clue count in the proof corpus: 11;
+- 295 / 320 exam-real caselets explicitly exercise Case 1 / Case 2 / Case 3 teaching; the remainder are correctly explained as direct-placement solutions because a useful trial-case split does not exist;
 - no full-clue-list repetition in the shared explanation.
 
 ## English review corpus
@@ -143,17 +170,29 @@ A deterministic 100-caselet `en-IN` review corpus is pinned:
 - 15 normalized question-stem surfaces;
 - 36 normalized clue-language surfaces;
 - 100 distinct structural fingerprints;
+- 100 / 100 contain detailed shared solutions with step/result/final-arrangement structure;
+- 88 / 100 explicitly show candidate-case formation and elimination;
+- technical `observer` language and malformed direction grammar are forbidden across learner-facing prose;
+- repeated row-membership narration is capped by the review gate;
 - options, answer positions, punctuation, explanation length and internal-language leakage are automatically checked.
 
 Pinned review fingerprint:
 
-`58b48161ce40f9fff38b0d36b855659bc99eeca8163de287e219f3e9875dbfa2`
+`37384b1a30e13a33bffe101d2906af56595f195d3d91238d8c571d67a5d07e6c`
 
-The exporter produces HTML, JSON and manifest artifacts and labels the decision state `AWAITING_SIGNED_REVIEW`.
+Final verified workflow: run `32468278834` on head `7cd78e021c0521acad6783fdbe73d58dc6dc9648` — every CP006 gate passed.
+
+The exporter produced HTML, JSON and manifest artifacts under `cp006-english-review-100`. Uploaded ZIP digest:
+
+`sha256:268a98b85f9bf5d275d0184fa96d90be3254d0f9ae4f26cd95f52b8a2b27cb53`
+
+The manifest decision state remains `AWAITING_SIGNED_REVIEW`.
 
 ## Lifecycle verdict
 
 Technical implementation verdict: **COMPLETE**.
+
+Learner-language / detailed-solution hardening verdict: **COMPLETE AND GREEN**.
 
 Signed English freeze verdict: **PENDING OWNER REVIEW OF THE EXACT PINNED ARTIFACT**.
 
