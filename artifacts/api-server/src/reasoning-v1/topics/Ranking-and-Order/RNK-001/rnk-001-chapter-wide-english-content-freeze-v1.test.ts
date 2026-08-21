@@ -76,14 +76,17 @@ const liveReviewPackages = listReasoningV1QuestionStudioReviewPackages();
 const rnkReviewPackage = liveReviewPackages.find((entry) => entry.packageId === "RNK-001") as any;
 assert.ok(rnkReviewPackage, "RNK-001 must be registered only after the separate Question Studio lifecycle transition");
 assert.equal(rnkReviewPackage.reviewOnly, true);
-assert.deepEqual(rnkReviewPackage.supportedLanguages, ["en"]);
+assert.deepEqual(rnkReviewPackage.supportedLanguages, ["en", "hi", "pa"]);
 assert.equal(rnkReviewPackage.permanentQlCount, 42);
 assert.equal(rnkReviewPackage.questionBankStatus, "NOT_STORED");
 assert.equal(rnkReviewPackage.questionBankWritable, false);
 assert.equal(rnkReviewPackage.testEligible, false);
 assert.equal(rnkReviewPackage.mockTestEligible, false);
 assert.equal(rnkReviewPackage.publiclyPublishable, false);
-assert.equal(rnkReviewPackage.englishOnlyUntilMultilingualConsolidation, true);
+assert.equal(rnkReviewPackage.englishOnlyUntilMultilingualConsolidation, false);
+assert.equal(rnkReviewPackage.multilingualContentFreeze, true);
+assert.equal(rnkReviewPackage.hindiContentApproved, true);
+assert.equal(rnkReviewPackage.punjabiContentApproved, true);
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -93,8 +96,9 @@ console.log(JSON.stringify({
   cp008PermanentQlsAllocated: RNK_CP008_PERMANENT_QLS_ALLOCATED,
   nextAvailableQl: RNK_CP008_NEXT_AVAILABLE_QL,
   chapterWideEnglishContentFreeze: true,
-  multilingualProductFinalFreeze: false,
-  questionStudio: "REGISTERED_REVIEW_ONLY_ENGLISH",
+  multilingualContentFreeze: rnkReviewPackage.multilingualContentFreeze,
+  questionStudio: "REGISTERED_MULTILINGUAL_REVIEW_ONLY",
+  supportedLanguages: rnkReviewPackage.supportedLanguages,
   questionBankStatus: rnkReviewPackage.questionBankStatus,
   publicPublication: rnkReviewPackage.publiclyPublishable,
 }, null, 2));
