@@ -18,6 +18,15 @@ function stringify(value: unknown) {
   return JSON.stringify(value, (_key, current) => typeof current === "bigint" ? `bigint:${current}` : current, 2);
 }
 
+function explanationText(explanation: any) {
+  return [
+    explanation?.keyRule ?? "",
+    ...(explanation?.steps ?? []).map((step: any) => step?.body ?? ""),
+    explanation?.shortcut ?? "",
+    ...(explanation?.traps ?? []),
+  ].join(" ");
+}
+
 type Box = { x: number; y: number; width: number; height: number };
 type Line = { x1: number; y1: number; x2: number; y2: number };
 
@@ -88,7 +97,7 @@ for (const row of pack.records as any[]) {
     diagram: { ...row.solutionDiagram, measurementArrows: [] },
     canonicalSpatialState: row.canonicalSpatialState,
     englishStem: row.english.stem,
-    englishAnswer: row.english.answer,
+    englishExplanationText: explanationText(row.english.explanation),
   });
   row.solutionDiagram = dimensioned;
   if (row.diagramEvidence?.solutionDiagram) row.diagramEvidence.solutionDiagram = dimensioned;
@@ -113,7 +122,7 @@ if (index !== 96 || rendered.length !== 96) throw new Error(`Expected 96 dimensi
 
 html = html.replace(
   "with self-contained MathML mathematical notation and TeX fallback metadata, rendered solution geometry, canonical spatial state and diagram evidence.",
-  "with self-contained MathML mathematical notation and TeX fallback metadata, rendered solution geometry with explicit dimensions, canonical spatial state and diagram evidence.",
+  "with self-contained MathML mathematical notation and TeX fallback metadata, rendered solution geometry with explicit given/unknown dimensions, canonical spatial state and diagram evidence.",
 );
 
 const allSvgs = html.match(/<svg class="solution-diagram"[\s\S]*?<\/svg>/g) ?? [];
@@ -126,4 +135,4 @@ if (allSvgs.some((svg) => (svg.match(/data-measurement-id="/g) ?? []).length < 2
 
 writeFileSync(jsonPath, stringify(pack), "utf8");
 writeFileSync(htmlPath, html, "utf8");
-console.log(`TRG002_V4_DIMENSIONED_REVIEW_PASS qls=96 autoDimensions=${autoDimensions} totalDimensions=${totalDimensions} labelBoxes=${totalLabelBoxes} minDimensionsPerSvg=2 lineLabelIntersections=0`);
+console.log(`TRG002_V4_DIMENSIONED_REVIEW_PASS qls=96 autoDimensions=${autoDimensions} totalDimensions=${totalDimensions} labelBoxes=${totalLabelBoxes} minDimensionsPerSvg=2 requestedAnswersHidden=true lineLabelIntersections=0`);
