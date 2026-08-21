@@ -14,6 +14,7 @@ const locales: readonly AlgReviewLocale[] = ["hi-IN", "pa-IN"];
 const hindiAntiPatterns: ReadonlyArray<readonly [RegExp, string]> = [
   [/हैं मूल का/, "unnatural root order"],
   [/^α और β के मूल हैं /m, "unnatural question root order"],
+  [/(?:ज्ञात कीजिए|बनाइए).*के मूल हैं/, "task placed before source-root clause"],
   [/मान रखें: में/, "broken substitution order"],
   [/है उपयोग किया क्योंकि/, "machine-translated justification"],
   [/हैं दिया गया सीधे/, "broken agreement"],
@@ -39,6 +40,7 @@ const hindiAntiPatterns: ReadonlyArray<readonly [RegExp, string]> = [
 const punjabiAntiPatterns: ReadonlyArray<readonly [RegExp, string]> = [
   [/ਹਨ ਮੂਲ ਦਾ/, "unnatural root order"],
   [/^α ਅਤੇ β ਦੇ ਮੂਲ ਹਨ /m, "unnatural question root order"],
+  [/(?:ਪਤਾ ਕਰੋ|ਬਣਾਓ).*ਦੇ ਮੂਲ ਹਨ/, "task placed before source-root clause"],
   [/ਮਾਨ ਰੱਖੋ: ਵਿੱਚ/, "broken substitution order"],
   [/ਹੈ ਵਰਤਿਆ ਕਿਉਂਕਿ/, "machine-translated justification"],
   [/ਦਿਜਾਂ ਗਜਾਂ/, "transliteration artifact"],
