@@ -34,10 +34,12 @@ function displayedClues(base:Sea002Cp006Caselet,clues:readonly Sea002Cp006Clue[]
 }
 function plainLanguage(text:string):string {
   return text
-    .replaceAll("observer column","vertical column")
+    .replaceAll("the observer's","our")
     .replaceAll("observer's","our")
+    .replaceAll("observer column","vertical column")
     .replaceAll("observer-left","left side of the page")
     .replaceAll("observer-right","right side of the page")
+    .replaceAll("towards the our","towards our")
     .replaceAll("seat intervals","seats")
     .replaceAll("strictly between","between");
 }
