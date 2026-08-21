@@ -14,6 +14,7 @@ let caselets=0;
 let children=0;
 let essentialSourceChecks=0;
 let maxDisplayedClues=0;
+let caseTeachingCount=0;
 
 for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
   const blueprintStructures=new Set<string>(); structuresByBlueprint.set(blueprint,blueprintStructures);
@@ -35,7 +36,16 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
     assert.equal(new Set(caselet.clueTexts).size,caselet.clueTexts.length);
     assert.ok(caselet.clueTexts.length<=12,`${caselet.caseletId}: displayed clue set too cluttered (${caselet.clueTexts.length})`);
     maxDisplayedClues=Math.max(maxDisplayedClues,caselet.clueTexts.length);
-    assert.ok(!caselet.sharedExplanation.includes("Clue 1:"),`${caselet.caseletId}: solution repeats the full clue list`);
+
+    assert.ok(/two parallel rows/i.test(caselet.setupText),`${caselet.caseletId}: exam-style setup missing`);
+    assert.ok(!/observer coordinates|blueprint|hidden state/i.test(caselet.setupText),`${caselet.caseletId}: technical setup language leaked`);
+    assert.ok(caselet.sharedExplanation.length>=500,`${caselet.caseletId}: detailed solution too thin`);
+    assert.ok(caselet.sharedExplanation.includes("Step 1:"),`${caselet.caseletId}: step-by-step solution missing`);
+    assert.ok(caselet.sharedExplanation.includes("Result:"),`${caselet.caseletId}: clue result missing`);
+    assert.ok(caselet.sharedExplanation.includes("Final arrangement:"),`${caselet.caseletId}: final arrangement missing`);
+    assert.ok(caselet.sharedExplanation.includes("Use this final arrangement to answer all the questions that follow."));
+    assert.ok(!caselet.sharedExplanation.includes("Clue 1:"),`${caselet.caseletId}: solution repeats the full clue list instead of explaining it`);
+    if(caselet.sharedExplanation.includes("Case 1:")) caseTeachingCount+=1;
 
     for(let q=0;q<4;q+=1){
       const child=caselet.children[q]!; queryContracts.add(child.queryContractId); answerPositions[q]![child.answerIndex]+=1;
@@ -43,6 +53,8 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
       assert.equal(new Set(child.options.map((option)=>option.value)).size,4);
       assert.equal(child.options.filter((option)=>option.isCorrect).length,1);
       assert.equal(child.options[child.answerIndex]?.value,child.answer);
+      assert.ok(child.explanation.length>=40);
+      assert.ok(!/observer column|observer coordinates/i.test(child.explanation),`${caselet.caseletId}/Q${q+1}: technical wording in answer explanation`);
     }
     assert.equal(caselet.permanentQlAllocated,false);
     assert.equal(caselet.englishFrozen,false);
@@ -57,6 +69,7 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
 assert.equal(caselets,320);
 assert.equal(children,1280);
 assert.equal(essentialSourceChecks,320);
+assert.ok(caseTeachingCount>=40,`exam-real case-formation teaching too sparse: ${caseTeachingCount}/320`);
 assert.ok(sourceKinds.size>=4,`source-essential family diversity too thin: ${[...sourceKinds].join(",")}`);
 assert.deepEqual([...queryContracts].sort(),["SEA-QC-003","SEA-QC-006","SEA-QC-008","SEA-QC-010","SEA-QC-014","SEA-QC-015"]);
 assert.ok(structures.size>=240,`exam-real structural diversity too thin: ${structures.size}`);
@@ -71,4 +84,5 @@ console.log("query contracts",[...queryContracts].sort().join(","));
 console.log("structural signatures",structures.size);
 console.log("structures by blueprint",Object.fromEntries([...structuresByBlueprint].map(([id,set])=>[id,set.size])));
 console.log("max displayed clues",maxDisplayedClues);
+console.log("case-teaching solutions",caseTeachingCount);
 console.log("answer positions",answerPositions);
