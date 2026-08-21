@@ -11,6 +11,7 @@ type LaneCandidate = {
   ay2: number;
   outwardX: number;
   outwardY: number;
+  mode: "BAND" | "CALLOUT";
 };
 
 function esc(value: unknown) {
@@ -255,7 +256,6 @@ function renderAngle(
   }
   occupied.push(placement);
   const renderedLabel = label ? renderLabelBox(label, placement, "angle-label", 20, "#6d28d9") : "";
-
   return `<g class="diagram-angle" data-angle-id="${esc(angle.id)}"><path d="M ${sx.toFixed(2)} ${sy.toFixed(2)} A ${radius} ${radius} 0 ${largeArc} ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}" fill="none" stroke="#6d28d9" stroke-width="3.2"/>${renderedLabel}</g>`;
 }
 
@@ -312,49 +312,65 @@ function outsideLaneCandidates(
   const candidates: LaneCandidate[] = [];
 
   if (absDy < 1e-6) {
-    const preferredTop = preferredNy < 0;
-    const sides = preferredTop ? [-1, 1] : [1, -1];
+    const sides = preferredNy < 0 ? [-1, 1] : [1, -1];
     for (const side of sides) {
       for (let extra = 0; extra <= 150; extra += 26) {
         const gap = baseGap + extra;
         const y = side < 0 ? core.top - gap : core.bottom + gap;
         if (y < 14 || y > height - 14) continue;
-        candidates.push({ ax1: from.x, ay1: y, ax2: to.x, ay2: y, outwardX: 0, outwardY: side });
+        candidates.push({ ax1: from.x, ay1: y, ax2: to.x, ay2: y, outwardX: 0, outwardY: side, mode: "BAND" });
       }
     }
     return candidates;
   }
 
   if (absDx < 1e-6) {
-    const preferredLeft = preferredNx < 0;
-    const sides = preferredLeft ? [-1, 1] : [1, -1];
+    const sides = preferredNx < 0 ? [-1, 1] : [1, -1];
     for (const side of sides) {
       for (let extra = 0; extra <= 150; extra += 26) {
         const gap = baseGap + extra;
         const x = side < 0 ? core.left - gap : core.right + gap;
         if (x < 14 || x > width - 14) continue;
-        candidates.push({ ax1: x, ay1: from.y, ax2: x, ay2: to.y, outwardX: side, outwardY: 0 });
+        candidates.push({ ax1: x, ay1: from.y, ax2: x, ay2: to.y, outwardX: side, outwardY: 0, mode: "BAND" });
       }
     }
     return candidates;
   }
 
-  const length = Math.hypot(dx, dy);
-  const ux = dx / length;
-  const uy = dy / length;
-  const normals = [
-    { x: preferredNx, y: preferredNy },
-    { x: -preferredNx, y: -preferredNy },
-  ];
-  const maxOffset = Math.max(width, height) * 1.2;
-  for (const normal of normals) {
-    for (let offset = baseGap; offset <= maxOffset; offset += 24) {
-      const ax1 = from.x + normal.x * offset;
-      const ay1 = from.y + normal.y * offset;
-      const ax2 = to.x + normal.x * offset;
-      const ay2 = to.y + normal.y * offset;
-      if ([ax1, ax2].some((x) => x < 14 || x > width - 14) || [ay1, ay2].some((y) => y < 14 || y > height - 14)) continue;
-      candidates.push({ ax1, ay1, ax2, ay2, outwardX: normal.x, outwardY: normal.y });
+  // A steep/sloped measured segment cannot always be translated parallel to
+  // itself beyond a rectangular core without an enormous canvas. Use a drafting
+  // callout: a short outside bracket with faint leaders to both measured ends.
+  const midpointX = (from.x + to.x) / 2;
+  const midpointY = (from.y + to.y) / 2;
+  const horizontalSpan = Math.max(120, Math.min(220, absDx * 0.55 + 90));
+  const verticalSpan = Math.max(100, Math.min(200, absDy * 0.45 + 80));
+  const sidePreference = [
+    { side: "TOP", score: preferredNy < 0 ? 0 : 2 },
+    { side: "BOTTOM", score: preferredNy > 0 ? 0 : 2 },
+    { side: "LEFT", score: preferredNx < 0 ? 1 : 3 },
+    { side: "RIGHT", score: preferredNx > 0 ? 1 : 3 },
+  ].sort((a, b) => a.score - b.score);
+
+  for (const choice of sidePreference) {
+    for (let extra = 0; extra <= 150; extra += 26) {
+      const gap = baseGap + extra;
+      if (choice.side === "TOP" || choice.side === "BOTTOM") {
+        const side = choice.side === "TOP" ? -1 : 1;
+        const y = side < 0 ? core.top - gap : core.bottom + gap;
+        const centerX = Math.max(core.left + horizontalSpan / 2, Math.min(core.right - horizontalSpan / 2, midpointX));
+        const ax1 = centerX - horizontalSpan / 2;
+        const ax2 = centerX + horizontalSpan / 2;
+        if (y < 14 || y > height - 14) continue;
+        candidates.push({ ax1, ay1: y, ax2, ay2: y, outwardX: 0, outwardY: side, mode: "CALLOUT" });
+      } else {
+        const side = choice.side === "LEFT" ? -1 : 1;
+        const x = side < 0 ? core.left - gap : core.right + gap;
+        const centerY = Math.max(core.top + verticalSpan / 2, Math.min(core.bottom - verticalSpan / 2, midpointY));
+        const ay1 = centerY - verticalSpan / 2;
+        const ay2 = centerY + verticalSpan / 2;
+        if (x < 14 || x > width - 14) continue;
+        candidates.push({ ax1: x, ay1, ax2: x, ay2, outwardX: side, outwardY: 0, mode: "CALLOUT" });
+      }
     }
   }
   return candidates;
@@ -390,14 +406,7 @@ function renderMeasurementArrow(
   const label = String(arrow.label ?? "");
   const coreRegion = coreBox(core);
 
-  let selected: {
-    ax1: number;
-    ay1: number;
-    ax2: number;
-    ay2: number;
-    dimensionLine: GeometrySegment;
-    placement: LabelPlacement;
-  } | null = null;
+  let selected: (LaneCandidate & { dimensionLine: GeometrySegment; placement: LabelPlacement }) | null = null;
 
   for (const laneCandidate of outsideLaneCandidates(from, to, lane, preferredNx, preferredNy, core, width, height)) {
     const { ax1, ay1, ax2, ay2, outwardX, outwardY } = laneCandidate;
@@ -410,9 +419,11 @@ function renderMeasurementArrow(
 
     const dimensionMidX = (ax1 + ax2) / 2;
     const dimensionMidY = (ay1 + ay2) / 2;
+    const tangentX = Math.abs(ax2 - ax1) >= Math.abs(ay2 - ay1) ? 1 : 0;
+    const tangentY = tangentX ? 0 : 1;
     const candidates = [30, 48, 68, 92].flatMap((outward) => [0, 24, -24, 48, -48, 76, -76].map((tangent) => ({
-      x: dimensionMidX + outwardX * outward + ux * tangent,
-      y: dimensionMidY + outwardY * outward + uy * tangent,
+      x: dimensionMidX + outwardX * outward + tangentX * tangent,
+      y: dimensionMidY + outwardY * outward + tangentY * tangent,
     })));
 
     try {
@@ -426,10 +437,10 @@ function renderMeasurementArrow(
         height,
         [{ box: coreRegion, gap: 24 }],
       );
-      selected = { ax1, ay1, ax2, ay2, dimensionLine, placement };
+      selected = { ...laneCandidate, dimensionLine, placement };
       break;
     } catch {
-      // Try the next edge band / parallel outside lane.
+      // Try the next outside band/callout lane.
     }
   }
 
@@ -440,7 +451,7 @@ function renderMeasurementArrow(
     ? renderLabelBox(label, selected.placement, "measurement-label", 18, "#0f766e", ' data-dimension-label="true"')
     : "";
 
-  return `<g class="measurement" data-measurement-id="${esc(arrow.id)}" data-dimension-zone="outside"><line data-extension-line="true" x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${selected.ax1.toFixed(2)}" y2="${selected.ay1.toFixed(2)}" stroke="#a8b3c2" stroke-width="1.1" stroke-dasharray="5 5"/><line data-extension-line="true" x1="${to.x.toFixed(2)}" y1="${to.y.toFixed(2)}" x2="${selected.ax2.toFixed(2)}" y2="${selected.ay2.toFixed(2)}" stroke="#a8b3c2" stroke-width="1.1" stroke-dasharray="5 5"/><line data-dimension-line="true" x1="${selected.ax1.toFixed(2)}" y1="${selected.ay1.toFixed(2)}" x2="${selected.ax2.toFixed(2)}" y2="${selected.ay2.toFixed(2)}" stroke="#0f766e" stroke-width="1.8" marker-start="url(#${markerId})" marker-end="url(#${markerId})"/>${renderedLabel}</g>`;
+  return `<g class="measurement" data-measurement-id="${esc(arrow.id)}" data-dimension-zone="outside" data-dimension-mode="${selected.mode.toLowerCase()}"><line data-extension-line="true" x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${selected.ax1.toFixed(2)}" y2="${selected.ay1.toFixed(2)}" stroke="#a8b3c2" stroke-width="1.1" stroke-dasharray="5 5"/><line data-extension-line="true" x1="${to.x.toFixed(2)}" y1="${to.y.toFixed(2)}" x2="${selected.ax2.toFixed(2)}" y2="${selected.ay2.toFixed(2)}" stroke="#a8b3c2" stroke-width="1.1" stroke-dasharray="5 5"/><line data-dimension-line="true" x1="${selected.ax1.toFixed(2)}" y1="${selected.ay1.toFixed(2)}" x2="${selected.ax2.toFixed(2)}" y2="${selected.ay2.toFixed(2)}" stroke="#0f766e" stroke-width="1.8" marker-start="url(#${markerId})" marker-end="url(#${markerId})"/>${renderedLabel}</g>`;
 }
 
 export function renderTrg002SolutionDiagramSvg(diagram: AnyDiagram) {
