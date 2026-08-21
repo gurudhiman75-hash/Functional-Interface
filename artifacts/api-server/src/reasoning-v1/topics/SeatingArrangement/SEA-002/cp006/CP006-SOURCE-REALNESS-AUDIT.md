@@ -213,4 +213,4 @@ public delivery            false
 
 The next available permanent seating ID after SEA-001 is `SEA-QL-021`; candidate mapping for PBA-021..024 must not be committed as permanent authority until the signed English-review gate is satisfied.
 
-Documentation sync note: `SEA-002/README.md` now carries the same pinned fingerprint and learner-solution contract; this does not change executable review content.
+Documentation sync note: `SEA-002/README.md` carries the same pinned fingerprint, workflow and artifact digest; these documentation-only sync commits do not change executable review content.
