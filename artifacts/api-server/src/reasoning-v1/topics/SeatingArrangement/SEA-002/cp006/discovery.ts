@@ -69,13 +69,14 @@ export function generateSea002Cp006DiscoveryCaselet(
   const oracle=auditOracleCp006(base.people,base.state.seatCountPerRow,clues);
   if(production.length!==1||oracle.length!==1||canonicalDigest(production[0])!==canonicalDigest(base.state)||canonicalDigest(oracle[0])!==canonicalDigest(base.state)) throw new Error(`${base.caseletId}: discovery contract lost unique solver/oracle agreement.`);
   const clueTexts=renderedClues(base,clues);
+  const solutionClueTexts=clues.map(renderCp006Clue);
   const diagram=learnerDiagram(base);
   return {
     ...base,
     setupText:examLikeSetup(base.people,base.state),
     clues,
     clueTexts,
-    sharedExplanation:compileCp006TeachingExplanation(base.state,base.people,clues,clueTexts),
+    sharedExplanation:compileCp006TeachingExplanation(base.state,base.people,clues,solutionClueTexts),
     diagramText:diagram.text,
     diagram,
     structuralFingerprint:canonicalDigest({
