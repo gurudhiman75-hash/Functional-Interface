@@ -296,6 +296,23 @@ function textMathMutations(correct: string): string[] {
   return [...out];
 }
 
+function polynomialCandidates(correct: string): string[] {
+  const value = correct.trim();
+  const out = new Set<string>(textMathMutations(value));
+  if (/^[A-Za-z]$/.test(value)) {
+    out.add(`-${value}`);
+    out.add(`${value} + 1`);
+    out.add(`${value} - 1`);
+    out.add(`${value}²`);
+  } else if (value) {
+    out.add(`-(${value})`);
+    out.add(`(${value}) + 1`);
+    out.add(`(${value}) - 1`);
+  }
+  out.delete(value);
+  return [...out];
+}
+
 function rootSetCandidates(answer: any, language: AlgebraStudioLanguage): string[] {
   const values = Array.isArray(answer.values) ? answer.values : [];
   const rendered = values.map(rationalText);
@@ -421,7 +438,8 @@ function distractorCandidates(answer: any, correct: string, language: AlgebraStu
   if (typeof answer === "string") return relationOptions(language);
   const kind = String(answer?.kind ?? "");
   if (["RATIONAL", "UNIQUE_VALUE", "PARAMETER_VALUE", "EXCLUDED_VALUE"].includes(kind)) return numericCandidates(answer.value);
-  if (["POLYNOMIAL", "FACTORIZATION", "INTERVAL_SET", "INTEGER_COUNT", "PARAMETER_RANGE"].includes(kind)) {
+  if (kind === "POLYNOMIAL") return polynomialCandidates(correct);
+  if (["FACTORIZATION", "INTERVAL_SET", "INTEGER_COUNT", "PARAMETER_RANGE"].includes(kind)) {
     const extra = kind === "INTERVAL_SET" ? [
       phrase(language, "All real numbers", "सभी वास्तविक संख्याएँ", "ਸਾਰੀਆਂ ਵਾਸਤਵਿਕ ਸੰਖਿਆਵਾਂ"),
       phrase(language, "Empty set", "रिक्त समुच्चय", "ਖਾਲੀ ਸਮੂਹ"),
