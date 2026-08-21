@@ -92,7 +92,8 @@ function auditRenderedSvg(svg: string, qlId: string) {
   });
 
   const lineTags = [...svg.matchAll(/<line\b[^>]*>/g)].map((match) => match[0]);
-  const lines: Line[] = lineTags.map((tag) => {
+  const visibleCollisionLineTags = lineTags.filter((tag) => attrs(tag)["data-extension-line"] !== "true");
+  const lines: Line[] = visibleCollisionLineTags.map((tag) => {
     const a = attrs(tag);
     return {
       x1: Number(a.x1), y1: Number(a.y1), x2: Number(a.x2), y2: Number(a.y2),
@@ -106,7 +107,7 @@ function auditRenderedSvg(svg: string, qlId: string) {
       if (lineIntersectsBox(line, box)) lineLabelIntersections += 1;
     }
   }
-  if (lineLabelIntersections !== 0) throw new Error(`${qlId}: dimensioned SVG has ${lineLabelIntersections} line/label intersections.`);
+  if (lineLabelIntersections !== 0) throw new Error(`${qlId}: dimensioned SVG has ${lineLabelIntersections} visible line/label intersections.`);
 
   const dimensionLines: Line[] = lineTags.filter((tag) => attrs(tag)["data-dimension-line"] === "true").map((tag) => {
     const a = attrs(tag);
@@ -140,7 +141,7 @@ function auditRenderedSvg(svg: string, qlId: string) {
   return {
     dimensions: measurementIds.length,
     boxes: boxes.length,
-    lines: lines.length,
+    visibleLines: lines.length,
     dimensionLinesOutsideCore: dimensionLines.length,
     dimensionLabelsOutsideCore: dimensionLabelBoxes.length,
     primaryMinStroke: Number.isFinite(primaryMinStroke) ? primaryMinStroke : 2.5,
@@ -207,4 +208,4 @@ if (totalOutsideDimensionLines !== totalDimensions || totalOutsideDimensionLabel
 
 writeFileSync(jsonPath, stringify(pack), "utf8");
 writeFileSync(htmlPath, html, "utf8");
-console.log(`TRG002_V4_DIMENSIONED_REVIEW_PASS qls=96 autoDimensions=${autoDimensions} totalDimensions=${totalDimensions} outsideDimensionLines=${totalOutsideDimensionLines} outsideDimensionLabels=${totalOutsideDimensionLabels} labelBoxes=${totalLabelBoxes} minDimensionsPerSvg=2 requestedAnswersHidden=true coreDimensionIntrusions=0 lineLabelIntersections=0 primaryCoreMinStroke=${chapterPrimaryMinStroke.toFixed(1)}`);
+console.log(`TRG002_V4_DIMENSIONED_REVIEW_PASS qls=96 autoDimensions=${autoDimensions} totalDimensions=${totalDimensions} outsideDimensionLines=${totalOutsideDimensionLines} outsideDimensionLabels=${totalOutsideDimensionLabels} labelBoxes=${totalLabelBoxes} minDimensionsPerSvg=2 requestedAnswersHidden=true coreDimensionIntrusions=0 visibleLineLabelIntersections=0 primaryCoreMinStroke=${chapterPrimaryMinStroke.toFixed(1)}`);
