@@ -69,7 +69,7 @@ assert.equal(direct.answer, "40°");
 assert.deepEqual(direct.theoremTrace, ["PERPENDICULAR_BISECTOR_EQUIDISTANT", "ISOSCELES_BASE_ANGLES", "TRIANGLE_ANGLE_SUM"]);
 assert.deepEqual(direct.diagramModel?.equalLengthMarks.map((mark) => [...mark.segmentIds]), [["PS", "SQ"]]);
 assert.equal(direct.stemSvg?.includes("TP = TQ"), false, "derived equal distances must not leak into the stem");
-assert.ok(direct.solutionDiagramModel.equalLengthMarks.some((mark) => mark.segmentIds.includes("TP") && mark.segmentIds.includes("TQ")), "solution must show derived TP = TQ semantically with equal-length marks");
+assert.ok(direct.solutionDiagramModel.equalLengthMarks.some((mark) => mark.segmentIds.includes("PT") && mark.segmentIds.includes("TQ")), "solution must show derived TP = TQ semantically with equal-length marks");
 assert.equal(direct.solutionSvg.includes("TP = TQ"), false, "redundant derived equality text is intentionally omitted to avoid clutter");
 assert.ok(direct.solutionSvg.includes("∠PQR = 40°"));
 
