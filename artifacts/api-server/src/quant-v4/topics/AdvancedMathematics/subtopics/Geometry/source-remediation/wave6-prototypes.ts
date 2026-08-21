@@ -83,8 +83,8 @@ function cleanMidpointSolution(model: GeoDiagramModel): GeoDiagramModel {
   return {
     ...model,
     labels: model.labels
-      .filter((label) => label.id !== "derived-ae-ec")
-      .map((label) => label.id === "answer-ae"
+      .filter((label) => label.id !== "derived-midpoint")
+      .map((label) => label.id === "answer-ec"
         ? { ...label, x: 300, y: 220 }
         : label),
   };
