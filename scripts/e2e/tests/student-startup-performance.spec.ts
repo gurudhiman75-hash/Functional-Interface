@@ -95,8 +95,12 @@ function localAuthChunks(page: Page) {
   return matchingResources(page, /\/assets\/auth-[^/]+\.js(?:\?|$)/);
 }
 
+function localFirebaseChunks(page: Page) {
+  return matchingResources(page, /\/assets\/firebase-[^/]+\.js(?:\?|$)/);
+}
+
 test.describe("CP05 route-scoped startup runtime", () => {
-  test("anonymous information pages download neither MathJax auth nor the exam catalog", async ({ page }) => {
+  test("anonymous information pages download neither MathJax auth Firebase nor the exam catalog", async ({ page }) => {
     const counts: CatalogRequestCounts = { categories: 0, subcategories: 0, tests: 0 };
     await installFixtures(page, counts);
     await page.goto("/about");
@@ -105,10 +109,11 @@ test.describe("CP05 route-scoped startup runtime", () => {
 
     expect(await localMathProviderChunks(page)).toEqual([]);
     expect(await localAuthChunks(page)).toEqual([]);
+    expect(await localFirebaseChunks(page)).toEqual([]);
     expect(counts).toEqual({ categories: 0, subcategories: 0, tests: 0 });
   });
 
-  test("exam discovery loads the catalog on demand without loading auth", async ({ page }) => {
+  test("exam discovery loads the catalog on demand without loading auth or Firebase", async ({ page }) => {
     const counts: CatalogRequestCounts = { categories: 0, subcategories: 0, tests: 0 };
     await installFixtures(page, counts);
     await page.goto("/exams");
@@ -119,6 +124,7 @@ test.describe("CP05 route-scoped startup runtime", () => {
     expect(counts.subcategories).toBeGreaterThan(0);
     expect(counts.tests).toBeGreaterThan(0);
     expect(await localAuthChunks(page)).toEqual([]);
+    expect(await localFirebaseChunks(page)).toEqual([]);
   });
 
   test("student login loads Firebase-backed auth on demand without waking the exam catalog", async ({ page }) => {
@@ -137,6 +143,7 @@ test.describe("CP05 route-scoped startup runtime", () => {
     await expect(page.getByTestId("tab-login")).toBeVisible();
 
     await expect.poll(async () => (await localAuthChunks(page)).length).toBeGreaterThan(0);
+    await expect.poll(async () => (await localFirebaseChunks(page)).length).toBeGreaterThan(0);
     expect(counts).toEqual({ categories: 0, subcategories: 0, tests: 0 });
   });
 
