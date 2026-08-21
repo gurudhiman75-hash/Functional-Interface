@@ -55,7 +55,14 @@ const punjabiAntiPatterns: ReadonlyArray<readonly [RegExp, string]> = [
   [/ਸਗੋਂ ਤੋਂ ਕੇਵਲ/, "broken comparison wording"],
 ];
 
+type FailureBucket = {
+  count: number;
+  examples: string[];
+};
+
+const failures = new Map<string, FailureBucket>();
 let samples = 0;
+
 for (const allocation of ALG_PERMANENT_ALLOCATION) {
   const variants = getAlgPermanentPrototypeIds(allocation.qlId);
   for (let variantIndex = 0; variantIndex < variants.length; variantIndex += 1) {
@@ -65,8 +72,16 @@ for (const allocation of ALG_PERMANENT_ALLOCATION) {
         const surface = `${item.question}\n${item.explanation}`;
         const patterns = locale === "hi-IN" ? hindiAntiPatterns : punjabiAntiPatterns;
         const prefix = `${allocation.qlId}/${item.prototypeId}/${locale}/seed-${seed}`;
+
         for (const [pattern, label] of patterns) {
-          assert(!pattern.test(surface), `${prefix}: ${label}: ${pattern} :: ${surface.slice(0, 420)}`);
+          if (!pattern.test(surface)) continue;
+          const key = `${locale}: ${label}: ${pattern}`;
+          const bucket = failures.get(key) ?? { count: 0, examples: [] };
+          bucket.count += 1;
+          if (bucket.examples.length < 4) {
+            bucket.examples.push(`${prefix} :: ${surface.slice(0, 520).replace(/\n/g, " ⏎ ")}`);
+          }
+          failures.set(key, bucket);
         }
         samples += 1;
       }
@@ -75,4 +90,12 @@ for (const allocation of ALG_PERMANENT_ALLOCATION) {
 }
 
 assert(samples === 2616, `Expected 2,616 multilingual editorial samples, found ${samples}`);
+
+if (failures.size > 0) {
+  const report = [...failures.entries()]
+    .map(([key, bucket]) => `${key} — ${bucket.count} samples\n  ${bucket.examples.join("\n  ")}`)
+    .join("\n\n");
+  throw new Error(`Multilingual V2 human editorial audit failed (${failures.size} anti-pattern buckets):\n${report}`);
+}
+
 console.log(`Algebra multilingual V2 human editorial audit passed: ${samples} samples, known machine-grammar anti-patterns absent`);
