@@ -314,8 +314,6 @@ function renderMeasurementArrow(
     preferredNy *= -1;
   }
   const lane = Number.isFinite(Number(arrow.lane)) ? Number(arrow.lane) : 0;
-  const midpointX = (from.x + to.x) / 2;
-  const midpointY = (from.y + to.y) / 2;
   const label = String(arrow.label ?? "");
   const coreRegion = coreBox(core);
   const baseOffset = 58 + lane * 26;
@@ -343,14 +341,14 @@ function renderMeasurementArrow(
         from: { id: `${arrow.id}-dimension-a`, x: ax1, y: ay1 },
         to: { id: `${arrow.id}-dimension-b`, x: ax2, y: ay2 },
       };
-      // The actual dimension line belongs to an outer band. It may never enter
-      // or skim the learner-facing core geometry region.
       if (segmentIntersectsBox(dimensionLine, coreRegion, 26)) continue;
 
       const extensionA: GeometrySegment = { from, to: { id: `${arrow.id}-extension-a`, x: ax1, y: ay1 } };
       const extensionB: GeometrySegment = { from: to, to: { id: `${arrow.id}-extension-b`, x: ax2, y: ay2 } };
       const dimensionGeometry = [extensionA, extensionB, dimensionLine];
-      if (geometryIntersectsLabels(dimensionGeometry, occupied)) continue;
+      // Extension lines are deliberately light and painted underneath the core.
+      // They may pass behind a protected core label, but the main dimension line may not.
+      if (geometryIntersectsLabels([dimensionLine], occupied)) continue;
 
       const dimensionMidX = (ax1 + ax2) / 2;
       const dimensionMidY = (ay1 + ay2) / 2;
@@ -425,8 +423,6 @@ export function renderTrg002SolutionDiagramSvg(diagram: AnyDiagram) {
   }).join("");
 
   const rightAngles = (Array.isArray(diagram.rightAngles) ? diagram.rightAngles : []).map((marker: any) => renderRightAngle(marker, points)).join("");
-
-  // Core annotations get placement priority. Dimensions must route around them.
   const angles = (Array.isArray(diagram.angles) ? diagram.angles : []).map((angle: any) => renderAngle(angle, qlId, points, geometrySegments, occupiedLabels, width, height)).join("");
 
   const seenLabels = new Set<string>();
@@ -460,8 +456,5 @@ export function renderTrg002SolutionDiagramSvg(diagram: AnyDiagram) {
   const coreFrameWidth = baseWidth + 48;
   const coreFrameHeight = baseHeight + 48;
 
-  // Dimensions are intentionally painted behind the bold core geometry. Their
-  // light extension lines may enter the core, but can never obscure structural
-  // lines or labels. Main dimension lines and dimension text stay outside.
   return `<figure class="diagram-figure"><div class="diagram-caption"><b>${esc(qlId)}</b> · ${esc(diagram.strategy ?? "solution geometry")}</div><svg class="solution-diagram" data-diagram-ql="${esc(qlId)}" data-core-left="${core.left}" data-core-top="${core.top}" data-core-right="${core.right}" data-core-bottom="${core.bottom}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Solution geometry for ${esc(qlId)}" preserveAspectRatio="xMidYMid meet"><title>Solution geometry for ${esc(qlId)}</title><defs><marker id="${markerId}" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e"/></marker></defs><rect x="1" y="1" width="${Math.max(0, width - 2)}" height="${Math.max(0, height - 2)}" rx="12" fill="#ffffff" stroke="#e2e8f0"/><rect class="diagram-core-frame" data-core-frame="true" x="${coreFrameX}" y="${coreFrameY}" width="${coreFrameWidth}" height="${coreFrameHeight}" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.4"/>${measurements}${segments}${rightAngles}${angles}${pointLabels}</svg></figure>`;
 }
