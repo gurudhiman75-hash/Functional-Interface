@@ -82,11 +82,11 @@ function cleanCentroidSolution(model: GeoDiagramModel): GeoDiagramModel {
 function cleanMidpointSolution(model: GeoDiagramModel): GeoDiagramModel {
   return {
     ...model,
-    labels: model.labels.map((label) => {
-      if (label.id === "derived-ae-ec") return { ...label, x: 265, y: 150 };
-      if (label.id === "answer-ae") return { ...label, x: 265, y: 105 };
-      return label;
-    }),
+    labels: model.labels
+      .filter((label) => label.id !== "derived-ae-ec")
+      .map((label) => label.id === "answer-ae"
+        ? { ...label, x: 300, y: 220 }
+        : label),
   };
 }
 
