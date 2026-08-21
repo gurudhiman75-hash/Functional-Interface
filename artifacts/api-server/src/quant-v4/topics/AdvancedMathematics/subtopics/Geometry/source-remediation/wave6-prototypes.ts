@@ -63,7 +63,7 @@ function cleanCentroidStem(model: GeoDiagramModel): GeoDiagramModel {
   return {
     ...model,
     labels: model.labels.map((label) => label.id === "given-centroid-segment"
-      ? { ...label, x: 205 }
+      ? { ...label, x: 250 }
       : label),
   };
 }
@@ -72,8 +72,8 @@ function cleanCentroidSolution(model: GeoDiagramModel): GeoDiagramModel {
   return {
     ...model,
     labels: model.labels.map((label) => {
-      if (label.id === "ag-label" || label.id === "gd-label") return { ...label, x: 205 };
-      if (label.id === "ratio-label") return { ...label, x: 275, y: 105 };
+      if (label.id === "ag-label" || label.id === "gd-label") return { ...label, x: 250 };
+      if (label.id === "ratio-label") return { ...label, x: 310, y: 105 };
       return label;
     }),
   };
