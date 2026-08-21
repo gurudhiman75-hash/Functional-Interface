@@ -1,3 +1,4 @@
+import { Buffer } from "node:buffer";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -13,6 +14,7 @@ if (Number.isNaN(port) || port <= 0) {
 }
 
 const basePath = process.env.BASE_PATH ?? "/";
+const CATEGORY_ICON_CHUNK_BUDGET_BYTES = 64 * 1024;
 
 function assertStaticEntryExcludesFirebase(): Plugin {
   return {
@@ -58,6 +60,37 @@ function assertStaticEntryExcludesFirebase(): Plugin {
   };
 }
 
+function assertCategoryIconBundleBudget(): Plugin {
+  return {
+    name: "assert-category-icon-bundle-budget",
+    apply: "build",
+    generateBundle(_options, bundle) {
+      let categoryIconChunkFound = false;
+
+      for (const output of Object.values(bundle)) {
+        if (output.type !== "chunk") continue;
+        const containsCategoryIcon = Object.keys(output.modules).some((moduleId) =>
+          moduleId.replaceAll("\\", "/").includes("/src/components/CategoryIcon.tsx"),
+        );
+        if (!containsCategoryIcon) continue;
+
+        categoryIconChunkFound = true;
+        const chunkBytes = Buffer.byteLength(output.code, "utf8");
+        if (chunkBytes > CATEGORY_ICON_CHUNK_BUDGET_BYTES) {
+          this.error(
+            `${output.fileName} contains CategoryIcon and is ${(chunkBytes / 1024).toFixed(1)} KiB. ` +
+              `Keep category icons tree-shakable and below ${CATEGORY_ICON_CHUNK_BUDGET_BYTES / 1024} KiB.`,
+          );
+        }
+      }
+
+      if (!categoryIconChunkFound) {
+        this.error("CategoryIcon was not emitted into the production bundle; bundle budget could not be verified.");
+      }
+    },
+  };
+}
+
 export default defineConfig({
   base: basePath,
   plugins: [
@@ -65,6 +98,7 @@ export default defineConfig({
     tailwindcss(),
     runtimeErrorOverlay(),
     assertStaticEntryExcludesFirebase(),
+    assertCategoryIconBundleBudget(),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
