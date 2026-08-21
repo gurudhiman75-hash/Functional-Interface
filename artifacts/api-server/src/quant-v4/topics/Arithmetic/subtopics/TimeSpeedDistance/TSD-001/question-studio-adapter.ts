@@ -4,17 +4,23 @@ import {
   TSD_CP005_HI_PA_FREEZE_ID,
   TSD_CP005_HI_PA_APPROVED_SOURCE_HEAD,
 } from "./cp005/localization/native-approved-freeze-v5";
+import { TSD_CP006_APPROVED_ENGLISH_FROZEN_78Q, TSD_CP006_ENGLISH_FREEZE_ID } from "./cp006/english-approved-freeze-v5";
+import {
+  TSD_CP006_APPROVED_NATIVE_FROZEN_V7_156Q,
+  TSD_CP006_HI_PA_FREEZE_ID,
+  TSD_CP006_HI_PA_APPROVED_SOURCE_HEAD,
+} from "./cp006/localization/native-approved-freeze-v7";
 
 export const TSD_001_QUESTION_STUDIO_PACKAGE_ID = "TSD-001" as const;
-export const TSD_001_QUESTION_STUDIO_CP_IDS = ["TSD-CP-005"] as const;
+export const TSD_001_QUESTION_STUDIO_CP_IDS = ["TSD-CP-005", "TSD-CP-006"] as const;
 export const TSD_001_QUESTION_STUDIO_LANGUAGES = ["en", "hi", "pa"] as const;
 export const TSD_001_QUESTION_STUDIO_RUNTIME_MODE = "QUESTION_STUDIO_REVIEW_ACTIVE" as const;
 export const TSD_001_QUESTION_STUDIO_REVIEW_STATUS = "FROZEN_MULTILINGUAL_REVIEW_SURFACE" as const;
 
 export type Tsd001QuestionStudioLanguage = typeof TSD_001_QUESTION_STUDIO_LANGUAGES[number];
+export type Tsd001QuestionStudioCheckpointId = typeof TSD_001_QUESTION_STUDIO_CP_IDS[number];
 export type Tsd001QuestionStudioDifficulty = "Easy" | "Medium" | "Hard";
 export type Tsd001QuestionStudioQlId = `TSD-QL-${string}`;
-type TsdCp005EnglishFrozenRow = (typeof TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q)[number];
 
 export interface Tsd001QuestionStudioRequest {
   packageId?: string;
@@ -78,6 +84,13 @@ function toJsonSafe(value: unknown): unknown {
   return value;
 }
 
+function jsonSafeObject(value: unknown): Readonly<Record<string, unknown>> {
+  const safe = toJsonSafe(value);
+  return Object.freeze(safe && typeof safe === "object" && !Array.isArray(safe)
+    ? safe as Record<string, unknown>
+    : {});
+}
+
 export function isTsd001QuestionStudioRequest(request: Tsd001QuestionStudioRequest): boolean {
   const packageId = normalizeSelector(request.packageId ?? request.archetypeId);
   const patternId = normalizeSelector(request.patternId);
@@ -96,16 +109,29 @@ export function isTsd001QuestionStudioRequest(request: Tsd001QuestionStudioReque
     || (topic === "arithmetic" && selectors.has(subtopic));
 }
 
-const ENGLISH_BY_QL = new Map<string, readonly TsdCp005EnglishFrozenRow[]>();
-for (const row of TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q) {
-  const bucket = ENGLISH_BY_QL.get(row.permanentQlId) ?? [];
-  ENGLISH_BY_QL.set(row.permanentQlId, Object.freeze([...bucket, row]));
+type EnglishRow = (typeof TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q)[number] | (typeof TSD_CP006_APPROVED_ENGLISH_FROZEN_78Q)[number];
+
+const ENGLISH_BY_CP = new Map<Tsd001QuestionStudioCheckpointId, readonly EnglishRow[]>([
+  ["TSD-CP-005", TSD_CP005_APPROVED_ENGLISH_FROZEN_78Q],
+  ["TSD-CP-006", TSD_CP006_APPROVED_ENGLISH_FROZEN_78Q],
+]);
+
+const QL_IDS_BY_CP = new Map<Tsd001QuestionStudioCheckpointId, readonly Tsd001QuestionStudioQlId[]>();
+for (const cpId of TSD_001_QUESTION_STUDIO_CP_IDS) {
+  const rows = ENGLISH_BY_CP.get(cpId) ?? [];
+  QL_IDS_BY_CP.set(cpId, Object.freeze([...new Set(rows.map((row: any) => row.permanentQlId))].sort()) as readonly Tsd001QuestionStudioQlId[]);
 }
 
-const QL_IDS = Object.freeze([...ENGLISH_BY_QL.keys()].sort()) as readonly Tsd001QuestionStudioQlId[];
-if (QL_IDS.length !== 13 || QL_IDS[0] !== "TSD-QL-058" || QL_IDS[12] !== "TSD-QL-070") {
+const CP005_QL_IDS = QL_IDS_BY_CP.get("TSD-CP-005")!;
+const CP006_QL_IDS = QL_IDS_BY_CP.get("TSD-CP-006")!;
+if (CP005_QL_IDS.length !== 13 || CP005_QL_IDS[0] !== "TSD-QL-058" || CP005_QL_IDS[12] !== "TSD-QL-070") {
   throw new Error("TSD-001 Question Studio adapter lost frozen CP005 QL coverage.");
 }
+if (CP006_QL_IDS.length !== 13 || CP006_QL_IDS[0] !== "TSD-QL-071" || CP006_QL_IDS[12] !== "TSD-QL-083") {
+  throw new Error("TSD-001 Question Studio adapter lost frozen CP006 QL coverage.");
+}
+
+const ALL_QL_IDS = Object.freeze([...CP005_QL_IDS, ...CP006_QL_IDS]) as readonly Tsd001QuestionStudioQlId[];
 
 export const TSD_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   id: TSD_001_QUESTION_STUDIO_PACKAGE_ID,
@@ -130,29 +156,60 @@ export const TSD_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   testEligibility: "INELIGIBLE",
   publiclyPublishable: false,
   questionStudioReviewOnly: true,
-  frozenQlRange: "TSD-QL-058..TSD-QL-070",
-  uniqueFrozenQuestionsPerLanguage: 78,
+  frozenQlRange: "TSD-QL-058..TSD-QL-083",
+  frozenQlRangesByCheckpoint: Object.freeze({
+    "TSD-CP-005": "TSD-QL-058..TSD-QL-070",
+    "TSD-CP-006": "TSD-QL-071..TSD-QL-083",
+  }),
+  uniqueFrozenQuestionsPerLanguage: 156,
+  uniqueFrozenQuestionsPerCheckpointPerLanguage: 78,
 });
 
-function rowsFor(language: Tsd001QuestionStudioLanguage, qlId: string) {
-  if (language === "en") return ENGLISH_BY_QL.get(qlId) ?? [];
-  return TSD_CP005_APPROVED_NATIVE_FROZEN_V5_156Q.filter(
-    (row) => row.source.permanentQlId === qlId && row.presentation.language === language,
-  );
+function cpForQl(qlId: string): Tsd001QuestionStudioCheckpointId | undefined {
+  if (CP005_QL_IDS.includes(qlId as Tsd001QuestionStudioQlId)) return "TSD-CP-005";
+  if (CP006_QL_IDS.includes(qlId as Tsd001QuestionStudioQlId)) return "TSD-CP-006";
+  return undefined;
 }
 
-function normalizeRow(row: any, language: Tsd001QuestionStudioLanguage, itemSeed: string) {
+function rowsFor(cpId: Tsd001QuestionStudioCheckpointId, language: Tsd001QuestionStudioLanguage, qlId: string): readonly any[] {
+  if (language === "en") {
+    return (ENGLISH_BY_CP.get(cpId) ?? []).filter((row: any) => row.permanentQlId === qlId);
+  }
+  const nativeRows = cpId === "TSD-CP-005"
+    ? TSD_CP005_APPROVED_NATIVE_FROZEN_V5_156Q
+    : TSD_CP006_APPROVED_NATIVE_FROZEN_V7_156Q;
+  return nativeRows.filter((row: any) => row.source.permanentQlId === qlId && row.presentation.language === language);
+}
+
+function freezeTrace(cpId: Tsd001QuestionStudioCheckpointId) {
+  return cpId === "TSD-CP-005"
+    ? Object.freeze({
+        releaseId: "TSD-CP005-MULTILINGUAL-FROZEN-STUDIO-REVIEW-V1",
+        englishFreezeId: TSD_CP005_ENGLISH_FREEZE_ID,
+        nativeFreezeId: TSD_CP005_HI_PA_FREEZE_ID,
+        nativeApprovedSourceHead: TSD_CP005_HI_PA_APPROVED_SOURCE_HEAD,
+      })
+    : Object.freeze({
+        releaseId: "TSD-CP006-MULTILINGUAL-FROZEN-STUDIO-REVIEW-V1",
+        englishFreezeId: TSD_CP006_ENGLISH_FREEZE_ID,
+        nativeFreezeId: TSD_CP006_HI_PA_FREEZE_ID,
+        nativeApprovedSourceHead: TSD_CP006_HI_PA_APPROVED_SOURCE_HEAD,
+      });
+}
+
+function normalizeRow(row: any, language: Tsd001QuestionStudioLanguage, cpId: Tsd001QuestionStudioCheckpointId, itemSeed: string) {
   const source = language === "en" ? row : row.source;
   const presentation = language === "en" ? row : row.presentation;
-  const difficultyBand = difficultyOf(source.difficulty);
-  const explanation = presentation.explanation;
+  const difficultyBand = difficultyOf(String(source.difficulty));
+  const explanation = presentation.explanation ?? {};
   const explanationLines = Object.freeze([
     explanation.method,
-    ...explanation.steps,
+    ...(Array.isArray(explanation.steps) ? explanation.steps : []),
     explanation.shortcut,
     explanation.finalAnswer,
   ].filter((line): line is string => typeof line === "string" && line.trim().length > 0));
   const identity = hash([
+    cpId,
     source.permanentQlId,
     language,
     source.seed,
@@ -166,18 +223,16 @@ function normalizeRow(row: any, language: Tsd001QuestionStudioLanguage, itemSeed
     ? source.validation.errors.map(String)
     : [];
   const validationOk = source.validation?.valid !== false && validationErrors.length === 0;
-  const safeSourceInput = Object.freeze(toJsonSafe(source.input) as Record<string, unknown>);
-  const safeSourceValidation = Object.freeze(toJsonSafe(source.validation) as Record<string, unknown>);
+  const safeSourceInput = jsonSafeObject(source.input);
+  const safeSourceValidation = jsonSafeObject(source.validation);
   const safeRepresentation = toJsonSafe(source.representation);
+  const frozenTrace = freezeTrace(cpId);
   const traceability = Object.freeze({
-    releaseId: "TSD-CP005-MULTILINGUAL-FROZEN-STUDIO-REVIEW-V1",
-    englishFreezeId: TSD_CP005_ENGLISH_FREEZE_ID,
-    nativeFreezeId: TSD_CP005_HI_PA_FREEZE_ID,
-    nativeApprovedSourceHead: TSD_CP005_HI_PA_APPROVED_SOURCE_HEAD,
+    ...frozenTrace,
     permanentQlId: source.permanentQlId,
-    checkpointId: "TSD-CP-005",
+    checkpointId: cpId,
     solveMode: source.solveMode,
-    mathematicalFingerprint: source.mathematicalFingerprint,
+    mathematicalFingerprint: source.mathematicalFingerprint ?? source.seed,
     frozenSourceSeed: source.seed,
     sourceQuestionStudioEnabled: false,
     adapterQuestionStudioAccess: true,
@@ -189,7 +244,7 @@ function normalizeRow(row: any, language: Tsd001QuestionStudioLanguage, itemSeed
 
   const questionPackage = Object.freeze({
     packageId: TSD_001_QUESTION_STUDIO_PACKAGE_ID,
-    canonicalProblemId: "TSD-CP-005" as const,
+    canonicalProblemId: cpId,
     questionLanguageId: source.permanentQlId,
     explanationId: `${source.permanentQlId}-EXP-${language.toUpperCase()}`,
     questionId,
@@ -236,7 +291,7 @@ function normalizeRow(row: any, language: Tsd001QuestionStudioLanguage, itemSeed
     topic: "Arithmetic",
     subtopic: "Time, Speed & Distance",
     generationBackend: "quant-v4",
-    debugSource: "tsd-cp005-frozen-review-adapter",
+    debugSource: `${cpId.toLowerCase()}-frozen-review-adapter`,
     semanticMetadata: traceability,
     traceability,
     validation: questionPackage.validation,
@@ -257,7 +312,7 @@ function normalizeRow(row: any, language: Tsd001QuestionStudioLanguage, itemSeed
       language,
       locale,
       packageId: TSD_001_QUESTION_STUDIO_PACKAGE_ID,
-      canonicalProblemId: "TSD-CP-005",
+      canonicalProblemId: cpId,
       questionLanguageId: source.permanentQlId,
       explanationId: questionPackage.explanationId,
       runtimeMode: questionPackage.runtimeMode,
@@ -267,7 +322,7 @@ function normalizeRow(row: any, language: Tsd001QuestionStudioLanguage, itemSeed
       publiclyPublishable: false,
       releaseId: traceability.releaseId,
     }),
-    canonicalProblemId: "TSD-CP-005",
+    canonicalProblemId: cpId,
     questionLanguageId: source.permanentQlId,
     explanationId: questionPackage.explanationId,
     proceduralLogic: safeSourceInput,
@@ -282,40 +337,62 @@ export function generateTsd001QuestionStudioBatch(request: Tsd001QuestionStudioR
   if (!TSD_001_QUESTION_STUDIO_LANGUAGES.includes(language)) {
     throw new Error(`TSD-001 does not support Question Studio language '${String(language)}'.`);
   }
-  const cpId = request.canonicalProblemId ?? request.cpId;
-  if (cpId && cpId !== "TSD-CP-005") {
-    throw new Error(`TSD-001 Question Studio currently exposes frozen TSD-CP-005 only, not '${cpId}'.`);
+
+  const requestedCp = request.canonicalProblemId ?? request.cpId;
+  if (requestedCp && !TSD_001_QUESTION_STUDIO_CP_IDS.includes(requestedCp as Tsd001QuestionStudioCheckpointId)) {
+    throw new Error(`TSD-001 Question Studio exposes frozen TSD-CP-005 and TSD-CP-006 only, not '${requestedCp}'.`);
   }
 
   const explicitQl = request.questionLanguageId as Tsd001QuestionStudioQlId | undefined;
-  if (explicitQl && !QL_IDS.includes(explicitQl)) {
-    throw new Error(`Unknown frozen CP005 Question Language '${explicitQl}'.`);
+  const qlCp = explicitQl ? cpForQl(explicitQl) : undefined;
+  if (explicitQl && !qlCp) throw new Error(`Unknown frozen TSD-001 Question Language '${explicitQl}'.`);
+  if (requestedCp && qlCp && requestedCp !== qlCp) {
+    throw new Error(`${explicitQl} belongs to ${qlCp}, not ${requestedCp}.`);
   }
+
+  const eligibleCpIds = requestedCp
+    ? [requestedCp as Tsd001QuestionStudioCheckpointId]
+    : qlCp
+      ? [qlCp]
+      : [...TSD_001_QUESTION_STUDIO_CP_IDS];
   const difficulty = normalizeDifficulty(request.difficulty);
-  const eligibleQls = QL_IDS.filter((qlId) => {
-    if (explicitQl && qlId !== explicitQl) return false;
-    const source = (ENGLISH_BY_QL.get(qlId) ?? [])[0];
-    return source && (!difficulty || difficultyOf(source.difficulty) === difficulty);
-  });
-  if (!eligibleQls.length) throw new Error("No frozen CP005 Question Studio rows match the requested filters.");
+  const candidates: Array<{ cpId: Tsd001QuestionStudioCheckpointId; qlId: Tsd001QuestionStudioQlId }> = [];
+  for (const cpId of eligibleCpIds) {
+    for (const qlId of QL_IDS_BY_CP.get(cpId) ?? []) {
+      if (explicitQl && qlId !== explicitQl) continue;
+      const rows = rowsFor(cpId, "en", qlId);
+      if (!difficulty || rows.some((row: any) => difficultyOf(String(row.difficulty)) === difficulty)) {
+        candidates.push({ cpId, qlId });
+      }
+    }
+  }
+  if (!candidates.length) throw new Error("No frozen TSD-001 Question Studio rows match the requested filters.");
 
   const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
-  const batchSeed = request.seed ?? `tsd-cp005-studio:${Date.now()}`;
+  const batchSeed = request.seed ?? `tsd-001-studio:${Date.now()}`;
   const results: Array<{ questionPackage: any; question: any }> = [];
   for (let index = 0; index < count; index += 1) {
-    const qlId = eligibleQls[hash(`${batchSeed}:ql:${index}`) % eligibleQls.length]!;
-    const variants = rowsFor(language, qlId);
-    if (variants.length !== 6) throw new Error(`${qlId}/${language}: expected six frozen review variants, found ${variants.length}.`);
-    const itemSeed = `${batchSeed}:${qlId}:${index}`;
+    const candidate = candidates[hash(`${batchSeed}:candidate:${index}`) % candidates.length]!;
+    const allVariants = rowsFor(candidate.cpId, language, candidate.qlId);
+    if (allVariants.length !== 6) {
+      throw new Error(`${candidate.qlId}/${language}: expected six frozen review variants, found ${allVariants.length}.`);
+    }
+    const variants = difficulty
+      ? allVariants.filter((row: any) => difficultyOf(String((language === "en" ? row : row.source).difficulty)) === difficulty)
+      : allVariants;
+    if (!variants.length) throw new Error(`${candidate.qlId}/${language}: no frozen ${difficulty} variants available.`);
+    const itemSeed = `${batchSeed}:${candidate.cpId}:${candidate.qlId}:${index}`;
     const row = variants[hash(`${itemSeed}:variant`) % variants.length]!;
-    results.push(normalizeRow(row, language, itemSeed));
+    results.push(normalizeRow(row, language, candidate.cpId, itemSeed));
   }
 
+  const checkpointsUsed = Object.freeze([...new Set(results.map((item) => item.questionPackage.canonicalProblemId))]);
   return Object.freeze({
     generationContext: Object.freeze({
       generationDomain: "quant-v4",
       packageId: TSD_001_QUESTION_STUDIO_PACKAGE_ID,
-      checkpointId: "TSD-CP-005",
+      checkpointId: checkpointsUsed.length === 1 ? checkpointsUsed[0] : "TSD-CP-005+TSD-CP-006",
+      checkpointIds: checkpointsUsed,
       seed: batchSeed,
       timestamp: Date.now(),
       runtimeMode: TSD_001_QUESTION_STUDIO_RUNTIME_MODE,
@@ -324,7 +401,8 @@ export function generateTsd001QuestionStudioBatch(request: Tsd001QuestionStudioR
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
       questionStudioReviewOnly: true,
-      uniqueFrozenSurfacePerLanguage: 78,
+      uniqueFrozenSurfacePerLanguage: 156,
+      frozenQlRange: "TSD-QL-058..TSD-QL-083",
     }),
     questionPackages: Object.freeze(results.map((item) => item.questionPackage)),
     questions: Object.freeze(results.map((item) => item.question)),
