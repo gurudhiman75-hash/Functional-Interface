@@ -1,0 +1,72 @@
+name: Validate TSD CP007 ownership review gate
+
+on:
+  push:
+    branches:
+      - feat/tsd-cp007-executable-discovery-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/**
+      - .github/workflows/tsd-cp007-ownership-review.yml
+  pull_request:
+    branches:
+      - feat/tsd-cp006-question-studio-review-v1
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/**
+      - .github/workflows/tsd-cp007-ownership-review.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tsd-cp007-ownership-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ownership-review-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check for CP007 review package
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007 -name '*.ts' -print)
+      - name: Run CP007 ownership and lifecycle proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/ownership-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-ownership-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-ownership-proof-exit
+          exit 0
+      - name: Publish proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp007-ownership-review-proof
+          path: |
+            /tmp/tsd-cp007-ownership-proof.log
+            /tmp/tsd-cp007-ownership-proof-exit
+          if-no-files-found: error
+          retention-days: 14
+      - name: Enforce proof result
+        run: test "$(cat /tmp/tsd-cp007-ownership-proof-exit)" = "0"
