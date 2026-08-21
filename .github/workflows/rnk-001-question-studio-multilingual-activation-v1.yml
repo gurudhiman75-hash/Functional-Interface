@@ -1,0 +1,92 @@
+name: Validate RNK-001 Question Studio Multilingual Activation V1
+
+on:
+  push:
+    branches:
+      - feature/rnk-001-question-studio-multilingual-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
+      - '.github/workflows/rnk-001-question-studio-multilingual-activation-v1.yml'
+  pull_request:
+    branches:
+      - integration/rnk-001-multilingual-runtime-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
+      - '.github/workflows/rnk-001-question-studio-multilingual-activation-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rnk-001-question-studio-multilingual-activation-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-question-studio-multilingual-activation-v1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Validate 42 QLs x 3 languages and activation locks
+        run: |
+          mkdir -p /tmp/rnk-001-question-studio-multilingual-v1
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-question-studio-multilingual-activation-v1.test.ts \
+            | tee /tmp/rnk-001-question-studio-multilingual-v1/ACTIVATION-GATE.txt
+
+      - name: Validate shared Question Studio regression
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-shared-question-studio.test.ts
+
+      - name: Re-prove frozen English and presentation authority
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-v1.test.ts
+
+      - name: Re-prove delivery adapters
+        run: |
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-banking-five-option-adapter-v1.test.ts
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-percentage-presentation-adapter-v2.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+
+      - name: Record activation evidence
+        run: |
+          cat > /tmp/rnk-001-question-studio-multilingual-v1/ACTIVATION-EVIDENCE.txt <<'EOF'
+          RNK-001 Question Studio multilingual activation V1
+          Content authority freeze PR: 945
+          Content authority freeze head: d73b445916d8c10b4551d1a05e75a7ca3973081c
+          Content authority freeze run: 32335249084 SUCCESS
+          Combined semantic proof PR: 938
+          Combined semantic proof run: 32327889203 SUCCESS
+          Frozen locale authority files materialized: 68
+          Question Studio languages: en, hi, pa
+          Question Studio mode: REVIEW_ONLY
+          Hindi/Punjabi arrangement explanation: clue-by-clue for QL027..034
+          Question Bank writable: FALSE
+          Test eligible: FALSE
+          Mock-test eligible: FALSE
+          Publicly publishable: FALSE
+          Automatic student publication: FALSE
+          RNK-QL-043 allocated: FALSE
+          New-main merge authorized: FALSE
+          EOF
+
+      - name: Retain activation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-question-studio-multilingual-activation-v1
+          path: /tmp/rnk-001-question-studio-multilingual-v1/*
+          if-no-files-found: error
