@@ -5,30 +5,31 @@ import {
   type AlgebraStudioLanguage,
 } from "./algebra-question-studio-runtime-v1";
 import {
-  ALGEBRA_QUESTION_STUDIO_PACKAGE_V2,
-  generateAlgebraStudioQuestionV2,
-} from "./algebra-question-studio-runtime-v2";
-import { generateAlgebraStudioBatchV2 } from "./algebra-question-studio-selection-v2";
+  ALGEBRA_QUESTION_STUDIO_PACKAGE_V3,
+  generateAlgebraStudioBatchV3,
+  generateAlgebraStudioQuestionV3,
+} from "./algebra-question-studio-runtime-v3";
 
 function assert(condition: boolean, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-assert(ALGEBRA_QUESTION_STUDIO_PACKAGE_V2.qlCount === 43, "Algebra Question Studio must expose exactly 43 frozen QLs");
-assert(ALGEBRA_QUESTION_STUDIO_PACKAGE_V2.patternCount === 109, "Algebra Question Studio must expose exactly 109 mapped variants");
+assert(ALGEBRA_QUESTION_STUDIO_PACKAGE_V3.qlCount === 43, "Algebra Question Studio must expose exactly 43 frozen QLs");
+assert(ALGEBRA_QUESTION_STUDIO_PACKAGE_V3.patternCount === 109, "Algebra Question Studio must expose exactly 109 mapped variants");
 assert(ALGEBRA_QUESTION_STUDIO_CANONICAL_PROBLEMS.length === 14, "Algebra Question Studio must expose ALG-CP-001..014");
-assert(ALGEBRA_QUESTION_STUDIO_PACKAGE_V2.questionStudioDiscoverable, "Question Studio package must be discoverable");
-assert(ALGEBRA_QUESTION_STUDIO_PACKAGE_V2.persistenceAllowed, "Question Studio review persistence must be allowed");
-assert(!ALGEBRA_QUESTION_STUDIO_PACKAGE_V2.questionBankWritable, "Question Bank writes must remain locked");
-assert(!ALGEBRA_QUESTION_STUDIO_PACKAGE_V2.testEligible, "Test eligibility must remain locked");
-assert(!ALGEBRA_QUESTION_STUDIO_PACKAGE_V2.mockTestEligible, "Mock eligibility must remain locked");
-assert(!ALGEBRA_QUESTION_STUDIO_PACKAGE_V2.publiclyPublishable, "Publication must remain locked");
+assert(ALGEBRA_QUESTION_STUDIO_PACKAGE_V3.questionStudioDiscoverable, "Question Studio package must be discoverable");
+assert(ALGEBRA_QUESTION_STUDIO_PACKAGE_V3.persistenceAllowed, "Question Studio review persistence must be allowed");
+assert(!ALGEBRA_QUESTION_STUDIO_PACKAGE_V3.questionBankWritable, "Question Bank writes must remain locked");
+assert(!ALGEBRA_QUESTION_STUDIO_PACKAGE_V3.testEligible, "Test eligibility must remain locked");
+assert(!ALGEBRA_QUESTION_STUDIO_PACKAGE_V3.mockTestEligible, "Mock eligibility must remain locked");
+assert(!ALGEBRA_QUESTION_STUDIO_PACKAGE_V3.publiclyPublishable, "Publication must remain locked");
 
 const languages: readonly AlgebraStudioLanguage[] = ["en", "hi", "pa"];
 const correctPositions = new Set<number>();
 const difficultyBands = new Set<string>();
 const qls = new Set<string>();
 const prototypes = new Set<string>();
+const answerKinds = new Set<string>();
 let samples = 0;
 
 for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
@@ -36,7 +37,7 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
   prototypes.add(pattern.prototypeId);
   for (const language of languages) {
     for (let seed = 1; seed <= 12; seed += 1) {
-      const question = generateAlgebraStudioQuestionV2({
+      const question = generateAlgebraStudioQuestionV3({
         pattern,
         language,
         examProfile: "SSC_CORE",
@@ -58,7 +59,14 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
       assert(question.stem.trim().length > 0, `${prefix}: empty stem`);
       assert(question.explanation.steps.length > 0, `${prefix}: empty explanation`);
       assert(question.questionLanguageId.endsWith(language === "en" ? ":en-IN" : language === "hi" ? ":hi-IN" : ":pa-IN"), `${prefix}: locale identity mismatch`);
+      if (language !== "en") {
+        for (const option of question.options) {
+          assert(!/[A-Za-z]{3,}/.test(option), `${prefix}: localized option leaked English prose: ${option}`);
+        }
+      }
       JSON.stringify(question);
+      const answer = question.canonicalAnswer as any;
+      answerKinds.add(typeof answer === "string" ? "STRING_RELATION" : String(answer?.kind ?? "UNKNOWN"));
       correctPositions.add(question.correctIndex);
       difficultyBands.add(question.difficultyBand);
       samples += 1;
@@ -69,11 +77,12 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
 assert(samples === 3924, `Expected 3,924 Question Studio samples, found ${samples}`);
 assert(qls.size === 43, `Expected 43 QLs, found ${qls.size}`);
 assert(prototypes.size === 109, `Expected 109 prototype variants, found ${prototypes.size}`);
+assert(answerKinds.size === 28, `Expected 28 canonical answer-shape families, found ${answerKinds.size}: ${[...answerKinds].sort().join(", ")}`);
 assert(correctPositions.size === 4, `Expected all four answer positions, found ${[...correctPositions].join(",")}`);
 assert(difficultyBands.size === 3, `Expected Easy/Medium/Hard coverage, found ${[...difficultyBands].join(",")}`);
 
 for (const profile of ALGEBRA_QUESTION_STUDIO_EXAM_PROFILES) {
-  const batch = generateAlgebraStudioBatchV2({
+  const batch = generateAlgebraStudioBatchV3({
     language: profile === "PUNJAB_STATE" ? "pa" : "en",
     examProfile: profile,
     seed: `alg-profile-${profile}`,
@@ -87,5 +96,5 @@ for (const profile of ALGEBRA_QUESTION_STUDIO_EXAM_PROFILES) {
 }
 
 console.log(
-  `Algebra Question Studio V2 audit passed: ${samples} samples, 43 QLs, 109 variants, 3 languages, 4 exam profiles; options JSON-safe and downstream locked`,
+  `Algebra Question Studio V3 audit passed: ${samples} samples, 43 QLs, 109 variants, 28 answer families, 3 languages, 4 exam profiles; options native/JSON-safe and downstream locked`,
 );
