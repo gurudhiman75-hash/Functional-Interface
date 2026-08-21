@@ -79,6 +79,39 @@ function cleanCentroidSolution(model: GeoDiagramModel): GeoDiagramModel {
   };
 }
 
+function cleanMidpointSolution(model: GeoDiagramModel): GeoDiagramModel {
+  return {
+    ...model,
+    labels: model.labels.map((label) => {
+      if (label.id === "derived-ae-ec") return { ...label, x: 265, y: 150 };
+      if (label.id === "answer-ae") return { ...label, x: 265, y: 105 };
+      return label;
+    }),
+  };
+}
+
+function refinalize(raw: GapWave6Question, diagramModel: GeoDiagramModel | undefined, solutionDiagramModel: GeoDiagramModel): GapWave6Question {
+  return finalizeGapWave6Question({
+    temporaryPrototypeId: raw.temporaryPrototypeId,
+    sourceGapId: raw.sourceGapId,
+    sourceEvidenceIds: raw.sourceEvidenceIds,
+    solveMode: raw.solveMode,
+    seed: raw.seed,
+    stem: raw.stem,
+    options: raw.options,
+    correctIndex: raw.correctIndex,
+    optionAnalysis: raw.optionAnalysis,
+    explanation: raw.explanation,
+    theoremTrace: raw.theoremTrace,
+    displayedClueIds: raw.displayedClueIds,
+    minimalityProof: raw.minimalityProof,
+    independentVerifierResult: raw.independentVerifierResult,
+    diagramDisposition: raw.diagramDisposition,
+    diagramModel,
+    solutionDiagramModel,
+  });
+}
+
 function remediateDirectQuestion(seed: string): GapWave6Question {
   const raw = BASE_WAVE6_PROTOTYPES[0].generate(seed);
   if (!raw.diagramModel) throw new Error("Wave 6 direct stem diagram missing before remediation");
@@ -124,49 +157,18 @@ function remediateDirectQuestion(seed: string): GapWave6Question {
 
 function remediateRhombusQuestion(seed: string): GapWave6Question {
   const raw = BASE_WAVE6_PROTOTYPES[1].generate(seed);
-  return finalizeGapWave6Question({
-    temporaryPrototypeId: raw.temporaryPrototypeId,
-    sourceGapId: raw.sourceGapId,
-    sourceEvidenceIds: raw.sourceEvidenceIds,
-    solveMode: raw.solveMode,
-    seed: raw.seed,
-    stem: raw.stem,
-    options: raw.options,
-    correctIndex: raw.correctIndex,
-    optionAnalysis: raw.optionAnalysis,
-    explanation: raw.explanation,
-    theoremTrace: raw.theoremTrace,
-    displayedClueIds: raw.displayedClueIds,
-    minimalityProof: raw.minimalityProof,
-    independentVerifierResult: raw.independentVerifierResult,
-    diagramDisposition: raw.diagramDisposition,
-    diagramModel: raw.diagramModel,
-    solutionDiagramModel: cleanRhombusSolution(raw.solutionDiagramModel),
-  });
+  return refinalize(raw, raw.diagramModel, cleanRhombusSolution(raw.solutionDiagramModel));
 }
 
 function remediateCentroidQuestion(seed: string): GapWave6Question {
   const raw = BASE_WAVE6_PROTOTYPES[2].generate(seed);
   if (!raw.diagramModel) throw new Error("Wave 6 centroid stem diagram missing before remediation");
-  return finalizeGapWave6Question({
-    temporaryPrototypeId: raw.temporaryPrototypeId,
-    sourceGapId: raw.sourceGapId,
-    sourceEvidenceIds: raw.sourceEvidenceIds,
-    solveMode: raw.solveMode,
-    seed: raw.seed,
-    stem: raw.stem,
-    options: raw.options,
-    correctIndex: raw.correctIndex,
-    optionAnalysis: raw.optionAnalysis,
-    explanation: raw.explanation,
-    theoremTrace: raw.theoremTrace,
-    displayedClueIds: raw.displayedClueIds,
-    minimalityProof: raw.minimalityProof,
-    independentVerifierResult: raw.independentVerifierResult,
-    diagramDisposition: raw.diagramDisposition,
-    diagramModel: cleanCentroidStem(raw.diagramModel),
-    solutionDiagramModel: cleanCentroidSolution(raw.solutionDiagramModel),
-  });
+  return refinalize(raw, cleanCentroidStem(raw.diagramModel), cleanCentroidSolution(raw.solutionDiagramModel));
+}
+
+function remediateMidpointQuestion(seed: string): GapWave6Question {
+  const raw = BASE_WAVE6_PROTOTYPES[3].generate(seed);
+  return refinalize(raw, raw.diagramModel, cleanMidpointSolution(raw.solutionDiagramModel));
 }
 
 export const GEO_GAP_REMEDIATION_WAVE6_PROTOTYPES: readonly GapWave6PrototypeDefinition[] = Object.freeze(
@@ -174,6 +176,7 @@ export const GEO_GAP_REMEDIATION_WAVE6_PROTOTYPES: readonly GapWave6PrototypeDef
     if (index === 0) return Object.freeze({ ...prototype, generate: remediateDirectQuestion });
     if (index === 1) return Object.freeze({ ...prototype, generate: remediateRhombusQuestion });
     if (index === 2) return Object.freeze({ ...prototype, generate: remediateCentroidQuestion });
+    if (index === 3) return Object.freeze({ ...prototype, generate: remediateMidpointQuestion });
     return prototype;
   }),
 );
