@@ -56,9 +56,11 @@ const forbidden = [
 ];
 
 const required = [
-  ["home", "Published tests:", "Homepage should expose a truthful catalog-backed test count."],
-  ["home", "Questions in live catalog:", "Homepage should expose only the current catalog question count."],
-  ["home", "Browse Live Tests", "Homepage primary CTA must lead to a live student journey."],
+  ["home", "Published tests", "Homepage should expose a truthful catalog-backed test count."],
+  ["home", "{formatCount(tests.length)}", "Homepage catalog-backed test count must render from the live tests array."],
+  ["home", "catalogQuestionCount = tests.reduce", "Homepage question count must be derived from the current live catalog."],
+  ["home", "{formatCount(catalogQuestionCount)}", "Homepage should render only the derived current catalog question count."],
+  ["home", 'setLocation("/mock-tests")', "Homepage primary CTA must lead to the live mock-test journey."],
   ["home", "attemptId=", "Resume/review link must carry the canonical attempt id."],
   ["tests", "The test catalog is temporarily unavailable.", "Catalog errors should use student-safe recovery copy."],
   ["category", "The exam catalog is temporarily unavailable. Please try again.", "Category errors should use student-safe recovery copy."],
