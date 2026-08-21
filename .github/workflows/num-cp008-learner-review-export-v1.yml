@@ -1,0 +1,49 @@
+name: Export NUM-CP-008 learner review markdown
+
+on:
+  push:
+    branches:
+      - feature/num-cp008-learner-review-export-v1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export-num-cp008-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle learner review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/permanent-learner-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp008-permanent-learner-review-export.mjs
+
+      - name: Generate learner review markdown
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-cp008-permanent-learner-review-export.mjs
+
+      - name: Upload learner review markdown
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp008-permanent-learner-review-v1
+          if-no-files-found: error
+          retention-days: 14
+          path: artifacts/api-server/dist/quant-v4/num-cp008-permanent-learner-review.md
