@@ -1,3 +1,4 @@
+// Post-merge certification sentinel: comment-only, no runtime or audit behavior change.
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
