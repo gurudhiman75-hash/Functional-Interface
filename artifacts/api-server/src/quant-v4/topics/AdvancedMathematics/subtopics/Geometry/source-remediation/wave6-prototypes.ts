@@ -45,10 +45,10 @@ function cleanDirectSolution(raw: GapWave6Question, model: GeoDiagramModel): Geo
 
 function cleanRhombusSolution(model: GeoDiagramModel): GeoDiagramModel {
   const slots = new Map<string, Readonly<{ x: number; y: number }>>([
-    ["given-so", { x: 245, y: 55 }],
-    ["given-oq", { x: 245, y: 85 }],
-    ["derived-collinear", { x: 245, y: 115 }],
-    ["answer-sq", { x: 245, y: 145 }],
+    ["given-so", { x: 300, y: 55 }],
+    ["given-oq", { x: 300, y: 85 }],
+    ["derived-collinear", { x: 300, y: 115 }],
+    ["answer-sq", { x: 300, y: 145 }],
   ]);
   return {
     ...model,
