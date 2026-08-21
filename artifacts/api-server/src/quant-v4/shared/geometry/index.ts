@@ -20,6 +20,7 @@ export * from "./formatting";
 export * from "./svg-renderer";
 export * from "./triangle-inference";
 export * from "./triangle-centre-inference";
+export * from "./segment-bisector-inference";
 export * from "./right-triangle-inference";
 export * from "./quadrilateral-inference";
 export * from "./polygon-inference";
