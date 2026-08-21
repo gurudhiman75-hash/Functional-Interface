@@ -51,7 +51,7 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-route-v1.test.ts \
-            --bundle --platform=node --format=esm \
+            --bundle --platform=node --format=esm --packages=external \
             --outfile=dist/quant-v4/algebra/algebra-question-studio-route-v1.test.mjs
       - name: Run Algebra Question Studio route contract
         run: |
