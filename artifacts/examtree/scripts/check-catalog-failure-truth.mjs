@@ -53,10 +53,10 @@ assert.match(mockTests, /No mock tests are published yet/);
 
 assert.match(proof, /catalog temporarily unavailable[\s\S]*?503/);
 assert.match(proof, /getByTestId\("catalog-unavailable"\)/);
-assert.match(proof, /expect\(page\.getByText\("Published tests: 0", \{ exact: true \}\)\)\.toHaveCount\(0\)/);
+assert.match(proof, /getByText\("Published tests", \{ exact: true \}\)\)\.toHaveCount\(0\)/);
 assert.match(proof, /getByRole\("button", \{ name: "Retry catalog" \}\)\.click\(\)/);
 assert.match(proof, /__catalogRetrySentinel = "preserved"/);
-assert.match(proof, /expect\(page\.getByText\("Published tests: 1", \{ exact: true \}\)\)\.toBeVisible\(\)/);
+assert.match(proof, /publishedTestsStat[\s\S]*?toContainText\("1"\)/);
 assert.match(proof, /expect\(page\.getByText\("SSC CGL Mock 1", \{ exact: true \}\)\.first\(\)\)\.toBeVisible\(\)/);
 assert.match(proof, /No mock tests are published yet/);
 assert.match(proof, /expect\(page\.getByTestId\("catalog-unavailable"\)\)\.toHaveCount\(0\)/);
