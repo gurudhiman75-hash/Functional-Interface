@@ -43,6 +43,22 @@ function cleanDirectSolution(raw: GapWave6Question, model: GeoDiagramModel): Geo
   };
 }
 
+function cleanRhombusSolution(model: GeoDiagramModel): GeoDiagramModel {
+  const slots = new Map<string, Readonly<{ x: number; y: number }>>([
+    ["given-so", { x: 245, y: 55 }],
+    ["given-oq", { x: 245, y: 85 }],
+    ["derived-collinear", { x: 245, y: 115 }],
+    ["answer-sq", { x: 245, y: 145 }],
+  ]);
+  return {
+    ...model,
+    labels: model.labels.map((label) => {
+      const slot = slots.get(label.id);
+      return slot ? { ...label, ...slot } : label;
+    }),
+  };
+}
+
 function remediateDirectQuestion(seed: string): GapWave6Question {
   const raw = BASE_WAVE6_PROTOTYPES[0].generate(seed);
   if (!raw.diagramModel) throw new Error("Wave 6 direct stem diagram missing before remediation");
@@ -86,8 +102,33 @@ function remediateDirectQuestion(seed: string): GapWave6Question {
   });
 }
 
+function remediateRhombusQuestion(seed: string): GapWave6Question {
+  const raw = BASE_WAVE6_PROTOTYPES[1].generate(seed);
+  return finalizeGapWave6Question({
+    temporaryPrototypeId: raw.temporaryPrototypeId,
+    sourceGapId: raw.sourceGapId,
+    sourceEvidenceIds: raw.sourceEvidenceIds,
+    solveMode: raw.solveMode,
+    seed: raw.seed,
+    stem: raw.stem,
+    options: raw.options,
+    correctIndex: raw.correctIndex,
+    optionAnalysis: raw.optionAnalysis,
+    explanation: raw.explanation,
+    theoremTrace: raw.theoremTrace,
+    displayedClueIds: raw.displayedClueIds,
+    minimalityProof: raw.minimalityProof,
+    independentVerifierResult: raw.independentVerifierResult,
+    diagramDisposition: raw.diagramDisposition,
+    diagramModel: raw.diagramModel,
+    solutionDiagramModel: cleanRhombusSolution(raw.solutionDiagramModel),
+  });
+}
+
 export const GEO_GAP_REMEDIATION_WAVE6_PROTOTYPES: readonly GapWave6PrototypeDefinition[] = Object.freeze(
-  BASE_WAVE6_PROTOTYPES.map((prototype, index) => index === 0
-    ? Object.freeze({ ...prototype, generate: remediateDirectQuestion })
-    : prototype),
+  BASE_WAVE6_PROTOTYPES.map((prototype, index) => {
+    if (index === 0) return Object.freeze({ ...prototype, generate: remediateDirectQuestion });
+    if (index === 1) return Object.freeze({ ...prototype, generate: remediateRhombusQuestion });
+    return prototype;
+  }),
 );
