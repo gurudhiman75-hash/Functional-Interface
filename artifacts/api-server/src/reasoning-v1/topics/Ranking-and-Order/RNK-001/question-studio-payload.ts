@@ -66,7 +66,7 @@ export function buildRnk001QuestionStudioPayload(question: RnkQuestionStudioRevi
     reviewStatus: RNK_001_QUESTION_STUDIO_REVIEW_STATUS,
     lifecycleStatus: question.lifecycleStatus,
     questionStudioVisible: true as const,
-    questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
+    questionStudioRegistrationStatus: "REGISTERED_MULTILINGUAL_REVIEW_ONLY" as const,
     questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED" as const,
     revisionPolicy: RNK_001_QUESTION_STUDIO_REVISION_POLICY,
     questionBankStatus: "NOT_STORED" as const,
@@ -97,7 +97,9 @@ export function buildRnk001QuestionStudioPayload(question: RnkQuestionStudioRevi
       reviewStatus: RNK_001_QUESTION_STUDIO_REVIEW_STATUS,
       lifecycleStatus: "REVIEW_ONLY" as const,
       reviewOnly: true as const,
+      questionStudioRegistrationStatus: "REGISTERED_MULTILINGUAL_REVIEW_ONLY" as const,
       englishOnlyUntilMultilingualConsolidation: RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.englishOnlyUntilMultilingualConsolidation,
+      multilingualContentFreeze: RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.multilingualContentFreeze,
       percentageAdapterStatus: RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.percentageAdapterStatus,
       explanationPresentation: question.language === "en"
         ? "DECLUTTERED_V1" as const
