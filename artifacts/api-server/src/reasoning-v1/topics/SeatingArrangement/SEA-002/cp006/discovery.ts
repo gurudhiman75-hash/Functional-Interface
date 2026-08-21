@@ -9,6 +9,7 @@ import {
 } from "./generator.ts";
 import { sameRowMove } from "./topology.ts";
 import { compileCp006TeachingExplanation, cp006TeachingArrangement } from "./teaching-explanation.ts";
+import { compactCp006CaseTeaching } from "./presentation-polish.ts";
 
 function key(clue: Sea002Cp006Clue): string { return canonicalDigest(clue); }
 
@@ -91,12 +92,13 @@ export function generateSea002Cp006DiscoveryCaselet(
   const solutionClueTexts=clues.map(renderCp006Clue);
   const diagram=learnerDiagram(base);
   const children=base.children.map(plainChild) as Sea002Cp006Caselet["children"];
+  const sharedExplanation=compactCp006CaseTeaching(compileCp006TeachingExplanation(base.state,base.people,clues,solutionClueTexts));
   return {
     ...base,
     setupText:examLikeSetup(base.people,base.state),
     clues,
     clueTexts,
-    sharedExplanation:compileCp006TeachingExplanation(base.state,base.people,clues,solutionClueTexts),
+    sharedExplanation,
     diagramText:diagram.text,
     diagram,
     children,
