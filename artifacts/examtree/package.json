@@ -21,8 +21,9 @@
     "audit:public-seo": "node scripts/check-public-seo.mjs",
     "audit:public-prerender": "node scripts/check-public-prerender.mjs",
     "audit:catalog-scale": "node scripts/check-catalog-scale.mjs",
+    "audit:catalog-failure-truth": "node scripts/check-catalog-failure-truth.mjs",
     "audit:startup-performance": "node scripts/check-startup-performance.mjs",
-    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run audit:public-shell && pnpm run audit:app-chrome-accessibility && pnpm run audit:zoom-contrast && pnpm run audit:touch-targets && pnpm run audit:runner-zoom-contrast && pnpm run audit:runner-dialog-accessibility && pnpm run audit:support-handoff && pnpm run audit:public-seo && pnpm run audit:public-prerender && pnpm run audit:catalog-scale && pnpm run audit:startup-performance && pnpm run build"
+    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run audit:public-shell && pnpm run audit:app-chrome-accessibility && pnpm run audit:zoom-contrast && pnpm run audit:touch-targets && pnpm run audit:runner-zoom-contrast && pnpm run audit:runner-dialog-accessibility && pnpm run audit:support-handoff && pnpm run audit:public-seo && pnpm run audit:public-prerender && pnpm run audit:catalog-scale && pnpm run audit:catalog-failure-truth && pnpm run audit:startup-performance && pnpm run build"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",
