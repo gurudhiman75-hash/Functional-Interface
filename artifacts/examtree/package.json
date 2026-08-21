@@ -12,6 +12,7 @@
     "audit:timer-recovery": "node --experimental-strip-types scripts/check-timer-recovery.mjs",
     "audit:accessibility": "node scripts/check-accessibility-foundation.mjs",
     "audit:public-shell": "node scripts/check-public-shell.mjs",
+    "audit:visual-system-v1": "node scripts/check-visual-system-v1.mjs",
     "audit:app-chrome-accessibility": "node scripts/check-app-chrome-accessibility.mjs",
     "audit:zoom-contrast": "node scripts/check-zoom-contrast.mjs",
     "audit:touch-targets": "node scripts/check-touch-targets.mjs",
@@ -23,7 +24,7 @@
     "audit:catalog-scale": "node scripts/check-catalog-scale.mjs",
     "audit:catalog-failure-truth": "node scripts/check-catalog-failure-truth.mjs",
     "audit:startup-performance": "node scripts/check-startup-performance.mjs",
-    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run audit:public-shell && pnpm run audit:app-chrome-accessibility && pnpm run audit:zoom-contrast && pnpm run audit:touch-targets && pnpm run audit:runner-zoom-contrast && pnpm run audit:runner-dialog-accessibility && pnpm run audit:support-handoff && pnpm run audit:public-seo && pnpm run audit:public-prerender && pnpm run audit:catalog-scale && pnpm run audit:catalog-failure-truth && pnpm run audit:startup-performance && pnpm run build"
+    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run audit:public-shell && pnpm run audit:visual-system-v1 && pnpm run audit:app-chrome-accessibility && pnpm run audit:zoom-contrast && pnpm run audit:touch-targets && pnpm run audit:runner-zoom-contrast && pnpm run audit:runner-dialog-accessibility && pnpm run audit:support-handoff && pnpm run audit:public-seo && pnpm run audit:public-prerender && pnpm run audit:catalog-scale && pnpm run audit:catalog-failure-truth && pnpm run audit:startup-performance && pnpm run build"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",
