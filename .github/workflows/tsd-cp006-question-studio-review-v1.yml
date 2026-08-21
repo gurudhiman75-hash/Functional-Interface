@@ -1,0 +1,67 @@
+name: Validate TSD CP006 Question Studio Review
+
+on:
+  pull_request:
+    branches:
+      - freeze/tsd-cp006-hi-pa-v7-approved
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/**
+      - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - .github/workflows/tsd-cp006-question-studio-review-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-tsd-cp006-question-studio-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle frozen authorities and Studio proof
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/cp006-question-studio-review
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-approved-freeze-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-english-freeze-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/localization/native-approved-freeze-proof-v7.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-native-freeze-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-approved-freeze-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp005-native-freeze-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/question-studio-cp006-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/question-studio-proof.mjs"
+      - name: Re-prove frozen multilingual authorities
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp006-question-studio-review
+          node "$OUT/cp006-english-freeze-proof.mjs" 2>&1 | tee "$OUT/cp006-english-freeze-proof.log"
+          node "$OUT/cp006-native-freeze-proof.mjs" 2>&1 | tee "$OUT/cp006-native-freeze-proof.log"
+          node "$OUT/cp005-native-freeze-proof.mjs" 2>&1 | tee "$OUT/cp005-native-freeze-proof.log"
+      - name: Validate actual Question Studio routing
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp006-question-studio-review
+          node "$OUT/question-studio-proof.mjs" 2>&1 | tee "$OUT/question-studio-proof.log"
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Upload TSD CP006 Studio evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp006-question-studio-review-evidence
+          path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-question-studio-review/cp006-english-freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-question-studio-review/cp006-native-freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-question-studio-review/cp005-native-freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-question-studio-review/question-studio-proof.log
+          if-no-files-found: error
