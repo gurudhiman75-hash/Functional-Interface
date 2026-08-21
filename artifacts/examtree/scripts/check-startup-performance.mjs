@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const read = (relative) => fs.readFileSync(fileURLToPath(new URL(relative, import.meta.url)), "utf8");
 const app = read("../src/App.tsx");
 const publicLayout = read("../src/components/PublicLayout.tsx");
+const categoryIcon = read("../src/components/CategoryIcon.tsx");
 const login = read("../src/pages/login.tsx");
 const api = read("../src/lib/api.ts");
 const mathBoundary = read("../src/components/RouteMathBoundary.tsx");
@@ -79,11 +80,24 @@ assert.doesNotMatch(authBoundary, /\/privacy-policy/, "legal information routes 
 assert.match(login, /from "firebase\/auth"/, "student login must remain backed by Firebase Auth");
 assert.match(login, /from "@\/lib\/auth"/, "student login must retain the canonical auth helpers");
 
+assert.doesNotMatch(categoryIcon, /import \* as Icons from "lucide-react"/, "category icons must never import the full Lucide namespace");
+assert.match(categoryIcon, /type LucideIcon/, "category icon map must use the Lucide icon component type");
+assert.match(categoryIcon, /const lucideCategoryIcons: Readonly<Record<string, LucideIcon>>/, "category icons must use a bounded lookup map");
+assert.match(categoryIcon, /Landmark,[\s\S]*?BadgeCheck,[\s\S]*?Building2,[\s\S]*?GraduationCap,[\s\S]*?BriefcaseBusiness,[\s\S]*?Monitor/, "all canonical fallback category icons must remain available");
+assert.match(categoryIcon, /Heart,[\s\S]*?Banknote/, "documented historical category icon examples must remain available");
+assert.match(categoryIcon, /const IconComponent = lucideCategoryIcons\[icon\]/, "category icon lookup must use the bounded map");
+assert.match(categoryIcon, /return <BookOpen className=\{className\} \/>/, "unknown or empty category icons must retain the BookOpen fallback");
+
 assert.doesNotMatch(vite, /firebase:\s*\[/, "Firebase must not be forced into a manual chunk that can become an entry dependency");
 assert.doesNotMatch(vite, /hoistTransitiveImports:/, "startup isolation must not depend on a global Rollup hoisting override");
 assert.match(vite, /assertStaticEntryExcludesFirebase/, "production build must enforce a Firebase-free static entry graph");
 assert.match(vite, /node_modules\/firebase\//, "entry-graph guard must detect the Firebase package");
 assert.match(vite, /node_modules\/@firebase\//, "entry-graph guard must detect Firebase internal packages");
+assert.match(vite, /CATEGORY_ICON_CHUNK_BUDGET_BYTES = 64 \* 1024/, "production build must define a strict CategoryIcon chunk budget");
+assert.match(vite, /function assertCategoryIconBundleBudget\(\)/, "production build must own a CategoryIcon bundle guard");
+assert.match(vite, /includes\("\/src\/components\/CategoryIcon\.tsx"\)/, "bundle guard must identify the chunk containing CategoryIcon");
+assert.match(vite, /Buffer\.byteLength\(output\.code, "utf8"\)/, "bundle guard must measure emitted production bytes");
+assert.match(vite, /assertCategoryIconBundleBudget\(\)/, "CategoryIcon bundle guard must be enabled in the Vite plugin chain");
 
 assert.match(proof, /anonymous information pages download neither MathJax auth Firebase nor the exam catalog/);
 assert.match(proof, /exam discovery loads the catalog on demand without loading auth or Firebase/);
@@ -106,4 +120,4 @@ assert.match(proof, /localFirebaseChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous
 assert.match(proof, /localFirebaseChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove the Firebase helper chunk loads on demand");
 assert.match(proof, /\$x = 2\$/);
 
-console.log("Startup performance audit passed (77 assertions).");
+console.log("Startup performance audit passed (89 assertions).");
