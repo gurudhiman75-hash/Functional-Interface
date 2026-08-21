@@ -12,7 +12,7 @@ import {
   Hash,
   Lock,
   LogIn,
-  Package,
+  Package as PackageIcon,
   Play,
   RotateCcw,
   ShieldCheck,
@@ -342,7 +342,7 @@ export default function SubcategoryPage() {
               <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600">{TAB_DESCRIPTIONS[activeTab]}</p>
             </div>
 
-            <div className="flex gap-5 overflow-x-auto border-b border-slate-200" role="tablist" aria-label="Test format">
+            <div className="flex gap-5 overflow-x-auto border-b border-slate-200" aria-label="Test format">
               {(Object.keys(TAB_LABELS) as ExamTab[]).map((tab) => {
                 const count = examTests.filter((test) => (test.kind ?? "full-length") === tab).length;
                 const active = activeTab === tab;
@@ -350,8 +350,7 @@ export default function SubcategoryPage() {
                   <button
                     key={tab}
                     type="button"
-                    role="tab"
-                    aria-selected={active}
+                    aria-pressed={active}
                     onClick={() => setActiveTab(tab)}
                     className={`min-h-11 shrink-0 border-b-2 px-0.5 text-sm font-medium transition-colors ${
                       active ? "border-indigo-700 text-indigo-800" : "border-transparent text-slate-500 hover:text-slate-950"
@@ -534,7 +533,7 @@ function TestActionButton({ isLocked, pkgOwned, pkg, activeSession, attempted, u
   if (pkg) {
     return (
       <Button className="h-11 w-full lg:w-auto" variant="outline" onClick={onBuy}>
-        <Package className="mr-2 h-4 w-4" aria-hidden="true" />View package
+        <PackageIcon className="mr-2 h-4 w-4" aria-hidden="true" />View package
       </Button>
     );
   }
@@ -617,15 +616,13 @@ function ExamDescription({
         </div>
       )}
 
-      {(isLong || !expanded) && (
-        <button
-          type="button"
-          onClick={() => setExpanded((value) => !value)}
-          className="mt-2 min-h-10 text-sm font-semibold text-indigo-700 hover:text-indigo-900"
-        >
-          {expanded ? "Show less" : "Series details"}
-        </button>
-      )}
+      <button
+        type="button"
+        onClick={() => setExpanded((value) => !value)}
+        className="mt-2 min-h-10 text-sm font-semibold text-indigo-700 hover:text-indigo-900"
+      >
+        {expanded ? "Show less" : "Series details"}
+      </button>
     </div>
   );
 }
