@@ -29,6 +29,7 @@ export type Sea002Cp006Clue =
   | Readonly<{ kind: "SAME_ROW_RELATIVE"; target: Sea002PersonId; reference: Sea002PersonId; side: Sea002ParallelSide; steps: number }>
   | Readonly<{ kind: "SAME_ROW_GAP"; first: Sea002PersonId; second: Sea002PersonId; between: number }>
   | Readonly<{ kind: "SAME_ROW_MIN_BETWEEN"; first: Sea002PersonId; second: Sea002PersonId; minBetween: number }>
+  | Readonly<{ kind: "SAME_ROW_EQUAL_GAP"; first: Sea002PersonId; second: Sea002PersonId; third: Sea002PersonId; fourth: Sea002PersonId }>
   | Readonly<{ kind: "NOT_ADJACENT"; first: Sea002PersonId; second: Sea002PersonId }>
   | Readonly<{ kind: "FACING_REFERENT_RELATIVE"; targetFacee: Sea002PersonId; referenceFacee: Sea002PersonId; side: Sea002ParallelSide; steps: number }>
   | Readonly<{ kind: "END_POSITION"; person: Sea002PersonId; row: Sea002ParallelRow; end: "LEFT" | "RIGHT" }>
@@ -53,7 +54,7 @@ export interface Sea002Cp006Option {
 
 export interface Sea002Cp006ChildQuestion {
   readonly questionOrder: 1 | 2 | 3 | 4;
-  readonly queryContractId: "SEA-QC-003" | "SEA-QC-006" | "SEA-QC-009" | "SEA-QC-010" | "SEA-QC-011" | "SEA-QC-012" | "SEA-QC-015";
+  readonly queryContractId: "SEA-QC-003" | "SEA-QC-006" | "SEA-QC-008" | "SEA-QC-010" | "SEA-QC-011" | "SEA-QC-012" | "SEA-QC-014" | "SEA-QC-015";
   readonly answerType: Sea002Cp006AnswerType;
   readonly answerDeterminingFactFingerprint: string;
   readonly text: string;
