@@ -71,6 +71,7 @@ assert.doesNotMatch(authBoundary, /\/privacy-policy/, "legal information routes 
 assert.match(login, /from "firebase\/auth"/, "student login must remain backed by Firebase Auth");
 assert.match(login, /from "@\/lib\/auth"/, "student login must retain the canonical auth helpers");
 
+assert.match(vite, /hoistTransitiveImports:\s*false/, "Rollup must not hoist lazy Firebase transitive imports into the application entry");
 assert.match(vite, /firebase:\s*\[[\s\S]*?"firebase\/app"[\s\S]*?"firebase\/auth"[\s\S]*?"firebase\/firestore"[\s\S]*?"firebase\/storage"[\s\S]*?\]/, "Firebase SDK must remain isolated in a dedicated measurable chunk");
 assert.match(vite, /assertStaticEntryExcludesFirebase/, "production build must enforce a Firebase-free static entry graph");
 assert.match(vite, /node_modules\/firebase\//, "entry-graph guard must detect the Firebase package");
@@ -97,4 +98,4 @@ assert.match(proof, /localFirebaseChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous
 assert.match(proof, /localFirebaseChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove the Firebase SDK chunk loads on demand");
 assert.match(proof, /\$x = 2\$/);
 
-console.log("Startup performance audit passed (70 assertions).");
+console.log("Startup performance audit passed (71 assertions).");
