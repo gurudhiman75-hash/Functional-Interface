@@ -4,6 +4,7 @@ import { generateSea002Cp006DiscoveryCaselet } from "./discovery.ts";
 import { renderCp006Clue, solveCp006, auditOracleCp006 } from "./generator.ts";
 import { generateSea002Cp006SourceRealCaselet, renderCp006SourceClue } from "./source-realness.ts";
 import { compileCp006TeachingExplanation } from "./teaching-explanation.ts";
+import { compactCp006CaseTeaching } from "./presentation-polish.ts";
 import type { Sea002Cp006BlueprintId, Sea002Cp006Caselet, Sea002Cp006ChildQuestion, Sea002Cp006Clue, Sea002Cp006State } from "./types.ts";
 
 const SOURCE_KINDS=new Set<Sea002Cp006Clue["kind"]>(["SAME_ROW_GAP","SAME_ROW_MIN_BETWEEN","SAME_ROW_EQUAL_GAP","NOT_ADJACENT","ROW_END_DISTANCE","FACING_REFERENT_RELATIVE"]);
@@ -88,11 +89,12 @@ export function generateSea002Cp006ExamRealCaselet(blueprint:Sea002Cp006Blueprin
   const clueTexts=displayedClues(base,clues);
   const solutionClueTexts=clues.map(clueText);
   const children=auditBundle.children.map(plainChild) as Sea002Cp006Caselet["children"];
+  const sharedExplanation=compactCp006CaseTeaching(compileCp006TeachingExplanation(base.state,base.people,clues,solutionClueTexts));
   return {
     ...base,
     clues,
     clueTexts,
-    sharedExplanation:compileCp006TeachingExplanation(base.state,base.people,clues,solutionClueTexts),
+    sharedExplanation,
     children,
     structuralFingerprint:canonicalDigest({
       blueprint,
