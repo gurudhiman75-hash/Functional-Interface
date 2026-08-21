@@ -35,9 +35,11 @@ function cleanDirectSolution(raw: GapWave6Question, model: GeoDiagramModel): Geo
   return {
     ...model,
     angleMarks: model.angleMarks.filter((mark) => !mark.id.startsWith("derived-")),
-    labels: model.labels.map((label) => label.id === "answer-label"
-      ? { ...label, text: `∠TPQ = ∠PQR = ${answerText}`, x: 205, y: 185 }
-      : label),
+    labels: model.labels
+      .filter((label) => label.id !== "derived-equality-label")
+      .map((label) => label.id === "answer-label"
+        ? { ...label, text: `∠TPQ = ∠PQR = ${answerText}`, x: 235, y: 205 }
+        : label),
   };
 }
 
