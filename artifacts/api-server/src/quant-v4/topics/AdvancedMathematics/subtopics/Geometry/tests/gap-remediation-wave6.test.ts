@@ -77,13 +77,13 @@ const converse = GEO_GAP_REMEDIATION_WAVE6_PROTOTYPES[1].generate("wave6-a");
 assert.equal(converse.answer, "12 cm"); assert.equal(converse.diagramDisposition, "REQUIRED_SOLUTION_DIAGRAM");
 assert.equal(converse.stemSvg, undefined, "converse stem diagram is intentionally omitted to avoid revealing O on SQ");
 assert.deepEqual(converse.theoremTrace, ["RHOMBUS_DIAGONALS_PERPENDICULAR", "PERPENDICULAR_BISECTOR_CONVERSE"]);
-assert.ok(converse.solutionSvg.includes("S, O, Q are collinear")); assert.ok(converse.solutionSvg.includes("SO = 5 cm"));
+assert.ok(converse.solutionSvg.includes("O lies on SQ")); assert.ok(converse.solutionSvg.includes("SO = 5 cm"));
 assert.ok(converse.solutionSvg.includes("OQ = 7 cm")); assert.ok(converse.solutionSvg.includes("SQ = 12 cm"));
 
 const centroidA = GEO_GAP_REMEDIATION_WAVE6_PROTOTYPES[2].generate("wave6-a");
 assert.equal(centroidA.answer, "27 cm"); assert.deepEqual(centroidA.theoremTrace, ["CENTROID_DIVIDES_MEDIAN_2_TO_1"]);
 assert.ok(centroidA.stemSvg?.includes("AG = 18 cm")); assert.equal(centroidA.stemSvg?.includes("AD = 27 cm"), false);
-assert.ok(centroidA.solutionSvg.includes("AG : GD = 2 : 1")); assert.ok(centroidA.solutionSvg.includes("AD = 27 cm"));
+assert.ok(centroidA.solutionSvg.includes("AG:GD = 2:1")); assert.ok(centroidA.solutionSvg.includes("AD = 27 cm"));
 const centroidB = GEO_GAP_REMEDIATION_WAVE6_PROTOTYPES[2].generate("wave6-b");
 assert.equal(centroidB.answer, "30 cm"); assert.ok(centroidB.stemSvg?.includes("GD = 10 cm"));
 assert.ok(centroidB.solutionSvg.includes("AG = 20 cm")); assert.ok(centroidB.solutionSvg.includes("AD = 30 cm"));
