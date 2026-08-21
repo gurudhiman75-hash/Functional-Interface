@@ -3,6 +3,7 @@ type Point = { id: string; x: number; y: number; role?: string; label?: string }
 type GeometrySegment = { from: Point; to: Point };
 type LabelBox = { x: number; y: number; halfWidth: number; halfHeight: number };
 type LabelPlacement = LabelBox & { lineHits: number; labelOverlaps: number; clearance: number };
+type CoreBounds = { left: number; top: number; right: number; bottom: number };
 
 function esc(value: unknown) {
   return String(value ?? "")
@@ -26,21 +27,21 @@ function segmentStyle(kind: string) {
   switch (kind) {
     case "GROUND":
     case "GROUND_UNSCALED":
-      return { stroke: "#111827", width: 3, dash: "", marker: false };
+      return { stroke: "#111827", width: 5.2, dash: "", marker: false };
     case "VERTICAL_OBJECT":
     case "VERTICAL":
-      return { stroke: "#111827", width: 3, dash: "", marker: false };
+      return { stroke: "#111827", width: 5.2, dash: "", marker: false };
     case "SIGHT_LINE":
     case "SIGHT":
-      return { stroke: "#1d4ed8", width: 2.6, dash: "", marker: false };
+      return { stroke: "#1d4ed8", width: 4.2, dash: "", marker: false };
     case "HORIZONTAL_SIGHT":
     case "EYE_LEVEL":
-      return { stroke: "#64748b", width: 1.7, dash: "8 7", marker: false };
+      return { stroke: "#64748b", width: 2.7, dash: "10 8", marker: false };
     case "MOVEMENT":
-      return { stroke: "#9a3412", width: 2.5, dash: "9 6", marker: true };
+      return { stroke: "#9a3412", width: 3.7, dash: "10 7", marker: true };
     case "AUXILIARY":
     default:
-      return { stroke: "#94a3b8", width: 1.5, dash: "6 6", marker: false };
+      return { stroke: "#64748b", width: 2.5, dash: "7 7", marker: false };
   }
 }
 
@@ -66,6 +67,15 @@ function estimateLabelBox(text: string, fontSize: number) {
 function boxesOverlap(a: LabelBox, b: LabelBox, gap = 5) {
   return Math.abs(a.x - b.x) < a.halfWidth + b.halfWidth + gap
     && Math.abs(a.y - b.y) < a.halfHeight + b.halfHeight + gap;
+}
+
+function coreBox(core: CoreBounds): LabelBox {
+  return {
+    x: (core.left + core.right) / 2,
+    y: (core.top + core.bottom) / 2,
+    halfWidth: (core.right - core.left) / 2,
+    halfHeight: (core.bottom - core.top) / 2,
+  };
 }
 
 function pointToSegmentDistance(x: number, y: number, segment: GeometrySegment) {
@@ -138,6 +148,7 @@ function chooseLabelPlacement(
   occupied: LabelBox[],
   width: number,
   height: number,
+  forbiddenBoxes: Array<{ box: LabelBox; gap: number }> = [],
 ): LabelPlacement {
   const dimensions = estimateLabelBox(text, fontSize);
   const margin = 10;
@@ -151,6 +162,7 @@ function chooseLabelPlacement(
       || candidate.y - box.halfHeight < margin
       || candidate.y + box.halfHeight > height - margin;
     if (outOfBounds) continue;
+    if (forbiddenBoxes.some((entry) => boxesOverlap(box, entry.box, entry.gap))) continue;
 
     const lineHits = geometrySegments.filter((segment) => segmentIntersectsBox(segment, box)).length;
     const labelOverlaps = occupied.filter((other) => boxesOverlap(box, other)).length;
@@ -171,10 +183,17 @@ function chooseLabelPlacement(
   return best;
 }
 
-function renderLabelBox(label: string, placement: LabelPlacement, className: string, fontSize: number, fill: string) {
+function renderLabelBox(
+  label: string,
+  placement: LabelPlacement,
+  className: string,
+  fontSize: number,
+  fill: string,
+  extraData = "",
+) {
   const rectX = placement.x - placement.halfWidth;
   const rectY = placement.y - placement.halfHeight;
-  return `<g class="diagram-label" data-label-box="true" data-label-line-hits="${placement.lineHits}" data-label-overlaps="${placement.labelOverlaps}" data-label-clearance="${placement.clearance.toFixed(2)}"><rect class="label-bg" x="${rectX.toFixed(2)}" y="${rectY.toFixed(2)}" width="${(placement.halfWidth * 2).toFixed(2)}" height="${(placement.halfHeight * 2).toFixed(2)}" rx="7" fill="#ffffff" fill-opacity="0.97" stroke="#e2e8f0" stroke-width="1"/><text x="${placement.x.toFixed(2)}" y="${placement.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" class="${className}" font-size="${fontSize}" fill="${fill}">${esc(label)}</text></g>`;
+  return `<g class="diagram-label" data-label-box="true" data-label-line-hits="${placement.lineHits}" data-label-overlaps="${placement.labelOverlaps}" data-label-clearance="${placement.clearance.toFixed(2)}"${extraData}><rect class="label-bg" x="${rectX.toFixed(2)}" y="${rectY.toFixed(2)}" width="${(placement.halfWidth * 2).toFixed(2)}" height="${(placement.halfHeight * 2).toFixed(2)}" rx="7" fill="#ffffff" fill-opacity="0.98" stroke="#dbe3ec" stroke-width="1"${extraData}/><text x="${placement.x.toFixed(2)}" y="${placement.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" class="${className}" font-size="${fontSize}" fill="${fill}">${esc(label)}</text></g>`;
 }
 
 function pointLabelCandidates(point: Point) {
@@ -206,7 +225,7 @@ function renderAngle(
   const delta = normalizeDelta(target - start);
   const end = start + delta;
   const lane = Number.isFinite(Number(angle.arcLane)) ? Number(angle.arcLane) : 0;
-  const radius = 38 + lane * 18;
+  const radius = 40 + lane * 19;
   const sx = vertex.x + radius * Math.cos(start);
   const sy = vertex.y + radius * Math.sin(start);
   const ex = vertex.x + radius * Math.cos(end);
@@ -229,7 +248,7 @@ function renderAngle(
   occupied.push(placement);
   const renderedLabel = label ? renderLabelBox(label, placement, "angle-label", 20, "#6d28d9") : "";
 
-  return `<g class="diagram-angle" data-angle-id="${esc(angle.id)}"><path d="M ${sx.toFixed(2)} ${sy.toFixed(2)} A ${radius} ${radius} 0 ${largeArc} ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}" fill="none" stroke="#7c3aed" stroke-width="2.4"/>${renderedLabel}</g>`;
+  return `<g class="diagram-angle" data-angle-id="${esc(angle.id)}"><path d="M ${sx.toFixed(2)} ${sy.toFixed(2)} A ${radius} ${radius} 0 ${largeArc} ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}" fill="none" stroke="#6d28d9" stroke-width="3.2"/>${renderedLabel}</g>`;
 }
 
 function renderRightAngle(marker: any, points: Map<string, Point>) {
@@ -248,11 +267,11 @@ function renderRightAngle(marker: any, points: Map<string, Point>) {
       vy = dy / length;
     }
   }
-  const size = 17;
+  const size = 19;
   const p1 = [vertex.x + hx * size, vertex.y];
   const p2 = [vertex.x + hx * size + vx * size, vertex.y + vy * size];
   const p3 = [vertex.x + vx * size, vertex.y + vy * size];
-  return `<polyline class="right-angle" data-right-angle-id="${esc(marker.id)}" points="${p1[0].toFixed(2)},${p1[1].toFixed(2)} ${p2[0].toFixed(2)},${p2[1].toFixed(2)} ${p3[0].toFixed(2)},${p3[1].toFixed(2)}" fill="none" stroke="#111827" stroke-width="2"/>`;
+  return `<polyline class="right-angle" data-right-angle-id="${esc(marker.id)}" points="${p1[0].toFixed(2)},${p1[1].toFixed(2)} ${p2[0].toFixed(2)},${p2[1].toFixed(2)} ${p3[0].toFixed(2)},${p3[1].toFixed(2)}" fill="none" stroke="#111827" stroke-width="3"/>`;
 }
 
 function measurementPriority(arrow: any, points: Map<string, Point>) {
@@ -276,6 +295,7 @@ function renderMeasurementArrow(
   occupied: LabelBox[],
   width: number,
   height: number,
+  core: CoreBounds,
 ) {
   const from = points.get(arrow.fromPointId);
   const to = points.get(arrow.toPointId);
@@ -286,7 +306,7 @@ function renderMeasurementArrow(
   if (length <= 0) return "";
   const ux = dx / length;
   const uy = dy / length;
-  // SVG's y-axis points downward, so the screen-space LEFT normal is (uy, -ux).
+  // SVG's y-axis points downward, so screen-space LEFT normal is (uy, -ux).
   let preferredNx = uy;
   let preferredNy = -ux;
   if (arrow.side === "RIGHT") {
@@ -297,8 +317,9 @@ function renderMeasurementArrow(
   const midpointX = (from.x + to.x) / 2;
   const midpointY = (from.y + to.y) / 2;
   const label = String(arrow.label ?? "");
-  const baseOffset = 34 + lane * 20;
-  const extraOffsets = [0, 18, 38, 62, 90, 122, 158, 198];
+  const coreRegion = coreBox(core);
+  const baseOffset = 58 + lane * 26;
+  const maxOffset = Math.max(width, height) * 1.15;
   const normalChoices = [
     { nx: preferredNx, ny: preferredNy },
     { nx: -preferredNx, ny: -preferredNy },
@@ -310,43 +331,60 @@ function renderMeasurementArrow(
   } | null = null;
 
   search: for (const normal of normalChoices) {
-    for (const extra of extraOffsets) {
-      const offset = baseOffset + extra;
+    for (let offset = baseOffset; offset <= maxOffset; offset += 24) {
       const ax1 = from.x + normal.nx * offset;
       const ay1 = from.y + normal.ny * offset;
       const ax2 = to.x + normal.nx * offset;
       const ay2 = to.y + normal.ny * offset;
-      const margin = 8;
+      const margin = 14;
       if ([ax1, ax2].some((x) => x < margin || x > width - margin) || [ay1, ay2].some((y) => y < margin || y > height - margin)) continue;
 
-      const dimensionGeometry: GeometrySegment[] = [
-        { from, to: { id: `${arrow.id}-extension-a`, x: ax1, y: ay1 } },
-        { from: to, to: { id: `${arrow.id}-extension-b`, x: ax2, y: ay2 } },
-        { from: { id: `${arrow.id}-dimension-a`, x: ax1, y: ay1 }, to: { id: `${arrow.id}-dimension-b`, x: ax2, y: ay2 } },
-      ];
+      const dimensionLine: GeometrySegment = {
+        from: { id: `${arrow.id}-dimension-a`, x: ax1, y: ay1 },
+        to: { id: `${arrow.id}-dimension-b`, x: ax2, y: ay2 },
+      };
+      // The actual dimension line belongs to an outer band. It may never enter
+      // or skim the learner-facing core geometry region.
+      if (segmentIntersectsBox(dimensionLine, coreRegion, 26)) continue;
+
+      const extensionA: GeometrySegment = { from, to: { id: `${arrow.id}-extension-a`, x: ax1, y: ay1 } };
+      const extensionB: GeometrySegment = { from: to, to: { id: `${arrow.id}-extension-b`, x: ax2, y: ay2 } };
+      const dimensionGeometry = [extensionA, extensionB, dimensionLine];
       if (geometryIntersectsLabels(dimensionGeometry, occupied)) continue;
 
-      const candidates = [offset + 30, offset + 48, offset + 70, offset + 96, offset + 126].flatMap((labelOffset) => [0, 22, -22, 44, -44, 68, -68].map((tangent) => ({
-        x: midpointX + normal.nx * labelOffset + ux * tangent,
-        y: midpointY + normal.ny * labelOffset + uy * tangent,
+      const dimensionMidX = (ax1 + ax2) / 2;
+      const dimensionMidY = (ay1 + ay2) / 2;
+      const candidates = [30, 48, 68, 92].flatMap((outward) => [0, 24, -24, 48, -48, 76, -76].map((tangent) => ({
+        x: dimensionMidX + normal.nx * outward + ux * tangent,
+        y: dimensionMidY + normal.ny * outward + uy * tangent,
       })));
       try {
-        const placement = chooseLabelPlacement(label, 18, candidates, [...geometrySegments, ...dimensionGeometry], occupied, width, height);
+        const placement = chooseLabelPlacement(
+          label,
+          18,
+          candidates,
+          [...geometrySegments, ...dimensionGeometry],
+          occupied,
+          width,
+          height,
+          [{ box: coreRegion, gap: 24 }],
+        );
         selected = { ax1, ay1, ax2, ay2, geometry: dimensionGeometry, placement };
         break search;
       } catch {
-        // Try the next lane/side. A measurement is emitted only after the whole
-        // dimension geometry and its label are collision-free.
+        // Continue farther into the outer dimension band or try the other side.
       }
     }
   }
 
-  if (!selected) throw new Error(`${qlId}: review measurement "${label}" could not find a collision-free dimension lane.`);
+  if (!selected) throw new Error(`${qlId}: review measurement "${label}" could not find a clean outside dimension band.`);
   occupied.push(selected.placement);
   geometrySegments.push(...selected.geometry);
-  const renderedLabel = label ? renderLabelBox(label, selected.placement, "measurement-label", 18, "#0f766e") : "";
+  const renderedLabel = label
+    ? renderLabelBox(label, selected.placement, "measurement-label", 18, "#0f766e", ' data-dimension-label="true"')
+    : "";
 
-  return `<g class="measurement" data-measurement-id="${esc(arrow.id)}"><line x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${selected.ax1.toFixed(2)}" y2="${selected.ay1.toFixed(2)}" stroke="#94a3b8" stroke-width="1.2"/><line x1="${to.x.toFixed(2)}" y1="${to.y.toFixed(2)}" x2="${selected.ax2.toFixed(2)}" y2="${selected.ay2.toFixed(2)}" stroke="#94a3b8" stroke-width="1.2"/><line x1="${selected.ax1.toFixed(2)}" y1="${selected.ay1.toFixed(2)}" x2="${selected.ax2.toFixed(2)}" y2="${selected.ay2.toFixed(2)}" stroke="#0f766e" stroke-width="1.9" marker-start="url(#${markerId})" marker-end="url(#${markerId})"/>${renderedLabel}</g>`;
+  return `<g class="measurement" data-measurement-id="${esc(arrow.id)}" data-dimension-zone="outside"><line data-extension-line="true" x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${selected.ax1.toFixed(2)}" y2="${selected.ay1.toFixed(2)}" stroke="#a8b3c2" stroke-width="1.1" stroke-dasharray="5 5"/><line data-extension-line="true" x1="${to.x.toFixed(2)}" y1="${to.y.toFixed(2)}" x2="${selected.ax2.toFixed(2)}" y2="${selected.ay2.toFixed(2)}" stroke="#a8b3c2" stroke-width="1.1" stroke-dasharray="5 5"/><line data-dimension-line="true" x1="${selected.ax1.toFixed(2)}" y1="${selected.ay1.toFixed(2)}" x2="${selected.ax2.toFixed(2)}" y2="${selected.ay2.toFixed(2)}" stroke="#0f766e" stroke-width="1.8" marker-start="url(#${markerId})" marker-end="url(#${markerId})"/>${renderedLabel}</g>`;
 }
 
 export function renderTrg002SolutionDiagramSvg(diagram: AnyDiagram) {
@@ -354,9 +392,15 @@ export function renderTrg002SolutionDiagramSvg(diagram: AnyDiagram) {
   const qlId = String(diagram.qlId ?? "unknown");
   const baseWidth = finite(diagram.width ?? 1000, `${qlId}:width`);
   const baseHeight = finite(diagram.height ?? 600, `${qlId}:height`);
-  const reviewPadding = 90;
+  const reviewPadding = 190;
   const width = baseWidth + reviewPadding * 2;
   const height = baseHeight + reviewPadding * 2;
+  const core: CoreBounds = {
+    left: reviewPadding,
+    top: reviewPadding,
+    right: reviewPadding + baseWidth,
+    bottom: reviewPadding + baseHeight,
+  };
   const pointsArray: Point[] = Array.isArray(diagram.points)
     ? diagram.points.map((point: any) => ({
         ...point,
@@ -377,16 +421,13 @@ export function renderTrg002SolutionDiagramSvg(diagram: AnyDiagram) {
     const style = segmentStyle(String(segment.kind ?? "AUXILIARY"));
     const dash = style.dash ? ` stroke-dasharray="${style.dash}"` : "";
     const marker = style.marker ? ` marker-end="url(#${markerId})"` : "";
-    return `<line data-segment-id="${esc(segment.id)}" data-kind="${esc(segment.kind)}" x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${to.x.toFixed(2)}" y2="${to.y.toFixed(2)}" stroke="${style.stroke}" stroke-width="${style.width}"${dash}${marker} stroke-linecap="round"/>`;
+    return `<line data-core-segment="true" data-segment-id="${esc(segment.id)}" data-kind="${esc(segment.kind)}" x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${to.x.toFixed(2)}" y2="${to.y.toFixed(2)}" stroke="${style.stroke}" stroke-width="${style.width}"${dash}${marker} stroke-linecap="round"/>`;
   }).join("");
 
   const rightAngles = (Array.isArray(diagram.rightAngles) ? diagram.rightAngles : []).map((marker: any) => renderRightAngle(marker, points)).join("");
-  // Core angle labels get first placement priority. Dimension arrows are accessory
-  // annotations and must route around them, never the other way around.
+
+  // Core annotations get placement priority. Dimensions must route around them.
   const angles = (Array.isArray(diagram.angles) ? diagram.angles : []).map((angle: any) => renderAngle(angle, qlId, points, geometrySegments, occupiedLabels, width, height)).join("");
-  const measurementArrows = [...(Array.isArray(diagram.measurementArrows) ? diagram.measurementArrows : [])]
-    .sort((a: any, b: any) => measurementPriority(a, points) - measurementPriority(b, points));
-  const measurements = measurementArrows.map((arrow: any) => renderMeasurementArrow(arrow, qlId, points, markerId, geometrySegments, occupiedLabels, width, height)).join("");
 
   const seenLabels = new Set<string>();
   const pointLabels = pointsArray.map((point) => {
@@ -397,8 +438,30 @@ export function renderTrg002SolutionDiagramSvg(diagram: AnyDiagram) {
     seenLabels.add(key);
     const placement = chooseLabelPlacement(label, 18, pointLabelCandidates(point), geometrySegments, occupiedLabels, width, height);
     occupiedLabels.push(placement);
-    return `<g class="diagram-point" data-point-id="${esc(point.id)}"><circle cx="${point.x.toFixed(2)}" cy="${point.y.toFixed(2)}" r="4.5" fill="#111827"/>${renderLabelBox(label, placement, "point-label", 18, "#111827")}</g>`;
+    return `<g class="diagram-point" data-point-id="${esc(point.id)}"><circle cx="${point.x.toFixed(2)}" cy="${point.y.toFixed(2)}" r="5.5" fill="#111827"/>${renderLabelBox(label, placement, "point-label", 18, "#111827")}</g>`;
   }).join("");
 
-  return `<figure class="diagram-figure"><div class="diagram-caption"><b>${esc(qlId)}</b> · ${esc(diagram.strategy ?? "solution geometry")}</div><svg class="solution-diagram" data-diagram-ql="${esc(qlId)}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Solution geometry for ${esc(qlId)}" preserveAspectRatio="xMidYMid meet"><title>Solution geometry for ${esc(qlId)}</title><defs><marker id="${markerId}" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e"/></marker></defs><rect x="1" y="1" width="${Math.max(0, width - 2)}" height="${Math.max(0, height - 2)}" rx="10" fill="#ffffff" stroke="#e2e8f0"/>${segments}${rightAngles}${measurements}${angles}${pointLabels}</svg></figure>`;
+  const measurementArrows = [...(Array.isArray(diagram.measurementArrows) ? diagram.measurementArrows : [])]
+    .sort((a: any, b: any) => measurementPriority(a, points) - measurementPriority(b, points));
+  const measurements = measurementArrows.map((arrow: any) => renderMeasurementArrow(
+    arrow,
+    qlId,
+    points,
+    markerId,
+    geometrySegments,
+    occupiedLabels,
+    width,
+    height,
+    core,
+  )).join("");
+
+  const coreFrameX = core.left - 24;
+  const coreFrameY = core.top - 24;
+  const coreFrameWidth = baseWidth + 48;
+  const coreFrameHeight = baseHeight + 48;
+
+  // Dimensions are intentionally painted behind the bold core geometry. Their
+  // light extension lines may enter the core, but can never obscure structural
+  // lines or labels. Main dimension lines and dimension text stay outside.
+  return `<figure class="diagram-figure"><div class="diagram-caption"><b>${esc(qlId)}</b> · ${esc(diagram.strategy ?? "solution geometry")}</div><svg class="solution-diagram" data-diagram-ql="${esc(qlId)}" data-core-left="${core.left}" data-core-top="${core.top}" data-core-right="${core.right}" data-core-bottom="${core.bottom}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Solution geometry for ${esc(qlId)}" preserveAspectRatio="xMidYMid meet"><title>Solution geometry for ${esc(qlId)}</title><defs><marker id="${markerId}" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e"/></marker></defs><rect x="1" y="1" width="${Math.max(0, width - 2)}" height="${Math.max(0, height - 2)}" rx="12" fill="#ffffff" stroke="#e2e8f0"/><rect class="diagram-core-frame" data-core-frame="true" x="${coreFrameX}" y="${coreFrameY}" width="${coreFrameWidth}" height="${coreFrameHeight}" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.4"/>${measurements}${segments}${rightAngles}${angles}${pointLabels}</svg></figure>`;
 }
