@@ -67,7 +67,7 @@ function clueTrue(state:Sea002Cp006State,clue:Sea002Cp006Clue):boolean {
 }
 
 function clueAction(clue:Sea002Cp006Clue):string {
-  if(clue.kind==="ROW_MEMBERSHIP") return `Put ${clue.person} in the ${rowName(clue.row)} row. Do not decide the exact seat yet unless another clue fixes it.`;
+  if(clue.kind==="ROW_MEMBERSHIP") return `Put ${clue.person} in the ${rowName(clue.row)} row. Keep the exact seat open until another condition fixes it.`;
   if(clue.kind==="OPPOSITE") return `Keep ${clue.first} and ${clue.second} in the same vertical column, one in each row.`;
   if(clue.kind==="NOT_OPPOSITE") return `${clue.first} and ${clue.second} cannot be in the same vertical column.`;
   if(clue.kind==="SAME_ROW_RELATIVE") return `First see which row ${clue.reference} is in. Then count ${clue.steps} seat${clue.steps===1?"":"s"} to ${clue.reference}'s ${sideWord(clue.side)} and place ${clue.target}.`;
@@ -83,7 +83,7 @@ function clueAction(clue:Sea002Cp006Clue):string {
   if(clue.kind==="ROW_END_DISTANCE") {
     const position=ordinal(clue.positionFromEnd);
     return clue.mode==="AT_EITHER_END_DISTANCE"
-      ? `Count the ${position} seat from both ends of the row for ${clue.person}. Keep both positions possible until another clue decides.`
+      ? `Count the ${position} seat from both ends of the row for ${clue.person}. Keep both positions possible until another condition decides.`
       : `Remove both ${position}-from-end positions from the possible seats for ${clue.person}.`;
   }
   return `Place ${clue.first} and ${clue.second} in different rows and one column apart. They must be diagonal, not directly opposite.`;
@@ -92,11 +92,11 @@ function clueAction(clue:Sea002Cp006Clue):string {
 function clueResolved(state:Sea002Cp006State,clue:Sea002Cp006Clue):string {
   if(clue.kind==="ROW_MEMBERSHIP") {
     const seat=seatOf(state,clue.person);
-    return `${clue.person} is in the ${rowName(seat.row)} row at seat column ${seat.column+1}.`;
+    return `${clue.person} belongs to the ${rowName(seat.row)} row.`;
   }
   if(clue.kind==="OPPOSITE") {
     const seat=seatOf(state,clue.first);
-    return `${clue.first} and ${clue.second} finally occupy column ${seat.column+1}, so they face each other.`;
+    return `${clue.first} and ${clue.second} occupy column ${seat.column+1}, so they face each other.`;
   }
   if(clue.kind==="NOT_OPPOSITE") {
     const first=seatOf(state,clue.first),second=seatOf(state,clue.second);
@@ -138,13 +138,47 @@ function clueResolved(state:Sea002Cp006State,clue:Sea002Cp006Clue):string {
   return `${clue.first} and ${clue.second} are in different rows and their columns differ by one (${first.column+1} and ${second.column+1}), so they are diagonally opposite.`;
 }
 
-interface TeachingBranch {
+interface PrefixDecision {
+  readonly clueIndex:number;
+  readonly before:readonly number[];
+  readonly after:readonly number[];
+}
+interface PrefixTeachingBranch {
+  readonly mode:"PREFIX";
+  readonly prefixCount:number;
+  readonly cases:readonly Sea002Cp006State[];
+  readonly decisions:readonly PrefixDecision[];
+  readonly survivorIndex:number;
+}
+interface DecidingTeachingBranch {
+  readonly mode:"DECIDING";
   readonly decidingIndex:number;
   readonly cases:readonly Sea002Cp006State[];
   readonly survivorIndex:number;
 }
+type TeachingBranch=PrefixTeachingBranch|DecidingTeachingBranch;
 
-function findTeachingBranch(people:readonly string[],state:Sea002Cp006State,clues:readonly Sea002Cp006Clue[]):TeachingBranch|null {
+function findPrefixTeachingBranch(people:readonly string[],state:Sea002Cp006State,clues:readonly Sea002Cp006Clue[]):PrefixTeachingBranch|null {
+  const finalKey=canonicalDigest(state);
+  for(let prefixCount=1;prefixCount<clues.length;prefixCount+=1) {
+    const cases=solveCp006Scalable(people,state.seatCountPerRow,clues.slice(0,prefixCount),4);
+    if(cases.length<2||cases.length>3) continue;
+    const finalIndex=cases.findIndex((candidate)=>canonicalDigest(candidate)===finalKey);
+    if(finalIndex<0) continue;
+    let live=cases.map((_,index)=>index);
+    const decisions:PrefixDecision[]=[];
+    for(let clueIndex=prefixCount;clueIndex<clues.length&&live.length>1;clueIndex+=1) {
+      const after=live.filter((caseIndex)=>clueTrue(cases[caseIndex]!,clues[clueIndex]!));
+      if(after.length===0||after.length===live.length) continue;
+      decisions.push({clueIndex,before:[...live],after:[...after]});
+      live=after;
+    }
+    if(live.length===1&&live[0]===finalIndex&&decisions.length>0) return {mode:"PREFIX",prefixCount,cases,decisions,survivorIndex:finalIndex};
+  }
+  return null;
+}
+
+function findDecidingTeachingBranch(people:readonly string[],state:Sea002Cp006State,clues:readonly Sea002Cp006Clue[]):DecidingTeachingBranch|null {
   const priority:readonly Sea002Cp006Clue["kind"][]=["ROW_END_DISTANCE","SAME_ROW_GAP","SAME_ROW_RELATIVE","FACING_REFERENT_RELATIVE","DIAGONAL","OPPOSITE","SAME_ROW_EQUAL_GAP","END_POSITION","NOT_ADJACENT","SAME_ROW_MIN_BETWEEN","NOT_OPPOSITE","ROW_MEMBERSHIP"];
   const finalKey=canonicalDigest(state);
   for(const kind of priority) {
@@ -157,10 +191,68 @@ function findTeachingBranch(people:readonly string[],state:Sea002Cp006State,clue
       if(survivorIndexes.length!==1) continue;
       const survivorIndex=survivorIndexes[0]!;
       if(canonicalDigest(cases[survivorIndex])!==finalKey) continue;
-      return {decidingIndex,cases,survivorIndex};
+      return {mode:"DECIDING",decidingIndex,cases,survivorIndex};
     }
   }
   return null;
+}
+
+function findTeachingBranch(people:readonly string[],state:Sea002Cp006State,clues:readonly Sea002Cp006Clue[]):TeachingBranch|null {
+  return findPrefixTeachingBranch(people,state,clues)??findDecidingTeachingBranch(people,state,clues);
+}
+
+function appendCaseTeaching(lines:string[],branch:TeachingBranch,clues:readonly Sea002Cp006Clue[],clueTexts:readonly string[]):void {
+  if(branch.mode==="PREFIX") {
+    lines.push(branch.prefixCount===1?"Start with this condition:":"Start with these conditions:");
+    for(let index=0;index<branch.prefixCount;index+=1) lines.push(`${index+1}. ${clueAction(clues[index]!)}`);
+    lines.push(`At this point, ${branch.cases.length} cases are possible:`);
+    for(let index=0;index<branch.cases.length;index+=1) lines.push(`Case ${index+1}:\n${cp006TeachingArrangement(branch.cases[index]!)}`);
+    for(const decision of branch.decisions) {
+      const clue=clues[decision.clueIndex]!;
+      lines.push(`Now use this condition: ${clueTexts[decision.clueIndex]??""}`);
+      lines.push(`Meaning: ${clueAction(clue)}`);
+      for(const caseIndex of decision.before) {
+        lines.push(decision.after.includes(caseIndex)
+          ? `Case ${caseIndex+1} ✅ — this condition works here.`
+          : `Case ${caseIndex+1} ❌ — this condition does not fit, so reject this case.`);
+      }
+    }
+    lines.push(`Only Case ${branch.survivorIndex+1} remains.`);
+    return;
+  }
+
+  lines.push("Most positions can be fixed first. Keep one deciding condition for the final check.");
+  lines.push(`Before using it, ${branch.cases.length} cases remain:`);
+  for(let index=0;index<branch.cases.length;index+=1) lines.push(`Case ${index+1}:\n${cp006TeachingArrangement(branch.cases[index]!)}`);
+  const deciding=clues[branch.decidingIndex]!;
+  lines.push(`Now use this condition: ${clueTexts[branch.decidingIndex]??""}`);
+  lines.push(`Meaning: ${clueAction(deciding)}`);
+  for(let index=0;index<branch.cases.length;index+=1) {
+    lines.push(index===branch.survivorIndex
+      ? `Case ${index+1} ✅ — this condition works here.`
+      : `Case ${index+1} ❌ — this condition does not fit, so reject this case.`);
+  }
+  lines.push(`Only Case ${branch.survivorIndex+1} remains.`);
+}
+
+function appendDetailedSteps(lines:string[],state:Sea002Cp006State,clues:readonly Sea002Cp006Clue[]):void {
+  lines.push("Now complete and check the arrangement step by step:");
+  const memberships=clues.filter((clue):clue is Extract<Sea002Cp006Clue,{kind:"ROW_MEMBERSHIP"}>=>clue.kind==="ROW_MEMBERSHIP");
+  let step=1;
+  const groupedMembership=memberships.length>=4;
+  if(groupedMembership) {
+    const upper=memberships.filter((clue)=>clue.row==="TOP").map((clue)=>clue.person);
+    const lower=memberships.filter((clue)=>clue.row==="BOTTOM").map((clue)=>clue.person);
+    lines.push(`Step ${step}: Mark the given row groups first. Keep their exact order open.`);
+    lines.push(`Result: Upper row group — ${upper.join(", ")}. Lower row group — ${lower.join(", ")}.`);
+    step+=1;
+  }
+  for(const clue of clues) {
+    if(groupedMembership&&clue.kind==="ROW_MEMBERSHIP") continue;
+    lines.push(`Step ${step}: ${clueAction(clue)}`);
+    lines.push(`Result: ${clueResolved(state,clue)}`);
+    step+=1;
+  }
 }
 
 export function compileCp006TeachingExplanation(
@@ -175,30 +267,10 @@ export function compileCp006TeachingExplanation(
     "Persons directly facing each other must be in the same vertical column.",
   ];
   const branch=findTeachingBranch(people,state,clues);
-  if(branch) {
-    lines.push(`Use all the conditions except clue ${branch.decidingIndex+1} first. At this stage, ${branch.cases.length} cases are possible:`);
-    for(let index=0;index<branch.cases.length;index+=1) {
-      lines.push(`Case ${index+1}:\n${cp006TeachingArrangement(branch.cases[index]!)}`);
-    }
-    const deciding=clues[branch.decidingIndex]!;
-    lines.push(`Now use clue ${branch.decidingIndex+1}: ${clueTexts[branch.decidingIndex]??""}`);
-    lines.push(`Meaning: ${clueAction(deciding)}`);
-    for(let index=0;index<branch.cases.length;index+=1) {
-      lines.push(index===branch.survivorIndex
-        ? `Case ${index+1} ✅ — this case satisfies the clue.`
-        : `Case ${index+1} ❌ — this case does not satisfy the clue, so reject it.`);
-    }
-    lines.push(`Only Case ${branch.survivorIndex+1} remains.`);
-  } else {
-    lines.push("Here the clues fix the arrangement without a useful two-case or three-case split, so place them one by one.");
-  }
+  if(branch) appendCaseTeaching(lines,branch,clues,clueTexts);
+  else lines.push("Here the conditions fix the arrangement directly, so no separate trial cases are needed. Place the conditions one by one.");
 
-  lines.push("Now complete and check the arrangement clue by clue:");
-  for(let index=0;index<clues.length;index+=1) {
-    const clue=clues[index]!;
-    lines.push(`Step ${index+1}: ${clueAction(clue)}`);
-    lines.push(`Result: ${clueResolved(state,clue)}`);
-  }
+  appendDetailedSteps(lines,state,clues);
   lines.push("Final arrangement:");
   lines.push(cp006TeachingArrangement(state));
   lines.push("Use this final arrangement to answer all the questions that follow.");
