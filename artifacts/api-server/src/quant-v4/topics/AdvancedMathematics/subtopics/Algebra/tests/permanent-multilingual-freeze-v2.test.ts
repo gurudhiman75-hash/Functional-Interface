@@ -36,6 +36,12 @@ function comparableFrozen(item: ReturnType<typeof generateAlgPermanentMultilingu
   return rest;
 }
 
+function canonicalSerialize(value: unknown): string {
+  return JSON.stringify(value, (_key, current) =>
+    typeof current === "bigint" ? { __bigint__: current.toString() } : current,
+  );
+}
+
 assert(ALG_MULTILINGUAL_V2_FREEZE_ID === "ALG-ML-v2-frozen", "Unexpected multilingual V2 freeze ID");
 assert(
   ALG_MULTILINGUAL_V2_FREEZE_APPROVAL.approvalAuthority === "EXPLICIT_PRODUCT_OWNER_ARTIFACT_APPROVAL",
@@ -128,7 +134,7 @@ for (const allocation of ALG_PERMANENT_ALLOCATION) {
         assert(!frozen.publiclyPublishable, `${prefix}: freeze made item publicly publishable`);
 
         assert(
-          JSON.stringify(comparableFrozen(frozen)) === JSON.stringify(comparableSource(source)),
+          canonicalSerialize(comparableFrozen(frozen)) === canonicalSerialize(comparableSource(source)),
           `${prefix}: non-lifecycle source payload changed under multilingual freeze`,
         );
 
