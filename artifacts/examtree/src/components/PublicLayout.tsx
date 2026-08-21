@@ -3,7 +3,7 @@ import { ArrowRight, LayoutDashboard, Menu, X } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
 import { PublicSeoFallback } from "@/components/PublicSeoFallback";
-import { getUser } from "@/lib/storage";
+import { getSessionUser } from "@/lib/session-user";
 
 interface PublicLayoutProps {
   children: ReactNode;
@@ -53,7 +53,7 @@ function routeIsActive(location: string, href: string) {
 export function PublicLayout({ children }: PublicLayoutProps) {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const user = getUser();
+  const user = getSessionUser();
 
   useEffect(() => setMobileOpen(false), [location]);
 
