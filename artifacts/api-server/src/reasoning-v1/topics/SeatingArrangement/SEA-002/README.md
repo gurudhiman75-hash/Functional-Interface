@@ -60,6 +60,8 @@ Current pinned review fingerprint:
 
 `37384b1a30e13a33bffe101d2906af56595f195d3d91238d8c571d67a5d07e6c`
 
+Verified executable/review workflow: `32468278834` on content head `7cd78e021c0521acad6783fdbe73d58dc6dc9648`.
+
 ## Lifecycle locks
 
 ```text
