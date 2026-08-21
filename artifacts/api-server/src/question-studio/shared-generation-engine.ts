@@ -7,6 +7,11 @@ import {
   isNumCp008QuestionStudioRequest,
   listNumCp008QuestionStudioPackages,
 } from "../quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/question-studio-integration";
+import {
+  generateNumCp009QuestionStudioBatch,
+  isNumCp009QuestionStudioRequest,
+  listNumCp009QuestionStudioPackages,
+} from "../quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/question-studio-integration";
 import type { WorCheckpointId } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/foundation/types";
 import {
   buildWor001QuestionStudioPayload,
@@ -55,7 +60,7 @@ function normalizeSelector(value: unknown) {
     .trim();
 }
 
-export { isNumCp008QuestionStudioRequest };
+export { isNumCp008QuestionStudioRequest, isNumCp009QuestionStudioRequest };
 
 export function isWor001QuestionStudioRequest(request: SharedQuestionStudioGenerationRequest) {
   const packageId = normalizeSelector(request.packageId ?? request.archetypeId);
@@ -154,13 +159,42 @@ function worPackageCapability() {
   };
 }
 
+function num002PackageCapability() {
+  const cp008 = listNumCp008QuestionStudioPackages()[0]!;
+  const cp009 = listNumCp009QuestionStudioPackages()[0]!;
+  return Object.freeze({
+    ...cp008,
+    name: "NUM-002 Number System — Remainders, Modular Arithmetic & Cyclicity",
+    label: "Number System — Remainders, Modular Arithmetic & Cyclicity",
+    cpIds: Object.freeze([...cp008.cpIds, ...cp009.cpIds]),
+    canonicalProblems: Object.freeze([
+      ...cp008.canonicalProblems,
+      ...cp009.canonicalProblems,
+    ]),
+    permanentQlCount: cp008.permanentQlCount + cp009.permanentQlCount,
+    permanentQlIds: Object.freeze([
+      ...cp008.permanentQlIds,
+      ...cp009.permanentQlIds,
+    ]),
+    supportedDifficulties: Object.freeze(["Easy", "Medium", "Hard"]),
+    supportedLanguages: Object.freeze(["en", "hi", "pa"]),
+    releaseId: "NUM-002-QS-CP008-CP009-MULTILINGUAL-FROZEN-V1",
+    checkpointReleaseIds: Object.freeze([cp008.releaseId, cp009.releaseId]),
+    questionBankWritable: false,
+    testEligible: false,
+    mockTestEligible: false,
+    publiclyPublishable: false,
+    automaticStudentPublication: false,
+  });
+}
+
 export function listQuestionStudioPackages() {
   const packages = [...listQuantV4Packages()] as any[];
-  for (const cp008Package of listNumCp008QuestionStudioPackages()) {
-    const existingIndex = packages.findIndex((entry) => String(entry.packageId) === cp008Package.packageId);
-    if (existingIndex >= 0) packages.splice(existingIndex, 1, cp008Package);
-    else packages.push(cp008Package);
-  }
+  const num002Package = num002PackageCapability();
+  const existingIndex = packages.findIndex((entry) => String(entry.packageId) === num002Package.packageId);
+  if (existingIndex >= 0) packages.splice(existingIndex, 1, num002Package);
+  else packages.push(num002Package);
+
   if (!packages.some((entry) => String(entry.packageId) === "WOR-001")) {
     packages.push(worPackageCapability());
   }
@@ -267,6 +301,9 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
 }
 
 export async function generateQuestion(request: SharedQuestionStudioGenerationRequest = {}) {
+  if (isNumCp009QuestionStudioRequest(request)) {
+    return generateNumCp009QuestionStudioBatch(request);
+  }
   if (isNumCp008QuestionStudioRequest(request)) {
     return generateNumCp008QuestionStudioBatch(request);
   }

@@ -1,0 +1,97 @@
+name: Validate NUM-CP-009 Wave 03 final material gaps
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/**"
+      - ".github/workflows/num-cp009-wave03-final-material-gaps.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-num-cp009-wave03:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 01 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/wave01/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-wave01-regression.mjs
+
+      - name: Run Wave 01 regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp009-wave01-regression.mjs
+
+      - name: Bundle Wave 02 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/wave02/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-wave02-regression.mjs
+
+      - name: Run Wave 02 regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp009-wave02-regression.mjs
+
+      - name: Bundle post-Wave02 saturation regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/post-wave02/source-gap-saturation-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-post-wave02-regression.mjs
+
+      - name: Run post-Wave02 saturation regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp009-post-wave02-regression.mjs
+
+      - name: Bundle Wave 03 authority proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/wave03/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-wave03-authority.mjs
+
+      - name: Run Wave 03 authority proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp009-wave03-authority.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp009-wave03-authority.log
+
+      - name: Bundle Wave 03 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/wave03/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-wave03-review-export.mjs
+
+      - name: Generate Wave 03 English review candidate
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp009-wave03-review-export.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp009-wave03-review-export.log
+
+      - name: Upload Wave 03 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp009-wave03-final-material-gaps
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp009-wave03-authority.log
+            artifacts/api-server/dist/quant-v4/num-cp009-wave03-review-export.log
+            artifacts/api-server/dist/quant-v4/num-cp009-wave03/audit.json
+            artifacts/api-server/dist/quant-v4/num-cp009-wave03/review.json
+            artifacts/api-server/dist/quant-v4/num-cp009-wave03/review.md
+          retention-days: 30
