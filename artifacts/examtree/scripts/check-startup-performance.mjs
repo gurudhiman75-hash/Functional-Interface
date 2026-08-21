@@ -6,6 +6,10 @@ const read = (relative) => fs.readFileSync(fileURLToPath(new URL(relative, impor
 const app = read("../src/App.tsx");
 const publicLayout = read("../src/components/PublicLayout.tsx");
 const categoryIcon = read("../src/components/CategoryIcon.tsx");
+const categoryIconResolver = read("../../api-server/src/lib/category-icons.ts");
+const categoryIconDirectory = fileURLToPath(new URL("../public/category-icons/", import.meta.url));
+const categoryIconFiles = fs.readdirSync(categoryIconDirectory);
+const categoryIconFileKeys = categoryIconFiles.map((filename) => filename.toLowerCase());
 const login = read("../src/pages/login.tsx");
 const api = read("../src/lib/api.ts");
 const mathBoundary = read("../src/components/RouteMathBoundary.tsx");
@@ -88,6 +92,17 @@ assert.match(categoryIcon, /Heart,[\s\S]*?Banknote/, "documented historical cate
 assert.match(categoryIcon, /const IconComponent = lucideCategoryIcons\[icon\]/, "category icon lookup must use the bounded map");
 assert.match(categoryIcon, /return <BookOpen className=\{className\} \/>/, "unknown or empty category icons must retain the BookOpen fallback");
 
+assert.ok(categoryIconFiles.length > 0, "category icon asset directory must not be empty");
+assert.equal(new Set(categoryIconFileKeys).size, categoryIconFileKeys.length, "category icon assets must not collide case-insensitively");
+assert.ok(categoryIconFileKeys.includes("ssc-cgl.png"), "SSC-CGL icon must remain addressable by its normalized category slug");
+assert.ok(categoryIconFileKeys.includes("punjab.png"), "Punjab icon must remain addressable by its normalized category slug");
+assert.match(categoryIconResolver, /readdirSync\(root, \{ withFileTypes: true \}\)/, "category icon resolver must inspect actual filenames on disk");
+assert.match(categoryIconResolver, /const key = entry\.name\.toLowerCase\(\)/, "category icon resolver must normalize filenames for case-insensitive lookup");
+assert.match(categoryIconResolver, /Case-insensitive category icon collision/, "category icon resolver must fail closed on ambiguous case-only duplicates");
+assert.match(categoryIconResolver, /index\.get\(`\$\{slug\}\$\{extension\}`\.toLowerCase\(\)\)/, "category icon resolver must lookup normalized category slugs case-insensitively");
+assert.match(categoryIconResolver, /return `\/category-icons\/\$\{filename\}`/, "category icon resolver must return the actual asset filename casing");
+assert.match(categoryIconResolver, /ICON_INDEX_CACHE/, "category icon resolver must cache directory indexes instead of rescanning per category row");
+
 assert.doesNotMatch(vite, /firebase:\s*\[/, "Firebase must not be forced into a manual chunk that can become an entry dependency");
 assert.doesNotMatch(vite, /hoistTransitiveImports:/, "startup isolation must not depend on a global Rollup hoisting override");
 assert.match(vite, /assertStaticEntryExcludesFirebase/, "production build must enforce a Firebase-free static entry graph");
@@ -120,4 +135,4 @@ assert.match(proof, /localFirebaseChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous
 assert.match(proof, /localFirebaseChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove the Firebase helper chunk loads on demand");
 assert.match(proof, /\$x = 2\$/);
 
-console.log("Startup performance audit passed (89 assertions).");
+console.log("Startup performance audit passed (99 assertions).");
