@@ -6,6 +6,7 @@ const read = (relative) => fs.readFileSync(fileURLToPath(new URL(relative, impor
 const app = read("../src/App.tsx");
 const publicLayout = read("../src/components/PublicLayout.tsx");
 const login = read("../src/pages/login.tsx");
+const api = read("../src/lib/api.ts");
 const mathBoundary = read("../src/components/RouteMathBoundary.tsx");
 const mathProvider = read("../src/providers/MathJaxRouteProvider.tsx");
 const catalogBoundary = read("../src/components/RouteCatalogBoundary.tsx");
@@ -32,7 +33,7 @@ assert.match(mathProvider, /inlineMath/);
 assert.match(mathProvider, /displayMath/);
 assert.match(mathProvider, /processEscapes: true/);
 assert.match(mathProvider, /\[tex\]\/ams/);
-assert.doesNotMatch(vite, /mathjax:\s*\[/, "MathJax must not be a manual chunk because Vite preloads manual entry dependencies globally");
+assert.doesNotMatch(vite, /mathjax:\s*\[/, "MathJax must not be a manual chunk because Vite can preload manual entry dependencies globally");
 
 assert.doesNotMatch(app, /import \{ AppLayout \}/, "application root must not statically import the Firebase/catalog-backed preparation shell");
 assert.match(app, /const AppLayout = lazy\(\(\) => import\("@\/components\/AppLayout"\)/, "preparation shell must be dynamically imported");
@@ -59,6 +60,13 @@ assert.match(publicLayout, /const user = getSessionUser\(\)/, "public shell must
 assert.match(sessionUser, /localStorage\.getItem\("user"\)/, "session user reader must use the same local user key");
 assert.doesNotMatch(sessionUser, /@\/lib\/api|@\/lib\/firebase|firebase\//, "session user reader must stay dependency-free from API and Firebase modules");
 
+assert.doesNotMatch(api, /^import .*@\/lib\/firebase/m, "shared API client must not statically import Firebase");
+assert.match(api, /import \{ getSessionUser \} from "@\/lib\/session-user"/, "shared API client must use the lightweight session marker before considering Firebase");
+assert.match(api, /function requestMayNeedFirebaseAuth\(\)/, "shared API client must explicitly classify whether Firebase auth is needed");
+assert.match(api, /if \(!requestMayNeedFirebaseAuth\(\)\) return \{\};/, "anonymous API requests must exit before importing Firebase");
+assert.match(api, /await import\("@\/lib\/firebase"\)/, "authenticated API requests must dynamically load the Firebase helper");
+assert.match(api, /window\.location\.pathname === "\/login"[\s\S]*?startsWith\("\/login\/"\)/, "first login profile request must still be allowed to acquire a Firebase token before setUser");
+
 assert.doesNotMatch(app, /import \{ syncAuthSession \}/, "application root must not statically import Firebase-backed auth synchronization");
 assert.match(app, /<RouteAuthSessionSync \/>/, "router must mount route-aware auth synchronization");
 assert.match(authBoundary, /import\("@\/lib\/auth"\)/, "auth synchronization must dynamically import the Firebase-backed auth module");
@@ -71,8 +79,8 @@ assert.doesNotMatch(authBoundary, /\/privacy-policy/, "legal information routes 
 assert.match(login, /from "firebase\/auth"/, "student login must remain backed by Firebase Auth");
 assert.match(login, /from "@\/lib\/auth"/, "student login must retain the canonical auth helpers");
 
-assert.match(vite, /hoistTransitiveImports:\s*false/, "Rollup must not hoist lazy Firebase transitive imports into the application entry");
-assert.match(vite, /firebase:\s*\[[\s\S]*?"firebase\/app"[\s\S]*?"firebase\/auth"[\s\S]*?"firebase\/firestore"[\s\S]*?"firebase\/storage"[\s\S]*?\]/, "Firebase SDK must remain isolated in a dedicated measurable chunk");
+assert.doesNotMatch(vite, /firebase:\s*\[/, "Firebase must not be forced into a manual chunk that can become an entry dependency");
+assert.doesNotMatch(vite, /hoistTransitiveImports:/, "startup isolation must not depend on a global Rollup hoisting override");
 assert.match(vite, /assertStaticEntryExcludesFirebase/, "production build must enforce a Firebase-free static entry graph");
 assert.match(vite, /node_modules\/firebase\//, "entry-graph guard must detect the Firebase package");
 assert.match(vite, /node_modules\/@firebase\//, "entry-graph guard must detect Firebase internal packages");
@@ -94,8 +102,8 @@ assert.match(proof, /counts\.subcategories\)\.toBeGreaterThan\(0\)/, "exam disco
 assert.match(proof, /counts\.tests\)\.toBeGreaterThan\(0\)/, "exam discovery proof must observe test loading on demand");
 assert.match(proof, /localAuthChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous/catalog routes must prove the auth module is absent");
 assert.match(proof, /localAuthChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove the Firebase-backed auth module loads on demand");
-assert.match(proof, /localFirebaseChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous/catalog routes must prove the Firebase SDK chunk is absent");
-assert.match(proof, /localFirebaseChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove the Firebase SDK chunk loads on demand");
+assert.match(proof, /localFirebaseChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous/catalog routes must prove the Firebase helper chunk is absent");
+assert.match(proof, /localFirebaseChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove the Firebase helper chunk loads on demand");
 assert.match(proof, /\$x = 2\$/);
 
-console.log("Startup performance audit passed (71 assertions).");
+console.log("Startup performance audit passed (77 assertions).");
