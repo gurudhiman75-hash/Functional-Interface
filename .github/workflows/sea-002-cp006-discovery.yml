@@ -29,5 +29,7 @@ jobs:
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-discovery-proof.test.ts
       - name: Prove CP006 4+4, 5+5 and 6+6 scalable expansion
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-wide-proof.test.ts
-      - name: Prove CP006 source-real gap, adjacency, facing-referent and query-mix coverage
+      - name: Prove CP006 source-real gap, adjacency, equal-gap, facing-referent and query-mix coverage
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-source-realness-proof.test.ts
+      - name: Prove CP006 saturation, retained-query inventory, inverse and metamorphic completion gates
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-completion-proof.test.ts
