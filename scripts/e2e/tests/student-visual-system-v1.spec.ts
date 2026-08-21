@@ -115,7 +115,7 @@ test.describe("Visual System V1 responsive public journey", () => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1, name: "Prepare with tests that feel like the exam." })).toBeVisible();
     await expect(page.getByText("Published tests")).toBeVisible();
-    await expect(page.getByText("SSC CGL Full Mock 1")).toBeVisible();
+    await expect(page.getByText("SSC CGL Full Mock 1").first()).toBeVisible();
     await expectNoHorizontalOverflow(page);
 
     const menuButton = page.getByRole("button", { name: "Open navigation menu" });
@@ -136,7 +136,7 @@ test.describe("Visual System V1 responsive public journey", () => {
 
     await expect(page.getByRole("heading", { level: 1, name: "SSC CGL" })).toBeVisible();
     await expect(page.getByRole("heading", { level: 2, name: "Available tests" })).toBeVisible();
-    await expect(page.getByText("SSC CGL Full Mock 1")).toBeVisible();
+    await expect(page.getByText("SSC CGL Full Mock 1").first()).toBeVisible();
     await expect(page.getByRole("button", { name: /Full Length 1/ })).toHaveAttribute("aria-pressed", "true");
     await expectTouchTarget(page.getByRole("button", { name: /Full Length 1/ }));
     await expect(page.getByRole("button", { name: "List view" })).toHaveCount(0);
@@ -161,7 +161,7 @@ test.describe("Visual System V1 responsive public journey", () => {
 
     await page.goto("/subcategory/ssc-cgl");
     await expect(page.getByRole("heading", { level: 2, name: "Available tests" })).toBeVisible();
-    await expect(page.getByText("SSC CGL Full Mock 1")).toBeVisible();
+    await expect(page.getByText("SSC CGL Full Mock 1").first()).toBeVisible();
     await expect(page.getByText("Packages for this exam")).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
   });
