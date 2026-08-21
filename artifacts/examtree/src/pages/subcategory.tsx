@@ -1,33 +1,42 @@
-import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { useLocation, useParams } from "wouter";
 import {
   ArrowLeft,
+  ArrowRight,
   BookOpen,
+  Check,
   ChevronRight,
   Clock3,
   CreditCard,
   Hash,
-  LayoutGrid,
-  List,
   Lock,
   LogIn,
+  Package,
   Play,
   RotateCcw,
   ShieldCheck,
-  Users,
-  Zap,
 } from "lucide-react";
-import { getActiveTestSessions, getAttempts, getUser } from "@/lib/storage";
-import { mockUnlockTest, getPackages, getUserPackages, getBundles, getPackagesByExam, type Test, type Package, type Bundle } from "@/lib/data";
+
+import { CategoryIcon } from "@/components/CategoryIcon";
+import { Button } from "@/components/ui/button";
+import { useMyEntitlements } from "@/hooks/use-my-entitlements";
+import { useToast } from "@/hooks/use-toast";
+import { ApiError, getApiErrorCode } from "@/lib/api";
+import {
+  getBundles,
+  getPackages,
+  getPackagesByExam,
+  getUserPackages,
+  mockUnlockTest,
+  type Bundle,
+  type Package,
+  type Test,
+} from "@/lib/data";
 import { openRazorpayCheckoutForTest } from "@/lib/razorpay-checkout";
+import { getActiveTestSessions, getAttempts, getUser } from "@/lib/storage";
 import { getRuntimeExamGroup } from "@/lib/test-bank";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
-import { ApiError, getApiErrorCode } from "@/lib/api";
-import { useMyEntitlements } from "@/hooks/use-my-entitlements";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
-import { CategoryIcon, isImageIcon } from "@/components/CategoryIcon";
 
 type ExamTab = "full-length" | "sectional" | "topic-wise";
 
@@ -38,20 +47,9 @@ const TAB_LABELS: Record<ExamTab, string> = {
 };
 
 const TAB_DESCRIPTIONS: Record<ExamTab, string> = {
-  "full-length": "Exam-like mocks covering the complete syllabus and timing.",
-  sectional: "Focused practice for specific sections with targeted timing.",
-  "topic-wise": "Topic-specific drills for revision and weak-area improvement.",
-};
-
-const CATEGORY_STYLES: Record<string, string> = {
-  blue: "linear-gradient(to right, #0ea5e9, #3b82f6, #6366f1)",
-  emerald: "linear-gradient(to right, #10b981, #14b8a6, #06b6d4)",
-  violet: "linear-gradient(to right, #8b5cf6, #d946ef, #ec4899)",
-  amber: "linear-gradient(to right, #f59e0b, #f97316, #f43f5e)",
-  orange: "linear-gradient(to right, #f97316, #f59e0b, #eab308)",
-  rose: "linear-gradient(to right, #f43f5e, #ec4899, #d946ef)",
-  indigo: "linear-gradient(to right, #6366f1, #3b82f6, #06b6d4)",
-  red: "linear-gradient(to right, #ef4444, #f43f5e, #f97316)",
+  "full-length": "Complete mocks covering the configured exam structure and timing.",
+  sectional: "Focused tests for a specific section and a shorter practice session.",
+  "topic-wise": "Targeted drills for revision and weak-area practice.",
 };
 
 function sortTests(
@@ -60,13 +58,13 @@ function sortTests(
   activeSessions: ReturnType<typeof getActiveTestSessions>,
 ) {
   return [...examTests].sort((left, right) => {
-    const leftAttempted = attemptsByTestId.has(left.id) ? 1 : 0;
-    const rightAttempted = attemptsByTestId.has(right.id) ? 1 : 0;
-    if (leftAttempted !== rightAttempted) return rightAttempted - leftAttempted;
-
     const leftActive = activeSessions[left.id] ? 1 : 0;
     const rightActive = activeSessions[right.id] ? 1 : 0;
     if (leftActive !== rightActive) return rightActive - leftActive;
+
+    const leftAttempted = attemptsByTestId.has(left.id) ? 1 : 0;
+    const rightAttempted = attemptsByTestId.has(right.id) ? 1 : 0;
+    if (leftAttempted !== rightAttempted) return rightAttempted - leftAttempted;
 
     const leftFree = (left.access ?? "free") === "free" ? 1 : 0;
     const rightFree = (right.access ?? "free") === "free" ? 1 : 0;
@@ -88,6 +86,7 @@ export default function SubcategoryPage() {
     queryFn: getPackages,
     staleTime: 5 * 60_000,
   });
+
   const attempts = useMemo(() => getAttempts(), []);
   const attemptsByTestId = useMemo(() => {
     const map = new Map<string, ReturnType<typeof getAttempts>[number]>();
@@ -96,6 +95,7 @@ export default function SubcategoryPage() {
     }
     return map;
   }, [attempts]);
+
   const activeSessions = useMemo(() => getActiveTestSessions(), []);
   const { categories, subcategories, tests, isLoading, error } = useExamCatalog();
   const { data: entitlementPayload, refetch: refetchEntitlements } = useMyEntitlements();
@@ -104,29 +104,32 @@ export default function SubcategoryPage() {
     [entitlementPayload],
   );
   const user = getUser();
+
   const { data: ownedPackages = [] } = useQuery<import("@/lib/data").UserPackage[]>({
     queryKey: ["user-packages"],
     queryFn: () => getUserPackages(),
     staleTime: 60_000,
     enabled: !!user,
   });
-  const ownedPackageIds = useMemo(() => new Set(ownedPackages.map((p) => p.id)), [ownedPackages]);
-  // Map testId → cheapest package containing it
+  const ownedPackageIds = useMemo(() => new Set(ownedPackages.map((item) => item.id)), [ownedPackages]);
+
   const packageByTestId = useMemo(() => {
     const map = new Map<string, Package>();
     for (const pkg of allPackages) {
-      for (const pt of pkg.tests ?? []) {
-        if (!map.has(pt.testId) || pkg.finalPriceCents < (map.get(pt.testId)!.finalPriceCents)) {
-          map.set(pt.testId, pkg);
-        }
+      for (const packageTest of pkg.tests ?? []) {
+        const current = map.get(packageTest.testId);
+        if (!current || pkg.finalPriceCents < current.finalPriceCents) map.set(packageTest.testId, pkg);
       }
     }
     return map;
   }, [allPackages]);
-  const exam = useMemo(() => (id ? getRuntimeExamGroup(id, categories, tests, subcategories) : null), [id, categories, tests, subcategories]);
+
+  const exam = useMemo(
+    () => (id ? getRuntimeExamGroup(id, categories, tests, subcategories) : null),
+    [id, categories, tests, subcategories],
+  );
   const category = categories.find((item) => item.id === exam?.categoryId);
-  const gradient = CATEGORY_STYLES[category?.color ?? "blue"] ?? CATEGORY_STYLES.blue;
-  const examIcon = exam?.icon ?? category?.icon ?? "";
+  const examIcon = exam?.icon ?? category?.icon ?? "Landmark";
 
   const examTests = useMemo(() => {
     if (!exam) return [];
@@ -143,16 +146,16 @@ export default function SubcategoryPage() {
   }, [activeSessions, attemptsByTestId, exam, tests]);
 
   const tabTests = examTests.filter((test) => (test.kind ?? "full-length") === activeTab);
-  const freeCount = tabTests.filter((test) => (test.access ?? "free") === "free").length;
-  const paidCount = tabTests.length - freeCount;
+  const examFreeCount = examTests.filter((test) => (test.access ?? "free") === "free").length;
+  const examPremiumCount = examTests.length - examFreeCount;
+  const attemptedTestCount = examTests.filter((test) => attemptsByTestId.has(test.id)).length;
 
-  // Count distinct locked packages in the current tab
   const lockedPkgIds = useMemo(() => {
     const ids = new Set<string>();
     for (const test of tabTests) {
-      const isFreeTest = (test.access ?? "free") === "free";
+      const isFree = (test.access ?? "free") === "free";
       const hasEntitlement = entitledIds.has(test.id);
-      if (!isFreeTest && !hasEntitlement) {
+      if (!isFree && !hasEntitlement) {
         const pkg = packageByTestId.get(test.id);
         if (pkg && !ownedPackageIds.has(pkg.id)) ids.add(pkg.id);
       }
@@ -166,10 +169,8 @@ export default function SubcategoryPage() {
     staleTime: 5 * 60_000,
     enabled: lockedPkgIds.size >= 2,
   });
-
-  // Pick the cheapest bundle as the suggestion (simple heuristic)
   const suggestedBundle = lockedPkgIds.size >= 2 && allBundles.length > 0
-    ? allBundles.reduce((a, b) => a.price <= b.price ? a : b)
+    ? allBundles.reduce((left, right) => left.price <= right.price ? left : right)
     : null;
 
   const { data: examPackages = [] } = useQuery({
@@ -179,47 +180,43 @@ export default function SubcategoryPage() {
     enabled: !!id,
   });
 
-  // Best value: lowest price-per-test across packages (and bundle if available)
   const bestValueId = useMemo(() => {
-    type Option = { id: string; priceCents: number; testCount: number; kind: "pkg" | "bundle" };
+    type Option = { id: string; priceCents: number; testCount: number };
     const options: Option[] = examPackages
-      .filter((p) => p.testIds.length > 0)
-      .map((p) => ({ id: p.id, priceCents: p.finalPriceCents, testCount: p.testIds.length, kind: "pkg" }));
+      .filter((pkg) => pkg.testIds.length > 0)
+      .map((pkg) => ({ id: pkg.id, priceCents: pkg.finalPriceCents, testCount: pkg.testIds.length }));
     if (suggestedBundle && suggestedBundle.price > 0) {
-      const bundleTestCount = examPackages.reduce((n, p) => n + p.testIds.length, 0) || 1;
-      options.push({ id: `bundle-${suggestedBundle.id}`, priceCents: suggestedBundle.price, testCount: bundleTestCount, kind: "bundle" });
+      const bundleTestCount = examPackages.reduce((sum, pkg) => sum + pkg.testIds.length, 0) || 1;
+      options.push({ id: `bundle-${suggestedBundle.id}`, priceCents: suggestedBundle.price, testCount: bundleTestCount });
     }
-    if (options.length < 2) return options[0]?.id ?? null;
-    return options.reduce((a, b) =>
-      a.priceCents / a.testCount <= b.priceCents / b.testCount ? a : b
+    if (options.length === 0) return null;
+    return options.reduce((left, right) =>
+      left.priceCents / left.testCount <= right.priceCents / right.testCount ? left : right
     ).id;
   }, [examPackages, suggestedBundle]);
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background">
-        <main className="mx-auto max-w-lg px-4 py-24 text-center">
-          <h1 className="text-xl font-semibold text-foreground">Could not load exam</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            The exam catalog is temporarily unavailable. Please try again.
-          </p>
-          <Button className="mt-5" variant="outline" onClick={() => window.location.reload()}>
-            Retry
-          </Button>
-        </main>
-      </div>
+      <main className="mx-auto max-w-lg px-4 py-24 text-center">
+        <h1 className="text-xl font-semibold text-slate-950">Could not load exam</h1>
+        <p className="mt-2 text-sm text-slate-600">
+          The exam catalog is temporarily unavailable. Please try again.
+        </p>
+        <Button className="mt-5" variant="outline" onClick={() => window.location.reload()}>
+          Retry
+        </Button>
+      </main>
     );
   }
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background">
-        <div className="mx-auto max-w-7xl animate-pulse px-4 py-12">
-          <div className="h-8 w-48 rounded-lg bg-muted" />
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <div className="h-40 rounded-2xl bg-muted" />
-            <div className="h-40 rounded-2xl bg-muted" />
-          </div>
+      <div className="mx-auto max-w-7xl animate-pulse px-4 py-12 sm:px-6 lg:px-8">
+        <div className="h-5 w-36 rounded bg-slate-200" />
+        <div className="mt-10 h-12 w-80 rounded-lg bg-slate-200" />
+        <div className="mt-4 h-5 max-w-2xl rounded bg-slate-200" />
+        <div className="mt-10 space-y-3">
+          {[1, 2, 3].map((item) => <div key={item} className="h-28 rounded-xl bg-slate-200" />)}
         </div>
       </div>
     );
@@ -227,22 +224,14 @@ export default function SubcategoryPage() {
 
   if (!exam) {
     return (
-      <div className="min-h-screen bg-background">
-        <main className="mx-auto flex min-h-[70vh] max-w-5xl items-center justify-center px-4 py-10 sm:px-6 lg:px-8">
-          <div className="glass-panel max-w-xl rounded-[2rem] border border-border/60 p-10 text-center shadow-lg">
-            <span className="mb-4 inline-block rounded-full border border-border/50 bg-muted/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Exam unavailable
-            </span>
-            <h1 className="text-2xl font-bold text-foreground">Exam not found</h1>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              This exam page is not available right now.
-            </p>
-            <Button className="mt-6 rounded-2xl" onClick={() => setLocation("/exams")}>
-              Back to Exams
-            </Button>
-          </div>
-        </main>
-      </div>
+      <main className="mx-auto flex min-h-[70vh] max-w-5xl items-center justify-center px-4 py-10 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <p className="text-sm font-medium text-slate-500">Exam unavailable</p>
+          <h1 className="mt-2 text-2xl font-semibold text-slate-950">Exam not found</h1>
+          <p className="mt-3 text-sm leading-6 text-slate-600">This exam page is not available right now.</p>
+          <Button className="mt-6" onClick={() => setLocation("/exams")}>Back to exams</Button>
+        </div>
+      </main>
     );
   }
 
@@ -259,25 +248,18 @@ export default function SubcategoryPage() {
           await queryClient.invalidateQueries({ queryKey: ["me", "entitlements"] });
           await queryClient.invalidateQueries({ queryKey: ["user-packages"] });
           await refetchEntitlements();
-          toast({
-            title: "Payment successful",
-            description: `${testItem.name} is now unlocked on your account.`,
-          });
+          toast({ title: "Payment successful", description: `${testItem.name} is now unlocked on your account.` });
           setLocation(`/test/${testItem.id}?checkout=success`);
         },
         onError: (message) => {
-          toast({
-            title: "Payment could not be verified",
-            description: message,
-            variant: "destructive",
-          });
+          toast({ title: "Payment could not be verified", description: message, variant: "destructive" });
         },
       });
-    } catch (e) {
+    } catch (caught) {
       if (
-        import.meta.env.DEV &&
-        e instanceof ApiError &&
-        getApiErrorCode(e.body) === "RAZORPAY_NOT_CONFIGURED"
+        import.meta.env.DEV
+        && caught instanceof ApiError
+        && getApiErrorCode(caught.body) === "RAZORPAY_NOT_CONFIGURED"
       ) {
         await mockUnlockTest(testItem.id);
         await refetchEntitlements();
@@ -291,400 +273,224 @@ export default function SubcategoryPage() {
       }
       toast({
         title: "Could not start payment",
-        description: e instanceof Error ? e.message : "Try again later.",
+        description: caught instanceof Error ? caught.message : "Try again later.",
         variant: "destructive",
       });
     }
   };
 
-  const [viewMode, setViewMode] = useState<"list" | "grid">("grid");
+  const progress = examTests.length > 0 ? Math.round((attemptedTestCount / examTests.length) * 100) : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
-      <div className="border-b border-border/50 bg-background/80 backdrop-blur-sm">
-        <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6">
-          <button
-            onClick={() => setLocation(`/category/${exam.categoryId}`)}
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
-            data-testid="btn-back-category"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            {category?.name ?? "Back"}
-          </button>
-        </div>
-      </div>
+    <div className="bg-slate-50">
+      <div className="mx-auto max-w-7xl px-4 pb-16 pt-7 sm:px-6 lg:px-8">
+        <button
+          type="button"
+          onClick={() => setLocation(`/category/${exam.categoryId}`)}
+          className="inline-flex min-h-10 items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+          data-testid="btn-back-category"
+        >
+          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+          {category?.name ?? "Back"}
+        </button>
 
-      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-        <div className="flex flex-col gap-8 xl:flex-row xl:items-start">
-          <div className="min-w-0 flex-1">
-            <div className="mb-6 rounded-2xl overflow-hidden border border-sky-80 bg-gradient-to-br from-sky-50 via-slate-50 to-indigo-50 px-5 py-6 shadow-sm">
-              <div className="inline-flex items-center rounded-full px-3 py-1 mb-3" style={{ backgroundImage: gradient }}>
-                <span className="text-[11px] font-bold uppercase tracking-widest text-white/90">{category?.name}</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <div
-                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl shadow-sm ${isImageIcon(examIcon) ? "border border-slate-200 bg-white text-slate-700" : "text-white"}`}
-                  style={isImageIcon(examIcon) ? undefined : { backgroundImage: gradient }}
-                >
-                  <CategoryIcon icon={examIcon} className="h-5 w-5" />
-                </div>
-                <h1 className="text-[34px] font-black tracking-tight text-foreground leading-tight sm:text-[40px]">{exam.name}</h1>
-              </div>
-              <ExamDescription
-                text={exam.description || `Browse ${exam.name} by full-length, sectional, and topic-wise practice.`}
-                examName={exam.name}
-                freeCount={examTests.filter(t => (t.access ?? "free") === "free").length}
-                paidCount={examTests.filter(t => (t.access ?? "free") !== "free").length}
-                fullLengthCount={examTests.filter(t => (t.kind ?? "full-length") === "full-length").length}
-                sectionalCount={examTests.filter(t => t.kind === "sectional").length}
-                topicWiseCount={examTests.filter(t => t.kind === "topic-wise").length}
-              />
-              <div className="mt-4 flex flex-wrap gap-2">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-border/50 bg-muted/50 px-3 py-1 text-xs font-medium text-foreground">
-                  <BookOpen className="h-3.5 w-3.5 text-primary/70" />{examTests.length} total
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-                  <ShieldCheck className="h-3.5 w-3.5" />{examTests.filter(t => (t.access ?? "free") === "free").length} free
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
-                  <Lock className="h-3.5 w-3.5" />{examTests.filter(t => (t.access ?? "free") !== "free").length} paid
-                </span>
-                {attempts.length > 0 && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700">
-                    <Users className="h-3.5 w-3.5" />{attempts.length} attempts saved
-                  </span>
-                )}
-              </div>
+        <header className="mt-8 border-b border-slate-200 pb-9">
+          <div className="flex items-start gap-4">
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-indigo-100 bg-indigo-50 text-indigo-700" aria-hidden="true">
+              <CategoryIcon icon={examIcon} className="h-6 w-6" />
+            </span>
+            <div className="min-w-0">
+              <p className="text-sm font-medium text-indigo-700">{category?.name ?? "Exam series"}</p>
+              <h1 className="mt-1 text-4xl font-semibold tracking-[-0.035em] text-slate-950 sm:text-5xl">{exam.name}</h1>
+            </div>
+          </div>
 
-              {examTests.length > 0 && (() => {
-                const completedIds = new Set(attempts.map(a => a.testId));
-                const completed = examTests.filter(t => completedIds.has(t.id)).length;
-                const total = examTests.length;
-                const pct = Math.round((completed / total) * 100);
-                return (
-                  <div className="mt-4">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[11px] font-medium text-muted-foreground">Your progress</span>
-                      <span className="text-[11px] font-semibold text-foreground">{completed} / {total} completed</span>
-                    </div>
-                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted/60">
-                      <div
-                        className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-500"
-                        style={{ width: `${pct}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })()}
+          <ExamDescription
+            text={exam.description || `Browse ${exam.name} by full-length, sectional and topic-wise practice.`}
+            examName={exam.name}
+            freeCount={examFreeCount}
+            paidCount={examPremiumCount}
+            fullLengthCount={examTests.filter((test) => (test.kind ?? "full-length") === "full-length").length}
+            sectionalCount={examTests.filter((test) => test.kind === "sectional").length}
+            topicWiseCount={examTests.filter((test) => test.kind === "topic-wise").length}
+          />
+
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
+            <span><strong className="font-semibold text-slate-950">{examTests.length}</strong> published tests</span>
+            <span><strong className="font-semibold text-emerald-700">{examFreeCount}</strong> free</span>
+            {examPremiumCount > 0 && <span><strong className="font-semibold text-amber-800">{examPremiumCount}</strong> premium</span>}
+            {attemptedTestCount > 0 && <span><strong className="font-semibold text-indigo-700">{attemptedTestCount}</strong> attempted</span>}
+          </div>
+
+          {attemptedTestCount > 0 && (
+            <div className="mt-5 max-w-xl">
+              <div className="flex items-center justify-between text-xs font-medium text-slate-500">
+                <span>Your progress</span>
+                <span>{attemptedTestCount}/{examTests.length} tests attempted</span>
+              </div>
+              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-200">
+                <div className="h-full rounded-full bg-indigo-600" style={{ width: `${progress}%` }} />
+              </div>
+            </div>
+          )}
+        </header>
+
+        <section className="pt-9" aria-labelledby="test-inventory-heading">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <h2 id="test-inventory-heading" className="text-2xl font-semibold tracking-[-0.02em] text-slate-950">Available tests</h2>
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600">{TAB_DESCRIPTIONS[activeTab]}</p>
             </div>
 
-            <div className="flex gap-1 rounded-xl border border-border/60 bg-muted/40 p-1">
+            <div className="flex gap-5 overflow-x-auto border-b border-slate-200" role="tablist" aria-label="Test format">
               {(Object.keys(TAB_LABELS) as ExamTab[]).map((tab) => {
-                const count = examTests.filter((t) => (t.kind ?? "full-length") === tab).length;
-                const isActive = activeTab === tab;
+                const count = examTests.filter((test) => (test.kind ?? "full-length") === tab).length;
+                const active = activeTab === tab;
                 return (
                   <button
                     key={tab}
                     type="button"
+                    role="tab"
+                    aria-selected={active}
                     onClick={() => setActiveTab(tab)}
-                    className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm transition-all ${
-                      isActive
-                        ? "bg-sky-600 shadow-md text-white font-bold border border-sky-700"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50 font-medium"
+                    className={`min-h-11 shrink-0 border-b-2 px-0.5 text-sm font-medium transition-colors ${
+                      active ? "border-indigo-700 text-indigo-800" : "border-transparent text-slate-500 hover:text-slate-950"
                     }`}
                   >
-                    {TAB_LABELS[tab]}
-                    <span className={`rounded-full px-1.5 py-0.5 text-[11px] font-semibold ${
-                      isActive ? "bg-white/20 text-white" : "bg-muted/60 text-muted-foreground/50"
-                    }`}>{count}</span>
+                    {TAB_LABELS[tab]} <span className="ml-1 text-xs tabular-nums text-slate-400">{count}</span>
                   </button>
                 );
               })}
             </div>
-
-            <div className="mt-4 mb-3 flex items-center justify-between">
-              <p className="text-xs font-medium text-muted-foreground">
-                {tabTests.length} {TAB_LABELS[activeTab].toLowerCase()} test{tabTests.length !== 1 ? "s" : ""}
-              </p>
-              <div className="flex items-center gap-1 rounded-lg border border-border/50 bg-muted/30 p-0.5">
-                <button
-                  type="button"
-                  onClick={() => setViewMode("list")}
-                  className={`rounded-md p-1.5 transition-colors ${
-                    viewMode === "list" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-                  }`}
-                  aria-label="List view"
-                >
-                  <List className="h-3.5 w-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setViewMode("grid")}
-                  className={`rounded-md p-1.5 transition-colors ${
-                    viewMode === "grid" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-                  }`}
-                  aria-label="Grid view"
-                >
-                  <LayoutGrid className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            </div>
-
-            {tabTests.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-border/60 px-6 py-14 text-center">
-                <BookOpen className="mx-auto h-9 w-9 text-muted-foreground/40" />
-                <p className="mt-3 text-sm text-muted-foreground">No {TAB_LABELS[activeTab].toLowerCase()} tests yet</p>
-              </div>
-            ) : viewMode === "grid" ? (
-              <div className="grid gap-3 sm:grid-cols-2">
-                {tabTests.map((test) => {
-                  const latestAttempt = attemptsByTestId.get(test.id);
-                  const attempted = Boolean(latestAttempt);
-                  const activeSession = activeSessions[test.id];
-                  const isFree = (test.access ?? "free") === "free";
-                  const hasEntitlement = entitledIds.has(test.id);
-                  const hasAccess = isFree || hasEntitlement;
-                  const isLocked = !hasAccess;
-                  const pkg = packageByTestId.get(test.id);
-                  const pkgOwned = pkg ? ownedPackageIds.has(pkg.id) : false;
-
-                  const borderAccent = attempted
-                    ? "border-l-sky-400"
-                    : !isLocked || pkgOwned
-                      ? isFree ? "border-l-emerald-400" : "border-l-violet-400"
-                      : "border-l-amber-400";
-
-                  return (
-                    <div
-                      key={test.id}
-                      className={`group relative flex flex-col gap-3 rounded-xl border border-slate-100 border-l-4 ${borderAccent} bg-white/80 p-4 shadow-[0_1px_4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 hover:bg-white cursor-pointer`}
-                      onClick={() => !isLocked || pkgOwned ? setLocation(`/test/${test.id}`) : undefined}
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="min-w-0">
-                          <p className="text-[18px] font-bold text-slate-800 leading-snug">{test.name}</p>
-                          <div className="mt-1.5 flex flex-wrap items-center gap-2 text-[14px] text-slate-400">
-                            <span className="flex items-center gap-1"><Clock3 className="h-3 w-3 text-primary/50" />{test.duration} min</span>
-                            <span className="flex items-center gap-1"><Hash className="h-3 w-3 text-slate-400" />{test.totalQuestions} Qs</span>
-                            <DifficultyBadge difficulty={test.difficulty} />
-                          </div>
-                        </div>
-                        <TestStatusBadge isFree={isFree} isLocked={isLocked} pkgOwned={pkgOwned} attempted={attempted} activeSession={!!activeSession} />
-                      </div>
-                      {latestAttempt && (
-                        <p className="text-[11px] text-muted-foreground/70">
-                          Last attempt: {new Date(latestAttempt.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
-                          {latestAttempt.score != null && <> &middot; <span className={latestAttempt.score >= 70 ? "text-emerald-600" : latestAttempt.score >= 40 ? "text-amber-600" : "text-rose-600"}>{latestAttempt.score}%</span></>}
-                        </p>
-                      )}
-                      <div className="mt-auto" onClick={(e) => e.stopPropagation()}>
-                        <TestActionButton
-                          test={test}
-                          isLocked={isLocked}
-                          pkgOwned={pkgOwned}
-                          pkg={pkg}
-                          activeSession={!!activeSession}
-                          attempted={attempted}
-                          user={user}
-                          onStart={() => setLocation(`/test/${test.id}`)}
-                          onBuy={() => setLocation("/packages")}
-                          onUnlock={() => user ? void startPaidCheckout(test) : setLocation("/login/student")}
-                          onReview={() => latestAttempt && setLocation(`/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(test.id)}&tab=review`)}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="flex flex-col gap-2">
-                {tabTests.map((test) => {
-                  const latestAttempt = attemptsByTestId.get(test.id);
-                  const attempted = Boolean(latestAttempt);
-                  const activeSession = activeSessions[test.id];
-                  const isFree = (test.access ?? "free") === "free";
-                  const hasEntitlement = entitledIds.has(test.id);
-                  const hasAccess = isFree || hasEntitlement;
-                  const isLocked = !hasAccess;
-                  const pkg = packageByTestId.get(test.id);
-                  const pkgOwned = pkg ? ownedPackageIds.has(pkg.id) : false;
-
-                  const borderAccent = attempted
-                    ? "border-l-sky-400"
-                    : !isLocked || pkgOwned
-                      ? isFree ? "border-l-emerald-400" : "border-l-violet-400"
-                      : "border-l-amber-400";
-
-                  return (
-                    <div
-                      key={test.id}
-                      className={`group flex items-center gap-3 rounded-xl border border-slate-100 border-l-4 ${borderAccent} bg-white/80 px-4 py-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:translate-x-0.5 hover:bg-white cursor-pointer`}
-                      onClick={() => !isLocked || pkgOwned ? setLocation(`/test/${test.id}`) : undefined}
-                    >
-                      <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
-                        isLocked && !pkgOwned ? "bg-amber-100 text-amber-600" : attempted ? "bg-sky-100 text-sky-600" : "bg-primary/10 text-primary"
-                      }`}>
-                        {isLocked && !pkgOwned ? <Lock className="h-4 w-4" /> : attempted ? <RotateCcw className="h-4 w-4" /> : <ShieldCheck className="h-4 w-4" />}
-                      </div>
-
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-[18px] font-bold text-slate-800 leading-snug">{test.name}</p>
-                        <div className="mt-0.5 flex flex-wrap items-center gap-2 text-[14px] text-slate-400">
-                          <TestStatusBadge isFree={isFree} isLocked={isLocked} pkgOwned={pkgOwned} attempted={attempted} activeSession={!!activeSession} />
-                          <span className="flex items-center gap-0.5"><Clock3 className="h-3 w-3 text-primary/50" />{test.duration} min</span>
-                          <span className="flex items-center gap-0.5"><Hash className="h-3 w-3 text-slate-400" />{test.totalQuestions} Qs</span>
-                          <DifficultyBadge difficulty={test.difficulty} />
-                          {activeSession && <span className="font-medium text-sky-600">In progress</span>}
-                        </div>
-                        {latestAttempt && (
-                          <p className="mt-0.5 text-[11px] text-muted-foreground/70">
-                            {new Date(latestAttempt.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
-                            {latestAttempt.score != null && <> &middot; <span className={latestAttempt.score >= 70 ? "text-emerald-600 font-medium" : latestAttempt.score >= 40 ? "text-amber-600 font-medium" : "text-rose-600 font-medium"}>{latestAttempt.score}%</span></>}
-                          </p>
-                        )}
-                      </div>
-
-                      <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
-                        <TestActionButton
-                          test={test}
-                          isLocked={isLocked}
-                          pkgOwned={pkgOwned}
-                          pkg={pkg}
-                          activeSession={!!activeSession}
-                          attempted={attempted}
-                          user={user}
-                          onStart={() => setLocation(`/test/${test.id}`)}
-                          onBuy={() => setLocation("/packages")}
-                          onUnlock={() => user ? void startPaidCheckout(test) : setLocation("/login/student")}
-                          onReview={() => latestAttempt && setLocation(`/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(test.id)}&tab=review`)}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
           </div>
 
-          {examPackages.length > 0 && (
-            <div className="w-full xl:w-72 xl:shrink-0">
-              <div className="sticky top-6 space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground px-1">Unlock a Package</p>
-                {examPackages.map((ep) => {
-                  const isBest = ep.id === bestValueId;
-                  const owned = ownedPackageIds.has(ep.id);
-                  return (
-                    <div
-                      key={ep.id}
-                      className={`relative rounded-xl border overflow-hidden transition-all duration-200 hover:scale-[1.015] ${
-                        owned
-                          ? "border-emerald-300/70 shadow-lg shadow-emerald-100/50"
-                          : isBest
-                            ? "border-violet-400/60 shadow-lg shadow-violet-100/60 ring-1 ring-violet-300/40"
-                            : "border-border/60 shadow-md hover:shadow-lg"
-                      }`}
-                    >
-                      <div className={`px-4 pt-4 pb-3 ${
-                        owned
-                          ? "bg-gradient-to-br from-emerald-50 to-teal-50/60"
-                          : isBest
-                            ? "bg-gradient-to-br from-violet-50 to-indigo-50/60"
-                            : "bg-gradient-to-br from-muted/40 to-muted/10"
-                      }`}>
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="min-w-0">
-                            {owned && (
-                              <span className="mb-1.5 inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-                                ✓ Purchased
-                              </span>
-                            )}
-                            {!owned && isBest && (
-                              <span className="mb-1.5 inline-flex items-center gap-1 rounded-full bg-violet-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-                                <Zap className="h-2.5 w-2.5" /> Best Value
-                              </span>
-                            )}
-                            <p className="text-[14px] font-bold text-foreground leading-snug">{ep.name}</p>
-                          </div>
-                          <div className="text-right shrink-0">
-                            <p className="text-xl font-black tracking-tight text-foreground">₹{(ep.finalPriceCents / 100).toFixed(0)}</p>
-                            {ep.originalPriceCents && ep.originalPriceCents > ep.finalPriceCents && (
-                              <p className="text-[11px] font-normal text-muted-foreground/70 line-through">₹{(ep.originalPriceCents / 100).toFixed(0)}</p>
-                            )}
-                            {ep.discountPercent > 0 && (
-                              <p className="text-[11px] font-bold text-emerald-600">{ep.discountPercent}% off</p>
-                            )}
-                          </div>
-                        </div>
-                      </div>
+          {tabTests.length === 0 ? (
+            <div className="mt-6 border-y border-dashed border-slate-300 py-14 text-center">
+              <BookOpen className="mx-auto h-8 w-8 text-slate-300" aria-hidden="true" />
+              <p className="mt-3 text-sm font-medium text-slate-700">No {TAB_LABELS[activeTab].toLowerCase()} tests yet</p>
+            </div>
+          ) : (
+            <div className="mt-6 divide-y divide-slate-200 border-y border-slate-200 bg-white">
+              {tabTests.map((test) => {
+                const latestAttempt = attemptsByTestId.get(test.id);
+                const attempted = Boolean(latestAttempt);
+                const activeSession = Boolean(activeSessions[test.id]);
+                const isFree = (test.access ?? "free") === "free";
+                const hasEntitlement = entitledIds.has(test.id);
+                const isLocked = !(isFree || hasEntitlement);
+                const pkg = packageByTestId.get(test.id);
+                const pkgOwned = pkg ? ownedPackageIds.has(pkg.id) : false;
+                const canOpen = !isLocked || pkgOwned;
 
-                      <div className="bg-card px-4 py-3 border-t border-border/40">
-                        <div className="grid grid-cols-2 divide-x divide-border/40 mb-3 text-center">
-                          <div className="pr-2">
-                            <p className="text-sm font-black text-foreground">{ep.testIds.length}</p>
-                            <p className="text-[10px] font-medium text-muted-foreground leading-tight">Tests</p>
-                          </div>
-                          <div className="pl-2">
-                            <p className="text-sm font-black text-foreground">Full</p>
-                            <p className="text-[10px] font-medium text-muted-foreground leading-tight">Access</p>
-                          </div>
+                return (
+                  <article key={test.id} className="px-4 py-5 sm:px-5">
+                    <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
+                      <button
+                        type="button"
+                        disabled={!canOpen}
+                        onClick={() => canOpen && setLocation(`/test/${test.id}`)}
+                        className="min-w-0 flex-1 text-left disabled:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+                      >
+                        <div className="flex flex-wrap items-center gap-2">
+                          <TestStatusBadge isFree={isFree} isLocked={isLocked} pkgOwned={pkgOwned} attempted={attempted} activeSession={activeSession} />
+                          {activeSession && <span className="text-xs font-semibold text-indigo-700">In progress</span>}
                         </div>
-                        <ul className="space-y-1 text-xs text-muted-foreground">
-                          <li className="flex items-center gap-1.5">
-                            <ShieldCheck className="h-3 w-3 shrink-0 text-emerald-600" />
-                            Attempts and solution review
-                          </li>
-                          <li className="flex items-center gap-1.5">
-                            <RotateCcw className="h-3 w-3 shrink-0 text-sky-600" />
-                            Retake available tests
-                          </li>
-                        </ul>
-                        <Button
-                          size="sm"
-                          className={`mt-3 w-full rounded-lg font-semibold ${
-                            owned
-                              ? "bg-emerald-600 hover:bg-emerald-600 cursor-default"
-                              : isBest
-                                ? "bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 shadow-sm"
-                                : ""
-                          }`}
-                          disabled={owned}
-                          onClick={() => !owned && setLocation("/packages")}
-                        >
-                          {owned ? "✓ Purchased" : "Buy Now"}
-                        </Button>
+                        <h3 className="mt-2 text-lg font-semibold leading-snug text-slate-950">{test.name}</h3>
+                        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-slate-500">
+                          <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" aria-hidden="true" />{test.duration} min</span>
+                          <span className="inline-flex items-center gap-1.5"><Hash className="h-3.5 w-3.5" aria-hidden="true" />{test.totalQuestions} questions</span>
+                          <DifficultyBadge difficulty={test.difficulty} />
+                        </div>
+                        {latestAttempt && (
+                          <p className="mt-2 text-xs text-slate-500">
+                            Last attempt {new Date(latestAttempt.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                            {latestAttempt.score != null && <> · <span className="font-semibold text-slate-700">{latestAttempt.score}%</span></>}
+                          </p>
+                        )}
+                      </button>
+
+                      <div className="shrink-0 lg:min-w-[220px] lg:text-right">
+                        <TestActionButton
+                          isLocked={isLocked}
+                          pkgOwned={pkgOwned}
+                          pkg={pkg}
+                          activeSession={activeSession}
+                          attempted={attempted}
+                          user={user}
+                          onStart={() => setLocation(`/test/${test.id}`)}
+                          onBuy={() => setLocation("/packages")}
+                          onUnlock={() => user ? void startPaidCheckout(test) : setLocation("/login/student")}
+                          onReview={() => latestAttempt && setLocation(`/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(test.id)}&tab=review`)}
+                        />
                       </div>
                     </div>
-                  );
-                })}
-              </div>
-
-              <div className="mt-3 rounded-xl border border-border/50 bg-muted/25 px-4 py-3">
-                <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">What you'll get</p>
-                <ul className="space-y-1.5">
-                  {[
-                    { icon: <ShieldCheck className="h-3 w-3 text-emerald-600" />, text: "Detailed answer explanations" },
-                    { icon: <RotateCcw className="h-3 w-3 text-sky-600" />, text: "Retake available tests" },
-                    { icon: <Clock3 className="h-3 w-3 text-primary/70" />, text: "Configured timed test environment" },
-                    { icon: <Hash className="h-3 w-3 text-violet-500" />, text: "Saved scores and solution review" },
-                    { icon: <BookOpen className="h-3 w-3 text-amber-600" />, text: "Published full and sectional coverage" },
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                      {item.icon}
-                      <span>{item.text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  </article>
+                );
+              })}
             </div>
           )}
-        </div>
+        </section>
+
+        {examPackages.length > 0 && (
+          <section className="mt-12 border-t border-slate-200 pt-9" aria-labelledby="packages-heading">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h2 id="packages-heading" className="text-2xl font-semibold tracking-[-0.02em] text-slate-950">Packages for this exam</h2>
+                <p className="mt-1 text-sm leading-6 text-slate-600">Optional access bundles for premium tests. Free tests remain available without a package.</p>
+              </div>
+              <Button variant="ghost" className="h-11 self-start px-0 text-indigo-700 hover:bg-transparent hover:text-indigo-900 sm:self-auto" onClick={() => setLocation("/packages")}>
+                View all packages <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+              </Button>
+            </div>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {examPackages.map((pkg) => {
+                const owned = ownedPackageIds.has(pkg.id);
+                const bestValue = pkg.id === bestValueId;
+                return (
+                  <article key={pkg.id} className="rounded-xl border border-slate-200 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap gap-2">
+                          {owned && <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700"><Check className="h-3 w-3" aria-hidden="true" />Purchased</span>}
+                          {!owned && bestValue && <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">Best value</span>}
+                        </div>
+                        <h3 className="mt-3 text-lg font-semibold text-slate-950">{pkg.name}</h3>
+                        <p className="mt-1 text-sm text-slate-500">{pkg.testIds.length} tests · full access</p>
+                      </div>
+                      <div className="shrink-0 text-right">
+                        <p className="text-2xl font-semibold tabular-nums text-slate-950">₹{(pkg.finalPriceCents / 100).toFixed(0)}</p>
+                        {pkg.originalPriceCents && pkg.originalPriceCents > pkg.finalPriceCents && (
+                          <p className="text-xs text-slate-400 line-through">₹{(pkg.originalPriceCents / 100).toFixed(0)}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mt-5 border-t border-slate-100 pt-4 text-sm text-slate-600">
+                      <p className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-emerald-600" aria-hidden="true" />Attempts and solution review</p>
+                      <p className="mt-2 inline-flex items-center gap-2"><RotateCcw className="h-4 w-4 text-indigo-500" aria-hidden="true" />Retake available tests</p>
+                    </div>
+
+                    <Button
+                      className="mt-5 h-11 w-full"
+                      variant={owned ? "outline" : "default"}
+                      disabled={owned}
+                      onClick={() => !owned && setLocation("/packages")}
+                    >
+                      {owned ? "Purchased" : "View package"}
+                    </Button>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );
 }
 
 type TestActionButtonProps = {
-  test: Test;
   isLocked: boolean;
   pkgOwned: boolean;
   pkg: Package | undefined;
@@ -701,43 +507,43 @@ function TestActionButton({ isLocked, pkgOwned, pkg, activeSession, attempted, u
   if (!isLocked || pkgOwned) {
     if (activeSession && !attempted) {
       return (
-        <Button size="sm" className="rounded-lg bg-sky-600 hover:bg-sky-700 text-white shadow-sm font-bold" onClick={onStart}>
-          <Play className="mr-1.5 h-3.5 w-3.5" />Resume
+        <Button className="h-11 w-full lg:w-auto" onClick={onStart}>
+          <Play className="mr-2 h-4 w-4" aria-hidden="true" />Resume test
         </Button>
       );
     }
     if (attempted) {
       return (
-        <div className="flex gap-1.5">
-          <Button size="sm" variant="outline" className="rounded-lg border-muted-foreground/30 hover:border-foreground/40 font-medium" onClick={onStart}>
-            <RotateCcw className="mr-1.5 h-3.5 w-3.5" />Retry
+        <div className="flex gap-2 lg:justify-end">
+          <Button className="h-11" variant="outline" onClick={onStart}>
+            <RotateCcw className="mr-2 h-4 w-4" aria-hidden="true" />Retry
           </Button>
-          <Button size="sm" variant="outline" className="rounded-lg border-purple-300 text-purple-700 hover:bg-purple-50 font-medium" onClick={onReview}>
-            <BookOpen className="mr-1.5 h-3.5 w-3.5" />Review
+          <Button className="h-11" variant="outline" onClick={onReview}>
+            <BookOpen className="mr-2 h-4 w-4" aria-hidden="true" />Review
           </Button>
         </div>
       );
     }
     return (
-      <Button size="sm" className="rounded-lg shadow-sm font-bold" onClick={onStart}>
-        <ChevronRight className="mr-1.5 h-3.5 w-3.5" />Start
+      <Button className="h-11 w-full lg:w-auto" onClick={onStart}>
+        Start test <ChevronRight className="ml-2 h-4 w-4" aria-hidden="true" />
       </Button>
     );
   }
+
   if (pkg) {
     return (
-      <Button
-        size="sm"
-        className="rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-sm shadow-amber-200"
-        onClick={onBuy}
-      >
-        <Lock className="mr-1.5 h-3.5 w-3.5" />Buy
+      <Button className="h-11 w-full lg:w-auto" variant="outline" onClick={onBuy}>
+        <Package className="mr-2 h-4 w-4" aria-hidden="true" />View package
       </Button>
     );
   }
+
   return (
-    <Button size="sm" variant="outline" className="rounded-lg border-muted-foreground/30 font-medium" onClick={onUnlock}>
-      {user ? <><CreditCard className="mr-1.5 h-3.5 w-3.5" />Unlock</> : <><LogIn className="mr-1.5 h-3.5 w-3.5" />Sign in</>}
+    <Button className="h-11 w-full lg:w-auto" variant="outline" onClick={onUnlock}>
+      {user
+        ? <><CreditCard className="mr-2 h-4 w-4" aria-hidden="true" />Unlock test</>
+        : <><LogIn className="mr-2 h-4 w-4" aria-hidden="true" />Sign in to unlock</>}
     </Button>
   );
 }
@@ -750,47 +556,30 @@ type TestStatusBadgeProps = {
   activeSession: boolean;
 };
 
-function TestStatusBadge({ isFree, isLocked, pkgOwned, attempted }: TestStatusBadgeProps) {
+function TestStatusBadge({ isFree, isLocked, pkgOwned, attempted, activeSession }: TestStatusBadgeProps) {
+  if (activeSession && !attempted) {
+    return <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">In progress</span>;
+  }
   if (isLocked && !pkgOwned) {
-    return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700">
-        <Lock className="h-2.5 w-2.5" />Locked
-      </span>
-    );
+    return <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-800"><Lock className="h-3 w-3" aria-hidden="true" />Premium</span>;
   }
   if (attempted) {
-    return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-0.5 text-[11px] font-medium text-sky-700">
-        <RotateCcw className="h-2.5 w-2.5" />Attempted
-      </span>
-    );
+    return <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700"><RotateCcw className="h-3 w-3" aria-hidden="true" />Attempted</span>;
   }
   if (isFree) {
-    return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">
-        <ShieldCheck className="h-2.5 w-2.5" />Free
-      </span>
-    );
+    return <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700"><ShieldCheck className="h-3 w-3" aria-hidden="true" />Free</span>;
   }
-  return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-0.5 text-[11px] font-medium text-violet-700">
-      <ShieldCheck className="h-2.5 w-2.5" />Purchased
-    </span>
-  );
+  return <span className="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700"><ShieldCheck className="h-3 w-3" aria-hidden="true" />Unlocked</span>;
 }
 
 function DifficultyBadge({ difficulty }: { difficulty?: "Easy" | "Medium" | "Hard" }) {
   if (!difficulty) return null;
-  const styles = {
-    Easy:   "bg-emerald-50 text-emerald-600",
-    Medium: "bg-amber-50   text-amber-600",
-    Hard:   "bg-rose-50    text-rose-600",
+  const textClass = {
+    Easy: "text-emerald-700",
+    Medium: "text-amber-700",
+    Hard: "text-rose-700",
   }[difficulty];
-  return (
-    <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${styles}`}>
-      {difficulty}
-    </span>
-  );
+  return <span className={`text-xs font-semibold ${textClass}`}>{difficulty}</span>;
 }
 
 function ExamDescription({
@@ -811,62 +600,32 @@ function ExamDescription({
   topicWiseCount: number;
 }) {
   const [expanded, setExpanded] = useState(false);
-
-  const CLAMP = 120;
-  const isLong = text.length > CLAMP;
-  const shortText = isLong ? `${text.slice(0, CLAMP)}…` : text;
-
-  const bullets = [
-    {
-      icon: <BookOpen className="h-3.5 w-3.5 shrink-0 text-primary/70" />,
-      text: `Coverage — ${examName} uses the current published test catalog and configured topic coverage.`,
-    },
-    {
-      icon: <LayoutGrid className="h-3.5 w-3.5 shrink-0 text-violet-500" />,
-      text: `Published formats — ${
-        [fullLengthCount > 0 && `${fullLengthCount} full-length`, sectionalCount > 0 && `${sectionalCount} sectional`, topicWiseCount > 0 && `${topicWiseCount} topic-wise`]
-          .filter(Boolean)
-          .join(", ") || "no"
-      } tests are currently available.`,
-    },
-    {
-      icon: <Clock3 className="h-3.5 w-3.5 shrink-0 text-sky-600" />,
-      text: "Timing — Each published test uses its configured duration and section rules.",
-    },
-    {
-      icon: <Zap className="h-3.5 w-3.5 shrink-0 text-amber-500" />,
-      text: "Difficulty — Published tests show the difficulty configured in the catalog.",
-    },
-    {
-      icon: <Lock className="h-3.5 w-3.5 shrink-0 text-amber-600" />,
-      text: `Access — ${freeCount} free test${freeCount !== 1 ? "s" : ""} available${paidCount > 0 ? `; ${paidCount} locked test${paidCount !== 1 ? "s" : ""} require entitlement` : ""}.`,
-    },
-  ];
+  const clamp = 160;
+  const isLong = text.length > clamp;
+  const shortText = isLong ? `${text.slice(0, clamp)}…` : text;
 
   return (
-    <div className="mt-2">
-      <p className="text-[13px] leading-[1.65] text-muted-foreground">
-        {!expanded ? shortText : text}
-      </p>
+    <div className="mt-5 max-w-3xl">
+      <p className="text-base leading-7 text-slate-600">{expanded ? text : shortText}</p>
 
       {expanded && (
-        <ul className="mt-3 space-y-2 rounded-xl border border-border/50 bg-muted/25 px-4 py-3">
-          {bullets.map((b, i) => (
-            <li key={i} className="flex items-start gap-2 text-[12px] leading-[1.6] text-muted-foreground">
-              <span className="mt-0.5">{b.icon}</span>
-              <span>{b.text}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-5 grid gap-3 border-l-2 border-indigo-100 pl-4 text-sm leading-6 text-slate-600 sm:grid-cols-2">
+          <p><strong className="font-semibold text-slate-800">Coverage:</strong> {examName} uses the current published test catalog and configured topic coverage.</p>
+          <p><strong className="font-semibold text-slate-800">Formats:</strong> {[fullLengthCount > 0 && `${fullLengthCount} full length`, sectionalCount > 0 && `${sectionalCount} sectional`, topicWiseCount > 0 && `${topicWiseCount} topic wise`].filter(Boolean).join(", ") || "No published tests yet"}.</p>
+          <p><strong className="font-semibold text-slate-800">Timing:</strong> Each published test uses its configured duration and section rules.</p>
+          <p><strong className="font-semibold text-slate-800">Access:</strong> {freeCount} free test{freeCount !== 1 ? "s" : ""}{paidCount > 0 ? ` and ${paidCount} premium test${paidCount !== 1 ? "s" : ""}` : ""}.</p>
+        </div>
       )}
 
-      <button
-        type="button"
-        onClick={() => setExpanded((v) => !v)}
-        className="mt-1.5 text-[12px] font-semibold text-primary hover:underline"
-      >
-        {expanded ? "Show less ↑" : "Read more ↓"}
-      </button>
+      {(isLong || !expanded) && (
+        <button
+          type="button"
+          onClick={() => setExpanded((value) => !value)}
+          className="mt-2 min-h-10 text-sm font-semibold text-indigo-700 hover:text-indigo-900"
+        >
+          {expanded ? "Show less" : "Series details"}
+        </button>
+      )}
     </div>
   );
 }
