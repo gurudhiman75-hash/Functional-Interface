@@ -79,8 +79,8 @@ jobs:
             if(total!==2304) throw new Error(`Expected 2304 V4 candidate cases, got ${total}`);
             console.log(`TRG002_V4_CANDIDATE_PASS total=${total}`);
           '
-      - name: Export tri-language visual review pack
-        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-exam-readiness-v4-review.ts
+      - name: Export tri-language dimensioned visual review pack
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-exam-readiness-v4-review-dimensioned.ts
       - name: Verify V4 review artifact
         run: |
           JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-readiness-v4/TRG-002-V4-EXAM-READINESS-REVIEW.json
@@ -107,6 +107,8 @@ jobs:
           for(const row of pack.records){
             if(!('solutionDiagram' in row)) throw new Error(`${row.qlId}: missing solutionDiagram`);
             if(!('diagramEvidence' in row)) throw new Error(`${row.qlId}: missing diagramEvidence`);
+            if(!row.solutionDiagram.reviewDimensionAudit||row.solutionDiagram.reviewDimensionAudit.totalDimensions<2) throw new Error(`${row.qlId}: missing minimum solution dimensions`);
+            if(row.solutionDiagram.reviewDimensionAudit.requestedDimensionPresent!==true) throw new Error(`${row.qlId}: requested linear dimension missing`);
             if(row.v4NaturalMeasurementOverride && (row.english.stem.includes('√')||row.hindi.stem.includes('√')||row.punjabi.stem.includes('√'))) throw new Error(`${row.qlId}: Wave2 review stem still exposes a surd physical measurement`);
             if(row.lifecycle.multilingualFreezeGranted!==false||row.lifecycle.activationAuthorized!==false) throw new Error(`${row.qlId}: V4 lifecycle lock regression`);
           }
@@ -114,9 +116,10 @@ jobs:
           if(svgs.length!==96) throw new Error(`Expected 96 rendered solution SVGs, got ${svgs.length}`);
           const ids=svgs.map((svg)=>svg.match(/data-diagram-ql="([^"]+)"/)?.[1]).filter(Boolean);
           if(new Set(ids).size!==96) throw new Error(`Expected 96 unique rendered diagram QL ids, got ${new Set(ids).size}`);
+          if(svgs.some((svg)=>(svg.match(/data-measurement-id="/g)??[]).length<2)) throw new Error('At least one rendered SVG has fewer than two dimensions');
           if(svgs.some((svg)=>/\b(?:NaN|Infinity|-Infinity)\b/.test(svg))) throw new Error('Rendered SVG contains a non-finite coordinate');
           if(html.includes('<div class="diagram-missing">')) throw new Error('At least one review card is missing its rendered diagram');
-          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} renderedSvgs=${svgs.length} semanticParityRemediated=30 catalog=${pack.audit.scenarioCatalog.shells} canonicalOverrides=6 naturalMeasurementOverrides=19 physicalSupportMigrations=3 surdPhysicalGivens=0 shallowHardSolutions=0`);
+          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} renderedSvgs=${svgs.length} dimensionedSvgs=96 semanticParityRemediated=30 catalog=${pack.audit.scenarioCatalog.shells} canonicalOverrides=6 naturalMeasurementOverrides=19 physicalSupportMigrations=3 surdPhysicalGivens=0 shallowHardSolutions=0`);
           NODE
       - name: Upload V4 audit and review pack
         uses: actions/upload-artifact@v4
