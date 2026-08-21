@@ -111,6 +111,10 @@ function segmentIntersectsBox(segment: GeometrySegment, box: LabelBox, gap = 5) 
   return true;
 }
 
+function geometryIntersectsLabels(segments: GeometrySegment[], occupied: LabelBox[]) {
+  return segments.some((segment) => occupied.some((box) => segmentIntersectsBox(segment, box)));
+}
+
 function labelClearance(box: LabelBox, geometrySegments: GeometrySegment[], occupied: LabelBox[]) {
   const radius = Math.hypot(box.halfWidth, box.halfHeight);
   const lineClearance = geometrySegments.length
@@ -264,36 +268,66 @@ function renderMeasurementArrow(
   const ux = dx / length;
   const uy = dy / length;
   // SVG's y-axis points downward, so the screen-space LEFT normal is (uy, -ux).
-  let nx = uy;
-  let ny = -ux;
+  let preferredNx = uy;
+  let preferredNy = -ux;
   if (arrow.side === "RIGHT") {
-    nx *= -1;
-    ny *= -1;
+    preferredNx *= -1;
+    preferredNy *= -1;
   }
   const lane = Number.isFinite(Number(arrow.lane)) ? Number(arrow.lane) : 0;
-  const offset = 34 + lane * 20;
-  const ax1 = from.x + nx * offset;
-  const ay1 = from.y + ny * offset;
-  const ax2 = to.x + nx * offset;
-  const ay2 = to.y + ny * offset;
   const midpointX = (from.x + to.x) / 2;
   const midpointY = (from.y + to.y) / 2;
   const label = String(arrow.label ?? "");
-  const dimensionGeometry: GeometrySegment[] = [
-    { from, to: { id: `${arrow.id}-extension-a`, x: ax1, y: ay1 } },
-    { from: to, to: { id: `${arrow.id}-extension-b`, x: ax2, y: ay2 } },
-    { from: { id: `${arrow.id}-dimension-a`, x: ax1, y: ay1 }, to: { id: `${arrow.id}-dimension-b`, x: ax2, y: ay2 } },
+  const baseOffset = 34 + lane * 20;
+  const extraOffsets = [0, 18, 38, 62, 90, 122, 158];
+  const normalChoices = [
+    { nx: preferredNx, ny: preferredNy },
+    { nx: -preferredNx, ny: -preferredNy },
   ];
-  const candidates = [offset + 30, offset + 48, offset + 68, offset + 92, offset + 118].flatMap((labelOffset) => [0, 22, -22, 44, -44].map((tangent) => ({
-    x: midpointX + nx * labelOffset + ux * tangent,
-    y: midpointY + ny * labelOffset + uy * tangent,
-  })));
-  const placement = chooseLabelPlacement(label, 18, candidates, [...geometrySegments, ...dimensionGeometry], occupied, width, height);
-  occupied.push(placement);
-  geometrySegments.push(...dimensionGeometry);
-  const renderedLabel = label ? renderLabelBox(label, placement, "measurement-label", 18, "#0f766e") : "";
 
-  return `<g class="measurement" data-measurement-id="${esc(arrow.id)}"><line x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${ax1.toFixed(2)}" y2="${ay1.toFixed(2)}" stroke="#94a3b8" stroke-width="1.2"/><line x1="${to.x.toFixed(2)}" y1="${to.y.toFixed(2)}" x2="${ax2.toFixed(2)}" y2="${ay2.toFixed(2)}" stroke="#94a3b8" stroke-width="1.2"/><line x1="${ax1.toFixed(2)}" y1="${ay1.toFixed(2)}" x2="${ax2.toFixed(2)}" y2="${ay2.toFixed(2)}" stroke="#0f766e" stroke-width="1.9" marker-start="url(#${markerId})" marker-end="url(#${markerId})"/>${renderedLabel}</g>`;
+  let selected: {
+    ax1: number; ay1: number; ax2: number; ay2: number;
+    geometry: GeometrySegment[]; placement: LabelPlacement;
+  } | null = null;
+
+  search: for (const normal of normalChoices) {
+    for (const extra of extraOffsets) {
+      const offset = baseOffset + extra;
+      const ax1 = from.x + normal.nx * offset;
+      const ay1 = from.y + normal.ny * offset;
+      const ax2 = to.x + normal.nx * offset;
+      const ay2 = to.y + normal.ny * offset;
+      const margin = 8;
+      if ([ax1, ax2].some((x) => x < margin || x > width - margin) || [ay1, ay2].some((y) => y < margin || y > height - margin)) continue;
+
+      const dimensionGeometry: GeometrySegment[] = [
+        { from, to: { id: `${arrow.id}-extension-a`, x: ax1, y: ay1 } },
+        { from: to, to: { id: `${arrow.id}-extension-b`, x: ax2, y: ay2 } },
+        { from: { id: `${arrow.id}-dimension-a`, x: ax1, y: ay1 }, to: { id: `${arrow.id}-dimension-b`, x: ax2, y: ay2 } },
+      ];
+      if (geometryIntersectsLabels(dimensionGeometry, occupied)) continue;
+
+      const candidates = [offset + 30, offset + 48, offset + 70, offset + 96, offset + 126].flatMap((labelOffset) => [0, 22, -22, 44, -44, 68, -68].map((tangent) => ({
+        x: midpointX + normal.nx * labelOffset + ux * tangent,
+        y: midpointY + normal.ny * labelOffset + uy * tangent,
+      })));
+      try {
+        const placement = chooseLabelPlacement(label, 18, candidates, [...geometrySegments, ...dimensionGeometry], occupied, width, height);
+        selected = { ax1, ay1, ax2, ay2, geometry: dimensionGeometry, placement };
+        break search;
+      } catch {
+        // Try the next lane/side. A measurement is emitted only after the whole
+        // dimension geometry and its label are collision-free.
+      }
+    }
+  }
+
+  if (!selected) throw new Error(`TRG-002 review measurement "${label}" could not find a collision-free dimension lane.`);
+  occupied.push(selected.placement);
+  geometrySegments.push(...selected.geometry);
+  const renderedLabel = label ? renderLabelBox(label, selected.placement, "measurement-label", 18, "#0f766e") : "";
+
+  return `<g class="measurement" data-measurement-id="${esc(arrow.id)}"><line x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${selected.ax1.toFixed(2)}" y2="${selected.ay1.toFixed(2)}" stroke="#94a3b8" stroke-width="1.2"/><line x1="${to.x.toFixed(2)}" y1="${to.y.toFixed(2)}" x2="${selected.ax2.toFixed(2)}" y2="${selected.ay2.toFixed(2)}" stroke="#94a3b8" stroke-width="1.2"/><line x1="${selected.ax1.toFixed(2)}" y1="${selected.ay1.toFixed(2)}" x2="${selected.ax2.toFixed(2)}" y2="${selected.ay2.toFixed(2)}" stroke="#0f766e" stroke-width="1.9" marker-start="url(#${markerId})" marker-end="url(#${markerId})"/>${renderedLabel}</g>`;
 }
 
 export function renderTrg002SolutionDiagramSvg(diagram: AnyDiagram) {
