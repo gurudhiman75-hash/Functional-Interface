@@ -1,0 +1,33 @@
+name: Materialize RNK-001 Frozen Locales V1
+
+on:
+  push:
+    branches:
+      - integration/rnk-001-multilingual-runtime-v1
+    paths:
+      - '.github/workflows/rnk-001-materialize-frozen-locales-v1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize-frozen-locales:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: integration/rnk-001-multilingual-runtime-v1
+
+      - name: Materialize exact approved locale overlay
+        run: |
+          bash artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-materialize-approved-locales-v1.sh
+          test "$(git diff --cached --name-only | wc -l)" -eq 68
+          test -z "$(git diff --cached --name-only | grep -v '^artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-00[1-7]/' || true)"
+
+      - name: Commit exact frozen locale authority
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(reasoning): materialize RNK frozen locale authority v1"
+          git push origin HEAD:integration/rnk-001-multilingual-runtime-v1
