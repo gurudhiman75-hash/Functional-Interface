@@ -64,7 +64,7 @@ const required = [
   ["home", "attemptId=", "Resume/review link must carry the canonical attempt id."],
   ["tests", "The test catalog is temporarily unavailable.", "Catalog errors should use student-safe recovery copy."],
   ["category", "The exam catalog is temporarily unavailable. Please try again.", "Category errors should use student-safe recovery copy."],
-  ["category", "Browse Packages", "Category commerce CTA should remain neutral rather than inventing an offer."],
+  ["category", 'setLocation("/packages")', "Category commerce CTA should route to the neutral package catalog without inventing an offer."],
   ["subcategory", "The exam catalog is temporarily unavailable. Please try again.", "Exam-page errors should use student-safe recovery copy."],
   ["subcategory", "attemptId=${encodeURIComponent(latestAttempt.id)}", "Exam-page review actions must carry the exact saved attempt id."],
   ["subcategory", "Each published test uses its configured duration and section rules.", "Exam-page timing copy must describe configured product data rather than unverifiable official parity."],
