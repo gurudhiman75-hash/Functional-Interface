@@ -5,6 +5,24 @@ import {
 } from "./multilingual-review-v2-human-sealed";
 import type { AlgPermanentMultilingualReviewV2Item } from "./multilingual-review-v2";
 
+function finalQuestionCleanup(item: AlgPermanentMultilingualReviewV2Item): string {
+  let value = item.question;
+
+  if (item.locale === "hi-IN") {
+    value = value.replace(
+      /^α और β, (.+?)। (.+) के मूल हैं।$/,
+      "α और β, $1 के मूल हैं। $2।",
+    );
+  } else {
+    value = value.replace(
+      /^α ਅਤੇ β, (.+?)\. (.+) ਦੇ ਮੂਲ ਹਨ\.$/,
+      "α ਅਤੇ β, $1 ਦੇ ਮੂਲ ਹਨ. $2.",
+    );
+  }
+
+  return value.replace(/ {2,}/g, " ").trim();
+}
+
 function finalEditorialCleanup(item: AlgPermanentMultilingualReviewV2Item): string {
   let value = item.explanation;
 
@@ -98,6 +116,7 @@ export function generateAlgPermanentMultilingualReviewV2HumanFinal(
   );
   return Object.freeze({
     ...item,
+    question: finalQuestionCleanup(item),
     explanation: finalEditorialCleanup(item),
   });
 }
