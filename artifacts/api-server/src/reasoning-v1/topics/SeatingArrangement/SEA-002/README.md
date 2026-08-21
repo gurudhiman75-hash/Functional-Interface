@@ -62,6 +62,10 @@ Current pinned review fingerprint:
 
 Verified executable/review workflow: `32468278834` on content head `7cd78e021c0521acad6783fdbe73d58dc6dc9648`.
 
+Pinned review artifact ZIP digest:
+
+`sha256:268a98b85f9bf5d275d0184fa96d90be3254d0f9ae4f26cd95f52b8a2b27cb53`
+
 ## Lifecycle locks
 
 ```text
