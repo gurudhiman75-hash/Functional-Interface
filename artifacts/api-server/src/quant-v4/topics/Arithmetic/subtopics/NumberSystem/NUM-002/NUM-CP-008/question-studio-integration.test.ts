@@ -41,8 +41,12 @@ assert.equal(localCapability.automaticStudentPublication, false);
 
 const sharedCapability = listQuestionStudioPackages().find((entry: any) => entry.packageId === "NUM-002");
 assert.ok(sharedCapability, "NUM-002 must be discoverable from the shared Question Studio capability list");
-assert.deepEqual(sharedCapability.cpIds, ["NUM-CP-008"]);
+assert.deepEqual(sharedCapability.cpIds, ["NUM-CP-008", "NUM-CP-009"]);
 assert.deepEqual(sharedCapability.supportedLanguages, ["en", "hi", "pa"]);
+assert.equal(sharedCapability.permanentQlCount, 31);
+assert.equal(sharedCapability.permanentQlIds.length, 31);
+assert.equal(sharedCapability.permanentQlIds[0], "NUM-QL-166");
+assert.equal(sharedCapability.permanentQlIds.at(-1), "NUM-QL-196");
 assert.equal(sharedCapability.questionBankWritable, false);
 assert.equal(sharedCapability.testEligible, false);
 assert.equal(sharedCapability.publiclyPublishable, false);
@@ -181,6 +185,8 @@ await assert.rejects(
 console.log(JSON.stringify({
   status: "PASS_NUM_CP008_QUESTION_STUDIO_INTEGRATION_V1",
   permanentAuthorities: NUM_CP008_QUESTION_STUDIO_QL_IDS.length,
+  sharedNum002PermanentAuthorities: sharedCapability.permanentQlCount,
+  sharedNum002Checkpoints: sharedCapability.cpIds,
   languages,
   packages,
   sourceLifecycleLocks,
@@ -190,5 +196,5 @@ console.log(JSON.stringify({
   questionBankWritable: false,
   testEligible: false,
   publiclyPublishable: false,
-  nextAvailableQl: "NUM-QL-185",
+  nextAvailableQl: "NUM-QL-197",
 }, null, 2));
