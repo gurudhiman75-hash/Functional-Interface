@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { useLocation } from "wouter";
 import {
   ArrowRight,
@@ -90,7 +90,7 @@ function SectionHeading({
 }: {
   title: string;
   description?: string;
-  action?: React.ReactNode;
+  action?: ReactNode;
 }) {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -408,7 +408,7 @@ export default function Home() {
               <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">A test is only useful if the experience stays focused after you click Start.</h2>
               <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">Examtree keeps the core preparation journey visible: find a published test, attempt it, recover an interrupted session, submit, and review the evaluated result.</p>
             </div>
-            <div className="grid gap-0 border-y border-slate-200 sm:grid-cols-2 sm:border sm:rounded-xl">
+            <div className="grid gap-0 border-y border-slate-200 sm:grid-cols-2 sm:rounded-xl sm:border">
               {[
                 { icon: ClipboardList, title: "Published catalog", copy: "Browse the live exam and test inventory available to students." },
                 { icon: Clock3, title: "Saved attempts", copy: "Resume an in-progress test after refresh without losing the attempt." },
