@@ -36,14 +36,24 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Bundle Algebra Question Studio V1 audit
+      - name: Bundle Algebra Question Studio V3 runtime audit
         run: |
           mkdir -p artifacts/api-server/dist/quant-v4/algebra
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v1.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=dist/quant-v4/algebra/algebra-question-studio-runtime-v1.test.mjs
-      - name: Run Algebra Question Studio V1 audit
+            --outfile=dist/quant-v4/algebra/algebra-question-studio-runtime-v3.test.mjs
+      - name: Run Algebra Question Studio V3 runtime audit
         run: |
           cd artifacts/api-server
-          node dist/quant-v4/algebra/algebra-question-studio-runtime-v1.test.mjs
+          node dist/quant-v4/algebra/algebra-question-studio-runtime-v3.test.mjs
+      - name: Bundle Algebra Question Studio route contract
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-route-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/algebra-question-studio-route-v1.test.mjs
+      - name: Run Algebra Question Studio route contract
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/algebra/algebra-question-studio-route-v1.test.mjs
