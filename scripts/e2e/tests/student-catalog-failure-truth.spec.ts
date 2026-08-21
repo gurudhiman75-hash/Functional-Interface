@@ -76,7 +76,7 @@ test.describe("CP06 catalog failure truth", () => {
     await page.goto("/");
     await expect(page.getByTestId("catalog-unavailable")).toBeVisible({ timeout: 15_000 });
     await expect(page.getByRole("heading", { name: "We couldn’t load the live exam catalog" })).toBeVisible();
-    await expect(page.getByText("Published tests: 0", { exact: true })).toHaveCount(0);
+    await expect(page.getByText("Published tests", { exact: true })).toHaveCount(0);
     expect(state.requests).toBeGreaterThanOrEqual(2);
 
     await page.evaluate(() => {
@@ -87,7 +87,8 @@ test.describe("CP06 catalog failure truth", () => {
     await page.getByRole("button", { name: "Retry catalog" }).click();
 
     await expect(page.getByTestId("catalog-unavailable")).toHaveCount(0);
-    await expect(page.getByText("Published tests: 1", { exact: true })).toBeVisible();
+    const publishedTestsStat = page.getByText("Published tests", { exact: true }).locator("..");
+    await expect(publishedTestsStat).toContainText("1");
     await expect(page.getByText("SSC CGL Mock 1", { exact: true }).first()).toBeVisible();
 
     const sentinel = await page.evaluate(() =>
