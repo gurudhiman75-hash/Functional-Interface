@@ -1,4 +1,5 @@
 export const PFC_001_TRIANGLE_PRODUCT_OWNER_APPROVAL_V1 = Object.freeze({
+  authorityId: "PFC-001-TRIANGLE-PRODUCT-OWNER-APPROVAL-V1" as const,
   approvalId: "PFC-001-TRIANGLE-PRODUCT-OWNER-APPROVAL-V1" as const,
   approvedAt: "2026-08-20" as const,
   approvalAuthority: "EXPLICIT_PRODUCT_OWNER_APPROVAL" as const,
