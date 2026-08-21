@@ -50,6 +50,8 @@ for(const caselet of corpus){
   assert.ok(caselet.sharedExplanation.includes("Step 1:"),`${caselet.caseletId}: clue-by-clue working missing`);
   assert.ok(caselet.sharedExplanation.includes("Result:"),`${caselet.caseletId}: applied-clue result missing`);
   assert.ok(caselet.sharedExplanation.includes("Use this final arrangement to answer all the questions that follow."),`${caselet.caseletId}: shared-solution close missing`);
+  const repeatedMembershipNarrations=caselet.sharedExplanation.match(/Keep the exact seat open until another condition fixes it\./g)?.length??0;
+  assert.ok(repeatedMembershipNarrations<=3,`${caselet.caseletId}: row-membership narration is repetitive (${repeatedMembershipNarrations})`);
   detailedSolutionCount+=1;
   if(caselet.sharedExplanation.includes("Case 1:")) caseTeachingCount+=1;
 
