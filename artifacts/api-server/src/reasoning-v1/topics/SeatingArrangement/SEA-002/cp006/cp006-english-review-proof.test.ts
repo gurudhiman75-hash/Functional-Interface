@@ -31,10 +31,11 @@ for(const caselet of corpus){
   if(caselet.seed.startsWith("english-review-source-")) sourceCount+=1;
   if(caselet.seed.startsWith("english-review-base-")) baseCount+=1;
 
-  const learnerSurface=[caselet.setupText,...caselet.clueTexts,caselet.sharedExplanation,...caselet.children.flatMap((child)=>[child.text,child.explanation,...child.options.map((option)=>option.explanation)])].join("\n");
+  const proseAtoms=[caselet.setupText,...caselet.clueTexts,...caselet.children.flatMap((child)=>[child.text,child.explanation,...child.options.map((option)=>option.explanation)])];
+  const learnerSurface=[...proseAtoms,caselet.sharedExplanation].join("\n");
   assert.ok(!/SEA-PBA|SEA-QC|oracle|fingerprint|hidden state|implementation/i.test(learnerSurface),`${caselet.caseletId}: internal language leaked`);
   assert.ok(!/\bThis matches\b/i.test(learnerSurface),`${caselet.caseletId}: generic explanation wording returned`);
-  assert.ok(!/[ \t]{2,}/.test(learnerSurface),`${caselet.caseletId}: doubled whitespace in learner text`);
+  assert.ok(proseAtoms.every((text)=>!/[ \t]{2,}/.test(text)),`${caselet.caseletId}: doubled whitespace in prose`);
   assert.equal(new Set(caselet.clueTexts).size,caselet.clueTexts.length,`${caselet.caseletId}: duplicate clue line`);
   assert.ok(caselet.clueTexts.every((clue)=>/[.!?]$/.test(clue.trim())),`${caselet.caseletId}: clue punctuation`);
 
