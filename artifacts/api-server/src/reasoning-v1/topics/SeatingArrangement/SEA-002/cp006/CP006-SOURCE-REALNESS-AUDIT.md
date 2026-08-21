@@ -180,7 +180,7 @@ Pinned review fingerprint:
 
 `37384b1a30e13a33bffe101d2906af56595f195d3d91238d8c571d67a5d07e6c`
 
-Verified content workflow: run `32468278834` on content head `7cd78e021c0521acad6783fdbe73d58dc6dc9648` — every CP006 executable and review gate passed.
+Verified executable/review workflow: run `32468278834` on content head `7cd78e021c0521acad6783fdbe73d58dc6dc9648` — every CP006 executable and review gate passed. Later commits in this branch only synchronize documentation to that already-pinned content result; they do not alter the review corpus generator.
 
 The exporter produced HTML, JSON and manifest artifacts under `cp006-english-review-100`. Uploaded ZIP digest:
 
