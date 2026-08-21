@@ -1,0 +1,70 @@
+name: Validate TSD CP006 Hindi Punjabi V7 Approved Freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/tsd-cp006-hi-pa-localization-v1
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/**
+      - .github/workflows/tsd-cp006-hi-pa-v7-approved-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cp006-hi-pa-v7-approved-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle approved native freeze evidence
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/cp006-hi-pa-v7-approved-freeze
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-approved-freeze-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-freeze-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/localization/native-review-proof-v7.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-v7-review-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/localization/native-approved-freeze-proof-v7.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-v7-freeze-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/localization/native-approved-freeze-export-v7.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-v7-freeze-export.mjs"
+      - name: Re-prove frozen English authority and approved native V7 source
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp006-hi-pa-v7-approved-freeze
+          node "$OUT/english-freeze-proof.mjs" 2>&1 | tee "$OUT/english-freeze-proof.log"
+          node "$OUT/native-v7-review-proof.mjs" 2>&1 | tee "$OUT/native-v7-review-proof.log"
+      - name: Prove and export approved Hindi Punjabi V7 freeze
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp006-hi-pa-v7-approved-freeze
+          node "$OUT/native-v7-freeze-proof.mjs" 2>&1 | tee "$OUT/native-v7-freeze-proof.log"
+          node "$OUT/native-v7-freeze-export.mjs" "$OUT/cp006-hi-pa-v7-approved-freeze-156q.json" 2>&1 | tee "$OUT/native-v7-freeze-export.log"
+          sha256sum "$OUT/cp006-hi-pa-v7-approved-freeze-156q.json" | tee "$OUT/native-v7-frozen-json-sha256.txt"
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Upload CP006 Hindi Punjabi V7 approved freeze evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp006-hi-pa-v7-approved-freeze-156q
+          path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v7-approved-freeze/english-freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v7-approved-freeze/native-v7-review-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v7-approved-freeze/native-v7-freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v7-approved-freeze/native-v7-freeze-export.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v7-approved-freeze/native-v7-frozen-json-sha256.txt
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-hi-pa-v7-approved-freeze/cp006-hi-pa-v7-approved-freeze-156q.json
+          if-no-files-found: error
