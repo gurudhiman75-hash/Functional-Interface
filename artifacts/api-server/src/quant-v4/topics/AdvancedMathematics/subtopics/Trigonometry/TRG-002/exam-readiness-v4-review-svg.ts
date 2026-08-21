@@ -306,7 +306,6 @@ function renderMeasurementArrow(
   if (length <= 0) return "";
   const ux = dx / length;
   const uy = dy / length;
-  // SVG's y-axis points downward, so screen-space LEFT normal is (uy, -ux).
   let preferredNx = uy;
   let preferredNy = -ux;
   if (arrow.side === "RIGHT") {
@@ -325,7 +324,7 @@ function renderMeasurementArrow(
 
   let selected: {
     ax1: number; ay1: number; ax2: number; ay2: number;
-    geometry: GeometrySegment[]; placement: LabelPlacement;
+    geometry: GeometrySegment[]; dimensionLine: GeometrySegment; placement: LabelPlacement;
   } | null = null;
 
   search: for (const normal of normalChoices) {
@@ -346,8 +345,6 @@ function renderMeasurementArrow(
       const extensionA: GeometrySegment = { from, to: { id: `${arrow.id}-extension-a`, x: ax1, y: ay1 } };
       const extensionB: GeometrySegment = { from: to, to: { id: `${arrow.id}-extension-b`, x: ax2, y: ay2 } };
       const dimensionGeometry = [extensionA, extensionB, dimensionLine];
-      // Extension lines are deliberately light and painted underneath the core.
-      // They may pass behind a protected core label, but the main dimension line may not.
       if (geometryIntersectsLabels([dimensionLine], occupied)) continue;
 
       const dimensionMidX = (ax1 + ax2) / 2;
@@ -361,13 +358,13 @@ function renderMeasurementArrow(
           label,
           18,
           candidates,
-          [...geometrySegments, ...dimensionGeometry],
+          [...geometrySegments, dimensionLine],
           occupied,
           width,
           height,
           [{ box: coreRegion, gap: 24 }],
         );
-        selected = { ax1, ay1, ax2, ay2, geometry: dimensionGeometry, placement };
+        selected = { ax1, ay1, ax2, ay2, geometry: dimensionGeometry, dimensionLine, placement };
         break search;
       } catch {
         // Continue farther into the outer dimension band or try the other side.
@@ -377,7 +374,9 @@ function renderMeasurementArrow(
 
   if (!selected) throw new Error(`${qlId}: review measurement "${label}" could not find a clean outside dimension band.`);
   occupied.push(selected.placement);
-  geometrySegments.push(...selected.geometry);
+  // Underlay extension guides never reserve layout space; only the actual outside
+  // dimension line participates in subsequent collision avoidance.
+  geometrySegments.push(selected.dimensionLine);
   const renderedLabel = label
     ? renderLabelBox(label, selected.placement, "measurement-label", 18, "#0f766e", ' data-dimension-label="true"')
     : "";
