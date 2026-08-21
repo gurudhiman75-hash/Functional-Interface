@@ -35,7 +35,8 @@ for(const caselet of corpus){
 
   const proseAtoms=[caselet.setupText,...caselet.clueTexts,...caselet.children.flatMap((child)=>[child.text,child.explanation,...child.options.map((option)=>option.explanation)])];
   const learnerSurface=[...proseAtoms,caselet.sharedExplanation].join("\n");
-  assert.ok(!/SEA-PBA|SEA-QC|oracle|fingerprint|hidden state|implementation|observer coordinates/i.test(learnerSurface),`${caselet.caseletId}: internal language leaked`);
+  assert.ok(!/SEA-PBA|SEA-QC|oracle|fingerprint|hidden state|implementation|observer\b/i.test(learnerSurface),`${caselet.caseletId}: internal or technical language leaked`);
+  assert.ok(!/\bthe our\b/i.test(learnerSurface),`${caselet.caseletId}: awkward direction grammar leaked`);
   assert.ok(!/\bThis matches\b/i.test(learnerSurface),`${caselet.caseletId}: generic explanation wording returned`);
   assert.ok(proseAtoms.every((text)=>!/[ \t]{2,}/.test(text)),`${caselet.caseletId}: doubled whitespace in prose`);
   assert.equal(new Set(caselet.clueTexts).size,caselet.clueTexts.length,`${caselet.caseletId}: duplicate clue line`);
@@ -60,12 +61,14 @@ for(const caselet of corpus){
     normalizedQuestionSurfaces.add(normalizePeople(child.text,caselet.people));
     assert.match(child.text.trim(),/\?$/,`${caselet.caseletId}/Q${q+1}: question punctuation`);
     assert.ok(child.explanation.length>=40,`${caselet.caseletId}/Q${q+1}: explanation too thin`);
-    assert.ok(!/observer column|observer coordinates/i.test(child.explanation),`${caselet.caseletId}/Q${q+1}: technical direction wording leaked`);
+    assert.ok(!/observer\b/i.test(child.explanation),`${caselet.caseletId}/Q${q+1}: technical direction wording leaked`);
+    assert.ok(!/\bthe our\b/i.test(child.explanation),`${caselet.caseletId}/Q${q+1}: awkward direction grammar`);
     assert.equal(child.options.length,4);
     assert.equal(new Set(child.options.map((option)=>option.value)).size,4,`${caselet.caseletId}/Q${q+1}: duplicate displayed option`);
     assert.equal(child.options.filter((option)=>option.isCorrect).length,1);
     assert.equal(child.options[child.answerIndex]?.value,child.answer);
     assert.ok(child.options.every((option)=>option.explanation.length>=21),`${caselet.caseletId}/Q${q+1}: option explanation too thin`);
+    assert.ok(child.options.every((option)=>!/\bthe our\b|observer\b/i.test(option.explanation)),`${caselet.caseletId}/Q${q+1}: awkward/technical option explanation`);
     answerPositions[q]![child.answerIndex]+=1;
   }
 
