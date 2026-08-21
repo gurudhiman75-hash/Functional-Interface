@@ -43,10 +43,12 @@ function examLikeSetup(people:readonly string[],state:Sea002Cp006State):string {
 
 function plainLanguage(text:string):string {
   return text
-    .replaceAll("observer column","vertical column")
+    .replaceAll("the observer's","our")
     .replaceAll("observer's","our")
+    .replaceAll("observer column","vertical column")
     .replaceAll("observer-left","left side of the page")
     .replaceAll("observer-right","right side of the page")
+    .replaceAll("towards the our","towards our")
     .replaceAll("seat intervals","seats")
     .replaceAll("strictly between","between");
 }
