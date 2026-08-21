@@ -3,7 +3,8 @@ import { canonicalDigest } from "../../SEA-001/canonical.ts";
 import { generateSea002Cp006DiscoveryCaselet } from "./discovery.ts";
 import { renderCp006Clue, solveCp006, auditOracleCp006 } from "./generator.ts";
 import { generateSea002Cp006SourceRealCaselet, renderCp006SourceClue } from "./source-realness.ts";
-import type { Sea002Cp006BlueprintId, Sea002Cp006Caselet, Sea002Cp006Clue, Sea002Cp006State } from "./types.ts";
+import { compileCp006TeachingExplanation } from "./teaching-explanation.ts";
+import type { Sea002Cp006BlueprintId, Sea002Cp006Caselet, Sea002Cp006ChildQuestion, Sea002Cp006Clue, Sea002Cp006State } from "./types.ts";
 
 const SOURCE_KINDS=new Set<Sea002Cp006Clue["kind"]>(["SAME_ROW_GAP","SAME_ROW_MIN_BETWEEN","SAME_ROW_EQUAL_GAP","NOT_ADJACENT","ROW_END_DISTANCE","FACING_REFERENT_RELATIVE"]);
 const POSITIONAL_KINDS=new Set<Sea002Cp006Clue["kind"]>(["SAME_ROW_RELATIVE","SAME_ROW_GAP","SAME_ROW_MIN_BETWEEN","SAME_ROW_EQUAL_GAP","NOT_ADJACENT","FACING_REFERENT_RELATIVE"]);
@@ -30,6 +31,22 @@ function displayedClues(base:Sea002Cp006Caselet,clues:readonly Sea002Cp006Clue[]
     `${base.state.top.join(", ")} sit in the upper row, while ${base.state.bottom.join(", ")} sit in the lower row.`,
     ...clues.filter((clue)=>clue.kind!=="ROW_MEMBERSHIP").map(clueText),
   ];
+}
+function plainLanguage(text:string):string {
+  return text
+    .replaceAll("observer column","vertical column")
+    .replaceAll("observer's","our")
+    .replaceAll("observer-left","left side of the page")
+    .replaceAll("observer-right","right side of the page")
+    .replaceAll("seat intervals","seats")
+    .replaceAll("strictly between","between");
+}
+function plainChild(child:Sea002Cp006ChildQuestion):Sea002Cp006ChildQuestion {
+  return {
+    ...child,
+    explanation:plainLanguage(child.explanation),
+    options:child.options.map((option)=>({...option,explanation:plainLanguage(option.explanation)})) as Sea002Cp006ChildQuestion["options"],
+  };
 }
 
 function sourceEssentialClueSet(base:Sea002Cp006Caselet,sourcePool:readonly Sea002Cp006Clue[],seed:string):readonly Sea002Cp006Clue[] {
@@ -67,23 +84,19 @@ export function generateSea002Cp006ExamRealCaselet(blueprint:Sea002Cp006Blueprin
   const essentialSourceCount=sourceClues.filter((sourceClue)=>!uniqueSameState(base.people,seatCountPerRow,clues.filter((clue)=>clue!==sourceClue),base.state)).length;
   if(essentialSourceCount<1) throw new Error(`${base.caseletId}: source-natural clue is not solution-essential.`);
   const clueTexts=displayedClues(base,clues);
-  const sharedExplanation=[
-    "Start by drawing the two rows with the upper row facing south and the lower row facing north.",
-    "Keep the vertical columns fixed for opposite seats, then apply each person's left or right from that person's own facing.",
-    "Combining the given conditions leaves only one valid arrangement.",
-    base.diagramText,
-  ].join("\n");
+  const solutionClueTexts=clues.map(clueText);
+  const children=auditBundle.children.map(plainChild) as Sea002Cp006Caselet["children"];
   return {
     ...base,
     clues,
     clueTexts,
-    sharedExplanation,
-    children:auditBundle.children,
+    sharedExplanation:compileCp006TeachingExplanation(base.state,base.people,clues,solutionClueTexts),
+    children,
     structuralFingerprint:canonicalDigest({
       blueprint,
       seatCountPerRow,
       clueShape:clues.map((clue)=>clue.kind==="SAME_ROW_RELATIVE"||clue.kind==="FACING_REFERENT_RELATIVE"?`${clue.kind}:${clue.side}:${clue.steps}`:clue.kind==="SAME_ROW_GAP"?`${clue.kind}:${clue.between}`:clue.kind==="SAME_ROW_MIN_BETWEEN"?`${clue.kind}:${clue.minBetween}`:clue.kind==="ROW_END_DISTANCE"?`${clue.kind}:${clue.mode}:${clue.positionFromEnd}`:clue.kind),
-      queryContracts:auditBundle.children.map((child)=>child.queryContractId),
+      queryContracts:children.map((child)=>child.queryContractId),
       sourceEssentialCount:essentialSourceCount,
     }),
   };
