@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
@@ -14,12 +14,57 @@ if (Number.isNaN(port) || port <= 0) {
 
 const basePath = process.env.BASE_PATH ?? "/";
 
+function assertStaticEntryExcludesFirebase(): Plugin {
+  return {
+    name: "assert-static-entry-excludes-firebase",
+    apply: "build",
+    generateBundle(_options, bundle) {
+      const chunks = Object.values(bundle).filter((output) => output.type === "chunk");
+      const chunksByFileName = new Map(chunks.map((chunk) => [chunk.fileName, chunk]));
+      const entryChunks = chunks.filter((chunk) => chunk.isEntry);
+      const visited = new Set<string>();
+      const violations = new Set<string>();
+      const queue = [...entryChunks];
+
+      while (queue.length > 0) {
+        const chunk = queue.pop();
+        if (!chunk || visited.has(chunk.fileName)) continue;
+        visited.add(chunk.fileName);
+
+        for (const moduleId of Object.keys(chunk.modules)) {
+          const normalizedId = moduleId.replaceAll("\\", "/");
+          if (
+            normalizedId.includes("/node_modules/firebase/") ||
+            normalizedId.includes("/node_modules/@firebase/")
+          ) {
+            violations.add(`${chunk.fileName}: ${normalizedId}`);
+          }
+        }
+
+        for (const importedFile of chunk.imports) {
+          const importedChunk = chunksByFileName.get(importedFile);
+          if (importedChunk) queue.push(importedChunk);
+        }
+      }
+
+      if (violations.size > 0) {
+        this.error(
+          `Firebase entered the static application entry graph. Keep Firebase behind route-scoped dynamic imports:\n${[
+            ...violations,
+          ].join("\n")}`,
+        );
+      }
+    },
+  };
+}
+
 export default defineConfig({
   base: basePath,
   plugins: [
     react(),
     tailwindcss(),
     runtimeErrorOverlay(),
+    assertStaticEntryExcludesFirebase(),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
@@ -49,7 +94,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           charts: ["recharts"],
-          firebase: ["firebase/app", "firebase/auth", "firebase/firestore"],
         },
       },
     },
