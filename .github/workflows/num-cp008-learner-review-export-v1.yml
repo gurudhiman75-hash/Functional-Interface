@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - feature/num-cp008-learner-review-export-v1
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/permanent-learner-review-export.ts"
+      - ".github/workflows/num-cp008-learner-review-export-v1.yml"
   workflow_dispatch:
 
 permissions:
