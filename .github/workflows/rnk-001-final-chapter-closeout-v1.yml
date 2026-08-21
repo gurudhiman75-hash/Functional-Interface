@@ -1,0 +1,96 @@
+name: Validate RNK-001 Final Chapter Closeout V1
+
+on:
+  push:
+    branches:
+      - feature/rnk-001-chapter-closeout-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - 'artifacts/api-server/src/routes/admin-question-studio-rnk-persistence.ts'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts'
+      - '.github/workflows/rnk-001-final-chapter-closeout-v1.yml'
+  pull_request:
+    branches:
+      - feature/rnk-001-question-studio-persistence-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
+      - 'artifacts/api-server/src/routes/admin-question-studio-rnk-persistence.ts'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts'
+      - '.github/workflows/rnk-001-final-chapter-closeout-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rnk-001-final-chapter-closeout-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-final-chapter-closeout-v1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove final chapter closeout authority
+        run: |
+          mkdir -p /tmp/rnk-001-final-closeout-v1
+          pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-chapter-closeout-v1.test.ts \
+            | tee /tmp/rnk-001-final-closeout-v1/FINAL-CLOSEOUT-GATE.txt
+
+      - name: Re-prove review persistence boundary
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-question-studio-persistence-v1.test.ts
+
+      - name: Re-prove multilingual activation authority
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-question-studio-multilingual-activation-v1.test.ts
+
+      - name: Re-prove shared RNK Question Studio generation
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-shared-question-studio.test.ts
+
+      - name: Re-prove chapter-wide English freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-chapter-wide-english-content-freeze-v1.test.ts
+
+      - name: Re-prove shared review-only approval policy
+        run: pnpm dlx tsx artifacts/api-server/src/lib/admin-question-studio-approval-policy.test.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+
+      - name: Record final closeout evidence
+        run: |
+          cat > /tmp/rnk-001-final-closeout-v1/FINAL-CLOSEOUT-EVIDENCE.txt <<'EOF'
+          RNK-001 Ranking & Order Final Chapter Closeout V1
+          Development closure: CLOSED
+          Permanent QLs: RNK-QL-001..042
+          RNK-QL-043 allocated: FALSE
+          English content: FROZEN
+          Hindi content: APPROVED_FROZEN
+          Punjabi content: APPROVED_FROZEN
+          Question Studio generation: ENABLED EN/HI/PA
+          Question Studio review persistence: ENABLED
+          Persisted lifecycle: REVIEW_ONLY_PERSISTED
+          Question Bank status: NOT_STORED
+          Question Bank writable: FALSE
+          Test eligible: FALSE
+          Mock-test eligible: FALSE
+          Publicly publishable: FALSE
+          Automatic student publication: FALSE
+          Product release is a separate gate and does not reopen chapter development.
+          EOF
+
+      - name: Retain final closeout evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-final-chapter-closeout-v1
+          path: /tmp/rnk-001-final-closeout-v1/*
+          if-no-files-found: error

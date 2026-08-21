@@ -21,6 +21,7 @@ function sourceFingerprint(question: RnkQuestionStudioReviewQuestion): string {
 }
 
 function learnerExplanation(question: RnkQuestionStudioReviewQuestion): string {
+  if (question.language !== "en") return question.explanation;
   const source = question.source as Record<string, any>;
   return declutterRnkExplanation({
     explanation: source.explanation ?? question.explanation,
@@ -65,7 +66,7 @@ export function buildRnk001QuestionStudioPayload(question: RnkQuestionStudioRevi
     reviewStatus: RNK_001_QUESTION_STUDIO_REVIEW_STATUS,
     lifecycleStatus: question.lifecycleStatus,
     questionStudioVisible: true as const,
-    questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
+    questionStudioRegistrationStatus: "REGISTERED_MULTILINGUAL_REVIEW_ONLY" as const,
     questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED" as const,
     revisionPolicy: RNK_001_QUESTION_STUDIO_REVISION_POLICY,
     questionBankStatus: "NOT_STORED" as const,
@@ -96,9 +97,13 @@ export function buildRnk001QuestionStudioPayload(question: RnkQuestionStudioRevi
       reviewStatus: RNK_001_QUESTION_STUDIO_REVIEW_STATUS,
       lifecycleStatus: "REVIEW_ONLY" as const,
       reviewOnly: true as const,
-      englishOnlyUntilMultilingualConsolidation: true as const,
+      questionStudioRegistrationStatus: "REGISTERED_MULTILINGUAL_REVIEW_ONLY" as const,
+      englishOnlyUntilMultilingualConsolidation: RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.englishOnlyUntilMultilingualConsolidation,
+      multilingualContentFreeze: RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.multilingualContentFreeze,
       percentageAdapterStatus: RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.percentageAdapterStatus,
-      explanationPresentation: "DECLUTTERED_V1" as const,
+      explanationPresentation: question.language === "en"
+        ? "DECLUTTERED_V1" as const
+        : "MULTILINGUAL_DECLUTTERED_STEP_BY_STEP_V1" as const,
       reviewRunPersistenceAllowed: true as const,
       questionBankStatus: "NOT_STORED" as const,
       questionBankWritable: false as const,

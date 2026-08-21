@@ -27,7 +27,7 @@ async function run() {
   const registered = registry.find((entry) => entry.packageId === "RNK-001") as any;
   assert.ok(registered, "RNK-001 must be registered in the shared Reasoning Question Studio registry");
   assert.equal(registered.reviewOnly, true);
-  assert.deepEqual(registered.supportedLanguages, ["en"]);
+  assert.deepEqual(registered.supportedLanguages, ["en", "hi", "pa"]);
   assert.equal(registered.permanentQlCount, 42);
   assert.equal(registered.questionBankWritable, false);
   assert.equal(registered.testEligible, false);
@@ -74,10 +74,17 @@ async function run() {
     assert.ok(preview.questions.every((question) => question.validation.valid));
   }
 
-  assert.throws(
-    () => previewRnk001QuestionStudioReview({ language: "hi" as any, count: 1 }),
-    /multilingual lineage is consolidated/u,
-  );
+  for (const language of ["hi", "pa"] as const) {
+    const nativePreview = previewRnk001QuestionStudioReview({
+      language,
+      qlId: "RNK-QL-029",
+      count: 1,
+      seed: `rnk-native-shared-regression-${language}`,
+    });
+    assert.equal(nativePreview.questions[0]!.language, language);
+    assert.equal(nativePreview.questions[0]!.validation.valid, true);
+  }
+
   assert.throws(
     () => persistReasoningV1QuestionStudioReview({ packageId: "RNK-001", language: "en", count: 1 }),
     /Question Bank\/publication locks remain closed/u,
@@ -85,56 +92,58 @@ async function run() {
 
   const registryPreview = previewReasoningV1QuestionStudioReview({
     packageId: "RNK-001",
-    language: "en",
+    language: "hi",
     qlId: "RNK-QL-001",
     count: 1,
-    seed: "rnk-registry-preview",
+    seed: "rnk-registry-preview-hi",
   });
   assert.equal(registryPreview.questions[0]!.permanentQlId, "RNK-QL-001");
+  assert.equal(registryPreview.questions[0]!.language, "hi");
 
   const cockpit = listQuestionStudioPackages();
   const capability = cockpit.find((entry: any) => entry.packageId === "RNK-001") as any;
   assert.ok(capability, "RNK-001 must be exposed in normal Question Studio capabilities");
   assert.equal(capability.enabled, true);
   assert.equal(capability.permanentQlCount, 42);
-  assert.deepEqual(capability.supportedLanguages, ["en"]);
+  assert.deepEqual(capability.supportedLanguages, ["en", "hi", "pa"]);
   assert.equal(capability.questionBankWritable, false);
   assert.equal(capability.publiclyPublishable, false);
-  assert.equal(capability.englishOnlyUntilMultilingualConsolidation, true);
+  assert.equal(capability.englishOnlyUntilMultilingualConsolidation, false);
 
   const shared = await generateSharedQuestionStudioQuestion({
     packageId: "RNK-001",
     patternId: "RNK-QL-010",
-    language: "en",
+    language: "pa",
     count: 3,
-    seed: "rnk-shared-fixed-ql",
+    seed: "rnk-shared-fixed-ql-pa",
   });
   assert.equal(shared.questions.length, 3);
   assert.ok((shared.questions as any[]).every((question) => question.permanentQlId === "RNK-QL-010"));
+  assert.ok((shared.questions as any[]).every((question) => question.language === "pa"));
   assert.ok((shared.questions as any[]).every((question) => question.questionBankWritable === false));
   assert.ok((shared.questions as any[]).every((question) => question.publiclyPublishable === false));
 
   const bank = await generateSharedQuestionStudioQuestion({
     packageId: "RNK-001",
     examProfileId: "IBPS_PO_PRE",
-    language: "en",
+    language: "hi",
     count: 20,
-    seed: "rnk-shared-bank",
+    seed: "rnk-shared-bank-hi",
   });
   assert.ok((bank.questions as any[]).every((question) => question.options.length === 5));
-  assert.ok((bank.questions as any[]).every((question) => question.optionDetails[4].text === "None of these"));
+  assert.ok((bank.questions as any[]).every((question) => question.optionDetails[4].text === "इनमें से कोई नहीं"));
 
   const cp = await generateSharedQuestionStudioQuestion({
     packageId: "RNK-001",
     cpId: "RNK-CP-004",
-    language: "en",
+    language: "pa",
     count: 12,
-    seed: "rnk-cp004-filter",
+    seed: "rnk-cp004-filter-pa",
   });
   assert.ok((cp.questions as any[]).every((question) => question.checkpointId === "RNK-CP-004"));
   assert.ok((cp.questions as any[]).every((question) => Number(String(question.permanentQlId).slice(-3)) >= 27 && Number(String(question.permanentQlId).slice(-3)) <= 35));
 
-  assert.equal(RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.percentageAdapterStatus, "V2_NATIVE_GRAMMAR_PENDING_BRANCH_CONSOLIDATION");
+  assert.equal(RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.percentageAdapterStatus, "V2_NATIVE_GRAMMAR_FROZEN_AVAILABLE");
 
   console.log(JSON.stringify({
     status: "PASS",
