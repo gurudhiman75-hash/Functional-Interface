@@ -59,6 +59,26 @@ function cleanRhombusSolution(model: GeoDiagramModel): GeoDiagramModel {
   };
 }
 
+function cleanCentroidStem(model: GeoDiagramModel): GeoDiagramModel {
+  return {
+    ...model,
+    labels: model.labels.map((label) => label.id === "given-centroid-segment"
+      ? { ...label, x: 205 }
+      : label),
+  };
+}
+
+function cleanCentroidSolution(model: GeoDiagramModel): GeoDiagramModel {
+  return {
+    ...model,
+    labels: model.labels.map((label) => {
+      if (label.id === "ag-label" || label.id === "gd-label") return { ...label, x: 205 };
+      if (label.id === "ratio-label") return { ...label, x: 275, y: 105 };
+      return label;
+    }),
+  };
+}
+
 function remediateDirectQuestion(seed: string): GapWave6Question {
   const raw = BASE_WAVE6_PROTOTYPES[0].generate(seed);
   if (!raw.diagramModel) throw new Error("Wave 6 direct stem diagram missing before remediation");
@@ -125,10 +145,35 @@ function remediateRhombusQuestion(seed: string): GapWave6Question {
   });
 }
 
+function remediateCentroidQuestion(seed: string): GapWave6Question {
+  const raw = BASE_WAVE6_PROTOTYPES[2].generate(seed);
+  if (!raw.diagramModel) throw new Error("Wave 6 centroid stem diagram missing before remediation");
+  return finalizeGapWave6Question({
+    temporaryPrototypeId: raw.temporaryPrototypeId,
+    sourceGapId: raw.sourceGapId,
+    sourceEvidenceIds: raw.sourceEvidenceIds,
+    solveMode: raw.solveMode,
+    seed: raw.seed,
+    stem: raw.stem,
+    options: raw.options,
+    correctIndex: raw.correctIndex,
+    optionAnalysis: raw.optionAnalysis,
+    explanation: raw.explanation,
+    theoremTrace: raw.theoremTrace,
+    displayedClueIds: raw.displayedClueIds,
+    minimalityProof: raw.minimalityProof,
+    independentVerifierResult: raw.independentVerifierResult,
+    diagramDisposition: raw.diagramDisposition,
+    diagramModel: cleanCentroidStem(raw.diagramModel),
+    solutionDiagramModel: cleanCentroidSolution(raw.solutionDiagramModel),
+  });
+}
+
 export const GEO_GAP_REMEDIATION_WAVE6_PROTOTYPES: readonly GapWave6PrototypeDefinition[] = Object.freeze(
   BASE_WAVE6_PROTOTYPES.map((prototype, index) => {
     if (index === 0) return Object.freeze({ ...prototype, generate: remediateDirectQuestion });
     if (index === 1) return Object.freeze({ ...prototype, generate: remediateRhombusQuestion });
+    if (index === 2) return Object.freeze({ ...prototype, generate: remediateCentroidQuestion });
     return prototype;
   }),
 );
