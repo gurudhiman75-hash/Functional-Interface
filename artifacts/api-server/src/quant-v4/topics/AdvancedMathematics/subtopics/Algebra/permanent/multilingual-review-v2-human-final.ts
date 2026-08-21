@@ -58,13 +58,16 @@ function finalEditorialCleanup(item: AlgPermanentMultilingualReviewV2Item): stri
 
   if (item.prototypeId === "ALG-CP013-CAND-006") {
     if (item.locale === "pa-IN") {
-      value = value.replace(/^ਪਰਮ ਮਾਨ ਹੈ ਤੇ ਸਬਤੋਂ ਛੋਟਾ .*ਕਿਸੇ ਇੱਕ ਸੀਮਾ: .*\.$/gm, "");
+      value = value.replace(/ ?ਪਰਮ ਮਾਨ ਹੈ ਤੇ ਸਬਤੋਂ ਛੋਟਾ [^.\n]+\./g, "");
     } else {
-      value = value.replace(/^परम मान है .*सबसे छोटा .*किसी एक सीमा: .*।$/gm, "");
+      value = value.replace(/ ?परम मान है [^।.\n]*सबसे छोटा [^।.\n]*किसी एक सीमा:[^।.\n]*[।.]/g, "");
     }
   }
 
-  if (item.prototypeId === "ALG-CP012-CAND-011") {
+  if (
+    item.prototypeId === "ALG-CP012-CAND-011" ||
+    item.prototypeId === "ALG-CP012-CAND-012"
+  ) {
     if (item.locale === "pa-IN") {
       value = value.replace(/^.*(?:ਪ੍ਰਾਪਤ ਹੋਵੇਨੇ ਜੋੜ੍ਯ|ਸਗੋਂ ਤੋਂ ਕੇਵਲ).*$/gm,
         "ਬਰਾਬਰੀ ਦੀ ਸਥਿਤੀ ਦਿਖਾਉਂਦੀ ਹੈ ਕਿ ਇਹ ਸੀਮਾ ਅਸਲ ਵਿੱਚ ਪ੍ਰਾਪਤ ਹੁੰਦੀ ਹੈ; ਇਸ ਲਈ ਇਹੀ ਅਸਲ ਘੱਟੋ-ਘੱਟ ਮਾਨ ਹੈ, ਕੇਵਲ ਹੇਠਲੀ ਸੀਮਾ ਨਹੀਂ.");
