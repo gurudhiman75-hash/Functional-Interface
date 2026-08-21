@@ -13,6 +13,8 @@ const structuralFingerprints=new Set<string>();
 const answerPositions=Array.from({length:4},()=>[0,0,0,0]);
 let sourceCount=0;
 let baseCount=0;
+let detailedSolutionCount=0;
+let caseTeachingCount=0;
 
 function escapeRegex(value:string):string { return value.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
 function normalizePeople(text:string,people:readonly string[]):string {
@@ -33,11 +35,22 @@ for(const caselet of corpus){
 
   const proseAtoms=[caselet.setupText,...caselet.clueTexts,...caselet.children.flatMap((child)=>[child.text,child.explanation,...child.options.map((option)=>option.explanation)])];
   const learnerSurface=[...proseAtoms,caselet.sharedExplanation].join("\n");
-  assert.ok(!/SEA-PBA|SEA-QC|oracle|fingerprint|hidden state|implementation/i.test(learnerSurface),`${caselet.caseletId}: internal language leaked`);
+  assert.ok(!/SEA-PBA|SEA-QC|oracle|fingerprint|hidden state|implementation|observer coordinates/i.test(learnerSurface),`${caselet.caseletId}: internal language leaked`);
   assert.ok(!/\bThis matches\b/i.test(learnerSurface),`${caselet.caseletId}: generic explanation wording returned`);
   assert.ok(proseAtoms.every((text)=>!/[ \t]{2,}/.test(text)),`${caselet.caseletId}: doubled whitespace in prose`);
   assert.equal(new Set(caselet.clueTexts).size,caselet.clueTexts.length,`${caselet.caseletId}: duplicate clue line`);
   assert.ok(caselet.clueTexts.every((clue)=>/[.!?]$/.test(clue.trim())),`${caselet.caseletId}: clue punctuation`);
+  assert.ok(/two parallel rows/i.test(caselet.setupText),`${caselet.caseletId}: setup not exam-like parallel-row language`);
+  assert.ok(/upper row face south/i.test(caselet.setupText));
+  assert.ok(/lower row face north/i.test(caselet.setupText));
+
+  assert.ok(caselet.sharedExplanation.length>=500,`${caselet.caseletId}: detailed solution too thin`);
+  assert.ok(caselet.sharedExplanation.includes("Final arrangement:"),`${caselet.caseletId}: final arrangement missing from solution`);
+  assert.ok(caselet.sharedExplanation.includes("Step 1:"),`${caselet.caseletId}: clue-by-clue working missing`);
+  assert.ok(caselet.sharedExplanation.includes("Result:"),`${caselet.caseletId}: applied-clue result missing`);
+  assert.ok(caselet.sharedExplanation.includes("Use this final arrangement to answer all the questions that follow."),`${caselet.caseletId}: shared-solution close missing`);
+  detailedSolutionCount+=1;
+  if(caselet.sharedExplanation.includes("Case 1:")) caseTeachingCount+=1;
 
   for(const clue of caselet.clueTexts) normalizedClueSurfaces.add(normalizePeople(clue,caselet.people));
   assert.equal(caselet.children.length,4);
@@ -47,6 +60,7 @@ for(const caselet of corpus){
     normalizedQuestionSurfaces.add(normalizePeople(child.text,caselet.people));
     assert.match(child.text.trim(),/\?$/,`${caselet.caseletId}/Q${q+1}: question punctuation`);
     assert.ok(child.explanation.length>=40,`${caselet.caseletId}/Q${q+1}: explanation too thin`);
+    assert.ok(!/observer column|observer coordinates/i.test(child.explanation),`${caselet.caseletId}/Q${q+1}: technical direction wording leaked`);
     assert.equal(child.options.length,4);
     assert.equal(new Set(child.options.map((option)=>option.value)).size,4,`${caselet.caseletId}/Q${q+1}: duplicate displayed option`);
     assert.equal(child.options.filter((option)=>option.isCorrect).length,1);
@@ -67,6 +81,8 @@ for(const caselet of corpus){
 for(const blueprint of SEA002_CP006_BLUEPRINT_IDS) assert.equal(blueprintCounts.get(blueprint),25,`${blueprint}: review balance`);
 assert.equal(sourceCount,80);
 assert.equal(baseCount,20);
+assert.equal(detailedSolutionCount,100);
+assert.ok(caseTeachingCount>=20,`case-formation teaching too sparse in review corpus: ${caseTeachingCount}/100`);
 assert.deepEqual([...widthCounts.keys()].sort(),[3,4,5,6]);
 assert.deepEqual([...queryContracts].sort(),["SEA-QC-003","SEA-QC-006","SEA-QC-008","SEA-QC-010","SEA-QC-011","SEA-QC-012","SEA-QC-014","SEA-QC-015"]);
 assert.ok(normalizedQuestionSurfaces.size>=8,`question-stem surface pool too thin: ${normalizedQuestionSurfaces.size}`);
@@ -86,5 +102,7 @@ console.log("query contracts",[...queryContracts].sort().join(","));
 console.log("normalized question surfaces",normalizedQuestionSurfaces.size);
 console.log("normalized clue surfaces",normalizedClueSurfaces.size);
 console.log("structural fingerprints",structuralFingerprints.size);
+console.log("detailed solutions",detailedSolutionCount);
+console.log("case-teaching solutions",caseTeachingCount);
 console.log("answer positions",answerPositions);
 console.log("review fingerprint",fingerprint);
