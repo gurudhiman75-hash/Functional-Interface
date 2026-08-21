@@ -1,0 +1,49 @@
+name: Validate Algebra Question Studio V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/**
+      - artifacts/api-server/src/routes/admin-question-studio-algebra.ts
+      - artifacts/api-server/src/routes/index.ts
+      - .github/workflows/alg-question-studio-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alg-question-studio-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-algebra-question-studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle Algebra Question Studio V1 audit
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/algebra
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/algebra-question-studio-runtime-v1.test.mjs
+      - name: Run Algebra Question Studio V1 audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/algebra/algebra-question-studio-runtime-v1.test.mjs
