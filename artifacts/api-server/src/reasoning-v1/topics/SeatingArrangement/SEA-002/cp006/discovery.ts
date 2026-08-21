@@ -1,4 +1,4 @@
-import { canonicalDigest } from "../canonical.ts";
+import { canonicalDigest } from "../../SEA-001/canonical.ts";
 import type { Sea002Cp006Caselet, Sea002Cp006Clue, Sea002Cp006State, Sea002Cp006BlueprintId } from "./types.ts";
 import {
   auditOracleCp006,
