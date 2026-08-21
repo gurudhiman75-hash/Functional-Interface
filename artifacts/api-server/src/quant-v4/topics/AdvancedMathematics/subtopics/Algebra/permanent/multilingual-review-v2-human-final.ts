@@ -36,6 +36,26 @@ function finalEditorialCleanup(item: AlgPermanentMultilingualReviewV2Item): stri
     }
   }
 
+  if (item.prototypeId === "ALG-CP012-CAND-010") {
+    if (item.locale === "pa-IN") {
+      value = value.replace(
+        /ਦੋ-ਘਾਤੀ ਹੈ ਮੂਲ ([^\s,.]+) ਅਤੇ ([^\s,.]+) ਅਤੇ ਉੱਪਰ ਖੁੱਲ੍ਹਦਾ ਹੈ, ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮਾਨ ਹੋਣ ([^.]+)\. ਸਹੀ ਅੰਤਰਾਲ ਹੈ ([^.]+)\./g,
+        (_match, left: string, right: string, condition: string, interval: string) => {
+          const inclusive = /ਸਮੇਤ|ਸ਼ਾਮਲ|ਦੋਵੇਂ/.test(condition);
+          return `ਦੋ-ਘਾਤੀ ਦੇ ਮੂਲ ${left} ਅਤੇ ${right} ਹਨ ਅਤੇ ਪਰਾਬੋਲਾ ਉੱਪਰ ਖੁੱਲ੍ਹਦਾ ਹੈ, ਇਸ ਲਈ ਵਿਆੰਜਕ ਦੋਵੇਂ ਮੂਲਾਂ ਦੇ ਵਿਚਕਾਰ ${inclusive ? "ਗੈਰ-ਧਨਾਤਮਕ" : "ਰਣਾਤਮਕ"} ਹੈ. ${inclusive ? "ਦੋਵੇਂ ਮੂਲ ਹੱਲ ਵਿੱਚ ਸ਼ਾਮਲ ਹਨ. " : ""}ਸਹੀ ਅੰਤਰਾਲ ${interval} ਹੈ.`;
+        },
+      );
+    } else {
+      value = value.replace(
+        /द्विघात है मूल ([^\s,।]+) और ([^\s,।]+) और ऊपर खुलता है, इसलिए आवश्यक मान हों ([^.।]+)\. सटीक अंतराल है ([^।]+)।/g,
+        (_match, left: string, right: string, condition: string, interval: string) => {
+          const inclusive = /समेत|सहित|शामिल|दोनों/.test(condition);
+          return `द्विघात के मूल ${left} और ${right} हैं तथा परवलय ऊपर खुलता है, इसलिए व्यंजक दोनों मूलों के बीच ${inclusive ? "गैर-धनात्मक" : "ऋणात्मक"} है। ${inclusive ? "दोनों मूल हल में शामिल हैं। " : ""}सटीक अंतराल ${interval} है।`;
+        },
+      );
+    }
+  }
+
   return value
     .replace(/[ \t]+\n/g, "\n")
     .replace(/ {2,}/g, " ")
