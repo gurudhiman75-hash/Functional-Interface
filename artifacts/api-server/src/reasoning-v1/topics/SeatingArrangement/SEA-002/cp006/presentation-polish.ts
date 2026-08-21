@@ -8,7 +8,7 @@ export function compactCp006CaseTeaching(explanation:string):string {
   const actions=paragraphs.slice(start+1,casesIndex);
   const membershipPattern=/^\d+\. Put .+ in the (?:upper|lower) row\. Keep the exact seat open until another condition fixes it\.$/;
   const membershipCount=actions.filter((paragraph)=>membershipPattern.test(paragraph)).length;
-  if(membershipCount<4) return explanation;
+  if(membershipCount<2) return explanation;
 
   const positional=actions.filter((paragraph)=>!membershipPattern.test(paragraph));
   const compacted=[
