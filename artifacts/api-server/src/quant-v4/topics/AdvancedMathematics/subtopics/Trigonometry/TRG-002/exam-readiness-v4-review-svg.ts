@@ -279,12 +279,18 @@ function renderMeasurementArrow(
   const midpointX = (from.x + to.x) / 2;
   const midpointY = (from.y + to.y) / 2;
   const label = String(arrow.label ?? "");
+  const dimensionGeometry: GeometrySegment[] = [
+    { from, to: { id: `${arrow.id}-extension-a`, x: ax1, y: ay1 } },
+    { from: to, to: { id: `${arrow.id}-extension-b`, x: ax2, y: ay2 } },
+    { from: { id: `${arrow.id}-dimension-a`, x: ax1, y: ay1 }, to: { id: `${arrow.id}-dimension-b`, x: ax2, y: ay2 } },
+  ];
   const candidates = [offset + 30, offset + 48, offset + 68, offset + 92, offset + 118].flatMap((labelOffset) => [0, 22, -22, 44, -44].map((tangent) => ({
     x: midpointX + nx * labelOffset + ux * tangent,
     y: midpointY + ny * labelOffset + uy * tangent,
   })));
-  const placement = chooseLabelPlacement(label, 18, candidates, geometrySegments, occupied, width, height);
+  const placement = chooseLabelPlacement(label, 18, candidates, [...geometrySegments, ...dimensionGeometry], occupied, width, height);
   occupied.push(placement);
+  geometrySegments.push(...dimensionGeometry);
   const renderedLabel = label ? renderLabelBox(label, placement, "measurement-label", 18, "#0f766e") : "";
 
   return `<g class="measurement" data-measurement-id="${esc(arrow.id)}"><line x1="${from.x.toFixed(2)}" y1="${from.y.toFixed(2)}" x2="${ax1.toFixed(2)}" y2="${ay1.toFixed(2)}" stroke="#94a3b8" stroke-width="1.2"/><line x1="${to.x.toFixed(2)}" y1="${to.y.toFixed(2)}" x2="${ax2.toFixed(2)}" y2="${ay2.toFixed(2)}" stroke="#94a3b8" stroke-width="1.2"/><line x1="${ax1.toFixed(2)}" y1="${ay1.toFixed(2)}" x2="${ax2.toFixed(2)}" y2="${ay2.toFixed(2)}" stroke="#0f766e" stroke-width="1.9" marker-start="url(#${markerId})" marker-end="url(#${markerId})"/>${renderedLabel}</g>`;
