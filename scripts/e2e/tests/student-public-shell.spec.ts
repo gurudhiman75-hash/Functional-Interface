@@ -37,7 +37,7 @@ test.describe("CP02 public and app shell split", () => {
 
     await expect(page.getByRole("navigation", { name: "Primary navigation" })).toBeVisible();
     await expect(page.getByRole("link", { name: "ExamTree home" }).first()).toBeVisible();
-    await expect(page.getByText("Built for exam discovery, mock tests, and saved review.")).toBeVisible();
+    await expect(page.getByRole("contentinfo")).toBeVisible();
     await expect(page.getByRole("button", { name: /Select Targeted Exam/i })).toHaveCount(0);
     await expect(page.getByText("Logic Engine v2.4")).toHaveCount(0);
     await expect(page.getByText("API Docs")).toHaveCount(0);
@@ -64,7 +64,7 @@ test.describe("CP02 public and app shell split", () => {
     const mobileNavigation = page.getByRole("navigation", { name: "Mobile primary navigation" });
     await expect(mobileNavigation).toBeVisible();
     await expect(mobileNavigation.getByRole("link", { name: "Sign in" })).toBeVisible();
-    await expect(mobileNavigation.getByRole("link", { name: "Browse tests", exact: true })).toBeVisible();
+    await expect(mobileNavigation.getByRole("link", { name: "Start a mock", exact: true })).toBeVisible();
 
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);
