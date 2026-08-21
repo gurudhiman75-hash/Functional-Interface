@@ -24,6 +24,13 @@ function uniqueSameState(people:readonly string[],width:number,clues:readonly Se
   return solutions.length===1&&canonicalDigest(solutions[0])===canonicalDigest(state);
 }
 function clueText(clue:Sea002Cp006Clue):string { return isCp006SourceNaturalClue(clue)?renderCp006SourceClue(clue):renderCp006Clue(clue); }
+function displayedClues(base:Sea002Cp006Caselet,clues:readonly Sea002Cp006Clue[]):string[] {
+  if(base.blueprintAuthorityId!=="SEA-PBA-021") return clues.map(clueText);
+  return [
+    `${base.state.top.join(", ")} sit in the upper row, while ${base.state.bottom.join(", ")} sit in the lower row.`,
+    ...clues.filter((clue)=>clue.kind!=="ROW_MEMBERSHIP").map(clueText),
+  ];
+}
 
 function sourceEssentialClueSet(base:Sea002Cp006Caselet,sourcePool:readonly Sea002Cp006Clue[],seed:string):readonly Sea002Cp006Clue[] {
   const rng=new DeterministicRandom(`${seed}:exam-real-essentialization`);
@@ -59,7 +66,7 @@ export function generateSea002Cp006ExamRealCaselet(blueprint:Sea002Cp006Blueprin
   if(production.length!==1||oracle.length!==1||canonicalDigest(production[0])!==canonicalDigest(base.state)||canonicalDigest(oracle[0])!==canonicalDigest(base.state)) throw new Error(`${base.caseletId}: exam-real clue set lost solver/oracle authority.`);
   const essentialSourceCount=sourceClues.filter((sourceClue)=>!uniqueSameState(base.people,seatCountPerRow,clues.filter((clue)=>clue!==sourceClue),base.state)).length;
   if(essentialSourceCount<1) throw new Error(`${base.caseletId}: source-natural clue is not solution-essential.`);
-  const clueTexts=clues.map(clueText);
+  const clueTexts=displayedClues(base,clues);
   const sharedExplanation=[
     "Start by drawing the two rows with the upper row facing south and the lower row facing north.",
     "Keep the vertical columns fixed for opposite seats, then apply each person's left or right from that person's own facing.",
