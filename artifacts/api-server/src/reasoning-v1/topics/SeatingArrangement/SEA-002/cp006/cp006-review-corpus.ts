@@ -1,6 +1,6 @@
 import { canonicalDigest } from "../../SEA-001/canonical.ts";
 import { generateSea002Cp006DiscoveryCaselet } from "./discovery.ts";
-import { generateSea002Cp006SourceRealCaselet } from "./source-realness.ts";
+import { generateSea002Cp006ExamRealCaselet } from "./exam-real.ts";
 import { SEA002_CP006_BLUEPRINT_IDS, type Sea002Cp006Caselet } from "./types.ts";
 
 export function cp006ReviewContentFingerprint(caselet:Sea002Cp006Caselet):string {
@@ -26,7 +26,7 @@ export function buildCp006EnglishReviewCorpus():readonly Sea002Cp006Caselet[] {
   for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
     for(let index=0;index<20;index+=1){
       const width=4+(index%3);
-      caselets.push(generateSea002Cp006SourceRealCaselet(blueprint,`english-review-source-${blueprint}-${index}`,width));
+      caselets.push(generateSea002Cp006ExamRealCaselet(blueprint,`english-review-source-${blueprint}-${index}`,width));
     }
     for(let index=0;index<5;index+=1){
       const width=3+(index%4);
