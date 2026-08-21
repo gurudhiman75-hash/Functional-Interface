@@ -1,4 +1,4 @@
-import { getFirebaseAuth } from "@/lib/firebase";
+import { getSessionUser } from "@/lib/session-user";
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ?? "/api";
@@ -129,9 +129,20 @@ export function getApiErrorMessage(body: unknown): string | undefined {
   return typeof err === "string" ? err : undefined;
 }
 
+function requestMayNeedFirebaseAuth(): boolean {
+  if (getSessionUser()) return true;
+  if (typeof window === "undefined") return false;
+  // The first canonical profile request after Firebase login happens before
+  // setUser() writes the lightweight local session marker. Limit this exception
+  // to login routes so anonymous acquisition/catalog requests remain Firebase-free.
+  return window.location.pathname === "/login" || window.location.pathname.startsWith("/login/");
+}
+
 async function getAuthHeader(): Promise<Record<string, string>> {
-  const auth = getFirebaseAuth();
-  const currentUser = auth?.currentUser;
+  if (!requestMayNeedFirebaseAuth()) return {};
+
+  const { getFirebaseAuth } = await import("@/lib/firebase");
+  const currentUser = getFirebaseAuth()?.currentUser;
   if (!currentUser) return {};
 
   try {
