@@ -1,5 +1,5 @@
 import { canonicalDigest } from "../../SEA-001/canonical.ts";
-import type { Sea002Cp006Caselet, Sea002Cp006Clue, Sea002Cp006State, Sea002Cp006BlueprintId } from "./types.ts";
+import type { Sea002Cp006Caselet, Sea002Cp006ChildQuestion, Sea002Cp006Clue, Sea002Cp006State, Sea002Cp006BlueprintId } from "./types.ts";
 import {
   auditOracleCp006,
   cp006ClueTrue,
@@ -41,6 +41,23 @@ function examLikeSetup(people:readonly string[],state:Sea002Cp006State):string {
   return `${people.length} persons, ${names}, are seated in two parallel rows containing ${state.seatCountPerRow} persons each. The persons in the upper row face south and the persons in the lower row face north. Each person in one row faces exactly one person in the other row; persons facing each other are in the same vertical column.`;
 }
 
+function plainLanguage(text:string):string {
+  return text
+    .replaceAll("observer column","vertical column")
+    .replaceAll("observer's","our")
+    .replaceAll("observer-left","left side of the page")
+    .replaceAll("observer-right","right side of the page")
+    .replaceAll("seat intervals","seats")
+    .replaceAll("strictly between","between");
+}
+function plainChild(child:Sea002Cp006ChildQuestion):Sea002Cp006ChildQuestion {
+  return {
+    ...child,
+    explanation:plainLanguage(child.explanation),
+    options:child.options.map((option)=>({...option,explanation:plainLanguage(option.explanation)})) as Sea002Cp006ChildQuestion["options"],
+  };
+}
+
 function learnerDiagram(base:Sea002Cp006Caselet):Sea002Cp006Caselet["diagram"] {
   return {
     ...base.diagram,
@@ -71,6 +88,7 @@ export function generateSea002Cp006DiscoveryCaselet(
   const clueTexts=renderedClues(base,clues);
   const solutionClueTexts=clues.map(renderCp006Clue);
   const diagram=learnerDiagram(base);
+  const children=base.children.map(plainChild) as Sea002Cp006Caselet["children"];
   return {
     ...base,
     setupText:examLikeSetup(base.people,base.state),
@@ -79,12 +97,13 @@ export function generateSea002Cp006DiscoveryCaselet(
     sharedExplanation:compileCp006TeachingExplanation(base.state,base.people,clues,solutionClueTexts),
     diagramText:diagram.text,
     diagram,
+    children,
     structuralFingerprint:canonicalDigest({
       blueprint,
       seatCountPerRow:base.state.seatCountPerRow,
       clueKinds:clues.map((clue)=>clue.kind),
       clueShape:clues.map((clue)=>clue.kind==="SAME_ROW_RELATIVE"?`${clue.kind}:${clue.side}:${clue.steps}`:clue.kind),
-      queryContracts:base.children.map((child)=>child.queryContractId),
+      queryContracts:children.map((child)=>child.queryContractId),
     }),
   };
 }
