@@ -7,6 +7,7 @@ const read = (relative) => fs.readFileSync(fileURLToPath(new URL(relative, impor
 const publicLayout = read("../src/components/PublicLayout.tsx");
 const seriesCard = read("../src/components/ExamSeriesCard.tsx");
 const category = read("../src/pages/category.tsx");
+const subcategory = read("../src/pages/subcategory.tsx");
 const home = read("../src/pages/home.tsx");
 
 assert.match(publicLayout, /h-\[72px\]/, "public header should retain the calmer 72px navigation rhythm");
@@ -26,6 +27,14 @@ assert.match(category, /<ExamSeriesCard/, "category discovery should consume the
 assert.doesNotMatch(category, /CATEGORY_STYLES|backgroundImage: gradient/, "category discovery should not reintroduce competing decorative gradient identities");
 assert.doesNotMatch(category, /hover:-translate-y-1/, "category discovery should avoid exaggerated card lift motion");
 
+assert.doesNotMatch(subcategory, /CATEGORY_STYLES|backgroundImage: gradient/, "exam detail should share the restrained Examtree identity instead of a separate gradient theme");
+assert.doesNotMatch(subcategory, /viewMode|List view|Grid view/, "exam detail should keep one canonical test-inventory presentation");
+assert.match(subcategory, /Available tests/, "exam detail should prioritize test discovery before commerce");
+assert.match(subcategory, /Packages for this exam/, "exam commerce should remain a clearly secondary section after test inventory");
+assert.match(subcategory, /aria-pressed=\{active\}/, "test-format controls should expose their selected state without incomplete tab semantics");
+assert.match(subcategory, /attemptId=\$\{encodeURIComponent\(latestAttempt\.id\)\}/, "visual redesign must preserve exact-attempt review navigation");
+assert.doesNotMatch(subcategory, /hover:scale-\[1\.015\]|bg-gradient-to-r from-amber-500|bg-gradient-to-r from-violet-600/, "exam detail should not restore aggressive commerce or action gradients");
+
 assert.doesNotMatch(home, /shadow-\[0_8px_30px_rgb\(0,0,0,0\.12\)\]/, "homepage should not regress to the old repeated heavy shadow treatment");
 
-console.log("Visual system V1 audit passed (15 assertions).");
+console.log("Visual system V1 audit passed (22 assertions).");
