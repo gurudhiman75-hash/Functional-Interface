@@ -1,0 +1,71 @@
+export const TSD_CP007_DISCOVERY_CANDIDATES = Object.freeze([
+  "findTrainCrossingTimeForPole",
+  "findTrainCrossingTimeForStationaryPerson",
+  "findTrainCrossingTimeForPlatform",
+  "findTrainCrossingTimeForBridge",
+  "findTrainCrossingTimeForTunnel",
+  "findTrainLengthFromPoleTimeAndSpeed",
+  "findTrainSpeedFromLengthAndPoleTime",
+  "findPlatformLengthFromCrossingTime",
+  "findBridgeLengthFromCrossingTime",
+  "findTunnelLengthFromCrossingTime",
+  "findTrainLengthFromPoleAndPlatformTimes",
+  "findTrainSpeedFromPoleAndPlatformTimes",
+  "findPlatformLengthFromPoleAndPlatformTimes",
+  "findDifferenceOfPlatformLengthsFromCrossingTimes",
+  "findCrossingTimeForTwoFixedObjects",
+  "findTimeForFrontToReachObject",
+  "findTimeForRearToClearObject",
+  "findDurationTrainFullyOccupiesPlatform",
+  "findDurationTrainFullyOccupiesBridge",
+  "findTimeBetweenEngineAndRearPassingObserver",
+  "findPartialTrainLengthPassedInGivenTime",
+  "findPartialPlatformCoveredInGivenTime",
+  "findTrainEntryOrExitClockTime",
+  "findUnknownEventTimeFromEntryExitTimeline",
+  "findNumberOfPolesPassedAtFixedSpacing",
+  "findSpacingBetweenPolesFromPassCount",
+  "findObjectLengthFromTrainOccupancyDuration",
+  "findTrainLengthRatioFromCrossingTimes",
+  "reconstructTrainCrossingFromTimeline",
+  "detectCrossingEventSemanticError",
+  "classifyFixedObjectTrainStateAsPossibleUniqueOrMultiple",
+  "verifyFixedObjectCrossingClaim",
+  "solveFixedObjectTrainDataSufficiency",
+] as const);
+
+export type TsdCp007SolveMode = typeof TSD_CP007_DISCOVERY_CANDIDATES[number];
+
+export const TSD_CP007_DISCOVERY_AUTHORITY = Object.freeze({
+  checkpointId: "TSD-CP-007" as const,
+  chapterId: "TSD-002" as const,
+  title: "Train Crossing Fixed Objects, Platforms, Bridges and Tunnels",
+  dependencyCheckpoints: Object.freeze(["TSD-CP-001"] as const),
+  sourceCandidateCount: TSD_CP007_DISCOVERY_CANDIDATES.length,
+  ownership: Object.freeze([
+    "finite-length train crossing a fixed point",
+    "finite-length train crossing a fixed-length stationary object",
+    "front/rear entry-clear event semantics",
+    "full-occupancy intervals when the fixed object is longer than the train",
+    "paired crossing observations used to recover train or object state",
+    "fixed-spacing pole/post counting representations",
+    "fixed-object crossing timeline reconstruction and validation",
+  ] as const),
+  exclusions: Object.freeze([
+    "moving observers and train-train relative motion belong to TSD-CP-008",
+    "ordinary front-to-target gap travel with no finite-length crossing requirement remains TSD-CP-001",
+    "generic partial distance covered in a time interval remains TSD-CP-001 unless a front/rear crossing event is essential",
+    "multi-stage schedules with speed changes belong to TSD-CP-012",
+  ] as const),
+  permanentQlCount: 0 as const,
+  nextAvailableQl: "TSD-QL-084" as const,
+  englishFreezeStatus: "UNFROZEN" as const,
+  questionStudioEnabled: false as const,
+  questionBankStatus: "NOT_STORED" as const,
+  testEligibility: "INELIGIBLE" as const,
+  publiclyPublishable: false as const,
+});
+
+if (TSD_CP007_DISCOVERY_CANDIDATES.length !== 33) {
+  throw new Error(`TSD-CP-007 discovery inventory drift: expected 33 candidates, found ${TSD_CP007_DISCOVERY_CANDIDATES.length}.`);
+}
