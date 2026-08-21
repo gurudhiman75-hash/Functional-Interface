@@ -37,7 +37,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-approved-freeze-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-english-freeze-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/localization/native-approved-freeze-proof-v7.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-native-freeze-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-approved-freeze-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp005-native-freeze-proof.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/question-studio-cp006-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/question-studio-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/question-studio-cp006-proof-v2.ts" --bundle --platform=node --format=esm --outfile="$OUT/question-studio-proof.mjs"
       - name: Re-prove frozen multilingual authorities
         run: |
           set -o pipefail
