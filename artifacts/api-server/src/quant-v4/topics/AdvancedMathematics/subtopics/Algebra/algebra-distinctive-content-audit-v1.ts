@@ -6,10 +6,10 @@ import {
   type AlgebraQuestionStudioPattern,
 } from "./algebra-question-studio-runtime-v1";
 import {
-  ALGEBRA_QUESTION_STUDIO_DELIVERY_V3_AUTHORITY,
-  generateAlgebraStudioQuestionV3,
-  type AlgebraQuestionStudioQuestionV3,
-} from "./algebra-question-studio-runtime-v3";
+  ALGEBRA_QUESTION_STUDIO_DELIVERY_V4_AUTHORITY,
+  generateAlgebraStudioQuestionV4,
+  type AlgebraQuestionStudioQuestionV4,
+} from "./algebra-question-studio-runtime-v4";
 
 export const ALGEBRA_DISTINCTIVE_CONTENT_AUDIT_V1_AUTHORITY =
   "ALGEBRA-DISTINCTIVE-CONTENT-AUDIT-V1" as const;
@@ -71,7 +71,7 @@ function normalizeVisible(text: string) {
 function stemShape(stem: string) {
   return normalizeVisible(stem)
     .replace(/\b(?:x|y|z|a|b|c|k|m|n|p|q|r|t)\b/g, "<v>")
-    .replace(/[(){}[\],;:]/g, " ")
+    .replace(/[(){}\[\],;:]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -80,15 +80,15 @@ function openingShape(stem: string) {
   return stemShape(stem).split(/\s+/).slice(0, 7).join(" ");
 }
 
-function stateFingerprint(question: AlgebraQuestionStudioQuestionV3) {
+function stateFingerprint(question: AlgebraQuestionStudioQuestionV4) {
   return [question.stem, ...question.options].join("\n");
 }
 
-function explanationFingerprint(question: AlgebraQuestionStudioQuestionV3) {
+function explanationFingerprint(question: AlgebraQuestionStudioQuestionV4) {
   return question.explanation.steps.join("\n");
 }
 
-function distractorFingerprint(question: AlgebraQuestionStudioQuestionV3) {
+function distractorFingerprint(question: AlgebraQuestionStudioQuestionV4) {
   return question.optionDetails
     .filter((option) => !option.isCorrect)
     .map((option) => normalizeVisible(option.text))
@@ -96,13 +96,13 @@ function distractorFingerprint(question: AlgebraQuestionStudioQuestionV3) {
     .join("|");
 }
 
-function answerFamily(question: AlgebraQuestionStudioQuestionV3) {
+function answerFamily(question: AlgebraQuestionStudioQuestionV4) {
   const answer = question.canonicalAnswer as any;
   if (answer && typeof answer === "object" && typeof answer.kind === "string") return answer.kind;
   return typeof answer === "string" ? "STRING_RELATION" : typeof answer;
 }
 
-function visibleText(question: AlgebraQuestionStudioQuestionV3) {
+function visibleText(question: AlgebraQuestionStudioQuestionV4) {
   return [question.stem, ...question.options, ...question.explanation.steps].join("\n");
 }
 
@@ -124,7 +124,7 @@ function hasQuestionIntent(stem: string) {
   return /\?|\b(?:find|determine|calculate|which|what|how many|value|roots?|solution|relation|sufficient|maximum|minimum|range|remainder|coefficient|factor)\b/i.test(stem);
 }
 
-function explanationSpecificity(question: AlgebraQuestionStudioQuestionV3) {
+function explanationSpecificity(question: AlgebraQuestionStudioQuestionV4) {
   const text = question.explanation.steps.join(" ");
   const numericOrMathTokens = text.match(/(?:-?\d+(?:\.\d+)?|[=+\-×÷√²³]|\b(?:x|y|z|a|b|c|k|m|n)\b)/g) ?? [];
   return numericOrMathTokens.length;
@@ -150,7 +150,7 @@ function countBy<T>(items: readonly T[], keyOf: (item: T) => string) {
 }
 
 const records: AuditRecord[] = [];
-const questions: AlgebraQuestionStudioQuestionV3[] = [];
+const questions: AlgebraQuestionStudioQuestionV4[] = [];
 const findings: Finding[] = [];
 
 function addFinding(
@@ -176,7 +176,7 @@ function addFinding(
 for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
   for (let index = 0; index < SAMPLES_PER_PATTERN; index += 1) {
     const seed = `algebra-distinctive-v1:${pattern.prototypeId}:${index}`;
-    const question = generateAlgebraStudioQuestionV3({
+    const question = generateAlgebraStudioQuestionV4({
       pattern,
       language: "en",
       examProfile: "SSC_CORE",
@@ -228,7 +228,7 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
   }
 }
 
-const questionsByPattern = new Map<string, AlgebraQuestionStudioQuestionV3[]>();
+const questionsByPattern = new Map<string, AlgebraQuestionStudioQuestionV4[]>();
 for (const question of questions) {
   const bucket = questionsByPattern.get(question.patternId) ?? [];
   bucket.push(question);
@@ -252,7 +252,7 @@ const patternMetrics: Array<{
   distinctiveScore: number;
 }> = [];
 
-const shapeToQuestions = new Map<string, AlgebraQuestionStudioQuestionV3[]>();
+const shapeToQuestions = new Map<string, AlgebraQuestionStudioQuestionV4[]>();
 for (const question of questions) {
   const shape = stemShape(question.stem);
   const bucket = shapeToQuestions.get(shape) ?? [];
@@ -386,7 +386,7 @@ const innovationCandidates = patternMetrics
 
 const report = {
   authority: ALGEBRA_DISTINCTIVE_CONTENT_AUDIT_V1_AUTHORITY,
-  sourceDeliveryAuthority: ALGEBRA_QUESTION_STUDIO_DELIVERY_V3_AUTHORITY,
+  sourceDeliveryAuthority: ALGEBRA_QUESTION_STUDIO_DELIVERY_V4_AUTHORITY,
   generatedAt: new Date().toISOString(),
   scope: {
     permanentQlCount: new Set(ALGEBRA_QUESTION_STUDIO_PATTERNS.map((pattern) => pattern.qlId)).size,
@@ -423,7 +423,10 @@ const report = {
   findings,
 };
 
-const outputDir = path.resolve(process.cwd(), "dist/quant-v4");
+const cwd = process.cwd();
+const outputDir = cwd.endsWith(`${path.sep}artifacts${path.sep}api-server`)
+  ? path.resolve(cwd, "dist/quant-v4")
+  : path.resolve(cwd, "artifacts/api-server/dist/quant-v4");
 fs.mkdirSync(outputDir, { recursive: true });
 const jsonPath = path.join(outputDir, "algebra-distinctive-content-audit-v1.json");
 const mdPath = path.join(outputDir, "algebra-distinctive-content-audit-v1.md");
@@ -435,7 +438,7 @@ const md = [
   `# Algebra Distinctive Content Audit V1`,
   ``,
   `Authority: \`${ALGEBRA_DISTINCTIVE_CONTENT_AUDIT_V1_AUTHORITY}\``,
-  `Source delivery authority: \`${ALGEBRA_QUESTION_STUDIO_DELIVERY_V3_AUTHORITY}\``,
+  `Source delivery authority: \`${ALGEBRA_QUESTION_STUDIO_DELIVERY_V4_AUTHORITY}\``,
   ``,
   `## Decision`,
   ``,
