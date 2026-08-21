@@ -1,7 +1,8 @@
 import { lazy, Suspense, type ReactNode } from "react";
+import { useLocation } from "wouter";
 
 const ExamCatalogProvider = lazy(() =>
-  import("@/providers/ExamCatalogProvider").then((module) => ({ default: module.ExamCatalogProvider })),
+  import("@/providers/ExamCatalogProvider").then((module) => ({ default: module.ExamCatalogRouteProvider })),
 );
 
 function CatalogRouteSkeleton() {
@@ -19,10 +20,26 @@ function CatalogRouteSkeleton() {
   );
 }
 
+function routeRequiresCatalogTruth(location: string) {
+  const pathname = location.split("?")[0] || "/";
+  return (
+    pathname === "/" ||
+    pathname === "/exams" ||
+    pathname === "/tests" ||
+    pathname === "/mock-tests" ||
+    pathname.startsWith("/category/") ||
+    pathname.startsWith("/subcategory/")
+  );
+}
+
 export function RouteCatalogBoundary({ children }: { children: ReactNode }) {
+  const [location] = useLocation();
+
   return (
     <Suspense fallback={<CatalogRouteSkeleton />}>
-      <ExamCatalogProvider>{children}</ExamCatalogProvider>
+      <ExamCatalogProvider requireCatalog={routeRequiresCatalogTruth(location)}>
+        {children}
+      </ExamCatalogProvider>
     </Suspense>
   );
 }
