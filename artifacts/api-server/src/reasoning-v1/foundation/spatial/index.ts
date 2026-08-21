@@ -98,6 +98,7 @@ export * from "./paper-folding-hexagon-learner-review-v1-1";
 export * from "./paper-folding-hexagon-product-owner-approval-v1";
 export * from "./paper-folding-content-innovation-envelope-v1";
 export * from "./paper-folding-innovation-discovery-v1";
+export * from "./paper-folding-innovation-learner-review-v1";
 export * from "./paper-folding-discovery-v1";
 export * from "./paper-folding-discovery-remediated-v2";
 export * from "./paper-folding-discovery-presentation-v3";
