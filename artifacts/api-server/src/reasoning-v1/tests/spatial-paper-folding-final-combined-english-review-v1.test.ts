@@ -57,9 +57,53 @@ const novelStageRatios = controlledNovel.flatMap((question) => [...question.stim
 assert.equal(novelStageRatios.length, 26, "Controlled-novel surface must retain all 26 normalized Fold/Cut panels.");
 assert.ok(Math.max(...novelStageRatios) - Math.min(...novelStageRatios) <= 0.02, "Controlled-novel stage scale spread regressed.");
 
+const NUMBER_RE = /-?\d+(?:\.\d+)?/g;
+const EXPECTED_STAGE_FILL_RATIO = 1 / 1.30;
+const STAGE_FILL_TOLERANCE = 0.015;
+
+function largestPaperPolygonSpan(svg: string): number | null {
+  let largest = 0;
+  for (const tag of svg.match(/<polygon\b[^>]*\/?\s*>/g) ?? []) {
+    const values = tag.match(/\bpoints="([^"]+)"/)?.[1]?.match(NUMBER_RE)?.map(Number) ?? [];
+    if (values.length < 6) continue;
+    const xs: number[] = [];
+    const ys: number[] = [];
+    for (let index = 0; index + 1 < values.length; index += 2) {
+      xs.push(values[index]);
+      ys.push(values[index + 1]);
+    }
+    const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    if (span > 20) largest = Math.max(largest, span);
+  }
+  return largest > 0 ? largest : null;
+}
+
+function polygonStageFillRatio(svg: string): number | null {
+  const viewBox = svg.match(/\bviewBox="([^"]+)"/i)?.[1]?.match(NUMBER_RE)?.map(Number) ?? [];
+  if (viewBox.length !== 4) return null;
+  const paperSpan = largestPaperPolygonSpan(svg);
+  if (paperSpan === null) return null;
+  return paperSpan / Math.max(viewBox[2], viewBox[3]);
+}
+
 const triangleForward = questions.filter((question) => question.surfaceId === "TRIANGLE_APPROVED" && /completely opened/i.test(question.stem));
-const triangleStageRatios = triangleForward.flatMap((question) => [...question.stimulusSvg.matchAll(/data-paper-fill="([0-9.]+)"/g)].map((match) => Number(match[1])));
-assert.ok(triangleStageRatios.length >= 16, "Triangle normalized stage metadata must survive final composition.");
+assert.equal(triangleForward.length, 8, "Final composition must retain all eight approved triangle forward questions.");
+const triangleStageRatios: number[] = [];
+for (const question of triangleForward) {
+  const stageSvgs = question.stimulusSvg.match(/<svg\b[\s\S]*?<\/svg>/g) ?? [];
+  assert.equal(stageSvgs.length, 2, `${question.reviewId} must retain Fold and Cut/Punch triangle stages.`);
+  for (const svg of stageSvgs) {
+    const ratio = polygonStageFillRatio(svg);
+    assert.notEqual(ratio, null, `${question.reviewId} has an unmeasurable triangle stage.`);
+    triangleStageRatios.push(ratio!);
+    assert.ok(
+      Math.abs(ratio! - EXPECTED_STAGE_FILL_RATIO) <= STAGE_FILL_TOLERANCE,
+      `${question.reviewId} triangle stage scale regressed to ${ratio!.toFixed(3)}.`,
+    );
+  }
+}
+assert.equal(triangleStageRatios.length, 16, "Final composition must retain all 16 approved triangle Fold/Cut panels.");
+assert.ok(Math.max(...triangleStageRatios) - Math.min(...triangleStageRatios) <= 0.02, "Triangle stage scale spread regressed in final composition.");
 
 const hexagonForward = questions.filter((question) => question.surfaceId === "HEXAGON_APPROVED" && /completely opened/i.test(question.stem));
 const hexagonStageRatios = hexagonForward.flatMap((question) => [...question.stimulusSvg.matchAll(/data-paper-fill="([0-9.]+)"/g)].map((match) => Number(match[1])));
@@ -101,6 +145,10 @@ const evidence = {
   normalizedNovelStageCount: novelStageRatios.length,
   minNovelStageFillRatio: Math.min(...novelStageRatios),
   maxNovelStageFillRatio: Math.max(...novelStageRatios),
+  normalizedTriangleStageCount: triangleStageRatios.length,
+  minTriangleStageFillRatio: Math.min(...triangleStageRatios),
+  maxTriangleStageFillRatio: Math.max(...triangleStageRatios),
+  normalizedHexagonStageCount: hexagonStageRatios.length,
   transparentCutoutsRetained: true,
   approvals: {
     triangle: PFC_001_TRIANGLE_PRODUCT_OWNER_APPROVAL_V1.authorityId,
