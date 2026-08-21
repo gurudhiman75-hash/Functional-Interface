@@ -31,10 +31,17 @@ function relatedPeople(clue:Sea002Cp006Clue):readonly string[] {
     case "ROW_MEMBERSHIP": case "END_POSITION": case "ROW_END_DISTANCE": return [clue.person];
     case "SAME_ROW_RELATIVE": return [clue.target,clue.reference];
     case "FACING_REFERENT_RELATIVE": return [clue.targetFacee,clue.referenceFacee];
+    case "SAME_ROW_EQUAL_GAP": return [clue.first,clue.second,clue.third,clue.fourth];
     default:return [clue.first,clue.second];
   }
 }
-function pairSatisfied(clue:Sea002Cp006Clue,a:string,aSeat:SeatIndex,b:string,bSeat:SeatIndex,n:number):boolean {
+function equalGapSatisfied(clue:Extract<Sea002Cp006Clue,{kind:"SAME_ROW_EQUAL_GAP"}>,seatOfPerson:(person:string)=>SeatIndex|undefined,n:number):boolean {
+  const first=seatOfPerson(clue.first),second=seatOfPerson(clue.second),third=seatOfPerson(clue.third),fourth=seatOfPerson(clue.fourth);
+  if(first===undefined||second===undefined||third===undefined||fourth===undefined) return true;
+  if(rowOfSeat(first,n)!==rowOfSeat(second,n)||rowOfSeat(third,n)!==rowOfSeat(fourth,n)) return false;
+  return Math.abs(colOfSeat(first,n)-colOfSeat(second,n))===Math.abs(colOfSeat(third,n)-colOfSeat(fourth,n));
+}
+function pairSatisfied(clue:Exclude<Sea002Cp006Clue,{kind:"SAME_ROW_EQUAL_GAP"}>,a:string,aSeat:SeatIndex,b:string,bSeat:SeatIndex,n:number):boolean {
   if(clue.kind==="ROW_MEMBERSHIP"||clue.kind==="END_POSITION"||clue.kind==="ROW_END_DISTANCE") return true;
   if(clue.kind==="OPPOSITE"||clue.kind==="NOT_OPPOSITE"||clue.kind==="DIAGONAL"||clue.kind==="SAME_ROW_GAP"||clue.kind==="SAME_ROW_MIN_BETWEEN"||clue.kind==="NOT_ADJACENT"){
     const firstSeat=clue.first===a?aSeat:bSeat,secondSeat=clue.second===a?aSeat:bSeat;
@@ -72,6 +79,11 @@ function supportsCandidate(person:string,seat:SeatIndex,assignment:ReadonlyMap<s
     if(clue.kind==="ROW_MEMBERSHIP"){if(rowOfSeat(seat,n)!==clue.row)return false;continue;}
     if(clue.kind==="END_POSITION"){if(seat!==seatFor(clue.row,clue.end==="LEFT"?0:n-1,n))return false;continue;}
     if(clue.kind==="ROW_END_DISTANCE"){if(!endDistanceAllowed(colOfSeat(seat,n),n,clue.positionFromEnd,clue.mode))return false;continue;}
+    if(clue.kind==="SAME_ROW_EQUAL_GAP"){
+      const lookup=(name:string):SeatIndex|undefined=>name===person?seat:assignment.get(name);
+      if(!equalGapSatisfied(clue,lookup,n)) return false;
+      continue;
+    }
     const other=people[0]===person?people[1]!:people[0]!; const otherSeat=assignment.get(other);
     if(otherSeat!==undefined){if(!pairSatisfied(clue,person,seat,other,otherSeat,n))return false;continue;}
     const support=domains.get(other)?.some(candidate=>candidate!==seat&&!used.has(candidate)&&pairSatisfied(clue,person,seat,other,candidate,n));
@@ -106,6 +118,12 @@ export function auditOracleCp006Scalable(people:readonly string[],n:number,clues
   });
   const relationOkay=(clue:Sea002Cp006Clue):boolean=>{
     if(clue.kind==="ROW_MEMBERSHIP"||clue.kind==="END_POSITION"||clue.kind==="ROW_END_DISTANCE")return true;
+    if(clue.kind==="SAME_ROW_EQUAL_GAP"){
+      const a=personSeat.get(clue.first),b=personSeat.get(clue.second),c=personSeat.get(clue.third),d=personSeat.get(clue.fourth);
+      if(a===undefined||b===undefined||c===undefined||d===undefined)return true;
+      const ar=a<n?0:1,br=b<n?0:1,cr=c<n?0:1,dr=d<n?0:1;
+      return ar===br&&cr===dr&&Math.abs((a%n)-(b%n))===Math.abs((c%n)-(d%n));
+    }
     const firstName=clue.kind==="SAME_ROW_RELATIVE"?clue.target:clue.kind==="FACING_REFERENT_RELATIVE"?clue.targetFacee:clue.first;
     const secondName=clue.kind==="SAME_ROW_RELATIVE"?clue.reference:clue.kind==="FACING_REFERENT_RELATIVE"?clue.referenceFacee:clue.second;
     const a=personSeat.get(firstName),b=personSeat.get(secondName); if(a===undefined||b===undefined)return true;
