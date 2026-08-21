@@ -190,6 +190,7 @@ function pointLabelCandidates(point: Point) {
 
 function renderAngle(
   angle: any,
+  qlId: string,
   points: Map<string, Point>,
   geometrySegments: GeometrySegment[],
   occupied: LabelBox[],
@@ -214,12 +215,17 @@ function renderAngle(
   const largeArc = Math.abs(delta) > Math.PI ? 1 : 0;
   const mid = start + delta / 2;
   const label = String(angle.label ?? "");
-  const angularOffsets = [0, 0.05, -0.05, 0.09, -0.09, 0.13, -0.13];
-  const candidates = [100, 120, 145, 170, 200, 235].flatMap((labelRadius) => angularOffsets.map((turn) => ({
+  const angularOffsets = [0, 0.08, -0.08, 0.16, -0.16, 0.24, -0.24, 0.34, -0.34, 0.48, -0.48];
+  const candidates = [82, 105, 132, 165, 205, 250, 300].flatMap((labelRadius) => angularOffsets.map((turn) => ({
     x: vertex.x + (radius + labelRadius) * Math.cos(mid + turn),
     y: vertex.y + (radius + labelRadius) * Math.sin(mid + turn),
   })));
-  const placement = chooseLabelPlacement(label, 20, candidates, geometrySegments, occupied, width, height);
+  let placement: LabelPlacement;
+  try {
+    placement = chooseLabelPlacement(label, 20, candidates, geometrySegments, occupied, width, height);
+  } catch (error) {
+    throw new Error(`${qlId}: angle label "${label}" has no collision-free placement. ${error instanceof Error ? error.message : String(error)}`);
+  }
   occupied.push(placement);
   const renderedLabel = label ? renderLabelBox(label, placement, "angle-label", 20, "#6d28d9") : "";
 
@@ -375,10 +381,12 @@ export function renderTrg002SolutionDiagramSvg(diagram: AnyDiagram) {
   }).join("");
 
   const rightAngles = (Array.isArray(diagram.rightAngles) ? diagram.rightAngles : []).map((marker: any) => renderRightAngle(marker, points)).join("");
+  // Core angle labels get first placement priority. Dimension arrows are accessory
+  // annotations and must route around them, never the other way around.
+  const angles = (Array.isArray(diagram.angles) ? diagram.angles : []).map((angle: any) => renderAngle(angle, qlId, points, geometrySegments, occupiedLabels, width, height)).join("");
   const measurementArrows = [...(Array.isArray(diagram.measurementArrows) ? diagram.measurementArrows : [])]
     .sort((a: any, b: any) => measurementPriority(a, points) - measurementPriority(b, points));
   const measurements = measurementArrows.map((arrow: any) => renderMeasurementArrow(arrow, qlId, points, markerId, geometrySegments, occupiedLabels, width, height)).join("");
-  const angles = (Array.isArray(diagram.angles) ? diagram.angles : []).map((angle: any) => renderAngle(angle, points, geometrySegments, occupiedLabels, width, height)).join("");
 
   const seenLabels = new Set<string>();
   const pointLabels = pointsArray.map((point) => {
