@@ -210,9 +210,11 @@ for (const marker of engineMarkers) {
 const routeMarkers = [
   "isNumberSystemRequest",
   'requestedNumberSystemPackage === "num 002"',
-  '? cp008Request ? "NUM-002" : "NUM-001"',
+  'requestedNumberSystemCp === "NUM-CP-009"',
+  '? num002Request ? "NUM-002" : "NUM-001"',
   'defaultSubtopic = numberSystemRequest ? "Number System" : "Average"',
-  'targetCp !== "NUM-CP-001" && targetCp !== "NUM-CP-008"',
+  'targetCp !== "NUM-CP-001" && targetCp !== "NUM-CP-008" && targetCp !== "NUM-CP-009"',
+  "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001, NUM-CP-008 and NUM-CP-009",
   "other currently routed checkpoints remain English-only",
 ];
 for (const marker of routeMarkers) {
