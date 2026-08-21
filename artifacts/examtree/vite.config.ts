@@ -92,10 +92,8 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       output: {
-        hoistTransitiveImports: false,
         manualChunks: {
           charts: ["recharts"],
-          firebase: ["firebase/app", "firebase/auth", "firebase/firestore", "firebase/storage"],
         },
       },
     },
