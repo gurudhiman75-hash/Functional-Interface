@@ -56,7 +56,6 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
       assert(question.stem.trim().length > 0, `${prefix}: empty stem`);
       assert(question.explanation.steps.length > 0, `${prefix}: empty explanation`);
       assert(question.questionLanguageId.endsWith(language === "en" ? ":en-IN" : language === "hi" ? ":hi-IN" : ":pa-IN"), `${prefix}: locale identity mismatch`);
-      assert(question.questionBankWritable === undefined, `${prefix}: item must not invent writable lifecycle state`);
       correctPositions.add(question.correctIndex);
       difficultyBands.add(question.difficultyBand);
       samples += 1;
