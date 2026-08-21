@@ -15,9 +15,9 @@ describe('admin navigation roadmap', () => {
     expect(NAV_GROUPS.map((group) => group.id)).toEqual([
       'overview', 'content', 'tests', 'commerce', 'users', 'analytics', 'settings',
     ]);
-    expect(items).toHaveLength(40);
+    expect(items).toHaveLength(41);
     expect(items.map((item) => item.label)).toEqual(expect.arrayContaining([
-      'Question Studio', 'Content Review', 'Coverage Planner', 'Sections & Topics',
+      'Question Studio', 'Content Review', 'Learning Resources', 'Coverage Planner', 'Sections & Topics',
       'Test QA', 'Test Series', 'Exam Blueprints', 'Publishing Calendar', 'Packages', 'Students', 'Admin Team',
       'Question Analytics', 'System Health', 'Request Failures', 'Languages', 'Roles & Permissions', 'Audit Logs',
     ]));
@@ -51,6 +51,7 @@ describe('admin navigation roadmap', () => {
       '/content/questions/generate',
       '/content/questions',
       '/content/review',
+      '/content/learning-resources',
       '/content/coverage',
       '/content/taxonomy',
       '/tests',
@@ -82,11 +83,12 @@ describe('admin navigation roadmap', () => {
       '/settings/roles',
       '/settings/audit-logs',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 34, in_progress: 0, planned: 6 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 35, in_progress: 0, planned: 6 });
   });
 
   it('protects canonical operations with read permissions', () => {
     expect(NAV_LOOKUP['/content/review']?.permission).toBe('content.questions.read');
+    expect(NAV_LOOKUP['/content/learning-resources']?.permission).toBe('content.questions.read');
     expect(NAV_LOOKUP['/content/coverage']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/content/taxonomy']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/tests/qa']?.permission).toBe('tests.read');
