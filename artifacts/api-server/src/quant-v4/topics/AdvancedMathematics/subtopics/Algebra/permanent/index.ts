@@ -21,3 +21,4 @@ export {
   type AlgPermanentMultilingualReviewV2Item,
 } from "./multilingual-review-v2";
 export { generateAlgPermanentMultilingualReviewV2HumanFinal as generateAlgPermanentMultilingualReviewV2 } from "./multilingual-review-v2-human-final";
+export * from "./multilingual-freeze-v2";
