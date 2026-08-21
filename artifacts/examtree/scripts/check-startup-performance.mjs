@@ -71,19 +71,21 @@ assert.doesNotMatch(authBoundary, /\/privacy-policy/, "legal information routes 
 assert.match(login, /from "firebase\/auth"/, "student login must remain backed by Firebase Auth");
 assert.match(login, /from "@\/lib\/auth"/, "student login must retain the canonical auth helpers");
 
-assert.doesNotMatch(vite, /firebase:\s*\[/, "Firebase must not be forced into a manual chunk that can be preloaded globally");
+assert.match(vite, /firebase:\s*\[[\s\S]*?"firebase\/app"[\s\S]*?"firebase\/auth"[\s\S]*?"firebase\/firestore"[\s\S]*?"firebase\/storage"[\s\S]*?\]/, "Firebase SDK must remain isolated in a dedicated measurable chunk");
 assert.match(vite, /assertStaticEntryExcludesFirebase/, "production build must enforce a Firebase-free static entry graph");
 assert.match(vite, /node_modules\/firebase\//, "entry-graph guard must detect the Firebase package");
 assert.match(vite, /node_modules\/@firebase\//, "entry-graph guard must detect Firebase internal packages");
 
-assert.match(proof, /anonymous information pages download neither MathJax auth nor the exam catalog/);
-assert.match(proof, /exam discovery loads the catalog on demand without loading auth/);
+assert.match(proof, /anonymous information pages download neither MathJax auth Firebase nor the exam catalog/);
+assert.match(proof, /exam discovery loads the catalog on demand without loading auth or Firebase/);
 assert.match(proof, /student login loads Firebase-backed auth on demand without waking the exam catalog/);
 assert.match(proof, /saved question review loads the isolated MathJax bundle on demand/);
 assert.match(proof, /function localMathProviderChunks/);
 assert.match(proof, /function localAuthChunks/);
+assert.match(proof, /function localFirebaseChunks/);
 assert.match(proof, /MathJaxRouteProvider-/);
 assert.match(proof, /auth-/);
+assert.match(proof, /firebase-/);
 assert.match(proof, /page\.route\("\*\*\/api\/users\/me"[\s\S]*?new Promise<void>\(\(\) => \{\}\)/, "login proof must hold the synthetic E2E profile lookup to preserve the signed-out surface");
 assert.match(proof, /counts\)\.toEqual\(\{ categories: 0, subcategories: 0, tests: 0 \}\)/, "anonymous and login proofs must reject eager catalog API requests");
 assert.match(proof, /counts\.categories\)\.toBeGreaterThan\(0\)/, "exam discovery proof must observe category loading on demand");
@@ -91,6 +93,8 @@ assert.match(proof, /counts\.subcategories\)\.toBeGreaterThan\(0\)/, "exam disco
 assert.match(proof, /counts\.tests\)\.toBeGreaterThan\(0\)/, "exam discovery proof must observe test loading on demand");
 assert.match(proof, /localAuthChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous/catalog routes must prove the auth module is absent");
 assert.match(proof, /localAuthChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove the Firebase-backed auth module loads on demand");
+assert.match(proof, /localFirebaseChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous/catalog routes must prove the Firebase SDK chunk is absent");
+assert.match(proof, /localFirebaseChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove the Firebase SDK chunk loads on demand");
 assert.match(proof, /\$x = 2\$/);
 
-console.log("Startup performance audit passed (66 assertions).");
+console.log("Startup performance audit passed (70 assertions).");
