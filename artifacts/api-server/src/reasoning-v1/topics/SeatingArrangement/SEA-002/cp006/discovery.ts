@@ -1,4 +1,5 @@
-import { canonicalDigest } from "../../SEA-001/canonical.ts";
+import { canonicalDigest } from "../canonical.ts";
+import type { Sea002Cp006Caselet, Sea002Cp006Clue, Sea002Cp006State, Sea002Cp006BlueprintId } from "./types.ts";
 import {
   auditOracleCp006,
   cp006ClueTrue,
@@ -7,7 +8,7 @@ import {
   solveCp006,
 } from "./generator.ts";
 import { sameRowMove } from "./topology.ts";
-import type { Sea002Cp006BlueprintId, Sea002Cp006Caselet, Sea002Cp006Clue } from "./types.ts";
+import { compileCp006TeachingExplanation, cp006TeachingArrangement } from "./teaching-explanation.ts";
 
 function key(clue: Sea002Cp006Clue): string { return canonicalDigest(clue); }
 
@@ -27,23 +28,28 @@ function supportiveClues(caselet: Sea002Cp006Caselet): readonly Sea002Cp006Clue[
   return [opposite,notOpposite,diagonal,endpoint];
 }
 
-function finalExplanation(caselet:Sea002Cp006Caselet,clues:readonly Sea002Cp006Clue[]):string {
-  return [
-    "Draw two equal rows first. The upper row faces south and the lower row faces north.",
-    "Keep the vertical columns fixed: same column means opposite, while a diagonal seat is in the other row and one column away.",
-    "For left/right, always use the reference person's facing. In the upper row, a south-facing person's left appears on the observer's right; in the lower row, a north-facing person's left appears on the observer's left.",
-    ...clues.map((clue,index)=>`Clue ${index+1}: ${renderCp006Clue(clue)}`),
-    "After applying all the conditions, only one arrangement remains.",
-    caselet.diagramText,
-  ].join("\n");
-}
-
 function renderedClues(caselet:Sea002Cp006Caselet,clues:readonly Sea002Cp006Clue[]):readonly string[] {
   if(caselet.blueprintAuthorityId!=="SEA-PBA-021") return clues.map(renderCp006Clue);
   return [
     `${caselet.state.top.join(", ")} sit in the upper row, while ${caselet.state.bottom.join(", ")} sit in the lower row.`,
     ...clues.filter((clue)=>clue.kind!=="ROW_MEMBERSHIP").map(renderCp006Clue),
   ];
+}
+
+function examLikeSetup(people:readonly string[],state:Sea002Cp006State):string {
+  const names=people.length===2?people.join(" and "):`${people.slice(0,-1).join(", ")} and ${people.at(-1)}`;
+  return `${people.length} persons, ${names}, are seated in two parallel rows containing ${state.seatCountPerRow} persons each. The persons in the upper row face south and the persons in the lower row face north. Each person in one row faces exactly one person in the other row; persons facing each other are in the same vertical column.`;
+}
+
+function learnerDiagram(base:Sea002Cp006Caselet):Sea002Cp006Caselet["diagram"] {
+  return {
+    ...base.diagram,
+    text:cp006TeachingArrangement(base.state),
+    svg:base.diagram.svg.replace(
+      "Columns are observer coordinates; dashed lines join opposite seats.",
+      "Dashed lines join persons who face each other.",
+    ),
+  };
 }
 
 export function generateSea002Cp006DiscoveryCaselet(
@@ -62,11 +68,16 @@ export function generateSea002Cp006DiscoveryCaselet(
   const production=solveCp006(base.people,base.state.seatCountPerRow,clues);
   const oracle=auditOracleCp006(base.people,base.state.seatCountPerRow,clues);
   if(production.length!==1||oracle.length!==1||canonicalDigest(production[0])!==canonicalDigest(base.state)||canonicalDigest(oracle[0])!==canonicalDigest(base.state)) throw new Error(`${base.caseletId}: discovery contract lost unique solver/oracle agreement.`);
+  const clueTexts=renderedClues(base,clues);
+  const diagram=learnerDiagram(base);
   return {
     ...base,
+    setupText:examLikeSetup(base.people,base.state),
     clues,
-    clueTexts:renderedClues(base,clues),
-    sharedExplanation:finalExplanation(base,clues),
+    clueTexts,
+    sharedExplanation:compileCp006TeachingExplanation(base.state,base.people,clues,clueTexts),
+    diagramText:diagram.text,
+    diagram,
     structuralFingerprint:canonicalDigest({
       blueprint,
       seatCountPerRow:base.state.seatCountPerRow,
