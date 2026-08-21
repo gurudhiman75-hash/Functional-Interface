@@ -72,7 +72,9 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
       assert.equal(Number(viewBox[2]),300);
       assert.ok(caselet.diagram.svg.includes("fill=\"white\""));
       assert.ok(caselet.diagram.svg.includes(`C${width}</text>`));
-      assert.ok(caselet.setupText.includes(`two parallel rows of ${width} seats each`));
+      assert.ok(caselet.setupText.includes(`two parallel rows containing ${width} persons each`));
+      assert.ok(caselet.sharedExplanation.includes("Final arrangement:"));
+      assert.ok(caselet.sharedExplanation.length>500);
 
       for(const person of caselet.people){
         const seat=seatOf(caselet.state,person);
