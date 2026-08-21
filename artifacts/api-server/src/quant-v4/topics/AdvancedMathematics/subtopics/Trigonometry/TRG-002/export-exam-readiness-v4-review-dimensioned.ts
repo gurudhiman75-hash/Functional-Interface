@@ -85,7 +85,7 @@ let totalLabelBoxes = 0;
 for (const row of pack.records as any[]) {
   const dimensioned = applyTrg002V4ReviewDimensions({
     qlId: row.qlId,
-    diagram: row.solutionDiagram,
+    diagram: { ...row.solutionDiagram, measurementArrows: [] },
     canonicalSpatialState: row.canonicalSpatialState,
     englishStem: row.english.stem,
     englishAnswer: row.english.answer,
