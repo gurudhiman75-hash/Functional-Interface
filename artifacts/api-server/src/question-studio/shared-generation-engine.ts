@@ -14,6 +14,7 @@ import {
   RNK_001_QUESTION_STUDIO_REVIEW_STATUS,
   type RnkQuestionStudioDifficulty,
   type RnkQuestionStudioExamProfileId,
+  type RnkQuestionStudioLanguage,
   type RnkQuestionStudioReviewQuestion,
 } from "../reasoning-v1/topics/Ranking-and-Order/RNK-001/question-studio-review";
 import type { WorCheckpointId } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/foundation/types";
@@ -104,10 +105,10 @@ function normalizeRnkDifficulty(value: unknown): RnkQuestionStudioDifficulty | "
   throw new Error(`RNK-001 does not support Question Studio difficulty ${String(value)}.`);
 }
 
-function normalizeRnkLanguage(value: unknown): "en" {
+function normalizeRnkLanguage(value: unknown): RnkQuestionStudioLanguage {
   const language = String(value ?? "en").trim().toLowerCase();
-  if (language === "en") return "en";
-  throw new Error("RNK-001 Hindi/Punjabi Question Studio delivery remains locked until multilingual lineage consolidation.");
+  if (language === "en" || language === "hi" || language === "pa") return language;
+  throw new Error(`RNK-001 does not support Question Studio language ${language}.`);
 }
 
 function normalizeRnkExamProfile(value: unknown): RnkQuestionStudioExamProfileId {
@@ -267,7 +268,7 @@ export function listQuestionStudioPackages() {
 
 function generateRnkCheckpointBatch(
   checkpointId: string,
-  language: "en",
+  language: RnkQuestionStudioLanguage,
   difficulty: RnkQuestionStudioDifficulty | "Mixed" | undefined,
   examProfileId: RnkQuestionStudioExamProfileId,
   batchSeed: string,
@@ -351,7 +352,7 @@ async function generateRnk001QuestionStudioQuestions(request: SharedQuestionStud
       checkpointId: checkpointId ?? null,
       qlId: requestedQlId ?? null,
       revisionPolicy: RNK_001_QUESTION_STUDIO_REVISION_POLICY,
-      englishOnlyUntilMultilingualConsolidation: true,
+      englishOnlyUntilMultilingualConsolidation: RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.englishOnlyUntilMultilingualConsolidation,
       percentageAdapterStatus: RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.percentageAdapterStatus,
       questionBankStatus: "NOT_STORED",
       questionBankWritable: false,

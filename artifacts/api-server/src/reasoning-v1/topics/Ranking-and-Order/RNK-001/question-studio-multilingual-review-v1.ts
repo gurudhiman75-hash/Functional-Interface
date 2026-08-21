@@ -6,7 +6,7 @@ import {
   type RnkQuestionStudioDifficulty as EnglishDifficulty,
   type RnkQuestionStudioExamProfileId as EnglishExamProfileId,
   type RnkQuestionStudioReviewQuestion as EnglishReviewQuestion,
-} from "./question-studio-review";
+} from "./question-studio-english-review-v1";
 import { localizeRnkCp001PermanentQuestionV4 } from "./RNK-CP-001/cp001-localization-review-v4";
 import { localizeRnkCp002PermanentQuestionV2 } from "./RNK-CP-002/cp002-localization-review-v2";
 import { localizeRnkCp003PermanentQuestionV4 } from "./RNK-CP-003/cp003-localization-review-v4";
