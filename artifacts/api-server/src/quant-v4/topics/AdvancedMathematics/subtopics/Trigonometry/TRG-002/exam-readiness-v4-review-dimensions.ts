@@ -29,12 +29,22 @@ type SegmentRange = {
   lane: number;
 };
 
+type MeterLiteral = { value: number; label: string };
+
 function exactAbs(value: ExactTrigNumber): ExactTrigNumber {
   return exactToNumber(value) < 0 ? negateExact(value) : value;
 }
 
 function formatLength(value: ExactTrigNumber, unit: string) {
   return `${formatExactPlain(exactAbs(value))} ${unit}`;
+}
+
+function normalizeMathText(value: string) {
+  return value.replaceAll("−", "-").replace(/\s+/g, " ").trim();
+}
+
+function textContainsLength(text: string, label: string) {
+  return normalizeMathText(text).includes(normalizeMathText(label));
 }
 
 function endpointKey(a: string, b: string) {
@@ -64,7 +74,8 @@ function sideWithMoreSpace(from: { x: number; y: number }, to: { x: number; y: n
     else if (normal.x < -1e-9) candidates.push((midpoint.x - 12) / -normal.x);
     if (normal.y > 1e-9) candidates.push((height - 12 - midpoint.y) / normal.y);
     else if (normal.y < -1e-9) candidates.push((midpoint.y - 12) / -normal.y);
-    return candidates.length ? Math.min(...candidates.filter((value) => value >= 0)) : 0;
+    const nonNegative = candidates.filter((value) => value >= 0);
+    return nonNegative.length ? Math.min(...nonNegative) : 0;
   };
 
   return room(left) >= room({ x: -left.x, y: -left.y }) ? "LEFT" : "RIGHT";
@@ -122,6 +133,16 @@ function pointExactDistanceAlongAxis(statePoints: Map<string, AnyRecord>, fromPo
   return null;
 }
 
+function pointExactHorizontalDistance(statePoints: Map<string, AnyRecord>, fromPointId: string, toPointId: string) {
+  const from = statePoints.get(fromPointId);
+  const to = statePoints.get(toPointId);
+  if (!from || !to) return null;
+  const dx = subtractExact(to.x, from.x);
+  const dy = subtractExact(to.y, from.y);
+  if (Math.abs(exactToNumber(dy)) >= 1e-8) return null;
+  return exactAbs(dx);
+}
+
 function numericDistance(statePoints: Map<string, AnyRecord>, fromPointId: string, toPointId: string) {
   const from = statePoints.get(fromPointId);
   const to = statePoints.get(toPointId);
@@ -129,11 +150,15 @@ function numericDistance(statePoints: Map<string, AnyRecord>, fromPointId: strin
   return Math.hypot(exactToNumber(subtractExact(to.x, from.x)), exactToNumber(subtractExact(to.y, from.y)));
 }
 
-function numericMeterLiterals(stem: string) {
+function numericMeterLiterals(stem: string): MeterLiteral[] {
   return [...stem.matchAll(/(?<![\d.])(\d+(?:\.\d+)?)\s*m\b/g)].map((match) => ({
     value: Number(match[1]),
     label: `${match[1]} m`,
   }));
+}
+
+function matchingLiteral(value: number, literals: MeterLiteral[]) {
+  return literals.find((entry) => Math.abs(entry.value - Math.abs(value)) < 1e-7) ?? null;
 }
 
 function requestedPair(state: AnyRecord): { fromPointId: string; toPointId: string } | null {
@@ -160,22 +185,40 @@ function requestedPair(state: AnyRecord): { fromPointId: string; toPointId: stri
   return null;
 }
 
+function requestedLabel(kind: string, unit: string) {
+  switch (kind) {
+    case "OBJECT_HEIGHT": return `h = ? ${unit}`;
+    case "HORIZONTAL_DISTANCE": return `x = ? ${unit}`;
+    case "SIGHT_LINE_LENGTH": return `L = ? ${unit}`;
+    case "MOVEMENT_DISTANCE": return `d = ? ${unit}`;
+    case "EYE_HEIGHT": return `h = ? ${unit}`;
+    case "SHADOW_LENGTH": return `s = ? ${unit}`;
+    default: return `? ${unit}`;
+  }
+}
+
 export function applyTrg002V4ReviewDimensions(args: {
   qlId: string;
   diagram: AnyRecord;
   canonicalSpatialState: AnyRecord;
   englishStem: string;
-  englishAnswer: string;
+  englishExplanationText: string;
 }) {
-  const { qlId, diagram, canonicalSpatialState: state, englishStem, englishAnswer } = args;
+  const { qlId, diagram, canonicalSpatialState: state, englishStem, englishExplanationText } = args;
   if (!diagram || !state) throw new Error(`${qlId}: review dimension enrichment requires diagram + canonical spatial state.`);
   const diagramPoints = new Map<string, { x: number; y: number }>((diagram.points ?? []).map((point: AnyRecord) => [point.id, { x: Number(point.x), y: Number(point.y) }]));
   const statePoints = new Map<string, AnyRecord>((state.points ?? []).map((point: AnyRecord) => [point.id, point]));
+  const diagramPointIds = new Set(diagramPoints.keys());
   const unit = state.metadata?.units ?? "m";
-  const existing: DimensionArrow[] = Array.isArray(diagram.measurementArrows) ? [...diagram.measurementArrows] : [];
+  const requested = state.requested ?? {};
+  const reqPair = requestedPair(state);
+  const reqKey = reqPair ? endpointKey(reqPair.fromPointId, reqPair.toPointId) : null;
+  const existing: DimensionArrow[] = (Array.isArray(diagram.measurementArrows) ? diagram.measurementArrows : [])
+    .filter((arrow: DimensionArrow) => endpointKey(arrow.fromPointId, arrow.toPointId) !== reqKey);
   const seen = new Set(existing.map((arrow) => endpointKey(arrow.fromPointId, arrow.toPointId)));
   const placed: SegmentRange[] = [];
   const auto: DimensionArrow[] = [];
+  const stemMeters = numericMeterLiterals(englishStem);
 
   const add = (fromPointId: string, toPointId: string, label: string, source: string) => {
     if (!diagramPoints.has(fromPointId) || !diagramPoints.has(toPointId) || !label.trim()) return;
@@ -197,38 +240,63 @@ export function applyTrg002V4ReviewDimensions(args: {
     seen.add(key);
   };
 
+  // The asked length is always displayed as an unknown, never as the solved answer.
+  if (reqPair) add(reqPair.fromPointId, reqPair.toPointId, requestedLabel(requested.kind, unit), "REQUESTED_UNKNOWN");
+
+  // Object/eye heights are shown when they are stated givens, or when the worked solution
+  // explicitly uses the derived height as a helper quantity.
   for (const object of state.verticalObjects ?? []) {
-    add(object.basePointId, object.topPointId, formatLength(object.height, unit), "OBJECT_HEIGHT");
+    const key = endpointKey(object.basePointId, object.topPointId);
+    if (key === reqKey) continue;
+    const label = formatLength(object.height, unit);
+    const literal = matchingLiteral(exactToNumber(object.height), stemMeters);
+    if (literal) add(object.basePointId, object.topPointId, literal.label, "GIVEN_OBJECT_HEIGHT");
+    else if (textContainsLength(englishExplanationText, label)) add(object.basePointId, object.topPointId, label, "DERIVED_HELPER_OBJECT_HEIGHT");
   }
 
   for (const observer of state.observers ?? []) {
-    if (Math.abs(exactToNumber(observer.eyeHeight)) > 1e-8) {
-      add(observer.groundPointId, observer.eyePointId, formatLength(observer.eyeHeight, unit), "EYE_HEIGHT");
-    }
+    if (Math.abs(exactToNumber(observer.eyeHeight)) < 1e-8) continue;
+    const key = endpointKey(observer.groundPointId, observer.eyePointId);
+    if (key === reqKey) continue;
+    const label = formatLength(observer.eyeHeight, unit);
+    const literal = matchingLiteral(exactToNumber(observer.eyeHeight), stemMeters);
+    if (literal) add(observer.groundPointId, observer.eyePointId, literal.label, "GIVEN_EYE_HEIGHT");
+    else if (textContainsLength(englishExplanationText, label)) add(observer.groundPointId, observer.eyePointId, label, "DERIVED_HELPER_EYE_HEIGHT");
   }
 
-  for (const segment of diagram.segments ?? []) {
-    if (!["GROUND", "SHADOW", "MOVEMENT"].includes(String(segment.kind))) continue;
-    const distance = pointExactDistanceAlongAxis(statePoints, segment.fromPointId, segment.toPointId);
-    if (distance && Math.abs(exactToNumber(distance)) > 1e-8) {
-      add(segment.fromPointId, segment.toPointId, formatLength(distance, unit), String(segment.kind));
+  // Find explicitly stated horizontal separations even when the base diagram has one long
+  // ground segment rather than a dedicated segment between the two observation points.
+  const groundRoles = new Set(["GROUND", "OBJECT_BASE", "OBSERVER_GROUND", "SHADOW_TIP", "ANCHOR", "TOUCH_POINT", "BREAK_POINT"]);
+  const groundPoints = (state.points ?? []).filter((point: AnyRecord) => diagramPointIds.has(point.id) && groundRoles.has(point.role));
+  for (const literal of stemMeters) {
+    const candidates: Array<{ score: number; fromPointId: string; toPointId: string }> = [];
+    for (let left = 0; left < groundPoints.length; left += 1) {
+      for (let right = left + 1; right < groundPoints.length; right += 1) {
+        const from = groundPoints[left]!;
+        const to = groundPoints[right]!;
+        const key = endpointKey(from.id, to.id);
+        if (key === reqKey || seen.has(key)) continue;
+        const distance = pointExactHorizontalDistance(statePoints, from.id, to.id);
+        if (!distance || Math.abs(exactToNumber(distance) - literal.value) >= 1e-7) continue;
+        const bothObservers = from.role === "OBSERVER_GROUND" && to.role === "OBSERVER_GROUND";
+        const oneObserver = from.role === "OBSERVER_GROUND" || to.role === "OBSERVER_GROUND";
+        candidates.push({ score: bothObservers ? 0 : oneObserver ? 1 : 2, fromPointId: from.id, toPointId: to.id });
+      }
     }
+    candidates.sort((a, b) => a.score - b.score || a.fromPointId.localeCompare(b.fromPointId) || a.toPointId.localeCompare(b.toPointId));
+    const best = candidates[0];
+    if (best) add(best.fromPointId, best.toPointId, literal.label, "GIVEN_HORIZONTAL_SEPARATION");
   }
 
-  const requested = state.requested ?? {};
-  const reqPair = requestedPair(state);
-  if (reqPair) {
-    if (requested.kind === "SIGHT_LINE_LENGTH") {
-      add(reqPair.fromPointId, reqPair.toPointId, englishAnswer, "REQUESTED");
-    } else {
-      const distance = pointExactDistanceAlongAxis(statePoints, reqPair.fromPointId, reqPair.toPointId);
-      if (distance) add(reqPair.fromPointId, reqPair.toPointId, formatLength(distance, unit), "REQUESTED");
-      else add(reqPair.fromPointId, reqPair.toPointId, englishAnswer, "REQUESTED");
-    }
-  }
-
+  // Movement may be stated directly or derived from speed/time; include it when the solution
+  // explicitly computes and uses that movement.
   for (const movement of state.movements ?? []) {
-    add(movement.fromGroundPointId, movement.toGroundPointId, formatLength(movement.distance, unit), "MOVEMENT");
+    const key = endpointKey(movement.fromGroundPointId, movement.toGroundPointId);
+    if (key === reqKey) continue;
+    const label = formatLength(movement.distance, unit);
+    const literal = matchingLiteral(exactToNumber(movement.distance), stemMeters);
+    if (literal) add(movement.fromGroundPointId, movement.toGroundPointId, literal.label, "GIVEN_MOVEMENT");
+    else if (textContainsLength(englishExplanationText, label)) add(movement.fromGroundPointId, movement.toGroundPointId, label, "DERIVED_HELPER_MOVEMENT");
   }
 
   const measurements = state.metadata?.measurements ?? {};
@@ -241,20 +309,36 @@ export function applyTrg002V4ReviewDimensions(args: {
   };
   for (const [name, [fromPointId, toPointId]] of Object.entries(specialPairs)) {
     const value = measurements[name];
-    if (value) add(fromPointId, toPointId, formatLength(value, unit), `GIVEN_${name.toUpperCase().replaceAll("-", "_")}`);
+    if (!value) continue;
+    const literal = matchingLiteral(exactToNumber(value), stemMeters);
+    if (literal) add(fromPointId, toPointId, literal.label, `GIVEN_${name.toUpperCase().replaceAll("-", "_")}`);
   }
 
-  const stemMeters = numericMeterLiterals(englishStem);
+  // Given ladder/wire/sight-line lengths are not axis-aligned, so match their canonical
+  // Euclidean length against explicit metre literals in the stem.
   for (const segment of diagram.segments ?? []) {
     if (!["LADDER", "WIRE", "SIGHT_LINE"].includes(String(segment.kind))) continue;
+    const key = endpointKey(segment.fromPointId, segment.toPointId);
+    if (key === reqKey || seen.has(key)) continue;
     const actual = numericDistance(statePoints, segment.fromPointId, segment.toPointId);
     if (!Number.isFinite(actual)) continue;
-    const literal = stemMeters.find((entry) => Math.abs(entry.value - actual) < 1e-7);
+    const literal = matchingLiteral(actual, stemMeters);
     if (literal) add(segment.fromPointId, segment.toPointId, literal.label, `GIVEN_${segment.kind}`);
   }
 
+  // Relational shadow questions give a difference rather than either absolute length.
+  // Preserve that semantics visually without leaking the requested height.
+  const shadowMinusHeight = measurements["shadow-minus-height"] as ExactTrigNumber | undefined;
+  if (shadowMinusHeight && requested.kind === "OBJECT_HEIGHT") {
+    const object = (state.verticalObjects ?? []).find((item: AnyRecord) => item.id === requested.objectId);
+    const shadowTip = (state.points ?? []).find((point: AnyRecord) => point.role === "SHADOW_TIP" && diagramPointIds.has(point.id));
+    if (object && shadowTip) {
+      add(object.basePointId, shadowTip.id, `h + ${formatExactPlain(exactAbs(shadowMinusHeight))} ${unit}`, "RELATIONAL_SHADOW");
+    }
+  }
+
   const all = [...existing, ...auto];
-  if (all.length < 2) throw new Error(`${qlId}: solution diagram must expose at least two dimensions; got ${all.length}.`);
+  if (all.length < 2) throw new Error(`${qlId}: solution diagram must expose at least two meaningful dimensions; got ${all.length}.`);
 
   if (reqPair && !seen.has(endpointKey(reqPair.fromPointId, reqPair.toPointId))) {
     throw new Error(`${qlId}: requested linear quantity is missing from the solution diagram dimensions.`);
@@ -267,6 +351,7 @@ export function applyTrg002V4ReviewDimensions(args: {
       autoDimensions: auto.length,
       totalDimensions: all.length,
       requestedDimensionPresent: reqPair ? seen.has(endpointKey(reqPair.fromPointId, reqPair.toPointId)) : true,
+      answerHiddenOnRequestedDimension: true,
     },
   };
 }
