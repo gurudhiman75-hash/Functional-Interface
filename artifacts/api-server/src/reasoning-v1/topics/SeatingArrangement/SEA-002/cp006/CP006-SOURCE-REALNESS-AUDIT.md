@@ -1,123 +1,175 @@
-# SEA-002 / SEA-CP-006 — Source-realness audit
+# SEA-002 / SEA-CP-006 — Completion and source-realness audit
 
-Status: **ADVANCED OPEN — source-backed width, clue-semantic and core query gaps implemented; final saturation/editorial gates remain**
+Status: **TECHNICALLY COMPLETE / ENGLISH REVIEW ARTIFACT PINNED — signed owner review pending before permanent allocation**
 
-This audit is discovery evidence only. It allocates no permanent `SEA-QL-*` authority and does not freeze English, localisation, Question Studio, Question Bank, mocks, staging or public delivery.
+This record covers `SEA-CP-006 — Two parallel rows facing each other`. It closes the solve/query/source/inverse/merge-gap implementation work. It deliberately does **not** fabricate the signed English-review gate and therefore does not yet allocate permanent `SEA-QL-*` IDs or activate localisation, Question Studio, Question Bank, mocks, staging or public delivery.
 
 ## Checkpoint boundary
 
-`SEA-CP-006` owns two equal parallel rows facing each other: one row faces south, the other north. It owns same-row positional reasoning, explicit corresponding columns, opposite/not-opposite, row identity and source-backed diagonal relations. Linear-row semantics such as adjacency and persons-between remain ordinary CP006 relations when applied inside one of the two rows.
+CP006 owns equal parallel rows with the upper row facing south and the lower row facing north, for 3–6 seats per row. It owns row identity, person-relative same-row movement, corresponding/opposite columns, not-opposite, diagonal, same-row adjacency/gaps and source-backed endpoint-domain language.
 
-Do **not** absorb the following into CP006 merely because they appear in a parallel-row passage:
+Excluded by design:
 
+- non-uniform, same-direction or mixed row facings -> `SEA-CP-007`;
 - person-to-attribute layers -> `SEA-CP-011`;
 - either/or, implication and genuinely conditional clues -> `SEA-CP-013`;
 - data-sufficiency decision format -> Data Sufficiency chapter;
-- exchange/rotation/hypothetical multi-model queries -> designated advanced seating checkpoint.
+- exchange/rotation/hypothetical multi-model questions -> designated advanced seating checkpoint.
 
-## Source sample
+## Retained solve authorities
 
-The audit intentionally mixes SSC and banking material and covers 4, 5 and 6 seats per row.
+No merge or split is justified. The four provisional solve authorities remain materially distinct:
 
-| Evidence | Width | Source-natural structures observed | CP006 implication |
-|---|---:|---|---|
-| SSC GD Constable 2025 official paper, Testbook | 4+4 | fixed row membership; exact one-person gaps; facing-pair query | exact same-row gap is required; pair-valued opposite query is exam-natural |
-| SBI Clerk Pre memory-based paper 10 Jul 2021, Adda247/Bankersadda | 5+5 | exact two-person gap; diagonal opposite; direct opposite; non-adjacency; relative-position query | 5+5 is source-real; gap/adjacency family cannot be omitted |
-| SBI PO Pre 2022 previous-year mock, Adda247/Bankersadda | 5+5 | `person facing X` referent chain; row deduction; opposite query; persons-between query | anonymous facing-referent composition is a genuine parallel-row language family |
-| SBI PO Pre 2023 shift-wise PYP mock, Adda247/Bankersadda | 6+6 | `one who faces X` relative chain; exact two-person gap; adjacency and non-adjacency; kth-left query | 6+6 needs nested facing referents plus richer same-row relation wording |
-| BOB Apprentice Sample Paper 02 (2026), Adda247/Bankersadda | 6+6 | exact gaps; extreme ends; not-near; second-from-end; neighbour and relative-position queries | endpoint-domain and negative-neighbour language belong in ordinary CP006 |
-| Testbook 12-person dual-row example | 6+6 | exact gaps, ends, opposite, immediate/right; either/or endpoint condition | ordinary relations stay CP006; the either/or semantic itself belongs to conditional seating |
+- `SEA-PBA-021` — fixed row membership with opposites;
+- `SEA-PBA-022` — row membership partly inferred;
+- `SEA-PBA-023` — same-row positional chains linked through opposite seats;
+- `SEA-PBA-024` — opposite/not-opposite/diagonal/endpoint composition.
 
-### Evidence URLs
+Width is a size variant, not an authority: 3+3, 4+4, 5+5 and 6+6 use the same topology and solver contract.
 
-- https://testbook.com/question-answer/eight-people-are-sitting-in-two-parallel-rows-cont--67d8b590f6f79b1840b92b1f
-- https://www.bankersadda.com/wp-content/uploads/multisite/2021/07/12170722/Formatted-SBI-Clerk-Pre-Memory-Based-Paper-10.Jul_.2021-Questions-with-Solutions.pdf
-- https://www.bankersadda.com/wp-content/uploads/multisite/2025/01/30113028/SBI-PO-Pre-2022-20th-Dec-Shift-Wise-Previous-Year-Paper-Mock-10.pdf
-- https://www.bankersadda.com/wp-content/uploads/multisite/2025/08/15011225/SBI-PO-Pre-2023-1st-Nov-Shift-wise-Paper-Mock-02.pdf
-- https://www.bankersadda.com/wp-content/uploads/multisite/2026/05/20004934/BOB-Apprentice-Sample-Paper-02-English.pdf
-- https://testbook.com/question-answer/who-sits-at-end-of-the-row--60ec020a930cefc2e772f045
+## Final clue ontology
 
-## Implemented from this audit
+The executable CP006 clue layer covers:
 
-### Width coverage
+- `ROW_MEMBERSHIP`;
+- `OPPOSITE`;
+- `NOT_OPPOSITE`;
+- `SAME_ROW_RELATIVE`;
+- `SAME_ROW_GAP` — adjacency when `between = 0`, otherwise exact persons-between;
+- `SAME_ROW_MIN_BETWEEN` — lower-bound gap language;
+- `SAME_ROW_EQUAL_GAP` — equal persons-between comparison;
+- `NOT_ADJACENT`;
+- `FACING_REFERENT_RELATIVE` — nested “person facing X … person facing Y” composition;
+- `END_POSITION`;
+- `ROW_END_DISTANCE` — nth-from-either-end and negative end-distance domains;
+- `DIAGONAL`.
 
-The generator/solver path supports 3+3 through 6+6. The scalable production solver and independently implemented audit oracle stop after the second solution when checking uniqueness, avoiding factorial full-permutation enumeration at wider widths.
+“An immediate neighbour of X faces Y” is not a separate solver family in this topology: it is equivalent to the existing diagonal relation and is therefore a language variant, not duplicate semantics.
 
-### Source-natural clue semantics
+## Query-contract authority audit
 
-1. `SAME_ROW_GAP`
-   - `between = 0` covers immediate-neighbour/adjacency semantics;
-   - positive `between` covers exact persons-between semantics.
+No new query IDs are introduced.
 
-2. `SAME_ROW_MIN_BETWEEN`
-   - covers lower-bound gap wording such as “at least two persons sit between”.
+Final retained CP006 query inventory:
 
-3. `NOT_ADJACENT`
-   - covers “does not sit near / is not an immediate neighbour” without turning a negative clue into a new blueprint.
-
-4. `ROW_END_DISTANCE`
-   - supports nth-from-either-end and negative nth-from-either-end domains;
-   - current source-real proof exercises second-from-either-end and not-second-from-either-end.
-
-5. `FACING_REFERENT_RELATIVE`
-   - represents forms equivalent to “the person facing X sits k-th left/right of the person facing Y”;
-   - evaluated semantically through the explicit opposite-column map and the facing of the opposite row;
-   - independently checked by production solver and audit oracle.
-
-### Source-natural query mix
-
-No new permanent query IDs were invented. Existing chapter contracts are reused:
-
-- `SEA-QC-010` — opposite person;
-- `SEA-QC-003` — person-relative position;
+- `SEA-QC-003` — person-relative occupant;
 - `SEA-QC-006` — immediate-neighbour pair;
-- `SEA-QC-009` — persons-between count;
-- `SEA-QC-015` — relative-position relation (“What is the position of A with respect to B?”).
+- `SEA-QC-008` — ordinary linear count-between;
+- `SEA-QC-010` — opposite/corresponding occupant;
+- `SEA-QC-011` — same-row/different-row occupant;
+- `SEA-QC-012` — diagonal occupant;
+- `SEA-QC-014` — pair occupying designated positions; reused for facing-pair and row-end-pair forms;
+- `SEA-QC-015` — relative-position phrase.
 
-The source-real generator alternates the fourth child between `SEA-QC-009` and `SEA-QC-015`. The dedicated proof requires both families to appear across the corpus.
+Important correction: CP006 previously used `SEA-QC-009` for an ordinary same-row persons-between question. Frozen SEA-001 authority shows `QC009` is directional cyclic counting, while ordinary linear count-between is `QC008`. CP006 now uses `QC008`; `QC009` is removed from its type/query inventory.
 
-## Executable evidence
+## Source evidence decisions
 
-- baseline 3+3 discovery: 48 caselets / 192 child questions;
-- width expansion proof: 24 caselets / 96 child questions across 4+4, 5+5 and 6+6;
-- source-realness proof: 24 caselets / 96 child questions across PBA-021..024 and widths 4+4, 5+5 and 6+6;
-- source-real proof requires all accepted source semantic families, both `QC009` and `QC015`, unique arrangements, production/oracle agreement, reversed-clue-order invariance, four-option uniqueness and lifecycle locks.
+SSC and banking source sampling across 4+4, 5+5 and 6+6 validated exact gaps, adjacency/non-adjacency, nested facing referents, endpoint distance, facing pairs, row-end pairs, relative-position outputs and equal-gap comparisons as relevant CP006 surfaces.
 
-Latest verified workflow head after the QC015 proof correction: `e13c318491401a1174d64b36e7a57330d2579062` — all CP006 workflow stages passed.
+All earlier residual decisions are now closed:
 
-## Merge/split decisions so far
+1. not-adjacent — accepted and implemented;
+2. minimum-gap — accepted and implemented;
+3. nth-from-end domains — accepted and implemented;
+4. neighbour-to-facing — merged into diagonal semantics;
+5. relative-position query — existing `QC015` reused;
+6. facing/extreme-end pair query — existing `QC014` reused;
+7. equal-gap comparison — accepted as `SAME_ROW_EQUAL_GAP`, without adding a new PBA.
 
-### Keep merged
+## Separation of audit coverage from exam generation
 
-- Exact gap, minimum gap, adjacency and non-adjacency are same-row linear constraints embedded in the two-row topology, not separate solve blueprints.
-- `FACING_REFERENT_RELATIVE` is a composition/language family over the existing opposite map plus same-row relative movement; it has not shown a distinct solve mechanism requiring another PBA.
-- 4+4, 5+5 and 6+6 are size variants, not authorities.
-- “an immediate neighbour of X faces Y” collapses to the existing `DIAGONAL` semantic in equal parallel rows facing each other, so duplicate solver semantics are explicitly rejected.
-- relative-position output reuses frozen chapter query contract `SEA-QC-015`; no new query ID is justified.
+`source-realness.ts` is an **all-semantics audit bundle**. It deliberately composes every accepted source-natural semantic onto an already unique base arrangement so each semantic can be independently proved against both solvers.
 
-### Do not merge into CP006
+That bundle is not the final learner-facing generation strategy.
 
-- linked colour/profession/city/etc. semantics;
-- conditional either/or identity logic;
-- data-sufficiency answer semantics;
-- hypothetical exchange/rotation or controlled multi-model questions.
+`exam-real.ts` is the product-candidate generator. For each caselet it:
 
-## Residual gap inventory before solve/query freeze
+- preserves the defining PBA contract;
+- retains a compact clue set;
+- includes a source-natural clue that is **solution-essential** rather than decorative;
+- proves removing that source clue changes the unique-solution policy;
+- preserves production-solver / independent-oracle agreement;
+- groups fixed row-membership facts for PBA-021 rather than printing one row sentence per person;
+- avoids repeating the full clue list in the shared explanation.
 
-The earlier residuals for not-adjacent, minimum gap, nth-from-end domains, facing-referent composition and relative-position output are now closed at executable discovery level.
+## Executable completion evidence
 
-Remaining decisions/evidence:
+### Discovery and width
 
-1. pair-valued opposite/facing query such as “Which pair faces each other?” — audit existing query authority before adding anything;
-2. extreme-end occupant/pair query forms — determine whether existing frozen seating query contracts already cover them;
-3. equal-gap comparison wording — accept only if wider source saturation shows material frequency beyond equivalent exact-gap phrasing;
-4. inverse/counterfactual query audit across all retained CP006 query families;
-5. larger source saturation to test whether any genuinely distinct solve mechanism is still missing;
-6. manual English review of stems, clue naturalness, explanations and distractors;
-7. final merge/split/gap decision before permanent `SEA-QL-*` allocation.
+- baseline 3+3: 48 caselets / 192 child questions;
+- wide 4+4–6+6: 24 caselets / 96 child questions.
 
-## Current freeze verdict
+### All-semantics source proof
 
-**NOT READY TO FREEZE.**
+- 48 caselets / 192 child questions;
+- all accepted source clue kinds exercised;
+- q3 surfaces include immediate-neighbour pair, facing pair and row-end pair;
+- q4 exercises both `QC008` and `QC015`;
+- production/oracle uniqueness, clue truth, clue-order invariance, option integrity and lifecycle locks are required.
 
-The former width blocker and the major source-semantic/query gaps are closed and green. CP006 still requires the residual authority/inverse audits, larger saturation and English human review before permanent QL allocation. Localisation, Question Studio registration, Question Bank writes, mock eligibility, production staging and public delivery remain locked.
+### Completion saturation / inverse / metamorphic proof
+
+- 320 caselets / 1,280 child questions;
+- 80 structural signatures per PBA, 320 total;
+- all eight retained query contracts reached;
+- balanced answer positions;
+- exact duplicate clue sets rejected;
+- 16 supportive-clue invariance checks;
+- 16 minimized unique-set audits yielding 120 proven essential clues;
+- 16 rename-invariance proofs;
+- 16 mirror-metamorphic proofs;
+- 3,192 opposite involution checks;
+- 13,152 left/right inverse checks;
+- 14,748 diagonal-symmetry checks.
+
+### Compact exam-real proof
+
+- 320 caselets / 1,280 child questions;
+- 319 structural signatures;
+- every caselet contains exactly one source-natural relation selected as solution-essential;
+- all six source-essential families are reached: facing-referent, not-adjacent, row-end-distance, equal-gap, exact/adjacent gap and minimum-gap;
+- maximum displayed clue count in the proof corpus: 11;
+- no full-clue-list repetition in the shared explanation.
+
+## English review corpus
+
+A deterministic 100-caselet `en-IN` review corpus is pinned:
+
+- 25 caselets per PBA;
+- 80 compact exam-real cases + 20 baseline cases;
+- widths 3–6 represented;
+- all eight retained query contracts represented;
+- 15 normalized question-stem surfaces;
+- 36 normalized clue-language surfaces;
+- 100 distinct structural fingerprints;
+- options, answer positions, punctuation, explanation length and internal-language leakage are automatically checked.
+
+Pinned review fingerprint:
+
+`58b48161ce40f9fff38b0d36b855659bc99eeca8163de287e219f3e9875dbfa2`
+
+The exporter produces HTML, JSON and manifest artifacts and labels the decision state `AWAITING_SIGNED_REVIEW`.
+
+## Lifecycle verdict
+
+Technical implementation verdict: **COMPLETE**.
+
+Signed English freeze verdict: **PENDING OWNER REVIEW OF THE EXACT PINNED ARTIFACT**.
+
+Until that exact fingerprint receives a signed review, lifecycle remains:
+
+```text
+permanent QLs              0
+solve inventory            technically complete, allocation pending
+query inventory            technically complete, allocation pending
+English freeze             false
+Hindi/Punjabi freeze       false
+Question Studio registered false
+Question Bank writable     false
+mock-test eligible         false
+production staging         false
+public delivery            false
+```
+
+The next available permanent seating ID after SEA-001 is `SEA-QL-021`; candidate mapping for PBA-021..024 must not be committed as permanent authority until the signed English-review gate is satisfied.
