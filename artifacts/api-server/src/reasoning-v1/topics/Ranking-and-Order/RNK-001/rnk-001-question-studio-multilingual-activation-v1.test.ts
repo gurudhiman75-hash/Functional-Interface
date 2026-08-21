@@ -12,7 +12,7 @@ import {
 import {
   generateQuestion,
   listQuestionStudioPackages,
-} from "../../../question-studio/shared-generation-engine";
+} from "../../../../question-studio/shared-generation-engine";
 
 const HINDI = /[\u0900-\u097F]/u;
 const PUNJABI = /[\u0A00-\u0A7F]/u;
