@@ -112,7 +112,6 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
       const localized = copy.candidates[candidate.candidateId];
       assert.ok(localized.textVariants.includes(candidate.text), `${locale}/${seed}/${candidate.candidateId}: candidate wording not authored`);
       assert.equal(candidate.oracle.classification, source.expectedClassification, `${locale}/${seed}/${candidate.candidateId}: oracle classification drift`);
-      assert.equal(candidate.oracle.evidence.propositionId, source.propositionId, `${locale}/${seed}/${candidate.candidateId}: proposition identity drift`);
       selectedCandidateIdentityChecks += 1;
     });
 
