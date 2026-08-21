@@ -1,0 +1,91 @@
+name: Wire RNK-001 Multilingual Question Studio V1
+
+on:
+  push:
+    branches:
+      - feature/rnk-001-question-studio-multilingual-v1
+    paths:
+      - '.github/workflows/rnk-001-question-studio-multilingual-wire-v1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  wire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/rnk-001-question-studio-multilingual-v1
+          fetch-depth: 1
+
+      - name: Preserve English selector and wire multilingual public module
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          root = Path('artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001')
+          old = root / 'question-studio-review.ts'
+          legacy = root / 'question-studio-english-review-v1.ts'
+          wrapper = root / 'question-studio-multilingual-review-v1.ts'
+          payload = root / 'question-studio-payload.ts'
+          shared = Path('artifacts/api-server/src/question-studio/shared-generation-engine.ts')
+
+          legacy.write_text(old.read_text(encoding='utf-8'), encoding='utf-8')
+          old.write_text('export * from "./question-studio-multilingual-review-v1";\n', encoding='utf-8')
+
+          text = wrapper.read_text(encoding='utf-8')
+          needle = 'from "./question-studio-review";'
+          assert text.count(needle) == 1, text.count(needle)
+          wrapper.write_text(text.replace(needle, 'from "./question-studio-english-review-v1";'), encoding='utf-8')
+
+          text = payload.read_text(encoding='utf-8')
+          old_fn = '''function learnerExplanation(question: RnkQuestionStudioReviewQuestion): string {\n  const source = question.source as Record<string, any>;\n  return declutterRnkExplanation({\n    explanation: source.explanation ?? question.explanation,\n    qlId: question.qlId,\n    locale: question.locale,\n    answer: question.answer,\n  });\n}'''
+          new_fn = '''function learnerExplanation(question: RnkQuestionStudioReviewQuestion): string {\n  if (question.language !== "en") return question.explanation;\n  const source = question.source as Record<string, any>;\n  return declutterRnkExplanation({\n    explanation: source.explanation ?? question.explanation,\n    qlId: question.qlId,\n    locale: question.locale,\n    answer: question.answer,\n  });\n}'''
+          assert text.count(old_fn) == 1, 'payload learnerExplanation contract moved'
+          text = text.replace(old_fn, new_fn)
+          assert text.count('englishOnlyUntilMultilingualConsolidation: true as const,') == 1
+          text = text.replace(
+              'englishOnlyUntilMultilingualConsolidation: true as const,',
+              'englishOnlyUntilMultilingualConsolidation: RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.englishOnlyUntilMultilingualConsolidation,',
+          )
+          assert text.count('explanationPresentation: "DECLUTTERED_V1" as const,') == 1
+          text = text.replace(
+              'explanationPresentation: "DECLUTTERED_V1" as const,',
+              'explanationPresentation: question.language === "en"\n        ? "DECLUTTERED_V1" as const\n        : "MULTILINGUAL_DECLUTTERED_STEP_BY_STEP_V1" as const,',
+          )
+          payload.write_text(text, encoding='utf-8')
+
+          text = shared.read_text(encoding='utf-8')
+          import_needle = '''  type RnkQuestionStudioDifficulty,\n  type RnkQuestionStudioExamProfileId,\n  type RnkQuestionStudioReviewQuestion,'''
+          import_replacement = '''  type RnkQuestionStudioDifficulty,\n  type RnkQuestionStudioExamProfileId,\n  type RnkQuestionStudioLanguage,\n  type RnkQuestionStudioReviewQuestion,'''
+          assert text.count(import_needle) == 1, 'shared RNK import contract moved'
+          text = text.replace(import_needle, import_replacement)
+
+          old_norm = '''function normalizeRnkLanguage(value: unknown): "en" {\n  const language = String(value ?? "en").trim().toLowerCase();\n  if (language === "en") return "en";\n  throw new Error("RNK-001 Hindi/Punjabi Question Studio delivery remains locked until multilingual lineage consolidation.");\n}'''
+          new_norm = '''function normalizeRnkLanguage(value: unknown): RnkQuestionStudioLanguage {\n  const language = String(value ?? "en").trim().toLowerCase();\n  if (language === "en" || language === "hi" || language === "pa") return language;\n  throw new Error(`RNK-001 does not support Question Studio language ${language}.`);\n}'''
+          assert text.count(old_norm) == 1, 'shared RNK language gate moved'
+          text = text.replace(old_norm, new_norm)
+          assert text.count('  language: "en",\n  difficulty: RnkQuestionStudioDifficulty') == 1
+          text = text.replace(
+              '  language: "en",\n  difficulty: RnkQuestionStudioDifficulty',
+              '  language: RnkQuestionStudioLanguage,\n  difficulty: RnkQuestionStudioDifficulty',
+          )
+          assert text.count('      englishOnlyUntilMultilingualConsolidation: true,') == 1
+          text = text.replace(
+              '      englishOnlyUntilMultilingualConsolidation: true,',
+              '      englishOnlyUntilMultilingualConsolidation: RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE.englishOnlyUntilMultilingualConsolidation,',
+          )
+          shared.write_text(text, encoding='utf-8')
+
+          workflow = Path('.github/workflows/rnk-001-question-studio-multilingual-wire-v1.yml')
+          workflow.unlink()
+          PY
+
+      - name: Commit wiring
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat(reasoning): wire RNK multilingual Question Studio review v1"
+          git push origin HEAD:feature/rnk-001-question-studio-multilingual-v1
