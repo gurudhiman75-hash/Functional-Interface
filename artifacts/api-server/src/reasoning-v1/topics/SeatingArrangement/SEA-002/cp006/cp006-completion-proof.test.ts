@@ -4,7 +4,7 @@ import { canonicalDigest } from "../../SEA-001/canonical.ts";
 import { generateSea002Cp006DiscoveryCaselet } from "./discovery.ts";
 import { solveCp006, auditOracleCp006 } from "./generator.ts";
 import { cp006SourceClueTrue, generateSea002Cp006SourceRealCaselet } from "./source-realness.ts";
-import { areDiagonal, areOpposite, mirroredState, oppositePerson, sameRowMove, seatOf } from "./topology.ts";
+import { areDiagonal, mirroredState, oppositePerson, sameRowMove } from "./topology.ts";
 import { SEA002_CP006_BLUEPRINT_IDS, type Sea002Cp006Clue, type Sea002Cp006State, type Sea002ParallelSide } from "./types.ts";
 
 const RETAINED_QUERY_CONTRACTS=["SEA-QC-003","SEA-QC-006","SEA-QC-008","SEA-QC-010","SEA-QC-011","SEA-QC-012","SEA-QC-014","SEA-QC-015"] as const;
@@ -19,6 +19,7 @@ let sourceCaselets=0;
 let sourceChildren=0;
 let supportiveChecks=0;
 let essentialChecks=0;
+let essentialClueCount=0;
 let renameChecks=0;
 let mirrorChecks=0;
 let oppositeInvolutions=0;
@@ -49,6 +50,18 @@ function mirrorClue(clue:Sea002Cp006Clue):Sea002Cp006Clue {
 function renamedState(state:Sea002Cp006State,map:ReadonlyMap<string,string>):Sea002Cp006State {
   const r=(person:string)=>map.get(person)!;
   return {seatCountPerRow:state.seatCountPerRow,top:state.top.map(r),bottom:state.bottom.map(r)};
+}
+function isSameUniqueState(people:readonly string[],width:number,clues:readonly Sea002Cp006Clue[],expected:Sea002Cp006State):boolean {
+  const solutions=solveCp006(people,width,clues);
+  return solutions.length===1&&canonicalDigest(solutions[0])===canonicalDigest(expected);
+}
+function minimalUniqueClues(people:readonly string[],width:number,clues:readonly Sea002Cp006Clue[],expected:Sea002Cp006State):Sea002Cp006Clue[] {
+  const retained=[...clues];
+  for(let index=retained.length-1;index>=0;index-=1){
+    const candidate=retained.filter((_,i)=>i!==index);
+    if(isSameUniqueState(people,width,candidate,expected)) retained.splice(index,1);
+  }
+  return retained;
 }
 
 for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
@@ -133,11 +146,13 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
       assert.equal(canonicalDigest(renamedOracle[0]),canonicalDigest(expectedRenamed));
       renameChecks+=1;
 
-      const essential=base.clues.some((_,removeIndex)=>{
-        const reduced=base.clues.filter((__,i)=>i!==removeIndex),solutions=solveCp006(base.people,width,reduced);
-        return solutions.length!==1||canonicalDigest(solutions[0])!==canonicalDigest(base.state);
-      });
-      assert.equal(essential,true,`${base.caseletId}: no essential clue detected`);
+      const minimal=minimalUniqueClues(base.people,width,base.clues,base.state);
+      assert.ok(minimal.length>0,`${base.caseletId}: minimal unique clue set unexpectedly empty`);
+      for(let removeIndex=0;removeIndex<minimal.length;removeIndex+=1){
+        const reduced=minimal.filter((_,i)=>i!==removeIndex);
+        assert.equal(isSameUniqueState(base.people,width,reduced,base.state),false,`${base.caseletId}: clue classified essential did not change solution policy`);
+        essentialClueCount+=1;
+      }
       essentialChecks+=1;
     }
   }
@@ -152,6 +167,7 @@ assert.equal(sourceCaselets,320);
 assert.equal(sourceChildren,1280);
 assert.equal(supportiveChecks,16);
 assert.equal(essentialChecks,16);
+assert.ok(essentialClueCount>=16);
 assert.equal(renameChecks,16);
 assert.equal(mirrorChecks,16);
 assert.ok(oppositeInvolutions>2500);
@@ -166,6 +182,6 @@ console.log("source question families",[...thirdFamilies].sort().join(","));
 console.log("structural signatures",structures.size);
 console.log("structures by blueprint",Object.fromEntries([...structuresByBlueprint].map(([id,set])=>[id,set.size])));
 console.log("answer positions by child",answerPositionByQuestion);
-console.log("supportive/essential/rename/mirror",supportiveChecks,essentialChecks,renameChecks,mirrorChecks);
+console.log("supportive/minimal-essential/essential-clues/rename/mirror",supportiveChecks,essentialChecks,essentialClueCount,renameChecks,mirrorChecks);
 console.log("opposite/relative/diagonal invariants",oppositeInvolutions,relativeInverseChecks,diagonalSymmetryChecks);
 console.log("boundary","CP007 owns non-uniform/same-direction parallel facing; advanced hypothetical contracts remain outside CP006");
