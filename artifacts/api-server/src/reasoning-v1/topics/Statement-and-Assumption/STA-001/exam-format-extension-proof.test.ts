@@ -32,6 +32,9 @@ const reachedOptionCounts = new Set<number>();
 const reachedPolarities = new Set<string>();
 const reachedAnswerCardinalities = new Set<number>();
 const bank4ReachedQls = new Set<string>();
+const bank4ReachedOverlayScenarios = new Set<string>();
+const bank4OverlayLabels = new Set<string>();
+const bank4ImplicitLabels = new Set<string>();
 const eligibleScenarioCounts: Record<string, number> = {};
 const scenarioCoverage: Record<string, number> = {};
 const answerPositionCounts: Record<string, number[]> = {};
@@ -119,6 +122,11 @@ for (const profileId of PROFILE_IDS) {
         fourAssumptionQuestions += 1;
         bankFourthOverlayOracleChecks += 1;
         bank4ReachedQls.add(question.qlId);
+        bank4ReachedOverlayScenarios.add(question.scenarioId);
+        bank4OverlayLabels.add(overlay.label);
+        for (const candidate of question.candidates) {
+          if (candidate.oracle.classification === "IMPLICIT") bank4ImplicitLabels.add(candidate.label);
+        }
       }
       if (question.optionCount === 5) {
         assert.equal(question.options.length, 5);
@@ -167,6 +175,9 @@ assert.deepEqual([...reachedSourceProfiles].sort(), ["BANKING", "PUNJAB_STATE", 
 assert.deepEqual([...reachedDifficulties].sort(), ["Easy", "Hard", "Medium"], "Exam-format stress missed a difficulty band");
 assert.deepEqual([...reachedQls].sort(), ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004"], "Exam-format stress did not exercise all four frozen semantic QLs");
 assert.deepEqual([...bank4ReachedQls].sort(), ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004"], "BANK_4X5 overlay coverage did not span all four frozen QLs");
+assert.equal(bank4ReachedOverlayScenarios.size, STA_BANK_FOURTH_ASSUMPTION_OVERLAYS.length, "BANK_4X5 stress did not exercise every curated overlay authority");
+assert.deepEqual([...bank4OverlayLabels].sort(), ["I", "II", "III", "IV"], "BANK_4X5 overlay position is predictable under deterministic seeds");
+assert.deepEqual([...bank4ImplicitLabels].sort(), ["I", "II", "III", "IV"], "BANK_4X5 has a candidate position that never carries an implicit assumption");
 assert.ok(reachedAnswerCardinalities.has(0), "Exam-format stress never produced a zero-assumption answer set");
 assert.ok(reachedAnswerCardinalities.has(1), "Exam-format stress never produced a single-assumption answer set");
 assert.ok(reachedAnswerCardinalities.has(2), "Exam-format stress never produced a two-assumption answer set");
@@ -186,6 +197,9 @@ console.log(JSON.stringify({
   fourAssumptionQuestions,
   bankFourthOverlayOracleChecks,
   bankFourthOverlayCount: STA_BANK_FOURTH_ASSUMPTION_OVERLAYS.length,
+  bankFourthOverlayScenarioCoverage: bank4ReachedOverlayScenarios.size,
+  bankFourthOverlayLabels: [...bank4OverlayLabels].sort(),
+  bankFourthImplicitLabels: [...bank4ImplicitLabels].sort(),
   bankFourthMisconceptionClasses: [...new Set(STA_BANK_FOURTH_ASSUMPTION_OVERLAYS.map((item) => item.candidate.misconceptionClass))].sort(),
   fiveOptionQuestions,
   negativeQueryQuestions,
