@@ -1,4 +1,7 @@
+import { TSD_CP007_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
 import {
+  TSD_CP007_QUESTION_STUDIO_COMPATIBLE_CASES,
+  TSD_CP007_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE,
   TSD_CP007_QUESTION_STUDIO_DIFFICULTIES,
   TSD_CP007_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
   TSD_CP007_QUESTION_STUDIO_LANGUAGES,
@@ -24,7 +27,6 @@ type ReviewQuestion = Readonly<{
   correctIndex: number;
   answer: string;
   explanation: Readonly<{ steps: readonly string[]; conclusion: string }>;
-  runtimeMode: string;
   reviewStatus: string;
   questionBankStatus: string;
   questionBankWritable: boolean;
@@ -38,6 +40,7 @@ type ReviewQuestion = Readonly<{
   validation: Readonly<{
     valid: boolean;
     frozenAuthority: boolean;
+    compatibleCase: boolean;
     exactlyFourOptions: boolean;
     uniqueOptions: boolean;
     sourceLifecycleLocked: boolean;
@@ -52,62 +55,75 @@ assert(TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankStatus === "NOT_STOR
 assert(!TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable, "question bank became writable");
 assert(TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.testEligibility === "INELIGIBLE", "test eligibility opened");
 assert(!TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.publiclyPublishable, "public publication opened");
-assert(TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.deterministicReviewCombinations === 2376, "expected 2,376 reviewed deterministic combinations");
 assert(JSON.stringify(TSD_CP007_QUESTION_STUDIO_LANGUAGES) === JSON.stringify(["en", "hi", "pa"]), "language registration changed");
 assert(JSON.stringify(TSD_CP007_QUESTION_STUDIO_DIFFICULTIES) === JSON.stringify(["EASY", "MEDIUM"]), "difficulty registration changed");
 
-let validatedQuestions = 0;
-const seenFamilies = new Map<string, Set<string>>();
+const familyIds = TSD_CP007_FROZEN_ENGLISH_REGISTRY.flatMap((ql) => ql.stemFamilies.map((family) => family.familyId));
+assert(familyIds.length === 66 && new Set(familyIds).size === 66, "expected 66 unique frozen family IDs");
+assert(Object.keys(TSD_CP007_QUESTION_STUDIO_COMPATIBLE_CASES).length === 66, "compatible-case map must cover all 66 families");
+for (const familyId of familyIds) {
+  const cases = TSD_CP007_QUESTION_STUDIO_COMPATIBLE_CASES[familyId];
+  assert(Boolean(cases?.length), `${familyId}: no compatible executable cases`);
+  assert((cases?.length ?? 0) <= 12, `${familyId}: compatible case count exceeds latent pool`);
+  assert(new Set(cases).size === cases.length, `${familyId}: duplicate compatible case index`);
+  assert(cases.every((caseIndex) => Number.isInteger(caseIndex) && caseIndex >= 1 && caseIndex <= 12), `${familyId}: invalid compatible case index`);
+}
 
-function validateQuestion(question: ReviewQuestion, language: TsdCp007QuestionStudioLanguage, qlId: TsdCp007QuestionStudioQlId) {
+const computedPerLocale = familyIds.reduce((sum, familyId) => sum + TSD_CP007_QUESTION_STUDIO_COMPATIBLE_CASES[familyId]!.length, 0);
+assert(TSD_CP007_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE === computedPerLocale, "per-locale compatible combination count is stale");
+assert(TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.deterministicReviewCombinations === computedPerLocale * 3, "multilingual deterministic combination count is stale");
+
+let validatedQuestions = 0;
+
+function validateQuestion(question: ReviewQuestion, language: TsdCp007QuestionStudioLanguage, qlId: TsdCp007QuestionStudioQlId, familyId: string) {
   validatedQuestions += 1;
   assert(question.qlId === qlId, `${language}/${qlId}: wrong QL returned`);
-  assert(question.language === language, `${language}/${qlId}/${question.familyId}: language changed`);
-  assert(question.options.length === 4, `${language}/${qlId}/${question.familyId}: expected four options`);
-  assert(new Set(question.options).size === 4, `${language}/${qlId}/${question.familyId}: duplicate options`);
-  assert(question.correctIndex >= 0 && question.correctIndex < 4, `${language}/${qlId}/${question.familyId}: invalid correct index`);
-  assert(question.options[question.correctIndex] === question.answer, `${language}/${qlId}/${question.familyId}: answer ownership changed`);
-  assert(question.explanation.conclusion === question.answer, `${language}/${qlId}/${question.familyId}: explanation conclusion differs from answer`);
-  assert(question.explanation.steps.length >= 1, `${language}/${qlId}/${question.familyId}: explanation missing`);
-  assert(!/[{}]/.test(question.stem), `${language}/${qlId}/${question.familyId}: unresolved stem placeholder`);
-  assert(!/[{}]/.test(question.explanation.steps.join("\n")), `${language}/${qlId}/${question.familyId}: unresolved explanation placeholder`);
-  assert(question.reviewStatus === "APPROVED_MULTILINGUAL_FROZEN", `${language}/${qlId}/${question.familyId}: review status changed`);
-  assert(question.questionBankStatus === "NOT_STORED" && !question.questionBankWritable, `${language}/${qlId}/${question.familyId}: bank lock opened`);
-  assert(question.testEligibility === "INELIGIBLE" && !question.testEligible, `${language}/${qlId}/${question.familyId}: test lock opened`);
-  assert(!question.publiclyPublishable && !question.mockTestEligible, `${language}/${qlId}/${question.familyId}: publication lock opened`);
-  assert(question.manualApprovalRequired && !question.automaticStudentPublication, `${language}/${qlId}/${question.familyId}: manual review lock changed`);
-  assert(question.integrationAuthority === TSD_CP007_QUESTION_STUDIO_INTEGRATION_AUTHORITY, `${language}/${qlId}/${question.familyId}: integration authority changed`);
-  assert(question.validation.valid && question.validation.frozenAuthority && question.validation.exactlyFourOptions && question.validation.uniqueOptions && question.validation.sourceLifecycleLocked, `${language}/${qlId}/${question.familyId}: validation flags failed`);
+  assert(question.familyId === familyId, `${language}/${qlId}/${familyId}: wrong family returned`);
+  assert(question.language === language, `${language}/${qlId}/${familyId}: language changed`);
+  assert(question.options.length === 4, `${language}/${qlId}/${familyId}: expected four options`);
+  assert(new Set(question.options).size === 4, `${language}/${qlId}/${familyId}: duplicate options`);
+  assert(question.correctIndex >= 0 && question.correctIndex < 4, `${language}/${qlId}/${familyId}: invalid correct index`);
+  assert(question.options[question.correctIndex] === question.answer, `${language}/${qlId}/${familyId}: answer ownership changed`);
+  assert(question.explanation.conclusion === question.answer, `${language}/${qlId}/${familyId}: explanation conclusion differs from answer`);
+  assert(question.explanation.steps.length >= 1, `${language}/${qlId}/${familyId}: explanation missing`);
+  assert(!/[{}]/.test(question.stem), `${language}/${qlId}/${familyId}: unresolved stem placeholder`);
+  assert(!/[{}]/.test(question.explanation.steps.join("\n")), `${language}/${qlId}/${familyId}: unresolved explanation placeholder`);
+  assert(question.reviewStatus === "APPROVED_MULTILINGUAL_FROZEN", `${language}/${qlId}/${familyId}: review status changed`);
+  assert(question.questionBankStatus === "NOT_STORED" && !question.questionBankWritable, `${language}/${qlId}/${familyId}: bank lock opened`);
+  assert(question.testEligibility === "INELIGIBLE" && !question.testEligible, `${language}/${qlId}/${familyId}: test lock opened`);
+  assert(!question.publiclyPublishable && !question.mockTestEligible, `${language}/${qlId}/${familyId}: publication lock opened`);
+  assert(question.manualApprovalRequired && !question.automaticStudentPublication, `${language}/${qlId}/${familyId}: manual review lock changed`);
+  assert(question.integrationAuthority === TSD_CP007_QUESTION_STUDIO_INTEGRATION_AUTHORITY, `${language}/${qlId}/${familyId}: integration authority changed`);
+  assert(question.validation.valid && question.validation.frozenAuthority && question.validation.compatibleCase && question.validation.exactlyFourOptions && question.validation.uniqueOptions && question.validation.sourceLifecycleLocked, `${language}/${qlId}/${familyId}: validation flags failed`);
   if (language === "hi") {
-    assert(/[\u0900-\u097F]/.test(question.stem), `${qlId}/${question.familyId}: Hindi script missing`);
-    assert(!question.stem.includes("चाल"), `${qlId}/${question.familyId}: banned Hindi term चाल leaked into stem`);
-    assert(!question.explanation.steps.join("\n").includes("चाल"), `${qlId}/${question.familyId}: banned Hindi term चाल leaked into explanation`);
+    assert(/[\u0900-\u097F]/.test(question.stem), `${qlId}/${familyId}: Hindi script missing`);
+    assert(!question.stem.includes("चाल"), `${qlId}/${familyId}: banned Hindi term चाल leaked into stem`);
+    assert(!question.explanation.steps.join("\n").includes("चाल"), `${qlId}/${familyId}: banned Hindi term चाल leaked into explanation`);
   }
-  if (language === "pa") assert(/[\u0A00-\u0A7F]/.test(question.stem), `${qlId}/${question.familyId}: Punjabi script missing`);
+  if (language === "pa") assert(/[\u0A00-\u0A7F]/.test(question.stem), `${qlId}/${familyId}: Punjabi script missing`);
 }
 
 for (const language of TSD_CP007_QUESTION_STUDIO_LANGUAGES) {
-  for (const qlId of TSD_CP007_PERMANENT_QL_IDS) {
-    const key = `${language}:${qlId}`;
-    const families = new Set<string>();
-    seenFamilies.set(key, families);
-    for (let pass = 0; pass < 8 && families.size < 6; pass += 1) {
+  for (const ql of TSD_CP007_FROZEN_ENGLISH_REGISTRY) {
+    const qlId = ql.qlId as TsdCp007QuestionStudioQlId;
+    assert(TSD_CP007_PERMANENT_QL_IDS.includes(qlId), `${qlId}: non-permanent QL entered Studio proof`);
+    for (const family of ql.stemFamilies) {
+      const compatibleCases = TSD_CP007_QUESTION_STUDIO_COMPATIBLE_CASES[family.familyId]!;
       const result = previewTsdCp007QuestionStudioReview({
         language,
         qlId,
-        seed: `proof:${language}:${qlId}:${pass}`,
-        count: 12,
+        familyId: family.familyId,
+        seed: `proof:${language}:${family.familyId}`,
+        count: compatibleCases.length,
       });
       const questions = result.questions as readonly ReviewQuestion[];
-      assert(questions.length === 12, `${key}: expected 12 generated review questions`);
-      for (const question of questions) {
-        families.add(question.familyId);
-        validateQuestion(question, language, qlId);
-      }
+      assert(questions.length === compatibleCases.length, `${language}/${family.familyId}: compatible-case batch size changed`);
+      for (const question of questions) validateQuestion(question, language, qlId, family.familyId);
     }
-    assert(families.size === 6, `${key}: did not exercise all six frozen family shapes`);
   }
 }
+
+assert(validatedQuestions === TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.deterministicReviewCombinations, "proof did not exercise every registered multilingual compatible combination");
 
 for (const difficulty of TSD_CP007_QUESTION_STUDIO_DIFFICULTIES) {
   const sample = previewTsdCp007QuestionStudioReview({ language: "hi", difficulty, seed: `difficulty:${difficulty}`, count: 20 });
@@ -121,7 +137,10 @@ console.log(JSON.stringify({
   checkpointId: TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.checkpointId,
   permanentQls: TSD_CP007_PERMANENT_QL_IDS.length,
   frozenFamiliesPerLocale: TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.frozenFamiliesPerLocale,
-  numericCasesPerFamily: TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.numericCasesPerFamily,
+  latentNumericCasePool: TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.latentNumericCasePool,
+  minimumCompatibleCasesPerFamily: TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.minimumCompatibleCasesPerFamily,
+  maximumCompatibleCasesPerFamily: TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.maximumCompatibleCasesPerFamily,
+  compatibleReviewCombinationsPerLocale: TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.compatibleReviewCombinationsPerLocale,
   deterministicReviewCombinations: TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE.deterministicReviewCombinations,
   languages: TSD_CP007_QUESTION_STUDIO_LANGUAGES,
   validatedQuestions,
