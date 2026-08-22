@@ -1,4 +1,5 @@
 import { NUM_CP008_PERMANENT_ALLOCATION } from "./permanent-allocation.ts";
+import { applyNumCp008EnglishExamHumanV2 } from "./english-exam-human-v2.ts";
 import { generateNumCp008Wave01ReviewFinal } from "./wave01/runtime-review-final.ts";
 import type { NumCp008Wave01PrototypeId } from "./wave01/types.ts";
 import { generateNumCp008Wave02ReviewFinal } from "./wave02/runtime-review-final.ts";
@@ -71,7 +72,7 @@ export function generateNumCp008Permanent(qlId: NumCp008PermanentQlId, seed: num
   const sourcePrototypeId = allocation.prototypes[(seed - 1) % allocation.prototypes.length]!;
   const source = reviewedSource(sourcePrototypeId, seed);
 
-  return Object.freeze({
+  const permanent = Object.freeze({
     ...source,
     permanentQlId: qlId,
     lifecycle: Object.freeze({
@@ -87,4 +88,6 @@ export function generateNumCp008Permanent(qlId: NumCp008PermanentQlId, seed: num
       publiclyPublishable: false as const,
     }),
   }) as NumCp008PermanentPackage;
+
+  return applyNumCp008EnglishExamHumanV2(permanent);
 }
